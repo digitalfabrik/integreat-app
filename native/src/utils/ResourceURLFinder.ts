@@ -24,9 +24,9 @@ type InputEntryType = {
 export default class ResourceURLFinder {
   _parser: Parser | null = null
   _foundUrls: Set<string> = new Set<string>()
-  _allowedHostNames: Array<string>
+  _allowedHostNames: string[]
 
-  constructor(allowedHostNames: Array<string>) {
+  constructor(allowedHostNames: string[]) {
     this._allowedHostNames = allowedHostNames
   }
 

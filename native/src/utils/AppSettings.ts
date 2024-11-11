@@ -14,7 +14,7 @@ export type SettingsType = {
   apiUrlOverride: string | null
   jpalTrackingEnabled: boolean | null
   jpalTrackingCode: string | null
-  jpalSignals: Array<SignalType>
+  jpalSignals: SignalType[]
   externalSourcePermissions: ExternalSourcePermissions
 }
 export const defaultSettings: SettingsType = {

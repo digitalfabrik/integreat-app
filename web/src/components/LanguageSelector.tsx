@@ -8,7 +8,7 @@ import HeaderLanguageSelectorItem from './HeaderLanguageSelectorItem'
 type LanguageSelectorProps = {
   languageCode: string
   isHeaderActionItem: boolean
-  languageChangePaths: Array<{ code: string; path: string | null; name: string }> | null
+  languageChangePaths: { code: string; path: string | null; name: string }[] | null
   inKebabMenu?: boolean
   closeSidebar?: () => void
 }

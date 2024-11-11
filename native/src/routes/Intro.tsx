@@ -124,7 +124,7 @@ const Intro = ({ route, navigation }: IntroProps): ReactElement => {
 
   const renderSlide = ({ item }: { item: SlideContentType }) => <SlideContent item={item} width={width} />
 
-  const onViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: Array<ViewToken> }) => {
+  const onViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: ViewToken[] }) => {
     const viewableItem = viewableItems[0]
     if (viewableItem) {
       if (viewableItem.index !== null) {
