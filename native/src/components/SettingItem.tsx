@@ -45,7 +45,7 @@ const Badge = styled.View<{ enabled: boolean }>`
 type SettingItemProps = {
   title: string
   description?: string
-  onPress: () => void
+  onPress: () => Promise<void>
   bigTitle?: boolean
   role?: Role
   hasSwitch?: boolean
