@@ -9,6 +9,7 @@ import { SnackbarType } from '../components/SnackbarContainer'
 import NativeConstants from '../constants/NativeConstants'
 import { NavigationProps } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
+import { CityAppContext } from '../hooks/useCityAppContext'
 import { SettingsType } from './AppSettings'
 import {
   pushNotificationsEnabled,
@@ -19,15 +20,10 @@ import {
 import openExternalUrl from './openExternalUrl'
 import { initSentry } from './sentry'
 
-export type SetSettingFunctionType = (
-  changeSetting: (settings: SettingsType) => Partial<SettingsType>,
-  changeAction?: (newSettings: SettingsType) => Promise<boolean>,
-) => Promise<void>
-
 export type SettingsSectionType = {
   title: string
   description?: string
-  onPress: () => void
+  onPress: () => Promise<void> | void
   bigTitle?: boolean
   role?: Role
   hasSwitch?: boolean
@@ -42,23 +38,17 @@ const volatileValues = {
 const TRIGGER_VERSION_TAPS = 25
 
 type CreateSettingsSectionsProps = {
-  setSetting: SetSettingFunctionType
-  t: TFunction
-  languageCode: string
-  cityCode: string | null | undefined
+  appContext: CityAppContext
   navigation: NavigationProps<SettingsRouteType>
-  settings: SettingsType
   showSnackbar: (snackbar: SnackbarType) => void
+  t: TFunction<'error'>
 }
 
 const createSettingsSections = ({
-  setSetting,
-  t,
-  languageCode,
-  cityCode,
+  appContext: { settings, updateSettings, cityCode, languageCode },
   navigation,
-  settings,
   showSnackbar,
+  t,
 }: CreateSettingsSectionsProps): Readonly<SectionListData<SettingsSectionType>[]> => [
   {
     title: null,
@@ -71,34 +61,34 @@ const createSettingsSections = ({
               description: t('pushNewsDescription'),
               hasSwitch: true,
               getSettingValue: (settings: SettingsType) => settings.allowPushNotifications,
-              onPress: () => {
-                setSetting(
-                  settings => ({
-                    allowPushNotifications: !settings.allowPushNotifications,
-                  }),
-                  async (newSettings): Promise<boolean> => {
-                    if (!cityCode) {
-                      // No city selected so nothing to do here (should not ever happen since settings are only available from city content routes)
-                      return true
-                    }
+              onPress: async () => {
+                const newAllowPushNotifications = !settings.allowPushNotifications
+                updateSettings({ allowPushNotifications: newAllowPushNotifications })
+                if (!newAllowPushNotifications) {
+                  await unsubscribeNews(cityCode, languageCode)
+                  return
+                }
 
-                    if (newSettings.allowPushNotifications) {
-                      const status = await requestPushNotificationPermission()
+                const status = await requestPushNotificationPermission(updateSettings)
 
-                      if (status) {
-                        await subscribeNews(cityCode, languageCode, true)
-                      } else {
-                        // If the user has rejected the permission once, it can only be changed in the system settings
-                        openSettings()
-                        // Not successful, reset displayed setting in app
-                        return false
-                      }
-                    } else {
-                      await unsubscribeNews(cityCode, languageCode)
-                    }
-                    return true
-                  },
-                )
+                if (status) {
+                  await subscribeNews({
+                    cityCode,
+                    languageCode,
+                    allowPushNotifications: newAllowPushNotifications,
+                    skipSettingsCheck: true,
+                  })
+                } else {
+                  updateSettings({ allowPushNotifications: false })
+                  // If the user has rejected the permission once, it can only be changed in the system settings
+                  showSnackbar({
+                    text: 'permissionRequired',
+                    positiveAction: {
+                      label: t('layout:settings'),
+                      onPress: openSettings,
+                    },
+                  })
+                }
               },
             },
           ]),
@@ -109,21 +99,16 @@ const createSettingsSections = ({
         }),
         hasSwitch: true,
         getSettingValue: (settings: SettingsType) => settings.errorTracking,
-        onPress: () => {
-          setSetting(
-            settings => ({
-              errorTracking: !settings.errorTracking,
-            }),
-            async newSettings => {
-              const client = Sentry.getCurrentHub().getClient()
-              if (newSettings.errorTracking && !client) {
-                initSentry()
-              } else if (client) {
-                client.getOptions().enabled = !!newSettings.errorTracking
-              }
-              return true
-            },
-          )
+        onPress: async () => {
+          const newErrorTracking = !settings.errorTracking
+          updateSettings({ errorTracking: newErrorTracking })
+
+          const client = Sentry.getClient()
+          if (newErrorTracking && !client) {
+            initSentry()
+          } else if (client) {
+            client.getOptions().enabled = newErrorTracking
+          }
         },
       },
       {
@@ -138,19 +123,19 @@ const createSettingsSections = ({
         title: t('about', {
           appName: buildConfig().appName,
         }),
-        onPress: () => {
+        onPress: async () => {
           const { aboutUrls } = buildConfig()
           const aboutUrl = aboutUrls[languageCode] || aboutUrls.default
-          openExternalUrl(aboutUrl, showSnackbar)
+          await openExternalUrl(aboutUrl, showSnackbar)
         },
       },
       {
         role: 'link',
         title: t('privacyPolicy'),
-        onPress: () => {
+        onPress: async () => {
           const { privacyUrls } = buildConfig()
           const privacyUrl = privacyUrls[languageCode] || privacyUrls.default
-          openExternalUrl(privacyUrl, showSnackbar)
+          await openExternalUrl(privacyUrl, showSnackbar)
         },
       },
       {

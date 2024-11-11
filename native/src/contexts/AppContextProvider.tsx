@@ -34,6 +34,7 @@ type AppContextProviderProps = {
 
 const AppContextProvider = ({ children }: AppContextProviderProps): ReactElement | null => {
   const [settings, setSettings] = useState<SettingsType | null>(null)
+  const allowPushNotifications = !!settings?.allowPushNotifications
   const cityCode = settings?.selectedCity
   const languageCode = settings?.contentLanguage
   const { i18n } = useTranslation()
@@ -55,10 +56,10 @@ const AppContextProvider = ({ children }: AppContextProviderProps): ReactElement
         unsubscribeNews(cityCode, languageCode).catch(reportError)
       }
       if (languageCode && newCityCode) {
-        subscribeNews(newCityCode, languageCode).catch(reportError)
+        subscribeNews({ cityCode: newCityCode, languageCode, allowPushNotifications }).catch(reportError)
       }
     },
-    [updateSettings, cityCode, languageCode],
+    [updateSettings, cityCode, languageCode, allowPushNotifications],
   )
 
   const changeLanguageCode = useCallback(
@@ -68,10 +69,10 @@ const AppContextProvider = ({ children }: AppContextProviderProps): ReactElement
         unsubscribeNews(cityCode, languageCode).catch(reportError)
       }
       if (cityCode) {
-        subscribeNews(cityCode, newLanguageCode).catch(reportError)
+        subscribeNews({ cityCode, languageCode: newLanguageCode, allowPushNotifications }).catch(reportError)
       }
     },
-    [updateSettings, cityCode, languageCode],
+    [updateSettings, cityCode, languageCode, allowPushNotifications],
   )
 
   useEffect(() => {

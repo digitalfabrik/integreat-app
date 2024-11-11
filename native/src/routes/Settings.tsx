@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SectionList, SectionListData } from 'react-native'
 import styled from 'styled-components/native'
@@ -10,10 +10,8 @@ import Layout from '../components/Layout'
 import SettingItem from '../components/SettingItem'
 import ItemSeparator from '../components/base/ItemSeparator'
 import { NavigationProps } from '../constants/NavigationTypes'
-import { AppContext } from '../contexts/AppContextProvider'
-import { useAppContext } from '../hooks/useCityAppContext'
+import useCityAppContext from '../hooks/useCityAppContext'
 import useSnackbar from '../hooks/useSnackbar'
-import { SettingsType } from '../utils/AppSettings'
 import createSettingsSections, { SettingsSectionType } from '../utils/createSettingsSections'
 import { log, reportError } from '../utils/sentry'
 
@@ -31,36 +29,27 @@ const SectionHeader = styled.Text`
 `
 
 const Settings = ({ navigation }: SettingsProps): ReactElement => {
-  const { settings, updateSettings } = useAppContext()
-  const { cityCode, languageCode } = useContext(AppContext)
+  const appContext = useCityAppContext()
   const showSnackbar = useSnackbar()
   const { t } = useTranslation('settings')
+  const { settings } = appContext
 
-  const setSetting = async (
-    changeSetting: (settings: SettingsType) => Partial<SettingsType>,
-    changeAction?: (settings: SettingsType) => Promise<boolean>,
-  ) => {
+  const safeOnPress = (update: () => Promise<void> | void) => async () => {
     const oldSettings = settings
-    const newSettings = { ...oldSettings, ...changeSetting(settings) }
-    updateSettings(newSettings)
-
     try {
-      const successful = changeAction ? await changeAction(newSettings) : true
-
-      if (!successful) {
-        updateSettings(oldSettings)
-      }
+      await update()
     } catch (e) {
       log('Failed to persist settings.', 'error')
       reportError(e)
-      updateSettings(oldSettings)
+      appContext.updateSettings(oldSettings)
+      showSnackbar({ text: t('error:settingsError') })
     }
   }
 
   const renderItem = ({ item }: { item: SettingsSectionType }) => {
-    const { getSettingValue, ...otherProps } = item
+    const { getSettingValue, onPress, ...otherProps } = item
     const value = !!(getSettingValue && getSettingValue(settings))
-    return <SettingItem value={value} key={otherProps.title} {...otherProps} />
+    return <SettingItem value={value} key={otherProps.title} onPress={safeOnPress(onPress)} {...otherProps} />
   }
 
   const renderSectionHeader = ({ section: { title } }: { section: SectionType }) => {
@@ -72,13 +61,10 @@ const Settings = ({ navigation }: SettingsProps): ReactElement => {
   }
 
   const sections = createSettingsSections({
-    setSetting,
-    t,
-    languageCode,
-    cityCode,
+    appContext,
     navigation,
-    settings,
     showSnackbar,
+    t,
   })
 
   return (
