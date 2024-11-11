@@ -13,8 +13,8 @@ type ParamsType = {
   language: string
   cityContentPath: string
 }
-export default (baseUrl: string): Endpoint<ParamsType, Array<CategoryModel>> =>
-  new EndpointBuilder<ParamsType, Array<CategoryModel>>(CATEGORY_PARENTS_ENDPOINT_NAME)
+export default (baseUrl: string): Endpoint<ParamsType, CategoryModel[]> =>
+  new EndpointBuilder<ParamsType, CategoryModel[]>(CATEGORY_PARENTS_ENDPOINT_NAME)
     .withParamsToUrlMapper((params: ParamsType): string => {
       const { city, language, cityContentPath } = params
       const basePath = `/${city}/${language}`
@@ -25,7 +25,7 @@ export default (baseUrl: string): Endpoint<ParamsType, Array<CategoryModel>> =>
 
       return `${baseUrl}/api/${API_VERSION}/${city}/${language}/parents/?url=${cityContentPath}`
     })
-    .withMapper((json: Array<JsonCategoryType>, params: ParamsType): Array<CategoryModel> => {
+    .withMapper((json: JsonCategoryType[], params: ParamsType): CategoryModel[] => {
       const basePath = `/${params.city}/${params.language}`
       const parents = json.map(category => mapCategoryJson(category, basePath))
       parents.push(

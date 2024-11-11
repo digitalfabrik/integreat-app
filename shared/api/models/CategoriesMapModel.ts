@@ -13,14 +13,14 @@ class CategoriesMapModel {
    * whose parent attributes are first changed from id to path
    * @param categories CategoryModel as array
    */
-  constructor(categories: Array<CategoryModel>) {
+  constructor(categories: CategoryModel[]) {
     this._categories = new Map(categories.map(category => [category.path, category]))
   }
 
   /**
    * @return {CategoryModel[]} categories The categories as array
    */
-  toArray(): Array<CategoryModel> {
+  toArray(): CategoryModel[] {
     return Array.from(this._categories.values())
   }
 
@@ -38,7 +38,7 @@ class CategoriesMapModel {
    * @param category The category
    * @return {CategoryModel[]} The children
    */
-  getChildren(category: CategoryModel): Array<CategoryModel> {
+  getChildren(category: CategoryModel): CategoryModel[] {
     return this.toArray()
       .filter(_category => _category.parentPath === category.path)
       .sort((category1, category2) => category1.order - category2.order)
@@ -49,8 +49,8 @@ class CategoriesMapModel {
    * @param category The category
    * @return {CategoryModel[]} The parents, with the immediate parent last
    */
-  getAncestors(category: CategoryModel): Array<CategoryModel> {
-    const parents: Array<CategoryModel> = []
+  getAncestors(category: CategoryModel): CategoryModel[] {
+    const parents: CategoryModel[] = []
     let currentCategory = category
 
     while (!currentCategory.isRoot()) {

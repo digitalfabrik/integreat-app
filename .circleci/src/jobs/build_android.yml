@@ -70,6 +70,16 @@ steps:
       root: native/android
       paths:
         - << parameters.build_config_name >>.apk
+  - run:
+      name: Rename aab
+      command: mv app/build/outputs/bundle/release/app-release.aab << parameters.build_config_name >>.aab
+      working_directory: native/android
+  - store_artifacts:
+      path: native/android/<< parameters.build_config_name >>.aab
+  - persist_to_workspace:
+      root: native/android
+      paths:
+        - << parameters.build_config_name >>.aab
   - unless:
       condition:
         or:

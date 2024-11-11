@@ -6,6 +6,8 @@ import DateModel from '../DateModel'
 import EventModel from '../EventModel'
 import LocationModel from '../LocationModel'
 
+jest.useFakeTimers({ now: new Date('2023-10-02T15:23:57.443+02:00') })
+
 describe('EventModel', () => {
   const params = {
     path: '/augsburg/de/events/event0',

@@ -22,7 +22,7 @@ export default (baseUrl: string): Endpoint<ParamsType, LocalNewsModel> =>
       (params: ParamsType): string =>
         `${baseUrl}/api/${API_VERSION}/${params.city}/${params.language}/fcm/?id=${params.id}`,
     )
-    .withMapper((localNews: Array<JsonLocalNewsType>, params: ParamsType): LocalNewsModel => {
+    .withMapper((localNews: JsonLocalNewsType[], params: ParamsType): LocalNewsModel => {
       const localNewsModel = localNews[0]
 
       if (!localNewsModel) {
