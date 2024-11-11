@@ -14,6 +14,7 @@ export type ColorsType = {
   positiveHighlight: string
   negativeHighlight: string
   invalidInput: string
+  warningColor: string
   linkColor: string
   themeContrast: string
   ttsPlayerWarningBackground: string
@@ -33,6 +34,7 @@ export const commonLightColors = {
   positiveHighlight: '#188038',
   negativeHighlight: '#8b0000',
   invalidInput: '#B3261E',
+  warningColor: '#FFA726',
   linkColor: '#0b57d0',
   ttsPlayerWarningBackground: 'rgba(255, 253, 230, 1)',
   warning_amber: 'rgba(249, 124, 0, 1)',

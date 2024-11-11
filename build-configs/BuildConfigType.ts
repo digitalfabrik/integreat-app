@@ -52,9 +52,9 @@ export type CommonBuildConfigType = {
   // Host name of the web app, used for sharing, deep linking and social media previews.
   hostName: string
   // Hostnames from which resources are automatically downloaded for offline usage.
-  allowedHostNames: Array<string>
+  allowedHostNames: string[]
   // Linked hosts that can may look similar https://chromium.googlesource.com/chromium/src/+/master/docs/security/lookalikes/lookalike-domains.md#automated-warning-removal
-  allowedLookalikes: Array<string>
+  allowedLookalikes: string[]
   // Regex defining which urls to intercept as they are internal ones.
   supportedIframeSources: string[]
   internalLinksHijackPattern: string
