@@ -53,14 +53,18 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
   const tooltipDirectionForDesktop: PlacesType = theme.contentDirection === 'ltr' ? 'right' : 'left'
   const tooltipDirection: PlacesType = viewportSmall ? 'top' : tooltipDirectionForDesktop
   const { setVisible, content } = useTtsPlayer()
-  const ttsEnabled = content && (buildConfig().appName === 'IntegreatTestCms' || buildConfig().appName === 'Integreat')
+  const ttsEnabled = !!(
+    content &&
+    (buildConfig().appName === 'IntegreatTestCms' || buildConfig().appName === 'Integreat')
+  )
+  const readAloudItem = ttsEnabled ? (
+    <ToolbarItem icon={ReadAloud} text={t('readAloud')} onClick={() => setVisible(true)} id='readAloud-icon' />
+  ) : null
 
   return (
     <Toolbar iconDirection={iconDirection} hideDivider={hideDivider}>
       {children}
-      {Boolean(ttsEnabled) && (
-        <ToolbarItem icon={ReadAloud} text={t('readAloud')} onClick={() => setVisible(true)} id='readAloud-icon' />
-      )}
+      {readAloudItem}
       <SharingPopup
         shareUrl={window.location.href}
         flow={iconDirection === 'row' ? 'vertical' : 'horizontal'}
