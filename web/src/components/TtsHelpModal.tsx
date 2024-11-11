@@ -21,7 +21,7 @@ const ModalContent = styled.div`
 `
 
 const StyledWarningText = styled.div`
-  font-family: ${props => props.theme.fonts.native.contentFontRegular};
+  font-family: ${props => props.theme.fonts.web.contentFont};
   font-size: 14px;
   width: 70%;
   margin: 10px 0;

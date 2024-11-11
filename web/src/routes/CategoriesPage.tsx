@@ -48,6 +48,7 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
   const previousPathname = usePreviousProp({ prop: pathname })
   const categoryId = useParams()['*']
   const { t } = useTranslation('layout')
+
   const {
     data: categories,
     loading: categoriesLoading,
@@ -60,7 +61,7 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
     cityContentPath: pathname,
   })
 
-  const category = categories?.find(it => it.path === pathname)
+  let category = categories?.find(it => it.path === pathname)
   useTtsPlayer(category ? category.content : '', category ? category.title : '')
 
   const requestParents = useCallback(async () => {
@@ -105,6 +106,7 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
     )
   }
 
+  category = categories?.find(it => it.path === pathname)
   const languageChangePaths = city.languages.map(({ code, name }) => {
     const isCurrentLanguage = code === languageCode
     const path = category?.isRoot()

@@ -10,7 +10,6 @@ import TtsPlayer from '../TtsPlayer'
 
 jest.mock('react-i18next')
 jest.mock('easy-speech')
-jest.mock('tabbable')
 jest.mock('sentencex', () => jest.fn(() => ['This is a test.']))
 
 describe('TtsPlayer', () => {
