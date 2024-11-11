@@ -77,8 +77,8 @@ const isValidIsoDate = (date: string): boolean => {
 const DatePicker = ({ title, date, setDate, error }: DatePickerProps): ReactElement => {
   const { t } = useTranslation('events')
   const [tempDate, setTempDate] = useState(date?.toISODate() ?? '')
-  const isInvalidDate = !!tempDate && !isValidIsoDate(tempDate)
-  const shownError = error || (isInvalidDate ? t('invalidToDate') : undefined)
+  const isValidDate = !tempDate || isValidIsoDate(tempDate)
+  const shownError = error || (!isValidDate ? t('invalidDate') : undefined)
   useEffect(() => {
     setTempDate(date?.toISODate() ?? '')
   }, [date])
