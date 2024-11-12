@@ -190,9 +190,7 @@ const Header = ({
 
   const unsupportedLanguagesForTts = ['fa']
   const ttsEnabled =
-    content &&
-    (buildConfig().appName === 'IntegreatTestCms' || buildConfig().appName === 'Integreat') &&
-    !unsupportedLanguagesForTts.includes(languageCode)
+    content && buildConfig().featureFlags.tts && !unsupportedLanguagesForTts.includes(languageCode)
       ? renderOverflowItem(t(`${HeaderButtonTitle.ReadAloud}`), () => setTtsPlayerVisible(true))
       : []
 
