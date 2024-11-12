@@ -60,10 +60,10 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
     depth: categoryId ? 2 : 1,
     cityContentPath: pathname,
   })
-
-  let category = categories?.find(it => it.path === pathname)
-  useTtsPlayer(category ? category.content : '', category ? category.title : '')
-
+  const currentCategory = categories?.find(it => it.path === pathname)
+  const content = currentCategory?.content || ''
+  const title = currentCategory?.title || ''
+  useTtsPlayer(content, title)
   const requestParents = useCallback(async () => {
     if (!categoryId) {
       // The endpoint does not work for the root category, just return an empty array
@@ -106,7 +106,7 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
     )
   }
 
-  category = categories?.find(it => it.path === pathname)
+  const category = categories?.find(it => it.path === pathname)
   const languageChangePaths = city.languages.map(({ code, name }) => {
     const isCurrentLanguage = code === languageCode
     const path = category?.isRoot()
