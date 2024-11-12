@@ -39,6 +39,7 @@ export type FeatureFlagsType = FixedCityType & {
   cityNotCooperating?: boolean
   cityNotCooperatingTemplate: string | null
   chat: boolean
+  tts: boolean
 }
 
 // Available on all platforms
