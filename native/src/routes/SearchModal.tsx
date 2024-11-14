@@ -22,6 +22,11 @@ const Wrapper = styled.View`
   background-color: ${props => props.theme.colors.backgroundColor};
 `
 
+const SearchCounter = styled.Text`
+  margin: 10px 20px;
+  color: ${props => props.theme.colors.textSecondaryColor};
+`
+
 export type SearchModalProps = {
   allPossibleResults: SearchResult[]
   languageCode: string
@@ -76,15 +81,18 @@ const SearchModal = ({
       <SearchHeader query={query} closeSearchBar={onClose} onSearchChanged={setQuery} />
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
         {query.length > 0 && (
-          <List
-            items={searchResults}
-            renderItem={renderItem}
-            accessibilityLabel={t('searchResultsCount', { count: searchResults.length })}
-            style={{ flex: 1 }}
-            noItemsMessage={
-              <FeedbackContainer routeType={SEARCH_ROUTE} language={languageCode} cityCode={cityCode} query={query} />
-            }
-          />
+          <>
+            <SearchCounter>{t('searchResultsCount', { count: searchResults.length })}</SearchCounter>
+            <List
+              items={searchResults}
+              renderItem={renderItem}
+              accessibilityLabel={t('searchResultsCount', { count: searchResults.length })}
+              style={{ flex: 1 }}
+              noItemsMessage={
+                <FeedbackContainer routeType={SEARCH_ROUTE} language={languageCode} cityCode={cityCode} query={query} />
+              }
+            />
+          </>
         )}
       </KeyboardAvoidingView>
     </Wrapper>
