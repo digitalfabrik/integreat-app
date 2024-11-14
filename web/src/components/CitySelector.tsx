@@ -30,7 +30,7 @@ const SearchCounter = styled.p`
 `
 
 type CitySelectorProps = {
-  cities: Array<CityModel>
+  cities: CityModel[]
   language: string
 }
 

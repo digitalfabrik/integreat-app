@@ -1,0 +1,5 @@
+issue_key: 2924
+show_in_stores: false
+platforms:
+  - web
+en: Fix crashes if local storage is not available

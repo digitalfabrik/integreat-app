@@ -30,6 +30,7 @@ export default (baseUrl: string): Endpoint<ParamsType, ChatMessageModel> =>
           id: json.id,
           body: json.body,
           userIsAuthor: json.user_is_author,
+          automaticAnswer: json.automatic_answer,
         }),
     )
     .build()

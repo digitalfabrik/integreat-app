@@ -1,11 +1,11 @@
 import { TFunction } from 'i18next'
 import { mocked } from 'jest-mock'
-import { openSettings } from 'react-native-permissions'
 
 import { SettingsRouteType } from 'shared'
 
+import { testingAppContext } from '../../testing/TestingAppContext'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
-import { defaultSettings, SettingsType } from '../AppSettings'
+import { SettingsType } from '../AppSettings'
 import {
   pushNotificationsEnabled,
   requestPushNotificationPermission,
@@ -31,40 +31,23 @@ const mockUnsubscribeNews = mocked(unsubscribeNews)
 const mockSubscribeNews = mocked(subscribeNews)
 const mockedPushNotificationsEnabled = mocked(pushNotificationsEnabled)
 
-type changeSettingFnType = (settings: SettingsType) => Partial<SettingsType>
-type changeActionFnType = void | ((newSettings: SettingsType) => Promise<boolean>)
-
 describe('createSettingsSections', () => {
-  let changeSetting: changeSettingFnType
-  let changeAction: void | ((newSettings: SettingsType) => Promise<boolean>)
-
-  beforeEach(() => {
-    jest.clearAllMocks()
-    changeSetting = settings => settings
-    changeAction = async () => true
-  })
-
-  const setSetting = async (newChangeSetting: changeSettingFnType, newChangeAction: changeActionFnType) => {
-    changeSetting = newChangeSetting
-    changeAction = newChangeAction
-  }
+  beforeEach(jest.clearAllMocks)
 
   const t = ((key: string) => key) as TFunction
 
-  const languageCode = 'de'
+  const updateSettings = jest.fn()
   const cityCode = 'augsburg'
+  const appContext = { ...testingAppContext({}), cityCode, updateSettings }
   const navigation = createNavigationScreenPropMock<SettingsRouteType>()
   const showSnackbar = jest.fn()
 
-  const createSettings = () =>
+  const createSettings = (params: Partial<SettingsType> = {}) =>
     createSettingsSections({
-      t,
-      languageCode,
-      cityCode,
+      appContext: { ...appContext, settings: { ...appContext.settings, ...params } },
       navigation,
-      settings: defaultSettings,
-      setSetting,
       showSnackbar,
+      t,
     })[0]!.data
 
   describe('allowPushNotifications', () => {
@@ -75,89 +58,83 @@ describe('createSettingsSections', () => {
       expect(sections.find(it => it.title === 'pushNewsTitle')).toBeFalsy()
     })
 
-    it('should set correct setting on press', () => {
+    it('should set correct setting on press', async () => {
       mockedPushNotificationsEnabled.mockImplementation(() => true)
       const sections = createSettings()
-      const pushNotificationSection = sections.find(it => it.title === 'pushNewsTitle')
-      // Initialize changeSetting and changeAction
-      pushNotificationSection!.onPress()
+      const pushNotificationSection = sections.find(it => it.title === 'pushNewsTitle')!
+      await pushNotificationSection!.onPress()
+      expect(updateSettings).toHaveBeenCalledTimes(1)
+      expect(updateSettings).toHaveBeenCalledWith({ allowPushNotifications: false })
 
-      const settings = defaultSettings
-      settings.allowPushNotifications = false
-      const changedSettings = changeSetting(settings)
-      expect(pushNotificationSection!.getSettingValue!(settings)).toBeFalsy()
-      expect(changedSettings.allowPushNotifications).toBeTruthy()
-      settings.allowPushNotifications = true
-      const changedSettings2 = changeSetting(settings)
-      expect(pushNotificationSection!.getSettingValue!(settings)).toBeTruthy()
-      expect(changedSettings2.allowPushNotifications).toBeFalsy()
+      expect(
+        pushNotificationSection.getSettingValue!({ ...appContext.settings, allowPushNotifications: false }),
+      ).toBeFalsy()
+      expect(
+        pushNotificationSection!.getSettingValue!({ ...appContext.settings, allowPushNotifications: true }),
+      ).toBeTruthy()
     })
 
     it('should unsubscribe from push notification topic', async () => {
       mockedPushNotificationsEnabled.mockImplementation(() => true)
       const sections = createSettings()
-      const pushNotificationSection = sections.find(it => it.title === 'pushNewsTitle')
-      // Initialize changeSetting and changeAction
-      pushNotificationSection?.onPress()
-      const newSettings = defaultSettings
-      newSettings.allowPushNotifications = false
-
-      const assertedChangeAction = changeAction as (newSettings: SettingsType) => Promise<boolean>
+      const pushNotificationSection = sections.find(it => it.title === 'pushNewsTitle')!
 
       expect(mockUnsubscribeNews).not.toHaveBeenCalled()
 
-      const successful = await assertedChangeAction(newSettings)
-      expect(successful).toBe(true)
+      await pushNotificationSection.onPress()
+
       expect(mockUnsubscribeNews).toHaveBeenCalledTimes(1)
-      expect(mockUnsubscribeNews).toHaveBeenCalledWith(cityCode, languageCode)
+      expect(mockUnsubscribeNews).toHaveBeenCalledWith(cityCode, appContext.languageCode)
       expect(mockSubscribeNews).not.toHaveBeenCalled()
       expect(mockRequestPushNotificationPermission).not.toHaveBeenCalled()
+
+      expect(updateSettings).toHaveBeenCalledTimes(1)
+      expect(updateSettings).toHaveBeenCalledWith({ allowPushNotifications: false })
     })
 
     it('should subscribe to push notification topic if permission is granted', async () => {
       mockedPushNotificationsEnabled.mockImplementation(() => true)
-      const sections = createSettings()
-      const pushNotificationSection = sections.find(it => it.title === 'pushNewsTitle')
-      // Initialize changeSetting and changeAction
-      pushNotificationSection?.onPress()
-      const newSettings = defaultSettings
-      newSettings.allowPushNotifications = true
-
-      const assertedChangeAction = changeAction as (newSettings: SettingsType) => Promise<boolean>
+      const sections = createSettings({ allowPushNotifications: false })
+      const pushNotificationSection = sections.find(it => it.title === 'pushNewsTitle')!
 
       expect(mockRequestPushNotificationPermission).not.toHaveBeenCalled()
       expect(mockSubscribeNews).not.toHaveBeenCalled()
       mockRequestPushNotificationPermission.mockImplementationOnce(async () => true)
 
-      const successful = await assertedChangeAction(newSettings)
-      expect(successful).toBe(true)
+      await pushNotificationSection.onPress()
+
       expect(mockRequestPushNotificationPermission).toHaveBeenCalledTimes(1)
       expect(mockSubscribeNews).toHaveBeenCalledTimes(1)
-      expect(mockSubscribeNews).toHaveBeenCalledWith(cityCode, languageCode, true)
+      expect(mockSubscribeNews).toHaveBeenCalledWith({
+        cityCode,
+        languageCode: appContext.languageCode,
+        allowPushNotifications: true,
+        skipSettingsCheck: true,
+      })
       expect(mockUnsubscribeNews).not.toHaveBeenCalled()
+
+      expect(updateSettings).toHaveBeenCalledTimes(1)
+      expect(updateSettings).toHaveBeenCalledWith({ allowPushNotifications: true })
     })
 
     it('should open settings and return false if permissions not granted', async () => {
       mockedPushNotificationsEnabled.mockImplementation(() => true)
-      const sections = createSettings()
-      const pushNotificationSection = sections.find(it => it.title === 'pushNewsTitle')
-      // Initialize changeSetting and changeAction
-      pushNotificationSection?.onPress()
-      const newSettings = defaultSettings
-      newSettings.allowPushNotifications = true
-
-      const assertedChangeAction = changeAction as (newSettings: SettingsType) => Promise<boolean>
+      const sections = createSettings({ allowPushNotifications: false })
+      const pushNotificationSection = sections.find(it => it.title === 'pushNewsTitle')!
 
       expect(mockRequestPushNotificationPermission).not.toHaveBeenCalled()
       expect(mockSubscribeNews).not.toHaveBeenCalled()
       mockRequestPushNotificationPermission.mockImplementationOnce(async () => false)
 
-      const successful = await assertedChangeAction(newSettings)
-      expect(successful).toBe(false)
+      await pushNotificationSection.onPress()
+
       expect(mockRequestPushNotificationPermission).toHaveBeenCalledTimes(1)
-      expect(openSettings).toHaveBeenCalledTimes(1)
       expect(mockSubscribeNews).not.toHaveBeenCalled()
       expect(mockUnsubscribeNews).not.toHaveBeenCalled()
+
+      expect(updateSettings).toHaveBeenCalledTimes(2)
+      expect(updateSettings).toHaveBeenLastCalledWith({ allowPushNotifications: false })
+      expect(showSnackbar).toHaveBeenCalledTimes(1)
     })
   })
 })

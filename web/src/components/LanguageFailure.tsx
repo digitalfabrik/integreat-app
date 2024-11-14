@@ -15,7 +15,7 @@ const ChooseLanguage = styled.p`
 type LanguageFailureProps = {
   cityModel: CityModel
   languageCode: string
-  languageChangePaths: Array<{ code: string; path: string | null; name: string }>
+  languageChangePaths: { code: string; path: string | null; name: string }[]
 }
 
 const LanguageFailure = ({ cityModel, languageCode, languageChangePaths }: LanguageFailureProps): ReactElement => {

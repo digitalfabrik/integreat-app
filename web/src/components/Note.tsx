@@ -6,7 +6,7 @@ import Icon from './base/Icon'
 
 const NoteContainer = styled.div`
   display: flex;
-  background-color: ${props => props.theme.colors.themeColor};
+  background-color: ${props => props.theme.colors.warningColor};
   padding: 12px;
   gap: 12px;
   align-items: center;

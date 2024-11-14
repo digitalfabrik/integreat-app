@@ -33,7 +33,7 @@ const SearchCounter = styled.Text`
 `
 
 type CitySelectorProps = {
-  cities: Array<CityModel>
+  cities: CityModel[]
   navigateToDashboard: (city: CityModel) => void
 }
 
