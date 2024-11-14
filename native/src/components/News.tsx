@@ -38,7 +38,7 @@ const getPageTitle = (
   return t('localNews.pageTitle')
 }
 
-type NewsModelsType = Array<LocalNewsModel | TunewsModel>
+type NewsModelsType = (LocalNewsModel | TunewsModel)[]
 
 type NewsProps = {
   news: NewsModelsType

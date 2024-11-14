@@ -33,7 +33,7 @@ const PageDetailsContainer = styled.View`
 
 export type EventsProps = {
   slug?: string
-  events: Array<EventModel>
+  events: EventModel[]
   cityModel: CityModel
   language: string
   navigateTo: (routeInformation: RouteInformationType) => void

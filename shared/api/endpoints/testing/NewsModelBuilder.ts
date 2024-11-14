@@ -15,17 +15,17 @@ class LocalNewsModelBuilder {
     this._language = language
   }
 
-  build(): Array<LocalNewsModel> {
+  build(): LocalNewsModel[] {
     return this.buildAll().map(all => all.newsItem)
   }
 
   /**
    * Builds the requested amount of news. Two builds with an identical seed will yield equal news.
    */
-  buildAll(): Array<{
+  buildAll(): {
     path: string | null | undefined
     newsItem: LocalNewsModel
-  }> {
+  }[] {
     return Array.from(
       {
         length: this._newsCount,

@@ -1,5 +1,5 @@
 export class Selector {
-  private queries: Array<string> = new Array<string>()
+  private queries: string[] = new Array<string>()
 
   public ByText(text: string): Selector {
     if (driver.isAndroid) {

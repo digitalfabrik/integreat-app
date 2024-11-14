@@ -14,12 +14,12 @@ import {
   LocalNewsModel,
   PoiModel,
   ReturnType,
+  createCitiesEndpoint,
 } from 'shared/api'
 
 import dataContainer from '../utils/DefaultDataContainer'
 import loadResourceCache from '../utils/loadResourceCache'
 import { reportError } from '../utils/sentry'
-import useLoadCities from './useLoadCities'
 import useLoadWithCache from './useLoadWithCache'
 import usePreviousProp from './usePreviousProp'
 import useSnackbar from './useSnackbar'
@@ -51,10 +51,16 @@ export type CityContentReturn = Omit<Omit<ReturnType<CityContentData>, 'error'>,
  */
 const useLoadCityContent = ({ cityCode, languageCode, refreshLocalNews }: Params): CityContentReturn => {
   const showSnackbar = useSnackbar()
-  const citiesReturn = useLoadCities()
   const previousLanguageCode = usePreviousProp({ prop: languageCode })
   const params = { cityCode, languageCode, showSnackbar }
 
+  const citiesReturn = useLoadWithCache({
+    ...params,
+    isAvailable: dataContainer.citiesAvailable,
+    createEndpoint: createCitiesEndpoint,
+    getFromDataContainer: dataContainer.getCities,
+    setToDataContainer: (_, __, cities) => dataContainer.setCities(cities),
+  })
   const categoriesReturn = useLoadWithCache({
     ...params,
     isAvailable: dataContainer.categoriesAvailable,
@@ -86,7 +92,7 @@ const useLoadCityContent = ({ cityCode, languageCode, refreshLocalNews }: Params
   })
 
   useEffect(() => {
-    if (categoriesReturn.data && eventsReturn.data && poisReturn.data) {
+    if (citiesReturn.data && categoriesReturn.data && eventsReturn.data && poisReturn.data && localNewsReturn.data) {
       // Load the resource cache in the background once a day and do not wait for it
       dataContainer.getLastUpdate(cityCode, languageCode).then(lastUpdate => {
         if (!lastUpdate || lastUpdate < DateTime.utc().startOf('day')) {
@@ -104,7 +110,7 @@ const useLoadCityContent = ({ cityCode, languageCode, refreshLocalNews }: Params
       // WARNING: This also means that the last update is updated if everything is just loaded from the cache.
       dataContainer.setLastUpdate(cityCode, languageCode, DateTime.utc()).catch(reportError)
     }
-  }, [categoriesReturn, eventsReturn, poisReturn, cityCode, languageCode])
+  }, [citiesReturn, categoriesReturn, eventsReturn, poisReturn, localNewsReturn, cityCode, languageCode])
 
   const city = citiesReturn.data?.find(it => it.code === cityCode)
   const language = city?.languages.find(it => it.code === languageCode)

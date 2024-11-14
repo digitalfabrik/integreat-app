@@ -128,7 +128,7 @@ class CityModelBuilder {
     }
   }
 
-  build(): Array<CityModel> {
+  build(): CityModel[] {
     return cities.slice(0, this._citiesCount)
   }
 }
