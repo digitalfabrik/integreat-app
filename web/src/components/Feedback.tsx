@@ -8,6 +8,7 @@ import Failure from './Failure'
 import FeedbackButtons from './FeedbackButtons'
 import { SendingStatusType } from './FeedbackContainer'
 import Note from './Note'
+import Checkbox from './base/Checkbox'
 import Input from './base/Input'
 import InputSection from './base/InputSection'
 import TextButton from './base/TextButton'
@@ -53,6 +54,8 @@ type FeedbackProps = {
   searchTerm: string | undefined
   setSearchTerm: (newTerm: string) => void
   closeFeedback: (() => void) | undefined
+  privacyCheckedFilter: boolean
+  setPrivacyCheckedFilter: (privacyChecked: boolean) => void
 }
 
 const Feedback = ({
@@ -68,6 +71,8 @@ const Feedback = ({
   searchTerm,
   setSearchTerm,
   closeFeedback,
+  privacyCheckedFilter,
+  setPrivacyCheckedFilter,
 }: FeedbackProps): ReactElement => {
   const { t } = useTranslation('feedback')
 
@@ -111,6 +116,12 @@ const Feedback = ({
 
       {!isSearchFeedback && sendFeedbackDisabled && <Note text={t('note')} />}
       {sendingStatus === 'failed' && <ErrorSendingStatus role='alert'>{t('failedSendingFeedback')}</ErrorSendingStatus>}
+      <Checkbox
+        checked={privacyCheckedFilter}
+        setChecked={setPrivacyCheckedFilter}
+        label={t('feedback:privacyAgreement')}
+        id='privacyAgreement'
+      />
       <StyledTextButton disabled={sendFeedbackDisabled} onClick={onSubmit} text={t('send')} />
     </Container>
   )
