@@ -1,23 +1,35 @@
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useMemo } from 'react'
+import segment from 'sentencex'
 
-import { ttsContext, TtsContextType } from '../components/TtsPlayer'
+import { parseHTML } from 'shared'
+import { EventModel, LocalNewsModel, PageModel, TunewsModel } from 'shared/api'
 
-const useTtsPlayer = (content?: string, title?: string): TtsContextType => {
+import { ttsContext, TtsContextType } from '../components/TtsContainer'
+
+const useTtsPlayer = (model?: PageModel | LocalNewsModel | TunewsModel | EventModel | undefined): TtsContextType => {
   const tts = useContext(ttsContext)
+  const sentences = useMemo(() => {
+    if (model) {
+      const content = parseHTML(model.content)
+      return [model.title, ...segment(tts.languageCode, content)]
+    }
+
+    return null
+  }, [model, tts.languageCode])
 
   useEffect(() => {
-    if (content && title) {
-      tts.setContent(content)
-      tts.setTitle(title)
+    if (sentences) {
+      tts.setSentences(sentences)
+      tts.setTitle(model?.title ?? '')
     }
     return () => {
-      tts.setContent(null)
+      tts.setSentences([])
+      tts.setTitle('')
     }
-  }, [content, title, tts])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sentences, tts.languageCode])
 
   return {
-    content: tts.content,
-    setContent: tts.setContent,
     sentenceIndex: tts.sentenceIndex,
     setSentenceIndex: tts.setSentenceIndex,
     visible: tts.visible,
@@ -26,6 +38,9 @@ const useTtsPlayer = (content?: string, title?: string): TtsContextType => {
     setTitle: tts.setTitle,
     volume: tts.volume,
     setVolume: tts.setVolume,
+    sentences: tts.sentences,
+    setSentences: tts.setSentences,
+    languageCode: tts.languageCode,
   }
 }
 

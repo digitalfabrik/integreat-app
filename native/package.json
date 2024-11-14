@@ -62,7 +62,6 @@
     "@sentry/types": "^8.33.1",
     "accordion-collapse-react-native": "^1.1.1",
     "build-configs": "0.0.1",
-    "entities": "^5.0.0",
     "htmlparser2": "^9.1.0",
     "i18next": "^23.14.0",
     "intl-pluralrules": "^2.0.1",

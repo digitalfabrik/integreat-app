@@ -1,10 +1,13 @@
 import { act, fireEvent, RenderAPI } from '@testing-library/react-native'
+import { DateTime } from 'luxon'
 import React from 'react'
 import Tts from 'react-native-tts'
 
+import { PageModel } from 'shared/api'
+
 import useTtsPlayer from '../../hooks/useTtsPlayer'
 import renderWithTheme from '../../testing/render'
-import TtsPlayer from '../TtsPlayer'
+import TtsContainer from '../TtsContainer'
 
 jest.mock('react-i18next')
 jest.mock('react-native-tts')
@@ -14,18 +17,23 @@ jest.mock('react-native-reanimated', () => {
   Reanimated.useEvent = jest.fn()
   return Reanimated
 })
-
-describe('TtsPlayer', () => {
+const dummyPage = new PageModel({
+  path: '/test-path',
+  title: 'test',
+  content: '<p>This is a test</p>',
+  lastUpdate: DateTime.now(),
+})
+describe('TtsContainer', () => {
   const TestChild = () => {
-    useTtsPlayer('<p>This is a test</p>', 'test')
+    useTtsPlayer(dummyPage)
     return null
   }
 
   const renderTtsPlayer = (): RenderAPI =>
     renderWithTheme(
-      <TtsPlayer initialVisibility>
+      <TtsContainer initialVisibility>
         <TestChild />
-      </TtsPlayer>,
+      </TtsContainer>,
     )
 
   beforeEach(() => {

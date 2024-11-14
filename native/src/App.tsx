@@ -19,7 +19,7 @@ import IOSSafeAreaView from './components/IOSSafeAreaView'
 import SnackbarContainer from './components/SnackbarContainer'
 import StaticServerProvider from './components/StaticServerProvider'
 import StatusBar from './components/StatusBar'
-import TtsPlayer from './components/TtsPlayer'
+import TtsContainer from './components/TtsContainer'
 import { RoutesParamsType } from './constants/NavigationTypes'
 import buildConfig from './constants/buildConfig'
 import { userAgent } from './constants/endpoint'
@@ -88,7 +88,7 @@ const App = (): ReactElement => {
             <SafeAreaProvider>
               <AppContextProvider>
                 <SnackbarContainer>
-                  <TtsPlayer>
+                  <TtsContainer>
                     <>
                       <StatusBar />
                       <IOSSafeAreaView>
@@ -99,7 +99,7 @@ const App = (): ReactElement => {
                         </NavigationContainer>
                       </IOSSafeAreaView>
                     </>
-                  </TtsPlayer>
+                  </TtsContainer>
                 </SnackbarContainer>
               </AppContextProvider>
             </SafeAreaProvider>

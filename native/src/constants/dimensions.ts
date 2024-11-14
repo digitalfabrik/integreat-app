@@ -22,7 +22,7 @@ export type DimensionsType = {
 const dimensions: DimensionsType = {
   headerHeight: 60,
   modalHeaderHeight: 40,
-  ttsPlayerHeight: 50,
+  ttsPlayerHeight: 100,
   categoryListItem: {
     iconSize: 20,
     margin: 5,

@@ -6633,7 +6633,7 @@
       "sideBarCloseAriaLabel": "Seitenleiste schließen",
       "accessibility": "Barrierefreiheit",
       "readAloud": "Vorlesefunktion",
-      "prev": "Zurück",
+      "previous": "Zurück",
       "next": "Weiter"
     },
     "am": {
@@ -6686,7 +6686,7 @@
       "sideBarCloseAriaLabel": "غلق الشريط الجانبي",
       "accessibility": "حرية الوصول",
       "readAloud": "قراءة بصوت عالٍ",
-      "prev": "السابق",
+      "previous": "السابق",
       "next": "التالي"
     },
     "bg": {
@@ -6839,7 +6839,7 @@
       "sideBarCloseAriaLabel": "Close sidebar",
       "accessibility": "Accessibility",
       "readAloud": "Read aloud",
-      "prev": "Prev",
+      "previous": "Prev",
       "next": "Next"
     },
     "es": {
