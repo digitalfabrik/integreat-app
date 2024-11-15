@@ -5,12 +5,15 @@
   "main": "index.ts",
   "sideEffects": false,
   "private": true,
+  "installConfig": {
+    "hoistingLimits": "none"
+  },
   "scripts": {
     "test": "jest",
     "test:changed": "yarn run test -o",
     "test:watch": "yarn run test --watchAll",
-    "lint": "yarn g:lint",
-    "ts:check": "yarn ts:check"
+    "lint": "eslint --cache --cache-location ../.eslintcache .",
+    "ts:check": "tsc --build"
   },
   "dependencies": {
     "@turf/distance": "^7.1.0",
@@ -21,7 +24,7 @@
     "minisearch": "^7.1.0",
     "normalize-path": "^3.0.0",
     "normalize-strings": "^1.1.1",
-    "react": "workspaces:web",
+    "react": "18.2.0",
     "rrule": "2.8.1",
     "uuid": "^10.0.0"
   },
@@ -35,8 +38,5 @@
     "@types/uuid": "^10.0.0",
     "md5": "^2.3.0",
     "seedrandom": "^3.0.5"
-  },
-  "installConfig": {
-    "hoistingLimits": "none"
   }
 }

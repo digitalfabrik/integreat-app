@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "test:web": "yarn wdio run web/wdio.conf.ts",
-    "test:web:browserstack": "yarn wdio run web/wdio-browserstack.conf.ts",
+    "test:web:browserstack": "yarn wdio run ./web/browserstack/wdio-browserstack.conf.ts",
     "test:native:browserstack": "yarn wdio run ./native/wdio-browserstack.conf.ts",
     "test:native": "yarn wdio run native/wdio.conf.ts",
     "test:native:ios": "yarn wdio run native/wdio-ios.conf.ts",
@@ -13,8 +13,7 @@
     "prepare:native:start": "yarn workspace native start:integreat-e2e",
     "prepare:web:start": "yarn workspace web start:integreat-e2e",
     "lint": "eslint --cache --cache-location ../.eslintcache .",
-    "ts:check": "tsc --build",
-    "g:appium": "cd $INIT_CWD && appium"
+    "ts:check": "tsc --build"
   },
   "devDependencies": {
     "@types/jasmine": "^5.1.4",
@@ -29,8 +28,5 @@
     "appium": "^2.5.3",
     "ts-node": "^10.9.2",
     "webdriverio": "^8.35.1"
-  },
-  "installConfig": {
-    "hoistingLimits": "dependencies"
   }
 }
