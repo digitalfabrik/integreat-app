@@ -77,6 +77,7 @@ export type JsonChatMessageType = {
   id: number
   body: string
   user_is_author: boolean
+  automatic_answer: boolean
 }
 export type JsonChatMessagesType = {
   messages: JsonChatMessageType[]
@@ -121,7 +122,7 @@ export type JsonEventType = {
 export type JsonTunewsType = {
   id: number
   title: string
-  tags: Array<string>
+  tags: string[]
   date: string
   content: string
   enewsno: string

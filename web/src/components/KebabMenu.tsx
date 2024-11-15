@@ -11,7 +11,7 @@ import Button from './base/Button'
 import Icon from './base/Icon'
 
 type KebabMenuProps = {
-  items: Array<ReactNode>
+  items: ReactNode[]
   show: boolean
   setShow: (show: boolean) => void
   Footer: ReactNode

@@ -5,7 +5,7 @@ import { NoteIcon } from '../assets'
 import Icon from './base/Icon'
 
 const NoteBox = styled.View`
-  background-color: ${props => props.theme.colors.themeColor};
+  background-color: ${props => props.theme.colors.warningColor};
   margin-top: 12px;
   padding: 12px;
   flex-direction: row;

@@ -8,7 +8,7 @@ import buildConfig from '../constants/buildConfig'
 type HelmetProps = {
   pageTitle: string
   metaDescription?: string | null
-  languageChangePaths?: Array<{ code: string; path: string | null; name: string }>
+  languageChangePaths?: { code: string; path: string | null; name: string }[]
   rootPage?: boolean
   cityModel?: CityModel
 }

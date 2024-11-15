@@ -35,7 +35,7 @@ class EventModelBuilder {
     return seedrandom(index + this._seed)() * max
   }
 
-  build(): Array<EventModel> {
+  build(): EventModel[] {
     return this.buildAll().map(all => all.event)
   }
 

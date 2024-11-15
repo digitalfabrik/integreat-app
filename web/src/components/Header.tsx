@@ -12,9 +12,9 @@ import KebabMenu from './KebabMenu'
 import NavigationBarScrollContainer from './NavigationBarScrollContainer'
 
 type HeaderProps = {
-  navigationItems: Array<ReactElement<HeaderNavigationItemProps>>
-  actionItems: Array<ReactNode>
-  kebabItems: Array<ReactNode>
+  navigationItems: ReactElement<HeaderNavigationItemProps>[]
+  actionItems: ReactNode[]
+  kebabItems: ReactNode[]
   logoHref: string
   cityName?: string
   cityCode?: string

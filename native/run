@@ -19,7 +19,7 @@ program
   .option('--production', 'whether a production (release) build should be made')
   .action((buildConfigName, options) => {
     const { production } = options
-    const productionFlag = production ? '--mode=release' : ''
+    const buildFlag = production ? '--mode=release' : '--active-arch-only'
 
     const jsonBuildConfig = execSync(`yarn workspace build-configs manage to-json ${buildConfigName} android`)
     const applicationId = JSON.parse(jsonBuildConfig).applicationId
@@ -28,7 +28,7 @@ program
       .toString()
       .replaceAll('\n', ' ')
     execSync(
-      `yarn cross-env ${buildConfig} yarn react-native run-android --no-packager --appId ${applicationId} ${productionFlag}`,
+      `yarn cross-env ${buildConfig} yarn react-native run-android --no-packager --appId ${applicationId} ${buildFlag}`,
       { stdio: 'inherit' },
     )
   })
