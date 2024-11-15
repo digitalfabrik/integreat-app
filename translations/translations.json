@@ -4737,7 +4737,8 @@
       "searchTermDescription": "Für den folgenden Begriff konnte kein Ergebnis gefunden werden:",
       "contactMailAddress": "E-Mail für Rückfragen",
       "note": "Bitte wähle eine Reaktion oder schreibe einen Kommentar, um das Feedback abschicken zu können.",
-      "privacyAgreement": "Ich habe die <1>Datenschutzerklärung<1> gelesen und stimme der Verarbeitung und Speicherung meiner Daten zu."
+      "privacyAgreement": "Ich habe die <1>Datenschutzerklärung<1> gelesen und stimme der Verarbeitung und Speicherung meiner Daten zu.",
+      "privacyPolicy": "Datenschutzerklärung"
     },
     "am": {
       "disclaimer": "የግንኙነት መረጃና ዕትም",
@@ -4922,7 +4923,8 @@
       "searchTermDescription": "No result could be found for the following term:",
       "contactMailAddress": "E-Mail for further questions",
       "note": "Please select a reaction or write a comment in order to send feedback.",
-      "privacyAgreement": "I have read the <1>privacy policy<1> and agree to the processing and storage of my data."
+      "privacyAgreement": "I have read the <1>privacy policy<1> and agree to the processing and storage of my data.",
+      "privacyPolicy": "privacy policy"
     },
     "es": {
       "disclaimer": "Contacto y aviso legal",

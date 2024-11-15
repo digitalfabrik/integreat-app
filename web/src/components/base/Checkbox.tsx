@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react'
+import { Trans } from 'react-i18next'
 import styled from 'styled-components'
 
 const Container = styled.div`
@@ -33,13 +34,38 @@ type CheckboxProps = {
   setChecked: (checked: boolean) => void
   label: string
   id: string
+  noLinkInLabel?: boolean
+  link?: string
+  makeToLink?: string
 }
 
-const Checkbox = ({ checked, setChecked, label, id }: CheckboxProps): ReactElement => (
+const Checkbox = ({
+  checked,
+  setChecked,
+  label,
+  id,
+  noLinkInLabel = true,
+  link,
+  makeToLink,
+}: CheckboxProps): ReactElement => (
   <Container>
     <StyledLabel htmlFor={id}>{label}</StyledLabel>
     <FlexEnd>
-      <StyledCheckbox type='checkbox' id={id} value={label} checked={checked} onChange={() => setChecked(!checked)} />
+      <StyledCheckbox
+        type='checkbox'
+        id={id}
+        value={noLinkInLabel ? label : ''}
+        checked={checked}
+        onChange={() => setChecked(!checked)}
+      />
+      {!noLinkInLabel ? (
+        <Trans i18nKey={label}>
+          This gets replaced by react-i18next.
+          {link ? <a href={link}>{makeToLink}</a> : <span>{makeToLink}</span>}
+        </Trans>
+      ) : (
+        ''
+      )}
     </FlexEnd>
   </Container>
 )
