@@ -10,20 +10,12 @@
       "shared",
       "translations",
       "build-configs"
-    ],
-    "nohoist": [
-      "native/**",
-      "web/**",
-      "e2e-tests/**",
-      "shared/**",
-      "translations/**",
-      "build-configs/**"
     ]
   },
   "scripts": {
-    "prepare": "husky",
+    "postinstall": "husky install",
     "lint": "eslint --cache --cache-location .eslintcache . && yarn workspace web stylelint && yarn workspace native stylelint",
-    "lint:ci": "yarn node --max-old-space-size=1536 $(yarn bin eslint) --format junit -o reports/lint/junit-lint.xml .",
+    "lint:ci": "node --max-old-space-size=1536 eslint --format junit -o reports/lint/junit-lint.xml .",
     "test": "jest",
     "test:changed": "jest -o",
     "test:ci": "jest --coverage --ci",
@@ -31,7 +23,7 @@
     "prettier:check": "prettier --check .",
     "prettier:write": "prettier --write .",
     "ts:check": "tsc --build",
-    "ts:check:ci": "yarn node --max-old-space-size=1536 $(yarn bin tsc) --build"
+    "ts:check:ci": "node --max-old-space-size=1536 tsc --build"
   },
   "resolutions": {
     "luxon": "^3.4.2",
@@ -45,6 +37,7 @@
     "@types/node": "^22.5.3",
     "@typescript-eslint/eslint-plugin": "^7.7.0",
     "@typescript-eslint/parser": "^7.7.0",
+    "appium": "^2.12.1",
     "eslint": "^8.57.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^9.1.0",
@@ -69,7 +62,9 @@
     "stylelint-react-native": "^2.7.0",
     "stylelint-use-logical": "^2.1.2",
     "ts-jest": "^29.1.2",
+    "ts-node": "^10.9.1",
     "tsx": "^4.8.2",
     "typescript": "^5.4.5"
-  }
+  },
+  "packageManager": "yarn@4.5.1"
 }
