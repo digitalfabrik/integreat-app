@@ -36,8 +36,6 @@ const useTtsPlayer = (model?: PageModel | LocalNewsModel | TunewsModel | EventMo
     setVisible: tts.setVisible,
     title: tts.title,
     setTitle: tts.setTitle,
-    volume: tts.volume,
-    setVolume: tts.setVolume,
     sentences: tts.sentences,
     setSentences: tts.setSentences,
     languageCode: tts.languageCode,

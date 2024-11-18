@@ -22,7 +22,6 @@ import MailIcon from '../../../assets/icons/mail.svg'
 import MenuIcon from '../../../assets/icons/menu.svg'
 import NewsIcon from '../../../assets/icons/news.svg'
 import NoInternetIcon from '../../../assets/icons/no-internet.svg'
-import NoSoundIcon from '../../../assets/icons/no-sound.svg'
 import NoteIcon from '../../../assets/icons/note.svg'
 import PauseIcon from '../../../assets/icons/pause.svg'
 import PhoneIcon from '../../../assets/icons/phone.svg'
@@ -33,7 +32,6 @@ import RefreshIcon from '../../../assets/icons/refresh.svg'
 import SadSmileyIcon from '../../../assets/icons/sad-smiley.svg'
 import SearchIcon from '../../../assets/icons/search.svg'
 import SecurityIcon from '../../../assets/icons/security.svg'
-import SoundIcon from '../../../assets/icons/sound.svg'
 import SprungbrettIcon from '../../../assets/icons/sprungbrett.svg'
 import SupportIcon from '../../../assets/icons/support.svg'
 import TuNewsActiveIcon from '../../../assets/icons/tu-news-active.svg'
@@ -68,7 +66,6 @@ export {
   NewsIcon,
   NoInternetIcon,
   NoteIcon,
-  NoSoundIcon,
   PhoneIcon,
   POIsIcon,
   PoiThumbnailPlaceholder,
@@ -77,7 +74,6 @@ export {
   SadSmileyIcon,
   SearchIcon,
   SecurityIcon,
-  SoundIcon,
   SprungbrettIcon,
   SupportIcon,
   TuNewsActiveIcon,

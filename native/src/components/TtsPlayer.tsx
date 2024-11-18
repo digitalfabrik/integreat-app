@@ -2,33 +2,34 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
-import { CloseIcon, NoSoundIcon, PauseIcon, PlaybackIcon, PlayIcon, SoundIcon } from '../assets'
-import Slider from './Slider'
+import { CloseIcon, PauseIcon, PlaybackIcon, PlayIcon } from '../assets'
 import Icon from './base/Icon'
 import IconButton from './base/IconButton'
 import Text from './base/Text'
 
-const StyledTtsPlayer = styled.View<{ $isPlaying: boolean }>`
+const StyledTtsPlayer = styled.View<{ $isExpanded: boolean }>`
   background-color: ${props => props.theme.colors.grayBackgroundColor};
   border-radius: 28px;
-  width: 85%;
+  width: ${props => (props.$isExpanded ? '90%' : '80%')};
   display: flex;
-  flex-direction: ${props => (props.$isPlaying ? 'column' : 'row')};
+  flex-direction: ${props => (props.$isExpanded ? 'column' : 'row')};
   justify-content: center;
   align-items: center;
   align-self: center;
-  padding: 6px;
   position: absolute;
   bottom: 5px;
   min-height: 93px;
-  gap: ${props => (props.$isPlaying ? '5px;' : '10px')};
+  gap: ${props => (props.$isExpanded ? '0px;' : '10px')};
 `
 
-const StyledPanel = styled.View`
+const verticalMargin = 11
+
+const StyledPanel = styled.View<{ $isExpanded?: boolean }>`
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 20px;
+  margin: ${props => (props.$isExpanded ? verticalMargin : 0)}px 0;
 `
 
 const StyledPlayIcon = styled(IconButton)`
@@ -47,11 +48,6 @@ const StyledBackForthButton = styled.TouchableOpacity`
 
 const PlayButtonIcon = styled(Icon)`
   color: ${props => props.theme.colors.grayBackgroundColor};
-`
-
-const StyledNoSoundIcon = styled(Icon)`
-  height: 18px;
-  width: 18px;
 `
 
 const FlipView = styled.View`
@@ -80,9 +76,10 @@ const CloseButton = styled.TouchableOpacity`
   width: 176px;
 `
 
-const CloseView = styled.View`
+const CloseView = styled.View<{ $isExpanded?: boolean }>`
   flex-direction: column;
   gap: 10px;
+  margin-bottom: ${props => (props.$isExpanded ? verticalMargin : 0)}px;
 `
 
 const elevatedButton = {
@@ -94,12 +91,11 @@ const elevatedButton = {
 }
 
 type TtsPlayerProps = {
-  expandPlayer: boolean
+  isExpanded: boolean
   isPlaying: boolean
-  setExpandPlayer: React.Dispatch<React.SetStateAction<boolean>>
+  setIsExpanded: React.Dispatch<React.SetStateAction<boolean>>
   handleBackward: () => Promise<void>
   handleForward: () => Promise<void>
-  handleVolumeChange: (newVolume: number) => void
   handleClose: () => Promise<void>
   pauseReading: () => void
   startReading: () => void
@@ -107,12 +103,11 @@ type TtsPlayerProps = {
 }
 
 const TtsPlayer = ({
-  expandPlayer,
+  isExpanded,
   isPlaying,
-  setExpandPlayer,
+  setIsExpanded,
   handleBackward,
   handleForward,
-  handleVolumeChange,
   handleClose,
   pauseReading,
   startReading,
@@ -121,9 +116,9 @@ const TtsPlayer = ({
   const { t } = useTranslation('layout')
 
   return (
-    <StyledTtsPlayer $isPlaying={expandPlayer} style={elevatedButton}>
-      <StyledPanel>
-        {expandPlayer && (
+    <StyledTtsPlayer $isExpanded={isExpanded} style={elevatedButton}>
+      <StyledPanel $isExpanded={isExpanded}>
+        {isExpanded && (
           <StyledBackForthButton accessibilityLabel='backward Button' onPress={handleBackward}>
             <StyledText>{t('prev')}</StyledText>
             <FlipView>
@@ -140,26 +135,19 @@ const TtsPlayer = ({
             } else {
               startReading()
             }
-            setExpandPlayer(!isPlaying)
+            setIsExpanded(!isPlaying)
           }}
           icon={<PlayButtonIcon Icon={isPlaying ? PauseIcon : PlayIcon} />}
         />
-        {expandPlayer && (
+        {isExpanded && (
           <StyledBackForthButton accessibilityLabel='Forward Button' onPress={handleForward}>
             <Icon Icon={PlaybackIcon} />
             <StyledText>{t('next')}</StyledText>
           </StyledBackForthButton>
         )}
       </StyledPanel>
-      {expandPlayer && (
-        <StyledPanel style={{ paddingHorizontal: 10, flexDirection: 'row' }}>
-          <StyledNoSoundIcon Icon={NoSoundIcon} />
-          <Slider maxValue={100} minValue={0} initialValue={50} onValueChange={handleVolumeChange} />
-          <Icon Icon={SoundIcon} />
-        </StyledPanel>
-      )}
-      <CloseView>
-        {!expandPlayer && <StyledPlayerHeaderText>{isTitleLong}</StyledPlayerHeaderText>}
+      <CloseView $isExpanded={isExpanded}>
+        {!isExpanded && <StyledPlayerHeaderText>{isTitleLong}</StyledPlayerHeaderText>}
         <CloseButton accessibilityLabel='Close player' onPress={handleClose} style={elevatedButton}>
           <Icon Icon={CloseIcon} />
           <StyledText>{t('common:close')}</StyledText>

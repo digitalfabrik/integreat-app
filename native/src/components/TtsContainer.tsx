@@ -1,4 +1,3 @@
-import { debounce } from 'lodash'
 import React, { createContext, ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { AppState } from 'react-native'
@@ -15,8 +14,6 @@ export type TtsContextType = {
   setVisible: React.Dispatch<React.SetStateAction<boolean>>
   title: string
   setTitle: React.Dispatch<React.SetStateAction<string>>
-  volume: number
-  setVolume: React.Dispatch<React.SetStateAction<number>>
   sentences: string[] | null
   setSentences: React.Dispatch<React.SetStateAction<string[]>>
   languageCode: string
@@ -29,8 +26,6 @@ export const ttsContext = createContext<TtsContextType>({
   setVisible: () => undefined,
   title: '',
   setTitle: () => undefined,
-  volume: 50,
-  setVolume: () => undefined,
   sentences: [],
   setSentences: () => undefined,
   languageCode: '',
@@ -45,9 +40,7 @@ const TtsContainer = ({ initialVisibility = false, children }: TtsContainerProps
   const { languageCode } = React.useContext(AppContext)
   const { t } = useTranslation('layout')
   const [isPlaying, setIsPlaying] = useState(false)
-  const [expandPlayer, setExpandPlayer] = useState(false)
-  const defaultVolume = 50
-  const [volume, setVolume] = useState(defaultVolume)
+  const [isExpanded, setIsExpanded] = useState(false)
   const [sentenceIndex, setSentenceIndex] = useState(0)
   const [visible, setVisible] = useState(initialVisibility)
   const [title, setTitle] = useState('')
@@ -76,6 +69,7 @@ const TtsContainer = ({ initialVisibility = false, children }: TtsContainerProps
         setSentenceIndex(index => index + 1)
       } else {
         setIsPlaying(false)
+        setIsExpanded(false)
         setSentenceIndex(0)
       }
     })
@@ -90,11 +84,10 @@ const TtsContainer = ({ initialVisibility = false, children }: TtsContainerProps
   useEffect(() => {
     if (isPlaying && sentences.length > 0) {
       Tts.setDefaultLanguage(languageCode)
-      const percentage = 100
       Tts.speak(String(sentences[sentenceIndex]), {
         androidParams: {
           KEY_PARAM_PAN: 0,
-          KEY_PARAM_VOLUME: volume / percentage,
+          KEY_PARAM_VOLUME: 0.6,
           KEY_PARAM_STREAM: 'STREAM_MUSIC',
         },
         iosVoiceId: '',
@@ -103,7 +96,7 @@ const TtsContainer = ({ initialVisibility = false, children }: TtsContainerProps
     }
     if (sentences.length === 0) {
       setSentenceIndex(0)
-      setExpandPlayer(false)
+      setIsExpanded(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPlaying, languageCode, sentenceIndex, sentences])
@@ -154,27 +147,9 @@ const TtsContainer = ({ initialVisibility = false, children }: TtsContainerProps
     startReading()
   }
 
-  const debounceDelay = 500
-  const debounceSetTimeoutDelay = 200
-
-  const debouncedVolumeChange = debounce((newVolume: number) => {
-    setVolume(newVolume)
-    if (isPlaying) {
-      Tts.stop().then(() =>
-        setTimeout(() => {
-          startReading()
-        }, debounceSetTimeoutDelay),
-      )
-    }
-  }, debounceDelay)
-
-  const handleVolumeChange = (newVolume: number) => {
-    debouncedVolumeChange(newVolume)
-  }
-
   const handleClose = async () => {
     setVisible(false)
-    setExpandPlayer(false)
+    setIsExpanded(false)
     await stopTts()
   }
 
@@ -186,13 +161,11 @@ const TtsContainer = ({ initialVisibility = false, children }: TtsContainerProps
       setVisible,
       title,
       setTitle,
-      volume,
-      setVolume,
       sentences,
       setSentences,
       languageCode,
     }),
-    [sentenceIndex, visible, title, volume, sentences, languageCode],
+    [sentenceIndex, visible, title, sentences, languageCode],
   )
 
   return (
@@ -200,12 +173,11 @@ const TtsContainer = ({ initialVisibility = false, children }: TtsContainerProps
       {children}
       {visible && (
         <TtsPlayer
-          expandPlayer={expandPlayer}
+          isExpanded={isExpanded}
           isPlaying={isPlaying}
-          setExpandPlayer={setExpandPlayer}
+          setIsExpanded={setIsExpanded}
           handleBackward={handleBackward}
           handleForward={handleForward}
-          handleVolumeChange={handleVolumeChange}
           handleClose={handleClose}
           pauseReading={pauseReading}
           startReading={startReading}
