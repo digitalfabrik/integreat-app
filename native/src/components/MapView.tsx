@@ -119,11 +119,11 @@ const MapView = ({
   )
 
   const onRequestLocation = useCallback(async () => {
-    if (userLocation) {
-      moveTo(userLocation)
+    const newUserLocation = userLocation ?? (await refreshPermissionAndLocation())?.coordinates
+    if (newUserLocation) {
+      moveTo(newUserLocation)
       setFollowUserLocation(true)
     }
-    await refreshPermissionAndLocation()
   }, [refreshPermissionAndLocation, moveTo, userLocation])
 
   useEffect(() => {
