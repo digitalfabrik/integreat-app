@@ -58,7 +58,7 @@ type RequestPermissionAndLocationOptions = {
 }
 
 type UseUserLocationReturn = LocationStateType & {
-  refreshPermissionAndLocation: (options?: RequestPermissionAndLocationOptions) => Promise<void>
+  refreshPermissionAndLocation: (options?: RequestPermissionAndLocationOptions) => Promise<LocationStateType | null>
 }
 
 const initialState: LocationStateType = { status: 'loading', message: 'loading', coordinates: undefined }
@@ -69,7 +69,10 @@ const useUserLocation = ({ requestPermissionInitially }: UseUserLocationProps): 
   const { t } = useTranslation()
 
   const refreshPermissionAndLocation = useCallback(
-    async ({ showSnackbarIfBlocked = true, requestPermission = true }: RequestPermissionAndLocationOptions = {}) => {
+    async ({
+      showSnackbarIfBlocked = true,
+      requestPermission = true,
+    }: RequestPermissionAndLocationOptions = {}): Promise<LocationStateType | null> => {
       setLocationState(initialState)
 
       const locationPermissionStatus = await getLocationPermissionStatus(requestPermission)
@@ -79,17 +82,19 @@ const useUserLocation = ({ requestPermissionInitially }: UseUserLocationProps): 
       }
 
       if (locationPermissionStatus === RESULTS.GRANTED) {
-        setLocationState(await getUserLocation())
-      } else {
-        setLocationState({ message: 'noPermission', status: 'unavailable', coordinates: undefined })
-
-        if (requestPermission && showSnackbarIfBlocked && locationPermissionStatus === RESULTS.BLOCKED) {
-          showSnackbar({
-            text: t('landing:noPermission'),
-            positiveAction: { label: t('layout:settings'), onPress: openSettings },
-          })
-        }
+        const location = await getUserLocation()
+        setLocationState(location)
+        return location
       }
+
+      setLocationState({ message: 'noPermission', status: 'unavailable', coordinates: undefined })
+      if (requestPermission && showSnackbarIfBlocked && locationPermissionStatus === RESULTS.BLOCKED) {
+        showSnackbar({
+          text: t('landing:noPermission'),
+          positiveAction: { label: t('layout:settings'), onPress: openSettings },
+        })
+      }
+      return null
     },
     [showSnackbar, t],
   )
