@@ -24,14 +24,16 @@ const Settings = ({ navigation }: SettingsProps): ReactElement => {
   const { t } = useTranslation('settings')
   const { settings } = appContext
 
-  const safeOnPress = (update: () => Promise<void> | void) => () => {
+  const safeOnPress = (update: () => Promise<void> | void) => async () => {
     const oldSettings = settings
-    update()?.catch(e => {
+    try {
+      await update()
+    } catch (e) {
       log('Failed to persist settings.', 'error')
       reportError(e)
       appContext.updateSettings(oldSettings)
-      showSnackbar({ text: t('error:unknownError') })
-    })
+      showSnackbar({ text: t('error:settingsError') })
+    }
   }
 
   const renderItem = ({ item }: { item: SettingsSectionType }) => {

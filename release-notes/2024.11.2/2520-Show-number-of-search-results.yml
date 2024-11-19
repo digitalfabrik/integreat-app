@@ -1,0 +1,8 @@
+issue_key: 2520
+show_in_stores: true
+platforms:
+  - web
+  - android
+  - ios
+en: Show number of search results
+de: Zeige die Anzahl von Suchergebnissen an

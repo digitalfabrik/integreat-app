@@ -55,9 +55,9 @@ const createSettingsSections = ({
         description: t('pushNewsDescription'),
         getSettingValue: (settings: SettingsType) => settings.allowPushNotifications,
         onPress: async () => {
-          const allowPushNotifications = !settings.allowPushNotifications
-          updateSettings({ allowPushNotifications })
-          if (!allowPushNotifications) {
+          const newAllowPushNotifications = !settings.allowPushNotifications
+          updateSettings({ allowPushNotifications: newAllowPushNotifications })
+          if (!newAllowPushNotifications) {
             await unsubscribeNews(cityCode, languageCode)
             return
           }
@@ -65,12 +65,17 @@ const createSettingsSections = ({
           const status = await requestPushNotificationPermission(updateSettings)
 
           if (status) {
-            await subscribeNews({ cityCode, languageCode, allowPushNotifications, skipSettingsCheck: true })
+            await subscribeNews({
+              cityCode,
+              languageCode,
+              allowPushNotifications: newAllowPushNotifications,
+              skipSettingsCheck: true,
+            })
           } else {
             updateSettings({ allowPushNotifications: false })
             // If the user has rejected the permission once, it can only be changed in the system settings
             showSnackbar({
-              text: 'noPushNotificationPermission',
+              text: 'permissionRequired',
               positiveAction: {
                 label: t('layout:settings'),
                 onPress: openSettings,
@@ -85,14 +90,14 @@ const createSettingsSections = ({
     description: t('sentryDescription', { appName: buildConfig().appName }),
     getSettingValue: (settings: SettingsType) => settings.errorTracking,
     onPress: async () => {
-      const errorTracking = !settings.errorTracking
-      updateSettings({ errorTracking })
+      const newErrorTracking = !settings.errorTracking
+      updateSettings({ errorTracking: newErrorTracking })
 
       const client = Sentry.getClient()
-      if (errorTracking && !client) {
+      if (newErrorTracking && !client) {
         initSentry()
       } else if (client) {
-        client.getOptions().enabled = errorTracking
+        client.getOptions().enabled = newErrorTracking
       }
     },
   },

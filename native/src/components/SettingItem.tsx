@@ -69,7 +69,7 @@ const SettingsItemValue = ({ value, hasBadge, onPress }: SettingItemValueProps):
 type SettingItemProps = {
   title: string
   description?: string
-  onPress: () => void
+  onPress: () => Promise<void>
   bigTitle?: boolean
   role?: Role
   hasBadge?: boolean
