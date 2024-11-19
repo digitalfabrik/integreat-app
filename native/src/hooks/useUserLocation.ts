@@ -2,7 +2,7 @@ import Geolocation, { GeolocationError } from '@react-native-community/geolocati
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Platform } from 'react-native'
-import { check, openSettings, PERMISSIONS, request, RESULTS } from 'react-native-permissions'
+import { check, openSettings, PERMISSIONS, PermissionStatus, request, RESULTS } from 'react-native-permissions'
 
 import { LocationStateType, UnavailableLocationState } from 'shared'
 
@@ -37,15 +37,15 @@ const fineLocationPermissionAndroid = PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION
 const coarseLocationPermissionAndroid = PERMISSIONS.ANDROID.ACCESS_COARSE_LOCATION
 
 const getLocationPermissionStatus = async (requestPermission: boolean) => {
-  const permissionFunctionToCall = requestPermission ? request : check
+  const checkOrRequest = requestPermission ? request : check
   if (Platform.OS === 'ios') {
-    return permissionFunctionToCall(locationPermissionIOS)
+    return checkOrRequest(locationPermissionIOS)
   }
-  const finePermission = await permissionFunctionToCall(fineLocationPermissionAndroid)
-  if (finePermission === RESULTS.GRANTED || finePermission === RESULTS.LIMITED) {
-    return finePermission
+  const finePermissionStatus = await checkOrRequest(fineLocationPermissionAndroid)
+  if (([RESULTS.GRANTED, RESULTS.LIMITED] as PermissionStatus[]).includes(finePermissionStatus)) {
+    return finePermissionStatus
   }
-  return permissionFunctionToCall(coarseLocationPermissionAndroid)
+  return checkOrRequest(coarseLocationPermissionAndroid)
 }
 
 type UseUserLocationProps = {
