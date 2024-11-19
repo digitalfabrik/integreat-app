@@ -17,7 +17,7 @@ const Wrapper = styled.div`
 `
 
 type LocalNewsListProps = {
-  items: Array<LocalNewsModel>
+  items: LocalNewsModel[]
   noItemsMessage: string
   renderItem: (item: LocalNewsModel, city: string) => ReactNode
   city: string
