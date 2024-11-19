@@ -95,6 +95,7 @@ const InputSection = ({
         returnKeyType='done'
         blurOnSubmit
         role='searchbox'
+        testID={title ?? value}
       />
     </Container>
   )
