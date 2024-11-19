@@ -18,7 +18,7 @@ import {
   hideIframe,
   preserveIFrameSourcesFromContent,
 } from '../utils/iframes'
-import TtsPlayer from './TtsPlayer'
+import TtsContainer from './TtsContainer'
 
 const SandBox = styled.div<{ $centered: boolean; $smallText: boolean }>`
   font-family: ${props => props.theme.fonts.web.contentFont};
@@ -288,7 +288,7 @@ const RemoteContent = ({
         ref={sandBoxRef}
         $smallText={smallText}
       />
-      <TtsPlayer languageCode={language} />
+      <TtsContainer languageCode={language} />
     </>
   )
 }

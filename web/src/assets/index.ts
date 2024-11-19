@@ -38,7 +38,6 @@ import MaximizeIcon from '../../../assets/icons/maximize.svg'
 import MenuIcon from '../../../assets/icons/menu.svg'
 import MinimizeIcon from '../../../assets/icons/minimize.svg'
 import NewsIcon from '../../../assets/icons/news.svg'
-import NoSoundIcon from '../../../assets/icons/no-sound.svg'
 import NoteIcon from '../../../assets/icons/note.svg'
 import PauseIcon from '../../../assets/icons/pause.svg'
 import PdfIcon from '../../../assets/icons/pdf.svg'
@@ -53,7 +52,6 @@ import SearchIcon from '../../../assets/icons/search.svg'
 import SecurityIcon from '../../../assets/icons/security.svg'
 import ShareIcon from '../../../assets/icons/share.svg'
 import SmokingIcon from '../../../assets/icons/smoking.svg'
-import SoundIcon from '../../../assets/icons/sound.svg'
 import SprungbrettIcon from '../../../assets/icons/sprungbrett.svg'
 import SupportIcon from '../../../assets/icons/support.svg'
 import TimerIcon from '../../../assets/icons/timer.svg'
@@ -106,7 +104,6 @@ export {
   MinimizeIcon,
   NewsIcon,
   NoteIcon,
-  NoSoundIcon,
   PdfIcon,
   PlayIcon,
   PauseIcon,
@@ -124,7 +121,6 @@ export {
   SmokingIcon,
   SprungbrettIcon,
   SupportIcon,
-  SoundIcon,
   TimerIcon,
   TuNewsActiveIcon,
   TuNewsInactiveIcon,

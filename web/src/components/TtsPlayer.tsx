@@ -1,23 +1,19 @@
-import EasySpeech from 'easy-speech'
-import React, { ReactElement, useEffect, useRef, useState } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import segment from 'sentencex'
 import styled, { useTheme } from 'styled-components'
 
-import { CloseIcon, NoSoundIcon, PauseIcon, PlaybackIcon, PlayIcon, SoundIcon } from '../assets'
+import { CloseIcon, PauseIcon, PlaybackIcon, PlayIcon } from '../assets'
 import dimensions from '../constants/dimensions'
-import useTtsPlayer from '../hooks/useTtsPlayer'
-import { reportError } from '../utils/sentry'
 import TtsHelpModal from './TtsHelpModal'
 import Button from './base/Button'
 import Icon from './base/Icon'
 
-const StyledTtsPlayer = styled.dialog<{ $isPlaying: boolean }>`
+const StyledTtsPlayer = styled.dialog<{ $isExpanded: boolean }>`
   background-color: #dedede;
   border-radius: 28px;
   width: 388px;
   display: flex;
-  flex-direction: ${props => (props.$isPlaying ? 'column' : 'row')};
+  flex-direction: ${props => (props.$isExpanded ? 'column' : 'row')};
   justify-content: center;
   align-items: center;
   align-self: center;
@@ -25,7 +21,7 @@ const StyledTtsPlayer = styled.dialog<{ $isPlaying: boolean }>`
   position: sticky;
   bottom: 5px;
   min-height: 93px;
-  gap: ${props => (props.$isPlaying ? '5px;' : '10px')};
+  gap: ${props => (props.$isExpanded ? '5px;' : '10px')};
   border-color: transparent;
 
   @media ${dimensions.smallViewport} {
@@ -33,16 +29,13 @@ const StyledTtsPlayer = styled.dialog<{ $isPlaying: boolean }>`
   }
 `
 
-const StyledPanel = styled.div`
+const verticalMargin = 11
+
+const StyledPanel = styled.div<{ $isExpanded?: boolean }>`
   display: flex;
-  flex-direction: row;
   align-items: center;
   gap: 20px;
-  padding: 0 10px;
-`
-
-const StyledSliderPanel = styled(StyledPanel)`
-  width: 90%;
+  margin: ${props => (props.$isExpanded ? verticalMargin : 0)}px 0;
 `
 
 const StyledPlayIcon = styled(Button)`
@@ -54,6 +47,14 @@ const StyledPlayIcon = styled(Button)`
   justify-content: center;
   align-items: center;
   box-shadow: 1px 5px 10px 1px grey;
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.1s ease;
+
+  &:active {
+    box-shadow: none;
+    transform: translateY(2px);
+  }
 `
 
 const StyledBackForthButton = styled(Button)`
@@ -65,11 +66,6 @@ const StyledBackForthButton = styled(Button)`
 
 const PlayButtonIcon = styled(Icon)`
   color: #dedede;
-`
-
-const StyleSoundIcon = styled(Icon)`
-  height: 30px;
-  width: 30px;
 `
 
 const BackForthIcon = styled(Icon)<{ $flip: boolean }>`
@@ -88,7 +84,6 @@ const StyledPlayerHeaderText = styled.span`
 
 const CloseButton = styled(Button)`
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
   border-radius: 7px;
@@ -97,6 +92,14 @@ const CloseButton = styled(Button)`
   gap: 5px;
   width: 176px;
   box-shadow: 1px 5px 5px 1px grey;
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.1s ease;
+
+  &:active {
+    box-shadow: none;
+    transform: translateY(2px);
+  }
 `
 
 const CloseView = styled.div`
@@ -106,213 +109,43 @@ const CloseView = styled.div`
   justify-content: center;
 `
 
-const Slider = styled.input`
-  width: 100%;
-  border-radius: 25px;
-  appearance: none;
-  background: #b9b9b9;
-
-  &::-ms-track {
-    border-radius: 25px;
-  }
-
-  &::-webkit-slider-thumb {
-    appearance: none;
-    height: 16px;
-    width: 16px;
-    border-radius: 50%;
-    background: #333;
-    cursor: pointer;
-  }
-
-  &::-moz-range-thumb {
-    height: 16px;
-    width: 16px;
-    border-radius: 50%;
-    background: #333;
-    cursor: pointer;
-  }
-`
-
 type TtsPlayerProps = {
-  languageCode: string
+  showHelpModal: boolean
+  setShowHelpModal: React.Dispatch<React.SetStateAction<boolean>>
+  isVisible: boolean
+  isExpanded: boolean
+  isPlaying: boolean
+  handleBackward: () => void
+  handleForward: () => void
+  handleClose: () => void
+  longTitle: string
+  togglePlayPause: () => void
 }
 
-const TtsPlayer = ({ languageCode }: TtsPlayerProps): ReactElement | null => {
+const TtsPlayer = ({
+  showHelpModal,
+  setShowHelpModal,
+  isVisible,
+  isExpanded,
+  isPlaying,
+  handleBackward,
+  handleForward,
+  handleClose,
+  longTitle,
+  togglePlayPause,
+}: TtsPlayerProps): ReactElement | null => {
   const { t } = useTranslation('layout')
   const theme = useTheme()
-  const [isPlaying, setIsPlaying] = useState<boolean>(false)
-  const [expandPlayer, setExpandPlayer] = useState(false)
-  const { content, volume, setVolume, title, visible, setVisible } = useTtsPlayer()
-  const [currentSentencesIndex, setCurrentSentenceIndex] = useState<number>(0)
-  const [sentences, setSentences] = useState<string[]>([])
-  const [showHelpModal, setShowHelpModal] = useState(false)
-  const numOfSentencesToSkip = 1
-  const EasySpeechSpeechSynthesis = EasySpeech.detect().speechSynthesis
-  const allowIncrement = useRef(true)
-  const maxTitle = 20
-  const isTitleLong = title.length > maxTitle ? title.substring(0, maxTitle).concat('...') : title || t('readAloud')
-  const userAgent = navigator.userAgent
-  const isAndroid = Boolean(/android/i.test(userAgent))
-  const isFirefox = userAgent.toLowerCase().includes('firefox')
-  const volumeRef = useRef(volume)
 
-  const handleBoundary = (event: SpeechSynthesisEvent) => {
-    if (event.name === 'sentence' && allowIncrement.current) {
-      setCurrentSentenceIndex((prevIndex: number) => prevIndex + 1)
-    }
-    allowIncrement.current = true
-  }
-
-  const resetOnEnd = () => {
-    setCurrentSentenceIndex(0)
-    setIsPlaying(false)
-    setExpandPlayer(false)
-  }
-
-  useEffect(() => {
-    EasySpeech.init({ maxTimeout: 5000, interval: 250 }).catch(e => reportError(e))
-  }, [])
-
-  useEffect(() => {
-    const tempDiv = document.createElement('div')
-    tempDiv.innerHTML = content
-
-    const appendPeriod = (elements: NodeListOf<HTMLElement>) => {
-      elements.forEach((element: HTMLElement) => {
-        const trimmedText = element.textContent?.trim()
-        if (trimmedText && !trimmedText.endsWith('.')) {
-          // eslint-disable-next-line no-param-reassign
-          element.textContent = trimmedText.concat('.')
-        }
-      })
-    }
-
-    const listItems = tempDiv.querySelectorAll('li')
-    appendPeriod(listItems)
-
-    const paragraphs = tempDiv.querySelectorAll('p')
-    appendPeriod(paragraphs)
-
-    const textContent = tempDiv.textContent || tempDiv.innerText
-    const sentencesFromSegment = segment(languageCode, textContent) ?? []
-
-    setSentences([title.concat('.'), ...sentencesFromSegment])
-    setCurrentSentenceIndex(0)
-
-    return () => {
-      if (EasySpeechSpeechSynthesis) {
-        EasySpeech.cancel()
-      }
-      setCurrentSentenceIndex(0)
-      setIsPlaying(false)
-      setExpandPlayer(false)
-    }
-  }, [EasySpeechSpeechSynthesis, content, languageCode, title])
-
-  useEffect(() => {
-    if (currentSentencesIndex + 1 >= sentences.length - 1) {
-      resetOnEnd()
-    }
-  }, [currentSentencesIndex, sentences])
-
-  const startReading = async (index = currentSentencesIndex) => {
-    EasySpeech.cancel()
-    const voices = EasySpeech.voices()
-    const selectedVoice = voices.find((voice: SpeechSynthesisVoice) => voice.lang.startsWith(languageCode))
-    const currentVolume = volumeRef.current
-    if (selectedVoice == null) {
-      setSentences([])
-      setShowHelpModal(true)
-      return
-    }
-
-    await EasySpeech.speak({
-      text: sentences.slice(index).join(' '),
-      voice: selectedVoice,
-      pitch: 1,
-      rate: 1,
-      volume: currentVolume,
-      boundary: e => handleBoundary(e),
-      end: () => {
-        if (!isFirefox) {
-          resetOnEnd()
-        }
-      },
-    }).catch(() => null)
-  }
-
-  const pauseReading = () => {
-    EasySpeech.pause()
-    setIsPlaying(false)
-  }
-
-  const boundaryGuard = async (action: () => Promise<void>) => {
-    allowIncrement.current = true
-    try {
-      await action()
-    } finally {
-      allowIncrement.current = false
-    }
-  }
-
-  const togglePlayPause = () => {
-    if (isPlaying) {
-      pauseReading()
-    } else if (currentSentencesIndex !== 0 && !isAndroid) {
-      setIsPlaying(true)
-      EasySpeech.resume()
-    } else {
-      setIsPlaying(true)
-      boundaryGuard(() => startReading())
-    }
-    setExpandPlayer(!isPlaying)
-  }
-
-  const handleForward = () => {
-    if (isPlaying) {
-      EasySpeech.cancel()
-    }
-    setCurrentSentenceIndex(prevIndex => {
-      const newIndex = Math.min(prevIndex + numOfSentencesToSkip, sentences.length - 1)
-      boundaryGuard(() => startReading(newIndex))
-      return newIndex
-    })
-  }
-
-  const handleBackward = () => {
-    if (isPlaying) {
-      EasySpeech.cancel()
-    }
-    setCurrentSentenceIndex(prevIndex => {
-      const newIndex = Math.max(0, prevIndex - numOfSentencesToSkip)
-      boundaryGuard(() => startReading(newIndex))
-      return newIndex
-    })
-  }
-
-  const handleVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newVolume = parseFloat(event.target.value)
-    setVolume(newVolume)
-    volumeRef.current = newVolume
-    boundaryGuard(() => startReading(currentSentencesIndex))
-  }
-
-  const handleClose = () => {
-    setVisible(false)
-    setExpandPlayer(false)
-    EasySpeech.cancel()
-    setCurrentSentenceIndex(0)
-    setIsPlaying(false)
-  }
-
-  if (visible) {
+  if (isVisible) {
     return (
       <>
         {showHelpModal && <TtsHelpModal closeModal={() => setShowHelpModal(false)} />}
-        <StyledTtsPlayer $isPlaying={expandPlayer}>
-          <StyledPanel style={{ flexDirection: theme.contentDirection === 'rtl' ? 'row-reverse' : 'row' }}>
-            {expandPlayer && (
+        <StyledTtsPlayer $isExpanded={isExpanded}>
+          <StyledPanel
+            $isExpanded={isExpanded}
+            style={{ flexDirection: theme.contentDirection === 'rtl' ? 'row-reverse' : 'row' }}>
+            {isExpanded && (
               <StyledBackForthButton label='backward-button' onClick={handleBackward}>
                 <StyledText>{t('prev')}</StyledText>
                 <BackForthIcon $flip src={PlaybackIcon} />
@@ -321,30 +154,15 @@ const TtsPlayer = ({ languageCode }: TtsPlayerProps): ReactElement | null => {
             <StyledPlayIcon label='play-button' onClick={togglePlayPause}>
               <PlayButtonIcon src={isPlaying ? PauseIcon : PlayIcon} />
             </StyledPlayIcon>
-            {expandPlayer && (
+            {isExpanded && (
               <StyledBackForthButton label='forward-button' onClick={handleForward}>
                 <BackForthIcon $flip={false} src={PlaybackIcon} />
                 <StyledText>{t('next')}</StyledText>
               </StyledBackForthButton>
             )}
           </StyledPanel>
-          {expandPlayer && (
-            <StyledSliderPanel>
-              <Icon src={NoSoundIcon} />
-              <Slider
-                aria-label='slider-component'
-                type='range'
-                min='0'
-                max='1'
-                step='0.1'
-                value={volume}
-                onChange={handleVolumeChange}
-              />
-              <StyleSoundIcon src={SoundIcon} />
-            </StyledSliderPanel>
-          )}
           <CloseView>
-            {!expandPlayer && <StyledPlayerHeaderText>{isTitleLong}</StyledPlayerHeaderText>}
+            {!isExpanded && <StyledPlayerHeaderText>{longTitle}</StyledPlayerHeaderText>}
             <CloseButton label='close-player' onClick={handleClose}>
               <Icon src={CloseIcon} />
               <StyledText>{t('common:close')}</StyledText>

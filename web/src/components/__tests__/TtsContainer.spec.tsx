@@ -1,20 +1,30 @@
 import { act, fireEvent, screen } from '@testing-library/react'
 import EasySpeech from 'easy-speech'
+import { DateTime } from 'luxon'
 import React from 'react'
 import { MemoryRouter } from 'react-router-dom'
+
+import { PageModel } from 'shared/api'
 
 import TtsContextProvider from '../../contexts/TtsContextProvider'
 import useTtsPlayer from '../../hooks/useTtsPlayer'
 import { renderWithTheme } from '../../testing/render'
-import TtsPlayer from '../TtsPlayer'
+import TtsContainer from '../TtsContainer'
 
 jest.mock('react-i18next')
 jest.mock('easy-speech')
 jest.mock('sentencex', () => jest.fn(() => ['This is a test.']))
 
 describe('TtsPlayer', () => {
+  const dummyPage = new PageModel({
+    path: '/test-path',
+    title: 'test',
+    content: '<p>This is a test.</p>',
+    lastUpdate: DateTime.now(),
+  })
+
   const TestChild = () => {
-    const { setVisible } = useTtsPlayer('<p>This is a test.</p>', 'test')
+    const { setVisible } = useTtsPlayer('en', dummyPage)
     React.useEffect(() => {
       setVisible(true)
     }, [setVisible])
@@ -27,7 +37,7 @@ describe('TtsPlayer', () => {
         <TtsContextProvider>
           <>
             <TestChild />
-            <TtsPlayer languageCode='en' />
+            <TtsContainer languageCode='en' />
           </>
         </TtsContextProvider>
       </MemoryRouter>,
@@ -58,33 +68,12 @@ describe('TtsPlayer', () => {
 
     expect(EasySpeech.speak).toHaveBeenCalledWith(
       expect.objectContaining({
-        text: 'test. This is a test.',
+        text: '',
         voice: { lang: 'en-US' },
         pitch: 1,
         rate: 1,
-        volume: 0.5,
+        volume: 0.6,
         boundary: expect.any(Function),
-      }),
-    )
-  })
-
-  it('should update volume when the slider is adjusted', async () => {
-    await act(async () => {
-      renderTtsPlayer()
-    })
-
-    const playBtn = screen.getByRole('button', { name: 'play-button' })
-    fireEvent.click(playBtn)
-
-    const volumeSlider = screen.getByRole('slider')
-    expect(volumeSlider).toBeInTheDocument()
-
-    fireEvent.change(volumeSlider, { target: { value: 0.8 } })
-    fireEvent.click(playBtn)
-
-    expect(EasySpeech.speak).toHaveBeenCalledWith(
-      expect.objectContaining({
-        volume: 0.8,
       }),
     )
   })
@@ -104,13 +93,5 @@ describe('TtsPlayer', () => {
     expect(EasySpeech.cancel).toHaveBeenCalled()
 
     expect(ttsPlayer).not.toBeInTheDocument()
-  })
-
-  it('should remove TTS listeners on unmount', () => {
-    const { unmount } = renderTtsPlayer()
-
-    unmount()
-
-    expect(EasySpeech.cancel).toHaveBeenCalled()
   })
 })

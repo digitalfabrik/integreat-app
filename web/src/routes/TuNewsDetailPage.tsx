@@ -66,7 +66,7 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
     error: newsError,
   } = useLoadFromEndpoint(createTunewsElementEndpoint, tunewsApiBaseUrl, { id: parseInt(newsId, 10) })
 
-  useTtsPlayer(newsModel?.content ?? '', newsModel?.title ?? 'News')
+  useTtsPlayer(languageCode, newsModel)
 
   if (!city) {
     return null

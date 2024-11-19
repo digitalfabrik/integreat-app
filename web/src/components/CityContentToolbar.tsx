@@ -4,7 +4,6 @@ import { PlacesType } from 'react-tooltip'
 import { useTheme } from 'styled-components'
 
 import { CopyIcon, DoneIcon, ReadAloud } from '../assets'
-import buildConfig from '../constants/buildConfig'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { RouteType } from '../routes'
@@ -12,6 +11,7 @@ import FeedbackToolbarItem from './FeedbackToolbarItem'
 import SharingPopup from './SharingPopup'
 import Toolbar from './Toolbar'
 import ToolbarItem from './ToolbarItem'
+import { isTtsEnabled } from './TtsContainer'
 import Tooltip from './base/Tooltip'
 
 type CityContentToolbarProps = {
@@ -52,10 +52,9 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
   const theme = useTheme()
   const tooltipDirectionForDesktop: PlacesType = theme.contentDirection === 'ltr' ? 'right' : 'left'
   const tooltipDirection: PlacesType = viewportSmall ? 'top' : tooltipDirectionForDesktop
-  const { setVisible, content } = useTtsPlayer()
-  const ttsEnabled = !!(content && buildConfig().featureFlags.tts)
-  const readAloudItem = ttsEnabled ? (
-    <ToolbarItem icon={ReadAloud} text={t('readAloud')} onClick={() => setVisible(true)} id='readAloud-icon' />
+  const { setVisible: setTtsPlayerVisible, sentences } = useTtsPlayer()
+  const readAloudItem = isTtsEnabled(sentences) ? (
+    <ToolbarItem icon={ReadAloud} text={t('readAloud')} onClick={() => setTtsPlayerVisible(true)} id='readAloud-icon' />
   ) : null
 
   return (

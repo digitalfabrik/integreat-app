@@ -1,3 +1,10 @@
+Object.defineProperty(window, 'speechSynthesis', {
+  value: {
+    cancel: jest.fn(),
+  },
+  writable: true,
+})
+
 const MockTts = {
   init: jest.fn().mockResolvedValue(true),
   speak: jest.fn().mockResolvedValue(true),
