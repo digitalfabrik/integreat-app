@@ -6,8 +6,10 @@
 - [Testing](#testing)
 - [Code Quality](#code-quality)
 - [Commit Messages and Pull Requests](#commit-messages-and-pull-request)
+- [Reviews](#reviews)
 - [Versioning](#versioning)
 - [Folder Structure](#folder-structure)
+- [Assets and Icons](#assets-and-icons)
 
 ## Naming
 
@@ -89,6 +91,10 @@ write good commit messages. Commit messages should have the following schema:
 
 The same applies for PR names.
 
+## Reviews
+
+We use an [emoji code](contributing.md#reviews) for reviewing.
+
 ## Versioning
 
 Versions consist of a version name and a version code.
@@ -135,3 +141,8 @@ src
     │   LanguageDetector.ts
     |   indext.ts
 ```
+
+## Assets and Icons
+
+We place our build-config and platform independent assets and icons in the [assets](../assets) in the root directory.
+See more information in the corresponding [README](../assets/README.md).

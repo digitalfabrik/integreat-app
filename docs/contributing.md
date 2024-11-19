@@ -5,7 +5,17 @@ by [reporting a bug](#reporting-issues-and-bugs), [opening a pull request](#pull
 or [contacting us](#contact-us) if you don't know where to start. Please make sure to have a look at
 our [conventions](conventions.md).
 
-## Contact us
+Before contributing, please make sure to have a look at our [conventions](conventions.md).
+
+## Contents
+
+- [Contact](#contact-us)
+- [Reporting Issues and Bugs](#reporting-issues-and-bugs)
+- [Pull Requests](#pull-requests)
+- [Release Notes](#release-notes)
+- [Reviews](#reviews)
+
+## Contact Us
 
 If you don't know where to start or if you want to know more about Integreat,
 contact [Leandra](mailto:leandra.hahn@tuerantuer.org),
@@ -23,7 +33,7 @@ our [project views](https://github.com/orgs/digitalfabrik/projects/2/views/1).
 
 If you open a new issue, please make sure to follow the templates and create meaningful issues and bugs.
 
-## Pull requests
+## Pull Requests
 
 Before starting to write code and opening a pull request, please take a look [at our conventions](conventions.md).
 
@@ -58,3 +68,15 @@ The release notes can be found [here](../release-notes) and are automatically mo
 release.
 They are also shown in the stores and
 the [release section of github](https://github.com/digitalfabrik/integreat-app/releases).
+
+### Reviews
+
+We use the following emoji code for reviewing:
+
+- :+1: or `:+1:` This is great! It always feels good when somebody likes your work. Show them!
+- :question: or `:question:` I have a question / can you clarify?
+- :x: or `:x:` This has to change. It’s possibly an error or strongly violates existing conventions.
+- :wrench: or `:wrench:` This is a well-meant suggestion. Take it or leave it.
+- :upside_down_face: or `:upside_down_face:` This is a nitpick. Normally related to a small formatting or stylizing detail that shouldn’t block moving forward.
+- :thought_balloon: or `:thought_balloon:` I’m just thinking out loud here. Something doesn’t necessarily have to change, but I want to make sure to share my thoughts.
+- :clown_face: or `:clown_face:` This is a complaint about something with no obvious answer, not necessarily a problem originating from changes.
