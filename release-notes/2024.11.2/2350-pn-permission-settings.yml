@@ -1,0 +1,7 @@
+issue_key: 2350
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Add explanation if push notification permissions are missing.
+de: Es wird nun eine Erklärung angezeigt, wenn die Berechtigungen für Push-Benachrichtigungen fehlen.

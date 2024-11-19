@@ -25,6 +25,11 @@ const List = styled.ul`
   }
 `
 
+const SearchCounter = styled.p`
+  padding: 0 5px;
+  color: ${props => props.theme.colors.textSecondaryColor};
+`
+
 const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps): ReactElement | null => {
   const query = new URLSearchParams(useLocation().search).get('query') ?? ''
   const [filterText, setFilterText] = useState<string>(query)
@@ -102,6 +107,7 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
       {query.length > 0 && (
         <>
           <List>
+            <SearchCounter>{t('searchResultsCount', { count: results.length })}</SearchCounter>
             {results.map(({ title, content, path, thumbnail }) => (
               <SearchListItem
                 title={title}

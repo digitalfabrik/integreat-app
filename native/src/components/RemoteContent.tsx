@@ -1,7 +1,7 @@
+import WebView, { WebViewMessageEvent, WebViewNavigation } from '@dr.pogodin/react-native-webview'
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text, Platform, useWindowDimensions } from 'react-native'
-import WebView, { WebViewMessageEvent, WebViewNavigation } from 'react-native-webview'
 import { useTheme } from 'styled-components/native'
 
 import { CONSENT_ROUTE } from 'shared'
@@ -23,6 +23,13 @@ import { log, reportError } from '../utils/sentry'
 import Failure from './Failure'
 import { ParsedCacheDictionaryType } from './Page'
 
+// Fixes crashing in Android
+// https://github.com/react-native-webview/react-native-webview/issues/811
+const DEFAULT_OPACITY = 0.99
+
+// Fix title being displayed only after content is visible
+const LOADING_OPACITY = 0
+
 export const renderWebviewError = (
   errorDomain: string | null | undefined,
   errorCode: number,
@@ -40,11 +47,19 @@ type RemoteContentProps = {
   resourceCacheUrl: string
   onLinkPress: (url: string) => void
   onLoad: () => void
+  loading: boolean
 }
 
 // If the app crashes without an error message while using RemoteContent, consider wrapping it in a ScrollView or setting a manual height
-const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
-  const { onLoad, content, cacheDictionary, resourceCacheUrl, language, onLinkPress } = props
+const RemoteContent = ({
+  onLoad,
+  content,
+  cacheDictionary,
+  resourceCacheUrl,
+  language,
+  onLinkPress,
+  loading,
+}: RemoteContentProps): ReactElement | null => {
   const [error, setError] = useState<string | null>(null)
   const [pressedUrl, setPressedUrl] = useState<string | null>(null)
   const { settings, updateSettings } = useAppContext()
@@ -167,7 +182,7 @@ const RemoteContent = (props: RemoteContentProps): ReactElement | null => {
       setSupportMultipleWindows={false}
       style={{
         height: webViewHeight,
-        opacity: 0.99, // fixes crashing in Android https://github.com/react-native-webview/react-native-webview/issues/811
+        opacity: loading ? LOADING_OPACITY : DEFAULT_OPACITY,
       }}
     />
   )

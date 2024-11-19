@@ -35,6 +35,11 @@ const FlexEndContainer = styled.View`
   padding: 0 5px;
 `
 
+const BadgeContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+`
+
 const Badge = styled.View<{ enabled: boolean }>`
   width: 8px;
   height: 8px;
@@ -42,50 +47,61 @@ const Badge = styled.View<{ enabled: boolean }>`
   background-color: ${props => (props.enabled ? 'limegreen' : 'red')};
 `
 
-type SettingItemProps = {
-  title: string
-  description?: string
+type SettingItemValueProps = {
   onPress: () => void
-  bigTitle?: boolean
-  role?: Role
-  hasSwitch?: boolean
-  hasBadge?: boolean
+  hasBadge: boolean
   value: boolean
 }
 
-const SettingItem = (props: SettingItemProps): ReactElement => {
-  const { title, description, onPress, value, hasBadge, hasSwitch, bigTitle, role } = props
+const SettingsItemValue = ({ value, hasBadge, onPress }: SettingItemValueProps): ReactElement => {
   const { t } = useTranslation('settings')
-
-  return (
-    <Pressable onPress={onPress} role={role ?? 'none'} accessible={false}>
-      <PadView>
-        <ContentContainer>
-          <View>
-            <Title bigTitle={bigTitle || false}>{title}</Title>
-          </View>
-          {!!description && (
-            <View>
-              <Description>{description}</Description>
-            </View>
-          )}
-        </ContentContainer>
-        <FlexEndContainer>
-          {hasSwitch && <SettingsSwitch value={value} onPress={onPress} />}
-          {hasBadge && (
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-              <Badge enabled={value} />
-              <Text> {value ? t('enabled') : t('disabled')}</Text>
-            </View>
-          )}
-        </FlexEndContainer>
-      </PadView>
-    </Pressable>
-  )
+  if (hasBadge) {
+    return (
+      <BadgeContainer>
+        <Badge enabled={value} />
+        <Text> {value ? t('enabled') : t('disabled')}</Text>
+      </BadgeContainer>
+    )
+  }
+  return <SettingsSwitch value={value} onPress={onPress} />
 }
+
+type SettingItemProps = {
+  title: string
+  description?: string
+  onPress: () => Promise<void>
+  bigTitle?: boolean
+  role?: Role
+  hasBadge?: boolean
+  value: boolean | null
+}
+
+const SettingItem = ({
+  title,
+  description,
+  onPress,
+  value,
+  bigTitle,
+  role,
+  hasBadge = false,
+}: SettingItemProps): ReactElement => (
+  <Pressable onPress={onPress} role={role ?? 'none'} accessible={false}>
+    <PadView>
+      <ContentContainer>
+        <View>
+          <Title bigTitle={bigTitle || false}>{title}</Title>
+        </View>
+        {!!description && (
+          <View>
+            <Description>{description}</Description>
+          </View>
+        )}
+      </ContentContainer>
+      <FlexEndContainer>
+        {value !== null && <SettingsItemValue onPress={onPress} hasBadge={hasBadge} value={value} />}
+      </FlexEndContainer>
+    </PadView>
+  </Pressable>
+)
 
 export default SettingItem

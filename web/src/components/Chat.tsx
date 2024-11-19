@@ -64,16 +64,16 @@ const Chat = ({ messages, submitMessage, hasError, isLoading }: ChatProps): Reac
   const { t } = useTranslation('chat')
   const [textInput, setTextInput] = useState<string>('')
   const { height: deviceHeight } = useWindowDimensions()
-  const hasConversationStarted = messages.length > 0
+  const chatInputContainerHeight = dimensions.getChatInputContainerHeight(messages)
 
   const onSubmit = () => {
     submitMessage(textInput)
     setTextInput('')
   }
 
-  const submitOnEnter = (e: KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault()
+  const submitOnEnter = (event: KeyboardEvent) => {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault()
       onSubmit()
     }
   }
@@ -90,12 +90,11 @@ const Chat = ({ messages, submitMessage, hasError, isLoading }: ChatProps): Reac
   return (
     <Container>
       <StyledChatConversation
-        $height={deviceHeight - dimensions.getChatInputContainerHeight(hasConversationStarted)}
-        hasConversationStarted={hasConversationStarted}
+        $height={deviceHeight - chatInputContainerHeight}
         messages={messages}
         hasError={hasError}
       />
-      <InputWrapper $height={dimensions.getChatInputContainerHeight(hasConversationStarted)}>
+      <InputWrapper $height={chatInputContainerHeight}>
         <InputSection id='chat' title={messages.length > 0 ? '' : t('inputLabel')}>
           <Input
             id='chat'

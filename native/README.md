@@ -29,9 +29,8 @@ Depending on whether you want to develop for Android, iOS or both the following 
 
 - Install Java JDK, SDK and Runtime (v8 or v11).
 - Install the Android SDK by using
-  the [Android Support plugin](https://plugins.jetbrains.com/plugin/1792-android-support) in IntelliJ.
-- Install the latest stable SDK Platform and Android SDK Tools in the SDK Manager (Settings > Appearance & Behaviour >
-  System Settings > Android SDK).
+  the [Android plugin](https://plugins.jetbrains.com/plugin/22989-android) in IntelliJ.
+- Install the latest stable SDK Platform and Android SDK Tools in the SDK Manager (Settings > Languages & Frameworks > Android SDK Updater).
 - Install and accept the SDK license in the SDK Manager.
 - [optional] If you want to develop using an emulator, also install the Android Emulator in the Android SDK settings.
 
