@@ -3,52 +3,57 @@ import { useTranslation } from 'react-i18next'
 import { AppState } from 'react-native'
 import Tts from 'react-native-tts'
 
+import buildConfig from '../constants/buildConfig'
 import { AppContext } from '../contexts/AppContextProvider'
 import { reportError } from '../utils/sentry'
 import TtsPlayer from './TtsPlayer'
 
+const unsupportedLanguagesForTts = ['fa']
+
+export const isTtsActive = (content: string[] | null, languageCode: string): boolean =>
+  Array.isArray(content) &&
+  content.length > 0 &&
+  buildConfig().featureFlags.tts &&
+  !unsupportedLanguagesForTts.includes(languageCode)
+
 export type TtsContextType = {
-  sentenceIndex: number
-  setSentenceIndex: React.Dispatch<React.SetStateAction<number>>
   visible: boolean
-  setVisible: React.Dispatch<React.SetStateAction<boolean>>
-  title: string
-  setTitle: React.Dispatch<React.SetStateAction<string>>
+  setVisible: (visible: boolean) => void
   sentences: string[] | null
-  setSentences: React.Dispatch<React.SetStateAction<string[]>>
-  languageCode: string
+  setSentences: (sentences: string[]) => void
 }
 
 export const ttsContext = createContext<TtsContextType>({
-  sentenceIndex: 0,
-  setSentenceIndex: () => undefined,
   visible: false,
   setVisible: () => undefined,
-  title: '',
-  setTitle: () => undefined,
   sentences: [],
   setSentences: () => undefined,
-  languageCode: '',
 })
 
 type TtsContainerProps = {
   children: ReactElement
-  initialVisibility?: boolean
 }
 
-const TtsContainer = ({ initialVisibility = false, children }: TtsContainerProps): ReactElement => {
+const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
   const { languageCode } = React.useContext(AppContext)
   const { t } = useTranslation('layout')
   const [isPlaying, setIsPlaying] = useState(false)
   const [isExpanded, setIsExpanded] = useState(false)
   const [sentenceIndex, setSentenceIndex] = useState(0)
-  const [visible, setVisible] = useState(initialVisibility)
-  const [title, setTitle] = useState('')
+  const [visible, setVisible] = useState(false)
   const [sentences, setSentences] = useState<string[]>([])
 
-  const isPersian = languageCode === 'fa'
+  const unsupportedLanguage = unsupportedLanguagesForTts.includes(languageCode)
   const maxTitle = 20
-  const isTitleLong = title.length > maxTitle ? title.substring(0, maxTitle).concat('...') : title || t('readAloud')
+  const title = sentences[0] || t('readAloud')
+  const longTitle = title.length > maxTitle ? title.substring(0, maxTitle).concat('...') : title
+
+  const callOnEnd = () => {
+    Tts.stop()
+    setIsPlaying(false)
+    setIsExpanded(false)
+    setSentenceIndex(0)
+  }
 
   const initializeTts = useCallback((): void => {
     Tts.getInitStatus().catch(async error => {
@@ -59,32 +64,11 @@ const TtsContainer = ({ initialVisibility = false, children }: TtsContainerProps
     })
   }, [])
 
-  useEffect(() => {
-    initializeTts()
-
-    Tts.addEventListener('tts-progress', () => setIsPlaying(true))
-    Tts.addEventListener('tts-cancel', () => setIsPlaying(false))
-    Tts.addEventListener('tts-finish', () => {
-      if (sentenceIndex < sentences.length - 1) {
-        setSentenceIndex(index => index + 1)
-      } else {
-        setIsPlaying(false)
-        setIsExpanded(false)
-        setSentenceIndex(0)
-      }
-    })
-
-    return () => {
-      Tts.removeAllListeners('tts-finish')
-      Tts.removeAllListeners('tts-progress')
-      Tts.removeAllListeners('tts-cancel')
-    }
-  }, [initializeTts, sentenceIndex, sentences.length])
-
-  useEffect(() => {
-    if (isPlaying && sentences.length > 0) {
+  const startReading = (index = sentenceIndex) => {
+    if (!unsupportedLanguage && sentences.length > 0) {
+      // Persian not supported
       Tts.setDefaultLanguage(languageCode)
-      Tts.speak(String(sentences[sentenceIndex]), {
+      Tts.speak(String(sentences[index]), {
         androidParams: {
           KEY_PARAM_PAN: 0,
           KEY_PARAM_VOLUME: 0.6,
@@ -93,41 +77,60 @@ const TtsContainer = ({ initialVisibility = false, children }: TtsContainerProps
         iosVoiceId: '',
         rate: 1,
       })
+      if (sentences.length === 0) {
+        setSentenceIndex(0)
+        setIsExpanded(false)
+      }
+    } else {
+      setIsPlaying(false)
     }
-    if (sentences.length === 0) {
-      setSentenceIndex(0)
-      setIsExpanded(false)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isPlaying, languageCode, sentenceIndex, sentences])
+  }
 
   useEffect(() => {
-    const subscription = AppState.addEventListener('change', nextAppState => {
-      if (nextAppState === 'inactive' || nextAppState === 'background') {
-        Tts.stop()
+    initializeTts()
+
+    Tts.addEventListener('tts-progress', () => setIsPlaying(true))
+    Tts.addEventListener('tts-cancel', () => setIsPlaying(false))
+    Tts.addEventListener('tts-finish', () => {
+      if (sentenceIndex < sentences.length - 1) {
+        const nextIndex = sentenceIndex + 1
+        setSentenceIndex(nextIndex)
+        startReading(nextIndex)
+      } else {
+        callOnEnd()
       }
     })
 
     return () => {
-      subscription.remove()
+      Tts.removeAllListeners('tts-finish')
+      Tts.removeAllListeners('tts-progress')
+      Tts.removeAllListeners('tts-cancel')
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initializeTts, sentenceIndex, sentences.length])
+
+  useEffect(() => {
+    if (sentences.length <= 1) {
+      callOnEnd()
+    }
+  }, [sentences])
+
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', nextAppState => {
+      if (nextAppState === 'inactive' || nextAppState === 'background') {
+        callOnEnd()
+      }
+    })
+
+    return subscription.remove
   }, [])
 
   const stopTts = async () => {
     await Tts.stop()
-    const TTS_STOP_DELAY = 100 // delay to make sure tts is stopped
+    const TTS_STOP_DELAY = 100
     await new Promise(resolve => {
       setTimeout(resolve, TTS_STOP_DELAY)
     })
-  }
-
-  const startReading = () => {
-    if (!isPersian && sentences.length > 0) {
-      // Persian not supported
-      setIsPlaying(true)
-    } else {
-      setIsPlaying(false)
-    }
   }
 
   const pauseReading = () => {
@@ -137,14 +140,16 @@ const TtsContainer = ({ initialVisibility = false, children }: TtsContainerProps
 
   const handleBackward = async () => {
     await stopTts()
-    setSentenceIndex(index => Math.max(0, index - 1))
-    startReading()
+    const prevIndex = Math.max(0, sentenceIndex - 1)
+    setSentenceIndex(prevIndex)
+    startReading(prevIndex)
   }
 
   const handleForward = async () => {
     await stopTts()
-    setSentenceIndex(index => Math.min(sentences.length - 1, index + 1))
-    startReading()
+    const nextIndex = Math.min(sentences.length - 1, sentenceIndex + 1)
+    setSentenceIndex(nextIndex)
+    startReading(nextIndex)
   }
 
   const handleClose = async () => {
@@ -159,13 +164,11 @@ const TtsContainer = ({ initialVisibility = false, children }: TtsContainerProps
       setSentenceIndex,
       visible,
       setVisible,
-      title,
-      setTitle,
       sentences,
       setSentences,
       languageCode,
     }),
-    [sentenceIndex, visible, title, sentences, languageCode],
+    [sentenceIndex, visible, sentences, languageCode],
   )
 
   return (
@@ -181,7 +184,7 @@ const TtsContainer = ({ initialVisibility = false, children }: TtsContainerProps
           handleClose={handleClose}
           pauseReading={pauseReading}
           startReading={startReading}
-          isTitleLong={isTitleLong}
+          title={longTitle}
         />
       )}
     </ttsContext.Provider>

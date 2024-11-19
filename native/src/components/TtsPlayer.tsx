@@ -50,10 +50,6 @@ const PlayButtonIcon = styled(Icon)`
   color: ${props => props.theme.colors.grayBackgroundColor};
 `
 
-const FlipView = styled.View`
-  transform: scaleX(-1);
-`
-
 const StyledText = styled(Text)`
   font-weight: bold;
 `
@@ -93,13 +89,13 @@ const elevatedButton = {
 type TtsPlayerProps = {
   isExpanded: boolean
   isPlaying: boolean
-  setIsExpanded: React.Dispatch<React.SetStateAction<boolean>>
+  setIsExpanded: (expanded: boolean) => void
   handleBackward: () => Promise<void>
   handleForward: () => Promise<void>
   handleClose: () => Promise<void>
   pauseReading: () => void
   startReading: () => void
-  isTitleLong: string
+  title: string
 }
 
 const TtsPlayer = ({
@@ -111,7 +107,7 @@ const TtsPlayer = ({
   handleClose,
   pauseReading,
   startReading,
-  isTitleLong,
+  title,
 }: TtsPlayerProps): ReactElement => {
   const { t } = useTranslation('layout')
 
@@ -119,16 +115,14 @@ const TtsPlayer = ({
     <StyledTtsPlayer $isExpanded={isExpanded} style={elevatedButton}>
       <StyledPanel $isExpanded={isExpanded}>
         {isExpanded && (
-          <StyledBackForthButton accessibilityLabel='backward Button' onPress={handleBackward}>
-            <StyledText>{t('prev')}</StyledText>
-            <FlipView>
-              <Icon Icon={PlaybackIcon} />
-            </FlipView>
+          <StyledBackForthButton accessibilityLabel={t('previous')} onPress={handleBackward}>
+            <StyledText>{t('previous')}</StyledText>
+            <Icon Icon={PlaybackIcon} reverse />
           </StyledBackForthButton>
         )}
         <StyledPlayIcon
           style={elevatedButton}
-          accessibilityLabel='Play Button'
+          accessibilityLabel={t(isPlaying ? 'pause' : 'play')}
           onPress={() => {
             if (isPlaying) {
               pauseReading()
@@ -140,14 +134,14 @@ const TtsPlayer = ({
           icon={<PlayButtonIcon Icon={isPlaying ? PauseIcon : PlayIcon} />}
         />
         {isExpanded && (
-          <StyledBackForthButton accessibilityLabel='Forward Button' onPress={handleForward}>
+          <StyledBackForthButton accessibilityLabel={t('next')} onPress={handleForward}>
             <Icon Icon={PlaybackIcon} />
             <StyledText>{t('next')}</StyledText>
           </StyledBackForthButton>
         )}
       </StyledPanel>
       <CloseView $isExpanded={isExpanded}>
-        {!isExpanded && <StyledPlayerHeaderText>{isTitleLong}</StyledPlayerHeaderText>}
+        {!isExpanded && <StyledPlayerHeaderText>{title}</StyledPlayerHeaderText>}
         <CloseButton accessibilityLabel='Close player' onPress={handleClose} style={elevatedButton}>
           <Icon Icon={CloseIcon} />
           <StyledText>{t('common:close')}</StyledText>

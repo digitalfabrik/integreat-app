@@ -6605,7 +6605,9 @@
       "accessibility": "Barrierefreiheit",
       "readAloud": "Vorlesefunktion",
       "previous": "Zurück",
-      "next": "Weiter"
+      "next": "Weiter",
+      "play": "Abspielen",
+      "pause": "Pause"
     },
     "am": {
       "imprintAndContact": "ዕትም እና የግንኙነት መረጃ",
@@ -6819,7 +6821,9 @@
       "accessibility": "Accessibility",
       "readAloud": "Read aloud",
       "previous": "Prev",
-      "next": "Next"
+      "next": "Next",
+      "play": "Play",
+      "pause": "Pause"
     },
     "es": {
       "imprintAndContact": "Aviso legal y contacto",

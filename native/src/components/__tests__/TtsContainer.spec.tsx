@@ -1,6 +1,6 @@
 import { act, fireEvent, RenderAPI } from '@testing-library/react-native'
 import { DateTime } from 'luxon'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Tts from 'react-native-tts'
 
 import { PageModel } from 'shared/api'
@@ -25,13 +25,16 @@ const dummyPage = new PageModel({
 })
 describe('TtsContainer', () => {
   const TestChild = () => {
-    useTtsPlayer(dummyPage)
+    const { setVisible } = useTtsPlayer('en', dummyPage)
+    useEffect(() => {
+      setVisible(true)
+    }, [setVisible])
     return null
   }
 
   const renderTtsPlayer = (): RenderAPI =>
     renderWithTheme(
-      <TtsContainer initialVisibility>
+      <TtsContainer>
         <TestChild />
       </TtsContainer>,
     )

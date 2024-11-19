@@ -63,7 +63,7 @@ const News = ({
 }: NewsProps): ReactElement => {
   const selectedNewsItem = news.find(_newsItem => _newsItem.id === newsId)
   const { t } = useTranslation('news')
-  useTtsPlayer(selectedNewsItem)
+  useTtsPlayer(languageCode, selectedNewsItem)
 
   const navigation = useNavigate().navigation as NavigationProps<NewsRouteType>
   useSetRouteTitle({ navigation, title: getPageTitle(selectedNewsType, selectedNewsItem, t) })

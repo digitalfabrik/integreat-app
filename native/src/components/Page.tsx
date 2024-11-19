@@ -18,8 +18,8 @@ import TimeStamp from './TimeStamp'
 const Container = styled.View<{ $padding: boolean }>`
   ${props => props.$padding && `padding: 0 ${dimensions.pageContainerPaddingHorizontal}px 8px;`}
 `
-const SpaceForTts = styled.View<{ $height: number }>`
-  height: ${props => props.$height}px;
+const SpaceForTts = styled.View<{ $ttsPlayerVisible: boolean }>`
+  height: ${props => (props.$ttsPlayerVisible ? dimensions.ttsPlayerHeight : 0)}px;
 `
 export type ParsedCacheDictionaryType = Record<string, string>
 
@@ -95,7 +95,7 @@ const Page = ({
       {!loading && AfterContent}
       {!loading && !!content && lastUpdate && <TimeStamp lastUpdate={lastUpdate} />}
       {!loading && Footer}
-      <SpaceForTts $height={ttsPlayerVisible ? dimensions.ttsPlayerHeight : 0} />
+      <SpaceForTts $ttsPlayerVisible={ttsPlayerVisible} />
     </Container>
   )
 }

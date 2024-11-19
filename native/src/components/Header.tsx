@@ -29,12 +29,12 @@ import useSnackbar from '../hooks/useSnackbar'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import navigateToLanguageChange from '../navigation/navigateToLanguageChange'
-import { isTtsActive } from '../utils/TtsPlayerUtils'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 import { reportError } from '../utils/sentry'
 import CustomHeaderButtons from './CustomHeaderButtons'
 import HeaderBox from './HeaderBox'
 import HighlightBox from './HighlightBox'
+import { isTtsActive } from './TtsContainer'
 
 const Horizontal = styled.View`
   flex: 1;
