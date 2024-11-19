@@ -29,7 +29,7 @@ const Tiles = ({ title, language, tiles, onTilePress, resourceCache }: TilesProp
     {!!title && <Caption title={title} />}
     <TilesRow language={language}>
       {tiles.map(tile => (
-        <Tile key={tile.path} tile={tile} onTilePress={onTilePress} resourceCache={resourceCache} />
+        <Tile key={tile.path} tile={tile} onTilePress={onTilePress} resourceCache={resourceCache} language={language} />
       ))}
     </TilesRow>
   </>

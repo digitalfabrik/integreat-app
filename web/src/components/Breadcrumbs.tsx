@@ -48,7 +48,7 @@ const StyledLink = styled(Link)`
 `
 
 type BreadcrumbsProps = {
-  ancestorBreadcrumbs: Array<BreadcrumbModel>
+  ancestorBreadcrumbs: BreadcrumbModel[]
   currentBreadcrumb: BreadcrumbModel
 }
 

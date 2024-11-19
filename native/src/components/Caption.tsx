@@ -12,8 +12,13 @@ const H1 = styled(Text)`
 `
 type CaptionProps = {
   title: string
+  language?: string
 }
 
-const Caption = ({ title }: CaptionProps): ReactElement => <H1 android_hyphenationFrequency='full'>{title}</H1>
+const Caption = ({ title, language }: CaptionProps): ReactElement => (
+  <H1 android_hyphenationFrequency='full' accessibilityLanguage={language}>
+    {title}
+  </H1>
+)
 
 export default Caption
