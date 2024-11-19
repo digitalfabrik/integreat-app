@@ -17,7 +17,7 @@ React JS and React Native App for [Integreat](https://integreat-app.de), [Malte]
 - [Project Structure](#project-structure)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
-  - [Project setup](#project-setup)
+  - [Project Setup](#project-setup)
 - [Further Reading](#further-reading)
 
 ## Contributing
@@ -27,7 +27,8 @@ First, make sure you have a look at our [conventions](docs/conventions.md).
 You can contribute by:
 
 - [Reporting bugs](docs/contributing.md#reporting-issues-and-bugs)
-- [Creating Pull requests](docs/contributing.md#pull-requests)
+- [Creating pull requests](docs/contributing.md#pull-requests)
+- [Reviewing pull requests](docs/contributing.md#reviews)
 
 If you want to know more about Integreat or if you want to join us, contact [Leandra](mailto:leandra.hahn@tuerantuer.org),
 [Steffen](mailto:steffen.kleinle@tuerantuer.org) or [our info mail](mailto:info@integreat-app.de) and visit our [website](https://integreat-app.de).
