@@ -25,7 +25,7 @@ labels: Bug
 
 ### Additional Information
 
-<!-- Add any other context (e.g. logs, screenshots, environment etc.) about the problem here. -->
+<!-- Add any other context (e.g. logs, screenshots, environment, related issues etc.) about the problem here. -->
 
 <details>
   <summary>Traceback</summary>
