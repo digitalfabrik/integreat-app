@@ -46,16 +46,16 @@ type EventListItemProps = {
   event: EventModel
   language: string
   navigateToEvent: () => void
-  filterStartDate: DateTime | null
-  filterEndDate: DateTime | null
+  filterStartDate?: DateTime | null
+  filterEndDate?: DateTime | null
 }
 
 const EventListItem = ({
   language,
   event,
   navigateToEvent,
-  filterStartDate,
-  filterEndDate,
+  filterStartDate = null,
+  filterEndDate = null,
 }: EventListItemProps): ReactElement => {
   const thumbnail =
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

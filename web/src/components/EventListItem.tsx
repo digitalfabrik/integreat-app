@@ -28,8 +28,8 @@ const Content = styled.div`
 type EventListItemProps = {
   event: EventModel
   languageCode: string
-  filterStartDate: DateTime | null
-  filterEndDate: DateTime | null
+  filterStartDate?: DateTime | null
+  filterEndDate?: DateTime | null
 }
 
 const getEventPlaceholder = (path: string): string => {
@@ -54,7 +54,12 @@ export const getDateIcon = (date: DateModel): { icon: string; tooltip: string } 
     : null
 }
 
-const EventListItem = ({ event, languageCode, filterStartDate, filterEndDate }: EventListItemProps): ReactElement => {
+const EventListItem = ({
+  event,
+  languageCode,
+  filterStartDate = null,
+  filterEndDate = null,
+}: EventListItemProps): ReactElement => {
   const dateIcon = getDateIcon(event.date)
   const { viewportSmall } = useWindowDimensions()
   const { t } = useTranslation('events')
