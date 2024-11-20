@@ -111,7 +111,7 @@ const CloseView = styled.div`
 
 type TtsPlayerProps = {
   showHelpModal: boolean
-  setShowHelpModal: React.Dispatch<React.SetStateAction<boolean>>
+  setShowHelpModal: (show: boolean) => void
   isVisible: boolean
   isExpanded: boolean
   isPlaying: boolean
@@ -147,7 +147,7 @@ const TtsPlayer = ({
             style={{ flexDirection: theme.contentDirection === 'rtl' ? 'row-reverse' : 'row' }}>
             {isExpanded && (
               <StyledBackForthButton label='backward-button' onClick={handleBackward}>
-                <StyledText>{t('prev')}</StyledText>
+                <StyledText>{t('previous')}</StyledText>
                 <BackForthIcon $flip src={PlaybackIcon} />
               </StyledBackForthButton>
             )}

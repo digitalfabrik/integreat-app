@@ -6604,7 +6604,7 @@
       "getOnPlayStore": "Im Google Play Store anschauen",
       "accessibility": "Barrierefreiheit",
       "readAloud": "Vorlesefunktion",
-      "prev": "Zurück",
+      "previous": "Zurück",
       "next": "Weiter",
       "languageNotSupported": "Sprache nicht unterstützt",
       "voiceUnavailableMessage": "Diese Stimme ist im Moment nicht verfügbar; für die ausgewählte Sprache ist eine Installation erforderlich."
@@ -6663,7 +6663,7 @@
       "view": "عرض",
       "getOnPlayStore": "احصل عليه - على متجر Google Play",
       "readAloud": "قراءة بصوت عالٍ",
-      "prev": "السابق",
+      "previous": "السابق",
       "next": "التالي",
       "languageNotSupported": "اللغة غير مدعومة",
       "voiceUnavailableMessage": "هذا الصوت غير متاح في الوقت الحالي؛ يتطلب تثبيت اللغة المختارة."
@@ -6822,7 +6822,7 @@
       "getOnPlayStore": "GET — On the Google Play Store",
       "accessibility": "Accessibility",
       "readAloud": "Read aloud",
-      "prev": "Prev",
+      "previous": "Prev",
       "next": "Next",
       "languageNotSupported": "Language not supported",
       "voiceUnavailableMessage": "This voice is currently unavailable; installation is required for the selected language."

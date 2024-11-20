@@ -43,19 +43,11 @@ const useTtsPlayer = (
   }, [model, languageCode])
 
   useEffect(() => {
-    if (model?.content && model.title) {
-      tts.setSentences(sentences)
-      tts.setTitle(model.title)
-    } else {
-      tts.setSentences([])
-    }
-
+    tts.setSentences(sentences)
     return () => {
       tts.setSentences([])
-      tts.setTitle('')
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [model?.content, languageCode])
+  }, [sentences, tts])
 
   useEffect(() => {
     const synth = window.speechSynthesis
@@ -65,8 +57,6 @@ const useTtsPlayer = (
   return {
     visible: tts.visible,
     setVisible: tts.setVisible,
-    title: tts.title,
-    setTitle: tts.setTitle,
     sentences: tts.sentences,
     setSentences: tts.setSentences,
   }
