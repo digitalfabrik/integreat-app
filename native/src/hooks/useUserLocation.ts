@@ -2,15 +2,12 @@ import Geolocation, { GeolocationError } from '@react-native-community/geolocati
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Platform } from 'react-native'
-import { check, openSettings, PERMISSIONS, request, RESULTS } from 'react-native-permissions'
+import { check, openSettings, PERMISSIONS, PermissionStatus, request, RESULTS } from 'react-native-permissions'
 
 import { LocationStateType, UnavailableLocationState } from 'shared'
 
 import { log, reportError } from '../utils/sentry'
 import useSnackbar from './useSnackbar'
-
-const locationPermission =
-  Platform.OS === 'ios' ? PERMISSIONS.IOS.LOCATION_WHEN_IN_USE : PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION
 
 const locationStateOnError = (error: GeolocationError): UnavailableLocationState => {
   const message = error.code === error.PERMISSION_DENIED ? 'noPermission' : 'timeout'
@@ -35,6 +32,22 @@ const getUserLocation = async (): Promise<LocationStateType> =>
     )
   })
 
+const locationPermissionIOS = PERMISSIONS.IOS.LOCATION_WHEN_IN_USE
+const fineLocationPermissionAndroid = PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION
+const coarseLocationPermissionAndroid = PERMISSIONS.ANDROID.ACCESS_COARSE_LOCATION
+
+const getLocationPermissionStatus = async (requestPermission: boolean) => {
+  const checkOrRequest = requestPermission ? request : check
+  if (Platform.OS === 'ios') {
+    return checkOrRequest(locationPermissionIOS)
+  }
+  const finePermissionStatus = await checkOrRequest(fineLocationPermissionAndroid)
+  if (([RESULTS.GRANTED, RESULTS.LIMITED] as PermissionStatus[]).includes(finePermissionStatus)) {
+    return finePermissionStatus
+  }
+  return checkOrRequest(coarseLocationPermissionAndroid)
+}
+
 type UseUserLocationProps = {
   requestPermissionInitially: boolean
 }
@@ -45,7 +58,7 @@ type RequestPermissionAndLocationOptions = {
 }
 
 type UseUserLocationReturn = LocationStateType & {
-  refreshPermissionAndLocation: (options?: RequestPermissionAndLocationOptions) => Promise<void>
+  refreshPermissionAndLocation: (options?: RequestPermissionAndLocationOptions) => Promise<LocationStateType | null>
 }
 
 const initialState: LocationStateType = { status: 'loading', message: 'loading', coordinates: undefined }
@@ -56,29 +69,32 @@ const useUserLocation = ({ requestPermissionInitially }: UseUserLocationProps): 
   const { t } = useTranslation()
 
   const refreshPermissionAndLocation = useCallback(
-    async ({ showSnackbarIfBlocked = true, requestPermission = true }: RequestPermissionAndLocationOptions = {}) => {
+    async ({
+      showSnackbarIfBlocked = true,
+      requestPermission = true,
+    }: RequestPermissionAndLocationOptions = {}): Promise<LocationStateType | null> => {
       setLocationState(initialState)
 
-      const locationPermissionStatus = requestPermission
-        ? await request(locationPermission)
-        : await check(locationPermission)
+      const locationPermissionStatus = await getLocationPermissionStatus(requestPermission)
 
       if (requestPermission) {
         log(`Location permission status: ${locationPermissionStatus}`)
       }
 
       if (locationPermissionStatus === RESULTS.GRANTED) {
-        setLocationState(await getUserLocation())
-      } else {
-        setLocationState({ message: 'noPermission', status: 'unavailable', coordinates: undefined })
-
-        if (requestPermission && showSnackbarIfBlocked && locationPermissionStatus === RESULTS.BLOCKED) {
-          showSnackbar({
-            text: t('landing:noPermission'),
-            positiveAction: { label: t('layout:settings'), onPress: openSettings },
-          })
-        }
+        const location = await getUserLocation()
+        setLocationState(location)
+        return location
       }
+
+      setLocationState({ message: 'noPermission', status: 'unavailable', coordinates: undefined })
+      if (requestPermission && showSnackbarIfBlocked && locationPermissionStatus === RESULTS.BLOCKED) {
+        showSnackbar({
+          text: t('landing:noPermission'),
+          positiveAction: { label: t('layout:settings'), onPress: openSettings },
+        })
+      }
+      return null
     },
     [showSnackbar, t],
   )

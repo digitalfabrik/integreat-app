@@ -20,6 +20,7 @@ import {
   SETTINGS_ROUTE,
 } from 'shared'
 import { LanguageModel, FeedbackRouteType } from 'shared/api'
+import { config } from 'translations'
 
 import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
@@ -206,32 +207,45 @@ const Header = ({
       ]
     : []
 
-  const getHeaderText = (): string => {
+  const getHeaderText = (): { text: string; language?: string } => {
     const currentTitle = (route.params as { title?: string } | undefined)?.title
     if (!previousRoute) {
       // Home/Dashboard: Show current route title, i.e. city name
-      return currentTitle ?? ''
+      return { text: currentTitle ?? '', language: config.sourceLanguage }
     }
 
-    const previousParams = previousRoute.params
-
-    const currentRouteIsPoi = route.name === POIS_ROUTE
+    const poisRouteParams = route.params as RoutesParamsType[PoisRouteType]
+    const isSinglePoi = !!poisRouteParams.slug || poisRouteParams.multipoi !== undefined
     const notFromDeepLink = previousRoute.name === POIS_ROUTE
-    if (currentRouteIsPoi && notFromDeepLink) {
-      const poisRouteParams = route.params as RoutesParamsType[PoisRouteType]
-      if (poisRouteParams.slug || poisRouteParams.multipoi !== undefined) {
-        return t('locations')
+    if (isSinglePoi && notFromDeepLink) {
+      return { text: t('locations'), language: undefined } // system language
+    }
+
+    const previousRouteTitle = (previousRoute.params as { path?: string } | undefined)?.path
+
+    if (previousRouteTitle) {
+      return { text: previousRouteTitle, language: languageCode }
+    }
+
+    if (previousRoute.name === CATEGORIES_ROUTE) {
+      return {
+        text: t('localInformation'),
+        language: languageCode,
       }
     }
 
-    const previousRouteTitle = (previousParams as { title?: string } | undefined)?.title
-    return previousRouteTitle ?? t(previousRoute.name === 'categories' ? 'localInformation' : previousRoute.name)
+    return { text: previousRoute.name, language: undefined } // system language
   }
 
   return (
     <BoxShadow>
       <Horizontal>
-        <HeaderBox goBack={navigation.goBack} canGoBack={canGoBack} text={getHeaderText()} />
+        <HeaderBox
+          goBack={navigation.goBack}
+          canGoBack={canGoBack}
+          text={getHeaderText().text}
+          language={getHeaderText().language}
+        />
         <CustomHeaderButtons cancelLabel={t('cancel')} items={items} overflowItems={overflowItems} />
       </Horizontal>
     </BoxShadow>
