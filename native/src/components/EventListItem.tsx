@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon'
 import React, { JSXElementConstructor, memo, ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SvgProps } from 'react-native-svg'
@@ -5,6 +6,7 @@ import styled from 'styled-components/native'
 
 import { parseHTML } from 'shared'
 import { DateModel, DateIcon, EventModel } from 'shared/api'
+import { getDisplayDate } from 'shared/utils/dateFilterUtils'
 
 import {
   CalendarRecurringIcon,
@@ -44,15 +46,24 @@ type EventListItemProps = {
   event: EventModel
   language: string
   navigateToEvent: () => void
+  filterStartDate: DateTime | null
+  filterEndDate: DateTime | null
 }
 
-const EventListItem = ({ language, event, navigateToEvent }: EventListItemProps): ReactElement => {
+const EventListItem = ({
+  language,
+  event,
+  navigateToEvent,
+  filterStartDate,
+  filterEndDate,
+}: EventListItemProps): ReactElement => {
   const thumbnail =
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     event.thumbnail || placeholderThumbnails[event.path.length % placeholderThumbnails.length]!
   const content = parseHTML(event.content).trim()
   const icon = getDateIcon(event.date)
   const { t } = useTranslation('events')
+  const dateToDisplay = getDisplayDate(event, filterStartDate, filterEndDate)
 
   const DateIcon = icon ? <Icon Icon={icon.icon} label={t(icon.label)} /> : null
 
@@ -63,7 +74,7 @@ const EventListItem = ({ language, event, navigateToEvent }: EventListItemProps)
       language={language}
       navigateTo={navigateToEvent}
       Icon={DateIcon}>
-      <Description>{event.date.toFormattedString(language, true)}</Description>
+      <Description>{dateToDisplay.toFormattedString(language, true)}</Description>
       <Description numberOfLines={EXCERPT_MAX_LINES}>{content}</Description>
     </ListItem>
   )

@@ -107,7 +107,16 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
         languageCode: language,
         slug: item.slug,
       })
-    return <EventListItem key={item.slug} event={item} language={language} navigateToEvent={navigateToEvent} />
+    return (
+      <EventListItem
+        key={item.slug}
+        event={item}
+        language={language}
+        navigateToEvent={navigateToEvent}
+        filterStartDate={startDate}
+        filterEndDate={endDate}
+      />
+    )
   }
 
   return (

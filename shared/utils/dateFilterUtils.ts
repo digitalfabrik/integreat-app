@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 
-import { EventModel, LocationModel } from '../api'
+import { DateModel, EventModel, LocationModel } from '../api'
 import { MAX_DATE_RECURRENCES } from '../constants'
 
 export const EventModalDummyData = {
@@ -49,4 +49,22 @@ export const isEventWithinRange = (
   }
 
   return isWithinRange
+}
+
+export const getDisplayDate = (event: EventModel, startDate: DateTime | null, endDate: DateTime | null): DateModel => {
+  if (!event.date.recurrenceRule) {
+    return event.date
+  }
+
+  const recurrences = event.date.recurrences(
+    1,
+    startDate?.startOf('day') ?? DateTime.now().startOf('day'),
+    endDate?.endOf('day') ?? null,
+  )
+
+  if (recurrences.length > 0) {
+    return recurrences[0] ?? event.date
+  }
+
+  return event.date
 }

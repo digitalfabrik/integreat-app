@@ -3636,9 +3636,9 @@
       "hideFilters": "Filter verbergen",
       "showFilters": "Filter anzeigen",
       "selectRange": "Zeitraum auswählen",
-      "dd": "Tag",
-      "mm": "Monat",
-      "yyyy": "Jahr"
+      "dd": "dd",
+      "mm": "mm",
+      "yyyy": "yyyy"
     },
     "am": {
       "address": "ኣድራሻ",
@@ -3860,9 +3860,9 @@
       "hideFilters": "Hide filters",
       "showFilters": "Show filters",
       "selectRange": "Select Range",
-      "dd": "day",
-      "mm": "month",
-      "yyyy": "year"
+      "dd": "dd",
+      "mm": "mm",
+      "yyyy": "yyyy"
     },
     "es": {
       "address": "Dirección",
