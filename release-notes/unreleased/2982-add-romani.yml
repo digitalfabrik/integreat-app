@@ -1,0 +1,8 @@
+issue_key: 2982
+show_in_stores: true
+platforms:
+  - web
+  - android
+  - ios
+en: Add support and translations for Romani.
+de: Romani wurde als neue Sprache hinzugefügt.

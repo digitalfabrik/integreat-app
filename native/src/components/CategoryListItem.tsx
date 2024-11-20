@@ -68,7 +68,7 @@ const CategoryListItem = ({
   onItemPress,
 }: CategoryListItemProps): ReactElement => (
   <>
-    <FlexStyledLink role='link' onPress={() => onItemPress({ path: category.path })}>
+    <FlexStyledLink role='link' onPress={() => onItemPress({ path: category.path })} accessibilityLanguage={language}>
       <DirectionContainer language={language}>
         <CategoryEntryContainer>
           <TitleDirectionContainer language={language}>

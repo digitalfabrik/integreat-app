@@ -138,6 +138,9 @@ class Config {
     da: {
       rtl: false,
     },
+    rom: {
+      rtl: false,
+    },
   }
 
   // Fallbacks for unnormalized language codes from our backend
