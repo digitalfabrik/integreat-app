@@ -3,6 +3,8 @@ import React, { forwardRef, ReactElement, RefObject } from 'react'
 import { NativeSyntheticEvent, StyleProp, TextInput, TextInputKeyPressEventData, ViewStyle } from 'react-native'
 import styled from 'styled-components/native'
 
+import { zeroPad } from 'shared/utils/dateFilterUtils'
+
 const Input = styled(TextInput)`
   text-align: center;
   min-width: 20%;
@@ -31,17 +33,15 @@ const validating = (
   const maxValidMonth = 12
   const maxValidNumber = type === 'day' ? maxValidDay : maxValidMonth
   if (Number(inputValue) !== 0 && inputValue?.length === 1 && containsOnlyDigits(inputValue)) {
-    setInputValue(`0${inputValue}`)
+    setInputValue(zeroPad(inputValue))
   } else if (
     inputValue === '00' ||
     inputValue === '0' ||
     Number(inputValue) > maxValidNumber ||
     !containsOnlyDigits(inputValue ?? '')
   ) {
-    const maxOfTwoDigits = 10
     const currentValue = type === 'day' ? DateTime.now().day : DateTime.now().month
-    const formattedValue = currentValue < maxOfTwoDigits ? `0${currentValue}` : `${currentValue}`
-    setInputValue(formattedValue)
+    setInputValue(zeroPad(String(currentValue)))
   }
 }
 

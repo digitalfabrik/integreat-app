@@ -68,3 +68,8 @@ export const getDisplayDate = (event: EventModel, startDate: DateTime | null, en
 
   return event.date
 }
+
+export const zeroPad = (value: string): string => {
+  const maxOfTwoDigits = 10
+  return Number(value) < maxOfTwoDigits ? `0${value}` : value
+}

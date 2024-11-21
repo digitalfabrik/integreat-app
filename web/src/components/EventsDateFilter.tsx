@@ -39,7 +39,7 @@ type ResetFilterTextProps = {
 
 const ResetFilterText = ({ startDate, endDate }: ResetFilterTextProps) => {
   const { t } = useTranslation('events')
-  const text = `${t('resetFilter')} ${startDate ? startDate.toLocaleString({ day: '2-digit', month: '2-digit', year: 'numeric' }) : '∞'} - ${endDate ? endDate.toLocaleString({ day: '2-digit', month: '2-digit', year: 'numeric' }) : '∞'}`
+  const text = `${t('resetFilter')} ${startDate ? startDate.toFormat('dd.MM.yyyy') : '∞'} - ${endDate ? endDate.toFormat('dd.MM.yyyy') : '∞'}`
   return <span>{text}</span>
 }
 
