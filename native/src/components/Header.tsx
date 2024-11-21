@@ -207,8 +207,8 @@ const Header = ({
       return { text: currentTitle ?? '', language: config.sourceLanguage }
     }
 
-    const poisRouteParams = route.params as RoutesParamsType[PoisRouteType]
-    const isSinglePoi = !!poisRouteParams.slug || poisRouteParams.multipoi !== undefined
+    const poisRouteParams = route.params as RoutesParamsType[PoisRouteType] | undefined
+    const isSinglePoi = !!poisRouteParams?.slug || poisRouteParams?.multipoi !== undefined
     const notFromDeepLink = previousRoute.name === POIS_ROUTE
     if (isSinglePoi && notFromDeepLink) {
       return { text: t('locations'), language: undefined } // system language
