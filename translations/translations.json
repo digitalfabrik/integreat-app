@@ -181,6 +181,13 @@
       "organizationMoreInformation": "Puteți găsi mai multe informații despre <1>{{organization}}</1> la <3>{{domain}}</3>.",
       "disabledPdf": "Exportul PDF nu este posibil momentan în această limbă."
     },
+    "rom": {
+      "createPdf": "Ker PDF",
+      "metaDescription": "{{appName}} tano to digitalno legarutno e dživdipaskoro ki Germania. Pučar lokalnikane informacie, čipote thaj dejbe godi. Sakana ov haberi kerdo thaj šajdin ki tiri čhib.",
+      "organizationContent": "O bukja tari akaja strana si taro {{organization}}.",
+      "organizationMoreInformation": "Šaj te arakhe buteder informacie bašo <1>{{organization}}</1> ko <3>{{domain}}</3>.",
+      "disabledPdf": "Akava PDF keribe ko momenti nane ki akaja čhib."
+    },
     "ru": {
       "createPdf": "Создать PDF",
       "metaDescription": "{{appName}} – это твой цифровой путеводитель по Германии. Узнавай местные новости, находи информацию о мероприятиях и консультациях. Всегда актуально и на твоем языке.",
@@ -624,6 +631,20 @@
       "sendButton": "Trimitere",
       "user": "Tu"
     },
+    "rom": {
+      "button": "Keribe lafi (beta)",
+      "conversationTitle": "Hramon tiro pučiba ko kotor taro teksti.",
+      "conversationText": "Šaj te puče so mangea taro lokalnikane informacie bašo disave rodiba prema tiri situacia.",
+      "dataSecurity": "Arakhiba podatke thaj garavibe: Tiri privatnost si but vastno amengje. Sa o lafikeriba si arakhle thaj tire podatke si garavde. Šaj te arakhe buteder informacie ko arakhibe e podatkonoro ki amari privatnikani polisa.",
+      "errorMessage": "Bangipe ulo prekal i komunikacia.",
+      "header": "{{appName}} Keribaske lafi dejbe dumo",
+      "initialMessage": "To keribaskoro lafi rodibe si bičhaldo. O  godjarno ka iranel ko tiro mesaži so šaj sigjeder.",
+      "inputLabel": "Mo pučiba:",
+      "inputPlaceholder": "Bi mangav te džanav...",
+      "loadingText": "Adžikeren harica, o lafi keribe ka širdinel...",
+      "sendButton": "Bičhal",
+      "user": "Tu"
+    },
     "ru": {
       "button": "Чат (бета-версия)",
       "conversationTitle": "Введи свой вопрос в текстовое поле.",
@@ -987,6 +1008,14 @@
       "findOutMail": "Aflați adresa de e-mail a regiunii dvs.",
       "sendText": "Copiați acest text, completați conținutul [ ] cu datele dumneavoastră și trimiteți-l.",
       "copyText": "Copiați textul"
+    },
+    "rom": {
+      "callToAction": "Preporučin ti regia ko Integreat!",
+      "explanation": "Akava koncepto taro i Integreat-App ubedingja tut li thaj mislinea so thaj hem tiri diz,\ntiro than jali tiri khedin šaj te ovel ola korist taro akava digitalno čhinavdipe? Onda tu šaj te ove aktivno akate akana.",
+      "whatToDo": "Akava i tano so šaj te kere:",
+      "findOutMail": "Le i mejl adresa tari ti regia",
+      "sendText": "Kopirin akava teksti, haz'riker [ ]- o bukja te detalencar thaj bičhal olen",
+      "copyText": "Kopirin o teksti"
     },
     "ru": {
       "callToAction": "Предложите Integreat своему региону!",
@@ -1441,6 +1470,20 @@
       "back": "Înapoi",
       "ok": "Bine"
     },
+    "rom": {
+      "copied": "Kopirimo",
+      "moreOptions": "Buteder opcie",
+      "languageNotAvailable": "Afi ker, numa tiri čhib nane akate.",
+      "chooseALanguage": "Birin čhib.",
+      "lastUpdate": "Paluno ikeribe ko tek:",
+      "loading": "Avela ...",
+      "close": "Phande",
+      "showMore": "Sikav buteder",
+      "showLess": "Sikav harica",
+      "optional": "opciono",
+      "back": "Palal",
+      "ok": "Ok"
+    },
     "ru": {
       "copied": "Скопировано",
       "moreOptions": "дополнительные опции",
@@ -1857,6 +1900,16 @@
       "knownResourceBlocked": "Conținutul extern din această sursă a fost blocat. Puteți permite această sursă în setări.",
       "noSources": "Nu sunt disponibile surse externe."
     },
+    "rom": {
+      "title": "Avralutne Hainga",
+      "description": "Tu šaj skros te soglasine tut te sikaven pes o bukja taro trito-thaneskere džene. O biribe ka ovel stalno arakhlo ko to internet rodutno. Tu šaj te čhinave to prifatiba akate ko bilo savo vakti.",
+      "descriptionNative": "Tu šaj skros te soglasine tut te sikaven pes o bukja taro trito-thaneskere džene. O biribe ka ovel stalno arakhlo ko to lokalnikano uredi. Tu šaj te čhinave to prifatiba akate ko bilo savo vakti.",
+      "consentDescription": "Muk o bukja taro {{source}}",
+      "knownResourceOptIn": "Soglasinava man so o bukja taro akava avralutno uredi šaj te ovel sikavdo mange.",
+      "knownResourceContentMessage": "Akava elemento isi ole podatkoja taro avralutno haing. Tu šaj te blokirine o keribe taro asavko kotor ko podesiba.",
+      "knownResourceBlocked": "Avralutno kotor taro akava haingo sas blokirimo. Tu šaj te mukhe akava haingo ko podesiba.",
+      "noSources": "Nane dostapna avralutne hainga."
+    },
     "ru": {
       "title": "Внешние источники",
       "description": "Ты можешь дать постоянное согласие на отображение интегрированного контента из внешних источников. После этого выбранная настройка будет навсегда сохранена в твоем интернет-браузере. Согласие может быть отозвано в любое время.",
@@ -2125,6 +2178,12 @@
       "news": "Știri",
       "pois": "Hartă"
     },
+    "rom": {
+      "localInformation": "Lokalnikane informacie",
+      "events": "Čipote",
+      "news": "Haberia",
+      "pois": "Mapa"
+    },
     "ru": {
       "localInformation": "Местная информация",
       "events": "Мероприятия",
@@ -2270,6 +2329,9 @@
     },
     "ro": {
       "pageTitle": "Caseta tehnică și contact"
+    },
+    "rom": {
+      "pageTitle": "Otpečatkoja thaj kontaktia"
     },
     "ru": {
       "pageTitle": "Выходные данные и контактная информация"
@@ -3219,6 +3281,41 @@
       "languageSwitchFailedMessage": "Limba selectată nu este disponibilă offline. Este necesară o conexiune activă la internet.",
       "noCalendarPermission": "Accesul la calendar nu este permis.",
       "noCalendarFound": "Nu a fost găsit niciun calendar adecvat."
+    },
+    "rom": {
+      "notFound": {
+        "language": "Afi ker, numa akaja čhib nane akate.",
+        "city": "Afi ker akaja regia na sine arakhli.",
+        "category": "Afi ker, numa i rodimi strana našti te ovel arakhli.",
+        "event": "Afi ker, numa akaja čipota naši te ovel arakhli.",
+        "poi": "Afi ker, akava than na sine arakhlo.",
+        "news": "Afi ker, numa akava mesaži našti te ovel arakhlo.",
+        "pageTitle": "I strana nane arakhli."
+      },
+      "pageNotFound": "Afi ker, numa i rodimi strana našti te ovel arakhli.",
+      "noSuitableAppInstalled": "Nane instalirimi pravo app.",
+      "networkConnectionFailed": "I konekcija ko serveri našti te ovel.",
+      "networkRequestFailed": "O rodiba našti te ovel procesujmo.",
+      "responseMappingFailed": "Bangin uli džikote procesujngja pes e servereskoro dževapi.",
+      "unknownError": "Bipendžardi bangin uli.",
+      "tryAgain": "Panda jekh far probin.",
+      "loadingFailed": "Afi ker, numa i rodimi strana našti te avel.",
+      "chooseALanguage": "Birin čhib:",
+      "goTo": {
+        "start": "Dža ki kherutni strana",
+        "categories": "Dža ko kategorie",
+        "events": "Dža ko čipote",
+        "pois": "Dža ko mape",
+        "news": "Dža ko haberia",
+        "pageNumber": "Dža ki strana {{number}}"
+      },
+      "pageTitle": "Bangin",
+      "generalError": "Bangin uli.",
+      "notSupportedByDevice": "Akaja funkcia nane ikerdi ko akava uredi.",
+      "languageSwitchFailedTitle": "Jasineste, o menibe e čhibjakoro na ulo.",
+      "languageSwitchFailedMessage": "I birimi čhib našti te ovel te sian oflajn. Valjani te ovel tu aktivno internet konekcija.",
+      "noCalendarPermission": "O pristapiba ko kalendari nane mukhlo.",
+      "noCalendarFound": "Na sine arakhlo pravo kalendari."
     },
     "ru": {
       "notFound": {
@@ -4361,6 +4458,36 @@
       "showFilters": "Afișare filtru",
       "selectRange": "Selectarea perioadei"
     },
+    "rom": {
+      "address": "Adresa",
+      "date_one": "Datumo",
+      "date_other": "Datumoja",
+      "nextDate_one": "Aver datumo",
+      "nextDate_other": "Avera datumoja",
+      "events": "Čipote",
+      "exportAsICal": "Ikal sar iCal",
+      "addToCalendar": "Čhiv ko kalendari",
+      "currentlyNoEvents": "Nane čipote ko akava vakti.",
+      "pageTitle": "Čipote",
+      "chooseCalendar": "Kalendareskoro biribe",
+      "added": "Čhivde",
+      "goToCalendar": "Dža ko kalendari",
+      "settings": "Podesiba",
+      "recurring": "paleovibe",
+      "today": "avdive",
+      "todayRecurring": "avdive, paleovibe",
+      "onlyThisEvent": "Salde akaja čipota",
+      "thisAndAllFutureEvents": "Akala thaj sa o avutne čipote",
+      "from": "taro",
+      "to": "ko",
+      "resetFilter": "resetirin o filteri:",
+      "invalidFromDate": "Banginutno širdipaskoro datumo",
+      "invalidToDate": "Banginutno agorutno datumo",
+      "shouldBeEarlier": "O širdipaskoro datumo valjani te ovel angleder o agoripaskoro datumo.",
+      "hideFilters": "Garav o filteroja",
+      "showFilters": "Sikav o filteroja",
+      "selectRange": "Birin Rango"
+    },
     "ru": {
       "address": "Адрес",
       "date_one": "Дата",
@@ -5280,6 +5407,29 @@
       "contactMailAddress": "E-mail pentru întrebări ulterioare",
       "note": "Vă rugăm să selectați o reacție sau să scrieți un comentariu pentru a putea trimite feedback-ul."
     },
+    "rom": {
+      "disclaimer": "Kontaktia thaj otpečatokoja",
+      "send": "Bičhal",
+      "failedSendingFeedback": "Bangin uli ko bičhalibe o dževapi.",
+      "feedback": "Dževapi",
+      "headline": "So misline baši akaja strana?",
+      "description": "Birin reakcija thaj/jali hramon komentari.",
+      "commentHeadline": "Komentirin",
+      "commentDescription": "Ulav to dževapi amencar! Amen šaj te den pozitivno thaj negativno dževapi, so ka pomožinel amen te ova lačheder {{appName}}.",
+      "isThisSiteUseful": "Si li akava sajto korisno?",
+      "useful": "Korisno",
+      "notUseful": "Nane korisno",
+      "informationNotFound": "Na arakhljan odova so rodingjan?",
+      "wantedInformation": "Savi informacia falinel?",
+      "feedbackSent": "Bičhaldo dževapi",
+      "thanksHeadline": "Oven saste but baši tumaro dževapi.",
+      "thanksMessage": "To dževapi sine uspešno bičhaldo.",
+      "negativeRating": "Akava sajti nane korisno",
+      "positiveRating": "Akava sajti si korisno",
+      "searchTermDescription": "Našti te ovel arakhlo rezultato akale lafea:",
+      "contactMailAddress": "I-Mejl bašo avera pučiba",
+      "note": "Birin reakcia jali hramon komentari te šaj te bičhale dževapi."
+    },
     "ru": {
       "disclaimer": "Контактная информация и выходные данные",
       "send": "Отправить",
@@ -5820,6 +5970,17 @@
       "eventsDescription": "Evenimente curente și date de desfășurare în împrejurimi",
       "skip": "Treceți peste",
       "next": "Mai departe"
+    },
+    "rom": {
+      "appDescription": "{{appName}} si tiro digitalnikano legatuno baši o dživdipa ki Germania",
+      "search": "Rode",
+      "searchDescription": "Arak i pravo informacia prema o lafia",
+      "languageChange": "Menibe i čhib",
+      "languageChangeDescription": "Te menine i čhib ko strane si lokheste",
+      "events": "Čipote",
+      "eventsDescription": "Momentalna čipote thaj datumoja ko paše thana",
+      "skip": "Na akana",
+      "next": "Produžun"
     },
     "ru": {
       "appDescription": "{{appName}} – это ваш цифровой гид по Германии",
@@ -6385,6 +6546,23 @@
       "metaDescription": "{{appName}} este ghidul tău digital pentru Germania. Găsiți informații, evenimente și sfaturi locale. Întotdeauna actualizate și în limba dumneavoastră.",
       "cityNotFound": "Nu v-ați găsit regiunea? Fii activ acum!",
       "suggestToRegion": "{{appName}} sugerat în regiunea dvs."
+    },
+    "rom": {
+      "searchCity": "Rode",
+      "noCitiesFound": "Nane rezultatoja",
+      "nearbyCities": "Ko pašipe",
+      "noNearbyCities": "Nane arakhli regia ko pašipe.",
+      "alert": "Zapišin",
+      "locationError": "Te sikavel regie ko pašipa, e sledibaskere servisoja valjani te oven aktivirime",
+      "noPermission": "Lokacijakoro pristap zaruri",
+      "loading": "Arakhibe lokacia...",
+      "notAvailable": "Lokaciakoro arakhibe si deaktivirimo",
+      "timeout": "Lokaciakoro arakhibe bangimo",
+      "refresh": "Iker ko teko i lista taro paše regionia",
+      "pageTitle": "Lokalnikani Informacia Tukje",
+      "metaDescription": "{{appName}} tano to digitalno legarutno e dživdipaskoro ki Germania. Pučar lokalnikane informacie, čipote thaj dejbe godi. Sakana ov haberi kerdo thaj šajdin ki tiri čhib.",
+      "cityNotFound": "To regioni na sine arakhlo? Ker akcia akana.",
+      "suggestToRegion": "Preporučin {{appName}} ki ti regia"
     },
     "ru": {
       "searchCity": "Поиск",
@@ -7250,6 +7428,35 @@
       "sideBarCloseAriaLabel": "Închideți bara laterală",
       "accessibility": "Accesibilitate"
     },
+    "rom": {
+      "imprintAndContact": "Otpečatkoja thaj kontaktia",
+      "privacy": "Arakhiba podatke",
+      "localInformation": "Lokalnikane informacie",
+      "events": "Čipote",
+      "noEvents": "Nane čipote",
+      "news": "Haberia",
+      "noLanguages": "Nane ko avera čhiba",
+      "noTranslation": "Nane prevod",
+      "search": "Rode",
+      "locations": "Mapa",
+      "changeLocation": "Menin lokacia",
+      "changeLanguage": "Menin čhib",
+      "settings": "Podesiba",
+      "copyUrl": "Kopirin o linko",
+      "feedback": "Dževapi",
+      "share": "Ulav",
+      "cancel": "Čhinav",
+      "shareMessage": "Arakhlilo: {{message}}",
+      "shareFailDefaultMessage": "Jasineste bangin uli ko ulavibe o kotor.",
+      "disclaimer": "Otpečatkoja",
+      "sideBarOpenAriaLabel": "Phrav rigakorothan",
+      "sideBarCloseAriaLabel": "Phan rigakorothan",
+      "openInApp": "Phrav ki {{appName}} app",
+      "open": "Phrav",
+      "view": "Dikh",
+      "getOnPlayStore": "LE — ko Google Play Store",
+      "accessibility": "Khuvin"
+    },
     "ru": {
       "imprintAndContact": "Выходные данные и контактная информация",
       "privacy": "Защита данных",
@@ -7657,6 +7864,11 @@
       "license": "Licență:",
       "noLicensesMessage": "Nu sunt disponibile informații despre licență"
     },
+    "rom": {
+      "version": "Verzia:",
+      "license": "Licenca:",
+      "noLicensesMessage": "Nane informacia e licencake"
+    },
     "ru": {
       "version": "Версия:",
       "license": "Лицензия:",
@@ -7791,6 +8003,9 @@
     },
     "ro": {
       "pageTitle": "Caseta tehnică și contact - {{appName}}"
+    },
+    "rom": {
+      "pageTitle": "Otpečatkoja thaj kontaktia - {{appName}}"
     },
     "ru": {
       "pageTitle": "Выходные данные и контактная информация – {{appName}}"
@@ -8425,6 +8640,29 @@
       "submitFailedReasoning": "Vă rugăm să vă asigurați că aveți o conexiune stabilă la internet și să încercați din nou.",
       "invalidEmailAddress": "Adresa de e-mail furnizată nu este validă."
     },
+    "rom": {
+      "supportNote": "Amen mangaja te osetine tut arakhlo thaj dendo dumo ked isi tu problemoja jali pučiba. Akaja kontakt forma dela tut šansa te ove kontakt manušea. Šaj te vakere to rodibe thaj te birine taro ververane kontakteskere opcie.",
+      "securityNote": "Tiro arakhibe si amaro top prioriteti.Tire podatke si dende ko garaviba te šaj ti privatnost te ovel arakhli sasto vakti.",
+      "name": "Paloanav, anav",
+      "roomNumber": "Numero e sobakoro",
+      "howToBeContacted": "Agjare bi mangava te ovav kontaktirimo:",
+      "eMail": "prekal I-Mejl",
+      "telephone": "prekal telefoni",
+      "telephoneNumber": "Numero e telefoneskoro",
+      "personally": "Personalnikane",
+      "contactPerson": "Kontakt manuš:",
+      "contactPersonAnyGender": "O pol taro kontak manuš nane si bitno",
+      "contactPersonGenderFemale": "Bi mangava te ovav kontaktirimo tari džuvli",
+      "contactPersonGenderMale": "Bi mangava te ovav kontaktirimo taro murš",
+      "contactReason": "To rodiba:",
+      "maxCharacters": "maksimum {{numberOfCharacters}} karakteria",
+      "responseDisclaimer": "Šaj te lel nekobor bukjakere dive angleder te dobine to džovapi. Ka kera sa amendar te šaj te procesujna to rodibe so šaj sigjeder.",
+      "submit": "Bičhal i forma",
+      "submitSuccessful": "I forma uspešno bičhaldi",
+      "submitFailed": "I forma našti te ovel bičhaldi",
+      "submitFailedReasoning": "Dik te šaj te ikere stabilno internet konekcia thaj probin panda jekh far.",
+      "invalidEmailAddress": "I i-mejl adresa so čigjan si bangini."
+    },
     "ru": {
       "supportNote": "Мы хотим, чтобы вы чувствовали себя в безопасности и могли рассчитывать на поддержку, когда у вас возникают проблемы или вопросы. Чтобы связаться со специалистом, вы можете использовать следующую контактную форму. Вы можете указать причину вашего обращения и выбрать подходящий способ связи.",
       "securityNote": "Ваша безопасность – наш главный приоритет. Ваши данные будут обрабатываться конфиденциально, чтобы ваша частная жизнь всегда оставалась под защитой.",
@@ -8862,6 +9100,13 @@
       "NSCalendarsUsageDescription": "{{appName}} ar dori să acceseze calendarul pentru a adăuga un eveniment.",
       "NSCalendarsFullAccessUsageDescription": "{{appName}} ar dori să acceseze calendarul pentru a adăuga un eveniment."
     },
+    "rom": {
+      "NSPhotoLibraryAddUsageDescription": "{{appName}} mangel te garavel o slike ko to than.",
+      "NSLocationWhenInUseUsageDescription": "{{appName}} mangela te sikave ti lokacia te šaj arakhen pes paše diza.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "{{appName}} mangela te sikave ti lokacia te šaj arakhen pes paše diza.",
+      "NSCalendarsUsageDescription": "{{appName}} mangel te khuvel ano kalendari te šaj čhivel čipota.",
+      "NSCalendarsFullAccessUsageDescription": "{{appName}} mangel te khuvel ano kalendari te šaj čhivel čipota."
+    },
     "ru": {
       "NSPhotoLibraryAddUsageDescription": "Чтобы сохранить снимки, приложению {{appName}} требуется доступ к галерее изображений.",
       "NSLocationWhenInUseUsageDescription": "Чтобы найти близлежащие населенные пункты, приложению {{appName}} требуется доступ к данным о вашем местоположении.",
@@ -9200,6 +9445,16 @@
       "local": "Local",
       "readMore": "Citire mai departe",
       "currentlyNoNews": "În prezent nu există nicio știre."
+    },
+    "rom": {
+      "news": "Haberia",
+      "localNews": {
+        "localNews": "Lokalnikane haberia",
+        "pageTitle": "Lokalnikane haberia"
+      },
+      "local": "Lokalnikano",
+      "readMore": "Produžun",
+      "currentlyNoNews": "Nane haberia ko akava vakti."
     },
     "ru": {
       "news": "Новости",
@@ -10925,6 +11180,68 @@
       "makeAppointmentTooltipWithLink": "Realizează o programare în această zi prin <1>pagina de Internet</1> sau telefonic.",
       "theWebsite": "pagina de Internet"
     },
+    "rom": {
+      "pageTitle": "Mapa",
+      "poi": "Than",
+      "pois": "Thana",
+      "map": "Mapa",
+      "showOnMap": "Sikav ki mapa",
+      "noPois": "Nane arakhle thana.",
+      "unitKilometre": "km",
+      "unitMetre": "m",
+      "distanceKilometre": "{{distance}} km dur",
+      "distanceKilometreAlternative": "{{distance}} km",
+      "distanceMetre": "{{distance}} m dur",
+      "distanceMetreAlternative": "{{distance}} m",
+      "contactInformation": "Kontaktno detalia",
+      "address": "Adresa",
+      "phone": "Numero telefoneskoro",
+      "eMail": "I-mejl adresa",
+      "website": "Vebstrana",
+      "openingHours": "Pravibaskere aria",
+      "description": "Havljarin",
+      "addressCopied": "I adresa si kopirimi ko than",
+      "phoneCopied": "E telefoneskoro numero si kopirimo ko than",
+      "eMailCopied": "I-mejl adresa si kopirimi ko than",
+      "websiteCopied": "Vebstrana si kopirimi ko than",
+      "listTitle": "Paše tute",
+      "detailsHeader": "Palal",
+      "detailsAddress": "Legariba",
+      "detailsMapLink": "Phrav ko Google Maps",
+      "detailsInformation": "Info",
+      "detailsNextPoi": "Aver",
+      "detailsPreviousPoi": "Angleder",
+      "previousPoi": "Anglederutno than",
+      "nextPoi": "Aver than",
+      "openExternalMaps": "Phrav ko mapengjiri app",
+      "allDay": "sasto dive",
+      "opened": "phravdo",
+      "closed": "phanlo",
+      "temporarilyClosed": "harne vakteske phanlo",
+      "montag": "Jekhtodi",
+      "dienstag": "Dujtodi",
+      "mittwoch": "Trintodi",
+      "donnerstag": "Štartodi",
+      "freitag": "Paraštuj",
+      "samstag": "Savato",
+      "sonntag": "Purano kurko",
+      "adjustFilters": "Filteri ko lokacie",
+      "onlyCurrentlyOpen": "salde sikav akana so si phravde lokacie",
+      "poiCategories": "Kategorie",
+      "showPois_zero": "Sikav 0 thana",
+      "showPois_one": "Sikav 1 than",
+      "showPois_two": "Sikav {{count}} thana",
+      "showPois_few": "Sikav {{count}} thana",
+      "showPois_many": "Sikav {{count}} thana",
+      "showPois_other": "Sikav {{count}} thana",
+      "alphabetLetters": "A-Ž",
+      "clearFilter": "Kos o filteri {{filter}}",
+      "showOwnLocation": "Sikav tli lokacia",
+      "makeAppointment": "Ker zakažiba",
+      "appointmentNecessary": "Valjani zakažiba",
+      "makeAppointmentTooltipWithLink": "Ker zakažibe ko akava dive prekal <1>the website</1> jali katar telefoni.",
+      "theWebsite": "i vebstrana"
+    },
     "ru": {
       "pageTitle": "Карта",
       "poi": "Населенный пункт",
@@ -11947,6 +12264,19 @@
       "pageTitle": "Căutare",
       "delete": "Ștergeți intrarea"
     },
+    "rom": {
+      "nothingFound": "Afi ker, našti arakhljam nisave prava rezultatoja.",
+      "searchPlaceholder": "Rode",
+      "itemHint": "Dik e rodibaskoro rezultato",
+      "searchResultsCount_zero": "0 rodibaskere rezultatoja",
+      "searchResultsCount_one": "1 rodibaskoro rezultato",
+      "searchResultsCount_two": "2 rodibaskere rezultatoja",
+      "searchResultsCount_few": "{{count}} rodibaskere rezultatoja",
+      "searchResultsCount_many": "{{count}} rodibaskere rezultatoja",
+      "searchResultsCount_other": "{{count}} rodibaskere rezultatoja",
+      "pageTitle": "Rode",
+      "delete": "Kos o čhivdo"
+    },
     "ru": {
       "nothingFound": "К сожалению, подходящие результаты не найдены.",
       "searchPlaceholder": "Поиск",
@@ -12664,6 +12994,28 @@
       "externalResourcesTitle": "Surse externe",
       "externalResourcesDescription": "Precizați ce surse externe sunt permise."
     },
+    "rom": {
+      "sentryTitle": "App stabiliteti",
+      "sentryDescription": "Ker lačheder i {{appName}} app prekal avtomatikane bičhaliba bangeskere reportoja",
+      "pushNewsTitle": "Mečin notifikacie",
+      "pushNewsDescription": "Dobin mečibaskere notifikacie baši o palune lokalnikane haberia",
+      "about": "Baši {{appName}}",
+      "privacyPolicy": "Arakhibe podatkongjiri polisa",
+      "version": "Verzia: {{version}}",
+      "openSourceLicenses": "Phrav haingaskiri licenca",
+      "tracking": "J-PAL evaluacia",
+      "allowTracking": "Muk sledibe",
+      "trackingShortDescription": "Le than ki J-PAL evaluaciakiri studia lačhakeribaske {{appName}}.",
+      "trackingMoreInformation": "Buteder informacie ki J-Pal evaluacia thaj o rodlaripaskere kauze",
+      "trackingDescription": "{{appName}} rodel izini te sikavel to koristiba tari app. Te podatke si anonimna thaj ka oven koristime salde bašo rodlaripaskere kauze thaj te lačhakerel pes i app. E sledibaskere podatke nane te oven ulavde jali procesuime bašo reklamiribe jali aver komercialnikane kauze.",
+      "trackingLeaveTitle": "Muk o sledibe?",
+      "trackingLeaveDescription": "Čhinagjan o slediba. O slediba pomožinel tu te lačhare {{appName}} app thaj te de šukareder informacie baši o imigrantoja. Sian li sigurno so mangea te mukhe o ekrani bizo te mukhe o slediba?",
+      "enabled": "aktivirimo",
+      "disabled": "deaktivirimo",
+      "decline": "Ma te mange",
+      "externalResourcesTitle": "Avralutne Hainga",
+      "externalResourcesDescription": "Vaker save avralutne hainga si mukhle."
+    },
     "ru": {
       "sentryTitle": "Стабильность приложения",
       "sentryDescription": "Повышение стабильности работы приложения {{appName}} путем автоматической отправки сообщений о сбоях",
@@ -13064,6 +13416,12 @@
       "whatsappTooltip": "partajați în WhatsApp",
       "closeTooltip": "Închideți"
     },
+    "rom": {
+      "facebookTooltip": "ulav ko Facebook",
+      "mailTooltip": "preporučin prekal imejl",
+      "whatsappTooltip": "ulav ko WhatsApp",
+      "closeTooltip": "Phande"
+    },
     "ru": {
       "facebookTooltip": "поделиться на Facebook",
       "mailTooltip": "рекомендовать по электронной почте",
@@ -13209,6 +13567,9 @@
     },
     "ro": {
       "noOffersAvailable": "Nicio ofertă disponibilă"
+    },
+    "rom": {
+      "noOffersAvailable": "Nane dostapna ponude"
     },
     "ru": {
       "noOffersAvailable": "Предложения отсутствуют"
