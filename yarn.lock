@@ -17744,6 +17744,7 @@ __metadata:
     npm-license-crawler: "npm:^0.2.1"
     patch-package: "npm:^8.0.0"
     postinstall-postinstall: "npm:^2.1.0"
+    prettier: "npm:^3.3.3"
     query-string: "npm:^9.1.0"
     react: "npm:18.2.0"
     react-hook-form: "npm:^7.53.0"

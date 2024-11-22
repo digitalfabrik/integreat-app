@@ -3,14 +3,28 @@
 const { execSync } = require('child_process')
 const { program } = require('commander')
 
+function parseBashVariables(str) {
+  const env = {}
+  const regex = /(\w+)="((?:\\"|[^"])*)"/g
+  let match
+  while ((match = regex.exec(str)) !== null) {
+    const key = match[1]
+    const value = match[2].replace(/\\"/g, '"') // Handle escaped quotes
+    env[key] = value
+  }
+  return env
+}
+
 program
   .command('packager <build_config_name>')
   .description('start metro packager')
   .action(buildConfigName => {
-    const buildConfig = execSync(`yarn workspace build-configs manage to-bash ${buildConfigName} common`)
-      .toString()
-      .replaceAll('\n', ' ')
-    execSync(`yarn cross-env ${buildConfig} yarn react-native start --reset-cache`, { stdio: 'inherit' })
+    const buildConfigStr = execSync(`yarn workspace build-configs manage to-bash ${buildConfigName} common`).toString()
+
+    const buildConfig = parseBashVariables(buildConfigStr)
+    const env = { ...process.env, ...buildConfig }
+
+    execSync(`yarn react-native start --reset-cache`, { stdio: 'inherit', env })
   })
 
 program
@@ -21,16 +35,20 @@ program
     const { production } = options
     const buildFlag = production ? '--mode=release' : '--active-arch-only'
 
-    const jsonBuildConfig = execSync(`yarn workspace build-configs manage to-json ${buildConfigName} android`)
-    const applicationId = JSON.parse(jsonBuildConfig).applicationId
+    const jsonBuildConfigStr = execSync(
+      `yarn workspace build-configs manage to-json ${buildConfigName} android`,
+    ).toString()
+    const jsonBuildConfig = JSON.parse(jsonBuildConfigStr)
+    const applicationId = jsonBuildConfig.applicationId
 
-    const buildConfig = execSync(`yarn workspace build-configs manage to-bash ${buildConfigName} android`)
-      .toString()
-      .replaceAll('\n', ' ')
-    execSync(
-      `yarn cross-env ${buildConfig} yarn react-native run-android --no-packager --appId ${applicationId} ${buildFlag}`,
-      { stdio: 'inherit' },
-    )
+    const buildConfigStr = execSync(`yarn workspace build-configs manage to-bash ${buildConfigName} android`).toString()
+    const buildConfig = parseBashVariables(buildConfigStr)
+    const env = { ...process.env, ...buildConfig }
+
+    execSync(`yarn react-native run-android --no-packager --appId ${applicationId} ${buildFlag}`, {
+      stdio: 'inherit',
+      env,
+    })
   })
 
 program.parse(process.argv)
