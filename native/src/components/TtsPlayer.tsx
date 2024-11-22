@@ -5,6 +5,7 @@ import styled from 'styled-components/native'
 import { CloseIcon, PauseIcon, PlaybackIcon, PlayIcon } from '../assets'
 import Icon from './base/Icon'
 import IconButton from './base/IconButton'
+import Pressable from './base/Pressable'
 import Text from './base/Text'
 
 const StyledTtsPlayer = styled.View<{ $isExpanded: boolean }>`
@@ -39,7 +40,7 @@ const StyledPlayIcon = styled(IconButton)`
   border-radius: 50px;
 `
 
-const StyledBackForthButton = styled.TouchableOpacity`
+const StyledBackForthButton = styled(Pressable)`
   display: flex;
   flex-direction: row;
   gap: 5px;
@@ -60,7 +61,7 @@ const StyledPlayerHeaderText = styled(Text)`
   font-size: 18px;
 `
 
-const CloseButton = styled.TouchableOpacity`
+const CloseButton = styled(Pressable)`
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -115,7 +116,7 @@ const TtsPlayer = ({
     <StyledTtsPlayer $isExpanded={isExpanded} style={elevatedButton}>
       <StyledPanel $isExpanded={isExpanded}>
         {isExpanded && (
-          <StyledBackForthButton accessibilityLabel={t('previous')} onPress={handleBackward}>
+          <StyledBackForthButton role='button' accessibilityLabel={t('previous')} onPress={handleBackward}>
             <StyledText>{t('previous')}</StyledText>
             <Icon Icon={PlaybackIcon} reverse />
           </StyledBackForthButton>
@@ -134,7 +135,7 @@ const TtsPlayer = ({
           icon={<PlayButtonIcon Icon={isPlaying ? PauseIcon : PlayIcon} />}
         />
         {isExpanded && (
-          <StyledBackForthButton accessibilityLabel={t('next')} onPress={handleForward}>
+          <StyledBackForthButton role='button' accessibilityLabel={t('next')} onPress={handleForward}>
             <Icon Icon={PlaybackIcon} />
             <StyledText>{t('next')}</StyledText>
           </StyledBackForthButton>
@@ -142,7 +143,7 @@ const TtsPlayer = ({
       </StyledPanel>
       <CloseView $isExpanded={isExpanded}>
         {!isExpanded && <StyledPlayerHeaderText>{title}</StyledPlayerHeaderText>}
-        <CloseButton accessibilityLabel='Close player' onPress={handleClose} style={elevatedButton}>
+        <CloseButton role='button' accessibilityLabel='Close player' onPress={handleClose} style={elevatedButton}>
           <Icon Icon={CloseIcon} />
           <StyledText>{t('common:close')}</StyledText>
         </CloseButton>

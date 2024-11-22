@@ -13,7 +13,7 @@ const unsupportedLanguagesForTts = ['fa']
 export const isTtsActive = (content: string[] | null, languageCode: string): boolean =>
   Array.isArray(content) &&
   content.length > 0 &&
-  buildConfig().featureFlags.tts &&
+  Boolean(buildConfig().featureFlags.tts) &&
   !unsupportedLanguagesForTts.includes(languageCode)
 
 export type TtsContextType = {

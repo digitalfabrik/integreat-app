@@ -1,4 +1,4 @@
-import { act, fireEvent, RenderAPI } from '@testing-library/react-native'
+import { act, fireEvent, RenderAPI, screen } from '@testing-library/react-native'
 import { DateTime } from 'luxon'
 import React, { useEffect } from 'react'
 import Tts from 'react-native-tts'
@@ -50,14 +50,14 @@ describe('TtsContainer', () => {
   })
 
   it('should start reading when the button is pressed', async () => {
-    const { getByRole } = renderTtsPlayer()
+    renderTtsPlayer()
 
     // Advance any pending timers or effects
     act(() => {
       jest.runAllTimers()
     })
 
-    const playButton = getByRole('button')
+    const playButton = screen.getByRole('button', { name: 'play' })
     fireEvent.press(playButton)
 
     expect(Tts.speak).toHaveBeenCalledWith(
