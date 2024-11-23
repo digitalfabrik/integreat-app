@@ -1,11 +1,11 @@
-import React, { ReactNode, useLayoutEffect, useState } from 'react'
+import React, { ReactNode } from 'react'
 import styled, { css } from 'styled-components'
 
 import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
+import '../styles/Aside.css'
 import { MobileBanner } from './MobileBanner'
-
-const additionalToolbarTopSpacing = 32
+import Portal from './Portal'
 
 export const RichLayout = styled.div`
   position: relative;
@@ -49,6 +49,7 @@ const Body = styled.div<{ $fullWidth: boolean; $disableScrollingSafari: boolean 
   background-color: ${props => props.theme.colors.backgroundColor};
   word-wrap: break-word;
   min-height: 100%;
+  display: flex;
 
   /* Fix jumping iOS Safari Toolbar by prevent scrolling on body */
 
@@ -93,25 +94,6 @@ const Main = styled.main<{ $fullWidth: boolean }>`
   }
 `
 
-const Aside = styled.aside<{ $languageSelectorHeight: number }>`
-  top: ${props => props.$languageSelectorHeight + dimensions.headerHeightLarge + additionalToolbarTopSpacing}px;
-  margin-top: ${props => props.$languageSelectorHeight - dimensions.navigationMenuHeight}px;
-  display: inline-block;
-  position: sticky;
-  width: ${dimensions.toolbarWidth}px;
-  vertical-align: top;
-  z-index: 10;
-
-  &:empty {
-    display: none;
-  }
-
-  &:empty + * {
-    display: block;
-    max-width: 100%;
-  }
-`
-
 export const LAYOUT_ELEMENT_ID = 'layout'
 
 type LayoutProps = {
@@ -133,20 +115,18 @@ const Layout = ({
   fullWidth = false,
   disableScrollingSafari = false,
 }: LayoutProps): JSX.Element => {
-  const { width, viewportSmall } = useWindowDimensions()
-  const [languageSelectorHeight, setLanguageSelectorHeight] = useState<number>(0)
-
-  useLayoutEffect(() => {
-    const panelHeight = document.getElementById('languageSelector')?.clientHeight
-    setLanguageSelectorHeight(panelHeight ?? 0)
-  }, [width])
+  const { viewportSmall } = useWindowDimensions()
 
   return (
     <RichLayout id={LAYOUT_ELEMENT_ID}>
       <MobileBanner />
       {header}
       <Body $fullWidth={fullWidth} $disableScrollingSafari={disableScrollingSafari}>
-        {!viewportSmall && <Aside $languageSelectorHeight={languageSelectorHeight}>{toolbar}</Aside>}
+        {!viewportSmall && (
+          <Portal className='aside' show>
+            {toolbar}
+          </Portal>
+        )}
         <Main $fullWidth={fullWidth}>{children}</Main>
       </Body>
       {viewportSmall && toolbar}
