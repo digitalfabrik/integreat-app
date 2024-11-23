@@ -34,6 +34,7 @@ describe('FeedbackContainer', () => {
     language,
     onClose: closeModal,
     query,
+    isPositive: null,
   })
 
   it('should display thanks message for modal', async () => {
