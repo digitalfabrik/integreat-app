@@ -24,12 +24,11 @@ describe('FeedbackToolbarItem', () => {
     expect(queryByText('feedback:headline')).toBeFalsy()
     expect(queryByText('feedback:thanksHeadline')).toBeFalsy()
 
-    fireEvent.click(getByText('feedback:feedback'))
+    fireEvent.click(getByText('feedback:useful'))
 
     expect(getByText('feedback:headline')).toBeTruthy()
     expect(queryByText('feedback:thanksHeadline')).toBeFalsy()
 
-    fireEvent.click(getByText('feedback:useful'))
     fireEvent.click(getByText('feedback:send'))
 
     expect(await findByText('feedback:thanksMessage')).toBeTruthy()
