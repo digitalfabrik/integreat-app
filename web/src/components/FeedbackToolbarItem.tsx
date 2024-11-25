@@ -13,10 +13,9 @@ import ToolbarItem from './ToolbarItem'
 type FeedbackToolbarItemProps = {
   route: RouteType
   slug?: string
-  isInBottomActionSheet: boolean
 }
 
-const FeedbackToolbarItem = ({ route, slug, isInBottomActionSheet }: FeedbackToolbarItemProps): ReactElement => {
+const FeedbackToolbarItem = ({ route, slug }: FeedbackToolbarItemProps): ReactElement => {
   const { cityCode, languageCode } = useCityContentParams()
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -27,7 +26,7 @@ const FeedbackToolbarItem = ({ route, slug, isInBottomActionSheet }: FeedbackToo
   return (
     <>
       {isFeedbackOpen && (
-        <Modal title={title} closeModal={() => setIsFeedbackOpen(false)} wrapInPortal={isInBottomActionSheet}>
+        <Modal title={title} closeModal={() => setIsFeedbackOpen(false)} wrapInPortal>
           <FeedbackContainer
             onClose={() => setIsFeedbackOpen(false)}
             onSubmit={() => setIsSubmitted(true)}
