@@ -1,3 +1,4 @@
+import * as domain from 'node:domain'
 import React, { ReactElement } from 'react'
 import { Trans } from 'react-i18next'
 import styled from 'styled-components'
@@ -60,8 +61,8 @@ const Checkbox = ({
       />
       {!noLinkInLabel ? (
         <Trans i18nKey={label}>
-          This gets replaced by react-i18next.
-          {link ? <a href={link}>{makeToLink}</a> : <span>{makeToLink}</span>}
+          {/* More information: https://react.i18next.com/latest/trans-component */}
+          <a href={link}>{makeToLink}</a>
         </Trans>
       ) : (
         ''
