@@ -19,7 +19,7 @@ const FeedbackToolbarItem = ({ route, slug }: FeedbackToolbarItemProps): ReactEl
   const { cityCode, languageCode } = useCityContentParams()
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
-  const [isPositive, setIsPositive] = useState<boolean | null>(null)
+  const [isPositiveRating, setIsPositiveRating] = useState<boolean | null>(null)
   const { t } = useTranslation('feedback')
   const title = isSubmitted ? t('thanksHeadline') : t('headline')
 
@@ -34,7 +34,8 @@ const FeedbackToolbarItem = ({ route, slug }: FeedbackToolbarItemProps): ReactEl
             cityCode={cityCode}
             language={languageCode}
             slug={slug}
-            isPositive={isPositive}
+            isPositiveRating={isPositiveRating}
+            setIsPositiveRating={setIsPositiveRating}
           />
         </Modal>
       )}
@@ -43,7 +44,7 @@ const FeedbackToolbarItem = ({ route, slug }: FeedbackToolbarItemProps): ReactEl
         text={t('useful')}
         onClick={() => {
           setIsFeedbackOpen(true)
-          setIsPositive(true)
+          setIsPositiveRating(true)
         }}
       />
       <ToolbarItem
@@ -51,7 +52,7 @@ const FeedbackToolbarItem = ({ route, slug }: FeedbackToolbarItemProps): ReactEl
         text={t('notUseful')}
         onClick={() => {
           setIsFeedbackOpen(true)
-          setIsPositive(false)
+          setIsPositiveRating(false)
         }}
       />
     </>
