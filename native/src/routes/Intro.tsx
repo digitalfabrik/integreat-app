@@ -3,6 +3,12 @@ import { useTranslation } from 'react-i18next'
 import { FlatList, useWindowDimensions, ViewToken } from 'react-native'
 import styled, { css } from 'styled-components/native'
 
+import directions from 'build-configs/common/assets/directions.svg'
+import information from 'build-configs/common/assets/information.svg'
+import language from 'build-configs/common/assets/language.svg'
+import offline from 'build-configs/common/assets/offline.svg'
+import search from 'build-configs/common/assets/search.svg'
+import welcome from 'build-configs/common/assets/welcome.svg'
 import { IntroRouteType, LANDING_ROUTE } from 'shared'
 
 import SlideContent, { SlideContentType } from '../components/SlideContent'
@@ -18,41 +24,49 @@ const Container = styled.View<{ width: number }>`
   flex: 1;
   flex-direction: column;
   width: ${props => props.width}px;
-  justify-content: space-between;
+  padding-bottom: 30%;
+  background-color: white;
 `
 
 const ImageStyle = css`
   align-self: center;
   flex: 1;
+  color: ${props => props.theme.colors.themeColor};
 `
 
 const icons = buildConfigAssets().intro
 const styledIcons = icons
   ? {
-      Search: styled(icons.Search)`
+      Language: styled(language)`
         ${ImageStyle};
       `,
-      Events: styled(icons.Events)`
+      Search: styled(search)`
         ${ImageStyle};
       `,
-      Language: styled(icons.Language)`
+      Directions: styled(directions)`
+        ${ImageStyle};
+      `,
+      Information: styled(information)`
+        ${ImageStyle};
+      `,
+      Offline: styled(offline)`
         ${ImageStyle};
       `,
     }
   : null
 
-const AppIcon = styled(buildConfigAssets().AppIcon)`
+const AppIcon = styled(welcome)`
   ${ImageStyle};
 `
 
 const StyledAppIcon = styled(Icon)`
-  width: 40%;
-  height: 40%;
+  height: 100%;
+  width: 60%;
 `
 
 const StyledIcon = styled(Icon)`
   height: 100%;
-  width: 60%;
+  width: 80%;
 `
 
 type IntroProps = {
@@ -72,7 +86,9 @@ const Intro = ({ route, navigation }: IntroProps): ReactElement => {
   const slides = [
     {
       key: 'integreat',
-      title: buildConfig().appName,
+      title: t('welcome', {
+        appName: buildConfig().appName,
+      }),
       description: t('appDescription', {
         appName: buildConfig().appName,
       }),
@@ -82,22 +98,34 @@ const Intro = ({ route, navigation }: IntroProps): ReactElement => {
   if (styledIcons) {
     slides.push(
       {
+        key: 'languageChange',
+        title: t('languageChange'),
+        description: t('languageChangeDescription'),
+        Content: <StyledIcon Icon={styledIcons.Language} />,
+      },
+      {
         key: 'search',
         title: t('search'),
         description: t('searchDescription'),
         Content: <StyledIcon Icon={styledIcons.Search} />,
       },
       {
-        key: 'events',
-        title: t('events'),
-        description: t('eventsDescription'),
-        Content: <StyledIcon Icon={styledIcons.Events} />,
+        key: 'directions',
+        title: t('directions'),
+        description: t('directionsDescription'),
+        Content: <StyledIcon Icon={styledIcons.Directions} />,
       },
       {
-        key: 'languageChange',
-        title: t('languageChange'),
-        description: t('languageChangeDescription'),
-        Content: <StyledIcon Icon={styledIcons.Language} />,
+        key: 'information',
+        title: t('information'),
+        description: t('informationDescription'),
+        Content: <StyledIcon Icon={styledIcons.Information} />,
+      },
+      {
+        key: 'offline',
+        title: t('offline'),
+        description: t('offlineDescription'),
+        Content: <StyledIcon Icon={styledIcons.Offline} />,
       },
     )
   }

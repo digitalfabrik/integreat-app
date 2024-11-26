@@ -7,7 +7,7 @@ import Pressable from './base/Pressable'
 
 const DotsContainer = styled.View`
   flex: 1;
-  height: 10px;
+  height: 12px;
   padding: 10px 10px 20px;
   flex-direction: row;
   justify-content: center;
@@ -16,12 +16,12 @@ const DotsContainer = styled.View`
 `
 
 const Dot = styled(Pressable)<{ isActive: boolean }>`
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   border-radius: 5px;
-  margin: 0 4px;
+  margin: 0 18px;
   background-color: ${props =>
-    props.isActive ? props.theme.colors.textSecondaryColor : props.theme.colors.textDecorationColor};
+    props.isActive ? props.theme.colors.textColor : props.theme.colors.textDecorationColor};
 `
 
 type PaginationProps = {

@@ -5686,13 +5686,20 @@
   },
   "intro": {
     "de": {
-      "appDescription": "{{appName}} ist Dein digitaler Guide für Deutschland",
-      "search": "Suche",
-      "searchDescription": "Anhand von Schlagwörtern schnell die richtige Information finden",
-      "languageChange": "Sprachwechsel",
+      "welcome": "Willkommen bei {{appName}}",
+      "appDescription": "In {{appName}} findest du Antworten und Tipps in deiner Muttersprache. Zum Beispiel: Wo finde ich Hilfe? Wann darf ich arbeiten?",
+      "search": "Einfache Suche",
+      "searchDescription": "Du findest schnell die richtigen Informationen über die Suche rechts oben im Menü.",
+      "languageChange": "Sprache verändern",
       "languageChangeDescription": "Einfaches Umstellen der Sprache einzelner Seiten",
       "events": "Veranstaltungen",
       "eventsDescription": "Aktuelle Veranstaltungen und Termine in der Umgebung",
+      "directions": "Angebote in deiner Nähe",
+      "directionsDescription": "In der Karte kannst du Orte in deiner Nähe finden, zum Beispiel Orte für Sprachkurse.",
+      "offline": "Funktioniert auch offline",
+      "offlineDescription": "Du hast nicht immer Internet? Kein Problem. Du kannst Integreat auch ohne Internet benutzen.",
+      "information": "Aktuelle Informationen",
+      "informationDescription": "Was gibt es Neues in deiner Nähe?  Finde es heraus in Integreat.",
       "skip": "Überspringen",
       "next": "Weiter"
     },
