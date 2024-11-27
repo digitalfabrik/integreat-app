@@ -1,16 +1,13 @@
 import { useMemo } from 'react'
 
-import { SearchResult } from 'shared'
 import {
-  CategoriesMapModel,
   createCategoriesEndpoint,
   createEventsEndpoint,
   createPOIsEndpoint,
-  EventModel,
   ExtendedPageModel,
-  PoiModel,
   useLoadFromEndpoint,
 } from 'shared/api'
+import { combinePossibleSearchResults } from 'shared/hooks/useSearch'
 
 type UseAllPossibleSearchResultsProps = {
   city: string
@@ -24,16 +21,6 @@ type UseAllPossibleSearchResultsReturn = {
   loading: boolean
 }
 
-const combineResults = (
-  categories: CategoriesMapModel | null,
-  events: EventModel[] | null,
-  pois: PoiModel[] | null,
-): SearchResult[] => [
-  ...(categories?.toArray().filter(category => !category.isRoot()) || []),
-  ...(events || []),
-  ...(pois || []),
-]
-
 const useAllPossibleSearchResults = ({
   city,
   language,
@@ -46,7 +33,7 @@ const useAllPossibleSearchResults = ({
   const pois = useLoadFromEndpoint(createPOIsEndpoint, cmsApiBaseUrl, params)
 
   const allPossibleResults = useMemo(
-    () => combineResults(categories.data, events.data, pois.data),
+    () => combinePossibleSearchResults(categories.data, events.data, pois.data),
     [categories.data, events.data, pois.data],
   )
 

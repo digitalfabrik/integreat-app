@@ -1,6 +1,7 @@
 import React, { ReactElement, useMemo } from 'react'
 
 import { SearchRouteType } from 'shared'
+import { combinePossibleSearchResults } from 'shared/hooks/useSearch'
 
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
@@ -19,11 +20,7 @@ const SearchModalContainer = ({ navigation, route }: SearchModalContainerProps):
   const { data, ...response } = useLoadCityContent({ cityCode, languageCode })
 
   const allPossibleResults = useMemo(
-    () => [
-      ...(data?.categories.toArray().filter(category => !category.isRoot()) || []),
-      ...(data?.events || []),
-      ...(data?.pois || []),
-    ],
+    () => combinePossibleSearchResults(data?.categories, data?.events, data?.pois),
     [data?.categories, data?.events, data?.pois],
   )
 

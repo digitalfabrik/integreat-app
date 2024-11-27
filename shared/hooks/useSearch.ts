@@ -2,9 +2,22 @@ import MiniSearch from 'minisearch'
 import { useCallback } from 'react'
 
 import useLoadAsync from '../api/endpoints/hooks/useLoadAsync'
+import CategoriesMapModel from '../api/models/CategoriesMapModel'
+import EventModel from '../api/models/EventModel'
 import ExtendedPageModel from '../api/models/ExtendedPageModel'
+import PoiModel from '../api/models/PoiModel'
 
 export type SearchResult = ExtendedPageModel
+
+export const combinePossibleSearchResults = (
+  categories?: CategoriesMapModel | null,
+  events?: EventModel[] | null,
+  pois?: PoiModel[] | null,
+): SearchResult[] => [
+  ...(categories?.toArray().filter(category => !category.isRoot()) || []),
+  ...(events || []),
+  ...(pois || []),
+]
 
 const useSearch = (allPossibleResults: SearchResult[], query: string): SearchResult[] | null => {
   const initializeMiniSearch = useCallback(async () => {
