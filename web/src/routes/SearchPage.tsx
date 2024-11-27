@@ -91,7 +91,7 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
     )
   }
 
-  if (loading || !results) {
+  if (loading) {
     return (
       <CityContentLayout isLoading {...locationLayoutParams}>
         <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
@@ -116,8 +116,8 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
       {query.length > 0 && (
         <>
           <List>
-            <SearchCounter>{t('searchResultsCount', { count: results.length })}</SearchCounter>
-            {results.map(({ title, content, path, thumbnail }) => (
+            <SearchCounter>{t('searchResultsCount', { count: results?.length })}</SearchCounter>
+            {results?.map(({ title, content, path, thumbnail }) => (
               <SearchListItem
                 title={title}
                 contentWithoutHtml={parseHTML(content)}
@@ -131,7 +131,7 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
           <SearchFeedback
             cityCode={cityCode}
             languageCode={languageCode}
-            noResults={results.length === 0}
+            noResults={results?.length === 0}
             query={filterText}
           />
         </>
