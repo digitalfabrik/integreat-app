@@ -1,10 +1,14 @@
 import { useMemo } from 'react'
 
+import { SearchResult } from 'shared'
 import {
+  CategoriesMapModel,
   createCategoriesEndpoint,
   createEventsEndpoint,
   createPOIsEndpoint,
+  EventModel,
   ExtendedPageModel,
+  PoiModel,
   useLoadFromEndpoint,
 } from 'shared/api'
 
@@ -20,6 +24,16 @@ type UseAllPossibleSearchResultsReturn = {
   loading: boolean
 }
 
+const combineResults = (
+  categories: CategoriesMapModel | null,
+  events: EventModel[] | null,
+  pois: PoiModel[] | null,
+): SearchResult[] => [
+  ...(categories?.toArray().filter(category => !category.isRoot()) || []),
+  ...(events || []),
+  ...(pois || []),
+]
+
 const useAllPossibleSearchResults = ({
   city,
   language,
@@ -27,19 +41,19 @@ const useAllPossibleSearchResults = ({
 }: UseAllPossibleSearchResultsProps): UseAllPossibleSearchResultsReturn => {
   const params = { city, language }
 
-  const { data: categories, ...categoriesReturn } = useLoadFromEndpoint(createCategoriesEndpoint, cmsApiBaseUrl, params)
-  const { data: events, ...eventsReturn } = useLoadFromEndpoint(createEventsEndpoint, cmsApiBaseUrl, params)
-  const { data: pois, ...poisReturn } = useLoadFromEndpoint(createPOIsEndpoint, cmsApiBaseUrl, params)
+  const categories = useLoadFromEndpoint(createCategoriesEndpoint, cmsApiBaseUrl, params)
+  const events = useLoadFromEndpoint(createEventsEndpoint, cmsApiBaseUrl, params)
+  const pois = useLoadFromEndpoint(createPOIsEndpoint, cmsApiBaseUrl, params)
 
   const allPossibleResults = useMemo(
-    () => [...(categories?.toArray().filter(category => !category.isRoot()) || []), ...(events || []), ...(pois || [])],
-    [categories, events, pois],
+    () => combineResults(categories.data, events.data, pois.data),
+    [categories.data, events.data, pois.data],
   )
 
   return {
     data: allPossibleResults,
-    loading: categoriesReturn.loading || eventsReturn.loading || poisReturn.loading,
-    error: categoriesReturn.error || eventsReturn.error || poisReturn.error,
+    loading: categories.loading || events.loading || pois.loading,
+    error: categories.error || events.error || pois.error,
   }
 }
 
