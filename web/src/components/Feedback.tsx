@@ -119,11 +119,10 @@ const Feedback = ({
       <Checkbox
         checked={privacyCheckedFilter}
         setChecked={setPrivacyCheckedFilter}
-        label={t('feedback:privacyAgreement')}
+        label={'feedback:privacyAgreement'}
         id='privacyAgreement'
         link='https://integreat-app.de/datenschutz/'
-        noLinkInLabel={false}
-        makeToLink={t('feedback:privacyPolicy')}
+        makeToLink={'feedback:privacyPolicy'}
       />
       <StyledTextButton disabled={sendFeedbackDisabled && privacyCheckedFilter} onClick={onSubmit} text={t('send')} />
     </Container>

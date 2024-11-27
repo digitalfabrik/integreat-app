@@ -1,6 +1,6 @@
-import * as domain from 'node:domain'
 import React, { ReactElement } from 'react'
-import { Trans } from 'react-i18next'
+import { Trans, useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 const Container = styled.div`
@@ -35,40 +35,24 @@ type CheckboxProps = {
   setChecked: (checked: boolean) => void
   label: string
   id: string
-  noLinkInLabel?: boolean
   link?: string
   makeToLink?: string
 }
 
-const Checkbox = ({
-  checked,
-  setChecked,
-  label,
-  id,
-  noLinkInLabel = true,
-  link,
-  makeToLink,
-}: CheckboxProps): ReactElement => (
-  <Container>
-    <StyledLabel htmlFor={id}>{label}</StyledLabel>
-    <FlexEnd>
-      <StyledCheckbox
-        type='checkbox'
-        id={id}
-        value={noLinkInLabel ? label : ''}
-        checked={checked}
-        onChange={() => setChecked(!checked)}
-      />
-      {!noLinkInLabel ? (
+const Checkbox = ({ checked, setChecked, label, id, link, makeToLink }: CheckboxProps): ReactElement => {
+  return (
+    <Container>
+      <StyledLabel htmlFor={id}>
         <Trans i18nKey={label}>
-          {/* More information: https://react.i18next.com/latest/trans-component */}
-          <a href={link}>{makeToLink}</a>
+          This gets replaced
+          {makeToLink ? <Link to={link}>by react-i18next</Link> : <span>test</span>}
         </Trans>
-      ) : (
-        ''
-      )}
-    </FlexEnd>
-  </Container>
-)
+      </StyledLabel>
+      <FlexEnd>
+        <StyledCheckbox type='checkbox' id={id} checked={checked} onChange={() => setChecked(!checked)} />
+      </FlexEnd>
+    </Container>
+  )
+}
 
 export default Checkbox
