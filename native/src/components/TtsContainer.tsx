@@ -8,7 +8,7 @@ import { AppContext } from '../contexts/AppContextProvider'
 import { reportError } from '../utils/sentry'
 import TtsPlayer from './TtsPlayer'
 
-const unsupportedLanguagesForTts = ['fa']
+const unsupportedLanguagesForTts = ['fa', 'ka', 'kmr']
 
 export const isTtsActive = (content: string[] | null, languageCode: string): boolean =>
   Array.isArray(content) &&
