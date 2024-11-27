@@ -39,13 +39,13 @@ type CheckboxProps = {
   makeToLink?: string
 }
 
-const Checkbox = ({ checked, setChecked, label, id, link, makeToLink }: CheckboxProps): ReactElement => {
+const Checkbox = ({ checked, setChecked, label, id, link }: CheckboxProps): ReactElement => {
   return (
     <Container>
       <StyledLabel htmlFor={id}>
         <Trans i18nKey={label}>
           This gets replaced
-          {makeToLink ? <Link to={link}>by react-i18next</Link> : <span>test</span>}
+          {link ? <Link to={link}>by react-i18next</Link> : <span>test</span>}
         </Trans>
       </StyledLabel>
       <FlexEnd>
