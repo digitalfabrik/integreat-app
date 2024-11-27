@@ -1,5 +1,3 @@
-import { useMemo } from 'react'
-
 import {
   createCategoriesEndpoint,
   createEventsEndpoint,
@@ -7,7 +5,7 @@ import {
   ExtendedPageModel,
   useLoadFromEndpoint,
 } from 'shared/api'
-import { combinePossibleSearchResults } from 'shared/hooks/useSearch'
+import { useFormatPossibleSearchResults } from 'shared/hooks/useSearch'
 
 type UseAllPossibleSearchResultsProps = {
   city: string
@@ -32,10 +30,7 @@ const useAllPossibleSearchResults = ({
   const events = useLoadFromEndpoint(createEventsEndpoint, cmsApiBaseUrl, params)
   const pois = useLoadFromEndpoint(createPOIsEndpoint, cmsApiBaseUrl, params)
 
-  const allPossibleResults = useMemo(
-    () => combinePossibleSearchResults(categories.data, events.data, pois.data),
-    [categories.data, events.data, pois.data],
-  )
+  const allPossibleResults = useFormatPossibleSearchResults(categories.data, events.data, pois.data)
 
   return {
     data: allPossibleResults,
