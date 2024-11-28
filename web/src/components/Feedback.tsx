@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
@@ -54,8 +54,6 @@ type FeedbackProps = {
   searchTerm: string | undefined
   setSearchTerm: (newTerm: string) => void
   closeFeedback: (() => void) | undefined
-  privacyCheckedFilter: boolean
-  setPrivacyCheckedFilter: (privacyChecked: boolean) => void
 }
 
 const Feedback = ({
@@ -71,13 +69,12 @@ const Feedback = ({
   searchTerm,
   setSearchTerm,
   closeFeedback,
-  privacyCheckedFilter,
-  setPrivacyCheckedFilter,
 }: FeedbackProps): ReactElement => {
   const { t } = useTranslation('feedback')
 
   const isSearchFeedback = searchTerm !== undefined
   const commentTitle = isSearchFeedback ? 'wantedInformation' : 'commentHeadline'
+  const [privacyCheckedFilter, setPrivacyCheckedFilter] = useState(false)
   const sendFeedbackDisabled = isPositiveFeedback === null && comment.trim().length === 0 && !searchTerm
 
   if (sendingStatus === 'successful') {
@@ -123,7 +120,7 @@ const Feedback = ({
         id='privacyAgreement'
         link='https://integreat-app.de/datenschutz/'
       />
-      <StyledTextButton disabled={sendFeedbackDisabled && privacyCheckedFilter} onClick={onSubmit} text={t('send')} />
+      <StyledTextButton disabled={sendFeedbackDisabled && !privacyCheckedFilter} onClick={onSubmit} text={t('send')} />
     </Container>
   )
 }
