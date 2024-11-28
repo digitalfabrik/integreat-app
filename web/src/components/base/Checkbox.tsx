@@ -33,20 +33,23 @@ const FlexEnd = styled.div`
 type CheckboxProps = {
   checked: boolean
   setChecked: (checked: boolean) => void
-  label: string
+  label: string | ReactElement
   id: string
   link?: string
-  makeToLink?: string
 }
 
 const Checkbox = ({ checked, setChecked, label, id, link }: CheckboxProps): ReactElement => {
   return (
     <Container>
       <StyledLabel htmlFor={id}>
-        <Trans i18nKey={label}>
-          This gets replaced
-          {link ? <Link to={link}>by react-i18next</Link> : <span>test</span>}
-        </Trans>
+        {typeof label !== 'string' ? (
+          { label }
+        ) : (
+          <Trans i18nKey={label}>
+            This gets replaced
+            {<Link to={link}>by react-i18next</Link>}
+          </Trans>
+        )}
       </StyledLabel>
       <FlexEnd>
         <StyledCheckbox type='checkbox' id={id} checked={checked} onChange={() => setChecked(!checked)} />
