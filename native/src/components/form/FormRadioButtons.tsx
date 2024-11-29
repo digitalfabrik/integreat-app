@@ -30,7 +30,7 @@ const FormRadioButtons = <T extends FieldValues>({ name, control, values }: Form
               <Text>{label}</Text>
             </RadioButton>
             {inputName !== undefined && value === key && (
-              <FormInput rules={{ required: true }} name={inputName} control={control} />
+              <FormInput rules={{ required: true }} name={inputName} control={control} title={inputName} />
             )}
           </View>
         ))}

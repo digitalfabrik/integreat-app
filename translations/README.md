@@ -47,6 +47,9 @@ If there are enough untranslated strings, they can be submitted to professionals
   - `yarn export:ods:override-aschaffenburg`
 - Now you can edit the ODS files (e.g. send them to an external translation service). Exporting plain CSVs is currently not supported.
 
+Note: If the translators only work with English source translations, simply change `source_language` in [config.ts](src/config.ts) to `en`.
+Make sure to revert this after exporting.
+
 ### Receiving finished translations
 
 - Place the edited ODS files in the directories which were generated in the [export step](#submitting-for-translation).
