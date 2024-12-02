@@ -24,7 +24,10 @@ export const getMarkedDates = (
   const cutoffStartDate = DateTime.now().minus({ years: 2 })
   const cutoffEndDate = DateTime.now().plus({ years: 2 })
 
-  if (!startDate || startDate < cutoffStartDate || (endDate && endDate > cutoffEndDate)) {
+  const isStartDateInvalid = !startDate || startDate < cutoffStartDate
+  const isEndDateInvalid = endDate != null && endDate > cutoffEndDate
+
+  if (isStartDateInvalid || isEndDateInvalid) {
     return {}
   }
 

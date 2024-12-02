@@ -3732,10 +3732,7 @@
       "shouldBeEarlier": "Das Anfangsdatum sollte vor dem Enddatum liegen.",
       "hideFilters": "Filter verbergen",
       "showFilters": "Filter anzeigen",
-      "selectRange": "Zeitraum auswählen",
-      "dd": "dd",
-      "mm": "mm",
-      "yyyy": "yyyy"
+      "selectRange": "Zeitraum auswählen"
     },
     "am": {
       "address": "ኣድራሻ",
@@ -3790,10 +3787,7 @@
       "shouldBeEarlier": "يجب أن يكون تاريخ البداية قبل تاريخ النهاية",
       "hideFilters": "إخفاء الفلاتر",
       "showFilters": "إظهار الفلاتر",
-      "selectRange": "اختر النطاق",
-      "dd": "اليوم",
-      "mm": "الشهر",
-      "yyyy": "السنة"
+      "selectRange": "اختر النطاق"
     },
     "bg": {
       "address": "Адрес",
@@ -3956,10 +3950,7 @@
       "shouldBeEarlier": "The start date should be before the end date.",
       "hideFilters": "Hide filters",
       "showFilters": "Show filters",
-      "selectRange": "Select Range",
-      "dd": "dd",
-      "mm": "mm",
-      "yyyy": "yyyy"
+      "selectRange": "Select Range"
     },
     "es": {
       "address": "Dirección",

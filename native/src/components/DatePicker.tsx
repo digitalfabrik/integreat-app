@@ -107,7 +107,7 @@ const DatePicker = ({ title, date, setDate, error, modalOpen, setModalOpen }: Da
         <Wrapper>
           <DatePickerInput
             ref={dayRef}
-            placeholder={t('dd')}
+            placeholder='01'
             nextTargetRef={monthRef}
             inputValue={inputDay}
             setInputValue={setInputDay}
@@ -116,7 +116,7 @@ const DatePicker = ({ title, date, setDate, error, modalOpen, setModalOpen }: Da
           <Text>.</Text>
           <DatePickerInput
             ref={monthRef}
-            placeholder={t('mm')}
+            placeholder='01'
             nextTargetRef={yearRef}
             prevTargetRef={dayRef}
             inputValue={inputMonth}
@@ -128,7 +128,7 @@ const DatePicker = ({ title, date, setDate, error, modalOpen, setModalOpen }: Da
             style={{ marginLeft: 6 }}
             ref={yearRef}
             prevTargetRef={monthRef}
-            placeholder={t('yyyy')}
+            placeholder='1990'
             inputValue={inputYear}
             setInputValue={setInputYear}
             type='year'

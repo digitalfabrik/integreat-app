@@ -1,6 +1,7 @@
 import { fireEvent } from '@testing-library/react-native'
 import { DateTime } from 'luxon'
 import React from 'react'
+import { ReactTestInstance } from 'react-test-renderer'
 
 import renderWithTheme from '../../testing/render'
 import DatePicker, { DatePickerProps } from '../DatePicker'
@@ -35,7 +36,7 @@ describe('DatePickerForNative', () => {
   })
 
   it('should update the date correctly', () => {
-    const { getByPlaceholderText } = renderCustomDatePicker({
+    const { getAllByPlaceholderText, getByPlaceholderText } = renderCustomDatePicker({
       modalOpen: false,
       setModalOpen,
       setDate,
@@ -44,12 +45,11 @@ describe('DatePickerForNative', () => {
       error: '',
     })
 
-    const dayInput = getByPlaceholderText('dd')
-    const monthInput = getByPlaceholderText('mm')
-    const yearInput = getByPlaceholderText('yyyy')
+    const dayMonthInput = getAllByPlaceholderText('01')
+    const yearInput = getByPlaceholderText('1990')
 
-    fireEvent.changeText(dayInput, '15')
-    fireEvent.changeText(monthInput, '08')
+    fireEvent.changeText(dayMonthInput[0] as ReactTestInstance, '15')
+    fireEvent.changeText(dayMonthInput[1] as ReactTestInstance, '08')
     fireEvent.changeText(yearInput, '2024')
 
     expect(setDate).toHaveBeenCalledWith(DateTime.fromFormat('15/08/2024', 'dd/MM/yyyy'))
@@ -69,7 +69,7 @@ describe('DatePickerForNative', () => {
   })
 
   it('should not allow day greater than 31', () => {
-    const { getByPlaceholderText } = renderCustomDatePicker({
+    const { getAllByPlaceholderText } = renderCustomDatePicker({
       modalOpen: false,
       setModalOpen,
       setDate,
@@ -78,7 +78,7 @@ describe('DatePickerForNative', () => {
       error: '',
     })
 
-    const dayInput = getByPlaceholderText('dd')
+    const dayInput = getAllByPlaceholderText('01')[0] as ReactTestInstance
 
     fireEvent.changeText(dayInput, '32')
     fireEvent(dayInput, 'blur')
@@ -86,7 +86,7 @@ describe('DatePickerForNative', () => {
   })
 
   it('should not allow month greater than 12', () => {
-    const { getByPlaceholderText } = renderCustomDatePicker({
+    const { getAllByPlaceholderText } = renderCustomDatePicker({
       modalOpen: false,
       setModalOpen,
       setDate,
@@ -95,7 +95,7 @@ describe('DatePickerForNative', () => {
       error: '',
     })
 
-    const monthInput = getByPlaceholderText('mm')
+    const monthInput = getAllByPlaceholderText('01')[1] as ReactTestInstance
 
     fireEvent.changeText(monthInput, '13')
     fireEvent(monthInput, 'blur')
@@ -103,7 +103,7 @@ describe('DatePickerForNative', () => {
   })
 
   it('should format the day with leading zero on blur', () => {
-    const { getByPlaceholderText } = renderCustomDatePicker({
+    const { getAllByPlaceholderText } = renderCustomDatePicker({
       modalOpen: false,
       setModalOpen,
       setDate,
@@ -112,7 +112,7 @@ describe('DatePickerForNative', () => {
       error: '',
     })
 
-    const dayInput = getByPlaceholderText('dd')
+    const dayInput = getAllByPlaceholderText('01')[0] as ReactTestInstance
 
     fireEvent.changeText(dayInput, '5')
     fireEvent(dayInput, 'blur')
