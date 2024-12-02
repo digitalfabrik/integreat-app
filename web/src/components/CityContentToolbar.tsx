@@ -9,7 +9,7 @@ import { RouteType } from '../routes'
 import FeedbackToolbarIcons from './FeedbackToolbarIcons'
 import SharingPopup from './SharingPopup'
 import Toolbar from './Toolbar'
-import ToolbarItem from './ToolbarItem'
+import ToolbarIcon from './ToolbarIcon'
 import Tooltip from './base/Tooltip'
 
 type CityContentToolbarProps = {
@@ -66,7 +66,7 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
         isOpen={linkCopied}
         place={tooltipDirection}
         tooltipContent={t('common:copied')}>
-        <ToolbarItem
+        <ToolbarIcon
           icon={linkCopied ? DoneIcon : CopyIcon}
           text={t('copyUrl')}
           onClick={copyToClipboard}

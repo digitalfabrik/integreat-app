@@ -10,7 +10,7 @@ import Icon from './base/Icon'
 import Link from './base/Link'
 import Tooltip from './base/Tooltip'
 
-const StyledToolbarItem = styled(Link)<{ disabled?: boolean }>`
+const StyledToolbarIcon = styled(Link)<{ disabled?: boolean }>`
   display: inline-block;
   padding: 8px;
   border: none;
@@ -31,7 +31,7 @@ const StyledTooltip = styled(Tooltip)`
   max-width: 250px;
 `
 
-type ItemProps =
+type IconProps =
   | {
       onClick: () => void
       to?: undefined
@@ -41,29 +41,29 @@ type ItemProps =
       to: string
     }
 
-type ToolbarItemProps = {
+type ToolbarIconProps = {
   icon: string
   text: string
   id?: string
   isDisabled?: boolean
-} & ItemProps
+} & IconProps
 
-const ToolbarItem = ({ to, text, icon, isDisabled = false, onClick, id }: ToolbarItemProps): ReactElement => {
+const ToolbarIcon = ({ to, text, icon, isDisabled = false, onClick, id }: ToolbarIconProps): ReactElement => {
   const { t } = useTranslation('categories')
   const toolTipId = spacesToDashes(text)
   if (isDisabled) {
     return (
       <StyledTooltip id={toolTipId} tooltipContent={t('disabledPdf')}>
         {/* @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112 */}
-        <StyledToolbarItem as='div' id={id} label={text} disabled>
+        <StyledToolbarIcon as='div' id={id} label={text} disabled>
           <StyledIcon src={icon} disabled />
           <StyledSmallViewTip>{text}</StyledSmallViewTip>
-        </StyledToolbarItem>
+        </StyledToolbarIcon>
       </StyledTooltip>
     )
   }
   return (
-    <StyledToolbarItem
+    <StyledToolbarIcon
       as={onClick ? Button : undefined}
       id={id}
       // @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112
@@ -73,8 +73,8 @@ const ToolbarItem = ({ to, text, icon, isDisabled = false, onClick, id }: Toolba
       disabled={false}>
       <StyledIcon src={icon} disabled={false} />
       <StyledSmallViewTip>{text}</StyledSmallViewTip>
-    </StyledToolbarItem>
+    </StyledToolbarIcon>
   )
 }
 
-export default ToolbarItem
+export default ToolbarIcon

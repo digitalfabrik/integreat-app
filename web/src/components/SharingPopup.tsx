@@ -6,7 +6,7 @@ import styled, { css, useTheme } from 'styled-components'
 import { CloseIcon, FacebookIcon, MailIcon, ShareIcon, WhatsappIcon } from '../assets'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import Portal from './Portal'
-import ToolbarItem from './ToolbarItem'
+import ToolbarIcon from './ToolbarIcon'
 import Button from './base/Button'
 import Icon from './base/Icon'
 import Link from './base/Link'
@@ -249,7 +249,7 @@ const SharingPopup = ({ shareUrl, title, flow, portalNeeded }: SharingPopupProps
           </TooltipContainer>
         </>
       )}
-      <ToolbarItem icon={ShareIcon} text={t('layout:share')} onClick={() => setShareOptionsVisible(true)} />
+      <ToolbarIcon icon={ShareIcon} text={t('layout:share')} onClick={() => setShareOptionsVisible(true)} />
     </SharingPopupContainer>
   )
 }

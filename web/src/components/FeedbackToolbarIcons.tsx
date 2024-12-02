@@ -8,7 +8,7 @@ import useCityContentParams from '../hooks/useCityContentParams'
 import { RouteType } from '../routes'
 import FeedbackContainer from './FeedbackContainer'
 import Modal from './Modal'
-import ToolbarItem from './ToolbarItem'
+import ToolbarIcon from './ToolbarIcon'
 
 type FeedbackToolbarIconsProps = {
   route: RouteType
@@ -39,7 +39,7 @@ const FeedbackToolbarIcons = ({ route, slug }: FeedbackToolbarIconsProps): React
           />
         </Modal>
       )}
-      <ToolbarItem
+      <ToolbarIcon
         icon={HappySmileyIcon}
         text={t('useful')}
         onClick={() => {
@@ -47,7 +47,7 @@ const FeedbackToolbarIcons = ({ route, slug }: FeedbackToolbarIconsProps): React
           setIsPositiveRating(true)
         }}
       />
-      <ToolbarItem
+      <ToolbarIcon
         icon={SadSmileyIcon}
         text={t('notUseful')}
         onClick={() => {

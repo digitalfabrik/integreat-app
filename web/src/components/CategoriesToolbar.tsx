@@ -8,7 +8,7 @@ import config from 'translations/src/config'
 import { PdfIcon } from '../assets'
 import { cmsApiBaseUrl } from '../constants/urls'
 import CityContentToolbar from './CityContentToolbar'
-import ToolbarItem from './ToolbarItem'
+import ToolbarIcon from './ToolbarIcon'
 
 type CategoriesToolbarProps = {
   category?: CategoryModel
@@ -31,7 +31,7 @@ const CategoriesToolbar = (props: CategoriesToolbarProps): ReactElement => {
       route={CATEGORIES_ROUTE}
       feedbackTarget={category && !category.isRoot() ? category.slug : undefined}
       pageTitle={pageTitle}>
-      <ToolbarItem icon={PdfIcon} text={t('createPdf')} to={pdfUrl} isDisabled={config.hasRTLScript(languageCode)} />
+      <ToolbarIcon icon={PdfIcon} text={t('createPdf')} to={pdfUrl} isDisabled={config.hasRTLScript(languageCode)} />
     </CityContentToolbar>
   )
 }
