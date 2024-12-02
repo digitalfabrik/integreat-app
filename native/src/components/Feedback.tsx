@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -13,6 +13,7 @@ import HorizontalLine from './HorizontalLine'
 import LoadingSpinner from './LoadingSpinner'
 import Note from './Note'
 import NothingFound from './NothingFound'
+import Checkbox from './base/Checkbox'
 import InputSection from './base/InputSection'
 import TextButton from './base/TextButton'
 
@@ -59,6 +60,7 @@ const Feedback = ({
   const navigation = useNavigate().navigation
 
   const isSearchFeedback = searchTerm !== undefined
+  const [privacyCheckedFilter, setPrivacyCheckedFilter] = useState(false)
   const submitDisabled = isPositiveFeedback === null && comment.trim().length === 0 && !searchTerm
 
   if (sendingStatus === 'sending') {
@@ -106,8 +108,16 @@ const Feedback = ({
           showOptional
         />
         {sendingStatus === 'failed' && <Description>{t('failedSendingFeedback')}</Description>}
+        <Text>Test</Text>
+        <Checkbox
+          checked={privacyCheckedFilter}
+          setChecked={setPrivacyCheckedFilter}
+          label={'feedback:privacyAgreement'}
+          id='privacyAgreement'
+          link='https://integreat-app.de/datenschutz/'
+        />
         {!isSearchFeedback && submitDisabled && <Note text={t('note')} />}
-        <StyledButton disabled={submitDisabled} onPress={onSubmit} text={t('send')} />
+        <StyledButton disabled={submitDisabled && !privacyCheckedFilter} onPress={onSubmit} text={t('send')} />
       </Wrapper>
     </KeyboardAwareScrollView>
   )
