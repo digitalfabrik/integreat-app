@@ -1,7 +1,8 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useMemo } from 'react'
 
 import { SearchRouteType } from 'shared'
-import { useFormatPossibleSearchResults } from 'shared/hooks/useSearch'
+import { CategoriesMapModel, EventModel, PoiModel } from 'shared/api'
+import { formatPossibleSearchResults } from 'shared/hooks/useSearch'
 import { config } from 'translations'
 
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
@@ -15,15 +16,21 @@ export type SearchModalContainerProps = {
   route: RouteProps<SearchRouteType>
 }
 
+const useMemoizeResults = (
+  categories?: CategoriesMapModel | null,
+  events?: EventModel[] | null,
+  pois?: PoiModel[] | null,
+) => useMemo(() => formatPossibleSearchResults(categories, events, pois), [categories, events, pois])
+
 const SearchModalContainer = ({ navigation, route }: SearchModalContainerProps): ReactElement | null => {
   const { cityCode, languageCode } = useCityAppContext()
   const initialSearchText = route.params.searchText ?? ''
   const { data, ...response } = useLoadCityContent({ cityCode, languageCode })
   const { data: fallbackData } = useLoadCityContent({ cityCode, languageCode: config.sourceLanguage })
 
-  const allPossibleResults = useFormatPossibleSearchResults(data?.categories, data?.events, data?.pois)
+  const allPossibleResults = useMemoizeResults(data?.categories, data?.events, data?.pois)
 
-  const allPossibleFallbackResults = useFormatPossibleSearchResults(
+  const allPossibleFallbackResults = useMemoizeResults(
     fallbackData?.categories,
     fallbackData?.events,
     fallbackData?.pois,

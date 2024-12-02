@@ -55,6 +55,7 @@ describe('SearchModal', () => {
 
   const props: SearchModalProps = {
     allPossibleResults,
+    allPossibleFallbackResults: [],
     languageCode,
     cityCode,
     closeModal: dummy,

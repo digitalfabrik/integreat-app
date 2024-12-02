@@ -1,5 +1,5 @@
 import MiniSearch from 'minisearch'
-import { useCallback, useMemo } from 'react'
+import { useCallback } from 'react'
 
 import useLoadAsync from '../api/endpoints/hooks/useLoadAsync'
 import CategoriesMapModel from '../api/models/CategoriesMapModel'
@@ -9,15 +9,18 @@ import PoiModel from '../api/models/PoiModel'
 
 export type SearchResult = ExtendedPageModel
 
-export const useFormatPossibleSearchResults = (
+// TODO: turn it back into a memoized function
+// TODO: mock it in the web test
+// TODO: maybe test this in shared
+export const formatPossibleSearchResults = (
   categories?: CategoriesMapModel | null,
   events?: EventModel[] | null,
   pois?: PoiModel[] | null,
-): SearchResult[] =>
-  useMemo(
-    () => [...(categories?.toArray().filter(category => !category.isRoot()) || []), ...(events || []), ...(pois || [])],
-    [categories, events, pois],
-  )
+): SearchResult[] => [
+  ...(categories?.toArray().filter(category => !category.isRoot()) || []),
+  ...(events || []),
+  ...(pois || []),
+]
 
 const useSearch = (allPossibleResults: SearchResult[], query: string): SearchResult[] | null => {
   const initializeMiniSearch = useCallback(async () => {
