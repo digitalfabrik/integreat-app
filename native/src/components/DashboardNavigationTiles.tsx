@@ -39,6 +39,23 @@ const DashboardNavigationTiles = ({
   const isNewsEnabled = tunewsEnabled || localNewsEnabled
   const tiles = []
 
+  if (cityModel.poisEnabled && featureFlags.pois) {
+    tiles.push(
+      new TileModel({
+        title: t('pois'),
+        path: 'pois',
+        thumbnail: POIsIcon,
+        isExternalUrl: false,
+        onTilePress: () =>
+          navigateTo({
+            route: POIS_ROUTE,
+            cityCode,
+            languageCode,
+          }),
+      }),
+    )
+  }
+
   if (featureFlags.newsStream && isNewsEnabled) {
     tiles.push(
       new TileModel({
@@ -67,23 +84,6 @@ const DashboardNavigationTiles = ({
         onTilePress: () =>
           navigateTo({
             route: EVENTS_ROUTE,
-            cityCode,
-            languageCode,
-          }),
-      }),
-    )
-  }
-
-  if (cityModel.poisEnabled && featureFlags.pois) {
-    tiles.push(
-      new TileModel({
-        title: t('pois'),
-        path: 'pois',
-        thumbnail: POIsIcon,
-        isExternalUrl: false,
-        onTilePress: () =>
-          navigateTo({
-            route: POIS_ROUTE,
             cityCode,
             languageCode,
           }),
