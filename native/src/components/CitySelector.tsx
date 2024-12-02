@@ -1,7 +1,7 @@
 import { groupBy, transform } from 'lodash'
-import React, { ReactElement, ReactNode, useState } from 'react'
+import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { View } from 'react-native'
+import { AccessibilityInfo, Platform, View } from 'react-native'
 import styled from 'styled-components/native'
 
 import { filterSortCities } from 'shared'
@@ -43,6 +43,13 @@ const CitySelector = ({ cities, navigateToDashboard }: CitySelectorProps): React
 
   const resultCities = filterSortCities(cities, filterText, buildConfig().featureFlags.developerFriendly)
 
+  useEffect(() => {
+    // iOS doesn't have live regions to inform a user with a screenreader that there are no more search results
+    if (resultCities.length === 0 && Platform.OS === 'ios') {
+      AccessibilityInfo.announceForAccessibility(t('searchResultsCount', { count: 0 }))
+    }
+  }, [resultCities, t])
+
   const renderCity = (city: CityModel) => (
     <CityEntry key={city.code} city={city} query={filterText} navigateToDashboard={navigateToDashboard} />
   )
@@ -76,7 +83,9 @@ const CitySelector = ({ cities, navigateToDashboard }: CitySelectorProps): React
           <CityGroup>{t('nearbyCities')}</CityGroup>
           <NearbyCities cities={cities} navigateToDashboard={navigateToDashboard} filterText={filterText} />
         </CityGroupContainer>
-        <SearchCounter>{t('search:searchResultsCount', { count: resultCities.length })}</SearchCounter>
+        <SearchCounter accessibilityLiveRegion={resultCities.length === 0 ? 'assertive' : 'polite'}>
+          {t('search:searchResultsCount', { count: resultCities.length })}
+        </SearchCounter>
         {resultCities.length === 0 ? <NothingFound paddingTop /> : cityEntries}
       </View>
     </View>
