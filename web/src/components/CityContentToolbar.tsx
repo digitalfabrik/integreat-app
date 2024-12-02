@@ -6,7 +6,7 @@ import { useTheme } from 'styled-components'
 import { CopyIcon, DoneIcon } from '../assets'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { RouteType } from '../routes'
-import FeedbackToolbarItem from './FeedbackToolbarItem'
+import FeedbackToolbarIcons from './FeedbackToolbarIcons'
 import SharingPopup from './SharingPopup'
 import Toolbar from './Toolbar'
 import ToolbarItem from './ToolbarItem'
@@ -73,7 +73,7 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
           id='copy-icon'
         />
       </Tooltip>
-      {hasFeedbackOption && <FeedbackToolbarItem route={route} slug={feedbackTarget} />}
+      {hasFeedbackOption && <FeedbackToolbarIcons route={route} slug={feedbackTarget} />}
     </Toolbar>
   )
 }

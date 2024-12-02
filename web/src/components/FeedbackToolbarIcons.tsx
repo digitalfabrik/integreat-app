@@ -10,12 +10,12 @@ import FeedbackContainer from './FeedbackContainer'
 import Modal from './Modal'
 import ToolbarItem from './ToolbarItem'
 
-type FeedbackToolbarItemProps = {
+type FeedbackToolbarIconsProps = {
   route: RouteType
   slug?: string
 }
 
-const FeedbackToolbarItem = ({ route, slug }: FeedbackToolbarItemProps): ReactElement => {
+const FeedbackToolbarIcons = ({ route, slug }: FeedbackToolbarIconsProps): ReactElement => {
   const { cityCode, languageCode } = useCityContentParams()
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -59,4 +59,4 @@ const FeedbackToolbarItem = ({ route, slug }: FeedbackToolbarItemProps): ReactEl
   )
 }
 
-export default FeedbackToolbarItem
+export default FeedbackToolbarIcons

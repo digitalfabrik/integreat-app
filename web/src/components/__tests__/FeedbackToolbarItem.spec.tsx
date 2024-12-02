@@ -4,7 +4,7 @@ import React, { ReactElement } from 'react'
 import { CATEGORIES_ROUTE } from 'shared'
 
 import { renderWithRouterAndTheme } from '../../testing/render'
-import FeedbackToolbarItem from '../FeedbackToolbarItem'
+import FeedbackToolbarIcons from '../FeedbackToolbarIcons'
 
 jest.mock('react-i18next')
 jest.mock('shared/api', () => ({
@@ -15,10 +15,10 @@ jest.mock('shared/api', () => ({
 }))
 jest.mock('focus-trap-react', () => ({ children }: { children: ReactElement }) => <div>{children}</div>)
 
-describe('FeedbackToolbarItem', () => {
+describe('FeedbackToolbarIcons', () => {
   it('should open and update title on submit feedback', async () => {
     const { queryByText, findByText, getByText } = renderWithRouterAndTheme(
-      <FeedbackToolbarItem route={CATEGORIES_ROUTE} slug='my-slug' />,
+      <FeedbackToolbarIcons route={CATEGORIES_ROUTE} slug='my-slug' />,
     )
 
     expect(queryByText('feedback:headline')).toBeFalsy()
