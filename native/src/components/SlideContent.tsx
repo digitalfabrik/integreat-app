@@ -15,9 +15,8 @@ const TextContainer = styled.View`
   gap: 10px;
 `
 const Heading = styled.Text`
-  font-size: 35px;
-  color: ${props => props.theme.colors.textColor};
   font-size: 19px;
+  color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.contentFontBold};
 `
 const ContentContainer = styled.View<{ description: boolean }>`

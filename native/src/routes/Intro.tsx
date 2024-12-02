@@ -3,11 +3,6 @@ import { useTranslation } from 'react-i18next'
 import { FlatList, useWindowDimensions, ViewToken } from 'react-native'
 import styled, { css } from 'styled-components/native'
 
-import directions from 'build-configs/common/assets/directions.svg'
-import information from 'build-configs/common/assets/information.svg'
-import language from 'build-configs/common/assets/language.svg'
-import offline from 'build-configs/common/assets/offline.svg'
-import search from 'build-configs/common/assets/search.svg'
 import welcome from 'build-configs/common/assets/welcome.svg'
 import { IntroRouteType, LANDING_ROUTE } from 'shared'
 
@@ -37,19 +32,19 @@ const ImageStyle = css`
 const icons = buildConfigAssets().intro
 const styledIcons = icons
   ? {
-      Language: styled(language)`
+      Language: styled(icons.Language)`
         ${ImageStyle};
       `,
-      Search: styled(search)`
+      Search: styled(icons.Search)`
         ${ImageStyle};
       `,
-      Directions: styled(directions)`
+      Directions: styled(icons.directions)`
         ${ImageStyle};
       `,
-      Information: styled(information)`
+      Information: styled(icons.information)`
         ${ImageStyle};
       `,
-      Offline: styled(offline)`
+      Offline: styled(icons.Offline)`
         ${ImageStyle};
       `,
     }
