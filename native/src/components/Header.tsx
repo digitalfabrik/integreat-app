@@ -214,7 +214,7 @@ const Header = ({
       return { text: t('locations'), language: undefined } // system language
     }
 
-    const previousRouteTitle = (previousRoute.params as { path?: string } | undefined)?.path
+    const previousRouteTitle = (previousRoute.params as { title?: string } | undefined)?.title
 
     if (previousRouteTitle) {
       return { text: previousRouteTitle, language: languageCode }
@@ -227,7 +227,7 @@ const Header = ({
       }
     }
 
-    return { text: previousRoute.name, language: undefined } // system language
+    return { text: t(previousRoute.name), language: undefined } // system language
   }
 
   return (
