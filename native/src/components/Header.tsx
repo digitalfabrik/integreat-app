@@ -35,7 +35,6 @@ import { reportError } from '../utils/sentry'
 import CustomHeaderButtons from './CustomHeaderButtons'
 import HeaderBox from './HeaderBox'
 import HighlightBox from './HighlightBox'
-import { isTtsActive } from './TtsContainer'
 
 const Horizontal = styled.View`
   flex: 1;
@@ -86,7 +85,7 @@ const Header = ({
   // Save route/canGoBack to state to prevent it from changing during navigating which would lead to flickering of the title and back button
   const [previousRoute] = useState(navigation.getState().routes[navigation.getState().routes.length - 2])
   const [canGoBack] = useState(navigation.canGoBack())
-  const { setVisible: setTtsPlayerVisible, sentences } = useTtsPlayer()
+  const { enabled: isTtsActive, setVisible: setTtsPlayerVisible } = useTtsPlayer()
 
   const onShare = async () => {
     if (!shareUrl) {
@@ -197,9 +196,7 @@ const Header = ({
           ? [renderOverflowItem(HeaderButtonTitle.Location, () => navigation.navigate(LANDING_ROUTE))]
           : []),
         renderOverflowItem(HeaderButtonTitle.Settings, () => navigation.navigate(SETTINGS_ROUTE)),
-        ...(isTtsActive(sentences, languageCode)
-          ? [renderOverflowItem(t(HeaderButtonTitle.ReadAloud), () => setTtsPlayerVisible(true))]
-          : []),
+        ...(isTtsActive ? [renderOverflowItem(t(HeaderButtonTitle.ReadAloud), () => setTtsPlayerVisible(true))] : []),
         ...(route.name !== NEWS_ROUTE ? [renderOverflowItem(HeaderButtonTitle.Feedback, navigateToFeedback)] : []),
         ...(route.name !== DISCLAIMER_ROUTE
           ? [renderOverflowItem(HeaderButtonTitle.Disclaimer, () => navigation.navigate(DISCLAIMER_ROUTE))]

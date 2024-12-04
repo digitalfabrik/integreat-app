@@ -43,7 +43,7 @@ export type EventsProps = {
 const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: EventsProps): ReactElement => {
   const { t } = useTranslation('events')
   const event = events.find(it => it.slug === slug)
-  useTtsPlayer(language, event)
+  useTtsPlayer(event)
 
   if (!cityModel.eventsEnabled) {
     const error = new NotFoundError({

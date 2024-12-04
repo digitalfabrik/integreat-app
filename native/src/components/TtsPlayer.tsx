@@ -1,36 +1,37 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
 import { CloseIcon, PauseIcon, PlaybackIcon, PlayIcon } from '../assets'
+import { ttsContext } from './TtsContainer'
 import Icon from './base/Icon'
 import IconButton from './base/IconButton'
 import Pressable from './base/Pressable'
 import Text from './base/Text'
 
-const StyledTtsPlayer = styled.View<{ $isExpanded: boolean }>`
+const StyledTtsPlayer = styled.View<{ $isPlaying: boolean }>`
   background-color: ${props => props.theme.colors.grayBackgroundColor};
   border-radius: 28px;
-  width: ${props => (props.$isExpanded ? '90%' : '80%')};
+  width: ${props => (props.$isPlaying ? '90%' : '80%')};
   display: flex;
-  flex-direction: ${props => (props.$isExpanded ? 'column' : 'row')};
+  flex-direction: ${props => (props.$isPlaying ? 'column' : 'row')};
   justify-content: center;
   align-items: center;
   align-self: center;
   position: absolute;
   bottom: 5px;
   min-height: 93px;
-  gap: ${props => (props.$isExpanded ? '0px;' : '10px')};
+  gap: ${props => (props.$isPlaying ? '0px;' : '10px')};
 `
 
 const verticalMargin = 11
 
-const StyledPanel = styled.View<{ $isExpanded?: boolean }>`
+const StyledPanel = styled.View<{ $isPlaying?: boolean }>`
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 20px;
-  margin: ${props => (props.$isExpanded ? verticalMargin : 0)}px 0;
+  margin: ${props => (props.$isPlaying ? verticalMargin : 0)}px 0;
 `
 
 const StyledPlayIcon = styled(IconButton)`
@@ -73,10 +74,10 @@ const CloseButton = styled(Pressable)`
   width: 176px;
 `
 
-const CloseView = styled.View<{ $isExpanded?: boolean }>`
+const CloseView = styled.View<{ $isPlaying?: boolean }>`
   flex-direction: column;
   gap: 10px;
-  margin-bottom: ${props => (props.$isExpanded ? verticalMargin : 0)}px;
+  margin-bottom: ${props => (props.$isPlaying ? verticalMargin : 0)}px;
 `
 
 const elevatedButton = {
@@ -88,35 +89,38 @@ const elevatedButton = {
 }
 
 type TtsPlayerProps = {
-  isExpanded: boolean
   isPlaying: boolean
-  setIsExpanded: (expanded: boolean) => void
-  handleBackward: () => Promise<void>
-  handleForward: () => Promise<void>
+  setIsPlaying: (isPlaying: boolean) => void
+  sentenceIndex: number
+  handleBackward: (index: number) => void
+  handleForward: (index: number) => void
   handleClose: () => Promise<void>
   pauseReading: () => void
-  startReading: () => void
+  startPlaying: () => void
   title: string
 }
 
 const TtsPlayer = ({
-  isExpanded,
   isPlaying,
-  setIsExpanded,
+  setIsPlaying,
   handleBackward,
   handleForward,
   handleClose,
   pauseReading,
-  startReading,
+  startPlaying,
   title,
+  sentenceIndex,
 }: TtsPlayerProps): ReactElement => {
   const { t } = useTranslation('layout')
-
+  const tts = useContext(ttsContext)
   return (
-    <StyledTtsPlayer $isExpanded={isExpanded} style={elevatedButton}>
-      <StyledPanel $isExpanded={isExpanded}>
-        {isExpanded && (
-          <StyledBackForthButton role='button' accessibilityLabel={t('previous')} onPress={handleBackward}>
+    <StyledTtsPlayer $isPlaying={isPlaying} style={elevatedButton}>
+      <StyledPanel $isPlaying={isPlaying}>
+        {isPlaying && (
+          <StyledBackForthButton
+            role='button'
+            accessibilityLabel={t('previous')}
+            onPress={() => handleBackward(sentenceIndex)}>
             <StyledText>{t('previous')}</StyledText>
             <Icon Icon={PlaybackIcon} reverse />
           </StyledBackForthButton>
@@ -125,24 +129,27 @@ const TtsPlayer = ({
           style={elevatedButton}
           accessibilityLabel={t(isPlaying ? 'pause' : 'play')}
           onPress={() => {
-            if (isPlaying) {
+            if (isPlaying && tts.enabled) {
               pauseReading()
             } else {
-              startReading()
+              startPlaying()
             }
-            setIsExpanded(!isPlaying)
+            setIsPlaying(!isPlaying)
           }}
           icon={<PlayButtonIcon Icon={isPlaying ? PauseIcon : PlayIcon} />}
         />
-        {isExpanded && (
-          <StyledBackForthButton role='button' accessibilityLabel={t('next')} onPress={handleForward}>
+        {isPlaying && (
+          <StyledBackForthButton
+            role='button'
+            accessibilityLabel={t('next')}
+            onPress={() => handleForward(sentenceIndex)}>
             <Icon Icon={PlaybackIcon} />
             <StyledText>{t('next')}</StyledText>
           </StyledBackForthButton>
         )}
       </StyledPanel>
-      <CloseView $isExpanded={isExpanded}>
-        {!isExpanded && <StyledPlayerHeaderText>{title}</StyledPlayerHeaderText>}
+      <CloseView $isPlaying={isPlaying}>
+        {!isPlaying && <StyledPlayerHeaderText>{title}</StyledPlayerHeaderText>}
         <CloseButton role='button' accessibilityLabel='Close player' onPress={handleClose} style={elevatedButton}>
           <Icon Icon={CloseIcon} />
           <StyledText>{t('common:close')}</StyledText>

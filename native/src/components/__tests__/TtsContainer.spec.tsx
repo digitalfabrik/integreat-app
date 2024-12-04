@@ -25,10 +25,11 @@ const dummyPage = new PageModel({
 })
 describe('TtsContainer', () => {
   const TestChild = () => {
-    const { setVisible } = useTtsPlayer('en', dummyPage)
+    const { setVisible, setEnabled } = useTtsPlayer(dummyPage)
     useEffect(() => {
+      setEnabled(true)
       setVisible(true)
-    }, [setVisible])
+    }, [setEnabled, setVisible])
     return null
   }
 
@@ -72,11 +73,7 @@ describe('TtsContainer', () => {
 
   it('should remove TTS listeners on unmount', () => {
     const { unmount } = renderTtsPlayer()
-
     unmount()
-
     expect(Tts.removeAllListeners).toHaveBeenCalledWith('tts-finish')
-    expect(Tts.removeAllListeners).toHaveBeenCalledWith('tts-progress')
-    expect(Tts.removeAllListeners).toHaveBeenCalledWith('tts-cancel')
   })
 })

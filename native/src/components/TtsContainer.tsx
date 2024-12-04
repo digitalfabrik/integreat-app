@@ -3,20 +3,17 @@ import { useTranslation } from 'react-i18next'
 import { AppState } from 'react-native'
 import Tts from 'react-native-tts'
 
-import buildConfig from '../constants/buildConfig'
+import { truncate } from 'shared/utils/getExcerpt'
+
 import { AppContext } from '../contexts/AppContextProvider'
 import { reportError } from '../utils/sentry'
 import TtsPlayer from './TtsPlayer'
 
-const unsupportedLanguagesForTts = ['fa', 'ka', 'kmr']
-
-export const isTtsActive = (content: string[] | null, languageCode: string): boolean =>
-  Array.isArray(content) &&
-  content.length > 0 &&
-  Boolean(buildConfig().featureFlags.tts) &&
-  !unsupportedLanguagesForTts.includes(languageCode)
+const MAX_TITLE_DISPLAY_CHARS = 20
 
 export type TtsContextType = {
+  enabled: boolean
+  setEnabled: (enable: boolean) => void
   visible: boolean
   setVisible: (visible: boolean) => void
   sentences: string[] | null
@@ -24,6 +21,8 @@ export type TtsContextType = {
 }
 
 export const ttsContext = createContext<TtsContextType>({
+  enabled: false,
+  setEnabled: () => undefined,
   visible: false,
   setVisible: () => undefined,
   sentences: [],
@@ -38,22 +37,12 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
   const { languageCode } = React.useContext(AppContext)
   const { t } = useTranslation('layout')
   const [isPlaying, setIsPlaying] = useState(false)
-  const [isExpanded, setIsExpanded] = useState(false)
   const [sentenceIndex, setSentenceIndex] = useState(0)
   const [visible, setVisible] = useState(false)
+  const [enabled, setEnabled] = useState(false)
   const [sentences, setSentences] = useState<string[]>([])
-
-  const unsupportedLanguage = unsupportedLanguagesForTts.includes(languageCode)
-  const maxTitle = 20
-  const title = sentences[0] || t('readAloud')
-  const longTitle = title.length > maxTitle ? title.substring(0, maxTitle).concat('...') : title
-
-  const callOnEnd = () => {
-    Tts.stop()
-    setIsPlaying(false)
-    setIsExpanded(false)
-    setSentenceIndex(0)
-  }
+  const title = sentences[0] || t('nothingToRead')
+  const longTitle = truncate(title, { maxChars: MAX_TITLE_DISPLAY_CHARS })
 
   const initializeTts = useCallback((): void => {
     Tts.getInitStatus().catch(async error => {
@@ -64,68 +53,29 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
     })
   }, [])
 
-  const startReading = (index = sentenceIndex) => {
-    if (!unsupportedLanguage && sentences.length > 0) {
-      // Persian not supported
-      Tts.setDefaultLanguage(languageCode)
-      Tts.speak(String(sentences[index]), {
-        androidParams: {
-          KEY_PARAM_PAN: 0,
-          KEY_PARAM_VOLUME: 0.6,
-          KEY_PARAM_STREAM: 'STREAM_MUSIC',
-        },
-        iosVoiceId: '',
-        rate: 1,
-      })
-      if (sentences.length === 0) {
-        setSentenceIndex(0)
-        setIsExpanded(false)
+  const play = useCallback(
+    (index = sentenceIndex) => {
+      Tts.stop()
+      const sentence = sentences[index]
+      if (sentence) {
+        setIsPlaying(true)
+        Tts.speak(sentence, {
+          androidParams: {
+            KEY_PARAM_PAN: 0,
+            KEY_PARAM_VOLUME: 0.6,
+            KEY_PARAM_STREAM: 'STREAM_MUSIC',
+          },
+          iosVoiceId: '',
+          rate: 1,
+        })
       }
-    } else {
-      setIsPlaying(false)
-    }
-  }
+    },
+    [sentenceIndex, sentences],
+  )
 
-  useEffect(() => {
-    initializeTts()
-
-    Tts.addEventListener('tts-progress', () => setIsPlaying(true))
-    Tts.addEventListener('tts-cancel', () => setIsPlaying(false))
-    Tts.addEventListener('tts-finish', () => {
-      if (sentenceIndex < sentences.length - 1) {
-        const nextIndex = sentenceIndex + 1
-        setSentenceIndex(nextIndex)
-        startReading(nextIndex)
-      } else {
-        callOnEnd()
-      }
-    })
-
-    return () => {
-      Tts.removeAllListeners('tts-finish')
-      Tts.removeAllListeners('tts-progress')
-      Tts.removeAllListeners('tts-cancel')
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initializeTts, sentenceIndex, sentences.length])
-
-  useEffect(() => {
-    if (sentences.length <= 1) {
-      callOnEnd()
-    }
-  }, [sentences])
-
-  useEffect(() => {
-    const subscription = AppState.addEventListener('change', nextAppState => {
-      if (nextAppState === 'inactive' || nextAppState === 'background') {
-        callOnEnd()
-      }
-    })
-
-    return subscription.remove
-  }, [])
-
-  const stopTts = async () => {
+  const stop = async () => {
+    setIsPlaying(false)
+    setSentenceIndex(0)
     await Tts.stop()
     const TTS_STOP_DELAY = 100
     await new Promise(resolve => {
@@ -133,33 +83,70 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
     })
   }
 
-  const pauseReading = () => {
+  const pause = () => {
     Tts.stop()
     setIsPlaying(false)
   }
 
-  const handleBackward = async () => {
-    await stopTts()
-    const prevIndex = Math.max(0, sentenceIndex - 1)
-    setSentenceIndex(prevIndex)
-    startReading(prevIndex)
+  const playNext = useCallback(
+    (index = sentenceIndex) => {
+      const nextIndex = index + 1
+      if (nextIndex < sentences.length) {
+        setSentenceIndex(nextIndex)
+        play(nextIndex)
+      } else {
+        stop()
+      }
+    },
+    [play, sentenceIndex, sentences.length],
+  )
+
+  const playPrevious = (index = sentenceIndex) => {
+    const prevIndex = Math.max(0, index - 1)
+    if (prevIndex < sentences.length) {
+      setSentenceIndex(prevIndex)
+      play(prevIndex)
+    }
   }
 
-  const handleForward = async () => {
-    await stopTts()
-    const nextIndex = Math.min(sentences.length - 1, sentenceIndex + 1)
-    setSentenceIndex(nextIndex)
-    startReading(nextIndex)
-  }
+  useEffect(() => {
+    if (!enabled) {
+      return () => undefined
+    }
 
-  const handleClose = async () => {
+    initializeTts()
+    Tts.addEventListener('tts-finish', () => playNext(sentenceIndex))
+
+    return () => {
+      Tts.removeAllListeners('tts-finish')
+    }
+  }, [enabled, initializeTts, playNext, sentenceIndex, sentences.length])
+
+  useEffect(() => {
+    if (sentences.length <= 1) {
+      stop()
+    }
+  }, [sentences])
+
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', nextAppState => {
+      if (nextAppState === 'inactive' || nextAppState === 'background') {
+        stop()
+      }
+    })
+
+    return subscription.remove
+  }, [])
+
+  const close = async () => {
     setVisible(false)
-    setIsExpanded(false)
-    await stopTts()
+    await stop()
   }
 
   const ttsContextValue = useMemo(
     () => ({
+      enabled,
+      setEnabled,
       sentenceIndex,
       setSentenceIndex,
       visible,
@@ -168,7 +155,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
       setSentences,
       languageCode,
     }),
-    [sentenceIndex, visible, sentences, languageCode],
+    [enabled, sentenceIndex, visible, sentences, languageCode],
   )
 
   return (
@@ -176,14 +163,14 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
       {children}
       {visible && (
         <TtsPlayer
-          isExpanded={isExpanded}
           isPlaying={isPlaying}
-          setIsExpanded={setIsExpanded}
-          handleBackward={handleBackward}
-          handleForward={handleForward}
-          handleClose={handleClose}
-          pauseReading={pauseReading}
-          startReading={startReading}
+          setIsPlaying={setIsPlaying}
+          sentenceIndex={sentenceIndex}
+          handleBackward={playPrevious}
+          handleForward={playNext}
+          handleClose={close}
+          pauseReading={pause}
+          startPlaying={play}
           title={longTitle}
         />
       )}
