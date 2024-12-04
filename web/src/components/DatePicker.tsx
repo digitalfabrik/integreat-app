@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { ChangeEvent, ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
@@ -83,7 +83,7 @@ const DatePicker = ({ title, date, setDate, error }: DatePickerProps): ReactElem
     setTempDate(date?.toISODate() ?? '')
   }, [date])
 
-  const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleDateChange = (event: ChangeEvent<HTMLInputElement>) => {
     setTempDate(event.target.value)
     try {
       setDate(DateTime.fromISO(event.target.value))

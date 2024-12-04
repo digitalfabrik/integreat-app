@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Modal } from 'react-native'
 import { Calendar } from 'react-native-calendars'
@@ -30,9 +30,10 @@ const DISABLED_OPACITY = 0.5
 const StyledTextButton = styled(TextButton)`
   background-color: transparent;
   opacity: ${props => (props.disabled ? DISABLED_OPACITY : 1)};
+  height: 40px;
 `
 
-const StyledPressable = styled.Pressable`
+const Background = styled.Pressable`
   flex: 1;
 `
 
@@ -61,18 +62,10 @@ const CalendarRangeModal = ({
   const theme = useTheme()
 
   const textButtonStyles = {
-    container: {
-      height: 40,
-    },
     text: {
       fontSize: 16,
     },
   }
-
-  useEffect(() => {
-    setTempStartDate(startDate)
-    setTempEndDate(endDate)
-  }, [startDate, endDate])
 
   const handleDayPress = (day: { dateString: string }) => {
     const selectedDate = DateTime.fromISO(day.dateString)
@@ -85,7 +78,7 @@ const CalendarRangeModal = ({
     }
   }
 
-  const updateCalendarBasedOnInput = (
+  const updateCalendar = (
     tempStartDate: DateTime<true> | null,
     tempEndDate: DateTime<true> | null,
     currentInput: string,
@@ -94,7 +87,8 @@ const CalendarRangeModal = ({
       setStartDate(tempStartDate)
       setEndDate(tempEndDate)
     } else if (tempStartDate && tempEndDate == null) {
-      ;(currentInput === 'from' ? setStartDate : setEndDate)(tempStartDate)
+      const updatingFunction = currentInput === 'from' ? setStartDate : setEndDate
+      updatingFunction(tempStartDate)
     }
     setTempStartDate(null)
     setTempEndDate(null)
@@ -102,8 +96,8 @@ const CalendarRangeModal = ({
   }
 
   return (
-    <Modal style={{ margin: 0 }} animationType='slide' transparent visible={modalVisible} onRequestClose={closeModal}>
-      <StyledPressable onPress={closeModal} />
+    <Modal animationType='slide' transparent visible={modalVisible} onRequestClose={closeModal}>
+      <Background onPress={closeModal} />
       <DatePickerWrapper>
         <Caption title={t('selectRange')} />
         <Calendar
@@ -121,7 +115,6 @@ const CalendarRangeModal = ({
         />
         <StyledView>
           <StyledTextButton
-            style={textButtonStyles.container}
             textStyle={textButtonStyles.text}
             onPress={() => {
               setTempStartDate(startDate)
@@ -132,9 +125,8 @@ const CalendarRangeModal = ({
             type='clear'
           />
           <StyledTextButton
-            style={textButtonStyles.container}
             textStyle={textButtonStyles.text}
-            onPress={() => updateCalendarBasedOnInput(tempStartDate, tempEndDate, currentInput ?? '')}
+            onPress={() => updateCalendar(tempStartDate, tempEndDate, currentInput ?? '')}
             text={t('common:ok')}
             type='clear'
             disabled={

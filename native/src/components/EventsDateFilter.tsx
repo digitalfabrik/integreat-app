@@ -76,15 +76,17 @@ const EventsDateFilter = ({
 
   return (
     <>
-      <CalendarRangeModal
-        closeModal={() => setModalOpen(false)}
-        modalVisible={modalOpen}
-        startDate={startDate}
-        endDate={endDate}
-        setEndDate={setEndDate}
-        setStartDate={setStartDate}
-        currentInput={currentInput.current}
-      />
+      {modalOpen && (
+        <CalendarRangeModal
+          closeModal={() => setModalOpen(false)}
+          modalVisible
+          startDate={startDate}
+          endDate={endDate}
+          setEndDate={setEndDate}
+          setStartDate={setStartDate}
+          currentInput={currentInput.current}
+        />
+      )}
       <FilterToggle isDateFilterActive={showDateFilter} setToggleDateFilter={setShowDateFilter} />
       <Accordion isOpen={showDateFilter} viewKey='Accordion'>
         <DateSection>

@@ -9,6 +9,7 @@ const StyledWrapper = styled.View`
   display: flex;
   align-items: center;
 `
+
 const StyledAnimatedView = styled(Animated.View)`
   width: 100%;
   overflow: hidden;
@@ -35,7 +36,7 @@ const Accordion = ({ isOpen, style, duration = defaultDuration, children, viewKe
     height: derivedHeight.value,
   }))
   return (
-    <StyledAnimatedView key={`accordionItem_${viewKey}`} style={[bodyStyle, style]}>
+    <StyledAnimatedView key={`accordionItem-${viewKey}`} style={[bodyStyle, style]}>
       <StyledWrapper
         onLayout={e => {
           height.value = e.nativeEvent.layout.height

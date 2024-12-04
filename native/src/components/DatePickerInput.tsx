@@ -10,13 +10,13 @@ const Input = styled(TextInput)`
   min-width: 20%;
 `
 
-const containsOnlyDigits = (str: string) => !Number.isNaN(Number(str)) && !Number.isNaN(parseFloat(str))
+const containsOnlyDigits = (str: string) => !Number.isNaN(Number(str))
 
 const yearLength = 4
 
-const validating = (
+const validate = (
   inputValue: string | undefined,
-  setInputValue: React.Dispatch<React.SetStateAction<string | undefined>>,
+  setInputValue: (newValue: string | undefined) => void,
   type: 'day' | 'month' | 'year',
 ) => {
   if (type === 'year') {
@@ -47,7 +47,7 @@ const validating = (
 
 const handleInputChangeAndFocusNext = (
   text: string,
-  setInputValue: React.Dispatch<React.SetStateAction<string | undefined>>,
+  setInputValue: (newValue: string | undefined) => void,
   ref?: RefObject<TextInput>,
 ) => {
   setInputValue(text)
@@ -71,7 +71,7 @@ type DatePickerInputProps = {
   placeholder: string
   type: 'day' | 'month' | 'year'
   inputValue: string | undefined
-  setInputValue: React.Dispatch<React.SetStateAction<string | undefined>>
+  setInputValue: (newValue: string | undefined) => void
   style?: StyleProp<ViewStyle>
 }
 
@@ -83,7 +83,7 @@ const DatePickerInput = forwardRef<TextInput, DatePickerInputProps>(
       placeholder={placeholder}
       keyboardType='numeric'
       maxLength={type === 'year' ? yearLength : 2}
-      onBlur={() => validating(inputValue, setInputValue, type)}
+      onBlur={() => validate(inputValue, setInputValue, type)}
       onChangeText={text => {
         handleInputChangeAndFocusNext(text, setInputValue, nextTargetRef)
       }}
