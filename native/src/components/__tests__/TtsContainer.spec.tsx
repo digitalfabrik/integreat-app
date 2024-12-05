@@ -1,11 +1,14 @@
 import { act, fireEvent, RenderAPI, screen } from '@testing-library/react-native'
+import { mocked } from 'jest-mock'
 import { DateTime } from 'luxon'
 import React, { useEffect } from 'react'
 import Tts from 'react-native-tts'
 
 import { PageModel } from 'shared/api'
 
+import buildConfig from '../../constants/buildConfig'
 import useTtsPlayer from '../../hooks/useTtsPlayer'
+import TestingAppContext from '../../testing/TestingAppContext'
 import renderWithTheme from '../../testing/render'
 import TtsContainer from '../TtsContainer'
 
@@ -17,6 +20,13 @@ jest.mock('react-native-reanimated', () => {
   Reanimated.useEvent = jest.fn()
   return Reanimated
 })
+const mockBuildConfig = (tts: boolean) => {
+  const previous = buildConfig()
+  mocked(buildConfig).mockImplementation(() => ({
+    ...previous,
+    featureFlags: { ...previous.featureFlags, tts },
+  }))
+}
 const dummyPage = new PageModel({
   path: '/test-path',
   title: 'test',
@@ -25,19 +35,20 @@ const dummyPage = new PageModel({
 })
 describe('TtsContainer', () => {
   const TestChild = () => {
-    const { setVisible, setEnabled } = useTtsPlayer(dummyPage)
+    const { setVisible } = useTtsPlayer(dummyPage)
     useEffect(() => {
-      setEnabled(true)
       setVisible(true)
-    }, [setEnabled, setVisible])
+    }, [setVisible])
     return null
   }
 
   const renderTtsPlayer = (): RenderAPI =>
     renderWithTheme(
-      <TtsContainer>
-        <TestChild />
-      </TtsContainer>,
+      <TestingAppContext languageCode='en'>
+        <TtsContainer>
+          <TestChild />
+        </TtsContainer>
+      </TestingAppContext>,
     )
 
   beforeEach(() => {
@@ -46,6 +57,7 @@ describe('TtsContainer', () => {
   })
 
   it('should initialize TTS engine on load', async () => {
+    mockBuildConfig(true)
     renderTtsPlayer()
     expect(Tts.getInitStatus).toHaveBeenCalled()
   })
@@ -72,6 +84,7 @@ describe('TtsContainer', () => {
   })
 
   it('should remove TTS listeners on unmount', () => {
+    mockBuildConfig(true)
     const { unmount } = renderTtsPlayer()
     unmount()
     expect(Tts.removeAllListeners).toHaveBeenCalledWith('tts-finish')

@@ -9,7 +9,7 @@ import { AppContext } from '../contexts/AppContextProvider'
 
 const useTtsPlayer = (model?: PageModel | LocalNewsModel | TunewsModel | undefined): TtsContextType => {
   const { languageCode } = useContext(AppContext)
-  const { setSentences, visible, setVisible } = useContext(TtsContext)
+  const { setSentences, visible, setVisible, enabled } = useContext(TtsContext)
   const sentences = useMemo(() => {
     if (model) {
       const content = parseHTML(model.content)
@@ -29,6 +29,7 @@ const useTtsPlayer = (model?: PageModel | LocalNewsModel | TunewsModel | undefin
   }, [sentences, languageCode, setSentences])
 
   return {
+    enabled,
     visible,
     setVisible,
     sentences,

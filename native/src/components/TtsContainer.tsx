@@ -107,10 +107,10 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
   )
 
   const playPrevious = (index = sentenceIndex) => {
-    const prevIndex = Math.max(0, index - 1)
-    if (prevIndex < sentences.length) {
-      setSentenceIndex(prevIndex)
-      play(prevIndex)
+    const previousIndex = index - 1
+    if (previousIndex >= 0) {
+      setSentenceIndex(previousIndex)
+      play(previousIndex)
     }
   }
 
@@ -153,7 +153,6 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
     () => ({
       enabled,
       sentenceIndex,
-      setSentenceIndex,
       visible,
       setVisible,
       sentences,
