@@ -15,18 +15,19 @@
 
 Several workflows exist for different purposes:
 
-| Workflow                   | Schedule/Trigger       | Checks             | native delivery | web delivery | Version bump       | Move release notes |
-| -------------------------- | ---------------------- | ------------------ | --------------- | ------------ | ------------------ | ------------------ |
-| commit                     | commits of PRs         | :heavy_check_mark: | :x:             | :x:          | :x:                | :x:                |
-| commit_main                | commits on main        | :x:                | browserstack    | webnext      | :x:                | :x:                |
-| delivery                   | Monday (04:00), script | :heavy_check_mark: | beta            | beta         | :heavy_check_mark: | :heavy_check_mark: |
-| native_promotion           | Monday (02:00), script | :x:                | promotion       | :x:          | :x:                | :x:                |
-| web_promotion              | Monday (02:00), script | :x:                | :x:             | promotion    | :x:                | :x:                |
-| native_beta_delivery       | script                 | :heavy_check_mark: | beta            | :x:          | :heavy_check_mark: | :x:                |
-| native_production_delivery | script                 | :heavy_check_mark: | production      | :x:          | :heavy_check_mark: | :x:                |
-| web_beta_delivery          | script                 | :heavy_check_mark: | :x:             | beta         | :heavy_check_mark: | :x:                |
-| web_production_delivery    | script                 | :heavy_check_mark: | :x:             | production   | :heavy_check_mark: | :x:                |
-| e2e_tests                  | commits on main        | :x:                | :x:             | :x:          | :x:                | :x:                |
+| Workflow                   | Schedule/Trigger | Checks             | native delivery | web delivery | Version bump       | Move release notes |
+| -------------------------- | ---------------- | ------------------ | --------------- | ------------ | ------------------ | ------------------ |
+| commit                     | commits of PRs   | :heavy_check_mark: | :x:             | :x:          | :x:                | :x:                |
+| commit_main                | commits on main  | :x:                | :x              | webnext      | :x:                | :x:                |
+| delivery                   | script           | :heavy_check_mark: | beta            | beta         | :heavy_check_mark: | :heavy_check_mark: |
+| native_beta_delivery       | script           | :heavy_check_mark: | beta            | :x:          | :heavy_check_mark: | :x:                |
+| native_production_delivery | script           | :heavy_check_mark: | production      | :x:          | :heavy_check_mark: | :x:                |
+| web_beta_delivery          | script           | :heavy_check_mark: | :x:             | beta         | :heavy_check_mark: | :x:                |
+| web_production_delivery    | script           | :heavy_check_mark: | :x:             | production   | :heavy_check_mark: | :x:                |
+| native_promotion           | script           | :x:                | promotion       | :x:          | :x:                | :x:                |
+| web_promotion              | script           | :x:                | :x:             | promotion    | :x:                | :x:                |
+| e2e_tests                  | script           | :x:                | :x:             | :x:          | :x:                | :x:                |
+| native_browserstack        | script           | :x:                | browserstack    | :x:          | :x:                | :x:                |
 
 Steps executed if _Checks_ is checked :heavy_check_mark::
 
@@ -35,7 +36,6 @@ Steps executed if _Checks_ is checked :heavy_check_mark::
 - TypeScript checks
 - Unit testing with jest
 - Building the app
-- E2E tests
 
 Steps executed if _Version bump_ is checked :heavy_check_mark::
 
@@ -43,7 +43,7 @@ Steps executed if _Version bump_ is checked :heavy_check_mark::
 
 ## Failed Delivery
 
-Sometimes it happens that one or multiple steps of our scheduled CI delivery workflow fails. In that case,
+Sometimes it happens that one or multiple steps of our CI delivery workflow fails. In that case,
 you should **not** use the `Restart Workflow from Start` (as this will lead to just another failure since the version number
 was bumped before but not in the state of the failed delivery workflow such that it attempts to create the same releases again).
 
@@ -57,15 +57,15 @@ _native_beta_delivery_ or just run the whole _delivery_ workflow again. If that 
 
 ## Triggering a Delivery
 
-Normally the scheduled deliveries (see [workflows](#workflows)) should be frequent enough for most purposes.
-
-If you still have to deliver a new reason for example for an urgent bug fix or because of a failed CI delivery,
-the easiest way to deliver a new build to production or beta is to trigger the corresponding CircleCI workflows
-_native_beta_delivery_, _native_production_delivery_, _web_beta_delivery_ and _web_production_delivery_:
+If you want to deliver a new version, the easiest way to deliver a new build to production or beta is to trigger the corresponding CircleCI workflows
+_delivery_, _native_beta_delivery_, _native_production_delivery_, _web_beta_delivery_ and _web_production_delivery_:
 
 - Get a CircleCI [Personal API Token](https://circleci.com/docs/2.0/managing-api-tokens/).
 - Trigger a delivery using the tool [trigger-pipeline](../tools/trigger-pipeline.ts):
-  `cd tools && yarn trigger-pipeline trigger <workflow-type> --api-token <api-token>`
+
+```shell
+cd tools && yarn trigger-pipeline trigger <workflow-type> --api-token <api-token> [--branch <branch>]
+```
 
 ## Services
 
@@ -97,7 +97,7 @@ For delivery an [account without 2FA](https://github.com/fastlane/fastlane/blob/
 
 #### Adding Testers to TestFlight
 
-The [scheduled_native_production_workflow](#workflows) makes the builds directly available to TestFlights "App Store Connect Users". Those should not be confused with "External Tests" which require an approval by apple. Therefore, we currently only use "App Store Connect Users" as testers.
+The _delivery_ and _native_beta_delivery_ [workflows](#workflows) make the builds directly available to TestFlights "App Store Connect Users". Those should not be confused with "External Tests" which require an approval by apple. Therefore, we currently only use "App Store Connect Users" as testers.
 
 In order to add someone as "App Store Connect User" you have to add the Apple Account to App Store Connect and to TestFlight. This is a two-step process.
 
