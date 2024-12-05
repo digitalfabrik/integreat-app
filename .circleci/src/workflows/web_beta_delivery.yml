@@ -10,7 +10,6 @@ jobs:
       prepare_delivery: true
   - check:
       context:
-        - codeclimate-integreat-app
         - mattermost
   - e2e_web:
       context:

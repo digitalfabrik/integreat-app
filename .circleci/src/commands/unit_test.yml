@@ -1,22 +1,8 @@
 description: Runs the test task and stores coverage and junit data
 steps:
   - run:
-      name: Setup Code Climate test-reporter
-      command: |
-        # download test reporter as a static binary
-        curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-        chmod +x ./cc-test-reporter
-  - run:
-      name: Code Climate before build
-      command: ./cc-test-reporter before-build
-  - run:
       name: Unit Tests with Coverage
       command: yarn test:ci --maxWorkers ${TOTAL_CPUS}
-  - run:
-      name: Code Climate after build
-      command: |
-        ./cc-test-reporter format-coverage -t lcov -o reports/coverage/codeclimate.json reports/coverage/lcov.info
-        ./cc-test-reporter upload-coverage -i reports/coverage/codeclimate.json
   - store_test_results:
       path: reports/unit-test
   - store_artifacts:
