@@ -4,15 +4,12 @@ import segment from 'sentencex'
 import { parseHTML } from 'shared'
 import { LocalNewsModel, PageModel, TunewsModel } from 'shared/api'
 
-import { ttsContext, TtsContextType } from '../components/TtsContainer'
-import buildConfig from '../constants/buildConfig'
+import { TtsContext, TtsContextType } from '../components/TtsContainer'
 import { AppContext } from '../contexts/AppContextProvider'
-
-const unsupportedLanguagesForTts = ['fa', 'ka', 'kmr']
 
 const useTtsPlayer = (model?: PageModel | LocalNewsModel | TunewsModel | undefined): TtsContextType => {
   const { languageCode } = useContext(AppContext)
-  const tts = useContext(ttsContext)
+  const { setSentences, visible, setVisible } = useContext(TtsContext)
   const sentences = useMemo(() => {
     if (model) {
       const content = parseHTML(model.content)
@@ -22,31 +19,20 @@ const useTtsPlayer = (model?: PageModel | LocalNewsModel | TunewsModel | undefin
     return null
   }, [model, languageCode])
 
-  const enabled =
-    Array.isArray(sentences) &&
-    sentences.length > 0 &&
-    Boolean(buildConfig().featureFlags.tts) &&
-    !unsupportedLanguagesForTts.includes(languageCode)
-
   useEffect(() => {
     if (sentences) {
-      tts.setSentences(sentences)
+      setSentences(sentences)
     }
-    tts.setEnabled(enabled)
     return () => {
-      tts.setSentences([])
-      tts.setEnabled(false)
+      setSentences([])
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [enabled, sentences, languageCode])
+  }, [sentences, languageCode, setSentences])
 
   return {
-    enabled: tts.enabled,
-    setEnabled: tts.setEnabled,
-    visible: tts.visible,
-    setVisible: tts.setVisible,
-    sentences: tts.sentences,
-    setSentences: tts.setSentences,
+    visible,
+    setVisible,
+    sentences,
+    setSentences,
   }
 }
 

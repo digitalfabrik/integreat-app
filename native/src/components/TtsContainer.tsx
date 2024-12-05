@@ -5,6 +5,7 @@ import Tts from 'react-native-tts'
 
 import { truncate } from 'shared/utils/getExcerpt'
 
+import buildConfig from '../constants/buildConfig'
 import { AppContext } from '../contexts/AppContextProvider'
 import { reportError } from '../utils/sentry'
 import TtsPlayer from './TtsPlayer'
@@ -12,17 +13,15 @@ import TtsPlayer from './TtsPlayer'
 const MAX_TITLE_DISPLAY_CHARS = 20
 
 export type TtsContextType = {
-  enabled: boolean
-  setEnabled: (enable: boolean) => void
+  enabled?: boolean
   visible: boolean
   setVisible: (visible: boolean) => void
   sentences: string[] | null
   setSentences: (sentences: string[]) => void
 }
 
-export const ttsContext = createContext<TtsContextType>({
+export const TtsContext = createContext<TtsContextType>({
   enabled: false,
-  setEnabled: () => undefined,
   visible: false,
   setVisible: () => undefined,
   sentences: [],
@@ -39,10 +38,10 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
   const [isPlaying, setIsPlaying] = useState(false)
   const [sentenceIndex, setSentenceIndex] = useState(0)
   const [visible, setVisible] = useState(false)
-  const [enabled, setEnabled] = useState(false)
   const [sentences, setSentences] = useState<string[]>([])
   const title = sentences[0] || t('nothingToRead')
   const longTitle = truncate(title, { maxChars: MAX_TITLE_DISPLAY_CHARS })
+  const unsupportedLanguagesForTts = ['fa', 'ka', 'kmr']
 
   const initializeTts = useCallback((): void => {
     Tts.getInitStatus().catch(async error => {
@@ -52,6 +51,12 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
       }
     })
   }, [])
+
+  const enabled =
+    Array.isArray(sentences) &&
+    sentences.length > 0 &&
+    Boolean(buildConfig().featureFlags.tts) &&
+    !unsupportedLanguagesForTts.includes(languageCode)
 
   const play = useCallback(
     (index = sentenceIndex) => {
@@ -123,12 +128,6 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
   }, [enabled, initializeTts, playNext, sentenceIndex, sentences.length])
 
   useEffect(() => {
-    if (sentences.length <= 1) {
-      stop()
-    }
-  }, [sentences])
-
-  useEffect(() => {
     const subscription = AppState.addEventListener('change', nextAppState => {
       if (nextAppState === 'inactive' || nextAppState === 'background') {
         stop()
@@ -143,38 +142,43 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
     await stop()
   }
 
+  const modifiedSetSentences = useCallback((newSentences: string[]) => {
+    setSentences(newSentences)
+    if (newSentences.length < 1) {
+      stop()
+    }
+  }, [])
+
   const ttsContextValue = useMemo(
     () => ({
       enabled,
-      setEnabled,
       sentenceIndex,
       setSentenceIndex,
       visible,
       setVisible,
       sentences,
-      setSentences,
+      setSentences: modifiedSetSentences,
       languageCode,
     }),
-    [enabled, sentenceIndex, visible, sentences, languageCode],
+    [enabled, sentenceIndex, visible, sentences, modifiedSetSentences, languageCode],
   )
 
   return (
-    <ttsContext.Provider value={ttsContextValue}>
+    <TtsContext.Provider value={ttsContextValue}>
       {children}
       {visible && (
         <TtsPlayer
           isPlaying={isPlaying}
-          setIsPlaying={setIsPlaying}
           sentenceIndex={sentenceIndex}
-          handleBackward={playPrevious}
-          handleForward={playNext}
-          handleClose={close}
-          pauseReading={pause}
-          startPlaying={play}
+          playPrevious={playPrevious}
+          playNext={playNext}
+          close={close}
+          pause={pause}
+          play={play}
           title={longTitle}
         />
       )}
-    </ttsContext.Provider>
+    </TtsContext.Provider>
   )
 }
 
