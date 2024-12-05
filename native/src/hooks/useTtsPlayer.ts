@@ -26,7 +26,7 @@ const useTtsPlayer = (model?: PageModel | LocalNewsModel | TunewsModel | undefin
     return () => {
       setSentences([])
     }
-  }, [sentences, languageCode, setSentences])
+  }, [sentences, setSentences])
 
   return {
     enabled,
