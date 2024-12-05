@@ -11,6 +11,7 @@ import { NavigationProps } from '../constants/NavigationTypes'
 import { contentAlignment } from '../constants/contentDirection'
 import useNavigate from '../hooks/useNavigate'
 import useSetRouteTitle from '../hooks/useSetRouteTitle'
+import useTtsPlayer from '../hooks/useTtsPlayer'
 import Failure from './Failure'
 import List from './List'
 import LoadingSpinner from './LoadingSpinner'
@@ -62,6 +63,7 @@ const News = ({
 }: NewsProps): ReactElement => {
   const selectedNewsItem = news.find(_newsItem => _newsItem.id === newsId)
   const { t } = useTranslation('news')
+  useTtsPlayer(selectedNewsItem)
 
   const navigation = useNavigate().navigation as NavigationProps<NewsRouteType>
   useSetRouteTitle({ navigation, title: getPageTitle(selectedNewsType, selectedNewsItem, t) })
