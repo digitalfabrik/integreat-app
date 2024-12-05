@@ -22,6 +22,7 @@ import DataSecurityIcon from '../../../assets/icons/data-security.svg'
 import DoneIcon from '../../../assets/icons/done.svg'
 import EditLocationIcon from '../../../assets/icons/edit-location.svg'
 import EuroIcon from '../../../assets/icons/euro.svg'
+import ExpandIcon from '../../../assets/icons/expand.svg'
 import ExternalLinkIcon from '../../../assets/icons/external-link.svg'
 import FacebookIcon from '../../../assets/icons/facebook.svg'
 import FeedbackIcon from '../../../assets/icons/feedback.svg'
@@ -46,6 +47,7 @@ import SadSmileyIcon from '../../../assets/icons/sad-smiley.svg'
 import SearchIcon from '../../../assets/icons/search.svg'
 import SecurityIcon from '../../../assets/icons/security.svg'
 import ShareIcon from '../../../assets/icons/share.svg'
+import ShrinkIcon from '../../../assets/icons/shrink.svg'
 import SmokingIcon from '../../../assets/icons/smoking.svg'
 import SprungbrettIcon from '../../../assets/icons/sprungbrett.svg'
 import SupportIcon from '../../../assets/icons/support.svg'
@@ -82,6 +84,7 @@ export {
   EventThumbnailPlaceholder2,
   EventThumbnailPlaceholder3,
   ExternalLinkIcon,
+  ExpandIcon,
   FacebookIcon,
   FeedbackIcon,
   HappySmileyIcon,
@@ -110,6 +113,7 @@ export {
   SmokingIcon,
   SprungbrettIcon,
   SupportIcon,
+  ShrinkIcon,
   TimerIcon,
   TuNewsActiveIcon,
   TuNewsInactiveIcon,
