@@ -83,14 +83,14 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
     if (query.length === 0) {
       return null
     }
-    if (loading || allPossibleResults.length === 0) {
+    if (loading || !results) {
       return <LoadingSpinner />
     }
     return (
       <>
         <List>
-          <SearchCounter>{t('searchResultsCount', { count: results?.length ?? 0 })}</SearchCounter>
-          {results?.map(({ title, content, path, thumbnail }) => (
+          <SearchCounter>{t('searchResultsCount', { count: results.length })}</SearchCounter>
+          {results.map(({ title, content, path, thumbnail }) => (
             <SearchListItem
               title={title}
               contentWithoutHtml={parseHTML(content)}
@@ -104,7 +104,7 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
         <SearchFeedback
           cityCode={cityCode}
           languageCode={languageCode}
-          noResults={results?.length === 0}
+          noResults={results.length === 0}
           query={filterText}
         />
       </>
