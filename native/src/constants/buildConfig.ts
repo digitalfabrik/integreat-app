@@ -9,11 +9,12 @@ import { INTEGREAT_ASSETS, MALTE_ASSETS, ASCHAFFENBURG_ASSETS } from 'build-conf
 import { CommonBuildConfigType } from 'build-configs/BuildConfigType'
 import aschaffenburgLoadingImage from 'build-configs/aschaffenburg/assets/app-icon-inverted.svg'
 import aschaffenburgAppIcon from 'build-configs/aschaffenburg/assets/app-icon-round.svg'
-import directionsIcon from 'build-configs/common/assets/directions.svg'
-import informationIcon from 'build-configs/common/assets/information.svg'
 import languageIcon from 'build-configs/common/assets/language.svg'
+import NewsIcon from 'build-configs/common/assets/news.svg'
 import offlineIcon from 'build-configs/common/assets/offline.svg'
+import poisIcon from 'build-configs/common/assets/pois.svg'
 import searchIcon from 'build-configs/common/assets/search.svg'
+import welcomeIcon from 'build-configs/common/assets/welcome.svg'
 import integreatLoadingImage from 'build-configs/integreat/assets/app-icon-inverted.svg'
 import integreatAppIcon from 'build-configs/integreat/assets/app-icon-round.svg'
 import integreatCityNotCooperatingIcon from 'build-configs/integreat/assets/city-not-cooperating.svg'
@@ -25,11 +26,12 @@ type AssetsType = {
   LoadingImage: React.JSXElementConstructor<SvgProps>
   CityNotCooperatingIcon?: React.JSXElementConstructor<SvgProps>
   intro?: {
-    directions: React.JSXElementConstructor<SvgProps>
+    Welcome: React.JSXElementConstructor<SvgProps>
+    Pois: React.JSXElementConstructor<SvgProps>
     Language: React.JSXElementConstructor<SvgProps>
     Search: React.JSXElementConstructor<SvgProps>
     Offline: React.JSXElementConstructor<SvgProps>
-    information: React.JSXElementConstructor<SvgProps>
+    News: React.JSXElementConstructor<SvgProps>
   }
 }
 
@@ -38,11 +40,12 @@ const buildConfig = (): CommonBuildConfigType => loadBuildConfig(name, COMMON)
 export const buildConfigAssets = (): AssetsType => {
   const assetsName = buildConfig().assets
   const commonIntros = {
-    directions: directionsIcon,
+    Welcome: welcomeIcon,
+    Pois: poisIcon,
     Language: languageIcon,
     Search: searchIcon,
     Offline: offlineIcon,
-    information: informationIcon,
+    News: NewsIcon,
   }
 
   if (assetsName === INTEGREAT_ASSETS) {

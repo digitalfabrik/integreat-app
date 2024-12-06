@@ -31,7 +31,7 @@ export type SlideContentType = {
   key: string
   title: string
   description?: string
-  Content: ReactElement
+  Content: ReactElement | null
 }
 type SlideContentProps = {
   item: SlideContentType
@@ -41,7 +41,7 @@ type SlideContentProps = {
 const SlideContent = ({ item, width }: SlideContentProps): ReactElement => (
   <ScrollView
     contentContainerStyle={{
-      height: '100%',
+      flexGrow: 1,
     }}>
     <Container width={width}>
       <ContentContainer description={item.description !== undefined}>{item.Content}</ContentContainer>

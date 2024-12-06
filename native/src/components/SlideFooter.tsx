@@ -13,8 +13,7 @@ const ButtonContainer = styled.View`
 `
 
 const StyledButton = styled(TextButton)`
-  /* flex: 1; */
-  width: 139px;
+  width: 35%;
   height: 40px;
 `
 
@@ -57,6 +56,17 @@ const SlideFooter = ({ onDone, slideCount, goToSlide, currentSlide, t }: SlideFo
           type='primary'
           text={t('next')}
           textStyle={{ fontFamily: theme.fonts.native.contentFontBold, fontSize: 14 }}
+          style={{
+            shadowColor: '#000',
+            shadowOffset: {
+              width: 0,
+              height: 1,
+            },
+            shadowOpacity: 0.2,
+            shadowRadius: 1.4,
+
+            elevation: 2,
+          }}
           onPress={isLastSlide ? onDone : goToNextSlide}
         />
       </ButtonContainer>

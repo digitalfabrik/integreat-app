@@ -5687,278 +5687,193 @@
   "intro": {
     "de": {
       "welcome": "Willkommen bei {{appName}}",
-      "appDescription": "In {{appName}} findest du Antworten und Tipps in deiner Muttersprache. Zum Beispiel: Wo finde ich Hilfe? Wann darf ich arbeiten?",
+      "welcomeDescription": "In {{appName}} findest du Antworten und Tipps in deiner Muttersprache. Zum Beispiel: Wo finde ich Hilfe? Wann darf ich arbeiten?",
       "search": "Einfache Suche",
       "searchDescription": "Du findest schnell die richtigen Informationen über die Suche rechts oben im Menü.",
       "languageChange": "Sprache verändern",
-      "languageChangeDescription": "Du kannst oben im Menü die Sprache von Integreat verändern.",
+      "languageChangeDescription": "Du kannst oben im Menü die Sprache von {{appName}} verändern.",
       "events": "Veranstaltungen",
       "eventsDescription": "Aktuelle Veranstaltungen und Termine in der Umgebung",
-      "directions": "Angebote in deiner Nähe",
-      "directionsDescription": "In der Karte kannst du Orte in deiner Nähe finden, zum Beispiel Orte für Sprachkurse.",
+      "pois": "Angebote in deiner Nähe",
+      "poisDescription": "In der Karte kannst du Orte in deiner Nähe finden, zum Beispiel Orte für Sprachkurse.",
       "offline": "Funktioniert auch offline",
-      "offlineDescription": "Du hast nicht immer Internet? Kein Problem. Du kannst Integreat auch ohne Internet benutzen.",
-      "information": "Aktuelle Informationen",
-      "informationDescription": "Was gibt es Neues in deiner Nähe?  Finde es heraus in Integreat.",
+      "offlineDescription": "Du hast nicht immer Internet? Kein Problem. Du kannst {{appName}} auch ohne Internet benutzen.",
+      "news": "Aktuelle Informationen",
+      "newsDescription": "Was gibt es Neues in deiner Nähe? Finde es heraus in {{appName}}.",
       "skip": "Überspringen",
       "next": "Weiter"
     },
     "am": {
-      "appDescription": "{{appName}} ለጀርመን የእርስዎ የዲጂታል መሪ ነው",
       "events": "ዝግጅቶች",
       "eventsDescription": "በአካባቢው ያሉ ወቅታዊ ዝግጅቶችና ቀናት",
       "skip": "ይለፉ",
       "next": "ቀጣይ"
     },
     "ar": {
-      "appDescription": "تطبيق{{appName}} هو دليلك الرقمي لألمانيا",
       "events": "الفعاليات",
       "eventsDescription": "فعاليات ومواعيد حالية في المنطقة المحيطة",
       "skip": "تخطي",
       "next": "استمرار"
     },
     "bg": {
-      "appDescription": "{{appName}} е Вашето дигитално ръководство за Германия",
       "events": "Събития",
       "eventsDescription": "Текущи събития и дати в района",
       "skip": "Пропусни",
       "next": "Напред"
     },
     "ckb": {
-      "appDescription": "{{appName}} ڕێنمایی دیجیتاڵی تۆ بۆ ئەڵمانیایە",
       "events": "ڕووداوەکان",
       "eventsDescription": "ڕووداوەکان و چاوپێکەوتنەکانی ئێستای تۆ لە دەورووپشتت",
       "skip": "بازدان",
       "next": "بەردەوامی"
     },
     "cs": {
-      "appDescription": "{{appName}]} je váš digitální průvodce po Německu",
       "events": "Akce",
       "eventsDescription": "Aktuální akce a termíny v okolí",
       "skip": "Přeskočit",
       "next": "Další"
     },
     "da": {
-      "appDescription": "{{appName}} er din digitale guide til Tyskland",
       "events": "Begivenheder",
       "eventsDescription": "Aktuelle begivenheder og aftaler i nabolaget",
       "skip": "Spring over",
       "next": "Yderligere"
     },
     "el": {
-      "appDescription": "Το {{appName}} είναι ο ψηφιακός οδηγός σας για τη Γερμανία",
       "events": "Εκδηλώσεις",
       "eventsDescription": "Τρέχουσες εκδηλώσεις και ημερομηνίες στην περιοχή",
       "skip": "Παραλείπω",
       "next": "Συνέχεια"
     },
     "en": {
-      "appDescription": "{{appName}} is your digital guide to life in Germany",
-      "events": "Events",
-      "eventsDescription": "Current events and dates in the surrounding area",
+      "welcome": "Welcome to {{appName}}",
+      "welcomeDescription": "In {{appName}}, you will find answers and tips in your native language. For example: Where can I find help? When am I allowed to work?",
+      "search": "Simple Search",
+      "searchDescription": "You can quickly find the right information through the search at the top right in the menu.",
+      "languageChange": "Change Language",
+      "languageChangeDescription": "You can change the language of {{appName}} in the top menu.",
+      "pois": "Offers Near You",
+      "poisDescription": "In the map, you can find places near you, for example places for language courses.",
+      "offline": "Works Offline Too",
+      "offlineDescription": "Don't always have internet? No problem. You can use {{appName}} even without internet.",
+      "news": "Current News",
+      "newsDescription": "What's new in your area? Find out in {{appName}}.",
       "skip": "Skip",
       "next": "Continue"
     },
     "es": {
-      "appDescription": "{{appName}} es su guía digital para Alemania",
-      "events": "Actividades",
-      "eventsDescription": "Eventos actuales y fechas en los alrededores",
       "skip": "Saltar",
       "next": "Seguir"
     },
     "fi": {
-      "appDescription": "{{appName}} on digitaalinen oppaasi Saksaa varten",
-      "events": "Tapahtumat",
-      "eventsDescription": "Ympäristön ajankohtaiset tapahtumat ja aikataulut",
       "skip": "Ohita",
       "next": "Eteenpäin"
     },
     "fr": {
-      "appDescription": "{{appName}} est votre guide numérique pour l'Allemagne",
-      "events": "Événements",
-      "eventsDescription": "Actualités et rendez-vous dans les environs",
       "skip": "Passer",
       "next": "Suite"
     },
     "hr": {
-      "appDescription": "{{appName}} je vaš digitalni vodič za Njemačku",
-      "events": "Događanja",
-      "eventsDescription": "Aktualna događanja i termini u okolici",
       "skip": "Preskoči",
       "next": "Dalje"
     },
     "hu": {
-      "appDescription": "{{appName}} az Ön digitális idegenvezetője Németországban.",
-      "events": "Események",
-      "eventsDescription": "Aktuális események és időpontok a környéken",
       "skip": "Átugrás",
       "next": "Tovább"
     },
     "it": {
-      "appDescription": "{{appName}} è la tua guida digitale per la Germania",
-      "events": "Eventi",
-      "eventsDescription": "Eventi e appuntamenti nei dintorni",
       "skip": "Salta",
       "next": "Avanti"
     },
     "ka": {
-      "appDescription": "‎{{appName}} არის თქვენი ციფრული გზამკვლევი გერმანიისათვის",
-      "events": "ღონისძიებები",
-      "eventsDescription": "ახლოს არსებული მიმდინარე ღონისძიებები და ტერმინები",
       "skip": "გამოტოვება",
       "next": "გაგრძელება"
     },
     "kmr": {
-      "appDescription": "{{appName}} rêbera te ya dîcîtal derbarê Almanyayê ye",
-      "events": "Rûdan",
-      "eventsDescription": "Rûdanên niha û demên hevdîtinê li hawîrdor",
       "skip": "Nepejirandin",
       "next": "Berdewam"
     },
     "mk": {
-      "appDescription": "{{appName}} е вашиот дигитален водич за Германија",
-      "events": "Настани",
-      "eventsDescription": "Актуелни настани и термини во околината",
       "skip": "Прескокни",
       "next": "Понатаму"
     },
     "nl": {
-      "appDescription": "{{appName}} is jouw digitale gids voor het leven in Duitsland.",
-      "events": "Evenementen",
-      "eventsDescription": "Huidige evenementen en data in de omgeving",
       "skip": "Sla over",
       "next": "Ga door"
     },
     "orm": {
-      "appDescription": "{{appName}} kun qajeelfama dijitaalaa jireenya keessan Jarman keessaadha.",
-      "events": "Sagantaalee",
-      "eventsDescription": "Sagantaawwan yeroo ammaa fi guyyootaa naannoo sana jiran",
       "skip": "Irra darbi",
       "next": "Itti fufi"
     },
     "pes": {
-      "appDescription": "{{appName}}‏ راهنمای دیجیتالی شما در مورد آلمان است",
-      "events": "رویدادها",
-      "eventsDescription": "رویدادهای فعلی و وقت های ملاقات در محیط اطراف",
       "skip": "رد شدن",
       "next": "ادامه"
     },
     "pl": {
-      "appDescription": "{{appName}} to e-przewodnik po Niemczech",
-      "events": "Wydarzenia",
-      "eventsDescription": "Aktualne wydarzenia i terminy w okolicy",
       "skip": "Pomiń",
       "next": "Dalej"
     },
     "prs": {
-      "appDescription": "{{appName}} رهنمای دیجیتل شما برای جرمنی است",
-      "events": "رویدادها",
-      "eventsDescription": "رویدادها و ملاقات های فعلی در مناطق اطراف",
       "skip": "پرش",
       "next": "ادامه"
     },
     "ps": {
-      "appDescription": "{{appName}} آلمان لپاره ستاسو ډیجیټال لارښود دی.",
-      "events": "غونډې",
-      "eventsDescription": "دا مهال په دې شاوخوا کې غونډې او ملاقاتونه",
       "skip": "اووښتل یعنی ورتیریدل",
       "next": "مخته"
     },
     "pt": {
-      "appDescription": "A {{appName}} é o seu guia digital da Alemanha",
-      "events": "Eventos",
-      "eventsDescription": "Eventos e acontecimentos atuais nas imediações",
       "skip": "Saltar",
       "next": "Seguinte"
     },
     "ro": {
-      "appDescription": "{{appName}} constituie ghidul dvs. digital pentru Germania",
-      "events": "Evenimente",
-      "eventsDescription": "Evenimente curente și date de desfășurare în împrejurimi",
       "skip": "Treceți peste",
       "next": "Mai departe"
     },
     "rom": {
-      "appDescription": "{{appName}} si tiro digitalnikano legatuno baši o dživdipa ki Germania",
-      "events": "Čipote",
-      "eventsDescription": "Momentalna čipote thaj datumoja ko paše thana",
       "skip": "Na akana",
       "next": "Produžun"
     },
     "ru": {
-      "appDescription": "{{appName}} – это ваш цифровой гид по Германии",
-      "events": "Мероприятия",
-      "eventsDescription": "Актуальные мероприятия и события рядом с вами",
       "skip": "Пропустить",
       "next": "Далее"
     },
     "sk": {
-      "appDescription": "{{appName}} je váš digitálny sprievodca pre Nemecko",
-      "events": "Podujatia",
-      "eventsDescription": "Aktuálne podujatia a termíny v okolí",
       "skip": "Preskočiť",
       "next": "Ďalej"
     },
     "so": {
-      "appDescription": "{{appName}} waa tilmaamahaaga dhijitaalka ah ee Jarmalka",
-      "events": "Dhacdooyinka",
-      "eventsDescription": "Dhacdooyinka hadda ah iyo taariikhaha ee ka jira deegaanka",
       "skip": "Ka bood",
       "next": "Dheeraad ah"
     },
     "sq": {
-      "appDescription": "{{appName}} është guida juaj dixhitale për Gjermani",
-      "events": "Evenimentet",
-      "eventsDescription": "Evenimentet aktuale dhe datat në zonë",
       "skip": "Kapërce",
       "next": "Vazhdo"
     },
     "sr-Cyrl": {
-      "appDescription": "{{appName}} је ваш дигитални водич за Немачку",
-      "events": "Догађаји",
-      "eventsDescription": "Тренутни догађаји и термини у окружењу",
       "skip": "Прескочи",
       "next": "Даље"
     },
     "sr-Latn": {
-      "appDescription": "{{appName}} je vaš digitalni vodič za Nemačku",
-      "events": "Događaji",
-      "eventsDescription": "Trenutni događaji i termini u okruženju",
       "skip": "Preskoči",
       "next": "Dalje"
     },
     "ti": {
-      "appDescription": "{{appName}} ናብ ጅርመን እትትኸድሉ መምርሒ እዩ።",
-      "events": "ኣጋጣሚታት",
-      "eventsDescription": "ህሉው ኣጋጣሚታትን ዕለታትን ኣብቲ ከባቢ",
       "skip": "ስገር",
       "next": "ተወሳኺ"
     },
     "tr": {
-      "appDescription": "{{appName}}, Almanya'daki dijital rehberinizdir",
-      "events": "Etkinlikler",
-      "eventsDescription": "Çevredeki güncel etkinlikler ve tarihler",
       "skip": "Atla",
       "next": "Devam"
     },
     "uk": {
-      "appDescription": "{{appName}} - ваш цифровий путівник у Німеччині",
-      "events": "Події",
-      "eventsDescription": "Поточні події та дати в регіоні",
       "skip": "Пропустити",
       "next": "Наступний"
     },
     "ur": {
-      "appDescription": "‎{{appName}}‎ جرمنی کے لئے آپ کی ڈیجیٹل رہنما ہے",
-      "events": "ایونٹس",
-      "eventsDescription": "علاقے میں حالیہ ایونٹس اور تاریخیں",
       "skip": "رہنے دیں",
       "next": "آگے"
     },
     "zh-CN": {
-      "appDescription": "{{appName}}是您在德国生活的数字指南",
-      "events": "活动",
-      "eventsDescription": "该地区当前的活动及其日期",
       "skip": "跳过",
       "next": "继续"
     }

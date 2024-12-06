@@ -1,6 +1,7 @@
 issue_key: 1137
-show_in_stores: false
-platforms: # relevant platforms, possible values: web, android and ios
+show_in_stores: true
+platforms:
   - android
   - ios
-en: Added new intro screens.
+en: Redesigned our app intro.
+de: Neues Design für unsere App-Einführung.

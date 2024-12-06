@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 import { FlatList, useWindowDimensions, ViewToken } from 'react-native'
 import styled, { css } from 'styled-components/native'
 
-import welcome from 'build-configs/common/assets/welcome.svg'
 import { IntroRouteType, LANDING_ROUTE } from 'shared'
 
 import SlideContent, { SlideContentType } from '../components/SlideContent'
@@ -20,7 +19,7 @@ const Container = styled.View<{ width: number }>`
   flex-direction: column;
   width: ${props => props.width}px;
   padding-bottom: 30%;
-  background-color: white;
+  background-color: ${props => props.theme.colors.backgroundColor};
 `
 
 const ImageStyle = css`
@@ -32,16 +31,19 @@ const ImageStyle = css`
 const icons = buildConfigAssets().intro
 const styledIcons = icons
   ? {
+      Welcome: styled(icons.Welcome)`
+        ${ImageStyle};
+      `,
       Language: styled(icons.Language)`
         ${ImageStyle};
       `,
       Search: styled(icons.Search)`
         ${ImageStyle};
       `,
-      Directions: styled(icons.directions)`
+      Directions: styled(icons.Pois)`
         ${ImageStyle};
       `,
-      Information: styled(icons.information)`
+      Information: styled(icons.News)`
         ${ImageStyle};
       `,
       Offline: styled(icons.Offline)`
@@ -49,15 +51,6 @@ const styledIcons = icons
       `,
     }
   : null
-
-const AppIcon = styled(welcome)`
-  ${ImageStyle};
-`
-
-const StyledAppIcon = styled(Icon)`
-  height: 100%;
-  width: 60%;
-`
 
 const StyledIcon = styled(Icon)`
   height: 100%;
@@ -84,18 +77,23 @@ const Intro = ({ route, navigation }: IntroProps): ReactElement => {
       title: t('welcome', {
         appName: buildConfig().appName,
       }),
-      description: t('appDescription', {
+      description: t('welcomeDescription', {
         appName: buildConfig().appName,
       }),
-      Content: <StyledAppIcon Icon={AppIcon} />,
+      Content: styledIcons && <StyledIcon Icon={styledIcons.Welcome} />,
     },
   ]
+
   if (styledIcons) {
     slides.push(
       {
         key: 'languageChange',
-        title: t('languageChange'),
-        description: t('languageChangeDescription'),
+        title: t('languageChange', {
+          appName: buildConfig().appName,
+        }),
+        description: t('languageChangeDescription', {
+          appName: buildConfig().appName,
+        }),
         Content: <StyledIcon Icon={styledIcons.Language} />,
       },
       {
@@ -104,25 +102,37 @@ const Intro = ({ route, navigation }: IntroProps): ReactElement => {
         description: t('searchDescription'),
         Content: <StyledIcon Icon={styledIcons.Search} />,
       },
-      {
-        key: 'directions',
-        title: t('directions'),
-        description: t('directionsDescription'),
-        Content: <StyledIcon Icon={styledIcons.Directions} />,
-      },
-      {
-        key: 'information',
-        title: t('information'),
-        description: t('informationDescription'),
-        Content: <StyledIcon Icon={styledIcons.Information} />,
-      },
-      {
-        key: 'offline',
-        title: t('offline'),
-        description: t('offlineDescription'),
-        Content: <StyledIcon Icon={styledIcons.Offline} />,
-      },
     )
+
+    if (buildConfig().featureFlags.pois === true) {
+      slides.push({
+        key: 'pois',
+        title: t('pois'),
+        description: t('poisDescription'),
+        Content: <StyledIcon Icon={styledIcons.Directions} />,
+      })
+    }
+
+    if (buildConfig().featureFlags.newsStream === true) {
+      slides.push({
+        key: 'news',
+        title: t('newsDescription', {
+          appName: buildConfig().appName,
+        }),
+        description: t('newsDescription', {
+          appName: buildConfig().appName,
+        }),
+        Content: <StyledIcon Icon={styledIcons.Information} />,
+      })
+    }
+    slides.push({
+      key: 'offline',
+      title: t('offline'),
+      description: t('offlineDescription', {
+        appName: buildConfig().appName,
+      }),
+      Content: <StyledIcon Icon={styledIcons.Offline} />,
+    })
   }
 
   const onDone = useCallback(async () => {

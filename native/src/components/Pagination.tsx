@@ -18,7 +18,7 @@ const DotsContainer = styled.View`
 const Dot = styled(Pressable)<{ isActive: boolean }>`
   width: 12px;
   height: 12px;
-  border-radius: 5px;
+  border-radius: 6px;
   margin: 0 18px;
   background-color: ${props =>
     props.isActive ? props.theme.colors.textColor : props.theme.colors.textDecorationColor};
