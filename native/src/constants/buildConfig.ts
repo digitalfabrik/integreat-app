@@ -9,26 +9,29 @@ import { INTEGREAT_ASSETS, MALTE_ASSETS, ASCHAFFENBURG_ASSETS } from 'build-conf
 import { CommonBuildConfigType } from 'build-configs/BuildConfigType'
 import aschaffenburgLoadingImage from 'build-configs/aschaffenburg/assets/app-icon-inverted.svg'
 import aschaffenburgAppIcon from 'build-configs/aschaffenburg/assets/app-icon-round.svg'
+import languageIcon from 'build-configs/common/assets/language.svg'
+import NewsIcon from 'build-configs/common/assets/news.svg'
+import offlineIcon from 'build-configs/common/assets/offline.svg'
+import poisIcon from 'build-configs/common/assets/pois.svg'
+import searchIcon from 'build-configs/common/assets/search.svg'
+import welcomeIcon from 'build-configs/common/assets/welcome.svg'
 import integreatLoadingImage from 'build-configs/integreat/assets/app-icon-inverted.svg'
 import integreatAppIcon from 'build-configs/integreat/assets/app-icon-round.svg'
 import integreatCityNotCooperatingIcon from 'build-configs/integreat/assets/city-not-cooperating.svg'
-import integreatIntroEventsIcon from 'build-configs/integreat/assets/intro-slides/Events.svg'
-import integreatIntroLanguageIcon from 'build-configs/integreat/assets/intro-slides/Language.svg'
-import integreatIntroSearchIcon from 'build-configs/integreat/assets/intro-slides/Search.svg'
 import malteLoadingImage from 'build-configs/malte/assets/app-icon-circle.svg'
 import malteAppIcon from 'build-configs/malte/assets/app-icon-round.svg'
-import malteIntroEventsIcon from 'build-configs/malte/assets/intro-slides/Events.svg'
-import malteIntroLanguageIcon from 'build-configs/malte/assets/intro-slides/Language.svg'
-import malteIntroSearchIcon from 'build-configs/malte/assets/intro-slides/Search.svg'
 
 type AssetsType = {
   AppIcon: React.JSXElementConstructor<SvgProps>
   LoadingImage: React.JSXElementConstructor<SvgProps>
   CityNotCooperatingIcon?: React.JSXElementConstructor<SvgProps>
   intro?: {
-    Events: React.JSXElementConstructor<SvgProps>
+    Welcome: React.JSXElementConstructor<SvgProps>
+    Pois: React.JSXElementConstructor<SvgProps>
     Language: React.JSXElementConstructor<SvgProps>
     Search: React.JSXElementConstructor<SvgProps>
+    Offline: React.JSXElementConstructor<SvgProps>
+    News: React.JSXElementConstructor<SvgProps>
   }
 }
 
@@ -36,28 +39,28 @@ const buildConfig = (): CommonBuildConfigType => loadBuildConfig(name, COMMON)
 
 export const buildConfigAssets = (): AssetsType => {
   const assetsName = buildConfig().assets
+  const commonIntros = {
+    Welcome: welcomeIcon,
+    Pois: poisIcon,
+    Language: languageIcon,
+    Search: searchIcon,
+    Offline: offlineIcon,
+    News: NewsIcon,
+  }
 
   if (assetsName === INTEGREAT_ASSETS) {
     return {
       AppIcon: integreatAppIcon,
       LoadingImage: integreatLoadingImage,
       CityNotCooperatingIcon: integreatCityNotCooperatingIcon,
-      intro: {
-        Events: integreatIntroEventsIcon,
-        Language: integreatIntroLanguageIcon,
-        Search: integreatIntroSearchIcon,
-      },
+      intro: commonIntros,
     }
   }
   if (assetsName === MALTE_ASSETS) {
     return {
       AppIcon: malteAppIcon,
       LoadingImage: malteLoadingImage,
-      intro: {
-        Events: malteIntroEventsIcon,
-        Language: malteIntroLanguageIcon,
-        Search: malteIntroSearchIcon,
-      },
+      intro: commonIntros,
     }
   }
   if (assetsName === ASCHAFFENBURG_ASSETS) {

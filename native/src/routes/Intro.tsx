@@ -18,41 +18,43 @@ const Container = styled.View<{ width: number }>`
   flex: 1;
   flex-direction: column;
   width: ${props => props.width}px;
-  justify-content: space-between;
+  padding-bottom: 30%;
+  background-color: ${props => props.theme.colors.backgroundColor};
 `
 
 const ImageStyle = css`
   align-self: center;
   flex: 1;
+  color: ${props => props.theme.colors.themeColor};
 `
 
 const icons = buildConfigAssets().intro
 const styledIcons = icons
   ? {
-      Search: styled(icons.Search)`
-        ${ImageStyle};
-      `,
-      Events: styled(icons.Events)`
+      Welcome: styled(icons.Welcome)`
         ${ImageStyle};
       `,
       Language: styled(icons.Language)`
         ${ImageStyle};
       `,
+      Search: styled(icons.Search)`
+        ${ImageStyle};
+      `,
+      Directions: styled(icons.Pois)`
+        ${ImageStyle};
+      `,
+      Information: styled(icons.News)`
+        ${ImageStyle};
+      `,
+      Offline: styled(icons.Offline)`
+        ${ImageStyle};
+      `,
     }
   : null
 
-const AppIcon = styled(buildConfigAssets().AppIcon)`
-  ${ImageStyle};
-`
-
-const StyledAppIcon = styled(Icon)`
-  width: 40%;
-  height: 40%;
-`
-
 const StyledIcon = styled(Icon)`
   height: 100%;
-  width: 60%;
+  width: 80%;
 `
 
 type IntroProps = {
@@ -72,34 +74,65 @@ const Intro = ({ route, navigation }: IntroProps): ReactElement => {
   const slides = [
     {
       key: 'integreat',
-      title: buildConfig().appName,
-      description: t('appDescription', {
+      title: t('welcome', {
         appName: buildConfig().appName,
       }),
-      Content: <StyledAppIcon Icon={AppIcon} />,
+      description: t('welcomeDescription', {
+        appName: buildConfig().appName,
+      }),
+      Content: styledIcons && <StyledIcon Icon={styledIcons.Welcome} />,
     },
   ]
+
   if (styledIcons) {
     slides.push(
+      {
+        key: 'languageChange',
+        title: t('languageChange', {
+          appName: buildConfig().appName,
+        }),
+        description: t('languageChangeDescription', {
+          appName: buildConfig().appName,
+        }),
+        Content: <StyledIcon Icon={styledIcons.Language} />,
+      },
       {
         key: 'search',
         title: t('search'),
         description: t('searchDescription'),
         Content: <StyledIcon Icon={styledIcons.Search} />,
       },
-      {
-        key: 'events',
-        title: t('events'),
-        description: t('eventsDescription'),
-        Content: <StyledIcon Icon={styledIcons.Events} />,
-      },
-      {
-        key: 'languageChange',
-        title: t('languageChange'),
-        description: t('languageChangeDescription'),
-        Content: <StyledIcon Icon={styledIcons.Language} />,
-      },
     )
+
+    if (buildConfig().featureFlags.pois === true) {
+      slides.push({
+        key: 'pois',
+        title: t('pois'),
+        description: t('poisDescription'),
+        Content: <StyledIcon Icon={styledIcons.Directions} />,
+      })
+    }
+
+    if (buildConfig().featureFlags.newsStream === true) {
+      slides.push({
+        key: 'news',
+        title: t('newsDescription', {
+          appName: buildConfig().appName,
+        }),
+        description: t('newsDescription', {
+          appName: buildConfig().appName,
+        }),
+        Content: <StyledIcon Icon={styledIcons.Information} />,
+      })
+    }
+    slides.push({
+      key: 'offline',
+      title: t('offline'),
+      description: t('offlineDescription', {
+        appName: buildConfig().appName,
+      }),
+      Content: <StyledIcon Icon={styledIcons.Offline} />,
+    })
   }
 
   const onDone = useCallback(async () => {
