@@ -6780,7 +6780,12 @@
       "open": "Öffnen",
       "view": "Anzeigen",
       "getOnPlayStore": "Im Google Play Store anschauen",
-      "accessibility": "Barrierefreiheit"
+      "accessibility": "Barrierefreiheit",
+      "readAloud": "Vorlesefunktion",
+      "previous": "Zurück",
+      "next": "Weiter",
+      "languageNotSupported": "Sprache nicht unterstützt",
+      "voiceUnavailableMessage": "Diese Stimme ist im Moment nicht verfügbar; für die ausgewählte Sprache ist eine Installation erforderlich."
     },
     "am": {
       "imprintAndContact": "ዕትም እና የግንኙነት መረጃ",
@@ -6834,7 +6839,12 @@
       "openInApp": "افتح في تطبيق {{appName}}",
       "open": "افتح",
       "view": "عرض",
-      "getOnPlayStore": "احصل عليه - على متجر Google Play"
+      "getOnPlayStore": "احصل عليه - على متجر Google Play",
+      "readAloud": "قراءة بصوت عالٍ",
+      "previous": "السابق",
+      "next": "التالي",
+      "languageNotSupported": "اللغة غير مدعومة",
+      "voiceUnavailableMessage": "هذا الصوت غير متاح في الوقت الحالي؛ يتطلب تثبيت اللغة المختارة."
     },
     "bg": {
       "imprintAndContact": "Импресум и контакт",
@@ -6988,7 +6998,12 @@
       "open": "Open",
       "view": "View",
       "getOnPlayStore": "GET — On the Google Play Store",
-      "accessibility": "Accessibility"
+      "accessibility": "Accessibility",
+      "readAloud": "Read aloud",
+      "previous": "Prev",
+      "next": "Next",
+      "languageNotSupported": "Language not supported",
+      "voiceUnavailableMessage": "This voice is currently unavailable; installation is required for the selected language."
     },
     "es": {
       "imprintAndContact": "Aviso legal y contacto",

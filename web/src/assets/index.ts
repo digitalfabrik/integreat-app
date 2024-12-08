@@ -7,6 +7,7 @@ import ArrowBackIcon from '../../../assets/icons/arrow-back.svg'
 import ArrowBackspaceIcon from '../../../assets/icons/arrow-backspace.svg'
 import BathroomIcon from '../../../assets/icons/bathroom.svg'
 import BedIcon from '../../../assets/icons/bed.svg'
+import BookIcon from '../../../assets/icons/book.svg'
 import CalendarRecurringIcon from '../../../assets/icons/calendar-recurring.svg'
 import CalendarTodayRecurringIcon from '../../../assets/icons/calendar-today-recurring.svg'
 import CalendarTodayIcon from '../../../assets/icons/calendar-today.svg'
@@ -38,10 +39,14 @@ import MenuIcon from '../../../assets/icons/menu.svg'
 import MinimizeIcon from '../../../assets/icons/minimize.svg'
 import NewsIcon from '../../../assets/icons/news.svg'
 import NoteIcon from '../../../assets/icons/note.svg'
+import PauseIcon from '../../../assets/icons/pause.svg'
 import PdfIcon from '../../../assets/icons/pdf.svg'
 import PetIcon from '../../../assets/icons/pet.svg'
 import PhoneIcon from '../../../assets/icons/phone.svg'
+import PlayIcon from '../../../assets/icons/play.svg'
+import PlaybackIcon from '../../../assets/icons/playback.svg'
 import POIsIcon from '../../../assets/icons/pois.svg'
+import ReadAloud from '../../../assets/icons/readAloud.svg'
 import SadSmileyIcon from '../../../assets/icons/sad-smiley.svg'
 import SearchIcon from '../../../assets/icons/search.svg'
 import SecurityIcon from '../../../assets/icons/security.svg'
@@ -52,6 +57,7 @@ import SupportIcon from '../../../assets/icons/support.svg'
 import TimerIcon from '../../../assets/icons/timer.svg'
 import TuNewsActiveIcon from '../../../assets/icons/tu-news-active.svg'
 import TuNewsInactiveIcon from '../../../assets/icons/tu-news-inactive.svg'
+import WarningIcon from '../../../assets/icons/warning.svg'
 import WebsiteIcon from '../../../assets/icons/website.svg'
 import WhatsappIcon from '../../../assets/icons/whatsapp.svg'
 import PoiThumbnailPlaceholderLarge from '../../../assets/poi-thumbnail-placeholder-large.jpg'
@@ -63,6 +69,7 @@ export {
   ArrowBackspaceIcon,
   BathroomIcon,
   BedIcon,
+  BookIcon,
   CalendarIcon,
   CalendarRecurringIcon,
   CalendarTodayIcon,
@@ -98,11 +105,15 @@ export {
   NewsIcon,
   NoteIcon,
   PdfIcon,
+  PlayIcon,
+  PauseIcon,
+  PlaybackIcon,
   PetIcon,
   PhoneIcon,
   POIsIcon,
   PoiThumbnailPlaceholder,
   PoiThumbnailPlaceholderLarge,
+  ReadAloud,
   SadSmileyIcon,
   SearchIcon,
   SecurityIcon,
@@ -115,4 +126,5 @@ export {
   TuNewsInactiveIcon,
   WebsiteIcon,
   WhatsappIcon,
+  WarningIcon,
 }
