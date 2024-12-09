@@ -35,6 +35,7 @@ const StyledIconButton = styled(Button)<{ $isCalendarOpen: boolean }>`
     props.$isCalendarOpen ? props.theme.colors.themeColorLight : props.theme.colors.textDisabledColor};
 `
 const DatePickerWrapper: React.FC<DatePickerProps> = props => <DatePicker {...props} />
+
 const StyledInput = styled(DatePickerWrapper)`
   width: 240px;
   height: ${INPUT_HEIGHT};

@@ -6,19 +6,18 @@ const AccordionWrapper = styled.div<{ height: number; $overflowVisible: boolean 
   height: ${props => props.height}px;
   width: 100%;
   overflow: ${props => (props.$overflowVisible ? 'visible' : 'hidden')};
+  padding-top: 1px;
 `
 
 type AccordionProps = {
   isOpen: boolean
-  childrenDependency?: boolean
   children: React.ReactNode
 }
 
-const Accordion = ({ isOpen, childrenDependency = true, children }: AccordionProps): ReactElement => {
+const Accordion = ({ isOpen, children }: AccordionProps): ReactElement => {
   const [height, setHeight] = useState(0)
   const [overflowVisible, setOverflowVisible] = useState(false)
   const contentRef = useRef<HTMLDivElement>(null)
-  const dependency = childrenDependency ? children : null
 
   useEffect(() => {
     if (contentRef.current) {
@@ -27,7 +26,7 @@ const Accordion = ({ isOpen, childrenDependency = true, children }: AccordionPro
         setOverflowVisible(false)
       }
     }
-  }, [isOpen, dependency])
+  }, [isOpen])
 
   const handleTransitionEnd = () => {
     if (isOpen) {

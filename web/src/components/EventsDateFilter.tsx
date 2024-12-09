@@ -64,7 +64,7 @@ const EventsDateFilter = ({
   return (
     <>
       <FilterToggle isDateFilterActive={showDateFilter} setToggleDateFilter={setShowDateFilter} />
-      <Accordion isOpen={showDateFilter} childrenDependency={false}>
+      <Accordion isOpen={showDateFilter}>
         <DateSection>
           <>
             <CustomDatePicker
