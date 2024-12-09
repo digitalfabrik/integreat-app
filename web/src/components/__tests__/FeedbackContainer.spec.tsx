@@ -34,12 +34,12 @@ describe('FeedbackContainer', () => {
     language,
     onClose: closeModal,
     query,
-    isPositiveRating: null,
+    initialRating: null,
   })
 
   it('should display thanks message for modal', async () => {
     const { getByRole, findByText } = renderWithTheme(
-      <FeedbackContainer {...buildDefaultProps(CATEGORIES_ROUTE)} isPositiveRating />,
+      <FeedbackContainer {...buildDefaultProps(CATEGORIES_ROUTE)} initialRating />,
     )
     const button = getByRole('button', {
       name: 'feedback:send',
