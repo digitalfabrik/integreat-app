@@ -1,27 +1,7 @@
 import { DateTime } from 'luxon'
 
-import { DateModel, EventModel, LocationModel } from '../api'
+import { DateModel, EventModel } from '../api'
 import { MAX_DATE_RECURRENCES } from '../constants'
-
-export const EventModalDummyData = {
-  content: '<h1>Event Content</h1>',
-  thumbnail: null,
-  location: new LocationModel({
-    id: 1,
-    name: 'Test Location',
-    address: 'Test Street',
-    town: 'Test Town',
-    postcode: '12345',
-    country: 'Test Country',
-    latitude: null,
-    longitude: null,
-  }),
-  excerpt: 'This is a test event.',
-  availableLanguages: {},
-  lastUpdate: DateTime.fromISO('2024-11-07T00:00:00.000'),
-  featuredImage: null,
-  poiPath: '/test/location/path',
-}
 
 const isWithinDateRange = (
   startDate: DateTime | null,
@@ -69,7 +49,4 @@ export const getDisplayDate = (event: EventModel, startDate: DateTime | null, en
   return event.date
 }
 
-export const zeroPad = (value: string): string => {
-  const maxOfTwoDigits = 10
-  return Number(value) < maxOfTwoDigits ? `0${value}` : value
-}
+export const zeroPad = (value: string): string => (value.length === 1 ? `0${value}` : value)

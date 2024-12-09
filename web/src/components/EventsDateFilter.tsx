@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import { CloseIcon } from '../assets'
 import dimensions from '../constants/dimensions'
 import Accordion from './Accordion'
-import DatePicker from './DatePicker'
+import CustomDatePicker from './DatePicker'
 import FilterToggle from './FilterToggle'
 import Button from './base/Button'
 import Icon from './base/Icon'
@@ -64,16 +64,16 @@ const EventsDateFilter = ({
   return (
     <>
       <FilterToggle isDateFilterActive={showDateFilter} setToggleDateFilter={setShowDateFilter} />
-      <Accordion isOpen={showDateFilter}>
+      <Accordion isOpen={showDateFilter} childrenDependency={false}>
         <DateSection>
           <>
-            <DatePicker
+            <CustomDatePicker
               title={t('from')}
               date={startDate}
               setDate={setStartDate}
               error={startDateError ? t(startDateError) : ''}
             />
-            <DatePicker title={t('to')} date={endDate} setDate={setEndDate} />
+            <CustomDatePicker title={t('to')} date={endDate} setDate={setEndDate} />
           </>
         </DateSection>
       </Accordion>

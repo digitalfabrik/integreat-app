@@ -3732,7 +3732,8 @@
       "shouldBeEarlier": "Das Anfangsdatum sollte vor dem Enddatum liegen.",
       "hideFilters": "Filter verbergen",
       "showFilters": "Filter anzeigen",
-      "selectRange": "Zeitraum auswählen"
+      "selectRange": "Zeitraum auswählen",
+      "outOfRangeError": "Datum außerhalb des Bereichs"
     },
     "am": {
       "address": "ኣድራሻ",
@@ -3950,7 +3951,8 @@
       "shouldBeEarlier": "The start date should be before the end date.",
       "hideFilters": "Hide filters",
       "showFilters": "Show filters",
-      "selectRange": "Select Range"
+      "selectRange": "Select Range",
+      "outOfRangeError": "Date out of range"
     },
     "es": {
       "address": "Dirección",

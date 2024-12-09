@@ -55,7 +55,8 @@
     "schema-dts": "^1.1.2",
     "shared": "0.0.1",
     "styled-components": "^6.1.13",
-    "translations": "0.0.1"
+    "translations": "0.0.1",
+    "react-datepicker": "^7.5.0"
   },
   "devDependencies": {
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.15",

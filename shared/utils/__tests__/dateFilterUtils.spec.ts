@@ -1,9 +1,30 @@
 import { DateTime } from 'luxon'
 import { rrulestr } from 'rrule'
 
+import { LocationModel } from '../../api'
 import DateModel from '../../api/models/DateModel'
 import EventModel from '../../api/models/EventModel'
-import { EventModalDummyData as baseParams, isEventWithinRange } from '../dateFilterUtils'
+import { isEventWithinRange } from '../dateFilterUtils'
+
+const EventModalDummyData = {
+  content: '<h1>Event Content</h1>',
+  thumbnail: null,
+  location: new LocationModel({
+    id: 1,
+    name: 'Test Location',
+    address: 'Test Street',
+    town: 'Test Town',
+    postcode: '12345',
+    country: 'Test Country',
+    latitude: null,
+    longitude: null,
+  }),
+  excerpt: 'This is a test event.',
+  availableLanguages: {},
+  lastUpdate: DateTime.fromISO('2024-11-07T00:00:00.000'),
+  featuredImage: null,
+  poiPath: '/test/location/path',
+}
 
 jest.useFakeTimers({ now: new Date('2024-11-07T00:00:00.000') })
 
@@ -22,7 +43,7 @@ describe('isEventWithinRange', () => {
     })
 
     return new EventModel({
-      ...baseParams,
+      ...EventModalDummyData,
       path: `/test/event-${id}`,
       title: `Test Event ${id}`,
       date: dateModel,
