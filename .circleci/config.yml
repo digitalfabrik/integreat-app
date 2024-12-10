@@ -229,22 +229,8 @@ commands:
         description: Runs the test task and stores coverage and junit data
         steps:
             - run:
-                command: |
-                    # download test reporter as a static binary
-                    curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-                    chmod +x ./cc-test-reporter
-                name: Setup Code Climate test-reporter
-            - run:
-                command: ./cc-test-reporter before-build
-                name: Code Climate before build
-            - run:
                 command: yarn test:ci --maxWorkers ${TOTAL_CPUS}
                 name: Unit Tests with Coverage
-            - run:
-                command: |
-                    ./cc-test-reporter format-coverage -t lcov -o reports/coverage/codeclimate.json reports/coverage/lcov.info
-                    ./cc-test-reporter upload-coverage -i reports/coverage/codeclimate.json
-                name: Code Climate after build
             - store_test_results:
                 path: reports/unit-test
             - store_artifacts:
@@ -1095,7 +1081,6 @@ workflows:
                 prepare_delivery: false
             - check:
                 context:
-                    - codeclimate-integreat-app
                     - mattermost
             - build_web:
                 build_config_name: integreat-test-cms
@@ -1210,7 +1195,6 @@ workflows:
                 prepare_delivery: true
             - check:
                 context:
-                    - codeclimate-integreat-app
                     - mattermost
             - e2e_web:
                 context:
@@ -1543,7 +1527,6 @@ workflows:
                 prepare_delivery: true
             - check:
                 context:
-                    - codeclimate-integreat-app
                     - mattermost
             - build_android:
                 build_config_name: integreat-e2e
@@ -1751,7 +1734,6 @@ workflows:
                 prepare_delivery: true
             - check:
                 context:
-                    - codeclimate-integreat-app
                     - mattermost
             - build_android:
                 build_config_name: integreat-e2e
@@ -2009,7 +1991,6 @@ workflows:
                 prepare_delivery: true
             - check:
                 context:
-                    - codeclimate-integreat-app
                     - mattermost
             - e2e_web:
                 context:
@@ -2086,7 +2067,6 @@ workflows:
                 prepare_delivery: true
             - check:
                 context:
-                    - codeclimate-integreat-app
                     - mattermost
             - e2e_web:
                 context:
