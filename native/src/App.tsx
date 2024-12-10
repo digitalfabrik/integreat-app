@@ -19,6 +19,7 @@ import IOSSafeAreaView from './components/IOSSafeAreaView'
 import SnackbarContainer from './components/SnackbarContainer'
 import StaticServerProvider from './components/StaticServerProvider'
 import StatusBar from './components/StatusBar'
+import TtsContainer from './components/TtsContainer'
 import { RoutesParamsType } from './constants/NavigationTypes'
 import buildConfig from './constants/buildConfig'
 import { userAgent } from './constants/endpoint'
@@ -87,16 +88,18 @@ const App = (): ReactElement => {
             <SafeAreaProvider>
               <AppContextProvider>
                 <SnackbarContainer>
-                  <>
-                    <StatusBar />
-                    <IOSSafeAreaView>
-                      <NavigationContainer onStateChange={onStateChange} linking={linking}>
-                        <HeaderButtonsProvider stackType='native'>
-                          <Navigator />
-                        </HeaderButtonsProvider>
-                      </NavigationContainer>
-                    </IOSSafeAreaView>
-                  </>
+                  <TtsContainer>
+                    <>
+                      <StatusBar />
+                      <IOSSafeAreaView>
+                        <NavigationContainer onStateChange={onStateChange} linking={linking}>
+                          <HeaderButtonsProvider stackType='native'>
+                            <Navigator />
+                          </HeaderButtonsProvider>
+                        </NavigationContainer>
+                      </IOSSafeAreaView>
+                    </>
+                  </TtsContainer>
                 </SnackbarContainer>
               </AppContextProvider>
             </SafeAreaProvider>
