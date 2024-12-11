@@ -9,9 +9,6 @@ import PoiModel from '../api/models/PoiModel'
 
 export type SearchResult = ExtendedPageModel
 
-// TODO: turn it back into a memoized function
-// TODO: mock it in the web test
-// TODO: maybe test this in shared
 export const formatPossibleSearchResults = (
   categories?: CategoriesMapModel | null,
   events?: EventModel[] | null,
