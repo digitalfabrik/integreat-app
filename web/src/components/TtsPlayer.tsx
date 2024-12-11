@@ -8,12 +8,12 @@ import TtsHelpModal from './TtsHelpModal'
 import Button from './base/Button'
 import Icon from './base/Icon'
 
-const StyledTtsPlayer = styled.dialog<{ $isExpanded: boolean }>`
+const StyledTtsPlayer = styled.dialog<{ $isPlaying: boolean }>`
   background-color: #dedede;
   border-radius: 28px;
   width: 388px;
   display: flex;
-  flex-direction: ${props => (props.$isExpanded ? 'column' : 'row')};
+  flex-direction: ${props => (props.$isPlaying ? 'column' : 'row')};
   justify-content: center;
   align-items: center;
   align-self: center;
@@ -21,7 +21,7 @@ const StyledTtsPlayer = styled.dialog<{ $isExpanded: boolean }>`
   position: sticky;
   bottom: 5px;
   min-height: 93px;
-  gap: ${props => (props.$isExpanded ? '5px;' : '10px')};
+  gap: ${props => (props.$isPlaying ? '5px;' : '10px')};
   border-color: transparent;
 
   @media ${dimensions.smallViewport} {
@@ -31,11 +31,11 @@ const StyledTtsPlayer = styled.dialog<{ $isExpanded: boolean }>`
 
 const verticalMargin = 11
 
-const StyledPanel = styled.div<{ $isExpanded?: boolean }>`
+const StyledPanel = styled.div<{ $isPlaying?: boolean }>`
   display: flex;
   align-items: center;
   gap: 20px;
-  margin: ${props => (props.$isExpanded ? verticalMargin : 0)}px 0;
+  margin: ${props => (props.$isPlaying ? verticalMargin : 0)}px 0;
 `
 
 const StyledPlayIcon = styled(Button)`
@@ -113,11 +113,10 @@ type TtsPlayerProps = {
   showHelpModal: boolean
   setShowHelpModal: (show: boolean) => void
   isVisible: boolean
-  isExpanded: boolean
   isPlaying: boolean
-  handleBackward: () => void
-  handleForward: () => void
-  handleClose: () => void
+  playPrevious: () => void
+  playNext: () => void
+  close: () => void
   longTitle: string
   togglePlayPause: () => void
 }
@@ -126,11 +125,10 @@ const TtsPlayer = ({
   showHelpModal,
   setShowHelpModal,
   isVisible,
-  isExpanded,
   isPlaying,
-  handleBackward,
-  handleForward,
-  handleClose,
+  playPrevious,
+  playNext,
+  close,
   longTitle,
   togglePlayPause,
 }: TtsPlayerProps): ReactElement | null => {
@@ -141,12 +139,12 @@ const TtsPlayer = ({
     return (
       <>
         {showHelpModal && <TtsHelpModal closeModal={() => setShowHelpModal(false)} />}
-        <StyledTtsPlayer $isExpanded={isExpanded}>
+        <StyledTtsPlayer $isPlaying={isPlaying}>
           <StyledPanel
-            $isExpanded={isExpanded}
+            $isPlaying={isPlaying}
             style={{ flexDirection: theme.contentDirection === 'rtl' ? 'row-reverse' : 'row' }}>
-            {isExpanded && (
-              <StyledBackForthButton label='backward-button' onClick={handleBackward}>
+            {isPlaying && (
+              <StyledBackForthButton label='backward-button' onClick={playPrevious}>
                 <StyledText>{t('previous')}</StyledText>
                 <BackForthIcon $flip src={PlaybackIcon} />
               </StyledBackForthButton>
@@ -154,16 +152,16 @@ const TtsPlayer = ({
             <StyledPlayIcon label='play-button' onClick={togglePlayPause}>
               <PlayButtonIcon src={isPlaying ? PauseIcon : PlayIcon} />
             </StyledPlayIcon>
-            {isExpanded && (
-              <StyledBackForthButton label='forward-button' onClick={handleForward}>
+            {isPlaying && (
+              <StyledBackForthButton label='forward-button' onClick={playNext}>
                 <BackForthIcon $flip={false} src={PlaybackIcon} />
                 <StyledText>{t('next')}</StyledText>
               </StyledBackForthButton>
             )}
           </StyledPanel>
           <CloseView>
-            {!isExpanded && <StyledPlayerHeaderText>{longTitle}</StyledPlayerHeaderText>}
-            <CloseButton label='close-player' onClick={handleClose}>
+            {!isPlaying && <StyledPlayerHeaderText>{longTitle}</StyledPlayerHeaderText>}
+            <CloseButton label='close-player' onClick={close}>
               <Icon src={CloseIcon} />
               <StyledText>{t('common:close')}</StyledText>
             </CloseButton>

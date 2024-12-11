@@ -1,7 +1,7 @@
 import { act, fireEvent, screen } from '@testing-library/react'
 import EasySpeech from 'easy-speech'
 import { DateTime } from 'luxon'
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { MemoryRouter } from 'react-router-dom'
 
 import { PageModel } from 'shared/api'
@@ -14,6 +14,7 @@ import TtsContainer from '../TtsContainer'
 jest.mock('react-i18next')
 jest.mock('easy-speech')
 jest.mock('sentencex', () => jest.fn(() => ['This is a test.']))
+jest.mock('focus-trap-react', () => ({ children }: { children: ReactElement }) => <div>{children}</div>)
 
 describe('TtsPlayer', () => {
   const dummyPage = new PageModel({

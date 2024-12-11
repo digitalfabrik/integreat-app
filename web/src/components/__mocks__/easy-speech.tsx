@@ -15,6 +15,9 @@ const MockTts = {
   detect: jest.fn().mockReturnValue({
     speechSynthesis: {},
   }),
+  status: jest.fn().mockReturnValue({
+    status: 'init: complete',
+  }),
   voices: jest.fn().mockReturnValue([{ lang: 'en-US' }]),
 }
 
