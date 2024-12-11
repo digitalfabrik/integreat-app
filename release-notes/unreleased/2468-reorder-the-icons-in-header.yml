@@ -1,0 +1,8 @@
+issue_key: 2468
+show_in_stores: true
+platforms:
+  - web
+  - android
+  - ios
+en: Reordered icons in the header
+de: Geänderte Reihenfolge der Icons im Header

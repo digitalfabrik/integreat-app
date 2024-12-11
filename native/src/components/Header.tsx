@@ -207,14 +207,14 @@ const Header = ({
       return { text: currentTitle ?? '', language: config.sourceLanguage }
     }
 
-    const poisRouteParams = route.params as RoutesParamsType[PoisRouteType]
-    const isSinglePoi = !!poisRouteParams.slug || poisRouteParams.multipoi !== undefined
+    const poisRouteParams = route.params as RoutesParamsType[PoisRouteType] | undefined
+    const isSinglePoi = !!poisRouteParams?.slug || poisRouteParams?.multipoi !== undefined
     const notFromDeepLink = previousRoute.name === POIS_ROUTE
     if (isSinglePoi && notFromDeepLink) {
       return { text: t('locations'), language: undefined } // system language
     }
 
-    const previousRouteTitle = (previousRoute.params as { path?: string } | undefined)?.path
+    const previousRouteTitle = (previousRoute.params as { title?: string } | undefined)?.title
 
     if (previousRouteTitle) {
       return { text: previousRouteTitle, language: languageCode }
@@ -227,7 +227,7 @@ const Header = ({
       }
     }
 
-    return { text: previousRoute.name, language: undefined } // system language
+    return { text: t(previousRoute.name), language: undefined } // system language
   }
 
   return (

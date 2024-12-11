@@ -16,7 +16,7 @@ const StyledPressable = styled(Pressable)`
 type IconButtonProps = {
   accessibilityLabel: string
   icon: ReactElement
-  onPress: () => Promise<void> | void
+  onPress: () => unknown
   style?: StyleProp<ViewStyle>
 }
 

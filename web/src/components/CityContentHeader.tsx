@@ -100,6 +100,18 @@ const CityContentHeader = ({
       />,
     ]
 
+    if (isPoisVisible) {
+      items.push(
+        <HeaderNavigationItem
+          key='locations'
+          to={poisPath}
+          active={route === POIS_ROUTE}
+          text={t('locations')}
+          icon={POIsIcon}
+        />,
+      )
+    }
+
     if (isNewsVisible) {
       items.push(
         <HeaderNavigationItem
@@ -120,18 +132,6 @@ const CityContentHeader = ({
           active={route === EVENTS_ROUTE}
           text={t('events')}
           icon={CalendarIcon}
-        />,
-      )
-    }
-
-    if (isPoisVisible) {
-      items.push(
-        <HeaderNavigationItem
-          key='locations'
-          to={poisPath}
-          active={route === POIS_ROUTE}
-          text={t('locations')}
-          icon={POIsIcon}
         />,
       )
     }

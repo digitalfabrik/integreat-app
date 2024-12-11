@@ -10,7 +10,6 @@ jobs:
 
   - check:
       context:
-        - codeclimate-integreat-app
         - mattermost
 
   - build_web:
