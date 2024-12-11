@@ -11,6 +11,7 @@ import RootSwitcher from './RootSwitcher'
 import Helmet from './components/Helmet'
 import I18nProvider from './components/I18nProvider'
 import buildConfig from './constants/buildConfig'
+import TtsContextProvider from './contexts/TtsContextProvider'
 import safeLocalStorage, { JPAL_TRACKING_CODE_KEY } from './utils/safeLocalStorage'
 import { initSentry } from './utils/sentry'
 
@@ -43,10 +44,12 @@ const App = (): ReactElement => {
     <ThemeProvider theme={{ ...buildConfig().lightTheme, contentDirection }}>
       <I18nProvider contentLanguage={contentLanguage}>
         <Helmet pageTitle={t('pageTitle')} rootPage />
-        <Router>
-          <GlobalStyle />
-          <RootSwitcher setContentLanguage={setContentLanguage} />
-        </Router>
+        <TtsContextProvider>
+          <Router>
+            <GlobalStyle />
+            <RootSwitcher setContentLanguage={setContentLanguage} />
+          </Router>
+        </TtsContextProvider>
       </I18nProvider>
     </ThemeProvider>
   )
