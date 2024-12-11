@@ -570,4 +570,101 @@ describe('DateModel', () => {
       ])
     })
   })
+
+  it('should return recurrences within the filter date range', () => {
+    jest.useFakeTimers({ now: new Date('2024-01-01T00:00:00.000+01:00') })
+    const recurrenceRule = rrulestr('DTSTART:20240101T090000\nRRULE:FREQ=DAILY;COUNT=10')
+    const date = new DateModel({
+      startDate: DateTime.fromISO('2024-01-01T10:00:00+01:00'),
+      endDate: DateTime.fromISO('2024-01-01T11:00:00+01:00'),
+      allDay: false,
+      recurrenceRule,
+    })
+    const filterStartDate = DateTime.fromISO('2024-01-03T00:00:00+01:00')
+    const filterEndDate = DateTime.fromISO('2024-01-05T23:59:59+01:00')
+
+    const recurrences = date.recurrences(3, filterStartDate, filterEndDate)
+    expect(recurrences).toEqual([
+      new DateModel({
+        startDate: DateTime.fromISO('2024-01-03T10:00:00+01:00'),
+        endDate: DateTime.fromISO('2024-01-03T11:00:00+01:00'),
+        allDay: false,
+        recurrenceRule,
+      }),
+      new DateModel({
+        startDate: DateTime.fromISO('2024-01-04T10:00:00+01:00'),
+        endDate: DateTime.fromISO('2024-01-04T11:00:00+01:00'),
+        allDay: false,
+        recurrenceRule,
+      }),
+      new DateModel({
+        startDate: DateTime.fromISO('2024-01-05T10:00:00+01:00'),
+        endDate: DateTime.fromISO('2024-01-05T11:00:00+01:00'),
+        allDay: false,
+        recurrenceRule,
+      }),
+    ])
+  })
+
+  it('should return recurrences starting from filterStartDate', () => {
+    jest.useFakeTimers({ now: new Date('2024-01-01T00:00:00.000+01:00') })
+    const recurrenceRule = rrulestr('DTSTART:20240101T090000\nRRULE:FREQ=DAILY;COUNT=10')
+    const date = new DateModel({
+      startDate: DateTime.fromISO('2024-01-01T10:00:00+01:00'),
+      endDate: DateTime.fromISO('2024-01-01T11:00:00+01:00'),
+      allDay: false,
+      recurrenceRule,
+    })
+    const filterStartDate = DateTime.fromISO('2024-01-05T00:00:00+01:00')
+
+    const recurrences = date.recurrences(3, filterStartDate, null)
+    expect(recurrences).toEqual([
+      new DateModel({
+        startDate: DateTime.fromISO('2024-01-05T10:00:00+01:00'),
+        endDate: DateTime.fromISO('2024-01-05T11:00:00+01:00'),
+        allDay: false,
+        recurrenceRule,
+      }),
+      new DateModel({
+        startDate: DateTime.fromISO('2024-01-06T10:00:00+01:00'),
+        endDate: DateTime.fromISO('2024-01-06T11:00:00+01:00'),
+        allDay: false,
+        recurrenceRule,
+      }),
+      new DateModel({
+        startDate: DateTime.fromISO('2024-01-07T10:00:00+01:00'),
+        endDate: DateTime.fromISO('2024-01-07T11:00:00+01:00'),
+        allDay: false,
+        recurrenceRule,
+      }),
+    ])
+  })
+
+  it('should return recurrences up to filterEndDate', () => {
+    jest.useFakeTimers({ now: new Date('2024-01-01T00:00:00.000+01:00') })
+    const recurrenceRule = rrulestr('DTSTART:20240101T090000\nRRULE:FREQ=DAILY;COUNT=10')
+    const date = new DateModel({
+      startDate: DateTime.fromISO('2024-01-01T10:00:00+01:00'),
+      endDate: DateTime.fromISO('2024-01-01T11:00:00+01:00'),
+      allDay: false,
+      recurrenceRule,
+    })
+    const filterEndDate = DateTime.fromISO('2024-01-02T23:59:59+01:00')
+
+    const recurrences = date.recurrences(2, null, filterEndDate)
+    expect(recurrences).toEqual([
+      new DateModel({
+        startDate: DateTime.fromISO('2024-01-01T10:00:00+01:00'),
+        endDate: DateTime.fromISO('2024-01-01T11:00:00+01:00'),
+        allDay: false,
+        recurrenceRule,
+      }),
+      new DateModel({
+        startDate: DateTime.fromISO('2024-01-02T10:00:00+01:00'),
+        endDate: DateTime.fromISO('2024-01-02T11:00:00+01:00'),
+        allDay: false,
+        recurrenceRule,
+      }),
+    ])
+  })
 })
