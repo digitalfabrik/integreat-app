@@ -110,7 +110,12 @@
                 opacity: 1;
             }
         }
-
+        @media (max-width: 768px) {
+            html, body {
+                height: 100%;
+                overflow-x: hidden; 
+            }
+        }
         #splash {
             position: fixed;
             top: 0;
