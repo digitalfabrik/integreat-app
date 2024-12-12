@@ -17,6 +17,7 @@ parameters:
         web_promotion,
         delivery,
         e2e_tests,
+        native_browserstack,
         none,
       ]
     default: none
