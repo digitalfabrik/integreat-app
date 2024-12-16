@@ -30,6 +30,7 @@ const commonObdachBuildConfig: CommonBuildConfigType = {
     fixedCity: null,
     cityNotCooperatingTemplate: null,
     chat: false,
+    tts: false,
   },
   aboutUrls: {
     default: 'https://tuerantuer.de/digitalfabrik/projekte/netzwerkobdachwohnen/',

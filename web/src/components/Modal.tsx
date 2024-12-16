@@ -30,11 +30,20 @@ const ModalContainer = styled.div`
   justify-content: center;
 `
 
-const ModalContentContainer = styled.div`
+type ModalContentStyling = {
+  backgroundColor?: string
+  borderRadius?: number
+}
+
+const ModalContentContainer = styled.div<{ $style?: ModalContentStyling }>`
   position: relative;
   display: flex;
   flex-direction: column;
-  background-color: ${props => props.theme.colors.backgroundColor};
+  background-color: ${props =>
+    props.$style?.backgroundColor != null
+      ? props.theme.colors.ttsPlayerWarningBackground
+      : props.theme.colors.backgroundColor};
+  border-radius: ${props => (props.$style?.borderRadius != null ? props.$style.borderRadius : 0)}px;
 
   @media ${dimensions.smallViewport} {
     height: 100%;
@@ -45,12 +54,14 @@ const ModalContentContainer = styled.div`
 
 type ModalProps = {
   title: string
+  icon?: ReactElement
+  style?: ModalContentStyling
   children: ReactNode
   closeModal: () => void
   wrapInPortal?: boolean
 }
 
-const Modal = ({ title, closeModal, children, wrapInPortal = false }: ModalProps): ReactElement => {
+const Modal = ({ title, icon, style, closeModal, children, wrapInPortal = false }: ModalProps): ReactElement => {
   const { viewportSmall } = useWindowDimensions()
   const { t } = useTranslation('common')
   useScrollToTop()
@@ -72,8 +83,8 @@ const Modal = ({ title, closeModal, children, wrapInPortal = false }: ModalProps
         <Overlay onClick={closeModal} tabIndex={0} label={t('close')}>
           <div />
         </Overlay>
-        <ModalContentContainer>
-          <ModalContent title={title} closeModal={closeModal} small={viewportSmall}>
+        <ModalContentContainer $style={style}>
+          <ModalContent title={title} style={style} icon={icon} closeModal={closeModal} small={viewportSmall}>
             {children}
           </ModalContent>
         </ModalContentContainer>
