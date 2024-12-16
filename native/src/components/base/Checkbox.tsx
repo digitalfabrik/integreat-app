@@ -1,25 +1,28 @@
+import CheckBox from '@react-native-community/checkbox'
+import { Link } from '@react-navigation/native'
 import React, { ReactElement } from 'react'
 import { Trans } from 'react-i18next'
-import { Link } from 'react-router-dom'
-import styled from 'styled-components'
+import styled from 'styled-components/native'
+
+import Text from './Text'
 
 const Container = styled.View`
   display: flex;
   flex: 1;
 `
-
-const StyledCheckbox = styled.input`
+/*
+const StyledCheckbox = styled.CheckBox`
   cursor: pointer;
   accent-color: ${props => props.theme.colors.themeColor};
   width: 16px;
   height: 16px;
   align-self: center;
 `
-
-const StyledLabel = styled.label`
+*/
+const StyledLabel = styled.Text`
   font-size: 0.875rem;
   color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.web.decorativeFont};
+  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   padding: 4px;
   cursor: pointer;
 `
@@ -52,7 +55,7 @@ const Checkbox = ({ checked, setChecked, label, id, link }: CheckboxProps): Reac
         )}
       </StyledLabel>
       <FlexEnd>
-        <StyledCheckbox type='checkbox' id={id} checked={checked} onChange={() => setChecked(!checked)} />
+        <CheckBox id={id} disabled={false} value={checked} onValueChange={() => setChecked(!checked)} />
       </FlexEnd>
     </Container>
   )
