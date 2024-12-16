@@ -16,6 +16,7 @@ import LayoutedScrollView from '../components/LayoutedScrollView'
 import List from '../components/List'
 import Page from '../components/Page'
 import PageDetail from '../components/PageDetail'
+import useTtsPlayer from '../hooks/useTtsPlayer'
 
 const ListContainer = styled(Layout)`
   padding: 0 8px;
@@ -41,6 +42,8 @@ export type EventsProps = {
 
 const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: EventsProps): ReactElement => {
   const { t } = useTranslation('events')
+  const event = events.find(it => it.slug === slug)
+  useTtsPlayer(event)
 
   if (!cityModel.eventsEnabled) {
     const error = new NotFoundError({
@@ -57,8 +60,6 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
   }
 
   if (slug) {
-    const event = events.find(it => it.slug === slug)
-
     if (event) {
       return (
         <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={false} />}>
