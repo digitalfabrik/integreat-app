@@ -15,13 +15,20 @@ const DotsContainer = styled.View`
   background-color: ${props => props.theme.colors.backgroundColor};
 `
 
-const Dot = styled(Pressable)<{ isActive: boolean }>`
+const Dot = styled.View<{ isActive: boolean }>`
   width: 12px;
   height: 12px;
   border-radius: 6px;
-  margin: 0 18px;
   background-color: ${props =>
     props.isActive ? props.theme.colors.textColor : props.theme.colors.textDecorationColor};
+`
+
+const DotPressableArea = styled(Pressable)`
+  width: 35px;
+  height: 35px;
+  margin: 0 8px;
+  justify-content: center;
+  align-items: center;
 `
 
 type PaginationProps = {
@@ -37,16 +44,15 @@ const Pagination = ({ slideCount, currentSlide, goToSlide }: PaginationProps): R
   return (
     <DotsContainer>
       {range(slideCount).map(index => (
-        <Dot
-          hitSlop={{ bottom: 10, top: 10, left: 10, right: 10 }}
+        <DotPressableArea
           key={index}
-          isActive={index === currentSlide}
           onPress={goToSlideIndex(index)}
           role='link'
           accessibilityLabel={t('goTo.pageNumber', {
             number: index + 1,
-          })}
-        />
+          })}>
+          <Dot isActive={index === currentSlide} />
+        </DotPressableArea>
       ))}
     </DotsContainer>
   )
