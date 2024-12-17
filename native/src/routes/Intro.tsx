@@ -40,10 +40,10 @@ const styledIcons = icons
       Search: styled(icons.Search)`
         ${ImageStyle};
       `,
-      Directions: styled(icons.Pois)`
+      Pois: styled(icons.Pois)`
         ${ImageStyle};
       `,
-      Information: styled(icons.News)`
+      News: styled(icons.News)`
         ${ImageStyle};
       `,
       Offline: styled(icons.Offline)`
@@ -104,16 +104,16 @@ const Intro = ({ route, navigation }: IntroProps): ReactElement => {
       },
     )
 
-    if (buildConfig().featureFlags.pois === true) {
+    if (buildConfig().featureFlags.pois) {
       slides.push({
         key: 'pois',
         title: t('pois'),
         description: t('poisDescription'),
-        Content: <StyledIcon Icon={styledIcons.Directions} />,
+        Content: <StyledIcon Icon={styledIcons.Pois} />,
       })
     }
 
-    if (buildConfig().featureFlags.newsStream === true) {
+    if (buildConfig().featureFlags.newsStream) {
       slides.push({
         key: 'news',
         title: t('newsDescription', {
@@ -122,9 +122,10 @@ const Intro = ({ route, navigation }: IntroProps): ReactElement => {
         description: t('newsDescription', {
           appName: buildConfig().appName,
         }),
-        Content: <StyledIcon Icon={styledIcons.Information} />,
+        Content: <StyledIcon Icon={styledIcons.News} />,
       })
     }
+
     slides.push({
       key: 'offline',
       title: t('offline'),

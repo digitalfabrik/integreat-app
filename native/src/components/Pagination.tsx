@@ -38,6 +38,7 @@ const Pagination = ({ slideCount, currentSlide, goToSlide }: PaginationProps): R
     <DotsContainer>
       {range(slideCount).map(index => (
         <Dot
+          hitSlop={{ bottom: 10, top: 10, left: 10, right: 10 }}
           key={index}
           isActive={index === currentSlide}
           onPress={goToSlideIndex(index)}

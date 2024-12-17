@@ -12,13 +12,17 @@ const ButtonContainer = styled.View`
   padding: 0 20px;
 `
 
-const StyledButton = styled(TextButton)`
+const StyledButton = styled(TextButton)<{ $opacity?: boolean; $enableShadow?: boolean }>`
   width: 35%;
   height: 40px;
-`
-
-const Placeholder = styled.View`
-  flex: 1;
+  opacity: ${props => (props.$opacity === false ? 0 : 1)};
+  width: 35%;
+  height: 40px;
+  shadow-color: ${props => (props.$enableShadow ? props.theme.colors.textColor : props.theme.colors.backgroundColor)};
+  shadow-offset: 0px 1px;
+  shadow-opacity: 0.2;
+  shadow-radius: 1.4px;
+  elevation: 2;
 `
 
 const SideFooterContainer = styled.View`
@@ -42,32 +46,21 @@ const SlideFooter = ({ onDone, slideCount, goToSlide, currentSlide, t }: SlideFo
     <SideFooterContainer>
       <Pagination slideCount={slideCount} currentSlide={currentSlide} goToSlide={goToSlide} />
       <ButtonContainer>
-        {!isLastSlide ? (
-          <StyledButton
-            type='clear'
-            text={t('skip')}
-            textStyle={{ fontFamily: theme.fonts.native.contentFontBold, fontSize: 14 }}
-            onPress={onDone}
-          />
-        ) : (
-          <Placeholder />
-        )}
+        <StyledButton
+          type='clear'
+          text={t('skip')}
+          textStyle={{ fontFamily: theme.fonts.native.contentFontBold, fontSize: 14 }}
+          onPress={onDone}
+          $opacity={!isLastSlide}
+          disabled={isLastSlide}
+        />
+
         <StyledButton
           type='primary'
           text={t('next')}
           textStyle={{ fontFamily: theme.fonts.native.contentFontBold, fontSize: 14 }}
-          style={{
-            shadowColor: '#000',
-            shadowOffset: {
-              width: 0,
-              height: 1,
-            },
-            shadowOpacity: 0.2,
-            shadowRadius: 1.4,
-
-            elevation: 2,
-          }}
           onPress={isLastSlide ? onDone : goToNextSlide}
+          $enableShadow
         />
       </ButtonContainer>
     </SideFooterContainer>
