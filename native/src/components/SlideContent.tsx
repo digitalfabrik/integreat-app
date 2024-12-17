@@ -33,7 +33,7 @@ export type SlideContentType = {
   key: string
   title: string
   description?: string
-  Content: ReactElement | null
+  Content: ReactElement
 }
 type SlideContentProps = {
   item: SlideContentType

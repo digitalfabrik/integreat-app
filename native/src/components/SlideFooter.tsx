@@ -16,10 +16,8 @@ const StyledButton = styled(TextButton)<{ $opacity?: boolean; $enableShadow?: bo
   width: 35%;
   height: 40px;
   opacity: ${props => (props.$opacity === false ? 0 : 1)};
-  width: 35%;
-  height: 40px;
   shadow-color: ${props => (props.$enableShadow ? props.theme.colors.textColor : props.theme.colors.backgroundColor)};
-  shadow-offset: 0px 1px;
+  shadow-offset: 0 1px;
   shadow-opacity: 0.2;
   shadow-radius: 1.4px;
   elevation: 2;

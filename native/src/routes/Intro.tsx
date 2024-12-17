@@ -5,11 +5,19 @@ import styled, { css } from 'styled-components/native'
 
 import { IntroRouteType, LANDING_ROUTE } from 'shared'
 
+import {
+  IntroLanguageIcon,
+  IntroNewsIcon,
+  IntroOfflineIcon,
+  IntroPoisIcon,
+  IntroSearchIcon,
+  IntroWelcomeIcon,
+} from '../assets'
 import SlideContent, { SlideContentType } from '../components/SlideContent'
 import SlideFooter from '../components/SlideFooter'
 import Icon from '../components/base/Icon'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
-import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
+import buildConfig from '../constants/buildConfig'
 import { AppContext } from '../contexts/AppContextProvider'
 import useNavigateToDeepLink from '../hooks/useNavigateToDeepLink'
 import { reportError } from '../utils/sentry'
@@ -28,29 +36,26 @@ const ImageStyle = css`
   color: ${props => props.theme.colors.themeColor};
 `
 
-const icons = buildConfigAssets().intro
-const styledIcons = icons
-  ? {
-      Welcome: styled(icons.Welcome)`
-        ${ImageStyle};
-      `,
-      Language: styled(icons.Language)`
-        ${ImageStyle};
-      `,
-      Search: styled(icons.Search)`
-        ${ImageStyle};
-      `,
-      Pois: styled(icons.Pois)`
-        ${ImageStyle};
-      `,
-      News: styled(icons.News)`
-        ${ImageStyle};
-      `,
-      Offline: styled(icons.Offline)`
-        ${ImageStyle};
-      `,
-    }
-  : null
+const styledIcons = {
+  Welcome: styled(IntroWelcomeIcon)`
+    ${ImageStyle};
+  `,
+  Language: styled(IntroLanguageIcon)`
+    ${ImageStyle};
+  `,
+  Search: styled(IntroSearchIcon)`
+    ${ImageStyle};
+  `,
+  Pois: styled(IntroPoisIcon)`
+    ${ImageStyle};
+  `,
+  News: styled(IntroNewsIcon)`
+    ${ImageStyle};
+  `,
+  Offline: styled(IntroOfflineIcon)`
+    ${ImageStyle};
+  `,
+}
 
 const StyledIcon = styled(Icon)`
   height: 100%;
@@ -70,71 +75,55 @@ const Intro = ({ route, navigation }: IntroProps): ReactElement => {
   const flatListRef = useRef<FlatList>(null)
   const { deepLink } = route.params
   const navigateToDeepLink = useNavigateToDeepLink()
+  const { appName } = buildConfig()
 
   const slides = [
     {
       key: 'integreat',
-      title: t('welcome', {
-        appName: buildConfig().appName,
-      }),
-      description: t('welcomeDescription', {
-        appName: buildConfig().appName,
-      }),
-      Content: styledIcons && <StyledIcon Icon={styledIcons.Welcome} />,
+      title: t('welcome', { appName }),
+      description: t('welcomeDescription', { appName }),
+      Content: <StyledIcon Icon={styledIcons.Welcome} />,
+    },
+    {
+      key: 'languageChange',
+      title: t('languageChange', { appName }),
+      description: t('languageChangeDescription', { appName }),
+      Content: <StyledIcon Icon={styledIcons.Language} />,
+    },
+    {
+      key: 'search',
+      title: t('search'),
+      description: t('searchDescription'),
+      Content: <StyledIcon Icon={styledIcons.Search} />,
     },
   ]
 
-  if (styledIcons) {
-    slides.push(
-      {
-        key: 'languageChange',
-        title: t('languageChange', {
-          appName: buildConfig().appName,
-        }),
-        description: t('languageChangeDescription', {
-          appName: buildConfig().appName,
-        }),
-        Content: <StyledIcon Icon={styledIcons.Language} />,
-      },
-      {
-        key: 'search',
-        title: t('search'),
-        description: t('searchDescription'),
-        Content: <StyledIcon Icon={styledIcons.Search} />,
-      },
-    )
-
-    if (buildConfig().featureFlags.pois) {
-      slides.push({
-        key: 'pois',
-        title: t('pois'),
-        description: t('poisDescription'),
-        Content: <StyledIcon Icon={styledIcons.Pois} />,
-      })
-    }
-
-    if (buildConfig().featureFlags.newsStream) {
-      slides.push({
-        key: 'news',
-        title: t('newsDescription', {
-          appName: buildConfig().appName,
-        }),
-        description: t('newsDescription', {
-          appName: buildConfig().appName,
-        }),
-        Content: <StyledIcon Icon={styledIcons.News} />,
-      })
-    }
-
+  if (buildConfig().featureFlags.pois) {
     slides.push({
-      key: 'offline',
-      title: t('offline'),
-      description: t('offlineDescription', {
-        appName: buildConfig().appName,
-      }),
-      Content: <StyledIcon Icon={styledIcons.Offline} />,
+      key: 'pois',
+      title: t('pois'),
+      description: t('poisDescription'),
+      Content: <StyledIcon Icon={styledIcons.Pois} />,
     })
   }
+
+  if (buildConfig().featureFlags.newsStream) {
+    slides.push({
+      key: 'news',
+      title: t('newsDescription', { appName }),
+      description: t('newsDescription', { appName }),
+      Content: <StyledIcon Icon={styledIcons.News} />,
+    })
+  }
+
+  slides.push({
+    key: 'offline',
+    title: t('offline'),
+    description: t('offlineDescription', {
+      appName,
+    }),
+    Content: <StyledIcon Icon={styledIcons.Offline} />,
+  })
 
   const onDone = useCallback(async () => {
     try {
