@@ -12,24 +12,13 @@ import aschaffenburgAppIcon from 'build-configs/aschaffenburg/assets/app-icon-ro
 import integreatLoadingImage from 'build-configs/integreat/assets/app-icon-inverted.svg'
 import integreatAppIcon from 'build-configs/integreat/assets/app-icon-round.svg'
 import integreatCityNotCooperatingIcon from 'build-configs/integreat/assets/city-not-cooperating.svg'
-import integreatIntroEventsIcon from 'build-configs/integreat/assets/intro-slides/Events.svg'
-import integreatIntroLanguageIcon from 'build-configs/integreat/assets/intro-slides/Language.svg'
-import integreatIntroSearchIcon from 'build-configs/integreat/assets/intro-slides/Search.svg'
 import malteLoadingImage from 'build-configs/malte/assets/app-icon-circle.svg'
 import malteAppIcon from 'build-configs/malte/assets/app-icon-round.svg'
-import malteIntroEventsIcon from 'build-configs/malte/assets/intro-slides/Events.svg'
-import malteIntroLanguageIcon from 'build-configs/malte/assets/intro-slides/Language.svg'
-import malteIntroSearchIcon from 'build-configs/malte/assets/intro-slides/Search.svg'
 
 type AssetsType = {
   AppIcon: React.JSXElementConstructor<SvgProps>
   LoadingImage: React.JSXElementConstructor<SvgProps>
   CityNotCooperatingIcon?: React.JSXElementConstructor<SvgProps>
-  intro?: {
-    Events: React.JSXElementConstructor<SvgProps>
-    Language: React.JSXElementConstructor<SvgProps>
-    Search: React.JSXElementConstructor<SvgProps>
-  }
 }
 
 const buildConfig = (): CommonBuildConfigType => loadBuildConfig(name, COMMON)
@@ -42,22 +31,12 @@ export const buildConfigAssets = (): AssetsType => {
       AppIcon: integreatAppIcon,
       LoadingImage: integreatLoadingImage,
       CityNotCooperatingIcon: integreatCityNotCooperatingIcon,
-      intro: {
-        Events: integreatIntroEventsIcon,
-        Language: integreatIntroLanguageIcon,
-        Search: integreatIntroSearchIcon,
-      },
     }
   }
   if (assetsName === MALTE_ASSETS) {
     return {
       AppIcon: malteAppIcon,
       LoadingImage: malteLoadingImage,
-      intro: {
-        Events: malteIntroEventsIcon,
-        Language: malteIntroLanguageIcon,
-        Search: malteIntroSearchIcon,
-      },
     }
   }
   if (assetsName === ASCHAFFENBURG_ASSETS) {

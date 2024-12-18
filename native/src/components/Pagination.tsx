@@ -7,7 +7,7 @@ import Pressable from './base/Pressable'
 
 const DotsContainer = styled.View`
   flex: 1;
-  height: 10px;
+  height: 12px;
   padding: 10px 10px 20px;
   flex-direction: row;
   justify-content: center;
@@ -15,13 +15,20 @@ const DotsContainer = styled.View`
   background-color: ${props => props.theme.colors.backgroundColor};
 `
 
-const Dot = styled(Pressable)<{ isActive: boolean }>`
-  width: 10px;
-  height: 10px;
-  border-radius: 5px;
-  margin: 0 4px;
+const Dot = styled.View<{ isActive: boolean }>`
+  width: 12px;
+  height: 12px;
+  border-radius: 6px;
   background-color: ${props =>
-    props.isActive ? props.theme.colors.textSecondaryColor : props.theme.colors.textDecorationColor};
+    props.isActive ? props.theme.colors.textColor : props.theme.colors.textDecorationColor};
+`
+
+const DotPressableArea = styled(Pressable)`
+  width: 35px;
+  height: 35px;
+  margin: 0 8px;
+  justify-content: center;
+  align-items: center;
 `
 
 type PaginationProps = {
@@ -37,15 +44,15 @@ const Pagination = ({ slideCount, currentSlide, goToSlide }: PaginationProps): R
   return (
     <DotsContainer>
       {range(slideCount).map(index => (
-        <Dot
+        <DotPressableArea
           key={index}
-          isActive={index === currentSlide}
           onPress={goToSlideIndex(index)}
           role='link'
           accessibilityLabel={t('goTo.pageNumber', {
             number: index + 1,
-          })}
-        />
+          })}>
+          <Dot isActive={index === currentSlide} />
+        </DotPressableArea>
       ))}
     </DotsContainer>
   )
