@@ -7,6 +7,7 @@ import { parseHTML, SEARCH_FINISHED_SIGNAL_NAME, SEARCH_ROUTE, SearchResult, use
 
 import FeedbackContainer from '../components/FeedbackContainer'
 import List from '../components/List'
+import Loader from '../components/LoadingSpinner'
 import SearchHeader from '../components/SearchHeader'
 import SearchListItem from '../components/SearchListItem'
 import useResourceCache from '../hooks/useResourceCache'
@@ -53,10 +54,6 @@ const SearchModal = ({
 
   const searchResults = contentLanguageResults?.length === 0 ? fallbackLanguageResults : contentLanguageResults
 
-  if (!searchResults) {
-    return null
-  }
-
   const onClose = (): void => {
     sendTrackingSignal({
       signal: {
@@ -66,6 +63,15 @@ const SearchModal = ({
       },
     })
     closeModal(query)
+  }
+
+  if (!searchResults) {
+    return (
+      <Wrapper {...testID('Search-Page')}>
+        <SearchHeader query={query} closeSearchBar={onClose} onSearchChanged={setQuery} />
+        {!!query.length && <Loader />}
+      </Wrapper>
+    )
   }
 
   const renderItem = ({ item }: { item: SearchResult }) => (
