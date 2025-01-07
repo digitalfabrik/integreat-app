@@ -28,8 +28,8 @@ const SearchCounter = styled.Text`
 `
 
 export type SearchModalProps = {
-  allPossibleResults: SearchResult[]
-  allPossibleFallbackResults: SearchResult[]
+  allPossibleContentLanguageResults: SearchResult[]
+  allPossibleFallbackLanguageResults: SearchResult[]
   languageCode: string
   cityCode: string
   closeModal: (query: string) => void
@@ -37,8 +37,8 @@ export type SearchModalProps = {
 }
 
 const SearchModal = ({
-  allPossibleResults,
-  allPossibleFallbackResults,
+  allPossibleContentLanguageResults,
+  allPossibleFallbackLanguageResults,
   languageCode,
   cityCode,
   closeModal,
@@ -48,10 +48,10 @@ const SearchModal = ({
   const resourceCache = useResourceCache({ cityCode, languageCode })
   const { t } = useTranslation('search')
 
-  const mainResults = useSearch(allPossibleResults, query)
-  const fallbackResults = useSearch(allPossibleFallbackResults, query)
+  const contentLanguageResults = useSearch(allPossibleContentLanguageResults, query)
+  const fallbackLanguageResults = useSearch(allPossibleFallbackLanguageResults, query)
 
-  const searchResults = mainResults?.length === 0 ? fallbackResults : mainResults
+  const searchResults = contentLanguageResults?.length === 0 ? fallbackLanguageResults : contentLanguageResults
 
   if (!searchResults) {
     return null

@@ -1,7 +1,6 @@
-import React, { ReactElement, useMemo } from 'react'
+import React, { ReactElement } from 'react'
 
 import { SearchRouteType } from 'shared'
-import { CategoriesMapModel, EventModel, PoiModel } from 'shared/api'
 import { formatPossibleSearchResults } from 'shared/hooks/useSearch'
 import { config } from 'translations'
 
@@ -16,21 +15,15 @@ export type SearchModalContainerProps = {
   route: RouteProps<SearchRouteType>
 }
 
-const useMemoizeResults = (
-  categories?: CategoriesMapModel | null,
-  events?: EventModel[] | null,
-  pois?: PoiModel[] | null,
-) => useMemo(() => formatPossibleSearchResults(categories, events, pois), [categories, events, pois])
-
 const SearchModalContainer = ({ navigation, route }: SearchModalContainerProps): ReactElement | null => {
   const { cityCode, languageCode } = useCityAppContext()
   const initialSearchText = route.params.searchText ?? ''
   const { data, ...response } = useLoadCityContent({ cityCode, languageCode })
   const { data: fallbackData } = useLoadCityContent({ cityCode, languageCode: config.sourceLanguage })
 
-  const allPossibleResults = useMemoizeResults(data?.categories, data?.events, data?.pois)
+  const allPossibleContentLanguageResults = formatPossibleSearchResults(data?.categories, data?.events, data?.pois)
 
-  const allPossibleFallbackResults = useMemoizeResults(
+  const allPossibleFallbackLanguageResults = formatPossibleSearchResults(
     fallbackData?.categories,
     fallbackData?.events,
     fallbackData?.pois,
@@ -42,8 +35,8 @@ const SearchModalContainer = ({ navigation, route }: SearchModalContainerProps):
         <SearchModal
           cityCode={cityCode}
           closeModal={navigation.goBack}
-          allPossibleResults={allPossibleResults}
-          allPossibleFallbackResults={allPossibleFallbackResults}
+          allPossibleContentLanguageResults={allPossibleContentLanguageResults}
+          allPossibleFallbackLanguageResults={allPossibleFallbackLanguageResults}
           languageCode={languageCode}
           initialSearchText={initialSearchText}
         />

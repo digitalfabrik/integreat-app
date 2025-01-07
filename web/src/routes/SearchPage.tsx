@@ -38,7 +38,7 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
   const navigate = useNavigate()
 
   const {
-    data: allPossibleResults,
+    data: allPossibleContentLanguageResults,
     loading,
     error,
   } = useAllPossibleSearchResults({
@@ -46,16 +46,16 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
     language: languageCode,
     cmsApiBaseUrl,
   })
-  const mainResults = useSearch(allPossibleResults, query)
+  const contentLanguageResults = useSearch(allPossibleContentLanguageResults, query)
 
-  const { data: allPossibleFallbackResults } = useAllPossibleSearchResults({
+  const { data: allPossibleFallbackLanguageResults } = useAllPossibleSearchResults({
     city: cityCode,
     language: config.sourceLanguage,
     cmsApiBaseUrl,
   })
-  const fallbackResults = useSearch(allPossibleFallbackResults, query)
+  const fallbackLanguageResults = useSearch(allPossibleFallbackLanguageResults, query)
 
-  const results = mainResults?.length === 0 ? fallbackResults : mainResults
+  const results = contentLanguageResults?.length === 0 ? fallbackLanguageResults : contentLanguageResults
 
   if (!city) {
     return null
