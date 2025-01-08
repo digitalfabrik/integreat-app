@@ -1,7 +1,3 @@
-# Each line is a file pattern followed by one or more owners.
+# These owners will be the default owners for everything in the repo.
 
-# These owners will be the default owners for everything in
-# the repo. Unless a later match takes precedence,
-# these owners will be requested for
-# review when someone opens a pull request.
-*       @steffenkleinle @ztefanie @f1sh1918 @LeandraH
+-       @steffenkleinle @f1sh1918 @LeandraH
