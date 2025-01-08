@@ -1,3 +1,5 @@
+import { useMemo } from 'react'
+
 import {
   createCategoriesEndpoint,
   createEventsEndpoint,
@@ -30,7 +32,10 @@ const useAllPossibleSearchResults = ({
   const events = useLoadFromEndpoint(createEventsEndpoint, cmsApiBaseUrl, params)
   const pois = useLoadFromEndpoint(createPOIsEndpoint, cmsApiBaseUrl, params)
 
-  const allPossibleResults = formatPossibleSearchResults(categories.data, events.data, pois.data)
+  const allPossibleResults = useMemo(
+    () => formatPossibleSearchResults(categories.data, events.data, pois.data),
+    [categories.data, events.data, pois.data],
+  )
 
   return {
     data: allPossibleResults,
