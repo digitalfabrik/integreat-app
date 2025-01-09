@@ -42,15 +42,15 @@ const App = (): ReactElement => {
 
   return (
     <ThemeProvider theme={{ ...buildConfig().lightTheme, contentDirection }}>
-      <I18nProvider contentLanguage={contentLanguage}>
-        <Helmet pageTitle={t('pageTitle')} rootPage />
-        <TtsContextProvider>
+      <TtsContextProvider>
+        <I18nProvider contentLanguage={contentLanguage}>
+          <Helmet pageTitle={t('pageTitle')} rootPage />
           <Router>
             <GlobalStyle />
             <RootSwitcher setContentLanguage={setContentLanguage} />
           </Router>
-        </TtsContextProvider>
-      </I18nProvider>
+        </I18nProvider>
+      </TtsContextProvider>
     </ThemeProvider>
   )
 }

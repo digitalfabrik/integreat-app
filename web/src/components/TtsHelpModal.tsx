@@ -32,7 +32,7 @@ const StyledText = styled.span`
 `
 
 const StyledWarningIcon = styled(Icon)`
-  color: ${props => props.theme.colors.warning_amber};
+  color: ${props => props.theme.colors.ttsPlayerWarningColor};
 `
 
 const StyledList = styled.div`
@@ -55,7 +55,7 @@ const helpItemsData = [
   {
     title: 'Ubuntu',
     icon: BookIcon,
-    path: 'https://github.com/espeak-ng/espeak-ng/blob/master/docs/mbrola.md#installation-of-standard-packages',
+    path: 'https://github.com/Elleo/pied?tab=readme-ov-file',
   },
   {
     title: 'Android',

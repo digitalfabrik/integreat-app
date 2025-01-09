@@ -1,7 +1,6 @@
 import Dompurify from 'dompurify'
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useMatch } from 'react-router-dom'
 import styled, { css } from 'styled-components'
 
 import { ExternalSourcePermissions } from 'shared'
@@ -12,6 +11,7 @@ import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
 import useLocalStorage from '../hooks/useLocalStorage'
 import useWindowDimensions from '../hooks/useWindowDimensions'
+import { DetectedLanguageHelper } from '../utils/DetectedLanguageHelper'
 import {
   LOCAL_STORAGE_ITEM_EXTERNAL_SOURCES,
   handleAllowedIframeSources,
@@ -190,8 +190,6 @@ const RemoteContent = ({
   smallText = false,
 }: RemoteContentProps): ReactElement => {
   const sandBoxRef = React.createRef<HTMLDivElement>()
-  const { routeParam1 } = useMatch('/:routeParam0/:routeParam1/*')?.params ?? {}
-  const { i18n } = useTranslation()
   const { value: externalSourcePermissions, updateLocalStorageItem } = useLocalStorage<ExternalSourcePermissions>({
     key: LOCAL_STORAGE_ITEM_EXTERNAL_SOURCES,
     initialValue: {},
@@ -277,8 +275,7 @@ const RemoteContent = ({
     }),
   }
 
-  const detectedLanguageCode = i18n.language
-  const language = routeParam1 ?? detectedLanguageCode
+  const language = DetectedLanguageHelper().language
   return (
     <>
       <SandBox

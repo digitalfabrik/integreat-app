@@ -9,14 +9,13 @@ import Button from './base/Button'
 import Icon from './base/Icon'
 
 const StyledTtsPlayer = styled.dialog<{ $isPlaying: boolean }>`
-  background-color: #dedede;
+  background-color: ${props => props.theme.colors.ttsPlayerBackground};
   border-radius: 28px;
   width: 388px;
   display: flex;
   flex-direction: ${props => (props.$isPlaying ? 'column' : 'row')};
   justify-content: center;
   align-items: center;
-  align-self: center;
   padding: 6px;
   position: sticky;
   bottom: 5px;
@@ -38,15 +37,10 @@ const StyledPanel = styled.div<{ $isPlaying?: boolean }>`
   margin: ${props => (props.$isPlaying ? verticalMargin : 0)}px 0;
 `
 
-const StyledPlayIcon = styled(Button)`
-  background-color: #232323;
-  width: 50px;
-  height: 50px;
-  border-radius: 50px;
+const buttonBaseStyles = `
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 1px 5px 10px 1px grey;
   transition:
     box-shadow 0.2s ease,
     transform 0.1s ease;
@@ -57,6 +51,15 @@ const StyledPlayIcon = styled(Button)`
   }
 `
 
+const StyledPlayIcon = styled(Button)`
+  ${buttonBaseStyles}
+  background-color: ${props => props.theme.colors.ttsPlayerPlayIconColor};
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  box-shadow: 1px 5px 10px 1px grey;
+`
+
 const StyledBackForthButton = styled(Button)`
   display: flex;
   flex-direction: ${props => (props.theme.contentDirection === 'rtl' ? 'row-reverse ' : 'row')};
@@ -65,7 +68,7 @@ const StyledBackForthButton = styled(Button)`
 `
 
 const PlayButtonIcon = styled(Icon)`
-  color: #dedede;
+  color: ${props => props.theme.colors.ttsPlayerBackground};
 `
 
 const BackForthIcon = styled(Icon)<{ $flip: boolean }>`
@@ -83,23 +86,13 @@ const StyledPlayerHeaderText = styled.span`
 `
 
 const CloseButton = styled(Button)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${buttonBaseStyles}
   border-radius: 7px;
   background-color: ${props => props.theme.colors.themeColor};
   padding: 5px;
   gap: 5px;
   width: 176px;
   box-shadow: 1px 5px 5px 1px grey;
-  transition:
-    box-shadow 0.2s ease,
-    transform 0.1s ease;
-
-  &:active {
-    box-shadow: none;
-    transform: translateY(2px);
-  }
 `
 
 const CloseView = styled.div`

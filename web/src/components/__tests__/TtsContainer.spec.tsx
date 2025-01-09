@@ -69,12 +69,10 @@ describe('TtsPlayer', () => {
 
     expect(EasySpeech.speak).toHaveBeenCalledWith(
       expect.objectContaining({
-        text: '',
+        text: 'undefined',
         voice: { lang: 'en-US' },
-        pitch: 1,
-        rate: 1,
         volume: 0.6,
-        boundary: expect.any(Function),
+        end: expect.any(Function),
       }),
     )
   })

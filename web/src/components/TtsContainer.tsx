@@ -24,51 +24,44 @@ const TtsContainer = ({ languageCode }: TtsContainerProps): ReactElement | null 
   const { sentences, setSentences, visible, setVisible } = useTtsPlayer()
   const [currentSentencesIndex, setCurrentSentenceIndex] = useState<number>(0)
   const [showHelpModal, setShowHelpModal] = useState(false)
-  const allowIncrement = useRef(true)
   const title = sentences[0] || t('nothingToRead')
   const longTitle = truncate(title, { maxChars: MAX_TITLE_DISPLAY_CHARS })
   const userAgent = navigator.userAgent
   const isAndroid = Boolean(/android/i.test(userAgent))
   const isFirefox = userAgent.toLowerCase().includes('firefox')
-
-  const handleBoundary = (event: SpeechSynthesisEvent) => {
-    if (event.name === 'sentence' && allowIncrement.current) {
-      setCurrentSentenceIndex((prevIndex: number) => prevIndex + 1)
-    }
-    allowIncrement.current = true
-  }
+  const isLinux = userAgent.toLowerCase().includes('linux')
+  const isFirefoxAndLinux = isFirefox && isLinux
+  const enableOnEnd = useRef(true)
+  const msTime = 1000
 
   const resetOnEnd = () => {
     setCurrentSentenceIndex(0)
     setIsPlaying(false)
+    enableOnEnd.current = false
   }
 
   useEffect(() => {
     if (!visible) {
       return
     }
-    EasySpeech.init({ maxTimeout: 5000, interval: 250 }).catch(e => reportError(e))
-  }, [visible])
 
-  useEffect(() => {
-    if (currentSentencesIndex + 1 >= sentences.length - 1) {
-      resetOnEnd()
-    }
-  }, [currentSentencesIndex, sentences])
+    EasySpeech.init({ maxTimeout: 5000, interval: 250 }).catch(reportError)
+  }, [visible])
 
   const stop = () => {
     try {
       EasySpeech.cancel()
-    } catch (_) {
-      // setShowHelpModal(true)
+      enableOnEnd.current = false
+    } catch (e) {
+      reportError(e)
     }
   }
 
   const play = async (index = currentSentencesIndex) => {
     try {
-      stop()
       const voices = EasySpeech.voices()
       const selectedVoice = voices.find((voice: SpeechSynthesisVoice) => voice.lang.startsWith(languageCode))
+
       if (selectedVoice == null || EasySpeech.status().status === 'created') {
         setSentences([])
         setShowHelpModal(true)
@@ -76,68 +69,86 @@ const TtsContainer = ({ languageCode }: TtsContainerProps): ReactElement | null 
       }
 
       await EasySpeech.speak({
-        text: sentences.slice(index).join(' '),
+        text: String(sentences[index]),
         voice: selectedVoice,
-        pitch: 1,
-        rate: 1,
         volume: 0.6,
-        boundary: e => handleBoundary(e),
         end: () => {
-          if (!isFirefox) {
-            resetOnEnd()
+          if (enableOnEnd.current) {
+            setCurrentSentenceIndex((prevIndex: number) => {
+              const newIndex = prevIndex + 1
+              if (newIndex < sentences.length - 1) {
+                play(newIndex)
+              } else {
+                resetOnEnd()
+                stop()
+              }
+              return newIndex
+            })
           }
         },
-      }).catch(() => null)
+      }).catch(() => null) // at chrome this will throw interrupted errors
     } catch (_) {
       setShowHelpModal(true)
     }
   }
 
+  const playOnFallback = () =>
+    setTimeout(() => {
+      // if paused at end of sentence and there is nothing to resume this should play
+      if (!window.speechSynthesis.speaking && enableOnEnd.current && !isPlaying) {
+        play()
+      }
+    }, msTime)
+
   const pause = () => {
+    enableOnEnd.current = false
     EasySpeech.pause()
     setIsPlaying(false)
-  }
-
-  const boundaryGuard = async (action: () => Promise<void>) => {
-    allowIncrement.current = true
-    try {
-      await action()
-    } finally {
-      allowIncrement.current = false
-    }
   }
 
   const togglePlayPause = () => {
     try {
       if (isPlaying) {
+        if (isFirefoxAndLinux) {
+          stop()
+        }
         pause()
-      } else if (currentSentencesIndex !== 0 && !isAndroid) {
+      } else if (currentSentencesIndex !== 0 && !isAndroid && !isFirefoxAndLinux) {
+        // FirefoxAndLinux and isAndroid can't resume
         setIsPlaying(true)
+        enableOnEnd.current = true
         EasySpeech.resume()
+
+        playOnFallback()
       } else {
         setIsPlaying(true)
-        boundaryGuard(() => play())
+        enableOnEnd.current = true
+        play()
       }
     } catch (_) {
       setShowHelpModal(true)
     }
   }
 
-  const playNext = () => {
+  const playNext = async () => {
     const nextIndex = currentSentencesIndex + 1
     if (nextIndex < sentences.length) {
       setCurrentSentenceIndex(nextIndex)
-      boundaryGuard(() => play(nextIndex))
-    } else {
       stop()
+      await play(nextIndex)
+      enableOnEnd.current = true
+      playOnFallback()
     }
   }
 
-  const playPrevious = () => {
+  const playPrevious = async () => {
     const previousIndex = currentSentencesIndex - 1
     if (previousIndex >= 0) {
       setCurrentSentenceIndex(previousIndex)
-      boundaryGuard(() => play(previousIndex))
+      stop()
+      await play(previousIndex)
+      enableOnEnd.current = true
+      playOnFallback()
     }
   }
 

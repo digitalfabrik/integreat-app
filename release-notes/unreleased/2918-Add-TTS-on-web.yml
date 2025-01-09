@@ -1,6 +1,0 @@
-issue_key: 2918
-show_in_stores: true
-platforms: # relevant platforms, possible values: web, android and ios
-  - web
-en: Added an exciting new Text-to-Speech feature!
-de: Eine spannende neue Text-zu-Sprache-Funktion wurde hinzugefügt!
