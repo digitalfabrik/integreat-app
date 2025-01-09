@@ -4830,7 +4830,12 @@
       "positiveRating": "Diese Seite ist hilfreich",
       "searchTermDescription": "Für den folgenden Begriff konnte kein Ergebnis gefunden werden:",
       "contactMailAddress": "E-Mail für Rückfragen",
-      "note": "Bitte wähle eine Reaktion oder schreibe einen Kommentar, um das Feedback abschicken zu können."
+      "note": "Bitte wähle eine Reaktion oder schreibe einen Kommentar, um das Feedback abschicken zu können.",
+      "giveFeedback": "Feedback geben",
+      "checkQuery": "Überprüfen Sie Ihren Suchbegriff oder ändern Sie die eingestellte Sprache der {{appName}}-App.",
+      "informationMissing": "Hier fehlen Informationen?",
+      "noResultsInOneLanguage": "Es wurden leider keine passenden Ergebnisse auf {{contentLanguage}} gefunden.",
+      "noResultsInTwoLanguages": "Es wurden leider keine passenden Ergebnisse auf {{contentLanguage}} oder {{fallbackLanguage}} gefunden."
     },
     "am": {
       "disclaimer": "የግንኙነት መረጃና ዕትም",
@@ -5014,7 +5019,12 @@
       "positiveRating": "This site is useful",
       "searchTermDescription": "No result could be found for the following term:",
       "contactMailAddress": "E-Mail for further questions",
-      "note": "Please select a reaction or write a comment in order to send feedback."
+      "note": "Please select a reaction or write a comment in order to send feedback.",
+      "giveFeedback": "Give feedback",
+      "checkQuery": "Check your search term or select a different language in the {{appName}} app",
+      "informationMissing": "Is information missing?",
+      "noResultsInOneLanguage": "Sorry, we could not find any matching results in {{contentLanguage}}.",
+      "noResultsInTwoLanguages": "Sorry, we could not find any matching results in {{contentLanguage}} or {{fallbackLanguage}}."
     },
     "es": {
       "disclaimer": "Contacto y aviso legal",

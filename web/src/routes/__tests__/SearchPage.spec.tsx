@@ -79,7 +79,7 @@ describe('SearchPage', () => {
   })
 
   it('should display nothing found for search', () => {
-    const { getByRole, getByPlaceholderText } = renderSearch()
+    const { getByPlaceholderText, getByText } = renderSearch()
 
     fireEvent.change(getByPlaceholderText('search:searchPlaceholder'), {
       target: {
@@ -87,7 +87,7 @@ describe('SearchPage', () => {
       },
     })
 
-    expect(getByRole('alert')).toContainHTML('search:nothingFound')
+    expect(getByText('feedback:noResultsInTwoLanguages')).toBeTruthy()
   })
 
   describe('url query', () => {
