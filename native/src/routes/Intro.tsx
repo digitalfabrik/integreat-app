@@ -34,6 +34,7 @@ const ImageStyle = css`
   align-self: center;
   flex: 1;
   color: ${props => props.theme.colors.themeColor};
+  fill: ${props => props.theme.colors.themeColor};
 `
 
 const styledIcons = {
@@ -142,6 +143,7 @@ const Intro = ({ route, navigation }: IntroProps): ReactElement => {
   const goToSlide = useCallback((index: number) => {
     flatListRef.current?.scrollToIndex({
       index,
+      animated: false,
     })
   }, [])
 
