@@ -28,11 +28,12 @@ describe('FeedbackContainer', () => {
 
   const city = 'augsburg'
   const language = 'de'
+  const noResults = false
 
   it('should send feedback request with rating and no other inputs on submit', async () => {
     const { getByText, findByText } = render(
       <NavigationContainer>
-        <FeedbackContainer routeType={CATEGORIES_ROUTE} language={language} cityCode={city} />
+        <FeedbackContainer routeType={CATEGORIES_ROUTE} language={language} cityCode={city} noResults={noResults} />
       </NavigationContainer>,
     )
     const positiveRatingButton = getByText('useful')
@@ -70,7 +71,7 @@ describe('FeedbackContainer', () => {
     const contactMail = 'test@example.com'
     const { getByText, findByText, getAllByDisplayValue } = render(
       <NavigationContainer>
-        <FeedbackContainer routeType={CATEGORIES_ROUTE} language={language} cityCode={city} />
+        <FeedbackContainer routeType={CATEGORIES_ROUTE} language={language} cityCode={city} noResults={noResults} />
       </NavigationContainer>,
     )
     const [commentField, emailField] = getAllByDisplayValue('')
@@ -106,7 +107,7 @@ describe('FeedbackContainer', () => {
   it('should disable send feedback button if rating button is clicked twice', async () => {
     const { getByText, findByText } = render(
       <NavigationContainer>
-        <FeedbackContainer routeType={CATEGORIES_ROUTE} language={language} cityCode={city} />
+        <FeedbackContainer routeType={CATEGORIES_ROUTE} language={language} cityCode={city} noResults={noResults} />
       </NavigationContainer>,
     )
     const positiveRatingButton = getByText('useful')
@@ -120,7 +121,13 @@ describe('FeedbackContainer', () => {
     const query = 'Zeugnis'
     const { findByText, getByText } = render(
       <NavigationContainer>
-        <FeedbackContainer routeType={SEARCH_ROUTE} language={language} cityCode={city} query={query} />
+        <FeedbackContainer
+          routeType={SEARCH_ROUTE}
+          language={language}
+          cityCode={city}
+          query={query}
+          noResults={noResults}
+        />
       </NavigationContainer>,
     )
     const button = getByText('send')
@@ -145,7 +152,13 @@ describe('FeedbackContainer', () => {
     const fullSearchTerm = 'Zeugnisübergabe'
     const { findByText, getByDisplayValue, getByText } = render(
       <NavigationContainer>
-        <FeedbackContainer routeType={SEARCH_ROUTE} language={language} cityCode={city} query={query} />
+        <FeedbackContainer
+          routeType={SEARCH_ROUTE}
+          language={language}
+          cityCode={city}
+          query={query}
+          noResults={noResults}
+        />
       </NavigationContainer>,
     )
     const input = getByDisplayValue(query)
@@ -170,12 +183,61 @@ describe('FeedbackContainer', () => {
   it('should disable send button if query term is removed', async () => {
     const { findByText, getByDisplayValue } = render(
       <NavigationContainer>
-        <FeedbackContainer routeType={SEARCH_ROUTE} language={language} cityCode={city} query='query' />
+        <FeedbackContainer
+          routeType={SEARCH_ROUTE}
+          language={language}
+          cityCode={city}
+          query='query'
+          noResults={noResults}
+        />
       </NavigationContainer>,
     )
     expect(await findByText('send')).not.toBeDisabled()
     const input = getByDisplayValue('query')
     fireEvent.changeText(input, '')
     expect(await findByText('send')).toBeDisabled()
+  })
+
+  it('should send negative rating on submit if there are no search results found', async () => {
+    const query = 'gesundheitsversicherung'
+    const noResults = true
+    const { getByText, findByText } = render(
+      <NavigationContainer>
+        <FeedbackContainer
+          routeType={SEARCH_ROUTE}
+          language={language}
+          cityCode={city}
+          query={query}
+          noResults={noResults}
+        />
+      </NavigationContainer>,
+    )
+    expect(getByText('send')).not.toBeDisabled()
+    const submitButton = getByText('send')
+    fireEvent.press(submitButton)
+    expect(await findByText('thanksMessage')).toBeDefined()
+    expect(mockRequest).toHaveBeenCalledTimes(1)
+    expect(mockRequest).toHaveBeenCalledWith({
+      routeType: SEARCH_ROUTE,
+      isPositiveRating: false,
+      city,
+      language,
+      comment: '',
+      contactMail: '',
+      query,
+      searchTerm: query,
+      slug: undefined,
+    })
+    expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
+    expect(sendTrackingSignal).toHaveBeenCalledWith({
+      signal: {
+        name: SEND_FEEDBACK_SIGNAL_NAME,
+        feedback: {
+          positive: false,
+          numCharacters: 0,
+          contactMail: false,
+        },
+      },
+    })
   })
 })
