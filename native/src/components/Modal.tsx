@@ -15,7 +15,7 @@ const Header = styled.View`
 `
 
 const ScrollContent = styled.ScrollView`
-  padding: 0 20px;
+  margin: 0 20px;
 `
 
 const Content = styled.View`
@@ -50,7 +50,7 @@ const Modal = ({
         <HeaderBox goBack={closeModal} text={headerTitle} />
       </Header>
       {scrollView ? (
-        <ScrollContent contentContainerStyle={{ flexGrow: 1 }}>
+        <ScrollContent contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
           {!!title && <Caption title={title} />}
           {children}
         </ScrollContent>
