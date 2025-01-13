@@ -34,7 +34,6 @@ const ImageStyle = css`
   align-self: center;
   flex: 1;
   color: ${props => props.theme.colors.themeColor};
-  fill: ${props => props.theme.colors.themeColor};
 `
 
 const styledIcons = {
@@ -140,12 +139,17 @@ const Intro = ({ route, navigation }: IntroProps): ReactElement => {
     }
   }, [navigateToDeepLink, navigation, deepLink, updateSettings])
 
-  const goToSlide = useCallback((index: number) => {
-    flatListRef.current?.scrollToIndex({
-      index,
-      animated: false,
-    })
-  }, [])
+  const goToSlide = useCallback(
+    (index: number) => {
+      const isJumpingToEnd =
+        (currentSlide === 0 && index === slides.length - 1) || (index === 0 && currentSlide === slides.length - 1)
+      flatListRef.current?.scrollToIndex({
+        index,
+        animated: !isJumpingToEnd,
+      })
+    },
+    [currentSlide, slides.length],
+  )
 
   const renderSlide = ({ item }: { item: SlideContentType }) => <SlideContent item={item} width={width} />
 
