@@ -23,7 +23,7 @@
   "scripts": {
     "prepare": "husky",
     "lint": "eslint --cache --cache-location .eslintcache . && yarn workspace web stylelint && yarn workspace native stylelint",
-    "lint:ci": "yarn node --max-old-space-size=4096 $(yarn bin eslint) --format junit -o reports/lint/junit-lint.xml .",
+    "lint:ci": "yarn node $(yarn bin eslint) --format junit -o reports/lint/junit-lint.xml .",
     "test": "jest",
     "test:changed": "jest -o",
     "test:ci": "jest --coverage --ci",
@@ -31,7 +31,7 @@
     "prettier:check": "prettier --check .",
     "prettier:write": "prettier --write .",
     "ts:check": "tsc --build",
-    "ts:check:ci": "yarn node --max-old-space-size=4096 $(yarn bin tsc) --build"
+    "ts:check:ci": "yarn node $(yarn bin tsc) --build"
   },
   "resolutions": {
     "luxon": "^3.4.2",
