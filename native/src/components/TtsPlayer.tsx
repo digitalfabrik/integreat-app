@@ -1,9 +1,8 @@
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
 import { CloseIcon, PauseIcon, PlaybackIcon, PlayIcon } from '../assets'
-import { TtsContext } from './TtsContainer'
 import Icon from './base/Icon'
 import IconButton from './base/IconButton'
 import Pressable from './base/Pressable'
@@ -34,8 +33,8 @@ const StyledPanel = styled.View<{ $isPlaying?: boolean }>`
   margin: ${props => (props.$isPlaying ? verticalMargin : 0)}px 0;
 `
 
-const StyledPlayIcon = styled(IconButton)`
-  background-color: ${props => props.theme.colors.textColor};
+const StyledPlayIcon = styled(IconButton)<{ disabled: boolean }>`
+  background-color: ${props => (props.disabled ? props.theme.colors.textDisabledColor : props.theme.colors.textColor)};
   width: 50px;
   height: 50px;
   border-radius: 50px;
@@ -90,9 +89,9 @@ const elevatedButton = {
 
 type TtsPlayerProps = {
   isPlaying: boolean
-  sentenceIndex: number
-  playPrevious: (index: number) => void
-  playNext: (index: number) => void
+  sentences: string[]
+  playPrevious: () => void
+  playNext: () => void
   close: () => Promise<void>
   pause: () => void
   play: () => void
@@ -107,36 +106,27 @@ const TtsPlayer = ({
   pause,
   play,
   title,
-  sentenceIndex,
+  sentences,
 }: TtsPlayerProps): ReactElement => {
   const { t } = useTranslation('layout')
-  const tts = useContext(TtsContext)
   return (
     <StyledTtsPlayer $isPlaying={isPlaying} style={elevatedButton}>
       <StyledPanel $isPlaying={isPlaying}>
         {isPlaying && (
-          <StyledBackForthButton
-            role='button'
-            accessibilityLabel={t('previous')}
-            onPress={() => playPrevious(sentenceIndex)}>
+          <StyledBackForthButton role='button' accessibilityLabel={t('previous')} onPress={playPrevious}>
             <StyledText>{t('previous')}</StyledText>
             <Icon Icon={PlaybackIcon} reverse />
           </StyledBackForthButton>
         )}
         <StyledPlayIcon
+          disabled={sentences.length === 0}
           style={elevatedButton}
           accessibilityLabel={t(isPlaying ? 'pause' : 'play')}
-          onPress={() => {
-            if (isPlaying && tts.enabled) {
-              pause()
-            } else {
-              play()
-            }
-          }}
+          onPress={() => (isPlaying ? pause() : play())}
           icon={<PlayButtonIcon Icon={isPlaying ? PauseIcon : PlayIcon} />}
         />
         {isPlaying && (
-          <StyledBackForthButton role='button' accessibilityLabel={t('next')} onPress={() => playNext(sentenceIndex)}>
+          <StyledBackForthButton role='button' accessibilityLabel={t('next')} onPress={playNext}>
             <Icon Icon={PlaybackIcon} />
             <StyledText>{t('next')}</StyledText>
           </StyledBackForthButton>
