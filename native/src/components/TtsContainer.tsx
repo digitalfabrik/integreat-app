@@ -52,11 +52,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
     })
   }, [])
 
-  const enabled =
-    Array.isArray(sentences) &&
-    sentences.length > 0 &&
-    Boolean(buildConfig().featureFlags.tts) &&
-    !unsupportedLanguagesForTts.includes(languageCode)
+  const enabled = buildConfig().featureFlags.tts && !unsupportedLanguagesForTts.includes(languageCode)
 
   const play = useCallback(
     (index = sentenceIndex) => {
@@ -93,25 +89,20 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
     setIsPlaying(false)
   }
 
-  const playNext = useCallback(
-    (index = sentenceIndex) => {
-      const nextIndex = index + 1
-      if (nextIndex < sentences.length) {
-        setSentenceIndex(nextIndex)
-        play(nextIndex)
-      } else {
-        stop()
-      }
-    },
-    [play, sentenceIndex, sentences.length],
-  )
-
-  const playPrevious = (index = sentenceIndex) => {
-    const previousIndex = index - 1
-    if (previousIndex >= 0) {
-      setSentenceIndex(previousIndex)
-      play(previousIndex)
+  const playNext = useCallback(() => {
+    const nextIndex = sentenceIndex + 1
+    if (nextIndex < sentences.length) {
+      setSentenceIndex(nextIndex)
+      play(nextIndex)
+    } else {
+      stop()
     }
+  }, [play, sentenceIndex, sentences.length])
+
+  const playPrevious = () => {
+    const previousIndex = Math.max(0, sentenceIndex - 1)
+    setSentenceIndex(previousIndex)
+    play(previousIndex)
   }
 
   useEffect(() => {
@@ -120,12 +111,9 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
     }
 
     initializeTts()
-    Tts.addEventListener('tts-finish', () => playNext(sentenceIndex))
-
-    return () => {
-      Tts.removeAllListeners('tts-finish')
-    }
-  }, [enabled, initializeTts, playNext, sentenceIndex, sentences.length])
+    Tts.addEventListener('tts-finish', playNext)
+    return () => Tts.removeAllListeners('tts-finish')
+  }, [enabled, initializeTts, playNext])
 
   useEffect(() => {
     const subscription = AppState.addEventListener('change', nextAppState => {
@@ -142,11 +130,9 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
     await stop()
   }
 
-  const modifiedSetSentences = useCallback((newSentences: string[]) => {
+  const updateSentences = useCallback((newSentences: string[]) => {
     setSentences(newSentences)
-    if (newSentences.length < 1) {
-      stop()
-    }
+    stop()
   }, [])
 
   const ttsContextValue = useMemo(
@@ -156,10 +142,9 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
       visible,
       setVisible,
       sentences,
-      setSentences: modifiedSetSentences,
-      languageCode,
+      setSentences: updateSentences,
     }),
-    [enabled, sentenceIndex, visible, sentences, modifiedSetSentences, languageCode],
+    [enabled, sentenceIndex, visible, sentences, updateSentences],
   )
 
   return (
@@ -168,7 +153,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
       {visible && (
         <TtsPlayer
           isPlaying={isPlaying}
-          sentenceIndex={sentenceIndex}
+          sentences={sentences}
           playPrevious={playPrevious}
           playNext={playNext}
           close={close}

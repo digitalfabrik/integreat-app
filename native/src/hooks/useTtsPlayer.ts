@@ -16,16 +16,12 @@ const useTtsPlayer = (model?: PageModel | LocalNewsModel | TunewsModel | undefin
       return [model.title, ...segment(languageCode, content)]
     }
 
-    return null
+    return []
   }, [model, languageCode])
 
   useEffect(() => {
-    if (sentences) {
-      setSentences(sentences)
-    }
-    return () => {
-      setSentences([])
-    }
+    setSentences(sentences)
+    return () => setSentences([])
   }, [sentences, setSentences])
 
   return {
