@@ -52,7 +52,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
     })
   }, [])
 
-  const enabled = buildConfig().featureFlags.tts && !unsupportedLanguagesForTts.includes(languageCode)
+  const enabled = Boolean(buildConfig().featureFlags.tts) && !unsupportedLanguagesForTts.includes(languageCode)
 
   const play = useCallback(
     (index = sentenceIndex) => {
