@@ -1,7 +1,7 @@
 import React, { ReactElement, useCallback, useContext, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, useWindowDimensions, ViewToken } from 'react-native'
-import styled, { css } from 'styled-components/native'
+import styled from 'styled-components/native'
 
 import { IntroRouteType, LANDING_ROUTE } from 'shared'
 
@@ -30,36 +30,11 @@ const Container = styled.View<{ width: number }>`
   background-color: ${props => props.theme.colors.backgroundColor};
 `
 
-const ImageStyle = css`
-  align-self: center;
-  flex: 1;
-  color: ${props => props.theme.colors.themeColor};
-`
-
-const styledIcons = {
-  Welcome: styled(IntroWelcomeIcon)`
-    ${ImageStyle};
-  `,
-  Language: styled(IntroLanguageIcon)`
-    ${ImageStyle};
-  `,
-  Search: styled(IntroSearchIcon)`
-    ${ImageStyle};
-  `,
-  Pois: styled(IntroPoisIcon)`
-    ${ImageStyle};
-  `,
-  News: styled(IntroNewsIcon)`
-    ${ImageStyle};
-  `,
-  Offline: styled(IntroOfflineIcon)`
-    ${ImageStyle};
-  `,
-}
-
 const StyledIcon = styled(Icon)`
   height: 100%;
   width: 80%;
+  color: ${props => props.theme.colors.themeColor};
+  align-self: center;
 `
 
 type IntroProps = {
@@ -82,19 +57,19 @@ const Intro = ({ route, navigation }: IntroProps): ReactElement => {
       key: 'integreat',
       title: t('welcome', { appName }),
       description: t('welcomeDescription', { appName }),
-      Content: <StyledIcon Icon={styledIcons.Welcome} />,
+      Content: <StyledIcon Icon={IntroWelcomeIcon} />,
     },
     {
       key: 'languageChange',
       title: t('languageChange', { appName }),
       description: t('languageChangeDescription', { appName }),
-      Content: <StyledIcon Icon={styledIcons.Language} />,
+      Content: <StyledIcon Icon={IntroLanguageIcon} />,
     },
     {
       key: 'search',
       title: t('search'),
       description: t('searchDescription'),
-      Content: <StyledIcon Icon={styledIcons.Search} />,
+      Content: <StyledIcon Icon={IntroSearchIcon} />,
     },
   ]
 
@@ -103,7 +78,7 @@ const Intro = ({ route, navigation }: IntroProps): ReactElement => {
       key: 'pois',
       title: t('pois'),
       description: t('poisDescription'),
-      Content: <StyledIcon Icon={styledIcons.Pois} />,
+      Content: <StyledIcon Icon={IntroPoisIcon} />,
     })
   }
 
@@ -112,7 +87,7 @@ const Intro = ({ route, navigation }: IntroProps): ReactElement => {
       key: 'news',
       title: t('newsDescription', { appName }),
       description: t('newsDescription', { appName }),
-      Content: <StyledIcon Icon={styledIcons.News} />,
+      Content: <StyledIcon Icon={IntroNewsIcon} />,
     })
   }
 
@@ -122,7 +97,7 @@ const Intro = ({ route, navigation }: IntroProps): ReactElement => {
     description: t('offlineDescription', {
       appName,
     }),
-    Content: <StyledIcon Icon={styledIcons.Offline} />,
+    Content: <StyledIcon Icon={IntroOfflineIcon} />,
   })
 
   const onDone = useCallback(async () => {
