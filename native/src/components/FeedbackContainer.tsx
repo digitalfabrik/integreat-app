@@ -22,9 +22,17 @@ export type FeedbackContainerProps = {
   cityCode: string
   query?: string
   slug?: string
+  noResults: boolean
 }
 
-const FeedbackContainer = ({ query, language, routeType, cityCode, slug }: FeedbackContainerProps): ReactElement => {
+const FeedbackContainer = ({
+  query,
+  language,
+  routeType,
+  cityCode,
+  slug,
+  noResults,
+}: FeedbackContainerProps): ReactElement => {
   const [comment, setComment] = useState<string>('')
   const [contactMail, setContactMail] = useState<string>('')
   const [isPositiveRating, setIsPositiveRating] = useState<boolean | null>(null)
@@ -33,7 +41,10 @@ const FeedbackContainer = ({ query, language, routeType, cityCode, slug }: Feedb
 
   useEffect(() => {
     setSearchTerm(query)
-  }, [query])
+    if (noResults === true) {
+      setIsPositiveRating(false)
+    }
+  }, [query, noResults])
 
   const handleSubmit = () => {
     setSendingStatus('sending')
