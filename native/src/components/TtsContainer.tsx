@@ -14,6 +14,7 @@ const MAX_TITLE_DISPLAY_CHARS = 20
 
 export type TtsContextType = {
   enabled?: boolean
+  isContentAvailable?: boolean
   visible: boolean
   setVisible: (visible: boolean) => void
   sentences: string[] | null
@@ -22,6 +23,7 @@ export type TtsContextType = {
 
 export const TtsContext = createContext<TtsContextType>({
   enabled: false,
+  isContentAvailable: false,
   visible: false,
   setVisible: () => undefined,
   sentences: [],
@@ -52,7 +54,8 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
     })
   }, [])
 
-  const enabled = Boolean(buildConfig().featureFlags.tts) && !unsupportedLanguagesForTts.includes(languageCode)
+  const enabled = buildConfig().featureFlags.tts && !unsupportedLanguagesForTts.includes(languageCode)
+  const isContentAvailable = Array.isArray(sentences) && sentences.length > 0
 
   const play = useCallback(
     (index = sentenceIndex) => {
@@ -60,6 +63,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
       const sentence = sentences[index]
       if (sentence) {
         setIsPlaying(true)
+        Tts.setDefaultLanguage(languageCode)
         Tts.speak(sentence, {
           androidParams: {
             KEY_PARAM_PAN: 0,
@@ -71,7 +75,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
         })
       }
     },
-    [sentenceIndex, sentences],
+    [languageCode, sentenceIndex, sentences],
   )
 
   const stop = async () => {
@@ -138,13 +142,13 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
   const ttsContextValue = useMemo(
     () => ({
       enabled,
-      sentenceIndex,
+      isContentAvailable,
       visible,
       setVisible,
       sentences,
       setSentences: updateSentences,
     }),
-    [enabled, sentenceIndex, visible, sentences, updateSentences],
+    [enabled, isContentAvailable, visible, sentences, updateSentences],
   )
 
   return (
