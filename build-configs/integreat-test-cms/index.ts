@@ -23,6 +23,7 @@ const integreatTestCms = {
     fixedCity: null,
     cityNotCooperatingTemplate,
     chat: true,
+    tts: true,
   },
 }
 export const commonIntegreatTestCmsBuildConfig: CommonBuildConfigType = {

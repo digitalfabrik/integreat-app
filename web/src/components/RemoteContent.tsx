@@ -11,12 +11,14 @@ import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
 import useLocalStorage from '../hooks/useLocalStorage'
 import useWindowDimensions from '../hooks/useWindowDimensions'
+import { DetectedLanguageHelper } from '../utils/DetectedLanguageHelper'
 import {
   LOCAL_STORAGE_ITEM_EXTERNAL_SOURCES,
   handleAllowedIframeSources,
   hideIframe,
   preserveIFrameSourcesFromContent,
 } from '../utils/iframes'
+import TtsContainer from './TtsContainer'
 
 const SandBox = styled.div<{ $centered: boolean; $smallText: boolean }>`
   font-family: ${props => props.theme.fonts.web.contentFont};
@@ -273,14 +275,18 @@ const RemoteContent = ({
     }),
   }
 
+  const language = DetectedLanguageHelper().language
   return (
-    <SandBox
-      dir='auto'
-      $centered={centered}
-      dangerouslySetInnerHTML={dangerouslySetInnerHTML}
-      ref={sandBoxRef}
-      $smallText={smallText}
-    />
+    <>
+      <SandBox
+        dir='auto'
+        $centered={centered}
+        dangerouslySetInnerHTML={dangerouslySetInnerHTML}
+        ref={sandBoxRef}
+        $smallText={smallText}
+      />
+      <TtsContainer languageCode={language} />
+    </>
   )
 }
 

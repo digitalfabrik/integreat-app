@@ -7669,6 +7669,11 @@ eastasianwidth@^0.2.0:
   resolved "https://registry.yarnpkg.com/eastasianwidth/-/eastasianwidth-0.2.0.tgz#696ce2ec0aa0e6ea93a397ffcf24aa7840c827cb"
   integrity sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==
 
+easy-speech@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/easy-speech/-/easy-speech-2.4.0.tgz#2ef110cdfb40f79587b6d25678e4d62aa5ce25a7"
+  integrity sha512-wpMv29DEoeP/eyXr4aXpDqd9DvlXl7aQs7BgfKbjGVxqkmQPgNmpbF5YULaTH5bc/5qrteg5MDfCD2Zd0qr4rQ==
+
 easy-table@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/easy-table/-/easy-table-1.2.0.tgz#ba9225d7138fee307bfd4f0b5bc3c04bdc7c54eb"
@@ -14457,6 +14462,11 @@ send@0.19.0:
     on-finished "2.4.1"
     range-parser "~1.2.1"
     statuses "2.0.1"
+
+sentencex@^0.4.2:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/sentencex/-/sentencex-0.4.2.tgz#df26b8c7ecba752e259958d2e22d20893917564c"
+  integrity sha512-Pe/ARSCa2oJcg5ARYQsnQJPBEbAH1/h6ZWc80UuKCJO9w94setiFn4tH8iU2Eiogf5MlBMgc6NvL3ZGsguRkBA==
 
 serialize-error@^11.0.1:
   version "11.0.3"
