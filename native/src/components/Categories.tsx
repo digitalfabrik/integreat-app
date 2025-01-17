@@ -4,6 +4,7 @@ import { View } from 'react-native'
 import { CATEGORIES_ROUTE, getCategoryTiles, RouteInformationType } from 'shared'
 import { CategoriesMapModel, CategoryModel, CityModel } from 'shared/api'
 
+import useTtsPlayer from '../hooks/useTtsPlayer'
 import testID from '../testing/testID'
 import { LanguageResourceCacheStateType } from '../utils/DataContainer'
 import CategoryListItem from './CategoryListItem'
@@ -34,6 +35,7 @@ const Categories = ({
 }: CategoriesProps): ReactElement => {
   const children = categories.getChildren(category)
   const cityCode = cityModel.code
+  useTtsPlayer(categories.isLeaf(category) ? category : undefined)
 
   const navigateToCategory = ({ path }: { path: string }) =>
     navigateTo({
