@@ -85,11 +85,7 @@ const Header = ({
   // Save route/canGoBack to state to prevent it from changing during navigating which would lead to flickering of the title and back button
   const [previousRoute] = useState(navigation.getState().routes[navigation.getState().routes.length - 2])
   const [canGoBack] = useState(navigation.canGoBack())
-  const {
-    enabled: isTtsEnabled,
-    setVisible: setTtsPlayerVisible,
-    isContentAvailable: isTtsContentEnabled,
-  } = useTtsPlayer()
+  const { enabled: isTtsEnabled, setVisible: setTtsPlayerVisible, canRead } = useTtsPlayer()
 
   const onShare = async () => {
     if (!shareUrl) {
@@ -202,11 +198,12 @@ const Header = ({
         renderOverflowItem(HeaderButtonTitle.Settings, () => navigation.navigate(SETTINGS_ROUTE)),
         ...(isTtsEnabled
           ? [
-              renderOverflowItem(t(HeaderButtonTitle.ReadAloud), () =>
-                isTtsContentEnabled
-                  ? setTtsPlayerVisible(true)
-                  : (showSnackbar({ text: t('nothingToReadFullMessage') }), setTtsPlayerVisible(false)),
-              ),
+              renderOverflowItem(t(HeaderButtonTitle.ReadAloud), () => {
+                setTtsPlayerVisible(canRead)
+                if (!canRead) {
+                  showSnackbar({ text: t('nothingToReadFullMessage') })
+                }
+              }),
             ]
           : []),
         ...(route.name !== NEWS_ROUTE ? [renderOverflowItem(HeaderButtonTitle.Feedback, navigateToFeedback)] : []),
@@ -230,7 +227,7 @@ const Header = ({
       return { text: t('locations'), language: undefined } // system language
     }
 
-    const previousRouteTitle = (previousRoute.params as { path?: string } | undefined)?.path
+    const previousRouteTitle = (previousRoute.params as { title?: string } | undefined)?.title
 
     if (previousRouteTitle) {
       return { text: previousRouteTitle, language: languageCode }
@@ -243,7 +240,7 @@ const Header = ({
       }
     }
 
-    return { text: previousRoute.name, language: undefined } // system language
+    return { text: t(previousRoute.name), language: undefined } // system language
   }
 
   return (
