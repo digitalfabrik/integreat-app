@@ -56,7 +56,7 @@ export const FeedbackContainer = ({
         query,
         slug,
         searchTerm,
-        isPositiveRating: noResults === true ? false : isPositiveRating,
+        isPositiveRating: !noResults && isPositiveRating,
       })
 
       setSendingStatus('successful')

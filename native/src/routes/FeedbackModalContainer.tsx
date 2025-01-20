@@ -11,7 +11,7 @@ type FeedbackModalContainerProps = {
 }
 
 const FeedbackModalContainer = ({ route }: FeedbackModalContainerProps): ReactElement => (
-  <FeedbackContainer {...route.params} noResults={false} />
+  <FeedbackContainer {...route.params} />
 )
 
 export default FeedbackModalContainer

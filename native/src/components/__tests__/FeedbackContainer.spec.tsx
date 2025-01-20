@@ -28,12 +28,11 @@ describe('FeedbackContainer', () => {
 
   const city = 'augsburg'
   const language = 'de'
-  const noResults = false
 
   it('should send feedback request with rating and no other inputs on submit', async () => {
     const { getByText, findByText } = render(
       <NavigationContainer>
-        <FeedbackContainer routeType={CATEGORIES_ROUTE} language={language} cityCode={city} noResults={noResults} />
+        <FeedbackContainer routeType={CATEGORIES_ROUTE} language={language} cityCode={city} />
       </NavigationContainer>,
     )
     const positiveRatingButton = getByText('useful')
@@ -71,7 +70,7 @@ describe('FeedbackContainer', () => {
     const contactMail = 'test@example.com'
     const { getByText, findByText, getAllByDisplayValue } = render(
       <NavigationContainer>
-        <FeedbackContainer routeType={CATEGORIES_ROUTE} language={language} cityCode={city} noResults={noResults} />
+        <FeedbackContainer routeType={CATEGORIES_ROUTE} language={language} cityCode={city} />
       </NavigationContainer>,
     )
     const [commentField, emailField] = getAllByDisplayValue('')
@@ -107,7 +106,7 @@ describe('FeedbackContainer', () => {
   it('should disable send feedback button if rating button is clicked twice', async () => {
     const { getByText, findByText } = render(
       <NavigationContainer>
-        <FeedbackContainer routeType={CATEGORIES_ROUTE} language={language} cityCode={city} noResults={noResults} />
+        <FeedbackContainer routeType={CATEGORIES_ROUTE} language={language} cityCode={city} />
       </NavigationContainer>,
     )
     const positiveRatingButton = getByText('useful')
@@ -121,13 +120,7 @@ describe('FeedbackContainer', () => {
     const query = 'Zeugnis'
     const { findByText, getByText } = render(
       <NavigationContainer>
-        <FeedbackContainer
-          routeType={SEARCH_ROUTE}
-          language={language}
-          cityCode={city}
-          query={query}
-          noResults={noResults}
-        />
+        <FeedbackContainer routeType={SEARCH_ROUTE} language={language} cityCode={city} query={query} />
       </NavigationContainer>,
     )
     const button = getByText('send')
@@ -152,13 +145,7 @@ describe('FeedbackContainer', () => {
     const fullSearchTerm = 'Zeugnisübergabe'
     const { findByText, getByDisplayValue, getByText } = render(
       <NavigationContainer>
-        <FeedbackContainer
-          routeType={SEARCH_ROUTE}
-          language={language}
-          cityCode={city}
-          query={query}
-          noResults={noResults}
-        />
+        <FeedbackContainer routeType={SEARCH_ROUTE} language={language} cityCode={city} query={query} />
       </NavigationContainer>,
     )
     const input = getByDisplayValue(query)
@@ -183,13 +170,7 @@ describe('FeedbackContainer', () => {
   it('should disable send button if query term is removed', async () => {
     const { findByText, getByDisplayValue } = render(
       <NavigationContainer>
-        <FeedbackContainer
-          routeType={SEARCH_ROUTE}
-          language={language}
-          cityCode={city}
-          query='query'
-          noResults={noResults}
-        />
+        <FeedbackContainer routeType={SEARCH_ROUTE} language={language} cityCode={city} query='query' />
       </NavigationContainer>,
     )
     expect(await findByText('send')).not.toBeDisabled()

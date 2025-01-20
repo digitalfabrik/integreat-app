@@ -22,7 +22,7 @@ export type FeedbackContainerProps = {
   cityCode: string
   query?: string
   slug?: string
-  noResults: boolean
+  noResults?: boolean
 }
 
 const FeedbackContainer = ({
@@ -31,20 +31,17 @@ const FeedbackContainer = ({
   routeType,
   cityCode,
   slug,
-  noResults,
+  noResults = false,
 }: FeedbackContainerProps): ReactElement => {
   const [comment, setComment] = useState<string>('')
   const [contactMail, setContactMail] = useState<string>('')
-  const [isPositiveRating, setIsPositiveRating] = useState<boolean | null>(null)
+  const [isPositiveRating, setIsPositiveRating] = useState<boolean | null>(noResults ? false : null)
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
   const [searchTerm, setSearchTerm] = useState<string | undefined>(query)
 
   useEffect(() => {
     setSearchTerm(query)
-    if (noResults === true) {
-      setIsPositiveRating(false)
-    }
-  }, [query, noResults])
+  }, [query])
 
   const handleSubmit = () => {
     setSendingStatus('sending')
