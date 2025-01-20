@@ -1605,7 +1605,9 @@
       "knownResourceOptIn": "Ich bin damit einverstanden, dass mir Inhalte dieser externen Quelle angezeigt werden.",
       "knownResourceContentMessage": "Dieses Element enthält Daten von dieser externen Quelle. Du kannst die Einbettung solcher Inhalte in den Einstellungen blockieren",
       "knownResourceBlocked": "Externer Inhalt von dieser Quelle wurde blockiert. In den Einstellungen kannst du diese Quelle zulassen.",
-      "noSources": "Keine externen Quellen verfügbar."
+      "noSources": "Keine externen Quellen verfügbar.",
+      "privacyAgreement": "Ich habe die <1>Datenschutzerklärung</1> gelesen und stimme der Verarbeitung und Speicherung meiner Daten zu.",
+      "privacyAgreementLink": "Datenschutzerklärung"
     },
     "am": {
       "title": "የውጭ ምንጮች",
@@ -1685,7 +1687,9 @@
       "knownResourceOptIn": "I agree that content from this external source may be displayed to me.",
       "knownResourceContentMessage": "This element contains data from this external source. You can block the embedding of such content in the settings.",
       "knownResourceBlocked": "External content from this source has been blocked. You can allow this source in the settings.",
-      "noSources": "No external sources available."
+      "noSources": "No external sources available.",
+      "privacyAgreement": "I have read the <1>privacy policy</1> and agree to the processing and storage of my data.",
+      "privacyAgreementLink": "privacy policy"
     },
     "es": {
       "title": "Fuentes externas",
@@ -4736,8 +4740,7 @@
       "positiveRating": "Diese Seite ist hilfreich",
       "searchTermDescription": "Für den folgenden Begriff konnte kein Ergebnis gefunden werden:",
       "contactMailAddress": "E-Mail für Rückfragen",
-      "note": "Bitte wähle eine Reaktion oder schreibe einen Kommentar, um das Feedback abschicken zu können.",
-      "privacyAgreement": "Ich habe die <1>Datenschutzerklärung</1> gelesen und stimme der Verarbeitung und Speicherung meiner Daten zu."
+      "note": "Bitte wähle eine Reaktion oder schreibe einen Kommentar, um das Feedback abschicken zu können."
     },
     "am": {
       "disclaimer": "የግንኙነት መረጃና ዕትም",
@@ -4921,8 +4924,7 @@
       "positiveRating": "This site is useful",
       "searchTermDescription": "No result could be found for the following term:",
       "contactMailAddress": "E-Mail for further questions",
-      "note": "Please select a reaction or write a comment in order to send feedback.",
-      "privacyAgreement": "I have read the <1>privacy policy</1> and agree to the processing and storage of my data."
+      "note": "Please select a reaction or write a comment in order to send feedback."
     },
     "es": {
       "disclaimer": "Contacto y aviso legal",

@@ -116,7 +116,7 @@ const Feedback = ({
       <Checkbox
         checked={privacyCheckedFilter}
         setChecked={setPrivacyCheckedFilter}
-        label={'feedback:privacyAgreement'}
+        label={'consent:privacyAgreement'}
         id='privacyAgreement'
         link='https://integreat-app.de/datenschutz/'
       />
