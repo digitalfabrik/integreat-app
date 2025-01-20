@@ -65,7 +65,6 @@ const handleKeyPress = (key: string, currentInput: string | undefined, refPrev?:
 }
 
 type DatePickerInputProps = {
-  ref?: RefObject<TextInput>
   nextTargetRef?: RefObject<TextInput>
   prevTargetRef?: RefObject<TextInput>
   placeholder: string
