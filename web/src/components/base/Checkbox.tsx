@@ -1,6 +1,4 @@
 import React, { ReactElement } from 'react'
-import { Trans, useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 const Container = styled.div`
@@ -35,22 +33,12 @@ type CheckboxProps = {
   setChecked: (checked: boolean) => void
   label: string | ReactElement
   id: string
-  link?: string
 }
 
-const Checkbox = ({ checked, setChecked, label, id, link }: CheckboxProps): ReactElement => {
+const Checkbox = ({ checked, setChecked, label, id }: CheckboxProps): ReactElement => {
   return (
     <Container>
-      <StyledLabel htmlFor={id}>
-        {typeof label !== 'string' ? (
-          { label }
-        ) : (
-          <Trans i18nKey={label}>
-            This gets replaced
-            {<Link to={link}>by react-i18next</Link>}
-          </Trans>
-        )}
-      </StyledLabel>
+      <StyledLabel htmlFor={id}>{label}</StyledLabel>
       <FlexEnd>
         <StyledCheckbox type='checkbox' id={id} checked={checked} onChange={() => setChecked(!checked)} />
       </FlexEnd>

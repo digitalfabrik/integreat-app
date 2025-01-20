@@ -8,7 +8,7 @@ import Failure from './Failure'
 import FeedbackButtons from './FeedbackButtons'
 import { SendingStatusType } from './FeedbackContainer'
 import Note from './Note'
-import Checkbox from './base/Checkbox'
+import PrivacyCheckbox from './PrivacyCheckbox'
 import Input from './base/Input'
 import InputSection from './base/InputSection'
 import TextButton from './base/TextButton'
@@ -113,13 +113,7 @@ const Feedback = ({
 
       {!isSearchFeedback && sendFeedbackDisabled && <Note text={t('note')} />}
       {sendingStatus === 'failed' && <ErrorSendingStatus role='alert'>{t('failedSendingFeedback')}</ErrorSendingStatus>}
-      <Checkbox
-        checked={privacyCheckedFilter}
-        setChecked={setPrivacyCheckedFilter}
-        label={'consent:privacyAgreement'}
-        id='privacyAgreement'
-        link='https://integreat-app.de/datenschutz/'
-      />
+      <PrivacyCheckbox checked={privacyCheckedFilter} setChecked={setPrivacyCheckedFilter} id='privacyAgreement' />
       <StyledTextButton disabled={sendFeedbackDisabled && !privacyCheckedFilter} onClick={onSubmit} text={t('send')} />
     </Container>
   )
