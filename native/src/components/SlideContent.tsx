@@ -7,33 +7,40 @@ const Container = styled.View<{ width: number }>`
   justify-content: space-around;
   padding: 32px 16px;
   flex: 1;
-  background-color: ${props => props.theme.colors.backgroundColor};
   width: ${props => props.width}px;
 `
+
 const TextContainer = styled.View`
-  flex: 1;
-  justify-content: center;
+  padding: 0 24px;
+  gap: 10px;
+  min-height: 150px;
+  justify-content: baseline;
 `
+
 const Heading = styled.Text`
-  font-size: 35px;
-  text-align: center;
+  font-size: 19px;
   color: ${props => props.theme.colors.textColor};
+  font-family: ${props => props.theme.fonts.native.contentFontBold};
+  margin-top: 10px;
 `
+
 const ContentContainer = styled.View<{ description: boolean }>`
   flex: ${props => (props.description ? 2 : 2 + 1)};
 `
+
 const Description = styled.Text`
-  font-size: 20px;
+  font-size: 16px;
   color: ${props => props.theme.colors.textColor};
-  padding: 0 24px;
-  text-align: center;
+  font-family: ${props => props.theme.fonts.native.contentFontRegular};
 `
+
 export type SlideContentType = {
   key: string
   title: string
   description?: string
   Content: ReactElement
 }
+
 type SlideContentProps = {
   item: SlideContentType
   width: number
@@ -45,12 +52,10 @@ const SlideContent = ({ item, width }: SlideContentProps): ReactElement => (
       flexGrow: 1,
     }}>
     <Container width={width}>
-      <TextContainer>
-        <Heading>{item.title}</Heading>
-      </TextContainer>
       <ContentContainer description={item.description !== undefined}>{item.Content}</ContentContainer>
       {!!item.description && (
         <TextContainer>
+          <Heading>{item.title}</Heading>
           <Description>{item.description}</Description>
         </TextContainer>
       )}

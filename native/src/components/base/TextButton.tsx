@@ -27,7 +27,7 @@ type TextButtonProps = {
   disabled?: boolean
   type?: 'primary' | 'clear'
   style?: StyleProp<ViewStyle>
-  textStyle?: TextStyle
+  textStyle?: StyleProp<TextStyle>
 }
 
 const TextButton = ({
