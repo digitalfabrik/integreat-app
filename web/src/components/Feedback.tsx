@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
@@ -8,6 +8,7 @@ import Failure from './Failure'
 import FeedbackButtons from './FeedbackButtons'
 import { SendingStatusType } from './FeedbackContainer'
 import Note from './Note'
+import PrivacyCheckbox from './PrivacyCheckbox'
 import Input from './base/Input'
 import InputSection from './base/InputSection'
 import TextButton from './base/TextButton'
@@ -73,6 +74,7 @@ const Feedback = ({
 
   const isSearchFeedback = searchTerm !== undefined
   const commentTitle = isSearchFeedback ? 'wantedInformation' : 'commentHeadline'
+  const [privacyCheckedFilter, setPrivacyCheckedFilter] = useState(false)
   const sendFeedbackDisabled = isPositiveFeedback === null && comment.trim().length === 0 && !searchTerm
 
   if (sendingStatus === 'successful') {
@@ -111,7 +113,8 @@ const Feedback = ({
 
       {!isSearchFeedback && sendFeedbackDisabled && <Note text={t('note')} />}
       {sendingStatus === 'failed' && <ErrorSendingStatus role='alert'>{t('failedSendingFeedback')}</ErrorSendingStatus>}
-      <StyledTextButton disabled={sendFeedbackDisabled} onClick={onSubmit} text={t('send')} />
+      <PrivacyCheckbox checked={privacyCheckedFilter} setChecked={setPrivacyCheckedFilter} id='privacyAgreement' />
+      <StyledTextButton disabled={sendFeedbackDisabled || !privacyCheckedFilter} onClick={onSubmit} text={t('send')} />
     </Container>
   )
 }

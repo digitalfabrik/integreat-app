@@ -31,7 +31,7 @@ const FlexEnd = styled.div`
 type CheckboxProps = {
   checked: boolean
   setChecked: (checked: boolean) => void
-  label: string
+  label: string | ReactElement
   id: string
 }
 
@@ -39,7 +39,7 @@ const Checkbox = ({ checked, setChecked, label, id }: CheckboxProps): ReactEleme
   <Container>
     <StyledLabel htmlFor={id}>{label}</StyledLabel>
     <FlexEnd>
-      <StyledCheckbox type='checkbox' id={id} value={label} checked={checked} onChange={() => setChecked(!checked)} />
+      <StyledCheckbox type='checkbox' id={id} checked={checked} onChange={() => setChecked(!checked)} />
     </FlexEnd>
   </Container>
 )

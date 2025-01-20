@@ -1119,7 +1119,9 @@
       "showLess": "Weniger anzeigen",
       "optional": "optional",
       "back": "Zurück",
-      "ok": "Ok"
+      "ok": "Ok",
+      "privacyAgreement": "Ich habe die <1>Datenschutzerklärung</1> gelesen und stimme der Verarbeitung und Speicherung meiner Daten zu.",
+      "privacyAgreementLink": "Datenschutzerklärung"
     },
     "am": {
       "copied": "ተቀድቷል",
@@ -1231,7 +1233,9 @@
       "showLess": "Show less",
       "optional": "optional",
       "back": "Back",
-      "ok": "Ok"
+      "ok": "Ok",
+      "privacyAgreement": "I have read the <1>privacy policy</1> and agree to the processing and storage of my data.",
+      "privacyAgreementLink": "privacy policy"
     },
     "es": {
       "copied": "Copiado",
