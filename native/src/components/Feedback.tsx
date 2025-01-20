@@ -14,8 +14,7 @@ import HorizontalLine from './HorizontalLine'
 import LoadingSpinner from './LoadingSpinner'
 import Note from './Note'
 import NothingFound from './NothingFound'
-import { SnackbarType } from './SnackbarContainer'
-import Checkbox from './base/Checkbox'
+import PrivacyCheckbox from './PrivacyCheckbox'
 import InputSection from './base/InputSection'
 import TextButton from './base/TextButton'
 
@@ -111,12 +110,9 @@ const Feedback = ({
           showOptional
         />
         {sendingStatus === 'failed' && <Description>{t('failedSendingFeedback')}</Description>}
-        <Checkbox
+        <PrivacyCheckbox
           checked={privacyCheckedFilter}
           setChecked={setPrivacyCheckedFilter}
-          label={'feedback:privacyAgreement'}
-          id='privacyAgreement'
-          link='https://integreat-app.de/datenschutz/'
           showSnackbar={showSnackbar}
         />
         {!isSearchFeedback && submitDisabled && <Note text={t('note')} />}
