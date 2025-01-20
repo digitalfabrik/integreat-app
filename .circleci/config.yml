@@ -282,9 +282,6 @@ jobs:
                     export PATH=$HOME/ninja:$HOME/cmake-3.22.1-Linux-x86_64/bin:$PATH
                 name: Set CMake and Ninja Paths
             - run:
-                command: yes | sdkmanager --licenses || if [ $? -ne '141' ]; then exit $?; fi;
-                name: Accept Android SDK Licenses
-            - run:
                 command: bundle exec fastlane keystore
                 name: '[FL] Prepare Android Keystore'
                 working_directory: native/android

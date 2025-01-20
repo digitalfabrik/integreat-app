@@ -23,9 +23,9 @@ steps:
   - restore_ruby_cache:
       directory: native/android
   - restore_gradle_cache
+  # The following commands are necessary since react-native-reanimated requires Ninja and CMake to build
+  # https://github.com/software-mansion/react-native-reanimated/issues/5498#issuecomment-1857506574
   - run:
-      # The following commands are necessary since react-native-reanimated requires CMake and Ninja to build
-      # https://github.com/software-mansion/react-native-reanimated/issues/5498#issuecomment-1857506574
       name: Install Ninja
       command: |
         sudo apt-get update && sudo apt-get install -y ninja-build
@@ -39,9 +39,6 @@ steps:
       name: Set CMake and Ninja Paths
       command: |
         export PATH=$HOME/ninja:$HOME/cmake-3.22.1-Linux-x86_64/bin:$PATH
-  - run:
-      name: Accept Android SDK Licenses
-      command: yes | sdkmanager --licenses || if [ $? -ne '141' ]; then exit $?; fi;
   - run:
       name: '[FL] Prepare Android Keystore'
       command: bundle exec fastlane keystore
