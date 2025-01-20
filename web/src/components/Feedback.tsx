@@ -114,7 +114,7 @@ const Feedback = ({
       {!isSearchFeedback && sendFeedbackDisabled && <Note text={t('note')} />}
       {sendingStatus === 'failed' && <ErrorSendingStatus role='alert'>{t('failedSendingFeedback')}</ErrorSendingStatus>}
       <PrivacyCheckbox checked={privacyCheckedFilter} setChecked={setPrivacyCheckedFilter} id='privacyAgreement' />
-      <StyledTextButton disabled={sendFeedbackDisabled && !privacyCheckedFilter} onClick={onSubmit} text={t('send')} />
+      <StyledTextButton disabled={sendFeedbackDisabled || !privacyCheckedFilter} onClick={onSubmit} text={t('send')} />
     </Container>
   )
 }

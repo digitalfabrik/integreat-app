@@ -1090,7 +1090,9 @@
       "showLess": "Weniger anzeigen",
       "optional": "optional",
       "back": "Zurück",
-      "ok": "Ok"
+      "ok": "Ok",
+      "privacyAgreement": "Ich habe die <1>Datenschutzerklärung</1> gelesen und stimme der Verarbeitung und Speicherung meiner Daten zu.",
+      "privacyAgreementLink": "Datenschutzerklärung"
     },
     "am": {
       "copied": "ተቀድቷል",
@@ -1202,7 +1204,9 @@
       "showLess": "Show less",
       "optional": "optional",
       "back": "Back",
-      "ok": "Ok"
+      "ok": "Ok",
+      "privacyAgreement": "I have read the <1>privacy policy</1> and agree to the processing and storage of my data.",
+      "privacyAgreementLink": "privacy policy"
     },
     "es": {
       "copied": "Copiado",
@@ -1605,9 +1609,7 @@
       "knownResourceOptIn": "Ich bin damit einverstanden, dass mir Inhalte dieser externen Quelle angezeigt werden.",
       "knownResourceContentMessage": "Dieses Element enthält Daten von dieser externen Quelle. Du kannst die Einbettung solcher Inhalte in den Einstellungen blockieren",
       "knownResourceBlocked": "Externer Inhalt von dieser Quelle wurde blockiert. In den Einstellungen kannst du diese Quelle zulassen.",
-      "noSources": "Keine externen Quellen verfügbar.",
-      "privacyAgreement": "Ich habe die <1>Datenschutzerklärung</1> gelesen und stimme der Verarbeitung und Speicherung meiner Daten zu.",
-      "privacyAgreementLink": "Datenschutzerklärung"
+      "noSources": "Keine externen Quellen verfügbar."
     },
     "am": {
       "title": "የውጭ ምንጮች",
@@ -1687,9 +1689,7 @@
       "knownResourceOptIn": "I agree that content from this external source may be displayed to me.",
       "knownResourceContentMessage": "This element contains data from this external source. You can block the embedding of such content in the settings.",
       "knownResourceBlocked": "External content from this source has been blocked. You can allow this source in the settings.",
-      "noSources": "No external sources available.",
-      "privacyAgreement": "I have read the <1>privacy policy</1> and agree to the processing and storage of my data.",
-      "privacyAgreementLink": "privacy policy"
+      "noSources": "No external sources available."
     },
     "es": {
       "title": "Fuentes externas",

@@ -32,12 +32,12 @@ type PrivacyCheckboxProps = {
 }
 
 const PrivacyCheckbox = ({ checked, setChecked, showSnackbar }: PrivacyCheckboxProps): ReactElement => {
-  const { t } = useTranslation('consent')
+  const { t } = useTranslation('common')
   const link = 'https://integreat-app.de/datenschutz/'
   return (
     <FlexContainer onPress={() => setChecked(!checked)}>
       <StyledLabel>
-        <Trans i18nKey={'consent:privacyAgreement'}>
+        <Trans i18nKey='common:privacyAgreement'>
           This gets replaced
           <StyledLink url={link} onPress={() => openExternalUrl(link, showSnackbar)} text={t('privacyAgreementLink')}>
             by react-i18next

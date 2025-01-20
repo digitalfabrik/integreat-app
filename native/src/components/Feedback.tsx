@@ -116,7 +116,7 @@ const Feedback = ({
           showSnackbar={showSnackbar}
         />
         {!isSearchFeedback && submitDisabled && <Note text={t('note')} />}
-        <StyledButton disabled={submitDisabled && !privacyCheckedFilter} onPress={onSubmit} text={t('send')} />
+        <StyledButton disabled={submitDisabled || !privacyCheckedFilter} onPress={onSubmit} text={t('send')} />
       </Wrapper>
     </KeyboardAwareScrollView>
   )
