@@ -35,15 +35,13 @@ type CheckboxProps = {
   id: string
 }
 
-const Checkbox = ({ checked, setChecked, label, id }: CheckboxProps): ReactElement => {
-  return (
-    <Container>
-      <StyledLabel htmlFor={id}>{label}</StyledLabel>
-      <FlexEnd>
-        <StyledCheckbox type='checkbox' id={id} checked={checked} onChange={() => setChecked(!checked)} />
-      </FlexEnd>
-    </Container>
-  )
-}
+const Checkbox = ({ checked, setChecked, label, id }: CheckboxProps): ReactElement => (
+  <Container>
+    <StyledLabel htmlFor={id}>{label}</StyledLabel>
+    <FlexEnd>
+      <StyledCheckbox type='checkbox' id={id} checked={checked} onChange={() => setChecked(!checked)} />
+    </FlexEnd>
+  </Container>
+)
 
 export default Checkbox

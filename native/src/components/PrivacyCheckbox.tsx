@@ -9,6 +9,8 @@ import Checkbox from './base/Checkbox'
 
 const FlexContainer = styled.Pressable`
   display: flex;
+  flex-direction: row;
+  align-items: baseline;
   flex: 1;
 `
 

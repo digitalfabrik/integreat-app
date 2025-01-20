@@ -17,7 +17,7 @@ const PrivacyCheckbox = ({ checked, setChecked, id }: PrivacyCheckboxProps): Rea
       checked={checked}
       setChecked={setChecked}
       label={
-        <Trans i18nKey={'common:privacyAgreement'}>
+        <Trans i18nKey='common:privacyAgreement'>
           This gets replaced
           <Link to={link}>by react-i18next</Link>
         </Trans>
