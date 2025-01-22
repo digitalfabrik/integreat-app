@@ -67,6 +67,9 @@ _delivery_, _native_beta_delivery_, _native_production_delivery_, _web_beta_deli
 cd tools && yarn trigger-pipeline trigger <workflow-type> --api-token <api-token> [--branch <branch>]
 ```
 
+Note: All of these workflows use the current status on the main branch. To get the status from beta to production, use the _promotion_
+workflow.
+
 ## Services
 
 ### deliverino (GitHub)
