@@ -1,11 +1,7 @@
 when:
-  or:
-    - and:
-        - << pipeline.parameters.api_triggered >>
-        - equal: [<< pipeline.parameters.workflow_type >>, e2e_tests]
-    - and:
-        - equal: [main, << pipeline.git.branch >>]
-        - not: << pipeline.parameters.api_triggered >>
+  and:
+    - << pipeline.parameters.api_triggered >>
+    - equal: [<< pipeline.parameters.workflow_type >>, e2e_tests]
 jobs:
   - bump_version:
       prepare_delivery: false

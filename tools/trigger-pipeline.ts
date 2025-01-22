@@ -14,6 +14,7 @@ const WORKFLOW_TYPES = [
   'web_promotion',
   'delivery',
   'e2e_tests',
+  'native_browserstack',
 ]
 
 program
