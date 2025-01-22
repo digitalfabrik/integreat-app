@@ -5,13 +5,13 @@ import segment from 'sentencex'
 import { parseHTML } from 'shared'
 import { EventModel, LocalNewsModel, PageModel, TunewsModel } from 'shared/api'
 
-import { ttsContext, TtsContextType } from '../contexts/TtsContextProvider'
+import { TtsContext, TtsContextType } from '../contexts/TtsContextProvider'
 
 const useTtsPlayer = (
   languageCode?: string,
   model?: PageModel | LocalNewsModel | TunewsModel | EventModel | null,
 ): TtsContextType => {
-  const tts = useContext(ttsContext)
+  const tts = useContext(TtsContext)
   const location = useLocation()
 
   const sentences = useMemo(() => {
@@ -47,14 +47,21 @@ const useTtsPlayer = (
     return () => {
       tts.setSentences([])
     }
-  }, [sentences, tts])
+    // I disabled eslint due to tts changes every render
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sentences, tts.setSentences])
 
   useEffect(() => {
     const synth = window.speechSynthesis
-    synth.cancel()
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    if (synth !== undefined) {
+      synth.cancel()
+    }
   }, [location.pathname])
 
   return {
+    enabled: tts.enabled,
+    canRead: tts.canRead,
     visible: tts.visible,
     setVisible: tts.setVisible,
     sentences: tts.sentences,

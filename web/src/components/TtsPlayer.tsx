@@ -131,7 +131,14 @@ const TtsPlayer = ({
   if (isVisible) {
     return (
       <>
-        {showHelpModal && <TtsHelpModal closeModal={() => setShowHelpModal(false)} />}
+        {showHelpModal && (
+          <TtsHelpModal
+            closeModal={() => {
+              setShowHelpModal(false)
+              togglePlayPause()
+            }}
+          />
+        )}
         <StyledTtsPlayer $isPlaying={isPlaying}>
           <StyledPanel
             $isPlaying={isPlaying}

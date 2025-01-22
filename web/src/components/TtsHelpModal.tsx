@@ -68,6 +68,7 @@ const helpItemsData = [
     path: 'https://support.apple.com/en-us/HT202362',
   },
 ]
+
 const HelpModalItem = ({ icon, title, path }: { icon: string; title: string; path: string }) => (
   <div>
     <StyledItem to={path} target='_blank'>
@@ -76,6 +77,7 @@ const HelpModalItem = ({ icon, title, path }: { icon: string; title: string; pat
     </StyledItem>
   </div>
 )
+
 const TtsHelpModal = ({ closeModal }: { closeModal: () => void }): ReactElement => {
   const theme = useTheme()
   const { t } = useTranslation('layout')

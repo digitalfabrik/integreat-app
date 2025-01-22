@@ -11,7 +11,6 @@ import FeedbackToolbarItem from './FeedbackToolbarItem'
 import SharingPopup from './SharingPopup'
 import Toolbar from './Toolbar'
 import ToolbarItem from './ToolbarItem'
-import { isTtsEnabled } from './TtsContainer'
 import Tooltip from './base/Tooltip'
 
 type CityContentToolbarProps = {
@@ -40,6 +39,7 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
     isInBottomActionSheet = false,
   } = props
   const [linkCopied, setLinkCopied] = useState<boolean>(false)
+  const [ttsToolTip, seTtsToolTip] = useState<boolean>(false)
   const { t } = useTranslation('layout')
   const copyToClipboard = () => {
     navigator.clipboard.writeText(window.location.href).catch(reportError)
@@ -49,24 +49,52 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
     }, COPY_TIMEOUT)
   }
 
+  const showTtsWarning = () => {
+    seTtsToolTip(true)
+    setTimeout(() => {
+      seTtsToolTip(false)
+    }, COPY_TIMEOUT)
+  }
+
   const theme = useTheme()
   const tooltipDirectionForDesktop: PlacesType = theme.contentDirection === 'ltr' ? 'right' : 'left'
   const tooltipDirection: PlacesType = viewportSmall ? 'top' : tooltipDirectionForDesktop
-  const { setVisible: setTtsPlayerVisible, sentences } = useTtsPlayer()
-  const readAloudItem = isTtsEnabled(sentences) ? (
-    <ToolbarItem icon={ReadAloud} text={t('readAloud')} onClick={() => setTtsPlayerVisible(true)} id='readAloud-icon' />
+  const { enabled: isTtsEnabled, setVisible: setTtsPlayerVisible, canRead } = useTtsPlayer()
+  const ttsItem = isTtsEnabled ? (
+    <ToolbarItem
+      icon={ReadAloud}
+      text={t('readAloud')}
+      onClick={() => {
+        if (canRead) {
+          setTtsPlayerVisible(true)
+        } else {
+          showTtsWarning()
+        }
+      }}
+      id='readAloud-icon'
+    />
   ) : null
 
   return (
     <Toolbar iconDirection={iconDirection} hideDivider={hideDivider}>
       {children}
-      {readAloudItem}
+
+      <Tooltip
+        id='tts-icon'
+        openOnClick
+        isOpen={ttsToolTip}
+        place={tooltipDirection}
+        tooltipContent={t('layout:nothingToReadFullMessage')}>
+        {ttsItem}
+      </Tooltip>
+
       <SharingPopup
         shareUrl={window.location.href}
         flow={iconDirection === 'row' ? 'vertical' : 'horizontal'}
         title={pageTitle}
         portalNeeded={isInBottomActionSheet}
       />
+
       <Tooltip
         id='copy-icon'
         openOnClick
@@ -80,6 +108,7 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
           id='copy-icon'
         />
       </Tooltip>
+
       {hasFeedbackOption && <FeedbackToolbarItem route={route} slug={feedbackTarget} />}
     </Toolbar>
   )

@@ -4,15 +4,11 @@ import { useTranslation } from 'react-i18next'
 
 import { truncate } from 'shared/utils/getExcerpt'
 
-import buildConfig from '../constants/buildConfig'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 import { reportError } from '../utils/sentry'
 import TtsPlayer from './TtsPlayer'
 
 const MAX_TITLE_DISPLAY_CHARS = 20
-
-export const isTtsEnabled = (content: string[]): boolean =>
-  Array.isArray(content) && content.length > 0 && buildConfig().featureFlags.tts
 
 type TtsContainerProps = {
   languageCode: string
@@ -21,7 +17,7 @@ type TtsContainerProps = {
 const TtsContainer = ({ languageCode }: TtsContainerProps): ReactElement | null => {
   const { t } = useTranslation('layout')
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
-  const { sentences, setSentences, visible, setVisible } = useTtsPlayer()
+  const { sentences, setSentences, visible, setVisible, enabled } = useTtsPlayer()
   const [currentSentencesIndex, setCurrentSentenceIndex] = useState<number>(0)
   const [showHelpModal, setShowHelpModal] = useState(false)
   const title = sentences[0] || t('nothingToRead')
@@ -41,12 +37,12 @@ const TtsContainer = ({ languageCode }: TtsContainerProps): ReactElement | null 
   }
 
   useEffect(() => {
-    if (!visible) {
+    if (!enabled && !visible) {
       return
     }
 
     EasySpeech.init({ maxTimeout: 5000, interval: 250 }).catch(reportError)
-  }, [visible])
+  }, [enabled, visible])
 
   const stop = () => {
     try {
@@ -92,13 +88,14 @@ const TtsContainer = ({ languageCode }: TtsContainerProps): ReactElement | null 
     }
   }
 
-  const playOnFallback = () =>
+  const playOnFallback = (index?: number) => {
     setTimeout(() => {
       // if paused at end of sentence and there is nothing to resume this should play
-      if (!window.speechSynthesis.speaking && enableOnEnd.current && !isPlaying) {
-        play()
+      if (!window.speechSynthesis.speaking && enableOnEnd.current && isPlaying) {
+        play(index)
       }
     }, msTime)
+  }
 
   const pause = () => {
     enableOnEnd.current = false
@@ -108,12 +105,13 @@ const TtsContainer = ({ languageCode }: TtsContainerProps): ReactElement | null 
 
   const togglePlayPause = () => {
     try {
+      const canResume = currentSentencesIndex !== 0 && !isAndroid && !isFirefoxAndLinux
       if (isPlaying) {
         if (isFirefoxAndLinux) {
           stop()
         }
         pause()
-      } else if (currentSentencesIndex !== 0 && !isAndroid && !isFirefoxAndLinux) {
+      } else if (canResume) {
         // FirefoxAndLinux and isAndroid can't resume
         setIsPlaying(true)
         enableOnEnd.current = true
@@ -124,6 +122,7 @@ const TtsContainer = ({ languageCode }: TtsContainerProps): ReactElement | null 
         setIsPlaying(true)
         enableOnEnd.current = true
         play()
+        playOnFallback()
       }
     } catch (_) {
       setShowHelpModal(true)
@@ -137,7 +136,7 @@ const TtsContainer = ({ languageCode }: TtsContainerProps): ReactElement | null 
       stop()
       await play(nextIndex)
       enableOnEnd.current = true
-      playOnFallback()
+      playOnFallback(nextIndex)
     }
   }
 
@@ -148,7 +147,7 @@ const TtsContainer = ({ languageCode }: TtsContainerProps): ReactElement | null 
       stop()
       await play(previousIndex)
       enableOnEnd.current = true
-      playOnFallback()
+      playOnFallback(previousIndex)
     }
   }
 

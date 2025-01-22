@@ -6786,7 +6786,8 @@
       "next": "Weiter",
       "languageNotSupported": "Sprache nicht unterstützt",
       "voiceUnavailableMessage": "Diese Stimme ist im Moment nicht verfügbar; für die ausgewählte Sprache ist eine Installation erforderlich.",
-      "nothingToRead": "Nichts zu lesen"
+      "nothingToRead": "Nichts zu lesen",
+      "nothingToReadFullMessage": "Es gibt nichts, um es auf dieser Seite zu lesen."
     },
     "am": {
       "imprintAndContact": "ዕትም እና የግንኙነት መረጃ",
@@ -6846,7 +6847,8 @@
       "next": "التالي",
       "languageNotSupported": "اللغة غير مدعومة",
       "voiceUnavailableMessage": "هذا الصوت غير متاح في الوقت الحالي؛ يتطلب تثبيت اللغة المختارة.",
-      "nothingToRead": "لا يوجد شيء للقراءة"
+      "nothingToRead": "لا يوجد شيء للقراءة",
+      "nothingToReadFullMessage": "لا يوجد شيء لقراءته في هذه الصفحة"
     },
     "bg": {
       "imprintAndContact": "Импресум и контакт",
@@ -7006,7 +7008,8 @@
       "next": "Next",
       "languageNotSupported": "Language not supported",
       "voiceUnavailableMessage": "This voice is currently unavailable; installation is required for the selected language.",
-      "nothingToRead": "Nothing to read"
+      "nothingToRead": "Nothing to read",
+      "nothingToReadFullMessage": "There is nothing to read on this page."
     },
     "es": {
       "imprintAndContact": "Aviso legal y contacto",
