@@ -1,13 +1,4 @@
-fastlane_version "2.220.0"
-
 require_relative "read_build_config"
-
-require "yaml"
-require "base64"
-
-# Google API fails randomly, try to retry
-# https://github.com/fastlane/fastlane/issues/21507#issuecomment-1723116829
-ENV['SUPPLY_UPLOAD_MAX_RETRIES']='5'
 
 # The following parameters have to be passed:
 # path: The path of the artifact (apk or ipa) to upload (relative to home dir)
@@ -61,107 +52,10 @@ platform :android do
         package_path: "package.json"
     )
   end
-
-  # The following parameters have to be passed:
-  # version_code: The version code of the app
-  # version_name: The version name of the app
-  # build_config_name: The name of the build config
-  # aab_path: The path of the aab to upload (relative to home dir)
-  # production_delivery: Whether the aab should be uploaded to the production track
-  desc "Deliver the app to Play Store. Depending on the option `production_delivery` the update is released to the general public."
-  lane :playstore_upload do |options|
-    ensure_env_vars(
-        env_vars: ["GOOGLE_SERVICE_ACCOUNT_JSON"]
-    )
-
-    version_code = options[:version_code]
-    version_name = options[:version_name]
-    build_config_name = options[:build_config_name]
-    aab_path = options[:aab_path]
-    production_delivery = options[:production_delivery]
-
-    if [version_name, version_code, build_config_name, aab_path, production_delivery].include?(nil)
-      raise "'nil' passed as parameter! Aborting..."
-    end
-
-    build_config = read_build_config(build_config_name, 'android')
-    skip_images = build_config_name != "integreat"
-    track = production_delivery === true ? "production" : "beta"
-
-    puts("delivering #{build_config_name} v#{version_name} to track #{track}")
-
-    # https://docs.fastlane.tools/actions/supply/
-    upload_to_play_store(
-        version_code: version_code,
-        version_name: version_name,
-        package_name: build_config['applicationId'],
-        metadata_path: "./android/fastlane/#{build_config_name}/metadata",
-        track: track,
-        skip_upload_changelogs: false,
-        skip_upload_images: skip_images,
-        skip_upload_screenshots: skip_images,
-        skip_upload_metadata: false,
-        release_status: "completed",
-        aab: "#{ENV['HOME']}/#{aab_path}",
-        json_key_data: ENV["GOOGLE_SERVICE_ACCOUNT_JSON"]
-    )
-  end
-
-  # The following parameters have to be passed:
-  # build_config_name: The name of the build config
-  desc "Promote the most recent version in the beta track to the production track in the Play Store."
-  lane :playstore_promote do |options|
-    ensure_env_vars(
-      env_vars: ["GOOGLE_SERVICE_ACCOUNT_JSON"]
-    )
-
-    build_config_name = options[:build_config_name]
-
-    if [build_config_name].include?(nil)
-      raise "'nil' passed as parameter! Aborting..."
-    end
-
-    build_config = read_build_config(build_config_name, 'android')
-    application_id = build_config['applicationId']
-
-    production_version_codes = google_play_track_version_codes(
-      track: "production",
-      package_name: application_id,
-      json_key_data: ENV["GOOGLE_SERVICE_ACCOUNT_JSON"]
-    )
-    beta_version_codes = google_play_track_version_codes(
-      track: "beta",
-      package_name: application_id,
-      json_key_data: ENV["GOOGLE_SERVICE_ACCOUNT_JSON"]
-    )
-
-    if beta_version_codes.length == 0 || beta_version_codes[0] <= production_version_codes[0]
-      puts("Nothing to do, latest version already available in production track...")
-      next
-    end
-
-    puts("promoting #{build_config_name} v#{beta_version_codes[0]} to production track")
-
-    # https://docs.fastlane.tools/actions/supply/
-    upload_to_play_store(
-      version_code: beta_version_codes[0],
-      package_name: application_id,
-      track: "beta",
-      track_promote_to: "production",
-      skip_upload_changelogs: true,
-      skip_upload_images: true,
-      skip_upload_screenshots: true,
-      skip_upload_metadata: true,
-      skip_upload_apk: true,
-      skip_upload_aab: true,
-      release_status: "completed",
-      json_key_data: ENV["GOOGLE_SERVICE_ACCOUNT_JSON"]
-    )
-  end
 end
 
 platform :ios do
-  private_lane :apple_auth do |options|
+  private_lane :apple_auth do
     ensure_env_vars(
         env_vars: ["APP_STORE_CONNECT_API_KEY_ID", "APP_STORE_CONNECT_API_ISSUER_ID", "APP_STORE_CONNECT_API_KEY_CONTENT"]
     )

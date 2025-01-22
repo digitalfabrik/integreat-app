@@ -241,7 +241,6 @@ jobs:
             - image: cimg/android:2024.08.1-node
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
-            TOTAL_CPUS: 4
         parameters:
             build_config_name:
                 default: integreat
@@ -258,9 +257,6 @@ jobs:
             - checkout
             - skip_job:
                 build_config_name: << parameters.build_config_name >>
-            - add_ssh_keys:
-                fingerprints:
-                    - 24:1d:3b:b7:b3:49:69:d7:54:c3:93:a5:a2:d1:71:db
             - prepare_workspace
             - restore_environment_variables
             - restore_yarn_cache
@@ -282,12 +278,12 @@ jobs:
                     export PATH=$HOME/ninja:$HOME/cmake-3.22.1-Linux-x86_64/bin:$PATH
                 name: Set CMake and Ninja Paths
             - run:
-                command: bundle exec fastlane keystore
+                command: bundle exec fastlane android keystore
                 name: '[FL] Prepare Android Keystore'
                 working_directory: native/android
             - run:
-                command: ./gradlew clean && bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:<< parameters.build_config_name >>
-                name: '[FL] << parameters.build_config_name >> build'
+                command: bundle exec fastlane android build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:<< parameters.build_config_name >>
+                name: '[FL] << parameters.build_config_name >> Build'
                 working_directory: native/android
             - run:
                 command: |
@@ -556,15 +552,15 @@ jobs:
                 directory: native
             - run:
                 command: yarn --cwd tools manage-metadata prepare-metadata << parameters.build_config_name >> playstore
-                name: Prepare Play Store metadata
+                name: Prepare PlayStore metadata
             - run:
                 command: bundle exec fastlane browserstack_upload_live path:attached_workspace/<< parameters.build_config_name >>.apk
                 name: '[FL] Browserstack Upload Live'
                 working_directory: native
             - run:
-                command: bundle exec fastlane android playstore_upload build_config_name:<< parameters.build_config_name >> aab_path:attached_workspace/<< parameters.build_config_name >>.aab production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
-                name: '[FL] Play Store Upload'
-                working_directory: native
+                command: bundle exec fastlane android upload build_config_name:<< parameters.build_config_name >> aab_path:attached_workspace/<< parameters.build_config_name >>.aab production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+                name: '[FL] Google PlayStore Upload'
+                working_directory: native/android
             - notify
     deliver_ios:
         environment:

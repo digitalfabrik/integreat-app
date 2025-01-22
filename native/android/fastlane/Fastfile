@@ -1,43 +1,39 @@
-fastlane_version "2.220.0"
+require_relative "../../fastlane/read_build_config"
 
-CREDENTIALS_GIT_REPOSITORY_URL = ENV['CREDENTIALS_GIT_REPOSITORY_URL']
-CREDENTIALS_DIRECTORY_PATH = ENV['CREDENTIALS_DIRECTORY_PATH']
-CREDENTIALS_KEYSTORE_PATH = ENV['CREDENTIALS_KEYSTORE_PATH']
+SIGNING_REPOSITORY_URL = ENV['SIGNING_REPOSITORY_URL']
+SIGNING_REPOSITORY_KEYSTORE_PASSWORD = ENV["SIGNING_REPOSITORY_KEYSTORE_PASSWORD"]
 
-KEYSTORE_PATH = ENV['KEYSTORE_PATH']
-KEYSTORE_KEY_ALIAS = ENV['KEYSTORE_KEY_ALIAS']
-KEYSTORE_PASSWORD = ENV['KEYSTORE_PASSWORD']
-KEYSTORE_KEY_PASSWORD = ENV['KEYSTORE_KEY_PASSWORD']
+KEYSTORE_ALIAS = ENV["KEYSTORE_ALIAS"]
+KEYSTORE_PASSWORD = ENV["KEYSTORE_PASSWORD"]
+
+SIGNING_REPOSITORY_KEYSTORE_PATH = "signing/android/gruene-app.jks.gpg"
+LOCAL_KEYSTORE_PATH = "#{ENV['HOME']}/keystore.jks"
+
+# The google playstore api sometimes fails randomly
+# https://github.com/fastlane/fastlane/issues/21507#issuecomment-1723116829
+ENV['SUPPLY_UPLOAD_MAX_RETRIES']='5'
+
+default_platform(:android)
 
 desc "Download and decrypt the JKS"
 lane :keystore do
   ensure_env_vars(
-      env_vars: ['CREDENTIALS_GIT_REPOSITORY_URL', 'CREDENTIALS_KEYSTORE_PATH', 'CREDENTIALS_DIRECTORY_PATH', 'CREDENTIALS_KEYSTORE_PASSWORD']
+    env_vars: ["SIGNING_REPOSITORY_URL", "SIGNING_REPOSITORY_KEYSTORE_PASSWORD"]
   )
 
   puts("Cloning repository with keystore")
+  sh("git clone #{SIGNING_REPOSITORY_URL} signing")
 
-  unless File.exists? File.expand_path(CREDENTIALS_DIRECTORY_PATH)
-    sh("git clone #{CREDENTIALS_GIT_REPOSITORY_URL} #{CREDENTIALS_DIRECTORY_PATH}")
-  end
-
+  # TODO use gpg encryption
   puts("Decrypting keystore")
-
-  sh("openssl enc -d -aes-256-cbc -md sha512 -pbkdf2 -iter 100000 -salt \\
-          -in #{CREDENTIALS_KEYSTORE_PATH} -out #{KEYSTORE_PATH} \\
-          -pass pass:$CREDENTIALS_KEYSTORE_PASSWORD")
-end
-
-desc "Download Gradle dependencies"
-lane :dependencies do
-  gradle(task: "androidDependencies")
+  sh("gpg --verbose --passphrase #{SIGNING_REPOSITORY_KEYSTORE_PASSWORD} --pinentry-mode loopback -o #{LOCAL_KEYSTORE_PATH} -d #{SIGNING_REPOSITORY_KEYSTORE_PATH}")
 end
 
 # The following parameters have to be passed:
 # version_code: The version code of the app
 # version_name: The version name of the app
 # build_config_name: The name of the build config
-desc "Create an Android build in release mode. Set the environment variable E2E_TEST_IDS if you want a build usable for E2E tests. Set the environment variable TOTAL_CPUS if you run this in a Docker container."
+desc "Create an android release build"
 lane :build do |options|
   version_code = options[:version_code]
   version_name = options[:version_name]
@@ -47,14 +43,14 @@ lane :build do |options|
     raise "'nil' passed as parameter! Aborting..."
   end
 
-  # DO NOT OVERWRITE THE BUNDLE_CONFIG ENV VARIABLE! It is used by ruby bundle.
-  ENV["EXTRA_PACKAGER_ARGS"] = "--config ./metro.config.ci.js"
+  ensure_env_vars(
+    env_vars: ["KEYSTORE_ALIAS", "KEYSTORE_PASSWORD"]
+  )
+
   # DO NOT REMOVE THIS! It is necessary for the javascript build config logic.
   ENV["BUILD_CONFIG_NAME"] = build_config_name
 
   gradle_system_properties = {
-    # 2GB Gradle + 1GB dex + 2-2.5GB RN < 6GB of circleci resource class medium+
-    :"org.gradle.jvmargs" => "-Xms512m -Xmx2024m",
     :"org.gradle.daemon" => false,
     # react-native is currently only guaranteed to work with JDK 17
     # See https://stackoverflow.com/questions/69619829/could-not-resolve-all-files-for-configuration-appandroidjdkimage
@@ -62,23 +58,112 @@ lane :build do |options|
     :"org.gradle.java.home" => "/usr/lib/jvm/java-17-openjdk-amd64"
   }
 
-  if ENV['TOTAL_CPUS']
-    # Gradle uses the wrong cpu count from the host (e.g. 36)
-    gradle_system_properties["org.gradle.workers.max"] = ENV['TOTAL_CPUS']
-  end
-
   gradle(
-      tasks: ["assembleRelease", "bundleRelease"],
+      tasks: ["assemble", "bundle"],
       properties: {
-          :BUILD_CONFIG_NAME => build_config_name,
-          :VERSION_CODE => version_code,
-          :VERSION_NAME => version_name,
-          :KEYSTORE_PATH => KEYSTORE_PATH,
-          :KEYSTORE_KEY_ALIAS => KEYSTORE_KEY_ALIAS,
-          :KEYSTORE_PASSWORD => KEYSTORE_PASSWORD,
-          :KEYSTORE_KEY_PASSWORD => KEYSTORE_KEY_PASSWORD
+        :BUILD_CONFIG_NAME => build_config_name,
+        :VERSION_CODE => version_code,
+        :VERSION_NAME => version_name,
+        :KEYSTORE_PATH => LOCAL_KEYSTORE_PATH,
+        :KEYSTORE_KEY_ALIAS => KEYSTORE_ALIAS,
+        :KEYSTORE_PASSWORD => KEYSTORE_PASSWORD,
+        :KEYSTORE_KEY_PASSWORD => KEYSTORE_PASSWORD,
       }.compact,
       system_properties: gradle_system_properties,
       print_command: false
+  )
+end
+
+# The following parameters have to be passed:
+# version_name: The version name the build should use
+# version_code: The version code the build should use
+# build_config_name: The name of the build config
+# production_delivery: Whether to deliver to beta or production
+# aab_path: The path to the .aab to upload
+desc "Deliver android app to beta or production"
+lane :upload do |options|
+  ensure_env_vars(
+    env_vars: ["GOOGLE_SERVICE_ACCOUNT_JSON"]
+  )
+
+  version_code = options[:version_code]
+  version_name = options[:version_name]
+  build_config_name = options[:build_config_name]
+  production_delivery = options[:production_delivery]
+  aab_path = options[:aab_path]
+
+  if [version_name, version_code, build_config_name, aab_path, production_delivery].include?(nil)
+    raise "'nil' passed as parameter! Aborting..."
+  end
+
+  build_config = read_build_config(build_config_name, 'android')
+  skip_images = build_config_name != "integreat"
+
+  upload_to_play_store(
+    version_code: version_code,
+    version_name: version_name,
+    package_name: build_config['applicationId'],
+    metadata_path: "./android/fastlane/#{build_config_name}/metadata",
+    track: production_delivery === true ? "production" : "beta",
+    skip_upload_images: skip_images,
+    skip_upload_screenshots: skip_images,
+    skip_upload_metadata: false,
+    skip_upload_changelogs: false,
+    release_status: "completed",
+    skip_upload_apk: true,
+    aab: "#{ENV['HOME']}/#{aab_path}",
+    json_key_data: ENV["GOOGLE_SERVICE_ACCOUNT_JSON"]
+  )
+end
+
+# The following parameters have to be passed:
+# build_config_name: The name of the build config
+desc "Promote the android app from beta to production"
+lane :promote do |options|
+  build_config_name = options[:build_config_name]
+
+  if [build_config_name].include?(nil)
+    raise "'nil' passed as parameter! Aborting..."
+  end
+
+  ensure_env_vars(
+    env_vars: ["GOOGLE_SERVICE_ACCOUNT_JSON"]
+  )
+
+  build_config = read_build_config(build_config_name, 'android')
+  application_id = build_config['applicationId']
+
+  production_version_codes = google_play_track_version_codes(
+    track: "production",
+    package_name: application_id,
+    json_key_data: ENV["GOOGLE_SERVICE_ACCOUNT_JSON"]
+  )
+  beta_version_codes = google_play_track_version_codes(
+    track: "beta",
+    package_name: application_id,
+    json_key_data: ENV["GOOGLE_SERVICE_ACCOUNT_JSON"]
+  )
+
+  if beta_version_codes.length == 0 || beta_version_codes[0] <= production_version_codes[0]
+    puts("Nothing to do, latest version already available in production track...")
+    next
+  end
+d
+
+  puts("promoting #{build_config_name} v#{beta_version_codes[0]} to production track")
+
+  upload_to_play_store(
+    version_code: beta_version_codes[0],
+    package_name: application_id,
+    track: "beta",
+    track_promote_to: "production",
+    skip_upload_changelogs: true,
+    skip_upload_images: true,
+    skip_upload_screenshots: true,
+    skip_upload_metadata: true,
+    skip_upload_apk: true,
+    skip_upload_aab: true,
+    release_status: "completed",
+    json_key_data: ENV["GOOGLE_SERVICE_ACCOUNT_JSON"]
   )
 end
