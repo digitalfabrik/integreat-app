@@ -18,7 +18,7 @@ Several workflows exist for different purposes:
 | Workflow                   | Schedule/Trigger | Checks             | native delivery | web delivery | Version bump       | Move release notes |
 | -------------------------- | ---------------- | ------------------ | --------------- | ------------ | ------------------ | ------------------ |
 | commit                     | commits of PRs   | :heavy_check_mark: | :x:             | :x:          | :x:                | :x:                |
-| commit_main                | commits on main  | :x:                | :x:              | webnext      | :x:                | :x:                |
+| commit_main                | commits on main  | :x:                | :x:             | webnext      | :x:                | :x:                |
 | delivery                   | script           | :heavy_check_mark: | beta            | beta         | :heavy_check_mark: | :heavy_check_mark: |
 | native_beta_delivery       | script           | :heavy_check_mark: | beta            | :x:          | :heavy_check_mark: | :x:                |
 | native_production_delivery | script           | :heavy_check_mark: | production      | :x:          | :heavy_check_mark: | :x:                |
