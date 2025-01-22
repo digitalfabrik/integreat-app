@@ -130,7 +130,6 @@ type PoiDetailsProps = {
 }
 
 const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement => {
-  const navigate = useNavigate()
   const { viewportSmall } = useWindowDimensions()
   const theme = useTheme()
   const { t } = useTranslation('pois')
@@ -220,7 +219,7 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
         <>
           <Spacer $borderColor={theme.colors.borderColor} />
           <Collapsible title={t('detailsInformation')}>
-            <RemoteContent html={content} onInternalLinkClick={navigate} smallText />
+            <RemoteContent html={content} smallText />
           </Collapsible>
         </>
       )}

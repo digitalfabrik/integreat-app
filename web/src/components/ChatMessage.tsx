@@ -1,7 +1,6 @@
 import { TFunction } from 'i18next'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 import ChatMessageModel from 'shared/api/models/ChatMessageModel'
@@ -59,7 +58,6 @@ const getIcon = (userIsAuthor: boolean, isAutomaticAnswer: boolean, t: TFunction
 }
 
 const ChatMessage = ({ message, showIcon }: ChatMessageProps): ReactElement => {
-  const navigate = useNavigate()
   const { t } = useTranslation('chat')
   const { body, userIsAuthor, isAutomaticAnswer } = message
 
@@ -67,7 +65,7 @@ const ChatMessage = ({ message, showIcon }: ChatMessageProps): ReactElement => {
     <Container $isAuthor={userIsAuthor}>
       <IconContainer $visible={showIcon}>{getIcon(userIsAuthor, isAutomaticAnswer, t)}</IconContainer>
       <Message data-testid={message.id}>
-        <RemoteContent html={body} onInternalLinkClick={navigate} smallText />
+        <RemoteContent html={body} smallText />
       </Message>
     </Container>
   )

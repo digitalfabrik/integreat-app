@@ -1,6 +1,7 @@
 import Dompurify from 'dompurify'
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 import styled, { css } from 'styled-components'
 
 import { ExternalSourcePermissions } from 'shared'
@@ -168,7 +169,6 @@ const SandBox = styled.div<{ $centered: boolean; $smallText: boolean }>`
 
 type RemoteContentProps = {
   html: string
-  onInternalLinkClick: (url: string) => void
   centered?: boolean
   smallText?: boolean
 }
@@ -181,12 +181,8 @@ const DOMPURIFY_ATTRIBUTE_TARGET = 'target'
 export type IframeSources = Record<number, string>
 export const IFRAME_BLANK_SOURCE = 'about:blank'
 
-const RemoteContent = ({
-  html,
-  onInternalLinkClick,
-  centered = false,
-  smallText = false,
-}: RemoteContentProps): ReactElement => {
+const RemoteContent = ({ html, centered = false, smallText = false }: RemoteContentProps): ReactElement => {
+  const navigate = useNavigate()
   const sandBoxRef = React.createRef<HTMLDivElement>()
   const { value: externalSourcePermissions, updateLocalStorageItem } = useLocalStorage<ExternalSourcePermissions>({
     key: LOCAL_STORAGE_ITEM_EXTERNAL_SOURCES,
@@ -205,10 +201,10 @@ const RemoteContent = ({
       if (target instanceof HTMLAnchorElement) {
         const href = target.href
         const url = new URL(decodeURIComponent(href))
-        onInternalLinkClick(decodeURIComponent(`${url.pathname}${url.search}${url.hash}`))
+        navigate(decodeURIComponent(`${url.pathname}${url.search}${url.hash}`))
       }
     },
-    [onInternalLinkClick],
+    [navigate],
   )
 
   const onUpdateLocalStorage = useCallback(
