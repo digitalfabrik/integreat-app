@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
 import styled, { useTheme } from 'styled-components'
 
 import { getExternalMapsLink } from 'shared'
@@ -170,7 +169,7 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
             </span>
           </AddressContent>
         </AddressContentWrapper>
-        <StyledLink to={externalMapsLink} newTab>
+        <StyledLink to={externalMapsLink}>
           {!viewportSmall && <LinkLabel>{t('detailsMapLink')}</LinkLabel>}
           <StyledExternalLinkIcon src={ExternalLinkIcon} directionDependent />
         </StyledLink>
@@ -209,7 +208,7 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
           appointmentOverlayLink={appointmentUrl ?? website}
         />
         {appointmentUrl !== null && (
-          <StyledLink to={appointmentUrl} newTab>
+          <StyledLink to={appointmentUrl}>
             <LinkLabel>{t('makeAppointment')}</LinkLabel>
             <StyledExternalLinkIcon src={ExternalLinkIcon} directionDependent />
           </StyledLink>

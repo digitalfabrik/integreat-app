@@ -53,9 +53,7 @@ const MapAttribution = ({ initialExpanded }: MapAttributionProps): ReactElement 
         <Label>{icon}</Label>
         {expanded && (
           <>
-            <OpenStreetMapsLink newTab to={url}>
-              {linkText}
-            </OpenStreetMapsLink>
+            <OpenStreetMapsLink to={url}>{linkText}</OpenStreetMapsLink>
             <Label>{label}</Label>
           </>
         )}

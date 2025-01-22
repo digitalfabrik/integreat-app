@@ -13,6 +13,8 @@ jest.mock('react-router-dom', () => ({
 jest.mock('react-i18next')
 
 describe('RemoteContent', () => {
+  window.open = jest.fn()
+
   beforeEach(jest.resetAllMocks)
 
   it('should render the html content', () => {
@@ -33,10 +35,11 @@ describe('RemoteContent', () => {
 
     expect(navigate).toHaveBeenCalledTimes(1)
     expect(navigate).toHaveBeenLastCalledWith(path)
+    expect(window.open).not.toHaveBeenCalled()
   })
 
-  it('should not navigate for external links', () => {
-    const href = `https://some.external/link`
+  it('should open external links in a new tab', () => {
+    const href = 'https://example.com/'
     const html = `<a href=${href} class="link-external">Test Anchor</a>`
 
     const { getByRole, getAllByRole } = renderWithTheme(<RemoteContent html={html} />)
@@ -44,7 +47,9 @@ describe('RemoteContent', () => {
     expect(getAllByRole('link')).toHaveLength(1)
     fireEvent.click(getByRole('link'))
 
-    expect(navigate).toHaveBeenCalledTimes(0)
+    expect(window.open).toHaveBeenCalledTimes(1)
+    expect(window.open).toHaveBeenLastCalledWith(href, '_blank', 'noreferrer')
+    expect(navigate).not.toHaveBeenCalled()
   })
 
   it('should block an iframe with unsupported source', () => {
