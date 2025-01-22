@@ -11,6 +11,7 @@ import CategoriesIcon from '../../../assets/icons/categories.svg'
 import ClockIcon from '../../../assets/icons/clock.svg'
 import CloseIcon from '../../../assets/icons/close.svg'
 import EditLocationIcon from '../../../assets/icons/edit-location.svg'
+import ExpandIcon from '../../../assets/icons/expand.svg'
 import ExternalLinkIcon from '../../../assets/icons/external-link.svg'
 import HappySmileyIcon from '../../../assets/icons/happy-smiley.svg'
 import LanguageIcon from '../../../assets/icons/language.svg'
@@ -29,12 +30,19 @@ import RefreshIcon from '../../../assets/icons/refresh.svg'
 import SadSmileyIcon from '../../../assets/icons/sad-smiley.svg'
 import SearchIcon from '../../../assets/icons/search.svg'
 import SecurityIcon from '../../../assets/icons/security.svg'
+import ShrinkIcon from '../../../assets/icons/shrink.svg'
 import SprungbrettIcon from '../../../assets/icons/sprungbrett.svg'
 import SupportIcon from '../../../assets/icons/support.svg'
 import TuNewsActiveIcon from '../../../assets/icons/tu-news-active.svg'
 import TuNewsInactiveIcon from '../../../assets/icons/tu-news-inactive.svg'
 import WarningIcon from '../../../assets/icons/warning.svg'
 import WebsiteIcon from '../../../assets/icons/website.svg'
+import IntroLanguageIcon from '../../../assets/intro/language.svg'
+import IntroNewsIcon from '../../../assets/intro/news.svg'
+import IntroOfflineIcon from '../../../assets/intro/offline.svg'
+import IntroPoisIcon from '../../../assets/intro/pois.svg'
+import IntroSearchIcon from '../../../assets/intro/search.svg'
+import IntroWelcomeIcon from '../../../assets/intro/welcome.svg'
 import PoiThumbnailPlaceholderLarge from '../../../assets/poi-thumbnail-placeholder-large.jpg'
 import PoiThumbnailPlaceholder from '../../../assets/poi-thumbnail-placeholder.jpg'
 
@@ -52,11 +60,19 @@ export {
   EventThumbnailPlaceholder2,
   EventThumbnailPlaceholder3,
   ExternalLinkIcon,
+  ExpandIcon,
+  ShrinkIcon,
   LocationFixedIcon,
   LocationMarkerIcon,
   LocationNotFixedIcon,
   LocationOffIcon,
   HappySmileyIcon,
+  IntroLanguageIcon,
+  IntroNewsIcon,
+  IntroOfflineIcon,
+  IntroPoisIcon,
+  IntroSearchIcon,
+  IntroWelcomeIcon,
   LanguageIcon,
   MailIcon,
   MenuIcon,
