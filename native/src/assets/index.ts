@@ -11,6 +11,7 @@ import CategoriesIcon from '../../../assets/icons/categories.svg'
 import ClockIcon from '../../../assets/icons/clock.svg'
 import CloseIcon from '../../../assets/icons/close.svg'
 import EditLocationIcon from '../../../assets/icons/edit-location.svg'
+import ExpandIcon from '../../../assets/icons/expand.svg'
 import ExternalLinkIcon from '../../../assets/icons/external-link.svg'
 import HappySmileyIcon from '../../../assets/icons/happy-smiley.svg'
 import LanguageIcon from '../../../assets/icons/language.svg'
@@ -32,6 +33,7 @@ import RefreshIcon from '../../../assets/icons/refresh.svg'
 import SadSmileyIcon from '../../../assets/icons/sad-smiley.svg'
 import SearchIcon from '../../../assets/icons/search.svg'
 import SecurityIcon from '../../../assets/icons/security.svg'
+import ShrinkIcon from '../../../assets/icons/shrink.svg'
 import SprungbrettIcon from '../../../assets/icons/sprungbrett.svg'
 import SupportIcon from '../../../assets/icons/support.svg'
 import TuNewsActiveIcon from '../../../assets/icons/tu-news-active.svg'
@@ -61,6 +63,8 @@ export {
   EventThumbnailPlaceholder2,
   EventThumbnailPlaceholder3,
   ExternalLinkIcon,
+  ExpandIcon,
+  ShrinkIcon,
   LocationFixedIcon,
   LocationMarkerIcon,
   LocationNotFixedIcon,

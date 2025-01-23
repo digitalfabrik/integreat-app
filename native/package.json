@@ -75,6 +75,7 @@
     "react-native": "0.74.5",
     "react-native-blob-util": "^0.19.11",
     "react-native-calendar-events": "^2.2.0",
+    "react-native-calendars": "^1.1306.0",
     "react-native-gesture-handler": "^2.19.0",
     "react-native-get-random-values": "^1.11.0",
     "react-native-highlight-words": "^1.0.1",

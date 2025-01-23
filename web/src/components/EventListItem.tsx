@@ -1,9 +1,11 @@
+import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import { getExcerpt } from 'shared'
 import { DateModel, DateIcon, EventModel } from 'shared/api'
+import { getDisplayDate } from 'shared/utils/dateFilterUtils'
 
 import {
   CalendarRecurringIcon,
@@ -26,6 +28,8 @@ const Content = styled.div`
 type EventListItemProps = {
   event: EventModel
   languageCode: string
+  filterStartDate?: DateTime | null
+  filterEndDate?: DateTime | null
 }
 
 const getEventPlaceholder = (path: string): string => {
@@ -50,10 +54,16 @@ export const getDateIcon = (date: DateModel): { icon: string; tooltip: string } 
     : null
 }
 
-const EventListItem = ({ event, languageCode }: EventListItemProps): ReactElement => {
+const EventListItem = ({
+  event,
+  languageCode,
+  filterStartDate = null,
+  filterEndDate = null,
+}: EventListItemProps): ReactElement => {
   const dateIcon = getDateIcon(event.date)
   const { viewportSmall } = useWindowDimensions()
   const { t } = useTranslation('events')
+  const dateToDisplay = getDisplayDate(event, filterStartDate, filterEndDate)
 
   const DateIcon = dateIcon && (
     <Tooltip id='calendar-icon' tooltipContent={t(dateIcon.tooltip)}>
@@ -68,7 +78,7 @@ const EventListItem = ({ event, languageCode }: EventListItemProps): ReactElemen
       path={event.path}
       Icon={DateIcon}>
       <Content>
-        <Content dir='auto'>{event.date.toFormattedString(languageCode, viewportSmall)}</Content>
+        <Content dir='auto'>{dateToDisplay.toFormattedString(languageCode, viewportSmall)}</Content>
         {event.location && <Content dir='auto'>{event.location.fullAddress}</Content>}
       </Content>
       <Content dir='auto'>{getExcerpt(event.excerpt, { maxChars: EXCERPT_MAX_CHARS })}</Content>
