@@ -200,7 +200,12 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
           />
         </InputSection>
         <p>{t('responseDisclaimer')}</p>
-        <PrivacyCheckbox checked={privacyCheckedFilter} setChecked={setPrivacyCheckedFilter} id='privacyAgreement' />
+        <PrivacyCheckbox
+          language='default'
+          checked={privacyCheckedFilter}
+          setChecked={setPrivacyCheckedFilter}
+          id='privacyAgreement'
+        />
         {(sendingStatus === 'failed' || sendingStatus === 'invalidEmail') && (
           <ErrorSendingStatus role='alert'>
             <SubmitErrorHeading>{t('submitFailed')}</SubmitErrorHeading>
