@@ -6614,7 +6614,7 @@
       "accessibility": "حرية الوصول",
       "readAloud": "قراءة بصوت عالٍ",
       "nothingToRead": "لا يوجد شيء للقراءة",
-      "nothingToReadFullMessage": "لا يوجد شيء للقراءته في هذه الصفحة",
+      "nothingToReadFullMessage": "لا يوجد شيء لقراءته في هذه الصفحة",
       "previous": "السابق",
       "next": "التالي",
       "openInApp": "افتح في تطبيق {{appName}}",

@@ -1,6 +1,6 @@
 import React, { createContext, ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { AppState } from 'react-native'
+import { AppState, Platform } from 'react-native'
 import Tts from 'react-native-tts'
 
 import { truncate } from 'shared/utils/getExcerpt'
@@ -54,7 +54,8 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
     })
   }, [])
 
-  const enabled = buildConfig().featureFlags.tts && !unsupportedLanguagesForTts.includes(languageCode)
+  const enabled =
+    Platform.OS === 'android' && buildConfig().featureFlags.tts && !unsupportedLanguagesForTts.includes(languageCode)
   const canRead = enabled && sentences.length > 0 // to check if content is available
 
   const play = useCallback(

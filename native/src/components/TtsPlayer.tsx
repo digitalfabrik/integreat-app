@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components/native'
+import styled, { css } from 'styled-components/native'
 
 import { CloseIcon, PauseIcon, PlaybackIcon, PlayIcon } from '../assets'
 import Icon from './base/Icon'
@@ -8,7 +8,16 @@ import IconButton from './base/IconButton'
 import Pressable from './base/Pressable'
 import Text from './base/Text'
 
+const elevatedStyle = css`
+  shadow-color: ${props => props.theme.colors.textColor};
+  shadow-offset: 0 2px;
+  shadow-opacity: 0.2;
+  shadow-radius: 3px;
+  elevation: 5;
+`
+
 const StyledTtsPlayer = styled.View<{ $isPlaying: boolean }>`
+  ${elevatedStyle}
   background-color: ${props => props.theme.colors.grayBackgroundColor};
   border-radius: 28px;
   width: ${props => (props.$isPlaying ? '90%' : '80%')};
@@ -20,7 +29,7 @@ const StyledTtsPlayer = styled.View<{ $isPlaying: boolean }>`
   position: absolute;
   bottom: 5px;
   min-height: 93px;
-  gap: ${props => (props.$isPlaying ? '0px;' : '10px')};
+  gap: ${props => (props.$isPlaying ? '0px;' : '20px')};
 `
 
 const verticalMargin = 11
@@ -34,6 +43,7 @@ const StyledPanel = styled.View<{ $isPlaying?: boolean }>`
 `
 
 const StyledPlayIcon = styled(IconButton)<{ disabled: boolean }>`
+  ${elevatedStyle}
   background-color: ${props => (props.disabled ? props.theme.colors.textDisabledColor : props.theme.colors.textColor)};
   width: 50px;
   height: 50px;
@@ -62,6 +72,7 @@ const StyledPlayerHeaderText = styled(Text)`
 `
 
 const CloseButton = styled(Pressable)`
+  ${elevatedStyle}
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -78,14 +89,6 @@ const CloseView = styled.View<{ $isPlaying?: boolean }>`
   gap: 10px;
   margin-bottom: ${props => (props.$isPlaying ? verticalMargin : 0)}px;
 `
-
-const elevatedButton = {
-  elevation: 5,
-  shadowColor: 'black',
-  shadowOffset: { width: 0, height: 2 },
-  shadowOpacity: 0.2,
-  shadowRadius: 3,
-}
 
 type TtsPlayerProps = {
   isPlaying: boolean
@@ -110,7 +113,7 @@ const TtsPlayer = ({
 }: TtsPlayerProps): ReactElement => {
   const { t } = useTranslation('layout')
   return (
-    <StyledTtsPlayer $isPlaying={isPlaying} style={elevatedButton}>
+    <StyledTtsPlayer $isPlaying={isPlaying}>
       <StyledPanel $isPlaying={isPlaying}>
         {isPlaying && (
           <StyledBackForthButton role='button' accessibilityLabel={t('previous')} onPress={playPrevious}>
@@ -120,7 +123,6 @@ const TtsPlayer = ({
         )}
         <StyledPlayIcon
           disabled={sentences.length === 0}
-          style={elevatedButton}
           accessibilityLabel={t(isPlaying ? 'pause' : 'play')}
           onPress={() => (isPlaying ? pause() : play())}
           icon={<PlayButtonIcon Icon={isPlaying ? PauseIcon : PlayIcon} />}
@@ -134,7 +136,7 @@ const TtsPlayer = ({
       </StyledPanel>
       <CloseView $isPlaying={isPlaying}>
         {!isPlaying && <StyledPlayerHeaderText>{title}</StyledPlayerHeaderText>}
-        <CloseButton role='button' accessibilityLabel='Close player' onPress={close} style={elevatedButton}>
+        <CloseButton role='button' accessibilityLabel='Close player' onPress={close}>
           <Icon Icon={CloseIcon} />
           <StyledText>{t('common:close')}</StyledText>
         </CloseButton>

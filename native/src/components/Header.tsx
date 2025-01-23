@@ -189,6 +189,17 @@ const Header = ({
     renderItem(HeaderButtonTitle.Language, 'language', showItems, goToLanguageChange),
   ]
 
+  const openTtsPlayer = isTtsEnabled
+    ? [
+        renderOverflowItem(t(HeaderButtonTitle.ReadAloud), () => {
+          setTtsPlayerVisible(canRead)
+          if (!canRead) {
+            showSnackbar({ text: t('nothingToReadFullMessage') })
+          }
+        }),
+      ]
+    : []
+
   const overflowItems = showOverflowItems
     ? [
         ...(shareUrl ? [renderOverflowItem(HeaderButtonTitle.Share, onShare)] : []),
@@ -196,16 +207,7 @@ const Header = ({
           ? [renderOverflowItem(HeaderButtonTitle.Location, () => navigation.navigate(LANDING_ROUTE))]
           : []),
         renderOverflowItem(HeaderButtonTitle.Settings, () => navigation.navigate(SETTINGS_ROUTE)),
-        ...(isTtsEnabled
-          ? [
-              renderOverflowItem(t(HeaderButtonTitle.ReadAloud), () => {
-                setTtsPlayerVisible(canRead)
-                if (!canRead) {
-                  showSnackbar({ text: t('nothingToReadFullMessage') })
-                }
-              }),
-            ]
-          : []),
+        ...openTtsPlayer,
         ...(route.name !== NEWS_ROUTE ? [renderOverflowItem(HeaderButtonTitle.Feedback, navigateToFeedback)] : []),
         ...(route.name !== DISCLAIMER_ROUTE
           ? [renderOverflowItem(HeaderButtonTitle.Disclaimer, () => navigation.navigate(DISCLAIMER_ROUTE))]
