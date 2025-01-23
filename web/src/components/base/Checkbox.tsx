@@ -15,9 +15,7 @@ const StyledCheckbox = styled.input`
 `
 
 const StyledLabel = styled.label`
-  font-size: 0.875rem;
   color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.web.decorativeFont};
   padding: 4px;
   cursor: pointer;
 `
