@@ -42,6 +42,7 @@ const StyledTextButton = styled(TextButton)`
 `
 
 type FeedbackProps = {
+  language: string
   isPositiveFeedback: boolean | null
   comment: string
   contactMail: string
@@ -57,6 +58,7 @@ type FeedbackProps = {
 }
 
 const Feedback = ({
+  language,
   isPositiveFeedback,
   comment,
   contactMail,
@@ -113,7 +115,12 @@ const Feedback = ({
 
       {!isSearchFeedback && sendFeedbackDisabled && <Note text={t('note')} />}
       {sendingStatus === 'failed' && <ErrorSendingStatus role='alert'>{t('failedSendingFeedback')}</ErrorSendingStatus>}
-      <PrivacyCheckbox checked={privacyCheckedFilter} setChecked={setPrivacyCheckedFilter} id='privacyAgreement' />
+      <PrivacyCheckbox
+        language={language}
+        checked={privacyCheckedFilter}
+        setChecked={setPrivacyCheckedFilter}
+        id='privacyAgreement'
+      />
       <StyledTextButton disabled={sendFeedbackDisabled || !privacyCheckedFilter} onClick={onSubmit} text={t('send')} />
     </Container>
   )

@@ -2,16 +2,19 @@ import React, { ReactElement } from 'react'
 import { Trans } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
+import buildConfig from '../constants/buildConfig'
 import Checkbox from './base/Checkbox'
 
 type PrivacyCheckboxProps = {
+  language: string
   checked: boolean
   setChecked: (checked: boolean) => void
   id: string
 }
 
-const PrivacyCheckbox = ({ checked, setChecked, id }: PrivacyCheckboxProps): ReactElement => {
-  const link = 'https://integreat-app.de/datenschutz/'
+const PrivacyCheckbox = ({ language, checked, setChecked, id }: PrivacyCheckboxProps): ReactElement => {
+  const { privacyUrls } = buildConfig()
+  const privacyUrl = privacyUrls[language] || privacyUrls.default
   return (
     <Checkbox
       checked={checked}
@@ -19,7 +22,7 @@ const PrivacyCheckbox = ({ checked, setChecked, id }: PrivacyCheckboxProps): Rea
       label={
         <Trans i18nKey='common:privacyAgreement'>
           This gets replaced
-          <Link to={link}>by react-i18next</Link>
+          <Link to={privacyUrl}>by react-i18next</Link>
         </Trans>
       }
       id={id}
