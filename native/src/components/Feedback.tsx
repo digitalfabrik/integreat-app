@@ -33,6 +33,7 @@ const StyledButton = styled(TextButton)`
 `
 
 export type FeedbackProps = {
+  language: string
   comment: string
   contactMail: string
   sendingStatus: SendingStatusType
@@ -46,6 +47,7 @@ export type FeedbackProps = {
 }
 
 const Feedback = ({
+  language,
   isPositiveFeedback,
   comment,
   contactMail,
@@ -111,6 +113,7 @@ const Feedback = ({
         />
         {sendingStatus === 'failed' && <Description>{t('failedSendingFeedback')}</Description>}
         <PrivacyCheckbox
+          language={language}
           checked={privacyCheckedFilter}
           setChecked={setPrivacyCheckedFilter}
           showSnackbar={showSnackbar}

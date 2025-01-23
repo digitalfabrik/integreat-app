@@ -2,6 +2,7 @@ import React, { ReactElement } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
+import buildConfig from '../constants/buildConfig'
 import openExternalUrl from '../utils/openExternalUrl'
 import Link from './Link'
 import { SnackbarType } from './SnackbarContainer'
@@ -28,20 +29,25 @@ const StyledLabel = styled.Text`
 `
 
 type PrivacyCheckboxProps = {
+  language: string
   checked: boolean
   setChecked: (checked: boolean) => void
   showSnackbar: (snackbar: SnackbarType) => void
 }
 
-const PrivacyCheckbox = ({ checked, setChecked, showSnackbar }: PrivacyCheckboxProps): ReactElement => {
+const PrivacyCheckbox = ({ language, checked, setChecked, showSnackbar }: PrivacyCheckboxProps): ReactElement => {
+  const { privacyUrls } = buildConfig()
   const { t } = useTranslation('common')
-  const link = 'https://integreat-app.de/datenschutz/'
+  const privacyUrl = privacyUrls[language] || privacyUrls.default
   return (
     <FlexContainer onPress={() => setChecked(!checked)}>
       <StyledLabel>
         <Trans i18nKey='common:privacyAgreement'>
           This gets replaced
-          <StyledLink url={link} onPress={() => openExternalUrl(link, showSnackbar)} text={t('privacyAgreementLink')}>
+          <StyledLink
+            url={privacyUrl}
+            onPress={() => openExternalUrl(link, showSnackbar)}
+            text={t('privacyAgreementLink')}>
             by react-i18next
           </StyledLink>
         </Trans>

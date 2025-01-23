@@ -73,6 +73,7 @@ const FeedbackContainer = ({ query, language, routeType, cityCode, slug }: Feedb
   return (
     <Container>
       <Feedback
+        language={language}
         comment={comment}
         contactMail={contactMail}
         sendingStatus={sendingStatus}
