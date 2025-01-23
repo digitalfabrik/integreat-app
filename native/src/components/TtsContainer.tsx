@@ -1,13 +1,12 @@
+import * as Speech from 'expo-speech'
 import React, { createContext, ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { AppState, Platform } from 'react-native'
-import Tts from 'react-native-tts'
+import { AppState } from 'react-native'
 
 import { truncate } from 'shared/utils/getExcerpt'
 
 import buildConfig from '../constants/buildConfig'
 import { AppContext } from '../contexts/AppContextProvider'
-import { reportError } from '../utils/sentry'
 import TtsPlayer from './TtsPlayer'
 
 const MAX_TITLE_DISPLAY_CHARS = 20
@@ -45,80 +44,66 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
   const longTitle = truncate(title, { maxChars: MAX_TITLE_DISPLAY_CHARS })
   const unsupportedLanguagesForTts = ['fa', 'ka', 'kmr']
 
-  const initializeTts = useCallback((): void => {
-    Tts.getInitStatus().catch(async error => {
-      reportError(`Tts-Error: ${error.code}`)
-      if (error.code === 'no_engine') {
-        await Tts.requestInstallEngine().catch((e: string) => reportError(`Failed to install tts engine: : ${e}`))
-      }
-    })
-  }, [])
-
-  const enabled =
-    Platform.OS === 'android' && buildConfig().featureFlags.tts && !unsupportedLanguagesForTts.includes(languageCode)
+  const enabled = buildConfig().featureFlags.tts && !unsupportedLanguagesForTts.includes(languageCode)
   const canRead = enabled && sentences.length > 0 // to check if content is available
 
   const play = useCallback(
     (index = sentenceIndex) => {
-      Tts.stop()
+      Speech.stop()
       const sentence = sentences[index]
       if (sentence) {
         setIsPlaying(true)
-        Tts.setDefaultLanguage(languageCode)
-        Tts.speak(sentence, {
-          androidParams: {
-            KEY_PARAM_PAN: 0,
-            KEY_PARAM_VOLUME: 0.6,
-            KEY_PARAM_STREAM: 'STREAM_MUSIC',
-          },
-          iosVoiceId: '',
-          rate: 1,
+        Speech.speak(sentence, {
+          // eslint-disable-next-line @typescript-eslint/no-use-before-define
+          onDone: () => handleNext(index),
+          language: languageCode,
         })
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [languageCode, sentenceIndex, sentences],
   )
 
   const stop = async () => {
     setIsPlaying(false)
     setSentenceIndex(0)
-    await Tts.stop()
+    await Speech.stop()
     const TTS_STOP_DELAY = 100
     await new Promise(resolve => {
       setTimeout(resolve, TTS_STOP_DELAY)
     })
   }
 
+  const handleNext = useCallback(
+    (currentIndex: number) => {
+      const nextIndex = currentIndex + 1
+      if (nextIndex < sentences.length) {
+        setSentenceIndex(nextIndex)
+        play(nextIndex)
+      } else {
+        stop()
+      }
+    },
+    [play, sentences.length],
+  )
+
   const pause = () => {
-    Tts.stop()
+    Speech.stop()
     setIsPlaying(false)
   }
 
   const playNext = useCallback(() => {
-    const nextIndex = sentenceIndex + 1
-    if (nextIndex < sentences.length) {
-      setSentenceIndex(nextIndex)
-      play(nextIndex)
-    } else {
-      stop()
-    }
-  }, [play, sentenceIndex, sentences.length])
+    setSentenceIndex(prevIndex => {
+      handleNext(prevIndex)
+      return prevIndex + 1
+    })
+  }, [handleNext])
 
   const playPrevious = () => {
     const previousIndex = Math.max(0, sentenceIndex - 1)
     setSentenceIndex(previousIndex)
     play(previousIndex)
   }
-
-  useEffect(() => {
-    if (!enabled) {
-      return () => undefined
-    }
-
-    initializeTts()
-    Tts.addEventListener('tts-finish', playNext)
-    return () => Tts.removeAllListeners('tts-finish')
-  }, [enabled, initializeTts, playNext])
 
   useEffect(() => {
     const subscription = AppState.addEventListener('change', nextAppState => {
