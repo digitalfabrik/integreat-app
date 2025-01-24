@@ -201,7 +201,7 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
         </InputSection>
         <p>{t('responseDisclaimer')}</p>
         <PrivacyCheckbox
-          language='default'
+          language={languageCode}
           checked={privacyCheckedFilter}
           setChecked={setPrivacyCheckedFilter}
           id='privacyAgreement'

@@ -16,6 +16,7 @@ import {
 } from 'shared/api'
 
 import { SecurityIcon, SupportIcon } from '../assets'
+import useCityAppContext from '../hooks/useCityAppContext'
 import useKeyboardHeight from '../hooks/useKeyboardHeight'
 import useSnackbar from '../hooks/useSnackbar'
 import LayoutedScrollView from './LayoutedScrollView'
@@ -87,6 +88,7 @@ const MalteHelpFormOffer = ({
     defaultValues,
   })
   const { t } = useTranslation('malteHelpForm')
+  const { languageCode } = useCityAppContext()
   const [privacyCheckedFilter, setPrivacyCheckedFilter] = useState(false)
   const showSnackbar = useSnackbar()
 
@@ -172,12 +174,16 @@ const MalteHelpFormOffer = ({
 
         <InformationText>{t('responseDisclaimer')}</InformationText>
         <PrivacyCheckbox
-          language='default'
+          language={languageCode}
           checked={privacyCheckedFilter}
           setChecked={setPrivacyCheckedFilter}
           showSnackbar={showSnackbar}
         />
-        <TextButton text={t('submit')} onPress={submit} disabled={!formState.isValid || formState.isSubmitting} />
+        <TextButton
+          text={t('submit')}
+          onPress={submit}
+          disabled={!formState.isValid || formState.isSubmitting || !privacyCheckedFilter}
+        />
       </Container>
     </KeyboardAwareScrollView>
   )
