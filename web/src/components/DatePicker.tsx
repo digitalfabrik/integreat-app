@@ -29,7 +29,7 @@ const StyledIconButton = styled(Button)<{ $isCalendarOpen: boolean }>`
   justify-content: center;
   align-items: center;
   position: absolute;
-  right: 16px;
+  ${props => (props.theme.contentDirection === 'rtl' ? 'left: 16px;' : 'right: 16px;')};
   align-self: center;
   background-color: ${props =>
     props.$isCalendarOpen ? props.theme.colors.themeColorLight : props.theme.colors.textDisabledColor};
