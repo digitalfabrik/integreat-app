@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config')
+const { getDefaultConfig } = require('expo/metro-config')
+const { mergeConfig } = require('@react-native/metro-config')
 const path = require('path')
 
 /** @type {import('metro-config').MetroConfig} */
