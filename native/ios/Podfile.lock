@@ -1022,7 +1022,7 @@ PODS:
   - react-native-static-server (0.5.5):
     - GCDWebServer (~> 3.0)
     - React
-  - react-native-webview (13.12.2):
+  - react-native-webview (13.13.0):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1405,7 +1405,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNSentry (5.31.1):
+  - RNSentry (5.33.2):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1428,10 +1428,12 @@ PODS:
     - ReactCommon/turbomodule/core
     - Sentry/HybridSDK (= 8.36.0)
     - Yoga
-  - RNSVG (15.6.0):
+  - RNSVG (15.7.1):
     - React-Core
   - Sentry/HybridSDK (8.36.0)
   - SocketRocket (0.7.0)
+  - TextToSpeech (4.1.1):
+    - React-Core
   - Yoga (0.0.0)
 
 DEPENDENCIES:
@@ -1475,7 +1477,7 @@ DEPENDENCIES:
   - react-native-pdf (from `../node_modules/react-native-pdf`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - "react-native-static-server (from `../node_modules/@dr.pogodin/react-native-static-server`)"
-  - react-native-webview (from `../node_modules/react-native-webview`)
+  - "react-native-webview (from `../node_modules/@dr.pogodin/react-native-webview`)"
   - React-nativeconfig (from `../node_modules/react-native/ReactCommon`)
   - React-NativeModulesApple (from `../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
@@ -1513,6 +1515,7 @@ DEPENDENCIES:
   - RNScreens (from `../node_modules/react-native-screens`)
   - "RNSentry (from `../node_modules/@sentry/react-native`)"
   - RNSVG (from `../node_modules/react-native-svg`)
+  - TextToSpeech (from `../node_modules/react-native-tts`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -1610,7 +1613,7 @@ EXTERNAL SOURCES:
   react-native-static-server:
     :path: "../node_modules/@dr.pogodin/react-native-static-server"
   react-native-webview:
-    :path: "../node_modules/react-native-webview"
+    :path: "../node_modules/@dr.pogodin/react-native-webview"
   React-nativeconfig:
     :path: "../node_modules/react-native/ReactCommon"
   React-NativeModulesApple:
@@ -1685,6 +1688,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@sentry/react-native"
   RNSVG:
     :path: "../node_modules/react-native-svg"
+  TextToSpeech:
+    :path: "../node_modules/react-native-tts"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -1738,7 +1743,7 @@ SPEC CHECKSUMS:
   react-native-pdf: 103940c90d62adfd259f63cca99c7c0c306b514c
   react-native-safe-area-context: ab8f4a3d8180913bd78ae75dd599c94cce3d5e9a
   react-native-static-server: 9bb6c921baf4f2ad7e84832b82fa0eb5fe57c9f0
-  react-native-webview: 3567d1249c79d092d6bec900ab8eadf03769576c
+  react-native-webview: 85f0387441372c2d3209d86c281e80451e7f18c9
   React-nativeconfig: f326487bc61eba3f0e328da6efb2711533dcac46
   React-NativeModulesApple: d89733f5baed8b9249ca5a8e497d63c550097312
   React-perflogger: ed4e0c65781521e0424f2e5e40b40cc7879d737e
@@ -1774,11 +1779,12 @@ SPEC CHECKSUMS:
   RNPermissions: 829cceec018e0821e4883a8a7cf51a7bb2d0d30a
   RNReanimated: f8dc6e880959a874d8d65c1e1fcdc29c946b9fea
   RNScreens: db442e7b8c7bc8befec2ce057927305ff8598cc8
-  RNSentry: 09c5679c6b4e84f64f99ef14f6eb759eec5063a5
-  RNSVG: 5da7a24f31968ec74f0b091e3440080f347e279b
+  RNSentry: 6da4c3b6959bc67125ad550f474e0bae308ce7c8
+  RNSVG: 4590aa95758149fa27c5c83e54a6a466349a1688
   Sentry: f8374b5415bc38dfb5645941b3ae31230fbeae57
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
-  Yoga: 1ab23c1835475da69cf14e211a560e73aab24cb0
+  TextToSpeech: 2b930ec3756afde499061f4f01ea895e1f75dccb
+  Yoga: 33622183a85805e12703cd618b2c16bfd18bfffb
 
 PODFILE CHECKSUM: c4a732e94b53059c604cf075a22ab8a90d83e317
 

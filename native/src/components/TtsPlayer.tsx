@@ -95,7 +95,7 @@ type TtsPlayerProps = {
   sentences: string[]
   playPrevious: () => void
   playNext: () => void
-  close: () => Promise<void>
+  close: () => void
   pause: () => void
   play: () => void
   title: string

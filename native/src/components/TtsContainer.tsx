@@ -33,7 +33,7 @@ export const TtsContext = createContext<TtsContextType>({
 type TtsContainerProps = {
   children: ReactElement
 }
-
+// TODO Sometimes on ios when clicking playNext it reads the sentences and stop.
 const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
   const { languageCode } = React.useContext(AppContext)
   const { t } = useTranslation('layout')
@@ -44,6 +44,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
   const title = sentences[0] || t('nothingToRead')
   const longTitle = truncate(title, { maxChars: MAX_TITLE_DISPLAY_CHARS })
   const unsupportedLanguagesForTts = ['fa', 'ka', 'kmr']
+  const [suppressFinishEvent, setSuppressFinishEvent] = useState(false)
 
   const initializeTts = useCallback((): void => {
     Tts.getInitStatus().catch(async error => {
@@ -54,59 +55,81 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
     })
   }, [])
 
-  const enabled =
-    Platform.OS === 'android' && buildConfig().featureFlags.tts && !unsupportedLanguagesForTts.includes(languageCode)
+  /** Since ios wrongly triggers internally the tts-finish event even on stop() that should trigger 'tts-cancel' we have to suppress it, because it would trigger the playNext function
+   * https://github.com/ak1394/react-native-tts/issues/256
+   */
+  const suppressFinishEventOnIos = () => {
+    if (Platform.OS === 'ios') {
+      setSuppressFinishEvent(true)
+    }
+  }
+
+  const enabled = buildConfig().featureFlags.tts && !unsupportedLanguagesForTts.includes(languageCode)
   const canRead = enabled && sentences.length > 0 // to check if content is available
 
   const play = useCallback(
     (index = sentenceIndex) => {
-      Tts.stop()
+      if (suppressFinishEvent) {
+        setSuppressFinishEvent(false)
+      }
+
       const sentence = sentences[index]
       if (sentence) {
-        setIsPlaying(true)
-        Tts.setDefaultLanguage(languageCode)
+        Tts.setDefaultLanguage(languageCode).then()
         Tts.speak(sentence, {
           androidParams: {
             KEY_PARAM_PAN: 0,
-            KEY_PARAM_VOLUME: 0.6,
+            KEY_PARAM_VOLUME: 1,
             KEY_PARAM_STREAM: 'STREAM_MUSIC',
           },
           iosVoiceId: '',
-          rate: 1,
+          rate: 0.45,
         })
+        setIsPlaying(true)
       }
     },
-    [languageCode, sentenceIndex, sentences],
+    [languageCode, sentenceIndex, sentences, suppressFinishEvent],
   )
 
-  const stop = async () => {
-    setIsPlaying(false)
-    setSentenceIndex(0)
-    await Tts.stop()
-    const TTS_STOP_DELAY = 100
+  const stop = useCallback(async (resetIndex = false) => {
+    suppressFinishEventOnIos()
+    Tts.stop().then(() => setIsPlaying(false))
     await new Promise(resolve => {
+      const TTS_STOP_DELAY = 100
       setTimeout(resolve, TTS_STOP_DELAY)
     })
-  }
+    if (resetIndex) {
+      setSentenceIndex(0)
+    }
+  }, [])
 
-  const pause = () => {
-    Tts.stop()
-    setIsPlaying(false)
-  }
-
-  const playNext = useCallback(() => {
+  const playNextAutomatic = useCallback(() => {
     const nextIndex = sentenceIndex + 1
     if (nextIndex < sentences.length) {
       setSentenceIndex(nextIndex)
       play(nextIndex)
     } else {
-      stop()
+      stop(true).then()
     }
-  }, [play, sentenceIndex, sentences.length])
+  }, [play, sentenceIndex, sentences.length, stop])
+
+  const playNext = useCallback(() => {
+    const nextIndex = sentenceIndex + 1
+    if (nextIndex < sentences.length) {
+      suppressFinishEventOnIos()
+      setSentenceIndex(nextIndex)
+      Tts.stop().then()
+      play(nextIndex)
+    } else {
+      stop(true).then()
+    }
+  }, [play, sentenceIndex, sentences.length, stop])
 
   const playPrevious = () => {
+    suppressFinishEventOnIos()
     const previousIndex = Math.max(0, sentenceIndex - 1)
     setSentenceIndex(previousIndex)
+    Tts.stop().then()
     play(previousIndex)
   }
 
@@ -114,31 +137,41 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
     if (!enabled) {
       return () => undefined
     }
+    return () => initializeTts()
+  }, [enabled, initializeTts])
 
-    initializeTts()
-    Tts.addEventListener('tts-finish', playNext)
+  useEffect(() => {
+    Tts.addEventListener('tts-finish', () => {
+      if (!suppressFinishEvent) {
+        playNextAutomatic()
+      }
+    })
+
     return () => Tts.removeAllListeners('tts-finish')
-  }, [enabled, initializeTts, playNext])
+  }, [playNextAutomatic, suppressFinishEvent])
 
   useEffect(() => {
     const subscription = AppState.addEventListener('change', nextAppState => {
       if (nextAppState === 'inactive' || nextAppState === 'background') {
-        stop()
+        stop(true).then()
       }
     })
 
     return subscription.remove
-  }, [])
+  }, [stop])
 
   const close = async () => {
     setVisible(false)
-    await stop()
+    stop()
   }
 
-  const updateSentences = useCallback((newSentences: string[]) => {
-    setSentences(newSentences)
-    stop()
-  }, [])
+  const updateSentences = useCallback(
+    (newSentences: string[]) => {
+      setSentences(newSentences)
+      stop().then()
+    },
+    [stop],
+  )
 
   const ttsContextValue = useMemo(
     () => ({
@@ -162,7 +195,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
           playPrevious={playPrevious}
           playNext={playNext}
           close={close}
-          pause={pause}
+          pause={stop}
           play={play}
           title={longTitle}
         />
