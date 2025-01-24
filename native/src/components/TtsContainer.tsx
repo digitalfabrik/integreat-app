@@ -64,6 +64,8 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
     }
   }
 
+  // TODO fix on nextPlay and onPreviousPlay stops after reading sentence
+
   const enabled = buildConfig().featureFlags.tts && !unsupportedLanguagesForTts.includes(languageCode)
   const canRead = enabled && sentences.length > 0 // to check if content is available
 
@@ -93,7 +95,8 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
 
   const stop = useCallback(async (resetIndex = false) => {
     suppressFinishEventOnIos()
-    Tts.stop().then(() => setIsPlaying(false))
+    Tts.stop()
+    setIsPlaying(false)
     await new Promise(resolve => {
       const TTS_STOP_DELAY = 100
       setTimeout(resolve, TTS_STOP_DELAY)
@@ -137,7 +140,9 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
     if (!enabled) {
       return () => undefined
     }
-    return () => initializeTts()
+
+    initializeTts()
+    return () => undefined
   }, [enabled, initializeTts])
 
   useEffect(() => {
@@ -162,13 +167,13 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
 
   const close = async () => {
     setVisible(false)
-    stop()
+    stop(true)
   }
 
   const updateSentences = useCallback(
     (newSentences: string[]) => {
       setSentences(newSentences)
-      stop().then()
+      stop(true).then()
     },
     [stop],
   )

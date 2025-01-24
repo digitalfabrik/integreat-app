@@ -82,7 +82,7 @@ describe('TtsContainer', () => {
       expect.objectContaining({
         androidParams: expect.any(Object),
         iosVoiceId: '',
-        rate: 1,
+        rate: 0.45,
       }),
     )
   })
