@@ -33,7 +33,7 @@ export const TtsContext = createContext<TtsContextType>({
 type TtsContainerProps = {
   children: ReactElement
 }
-// TODO Sometimes on ios when clicking playNext it reads the sentences and stop.
+
 const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
   const { languageCode } = React.useContext(AppContext)
   const { t } = useTranslation('layout')
@@ -45,6 +45,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
   const longTitle = truncate(title, { maxChars: MAX_TITLE_DISPLAY_CHARS })
   const unsupportedLanguagesForTts = ['fa', 'ka', 'kmr']
   const [suppressFinishEvent, setSuppressFinishEvent] = useState(false)
+  const [isPaused, setIsPaused] = useState(false)
 
   const initializeTts = useCallback((): void => {
     Tts.getInitStatus().catch(async error => {
@@ -56,7 +57,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
   }, [])
 
   /** Since ios wrongly triggers internally the tts-finish event even on stop() that should trigger 'tts-cancel' we have to suppress it, because it would trigger the playNext function
-   * https://github.com/ak1394/react-native-tts/issues/256
+   * https://github.com/ak1394/react-native-tts/issues/198
    */
   const suppressFinishEventOnIos = () => {
     if (Platform.OS === 'ios') {
@@ -64,24 +65,30 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
     }
   }
 
-  // TODO fix on nextPlay and onPreviousPlay stops after reading sentence
-
   const enabled = buildConfig().featureFlags.tts && !unsupportedLanguagesForTts.includes(languageCode)
   const canRead = enabled && sentences.length > 0 // to check if content is available
 
   const play = useCallback(
-    (index = sentenceIndex) => {
+    (index = sentenceIndex, automaticSource = true) => {
+      const isAndroidOrNotAutoPlay = !automaticSource || Platform.OS === 'android'
+
       if (suppressFinishEvent) {
         setSuppressFinishEvent(false)
+      }
+      if (isPaused) {
+        Tts.resume().then(() => setIsPaused(false))
+      }
+      if (isAndroidOrNotAutoPlay) {
+        Tts.stop()
       }
 
       const sentence = sentences[index]
       if (sentence) {
-        Tts.setDefaultLanguage(languageCode).then()
+        Tts.setDefaultLanguage(languageCode)
         Tts.speak(sentence, {
           androidParams: {
             KEY_PARAM_PAN: 0,
-            KEY_PARAM_VOLUME: 1,
+            KEY_PARAM_VOLUME: 0.6,
             KEY_PARAM_STREAM: 'STREAM_MUSIC',
           },
           iosVoiceId: '',
@@ -90,21 +97,27 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
         setIsPlaying(true)
       }
     },
-    [languageCode, sentenceIndex, sentences, suppressFinishEvent],
+    [isPaused, languageCode, sentenceIndex, sentences, suppressFinishEvent],
   )
 
-  const stop = useCallback(async (resetIndex = false) => {
+  const stop = useCallback(async () => {
+    await Tts.stop()
     suppressFinishEventOnIos()
-    Tts.stop()
     setIsPlaying(false)
-    await new Promise(resolve => {
-      const TTS_STOP_DELAY = 100
-      setTimeout(resolve, TTS_STOP_DELAY)
-    })
-    if (resetIndex) {
-      setSentenceIndex(0)
-    }
+    setSentenceIndex(0)
   }, [])
+
+  /** The stop function on ios triggers the wrong event ('tts-finish' instead of 'tts-cancel')
+   * 'tts-finish' triggers the next sentence, so we use pause which is only available on ios
+   */
+  const pause = async () => {
+    if (Platform.OS === 'ios') {
+      Tts.pause().then(() => setIsPaused(true))
+    } else {
+      Tts.stop()
+    }
+    setIsPlaying(false)
+  }
 
   const playNextAutomatic = useCallback(() => {
     const nextIndex = sentenceIndex + 1
@@ -112,28 +125,31 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
       setSentenceIndex(nextIndex)
       play(nextIndex)
     } else {
-      stop(true).then()
+      stop().then()
     }
   }, [play, sentenceIndex, sentences.length, stop])
 
   const playNext = useCallback(() => {
     const nextIndex = sentenceIndex + 1
     if (nextIndex < sentences.length) {
-      suppressFinishEventOnIos()
-      setSentenceIndex(nextIndex)
-      Tts.stop().then()
-      play(nextIndex)
+      // do not update index  because ios immediately triggers playNextAuto due to `tts-finish` event, so it will be updated there
+      if (Platform.OS === 'ios') {
+        play(sentenceIndex, false)
+      } else {
+        setSentenceIndex(nextIndex)
+        play(nextIndex, false)
+      }
     } else {
-      stop(true).then()
+      stop().then()
     }
   }, [play, sentenceIndex, sentences.length, stop])
 
   const playPrevious = () => {
-    suppressFinishEventOnIos()
-    const previousIndex = Math.max(0, sentenceIndex - 1)
+    // Since ios immediately triggers 'tts-finish' which updates the index, we have to reduce by 2.
+    const correctIndex = Platform.OS === 'ios' ? 2 : 1
+    const previousIndex = Math.max(0, sentenceIndex - correctIndex)
     setSentenceIndex(previousIndex)
-    Tts.stop().then()
-    play(previousIndex)
+    play(previousIndex, false)
   }
 
   useEffect(() => {
@@ -158,7 +174,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
   useEffect(() => {
     const subscription = AppState.addEventListener('change', nextAppState => {
       if (nextAppState === 'inactive' || nextAppState === 'background') {
-        stop(true).then()
+        stop().then()
       }
     })
 
@@ -167,13 +183,13 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
 
   const close = async () => {
     setVisible(false)
-    stop(true)
+    stop()
   }
 
   const updateSentences = useCallback(
     (newSentences: string[]) => {
       setSentences(newSentences)
-      stop(true).then()
+      stop().then()
     },
     [stop],
   )
@@ -200,7 +216,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
           playPrevious={playPrevious}
           playNext={playNext}
           close={close}
-          pause={stop}
+          pause={pause}
           play={play}
           title={longTitle}
         />
