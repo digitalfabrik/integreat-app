@@ -56,9 +56,6 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
     })
   }, [])
 
-  /** Since ios wrongly triggers internally the tts-finish event even on stop() that should trigger 'tts-cancel' we have to suppress it, because it would trigger the playNext function
-   * https://github.com/ak1394/react-native-tts/issues/198
-   */
   const suppressFinishEventOnIos = () => {
     if (Platform.OS === 'ios') {
       setSuppressFinishEvent(true)
@@ -69,17 +66,12 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
   const canRead = enabled && sentences.length > 0 // to check if content is available
 
   const play = useCallback(
-    (index = sentenceIndex, automaticSource = true) => {
-      const isAndroidOrNotAutoPlay = !automaticSource || Platform.OS === 'android'
-
+    (index = sentenceIndex) => {
       if (suppressFinishEvent) {
         setSuppressFinishEvent(false)
       }
       if (isPaused) {
         Tts.resume().then(() => setIsPaused(false))
-      }
-      if (isAndroidOrNotAutoPlay) {
-        Tts.stop()
       }
 
       const sentence = sentences[index]
@@ -99,7 +91,9 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
     },
     [isPaused, languageCode, sentenceIndex, sentences, suppressFinishEvent],
   )
-
+  /** Since ios wrongly triggers internally the tts-finish event even on stop() that should trigger 'tts-cancel' we have to suppress it, because in our case it would trigger the playNext function
+   * https://github.com/ak1394/react-native-tts/issues/198
+   */
   const stop = useCallback(async () => {
     await Tts.stop()
     suppressFinishEventOnIos()
@@ -107,9 +101,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
     setSentenceIndex(0)
   }, [])
 
-  /** The stop function on ios triggers the wrong event ('tts-finish' instead of 'tts-cancel')
-   * 'tts-finish' triggers the next sentence, so we use pause which is only available on ios
-   */
+  // Pause function is only available on ios. On android we use stop and continue at the start of the current sentence
   const pause = async () => {
     if (Platform.OS === 'ios') {
       Tts.pause().then(() => setIsPaused(true))
@@ -129,27 +121,33 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
     }
   }, [play, sentenceIndex, sentences.length, stop])
 
+  /** Tts.stop() has to be used to reset the audio session and to start a new session if we skip a sentence.
+   * On ios it sends (wrongly) tts-finish which triggers playNextAutomatic, therefore we don't trigger play function manually
+   */
   const playNext = useCallback(() => {
     const nextIndex = sentenceIndex + 1
     if (nextIndex < sentences.length) {
-      // do not update index  because ios immediately triggers playNextAuto due to `tts-finish` event, so it will be updated there
-      if (Platform.OS === 'ios') {
-        play(sentenceIndex, false)
-      } else {
+      Tts.stop()
+      if (Platform.OS === 'android') {
         setSentenceIndex(nextIndex)
-        play(nextIndex, false)
+        play(nextIndex)
       }
     } else {
       stop().then()
     }
   }, [play, sentenceIndex, sentences.length, stop])
 
+  /** We only trigger play function on android, since on ios the Tts.stop() invokes the playNextAutomatic function
+   * We have to reduce the index by 2 for ios, since the playNextAutomatic increases it by 1, so it jumps one position back.
+   */
   const playPrevious = () => {
-    // Since ios immediately triggers 'tts-finish' which updates the index, we have to reduce by 2.
-    const correctIndex = Platform.OS === 'ios' ? 2 : 1
-    const previousIndex = Math.max(0, sentenceIndex - correctIndex)
+    Tts.stop()
+    const indexDecrease = Platform.OS === 'ios' ? 2 : 1
+    const previousIndex = Math.max(0, sentenceIndex - indexDecrease)
     setSentenceIndex(previousIndex)
-    play(previousIndex, false)
+    if (Platform.OS === 'android') {
+      play(previousIndex)
+    }
   }
 
   useEffect(() => {
