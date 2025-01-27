@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { TU_NEWS_TYPE } from 'shared'
@@ -56,7 +56,6 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
   // This component is only opened when there is a news ID in the route
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const newsId = useParams().newsId!
-  const navigate = useNavigate()
   const { t } = useTranslation('news')
 
   const {
@@ -122,7 +121,6 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
             content={newsModel.content}
             lastUpdate={newsModel.date}
             showLastUpdateText={false}
-            onInternalLinkClick={navigate}
           />
         </>
       </StyledContainer>
