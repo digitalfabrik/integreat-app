@@ -31,6 +31,18 @@ const SearchCounter = styled.p`
   color: ${props => props.theme.colors.textSecondaryColor};
 `
 
+const NearbyMessageContainer = styled.div`
+  padding: 7px;
+  flex-direction: row;
+  justify-content: space-between;
+`
+
+const NearbyMessage = styled.span`
+  color: ${props => props.theme.colors.textColor};
+  font-family: ${props => props.theme.fonts.web.decorativeFont};
+  padding-top: 15px;
+`
+
 type NearbyCitiesProps = {
   userLocation: LocationType | null
   cities: CityModel[]
@@ -40,21 +52,25 @@ type NearbyCitiesProps = {
 
 const NearbyCities = ({ userLocation, cities, language, filterText }: NearbyCitiesProps) => {
   const { t } = useTranslation('landing')
-  const nearCities = userLocation
+  const nearbyCities = userLocation
     ? getNearbyCities(
         userLocation,
         cities.filter(city => city.live),
       )
     : []
 
-  return nearCities.length > 0 ? (
+  return nearbyCities.length > 0 ? (
     <div key='nearbyCities'>
       <CityListParent $stickyTop={0}>{t('nearbyCities')}</CityListParent>
-      {nearCities.map(city => (
+      {nearbyCities.map(city => (
         <CityEntry key={city.code} city={city} language={language} filterText={filterText} />
       ))}
     </div>
-  ) : null
+  ) : (
+    <NearbyMessageContainer>
+      <NearbyMessage>{userLocation ? t('noNearbyCities') : t('locationError')}</NearbyMessage>
+    </NearbyMessageContainer>
+  )
 }
 
 type CitySelectorProps = {
