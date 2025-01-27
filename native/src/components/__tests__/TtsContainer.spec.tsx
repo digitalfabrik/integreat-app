@@ -14,6 +14,10 @@ import TtsContainer from '../TtsContainer'
 
 jest.mock('react-i18next')
 jest.mock('react-native-tts')
+jest.mock('react-native/Libraries/Utilities/Platform', () => ({
+  OS: 'android',
+  select: jest.fn(),
+}))
 
 jest.mock('react-native-reanimated', () => {
   const Reanimated = require('react-native-reanimated/mock')
