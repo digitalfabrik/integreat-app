@@ -2,7 +2,7 @@ import React, { ReactElement, useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { filterSortCities, getNearbyCities, LocationType } from 'shared'
+import { filterSortCities } from 'shared'
 import { CityModel, useLoadAsync } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
@@ -10,13 +10,14 @@ import getUserLocation from '../utils/getUserLocation'
 import CityEntry from './CityEntry'
 import CrashTestingIcon from './CrashTestingIcon'
 import Failure from './Failure'
+import NearbyCities from './NearbyCities'
 import ScrollingSearchBox from './ScrollingSearchBox'
 
 const Container = styled.div`
   padding-top: 22px;
 `
 
-const CityListParent = styled.div<{ $stickyTop: number }>`
+export const CityListParent = styled.div<{ $stickyTop: number }>`
   position: sticky;
   top: ${props => props.$stickyTop}px;
   height: 30px;
@@ -30,48 +31,6 @@ const CityListParent = styled.div<{ $stickyTop: number }>`
 const SearchCounter = styled.p`
   color: ${props => props.theme.colors.textSecondaryColor};
 `
-
-const NearbyMessageContainer = styled.div`
-  padding: 7px;
-  flex-direction: row;
-  justify-content: space-between;
-`
-
-const NearbyMessage = styled.span`
-  color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.web.decorativeFont};
-  padding-top: 15px;
-`
-
-type NearbyCitiesProps = {
-  userLocation: LocationType | null
-  cities: CityModel[]
-  language: string
-  filterText: string
-}
-
-const NearbyCities = ({ userLocation, cities, language, filterText }: NearbyCitiesProps) => {
-  const { t } = useTranslation('landing')
-  const nearbyCities = userLocation
-    ? getNearbyCities(
-        userLocation,
-        cities.filter(city => city.live),
-      )
-    : []
-
-  return nearbyCities.length > 0 ? (
-    <div key='nearbyCities'>
-      <CityListParent $stickyTop={0}>{t('nearbyCities')}</CityListParent>
-      {nearbyCities.map(city => (
-        <CityEntry key={city.code} city={city} language={language} filterText={filterText} />
-      ))}
-    </div>
-  ) : (
-    <NearbyMessageContainer>
-      <NearbyMessage>{userLocation ? t('noNearbyCities') : t('locationError')}</NearbyMessage>
-    </NearbyMessageContainer>
-  )
-}
 
 type CitySelectorProps = {
   cities: CityModel[]
