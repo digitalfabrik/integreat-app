@@ -6487,7 +6487,14 @@
       "open": "Öffnen",
       "view": "Anzeigen",
       "getOnPlayStore": "Im Google Play Store anschauen",
-      "accessibility": "Barrierefreiheit"
+      "accessibility": "Barrierefreiheit",
+      "readAloud": "Vorlesefunktion",
+      "nothingToRead": "Nichts zu lesen",
+      "nothingToReadFullMessage": "Es gibt nichts, um es auf dieser Seite zu lesen.",
+      "previous": "Zurück",
+      "next": "Weiter",
+      "play": "Abspielen",
+      "pause": "Pause"
     },
     "am": {
       "imprintAndContact": "ዕትም እና የግንኙነት መረጃ",
@@ -6538,6 +6545,11 @@
       "sideBarOpenAriaLabel": "فتح الشريط الجانبي",
       "sideBarCloseAriaLabel": "غلق الشريط الجانبي",
       "accessibility": "حرية الوصول",
+      "readAloud": "قراءة بصوت عالٍ",
+      "nothingToRead": "لا يوجد شيء للقراءة",
+      "nothingToReadFullMessage": "لا يوجد شيء لقراءته في هذه الصفحة",
+      "previous": "السابق",
+      "next": "التالي",
       "openInApp": "افتح في تطبيق {{appName}}",
       "open": "افتح",
       "view": "عرض",
@@ -6695,7 +6707,14 @@
       "open": "Open",
       "view": "View",
       "getOnPlayStore": "GET — On the Google Play Store",
-      "accessibility": "Accessibility"
+      "accessibility": "Accessibility",
+      "readAloud": "Read aloud",
+      "nothingToRead": "Nothing to read",
+      "nothingToReadFullMessage": "There is nothing to read on this page.",
+      "previous": "Prev",
+      "next": "Next",
+      "play": "Play",
+      "pause": "Pause"
     },
     "es": {
       "imprintAndContact": "Aviso legal y contacto",
