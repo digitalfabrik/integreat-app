@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { EVENTS_ROUTE, pathnameFromRouteInformation, useDateFilter } from 'shared'
@@ -38,7 +38,6 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
   const previousPathname = usePreviousProp({ prop: pathname })
   const { eventId } = useParams()
   const { t } = useTranslation('events')
-  const navigate = useNavigate()
 
   const {
     data: events,
@@ -124,7 +123,6 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
           lastUpdate={lastUpdate}
           content={content}
           title={title}
-          onInternalLinkClick={navigate}
           BeforeContent={
             <Spacing $content={content} $lastUpdate={lastUpdate}>
               <DatesPageDetail date={date} languageCode={languageCode} />

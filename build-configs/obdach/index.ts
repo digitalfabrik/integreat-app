@@ -16,7 +16,7 @@ const commonObdachBuildConfig: CommonBuildConfigType = {
   allowedLookalikes: [],
   supportedIframeSources: ['vimeo.com'],
   translationsOverride: obdachOverrideTranslations,
-  internalLinksHijackPattern:
+  internalUrlPattern:
     'https?:\\/\\/((cms\\.)?netzwerkobdachwohnen\\.de)(?!\\/(media|[^/]*\\/(wp-content|wp-admin|wp-json))\\/.*).*',
   featureFlags: {
     floss: false,

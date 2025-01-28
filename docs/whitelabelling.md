@@ -79,7 +79,7 @@ Information needed from our CMS.
 - Switch cms url
 - Share base url
 - Allowed host names
-- Internal link hijack pattern
+- Internal url pattern
 - [depends] City name (to skip the landing screen)
 
 ## AppTeam TODOs

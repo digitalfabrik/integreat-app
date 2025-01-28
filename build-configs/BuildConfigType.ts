@@ -56,9 +56,9 @@ export type CommonBuildConfigType = {
   allowedHostNames: string[]
   // Linked hosts that can may look similar https://chromium.googlesource.com/chromium/src/+/master/docs/security/lookalikes/lookalike-domains.md#automated-warning-removal
   allowedLookalikes: string[]
-  // Regex defining which urls to intercept as they are internal ones.
   supportedIframeSources: string[]
-  internalLinksHijackPattern: string
+  // Regex defining which urls to intercept as they are internal ones.
+  internalUrlPattern: string
   featureFlags: FeatureFlagsType
   lightTheme: ThemeType
   // Translations deviating from the standard integreat translations.
