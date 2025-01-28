@@ -13675,6 +13675,11 @@ react-native-swipe-gestures@^1.0.5:
   resolved "https://registry.yarnpkg.com/react-native-swipe-gestures/-/react-native-swipe-gestures-1.0.5.tgz#a172cb0f3e7478ccd681fd36b8bfbcdd098bde7c"
   integrity sha512-Ns7Bn9H/Tyw278+5SQx9oAblDZ7JixyzeOczcBK8dipQk2pD7Djkcfnf1nB/8RErAmMLL9iXgW0QHqiII8AhKw==
 
+react-native-tts@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-tts/-/react-native-tts-4.1.1.tgz#a6caa23f3e955e913195d6342608cb4489dd8ed1"
+  integrity sha512-VL0TgCwkUWggbbFGIXAPKC3rM1baluAYtgOdgnaTm7UYsWf/y8n5VgmVB0J2Wa8qt1dldZ1cSsdQY9iz3evcAg==
+
 react-native-url-polyfill@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/react-native-url-polyfill/-/react-native-url-polyfill-2.0.0.tgz#db714520a2985cff1d50ab2e66279b9f91ffd589"
@@ -14535,6 +14540,11 @@ send@0.19.0:
     on-finished "2.4.1"
     range-parser "~1.2.1"
     statuses "2.0.1"
+
+sentencex@^0.4.2:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/sentencex/-/sentencex-0.4.2.tgz#df26b8c7ecba752e259958d2e22d20893917564c"
+  integrity sha512-Pe/ARSCa2oJcg5ARYQsnQJPBEbAH1/h6ZWc80UuKCJO9w94setiFn4tH8iU2Eiogf5MlBMgc6NvL3ZGsguRkBA==
 
 serialize-error@^11.0.1:
   version "11.0.3"

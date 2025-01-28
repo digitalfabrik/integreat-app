@@ -12,7 +12,7 @@ import { reportError } from './sentry'
 const openExternalUrl = async (rawUrl: string, showSnackbar: (snackbar: SnackbarType) => void): Promise<void> => {
   const encodedUrl = encodeURI(rawUrl)
   const { protocol } = new URL(encodedUrl)
-  const internalLinkRegexp = new RegExp(buildConfig().internalLinksHijackPattern)
+  const internalLinkRegexp = new RegExp(buildConfig().internalUrlPattern)
 
   const canBeOpenedWithInAppBrowser = (await InAppBrowser.isAvailable()) && ['https:', 'http:'].includes(protocol)
   const canBeOpenedWithOtherApp = await Linking.canOpenURL(encodedUrl)
