@@ -64,7 +64,7 @@ const scrollToFirstError = (form: HTMLFormElement) => {
 const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }: MalteHelpFormProps): ReactElement => {
   const { t } = useTranslation('malteHelpForm')
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
-  const [privacyCheckedFilter, setPrivacyCheckedFilter] = useState(false)
+  const [privacyPolicyAccepted, setPrivacyPolicyAccepted] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [contactChannel, setContactChannel] = useState<ContactChannel>('email')
   const [email, setEmail] = useState('')
@@ -202,9 +202,9 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
         <p>{t('responseDisclaimer')}</p>
         <PrivacyCheckbox
           language={languageCode}
-          checked={privacyCheckedFilter}
-          setChecked={setPrivacyCheckedFilter}
-          id='privacyAgreement'
+          checked={privacyPolicyAccepted}
+          setChecked={setPrivacyPolicyAccepted}
+          id='privacyPolicy'
         />
         {(sendingStatus === 'failed' || sendingStatus === 'invalidEmail') && (
           <ErrorSendingStatus role='alert'>
@@ -214,7 +214,7 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
         )}
         <TextButton
           type='submit'
-          disabled={sendingStatus === 'sending' || missingData || !privacyCheckedFilter}
+          disabled={sendingStatus === 'sending' || missingData || !privacyPolicyAccepted}
           onClick={() => setSubmitted(true)}
           text={t('submit')}
         />

@@ -76,7 +76,7 @@ const Feedback = ({
 
   const isSearchFeedback = searchTerm !== undefined
   const commentTitle = isSearchFeedback ? 'wantedInformation' : 'commentHeadline'
-  const [privacyCheckedFilter, setPrivacyCheckedFilter] = useState(false)
+  const [privacyPolicyAccepted, setPrivacyPolicyAccepted] = useState(false)
   const sendFeedbackDisabled = isPositiveFeedback === null && comment.trim().length === 0 && !searchTerm
 
   if (sendingStatus === 'successful') {
@@ -117,11 +117,11 @@ const Feedback = ({
       {sendingStatus === 'failed' && <ErrorSendingStatus role='alert'>{t('failedSendingFeedback')}</ErrorSendingStatus>}
       <PrivacyCheckbox
         language={language}
-        checked={privacyCheckedFilter}
-        setChecked={setPrivacyCheckedFilter}
-        id='privacyAgreement'
+        checked={privacyPolicyAccepted}
+        setChecked={setPrivacyPolicyAccepted}
+        id='privacyPolicy'
       />
-      <StyledTextButton disabled={sendFeedbackDisabled || !privacyCheckedFilter} onClick={onSubmit} text={t('send')} />
+      <StyledTextButton disabled={sendFeedbackDisabled || !privacyPolicyAccepted} onClick={onSubmit} text={t('send')} />
     </Container>
   )
 }

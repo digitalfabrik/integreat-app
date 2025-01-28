@@ -25,7 +25,6 @@ type CheckboxProps = {
 
 const Checkbox = ({ checked, setChecked }: CheckboxProps): ReactElement => (
   <FlexEnd>
-    {/* https://github.com/react-native-checkbox/react-native-checkbox/blob/develop/README.md */}
     <StyledCheckbox disabled={false} value={checked} onValueChange={() => setChecked(!checked)} />
   </FlexEnd>
 )

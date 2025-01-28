@@ -89,7 +89,7 @@ const MalteHelpFormOffer = ({
   })
   const { t } = useTranslation('malteHelpForm')
   const { languageCode } = useCityAppContext()
-  const [privacyCheckedFilter, setPrivacyCheckedFilter] = useState(false)
+  const [privacyPolicyAccepted, setPrivacyPolicyAccepted] = useState(false)
   const showSnackbar = useSnackbar()
 
   const submit = handleSubmit(async (data: FormInput) => {
@@ -175,14 +175,14 @@ const MalteHelpFormOffer = ({
         <InformationText>{t('responseDisclaimer')}</InformationText>
         <PrivacyCheckbox
           language={languageCode}
-          checked={privacyCheckedFilter}
-          setChecked={setPrivacyCheckedFilter}
+          checked={privacyPolicyAccepted}
+          setChecked={setPrivacyPolicyAccepted}
           showSnackbar={showSnackbar}
         />
         <TextButton
           text={t('submit')}
           onPress={submit}
-          disabled={!formState.isValid || formState.isSubmitting || !privacyCheckedFilter}
+          disabled={!formState.isValid || formState.isSubmitting || !privacyPolicyAccepted}
         />
       </Container>
     </KeyboardAwareScrollView>

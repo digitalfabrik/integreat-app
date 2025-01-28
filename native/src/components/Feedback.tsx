@@ -63,7 +63,7 @@ const Feedback = ({
   const navigation = useNavigate().navigation
 
   const isSearchFeedback = searchTerm !== undefined
-  const [privacyCheckedFilter, setPrivacyCheckedFilter] = useState(false)
+  const [privacyPolicyAccepted, setPrivacyPolicyAccepted] = useState(false)
   const showSnackbar = useSnackbar()
   const submitDisabled = isPositiveFeedback === null && comment.trim().length === 0 && !searchTerm
 
@@ -114,12 +114,12 @@ const Feedback = ({
         {sendingStatus === 'failed' && <Description>{t('failedSendingFeedback')}</Description>}
         <PrivacyCheckbox
           language={language}
-          checked={privacyCheckedFilter}
-          setChecked={setPrivacyCheckedFilter}
+          checked={privacyPolicyAccepted}
+          setChecked={setPrivacyPolicyAccepted}
           showSnackbar={showSnackbar}
         />
         {!isSearchFeedback && submitDisabled && <Note text={t('note')} />}
-        <StyledButton disabled={submitDisabled || !privacyCheckedFilter} onPress={onSubmit} text={t('send')} />
+        <StyledButton disabled={submitDisabled || !privacyPolicyAccepted} onPress={onSubmit} text={t('send')} />
       </Wrapper>
     </KeyboardAwareScrollView>
   )

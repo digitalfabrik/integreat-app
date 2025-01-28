@@ -1091,8 +1091,8 @@
       "optional": "optional",
       "back": "Zurück",
       "ok": "Ok",
-      "privacyAgreement": "Ich habe die <1>Datenschutzerklärung</1> gelesen und stimme der Verarbeitung und Speicherung meiner Daten zu.",
-      "privacyAgreementLink": "Datenschutzerklärung"
+      "privacyPolicy": "Ich habe die <1>Datenschutzerklärung</1> gelesen und stimme der Verarbeitung und Speicherung meiner Daten zu.",
+      "privacyPolicyLink": "Datenschutzerklärung"
     },
     "am": {
       "copied": "ተቀድቷል",
@@ -1205,8 +1205,8 @@
       "optional": "optional",
       "back": "Back",
       "ok": "Ok",
-      "privacyAgreement": "I have read the <1>privacy policy</1> and agree to the processing and storage of my data.",
-      "privacyAgreementLink": "privacy policy"
+      "privacyPolicy": "I have read the <1>privacy policy</1> and agree to the processing and storage of my data.",
+      "privacyPolicyLink": "privacy policy"
     },
     "es": {
       "copied": "Copiado",

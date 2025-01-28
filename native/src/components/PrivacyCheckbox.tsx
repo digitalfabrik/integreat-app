@@ -42,12 +42,12 @@ const PrivacyCheckbox = ({ language, checked, setChecked, showSnackbar }: Privac
   return (
     <FlexContainer onPress={() => setChecked(!checked)}>
       <StyledLabel>
-        <Trans i18nKey='common:privacyAgreement'>
+        <Trans i18nKey='common:privacyPolicy'>
           This gets replaced
           <StyledLink
             url={privacyUrl}
             onPress={() => openExternalUrl(link, showSnackbar)}
-            text={t('privacyAgreementLink')}>
+            text={t('privacyPolicyLink')}>
             by react-i18next
           </StyledLink>
         </Trans>
