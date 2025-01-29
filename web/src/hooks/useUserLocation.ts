@@ -1,4 +1,7 @@
+import { useCallback, useState } from 'react'
+
 import { UnavailableLocationState, UserLocationType } from 'shared'
+import { useLoadAsync } from 'shared/api'
 
 const currentPositionTimeout = 50_000
 
@@ -26,7 +29,7 @@ const locationStateOnError = (error: GeolocationPositionError): UnavailableLocat
   }
 }
 
-const getUserLocation = async (): Promise<UserLocationType> =>
+export const getUserLocation = async (): Promise<UserLocationType> =>
   new Promise(resolve => {
     navigator.geolocation.getCurrentPosition(
       ({ coords }) => {
@@ -40,4 +43,19 @@ const getUserLocation = async (): Promise<UserLocationType> =>
     )
   })
 
-export default getUserLocation
+const useUserLocation = (): { data: UserLocationType | null; refresh: () => void } => {
+  const [refreshState, setRefreshState] = useState(false)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const { data } = useLoadAsync(useCallback(async () => getUserLocation(), [refreshState]))
+
+  const refresh = useCallback(() => {
+    setRefreshState(prev => !prev)
+  }, [])
+
+  return {
+    data,
+    refresh,
+  }
+}
+
+export default useUserLocation
