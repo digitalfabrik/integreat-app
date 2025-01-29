@@ -4,9 +4,11 @@ import { KeyboardAvoidingView, Platform } from 'react-native'
 import styled from 'styled-components/native'
 
 import { parseHTML, SEARCH_FINISHED_SIGNAL_NAME, SEARCH_ROUTE, SearchResult, useSearch } from 'shared'
+import { config } from 'translations'
 
 import FeedbackContainer from '../components/FeedbackContainer'
 import List from '../components/List'
+import Loader from '../components/LoadingSpinner'
 import SearchHeader from '../components/SearchHeader'
 import SearchListItem from '../components/SearchListItem'
 import useResourceCache from '../hooks/useResourceCache'
@@ -28,7 +30,8 @@ const SearchCounter = styled.Text`
 `
 
 export type SearchModalProps = {
-  allPossibleResults: SearchResult[]
+  allPossibleContentLanguageResults: SearchResult[]
+  allPossibleFallbackLanguageResults: SearchResult[]
   languageCode: string
   cityCode: string
   closeModal: (query: string) => void
@@ -36,7 +39,8 @@ export type SearchModalProps = {
 }
 
 const SearchModal = ({
-  allPossibleResults,
+  allPossibleContentLanguageResults,
+  allPossibleFallbackLanguageResults,
   languageCode,
   cityCode,
   closeModal,
@@ -46,11 +50,13 @@ const SearchModal = ({
   const resourceCache = useResourceCache({ cityCode, languageCode })
   const { t } = useTranslation('search')
 
-  const searchResults = useSearch(allPossibleResults, query)
+  const contentLanguageResults = useSearch(allPossibleContentLanguageResults, query)
+  const fallbackLanguageResults = useSearch(allPossibleFallbackLanguageResults, query)
 
-  if (!searchResults) {
-    return null
-  }
+  const searchResults =
+    languageCode === config.sourceLanguage
+      ? contentLanguageResults
+      : contentLanguageResults?.concat(fallbackLanguageResults ?? [])
 
   const onClose = (): void => {
     sendTrackingSignal({
@@ -61,6 +67,15 @@ const SearchModal = ({
       },
     })
     closeModal(query)
+  }
+
+  if (!searchResults) {
+    return (
+      <Wrapper {...testID('Search-Page')}>
+        <SearchHeader query={query} closeSearchBar={onClose} onSearchChanged={setQuery} />
+        {!!query.length && <Loader />}
+      </Wrapper>
+    )
   }
 
   const renderItem = ({ item }: { item: SearchResult }) => (
