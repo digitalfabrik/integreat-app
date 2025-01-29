@@ -3,11 +3,18 @@
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$/..">
+      <sourceFolder url="file://$MODULE_DIR$/../assets" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../build-configs" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../e2e-tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../release-notes" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../shared" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../translations/override-translations" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../translations/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../translations/store-translations" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/../api-client/node_modules" />
       <excludeFolder url="file://$MODULE_DIR$/../api-client/reports" />
-      <excludeFolder url="file://$MODULE_DIR$/android" />
       <excludeFolder url="file://$MODULE_DIR$/flow-typed" />
-      <excludeFolder url="file://$MODULE_DIR$/ios" />
       <excludeFolder url="file://$MODULE_DIR$/node_modules" />
       <excludeFolder url="file://$MODULE_DIR$/reports" />
       <excludeFolder url="file://$MODULE_DIR$/../translations/external-jobs" />
@@ -23,6 +30,11 @@
       <excludeFolder url="file://$MODULE_DIR$/../.yarn" />
       <excludeFolder url="file://$MODULE_DIR$/.bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor" />
+      <excludeFolder url="file://$MODULE_DIR$/android/.gradle" />
+      <excludeFolder url="file://$MODULE_DIR$/android/app/build" />
+      <excludeFolder url="file://$MODULE_DIR$/android/build" />
+      <excludeFolder url="file://$MODULE_DIR$/android/vendor" />
+      <excludeFolder url="file://$MODULE_DIR$/ios/vendor" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
