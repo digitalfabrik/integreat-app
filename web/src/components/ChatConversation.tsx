@@ -15,6 +15,15 @@ const InitialMessage = styled.div`
   margin-bottom: 12px;
 `
 
+const TypingIndicator = styled.div`
+  text-align: center;
+  border-radius: 5px;
+  padding: 8px;
+  width: 20px;
+  border: 1px solid ${props => props.theme.colors.textDecorationColor};
+  font-size: ${props => props.theme.fonts.contentFontSize};
+`
+
 const ErrorSendingStatus = styled.div`
   background-color: ${props => props.theme.colors.invalidInput};
   border-radius: 5px;
@@ -29,10 +38,14 @@ type ChatConversationProps = {
   className?: string
 }
 
+const TIMEOUT = 60000
+
 const ChatConversation = ({ messages, hasError, className }: ChatConversationProps): ReactElement => {
   const { t } = useTranslation('chat')
   const [messagesCount, setMessagesCount] = useState(0)
+  const [showTypingIndicator, setShowTypingIndicator] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const lastMessage = messages[messages.length - 1]
 
   useEffect(() => {
     if (messagesCount < messages.length) {
@@ -40,6 +53,19 @@ const ChatConversation = ({ messages, hasError, className }: ChatConversationPro
       setMessagesCount(messages.length)
     }
   }, [messages, messagesCount])
+
+  // eslint-disable-next-line consistent-return
+  useEffect(() => {
+    if (!lastMessage?.userIsAuthor && lastMessage?.isAutomaticAnswer) {
+      setShowTypingIndicator(true)
+
+      const hideIndicatorTimer = setTimeout(() => {
+        setShowTypingIndicator(false)
+      }, TIMEOUT)
+
+      return () => clearTimeout(hideIndicatorTimer)
+    }
+  }, [lastMessage?.id, lastMessage?.isAutomaticAnswer, lastMessage?.userIsAuthor])
 
   return (
     <Container className={className}>
@@ -53,6 +79,11 @@ const ChatConversation = ({ messages, hasError, className }: ChatConversationPro
               showIcon={messages[index - 1]?.userIsAuthor !== message.userIsAuthor}
             />
           ))}
+          {showTypingIndicator && (
+            <TypingIndicator>
+              <strong>...</strong>
+            </TypingIndicator>
+          )}
           <div ref={messagesEndRef} />
         </>
       ) : (
