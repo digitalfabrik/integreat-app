@@ -11,20 +11,14 @@ import Checkbox from './base/Checkbox'
 const FlexContainer = styled.Pressable`
   display: flex;
   flex-direction: row;
-  align-items: baseline;
   flex: 1;
-`
-
-const StyledLink = styled(Link)`
-  color: ${props => props.theme.colors.linkColor};
-  text-decoration: underline solid ${props => props.theme.colors.linkColor};
-  align-self: center;
+  align-items: center;
+  margin-top: 12px;
 `
 
 const StyledLabel = styled.Text`
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
-  padding: 4px;
   cursor: pointer;
 `
 
@@ -41,18 +35,15 @@ const PrivacyCheckbox = ({ language, checked, setChecked, showSnackbar }: Privac
   const privacyUrl = privacyUrls[language] || privacyUrls.default
   return (
     <FlexContainer onPress={() => setChecked(!checked)}>
+      <Checkbox checked={checked} setChecked={setChecked} />
       <StyledLabel>
         <Trans i18nKey='common:privacyPolicy'>
           This gets replaced
-          <StyledLink
-            url={privacyUrl}
-            onPress={() => openExternalUrl(link, showSnackbar)}
-            text={t('privacyPolicyLink')}>
+          <Link url={privacyUrl} onPress={() => openExternalUrl(link, showSnackbar)} text={t('privacyPolicyLink')}>
             by react-i18next
-          </StyledLink>
+          </Link>
         </Trans>
       </StyledLabel>
-      <Checkbox checked={checked} setChecked={setChecked} />
     </FlexContainer>
   )
 }

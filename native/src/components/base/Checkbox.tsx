@@ -7,15 +7,11 @@ const StyledCheckbox = styled(CheckBox)`
   accent-color: ${props => props.theme.colors.themeColor};
   width: 16px;
   height: 16px;
-  align-self: end;
 `
 
-const FlexEnd = styled.View`
+const Container = styled.View`
   display: flex;
-  flex-direction: row;
   flex: 1;
-  right: 12px;
-  justify-content: flex-end;
 `
 
 type CheckboxProps = {
@@ -24,9 +20,9 @@ type CheckboxProps = {
 }
 
 const Checkbox = ({ checked, setChecked }: CheckboxProps): ReactElement => (
-  <FlexEnd>
+  <Container>
     <StyledCheckbox disabled={false} value={checked} onValueChange={() => setChecked(!checked)} />
-  </FlexEnd>
+  </Container>
 )
 
 export default Checkbox

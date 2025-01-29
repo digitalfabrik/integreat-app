@@ -4,6 +4,7 @@ import styled from 'styled-components'
 const Container = styled.div`
   display: flex;
   flex: 1;
+  gap: 10px;
 `
 
 const StyledCheckbox = styled.input`
@@ -20,12 +21,6 @@ const StyledLabel = styled.label`
   cursor: pointer;
 `
 
-const FlexEnd = styled.div`
-  display: flex;
-  flex: 1;
-  justify-content: flex-end;
-`
-
 type CheckboxProps = {
   checked: boolean
   setChecked: (checked: boolean) => void
@@ -35,10 +30,8 @@ type CheckboxProps = {
 
 const Checkbox = ({ checked, setChecked, label, id }: CheckboxProps): ReactElement => (
   <Container>
+    <StyledCheckbox type='checkbox' id={id} checked={checked} onChange={() => setChecked(!checked)} />
     <StyledLabel htmlFor={id}>{label}</StyledLabel>
-    <FlexEnd>
-      <StyledCheckbox type='checkbox' id={id} checked={checked} onChange={() => setChecked(!checked)} />
-    </FlexEnd>
   </Container>
 )
 
