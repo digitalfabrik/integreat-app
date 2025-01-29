@@ -23,6 +23,11 @@ describe('truncate', () => {
     expect(truncatedText).toBe('First ...')
   })
 
+  it('should truncate text when the word is longer than maxChars', () => {
+    const truncatedText = truncate('Migrationssozialdienst (Migration welfare service)', { maxChars: TEST_CUTOFF })
+    expect(truncatedText).toBe('Migrat ...')
+  })
+
   describe('reverse', () => {
     it('should truncate text at whitespace after cutoff', () => {
       const truncatedText = truncate('Before after', { maxChars: TEST_CUTOFF, reverse: true })

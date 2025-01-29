@@ -98,7 +98,13 @@ const SearchModal = ({
               accessibilityLabel={t('searchResultsCount', { count: searchResults.length })}
               style={{ flex: 1 }}
               noItemsMessage={
-                <FeedbackContainer routeType={SEARCH_ROUTE} language={languageCode} cityCode={cityCode} query={query} />
+                <FeedbackContainer
+                  routeType={SEARCH_ROUTE}
+                  language={languageCode}
+                  cityCode={cityCode}
+                  noResults={searchResults.length === 0}
+                  query={query}
+                />
               }
             />
           </>

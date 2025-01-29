@@ -73,9 +73,8 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
           id='copy-icon'
         />
       </Tooltip>
-      {hasFeedbackOption && (
-        <FeedbackToolbarItem route={route} slug={feedbackTarget} isInBottomActionSheet={isInBottomActionSheet} />
-      )}
+      {hasFeedbackOption && <FeedbackToolbarItem route={route} slug={feedbackTarget} positive />}
+      {hasFeedbackOption && <FeedbackToolbarItem route={route} slug={feedbackTarget} positive={false} />}
     </Toolbar>
   )
 }

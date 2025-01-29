@@ -25,8 +25,9 @@ export const truncate = (
     const truncatedText = trimmedText.substring(trimmedText.indexOf(' ', length - actualMaxChars - 1)).trim()
     return `${ellipsis} ${truncatedText}`
   }
-
-  const truncatedText = trimmedText.substring(0, trimmedText.lastIndexOf(' ', actualMaxChars)).trim()
+  const firstSpaceIndex = trimmedText.lastIndexOf(' ', actualMaxChars)
+  const truncatedTextLength = firstSpaceIndex < 0 || firstSpaceIndex > actualMaxChars ? actualMaxChars : firstSpaceIndex
+  const truncatedText = trimmedText.substring(0, truncatedTextLength).trim()
   return `${truncatedText} ${ellipsis}`
 }
 

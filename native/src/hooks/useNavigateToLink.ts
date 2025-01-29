@@ -20,7 +20,7 @@ import useSnackbar from './useSnackbar'
 
 const SUPPORTED_IMAGE_FILE_TYPES = ['.jpg', '.jpeg', '.png']
 
-const HIJACK = new RegExp(buildConfig().internalLinksHijackPattern)
+const internalUrlRegex = new RegExp(buildConfig().internalUrlPattern)
 
 const navigateToLink = <T extends RoutesType>(
   url: string,
@@ -52,7 +52,7 @@ const navigateToLink = <T extends RoutesType>(
       url,
       shareUrl,
     })
-  } else if (HIJACK.test(url)) {
+  } else if (internalUrlRegex.test(url)) {
     sendTrackingSignal({
       signal: {
         name: OPEN_INTERNAL_LINK_SIGNAL_NAME,

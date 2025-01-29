@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { FeedbackRouteType } from 'shared/api'
 
-import { FeedbackIcon } from '../assets'
+import { HappySmileyIcon, SadSmileyIcon } from '../assets'
 import useCityContentParams from '../hooks/useCityContentParams'
 import { RouteType } from '../routes'
 import FeedbackContainer from './FeedbackContainer'
@@ -13,10 +13,10 @@ import ToolbarItem from './ToolbarItem'
 type FeedbackToolbarItemProps = {
   route: RouteType
   slug?: string
-  isInBottomActionSheet: boolean
+  positive: boolean
 }
 
-const FeedbackToolbarItem = ({ route, slug, isInBottomActionSheet }: FeedbackToolbarItemProps): ReactElement => {
+const FeedbackToolbarItem = ({ route, slug, positive }: FeedbackToolbarItemProps): ReactElement => {
   const { cityCode, languageCode } = useCityContentParams()
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -26,7 +26,7 @@ const FeedbackToolbarItem = ({ route, slug, isInBottomActionSheet }: FeedbackToo
   return (
     <>
       {isFeedbackOpen && (
-        <Modal title={title} closeModal={() => setIsFeedbackOpen(false)} wrapInPortal={isInBottomActionSheet}>
+        <Modal title={title} closeModal={() => setIsFeedbackOpen(false)} wrapInPortal>
           <FeedbackContainer
             onClose={() => setIsFeedbackOpen(false)}
             onSubmit={() => setIsSubmitted(true)}
@@ -34,10 +34,15 @@ const FeedbackToolbarItem = ({ route, slug, isInBottomActionSheet }: FeedbackToo
             cityCode={cityCode}
             language={languageCode}
             slug={slug}
+            initialRating={positive}
           />
         </Modal>
       )}
-      <ToolbarItem icon={FeedbackIcon} text={t('feedback')} onClick={() => setIsFeedbackOpen(true)} />
+      <ToolbarItem
+        icon={positive ? HappySmileyIcon : SadSmileyIcon}
+        text={t(positive ? 'useful' : 'notUseful')}
+        onClick={() => setIsFeedbackOpen(true)}
+      />
     </>
   )
 }

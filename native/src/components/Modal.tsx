@@ -15,7 +15,7 @@ const Header = styled.View`
 `
 
 const ScrollContent = styled.ScrollView`
-  padding: 0 20px;
+  margin: 0 20px;
 `
 
 const Content = styled.View`
