@@ -65,9 +65,9 @@ const NearbyCities = ({ cities, language, filterText, stickyTop }: NearbyCitiesP
       ) : (
         <NearbyMessageContainer>
           <StyledMessageWrapper>
-            <NearbyMessage>{userLocation !== null ? t('noNearbyCities') : t('locationError')}</NearbyMessage>
+            <NearbyMessage>{userLocation?.coordinates ? t('noNearbyCities') : t('locationError')}</NearbyMessage>
             <RetryButtonContainer label={t('refresh')} onClick={() => refresh()}>
-              {userLocation?.status !== 'ready' && <Icon src={RefreshIcon} />}
+              <Icon src={RefreshIcon} />
             </RetryButtonContainer>
           </StyledMessageWrapper>
         </NearbyMessageContainer>
