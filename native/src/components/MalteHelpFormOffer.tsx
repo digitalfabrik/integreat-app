@@ -177,7 +177,6 @@ const MalteHelpFormOffer = ({
           language={languageCode}
           checked={privacyPolicyAccepted}
           setChecked={setPrivacyPolicyAccepted}
-          showSnackbar={showSnackbar}
         />
         <TextButton
           text={t('submit')}

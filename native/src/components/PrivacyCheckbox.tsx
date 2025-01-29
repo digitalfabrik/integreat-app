@@ -1,11 +1,9 @@
 import React, { ReactElement } from 'react'
-import { Trans, useTranslation } from 'react-i18next'
+import { Trans } from 'react-i18next'
 import styled from 'styled-components/native'
 
 import buildConfig from '../constants/buildConfig'
-import openExternalUrl from '../utils/openExternalUrl'
 import Link from './Link'
-import { SnackbarType } from './SnackbarContainer'
 import Checkbox from './base/Checkbox'
 
 const FlexContainer = styled.Pressable`
@@ -26,12 +24,10 @@ type PrivacyCheckboxProps = {
   language: string
   checked: boolean
   setChecked: (checked: boolean) => void
-  showSnackbar: (snackbar: SnackbarType) => void
 }
 
-const PrivacyCheckbox = ({ language, checked, setChecked, showSnackbar }: PrivacyCheckboxProps): ReactElement => {
+const PrivacyCheckbox = ({ language, checked, setChecked }: PrivacyCheckboxProps): ReactElement => {
   const { privacyUrls } = buildConfig()
-  const { t } = useTranslation('common')
   const privacyUrl = privacyUrls[language] || privacyUrls.default
   return (
     <FlexContainer onPress={() => setChecked(!checked)}>
@@ -39,9 +35,7 @@ const PrivacyCheckbox = ({ language, checked, setChecked, showSnackbar }: Privac
       <StyledLabel>
         <Trans i18nKey='common:privacyPolicy'>
           This gets replaced
-          <Link url={privacyUrl} onPress={() => openExternalUrl(link, showSnackbar)} text={t('privacyPolicyLink')}>
-            by react-i18next
-          </Link>
+          <Link url={privacyUrl}>by react-i18next</Link>
         </Trans>
       </StyledLabel>
     </FlexContainer>

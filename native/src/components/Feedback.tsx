@@ -6,7 +6,6 @@ import styled from 'styled-components/native'
 
 import buildConfig from '../constants/buildConfig'
 import useNavigate from '../hooks/useNavigate'
-import useSnackbar from '../hooks/useSnackbar'
 import Caption from './Caption'
 import FeedbackButtons from './FeedbackButtons'
 import { SendingStatusType } from './FeedbackContainer'
@@ -64,7 +63,6 @@ const Feedback = ({
 
   const isSearchFeedback = searchTerm !== undefined
   const [privacyPolicyAccepted, setPrivacyPolicyAccepted] = useState(false)
-  const showSnackbar = useSnackbar()
   const submitDisabled = isPositiveFeedback === null && comment.trim().length === 0 && !searchTerm
 
   if (sendingStatus === 'sending') {
@@ -112,12 +110,7 @@ const Feedback = ({
           showOptional
         />
         {sendingStatus === 'failed' && <Description>{t('failedSendingFeedback')}</Description>}
-        <PrivacyCheckbox
-          language={language}
-          checked={privacyPolicyAccepted}
-          setChecked={setPrivacyPolicyAccepted}
-          showSnackbar={showSnackbar}
-        />
+        <PrivacyCheckbox language={language} checked={privacyPolicyAccepted} setChecked={setPrivacyPolicyAccepted} />
         {!isSearchFeedback && submitDisabled && <Note text={t('note')} />}
         <StyledButton disabled={submitDisabled || !privacyPolicyAccepted} onPress={onSubmit} text={t('send')} />
       </Wrapper>
