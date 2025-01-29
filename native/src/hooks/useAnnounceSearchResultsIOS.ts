@@ -4,7 +4,7 @@ import { AccessibilityInfo, Platform } from 'react-native'
 
 import { CityModel, ExtendedPageModel } from 'shared/api'
 
-const useAnnounceSearchResultsIOS = (searchResults: ExtendedPageModel[] | CityModel[] | null): void => {
+const useAnnounceSearchResultsIOS = <T>(searchResults: T[] | null): void => {
   const { t } = useTranslation('search')
 
   useEffect(() => {
