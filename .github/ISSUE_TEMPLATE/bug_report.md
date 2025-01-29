@@ -1,6 +1,6 @@
 ---
-name: "Bug report \U0001F41B"
-about: Create a report to help us improve
+name: "Bug Report \U0001F41B"
+about: Report a bug to help us to fix and improve the app
 labels: Bug
 ---
 
@@ -10,28 +10,17 @@ labels: Bug
 
 ### Steps to Reproduce
 
+<!-- Describe the specific steps on how to reproduce the issue. -->
+
 1. Go to '...'
 2. Click on '....'
 3. Scroll down to '....'
 4. See error
 
-### Expected Behavior
+### Related Issues
 
-<!-- A clear and concise description of what you expected to happen. -->
-
-### Actual Behavior
-
-<!-- A clear and concise description of what actually happened. -->
+<!-- Link all related issues which are e.g. CMS issues or otherwise related, blocking, duplicating issues, ... -->
 
 ### Additional Information
 
 <!-- Add any other context (e.g. logs, screenshots, environment, related issues etc.) about the problem here. -->
-
-<details>
-  <summary>Traceback</summary>
-
-```
-
-```
-
-</details>
