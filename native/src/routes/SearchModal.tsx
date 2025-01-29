@@ -1,6 +1,6 @@
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { AccessibilityInfo, KeyboardAvoidingView, Platform } from 'react-native'
+import { KeyboardAvoidingView, Platform } from 'react-native'
 import styled from 'styled-components/native'
 
 import { parseHTML, SEARCH_FINISHED_SIGNAL_NAME, SEARCH_ROUTE, SearchResult, useSearch } from 'shared'
@@ -9,6 +9,7 @@ import FeedbackContainer from '../components/FeedbackContainer'
 import List from '../components/List'
 import SearchHeader from '../components/SearchHeader'
 import SearchListItem from '../components/SearchListItem'
+import useAnnounceSearchResultsIOS from '../hooks/useAnnounceSearchResultsIOS'
 import useResourceCache from '../hooks/useResourceCache'
 import testID from '../testing/testID'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
@@ -47,13 +48,7 @@ const SearchModal = ({
   const { t } = useTranslation('search')
 
   const searchResults = useSearch(allPossibleResults, query)
-
-  useEffect(() => {
-    // iOS doesn't have live regions to inform a user with a screenreader that there are no more search results
-    if (searchResults?.length === 0 && Platform.OS === 'ios') {
-      AccessibilityInfo.announceForAccessibility(t('searchResultsCount', { count: 0 }))
-    }
-  }, [searchResults, t])
+  useAnnounceSearchResultsIOS(searchResults)
 
   if (!searchResults) {
     return null
