@@ -9,6 +9,7 @@ import FeedbackContainer from '../components/FeedbackContainer'
 import List from '../components/List'
 import SearchHeader from '../components/SearchHeader'
 import SearchListItem from '../components/SearchListItem'
+import useAnnounceSearchResultsIOS from '../hooks/useAnnounceSearchResultsIOS'
 import useResourceCache from '../hooks/useResourceCache'
 import testID from '../testing/testID'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
@@ -47,6 +48,7 @@ const SearchModal = ({
   const { t } = useTranslation('search')
 
   const searchResults = useSearch(allPossibleResults, query)
+  useAnnounceSearchResultsIOS(searchResults)
 
   if (!searchResults) {
     return null
@@ -82,7 +84,9 @@ const SearchModal = ({
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
         {query.length > 0 && (
           <>
-            <SearchCounter>{t('searchResultsCount', { count: searchResults.length })}</SearchCounter>
+            <SearchCounter accessibilityLiveRegion={searchResults.length === 0 ? 'assertive' : 'polite'}>
+              {t('searchResultsCount', { count: searchResults.length })}
+            </SearchCounter>
             <List
               items={searchResults}
               renderItem={renderItem}

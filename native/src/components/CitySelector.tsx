@@ -8,6 +8,7 @@ import { filterSortCities } from 'shared'
 import { CityModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
+import useAnnounceSearchResultsIOS from '../hooks/useAnnounceSearchResultsIOS'
 import CityEntry from './CityEntry'
 import CityGroup from './CityGroup'
 import NearbyCities from './NearbyCities'
@@ -42,6 +43,7 @@ const CitySelector = ({ cities, navigateToDashboard }: CitySelectorProps): React
   const { t } = useTranslation('landing')
 
   const resultCities = filterSortCities(cities, filterText, buildConfig().featureFlags.developerFriendly)
+  useAnnounceSearchResultsIOS(resultCities)
 
   const renderCity = (city: CityModel) => (
     <CityEntry key={city.code} city={city} query={filterText} navigateToDashboard={navigateToDashboard} />
@@ -76,7 +78,9 @@ const CitySelector = ({ cities, navigateToDashboard }: CitySelectorProps): React
           <CityGroup>{t('nearbyCities')}</CityGroup>
           <NearbyCities cities={cities} navigateToDashboard={navigateToDashboard} filterText={filterText} />
         </CityGroupContainer>
-        <SearchCounter>{t('search:searchResultsCount', { count: resultCities.length })}</SearchCounter>
+        <SearchCounter accessibilityLiveRegion={resultCities.length === 0 ? 'assertive' : 'polite'}>
+          {t('search:searchResultsCount', { count: resultCities.length })}
+        </SearchCounter>
         {resultCities.length === 0 ? <NothingFound paddingTop /> : cityEntries}
       </View>
     </View>
