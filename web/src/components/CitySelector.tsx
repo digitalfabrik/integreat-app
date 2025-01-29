@@ -63,7 +63,9 @@ const CitySelector = ({ cities, language }: CitySelectorProps): ReactElement => 
         placeholderText={t('searchCity')}
         spaceSearch={false}
         onStickyTopChanged={setStickyTop}>
-        <SearchCounter>{t('search:searchResultsCount', { count: resultCities.length })}</SearchCounter>
+        <SearchCounter aria-live={resultCities.length === 0 ? 'assertive' : 'polite'}>
+          {t('search:searchResultsCount', { count: resultCities.length })}
+        </SearchCounter>
         <NearbyCities stickyTop={stickyTop} cities={cities} language={language} filterText={filterText} />
         {resultCities.length === 0 ? <Failure errorMessage='search:nothingFound' /> : groups}
       </ScrollingSearchBox>
