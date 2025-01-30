@@ -20,6 +20,7 @@ describe('Feedback', () => {
   const setSearchTerm = jest.fn()
 
   const buildProps = (isPositiveFeedback: boolean | null, comment: string, searchTerm?: string) => ({
+    language: 'en',
     comment,
     isPositiveFeedback,
     searchTerm,
