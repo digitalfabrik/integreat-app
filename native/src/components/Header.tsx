@@ -85,7 +85,7 @@ const Header = ({
   // Save route/canGoBack to state to prevent it from changing during navigating which would lead to flickering of the title and back button
   const [previousRoute] = useState(navigation.getState().routes[navigation.getState().routes.length - 2])
   const [canGoBack] = useState(navigation.canGoBack())
-  const { enabled: isTtsEnabled, setVisible: setTtsPlayerVisible, canRead } = useTtsPlayer()
+  const { enabled: isTtsEnabled, showTtsPlayer } = useTtsPlayer()
 
   const onShare = async () => {
     if (!shareUrl) {
@@ -189,17 +189,6 @@ const Header = ({
     renderItem(HeaderButtonTitle.Language, 'language', showItems, goToLanguageChange),
   ]
 
-  const openTtsPlayer = isTtsEnabled
-    ? [
-        renderOverflowItem(t(HeaderButtonTitle.ReadAloud), () => {
-          setTtsPlayerVisible(canRead)
-          if (!canRead) {
-            showSnackbar({ text: t('nothingToReadFullMessage') })
-          }
-        }),
-      ]
-    : []
-
   const overflowItems = showOverflowItems
     ? [
         ...(shareUrl ? [renderOverflowItem(HeaderButtonTitle.Share, onShare)] : []),
@@ -207,7 +196,7 @@ const Header = ({
           ? [renderOverflowItem(HeaderButtonTitle.Location, () => navigation.navigate(LANDING_ROUTE))]
           : []),
         renderOverflowItem(HeaderButtonTitle.Settings, () => navigation.navigate(SETTINGS_ROUTE)),
-        ...openTtsPlayer,
+        ...(isTtsEnabled ? [renderOverflowItem(t(HeaderButtonTitle.ReadAloud), showTtsPlayer)] : []),
         ...(route.name !== NEWS_ROUTE ? [renderOverflowItem(HeaderButtonTitle.Feedback, navigateToFeedback)] : []),
         ...(route.name !== DISCLAIMER_ROUTE
           ? [renderOverflowItem(HeaderButtonTitle.Disclaimer, () => navigation.navigate(DISCLAIMER_ROUTE))]

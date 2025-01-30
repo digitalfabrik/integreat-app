@@ -1,6 +1,5 @@
-import React, { createContext, ReactElement, useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import React, { createContext, ReactElement, useCallback, useContext, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { AppState } from 'react-native'
 import Tts, { Options } from 'react-native-tts'
 
 import { truncate } from 'shared/utils/getExcerpt'
@@ -8,6 +7,7 @@ import { truncate } from 'shared/utils/getExcerpt'
 import buildConfig from '../constants/buildConfig'
 import { AppContext } from '../contexts/AppContextProvider'
 import useAppStateListener from '../hooks/useAppStateListener'
+import useSnackbar from '../hooks/useSnackbar'
 import { reportError } from '../utils/sentry'
 import TtsPlayer from './TtsPlayer'
 
@@ -26,18 +26,16 @@ const TTS_OPTIONS: Options = {
 
 export type TtsContextType = {
   enabled: boolean
-  canRead: boolean
   visible: boolean
-  setVisible: (visible: boolean) => void
-  sentences: string[] | null
+  showTtsPlayer: () => void
+  sentences: string[]
   setSentences: (sentences: string[]) => void
 }
 
 export const TtsContext = createContext<TtsContextType>({
   enabled: false,
-  canRead: false,
   visible: false,
-  setVisible: () => undefined,
+  showTtsPlayer: () => undefined,
   sentences: [],
   setSentences: () => undefined,
 })
@@ -53,24 +51,34 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
   const [sentences, setSentences] = useState<string[]>([])
   const { languageCode } = useContext(AppContext)
   const { t } = useTranslation('layout')
+  const showSnackbar = useSnackbar()
   const title = sentences[0] || t('nothingToRead')
   const longTitle = truncate(title, { maxChars: MAX_TITLE_DISPLAY_CHARS })
   const enabled = buildConfig().featureFlags.tts && !TTS_UNSUPPORTED_LANGUAGES.includes(languageCode)
-  const canRead = enabled && sentences.length > 0
 
-  const initializeTts = useCallback((): void => {
-    Tts.getInitStatus()
-      .then(() => Tts.setDefaultLanguage(languageCode))
-      .catch(async error => {
-        if (error.code === 'no_engine') {
-          await Tts.requestInstallEngine().catch((e: string) => reportError(`Failed to install tts engine: : ${e}`))
-        } else {
-          reportError(`Tts-Error: ${error.code}`)
-        }
+  const initializeTts = useCallback(async (): Promise<void> => {
+    await Tts.getInitStatus().catch(async error =>
+      error.code === 'no_engine' ? Tts.requestInstallEngine() : undefined,
+    )
+  }, [])
+
+  const showTtsPlayer = useCallback((): void => {
+    if (!enabled || visible) {
+      return
+    }
+    if (sentences.length === 0) {
+      showSnackbar({ text: t('nothingToReadFullMessage') })
+      return
+    }
+    initializeTts()
+      .then(() => setVisible(true))
+      .catch(error => {
+        reportError(error)
+        showSnackbar({ text: t('error:unknownError') })
       })
-  }, [languageCode])
+  }, [initializeTts, enabled, sentences.length, visible, showSnackbar, t])
 
-  const stop = useCallback(async (resetSentenceIndex = true) => {
+  const stopPlayer = useCallback(async () => {
     // iOS wrongly sends tts-finish instead of tts-cancel if calling Tts.stop()
     // We therefore have to remove the listener before stopping to avoid playing the next sentence
     // https://github.com/ak1394/react-native-tts/issues/198
@@ -78,10 +86,6 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
     // Add a listener doing nothing to avoid warnings about unhandled events
     Tts.addEventListener('tts-finish', () => undefined)
     await Tts.stop()
-    setIsPlaying(false)
-    if (resetSentenceIndex) {
-      setSentenceIndex(0)
-    }
     // The tts-finish event is only fired some time after stop is finished
     // We therefore need to wait some time before adding the listener again
     await new Promise(resolve => {
@@ -90,41 +94,50 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
     })
   }, [])
 
+  const stop = useCallback(() => {
+    stopPlayer().catch(reportError)
+    setIsPlaying(false)
+    setSentenceIndex(0)
+  }, [stopPlayer])
+
+  const pause = () => {
+    stopPlayer().catch(reportError)
+    setIsPlaying(false)
+  }
+
   const play = useCallback(
     async (index = sentenceIndex) => {
-      await stop()
-      const sentence = sentences[index]
+      const safeIndex = Math.max(0, index)
+      const sentence = sentences[safeIndex]
       if (sentence) {
+        await stopPlayer()
         setIsPlaying(true)
-        setSentenceIndex(index)
-        Tts.addEventListener('tts-finish', () => play(index + 1))
+        setSentenceIndex(safeIndex)
+        Tts.addEventListener('tts-finish', () => play(safeIndex + 1))
+        Tts.setDefaultLanguage(languageCode)
         Tts.speak(sentence, TTS_OPTIONS)
+      } else {
+        stop()
       }
     },
-    [stop, sentenceIndex, sentences],
+    [stop, stopPlayer, sentenceIndex, sentences, languageCode],
   )
-
-  useEffect(() => {
-    if (visible) {
-      initializeTts()
-    }
-  }, [visible, initializeTts])
 
   useAppStateListener(appState => {
     if (appState === 'inactive' || appState === 'background') {
-      stop().catch(reportError)
+      stop()
     }
   })
 
   const close = async () => {
     setVisible(false)
-    stop().catch(reportError)
+    stop()
   }
 
   const updateSentences = useCallback(
     (newSentences: string[]) => {
       setSentences(newSentences)
-      stop().catch(reportError)
+      stop()
     },
     [stop],
   )
@@ -132,13 +145,12 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
   const ttsContextValue = useMemo(
     () => ({
       enabled,
-      canRead,
       visible,
-      setVisible,
+      showTtsPlayer,
       sentences,
       setSentences: updateSentences,
     }),
-    [enabled, canRead, visible, sentences, updateSentences],
+    [enabled, visible, sentences, updateSentences, showTtsPlayer],
   )
 
   return (
@@ -151,7 +163,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
           playPrevious={() => play(sentenceIndex - 1)}
           playNext={() => play(sentenceIndex + 1)}
           close={close}
-          pause={() => stop(false)}
+          pause={pause}
           play={play}
           title={longTitle}
         />

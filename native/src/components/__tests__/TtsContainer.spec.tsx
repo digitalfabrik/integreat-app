@@ -39,10 +39,10 @@ const dummyPage = new PageModel({
 })
 describe('TtsContainer', () => {
   const TestChild = () => {
-    const { setVisible } = useTtsPlayer(dummyPage)
+    const { showTtsPlayer } = useTtsPlayer(dummyPage)
     useEffect(() => {
-      setVisible(true)
-    }, [setVisible])
+      showTtsPlayer()
+    }, [showTtsPlayer])
     return null
   }
 
