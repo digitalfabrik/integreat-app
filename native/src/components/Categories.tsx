@@ -35,7 +35,7 @@ const Categories = ({
 }: CategoriesProps): ReactElement => {
   const children = categories.getChildren(category)
   const cityCode = cityModel.code
-  useTtsPlayer(categories.isLeaf(category) ? category : undefined)
+  useTtsPlayer(category.content.length > 0 ? category : undefined)
 
   const navigateToCategory = ({ path }: { path: string }) =>
     navigateTo({
