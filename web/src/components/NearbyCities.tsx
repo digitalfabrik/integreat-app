@@ -57,16 +57,12 @@ const NearbyCities = ({ cities, language, filterText, stickyTop }: NearbyCitiesP
     <>
       <CityListParent $stickyTop={stickyTop}>{t('nearbyCities')}</CityListParent>
       {nearbyCities.length > 0 ? (
-        <div>
-          {nearbyCities.map(city => (
-            <CityEntry key={city.code} city={city} language={language} filterText={filterText} />
-          ))}
-        </div>
+        nearbyCities.map(city => <CityEntry key={city.code} city={city} language={language} filterText={filterText} />)
       ) : (
         <NearbyMessageContainer>
           <StyledMessageWrapper>
             <NearbyMessage>{userLocation?.coordinates ? t('noNearbyCities') : t('locationError')}</NearbyMessage>
-            <RetryButtonContainer label={t('refresh')} onClick={() => refresh()}>
+            <RetryButtonContainer label={t('refresh')} onClick={refresh}>
               <Icon src={RefreshIcon} />
             </RetryButtonContainer>
           </StyledMessageWrapper>

@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
 
 import { UnavailableLocationState, UserLocationType } from 'shared'
 import { useLoadAsync } from 'shared/api'
@@ -43,18 +43,21 @@ export const getUserLocation = async (): Promise<UserLocationType> =>
     )
   })
 
-const useUserLocation = (): { data: UserLocationType | null; refresh: () => void } => {
-  const [refreshState, setRefreshState] = useState(false)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const { data } = useLoadAsync(useCallback(async () => getUserLocation(), [refreshState]))
+type useUserLocationReturn = {
+  data: UserLocationType | null
+  refresh: () => void
+  error: Error | null
+  loading: boolean
+}
 
-  const refresh = useCallback(() => {
-    setRefreshState(prev => !prev)
-  }, [])
+const useUserLocation = (): useUserLocationReturn => {
+  const { data, refresh, error, loading } = useLoadAsync(useCallback(async () => getUserLocation(), []))
 
   return {
     data,
     refresh,
+    error,
+    loading,
   }
 }
 

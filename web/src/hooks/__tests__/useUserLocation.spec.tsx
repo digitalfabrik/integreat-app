@@ -1,4 +1,5 @@
-import { render, waitFor } from '@testing-library/react'
+import { render, waitFor, screen, fireEvent } from '@testing-library/react'
+import { mocked } from 'jest-mock'
 import React from 'react'
 
 import useUserLocation from '../useUserLocation'
@@ -6,12 +7,24 @@ import useUserLocation from '../useUserLocation'
 jest.mock('../useUserLocation', () => ({
   __esModule: true,
   default: jest.fn(),
-  getUserLocation: jest.fn(),
 }))
 
-const TestComponent = () => {
-  const { data } = useUserLocation()
-  return <div>{data?.coordinates?.join(',') ?? 'null'}</div>
+jest.mock('shared/api', () => ({
+  ...jest.requireActual('shared/api'),
+  useLoadFromEndpoint: jest.fn(),
+  useLoadAsync: jest.fn(() => ({ data: null, error: null })),
+}))
+
+const MockComponent = () => {
+  const { data, refresh } = useUserLocation()
+  return (
+    <div>
+      <div data-testid='coords'>{data?.coordinates ? data.coordinates.join(',') : 'no coords'}</div>
+      <button type='button' onClick={refresh}>
+        refresh
+      </button>
+    </div>
+  )
 }
 
 describe('useUserLocation', () => {
@@ -20,32 +33,41 @@ describe('useUserLocation', () => {
   })
 
   it('should show coordinates when available', async () => {
-    ;(useUserLocation as jest.Mock).mockReturnValue({
-      data: {
-        status: 'ready',
-        coordinates: [10.8, 48.3],
-        message: 'ready',
-      },
+    mocked(useUserLocation).mockReturnValue({
+      data: { status: 'ready', coordinates: [10.8, 48.3], message: 'ready' },
+      refresh: jest.fn(),
+      error: null,
+      loading: false,
     })
-
-    const { getByText } = render(<TestComponent />)
+    render(<MockComponent />)
     await waitFor(() => {
-      expect(getByText('10.8,48.3')).toBeInTheDocument()
+      expect(screen.getByTestId('coords')).toHaveTextContent('10.8,48.3')
     })
   })
 
   it('should show null when unavailable', async () => {
-    ;(useUserLocation as jest.Mock).mockReturnValue({
-      data: {
-        status: 'unavailable',
-        message: 'noPermission',
-        coordinates: undefined,
-      },
+    mocked(useUserLocation).mockReturnValue({
+      data: { status: 'unavailable', coordinates: undefined, message: 'noPermission' },
+      refresh: jest.fn(),
+      error: null,
+      loading: false,
     })
-
-    const { getByText } = render(<TestComponent />)
+    render(<MockComponent />)
     await waitFor(() => {
-      expect(getByText('null')).toBeInTheDocument()
+      expect(screen.getByTestId('coords')).toHaveTextContent('no coords')
     })
+  })
+
+  it('should refresh when calling refresh', async () => {
+    const mockRefresh = jest.fn()
+    mocked(useUserLocation).mockReturnValue({
+      data: { status: 'ready', coordinates: [10.8, 48.3], message: 'ready' },
+      refresh: mockRefresh,
+      error: null,
+      loading: false,
+    })
+    render(<MockComponent />)
+    fireEvent.click(screen.getByText('refresh'))
+    expect(mockRefresh).toHaveBeenCalled()
   })
 })
