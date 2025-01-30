@@ -7,6 +7,7 @@ import { truncate } from 'shared/utils/getExcerpt'
 
 import buildConfig from '../constants/buildConfig'
 import { AppContext } from '../contexts/AppContextProvider'
+import useAppStateListener from '../hooks/useAppStateListener'
 import { reportError } from '../utils/sentry'
 import TtsPlayer from './TtsPlayer'
 
@@ -109,15 +110,11 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
     }
   }, [visible, initializeTts])
 
-  useEffect(() => {
-    const subscription = AppState.addEventListener('change', nextAppState => {
-      if (nextAppState === 'inactive' || nextAppState === 'background') {
-        stop().catch(reportError)
-      }
-    })
-
-    return subscription.remove
-  }, [stop])
+  useAppStateListener(appState => {
+    if (appState === 'inactive' || appState === 'background') {
+      stop().catch(reportError)
+    }
+  })
 
   const close = async () => {
     setVisible(false)
