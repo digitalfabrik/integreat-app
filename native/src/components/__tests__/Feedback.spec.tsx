@@ -33,12 +33,24 @@ describe('Feedback', () => {
     setSearchTerm,
   })
 
+  it('button should be disabled if privacy policy not accepted', async () => {
+    const { getByText } = render(
+      <NavigationContainer>
+        <Feedback {...buildProps(true, 'comment', 'query')} />
+      </NavigationContainer>,
+    )
+
+    expect(getByText('send')).toBeDisabled()
+  })
+
   it('button should be disabled and note should be shown without feedback and no comment', async () => {
     const { getByText, queryByText } = render(
       <NavigationContainer>
         <Feedback {...buildProps(null, '')} />
       </NavigationContainer>,
     )
+    fireEvent.press(getByText('common:privacyPolicy'))
+
     expect(getByText('send')).toBeDisabled()
     expect(queryByText('searchTermDescription')).toBeFalsy()
     expect(getByText('headline')).toBeTruthy()
@@ -51,6 +63,8 @@ describe('Feedback', () => {
         <Feedback {...buildProps(null, '', 'query')} />
       </NavigationContainer>,
     )
+    fireEvent.press(getByText('common:privacyPolicy'))
+
     expect(getByText('send')).not.toBeDisabled()
     expect(getByText('searchTermDescription')).toBeTruthy()
     expect(queryByText('note')).toBeFalsy()
@@ -62,6 +76,8 @@ describe('Feedback', () => {
         <Feedback {...buildProps(true, '')} />
       </NavigationContainer>,
     )
+    fireEvent.press(getByText('common:privacyPolicy'))
+
     expect(getByText('send')).not.toBeDisabled()
     expect(queryByText('searchTermDescription')).toBeFalsy()
     expect(queryByText('note')).toBeFalsy()
@@ -73,6 +89,8 @@ describe('Feedback', () => {
         <Feedback {...buildProps(null, 'comment')} />
       </NavigationContainer>,
     )
+    fireEvent.press(getByText('common:privacyPolicy'))
+
     expect(getByText('send')).not.toBeDisabled()
     expect(queryByText('note')).toBeFalsy()
   })
@@ -93,6 +111,8 @@ describe('Feedback', () => {
         <Feedback {...buildProps(false, 'My test comment', 'query')} />
       </NavigationContainer>,
     )
+    fireEvent.press(getByText('common:privacyPolicy'))
+
     const button = getByText('send')
     fireEvent.press(button)
     expect(onSubmit).toHaveBeenCalled()
