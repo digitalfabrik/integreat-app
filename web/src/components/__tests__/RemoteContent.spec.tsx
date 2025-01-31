@@ -2,68 +2,77 @@ import { fireEvent } from '@testing-library/react'
 import React from 'react'
 import { MemoryRouter } from 'react-router-dom'
 
-// Import MemoryRouter if not included in renderWithTheme
 import { renderWithTheme } from '../../testing/render'
 import RemoteContent from '../RemoteContent'
 
+const navigate = jest.fn()
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: () => navigate,
+}))
 jest.mock('react-i18next')
 
 describe('RemoteContent', () => {
+  window.open = jest.fn()
+
+  beforeEach(jest.resetAllMocks)
+
   it('should render the html content', () => {
     const content = 'Test html'
     const { getByText } = renderWithTheme(
       <MemoryRouter>
-        <RemoteContent html={`<div>${content}</div>`} onInternalLinkClick={() => undefined} />
+        <RemoteContent html={`<div>${content}</div>`} />
       </MemoryRouter>,
     )
     expect(getByText(content)).toBeTruthy()
   })
 
-  it('should trigger on internalLinkClick for internal links', () => {
+  it('should navigate for internal links', () => {
     const path = '/augsburg/de'
     const href = `https://integreat.app${path}`
     const html = `<a href=${href}>Test Anchor</a>`
-    const onInternalLinkClick = jest.fn()
 
     const { getByRole, getAllByRole } = renderWithTheme(
       <MemoryRouter>
-        <RemoteContent html={html} onInternalLinkClick={onInternalLinkClick} />
+        <RemoteContent html={html} />
       </MemoryRouter>,
     )
 
     expect(getAllByRole('link')).toHaveLength(1)
     fireEvent.click(getByRole('link'))
 
-    expect(onInternalLinkClick).toHaveBeenCalledTimes(1)
-    expect(onInternalLinkClick).toHaveBeenLastCalledWith(path)
+    expect(navigate).toHaveBeenCalledTimes(1)
+    expect(navigate).toHaveBeenLastCalledWith(path)
+    expect(window.open).not.toHaveBeenCalled()
   })
 
-  it('should not trigger on internalLinkClick for external links', () => {
-    const href = `https://some.external/link`
+  it('should open external links in a new tab', () => {
+    const href = 'https://example.com/'
     const html = `<a href=${href} class="link-external">Test Anchor</a>`
-    const onInternalLinkClick = jest.fn()
 
     const { getByRole, getAllByRole } = renderWithTheme(
       <MemoryRouter>
-        <RemoteContent html={html} onInternalLinkClick={onInternalLinkClick} />
+        <RemoteContent html={html} />
       </MemoryRouter>,
     )
 
     expect(getAllByRole('link')).toHaveLength(1)
     fireEvent.click(getByRole('link'))
 
-    expect(onInternalLinkClick).toHaveBeenCalledTimes(0)
+    expect(window.open).toHaveBeenCalledTimes(1)
+    expect(window.open).toHaveBeenLastCalledWith(href, '_blank', 'noreferrer')
+    expect(navigate).not.toHaveBeenCalled()
   })
 
   it('should block an iframe with unsupported source', () => {
     const src = `https://unknownvideo.com`
     const iframeTitle = 'unknown'
     const html = `<iframe title=${iframeTitle} src=${src} />`
-    const onInternalLinkClick = jest.fn()
 
     const { getByTitle } = renderWithTheme(
       <MemoryRouter>
-        <RemoteContent html={html} onInternalLinkClick={onInternalLinkClick} />
+        <RemoteContent html={html} />
       </MemoryRouter>,
     )
 
@@ -74,11 +83,10 @@ describe('RemoteContent', () => {
     const src = `https://vimeo.com`
     const iframeTitle = 'vimeo'
     const html = `<iframe title=${iframeTitle} src=${src} />`
-    const onInternalLinkClick = jest.fn()
 
     const { getAllByRole } = renderWithTheme(
       <MemoryRouter>
-        <RemoteContent html={html} onInternalLinkClick={onInternalLinkClick} />
+        <RemoteContent html={html} />
       </MemoryRouter>,
     )
 
@@ -90,11 +98,10 @@ describe('RemoteContent', () => {
     const doNotTrackParameter = `/?dnt=1`
     const iframeTitle = 'vimeo'
     const html = `<iframe title=${iframeTitle} src=${src} />`
-    const onInternalLinkClick = jest.fn()
 
     const { getByRole, getAllByRole, getByTitle } = renderWithTheme(
       <MemoryRouter>
-        <RemoteContent html={html} onInternalLinkClick={onInternalLinkClick} />
+        <RemoteContent html={html} />
       </MemoryRouter>,
     )
 
@@ -111,7 +118,7 @@ describe('RemoteContent', () => {
       '<div><p>Ich bleib aber da.<iframe//src=jAva&Tab;script:alert(3)>def</p><math><mi//xlink:href="data:x,<script>alert(4)</script>">'
     const { getByText } = renderWithTheme(
       <MemoryRouter>
-        <RemoteContent html={`<div>${content}</div>`} onInternalLinkClick={() => undefined} />
+        <RemoteContent html={`<div>${content}</div>`} />
       </MemoryRouter>,
     )
 

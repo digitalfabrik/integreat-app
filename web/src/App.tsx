@@ -28,7 +28,7 @@ LuxonSettings.throwOnInvalid = true
 LuxonSettings.defaultLocale = config.defaultFallback
 
 const App = (): ReactElement => {
-  const [contentLanguage, setContentLanguage] = useState<string>()
+  const [contentLanguage, setContentLanguage] = useState<string>(config.defaultFallback)
   const { t } = useTranslation('landing')
 
   const contentDirection = contentLanguage

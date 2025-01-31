@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
 
 import { DISCLAIMER_ROUTE, pathnameFromRouteInformation } from 'shared'
 import { createDisclaimerEndpoint, useLoadFromEndpoint } from 'shared/api'
@@ -15,7 +14,6 @@ import Page from '../components/Page'
 import { cmsApiBaseUrl } from '../constants/urls'
 
 const DisclaimerPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElement | null => {
-  const navigate = useNavigate()
   const { t } = useTranslation('disclaimer')
 
   const {
@@ -69,12 +67,7 @@ const DisclaimerPage = ({ cityCode, languageCode, city }: CityRouteProps): React
   return (
     <CityContentLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
-      <Page
-        lastUpdate={disclaimer.lastUpdate}
-        title={disclaimer.title}
-        content={disclaimer.content}
-        onInternalLinkClick={navigate}
-      />
+      <Page lastUpdate={disclaimer.lastUpdate} title={disclaimer.title} content={disclaimer.content} />
     </CityContentLayout>
   )
 }

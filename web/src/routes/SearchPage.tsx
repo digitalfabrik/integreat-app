@@ -89,7 +89,9 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
     return (
       <>
         <List>
-          <SearchCounter>{t('searchResultsCount', { count: results.length })}</SearchCounter>
+          <SearchCounter aria-live={results.length === 0 ? 'assertive' : 'polite'}>
+            {t('searchResultsCount', { count: results.length })}
+          </SearchCounter>
           {results.map(({ title, content, path, thumbnail }) => (
             <SearchListItem
               title={title}

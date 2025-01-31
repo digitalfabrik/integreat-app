@@ -6489,12 +6489,14 @@
       "getOnPlayStore": "Im Google Play Store anschauen",
       "accessibility": "Barrierefreiheit",
       "readAloud": "Vorlesefunktion",
+      "nothingToRead": "Nichts zu lesen",
+      "nothingToReadFullMessage": "Es gibt nichts, um es auf dieser Seite zu lesen.",
       "previous": "Zurück",
       "next": "Weiter",
+      "play": "Abspielen",
+      "pause": "Pause",
       "languageNotSupported": "Sprache nicht unterstützt",
-      "voiceUnavailableMessage": "Diese Stimme ist im Moment nicht verfügbar; für die ausgewählte Sprache ist eine Installation erforderlich.",
-      "nothingToRead": "Nichts zu lesen",
-      "nothingToReadFullMessage": "Es gibt nichts, um es auf dieser Seite zu lesen."
+      "voiceUnavailableMessage": "Diese Stimme ist im Moment nicht verfügbar; für die ausgewählte Sprache ist eine Installation erforderlich."
     },
     "am": {
       "imprintAndContact": "ዕትም እና የግንኙነት መረጃ",
@@ -6545,6 +6547,9 @@
       "sideBarOpenAriaLabel": "فتح الشريط الجانبي",
       "sideBarCloseAriaLabel": "غلق الشريط الجانبي",
       "accessibility": "حرية الوصول",
+      "readAloud": "قراءة بصوت عالٍ",
+      "previous": "السابق",
+      "next": "التالي",
       "openInApp": "افتح في تطبيق {{appName}}",
       "open": "افتح",
       "view": "عرض",
@@ -6711,12 +6716,14 @@
       "getOnPlayStore": "GET — On the Google Play Store",
       "accessibility": "Accessibility",
       "readAloud": "Read aloud",
+      "nothingToRead": "Nothing to read",
+      "nothingToReadFullMessage": "There is nothing to read on this page.",
       "previous": "Prev",
       "next": "Next",
+      "play": "Play",
+      "pause": "Pause",
       "languageNotSupported": "Language not supported",
-      "voiceUnavailableMessage": "This voice is currently unavailable; installation is required for the selected language.",
-      "nothingToRead": "Nothing to read",
-      "nothingToReadFullMessage": "There is nothing to read on this page."
+      "voiceUnavailableMessage": "This voice is currently unavailable; installation is required for the selected language."
     },
     "es": {
       "imprintAndContact": "Aviso legal y contacto",

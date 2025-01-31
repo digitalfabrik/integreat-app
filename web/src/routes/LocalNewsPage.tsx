@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 import {
   LOCAL_NEWS_TYPE,
@@ -30,7 +30,6 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
   const previousPathname = usePreviousProp({ prop: pathname })
   const { newsId } = useParams()
   const { t } = useTranslation('news')
-  const navigate = useNavigate()
 
   const {
     data: localNews,
@@ -136,7 +135,6 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
           content={linkedContent}
           lastUpdate={newsModel.timestamp}
           showLastUpdateText={false}
-          onInternalLinkClick={navigate}
         />
       </CityContentLayout>
     )
