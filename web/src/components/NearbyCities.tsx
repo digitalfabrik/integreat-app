@@ -46,9 +46,9 @@ const NearbyCities = ({ cities, language, filterText, stickyTop }: NearbyCitiesP
   const { t } = useTranslation('landing')
   const { data: userLocation, refresh } = useUserLocation()
 
-  const nearbyCities = userLocation?.coordinates
+  const nearbyCities = userLocation
     ? getNearbyCities(
-        userLocation.coordinates,
+        userLocation,
         cities.filter(city => city.live),
       )
     : []
@@ -61,7 +61,7 @@ const NearbyCities = ({ cities, language, filterText, stickyTop }: NearbyCitiesP
       ) : (
         <NearbyMessageContainer>
           <StyledMessageWrapper>
-            <NearbyMessage>{userLocation?.coordinates ? t('noNearbyCities') : t('locationError')}</NearbyMessage>
+            <NearbyMessage>{userLocation ? t('noNearbyCities') : t('locationError')}</NearbyMessage>
             <RetryButtonContainer label={t('refresh')} onClick={refresh}>
               <Icon src={RefreshIcon} />
             </RetryButtonContainer>

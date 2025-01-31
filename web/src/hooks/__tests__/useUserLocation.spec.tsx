@@ -12,14 +12,14 @@ jest.mock('../useUserLocation', () => ({
 jest.mock('shared/api', () => ({
   ...jest.requireActual('shared/api'),
   useLoadFromEndpoint: jest.fn(),
-  useLoadAsync: jest.fn(() => ({ data: null, error: null })),
+  useLoadAsync: jest.fn(() => ({ data: null, error: null, loading: false, refresh: jest.fn() })),
 }))
 
 const MockComponent = () => {
   const { data, refresh } = useUserLocation()
   return (
     <div>
-      <div data-testid='coords'>{data?.coordinates ? data.coordinates.join(',') : 'no coords'}</div>
+      <div data-testid='coords'>{data ? data.join(',') : 'no coords'}</div>
       <button type='button' onClick={refresh}>
         refresh
       </button>
@@ -34,10 +34,11 @@ describe('useUserLocation', () => {
 
   it('should show coordinates when available', async () => {
     mocked(useUserLocation).mockReturnValue({
-      data: { status: 'ready', coordinates: [10.8, 48.3], message: 'ready' },
+      data: [10.8, 48.3],
       refresh: jest.fn(),
       error: null,
       loading: false,
+      setData: () => jest.fn(),
     })
     render(<MockComponent />)
     await waitFor(() => {
@@ -47,10 +48,11 @@ describe('useUserLocation', () => {
 
   it('should show null when unavailable', async () => {
     mocked(useUserLocation).mockReturnValue({
-      data: { status: 'unavailable', coordinates: undefined, message: 'noPermission' },
+      data: null,
       refresh: jest.fn(),
       error: null,
       loading: false,
+      setData: () => jest.fn(),
     })
     render(<MockComponent />)
     await waitFor(() => {
@@ -61,10 +63,11 @@ describe('useUserLocation', () => {
   it('should refresh when calling refresh', async () => {
     const mockRefresh = jest.fn()
     mocked(useUserLocation).mockReturnValue({
-      data: { status: 'ready', coordinates: [10.8, 48.3], message: 'ready' },
+      data: [10.8, 48.3],
       refresh: mockRefresh,
       error: null,
       loading: false,
+      setData: () => jest.fn(),
     })
     render(<MockComponent />)
     fireEvent.click(screen.getByText('refresh'))

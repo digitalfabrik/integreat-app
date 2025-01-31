@@ -1,7 +1,8 @@
 import { useCallback } from 'react'
 
-import { UnavailableLocationState, UserLocationType } from 'shared'
+import { LocationType, UnavailableLocationState, UserLocationType } from 'shared'
 import { useLoadAsync } from 'shared/api'
+import { Return } from 'shared/api/endpoints/hooks/useLoadAsync'
 
 const currentPositionTimeout = 50_000
 
@@ -43,22 +44,12 @@ export const getUserLocation = async (): Promise<UserLocationType> =>
     )
   })
 
-type useUserLocationReturn = {
-  data: UserLocationType | null
-  refresh: () => void
-  error: Error | null
-  loading: boolean
-}
-
-const useUserLocation = (): useUserLocationReturn => {
-  const { data, refresh, error, loading } = useLoadAsync(useCallback(async () => getUserLocation(), []))
-
-  return {
-    data,
-    refresh,
-    error,
-    loading,
-  }
-}
+const useUserLocation = (): Return<LocationType> =>
+  useLoadAsync(
+    useCallback(async () => {
+      const userLocation = await getUserLocation()
+      return userLocation.status === 'ready' ? userLocation.coordinates : null
+    }, []),
+  )
 
 export default useUserLocation

@@ -82,13 +82,7 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
         cityModel={city}
       />
       {data && (
-        <Pois
-          pois={data}
-          userLocation={userLocation?.status === 'ready' ? userLocation.coordinates : null}
-          city={city}
-          languageCode={languageCode}
-          pageTitle={pageTitle}
-        />
+        <Pois pois={data} userLocation={userLocation} city={city} languageCode={languageCode} pageTitle={pageTitle} />
       )}
     </CityContentLayout>
   )
