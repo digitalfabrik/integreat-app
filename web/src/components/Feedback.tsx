@@ -112,12 +112,7 @@ const Feedback = ({
       <InputSection id='email' title={t('contactMailAddress')} showOptional>
         <Input id='email' value={contactMail} onChange={onContactMailChanged} />
       </InputSection>
-      <PrivacyCheckbox
-        language={language}
-        checked={privacyPolicyAccepted}
-        setChecked={setPrivacyPolicyAccepted}
-        id='privacyPolicy'
-      />
+      <PrivacyCheckbox language={language} checked={privacyPolicyAccepted} setChecked={setPrivacyPolicyAccepted} />
       {!isSearchFeedback && sendFeedbackDisabled && <Note text={t('note')} />}
       {sendingStatus === 'failed' && <ErrorSendingStatus role='alert'>{t('failedSendingFeedback')}</ErrorSendingStatus>}
       <StyledTextButton disabled={sendFeedbackDisabled || !privacyPolicyAccepted} onClick={onSubmit} text={t('send')} />

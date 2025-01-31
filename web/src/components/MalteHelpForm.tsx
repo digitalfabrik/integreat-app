@@ -204,7 +204,6 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
           language={languageCode}
           checked={privacyPolicyAccepted}
           setChecked={setPrivacyPolicyAccepted}
-          id='privacyPolicy'
         />
         {(sendingStatus === 'failed' || sendingStatus === 'invalidEmail') && (
           <ErrorSendingStatus role='alert'>

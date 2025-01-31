@@ -9,14 +9,14 @@ type PrivacyCheckboxProps = {
   language: string
   checked: boolean
   setChecked: (checked: boolean) => void
-  id: string
 }
 
-const PrivacyCheckbox = ({ language, checked, setChecked, id }: PrivacyCheckboxProps): ReactElement => {
+const PrivacyCheckbox = ({ language, checked, setChecked }: PrivacyCheckboxProps): ReactElement => {
   const { privacyUrls } = buildConfig()
   const privacyUrl = privacyUrls[language] || privacyUrls.default
   return (
     <Checkbox
+      id='privacyPolicy'
       checked={checked}
       setChecked={setChecked}
       label={
@@ -25,7 +25,6 @@ const PrivacyCheckbox = ({ language, checked, setChecked, id }: PrivacyCheckboxP
           <Link to={privacyUrl}>by react-i18next</Link>
         </Trans>
       }
-      id={id}
     />
   )
 }
