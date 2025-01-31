@@ -1,5 +1,5 @@
 import { TFunction } from 'i18next'
-import React, { ReactElement, ReactNode } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
@@ -47,7 +47,7 @@ const Circle = styled.div`
   font-size: ${props => props.theme.fonts.decorativeFontSizeSmall};
 `
 
-type ChatMessageProps = { message: ChatMessageModel; showIcon: boolean; children?: ReactNode }
+type ChatMessageProps = { message: ChatMessageModel; showIcon: boolean }
 
 const getIcon = (userIsAuthor: boolean, isAutomaticAnswer: boolean, t: TFunction<'chat'>): ReactElement => {
   if (userIsAuthor) {
@@ -57,7 +57,7 @@ const getIcon = (userIsAuthor: boolean, isAutomaticAnswer: boolean, t: TFunction
   return <Icon src={icon} />
 }
 
-const ChatMessage = ({ message, showIcon, children }: ChatMessageProps): ReactElement => {
+const ChatMessage = ({ message, showIcon }: ChatMessageProps): ReactElement => {
   const { t } = useTranslation('chat')
   const { body, userIsAuthor, isAutomaticAnswer } = message
 
@@ -65,7 +65,6 @@ const ChatMessage = ({ message, showIcon, children }: ChatMessageProps): ReactEl
     <Container $isAuthor={userIsAuthor}>
       <IconContainer $visible={showIcon}>{getIcon(userIsAuthor, isAutomaticAnswer, t)}</IconContainer>
       <Message data-testid={message.id}>
-        {children}
         <RemoteContent html={body} smallText />
       </Message>
     </Container>

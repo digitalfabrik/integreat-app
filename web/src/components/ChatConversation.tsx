@@ -40,8 +40,8 @@ const ChatConversation = ({ messages, hasError, className }: ChatConversationPro
   const [messagesCount, setMessagesCount] = useState(0)
   const [showTypingIndicator, setShowTypingIndicator] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
-  const lastUserMessage = messages[messages.length - 1]
-  const beforelastUserMessage = messages[messages.length - 2]
+  const showIndicatorOfTyping =
+    messages[messages.length - 1]?.userIsAuthor || messages[messages.length - 2]?.userIsAuthor
 
   useEffect(() => {
     if (messagesCount < messages.length) {
@@ -51,7 +51,7 @@ const ChatConversation = ({ messages, hasError, className }: ChatConversationPro
   }, [messages, messagesCount])
 
   useEffect(() => {
-    if (lastUserMessage?.userIsAuthor || beforelastUserMessage?.userIsAuthor) {
+    if (showIndicatorOfTyping) {
       setShowTypingIndicator(true)
 
       const typingIndicatorTimeout = setTimeout(() => {
@@ -61,7 +61,7 @@ const ChatConversation = ({ messages, hasError, className }: ChatConversationPro
       return () => clearTimeout(typingIndicatorTimeout)
     }
     return () => undefined
-  }, [lastUserMessage?.userIsAuthor, beforelastUserMessage?.userIsAuthor])
+  }, [showIndicatorOfTyping])
 
   return (
     <Container className={className}>
