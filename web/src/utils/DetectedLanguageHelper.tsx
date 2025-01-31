@@ -6,6 +6,7 @@ type languageHelperType = {
   routeParam0: string | undefined
   splat: string | undefined
 }
+
 export const DetectedLanguageHelper = (): languageHelperType => {
   const { routeParam0, routeParam1, '*': splat } = useMatch('/:routeParam0/:routeParam1/*')?.params ?? {}
   const { i18n } = useTranslation()

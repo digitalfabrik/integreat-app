@@ -16,19 +16,19 @@ const StyledTtsPlayer = styled.dialog<{ $isPlaying: boolean }>`
   flex-direction: ${props => (props.$isPlaying ? 'column' : 'row')};
   justify-content: center;
   align-items: center;
-  padding: 6px;
+  padding: 8px;
   position: sticky;
-  bottom: 5px;
-  min-height: 93px;
-  gap: ${props => (props.$isPlaying ? '5px;' : '10px')};
+  bottom: 4px;
+  min-height: 92px;
+  gap: ${props => (props.$isPlaying ? '4px;' : '12px')};
   border-color: transparent;
 
   @media ${dimensions.smallViewport} {
-    width: 90%;
+    width: 88%;
   }
 `
 
-const verticalMargin = 11
+const verticalMargin = 12
 
 const StyledPanel = styled.div<{ $isPlaying?: boolean }>`
   display: flex;
@@ -37,7 +37,7 @@ const StyledPanel = styled.div<{ $isPlaying?: boolean }>`
   margin: ${props => (props.$isPlaying ? verticalMargin : 0)}px 0;
 `
 
-const buttonBaseStyles = `
+const BaseButton = styled(Button)`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -51,19 +51,18 @@ const buttonBaseStyles = `
   }
 `
 
-const StyledPlayIcon = styled(Button)`
-  ${buttonBaseStyles}
+const StyledPlayIcon = styled(BaseButton)`
   background-color: ${props => props.theme.colors.ttsPlayerPlayIconColor};
-  width: 50px;
-  height: 50px;
-  border-radius: 50px;
-  box-shadow: 1px 5px 10px 1px grey;
+  width: 48px;
+  height: 48px;
+  border-radius: 48px;
+  box-shadow: 1px 4px 8px 1px grey;
 `
 
 const StyledBackForthButton = styled(Button)`
   display: flex;
   flex-direction: row;
-  gap: 5px;
+  gap: 4px;
   align-items: flex-end;
 `
 
@@ -82,23 +81,22 @@ const StyledText = styled.span`
 const StyledPlayerHeaderText = styled.span`
   font-weight: 600;
   align-self: center;
-  font-size: 18px;
+  font-size: 16px;
 `
 
-const CloseButton = styled(Button)`
-  ${buttonBaseStyles}
-  border-radius: 7px;
+const CloseButton = styled(BaseButton)`
+  border-radius: 8px;
   background-color: ${props => props.theme.colors.themeColor};
-  padding: 5px;
-  gap: 5px;
+  padding: 4px;
+  gap: 4px;
   width: 176px;
-  box-shadow: 1px 5px 5px 1px grey;
+  box-shadow: 1px 4px 4px 1px grey;
 `
 
 const CloseView = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   justify-content: center;
 `
 
@@ -110,7 +108,7 @@ type TtsPlayerProps = {
   playPrevious: () => void
   playNext: () => void
   close: () => void
-  longTitle: string
+  title: string
   togglePlayPause: () => void
 }
 
@@ -122,7 +120,7 @@ const TtsPlayer = ({
   playPrevious,
   playNext,
   close,
-  longTitle,
+  title,
   togglePlayPause,
 }: TtsPlayerProps): ReactElement | null => {
   const { t } = useTranslation('layout')
@@ -144,24 +142,24 @@ const TtsPlayer = ({
             $isPlaying={isPlaying}
             style={{ flexDirection: theme.contentDirection === 'rtl' ? 'row-reverse' : 'row' }}>
             {isPlaying && (
-              <StyledBackForthButton label='backward-button' onClick={playPrevious}>
+              <StyledBackForthButton label={t('previous')} onClick={playPrevious}>
                 <StyledText>{t('previous')}</StyledText>
                 <BackForthIcon $flip src={PlaybackIcon} />
               </StyledBackForthButton>
             )}
-            <StyledPlayIcon label='play-button' onClick={togglePlayPause}>
+            <StyledPlayIcon label={t('play')} onClick={togglePlayPause}>
               <PlayButtonIcon src={isPlaying ? PauseIcon : PlayIcon} />
             </StyledPlayIcon>
             {isPlaying && (
-              <StyledBackForthButton label='forward-button' onClick={playNext}>
+              <StyledBackForthButton label={t('next')} onClick={playNext}>
                 <BackForthIcon $flip={false} src={PlaybackIcon} />
                 <StyledText>{t('next')}</StyledText>
               </StyledBackForthButton>
             )}
           </StyledPanel>
           <CloseView>
-            {!isPlaying && <StyledPlayerHeaderText>{longTitle}</StyledPlayerHeaderText>}
-            <CloseButton label='close-player' onClick={close}>
+            {!isPlaying && <StyledPlayerHeaderText>{title}</StyledPlayerHeaderText>}
+            <CloseButton label={t('common:close')} onClick={close}>
               <Icon src={CloseIcon} />
               <StyledText>{t('common:close')}</StyledText>
             </CloseButton>

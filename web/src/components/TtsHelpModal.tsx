@@ -7,7 +7,7 @@ import { BookIcon, WarningIcon } from '../assets'
 import Modal from './Modal'
 import Icon from './base/Icon'
 
-const StyledItem = styled(Link)`
+const StyledLink = styled(Link)`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -17,14 +17,14 @@ const StyledItem = styled(Link)`
 `
 
 const ModalContent = styled.div`
-  padding: 0 16px 16px 50px;
+  padding: 0 16px 16px 48px;
 `
 
 const StyledWarningText = styled.div`
   font-family: ${props => props.theme.fonts.web.contentFont};
-  font-size: 14px;
-  width: 70%;
-  margin: 10px 0;
+  font-size: 12px;
+  width: 72%;
+  margin: 12px 0;
 `
 
 const StyledText = styled.span`
@@ -71,10 +71,10 @@ const helpItemsData = [
 
 const HelpModalItem = ({ icon, title, path }: { icon: string; title: string; path: string }) => (
   <div>
-    <StyledItem to={path} target='_blank'>
+    <StyledLink to={path} target='_blank' rel='noreferrer'>
       <Icon src={icon} />
       <StyledText>{title}</StyledText>
-    </StyledItem>
+    </StyledLink>
   </div>
 )
 

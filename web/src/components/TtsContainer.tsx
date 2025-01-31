@@ -2,13 +2,12 @@ import EasySpeech from 'easy-speech'
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { MAX_TITLE_DISPLAY_CHARS } from 'shared'
 import { truncate } from 'shared/utils/getExcerpt'
 
 import useTtsPlayer from '../hooks/useTtsPlayer'
 import { reportError } from '../utils/sentry'
 import TtsPlayer from './TtsPlayer'
-
-const MAX_TITLE_DISPLAY_CHARS = 20
 
 type TtsContainerProps = {
   languageCode: string
@@ -21,20 +20,14 @@ const TtsContainer = ({ languageCode }: TtsContainerProps): ReactElement | null 
   const [currentSentencesIndex, setCurrentSentenceIndex] = useState<number>(0)
   const [showHelpModal, setShowHelpModal] = useState(false)
   const title = sentences[0] || t('nothingToRead')
-  const longTitle = truncate(title, { maxChars: MAX_TITLE_DISPLAY_CHARS })
-  const userAgent = navigator.userAgent
-  const isAndroid = Boolean(/android/i.test(userAgent))
-  const isFirefox = userAgent.toLowerCase().includes('firefox')
-  const isLinux = userAgent.toLowerCase().includes('linux')
+  const shortTitle = truncate(title, { maxChars: MAX_TITLE_DISPLAY_CHARS })
+  const userAgent = navigator.userAgent.toLowerCase()
+  const isAndroid = /android/i.test(userAgent)
+  const isFirefox = userAgent.includes('firefox')
+  const isLinux = userAgent.includes('linux')
   const isFirefoxAndLinux = isFirefox && isLinux
   const enableOnEnd = useRef(true)
-  const msTime = 1000
-
-  const resetOnEnd = () => {
-    setCurrentSentenceIndex(0)
-    setIsPlaying(false)
-    enableOnEnd.current = false
-  }
+  const fallbackTimer = 1000
 
   useEffect(() => {
     if (!enabled && !visible) {
@@ -43,6 +36,12 @@ const TtsContainer = ({ languageCode }: TtsContainerProps): ReactElement | null 
 
     EasySpeech.init({ maxTimeout: 5000, interval: 250 }).catch(reportError)
   }, [enabled, visible])
+
+  const resetOnEnd = () => {
+    setCurrentSentenceIndex(0)
+    setIsPlaying(false)
+    enableOnEnd.current = false
+  }
 
   const stop = () => {
     try {
@@ -94,7 +93,7 @@ const TtsContainer = ({ languageCode }: TtsContainerProps): ReactElement | null 
       if (!window.speechSynthesis.speaking && enableOnEnd.current && isPlaying) {
         play(index)
       }
-    }, msTime)
+    }, fallbackTimer)
   }
 
   const pause = () => {
@@ -112,7 +111,6 @@ const TtsContainer = ({ languageCode }: TtsContainerProps): ReactElement | null 
         }
         pause()
       } else if (canResume) {
-        // FirefoxAndLinux and isAndroid can't resume
         setIsPlaying(true)
         enableOnEnd.current = true
         EasySpeech.resume()
@@ -157,6 +155,7 @@ const TtsContainer = ({ languageCode }: TtsContainerProps): ReactElement | null 
     setCurrentSentenceIndex(0)
     setIsPlaying(false)
   }
+
   return (
     <TtsPlayer
       playPrevious={playPrevious}
@@ -167,7 +166,7 @@ const TtsContainer = ({ languageCode }: TtsContainerProps): ReactElement | null 
       setShowHelpModal={setShowHelpModal}
       showHelpModal={showHelpModal}
       togglePlayPause={togglePlayPause}
-      longTitle={longTitle}
+      title={shortTitle}
     />
   )
 }

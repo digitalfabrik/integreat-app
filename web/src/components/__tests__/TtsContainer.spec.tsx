@@ -62,7 +62,7 @@ describe('TtsPlayer', () => {
       renderTtsPlayer()
     })
 
-    const playButton = screen.getByRole('button', { name: 'play-button' })
+    const playButton = screen.getByRole('button', { name: 'layout:play' })
     fireEvent.click(playButton)
 
     expect(playButton).toBeInTheDocument()
@@ -82,11 +82,11 @@ describe('TtsPlayer', () => {
       renderTtsPlayer()
     })
 
-    const playButton = screen.getByRole('button', { name: 'play-button' })
+    const playButton = screen.getByRole('button', { name: 'layout:play' })
     const ttsPlayer = screen.getByRole('dialog')
     fireEvent.click(playButton)
 
-    const closeButton = screen.getByRole('button', { name: 'close-player' })
+    const closeButton = screen.getByRole('button', { name: 'layout:common:close' })
     fireEvent.click(closeButton)
 
     expect(EasySpeech.cancel).toHaveBeenCalled()

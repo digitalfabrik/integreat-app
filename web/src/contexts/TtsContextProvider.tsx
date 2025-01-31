@@ -10,6 +10,7 @@ export type TtsContextType = {
   sentences: string[]
   setSentences: (sentences: string[]) => void
 }
+
 export const TtsContext = createContext<TtsContextType>({
   enabled: false,
   canRead: false,
@@ -18,10 +19,12 @@ export const TtsContext = createContext<TtsContextType>({
   sentences: [],
   setSentences: () => undefined,
 })
+
 type TtsContextProviderProps = {
   children: ReactElement
   initialVisibility?: boolean
 }
+
 const TtsContextProvider = ({ children, initialVisibility = false }: TtsContextProviderProps): ReactElement => {
   const [visible, setVisible] = useState(initialVisibility)
   const [sentences, setSentences] = useState<string[]>([])

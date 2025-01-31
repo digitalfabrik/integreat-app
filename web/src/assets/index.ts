@@ -47,7 +47,7 @@ import PhoneIcon from '../../../assets/icons/phone.svg'
 import PlayIcon from '../../../assets/icons/play.svg'
 import PlaybackIcon from '../../../assets/icons/playback.svg'
 import POIsIcon from '../../../assets/icons/pois.svg'
-import ReadAloud from '../../../assets/icons/readAloud.svg'
+import ReadAloudIcon from '../../../assets/icons/readAloud.svg'
 import SadSmileyIcon from '../../../assets/icons/sad-smiley.svg'
 import SearchIcon from '../../../assets/icons/search.svg'
 import SecurityIcon from '../../../assets/icons/security.svg'
@@ -116,7 +116,7 @@ export {
   POIsIcon,
   PoiThumbnailPlaceholder,
   PoiThumbnailPlaceholderLarge,
-  ReadAloud,
+  ReadAloudIcon,
   SadSmileyIcon,
   SearchIcon,
   SecurityIcon,

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { PlacesType } from 'react-tooltip'
 import { useTheme } from 'styled-components'
 
-import { CopyIcon, DoneIcon, ReadAloud } from '../assets'
+import { CopyIcon, DoneIcon, ReadAloudIcon } from '../assets'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { RouteType } from '../routes'
@@ -39,7 +39,7 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
     isInBottomActionSheet = false,
   } = props
   const [linkCopied, setLinkCopied] = useState<boolean>(false)
-  const [ttsToolTip, seTtsToolTip] = useState<boolean>(false)
+  const [ttsToolTip, setTtsToolTip] = useState<boolean>(false)
   const { t } = useTranslation('layout')
   const copyToClipboard = () => {
     navigator.clipboard.writeText(window.location.href).catch(reportError)
@@ -50,9 +50,9 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
   }
 
   const showTtsWarning = () => {
-    seTtsToolTip(true)
+    setTtsToolTip(true)
     setTimeout(() => {
-      seTtsToolTip(false)
+      setTtsToolTip(false)
     }, COPY_TIMEOUT)
   }
 
@@ -62,7 +62,7 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
   const { enabled: isTtsEnabled, setVisible: setTtsPlayerVisible, canRead } = useTtsPlayer()
   const ttsItem = isTtsEnabled ? (
     <ToolbarItem
-      icon={ReadAloud}
+      icon={ReadAloudIcon}
       text={t('readAloud')}
       onClick={() => {
         if (canRead) {
@@ -71,7 +71,7 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
           showTtsWarning()
         }
       }}
-      id='readAloud-icon'
+      id='read-aloud-icon'
     />
   ) : null
 

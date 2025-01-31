@@ -35,15 +35,10 @@ type ModalContentStyling = {
   borderRadius?: number
 }
 
-const ModalContentContainer = styled.div<{ $style?: ModalContentStyling }>`
+const ModalContentContainer = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  background-color: ${props =>
-    props.$style?.backgroundColor != null
-      ? props.theme.colors.ttsPlayerWarningBackground
-      : props.theme.colors.backgroundColor};
-  border-radius: ${props => (props.$style?.borderRadius != null ? props.$style.borderRadius : 0)}px;
 
   @media ${dimensions.smallViewport} {
     height: 100%;
@@ -83,7 +78,7 @@ const Modal = ({ title, icon, style, closeModal, children, wrapInPortal = false 
         <Overlay onClick={closeModal} tabIndex={0} label={t('close')}>
           <div />
         </Overlay>
-        <ModalContentContainer $style={style}>
+        <ModalContentContainer>
           <ModalContent title={title} style={style} icon={icon} closeModal={closeModal} small={viewportSmall}>
             {children}
           </ModalContent>
