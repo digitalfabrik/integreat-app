@@ -1,4 +1,4 @@
-import BottomSheet, {
+import RNBottomSheet, {
   BottomSheetHandleProps,
   BottomSheetScrollView,
   BottomSheetScrollViewMethods,
@@ -7,9 +7,13 @@ import React, { memo, ReactElement, ReactNode, useCallback } from 'react'
 import { Platform } from 'react-native'
 import styled from 'styled-components/native'
 
-import BottomSheetHandler from './BottomSheetHandler'
+import BottomSheetHandle from './BottomSheetHandle'
 
-type BottomActionsSheetProps = {
+const StyledBottomSheet = styled(RNBottomSheet)<{ isFullscreen: boolean }>`
+  ${props => props.isFullscreen && `background-color: ${props.theme.colors.backgroundColor};`}
+`
+
+type BottomSheetProps = {
   children: ReactNode
   snapPoints: (string | number)[]
   title?: string
@@ -20,11 +24,7 @@ type BottomActionsSheetProps = {
   setScrollPosition: (position: number) => void
 }
 
-const StyledBottomSheet = styled(BottomSheet)<{ isFullscreen: boolean }>`
-  ${props => props.isFullscreen && `background-color: ${props.theme.colors.backgroundColor};`}
-`
-
-const BottomActionsSheet = React.forwardRef(
+const BottomSheet = React.forwardRef(
   (
     {
       children,
@@ -35,11 +35,11 @@ const BottomActionsSheet = React.forwardRef(
       initialIndex = 0,
       setScrollPosition,
       snapPointIndex,
-    }: BottomActionsSheetProps,
+    }: BottomSheetProps,
     scrollRef: React.Ref<BottomSheetScrollViewMethods>,
   ): ReactElement | null => {
     const renderHandle = useCallback(
-      (props: BottomSheetHandleProps) => <BottomSheetHandler title={title} {...props} />,
+      (props: BottomSheetHandleProps) => <BottomSheetHandle title={title} {...props} />,
       [title],
     )
 
@@ -67,4 +67,4 @@ const BottomActionsSheet = React.forwardRef(
   },
 )
 
-export default memo(BottomActionsSheet)
+export default memo(BottomSheet)

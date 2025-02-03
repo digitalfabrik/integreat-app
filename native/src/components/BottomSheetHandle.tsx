@@ -21,11 +21,11 @@ const Indicator = styled.View`
   margin: 20px 0;
 `
 
-type BottomSheetHandlerProps = {
+type BottomSheetHandleProps = {
   title?: string
 }
 
-const BottomSheetHandler = ({ title }: BottomSheetHandlerProps): ReactElement => (
+const BottomSheetHandle = ({ title }: BottomSheetHandleProps): ReactElement => (
   <View>
     <Indicator />
     {!!title && (
@@ -36,4 +36,4 @@ const BottomSheetHandler = ({ title }: BottomSheetHandlerProps): ReactElement =>
   </View>
 )
 
-export default BottomSheetHandler
+export default BottomSheetHandle
