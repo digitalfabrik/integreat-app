@@ -9,7 +9,7 @@ import { PoisRouteType, isMultipoi, LocationType, sortPois, MapFeature, prepareP
 import { PoiCategoryModel, CityModel, PoiModel, ErrorCode } from 'shared/api'
 
 import { ClockIcon, EditLocationIcon } from '../assets'
-import BottomActionsSheet from '../components/BottomActionsSheet'
+import BottomSheet from '../components/BottomSheet'
 import Failure from '../components/Failure'
 import List from '../components/List'
 import MapView from '../components/MapView'
@@ -205,7 +205,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation, refresh }
         zoom={zoom}
         Overlay={FiltersOverlayButtons}
       />
-      <BottomActionsSheet
+      <BottomSheet
         ref={scrollRef}
         setScrollPosition={setScrollPosition}
         onChange={setSheetSnapPointIndex}
@@ -226,7 +226,7 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation, refresh }
             />
           )}
         </Container>
-      </BottomActionsSheet>
+      </BottomSheet>
     </ScrollView>
   )
 }
