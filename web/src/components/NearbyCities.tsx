@@ -54,7 +54,7 @@ const NearbyCities = ({ cities, language, filterText, stickyTop }: NearbyCitiesP
     : []
 
   return (
-    <>
+    <div>
       <CityListParent $stickyTop={stickyTop}>{t('nearbyCities')}</CityListParent>
       {nearbyCities.length > 0 ? (
         nearbyCities.map(city => <CityEntry key={city.code} city={city} language={language} filterText={filterText} />)
@@ -68,7 +68,7 @@ const NearbyCities = ({ cities, language, filterText, stickyTop }: NearbyCitiesP
           </StyledMessageWrapper>
         </NearbyMessageContainer>
       )}
-    </>
+    </div>
   )
 }
 
