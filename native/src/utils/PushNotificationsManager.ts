@@ -104,7 +104,10 @@ const routeInformationFromMessage = (message: Message): NonNullableRouteInformat
   newsType: LOCAL_NEWS_TYPE,
   newsId: parseInt(message.data.news_id, 10),
 })
-const urlFromMessage = (message: Message): string => urlFromRouteInformation(routeInformationFromMessage(message))
+const urlFromMessage = (message: Message): string => {
+  console.log('urlFroMessage', urlFromRouteInformation(routeInformationFromMessage(message)))
+  return urlFromRouteInformation(routeInformationFromMessage(message))
+}
 
 export const useForegroundPushNotificationListener = ({
   showSnackbar,
@@ -159,6 +162,7 @@ export const quitAppStatePushNotificationListener = async (
 
   if (message) {
     // Use navigateToDeepLink instead of normal navigation to avoid navigation not being initialized
+    console.log('quitAppStatePushNotificationListener', message)
     navigateToDeepLink(urlFromMessage(message))
   }
 }
@@ -167,12 +171,16 @@ export const backgroundAppStatePushNotificationListener = (listener: (url: strin
   if (pushNotificationsEnabled()) {
     importFirebaseMessaging()
       .then(messaging => {
-        const onReceiveURL = ({ url }: { url: string }) => listener(url)
+        const onReceiveURL = ({ url }: { url: string }) => {
+          console.log('onReceiveUrl', url)
+          listener(url)
+        }
         const onReceiveURLListener = Linking.addListener('url', onReceiveURL)
 
-        const unsubscribeNotification = messaging().onNotificationOpenedApp(message =>
-          listener(urlFromMessage(message as Message)),
-        )
+        const unsubscribeNotification = messaging().onNotificationOpenedApp(message => {
+          console.log('onNotificationOpenedApp', message)
+          listener(urlFromMessage(message as Message))
+        })
 
         return () => {
           onReceiveURLListener.remove()
