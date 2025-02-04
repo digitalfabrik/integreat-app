@@ -123,6 +123,8 @@ describe('FeedbackContainer', () => {
         <FeedbackContainer routeType={SEARCH_ROUTE} language={language} cityCode={city} query={query} />
       </NavigationContainer>,
     )
+    const buttonToOpenFeedback = getByText('giveFeedback')
+    fireEvent.press(buttonToOpenFeedback)
     const button = getByText('send')
     fireEvent.press(button)
     expect(await findByText('thanksMessage')).toBeDefined()
@@ -148,6 +150,8 @@ describe('FeedbackContainer', () => {
         <FeedbackContainer routeType={SEARCH_ROUTE} language={language} cityCode={city} query={query} />
       </NavigationContainer>,
     )
+    const buttonToOpenFeedback = getByText('giveFeedback')
+    fireEvent.press(buttonToOpenFeedback)
     const input = getByDisplayValue(query)
     fireEvent.changeText(input, fullSearchTerm)
     const button = getByText('send')
@@ -168,11 +172,13 @@ describe('FeedbackContainer', () => {
   })
 
   it('should disable send button if query term is removed', async () => {
-    const { findByText, getByDisplayValue } = render(
+    const { findByText, getByDisplayValue, getByText } = render(
       <NavigationContainer>
         <FeedbackContainer routeType={SEARCH_ROUTE} language={language} cityCode={city} query='query' />
       </NavigationContainer>,
     )
+    const buttonToOpenFeedback = getByText('giveFeedback')
+    fireEvent.press(buttonToOpenFeedback)
     expect(await findByText('send')).not.toBeDisabled()
     const input = getByDisplayValue('query')
     fireEvent.changeText(input, '')

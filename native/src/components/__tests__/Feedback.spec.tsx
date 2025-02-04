@@ -82,7 +82,6 @@ describe('Feedback', () => {
         <Feedback {...buildProps(false, 'comment', 'query')} />
       </NavigationContainer>,
     )
-    expect(getByText('search:nothingFound')).toBeDefined()
     expect(getByText('searchTermDescription')).toBeDefined()
   })
 
