@@ -4,6 +4,7 @@ import { KeyboardAvoidingView, Platform } from 'react-native'
 import styled from 'styled-components/native'
 
 import { parseHTML, SEARCH_FINISHED_SIGNAL_NAME, SEARCH_ROUTE, SearchResult, useSearch } from 'shared'
+import { config } from 'translations'
 
 import FeedbackContainer from '../components/FeedbackContainer'
 import List from '../components/List'
@@ -52,7 +53,10 @@ const SearchModal = ({
   const contentLanguageResults = useSearch(allPossibleContentLanguageResults, query)
   const fallbackLanguageResults = useSearch(allPossibleFallbackLanguageResults, query)
 
-  const searchResults = contentLanguageResults?.length === 0 ? fallbackLanguageResults : contentLanguageResults
+  const searchResults =
+    languageCode === config.sourceLanguage
+      ? contentLanguageResults
+      : contentLanguageResults?.concat(fallbackLanguageResults ?? [])
 
   const onClose = (): void => {
     sendTrackingSignal({

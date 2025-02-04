@@ -1,24 +1,29 @@
 import { TFunction } from 'i18next'
 import React, { ReactElement } from 'react'
-import { View } from 'react-native'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
 import Pagination from './Pagination'
 import TextButton from './base/TextButton'
 
 const ButtonContainer = styled.View`
-  flex-grow: 1;
+  width: 100%;
   flex-direction: row;
-  padding: 5px;
-  background-color: ${props => props.theme.colors.backgroundColor};
+  justify-content: space-between;
+  padding: 0 20px;
 `
 
-const StyledButton = styled(TextButton)`
-  flex: 1;
+const StyledButton = styled(TextButton)<{ $opacity?: boolean; $enableShadow?: boolean }>`
+  padding: 10px 32px;
+  opacity: ${props => (props.$opacity === false ? 0 : 1)};
+  shadow-color: ${props => (props.$enableShadow ? props.theme.colors.textColor : props.theme.colors.backgroundColor)};
+  shadow-offset: 0 1px;
+  shadow-opacity: 0.2;
+  shadow-radius: 1.4px;
+  elevation: 2;
 `
 
-const Placeholder = styled.View`
-  flex: 1;
+const SideFooterContainer = styled.View`
+  gap: 20px;
 `
 
 type SlideFooterProps = {
@@ -30,17 +35,32 @@ type SlideFooterProps = {
 }
 
 const SlideFooter = ({ onDone, slideCount, goToSlide, currentSlide, t }: SlideFooterProps): ReactElement => {
+  const theme = useTheme()
   const goToNextSlide = () => goToSlide(currentSlide + 1)
 
   const isLastSlide = currentSlide === slideCount - 1
   return (
-    <View>
-      <ButtonContainer>
-        {!isLastSlide ? <StyledButton type='clear' text={t('skip')} onPress={onDone} /> : <Placeholder />}
-        <StyledButton type='clear' text={t('next')} onPress={isLastSlide ? onDone : goToNextSlide} />
-      </ButtonContainer>
+    <SideFooterContainer>
       <Pagination slideCount={slideCount} currentSlide={currentSlide} goToSlide={goToSlide} />
-    </View>
+      <ButtonContainer>
+        <StyledButton
+          type='clear'
+          text={t('skip')}
+          textStyle={{ fontFamily: theme.fonts.native.contentFontBold, fontSize: 14 }}
+          onPress={onDone}
+          $opacity={!isLastSlide}
+          disabled={isLastSlide}
+        />
+
+        <StyledButton
+          type='primary'
+          text={t('next')}
+          textStyle={{ fontFamily: theme.fonts.native.contentFontBold, fontSize: 14 }}
+          onPress={isLastSlide ? onDone : goToNextSlide}
+          $enableShadow
+        />
+      </ButtonContainer>
+    </SideFooterContainer>
   )
 }
 

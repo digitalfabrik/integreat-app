@@ -13,13 +13,13 @@ import ToolbarItem from './ToolbarItem'
 type FeedbackToolbarItemProps = {
   route: RouteType
   slug?: string
+  positive: boolean
 }
 
-const FeedbackToolbarItem = ({ route, slug }: FeedbackToolbarItemProps): ReactElement => {
+const FeedbackToolbarItem = ({ route, slug, positive }: FeedbackToolbarItemProps): ReactElement => {
   const { cityCode, languageCode } = useCityContentParams()
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
-  const [isPositiveRating, setIsPositiveRating] = useState<boolean | null>(null)
   const { t } = useTranslation('feedback')
   const title = isSubmitted ? t('thanksHeadline') : t('headline')
 
@@ -34,26 +34,14 @@ const FeedbackToolbarItem = ({ route, slug }: FeedbackToolbarItemProps): ReactEl
             cityCode={cityCode}
             language={languageCode}
             slug={slug}
-            isPositiveRating={isPositiveRating}
-            setIsPositiveRating={setIsPositiveRating}
+            initialRating={positive}
           />
         </Modal>
       )}
       <ToolbarItem
-        icon={HappySmileyIcon}
-        text={t('useful')}
-        onClick={() => {
-          setIsFeedbackOpen(true)
-          setIsPositiveRating(true)
-        }}
-      />
-      <ToolbarItem
-        icon={SadSmileyIcon}
-        text={t('notUseful')}
-        onClick={() => {
-          setIsFeedbackOpen(true)
-          setIsPositiveRating(false)
-        }}
+        icon={positive ? HappySmileyIcon : SadSmileyIcon}
+        text={t(positive ? 'useful' : 'notUseful')}
+        onClick={() => setIsFeedbackOpen(true)}
       />
     </>
   )

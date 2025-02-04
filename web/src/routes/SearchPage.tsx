@@ -48,14 +48,18 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
   })
   const contentLanguageResults = useSearch(allPossibleContentLanguageResults, query)
 
+  const fallbackLanguageCode = config.sourceLanguage
   const { data: allPossibleFallbackLanguageResults } = useAllPossibleSearchResults({
     city: cityCode,
-    language: config.sourceLanguage,
+    language: fallbackLanguageCode,
     cmsApiBaseUrl,
   })
   const fallbackLanguageResults = useSearch(allPossibleFallbackLanguageResults, query)
 
-  const results = contentLanguageResults?.length === 0 ? fallbackLanguageResults : contentLanguageResults
+  const results =
+    languageCode === fallbackLanguageCode
+      ? contentLanguageResults
+      : contentLanguageResults?.concat(fallbackLanguageResults ?? [])
 
   if (!city) {
     return null

@@ -14,8 +14,7 @@ type FeedbackContainerProps = {
   query?: string
   slug?: string
   onSubmit?: () => void
-  isPositiveRating: boolean | null
-  setIsPositiveRating?: (isPositiveFeedback: boolean | null) => void
+  initialRating: boolean | null
 }
 
 export type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
@@ -28,9 +27,9 @@ export const FeedbackContainer = ({
   slug,
   onClose,
   onSubmit,
-  isPositiveRating,
-  setIsPositiveRating,
+  initialRating,
 }: FeedbackContainerProps): ReactElement => {
+  const [isPositiveRating, setIsPositiveRating] = useState<boolean | null>(initialRating)
   const [comment, setComment] = useState<string>('')
   const [contactMail, setContactMail] = useState<string>('')
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
