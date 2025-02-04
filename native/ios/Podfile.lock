@@ -1,4 +1,5 @@
 PODS:
+  - BEMCheckBox (1.4.1)
   - boost (1.83.0)
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.74.5)
@@ -1022,7 +1023,7 @@ PODS:
   - react-native-static-server (0.5.5):
     - GCDWebServer (~> 3.0)
     - React
-  - react-native-webview (13.12.2):
+  - react-native-webview (13.13.0):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1276,6 +1277,9 @@ PODS:
     - React
   - RNCAsyncStorage (2.0.0):
     - React-Core
+  - RNCCheckbox (0.5.17):
+    - BEMCheckBox (~> 1.4)
+    - React-Core
   - RNCClipboard (1.14.1):
     - React-Core
   - RNFBApp (19.2.2):
@@ -1405,7 +1409,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNSentry (5.31.1):
+  - RNSentry (5.33.2):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1428,7 +1432,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - Sentry/HybridSDK (= 8.36.0)
     - Yoga
-  - RNSVG (15.6.0):
+  - RNSVG (15.7.1):
     - React-Core
   - Sentry/HybridSDK (8.36.0)
   - SocketRocket (0.7.0)
@@ -1475,7 +1479,7 @@ DEPENDENCIES:
   - react-native-pdf (from `../node_modules/react-native-pdf`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - "react-native-static-server (from `../node_modules/@dr.pogodin/react-native-static-server`)"
-  - react-native-webview (from `../node_modules/react-native-webview`)
+  - "react-native-webview (from `../node_modules/@dr.pogodin/react-native-webview`)"
   - React-nativeconfig (from `../node_modules/react-native/ReactCommon`)
   - React-NativeModulesApple (from `../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
@@ -1501,6 +1505,7 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - RNCalendarEvents (from `../node_modules/react-native-calendar-events`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
+  - "RNCCheckbox (from `../node_modules/@react-native-community/checkbox`)"
   - "RNCClipboard (from `../node_modules/@react-native-clipboard/clipboard`)"
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
   - "RNFBMessaging (from `../node_modules/@react-native-firebase/messaging`)"
@@ -1517,6 +1522,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - BEMCheckBox
     - Firebase
     - FirebaseCore
     - FirebaseCoreExtension
@@ -1610,7 +1616,7 @@ EXTERNAL SOURCES:
   react-native-static-server:
     :path: "../node_modules/@dr.pogodin/react-native-static-server"
   react-native-webview:
-    :path: "../node_modules/react-native-webview"
+    :path: "../node_modules/@dr.pogodin/react-native-webview"
   React-nativeconfig:
     :path: "../node_modules/react-native/ReactCommon"
   React-NativeModulesApple:
@@ -1661,6 +1667,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-calendar-events"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
+  RNCCheckbox:
+    :path: "../node_modules/@react-native-community/checkbox"
   RNCClipboard:
     :path: "../node_modules/@react-native-clipboard/clipboard"
   RNFBApp:
@@ -1689,6 +1697,7 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
+  BEMCheckBox: 5ba6e37ade3d3657b36caecc35c8b75c6c2b1a4e
   boost: d3f49c53809116a5d38da093a8aa78bf551aed09
   DoubleConversion: 76ab83afb40bddeeee456813d9c04f67f78771b5
   FBLazyVector: ac12dc084d1c8ec4cc4d7b3cf1b0ebda6dab85af
@@ -1738,7 +1747,7 @@ SPEC CHECKSUMS:
   react-native-pdf: 103940c90d62adfd259f63cca99c7c0c306b514c
   react-native-safe-area-context: ab8f4a3d8180913bd78ae75dd599c94cce3d5e9a
   react-native-static-server: 9bb6c921baf4f2ad7e84832b82fa0eb5fe57c9f0
-  react-native-webview: 3567d1249c79d092d6bec900ab8eadf03769576c
+  react-native-webview: 85f0387441372c2d3209d86c281e80451e7f18c9
   React-nativeconfig: f326487bc61eba3f0e328da6efb2711533dcac46
   React-NativeModulesApple: d89733f5baed8b9249ca5a8e497d63c550097312
   React-perflogger: ed4e0c65781521e0424f2e5e40b40cc7879d737e
@@ -1764,6 +1773,7 @@ SPEC CHECKSUMS:
   ReactCommon: f79ae672224dc1e6c2d932062176883c98eebd57
   RNCalendarEvents: 7e65eb4a94f53c1744d1e275f7fafcfaa619f7a3
   RNCAsyncStorage: d35c79ffba52c1013013e16b1fc295aec2feabb6
+  RNCCheckbox: a3ca9978cb0846b981d28da4e9914bd437403d77
   RNCClipboard: 0a720adef5ec193aa0e3de24c3977222c7e52a37
   RNFBApp: 614f1621b49db54ebd258df8c45427370d8d84a2
   RNFBMessaging: 74754ed198239360950f54f3e3de365fe85db451
@@ -1774,11 +1784,11 @@ SPEC CHECKSUMS:
   RNPermissions: 829cceec018e0821e4883a8a7cf51a7bb2d0d30a
   RNReanimated: f8dc6e880959a874d8d65c1e1fcdc29c946b9fea
   RNScreens: db442e7b8c7bc8befec2ce057927305ff8598cc8
-  RNSentry: 09c5679c6b4e84f64f99ef14f6eb759eec5063a5
-  RNSVG: 5da7a24f31968ec74f0b091e3440080f347e279b
+  RNSentry: 6da4c3b6959bc67125ad550f474e0bae308ce7c8
+  RNSVG: 4590aa95758149fa27c5c83e54a6a466349a1688
   Sentry: f8374b5415bc38dfb5645941b3ae31230fbeae57
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
-  Yoga: 1ab23c1835475da69cf14e211a560e73aab24cb0
+  Yoga: 33622183a85805e12703cd618b2c16bfd18bfffb
 
 PODFILE CHECKSUM: c4a732e94b53059c604cf075a22ab8a90d83e317
 
