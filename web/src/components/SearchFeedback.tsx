@@ -52,7 +52,6 @@ const SearchFeedback = ({ cityCode, languageCode, query, noResults }: SearchFeed
           language={languageCode}
           routeType={SEARCH_ROUTE}
           query={query}
-          noResults={noResults}
           initialRating={null}
         />
       </Container>
