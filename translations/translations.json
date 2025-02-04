@@ -4834,8 +4834,8 @@
       "giveFeedback": "Feedback geben",
       "checkQuery": "Überprüfen Sie Ihren Suchbegriff oder ändern Sie die eingestellte Sprache der {{appName}}-App.",
       "informationMissing": "Hier fehlen Informationen?",
-      "noResultsInOneLanguage": "Es wurden leider keine passenden Ergebnisse auf {{contentLanguage}} gefunden.",
-      "noResultsInTwoLanguages": "Es wurden leider keine passenden Ergebnisse auf {{contentLanguage}} oder {{fallbackLanguage}} gefunden."
+      "noResultsInOneLanguage": "Es wurden leider keine passenden Ergebnisse in Deiner Sprache gefunden.",
+      "noResultsInTwoLanguages": "Es wurden leider keine passenden Ergebnisse in Deiner Sprache oder auf Deutsch gefunden."
     },
     "am": {
       "disclaimer": "የግንኙነት መረጃና ዕትም",
@@ -5023,8 +5023,8 @@
       "giveFeedback": "Give feedback",
       "checkQuery": "Check your search term or select a different language in the {{appName}} app",
       "informationMissing": "Is information missing?",
-      "noResultsInOneLanguage": "Sorry, we could not find any matching results in {{contentLanguage}}.",
-      "noResultsInTwoLanguages": "Sorry, we could not find any matching results in {{contentLanguage}} or {{fallbackLanguage}}."
+      "noResultsInOneLanguage": "Sorry, we could not find any matching results in your language.",
+      "noResultsInTwoLanguages": "Sorry, we could not find any matching results in your language or in German."
     },
     "es": {
       "disclaimer": "Contacto y aviso legal",

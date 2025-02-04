@@ -59,20 +59,12 @@ const SearchFeedback = ({ cityCode, languageCode, query, noResults }: SearchFeed
   }
 
   if (noResults) {
-    const getLanguageTranslationFromCode = (code: string): string =>
-      new Intl.DisplayNames(languageCode, { type: 'language' }).of(code) ?? code
-
     const fallbackLanguage = config.sourceLanguage
 
     return (
       <CenteredContainer>
         <SemiBoldText>
-          {languageCode === fallbackLanguage
-            ? t('noResultsInOneLanguage', { contentLanguage: getLanguageTranslationFromCode(languageCode) })
-            : t('noResultsInTwoLanguages', {
-                contentLanguage: getLanguageTranslationFromCode(languageCode),
-                fallbackLanguage: getLanguageTranslationFromCode(fallbackLanguage),
-              })}
+          {languageCode === fallbackLanguage ? t('noResultsInOneLanguage') : t('noResultsInTwoLanguages')}
         </SemiBoldText>
         <MiddleText>{t('checkQuery', { appName: buildConfig().appName })}</MiddleText>
         <SemiBoldText>{t('informationMissing')}</SemiBoldText>
