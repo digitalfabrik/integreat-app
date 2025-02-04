@@ -58,7 +58,7 @@ const ListItem = ({ path, title, thumbnail, thumbnailSize, children, Icon }: Lis
       {!!thumbnail && <Thumbnail alt='' src={thumbnail} $thumbnailSize={thumbnailSize} />}
       <Description>
         <TitleRow>
-          <Title dir='auto'>{title}</Title>
+          <Title>{title}</Title>
           {Icon}
         </TitleRow>
         {children}

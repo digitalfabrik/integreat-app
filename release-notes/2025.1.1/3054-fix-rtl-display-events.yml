@@ -1,0 +1,5 @@
+issue_key: 3054
+show_in_stores: false
+platforms:
+  - web
+en: Not recurring events will now be displayed correct for rtl languages.

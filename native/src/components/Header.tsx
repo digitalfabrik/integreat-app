@@ -27,6 +27,7 @@ import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import { AppContext } from '../contexts/AppContextProvider'
 import useSnackbar from '../hooks/useSnackbar'
+import useTtsPlayer from '../hooks/useTtsPlayer'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import navigateToLanguageChange from '../navigation/navigateToLanguageChange'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
@@ -51,6 +52,7 @@ enum HeaderButtonTitle {
   Language = 'changeLanguage',
   Location = 'changeLocation',
   Search = 'search',
+  ReadAloud = 'readAloud',
   Share = 'share',
   Settings = 'settings',
   Feedback = 'feedback',
@@ -83,6 +85,7 @@ const Header = ({
   // Save route/canGoBack to state to prevent it from changing during navigating which would lead to flickering of the title and back button
   const [previousRoute] = useState(navigation.getState().routes[navigation.getState().routes.length - 2])
   const [canGoBack] = useState(navigation.canGoBack())
+  const { enabled: isTtsEnabled, showTtsPlayer } = useTtsPlayer()
 
   const onShare = async () => {
     if (!shareUrl) {
@@ -193,6 +196,7 @@ const Header = ({
           ? [renderOverflowItem(HeaderButtonTitle.Location, () => navigation.navigate(LANDING_ROUTE))]
           : []),
         renderOverflowItem(HeaderButtonTitle.Settings, () => navigation.navigate(SETTINGS_ROUTE)),
+        ...(isTtsEnabled ? [renderOverflowItem(t(HeaderButtonTitle.ReadAloud), showTtsPlayer)] : []),
         ...(route.name !== NEWS_ROUTE ? [renderOverflowItem(HeaderButtonTitle.Feedback, navigateToFeedback)] : []),
         ...(route.name !== DISCLAIMER_ROUTE
           ? [renderOverflowItem(HeaderButtonTitle.Disclaimer, () => navigation.navigate(DISCLAIMER_ROUTE))]
@@ -207,14 +211,14 @@ const Header = ({
       return { text: currentTitle ?? '', language: config.sourceLanguage }
     }
 
-    const poisRouteParams = route.params as RoutesParamsType[PoisRouteType]
-    const isSinglePoi = !!poisRouteParams.slug || poisRouteParams.multipoi !== undefined
+    const poisRouteParams = route.params as RoutesParamsType[PoisRouteType] | undefined
+    const isSinglePoi = !!poisRouteParams?.slug || poisRouteParams?.multipoi !== undefined
     const notFromDeepLink = previousRoute.name === POIS_ROUTE
     if (isSinglePoi && notFromDeepLink) {
       return { text: t('locations'), language: undefined } // system language
     }
 
-    const previousRouteTitle = (previousRoute.params as { path?: string } | undefined)?.path
+    const previousRouteTitle = (previousRoute.params as { title?: string } | undefined)?.title
 
     if (previousRouteTitle) {
       return { text: previousRouteTitle, language: languageCode }
@@ -227,7 +231,7 @@ const Header = ({
       }
     }
 
-    return { text: previousRoute.name, language: undefined } // system language
+    return { text: t(previousRoute.name), language: undefined } // system language
   }
 
   return (

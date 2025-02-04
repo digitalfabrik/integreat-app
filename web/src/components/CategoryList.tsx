@@ -20,13 +20,12 @@ const List = styled.ul`
 type CategoryListProps = {
   items: { category: CategoryModel; subCategories: CategoryModel[]; contentWithoutHtml?: string }[]
   category?: CategoryModel
-  onInternalLinkClick: (link: string) => void
 }
 
-const CategoryList = ({ items, category, onInternalLinkClick }: CategoryListProps): ReactElement => (
+const CategoryList = ({ items, category }: CategoryListProps): ReactElement => (
   <div>
     {!!category?.title && <Caption title={category.title} />}
-    {!!category?.content && <RemoteContent html={category.content} onInternalLinkClick={onInternalLinkClick} />}
+    {!!category?.content && <RemoteContent html={category.content} />}
     {!!category?.content && <LastUpdateInfo lastUpdate={category.lastUpdate} withText />}
     <List>
       {items.map(({ category, subCategories }) => (
