@@ -65,7 +65,7 @@ const ModalContent = ({ title, icon, style, closeModal, children, small }: Modal
     <Container style={style}>
       <Header $small={small}>
         <StyledDiv>
-          {!!icon && icon}
+          {icon}
           <span>{title}</span>
         </StyledDiv>
         <CloseButton label={t('close')} onClick={closeModal}>

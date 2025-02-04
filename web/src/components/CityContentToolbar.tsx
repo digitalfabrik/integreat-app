@@ -84,7 +84,7 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
         openOnClick
         isOpen={ttsToolTip}
         place={tooltipDirection}
-        tooltipContent={t('layout:nothingToReadFullMessage')}>
+        tooltipContent={t('nothingToReadFullMessage')}>
         {ttsItem}
       </Tooltip>
 

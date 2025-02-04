@@ -23,10 +23,8 @@ const TtsContainer = ({ languageCode }: TtsContainerProps): ReactElement | null 
   const shortTitle = truncate(title, { maxChars: MAX_TITLE_DISPLAY_CHARS })
   const userAgent = navigator.userAgent.toLowerCase()
   const isAndroid = /android/i.test(userAgent)
-  const isFirefox = userAgent.includes('firefox')
-  const isLinux = userAgent.includes('linux')
-  const isFirefoxAndLinux = isFirefox && isLinux
-  const enableOnEnd = useRef(true)
+  const isFirefoxAndLinux = userAgent.includes('firefox') && userAgent.includes('linux')
+  const onEndGuard = useRef(true)
   const fallbackTimer = 1000
 
   useEffect(() => {
@@ -40,13 +38,13 @@ const TtsContainer = ({ languageCode }: TtsContainerProps): ReactElement | null 
   const resetOnEnd = () => {
     setCurrentSentenceIndex(0)
     setIsPlaying(false)
-    enableOnEnd.current = false
+    onEndGuard.current = false
   }
 
   const stop = () => {
     try {
       EasySpeech.cancel()
-      enableOnEnd.current = false
+      onEndGuard.current = false
     } catch (e) {
       reportError(e)
     }
@@ -68,7 +66,7 @@ const TtsContainer = ({ languageCode }: TtsContainerProps): ReactElement | null 
         voice: selectedVoice,
         volume: 0.6,
         end: () => {
-          if (enableOnEnd.current) {
+          if (onEndGuard.current) {
             setCurrentSentenceIndex((prevIndex: number) => {
               const newIndex = prevIndex + 1
               if (newIndex < sentences.length - 1) {
@@ -90,14 +88,14 @@ const TtsContainer = ({ languageCode }: TtsContainerProps): ReactElement | null 
   const playOnFallback = (index?: number) => {
     setTimeout(() => {
       // if paused at end of sentence and there is nothing to resume this should play
-      if (!window.speechSynthesis.speaking && enableOnEnd.current && isPlaying) {
+      if (!window.speechSynthesis.speaking && onEndGuard.current && isPlaying) {
         play(index)
       }
     }, fallbackTimer)
   }
 
   const pause = () => {
-    enableOnEnd.current = false
+    onEndGuard.current = false
     EasySpeech.pause()
     setIsPlaying(false)
   }
@@ -112,13 +110,13 @@ const TtsContainer = ({ languageCode }: TtsContainerProps): ReactElement | null 
         pause()
       } else if (canResume) {
         setIsPlaying(true)
-        enableOnEnd.current = true
+        onEndGuard.current = true
         EasySpeech.resume()
 
         playOnFallback()
       } else {
         setIsPlaying(true)
-        enableOnEnd.current = true
+        onEndGuard.current = true
         play()
         playOnFallback()
       }
@@ -133,7 +131,7 @@ const TtsContainer = ({ languageCode }: TtsContainerProps): ReactElement | null 
       setCurrentSentenceIndex(nextIndex)
       stop()
       await play(nextIndex)
-      enableOnEnd.current = true
+      onEndGuard.current = true
       playOnFallback(nextIndex)
     }
   }
@@ -144,7 +142,7 @@ const TtsContainer = ({ languageCode }: TtsContainerProps): ReactElement | null 
       setCurrentSentenceIndex(previousIndex)
       stop()
       await play(previousIndex)
-      enableOnEnd.current = true
+      onEndGuard.current = true
       playOnFallback(previousIndex)
     }
   }

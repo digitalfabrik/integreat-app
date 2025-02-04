@@ -147,7 +147,7 @@ const TtsPlayer = ({
                 <BackForthIcon $flip src={PlaybackIcon} />
               </StyledBackForthButton>
             )}
-            <StyledPlayIcon label={t('play')} onClick={togglePlayPause}>
+            <StyledPlayIcon label={t(isPlaying ? 'pause' : 'play')} onClick={togglePlayPause}>
               <PlayButtonIcon src={isPlaying ? PauseIcon : PlayIcon} />
             </StyledPlayIcon>
             {isPlaying && (
