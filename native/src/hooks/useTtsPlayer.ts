@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo } from 'react'
+import { useContext, useLayoutEffect, useState } from 'react'
 import segment from 'sentencex'
 
 import { parseHTML } from 'shared'
@@ -9,33 +9,22 @@ import { AppContext } from '../contexts/AppContextProvider'
 
 const useTtsPlayer = (model?: PageModel | LocalNewsModel | TunewsModel | undefined): TtsContextType => {
   const { languageCode } = useContext(AppContext)
-  const { setSentences, visible, setVisible, enabled, canRead } = useContext(TtsContext)
-  const sentences = useMemo(() => {
-    if (model) {
+  const ttsContext = useContext(TtsContext)
+  const [previousSentences] = useState(ttsContext.sentences)
+  const { setSentences } = ttsContext
+
+  useLayoutEffect(() => {
+    if (model && model.content.length > 0) {
       const content = parseHTML(model.content)
-      return [model.title, ...segment(languageCode, content)]
-    }
-
-    return []
-  }, [model, languageCode])
-
-  useEffect(() => {
-    if (sentences.length) {
-      setSentences(sentences)
-    }
-    return () => {
+      const sentences: string[] = segment(languageCode, content)
+      setSentences([model.title, ...sentences].filter(sentence => sentence.length > 0))
+    } else {
       setSentences([])
     }
-  }, [sentences, setSentences])
+    return () => setSentences(previousSentences)
+  }, [previousSentences, setSentences, model, languageCode])
 
-  return {
-    enabled,
-    canRead,
-    visible,
-    setVisible,
-    sentences,
-    setSentences,
-  }
+  return ttsContext
 }
 
 export default useTtsPlayer

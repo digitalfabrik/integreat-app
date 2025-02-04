@@ -6,6 +6,8 @@ import { ReactTestInstance } from 'react-test-renderer'
 import renderWithTheme from '../../testing/render'
 import DatePicker, { DatePickerProps } from '../DatePicker'
 
+jest.mock('react-i18next')
+
 describe('DatePickerForNative', () => {
   const setDate = jest.fn()
   const setModalOpen = jest.fn()

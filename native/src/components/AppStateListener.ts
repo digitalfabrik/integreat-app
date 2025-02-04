@@ -1,11 +1,9 @@
-import { ReactElement, useEffect } from 'react'
-import { AppState } from 'react-native'
-
 import { RESUME_SIGNAL_NAME, SUSPEND_SIGNAL_NAME } from 'shared'
 
+import useAppStateListener from '../hooks/useAppStateListener'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 
-const AppStateListener = (): ReactElement | null => {
+const AppStateListener = (): null => {
   const handleAppStateChange = (nextAppState: string) => {
     if (nextAppState === 'active') {
       sendTrackingSignal({
@@ -22,7 +20,7 @@ const AppStateListener = (): ReactElement | null => {
     }
   }
 
-  useEffect(() => AppState.addEventListener('change', handleAppStateChange).remove, [])
+  useAppStateListener(handleAppStateChange)
 
   return null
 }
