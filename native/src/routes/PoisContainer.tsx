@@ -52,16 +52,7 @@ const PoisContainer = ({ navigation, route }: PoisContainerProps): ReactElement 
 
   return (
     <LoadingErrorHandler {...response}>
-      {data && (
-        <Pois
-          pois={data.pois}
-          cityModel={data.city}
-          language={languageCode}
-          route={route}
-          navigation={navigation}
-          refresh={response.refresh}
-        />
-      )}
+      {data && <Pois pois={data.pois} cityModel={data.city} route={route} navigation={navigation} />}
     </LoadingErrorHandler>
   )
 }

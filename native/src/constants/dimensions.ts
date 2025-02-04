@@ -11,12 +11,13 @@ export type DimensionsType = {
    */
   fontScaling: number
   headerTextSize: number
-  bottomSheetHandler: {
+  bottomSheetHandle: {
     height: number
   }
   locationFab: {
     margin: number
   }
+  poiListItemHeight: number
   pageContainerPaddingHorizontal: number
 }
 const dimensions: DimensionsType = {
@@ -29,12 +30,13 @@ const dimensions: DimensionsType = {
   },
   fontScaling: 0.04,
   headerTextSize: 20,
-  bottomSheetHandler: {
+  bottomSheetHandle: {
     height: 40,
   },
   locationFab: {
     margin: 8,
   },
+  poiListItemHeight: 136,
   pageContainerPaddingHorizontal: 16,
 }
 export default dimensions

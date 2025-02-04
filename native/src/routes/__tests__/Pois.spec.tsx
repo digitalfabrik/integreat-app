@@ -8,7 +8,7 @@ import Pois from '../Pois'
 
 jest.mock('../../components/MapView')
 jest.mock('../../components/Page')
-jest.mock('../../components/BottomSheet')
+jest.mock('../../components/PoisBottomSheet')
 jest.mock('@react-native-clipboard/clipboard', () => () => ({ setString: jest.fn() }))
 jest.mock('react-i18next')
 jest.mock('styled-components')

@@ -6,6 +6,7 @@ import { PoiModel } from 'shared/api'
 
 import { PoiThumbnailPlaceholder } from '../assets'
 import { contentDirection } from '../constants/contentDirection'
+import dimensions from '../constants/dimensions'
 import SimpleImage from './SimpleImage'
 import Pressable from './base/Pressable'
 
@@ -27,10 +28,11 @@ const Thumbnail = styled(SimpleImage)`
 `
 
 const StyledPressable = styled(Pressable)<{ language: string }>`
+  height: ${dimensions.poiListItemHeight}px;
   border-bottom-width: 1px;
   border-bottom-color: ${props => props.theme.colors.textDisabledColor};
   flex-direction: ${props => contentDirection(props.language)};
-  padding: 24px 0;
+  padding: 16px 0;
 `
 
 const Description = styled.View`

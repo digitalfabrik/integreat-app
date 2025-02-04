@@ -1,18 +1,7 @@
 import React, { ReactElement } from 'react'
-import { View } from 'react-native'
 import styled from 'styled-components/native'
 
-const SheetHeader = styled.View`
-  justify-content: center;
-  flex-direction: row;
-  margin-bottom: 20px;
-`
-const Title = styled.Text`
-  color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.native.decorativeFontBold};
-  font-size: 18px;
-`
-const Indicator = styled.View`
+const Handle = styled.View`
   width: 34px;
   border: 1px solid ${props => props.theme.colors.textSecondaryColor};
   background-color: ${props => props.theme.colors.textSecondaryColor};
@@ -21,19 +10,6 @@ const Indicator = styled.View`
   margin: 20px 0;
 `
 
-type BottomSheetHandleProps = {
-  title?: string
-}
-
-const BottomSheetHandle = ({ title }: BottomSheetHandleProps): ReactElement => (
-  <View>
-    <Indicator />
-    {!!title && (
-      <SheetHeader>
-        <Title>{title}</Title>
-      </SheetHeader>
-    )}
-  </View>
-)
+const BottomSheetHandle = (): ReactElement => <Handle />
 
 export default BottomSheetHandle
