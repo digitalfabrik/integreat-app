@@ -17,6 +17,10 @@ labels: Bug
 3. Scroll down to '....'
 4. See error
 
+### Expected Behavior
+
+<!-- A clear and concise description of what you expected to happen. -->
+
 ### Related Issues
 
 <!-- Link all related issues which are e.g. CMS issues or otherwise related, blocking, duplicating issues, ... -->

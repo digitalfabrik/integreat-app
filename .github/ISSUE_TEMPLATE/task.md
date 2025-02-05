@@ -7,6 +7,7 @@ labels: Task
 ### Describe the Problem
 
 <!-- A clear and concise description of what the problem is. Ex. I'm always frustrated when [...] -->
+<!-- Use sub-issues to split up big tasks in smaller issues. -->
 
 ### Describe Your Preferred Solution
 
