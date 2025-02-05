@@ -5,18 +5,20 @@ import styled from 'styled-components/native'
 import buildConfig from '../constants/buildConfig'
 import Link from './Link'
 import Checkbox from './base/Checkbox'
+import Pressable from './base/Pressable'
+import Text from './base/Text'
 
-const FlexContainer = styled.Pressable`
-  display: flex;
+const FlexContainer = styled(Pressable)`
   flex-direction: row;
-  flex: 1;
   align-items: center;
   margin-top: 12px;
+  gap: 8px;
 `
 
-const StyledLabel = styled.Text`
+const StyledLabel = styled(Text)`
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
+  flex: 1;
 `
 
 type PrivacyCheckboxProps = {
@@ -29,7 +31,7 @@ const PrivacyCheckbox = ({ language, checked, setChecked }: PrivacyCheckboxProps
   const { privacyUrls } = buildConfig()
   const privacyUrl = privacyUrls[language] || privacyUrls.default
   return (
-    <FlexContainer onPress={() => setChecked(!checked)}>
+    <FlexContainer onPress={() => setChecked(!checked)} role='checkbox'>
       <Checkbox checked={checked} setChecked={setChecked} />
       <StyledLabel>
         <Trans i18nKey='common:privacyPolicy'>

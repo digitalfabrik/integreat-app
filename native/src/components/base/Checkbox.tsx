@@ -3,13 +3,8 @@ import React, { ReactElement } from 'react'
 import styled, { useTheme } from 'styled-components/native'
 
 const StyledCheckbox = styled(CheckBox)`
-  width: 16px;
-  height: 16px;
-`
-
-const Container = styled.View`
-  display: flex;
-  flex: 1;
+  width: 32px;
+  height: 32px;
 `
 
 type CheckboxProps = {
@@ -20,16 +15,13 @@ type CheckboxProps = {
 const Checkbox = ({ checked, setChecked }: CheckboxProps): ReactElement => {
   const { themeColor } = useTheme().colors
   return (
-    <Container>
-      <StyledCheckbox
-        disabled={false}
-        value={checked}
-        onValueChange={setChecked}
-        tintColors={{ true: themeColor }}
-        onCheckColor={themeColor}
-        onTintColor={themeColor}
-      />
-    </Container>
+    <StyledCheckbox
+      value={checked}
+      onValueChange={setChecked}
+      tintColors={{ true: themeColor }}
+      onCheckColor={themeColor}
+      onTintColor={themeColor}
+    />
   )
 }
 
