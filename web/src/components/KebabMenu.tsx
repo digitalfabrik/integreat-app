@@ -66,16 +66,10 @@ const Heading = styled.div`
 `
 
 const ActionBar = styled.nav`
-  order: 3;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 12px;
   padding: 0 16px;
-
-  @media ${dimensions.smallViewport} {
-    order: 2;
-  }
 `
 
 const Content = styled.div`
