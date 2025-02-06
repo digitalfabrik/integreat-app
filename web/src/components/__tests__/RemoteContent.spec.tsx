@@ -102,4 +102,14 @@ describe('RemoteContent', () => {
     alertSpy.mockRestore()
     errorSpy.mockRestore()
   })
+
+  it('should render contact card', () => {
+    const testContent = 'Contact: test@example.com'
+    const html = `<div class="contact-card">${testContent}</div>`
+    const { getByText } = renderWithTheme(<RemoteContent html={html} />)
+    expect(getByText(testContent)).toHaveClass('contact-card')
+    expect(getByText(testContent)).toHaveStyle('background-color: rgb(127 127 127 / 15%)')
+    expect(getByText(testContent)).toHaveStyle('background-image:')
+    expect(getByText(testContent)).toHaveStyle('min-width: 72%')
+  })
 })
