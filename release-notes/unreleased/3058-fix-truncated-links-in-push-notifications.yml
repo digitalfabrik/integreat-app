@@ -1,0 +1,8 @@
+issue_key: 3058
+show_in_stores: true
+platforms:
+  - ios
+  - android
+  - web
+en: Fixed an issue with truncated links in local news
+de: Ein Problem mit abgeschnittenen Links in lokalen Nachrichten wurde behoben
