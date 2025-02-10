@@ -41,7 +41,7 @@ const ChatConversation = ({ messages, hasError, className }: ChatConversationPro
   const [showTypingIndicator, setShowTypingIndicator] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const showIndicatorOfTyping =
-    messages[messages.length - 1]?.userIsAuthor || messages[messages.length - 2]?.userIsAuthor
+    messages[messages.length - 1]?.userIsAuthor || !messages[messages.length - 1]?.isAutomaticAnswer
 
   useEffect(() => {
     if (messagesCount < messages.length) {
