@@ -8,7 +8,7 @@ import { config } from 'translations'
 
 import FeedbackContainer from '../components/FeedbackContainer'
 import List from '../components/List'
-import Loader from '../components/LoadingSpinner'
+import ProgressSpinner from '../components/ProgressSpinner'
 import SearchHeader from '../components/SearchHeader'
 import SearchListItem from '../components/SearchListItem'
 import useResourceCache from '../hooks/useResourceCache'
@@ -22,6 +22,10 @@ const Wrapper = styled.View`
   left: 0;
   right: 0;
   background-color: ${props => props.theme.colors.backgroundColor};
+`
+
+const ProgressSpinnerContainer = styled.View`
+  height: 50%;
 `
 
 const SearchCounter = styled.Text`
@@ -73,7 +77,11 @@ const SearchModal = ({
     return (
       <Wrapper {...testID('Search-Page')}>
         <SearchHeader query={query} closeSearchBar={onClose} onSearchChanged={setQuery} />
-        {!!query.length && <Loader />}
+        {query.length > 0 && (
+          <ProgressSpinnerContainer>
+            <ProgressSpinner progress={0} />
+          </ProgressSpinnerContainer>
+        )}
       </Wrapper>
     )
   }
