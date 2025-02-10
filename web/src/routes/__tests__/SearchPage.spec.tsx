@@ -87,7 +87,7 @@ describe('SearchPage', () => {
       },
     })
 
-    expect(getByText('feedback:noResultsInTwoLanguages')).toBeTruthy()
+    expect(getByText('feedback:noResultsInUserAndSourceLanguage')).toBeTruthy()
   })
 
   describe('url query', () => {
