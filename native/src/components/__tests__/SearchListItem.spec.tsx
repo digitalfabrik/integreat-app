@@ -1,6 +1,5 @@
 import { NavigationContainer } from '@react-navigation/native'
 import React from 'react'
-import { ReactTestInstance } from 'react-test-renderer'
 
 import { parseHTML } from 'shared'
 import { CategoriesMapModelBuilder, CityModelBuilder, LanguageModelBuilder } from 'shared/api'
@@ -29,10 +28,10 @@ describe('SearchListItem', () => {
     jest.clearAllMocks()
   })
 
-  const assertHighlighting = (instance: ReactTestInstance, highlighted: boolean) =>
+  const assertHighlighting = (element: HTMLElement, highlighted: boolean) =>
     highlighted
-      ? expect(instance).toHaveStyle({ fontWeight: 'bold' })
-      : expect(instance).not.toHaveStyle({ fontWeight: 'bold' })
+      ? expect(element).toHaveStyle({ fontWeight: 'bold' })
+      : expect(element).not.toHaveStyle({ fontWeight: 'bold' })
 
   const renderWithNavigator = (query: string) =>
     render(
