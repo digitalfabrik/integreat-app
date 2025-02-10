@@ -6494,7 +6494,9 @@
       "previous": "Zurück",
       "next": "Weiter",
       "play": "Abspielen",
-      "pause": "Pause"
+      "pause": "Pause",
+      "languageNotSupported": "Sprache nicht unterstützt",
+      "voiceUnavailableMessage": "Diese Stimme ist im Moment nicht verfügbar; für die ausgewählte Sprache ist eine Installation erforderlich."
     },
     "am": {
       "imprintAndContact": "ዕትም እና የግንኙነት መረጃ",
@@ -6544,16 +6546,20 @@
       "disclaimer": "هيئة التحرير",
       "sideBarOpenAriaLabel": "فتح الشريط الجانبي",
       "sideBarCloseAriaLabel": "غلق الشريط الجانبي",
+      "openInApp": "افتح في تطبيق {{appName}}",
+      "open": "افتح",
+      "view": "عرض",
+      "getOnPlayStore": "احصل عليه - على متجر Google Play",
       "accessibility": "حرية الوصول",
       "readAloud": "قراءة بصوت عالٍ",
       "nothingToRead": "لا يوجد شيء للقراءة",
       "nothingToReadFullMessage": "لا يوجد شيء لقراءته في هذه الصفحة",
       "previous": "السابق",
       "next": "التالي",
-      "openInApp": "افتح في تطبيق {{appName}}",
-      "open": "افتح",
-      "view": "عرض",
-      "getOnPlayStore": "احصل عليه - على متجر Google Play"
+      "play": "تشغيل",
+      "pause": "إيقاف",
+      "languageNotSupported": "اللغة غير مدعومة",
+      "voiceUnavailableMessage": "هذا الصوت غير متاح في الوقت الحالي؛ يتطلب تثبيت اللغة المختارة."
     },
     "bg": {
       "imprintAndContact": "Импресум и контакт",
@@ -6714,7 +6720,9 @@
       "previous": "Prev",
       "next": "Next",
       "play": "Play",
-      "pause": "Pause"
+      "pause": "Pause",
+      "languageNotSupported": "Language not supported",
+      "voiceUnavailableMessage": "This voice is currently unavailable; installation is required for the selected language."
     },
     "es": {
       "imprintAndContact": "Aviso legal y contacto",

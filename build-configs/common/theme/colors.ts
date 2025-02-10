@@ -17,8 +17,10 @@ export type ColorsType = {
   warningColor: string
   linkColor: string
   themeContrast: string
-  grayBackgroundColor: string
-  slightlyDarkGray: string
+  ttsPlayerWarningBackground: string
+  ttsPlayerWarningColor: string
+  ttsPlayerBackground: string
+  ttsPlayerPlayIconColor: string
 }
 export const commonLightColors = {
   backgroundAccentColor: '#fafafa',
@@ -36,6 +38,8 @@ export const commonLightColors = {
   invalidInput: '#B3261E',
   warningColor: '#FFA726',
   linkColor: '#0b57d0',
-  grayBackgroundColor: '#dedede',
-  slightlyDarkGray: '#b9b9b9',
+  ttsPlayerWarningBackground: 'rgba(255, 253, 230, 1)',
+  ttsPlayerWarningColor: 'rgba(249, 124, 0, 1)',
+  ttsPlayerBackground: '#dedede',
+  ttsPlayerPlayIconColor: '#232323',
 }

@@ -2,6 +2,7 @@ import React, { createContext, ReactElement, useCallback, useContext, useMemo, u
 import { useTranslation } from 'react-i18next'
 import Tts, { Options } from 'react-native-tts'
 
+import { MAX_TITLE_DISPLAY_CHARS } from 'shared'
 import { truncate } from 'shared/utils/getExcerpt'
 
 import buildConfig from '../constants/buildConfig'
@@ -11,7 +12,6 @@ import useSnackbar from '../hooks/useSnackbar'
 import { reportError } from '../utils/sentry'
 import TtsPlayer from './TtsPlayer'
 
-const MAX_TITLE_DISPLAY_CHARS = 20
 const TTS_UNSUPPORTED_LANGUAGES = ['fa', 'ka', 'kmr']
 const TTS_OPTIONS: Options = {
   androidParams: {
