@@ -124,7 +124,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
   )
 
   useAppStateListener(appState => {
-    if (appState === 'inactive' || appState === 'background') {
+    if (isPlaying && (appState === 'inactive' || appState === 'background')) {
       stop()
     }
   })
