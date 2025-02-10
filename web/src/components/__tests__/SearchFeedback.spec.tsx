@@ -45,17 +45,18 @@ describe('SearchFeedback', () => {
     expect(queryByText('feedback:wantedInformation')).toBeNull()
   })
 
-  it('should show feedback if no results found', () => {
+  it('should show feedback button if no results found', () => {
     const { getByText } = renderWithTheme(
       <SearchFeedback cityCode={cityCode} languageCode={languageCode} query='ab' noResults />,
     )
-    expect(getByText('feedback:send')).toBeTruthy()
+    expect(getByText('feedback:giveFeedback')).toBeTruthy()
   })
 
   it('should not allow sending search feedback if query term is removed', async () => {
     const { getByText, rerender } = renderWithTheme(
       <SearchFeedback cityCode={cityCode} languageCode={languageCode} query='ab' noResults />,
     )
+    fireEvent.click(getByText('feedback:giveFeedback'))
     expect(getByText('feedback:send')).toBeEnabled()
 
     // the query is controlled in the parent of SearchFeedback, so we need to update the props
@@ -64,6 +65,7 @@ describe('SearchFeedback', () => {
         <SearchFeedback cityCode={cityCode} languageCode={languageCode} query='' noResults />
       </ThemeProvider>,
     )
+    fireEvent.click(getByText('feedback:giveFeedback'))
     await waitFor(() => expect(getByText('feedback:send')).toBeDisabled())
   })
 })
