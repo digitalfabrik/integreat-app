@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode } from 'react'
+import React, { ReactElement, ReactNode, useLayoutEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
@@ -77,6 +77,13 @@ const StyledIcon = styled(Icon)`
 const KebabMenu = ({ items, show, setShow, Footer }: KebabMenuProps): ReactElement | null => {
   useLockedBody(show)
   const { t } = useTranslation('layout')
+  const [scrollY, setScrollY] = useState<number>(0)
+
+  useLayoutEffect(() => {
+    if (show) {
+      setScrollY(window.scrollY)
+    }
+  }, [show])
 
   const onClick = () => {
     setShow(!show)
@@ -95,8 +102,8 @@ const KebabMenu = ({ items, show, setShow, Footer }: KebabMenuProps): ReactEleme
         className='kebab-menu'
         show={show}
         style={{
-          visibility: show ? 'visible' : 'hidden',
-          top: window.scrollY > 0 ? `${window.scrollY}px` : undefined,
+          display: show ? 'block' : 'none',
+          top: scrollY > 0 ? `${scrollY}px` : undefined,
         }}>
         {/* disabled because this is an overlay for backdrop close */}
         {/* eslint-disable-next-line styled-components-a11y/no-static-element-interactions,styled-components-a11y/click-events-have-key-events */}
