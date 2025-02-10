@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import ChatMessageModel from 'shared/api/models/ChatMessageModel'
 
-import ChatMessage from './ChatMessage'
+import ChatMessage, { Message } from './ChatMessage'
 
 const Container = styled.div`
   font-size: ${props => props.theme.fonts.hintFontSize};
@@ -13,6 +13,10 @@ const Container = styled.div`
 
 const InitialMessage = styled.div`
   margin-bottom: 12px;
+`
+
+const TypingIndicator = styled(Message)`
+  width: max-content;
 `
 
 const ErrorSendingStatus = styled.div`
@@ -29,10 +33,15 @@ type ChatConversationProps = {
   className?: string
 }
 
+const TYPING_INDICATOR_TIMEOUT = 60000
+
 const ChatConversation = ({ messages, hasError, className }: ChatConversationProps): ReactElement => {
   const { t } = useTranslation('chat')
   const [messagesCount, setMessagesCount] = useState(0)
+  const [showTypingIndicator, setShowTypingIndicator] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const showIndicatorOfTyping =
+    messages[messages.length - 1]?.userIsAuthor || !messages[messages.length - 1]?.isAutomaticAnswer
 
   useEffect(() => {
     if (messagesCount < messages.length) {
@@ -40,6 +49,19 @@ const ChatConversation = ({ messages, hasError, className }: ChatConversationPro
       setMessagesCount(messages.length)
     }
   }, [messages, messagesCount])
+
+  useEffect(() => {
+    if (showIndicatorOfTyping) {
+      setShowTypingIndicator(true)
+
+      const typingIndicatorTimeout = setTimeout(() => {
+        setShowTypingIndicator(false)
+      }, TYPING_INDICATOR_TIMEOUT)
+
+      return () => clearTimeout(typingIndicatorTimeout)
+    }
+    return () => undefined
+  }, [showIndicatorOfTyping])
 
   return (
     <Container className={className}>
@@ -53,6 +75,11 @@ const ChatConversation = ({ messages, hasError, className }: ChatConversationPro
               showIcon={messages[index - 1]?.userIsAuthor !== message.userIsAuthor}
             />
           ))}
+          {showTypingIndicator && (
+            <TypingIndicator>
+              <strong>...</strong>
+            </TypingIndicator>
+          )}
           <div ref={messagesEndRef} />
         </>
       ) : (

@@ -9,7 +9,7 @@ import { ChatBot, ChatPerson } from '../assets'
 import RemoteContent from './RemoteContent'
 import Icon from './base/Icon'
 
-const Message = styled.div`
+export const Message = styled.div`
   border-radius: 5px;
   padding: 8px;
   border: 1px solid ${props => props.theme.colors.textDecorationColor};
