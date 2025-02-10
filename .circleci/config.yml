@@ -346,7 +346,7 @@ jobs:
             FL_OUTPUT_DIR: output
             TOTAL_CPUS: 4
         macos:
-            xcode: 15.3.0
+            xcode: 16.2.0
         parameters:
             build_config_name:
                 default: integreat
@@ -573,7 +573,7 @@ jobs:
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         macos:
-            xcode: 15.3.0
+            xcode: 16.2.0
         parameters:
             build_config_name:
                 default: integreat
@@ -907,7 +907,7 @@ jobs:
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         macos:
-            xcode: 15.3.0
+            xcode: 16.2.0
         parameters:
             build_config_name:
                 default: integreat
