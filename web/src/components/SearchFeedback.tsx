@@ -19,16 +19,16 @@ const CenteredContainer = styled.div`
   text-align: center;
 `
 
-const SemiBoldText = styled.p`
+const SmallTitle = styled.p`
   font-weight: 600;
 `
 
-const MiddleText = styled.p`
-  padding-bottom: 1rem;
+const Hint = styled.p`
+  padding-bottom: 16px;
 `
 
 const StyledButton = styled(TextButton)`
-  margin-top: 0.5rem;
+  margin-top: 8px;
 `
 
 type SearchFeedbackProps = {
@@ -63,11 +63,11 @@ const SearchFeedback = ({ cityCode, languageCode, query, noResults }: SearchFeed
 
     return (
       <CenteredContainer>
-        <SemiBoldText>
-          {languageCode === fallbackLanguage ? t('noResultsInOneLanguage') : t('noResultsInTwoLanguages')}
-        </SemiBoldText>
-        <MiddleText>{t('checkQuery', { appName: buildConfig().appName })}</MiddleText>
-        <SemiBoldText>{t('informationMissing')}</SemiBoldText>
+        <SmallTitle>
+          {languageCode === fallbackLanguage ? t('noResultsInUserLanguage') : t('noResultsInUserAndSourceLanguage')}
+        </SmallTitle>
+        <Hint>{t('checkQuery', { appName: buildConfig().appName })}</Hint>
+        <SmallTitle>{t('informationMissing')}</SmallTitle>
         <StyledButton type='button' text={t('giveFeedback')} onClick={() => setShowFeedback(true)} />
       </CenteredContainer>
     )
