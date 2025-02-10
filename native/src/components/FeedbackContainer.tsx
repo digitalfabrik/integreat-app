@@ -21,11 +21,11 @@ const Container = styled.View`
   gap: 8px;
 `
 
-const BoldText = styled(Text)`
+const Title = styled(Text)`
   font-weight: 600;
 `
 
-const TextBeforeButton = styled(BoldText)`
+const Hint = styled(Title)`
   margin-top: 8px;
   text-align: center;
 `
@@ -88,11 +88,9 @@ const FeedbackContainer = ({ query, language, routeType, cityCode, slug }: Feedb
     })
   }
 
-  const fallbackLanguage = config.sourceLanguage
-
-  return (
-    <Container>
-      {showFeedback ? (
+  if (showFeedback) {
+    return (
+      <Container>
         <Feedback
           comment={comment}
           contactMail={contactMail}
@@ -105,16 +103,22 @@ const FeedbackContainer = ({ query, language, routeType, cityCode, slug }: Feedb
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
         />
-      ) : (
-        <>
-          <BoldText>
-            {language === fallbackLanguage ? t('noResultsInOneLanguage') : t('noResultsInTwoLanguages')}
-          </BoldText>
-          <Text>{t('checkQuery', { appName: buildConfig().appName })}</Text>
-          <TextBeforeButton>{t('informationMissing')}</TextBeforeButton>
-          <TextButton text={t('giveFeedback')} onPress={() => setShowFeedback(true)} />
-        </>
-      )}
+      </Container>
+    )
+  }
+
+  const fallbackLanguage = config.sourceLanguage
+
+  return (
+    <Container>
+      <>
+        <Title>
+          {language === fallbackLanguage ? t('noResultsInUserLanguage') : t('noResultsInUserAndSourceLanguage')}
+        </Title>
+        <Text>{t('checkQuery', { appName: buildConfig().appName })}</Text>
+        <Hint>{t('informationMissing')}</Hint>
+        <TextButton text={t('giveFeedback')} onPress={() => setShowFeedback(true)} />
+      </>
     </Container>
   )
 }

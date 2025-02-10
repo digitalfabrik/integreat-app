@@ -125,7 +125,7 @@ describe('SearchModal', () => {
 
     fireEvent.changeText(getByPlaceholderText('searchPlaceholder'), 'no results, please')
 
-    expect(getByText('noResultsInOneLanguage')).toBeTruthy()
+    expect(getByText('noResultsInUserLanguage')).toBeTruthy()
   })
 
   it('should open with an initial search text if one is supplied', () => {
