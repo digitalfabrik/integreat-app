@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 
-import { ExternalLinkIcon } from '../assets'
+import { ExternalLinkIcon, PersonIcon } from '../assets'
 import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
 
@@ -147,24 +147,25 @@ const RemoteContentSandBox = styled.div<{ $centered: boolean; $smallText: boolea
   .contact-card {
     display: inline-block;
     box-sizing: border-box;
-    padding: 1rem;
-    border-radius: 0.25rem;
+    padding: 16px;
+    border-radius: 4px;
     background-repeat: no-repeat;
-    background-color: rgb(127 127 127 / 15%) !important;
-    background-image: linear-gradient(to right, rgb(255 255 255 / 90%) 0 100%),
-      url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTMuMDE4IDEyLjQ4aC0yLjAzNkE5LjA5IDkuMDkgMCAwIDAgMS45MiAyMS42YS40OC40OCAwIDAgMCAuNDguNDhoMTkuMmEuNTMuNTMgMCAwIDAgLjQ4LS41MzggOS4wOCA5LjA4IDAgMCAwLTkuMDYyLTkuMDYyTTE2LjggNi43MmE0LjggNC44IDAgMCAxLTQuOCA0LjggNC44IDQuOCAwIDAgMS00LjgtNC44IDQuOCA0LjggMCAwIDEgNC44LTQuOCA0LjggNC44IDAgMCAxIDQuOCA0LjgiLz48L3N2Zz4=') !important;
+    background-color: rgb(127 127 127 / 15%);
+    background-image: linear-gradient(to right, rgb(255 255 255 / 90%) 0 100%), url(${PersonIcon});
     background-blend-mode: difference;
-    background-position: calc(100% + 2em) calc(100% + 1em);
-    background-size: 7em;
-    box-shadow: 0 0.1em 0.1em rgb(0 0 0 / 40%);
+    background-position: calc(100% + 32px) calc(100% + 16px);
+    background-size: 108px;
+    box-shadow: 0 1px 1px rgb(0 0 0 / 40%);
     min-width: 72%;
 
     p {
-      margin: 4px 0 0;
+      margin-top: 4px;
+      margin-bottom: 0;
     }
 
     h4 {
-      margin: 0 0 12px;
+      margin-bottom: 12px;
+      margin-top: 0;
     }
 
     img {

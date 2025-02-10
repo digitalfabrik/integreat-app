@@ -40,6 +40,7 @@ import MinimizeIcon from '../../../assets/icons/minimize.svg'
 import NewsIcon from '../../../assets/icons/news.svg'
 import NoteIcon from '../../../assets/icons/note.svg'
 import PdfIcon from '../../../assets/icons/pdf.svg'
+import PersonIcon from '../../../assets/icons/person.svg'
 import PetIcon from '../../../assets/icons/pet.svg'
 import PhoneIcon from '../../../assets/icons/phone.svg'
 import POIsIcon from '../../../assets/icons/pois.svg'
@@ -106,6 +107,7 @@ export {
   POIsIcon,
   PoiThumbnailPlaceholder,
   PoiThumbnailPlaceholderLarge,
+  PersonIcon,
   SadSmileyIcon,
   SearchIcon,
   SecurityIcon,
