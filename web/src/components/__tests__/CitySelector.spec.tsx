@@ -9,6 +9,10 @@ import CitySelector from '../CitySelector'
 
 jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
+jest.mock('shared/api', () => ({
+  ...jest.requireActual('shared/api'),
+  useLoadAsync: jest.fn(() => ({ data: null, error: null })),
+}))
 
 describe('CitySelector', () => {
   const previousConfig = buildConfig()

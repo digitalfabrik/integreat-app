@@ -16,6 +16,7 @@ import { renderWithRouterAndTheme } from '../testing/render'
 jest.mock('shared/api', () => ({
   ...jest.requireActual('shared/api'),
   useLoadFromEndpoint: jest.fn(),
+  useLoadAsync: jest.fn(() => ({ data: null, error: null })),
 }))
 jest.mock('../CityContentSwitcher')
 
