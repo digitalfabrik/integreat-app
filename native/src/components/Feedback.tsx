@@ -9,15 +9,12 @@ import useNavigate from '../hooks/useNavigate'
 import Caption from './Caption'
 import FeedbackButtons from './FeedbackButtons'
 import { SendingStatusType } from './FeedbackContainer'
-import HorizontalLine from './HorizontalLine'
 import LoadingSpinner from './LoadingSpinner'
 import Note from './Note'
-import NothingFound from './NothingFound'
 import InputSection from './base/InputSection'
 import TextButton from './base/TextButton'
 
 const Wrapper = styled.View`
-  padding: 20px;
   gap: 8px;
 `
 
@@ -79,11 +76,7 @@ const Feedback = ({
     <KeyboardAwareScrollView>
       <Wrapper>
         {isSearchFeedback ? (
-          <>
-            <NothingFound />
-            <HorizontalLine />
-            <InputSection title={t('searchTermDescription')} value={searchTerm} onChange={setSearchTerm} />
-          </>
+          <InputSection title={t('searchTermDescription')} value={searchTerm} onChange={setSearchTerm} />
         ) : (
           <>
             <Caption title={t('headline')} />
