@@ -153,8 +153,10 @@ const RemoteContentSandBox = styled.div<{ $centered: boolean; $smallText: boolea
     background-color: rgb(127 127 127 / 15%);
     background-image: linear-gradient(to right, rgb(255 255 255 / 90%) 0 100%), url(${PersonIcon});
     background-blend-mode: difference;
-    background-position: calc(100% + 32px) calc(100% + 16px);
-    background-size: 108px;
+    background-position:
+      calc(100% + 32px) 100%,
+      calc(100% + 24px) calc(100% + 24px);
+    background-size: 104px;
     box-shadow: 0 1px 1px rgb(0 0 0 / 40%);
     min-width: 72%;
 
