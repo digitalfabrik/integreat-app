@@ -11,6 +11,7 @@ import {
   RELEASE_NOTES_DIR,
   UNRELEASED_DIR,
 } from './constants.js'
+import isLatestReleasePreRelease from './github-preRelease-checker.js'
 
 const loadStoreTranslations = (appName: string) =>
   JSON.parse(fs.readFileSync(`../translations/store-translations/${appName}.json`, 'utf-8'))
@@ -48,7 +49,7 @@ const prepareDefaultReleaseNote = (language: string, production: boolean, appNam
   return common[language]?.defaultReleaseNote ?? common[DEFAULT_NOTES_LANGUAGE].defaultReleaseNote
 }
 
-const formatNotes = (params: {
+const formatNotes = async (params: {
   notes: NoteType[]
   language: string
   production: boolean
@@ -76,7 +77,9 @@ const formatNotes = (params: {
       return `${text}\n${note}`
     }, defaultReleaseNote)
 
-  return platformName && formattedNotes ? `\n${platformName}:\n${formattedNotes}` : formattedNotes
+  return platformName && formattedNotes
+    ? `\n${platformName}:${(await isLatestReleasePreRelease(platformName)) ? '\n[The most recent beta version was promoted to production]' : ''}\n${formattedNotes}`
+    : formattedNotes
 }
 
 const isNoteRelevant = ({ note, platforms }: { note: NoteType; platforms: string[] }) =>
@@ -121,7 +124,15 @@ const formatDevelopmentNotes = (params: { notes: NoteType[]; language: string; p
   return `Release Notes:\n${releaseNotes || 'No release notes found. Looks like nothing happened for a while.'}`
 }
 
-const parseReleaseNotes = ({ source, ios, android, web, production, language, appName }: ParseOptions): string => {
+const parseReleaseNotes = ({
+  source,
+  ios,
+  android,
+  web,
+  production,
+  language,
+  appName,
+}: ParseOptions): Promise<string> | string => {
   const platforms: string[] = [
     android ? PLATFORM_ANDROID : undefined,
     ios ? PLATFORM_IOS : undefined,
@@ -160,7 +171,7 @@ const parseReleaseNotes = ({ source, ios, android, web, production, language, ap
 const parseNotesProgram = (options: ParseOptions) => {
   const { destination } = options
   try {
-    const notes = parseReleaseNotes(options)
+    const notes = String(parseReleaseNotes(options))
 
     if (destination) {
       fs.mkdirSync(path.dirname(destination), { recursive: true })
