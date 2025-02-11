@@ -38,9 +38,11 @@ const TYPING_INDICATOR_TIMEOUT = 60000
 const ChatConversation = ({ messages, hasError, className }: ChatConversationProps): ReactElement => {
   const { t } = useTranslation('chat')
   const [messagesCount, setMessagesCount] = useState(0)
-  const [showTypingIndicator, setShowTypingIndicator] = useState(false)
+  const [typingIndicatorVisible, setTypingIndicatorVisible] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
-  const typingIndicatorVisible = messages.filter(msg => msg.isAutomaticAnswer).length === 1
+  const isLastMessageFromUser = messages[messages.length - 1]?.userIsAuthor
+  const hasOnlyReceivedInfoMessage = messages.filter(message => !message.userIsAuthor).length === 1
+  const waitingForAnswer = isLastMessageFromUser || hasOnlyReceivedInfoMessage
 
   useEffect(() => {
     if (messagesCount < messages.length) {
@@ -50,17 +52,17 @@ const ChatConversation = ({ messages, hasError, className }: ChatConversationPro
   }, [messages, messagesCount])
 
   useEffect(() => {
-    if (typingIndicatorVisible) {
-      setShowTypingIndicator(true)
+    if (waitingForAnswer) {
+      setTypingIndicatorVisible(true)
 
       const typingIndicatorTimeout = setTimeout(() => {
-        setShowTypingIndicator(false)
+        setTypingIndicatorVisible(false)
       }, TYPING_INDICATOR_TIMEOUT)
 
       return () => clearTimeout(typingIndicatorTimeout)
     }
     return () => undefined
-  }, [typingIndicatorVisible])
+  }, [waitingForAnswer])
 
   return (
     <Container className={className}>
@@ -74,7 +76,7 @@ const ChatConversation = ({ messages, hasError, className }: ChatConversationPro
               showIcon={messages[index - 1]?.userIsAuthor !== message.userIsAuthor}
             />
           ))}
-          {showTypingIndicator && (
+          {typingIndicatorVisible && (
             <TypingIndicator>
               <strong>...</strong>
             </TypingIndicator>
