@@ -61,8 +61,15 @@ const Heading = styled.div`
   justify-content: ${props => (props.theme.contentDirection === 'rtl' ? `flex-start` : `flex-end`)};
   background-color: ${props => props.theme.colors.backgroundAccentColor};
   box-shadow: -3px 3px 3px 0 rgb(0 0 0 / 13%);
-  height: ${dimensions.headerHeightSmall}px;
-  padding: 0 8px;
+  min-height: ${dimensions.headerHeightSmall}px;
+  padding: 8px;
+`
+
+const ActionBar = styled.nav`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 16px;
 `
 
 const Content = styled.div`
@@ -110,9 +117,11 @@ const KebabMenu = ({ items, show, setShow, Footer }: KebabMenuProps): ReactEleme
         <Overlay onClick={onClick} $show={show} />
         <List $show={show}>
           <Heading>
-            <Button onClick={onClick} label={t('sideBarCloseAriaLabel')}>
-              <Icon src={CloseIcon} />
-            </Button>
+            <ActionBar>
+              <Button onClick={onClick} label={t('sideBarCloseAriaLabel')}>
+                <Icon src={CloseIcon} />
+              </Button>
+            </ActionBar>
           </Heading>
           <Content>{items}</Content>
           {Footer}
