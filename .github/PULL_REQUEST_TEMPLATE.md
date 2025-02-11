@@ -1,26 +1,24 @@
-### Short description
+### Short Description
 
 <!-- Describe this PR in one or two sentences. -->
 
-### Proposed changes
+### Proposed Changes
 
 <!-- Describe this PR in more detail. -->
 
 -
--
 
-### Side effects
+### Side Effects
 
 <!-- List all related components that have not been explicitly changed but may be affected by this PR -->
 
--
 -
 
 ### Testing
 
 <!-- List all things that should be tested while reviewing this PR. -->
 
-### Resolved issues
+### Resolved Issues
 
 <!-- List all issues which should be closed when this PR is merged. -->
 
@@ -35,4 +33,4 @@ DOR:
 - Typescript: `yarn ts:check`
 - Prettier: `yarn prettier`
 - Unit tests: `yarn test`
-- -->
+-->
