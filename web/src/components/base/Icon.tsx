@@ -2,6 +2,8 @@ import React, { ReactElement } from 'react'
 import SVG from 'react-inlinesvg'
 import styled from 'styled-components'
 
+jest.mock('react-inlinesvg')
+
 const StyledIcon = styled(SVG)<{ $directionDependent: boolean; $reverse: boolean }>`
   transform: ${props =>
     (props.$reverse === true) !== (props.$directionDependent && props.theme.contentDirection === 'rtl')
@@ -21,11 +23,22 @@ type IconProps = {
   className?: string
   title?: string
   id?: string
+  alt?: string
 }
 
-const Icon = ({ src, directionDependent = false, reverse = false, className, title, id }: IconProps): ReactElement => (
+const Icon = ({
+  src,
+  directionDependent = false,
+  reverse = false,
+  className,
+  title,
+  id,
+  alt,
+}: IconProps): ReactElement => (
   <StyledIcon
     src={src}
+    // @ts-expect-error alt is supported
+    alt={alt}
     $directionDependent={directionDependent}
     $reverse={reverse}
     className={className}
