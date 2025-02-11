@@ -1,15 +1,20 @@
+import { mocked } from 'jest-mock'
 import React from 'react'
 
 import ChatMessageModel from 'shared/api/models/ChatMessageModel'
 
 import { renderWithRouterAndTheme } from '../../testing/render'
 import ChatConversation from '../ChatConversation'
+import ChatMessage from '../ChatMessage'
 
 jest.mock('react-i18next')
 window.HTMLElement.prototype.scrollIntoView = jest.fn()
 
 const render = (messages: ChatMessageModel[], hasError: boolean) =>
   renderWithRouterAndTheme(<ChatConversation messages={messages} hasError={hasError} />)
+
+jest.mock('../ChatMessage')
+mocked(ChatMessage).mockImplementation(jest.requireActual('../ChatMessage').default)
 
 describe('ChatConversation', () => {
   const testMessages: ChatMessageModel[] = [
@@ -28,20 +33,23 @@ describe('ChatConversation', () => {
   ]
 
   it('should display welcome text if conversation has not started', () => {
-    const { getByText } = render([], false)
+    const { getByText, debug } = render([], false)
+    debug()
     expect(getByText('chat:conversationTitle')).toBeTruthy()
     expect(getByText('chat:conversationText')).toBeTruthy()
   })
 
   it('should display messages if conversation has started and the initial message', () => {
-    const { getByText, getByTestId } = render(testMessages, false)
+    const { getByText, getByTestId, getByAltText } = render(testMessages, false)
     expect(getByText('chat:initialMessage')).toBeTruthy()
     expect(getByTestId(testMessages[0]!.id)).toBeTruthy()
     expect(getByTestId(testMessages[1]!.id)).toBeTruthy()
+    expect(getByAltText('chat:my-alt-tag')).toBeTruthy()
   })
 
   it('should display error messages if error occurs', () => {
-    const { getByText } = render([], true)
+    const { getByText, debug } = render([], true)
+    debug()
     expect(getByText('chat:errorMessage')).toBeTruthy()
   })
 })
