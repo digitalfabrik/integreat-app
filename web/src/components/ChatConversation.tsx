@@ -40,8 +40,7 @@ const ChatConversation = ({ messages, hasError, className }: ChatConversationPro
   const [messagesCount, setMessagesCount] = useState(0)
   const [showTypingIndicator, setShowTypingIndicator] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
-  const showIndicatorOfTyping =
-    messages[messages.length - 1]?.userIsAuthor || !messages[messages.length - 1]?.isAutomaticAnswer
+  const typingIndicatorVisible = messages.filter(msg => msg.isAutomaticAnswer).length === 1
 
   useEffect(() => {
     if (messagesCount < messages.length) {
@@ -51,7 +50,7 @@ const ChatConversation = ({ messages, hasError, className }: ChatConversationPro
   }, [messages, messagesCount])
 
   useEffect(() => {
-    if (showIndicatorOfTyping) {
+    if (typingIndicatorVisible) {
       setShowTypingIndicator(true)
 
       const typingIndicatorTimeout = setTimeout(() => {
@@ -61,7 +60,7 @@ const ChatConversation = ({ messages, hasError, className }: ChatConversationPro
       return () => clearTimeout(typingIndicatorTimeout)
     }
     return () => undefined
-  }, [showIndicatorOfTyping])
+  }, [typingIndicatorVisible])
 
   return (
     <Container className={className}>
