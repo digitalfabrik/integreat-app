@@ -411,10 +411,12 @@ const renderHtml = (
 
         p {
           margin-top: 4px;
+          margin-bottom: 0;
         }
 
         h4 {
-          margin: 0 0 12px;
+          margin-bottom: 12px;
+          margin-top: 0;
         }
 
         img {
