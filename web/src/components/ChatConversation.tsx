@@ -52,44 +52,46 @@ const ChatConversation = ({ messages, hasError, className }: ChatConversationPro
   }, [messages, messagesCount])
 
   useEffect(() => {
-    if (waitingForAnswer) {
-      setTypingIndicatorVisible(true)
-
-      const typingIndicatorTimeout = setTimeout(() => {
-        setTypingIndicatorVisible(false)
-      }, TYPING_INDICATOR_TIMEOUT)
-
-      return () => clearTimeout(typingIndicatorTimeout)
+    if (!waitingForAnswer) {
+      return () => undefined
     }
-    return () => undefined
+    setTypingIndicatorVisible(true)
+
+    const typingIndicatorTimeout = setTimeout(() => {
+      setTypingIndicatorVisible(false)
+    }, TYPING_INDICATOR_TIMEOUT)
+
+    return () => clearTimeout(typingIndicatorTimeout)
   }, [waitingForAnswer])
 
-  return (
-    <Container className={className}>
-      {messages.length > 0 ? (
-        <>
-          {!hasError && <InitialMessage>{t('initialMessage')}</InitialMessage>}
-          {messages.map((message, index) => (
-            <ChatMessage
-              message={message}
-              key={message.id}
-              showIcon={messages[index - 1]?.userIsAuthor !== message.userIsAuthor}
-            />
-          ))}
-          {typingIndicatorVisible && (
-            <TypingIndicator>
-              <strong>...</strong>
-            </TypingIndicator>
-          )}
-          <div ref={messagesEndRef} />
-        </>
-      ) : (
+  if (messages.length === 0) {
+    return (
+      <Container className={className}>
         <div>
           <b>{t('conversationTitle')}</b>
           <br />
           {t('conversationText')}
         </div>
+      </Container>
+    )
+  }
+
+  return (
+    <Container className={className}>
+      {!hasError && <InitialMessage>{t('initialMessage')}</InitialMessage>}
+      {messages.map((message, index) => (
+        <ChatMessage
+          message={message}
+          key={message.id}
+          showIcon={messages[index - 1]?.userIsAuthor !== message.userIsAuthor}
+        />
+      ))}
+      {typingIndicatorVisible && (
+        <TypingIndicator>
+          <strong>...</strong>
+        </TypingIndicator>
       )}
+      <div ref={messagesEndRef} />
       {hasError && <ErrorSendingStatus role='alert'>{t('errorMessage')}</ErrorSendingStatus>}
     </Container>
   )
