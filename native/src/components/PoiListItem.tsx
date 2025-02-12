@@ -30,7 +30,7 @@ const StyledPressable = styled(Pressable)<{ language: string }>`
   border-bottom-width: 1px;
   border-bottom-color: ${props => props.theme.colors.textDisabledColor};
   flex-direction: ${props => contentDirection(props.language)};
-  padding: 24px 0;
+  padding: 16px 0;
 `
 
 const Description = styled.View`
