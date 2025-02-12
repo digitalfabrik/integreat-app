@@ -899,10 +899,14 @@ jobs:
                 name: '[FL] Play Store Promotion'
                 working_directory: native
             - run:
-                command: yarn github-promote-release promote --platform android --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME}
+                command: |
+                    PROMOTION_MESSAGE=$(yarn github-promote-release promote --platform android --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME})
+                    echo "export PROMOTION_MESSAGE='${PROMOTION_MESSAGE}'" >> $BASH_ENV
+                    working_directory: tools
                 name: Remove prerelease flag from github release
-                working_directory: tools
-            - notify
+            - notify:
+                success_message: ${PROMOTION_MESSAGE}
+            - persist_environment_variables
     promote_ios:
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
@@ -930,10 +934,14 @@ jobs:
                 name: '[FL] App Store Connect Promotion'
                 working_directory: native
             - run:
-                command: yarn github-promote-release promote --platform ios --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME}
+                command: |
+                    PROMOTION_MESSAGE=$(yarn github-promote-release promote --platform ios --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME})
+                    echo "export PROMOTION_MESSAGE='${PROMOTION_MESSAGE}'" >> $BASH_ENV
+                    working_directory: tools
                 name: Remove prerelease flag from github release
-                working_directory: tools
-            - notify
+            - notify:
+                success_message: ${PROMOTION_MESSAGE}
+            - persist_environment_variables
     promote_web:
         docker:
             - image: cimg/node:20.17.0
@@ -959,10 +967,14 @@ jobs:
                 command: ssh -o StrictHostKeyChecking=no web@web.integreat-app.de "rsync -arv --delete /var/www/beta.netzwerkobdachwohnen.de/ /var/www/netzwerkobdachwohnen.de"
                 name: Obdach production promotion
             - run:
-                command: yarn github-promote-release promote --platform web --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME}
+                command: |
+                    PROMOTION_MESSAGE=$(yarn github-promote-release promote --platform web --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME})
+                    echo "export PROMOTION_MESSAGE='${PROMOTION_MESSAGE}'" >> $BASH_ENV
+                    working_directory: tools
                 name: Remove prerelease flag from github release
-                working_directory: tools
-            - notify
+            - notify:
+                success_message: ${PROMOTION_MESSAGE}
+            - persist_environment_variables
     sentry_android:
         docker:
             - image: cimg/node:20.17.0
