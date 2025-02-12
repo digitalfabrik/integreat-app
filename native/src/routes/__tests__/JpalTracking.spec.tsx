@@ -33,6 +33,7 @@ describe('JpalTracking', () => {
       <TestingAppContext updateSettings={updateSettings} settings={{ jpalTrackingEnabled }}>
         <JpalTracking navigation={navigation} />
       </TestingAppContext>,
+      false,
     )
 
   it('should enable tracking', async () => {

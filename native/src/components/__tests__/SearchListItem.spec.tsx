@@ -1,4 +1,3 @@
-import { NavigationContainer } from '@react-navigation/native'
 import React from 'react'
 
 import { parseHTML } from 'shared'
@@ -35,17 +34,15 @@ describe('SearchListItem', () => {
 
   const renderWithNavigator = (query: string) =>
     render(
-      <NavigationContainer>
-        <SearchListItem
-          contentWithoutHtml={contentWithoutHtml}
-          query={query}
-          language={language.code}
-          title={category.title}
-          path={category.path}
-          thumbnail={category.thumbnail}
-          resourceCache={resourceCache[category.path]!}
-        />
-      </NavigationContainer>,
+      <SearchListItem
+        contentWithoutHtml={contentWithoutHtml}
+        query={query}
+        language={language.code}
+        title={category.title}
+        path={category.path}
+        thumbnail={category.thumbnail}
+        resourceCache={resourceCache[category.path]!}
+      />,
     )
 
   it('should show excerpt around query if match in title and content', () => {

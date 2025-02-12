@@ -1,4 +1,3 @@
-import { NavigationContainer } from '@react-navigation/native'
 import { RenderAPI } from '@testing-library/react-native'
 import { DateTime } from 'luxon'
 import React from 'react'
@@ -38,14 +37,12 @@ describe('useTtsPlayer', () => {
 
   const render = (model?: PageModel): RenderAPI =>
     renderWithTheme(
-      <NavigationContainer>
-        <TestingAppContext languageCode='en'>
-          <TtsContext.Provider
-            value={{ setSentences, enabled: true, sentences: oldSentences, showTtsPlayer: jest.fn(), visible: false }}>
-            <TestChild model={model} />
-          </TtsContext.Provider>
-        </TestingAppContext>
-      </NavigationContainer>,
+      <TestingAppContext languageCode='en'>
+        <TtsContext.Provider
+          value={{ setSentences, enabled: true, sentences: oldSentences, showTtsPlayer: jest.fn(), visible: false }}>
+          <TestChild model={model} />
+        </TtsContext.Provider>
+      </TestingAppContext>,
     )
 
   it('should set new sentences and restore old sentences', () => {
