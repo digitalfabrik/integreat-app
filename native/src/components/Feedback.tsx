@@ -63,7 +63,8 @@ const Feedback = ({
 
   const isSearchFeedback = searchTerm !== undefined
   const [privacyPolicyAccepted, setPrivacyPolicyAccepted] = useState(false)
-  const submitDisabled = isPositiveFeedback === null && comment.trim().length === 0 && !searchTerm
+  const feedbackFilled = isPositiveFeedback === null && comment.trim().length === 0 && !searchTerm
+  const submitFeedbackDisabled = feedbackFilled || !privacyPolicyAccepted
 
   if (sendingStatus === 'sending') {
     return <LoadingSpinner />
@@ -111,8 +112,8 @@ const Feedback = ({
         />
         {sendingStatus === 'failed' && <Description>{t('failedSendingFeedback')}</Description>}
         <PrivacyCheckbox language={language} checked={privacyPolicyAccepted} setChecked={setPrivacyPolicyAccepted} />
-        {!isSearchFeedback && submitDisabled && <Note text={t('note')} />}
-        <StyledButton disabled={submitDisabled || !privacyPolicyAccepted} onPress={onSubmit} text={t('send')} />
+        {submitFeedbackDisabled && <Note text={t(feedbackFilled ? 'noteFillFeedback' : 'notePrivacyPolicy')} />}
+        <StyledButton disabled={submitFeedbackDisabled} onPress={onSubmit} text={t('send')} />
       </Wrapper>
     </KeyboardAwareScrollView>
   )

@@ -10,8 +10,8 @@ const Container = styled.div`
 const StyledCheckbox = styled.input`
   cursor: pointer;
   accent-color: ${props => props.theme.colors.themeColor};
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   align-self: center;
 `
 

@@ -8,7 +8,7 @@ import Checkbox from './base/Checkbox'
 import Pressable from './base/Pressable'
 import Text from './base/Text'
 
-const FlexContainer = styled(Pressable)`
+const StyledPressable = styled(Pressable)`
   flex-direction: row;
   align-items: center;
   margin-top: 12px;
@@ -31,7 +31,7 @@ const PrivacyCheckbox = ({ language, checked, setChecked }: PrivacyCheckboxProps
   const { privacyUrls } = buildConfig()
   const privacyUrl = privacyUrls[language] || privacyUrls.default
   return (
-    <FlexContainer onPress={() => setChecked(!checked)} role='checkbox'>
+    <StyledPressable onPress={() => setChecked(!checked)} role='checkbox'>
       <Checkbox checked={checked} setChecked={setChecked} />
       <StyledLabel>
         <Trans i18nKey='common:privacyPolicy'>
@@ -39,7 +39,7 @@ const PrivacyCheckbox = ({ language, checked, setChecked }: PrivacyCheckboxProps
           <Link url={privacyUrl}>by react-i18next</Link>
         </Trans>
       </StyledLabel>
-    </FlexContainer>
+    </StyledPressable>
   )
 }
 

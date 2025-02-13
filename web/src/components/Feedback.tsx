@@ -77,7 +77,8 @@ const Feedback = ({
   const isSearchFeedback = searchTerm !== undefined
   const commentTitle = isSearchFeedback ? 'wantedInformation' : 'commentHeadline'
   const [privacyPolicyAccepted, setPrivacyPolicyAccepted] = useState(false)
-  const sendFeedbackDisabled = isPositiveFeedback === null && comment.trim().length === 0 && !searchTerm
+  const feedbackFilled = isPositiveFeedback === null && comment.trim().length === 0 && !searchTerm
+  const submitFeedbackDisabled = feedbackFilled || !privacyPolicyAccepted
 
   if (sendingStatus === 'successful') {
     return (
@@ -113,9 +114,9 @@ const Feedback = ({
         <Input id='email' value={contactMail} onChange={onContactMailChanged} />
       </InputSection>
       <PrivacyCheckbox language={language} checked={privacyPolicyAccepted} setChecked={setPrivacyPolicyAccepted} />
-      {!isSearchFeedback && sendFeedbackDisabled && <Note text={t('note')} />}
+      {submitFeedbackDisabled && <Note text={t(feedbackFilled ? 'noteFillFeedback' : 'notePrivacyPolicy')} />}
       {sendingStatus === 'failed' && <ErrorSendingStatus role='alert'>{t('failedSendingFeedback')}</ErrorSendingStatus>}
-      <StyledTextButton disabled={sendFeedbackDisabled || !privacyPolicyAccepted} onClick={onSubmit} text={t('send')} />
+      <StyledTextButton disabled={submitFeedbackDisabled} onClick={onSubmit} text={t('send')} />
     </Container>
   )
 }
