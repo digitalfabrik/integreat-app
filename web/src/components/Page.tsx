@@ -23,7 +23,6 @@ type PageProps = {
   content: string
   lastUpdate?: DateTime
   showLastUpdateText?: boolean
-  onInternalLinkClick: (url: string) => void
   BeforeContent?: ReactNode
   AfterContent?: ReactNode
   Footer?: ReactNode
@@ -35,7 +34,6 @@ const Page = ({
   content,
   lastUpdate,
   showLastUpdateText = true,
-  onInternalLinkClick,
   BeforeContent,
   AfterContent,
   Footer,
@@ -44,7 +42,7 @@ const Page = ({
     {!!thumbnailSrcSet && <Thumbnail alt='' srcSet={thumbnailSrcSet} />}
     <Caption title={title} />
     {BeforeContent}
-    <RemoteContent html={content} onInternalLinkClick={onInternalLinkClick} />
+    <RemoteContent html={content} />
     {AfterContent}
     {lastUpdate && !!content && content.length > 0 && (
       <LastUpdateInfo lastUpdate={lastUpdate} withText={showLastUpdateText} />

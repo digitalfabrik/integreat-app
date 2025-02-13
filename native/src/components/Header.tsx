@@ -20,12 +20,14 @@ import {
   SETTINGS_ROUTE,
 } from 'shared'
 import { LanguageModel, FeedbackRouteType } from 'shared/api'
+import { config } from 'translations'
 
 import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import { AppContext } from '../contexts/AppContextProvider'
 import useSnackbar from '../hooks/useSnackbar'
+import useTtsPlayer from '../hooks/useTtsPlayer'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import navigateToLanguageChange from '../navigation/navigateToLanguageChange'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
@@ -50,6 +52,7 @@ enum HeaderButtonTitle {
   Language = 'changeLanguage',
   Location = 'changeLocation',
   Search = 'search',
+  ReadAloud = 'readAloud',
   Share = 'share',
   Settings = 'settings',
   Feedback = 'feedback',
@@ -82,6 +85,7 @@ const Header = ({
   // Save route/canGoBack to state to prevent it from changing during navigating which would lead to flickering of the title and back button
   const [previousRoute] = useState(navigation.getState().routes[navigation.getState().routes.length - 2])
   const [canGoBack] = useState(navigation.canGoBack())
+  const { enabled: isTtsEnabled, showTtsPlayer } = useTtsPlayer()
 
   const onShare = async () => {
     if (!shareUrl) {
@@ -192,6 +196,7 @@ const Header = ({
           ? [renderOverflowItem(HeaderButtonTitle.Location, () => navigation.navigate(LANDING_ROUTE))]
           : []),
         renderOverflowItem(HeaderButtonTitle.Settings, () => navigation.navigate(SETTINGS_ROUTE)),
+        ...(isTtsEnabled ? [renderOverflowItem(t(HeaderButtonTitle.ReadAloud), showTtsPlayer)] : []),
         ...(route.name !== NEWS_ROUTE ? [renderOverflowItem(HeaderButtonTitle.Feedback, navigateToFeedback)] : []),
         ...(route.name !== DISCLAIMER_ROUTE
           ? [renderOverflowItem(HeaderButtonTitle.Disclaimer, () => navigation.navigate(DISCLAIMER_ROUTE))]
@@ -199,32 +204,45 @@ const Header = ({
       ]
     : []
 
-  const getHeaderText = (): string => {
+  const getHeaderText = (): { text: string; language?: string } => {
     const currentTitle = (route.params as { title?: string } | undefined)?.title
     if (!previousRoute) {
       // Home/Dashboard: Show current route title, i.e. city name
-      return currentTitle ?? ''
+      return { text: currentTitle ?? '', language: config.sourceLanguage }
     }
 
-    const previousParams = previousRoute.params
-
-    const currentRouteIsPoi = route.name === POIS_ROUTE
+    const poisRouteParams = route.params as RoutesParamsType[PoisRouteType] | undefined
+    const isSinglePoi = !!poisRouteParams?.slug || poisRouteParams?.multipoi !== undefined
     const notFromDeepLink = previousRoute.name === POIS_ROUTE
-    if (currentRouteIsPoi && notFromDeepLink) {
-      const poisRouteParams = route.params as RoutesParamsType[PoisRouteType]
-      if (poisRouteParams.slug || poisRouteParams.multipoi !== undefined) {
-        return t('locations')
+    if (isSinglePoi && notFromDeepLink) {
+      return { text: t('locations'), language: undefined } // system language
+    }
+
+    const previousRouteTitle = (previousRoute.params as { title?: string } | undefined)?.title
+
+    if (previousRouteTitle) {
+      return { text: previousRouteTitle, language: languageCode }
+    }
+
+    if (previousRoute.name === CATEGORIES_ROUTE) {
+      return {
+        text: t('localInformation'),
+        language: languageCode,
       }
     }
 
-    const previousRouteTitle = (previousParams as { title?: string } | undefined)?.title
-    return previousRouteTitle ?? t(previousRoute.name === 'categories' ? 'localInformation' : previousRoute.name)
+    return { text: t(previousRoute.name), language: undefined } // system language
   }
 
   return (
     <BoxShadow>
       <Horizontal>
-        <HeaderBox goBack={navigation.goBack} canGoBack={canGoBack} text={getHeaderText()} />
+        <HeaderBox
+          goBack={navigation.goBack}
+          canGoBack={canGoBack}
+          text={getHeaderText().text}
+          language={getHeaderText().language}
+        />
         <CustomHeaderButtons cancelLabel={t('cancel')} items={items} overflowItems={overflowItems} />
       </Horizontal>
     </BoxShadow>

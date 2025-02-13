@@ -9,6 +9,7 @@ import FeedbackContainer from '../components/FeedbackContainer'
 import List from '../components/List'
 import SearchHeader from '../components/SearchHeader'
 import SearchListItem from '../components/SearchListItem'
+import useAnnounceSearchResultsIOS from '../hooks/useAnnounceSearchResultsIOS'
 import useResourceCache from '../hooks/useResourceCache'
 import testID from '../testing/testID'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
@@ -22,8 +23,13 @@ const Wrapper = styled.View`
   background-color: ${props => props.theme.colors.backgroundColor};
 `
 
+const SearchCounter = styled.Text`
+  margin: 10px 20px;
+  color: ${props => props.theme.colors.textSecondaryColor};
+`
+
 export type SearchModalProps = {
-  allPossibleResults: Array<SearchResult>
+  allPossibleResults: SearchResult[]
   languageCode: string
   cityCode: string
   closeModal: (query: string) => void
@@ -42,6 +48,7 @@ const SearchModal = ({
   const { t } = useTranslation('search')
 
   const searchResults = useSearch(allPossibleResults, query)
+  useAnnounceSearchResultsIOS(searchResults)
 
   if (!searchResults) {
     return null
@@ -76,15 +83,26 @@ const SearchModal = ({
       <SearchHeader query={query} closeSearchBar={onClose} onSearchChanged={setQuery} />
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
         {query.length > 0 && (
-          <List
-            items={searchResults}
-            renderItem={renderItem}
-            accessibilityLabel={t('searchResultsCount', { count: searchResults.length })}
-            style={{ flex: 1 }}
-            noItemsMessage={
-              <FeedbackContainer routeType={SEARCH_ROUTE} language={languageCode} cityCode={cityCode} query={query} />
-            }
-          />
+          <>
+            <SearchCounter accessibilityLiveRegion={searchResults.length === 0 ? 'assertive' : 'polite'}>
+              {t('searchResultsCount', { count: searchResults.length })}
+            </SearchCounter>
+            <List
+              items={searchResults}
+              renderItem={renderItem}
+              accessibilityLabel={t('searchResultsCount', { count: searchResults.length })}
+              style={{ flex: 1 }}
+              noItemsMessage={
+                <FeedbackContainer
+                  routeType={SEARCH_ROUTE}
+                  language={languageCode}
+                  cityCode={cityCode}
+                  noResults={searchResults.length === 0}
+                  query={query}
+                />
+              }
+            />
+          </>
         )}
       </KeyboardAvoidingView>
     </Wrapper>

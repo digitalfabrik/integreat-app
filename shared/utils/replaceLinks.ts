@@ -7,7 +7,7 @@ const unicode = 'a-zA-Z0-9\\u00A0-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFEF'
 const protocol = /([A-Za-z]{3,9}:(?:\/\/)?)/
 const hostname = /(?:[-;:&=+$,\w]+@)?([A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*)/
 // language=RegExp
-const path = `(?:\\/(?:[+~%/.${unicode}-]*[+~%/${unicode}-]+)?)?`
+const path = `(?:\\/(?:[+~%/_.${unicode}-]*[+~%/${unicode}-]+)?)?`
 // language=RegExp
 const query = `(?:\\?([-+=&;%@.${unicode}]*[-+=&;%@${unicode}]+)?)?`
 // language=RegExp

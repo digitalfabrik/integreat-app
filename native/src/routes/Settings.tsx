@@ -1,7 +1,6 @@
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { SectionList, SectionListData } from 'react-native'
-import styled from 'styled-components/native'
+import { FlatList } from 'react-native'
 
 import { SettingsRouteType } from 'shared'
 
@@ -10,10 +9,8 @@ import Layout from '../components/Layout'
 import SettingItem from '../components/SettingItem'
 import ItemSeparator from '../components/base/ItemSeparator'
 import { NavigationProps } from '../constants/NavigationTypes'
-import { AppContext } from '../contexts/AppContextProvider'
-import { useAppContext } from '../hooks/useCityAppContext'
+import useCityAppContext from '../hooks/useCityAppContext'
 import useSnackbar from '../hooks/useSnackbar'
-import { SettingsType } from '../utils/AppSettings'
 import createSettingsSections, { SettingsSectionType } from '../utils/createSettingsSections'
 import { log, reportError } from '../utils/sentry'
 
@@ -21,77 +18,44 @@ type SettingsProps = {
   navigation: NavigationProps<SettingsRouteType>
 }
 
-type SectionType = SectionListData<SettingsSectionType> & {
-  title?: string | null
-}
-
-const SectionHeader = styled.Text`
-  padding: 20px;
-  color: ${props => props.theme.colors.textColor};
-`
-
 const Settings = ({ navigation }: SettingsProps): ReactElement => {
-  const { settings, updateSettings } = useAppContext()
-  const { cityCode, languageCode } = useContext(AppContext)
+  const appContext = useCityAppContext()
   const showSnackbar = useSnackbar()
   const { t } = useTranslation('settings')
+  const { settings } = appContext
 
-  const setSetting = async (
-    changeSetting: (settings: SettingsType) => Partial<SettingsType>,
-    changeAction?: (settings: SettingsType) => Promise<boolean>,
-  ) => {
+  const safeOnPress = (update: () => Promise<void> | void) => async () => {
     const oldSettings = settings
-    const newSettings = { ...oldSettings, ...changeSetting(settings) }
-    updateSettings(newSettings)
-
     try {
-      const successful = changeAction ? await changeAction(newSettings) : true
-
-      if (!successful) {
-        updateSettings(oldSettings)
-      }
+      await update()
     } catch (e) {
       log('Failed to persist settings.', 'error')
       reportError(e)
-      updateSettings(oldSettings)
+      appContext.updateSettings(oldSettings)
+      showSnackbar({ text: t('error:settingsError') })
     }
   }
 
   const renderItem = ({ item }: { item: SettingsSectionType }) => {
-    const { getSettingValue, ...otherProps } = item
-    const value = !!(getSettingValue && getSettingValue(settings))
-    return <SettingItem value={value} key={otherProps.title} {...otherProps} />
+    const { getSettingValue, onPress, ...otherProps } = item
+    const value = getSettingValue ? !!getSettingValue(settings) : null
+    return <SettingItem value={value} key={otherProps.title} onPress={safeOnPress(onPress)} {...otherProps} />
   }
 
-  const renderSectionHeader = ({ section: { title } }: { section: SectionType }) => {
-    if (!title) {
-      return null
-    }
-
-    return <SectionHeader>{title}</SectionHeader>
-  }
-
-  const sections = createSettingsSections({
-    setSetting,
-    t,
-    languageCode,
-    cityCode,
-    navigation,
-    settings,
-    showSnackbar,
-  })
+  const sections = createSettingsSections({ appContext, navigation, showSnackbar, t }).filter(
+    (it): it is SettingsSectionType => it !== null,
+  )
 
   return (
     <Layout>
       <Caption title={t('layout:settings')} />
-      <SectionList
-        sections={sections}
-        extraData={settings}
+      <ItemSeparator />
+      <FlatList
+        data={sections}
+        extraData={appContext.settings}
         renderItem={renderItem}
-        renderSectionHeader={renderSectionHeader}
         ItemSeparatorComponent={ItemSeparator}
-        SectionSeparatorComponent={ItemSeparator}
-        stickySectionHeadersEnabled={false}
+        ListFooterComponent={ItemSeparator}
       />
     </Layout>
   )

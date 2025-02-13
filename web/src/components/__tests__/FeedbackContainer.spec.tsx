@@ -40,17 +40,19 @@ describe('FeedbackContainer', () => {
     language,
     onClose: closeModal,
     query,
+    initialRating: null,
   })
 
   it('should display thanks message for modal', async () => {
     const { getByRole, findByText, getByText } = renderWithTheme(
-      <FeedbackContainer {...buildDefaultProps(CATEGORIES_ROUTE)} />,
+      <FeedbackContainer {...buildDefaultProps(CATEGORIES_ROUTE)} initialRating />,
     )
     const buttonRating = getByRole('button', {
       name: 'feedback:useful',
     })
     fireEvent.click(buttonRating)
 
+    getByText('feedback:useful').click()
     getByText('common:privacyPolicy').click()
 
     const button = getByRole('button', {

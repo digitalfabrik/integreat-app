@@ -25,6 +25,11 @@ const List = styled.ul`
   }
 `
 
+const SearchCounter = styled.p`
+  padding: 0 5px;
+  color: ${props => props.theme.colors.textSecondaryColor};
+`
+
 const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps): ReactElement | null => {
   const query = new URLSearchParams(useLocation().search).get('query') ?? ''
   const [filterText, setFilterText] = useState<string>(query)
@@ -53,11 +58,19 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
     code,
   }))
 
-  const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
+  const layoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
     city,
     languageChangePaths,
     route: SEARCH_ROUTE,
     languageCode,
+  }
+
+  if (error) {
+    return (
+      <CityContentLayout isLoading={false} {...layoutParams}>
+        <FailureSwitcher error={error} />
+      </CityContentLayout>
+    )
   }
 
   const handleFilterTextChanged = (filterText: string): void => {
@@ -66,61 +79,54 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
     navigate(`${pathname}/${appendToUrl}`, { replace: true })
   }
 
-  const pageTitle = `${t('pageTitle')} - ${city.name}`
-
-  const SearchBar = (
-    <SearchInput
-      filterText={filterText}
-      placeholderText={t('searchPlaceholder')}
-      onFilterTextChange={handleFilterTextChanged}
-      spaceSearch
-    />
-  )
-
-  if (loading || !results) {
+  const getPageContent = () => {
+    if (query.length === 0) {
+      return null
+    }
+    if (loading || !results) {
+      return <LoadingSpinner />
+    }
     return (
-      <CityContentLayout isLoading {...locationLayoutParams}>
-        <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
-        {SearchBar}
-        <LoadingSpinner />
-      </CityContentLayout>
-    )
-  }
-
-  if (error) {
-    return (
-      <CityContentLayout isLoading={false} {...locationLayoutParams}>
-        <FailureSwitcher error={error} />
-      </CityContentLayout>
+      <>
+        <List>
+          <SearchCounter aria-live={results.length === 0 ? 'assertive' : 'polite'}>
+            {t('searchResultsCount', { count: results.length })}
+          </SearchCounter>
+          {results.map(({ title, content, path, thumbnail }) => (
+            <SearchListItem
+              title={title}
+              contentWithoutHtml={parseHTML(content)}
+              key={path}
+              query={query}
+              path={path}
+              thumbnail={thumbnail}
+            />
+          ))}
+        </List>
+        <SearchFeedback
+          cityCode={cityCode}
+          languageCode={languageCode}
+          noResults={results.length === 0}
+          query={filterText}
+        />
+      </>
     )
   }
 
   return (
-    <CityContentLayout isLoading={false} {...locationLayoutParams}>
-      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
-      {SearchBar}
-      {query.length > 0 && (
-        <>
-          <List>
-            {results.map(({ title, content, path, thumbnail }) => (
-              <SearchListItem
-                title={title}
-                contentWithoutHtml={parseHTML(content)}
-                key={path}
-                query={query}
-                path={path}
-                thumbnail={thumbnail}
-              />
-            ))}
-          </List>
-          <SearchFeedback
-            cityCode={cityCode}
-            languageCode={languageCode}
-            noResults={results.length === 0}
-            query={filterText}
-          />
-        </>
-      )}
+    <CityContentLayout isLoading={false} {...layoutParams}>
+      <Helmet
+        pageTitle={`${t('pageTitle')} - ${city.name}`}
+        languageChangePaths={languageChangePaths}
+        cityModel={city}
+      />
+      <SearchInput
+        filterText={filterText}
+        placeholderText={t('searchPlaceholder')}
+        onFilterTextChange={handleFilterTextChanged}
+        spaceSearch
+      />
+      {getPageContent()}
     </CityContentLayout>
   )
 }

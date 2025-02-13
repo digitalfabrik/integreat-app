@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode } from 'react'
+import React, { ReactElement, ReactNode, useLayoutEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
@@ -11,7 +11,7 @@ import Button from './base/Button'
 import Icon from './base/Icon'
 
 type KebabMenuProps = {
-  items: Array<ReactNode>
+  items: ReactNode[]
   show: boolean
   setShow: (show: boolean) => void
   Footer: ReactNode
@@ -61,8 +61,15 @@ const Heading = styled.div`
   justify-content: ${props => (props.theme.contentDirection === 'rtl' ? `flex-start` : `flex-end`)};
   background-color: ${props => props.theme.colors.backgroundAccentColor};
   box-shadow: -3px 3px 3px 0 rgb(0 0 0 / 13%);
-  height: ${dimensions.headerHeightSmall}px;
-  padding: 0 8px;
+  min-height: ${dimensions.headerHeightSmall}px;
+  padding: 8px;
+`
+
+const ActionBar = styled.nav`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 16px;
 `
 
 const Content = styled.div`
@@ -77,6 +84,13 @@ const StyledIcon = styled(Icon)`
 const KebabMenu = ({ items, show, setShow, Footer }: KebabMenuProps): ReactElement | null => {
   useLockedBody(show)
   const { t } = useTranslation('layout')
+  const [scrollY, setScrollY] = useState<number>(0)
+
+  useLayoutEffect(() => {
+    if (show) {
+      setScrollY(window.scrollY)
+    }
+  }, [show])
 
   const onClick = () => {
     setShow(!show)
@@ -95,17 +109,19 @@ const KebabMenu = ({ items, show, setShow, Footer }: KebabMenuProps): ReactEleme
         className='kebab-menu'
         show={show}
         style={{
-          visibility: show ? 'visible' : 'hidden',
-          top: window.scrollY > 0 ? `${window.scrollY}px` : undefined,
+          display: show ? 'block' : 'none',
+          top: scrollY > 0 ? `${scrollY}px` : undefined,
         }}>
         {/* disabled because this is an overlay for backdrop close */}
         {/* eslint-disable-next-line styled-components-a11y/no-static-element-interactions,styled-components-a11y/click-events-have-key-events */}
         <Overlay onClick={onClick} $show={show} />
         <List $show={show}>
           <Heading>
-            <Button onClick={onClick} label={t('sideBarCloseAriaLabel')}>
-              <Icon src={CloseIcon} />
-            </Button>
+            <ActionBar>
+              <Button onClick={onClick} label={t('sideBarCloseAriaLabel')}>
+                <Icon src={CloseIcon} />
+              </Button>
+            </ActionBar>
           </Heading>
           <Content>{items}</Content>
           {Footer}

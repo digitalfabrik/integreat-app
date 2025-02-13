@@ -1,19 +1,26 @@
 ---
-name: "Task \U0001F4A1"
+name: "Task \U0001F527"
 about: Suggest an idea or enhancement for this project
-title: ''
 labels: Task
-assignees: ''
 ---
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+### Describe the Problem
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
+<!-- A clear and concise description of what the problem is. Ex. I'm always frustrated when [...] -->
+<!-- Use sub-issues to split up big tasks in smaller issues. -->
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+### Describe Your Preferred Solution
 
-**Additional context**
-Add any other context or screenshots about the feature request here.
+<!-- A clear and concise description of what you want to happen. -->
+
+### Describe Possible Alternatives
+
+<!-- A clear and concise description of any alternative solutions or features you've considered. -->
+
+### Related Issues
+
+<!-- Link all related issues which are e.g. CMS issues or otherwise related, blocking, duplicating issues, ... -->
+
+### Additional Information
+
+<!-- Add any other context (e.g. logs, screenshots, environment, related issues etc.) about the problem here. -->

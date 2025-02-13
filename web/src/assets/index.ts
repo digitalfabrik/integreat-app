@@ -12,6 +12,8 @@ import CalendarTodayRecurringIcon from '../../../assets/icons/calendar-today-rec
 import CalendarTodayIcon from '../../../assets/icons/calendar-today.svg'
 import CalendarIcon from '../../../assets/icons/calendar.svg'
 import CategoriesIcon from '../../../assets/icons/categories.svg'
+import ChatBot from '../../../assets/icons/chat-bot.svg'
+import ChatPerson from '../../../assets/icons/chat-person.svg'
 import ChatIcon from '../../../assets/icons/chat.svg'
 import ClockIcon from '../../../assets/icons/clock.svg'
 import CloseIcon from '../../../assets/icons/close.svg'
@@ -20,6 +22,7 @@ import DataSecurityIcon from '../../../assets/icons/data-security.svg'
 import DoneIcon from '../../../assets/icons/done.svg'
 import EditLocationIcon from '../../../assets/icons/edit-location.svg'
 import EuroIcon from '../../../assets/icons/euro.svg'
+import ExpandIcon from '../../../assets/icons/expand.svg'
 import ExternalLinkIcon from '../../../assets/icons/external-link.svg'
 import FacebookIcon from '../../../assets/icons/facebook.svg'
 import FeedbackIcon from '../../../assets/icons/feedback.svg'
@@ -37,13 +40,16 @@ import MinimizeIcon from '../../../assets/icons/minimize.svg'
 import NewsIcon from '../../../assets/icons/news.svg'
 import NoteIcon from '../../../assets/icons/note.svg'
 import PdfIcon from '../../../assets/icons/pdf.svg'
+import PersonIcon from '../../../assets/icons/person.svg'
 import PetIcon from '../../../assets/icons/pet.svg'
 import PhoneIcon from '../../../assets/icons/phone.svg'
 import POIsIcon from '../../../assets/icons/pois.svg'
+import RefreshIcon from '../../../assets/icons/refresh.svg'
 import SadSmileyIcon from '../../../assets/icons/sad-smiley.svg'
 import SearchIcon from '../../../assets/icons/search.svg'
 import SecurityIcon from '../../../assets/icons/security.svg'
 import ShareIcon from '../../../assets/icons/share.svg'
+import ShrinkIcon from '../../../assets/icons/shrink.svg'
 import SmokingIcon from '../../../assets/icons/smoking.svg'
 import SprungbrettIcon from '../../../assets/icons/sprungbrett.svg'
 import SupportIcon from '../../../assets/icons/support.svg'
@@ -66,6 +72,8 @@ export {
   CalendarTodayIcon,
   CalendarTodayRecurringIcon,
   CategoriesIcon,
+  ChatPerson,
+  ChatBot,
   ChatIcon,
   ClockIcon,
   CloseIcon,
@@ -78,6 +86,7 @@ export {
   EventThumbnailPlaceholder2,
   EventThumbnailPlaceholder3,
   ExternalLinkIcon,
+  ExpandIcon,
   FacebookIcon,
   FeedbackIcon,
   HappySmileyIcon,
@@ -99,6 +108,8 @@ export {
   POIsIcon,
   PoiThumbnailPlaceholder,
   PoiThumbnailPlaceholderLarge,
+  PersonIcon,
+  RefreshIcon,
   SadSmileyIcon,
   SearchIcon,
   SecurityIcon,
@@ -106,6 +117,7 @@ export {
   SmokingIcon,
   SprungbrettIcon,
   SupportIcon,
+  ShrinkIcon,
   TimerIcon,
   TuNewsActiveIcon,
   TuNewsInactiveIcon,

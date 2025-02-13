@@ -31,9 +31,10 @@ type HeaderBoxProps = {
   goBack?: () => void
   canGoBack?: boolean
   text?: string
+  language?: string
 }
 
-const HeaderBox = ({ goBack, canGoBack = true, text }: HeaderBoxProps): ReactElement => {
+const HeaderBox = ({ goBack, canGoBack = true, text, language }: HeaderBoxProps): ReactElement => {
   const deviceWidth = useWindowDimensions().width
   const theme = useTheme()
   const { t } = useTranslation('common')
@@ -49,10 +50,14 @@ const HeaderBox = ({ goBack, canGoBack = true, text }: HeaderBoxProps): ReactEle
   ) : (
     <StyledIcon Icon={AppIcon} />
   )
+
   return (
     <HorizontalLeft>
       {HeaderIcon}
-      <HeaderText allowFontScaling={false} fontSize={deviceWidth * dimensions.fontScaling}>
+      <HeaderText
+        allowFontScaling={false}
+        fontSize={deviceWidth * dimensions.fontScaling}
+        accessibilityLanguage={language}>
         {text}
       </HeaderText>
     </HorizontalLeft>

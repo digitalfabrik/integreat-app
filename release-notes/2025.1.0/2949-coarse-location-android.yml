@@ -1,0 +1,6 @@
+issue_key: 2949
+show_in_stores: true
+platforms:
+  - android
+en: Fix location detection if only granted approximate permission.
+de: Die Standortbestimmung funktioniert nun auch, wenn nur eine grobe Bestimmung erlaubt wird.

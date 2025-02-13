@@ -8,9 +8,7 @@ import render from '../../testing/render'
 import sendTrackingSignal from '../../utils/sendTrackingSignal'
 import FeedbackContainer from '../FeedbackContainer'
 
-const mockRequest = jest.fn(() => {
-  /* ignore */
-})
+const mockRequest = jest.fn()
 jest.mock('styled-components')
 jest.mock('react-i18next')
 jest.mock('../../utils/sendTrackingSignal')
@@ -196,5 +194,49 @@ describe('FeedbackContainer', () => {
     const input = getByDisplayValue('query')
     fireEvent.changeText(input, '')
     expect(await findByText('send')).toBeDisabled()
+  })
+
+  it('should send negative rating on submit if there are no search results found', async () => {
+    const query = 'gesundheitsversicherung'
+    const noResults = true
+    const { getByText, findByText } = render(
+      <NavigationContainer>
+        <FeedbackContainer
+          routeType={SEARCH_ROUTE}
+          language={language}
+          cityCode={city}
+          query={query}
+          noResults={noResults}
+        />
+      </NavigationContainer>,
+    )
+    fireEvent.press(getByText('common:privacyPolicy'))
+    expect(getByText('send')).not.toBeDisabled()
+    const submitButton = getByText('send')
+    fireEvent.press(submitButton)
+    expect(await findByText('thanksMessage')).toBeDefined()
+    expect(mockRequest).toHaveBeenCalledTimes(1)
+    expect(mockRequest).toHaveBeenCalledWith({
+      routeType: SEARCH_ROUTE,
+      isPositiveRating: false,
+      city,
+      language,
+      comment: '',
+      contactMail: '',
+      query,
+      searchTerm: query,
+      slug: undefined,
+    })
+    expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
+    expect(sendTrackingSignal).toHaveBeenCalledWith({
+      signal: {
+        name: SEND_FEEDBACK_SIGNAL_NAME,
+        feedback: {
+          positive: false,
+          numCharacters: 0,
+          contactMail: false,
+        },
+      },
+    })
   })
 })

@@ -229,22 +229,8 @@ commands:
         description: Runs the test task and stores coverage and junit data
         steps:
             - run:
-                command: |
-                    # download test reporter as a static binary
-                    curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-                    chmod +x ./cc-test-reporter
-                name: Setup Code Climate test-reporter
-            - run:
-                command: ./cc-test-reporter before-build
-                name: Code Climate before build
-            - run:
                 command: yarn test:ci --maxWorkers ${TOTAL_CPUS}
                 name: Unit Tests with Coverage
-            - run:
-                command: |
-                    ./cc-test-reporter format-coverage -t lcov -o reports/coverage/codeclimate.json reports/coverage/lcov.info
-                    ./cc-test-reporter upload-coverage -i reports/coverage/codeclimate.json
-                name: Code Climate after build
             - store_test_results:
                 path: reports/unit-test
             - store_artifacts:
@@ -325,6 +311,16 @@ jobs:
             - persist_to_workspace:
                 paths:
                     - << parameters.build_config_name >>.apk
+                root: native/android
+            - run:
+                command: mv app/build/outputs/bundle/release/app-release.aab << parameters.build_config_name >>.aab
+                name: Rename aab
+                working_directory: native/android
+            - store_artifacts:
+                path: native/android/<< parameters.build_config_name >>.aab
+            - persist_to_workspace:
+                paths:
+                    - << parameters.build_config_name >>.aab
                 root: native/android
             - unless:
                 condition:
@@ -569,7 +565,7 @@ jobs:
                 name: '[FL] Browserstack Upload Live'
                 working_directory: native
             - run:
-                command: bundle exec fastlane android playstore_upload build_config_name:<< parameters.build_config_name >> apk_path:attached_workspace/<< parameters.build_config_name >>.apk production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+                command: bundle exec fastlane android playstore_upload build_config_name:<< parameters.build_config_name >> aab_path:attached_workspace/<< parameters.build_config_name >>.aab production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
                 name: '[FL] Play Store Upload'
                 working_directory: native
             - notify
@@ -1073,6 +1069,7 @@ parameters:
             - web_promotion
             - delivery
             - e2e_tests
+            - native_browserstack
             - none
         type: enum
 version: 2.1
@@ -1085,22 +1082,7 @@ workflows:
                 prepare_delivery: false
             - check:
                 context:
-                    - codeclimate-integreat-app
                     - mattermost
-            - build_web:
-                build_config_name: integreat-test-cms
-                context:
-                    - mattermost
-                name: build_ig_test_cms_web
-                requires:
-                    - bump_version
-                    - check
-            - e2e_web:
-                context:
-                    - mattermost
-                requires:
-                    - bump_version
-                    - check
         unless:
             or:
                 - equal:
@@ -1151,40 +1133,6 @@ workflows:
                     - build_malte_test_cms_web
                     - build_aschaffenburg_web
                     - build_obdach_web
-            - build_android:
-                build_config_name: integreat-test-cms
-                context:
-                    - mattermost
-                    - credentials-repo
-                    - credentials-integreat
-                name: build_ig_test_cms_android
-                requires:
-                    - bump_version
-            - upload_browserstack:
-                context:
-                    - mattermost
-                    - browserstack
-                file_name: integreat-test-cms.apk
-                name: upload_ig_test_cms_android_browserstack
-                requires:
-                    - build_ig_test_cms_android
-            - build_ios:
-                build_config_name: integreat-test-cms
-                context:
-                    - mattermost
-                    - tuerantuer-apple
-                    - fastlane-match
-                name: build_ig_test_cms_ios
-                requires:
-                    - bump_version
-            - upload_browserstack:
-                context:
-                    - mattermost
-                    - browserstack
-                file_name: integreat-test-cms.ipa
-                name: upload_ig_test_cms_ios_browserstack
-                requires:
-                    - build_ig_test_cms_ios
         when:
             and:
                 - equal:
@@ -1200,7 +1148,6 @@ workflows:
                 prepare_delivery: true
             - check:
                 context:
-                    - codeclimate-integreat-app
                     - mattermost
             - e2e_web:
                 context:
@@ -1513,17 +1460,11 @@ workflows:
                 requires:
                     - build_e2e_ios
         when:
-            or:
-                - and:
-                    - << pipeline.parameters.api_triggered >>
-                    - equal:
-                        - << pipeline.parameters.workflow_type >>
-                        - e2e_tests
-                - and:
-                    - equal:
-                        - main
-                        - << pipeline.git.branch >>
-                    - not: << pipeline.parameters.api_triggered >>
+            and:
+                - << pipeline.parameters.api_triggered >>
+                - equal:
+                    - << pipeline.parameters.workflow_type >>
+                    - e2e_tests
     native_beta_delivery:
         jobs:
             - bump_version:
@@ -1533,7 +1474,6 @@ workflows:
                 prepare_delivery: true
             - check:
                 context:
-                    - codeclimate-integreat-app
                     - mattermost
             - build_android:
                 build_config_name: integreat-e2e
@@ -1732,6 +1672,52 @@ workflows:
                 - equal:
                     - << pipeline.parameters.workflow_type >>
                     - native_beta_delivery
+    native_browserstack:
+        jobs:
+            - bump_version:
+                context:
+                    - mattermost
+                prepare_delivery: false
+            - build_android:
+                build_config_name: integreat-test-cms
+                context:
+                    - mattermost
+                    - credentials-repo
+                    - credentials-integreat
+                name: build_ig_test_cms_android
+                requires:
+                    - bump_version
+            - upload_browserstack:
+                context:
+                    - mattermost
+                    - browserstack
+                file_name: integreat-test-cms.apk
+                name: upload_ig_test_cms_android_browserstack
+                requires:
+                    - build_ig_test_cms_android
+            - build_ios:
+                build_config_name: integreat-test-cms
+                context:
+                    - mattermost
+                    - tuerantuer-apple
+                    - fastlane-match
+                name: build_ig_test_cms_ios
+                requires:
+                    - bump_version
+            - upload_browserstack:
+                context:
+                    - mattermost
+                    - browserstack
+                file_name: integreat-test-cms.ipa
+                name: upload_ig_test_cms_ios_browserstack
+                requires:
+                    - build_ig_test_cms_ios
+        when:
+            and:
+                - << pipeline.parameters.api_triggered >>
+                - equal:
+                    - << pipeline.parameters.workflow_type >>
+                    - native_browserstack
     native_production_delivery:
         jobs:
             - bump_version:
@@ -1741,7 +1727,6 @@ workflows:
                 prepare_delivery: true
             - check:
                 context:
-                    - codeclimate-integreat-app
                     - mattermost
             - build_android:
                 build_config_name: integreat-e2e
@@ -1999,7 +1984,6 @@ workflows:
                 prepare_delivery: true
             - check:
                 context:
-                    - codeclimate-integreat-app
                     - mattermost
             - e2e_web:
                 context:
@@ -2076,7 +2060,6 @@ workflows:
                 prepare_delivery: true
             - check:
                 context:
-                    - codeclimate-integreat-app
                     - mattermost
             - e2e_web:
                 context:

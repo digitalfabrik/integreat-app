@@ -8,7 +8,7 @@ import TextButton from '../components/base/TextButton'
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 
 const Container = styled.ScrollView`
-  display: flex;
+  flex: 1;
   padding: 30px;
 `
 
@@ -59,10 +59,10 @@ const StyledButton = styled(TextButton)`
 `
 
 const TemplateText = styled.Text`
-  top: -20px;
+  margin-top: -20px;
   border: 1px solid ${props => props.theme.colors.themeColor};
-  padding: 50px 30px 30px;
-  margin-bottom: 40px;
+  padding: 30px 20px 20px;
+  margin-bottom: 250px;
 `
 
 const StyledIcon = styled(Icon)`

@@ -39,6 +39,7 @@ export type FeatureFlagsType = FixedCityType & {
   cityNotCooperating?: boolean
   cityNotCooperatingTemplate: string | null
   chat: boolean
+  tts: boolean
 }
 
 // Available on all platforms
@@ -52,12 +53,12 @@ export type CommonBuildConfigType = {
   // Host name of the web app, used for sharing, deep linking and social media previews.
   hostName: string
   // Hostnames from which resources are automatically downloaded for offline usage.
-  allowedHostNames: Array<string>
+  allowedHostNames: string[]
   // Linked hosts that can may look similar https://chromium.googlesource.com/chromium/src/+/master/docs/security/lookalikes/lookalike-domains.md#automated-warning-removal
-  allowedLookalikes: Array<string>
-  // Regex defining which urls to intercept as they are internal ones.
+  allowedLookalikes: string[]
   supportedIframeSources: string[]
-  internalLinksHijackPattern: string
+  // Regex defining which urls to intercept as they are internal ones.
+  internalUrlPattern: string
   featureFlags: FeatureFlagsType
   lightTheme: ThemeType
   // Translations deviating from the standard integreat translations.

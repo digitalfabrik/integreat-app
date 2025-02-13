@@ -27,7 +27,7 @@ type CityContentHeaderProps = {
   cityModel: CityModel
   route: RouteType
   languageCode: string
-  languageChangePaths: Array<{ code: string; path: string | null; name: string }> | null
+  languageChangePaths: { code: string; path: string | null; name: string }[] | null
 }
 
 const CityContentHeader = ({
@@ -80,7 +80,7 @@ const CityContentHeader = ({
     />,
   ]
 
-  const getNavigationItems = (): Array<ReactElement> => {
+  const getNavigationItems = (): ReactElement[] => {
     const isNewsVisible = buildConfig().featureFlags.newsStream && (localNewsEnabled || tunewsEnabled)
     const isEventsVisible = eventsEnabled
     const isPoisVisible = buildConfig().featureFlags.pois && poisEnabled
@@ -90,7 +90,7 @@ const CityContentHeader = ({
       return []
     }
 
-    const items: Array<ReactElement> = [
+    const items: ReactElement[] = [
       <HeaderNavigationItem
         key='categories'
         to={categoriesPath}
@@ -99,6 +99,18 @@ const CityContentHeader = ({
         icon={CategoriesIcon}
       />,
     ]
+
+    if (isPoisVisible) {
+      items.push(
+        <HeaderNavigationItem
+          key='locations'
+          to={poisPath}
+          active={route === POIS_ROUTE}
+          text={t('locations')}
+          icon={POIsIcon}
+        />,
+      )
+    }
 
     if (isNewsVisible) {
       items.push(
@@ -120,18 +132,6 @@ const CityContentHeader = ({
           active={route === EVENTS_ROUTE}
           text={t('events')}
           icon={CalendarIcon}
-        />,
-      )
-    }
-
-    if (isPoisVisible) {
-      items.push(
-        <HeaderNavigationItem
-          key='locations'
-          to={poisPath}
-          active={route === POIS_ROUTE}
-          text={t('locations')}
-          icon={POIsIcon}
         />,
       )
     }

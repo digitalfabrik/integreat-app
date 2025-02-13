@@ -48,7 +48,7 @@ type FeedbackProps = {
   contactMail: string
   onCommentChanged: (comment: string) => void
   onContactMailChanged: (contactMail: string) => void
-  onFeedbackChanged: (isPositiveFeedback: boolean | null) => void
+  onFeedbackChanged?: (isPositiveFeedback: boolean | null) => void
   onSubmit: () => void
   sendingStatus: SendingStatusType
   noResults: boolean | undefined
@@ -99,7 +99,7 @@ const Feedback = ({
           </InputSection>
         </>
       ) : (
-        <FeedbackButtons isPositive={isPositiveFeedback} onRatingChange={onFeedbackChanged} />
+        onFeedbackChanged && <FeedbackButtons isPositive={isPositiveFeedback} onRatingChange={onFeedbackChanged} />
       )}
 
       <InputSection
