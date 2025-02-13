@@ -1120,7 +1120,6 @@
       "optional": "optional",
       "back": "Zurück",
       "ok": "Ok",
-      "openCalendar": "Kalender öffnen",
       "privacyPolicy": "Ich habe die <1>Datenschutzerklärung</1> gelesen und stimme der Verarbeitung und Speicherung meiner Daten zu.",
       "privacyPolicyLink": "Datenschutzerklärung"
     },
@@ -1235,7 +1234,6 @@
       "optional": "optional",
       "back": "Back",
       "ok": "Ok",
-      "openCalendar": "Open calendar",
       "privacyPolicy": "I have read the <1>privacy policy</1> and agree to the processing and storage of my data.",
       "privacyPolicyLink": "privacy policy"
     },
