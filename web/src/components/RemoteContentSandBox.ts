@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 
-import { ExternalLinkIcon } from '../assets'
+import { ExternalLinkIcon, PersonIcon } from '../assets'
 import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
 
@@ -142,6 +142,41 @@ const RemoteContentSandBox = styled.div<{ $centered: boolean; $smallText: boolea
   .iframe-source {
     display: contents;
     font-weight: bold;
+  }
+
+  .contact-card {
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 16px;
+    border-radius: 4px;
+    background-repeat: no-repeat;
+    background-color: rgb(127 127 127 / 15%);
+    background-image: linear-gradient(to right, rgb(255 255 255 / 90%) 0 100%), url(${PersonIcon});
+    background-blend-mode: difference;
+    background-position:
+      calc(100% + 32px) 100%,
+      calc(100% + 24px) calc(100% + 24px);
+    background-size: 104px;
+    box-shadow: 0 1px 1px rgb(0 0 0 / 40%);
+    min-width: 72%;
+
+    p {
+      margin-top: 4px;
+      margin-bottom: 0;
+    }
+
+    h4 {
+      margin-bottom: 12px;
+      margin-top: 0;
+    }
+
+    img {
+      margin-inline-end: 8px;
+    }
+
+    @media ${dimensions.smallViewport} {
+      width: 100%;
+    }
   }
 
   #opt-in-settings-link {

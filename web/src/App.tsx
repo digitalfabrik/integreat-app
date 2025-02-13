@@ -17,6 +17,8 @@ import { initSentry } from './utils/sentry'
 
 const GlobalStyle = createGlobalStyle`
   body {
+    position: relative;
+  
     /* Styling for react-tooltip: https://react-tooltip.com/docs/getting-started#styling */
     --rt-color-dark: ${props => props.theme.colors.textSecondaryColor};
     --rt-color-white: ${props => props.theme.colors.backgroundColor};

@@ -42,12 +42,14 @@ import NewsIcon from '../../../assets/icons/news.svg'
 import NoteIcon from '../../../assets/icons/note.svg'
 import PauseIcon from '../../../assets/icons/pause.svg'
 import PdfIcon from '../../../assets/icons/pdf.svg'
+import PersonIcon from '../../../assets/icons/person.svg'
 import PetIcon from '../../../assets/icons/pet.svg'
 import PhoneIcon from '../../../assets/icons/phone.svg'
 import PlayIcon from '../../../assets/icons/play.svg'
 import PlaybackIcon from '../../../assets/icons/playback.svg'
 import POIsIcon from '../../../assets/icons/pois.svg'
 import ReadAloudIcon from '../../../assets/icons/readAloud.svg'
+import RefreshIcon from '../../../assets/icons/refresh.svg'
 import SadSmileyIcon from '../../../assets/icons/sad-smiley.svg'
 import SearchIcon from '../../../assets/icons/search.svg'
 import SecurityIcon from '../../../assets/icons/security.svg'
@@ -116,6 +118,8 @@ export {
   POIsIcon,
   PoiThumbnailPlaceholder,
   PoiThumbnailPlaceholderLarge,
+  PersonIcon,
+  RefreshIcon,
   ReadAloudIcon,
   SadSmileyIcon,
   SearchIcon,
