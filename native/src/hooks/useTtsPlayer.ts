@@ -1,7 +1,6 @@
 import { useContext, useLayoutEffect, useState } from 'react'
-import segment from 'sentencex'
 
-import { parseHTML } from 'shared'
+import { addingPeriodsToDom, segmentation } from 'shared'
 import { LocalNewsModel, PageModel, TunewsModel } from 'shared/api'
 
 import { TtsContext, TtsContextType } from '../components/TtsContainer'
@@ -15,8 +14,7 @@ const useTtsPlayer = (model?: PageModel | LocalNewsModel | TunewsModel | undefin
 
   useLayoutEffect(() => {
     if (model && model.content.length > 0) {
-      const content = parseHTML(model.content)
-      const sentences: string[] = segment(languageCode, content)
+      const sentences: string[] = segmentation(languageCode, addingPeriodsToDom(model.content))
       setSentences([model.title, ...sentences].filter(sentence => sentence.length > 0))
     } else {
       setSentences([])

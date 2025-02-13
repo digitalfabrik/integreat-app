@@ -1,31 +1,54 @@
 import EasySpeech from 'easy-speech'
-import React, { ReactElement, useEffect, useRef, useState } from 'react'
+import React, { createContext, ReactElement, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { MAX_TITLE_DISPLAY_CHARS } from 'shared'
+import { TTS_MAX_TITLE_DISPLAY_CHARS } from 'shared'
 import { truncate } from 'shared/utils/getExcerpt'
 
-import useTtsPlayer from '../hooks/useTtsPlayer'
+import buildConfig from '../constants/buildConfig'
 import { reportError } from '../utils/sentry'
 import TtsPlayer from './TtsPlayer'
 
-type TtsContainerProps = {
-  languageCode: string
+export type TtsContextType = {
+  enabled?: boolean
+  canRead: boolean
+  visible: boolean
+  setVisible: (visible: boolean) => void
+  sentences: string[]
+  setSentences: (sentences: string[]) => void
 }
 
-const TtsContainer = ({ languageCode }: TtsContainerProps): ReactElement | null => {
+export const TtsContext = createContext<TtsContextType>({
+  enabled: false,
+  canRead: false,
+  visible: false,
+  setVisible: () => undefined,
+  sentences: [],
+  setSentences: () => undefined,
+})
+
+type TtsContainerProps = {
+  languageCode: string
+  children: ReactElement
+}
+
+const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactElement | null => {
   const { t } = useTranslation('layout')
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
-  const { sentences, setSentences, visible, setVisible, enabled } = useTtsPlayer()
+  const [visible, setVisible] = useState(false)
+  const [sentences, setSentences] = useState<string[]>([])
   const [currentSentencesIndex, setCurrentSentenceIndex] = useState<number>(0)
   const [showHelpModal, setShowHelpModal] = useState(false)
+  const [isReachedBottom, setIsReachedBottom] = useState(false)
   const title = sentences[0] || t('nothingToRead')
-  const shortTitle = truncate(title, { maxChars: MAX_TITLE_DISPLAY_CHARS })
+  const shortTitle = truncate(title, { maxChars: TTS_MAX_TITLE_DISPLAY_CHARS })
   const userAgent = navigator.userAgent.toLowerCase()
   const isAndroid = /android/i.test(userAgent)
   const isFirefoxAndLinux = userAgent.includes('firefox') && userAgent.includes('linux')
   const onEndGuard = useRef(true)
   const fallbackTimer = 1000
+  const enabled = buildConfig().featureFlags.tts
+  const canRead = enabled && sentences.length > 1
 
   useEffect(() => {
     if (!enabled && !visible) {
@@ -34,6 +57,19 @@ const TtsContainer = ({ languageCode }: TtsContainerProps): ReactElement | null 
 
     EasySpeech.init({ maxTimeout: 5000, interval: 250 }).catch(reportError)
   }, [enabled, visible])
+
+  useEffect(() => {
+    // This is to detect the bottom and move the player above the bottom nav
+    const onScroll = () => {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+        setIsReachedBottom(true)
+      } else {
+        setIsReachedBottom(false)
+      }
+    }
+    window.addEventListener('scroll', onScroll)
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   const resetOnEnd = () => {
     setCurrentSentenceIndex(0)
@@ -65,6 +101,7 @@ const TtsContainer = ({ languageCode }: TtsContainerProps): ReactElement | null 
         text: String(sentences[index]),
         voice: selectedVoice,
         volume: 0.6,
+        rate: 0.8,
         end: () => {
           if (onEndGuard.current) {
             setCurrentSentenceIndex((prevIndex: number) => {
@@ -154,18 +191,35 @@ const TtsContainer = ({ languageCode }: TtsContainerProps): ReactElement | null 
     setIsPlaying(false)
   }
 
+  const ttsContextValue = useMemo(
+    () => ({
+      enabled,
+      canRead,
+      visible,
+      setVisible,
+      sentences,
+      setSentences,
+    }),
+    [enabled, canRead, visible, sentences],
+  )
+
   return (
-    <TtsPlayer
-      playPrevious={playPrevious}
-      close={close}
-      playNext={playNext}
-      isPlaying={isPlaying}
-      isVisible={visible}
-      setShowHelpModal={setShowHelpModal}
-      showHelpModal={showHelpModal}
-      togglePlayPause={togglePlayPause}
-      title={shortTitle}
-    />
+    <TtsContext.Provider value={ttsContextValue}>
+      {children}
+      {visible && (
+        <TtsPlayer
+          playPrevious={playPrevious}
+          close={close}
+          playNext={playNext}
+          isPlaying={isPlaying}
+          setShowHelpModal={setShowHelpModal}
+          showHelpModal={showHelpModal}
+          togglePlayPause={togglePlayPause}
+          title={shortTitle}
+          isReachedBottom={isReachedBottom}
+        />
+      )}
+    </TtsContext.Provider>
   )
 }
 

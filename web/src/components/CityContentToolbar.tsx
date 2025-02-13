@@ -24,7 +24,7 @@ type CityContentToolbarProps = {
   isInBottomActionSheet?: boolean
 }
 
-const COPY_TIMEOUT = 3000
+const TOOLTIP_TIMEOUT = 3000
 
 const CityContentToolbar = (props: CityContentToolbarProps) => {
   const { viewportSmall } = useWindowDimensions()
@@ -46,14 +46,14 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
     setLinkCopied(true)
     setTimeout(() => {
       setLinkCopied(false)
-    }, COPY_TIMEOUT)
+    }, TOOLTIP_TIMEOUT)
   }
 
   const showTtsWarning = () => {
     setTtsToolTip(true)
     setTimeout(() => {
       setTtsToolTip(false)
-    }, COPY_TIMEOUT)
+    }, TOOLTIP_TIMEOUT)
   }
 
   const theme = useTheme()
@@ -69,6 +69,7 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
           setTtsPlayerVisible(true)
         } else {
           showTtsWarning()
+          setTtsPlayerVisible(false)
         }
       }}
       id='read-aloud-icon'

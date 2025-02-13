@@ -1,6 +1,5 @@
 import { fireEvent } from '@testing-library/react'
 import React from 'react'
-import { MemoryRouter } from 'react-router-dom'
 
 import { renderWithTheme } from '../../testing/render'
 import RemoteContent from '../RemoteContent'
@@ -18,15 +17,9 @@ describe('RemoteContent', () => {
 
   beforeEach(jest.resetAllMocks)
 
-  const WrappedRemoteContent = ({ html }: { html: string }) => (
-    <MemoryRouter>
-      <RemoteContent html={html} />
-    </MemoryRouter>
-  )
-
   it('should render the html content', () => {
     const content = 'Test html'
-    const { getByText } = renderWithTheme(<WrappedRemoteContent html={`<div>${content}</div>`} />)
+    const { getByText } = renderWithTheme(<RemoteContent html={`<div>${content}</div>`} />)
     expect(getByText(content)).toBeTruthy()
   })
 
@@ -35,7 +28,7 @@ describe('RemoteContent', () => {
     const href = `https://integreat.app${path}`
     const html = `<a href=${href}>Test Anchor</a>`
 
-    const { getByRole, getAllByRole } = renderWithTheme(<WrappedRemoteContent html={html} />)
+    const { getByRole, getAllByRole } = renderWithTheme(<RemoteContent html={html} />)
 
     expect(getAllByRole('link')).toHaveLength(1)
     fireEvent.click(getByRole('link'))
@@ -49,7 +42,7 @@ describe('RemoteContent', () => {
     const href = 'https://example.com/'
     const html = `<a href=${href} class="link-external">Test Anchor</a>`
 
-    const { getByRole, getAllByRole } = renderWithTheme(<WrappedRemoteContent html={html} />)
+    const { getByRole, getAllByRole } = renderWithTheme(<RemoteContent html={html} />)
 
     expect(getAllByRole('link')).toHaveLength(1)
     fireEvent.click(getByRole('link'))
@@ -64,7 +57,7 @@ describe('RemoteContent', () => {
     const iframeTitle = 'unknown'
     const html = `<iframe title=${iframeTitle} src=${src} />`
 
-    const { getByTitle } = renderWithTheme(<WrappedRemoteContent html={html} />)
+    const { getByTitle } = renderWithTheme(<RemoteContent html={html} />)
 
     expect(getByTitle(iframeTitle)).toHaveAttribute('src', 'about:blank')
   })
@@ -74,7 +67,7 @@ describe('RemoteContent', () => {
     const iframeTitle = 'vimeo'
     const html = `<iframe title=${iframeTitle} src=${src} />`
 
-    const { getAllByRole } = renderWithTheme(<WrappedRemoteContent html={html} />)
+    const { getAllByRole } = renderWithTheme(<RemoteContent html={html} />)
 
     expect(getAllByRole('checkbox')).toHaveLength(1)
   })
@@ -85,7 +78,7 @@ describe('RemoteContent', () => {
     const iframeTitle = 'vimeo'
     const html = `<iframe title=${iframeTitle} src=${src} />`
 
-    const { getByRole, getAllByRole, getByTitle } = renderWithTheme(<WrappedRemoteContent html={html} />)
+    const { getByRole, getAllByRole, getByTitle } = renderWithTheme(<RemoteContent html={html} />)
 
     expect(getAllByRole('checkbox')).toHaveLength(1)
     fireEvent.click(getByRole('checkbox'))
@@ -98,7 +91,7 @@ describe('RemoteContent', () => {
 
     const content =
       '<div><p>Ich bleib aber da.<iframe//src=jAva&Tab;script:alert(3)>def</p><math><mi//xlink:href="data:x,<script>alert(4)</script>">'
-    const { getByText } = renderWithTheme(<WrappedRemoteContent html={`<div>${content}</div>`} />)
+    const { getByText } = renderWithTheme(<RemoteContent html={`<div>${content}</div>`} />)
 
     expect(alertSpy).not.toHaveBeenCalled()
     // window.alert is not implemented in jsdom and upon calling it an error message is logged to the console.

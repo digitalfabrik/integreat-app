@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode } from 'react'
+import React, { CSSProperties, ReactElement, ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 
@@ -41,7 +41,7 @@ const StyledIcon = styled(Icon)`
   display: flex;
 `
 
-const StyledDiv = styled.div`
+const TitleContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -52,7 +52,7 @@ const StyledDiv = styled.div`
 type ModalProps = {
   title: string
   icon?: ReactElement
-  style?: React.CSSProperties
+  style?: CSSProperties
   children: ReactNode
   closeModal: () => void
   small: boolean
@@ -64,10 +64,10 @@ const ModalContent = ({ title, icon, style, closeModal, children, small }: Modal
   return (
     <Container style={style}>
       <Header $small={small}>
-        <StyledDiv>
+        <TitleContainer>
           {icon}
           <span>{title}</span>
-        </StyledDiv>
+        </TitleContainer>
         <CloseButton label={t('close')} onClick={closeModal}>
           <StyledIcon src={small ? ArrowBackIcon : CloseIcon} directionDependent />
         </CloseButton>

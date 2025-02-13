@@ -1,7 +1,7 @@
 import FocusTrap from 'focus-trap-react'
 import React, { ReactElement, ReactNode, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled, { useTheme } from 'styled-components'
+import styled, { CSSProperties, useTheme } from 'styled-components'
 
 import dimensions from '../constants/dimensions'
 import useLockedBody from '../hooks/useLockedBody'
@@ -30,11 +30,6 @@ const ModalContainer = styled.div`
   justify-content: center;
 `
 
-type ModalContentStyling = {
-  backgroundColor?: string
-  borderRadius?: number
-}
-
 const ModalContentContainer = styled.div`
   position: relative;
   display: flex;
@@ -50,13 +45,13 @@ const ModalContentContainer = styled.div`
 type ModalProps = {
   title: string
   icon?: ReactElement
-  style?: ModalContentStyling
+  contentStyle?: CSSProperties
   children: ReactNode
   closeModal: () => void
   wrapInPortal?: boolean
 }
 
-const Modal = ({ title, icon, style, closeModal, children, wrapInPortal = false }: ModalProps): ReactElement => {
+const Modal = ({ title, icon, contentStyle, closeModal, children, wrapInPortal = false }: ModalProps): ReactElement => {
   const { viewportSmall } = useWindowDimensions()
   const { t } = useTranslation('common')
   useScrollToTop()
@@ -79,7 +74,7 @@ const Modal = ({ title, icon, style, closeModal, children, wrapInPortal = false 
           <div />
         </Overlay>
         <ModalContentContainer>
-          <ModalContent title={title} style={style} icon={icon} closeModal={closeModal} small={viewportSmall}>
+          <ModalContent title={title} style={contentStyle} icon={icon} closeModal={closeModal} small={viewportSmall}>
             {children}
           </ModalContent>
         </ModalContentContainer>

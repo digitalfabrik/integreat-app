@@ -1,6 +1,6 @@
 import React, { ReactElement, Suspense, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes, useMatch } from 'react-router-dom'
 
 import {
   CITY_NOT_COOPERATING_ROUTE,
@@ -24,7 +24,6 @@ import { cityContentPattern, RoutePatterns } from './routes'
 import CityNotCooperatingPage from './routes/CityNotCooperatingPage'
 import ConsentPage from './routes/ConsentPage'
 import JpalTrackingPage from './routes/JpalTrackingPage'
-import { DetectedLanguageHelper } from './utils/DetectedLanguageHelper'
 import lazyWithRetry from './utils/retryImport'
 
 type RootSwitcherProps = {
@@ -39,10 +38,11 @@ const LicensesPage = lazyWithRetry(() => import('./routes/LicensesPage'))
 const RootSwitcher = ({ setContentLanguage }: RootSwitcherProps): ReactElement => {
   const { i18n } = useTranslation()
   const { fixedCity, cityNotCooperating, jpalTracking } = buildConfig().featureFlags
-  const { language, routeParam0, splat } = DetectedLanguageHelper()
+  const { routeParam0, routeParam1, '*': splat } = useMatch('/:routeParam0/:routeParam1/*')?.params ?? {}
   useScrollToTop()
 
   const detectedLanguageCode = i18n.language
+  const language = routeParam1 ?? detectedLanguageCode
 
   useEffect(() => {
     if (language !== detectedLanguageCode) {

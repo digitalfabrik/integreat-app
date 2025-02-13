@@ -6,7 +6,6 @@ import { MemoryRouter } from 'react-router-dom'
 
 import { PageModel } from 'shared/api'
 
-import TtsContextProvider from '../../contexts/TtsContextProvider'
 import useTtsPlayer from '../../hooks/useTtsPlayer'
 import { renderWithTheme } from '../../testing/render'
 import TtsContainer from '../TtsContainer'
@@ -28,6 +27,7 @@ describe('TtsPlayer', () => {
     text,
     voice: { lang: 'en-US' },
     volume: 0.6,
+    rate: 0.8,
     end: expect.any(Function),
   })
 
@@ -52,12 +52,9 @@ describe('TtsPlayer', () => {
   const renderTtsPlayer = () =>
     renderWithTheme(
       <MemoryRouter>
-        <TtsContextProvider>
-          <>
-            <TestChild />
-            <TtsContainer languageCode='en' />
-          </>
-        </TtsContextProvider>
+        <TtsContainer languageCode='en'>
+          <TestChild />
+        </TtsContainer>
       </MemoryRouter>,
     )
 
@@ -92,7 +89,7 @@ describe('TtsPlayer', () => {
 
     expect(playButton).toBeInTheDocument()
 
-    expect(EasySpeech.speak).toHaveBeenCalledWith(expect.objectContaining(testTtsObject('undefined')))
+    expect(EasySpeech.speak).toHaveBeenCalledWith(expect.objectContaining(testTtsObject('test.')))
     fireEvent.click(screen.getByRole('button', { name: 'layout:pause' }))
     expect(EasySpeech.pause).toHaveBeenCalled()
     await waitFor(() => expect(screen.getByRole('button', { name: 'layout:play' })).toBeTruthy())

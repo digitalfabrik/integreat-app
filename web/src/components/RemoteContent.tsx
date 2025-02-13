@@ -8,7 +8,6 @@ import { ExternalSourcePermissions } from 'shared'
 import buildConfig from '../constants/buildConfig'
 import useLocalStorage from '../hooks/useLocalStorage'
 import useWindowDimensions from '../hooks/useWindowDimensions'
-import { DetectedLanguageHelper } from '../utils/DetectedLanguageHelper'
 import {
   LOCAL_STORAGE_ITEM_EXTERNAL_SOURCES,
   handleAllowedIframeSources,
@@ -17,7 +16,6 @@ import {
 } from '../utils/iframes'
 import openLink from '../utils/openLink'
 import RemoteContentSandBox from './RemoteContentSandBox'
-import TtsContainer from './TtsContainer'
 
 type RemoteContentProps = {
   html: string
@@ -111,18 +109,14 @@ const RemoteContent = ({ html, centered = false, smallText = false }: RemoteCont
     }),
   }
 
-  const language = DetectedLanguageHelper().language
   return (
-    <>
-      <RemoteContentSandBox
-        dir='auto'
-        $centered={centered}
-        dangerouslySetInnerHTML={dangerouslySetInnerHTML}
-        ref={sandBoxRef}
-        $smallText={smallText}
-      />
-      <TtsContainer languageCode={language} />
-    </>
+    <RemoteContentSandBox
+      dir='auto'
+      $centered={centered}
+      dangerouslySetInnerHTML={dangerouslySetInnerHTML}
+      ref={sandBoxRef}
+      $smallText={smallText}
+    />
   )
 }
 

@@ -1,11 +1,11 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
 import styled, { useTheme } from 'styled-components'
 
-import { BookIcon, WarningIcon } from '../assets'
+import { BookIcon, ExternalLinkIcon, WarningIcon } from '../assets'
 import Modal from './Modal'
 import Icon from './base/Icon'
+import Link from './base/Link'
 
 const StyledLink = styled(Link)`
   display: flex;
@@ -17,12 +17,12 @@ const StyledLink = styled(Link)`
 `
 
 const ModalContent = styled.div`
-  padding: 0 16px 16px 48px;
+  padding: ${props => (props.theme.contentDirection === 'rtl' ? '0 48px 16px 16px' : '0 16px 16px 48px')};
 `
 
 const StyledWarningText = styled.div`
   font-family: ${props => props.theme.fonts.web.contentFont};
-  font-size: 12px;
+  font-size: 16px;
   width: 72%;
   margin: 12px 0;
 `
@@ -41,6 +41,10 @@ const StyledList = styled.div`
   gap: 8px;
 `
 
+const StyledExternalIcon = styled(Icon)`
+  height: 12px;
+  width: 12px;
+`
 const helpItemsData = [
   {
     title: 'Windows',
@@ -53,11 +57,6 @@ const helpItemsData = [
     path: 'https://support.apple.com/guide/mac-help/change-the-voice-your-mac-uses-to-speak-text-mchlp2290/mac',
   },
   {
-    title: 'Ubuntu',
-    icon: BookIcon,
-    path: 'https://github.com/Elleo/pied?tab=readme-ov-file',
-  },
-  {
     title: 'Android',
     icon: BookIcon,
     path: 'https://support.google.com/accessibility/android/answer/6006983?hl=en&sjid=9301509494880612166-EU',
@@ -67,13 +66,19 @@ const helpItemsData = [
     icon: BookIcon,
     path: 'https://support.apple.com/en-us/HT202362',
   },
+  {
+    title: 'Linux',
+    icon: BookIcon,
+    path: 'https://github.com/Elleo/pied?tab=readme-ov-file',
+  },
 ]
 
 const HelpModalItem = ({ icon, title, path }: { icon: string; title: string; path: string }) => (
   <div>
-    <StyledLink to={path} target='_blank' rel='noreferrer'>
+    <StyledLink to={path}>
       <Icon src={icon} />
       <StyledText>{title}</StyledText>
+      <StyledExternalIcon src={ExternalLinkIcon} />
     </StyledLink>
   </div>
 )
@@ -83,15 +88,15 @@ const TtsHelpModal = ({ closeModal }: { closeModal: () => void }): ReactElement 
   const { t } = useTranslation('layout')
   return (
     <Modal
-      style={{ borderRadius: 5, backgroundColor: theme.colors.ttsPlayerWarningBackground }}
-      title={t('languageNotSupported')}
+      contentStyle={{ borderRadius: 5, backgroundColor: theme.colors.ttsPlayerWarningBackground }}
+      title={t('voiceUnavailable')}
       icon={<StyledWarningIcon src={WarningIcon} />}
       closeModal={closeModal}>
       <ModalContent>
         <StyledWarningText>{t('voiceUnavailableMessage')}</StyledWarningText>
         <StyledList>
-          {helpItemsData.map((item, index) => (
-            <HelpModalItem key={`guide${index + 1}`} title={item.title} icon={item.icon} path={item.path} />
+          {helpItemsData.map(item => (
+            <HelpModalItem key={item.title} title={item.title} icon={item.icon} path={item.path} />
           ))}
         </StyledList>
       </ModalContent>

@@ -6495,8 +6495,8 @@
       "next": "Weiter",
       "play": "Abspielen",
       "pause": "Pause",
-      "languageNotSupported": "Sprache nicht unterstützt",
-      "voiceUnavailableMessage": "Diese Stimme ist im Moment nicht verfügbar; für die ausgewählte Sprache ist eine Installation erforderlich."
+      "voiceUnavailable": "Keine Stimme installiert",
+      "voiceUnavailableMessage": "Es scheint, dass keine Stimme installiert ist. Um den Inhalt lesen zu können, ist es notwendig, eine Stimme zu installieren. Bitte beachten Sie die Anweisungen für Ihr Betriebssystem unten."
     },
     "am": {
       "imprintAndContact": "ዕትም እና የግንኙነት መረጃ",
@@ -6558,8 +6558,8 @@
       "next": "التالي",
       "play": "تشغيل",
       "pause": "إيقاف",
-      "languageNotSupported": "اللغة غير مدعومة",
-      "voiceUnavailableMessage": "هذا الصوت غير متاح في الوقت الحالي؛ يتطلب تثبيت اللغة المختارة."
+      "voiceUnavailable": "الصوت غير مثبت",
+      "voiceUnavailableMessage": "يبدو أنه لم يتم تثبيت صوت. لكي تتمكن من قراءة المحتوى، من الضروري تثبيت صوت. الرجاء مراجعة التعليمات الخاصة بنظام التشغيل أدناه."
     },
     "bg": {
       "imprintAndContact": "Импресум и контакт",
@@ -6721,8 +6721,8 @@
       "next": "Next",
       "play": "Play",
       "pause": "Pause",
-      "languageNotSupported": "Language not supported",
-      "voiceUnavailableMessage": "This voice is currently unavailable; installation is required for the selected language."
+      "voiceUnavailable": "No voice installed",
+      "voiceUnavailableMessage": "It seems like there is no voice installed. To be able to read the content, it is necessary that you install a voice. Please refer to the instructions for your operating system below."
     },
     "es": {
       "imprintAndContact": "Aviso legal y contacto",

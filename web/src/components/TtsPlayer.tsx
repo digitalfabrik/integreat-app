@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled, { useTheme } from 'styled-components'
+import styled from 'styled-components'
 
 import { CloseIcon, PauseIcon, PlaybackIcon, PlayIcon } from '../assets'
 import dimensions from '../constants/dimensions'
@@ -8,7 +8,7 @@ import TtsHelpModal from './TtsHelpModal'
 import Button from './base/Button'
 import Icon from './base/Icon'
 
-const StyledTtsPlayer = styled.dialog<{ $isPlaying: boolean }>`
+const StyledTtsPlayer = styled.dialog<{ $isPlaying: boolean; $isReachedBottom: boolean }>`
   background-color: ${props => props.theme.colors.ttsPlayerBackground};
   border-radius: 28px;
   width: 388px;
@@ -17,14 +17,15 @@ const StyledTtsPlayer = styled.dialog<{ $isPlaying: boolean }>`
   justify-content: center;
   align-items: center;
   padding: 8px;
-  position: sticky;
-  bottom: 4px;
+  position: fixed;
+  bottom: 10%;
   min-height: 92px;
-  gap: ${props => (props.$isPlaying ? '4px;' : '12px')};
+  gap: ${props => (props.$isPlaying ? '4px;' : '36px')};
   border-color: transparent;
 
   @media ${dimensions.smallViewport} {
     width: 88%;
+    bottom: ${props => (props.$isReachedBottom ? '10' : '5')}%;
   }
 `
 
@@ -35,6 +36,7 @@ const StyledPanel = styled.div<{ $isPlaying?: boolean }>`
   align-items: center;
   gap: 20px;
   margin: ${props => (props.$isPlaying ? verticalMargin : 0)}px 0;
+  flex-direction: ${props => (props.theme.contentDirection === 'rtl' ? 'row-reverse' : 'row')};
 `
 
 const BaseButton = styled(Button)`
@@ -70,10 +72,6 @@ const PlayButtonIcon = styled(Icon)`
   color: ${props => props.theme.colors.ttsPlayerBackground};
 `
 
-const BackForthIcon = styled(Icon)<{ $flip: boolean }>`
-  transform: ${props => (props.$flip ? 'scaleX(-1)' : '')};
-`
-
 const StyledText = styled.span`
   font-weight: bold;
 `
@@ -103,73 +101,65 @@ const CloseView = styled.div`
 type TtsPlayerProps = {
   showHelpModal: boolean
   setShowHelpModal: (show: boolean) => void
-  isVisible: boolean
   isPlaying: boolean
   playPrevious: () => void
   playNext: () => void
   close: () => void
   title: string
   togglePlayPause: () => void
+  isReachedBottom: boolean
 }
 
 const TtsPlayer = ({
   showHelpModal,
   setShowHelpModal,
-  isVisible,
   isPlaying,
   playPrevious,
   playNext,
   close,
   title,
   togglePlayPause,
-}: TtsPlayerProps): ReactElement | null => {
+  isReachedBottom,
+}: TtsPlayerProps): ReactElement => {
   const { t } = useTranslation('layout')
-  const theme = useTheme()
-
-  if (isVisible) {
-    return (
-      <>
-        {showHelpModal && (
-          <TtsHelpModal
-            closeModal={() => {
-              setShowHelpModal(false)
-              togglePlayPause()
-            }}
-          />
-        )}
-        <StyledTtsPlayer $isPlaying={isPlaying}>
-          <StyledPanel
-            $isPlaying={isPlaying}
-            style={{ flexDirection: theme.contentDirection === 'rtl' ? 'row-reverse' : 'row' }}>
-            {isPlaying && (
-              <StyledBackForthButton label={t('previous')} onClick={playPrevious}>
-                <StyledText>{t('previous')}</StyledText>
-                <BackForthIcon $flip src={PlaybackIcon} />
-              </StyledBackForthButton>
-            )}
-            <StyledPlayIcon label={t(isPlaying ? 'pause' : 'play')} onClick={togglePlayPause}>
-              <PlayButtonIcon src={isPlaying ? PauseIcon : PlayIcon} />
-            </StyledPlayIcon>
-            {isPlaying && (
-              <StyledBackForthButton label={t('next')} onClick={playNext}>
-                <BackForthIcon $flip={false} src={PlaybackIcon} />
-                <StyledText>{t('next')}</StyledText>
-              </StyledBackForthButton>
-            )}
-          </StyledPanel>
-          <CloseView>
-            {!isPlaying && <StyledPlayerHeaderText>{title}</StyledPlayerHeaderText>}
-            <CloseButton label={t('common:close')} onClick={close}>
-              <Icon src={CloseIcon} />
-              <StyledText>{t('common:close')}</StyledText>
-            </CloseButton>
-          </CloseView>
-        </StyledTtsPlayer>
-      </>
-    )
-  }
-
-  return null
+  return (
+    <>
+      {showHelpModal && (
+        <TtsHelpModal
+          closeModal={() => {
+            setShowHelpModal(false)
+            togglePlayPause()
+          }}
+        />
+      )}
+      <StyledTtsPlayer $isPlaying={isPlaying} $isReachedBottom={isReachedBottom}>
+        <StyledPanel $isPlaying={isPlaying}>
+          {isPlaying && (
+            <StyledBackForthButton label={t('previous')} onClick={playPrevious}>
+              <StyledText>{t('previous')}</StyledText>
+              <Icon reverse src={PlaybackIcon} />
+            </StyledBackForthButton>
+          )}
+          <StyledPlayIcon label={t(isPlaying ? 'pause' : 'play')} onClick={togglePlayPause}>
+            <PlayButtonIcon src={isPlaying ? PauseIcon : PlayIcon} />
+          </StyledPlayIcon>
+          {isPlaying && (
+            <StyledBackForthButton label={t('next')} onClick={playNext}>
+              <Icon src={PlaybackIcon} />
+              <StyledText>{t('next')}</StyledText>
+            </StyledBackForthButton>
+          )}
+        </StyledPanel>
+        <CloseView>
+          {!isPlaying && <StyledPlayerHeaderText>{title}</StyledPlayerHeaderText>}
+          <CloseButton label={t('common:close')} onClick={close}>
+            <Icon src={CloseIcon} />
+            <StyledText>{t('common:close')}</StyledText>
+          </CloseButton>
+        </CloseView>
+      </StyledTtsPlayer>
+    </>
+  )
 }
 
 export default TtsPlayer

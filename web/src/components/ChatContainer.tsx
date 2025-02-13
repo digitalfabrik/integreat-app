@@ -24,6 +24,7 @@ const ChatButtonContainer = styled.button`
   @media ${dimensions.smallViewport} {
     bottom: 85px;
     inset-inline-end: 12px;
+    z-index: 2;
   }
 `
 
