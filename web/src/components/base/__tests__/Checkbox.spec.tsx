@@ -9,6 +9,7 @@ describe('Checkbox', () => {
     jest.clearAllMocks()
   })
   const setChecked = jest.fn()
+
   it('should select checkbox on press', () => {
     const { getByRole } = renderWithTheme(
       <Checkbox checked={false} setChecked={setChecked} label='send' id='checkbox' />,

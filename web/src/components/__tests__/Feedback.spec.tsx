@@ -64,7 +64,7 @@ describe('Feedback', () => {
 
   it('note should be shown for no rating and no input', () => {
     const { getByText } = renderWithTheme(<Feedback {...buildProps({ language: 'en' })} />)
-    expect(getByText('feedback:note')).toBeTruthy()
+    expect(getByText('feedback:noteFillFeedback')).toBeTruthy()
   })
 
   it('button should not be enabled if privacy policy not accepted', () => {

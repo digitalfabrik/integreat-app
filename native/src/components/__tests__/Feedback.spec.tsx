@@ -54,7 +54,7 @@ describe('Feedback', () => {
     expect(getByText('send')).toBeDisabled()
     expect(queryByText('searchTermDescription')).toBeFalsy()
     expect(getByText('headline')).toBeTruthy()
-    expect(getByText('note')).toBeTruthy()
+    expect(getByText('noteFillFeedback')).toBeTruthy()
   })
 
   it('button should be enabled for search feedback and no input', async () => {
@@ -67,7 +67,7 @@ describe('Feedback', () => {
 
     expect(getByText('send')).not.toBeDisabled()
     expect(getByText('searchTermDescription')).toBeTruthy()
-    expect(queryByText('note')).toBeFalsy()
+    expect(queryByText('noteFillFeedback')).toBeFalsy()
   })
 
   it('button should be enabled for positive feedback and no input', async () => {
