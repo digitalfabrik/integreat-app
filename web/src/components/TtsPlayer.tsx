@@ -66,6 +66,7 @@ const StyledBackForthButton = styled(Button)`
   flex-direction: row;
   gap: 4px;
   align-items: flex-end;
+  flex-direction: ${props => (props.theme.contentDirection === 'rtl' ? 'row-reverse' : 'row')};
 `
 
 const PlayButtonIcon = styled(Icon)`

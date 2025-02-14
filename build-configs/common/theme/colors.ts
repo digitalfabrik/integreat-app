@@ -39,7 +39,7 @@ export const commonLightColors = {
   warningColor: '#FFA726',
   linkColor: '#0b57d0',
   ttsPlayerWarningBackground: '#fffde6',
-  ttsPlayerWarningColor: 'rgba(249, 124, 0, 1)',
+  ttsPlayerWarningColor: '#f97c00',
   ttsPlayerBackground: '#dedede',
   ttsPlayerPlayIconColor: '#232323',
 }
