@@ -25,7 +25,7 @@ const getReleaseIdBody = async ({ deliverinoPrivateKey, owner, repo, platform }:
   const result = releases.data.find(release => release.tag_name.includes(platform))
   if (result && result.prerelease) {
     console.log('Unset prerelease tag of ', result.tag_name)
-    return { id: result.id, body: result.body }
+    return result
   }
 
   console.log('No release found to unset the prerelease tag for. Latest release may already be non-prerelease')
@@ -34,19 +34,19 @@ const getReleaseIdBody = async ({ deliverinoPrivateKey, owner, repo, platform }:
 
 const removePreRelease = async ({ deliverinoPrivateKey, owner, repo, platform }: Options) => {
   const release = await getReleaseIdBody({ deliverinoPrivateKey, owner, repo, platform })
-  if (release?.id !== null) {
-    const appOctokit = await authenticate({ deliverinoPrivateKey, owner, repo })
-    const result = await appOctokit.rest.repos.updateRelease({
-      owner,
-      repo,
-      release_id: release?.id,
-      prerelease: false,
-      make_latest: platform === 'android' ? 'true' : 'false', // We always want android to be the latest release, so a link to the latest github release will go to the apk
-    })
-    console.log('Http response code of updating the result: ', result.status)
-    return `The most recent beta version was promoted to production:\n ${release?.body}`
+  if (!release) {
+    return null
   }
-  return null
+  const appOctokit = await authenticate({ deliverinoPrivateKey, owner, repo })
+  const result = await appOctokit.rest.repos.updateRelease({
+    owner,
+    repo,
+    release_id: Number(release?.id),
+    prerelease: false,
+    make_latest: platform === 'android' ? 'true' : 'false', // We always want android to be the latest release, so a link to the latest github release will go to the apk
+  })
+  console.log('Http response code of updating the result: ', result.status)
+  return release
 }
 
 program
@@ -61,9 +61,11 @@ program
   .requiredOption('--platform <platform>')
   .action(async (options: Options) => {
     try {
-      const promotionContext = await removePreRelease(options)
-      if (promotionContext) {
-        console.log(JSON.stringify(promotionContext))
+      const promotedRelease = await removePreRelease(options)
+      if (promotedRelease) {
+        console.log(
+          `The most recent beta version was promoted to production:\n[${promotedRelease.name}](${promotedRelease.html_url})`,
+        )
       }
     } catch (e) {
       console.error(e)
