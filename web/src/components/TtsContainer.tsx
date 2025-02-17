@@ -6,6 +6,7 @@ import { TTS_MAX_TITLE_DISPLAY_CHARS } from 'shared'
 import { truncate } from 'shared/utils/getExcerpt'
 
 import buildConfig from '../constants/buildConfig'
+import useDetectBottomWhileScroll from '../hooks/useDetectBottomWhileScroll'
 import { reportError } from '../utils/sentry'
 import TtsPlayer from './TtsPlayer'
 
@@ -39,7 +40,6 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
   const [sentences, setSentences] = useState<string[]>([])
   const [currentSentencesIndex, setCurrentSentenceIndex] = useState<number>(0)
   const [showHelpModal, setShowHelpModal] = useState(false)
-  const [isReachedBottom, setIsReachedBottom] = useState(false)
   const title = sentences[0] || t('nothingToRead')
   const shortTitle = truncate(title, { maxChars: TTS_MAX_TITLE_DISPLAY_CHARS })
   const userAgent = navigator.userAgent.toLowerCase()
@@ -49,6 +49,7 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
   const fallbackTimer = 1000
   const enabled = buildConfig().featureFlags.tts
   const canRead = enabled && sentences.length > 1
+  const { isReachedBottom } = useDetectBottomWhileScroll()
 
   useEffect(() => {
     if (!enabled && !visible) {
@@ -57,19 +58,6 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
 
     EasySpeech.init({ maxTimeout: 5000, interval: 250 }).catch(reportError)
   }, [enabled, visible])
-
-  useEffect(() => {
-    // This is to detect the bottom and move the player above the bottom nav
-    const onScroll = () => {
-      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-        setIsReachedBottom(true)
-      } else {
-        setIsReachedBottom(false)
-      }
-    }
-    window.addEventListener('scroll', onScroll)
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
 
   const resetOnEnd = () => {
     setCurrentSentenceIndex(0)
