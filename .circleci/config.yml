@@ -130,7 +130,7 @@ commands:
                     - 1-gradle-{{ checksum "native/android/build.gradle" }}-{{ checksum "native/android/app/build.gradle" }}-{{ checksum "native/android/settings.gradle" }}
                     - 1-gradle-
             - run:
-                command: bundle exec fastlane dependencies
+                command: bundle exec fastlane android dependencies
                 name: '[FL] Download Dependencies'
                 working_directory: native/android
             - save_cache:
@@ -285,12 +285,12 @@ jobs:
                 command: yes | sdkmanager --licenses || if [ $? -ne '141' ]; then exit $?; fi;
                 name: Accept Android SDK Licenses
             - run:
-                command: bundle exec fastlane keystore
+                command: bundle exec fastlane android keystore
                 name: '[FL] Prepare Android Keystore'
                 working_directory: native/android
             - run:
-                command: ./gradlew clean && bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:<< parameters.build_config_name >>
-                name: '[FL] << parameters.build_config_name >> build'
+                command: bundle exec fastlane android build build_config_name:<< parameters.build_config_name >> version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+                name: '[FL] << parameters.build_config_name >> Android Build'
                 working_directory: native/android
             - run:
                 command: |
@@ -373,8 +373,8 @@ jobs:
                 directory: native/ios
             - restore_cocoa_pods_cache
             - run:
-                command: bundle exec fastlane build version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE} build_config_name:<< parameters.build_config_name >>
-                name: '[FL] << parameters.build_config_name >> build'
+                command: bundle exec fastlane ios build build_config_name:<< parameters.build_config_name >> version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
+                name: '[FL] << parameters.build_config_name >> iOS Build'
                 working_directory: native/ios
             - run:
                 command: |
@@ -561,13 +561,13 @@ jobs:
                 command: yarn --cwd tools manage-metadata prepare-metadata << parameters.build_config_name >> playstore
                 name: Prepare Play Store metadata
             - run:
-                command: bundle exec fastlane browserstack_upload_live path:attached_workspace/<< parameters.build_config_name >>.apk
+                command: bundle exec fastlane browserstack_upload path:attached_workspace/<< parameters.build_config_name >>.apk
                 name: '[FL] Browserstack Upload Live'
                 working_directory: native
             - run:
                 command: bundle exec fastlane android playstore_upload build_config_name:<< parameters.build_config_name >> aab_path:attached_workspace/<< parameters.build_config_name >>.aab production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
-                name: '[FL] Play Store Upload'
-                working_directory: native
+                name: '[FL] Google PlayStore Upload'
+                working_directory: native/android
             - notify
     deliver_ios:
         environment:
@@ -600,7 +600,7 @@ jobs:
                 command: yarn --cwd tools manage-metadata prepare-metadata << parameters.build_config_name >> appstore
                 name: Prepare App Store metadata
             - run:
-                command: bundle exec fastlane browserstack_upload_live path:attached_workspace/<< parameters.build_config_name >>.ipa
+                command: bundle exec fastlane browserstack_upload path:attached_workspace/<< parameters.build_config_name >>.ipa
                 name: '[FL] Browserstack Upload Live'
                 working_directory: native
             - when:
@@ -608,15 +608,15 @@ jobs:
                 steps:
                     - run:
                         command: bundle exec fastlane ios appstoreconnect_upload ipa_path:attached_workspace/<< parameters.build_config_name >>.ipa version_name:${NEW_VERSION_NAME} build_config_name:<< parameters.build_config_name >>
-                        name: '[FL] App Store Connect Upload'
-                        working_directory: native
+                        name: '[FL] Apple AppStoreConnect Upload'
+                        working_directory: native/ios
             - unless:
                 condition: << parameters.production_delivery >>
                 steps:
                     - run:
                         command: bundle exec fastlane ios testflight_upload build_config_name:<< parameters.build_config_name >> ipa_path:attached_workspace/<< parameters.build_config_name >>.ipa
-                        name: '[FL] TestFlight Upload'
-                        working_directory: native
+                        name: '[FL] Apple TestFlight Upload'
+                        working_directory: native/ios
             - notify
     deliver_web:
         docker:
@@ -712,7 +712,7 @@ jobs:
             - restore_ruby_cache:
                 directory: native
             - run:
-                command: bundle exec fastlane android browserstack_e2e_tests apk_path:attached_workspace/integreat-e2e.apk
+                command: bundle exec fastlane e2e_tests platform:android path:attached_workspace/integreat-e2e.apk
                 name: '[FL] Android E2E Tests on Browserstack'
                 working_directory: native
             - notify
@@ -731,7 +731,7 @@ jobs:
             - restore_ruby_cache:
                 directory: native
             - run:
-                command: bundle exec fastlane ios browserstack_e2e_tests ipa_path:attached_workspace/integreat-e2e.ipa
+                command: bundle exec fastlane e2e_tests platform:ios path:attached_workspace/integreat-e2e.ipa
                 name: '[FL] iOS E2E Tests on Browserstack'
                 working_directory: native
             - notify
@@ -896,8 +896,8 @@ jobs:
                 directory: native
             - run:
                 command: bundle exec fastlane android playstore_promote build_config_name:<< parameters.build_config_name >>
-                name: '[FL] Play Store Promotion'
-                working_directory: native
+                name: '[FL] Google PlayStore Promotion'
+                working_directory: native/android
             - run:
                 command: yarn github-promote-release promote --platform android --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME}
                 name: Remove prerelease flag from github release
@@ -927,8 +927,8 @@ jobs:
                 directory: native
             - run:
                 command: bundle exec fastlane ios appstoreconnect_promote build_config_name:<< parameters.build_config_name >>
-                name: '[FL] App Store Connect Promotion'
-                working_directory: native
+                name: '[FL] Apple AppStoreConnect Promotion'
+                working_directory: native/ios
             - run:
                 command: yarn github-promote-release promote --platform ios --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME}
                 name: Remove prerelease flag from github release
@@ -1049,7 +1049,7 @@ jobs:
                     file="attached_workspace/<< parameters.file_name >>"
                     file_with_commit_sha="${file%.*}_<< pipeline.git.revision >>.${file##*.}"
                     cp ~/$file ~/$file_with_commit_sha
-                    bundle exec fastlane browserstack_upload_live path:$file_with_commit_sha
+                    bundle exec fastlane browserstack_upload path:$file_with_commit_sha
                 name: '[FL] Browserstack Upload Live'
                 working_directory: native
             - notify
