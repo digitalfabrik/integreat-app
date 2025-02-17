@@ -1,5 +1,7 @@
 import React, { ReactElement } from 'react'
 
-export default ({ src, alt, ...props }: { src: string; alt: string }): ReactElement => (
-  <img id={src} alt={alt} {...props} />
+export default ({ src, title, ...props }: { src: string; title: string }): ReactElement => (
+  <svg id={src} role='img' {...props}>
+    <title>{title}</title>
+  </svg>
 )

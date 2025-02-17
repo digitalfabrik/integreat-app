@@ -1,22 +1,19 @@
 import { act } from '@testing-library/react'
-import { mocked } from 'jest-mock'
 import React from 'react'
 
 import ChatMessageModel from 'shared/api/models/ChatMessageModel'
 
 import { renderWithRouterAndTheme } from '../../testing/render'
 import ChatConversation from '../ChatConversation'
-import ChatMessage from '../ChatMessage'
 
 jest.mock('react-i18next')
+jest.mock('react-inlinesvg')
+
 window.HTMLElement.prototype.scrollIntoView = jest.fn()
 jest.useFakeTimers()
 
 const render = (messages: ChatMessageModel[], hasError: boolean) =>
   renderWithRouterAndTheme(<ChatConversation messages={messages} hasError={hasError} />)
-
-jest.mock('../ChatMessage')
-mocked(ChatMessage).mockImplementation(jest.requireActual('../ChatMessage').default)
 
 describe('ChatConversation', () => {
   const testMessages: ChatMessageModel[] = [
@@ -45,16 +42,47 @@ describe('ChatConversation', () => {
       automaticAnswer: false,
     }),
   ]
+  const testMessages2: ChatMessageModel[] = [
+    new ChatMessageModel({
+      id: 1,
+      body: 'Human Message 1',
+      userIsAuthor: false,
+      automaticAnswer: false,
+    }),
+    new ChatMessageModel({
+      id: 2,
+      body: 'Bot Message 1',
+      userIsAuthor: false,
+      automaticAnswer: true,
+    }),
+    new ChatMessageModel({
+      id: 3,
+      body: 'Author Message 1',
+      userIsAuthor: true,
+      automaticAnswer: false,
+    }),
+    new ChatMessageModel({
+      id: 4,
+      body: 'Human Message 2',
+      userIsAuthor: false,
+      automaticAnswer: false,
+    }),
+    new ChatMessageModel({
+      id: 5,
+      body: 'Human Message 3',
+      userIsAuthor: false,
+      automaticAnswer: false,
+    }),
+  ]
 
   it('should display welcome text if conversation has not started', () => {
-    const { getByText, debug } = render([], false)
-    debug()
+    const { getByText } = render([], false)
     expect(getByText('chat:conversationTitle')).toBeTruthy()
     expect(getByText('chat:conversationText')).toBeTruthy()
   })
 
   it('should display messages if conversation has started and the initial message', () => {
-    const { getByText, getByTestId, getByAltText } = render(testMessages, false)
+    const { getByText, getByTestId } = render(testMessages, false)
     expect(getByText('chat:initialMessage')).toBeTruthy()
     expect(getByTestId(testMessages[0]!.id)).toBeTruthy()
     expect(getByTestId(testMessages[2]!.id)).toBeTruthy()
@@ -65,7 +93,7 @@ describe('ChatConversation', () => {
     expect(getByTestId(testMessages[0]!.id)).toBeTruthy()
     expect(getByText('...')).toBeTruthy()
     expect(getByTestId(testMessages[1]!.id)).toBeTruthy()
-    expect(getByAltText('chat:my-alt-tag')).toBeTruthy()
+    expect(getByText('chat:humanIcon')).toBeTruthy()
     expect(getByText('...')).toBeTruthy()
 
     act(() => jest.runAllTimers())
@@ -80,8 +108,40 @@ describe('ChatConversation', () => {
   })
 
   it('should display error messages if error occurs', () => {
-    const { getByText, debug } = render([], true)
-    debug()
+    const { getByText } = render([], true)
     expect(getByText('chat:errorMessage')).toBeTruthy()
+  })
+
+  it('should display icon after isAutomaticAnswer changes', () => {
+    const { getAllByRole } = render(testMessages2, false)
+
+    const icons = getAllByRole('img')
+    expect(icons).toHaveLength(4)
+    const parents: (HTMLElement | null | undefined)[] = []
+    const grandparents: (HTMLElement | null | undefined)[] = []
+    icons.forEach((icon, index) => {
+      parents[index] = icon.parentElement
+      grandparents[index] = icon.parentElement?.parentElement
+    })
+
+    expect(icons[0]?.textContent).toMatch(/humanIcon/)
+    expect(grandparents[0]).not.toBeNull()
+    expect(grandparents[0]?.textContent).toMatch(/Human Message 1/)
+    expect(parents[0]).toHaveStyle(`opacity: 1`)
+
+    expect(icons[1]?.textContent).toMatch(/botIcon/)
+    expect(grandparents[1]).not.toBeNull()
+    expect(grandparents[1]?.textContent).toMatch(/Bot Message 1/)
+    expect(parents[1]).toHaveStyle(`opacity: 1`)
+
+    expect(icons[2]?.textContent).toMatch(/humanIcon/)
+    expect(grandparents[2]).not.toBeNull()
+    expect(grandparents[2]?.textContent).toMatch(/Human Message 2/)
+    expect(parents[2]).toHaveStyle(`opacity: 1`)
+
+    expect(icons[3]?.textContent).toMatch(/humanIcon/)
+    expect(grandparents[3]).not.toBeNull()
+    expect(grandparents[3]?.textContent).toMatch(/Human Message 3/)
+    expect(parents[3]).toHaveStyle(`opacity: 0`)
   })
 })
