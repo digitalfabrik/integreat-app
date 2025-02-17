@@ -84,7 +84,10 @@ const ChatConversation = ({ messages, hasError, className }: ChatConversationPro
             <ChatMessage
               message={message}
               key={message.id}
-              showIcon={messages[index - 1]?.userIsAuthor !== message.userIsAuthor || messages[index - 1]?.isAutomaticAnswer !== message.isAutomaticAnswer}
+              showIcon={
+                messages[index - 1]?.userIsAuthor !== message.userIsAuthor ||
+                messages[index - 1]?.isAutomaticAnswer !== message.isAutomaticAnswer
+              }
             />
           ))}
           <TypingIndicator isVisible={typingIndicatorVisible} />
