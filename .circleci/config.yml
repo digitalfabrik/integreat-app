@@ -902,8 +902,8 @@ jobs:
                 command: |
                     PROMOTION_MESSAGE=$(yarn github-promote-release promote --platform android --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME})
                     echo "export PROMOTION_MESSAGE='${PROMOTION_MESSAGE}'" >> $BASH_ENV
-                    working_directory: tools
                 name: Remove prerelease flag from github release
+                working_directory: tools
             - notify:
                 success_message: ${PROMOTION_MESSAGE}
             - persist_environment_variables
@@ -937,8 +937,8 @@ jobs:
                 command: |
                     PROMOTION_MESSAGE=$(yarn github-promote-release promote --platform ios --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME})
                     echo "export PROMOTION_MESSAGE='${PROMOTION_MESSAGE}'" >> $BASH_ENV
-                    working_directory: tools
                 name: Remove prerelease flag from github release
+                working_directory: tools
             - notify:
                 success_message: ${PROMOTION_MESSAGE}
             - persist_environment_variables
@@ -970,8 +970,8 @@ jobs:
                 command: |
                     PROMOTION_MESSAGE=$(yarn github-promote-release promote --platform web --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME})
                     echo "export PROMOTION_MESSAGE='${PROMOTION_MESSAGE}'" >> $BASH_ENV
-                    working_directory: tools
                 name: Remove prerelease flag from github release
+                working_directory: tools
             - notify:
                 success_message: ${PROMOTION_MESSAGE}
             - persist_environment_variables
