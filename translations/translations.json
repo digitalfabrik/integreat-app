@@ -1124,7 +1124,8 @@
       "optional": "optional",
       "back": "Zurück",
       "ok": "Ok",
-      "openCalendar": "Kalender öffnen"
+      "privacyPolicy": "Ich habe die <1>Datenschutzerklärung</1> gelesen und stimme der Verarbeitung und Speicherung meiner Daten zu.",
+      "privacyPolicyLink": "Datenschutzerklärung"
     },
     "am": {
       "copied": "ተቀድቷል",
@@ -1237,7 +1238,8 @@
       "optional": "optional",
       "back": "Back",
       "ok": "Ok",
-      "openCalendar": "Open calendar"
+      "privacyPolicy": "I have read the <1>privacy policy</1> and agree to the processing and storage of my data.",
+      "privacyPolicyLink": "privacy policy"
     },
     "es": {
       "copied": "Copiado",
@@ -4767,7 +4769,8 @@
       "positiveRating": "Diese Seite ist hilfreich",
       "searchTermDescription": "Für den folgenden Begriff konnte kein Ergebnis gefunden werden:",
       "contactMailAddress": "E-Mail für Rückfragen",
-      "note": "Bitte wähle eine Reaktion oder schreibe einen Kommentar, um das Feedback abschicken zu können."
+      "noteFillFeedback": "Bitte wähle eine Reaktion oder schreibe einen Kommentar, um das Feedback abschicken zu können.",
+      "notePrivacyPolicy": "Bitte stimme der Datenschutzerklärung zu, um das Feedback abschicken zu können."
     },
     "am": {
       "disclaimer": "የግንኙነት መረጃና ዕትም",
@@ -4790,7 +4793,7 @@
       "positiveRating": "ይህ ገጽ ጠቃሚ ነው",
       "searchTermDescription": "ለሚከተለው ቃል ምንም ውጤት ሊገኝ አልቻለም፡",
       "contactMailAddress": "ለጥያቄዎች ኢሜይል",
-      "note": "ግብረመልስ ለመላክ፣ እባክዎ ምላሽ ይምረጡ ወይም አስተያየት ይጻፉ።"
+      "noteFillFeedback": "ግብረመልስ ለመላክ፣ እባክዎ ምላሽ ይምረጡ ወይም አስተያየት ይጻፉ።"
     },
     "ar": {
       "disclaimer": "جهة الاتصال وهيئة التحرير",
@@ -4813,7 +4816,7 @@
       "positiveRating": "هذه الصفحة مفيدة",
       "searchTermDescription": "لم يتم العثور على أي نتيجة للمصطلح التالي:",
       "contactMailAddress": "البريد الإلكتروني للاستفسارات",
-      "note": "الرجاء اختيار رد فعل أو كتابة تعليق، كي يمكنك إرسال الرأي."
+      "noteFillFeedback": "الرجاء اختيار رد فعل أو كتابة تعليق، كي يمكنك إرسال الرأي."
     },
     "bg": {
       "disclaimer": "Контакт и импресум",
@@ -4836,7 +4839,7 @@
       "positiveRating": "Тази страница е полезна",
       "searchTermDescription": "За следващия термин не беше намерен резултат:",
       "contactMailAddress": "Имейл за запитвания",
-      "note": "Моля, избери реакция или напиши коментар, за да можеш да изпратиш обратна връзка."
+      "noteFillFeedback": "Моля, избери реакция или напиши коментар, за да можеш да изпратиш обратна връзка."
     },
     "ckb": {
       "disclaimer": "زانیارییەکانی پەیوەندی و ناوەندی بڵاوکەرەوە",
@@ -4859,7 +4862,7 @@
       "positiveRating": "ئەم لاپەڕەیە بەکەڵکە",
       "searchTermDescription": "بۆ ئەم دەستەواژەیەی خوارەوە هیچ دەرئەنجامێک نەدۆزراوە.",
       "contactMailAddress": "ئیمەیل بۆ پرسیارەکان",
-      "note": "تکایە کارانەوەیەک هەڵبژێرە یان بۆ ناردنی کاردانەوە کۆمێنت دابنێ."
+      "noteFillFeedback": "تکایە کارانەوەیەک هەڵبژێرە یان بۆ ناردنی کاردانەوە کۆمێنت دابنێ."
     },
     "cs": {
       "disclaimer": "Kontakt a impresum",
@@ -4882,7 +4885,7 @@
       "positiveRating": "Tato stránka je užitečná",
       "searchTermDescription": "Pro následující termín se nepodařilo najít žádný výsledek:",
       "contactMailAddress": "E-mail pro dotazy",
-      "note": "Vyberte reakci nebo napište komentář, abyste mohli odeslat zpětnou vazbu."
+      "noteFillFeedback": "Vyberte reakci nebo napište komentář, abyste mohli odeslat zpětnou vazbu."
     },
     "da": {
       "disclaimer": "Kontakt og kolofon",
@@ -4905,7 +4908,7 @@
       "positiveRating": "Denne side er nyttig",
       "searchTermDescription": "Der blev ikke fundet noget resultat for det følgende udtryk:",
       "contactMailAddress": "E-mail til forespørgsler",
-      "note": "Vælg en reaktion eller skriv en kommentar for at kunne sende feedback."
+      "noteFillFeedback": "Vælg en reaktion eller skriv en kommentar for at kunne sende feedback."
     },
     "el": {
       "disclaimer": "Στοιχεία έκδοσης και επικοινωνία",
@@ -4928,7 +4931,7 @@
       "positiveRating": "Αυτή η σελίδα είναι χρήσιμη",
       "searchTermDescription": "Δεν βρέθηκε αποτέλεσμα για τον ακόλουθο όρο:",
       "contactMailAddress": "E-mail για ερωτήσεις",
-      "note": "Παρακαλούμε επιλέξτε μια αντίδραση ή γράψτε ένα σχόλιο για να μπορέσετε να στείλετε το σχόλιο."
+      "noteFillFeedback": "Παρακαλούμε επιλέξτε μια αντίδραση ή γράψτε ένα σχόλιο για να μπορέσετε να στείλετε το σχόλιο."
     },
     "en": {
       "disclaimer": "Contacts and imprint",
@@ -4951,7 +4954,8 @@
       "positiveRating": "This site is useful",
       "searchTermDescription": "No result could be found for the following term:",
       "contactMailAddress": "E-Mail for further questions",
-      "note": "Please select a reaction or write a comment in order to send feedback."
+      "noteFillFeedback": "Please select a reaction or write a comment in order to send feedback.",
+      "notePrivacyPolicy": "Please agree to the privacy policy in order to send feedback."
     },
     "es": {
       "disclaimer": "Contacto y aviso legal",
@@ -4974,7 +4978,7 @@
       "positiveRating": "Esta página sirve de ayuda",
       "searchTermDescription": "No se ha encontrado ningún resultado para el siguiente término:",
       "contactMailAddress": "Correo electrónico para consultas",
-      "note": "Selecciona una reacción o escribe un comentario para poder enviar la opinión."
+      "noteFillFeedback": "Selecciona una reacción o escribe un comentario para poder enviar la opinión."
     },
     "fi": {
       "disclaimer": "Yhteys- ja julkaisutiedot",
@@ -4997,7 +5001,7 @@
       "positiveRating": "Tämä sivu on hyödyllinen",
       "searchTermDescription": "Seuraavalle käsitteelle ei löytynyt tulosta:",
       "contactMailAddress": "Sähköpostiosoite tiedusteluita varten",
-      "note": "Valitse reaktio tai kirjoita kommentti, jotta voit lähettää palautteen."
+      "noteFillFeedback": "Valitse reaktio tai kirjoita kommentti, jotta voit lähettää palautteen."
     },
     "fr": {
       "disclaimer": "Contact et mentions légales",
@@ -5020,7 +5024,7 @@
       "positiveRating": "Cette page est utile",
       "searchTermDescription": "Aucun résultat n’a été trouvé pour le terme suivant :",
       "contactMailAddress": "E-mail en cas de question",
-      "note": "Choisis une réaction ou écris un commentaire pour pouvoir envoyer le commentaire."
+      "noteFillFeedback": "Choisis une réaction ou écris un commentaire pour pouvoir envoyer le commentaire."
     },
     "hr": {
       "disclaimer": "Kontakt i impresum",
@@ -5043,7 +5047,7 @@
       "positiveRating": "Ova stranica je korisna",
       "searchTermDescription": "Za sljedeći pojam nije bilo moguće pronaći rezultat:",
       "contactMailAddress": "E-pošta za povratna pitanja",
-      "note": "Izaberi reakciju ili napiši komentar za slanje povratnih informacija."
+      "noteFillFeedback": "Izaberi reakciju ili napiši komentar za slanje povratnih informacija."
     },
     "hu": {
       "disclaimer": "Elérhetőség és impresszum",
@@ -5066,7 +5070,7 @@
       "positiveRating": "Ez az oldal hasznos",
       "searchTermDescription": "A következő kifejezésre nem talált eredményt:",
       "contactMailAddress": "E-mail visszajelzések számára",
-      "note": "Válasszon ki egy reakciót vagy írjon egy megjegyzést, hogy elküldhesse a visszajelzést."
+      "noteFillFeedback": "Válasszon ki egy reakciót vagy írjon egy megjegyzést, hogy elküldhesse a visszajelzést."
     },
     "it": {
       "disclaimer": "Contatti e impressum",
@@ -5089,7 +5093,7 @@
       "positiveRating": "Questa pagina è utile",
       "searchTermDescription": "Non è stato possibile trovare alcun risultato per il termine seguente:",
       "contactMailAddress": "E-mail per chiarimenti",
-      "note": "Seleziona una reazione o scrivi un commento per poter inviare il feedback."
+      "noteFillFeedback": "Seleziona una reazione o scrivi un commento per poter inviare il feedback."
     },
     "ka": {
       "disclaimer": "საკონტაქტო ინფორმაცია და მისამართი",
@@ -5112,7 +5116,7 @@
       "positiveRating": "ეს გვერდი ეხმარება",
       "searchTermDescription": "შემდეგი ცნებისთვის ვერ მოიძებნა შედეგები:",
       "contactMailAddress": "ელექტრონული ფოსტა შეკითხვებისათვის",
-      "note": "გთხოვ აირჩიე რეაქცია ან დაწერე კომენტარი, რათა შენი უკუკავშირის გაგზავნა შეძლო."
+      "noteFillFeedback": "გთხოვ აირჩიე რეაქცია ან დაწერე კომენტარი, რათა შენი უკუკავშირის გაგზავნა შეძლო."
     },
     "kmr": {
       "disclaimer": "Lêzanînên Weşîner û Têkillî",
@@ -5135,7 +5139,7 @@
       "positiveRating": "Ev rûpel sûdmend e",
       "searchTermDescription": "Ji bo bêjeya xwarê ti encamek nehat dîtin:",
       "contactMailAddress": "Email jibo pirsan",
-      "note": "Ji kerema xwe fîdbekekê bibijêre an ji bo şandina fîdbekê nêrînekê binivîse."
+      "noteFillFeedback": "Ji kerema xwe fîdbekekê bibijêre an ji bo şandina fîdbekê nêrînekê binivîse."
     },
     "mk": {
       "disclaimer": "Контакт и импресум",
@@ -5158,7 +5162,7 @@
       "positiveRating": "Оваа страница ми помогна",
       "searchTermDescription": "Не може да се најде резултат за следниот термин:",
       "contactMailAddress": "Е-адреса за прашања",
-      "note": "Изберете реакција или напишете коментар за да испратите мислење."
+      "noteFillFeedback": "Изберете реакција или напишете коментар за да испратите мислење."
     },
     "nl": {
       "disclaimer": "Contactgegevens en impressum",
@@ -5181,7 +5185,7 @@
       "positiveRating": "Deze website is nuttig.",
       "searchTermDescription": "Voor de volgende term kon geen resultaat worden gevonden:",
       "contactMailAddress": "Stuur een email voor overige vragen.",
-      "note": "Selecteer een reactie of schrijf een opmerking om de feedback te kunnen versturen."
+      "noteFillFeedback": "Selecteer een reactie of schrijf een opmerking om de feedback te kunnen versturen."
     },
     "orm": {
       "disclaimer": "Quunnamtii fi ashaaraa",
@@ -5204,7 +5208,7 @@
       "positiveRating": "Marsariitiin kun faayidaa qaba",
       "searchTermDescription": "Kanneen armaan gadiitiif deebiin hin jiru:",
       "contactMailAddress": "Gaaffii dabalataaf Imelii godhaa",
-      "note": "Duub deebii erguuf jecha deebii filadhaa ykn yaada barreessaa."
+      "noteFillFeedback": "Duub deebii erguuf jecha deebii filadhaa ykn yaada barreessaa."
     },
     "pes": {
       "disclaimer": "اطلاعات ناشر و تماس",
@@ -5227,7 +5231,7 @@
       "positiveRating": "این صفحه مفید است",
       "searchTermDescription": "هیچ نتیجه‌ای برای عبارت زیر یافت نشد:",
       "contactMailAddress": "ایمیل برای سئوالات",
-      "note": "لطفاً یک واکنش را انتخاب کنید یا برای ارسال بازخورد نظری بنویسید."
+      "noteFillFeedback": "لطفاً یک واکنش را انتخاب کنید یا برای ارسال بازخورد نظری بنویسید."
     },
     "pl": {
       "disclaimer": "Kontakt i nota prawna",
@@ -5250,7 +5254,7 @@
       "positiveRating": "Ta strona jest pomocna",
       "searchTermDescription": "Brak wyników wyszukiwania dla następującego słowa:",
       "contactMailAddress": "E-mail do zapytań",
-      "note": "Wybierz reakcję lub napisz komentarz, aby móc wysłać opinię."
+      "noteFillFeedback": "Wybierz reakcję lub napisz komentarz, aby móc wysłać opinię."
     },
     "prs": {
       "disclaimer": "تماس و چاپ",
@@ -5273,7 +5277,7 @@
       "positiveRating": "این صفحه موثر است",
       "searchTermDescription": "هیچ نتیجه ای برای عبارت ذيل یافت نشد:",
       "contactMailAddress": "ایمیل برای سوالات",
-      "note": "لطفاً برای ارسال نظر، یک واکنش را انتخاب کرده یا یک نظر بنویسید."
+      "noteFillFeedback": "لطفاً برای ارسال نظر، یک واکنش را انتخاب کرده یا یک نظر بنویسید."
     },
     "ps": {
       "disclaimer": "د لټون",
@@ -5296,7 +5300,7 @@
       "positiveRating": "دا پاڼه ګټوره ده",
       "searchTermDescription": "د لاندې اصطلاح لپاره کومه پايله ونه موندل شوه:",
       "contactMailAddress": "د پوښتنو لپاره بریښنالیک",
-      "note": "د نظر د استولو لپاره، د مهربانۍ له مخې يو عکس العمل غوره يا يو نظر وليکئ."
+      "noteFillFeedback": "د نظر د استولو لپاره، د مهربانۍ له مخې يو عکس العمل غوره يا يو نظر وليکئ."
     },
     "pt": {
       "disclaimer": "Contactos e pé de imprensa",
@@ -5319,7 +5323,7 @@
       "positiveRating": "Esta página é útil",
       "searchTermDescription": "Não foi possível encontrar qualquer resultado para o termo seguinte:",
       "contactMailAddress": "Endereço de correio eletrónico para pedidos de informação",
-      "note": "Seleccione uma reação ou escreva um comentário para poder enviar o feedback."
+      "noteFillFeedback": "Seleccione uma reação ou escreva um comentário para poder enviar o feedback."
     },
     "ro": {
       "disclaimer": "Contact și caseta tehnică",
@@ -5342,7 +5346,7 @@
       "positiveRating": "Această pagină este utilă",
       "searchTermDescription": "Nu s-a putut găsi niciun rezultat pentru termenul următor:",
       "contactMailAddress": "E-mail pentru întrebări ulterioare",
-      "note": "Vă rugăm să selectați o reacție sau să scrieți un comentariu pentru a putea trimite feedback-ul."
+      "noteFillFeedback": "Vă rugăm să selectați o reacție sau să scrieți un comentariu pentru a putea trimite feedback-ul."
     },
     "rom": {
       "disclaimer": "Kontaktia thaj otpečatokoja",
@@ -5388,7 +5392,7 @@
       "positiveRating": "Эта страница содержит полезную информацию",
       "searchTermDescription": "Не удалось найти результаты для следующего термина:",
       "contactMailAddress": "Эл. почта для встречных вопросов",
-      "note": "Чтобы отправить отзыв, пожалуйста, выбери реакцию или напиши комментарий."
+      "noteFillFeedback": "Чтобы отправить отзыв, пожалуйста, выбери реакцию или напиши комментарий."
     },
     "sk": {
       "disclaimer": "Kontakt a tiráž",
@@ -5411,7 +5415,7 @@
       "positiveRating": "Táto stránka je nápomocná",
       "searchTermDescription": "Pre nasledujúci pojem nebolo možné nájsť žiadny výsledok:",
       "contactMailAddress": "E-mail pre spätné otázky",
-      "note": "Vyberte reakciu alebo napíšte komentár, aby ste mohli odoslať spätnú väzbu."
+      "noteFillFeedback": "Vyberte reakciu alebo napíšte komentár, aby ste mohli odoslať spätnú väzbu."
     },
     "so": {
       "disclaimer": "Macluumaadka xiriirka iyo faahfaahinta qoraaga",
@@ -5434,7 +5438,7 @@
       "positiveRating": "Boggan waa mid waxtar badan",
       "searchTermDescription": "Wax natiijo ah oo quseyso eraygan soo socda lama heli karo:",
       "contactMailAddress": "I-meelka weydiimaha",
-      "note": "Fadlan door falcelin ama faallo qor si aad u gudbiso jawaab celinta."
+      "noteFillFeedback": "Fadlan door falcelin ama faallo qor si aad u gudbiso jawaab celinta."
     },
     "sq": {
       "disclaimer": "Kontakti dhe botuesi",
@@ -5457,7 +5461,7 @@
       "positiveRating": "Kjo faqe është e dobishme",
       "searchTermDescription": "Nuk u gjet asnjë rezultat për këtë term:",
       "contactMailAddress": "E-mail për pyetje",
-      "note": "Zgjidh një reagim ose shkruaj një koment që të mund të dërgosh përshtypjet."
+      "noteFillFeedback": "Zgjidh një reagim ose shkruaj një koment që të mund të dërgosh përshtypjet."
     },
     "sr-Cyrl": {
       "disclaimer": "Контакт и импресум",
@@ -5480,7 +5484,7 @@
       "positiveRating": "Ова страница је корисна",
       "searchTermDescription": "За следећи појам није било могуће пронаћи резултат:",
       "contactMailAddress": "Е-пошта за питања",
-      "note": "Изабери реакцију или напиши коментар за слање повратних информација."
+      "noteFillFeedback": "Изабери реакцију или напиши коментар за слање повратних информација."
     },
     "sr-Latn": {
       "disclaimer": "Kontakt i impresum",
@@ -5503,7 +5507,7 @@
       "positiveRating": "Ova stranica je od pomoći",
       "searchTermDescription": "Za sledeći pojam nije bilo moguće pronaći rezultat:",
       "contactMailAddress": "E-pošta za pitanja",
-      "note": "Izaberi reakciju ili napiši komentar za slanje povratnih informacija."
+      "noteFillFeedback": "Izaberi reakciju ili napiši komentar za slanje povratnih informacija."
     },
     "ti": {
       "disclaimer": "ናይ ርክብ ሓበሬታን ናይ ደራሲ ዝርዝራት ሓበሬታን",
@@ -5526,7 +5530,7 @@
       "positiveRating": "እዚ ገጽ’ዚ ሓጋዚ እዩ",
       "searchTermDescription": "ነዚ ዝስዕብ ቃል ዝኾነ ውጽኢት ኣይተረኽበን፤",
       "contactMailAddress": "ኢመይል ንሕቶታት",
-      "note": "ርእይቶኹም ንምቕራብ ግብረ መልሲ ምረጹ ወይ ርእይቶ ጽሓፉ።"
+      "noteFillFeedback": "ርእይቶኹም ንምቕራብ ግብረ መልሲ ምረጹ ወይ ርእይቶ ጽሓፉ።"
     },
     "tr": {
       "disclaimer": "İletişim ve künye",
@@ -5549,7 +5553,7 @@
       "positiveRating": "Bu sayfa yardımcı oldu",
       "searchTermDescription": "Bu kavram için hiçbir sonuç bulunamadı:",
       "contactMailAddress": "Sorularınız için e-posta",
-      "note": "Geri bildirimi gönderebilmek için lütfen bir tepki seç veya bir yorum yaz."
+      "noteFillFeedback": "Geri bildirimi gönderebilmek için lütfen bir tepki seç veya bir yorum yaz."
     },
     "uk": {
       "disclaimer": "Контакт та імпресум",
@@ -5572,7 +5576,7 @@
       "positiveRating": "Ця сторінка корисна",
       "searchTermDescription": "Для наступного терміну не вдалося знайти жодного результату:",
       "contactMailAddress": "Електронна пошта для запитів",
-      "note": "Виберіть реакцію або напишіть коментар, щоб мати можливість надіслати відгук."
+      "noteFillFeedback": "Виберіть реакцію або напишіть коментар, щоб мати можливість надіслати відгук."
     },
     "ur": {
       "disclaimer": "رابطہ اور چھاپ",
@@ -5595,7 +5599,7 @@
       "positiveRating": "یہ صفحہ مددگار ہے",
       "searchTermDescription": "مندرجہ ذیل اصطلاح کے لیے کوئی نتیجہ نہیں مل سکا:",
       "contactMailAddress": "سوالات کے لئے ای میل",
-      "note": "رائے بھیجنے کے لیے براہ کرم کوئی ردعمل منتخب کریں یا تبصرہ لکھیں۔"
+      "noteFillFeedback": "رائے بھیجنے کے لیے براہ کرم کوئی ردعمل منتخب کریں یا تبصرہ لکھیں۔"
     },
     "zh-CN": {
       "disclaimer": "版本说明和联系方式",
@@ -5618,7 +5622,7 @@
       "positiveRating": "这个网站很有帮助",
       "searchTermDescription": "未找到与以下词语相关的结果：",
       "contactMailAddress": "反问的电子邮件",
-      "note": "请选择一个回应或给出评论，以提交您的反馈意见。"
+      "noteFillFeedback": "请选择一个回应或给出评论，以提交您的反馈意见。"
     }
   },
   "intro": {

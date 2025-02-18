@@ -8,7 +8,13 @@ import { renderWithTheme } from '../../testing/render'
 import FeedbackContainer from '../FeedbackContainer'
 
 const mockRequest = jest.fn()
-jest.mock('react-i18next')
+jest.mock('react-i18next', () => ({
+  ...jest.requireActual('react-i18next'),
+  useTranslation: (namespace?: string) => ({
+    t: (key: string) => (namespace ? `${namespace}:${key}` : key),
+  }),
+  Trans: ({ i18nKey }: { i18nKey: string }) => i18nKey,
+}))
 jest.mock('shared/api', () => ({
   ...jest.requireActual('shared/api'),
   createFeedbackEndpoint: () => ({
@@ -38,9 +44,17 @@ describe('FeedbackContainer', () => {
   })
 
   it('should display thanks message for modal', async () => {
-    const { getByRole, findByText } = renderWithTheme(
+    const { getByRole, findByText, getByText } = renderWithTheme(
       <FeedbackContainer {...buildDefaultProps(CATEGORIES_ROUTE)} initialRating />,
     )
+    const buttonRating = getByRole('button', {
+      name: 'feedback:useful',
+    })
+    fireEvent.click(buttonRating)
+
+    getByText('feedback:useful').click()
+    getByText('common:privacyPolicy').click()
+
     const button = getByRole('button', {
       name: 'feedback:send',
     })
@@ -51,9 +65,12 @@ describe('FeedbackContainer', () => {
   })
 
   it('should display thanks message for search', async () => {
-    const { getByRole, findByText, queryByRole } = renderWithTheme(
+    const { getByRole, findByText, queryByRole, getByText } = renderWithTheme(
       <FeedbackContainer {...buildDefaultProps(CATEGORIES_ROUTE, 'test')} />,
     )
+
+    getByText('common:privacyPolicy').click()
+
     const button = getByRole('button', {
       name: 'feedback:send',
     })
@@ -67,9 +84,12 @@ describe('FeedbackContainer', () => {
     mockRequest.mockImplementationOnce(() => {
       throw new Error()
     })
-    const { getByRole, findByText } = renderWithTheme(
+    const { getByRole, findByText, getByText } = renderWithTheme(
       <FeedbackContainer {...buildDefaultProps(SEARCH_ROUTE, 'test')} />,
     )
+
+    getByText('common:privacyPolicy').click()
+
     const button = getByRole('button', {
       name: 'feedback:send',
     })
@@ -80,7 +100,10 @@ describe('FeedbackContainer', () => {
 
   it('should send query for search', async () => {
     const query = 'zeugnis'
-    const { getByRole } = renderWithTheme(<FeedbackContainer {...buildDefaultProps(SEARCH_ROUTE, query)} />)
+    const { getByRole, getByText } = renderWithTheme(<FeedbackContainer {...buildDefaultProps(SEARCH_ROUTE, query)} />)
+
+    getByText('common:privacyPolicy').click()
+
     const button = getByRole('button', {
       name: 'feedback:send',
     })
@@ -102,11 +125,14 @@ describe('FeedbackContainer', () => {
   it('should send original search term if updated', () => {
     const query = 'Zeugnis'
     const fullSearchTerm = 'Zeugnisübergabe'
-    const { getByDisplayValue, getByRole } = renderWithTheme(
+    const { getByDisplayValue, getByRole, getByText } = renderWithTheme(
       <FeedbackContainer {...buildDefaultProps(SEARCH_ROUTE, query)} />,
     )
     const input = getByDisplayValue(query)
     fireEvent.change(input, { target: { value: fullSearchTerm } })
+
+    getByText('common:privacyPolicy').click()
+
     const button = getByRole('button', {
       name: 'feedback:send',
     })

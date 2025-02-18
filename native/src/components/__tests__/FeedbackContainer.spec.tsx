@@ -7,9 +7,7 @@ import render from '../../testing/render'
 import sendTrackingSignal from '../../utils/sendTrackingSignal'
 import FeedbackContainer from '../FeedbackContainer'
 
-const mockRequest = jest.fn(() => {
-  /* ignore */
-})
+const mockRequest = jest.fn()
 jest.mock('styled-components')
 jest.mock('react-i18next')
 jest.mock('../../utils/sendTrackingSignal')
@@ -28,10 +26,22 @@ describe('FeedbackContainer', () => {
   const city = 'augsburg'
   const language = 'de'
 
+  it('should disable send button if privacy policy is not accepted', async () => {
+    const { findByText, getByText } = render(
+      <FeedbackContainer routeType={SEARCH_ROUTE} language={language} cityCode={city} />,
+    )
+    const positiveRatingButton = getByText('useful')
+    fireEvent.press(positiveRatingButton)
+
+    expect(await findByText('send')).toBeDisabled()
+  })
+
   it('should send feedback request with rating and no other inputs on submit', async () => {
     const { getByText, findByText } = render(
       <FeedbackContainer routeType={CATEGORIES_ROUTE} language={language} cityCode={city} />,
     )
+    fireEvent.press(getByText('common:privacyPolicy'))
+
     const positiveRatingButton = getByText('useful')
     fireEvent.press(positiveRatingButton)
     expect(getByText('send')).not.toBeDisabled()
@@ -68,6 +78,7 @@ describe('FeedbackContainer', () => {
     const { getByText, findByText, getAllByDisplayValue } = render(
       <FeedbackContainer routeType={CATEGORIES_ROUTE} language={language} cityCode={city} />,
     )
+    fireEvent.press(getByText('common:privacyPolicy'))
     const [commentField, emailField] = getAllByDisplayValue('')
     fireEvent.changeText(commentField!, comment)
     fireEvent.changeText(emailField!, contactMail)
@@ -102,6 +113,7 @@ describe('FeedbackContainer', () => {
     const { getByText, findByText } = render(
       <FeedbackContainer routeType={CATEGORIES_ROUTE} language={language} cityCode={city} />,
     )
+    fireEvent.press(getByText('common:privacyPolicy'))
     const positiveRatingButton = getByText('useful')
     fireEvent.press(positiveRatingButton)
     expect(await findByText('send')).not.toBeDisabled()
@@ -114,6 +126,7 @@ describe('FeedbackContainer', () => {
     const { findByText, getByText } = render(
       <FeedbackContainer routeType={SEARCH_ROUTE} language={language} cityCode={city} query={query} />,
     )
+    fireEvent.press(getByText('common:privacyPolicy'))
     const button = getByText('send')
     fireEvent.press(button)
     expect(await findByText('thanksMessage')).toBeDefined()
@@ -137,6 +150,7 @@ describe('FeedbackContainer', () => {
     const { findByText, getByDisplayValue, getByText } = render(
       <FeedbackContainer routeType={SEARCH_ROUTE} language={language} cityCode={city} query={query} />,
     )
+    fireEvent.press(getByText('common:privacyPolicy'))
     const input = getByDisplayValue(query)
     fireEvent.changeText(input, fullSearchTerm)
     const button = getByText('send')
@@ -157,9 +171,10 @@ describe('FeedbackContainer', () => {
   })
 
   it('should disable send button if query term is removed', async () => {
-    const { findByText, getByDisplayValue } = render(
+    const { findByText, getByDisplayValue, getByText } = render(
       <FeedbackContainer routeType={SEARCH_ROUTE} language={language} cityCode={city} query='query' />,
     )
+    fireEvent.press(getByText('common:privacyPolicy'))
     expect(await findByText('send')).not.toBeDisabled()
     const input = getByDisplayValue('query')
     fireEvent.changeText(input, '')
@@ -178,6 +193,7 @@ describe('FeedbackContainer', () => {
         noResults={noResults}
       />,
     )
+    fireEvent.press(getByText('common:privacyPolicy'))
     expect(getByText('send')).not.toBeDisabled()
     const submitButton = getByText('send')
     fireEvent.press(submitButton)

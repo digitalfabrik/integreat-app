@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -13,6 +13,7 @@ import HorizontalLine from './HorizontalLine'
 import LoadingSpinner from './LoadingSpinner'
 import Note from './Note'
 import NothingFound from './NothingFound'
+import PrivacyCheckbox from './PrivacyCheckbox'
 import InputSection from './base/InputSection'
 import TextButton from './base/TextButton'
 
@@ -31,6 +32,7 @@ const StyledButton = styled(TextButton)`
 `
 
 export type FeedbackProps = {
+  language: string
   comment: string
   contactMail: string
   sendingStatus: SendingStatusType
@@ -44,6 +46,7 @@ export type FeedbackProps = {
 }
 
 const Feedback = ({
+  language,
   isPositiveFeedback,
   comment,
   contactMail,
@@ -59,7 +62,9 @@ const Feedback = ({
   const navigation = useNavigate().navigation
 
   const isSearchFeedback = searchTerm !== undefined
-  const submitDisabled = isPositiveFeedback === null && comment.trim().length === 0 && !searchTerm
+  const [privacyPolicyAccepted, setPrivacyPolicyAccepted] = useState(false)
+  const feedbackFilled = isPositiveFeedback === null && comment.trim().length === 0 && !searchTerm
+  const submitFeedbackDisabled = feedbackFilled || !privacyPolicyAccepted
 
   if (sendingStatus === 'sending') {
     return <LoadingSpinner />
@@ -106,8 +111,9 @@ const Feedback = ({
           showOptional
         />
         {sendingStatus === 'failed' && <Description>{t('failedSendingFeedback')}</Description>}
-        {!isSearchFeedback && submitDisabled && <Note text={t('note')} />}
-        <StyledButton disabled={submitDisabled} onPress={onSubmit} text={t('send')} />
+        <PrivacyCheckbox language={language} checked={privacyPolicyAccepted} setChecked={setPrivacyPolicyAccepted} />
+        {submitFeedbackDisabled && <Note text={t(feedbackFilled ? 'noteFillFeedback' : 'notePrivacyPolicy')} />}
+        <StyledButton disabled={submitFeedbackDisabled} onPress={onSubmit} text={t('send')} />
       </Wrapper>
     </KeyboardAwareScrollView>
   )
