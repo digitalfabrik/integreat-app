@@ -85,7 +85,6 @@ export const FeedbackContainer = ({
       searchTerm={searchTerm}
       setSearchTerm={setSearchTerm}
       closeFeedback={onClose}
-      noResults={noResults}
     />
   )
 }

@@ -4,7 +4,6 @@ import styled from 'styled-components'
 
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
-import Failure from './Failure'
 import FeedbackButtons from './FeedbackButtons'
 import { SendingStatusType } from './FeedbackContainer'
 import Note from './Note'
@@ -51,7 +50,6 @@ type FeedbackProps = {
   onFeedbackChanged?: (isPositiveFeedback: boolean | null) => void
   onSubmit: () => void
   sendingStatus: SendingStatusType
-  noResults: boolean | undefined
   searchTerm: string | undefined
   setSearchTerm: (newTerm: string) => void
   closeFeedback: (() => void) | undefined
@@ -67,7 +65,6 @@ const Feedback = ({
   onCommentChanged,
   onContactMailChanged,
   onFeedbackChanged,
-  noResults,
   searchTerm,
   setSearchTerm,
   closeFeedback,
@@ -92,12 +89,9 @@ const Feedback = ({
   return (
     <Container $fullWidth={isSearchFeedback}>
       {isSearchFeedback ? (
-        <>
-          {noResults && <Failure errorMessage='search:nothingFound' />}
-          <InputSection id='searchTerm' title={t('searchTermDescription')}>
-            <Input id='searchTerm' value={searchTerm} onChange={setSearchTerm} />
-          </InputSection>
-        </>
+        <InputSection id='searchTerm' title={t('searchTermDescription')}>
+          <Input id='searchTerm' value={searchTerm} onChange={setSearchTerm} />
+        </InputSection>
       ) : (
         onFeedbackChanged && <FeedbackButtons isPositive={isPositiveFeedback} onRatingChange={onFeedbackChanged} />
       )}

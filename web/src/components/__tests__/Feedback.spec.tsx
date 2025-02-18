@@ -111,7 +111,6 @@ describe('Feedback', () => {
       />,
     )
     expect(getByText('feedback:wantedInformation')).toBeTruthy()
-    expect(getByText('error:search:nothingFound')).toBeTruthy()
   })
 
   it('should display error', () => {

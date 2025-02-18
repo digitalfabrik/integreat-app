@@ -126,6 +126,8 @@ describe('FeedbackContainer', () => {
     const { findByText, getByText } = render(
       <FeedbackContainer routeType={SEARCH_ROUTE} language={language} cityCode={city} query={query} />,
     )
+    const buttonToOpenFeedback = getByText('giveFeedback')
+    fireEvent.press(buttonToOpenFeedback)
     fireEvent.press(getByText('common:privacyPolicy'))
     const button = getByText('send')
     fireEvent.press(button)
@@ -150,6 +152,8 @@ describe('FeedbackContainer', () => {
     const { findByText, getByDisplayValue, getByText } = render(
       <FeedbackContainer routeType={SEARCH_ROUTE} language={language} cityCode={city} query={query} />,
     )
+    const buttonToOpenFeedback = getByText('giveFeedback')
+    fireEvent.press(buttonToOpenFeedback)
     fireEvent.press(getByText('common:privacyPolicy'))
     const input = getByDisplayValue(query)
     fireEvent.changeText(input, fullSearchTerm)
@@ -174,6 +178,8 @@ describe('FeedbackContainer', () => {
     const { findByText, getByDisplayValue, getByText } = render(
       <FeedbackContainer routeType={SEARCH_ROUTE} language={language} cityCode={city} query='query' />,
     )
+    const buttonToOpenFeedback = getByText('giveFeedback')
+    fireEvent.press(buttonToOpenFeedback)
     fireEvent.press(getByText('common:privacyPolicy'))
     expect(await findByText('send')).not.toBeDisabled()
     const input = getByDisplayValue('query')
@@ -193,6 +199,8 @@ describe('FeedbackContainer', () => {
         noResults={noResults}
       />,
     )
+    const buttonToOpenFeedback = getByText('giveFeedback')
+    fireEvent.press(buttonToOpenFeedback)
     fireEvent.press(getByText('common:privacyPolicy'))
     expect(getByText('send')).not.toBeDisabled()
     const submitButton = getByText('send')

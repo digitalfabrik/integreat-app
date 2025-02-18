@@ -72,7 +72,6 @@ describe('Feedback', () => {
 
   it('correct text should be displayed for search feedback and input', async () => {
     const { getByText } = render(<Feedback {...buildProps(false, 'comment', 'query')} />)
-    expect(getByText('search:nothingFound')).toBeDefined()
     expect(getByText('searchTermDescription')).toBeDefined()
   })
 
