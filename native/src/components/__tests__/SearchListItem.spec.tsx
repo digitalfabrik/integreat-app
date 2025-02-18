@@ -1,4 +1,3 @@
-import { NavigationContainer } from '@react-navigation/native'
 import React from 'react'
 
 import { parseHTML } from 'shared'
@@ -33,19 +32,17 @@ describe('SearchListItem', () => {
       ? expect(element).toHaveStyle({ fontWeight: 'bold' })
       : expect(element).not.toHaveStyle({ fontWeight: 'bold' })
 
-  const renderWithNavigator = (query: string) =>
+  const renderSearchListItem = (query: string) =>
     render(
-      <NavigationContainer>
-        <SearchListItem
-          contentWithoutHtml={contentWithoutHtml}
-          query={query}
-          language={language.code}
-          title={category.title}
-          path={category.path}
-          thumbnail={category.thumbnail}
-          resourceCache={resourceCache[category.path]!}
-        />
-      </NavigationContainer>,
+      <SearchListItem
+        contentWithoutHtml={contentWithoutHtml}
+        query={query}
+        language={language.code}
+        title={category.title}
+        path={category.path}
+        thumbnail={category.thumbnail}
+        resourceCache={resourceCache[category.path]!}
+      />,
     )
 
   it('should show excerpt around query if match in title and content', () => {
@@ -53,7 +50,7 @@ describe('SearchListItem', () => {
     const excerptBeforeQuery = 'Page of'
     const excerptAfterQuery = '0 This is a sample page'
 
-    const { queryAllByText, getByText } = renderWithNavigator(query)
+    const { queryAllByText, getByText } = renderSearchListItem(query)
 
     assertHighlighting(getByText(excerptBeforeQuery, { exact: false }), false)
     assertHighlighting(queryAllByText(query)[0]!, true)
@@ -62,7 +59,7 @@ describe('SearchListItem', () => {
   })
 
   it('should show beginning of excerpt if match only in title', () => {
-    const { getByText } = renderWithNavigator(category.title)
+    const { getByText } = renderSearchListItem(category.title)
 
     assertHighlighting(getByText(category.title), true)
     assertHighlighting(getByText(contentWithoutHtml), false)
@@ -73,7 +70,7 @@ describe('SearchListItem', () => {
     const query = 'sample'
     const excerptAfterQuery = 'page'
 
-    const { getByText } = renderWithNavigator(query)
+    const { getByText } = renderSearchListItem(query)
 
     assertHighlighting(getByText(category.title), false)
     assertHighlighting(getByText(excerptBeforeQuery, { exact: false }), false)
@@ -84,7 +81,7 @@ describe('SearchListItem', () => {
   it.skip('should show title if the query is empty', () => {
     const query = ''
 
-    const { getByText, queryByText } = renderWithNavigator(query)
+    const { getByText, queryByText } = renderSearchListItem(query)
 
     assertHighlighting(getByText(category.title), false)
     expect(queryByText(contentWithoutHtml)).toBeFalsy()
