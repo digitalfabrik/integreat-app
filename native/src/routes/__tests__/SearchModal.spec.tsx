@@ -1,7 +1,5 @@
-import { NavigationContainer } from '@react-navigation/native'
 import { fireEvent, waitFor } from '@testing-library/react-native'
 import React from 'react'
-import { ThemeProvider } from 'styled-components/native'
 
 import {
   CATEGORIES_ROUTE,
@@ -12,7 +10,6 @@ import {
 } from 'shared'
 import { CategoriesMapModelBuilder, EventModelBuilder, PoiModelBuilder } from 'shared/api'
 
-import buildConfig from '../../constants/buildConfig'
 import { urlFromRouteInformation } from '../../navigation/url'
 import render from '../../testing/render'
 import sendTrackingSignal from '../../utils/sendTrackingSignal'
@@ -41,7 +38,6 @@ describe('SearchModal', () => {
 
   const languageCode = 'de'
   const cityCode = 'augsburg'
-  const theme = buildConfig().lightTheme
 
   const categoriesMapModel = new CategoriesMapModelBuilder(cityCode, languageCode, 2, 2).build()
   const eventModels = new EventModelBuilder('testseed', 5, cityCode, languageCode).build()
@@ -61,17 +57,10 @@ describe('SearchModal', () => {
     initialSearchText: '',
   }
 
-  const renderWithTheme = (props: SearchModalProps) =>
-    render(
-      <NavigationContainer>
-        <ThemeProvider theme={theme}>
-          <SearchModal {...props} />
-        </ThemeProvider>
-      </NavigationContainer>,
-    )
+  const renderSearchModal = (props: SearchModalProps) => render(<SearchModal {...props} />)
 
   it('should send tracking signal when closing search site', async () => {
-    const { getByPlaceholderText, getAllByRole } = renderWithTheme(props)
+    const { getByPlaceholderText, getAllByRole } = renderSearchModal(props)
     const goBackButton = getAllByRole('button')[0]!
     const searchBar = getByPlaceholderText('searchPlaceholder')
     fireEvent.changeText(searchBar, 'Category')
@@ -88,7 +77,7 @@ describe('SearchModal', () => {
   })
 
   it('should send tracking signal when opening a search result', async () => {
-    const { getByText, getByPlaceholderText, getAllByRole } = renderWithTheme(props)
+    const { getByText, getByPlaceholderText, getAllByRole } = renderSearchModal(props)
     const goBackButton = getAllByRole('button')[0]!
     const searchBar = getByPlaceholderText('searchPlaceholder')
     fireEvent.changeText(searchBar, 'Category')
@@ -120,7 +109,7 @@ describe('SearchModal', () => {
   })
 
   it('should show nothing found if there are no search results', () => {
-    const { getByText, getByPlaceholderText } = renderWithTheme(props)
+    const { getByText, getByPlaceholderText } = renderSearchModal(props)
 
     fireEvent.changeText(getByPlaceholderText('searchPlaceholder'), 'no results, please')
 
@@ -129,7 +118,7 @@ describe('SearchModal', () => {
 
   it('should open with an initial search text if one is supplied', () => {
     const initialSearchText = 'zeugnis'
-    const { getByPlaceholderText } = renderWithTheme({ ...props, initialSearchText })
+    const { getByPlaceholderText } = renderSearchModal({ ...props, initialSearchText })
     expect(getByPlaceholderText('searchPlaceholder').props.value).toBe(initialSearchText)
   })
 })

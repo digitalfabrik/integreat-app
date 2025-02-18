@@ -1,4 +1,3 @@
-import { NavigationContainer } from '@react-navigation/native'
 import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
 
@@ -41,9 +40,7 @@ describe('FeedbackContainer', () => {
 
   it('should send feedback request with rating and no other inputs on submit', async () => {
     const { getByText, findByText } = render(
-      <NavigationContainer>
-        <FeedbackContainer routeType={CATEGORIES_ROUTE} language={language} cityCode={city} />
-      </NavigationContainer>,
+      <FeedbackContainer routeType={CATEGORIES_ROUTE} language={language} cityCode={city} />,
     )
     fireEvent.press(getByText('common:privacyPolicy'))
 
@@ -81,9 +78,7 @@ describe('FeedbackContainer', () => {
     const comment = 'my comment'
     const contactMail = 'test@example.com'
     const { getByText, findByText, getAllByDisplayValue } = render(
-      <NavigationContainer>
-        <FeedbackContainer routeType={CATEGORIES_ROUTE} language={language} cityCode={city} />
-      </NavigationContainer>,
+      <FeedbackContainer routeType={CATEGORIES_ROUTE} language={language} cityCode={city} />,
     )
     fireEvent.press(getByText('common:privacyPolicy'))
     const [commentField, emailField] = getAllByDisplayValue('')
@@ -118,9 +113,7 @@ describe('FeedbackContainer', () => {
 
   it('should disable send feedback button if rating button is clicked twice', async () => {
     const { getByText, findByText } = render(
-      <NavigationContainer>
-        <FeedbackContainer routeType={CATEGORIES_ROUTE} language={language} cityCode={city} />
-      </NavigationContainer>,
+      <FeedbackContainer routeType={CATEGORIES_ROUTE} language={language} cityCode={city} />,
     )
     fireEvent.press(getByText('common:privacyPolicy'))
     const positiveRatingButton = getByText('useful')
@@ -133,9 +126,7 @@ describe('FeedbackContainer', () => {
   it('should send search feedback on submit', async () => {
     const query = 'Zeugnis'
     const { findByText, getByText } = render(
-      <NavigationContainer>
-        <FeedbackContainer routeType={SEARCH_ROUTE} language={language} cityCode={city} query={query} />
-      </NavigationContainer>,
+      <FeedbackContainer routeType={SEARCH_ROUTE} language={language} cityCode={city} query={query} />,
     )
     fireEvent.press(getByText('common:privacyPolicy'))
     const button = getByText('send')
@@ -159,9 +150,7 @@ describe('FeedbackContainer', () => {
     const query = 'Zeugnis'
     const fullSearchTerm = 'Zeugnisübergabe'
     const { findByText, getByDisplayValue, getByText } = render(
-      <NavigationContainer>
-        <FeedbackContainer routeType={SEARCH_ROUTE} language={language} cityCode={city} query={query} />
-      </NavigationContainer>,
+      <FeedbackContainer routeType={SEARCH_ROUTE} language={language} cityCode={city} query={query} />,
     )
     fireEvent.press(getByText('common:privacyPolicy'))
     const input = getByDisplayValue(query)
@@ -200,15 +189,13 @@ describe('FeedbackContainer', () => {
     const query = 'gesundheitsversicherung'
     const noResults = true
     const { getByText, findByText } = render(
-      <NavigationContainer>
-        <FeedbackContainer
-          routeType={SEARCH_ROUTE}
-          language={language}
-          cityCode={city}
-          query={query}
-          noResults={noResults}
-        />
-      </NavigationContainer>,
+      <FeedbackContainer
+        routeType={SEARCH_ROUTE}
+        language={language}
+        cityCode={city}
+        query={query}
+        noResults={noResults}
+      />,
     )
     fireEvent.press(getByText('common:privacyPolicy'))
     expect(getByText('send')).not.toBeDisabled()

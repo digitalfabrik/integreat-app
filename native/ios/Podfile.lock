@@ -1315,10 +1315,10 @@ PODS:
     - React-Core
   - RNLocalize (3.2.1):
     - React-Core
-  - RNNotifee (7.8.2):
+  - RNNotifee (9.1.8):
     - React-Core
-    - RNNotifee/NotifeeCore (= 7.8.2)
-  - RNNotifee/NotifeeCore (7.8.2):
+    - RNNotifee/NotifeeCore (= 9.1.8)
+  - RNNotifee/NotifeeCore (9.1.8):
     - React-Core
   - RNPermissions (4.1.5):
     - React-Core
@@ -1785,7 +1785,7 @@ SPEC CHECKSUMS:
   RNGestureHandler: 1cc5930a64f5168977e5726b9c24777ecc8a8570
   RNInAppBrowser: e36d6935517101ccba0e875bac8ad7b0cb655364
   RNLocalize: 4f22418187ecd5ca693231093ff1d912d1b3c9bc
-  RNNotifee: 8e2d3df3f0e9ce8f5d1fe4c967431138190b6175
+  RNNotifee: 4a6ee5c7deaf00e005050052d73ee6315dff7ec9
   RNPermissions: 829cceec018e0821e4883a8a7cf51a7bb2d0d30a
   RNReanimated: f8dc6e880959a874d8d65c1e1fcdc29c946b9fea
   RNScreens: db442e7b8c7bc8befec2ce057927305ff8598cc8
