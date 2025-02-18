@@ -62,7 +62,7 @@ const ChatMessage = ({ message, previousMessage }: ChatMessageProps): ReactEleme
   const { body, userIsAuthor, isAutomaticAnswer } = message
   const hasAuthorChanged = message.userIsAuthor !== previousMessage?.userIsAuthor
   const hasAutomaticAnswerChanged = message.isAutomaticAnswer !== previousMessage?.isAutomaticAnswer
-  const showIcon = previousMessage ? hasAuthorChanged || hasAutomaticAnswerChanged : true
+  const showIcon = hasAuthorChanged || hasAutomaticAnswerChanged
 
   return (
     <Container $isAuthor={userIsAuthor}>
