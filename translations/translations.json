@@ -4766,7 +4766,7 @@
       "searchTermDescription": "Für den folgenden Begriff konnte kein Ergebnis gefunden werden:",
       "contactMailAddress": "E-Mail für Rückfragen",
       "noteFillFeedback": "Bitte wähle eine Reaktion oder schreibe einen Kommentar, um das Feedback abschicken zu können.",
-      "notePrivacyPolicy": "Bitte bestätige die Datenschutzerklärung, um das Feedback abschicken zu können."
+      "notePrivacyPolicy": "Bitte stimme der Datenschutzerklärung zu, um das Feedback abschicken zu können."
     },
     "am": {
       "disclaimer": "የግንኙነት መረጃና ዕትም",
@@ -4951,7 +4951,7 @@
       "searchTermDescription": "No result could be found for the following term:",
       "contactMailAddress": "E-Mail for further questions",
       "noteFillFeedback": "Please select a reaction or write a comment in order to send feedback.",
-      "notePrivacyPolicy": "Please select the privacy policy in order to send feedback."
+      "notePrivacyPolicy": "Please agree to the privacy policy in order to send feedback."
     },
     "es": {
       "disclaimer": "Contacto y aviso legal",

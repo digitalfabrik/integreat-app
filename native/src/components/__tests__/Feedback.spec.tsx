@@ -33,7 +33,7 @@ describe('Feedback', () => {
     setSearchTerm,
   })
 
-  it('button should be disabled if privacy policy not accepted', async () => {
+  it('button should be disabled if privacy policy is not accepted', async () => {
     const { getByText } = render(
       <NavigationContainer>
         <Feedback {...buildProps(true, 'comment', 'query')} />
