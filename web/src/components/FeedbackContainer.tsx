@@ -12,6 +12,7 @@ type FeedbackContainerProps = {
   routeType: FeedbackRouteType
   onClose?: () => void
   query?: string
+  noResults?: boolean
   slug?: string
   onSubmit?: () => void
   initialRating: boolean | null
@@ -21,6 +22,7 @@ export type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
 
 export const FeedbackContainer = ({
   query,
+  noResults,
   language,
   routeType,
   cityCode,

@@ -184,6 +184,8 @@ describe('FeedbackContainer', () => {
         noResults={noResults}
       />,
     )
+    const buttonToOpenFeedback = getByText('giveFeedback')
+    fireEvent.press(buttonToOpenFeedback)
     expect(getByText('send')).not.toBeDisabled()
     const submitButton = getByText('send')
     fireEvent.press(submitButton)

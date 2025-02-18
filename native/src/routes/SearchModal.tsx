@@ -57,12 +57,13 @@ const SearchModal = ({
 
   const contentLanguageResults = useSearch(allPossibleContentLanguageResults, query)
   const fallbackLanguageResults = useSearch(allPossibleFallbackLanguageResults, query)
-  useAnnounceSearchResultsIOS(searchResults)
 
   const searchResults =
     languageCode === config.sourceLanguage
       ? contentLanguageResults
       : contentLanguageResults?.concat(fallbackLanguageResults ?? [])
+
+  useAnnounceSearchResultsIOS(searchResults)
 
   const onClose = (): void => {
     sendTrackingSignal({
