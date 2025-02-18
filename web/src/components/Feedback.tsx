@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
@@ -8,6 +8,7 @@ import Failure from './Failure'
 import FeedbackButtons from './FeedbackButtons'
 import { SendingStatusType } from './FeedbackContainer'
 import Note from './Note'
+import PrivacyCheckbox from './PrivacyCheckbox'
 import Input from './base/Input'
 import InputSection from './base/InputSection'
 import TextButton from './base/TextButton'
@@ -41,6 +42,7 @@ const StyledTextButton = styled(TextButton)`
 `
 
 type FeedbackProps = {
+  language: string
   isPositiveFeedback: boolean | null
   comment: string
   contactMail: string
@@ -56,6 +58,7 @@ type FeedbackProps = {
 }
 
 const Feedback = ({
+  language,
   isPositiveFeedback,
   comment,
   contactMail,
@@ -73,7 +76,9 @@ const Feedback = ({
 
   const isSearchFeedback = searchTerm !== undefined
   const commentTitle = isSearchFeedback ? 'wantedInformation' : 'commentHeadline'
-  const sendFeedbackDisabled = isPositiveFeedback === null && comment.trim().length === 0 && !searchTerm
+  const [privacyPolicyAccepted, setPrivacyPolicyAccepted] = useState(false)
+  const feedbackFilled = isPositiveFeedback === null && comment.trim().length === 0 && !searchTerm
+  const submitFeedbackDisabled = feedbackFilled || !privacyPolicyAccepted
 
   if (sendingStatus === 'successful') {
     return (
@@ -108,10 +113,10 @@ const Feedback = ({
       <InputSection id='email' title={t('contactMailAddress')} showOptional>
         <Input id='email' value={contactMail} onChange={onContactMailChanged} />
       </InputSection>
-
-      {!isSearchFeedback && sendFeedbackDisabled && <Note text={t('note')} />}
+      <PrivacyCheckbox language={language} checked={privacyPolicyAccepted} setChecked={setPrivacyPolicyAccepted} />
+      {submitFeedbackDisabled && <Note text={t(feedbackFilled ? 'noteFillFeedback' : 'notePrivacyPolicy')} />}
       {sendingStatus === 'failed' && <ErrorSendingStatus role='alert'>{t('failedSendingFeedback')}</ErrorSendingStatus>}
-      <StyledTextButton disabled={sendFeedbackDisabled} onClick={onSubmit} text={t('send')} />
+      <StyledTextButton disabled={submitFeedbackDisabled} onClick={onSubmit} text={t('send')} />
     </Container>
   )
 }

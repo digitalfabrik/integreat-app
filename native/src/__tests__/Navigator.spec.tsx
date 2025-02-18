@@ -1,4 +1,3 @@
-import { NavigationContainer } from '@react-navigation/native'
 import { mocked } from 'jest-mock'
 import React from 'react'
 
@@ -124,9 +123,7 @@ const renderNavigator = ({
 }) =>
   render(
     <TestingAppContext changeCityCode={changeCityCode} cityCode={cityCode} settings={{ introShown }}>
-      <NavigationContainer>
-        <Navigator />
-      </NavigationContainer>
+      <Navigator />
     </TestingAppContext>,
   )
 

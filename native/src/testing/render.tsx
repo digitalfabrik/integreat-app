@@ -12,7 +12,10 @@ type ReactNavigationProps<T extends RoutesType> = {
   navigation: NavigationProps<T>
 }
 
-const renderWithTheme = (component: ReactElement): RenderAPI => render(component, { wrapper: wrapWithTheme })
+const renderWithTheme = (component: ReactElement, wrapWithNavigationContainer = true): RenderAPI =>
+  render(wrapWithNavigationContainer ? <NavigationContainer>{component}</NavigationContainer> : component, {
+    wrapper: wrapWithTheme,
+  })
 
 export const renderWithNavigator = <T extends RoutesType, P>(
   routeName: T,
@@ -34,6 +37,7 @@ export const renderWithNavigator = <T extends RoutesType, P>(
         </Navigator>
       </NavigationContainer>
     </TestingAppContext>,
+    false,
   )
 }
 

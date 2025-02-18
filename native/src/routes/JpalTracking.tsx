@@ -84,7 +84,7 @@ const JpalTracking = ({ navigation }: JpalTrackingProps): ReactElement => {
           <SettingsSwitch value={!!trackingEnabled} onPress={toggleTrackingEnabled} />
         </DescriptionContainer>
 
-        <Link url={moreInformationUrl} text={t('trackingMoreInformation')} />
+        <Link url={moreInformationUrl}>{t('trackingMoreInformation')}</Link>
       </PaddedContainer>
     </Layout>
   )
