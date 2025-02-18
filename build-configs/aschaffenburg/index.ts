@@ -26,7 +26,7 @@ const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
   allowedLookalikes: [],
   supportedIframeSources: ['vimeo.com'],
   translationsOverride: aschaffenburgOverrideTranslations,
-  internalLinksHijackPattern:
+  internalUrlPattern:
     'https?:\\/\\/(cms(-test)?\\.integreat-app\\.de|web\\.integreat-app\\.de|integreat\\.app|aschaffenburg\\.app)(?!\\/(media|[^/]*\\/(wp-content|wp-admin|wp-json))\\/.*).*',
   featureFlags: {
     floss: false,
@@ -40,6 +40,7 @@ const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
     fixedCity: 'hallo',
     cityNotCooperatingTemplate: null,
     chat: false,
+    tts: false,
   },
   aboutUrls: {
     default: 'https://www.aschaffenburg.de/halloaschaffenburg',

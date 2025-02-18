@@ -9,13 +9,14 @@ import buildConfig from '../constants/buildConfig'
 import CityEntry from './CityEntry'
 import CrashTestingIcon from './CrashTestingIcon'
 import Failure from './Failure'
+import NearbyCities from './NearbyCities'
 import ScrollingSearchBox from './ScrollingSearchBox'
 
 const Container = styled.div`
   padding-top: 22px;
 `
 
-const CityListParent = styled.div<{ $stickyTop: number }>`
+export const CityListParent = styled.div<{ $stickyTop: number }>`
   position: sticky;
   top: ${props => props.$stickyTop}px;
   height: 30px;
@@ -25,6 +26,7 @@ const CityListParent = styled.div<{ $stickyTop: number }>`
   background-color: ${props => props.theme.colors.backgroundColor};
   border-bottom: 1px solid ${props => props.theme.colors.themeColor};
 `
+
 const SearchCounter = styled.p`
   color: ${props => props.theme.colors.textSecondaryColor};
 `
@@ -61,7 +63,10 @@ const CitySelector = ({ cities, language }: CitySelectorProps): ReactElement => 
         placeholderText={t('searchCity')}
         spaceSearch={false}
         onStickyTopChanged={setStickyTop}>
-        <SearchCounter>{t('search:searchResultsCount', { count: resultCities.length })}</SearchCounter>
+        <SearchCounter aria-live={resultCities.length === 0 ? 'assertive' : 'polite'}>
+          {t('search:searchResultsCount', { count: resultCities.length })}
+        </SearchCounter>
+        <NearbyCities stickyTop={stickyTop} cities={cities} language={language} filterText={filterText} />
         {resultCities.length === 0 ? <Failure errorMessage='search:nothingFound' /> : groups}
       </ScrollingSearchBox>
     </Container>

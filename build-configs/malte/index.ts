@@ -26,7 +26,7 @@ const commonMalteBuildConfig: CommonBuildConfigType = {
   allowedLookalikes: [],
   supportedIframeSources: ['vimeo.com'],
   translationsOverride: malteOverrideTranslations,
-  internalLinksHijackPattern:
+  internalUrlPattern:
     'https?:\\/\\/((cms\\.)?malteapp\\.de|malte-test\\.tuerantuer\\.org)(?!\\/(media|[^/]*\\/(wp-content|wp-admin|wp-json))\\/.*).*',
   hostName: 'malteapp.de',
   featureFlags: {
@@ -41,6 +41,7 @@ const commonMalteBuildConfig: CommonBuildConfigType = {
     fixedCity: null,
     cityNotCooperatingTemplate: null,
     chat: false,
+    tts: false,
   },
   aboutUrls: {
     default: 'https://www.malteser-werke.de/malte-app',

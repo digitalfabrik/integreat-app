@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
 
 import { getCategoryTiles } from 'shared'
 import { CategoriesMapModel, CategoryModel } from 'shared/api'
@@ -26,7 +25,6 @@ const CategoriesContent = ({
   languageCode,
 }: CategoriesContentProps): ReactElement => {
   const children = categories.getChildren(categoryModel)
-  const navigate = useNavigate()
   const { t } = useTranslation('layout')
 
   if (categories.isLeaf(categoryModel)) {
@@ -35,7 +33,6 @@ const CategoriesContent = ({
         title={categoryModel.title}
         content={categoryModel.content}
         lastUpdate={categoryModel.lastUpdate}
-        onInternalLinkClick={navigate}
         AfterContent={
           categoryModel.organization && <OrganizationContentInfo organization={categoryModel.organization} />
         }
@@ -60,7 +57,6 @@ const CategoriesContent = ({
     <CategoryList
       items={children.map(it => ({ category: it, subCategories: categories.getChildren(it) }))}
       category={categoryModel}
-      onInternalLinkClick={navigate}
     />
   )
 }

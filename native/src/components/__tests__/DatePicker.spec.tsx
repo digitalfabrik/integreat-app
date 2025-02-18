@@ -1,10 +1,11 @@
 import { fireEvent } from '@testing-library/react-native'
 import { DateTime } from 'luxon'
 import React from 'react'
-import { ReactTestInstance } from 'react-test-renderer'
 
 import renderWithTheme from '../../testing/render'
 import DatePicker, { DatePickerProps } from '../DatePicker'
+
+jest.mock('react-i18next')
 
 describe('DatePickerForNative', () => {
   const setDate = jest.fn()
@@ -47,9 +48,10 @@ describe('DatePickerForNative', () => {
 
     const dayMonthInput = getAllByPlaceholderText('01')
     const yearInput = getByPlaceholderText('1990')
+    expect(dayMonthInput.length).toBeGreaterThanOrEqual(2)
 
-    fireEvent.changeText(dayMonthInput[0] as ReactTestInstance, '15')
-    fireEvent.changeText(dayMonthInput[1] as ReactTestInstance, '08')
+    fireEvent.changeText(dayMonthInput[0]!, '15')
+    fireEvent.changeText(dayMonthInput[1]!, '08')
     fireEvent.changeText(yearInput, '2024')
 
     expect(setDate).toHaveBeenCalledWith(DateTime.fromFormat('15/08/2024', 'dd/MM/yyyy'))
@@ -69,7 +71,7 @@ describe('DatePickerForNative', () => {
   })
 
   it('should not allow day greater than 31', () => {
-    const { getAllByPlaceholderText } = renderCustomDatePicker({
+    const { getAllByPlaceholderText, getByDisplayValue } = renderCustomDatePicker({
       modalOpen: false,
       setModalOpen,
       setDate,
@@ -78,15 +80,18 @@ describe('DatePickerForNative', () => {
       error: '',
     })
 
-    const dayInput = getAllByPlaceholderText('01')[0] as ReactTestInstance
+    const dayInputs = getAllByPlaceholderText('01')
+    expect(dayInputs.length).toBeGreaterThan(0)
+
+    const dayInput = dayInputs[0]!
 
     fireEvent.changeText(dayInput, '32')
     fireEvent(dayInput, 'blur')
-    expect(dayInput.props.value).toBe(DateTime.now().toFormat('dd'))
+    expect(getByDisplayValue(DateTime.now().toFormat('dd'))).toBeTruthy()
   })
 
   it('should not allow month greater than 12', () => {
-    const { getAllByPlaceholderText } = renderCustomDatePicker({
+    const { getAllByPlaceholderText, getByDisplayValue } = renderCustomDatePicker({
       modalOpen: false,
       setModalOpen,
       setDate,
@@ -95,15 +100,18 @@ describe('DatePickerForNative', () => {
       error: '',
     })
 
-    const monthInput = getAllByPlaceholderText('01')[1] as ReactTestInstance
+    const monthInputs = getAllByPlaceholderText('01')
+    expect(monthInputs.length).toBeGreaterThan(1)
+
+    const monthInput = monthInputs[1]!
 
     fireEvent.changeText(monthInput, '13')
     fireEvent(monthInput, 'blur')
-    expect(monthInput.props.value).toBe(DateTime.now().toFormat('MM'))
+    expect(getByDisplayValue(DateTime.now().toFormat('MM'))).toBeTruthy()
   })
 
   it('should format the day with leading zero on blur', () => {
-    const { getAllByPlaceholderText } = renderCustomDatePicker({
+    const { getAllByPlaceholderText, getByDisplayValue } = renderCustomDatePicker({
       modalOpen: false,
       setModalOpen,
       setDate,
@@ -112,11 +120,13 @@ describe('DatePickerForNative', () => {
       error: '',
     })
 
-    const dayInput = getAllByPlaceholderText('01')[0] as ReactTestInstance
+    const dayInputs = getAllByPlaceholderText('01')
+    expect(dayInputs.length).toBeGreaterThan(0)
+
+    const dayInput = dayInputs[0]!
 
     fireEvent.changeText(dayInput, '5')
     fireEvent(dayInput, 'blur')
-
-    expect(dayInput.props.value).toBe('05')
+    expect(getByDisplayValue('05')).toBeTruthy()
   })
 })

@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import { UiDirectionType } from 'translations'
 
-import isExternalUrl from '../../utils/isExternalUrl'
+import { isInternalLink, NEW_TAB, NEW_TAB_FEATURES } from '../../utils/openLink'
 
 const StyledLink = styled(RouterLink)<{ $highlighted: boolean }>`
   color: ${props => (props.$highlighted ? props.theme.colors.linkColor : 'inherit')};
@@ -16,24 +16,13 @@ type LinkProps = {
   children: ReactNode
   ariaLabel?: string
   className?: string
-  newTab?: boolean
   dir?: UiDirectionType | 'auto'
   id?: string
   highlighted?: boolean
 }
 
-const Link = ({
-  to,
-  children,
-  ariaLabel,
-  className,
-  newTab,
-  dir,
-  id,
-  highlighted = false,
-}: LinkProps): ReactElement => {
-  const newTabProps = newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {}
-  const linkProps = isExternalUrl(to) ? { as: 'a', href: to } : { to }
+const Link = ({ to, children, ariaLabel, className, dir, id, highlighted = false }: LinkProps): ReactElement => {
+  const linkProps = isInternalLink(to) ? { to } : { as: 'a', href: to, target: NEW_TAB, rel: NEW_TAB_FEATURES }
 
   return (
     // @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112
@@ -41,7 +30,6 @@ const Link = ({
       id={id}
       aria-label={ariaLabel}
       className={className}
-      {...newTabProps}
       {...linkProps}
       dir={dir}
       $highlighted={highlighted}>

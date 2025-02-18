@@ -1,4 +1,3 @@
-import { NavigationContainer } from '@react-navigation/native'
 import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
 
@@ -31,9 +30,7 @@ describe('FeedbackContainer', () => {
 
   it('should send feedback request with rating and no other inputs on submit', async () => {
     const { getByText, findByText } = render(
-      <NavigationContainer>
-        <FeedbackContainer routeType={CATEGORIES_ROUTE} language={language} cityCode={city} />
-      </NavigationContainer>,
+      <FeedbackContainer routeType={CATEGORIES_ROUTE} language={language} cityCode={city} />,
     )
     const positiveRatingButton = getByText('useful')
     fireEvent.press(positiveRatingButton)
@@ -69,9 +66,7 @@ describe('FeedbackContainer', () => {
     const comment = 'my comment'
     const contactMail = 'test@example.com'
     const { getByText, findByText, getAllByDisplayValue } = render(
-      <NavigationContainer>
-        <FeedbackContainer routeType={CATEGORIES_ROUTE} language={language} cityCode={city} />
-      </NavigationContainer>,
+      <FeedbackContainer routeType={CATEGORIES_ROUTE} language={language} cityCode={city} />,
     )
     const [commentField, emailField] = getAllByDisplayValue('')
     fireEvent.changeText(commentField!, comment)
@@ -105,9 +100,7 @@ describe('FeedbackContainer', () => {
 
   it('should disable send feedback button if rating button is clicked twice', async () => {
     const { getByText, findByText } = render(
-      <NavigationContainer>
-        <FeedbackContainer routeType={CATEGORIES_ROUTE} language={language} cityCode={city} />
-      </NavigationContainer>,
+      <FeedbackContainer routeType={CATEGORIES_ROUTE} language={language} cityCode={city} />,
     )
     const positiveRatingButton = getByText('useful')
     fireEvent.press(positiveRatingButton)
@@ -119,9 +112,7 @@ describe('FeedbackContainer', () => {
   it('should send search feedback on submit', async () => {
     const query = 'Zeugnis'
     const { findByText, getByText } = render(
-      <NavigationContainer>
-        <FeedbackContainer routeType={SEARCH_ROUTE} language={language} cityCode={city} query={query} />
-      </NavigationContainer>,
+      <FeedbackContainer routeType={SEARCH_ROUTE} language={language} cityCode={city} query={query} />,
     )
     const buttonToOpenFeedback = getByText('giveFeedback')
     fireEvent.press(buttonToOpenFeedback)
@@ -146,9 +137,7 @@ describe('FeedbackContainer', () => {
     const query = 'Zeugnis'
     const fullSearchTerm = 'Zeugnisübergabe'
     const { findByText, getByDisplayValue, getByText } = render(
-      <NavigationContainer>
-        <FeedbackContainer routeType={SEARCH_ROUTE} language={language} cityCode={city} query={query} />
-      </NavigationContainer>,
+      <FeedbackContainer routeType={SEARCH_ROUTE} language={language} cityCode={city} query={query} />,
     )
     const buttonToOpenFeedback = getByText('giveFeedback')
     fireEvent.press(buttonToOpenFeedback)
@@ -173,9 +162,7 @@ describe('FeedbackContainer', () => {
 
   it('should disable send button if query term is removed', async () => {
     const { findByText, getByDisplayValue, getByText } = render(
-      <NavigationContainer>
-        <FeedbackContainer routeType={SEARCH_ROUTE} language={language} cityCode={city} query='query' />
-      </NavigationContainer>,
+      <FeedbackContainer routeType={SEARCH_ROUTE} language={language} cityCode={city} query='query' />,
     )
     const buttonToOpenFeedback = getByText('giveFeedback')
     fireEvent.press(buttonToOpenFeedback)
@@ -183,5 +170,46 @@ describe('FeedbackContainer', () => {
     const input = getByDisplayValue('query')
     fireEvent.changeText(input, '')
     expect(await findByText('send')).toBeDisabled()
+  })
+
+  it('should send negative rating on submit if there are no search results found', async () => {
+    const query = 'gesundheitsversicherung'
+    const noResults = true
+    const { getByText, findByText } = render(
+      <FeedbackContainer
+        routeType={SEARCH_ROUTE}
+        language={language}
+        cityCode={city}
+        query={query}
+        noResults={noResults}
+      />,
+    )
+    expect(getByText('send')).not.toBeDisabled()
+    const submitButton = getByText('send')
+    fireEvent.press(submitButton)
+    expect(await findByText('thanksMessage')).toBeDefined()
+    expect(mockRequest).toHaveBeenCalledTimes(1)
+    expect(mockRequest).toHaveBeenCalledWith({
+      routeType: SEARCH_ROUTE,
+      isPositiveRating: false,
+      city,
+      language,
+      comment: '',
+      contactMail: '',
+      query,
+      searchTerm: query,
+      slug: undefined,
+    })
+    expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
+    expect(sendTrackingSignal).toHaveBeenCalledWith({
+      signal: {
+        name: SEND_FEEDBACK_SIGNAL_NAME,
+        feedback: {
+          positive: false,
+          numCharacters: 0,
+          contactMail: false,
+        },
+      },
+    })
   })
 })

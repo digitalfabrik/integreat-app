@@ -1,0 +1,9 @@
+issue_key: 3010
+show_in_stores: true
+platforms: # relevant platforms, possible values: web, android and ios
+  - ios
+  - android
+  - web
+en: We enhanced the styling of the contact cards to improve readability.
+# de is required for notes with show_in_stores set to true
+de: Wir haben das Styling der Kontaktkarten verbessert, um die Lesbarkeit zu optimieren.

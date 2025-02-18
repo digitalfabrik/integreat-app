@@ -11,6 +11,7 @@ import List from '../components/List'
 import ProgressSpinner from '../components/ProgressSpinner'
 import SearchHeader from '../components/SearchHeader'
 import SearchListItem from '../components/SearchListItem'
+import useAnnounceSearchResultsIOS from '../hooks/useAnnounceSearchResultsIOS'
 import useResourceCache from '../hooks/useResourceCache'
 import testID from '../testing/testID'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
@@ -56,6 +57,7 @@ const SearchModal = ({
 
   const contentLanguageResults = useSearch(allPossibleContentLanguageResults, query)
   const fallbackLanguageResults = useSearch(allPossibleFallbackLanguageResults, query)
+  useAnnounceSearchResultsIOS(searchResults)
 
   const searchResults =
     languageCode === config.sourceLanguage
@@ -105,14 +107,22 @@ const SearchModal = ({
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
         {query.length > 0 && (
           <>
-            <SearchCounter>{t('searchResultsCount', { count: searchResults.length })}</SearchCounter>
+            <SearchCounter accessibilityLiveRegion={searchResults.length === 0 ? 'assertive' : 'polite'}>
+              {t('searchResultsCount', { count: searchResults.length })}
+            </SearchCounter>
             <List
               items={searchResults}
               renderItem={renderItem}
               accessibilityLabel={t('searchResultsCount', { count: searchResults.length })}
               style={{ flex: 1 }}
               noItemsMessage={
-                <FeedbackContainer routeType={SEARCH_ROUTE} language={languageCode} cityCode={cityCode} query={query} />
+                <FeedbackContainer
+                  routeType={SEARCH_ROUTE}
+                  language={languageCode}
+                  cityCode={cityCode}
+                  noResults={searchResults.length === 0}
+                  query={query}
+                />
               }
             />
           </>
