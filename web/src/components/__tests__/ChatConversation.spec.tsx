@@ -113,35 +113,29 @@ describe('ChatConversation', () => {
   })
 
   it('should display icon after isAutomaticAnswer changes', () => {
+    const expectedResults = [
+      { icon: /humanIcon/, text: /Human Message 1/, opacity: '1' },
+      { icon: /botIcon/, text: /Bot Message 1/, opacity: '1' },
+      { icon: /humanIcon/, text: /Human Message 2/, opacity: '1' },
+      { icon: /humanIcon/, text: /Human Message 3/, opacity: '0' },
+    ]
+
     const { getAllByRole } = render(testMessages2, false)
-
     const icons = getAllByRole('img')
+
     expect(icons).toHaveLength(4)
-    const parents: (HTMLElement | null | undefined)[] = []
-    const grandparents: (HTMLElement | null | undefined)[] = []
+
     icons.forEach((icon, index) => {
-      parents[index] = icon.parentElement
-      grandparents[index] = icon.parentElement?.parentElement
+      const expected = expectedResults[index]
+      if (!expected) {
+        return
+      }
+      const parent = icon.parentElement
+      const grandparent = parent?.parentElement
+
+      expect(icon.textContent).toMatch(expected.icon)
+      expect(grandparent?.textContent).toMatch(expected.text)
+      expect(parent).toHaveStyle(`opacity: ${expected.opacity}`)
     })
-
-    expect(icons[0]?.textContent).toMatch(/humanIcon/)
-    expect(grandparents[0]).not.toBeNull()
-    expect(grandparents[0]?.textContent).toMatch(/Human Message 1/)
-    expect(parents[0]).toHaveStyle(`opacity: 1`)
-
-    expect(icons[1]?.textContent).toMatch(/botIcon/)
-    expect(grandparents[1]).not.toBeNull()
-    expect(grandparents[1]?.textContent).toMatch(/Bot Message 1/)
-    expect(parents[1]).toHaveStyle(`opacity: 1`)
-
-    expect(icons[2]?.textContent).toMatch(/humanIcon/)
-    expect(grandparents[2]).not.toBeNull()
-    expect(grandparents[2]?.textContent).toMatch(/Human Message 2/)
-    expect(parents[2]).toHaveStyle(`opacity: 1`)
-
-    expect(icons[3]?.textContent).toMatch(/humanIcon/)
-    expect(grandparents[3]).not.toBeNull()
-    expect(grandparents[3]?.textContent).toMatch(/Human Message 3/)
-    expect(parents[3]).toHaveStyle(`opacity: 0`)
   })
 })
