@@ -73,6 +73,7 @@ export const FeedbackContainer = ({
 
   return (
     <Feedback
+      language={language}
       onCommentChanged={setComment}
       onContactMailChanged={setContactMail}
       onSubmit={handleSubmit}

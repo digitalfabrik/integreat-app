@@ -6,7 +6,13 @@ import Feedback from '../Feedback'
 import { SendingStatusType } from '../FeedbackContainer'
 
 jest.mock('react-inlinesvg')
-jest.mock('react-i18next')
+jest.mock('react-i18next', () => ({
+  ...jest.requireActual('react-i18next'),
+  useTranslation: (namespace?: string) => ({
+    t: (key: string) => (namespace ? `${namespace}:${key}` : key),
+  }),
+  Trans: ({ i18nKey }: { i18nKey: string }) => i18nKey,
+}))
 
 describe('Feedback', () => {
   beforeEach(() => {
@@ -28,6 +34,7 @@ describe('Feedback', () => {
     onContactMailChanged = onContactMailChangedDummy,
     noResults = false,
   }: {
+    language?: string
     isPositiveFeedback?: boolean | null
     comment?: string
     searchTerm?: string
@@ -36,6 +43,7 @@ describe('Feedback', () => {
     noResults?: boolean
   }) => ({
     comment,
+    language: 'en',
     isPositiveFeedback,
     contactMail: 'test@example.com',
     sendingStatus,
@@ -55,22 +63,30 @@ describe('Feedback', () => {
   })
 
   it('note should be shown for no rating and no input', () => {
-    const { getByText } = renderWithTheme(<Feedback {...buildProps({})} />)
-    expect(getByText('feedback:note')).toBeTruthy()
+    const { getByText } = renderWithTheme(<Feedback {...buildProps({ language: 'en' })} />)
+    expect(getByText('feedback:noteFillFeedback')).toBeTruthy()
+  })
+
+  it('button should not be enabled if privacy policy not accepted', () => {
+    const { getByText } = renderWithTheme(<Feedback {...buildProps({ isPositiveFeedback: true })} />)
+    expect(getByText('feedback:send')).toBeDisabled()
   })
 
   it('button should be enabled for positive Feedback and no input', () => {
-    const { getByText } = renderWithTheme(<Feedback {...buildProps({ isPositiveFeedback: true })} />)
+    const { getByText } = renderWithTheme(<Feedback {...buildProps({ language: 'en', isPositiveFeedback: true })} />)
+    getByText('common:privacyPolicy').click()
     expect(getByText('feedback:send')).toBeEnabled()
   })
 
   it('button should be enabled for negative Feedback and no input', () => {
     const { getByText } = renderWithTheme(<Feedback {...buildProps({ isPositiveFeedback: false })} />)
+    getByText('common:privacyPolicy').click()
     expect(getByText('feedback:send')).toBeEnabled()
   })
 
-  it('button should be enabled no rating and input', () => {
+  it('button should be enabled for no rating and input', () => {
     const { getByText } = renderWithTheme(<Feedback {...buildProps({ comment: 'comment' })} />)
+    getByText('common:privacyPolicy').click()
     expect(getByText('feedback:send')).toBeEnabled()
   })
 
@@ -85,7 +101,13 @@ describe('Feedback', () => {
   it('should show not found error', () => {
     const { getByText } = renderWithTheme(
       <Feedback
-        {...buildProps({ isPositiveFeedback: false, comment: 'comment', searchTerm: 'query', noResults: true })}
+        {...buildProps({
+          language: 'en',
+          isPositiveFeedback: false,
+          comment: 'comment',
+          searchTerm: 'query',
+          noResults: true,
+        })}
       />,
     )
     expect(getByText('feedback:wantedInformation')).toBeTruthy()
@@ -103,6 +125,7 @@ describe('Feedback', () => {
       <Feedback {...buildProps({ isPositiveFeedback: false, comment: 'comment' })} />,
     )
     const button = getByText('feedback:send')
+    getByText('common:privacyPolicy').click()
     fireEvent.click(button)
     expect(onSubmit).toHaveBeenCalled()
   })

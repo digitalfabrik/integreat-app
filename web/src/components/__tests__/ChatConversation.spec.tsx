@@ -7,6 +7,8 @@ import { renderWithRouterAndTheme } from '../../testing/render'
 import ChatConversation from '../ChatConversation'
 
 jest.mock('react-i18next')
+jest.mock('react-inlinesvg')
+
 window.HTMLElement.prototype.scrollIntoView = jest.fn()
 jest.useFakeTimers()
 
@@ -40,6 +42,50 @@ describe('ChatConversation', () => {
       automaticAnswer: false,
     }),
   ]
+  const testMessages2: ChatMessageModel[] = [
+    new ChatMessageModel({
+      id: 1,
+      body: 'Human Message 1',
+      userIsAuthor: false,
+      automaticAnswer: false,
+    }),
+    new ChatMessageModel({
+      id: 2,
+      body: 'Bot Message 1',
+      userIsAuthor: false,
+      automaticAnswer: true,
+    }),
+    new ChatMessageModel({
+      id: 3,
+      body: 'User Message 1',
+      userIsAuthor: true,
+      automaticAnswer: false,
+    }),
+    new ChatMessageModel({
+      id: 4,
+      body: 'Human Message 2',
+      userIsAuthor: false,
+      automaticAnswer: false,
+    }),
+    new ChatMessageModel({
+      id: 5,
+      body: 'Human Message 3',
+      userIsAuthor: false,
+      automaticAnswer: false,
+    }),
+    new ChatMessageModel({
+      id: 6,
+      body: 'Bot Message 2',
+      userIsAuthor: false,
+      automaticAnswer: true,
+    }),
+    new ChatMessageModel({
+      id: 7,
+      body: 'Bot Message 3',
+      userIsAuthor: false,
+      automaticAnswer: true,
+    }),
+  ]
 
   it('should display welcome text if conversation has not started', () => {
     const { getByText } = render([], false)
@@ -59,6 +105,7 @@ describe('ChatConversation', () => {
     expect(getByTestId(testMessages[0]!.id)).toBeTruthy()
     expect(getByText('...')).toBeTruthy()
     expect(getByTestId(testMessages[1]!.id)).toBeTruthy()
+    expect(getByText('chat:human')).toBeTruthy()
     expect(getByText('...')).toBeTruthy()
 
     act(() => jest.runAllTimers())
@@ -75,5 +122,31 @@ describe('ChatConversation', () => {
   it('should display error messages if error occurs', () => {
     const { getByText } = render([], true)
     expect(getByText('chat:errorMessage')).toBeTruthy()
+  })
+
+  it('should display icon after automaticAnswer or author changes', () => {
+    const expectedResults = [
+      { icon: 'human', text: 'Human Message 1', opacity: '1' },
+      { icon: 'bot', text: 'Bot Message 1', opacity: '1' },
+      { icon: 'human', text: 'Human Message 2', opacity: '1' },
+      { icon: 'human', text: 'Human Message 3', opacity: '0' },
+      { icon: 'bot', text: 'Bot Message 2', opacity: '1' },
+      { icon: 'bot', text: 'Bot Message 3', opacity: '0' },
+    ]
+
+    const { getAllByRole } = render(testMessages2, false)
+    const icons = getAllByRole('img')
+
+    expect(icons).toHaveLength(6)
+
+    icons.forEach((icon, index) => {
+      const expected = expectedResults[index]!
+      const parent = icon.parentElement
+      const grandparent = parent?.parentElement
+
+      expect(icon.textContent).toMatch(expected.icon)
+      expect(grandparent?.textContent).toMatch(expected.text)
+      expect(parent).toHaveStyle(`opacity: ${expected.opacity}`)
+    })
   })
 })

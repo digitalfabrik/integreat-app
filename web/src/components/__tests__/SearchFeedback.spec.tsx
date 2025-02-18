@@ -9,7 +9,13 @@ import { renderWithTheme } from '../../testing/render'
 import SearchFeedback from '../SearchFeedback'
 
 jest.mock('react-inlinesvg')
-jest.mock('react-i18next')
+jest.mock('react-i18next', () => ({
+  ...jest.requireActual('react-i18next'),
+  useTranslation: (namespace?: string) => ({
+    t: (key: string) => (namespace ? `${namespace}:${key}` : key),
+  }),
+  Trans: ({ i18nKey }: { i18nKey: string }) => i18nKey,
+}))
 
 describe('SearchFeedback', () => {
   const cityCode = 'augsburg'
@@ -57,6 +63,7 @@ describe('SearchFeedback', () => {
       <SearchFeedback cityCode={cityCode} languageCode={languageCode} query='ab' noResults />,
     )
     fireEvent.click(getByText('feedback:giveFeedback'))
+    getByText('common:privacyPolicy').click()
     expect(getByText('feedback:send')).toBeEnabled()
 
     // the query is controlled in the parent of SearchFeedback, so we need to update the props

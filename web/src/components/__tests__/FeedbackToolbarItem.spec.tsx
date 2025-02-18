@@ -6,7 +6,13 @@ import { CATEGORIES_ROUTE } from 'shared'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import FeedbackToolbarItem from '../FeedbackToolbarItem'
 
-jest.mock('react-i18next')
+jest.mock('react-i18next', () => ({
+  ...jest.requireActual('react-i18next'),
+  useTranslation: (namespace?: string) => ({
+    t: (key: string) => (namespace ? `${namespace}:${key}` : key),
+  }),
+  Trans: ({ i18nKey }: { i18nKey: string }) => i18nKey,
+}))
 jest.mock('shared/api', () => ({
   ...jest.requireActual('shared/api'),
   createFeedbackEndpoint: () => ({
@@ -28,6 +34,8 @@ describe('FeedbackToolbarItem', () => {
 
     expect(getByText('feedback:headline')).toBeTruthy()
     expect(queryByText('feedback:thanksHeadline')).toBeFalsy()
+
+    getByText('common:privacyPolicy').click()
 
     fireEvent.click(getByText('feedback:send'))
 

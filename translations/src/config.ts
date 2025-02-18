@@ -141,6 +141,12 @@ class Config {
     rom: {
       rtl: false,
     },
+    hi: {
+      rtl: false,
+    },
+    sw: {
+      rtl: false,
+    },
   }
 
   // Fallbacks for unnormalized language codes from our backend

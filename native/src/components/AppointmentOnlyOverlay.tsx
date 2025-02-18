@@ -60,7 +60,7 @@ const AppointmentOnlyOverlay = ({ appointmentUrl, closeOverlay }: AppointmentOnl
             {/* More information: https://react.i18next.com/latest/trans-component */}
             <Trans i18nKey='pois:makeAppointmentTooltipWithLink'>
               This gets replaced by react-i18next
-              {appointmentUrl ? <Link url={appointmentUrl} text={t('theWebsite')} /> : <Text>{t('theWebsite')}</Text>}
+              {appointmentUrl ? <Link url={appointmentUrl}>{t('theWebsite')}</Link> : <Text>{t('theWebsite')}</Text>}
             </Trans>
           </Text>
           <CloseButton onPress={closeOverlay} role='button'>

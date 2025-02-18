@@ -81,11 +81,7 @@ const ChatConversation = ({ messages, hasError, className }: ChatConversationPro
         <>
           {!hasError && <InitialMessage>{t('initialMessage')}</InitialMessage>}
           {messages.map((message, index) => (
-            <ChatMessage
-              message={message}
-              key={message.id}
-              showIcon={messages[index - 1]?.userIsAuthor !== message.userIsAuthor}
-            />
+            <ChatMessage message={message} key={message.id} previousMessage={messages[index - 1]} />
           ))}
           <TypingIndicator isVisible={typingIndicatorVisible} />
           <div ref={messagesEndRef} />

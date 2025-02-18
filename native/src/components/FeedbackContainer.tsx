@@ -100,6 +100,7 @@ const FeedbackContainer = ({
     return (
       <Container>
         <Feedback
+          language={language}
           comment={comment}
           contactMail={contactMail}
           sendingStatus={sendingStatus}
