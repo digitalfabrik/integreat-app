@@ -268,14 +268,14 @@
   },
   "chat": {
     "de": {
-      "botIcon": "Chatbot",
+      "bot": "Chatbot",
       "button": "Chat (beta)",
       "conversationTitle": "Bitte gib deine Frage in das Textfeld ein.",
       "conversationText": "Du kannst alles fragen, von lokalen Informationen bis hin zu spezifischen Anfragen bezüglich deiner Situation.",
       "dataSecurity": "Datenschutz und Sicherheit: Deine Privatsphäre ist uns sehr wichtig. Alle Gespräche werden vertraulich behandelt und deine Daten werden sicher verarbeitet. Mehr Informationen zum Datenschutz findest du in unseren Datenschutzrichtlinien.",
       "errorMessage": "Es ist ein Fehler bei der Kommunikation aufgetreten.",
       "header": "{{appName}} Chat Support",
-      "humanIcon": "Berater*in",
+      "human": "Berater*in",
       "initialMessage": "Deine Chatanfrage wurde gesendet. Die Berater*in beantwortet deine Nachricht so schnell wie möglich.",
       "inputLabel": "Meine Frage:",
       "inputPlaceholder": "Ich möchte wissen...",
@@ -382,14 +382,14 @@
       "user": "Εσείς"
     },
     "en": {
-      "chatIcon": "Chatbot",
+      "bot": "Chatbot",
       "button": "Chat (beta)",
       "conversationTitle": "Please enter your question in the text field.",
       "conversationText": "You can ask anything from local information to specific requests regarding your situation.",
       "dataSecurity": "Data protection and security: Your privacy is very important to us. All conversations are treated confidentially and your data is processed securely. You can find more information on data protection in our privacy policy.",
       "errorMessage": "An error has occurred during communication.",
       "header": "{{appName}} Chat Support",
-      "humanIcon": "Advisor",
+      "human": "Advisor",
       "initialMessage": "Your chat request has been sent. The advisor will answer your message as soon as possible.",
       "inputLabel": "My question:",
       "inputPlaceholder": "I would like to know...",

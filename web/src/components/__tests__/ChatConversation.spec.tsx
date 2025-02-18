@@ -57,7 +57,7 @@ describe('ChatConversation', () => {
     }),
     new ChatMessageModel({
       id: 3,
-      body: 'Author Message 1',
+      body: 'User Message 1',
       userIsAuthor: true,
       automaticAnswer: false,
     }),
@@ -72,6 +72,18 @@ describe('ChatConversation', () => {
       body: 'Human Message 3',
       userIsAuthor: false,
       automaticAnswer: false,
+    }),
+    new ChatMessageModel({
+      id: 6,
+      body: 'Bot Message 2',
+      userIsAuthor: false,
+      automaticAnswer: true,
+    }),
+    new ChatMessageModel({
+      id: 7,
+      body: 'Bot Message 3',
+      userIsAuthor: false,
+      automaticAnswer: true,
     }),
   ]
 
@@ -112,24 +124,23 @@ describe('ChatConversation', () => {
     expect(getByText('chat:errorMessage')).toBeTruthy()
   })
 
-  it('should display icon after isAutomaticAnswer changes', () => {
+  it('should display icon after automaticAnswer or author changes', () => {
     const expectedResults = [
-      { icon: /humanIcon/, text: /Human Message 1/, opacity: '1' },
-      { icon: /botIcon/, text: /Bot Message 1/, opacity: '1' },
-      { icon: /humanIcon/, text: /Human Message 2/, opacity: '1' },
-      { icon: /humanIcon/, text: /Human Message 3/, opacity: '0' },
+      { icon: 'human', text: 'Human Message 1', opacity: '1' },
+      { icon: 'bot', text: 'Bot Message 1', opacity: '1' },
+      { icon: 'human', text: 'Human Message 2', opacity: '1' },
+      { icon: 'human', text: 'Human Message 3', opacity: '0' },
+      { icon: 'bot', text: 'Bot Message 2', opacity: '1' },
+      { icon: 'bot', text: 'Bot Message 3', opacity: '0' },
     ]
 
     const { getAllByRole } = render(testMessages2, false)
     const icons = getAllByRole('img')
 
-    expect(icons).toHaveLength(4)
+    expect(icons).toHaveLength(6)
 
     icons.forEach((icon, index) => {
-      const expected = expectedResults[index]
-      if (!expected) {
-        return
-      }
+      const expected = expectedResults[index]!
       const parent = icon.parentElement
       const grandparent = parent?.parentElement
 

@@ -54,7 +54,7 @@ const getIcon = (userIsAuthor: boolean, isAutomaticAnswer: boolean, t: TFunction
     return <Circle>{t('user')}</Circle>
   }
   const icon = isAutomaticAnswer ? ChatBot : ChatPerson
-  return <Icon src={icon} title={isAutomaticAnswer ? t('botIcon') : t('humanIcon')} />
+  return <Icon src={icon} title={isAutomaticAnswer ? t('bot') : t('human')} />
 }
 
 const ChatMessage = ({ message, showIcon }: ChatMessageProps): ReactElement => {
