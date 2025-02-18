@@ -1,4 +1,3 @@
-import { NavigationContainer } from '@react-navigation/native'
 import { fireEvent } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import { DateTime } from 'luxon'
@@ -83,11 +82,7 @@ describe('TuNews', () => {
   }
 
   const renderNews = () =>
-    render(
-      <NavigationContainer>
-        <TuNews data={data} route={route} navigation={navigation} navigateToNews={selectNews} />
-      </NavigationContainer>,
-    )
+    render(<TuNews data={data} route={route} navigation={navigation} navigateToNews={selectNews} />)
   const tuNewsResponse = {
     error: null,
     loading: false,
