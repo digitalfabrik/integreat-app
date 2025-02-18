@@ -46,7 +46,7 @@
   "dependencies": {
     "@dr.pogodin/react-native-static-server": "^0.5.5",
     "@dr.pogodin/react-native-webview": "^13.13.0",
-    "@gorhom/bottom-sheet": "^4.6.4",
+    "@gorhom/bottom-sheet": "^5.0.6",
     "@maplibre/maplibre-react-native": "^9.1.0",
     "@notifee/react-native": "^9.1.8",
     "@react-native-async-storage/async-storage": "^2.0.0",
