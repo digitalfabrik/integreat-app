@@ -105,7 +105,7 @@ describe('ChatConversation', () => {
     expect(getByTestId(testMessages[0]!.id)).toBeTruthy()
     expect(getByText('...')).toBeTruthy()
     expect(getByTestId(testMessages[1]!.id)).toBeTruthy()
-    expect(getByText('chat:humanIcon')).toBeTruthy()
+    expect(getByText('chat:human')).toBeTruthy()
     expect(getByText('...')).toBeTruthy()
 
     act(() => jest.runAllTimers())
