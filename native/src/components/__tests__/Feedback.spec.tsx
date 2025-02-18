@@ -33,21 +33,13 @@ describe('Feedback', () => {
   })
 
   it('button should be disabled if privacy policy is not accepted', async () => {
-    const { getByText } = render(
-      <NavigationContainer>
-        <Feedback {...buildProps(true, 'comment', 'query')} />
-      </NavigationContainer>,
-    )
+    const { getByText } = render(<Feedback {...buildProps(true, 'comment', 'query')} />)
 
     expect(getByText('send')).toBeDisabled()
   })
 
   it('button should be disabled and note should be shown without feedback and no comment', async () => {
-    const { getByText, queryByText } = render(
-      <NavigationContainer>
-        <Feedback {...buildProps(null, '')} />
-      </NavigationContainer>,
-    )
+    const { getByText, queryByText } = render(<Feedback {...buildProps(null, '')} />)
     fireEvent.press(getByText('common:privacyPolicy'))
     expect(getByText('send')).toBeDisabled()
     expect(queryByText('searchTermDescription')).toBeFalsy()
@@ -56,11 +48,7 @@ describe('Feedback', () => {
   })
 
   it('button should be enabled for search feedback and no input', async () => {
-    const { getByText, queryByText } = render(
-      <NavigationContainer>
-        <Feedback {...buildProps(null, '', 'query')} />
-      </NavigationContainer>,
-    )
+    const { getByText, queryByText } = render(<Feedback {...buildProps(null, '', 'query')} />)
     fireEvent.press(getByText('common:privacyPolicy'))
     expect(getByText('send')).not.toBeDisabled()
     expect(getByText('searchTermDescription')).toBeTruthy()
@@ -68,11 +56,7 @@ describe('Feedback', () => {
   })
 
   it('button should be enabled for positive feedback and no input', async () => {
-    const { getByText, queryByText } = render(
-      <NavigationContainer>
-        <Feedback {...buildProps(true, '')} />
-      </NavigationContainer>,
-    )
+    const { getByText, queryByText } = render(<Feedback {...buildProps(true, '')} />)
     fireEvent.press(getByText('common:privacyPolicy'))
     expect(getByText('send')).not.toBeDisabled()
     expect(queryByText('searchTermDescription')).toBeFalsy()
@@ -80,11 +64,7 @@ describe('Feedback', () => {
   })
 
   it('button should be enabled for no feedback but comment', async () => {
-    const { getByText, queryByText } = render(
-      <NavigationContainer>
-        <Feedback {...buildProps(null, 'comment')} />
-      </NavigationContainer>,
-    )
+    const { getByText, queryByText } = render(<Feedback {...buildProps(null, 'comment')} />)
     fireEvent.press(getByText('common:privacyPolicy'))
     expect(getByText('send')).not.toBeDisabled()
     expect(queryByText('note')).toBeFalsy()
@@ -97,11 +77,7 @@ describe('Feedback', () => {
   })
 
   it('onSubmit should be called with query on button press for search feedback', async () => {
-    const { getByText } = render(
-      <NavigationContainer>
-        <Feedback {...buildProps(false, 'My test comment', 'query')} />
-      </NavigationContainer>,
-    )
+    const { getByText } = render(<Feedback {...buildProps(false, 'My test comment', 'query')} />)
     fireEvent.press(getByText('common:privacyPolicy'))
     const button = getByText('send')
     fireEvent.press(button)

@@ -28,9 +28,7 @@ describe('FeedbackContainer', () => {
 
   it('should disable send button if privacy policy is not accepted', async () => {
     const { findByText, getByText } = render(
-      <NavigationContainer>
-        <FeedbackContainer routeType={SEARCH_ROUTE} language={language} cityCode={city} />
-      </NavigationContainer>,
+      <FeedbackContainer routeType={SEARCH_ROUTE} language={language} cityCode={city} />,
     )
     const positiveRatingButton = getByText('useful')
     fireEvent.press(positiveRatingButton)
@@ -174,9 +172,7 @@ describe('FeedbackContainer', () => {
 
   it('should disable send button if query term is removed', async () => {
     const { findByText, getByDisplayValue, getByText } = render(
-      <NavigationContainer>
-        <FeedbackContainer routeType={SEARCH_ROUTE} language={language} cityCode={city} query='query' />
-      </NavigationContainer>,
+      <FeedbackContainer routeType={SEARCH_ROUTE} language={language} cityCode={city} query='query' />,
     )
     fireEvent.press(getByText('common:privacyPolicy'))
     expect(await findByText('send')).not.toBeDisabled()
