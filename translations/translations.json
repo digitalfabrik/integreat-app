@@ -83,6 +83,13 @@
       "organizationContent": "Le contenu de cette page est de {{organization}}.",
       "organizationMoreInformation": "Tu trouveras plus d’informations à propos de <1>{{organization}}</1> sur <3>{{domain}}</3>."
     },
+    "hi": {
+      "createPdf": "एक PDF बनाएँ",
+      "metaDescription": "{{appName}} जर्मनी में जीवन के लिए आपकी डिजिटल मार्गदर्शिका है। स्थानीय जानकारी, इवेंट और सलाह की खोज करें। हमेशा अद्यतन और आपकी अपनी भाषा में उपलब्ध।",
+      "organizationContent": "इस पेज की सामग्री {{organization}} से है।",
+      "organizationMoreInformation": "आप <1>{{organization}}</1> के बारे में ज़्यादा जानकारी <3>{{domain}}</3> पर पा सकते हैं।",
+      "disabledPdf": "वर्तमान में इस भाषा में PDF निर्यात संभव नहीं है।"
+    },
     "hr": {
       "createPdf": "Kreiraj PDF",
       "metaDescription": "{{appName}} je tvoj digitalni vodič za Njemačku. Nađi lokalne informacije, manifestacije i savjetovališta. Uvijek aktualno i na tvom jeziku.",
@@ -229,6 +236,13 @@
       "organizationContent": "{{organization}} je vlasnik sadržaja ove stranice.",
       "organizationMoreInformation": "Više informacija o <1>{{organization}}</1> možeš naći na <3>{{domain}}</3>.",
       "disabledPdf": "Izvoz PDF-a trenutno nije moguć na ovom jeziku."
+    },
+    "sw": {
+      "createPdf": "Tayarisha PDF",
+      "metaDescription": "{{appName}} ni mwongozo wako wa mtandaoni wa maisha nchini Ujerumani. Pata habari za nchini, matukio na ushauri. Ni sahihi kila wakati na zinapatikana kwa lugha yako.",
+      "organizationContent": "Yaliyomo kwenye ukurasa huu yanatoka {{organization}}.",
+      "organizationMoreInformation": "Unaweza kupata maelezo zaidi kuhusu <1>{{organization}}</1> kwenye <3>{{domain}}</3>.",
+      "disabledPdf": "Kwa sasa huwezi kupakua PDF katika lugha hii."
     },
     "ti": {
       "createPdf": "PDF ፍጠር",
@@ -438,6 +452,20 @@
       "loadingText": "Un instant s’il te plaît, le chat va commencer...",
       "sendButton": "Envoyer",
       "user": "Toi"
+    },
+    "hi": {
+      "button": "चैट (बीटा)",
+      "conversationTitle": "कृपया अपना प्रश्न टेक्स्ट फ़ील्ड में दर्ज करें।",
+      "conversationText": "आप स्थानीय जानकारी से लेकर अपनी स्थिति के संबंध में विशिष्ट अनुरोध तक कुछ भी पूछ सकते हैं।",
+      "dataSecurity": "डेटा संरक्षण और सुरक्षा: आपकी निजता हमारे लिए बहुत महत्वपूर्ण है। सभी वार्तालापों को गोपनीय रखा जाता है और आपके डेटा को सुरक्षित रूप से संसाधित किया जाता है। आप हमारी गोपनीयता नीति में डेटा संरक्षण पर ज़्यादा जानकारी पा सकते हैं।",
+      "errorMessage": "संचार के दौरान एक त्रुटि हुई है।",
+      "header": "{{appName}} चैट सहायता",
+      "initialMessage": "आपका चैट अनुरोध भेज दिया गया है। सलाहकार यथाशीघ्र आपके संदेश का उत्तर देंगे।",
+      "inputLabel": "मेरा प्रश्न:",
+      "inputPlaceholder": "मेरी जानने की इच्छा है...",
+      "loadingText": "कृपया एक पल रुकें, चैट शुरू हो रही है...",
+      "sendButton": "भेजें",
+      "user": "आप"
     },
     "hr": {
       "button": "Chat (beta)",
@@ -733,6 +761,20 @@
       "sendButton": "Pošalji",
       "user": "Ti"
     },
+    "sw": {
+      "button": "Mazungumzo (beta)",
+      "conversationTitle": "Tafadhali andika swali lako katika sehemu ya maandishi.",
+      "conversationText": "Unaweza kuuliza chochote kuanzia kwa habari za nchini hadi kwa maombi maalum kuhusu hali yako.",
+      "dataSecurity": "Ulinzi na usalama wa data: Tunajali zaidi faragha yako. Mazungumzo yote yanachukuliwa kuwa ya siri na data yako hutumika kwa njia salama. Unaweza kupata maelezo zaidi kuhusu ulinzi wa data katika sera yetu ya faragha.",
+      "errorMessage": "Hitilafu fulani imetokea wakati wa mawasiliano.",
+      "header": "Usaidizi wa Mazungumzo wa {{appName}}",
+      "initialMessage": "Ombi lako la mazungumzo limetumwa. Mshauri atajibu ujumbe wako haraka iwezekanavyo.",
+      "inputLabel": "Swali langu:",
+      "inputPlaceholder": "Ningependa kujua...",
+      "loadingText": "Tafadhali subiri kidogo, mazungumzo yanaanzishwa...",
+      "sendButton": "Tuma",
+      "user": "Wewe"
+    },
     "ti": {
       "button": "ቻት (ቤታ)",
       "conversationTitle": "በጣም ጽሑፍካን በኩልን እንደትግበር ኣብቲ ህብልጽ መልእኽት ጸሓፈካን ናብኡ እንድውል ይቕረቡ",
@@ -901,6 +943,14 @@
       "sendText": "Copier ce texte, remplir les contenus [ ] avec tes données et envoyer",
       "copyText": "Copier le texte"
     },
+    "hi": {
+      "callToAction": "Integreat के लिए अपना क्षेत्र सुझाएँ!",
+      "explanation": "Integreat-ऐप की इस परोपकारी अवधारणा ने आपको आश्वस्त किया है और क्या आप सोचते हैं कि आपका शहर,\nआपका जिला या आपका समुदाय भी इस डिजिटल समाधान से लाभान्वित हो सकता है? इस मामले में आप अभी यहाँ सक्रिय हो सकते हैं।",
+      "whatToDo": "आप ऐसा कर सकते हैं:",
+      "findOutMail": "अपने क्षेत्र का ई-मेल पता पाएँ",
+      "sendText": "इस टेक्स्ट को कॉपी करें, [ ]-सामग्री को अपने विवरण के साथ पूरा करें और भेजें",
+      "copyText": "टेक्स्ट कॉपी करें"
+    },
     "hr": {
       "callToAction": "Predloži Integreat svojoj regiji!",
       "explanation": "Uvjerio si se u opće koristan koncept aplikacije Integreat i smatraš da bi i tvoj grad, tvoj okrug ili tvoja općina mogli profitirati od digitalnog rješenja? U tom slučaju možeš ovdje sasvim jednostavno postati aktivan.",
@@ -1068,6 +1118,14 @@
       "findOutMail": "Saznajte adresu e-pošte u vašem regionu",
       "sendText": "Kopirajte ovaj tekst, popunite [ ] sadržaj svojim podacima i pošaljite",
       "copyText": "kopiraj tekst"
+    },
+    "sw": {
+      "callToAction": "Pendekezo eneo lako kwa Integreat!",
+      "explanation": "Umeshawishika na wazo hili la uhisani la Integreat-App na unafikiri kuwa pia mji wako,\nwilaya yako au jamii yako inaweza kufaidika na huduma hii dijitali? Kwa hivyo, unaweza tu kujisajili hapa sasa.",
+      "whatToDo": "Unaweza kufanya yafuatayo:",
+      "findOutMail": "Pata anwani ya barua pepe ya eneo lako",
+      "sendText": "Nakili maandishi haya, jaza maelezo yako katika [ ] na utume",
+      "copyText": "Nakili maandishi"
     },
     "ti": {
       "callToAction": "ናይ ከባቢኻ ምጽንባር ሓሳብ ኣቕርብ!",
@@ -1282,6 +1340,21 @@
       "optional": "facultatif",
       "back": "Retour",
       "ok": "Ok"
+    },
+    "hi": {
+      "copied": "कॉपी किया गया",
+      "moreOptions": "और विकल्प",
+      "languageNotAvailable": "क्षमा करें, लेकिन आपकी भाषा यहाँ उपलब्ध नहीं है।",
+      "chooseALanguage": "एक भाषा चुनें।",
+      "lastUpdate": "अंतिम अपडेट:",
+      "loading": "लोड हो रहा है...",
+      "close": "बंद करें",
+      "showMore": "और दिखाएँ",
+      "showLess": "कम दिखाएँ",
+      "optional": "वैकल्पिक",
+      "back": "वापस",
+      "ok": "ठीक",
+      "openCalendar": "कैलेंडर खोलें"
     },
     "hr": {
       "copied": "kopirano",
@@ -1576,6 +1649,21 @@
       "back": "Nazad",
       "ok": "U redu"
     },
+    "sw": {
+      "copied": "Yamenakiliwa",
+      "moreOptions": "Chaguo zaidi",
+      "languageNotAvailable": "Samahani, lugha yako haipatikani hapa.",
+      "chooseALanguage": "Chagua lugha.",
+      "lastUpdate": "Ilisasishwa mara ya mwisho:",
+      "loading": "Inapakia...",
+      "close": "Funga",
+      "showMore": "Onyesha mengi",
+      "showLess": "Onyesha machache",
+      "optional": "si lazima",
+      "back": "Nyuma",
+      "ok": "Sawa",
+      "openCalendar": "Fungua kalenda"
+    },
     "ti": {
       "copied": "ተቐዲሑ",
       "moreOptions": "ዝበዝሐ ኣማራጺ",
@@ -1767,6 +1855,16 @@
       "knownResourceContentMessage": "Cet élément contient des données provenant de cette source externe. Vous pouvez bloquer l’intégration de tels contenus dans les paramètres.",
       "knownResourceBlocked": "Le contenu externe de cette source a été bloqué. Vous pouvez autoriser cette source à afficher des informations dans les paramètres.",
       "noSources": "Aucune source externe disponible."
+    },
+    "hi": {
+      "title": "बाहरी स्रोत",
+      "description": "आप तृतीय-पक्ष प्रदाताओं से एम्बेडेड सामग्री के प्रदर्शन के लिए स्थायी रूप से सहमत हो सकते हैं। इसके बाद चयन आपके इंटरनेट ब्राउज़र में स्थायी रूप से सहेज लिया जाएगा। आप किसी भी समय यहाँ अपनी सहमति रद्द कर सकते हैं।",
+      "descriptionNative": "आप तृतीय-पक्ष प्रदाताओं से एम्बेडेड सामग्री के प्रदर्शन के लिए स्थायी रूप से सहमत हो सकते हैं। इसके बाद चयन आपके स्थानीय डिवाइस पर स्थायी रूप से सहेज लिया जाएगा। आप किसी भी समय यहाँ अपनी सहमति रद्द कर सकते हैं।",
+      "consentDescription": "{{source}} से सामग्री की अनुमति दें",
+      "knownResourceOptIn": "मैं सहमत हूँ कि इस बाहरी स्रोत की सामग्री मुझे दिखाई जा सकती है।",
+      "knownResourceContentMessage": "इस एलिमेंट में इस बाहरी स्रोत से डेटा शामिल है। आप सेटिंग्स में जाकर ऐसी सामग्री को एम्बेड करने से रोक सकते हैं।",
+      "knownResourceBlocked": "इस स्रोत से बाह्य सामग्री को अवरुद्ध कर दिया गया है। आप सेटिंग्स में जाकर इस स्रोत को अनुमति दे सकते हैं।",
+      "noSources": "कोई बाह्य स्रोत उपलब्ध नहीं है।"
     },
     "hr": {
       "title": "Eksterni izvori",
@@ -1978,6 +2076,16 @@
       "knownResourceBlocked": "Eksterni sadržaj ovog izvora je blokiran. U podešavanjima možeš dozvoliti ove izvore.",
       "noSources": "Eksterni izvori nisu na raspolaganju."
     },
+    "sw": {
+      "title": "Vyanzo vya Nje",
+      "description": "Unaweza kukubali kabisa kuonyeshwa kwa maudhui yaliyopachikwa kutoka kwa watoa huduma wengine. Kisha chaguo lako litahifadhiwa kabisa katika kivinjari chako. Unaweza kuondoa idhini yako hapa wakati wowote.",
+      "descriptionNative": "Unaweza kukubali kabisa kuonyeshwa kwa maudhui yaliyopachikwa kutoka kwa watoa huduma wengine. Kisha chaguo lako litahifadhiwa kabisa katika kifaa chako. Unaweza kuondoa idhini yako hapa wakati wowote.",
+      "consentDescription": "Ruhusu maudhui kutoka {{source}}",
+      "knownResourceOptIn": "Ninakubali kuwa ninaweza kuonyeshwa maudhui kutoka katika chanzo hiki cha nje.",
+      "knownResourceContentMessage": "Kipengele hiki kina data kutoka katika chanzo hiki cha nje. Unaweza kuzuia kupachikwa kwa maudhui hayo katika mipangilio.",
+      "knownResourceBlocked": "Maudhui ya nje kutoka katika chanzo hiki yamezuiwa. Unaweza kuruhusu chanzo hiki katika mipangilio.",
+      "noSources": "Hakuna vyanzo vya nje vinavyopatikana."
+    },
     "ti": {
       "title": "ናይ ወጻኢ ምንጭታት",
       "description": "ካብ ወጻኢ ምንጭታት ዝመጽእ ዝተሰረተ ትሕዝቶ ንምርኣይ ንሓዋሩ ክትሰማምዑ ትኽእሉ ኢኹም። ድሕሪኡ እቲ ምርጫ ንሓዋሩ ኣብ ኢንተርነት መርበብ ሓበሬታኹም ክቕመጥ እዩ። ኣብዚ ስምምዕ ኣብ ዝዀነ ይኹን እዋን ክስረዝ ይኽእል እዩ።",
@@ -2101,6 +2209,12 @@
       "events": "Événements",
       "news": "Nouvelles",
       "pois": "Carte"
+    },
+    "hi": {
+      "localInformation": "स्थानीय जानकारी",
+      "events": "ईवेंट",
+      "news": "समाचार",
+      "pois": "मैप"
     },
     "hr": {
       "localInformation": "Lokalne informacije",
@@ -2228,6 +2342,12 @@
       "news": "Vesti",
       "pois": "Karta"
     },
+    "sw": {
+      "localInformation": "Habari za nchini",
+      "events": "Matukio",
+      "news": "Habari",
+      "pois": "Ramani"
+    },
     "ti": {
       "localInformation": "ከባብያዊ ሓበሬታ",
       "events": "ኣጋጣሚታት",
@@ -2296,6 +2416,9 @@
     "fr": {
       "pageTitle": "Mentions légales et contact"
     },
+    "hi": {
+      "pageTitle": "छाप और संपर्क"
+    },
     "hr": {
       "pageTitle": "Impresum i kontakt"
     },
@@ -2358,6 +2481,9 @@
     },
     "sr-Latn": {
       "pageTitle": "Impresum i kontakt"
+    },
+    "sw": {
+      "pageTitle": "Chapa na anwani"
     },
     "ti": {
       "pageTitle": "ናይ ደራሲ ዝርዝራት ሓበሬታን ናይ ርክብን"
@@ -2799,6 +2925,43 @@
       "languageSwitchFailedMessage": "La langue sélectionnée n'est pas disponible hors ligne. Une connexion Internet active est requise.",
       "noCalendarPermission": "L’accès au calendrier n’est pas autorisé.",
       "noCalendarFound": "Aucun calendrier approprié n’a été trouvé."
+    },
+    "hi": {
+      "notFound": {
+        "language": "क्षमा करें, लेकिन यह भाषा यहाँ उपलब्ध नहीं है।",
+        "city": "क्षमा करें, यह क्षेत्र नहीं मिला।",
+        "category": "क्षमा करें, लेकिन अनुरोधित पेज नहीं मिल सका।",
+        "event": "क्षमा करें, लेकिन यह ईवेंट नहीं मिल सका.",
+        "poi": "क्षमा करें, यह स्थान नहीं मिला।",
+        "news": "क्षमा करें, लेकिन यह संदेश नहीं मिल सका।",
+        "pageTitle": "पेज नहीं मिला"
+      },
+      "pageNotFound": "क्षमा करें, लेकिन अनुरोधित पेज नहीं मिल सका।",
+      "noSuitableAppInstalled": "कोई उपयुक्त ऐप इंस्टॉल नहीं है।",
+      "networkConnectionFailed": "सर्वर से कनेक्शन विफल हो गया।",
+      "networkRequestFailed": "अनुरोध संसाधित नहीं किया जा सका।",
+      "responseMappingFailed": "सर्वर की प्रतिक्रिया संसाधित करते समय एक त्रुटि हुई।",
+      "unknownError": "एक अज्ञात त्रुटि हुई।",
+      "tryAgain": "दोबारा प्रयास करें",
+      "loadingFailed": "क्षमा करें, लेकिन अनुरोधित पेज लोड नहीं किया जा सका।",
+      "chooseALanguage": "एक भाषा चुनें:",
+      "goTo": {
+        "start": "होमपेज पर जाएँ",
+        "categories": "श्रेणियाँ पर जाएँ",
+        "events": "ईवेंट पर जाएँ",
+        "pois": "मैप पर जाएँ",
+        "news": "समाचार पर जाएँ",
+        "pageNumber": "पेज {{number}} पर जाएँ"
+      },
+      "pageTitle": "त्रुटि",
+      "generalError": "कोई त्रुटि उत्पन्न हुई",
+      "notSupportedByDevice": "यह फ़ंक्शन इस डिवाइस पर समर्थित नहीं है।",
+      "languageSwitchFailedTitle": "दुर्भाग्यवश, भाषा बदलने में विफल रहा।",
+      "languageSwitchFailedMessage": "अगर आप ऑफ़लाइन हैं, तो चयनित भाषा उपलब्ध नहीं है। सक्रिय इंटरनेट कनेक्शन आवश्यक है।",
+      "permissionRequired": "अनुमति आवश्यक है",
+      "noCalendarPermission": "कैलेंडर को एक्सेस करने की अनुमति नहीं है।",
+      "noCalendarFound": "कोई उपयुक्त कैलेंडर नहीं मिला।",
+      "settingsError": "सेटिंग्स लागू करने में विफल रहा"
     },
     "hr": {
       "notFound": {
@@ -3535,6 +3698,43 @@
       "noCalendarPermission": "Pristup kalendaru nije dozvoljen.",
       "noCalendarFound": "Nije pronađen odgovarajući kalendar."
     },
+    "sw": {
+      "notFound": {
+        "language": "Samahani, lugha hii haipatikani hapa.",
+        "city": "Samahani, eneo hili halijapatikani.",
+        "category": "Samahani, ukurasa ulioomba haujapatikana.",
+        "event": "Samahani, tukio hili halijapatikana.",
+        "poi": "Samahani, mahali hapa hapajapatikani.",
+        "news": "Samahani, ujumbe huu haujapatikana.",
+        "pageTitle": "Ukurasa haujapatikana"
+      },
+      "pageNotFound": "Samahani, ukurasa ulioomba haujapatikana.",
+      "noSuitableAppInstalled": "Hakuna programu inayofaa iliyowekwa kwenye kifaa.",
+      "networkConnectionFailed": "Imeshindwa kuunganishwa na seva.",
+      "networkRequestFailed": "Ombi limeshindwa kushughulikiwa.",
+      "responseMappingFailed": "Hitilafu fulani imetokea wakati wa kushughulikia jibu la seva.",
+      "unknownError": "Hitilafu isiyojulikana imetokea.",
+      "tryAgain": "Jaribu tena",
+      "loadingFailed": "Samahani, ukurasa ulioomba umeshindwa kupakiwa.",
+      "chooseALanguage": "Chagua lugha:",
+      "goTo": {
+        "start": "Nenda kwenye ukurasa wa kwanza",
+        "categories": "Nenda kwenye aina",
+        "events": "Nenda kwenye matukio",
+        "pois": "Nenda kwenye ramani",
+        "news": "Nenda kwenye habari",
+        "pageNumber": "Nenda kwenye ukurasa wa {{number}}"
+      },
+      "pageTitle": "Hitilafu",
+      "generalError": "Hitilafu fulani imetokea",
+      "notSupportedByDevice": "Kipengele hiki hakitumiki kwenye kifaa hiki.",
+      "languageSwitchFailedTitle": "Samahani, lugha imeshindwa kubadilishwa.",
+      "languageSwitchFailedMessage": "Lugha uliyochagua haipatikani ikiwa hujaingia mtandaoni. Unahitaji kuingia mtandaoni.",
+      "permissionRequired": "Ruhusa inahitajika",
+      "noCalendarPermission": "Ufikiaji wa kalenda haujaruhusiwa.",
+      "noCalendarFound": "Hakuna kalenda inayofaa iliyopatikana.",
+      "settingsError": "Imeshindwa kutumia mipangilio"
+    },
     "ti": {
       "notFound": {
         "language": "ሕማቕ ኣጋጣሚ ኮይኑ፡ እዚ ቋንቋ’ዚ ኣብዚ የለን።",
@@ -4041,6 +4241,35 @@
       "showFilters": "Afficher les filtres",
       "selectRange": "Sélectionner la période"
     },
+    "hi": {
+      "address": "पता",
+      "date_one": "तिथि",
+      "date_other": "तिथियाँ",
+      "nextDate_one": "अगली तिथि",
+      "nextDate_other": "अगली तिथियाँ",
+      "events": "ईवेंट",
+      "exportAsICal": "iCal के रूप में निर्यात करें",
+      "addToCalendar": "कैलेंडर में जोड़ें",
+      "currentlyNoEvents": "वर्तमान में कोई भी ईवेंट उपलब्ध नहीं है।",
+      "pageTitle": "ईवेंट",
+      "chooseCalendar": "कैलेंडर विकल्प",
+      "added": "जोड़ा गया",
+      "goToCalendar": "कैलेंडर पर जाएँ",
+      "recurring": "आवर्ती",
+      "today": "आज",
+      "todayRecurring": "आज, आवर्ती",
+      "onlyThisEvent": "केवल यही ईवेंट",
+      "thisAndAllFutureEvents": "यह और भविष्य के सभी ईवेंट",
+      "from": "इससे",
+      "to": "इस तक",
+      "resetFilter": "फ़िल्टर रीसेट करें:",
+      "invalidDate": "अमान्य तिथि",
+      "shouldBeEarlier": "आरंभ तिथि, समाप्ति तिथि से पहले की होनी चाहिए।",
+      "hideFilters": "फ़िल्टर छिपाएँ",
+      "showFilters": "फ़िल्टर दिखाएँ",
+      "selectRange": "सीमा का चयन करें",
+      "outOfRangeError": "तिथि सीमा से बाहर है"
+    },
     "hr": {
       "address": "Adresa",
       "date_one": "Datum",
@@ -4433,7 +4662,6 @@
       "chooseCalendar": "Kalendareskoro biribe",
       "added": "Čhivde",
       "goToCalendar": "Dža ko kalendari",
-      "settings": "Podesiba",
       "recurring": "paleovibe",
       "today": "avdive",
       "todayRecurring": "avdive, paleovibe",
@@ -4442,8 +4670,6 @@
       "from": "taro",
       "to": "ko",
       "resetFilter": "resetirin o filteri:",
-      "invalidFromDate": "Banginutno širdipaskoro datumo",
-      "invalidToDate": "Banginutno agorutno datumo",
       "shouldBeEarlier": "O širdipaskoro datumo valjani te ovel angleder o agoripaskoro datumo.",
       "hideFilters": "Garav o filteroja",
       "showFilters": "Sikav o filteroja",
@@ -4610,6 +4836,35 @@
       "hideFilters": "Sakrij filtere",
       "showFilters": "Prikaži filtere",
       "selectRange": "Izaberi period"
+    },
+    "sw": {
+      "address": "Anwani",
+      "date_one": "Tarehe",
+      "date_other": "Tarehe",
+      "nextDate_one": "Tarehe inayofuata",
+      "nextDate_other": "Tarehe zinazofuata",
+      "events": "Matukio",
+      "exportAsICal": "Pakua kama iCal",
+      "addToCalendar": "Weka kwenye kalenda",
+      "currentlyNoEvents": "Hakuna matukio yanayopatikana kwa sasa.",
+      "pageTitle": "Matukio",
+      "chooseCalendar": "Chaguo la kalenda",
+      "added": "Yamewekwa",
+      "goToCalendar": "Nenda kwenye kalenda",
+      "recurring": "yanayojirudia",
+      "today": "leo",
+      "todayRecurring": "leo, yanayojirudia",
+      "onlyThisEvent": "Tukio hili pekee",
+      "thisAndAllFutureEvents": "Hili na matukio yote ya baadaye",
+      "from": "kutoka",
+      "to": "hadi",
+      "resetFilter": "weka upya kichujio:",
+      "invalidDate": "Tarehe si sahihi",
+      "shouldBeEarlier": "Tarehe ya kuanza inapaswa kuwa kabla ya tarehe ya kuisha.",
+      "hideFilters": "Ficha vichujio",
+      "showFilters": "Onyesha vichujio",
+      "selectRange": "Chagua Kiwango",
+      "outOfRangeError": "Tarehe iko nje ya kiwango"
     },
     "ti": {
       "address": "ኣድራሻ",
@@ -5025,6 +5280,29 @@
       "searchTermDescription": "Aucun résultat n’a été trouvé pour le terme suivant :",
       "contactMailAddress": "E-mail en cas de question",
       "noteFillFeedback": "Choisis une réaction ou écris un commentaire pour pouvoir envoyer le commentaire."
+    },
+    "hi": {
+      "disclaimer": "संपर्क और छाप",
+      "send": "भेजें",
+      "failedSendingFeedback": "फ़ीडबैक भेजते समय एक त्रुटि उत्पन्न हुई।",
+      "feedback": "फ़ीडबैक",
+      "headline": "आप इस पेज के बारे में क्या सोचते हैं?",
+      "description": "एक प्रतिक्रिया चुनें और/या एक टिप्पणी लिखें।",
+      "commentHeadline": "टिप्पणी",
+      "commentDescription": "अपना फ़ीडबैक हमारे साथ शेयर करें! हम सकारात्मक और नकारात्मक दोनों तरह की फ़ीडबैक का स्वागत करते हैं क्योंकि इससे हमें {{appName}} को बेहतर बनाने में मदद मिलती है।",
+      "isThisSiteUseful": "क्या यह साइट उपयोगी है?",
+      "useful": "उपयोगी",
+      "notUseful": "उपयोगी नहीं है",
+      "informationNotFound": "आप जो खोज रहे थे, वह नहीं मिला?",
+      "wantedInformation": "कौन सी जानकारी गायब है?",
+      "feedbackSent": "फ़ीडबैक भेजा गया",
+      "thanksHeadline": "आपके फ़ीडबैक के लिए आपका बहुत-बहुत धन्यवाद।",
+      "thanksMessage": "आपका फ़ीडबैक सफलतापूर्वक भेज दिया गया है।",
+      "negativeRating": "यह साइट उपयोगी नहीं है",
+      "positiveRating": "यह साइट उपयोगी है",
+      "searchTermDescription": "निम्नलिखित शब्द के लिए कोई परिणाम नहीं मिल सका:",
+      "contactMailAddress": "आगे के प्रश्नों के लिए ई-मेल करें",
+      "note": "कृपया फ़ीडबैक भेजने के लिए कोई प्रतिक्रिया चुनें या टिप्पणी लिखें।"
     },
     "hr": {
       "disclaimer": "Kontakt i impresum",
@@ -5509,6 +5787,29 @@
       "contactMailAddress": "E-pošta za pitanja",
       "noteFillFeedback": "Izaberi reakciju ili napiši komentar za slanje povratnih informacija."
     },
+    "sw": {
+      "disclaimer": "Anwani na chapa",
+      "send": "Tuma",
+      "failedSendingFeedback": "Hitilafu fulani imetokea wakati wa kutuma maoni.",
+      "feedback": "Maoni",
+      "headline": "Una maoni gani kuhusu ukurasa huu?",
+      "description": "Chagua emoji na/au andika maoni.",
+      "commentHeadline": "Maoni",
+      "commentDescription": "Tupe maoni yako! Tunakubali maoni mazuri na yasiyo mazuri, kwa kuwa yanatusaidia kuboresha {{appName}}.",
+      "isThisSiteUseful": "Tovuti hii inasaidia?",
+      "useful": "Inasaidia",
+      "notUseful": "Haisaidii",
+      "informationNotFound": "Hujapata ulichokuwa unatafuta?",
+      "wantedInformation": "Ni maelezo gani ambayo hayapo?",
+      "feedbackSent": "Maoni yametumwa",
+      "thanksHeadline": "Asante sana kwa maoni yako.",
+      "thanksMessage": "Maoni yametumwa.",
+      "negativeRating": "Tovuti hii haisaidii?",
+      "positiveRating": "Tovuti hii inasaidia",
+      "searchTermDescription": "Hakuna matokeo yaliyopatikana ya hoja ifuatayo:",
+      "contactMailAddress": "Anwani ya Barua Pepe ya kuuliza maswali zaidi",
+      "note": "Tafadhali chagua emoji au andika maoni ili utume maoni."
+    },
     "ti": {
       "disclaimer": "ናይ ርክብ ሓበሬታን ናይ ደራሲ ዝርዝራት ሓበሬታን",
       "send": "ስደድ",
@@ -5693,6 +5994,8 @@
       "searchDescription": "You can quickly find the right information through the search at the top right in the menu.",
       "languageChange": "Change Language",
       "languageChangeDescription": "You can change the language of {{appName}} in the top menu.",
+      "events": "Events",
+      "eventsDescription": "Current events and dates in the area",
       "pois": "Offers Near You",
       "poisDescription": "In the map, you can find places near you, for example places for language courses.",
       "offline": "Works Offline Too",
@@ -5713,6 +6016,24 @@
     "fr": {
       "skip": "Passer",
       "next": "Suite"
+    },
+    "hi": {
+      "welcome": "{{appName}} में आपका स्वागत है",
+      "welcomeDescription": "{{appName}} में आपको अपनी मूल भाषा में उत्तर और सुझाव मिलेंगे। उदाहरण के लिए: मुझे मदद कहां मिल सकती है? मुझे काम करने की अनुमति कब मिलेगी?",
+      "search": "आसान खोज",
+      "searchDescription": "आप मेन्यू में ऊपर दाईं ओर खोज के माध्यम से सही जानकारी तेज़ी से पा सकते हैं।",
+      "languageChange": "भाषा बदलें",
+      "languageChangeDescription": "आप शीर्ष मेन्यू में {{appName}} की भाषा बदल सकते हैं।",
+      "events": "ईवेंट",
+      "eventsDescription": "क्षेत्र में वर्तमान ईवेंट और तिथियाँ",
+      "pois": "आपके आस-पास के ऑफ़र",
+      "poisDescription": "मैप में आप अपने आस-पास के स्थानों को ढूंढ सकते हैं, उदाहरण के लिए भाषा पाठ्यक्रमों के लिए स्थान।",
+      "offline": "ऑफ़लाइन भी काम करता है",
+      "offlineDescription": "क्या आपके पास हमेशा इंटरनेट उपलब्ध नहीं रहता? कोई समस्या नहीं। आप इंटरनेट के बिना भी {{appName}} का इस्तेमाल कर सकते हैं।",
+      "news": "वर्तमान समाचार",
+      "newsDescription": "आपके क्षेत्र में नया क्या है? {{appName}} में पता करें।",
+      "skip": "छोड़ें",
+      "next": "जारी रखें"
     },
     "hr": {
       "skip": "Preskoči",
@@ -5797,6 +6118,24 @@
     "sr-Latn": {
       "skip": "Preskoči",
       "next": "Dalje"
+    },
+    "sw": {
+      "welcome": "Karibu katika {{appName}}",
+      "welcomeDescription": "Katika {{appName}}, utapata majibu na vidokezo katika lugha yako asili. Kwa mfano: Ninaweza kupata wapi usaidizi? Ninaruhusiwa kufanya kazi wakati gani?",
+      "search": "Utafutaji Rahisi",
+      "searchDescription": "Unaweza kupata haraka maelezo sahihi kupitia kipengele cha kutafuta kilicho katika kona ya juu kulia mwa menyu.",
+      "languageChange": "Badilisha Lugha",
+      "languageChangeDescription": "Unaweza kubadilisha lugha ya {{appName}} katika menyu ya juu.",
+      "events": "Matukio",
+      "eventsDescription": "Mtukio ya sasa na tarehe katika eneo",
+      "pois": "Ofa Zilizo Karibu Nami",
+      "poisDescription": "Katika ramani, unaweza kupata maeneo yaliyo karibu nawe, kwa mfano maeneo ya mafunzo ya kozi za lugha.",
+      "offline": "Inafanya Kazi Nje ya Mtandao Pia",
+      "offlineDescription": "Huna muunganisho wa intaneti kila wakati? Usijali. Unaweza kutumia {{appName}} hata bila muunganisho wa intaneti.",
+      "news": "Habari za Sasa",
+      "newsDescription": "Ni nini kipya katika eneo lako? Pata habari katika {{appName}}.",
+      "skip": "Ruka",
+      "next": "Endelea"
     },
     "ti": {
       "skip": "ስገር",
@@ -6023,6 +6362,23 @@
       "metaDescription": "{{appName}} est ton guide numérique pour l’Allemagne. Trouve des conseils, des informations locales, des événements près de chez toi. Toujours à jour et dans ta langue.",
       "cityNotFound": "Tu n’as pas trouvé ta région ? Active-la dès maintenant !",
       "suggestToRegion": "Proposer {{appName}} dans ta région"
+    },
+    "hi": {
+      "searchCity": "खोजें",
+      "noCitiesFound": "कोई परिणाम नहीं",
+      "nearbyCities": "आसपास की जगह में",
+      "noNearbyCities": "आस-पास कोई क्षेत्र नहीं मिला।",
+      "alert": "नोट",
+      "locationError": "आस-पास के क्षेत्रों को प्रदर्शित करने के लिए ट्रैकिंग सेवाओं को सक्रिय करना होगा।",
+      "noPermission": "स्थान का एक्सेस आवश्यक है",
+      "loading": "स्थान का निर्धारण किया जा रहा है...",
+      "notAvailable": "स्थान निर्धारण निष्क्रिय कर दिया गया है",
+      "timeout": "स्थान निर्धारण विफल रहा",
+      "refresh": "निकटवर्ती क्षेत्रों की सूची अपडेट करें",
+      "pageTitle": "आपके लिए स्थानीय जानकारी",
+      "metaDescription": "{{appName}} जर्मनी में जीवन के लिए आपकी डिजिटल मार्गदर्शिका है। स्थानीय जानकारी, ईवेंट और सलाह की खोज करें। हमेशा अद्यतन और आपकी अपनी भाषा में उपलब्ध है।",
+      "cityNotFound": "आपका क्षेत्र नहीं मिला? अभी कार्रवाई करें।",
+      "suggestToRegion": "अपने क्षेत्र के लिए {{appName}} का सुझाव दें"
     },
     "hr": {
       "searchCity": "Pretraživanje",
@@ -6381,6 +6737,23 @@
       "cityNotFound": "Tvoja regija nije pronađena? Aktiviraj se!",
       "suggestToRegion": "Predloži {{appName}} u svojoj regiji"
     },
+    "sw": {
+      "searchCity": "Tafuta",
+      "noCitiesFound": "Hakuna matokeo",
+      "nearbyCities": "Karibu nawe",
+      "noNearbyCities": "Hakuna eneo lililopatikana karibu nawe.",
+      "alert": "Kumbuka",
+      "locationError": "Ili kuonyesha maeneo yaliyo karibu nawe, lazima huduma za ufuatiliaji ziwashwe.",
+      "noPermission": "Inahitajika kufikia data ya mahali",
+      "loading": "Inabainisha eneo...",
+      "notAvailable": "Huduma ya kubainisha eneo imezimwa",
+      "timeout": "Imeshindwa kubainisha eneo",
+      "refresh": "Sasisha orodha ya maeneo yaliyo karibu",
+      "pageTitle": "Habari za Nchini Tunazokupendekezea",
+      "metaDescription": "{{appName}} ni mwongozo wako wa mtandaoni wa maisha nchini Ujerumani. Pata habari za nchini, matukio na ushauri. Ni sahihi kila wakati na zinapatikana kwa lugha yako.",
+      "cityNotFound": "Eneo lako halijapatikana? Chukua hatua sasa.",
+      "suggestToRegion": "Pendekeza {{appName}} kwa eneo lako"
+    },
     "ti": {
       "searchCity": "ምድላይ",
       "noCitiesFound": "ውጽኢት የለን",
@@ -6552,16 +6925,16 @@
       "disclaimer": "هيئة التحرير",
       "sideBarOpenAriaLabel": "فتح الشريط الجانبي",
       "sideBarCloseAriaLabel": "غلق الشريط الجانبي",
+      "openInApp": "افتح في تطبيق {{appName}}",
+      "open": "افتح",
+      "view": "عرض",
+      "getOnPlayStore": "احصل عليه - على متجر Google Play",
       "accessibility": "حرية الوصول",
       "readAloud": "قراءة بصوت عالٍ",
       "nothingToRead": "لا يوجد شيء للقراءة",
       "nothingToReadFullMessage": "لا يوجد شيء لقراءته في هذه الصفحة",
       "previous": "السابق",
-      "next": "التالي",
-      "openInApp": "افتح في تطبيق {{appName}}",
-      "open": "افتح",
-      "view": "عرض",
-      "getOnPlayStore": "احصل عليه - على متجر Google Play"
+      "next": "التالي"
     },
     "bg": {
       "imprintAndContact": "Импресум и контакт",
@@ -6798,6 +7171,35 @@
       "sideBarOpenAriaLabel": "Ouvrir la barre latérale",
       "sideBarCloseAriaLabel": "Fermer la barre latérale",
       "accessibility": "Accessibilité"
+    },
+    "hi": {
+      "imprintAndContact": "छाप और संपर्क",
+      "privacy": "डेटा संरक्षण",
+      "localInformation": "स्थानीय जानकारी",
+      "events": "ईवेंट",
+      "noEvents": "कोई ईवेंट नहीं",
+      "news": "समाचार",
+      "noLanguages": "अन्य भाषाओं में उपलब्ध नहीं है",
+      "noTranslation": "कोई अनुवाद उपलब्ध नहीं है",
+      "search": "खोजें",
+      "locations": "मैप",
+      "changeLocation": "स्थान बदलें",
+      "changeLanguage": "भाषा बदलें",
+      "settings": "सेटिंग्स",
+      "copyUrl": "लिंक कॉपी करें",
+      "feedback": "फ़ीडबैक",
+      "share": "शेयर करें",
+      "cancel": "रद्द करें",
+      "shareMessage": "अभी मिला: {{message}}",
+      "shareFailDefaultMessage": "दुर्भाग्यवश सामग्री शेयर करते समय एक त्रुटि हुई।",
+      "disclaimer": "छाप",
+      "sideBarOpenAriaLabel": "साइडबार खोलें",
+      "sideBarCloseAriaLabel": "साइडबार बंद करें",
+      "openInApp": "{{appName}} ऐप में खोलें",
+      "open": "खोलें",
+      "view": "देखें",
+      "getOnPlayStore": "Google Play Store पर पाएँ",
+      "accessibility": "एक्सेसिबिलिटी"
     },
     "hr": {
       "imprintAndContact": "Impresum i kontakt",
@@ -7328,6 +7730,35 @@
       "sideBarCloseAriaLabel": "Zatvori bočnu traku",
       "accessibility": "Pristupačnost"
     },
+    "sw": {
+      "imprintAndContact": "Chapa na anwani",
+      "privacy": "Ulinzi wa data",
+      "localInformation": "Habari za nchini",
+      "events": "Matukio",
+      "noEvents": "Hakuna matukio",
+      "news": "Habari",
+      "noLanguages": "Haipatikani katika lugha zingine",
+      "noTranslation": "Hakuna tafsiri inayopatikana",
+      "search": "Tafuta",
+      "locations": "Ramani",
+      "changeLocation": "Badilisha eneo",
+      "changeLanguage": "Badilisha lugha",
+      "settings": "Mipangilio",
+      "copyUrl": "Nakili kiungo",
+      "feedback": "Maoni",
+      "share": "Tuma",
+      "cancel": "Acha",
+      "shareMessage": "Uliopatikana hivi sasa: {{message}}",
+      "shareFailDefaultMessage": "Samahani, hitilafu fulani imetokea wakati wa kutuma maudhui.",
+      "disclaimer": "Chapa",
+      "sideBarOpenAriaLabel": "Fungua utepe",
+      "sideBarCloseAriaLabel": "Fungua utepe",
+      "openInApp": "Fungua katika programu ya {{appName}}",
+      "open": "Fungua",
+      "view": "Angalia",
+      "getOnPlayStore": "PATA — Kwenye Duka la Google Play (Google Play Store)",
+      "accessibility": "Ufikivu"
+    },
     "ti": {
       "imprintAndContact": "ናይ ደራሲ ዝርዝራት ሓበሬታን ናይ ርክብን",
       "privacy": "ምስጢርነት",
@@ -7515,6 +7946,11 @@
       "license": "Licence :",
       "noLicensesMessage": "Aucune information de licence disponible"
     },
+    "hi": {
+      "version": "संस्करण:",
+      "license": "लाइसेंस:",
+      "noLicensesMessage": "कोई लाइसेंस जानकारी उपलब्ध नहीं है"
+    },
     "hr": {
       "version": "Verzija:",
       "license": "Licenca:",
@@ -7620,6 +8056,11 @@
       "license": "Licenca:",
       "noLicensesMessage": "Nema dostupnih informacija o licenci"
     },
+    "sw": {
+      "version": "Toleo:",
+      "license": "Leseni:",
+      "noLicensesMessage": "Hakuna maelezo ya leseni yanayopatikana"
+    },
     "ti": {
       "version": "ዓይነት",
       "license": "ወረቐት ፍቓድ",
@@ -7683,6 +8124,9 @@
     "fr": {
       "pageTitle": "Mentions légales et contact - {{appName}}"
     },
+    "hi": {
+      "pageTitle": "छाप और संपर्क - {{appName}}"
+    },
     "hr": {
       "pageTitle": "Impresum i kontakt - {{appName}}"
     },
@@ -7745,6 +8189,9 @@
     },
     "sr-Latn": {
       "pageTitle": "Impresum i kontakt - {{appName}}"
+    },
+    "sw": {
+      "pageTitle": "Chapa na anwani - {{appName}}"
     },
     "ti": {
       "pageTitle": "ናይ ደራሲ ዝርዝራት ሓበሬታን ናይ ርክብን - {{appName}}"
@@ -8038,6 +8485,29 @@
       "submitFailed": "Le formulaire n’a pas pu être envoyé",
       "submitFailedReasoning": "Veuillez vérifier que la connexion Internet stable et réessayer.",
       "invalidEmailAddress": "L’adresse e-mail indiquée n’est pas valide."
+    },
+    "hi": {
+      "supportNote": "हम चाहते हैं कि जब भी आपको कोई समस्या या प्रश्न हो, तो आप सुरक्षित और समर्थित महसूस करें। निम्नलिखित संपर्क फ़ॉर्म आपको संपर्क व्यक्ति से संपर्क करने का अवसर देता है। आप अपने अनुरोध की प्रकृति निर्दिष्ट कर सकते हैं और अलग-अलग संपर्क विकल्पों में से चुन सकते हैं।",
+      "securityNote": "आपकी सुरक्षा हमारी शीर्ष प्राथमिकता है। आपके डेटा को गोपनीय रखा जाता है, ताकि आपकी गोपनीयता हर समय सुरक्षित रहे।",
+      "name": "उपनाम, पहला नाम",
+      "roomNumber": "कमरा नंबर",
+      "howToBeContacted": "मैं इस प्रकार संपर्क करना चाहूँगा:",
+      "eMail": "ईमेल के माध्यम से",
+      "telephone": "फ़ोन के माध्यम से",
+      "telephoneNumber": "फ़ोन नंबर",
+      "personally": "व्यक्तिगत रूप से",
+      "contactPerson": "संपर्क व्यक्ति:",
+      "contactPersonAnyGender": "संपर्क व्यक्ति का लिंग अप्रासंगिक है",
+      "contactPersonGenderFemale": "मैं चाहूँगा कि कोई महिला मुझसे संपर्क करे",
+      "contactPersonGenderMale": "मैं चाहूँगी कि कोई पुरुष मुझसे संपर्क करे",
+      "contactReason": "आपका अनुरोध:",
+      "maxCharacters": "अधिकतम {{numberOfCharacters}} वर्ण",
+      "responseDisclaimer": "आपको प्रतिक्रिया मिलने में कुछ कार्य दिवस लग सकते हैं। हम आपके अनुरोध को तेज़ी से संसाधित करने का सबसे अच्छा प्रयास करेंगे।",
+      "submit": "फ़ॉर्म सबमिट करें",
+      "submitSuccessful": "फ़ॉर्म सफलतापूर्वक सबमिट किया गया",
+      "submitFailed": "फ़ॉर्म सबमिट नहीं किया जा सका",
+      "submitFailedReasoning": "कृपया स्थिर इंटरनेट कनेक्शन सुनिश्चित करें और पुनः प्रयास करें।",
+      "invalidEmailAddress": "आपके द्वारा दर्ज ई-मेल पता गलत है।"
     },
     "hr": {
       "supportNote": "Želimo da se osjećate sigurno i zaštićeno ako imate problema ili pitanja. Sljedeći kontakt obrazac Vam pruža mogućnost da stupite u kontakt sa kontakt osobom. Možete navesti vrstu svog problema i izabrati između različitih opcija za kontaktiranje.",
@@ -8522,6 +8992,29 @@
       "submitFailedReasoning": "Obezbedite stabilnu internet vezu i pokušajte ponovo.",
       "invalidEmailAddress": "Navedena adresa e-pošte je nevažeća."
     },
+    "sw": {
+      "supportNote": "Tunataka uhisi kuwa salama na kusaidika wakati wowote ukiwa na matatizo au maswali. Fomu ya mawasiliano ifuatayo inakupa fursa ya kuwasiliana na mtu wa kuwasiliana naye. Unaweza kubainisha hali ya ombi lako na uchague kutoka kwenye chaguo mbalimbali za mawasiliano.",
+      "securityNote": "Tunazingatia zaidi usalama wako. Data yako hushughulikiwa kwa usiri ili usiri wako ulindwe kila wakati.",
+      "name": "Jina la ukoo, jina la kwanza",
+      "roomNumber": "Namba ya chumba",
+      "howToBeContacted": "Ningependa kuwasiliana ifuatavyo:",
+      "eMail": "kupitia Barua Pepe",
+      "telephone": "kupitia simu",
+      "telephoneNumber": "Namba ya simu",
+      "personally": "Ana kwa ana",
+      "contactPerson": "Mtu wa kuwasiliana naye:",
+      "contactPersonAnyGender": "Jinsi ya mtu wa kuwasiliana naye si muhimu",
+      "contactPersonGenderFemale": "Ningependa kuwasiliana na mtu wa kike",
+      "contactPersonGenderMale": "Ningependa kuwasiliana na mtu wa kiume",
+      "contactReason": "Ombi lako:",
+      "maxCharacters": "zisizidi herufi {{numberOfCharacters}}",
+      "responseDisclaimer": "Unaweza kusubiri kwa siku chache za kazi kabla ya kupokea jibu. Tutajitahidi kadri tuwezavyo kushughulikia ombi lako haraka iwezekanavyo.",
+      "submit": "Tuma fomu",
+      "submitSuccessful": "Fomu imetumwa",
+      "submitFailed": "Fomu imeshindwa kutumwa",
+      "submitFailedReasoning": "Tafadhali hakikisha muunganisho wa intaneti ni thabiti kisha ujaribu tena.",
+      "invalidEmailAddress": "Anwani ya barua pepe uliyoweka si sahihi."
+    },
     "ti": {
       "supportNote": "ዝኾነ ጸገም ወይ ሕቶታት ምስ ዝህልወኩም ውሕስነትን ደገፍን ክስምዓኩም ንደሊ። ምስ ርክብ ሰባት ንምርኻብ ነዚ ዝስዕብ ናይ ርክብ ቅጥዒ ክትጥቀሙ ትኽእሉ ኢኹም። ዓይነት ናይቲ ስክፍታኹም ክትገልጹን ካብ ዝተፈላለዩ ናይ ርክብ ኣማራጺታት ክትመርጹን ትኽእሉ ኢኹም።",
       "securityNote": "ድሕነትኩም ቐዳምነት ንህቦ ኢና። ብሕታዊነትኹም ኩሉ ግዜ ምእንቲ ክሕሎም፣ ሓበሬታኹም ብሚስጢራዊ መንገዲ ክተሓዝ እዩ።",
@@ -8723,6 +9216,13 @@
       "NSCalendarsUsageDescription": "{{appName}} souhaite accéder au calendrier pour y ajouter un événement.",
       "NSCalendarsFullAccessUsageDescription": "{{appName}} souhaite accéder au calendrier pour y ajouter un événement."
     },
+    "hi": {
+      "NSPhotoLibraryAddUsageDescription": "{{appName}} आपकी लाइब्रेरी में फ़ोटो सहेजना चाहता है।",
+      "NSLocationWhenInUseUsageDescription": "{{appName}} आपके स्थान का उपयोग आस-पास के शहरों को खोजने के लिए करना चाहता है।",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "{{appName}} आपके स्थान का उपयोग आस-पास के शहरों को खोजने के लिए करना चाहता है।",
+      "NSCalendarsUsageDescription": "{{appName}} किसी ईवेंट को जोड़ने के लिए कैलेंडर को एक्सेस करना चाहता है।",
+      "NSCalendarsFullAccessUsageDescription": "{{appName}} किसी ईवेंट को जोड़ने के लिए कैलेंडर को एक्सेस करना चाहता है।"
+    },
     "hr": {
       "NSPhotoLibraryAddUsageDescription": "Za pohranjivanje slika {{appName}} mora imati pristup galeriji.",
       "NSLocationWhenInUseUsageDescription": "Da bi mogla pronaći obližnja mjesta, aplikacija {{appName}} mora imati omogućen pristup lokaciji.",
@@ -8869,6 +9369,13 @@
       "NSLocationAlwaysAndWhenInUseUsageDescription": "Radi pronalaženja obližnjih mesta, {{appName}} zahteva pristup lokaciji.",
       "NSCalendarsUsageDescription": "{{appName}} želi da pristupi kalendaru radi dodavanja događaja.",
       "NSCalendarsFullAccessUsageDescription": "{{appName}} želi da pristupi kalendaru radi dodavanja događaja."
+    },
+    "sw": {
+      "NSPhotoLibraryAddUsageDescription": "{{appName}} inataka kuhifadhi picha kwenye maktaba yako.",
+      "NSLocationWhenInUseUsageDescription": "{{appName}} inataka kutumia eneo lako kupata miji iliyo karibu.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "{{appName}} inataka kutumia eneo lako kupata miji iliyo karibu.",
+      "NSCalendarsUsageDescription": "{{appName}} inataka kufikia kalenda ili kuweka tukio.",
+      "NSCalendarsFullAccessUsageDescription": "{{appName}} inataka kufikia kalenda ili kuweka tukio."
     },
     "ti": {
       "NSPhotoLibraryAddUsageDescription": "ስእልታት ንምዕቃብ፡ {{appName}} ናብቲ ጋለሪ/መኽዘን ስእሊ ናይ ምእታው ፍቓድ የድልዮ።",
@@ -9026,6 +9533,16 @@
       "local": "Localement",
       "readMore": "Poursuivre la lecture",
       "currentlyNoNews": "Aucune nouvelle pour l'instant"
+    },
+    "hi": {
+      "news": "समाचार",
+      "localNews": {
+        "localNews": "स्थानीय समाचार",
+        "pageTitle": "स्थानीय समाचार"
+      },
+      "local": "स्थानीय",
+      "readMore": "जारी रखें",
+      "currentlyNoNews": "फ़िलहाल कोई समाचार नहीं है."
     },
     "hr": {
       "news": "Vijesti",
@@ -9236,6 +9753,16 @@
       "local": "Lokalno",
       "readMore": "Nastavi sa čitanjem",
       "currentlyNoNews": "Trenutno nema vesti."
+    },
+    "sw": {
+      "news": "Habari",
+      "localNews": {
+        "localNews": "Habari za nchini",
+        "pageTitle": "Habari za nchini"
+      },
+      "local": "Nchini",
+      "readMore": "Endelea",
+      "currentlyNoNews": "Hakuna habari kwa sasa."
     },
     "ti": {
       "news": "ዜና",
@@ -10032,6 +10559,68 @@
       "appointmentNecessary": "Rendez-vous nécessaire",
       "makeAppointmentTooltipWithLink": "Prends rendez-vous ce jour-là via <1>le site web</1> ou par téléphone.",
       "theWebsite": "le site web"
+    },
+    "hi": {
+      "pageTitle": "मैप",
+      "poi": "जगह",
+      "pois": "जगहें",
+      "map": "मैप",
+      "showOnMap": "मैप पर दिखाएँ",
+      "noPois": "कोई जगहें नहीं मिली।",
+      "unitKilometre": "किमी",
+      "unitMetre": "मी",
+      "distanceKilometre": "{{distance}} किमी दूर",
+      "distanceKilometreAlternative": "{{distance}} किमी",
+      "distanceMetre": "{{distance}} मी दूर ",
+      "distanceMetreAlternative": "{{distance}} मी",
+      "contactInformation": "संपर्क विवरण",
+      "address": "पता",
+      "phone": "टेली़फ़ोन नंबर",
+      "eMail": "ई-मेल पता",
+      "website": "वेबसाइट",
+      "openingHours": "खुलने का समय",
+      "description": "विवरण",
+      "addressCopied": "पते को क्लिपबोर्ड पर कॉपी किया गया",
+      "phoneCopied": "टेलीफ़ोन नंबर क्लिपबोर्ड पर कॉपी किया गया",
+      "eMailCopied": "ई-मेल पता क्लिपबोर्ड पर कॉपी किया गया",
+      "websiteCopied": "वेबसाइट क्लिपबोर्ड पर कॉपी की गई",
+      "listTitle": "आपके आस-पास",
+      "detailsHeader": "वापस",
+      "detailsAddress": "दिशानिर्देश",
+      "detailsMapLink": "Google Maps में खोलें",
+      "detailsInformation": "जानकारी",
+      "detailsNextPoi": "अगला",
+      "detailsPreviousPoi": "पिछला",
+      "previousPoi": "पिछली जगह",
+      "nextPoi": "अगली जगह",
+      "openExternalMaps": "मैप्स ऐप में खोलें",
+      "allDay": "सभी दिन",
+      "opened": "खुला",
+      "closed": "बंद",
+      "temporarilyClosed": "अस्थायी रूप से बंद है",
+      "montag": "सोमवार",
+      "dienstag": "मंगलवार",
+      "mittwoch": "बुधवार",
+      "donnerstag": "गुरुवार",
+      "freitag": "शुक्रवार",
+      "samstag": "शनिवार",
+      "sonntag": "रविवार",
+      "adjustFilters": "स्थानों को फ़िल्टर करें",
+      "onlyCurrentlyOpen": "केवल वर्तमान में खुले स्थान दिखाएँ",
+      "poiCategories": "श्रेणियाँ",
+      "showPois_zero": "0 जगह दिखाएँ",
+      "showPois_one": "1 जगह दिखाएँ",
+      "showPois_two": "{{count}} जगहें दिखाएँ",
+      "showPois_few": "{{count}} जगहें दिखाएँ",
+      "showPois_many": "{{count}} जगहें दिखाएँ",
+      "showPois_other": "{{count}} जगहें दिखाएँ",
+      "alphabetLetters": "A-Z",
+      "clearFilter": "फ़िल्टर {{filter}} हटाएँ",
+      "showOwnLocation": "अपना स्वयं का स्थान दिखाएँ",
+      "makeAppointment": "अपॉइंटमेंट लें",
+      "appointmentNecessary": "अपॉइंटमेंट आवश्यक है",
+      "makeAppointmentTooltipWithLink": "इस दिन <1>वेबसाइट</1> या फ़ोन के माध्यम से अपॉइंटमेंट लें।",
+      "theWebsite": "वेबसाइट"
     },
     "hr": {
       "pageTitle": "Karta",
@@ -11335,6 +11924,68 @@
       "makeAppointmentTooltipWithLink": "Zagovori termin na ovaj dan putem <1>internet stranice</1> ili telefona.",
       "theWebsite": "internet stranica"
     },
+    "sw": {
+      "pageTitle": "Ramani",
+      "poi": "Mahali",
+      "pois": "Mahali",
+      "map": "Ramani",
+      "showOnMap": "Onyesha kwenye ramani",
+      "noPois": "Hakuna maeneo yaliyopatikana.",
+      "unitKilometre": "kilomita (km)",
+      "unitMetre": "mita (m)",
+      "distanceKilometre": "Umbali wa kilomita {{distance}}",
+      "distanceKilometreAlternative": "Umbali wa kilomita {{distance}}",
+      "distanceMetre": "Umbali wa mita {{distance}} ",
+      "distanceMetreAlternative": "Umbali wa mita {{distance}}",
+      "contactInformation": "Maelezo ya mawasiliano",
+      "address": "Anwani",
+      "phone": "Namba ya simu",
+      "eMail": "Anwani ya barua pepe",
+      "website": "Tovuti",
+      "openingHours": "Saa za kufungua",
+      "description": "Maelezo",
+      "addressCopied": "Anwani imenakiliwa kwenye ubao wa kunakili",
+      "phoneCopied": "Namba ya simu imenakiliwa kwenye ubao wa kunakili",
+      "eMailCopied": "Anwani ya barua pepe imenakiliwa kwenye ubao wa kunakili",
+      "websiteCopied": "Tovuti imenakiliwa kwenye ubao wa kunakili",
+      "listTitle": "Karibu nawe",
+      "detailsHeader": "Nyuma",
+      "detailsAddress": "Maelekezo",
+      "detailsMapLink": "Fungua katika Ramani za Google",
+      "detailsInformation": "Maelezo",
+      "detailsNextPoi": "Linalofuata",
+      "detailsPreviousPoi": "Liliotangulia",
+      "previousPoi": "Eneo liliotangulia",
+      "nextPoi": "Eneo linalofuata",
+      "openExternalMaps": "Fungua katika programu ya ramani",
+      "allDay": "siku yote",
+      "opened": "hufunguliwa",
+      "closed": "hufungwa",
+      "temporarilyClosed": "hufungwa kwa muda",
+      "montag": "Jumatatu",
+      "dienstag": "Jumanne",
+      "mittwoch": "Jumatano",
+      "donnerstag": "Alhamisi",
+      "freitag": "Ijumaa",
+      "samstag": "Jumamosi",
+      "sonntag": "Jumapili",
+      "adjustFilters": "Chuja maeneo",
+      "onlyCurrentlyOpen": "onyesha tu maeneo yaliyofunguliwa kwa sasa",
+      "poiCategories": "Aina",
+      "showPois_zero": "Onyesha maeneo 0",
+      "showPois_one": "Onyesha eneo 1",
+      "showPois_two": "Onyesha maeneo {{count}}",
+      "showPois_few": "Onyesha maeneo {{count}}",
+      "showPois_many": "Onyesha maeneo {{count}}",
+      "showPois_other": "Onyesha maeneo {{count}}",
+      "alphabetLetters": "A hadi Z",
+      "clearFilter": "Futa kichujio {{filter}}",
+      "showOwnLocation": "Onyesha eneo lako",
+      "makeAppointment": "Weka miadi",
+      "appointmentNecessary": "Unahitaji kuweka miadi",
+      "makeAppointmentTooltipWithLink": "Weka miadi siku hii kupitia <1>tovuti</1> au kwa simu.",
+      "theWebsite": "tovuti"
+    },
     "ti": {
       "pageTitle": "ካርታ",
       "poi": "ቦታ",
@@ -11803,6 +12454,19 @@
       "pageTitle": "Recherche",
       "delete": "Supprimer la saisie"
     },
+    "hi": {
+      "nothingFound": "क्षमा करें, हमें कोई मैचिंग परिणाम नहीं मिल सका।",
+      "searchPlaceholder": "खोजें",
+      "itemHint": "खोज परिणाम देखें",
+      "searchResultsCount_zero": "0 खोज परिणाम",
+      "searchResultsCount_one": "1 खोज परिणाम",
+      "searchResultsCount_two": "2 खोज परिणाम",
+      "searchResultsCount_few": "{{count}} खोज परिणाम",
+      "searchResultsCount_many": "{{count}} खोज परिणाम",
+      "searchResultsCount_other": "{{count}} खोज परिणाम",
+      "pageTitle": "खोजें",
+      "delete": "इनपुट हटाएँ"
+    },
     "hr": {
       "nothingFound": "Nažalost, nisu pronađeni prikladni rezultati.",
       "searchPlaceholder": "Pretraživanje",
@@ -12075,6 +12739,19 @@
       "searchResultsCount_other": "{{count}} rezultata pretrage",
       "pageTitle": "Pretraživanje",
       "delete": "Izbriši unos"
+    },
+    "sw": {
+      "nothingFound": "Samahani, hatujapata matokeo yoyote yanayolingana.",
+      "searchPlaceholder": "Tafuta",
+      "itemHint": "Angalia matokeo ya utafutaji",
+      "searchResultsCount_zero": "Matokeo 0 ya utafutaji",
+      "searchResultsCount_one": "Tokeo 1 la utafutaji",
+      "searchResultsCount_two": "Matokeo 2 ya utafutaji",
+      "searchResultsCount_few": "Matokeo {{count}} ya utafutaji",
+      "searchResultsCount_many": "Matokeo {{count}} ya utafutaji",
+      "searchResultsCount_other": "Matokeo {{count}} ya utafutaji",
+      "pageTitle": "Tafuta",
+      "delete": "Futa ulichoandika"
     },
     "ti": {
       "nothingFound": "ሕማቕ ኣጋጣሚ ኾይኑ ዝኾኑ ዝሰማምዑ ውጺኢታት ኣይተረኽቡን።",
@@ -12406,6 +13083,28 @@
       "decline": "Refuser",
       "externalResourcesTitle": "Sources externes",
       "externalResourcesDescription": "Définir les sources externes autorisées."
+    },
+    "hi": {
+      "sentryTitle": "ऐप स्थिरता",
+      "sentryDescription": "स्वचालित रूप से क्रैश रिपोर्ट भेजकर {{appName}} ऐप को बेहतर बनाएँ",
+      "pushNewsTitle": "पुश सूचनाएँ",
+      "pushNewsDescription": "नवीनतम स्थानीय समाचारों के लिए पुश सूचनाएँ प्राप्त करें",
+      "about": "{{appName}} के बारे में",
+      "privacyPolicy": "डेटा सुरक्षा नीति",
+      "version": "संस्करण: {{version}}",
+      "openSourceLicenses": "ओपन सोर्स लाइसेंस",
+      "tracking": "J-PAL मूल्यांकन",
+      "allowTracking": "ट्रैकिंग की अनुमति दें",
+      "trackingShortDescription": "{{appName}} को बेहतर बनाने के लिए J-PAL मूल्यांकन अध्ययन में हिस्सा लें।",
+      "trackingMoreInformation": "J-Pal मूल्यांकन और अनुसंधान उद्देश्यों पर ज़्यादा जानकारी",
+      "trackingDescription": "{{appName}} ऐप के अंदर आपके इस्तेमाल को ट्रैक करने की अनुमति माँग रहा है। आपका डेटा बेनाम कर दिया जाएगा और इसका इस्तेमाल केवल अनुसंधान उद्देश्यों और ऐप को बेहतर बनाने के लिए किया जाएगा। विज्ञापन या अन्य व्यावसायिक उद्देश्यों के लिए ट्रैकिंग डेटा शेयर या संसाधित नहीं किया जाएगा।",
+      "trackingLeaveTitle": "ट्रैकिंग की अनुमति दें?",
+      "trackingLeaveDescription": "आपने ट्रैकिंग अक्षम कर दी है। ट्रैकिंग से हमें {{appName}} ऐप को बेहतर बनाने और आप्रवासियों के लिए बेहतर जानकारी उपलब्ध कराने में मदद मिलती है। क्या आप वाकई ट्रैकिंग सक्षम किए बिना स्क्रीन छोड़ना चाहते हैं?",
+      "enabled": "सक्रिय किया गया",
+      "disabled": "निष्क्रिय किया गया",
+      "decline": "इनकार करें",
+      "externalResourcesTitle": "बाहरी स्रोत",
+      "externalResourcesDescription": "निर्दिष्ट करें कि कौन से बाहरी स्रोतों की अनुमति है।"
     },
     "hr": {
       "sentryTitle": "Stabilnost aplikacije",
@@ -12869,6 +13568,28 @@
       "externalResourcesTitle": "Eksterni izvori",
       "externalResourcesDescription": "Odredi koje eksterne izvore treba dozvoliti."
     },
+    "sw": {
+      "sentryTitle": "Uthabiti wa programu",
+      "sentryDescription": "Boresha {{appName}} kwa kutuma kiotomatiki ripoti za matukio ya kuacha kufanya kazi",
+      "pushNewsTitle": "Arifa za programu",
+      "pushNewsDescription": "Pokea arifa za programu za habari mpya kabisa za nchini",
+      "about": "Kuhusu {{appName}}",
+      "privacyPolicy": "Sera ya ulinzi wa data",
+      "version": "Toleo: {{version}}",
+      "openSourceLicenses": "Leseni huria",
+      "tracking": "Utathmini wa J-PAL",
+      "allowTracking": "Ruhusu ufuatiliaji",
+      "trackingShortDescription": "Shiriki katika utafiti wa utathmini wa J-PAL wa kuboresha {{appName}}.",
+      "trackingMoreInformation": "Maelezo zaidi kuhusu utathmini wa J-Pal na makusudi ya utafiti",
+      "trackingDescription": "{{appName}} inaomba ruhusa ya kufuatilia utumiaji wako ndani ya programu. Data yako huondolewa maelezo ya kukutambulisha na itatumika tu kwa makusudi ya utafiti na kuboresha programu. Data ya ufuatiliaji haitatolewa au kutumika kwa utangazaji au makusudi mengine ya kibiashara.",
+      "trackingLeaveTitle": "Ungependa kuruhusu ufuatiliaji?",
+      "trackingLeaveDescription": "Umezima huduma ya ufuatiliaji. Ufuatiliaji hutusaidia kuboresha programu ya {{appName}} na kuwapa wahamiaji habari nzuri. Una uhakika unataka kufunga skrini bila kuwasha huduma ya ufuatiliaji?",
+      "enabled": "imewashwa",
+      "disabled": "imezimwa",
+      "decline": "Kataa",
+      "externalResourcesTitle": "Vyanzo vya Nje",
+      "externalResourcesDescription": "Bainisha vyanzo vya nje vinavyoruhusiwa."
+    },
     "ti": {
       "sentryTitle": "ናይ ኣፕ ርጉእነት",
       "sentryDescription": "ናይ ብልሽት/ውድቀት ጸብጻባት ብኣውቶማቲካዊ መንገዲ ብምስዳድ ንኣፕ {{appName}} ኣመሓይሾ",
@@ -13053,6 +13774,12 @@
       "whatsappTooltip": "partager dans WhatsApp",
       "closeTooltip": "Fermer"
     },
+    "hi": {
+      "facebookTooltip": "Facebook पर शेयर करें",
+      "mailTooltip": "ईमेल के माध्यम से अनुशंसा करें",
+      "whatsappTooltip": "WhatsApp में शेयर करें",
+      "closeTooltip": "बंद करें"
+    },
     "hr": {
       "facebookTooltip": "podijeli na Facebooku",
       "mailTooltip": "preporuči e-poštom",
@@ -13179,6 +13906,12 @@
       "whatsappTooltip": "podeli u Vacapu",
       "closeTooltip": "Zatvori"
     },
+    "sw": {
+      "facebookTooltip": "onyesha kwenye Facebook",
+      "mailTooltip": "pendekeza kupitia barua pepe",
+      "whatsappTooltip": "onyesha kwenye WhatsApp",
+      "closeTooltip": "Funga"
+    },
     "ti": {
       "facebookTooltip": "ኣብ ፌስቡክ ናይ ሓባር ምግባር",
       "mailTooltip": "ብኢመይል ኣመኽሩ",
@@ -13247,6 +13980,9 @@
     "fr": {
       "noOffersAvailable": "Aucune offre disponible"
     },
+    "hi": {
+      "noOffersAvailable": "कोई ऑफ़र उपलब्ध नहीं है"
+    },
     "hr": {
       "noOffersAvailable": "Nema dostupnih ponuda"
     },
@@ -13309,6 +14045,9 @@
     },
     "sr-Latn": {
       "noOffersAvailable": "Nisu dostupne ponude"
+    },
+    "sw": {
+      "noOffersAvailable": "Hakuna ofa zinazopatikana"
     },
     "ti": {
       "noOffersAvailable": "ዝኾኑ ኣቕርቦታት የለዉን"

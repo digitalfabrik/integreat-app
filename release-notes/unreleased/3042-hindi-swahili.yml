@@ -1,0 +1,8 @@
+issue_key: 3042
+show_in_stores: true
+platforms:
+  - web
+  - android
+  - ios
+en: Add support and translations for Hindi and Kiswahili.
+de: Hindi und Kiswahili wurden als neue Sprachen hinzugefügt.
