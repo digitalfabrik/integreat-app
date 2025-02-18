@@ -1,7 +1,7 @@
 import { BottomSheetFlatListMethods } from '@gorhom/bottom-sheet'
 import React, { ReactElement, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { View, useWindowDimensions } from 'react-native'
+import { useWindowDimensions } from 'react-native'
 import { SvgUri } from 'react-native-svg'
 import styled from 'styled-components/native'
 
@@ -22,6 +22,10 @@ const StyledIcon = styled(Icon)`
   color: ${props => props.theme.colors.textSecondaryColor};
   width: 16px;
   height: 16px;
+`
+
+const Container = styled.View`
+  flex: 1;
 `
 
 const SNAP_POINT_MID_PERCENTAGE = 0.35
@@ -129,7 +133,7 @@ const Pois = ({ pois: allPois, cityModel, route, navigation }: PoisProps): React
   )
 
   return (
-    <View style={{ flex: 1 }}>
+    <Container>
       <PoiFiltersModal
         modalVisible={showFilterSelection}
         closeModal={() => setShowFilterSelection(false)}
@@ -166,7 +170,7 @@ const Pois = ({ pois: allPois, cityModel, route, navigation }: PoisProps): React
         setScrollPosition={setListScrollPosition}
         isFullscreen={bottomSheetFullscreen}
       />
-    </View>
+    </Container>
   )
 }
 
