@@ -37,6 +37,14 @@ type TypingIndicatorProps = {
   isVisible: boolean
 }
 
+const shouldShowIcon = (index: number, message: ChatMessageModel, messages: ChatMessageModel[]): boolean => {
+  const previousMessage = messages[index - 1]
+  return (
+    previousMessage?.userIsAuthor !== message.userIsAuthor ||
+    previousMessage.isAutomaticAnswer !== message.isAutomaticAnswer
+  )
+}
+
 const TypingIndicator = ({ isVisible }: TypingIndicatorProps): ReactElement | null =>
   isVisible ? (
     <TypingIndicatorWrapper>
@@ -81,14 +89,7 @@ const ChatConversation = ({ messages, hasError, className }: ChatConversationPro
         <>
           {!hasError && <InitialMessage>{t('initialMessage')}</InitialMessage>}
           {messages.map((message, index) => (
-            <ChatMessage
-              message={message}
-              key={message.id}
-              showIcon={
-                messages[index - 1]?.userIsAuthor !== message.userIsAuthor ||
-                messages[index - 1]?.isAutomaticAnswer !== message.isAutomaticAnswer
-              }
-            />
+            <ChatMessage message={message} key={message.id} showIcon={shouldShowIcon(index, message, messages)} />
           ))}
           <TypingIndicator isVisible={typingIndicatorVisible} />
           <div ref={messagesEndRef} />
