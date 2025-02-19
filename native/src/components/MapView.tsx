@@ -66,10 +66,9 @@ type MapViewProps = {
   selectedFeature: MapFeature | null
   userLocation: LocationType | null
   setUserLocation: (userLocation: LocationType | null) => void
-  iconPosition: string | number
   selectFeature: (feature: MapFeature | null) => void
-  setSheetSnapPointIndex: (index: number) => void
   bottomSheetHeight: number
+  bottomSheetFullscreen: boolean
   zoom: number | undefined
   Overlay?: ReactElement
 }
@@ -78,13 +77,12 @@ const MapView = ({
   boundingBox,
   features,
   selectedFeature,
-  iconPosition,
   userLocation,
   setUserLocation,
   selectFeature,
-  setSheetSnapPointIndex,
   Overlay,
   bottomSheetHeight,
+  bottomSheetFullscreen,
   zoom,
 }: MapViewProps): ReactElement => {
   const cameraRef = useRef<MapLibreGL.Camera>(null)
@@ -158,7 +156,6 @@ const MapView = ({
 
     const feature = featureCollection?.features.find((it): it is MapFeature => it.geometry.type === 'Point')
     selectFeature(feature ?? null)
-    setSheetSnapPointIndex(1)
 
     zoomOnClusterPress(pressedCoordinates)
   }
@@ -202,7 +199,7 @@ const MapView = ({
       <StyledIcon
         icon={<Icon Icon={locationPermissionIcon} />}
         onPress={onRequestLocation}
-        position={iconPosition}
+        position={bottomSheetFullscreen ? 0 : bottomSheetHeight}
         accessibilityLabel={t('showOwnLocation')}
       />
     </MapContainer>

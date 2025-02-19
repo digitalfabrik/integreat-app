@@ -1,4 +1,3 @@
-import { NavigationContainer } from '@react-navigation/native'
 import { fireEvent, RenderAPI } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import React from 'react'
@@ -45,12 +44,7 @@ describe('Landing', () => {
     }))
   }
 
-  const renderLanding = (): RenderAPI =>
-    render(
-      <NavigationContainer>
-        <Landing navigation={navigation} />
-      </NavigationContainer>,
-    )
+  const renderLanding = (): RenderAPI => render(<Landing navigation={navigation} />)
 
   it('should show live cities', () => {
     const { getByText, queryByText } = renderLanding()
