@@ -11,7 +11,7 @@ export type DimensionsType = {
    */
   fontScaling: number
   headerTextSize: number
-  bottomSheetHandler: {
+  bottomSheetHandle: {
     height: number
   }
   locationFab: {
@@ -29,7 +29,7 @@ const dimensions: DimensionsType = {
   },
   fontScaling: 0.04,
   headerTextSize: 20,
-  bottomSheetHandler: {
+  bottomSheetHandle: {
     height: 40,
   },
   locationFab: {

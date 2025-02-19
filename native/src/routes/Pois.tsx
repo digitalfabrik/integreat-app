@@ -1,36 +1,22 @@
-import { BottomSheetScrollViewMethods } from '@gorhom/bottom-sheet'
+import { BottomSheetFlatListMethods } from '@gorhom/bottom-sheet'
 import React, { ReactElement, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ScrollView, useWindowDimensions } from 'react-native'
+import { useWindowDimensions } from 'react-native'
 import { SvgUri } from 'react-native-svg'
 import styled from 'styled-components/native'
 
-import { PoisRouteType, isMultipoi, LocationType, sortPois, MapFeature, preparePois, safeParseInt } from 'shared'
-import { PoiCategoryModel, CityModel, PoiModel, ErrorCode } from 'shared/api'
+import { PoisRouteType, isMultipoi, LocationType, MapFeature, preparePois, safeParseInt, sortPois } from 'shared'
+import { PoiCategoryModel, CityModel, PoiModel } from 'shared/api'
 
 import { ClockIcon, EditLocationIcon } from '../assets'
-import BottomActionsSheet from '../components/BottomActionsSheet'
-import Failure from '../components/Failure'
-import List from '../components/List'
 import MapView from '../components/MapView'
-import PoiDetails from '../components/PoiDetails'
 import PoiFiltersModal from '../components/PoiFiltersModal'
-import PoiListItem from '../components/PoiListItem'
+import PoisBottomSheet from '../components/PoisBottomSheet'
 import ChipButton from '../components/base/ChipButton'
 import Icon from '../components/base/Icon'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import dimensions from '../constants/dimensions'
 import useOnBackNavigation from '../hooks/useOnBackNavigation'
-
-const Container = styled.View`
-  flex: 1;
-  margin: 0 24px;
-`
-
-const Title = styled.Text`
-  font-size: 16px;
-  font-weight: bold;
-`
 
 const StyledIcon = styled(Icon)`
   color: ${props => props.theme.colors.textSecondaryColor};
@@ -38,56 +24,44 @@ const StyledIcon = styled(Icon)`
   height: 16px;
 `
 
-const midSnapPointPercentage = 0.35
-const getBottomSheetSnapPoints = (deviceHeight: number): [number, number, number] => [
-  dimensions.bottomSheetHandler.height,
-  midSnapPointPercentage * deviceHeight,
-  deviceHeight,
-]
+const Container = styled.View`
+  flex: 1;
+`
+
+const SNAP_POINT_MID_PERCENTAGE = 0.35
 
 type PoisProps = {
   pois: PoiModel[]
   cityModel: CityModel
-  language: string
-  refresh: () => void
   route: RouteProps<PoisRouteType>
   navigation: NavigationProps<PoisRouteType>
 }
 
-const RESTORE_TIMEOUT = 100
-
-const Pois = ({ pois: allPois, language, cityModel, route, navigation, refresh }: PoisProps): ReactElement => {
+const Pois = ({ pois: allPois, cityModel, route, navigation }: PoisProps): ReactElement => {
   const { slug, multipoi, poiCategoryId, zoom } = route.params
+  const [deselectOnBackNavigation, setDeselectOnBackNavigation] = useState(slug === undefined && multipoi === undefined)
   const [poiCurrentlyOpenFilter, setPoiCurrentlyOpenFilter] = useState(false)
   const [showFilterSelection, setShowFilterSelection] = useState(false)
   const [userLocation, setUserLocation] = useState<LocationType | null>(null)
-  const [sheetSnapPointIndex, setSheetSnapPointIndex] = useState(1)
+  const [bottomSheetSnapPointIndex, setBottomSheetSnapPointIndex] = useState(1)
   const [listScrollPosition, setListScrollPosition] = useState(0)
-  const [deselectOnBackNavigation, setDeselectOnBackNavigation] = useState(slug === undefined && multipoi === undefined)
-  const scrollRef = useRef<BottomSheetScrollViewMethods>(null)
-  const deviceHeight = useWindowDimensions().height
-  const snapPoints = getBottomSheetSnapPoints(deviceHeight)
+  const poiListRef = useRef<BottomSheetFlatListMethods>(null)
   const { t } = useTranslation('pois')
+  const { height } = useWindowDimensions()
+  const bottomSheetSnapPoints = [dimensions.bottomSheetHandle.height, SNAP_POINT_MID_PERCENTAGE * height, height]
+  const bottomSheetFullscreen = bottomSheetSnapPointIndex === bottomSheetSnapPoints.length - 1
+  const bottomSheetHeight = bottomSheetSnapPoints[bottomSheetSnapPointIndex] ?? 0
 
   const { pois, poi, mapFeatures, mapFeature, poiCategories, poiCategory } = preparePois({
     pois: allPois,
     params: { slug, multipoi, poiCategoryId, currentlyOpen: poiCurrentlyOpenFilter },
   })
 
-  const scrollTo = (position: number) => {
-    setTimeout(() => {
-      if (scrollRef.current) {
-        scrollRef.current.scrollTo({
-          y: position,
-          animated: false,
-        })
-      }
-    }, RESTORE_TIMEOUT)
-  }
+  const scrollToOffset = (offset: number) => poiListRef.current?.scrollToOffset({ offset, animated: false })
 
   const deselectAll = () => {
     navigation.setParams({ slug: undefined, multipoi: undefined })
-    scrollTo(listScrollPosition)
+    scrollToOffset(listScrollPosition)
   }
 
   const deselect = () => {
@@ -116,40 +90,21 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation, refresh }
   const selectMapFeature = (mapFeature: MapFeature | null) => {
     setDeselectOnBackNavigation(true)
     deselectAll()
+    setBottomSheetSnapPointIndex(1)
 
     const slug = mapFeature?.properties.pois[0]?.slug
     if (mapFeature && isMultipoi(mapFeature)) {
       navigation.setParams({ multipoi: safeParseInt(mapFeature.id), slug: undefined })
-      scrollTo(0)
+      scrollToOffset(0)
     } else if (slug) {
       navigation.setParams({ slug, multipoi: undefined })
-      scrollTo(0)
     }
   }
 
   const selectPoi = (poi: PoiModel) => {
     setDeselectOnBackNavigation(true)
     navigation.setParams({ slug: poi.slug })
-    scrollTo(0)
   }
-
-  const setScrollPosition = (position: number) => setListScrollPosition(previous => (poi ? previous : position))
-
-  const PoiDetail = poi ? (
-    <PoiDetails language={language} poi={poi} distance={userLocation && poi.distance(userLocation)} />
-  ) : (
-    <Failure code={ErrorCode.PageNotFound} buttonAction={deselectAll} buttonLabel={t('detailsHeader')} />
-  )
-
-  const renderPoiListItem = ({ item: poi }: { item: PoiModel }): ReactElement => (
-    <PoiListItem
-      key={poi.path}
-      poi={poi}
-      language={language}
-      navigateToPoi={() => selectPoi(poi)}
-      distance={userLocation && poi.distance(userLocation)}
-    />
-  )
 
   const FiltersOverlayButtons = (
     <>
@@ -177,11 +132,8 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation, refresh }
     </>
   )
 
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const currentBottomSheetHeight = snapPoints[sheetSnapPointIndex]!
-
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+    <Container>
       <PoiFiltersModal
         modalVisible={showFilterSelection}
         closeModal={() => setShowFilterSelection(false)}
@@ -195,39 +147,30 @@ const Pois = ({ pois: allPois, language, cityModel, route, navigation, refresh }
       <MapView
         selectFeature={selectMapFeature}
         boundingBox={cityModel.boundingBox}
-        setSheetSnapPointIndex={setSheetSnapPointIndex}
         features={mapFeatures}
         selectedFeature={mapFeature ?? null}
-        bottomSheetHeight={currentBottomSheetHeight}
+        bottomSheetHeight={bottomSheetHeight}
+        bottomSheetFullscreen={bottomSheetFullscreen}
         setUserLocation={setUserLocation}
         userLocation={userLocation}
-        iconPosition={sheetSnapPointIndex < snapPoints.length - 1 ? currentBottomSheetHeight : 0}
         zoom={zoom}
         Overlay={FiltersOverlayButtons}
       />
-      <BottomActionsSheet
-        ref={scrollRef}
-        setScrollPosition={setScrollPosition}
-        onChange={setSheetSnapPointIndex}
-        initialIndex={sheetSnapPointIndex}
-        snapPoints={snapPoints}
-        snapPointIndex={sheetSnapPointIndex}>
-        <Container>
-          {!slug ? <Title>{t('listTitle')}</Title> : undefined}
-          {slug ? (
-            PoiDetail
-          ) : (
-            <List
-              items={sortPois(pois, userLocation)}
-              noItemsMessage={t('noPois')}
-              renderItem={renderPoiListItem}
-              scrollEnabled={false}
-              refresh={refresh}
-            />
-          )}
-        </Container>
-      </BottomActionsSheet>
-    </ScrollView>
+      <PoisBottomSheet
+        poiListRef={poiListRef}
+        pois={sortPois(pois, userLocation)}
+        poi={poi}
+        slug={slug}
+        userLocation={userLocation}
+        selectPoi={selectPoi}
+        deselectAll={deselect}
+        snapPoints={bottomSheetSnapPoints}
+        snapPointIndex={bottomSheetSnapPointIndex}
+        setSnapPointIndex={setBottomSheetSnapPointIndex}
+        setScrollPosition={setListScrollPosition}
+        isFullscreen={bottomSheetFullscreen}
+      />
+    </Container>
   )
 }
 

@@ -1,13 +1,13 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
-import Failure from './Failure'
 import FeedbackButtons from './FeedbackButtons'
 import { SendingStatusType } from './FeedbackContainer'
 import Note from './Note'
+import PrivacyCheckbox from './PrivacyCheckbox'
 import Input from './base/Input'
 import InputSection from './base/InputSection'
 import TextButton from './base/TextButton'
@@ -41,6 +41,7 @@ const StyledTextButton = styled(TextButton)`
 `
 
 type FeedbackProps = {
+  language: string
   isPositiveFeedback: boolean | null
   comment: string
   contactMail: string
@@ -49,13 +50,13 @@ type FeedbackProps = {
   onFeedbackChanged?: (isPositiveFeedback: boolean | null) => void
   onSubmit: () => void
   sendingStatus: SendingStatusType
-  noResults: boolean | undefined
   searchTerm: string | undefined
   setSearchTerm: (newTerm: string) => void
   closeFeedback: (() => void) | undefined
 }
 
 const Feedback = ({
+  language,
   isPositiveFeedback,
   comment,
   contactMail,
@@ -64,7 +65,6 @@ const Feedback = ({
   onCommentChanged,
   onContactMailChanged,
   onFeedbackChanged,
-  noResults,
   searchTerm,
   setSearchTerm,
   closeFeedback,
@@ -73,7 +73,9 @@ const Feedback = ({
 
   const isSearchFeedback = searchTerm !== undefined
   const commentTitle = isSearchFeedback ? 'wantedInformation' : 'commentHeadline'
-  const sendFeedbackDisabled = isPositiveFeedback === null && comment.trim().length === 0 && !searchTerm
+  const [privacyPolicyAccepted, setPrivacyPolicyAccepted] = useState(false)
+  const feedbackFilled = isPositiveFeedback === null && comment.trim().length === 0 && !searchTerm
+  const submitFeedbackDisabled = feedbackFilled || !privacyPolicyAccepted
 
   if (sendingStatus === 'successful') {
     return (
@@ -87,12 +89,9 @@ const Feedback = ({
   return (
     <Container $fullWidth={isSearchFeedback}>
       {isSearchFeedback ? (
-        <>
-          {noResults && <Failure errorMessage='search:nothingFound' />}
-          <InputSection id='searchTerm' title={t('searchTermDescription')}>
-            <Input id='searchTerm' value={searchTerm} onChange={setSearchTerm} />
-          </InputSection>
-        </>
+        <InputSection id='searchTerm' title={t('searchTermDescription')}>
+          <Input id='searchTerm' value={searchTerm} onChange={setSearchTerm} />
+        </InputSection>
       ) : (
         onFeedbackChanged && <FeedbackButtons isPositive={isPositiveFeedback} onRatingChange={onFeedbackChanged} />
       )}
@@ -108,10 +107,10 @@ const Feedback = ({
       <InputSection id='email' title={t('contactMailAddress')} showOptional>
         <Input id='email' value={contactMail} onChange={onContactMailChanged} />
       </InputSection>
-
-      {!isSearchFeedback && sendFeedbackDisabled && <Note text={t('note')} />}
+      <PrivacyCheckbox language={language} checked={privacyPolicyAccepted} setChecked={setPrivacyPolicyAccepted} />
+      {submitFeedbackDisabled && <Note text={t(feedbackFilled ? 'noteFillFeedback' : 'notePrivacyPolicy')} />}
       {sendingStatus === 'failed' && <ErrorSendingStatus role='alert'>{t('failedSendingFeedback')}</ErrorSendingStatus>}
-      <StyledTextButton disabled={sendFeedbackDisabled} onClick={onSubmit} text={t('send')} />
+      <StyledTextButton disabled={submitFeedbackDisabled} onClick={onSubmit} text={t('send')} />
     </Container>
   )
 }
