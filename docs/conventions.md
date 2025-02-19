@@ -5,7 +5,8 @@
 - [Naming](#naming)
 - [Testing](#testing)
 - [Code Quality](#code-quality)
-- [Commit Messages and Pull Requests](#commit-messages-and-pull-request)
+- [Commit Messages and Pull Requests Names](#commit-messages-and-pull-request-names)
+- [Branch Names](#commit-messages-and-pull-request)
 - [Reviews](#reviews)
 - [Versioning](#versioning)
 - [Folder Structure](#folder-structure)
@@ -20,7 +21,8 @@ We follow the [airbnb style](https://github.com/airbnb/javascript/tree/master/re
 ### Unit Tests
 
 Please always test new and changed code using [Jest](https://jestjs.io/).
-For unit testing of React components use the [Testing Library](https://testing-library.com) and follow its [guiding principles](https://testing-library.com/docs/guiding-principles).
+For unit testing of React components use the [Testing Library](https://testing-library.com) and follow
+its [guiding principles](https://testing-library.com/docs/guiding-principles).
 
 Run tests:
 
@@ -51,7 +53,8 @@ Apply prettier code formatting:
 
 ### Linting
 
-We use [typescript-eslint](https://github.com/typescript-eslint/typescript-eslint) for TypeScript and [stylelint](https://stylelint.io/) for CSS.
+We use [typescript-eslint](https://github.com/typescript-eslint/typescript-eslint) for TypeScript
+and [stylelint](https://stylelint.io/) for CSS.
 
 Show linting errors and warnings:
 
@@ -83,13 +86,24 @@ StyledComponents.
 | _rntc_   | Standard Component test with react native testing-library |
 | _scnv_   | styled view native component                              |
 
-## Commit Messages and Pull Request
+## Commit Messages and Pull Request Names
+
+Commit messages should have the following schema:
+`<issue number>: Your commit message`, e.g. `1234: Add commit message documentation`
+
+Commit messages and PR names should be short but concise and explain what was done.
+Always use present tense (`Add` instead of `Added`).
 
 See [this guide](https://github.com/erlang/otp/wiki/Writing-good-commit-messages) for a general reference on how to
-write good commit messages. Commit messages should have the following schema:
-**`<Issue key>: Your commit message`**, e.g. `1234: Add commit message documentation`
+write good commit messages and pull request names.
 
-The same applies for PR names.
+## Branch Names
+
+Branch names should use lower-kebab-case and be prefixed with the issue number:
+`<issue number>-branch-name`, e.g. `1234-commit-message-documentation`
+
+_Note: Branch names (and PR names) do NOT have to match the issue title. Instead, try to be short and concise to focus
+on the actual work done._
 
 ## Reviews
 
