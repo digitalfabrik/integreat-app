@@ -113,7 +113,8 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
   const fallbackPlay = (index?: number) => {
     setTimeout(() => {
       // if paused at end of sentence and there is nothing to resume this should play
-      if (!window.speechSynthesis.speaking && onEndGuard.current && isPlaying) {
+      const shouldPlay = !window.speechSynthesis.speaking && onEndGuard.current && isPlaying
+      if (shouldPlay) {
         play(index)
       }
     }, fallbackTimer)

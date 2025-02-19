@@ -128,7 +128,7 @@ const TtsPlayer = ({
         <TtsHelpModal
           closeModal={() => {
             setShowHelpModal(false)
-            togglePlayPause()
+            close()
           }}
         />
       )}
