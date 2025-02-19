@@ -1,0 +1,8 @@
+issue_key: 2926
+show_in_stores: true
+platforms:
+  - web
+  - ios
+  - android
+en: Show German search results in addition to usual results when searching in a different language
+de: Deutsche Suchergebnisse werden auch bei Suche in einer anderen Sprache zusätzlich angezeigt

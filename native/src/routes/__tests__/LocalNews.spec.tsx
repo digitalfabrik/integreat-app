@@ -1,4 +1,3 @@
-import { NavigationContainer } from '@react-navigation/native'
 import { fireEvent } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import { DateTime } from 'luxon'
@@ -71,16 +70,14 @@ describe('LocalNews', () => {
 
   const renderNews = ({ newsId = null }: { newsId?: number | null }) =>
     render(
-      <NavigationContainer>
-        <LocalNews
-          data={data}
-          newsId={newsId}
-          route={route}
-          navigation={navigation}
-          navigateToNews={selectNews}
-          refresh={jest.fn()}
-        />
-      </NavigationContainer>,
+      <LocalNews
+        data={data}
+        newsId={newsId}
+        route={route}
+        navigation={navigation}
+        navigateToNews={selectNews}
+        refresh={jest.fn()}
+      />,
     )
 
   it('should show news list', () => {

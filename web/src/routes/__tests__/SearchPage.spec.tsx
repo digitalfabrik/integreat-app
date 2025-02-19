@@ -11,7 +11,13 @@ import SearchPage from '../SearchPage'
 import { RoutePatterns } from '../index'
 
 jest.mock('react-inlinesvg')
-jest.mock('react-i18next')
+jest.mock('react-i18next', () => ({
+  ...jest.requireActual('react-i18next'),
+  useTranslation: (namespace?: string) => ({
+    t: (key: string) => (namespace ? `${namespace}:${key}` : key),
+  }),
+  Trans: ({ i18nKey }: { i18nKey: string }) => i18nKey,
+}))
 jest.mock('../../hooks/useAllPossibleSearchResults')
 jest.mock('react-tooltip')
 
@@ -61,7 +67,7 @@ describe('SearchPage', () => {
     renderRoute(searchPage, { routePattern, pathname, searchParams: query })
 
   it('should not display results if no query entered', () => {
-    const { queryByText, getByPlaceholderText, getByText } = renderSearch()
+    const { queryByText, getByPlaceholderText, getAllByText } = renderSearch()
 
     expect(queryByText(category1.title)).toBeNull()
     expect(queryByText(event0.title)).toBeNull()
@@ -73,13 +79,13 @@ describe('SearchPage', () => {
       },
     })
 
-    expect(getByText(category1.title)).toBeTruthy()
-    expect(getByText(event0.title)).toBeTruthy()
-    expect(getByText(poi0.title)).toBeTruthy()
+    expect(getAllByText(category1.title)).toBeTruthy()
+    expect(getAllByText(event0.title)).toBeTruthy()
+    expect(getAllByText(poi0.title)).toBeTruthy()
   })
 
   it('should display nothing found for search', () => {
-    const { getByRole, getByPlaceholderText } = renderSearch()
+    const { getByPlaceholderText, getByText } = renderSearch()
 
     fireEvent.change(getByPlaceholderText('search:searchPlaceholder'), {
       target: {
@@ -87,7 +93,7 @@ describe('SearchPage', () => {
       },
     })
 
-    expect(getByRole('alert')).toContainHTML('search:nothingFound')
+    expect(getByText('feedback:noResultsInUserAndSourceLanguage')).toBeTruthy()
   })
 
   describe('url query', () => {

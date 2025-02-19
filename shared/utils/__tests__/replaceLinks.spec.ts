@@ -31,6 +31,11 @@ describe('replaceLinks', () => {
     expect(replace).toHaveBeenCalledTimes(1)
     expect(replace).toHaveReturnedWith('https://integreat.app/asdf')
   })
+  it('should match "_2025.pdf"', () => {
+    replaceLinks('some content https://bildung-test.de/fileadmin/media/pdf/test_2024.pdf', replace)
+    expect(replace).toHaveBeenCalledTimes(1)
+    expect(replace).toHaveReturnedWith('https://bildung-test.de/fileadmin/media/pdf/test_2024.pdf')
+  })
 
   it('should match arabic non-ASCII chars in pathname, query and hash', () => {
     replaceLinks(

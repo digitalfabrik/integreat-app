@@ -13,15 +13,15 @@ const LinkText = styled.Text`
 
 type LinkProps = {
   url: string
-  text: string
+  children: string
   style?: StyleProp<TextStyle>
 }
 
-const Link = ({ url, text, style }: LinkProps): ReactElement => {
+const Link = ({ url, children, style }: LinkProps): ReactElement => {
   const showSnackbar = useSnackbar()
   return (
     <LinkText style={style} onPress={() => openExternalUrl(url, showSnackbar)} role='link'>
-      {text}
+      {children}
     </LinkText>
   )
 }

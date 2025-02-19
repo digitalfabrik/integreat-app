@@ -27,11 +27,8 @@ describe('useAllPossibleSearchResults', () => {
 
   const city = new CityModelBuilder(1).build()[0]!.code
   const language = new LanguageModelBuilder(1).build()[0]!.code
-
   const categories = new CategoriesMapModelBuilder(city, language).build()
-
   const events = new EventModelBuilder('seed', 2, city, language).build()
-
   const locations = new PoiModelBuilder(3).build()
 
   it('should return the correct results', () => {

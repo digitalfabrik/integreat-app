@@ -63,6 +63,7 @@ describe('useNavigate', () => {
       <TestingAppContext cityCode={cityCode} languageCode={languageCode}>
         <MockComponent routeInformation={routeInformation} />
       </TestingAppContext>,
+      false,
     )
 
   beforeEach(() => {

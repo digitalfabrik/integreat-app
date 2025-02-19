@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import ChatMessageModel from 'shared/api/models/ChatMessageModel'
 
-import ChatMessage from './ChatMessage'
+import ChatMessage, { Message } from './ChatMessage'
 
 const Container = styled.div`
   font-size: ${props => props.theme.fonts.hintFontSize};
@@ -13,6 +13,10 @@ const Container = styled.div`
 
 const InitialMessage = styled.div`
   margin-bottom: 12px;
+`
+
+const TypingIndicatorWrapper = styled(Message)`
+  width: max-content;
 `
 
 const ErrorSendingStatus = styled.div`
@@ -29,10 +33,27 @@ type ChatConversationProps = {
   className?: string
 }
 
+type TypingIndicatorProps = {
+  isVisible: boolean
+}
+
+const TypingIndicator = ({ isVisible }: TypingIndicatorProps): ReactElement | null =>
+  isVisible ? (
+    <TypingIndicatorWrapper>
+      <strong>...</strong>
+    </TypingIndicatorWrapper>
+  ) : null
+
+const TYPING_INDICATOR_TIMEOUT = 60000
+
 const ChatConversation = ({ messages, hasError, className }: ChatConversationProps): ReactElement => {
   const { t } = useTranslation('chat')
   const [messagesCount, setMessagesCount] = useState(0)
+  const [typingIndicatorVisible, setTypingIndicatorVisible] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const isLastMessageFromUser = messages[messages.length - 1]?.userIsAuthor
+  const hasOnlyReceivedInfoMessage = messages.filter(message => !message.userIsAuthor).length === 1
+  const waitingForAnswer = isLastMessageFromUser || hasOnlyReceivedInfoMessage
 
   useEffect(() => {
     if (messagesCount < messages.length) {
@@ -41,18 +62,28 @@ const ChatConversation = ({ messages, hasError, className }: ChatConversationPro
     }
   }, [messages, messagesCount])
 
+  useEffect(() => {
+    if (waitingForAnswer) {
+      setTypingIndicatorVisible(true)
+
+      const typingIndicatorTimeout = setTimeout(() => {
+        setTypingIndicatorVisible(false)
+      }, TYPING_INDICATOR_TIMEOUT)
+
+      return () => clearTimeout(typingIndicatorTimeout)
+    }
+    return () => undefined
+  }, [waitingForAnswer])
+
   return (
     <Container className={className}>
       {messages.length > 0 ? (
         <>
           {!hasError && <InitialMessage>{t('initialMessage')}</InitialMessage>}
           {messages.map((message, index) => (
-            <ChatMessage
-              message={message}
-              key={message.id}
-              showIcon={messages[index - 1]?.userIsAuthor !== message.userIsAuthor}
-            />
+            <ChatMessage message={message} key={message.id} previousMessage={messages[index - 1]} />
           ))}
+          <TypingIndicator isVisible={typingIndicatorVisible} />
           <div ref={messagesEndRef} />
         </>
       ) : (

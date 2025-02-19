@@ -1,9 +1,9 @@
-import React, { ReactElement, useCallback } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
 import { normalizePath, pathnameFromRouteInformation, POIS_ROUTE } from 'shared'
-import { useLoadFromEndpoint, createPOIsEndpoint, useLoadAsync } from 'shared/api'
+import { useLoadFromEndpoint, createPOIsEndpoint } from 'shared/api'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
@@ -12,25 +12,19 @@ import Helmet from '../components/Helmet'
 import LoadingSpinner from '../components/LoadingSpinner'
 import Pois from '../components/Pois'
 import { cmsApiBaseUrl } from '../constants/urls'
-import getUserLocation from '../utils/getUserLocation'
+import useUserLocation from '../hooks/useUserLocation'
 
 const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): ReactElement | null => {
   const params = useParams()
   const slug = params.slug ? normalizePath(params.slug) : undefined
   const { t } = useTranslation('pois')
+  const { data: userLocation } = useUserLocation()
 
   const { data, loading, error } = useLoadFromEndpoint(createPOIsEndpoint, cmsApiBaseUrl, {
     city: cityCode,
     language: languageCode,
   })
   const poi = data?.find(it => it.slug === slug)
-
-  const { data: userLocation } = useLoadAsync(
-    useCallback(async () => {
-      const userLocation = await getUserLocation()
-      return userLocation.status === 'ready' ? userLocation.coordinates : null
-    }, []),
-  )
 
   if (!city) {
     return null
