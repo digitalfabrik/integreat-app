@@ -28,3 +28,9 @@ Ad-hoc certificates are for public tests with a small amount of users. The diffe
 Enterprise certificates allow you to deliver you app within your company or have a bigger public test. It is not possible for small organisation to acquire such a certificate.
 
 App Store certificates allows the upload of the app into the App Store. It is not possible to install a app store signed app directly on your device. It has to be uploaded to App Store Connect.
+
+## Available Certificates and Expiration Dates
+
+The currently available certificates and their expiration dates can be found here:
+
+https://developer.apple.com/account/resources/certificates/list
