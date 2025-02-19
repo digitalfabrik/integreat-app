@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { AccessibilityInfo, Platform } from 'react-native'
 
-const useAnnounceSearchResultsIOS = <T>(searchResults: T[] | null): void => {
+const useAnnounceSearchResultsIOS = <T>(searchResults: T[] | null | undefined): void => {
   const { t } = useTranslation('search')
 
   useEffect(() => {

@@ -50,7 +50,7 @@ const MapAttribution = (): ReactElement => {
         <Copyright expanded={expanded}>{icon}</Copyright>
         {expanded && (
           <>
-            <OpenStreetMapsLink url={url} text={linkText} />
+            <OpenStreetMapsLink url={url}>{linkText}</OpenStreetMapsLink>
             <Label>{label}</Label>
           </>
         )}
