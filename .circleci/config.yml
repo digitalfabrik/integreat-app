@@ -900,7 +900,7 @@ jobs:
                 working_directory: native
             - run:
                 command: |
-                    PROMOTION_MESSAGE=$(yarn github-promote-release promote --platform android --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME})
+                    PROMOTION_MESSAGE=$(yarn --silent github-promote-release promote --platform android --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME})
                     echo "export PROMOTION_MESSAGE='${PROMOTION_MESSAGE}'" >> $BASH_ENV
                 name: Remove prerelease flag from github release
                 working_directory: tools
@@ -935,7 +935,7 @@ jobs:
                 working_directory: native
             - run:
                 command: |
-                    PROMOTION_MESSAGE=$(yarn github-promote-release promote --platform ios --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME})
+                    PROMOTION_MESSAGE=$(yarn --silent github-promote-release promote --platform ios --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME})
                     echo "export PROMOTION_MESSAGE='${PROMOTION_MESSAGE}'" >> $BASH_ENV
                 name: Remove prerelease flag from github release
                 working_directory: tools
@@ -968,7 +968,7 @@ jobs:
                 name: Obdach production promotion
             - run:
                 command: |
-                    PROMOTION_MESSAGE=$(yarn github-promote-release promote --platform web --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME})
+                    PROMOTION_MESSAGE=$(yarn --silent github-promote-release promote --platform web --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME})
                     echo "export PROMOTION_MESSAGE='${PROMOTION_MESSAGE}'" >> $BASH_ENV
                 name: Remove prerelease flag from github release
                 working_directory: tools
