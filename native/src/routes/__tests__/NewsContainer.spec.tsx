@@ -89,6 +89,7 @@ describe('NewsContainer', () => {
       <TestingAppContext>
         <NewsContainer route={route} navigation={navigation} />
       </TestingAppContext>,
+      false,
     )
   }
 

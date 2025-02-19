@@ -6,7 +6,13 @@ import { InvalidEmailError, OfferModel, submitMalteHelpForm } from 'shared/api'
 import { renderWithRouterAndTheme, renderWithTheme } from '../../testing/render'
 import MalteHelpForm from '../MalteHelpForm'
 
-jest.mock('react-i18next')
+jest.mock('react-i18next', () => ({
+  ...jest.requireActual('react-i18next'),
+  useTranslation: (namespace?: string) => ({
+    t: (key: string) => (namespace ? `${namespace}:${key}` : key),
+  }),
+  Trans: ({ i18nKey }: { i18nKey: string }) => i18nKey,
+}))
 jest.mock('shared/api', () => ({
   ...jest.requireActual('shared/api'),
   submitMalteHelpForm: jest.fn(),
@@ -63,6 +69,7 @@ describe('MalteHelpForm', () => {
 
     const emailInput = getAllByLabelText(emailInputLabel)[1]!
     fireEvent.change(emailInput, { target: { value: email } })
+    fireEvent.click(getByText('common:privacyPolicy'))
     expect(submitButton).toBeEnabled()
 
     const messageInput = getByLabelText(messageInputLabel)
@@ -105,6 +112,7 @@ describe('MalteHelpForm', () => {
 
     const phoneInput = getAllByLabelText(phoneInputLabel)[1]!
     fireEvent.change(phoneInput, { target: { value: phoneNumber } })
+    fireEvent.click(getByText('common:privacyPolicy'))
     expect(submitButton).toBeEnabled()
 
     const messageInput = getByLabelText(messageInputLabel)
@@ -143,6 +151,7 @@ describe('MalteHelpForm', () => {
     expect(personalContactButton).not.toBeChecked()
     fireEvent.click(personalContactButton)
     expect(personalContactButton).toBeChecked()
+    fireEvent.click(getByText('common:privacyPolicy'))
     expect(submitButton).toBeEnabled()
 
     const messageInput = getByLabelText(messageInputLabel)
@@ -181,6 +190,7 @@ describe('MalteHelpForm', () => {
     expect(personalContactButton).not.toBeChecked()
     fireEvent.click(personalContactButton)
     expect(personalContactButton).toBeChecked()
+    fireEvent.click(getByText('common:privacyPolicy'))
     expect(submitButton).toBeEnabled()
 
     const femaleContactButton = getByLabelText(femaleContactLabel)
@@ -225,6 +235,7 @@ describe('MalteHelpForm', () => {
     expect(personalContactButton).not.toBeChecked()
     fireEvent.click(personalContactButton)
     expect(personalContactButton).toBeChecked()
+    fireEvent.click(getByText('common:privacyPolicy'))
     expect(submitButton).toBeEnabled()
 
     const maleContactButton = getByLabelText(maleContactLabel)
@@ -292,6 +303,7 @@ describe('MalteHelpForm', () => {
 
     const emailInput = getAllByLabelText(emailInputLabel)[1]!
     fireEvent.change(emailInput, { target: { value: 'email' } })
+    fireEvent.click(getByText('common:privacyPolicy'))
     expect(submitButton).toBeEnabled()
 
     const messageInput = getByLabelText(messageInputLabel)
@@ -335,6 +347,7 @@ describe('MalteHelpForm', () => {
 
     const emailInput = getAllByLabelText(emailInputLabel)[1]!
     fireEvent.change(emailInput, { target: { value: email } })
+    fireEvent.click(getByText('common:privacyPolicy'))
     expect(submitButton).toBeEnabled()
 
     const messageInput = getByLabelText(messageInputLabel)

@@ -73,6 +73,7 @@ export const FeedbackContainer = ({
 
   return (
     <Feedback
+      language={language}
       onCommentChanged={setComment}
       onContactMailChanged={setContactMail}
       onSubmit={handleSubmit}
@@ -84,7 +85,6 @@ export const FeedbackContainer = ({
       searchTerm={searchTerm}
       setSearchTerm={setSearchTerm}
       closeFeedback={onClose}
-      noResults={noResults}
     />
   )
 }

@@ -14,14 +14,14 @@ steps:
   - checkout
   - skip_job:
       build_config_name: << parameters.build_config_name >>
-  - restore_yarn_cache # Needed for babel-node run in read_build_config.rb. May be refactored and optimized later.
+  - restore_yarn_cache # Needed for babel-node run in util.rb. May be refactored and optimized later.
   - restore_yarn_tools_cache
   - restore_ruby_cache:
       directory: native
   - run:
-      name: '[FL] Play Store Promotion'
+      name: '[FL] Google PlayStore Promotion'
       command: bundle exec fastlane android playstore_promote build_config_name:<< parameters.build_config_name >>
-      working_directory: native
+      working_directory: native/android
   - run:
       name: Remove prerelease flag from github release
       command: yarn github-promote-release promote --platform android --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME}

@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
@@ -16,9 +16,11 @@ import {
 } from 'shared/api'
 
 import { SecurityIcon, SupportIcon } from '../assets'
+import useCityAppContext from '../hooks/useCityAppContext'
 import useKeyboardHeight from '../hooks/useKeyboardHeight'
 import useSnackbar from '../hooks/useSnackbar'
 import LayoutedScrollView from './LayoutedScrollView'
+import PrivacyCheckbox from './PrivacyCheckbox'
 import Icon from './base/Icon'
 import Text from './base/Text'
 import TextButton from './base/TextButton'
@@ -86,6 +88,8 @@ const MalteHelpFormOffer = ({
     defaultValues,
   })
   const { t } = useTranslation('malteHelpForm')
+  const { languageCode } = useCityAppContext()
+  const [privacyPolicyAccepted, setPrivacyPolicyAccepted] = useState(false)
   const showSnackbar = useSnackbar()
 
   const submit = handleSubmit(async (data: FormInput) => {
@@ -169,7 +173,16 @@ const MalteHelpFormOffer = ({
         />
 
         <InformationText>{t('responseDisclaimer')}</InformationText>
-        <TextButton text={t('submit')} onPress={submit} disabled={!formState.isValid || formState.isSubmitting} />
+        <PrivacyCheckbox
+          language={languageCode}
+          checked={privacyPolicyAccepted}
+          setChecked={setPrivacyPolicyAccepted}
+        />
+        <TextButton
+          text={t('submit')}
+          onPress={submit}
+          disabled={!formState.isValid || formState.isSubmitting || !privacyPolicyAccepted}
+        />
       </Container>
     </KeyboardAwareScrollView>
   )

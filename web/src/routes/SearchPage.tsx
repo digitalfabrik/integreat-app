@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { parseHTML, pathnameFromRouteInformation, SEARCH_ROUTE, useSearch } from 'shared'
+import { config } from 'translations'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
@@ -37,7 +38,7 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
   const navigate = useNavigate()
 
   const {
-    data: allPossibleResults,
+    data: allPossibleContentLanguageResults,
     loading,
     error,
   } = useAllPossibleSearchResults({
@@ -45,8 +46,20 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
     language: languageCode,
     cmsApiBaseUrl,
   })
+  const contentLanguageResults = useSearch(allPossibleContentLanguageResults, query)
 
-  const results = useSearch(allPossibleResults, query)
+  const fallbackLanguageCode = config.sourceLanguage
+  const { data: allPossibleFallbackLanguageResults } = useAllPossibleSearchResults({
+    city: cityCode,
+    language: fallbackLanguageCode,
+    cmsApiBaseUrl,
+  })
+  const fallbackLanguageResults = useSearch(allPossibleFallbackLanguageResults, query)
+
+  const results =
+    languageCode === fallbackLanguageCode
+      ? contentLanguageResults
+      : contentLanguageResults?.concat(fallbackLanguageResults ?? [])
 
   if (!city) {
     return null

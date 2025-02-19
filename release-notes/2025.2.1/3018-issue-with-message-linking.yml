@@ -1,0 +1,6 @@
+issue_key: 3018
+show_in_stores: true
+platforms:
+  - ios
+en: A problem with opening push notifications has been fixed.
+de: Ein Problem beim Öffnen von Push-Notifications wurde behoben.

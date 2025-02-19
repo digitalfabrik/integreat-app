@@ -9,7 +9,7 @@ import { ChatBot, ChatPerson } from '../assets'
 import RemoteContent from './RemoteContent'
 import Icon from './base/Icon'
 
-const Message = styled.div`
+export const Message = styled.div`
   border-radius: 5px;
   padding: 8px;
   border: 1px solid ${props => props.theme.colors.textDecorationColor};
@@ -47,19 +47,22 @@ const Circle = styled.div`
   font-size: ${props => props.theme.fonts.decorativeFontSizeSmall};
 `
 
-type ChatMessageProps = { message: ChatMessageModel; showIcon: boolean }
+type ChatMessageProps = { message: ChatMessageModel; previousMessage: ChatMessageModel | undefined }
 
 const getIcon = (userIsAuthor: boolean, isAutomaticAnswer: boolean, t: TFunction<'chat'>): ReactElement => {
   if (userIsAuthor) {
     return <Circle>{t('user')}</Circle>
   }
   const icon = isAutomaticAnswer ? ChatBot : ChatPerson
-  return <Icon src={icon} />
+  return <Icon src={icon} title={isAutomaticAnswer ? t('bot') : t('human')} />
 }
 
-const ChatMessage = ({ message, showIcon }: ChatMessageProps): ReactElement => {
+const ChatMessage = ({ message, previousMessage }: ChatMessageProps): ReactElement => {
   const { t } = useTranslation('chat')
   const { body, userIsAuthor, isAutomaticAnswer } = message
+  const hasAuthorChanged = message.userIsAuthor !== previousMessage?.userIsAuthor
+  const hasAutomaticAnswerChanged = message.isAutomaticAnswer !== previousMessage?.isAutomaticAnswer
+  const showIcon = hasAuthorChanged || hasAutomaticAnswerChanged
 
   return (
     <Container $isAuthor={userIsAuthor}>

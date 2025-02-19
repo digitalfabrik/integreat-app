@@ -8,10 +8,13 @@ import Pois from '../Pois'
 
 jest.mock('../../components/MapView')
 jest.mock('../../components/Page')
-jest.mock('../../components/BottomActionsSheet')
 jest.mock('@react-native-clipboard/clipboard', () => () => ({ setString: jest.fn() }))
 jest.mock('react-i18next')
 jest.mock('styled-components')
+jest.mock('@gorhom/bottom-sheet', () => ({
+  __esModule: true,
+  ...require('@gorhom/bottom-sheet/mock'),
+}))
 
 describe('Pois', () => {
   const pois = new PoiModelBuilder(3).build()
