@@ -1932,10 +1932,10 @@
   resolved "https://registry.yarnpkg.com/@floating-ui/utils/-/utils-0.2.8.tgz#21a907684723bbbaa5f0974cf7730bd797eb8e62"
   integrity sha512-kym7SodPp8/wloecOpcmSnWJsK7M0E5Wg8UcFA+uO4B9s5d0ywXOEro/8HM9x0rW+TljRzul/14UYz3TleT3ig==
 
-"@gorhom/bottom-sheet@^4.6.4":
-  version "4.6.4"
-  resolved "https://registry.yarnpkg.com/@gorhom/bottom-sheet/-/bottom-sheet-4.6.4.tgz#387d0f0f21e3470eb8575498cb81ce96f5108e79"
-  integrity sha512-0itLMblLBvepE065w3a60S030c2rNUsGshPC7wbWDm31VyqoaU2xjzh/ojH62YIJOcobBr5QoC30IxBBKDGovQ==
+"@gorhom/bottom-sheet@^5.0.6":
+  version "5.0.6"
+  resolved "https://registry.yarnpkg.com/@gorhom/bottom-sheet/-/bottom-sheet-5.0.6.tgz#f20736502399c7bcf8c73ea09e6b571dc07fe0eb"
+  integrity sha512-SI/AhPvgRfnCWN6/+wbE6TXwRE4X8F2fLyE4L/0bRwgE34Zenq585qLT139uEcfCIyovC2swC3ICqQpkmWEcFA==
   dependencies:
     "@gorhom/portal" "1.0.14"
     invariant "^2.2.4"
@@ -2642,6 +2642,11 @@
   version "1.14.1"
   resolved "https://registry.yarnpkg.com/@react-native-clipboard/clipboard/-/clipboard-1.14.1.tgz#835f82fc86881a0808a8405f2576617bb5383554"
   integrity sha512-SM3el0A28SwoeJljVNhF217o0nI4E7RfalLmuRQcT1/7tGcxUjgFa3jyrEndYUct8/uxxK5EUNGUu1YEDqzxqw==
+
+"@react-native-community/checkbox@0.5":
+  version "0.5.17"
+  resolved "https://registry.yarnpkg.com/@react-native-community/checkbox/-/checkbox-0.5.17.tgz#80dd335ca5c61ac2ca4525a21d8fef3f7a021ef7"
+  integrity sha512-ZZx/eOH3SIxBg+hvA2zRd7lX5zPQEWcZU8C8Dn7WLdpJkiTkPmIUDFHWrmzxCnwZcyoD+BIt6gUZPKGGb9WmeQ==
 
 "@react-native-community/cli-clean@12.3.6":
   version "12.3.6"

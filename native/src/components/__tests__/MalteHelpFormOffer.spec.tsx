@@ -1,9 +1,10 @@
-import { userEvent, waitFor } from '@testing-library/react-native'
+import { fireEvent, userEvent, waitFor } from '@testing-library/react-native'
 import React from 'react'
 import mockSafeAreaContext from 'react-native-safe-area-context/jest/mock'
 
 import { InvalidEmailError, OfferModel, submitMalteHelpForm } from 'shared/api'
 
+import TestingAppContext from '../../testing/TestingAppContext'
 import renderWithTheme from '../../testing/render'
 import MalteHelpFormOffer from '../MalteHelpFormOffer'
 
@@ -60,8 +61,15 @@ describe('MalteHelpFormOffer', () => {
     onSubmit: jest.fn(),
   }
 
+  const renderMalteHelpForm = () =>
+    renderWithTheme(
+      <TestingAppContext>
+        <MalteHelpFormOffer {...props} />
+      </TestingAppContext>,
+    )
+
   it('should submit the form successfully with an email', async () => {
-    const { getByText, getByTestId } = renderWithTheme(<MalteHelpFormOffer {...props} />)
+    const { getByText, getByTestId } = renderMalteHelpForm()
 
     const submitButton = getByText(submitButtonLabel)
     expect(submitButton).toBeDisabled()
@@ -78,6 +86,7 @@ describe('MalteHelpFormOffer', () => {
 
     const emailInput = getByTestId(emailInputLabel)
     await user.type(emailInput, email)
+    fireEvent.press(getByText('common:privacyPolicy'))
     expect(emailInput.props.value).toBe(email)
     expect(submitButton).toBeEnabled()
 
@@ -103,7 +112,7 @@ describe('MalteHelpFormOffer', () => {
   })
 
   it('should submit the form successfully with a phone number', async () => {
-    const { getByText, getByTestId } = renderWithTheme(<MalteHelpFormOffer {...props} />)
+    const { getByText, getByTestId } = renderMalteHelpForm()
 
     const submitButton = getByText(submitButtonLabel)
     expect(submitButton).toBeDisabled()
@@ -125,6 +134,7 @@ describe('MalteHelpFormOffer', () => {
     const phoneInput = getByTestId(phoneInputLabel)
     await user.type(phoneInput, phoneNumber)
     expect(phoneInput.props.value).toBe(phoneNumber)
+    fireEvent.press(getByText('common:privacyPolicy'))
     expect(submitButton).toBeEnabled()
 
     const messageInput = getByTestId(messageInputLabel)
@@ -151,7 +161,7 @@ describe('MalteHelpFormOffer', () => {
   })
 
   it('should submit the form successfully with a request for contact in person', async () => {
-    const { getByText, getByTestId } = renderWithTheme(<MalteHelpFormOffer {...props} />)
+    const { getByText, getByTestId } = renderMalteHelpForm()
 
     const submitButton = getByText(submitButtonLabel)
     expect(submitButton).toBeDisabled()
@@ -173,9 +183,8 @@ describe('MalteHelpFormOffer', () => {
     const messageInput = getByTestId(messageInputLabel)
     await user.type(messageInput, message)
     expect(messageInput.props.value).toBe(message)
-    await waitFor(() => {
-      expect(submitButton).toBeEnabled()
-    })
+    fireEvent.press(getByText('common:privacyPolicy'))
+    await waitFor(() => expect(submitButton).toBeEnabled())
 
     await user.press(submitButton)
     expect(submitMalteHelpForm).toHaveBeenCalledWith(
@@ -194,7 +203,7 @@ describe('MalteHelpFormOffer', () => {
   })
 
   it('should submit the form successfully with a request to be contacted by a woman', async () => {
-    const { getByText, getByTestId } = renderWithTheme(<MalteHelpFormOffer {...props} />)
+    const { getByText, getByTestId } = renderMalteHelpForm()
 
     const submitButton = getByText(submitButtonLabel)
     expect(submitButton).toBeDisabled()
@@ -220,9 +229,8 @@ describe('MalteHelpFormOffer', () => {
     const messageInput = getByTestId(messageInputLabel)
     await user.type(messageInput, message)
     expect(messageInput.props.value).toBe(message)
-    await waitFor(() => {
-      expect(submitButton).toBeEnabled()
-    })
+    fireEvent.press(getByText('common:privacyPolicy'))
+    await waitFor(() => expect(submitButton).toBeEnabled())
 
     await user.press(submitButton)
     expect(submitMalteHelpForm).toHaveBeenCalledWith(
@@ -241,7 +249,7 @@ describe('MalteHelpFormOffer', () => {
   })
 
   it('should submit the form successfully with a request to be contacted by a man', async () => {
-    const { getByText, getByTestId } = renderWithTheme(<MalteHelpFormOffer {...props} />)
+    const { getByText, getByTestId } = renderMalteHelpForm()
 
     const submitButton = getByText(submitButtonLabel)
     expect(submitButton).toBeDisabled()
@@ -267,9 +275,8 @@ describe('MalteHelpFormOffer', () => {
     const messageInput = getByTestId(messageInputLabel)
     await user.type(messageInput, message)
     expect(messageInput.props.value).toBe(message)
-    await waitFor(() => {
-      expect(submitButton).toBeEnabled()
-    })
+    fireEvent.press(getByText('common:privacyPolicy'))
+    await waitFor(() => expect(submitButton).toBeEnabled())
 
     await user.press(submitButton)
     expect(submitMalteHelpForm).toHaveBeenCalledWith(
@@ -288,7 +295,7 @@ describe('MalteHelpFormOffer', () => {
   })
 
   it('should not submit if the name is empty', async () => {
-    const { getByText, getByTestId } = renderWithTheme(<MalteHelpFormOffer {...props} />)
+    const { getByText, getByTestId } = renderMalteHelpForm()
 
     const submitButton = getByText(submitButtonLabel)
     expect(submitButton).toBeDisabled()
@@ -319,7 +326,7 @@ describe('MalteHelpFormOffer', () => {
       throw new InvalidEmailError()
     })
 
-    const { getByText, getByTestId } = renderWithTheme(<MalteHelpFormOffer {...props} />)
+    const { getByText, getByTestId } = renderMalteHelpForm()
 
     const submitButton = getByText(submitButtonLabel)
     expect(submitButton).toBeDisabled()
@@ -337,6 +344,7 @@ describe('MalteHelpFormOffer', () => {
     const emailInput = getByTestId(emailInputLabel)
     await user.type(emailInput, 'email')
     expect(emailInput.props.value).toBe('email')
+    fireEvent.press(getByText('common:privacyPolicy'))
     expect(submitButton).toBeEnabled()
 
     const messageInput = getByTestId(messageInputLabel)
@@ -365,7 +373,7 @@ describe('MalteHelpFormOffer', () => {
       throw new Error()
     })
 
-    const { getByText, getByTestId } = renderWithTheme(<MalteHelpFormOffer {...props} />)
+    const { getByText, getByTestId } = renderMalteHelpForm()
 
     const submitButton = getByText(submitButtonLabel)
     expect(submitButton).toBeDisabled()
@@ -383,6 +391,7 @@ describe('MalteHelpFormOffer', () => {
     const emailInput = getByTestId(emailInputLabel)
     await user.type(emailInput, email)
     expect(emailInput.props.value).toBe(email)
+    fireEvent.press(getByText('common:privacyPolicy'))
     expect(submitButton).toBeEnabled()
 
     const messageInput = getByTestId(messageInputLabel)

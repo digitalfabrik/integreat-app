@@ -43,14 +43,15 @@ describe('SearchModal', () => {
   const eventModels = new EventModelBuilder('testseed', 5, cityCode, languageCode).build()
   const poiModels = new PoiModelBuilder(3).build()
 
-  const allPossibleResults = [
+  const allPossibleContentLanguageResults = [
     ...categoriesMapModel.toArray().filter(category => !category.isRoot()),
     ...eventModels,
     ...poiModels,
   ]
 
   const props: SearchModalProps = {
-    allPossibleResults,
+    allPossibleContentLanguageResults,
+    allPossibleFallbackLanguageResults: [],
     languageCode,
     cityCode,
     closeModal: dummy,
@@ -113,7 +114,7 @@ describe('SearchModal', () => {
 
     fireEvent.changeText(getByPlaceholderText('searchPlaceholder'), 'no results, please')
 
-    expect(getByText('search:nothingFound')).toBeTruthy()
+    expect(getByText('noResultsInUserLanguage')).toBeTruthy()
   })
 
   it('should open with an initial search text if one is supplied', () => {

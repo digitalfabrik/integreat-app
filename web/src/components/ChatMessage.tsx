@@ -47,19 +47,22 @@ const Circle = styled.div`
   font-size: ${props => props.theme.fonts.decorativeFontSizeSmall};
 `
 
-type ChatMessageProps = { message: ChatMessageModel; showIcon: boolean }
+type ChatMessageProps = { message: ChatMessageModel; previousMessage: ChatMessageModel | undefined }
 
 const getIcon = (userIsAuthor: boolean, isAutomaticAnswer: boolean, t: TFunction<'chat'>): ReactElement => {
   if (userIsAuthor) {
     return <Circle>{t('user')}</Circle>
   }
   const icon = isAutomaticAnswer ? ChatBot : ChatPerson
-  return <Icon src={icon} />
+  return <Icon src={icon} title={isAutomaticAnswer ? t('bot') : t('human')} />
 }
 
-const ChatMessage = ({ message, showIcon }: ChatMessageProps): ReactElement => {
+const ChatMessage = ({ message, previousMessage }: ChatMessageProps): ReactElement => {
   const { t } = useTranslation('chat')
   const { body, userIsAuthor, isAutomaticAnswer } = message
+  const hasAuthorChanged = message.userIsAuthor !== previousMessage?.userIsAuthor
+  const hasAutomaticAnswerChanged = message.isAutomaticAnswer !== previousMessage?.isAutomaticAnswer
+  const showIcon = hasAuthorChanged || hasAutomaticAnswerChanged
 
   return (
     <Container $isAuthor={userIsAuthor}>
