@@ -43,15 +43,15 @@ describe('SearchModal', () => {
   const eventModels = new EventModelBuilder('testseed', 5, cityCode, languageCode).build()
   const poiModels = new PoiModelBuilder(3).build()
 
-  const allPossibleContentLanguageResults = [
+  const documents = [
     ...categoriesMapModel.toArray().filter(category => !category.isRoot()),
     ...eventModels,
     ...poiModels,
   ]
 
   const props: SearchModalProps = {
-    allPossibleContentLanguageResults,
-    allPossibleFallbackLanguageResults: [],
+    documents,
+    fallbackLanguageDocuments: [],
     languageCode,
     cityCode,
     closeModal: dummy,
