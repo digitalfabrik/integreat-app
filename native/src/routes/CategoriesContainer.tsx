@@ -3,6 +3,7 @@ import { useWindowDimensions } from 'react-native'
 
 import { CATEGORIES_ROUTE, CategoriesRouteType, cityContentPath } from 'shared'
 import { ErrorCode } from 'shared/api'
+import { config } from 'translations'
 
 import Categories from '../components/Categories'
 import DashboardNavigationTiles from '../components/DashboardNavigationTiles'
@@ -30,6 +31,8 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
   const { navigateTo } = useNavigate()
 
   const { data, ...response } = useLoadCityContent({ cityCode, languageCode })
+  // Preload search results for fallback language
+  useLoadCityContent({ cityCode, languageCode: config.sourceLanguage })
 
   const homeRouteTitle = cityDisplayName(data?.city, deviceWidth)
   const path = route.params.path ?? cityContentPath({ cityCode, languageCode })

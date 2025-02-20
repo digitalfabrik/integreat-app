@@ -16,7 +16,7 @@ import SearchInput from '../components/SearchInput'
 import SearchListItem from '../components/SearchListItem'
 import { helpers } from '../constants/theme'
 import { cmsApiBaseUrl } from '../constants/urls'
-import useAllPossibleSearchResults from '../hooks/useAllPossibleSearchResults'
+import useLoadSearchDocuments from '../hooks/useLoadSearchDocuments'
 
 const List = styled.ul`
   list-style-type: none;
@@ -36,30 +36,24 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
   const [filterText, setFilterText] = useState<string>(query)
   const { t } = useTranslation('search')
   const navigate = useNavigate()
+  const fallbackLanguage = config.sourceLanguage
 
   const {
-    data: allPossibleContentLanguageResults,
+    data: contentLanguageDocuments,
     loading,
     error,
-  } = useAllPossibleSearchResults({
-    city: cityCode,
-    language: languageCode,
+  } = useLoadSearchDocuments({ cityCode, languageCode, cmsApiBaseUrl })
+
+  const { data: fallbackData } = useLoadSearchDocuments({
+    cityCode,
+    languageCode: fallbackLanguage,
     cmsApiBaseUrl,
   })
-  const contentLanguageResults = useSearch(allPossibleContentLanguageResults, query)
 
-  const fallbackLanguageCode = config.sourceLanguage
-  const { data: allPossibleFallbackLanguageResults } = useAllPossibleSearchResults({
-    city: cityCode,
-    language: fallbackLanguageCode,
-    cmsApiBaseUrl,
-  })
-  const fallbackLanguageResults = useSearch(allPossibleFallbackLanguageResults, query)
-
-  const results =
-    languageCode === fallbackLanguageCode
-      ? contentLanguageResults
-      : contentLanguageResults?.concat(fallbackLanguageResults ?? [])
+  const contentLanguageResults = useSearch(contentLanguageDocuments, query)
+  const fallbackLanguageDocuments = languageCode !== fallbackLanguage ? fallbackData : []
+  const fallbackLanguageResults = useSearch(fallbackLanguageDocuments, query)
+  const results = contentLanguageResults.concat(fallbackLanguageResults)
 
   if (!city) {
     return null
@@ -96,7 +90,7 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
     if (query.length === 0) {
       return null
     }
-    if (loading || !results) {
+    if (loading) {
       return <LoadingSpinner />
     }
     return (
