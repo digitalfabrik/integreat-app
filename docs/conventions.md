@@ -107,27 +107,34 @@ on the actual work done._
 
 ## Reviews
 
-We use an [emoji code](contributing.md#reviews) for reviewing.
+We use the following emoji code for reviewing:
+
+- :+1: or `:+1:` This is great! It always feels good when somebody likes your work. Show them!
+- :question: or `:question:` I have a question / can you clarify?
+- :x: or `:x:` This has to change. It’s possibly an error or strongly violates existing conventions.
+- :wrench: or `:wrench:` This is a well-meant suggestion. Take it or leave it.
+- :upside_down_face: or `:upside_down_face:` This is a nitpick. Normally related to a small formatting or stylizing detail that shouldn’t block moving forward.
+- :thought_balloon: or `:thought_balloon:` I’m just thinking out loud here. Something doesn’t necessarily have to change, but I want to make sure to share my thoughts.
+- :clown_face: or `:clown_face:` This is a complaint about something with no obvious answer, not necessarily a problem originating from changes.
 
 ## Versioning
 
-Versions consist of a version name and a version code.
+Versions consist of a version name and a version code and are set in [version.json](../version.json).
 
-### Version name
+### Version Name
 
-The following [schema](https://calver.org/) ![versioning](https://img.shields.io/badge/calver-YYYY.MM.PATCH-22bfda.svg)
-is used for versioning.
+We use the [calver schema](https://calver.org) `YYYY.MM.PATCH` for versioning.
 `PATCH` is a counter for the number of releases in the corresponding month starting with 0.
 
 Examples:
 
-- First versions of 2020: `2020.1.0`, `2020.1.1`, `2020.1.2`.
-- First version of February 2020: `2020.2.0`.
+- First versions of 2024: `2024.1.0`, `2024.1.1`, `2024.1.2`.
+- First version of February 2024: `2024.2.0`.
 
-### Version code
+### Version Code
 
-An additional consecutive version code is used for unique identification in the app stores. The version code is
-incremented for every build uploaded to the stores. The first version code was `100000`.
+An additional consecutive version code is used for unique identification in the app stores.
+The version code has to be incremented for every new release uploaded to the stores.
 
 ## Folder Structure
 
