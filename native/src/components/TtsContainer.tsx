@@ -138,11 +138,9 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
   const updateSentences = useCallback(
     (newSentences: string[]) => {
       setSentences(newSentences)
-      if (isPlaying) {
-        stop()
-      }
+      stop()
     },
-    [stop, isPlaying],
+    [stop],
   )
 
   const ttsContextValue = useMemo(
