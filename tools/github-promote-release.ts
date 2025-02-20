@@ -37,15 +37,15 @@ const removePreRelease = async ({ deliverinoPrivateKey, owner, repo, platform }:
   if (!release) {
     return null
   }
-  // const appOctokit = await authenticate({ deliverinoPrivateKey, owner, repo })
-  // const result = await appOctokit.rest.repos.updateRelease({
-  //   owner,
-  //   repo,
-  //   release_id: release.id,
-  //   prerelease: false,
-  //   make_latest: platform === 'android' ? 'true' : 'false', // We always want android to be the latest release, so a link to the latest github release will go to the apk
-  // })
-  // console.log('Http response code of updating the result: ', result.status)
+  const appOctokit = await authenticate({ deliverinoPrivateKey, owner, repo })
+  const result = await appOctokit.rest.repos.updateRelease({
+    owner,
+    repo,
+    release_id: release.id,
+    prerelease: false,
+    make_latest: platform === 'android' ? 'true' : 'false', // We always want android to be the latest release, so a link to the latest github release will go to the apk
+  })
+  console.warn('Http response code of updating the result: ', result.status)
   return release
 }
 
@@ -64,7 +64,7 @@ program
       const promotedRelease = await removePreRelease(options)
       if (promotedRelease) {
         console.log(
-          `TEST: The most recent beta version was promoted to production:\n[${promotedRelease.name}](${promotedRelease.html_url})`,
+          `The most recent beta version was promoted to production:\n[${promotedRelease.name}](${promotedRelease.html_url})`,
         )
       }
     } catch (e) {

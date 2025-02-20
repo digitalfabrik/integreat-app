@@ -1,7 +1,7 @@
-unless:
-  or:
-    - equal: [main, << pipeline.git.branch >>]
+when:
+  and:
     - << pipeline.parameters.api_triggered >>
+    - equal: [<< pipeline.parameters.workflow_type >>, web_promotion]
 jobs:
   - promote_web:
       context:
