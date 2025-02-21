@@ -152,7 +152,7 @@ platform :android do
       version_code: version_code,
       version_name: version_name,
       package_name: build_config['applicationId'],
-      metadata_path: "./android/fastlane/#{build_config_name}/metadata",
+      metadata_path: "./fastlane/#{build_config_name}/metadata",
       track: track,
       skip_upload_changelogs: false,
       skip_upload_images: skip_images,
