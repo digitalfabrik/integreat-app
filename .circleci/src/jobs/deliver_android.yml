@@ -23,6 +23,8 @@ steps:
   - restore_yarn_cache # Needed for babel-node run in util.rb. May be refactored and optimized later.
   - restore_ruby_cache:
       directory: native
+  - restore_ruby_cache:
+      directory: native/android
   - run:
       name: Prepare Play Store metadata
       command: yarn --cwd tools manage-metadata prepare-metadata << parameters.build_config_name >> playstore
