@@ -1,5 +1,4 @@
 import 'core-js/actual/array/at'
-import 'core-js/actual/string/at'
 import { Settings as LuxonSettings } from 'luxon'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
