@@ -1,7 +1,6 @@
 import notifee, { EventType, AndroidImportance } from '@notifee/react-native'
-import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
+import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { useEffect } from 'react'
-import { Linking } from 'react-native'
 import { checkNotifications, requestNotifications, RESULTS } from 'react-native-permissions'
 
 import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NonNullableRouteInformationType } from 'shared'
@@ -164,25 +163,15 @@ export const quitAppStatePushNotificationListener = async (
 }
 
 export const backgroundAppStatePushNotificationListener = (listener: (url: string) => void): (() => void) | void => {
-  if (pushNotificationsEnabled()) {
-    importFirebaseMessaging()
-      .then(messaging => {
-        const onReceiveURL = ({ url }: { url: string }) => listener(url)
-        const onReceiveURLListener = Linking.addListener('url', onReceiveURL)
-
-        const unsubscribeNotification = messaging().onNotificationOpenedApp(message =>
-          listener(urlFromMessage(message as Message)),
-        )
-
-        return () => {
-          onReceiveURLListener.remove()
-          unsubscribeNotification()
-        }
+  try {
+    if (pushNotificationsEnabled()) {
+      messaging().setBackgroundMessageHandler(async remoteMessage => {
+        listener(urlFromMessage(remoteMessage as Message))
       })
-      .catch(() => log('Failed to import firebase'))
+    }
+  } catch (_) {
+    log('Failed to set background message handler')
   }
-
-  return undefined
 }
 
 // Since Android 13 and iOS 17 an explicit permission request is needed, otherwise push notifications are not received.
