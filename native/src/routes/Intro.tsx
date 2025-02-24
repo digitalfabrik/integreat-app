@@ -85,7 +85,7 @@ const Intro = ({ route, navigation }: IntroProps): ReactElement => {
   if (buildConfig().featureFlags.newsStream) {
     slides.push({
       key: 'news',
-      title: t('newsDescription', { appName }),
+      title: t('news', { appName }),
       description: t('newsDescription', { appName }),
       Content: <StyledIcon Icon={IntroNewsIcon} />,
     })
