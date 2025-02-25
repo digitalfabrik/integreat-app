@@ -147,6 +147,9 @@ class Config {
     sw: {
       rtl: false,
     },
+    vi: {
+      rtl: false,
+    },
   }
 
   // Fallbacks for unnormalized language codes from our backend
