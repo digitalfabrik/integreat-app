@@ -78,7 +78,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
       })
   }, [initializeTts, enabled, sentences.length, visible, showSnackbar, t])
 
-  const removeTtsListenerAndStop = async () => {
+  const stopPlayer = useCallback(async () => {
     // iOS wrongly sends tts-finish instead of tts-cancel if calling Tts.stop()
     // We therefore have to remove the listener before stopping to avoid playing the next sentence
     // https://github.com/ak1394/react-native-tts/issues/198
@@ -92,10 +92,6 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
       const ttsStopDelay = 100
       setTimeout(resolve, ttsStopDelay)
     })
-  }
-
-  const stopPlayer = useCallback(async () => {
-    await removeTtsListenerAndStop()
   }, [])
 
   const stop = useCallback(() => {

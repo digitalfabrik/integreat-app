@@ -16,7 +16,6 @@ export type DimensionsType = {
   poiDetailNavigation: number
   headerHeightLarge: number
   headerHeightSmall: number
-  footerHeight: number
   navigationMenuHeight: number
   poiDesktopPanelWidth: number
   mainContainerHorizontalPadding: number
@@ -36,7 +35,6 @@ const dimensions: DimensionsType = {
   ttsPlayerHeight: 80,
   headerHeightLarge: 90,
   headerHeightSmall: 70,
-  footerHeight: 50,
   navigationMenuHeight: 90,
   poiDesktopPanelWidth: 332,
   mainContainerHorizontalPadding: 10,

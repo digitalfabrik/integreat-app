@@ -21,6 +21,7 @@ const Thumbnail = styled.img`
 
 const SpaceForTts = styled.div<{ $ttsPlayerVisible: boolean }>`
   height: ${props => (props.$ttsPlayerVisible ? dimensions.ttsPlayerHeight : 0)}px;
+  transition: height 250ms ease-in;
 `
 
 type PageProps = {
@@ -45,6 +46,7 @@ const Page = ({
   Footer,
 }: PageProps): ReactElement => {
   const { visible: ttsPlayerVisible } = useTtsPlayer()
+
   return (
     <>
       {!!thumbnailSrcSet && <Thumbnail alt='' srcSet={thumbnailSrcSet} />}

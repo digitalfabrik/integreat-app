@@ -11,6 +11,7 @@ const useTtsPlayer = (
   model?: PageModel | LocalNewsModel | TunewsModel | EventModel | null,
 ): TtsContextType => {
   const tts = useContext(TtsContext)
+  const { setSentences } = tts
   const location = useLocation()
 
   const sentences = useMemo(() => {
@@ -22,30 +23,16 @@ const useTtsPlayer = (
   }, [model, languageCode])
 
   useEffect(() => {
-    tts.setSentences(sentences)
-    return () => {
-      tts.setSentences([])
-    }
-    // I disabled eslint due to tts changes every render
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sentences, tts.setSentences])
+    setSentences(sentences)
+    return () => setSentences([])
+  }, [sentences, setSentences])
 
   useEffect(() => {
-    const synth = window.speechSynthesis
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    if (synth !== undefined) {
-      synth.cancel()
-    }
+    window.speechSynthesis?.cancel()
   }, [location.pathname])
 
-  return {
-    enabled: tts.enabled,
-    canRead: tts.canRead,
-    visible: tts.visible,
-    setVisible: tts.setVisible,
-    sentences: tts.sentences,
-    setSentences: tts.setSentences,
-  }
+  return tts
 }
 
 export default useTtsPlayer
