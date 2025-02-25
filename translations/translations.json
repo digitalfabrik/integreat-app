@@ -6885,7 +6885,9 @@
       "previous": "Zurück",
       "next": "Weiter",
       "play": "Abspielen",
-      "pause": "Pause"
+      "pause": "Pause",
+      "voiceUnavailable": "Keine Stimme installiert",
+      "voiceUnavailableMessage": "Es scheint, dass keine Stimme installiert ist. Um den Inhalt lesen zu können, ist es notwendig, eine Stimme zu installieren. Bitte beachten Sie die Anweisungen für Ihr Betriebssystem unten."
     },
     "am": {
       "imprintAndContact": "ዕትም እና የግንኙነት መረጃ",
@@ -6944,7 +6946,11 @@
       "nothingToRead": "لا يوجد شيء للقراءة",
       "nothingToReadFullMessage": "لا يوجد شيء لقراءته في هذه الصفحة",
       "previous": "السابق",
-      "next": "التالي"
+      "next": "التالي",
+      "play": "تشغيل",
+      "pause": "إيقاف",
+      "voiceUnavailable": "الصوت غير مثبت",
+      "voiceUnavailableMessage": "يبدو أنه لم يتم تثبيت صوت. لكي تتمكن من قراءة المحتوى، من الضروري تثبيت صوت. الرجاء مراجعة التعليمات الخاصة بنظام التشغيل أدناه."
     },
     "bg": {
       "imprintAndContact": "Импресум и контакт",
@@ -7105,7 +7111,9 @@
       "previous": "Prev",
       "next": "Next",
       "play": "Play",
-      "pause": "Pause"
+      "pause": "Pause",
+      "voiceUnavailable": "No voice installed",
+      "voiceUnavailableMessage": "It seems like there is no voice installed. To be able to read the content, it is necessary that you install a voice. Please refer to the instructions for your operating system below."
     },
     "es": {
       "imprintAndContact": "Aviso legal y contacto",
