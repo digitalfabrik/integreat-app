@@ -557,6 +557,8 @@ jobs:
             - restore_yarn_cache
             - restore_ruby_cache:
                 directory: native
+            - restore_ruby_cache:
+                directory: native/android
             - run:
                 command: yarn --cwd tools manage-metadata prepare-metadata << parameters.build_config_name >> playstore
                 name: Prepare Play Store metadata
@@ -596,6 +598,8 @@ jobs:
             - restore_yarn_cache
             - restore_ruby_cache:
                 directory: native
+            - restore_ruby_cache:
+                directory: native/ios
             - run:
                 command: yarn --cwd tools manage-metadata prepare-metadata << parameters.build_config_name >> appstore
                 name: Prepare App Store metadata

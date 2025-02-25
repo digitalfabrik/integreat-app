@@ -22,10 +22,6 @@ contact [Leandra](mailto:leandra.hahn@tuerantuer.org),
 [Steffen](mailto:steffen.kleinle@tuerantuer.org) or [our info mail](mailto:info@integreat-app.de) and visit
 our [website](https://integreat-app.de).
 
-Other team members you can contact are
-[Steffi](mailto:stefanie.metzger@tuerantuer.org) and
-[Andy](mailto:andreas.fischer@tuerantuer.org).
-
 ## Reporting Issues and Bugs
 
 You can find our issues [here](https://github.com/digitalfabrik/integreat-app/issues) or in one of
@@ -71,12 +67,4 @@ the [release section of github](https://github.com/digitalfabrik/integreat-app/r
 
 ### Reviews
 
-We use the following emoji code for reviewing:
-
-- :+1: or `:+1:` This is great! It always feels good when somebody likes your work. Show them!
-- :question: or `:question:` I have a question / can you clarify?
-- :x: or `:x:` This has to change. It’s possibly an error or strongly violates existing conventions.
-- :wrench: or `:wrench:` This is a well-meant suggestion. Take it or leave it.
-- :upside_down_face: or `:upside_down_face:` This is a nitpick. Normally related to a small formatting or stylizing detail that shouldn’t block moving forward.
-- :thought_balloon: or `:thought_balloon:` I’m just thinking out loud here. Something doesn’t necessarily have to change, but I want to make sure to share my thoughts.
-- :clown_face: or `:clown_face:` This is a complaint about something with no obvious answer, not necessarily a problem originating from changes.
+We use this [emoji code](./conventions.md#reviews) for reviewing.

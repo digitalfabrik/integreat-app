@@ -112,8 +112,8 @@ platform :ios do
       skip_metadata: false,
       overwrite_screenshots: true,
       skip_app_version_update: false,
-      metadata_path: "./ios/fastlane/#{build_config_name}/metadata",
-      screenshots_path: "./ios/fastlane/#{build_config_name}/screenshots",
+      metadata_path: "./fastlane/#{build_config_name}/metadata",
+      screenshots_path: "./fastlane/#{build_config_name}/screenshots",
       precheck_include_in_app_purchases: false, # We do not have inapp purchases
       submission_information: { add_id_info_uses_idfa: false } # https://firebase.google.com/docs/analytics/configure-data-collection?platform=ios
     # https://support.google.com/firebase/answer/6318039?hl=en
@@ -188,8 +188,8 @@ platform :ios do
       skip_screenshots: skip_screenshots,
       overwrite_screenshots: true,
       skip_binary_upload: true,
-      metadata_path: "./ios/fastlane/#{build_config_name}/metadata",
-      screenshots_path: "./ios/fastlane/#{build_config_name}/screenshots",
+      metadata_path: "./fastlane/#{build_config_name}/metadata",
+      screenshots_path: "./fastlane/#{build_config_name}/screenshots",
       precheck_include_in_app_purchases: false, # We do not have inapp purchases
       submission_information: { add_id_info_uses_idfa: false } # https://firebase.google.com/docs/analytics/configure-data-collection?platform=ios
     # https://support.google.com/firebase/answer/6318039?hl=en

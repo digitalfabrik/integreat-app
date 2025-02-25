@@ -5,7 +5,7 @@ import React from 'react'
 import { pathnameFromRouteInformation, SEARCH_ROUTE, SearchResult } from 'shared'
 import { CategoriesMapModelBuilder, CityModelBuilder, EventModelBuilder, PoiModelBuilder } from 'shared/api'
 
-import useAllPossibleSearchResults from '../../hooks/useAllPossibleSearchResults'
+import useLoadSearchDocuments from '../../hooks/useLoadSearchDocuments'
 import { renderRoute } from '../../testing/render'
 import SearchPage from '../SearchPage'
 import { RoutePatterns } from '../index'
@@ -18,7 +18,7 @@ jest.mock('react-i18next', () => ({
   }),
   Trans: ({ i18nKey }: { i18nKey: string }) => i18nKey,
 }))
-jest.mock('../../hooks/useAllPossibleSearchResults')
+jest.mock('../../hooks/useLoadSearchDocuments')
 jest.mock('react-tooltip')
 
 jest.mock('shared', () => ({
@@ -42,15 +42,15 @@ describe('SearchPage', () => {
   const poiModels = new PoiModelBuilder(3).build()
   const poi0 = poiModels[0]!
 
-  const allPossibleResults = [...categoryModels.filter(category => !category.isRoot()), ...eventModels, ...poiModels]
+  const searchDocuments = [...categoryModels.filter(category => !category.isRoot()), ...eventModels, ...poiModels]
 
   const hookReturn = {
-    data: allPossibleResults,
+    data: searchDocuments,
     loading: false,
     error: null,
   }
 
-  mocked(useAllPossibleSearchResults).mockImplementation(() => hookReturn)
+  mocked(useLoadSearchDocuments).mockImplementation(() => hookReturn)
 
   const pathname = pathnameFromRouteInformation({
     route: SEARCH_ROUTE,
