@@ -4,28 +4,30 @@ import styled from 'styled-components'
 
 import { CloseIcon, PauseIcon, PlaybackIcon, PlayIcon } from '../assets'
 import dimensions from '../constants/dimensions'
+import useWindowDimensions from '../hooks/useWindowDimensions'
 import TtsHelpModal from './TtsHelpModal'
 import Button from './base/Button'
 import Icon from './base/Icon'
 
-const StyledTtsPlayer = styled.dialog<{ $isPlaying: boolean; $isReachedBottom: boolean }>`
+const StyledTtsPlayer = styled.dialog<{ $isPlaying: boolean; $footerHeight: number }>`
   background-color: ${props => props.theme.colors.ttsPlayerBackground};
   border-radius: 28px;
   width: 388px;
+  max-width: 388px;
   display: flex;
   flex-direction: ${props => (props.$isPlaying ? 'column' : 'row')};
   justify-content: center;
   align-items: center;
   padding: 8px;
   position: fixed;
-  bottom: 10%;
+  margin-bottom: 8px;
+  bottom: ${props => props.$footerHeight}px;
   min-height: 92px;
   gap: ${props => (props.$isPlaying ? '4px;' : '36px')};
   border-color: transparent;
 
   @media ${dimensions.smallViewport} {
-    width: 88%;
-    bottom: ${props => (props.$isReachedBottom ? '10' : '5')}%;
+    width: 80%;
   }
 `
 
@@ -85,9 +87,8 @@ const StyledPlayerHeaderText = styled.span`
 const CloseButton = styled(BaseButton)`
   border-radius: 8px;
   background-color: ${props => props.theme.colors.themeColor};
-  padding: 4px;
+  padding: 4px 8px;
   gap: 4px;
-  width: 176px;
   box-shadow: 1px 4px 4px 1px grey;
 `
 
@@ -107,7 +108,6 @@ type TtsPlayerProps = {
   close: () => void
   title: string
   togglePlayPause: () => void
-  isReachedBottom: boolean
 }
 
 const TtsPlayer = ({
@@ -119,9 +119,12 @@ const TtsPlayer = ({
   close,
   title,
   togglePlayPause,
-  isReachedBottom,
 }: TtsPlayerProps): ReactElement => {
   const { t } = useTranslation('layout')
+  const { footerHeight, documentHeight, height, scrollY } = useWindowDimensions()
+  const visibleFooterHeight = height + scrollY + footerHeight - documentHeight
+  const bottom = Math.max(0, visibleFooterHeight)
+
   return (
     <>
       {showHelpModal && (
@@ -132,7 +135,7 @@ const TtsPlayer = ({
           }}
         />
       )}
-      <StyledTtsPlayer $isPlaying={isPlaying} $isReachedBottom={isReachedBottom}>
+      <StyledTtsPlayer $isPlaying={isPlaying} $footerHeight={bottom}>
         <StyledPanel $isPlaying={isPlaying}>
           {isPlaying && (
             <StyledBackForthButton label={t('previous')} onClick={playPrevious}>

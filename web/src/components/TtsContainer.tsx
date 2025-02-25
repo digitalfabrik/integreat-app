@@ -6,7 +6,6 @@ import { TTS_MAX_TITLE_DISPLAY_CHARS } from 'shared'
 import { truncate } from 'shared/utils/getExcerpt'
 
 import buildConfig from '../constants/buildConfig'
-import useDetectBottomWhileScroll from '../hooks/useDetectBottomWhileScroll'
 import { reportError } from '../utils/sentry'
 import TtsPlayer from './TtsPlayer'
 
@@ -49,7 +48,6 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
   const fallbackTimer = 1000
   const enabled = buildConfig().featureFlags.tts
   const canRead = enabled && sentences.length > 1
-  const { isReachedBottom } = useDetectBottomWhileScroll()
 
   useEffect(() => {
     if (!enabled && !visible) {
@@ -205,7 +203,6 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
           showHelpModal={showHelpModal}
           togglePlayPause={togglePlayPause}
           title={shortTitle}
-          isReachedBottom={isReachedBottom}
         />
       )}
     </TtsContext.Provider>
