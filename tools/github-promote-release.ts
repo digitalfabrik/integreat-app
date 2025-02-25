@@ -6,6 +6,7 @@ import authenticate from './github-authentication.js'
 
 const octokit = new Octokit()
 type Releases = GetResponseTypeFromEndpointMethod<typeof octokit.repos.listReleases>
+type ReleaseType = Releases['data'][number]
 
 type Options = {
   deliverinoPrivateKey: string
@@ -14,18 +15,21 @@ type Options = {
   platform: 'web' | 'android' | 'ios'
 }
 
-const getReleaseIdBody = async ({ deliverinoPrivateKey, owner, repo, platform }: Options) => {
+const getAllPreReleased = async ({ deliverinoPrivateKey, owner, repo, platform }: Options) => {
   const appOctokit = await authenticate({ deliverinoPrivateKey, owner, repo })
 
   const releases: Releases = await appOctokit.rest.repos.listReleases({
     owner,
     repo,
   })
+  const releasesWithTags = releases.data.filter(
+    (release: ReleaseType) => release.tag_name.includes(platform) && release.prerelease,
+  )
+  const filteredTagNames = releasesWithTags.map((release: ReleaseType) => release.tag_name)
 
-  const result = releases.data.find(release => release.tag_name.includes(platform))
-  if (result && result.prerelease) {
-    console.warn('Unset prerelease tag of ', result.tag_name)
-    return result
+  if (releasesWithTags.length > 0) {
+    console.warn('Unset prerelease tags of ', filteredTagNames)
+    return releasesWithTags
   }
 
   console.warn('No release found to unset the prerelease tag for. Latest release may already be non-prerelease')
@@ -33,20 +37,24 @@ const getReleaseIdBody = async ({ deliverinoPrivateKey, owner, repo, platform }:
 }
 
 const removePreRelease = async ({ deliverinoPrivateKey, owner, repo, platform }: Options) => {
-  const release = await getReleaseIdBody({ deliverinoPrivateKey, owner, repo, platform })
-  if (!release) {
+  const allPreReleases = await getAllPreReleased({ deliverinoPrivateKey, owner, repo, platform })
+  if (!allPreReleases) {
     return null
   }
   const appOctokit = await authenticate({ deliverinoPrivateKey, owner, repo })
-  const result = await appOctokit.rest.repos.updateRelease({
-    owner,
-    repo,
-    release_id: release.id,
-    prerelease: false,
-    make_latest: platform === 'android' ? 'true' : 'false', // We always want android to be the latest release, so a link to the latest github release will go to the apk
-  })
-  console.warn('Http response code of updating the result: ', result.status)
-  return release
+  await Promise.all(
+    allPreReleases.map(async (preRelease: ReleaseType) => {
+      const result = await appOctokit.rest.repos.updateRelease({
+        owner,
+        repo,
+        release_id: preRelease.id,
+        prerelease: false,
+        make_latest: platform === 'android' ? 'true' : 'false', // We always want android to be the latest release, so a link to the latest github release will go to the apk
+      })
+      console.warn('Http response code of updating the result: ', result.status)
+    }),
+  )
+  return allPreReleases
 }
 
 program
@@ -61,11 +69,10 @@ program
   .requiredOption('--platform <platform>')
   .action(async (options: Options) => {
     try {
-      const promotedRelease = await removePreRelease(options)
-      if (promotedRelease) {
-        console.log(
-          `The most recent beta version was promoted to production:\n[${promotedRelease.name}](${promotedRelease.html_url})`,
-        )
+      const promotedReleases = await removePreRelease(options)
+      if (promotedReleases) {
+        console.log(`The most recent beta version was promoted to production:`)
+        promotedReleases.map((release: ReleaseType) => console.log(`\n[${release.name}](${release.html_url})`))
       }
     } catch (e) {
       console.error(e)
