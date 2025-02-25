@@ -15,7 +15,7 @@ type Options = {
   platform: 'web' | 'android' | 'ios'
 }
 
-const getAllReleaseIds = async ({ deliverinoPrivateKey, owner, repo, platform }: Options) => {
+const getAllPreReleased = async ({ deliverinoPrivateKey, owner, repo, platform }: Options) => {
   const appOctokit = await authenticate({ deliverinoPrivateKey, owner, repo })
 
   const releases: Releases = await appOctokit.rest.repos.listReleases({
@@ -38,20 +38,24 @@ const getAllReleaseIds = async ({ deliverinoPrivateKey, owner, repo, platform }:
 }
 
 const removePreRelease = async ({ deliverinoPrivateKey, owner, repo, platform }: Options) => {
-  const releaseIds = await getAllReleaseIds({ deliverinoPrivateKey, owner, repo, platform })
-  if (releaseIds !== null) {
-    const appOctokit = await authenticate({ deliverinoPrivateKey, owner, repo })
-    releaseIds.map(async releaseId => {
+  const allPreReleases = await getAllPreReleased({ deliverinoPrivateKey, owner, repo, platform })
+  if (!allPreReleases) {
+    return null
+  }
+  const appOctokit = await authenticate({ deliverinoPrivateKey, owner, repo })
+  await Promise.all(
+    allPreReleases.map(async (preRelease: ReleaseType) => {
       const result = await appOctokit.rest.repos.updateRelease({
         owner,
         repo,
-        release_id: releaseId,
+        release_id: preRelease.id,
         prerelease: false,
         make_latest: platform === 'android' ? 'true' : 'false', // We always want android to be the latest release, so a link to the latest github release will go to the apk
       })
       console.warn('Http response code of updating the result: ', result.status)
-    })
-  }
+    }),
+  )
+  return allPreReleases
 }
 
 program
@@ -66,7 +70,11 @@ program
   .requiredOption('--platform <platform>')
   .action(async (options: Options) => {
     try {
-      await removePreRelease(options)
+      const promotedReleases = await removePreRelease(options)
+      if (promotedReleases) {
+        console.log(`The most recent beta version was promoted to production:`)
+        promotedReleases.map((release: ReleaseType) => console.log(`\n[${release.name}](${release.html_url})`))
+      }
     } catch (e) {
       console.error(e)
       process.exit(1)
