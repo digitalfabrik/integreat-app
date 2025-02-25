@@ -9,18 +9,22 @@ export type WindowDimensionsType = {
   footerHeight: number
   scrollY: number
   documentHeight: number
+  visibleFooterHeight: number
 }
 
 export const getWindowDimensions = (): WindowDimensionsType => {
   const { innerWidth: width, innerHeight: height, scrollY } = window
   const footer = document.querySelector('footer')
+  const footerHeight = footer?.offsetHeight ?? 0
+  const documentHeight = document.body.offsetHeight
   return {
     width,
     height,
     scrollY,
     viewportSmall: width <= dimensions.maxWidthViewportSmall,
-    footerHeight: footer?.offsetHeight ?? 0,
-    documentHeight: document.body.scrollHeight,
+    footerHeight,
+    documentHeight,
+    visibleFooterHeight: Math.max(0, height + scrollY + footerHeight - documentHeight),
   }
 }
 
