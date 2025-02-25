@@ -25,12 +25,11 @@ const getAllPreReleased = async ({ deliverinoPrivateKey, owner, repo, platform }
   const releasesWithTags = releases.data.filter(
     (release: ReleaseType) => release.tag_name.includes(platform) && release.prerelease,
   )
-  const filteredIds = releasesWithTags.map((release: ReleaseType) => release.id)
   const filteredTagNames = releasesWithTags.map((release: ReleaseType) => release.tag_name)
 
-  if (filteredIds.length > 0) {
+  if (releasesWithTags.length > 0) {
     console.warn('Unset prerelease tags of ', filteredTagNames)
-    return filteredIds
+    return releasesWithTags
   }
 
   console.warn('No release found to unset the prerelease tag for. Latest release may already be non-prerelease')
