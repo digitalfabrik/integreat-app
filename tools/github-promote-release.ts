@@ -6,7 +6,7 @@ import authenticate from './github-authentication.js'
 
 const octokit = new Octokit()
 type Releases = GetResponseTypeFromEndpointMethod<typeof octokit.repos.listReleases>
-type ReleaseType = Releases['data']
+type ReleaseType = Releases['data'][number]
 
 type Options = {
   deliverinoPrivateKey: string
