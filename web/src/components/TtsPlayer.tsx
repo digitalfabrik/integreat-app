@@ -27,7 +27,7 @@ const StyledTtsPlayer = styled.dialog<{ $isPlaying: boolean; $footerHeight: numb
   border-color: transparent;
 
   @media ${dimensions.smallViewport} {
-    width: 80%;
+    width: auto;
   }
 `
 
@@ -121,9 +121,7 @@ const TtsPlayer = ({
   togglePlayPause,
 }: TtsPlayerProps): ReactElement => {
   const { t } = useTranslation('layout')
-  const { footerHeight, documentHeight, height, scrollY } = useWindowDimensions()
-  const visibleFooterHeight = height + scrollY + footerHeight - documentHeight
-  const bottom = Math.max(0, visibleFooterHeight)
+  const { visibleFooterHeight } = useWindowDimensions()
 
   return (
     <>
@@ -135,7 +133,7 @@ const TtsPlayer = ({
           }}
         />
       )}
-      <StyledTtsPlayer $isPlaying={isPlaying} $footerHeight={bottom}>
+      <StyledTtsPlayer $isPlaying={isPlaying} $footerHeight={visibleFooterHeight}>
         <StyledPanel $isPlaying={isPlaying}>
           {isPlaying && (
             <StyledBackForthButton label={t('previous')} onClick={playPrevious}>
