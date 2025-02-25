@@ -20,6 +20,7 @@ type ListProps<T> = {
   refresh?: () => void
   onEndReached?: () => void
   style?: ViewStyle
+  keyboardShouldPersistTaps?: 'always' | 'never' | 'handled'
 }
 
 const List = <T,>({
@@ -33,6 +34,7 @@ const List = <T,>({
   onEndReached,
   scrollEnabled,
   style,
+  keyboardShouldPersistTaps = 'never',
 }: ListProps<T>): ReactElement => (
   <FlatList
     data={items}
@@ -51,6 +53,7 @@ const List = <T,>({
     role='list'
     accessibilityLabel={accessibilityLabel}
     style={style}
+    keyboardShouldPersistTaps={keyboardShouldPersistTaps}
   />
 )
 
