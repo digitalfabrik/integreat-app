@@ -94,6 +94,7 @@ const InputSection = ({
         invalid={invalid}
         returnKeyType='done'
         blurOnSubmit
+        accessibilityLabel={title}
         role='searchbox'
         testID={title ?? value}
       />
