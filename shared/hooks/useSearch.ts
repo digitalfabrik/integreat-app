@@ -7,6 +7,7 @@ import ExtendedPageModel from '../api/models/ExtendedPageModel'
 import PoiModel from '../api/models/PoiModel'
 
 export type SearchResult = ExtendedPageModel
+const DEBOUNCED_QUERY_TIMEOUT = 250
 
 export const prepareSearchDocuments = (
   categories?: CategoriesMapModel | null,
@@ -22,6 +23,18 @@ export const prepareSearchDocuments = (
 // Modifying single documents or replacing documents with a same length array will therefore NOT trigger an update
 const useSearch = (documents: SearchResult[], query: string): SearchResult[] => {
   const [indexing, setIndexing] = useState(false)
+  const [debouncedQuery, setDebouncedQuery] = useState(query)
+
+  useEffect(() => {
+    const debounceQueryTimeout = setTimeout(() => {
+      setDebouncedQuery(debouncedQuery)
+    }, DEBOUNCED_QUERY_TIMEOUT)
+
+    return () => {
+      clearTimeout(debounceQueryTimeout)
+    }
+  }, [debouncedQuery])
+
   const [search] = useState(
     new MiniSearch({
       idField: 'path',
