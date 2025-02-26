@@ -100,66 +100,46 @@ const CloseView = styled.div`
 `
 
 type TtsPlayerProps = {
-  showHelpModal: boolean
-  setShowHelpModal: (show: boolean) => void
   isPlaying: boolean
   playPrevious: () => void
   playNext: () => void
   close: () => void
   title: string
-  togglePlayPause: () => void
+  play: () => void
+  pause: () => void
 }
 
-const TtsPlayer = ({
-  showHelpModal,
-  setShowHelpModal,
-  isPlaying,
-  playPrevious,
-  playNext,
-  close,
-  title,
-  togglePlayPause,
-}: TtsPlayerProps): ReactElement => {
+const TtsPlayer = ({ isPlaying, playPrevious, playNext, close, title, play, pause }: TtsPlayerProps): ReactElement => {
   const { t } = useTranslation('layout')
   const { visibleFooterHeight } = useWindowDimensions()
 
   return (
-    <>
-      {showHelpModal && (
-        <TtsHelpModal
-          closeModal={() => {
-            setShowHelpModal(false)
-            close()
-          }}
-        />
-      )}
-      <StyledTtsPlayer $isPlaying={isPlaying} $footerHeight={visibleFooterHeight}>
-        <StyledPanel $isPlaying={isPlaying}>
-          {isPlaying && (
-            <StyledBackForthButton label={t('previous')} onClick={playPrevious}>
-              <StyledText>{t('previous')}</StyledText>
-              <Icon reverse src={PlaybackIcon} />
-            </StyledBackForthButton>
-          )}
-          <StyledPlayIcon label={t(isPlaying ? 'pause' : 'play')} onClick={togglePlayPause}>
-            <PlayButtonIcon src={isPlaying ? PauseIcon : PlayIcon} />
-          </StyledPlayIcon>
-          {isPlaying && (
-            <StyledBackForthButton label={t('next')} onClick={playNext}>
-              <Icon src={PlaybackIcon} />
-              <StyledText>{t('next')}</StyledText>
-            </StyledBackForthButton>
-          )}
-        </StyledPanel>
-        <CloseView>
-          {!isPlaying && <StyledPlayerHeaderText>{title}</StyledPlayerHeaderText>}
-          <CloseButton label={t('common:close')} onClick={close}>
-            <Icon src={CloseIcon} />
-            <StyledText>{t('common:close')}</StyledText>
-          </CloseButton>
-        </CloseView>
-      </StyledTtsPlayer>
-    </>
+    <StyledTtsPlayer $isPlaying={isPlaying} $footerHeight={visibleFooterHeight}>
+      <StyledPanel $isPlaying={isPlaying}>
+        {isPlaying && (
+          <StyledBackForthButton label={t('previous')} onClick={playPrevious}>
+            <StyledText>{t('previous')}</StyledText>
+            <Icon reverse src={PlaybackIcon} />
+          </StyledBackForthButton>
+        )}
+        <StyledPlayIcon label={t(isPlaying ? 'pause' : 'play')} onClick={isPlaying ? pause : play}>
+          <PlayButtonIcon src={isPlaying ? PauseIcon : PlayIcon} />
+        </StyledPlayIcon>
+        {isPlaying && (
+          <StyledBackForthButton label={t('next')} onClick={playNext}>
+            <Icon src={PlaybackIcon} />
+            <StyledText>{t('next')}</StyledText>
+          </StyledBackForthButton>
+        )}
+      </StyledPanel>
+      <CloseView>
+        {!isPlaying && <StyledPlayerHeaderText>{title}</StyledPlayerHeaderText>}
+        <CloseButton label={t('common:close')} onClick={close}>
+          <Icon src={CloseIcon} />
+          <StyledText>{t('common:close')}</StyledText>
+        </CloseButton>
+      </CloseView>
+    </StyledTtsPlayer>
   )
 }
 
