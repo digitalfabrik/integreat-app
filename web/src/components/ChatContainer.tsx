@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
@@ -11,6 +11,7 @@ import useWindowDimensions from '../hooks/useWindowDimensions'
 import ChatContentWrapper from './ChatContentWrapper'
 import ChatController from './ChatController'
 import ChatModal from './ChatModal'
+import { TtsContext } from './TtsContainer'
 import Icon from './base/Icon'
 
 const CHAT_BUTTON_SIZE = 48
@@ -82,7 +83,7 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement => 
   const { t } = useTranslation('chat')
   const [chatVisibilityStatus, setChatVisibilityStatus] = useState<ChatVisibilityStatus>(ChatVisibilityStatus.closed)
   const { viewportSmall, visibleFooterHeight, width } = useWindowDimensions()
-  const { visible: ttsPlayerVisible } = useTtsPlayer()
+  const { visible: ttsPlayerVisible } = useContext(TtsContext)
   const isChatMaximized = chatVisibilityStatus === ChatVisibilityStatus.maximized
   useLockedBody(isChatMaximized)
   const title = t('header', { appName: buildConfig().appName })

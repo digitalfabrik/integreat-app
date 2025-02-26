@@ -1,4 +1,5 @@
 import { DateTime } from 'luxon'
+import segment from 'sentencex'
 
 import CategoryModel from '../api/models/CategoryModel'
 import { APPOINTMENT_BOOKING_OFFER_ALIAS, INTERNAL_OFFERS } from '../constants'
@@ -45,3 +46,10 @@ export const getCategoryTiles = ({
       isExternalUrl: externalOfferUrl !== undefined,
     })
   })
+
+type SegmentOptions = {
+  languageCode: string
+}
+
+export const segmentText = (content: string, { languageCode }: SegmentOptions): string[] =>
+  segment(languageCode, content)

@@ -1,14 +1,14 @@
 import { useContext, useEffect, useMemo } from 'react'
 import { useLocation } from 'react-router-dom'
 
-import { addingPeriodsToDom, segmentation } from 'shared'
+import { segmentText, parseHTML } from 'shared'
 import { EventModel, LocalNewsModel, PageModel, TunewsModel } from 'shared/api'
 
 import { TtsContext, TtsContextType } from '../components/TtsContainer'
 
 const useTtsPlayer = (
-  languageCode?: string,
-  model?: PageModel | LocalNewsModel | TunewsModel | EventModel | null,
+  languageCode: string,
+  model: PageModel | LocalNewsModel | TunewsModel | EventModel | null | undefined,
 ): TtsContextType => {
   const tts = useContext(TtsContext)
   const { setSentences } = tts
@@ -16,7 +16,7 @@ const useTtsPlayer = (
 
   const sentences = useMemo(() => {
     if (model) {
-      return [model.title.concat('.'), ...segmentation(languageCode ?? '', addingPeriodsToDom(model.content))]
+      return [model.title, ...segmentText(parseHTML(model.content, { addPeriods: true }), { languageCode })]
     }
 
     return []
@@ -26,11 +26,6 @@ const useTtsPlayer = (
     setSentences(sentences)
     return () => setSentences([])
   }, [sentences, setSentences])
-
-  useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    window.speechSynthesis?.cancel()
-  }, [location.pathname])
 
   return tts
 }

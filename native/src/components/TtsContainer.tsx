@@ -53,7 +53,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
   const { t } = useTranslation('layout')
   const showSnackbar = useSnackbar()
   const title = sentences[0] || t('nothingToRead')
-  const longTitle = truncate(title, { maxChars: TTS_MAX_TITLE_DISPLAY_CHARS })
+  const shortTitle = truncate(title, { maxChars: TTS_MAX_TITLE_DISPLAY_CHARS })
   const enabled = buildConfig().featureFlags.tts && !TTS_UNSUPPORTED_LANGUAGES.includes(languageCode)
 
   const initializeTts = useCallback(async (): Promise<void> => {
@@ -166,7 +166,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
           close={close}
           pause={pause}
           play={play}
-          title={longTitle}
+          title={shortTitle}
         />
       )}
     </TtsContext.Provider>

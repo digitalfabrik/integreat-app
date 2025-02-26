@@ -1,14 +1,14 @@
-import React, { memo, ReactNode, useState } from 'react'
+import React, { memo, ReactNode, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { CopyIcon, DoneIcon, ReadAloudIcon } from '../assets'
-import useTtsPlayer from '../hooks/useTtsPlayer'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { RouteType } from '../routes'
 import FeedbackToolbarItem from './FeedbackToolbarItem'
 import SharingPopup from './SharingPopup'
 import Toolbar from './Toolbar'
 import ToolbarItem from './ToolbarItem'
+import { TtsContext } from './TtsContainer'
 
 type CityContentToolbarProps = {
   feedbackTarget?: string
@@ -24,7 +24,8 @@ type CityContentToolbarProps = {
 const COPY_TIMEOUT = 3000
 
 const CityContentToolbar = (props: CityContentToolbarProps) => {
-  const { enabled: ttsEnabled, setVisible: setTtsPlayerVisible, canRead } = useTtsPlayer()
+  const { enabled: ttsEnabled, showTtsPlayer, canRead } = useContext(TtsContext)
+
   const { viewportSmall } = useWindowDimensions()
   const {
     feedbackTarget,
@@ -56,7 +57,7 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
           isDisabled={!canRead}
           text={t('readAloud')}
           tooltip={canRead ? null : t('nothingToReadFullMessage')}
-          onClick={() => setTtsPlayerVisible(canRead)}
+          onClick={showTtsPlayer}
           id='read-aloud-icon'
         />
       )}
