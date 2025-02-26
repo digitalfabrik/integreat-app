@@ -18,7 +18,7 @@ const elevatedStyle = css`
 
 const StyledTtsPlayer = styled.View<{ $isPlaying: boolean }>`
   ${elevatedStyle}
-  background-color: ${props => props.theme.colors.grayBackgroundColor};
+  background-color: ${props => props.theme.colors.ttsPlayerBackground};
   border-radius: 28px;
   width: ${props => (props.$isPlaying ? '90%' : '80%')};
   display: flex;
@@ -44,7 +44,8 @@ const StyledPanel = styled.View<{ $isPlaying?: boolean }>`
 
 const StyledPlayIcon = styled(IconButton)<{ disabled: boolean }>`
   ${elevatedStyle}
-  background-color: ${props => (props.disabled ? props.theme.colors.textDisabledColor : props.theme.colors.textColor)};
+  background-color: ${props =>
+    props.disabled ? props.theme.colors.textDisabledColor : props.theme.colors.ttsPlayerPlayIconColor};
   width: 50px;
   height: 50px;
   border-radius: 50px;
@@ -58,7 +59,7 @@ const StyledBackForthButton = styled(Pressable)`
 `
 
 const PlayButtonIcon = styled(Icon)`
-  color: ${props => props.theme.colors.grayBackgroundColor};
+  color: ${props => props.theme.colors.ttsPlayerBackground};
 `
 
 const StyledText = styled(Text)`
