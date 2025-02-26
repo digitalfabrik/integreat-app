@@ -54,7 +54,8 @@ const removePreRelease = async ({ deliverinoPrivateKey, owner, repo, platform }:
       console.warn('Http response code of updating the result: ', result.status)
     }),
   )
-  return allPreReleases
+  // Returning the least release with PreRelease tag
+  return allPreReleases[0]
 }
 
 program
@@ -69,10 +70,11 @@ program
   .requiredOption('--platform <platform>')
   .action(async (options: Options) => {
     try {
-      const promotedReleases = await removePreRelease(options)
-      if (promotedReleases) {
-        console.log(`The most recent beta version was promoted to production:`)
-        promotedReleases.map((release: ReleaseType) => console.log(`\n[${release.name}](${release.html_url})`))
+      const promotedRelease = await removePreRelease(options)
+      if (promotedRelease) {
+        console.log(
+          `The most recent beta version was promoted to production:\n[${promotedRelease.name}](${promotedRelease.html_url})`,
+        )
       }
     } catch (e) {
       console.error(e)
