@@ -24,6 +24,10 @@ steps:
       working_directory: native/android
   - run:
       name: Remove prerelease flag from github release
-      command: yarn github-promote-release promote --platform android --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME}
       working_directory: tools
-  - notify
+      command: |
+        PROMOTION_MESSAGE=$(yarn --silent github-promote-release promote --platform android --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME})
+        echo "export PROMOTION_MESSAGE='${PROMOTION_MESSAGE}'" >> $BASH_ENV
+  - notify:
+      success_message: '${PROMOTION_MESSAGE}'
+  - persist_environment_variables
