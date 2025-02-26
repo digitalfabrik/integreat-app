@@ -1,0 +1,8 @@
+issue_key: 3098
+show_in_stores: true
+platforms:
+  - android
+  - ios
+  - web
+en: Add translations for Vietnamese.
+de: Übersetzung der App in Vietnamesisch.
