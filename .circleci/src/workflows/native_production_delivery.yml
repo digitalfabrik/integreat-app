@@ -13,106 +13,106 @@ jobs:
       context:
         - mattermost
 
-  - build_android:
-      name: build_e2e_android
-      build_config_name: integreat-e2e
-      context:
-        - mattermost
-        - credentials-repo
-        - credentials-integreat
-      requires:
-        - bump_version
-  - e2e_android:
-      context:
-        - mattermost
-        - browserstack
-      requires:
-        - build_e2e_android
-
-  - build_android:
-      name: build_integreat_android
-      build_config_name: integreat
-      context:
-        - mattermost
-        - credentials-repo
-        - credentials-integreat
-      requires:
-        - bump_version
-  - deliver_android:
-      name: deliver_integreat_android
-      build_config_name: integreat
-      context:
-        - mattermost
-        - browserstack
-        - tuerantuer-google-play
-      production_delivery: true
-      requires:
-        - check
-        - e2e_android
-        - build_integreat_android
-
-  - build_android:
-      name: build_malte_android
-      build_config_name: malte
-      context:
-        - mattermost
-        - credentials-repo
-        - credentials-integreat
-      requires:
-        - bump_version
-  - deliver_android:
-      name: deliver_malte_android
-      build_config_name: malte
-      context:
-        - mattermost
-        - browserstack
-        - tuerantuer-google-play
-      production_delivery: true
-      requires:
-        - check
-        - e2e_android
-        - build_malte_android
-
-  - build_android:
-      name: build_aschaffenburg_android
-      build_config_name: aschaffenburg
-      context:
-        - mattermost
-        - credentials-repo
-        - credentials-integreat
-      requires:
-        - bump_version
-  - deliver_android:
-      name: deliver_aschaffenburg_android
-      build_config_name: aschaffenburg
-      context:
-        - mattermost
-        - browserstack
-        - tuerantuer-google-play
-      production_delivery: true
-      requires:
-        - check
-        - e2e_android
-        - build_aschaffenburg_android
-
-  - sentry_android:
-      context:
-        - mattermost
-        - sentry
-      requires:
-        - build_integreat_android
-        - build_malte_android
-        - build_aschaffenburg_android
-
-  - notify_android:
-      context:
-        - mattermost
-        - deliverino
-      production_delivery: true
-      requires:
-        - deliver_integreat_android
-        - deliver_malte_android
-        - deliver_aschaffenburg_android
+  #  - build_android:
+  #      name: build_e2e_android
+  #      build_config_name: integreat-e2e
+  #      context:
+  #        - mattermost
+  #        - credentials-repo
+  #        - credentials-integreat
+  #      requires:
+  #        - bump_version
+  #  - e2e_android:
+  #      context:
+  #        - mattermost
+  #        - browserstack
+  #      requires:
+  #        - build_e2e_android
+  #
+  #  - build_android:
+  #      name: build_integreat_android
+  #      build_config_name: integreat
+  #      context:
+  #        - mattermost
+  #        - credentials-repo
+  #        - credentials-integreat
+  #      requires:
+  #        - bump_version
+  #  - deliver_android:
+  #      name: deliver_integreat_android
+  #      build_config_name: integreat
+  #      context:
+  #        - mattermost
+  #        - browserstack
+  #        - tuerantuer-google-play
+  #      production_delivery: true
+  #      requires:
+  #        - check
+  #        - e2e_android
+  #        - build_integreat_android
+  #
+  #  - build_android:
+  #      name: build_malte_android
+  #      build_config_name: malte
+  #      context:
+  #        - mattermost
+  #        - credentials-repo
+  #        - credentials-integreat
+  #      requires:
+  #        - bump_version
+  #  - deliver_android:
+  #      name: deliver_malte_android
+  #      build_config_name: malte
+  #      context:
+  #        - mattermost
+  #        - browserstack
+  #        - tuerantuer-google-play
+  #      production_delivery: true
+  #      requires:
+  #        - check
+  #        - e2e_android
+  #        - build_malte_android
+  #
+  #  - build_android:
+  #      name: build_aschaffenburg_android
+  #      build_config_name: aschaffenburg
+  #      context:
+  #        - mattermost
+  #        - credentials-repo
+  #        - credentials-integreat
+  #      requires:
+  #        - bump_version
+  #  - deliver_android:
+  #      name: deliver_aschaffenburg_android
+  #      build_config_name: aschaffenburg
+  #      context:
+  #        - mattermost
+  #        - browserstack
+  #        - tuerantuer-google-play
+  #      production_delivery: true
+  #      requires:
+  #        - check
+  #        - e2e_android
+  #        - build_aschaffenburg_android
+  #
+  #  - sentry_android:
+  #      context:
+  #        - mattermost
+  #        - sentry
+  #      requires:
+  #        - build_integreat_android
+  #        - build_malte_android
+  #        - build_aschaffenburg_android
+  #
+  #  - notify_android:
+  #      context:
+  #        - mattermost
+  #        - deliverino
+  #      production_delivery: true
+  #      requires:
+  #        - deliver_integreat_android
+  #        - deliver_malte_android
+  #        - deliver_aschaffenburg_android
 
   - build_ios:
       name: build_e2e_ios
