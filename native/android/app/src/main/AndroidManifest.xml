@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/${icon}_round"
         android:allowBackup="false"
         android:theme="@style/Theme.App"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        android:supportsRtl="true">
     <meta-data android:name="firebase_analytics_collection_deactivated" android:value="true" />
     <activity
             android:name=".MainActivity"
