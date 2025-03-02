@@ -1,0 +1,8 @@
+issue_key: 3074
+show_in_stores: true
+platforms:
+  - web
+  - android
+  - ios
+en: Made the search query more responsive.
+de: Die Suchanfrage wurde reaktionsfähiger gemacht.
