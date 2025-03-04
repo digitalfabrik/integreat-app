@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
@@ -37,6 +37,10 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
   const { t } = useTranslation('search')
   const navigate = useNavigate()
   const fallbackLanguage = config.sourceLanguage
+
+  useEffect(() => {
+    setFilterText(query)
+  }, [query])
 
   const {
     data: contentLanguageDocuments,
