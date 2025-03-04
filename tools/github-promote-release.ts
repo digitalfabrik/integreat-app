@@ -23,7 +23,7 @@ const getAllPreReleased = async ({ deliverinoPrivateKey, owner, repo, platform }
   })
   const releasesWithTags = releases.data.filter(release => release.tag_name.includes(platform) && release.prerelease)
   const isLatestPreReleased =
-    releases.data.filter(release => release.tag_name.includes(platform))[0].prerelease === true
+    releases.data.filter(release => release.tag_name?.includes(platform))[0]?.prerelease === true
 
   if (releasesWithTags.length > 0) {
     return { preReleases: releasesWithTags, isLatestPreReleased: isLatestPreReleased }
