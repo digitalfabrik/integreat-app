@@ -6,7 +6,6 @@ import authenticate from './github-authentication.js'
 
 const octokit = new Octokit()
 type Releases = GetResponseTypeFromEndpointMethod<typeof octokit.repos.listReleases>
-type ReleaseType = Releases['data'][number]
 
 type Options = {
   deliverinoPrivateKey: string
@@ -22,14 +21,12 @@ const getAllPreReleased = async ({ deliverinoPrivateKey, owner, repo, platform }
     owner,
     repo,
   })
-  const releasesWithTags = releases.data.filter(
-    (release: ReleaseType) => release.tag_name.includes(platform) && release.prerelease,
-  )
-  const filteredTagNames = releasesWithTags.map((release: ReleaseType) => release.tag_name)
+  const releasesWithTags = releases.data.filter(release => release.tag_name.includes(platform) && release.prerelease)
+  const isLatestPreReleased =
+    releases.data.filter(release => release.tag_name.includes(platform))[0].prerelease === true
 
   if (releasesWithTags.length > 0) {
-    console.warn('Unset prerelease tags of ', filteredTagNames)
-    return releasesWithTags
+    return { preReleases: releasesWithTags, isLatestPreReleased: isLatestPreReleased }
   }
 
   console.warn('No release found to unset the prerelease tag for. Latest release may already be non-prerelease')
@@ -43,7 +40,7 @@ const removePreRelease = async ({ deliverinoPrivateKey, owner, repo, platform }:
   }
   const appOctokit = await authenticate({ deliverinoPrivateKey, owner, repo })
   await Promise.all(
-    allPreReleases.map(async (preRelease: ReleaseType) => {
+    allPreReleases.preReleases.map(async preRelease => {
       const result = await appOctokit.rest.repos.updateRelease({
         owner,
         repo,
@@ -54,8 +51,15 @@ const removePreRelease = async ({ deliverinoPrivateKey, owner, repo, platform }:
       console.warn('Http response code of updating the result: ', result.status)
     }),
   )
-  // Returning the least release with PreRelease tag
-  return allPreReleases[0]
+  const filteredTagNames = allPreReleases.preReleases.map(release => release.tag_name)
+  console.warn('Unset prerelease tags of ', filteredTagNames)
+
+  if (allPreReleases.isLatestPreReleased) {
+    return allPreReleases.preReleases[0]
+  } else {
+    console.warn('Note: latest release is not tagged with prerelease')
+    return null
+  }
 }
 
 program
