@@ -1,9 +1,9 @@
 class ContactModel {
-  _name: string
+  _name: string | null
   _areaOfResponsibility: string | null
-  _email: string
-  _phoneNumber: string
-  _website: string
+  _email: string | null
+  _phoneNumber: string | null
+  _website: string | null
 
   constructor({
     name,
@@ -12,11 +12,11 @@ class ContactModel {
     phoneNumber,
     website,
   }: {
-    name: string
+    name: string | null
     areaOfResponsibility: string | null
-    email: string
-    phoneNumber: string
-    website: string
+    email: string | null
+    phoneNumber: string | null
+    website: string | null
   }) {
     this._name = name
     this._areaOfResponsibility = areaOfResponsibility
@@ -25,7 +25,7 @@ class ContactModel {
     this._website = website
   }
 
-  get name(): string {
+  get name(): string | null {
     return this._name
   }
 
@@ -33,15 +33,15 @@ class ContactModel {
     return this._areaOfResponsibility
   }
 
-  get email(): string {
+  get email(): string | null {
     return this._email
   }
 
-  get phoneNumber(): string {
+  get phoneNumber(): string | null {
     return this._phoneNumber
   }
 
-  get website(): string {
+  get website(): string | null {
     return this._website
   }
 
