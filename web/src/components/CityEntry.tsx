@@ -3,7 +3,7 @@ import Highlighter from 'react-highlight-words'
 import { Link } from 'react-router-dom'
 import styled, { useTheme } from 'styled-components'
 
-import { cityContentPath, normalizeString } from 'shared'
+import { cityContentPath, normalizeString, findMatchingSections } from 'shared'
 import { CityModel } from 'shared/api'
 
 const MAX_NUMBER_OF_ALIASES = 3
@@ -35,10 +35,10 @@ type CityEntryProps = {
 
 const CityEntry = ({ filterText, city, language }: CityEntryProps): ReactElement => {
   const theme = useTheme()
-  const normalizedFilter = normalizeString(filterText)
+  const normalizedFilter = normalizeString(filterText).replace('ß', 'ss')
   const aliases =
     city.aliases && normalizedFilter.length >= 1
-      ? Object.keys(city.aliases).filter(alias => normalizeString(alias).includes(normalizedFilter))
+      ? Object.keys(city.aliases).filter(alias => normalizeString(alias).replace('ß', 'ss').includes(normalizedFilter))
       : []
 
   return (
@@ -48,6 +48,7 @@ const CityEntry = ({ filterText, city, language }: CityEntryProps): ReactElement
         sanitize={normalizeString}
         aria-label={city.name}
         textToHighlight={city.name}
+        findChunks={findMatchingSections}
         autoEscape
         highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
       />
@@ -59,6 +60,7 @@ const CityEntry = ({ filterText, city, language }: CityEntryProps): ReactElement
               searchWords={[filterText]}
               sanitize={normalizeString}
               textToHighlight={alias}
+              findChunks={findMatchingSections}
               autoEscape
               highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
             />
