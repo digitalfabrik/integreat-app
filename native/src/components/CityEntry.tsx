@@ -3,7 +3,7 @@ import { Text } from 'react-native'
 import Highlighter from 'react-native-highlight-words'
 import styled from 'styled-components/native'
 
-import { normalizeString } from 'shared'
+import { findBoldSections, normalizeString } from 'shared'
 import { CityModel } from 'shared/api'
 
 import { AppContext } from '../contexts/AppContextProvider'
@@ -65,6 +65,7 @@ const CityEntry = ({ city, query, navigateToDashboard }: CityEntryProps): ReactE
               textToHighlight={it}
               autoEscape
               sanitize={normalizeString}
+              findChunks={findBoldSections}
               highlightStyle={{
                 fontWeight: 'bold',
               }}
@@ -99,6 +100,7 @@ const CityEntry = ({ city, query, navigateToDashboard }: CityEntryProps): ReactE
           autoEscape
           textToHighlight={city.name}
           sanitize={normalizeString}
+          findChunks={findBoldSections}
           highlightStyle={{
             fontWeight: 'bold',
           }}
