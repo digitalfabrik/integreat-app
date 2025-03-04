@@ -92,6 +92,14 @@ export type JsonChatMessagesType = {
 
 export type JsonDisclaimerType = JsonCategoryType
 
+type JsonContactType = {
+  name: string | null
+  area_of_responsibility: string | null
+  email: string | null
+  phone_number: string | null
+  website: string | null
+}
+
 export type JsonPoiType = {
   id: number
   url: string
@@ -109,14 +117,6 @@ export type JsonPoiType = {
   appointment_url: string | null
   category: JsonPoiCategoryType
   contacts: JsonContactType[]
-}
-
-export type JsonContactType = {
-  name: string | null
-  area_of_responsibility: string | null
-  email: string | null
-  phone_number: string | null
-  website: string | null
 }
 
 export type JsonEventType = {
