@@ -3,7 +3,7 @@ import { Tooltip as ReactTooltip, ITooltip as ReactTooltipType } from 'react-too
 import styled from 'styled-components'
 
 const StyledTooltip = styled(ReactTooltip)`
-  z-index: 1;
+  z-index: 2;
 `
 
 type TooltipProps = {
