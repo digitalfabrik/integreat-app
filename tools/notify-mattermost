@@ -2,7 +2,7 @@
 
 Send_notification() {
     only_for_branch=${1:-'main'}
-    channel=${2:-'integreat-app-notifications'}
+    channel=${2:-'releases'}
     message=${3:-${MM_MESSAGE}}
 
     if [ $only_for_branch != "${CIRCLE_BRANCH}" ]; then
