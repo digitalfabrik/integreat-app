@@ -1,9 +1,10 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { parseHTML, pathnameFromRouteInformation, SEARCH_ROUTE, useSearch } from 'shared'
+import { parseHTML, pathnameFromRouteInformation, SEARCH_ROUTE, useSearch, useDebounce } from 'shared'
+import { DEBOUNCED_QUERY_TIMEOUT } from 'shared/constants'
 import { config } from 'translations'
 
 import { CityRouteProps } from '../CityContentSwitcher'
@@ -37,6 +38,13 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
   const { t } = useTranslation('search')
   const navigate = useNavigate()
   const fallbackLanguage = config.sourceLanguage
+
+  const debouncedQuery = useDebounce(filterText, DEBOUNCED_QUERY_TIMEOUT)
+
+  useEffect(() => {
+    const appendToUrl = debouncedQuery.length !== 0 ? `?query=${debouncedQuery}` : ''
+    navigate(`${pathname}/${appendToUrl}`, { replace: true })
+  }, [debouncedQuery, navigate, pathname])
 
   const {
     data: contentLanguageDocuments,
@@ -82,8 +90,6 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
 
   const handleFilterTextChanged = (filterText: string): void => {
     setFilterText(filterText)
-    const appendToUrl = filterText.length !== 0 ? `?query=${filterText}` : ''
-    navigate(`${pathname}/${appendToUrl}`, { replace: true })
   }
 
   const getPageContent = () => {
