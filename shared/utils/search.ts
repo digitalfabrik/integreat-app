@@ -1,21 +1,19 @@
-import normalizeStrings from 'normalize-strings'
-
 import CityModel from '../api/models/CityModel'
-
-export const normalizeString = (str: string): string => normalizeStrings(str).toLowerCase().trim()
+import { normalizeString } from './normalizeString'
 
 const cityFilter =
   (filterText: string, developerFriendly: boolean) =>
   (cityModel: CityModel): boolean => {
-    const normalizedFilter = normalizeString(filterText)
-
+    const normalizedFilter = normalizeString(filterText).replace('ß', 'ss')
     if (normalizedFilter === 'wirschaffendas') {
       return !cityModel.live
     }
 
     const validCity = cityModel.live || developerFriendly
     const aliases = Object.keys(cityModel.aliases ?? {})
-    const matchesFilter = [cityModel.name, ...aliases].some(it => normalizeString(it).includes(normalizedFilter))
+    const matchesFilter = [cityModel.name, ...aliases].some(it =>
+      normalizeString(it).replace('ß', 'ss').includes(normalizedFilter),
+    )
     return validCity && matchesFilter
   }
 
