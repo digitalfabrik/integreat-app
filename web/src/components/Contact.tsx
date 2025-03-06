@@ -2,19 +2,14 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useTheme } from 'styled-components'
 
+import ContactModel from 'shared/api/models/ContactModel'
+
 import { MailIcon, PhoneIcon, WebsiteIcon } from '../assets'
 import Collapsible from './Collapsible'
 import ContactItem from './ContactItem'
 import Spacer from './Spacer'
 
-type ContactProps = {
-  headline: string | null
-  website: string | null
-  phoneNumber: string | null
-  email: string | null
-}
-
-const Contact = ({ headline, website, phoneNumber, email }: ContactProps): ReactElement => {
+const Contact = ({ contact: { headline, website, phoneNumber, email } }: { contact: ContactModel }): ReactElement => {
   const theme = useTheme()
   const { t } = useTranslation('pois')
 

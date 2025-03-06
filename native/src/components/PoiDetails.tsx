@@ -68,10 +68,7 @@ const PoiDetails = ({ poi, language, distance }: PoiDetailsProps): ReactElement 
         contacts.map(contact => (
           <Contact
             key={contact.headline ?? contact.website ?? contact.name ?? contact.phoneNumber}
-            headline={contact.headline}
-            website={contact.website}
-            phoneNumber={contact.phoneNumber}
-            email={contact.email}
+            contact={contact}
             language={language}
           />
         ))}

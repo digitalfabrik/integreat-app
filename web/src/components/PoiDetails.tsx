@@ -160,13 +160,7 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
       </DetailSection>
       {contacts.length > 0 &&
         contacts.map(contact => (
-          <Contact
-            key={contact.headline ?? contact.website ?? contact.name ?? contact.phoneNumber}
-            headline={contact.headline}
-            website={contact.website}
-            phoneNumber={contact.phoneNumber}
-            email={contact.email}
-          />
+          <Contact key={contact.headline ?? contact.website ?? contact.name ?? contact.phoneNumber} contact={contact} />
         ))}
       <>
         {((openingHours && openingHours.length > 0) || temporarilyClosed) && (

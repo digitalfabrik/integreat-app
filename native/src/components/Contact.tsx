@@ -1,20 +1,20 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import ContactModel from 'shared/api/models/ContactModel'
+
 import { MailIcon, PhoneIcon, WebsiteIcon } from '../assets'
 import Collapsible from './Collapsible'
 import HorizontalLine from './HorizontalLine'
 import PoiDetailRow from './PoiDetailRow'
 
-type ContactProps = {
-  headline: string | null
-  website: string | null
-  phoneNumber: string | null
-  email: string | null
+const Contact = ({
+  contact: { headline, website, phoneNumber, email },
+  language,
+}: {
+  contact: ContactModel
   language: string
-}
-
-const Contact = ({ headline, website, phoneNumber, email, language }: ContactProps): ReactElement => {
+}): ReactElement => {
   const { t } = useTranslation('pois')
 
   return (
