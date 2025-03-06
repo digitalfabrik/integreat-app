@@ -74,7 +74,7 @@ const SearchInput = ({
         <TextInput
           placeholder={placeholderText}
           aria-label={placeholderText}
-          defaultValue={filterText}
+          value={filterText}
           onChange={handleFilterTextChange}
           onClick={onClickInput}
           autoFocus
