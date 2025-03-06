@@ -1,6 +1,8 @@
 import React, { createContext, ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { hasProp } from 'shared'
+
 import buildConfig from '../constants/buildConfig'
 import appSettings, { defaultSettings, SettingsType } from '../utils/AppSettings'
 import dataContainer from '../utils/DefaultDataContainer'
@@ -35,7 +37,7 @@ type AppContextProviderProps = {
 const AppContextProvider = ({ children }: AppContextProviderProps): ReactElement | null => {
   const [settings, setSettings] = useState<SettingsType | null>(null)
   const allowPushNotifications = !!settings?.allowPushNotifications
-  const cityCode = settings?.selectedCity
+  const cityCode = settings?.selectedCity ?? null
   const languageCode = settings?.contentLanguage
   const { i18n } = useTranslation()
   const uiLanguage = i18n.languages[0]
@@ -99,8 +101,7 @@ const AppContextProvider = ({ children }: AppContextProviderProps): ReactElement
     [settings, cityCode, languageCode, updateSettings, changeCityCode, changeLanguageCode],
   )
 
-  return appContext.settings && appContext.languageCode !== null ? (
-    // @ts-expect-error typescript complains about null value even though we check for null
+  return hasProp(appContext, 'settings') && hasProp(appContext, 'languageCode') ? (
     <AppContext.Provider value={appContext}>{children}</AppContext.Provider>
   ) : null
 }
