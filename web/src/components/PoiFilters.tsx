@@ -37,6 +37,8 @@ const Section = styled.div`
 
 const Row = styled.div`
   display: flex;
+  gap: 10px;
+  align-items: center
 `
 
 const SortingHint = styled.div`
@@ -60,8 +62,17 @@ const StyledButton = styled(TextButton)`
 `
 
 const StyledIcon = styled(Icon)`
-  width: 24px;
-  height: 24px;
+  width: 30px;
+  height: 30px;
+`
+
+const StyledCheckboxContainer = styled.div`
+  
+    @media (width >= 768px){
+        input[type="checkbox"] {
+            transform: scale(1.3); 
+        }
+    }
 `
 
 type PoiFiltersProps = {
@@ -94,12 +105,14 @@ const PoiFilters = ({
           <SubTitle>{t('openingHours')}</SubTitle>
           <Row>
             <StyledIcon src={ClockIcon} />
+            <StyledCheckboxContainer>
             <Checkbox
               id='poi-filters-currently-opened'
               checked={currentlyOpenFilter}
               setChecked={setCurrentlyOpenFilter}
               label={t('onlyCurrentlyOpen')}
             />
+            </StyledCheckboxContainer>
           </Row>
         </Section>
         <Section>
