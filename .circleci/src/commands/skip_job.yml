@@ -16,7 +16,7 @@ steps:
             message="Job is skipped because the variable $variable_name is set"
             echo $message
             circleci step halt
-            source tools/notify-mattermost main integreat-app-notifications "$message"
+            source tools/notify-mattermost main releases "$message"
           fi
         }
 

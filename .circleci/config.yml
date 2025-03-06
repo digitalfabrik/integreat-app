@@ -34,7 +34,7 @@ commands:
         description: Send a notification (to Mattermost) at the end of a job, based on success or failure. Must be the last step in a job.
         parameters:
             channel:
-                default: integreat-app-notifications
+                default: releases
                 type: string
             failure_mentions:
                 default: '@steffen.kleinle @stefanie.metzger @andreas.fischer @leandra.hahn'
@@ -219,7 +219,7 @@ commands:
                         message="Job is skipped because the variable $variable_name is set"
                         echo $message
                         circleci step halt
-                        source tools/notify-mattermost main integreat-app-notifications "$message"
+                        source tools/notify-mattermost main releases "$message"
                       fi
                     }
 
