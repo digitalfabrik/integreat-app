@@ -29,6 +29,7 @@ const openExternalUrl = async (rawUrl: string, showSnackbar: (snackbar: Snackbar
       })
       InAppBrowser.close()
       // On ios InAppBrowser seems to need some time to close the browser until it can be opened again properly
+      // https://github.com/digitalfabrik/integreat-app/issues/3084
       await new Promise(resolve => {
         setTimeout(resolve, WAIT_UNTIL_IN_APP_BROWSER_CLOSED)
       })
