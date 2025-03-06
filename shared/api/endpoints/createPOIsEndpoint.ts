@@ -4,6 +4,7 @@ import Endpoint from '../Endpoint'
 import EndpointBuilder from '../EndpointBuilder'
 import { API_VERSION } from '../constants'
 import mapAvailableLanguages from '../mapping/mapAvailableLanguages'
+import ContactModel from '../models/ContactModel'
 import LocationModel from '../models/LocationModel'
 import OpeningHoursModel from '../models/OpeningHoursModel'
 import PoiCategoryModel from '../models/PoiCategoryModel'
@@ -32,9 +33,16 @@ export default (baseUrl: string): Endpoint<ParamsType, PoiModel[]> =>
             availableLanguages: mapAvailableLanguages(poi.available_languages),
             excerpt: poi.excerpt,
             metaDescription: poi.meta_description ? poi.meta_description : null,
-            website: poi.website,
-            phoneNumber: poi.phone_number,
-            email: poi.email,
+            contacts: poi.contacts.map(
+              contact =>
+                new ContactModel({
+                  name: contact.name,
+                  areaOfResponsibility: contact.area_of_responsibility,
+                  email: contact.email,
+                  phoneNumber: contact.phone_number,
+                  website: contact.website,
+                }),
+            ),
             temporarilyClosed: poi.temporarily_closed,
             openingHours: poi.opening_hours?.map(openingHour => new OpeningHoursModel(openingHour)) ?? null,
             appointmentUrl: poi.appointment_url,

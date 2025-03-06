@@ -47,10 +47,11 @@ describe('PoiDetails', () => {
     expect(getByText('description')).toBeTruthy()
     expect(getByText(poi.content)).toBeTruthy()
 
-    expect(getByText('contactInformation')).toBeTruthy()
-    expect(getByText(poi.website!)).toBeTruthy()
-    expect(getByText(poi.phoneNumber!)).toBeTruthy()
-    expect(getByText(poi.email!)).toBeTruthy()
+    const contact = poi.contacts[0]!
+    expect(getByText(`${contact.name} | ${contact.areaOfResponsibility}`)).toBeTruthy()
+    expect(getByText(contact.website!)).toBeTruthy()
+    expect(getByText(contact.phoneNumber!)).toBeTruthy()
+    expect(getByText(contact.email!)).toBeTruthy()
   })
 
   it('should not render distance if there is none', () => {
