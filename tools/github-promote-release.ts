@@ -38,12 +38,9 @@ const promoteReleases = async ({ deliverinoPrivateKey, owner, repo, platform }: 
         prerelease: false,
         make_latest: platform === 'android' ? 'true' : 'false', // We always want android to be the latest release, so a link to the latest github release will go to the apk
       })
-      console.warn('Http response code of updating the result: ', result.status)
+      console.warn(`Release ${preRelease.tag_name} promoted with status:`, result.status)
     }),
   )
-
-  const filteredTagNames = preReleases.map(release => release.tag_name)
-  console.warn('Unset prerelease tags of ', filteredTagNames)
 
   if (preReleases[0]?.prerelease) {
     return preReleases[0]
