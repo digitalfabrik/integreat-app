@@ -65,13 +65,8 @@ const StyledIcon = styled(Icon)`
   min-width: 24px;
 `
 
-const StyledCheckboxContainer = styled.div`
-  
-    @media (width >= 768px){
-        input[type="checkbox"] {
-            transform: scale(1.3); 
-        }
-    }
+const StyledCheckbox = styled(Checkbox)`
+  min-width: 20px;
 `
 
 type PoiFiltersProps = {
