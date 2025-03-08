@@ -12,6 +12,7 @@ const StyledCheckbox = styled.input`
   accent-color: ${props => props.theme.colors.themeColor};
   width: 20px;
   height: 20px;
+  min-width: 20px;
   align-self: center;
 `
 
