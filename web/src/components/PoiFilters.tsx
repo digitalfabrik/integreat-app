@@ -62,8 +62,7 @@ const StyledButton = styled(TextButton)`
 `
 
 const StyledIcon = styled(Icon)`
-  width: 30px;
-  height: 30px;
+  min-width: 24px;
 `
 
 const StyledCheckboxContainer = styled.div`
