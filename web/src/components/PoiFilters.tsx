@@ -37,7 +37,7 @@ const Section = styled.div`
 
 const Row = styled.div`
   display: flex;
-  gap: 10px;
+  gap: 8px;
   align-items: center
 `
 
