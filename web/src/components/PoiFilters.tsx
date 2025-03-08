@@ -99,7 +99,7 @@ const PoiFilters = ({
           <SubTitle>{t('openingHours')}</SubTitle>
           <Row>
             <StyledIcon src={ClockIcon} />
-            <Checkbox
+            <StyledCheckbox
               id='poi-filters-currently-opened'
               checked={currentlyOpenFilter}
               setChecked={setCurrentlyOpenFilter}
