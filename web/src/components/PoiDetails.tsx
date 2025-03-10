@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { Fragment, ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { useTheme } from 'styled-components'
 
@@ -131,7 +131,7 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
   const thumbnail = poi.thumbnail ?? PoiThumbnailPlaceholderLarge
   const isAndroid = /Android/i.test(navigator.userAgent)
   const externalMapsLink = getExternalMapsLink(location, isAndroid ? 'android' : 'web')
-  const appointmentOverlayLink = appointmentUrl ?? poi.contacts.find(contact => contact.website !== null)?.website ?? ''
+  const appointmentOverlayUrl = appointmentUrl ?? poi.contacts.find(contact => contact.website !== null)?.website ?? ''
 
   return (
     <DetailsContainer>
@@ -158,10 +158,12 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
           <StyledExternalLinkIcon src={ExternalLinkIcon} directionDependent />
         </StyledLink>
       </DetailSection>
-      {contacts.length > 0 &&
-        contacts.map(contact => (
-          <Contact key={contact.headline ?? contact.website ?? contact.name ?? contact.phoneNumber} contact={contact} />
-        ))}
+      {contacts.map(contact => (
+        <Fragment key={contact.headline ?? contact.website ?? contact.name ?? contact.phoneNumber}>
+          <Spacer $borderColor={theme.colors.borderColor} />
+          <Contact contact={contact} />
+        </Fragment>
+      ))}
       <>
         {((openingHours && openingHours.length > 0) || temporarilyClosed) && (
           <Spacer $borderColor={theme.colors.borderColor} />
@@ -170,7 +172,7 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
           openingHours={openingHours}
           isCurrentlyOpen={isCurrentlyOpen}
           isTemporarilyClosed={temporarilyClosed}
-          appointmentOverlayLink={appointmentOverlayLink}
+          appointmentOverlayLink={appointmentOverlayUrl}
         />
         {appointmentUrl !== null && (
           <StyledLink to={appointmentUrl}>

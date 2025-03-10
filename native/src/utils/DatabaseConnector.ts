@@ -8,6 +8,7 @@ import {
   CategoriesMapModel,
   CategoryModel,
   CityModel,
+  ContactModel,
   DateModel,
   EventModel,
   FeaturedImageModel,
@@ -20,7 +21,6 @@ import {
   OrganizationModel,
   OfferModel,
 } from 'shared/api'
-import ContactModel from 'shared/api/models/ContactModel'
 
 import DatabaseContext from '../models/DatabaseContext'
 import {
@@ -146,6 +146,7 @@ type ContactJsonType = {
   email: string | null
   phone_number: string | null
   website: string | null
+  mobile_phone_number: string | null
 }
 
 type ContentPoiJsonType = {
@@ -477,6 +478,7 @@ class DatabaseConnector {
           email: contact.email,
           phone_number: contact.phoneNumber,
           website: contact.website,
+          mobile_phone_number: contact.mobilePhoneNumber,
         })),
         location: {
           id: poi.location.id,
@@ -534,6 +536,7 @@ class DatabaseConnector {
                 email: contact.email,
                 phoneNumber: contact.phone_number,
                 website: contact.website,
+                mobilePhoneNumber: contact.mobile_phone_number,
               }),
           ),
           location: new LocationModel({

@@ -48,7 +48,7 @@ describe('PoiDetails', () => {
     expect(getByText(poi.content)).toBeTruthy()
 
     const contact = poi.contacts[0]!
-    expect(getByText(`${contact.name} | ${contact.areaOfResponsibility}`)).toBeTruthy()
+    expect(getByText(contact.headline!)).toBeTruthy()
     expect(getByText(contact.website!)).toBeTruthy()
     expect(getByText(contact.phoneNumber!)).toBeTruthy()
     expect(getByText(contact.email!)).toBeTruthy()
