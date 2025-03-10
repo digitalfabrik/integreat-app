@@ -897,7 +897,7 @@ jobs:
             - restore_yarn_cache
             - restore_yarn_tools_cache
             - restore_ruby_cache:
-                directory: native
+                directory: native/android
             - run:
                 command: bundle exec fastlane android playstore_promote build_config_name:<< parameters.build_config_name >>
                 name: '[FL] Google PlayStore Promotion'
@@ -932,7 +932,7 @@ jobs:
             - restore_yarn_tools_cache
             - restore_yarn_cache
             - restore_ruby_cache:
-                directory: native
+                directory: native/ios
             - run:
                 command: bundle exec fastlane ios appstoreconnect_promote build_config_name:<< parameters.build_config_name >>
                 name: '[FL] Apple AppStoreConnect Promotion'
