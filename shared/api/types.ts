@@ -98,6 +98,7 @@ type JsonContactType = {
   email: string | null
   phone_number: string | null
   website: string | null
+  mobile_phone_number: string | null
 }
 
 export type JsonPoiType = {

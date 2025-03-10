@@ -5,6 +5,7 @@ const areaOfResponsibility = 'Bürgeramt'
 const email = 'maria@musterfrau.de'
 const phoneNumber = '030 1234567'
 const website = 'https://maria-musterfrau.de'
+const mobilePhoneNumber = '0170 1234567'
 
 class ContactModelBuilder {
   everything(): ContactModel {
@@ -14,6 +15,7 @@ class ContactModelBuilder {
       email,
       phoneNumber,
       website,
+      mobilePhoneNumber,
     })
   }
 
@@ -24,6 +26,7 @@ class ContactModelBuilder {
       email,
       phoneNumber,
       website: null,
+      mobilePhoneNumber,
     })
   }
 
@@ -34,6 +37,7 @@ class ContactModelBuilder {
       email,
       phoneNumber: null,
       website,
+      mobilePhoneNumber,
     })
   }
 
@@ -44,6 +48,18 @@ class ContactModelBuilder {
       email: null,
       phoneNumber,
       website,
+      mobilePhoneNumber,
+    })
+  }
+
+  noMobilePhoneNumber(): ContactModel {
+    return new ContactModel({
+      name,
+      areaOfResponsibility,
+      email,
+      phoneNumber,
+      website,
+      mobilePhoneNumber: null,
     })
   }
 }

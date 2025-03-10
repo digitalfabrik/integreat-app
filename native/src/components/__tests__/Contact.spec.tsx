@@ -16,6 +16,7 @@ describe('Contact', () => {
     expect(getByText(contact.headline!)).toBeTruthy()
     expect(getByLabelText('website')).toHaveTextContent(contact.website!)
     expect(getByLabelText('phone')).toHaveTextContent(contact.phoneNumber!)
+    expect(getByLabelText('mobilePhone')).toHaveTextContent(contact.mobilePhoneNumber!)
     expect(getByLabelText('eMail')).toHaveTextContent(contact.email!)
   })
 
@@ -25,6 +26,7 @@ describe('Contact', () => {
     expect(getByText(contact.headline!)).toBeTruthy()
     expect(queryByLabelText('website')).toBeNull()
     expect(getByLabelText('phone')).toHaveTextContent(contact.phoneNumber!)
+    expect(getByLabelText('mobilePhone')).toHaveTextContent(contact.mobilePhoneNumber!)
     expect(getByLabelText('eMail')).toHaveTextContent(contact.email!)
   })
 
@@ -34,6 +36,7 @@ describe('Contact', () => {
     expect(getByText(contact.headline!)).toBeTruthy()
     expect(getByLabelText('website')).toHaveTextContent(contact.website!)
     expect(queryByLabelText('phone')).toBeNull()
+    expect(getByLabelText('mobilePhone')).toHaveTextContent(contact.mobilePhoneNumber!)
     expect(getByLabelText('eMail')).toHaveTextContent(contact.email!)
   })
 
@@ -43,6 +46,17 @@ describe('Contact', () => {
     expect(getByText(contact.headline!)).toBeTruthy()
     expect(getByLabelText('website')).toHaveTextContent(contact.website!)
     expect(getByLabelText('phone')).toHaveTextContent(contact.phoneNumber!)
+    expect(getByLabelText('mobilePhone')).toHaveTextContent(contact.mobilePhoneNumber!)
     expect(queryByLabelText('eMail')).toBeNull()
+  })
+
+  it('should render correctly without mobile phone number', () => {
+    const contact = contactBuilder.noMobilePhoneNumber()
+    const { getByText, getByLabelText, queryByLabelText } = render(<Contact contact={contact} language='de' />)
+    expect(getByText(contact.headline!)).toBeTruthy()
+    expect(getByLabelText('website')).toHaveTextContent(contact.website!)
+    expect(getByLabelText('phone')).toHaveTextContent(contact.phoneNumber!)
+    expect(queryByLabelText('mobilePhone')).toBeNull()
+    expect(getByLabelText('eMail')).toHaveTextContent(contact.email!)
   })
 })

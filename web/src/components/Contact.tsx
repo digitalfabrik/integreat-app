@@ -24,7 +24,7 @@ const Contact = ({
         {!!mobilePhoneNumber && (
           <ContactItem
             iconSrc={PhoneIcon}
-            iconAlt={t('cellPhone')}
+            iconAlt={t('mobilePhone')}
             link={`tel:${mobilePhoneNumber}`}
             content={mobilePhoneNumber}
           />

@@ -16,6 +16,7 @@ describe('Contact', () => {
     expect(getByText(contact.headline!)).toBeTruthy()
     expect(getByText(contact.website!)).toBeTruthy()
     expect(getByText(contact.phoneNumber!)).toBeTruthy()
+    expect(getByText(contact.mobilePhoneNumber!)).toBeTruthy()
     expect(getByText(contact.email!)).toBeTruthy()
   })
 
@@ -25,6 +26,7 @@ describe('Contact', () => {
     expect(getByText(contact.headline!)).toBeTruthy()
     expect(queryByText('https://maria-musterfrau.de')).toBeNull()
     expect(getByText(contact.phoneNumber!)).toBeTruthy()
+    expect(getByText(contact.mobilePhoneNumber!)).toBeTruthy()
     expect(getByText(contact.email!)).toBeTruthy()
   })
 
@@ -34,6 +36,7 @@ describe('Contact', () => {
     expect(getByText(contact.headline!)).toBeTruthy()
     expect(getByText(contact.website!)).toBeTruthy()
     expect(queryByText('030 1234567')).toBeNull()
+    expect(getByText(contact.mobilePhoneNumber!)).toBeTruthy()
     expect(getByText(contact.email!)).toBeTruthy()
   })
 
@@ -43,6 +46,17 @@ describe('Contact', () => {
     expect(getByText(contact.headline!)).toBeTruthy()
     expect(getByText(contact.website!)).toBeTruthy()
     expect(getByText(contact.phoneNumber!)).toBeTruthy()
+    expect(getByText(contact.mobilePhoneNumber!)).toBeTruthy()
     expect(queryByText('maria@musterfrau.de')).toBeNull()
+  })
+
+  it('should render correctly without mobile phone number', () => {
+    const contact = contactBuilder.noMobilePhoneNumber()
+    const { getByText, queryByText } = renderWithTheme(<Contact contact={contact} />)
+    expect(getByText(contact.headline!)).toBeTruthy()
+    expect(getByText(contact.website!)).toBeTruthy()
+    expect(getByText(contact.phoneNumber!)).toBeTruthy()
+    expect(queryByText('0170 1234567')).toBeNull()
+    expect(getByText(contact.email!)).toBeTruthy()
   })
 })
