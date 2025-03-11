@@ -1,10 +1,10 @@
-import { css, RuleSet } from 'styled-components'
+import { css } from 'styled-components'
 
 export type HelpersType = {
-  removeLinkHighlighting: RuleSet
-  adaptiveFontSize: RuleSet
-  adaptiveWidth: RuleSet
-  adaptiveHeight: RuleSet
+  removeLinkHighlighting: ReturnType<typeof css>
+  adaptiveFontSize: ReturnType<typeof css>
+  adaptiveWidth: ReturnType<typeof css>
+  adaptiveHeight: ReturnType<typeof css>
 }
 
 export const helpers: HelpersType = {

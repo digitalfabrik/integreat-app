@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { StyleProp, ViewStyle } from 'react-native'
 import Animated, { useAnimatedStyle, useDerivedValue, useSharedValue, withTiming } from 'react-native-reanimated'
-import { styled } from 'styled-components/native'
+import styled from 'styled-components/native'
 
 const StyledWrapper = styled.View`
   width: 100%;
