@@ -55,6 +55,7 @@ export const preparePois = ({ pois: allPois, params }: PreparePoisProps): Prepar
   const poiCategories = allPois
     .map(it => it.category)
     .filter((it, index, array) => array.findIndex(value => value.id === it.id) === index)
+    .sort((a, b) => a.name.localeCompare(b.name))
   const poiCategory = poiCategories.find(it => it.id === poiCategoryId)
 
   return { pois, poi, mapFeature, mapFeatures, poiCategories, poiCategory }

@@ -7,6 +7,7 @@ import ExtendedPageModel from '../api/models/ExtendedPageModel'
 import PoiModel from '../api/models/PoiModel'
 
 export type SearchResult = ExtendedPageModel
+const DEBOUNCED_QUERY_TIMEOUT = 250
 
 export const prepareSearchDocuments = (
   categories?: CategoriesMapModel | null,
@@ -22,6 +23,8 @@ export const prepareSearchDocuments = (
 // Modifying single documents or replacing documents with a same length array will therefore NOT trigger an update
 const useSearch = (documents: SearchResult[], query: string): SearchResult[] => {
   const [indexing, setIndexing] = useState(false)
+  const [debouncedQuery, setDebouncedQuery] = useState(query)
+
   const [search] = useState(
     new MiniSearch({
       idField: 'path',
@@ -36,6 +39,14 @@ const useSearch = (documents: SearchResult[], query: string): SearchResult[] => 
   )
 
   useEffect(() => {
+    const debounceQueryTimeout = setTimeout(() => {
+      setDebouncedQuery(query)
+    }, DEBOUNCED_QUERY_TIMEOUT)
+
+    return () => clearTimeout(debounceQueryTimeout)
+  }, [query])
+
+  useEffect(() => {
     if (!indexing && search.documentCount !== documents.length) {
       setIndexing(true)
       search.removeAll()
@@ -47,7 +58,7 @@ const useSearch = (documents: SearchResult[], query: string): SearchResult[] => 
   }, [indexing, search, documents])
 
   // @ts-expect-error minisearch doesn't add the returned storeFields (e.g. title or path) to its typing
-  return query.length === 0 ? documents : search.search(query)
+  return debouncedQuery.length === 0 ? documents : search.search(debouncedQuery)
 }
 
 export default useSearch
