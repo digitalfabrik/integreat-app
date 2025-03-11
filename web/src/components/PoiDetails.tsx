@@ -1,23 +1,16 @@
-import React, { ReactElement } from 'react'
+import React, { Fragment, ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { useTheme } from 'styled-components'
 
 import { getExternalMapsLink } from 'shared'
 import { PoiModel } from 'shared/api'
 
-import {
-  MailIcon,
-  ExternalLinkIcon,
-  LocationIcon,
-  PhoneIcon,
-  PoiThumbnailPlaceholderLarge,
-  WebsiteIcon,
-} from '../assets'
+import { ExternalLinkIcon, LocationIcon, PoiThumbnailPlaceholderLarge } from '../assets'
 import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import Collapsible from './Collapsible'
-import ContactItem from './ContactItem'
+import Contact from './Contact'
 import OpeningHours from './OpeningHours'
 import RemoteContent from './RemoteContent'
 import Spacer from './Spacer'
@@ -132,22 +125,13 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
   const { viewportSmall } = useWindowDimensions()
   const theme = useTheme()
   const { t } = useTranslation('pois')
-  const {
-    content,
-    location,
-    website,
-    phoneNumber,
-    email,
-    isCurrentlyOpen,
-    openingHours,
-    temporarilyClosed,
-    category,
-    appointmentUrl,
-  } = poi
+  const { content, location, contacts, isCurrentlyOpen, openingHours, temporarilyClosed, category, appointmentUrl } =
+    poi
 
   const thumbnail = poi.thumbnail ?? PoiThumbnailPlaceholderLarge
   const isAndroid = /Android/i.test(navigator.userAgent)
   const externalMapsLink = getExternalMapsLink(location, isAndroid ? 'android' : 'web')
+  const appointmentOverlayUrl = appointmentUrl ?? poi.contacts.find(contact => contact.website !== null)?.website ?? ''
 
   return (
     <DetailsContainer>
@@ -174,29 +158,12 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
           <StyledExternalLinkIcon src={ExternalLinkIcon} directionDependent />
         </StyledLink>
       </DetailSection>
-      {(!!website || !!phoneNumber || !!email) && (
-        <>
+      {contacts.map(contact => (
+        <Fragment key={contact.headline ?? contact.website ?? contact.name ?? contact.phoneNumber}>
           <Spacer $borderColor={theme.colors.borderColor} />
-          <Collapsible title={t('contactInformation')}>
-            <div>
-              {!!website && (
-                <ContactItem iconSrc={WebsiteIcon} iconAlt={t('website')} link={website} content={website} />
-              )}
-              {!!phoneNumber && (
-                <ContactItem
-                  iconSrc={PhoneIcon}
-                  iconAlt={t('phone')}
-                  link={`tel:${phoneNumber}`}
-                  content={phoneNumber}
-                />
-              )}
-              {!!email && (
-                <ContactItem iconSrc={MailIcon} iconAlt={t('eMail')} link={`mailto:${email}`} content={email} />
-              )}
-            </div>
-          </Collapsible>
-        </>
-      )}
+          <Contact contact={contact} />
+        </Fragment>
+      ))}
       <>
         {((openingHours && openingHours.length > 0) || temporarilyClosed) && (
           <Spacer $borderColor={theme.colors.borderColor} />
@@ -205,7 +172,7 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
           openingHours={openingHours}
           isCurrentlyOpen={isCurrentlyOpen}
           isTemporarilyClosed={temporarilyClosed}
-          appointmentOverlayLink={appointmentUrl ?? website}
+          appointmentOverlayLink={appointmentOverlayUrl}
         />
         {appointmentUrl !== null && (
           <StyledLink to={appointmentUrl}>
