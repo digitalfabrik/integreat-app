@@ -4,16 +4,14 @@ import { normalizeString } from './normalizeString'
 const cityFilter =
   (filterText: string, developerFriendly: boolean) =>
   (cityModel: CityModel): boolean => {
-    const normalizedFilter = normalizeString(filterText).replace('ß', 'ss')
+    const normalizedFilter = normalizeString(filterText)
     if (normalizedFilter === 'wirschaffendas') {
       return !cityModel.live
     }
 
     const validCity = cityModel.live || developerFriendly
     const aliases = Object.keys(cityModel.aliases ?? {})
-    const matchesFilter = [cityModel.name, ...aliases].some(it =>
-      normalizeString(it).replace('ß', 'ss').includes(normalizedFilter),
-    )
+    const matchesFilter = [cityModel.name, ...aliases].some(it => normalizeString(it).includes(normalizedFilter))
     return validCity && matchesFilter
   }
 
