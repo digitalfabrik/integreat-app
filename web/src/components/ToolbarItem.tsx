@@ -18,6 +18,7 @@ const StyledToolbarItem = styled(Link)<{ disabled?: boolean }>`
   color: ${props => (props.disabled ? props.theme.colors.textDisabledColor : props.theme.colors.textColor)};
   background-color: transparent;
   text-align: center;
+  ${props => props.disabled && 'cursor: default;'}
 
   @media ${dimensions.smallViewport} {
     line-height: 1.15;

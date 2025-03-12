@@ -10,8 +10,10 @@ import TtsHelpModal from './TtsHelpModal'
 import TtsPlayer from './TtsPlayer'
 
 const userAgent = navigator.userAgent.toLowerCase()
+// Tts pause does not work on firefox linux
 // https://github.com/mdn/browser-compat-data/issues/13191
 const isFirefoxLinux = userAgent.includes('firefox') && userAgent.includes('linux')
+// Tts pause does not work on android
 // https://github.com/leaonline/easy-speech/issues/108
 const isAndroid = userAgent.includes('android')
 const ttsPauseImplemented = !isAndroid && !isFirefoxLinux
@@ -44,8 +46,8 @@ type TtsContainerProps = {
 
 const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactElement | null => {
   const { t } = useTranslation('layout')
-  const isPlayingRef = useRef<boolean>(false)
-  const [isPlaying, internalSetIsPlaying] = useState<boolean>(false)
+  const afterStopRef = useRef<(() => void) | null>(null)
+  const [isPlaying, setIsPlaying] = useState<boolean>(false)
   const [visible, setVisible] = useState(false)
   const [sentences, setSentences] = useState<string[]>([])
   const [sentenceIndex, setSentenceIndex] = useState(0)
@@ -55,39 +57,40 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
   const enabled = buildConfig().featureFlags.tts
   const canRead = enabled && sentences.length > 1
 
-  const setIsPlaying = useCallback((isPlaying: boolean) => {
-    isPlayingRef.current = isPlaying
-    internalSetIsPlaying(isPlaying)
-  }, [])
-
   const initializeTts = useCallback(() => {
     if (buildConfig().featureFlags.tts) {
       EasySpeech.init({ maxTimeout: 500, interval: 250 })
         .then(() => setVisible(true))
-        .catch(e => {
-          console.log(e)
-          return setShowHelpModal(true)
-        })
+        .catch(() => setShowHelpModal(true))
     }
   }, [])
 
+  const stopPlayer = useCallback(
+    (afterStop: () => void = () => undefined) => {
+      if (ttsInitialized()) {
+        // The end event is always emitted if the current utterance is stopped (incl. finish, cancel and pause)
+        // The end event is only emitted after some time, such that we can only start the next utterance after to avoid autoplaying the next utterance
+        // https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesisUtterance/end_event
+        afterStopRef.current = afterStop
+        EasySpeech.cancel()
+      }
+    },
+    [setIsPlaying],
+  )
+
   const stop = useCallback(() => {
-    setIsPlaying(false)
     setSentenceIndex(0)
-    if (ttsInitialized()) {
-      console.log(EasySpeech.status().status)
-      EasySpeech.cancel()
-    }
-  }, [setIsPlaying])
+    setIsPlaying(false)
+    stopPlayer()
+  }, [stopPlayer])
 
   const pause = () => {
     setIsPlaying(false)
-    EasySpeech.cancel()
+    stopPlayer()
   }
 
   const play = useCallback(
     async (index = sentenceIndex) => {
-      console.log(EasySpeech.status().status)
       const voice = ttsInitialized() ? EasySpeech.voices().find(voice => voice.lang.startsWith(languageCode)) : null
       if (!voice) {
         setShowHelpModal(true)
@@ -97,7 +100,6 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
       const safeIndex = Math.max(0, index)
       const sentence = sentences[safeIndex]
 
-      console.log(index, safeIndex, sentence)
       if (!sentence) {
         stop()
         return
@@ -112,7 +114,16 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
           voice,
           volume: 0.6,
           rate: 0.8,
-          end: () => (isPlayingRef.current ? play(safeIndex + 1) : null),
+          end: () => {
+            // We only want to play the next sentence if the current utterance is finished and the user did not stop it manually
+            // Otherwise, execute afterStop (play previous or next sentence for playPrevious/Next or noop for stop)
+            if (afterStopRef.current) {
+              afterStopRef.current()
+              afterStopRef.current = null
+            } else {
+              play(safeIndex + 1)
+            }
+          },
         })
       } catch (e) {
         reportError(e)
@@ -126,6 +137,9 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
     setShowHelpModal(false)
     stop()
   }
+
+  const playPrevious = () => stopPlayer(() => play(sentenceIndex - 1))
+  const playNext = () => stopPlayer(() => play(sentenceIndex + 1))
 
   const updateSentences = useCallback(
     (newSentences: string[]) => {
@@ -154,8 +168,8 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
       {visible && (
         <TtsPlayer
           close={close}
-          playPrevious={() => play(sentenceIndex - 1)}
-          playNext={() => play(sentenceIndex + 1)}
+          playPrevious={playPrevious}
+          playNext={playNext}
           isPlaying={isPlaying}
           pause={pause}
           play={() => play()}
