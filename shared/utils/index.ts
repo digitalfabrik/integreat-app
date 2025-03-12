@@ -58,3 +58,6 @@ type SegmentOptions = {
 
 export const segmentText = (content: string, { languageCode }: SegmentOptions): string[] =>
   segment(languageCode, content)
+    .map(segment => segment.split('\n'))
+    .flat()
+    .filter(sentence => sentence.length > 0)

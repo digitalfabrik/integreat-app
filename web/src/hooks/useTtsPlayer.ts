@@ -14,8 +14,8 @@ const useTtsPlayer = (
 
   useEffect(() => {
     if (model && model.content.length > 0) {
-      const sentences = [model.title, ...segmentText(parseHTML(model.content), { languageCode })]
-      setSentences(sentences.filter(sentence => sentence.length > 0))
+      const sentences = segmentText(parseHTML(model.content), { languageCode })
+      setSentences([model.title, ...sentences])
     }
     return () => setSentences([])
   }, [model, languageCode, setSentences])
