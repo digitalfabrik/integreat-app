@@ -15,12 +15,7 @@ const useTtsPlayer = (
   useEffect(() => {
     if (model && model.content.length > 0) {
       const sentences = [model.title, ...segmentText(parseHTML(model.content), { languageCode })]
-      const sentencesWithPeriods = sentences
-        .filter(sentence => sentence.length > 0)
-        // The SpeechSynthesisAPI seems to require dots or other punctuation marks to detect the end of a sentence/utterance
-        // Without this, the tts utterance idles without continuing to the next sentence
-        .map(it => (it.endsWith('.?!:;') ? it : `${it}.`))
-      setSentences(sentencesWithPeriods)
+      setSentences(sentences.filter(sentence => sentence.length > 0))
     }
     return () => setSentences([])
   }, [model, languageCode, setSentences])
