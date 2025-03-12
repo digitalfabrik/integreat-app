@@ -8,7 +8,7 @@ parameters:
     description: Whether to deliver the build to production.
     type: boolean
 macos:
-  xcode: 15.3.0
+  xcode: 16.2.0
 environment:
   FASTLANE_SKIP_UPDATE_CHECK: true
 shell: /bin/bash --login -o pipefail
@@ -19,28 +19,30 @@ steps:
   - prepare_workspace
   - restore_environment_variables
   - restore_yarn_tools_cache
-  - restore_yarn_cache # Needed for babel-node run in read_build_config.rb. May be refactored and optimized later.
+  - restore_yarn_cache # Needed for babel-node run in util.rb. May be refactored and optimized later.
   - restore_ruby_cache:
       directory: native
+  - restore_ruby_cache:
+      directory: native/ios
   - run:
       name: Prepare App Store metadata
       command: yarn --cwd tools manage-metadata prepare-metadata << parameters.build_config_name >> appstore
   - run:
       name: '[FL] Browserstack Upload Live'
-      command: bundle exec fastlane browserstack_upload_live path:attached_workspace/<< parameters.build_config_name >>.ipa
+      command: bundle exec fastlane browserstack_upload path:attached_workspace/<< parameters.build_config_name >>.ipa
       working_directory: native
   - when:
       condition: << parameters.production_delivery >>
       steps:
         - run:
-            name: '[FL] App Store Connect Upload'
+            name: '[FL] Apple AppStoreConnect Upload'
             command: bundle exec fastlane ios appstoreconnect_upload ipa_path:attached_workspace/<< parameters.build_config_name >>.ipa version_name:${NEW_VERSION_NAME} build_config_name:<< parameters.build_config_name >>
-            working_directory: native
+            working_directory: native/ios
   - unless:
       condition: << parameters.production_delivery >>
       steps:
         - run:
-            name: '[FL] TestFlight Upload'
+            name: '[FL] Apple TestFlight Upload'
             command: bundle exec fastlane ios testflight_upload build_config_name:<< parameters.build_config_name >> ipa_path:attached_workspace/<< parameters.build_config_name >>.ipa
-            working_directory: native
+            working_directory: native/ios
   - notify

@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
 
+import { prepareSearchDocuments } from 'shared'
 import {
   createCategoriesEndpoint,
   createEventsEndpoint,
@@ -7,41 +8,40 @@ import {
   ExtendedPageModel,
   useLoadFromEndpoint,
 } from 'shared/api'
-import { formatPossibleSearchResults } from 'shared/hooks/useSearch'
 
-type UseAllPossibleSearchResultsProps = {
-  city: string
-  language: string
+type UseLoadSearchDocumentsProps = {
+  cityCode: string
+  languageCode: string
   cmsApiBaseUrl: string
 }
 
-type UseAllPossibleSearchResultsReturn = {
+type UseLoadSearchDocumentsReturn = {
   data: ExtendedPageModel[]
   error: Error | null
   loading: boolean
 }
 
-const useAllPossibleSearchResults = ({
-  city,
-  language,
+const useLoadSearchDocuments = ({
+  cityCode,
+  languageCode,
   cmsApiBaseUrl,
-}: UseAllPossibleSearchResultsProps): UseAllPossibleSearchResultsReturn => {
-  const params = { city, language }
+}: UseLoadSearchDocumentsProps): UseLoadSearchDocumentsReturn => {
+  const params = { city: cityCode, language: languageCode }
 
   const categories = useLoadFromEndpoint(createCategoriesEndpoint, cmsApiBaseUrl, params)
   const events = useLoadFromEndpoint(createEventsEndpoint, cmsApiBaseUrl, params)
   const pois = useLoadFromEndpoint(createPOIsEndpoint, cmsApiBaseUrl, params)
 
-  const allPossibleResults = useMemo(
-    () => formatPossibleSearchResults(categories.data, events.data, pois.data),
+  const documents = useMemo(
+    () => prepareSearchDocuments(categories.data, events.data, pois.data),
     [categories.data, events.data, pois.data],
   )
 
   return {
-    data: allPossibleResults,
+    data: documents,
     loading: categories.loading || events.loading || pois.loading,
     error: categories.error || events.error || pois.error,
   }
 }
 
-export default useAllPossibleSearchResults
+export default useLoadSearchDocuments

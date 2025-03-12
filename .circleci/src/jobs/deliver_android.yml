@@ -20,18 +20,20 @@ steps:
   - prepare_workspace
   - restore_environment_variables
   - restore_yarn_tools_cache
-  - restore_yarn_cache # Needed for babel-node run in read_build_config.rb. May be refactored and optimized later.
+  - restore_yarn_cache # Needed for babel-node run in util.rb. May be refactored and optimized later.
   - restore_ruby_cache:
       directory: native
+  - restore_ruby_cache:
+      directory: native/android
   - run:
       name: Prepare Play Store metadata
       command: yarn --cwd tools manage-metadata prepare-metadata << parameters.build_config_name >> playstore
   - run:
       name: '[FL] Browserstack Upload Live'
-      command: bundle exec fastlane browserstack_upload_live path:attached_workspace/<< parameters.build_config_name >>.apk
+      command: bundle exec fastlane browserstack_upload path:attached_workspace/<< parameters.build_config_name >>.apk
       working_directory: native
   - run:
-      name: '[FL] Play Store Upload'
+      name: '[FL] Google PlayStore Upload'
       command: bundle exec fastlane android playstore_upload build_config_name:<< parameters.build_config_name >> aab_path:attached_workspace/<< parameters.build_config_name >>.aab production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
-      working_directory: native
+      working_directory: native/android
   - notify

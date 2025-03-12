@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react'
 
-import { SearchRouteType } from 'shared'
-import { formatPossibleSearchResults } from 'shared/hooks/useSearch'
+import { prepareSearchDocuments, SearchRouteType } from 'shared'
 import { config } from 'translations'
 
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
@@ -21,13 +20,11 @@ const SearchModalContainer = ({ navigation, route }: SearchModalContainerProps):
   const { data, ...response } = useLoadCityContent({ cityCode, languageCode })
   const { data: fallbackData } = useLoadCityContent({ cityCode, languageCode: config.sourceLanguage })
 
-  const allPossibleContentLanguageResults = formatPossibleSearchResults(data?.categories, data?.events, data?.pois)
-
-  const allPossibleFallbackLanguageResults = formatPossibleSearchResults(
-    fallbackData?.categories,
-    fallbackData?.events,
-    fallbackData?.pois,
-  )
+  const documents = prepareSearchDocuments(data?.categories, data?.events, data?.pois)
+  const fallbackLanguageDocuments =
+    languageCode !== config.sourceLanguage
+      ? prepareSearchDocuments(fallbackData?.categories, fallbackData?.events, fallbackData?.pois)
+      : []
 
   return (
     <LoadingErrorHandler {...response}>
@@ -35,8 +32,8 @@ const SearchModalContainer = ({ navigation, route }: SearchModalContainerProps):
         <SearchModal
           cityCode={cityCode}
           closeModal={navigation.goBack}
-          allPossibleContentLanguageResults={allPossibleContentLanguageResults}
-          allPossibleFallbackLanguageResults={allPossibleFallbackLanguageResults}
+          documents={documents}
+          fallbackLanguageDocuments={fallbackLanguageDocuments}
           languageCode={languageCode}
           initialSearchText={initialSearchText}
         />

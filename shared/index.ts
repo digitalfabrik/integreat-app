@@ -1,7 +1,7 @@
 import { PreparePoisReturn as ImportedPreparePoisReturn } from './utils/pois'
 
 export type PreparePoisReturn = ImportedPreparePoisReturn
-export { default as useSearch, type SearchResult } from './hooks/useSearch'
+export { default as useSearch, type SearchResult, prepareSearchDocuments } from './hooks/useSearch'
 export { default as useDateFilter } from './hooks/useDateFilter'
 export { default as InternalPathnameParser } from './routes/InternalPathnameParser'
 export * from './routes'

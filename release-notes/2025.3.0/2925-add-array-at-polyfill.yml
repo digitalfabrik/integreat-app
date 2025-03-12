@@ -1,0 +1,5 @@
+issue_key: 2925
+show_in_stores: false
+platforms: # relevant platforms, possible values: web, android and ios
+  - web
+en: Included necessary packages to support old browsers.

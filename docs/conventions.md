@@ -5,7 +5,8 @@
 - [Naming](#naming)
 - [Testing](#testing)
 - [Code Quality](#code-quality)
-- [Commit Messages and Pull Requests](#commit-messages-and-pull-request)
+- [Commit Messages and Pull Requests Names](#commit-messages-and-pull-request-names)
+- [Branch Names](#commit-messages-and-pull-request)
 - [Reviews](#reviews)
 - [Versioning](#versioning)
 - [Folder Structure](#folder-structure)
@@ -20,7 +21,8 @@ We follow the [airbnb style](https://github.com/airbnb/javascript/tree/master/re
 ### Unit Tests
 
 Please always test new and changed code using [Jest](https://jestjs.io/).
-For unit testing of React components use the [Testing Library](https://testing-library.com) and follow its [guiding principles](https://testing-library.com/docs/guiding-principles).
+For unit testing of React components use the [Testing Library](https://testing-library.com) and follow
+its [guiding principles](https://testing-library.com/docs/guiding-principles).
 
 Run tests:
 
@@ -51,7 +53,8 @@ Apply prettier code formatting:
 
 ### Linting
 
-We use [typescript-eslint](https://github.com/typescript-eslint/typescript-eslint) for TypeScript and [stylelint](https://stylelint.io/) for CSS.
+We use [typescript-eslint](https://github.com/typescript-eslint/typescript-eslint) for TypeScript
+and [stylelint](https://stylelint.io/) for CSS.
 
 Show linting errors and warnings:
 
@@ -83,37 +86,55 @@ StyledComponents.
 | _rntc_   | Standard Component test with react native testing-library |
 | _scnv_   | styled view native component                              |
 
-## Commit Messages and Pull Request
+## Commit Messages and Pull Request Names
+
+Commit messages should have the following schema:
+`<issue number>: Your commit message`, e.g. `1234: Add commit message documentation`
+
+Commit messages and PR names should be short but concise and explain what was done.
+Always use present tense (`Add` instead of `Added`).
 
 See [this guide](https://github.com/erlang/otp/wiki/Writing-good-commit-messages) for a general reference on how to
-write good commit messages. Commit messages should have the following schema:
-**`<Issue key>: Your commit message`**, e.g. `1234: Add commit message documentation`
+write good commit messages and pull request names.
 
-The same applies for PR names.
+## Branch Names
+
+Branch names should use lower-kebab-case and be prefixed with the issue number:
+`<issue number>-branch-name`, e.g. `1234-commit-message-documentation`
+
+_Note: Branch names (and PR names) do NOT have to match the issue title. Instead, try to be short and concise to focus
+on the actual work done._
 
 ## Reviews
 
-We use an [emoji code](contributing.md#reviews) for reviewing.
+We use the following emoji code for reviewing:
+
+- :+1: or `:+1:` This is great! It always feels good when somebody likes your work. Show them!
+- :question: or `:question:` I have a question / can you clarify?
+- :x: or `:x:` This has to change. It’s possibly an error or strongly violates existing conventions.
+- :wrench: or `:wrench:` This is a well-meant suggestion. Take it or leave it.
+- :upside_down_face: or `:upside_down_face:` This is a nitpick. Normally related to a small formatting or stylizing detail that shouldn’t block moving forward.
+- :thought_balloon: or `:thought_balloon:` I’m just thinking out loud here. Something doesn’t necessarily have to change, but I want to make sure to share my thoughts.
+- :clown_face: or `:clown_face:` This is a complaint about something with no obvious answer, not necessarily a problem originating from changes.
 
 ## Versioning
 
-Versions consist of a version name and a version code.
+Versions consist of a version name and a version code and are set in [version.json](../version.json).
 
-### Version name
+### Version Name
 
-The following [schema](https://calver.org/) ![versioning](https://img.shields.io/badge/calver-YYYY.MM.PATCH-22bfda.svg)
-is used for versioning.
+We use the [calver schema](https://calver.org) `YYYY.MM.PATCH` for versioning.
 `PATCH` is a counter for the number of releases in the corresponding month starting with 0.
 
 Examples:
 
-- First versions of 2020: `2020.1.0`, `2020.1.1`, `2020.1.2`.
-- First version of February 2020: `2020.2.0`.
+- First versions of 2024: `2024.1.0`, `2024.1.1`, `2024.1.2`.
+- First version of February 2024: `2024.2.0`.
 
-### Version code
+### Version Code
 
-An additional consecutive version code is used for unique identification in the app stores. The version code is
-incremented for every build uploaded to the stores. The first version code was `100000`.
+An additional consecutive version code is used for unique identification in the app stores.
+The version code has to be incremented for every new release uploaded to the stores.
 
 ## Folder Structure
 
