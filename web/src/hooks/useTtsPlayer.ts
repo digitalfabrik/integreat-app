@@ -1,31 +1,29 @@
-import { useContext, useEffect, useMemo } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useContext, useEffect } from 'react'
 
 import { segmentText, parseHTML } from 'shared'
-import { EventModel, LocalNewsModel, PageModel, TunewsModel } from 'shared/api'
+import { LocalNewsModel, PageModel, TunewsModel } from 'shared/api'
 
 import { TtsContext, TtsContextType } from '../components/TtsContainer'
 
 const useTtsPlayer = (
+  model: PageModel | LocalNewsModel | TunewsModel | undefined | null,
   languageCode: string,
-  model: PageModel | LocalNewsModel | TunewsModel | EventModel | null | undefined,
 ): TtsContextType => {
   const tts = useContext(TtsContext)
   const { setSentences } = tts
-  const location = useLocation()
-
-  const sentences = useMemo(() => {
-    if (model) {
-      return [model.title, ...segmentText(parseHTML(model.content, { addPeriods: true }), { languageCode })]
-    }
-
-    return []
-  }, [model, languageCode])
 
   useEffect(() => {
-    setSentences(sentences)
+    if (model && model.content.length > 0) {
+      const sentences = [model.title, ...segmentText(parseHTML(model.content), { languageCode })]
+      const sentencesWithPeriods = sentences
+        .filter(sentence => sentence.length > 0)
+        // The SpeechSynthesisAPI seems to require dots or other punctuation marks to detect the end of a sentence/utterance
+        // Without this, the tts utterance idles without continuing to the next sentence
+        .map(it => (it.endsWith('.?!:;') ? it : `${it}.`))
+      setSentences(sentencesWithPeriods)
+    }
     return () => setSentences([])
-  }, [sentences, setSentences])
+  }, [model, languageCode, setSentences])
 
   return tts
 }
