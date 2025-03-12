@@ -9,15 +9,6 @@ import buildConfig from '../constants/buildConfig'
 import TtsHelpModal from './TtsHelpModal'
 import TtsPlayer from './TtsPlayer'
 
-const userAgent = navigator.userAgent.toLowerCase()
-// Tts pause does not work on firefox linux
-// https://github.com/mdn/browser-compat-data/issues/13191
-const isFirefoxLinux = userAgent.includes('firefox') && userAgent.includes('linux')
-// Tts pause does not work on android
-// https://github.com/leaonline/easy-speech/issues/108
-const isAndroid = userAgent.includes('android')
-const ttsPauseImplemented = !isAndroid && !isFirefoxLinux
-
 export type TtsContextType = {
   enabled?: boolean
   canRead: boolean
@@ -65,18 +56,15 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
     }
   }, [])
 
-  const stopPlayer = useCallback(
-    (afterStop: () => void = () => undefined) => {
-      if (ttsInitialized()) {
-        // The end event is always emitted if the current utterance is stopped (incl. finish, cancel and pause)
-        // The end event is only emitted after some time, such that we can only start the next utterance after to avoid autoplaying the next utterance
-        // https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesisUtterance/end_event
-        afterStopRef.current = afterStop
-        EasySpeech.cancel()
-      }
-    },
-    [setIsPlaying],
-  )
+  const stopPlayer = useCallback((afterStop: () => void = () => undefined) => {
+    if (ttsInitialized()) {
+      // The end event is always emitted if the current utterance is stopped (incl. finish, cancel and pause)
+      // The end event is only emitted after some time, such that we can only start the next utterance after to avoid autoplaying the next utterance
+      // https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesisUtterance/end_event
+      afterStopRef.current = afterStop
+      EasySpeech.cancel()
+    }
+  }, [])
 
   const stop = useCallback(() => {
     setSentenceIndex(0)
@@ -167,6 +155,7 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
       {showHelpModal && <TtsHelpModal closeModal={close} />}
       {visible && (
         <TtsPlayer
+          disabled={sentences.length === 0}
           close={close}
           playPrevious={playPrevious}
           playNext={playNext}

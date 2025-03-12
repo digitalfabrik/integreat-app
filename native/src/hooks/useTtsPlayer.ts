@@ -16,7 +16,7 @@ const useTtsPlayer = (model?: PageModel | LocalNewsModel | TunewsModel | undefin
   useFocusEffect(
     useCallback(() => {
       if (model && model.content.length > 0) {
-        const sentences: string[] = segmentText(parseHTML(model.content), { languageCode })
+        const sentences = segmentText(parseHTML(model.content), { languageCode })
         setSentences([model.title, ...sentences].filter(sentence => sentence.length > 0))
       } else {
         setSentences([])

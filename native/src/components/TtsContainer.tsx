@@ -160,7 +160,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
       {visible && (
         <TtsPlayer
           isPlaying={isPlaying}
-          sentences={sentences}
+          disabled={sentences.length === 0}
           playPrevious={() => play(sentenceIndex - 1)}
           playNext={() => play(sentenceIndex + 1)}
           close={close}

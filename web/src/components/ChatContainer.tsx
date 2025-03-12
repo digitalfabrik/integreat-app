@@ -6,7 +6,6 @@ import { ChatIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import useLockedBody from '../hooks/useLockedBody'
-import useTtsPlayer from '../hooks/useTtsPlayer'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import ChatContentWrapper from './ChatContentWrapper'
 import ChatController from './ChatController'
@@ -88,7 +87,7 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement => 
   useLockedBody(isChatMaximized)
   const title = t('header', { appName: buildConfig().appName })
   const bottom =
-    ttsPlayerVisible && width <= 576
+    ttsPlayerVisible && width <= dimensions.maxTtsPlayerWidth
       ? visibleFooterHeight + dimensions.ttsPlayerHeight + CHAT_BUTTON_SIZE
       : visibleFooterHeight
 
