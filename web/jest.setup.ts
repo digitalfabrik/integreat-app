@@ -4,6 +4,12 @@ import * as fs from 'fs'
 import * as path from 'path'
 import 'raf/polyfill'
 
+window.ResizeObserver = jest.fn().mockImplementation(() => ({
+  disconnect: jest.fn(),
+  observe: jest.fn(),
+  unobserve: jest.fn(),
+}))
+
 global.fetch = require('jest-fetch-mock')
 
 console.error = () => undefined

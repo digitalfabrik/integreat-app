@@ -1,51 +1,26 @@
-import { useContext, useEffect, useMemo } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useContext, useEffect } from 'react'
 
-import { addingPeriodsToDom, segmentation } from 'shared'
-import { EventModel, LocalNewsModel, PageModel, TunewsModel } from 'shared/api'
+import { segmentText, parseHTML } from 'shared'
+import { LocalNewsModel, PageModel, TunewsModel } from 'shared/api'
 
 import { TtsContext, TtsContextType } from '../components/TtsContainer'
 
 const useTtsPlayer = (
-  languageCode?: string,
-  model?: PageModel | LocalNewsModel | TunewsModel | EventModel | null,
+  model: PageModel | LocalNewsModel | TunewsModel | undefined | null,
+  languageCode: string,
 ): TtsContextType => {
   const tts = useContext(TtsContext)
-  const location = useLocation()
-
-  const sentences = useMemo(() => {
-    if (model) {
-      return [model.title.concat('.'), ...segmentation(languageCode ?? '', addingPeriodsToDom(model.content))]
-    }
-
-    return []
-  }, [model, languageCode])
+  const { setSentences } = tts
 
   useEffect(() => {
-    tts.setSentences(sentences)
-    return () => {
-      tts.setSentences([])
+    if (model && model.content.length > 0) {
+      const sentences = segmentText(parseHTML(model.content), { languageCode })
+      setSentences([model.title, ...sentences])
     }
-    // I disabled eslint due to tts changes every render
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sentences, tts.setSentences])
+    return () => setSentences([])
+  }, [model, languageCode, setSentences])
 
-  useEffect(() => {
-    const synth = window.speechSynthesis
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    if (synth !== undefined) {
-      synth.cancel()
-    }
-  }, [location.pathname])
-
-  return {
-    enabled: tts.enabled,
-    canRead: tts.canRead,
-    visible: tts.visible,
-    setVisible: tts.setVisible,
-    sentences: tts.sentences,
-    setSentences: tts.setSentences,
-  }
+  return tts
 }
 
 export default useTtsPlayer

@@ -1,8 +1,9 @@
 import React, { ReactElement } from 'react'
-import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
+import { PlacesType } from 'react-tooltip'
+import styled, { useTheme } from 'styled-components'
 
 import dimensions from '../constants/dimensions'
+import useWindowDimensions from '../hooks/useWindowDimensions'
 import { spacesToDashes } from '../utils/stringUtils'
 import StyledSmallViewTip from './StyledSmallViewTip'
 import Button from './base/Button'
@@ -17,6 +18,7 @@ const StyledToolbarItem = styled(Link)<{ disabled?: boolean }>`
   color: ${props => (props.disabled ? props.theme.colors.textDisabledColor : props.theme.colors.textColor)};
   background-color: transparent;
   text-align: center;
+  ${props => props.disabled && 'cursor: default;'}
 
   @media ${dimensions.smallViewport} {
     line-height: 1.15;
@@ -30,6 +32,11 @@ const StyledIcon = styled(Icon)<{ disabled?: boolean }>`
 const StyledTooltip = styled(Tooltip)`
   max-width: 250px;
 `
+
+type AdditionalTooltipProps = {
+  isOpen: boolean
+  openOnClick: boolean
+}
 
 type ItemProps =
   | {
@@ -46,16 +53,31 @@ type ToolbarItemProps = {
   text: string
   id?: string
   isDisabled?: boolean
+  tooltip?: string | null
+  additionalTooltipProps?: AdditionalTooltipProps
 } & ItemProps
 
-const ToolbarItem = ({ to, text, icon, isDisabled = false, onClick, id }: ToolbarItemProps): ReactElement => {
-  const { t } = useTranslation('categories')
-  const toolTipId = spacesToDashes(text)
+const ToolbarItem = ({
+  to,
+  text,
+  icon,
+  isDisabled = false,
+  tooltip,
+  additionalTooltipProps,
+  onClick,
+  id,
+}: ToolbarItemProps): ReactElement => {
+  const theme = useTheme()
+  const { viewportSmall } = useWindowDimensions()
+  const tooltipDirectionForDesktop: PlacesType = theme.contentDirection === 'ltr' ? 'right' : 'left'
+  const tooltipDirection: PlacesType = viewportSmall ? 'top' : tooltipDirectionForDesktop
+  const tooltipId = id ?? spacesToDashes(text)
+
   if (isDisabled) {
     return (
-      <StyledTooltip id={toolTipId} tooltipContent={t('disabledPdf')}>
+      <StyledTooltip id={tooltipId} tooltipContent={tooltip} place={tooltipDirection} {...additionalTooltipProps}>
         {/* @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112 */}
-        <StyledToolbarItem as='div' id={id} label={text} disabled>
+        <StyledToolbarItem as='div' label={text} disabled>
           <StyledIcon src={icon} disabled />
           <StyledSmallViewTip>{text}</StyledSmallViewTip>
         </StyledToolbarItem>
@@ -63,17 +85,18 @@ const ToolbarItem = ({ to, text, icon, isDisabled = false, onClick, id }: Toolba
     )
   }
   return (
-    <StyledToolbarItem
-      as={onClick ? Button : undefined}
-      id={id}
-      // @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112
-      to={to}
-      onClick={onClick}
-      label={text}
-      disabled={false}>
-      <StyledIcon src={icon} disabled={false} />
-      <StyledSmallViewTip>{text}</StyledSmallViewTip>
-    </StyledToolbarItem>
+    <StyledTooltip id={tooltipId} tooltipContent={tooltip} place={tooltipDirection} {...additionalTooltipProps}>
+      <StyledToolbarItem
+        as={onClick ? Button : undefined}
+        // @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112
+        to={to}
+        onClick={onClick}
+        label={text}
+        disabled={false}>
+        <StyledIcon src={icon} disabled={false} />
+        <StyledSmallViewTip>{text}</StyledSmallViewTip>
+      </StyledToolbarItem>
+    </StyledTooltip>
   )
 }
 

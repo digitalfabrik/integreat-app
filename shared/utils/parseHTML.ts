@@ -15,7 +15,7 @@ const parseHTML = (html: string, options: ParserOptions = { decodeEntities: true
   parser.write(html)
   parser.end()
 
-  return decodedContent
+  return decodedContent.replace(/\r/g, '')
 }
 
 export default parseHTML

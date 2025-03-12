@@ -1,7 +1,7 @@
 import { useFocusEffect } from '@react-navigation/native'
 import { useCallback, useContext, useState } from 'react'
 
-import { addingPeriodsToDom, segmentation } from 'shared'
+import { parseHTML, segmentText } from 'shared'
 import { LocalNewsModel, PageModel, TunewsModel } from 'shared/api'
 
 import { TtsContext, TtsContextType } from '../components/TtsContainer'
@@ -16,8 +16,8 @@ const useTtsPlayer = (model?: PageModel | LocalNewsModel | TunewsModel | undefin
   useFocusEffect(
     useCallback(() => {
       if (model && model.content.length > 0) {
-        const sentences: string[] = segmentation(languageCode, addingPeriodsToDom(model.content))
-        setSentences([model.title, ...sentences].filter(sentence => sentence.length > 0))
+        const sentences = segmentText(parseHTML(model.content), { languageCode })
+        setSentences([model.title, ...sentences])
       } else {
         setSentences([])
       }

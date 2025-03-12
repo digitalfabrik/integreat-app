@@ -64,18 +64,29 @@ export const log = async (message: string, level: SeverityLevel = 'debug'): Prom
   }
 }
 
-export const reportError = async (err: unknown): Promise<void> => {
-  if (!(err instanceof NotFoundError) && !(err instanceof FetchError) && sentryEnabled()) {
-    // Report important errors if sentry is enabled (and skip e.g. errors because of no invalid internet connection)
+// https://github.com/leaonline/easy-speech/blob/master/API.md#easyspeechinitmaxtimeout-interval-quiet-maxlengthexceeded--promiseboolean
+const noTtsVoicesInstalled = 'EasySpeech: browser has no voices'
+const expectedErrors = [noTtsVoicesInstalled]
+
+export const reportError = async (error: unknown): Promise<void> => {
+  const isNotFoundError = error instanceof NotFoundError
+  const isNoInternetError = error instanceof FetchError
+  const isExpectedError = error instanceof Error && expectedErrors.some(message => error.message.includes(message))
+  const ignoreError = isNotFoundError || isNoInternetError || isExpectedError
+
+  if (ignoreError) {
+    return
+  }
+
+  if (sentryEnabled()) {
     try {
       const Sentry = await loadSentry()
-      Sentry.captureException(err)
+      Sentry.captureException(error)
     } catch (e) {
       logSentryException(e)
     }
   }
-
   if (developerFriendly()) {
-    console.error(err)
+    console.error(error)
   }
 }

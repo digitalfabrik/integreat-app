@@ -17,7 +17,6 @@ const elevatedStyle = css`
 `
 
 const StyledTtsPlayer = styled.View<{ $isPlaying: boolean }>`
-  ${elevatedStyle}
   background-color: ${props => props.theme.colors.ttsPlayerBackground};
   border-radius: 28px;
   width: ${props => (props.$isPlaying ? '90%' : '80%')};
@@ -30,6 +29,7 @@ const StyledTtsPlayer = styled.View<{ $isPlaying: boolean }>`
   bottom: 5px;
   min-height: 93px;
   gap: ${props => (props.$isPlaying ? '0px;' : '20px')};
+  ${elevatedStyle}
 `
 
 const verticalMargin = 11
@@ -43,12 +43,12 @@ const StyledPanel = styled.View<{ $isPlaying?: boolean }>`
 `
 
 const StyledPlayIcon = styled(IconButton)<{ disabled: boolean }>`
-  ${elevatedStyle}
   background-color: ${props =>
     props.disabled ? props.theme.colors.textDisabledColor : props.theme.colors.ttsPlayerPlayIconColor};
   width: 50px;
   height: 50px;
   border-radius: 50px;
+  ${elevatedStyle}
 `
 
 const StyledBackForthButton = styled(Pressable)`
@@ -73,7 +73,6 @@ const StyledPlayerHeaderText = styled(Text)`
 `
 
 const CloseButton = styled(Pressable)`
-  ${elevatedStyle}
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -83,6 +82,7 @@ const CloseButton = styled(Pressable)`
   padding: 5px;
   gap: 5px;
   width: 176px;
+  ${elevatedStyle}
 `
 
 const CloseView = styled.View<{ $isPlaying?: boolean }>`
@@ -93,7 +93,7 @@ const CloseView = styled.View<{ $isPlaying?: boolean }>`
 
 type TtsPlayerProps = {
   isPlaying: boolean
-  sentences: string[]
+  disabled: boolean
   playPrevious: () => void
   playNext: () => void
   close: () => Promise<void>
@@ -110,7 +110,7 @@ const TtsPlayer = ({
   pause,
   play,
   title,
-  sentences,
+  disabled,
 }: TtsPlayerProps): ReactElement => {
   const { t } = useTranslation('layout')
   return (
@@ -123,7 +123,7 @@ const TtsPlayer = ({
           </StyledBackForthButton>
         )}
         <StyledPlayIcon
-          disabled={sentences.length === 0}
+          disabled={disabled}
           accessibilityLabel={t(isPlaying ? 'pause' : 'play')}
           onPress={() => (isPlaying ? pause() : play())}
           icon={<PlayButtonIcon Icon={isPlaying ? PauseIcon : PlayIcon} />}

@@ -17,14 +17,14 @@ import safeLocalStorage, { JPAL_TRACKING_CODE_KEY } from './utils/safeLocalStora
 import { initSentry } from './utils/sentry'
 
 const GlobalStyle = createGlobalStyle`
-  body {
-    position: relative;
-  
-    /* Styling for react-tooltip: https://react-tooltip.com/docs/getting-started#styling */
-    --rt-color-dark: ${props => props.theme.colors.textSecondaryColor};
-    --rt-color-white: ${props => props.theme.colors.backgroundColor};
-    --rt-opacity: 1;
-  }
+    body {
+        position: relative;
+
+        /* Styling for react-tooltip: https://react-tooltip.com/docs/getting-started#styling */
+        --rt-color-dark: ${props => props.theme.colors.textSecondaryColor};
+        --rt-color-white: ${props => props.theme.colors.backgroundColor};
+        --rt-opacity: 1;
+    }
 `
 
 LuxonSettings.throwOnInvalid = true
@@ -49,11 +49,9 @@ const App = (): ReactElement => {
         <>
           <Helmet pageTitle={t('pageTitle')} rootPage />
           <Router>
+            <GlobalStyle />
             <TtsContainer languageCode={contentLanguage}>
-              <>
-                <GlobalStyle />
-                <RootSwitcher setContentLanguage={setContentLanguage} />
-              </>
+              <RootSwitcher setContentLanguage={setContentLanguage} />
             </TtsContainer>
           </Router>
         </>
