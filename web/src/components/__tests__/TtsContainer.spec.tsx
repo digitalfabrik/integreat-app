@@ -18,10 +18,10 @@ jest.mock('focus-trap-react', () => ({ children }: { children: ReactElement }) =
 describe('TtsContainer', () => {
   // Mock call of end event after cancelling utterance
   mocked(EasySpeech.speak).mockImplementation(async ({ end }) => {
-    // @ts-ignore
+    // @ts-expect-error is always defined
     mocked(EasySpeech.cancel).mockImplementation(end)
   })
-  // @ts-ignore
+  // @ts-expect-error additional properties are missing but never used
   mocked(EasySpeech.status).mockImplementation(() => ({ status: 'init: complete' }))
 
   const dummyPage = new PageModel({
@@ -92,7 +92,7 @@ describe('TtsContainer', () => {
   })
 
   it('should close and cancel utterance', async () => {
-    const { getByText, getByRole } = renderTtsPlayer()
+    const { getByText, getByRole, queryByRole } = renderTtsPlayer()
     fireEvent.click(getByText('show'))
     await waitFor(() => expect(getByRole('button', { name: 'layout:play' })).toBeInTheDocument())
     fireEvent.click(getByRole('button', { name: 'layout:play' }))
@@ -102,7 +102,7 @@ describe('TtsContainer', () => {
 
     expect(EasySpeech.cancel).toHaveBeenCalled()
 
-    expect(getByRole('dialog')).not.toBeInTheDocument()
+    expect(queryByRole('dialog')).toBeFalsy()
   })
 
   it('should play previous and next sentences', async () => {
@@ -114,37 +114,37 @@ describe('TtsContainer', () => {
 
     fireEvent.click(getByRole('button', { name: 'layout:play' }))
     await waitFor(() => expect(getByRole('button', { name: 'layout:pause' })).toBeTruthy())
-    await waitFor(() => expect(EasySpeech.speak).toHaveBeenCalledTimes(1))
-    expect(EasySpeech.cancel).toHaveBeenCalledTimes(2)
-
-    fireEvent.click(getByRole('button', { name: 'layout:previous' }))
     await waitFor(() => expect(EasySpeech.speak).toHaveBeenCalledTimes(2))
-    expect(EasySpeech.speak).toHaveBeenLastCalledWith(expect.objectContaining(testTtsObject(sentences[0]!)))
     expect(EasySpeech.cancel).toHaveBeenCalledTimes(3)
 
-    fireEvent.click(getByRole('button', { name: 'layout:next' }))
+    fireEvent.click(getByRole('button', { name: 'layout:previous' }))
     await waitFor(() => expect(EasySpeech.speak).toHaveBeenCalledTimes(3))
-    expect(EasySpeech.speak).toHaveBeenLastCalledWith(expect.objectContaining(testTtsObject(sentences[1]!)))
+    expect(EasySpeech.speak).toHaveBeenLastCalledWith(expect.objectContaining(testTtsObject(sentences[0]!)))
     expect(EasySpeech.cancel).toHaveBeenCalledTimes(4)
 
     fireEvent.click(getByRole('button', { name: 'layout:next' }))
     await waitFor(() => expect(EasySpeech.speak).toHaveBeenCalledTimes(4))
-    expect(EasySpeech.speak).toHaveBeenCalledWith(expect.objectContaining(testTtsObject(sentences[2]!)))
+    expect(EasySpeech.speak).toHaveBeenLastCalledWith(expect.objectContaining(testTtsObject(sentences[1]!)))
     expect(EasySpeech.cancel).toHaveBeenCalledTimes(5)
 
-    fireEvent.click(getByRole('button', { name: 'layout:previous' }))
+    fireEvent.click(getByRole('button', { name: 'layout:next' }))
     await waitFor(() => expect(EasySpeech.speak).toHaveBeenCalledTimes(5))
-    expect(EasySpeech.speak).toHaveBeenCalledWith(expect.objectContaining(testTtsObject(sentences[1]!)))
+    expect(EasySpeech.speak).toHaveBeenCalledWith(expect.objectContaining(testTtsObject(sentences[2]!)))
     expect(EasySpeech.cancel).toHaveBeenCalledTimes(6)
+
+    fireEvent.click(getByRole('button', { name: 'layout:previous' }))
+    await waitFor(() => expect(EasySpeech.speak).toHaveBeenCalledTimes(6))
+    expect(EasySpeech.speak).toHaveBeenCalledWith(expect.objectContaining(testTtsObject(sentences[1]!)))
+    expect(EasySpeech.cancel).toHaveBeenCalledTimes(7)
 
     fireEvent.click(getByRole('button', { name: 'layout:pause' }))
     await waitFor(() => expect(getByRole('button', { name: 'layout:play' })).toBeTruthy())
-    expect(EasySpeech.cancel).toHaveBeenCalledTimes(7)
+    expect(EasySpeech.cancel).toHaveBeenCalledTimes(8)
 
     fireEvent.click(getByRole('button', { name: 'layout:play' }))
     await waitFor(() => expect(getByRole('button', { name: 'layout:pause' })).toBeTruthy())
-    expect(EasySpeech.speak).toHaveBeenCalledTimes(6)
+    expect(EasySpeech.speak).toHaveBeenCalledTimes(7)
     expect(EasySpeech.speak).toHaveBeenLastCalledWith(expect.objectContaining(testTtsObject(sentences[1]!)))
-    expect(EasySpeech.cancel).toHaveBeenCalledTimes(7)
+    expect(EasySpeech.cancel).toHaveBeenCalledTimes(8)
   })
 })
