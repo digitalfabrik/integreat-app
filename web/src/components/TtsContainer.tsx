@@ -114,6 +114,10 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
           },
         })
       } catch (e) {
+        // Chrome throws an interrupted error event on cancel
+        if (e instanceof SpeechSynthesisErrorEvent && e.error === 'interrupted') {
+          return
+        }
         reportError(e)
       }
     },
