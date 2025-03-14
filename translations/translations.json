@@ -10158,7 +10158,13 @@
       "makeAppointment": "Termin vereinbaren",
       "appointmentNecessary": "Termin erforderlich",
       "makeAppointmentTooltipWithLink": "Vereinbare an diesem Tag einen Termin über <1>die Webseite</1> oder telefonisch.",
-      "theWebsite": "die Webseite"
+      "theWebsite": "die Webseite",
+      "nearYou_zero": "0 Standorte {{nearYou}}",
+      "nearYou_one": "1 Standort {{nearYou}}",
+      "nearYou_two": "{{count}} Standorte {{nearYou}}",
+      "nearYou_few": "{{count}} Standorte {{nearYou}}",
+      "nearYou_many": "{{count}} Standorte {{nearYou}}",
+      "nearYou_other": "{{count}} Standorte {{nearYou}}"
     },
     "am": {
       "pageTitle": "ካርታ",
@@ -10655,7 +10661,13 @@
       "makeAppointment": "Make an appointment",
       "appointmentNecessary": "Appointment necessary",
       "makeAppointmentTooltipWithLink": "Make an appointment on this day via <1>the website</1> or by phone.",
-      "theWebsite": "the website"
+      "theWebsite": "the website",
+      "nearYou_zero": "0 locations {{nearYou}}",
+      "nearYou_one": "1 location {{nearYou}}",
+      "nearYou_two": "{{count}} locations {{nearYou}}",
+      "nearYou_few": "{{count}} locations {{nearYou}}",
+      "nearYou_many": "{{count}} locations {{nearYou}}",
+      "nearYou_other": "{{count}} locations {{nearYou}}"
     },
     "es": {
       "pageTitle": "Mapa",
