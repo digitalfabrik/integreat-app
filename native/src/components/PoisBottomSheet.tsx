@@ -92,6 +92,8 @@ const PoisBottomSheet = ({
       enableContentPanningGesture={enableContentPanningGesture}
       enableDynamicSizing={false}
       animateOnMount
+      accessibilityRole={'list'}
+      accessibilityLabel={t('nearYou', { count: pois.length, nearYou: t('listTitle') })}
       handleComponent={BottomSheetHandle}
       onChange={setSnapPointIndex}>
       <BottomSheetContent>
