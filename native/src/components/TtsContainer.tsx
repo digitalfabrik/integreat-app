@@ -12,6 +12,7 @@ import useSnackbar from '../hooks/useSnackbar'
 import { reportError } from '../utils/sentry'
 import TtsPlayer from './TtsPlayer'
 
+// For a list of available languages see https://cloud.google.com/text-to-speech/docs/list-voices-and-types#list_of_all_supported_languages
 const TTS_UNSUPPORTED_LANGUAGES = ['fa', 'ka', 'kmr']
 const TTS_OPTIONS: Options = {
   androidParams: {
