@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { ColorValue } from 'react-native'
+import { ColorValue, StyleSheet } from 'react-native'
 import { SvgProps } from 'react-native-svg'
 import { useTheme } from 'styled-components/native'
 
@@ -23,6 +23,7 @@ const Icon = ({
   style,
 }: IconProps): ReactElement => {
   const theme = useTheme()
+  const flatStyle = StyleSheet.flatten(style ?? {})
 
   return (
     <IconProp
@@ -34,11 +35,11 @@ const Icon = ({
             },
           ],
         },
-        style,
+        flatStyle,
       ]}
-      width={style?.width ?? DEFAULT_ICON_SIZE}
-      height={style?.height ?? DEFAULT_ICON_SIZE}
-      color={style?.color ?? theme.colors.textColor}
+      width={flatStyle.width ?? DEFAULT_ICON_SIZE}
+      height={flatStyle.height ?? DEFAULT_ICON_SIZE}
+      color={flatStyle.color ?? theme.colors.textColor}
       accessibilityLabel={label}
     />
   )
