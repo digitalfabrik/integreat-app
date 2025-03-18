@@ -86,24 +86,26 @@ const PoisBottomSheet = ({
 
   return (
     <StyledBottomSheet
+      accessibilityLabel={''}
       index={snapPointIndex}
       isFullscreen={isFullscreen}
       snapPoints={snapPoints}
       enableContentPanningGesture={enableContentPanningGesture}
       enableDynamicSizing={false}
       animateOnMount
-      accessibilityRole={'list'}
-      accessibilityLabel={t('nearYou', { count: pois.length, nearYou: t('listTitle') })}
       handleComponent={BottomSheetHandle}
       onChange={setSnapPointIndex}>
       <BottomSheetContent>
         {slug ? (
-          <BottomSheetScrollView showsVerticalScrollIndicator={false}>{PoiDetail}</BottomSheetScrollView>
+          <BottomSheetScrollView accessibilityLabel={t('detailsInformation')} showsVerticalScrollIndicator={false}>
+            {PoiDetail}
+          </BottomSheetScrollView>
         ) : (
           <BottomSheetFlatList
             ref={poiListRef}
             data={pois}
             role='list'
+            accessibilityLabel={t('nearYou', { count: pois.length })}
             renderItem={renderPoiListItem}
             onMomentumScrollBegin={event => setScrollPosition(event.nativeEvent.contentOffset.y)}
             showsVerticalScrollIndicator={false}
