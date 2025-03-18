@@ -101,7 +101,7 @@
     "url-parse": "^1.5.10"
   },
   "devDependencies": {
-    "@babel/core": "^7.24.4",
+    "@babel/core": "^7.26.10",
     "@babel/preset-env": "^7.24.4",
     "@babel/preset-typescript": "^7.24.1",
     "@react-native/babel-preset": "^0.75.3",
