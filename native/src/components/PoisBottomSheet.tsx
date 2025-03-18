@@ -86,7 +86,7 @@ const PoisBottomSheet = ({
 
   return (
     <StyledBottomSheet
-      accessibilityLabel={''}
+      accessibilityLabel=''
       index={snapPointIndex}
       isFullscreen={isFullscreen}
       snapPoints={snapPoints}
