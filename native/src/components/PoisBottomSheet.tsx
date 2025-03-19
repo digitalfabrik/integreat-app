@@ -105,7 +105,7 @@ const PoisBottomSheet = ({
             ref={poiListRef}
             data={pois}
             role='list'
-            accessibilityLabel={t('nearYou', { count: pois.length })}
+            accessibilityLabel={t('poisCount', { count: pois.length })}
             renderItem={renderPoiListItem}
             onMomentumScrollBegin={event => setScrollPosition(event.nativeEvent.contentOffset.y)}
             showsVerticalScrollIndicator={false}

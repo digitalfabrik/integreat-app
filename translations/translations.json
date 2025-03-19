@@ -10159,12 +10159,12 @@
       "appointmentNecessary": "Termin erforderlich",
       "makeAppointmentTooltipWithLink": "Vereinbare an diesem Tag einen Termin über <1>die Webseite</1> oder telefonisch.",
       "theWebsite": "die Webseite",
-      "nearYou_zero": "0 Orte",
-      "nearYou_one": "1 Ort",
-      "nearYou_two": "{{count}} Orte",
-      "nearYou_few": "{{count}} Orte",
-      "nearYou_many": "{{count}} Orte",
-      "nearYou_other": "{{count}} Orte"
+      "poisCount_zero": "0 Orte",
+      "poisCount_one": "1 Ort",
+      "poisCount_two": "{{count}} Orte",
+      "poisCount_few": "{{count}} Orte",
+      "poisCount_many": "{{count}} Orte",
+      "poisCount_other": "{{count}} Orte"
     },
     "am": {
       "pageTitle": "ካርታ",
@@ -10662,12 +10662,12 @@
       "appointmentNecessary": "Appointment necessary",
       "makeAppointmentTooltipWithLink": "Make an appointment on this day via <1>the website</1> or by phone.",
       "theWebsite": "the website",
-      "nearYou_zero": "0 locations",
-      "nearYou_one": "1 location",
-      "nearYou_two": "{{count}} locations",
-      "nearYou_few": "{{count}} locations",
-      "nearYou_many": "{{count}} locations",
-      "nearYou_other": "{{count}} locations"
+      "poisCount_zero": "0 locations",
+      "poisCount_one": "1 location",
+      "poisCount_two": "{{count}} locations",
+      "poisCount_few": "{{count}} locations",
+      "poisCount_many": "{{count}} locations",
+      "poisCount_other": "{{count}} locations"
     },
     "es": {
       "pageTitle": "Mapa",
