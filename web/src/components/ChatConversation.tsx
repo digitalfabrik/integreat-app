@@ -17,6 +17,7 @@ const InitialMessage = styled.div`
 
 const TypingIndicatorWrapper = styled(Message)`
   width: max-content;
+  margin-left: 33px;
 `
 
 const ErrorSendingStatus = styled.div`
@@ -65,15 +66,21 @@ const ChatConversation = ({ messages, hasError, className }: ChatConversationPro
   useEffect(() => {
     if (waitingForAnswer) {
       setTypingIndicatorVisible(true)
-
       const typingIndicatorTimeout = setTimeout(() => {
         setTypingIndicatorVisible(false)
       }, TYPING_INDICATOR_TIMEOUT)
 
       return () => clearTimeout(typingIndicatorTimeout)
     }
+    setTypingIndicatorVisible(false)
     return () => undefined
   }, [waitingForAnswer])
+
+  useEffect(() => {
+    if (typingIndicatorVisible) {
+      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [typingIndicatorVisible])
 
   return (
     <Container className={className}>
