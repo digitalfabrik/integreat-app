@@ -47,14 +47,36 @@ const TypingIndicator = ({ isVisible }: TypingIndicatorProps): ReactElement | nu
 
 const TYPING_INDICATOR_TIMEOUT = 60000
 
+const useTypingIndicator = (waitingForAnswer: boolean, ref: React.RefObject<HTMLDivElement>) => {
+  const [typingIndicatorVisible, setTypingIndicatorVisible] = useState(false)
+
+  useEffect(() => {
+    if (waitingForAnswer) {
+      setTypingIndicatorVisible(true)
+      const timeout = setTimeout(() => setTypingIndicatorVisible(false), TYPING_INDICATOR_TIMEOUT)
+      return () => clearTimeout(timeout)
+    }
+    setTypingIndicatorVisible(false)
+    return undefined
+  }, [waitingForAnswer])
+
+  useEffect(() => {
+    if (typingIndicatorVisible) {
+      ref.current?.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [typingIndicatorVisible, ref])
+
+  return typingIndicatorVisible
+}
+
 const ChatConversation = ({ messages, hasError, className }: ChatConversationProps): ReactElement => {
   const { t } = useTranslation('chat')
   const [messagesCount, setMessagesCount] = useState(0)
-  const [typingIndicatorVisible, setTypingIndicatorVisible] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const isLastMessageFromUser = messages[messages.length - 1]?.userIsAuthor
   const hasOnlyReceivedInfoMessage = messages.filter(message => !message.userIsAuthor).length === 1
   const waitingForAnswer = isLastMessageFromUser || hasOnlyReceivedInfoMessage
+  const typingIndicatorVisible = useTypingIndicator(waitingForAnswer, messagesEndRef)
 
   useEffect(() => {
     if (messagesCount < messages.length) {
@@ -62,25 +84,6 @@ const ChatConversation = ({ messages, hasError, className }: ChatConversationPro
       setMessagesCount(messages.length)
     }
   }, [messages, messagesCount])
-
-  useEffect(() => {
-    if (waitingForAnswer) {
-      setTypingIndicatorVisible(true)
-      const typingIndicatorTimeout = setTimeout(() => {
-        setTypingIndicatorVisible(false)
-      }, TYPING_INDICATOR_TIMEOUT)
-
-      return () => clearTimeout(typingIndicatorTimeout)
-    }
-    setTypingIndicatorVisible(false)
-    return () => undefined
-  }, [waitingForAnswer])
-
-  useEffect(() => {
-    if (typingIndicatorVisible) {
-      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-    }
-  }, [typingIndicatorVisible])
 
   return (
     <Container className={className}>
