@@ -95,7 +95,7 @@
     "rrule": "^2.8.1",
     "sentencex": "^0.4.2",
     "shared": "0.0.1",
-    "styled-components": "^5.3.11",
+    "styled-components": "^6.1.16",
     "stylis": "^4.3.4",
     "translations": "0.0.1",
     "url-parse": "^1.5.10"
@@ -115,7 +115,6 @@
     "@types/md5": "^2.3.5",
     "@types/react-native-highlight-words": "^1.0.6",
     "@types/react-test-renderer": "^18.3.1",
-    "@types/styled-components-react-native": "^5.2.5",
     "@types/url-parse": "^1.4.11",
     "babel-jest": "^29.7.0",
     "commander": "^12.0.0",

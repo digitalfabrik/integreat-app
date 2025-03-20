@@ -55,7 +55,7 @@
     "react-tooltip": "^5.28.0",
     "schema-dts": "^1.1.2",
     "shared": "0.0.1",
-    "styled-components": "^5.3.11",
+    "styled-components": "^6.1.16",
     "translations": "0.0.1",
     "react-datepicker": "^7.5.0"
   },

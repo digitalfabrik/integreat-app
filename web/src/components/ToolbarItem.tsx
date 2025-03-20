@@ -64,17 +64,15 @@ const ToolbarItem = ({ to, text, icon, isDisabled = false, onClick, id }: Toolba
     )
   }
 
-  if (onClick) {
-    return (
-      <StyledToolbarItem as={Button} id={id} onClick={onClick} label={text} disabled={false}>
-        <StyledIcon src={icon} disabled={false} />
-        <StyledSmallViewTip>{text}</StyledSmallViewTip>
-      </StyledToolbarItem>
-    )
-  }
-
   return (
-    <StyledToolbarItem id={id} to={to} disabled={false}>
+    <StyledToolbarItem
+      as={onClick ? Button : undefined}
+      id={id}
+      // @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112
+      to={to}
+      onClick={onClick}
+      label={text}
+      disabled={false}>
       <StyledIcon src={icon} disabled={false} />
       <StyledSmallViewTip>{text}</StyledSmallViewTip>
     </StyledToolbarItem>

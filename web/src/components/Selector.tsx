@@ -95,6 +95,7 @@ const Selector = ({
             to={item.href}
             onClick={closeDropDown}
             aria-selected={item.code === activeItemCode}
+            label=''
             tabIndex={0}
             $enabled
             $selected={item.code === activeItemCode}>
