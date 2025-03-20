@@ -1325,7 +1325,7 @@ PODS:
   - react-native-static-server (0.5.5):
     - GCDWebServer (~> 3.0)
     - React
-  - react-native-webview (13.15.5):
+  - react-native-webview (13.15.6):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -2168,7 +2168,7 @@ SPEC CHECKSUMS:
   react-native-pdf: 73accc61238e8e9bc6e376191225028af20b996e
   react-native-safe-area-context: 141eca0fd4e4191288dfc8b96a7c7e1c2983447a
   react-native-static-server: 9bb6c921baf4f2ad7e84832b82fa0eb5fe57c9f0
-  react-native-webview: 321c7b54840d6cc57ab1318467ab5e7647efd057
+  react-native-webview: 9dfe6d72bd80574fefdad711f7f9de7db89ef2ec
   React-nativeconfig: c7743aabd506fc9756e2bc3225b44f6a6f4490c9
   React-NativeModulesApple: 56a1c189a78e88d59ac856f614ab7cede03b3d22
   React-perflogger: 46ce3b295add69087b7c5ff325b55a6c7af204fc
