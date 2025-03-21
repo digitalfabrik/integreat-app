@@ -97,9 +97,7 @@ const PoisBottomSheet = ({
       onChange={setSnapPointIndex}>
       <BottomSheetContent>
         {slug ? (
-          <BottomSheetScrollView accessibilityLabel={t('detailsInformation')} showsVerticalScrollIndicator={false}>
-            {PoiDetail}
-          </BottomSheetScrollView>
+          <BottomSheetScrollView showsVerticalScrollIndicator={false}>{PoiDetail}</BottomSheetScrollView>
         ) : (
           <BottomSheetFlatList
             ref={poiListRef}
