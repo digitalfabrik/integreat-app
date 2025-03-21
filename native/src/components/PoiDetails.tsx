@@ -55,7 +55,7 @@ const PoiDetails = ({ poi, language, distance }: PoiDetailsProps): ReactElement 
     appointmentUrl ?? poi.contacts.find(contact => contact.website !== null)?.website ?? null
 
   return (
-    <PoiDetailsContainer accessibilityLabel={title + ' - ' + category.name}>
+    <PoiDetailsContainer accessibilityLabel={`${title} - ${category.name}`}>
       <Title>{title}</Title>
       {distance !== null && (
         <StyledDistance>{t('distanceKilometre', { distance: distance.toFixed(1) })}</StyledDistance>
