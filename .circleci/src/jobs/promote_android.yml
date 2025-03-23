@@ -30,4 +30,6 @@ steps:
         echo "export PROMOTION_MESSAGE='${PROMOTION_MESSAGE}'" >> $BASH_ENV
   - notify:
       success_message: '${PROMOTION_MESSAGE}'
+      channel: releases
+      only_for_branch: ${CIRCLE_BRANCH}
   - persist_environment_variables
