@@ -39,8 +39,9 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
   const fallbackLanguage = config.sourceLanguage
 
   useEffect(() => {
-    setFilterText(query)
-  }, [query])
+    const appendToUrl = filterText.length !== 0 ? `?query=${filterText}` : ''
+    navigate(`${pathname}/${appendToUrl}`, { replace: true })
+  }, [filterText, navigate, pathname])
 
   const {
     data: contentLanguageDocuments,
@@ -86,8 +87,6 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
 
   const handleFilterTextChanged = (filterText: string): void => {
     setFilterText(filterText)
-    const appendToUrl = filterText.length !== 0 ? `?query=${filterText}` : ''
-    navigate(`${pathname}/${appendToUrl}`, { replace: true })
   }
 
   const getPageContent = () => {
