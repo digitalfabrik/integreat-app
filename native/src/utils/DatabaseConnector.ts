@@ -8,6 +8,7 @@ import {
   CategoriesMapModel,
   CategoryModel,
   CityModel,
+  ContactModel,
   DateModel,
   EventModel,
   FeaturedImageModel,
@@ -31,7 +32,7 @@ import {
 import { deleteIfExists } from './helpers'
 import { log, reportError } from './sentry'
 
-export const CONTENT_VERSION = 'v8'
+export const CONTENT_VERSION = 'v9'
 export const RESOURCE_CACHE_VERSION = 'v1'
 
 // Our pdf view can only load from DocumentDir. Therefore we need to use that
@@ -70,6 +71,7 @@ type OfferJsonType = {
   path: string
   thumbnail: string
 }
+
 type LocationJsonType<T> = {
   id: number
   address: string
@@ -80,11 +82,13 @@ type LocationJsonType<T> = {
   country: string
   name: string
 }
+
 type FeaturedImageInstanceJsonType = {
   url: string
   width: number
   height: number
 }
+
 type FeaturedImageJsonType = {
   description: string | null | undefined
   thumbnail: FeaturedImageInstanceJsonType
@@ -92,6 +96,7 @@ type FeaturedImageJsonType = {
   large: FeaturedImageInstanceJsonType
   full: FeaturedImageInstanceJsonType
 }
+
 type ContentEventJsonType = {
   path: string
   title: string
@@ -111,10 +116,12 @@ type ContentEventJsonType = {
   featured_image: FeaturedImageJsonType | null | undefined
   poi_path: string | null
 }
+
 type ContentLanguageJsonType = {
   code: string
   name: string
 }
+
 type ContentCityJsonType = {
   name: string
   live: boolean
@@ -132,14 +139,22 @@ type ContentCityJsonType = {
   tunewsEnabled: boolean
   bounding_box: BBox
 }
+
+type ContactJsonType = {
+  name: string | null
+  area_of_responsibility: string | null
+  email: string | null
+  phone_number: string | null
+  website: string | null
+  mobile_phone_number: string | null
+}
+
 type ContentPoiJsonType = {
   path: string
   title: string
   content: string
   thumbnail: string | null
-  website: string | null
-  phoneNumber: string | null
-  email: string | null
+  contacts: ContactJsonType[]
   availableLanguages: Record<string, string>
   excerpt: string
   location: LocationJsonType<number>
@@ -151,6 +166,7 @@ type ContentPoiJsonType = {
   temporarilyClosed: boolean
   appointmentUrl: string | null
 }
+
 type ContentLocalNewsJsonType = {
   id: number
   timestamp: string
@@ -158,8 +174,11 @@ type ContentLocalNewsJsonType = {
   content: string
   available_languages: Record<string, number> | undefined
 }
+
 type CityCodeType = string
+
 type LanguageCodeType = string
+
 type MetaCitiesEntryType = {
   languages: Record<
     LanguageCodeType,
@@ -169,6 +188,7 @@ type MetaCitiesEntryType = {
   >
   lastUsage: DateTime
 }
+
 type MetaCitiesJsonType = Record<
   CityCodeType,
   {
@@ -181,17 +201,23 @@ type MetaCitiesJsonType = Record<
     last_usage: string
   }
 >
+
 type CityLastUsageType = {
   city: CityCodeType
   lastUsage: DateTime
 }
+
 type MetaCitiesType = Record<CityCodeType, MetaCitiesEntryType>
+
 type PageResourceCacheEntryJsonType = {
   file_path: string
   hash: string
 }
+
 type PageResourceCacheJsonType = Record<string, PageResourceCacheEntryJsonType>
+
 type LanguageResourceCacheJsonType = Record<string, PageResourceCacheJsonType>
+
 type CityResourceCacheJsonType = Record<LanguageCodeType, LanguageResourceCacheJsonType>
 
 class DatabaseConnector {
@@ -446,9 +472,14 @@ class DatabaseConnector {
         thumbnail: poi.thumbnail,
         availableLanguages: poi.availableLanguages,
         excerpt: poi.excerpt,
-        website: poi.website,
-        phoneNumber: poi.phoneNumber,
-        email: poi.email,
+        contacts: poi.contacts.map(contact => ({
+          name: contact.name,
+          area_of_responsibility: contact.areaOfResponsibility,
+          email: contact.email,
+          phone_number: contact.phoneNumber,
+          website: contact.website,
+          mobile_phone_number: contact.mobilePhoneNumber,
+        })),
         location: {
           id: poi.location.id,
           address: poi.location.address,
@@ -497,9 +528,17 @@ class DatabaseConnector {
           availableLanguages: jsonObject.availableLanguages,
           metaDescription: null, // not used in native
           excerpt: jsonObject.excerpt,
-          website: jsonObject.website,
-          phoneNumber: jsonObject.phoneNumber,
-          email: jsonObject.email,
+          contacts: jsonObject.contacts.map(
+            contact =>
+              new ContactModel({
+                name: contact.name,
+                areaOfResponsibility: contact.area_of_responsibility,
+                email: contact.email,
+                phoneNumber: contact.phone_number,
+                website: contact.website,
+                mobilePhoneNumber: contact.mobile_phone_number,
+              }),
+          ),
           location: new LocationModel({
             id: jsonLocation.id,
             name: jsonLocation.name,

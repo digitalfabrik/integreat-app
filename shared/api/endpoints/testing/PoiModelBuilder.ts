@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon'
 
+import ContactModel from '../../models/ContactModel'
 import LocationModel from '../../models/LocationModel'
 import OpeningHoursModel from '../../models/OpeningHoursModel'
 import PoiCategoryModel from '../../models/PoiCategoryModel'
@@ -17,9 +18,6 @@ const pois = [
     },
     excerpt: 'excerpt',
     metaDescription: 'meta',
-    website: 'https://example.com',
-    phoneNumber: '012345',
-    email: 'test@example.com',
     category: new PoiCategoryModel({
       color: '#1DC6C6',
       iconName: 'gastronomy',
@@ -48,6 +46,16 @@ const pois = [
       }),
     ],
     appointmentUrl: null,
+    contacts: [
+      new ContactModel({
+        name: 'Max Mustermann',
+        areaOfResponsibility: 'Welcoming',
+        website: 'https://example.com',
+        phoneNumber: '012345',
+        email: 'test@example.com',
+        mobilePhoneNumber: '017012345678',
+      }),
+    ],
   }),
   new PoiModel({
     path: '/augsburg/en/locations/test_path_2',
@@ -60,9 +68,6 @@ const pois = [
     },
     excerpt: 'test excerpt 2',
     metaDescription: 'meta 2',
-    website: null,
-    phoneNumber: null,
-    email: null,
     category: new PoiCategoryModel({
       color: '#3700D2',
       iconName: 'service',
@@ -91,6 +96,7 @@ const pois = [
       }),
     ],
     appointmentUrl: 'https://booking.an/appointment',
+    contacts: [],
   }),
   new PoiModel({
     path: '/augsburg/en/locations/another_test_path',
@@ -103,9 +109,6 @@ const pois = [
     },
     excerpt: 'Another test excerpt',
     metaDescription: null,
-    website: null,
-    phoneNumber: null,
-    email: null,
     category: new PoiCategoryModel({
       color: '#1DC6C6',
       iconName: 'gastronomy',
@@ -127,6 +130,7 @@ const pois = [
     temporarilyClosed: false,
     openingHours: null,
     appointmentUrl: null,
+    contacts: [],
   }),
 ]
 

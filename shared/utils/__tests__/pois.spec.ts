@@ -126,14 +126,14 @@ describe('preparePois', () => {
       pois,
       params: { slug: 'test', multipoi: 0, poiCategoryId: undefined, currentlyOpen: true },
     })
-    expect(poiCategories1).toEqual([poi1.category, poi2.category])
+    expect(poiCategories1).toEqual([poi2.category, poi3.category])
     expect(poiCategory1).toBeUndefined()
 
     const { poiCategories: poiCategories2, poiCategory: poiCategory2 } = preparePois({
       pois: [...pois, ...pois],
       params: { slug: 'test', multipoi: 0, poiCategoryId: 10, currentlyOpen: true },
     })
-    expect(poiCategories2).toEqual([poi1.category, poi2.category])
+    expect(poiCategories2).toEqual([poi2.category, poi3.category])
     expect(poiCategory2).toEqual(poi1.category)
   })
 })

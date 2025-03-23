@@ -22,9 +22,7 @@ describe('pois', () => {
     content: '<p>Am Sonntag...</p>',
     available_languages: {},
     thumbnail: '',
-    website: null,
-    phone_number: null,
-    email: null,
+    contacts: [],
     category: {
       color: '#1DC6C6',
       icon: 'gastronomy',
@@ -57,9 +55,7 @@ describe('pois', () => {
       content: '<p>Am Sonntag...</p>',
       availableLanguages: {},
       thumbnail: '',
-      website: null,
-      phoneNumber: null,
-      email: null,
+      contacts: [],
       category: new PoiCategoryModel({
         color: '#1DC6C6',
         iconName: 'gastronomy',
