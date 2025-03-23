@@ -45,3 +45,8 @@ export const getCategoryTiles = ({
       isExternalUrl: externalOfferUrl !== undefined,
     })
   })
+
+export const hasProp = <P extends PropertyKey, O extends { [p in P]: unknown }>(
+  object: O,
+  property: P,
+): object is O & { [p in P]: NonNullable<unknown> } => object[property] !== undefined && object[property] !== null

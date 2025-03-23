@@ -2,6 +2,7 @@ import distance from '@turf/distance'
 import { DateTime, Interval } from 'luxon'
 
 import { GeoJsonPoi, LocationType } from '../../constants/maps'
+import ContactModel from './ContactModel'
 import ExtendedPageModel from './ExtendedPageModel'
 import LocationModel from './LocationModel'
 import OpeningHoursModel from './OpeningHoursModel'
@@ -12,13 +13,11 @@ class PoiModel extends ExtendedPageModel {
   _location: LocationModel<number>
   _excerpt: string
   _metaDescription: string | null
-  _website: string | null
-  _phoneNumber: string | null
-  _email: string | null
   _openingHours: OpeningHoursModel[] | null
   _temporarilyClosed: boolean
   _category: PoiCategoryModel
   _appointmentUrl: string | null
+  _contacts: ContactModel[]
 
   constructor(params: {
     path: string
@@ -30,13 +29,11 @@ class PoiModel extends ExtendedPageModel {
     excerpt: string
     location: LocationModel<number>
     lastUpdate: DateTime
-    email: string | null
-    website: string | null
-    phoneNumber: string | null
     temporarilyClosed: boolean
     openingHours: OpeningHoursModel[] | null
     category: PoiCategoryModel
     appointmentUrl: string | null
+    contacts: ContactModel[]
   }) {
     const {
       category,
@@ -45,23 +42,19 @@ class PoiModel extends ExtendedPageModel {
       location,
       excerpt,
       metaDescription,
-      website,
-      phoneNumber,
-      email,
       appointmentUrl,
+      contacts,
       ...other
     } = params
     super(other)
     this._location = location
     this._excerpt = excerpt
     this._metaDescription = metaDescription
-    this._website = website
-    this._phoneNumber = phoneNumber
-    this._email = email
     this._openingHours = openingHours
     this._temporarilyClosed = temporarilyClosed
     this._category = category
     this._appointmentUrl = appointmentUrl
+    this._contacts = contacts
   }
 
   get location(): LocationModel<number> {
@@ -74,18 +67,6 @@ class PoiModel extends ExtendedPageModel {
 
   get metaDescription(): string | null {
     return this._metaDescription
-  }
-
-  get website(): string | null {
-    return this._website
-  }
-
-  get phoneNumber(): string | null {
-    return this._phoneNumber
-  }
-
-  get email(): string | null {
-    return this._email
   }
 
   private getMarkerSymbol(): string {
@@ -153,6 +134,10 @@ class PoiModel extends ExtendedPageModel {
       this.location.isEqual(other.location) &&
       this.excerpt === other.excerpt
     )
+  }
+
+  get contacts(): ContactModel[] {
+    return this._contacts
   }
 }
 

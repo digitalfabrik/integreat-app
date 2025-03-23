@@ -16,6 +16,7 @@ export type JsonLocationType<T> = {
   latitude: T
   longitude: T
 }
+
 type JsonOpeningHoursType = {
   allDay: boolean
   closed: boolean
@@ -30,11 +31,13 @@ export type JsonPoiCategoryType = {
   icon: string
   icon_url: string
 }
+
 type JsonFeaturedImageInstanceType = {
   url: string
   width: number
   height: number
 }
+
 type JsonFeaturedImageType = {
   description: string
   mimetype: string
@@ -43,6 +46,7 @@ type JsonFeaturedImageType = {
   large: [JsonFeaturedImageInstanceType]
   full: [JsonFeaturedImageInstanceType]
 }
+
 type JsonEventInfoType = {
   id: number
   start: string
@@ -50,6 +54,7 @@ type JsonEventInfoType = {
   all_day: boolean
   recurrence_id: string | null | undefined
 }
+
 export type JsonCategoryType = {
   id: number
   url: string
@@ -73,16 +78,29 @@ export type JsonCategoryType = {
   } | null
   embedded_offers: JsonOfferType[]
 }
+
 export type JsonChatMessageType = {
   id: number
   body: string
   user_is_author: boolean
   automatic_answer: boolean
 }
+
 export type JsonChatMessagesType = {
   messages: JsonChatMessageType[]
 }
+
 export type JsonDisclaimerType = JsonCategoryType
+
+type JsonContactType = {
+  name: string | null
+  area_of_responsibility: string | null
+  email: string | null
+  phone_number: string | null
+  website: string | null
+  mobile_phone_number: string | null
+}
+
 export type JsonPoiType = {
   id: number
   url: string
@@ -95,14 +113,13 @@ export type JsonPoiType = {
   available_languages: JsonAvailableLanguagesType
   thumbnail: string | null
   location: JsonLocationType<number>
-  website: string | null
-  email: string | null
-  phone_number: string | null
   temporarily_closed: boolean
   opening_hours: JsonOpeningHoursType[] | null
   appointment_url: string | null
   category: JsonPoiCategoryType
+  contacts: JsonContactType[]
 }
+
 export type JsonEventType = {
   id: number
   url: string
@@ -119,6 +136,7 @@ export type JsonEventType = {
   recurrence_rule?: string | null
   location_path: string | null
 }
+
 export type JsonTunewsType = {
   id: number
   title: string
@@ -127,6 +145,7 @@ export type JsonTunewsType = {
   content: string
   enewsno: string
 }
+
 export type JsonLocalNewsType = {
   id: number
   timestamp: string
@@ -134,9 +153,11 @@ export type JsonLocalNewsType = {
   message: string
   available_languages: Record<string, { id: number }>
 }
+
 export type JsonOfferPostType = {
   'zammad-url': string | undefined
 }
+
 export type JsonOfferType = {
   alias: string
   name: string
@@ -153,14 +174,17 @@ export type JsonSprungbrettJobType = {
   employment: string
   apprenticeship: string
 }
+
 export type JsonLanguageType = {
   code: string
   native_name: string
 }
+
 export type JsonTunewsLanguageType = {
   code: string
   name: string
 }
+
 export type JsonCityType = {
   name: string
   path: string
