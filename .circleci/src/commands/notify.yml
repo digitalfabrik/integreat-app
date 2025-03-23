@@ -4,7 +4,7 @@ parameters:
     default: ''
     type: string
   failure_mentions:
-    default: '@steffen.kleinle @stefanie.metzger @andreas.fischer @leandra.hahn'
+    default: '@steffen.kleinle @bahaaTuffaha @andreas.fischer @leandra.hahn @lunars97'
     type: string
   success_mentions:
     default: ''

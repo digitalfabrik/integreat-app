@@ -37,7 +37,7 @@ commands:
                 default: integreat-app-notifications
                 type: string
             failure_mentions:
-                default: '@steffen.kleinle @stefanie.metzger @andreas.fischer @leandra.hahn'
+                default: '@steffen.kleinle @bahaaTuffaha @andreas.fischer @leandra.hahn @lunars97'
                 type: string
             only_for_branch:
                 default: main
@@ -909,6 +909,8 @@ jobs:
                 name: Remove prerelease flag from github release
                 working_directory: tools
             - notify:
+                channel: releases
+                only_for_branch: ${CIRCLE_BRANCH}
                 success_message: ${PROMOTION_MESSAGE}
             - persist_environment_variables
     promote_ios:
@@ -944,6 +946,8 @@ jobs:
                 name: Remove prerelease flag from github release
                 working_directory: tools
             - notify:
+                channel: releases
+                only_for_branch: ${CIRCLE_BRANCH}
                 success_message: ${PROMOTION_MESSAGE}
             - persist_environment_variables
     promote_web:
@@ -977,6 +981,8 @@ jobs:
                 name: Remove prerelease flag from github release
                 working_directory: tools
             - notify:
+                channel: releases
+                only_for_branch: ${CIRCLE_BRANCH}
                 success_message: ${PROMOTION_MESSAGE}
             - persist_environment_variables
     sentry_android:
