@@ -128,6 +128,11 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
     [sentenceIndex, setIsPlaying, sentences, stop, languageCode],
   )
 
+  const startPlaying = () => {
+    afterStopRef.current = null
+    play()
+  }
+
   const close = () => {
     setVisible(false)
     setShowHelpModal(false)
@@ -169,7 +174,7 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
           playNext={playNext}
           isPlaying={isPlaying}
           pause={pause}
-          play={() => play()}
+          play={startPlaying}
           title={shortTitle}
         />
       )}
