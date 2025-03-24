@@ -272,6 +272,13 @@
       "organizationMoreInformation": "آپ <3>{{domain}}</3> پر <1>{{organization}}</1> کے بارے میں مزید معلومات حاصل کر سکتے ہیں۔",
       "disabledPdf": "پی ڈی ایف (PDF) ایکسپورٹ کرنا فی الحال اس زبان میں ممکن نہیں ہے۔"
     },
+    "vi": {
+      "createPdf": "Tạo PDF",
+      "metaDescription": "{{appName}} là cẩm nang kỹ thuật số giúp bạn thích nghi với cuộc sống tại Đức. Khám phá thông tin, sự kiện và lời khuyên về địa phương. Luôn được cập nhật và có sẵn bằng tiếng mẹ đẻ của bạn.",
+      "organizationContent": "Nội dung trên trang này do {{organization}} cung cấp.",
+      "organizationMoreInformation": "Bạn có thể tìm thêm thông tin về <1>{{organization}}</1> trên <3>{{domain}}</3>.",
+      "disabledPdf": "Xuất PDF hiện không khả dụng cho ngôn ngữ này."
+    },
     "zh-CN": {
       "createPdf": "创建 PDF",
       "metaDescription": "{{appName}} 是您的德国数字指南。查找当地信息、活动和信息咨询。始终以您的语言提供最新资讯。",
@@ -809,7 +816,7 @@
       "conversationText": "Ви можете поставити запитання на будь-яку тему: від місцевої інформації до конкретних запитів щодо вашої ситуації.",
       "dataSecurity": "Захист і безпека даних: Для нас дуже важлива ваша конфіденційність. Всі розмови є конфіденційними, а ваші дані обробляються безпечним способом. З додатковою інформацією про захист даних можна ознайомитися в нашій політиці конфіденційності.",
       "errorMessage": "Під час спілкування сталася помилка.",
-      "header": "Підтримка в чаті {{AppName}}",
+      "header": "Підтримка в чаті {{appName}}",
       "initialMessage": "Ваш запит на початок чату відправлено. Консультант якнайшвидше відповість на ваше повідомлення.",
       "inputLabel": "Моє запитання:",
       "inputPlaceholder": "Мені хотілося б дізнатися...",
@@ -830,6 +837,20 @@
       "loadingText": "براه کرم تھوڑی دیر انتظار کریں، چیٹ شروع ہو رہی ہے...",
       "sendButton": "بھیجیں",
       "user": "آپ"
+    },
+    "vi": {
+      "button": "Trò chuyện (beta)",
+      "conversationTitle": "Vui lòng nhập câu hỏi vào trường văn bản.",
+      "conversationText": "Bạn có thể hỏi bất cứ điều gì, từ thông tin về địa phương cho đến các yêu cầu cụ thể liên quan đến tình huống của bạn.",
+      "dataSecurity": "Bảo vệ dữ liệu và bảo mật: Chúng tôi rất coi trọng quyền riêng tư của bạn. Tất cả cuộc trò chuyện đều được bảo mật và dữ liệu của bạn được xử lý theo cách an toàn. Bạn có thể tìm thêm thông tin về bảo vệ dữ liệu trong chính sách quyền riêng tư của chúng tôi.",
+      "errorMessage": "Đã xảy ra lỗi trong quá trình liên lạc.",
+      "header": "Hỗ trợ trò chuyện của {{appName}}",
+      "initialMessage": "Yêu cầu trò chuyện của bạn đã được gửi. Cố vấn sẽ trả lời tin nhắn trong thời gian sớm nhất có thể.",
+      "inputLabel": "Câu hỏi của tôi:",
+      "inputPlaceholder": "Tôi muốn biết...",
+      "loadingText": "Vui lòng chờ một chút, cuộc trò chuyện đang được khởi tạo...",
+      "sendButton": "Gửi",
+      "user": "Bạn"
     },
     "zh-CN": {
       "button": "聊天（测试版）",
@@ -1158,6 +1179,14 @@
       "findOutMail": "آپ اپنے علاقے کا ای میل ایڈریس معلوم کریں۔",
       "sendText": "اس ٹیکسٹ کو کاپی کریں اور اپنی تفصیلات اس [ ] میں درج کریں اور بھیج دیں۔",
       "copyText": "ٹیکسٹ کو کاپی کریں۔"
+    },
+    "vi": {
+      "callToAction": "Đề xuất khu vực của bạn cho Integreat!",
+      "explanation": "Bạn bị thuyết phục bởi mô hình giúp ích cho cộng đồng của ứng dụng Integreat và cho rằng thị trấn,\nquận hoặc cộng đồng của bạn cũng có thể hưởng lợi từ giải pháp kỹ thuật số này? Trong trường hợp đó, bạn có thể bắt đầu hành động ngay tại đây.",
+      "whatToDo": "Những điều bạn có thể làm:",
+      "findOutMail": "Lấy địa chỉ email của khu vực bạn sinh sống",
+      "sendText": "Sao chép văn bản này, điền thông tin của bạn vào nội dung [ ] rồi gửi đi",
+      "copyText": "Sao chép văn bản"
     },
     "zh-CN": {
       "callToAction": "向你所在地区推荐Integreat！",
@@ -1720,6 +1749,21 @@
       "back": "واپسی",
       "ok": "ٹھیک ہے"
     },
+    "vi": {
+      "copied": "Đã sao chép",
+      "moreOptions": "Thêm tùy chọn",
+      "languageNotAvailable": "Rất tiếc, nhưng ngôn ngữ bạn sử dụng không có sẵn tại đây.",
+      "chooseALanguage": "Chọn ngôn ngữ.",
+      "lastUpdate": "Cập nhật gần nhất:",
+      "loading": "Đang tải...",
+      "close": "Đóng",
+      "showMore": "Hiển thị thêm",
+      "showLess": "Ẩn bớt",
+      "optional": "không bắt buộc",
+      "back": "Quay lại",
+      "ok": "Ok",
+      "openCalendar": "Mở lịch"
+    },
     "zh-CN": {
       "copied": "已复制",
       "moreOptions": "更多选项",
@@ -2126,6 +2170,16 @@
       "knownResourceBlocked": "اس ذریعہ سے خارجی مواد کو مسدود کر دیا گیا ہے۔ آپ ترتیبات میں اس ذریعہ کی اجازت دے سکتے ہیں۔",
       "noSources": "کوئی بیرونی ذرائع دستیاب نہیں ہیں۔"
     },
+    "vi": {
+      "title": "Nguồn bên ngoài",
+      "description": "Bạn có thể đồng ý vĩnh viễn cho phép hiển thị nội dung nhúng từ nhà cung cấp bên thứ ba. Lựa chọn này sẽ được lưu vĩnh viễn trong trình duyệt internet của bạn. Bạn có thể thu hồi quyết định chấp thuận bất kỳ lúc nào tại đây.",
+      "descriptionNative": "Bạn có thể đồng ý vĩnh viễn cho phép hiển thị nội dung nhúng từ nhà cung cấp bên thứ ba. Lựa chọn này sẽ được lưu trữ vĩnh viễn trên thiết bị của bạn. Bạn có thể thu hồi quyết định chấp thuận bất kỳ lúc nào tại đây.",
+      "consentDescription": "Cho phép nội dung từ {{source}}",
+      "knownResourceOptIn": "Tôi đồng ý cho phép nội dung từ nguồn bên ngoài này hiển thị với tôi.",
+      "knownResourceContentMessage": "Thành phần này chứa dữ liệu từ nguồn bên ngoài. Bạn có thể vào cài đặt để chặn việc nhúng nội dung này.",
+      "knownResourceBlocked": "Nội dung bên ngoài từ nguồn này đã bị chặn. Bạn có thể vào cài đặt để cho phép nguồn này.",
+      "noSources": "Không có nguồn bên ngoài nào khả dụng."
+    },
     "zh-CN": {
       "title": "外部来源",
       "description": "您可以永久同意显示外部来源的嵌入内容。选择的内容将永久保存在您的互联网浏览器中。可随时在此撤销同意。",
@@ -2372,6 +2426,12 @@
       "news": "خبریں",
       "pois": "نقشہ"
     },
+    "vi": {
+      "localInformation": "Thông tin về địa phương",
+      "events": "Sự kiện",
+      "news": "Tin tức",
+      "pois": "Bản đồ"
+    },
     "zh-CN": {
       "localInformation": "本地信息",
       "events": "活动",
@@ -2496,6 +2556,9 @@
     },
     "ur": {
       "pageTitle": "چھاپ اور رابطہ"
+    },
+    "vi": {
+      "pageTitle": "Thông tin xuất bản và liên hệ"
     },
     "zh-CN": {
       "pageTitle": "版本说明和联系方式"
@@ -3875,6 +3938,43 @@
       "noCalendarPermission": "کیلنڈر تک رسائی کی اجازت نہیں ہے۔",
       "noCalendarFound": "کوئی مناسب کیلنڈر نہیں ملا۔"
     },
+    "vi": {
+      "notFound": {
+        "language": "Rất tiếc, ngôn ngữ này không có sẵn tại đây.",
+        "city": "Rất tiếc, không tìm thấy khu vực này.",
+        "category": "Rất tiếc, không tìm thấy trang được yêu cầu.",
+        "event": "Rất tiếc, không tìm thấy sự kiện này.",
+        "poi": "Rất tiếc, không tìm thấy địa điểm này.",
+        "news": "Rất tiếc, không tìm thấy tin nhắn này.",
+        "pageTitle": "Không tìm thấy trang"
+      },
+      "pageNotFound": "Rất tiếc, không tìm thấy trang được yêu cầu.",
+      "noSuitableAppInstalled": "Chưa cài đặt ứng dụng phù hợp nào.",
+      "networkConnectionFailed": "Kết nối với máy chủ không thành công.",
+      "networkRequestFailed": "Không thể xử lý yêu cầu.",
+      "responseMappingFailed": "Đã xảy ra lỗi khi xử lý phản hồi từ máy chủ.",
+      "unknownError": "Đã xảy ra lỗi không xác định.",
+      "tryAgain": "Thử lại",
+      "loadingFailed": "Rất tiếc, không thể tải trang được yêu cầu.",
+      "chooseALanguage": "Chọn ngôn ngữ:",
+      "goTo": {
+        "start": "Đi đến trang chủ",
+        "categories": "Đi đến danh mục",
+        "events": "Đi đến sự kiện",
+        "pois": "Đi đến bản đồ",
+        "news": "Đi đến tin tức",
+        "pageNumber": "Đi đến trang {{number}}"
+      },
+      "pageTitle": "Lỗi",
+      "generalError": "Đã xảy ra lỗi",
+      "notSupportedByDevice": "Thiết bị này không hỗ trợ chức năng này.",
+      "languageSwitchFailedTitle": "Rất tiếc, thay đổi ngôn ngữ không thành công.",
+      "languageSwitchFailedMessage": "Ngôn ngữ đã chọn không khả dụng khi bạn ngoại tuyến. Yêu cầu kết nối internet hoạt động.",
+      "permissionRequired": "Yêu cầu cấp quyền",
+      "noCalendarPermission": "Chưa được cấp quyền truy cập vào lịch.",
+      "noCalendarFound": "Không tìm thấy lịch phù hợp nào.",
+      "settingsError": "Áp dụng cài đặt không thành công"
+    },
     "zh-CN": {
       "notFound": {
         "language": "很抱歉，这里没有提供该语言。",
@@ -4974,6 +5074,35 @@
       "showFilters": "فلٹرز دکھائیں",
       "selectRange": "وقت کی مدت منتخب کریں"
     },
+    "vi": {
+      "address": "Địa chỉ",
+      "date_one": "Ngày",
+      "date_other": "Các ngày",
+      "nextDate_one": "Ngày tiếp theo",
+      "nextDate_other": "Các ngày tiếp theo",
+      "events": "Sự kiện",
+      "exportAsICal": "Xuất dưới dạng iCal",
+      "addToCalendar": "Thêm vào lịch",
+      "currentlyNoEvents": "Hiện không có sẵn sự kiện nào.",
+      "pageTitle": "Sự kiện",
+      "chooseCalendar": "Lựa chọn lịch",
+      "added": "Đã thêm",
+      "goToCalendar": "Đi đến lịch",
+      "recurring": "định kỳ",
+      "today": "hôm nay",
+      "todayRecurring": "hôm nay, định kỳ",
+      "onlyThisEvent": "Chỉ sự kiện này",
+      "thisAndAllFutureEvents": "Sự kiện này và tất cả sự kiện trong tương lai",
+      "from": "từ",
+      "to": "đến",
+      "resetFilter": "đặt lại bộ lọc:",
+      "invalidDate": "Ngày không hợp lệ",
+      "shouldBeEarlier": "Ngày bắt đầu phải trước ngày kết thúc.",
+      "hideFilters": "Ẩn bộ lọc",
+      "showFilters": "Hiển thị bộ lọc",
+      "selectRange": "Chọn phạm vi",
+      "outOfRangeError": "Ngày nằm ngoài phạm vi"
+    },
     "zh-CN": {
       "address": "地址",
       "date_one": "日期",
@@ -5912,6 +6041,29 @@
       "contactMailAddress": "سوالات کے لئے ای میل",
       "noteFillFeedback": "رائے بھیجنے کے لیے براہ کرم کوئی ردعمل منتخب کریں یا تبصرہ لکھیں۔"
     },
+    "vi": {
+      "disclaimer": "Liên hệ và thông tin xuất bản",
+      "send": "Gửi",
+      "failedSendingFeedback": "Đã xảy ra lỗi khi gửi ý kiến góp ý.",
+      "feedback": "Góp ý",
+      "headline": "Bạn nghĩ gì về trang này?",
+      "description": "Chọn phản ứng và/hoặc viết bình luận.",
+      "commentHeadline": "Bình luận",
+      "commentDescription": "Chia sẻ ý kiến góp ý với chúng tôi! Chúng tôi hoan nghênh cả ý kiến góp ý tích cực và tiêu cực vì tất cả đều giúp chúng tôi cải thiện {{appName}}.",
+      "isThisSiteUseful": "Trang này có hữu ích không?",
+      "useful": "Hữu ích",
+      "notUseful": "Không hữu ích",
+      "informationNotFound": "Không tìm thấy thông tin bạn đang tìm kiếm?",
+      "wantedInformation": "Thông tin nào đang bị thiếu?",
+      "feedbackSent": "Đã gửi ý kiến góp ý",
+      "thanksHeadline": "Cảm ơn góp ý của bạn.",
+      "thanksMessage": "Ý kiến góp ý của bạn đã được gửi thành công.",
+      "negativeRating": "Trang này không hữu ích",
+      "positiveRating": "Trang này hữu ích",
+      "searchTermDescription": "Không tìm thấy kết quả nào cho cụm từ sau:",
+      "contactMailAddress": "Gửi email để đặt thêm câu hỏi",
+      "note": "Hãy chọn phản ứng hoặc viết bình luận để gửi góp ý."
+    },
     "zh-CN": {
       "disclaimer": "版本说明和联系方式",
       "send": "发送",
@@ -6162,6 +6314,24 @@
     "ur": {
       "skip": "رہنے دیں",
       "next": "آگے"
+    },
+    "vi": {
+      "welcome": "Chào mừng đến với {{appName}}",
+      "welcomeDescription": "Trong {{appName}}, bạn sẽ tìm thấy câu trả lời và mẹo bằng tiếng mẹ đẻ. Ví dụ: Tôi có thể tìm hỗ trợ ở đâu? Khi nào tôi được phép hoạt động?",
+      "search": "Tìm kiếm đơn giản",
+      "searchDescription": "Bạn có thể nhanh chóng tìm thấy thông tin phù hợp thông qua thanh tìm kiếm ở góc trên bên phải của menu.",
+      "languageChange": "Thay đổi ngôn ngữ",
+      "languageChangeDescription": "Bạn có thể thay đổi ngôn ngữ của {{appName}} trong menu trên cùng.",
+      "events": "Sự kiện",
+      "eventsDescription": "Sự kiện hiện có và ngày diễn ra trong khu vực",
+      "pois": "Đề xuất gần bạn",
+      "poisDescription": "Bạn có thể tìm thấy các địa điểm ở gần trên bản đồ, chẳng hạn như vị trí của khóa học tiếng.",
+      "offline": "Hoạt động cả khi ngoại tuyến",
+      "offlineDescription": "Không phải lúc nào cũng có internet? Đừng lo. Bạn vẫn có thể sử dụng {{appName}} ngay cả khi không có kết nối internet.",
+      "news": "Tin tức hiện tại",
+      "newsDescription": "Có gì mới trong khu vực của bạn? Hãy tìm hiểu trong {{appName}}.",
+      "skip": "Bỏ qua",
+      "next": "Tiếp tục"
     },
     "zh-CN": {
       "skip": "跳过",
@@ -6813,7 +6983,7 @@
       "pageTitle": "Місцева інформація для вас",
       "metaDescription": "{{appName}} — ваш цифровий путівник Німеччиною. Знаходьте місцеву інформацію, події та консультації. Завжди актуальні відомості вашою мовою.",
       "cityNotFound": "Не знайшли свій регіон? Проявіть активність!",
-      "suggestToRegion": "Розкажіть про {{AppName}} у своєму регіоні"
+      "suggestToRegion": "Розкажіть про {{appName}} у своєму регіоні"
     },
     "ur": {
       "searchCity": "تلاش کریں",
@@ -6831,6 +7001,23 @@
       "metaDescription": "{{appName}} جرمنی میں زندگی کے لیے آپ کا ڈیجیٹل گائیڈ ہے۔ مقامی معلومات، واقعات اور مشورے دریافت کریں۔ ہمیشہ تازہ ترین اور آپ کی اپنی زبان میں دستیاب۔",
       "cityNotFound": "آپ کا علاقہ نہیں ملا؟ ابھی فعال ہو جاؤ!",
       "suggestToRegion": "اپنے علاقے میں {{appName}} تجویز کریں"
+    },
+    "vi": {
+      "searchCity": "Tìm kiếm",
+      "noCitiesFound": "Không có kết quả",
+      "nearbyCities": "Trong phạm vi lân cận",
+      "noNearbyCities": "Không tìm thấy khu vực nào trong phạm vi lân cận.",
+      "alert": "Lưu ý",
+      "locationError": "Bạn phải kích hoạt dịch vụ theo dõi để hiển thị các khu vực trong phạm vi lân cận.",
+      "noPermission": "Yêu cầu cấp quyền truy cập vị trí",
+      "loading": "Đang xác định vị trí...",
+      "notAvailable": "Xác định vị trí đã bị vô hiệu hóa",
+      "timeout": "Xác định vị trí không thành công",
+      "refresh": "Cập nhật danh sách các khu vực ở gần",
+      "pageTitle": "Thông tin về địa phương dành cho bạn",
+      "metaDescription": "{{appName}} là cẩm nang kỹ thuật số giúp bạn thích nghi với cuộc sống tại Đức. Khám phá thông tin, sự kiện và lời khuyên về địa phương. Luôn được cập nhật và có sẵn bằng tiếng mẹ đẻ của bạn.",
+      "cityNotFound": "Không tìm thấy khu vực của bạn? Hành động ngay.",
+      "suggestToRegion": "Đề xuất {{appName}} cho khu vực của bạn"
     },
     "zh-CN": {
       "searchCity": "搜索",
@@ -7869,6 +8056,42 @@
       "sideBarCloseAriaLabel": "سائڈبار بند کریں",
       "accessibility": "رسائی"
     },
+    "vi": {
+      "imprintAndContact": "Thông tin xuất bản và liên hệ",
+      "privacy": "Bảo vệ dữ liệu",
+      "localInformation": "Thông tin về địa phương",
+      "events": "Sự kiện",
+      "noEvents": "Không có sự kiện nào",
+      "news": "Tin tức",
+      "noLanguages": "Không có sẵn bằng ngôn ngữ khác",
+      "noTranslation": "Không có bản dịch nào",
+      "search": "Tìm kiếm",
+      "locations": "Bản đồ",
+      "changeLocation": "Thay đổi vị trí",
+      "changeLanguage": "Thay đổi ngôn ngữ",
+      "settings": "Cài đặt",
+      "copyUrl": "Sao chép liên kết",
+      "feedback": "Góp ý",
+      "share": "Chia sẻ",
+      "cancel": "Hủy",
+      "shareMessage": "Vừa tìm thấy: {{message}}",
+      "shareFailDefaultMessage": "Rất tiếc, đã xảy ra lỗi khi chia sẻ nội dung.",
+      "disclaimer": "Thông tin xuất bản",
+      "sideBarOpenAriaLabel": "Mở thanh bên",
+      "sideBarCloseAriaLabel": "Đóng thanh bên",
+      "openInApp": "Mở trong ứng dụng {{appName}}",
+      "open": "Mở",
+      "view": "Xem",
+      "getOnPlayStore": "TẢI XUỐNG — Trên Google Play Store",
+      "accessibility": "Trợ năng",
+      "readAloud": "Đọc to",
+      "nothingToRead": "Không có nội dung để đọc",
+      "nothingToReadFullMessage": "Trang này không có nội dung để đọc.",
+      "previous": "Trước",
+      "next": "Tiếp theo",
+      "play": "Phát",
+      "pause": "Tạm dừng"
+    },
     "zh-CN": {
       "imprintAndContact": "版本说明和联系方式",
       "privacy": "数据保护",
@@ -8091,6 +8314,11 @@
       "license": "لائسنس کی کوئی معلومات دستیاب نہیں۔",
       "noLicensesMessage": "رہنے  کا کمرہ"
     },
+    "vi": {
+      "version": "Phiên bản:",
+      "license": "Giấy phép:",
+      "noLicensesMessage": "Không có thông tin giấy phép có sẵn"
+    },
     "zh-CN": {
       "version": "版本：",
       "license": "许可证：",
@@ -8214,6 +8442,9 @@
     },
     "ur": {
       "pageTitle": "چھاپ اور رابطہ - {{appName}}"
+    },
+    "vi": {
+      "pageTitle": "Thông tin xuất bản và liên hệ - {{appName}}"
     },
     "zh-CN": {
       "pageTitle": "版本说明和联系方式- {{appName}}"
@@ -9117,6 +9348,29 @@
       "submitFailedReasoning": "براہ کرم ایک مستحکم انٹرنیٹ کنکشن کو یقینی بنائیں اور دوبارہ کوشش کریں۔",
       "invalidEmailAddress": "دیا گیا ای میل ایڈریس غلط ہے۔"
     },
+    "vi": {
+      "supportNote": "Chúng tôi muốn bạn cảm thấy an tâm và được hỗ trợ bất cứ khi nào có vấn đề hoặc thắc mắc. Biểu mẫu liên hệ sau đây cho phép bạn liên hệ với một người phụ trách. Bạn có thể chỉ định nội dung yêu cầu và chọn từ nhiều phương thức liên hệ khác nhau.",
+      "securityNote": "Chúng tôi coi trọng tính bảo mật. Dữ liệu của bạn được bảo mật tuyệt đối để đảm bảo quyền riêng tư mọi lúc.",
+      "name": "Họ, tên",
+      "roomNumber": "Số phòng",
+      "howToBeContacted": "Phương thức liên hệ mong muốn:",
+      "eMail": "qua email",
+      "telephone": "qua điện thoại",
+      "telephoneNumber": "Số điện thoại",
+      "personally": "Trực tiếp",
+      "contactPerson": "Người phụ trách:",
+      "contactPersonAnyGender": "Không quan trọng giới tính của người phụ trách",
+      "contactPersonGenderFemale": "Tôi muốn liên hệ với người phụ trách là phụ nữ",
+      "contactPersonGenderMale": "Tôi muốn liên hệ với người phụ trách là nam giới",
+      "contactReason": "Nội dung yêu cầu:",
+      "maxCharacters": "tối đa {{numberOfCharacters}} ký tự",
+      "responseDisclaimer": "Có thể mất vài ngày làm việc trước khi bạn nhận được phản hồi. Chúng tôi sẽ cố gắng xử lý yêu cầu của bạn trong thời gian sớm nhất có thể.",
+      "submit": "Gửi biểu mẫu",
+      "submitSuccessful": "Biểu mẫu đã được gửi thành công",
+      "submitFailed": "Không thể gửi biểu mẫu",
+      "submitFailedReasoning": "Vui lòng đảm bảo kết nối internet ổn định và thử lại.",
+      "invalidEmailAddress": "Địa chỉ email bạn nhập không hợp lệ."
+    },
     "zh-CN": {
       "supportNote": "如果您有任何问题或疑问，我们会为您提供保障和支持。您可以使用以下联系表格与联系人取得联系。您可以指定请求的形式，并从各个联系选项中进行选择。",
       "securityNote": "您的安全是我们的首要任务。我们将对您的数据保密处理，确保您的隐私始终受到保护。",
@@ -9414,6 +9668,13 @@
       "NSLocationAlwaysAndWhenInUseUsageDescription": "قریبی مقامات تلاش کرنے کے لئے ‎{{appName}}‎ کو  لوکیشن سروس تک رسائی درکار ہے۔",
       "NSCalendarsUsageDescription": "{{appName}} ایونٹ شامل کرنے کے لیے کیلنڈر تک رسائی حاصل کرنا چاہتا ہے۔",
       "NSCalendarsFullAccessUsageDescription": "{{appName}} ایونٹ شامل کرنے کے لیے کیلنڈر تک رسائی حاصل کرنا چاہتا ہے۔"
+    },
+    "vi": {
+      "NSPhotoLibraryAddUsageDescription": "{{appName}} muốn lưu ảnh vào thư viện của bạn.",
+      "NSLocationWhenInUseUsageDescription": "{{appName}} muốn sử dụng vị trí của bạn để tìm các thành phố lân cận.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "{{appName}} muốn sử dụng vị trí của bạn để tìm các thành phố lân cận.",
+      "NSCalendarsUsageDescription": "{{appName}} muốn truy cập lịch để thêm sự kiện.",
+      "NSCalendarsFullAccessUsageDescription": "{{appName}} muốn truy cập lịch để thêm sự kiện."
     },
     "zh-CN": {
       "NSPhotoLibraryAddUsageDescription": "要保存图片，{{appName}}需要图库访问权限。",
@@ -9814,6 +10075,16 @@
       "readMore": "مطالعہ جاری رکھیں",
       "currentlyNoNews": "فی الحال کوئی خبریں نہیں ہیں۔"
     },
+    "vi": {
+      "news": "Tin tức",
+      "localNews": {
+        "localNews": "Tin tức về địa phương",
+        "pageTitle": "Tin tức về địa phương"
+      },
+      "local": "Địa phương",
+      "readMore": "Tiếp tục",
+      "currentlyNoNews": "Hiện không có tin tức nào."
+    },
     "zh-CN": {
       "news": "新闻",
       "localNews": {
@@ -9842,6 +10113,7 @@
       "contactInformation": "Kontaktdaten",
       "address": "Adresse",
       "phone": "Telefonnummer",
+      "mobilePhone": "Handynummer",
       "eMail": "E-Mail-Adresse",
       "website": "Webseite",
       "openingHours": "Öffnungszeiten",
@@ -10338,6 +10610,7 @@
       "contactInformation": "Contact details",
       "address": "Address",
       "phone": "Telephone number",
+      "mobilePhone": "Mobile phone number",
       "eMail": "E-mail address",
       "website": "Website",
       "openingHours": "Opening hours",
@@ -12244,6 +12517,68 @@
       "makeAppointmentTooltipWithLink": "اس دن <1>ویب سائٹ</1> کے ذریعے یا فون کے ذریعے ملاقات کا وقت بنائیں۔",
       "theWebsite": "ویب سائٹ"
     },
+    "vi": {
+      "pageTitle": "Bản đồ",
+      "poi": "Địa điểm",
+      "pois": "Địa điểm",
+      "map": "Bản đồ",
+      "showOnMap": "Hiển thị trên bản đồ",
+      "noPois": "Không tìm thấy địa điểm nào.",
+      "unitKilometre": "km",
+      "unitMetre": "m",
+      "distanceKilometre": "Cách {{distance}} km",
+      "distanceKilometreAlternative": "{{distance}} km",
+      "distanceMetre": "Cách {{distance}} m ",
+      "distanceMetreAlternative": "{{distance}} m",
+      "contactInformation": "Thông tin liên hệ",
+      "address": "Địa chỉ",
+      "phone": "Số điện thoại",
+      "eMail": "Địa chỉ email",
+      "website": "Trang web",
+      "openingHours": "Giờ hoạt động",
+      "description": "Mô tả",
+      "addressCopied": "Địa chỉ đã được sao chép vào bảng tạm",
+      "phoneCopied": "Số điện thoại đã được sao chép vào bảng tạm",
+      "eMailCopied": "Địa chỉ email đã được sao chép vào bảng tạm",
+      "websiteCopied": "Trang web đã được sao chép vào bảng tạm",
+      "listTitle": "Gần bạn",
+      "detailsHeader": "Quay lại",
+      "detailsAddress": "Chỉ đường",
+      "detailsMapLink": "Mở trong Google Maps",
+      "detailsInformation": "Thông tin",
+      "detailsNextPoi": "Tiếp theo",
+      "detailsPreviousPoi": "Trước đó",
+      "previousPoi": "Địa điểm trước đó",
+      "nextPoi": "Địa điểm tiếp theo",
+      "openExternalMaps": "Mở trong ứng dụng bản đồ",
+      "allDay": "cả ngày",
+      "opened": "mở cửa",
+      "closed": "đóng cửa",
+      "temporarilyClosed": "tạm thời đóng cửa",
+      "montag": "Thứ hai",
+      "dienstag": "Thứ ba",
+      "mittwoch": "Thứ tư",
+      "donnerstag": "Thứ năm",
+      "freitag": "Thứ sáu",
+      "samstag": "Thứ bảy",
+      "sonntag": "Chủ nhật",
+      "adjustFilters": "Lọc vị trí",
+      "onlyCurrentlyOpen": "chỉ hiển thị địa điểm đang mở",
+      "poiCategories": "Danh mục",
+      "showPois_zero": "Hiển thị 0 địa điểm",
+      "showPois_one": "Hiển thị 1 địa điểm",
+      "showPois_two": "Hiển thị {{count}} địa điểm",
+      "showPois_few": "Hiển thị {{count}} địa điểm",
+      "showPois_many": "Hiển thị {{count}} địa điểm",
+      "showPois_other": "Hiển thị {{count}} địa điểm",
+      "alphabetLetters": "A-Z",
+      "clearFilter": "Xóa bộ lọc {{filter}}",
+      "showOwnLocation": "Hiển thị vị trí của bạn",
+      "makeAppointment": "Đặt lịch hẹn",
+      "appointmentNecessary": "Cần đặt lịch hẹn",
+      "makeAppointmentTooltipWithLink": "Đặt lịch hẹn vào ngày này qua <1>trang web</1> hoặc qua điện thoại.",
+      "theWebsite": "trang web"
+    },
     "zh-CN": {
       "pageTitle": "地图",
       "poi": "地点",
@@ -12814,6 +13149,19 @@
       "searchResultsCount_other": "{{count}} تلاش کے نتائج",
       "pageTitle": "تلاش کریں",
       "delete": "ان پٹ کو حذف کریں"
+    },
+    "vi": {
+      "nothingFound": "Rất tiếc, chúng tôi không tìm thấy kết quả nào phù hợp.",
+      "searchPlaceholder": "Tìm kiếm",
+      "itemHint": "Xem kết quả tìm kiếm",
+      "searchResultsCount_zero": "0 kết quả tìm kiếm",
+      "searchResultsCount_one": "1 kết quả tìm kiếm",
+      "searchResultsCount_two": "2 kết quả tìm kiếm",
+      "searchResultsCount_few": "{{count}} kết quả tìm kiếm",
+      "searchResultsCount_many": "{{count}} kết quả tìm kiếm",
+      "searchResultsCount_other": "{{count}} kết quả tìm kiếm",
+      "pageTitle": "Tìm kiếm",
+      "delete": "Xóa nội dung nhập"
     },
     "zh-CN": {
       "nothingFound": "很抱歉，找不到匹配的结果。",
@@ -13688,6 +14036,28 @@
       "externalResourcesTitle": "بیرونی ذرائع",
       "externalResourcesDescription": "معلوم کریں کہ کن بیرونی ذرائع کی اجازت ہے۔"
     },
+    "vi": {
+      "sentryTitle": "Độ ổn định của ứng dụng",
+      "sentryDescription": "Cải thiện ứng dụng {{appName}} bằng cách tự động gửi báo cáo lỗi",
+      "pushNewsTitle": "Thông báo đẩy",
+      "pushNewsDescription": "Nhận thông báo đẩy cho biết tin tức mới nhất về địa phương",
+      "about": "Giới thiệu về {{appName}}",
+      "privacyPolicy": "Chính sách bảo vệ dữ liệu",
+      "version": "Phiên bản: {{version}}",
+      "openSourceLicenses": "Giấy phép nguồn mở",
+      "tracking": "Đánh giá J-PAL",
+      "allowTracking": "Cho phép theo dõi",
+      "trackingShortDescription": "Tham gia nghiên cứu đánh giá J-PAL để cải thiện {{appName}}.",
+      "trackingMoreInformation": "Thông tin thêm về đánh giá J-Pal và mục đích nghiên cứu",
+      "trackingDescription": "{{appName}} yêu cầu cấp quyền để theo dõi mức sử dụng ứng dụng của bạn. Dữ liệu của bạn sẽ được ẩn danh và chỉ được dùng cho mục đích nghiên cứu và cải thiện ứng dụng. Dữ liệu theo dõi sẽ không được chia sẻ hoặc xử lý cho mục đích quảng cáo hay thương mại khác.",
+      "trackingLeaveTitle": "Cho phép theo dõi?",
+      "trackingLeaveDescription": "Bạn đã tắt tính năng theo dõi. Dữ liệu theo dõi giúp chúng tôi cải thiện ứng dụng {{appName}} và cung cấp thông tin tốt hơn cho người nhập cư. Bạn có chắc chắn muốn thoát khỏi màn hình này mà không bật theo dõi không?",
+      "enabled": "đã kích hoạt",
+      "disabled": "đã vô hiệu hóa",
+      "decline": "Từ chối",
+      "externalResourcesTitle": "Nguồn bên ngoài",
+      "externalResourcesDescription": "Chỉ định các nguồn bên ngoài được phép."
+    },
     "zh-CN": {
       "sentryTitle": "应用程序稳定性",
       "sentryDescription": "通过自动发送崩溃报告来改进{{appName}}应用程序",
@@ -13946,6 +14316,12 @@
       "whatsappTooltip": "واٹس ایپ میں شیئر کریں",
       "closeTooltip": "بند کریں"
     },
+    "vi": {
+      "facebookTooltip": "chia sẻ trên Facebook",
+      "mailTooltip": "giới thiệu qua email",
+      "whatsappTooltip": "chia sẻ trên WhatsApp",
+      "closeTooltip": "Đóng"
+    },
     "zh-CN": {
       "facebookTooltip": "在 Facebook 分享",
       "mailTooltip": "通过电子邮件推荐",
@@ -14070,6 +14446,9 @@
     },
     "ur": {
       "noOffersAvailable": "کوئی پیش کشیں دستیاب نہیں"
+    },
+    "vi": {
+      "noOffersAvailable": "Không có đề xuất nào khả dụng"
     },
     "zh-CN": {
       "noOffersAvailable": "目前没有提供项目"

@@ -93,6 +93,7 @@ const SearchModal = ({
               renderItem={renderItem}
               accessibilityLabel={t('searchResultsCount', { count: searchResults.length })}
               style={{ flex: 1 }}
+              keyboardShouldPersistTaps='handled'
               noItemsMessage={
                 <FeedbackContainer
                   routeType={SEARCH_ROUTE}
