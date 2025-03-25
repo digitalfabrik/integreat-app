@@ -15,8 +15,6 @@ environment:
   FASTLANE_SKIP_UPDATE_CHECK: true
 steps:
   - checkout
-  - skip_job:
-      build_config_name: << parameters.build_config_name >>
   - prepare_workspace
   - restore_environment_variables
   - restore_yarn_tools_cache

@@ -194,37 +194,6 @@ commands:
                 paths:
                     - ~/.cache/yarn-tools
                     - tools/node_modules
-    skip_job:
-        description: Skips the current build if neccassary
-        parameters:
-            build_config_name:
-                default: all
-                enum:
-                    - integreat
-                    - malte
-                    - integreat-e2e
-                    - integreat-test-cms
-                    - malte-test-cms
-                    - aschaffenburg
-                    - obdach
-                    - all
-                type: enum
-        steps:
-            - run:
-                command: |
-                    function skip_job {
-                      build_config_name=$1
-                      variable_name=SKIP_JOB_${CIRCLE_JOB%-*} # Remove everything after "-". e.g. "check-1" -> check
-                      if [[ -n ${!variable_name} && ($build_config_name =~ ${!variable_name} || "all" =~  ${!variable_name}) ]]; then
-                        message="Job is skipped because the variable $variable_name is set"
-                        echo $message
-                        circleci step halt
-                        source tools/notify-mattermost main integreat-app-notifications "$message"
-                      fi
-                    }
-
-                    skip_job << parameters.build_config_name >>
-                name: Skip the current build if necessary
     unit_test:
         description: Runs the test task and stores coverage and junit data
         steps:
@@ -256,8 +225,6 @@ jobs:
         shell: /bin/bash -eo pipefail
         steps:
             - checkout
-            - skip_job:
-                build_config_name: << parameters.build_config_name >>
             - add_ssh_keys:
                 fingerprints:
                     - 24:1d:3b:b7:b3:49:69:d7:54:c3:93:a5:a2:d1:71:db
@@ -361,8 +328,6 @@ jobs:
         shell: /bin/bash --login -o pipefail
         steps:
             - checkout
-            - skip_job:
-                build_config_name: << parameters.build_config_name >>
             - add_ssh_keys:
                 fingerprints:
                     - 24:1d:3b:b7:b3:49:69:d7:54:c3:93:a5:a2:d1:71:db
@@ -429,8 +394,6 @@ jobs:
         shell: /bin/bash -eo pipefail
         steps:
             - checkout
-            - skip_job:
-                build_config_name: << parameters.build_config_name >>
             - restore_yarn_cache
             - prepare_workspace
             - restore_environment_variables
@@ -465,7 +428,6 @@ jobs:
         resource_class: small
         steps:
             - checkout
-            - skip_job
             - restore_yarn_tools_cache
             - run:
                 command: echo "export NEW_VERSION_NAME=$(yarn --silent next-version calc | jq .versionName)" >> ${BASH_ENV}
@@ -506,7 +468,6 @@ jobs:
         shell: /bin/bash -eo pipefail
         steps:
             - checkout
-            - skip_job
             - check_config
             - restore_yarn_cache
             - restore_yarn_tools_cache
@@ -549,8 +510,6 @@ jobs:
         shell: /bin/bash -eo pipefail
         steps:
             - checkout
-            - skip_job:
-                build_config_name: << parameters.build_config_name >>
             - prepare_workspace
             - restore_environment_variables
             - restore_yarn_tools_cache
@@ -590,8 +549,6 @@ jobs:
         shell: /bin/bash --login -o pipefail
         steps:
             - checkout
-            - skip_job:
-                build_config_name: << parameters.build_config_name >>
             - prepare_workspace
             - restore_environment_variables
             - restore_yarn_tools_cache
@@ -637,7 +594,6 @@ jobs:
         shell: /bin/bash -eo pipefail
         steps:
             - checkout
-            - skip_job
             - add_ssh_keys:
                 fingerprints:
                     - 68:a3:fe:e7:94:f7:a4:13:35:5c:63:30:2f:07:7d:02
@@ -710,7 +666,6 @@ jobs:
         shell: /bin/bash -eo pipefail
         steps:
             - checkout
-            - skip_job
             - prepare_workspace
             - restore_yarn_cache
             - restore_ruby_cache:
@@ -729,7 +684,6 @@ jobs:
         shell: /bin/bash -eo pipefail
         steps:
             - checkout
-            - skip_job
             - prepare_workspace
             - restore_yarn_cache
             - restore_ruby_cache:
@@ -747,7 +701,6 @@ jobs:
         shell: /bin/bash -eo pipefail
         steps:
             - checkout
-            - skip_job
             - prepare_workspace
             - restore_yarn_cache
             - run:
@@ -764,7 +717,6 @@ jobs:
         resource_class: small
         steps:
             - checkout
-            - skip_job
             - prepare_workspace
             - restore_environment_variables
             - restore_yarn_tools_cache
@@ -783,7 +735,6 @@ jobs:
         resource_class: small
         steps:
             - checkout
-            - skip_job
             - prepare_workspace
             - restore_environment_variables
             - restore_yarn_tools_cache
@@ -816,7 +767,6 @@ jobs:
         resource_class: small
         steps:
             - checkout
-            - skip_job
             - prepare_workspace
             - restore_environment_variables
             - restore_yarn_tools_cache
@@ -849,7 +799,6 @@ jobs:
         resource_class: small
         steps:
             - checkout
-            - skip_job
             - prepare_workspace
             - restore_environment_variables
             - restore_yarn_tools_cache
@@ -892,8 +841,6 @@ jobs:
         shell: /bin/bash -eo pipefail
         steps:
             - checkout
-            - skip_job:
-                build_config_name: << parameters.build_config_name >>
             - restore_yarn_cache
             - restore_yarn_tools_cache
             - restore_ruby_cache:
@@ -929,8 +876,6 @@ jobs:
         shell: /bin/bash --login -o pipefail
         steps:
             - checkout
-            - skip_job:
-                build_config_name: << parameters.build_config_name >>
             - restore_yarn_tools_cache
             - restore_yarn_cache
             - restore_ruby_cache:
@@ -957,7 +902,6 @@ jobs:
         shell: /bin/bash -eo pipefail
         steps:
             - checkout
-            - skip_job
             - restore_yarn_tools_cache
             - add_ssh_keys:
                 fingerprints:
@@ -992,7 +936,6 @@ jobs:
         shell: /bin/bash -eo pipefail
         steps:
             - checkout
-            - skip_job
             - prepare_workspace
             - restore_environment_variables
             - run:
@@ -1012,7 +955,6 @@ jobs:
         shell: /bin/bash -eo pipefail
         steps:
             - checkout
-            - skip_job
             - prepare_workspace
             - restore_environment_variables
             - run:
@@ -1032,7 +974,6 @@ jobs:
         shell: /bin/bash -eo pipefail
         steps:
             - checkout
-            - skip_job
             - prepare_workspace
             - restore_environment_variables
             - run:
