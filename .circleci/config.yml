@@ -1195,7 +1195,6 @@ workflows:
                             - integreat
                             - malte
                             - aschaffenburg
-                name: build_android_<< matrix.build_config_name >>
                 requires:
                     - bump_version
             - e2e_android:
@@ -1203,7 +1202,7 @@ workflows:
                     - mattermost
                     - browserstack
                 requires:
-                    - build_android_integreat-e2e
+                    - build_android-integreat-e2e
             - deliver_android:
                 context:
                     - mattermost
@@ -1219,7 +1218,7 @@ workflows:
                 requires:
                     - check
                     - e2e_android
-                    - build_android_<< matrix.build_config_name >>
+                    - build_android-<< matrix.build_config_name >>
             - sentry_android:
                 context:
                     - mattermost
@@ -1245,7 +1244,6 @@ workflows:
                             - integreat
                             - malte
                             - aschaffenburg
-                name: build_ios_<< matrix.build_config_name >>
                 requires:
                     - bump_version
             - e2e_ios:
@@ -1253,7 +1251,7 @@ workflows:
                     - mattermost
                     - browserstack
                 requires:
-                    - build_ios_integreat-e2e
+                    - build_ios-integreat-e2e
             - deliver_ios:
                 context:
                     - mattermost
@@ -1269,7 +1267,7 @@ workflows:
                 requires:
                     - check
                     - e2e_ios
-                    - build_ios_<< matrix.build_config_name >>
+                    - build_ios-<< matrix.build_config_name >>
             - sentry_ios:
                 context:
                     - mattermost
@@ -1371,7 +1369,6 @@ workflows:
                             - integreat
                             - malte
                             - aschaffenburg
-                name: build_android_<< matrix.build_config_name >>
                 requires:
                     - bump_version
             - e2e_android:
@@ -1379,7 +1376,7 @@ workflows:
                     - mattermost
                     - browserstack
                 requires:
-                    - build_android_integreat-e2e
+                    - build_android-integreat-e2e
             - deliver_android:
                 context:
                     - mattermost
@@ -1395,7 +1392,7 @@ workflows:
                 requires:
                     - check
                     - e2e_android
-                    - build_android_<< matrix.build_config_name >>
+                    - build_android-<< matrix.build_config_name >>
             - sentry_android:
                 context:
                     - mattermost
@@ -1421,7 +1418,6 @@ workflows:
                             - integreat
                             - malte
                             - aschaffenburg
-                name: build_ios_<< matrix.build_config_name >>
                 requires:
                     - bump_version
             - e2e_ios:
@@ -1429,7 +1425,7 @@ workflows:
                     - mattermost
                     - browserstack
                 requires:
-                    - build_ios_integreat-e2e
+                    - build_ios-integreat-e2e
             - deliver_ios:
                 context:
                     - mattermost
@@ -1445,7 +1441,7 @@ workflows:
                 requires:
                     - check
                     - e2e_ios
-                    - build_ios_<< matrix.build_config_name >>
+                    - build_ios-<< matrix.build_config_name >>
             - sentry_ios:
                 context:
                     - mattermost
@@ -1533,7 +1529,6 @@ workflows:
                             - integreat
                             - malte
                             - aschaffenburg
-                name: build_android_<< matrix.build_config_name >>
                 requires:
                     - bump_version
             - e2e_android:
@@ -1541,7 +1536,7 @@ workflows:
                     - mattermost
                     - browserstack
                 requires:
-                    - build_android_integreat-e2e
+                    - build_android-integreat-e2e
             - deliver_android:
                 context:
                     - mattermost
@@ -1557,7 +1552,7 @@ workflows:
                 requires:
                     - check
                     - e2e_android
-                    - build_android_<< matrix.build_config_name >>
+                    - build_android-<< matrix.build_config_name >>
             - sentry_android:
                 context:
                     - mattermost
@@ -1583,7 +1578,6 @@ workflows:
                             - integreat
                             - malte
                             - aschaffenburg
-                name: build_ios_<< matrix.build_config_name >>
                 requires:
                     - bump_version
             - e2e_ios:
@@ -1591,7 +1585,7 @@ workflows:
                     - mattermost
                     - browserstack
                 requires:
-                    - build_ios_integreat-e2e
+                    - build_ios-integreat-e2e
             - deliver_ios:
                 context:
                     - mattermost
@@ -1607,7 +1601,7 @@ workflows:
                 requires:
                     - check
                     - e2e_ios
-                    - build_ios_<< matrix.build_config_name >>
+                    - build_ios-<< matrix.build_config_name >>
             - sentry_ios:
                 context:
                     - mattermost
