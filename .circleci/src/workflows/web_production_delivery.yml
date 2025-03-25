@@ -17,29 +17,9 @@ jobs:
       requires:
         - bump_version
   - build_web:
-      name: build_integreat_web
-      build_config_name: integreat
-      context:
-        - mattermost
-      requires:
-        - bump_version
-  - build_web:
-      name: build_malte_web
-      build_config_name: malte
-      context:
-        - mattermost
-      requires:
-        - bump_version
-  - build_web:
-      name: build_aschaffenburg_web
-      build_config_name: aschaffenburg
-      context:
-        - mattermost
-      requires:
-        - bump_version
-  - build_web:
-      name: build_obdach_web
-      build_config_name: obdach
+      matrix:
+        parameters:
+          build_config_name: [integreat, malte, aschaffenburg, obdach]
       context:
         - mattermost
       requires:
@@ -51,19 +31,13 @@ jobs:
       requires:
         - check
         - e2e_web
-        - build_integreat_web
-        - build_malte_web
-        - build_aschaffenburg_web
-        - build_obdach_web
+        - build_web
   - sentry_web:
       context:
         - mattermost
         - sentry
       requires:
-        - build_integreat_web
-        - build_malte_web
-        - build_aschaffenburg_web
-        - build_obdach_web
+        - build_web
   - notify_web:
       production_delivery: true
       context:
