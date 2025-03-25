@@ -13,6 +13,7 @@ const WORKFLOW_TYPES = [
   'web_production_delivery',
   'web_promotion',
   'delivery',
+  'promotion',
   'e2e_tests',
   'native_browserstack',
 ]
