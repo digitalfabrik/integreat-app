@@ -13,7 +13,6 @@ jobs:
         - mattermost
 
   - build_android:
-      name: build_android_<< matrix.build_config_name >>
       matrix:
         parameters:
           build_config_name: [integreat-e2e, integreat, malte, aschaffenburg]
@@ -28,7 +27,7 @@ jobs:
         - mattermost
         - browserstack
       requires:
-        - build_android_integreat-e2e
+        - build_android-integreat-e2e
   - deliver_android:
       production_delivery: true
       matrix:
@@ -41,7 +40,7 @@ jobs:
       requires:
         - check
         - e2e_android
-        - build_android_<< matrix.build_config_name >>
+        - build_android-<< matrix.build_config_name >>
   - sentry_android:
       context:
         - mattermost
@@ -57,7 +56,6 @@ jobs:
         - deliver_android
 
   - build_ios:
-      name: build_ios_<< matrix.build_config_name >>
       matrix:
         parameters:
           build_config_name: [integreat-e2e, integreat, malte, aschaffenburg]
@@ -72,7 +70,7 @@ jobs:
         - mattermost
         - browserstack
       requires:
-        - build_ios_integreat-e2e
+        - build_ios-integreat-e2e
   - deliver_ios:
       production_delivery: true
       matrix:
@@ -85,7 +83,7 @@ jobs:
       requires:
         - check
         - e2e_ios
-        - build_ios_<< matrix.build_config_name >>
+        - build_ios-<< matrix.build_config_name >>
   - sentry_ios:
       context:
         - mattermost
