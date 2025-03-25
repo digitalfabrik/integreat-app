@@ -1,0 +1,5 @@
+issue_key: 3156
+show_in_stores: false
+platforms:
+  - web
+en: Fixed the alignment and behavior of the chat's typing indicator
