@@ -1040,10 +1040,6 @@ version: 2.1
 workflows:
     commit:
         jobs:
-            - bump_version:
-                context:
-                    - mattermost
-                prepare_delivery: false
             - check:
                 context:
                     - mattermost
