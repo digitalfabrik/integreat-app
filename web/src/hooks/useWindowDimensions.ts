@@ -32,12 +32,14 @@ const useWindowDimensions = (): WindowDimensionsType => {
   const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions())
 
   useEffect(() => {
+    // Observe changes to the DOM body and recalculate all window dimensions (e.g. for adding/removing the tts player)
     const resizeObserver = new ResizeObserver(() => setWindowDimensions(getWindowDimensions()))
     resizeObserver.observe(document.body)
     return () => resizeObserver.disconnect()
   }, [])
 
   useEffect(() => {
+    // Observe changes to the window sizes or the scroll position and recalculate all window dimensions
     const handleResize = () => setWindowDimensions(getWindowDimensions())
     window.addEventListener('resize', handleResize)
     window.addEventListener('scroll', handleResize)
