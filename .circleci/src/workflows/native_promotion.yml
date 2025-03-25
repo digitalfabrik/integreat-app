@@ -4,44 +4,18 @@ when:
     - equal: [<< pipeline.parameters.workflow_type >>, native_promotion]
 jobs:
   - promote_android:
-      name: promote_integreat_android
-      build_config_name: integreat
-      context:
-        - mattermost
-        - tuerantuer-google-play
-        - deliverino
-  - promote_android:
-      name: promote_malte_android
-      build_config_name: malte
-      context:
-        - mattermost
-        - tuerantuer-google-play
-        - deliverino
-  - promote_android:
-      name: promote_aschaffenburg_android
-      build_config_name: aschaffenburg
+      matrix:
+        parameters:
+          build_config_name: [integreat, malte, aschaffenburg]
       context:
         - mattermost
         - tuerantuer-google-play
         - deliverino
 
   - promote_ios:
-      name: promote_integreat_ios
-      build_config_name: integreat
-      context:
-        - mattermost
-        - tuerantuer-apple
-        - deliverino
-  - promote_ios:
-      name: promote_malte_ios
-      build_config_name: malte
-      context:
-        - mattermost
-        - tuerantuer-apple
-        - deliverino
-  - promote_ios:
-      name: promote_aschaffenburg_ios
-      build_config_name: aschaffenburg
+      matrix:
+        parameters:
+          build_config_name: [integreat, malte, aschaffenburg]
       context:
         - mattermost
         - tuerantuer-apple
