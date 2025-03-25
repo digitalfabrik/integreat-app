@@ -20,11 +20,12 @@ Several workflows exist for different purposes:
 | commit                     | commits of PRs   | :heavy_check_mark: | :x:             | :x:          | :x:                | :x:                |
 | commit_main                | commits on main  | :x:                | :x:             | webnext      | :x:                | :x:                |
 | delivery                   | script           | :heavy_check_mark: | beta            | beta         | :heavy_check_mark: | :heavy_check_mark: |
+| promotion                  | script           | :x:                | promotion       | promotion    | :x:                | :x:                |
 | native_beta_delivery       | script           | :heavy_check_mark: | beta            | :x:          | :heavy_check_mark: | :x:                |
 | native_production_delivery | script           | :heavy_check_mark: | production      | :x:          | :heavy_check_mark: | :x:                |
+| native_promotion           | script           | :x:                | promotion       | :x:          | :x:                | :x:                |
 | web_beta_delivery          | script           | :heavy_check_mark: | :x:             | beta         | :heavy_check_mark: | :x:                |
 | web_production_delivery    | script           | :heavy_check_mark: | :x:             | production   | :heavy_check_mark: | :x:                |
-| native_promotion           | script           | :x:                | promotion       | :x:          | :x:                | :x:                |
 | web_promotion              | script           | :x:                | :x:             | promotion    | :x:                | :x:                |
 | e2e_tests                  | script           | :x:                | :x:             | :x:          | :x:                | :x:                |
 | native_browserstack        | script           | :x:                | browserstack    | :x:          | :x:                | :x:                |
@@ -37,9 +38,7 @@ Steps executed if _Checks_ is checked :heavy_check_mark::
 - Unit testing with jest
 - Building the app
 
-Steps executed if _Version bump_ is checked :heavy_check_mark::
-
-- Bump version: Bump the version(s) and create a tag and release on github
+If _Version bump_ is checked, the version bumps are committed and a tag and release is created on github.
 
 ## Failed Delivery
 

@@ -1031,6 +1031,7 @@ parameters:
             - web_production_delivery
             - web_promotion
             - delivery
+            - promotion
             - e2e_tests
             - native_browserstack
             - none
@@ -1598,6 +1599,40 @@ workflows:
                 - equal:
                     - << pipeline.parameters.workflow_type >>
                     - native_promotion
+    promotion:
+        jobs:
+            - promote_web:
+                context:
+                    - mattermost
+                    - deliverino
+            - promote_android:
+                context:
+                    - mattermost
+                    - tuerantuer-google-play
+                    - deliverino
+                matrix:
+                    parameters:
+                        build_config_name:
+                            - integreat
+                            - malte
+                            - aschaffenburg
+            - promote_ios:
+                context:
+                    - mattermost
+                    - tuerantuer-apple
+                    - deliverino
+                matrix:
+                    parameters:
+                        build_config_name:
+                            - integreat
+                            - malte
+                            - aschaffenburg
+        when:
+            and:
+                - << pipeline.parameters.api_triggered >>
+                - equal:
+                    - << pipeline.parameters.workflow_type >>
+                    - promotion
     web_beta_delivery:
         jobs:
             - bump_version:
