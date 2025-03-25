@@ -48,4 +48,12 @@ describe('OpeningHours', () => {
     const { getByText } = renderOpeningHours(true, false, openingHours)
     expect(getByText('makeAppointment')).toBeTruthy()
   })
+  it('should display the link to make an appointment without openingHours', () => {
+    const { getByText } = renderOpeningHours(true, false, null)
+    expect(getByText('makeAppointment')).toBeTruthy()
+  })
+  it('should display the link to make an appointment if temporarily closed', () => {
+    const { getByText } = renderOpeningHours(false, true, openingHours)
+    expect(getByText('makeAppointment')).toBeTruthy()
+  })
 })

@@ -91,46 +91,40 @@ const OpeningHours = ({
     </TitleContainer>
   )
 
-  if (isTemporarilyClosed) {
-    return (
-      <>
-        <TitleContainer language={language}>{openingHoursTitle}</TitleContainer>
-        <HorizontalLine />
-      </>
-    )
-  }
+  const shouldShowCollapsible = !isTemporarilyClosed && openingHours && openingHours.length === weekdays.length
 
-  if (!openingHours || openingHours.length !== weekdays.length) {
-    return null
-  }
+  const showHorizontalLine = isTemporarilyClosed || shouldShowCollapsible || appointmentUrl !== null
 
   return (
     <>
-      <Collapsible headerContent={openingHoursTitle} language={language}>
-        <Content>
-          {openingHours.map((entry, index) => (
-            <OpeningEntry
-              key={`${weekdays[index]}-OpeningEntry`}
-              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-              weekday={t(weekdays[index]!)}
-              allDay={entry.allDay}
-              closed={entry.closed}
-              timeSlots={entry.timeSlots}
-              isCurrentDay={index === DateTime.now().weekday - 1}
-              language={language}
-              appointmentOnly={entry.appointmentOnly}
-              appointmentOverlayLink={appointmentOverlayLink}
-            />
-          ))}
-          {appointmentUrl !== null && (
-            <LinkContainer onPress={() => openExternalUrl(appointmentUrl, showSnackbar)} role='link'>
-              <Link>{t('makeAppointment')}</Link>
-              <StyledIcon Icon={ExternalLinkIcon} />
-            </LinkContainer>
-          )}
-        </Content>
-      </Collapsible>
-      <HorizontalLine />
+      {isTemporarilyClosed && <TitleContainer language={language}>{openingHoursTitle}</TitleContainer>}
+      {shouldShowCollapsible && (
+        <Collapsible headerContent={openingHoursTitle} language={language}>
+          <Content>
+            {openingHours.map((entry, index) => (
+              <OpeningEntry
+                key={`${weekdays[index]}-OpeningEntry`}
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                weekday={t(weekdays[index]!)}
+                allDay={entry.allDay}
+                closed={entry.closed}
+                timeSlots={entry.timeSlots}
+                isCurrentDay={index === DateTime.now().weekday - 1}
+                language={language}
+                appointmentOnly={entry.appointmentOnly}
+                appointmentOverlayLink={appointmentOverlayLink}
+              />
+            ))}
+          </Content>
+        </Collapsible>
+      )}
+      {appointmentUrl !== null && (
+        <LinkContainer onPress={() => openExternalUrl(appointmentUrl, showSnackbar)} role='link'>
+          <Link>{t('makeAppointment')}</Link>
+          <StyledIcon Icon={ExternalLinkIcon} />
+        </LinkContainer>
+      )}
+      {showHorizontalLine && <HorizontalLine />}
     </>
   )
 }
