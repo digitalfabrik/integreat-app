@@ -47,8 +47,28 @@ const TypingIndicator = ({ isVisible }: TypingIndicatorProps): ReactElement | nu
 
 const TYPING_INDICATOR_TIMEOUT = 60000
 
-const useTypingIndicator = (waitingForAnswer: boolean, ref: React.RefObject<HTMLDivElement>) => {
+const ChatConversation = ({ messages, hasError, className }: ChatConversationProps): ReactElement => {
+  const { t } = useTranslation('chat')
+  const [messagesCount, setMessagesCount] = useState(0)
+  const messagesEndRef = useRef<HTMLDivElement>(null)
+  const isLastMessageFromUser = messages[messages.length - 1]?.userIsAuthor
+  const hasOnlyReceivedInfoMessage = messages.filter(message => !message.userIsAuthor).length === 1
+  const waitingForAnswer = isLastMessageFromUser || hasOnlyReceivedInfoMessage
   const [typingIndicatorVisible, setTypingIndicatorVisible] = useState(false)
+
+  const scrollToBottom = async (beforeScroll?: () => void | Promise<void>) => {
+    if (beforeScroll) {
+      await beforeScroll()
+    }
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  useEffect(() => {
+    if (messagesCount < messages.length) {
+      scrollToBottom()
+      setMessagesCount(messages.length)
+    }
+  }, [messages, messagesCount])
 
   useEffect(() => {
     if (waitingForAnswer) {
@@ -62,28 +82,9 @@ const useTypingIndicator = (waitingForAnswer: boolean, ref: React.RefObject<HTML
 
   useEffect(() => {
     if (typingIndicatorVisible) {
-      ref.current?.scrollIntoView({ behavior: 'smooth' })
+      scrollToBottom()
     }
-  }, [typingIndicatorVisible, ref])
-
-  return typingIndicatorVisible
-}
-
-const ChatConversation = ({ messages, hasError, className }: ChatConversationProps): ReactElement => {
-  const { t } = useTranslation('chat')
-  const [messagesCount, setMessagesCount] = useState(0)
-  const messagesEndRef = useRef<HTMLDivElement>(null)
-  const isLastMessageFromUser = messages[messages.length - 1]?.userIsAuthor
-  const hasOnlyReceivedInfoMessage = messages.filter(message => !message.userIsAuthor).length === 1
-  const waitingForAnswer = isLastMessageFromUser || hasOnlyReceivedInfoMessage
-  const typingIndicatorVisible = useTypingIndicator(waitingForAnswer, messagesEndRef)
-
-  useEffect(() => {
-    if (messagesCount < messages.length) {
-      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-      setMessagesCount(messages.length)
-    }
-  }, [messages, messagesCount])
+  }, [typingIndicatorVisible])
 
   return (
     <Container className={className}>
