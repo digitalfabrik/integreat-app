@@ -4,7 +4,6 @@ docker:
 resource_class: small
 steps:
   - checkout
-  - skip_job
   - prepare_workspace
   - restore_environment_variables
   - restore_yarn_tools_cache

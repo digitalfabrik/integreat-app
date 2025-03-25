@@ -5,7 +5,6 @@ resource_class: small
 shell: /bin/bash -eo pipefail
 steps:
   - checkout
-  - skip_job
   - prepare_workspace
   - restore_environment_variables
   - run:

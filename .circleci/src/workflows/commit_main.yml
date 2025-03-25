@@ -4,45 +4,20 @@ when:
     - not: << pipeline.parameters.api_triggered >>
 jobs:
   - bump_version:
-      context:
-        - mattermost
       prepare_delivery: false
-
-  - build_web:
-      name: build_ig_test_cms_web
-      build_config_name: integreat-test-cms
       context:
         - mattermost
-      requires:
-        - bump_version
   - build_web:
-      name: build_malte_test_cms_web
-      build_config_name: malte-test-cms
-      context:
-        - mattermost
-      requires:
-        - bump_version
-  - build_web:
-      name: build_aschaffenburg_web
-      build_config_name: aschaffenburg
-      context:
-        - mattermost
-      requires:
-        - bump_version
-  - build_web:
-      name: build_obdach_web
-      build_config_name: obdach
+      matrix:
+        parameters:
+          build_config_name: [integreat-test-cms, malte-test-cms, aschaffenburg, obdach]
       context:
         - mattermost
       requires:
         - bump_version
   - deliver_web:
+      delivery: webnext
       context:
         - mattermost
-        - sentry
-      delivery: webnext
       requires:
-        - build_ig_test_cms_web
-        - build_malte_test_cms_web
-        - build_aschaffenburg_web
-        - build_obdach_web
+        - build_web

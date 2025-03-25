@@ -4,10 +4,10 @@ when:
     - equal: [<< pipeline.parameters.workflow_type >>, web_beta_delivery]
 jobs:
   - bump_version:
+      prepare_delivery: true
       context:
         - mattermost
         - deliverino
-      prepare_delivery: true
   - check:
       context:
         - mattermost
@@ -17,53 +17,27 @@ jobs:
       requires:
         - bump_version
   - build_web:
-      name: build_integreat_web
-      build_config_name: integreat
-      context:
-        - mattermost
-      requires:
-        - bump_version
-  - build_web:
-      name: build_malte_web
-      build_config_name: malte
-      context:
-        - mattermost
-      requires:
-        - bump_version
-  - build_web:
-      name: build_aschaffenburg_web
-      build_config_name: aschaffenburg
-      context:
-        - mattermost
-      requires:
-        - bump_version
-  - build_web:
-      name: build_obdach_web
-      build_config_name: obdach
+      matrix:
+        parameters:
+          build_config_name: [integreat, malte, aschaffenburg, obdach]
       context:
         - mattermost
       requires:
         - bump_version
   - deliver_web:
+      delivery: beta
       context:
         - mattermost
-      delivery: beta
       requires:
         - check
         - e2e_web
-        - build_integreat_web
-        - build_malte_web
-        - build_aschaffenburg_web
-        - build_obdach_web
+        - build_web
   - sentry_web:
       context:
         - mattermost
         - sentry
       requires:
-        - build_integreat_web
-        - build_malte_web
-        - build_aschaffenburg_web
-        - build_obdach_web
+        - build_web
   - notify_web:
       production_delivery: false
       context:
