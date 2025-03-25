@@ -6,15 +6,14 @@ import { MAIN_BRANCH } from './constants.js'
 const CIRCLECI_URL = 'https://circleci.com/api/v2/project/github/digitalfabrik/integreat-app/pipeline'
 const WORKFLOW_TYPES = [
   'none',
+  'delivery',
+  'promotion',
   'native_beta_delivery',
   'native_production_delivery',
   'native_promotion',
   'web_beta_delivery',
   'web_production_delivery',
   'web_promotion',
-  'delivery',
-  'e2e_tests',
-  'native_browserstack',
 ]
 
 program

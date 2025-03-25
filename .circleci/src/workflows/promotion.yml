@@ -1,0 +1,25 @@
+when:
+  and:
+    - << pipeline.parameters.api_triggered >>
+    - equal: [<< pipeline.parameters.workflow_type >>, promotion]
+jobs:
+  - promote_web:
+      context:
+        - mattermost
+        - deliverino
+  - promote_android:
+      matrix:
+        parameters:
+          build_config_name: [integreat, malte, aschaffenburg]
+      context:
+        - mattermost
+        - tuerantuer-google-play
+        - deliverino
+  - promote_ios:
+      matrix:
+        parameters:
+          build_config_name: [integreat, malte, aschaffenburg]
+      context:
+        - mattermost
+        - tuerantuer-apple
+        - deliverino
