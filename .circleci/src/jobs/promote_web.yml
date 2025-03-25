@@ -4,7 +4,6 @@ resource_class: small
 shell: /bin/bash -eo pipefail
 steps:
   - checkout
-  - skip_job
   - restore_yarn_tools_cache
   - add_ssh_keys:
       fingerprints:
