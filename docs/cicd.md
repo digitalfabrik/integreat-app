@@ -27,8 +27,6 @@ Several workflows exist for different purposes:
 | web_beta_delivery          | script           | :heavy_check_mark: | :x:             | beta         | :heavy_check_mark: | :x:                |
 | web_production_delivery    | script           | :heavy_check_mark: | :x:             | production   | :heavy_check_mark: | :x:                |
 | web_promotion              | script           | :x:                | :x:             | promotion    | :x:                | :x:                |
-| e2e_tests                  | script           | :x:                | :x:             | :x:          | :x:                | :x:                |
-| native_browserstack        | script           | :x:                | browserstack    | :x:          | :x:                | :x:                |
 
 Steps executed if _Checks_ is checked :heavy_check_mark::
 
