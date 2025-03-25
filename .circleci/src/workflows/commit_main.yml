@@ -4,10 +4,9 @@ when:
     - not: << pipeline.parameters.api_triggered >>
 jobs:
   - bump_version:
+      prepare_delivery: false
       context:
         - mattermost
-      prepare_delivery: false
-
   - build_web:
       matrix:
         parameters:
@@ -17,8 +16,8 @@ jobs:
       requires:
         - bump_version
   - deliver_web:
+      delivery: webnext
       context:
         - mattermost
-      delivery: webnext
       requires:
         - build_web

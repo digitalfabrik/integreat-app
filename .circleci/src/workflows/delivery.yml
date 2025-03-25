@@ -4,10 +4,10 @@ when:
     - equal: [<< pipeline.parameters.workflow_type >>, delivery]
 jobs:
   - bump_version:
+      prepare_delivery: true
       context:
         - mattermost
         - deliverino
-      prepare_delivery: true
   - check:
       context:
         - mattermost
@@ -26,9 +26,9 @@ jobs:
       requires:
         - bump_version
   - deliver_web:
+      delivery: beta
       context:
         - mattermost
-      delivery: beta
       requires:
         - check
         - e2e_web
@@ -65,6 +65,7 @@ jobs:
       requires:
         - build_android_integreat-e2e
   - deliver_android:
+      production_delivery: false
       matrix:
         parameters:
           build_config_name: [integreat, malte, aschaffenburg]
@@ -72,7 +73,6 @@ jobs:
         - mattermost
         - browserstack
         - tuerantuer-google-play
-      production_delivery: false
       requires:
         - check
         - e2e_android
@@ -84,10 +84,10 @@ jobs:
       requires:
         - build_android
   - notify_android:
+      production_delivery: false
       context:
         - mattermost
         - deliverino
-      production_delivery: false
       requires:
         - deliver_android
 
@@ -109,6 +109,7 @@ jobs:
       requires:
         - build_ios_integreat-e2e
   - deliver_ios:
+      production_delivery: false
       matrix:
         parameters:
           build_config_name: [integreat, malte, aschaffenburg]
@@ -116,7 +117,6 @@ jobs:
         - mattermost
         - browserstack
         - tuerantuer-apple
-      production_delivery: false
       requires:
         - check
         - e2e_ios
@@ -128,10 +128,10 @@ jobs:
       requires:
         - build_ios
   - notify_ios:
+      production_delivery: false
       context:
         - mattermost
         - deliverino
-      production_delivery: false
       requires:
         - deliver_ios
 

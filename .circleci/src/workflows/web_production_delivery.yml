@@ -4,10 +4,10 @@ when:
     - equal: [<< pipeline.parameters.workflow_type >>, web_production_delivery]
 jobs:
   - bump_version:
+      prepare_delivery: true
       context:
         - mattermost
         - deliverino
-      prepare_delivery: true
   - check:
       context:
         - mattermost
@@ -25,9 +25,9 @@ jobs:
       requires:
         - bump_version
   - deliver_web:
+      delivery: production
       context:
         - mattermost
-      delivery: production
       requires:
         - check
         - e2e_web
