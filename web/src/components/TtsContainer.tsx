@@ -1,20 +1,19 @@
 import EasySpeech from 'easy-speech'
-import React, { createContext, ReactElement, useEffect, useMemo, useRef, useState } from 'react'
+import React, { createContext, ReactElement, useCallback, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { TTS_MAX_TITLE_DISPLAY_CHARS } from 'shared'
 import { truncate } from 'shared/utils/getExcerpt'
 
 import buildConfig from '../constants/buildConfig'
-import useDetectBottomWhileScroll from '../hooks/useDetectBottomWhileScroll'
-import { reportError } from '../utils/sentry'
+import TtsHelpModal from './TtsHelpModal'
 import TtsPlayer from './TtsPlayer'
 
 export type TtsContextType = {
   enabled?: boolean
   canRead: boolean
   visible: boolean
-  setVisible: (visible: boolean) => void
+  showTtsPlayer: () => void
   sentences: string[]
   setSentences: (sentences: string[]) => void
 }
@@ -23,10 +22,13 @@ export const TtsContext = createContext<TtsContextType>({
   enabled: false,
   canRead: false,
   visible: false,
-  setVisible: () => undefined,
+  showTtsPlayer: () => undefined,
   sentences: [],
   setSentences: () => undefined,
 })
+
+const initializedStatus = ['init: failed', 'created']
+const ttsInitialized = () => !initializedStatus.some(status => EasySpeech.status().status.includes(status))
 
 type TtsContainerProps = {
   languageCode: string
@@ -35,177 +37,145 @@ type TtsContainerProps = {
 
 const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactElement | null => {
   const { t } = useTranslation('layout')
+  const afterStopRef = useRef<(() => void) | null>(null)
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
   const [visible, setVisible] = useState(false)
   const [sentences, setSentences] = useState<string[]>([])
-  const [currentSentencesIndex, setCurrentSentenceIndex] = useState<number>(0)
+  const [sentenceIndex, setSentenceIndex] = useState(0)
   const [showHelpModal, setShowHelpModal] = useState(false)
   const title = sentences[0] || t('nothingToRead')
   const shortTitle = truncate(title, { maxChars: TTS_MAX_TITLE_DISPLAY_CHARS })
-  const userAgent = navigator.userAgent.toLowerCase()
-  const isAndroid = /android/i.test(userAgent)
-  const isFirefoxAndLinux = userAgent.includes('firefox') && userAgent.includes('linux')
-  const onEndGuard = useRef(true)
-  const fallbackTimer = 1000
   const enabled = buildConfig().featureFlags.tts
   const canRead = enabled && sentences.length > 1
-  const { isReachedBottom } = useDetectBottomWhileScroll()
 
-  useEffect(() => {
-    if (!enabled && !visible) {
-      return
+  const initializeTts = useCallback(() => {
+    if (buildConfig().featureFlags.tts) {
+      EasySpeech.init({ maxTimeout: 500, interval: 250 })
+        .then(() => setVisible(true))
+        .catch(() => setShowHelpModal(true))
     }
+  }, [])
 
-    EasySpeech.init({ maxTimeout: 5000, interval: 250 }).catch(reportError)
-  }, [enabled, visible])
-
-  const resetOnEnd = () => {
-    setCurrentSentenceIndex(0)
-    setIsPlaying(false)
-    onEndGuard.current = false
-  }
-
-  const stop = () => {
-    try {
+  const stopPlayer = useCallback((afterStop: () => void = () => undefined) => {
+    if (ttsInitialized()) {
+      // The end event is always emitted if the current utterance is stopped (incl. finish, cancel and pause)
+      // The end event is only emitted after some time, such that we can only start the next utterance after to avoid autoplaying the next utterance
+      // https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesisUtterance/end_event
+      afterStopRef.current = afterStop
       EasySpeech.cancel()
-      onEndGuard.current = false
-    } catch (e) {
-      reportError(e)
     }
+  }, [])
+
+  const stop = useCallback(() => {
+    setSentenceIndex(0)
+    setIsPlaying(false)
+    stopPlayer()
+  }, [stopPlayer])
+
+  const pause = () => {
+    setIsPlaying(false)
+    stopPlayer()
   }
 
-  const play = async (index = currentSentencesIndex) => {
-    try {
-      const voices = EasySpeech.voices()
-      const selectedVoice = voices.find((voice: SpeechSynthesisVoice) => voice.lang.startsWith(languageCode))
-
-      if (selectedVoice == null || EasySpeech.status().status === 'created') {
-        setSentences([])
+  const play = useCallback(
+    async (index = sentenceIndex) => {
+      const voice = ttsInitialized() ? EasySpeech.voices().find(voice => voice.lang.startsWith(languageCode)) : null
+      if (!voice) {
         setShowHelpModal(true)
         return
       }
 
-      await EasySpeech.speak({
-        text: String(sentences[index]),
-        voice: selectedVoice,
-        volume: 0.6,
-        rate: 0.8,
-        end: () => {
-          if (onEndGuard.current) {
-            setCurrentSentenceIndex((prevIndex: number) => {
-              const newIndex = prevIndex + 1
-              if (newIndex < sentences.length - 1) {
-                play(newIndex)
-              } else {
-                resetOnEnd()
-                stop()
-              }
-              return newIndex
-            })
+      const safeIndex = Math.max(0, index)
+      const sentence = sentences[safeIndex]
+
+      if (!sentence) {
+        stop()
+        return
+      }
+
+      setSentenceIndex(safeIndex)
+
+      try {
+        setIsPlaying(true)
+        await EasySpeech.speak({
+          text: sentence,
+          voice,
+          volume: 0.6,
+          rate: 0.8,
+          end: () => {
+            // We only want to play the next sentence if the current utterance is finished and the user did not stop it manually
+            // Otherwise, execute afterStop (play previous or next sentence for playPrevious/Next or noop for stop)
+            if (afterStopRef.current) {
+              afterStopRef.current()
+              afterStopRef.current = null
+            } else {
+              play(safeIndex + 1)
+            }
+          },
+        })
+      } catch (e) {
+        // Chrome throws an interrupted error event on cancel instead of emitting an end event
+        if (e instanceof SpeechSynthesisErrorEvent && e.error === 'interrupted') {
+          if (afterStopRef.current) {
+            afterStopRef.current()
+            afterStopRef.current = null
           }
-        },
-      }).catch(() => null) // at chrome this will throw interrupted errors
-    } catch (_) {
-      setShowHelpModal(true)
-    }
-  }
-
-  const fallbackPlay = (index?: number) => {
-    setTimeout(() => {
-      // if paused at end of sentence and there is nothing to resume this should play
-      const shouldPlay = !window.speechSynthesis.speaking && onEndGuard.current && isPlaying
-      if (shouldPlay) {
-        play(index)
-      }
-    }, fallbackTimer)
-  }
-
-  const pause = () => {
-    onEndGuard.current = false
-    EasySpeech.pause()
-    setIsPlaying(false)
-  }
-
-  const togglePlayPause = () => {
-    try {
-      const canResume = currentSentencesIndex !== 0 && !isAndroid && !isFirefoxAndLinux
-      if (isPlaying) {
-        if (isFirefoxAndLinux) {
-          stop()
+        } else {
+          reportError(e)
         }
-        pause()
-      } else if (canResume) {
-        setIsPlaying(true)
-        onEndGuard.current = true
-        EasySpeech.resume()
-
-        fallbackPlay()
-      } else {
-        setIsPlaying(true)
-        onEndGuard.current = true
-        play()
-        fallbackPlay()
       }
-    } catch (_) {
-      setShowHelpModal(true)
-    }
-  }
+    },
+    [sentenceIndex, setIsPlaying, sentences, stop, languageCode],
+  )
 
-  const playNext = async () => {
-    const nextIndex = currentSentencesIndex + 1
-    if (nextIndex < sentences.length) {
-      setCurrentSentenceIndex(nextIndex)
-      stop()
-      await play(nextIndex)
-      onEndGuard.current = true
-      fallbackPlay(nextIndex)
-    }
-  }
-
-  const playPrevious = async () => {
-    const previousIndex = currentSentencesIndex - 1
-    if (previousIndex >= 0) {
-      setCurrentSentenceIndex(previousIndex)
-      stop()
-      await play(previousIndex)
-      onEndGuard.current = true
-      fallbackPlay(previousIndex)
-    }
+  const startPlaying = () => {
+    afterStopRef.current = null
+    play()
   }
 
   const close = () => {
     setVisible(false)
+    setShowHelpModal(false)
     stop()
-    setCurrentSentenceIndex(0)
-    setIsPlaying(false)
   }
+
+  const playPrevious = () => stopPlayer(() => play(sentenceIndex - 1))
+  const playNext = () => stopPlayer(() => play(sentenceIndex + 1))
+
+  const updateSentences = useCallback(
+    (newSentences: string[]) => {
+      setSentences(newSentences)
+      stop()
+    },
+    [stop],
+  )
 
   const ttsContextValue = useMemo(
     () => ({
       enabled,
       canRead,
       visible,
-      setVisible,
+      showTtsPlayer: initializeTts,
       sentences,
-      setSentences,
+      setSentences: updateSentences,
     }),
-    [enabled, canRead, visible, sentences],
+    [enabled, canRead, visible, sentences, updateSentences, initializeTts],
   )
 
   return (
     <TtsContext.Provider value={ttsContextValue}>
       {children}
+      {showHelpModal && <TtsHelpModal closeModal={close} />}
       {visible && (
         <TtsPlayer
-          playPrevious={playPrevious}
+          disabled={sentences.length === 0}
           close={close}
+          playPrevious={playPrevious}
           playNext={playNext}
           isPlaying={isPlaying}
-          setShowHelpModal={setShowHelpModal}
-          showHelpModal={showHelpModal}
-          togglePlayPause={togglePlayPause}
+          pause={pause}
+          play={startPlaying}
           title={shortTitle}
-          isReachedBottom={isReachedBottom}
         />
       )}
     </TtsContext.Provider>

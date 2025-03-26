@@ -13,10 +13,10 @@ export type DimensionsType = {
   toolbarWidth: number
   toolbarHeight: number
   ttsPlayerHeight: number
+  maxTtsPlayerWidth: number
   poiDetailNavigation: number
   headerHeightLarge: number
   headerHeightSmall: number
-  footerHeight: number
   navigationMenuHeight: number
   poiDesktopPanelWidth: number
   mainContainerHorizontalPadding: number
@@ -33,10 +33,10 @@ const dimensions: DimensionsType = {
   toolbarWidth: 200,
   poiDetailNavigation: 42,
   toolbarHeight: 66,
-  ttsPlayerHeight: 80,
+  ttsPlayerHeight: 90,
+  maxTtsPlayerWidth: 576,
   headerHeightLarge: 90,
   headerHeightSmall: 70,
-  footerHeight: 50,
   navigationMenuHeight: 90,
   poiDesktopPanelWidth: 332,
   mainContainerHorizontalPadding: 10,

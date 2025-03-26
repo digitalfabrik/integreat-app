@@ -1,12 +1,12 @@
 import { DateTime } from 'luxon'
-import React, { ReactElement, ReactNode } from 'react'
+import React, { ReactElement, ReactNode, useContext } from 'react'
 import styled from 'styled-components'
 
 import dimensions from '../constants/dimensions'
-import useTtsPlayer from '../hooks/useTtsPlayer'
 import Caption from './Caption'
 import LastUpdateInfo from './LastUpdateInfo'
 import RemoteContent from './RemoteContent'
+import { TtsContext } from './TtsContainer'
 
 export const THUMBNAIL_WIDTH = 300
 
@@ -21,6 +21,7 @@ const Thumbnail = styled.img`
 
 const SpaceForTts = styled.div<{ $ttsPlayerVisible: boolean }>`
   height: ${props => (props.$ttsPlayerVisible ? dimensions.ttsPlayerHeight : 0)}px;
+  transition: height 250ms ease-in;
 `
 
 type PageProps = {
@@ -44,7 +45,8 @@ const Page = ({
   AfterContent,
   Footer,
 }: PageProps): ReactElement => {
-  const { visible: ttsPlayerVisible } = useTtsPlayer()
+  const { visible: ttsPlayerVisible } = useContext(TtsContext)
+
   return (
     <>
       {!!thumbnailSrcSet && <Thumbnail alt='' srcSet={thumbnailSrcSet} />}

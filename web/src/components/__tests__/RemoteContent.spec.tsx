@@ -12,10 +12,12 @@ jest.mock('react-router-dom', () => ({
 }))
 jest.mock('react-i18next')
 
+jest.mock('../../hooks/useWindowDimensions', () => jest.fn(() => ({})))
+
 describe('RemoteContent', () => {
   window.open = jest.fn()
 
-  beforeEach(jest.resetAllMocks)
+  beforeEach(jest.clearAllMocks)
 
   it('should render the html content', () => {
     const content = 'Test html'

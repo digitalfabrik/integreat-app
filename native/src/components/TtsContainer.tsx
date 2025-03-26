@@ -12,6 +12,7 @@ import useSnackbar from '../hooks/useSnackbar'
 import { reportError } from '../utils/sentry'
 import TtsPlayer from './TtsPlayer'
 
+// For a list of available languages see https://cloud.google.com/text-to-speech/docs/list-voices-and-types#list_of_all_supported_languages
 const TTS_UNSUPPORTED_LANGUAGES = ['fa', 'ka', 'kmr']
 const TTS_OPTIONS: Options = {
   androidParams: {
@@ -53,7 +54,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
   const { t } = useTranslation('layout')
   const showSnackbar = useSnackbar()
   const title = sentences[0] || t('nothingToRead')
-  const longTitle = truncate(title, { maxChars: TTS_MAX_TITLE_DISPLAY_CHARS })
+  const shortTitle = truncate(title, { maxChars: TTS_MAX_TITLE_DISPLAY_CHARS })
   const enabled = buildConfig().featureFlags.tts && !TTS_UNSUPPORTED_LANGUAGES.includes(languageCode)
 
   const initializeTts = useCallback(async (): Promise<void> => {
@@ -78,7 +79,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
       })
   }, [initializeTts, enabled, sentences.length, visible, showSnackbar, t])
 
-  const removeTtsListenerAndStop = async () => {
+  const stopPlayer = useCallback(async () => {
     // iOS wrongly sends tts-finish instead of tts-cancel if calling Tts.stop()
     // We therefore have to remove the listener before stopping to avoid playing the next sentence
     // https://github.com/ak1394/react-native-tts/issues/198
@@ -92,10 +93,6 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
       const ttsStopDelay = 100
       setTimeout(resolve, ttsStopDelay)
     })
-  }
-
-  const stopPlayer = useCallback(async () => {
-    await removeTtsListenerAndStop()
   }, [])
 
   const stop = useCallback(() => {
@@ -164,13 +161,13 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
       {visible && (
         <TtsPlayer
           isPlaying={isPlaying}
-          sentences={sentences}
+          disabled={sentences.length === 0}
           playPrevious={() => play(sentenceIndex - 1)}
           playNext={() => play(sentenceIndex + 1)}
           close={close}
           pause={pause}
           play={play}
-          title={longTitle}
+          title={shortTitle}
         />
       )}
     </TtsContext.Provider>

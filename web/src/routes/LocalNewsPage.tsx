@@ -38,7 +38,7 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
   } = useLoadFromEndpoint(createLocalNewsEndpoint, cmsApiBaseUrl, { city: cityCode, language: languageCode })
 
   const newsModel = newsId ? localNews?.find((it: LocalNewsModel) => it.id.toString() === newsId) : undefined
-  useTtsPlayer(languageCode, newsModel)
+  useTtsPlayer(newsModel, languageCode)
 
   if (!city) {
     return null
