@@ -86,6 +86,7 @@ const PoisBottomSheet = ({
 
   return (
     <StyledBottomSheet
+      accessibilityLabel=''
       index={snapPointIndex}
       isFullscreen={isFullscreen}
       snapPoints={snapPoints}
@@ -102,6 +103,7 @@ const PoisBottomSheet = ({
             ref={poiListRef}
             data={pois}
             role='list'
+            accessibilityLabel={t('poisCount', { count: pois.length })}
             renderItem={renderPoiListItem}
             onMomentumScrollBegin={event => setScrollPosition(event.nativeEvent.contentOffset.y)}
             showsVerticalScrollIndicator={false}

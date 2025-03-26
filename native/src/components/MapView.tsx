@@ -174,6 +174,8 @@ const MapView = ({
   return (
     <MapContainer>
       <StyledMap
+        importantForAccessibility='no'
+        accessibilityElementsHidden
         styleJSON={mapConfig.styleJSON}
         zoomEnabled
         onPress={onPress}
