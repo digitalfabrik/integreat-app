@@ -12,7 +12,7 @@ import CityContentHeader from './CityContentHeader'
 import Layout from './Layout'
 
 export type CityContentLayoutProps = {
-  Toolbar?: ReactNode
+  Toolbar?: ReactElement | null
   children?: ReactNode
   route: RouteType
   languageChangePaths: { code: string; path: string | null; name: string }[] | null
@@ -41,8 +41,6 @@ const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
   } = props
 
   const isChatEnabled = buildConfig().featureFlags.chat && route !== POIS_ROUTE && city.chatEnabled
-  // to avoid jumping issues for desktop, isLoading is only checked on mobile viewport
-  const isLoadingMobile = isLoading && viewportSmall
   return (
     <Layout
       disableScrollingSafari={disableScrollingSafari}
@@ -56,12 +54,12 @@ const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
         />
       }
       footer={
-        !isLoading && showFooter && !viewportSmall ? (
-          <CityContentFooter city={city.code} language={languageCode} />
-        ) : null
+        viewportSmall
+          ? !isLoading && Toolbar
+          : showFooter && !isLoading && <CityContentFooter city={city.code} language={languageCode} />
       }
       chat={isChatEnabled ? <ChatContainer city={city.code} language={languageCode} /> : undefined}
-      toolbar={!isLoadingMobile && Toolbar}>
+      toolbar={viewportSmall ? null : Toolbar}>
       {children}
     </Layout>
   )

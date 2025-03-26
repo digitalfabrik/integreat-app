@@ -1,8 +1,7 @@
-import React, { ReactNode } from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 import styled, { css } from 'styled-components'
 
 import dimensions from '../constants/dimensions'
-import useWindowDimensions from '../hooks/useWindowDimensions'
 import '../styles/Aside.css'
 import { MobileBanner } from './MobileBanner'
 import Portal from './Portal'
@@ -99,7 +98,7 @@ export const LAYOUT_ELEMENT_ID = 'layout'
 type LayoutProps = {
   footer?: ReactNode
   header?: ReactNode
-  toolbar?: ReactNode
+  toolbar?: ReactElement | null
   chat?: ReactNode
   children?: ReactNode
   fullWidth?: boolean
@@ -114,26 +113,21 @@ const Layout = ({
   children,
   fullWidth = false,
   disableScrollingSafari = false,
-}: LayoutProps): JSX.Element => {
-  const { viewportSmall } = useWindowDimensions()
-
-  return (
-    <RichLayout id={LAYOUT_ELEMENT_ID}>
-      <MobileBanner />
-      {header}
-      <Body $fullWidth={fullWidth} $disableScrollingSafari={disableScrollingSafari}>
-        {!viewportSmall && (
-          <Portal className='aside' show>
-            {toolbar}
-          </Portal>
-        )}
-        <Main $fullWidth={fullWidth}>{children}</Main>
-      </Body>
-      {viewportSmall && toolbar}
-      {chat}
-      {footer}
-    </RichLayout>
-  )
-}
+}: LayoutProps): ReactElement => (
+  <RichLayout id={LAYOUT_ELEMENT_ID}>
+    <MobileBanner />
+    {header}
+    <Body $fullWidth={fullWidth} $disableScrollingSafari={disableScrollingSafari}>
+      {toolbar ? (
+        <Portal className='aside' show>
+          {toolbar}
+        </Portal>
+      ) : null}
+      <Main $fullWidth={fullWidth}>{children}</Main>
+    </Body>
+    {chat}
+    {footer}
+  </RichLayout>
+)
 
 export default Layout

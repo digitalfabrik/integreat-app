@@ -4,6 +4,10 @@ import styled from 'styled-components'
 import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 
+const Container = styled.div`
+  /* noop */
+`
+
 const ToolbarContainer = styled.div<{ $direction: 'row' | 'column'; $hasPadding: boolean }>`
   display: flex;
   box-sizing: border-box;
@@ -54,12 +58,12 @@ const Toolbar: React.FC<ToolbarProps> = ({
   const { viewportSmall } = useWindowDimensions()
   const hasPadding = iconDirection === 'column'
   return (
-    <>
+    <Container as={viewportSmall ? 'footer' : 'div'}>
       {viewportSmall && !hideDivider && <Divider />}
       <ToolbarContainer className={className} $direction={iconDirection} $hasPadding={hasPadding}>
         {children}
       </ToolbarContainer>
-    </>
+    </Container>
   )
 }
 

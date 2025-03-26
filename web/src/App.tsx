@@ -11,19 +11,20 @@ import { UiDirectionType, config } from 'translations'
 import RootSwitcher from './RootSwitcher'
 import Helmet from './components/Helmet'
 import I18nProvider from './components/I18nProvider'
+import TtsContainer from './components/TtsContainer'
 import buildConfig from './constants/buildConfig'
 import safeLocalStorage, { JPAL_TRACKING_CODE_KEY } from './utils/safeLocalStorage'
 import { initSentry } from './utils/sentry'
 
 const GlobalStyle = createGlobalStyle`
-  body {
-    position: relative;
-  
-    /* Styling for react-tooltip: https://react-tooltip.com/docs/getting-started#styling */
-    --rt-color-dark: ${props => props.theme.colors.textSecondaryColor};
-    --rt-color-white: ${props => props.theme.colors.backgroundColor};
-    --rt-opacity: 1;
-  }
+    body {
+        position: relative;
+
+        /* Styling for react-tooltip: https://react-tooltip.com/docs/getting-started#styling */
+        --rt-color-dark: ${props => props.theme.colors.textSecondaryColor};
+        --rt-color-white: ${props => props.theme.colors.backgroundColor};
+        --rt-opacity: 1;
+    }
 `
 
 LuxonSettings.throwOnInvalid = true
@@ -45,11 +46,15 @@ const App = (): ReactElement => {
   return (
     <ThemeProvider theme={{ ...buildConfig().lightTheme, contentDirection }}>
       <I18nProvider contentLanguage={contentLanguage}>
-        <Helmet pageTitle={t('pageTitle')} rootPage />
-        <Router>
-          <GlobalStyle />
-          <RootSwitcher setContentLanguage={setContentLanguage} />
-        </Router>
+        <>
+          <Helmet pageTitle={t('pageTitle')} rootPage />
+          <Router>
+            <GlobalStyle />
+            <TtsContainer languageCode={contentLanguage}>
+              <RootSwitcher setContentLanguage={setContentLanguage} />
+            </TtsContainer>
+          </Router>
+        </>
       </I18nProvider>
     </ThemeProvider>
   )

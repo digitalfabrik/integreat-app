@@ -5,6 +5,8 @@ import React from 'react'
 import { renderWithTheme } from '../../testing/render'
 import DatePicker, { CustomDatePickerProps } from '../DatePicker'
 
+jest.mock('react-i18next')
+
 describe('DatePicker', () => {
   const setDate = jest.fn()
 

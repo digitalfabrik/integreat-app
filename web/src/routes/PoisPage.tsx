@@ -12,6 +12,7 @@ import Helmet from '../components/Helmet'
 import LoadingSpinner from '../components/LoadingSpinner'
 import Pois from '../components/Pois'
 import { cmsApiBaseUrl } from '../constants/urls'
+import useTtsPlayer from '../hooks/useTtsPlayer'
 import useUserLocation from '../hooks/useUserLocation'
 
 const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): ReactElement | null => {
@@ -25,6 +26,7 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
     language: languageCode,
   })
   const poi = data?.find(it => it.slug === slug)
+  useTtsPlayer(poi, languageCode)
 
   if (!city) {
     return null

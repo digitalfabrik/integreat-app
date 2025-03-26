@@ -1,4 +1,5 @@
 import { DateTime } from 'luxon'
+import segment from 'sentencex'
 
 import CategoryModel from '../api/models/CategoryModel'
 import { APPOINTMENT_BOOKING_OFFER_ALIAS, INTERNAL_OFFERS } from '../constants'
@@ -50,3 +51,14 @@ export const hasProp = <P extends PropertyKey, O extends { [p in P]: unknown }>(
   object: O,
   property: P,
 ): object is O & { [p in P]: NonNullable<unknown> } => object[property] !== undefined && object[property] !== null
+
+type SegmentOptions = {
+  languageCode: string
+}
+
+export const segmentText = (content: string, { languageCode }: SegmentOptions): string[] =>
+  segment(languageCode, content)
+    .map(segment => segment.split('\n'))
+    .flat()
+    .filter(sentence => sentence.length > 0)
+    .map(sentence => sentence.trim())

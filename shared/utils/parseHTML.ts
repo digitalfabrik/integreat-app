@@ -8,6 +8,12 @@ const parseHTML = (html: string, options: ParserOptions = { decodeEntities: true
       ontext: data => {
         decodedContent += data
       },
+      // Explicitly add linebreaks for list elements to fix text segmentation
+      onopentag: (name: string) => {
+        if (name === 'li') {
+          decodedContent += '\n'
+        }
+      },
     },
     options,
   )
@@ -15,7 +21,7 @@ const parseHTML = (html: string, options: ParserOptions = { decodeEntities: true
   parser.write(html)
   parser.end()
 
-  return decodedContent
+  return decodedContent.replace(/\r/g, '')
 }
 
 export default parseHTML
