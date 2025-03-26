@@ -61,3 +61,4 @@ export const segmentText = (content: string, { languageCode }: SegmentOptions): 
     .map(segment => segment.split('\n'))
     .flat()
     .filter(sentence => sentence.length > 0)
+    .map(sentence => sentence.trim())
