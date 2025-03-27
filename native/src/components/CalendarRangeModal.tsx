@@ -20,7 +20,7 @@ const DatePickerWrapper = styled.View`
 
 const StyledView = styled.View`
   gap: 8px;
-  justify-content: ${props => (props.theme.contentDirection === 'rtl' ? 'flex-start' : 'flex-end')};
+  justify-content: flex-end;
   flex-direction: row;
   padding: 5px 14px;
 `
