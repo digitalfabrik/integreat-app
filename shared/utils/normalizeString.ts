@@ -1,5 +1,4 @@
-// eslint-disable-next-line no-control-regex
-const nonAsciiRegex = /[^\x00-\x7F\xDF]/g
+const nonAsciiRegex = /[^\p{Letter}|\p{Number}]/gu
 
 const normalizeToAscii = (str: string): string => str.normalize('NFKD').replace(nonAsciiRegex, '').replace(/ß/g, 'ss')
 
