@@ -1,6 +1,5 @@
 import React, { Fragment, memo, ReactElement, useContext } from 'react'
 import { Text } from 'react-native'
-import Highlighter from 'react-native-highlight-words'
 import styled from 'styled-components/native'
 
 import { normalizeString } from 'shared'
@@ -8,6 +7,7 @@ import { CityModel } from 'shared/api'
 
 import { AppContext } from '../contexts/AppContextProvider'
 import testID from '../testing/testID'
+import Highlighter from './Highlighter'
 import Pressable from './base/Pressable'
 
 const MAX_NUMBER_OF_ALIASES_SHOWN = 3
@@ -60,15 +60,7 @@ const CityEntry = ({ city, query, navigateToDashboard }: CityEntryProps): ReactE
       <AliasesWrapper>
         {aliases.map((it, index) => (
           <Fragment key={it}>
-            <AliasLabel
-              searchWords={[normalizedQuery]}
-              textToHighlight={it}
-              autoEscape
-              sanitize={normalizeString}
-              highlightStyle={{
-                fontWeight: 'bold',
-              }}
-            />
+            <AliasLabel search={normalizedQuery} text={it} />
             {index !== aliases.length - 1 && (
               <>
                 <Separator>,</Separator>
@@ -94,15 +86,7 @@ const CityEntry = ({ city, query, navigateToDashboard }: CityEntryProps): ReactE
       onPress={() => navigateToDashboard(city)}
       accessibilityLanguage={languageCode}>
       <>
-        <Label
-          searchWords={[normalizedQuery]}
-          autoEscape
-          textToHighlight={city.name}
-          sanitize={normalizeString}
-          highlightStyle={{
-            fontWeight: 'bold',
-          }}
-        />
+        <Label search={normalizedQuery} text={city.name} />
         {Aliases}
       </>
     </CityListItem>

@@ -1,14 +1,10 @@
-import normalizeStrings from 'normalize-strings'
-
 import CityModel from '../api/models/CityModel'
-
-export const normalizeString = (str: string): string => normalizeStrings(str).toLowerCase().trim()
+import { normalizeString } from './normalizeString'
 
 const cityFilter =
   (filterText: string, developerFriendly: boolean) =>
   (cityModel: CityModel): boolean => {
     const normalizedFilter = normalizeString(filterText)
-
     if (normalizedFilter === 'wirschaffendas') {
       return !cityModel.live
     }
