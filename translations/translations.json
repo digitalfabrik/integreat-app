@@ -10156,6 +10156,7 @@
       "clearFilter": "Filter {{filter}} löschen",
       "showOwnLocation": "Eigenen Standort zeigen",
       "makeAppointment": "Termin vereinbaren",
+      "onlyWithAppointment": "Nur nach Terminvereinbarung",
       "appointmentNecessary": "Termin erforderlich",
       "makeAppointmentTooltipWithLink": "Vereinbare an diesem Tag einen Termin über <1>die Webseite</1> oder telefonisch.",
       "theWebsite": "die Webseite"
@@ -10653,6 +10654,7 @@
       "clearFilter": "Delete filter {{filter}}",
       "showOwnLocation": "Show your own location",
       "makeAppointment": "Make an appointment",
+      "onlyWithAppointment": "Only with appointment",
       "appointmentNecessary": "Appointment necessary",
       "makeAppointmentTooltipWithLink": "Make an appointment on this day via <1>the website</1> or by phone.",
       "theWebsite": "the website"

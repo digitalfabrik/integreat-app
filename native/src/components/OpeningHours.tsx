@@ -64,9 +64,16 @@ type OpeningHoursProps = {
   appointmentOverlayLink: string | null
 }
 
-const getOpeningLabel = (isTemporarilyClosed: boolean, isCurrentlyOpened: boolean): string => {
+const getOpeningLabel = (
+  isTemporarilyClosed: boolean,
+  isCurrentlyOpened: boolean,
+  openingHours: OpeningHoursModel[] | null,
+): string => {
   if (isTemporarilyClosed) {
     return 'temporarilyClosed'
+  }
+  if (!openingHours) {
+    return 'onlyWithAppointment'
   }
   return isCurrentlyOpened ? 'opened' : 'closed'
 }
@@ -81,50 +88,60 @@ const OpeningHours = ({
 }: OpeningHoursProps): ReactElement | null => {
   const { t } = useTranslation('pois')
   const showSnackbar = useSnackbar()
+  const isOnlyWithAppointment = !openingHours && !!appointmentUrl
 
   const openingHoursTitle = (
     <TitleContainer language={language}>
       <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>{t('openingHours')}</Text>
       <OpeningLabel isOpened={isCurrentlyOpen} $direction={contentDirection(language)}>
-        {t(getOpeningLabel(isTemporarilyClosed, isCurrentlyOpen))}
+        {t(getOpeningLabel(isTemporarilyClosed, isCurrentlyOpen, openingHours))}
       </OpeningLabel>
     </TitleContainer>
   )
 
-  const shouldShowCollapsible = !isTemporarilyClosed && openingHours && openingHours.length === weekdays.length
+  const appointmentLink = appointmentUrl ? (
+    <LinkContainer onPress={() => openExternalUrl(appointmentUrl, showSnackbar)} role='link'>
+      <Link>{t('makeAppointment')}</Link>
+      <StyledIcon Icon={ExternalLinkIcon} />
+    </LinkContainer>
+  ) : null
 
-  const showHorizontalLine = isTemporarilyClosed || shouldShowCollapsible || appointmentUrl !== null
+  if (isTemporarilyClosed || isOnlyWithAppointment) {
+    return (
+      <>
+        {openingHoursTitle}
+        {appointmentLink}
+        <HorizontalLine />
+      </>
+    )
+  }
+
+  if (!openingHours || openingHours.length !== weekdays.length) {
+    return null
+  }
 
   return (
     <>
-      {isTemporarilyClosed && <TitleContainer language={language}>{openingHoursTitle}</TitleContainer>}
-      {shouldShowCollapsible && (
-        <Collapsible headerContent={openingHoursTitle} language={language}>
-          <Content>
-            {openingHours.map((entry, index) => (
-              <OpeningEntry
-                key={`${weekdays[index]}-OpeningEntry`}
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                weekday={t(weekdays[index]!)}
-                allDay={entry.allDay}
-                closed={entry.closed}
-                timeSlots={entry.timeSlots}
-                isCurrentDay={index === DateTime.now().weekday - 1}
-                language={language}
-                appointmentOnly={entry.appointmentOnly}
-                appointmentOverlayLink={appointmentOverlayLink}
-              />
-            ))}
-          </Content>
-        </Collapsible>
-      )}
-      {appointmentUrl !== null && (
-        <LinkContainer onPress={() => openExternalUrl(appointmentUrl, showSnackbar)} role='link'>
-          <Link>{t('makeAppointment')}</Link>
-          <StyledIcon Icon={ExternalLinkIcon} />
-        </LinkContainer>
-      )}
-      {showHorizontalLine && <HorizontalLine />}
+      <Collapsible headerContent={openingHoursTitle} language={language} initialCollapsed={!isCurrentlyOpen}>
+        <Content>
+          {openingHours.map((entry, index) => (
+            <OpeningEntry
+              key={`${weekdays[index]}-OpeningEntry`}
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+              weekday={t(weekdays[index]!)}
+              allDay={entry.allDay}
+              closed={entry.closed}
+              timeSlots={entry.timeSlots}
+              isCurrentDay={index === DateTime.now().weekday - 1}
+              language={language}
+              appointmentOnly={entry.appointmentOnly}
+              appointmentOverlayLink={appointmentOverlayLink}
+            />
+          ))}
+        </Content>
+      </Collapsible>
+      {appointmentLink}
+      <HorizontalLine />
     </>
   )
 }

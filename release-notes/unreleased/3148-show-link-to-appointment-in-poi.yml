@@ -1,6 +1,7 @@
 issue_key: 3148
 show_in_stores: true
 platforms:
-  - native
-en: Link to make an appointment will now show even if opening hours are not set
-de: Der Link um einen Termin zu vereinbaren wird angezeigt selbst wenn es keine Öffnungszeiten gibt
+  - android
+  - ios
+en: Fixed Link to make an appointment
+de: Link um einen Termin zu vereinbaren wird korrekt angezeigt
