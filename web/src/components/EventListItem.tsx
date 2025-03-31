@@ -28,6 +28,7 @@ const Content = styled.div`
 type EventListItemProps = {
   event: EventModel
   languageCode: string
+  index: number
   filterStartDate?: DateTime | null
   filterEndDate?: DateTime | null
 }
@@ -57,6 +58,7 @@ export const getDateIcon = (date: DateModel): { icon: string; tooltip: string } 
 const EventListItem = ({
   event,
   languageCode,
+  index,
   filterStartDate = null,
   filterEndDate = null,
 }: EventListItemProps): ReactElement => {
@@ -65,8 +67,9 @@ const EventListItem = ({
   const { t } = useTranslation('events')
   const dateToDisplay = getDisplayDate(event, filterStartDate, filterEndDate)
 
+  const tooltipId = `calendar-icon-${index}`
   const DateIcon = dateIcon && (
-    <Tooltip id='calendar-icon' tooltipContent={t(dateIcon.tooltip)}>
+    <Tooltip id={tooltipId} tooltipContent={t(dateIcon.tooltip)}>
       <Icon src={dateIcon.icon} id='calendar-icon' title={t(dateIcon.tooltip)} />
     </Tooltip>
   )
