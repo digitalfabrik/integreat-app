@@ -51,6 +51,7 @@ type ToolbarItemProps = {
 const ToolbarItem = ({ to, text, icon, isDisabled = false, onClick, id }: ToolbarItemProps): ReactElement => {
   const { t } = useTranslation('categories')
   const toolTipId = spacesToDashes(text)
+
   if (isDisabled) {
     return (
       <StyledTooltip id={toolTipId} tooltipContent={t('disabledPdf')}>
@@ -62,6 +63,7 @@ const ToolbarItem = ({ to, text, icon, isDisabled = false, onClick, id }: Toolba
       </StyledTooltip>
     )
   }
+
   return (
     <StyledToolbarItem
       as={onClick ? Button : undefined}
