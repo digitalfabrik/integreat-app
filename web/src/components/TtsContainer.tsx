@@ -115,7 +115,8 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
         })
       } catch (e) {
         // Chrome throws an interrupted error event on cancel instead of emitting an end event
-        if (e instanceof SpeechSynthesisErrorEvent && e.error === 'interrupted') {
+        // Safari throws en canceled error event in cancel instead of emitting an end event
+        if (e instanceof SpeechSynthesisErrorEvent && (e.error === 'interrupted' || e.error === 'canceled')) {
           if (afterStopRef.current) {
             afterStopRef.current()
             afterStopRef.current = null
