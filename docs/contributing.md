@@ -49,21 +49,43 @@ To merge a pull request, it has to match our Definition of Done. It includes amo
 
 ### Release notes
 
-Pull requests with changes that are visible to our end users should always include one (or more) release note describing
-the changes.
-For other changes, these release notes are optional, but make sure to set the flag `show_in_stores` to false.
+We write manual user-facing release notes for our PRs.
+Our release notes can be found [here](../release-notes) and are automatically moved to the corresponding release directory.
+They are also shown in the stores and the [release section of github](https://github.com/digitalfabrik/integreat-app/releases).
+
+### When to Write Release Notes
+
+Our PRs can be divided into three categories:
+
+- PRs with user-facing changes: Write one (or more) release note. Exceptions:
+  - The feature is not yet on production, as the problem only appears on main/beta OR the feature is hidden by e.g. a feature flag
+  - The changes are really minor, e.g. typos
+- PRs relevant to other teams: Write one (or more) release note.
+- Other PRs: Do NOT write a release note.
+
+### How to Write Release Notes
+
+Release notes should be short, concise and understandable to our end users and other teams and therefore not require technical knowledge.
+Avoid complicated grammar and words as well as technical or internal terms.
+A German translation is only necessary (and used) if [show in stores](#show-in-stores) is set to true.
 
 To add a release note:
 
 - Have a look at the [template](../release-notes/ReleaseNoteTemplate.yml).
 - Add a new release note to the [unreleased directory](../release-notes/unreleased).
 
-This gives users, members of other teams and us developers a simple overview over which changes and features belong to
-which release.
-The release notes can be found [here](../release-notes) and are automatically moved to a new release directory during a
-release.
-They are also shown in the stores and
-the [release section of github](https://github.com/digitalfabrik/integreat-app/releases).
+**WARNING: `native` is not a valid platform, use `android` and `ios` instead!**
+
+#### Show in Stores
+
+Every release note includes a boolean flag `show_in_stores`.
+This flag only has an effect for release notes with platform `android` and/or `ios` set.
+Accordingly, `show_in_stores` should only be set to `true` if
+
+- the release note describes a change that is **visible to our end users** (see [When to Write Release Notes](#when-to-write-release-notes)) AND
+- the change is for `android` and/or `ios`
+
+In all other cases, `show_in_stores` should be set to `false.
 
 ### Reviews
 
