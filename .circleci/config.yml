@@ -989,33 +989,6 @@ jobs:
                 command: tools/sentry-release web-obdach "${NEW_VERSION_NAME}" ~/attached_workspace/dist/obdach
                 name: 'Sentry Upload: obdach'
             - notify
-    upload_browserstack:
-        docker:
-            - image: cimg/ruby:3.2.5
-        environment:
-            FASTLANE_SKIP_UPDATE_CHECK: true
-        parameters:
-            file_name:
-                description: the name of the file to upload
-                type: string
-        resource_class: small
-        shell: /bin/bash -eo pipefail
-        steps:
-            - checkout
-            - skip_job
-            - prepare_workspace
-            - restore_environment_variables
-            - restore_ruby_cache:
-                directory: native
-            - run:
-                command: |
-                    file="attached_workspace/<< parameters.file_name >>"
-                    file_with_commit_sha="${file%.*}_<< pipeline.git.revision >>.${file##*.}"
-                    cp ~/$file ~/$file_with_commit_sha
-                    bundle exec fastlane browserstack_upload path:$file_with_commit_sha
-                name: '[FL] Browserstack Upload Live'
-                working_directory: native
-            - notify
 parameters:
     api_triggered:
         default: false
@@ -1024,25 +997,20 @@ parameters:
     workflow_type:
         default: none
         enum:
+            - delivery
+            - promotion
             - native_beta_delivery
             - native_production_delivery
             - native_promotion
             - web_beta_delivery
             - web_production_delivery
             - web_promotion
-            - delivery
-            - e2e_tests
-            - native_browserstack
             - none
         type: enum
 version: 2.1
 workflows:
     commit:
         jobs:
-            - bump_version:
-                context:
-                    - mattermost
-                prepare_delivery: false
             - check:
                 context:
                     - mattermost
@@ -1242,58 +1210,6 @@ workflows:
                 - equal:
                     - << pipeline.parameters.workflow_type >>
                     - delivery
-    e2e_tests:
-        jobs:
-            - bump_version:
-                context:
-                    - mattermost
-                prepare_delivery: false
-            - build_web:
-                build_config_name: integreat-test-cms
-                context:
-                    - mattermost
-                name: build_ig_test_cms_web
-                requires:
-                    - bump_version
-            - e2e_web:
-                context:
-                    - mattermost
-            - build_android:
-                build_config_name: integreat-e2e
-                context:
-                    - credentials-repo
-                    - credentials-integreat
-                    - mattermost
-                name: build_e2e_android
-                requires:
-                    - bump_version
-            - e2e_android:
-                context:
-                    - browserstack
-                    - mattermost
-                requires:
-                    - build_e2e_android
-            - build_ios:
-                build_config_name: integreat-e2e
-                context:
-                    - tuerantuer-apple
-                    - fastlane-match
-                    - mattermost
-                name: build_e2e_ios
-                requires:
-                    - bump_version
-            - e2e_ios:
-                context:
-                    - browserstack
-                    - mattermost
-                requires:
-                    - build_e2e_ios
-        when:
-            and:
-                - << pipeline.parameters.api_triggered >>
-                - equal:
-                    - << pipeline.parameters.workflow_type >>
-                    - e2e_tests
     native_beta_delivery:
         jobs:
             - bump_version:
@@ -1408,52 +1324,6 @@ workflows:
                 - equal:
                     - << pipeline.parameters.workflow_type >>
                     - native_beta_delivery
-    native_browserstack:
-        jobs:
-            - bump_version:
-                context:
-                    - mattermost
-                prepare_delivery: false
-            - build_android:
-                build_config_name: integreat-test-cms
-                context:
-                    - mattermost
-                    - credentials-repo
-                    - credentials-integreat
-                name: build_ig_test_cms_android
-                requires:
-                    - bump_version
-            - upload_browserstack:
-                context:
-                    - mattermost
-                    - browserstack
-                file_name: integreat-test-cms.apk
-                name: upload_ig_test_cms_android_browserstack
-                requires:
-                    - build_ig_test_cms_android
-            - build_ios:
-                build_config_name: integreat-test-cms
-                context:
-                    - mattermost
-                    - tuerantuer-apple
-                    - fastlane-match
-                name: build_ig_test_cms_ios
-                requires:
-                    - bump_version
-            - upload_browserstack:
-                context:
-                    - mattermost
-                    - browserstack
-                file_name: integreat-test-cms.ipa
-                name: upload_ig_test_cms_ios_browserstack
-                requires:
-                    - build_ig_test_cms_ios
-        when:
-            and:
-                - << pipeline.parameters.api_triggered >>
-                - equal:
-                    - << pipeline.parameters.workflow_type >>
-                    - native_browserstack
     native_production_delivery:
         jobs:
             - bump_version:
@@ -1598,6 +1468,40 @@ workflows:
                 - equal:
                     - << pipeline.parameters.workflow_type >>
                     - native_promotion
+    promotion:
+        jobs:
+            - promote_web:
+                context:
+                    - mattermost
+                    - deliverino
+            - promote_android:
+                context:
+                    - mattermost
+                    - tuerantuer-google-play
+                    - deliverino
+                matrix:
+                    parameters:
+                        build_config_name:
+                            - integreat
+                            - malte
+                            - aschaffenburg
+            - promote_ios:
+                context:
+                    - mattermost
+                    - tuerantuer-apple
+                    - deliverino
+                matrix:
+                    parameters:
+                        build_config_name:
+                            - integreat
+                            - malte
+                            - aschaffenburg
+        when:
+            and:
+                - << pipeline.parameters.api_triggered >>
+                - equal:
+                    - << pipeline.parameters.workflow_type >>
+                    - promotion
     web_beta_delivery:
         jobs:
             - bump_version:
