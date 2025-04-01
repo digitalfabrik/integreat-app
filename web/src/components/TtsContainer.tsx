@@ -27,6 +27,7 @@ export const TtsContext = createContext<TtsContextType>({
   setSentences: () => undefined,
 })
 
+const cancelErrorMessages = ['interrupted', 'canceled']
 const initializedStatus = ['init: failed', 'created']
 const ttsInitialized = () => !initializedStatus.some(status => EasySpeech.status().status.includes(status))
 
@@ -114,9 +115,8 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
           },
         })
       } catch (e) {
-        // Chrome throws an interrupted error event on cancel instead of emitting an end event
-        // Safari throws en canceled error event in cancel instead of emitting an end event
-        if (e instanceof SpeechSynthesisErrorEvent && (e.error === 'interrupted' || e.error === 'canceled')) {
+        // Chrome and Safari throw an interrupted/canceled error event on cancel instead of emitting an end event
+        if (e instanceof SpeechSynthesisErrorEvent && cancelErrorMessages.includes(e.error)) {
           if (afterStopRef.current) {
             afterStopRef.current()
             afterStopRef.current = null
