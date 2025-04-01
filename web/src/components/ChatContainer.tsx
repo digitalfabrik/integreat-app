@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
@@ -10,19 +10,22 @@ import useWindowDimensions from '../hooks/useWindowDimensions'
 import ChatContentWrapper from './ChatContentWrapper'
 import ChatController from './ChatController'
 import ChatModal from './ChatModal'
+import { TtsContext } from './TtsContainer'
 import Icon from './base/Icon'
 
-const ChatButtonContainer = styled.button`
+const CHAT_BUTTON_SIZE = 48
+
+const ChatButtonContainer = styled.button<{ $bottom: number }>`
   position: fixed;
-  bottom: 10%;
-  inset-inline-end: 10%;
+  bottom: ${props => props.$bottom}px;
+  inset-inline-end: 32px;
+  margin-bottom: 8px;
   background-color: transparent;
   border: none;
   display: flex;
   flex-direction: column;
 
   @media ${dimensions.smallViewport} {
-    bottom: 85px;
     inset-inline-end: 12px;
   }
 `
@@ -78,10 +81,15 @@ type ChatContainerProps = {
 const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement => {
   const { t } = useTranslation('chat')
   const [chatVisibilityStatus, setChatVisibilityStatus] = useState<ChatVisibilityStatus>(ChatVisibilityStatus.closed)
-  const { viewportSmall } = useWindowDimensions()
+  const { viewportSmall, visibleFooterHeight, width } = useWindowDimensions()
+  const { visible: ttsPlayerVisible } = useContext(TtsContext)
   const isChatMaximized = chatVisibilityStatus === ChatVisibilityStatus.maximized
   useLockedBody(isChatMaximized)
   const title = t('header', { appName: buildConfig().appName })
+  const bottom =
+    ttsPlayerVisible && width <= dimensions.maxTtsPlayerWidth
+      ? visibleFooterHeight + dimensions.ttsPlayerHeight + CHAT_BUTTON_SIZE
+      : visibleFooterHeight
 
   if (isChatMaximized) {
     return (
@@ -112,6 +120,7 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement => 
 
   return (
     <ChatButtonContainer
+      $bottom={bottom}
       data-testid='chat-button-container'
       onClick={() => setChatVisibilityStatus(ChatVisibilityStatus.maximized)}>
       <Circle>

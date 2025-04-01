@@ -12,13 +12,16 @@ type TooltipProps = {
   id: string
 } & ReactTooltipType
 
-const Tooltip = ({ children, id, place, tooltipContent, ...props }: TooltipProps): ReactElement => (
-  <>
-    <div id={id}>{children}</div>
-    <StyledTooltip {...props} anchorSelect={`#${id}`}>
-      {tooltipContent}
-    </StyledTooltip>
-  </>
-)
+const Tooltip = ({ children, id, place, tooltipContent, ...props }: TooltipProps): ReactElement => {
+  const sanitizedId = id.replace(/:/g, '')
+  return (
+    <>
+      <div id={sanitizedId}>{children}</div>
+      <StyledTooltip {...props} anchorSelect={`#${sanitizedId}`}>
+        {tooltipContent}
+      </StyledTooltip>
+    </>
+  )
+}
 
 export default Tooltip

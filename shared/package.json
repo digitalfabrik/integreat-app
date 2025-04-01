@@ -25,7 +25,8 @@
     "normalize-path": "^3.0.0",
     "normalize-strings": "^1.1.1",
     "rrule": "2.8.1",
-    "uuid": "^10.0.0"
+    "uuid": "^10.0.0",
+    "sentencex": "^0.4.2"
   },
   "devDependencies": {
     "@types/geojson": "^7946.0.10",
