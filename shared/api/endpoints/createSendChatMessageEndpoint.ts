@@ -2,7 +2,7 @@ import Endpoint from '../Endpoint'
 import EndpointBuilder from '../EndpointBuilder'
 import { API_VERSION } from '../constants'
 import ChatMessageModel from '../models/ChatMessageModel'
-import { JsonChatMessageType } from '../types'
+import { JsonChatMessagesType } from '../types'
 
 export const CHAT_ENDPOINT_NAME = 'chat'
 type ParamsType = {
@@ -12,8 +12,8 @@ type ParamsType = {
   message: string
 }
 
-export default (baseUrl: string): Endpoint<ParamsType, ChatMessageModel> =>
-  new EndpointBuilder<ParamsType, ChatMessageModel>(CHAT_ENDPOINT_NAME)
+export default (baseUrl: string): Endpoint<ParamsType, ChatMessageModel[]> =>
+  new EndpointBuilder<ParamsType, ChatMessageModel[]>(CHAT_ENDPOINT_NAME)
     .withParamsToUrlMapper(
       (params: ParamsType): string =>
         `${baseUrl}/api/${API_VERSION}/${params.city}/${params.language}/${CHAT_ENDPOINT_NAME}/${params.deviceId}/`,
@@ -24,13 +24,15 @@ export default (baseUrl: string): Endpoint<ParamsType, ChatMessageModel> =>
       formData.append('message', message)
       return formData
     })
-    .withMapper(
-      (json: JsonChatMessageType): ChatMessageModel =>
-        new ChatMessageModel({
-          id: json.id,
-          content: json.content,
-          userIsAuthor: json.user_is_author,
-          automaticAnswer: json.automatic_answer,
-        }),
+    .withMapper((json: JsonChatMessagesType): ChatMessageModel[] =>
+      json.messages.map(
+        chatMessage =>
+          new ChatMessageModel({
+            id: chatMessage.id,
+            content: chatMessage.content,
+            userIsAuthor: chatMessage.user_is_author,
+            automaticAnswer: chatMessage.automatic_answer,
+          }),
+      ),
     )
     .build()

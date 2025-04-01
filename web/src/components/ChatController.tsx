@@ -54,7 +54,7 @@ const ChatController = ({ city, language }: ChatControllerProps): ReactElement =
     })
 
     if (data !== null) {
-      setData(messages => [...(messages ?? []), data])
+      setData(data)
       setSendingStatus('successful')
     }
 
