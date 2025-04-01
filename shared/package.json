@@ -20,10 +20,10 @@
     "deepmerge-ts": "^7.1.0",
     "entities": "^4.5.0",
     "htmlparser2": "^9.1.0",
+    "highlight-words-core": "^1.2.3",
     "luxon": "^3.5.0",
     "minisearch": "^7.1.0",
     "normalize-path": "^3.0.0",
-    "normalize-strings": "^1.1.1",
     "rrule": "2.8.1",
     "uuid": "^10.0.0",
     "sentencex": "^0.4.2"

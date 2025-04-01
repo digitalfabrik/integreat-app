@@ -1,20 +1,8 @@
 import { filterSortCities } from '../..'
 import LanguageModelBuilder from '../../api/endpoints/testing/LanguageModelBuilder'
 import CityModel from '../../api/models/CityModel'
-import { normalizeString } from '../search'
 
 describe('search', () => {
-  describe('normalizeStrings', () => {
-    it('should normalize search string', () => {
-      expect(normalizeString('Donauwörth')).toBe('donauworth')
-      expect(normalizeString('äöUEJJ')).toBe('aouejj')
-    })
-
-    it('should trim whitespaces', () => {
-      expect(normalizeString('   test  ')).toBe('test')
-    })
-  })
-
   describe('filterSortCities', () => {
     const defaultAliases: Record<string, { latitude: number; longitude: number }> = {
       Königsbrunn: {
