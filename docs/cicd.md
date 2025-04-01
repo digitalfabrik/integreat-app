@@ -187,18 +187,6 @@ More information on the version naming schema used can be found [here](conventio
 | APP_STORE_CONNECT_API_KEY_CONTENT | Key content for App Store Connect API                                                                                      | Password Manager        | -----BEGIN EC PRIVATE KEY-----\nfewfawefawfe\n-----END EC PRIVATE KEY----- | [app_store_connect_api_key](https://docs.fastlane.tools/actions/app_store_connect_api_key/) |
 | MATCH_PASSWORD                    | Password for accessing the certificates for the iOS app using [Fastlane Match](https://docs.fastlane.tools/actions/match/) | Password Manager        | 123456                                                                     | [Using a Git Repo](https://docs.fastlane.tools/actions/match/#git-repo-encryption-password) |
 
-## Skipping specific jobs
-
-You can control which jobs should be skipped through environment variables.
-Set the variable `SKIP_JOB_deliver_aschaffenburg_ios` to `"aschaffenburg"` to skip the job with the name `deliver_aschaffenburg_ios`.
-You can also set it to `"malte|aschaffenburg"` in order to match multiple build configs or to `"all"` to match all build configs.
-
-Environment variables can be set in the [Project Settings](https://app.circleci.com/settings/project/github/digitalbarik/integreat-app/environment-variables) of CircleCI.
-
-**Note: Some jobs like `bump_version` run only once for multiple build configs. Therefore, it does not make sense to set `SKIP_JOB_bump_version` to something other than `"all"`.**
-
-**Note: Most of the time job names contain the build config name as well, therefore setting e.g. the environment variable `SKIP_JOB_deliver_ios` won't work.**
-
 ## Hints and Quirks
 
 ### CPU count aka. \$TOTAL_CPUS
