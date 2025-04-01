@@ -22,7 +22,7 @@ export default (baseUrl: string): Endpoint<ParamsType, ChatMessageModel[]> =>
         chatMessage =>
           new ChatMessageModel({
             id: chatMessage.id,
-            body: chatMessage.body,
+            content: chatMessage.content,
             userIsAuthor: chatMessage.user_is_author,
             automaticAnswer: chatMessage.automatic_answer,
           }),

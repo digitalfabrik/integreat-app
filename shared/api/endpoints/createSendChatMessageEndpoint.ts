@@ -28,7 +28,7 @@ export default (baseUrl: string): Endpoint<ParamsType, ChatMessageModel> =>
       (json: JsonChatMessageType): ChatMessageModel =>
         new ChatMessageModel({
           id: json.id,
-          body: json.body,
+          content: json.content,
           userIsAuthor: json.user_is_author,
           automaticAnswer: json.automatic_answer,
         }),
