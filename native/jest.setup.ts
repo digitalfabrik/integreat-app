@@ -16,6 +16,7 @@ jest.mock('react-native-permissions', () => require('react-native-permissions/mo
 require('react-native-gesture-handler/jestSetup')
 
 jest.mock('react-native-tts')
+jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter')
 
 jest.mock('react-native-reanimated', () => {
   const Reanimated = require('react-native-reanimated/mock')
