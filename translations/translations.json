@@ -10120,6 +10120,7 @@
       "distanceMetreAlternative": "{{distance}} m",
       "contactInformation": "Kontaktdaten",
       "address": "Adresse",
+      "copyAddress": "Adresse kopieren",
       "phone": "Telefonnummer",
       "mobilePhone": "Handynummer",
       "eMail": "E-Mail-Adresse",
@@ -10166,7 +10167,13 @@
       "makeAppointment": "Termin vereinbaren",
       "appointmentNecessary": "Termin erforderlich",
       "makeAppointmentTooltipWithLink": "Vereinbare an diesem Tag einen Termin über <1>die Webseite</1> oder telefonisch.",
-      "theWebsite": "die Webseite"
+      "theWebsite": "die Webseite",
+      "poisCount_zero": "0 Orte",
+      "poisCount_one": "1 Ort",
+      "poisCount_two": "{{count}} Orte",
+      "poisCount_few": "{{count}} Orte",
+      "poisCount_many": "{{count}} Orte",
+      "poisCount_other": "{{count}} Orte"
     },
     "am": {
       "pageTitle": "ካርታ",
@@ -10245,6 +10252,7 @@
       "distanceMetreAlternative": "{{distance}} م",
       "contactInformation": "بيانات الاتصال",
       "address": "العنوان",
+      "copyAddress": "نسخ العنوان",
       "phone": "رقم الهاتف",
       "eMail": "عنوان البريد الإليكتروني",
       "website": "الموقع الإليكتروني",
@@ -10617,6 +10625,7 @@
       "distanceMetreAlternative": "{{distance}} m",
       "contactInformation": "Contact details",
       "address": "Address",
+      "copyAddress": "Copy address",
       "phone": "Telephone number",
       "mobilePhone": "Mobile phone number",
       "eMail": "E-mail address",
@@ -10663,7 +10672,13 @@
       "makeAppointment": "Make an appointment",
       "appointmentNecessary": "Appointment necessary",
       "makeAppointmentTooltipWithLink": "Make an appointment on this day via <1>the website</1> or by phone.",
-      "theWebsite": "the website"
+      "theWebsite": "the website",
+      "poisCount_zero": "0 locations",
+      "poisCount_one": "1 location",
+      "poisCount_two": "{{count}} locations",
+      "poisCount_few": "{{count}} locations",
+      "poisCount_many": "{{count}} locations",
+      "poisCount_other": "{{count}} locations"
     },
     "es": {
       "pageTitle": "Mapa",

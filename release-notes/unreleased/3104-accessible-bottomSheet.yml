@@ -1,0 +1,6 @@
+issue_key: 3104
+show_in_stores: false
+platforms: # relevant platforms, possible values: web, android and ios
+  - android
+  - ios
+en: Improving accessability for (near you) bottom sheet.
