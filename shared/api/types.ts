@@ -81,7 +81,7 @@ export type JsonCategoryType = {
 
 export type JsonChatMessageType = {
   id: number
-  body: string
+  content: string
   user_is_author: boolean
   automatic_answer: boolean
 }

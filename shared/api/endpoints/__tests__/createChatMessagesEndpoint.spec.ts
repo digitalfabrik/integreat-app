@@ -21,7 +21,7 @@ describe('createChatMessagesEndpoint', () => {
       messages: [
         {
           id: 2,
-          body: 'Informationen zu Ihrer Frage finden Sie auf folgenden Seiten:',
+          content: 'Informationen zu Ihrer Frage finden Sie auf folgenden Seiten:',
           user_is_author: false,
           automatic_answer: false,
         },
@@ -31,7 +31,7 @@ describe('createChatMessagesEndpoint', () => {
     expect(chatMessageModel).toEqual([
       new ChatMessageModel({
         id: 2,
-        body: 'Informationen zu Ihrer Frage finden Sie auf folgenden Seiten:',
+        content: 'Informationen zu Ihrer Frage finden Sie auf folgenden Seiten:',
         userIsAuthor: false,
         automaticAnswer: false,
       }),
