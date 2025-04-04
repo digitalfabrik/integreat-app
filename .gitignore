@@ -129,3 +129,7 @@ runConfigurations.xml
 .DS_Store
 
 reports/
+
+# Android Studio
+**/.cxx
+**/.idea
