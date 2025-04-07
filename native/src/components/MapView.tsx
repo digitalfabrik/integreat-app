@@ -196,14 +196,18 @@ const MapView = ({
         </MapLibreGL.ShapeSource>
         <MapLibreGL.Camera defaultSettings={defaultSettings} followUserMode='normal' ref={cameraRef} />
       </StyledMap>
-      <OverlayContainer>{Overlay}</OverlayContainer>
-      <MapAttribution />
-      <StyledIcon
-        icon={<Icon Icon={locationPermissionIcon} />}
-        onPress={onRequestLocation}
-        position={bottomSheetFullscreen ? 0 : bottomSheetHeight}
-        accessibilityLabel={t('showOwnLocation')}
-      />
+      {!bottomSheetFullscreen && (
+        <>
+          <OverlayContainer>{Overlay}</OverlayContainer>
+          <MapAttribution />
+          <StyledIcon
+            icon={<Icon Icon={locationPermissionIcon} />}
+            onPress={onRequestLocation}
+            position={bottomSheetFullscreen ? 0 : bottomSheetHeight}
+            accessibilityLabel={t('showOwnLocation')}
+          />
+        </>
+      )}
     </MapContainer>
   )
 }
