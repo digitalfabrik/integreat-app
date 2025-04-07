@@ -4,6 +4,7 @@ import createChatMessagesEndpoint from '../createChatMessagesEndpoint'
 
 describe('createChatMessagesEndpoint', () => {
   const baseUrl = 'https://example.com'
+  const isTyping = false
   const params = {
     city: 'augsburg',
     language: 'fa',
@@ -18,6 +19,7 @@ describe('createChatMessagesEndpoint', () => {
 
   it('should map fetched data to model', () => {
     const messageJson = {
+      typing: isTyping,
       messages: [
         {
           id: 2,
@@ -28,13 +30,16 @@ describe('createChatMessagesEndpoint', () => {
       ],
     }
     const chatMessageModel = endpoint.mapResponse(messageJson, params)
-    expect(chatMessageModel).toEqual([
-      new ChatMessageModel({
-        id: 2,
-        content: 'Informationen zu Ihrer Frage finden Sie auf folgenden Seiten:',
-        userIsAuthor: false,
-        automaticAnswer: false,
-      }),
-    ])
+    expect(chatMessageModel).toEqual({
+      typing: isTyping,
+      messages: [
+        new ChatMessageModel({
+          id: 2,
+          content: 'Informationen zu Ihrer Frage finden Sie auf folgenden Seiten:',
+          userIsAuthor: false,
+          automaticAnswer: false,
+        }),
+      ],
+    })
   })
 })

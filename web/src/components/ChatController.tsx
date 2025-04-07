@@ -54,7 +54,10 @@ const ChatController = ({ city, language }: ChatControllerProps): ReactElement =
     })
 
     if (data !== null) {
-      setData(data)
+      setData({
+        typing: data.typing,
+        messages: data.messages,
+      })
       setSendingStatus('successful')
     }
 
@@ -65,7 +68,7 @@ const ChatController = ({ city, language }: ChatControllerProps): ReactElement =
 
   return (
     <Chat
-      messages={chatMessages ?? []}
+      messages={chatMessages?.messages ?? []}
       submitMessage={submitMessage}
       // If no message has been sent yet, fetching the messages yields a 404 not found error
       hasError={error !== null && !(error instanceof NotFoundError)}

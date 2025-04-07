@@ -8,6 +8,7 @@ import {
 import { Return as ImportedReturnType } from './endpoints/hooks/useLoadAsync'
 
 export { default as Endpoint } from './Endpoint'
+export { buildChatMessages } from './buildChatMessages'
 export { default as EndpointBuilder } from './EndpointBuilder'
 export { default as Payload } from './Payload'
 export { default as mapAvailableLanguages } from './mapping/mapAvailableLanguages'

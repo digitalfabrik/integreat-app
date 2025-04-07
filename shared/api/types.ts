@@ -1,3 +1,5 @@
+import ChatMessageModel from './models/ChatMessageModel'
+
 export type JsonAvailableLanguagesType = Record<
   string,
   {
@@ -87,7 +89,13 @@ export type JsonChatMessageType = {
 }
 
 export type JsonChatMessagesType = {
+  chatbot_typing: boolean
   messages: JsonChatMessageType[]
+}
+
+export type ChatMessages = {
+  typing: boolean
+  messages: ChatMessageModel[]
 }
 
 export type JsonDisclaimerType = JsonCategoryType
