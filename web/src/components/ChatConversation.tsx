@@ -4,20 +4,18 @@ import styled from 'styled-components'
 
 import ChatMessageModel from 'shared/api/models/ChatMessageModel'
 
-import ChatMessage, { Message } from './ChatMessage'
+import ChatMessage, { InnerChatMessage } from './ChatMessage'
 
 const Container = styled.div`
   font-size: ${props => props.theme.fonts.hintFontSize};
   overflow: auto;
 `
+const TypingIndicatorContainer = styled.div`
+  width: max-content;
+`
 
 const InitialMessage = styled.div`
   margin-bottom: 12px;
-`
-
-const TypingIndicatorWrapper = styled(Message)`
-  width: max-content;
-  margin-left: 33px;
 `
 
 const ErrorSendingStatus = styled.div`
@@ -40,9 +38,9 @@ type TypingIndicatorProps = {
 
 const TypingIndicator = ({ isVisible }: TypingIndicatorProps): ReactElement | null =>
   isVisible ? (
-    <TypingIndicatorWrapper>
-      <strong>...</strong>
-    </TypingIndicatorWrapper>
+    <TypingIndicatorContainer>
+      <InnerChatMessage userIsAuthor={false} showIcon={false} isAutomaticAnswer body='...' messageId={0} />
+    </TypingIndicatorContainer>
   ) : null
 
 const TYPING_INDICATOR_TIMEOUT = 60000
@@ -56,10 +54,7 @@ const ChatConversation = ({ messages, hasError, className }: ChatConversationPro
   const waitingForAnswer = isLastMessageFromUser || hasOnlyReceivedInfoMessage
   const [typingIndicatorVisible, setTypingIndicatorVisible] = useState(false)
 
-  const scrollToBottom = async (beforeScroll?: () => void | Promise<void>) => {
-    if (beforeScroll) {
-      await beforeScroll()
-    }
+  const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }
 

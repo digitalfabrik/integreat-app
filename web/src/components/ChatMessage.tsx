@@ -47,8 +47,6 @@ const Circle = styled.div`
   font-size: ${props => props.theme.fonts.decorativeFontSizeSmall};
 `
 
-type ChatMessageProps = { message: ChatMessageModel; previousMessage: ChatMessageModel | undefined }
-
 const getIcon = (userIsAuthor: boolean, isAutomaticAnswer: boolean, t: TFunction<'chat'>): ReactElement => {
   if (userIsAuthor) {
     return <Circle>{t('user')}</Circle>
@@ -57,20 +55,48 @@ const getIcon = (userIsAuthor: boolean, isAutomaticAnswer: boolean, t: TFunction
   return <Icon src={icon} title={isAutomaticAnswer ? t('bot') : t('human')} />
 }
 
-const ChatMessage = ({ message, previousMessage }: ChatMessageProps): ReactElement => {
+type InnerChatMessageProps = {
+  userIsAuthor: boolean
+  showIcon: boolean
+  isAutomaticAnswer: boolean
+  body: string
+  messageId: number
+}
+
+export const InnerChatMessage = ({
+  userIsAuthor,
+  showIcon,
+  isAutomaticAnswer,
+  body,
+  messageId,
+}: InnerChatMessageProps): ReactElement => {
   const { t } = useTranslation('chat')
+  return (
+    <Container $isAuthor={userIsAuthor}>
+      <IconContainer $visible={showIcon}>{getIcon(userIsAuthor, isAutomaticAnswer, t)}</IconContainer>
+      <Message data-testid={messageId}>
+        <RemoteContent html={body} smallText />
+      </Message>
+    </Container>
+  )
+}
+
+type ChatMessageProps = { message: ChatMessageModel; previousMessage: ChatMessageModel | undefined }
+
+const ChatMessage = ({ message, previousMessage }: ChatMessageProps): ReactElement => {
   const { body, userIsAuthor, isAutomaticAnswer } = message
   const hasAuthorChanged = message.userIsAuthor !== previousMessage?.userIsAuthor
   const hasAutomaticAnswerChanged = message.isAutomaticAnswer !== previousMessage?.isAutomaticAnswer
   const showIcon = hasAuthorChanged || hasAutomaticAnswerChanged
 
   return (
-    <Container $isAuthor={userIsAuthor}>
-      <IconContainer $visible={showIcon}>{getIcon(userIsAuthor, isAutomaticAnswer, t)}</IconContainer>
-      <Message data-testid={message.id}>
-        <RemoteContent html={body} smallText />
-      </Message>
-    </Container>
+    <InnerChatMessage
+      userIsAuthor={userIsAuthor}
+      showIcon={showIcon}
+      isAutomaticAnswer={isAutomaticAnswer}
+      body={body}
+      messageId={message.id}
+    />
   )
 }
 
