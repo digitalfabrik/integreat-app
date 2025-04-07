@@ -11,8 +11,6 @@ environment:
 shell: /bin/bash -eo pipefail
 steps:
   - checkout
-  - skip_job:
-      build_config_name: << parameters.build_config_name >>
   - restore_yarn_cache
   - prepare_workspace
   - restore_environment_variables

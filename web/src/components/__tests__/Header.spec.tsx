@@ -4,6 +4,7 @@ import React from 'react'
 
 import useWindowDimensions from '../../hooks/useWindowDimensions'
 import { renderWithRouterAndTheme } from '../../testing/render'
+import { mockWindowDimensions } from '../../testing/utils'
 import { Header } from '../Header'
 import HeaderActionItemLink from '../HeaderActionItemLink'
 import HeaderNavigationItem from '../HeaderNavigationItem'
@@ -18,7 +19,7 @@ describe('Header', () => {
   const cityName = 'TestCity'
 
   it('should render correctly', () => {
-    mocked(useWindowDimensions).mockImplementation(() => ({ viewportSmall: true, width: 400, height: 400 }))
+    mocked(useWindowDimensions).mockImplementation(() => ({ ...mockWindowDimensions, viewportSmall: true }))
     const { getByText } = renderWithRouterAndTheme(
       <Header
         logoHref='/random_route'
@@ -33,7 +34,7 @@ describe('Header', () => {
   })
 
   it('should render KebabMenu with elements on small viewport', () => {
-    mocked(useWindowDimensions).mockImplementation(() => ({ viewportSmall: true, width: 400, height: 400 }))
+    mocked(useWindowDimensions).mockImplementation(() => ({ ...mockWindowDimensions, viewportSmall: true }))
     const setShowSidebar = jest.fn()
     const { getByLabelText, getByText } = renderWithRouterAndTheme(
       <Header
@@ -57,7 +58,7 @@ describe('Header', () => {
   })
 
   it('should not render KebabMenu on large viewport', () => {
-    mocked(useWindowDimensions).mockImplementation(() => ({ viewportSmall: false, width: 1400, height: 1400 }))
+    mocked(useWindowDimensions).mockImplementation(() => ({ ...mockWindowDimensions, viewportSmall: false }))
     const { queryByTestId } = renderWithRouterAndTheme(
       <Header
         logoHref='/random_route'

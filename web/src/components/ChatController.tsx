@@ -19,7 +19,7 @@ type ChatControllerProps = {
 }
 
 const LOCAL_STORAGE_ITEM_CHAT_MESSAGES = 'Chat-Device-Id'
-const POLLING_INTERVAL = 16000
+const POLLING_INTERVAL = 8000
 
 const ChatController = ({ city, language }: ChatControllerProps): ReactElement => {
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')

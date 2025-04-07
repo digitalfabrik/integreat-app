@@ -4,7 +4,6 @@ resource_class: small
 shell: /bin/bash -eo pipefail
 steps:
   - checkout
-  - skip_job
   - restore_yarn_tools_cache
   - add_ssh_keys:
       fingerprints:
@@ -29,4 +28,6 @@ steps:
         echo "export PROMOTION_MESSAGE='${PROMOTION_MESSAGE}'" >> $BASH_ENV
   - notify:
       success_message: '${PROMOTION_MESSAGE}'
+      channel: releases
+      only_for_branch: ${CIRCLE_BRANCH}
   - persist_environment_variables
