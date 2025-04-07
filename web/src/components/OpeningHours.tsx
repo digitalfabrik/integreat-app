@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
+import styled, { useTheme } from 'styled-components'
 
 import { weekdays } from 'shared'
 import { OpeningHoursModel } from 'shared/api'
@@ -9,6 +9,7 @@ import { OpeningHoursModel } from 'shared/api'
 import { helpers } from '../constants/theme'
 import Collapsible from './Collapsible'
 import OpeningEntry from './OpeningEntry'
+import Spacer from './Spacer'
 
 const OpeningLabel = styled.span<{ $isOpen: boolean }>`
   color: ${props => (props.$isOpen ? props.theme.colors.positiveHighlight : props.theme.colors.negativeHighlight)};
@@ -42,9 +43,16 @@ type OpeningHoursProps = {
   appointmentOverlayLink: string | null
 }
 
-const getOpeningLabel = (isTemporarilyClosed: boolean, isCurrentlyOpened: boolean): string => {
+const getOpeningLabel = (
+  isTemporarilyClosed: boolean,
+  isCurrentlyOpened: boolean,
+  openingHours: OpeningHoursModel[] | null,
+): string => {
   if (isTemporarilyClosed) {
     return 'temporarilyClosed'
+  }
+  if (!openingHours) {
+    return 'onlyWithAppointment'
   }
   return isCurrentlyOpened ? 'opened' : 'closed'
 }
@@ -56,19 +64,26 @@ const OpeningHours = ({
   appointmentOverlayLink,
 }: OpeningHoursProps): ReactElement | null => {
   const { t } = useTranslation('pois')
+  const theme = useTheme()
+  const isOnlyWithAppointment = !openingHours && !!appointmentOverlayLink
 
   const openingHoursTitle = (
     <TitleContainer>
       <span>{t('openingHours')}</span>
       <OpeningContainer>
         <OpeningLabel $isOpen={isCurrentlyOpen}>
-          {t(getOpeningLabel(isTemporarilyClosed, isCurrentlyOpen))}
+          {t(getOpeningLabel(isTemporarilyClosed, isCurrentlyOpen, openingHours))}
         </OpeningLabel>
       </OpeningContainer>
     </TitleContainer>
   )
-  if (isTemporarilyClosed) {
-    return <TitleContainer>{openingHoursTitle}</TitleContainer>
+  if (isTemporarilyClosed || isOnlyWithAppointment) {
+    return (
+      <>
+        <Spacer $borderColor={theme.colors.borderColor} />
+        <TitleContainer>{openingHoursTitle}</TitleContainer>
+      </>
+    )
   }
 
   if (!openingHours || openingHours.length !== weekdays.length) {
@@ -76,7 +91,7 @@ const OpeningHours = ({
   }
 
   return (
-    <Collapsible title={openingHoursTitle}>
+    <Collapsible title={openingHoursTitle} initialCollapsed={!isCurrentlyOpen}>
       <Content>
         {openingHours.map((entry, index) => (
           <OpeningEntry
