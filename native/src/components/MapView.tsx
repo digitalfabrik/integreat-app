@@ -196,7 +196,7 @@ const MapView = ({
         </MapLibreGL.ShapeSource>
         <MapLibreGL.Camera defaultSettings={defaultSettings} followUserMode='normal' ref={cameraRef} />
       </StyledMap>
-      {!bottomSheetFullscreen && (
+      {Boolean(!bottomSheetFullscreen) && (
         <>
           <OverlayContainer>{Overlay}</OverlayContainer>
           <MapAttribution />
