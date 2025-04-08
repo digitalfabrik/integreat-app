@@ -15,4 +15,15 @@ describe('normalizeString', () => {
     expect(normalizeString('Bergstraße')).toBe('bergstrasse')
     expect(normalizeString('äßoßsß')).toBe('assosssss')
   })
+
+  it('should keep characters in non-latin alphabets', () => {
+    expect(normalizeString('اللغة')).toBe('اللغة')
+    expect(normalizeString('በጀርመን')).toBe('በጀርመን')
+    expect(normalizeString('त')).toBe('त')
+    expect(normalizeString('本页内容来自')).toBe('本页内容来自')
+  })
+
+  it('should keep numbers', () => {
+    expect(normalizeString('غ12te57ة')).toBe('غ12te57ة')
+  })
 })
