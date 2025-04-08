@@ -61,6 +61,9 @@ const EventsDateFilter = ({
   const [showDateFilter, setShowDateFilter] = useState(false)
   const { t } = useTranslation('events')
 
+  const today = DateTime.now()
+  const inAWeek = DateTime.now().plus({ days: 7 })
+
   return (
     <>
       <FilterToggle isDateFilterActive={showDateFilter} setToggleDateFilter={setShowDateFilter} />
@@ -72,8 +75,9 @@ const EventsDateFilter = ({
               date={startDate}
               setDate={setStartDate}
               error={startDateError ? t(startDateError) : ''}
+              placeholderDate={today}
             />
-            <CustomDatePicker title={t('to')} date={endDate} setDate={setEndDate} />
+            <CustomDatePicker title={t('to')} date={endDate} setDate={setEndDate} placeholderDate={inAWeek} />
           </>
         </DateSection>
       </Accordion>
