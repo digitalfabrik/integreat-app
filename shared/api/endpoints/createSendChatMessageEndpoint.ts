@@ -1,8 +1,7 @@
 import Endpoint from '../Endpoint'
 import EndpointBuilder from '../EndpointBuilder'
-import { buildChatMessages } from '../buildChatMessages'
 import { API_VERSION } from '../constants'
-import { ChatMessages } from '../types'
+import { ChatMessages, mapChatMessages } from '../mapping/mapChatMessages'
 
 export const CHAT_ENDPOINT_NAME = 'chat'
 type ParamsType = {
@@ -24,5 +23,5 @@ export default (baseUrl: string): Endpoint<ParamsType, ChatMessages> =>
       formData.append('message', message)
       return formData
     })
-    .withMapper(buildChatMessages)
+    .withMapper(mapChatMessages)
     .build()

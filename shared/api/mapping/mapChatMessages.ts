@@ -1,7 +1,12 @@
-import ChatMessageModel from './models/ChatMessageModel'
-import { ChatMessages, JsonChatMessagesType } from './types'
+import ChatMessageModel from '../models/ChatMessageModel'
+import { JsonChatMessagesType } from '../types'
 
-export const buildChatMessages = (json: JsonChatMessagesType): ChatMessages => ({
+export type ChatMessages = {
+  typing: boolean
+  messages: ChatMessageModel[]
+}
+
+export const mapChatMessages = (json: JsonChatMessagesType): ChatMessages => ({
   typing: json.chatbot_typing,
   messages: json.messages.map(
     chatMessage =>
