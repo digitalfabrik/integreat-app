@@ -1,7 +1,7 @@
 import Endpoint from '../Endpoint'
 import EndpointBuilder from '../EndpointBuilder'
 import { API_VERSION } from '../constants'
-import { ChatMessages, mapChatMessages } from '../mapping/mapChatMessages'
+import { ChatMessagesReturn, mapChatMessages } from '../mapping/mapChatMessages'
 
 export const CHAT_ENDPOINT_NAME = 'chat'
 type ParamsType = {
@@ -11,8 +11,8 @@ type ParamsType = {
   message: string
 }
 
-export default (baseUrl: string): Endpoint<ParamsType, ChatMessages> =>
-  new EndpointBuilder<ParamsType, ChatMessages>(CHAT_ENDPOINT_NAME)
+export default (baseUrl: string): Endpoint<ParamsType, ChatMessagesReturn> =>
+  new EndpointBuilder<ParamsType, ChatMessagesReturn>(CHAT_ENDPOINT_NAME)
     .withParamsToUrlMapper(
       (params: ParamsType): string =>
         `${baseUrl}/api/${API_VERSION}/${params.city}/${params.language}/${CHAT_ENDPOINT_NAME}/${params.deviceId}/`,
