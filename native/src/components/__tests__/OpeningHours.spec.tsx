@@ -50,6 +50,7 @@ describe('OpeningHours', () => {
   })
   it('should display the link to make an appointment without openingHours', () => {
     const { getByText } = renderOpeningHours(true, false, null)
+    expect(getByText('onlyWithAppointment')).toBeTruthy()
     expect(getByText('makeAppointment')).toBeTruthy()
   })
   it('should display the link to make an appointment if temporarily closed', () => {
