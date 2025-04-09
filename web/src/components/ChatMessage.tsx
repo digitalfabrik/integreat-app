@@ -59,7 +59,7 @@ const getIcon = (userIsAuthor: boolean, isAutomaticAnswer: boolean, t: TFunction
 
 const ChatMessage = ({ message, previousMessage }: ChatMessageProps): ReactElement => {
   const { t } = useTranslation('chat')
-  const { body, userIsAuthor, isAutomaticAnswer } = message
+  const { content, userIsAuthor, isAutomaticAnswer } = message
   const hasAuthorChanged = message.userIsAuthor !== previousMessage?.userIsAuthor
   const hasAutomaticAnswerChanged = message.isAutomaticAnswer !== previousMessage?.isAutomaticAnswer
   const showIcon = hasAuthorChanged || hasAutomaticAnswerChanged
@@ -68,7 +68,7 @@ const ChatMessage = ({ message, previousMessage }: ChatMessageProps): ReactEleme
     <Container $isAuthor={userIsAuthor}>
       <IconContainer $visible={showIcon}>{getIcon(userIsAuthor, isAutomaticAnswer, t)}</IconContainer>
       <Message data-testid={message.id}>
-        <RemoteContent html={body} smallText />
+        <RemoteContent html={content} smallText />
       </Message>
     </Container>
   )

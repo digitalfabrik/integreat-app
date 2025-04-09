@@ -1,13 +1,13 @@
 class ChatMessageModel {
   _id: number
-  _body: string
+  _content: string
   _userIsAuthor: boolean
   _automaticAnswer: boolean
 
-  constructor(params: { id: number; body: string; userIsAuthor: boolean; automaticAnswer: boolean }) {
-    const { id, body, userIsAuthor, automaticAnswer } = params
+  constructor(params: { id: number; content: string; userIsAuthor: boolean; automaticAnswer: boolean }) {
+    const { id, content, userIsAuthor, automaticAnswer } = params
     this._id = id
-    this._body = body
+    this._content = content
     this._userIsAuthor = userIsAuthor
     this._automaticAnswer = automaticAnswer
   }
@@ -16,8 +16,8 @@ class ChatMessageModel {
     return this._id
   }
 
-  get body(): string {
-    return this._body
+  get content(): string {
+    return this._content
   }
 
   get userIsAuthor(): boolean {
