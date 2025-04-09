@@ -1,4 +1,4 @@
-import { normalizeString } from './search'
+import normalizeString from './normalizeString'
 
 type TruncateTextOptions = {
   maxChars: number
