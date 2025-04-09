@@ -1,4 +1,4 @@
-import { ColorsType, commonLightColors } from '../../common/theme/colors'
+import { ColorsType, commonLightColors, commonHighContrastColors } from '../../common/theme/colors'
 
 const themeColor = '#fbda16'
 const themeColorLight = 'rgba(251, 218, 22, 0.5)'
@@ -9,4 +9,9 @@ export const lightColors: ColorsType = {
   themeColorLight,
   themeContrast,
   ...commonLightColors,
+}
+
+export const highContrastColors: ColorsType = {
+  themeColor,
+  ...commonHighContrastColors,
 }

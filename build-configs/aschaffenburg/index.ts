@@ -19,6 +19,7 @@ const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
   appIcon: 'app_icon_aschaffenburg',
   notificationIcon: 'notification_icon_aschaffenburg',
   lightTheme,
+  highContrastTheme: lightTheme,
   assets: ASCHAFFENBURG_ASSETS,
   cmsUrl: 'https://cms.integreat-app.de',
   hostName: 'halloaschaffenburg.de',
