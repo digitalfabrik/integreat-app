@@ -140,11 +140,12 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     )
   }
 
-  const renderEventListItem = (event: EventModel) => (
+  const renderEventListItem = (event: EventModel, index: number) => (
     <EventListItem
       event={event}
       languageCode={languageCode}
       key={event.path}
+      index={index}
       filterStartDate={startDate}
       filterEndDate={endDate}
     />
