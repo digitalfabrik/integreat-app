@@ -13,5 +13,7 @@ export const lightColors: ColorsType = {
 
 export const highContrastColors: ColorsType = {
   themeColor,
+  themeColorLight,
+  themeContrast,
   ...commonHighContrastColors,
 }

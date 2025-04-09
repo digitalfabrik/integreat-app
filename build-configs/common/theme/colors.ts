@@ -1,26 +1,26 @@
 export type ColorsType = {
   themeColor: string
-  themeColorLight?: string
+  themeColorLight: string
   backgroundAccentColor: string
   textColor: string
-  textSecondaryColor?: string
-  textDecorationColor?: string
-  textDisabledColor?: string
-  footerLineColor?: string
-  backgroundColor?: string
-  tunewsThemeColor?: string
-  tunewsThemeColorLight?: string
+  textSecondaryColor: string
+  textDecorationColor: string
+  textDisabledColor: string
+  footerLineColor: string
+  backgroundColor: string
+  tunewsThemeColor: string
+  tunewsThemeColorLight: string
   borderColor: string
-  positiveHighlight?: string
-  negativeHighlight?: string
-  invalidInput?: string
-  warningColor?: string
-  linkColor?: string
-  themeContrast?: string
-  ttsPlayerWarningBackground?: string
-  ttsPlayerWarningColor?: string
-  ttsPlayerBackground?: string
-  ttsPlayerPlayIconColor?: string
+  positiveHighlight: string
+  negativeHighlight: string
+  invalidInput: string
+  warningColor: string
+  linkColor: string
+  themeContrast: string
+  ttsPlayerWarningBackground: string
+  ttsPlayerWarningColor: string
+  ttsPlayerBackground: string
+  ttsPlayerPlayIconColor: string
 }
 export const commonLightColors = {
   backgroundAccentColor: '#fafafa',
@@ -44,6 +44,7 @@ export const commonLightColors = {
   ttsPlayerPlayIconColor: '#232323',
 }
 export const commonHighContrastColors = {
+  ...commonLightColors,
   backgroundAccentColor: '#20293A',
   backgroundColor: '#101217',
   textColor: '#FFFFFF',
