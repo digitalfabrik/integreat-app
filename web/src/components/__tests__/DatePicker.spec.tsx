@@ -17,19 +17,23 @@ describe('DatePicker', () => {
     const title = 'From Date'
     const date = DateTime.now()
 
+    const placeholderDate = DateTime.fromISO('2025-04-08')
+
     const { getByText, getByPlaceholderText } = renderCustomDatePicker({
       title,
       date,
       setDate,
       error: '',
+      placeholderDate,
     })
 
     expect(getByText(title)).toBeInTheDocument()
-    expect(getByPlaceholderText('01.01.1990')).toBeInTheDocument()
+    expect(getByPlaceholderText(placeholderDate.toFormat('dd.MM.yyyy'))).toBeInTheDocument()
   })
 
   it('handles date change correctly', () => {
     const newValue = DateTime.now().plus({ days: 1 })
+    const today = new Date()
 
     const { getByPlaceholderText } = renderCustomDatePicker({
       title: 'From Date',
@@ -38,7 +42,7 @@ describe('DatePicker', () => {
       error: '',
     })
 
-    const input = getByPlaceholderText('01.01.1990')
+    const input = getByPlaceholderText(DateTime.fromJSDate(today).toFormat('dd.MM.yyyy'))
 
     fireEvent.change(input, { target: { value: newValue } })
 

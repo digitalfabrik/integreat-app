@@ -1,0 +1,8 @@
+issue_key: 3080
+show_in_stores: true
+platforms:
+  - web
+  - android
+  - ios
+en: The placeholder date for the events date filter is set to "today until 7 days later"
+de: Das Platzhalterdatum für den Datumsfilter der Veranstaltungen ist jetzt "heute bis 7 Tage später"

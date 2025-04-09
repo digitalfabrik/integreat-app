@@ -64,9 +64,18 @@ export type DatePickerProps = {
   error?: string
   modalOpen: boolean
   setModalOpen: (open: boolean) => void
+  placeholderDate?: DateTime
 }
 
-const DatePicker = ({ title, date, setDate, error, modalOpen, setModalOpen }: DatePickerProps): ReactElement => {
+const DatePicker = ({
+  title,
+  date,
+  setDate,
+  error,
+  modalOpen,
+  setModalOpen,
+  placeholderDate,
+}: DatePickerProps): ReactElement => {
   const { t } = useTranslation('events')
   const [inputDay, setInputDay] = useState(date?.toFormat('dd'))
   const [inputMonth, setInputMonth] = useState(date?.toFormat('MM'))
@@ -75,6 +84,10 @@ const DatePicker = ({ title, date, setDate, error, modalOpen, setModalOpen }: Da
   const dayRef = useRef<TextInput>(null)
   const monthRef = useRef<TextInput>(null)
   const yearRef = useRef<TextInput>(null)
+  const dateToUse = placeholderDate ?? DateTime.now()
+  const placeholderDay = dateToUse.toFormat('dd')
+  const placeholderMonth = dateToUse.toFormat('MM')
+  const placeholderYear = dateToUse.toFormat('yyyy')
 
   useEffect(() => {
     try {
@@ -107,7 +120,7 @@ const DatePicker = ({ title, date, setDate, error, modalOpen, setModalOpen }: Da
         <Wrapper>
           <DatePickerInput
             ref={dayRef}
-            placeholder='01'
+            placeholder={placeholderDay}
             nextTargetRef={monthRef}
             inputValue={inputDay}
             setInputValue={setInputDay}
@@ -116,7 +129,7 @@ const DatePicker = ({ title, date, setDate, error, modalOpen, setModalOpen }: Da
           <Text>.</Text>
           <DatePickerInput
             ref={monthRef}
-            placeholder='01'
+            placeholder={placeholderMonth}
             nextTargetRef={yearRef}
             prevTargetRef={dayRef}
             inputValue={inputMonth}
@@ -128,7 +141,7 @@ const DatePicker = ({ title, date, setDate, error, modalOpen, setModalOpen }: Da
             style={{ marginLeft: 6 }}
             ref={yearRef}
             prevTargetRef={monthRef}
-            placeholder='1990'
+            placeholder={placeholderYear}
             inputValue={inputYear}
             setInputValue={setInputYear}
             type='year'
