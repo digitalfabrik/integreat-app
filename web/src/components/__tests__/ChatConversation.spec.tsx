@@ -119,6 +119,19 @@ describe('ChatConversation', () => {
     expect(queryByText('...')).toBeNull()
   })
 
+  it('should hide typing indicator if new message from zammad comes in', () => {
+    const botMessage = new ChatMessageModel({
+      id: 20,
+      body: 'Bot Message',
+      userIsAuthor: false,
+      automaticAnswer: true,
+    })
+    const { queryByText, rerender } = render(testMessages, false)
+    expect(queryByText('...')).toBeTruthy()
+    rerender(<ChatConversation messages={[...testMessages, botMessage]} hasError={false} />)
+    expect(queryByText('...')).toBeNull()
+  })
+
   it('should display error messages if error occurs', () => {
     const { getByText } = render([], true)
     expect(getByText('chat:errorMessage')).toBeTruthy()

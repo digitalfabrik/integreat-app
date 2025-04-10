@@ -17,6 +17,7 @@ const InitialMessage = styled.div`
 
 const TypingIndicatorWrapper = styled(Message)`
   width: max-content;
+  margin-left: 33px;
 `
 
 const ErrorSendingStatus = styled.div`
@@ -49,15 +50,22 @@ const TYPING_INDICATOR_TIMEOUT = 60000
 const ChatConversation = ({ messages, hasError, className }: ChatConversationProps): ReactElement => {
   const { t } = useTranslation('chat')
   const [messagesCount, setMessagesCount] = useState(0)
-  const [typingIndicatorVisible, setTypingIndicatorVisible] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const isLastMessageFromUser = messages[messages.length - 1]?.userIsAuthor
   const hasOnlyReceivedInfoMessage = messages.filter(message => !message.userIsAuthor).length === 1
   const waitingForAnswer = isLastMessageFromUser || hasOnlyReceivedInfoMessage
+  const [typingIndicatorVisible, setTypingIndicatorVisible] = useState(false)
+
+  const scrollToBottom = async (beforeScroll?: () => void | Promise<void>) => {
+    if (beforeScroll) {
+      await beforeScroll()
+    }
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }
 
   useEffect(() => {
     if (messagesCount < messages.length) {
-      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+      scrollToBottom()
       setMessagesCount(messages.length)
     }
   }, [messages, messagesCount])
@@ -65,15 +73,18 @@ const ChatConversation = ({ messages, hasError, className }: ChatConversationPro
   useEffect(() => {
     if (waitingForAnswer) {
       setTypingIndicatorVisible(true)
-
-      const typingIndicatorTimeout = setTimeout(() => {
-        setTypingIndicatorVisible(false)
-      }, TYPING_INDICATOR_TIMEOUT)
-
-      return () => clearTimeout(typingIndicatorTimeout)
+      const timeout = setTimeout(() => setTypingIndicatorVisible(false), TYPING_INDICATOR_TIMEOUT)
+      return () => clearTimeout(timeout)
     }
-    return () => undefined
+    setTypingIndicatorVisible(false)
+    return undefined
   }, [waitingForAnswer])
+
+  useEffect(() => {
+    if (typingIndicatorVisible) {
+      scrollToBottom()
+    }
+  }, [typingIndicatorVisible])
 
   return (
     <Container className={className}>
