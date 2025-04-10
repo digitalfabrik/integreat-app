@@ -40,9 +40,21 @@ const HighContrastMode = (): ReactElement => {
     // Needs to be implemented in another ticket #3187
   }
 
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      handleContrastToggle()
+    }
+  }
+
   if (viewportSmall) {
     return (
-      <ContrastButton role='button' tabIndex={0} onClick={handleContrastToggle} aria-label={t('contrastMode')}>
+      <ContrastButton
+        role='button'
+        aria-label={t('contrastMode')}
+        tabIndex={0}
+        onClick={handleContrastToggle}
+        onKeyDown={handleKeyDown}>
         <StyledIcon src={ContrastModeLightIcon} />
         <span>{t('contrastMode')}</span>
       </ContrastButton>
