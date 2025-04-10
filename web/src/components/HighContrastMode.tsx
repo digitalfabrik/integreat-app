@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { ContrastModeLightIcon } from '../assets'
+import { ContrastModeIcon } from '../assets'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import ToolbarItem from './ToolbarItem'
 import Icon from './base/Icon'
@@ -10,7 +10,7 @@ import Icon from './base/Icon'
 const ContrastButton = styled.div`
   display: flex;
   width: 100%;
-  height: 70px;
+  height: 72px;
   border-bottom: 1px solid ${props => props.theme.colors.themeColor};
   cursor: pointer;
 
@@ -20,7 +20,7 @@ const ContrastButton = styled.div`
   }
 
   & > span {
-    padding: 25px 28px;
+    padding: 24px 28px;
     align-self: start;
     color: ${props => props.theme.colors.textColor};
   }
@@ -50,24 +50,20 @@ const HighContrastMode = (): ReactElement => {
   if (viewportSmall) {
     return (
       <ContrastButton
+        dir='auto'
         role='button'
         aria-label={t('contrastMode')}
         tabIndex={0}
         onClick={handleContrastToggle}
         onKeyDown={handleKeyDown}>
-        <StyledIcon src={ContrastModeLightIcon} />
+        <StyledIcon src={ContrastModeIcon} />
         <span>{t('contrastMode')}</span>
       </ContrastButton>
     )
   }
 
   return (
-    <ToolbarItem
-      icon={ContrastModeLightIcon}
-      text={t('contrastMode')}
-      onClick={handleContrastToggle}
-      id='contrast-mode'
-    />
+    <ToolbarItem icon={ContrastModeIcon} text={t('contrastMode')} onClick={handleContrastToggle} id='contrast-mode' />
   )
 }
 
