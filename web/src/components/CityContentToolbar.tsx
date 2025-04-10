@@ -5,6 +5,7 @@ import { CopyIcon, DoneIcon, ReadAloudIcon } from '../assets'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { RouteType } from '../routes'
 import FeedbackToolbarItem from './FeedbackToolbarItem'
+import HighContrastMode from './HighContrastMode'
 import SharingPopup from './SharingPopup'
 import Toolbar from './Toolbar'
 import ToolbarItem from './ToolbarItem'
@@ -79,6 +80,7 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
       />
       {hasFeedbackOption && <FeedbackToolbarItem route={route} slug={feedbackTarget} positive />}
       {hasFeedbackOption && <FeedbackToolbarItem route={route} slug={feedbackTarget} positive={false} />}
+      {!viewportSmall && <HighContrastMode />}
     </Toolbar>
   )
 }

@@ -18,6 +18,8 @@ import ChatPerson from '../../../assets/icons/chat-person.svg'
 import ChatIcon from '../../../assets/icons/chat.svg'
 import ClockIcon from '../../../assets/icons/clock.svg'
 import CloseIcon from '../../../assets/icons/close.svg'
+import ContrastModeDarkIcon from '../../../assets/icons/contrast-icon-dark.svg'
+import ContrastModeLightIcon from '../../../assets/icons/contrast-icon-light.svg'
 import CopyIcon from '../../../assets/icons/copy.svg'
 import DataSecurityIcon from '../../../assets/icons/data-security.svg'
 import DoneIcon from '../../../assets/icons/done.svg'
@@ -82,6 +84,8 @@ export {
   ChatPerson,
   ChatBot,
   ChatIcon,
+  ContrastModeLightIcon,
+  ContrastModeDarkIcon,
   ClockIcon,
   CloseIcon,
   CopyIcon,
