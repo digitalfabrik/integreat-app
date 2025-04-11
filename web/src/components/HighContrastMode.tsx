@@ -10,24 +10,17 @@ import Icon from './base/Icon'
 const ContrastButton = styled.div`
   display: flex;
   width: 100%;
-  height: 72px;
-  border-bottom: 1px solid ${props => props.theme.colors.themeColor};
+  padding: 24px 0;
+  align-items: center;
   cursor: pointer;
 
-  &:focus {
-    outline: 3px solid;
-    border-radius: 3px;
-  }
-
   & > span {
-    padding: 24px 28px;
-    align-self: start;
+    padding: 0 28px;
     color: ${props => props.theme.colors.textColor};
   }
 `
 
 const StyledIcon = styled(Icon)`
-  margin-top: 20px;
   width: 24px;
   height: 24px;
 `
