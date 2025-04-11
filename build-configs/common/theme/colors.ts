@@ -43,3 +43,10 @@ export const commonLightColors = {
   ttsPlayerBackground: '#dedede',
   ttsPlayerPlayIconColor: '#232323',
 }
+export const commonHighContrastColors = {
+  ...commonLightColors,
+  backgroundAccentColor: '#20293A',
+  backgroundColor: '#101217',
+  textColor: '#FFFFFF',
+  borderColor: '#FFFFFF',
+}
