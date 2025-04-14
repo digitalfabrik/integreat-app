@@ -62,7 +62,7 @@ const EventsDateFilter = ({
   const { t } = useTranslation('events')
 
   const today = DateTime.now()
-  const inAWeek = DateTime.now().plus({ days: 7 })
+  const inAWeek = DateTime.now().plus({ week: 1 })
 
   return (
     <>

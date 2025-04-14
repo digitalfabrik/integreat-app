@@ -64,7 +64,7 @@ export type DatePickerProps = {
   error?: string
   modalOpen: boolean
   setModalOpen: (open: boolean) => void
-  placeholderDate?: DateTime
+  placeholderDate: DateTime
 }
 
 const DatePicker = ({
@@ -84,10 +84,9 @@ const DatePicker = ({
   const dayRef = useRef<TextInput>(null)
   const monthRef = useRef<TextInput>(null)
   const yearRef = useRef<TextInput>(null)
-  const dateToUse = placeholderDate ?? DateTime.now()
-  const placeholderDay = dateToUse.toFormat('dd')
-  const placeholderMonth = dateToUse.toFormat('MM')
-  const placeholderYear = dateToUse.toFormat('yyyy')
+  const placeholderDay = placeholderDate.toFormat('dd')
+  const placeholderMonth = placeholderDate.toFormat('MM')
+  const placeholderYear = placeholderDate.toFormat('yyyy')
 
   useEffect(() => {
     try {

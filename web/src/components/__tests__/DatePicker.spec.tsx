@@ -10,8 +10,10 @@ jest.mock('react-i18next')
 describe('DatePicker', () => {
   const setDate = jest.fn()
 
-  const renderCustomDatePicker = ({ setDate, title, date, error }: CustomDatePickerProps) =>
-    renderWithTheme(<DatePicker setDate={setDate} title={title} date={date} error={error} />)
+  const renderCustomDatePicker = ({ setDate, title, date, error, placeholderDate }: CustomDatePickerProps) =>
+    renderWithTheme(
+      <DatePicker setDate={setDate} title={title} date={date} error={error} placeholderDate={placeholderDate} />,
+    )
 
   it('renders correctly with given props', () => {
     const title = 'From Date'
@@ -28,18 +30,20 @@ describe('DatePicker', () => {
     })
 
     expect(getByText(title)).toBeInTheDocument()
-    expect(getByPlaceholderText(placeholderDate.toFormat('dd.MM.yyyy'))).toBeInTheDocument()
+    expect(getByPlaceholderText('08.04.2025')).toBeInTheDocument()
   })
 
   it('handles date change correctly', () => {
     const newValue = DateTime.now().plus({ days: 1 })
     const today = new Date()
+    const placeholderDate = DateTime.now()
 
     const { getByPlaceholderText } = renderCustomDatePicker({
       title: 'From Date',
       date: DateTime.local(),
       setDate,
       error: '',
+      placeholderDate,
     })
 
     const input = getByPlaceholderText(DateTime.fromJSDate(today).toFormat('dd.MM.yyyy'))
@@ -51,12 +55,14 @@ describe('DatePicker', () => {
 
   it('displays an error message when error prop is provided', () => {
     const error = 'Invalid date'
+    const placeholderDate = DateTime.now()
 
     const { getByText } = renderCustomDatePicker({
       title: 'From Date',
       date: DateTime.local(),
       setDate,
       error,
+      placeholderDate,
     })
 
     expect(getByText(error)).toBeInTheDocument()

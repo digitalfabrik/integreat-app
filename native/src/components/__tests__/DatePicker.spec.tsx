@@ -42,7 +42,6 @@ describe('DatePickerForNative', () => {
       error: '',
       placeholderDate: DateTime.fromISO('1999-01-09'),
     })
-    console.log(new Date('1999-01-09'))
     expect(getByPlaceholderText('01')).toBeTruthy()
     expect(getByPlaceholderText('09')).toBeTruthy()
     expect(getByPlaceholderText('1999')).toBeTruthy()
@@ -72,6 +71,7 @@ describe('DatePickerForNative', () => {
   })
 
   it('should show errors correctly', () => {
+    const placeholderDate = DateTime.fromISO('2025-04-08')
     const { getByText } = renderCustomDatePicker({
       modalOpen: false,
       setModalOpen,
@@ -79,6 +79,7 @@ describe('DatePickerForNative', () => {
       title: 'Test DatePicker',
       date: null,
       error: 'Invalid date',
+      placeholderDate,
     })
 
     expect(getByText('Invalid date')).toBeTruthy()

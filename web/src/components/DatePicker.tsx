@@ -74,7 +74,7 @@ export type CustomDatePickerProps = {
   date?: DateTime | null
   setDate: (date: DateTime | null) => void
   error?: string
-  placeholderDate?: DateTime
+  placeholderDate: DateTime
 }
 
 const isValidJsDate = (date: Date | null): boolean => {
@@ -144,10 +144,9 @@ const CustomDatePicker = ({ title, date, setDate, error, placeholderDate }: Cust
           onClickOutside={() => setIsCalendarOpen(false)}
           calendarClassName='calenderStyle'
           dateFormat='dd.MM.yyyy'
-          placeholderText={(placeholderDate ?? DateTime.now()).toFormat('dd.MM.yyyy')}
+          placeholderText={placeholderDate.toFormat('dd.MM.yyyy')}
           onChange={(date: Date | null) => handleDateChange(date)}
           onChangeRaw={e => handleDateError(String((e?.target as HTMLInputElement).value))}
-          openToDate={(placeholderDate ?? DateTime.now()).toJSDate()}
         />
         <StyledIconButton
           label={t('common:openCalendar')}

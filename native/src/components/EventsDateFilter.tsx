@@ -66,7 +66,7 @@ const EventsDateFilter = ({
   const currentInput = useRef<string>('from')
 
   const today = DateTime.now()
-  const inAWeek = DateTime.now().plus({ days: 7 })
+  const inAWeek = DateTime.now().plus({ week: 1 })
 
   const setModalOpenAndCurrentInputFrom = (openModal: boolean) => {
     currentInput.current = 'from'
