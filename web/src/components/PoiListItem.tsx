@@ -52,6 +52,7 @@ export const Description = styled.div`
   min-width: 1px; /* needed to enable line breaks for too long words, exact value doesn't matter */
   flex-direction: column;
   flex-grow: 1;
+  color: ${props => props.theme.colors.textColor};
   padding: 0 22px;
   align-self: center;
   word-break: break-word;

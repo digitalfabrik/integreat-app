@@ -2,14 +2,17 @@ import React, { ReactElement, ReactNode } from 'react'
 import styled from 'styled-components'
 
 import dimensions from '../constants/dimensions'
+import { useContrastTheme } from '../hooks/useContrastTheme'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 
 const Container = styled.div`
   /* noop */
 `
 
-const ToolbarContainer = styled.div<{ $direction: 'row' | 'column'; $hasPadding: boolean }>`
+const ToolbarContainer = styled.div<{ $direction: 'row' | 'column'; $hasPadding: boolean; $isContrastTheme: boolean }>`
   display: flex;
+  flex-wrap:wrap;
+  justify-content:center;
   box-sizing: border-box;
   flex-direction: ${props => props.$direction};
   align-items: center;
@@ -19,7 +22,10 @@ const ToolbarContainer = styled.div<{ $direction: 'row' | 'column'; $hasPadding:
     font-size: 1.5rem;
     transition: 0.2s opacity;
   }
-
+  
+& > *:focus {
+    ${props => props.$isContrastTheme && `outline: 2px solid ${props.theme.colors.themeColor}`}
+    
   & > *:hover {
     opacity: 1;
   }
@@ -56,11 +62,16 @@ const Toolbar: React.FC<ToolbarProps> = ({
   hideDivider = false,
 }: ToolbarProps): ReactElement => {
   const { viewportSmall } = useWindowDimensions()
+  const { isContrastTheme } = useContrastTheme()
   const hasPadding = iconDirection === 'column'
   return (
     <Container as={viewportSmall ? 'footer' : 'div'}>
       {viewportSmall && !hideDivider && <Divider />}
-      <ToolbarContainer className={className} $direction={iconDirection} $hasPadding={hasPadding}>
+      <ToolbarContainer
+        $isContrastTheme={isContrastTheme}
+        className={className}
+        $direction={iconDirection}
+        $hasPadding={hasPadding}>
         {children}
       </ToolbarContainer>
     </Container>
