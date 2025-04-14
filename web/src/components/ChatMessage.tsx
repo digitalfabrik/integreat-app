@@ -59,7 +59,7 @@ type InnerChatMessageProps = {
   userIsAuthor: boolean
   showIcon: boolean
   isAutomaticAnswer: boolean
-  body: string
+  content: string
   messageId: number
 }
 
@@ -67,7 +67,7 @@ export const InnerChatMessage = ({
   userIsAuthor,
   showIcon,
   isAutomaticAnswer,
-  body,
+  content,
   messageId,
 }: InnerChatMessageProps): ReactElement => {
   const { t } = useTranslation('chat')
@@ -75,7 +75,7 @@ export const InnerChatMessage = ({
     <Container $isAuthor={userIsAuthor}>
       <IconContainer $visible={showIcon}>{getIcon(userIsAuthor, isAutomaticAnswer, t)}</IconContainer>
       <Message data-testid={messageId}>
-        <RemoteContent html={body} smallText />
+        <RemoteContent html={content} smallText />
       </Message>
     </Container>
   )
@@ -84,7 +84,7 @@ export const InnerChatMessage = ({
 type ChatMessageProps = { message: ChatMessageModel; previousMessage: ChatMessageModel | undefined }
 
 const ChatMessage = ({ message, previousMessage }: ChatMessageProps): ReactElement => {
-  const { body, userIsAuthor, isAutomaticAnswer } = message
+  const { content, userIsAuthor, isAutomaticAnswer } = message
   const hasAuthorChanged = message.userIsAuthor !== previousMessage?.userIsAuthor
   const hasAutomaticAnswerChanged = message.isAutomaticAnswer !== previousMessage?.isAutomaticAnswer
   const showIcon = hasAuthorChanged || hasAutomaticAnswerChanged
@@ -94,7 +94,7 @@ const ChatMessage = ({ message, previousMessage }: ChatMessageProps): ReactEleme
       userIsAuthor={userIsAuthor}
       showIcon={showIcon}
       isAutomaticAnswer={isAutomaticAnswer}
-      body={body}
+      content={content}
       messageId={message.id}
     />
   )

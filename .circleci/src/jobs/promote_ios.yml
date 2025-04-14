@@ -11,8 +11,6 @@ environment:
 shell: /bin/bash --login -o pipefail
 steps:
   - checkout
-  - skip_job:
-      build_config_name: << parameters.build_config_name >>
   - restore_yarn_tools_cache
   - restore_yarn_cache # Needed for babel-node run in util.rb. May be refactored and optimized later.
   - restore_ruby_cache:
@@ -29,4 +27,6 @@ steps:
         echo "export PROMOTION_MESSAGE='${PROMOTION_MESSAGE}'" >> $BASH_ENV
   - notify:
       success_message: '${PROMOTION_MESSAGE}'
+      channel: releases
+      only_for_branch: ${CIRCLE_BRANCH}
   - persist_environment_variables

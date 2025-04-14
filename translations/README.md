@@ -60,10 +60,10 @@ Make sure to revert this after exporting.
 - Review the changes carefully.
 
 **Warning:** Make sure to check the received translations on mistakes. For example make sure that our placeholders are not translated.
-The following regex can be used to find invalid placeholders:
+The following regex can be used to find invalid placeholders (make sure to enable case-sensitive and regex search):
 
 ```regexp
-\{\{(?!appName|distance|count|organization|domain|source|message|numberOfCharacters|filter|version)[^}]\*}}
+\{\{(?!appName|distance|count|organization|domain|source|message|numberOfCharacters|filter|version|number)[^}]*}}
 ```
 
 ## Conversion between JSON, CSV and ODS
