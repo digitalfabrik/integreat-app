@@ -23,6 +23,7 @@ const POLLING_INTERVAL = 8000
 
 const ChatController = ({ city, language }: ChatControllerProps): ReactElement => {
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
+  const [hasStarted, setHasStarted] = useState<boolean>(false)
   const { value: deviceId } = useLocalStorage({
     key: `${LOCAL_STORAGE_ITEM_CHAT_MESSAGES}-${city}`,
     initialValue: window.crypto.randomUUID(),
@@ -33,7 +34,7 @@ const ChatController = ({ city, language }: ChatControllerProps): ReactElement =
     error,
     loading,
     setData,
-  } = useLoadFromEndpoint(createChatMessagesEndpoint, cmsApiBaseUrl, { city, language, deviceId })
+  } = useLoadFromEndpoint(createChatMessagesEndpoint, cmsApiBaseUrl, { city, language, deviceId }, hasStarted)
   const isBrowserTabActive = useIsTabActive()
 
   useEffect(() => {
@@ -45,6 +46,7 @@ const ChatController = ({ city, language }: ChatControllerProps): ReactElement =
   }, [refreshMessages, isBrowserTabActive])
 
   const submitMessage = async (message: string) => {
+    setHasStarted(true)
     setSendingStatus('sending')
     const { data, error } = await createSendChatMessageEndpoint(cmsApiBaseUrl).request({
       city,

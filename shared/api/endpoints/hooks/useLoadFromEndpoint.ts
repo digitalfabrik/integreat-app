@@ -22,14 +22,17 @@ const useLoadFromEndpoint = <T extends object, P>(
   createEndpoint: (baseUrl: string) => Endpoint<P, T>,
   baseUrl: string | (() => Promise<string>),
   params: P,
+  enabled = true,
 ): Return<T> =>
   useLoadAsync(
-    useCallback(
-      () => loadFromEndpoint(createEndpoint, baseUrl, params),
+    useCallback(() => {
+      if (!enabled) {
+        return Promise.resolve(null)
+      }
+      return loadFromEndpoint(createEndpoint, baseUrl, params)
       // Normally using params as dependency triggers infinite re-renders
       // eslint-disable-next-line react-hooks/exhaustive-deps
-      [createEndpoint, baseUrl, JSON.stringify(params)],
-    ),
+    }, [createEndpoint, baseUrl, JSON.stringify(params)]),
   )
 
 export default useLoadFromEndpoint
