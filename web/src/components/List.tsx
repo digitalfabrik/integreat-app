@@ -24,7 +24,7 @@ class List<T> extends React.PureComponent<ListProps<T>> {
       return <NoItemsMessage>{noItemsMessage}</NoItemsMessage>
     }
 
-    return <StyledList $borderless={borderless}>{items.map((item, index) => renderItem(item, index))}</StyledList>
+    return <StyledList $borderless={borderless}>{items.map(renderItem)}</StyledList>
   }
 }
 
