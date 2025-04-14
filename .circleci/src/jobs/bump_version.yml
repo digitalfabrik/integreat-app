@@ -9,7 +9,6 @@ docker:
 resource_class: small
 steps:
   - checkout
-  - skip_job
   - restore_yarn_tools_cache
   - run:
       name: Calculate next version name

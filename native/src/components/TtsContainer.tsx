@@ -2,6 +2,7 @@ import React, { createContext, ReactElement, useCallback, useContext, useMemo, u
 import { useTranslation } from 'react-i18next'
 import Tts, { Options } from 'react-native-tts'
 
+import { TTS_MAX_TITLE_DISPLAY_CHARS } from 'shared'
 import { truncate } from 'shared/utils/getExcerpt'
 
 import buildConfig from '../constants/buildConfig'
@@ -11,7 +12,7 @@ import useSnackbar from '../hooks/useSnackbar'
 import { reportError } from '../utils/sentry'
 import TtsPlayer from './TtsPlayer'
 
-const MAX_TITLE_DISPLAY_CHARS = 20
+// For a list of available languages see https://cloud.google.com/text-to-speech/docs/list-voices-and-types#list_of_all_supported_languages
 const TTS_UNSUPPORTED_LANGUAGES = ['fa', 'ka', 'kmr']
 const TTS_OPTIONS: Options = {
   androidParams: {
@@ -53,7 +54,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
   const { t } = useTranslation('layout')
   const showSnackbar = useSnackbar()
   const title = sentences[0] || t('nothingToRead')
-  const longTitle = truncate(title, { maxChars: MAX_TITLE_DISPLAY_CHARS })
+  const shortTitle = truncate(title, { maxChars: TTS_MAX_TITLE_DISPLAY_CHARS })
   const enabled = buildConfig().featureFlags.tts && !TTS_UNSUPPORTED_LANGUAGES.includes(languageCode)
 
   const initializeTts = useCallback(async (): Promise<void> => {
@@ -160,13 +161,13 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
       {visible && (
         <TtsPlayer
           isPlaying={isPlaying}
-          sentences={sentences}
+          disabled={sentences.length === 0}
           playPrevious={() => play(sentenceIndex - 1)}
           playNext={() => play(sentenceIndex + 1)}
           close={close}
           pause={pause}
           play={play}
-          title={longTitle}
+          title={shortTitle}
         />
       )}
     </TtsContext.Provider>

@@ -194,37 +194,6 @@ commands:
                 paths:
                     - ~/.cache/yarn-tools
                     - tools/node_modules
-    skip_job:
-        description: Skips the current build if neccassary
-        parameters:
-            build_config_name:
-                default: all
-                enum:
-                    - integreat
-                    - malte
-                    - integreat-e2e
-                    - integreat-test-cms
-                    - malte-test-cms
-                    - aschaffenburg
-                    - obdach
-                    - all
-                type: enum
-        steps:
-            - run:
-                command: |
-                    function skip_job {
-                      build_config_name=$1
-                      variable_name=SKIP_JOB_${CIRCLE_JOB%-*} # Remove everything after "-". e.g. "check-1" -> check
-                      if [[ -n ${!variable_name} && ($build_config_name =~ ${!variable_name} || "all" =~  ${!variable_name}) ]]; then
-                        message="Job is skipped because the variable $variable_name is set"
-                        echo $message
-                        circleci step halt
-                        source tools/notify-mattermost main integreat-app-notifications "$message"
-                      fi
-                    }
-
-                    skip_job << parameters.build_config_name >>
-                name: Skip the current build if necessary
     unit_test:
         description: Runs the test task and stores coverage and junit data
         steps:
@@ -256,8 +225,6 @@ jobs:
         shell: /bin/bash -eo pipefail
         steps:
             - checkout
-            - skip_job:
-                build_config_name: << parameters.build_config_name >>
             - add_ssh_keys:
                 fingerprints:
                     - 24:1d:3b:b7:b3:49:69:d7:54:c3:93:a5:a2:d1:71:db
@@ -361,8 +328,6 @@ jobs:
         shell: /bin/bash --login -o pipefail
         steps:
             - checkout
-            - skip_job:
-                build_config_name: << parameters.build_config_name >>
             - add_ssh_keys:
                 fingerprints:
                     - 24:1d:3b:b7:b3:49:69:d7:54:c3:93:a5:a2:d1:71:db
@@ -429,8 +394,6 @@ jobs:
         shell: /bin/bash -eo pipefail
         steps:
             - checkout
-            - skip_job:
-                build_config_name: << parameters.build_config_name >>
             - restore_yarn_cache
             - prepare_workspace
             - restore_environment_variables
@@ -465,7 +428,6 @@ jobs:
         resource_class: small
         steps:
             - checkout
-            - skip_job
             - restore_yarn_tools_cache
             - run:
                 command: echo "export NEW_VERSION_NAME=$(yarn --silent next-version calc | jq .versionName)" >> ${BASH_ENV}
@@ -506,7 +468,6 @@ jobs:
         shell: /bin/bash -eo pipefail
         steps:
             - checkout
-            - skip_job
             - check_config
             - restore_yarn_cache
             - restore_yarn_tools_cache
@@ -549,8 +510,6 @@ jobs:
         shell: /bin/bash -eo pipefail
         steps:
             - checkout
-            - skip_job:
-                build_config_name: << parameters.build_config_name >>
             - prepare_workspace
             - restore_environment_variables
             - restore_yarn_tools_cache
@@ -590,8 +549,6 @@ jobs:
         shell: /bin/bash --login -o pipefail
         steps:
             - checkout
-            - skip_job:
-                build_config_name: << parameters.build_config_name >>
             - prepare_workspace
             - restore_environment_variables
             - restore_yarn_tools_cache
@@ -637,7 +594,6 @@ jobs:
         shell: /bin/bash -eo pipefail
         steps:
             - checkout
-            - skip_job
             - add_ssh_keys:
                 fingerprints:
                     - 68:a3:fe:e7:94:f7:a4:13:35:5c:63:30:2f:07:7d:02
@@ -710,7 +666,6 @@ jobs:
         shell: /bin/bash -eo pipefail
         steps:
             - checkout
-            - skip_job
             - prepare_workspace
             - restore_yarn_cache
             - restore_ruby_cache:
@@ -729,7 +684,6 @@ jobs:
         shell: /bin/bash -eo pipefail
         steps:
             - checkout
-            - skip_job
             - prepare_workspace
             - restore_yarn_cache
             - restore_ruby_cache:
@@ -747,7 +701,6 @@ jobs:
         shell: /bin/bash -eo pipefail
         steps:
             - checkout
-            - skip_job
             - prepare_workspace
             - restore_yarn_cache
             - run:
@@ -764,7 +717,6 @@ jobs:
         resource_class: small
         steps:
             - checkout
-            - skip_job
             - prepare_workspace
             - restore_environment_variables
             - restore_yarn_tools_cache
@@ -783,7 +735,6 @@ jobs:
         resource_class: small
         steps:
             - checkout
-            - skip_job
             - prepare_workspace
             - restore_environment_variables
             - restore_yarn_tools_cache
@@ -816,7 +767,6 @@ jobs:
         resource_class: small
         steps:
             - checkout
-            - skip_job
             - prepare_workspace
             - restore_environment_variables
             - restore_yarn_tools_cache
@@ -849,7 +799,6 @@ jobs:
         resource_class: small
         steps:
             - checkout
-            - skip_job
             - prepare_workspace
             - restore_environment_variables
             - restore_yarn_tools_cache
@@ -892,8 +841,6 @@ jobs:
         shell: /bin/bash -eo pipefail
         steps:
             - checkout
-            - skip_job:
-                build_config_name: << parameters.build_config_name >>
             - restore_yarn_cache
             - restore_yarn_tools_cache
             - restore_ruby_cache:
@@ -929,8 +876,6 @@ jobs:
         shell: /bin/bash --login -o pipefail
         steps:
             - checkout
-            - skip_job:
-                build_config_name: << parameters.build_config_name >>
             - restore_yarn_tools_cache
             - restore_yarn_cache
             - restore_ruby_cache:
@@ -957,7 +902,6 @@ jobs:
         shell: /bin/bash -eo pipefail
         steps:
             - checkout
-            - skip_job
             - restore_yarn_tools_cache
             - add_ssh_keys:
                 fingerprints:
@@ -992,7 +936,6 @@ jobs:
         shell: /bin/bash -eo pipefail
         steps:
             - checkout
-            - skip_job
             - prepare_workspace
             - restore_environment_variables
             - run:
@@ -1012,7 +955,6 @@ jobs:
         shell: /bin/bash -eo pipefail
         steps:
             - checkout
-            - skip_job
             - prepare_workspace
             - restore_environment_variables
             - run:
@@ -1032,7 +974,6 @@ jobs:
         shell: /bin/bash -eo pipefail
         steps:
             - checkout
-            - skip_job
             - prepare_workspace
             - restore_environment_variables
             - run:
@@ -1048,33 +989,6 @@ jobs:
                 command: tools/sentry-release web-obdach "${NEW_VERSION_NAME}" ~/attached_workspace/dist/obdach
                 name: 'Sentry Upload: obdach'
             - notify
-    upload_browserstack:
-        docker:
-            - image: cimg/ruby:3.2.5
-        environment:
-            FASTLANE_SKIP_UPDATE_CHECK: true
-        parameters:
-            file_name:
-                description: the name of the file to upload
-                type: string
-        resource_class: small
-        shell: /bin/bash -eo pipefail
-        steps:
-            - checkout
-            - skip_job
-            - prepare_workspace
-            - restore_environment_variables
-            - restore_ruby_cache:
-                directory: native
-            - run:
-                command: |
-                    file="attached_workspace/<< parameters.file_name >>"
-                    file_with_commit_sha="${file%.*}_<< pipeline.git.revision >>.${file##*.}"
-                    cp ~/$file ~/$file_with_commit_sha
-                    bundle exec fastlane browserstack_upload path:$file_with_commit_sha
-                name: '[FL] Browserstack Upload Live'
-                working_directory: native
-            - notify
 parameters:
     api_triggered:
         default: false
@@ -1083,25 +997,20 @@ parameters:
     workflow_type:
         default: none
         enum:
+            - delivery
+            - promotion
             - native_beta_delivery
             - native_production_delivery
             - native_promotion
             - web_beta_delivery
             - web_production_delivery
             - web_promotion
-            - delivery
-            - e2e_tests
-            - native_browserstack
             - none
         type: enum
 version: 2.1
 workflows:
     commit:
         jobs:
-            - bump_version:
-                context:
-                    - mattermost
-                prepare_delivery: false
             - check:
                 context:
                     - mattermost
@@ -1118,43 +1027,23 @@ workflows:
                     - mattermost
                 prepare_delivery: false
             - build_web:
-                build_config_name: integreat-test-cms
                 context:
                     - mattermost
-                name: build_ig_test_cms_web
-                requires:
-                    - bump_version
-            - build_web:
-                build_config_name: malte-test-cms
-                context:
-                    - mattermost
-                name: build_malte_test_cms_web
-                requires:
-                    - bump_version
-            - build_web:
-                build_config_name: aschaffenburg
-                context:
-                    - mattermost
-                name: build_aschaffenburg_web
-                requires:
-                    - bump_version
-            - build_web:
-                build_config_name: obdach
-                context:
-                    - mattermost
-                name: build_obdach_web
+                matrix:
+                    parameters:
+                        build_config_name:
+                            - integreat-test-cms
+                            - malte-test-cms
+                            - aschaffenburg
+                            - obdach
                 requires:
                     - bump_version
             - deliver_web:
                 context:
                     - mattermost
-                    - sentry
                 delivery: webnext
                 requires:
-                    - build_ig_test_cms_web
-                    - build_malte_test_cms_web
-                    - build_aschaffenburg_web
-                    - build_obdach_web
+                    - build_web
         when:
             and:
                 - equal:
@@ -1177,31 +1066,15 @@ workflows:
                 requires:
                     - bump_version
             - build_web:
-                build_config_name: integreat
                 context:
                     - mattermost
-                name: build_integreat_web
-                requires:
-                    - bump_version
-            - build_web:
-                build_config_name: malte
-                context:
-                    - mattermost
-                name: build_malte_web
-                requires:
-                    - bump_version
-            - build_web:
-                build_config_name: aschaffenburg
-                context:
-                    - mattermost
-                name: build_aschaffenburg_web
-                requires:
-                    - bump_version
-            - build_web:
-                build_config_name: obdach
-                context:
-                    - mattermost
-                name: build_obdach_web
+                matrix:
+                    parameters:
+                        build_config_name:
+                            - integreat
+                            - malte
+                            - aschaffenburg
+                            - obdach
                 requires:
                     - bump_version
             - deliver_web:
@@ -1211,19 +1084,13 @@ workflows:
                 requires:
                     - check
                     - e2e_web
-                    - build_integreat_web
-                    - build_malte_web
-                    - build_aschaffenburg_web
-                    - build_obdach_web
+                    - build_web
             - sentry_web:
                 context:
                     - mattermost
                     - sentry
                 requires:
-                    - build_integreat_web
-                    - build_malte_web
-                    - build_aschaffenburg_web
-                    - build_obdach_web
+                    - build_web
             - notify_web:
                 context:
                     - mattermost
@@ -1232,12 +1099,17 @@ workflows:
                 requires:
                     - deliver_web
             - build_android:
-                build_config_name: integreat-e2e
                 context:
                     - mattermost
                     - credentials-repo
                     - credentials-integreat
-                name: build_e2e_android
+                matrix:
+                    parameters:
+                        build_config_name:
+                            - integreat-e2e
+                            - integreat
+                            - malte
+                            - aschaffenburg
                 requires:
                     - bump_version
             - e2e_android:
@@ -1245,94 +1117,48 @@ workflows:
                     - mattermost
                     - browserstack
                 requires:
-                    - build_e2e_android
-            - build_android:
-                build_config_name: integreat
-                context:
-                    - mattermost
-                    - credentials-repo
-                    - credentials-integreat
-                name: build_integreat_android
-                requires:
-                    - bump_version
+                    - build_android-integreat-e2e
             - deliver_android:
-                build_config_name: integreat
                 context:
                     - mattermost
                     - browserstack
                     - tuerantuer-google-play
-                name: deliver_integreat_android
+                matrix:
+                    parameters:
+                        build_config_name:
+                            - integreat
+                            - malte
+                            - aschaffenburg
                 production_delivery: false
                 requires:
                     - check
                     - e2e_android
-                    - build_integreat_android
-            - build_android:
-                build_config_name: malte
-                context:
-                    - mattermost
-                    - credentials-repo
-                    - credentials-integreat
-                name: build_malte_android
-                requires:
-                    - bump_version
-            - deliver_android:
-                build_config_name: malte
-                context:
-                    - mattermost
-                    - browserstack
-                    - tuerantuer-google-play
-                name: deliver_malte_android
-                production_delivery: false
-                requires:
-                    - check
-                    - e2e_android
-                    - build_malte_android
-            - build_android:
-                build_config_name: aschaffenburg
-                context:
-                    - mattermost
-                    - credentials-repo
-                    - credentials-integreat
-                name: build_aschaffenburg_android
-                requires:
-                    - bump_version
-            - deliver_android:
-                build_config_name: aschaffenburg
-                context:
-                    - mattermost
-                    - browserstack
-                    - tuerantuer-google-play
-                name: deliver_aschaffenburg_android
-                production_delivery: false
-                requires:
-                    - check
-                    - e2e_android
-                    - build_aschaffenburg_android
+                    - build_android-<< matrix.build_config_name >>
             - sentry_android:
                 context:
                     - mattermost
                     - sentry
                 requires:
-                    - build_integreat_android
-                    - build_malte_android
-                    - build_aschaffenburg_android
+                    - build_android
             - notify_android:
                 context:
                     - mattermost
                     - deliverino
                 production_delivery: false
                 requires:
-                    - deliver_integreat_android
-                    - deliver_malte_android
-                    - deliver_aschaffenburg_android
+                    - deliver_android
             - build_ios:
-                build_config_name: integreat-e2e
                 context:
                     - mattermost
                     - tuerantuer-apple
                     - fastlane-match
-                name: build_e2e_ios
+                matrix:
+                    parameters:
+                        build_config_name:
+                            - integreat-e2e
+                            - integreat
+                            - malte
+                            - aschaffenburg
                 requires:
                     - bump_version
             - e2e_ios:
@@ -1340,87 +1166,36 @@ workflows:
                     - mattermost
                     - browserstack
                 requires:
-                    - build_e2e_ios
-            - build_ios:
-                build_config_name: integreat
-                context:
-                    - mattermost
-                    - tuerantuer-apple
-                    - fastlane-match
-                name: build_integreat_ios
-                requires:
-                    - bump_version
+                    - build_ios-integreat-e2e
             - deliver_ios:
-                build_config_name: integreat
                 context:
                     - mattermost
                     - browserstack
                     - tuerantuer-apple
-                name: deliver_integreat_ios
+                matrix:
+                    parameters:
+                        build_config_name:
+                            - integreat
+                            - malte
+                            - aschaffenburg
                 production_delivery: false
                 requires:
                     - check
                     - e2e_ios
-                    - build_integreat_ios
-            - build_ios:
-                build_config_name: malte
-                context:
-                    - mattermost
-                    - tuerantuer-apple
-                    - fastlane-match
-                name: build_malte_ios
-                requires:
-                    - bump_version
-            - deliver_ios:
-                build_config_name: malte
-                context:
-                    - mattermost
-                    - browserstack
-                    - tuerantuer-apple
-                name: deliver_malte_ios
-                production_delivery: false
-                requires:
-                    - check
-                    - e2e_ios
-                    - build_malte_ios
-            - build_ios:
-                build_config_name: aschaffenburg
-                context:
-                    - mattermost
-                    - tuerantuer-apple
-                    - fastlane-match
-                name: build_aschaffenburg_ios
-                requires:
-                    - bump_version
-            - deliver_ios:
-                build_config_name: aschaffenburg
-                context:
-                    - mattermost
-                    - browserstack
-                    - tuerantuer-apple
-                name: deliver_aschaffenburg_ios
-                production_delivery: false
-                requires:
-                    - check
-                    - e2e_ios
-                    - build_aschaffenburg_ios
+                    - build_ios-<< matrix.build_config_name >>
             - sentry_ios:
                 context:
                     - mattermost
                     - sentry
                 requires:
-                    - build_integreat_ios
-                    - build_malte_ios
-                    - build_aschaffenburg_ios
+                    - build_ios
             - notify_ios:
                 context:
                     - mattermost
                     - deliverino
                 production_delivery: false
                 requires:
-                    - deliver_integreat_ios
-                    - deliver_malte_ios
-                    - deliver_aschaffenburg_ios
+                    - deliver_ios
             - move_release_notes:
                 context:
                     - mattermost
@@ -1435,58 +1210,6 @@ workflows:
                 - equal:
                     - << pipeline.parameters.workflow_type >>
                     - delivery
-    e2e_tests:
-        jobs:
-            - bump_version:
-                context:
-                    - mattermost
-                prepare_delivery: false
-            - build_web:
-                build_config_name: integreat-test-cms
-                context:
-                    - mattermost
-                name: build_ig_test_cms_web
-                requires:
-                    - bump_version
-            - e2e_web:
-                context:
-                    - mattermost
-            - build_android:
-                build_config_name: integreat-e2e
-                context:
-                    - credentials-repo
-                    - credentials-integreat
-                    - mattermost
-                name: build_e2e_android
-                requires:
-                    - bump_version
-            - e2e_android:
-                context:
-                    - browserstack
-                    - mattermost
-                requires:
-                    - build_e2e_android
-            - build_ios:
-                build_config_name: integreat-e2e
-                context:
-                    - tuerantuer-apple
-                    - fastlane-match
-                    - mattermost
-                name: build_e2e_ios
-                requires:
-                    - bump_version
-            - e2e_ios:
-                context:
-                    - browserstack
-                    - mattermost
-                requires:
-                    - build_e2e_ios
-        when:
-            and:
-                - << pipeline.parameters.api_triggered >>
-                - equal:
-                    - << pipeline.parameters.workflow_type >>
-                    - e2e_tests
     native_beta_delivery:
         jobs:
             - bump_version:
@@ -1498,12 +1221,17 @@ workflows:
                 context:
                     - mattermost
             - build_android:
-                build_config_name: integreat-e2e
                 context:
                     - mattermost
                     - credentials-repo
                     - credentials-integreat
-                name: build_e2e_android
+                matrix:
+                    parameters:
+                        build_config_name:
+                            - integreat-e2e
+                            - integreat
+                            - malte
+                            - aschaffenburg
                 requires:
                     - bump_version
             - e2e_android:
@@ -1511,94 +1239,48 @@ workflows:
                     - mattermost
                     - browserstack
                 requires:
-                    - build_e2e_android
-            - build_android:
-                build_config_name: integreat
-                context:
-                    - mattermost
-                    - credentials-repo
-                    - credentials-integreat
-                name: build_integreat_android
-                requires:
-                    - bump_version
+                    - build_android-integreat-e2e
             - deliver_android:
-                build_config_name: integreat
                 context:
                     - mattermost
                     - browserstack
                     - tuerantuer-google-play
-                name: deliver_integreat_android
+                matrix:
+                    parameters:
+                        build_config_name:
+                            - integreat
+                            - malte
+                            - aschaffenburg
                 production_delivery: false
                 requires:
                     - check
                     - e2e_android
-                    - build_integreat_android
-            - build_android:
-                build_config_name: malte
-                context:
-                    - mattermost
-                    - credentials-repo
-                    - credentials-integreat
-                name: build_malte_android
-                requires:
-                    - bump_version
-            - deliver_android:
-                build_config_name: malte
-                context:
-                    - mattermost
-                    - browserstack
-                    - tuerantuer-google-play
-                name: deliver_malte_android
-                production_delivery: false
-                requires:
-                    - check
-                    - e2e_android
-                    - build_malte_android
-            - build_android:
-                build_config_name: aschaffenburg
-                context:
-                    - mattermost
-                    - credentials-repo
-                    - credentials-integreat
-                name: build_aschaffenburg_android
-                requires:
-                    - bump_version
-            - deliver_android:
-                build_config_name: aschaffenburg
-                context:
-                    - mattermost
-                    - browserstack
-                    - tuerantuer-google-play
-                name: deliver_aschaffenburg_android
-                production_delivery: false
-                requires:
-                    - check
-                    - e2e_android
-                    - build_aschaffenburg_android
+                    - build_android-<< matrix.build_config_name >>
             - sentry_android:
                 context:
                     - mattermost
                     - sentry
                 requires:
-                    - build_integreat_android
-                    - build_malte_android
-                    - build_aschaffenburg_android
+                    - build_android
             - notify_android:
                 context:
                     - mattermost
                     - deliverino
                 production_delivery: false
                 requires:
-                    - deliver_integreat_android
-                    - deliver_malte_android
-                    - deliver_aschaffenburg_android
+                    - deliver_android
             - build_ios:
-                build_config_name: integreat-e2e
                 context:
                     - mattermost
                     - tuerantuer-apple
                     - fastlane-match
-                name: build_e2e_ios
+                matrix:
+                    parameters:
+                        build_config_name:
+                            - integreat-e2e
+                            - integreat
+                            - malte
+                            - aschaffenburg
                 requires:
                     - bump_version
             - e2e_ios:
@@ -1606,140 +1288,42 @@ workflows:
                     - mattermost
                     - browserstack
                 requires:
-                    - build_e2e_ios
-            - build_ios:
-                build_config_name: integreat
-                context:
-                    - mattermost
-                    - tuerantuer-apple
-                    - fastlane-match
-                name: build_integreat_ios
-                requires:
-                    - bump_version
+                    - build_ios-integreat-e2e
             - deliver_ios:
-                build_config_name: integreat
                 context:
                     - mattermost
                     - browserstack
                     - tuerantuer-apple
-                name: deliver_integreat_ios
+                matrix:
+                    parameters:
+                        build_config_name:
+                            - integreat
+                            - malte
+                            - aschaffenburg
                 production_delivery: false
                 requires:
                     - check
                     - e2e_ios
-                    - build_integreat_ios
-            - build_ios:
-                build_config_name: malte
-                context:
-                    - mattermost
-                    - tuerantuer-apple
-                    - fastlane-match
-                name: build_malte_ios
-                requires:
-                    - bump_version
-            - deliver_ios:
-                build_config_name: malte
-                context:
-                    - mattermost
-                    - browserstack
-                    - tuerantuer-apple
-                    - fastlane-match
-                name: deliver_malte_ios
-                production_delivery: false
-                requires:
-                    - check
-                    - e2e_ios
-                    - build_malte_ios
-            - build_ios:
-                build_config_name: aschaffenburg
-                context:
-                    - mattermost
-                    - tuerantuer-apple
-                    - fastlane-match
-                name: build_aschaffenburg_ios
-                requires:
-                    - bump_version
-            - deliver_ios:
-                build_config_name: aschaffenburg
-                context:
-                    - mattermost
-                    - browserstack
-                    - tuerantuer-apple
-                name: deliver_aschaffenburg_ios
-                production_delivery: false
-                requires:
-                    - check
-                    - e2e_ios
-                    - build_aschaffenburg_ios
+                    - build_ios-<< matrix.build_config_name >>
             - sentry_ios:
                 context:
                     - mattermost
                     - sentry
                 requires:
-                    - build_integreat_ios
-                    - build_malte_ios
-                    - build_aschaffenburg_ios
+                    - build_ios
             - notify_ios:
                 context:
                     - mattermost
                     - deliverino
                 production_delivery: false
                 requires:
-                    - deliver_integreat_ios
-                    - deliver_malte_ios
-                    - deliver_aschaffenburg_ios
+                    - deliver_ios
         when:
             and:
                 - << pipeline.parameters.api_triggered >>
                 - equal:
                     - << pipeline.parameters.workflow_type >>
                     - native_beta_delivery
-    native_browserstack:
-        jobs:
-            - bump_version:
-                context:
-                    - mattermost
-                prepare_delivery: false
-            - build_android:
-                build_config_name: integreat-test-cms
-                context:
-                    - mattermost
-                    - credentials-repo
-                    - credentials-integreat
-                name: build_ig_test_cms_android
-                requires:
-                    - bump_version
-            - upload_browserstack:
-                context:
-                    - mattermost
-                    - browserstack
-                file_name: integreat-test-cms.apk
-                name: upload_ig_test_cms_android_browserstack
-                requires:
-                    - build_ig_test_cms_android
-            - build_ios:
-                build_config_name: integreat-test-cms
-                context:
-                    - mattermost
-                    - tuerantuer-apple
-                    - fastlane-match
-                name: build_ig_test_cms_ios
-                requires:
-                    - bump_version
-            - upload_browserstack:
-                context:
-                    - mattermost
-                    - browserstack
-                file_name: integreat-test-cms.ipa
-                name: upload_ig_test_cms_ios_browserstack
-                requires:
-                    - build_ig_test_cms_ios
-        when:
-            and:
-                - << pipeline.parameters.api_triggered >>
-                - equal:
-                    - << pipeline.parameters.workflow_type >>
-                    - native_browserstack
     native_production_delivery:
         jobs:
             - bump_version:
@@ -1751,12 +1335,17 @@ workflows:
                 context:
                     - mattermost
             - build_android:
-                build_config_name: integreat-e2e
                 context:
                     - mattermost
                     - credentials-repo
                     - credentials-integreat
-                name: build_e2e_android
+                matrix:
+                    parameters:
+                        build_config_name:
+                            - integreat-e2e
+                            - integreat
+                            - malte
+                            - aschaffenburg
                 requires:
                     - bump_version
             - e2e_android:
@@ -1764,94 +1353,48 @@ workflows:
                     - mattermost
                     - browserstack
                 requires:
-                    - build_e2e_android
-            - build_android:
-                build_config_name: integreat
-                context:
-                    - mattermost
-                    - credentials-repo
-                    - credentials-integreat
-                name: build_integreat_android
-                requires:
-                    - bump_version
+                    - build_android-integreat-e2e
             - deliver_android:
-                build_config_name: integreat
                 context:
                     - mattermost
                     - browserstack
                     - tuerantuer-google-play
-                name: deliver_integreat_android
+                matrix:
+                    parameters:
+                        build_config_name:
+                            - integreat
+                            - malte
+                            - aschaffenburg
                 production_delivery: true
                 requires:
                     - check
                     - e2e_android
-                    - build_integreat_android
-            - build_android:
-                build_config_name: malte
-                context:
-                    - mattermost
-                    - credentials-repo
-                    - credentials-integreat
-                name: build_malte_android
-                requires:
-                    - bump_version
-            - deliver_android:
-                build_config_name: malte
-                context:
-                    - mattermost
-                    - browserstack
-                    - tuerantuer-google-play
-                name: deliver_malte_android
-                production_delivery: true
-                requires:
-                    - check
-                    - e2e_android
-                    - build_malte_android
-            - build_android:
-                build_config_name: aschaffenburg
-                context:
-                    - mattermost
-                    - credentials-repo
-                    - credentials-integreat
-                name: build_aschaffenburg_android
-                requires:
-                    - bump_version
-            - deliver_android:
-                build_config_name: aschaffenburg
-                context:
-                    - mattermost
-                    - browserstack
-                    - tuerantuer-google-play
-                name: deliver_aschaffenburg_android
-                production_delivery: true
-                requires:
-                    - check
-                    - e2e_android
-                    - build_aschaffenburg_android
+                    - build_android-<< matrix.build_config_name >>
             - sentry_android:
                 context:
                     - mattermost
                     - sentry
                 requires:
-                    - build_integreat_android
-                    - build_malte_android
-                    - build_aschaffenburg_android
+                    - build_android
             - notify_android:
                 context:
                     - mattermost
                     - deliverino
                 production_delivery: true
                 requires:
-                    - deliver_integreat_android
-                    - deliver_malte_android
-                    - deliver_aschaffenburg_android
+                    - deliver_android
             - build_ios:
-                build_config_name: integreat-e2e
                 context:
                     - mattermost
                     - tuerantuer-apple
                     - fastlane-match
-                name: build_e2e_ios
+                matrix:
+                    parameters:
+                        build_config_name:
+                            - integreat-e2e
+                            - integreat
+                            - malte
+                            - aschaffenburg
                 requires:
                     - bump_version
             - e2e_ios:
@@ -1859,87 +1402,36 @@ workflows:
                     - mattermost
                     - browserstack
                 requires:
-                    - build_e2e_ios
-            - build_ios:
-                build_config_name: integreat
-                context:
-                    - mattermost
-                    - tuerantuer-apple
-                    - fastlane-match
-                name: build_integreat_ios
-                requires:
-                    - bump_version
+                    - build_ios-integreat-e2e
             - deliver_ios:
-                build_config_name: integreat
                 context:
                     - mattermost
                     - browserstack
                     - tuerantuer-apple
-                name: deliver_integreat_ios
+                matrix:
+                    parameters:
+                        build_config_name:
+                            - integreat
+                            - malte
+                            - aschaffenburg
                 production_delivery: true
                 requires:
                     - check
                     - e2e_ios
-                    - build_integreat_ios
-            - build_ios:
-                build_config_name: malte
-                context:
-                    - mattermost
-                    - tuerantuer-apple
-                    - fastlane-match
-                name: build_malte_ios
-                requires:
-                    - bump_version
-            - deliver_ios:
-                build_config_name: malte
-                context:
-                    - mattermost
-                    - browserstack
-                    - tuerantuer-apple
-                name: deliver_malte_ios
-                production_delivery: true
-                requires:
-                    - check
-                    - e2e_ios
-                    - build_malte_ios
-            - build_ios:
-                build_config_name: aschaffenburg
-                context:
-                    - mattermost
-                    - tuerantuer-apple
-                    - fastlane-match
-                name: build_aschaffenburg_ios
-                requires:
-                    - bump_version
-            - deliver_ios:
-                build_config_name: aschaffenburg
-                context:
-                    - mattermost
-                    - browserstack
-                    - tuerantuer-apple
-                name: deliver_aschaffenburg_ios
-                production_delivery: true
-                requires:
-                    - check
-                    - e2e_ios
-                    - build_aschaffenburg_ios
+                    - build_ios-<< matrix.build_config_name >>
             - sentry_ios:
                 context:
                     - mattermost
                     - sentry
                 requires:
-                    - build_integreat_ios
-                    - build_malte_ios
-                    - build_aschaffenburg_ios
+                    - build_ios
             - notify_ios:
                 context:
                     - mattermost
                     - deliverino
                 production_delivery: true
                 requires:
-                    - deliver_integreat_ios
-                    - deliver_malte_ios
-                    - deliver_aschaffenburg_ios
+                    - deliver_ios
         when:
             and:
                 - << pipeline.parameters.api_triggered >>
@@ -1949,54 +1441,67 @@ workflows:
     native_promotion:
         jobs:
             - promote_android:
-                build_config_name: integreat
                 context:
                     - mattermost
                     - tuerantuer-google-play
                     - deliverino
-                name: promote_integreat_android
-            - promote_android:
-                build_config_name: malte
-                context:
-                    - mattermost
-                    - tuerantuer-google-play
-                    - deliverino
-                name: promote_malte_android
-            - promote_android:
-                build_config_name: aschaffenburg
-                context:
-                    - mattermost
-                    - tuerantuer-google-play
-                    - deliverino
-                name: promote_aschaffenburg_android
+                matrix:
+                    parameters:
+                        build_config_name:
+                            - integreat
+                            - malte
+                            - aschaffenburg
             - promote_ios:
-                build_config_name: integreat
                 context:
                     - mattermost
                     - tuerantuer-apple
                     - deliverino
-                name: promote_integreat_ios
-            - promote_ios:
-                build_config_name: malte
-                context:
-                    - mattermost
-                    - tuerantuer-apple
-                    - deliverino
-                name: promote_malte_ios
-            - promote_ios:
-                build_config_name: aschaffenburg
-                context:
-                    - mattermost
-                    - tuerantuer-apple
-                    - deliverino
-                name: promote_aschaffenburg_ios
+                matrix:
+                    parameters:
+                        build_config_name:
+                            - integreat
+                            - malte
+                            - aschaffenburg
         when:
             and:
                 - << pipeline.parameters.api_triggered >>
                 - equal:
                     - << pipeline.parameters.workflow_type >>
                     - native_promotion
-    version: 2
+    promotion:
+        jobs:
+            - promote_web:
+                context:
+                    - mattermost
+                    - deliverino
+            - promote_android:
+                context:
+                    - mattermost
+                    - tuerantuer-google-play
+                    - deliverino
+                matrix:
+                    parameters:
+                        build_config_name:
+                            - integreat
+                            - malte
+                            - aschaffenburg
+            - promote_ios:
+                context:
+                    - mattermost
+                    - tuerantuer-apple
+                    - deliverino
+                matrix:
+                    parameters:
+                        build_config_name:
+                            - integreat
+                            - malte
+                            - aschaffenburg
+        when:
+            and:
+                - << pipeline.parameters.api_triggered >>
+                - equal:
+                    - << pipeline.parameters.workflow_type >>
+                    - promotion
     web_beta_delivery:
         jobs:
             - bump_version:
@@ -2013,31 +1518,15 @@ workflows:
                 requires:
                     - bump_version
             - build_web:
-                build_config_name: integreat
                 context:
                     - mattermost
-                name: build_integreat_web
-                requires:
-                    - bump_version
-            - build_web:
-                build_config_name: malte
-                context:
-                    - mattermost
-                name: build_malte_web
-                requires:
-                    - bump_version
-            - build_web:
-                build_config_name: aschaffenburg
-                context:
-                    - mattermost
-                name: build_aschaffenburg_web
-                requires:
-                    - bump_version
-            - build_web:
-                build_config_name: obdach
-                context:
-                    - mattermost
-                name: build_obdach_web
+                matrix:
+                    parameters:
+                        build_config_name:
+                            - integreat
+                            - malte
+                            - aschaffenburg
+                            - obdach
                 requires:
                     - bump_version
             - deliver_web:
@@ -2047,19 +1536,13 @@ workflows:
                 requires:
                     - check
                     - e2e_web
-                    - build_integreat_web
-                    - build_malte_web
-                    - build_aschaffenburg_web
-                    - build_obdach_web
+                    - build_web
             - sentry_web:
                 context:
                     - mattermost
                     - sentry
                 requires:
-                    - build_integreat_web
-                    - build_malte_web
-                    - build_aschaffenburg_web
-                    - build_obdach_web
+                    - build_web
             - notify_web:
                 context:
                     - mattermost
@@ -2089,31 +1572,15 @@ workflows:
                 requires:
                     - bump_version
             - build_web:
-                build_config_name: integreat
                 context:
                     - mattermost
-                name: build_integreat_web
-                requires:
-                    - bump_version
-            - build_web:
-                build_config_name: malte
-                context:
-                    - mattermost
-                name: build_malte_web
-                requires:
-                    - bump_version
-            - build_web:
-                build_config_name: aschaffenburg
-                context:
-                    - mattermost
-                name: build_aschaffenburg_web
-                requires:
-                    - bump_version
-            - build_web:
-                build_config_name: obdach
-                context:
-                    - mattermost
-                name: build_obdach_web
+                matrix:
+                    parameters:
+                        build_config_name:
+                            - integreat
+                            - malte
+                            - aschaffenburg
+                            - obdach
                 requires:
                     - bump_version
             - deliver_web:
@@ -2123,19 +1590,13 @@ workflows:
                 requires:
                     - check
                     - e2e_web
-                    - build_integreat_web
-                    - build_malte_web
-                    - build_aschaffenburg_web
-                    - build_obdach_web
+                    - build_web
             - sentry_web:
                 context:
                     - mattermost
                     - sentry
                 requires:
-                    - build_integreat_web
-                    - build_malte_web
-                    - build_aschaffenburg_web
-                    - build_obdach_web
+                    - build_web
             - notify_web:
                 context:
                     - mattermost
