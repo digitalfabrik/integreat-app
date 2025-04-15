@@ -30,6 +30,7 @@ type ChatConversationProps = {
   messages: ChatMessageModel[]
   hasError: boolean
   className?: string
+  isTyping: boolean
 }
 
 type TypingIndicatorProps = {
@@ -39,20 +40,16 @@ type TypingIndicatorProps = {
 const TypingIndicator = ({ isVisible }: TypingIndicatorProps): ReactElement | null =>
   isVisible ? (
     <TypingIndicatorContainer>
-      <InnerChatMessage userIsAuthor={false} showIcon={false} isAutomaticAnswer body='...' messageId={0} />
+      <InnerChatMessage userIsAuthor={false} showIcon={false} isAutomaticAnswer content='...' messageId={0} />
     </TypingIndicatorContainer>
   ) : null
 
 const TYPING_INDICATOR_TIMEOUT = 60000
 
-const ChatConversation = ({ messages, hasError, className }: ChatConversationProps): ReactElement => {
+const ChatConversation = ({ messages, hasError, className, isTyping }: ChatConversationProps): ReactElement => {
   const { t } = useTranslation('chat')
   const [messagesCount, setMessagesCount] = useState(0)
   const messagesEndRef = useRef<HTMLDivElement>(null)
-  const isLastMessageFromUser = messages[messages.length - 1]?.userIsAuthor
-  const hasOnlyReceivedInfoMessage = messages.filter(message => !message.userIsAuthor).length === 1
-  const waitingForAnswer = isLastMessageFromUser || hasOnlyReceivedInfoMessage
-  const [typingIndicatorVisible, setTypingIndicatorVisible] = useState(false)
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -66,20 +63,10 @@ const ChatConversation = ({ messages, hasError, className }: ChatConversationPro
   }, [messages, messagesCount])
 
   useEffect(() => {
-    if (waitingForAnswer) {
-      setTypingIndicatorVisible(true)
-      const timeout = setTimeout(() => setTypingIndicatorVisible(false), TYPING_INDICATOR_TIMEOUT)
-      return () => clearTimeout(timeout)
-    }
-    setTypingIndicatorVisible(false)
-    return undefined
-  }, [waitingForAnswer])
-
-  useEffect(() => {
-    if (typingIndicatorVisible) {
+    if (isTyping) {
       scrollToBottom()
     }
-  }, [typingIndicatorVisible])
+  }, [isTyping])
 
   return (
     <Container className={className}>
@@ -89,7 +76,7 @@ const ChatConversation = ({ messages, hasError, className }: ChatConversationPro
           {messages.map((message, index) => (
             <ChatMessage message={message} key={message.id} previousMessage={messages[index - 1]} />
           ))}
-          <TypingIndicator isVisible={typingIndicatorVisible} />
+          <TypingIndicator isVisible={isTyping} />
           <div ref={messagesEndRef} />
         </>
       ) : (
