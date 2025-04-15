@@ -9,10 +9,12 @@ import { setJpalTrackingCode } from 'shared/api'
 import { UiDirectionType, config } from 'translations'
 
 import RootSwitcher from './RootSwitcher'
+import { ContrastThemeProvider } from './components/ContrastThemeContext'
 import Helmet from './components/Helmet'
 import I18nProvider from './components/I18nProvider'
 import TtsContainer from './components/TtsContainer'
 import buildConfig from './constants/buildConfig'
+import { useContrastTheme } from './hooks/useContrastTheme'
 import safeLocalStorage, { JPAL_TRACKING_CODE_KEY } from './utils/safeLocalStorage'
 import { initSentry } from './utils/sentry'
 
@@ -30,8 +32,9 @@ const GlobalStyle = createGlobalStyle`
 LuxonSettings.throwOnInvalid = true
 LuxonSettings.defaultLocale = config.defaultFallback
 
-const App = (): ReactElement => {
+const AppContent = (): ReactElement => {
   const [contentLanguage, setContentLanguage] = useState<string>(config.defaultFallback)
+  const { isContrastTheme } = useContrastTheme()
   const { t } = useTranslation('landing')
 
   const contentDirection = contentLanguage
@@ -43,8 +46,12 @@ const App = (): ReactElement => {
     setJpalTrackingCode(safeLocalStorage.getItem(JPAL_TRACKING_CODE_KEY))
   }, [])
 
+  const theme = isContrastTheme
+    ? { ...buildConfig().highContrastTheme, contentDirection }
+    : { ...buildConfig().lightTheme, contentDirection }
+
   return (
-    <ThemeProvider theme={{ ...buildConfig().lightTheme, contentDirection }}>
+    <ThemeProvider theme={theme}>
       <I18nProvider contentLanguage={contentLanguage}>
         <>
           <Helmet pageTitle={t('pageTitle')} rootPage />
@@ -57,6 +64,14 @@ const App = (): ReactElement => {
         </>
       </I18nProvider>
     </ThemeProvider>
+  )
+}
+
+const App = (): ReactElement => {
+  return (
+    <ContrastThemeProvider>
+      <AppContent />
+    </ContrastThemeProvider>
   )
 }
 
