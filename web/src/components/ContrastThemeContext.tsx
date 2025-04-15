@@ -22,8 +22,8 @@ const getSystemPreference = (): boolean => {
 }
 
 export const ContrastThemeProvider = ({ children }: ContrastThemeProviderProps): ReactElement => {
-  const [isContrastTheme, setIsContrastTheme] = useState<boolean>()
-  const [overrideEnabled, setOverrideEnabled] = useState<boolean>()
+  const [isContrastTheme, setIsContrastTheme] = useState<boolean>(false)
+  const [overrideEnabled, setOverrideEnabled] = useState<boolean>(false)
 
   useEffect(() => {
     const handleSystemChange = () => {
@@ -32,6 +32,8 @@ export const ContrastThemeProvider = ({ children }: ContrastThemeProviderProps):
         setIsContrastTheme(currentSystemPreference)
       }
     }
+
+    handleSystemChange()
 
     const queries = [
       window.matchMedia('(forced-colors: active)'),
