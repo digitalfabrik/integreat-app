@@ -3,11 +3,6 @@ unless:
     - equal: [main, << pipeline.git.branch >>]
     - << pipeline.parameters.api_triggered >>
 jobs:
-  - bump_version:
-      prepare_delivery: false
-      context:
-        - mattermost
-
   - check:
       context:
         - mattermost

@@ -7068,11 +7068,13 @@
       "accessibility": "Barrierefreiheit",
       "readAloud": "Vorlesefunktion",
       "nothingToRead": "Nichts zu lesen",
-      "nothingToReadFullMessage": "Es gibt nichts, um es auf dieser Seite zu lesen.",
+      "nothingToReadFullMessage": "Auf dieser Seite gibt es nichts zu lesen.",
       "previous": "Zurück",
       "next": "Weiter",
       "play": "Abspielen",
-      "pause": "Pause"
+      "pause": "Pause",
+      "voiceUnavailable": "Keine Stimme installiert",
+      "voiceUnavailableMessage": "Es wurde keine Stimme gefunden. Um die Vorlesefunktion nutzen zu können, muss eine Stimme installiert sein. Bitte beachten Sie die folgenden Anweisungen für Ihr Betriebssystem."
     },
     "am": {
       "imprintAndContact": "ዕትም እና የግንኙነት መረጃ",
@@ -7131,7 +7133,11 @@
       "nothingToRead": "لا يوجد شيء للقراءة",
       "nothingToReadFullMessage": "لا يوجد شيء لقراءته في هذه الصفحة",
       "previous": "السابق",
-      "next": "التالي"
+      "next": "التالي",
+      "play": "تشغيل",
+      "pause": "إيقاف",
+      "voiceUnavailable": "الصوت غير مثبت",
+      "voiceUnavailableMessage": "لم يتم العثور على صوت. لاستخدام خاصية القراءة بصوت عالٍ، يجب تثبيت صوت. الرجاء الرجوع إلى التعليمات الخاصة بنظام التشغيل أدناه."
     },
     "bg": {
       "imprintAndContact": "Импресум и контакт",
@@ -7292,7 +7298,9 @@
       "previous": "Prev",
       "next": "Next",
       "play": "Play",
-      "pause": "Pause"
+      "pause": "Pause",
+      "voiceUnavailable": "No voice installed",
+      "voiceUnavailableMessage": "No voice found. In order to use the read aloud functionality, a voice has to be installed. Please refer to the instructions for your operating system below."
     },
     "es": {
       "imprintAndContact": "Aviso legal y contacto",
@@ -10112,6 +10120,7 @@
       "distanceMetreAlternative": "{{distance}} m",
       "contactInformation": "Kontaktdaten",
       "address": "Adresse",
+      "copyAddress": "Adresse kopieren",
       "phone": "Telefonnummer",
       "mobilePhone": "Handynummer",
       "eMail": "E-Mail-Adresse",
@@ -10159,7 +10168,13 @@
       "onlyWithAppointment": "Nur nach Terminvereinbarung",
       "appointmentNecessary": "Termin erforderlich",
       "makeAppointmentTooltipWithLink": "Vereinbare an diesem Tag einen Termin über <1>die Webseite</1> oder telefonisch.",
-      "theWebsite": "die Webseite"
+      "theWebsite": "die Webseite",
+      "poisCount_zero": "0 Orte",
+      "poisCount_one": "1 Ort",
+      "poisCount_two": "{{count}} Orte",
+      "poisCount_few": "{{count}} Orte",
+      "poisCount_many": "{{count}} Orte",
+      "poisCount_other": "{{count}} Orte"
     },
     "am": {
       "pageTitle": "ካርታ",
@@ -10238,6 +10253,7 @@
       "distanceMetreAlternative": "{{distance}} م",
       "contactInformation": "بيانات الاتصال",
       "address": "العنوان",
+      "copyAddress": "نسخ العنوان",
       "phone": "رقم الهاتف",
       "eMail": "عنوان البريد الإليكتروني",
       "website": "الموقع الإليكتروني",
@@ -10610,6 +10626,7 @@
       "distanceMetreAlternative": "{{distance}} m",
       "contactInformation": "Contact details",
       "address": "Address",
+      "copyAddress": "Copy address",
       "phone": "Telephone number",
       "mobilePhone": "Mobile phone number",
       "eMail": "E-mail address",
@@ -10657,7 +10674,13 @@
       "onlyWithAppointment": "Only with appointment",
       "appointmentNecessary": "Appointment necessary",
       "makeAppointmentTooltipWithLink": "Make an appointment on this day via <1>the website</1> or by phone.",
-      "theWebsite": "the website"
+      "theWebsite": "the website",
+      "poisCount_zero": "0 locations",
+      "poisCount_one": "1 location",
+      "poisCount_two": "{{count}} locations",
+      "poisCount_few": "{{count}} locations",
+      "poisCount_many": "{{count}} locations",
+      "poisCount_other": "{{count}} locations"
     },
     "es": {
       "pageTitle": "Mapa",

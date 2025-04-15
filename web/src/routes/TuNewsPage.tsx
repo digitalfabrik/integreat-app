@@ -86,7 +86,7 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
     languageChangePaths,
     route: TU_NEWS_ROUTE,
     languageCode,
-    Toolbar: !viewportSmall && (
+    Toolbar: viewportSmall ? null : (
       <CityContentToolbar route={TU_NEWS_ROUTE} hasFeedbackOption={false} hideDivider pageTitle={pageTitle} />
     ),
   }

@@ -20,14 +20,13 @@ Several workflows exist for different purposes:
 | commit                     | commits of PRs   | :heavy_check_mark: | :x:             | :x:          | :x:                | :x:                |
 | commit_main                | commits on main  | :x:                | :x:             | webnext      | :x:                | :x:                |
 | delivery                   | script           | :heavy_check_mark: | beta            | beta         | :heavy_check_mark: | :heavy_check_mark: |
+| promotion                  | script           | :x:                | promotion       | promotion    | :x:                | :x:                |
 | native_beta_delivery       | script           | :heavy_check_mark: | beta            | :x:          | :heavy_check_mark: | :x:                |
 | native_production_delivery | script           | :heavy_check_mark: | production      | :x:          | :heavy_check_mark: | :x:                |
+| native_promotion           | script           | :x:                | promotion       | :x:          | :x:                | :x:                |
 | web_beta_delivery          | script           | :heavy_check_mark: | :x:             | beta         | :heavy_check_mark: | :x:                |
 | web_production_delivery    | script           | :heavy_check_mark: | :x:             | production   | :heavy_check_mark: | :x:                |
-| native_promotion           | script           | :x:                | promotion       | :x:          | :x:                | :x:                |
 | web_promotion              | script           | :x:                | :x:             | promotion    | :x:                | :x:                |
-| e2e_tests                  | script           | :x:                | :x:             | :x:          | :x:                | :x:                |
-| native_browserstack        | script           | :x:                | browserstack    | :x:          | :x:                | :x:                |
 
 Steps executed if _Checks_ is checked :heavy_check_mark::
 
@@ -37,9 +36,7 @@ Steps executed if _Checks_ is checked :heavy_check_mark::
 - Unit testing with jest
 - Building the app
 
-Steps executed if _Version bump_ is checked :heavy_check_mark::
-
-- Bump version: Bump the version(s) and create a tag and release on github
+If _Version bump_ is checked, the version bumps are committed and a tag and release is created on github.
 
 ## Failed Delivery
 
@@ -186,18 +183,6 @@ More information on the version naming schema used can be found [here](conventio
 | APP_STORE_CONNECT_API_ISSUER_ID   | Issuer ID for App Store Connect API                                                                                        | Password Manager        | 227b0bbf-ada8-458c-9d62-3d8022b7d07f                                       | [app_store_connect_api_key](https://docs.fastlane.tools/actions/app_store_connect_api_key/) |
 | APP_STORE_CONNECT_API_KEY_CONTENT | Key content for App Store Connect API                                                                                      | Password Manager        | -----BEGIN EC PRIVATE KEY-----\nfewfawefawfe\n-----END EC PRIVATE KEY----- | [app_store_connect_api_key](https://docs.fastlane.tools/actions/app_store_connect_api_key/) |
 | MATCH_PASSWORD                    | Password for accessing the certificates for the iOS app using [Fastlane Match](https://docs.fastlane.tools/actions/match/) | Password Manager        | 123456                                                                     | [Using a Git Repo](https://docs.fastlane.tools/actions/match/#git-repo-encryption-password) |
-
-## Skipping specific jobs
-
-You can control which jobs should be skipped through environment variables.
-Set the variable `SKIP_JOB_deliver_aschaffenburg_ios` to `"aschaffenburg"` to skip the job with the name `deliver_aschaffenburg_ios`.
-You can also set it to `"malte|aschaffenburg"` in order to match multiple build configs or to `"all"` to match all build configs.
-
-Environment variables can be set in the [Project Settings](https://app.circleci.com/settings/project/github/digitalbarik/integreat-app/environment-variables) of CircleCI.
-
-**Note: Some jobs like `bump_version` run only once for multiple build configs. Therefore, it does not make sense to set `SKIP_JOB_bump_version` to something other than `"all"`.**
-
-**Note: Most of the time job names contain the build config name as well, therefore setting e.g. the environment variable `SKIP_JOB_deliver_ios` won't work.**
 
 ## Hints and Quirks
 
