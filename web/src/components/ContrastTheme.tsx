@@ -2,7 +2,8 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { ContrastModeIcon } from '../assets'
+import { ContrastIcon } from '../assets'
+import { useContrastTheme } from '../hooks/useContrastTheme'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import ToolbarItem from './ToolbarItem'
 import Icon from './base/Icon'
@@ -20,23 +21,22 @@ const ContrastButton = styled.div`
   }
 `
 
-const StyledIcon = styled(Icon)`
+const StyledIcon = styled(Icon)<{ $isContrastTheme: boolean }>`
   width: 24px;
   height: 24px;
+  transform: ${({ $isContrastTheme }) => ($isContrastTheme ? 'scaleX(-1)' : 'none')};
+  transition: 'transform 0.2s ease';
 `
 
-const HighContrastMode = (): ReactElement => {
+const ContrastTheme = (): ReactElement => {
   const { t } = useTranslation('layout')
   const { viewportSmall } = useWindowDimensions()
-
-  const handleContrastToggle = () => {
-    // Needs to be implemented in another ticket #3187
-  }
+  const { toggleContrastTheme, isContrastTheme } = useContrastTheme()
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault()
-      handleContrastToggle()
+      toggleContrastTheme()
     }
   }
 
@@ -47,17 +47,15 @@ const HighContrastMode = (): ReactElement => {
         role='button'
         aria-label={t('contrastMode')}
         tabIndex={0}
-        onClick={handleContrastToggle}
+        onClick={toggleContrastTheme}
         onKeyDown={handleKeyDown}>
-        <StyledIcon src={ContrastModeIcon} />
+        <StyledIcon $isContrastTheme={isContrastTheme} src={ContrastIcon} />
         <span>{t('contrastMode')}</span>
       </ContrastButton>
     )
   }
 
-  return (
-    <ToolbarItem icon={ContrastModeIcon} text={t('contrastMode')} onClick={handleContrastToggle} id='contrast-mode' />
-  )
+  return <ToolbarItem icon={ContrastIcon} text={t('contrastMode')} onClick={toggleContrastTheme} id='contrast-mode' />
 }
 
-export default HighContrastMode
+export default ContrastTheme

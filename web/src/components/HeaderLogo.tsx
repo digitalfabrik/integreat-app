@@ -1,9 +1,12 @@
 import { DateTime } from 'luxon'
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState, useEffect } from 'react'
 import styled from 'styled-components'
+
+import { webIntegreatBuildConfig } from 'build-configs/integreat'
 
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
+import { useContrastTheme } from '../hooks/useContrastTheme'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import Link from './base/Link'
 
@@ -48,12 +51,28 @@ const LogoContainer = styled.div`
  */
 export const HeaderLogo = ({ link }: HeaderLogoProps): ReactElement => {
   const { viewportSmall } = useWindowDimensions()
-  const { campaign, appName, icons } = buildConfig()
+  const { campaign, appName } = buildConfig()
+  const { isContrastTheme } = useContrastTheme()
+  const [appLogoConfig, setAppLogoConfig] = useState(webIntegreatBuildConfig)
+
+  // Mutates the config to dynamically change the app logo if the high contrast activated
+  useEffect(() => {
+    const updatedAppLogoConfig = {
+      ...webIntegreatBuildConfig,
+      icons: {
+        ...webIntegreatBuildConfig.icons,
+        appLogo: isContrastTheme ? '/app-logo-contrast.svg' : '/app-logo.svg',
+      },
+    }
+
+    setAppLogoConfig(updatedAppLogoConfig)
+  }, [isContrastTheme])
+
   const currentDate = DateTime.now()
   const showCampaignLogo =
     campaign && currentDate > DateTime.fromISO(campaign.startDate) && currentDate < DateTime.fromISO(campaign.endDate)
-  const src = showCampaignLogo ? campaign.campaignAppLogo : icons.appLogo
-  const srcMobile = showCampaignLogo ? campaign.campaignAppLogoMobile : icons.appLogoMobile
+  const src = showCampaignLogo ? campaign.campaignAppLogo : appLogoConfig.icons.appLogo
+  const srcMobile = showCampaignLogo ? campaign.campaignAppLogoMobile : appLogoConfig.icons.appLogoMobile
 
   return (
     <LogoContainer>

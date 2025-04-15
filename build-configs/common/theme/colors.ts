@@ -48,5 +48,7 @@ export const commonHighContrastColors = {
   backgroundAccentColor: '#20293A',
   backgroundColor: '#101217',
   textColor: '#FFFFFF',
+  textSecondaryColor: '#FFFFFF',
   borderColor: '#FFFFFF',
+  linkColor: '#fbda16',
 }

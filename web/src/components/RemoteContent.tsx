@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { ExternalSourcePermissions } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
+import { useContrastTheme } from '../hooks/useContrastTheme'
 import useLocalStorage from '../hooks/useLocalStorage'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import {
@@ -32,6 +33,7 @@ export const IFRAME_BLANK_SOURCE = 'about:blank'
 
 const RemoteContent = ({ html, centered = false, smallText = false }: RemoteContentProps): ReactElement => {
   const navigate = useNavigate()
+  const { isContrastTheme } = useContrastTheme()
   const sandBoxRef = React.createRef<HTMLDivElement>()
   const { value: externalSourcePermissions, updateLocalStorageItem } = useLocalStorage<ExternalSourcePermissions>({
     key: LOCAL_STORAGE_ITEM_EXTERNAL_SOURCES,
@@ -64,6 +66,17 @@ const RemoteContent = ({ html, centered = false, smallText = false }: RemoteCont
     const anchors = currentSandBoxRef.getElementsByTagName('a')
     Array.from(anchors).forEach(anchor => anchor.addEventListener('click', handleAnchorClick))
 
+    if (isContrastTheme) {
+      const images = currentSandBoxRef.getElementsByTagName('img')
+      Array.from(images).forEach((img: HTMLImageElement) => {
+        img.style.filter = 'brightness(0) invert(1)'
+      })
+
+      Array.from(anchors).forEach((anchor: HTMLAnchorElement) => {
+        anchor.style.color = '#fbda16'
+      })
+    }
+
     const iframes = currentSandBoxRef.getElementsByTagName('iframe')
     Array.from(iframes).forEach((iframe: HTMLIFrameElement, index: number) => {
       if (iframe.src !== IFRAME_BLANK_SOURCE) {
@@ -93,6 +106,7 @@ const RemoteContent = ({ html, centered = false, smallText = false }: RemoteCont
   }, [
     t,
     html,
+    isContrastTheme,
     handleAnchorClick,
     sandBoxRef,
     externalSourcePermissions,
