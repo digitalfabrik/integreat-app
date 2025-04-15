@@ -3,7 +3,6 @@ import { Settings as LuxonSettings } from 'luxon'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BrowserRouter as Router } from 'react-router-dom'
-import { createGlobalStyle } from 'styled-components'
 
 import { setJpalTrackingCode } from 'shared/api'
 import { UiDirectionType, config } from 'translations'
@@ -15,17 +14,6 @@ import { ThemeContainer } from './components/ThemeContext'
 import TtsContainer from './components/TtsContainer'
 import safeLocalStorage, { JPAL_TRACKING_CODE_KEY } from './utils/safeLocalStorage'
 import { initSentry } from './utils/sentry'
-
-const GlobalStyle = createGlobalStyle`
-    body {
-        position: relative;
-
-        /* Styling for react-tooltip: https://react-tooltip.com/docs/getting-started#styling */
-        --rt-color-dark: ${props => props.theme.colors.textSecondaryColor};
-        --rt-color-white: ${props => props.theme.colors.backgroundColor};
-        --rt-opacity: 1;
-    }
-`
 
 LuxonSettings.throwOnInvalid = true
 LuxonSettings.defaultLocale = config.defaultFallback
