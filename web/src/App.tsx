@@ -67,12 +67,10 @@ const AppContent = (): ReactElement => {
   )
 }
 
-const App = (): ReactElement => {
-  return (
-    <ContrastThemeProvider>
-      <AppContent />
-    </ContrastThemeProvider>
-  )
-}
+const App = (): ReactElement => (
+  <ContrastThemeProvider>
+    <AppContent />
+  </ContrastThemeProvider>
+)
 
 export default App

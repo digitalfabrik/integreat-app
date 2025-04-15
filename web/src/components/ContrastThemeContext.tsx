@@ -1,4 +1,4 @@
-import React, { createContext, ReactElement, useCallback, useEffect, useState } from 'react'
+import React, { createContext, ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
 
 type ContrastThemeProviderProps = {
   children: ReactElement
@@ -11,7 +11,7 @@ export type ContrastThemeContextType = {
 
 export const ContrastThemeContext = createContext<ContrastThemeContextType>({
   isContrastTheme: false,
-  toggleContrastTheme: () => {},
+  toggleContrastTheme: () => undefined,
 })
 
 const getSystemPreference = (): boolean => {
@@ -56,11 +56,15 @@ export const ContrastThemeProvider = ({ children }: ContrastThemeProviderProps):
     } else {
       setIsContrastTheme(getSystemPreference())
     }
-  }, [overrideEnabled, isContrastTheme])
+  }, [overrideEnabled])
 
-  return (
-    <ContrastThemeContext.Provider value={{ isContrastTheme: isContrastTheme ?? false, toggleContrastTheme }}>
-      {children}
-    </ContrastThemeContext.Provider>
+  const contextValue = useMemo(
+    () => ({
+      isContrastTheme,
+      toggleContrastTheme,
+    }),
+    [isContrastTheme, toggleContrastTheme],
   )
+
+  return <ContrastThemeContext.Provider value={contextValue}>{children}</ContrastThemeContext.Provider>
 }
