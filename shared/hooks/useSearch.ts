@@ -10,6 +10,17 @@ import normalizeString from '../utils/normalizeString'
 export type SearchResult = ExtendedPageModel
 const DEBOUNCED_QUERY_TIMEOUT = 250
 
+const removeDuplicatedPaths = (documents: SearchResult[]) => {
+  const paths = new Set()
+  return documents.filter(document => {
+    const isNew = !paths.has(document.path)
+    if (isNew) {
+      paths.add(document.path)
+    }
+    return isNew
+  })
+}
+
 export const prepareSearchDocuments = (
   categories?: CategoriesMapModel | null,
   events?: EventModel[] | null,
@@ -20,11 +31,18 @@ export const prepareSearchDocuments = (
   ...(pois || []),
 ]
 
+type UseSearchReturn = {
+  data: SearchResult[]
+  error: Error | null
+  loading: boolean
+}
+
 // WARNING: This uses the document count to check whether the search documents have already been added.
 // Modifying single documents or replacing documents with a same length array will therefore NOT trigger an update
-const useSearch = (documents: SearchResult[], query: string): SearchResult[] => {
+const useSearch = (documents: SearchResult[], query: string): UseSearchReturn => {
   const [indexing, setIndexing] = useState(false)
   const [debouncedQuery, setDebouncedQuery] = useState(normalizeString(query))
+  const [error, setError] = useState<Error | null>(null)
 
   const [search] = useState(
     new MiniSearch({
@@ -49,18 +67,22 @@ const useSearch = (documents: SearchResult[], query: string): SearchResult[] => 
   }, [query])
 
   useEffect(() => {
-    if (!indexing && search.documentCount !== documents.length) {
+    const sanitizedDocuments = removeDuplicatedPaths(documents)
+    if (!indexing && search.documentCount !== sanitizedDocuments.length) {
       setIndexing(true)
       search.removeAll()
       search
-        .addAllAsync(documents)
+        .addAllAsync(sanitizedDocuments)
         .then(() => setIndexing(false))
-        .catch()
+        .catch(setError)
     }
   }, [indexing, search, documents])
 
-  // @ts-expect-error minisearch doesn't add the returned storeFields (e.g. title or path) to its typing
-  return debouncedQuery.length === 0 ? documents : search.search(debouncedQuery)
+  return {
+    data: debouncedQuery.length === 0 ? documents : (search.search(debouncedQuery) as unknown as SearchResult[]),
+    error,
+    loading: indexing,
+  }
 }
 
 export default useSearch

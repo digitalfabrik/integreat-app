@@ -17,6 +17,7 @@ import SearchListItem from '../components/SearchListItem'
 import { helpers } from '../constants/theme'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useLoadSearchDocuments from '../hooks/useLoadSearchDocuments'
+import useReportError from '../hooks/useReportError'
 
 const List = styled.ul`
   list-style-type: none;
@@ -50,10 +51,12 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
     cmsApiBaseUrl,
   })
 
-  const contentLanguageResults = useSearch(contentLanguageDocuments, query)
+  const contentLanguageReturn = useSearch(contentLanguageDocuments, query)
   const fallbackLanguageDocuments = languageCode !== fallbackLanguage ? fallbackData : []
-  const fallbackLanguageResults = useSearch(fallbackLanguageDocuments, query)
-  const results = contentLanguageResults.concat(fallbackLanguageResults)
+  const fallbackLanguageReturn = useSearch(fallbackLanguageDocuments, query)
+  const results = contentLanguageReturn.data.concat(fallbackLanguageReturn.data)
+
+  useReportError(contentLanguageReturn.error ?? fallbackLanguageReturn.error)
 
   if (!city) {
     return null
