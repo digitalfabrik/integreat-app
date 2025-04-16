@@ -1,11 +1,11 @@
 import React, { ReactElement } from 'react'
-import Highlighter from 'react-highlight-words'
 import { Link } from 'react-router-dom'
-import styled, { useTheme } from 'styled-components'
+import styled from 'styled-components'
 
-import { getExcerpt, normalizeString } from 'shared'
+import { getExcerpt } from 'shared'
 
 import { EXCERPT_MAX_CHARS } from '../constants'
+import Highlighter from './Highlighter'
 
 const Row = styled.li`
   width: 100%;
@@ -64,32 +64,7 @@ type SearchListItemProps = {
 }
 
 const SearchListItem = ({ title, contentWithoutHtml, query, path, thumbnail }: SearchListItemProps): ReactElement => {
-  const theme = useTheme()
-
   const excerpt = getExcerpt(contentWithoutHtml, { query, maxChars: EXCERPT_MAX_CHARS })
-
-  const Title = (
-    <Highlighter
-      dir='auto'
-      searchWords={query ? [query] : []}
-      aria-label={title}
-      autoEscape
-      sanitize={normalizeString}
-      highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
-      textToHighlight={title}
-    />
-  )
-
-  const Content = query && excerpt.length > 0 && (
-    <StyledHighlighter
-      aria-label={excerpt}
-      searchWords={[query]}
-      autoEscape
-      sanitize={normalizeString}
-      textToHighlight={excerpt}
-      highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
-    />
-  )
 
   return (
     <Row>
@@ -97,10 +72,10 @@ const SearchListItem = ({ title, contentWithoutHtml, query, path, thumbnail }: S
         <CategoryItemContainer dir='auto'>
           <CategoryTitleContainer>
             {!!thumbnail && <CategoryThumbnail alt='' src={thumbnail} />}
-            {Title}
+            <Highlighter dir='auto' search={query} text={title} />
           </CategoryTitleContainer>
           <div style={{ margin: '0 5px', fontSize: '12px' }} dir='auto'>
-            {Content}
+            {excerpt.length > 0 && <StyledHighlighter search={query} text={excerpt} />}
           </div>
         </CategoryItemContainer>
       </StyledLink>

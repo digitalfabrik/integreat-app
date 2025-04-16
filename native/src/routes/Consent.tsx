@@ -12,6 +12,7 @@ import buildConfig from '../constants/buildConfig'
 import { useAppContext } from '../hooks/useCityAppContext'
 
 const Description = styled(Text)`
+  padding: 0 16px;
   margin-bottom: 24px;
 `
 const Consent = (): ReactElement | null => {
