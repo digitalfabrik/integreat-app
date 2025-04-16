@@ -10,6 +10,17 @@ import normalizeString from '../utils/normalizeString'
 export type SearchResult = ExtendedPageModel
 const DEBOUNCED_QUERY_TIMEOUT = 250
 
+const removeDuplicatedPaths = (documents: SearchResult[]) => {
+  const paths = new Set()
+  return documents.filter(document => {
+    const isNew = !paths.has(document.path)
+    if (isNew) {
+      paths.add(document.path)
+    }
+    return isNew
+  })
+}
+
 export const prepareSearchDocuments = (
   categories?: CategoriesMapModel | null,
   events?: EventModel[] | null,
@@ -56,11 +67,12 @@ const useSearch = (documents: SearchResult[], query: string): UseSearchReturn =>
   }, [query])
 
   useEffect(() => {
-    if (!indexing && search.documentCount !== documents.length) {
+    const sanitizedDocuments = removeDuplicatedPaths(documents)
+    if (!indexing && search.documentCount !== sanitizedDocuments.length) {
       setIndexing(true)
       search.removeAll()
       search
-        .addAllAsync(documents)
+        .addAllAsync(sanitizedDocuments)
         .then(() => setIndexing(false))
         .catch(setError)
     }
