@@ -122,7 +122,6 @@
     "@types/react-test-renderer": "19.0.0",
     "@types/url-parse": "^1.4.11",
     "babel-jest": "^29.7.0",
-    "babel-plugin-styled-components": "^2.1.4",
     "commander": "^13.1.0",
     "cross-env": "^7.0.3",
     "npm-license-crawler": "^0.2.1",
