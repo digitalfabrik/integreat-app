@@ -33,6 +33,7 @@ const config = {
           : moduleName
       return context.resolveRequest(context, module, platform)
     },
+    unstable_enablePackageExports: true,
   },
   watchFolders: [path.resolve(__dirname, '../')],
   transformer: {
