@@ -21,7 +21,9 @@ describe('EventListItem', () => {
   const excerpt = getExcerpt(event.excerpt, { maxChars: EXCERPT_MAX_CHARS })
 
   it('should show event list item with specific thumbnail', () => {
-    const { getByText, getByRole } = renderWithRouterAndTheme(<EventListItem event={event} languageCode={language} />)
+    const { getByText, getByRole } = renderWithRouterAndTheme(
+      <EventListItem index={0} event={event} languageCode={language} />,
+    )
 
     expect(getByText(event.title)).toBeTruthy()
     expect(getByText(event.date.toFormattedString(language), { collapseWhitespace: false })).toBeTruthy()
@@ -34,7 +36,7 @@ describe('EventListItem', () => {
     const eventWithoutThumbnail = Object.assign(event, { _thumbnail: undefined })
 
     const { getByText, getByRole } = renderWithRouterAndTheme(
-      <EventListItem event={eventWithoutThumbnail} languageCode={language} />,
+      <EventListItem index={0} event={eventWithoutThumbnail} languageCode={language} />,
     )
 
     expect(getByText(event.title)).toBeTruthy()
@@ -63,7 +65,9 @@ describe('EventListItem', () => {
       const event = createEvent()
       expect(getDateIcon(event.date)?.tooltip).toBeUndefined()
 
-      const { queryByText } = renderWithRouterAndTheme(<EventListItem event={event} languageCode={language} />)
+      const { queryByText } = renderWithRouterAndTheme(
+        <EventListItem index={0} event={event} languageCode={language} />,
+      )
 
       expect(queryByText('events:todayRecurring')).toBeFalsy()
       expect(queryByText('events:recurring')).toBeFalsy()
@@ -73,7 +77,9 @@ describe('EventListItem', () => {
     it('should show icon if recurring and today', () => {
       const event = createEvent('DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO;UNTIL=20231029T050000')
 
-      const { queryByText } = renderWithRouterAndTheme(<EventListItem event={event} languageCode={language} />)
+      const { queryByText } = renderWithRouterAndTheme(
+        <EventListItem index={0} event={event} languageCode={language} />,
+      )
 
       expect(queryByText('events:todayRecurring')).toBeTruthy()
       expect(queryByText('events:recurring')).toBeFalsy()
@@ -83,7 +89,9 @@ describe('EventListItem', () => {
     it('should show icon if recurring but not today', () => {
       const event = createEvent('DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=TU;UNTIL=20231029T050000')
 
-      const { queryByText } = renderWithRouterAndTheme(<EventListItem event={event} languageCode={language} />)
+      const { queryByText } = renderWithRouterAndTheme(
+        <EventListItem index={0} event={event} languageCode={language} />,
+      )
 
       expect(queryByText('events:todayRecurring')).toBeFalsy()
       expect(queryByText('events:recurring')).toBeTruthy()
@@ -93,7 +101,9 @@ describe('EventListItem', () => {
     it('should show icon if today but not recurring', () => {
       const event = createEvent('DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO;UNTIL=20231003T050000')
 
-      const { queryByText } = renderWithRouterAndTheme(<EventListItem event={event} languageCode={language} />)
+      const { queryByText } = renderWithRouterAndTheme(
+        <EventListItem index={0} event={event} languageCode={language} />,
+      )
 
       expect(queryByText('events:todayRecurring')).toBeFalsy()
       expect(queryByText('events:recurring')).toBeFalsy()
