@@ -72,7 +72,7 @@
     "luxon": "^3.6.1",
     "md5": "^2.3.0",
     "query-string": "^9.1.1",
-    "react": "^19.1.0",
+    "react": "19.0.0",
     "react-hook-form": "^7.55.0",
     "react-i18next": "^15.4.1",
     "react-native": "^0.78.2",
@@ -119,7 +119,7 @@
     "@types/luxon": "^3.6.2",
     "@types/md5": "^2.3.5",
     "@types/react-native-highlight-words": "^1.0.6",
-    "@types/react-test-renderer": "^19.1.0",
+    "@types/react-test-renderer": "19.0.0",
     "@types/url-parse": "^1.4.11",
     "babel-jest": "^29.7.0",
     "babel-plugin-styled-components": "^2.1.4",
@@ -129,7 +129,7 @@
     "patch-package": "^8.0.0",
     "postinstall-postinstall": "^2.1.0",
     "react-native-svg-transformer": "^1.5.0",
-    "react-test-renderer": "^19.1.0",
+    "react-test-renderer": "19.0.0",
     "wait-for-expect": "^3.0.2"
   }
 }

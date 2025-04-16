@@ -13,7 +13,7 @@
     "ts:check": "tsc --build"
   },
   "peerDependencies": {
-    "react": "^19.1.0"
+    "react": "19.0.0"
   },
   "dependencies": {
     "@turf/distance": "^7.2.0",
@@ -33,7 +33,7 @@
     "@types/luxon": "^3.6.2",
     "@types/md5": "^2.3.5",
     "@types/normalize-path": "^3.0.2",
-    "@types/react": "^19.1.0",
+    "@types/react": "19.0.0",
     "@types/seedrandom": "^3.0.8",
     "@types/uuid": "^10.0.0",
     "md5": "^2.3.0",
