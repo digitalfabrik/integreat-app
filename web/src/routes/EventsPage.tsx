@@ -24,6 +24,7 @@ import Page, { THUMBNAIL_WIDTH } from '../components/Page'
 import PageDetail from '../components/PageDetail'
 import { cmsApiBaseUrl } from '../constants/urls'
 import usePreviousProp from '../hooks/usePreviousProp'
+import useTtsPlayer from '../hooks/useTtsPlayer'
 import featuredImageToSrcSet from '../utils/featuredImageToSrcSet'
 
 const Spacing = styled.div<{ $content: string; $lastUpdate?: DateTime }>`
@@ -46,13 +47,15 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
   } = useLoadFromEndpoint(createEventsEndpoint, cmsApiBaseUrl, { city: cityCode, language: languageCode })
   const { startDate, setStartDate, endDate, setEndDate, filteredEvents, startDateError } = useDateFilter(events)
 
+  // Support legacy slugs of old recurring events with one event per recurrence
+  const pathnameWithoutDate = pathname.split('$')[0]
+  const event = eventId ? events?.find(it => it.path === pathnameWithoutDate) : null
+  useTtsPlayer(event, languageCode)
+
   if (!city) {
     return null
   }
 
-  // Support legacy slugs of old recurring events with one event per recurrence
-  const pathnameWithoutDate = pathname.split('$')[0]
-  const event = eventId ? events?.find(it => it.path === pathnameWithoutDate) : null
   const languageChangePaths = city.languages.map(({ code, name }) => {
     const isCurrentLanguage = code === languageCode
     const path =

@@ -48,7 +48,7 @@ const AddressInfo = ({ location, language }: AddressInfoProps): ReactElement => 
 
   return (
     <Container language={language}>
-      <Pressable role='button' onPress={copyLocationToClipboard}>
+      <Pressable accessibilityLabel={t('copyAddress')} role='button' onPress={copyLocationToClipboard}>
         <Text>{address}</Text>
         <Text>
           {postcode} {town}
