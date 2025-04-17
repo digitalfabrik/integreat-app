@@ -16,7 +16,15 @@ const render = (
   isLoading: boolean,
   submitMessage: (text: string, deviceId?: string | undefined, refreshMessages?: () => void | undefined) => void,
 ) =>
-  renderWithTheme(<Chat messages={messages} hasError={hasError} isLoading={isLoading} submitMessage={submitMessage} />)
+  renderWithTheme(
+    <Chat
+      messages={messages}
+      hasError={hasError}
+      isLoading={isLoading}
+      submitMessage={submitMessage}
+      isTyping={false}
+    />,
+  )
 
 describe('Chat', () => {
   it('sending button should be disabled if no input text is provided', () => {

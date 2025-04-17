@@ -58,9 +58,10 @@ type ChatProps = {
   messages: ChatMessageModel[]
   hasError: boolean
   isLoading: boolean
+  isTyping: boolean
 }
 
-const Chat = ({ messages, submitMessage, hasError, isLoading }: ChatProps): ReactElement => {
+const Chat = ({ messages, submitMessage, hasError, isLoading, isTyping }: ChatProps): ReactElement => {
   const { t } = useTranslation('chat')
   const [textInput, setTextInput] = useState<string>('')
   const { height: deviceHeight } = useWindowDimensions()
@@ -93,6 +94,7 @@ const Chat = ({ messages, submitMessage, hasError, isLoading }: ChatProps): Reac
         $height={deviceHeight - chatInputContainerHeight}
         messages={messages}
         hasError={hasError}
+        isTyping={isTyping}
       />
       <InputWrapper $height={chatInputContainerHeight}>
         <InputSection id='chat' title={messages.length > 0 ? '' : t('inputLabel')}>
