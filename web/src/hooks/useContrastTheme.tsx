@@ -1,5 +1,5 @@
 import { useContext } from 'react'
 
-import { ContrastThemeContext, ContrastThemeContextType } from '../components/ContrastThemeContext'
+import { ThemeContext, ThemeContextType } from '../components/ThemeContext'
 
-export const useContrastTheme = (): ContrastThemeContextType => useContext(ContrastThemeContext)
+export const useContrastTheme = (): ThemeContextType => useContext(ThemeContext)
