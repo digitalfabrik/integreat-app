@@ -1,10 +1,11 @@
-import React, { createContext, ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
+import React, { createContext, ReactElement, useCallback, useEffect, useMemo } from 'react'
 import { ThemeProvider } from 'styled-components'
 
 import { UiDirectionType } from 'translations'
 
 import buildConfig from '../constants/buildConfig'
 import { contrastThemeMediaQueries } from '../constants/contrastThemeMediaQueries'
+import useLocalStorage from '../hooks/useLocalStorage'
 
 type ThemeType = 'light' | 'contrast'
 
@@ -30,12 +31,18 @@ type ThemeContainerProps = {
 }
 
 export const ThemeContainer = ({ children, contentDirection }: ThemeContainerProps): ReactElement => {
-  const [themeType, setThemeType] = useState<ThemeType>(() => getSystemTheme())
+  const { value: themeType, updateLocalStorageItem: setThemeType } = useLocalStorage<ThemeType>({
+    key: 'themeType',
+    initialValue: getSystemTheme(),
+  })
 
   useEffect(() => {
     const handleSystemChange = () => {
-      const systemTheme = getSystemTheme()
-      setThemeType(prev => (prev !== systemTheme ? systemTheme : prev))
+      const storedTheme = localStorage.getItem('themeType')
+      if (!storedTheme || storedTheme === 'null') {
+        const currentTheme = getSystemTheme()
+        setThemeType(currentTheme)
+      }
     }
 
     handleSystemChange()
@@ -45,11 +52,12 @@ export const ThemeContainer = ({ children, contentDirection }: ThemeContainerPro
     return () => {
       contrastThemeMediaQueries.forEach(query => query.removeEventListener('change', handleSystemChange))
     }
-  }, [])
+  }, [setThemeType])
 
   const toggleTheme = useCallback(() => {
-    setThemeType(prev => (prev === 'light' ? 'contrast' : 'light'))
-  }, [])
+    const currentTheme = themeType === 'light' ? 'contrast' : 'light'
+    setThemeType(currentTheme)
+  }, [themeType, setThemeType])
 
   const contextValue = useMemo(() => {
     const baseTheme = themeType === 'contrast' ? themeConfig.highContrastTheme : themeConfig.lightTheme
