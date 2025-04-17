@@ -1,13 +1,11 @@
 import { DateTime } from 'luxon'
-import React, { ReactElement, useState, useEffect } from 'react'
+import React, { ReactElement } from 'react'
 import styled from 'styled-components'
-
-import { webIntegreatBuildConfig } from 'build-configs/integreat'
 
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
-import { useContrastTheme } from '../hooks/useContrastTheme'
 import useWindowDimensions from '../hooks/useWindowDimensions'
+import Icon from './base/Icon'
 import Link from './base/Link'
 
 type HeaderLogoProps = {
@@ -29,13 +27,6 @@ const LogoContainer = styled.div`
     height: 60%;
   }
 
-  & img {
-    height: 100%;
-    max-width: 100%;
-    object-fit: contain;
-    object-position: left;
-  }
-
   @media ${dimensions.smallViewport} {
     height: ${dimensions.headerHeightSmall}px;
     max-width: ${dimensions.headerHeightSmall}px;
@@ -46,38 +37,36 @@ const LogoContainer = styled.div`
   }
 `
 
+const StyledLogoIcon = styled(Icon)`
+  fill: currentcolor;
+  color: ${props => props.theme.colors.textColor};
+  height: 100%;
+  width: 200px;
+  max-width: 200px;
+
+  @media ${dimensions.smallViewport} {
+    max-width: 44px;
+    max-height: 100%;
+  }
+`
+
 /**
  * A logo component designed for the Header.
  */
 export const HeaderLogo = ({ link }: HeaderLogoProps): ReactElement => {
   const { viewportSmall } = useWindowDimensions()
-  const { campaign, appName } = buildConfig()
-  const { isContrastTheme } = useContrastTheme()
-  const [appLogoConfig, setAppLogoConfig] = useState(webIntegreatBuildConfig)
-
-  // Mutates the config to dynamically change the app logo if the high contrast activated
-  useEffect(() => {
-    const updatedAppLogoConfig = {
-      ...webIntegreatBuildConfig,
-      icons: {
-        ...webIntegreatBuildConfig.icons,
-        appLogo: isContrastTheme ? '/app-logo-contrast.svg' : '/app-logo.svg',
-      },
-    }
-
-    setAppLogoConfig(updatedAppLogoConfig)
-  }, [isContrastTheme])
+  const { campaign, appName, icons } = buildConfig()
 
   const currentDate = DateTime.now()
   const showCampaignLogo =
     campaign && currentDate > DateTime.fromISO(campaign.startDate) && currentDate < DateTime.fromISO(campaign.endDate)
-  const src = showCampaignLogo ? campaign.campaignAppLogo : appLogoConfig.icons.appLogo
-  const srcMobile = showCampaignLogo ? campaign.campaignAppLogoMobile : appLogoConfig.icons.appLogoMobile
+  const src = showCampaignLogo ? campaign.campaignAppLogo : icons.appLogo
+  const srcMobile = showCampaignLogo ? campaign.campaignAppLogoMobile : icons.appLogoMobile
 
   return (
     <LogoContainer>
       <Link to={link}>
-        <img src={viewportSmall ? srcMobile : src} alt={appName} width='100%' height='auto' />
+        <StyledLogoIcon src={viewportSmall ? srcMobile : src} title={appName} />
       </Link>
     </LogoContainer>
   )
