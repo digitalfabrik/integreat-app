@@ -29,6 +29,7 @@ const StyledButton = styled(Button)<{ $viewportSmall: boolean }>`
 `
 
 const DetailsHeaderTitle = styled.span`
+  color: ${props => props.theme.colors.textColor};
   align-self: center;
   white-space: pre;
   padding-inline-start: 8px;

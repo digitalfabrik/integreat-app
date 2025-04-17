@@ -18,7 +18,7 @@ import { useContrastTheme } from './hooks/useContrastTheme'
 import safeLocalStorage, { JPAL_TRACKING_CODE_KEY } from './utils/safeLocalStorage'
 import { initSentry } from './utils/sentry'
 
-const GlobalStyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle<{ isContrastTheme: boolean }>`
     body {
         position: relative;
 
@@ -26,6 +26,41 @@ const GlobalStyle = createGlobalStyle`
         --rt-color-dark: ${props => props.theme.colors.textSecondaryColor};
         --rt-color-white: ${props => props.theme.colors.backgroundColor};
         --rt-opacity: 1;
+        
+        /* Styling for react-datepicker */
+    ${props =>
+      props.isContrastTheme &&
+      `
+      .react-datepicker__header,
+      .react-datepicker__month,
+      .react-datepicker__day {
+        background-color: ${props.theme.colors.backgroundColor};
+      }
+
+      .react-datepicker__current-month,
+      .react-datepicker__day-names .react-datepicker__day-name,
+      .react-datepicker__week,
+      .react-datepicker__day {
+        color: ${props.theme.colors.textColor};
+      }
+      
+      .react-datepicker__day--today {
+      border: 1px solid ${props.theme.colors.linkColor};
+      background-color: transparent !important;
+      border-radius: 50% !important;
+      }
+      
+       .react-datepicker__day--selected:not([aria-disabled='true']):hover,
+       .react-datepicker__day--in-selecting-range:not([aria-disabled='true']):hover,
+       .react-datepicker__day--in-range:not([aria-disabled='true']):hover,
+       .react-datepicker__day:not([aria-disabled=true]):hover {
+         background-color: ${props.theme.colors.linkColor} !important;
+      }
+
+       .react-datepicker__day--selected {
+         background-color: ${props.theme.colors.linkColor} !important;
+      }
+    `}
     }
 `
 
@@ -56,7 +91,7 @@ const AppContent = (): ReactElement => {
         <>
           <Helmet pageTitle={t('pageTitle')} rootPage />
           <Router>
-            <GlobalStyle />
+            <GlobalStyle isContrastTheme={isContrastTheme} />
             <TtsContainer languageCode={contentLanguage}>
               <RootSwitcher setContentLanguage={setContentLanguage} />
             </TtsContainer>

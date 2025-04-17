@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import { ShrinkIcon, ExpandIcon } from '../assets'
+import { useContrastTheme } from '../hooks/useContrastTheme'
 import Button from './base/Button'
 import Icon from './base/Icon'
 
@@ -16,6 +17,10 @@ const StyledButton = styled(Button)`
   margin-bottom: 10px;
 `
 
+const Text = styled.span<{ $isContrastTheme: boolean }>`
+  color: ${props => props.$isContrastTheme && props.theme.colors.textColor};
+`
+
 const FilterToggle = ({
   isDateFilterActive,
   setToggleDateFilter,
@@ -24,10 +29,11 @@ const FilterToggle = ({
   setToggleDateFilter: (isEnabled: boolean) => void
 }): ReactElement => {
   const { t } = useTranslation('events')
+  const { isContrastTheme } = useContrastTheme()
   return (
     <StyledButton label='toggleDate' onClick={() => setToggleDateFilter(!isDateFilterActive)}>
       <Icon src={isDateFilterActive ? ShrinkIcon : ExpandIcon} />
-      <span>{t(isDateFilterActive ? 'hideFilters' : 'showFilters')}</span>
+      <Text $isContrastTheme={isContrastTheme}>{t(isDateFilterActive ? 'hideFilters' : 'showFilters')}</Text>
     </StyledButton>
   )
 }
