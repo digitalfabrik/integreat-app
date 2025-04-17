@@ -5,6 +5,7 @@ import styled from 'styled-components'
 
 import { CloseIcon } from '../assets'
 import dimensions from '../constants/dimensions'
+import { useContrastTheme } from '../hooks/useContrastTheme'
 import Accordion from './Accordion'
 import CustomDatePicker from './DatePicker'
 import FilterToggle from './FilterToggle'
@@ -21,6 +22,9 @@ const DateSection = styled.div`
     flex-direction: column;
     align-items: center;
   }
+`
+const Text = styled.span<{ $isContrastTheme: boolean }>`
+  color: ${props => (props.$isContrastTheme ? props.theme.colors.textColor : props.theme.colors.backgroundColor)};
 `
 
 const StyledButton = styled(Button)`
@@ -39,8 +43,9 @@ type ResetFilterTextProps = {
 
 const ResetFilterText = ({ startDate, endDate }: ResetFilterTextProps) => {
   const { t } = useTranslation('events')
+  const { isContrastTheme } = useContrastTheme()
   const text = `${t('resetFilter')} ${startDate ? startDate.toFormat('dd.MM.yyyy') : '∞'} - ${endDate ? endDate.toFormat('dd.MM.yyyy') : '∞'}`
-  return <span>{text}</span>
+  return <Text $isContrastTheme={isContrastTheme}>{text}</Text>
 }
 
 type EventsDateFilterProps = {

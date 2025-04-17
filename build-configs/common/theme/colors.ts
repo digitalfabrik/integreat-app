@@ -46,7 +46,12 @@ export const commonLightColors = {
 export const commonHighContrastColors = {
   ...commonLightColors,
   backgroundAccentColor: '#20293A',
-  backgroundColor: '#101217',
   textColor: '#FFFFFF',
+  textSecondaryColor: '#FFFFFF',
+  backgroundColor: '#101217',
   borderColor: '#FFFFFF',
+  positiveHighlight: '#22c253',
+  negativeHighlight: '#FF3636',
+  invalidInput: '#FF3636',
+  linkColor: '#3B82F6',
 }

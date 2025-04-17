@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import { CITY_NOT_COOPERATING_ROUTE, pathnameFromRouteInformation } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
+import { useContrastTheme } from '../hooks/useContrastTheme'
 import Icon from './base/Icon'
 
 const FooterContainer = styled.div`
@@ -23,10 +24,10 @@ const StyledIcon = styled(Icon)`
   flex-shrink: 0;
 `
 
-const Button = styled(Link)`
+const Button = styled(Link)<{ $isContrastTheme: boolean }>`
   background-color: ${props => props.theme.colors.themeColor};
   text-decoration: none;
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => (props.$isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.textColor)};
   padding: 5px 20px;
   margin: 15px;
   text-align: center;
@@ -44,6 +45,7 @@ type CityNotCooperatingFooterProps = {
 const CityNotCooperatingFooter = ({ languageCode }: CityNotCooperatingFooterProps): ReactElement | null => {
   const { t } = useTranslation('landing')
   const CityNotCooperatingIcon = buildConfig().icons.cityNotCooperating
+  const { isContrastTheme } = useContrastTheme()
 
   if (!buildConfig().featureFlags.cityNotCooperating || !CityNotCooperatingIcon) {
     return null
@@ -53,7 +55,9 @@ const CityNotCooperatingFooter = ({ languageCode }: CityNotCooperatingFooterProp
     <FooterContainer>
       <StyledIcon src={CityNotCooperatingIcon} />
       <Question>{t('cityNotFound')}</Question>
-      <Button to={pathnameFromRouteInformation({ route: CITY_NOT_COOPERATING_ROUTE, ...{ languageCode } })}>
+      <Button
+        $isContrastTheme={isContrastTheme}
+        to={pathnameFromRouteInformation({ route: CITY_NOT_COOPERATING_ROUTE, ...{ languageCode } })}>
         {t('suggestToRegion', { appName: buildConfig().appName })}
       </Button>
     </FooterContainer>
