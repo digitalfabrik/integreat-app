@@ -7,7 +7,6 @@ import { PoiModel } from 'shared/api'
 import { PoiThumbnailPlaceholder } from '../assets'
 import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
-import { useContrastTheme } from '../hooks/useContrastTheme'
 import Button from './base/Button'
 
 const ListItemContainer = styled.ul`
@@ -41,9 +40,9 @@ const Distance = styled.div`
   ${helpers.adaptiveFontSize};
 `
 
-const Category = styled.div<{ $isContrastTheme: boolean }>`
+const Category = styled.div`
   ${helpers.adaptiveFontSize};
-  color: ${props => (props.$isContrastTheme ? props.theme.colors.textColor : props.theme.colors.textSecondaryColor)};
+  color: ${props => props.theme.colors.textSecondaryColor};
 `
 
 export const Description = styled.div`
@@ -78,7 +77,6 @@ type PoiListItemProps = {
 
 const PoiListItem = ({ poi, distance, selectPoi }: PoiListItemProps): ReactElement => {
   const { t } = useTranslation('pois')
-  const { isContrastTheme } = useContrastTheme()
   const { thumbnail, title, category, slug } = poi
 
   return (
@@ -88,7 +86,7 @@ const PoiListItem = ({ poi, distance, selectPoi }: PoiListItemProps): ReactEleme
         <Description>
           <Title>{title}</Title>
           {distance !== null && <Distance>{t('distanceKilometre', { distance: distance.toFixed(1) })}</Distance>}
-          <Category $isContrastTheme={isContrastTheme}>{category.name}</Category>
+          <Category>{category.name}</Category>
         </Description>
       </LinkContainer>
     </ListItemContainer>
