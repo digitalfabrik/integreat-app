@@ -1,9 +1,7 @@
 import React, { ReactElement, ReactNode } from 'react'
 import styled from 'styled-components'
 
-import { useContrastTheme } from '../../hooks/useContrastTheme'
-
-const StyledButton = styled.button<{ $disabled: boolean; $isContrastTheme: boolean }>`
+const StyledButton = styled.button<{ $disabled: boolean }>`
   background-color: transparent;
   cursor: ${props => (props.$disabled ? 'default' : 'pointer')};
   pointer-events: ${props => (props.$disabled ? 'none' : 'default')};
@@ -12,7 +10,7 @@ const StyledButton = styled.button<{ $disabled: boolean; $isContrastTheme: boole
   text-align: start;
 
   &:focus {
-    ${props => props.$isContrastTheme && `outline: 2px solid ${props.theme.colors.textColor}`}
+    ${props => props.theme.isContrastTheme && `outline: 2px solid ${props.theme.colors.textColor}`}
   }
 `
 
@@ -22,6 +20,7 @@ type ButtonProps = {
   label: string
   type?: 'submit' | 'button'
   disabled?: boolean
+  dir?: 'auto'
   tabIndex?: number
   className?: string
   id?: string
@@ -34,24 +33,22 @@ const Button = ({
   tabIndex,
   className,
   type = 'button',
+  dir = 'auto',
   disabled = false,
   id,
-}: ButtonProps): ReactElement => {
-  const { isContrastTheme } = useContrastTheme()
-  return (
-    <StyledButton
-      onClick={onClick}
-      $isContrastTheme={isContrastTheme}
-      disabled={disabled}
-      $disabled={disabled}
-      aria-label={label}
-      tabIndex={tabIndex}
-      type={type}
-      className={className}
-      id={id}>
-      {children}
-    </StyledButton>
-  )
-}
+}: ButtonProps): ReactElement => (
+  <StyledButton
+    onClick={onClick}
+    disabled={disabled}
+    $disabled={disabled}
+    aria-label={label}
+    tabIndex={tabIndex}
+    type={type}
+    dir={dir}
+    className={className}
+    id={id}>
+    {children}
+  </StyledButton>
+)
 
 export default Button

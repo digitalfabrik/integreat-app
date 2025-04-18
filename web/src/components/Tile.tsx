@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { TileModel } from 'shared'
 import { request } from 'shared/api'
 
-import { useContrastTheme } from '../hooks/useContrastTheme'
+import { useThemeContext } from '../hooks/useThemeContext'
 import Link from './base/Link'
 
 const Thumbnail = styled.div`
@@ -25,14 +25,14 @@ const Thumbnail = styled.div`
   }
 `
 
-const ThumbnailSizer = styled.div<{ $isContrastTheme: boolean }>`
+const ThumbnailSizer = styled.div`
   width: 150px;
   max-width: 33.3vw;
   margin: 0 auto;
 
   & div:hover {
     ${props =>
-      props.$isContrastTheme &&
+      props.theme.isContrastTheme &&
       `
         outline: 8px solid ${props.theme.colors.themeColor};
         border-radius: 24px;
@@ -72,7 +72,7 @@ type TileProps = {
 }
 
 const Tile = ({ tile }: TileProps): ReactElement => {
-  const { isContrastTheme } = useContrastTheme()
+  const { themeType } = useThemeContext()
   const imageRef = useRef<HTMLImageElement>(null)
 
   const fetchImageWithCaching = (): void => {
@@ -91,13 +91,14 @@ const Tile = ({ tile }: TileProps): ReactElement => {
     fetchImageWithCaching()
     return (
       <>
-        <ThumbnailSizer $isContrastTheme={isContrastTheme}>
+        <ThumbnailSizer>
           <Thumbnail>
             <img
               alt=''
               ref={imageRef}
               style={{
-                filter: isContrastTheme ? 'invert(1) sepia(0) saturate(0) brightness(20.0) contrast(1.2)' : 'none',
+                filter:
+                  themeType === 'contrast' ? 'invert(1) sepia(0) saturate(0) brightness(20.0) contrast(1.2)' : 'none',
               }}
             />
           </Thumbnail>

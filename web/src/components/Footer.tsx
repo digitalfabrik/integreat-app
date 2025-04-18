@@ -2,14 +2,13 @@ import React, { ReactElement, ReactNode } from 'react'
 import styled from 'styled-components'
 
 import buildConfig from '../constants/buildConfig'
-import { useContrastTheme } from '../hooks/useContrastTheme'
 
 type FooterProps = {
   children: ReactNode[] | ReactNode
   overlay?: boolean
 }
 
-const FooterContainer = styled.footer<{ $overlay: boolean; $isContrastTheme: boolean }>`
+const FooterContainer = styled.footer<{ $overlay: boolean }>`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -22,7 +21,7 @@ const FooterContainer = styled.footer<{ $overlay: boolean; $isContrastTheme: boo
   ${props => (props.$overlay ? 'color: rgba(0, 0, 0, 0.75);' : '')}
   & > * {
     margin: ${props => (props.$overlay ? 0 : '5px')};
-    color: ${props => props.$isContrastTheme && props.theme.colors.textColor};
+    color: ${props => props.theme.isContrastTheme && props.theme.colors.textColor};
   }
 
   & > *::after {
@@ -40,18 +39,15 @@ const FooterContainer = styled.footer<{ $overlay: boolean; $isContrastTheme: boo
  * number if it's a dev build.
  */
 
-const Footer = ({ children, overlay = false }: FooterProps): ReactElement => {
-  const { isContrastTheme } = useContrastTheme()
-  return (
-    <FooterContainer $isContrastTheme={isContrastTheme} $overlay={overlay}>
-      {children}
-      {buildConfig().featureFlags.developerFriendly && (
-        <span>
-          {__VERSION_NAME__}+{__COMMIT_SHA__}
-        </span>
-      )}
-    </FooterContainer>
-  )
-}
+const Footer = ({ children, overlay = false }: FooterProps): ReactElement => (
+  <FooterContainer $overlay={overlay}>
+    {children}
+    {buildConfig().featureFlags.developerFriendly && (
+      <span>
+        {__VERSION_NAME__}+{__COMMIT_SHA__}
+      </span>
+    )}
+  </FooterContainer>
+)
 
 export default Footer

@@ -5,8 +5,6 @@ import { useTheme } from 'styled-components'
 import { findNormalizedMatches, normalizeString } from 'shared'
 import { UiDirectionType } from 'translations'
 
-import { useContrastTheme } from '../hooks/useContrastTheme'
-
 type HighlighterProps = {
   search: string
   text: string
@@ -16,7 +14,6 @@ type HighlighterProps = {
 
 const Highlighter = ({ search, text, className, dir }: HighlighterProps): ReactElement => {
   const theme = useTheme()
-  const { isContrastTheme } = useContrastTheme()
   return (
     <ReactHighlighter
       className={className}
@@ -27,7 +24,7 @@ const Highlighter = ({ search, text, className, dir }: HighlighterProps): ReactE
       highlightStyle={{
         backgroundColor: theme.colors.backgroundColor,
         fontWeight: 'bold',
-        color: isContrastTheme ? theme.colors.themeColor : theme.colors.textColor,
+        color: theme.isContrastTheme ? theme.colors.themeColor : theme.colors.textColor,
       }}
       aria-label={text}
       autoEscape

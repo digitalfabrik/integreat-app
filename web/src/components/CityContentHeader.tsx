@@ -17,7 +17,7 @@ import { CalendarIcon, CategoriesIcon, LocationIcon, NewsIcon, POIsIcon, SearchI
 import buildConfig from '../constants/buildConfig'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { LOCAL_NEWS_ROUTE, RouteType, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from '../routes'
-import ContrastTheme from './ContrastTheme'
+import ContrastThemeToggle from './ContrastThemeToggle'
 import Header from './Header'
 import HeaderActionItemLink from './HeaderActionItemLink'
 import HeaderNavigationItem from './HeaderNavigationItem'
@@ -79,7 +79,7 @@ const CityContentHeader = ({
       inKebabMenu
       closeSidebar={() => setIsSidebarOpen(false)}
     />,
-    <ContrastTheme key='highContrast' />,
+    <ContrastThemeToggle key='contrastTheme' />,
   ]
 
   const getNavigationItems = (): ReactElement[] => {

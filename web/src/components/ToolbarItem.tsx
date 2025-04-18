@@ -3,7 +3,6 @@ import { PlacesType } from 'react-tooltip'
 import styled, { useTheme } from 'styled-components'
 
 import dimensions from '../constants/dimensions'
-import { useContrastTheme } from '../hooks/useContrastTheme'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { spacesToDashes } from '../utils/stringUtils'
 import StyledSmallViewTip from './StyledSmallViewTip'
@@ -26,12 +25,12 @@ const StyledToolbarItem = styled(Link)<{ disabled?: boolean }>`
   }
 `
 
-const StyledIcon = styled(Icon)<{ disabled?: boolean; $isContrastTheme: boolean }>`
+const StyledIcon = styled(Icon)<{ disabled?: boolean }>`
   color: ${props => {
     if (props.disabled) {
       return props.theme.colors.textDisabledColor
     }
-    if (props.$isContrastTheme) {
+    if (props.theme.isContrastTheme) {
       return props.theme.colors.textColor
     }
     return props.theme.colors.textSecondaryColor
@@ -77,7 +76,6 @@ const ToolbarItem = ({
   id,
 }: ToolbarItemProps): ReactElement => {
   const theme = useTheme()
-  const { isContrastTheme } = useContrastTheme()
   const { viewportSmall } = useWindowDimensions()
   const tooltipDirectionForDesktop: PlacesType = theme.contentDirection === 'ltr' ? 'right' : 'left'
   const tooltipDirection: PlacesType = viewportSmall ? 'top' : tooltipDirectionForDesktop
@@ -88,7 +86,7 @@ const ToolbarItem = ({
       <StyledTooltip id={tooltipId} tooltipContent={tooltip} place={tooltipDirection} {...additionalTooltipProps}>
         {/* @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112 */}
         <StyledToolbarItem as='div' label={text} disabled>
-          <StyledIcon $isContrastTheme={isContrastTheme} src={icon} disabled />
+          <StyledIcon src={icon} disabled />
           <StyledSmallViewTip>{text}</StyledSmallViewTip>
         </StyledToolbarItem>
       </StyledTooltip>
@@ -103,7 +101,7 @@ const ToolbarItem = ({
         onClick={onClick}
         label={text}
         disabled={false}>
-        <StyledIcon src={icon} $isContrastTheme={isContrastTheme} disabled={false} />
+        <StyledIcon src={icon} disabled={false} />
         <StyledSmallViewTip>{text}</StyledSmallViewTip>
       </StyledToolbarItem>
     </StyledTooltip>

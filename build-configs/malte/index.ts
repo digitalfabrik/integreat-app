@@ -19,7 +19,7 @@ const commonMalteBuildConfig: CommonBuildConfigType = {
   appIcon: 'app_icon_malte',
   notificationIcon: 'notification_icon_malte',
   lightTheme,
-  highContrastTheme: lightTheme,
+  contrastTheme: lightTheme,
   assets: MALTE_ASSETS,
   cmsUrl: 'https://cms.malteapp.de',
   switchCmsUrl: 'https://malte-test.tuerantuer.org',

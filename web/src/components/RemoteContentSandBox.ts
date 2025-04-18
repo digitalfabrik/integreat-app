@@ -15,6 +15,8 @@ const RemoteContentSandBox = styled.div<{ $centered: boolean; $smallText: boolea
     img {
     max-width: 100%;
     max-height: 100%;
+    filter: ${props => props.theme.isContrastTheme && 'brightness(0) invert(1)'};
+    color: ${props => props.theme.colors.textColor};
     object-fit: contain;
 
     &.alignright {
@@ -71,6 +73,7 @@ const RemoteContentSandBox = styled.div<{ $centered: boolean; $smallText: boolea
 
   a {
     overflow-wrap: break-word;
+    color: ${props => props.theme.colors.linkColor};
   }
 
   details > * {
@@ -97,6 +100,7 @@ const RemoteContentSandBox = styled.div<{ $centered: boolean; $smallText: boolea
         ${helpers.adaptiveHeight}
         ${helpers.adaptiveWidth}
       `};
+    color: ${props => props.theme.colors.linkColor};
     background-size: contain;
     background-repeat: no-repeat;
     vertical-align: middle;
@@ -171,6 +175,8 @@ const RemoteContentSandBox = styled.div<{ $centered: boolean; $smallText: boolea
     }
 
     img {
+      filter: ${props => props.theme.isContrastTheme && 'brightness(0) invert(1)'};
+      color: ${props => props.theme.colors.textColor};
       margin-inline-end: 8px;
     }
 
