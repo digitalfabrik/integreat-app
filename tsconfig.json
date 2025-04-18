@@ -22,7 +22,6 @@
     { "path": "build-configs" },
     { "path": "e2e-tests" },
     { "path": "native" },
-    { "path": "tools" },
     { "path": "translations" },
     { "path": "web" }
   ]

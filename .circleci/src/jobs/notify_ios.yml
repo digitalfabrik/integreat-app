@@ -17,15 +17,15 @@ steps:
       working_directory: ~/attached_workspace
   - run:
       name: Create github release
-      command: echo "export IOS_RELEASE_ID='$(yarn --silent github-release create ios ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --production-delivery << parameters.production_delivery >> --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent manage-metadata parse-release-notes --ios --language en)")'" >> ${BASH_ENV}
+      command: echo "export IOS_RELEASE_ID='$(yarn --silent app-toolbelt v0 release create ios ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --production-delivery << parameters.production_delivery >> --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent app-toolbelt v0 release-notes parse-release-notes --ios --language en)")'" >> ${BASH_ENV}
       working_directory: tools
   - run:
       name: Upload ipas to github release
-      command: yarn github-release-asset upload ios --releaseId ${IOS_RELEASE_ID} --files "$(ls ~/attached_workspace/*.ipa)" --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME}
+      command: yarn app-toolbelt v0 release upload --releaseId ${IOS_RELEASE_ID} --files "$(ls ~/attached_workspace/*.ipa)" --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME}
       working_directory: tools
   - run:
       name: Create release notes
-      command: echo "export RELEASE_NOTES=$(yarn --silent --cwd tools manage-metadata parse-release-notes --ios --language en)" >> ${BASH_ENV}
+      command: echo "export RELEASE_NOTES=$(yarn --silent --cwd tools app-toolbelt v0 release-notes parse-release-notes --ios --language en)" >> ${BASH_ENV}
   - notify:
       success_message: <<^ parameters.production_delivery >>[Beta] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on iOS!\n${RELEASE_NOTES}\n${IOS_ARTIFACT_URLS}
       channel: releases
