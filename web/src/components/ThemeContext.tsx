@@ -1,4 +1,4 @@
-import React, { createContext, ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
+import React, { createContext, ReactElement, useEffect, useMemo, useState } from 'react'
 import { ThemeProvider } from 'styled-components'
 
 import { UiDirectionType } from 'translations'
@@ -49,15 +49,15 @@ export const ThemeContainer = ({ children, contentDirection }: ThemeContainerPro
     }
   }, [])
 
-  const toggleTheme = useCallback(() => {
-    setThemeType(prev => (prev === 'light' ? 'contrast' : 'light'))
-  }, [])
-
   const contextValue = useMemo(() => {
+    const toggleTheme = () => {
+      setThemeType(prev => (prev === 'light' ? 'contrast' : 'light'))
+    }
+
     const baseTheme = themeType === 'contrast' ? themeConfig.highContrastTheme : themeConfig.lightTheme
     const theme = { ...baseTheme, contentDirection }
     return { theme, themeType, toggleTheme }
-  }, [themeType, contentDirection, toggleTheme])
+  }, [themeType, contentDirection])
 
   return (
     <ThemeContext.Provider value={contextValue}>

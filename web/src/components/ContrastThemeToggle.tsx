@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import { ContrastIcon } from '../assets'
-import { useContrastTheme } from '../hooks/useContrastTheme'
+import { useThemeContext } from '../hooks/useThemeContext'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import ToolbarItem from './ToolbarItem'
 import Button from './base/Button'
@@ -29,7 +29,7 @@ const StyledIcon = styled(Icon)<{ $isContrastTheme: 'light' | 'contrast' }>`
 const ContrastThemeToggle = (): ReactElement => {
   const { t } = useTranslation('layout')
   const { viewportSmall } = useWindowDimensions()
-  const { toggleTheme, themeType } = useContrastTheme()
+  const { toggleTheme, themeType } = useThemeContext()
 
   if (viewportSmall) {
     return (
