@@ -4,7 +4,6 @@ import styled from 'styled-components'
 import { TileModel } from 'shared'
 import { request } from 'shared/api'
 
-import { useThemeContext } from '../hooks/useThemeContext'
 import Link from './base/Link'
 
 const Thumbnail = styled.div`
@@ -61,6 +60,11 @@ const TileContainer = styled.div`
     cursor: pointer;
   }
 
+  & img {
+    filter: ${props =>
+      props.theme.isContrastTheme ? 'invert(1) sepia(0) saturate(0) brightness(20.0) contrast(1.2)' : 'none'};
+  }
+
   & > a:hover img,
   & button:hover img {
     transform: scale(1.01);
@@ -72,7 +76,6 @@ type TileProps = {
 }
 
 const Tile = ({ tile }: TileProps): ReactElement => {
-  const { themeType } = useThemeContext()
   const imageRef = useRef<HTMLImageElement>(null)
 
   const fetchImageWithCaching = (): void => {
@@ -93,14 +96,7 @@ const Tile = ({ tile }: TileProps): ReactElement => {
       <>
         <ThumbnailSizer>
           <Thumbnail>
-            <img
-              alt=''
-              ref={imageRef}
-              style={{
-                filter:
-                  themeType === 'contrast' ? 'invert(1) sepia(0) saturate(0) brightness(20.0) contrast(1.2)' : 'none',
-              }}
-            />
+            <img alt='' ref={imageRef} />
           </Thumbnail>
         </ThumbnailSizer>
         <TileTitle>{tile.title}</TileTitle>
