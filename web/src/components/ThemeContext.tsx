@@ -1,9 +1,10 @@
-import React, { createContext, ReactElement, useEffect, useMemo, useState } from 'react'
+import React, { createContext, ReactElement, useEffect, useMemo } from 'react'
 import { ThemeProvider } from 'styled-components'
 
 import { UiDirectionType } from 'translations'
 
 import buildConfig from '../constants/buildConfig'
+import useLocalStorage from '../hooks/useLocalStorage'
 
 type ThemeType = 'light' | 'contrast'
 
@@ -35,10 +36,18 @@ type ThemeContainerProps = {
 }
 
 export const ThemeContainer = ({ children, contentDirection }: ThemeContainerProps): ReactElement => {
-  const [themeType, setThemeType] = useState<ThemeType>(getSystemTheme)
+  const { value: themeType, updateLocalStorageItem: setThemeType } = useLocalStorage<ThemeType>({
+    key: 'theme',
+    initialValue: getSystemTheme(),
+  })
 
   useEffect(() => {
-    const updateTheme = () => setThemeType(getSystemTheme())
+    const storedTheme = localStorage.getItem('theme')
+    const updateTheme = () => {
+      if (!storedTheme) {
+        setThemeType(getSystemTheme())
+      }
+    }
 
     updateTheme()
 
@@ -47,17 +56,18 @@ export const ThemeContainer = ({ children, contentDirection }: ThemeContainerPro
     return () => {
       contrastThemeMediaQueries.forEach(query => query.removeEventListener('change', updateTheme))
     }
-  }, [])
+  }, [setThemeType])
 
   const contextValue = useMemo(() => {
     const toggleTheme = () => {
-      setThemeType(prev => (prev === 'light' ? 'contrast' : 'light'))
+      const currentTheme = themeType === 'light' ? 'contrast' : 'light'
+      setThemeType(currentTheme)
     }
 
     const baseTheme = themeType === 'contrast' ? themeConfig.highContrastTheme : themeConfig.lightTheme
     const theme = { ...baseTheme, contentDirection }
     return { theme, themeType, toggleTheme }
-  }, [themeType, contentDirection])
+  }, [themeType, setThemeType, contentDirection])
 
   return (
     <ThemeContext.Provider value={contextValue}>
