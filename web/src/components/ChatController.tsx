@@ -37,7 +37,7 @@ const ChatController = ({ city, language }: ChatControllerProps): ReactElement =
   const isBrowserTabActive = useIsTabActive()
 
   useEffect(() => {
-    const messageCount = chatMessages?.messages?.length ?? 0
+    const messageCount = chatMessages?.messages.length ?? 0
     const RefreshMethod = () => {
       if (isBrowserTabActive) {
         refreshMessages()
@@ -48,7 +48,7 @@ const ChatController = ({ city, language }: ChatControllerProps): ReactElement =
       return () => clearInterval(pollMessageInterval)
     }
     return undefined
-  }, [refreshMessages, isBrowserTabActive, chatMessages?.messages?.length])
+  }, [refreshMessages, isBrowserTabActive, chatMessages?.messages.length])
 
   const submitMessage = async (message: string) => {
     setSendingStatus('sending')
