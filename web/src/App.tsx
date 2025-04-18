@@ -3,7 +3,7 @@ import { Settings as LuxonSettings } from 'luxon'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BrowserRouter as Router } from 'react-router-dom'
-import { ThemeProvider, createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from 'styled-components'
 
 import { setJpalTrackingCode } from 'shared/api'
 import { UiDirectionType, config } from 'translations'
@@ -11,8 +11,8 @@ import { UiDirectionType, config } from 'translations'
 import RootSwitcher from './RootSwitcher'
 import Helmet from './components/Helmet'
 import I18nProvider from './components/I18nProvider'
+import { ThemeContainer } from './components/ThemeContext'
 import TtsContainer from './components/TtsContainer'
-import buildConfig from './constants/buildConfig'
 import safeLocalStorage, { JPAL_TRACKING_CODE_KEY } from './utils/safeLocalStorage'
 import { initSentry } from './utils/sentry'
 
@@ -44,7 +44,7 @@ const App = (): ReactElement => {
   }, [])
 
   return (
-    <ThemeProvider theme={{ ...buildConfig().lightTheme, contentDirection }}>
+    <ThemeContainer contentDirection={contentDirection}>
       <I18nProvider contentLanguage={contentLanguage}>
         <>
           <Helmet pageTitle={t('pageTitle')} rootPage />
@@ -56,7 +56,7 @@ const App = (): ReactElement => {
           </Router>
         </>
       </I18nProvider>
-    </ThemeProvider>
+    </ThemeContainer>
   )
 }
 
