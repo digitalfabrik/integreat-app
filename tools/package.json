@@ -3,20 +3,7 @@
   "name": "tools",
   "private": true,
   "type": "module",
-  "scripts": {
-    "ts:check": "tsc --build"
-  },
   "devDependencies": {
-    "@octokit/auth-app": "^7.1.1",
-    "@octokit/rest": "^21.0.2",
-    "@types/js-yaml": "^4.0.9",
-    "@types/node": "^22.5.3",
-    "@types/node-fetch": "^2.6.11",
-    "commander": "^12.0.0",
-    "js-yaml": "^4.1.0",
-    "node-fetch": "^3.3.2",
-    "tsx": "^4.8.2",
-    "typescript": "^5.4.5",
     "app-toolbelt": "github:digitalfabrik/app-toolbelt#semver:0.4.0"
   }
 }
