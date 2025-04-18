@@ -1,0 +1,5 @@
+issue_key: 3182
+show_in_stores: false
+platforms: # relevant platforms, possible values: web, android and ios
+  - web
+en: Improvements to the integreat Chat Support.

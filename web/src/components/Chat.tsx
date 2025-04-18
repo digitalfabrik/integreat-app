@@ -72,28 +72,27 @@ const Chat = ({ messages, submitMessage, hasError, isLoading }: ChatProps): Reac
   }
 
   const submitOnEnter = (event: KeyboardEvent) => {
-    if (event.key === 'Enter' && !event.shiftKey) {
+    const isEnterAllowed = event.key === 'Enter' && !event.shiftKey && textInput.length > 0 && !isLoading && !hasError
+    if (isEnterAllowed) {
       event.preventDefault()
       onSubmit()
     }
   }
 
-  if (isLoading && !hasError) {
-    return (
-      <LoadingContainer>
-        <StyledLoadingSpinner />
-        <LoadingText>{t('loadingText')}</LoadingText>
-      </LoadingContainer>
-    )
-  }
-
   return (
     <Container>
-      <StyledChatConversation
-        $height={deviceHeight - chatInputContainerHeight}
-        messages={messages}
-        hasError={hasError}
-      />
+      {isLoading && !hasError ? (
+        <LoadingContainer>
+          <StyledLoadingSpinner />
+          <LoadingText>{t('loadingText')}</LoadingText>
+        </LoadingContainer>
+      ) : (
+        <StyledChatConversation
+          $height={deviceHeight - chatInputContainerHeight}
+          messages={messages}
+          hasError={hasError}
+        />
+      )}
       <InputWrapper $height={chatInputContainerHeight}>
         <InputSection id='chat' title={messages.length > 0 ? '' : t('inputLabel')}>
           <Input
@@ -107,7 +106,11 @@ const Chat = ({ messages, submitMessage, hasError, isLoading }: ChatProps): Reac
           />
         </InputSection>
         <SubmitContainer>
-          <SubmitButton disabled={textInput.length === 0} onClick={onSubmit} text={t('sendButton')} />
+          <SubmitButton
+            disabled={textInput.length === 0 || hasError || isLoading}
+            onClick={onSubmit}
+            text={t('sendButton')}
+          />
           <ChatSecurityInformation />
         </SubmitContainer>
       </InputWrapper>
