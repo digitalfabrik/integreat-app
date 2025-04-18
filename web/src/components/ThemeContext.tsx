@@ -1,10 +1,9 @@
-import React, { createContext, ReactElement, useCallback, useEffect, useMemo } from 'react'
+import React, { createContext, ReactElement, useEffect, useMemo } from 'react'
 import { ThemeProvider } from 'styled-components'
 
 import { UiDirectionType } from 'translations'
 
 import buildConfig from '../constants/buildConfig'
-import { contrastThemeMediaQueries } from '../constants/contrastThemeMediaQueries'
 import useLocalStorage from '../hooks/useLocalStorage'
 
 type ThemeType = 'light' | 'contrast'
@@ -23,6 +22,12 @@ export const ThemeContext = createContext<ThemeContextType>({
   toggleTheme: () => undefined,
 })
 
+export const contrastThemeMediaQueries = [
+  '(forced-colors: active)' /* to detect enabled forced colors mode: https://developer.mozilla.org/en-US/docs/Web/CSS/@media/forced-colors */,
+  '(prefers-contrast: more)' /* to detect a lower/higher contrast: https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-contrast */,
+  '(prefers-color-scheme: dark)' /* is used to detect if a user has requested light or dark color themes: https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme */,
+].map(query => window.matchMedia(query))
+
 const getSystemTheme = (): ThemeType => (contrastThemeMediaQueries.some(query => query.matches) ? 'contrast' : 'light')
 
 type ThemeContainerProps = {
@@ -32,38 +37,37 @@ type ThemeContainerProps = {
 
 export const ThemeContainer = ({ children, contentDirection }: ThemeContainerProps): ReactElement => {
   const { value: themeType, updateLocalStorageItem: setThemeType } = useLocalStorage<ThemeType>({
-    key: 'themeType',
+    key: 'theme',
     initialValue: getSystemTheme(),
   })
 
   useEffect(() => {
-    const handleSystemChange = () => {
-      const storedTheme = localStorage.getItem('themeType')
-      if (!storedTheme || storedTheme === 'null') {
-        const currentTheme = getSystemTheme()
-        setThemeType(currentTheme)
+    const storedTheme = localStorage.getItem('theme')
+    const updateTheme = () => {
+      if (!storedTheme) {
+        setThemeType(getSystemTheme())
       }
     }
 
-    handleSystemChange()
+    updateTheme()
 
-    contrastThemeMediaQueries.forEach(query => query.addEventListener('change', handleSystemChange))
+    contrastThemeMediaQueries.forEach(query => query.addEventListener('change', updateTheme))
 
     return () => {
-      contrastThemeMediaQueries.forEach(query => query.removeEventListener('change', handleSystemChange))
+      contrastThemeMediaQueries.forEach(query => query.removeEventListener('change', updateTheme))
     }
   }, [setThemeType])
 
-  const toggleTheme = useCallback(() => {
-    const currentTheme = themeType === 'light' ? 'contrast' : 'light'
-    setThemeType(currentTheme)
-  }, [themeType, setThemeType])
-
   const contextValue = useMemo(() => {
+    const toggleTheme = () => {
+      const currentTheme = themeType === 'light' ? 'contrast' : 'light'
+      setThemeType(currentTheme)
+    }
+
     const baseTheme = themeType === 'contrast' ? themeConfig.highContrastTheme : themeConfig.lightTheme
     const theme = { ...baseTheme, contentDirection }
     return { theme, themeType, toggleTheme }
-  }, [themeType, contentDirection, toggleTheme])
+  }, [themeType, setThemeType, contentDirection])
 
   return (
     <ThemeContext.Provider value={contextValue}>
