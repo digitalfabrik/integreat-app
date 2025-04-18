@@ -23,7 +23,7 @@ const StyledButton = styled(Button)<{ $active: boolean | null }>`
     return props.theme.colors.backgroundColor
   }};
   color: ${props =>
-    props.theme.isContrastTheme === true ? props.theme.colors.backgroundColor : props.theme.colors.textSecondaryColor};
+    props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.textSecondaryColor};
   padding: 8px;
   text-align: center;
 `

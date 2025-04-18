@@ -26,15 +26,7 @@ const StyledToolbarItem = styled(Link)<{ disabled?: boolean }>`
 `
 
 const StyledIcon = styled(Icon)<{ disabled?: boolean }>`
-  color: ${props => {
-    if (props.disabled) {
-      return props.theme.colors.textDisabledColor
-    }
-    if (props.theme.isContrastTheme) {
-      return props.theme.colors.textColor
-    }
-    return props.theme.colors.textSecondaryColor
-  }};
+  color: ${props => (props.disabled ? props.theme.colors.textDisabledColor : props.theme.colors.textSecondaryColor)};
 `
 
 const StyledTooltip = styled(Tooltip)`

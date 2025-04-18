@@ -42,8 +42,7 @@ const Distance = styled.div`
 
 const Category = styled.div`
   ${helpers.adaptiveFontSize};
-  color: ${props =>
-    props.theme.isContrastTheme ? props.theme.colors.textColor : props.theme.colors.textSecondaryColor};
+  color: ${props => props.theme.colors.textSecondaryColor};
 `
 
 export const Description = styled.div`

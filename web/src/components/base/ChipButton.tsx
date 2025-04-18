@@ -14,8 +14,7 @@ const StyledButton = styled(Button)`
   border-radius: 20px;
   gap: 4px;
   background-color: ${props => props.theme.colors.backgroundColor};
-  color: ${props =>
-    props.theme.isContrastTheme ? props.theme.colors.textColor : props.theme.colors.textSecondaryColor};
+  color: ${props => props.theme.colors.textSecondaryColor};
   font-family: ${props => props.theme.fonts.web.contentFont};
   font-size: 0.875rem;
 `
