@@ -14,7 +14,6 @@ const ContrastButton = styled(Button)`
   width: 100%;
   padding: 24px 0;
   align-items: center;
-  cursor: pointer;
 
   & > span {
     padding: 0 28px;
@@ -23,9 +22,7 @@ const ContrastButton = styled(Button)`
 `
 
 const StyledIcon = styled(Icon)<{ $isContrastTheme: 'light' | 'contrast' }>`
-  width: 24px;
-  height: 24px;
-  transform: ${({ $isContrastTheme }) => ($isContrastTheme === 'contrast' ? 'reverse' : 'none')};
+  transform: ${({ $isContrastTheme }) => ($isContrastTheme === 'contrast' ? 'translateY(2px)' : 'none')};
   transition: transform 0.2s ease;
 `
 
@@ -36,7 +33,7 @@ const ContrastThemeToggle = (): ReactElement => {
 
   if (viewportSmall) {
     return (
-      <ContrastButton dir='auto' label={t('contrastTheme')} onClick={toggleTheme}>
+      <ContrastButton label={t('contrastTheme')} onClick={toggleTheme}>
         <StyledIcon $isContrastTheme={themeType} src={ContrastIcon} />
         <span>{t('contrastTheme')}</span>
       </ContrastButton>

@@ -79,7 +79,7 @@ const CityContentHeader = ({
       inKebabMenu
       closeSidebar={() => setIsSidebarOpen(false)}
     />,
-    <ContrastThemeToggle key='highContrast' />,
+    <ContrastThemeToggle key='contrastTheme' />,
   ]
 
   const getNavigationItems = (): ReactElement[] => {
