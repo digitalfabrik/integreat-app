@@ -65,6 +65,7 @@ const StyledIcon = styled(Icon)`
 
 const ChatTitle = styled.span`
   margin-top: 8px;
+  color: ${props => props.theme.colors.textColor};
 `
 
 export enum ChatVisibilityStatus {

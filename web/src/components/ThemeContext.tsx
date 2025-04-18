@@ -8,7 +8,7 @@ import buildConfig from '../constants/buildConfig'
 type ThemeType = 'light' | 'contrast'
 
 export type ThemeContextType = {
-  theme: ReturnType<typeof buildConfig>['lightTheme'] | ReturnType<typeof buildConfig>['highContrastTheme']
+  theme: ReturnType<typeof buildConfig>['lightTheme'] | ReturnType<typeof buildConfig>['contrastTheme']
   themeType: ThemeType
   toggleTheme: () => void
 }
@@ -54,8 +54,8 @@ export const ThemeContainer = ({ children, contentDirection }: ThemeContainerPro
       setThemeType(prev => (prev === 'light' ? 'contrast' : 'light'))
     }
 
-    const baseTheme = themeType === 'contrast' ? themeConfig.highContrastTheme : themeConfig.lightTheme
-    const theme = { ...baseTheme, contentDirection }
+    const baseTheme = themeType === 'contrast' ? themeConfig.contrastTheme : themeConfig.lightTheme
+    const theme = { ...baseTheme, contentDirection, isContrastTheme: themeType === 'contrast' }
     return { theme, themeType, toggleTheme }
   }, [themeType, contentDirection])
 

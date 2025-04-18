@@ -15,6 +15,7 @@ const StyledIcon = styled(Icon)`
 const ActionBox = styled(Button)`
   padding: 4px 6px;
   display: flex;
+  color: ${props => props.theme.colors.textColor};
   border: 1px solid ${props => props.theme.colors.textColor};
   border-radius: 4px;
   justify-content: center;

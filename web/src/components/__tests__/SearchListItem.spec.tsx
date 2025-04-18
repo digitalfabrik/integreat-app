@@ -18,6 +18,7 @@ describe('SearchListItem', () => {
     _values: {
       'background-color': 'rgb(255, 255, 255)',
       'font-weight': 'bold',
+      color: 'rgb(0, 0, 0)',
     },
   }
 
@@ -33,10 +34,10 @@ describe('SearchListItem', () => {
     )
 
     expect(getByLabelText(excerpt)).toBeTruthy()
-    expect(getByText(excerptBeforeQuery)).not.toHaveProperty('style', expect.objectContaining(highlightStyle))
-    expect(queryAllByText(query)[0]).toHaveProperty('style', expect.objectContaining(highlightStyle))
-    expect(queryAllByText(query)[1]).toHaveProperty('style', expect.objectContaining(highlightStyle))
-    expect(getByText(excerptAfterQuery)).not.toHaveProperty('style', expect.objectContaining(highlightStyle))
+    expect(getByText(excerptBeforeQuery)).not.toHaveStyle(highlightStyle)
+    expect(queryAllByText(query)[0]).toHaveStyle(highlightStyle._values)
+    expect(queryAllByText(query)[1]).toHaveStyle(highlightStyle._values)
+    expect(getByText(excerptAfterQuery)).not.toHaveStyle(highlightStyle)
   })
 
   it('should show beginning of excerpt if match only in title', () => {
@@ -48,9 +49,9 @@ describe('SearchListItem', () => {
       <SearchListItem {...categoryParams} title={differenCategoryName} query={query} />,
     )
 
-    expect(getByText(query)).toHaveProperty('style', expect.objectContaining(highlightStyle))
+    expect(getByText(query)).toHaveStyle(highlightStyle._values)
     expect(getByLabelText(excerpt)).toBeTruthy()
-    expect(getByText(excerpt)).not.toHaveProperty('style', expect.objectContaining(highlightStyle))
+    expect(getByText(excerpt)).not.toHaveStyle(highlightStyle._values)
   })
 
   it('should show excerpt around query if only match in content', () => {
@@ -62,9 +63,9 @@ describe('SearchListItem', () => {
     const { getByText, getByLabelText } = renderWithRouterAndTheme(<SearchListItem query={query} {...categoryParams} />)
 
     expect(getByLabelText(excerpt)).toBeTruthy()
-    expect(getByText(excerptBeforeQuery)).not.toHaveProperty('style', expect.objectContaining(highlightStyle))
-    expect(getByText(query)).toHaveProperty('style', expect.objectContaining(highlightStyle))
-    expect(getByText(excerptAfterQuery)).not.toHaveProperty('style', expect.objectContaining(highlightStyle))
+    expect(getByText(excerptBeforeQuery)).not.toHaveStyle(highlightStyle._values)
+    expect(getByText(query)).toHaveStyle(highlightStyle._values)
+    expect(getByText(excerptAfterQuery)).not.toHaveStyle(highlightStyle._values)
   })
 
   it('should show beginning of excerpt if there is no match', () => {

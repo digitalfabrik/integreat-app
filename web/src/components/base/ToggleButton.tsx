@@ -13,8 +13,17 @@ const StyledButton = styled(Button)<{ $active: boolean | null }>`
   border-radius: 18px;
   width: ${toggleButtonWidth}px;
   height: 100px;
-  background-color: ${props => (props.$active ? props.theme.colors.themeColor : props.theme.colors.backgroundColor)};
-  color: ${props => props.theme.colors.textSecondaryColor};
+  background-color: ${props => {
+    if (props.$active) {
+      return props.theme.colors.themeColor
+    }
+    if (props.theme.isContrastTheme) {
+      return props.theme.colors.textColor
+    }
+    return props.theme.colors.backgroundColor
+  }};
+  color: ${props =>
+    props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.textSecondaryColor};
   padding: 8px;
   text-align: center;
 `

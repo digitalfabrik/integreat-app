@@ -26,7 +26,7 @@ const StyledIcon = styled(Icon)`
 const Button = styled(Link)`
   background-color: ${props => props.theme.colors.themeColor};
   text-decoration: none;
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => (props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.textColor)};
   padding: 5px 20px;
   margin: 15px;
   text-align: center;

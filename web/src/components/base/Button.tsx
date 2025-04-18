@@ -8,6 +8,10 @@ const StyledButton = styled.button<{ $disabled: boolean }>`
   padding: 0;
   border: none;
   text-align: start;
+
+  &:focus {
+    ${props => props.theme.isContrastTheme && `outline: 2px solid ${props.theme.colors.textColor}`}
+  }
 `
 
 type ButtonProps = {
@@ -16,7 +20,7 @@ type ButtonProps = {
   label: string
   type?: 'submit' | 'button'
   disabled?: boolean
-  dir?: string
+  dir?: 'auto'
   tabIndex?: number
   className?: string
   id?: string

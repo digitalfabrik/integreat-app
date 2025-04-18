@@ -14,6 +14,11 @@ const NoteContainer = styled.div`
 
 const NoteText = styled.span`
   font-size: ${props => props.theme.fonts.decorativeFontSizeSmall};
+  color: ${props => (props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.textColor)};
+`
+
+const StyledIcon = styled(Icon)`
+  color: ${props => props.theme.isContrastTheme && props.theme.colors.backgroundColor};
 `
 
 type NoteProps = {
@@ -22,7 +27,7 @@ type NoteProps = {
 
 const Note = ({ text }: NoteProps): ReactElement => (
   <NoteContainer>
-    <Icon src={NoteIcon} />
+    <StyledIcon src={NoteIcon} />
     <NoteText>{text}</NoteText>
   </NoteContainer>
 )
