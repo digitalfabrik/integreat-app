@@ -38,7 +38,6 @@ const LogoContainer = styled.div`
 `
 
 const StyledLogoIcon = styled(Icon)`
-  fill: currentcolor;
   color: ${props => props.theme.colors.textColor};
   height: 100%;
   width: 200px;
@@ -46,7 +45,6 @@ const StyledLogoIcon = styled(Icon)`
 
   @media ${dimensions.smallViewport} {
     max-width: 44px;
-    max-height: 100%;
   }
 `
 
