@@ -20,6 +20,7 @@ import { LOCAL_NEWS_ROUTE, RouteType, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from
 import Header from './Header'
 import HeaderActionItemLink from './HeaderActionItemLink'
 import HeaderNavigationItem from './HeaderNavigationItem'
+import HighContrastMode from './HighContrastMode'
 import KebabActionItemLink from './KebabActionItemLink'
 import LanguageSelector from './LanguageSelector'
 
@@ -78,6 +79,7 @@ const CityContentHeader = ({
       inKebabMenu
       closeSidebar={() => setIsSidebarOpen(false)}
     />,
+    <HighContrastMode key='highContrast' />,
   ]
 
   const getNavigationItems = (): ReactElement[] => {
