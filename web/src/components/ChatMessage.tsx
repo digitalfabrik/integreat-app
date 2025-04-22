@@ -30,9 +30,6 @@ const Container = styled.div<{ $isAuthor: boolean }>`
 
 const IconContainer = styled.div<{ $visible: boolean }>`
   opacity: ${props => (props.$visible ? 1 : 0)};
-  height: 25px;
-  width: 25px;
-  display: flex;
 `
 
 const Circle = styled.div`
