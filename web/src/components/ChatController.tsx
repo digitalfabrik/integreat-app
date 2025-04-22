@@ -28,7 +28,7 @@ const ChatController = ({ city, language }: ChatControllerProps): ReactElement =
     initialValue: window.crypto.randomUUID(),
   })
   const {
-    data: chatMessages,
+    data: chatMessagesReturn,
     refresh: refreshMessages,
     error,
     loading,
@@ -65,11 +65,12 @@ const ChatController = ({ city, language }: ChatControllerProps): ReactElement =
 
   return (
     <Chat
-      messages={chatMessages?.messages ?? []}
+      messages={chatMessagesReturn?.messages ?? []}
       submitMessage={submitMessage}
       // If no message has been sent yet, fetching the messages yields a 404 not found error
       hasError={error !== null && !(error instanceof NotFoundError)}
-      isLoading={chatMessages === null && (loading || sendingStatus === 'sending')}
+      isLoading={chatMessagesReturn === null && (loading || sendingStatus === 'sending')}
+      isTyping={chatMessagesReturn?.typing ?? false}
     />
   )
 }
