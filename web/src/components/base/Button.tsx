@@ -16,7 +16,6 @@ type ButtonProps = {
   label: string
   type?: 'submit' | 'button'
   disabled?: boolean
-  dir?: 'auto'
   tabIndex?: number
   className?: string
   id?: string
@@ -29,7 +28,6 @@ const Button = ({
   tabIndex,
   className,
   type = 'button',
-  dir = 'auto',
   disabled = false,
   id,
 }: ButtonProps): ReactElement => (
@@ -40,7 +38,7 @@ const Button = ({
     aria-label={label}
     tabIndex={tabIndex}
     type={type}
-    dir={dir}
+    dir='auto'
     className={className}
     id={id}>
     {children}
