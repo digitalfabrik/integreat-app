@@ -74,6 +74,7 @@ export type CustomDatePickerProps = {
   date?: DateTime | null
   setDate: (date: DateTime | null) => void
   error?: string
+  placeholderDate: DateTime
 }
 
 const isValidJsDate = (date: Date | null): boolean => {
@@ -91,7 +92,7 @@ const isValidJsDate = (date: Date | null): boolean => {
 }
 const containsOnlyDigits = (str: string) => !Number.isNaN(Number(str))
 
-const CustomDatePicker = ({ title, date, setDate, error }: CustomDatePickerProps): ReactElement => {
+const CustomDatePicker = ({ title, date, setDate, error, placeholderDate }: CustomDatePickerProps): ReactElement => {
   const { t } = useTranslation('events')
   const [isCalendarOpen, setIsCalendarOpen] = useState(false)
   const [datePickerError, setDatePickerError] = useState('')
@@ -143,7 +144,7 @@ const CustomDatePicker = ({ title, date, setDate, error }: CustomDatePickerProps
           onClickOutside={() => setIsCalendarOpen(false)}
           calendarClassName='calenderStyle'
           dateFormat='dd.MM.yyyy'
-          placeholderText='01.01.1990'
+          placeholderText={placeholderDate.toFormat('dd.MM.yyyy')}
           onChange={(date: Date | null) => handleDateChange(date)}
           onChangeRaw={e => handleDateError(String((e?.target as HTMLInputElement).value))}
         />
