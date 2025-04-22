@@ -21,20 +21,15 @@ const ContrastButton = styled(Button)`
   }
 `
 
-const StyledIcon = styled(Icon)<{ $isContrastTheme: 'light' | 'contrast' }>`
-  transform: ${({ $isContrastTheme }) => ($isContrastTheme === 'contrast' ? 'translateY(2px)' : 'none')};
-  transition: transform 0.2s ease;
-`
-
 const ContrastThemeToggle = (): ReactElement => {
   const { t } = useTranslation('layout')
   const { viewportSmall } = useWindowDimensions()
-  const { toggleTheme, themeType } = useThemeContext()
+  const { toggleTheme } = useThemeContext()
 
   if (viewportSmall) {
     return (
       <ContrastButton label={t('contrastTheme')} onClick={toggleTheme}>
-        <StyledIcon $isContrastTheme={themeType} src={ContrastIcon} />
+        <Icon src={ContrastIcon} />
         <span>{t('contrastTheme')}</span>
       </ContrastButton>
     )

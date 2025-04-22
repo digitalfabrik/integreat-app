@@ -16,7 +16,7 @@ type ButtonProps = {
   label: string
   type?: 'submit' | 'button'
   disabled?: boolean
-  dir?: string
+  dir?: 'auto'
   tabIndex?: number
   className?: string
   id?: string
