@@ -13,7 +13,8 @@ export const Message = styled.div`
   border-radius: 5px;
   padding: 8px;
   border: 1px solid ${props => props.theme.colors.textDecorationColor};
-  flex-basis: 70%;
+  max-width: 70%;
+  width: max-content;
 
   & > div > a {
     line-break: anywhere;
