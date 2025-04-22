@@ -13,7 +13,7 @@ const NoItemsMessage = styled.div`
 type ListProps<T> = {
   items: T[]
   noItemsMessage: string
-  renderItem: (item: T) => ReactNode
+  renderItem: (item: T, index: number) => ReactNode
   borderless?: boolean
 }
 
@@ -24,7 +24,7 @@ class List<T> extends React.PureComponent<ListProps<T>> {
       return <NoItemsMessage>{noItemsMessage}</NoItemsMessage>
     }
 
-    return <StyledList $borderless={borderless}>{items.map(item => renderItem(item))}</StyledList>
+    return <StyledList $borderless={borderless}>{items.map(renderItem)}</StyledList>
   }
 }
 

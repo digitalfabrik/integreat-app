@@ -11,7 +11,15 @@ describe('DatePickerForNative', () => {
   const setDate = jest.fn()
   const setModalOpen = jest.fn()
 
-  const renderCustomDatePicker = ({ modalOpen, setModalOpen, setDate, title, date, error }: DatePickerProps) =>
+  const renderCustomDatePicker = ({
+    modalOpen,
+    setModalOpen,
+    setDate,
+    title,
+    date,
+    error,
+    placeholderDate,
+  }: DatePickerProps) =>
     renderWithTheme(
       <DatePicker
         modalOpen={modalOpen}
@@ -20,19 +28,23 @@ describe('DatePickerForNative', () => {
         title={title}
         date={date}
         error={error}
+        placeholderDate={placeholderDate}
       />,
     )
 
   it('should render the given props correctly', () => {
-    const { getByText } = renderCustomDatePicker({
+    const { getByText, getByPlaceholderText } = renderCustomDatePicker({
       modalOpen: false,
       setModalOpen,
       setDate,
       title: 'Test DatePicker',
       date: DateTime.now(),
       error: '',
+      placeholderDate: DateTime.fromISO('1999-01-09'),
     })
-
+    expect(getByPlaceholderText('01')).toBeTruthy()
+    expect(getByPlaceholderText('09')).toBeTruthy()
+    expect(getByPlaceholderText('1999')).toBeTruthy()
     expect(getByText('Test DatePicker')).toBeTruthy()
   })
 
@@ -44,6 +56,7 @@ describe('DatePickerForNative', () => {
       title: 'Test DatePicker',
       date: DateTime.now(),
       error: '',
+      placeholderDate: DateTime.fromISO('1990-01-01'),
     })
 
     const dayMonthInput = getAllByPlaceholderText('01')
@@ -58,6 +71,7 @@ describe('DatePickerForNative', () => {
   })
 
   it('should show errors correctly', () => {
+    const placeholderDate = DateTime.fromISO('2025-04-08')
     const { getByText } = renderCustomDatePicker({
       modalOpen: false,
       setModalOpen,
@@ -65,6 +79,7 @@ describe('DatePickerForNative', () => {
       title: 'Test DatePicker',
       date: null,
       error: 'Invalid date',
+      placeholderDate,
     })
 
     expect(getByText('Invalid date')).toBeTruthy()
@@ -78,6 +93,7 @@ describe('DatePickerForNative', () => {
       title: 'Test DatePicker',
       date: null,
       error: '',
+      placeholderDate: DateTime.fromISO('1990-01-01'),
     })
 
     const dayInputs = getAllByPlaceholderText('01')
@@ -98,6 +114,7 @@ describe('DatePickerForNative', () => {
       title: 'Test DatePicker',
       date: null,
       error: '',
+      placeholderDate: DateTime.fromISO('1990-01-01'),
     })
 
     const monthInputs = getAllByPlaceholderText('01')
@@ -118,6 +135,7 @@ describe('DatePickerForNative', () => {
       title: 'Test DatePicker',
       date: null,
       error: '',
+      placeholderDate: DateTime.fromISO('1990-01-01'),
     })
 
     const dayInputs = getAllByPlaceholderText('01')
