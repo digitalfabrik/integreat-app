@@ -22,6 +22,7 @@ import obdachBuildConfig from './obdach'
 import obdachBuildConfigName from './obdach/build-config-name'
 
 export type { ThemeType } from './ThemeType'
+export type { ThemeKey } from './ThemeKey'
 
 export const COMMON = 'common'
 export const ANDROID = 'android'
