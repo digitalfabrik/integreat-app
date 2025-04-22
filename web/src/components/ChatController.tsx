@@ -39,7 +39,7 @@ const ChatController = ({ city, language }: ChatControllerProps): ReactElement =
   useEffect(() => {
     const messageCount = chatMessagesReturn?.messages.length ?? 0
     if (!isBrowserTabActive || messageCount === 0) {
-      return
+      return undefined
     }
     const interval = setInterval(refreshMessages, POLLING_INTERVAL)
     return () => clearInterval(interval)
