@@ -72,30 +72,30 @@ const Chat = ({ messages, submitMessage, hasError, isLoading, isTyping }: ChatPr
     setTextInput('')
   }
 
-  const submitDisabled = textInput.trim().length === 0 || hasError || isLoading
   const submitOnEnter = (event: KeyboardEvent) => {
-    const isEnterAllowed = event.key === 'Enter' && !event.shiftKey && !submitDisabled
-    if (isEnterAllowed) {
+    if (event.key === 'Enter' && !event.shiftKey) {
       event.preventDefault()
       onSubmit()
     }
   }
 
+  if (isLoading && !hasError) {
+    return (
+      <LoadingContainer>
+        <StyledLoadingSpinner />
+        <LoadingText>{t('loadingText')}</LoadingText>
+      </LoadingContainer>
+    )
+  }
+
   return (
     <Container>
-      {isLoading && !hasError ? (
-        <LoadingContainer>
-          <StyledLoadingSpinner />
-          <LoadingText>{t('loadingText')}</LoadingText>
-        </LoadingContainer>
-      ) : (
-        <StyledChatConversation
-          $height={deviceHeight - chatInputContainerHeight}
-          messages={messages}
-          hasError={hasError}
-          isTyping={isTyping}
-        />
-      )}
+      <StyledChatConversation
+        $height={deviceHeight - chatInputContainerHeight}
+        messages={messages}
+        hasError={hasError}
+        isTyping={isTyping}
+      />
       <InputWrapper $height={chatInputContainerHeight}>
         <InputSection id='chat' title={messages.length > 0 ? '' : t('inputLabel')}>
           <Input
@@ -109,7 +109,7 @@ const Chat = ({ messages, submitMessage, hasError, isLoading, isTyping }: ChatPr
           />
         </InputSection>
         <SubmitContainer>
-          <SubmitButton disabled={submitDisabled} onClick={onSubmit} text={t('sendButton')} />
+          <SubmitButton disabled={textInput.length === 0} onClick={onSubmit} text={t('sendButton')} />
           <ChatSecurityInformation />
         </SubmitContainer>
       </InputWrapper>
