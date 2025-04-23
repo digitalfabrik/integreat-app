@@ -35,8 +35,8 @@ const SearchCounter = styled.p`
 const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps): ReactElement | null => {
   const [searchParams, setSearchParams] = useSearchParams()
   const query = searchParams.get(SEARCH_QUERY_KEY) ?? ''
-  const [filterText, setFilterText] = useState(query)
-  const debouncedQuery = useDebounce(filterText)
+  const [draftSearchText, setDraftSearchText] = useState(query)
+  const debouncedQuery = useDebounce(draftSearchText)
 
   const { t } = useTranslation('search')
   const navigate = useNavigate()
@@ -134,9 +134,9 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
         cityModel={city}
       />
       <SearchInput
-        filterText={filterText}
+        filterText={draftSearchText}
         placeholderText={t('searchPlaceholder')}
-        onFilterTextChange={setFilterText}
+        onFilterTextChange={setDraftSearchText}
         spaceSearch
       />
       {getPageContent()}
