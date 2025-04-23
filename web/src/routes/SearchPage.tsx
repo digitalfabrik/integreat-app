@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import styled from 'styled-components'
@@ -34,23 +34,20 @@ const SearchCounter = styled.p`
 
 const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps): ReactElement | null => {
   const [searchParams, setSearchParams] = useSearchParams()
-  const query = searchParams.get('query') ?? ''
+  const query = searchParams.get(SEARCH_QUERY_KEY) ?? ''
+  const [filterText, setFilterText] = useState(query)
+  const debouncedQuery = useDebounce(filterText)
+
   const { t } = useTranslation('search')
   const navigate = useNavigate()
   const fallbackLanguage = config.sourceLanguage
-  const debouncedQuery = useDebounce(query)
 
   const {
     data: contentLanguageDocuments,
     loading,
     error,
   } = useLoadSearchDocuments({ cityCode, languageCode, cmsApiBaseUrl })
-
-  const { data: fallbackData } = useLoadSearchDocuments({
-    cityCode,
-    languageCode: fallbackLanguage,
-    cmsApiBaseUrl,
-  })
+  const { data: fallbackData } = useLoadSearchDocuments({ cityCode, languageCode: fallbackLanguage, cmsApiBaseUrl })
 
   const contentLanguageReturn = useSearch(contentLanguageDocuments, debouncedQuery)
   const fallbackLanguageDocuments = languageCode !== fallbackLanguage ? fallbackData : []
@@ -59,12 +56,22 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
 
   useReportError(contentLanguageReturn.error ?? fallbackLanguageReturn.error)
 
+  useEffect(() => {
+    const params = new URLSearchParams()
+    if (debouncedQuery) {
+      params.set(SEARCH_QUERY_KEY, debouncedQuery)
+    }
+    setSearchParams(params)
+    const append = debouncedQuery ? `?${SEARCH_QUERY_KEY}=${debouncedQuery}` : ''
+    navigate(`${pathname}${append}`, { replace: true })
+  }, [debouncedQuery, setSearchParams, navigate, pathname])
+
   if (!city) {
     return null
   }
 
   const languageChangePaths = city.languages.map(({ code, name }) => ({
-    path: `${pathnameFromRouteInformation({ route: SEARCH_ROUTE, cityCode, languageCode: code })}/?${SEARCH_QUERY_KEY}=${query}`,
+    path: `${pathnameFromRouteInformation({ route: SEARCH_ROUTE, cityCode, languageCode: code })}/?${SEARCH_QUERY_KEY}=${debouncedQuery}`,
     name,
     code,
   }))
@@ -84,19 +91,14 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
     )
   }
 
-  const handleFilterTextChanged = (query: string): void => {
-    setSearchParams({ query })
-    const appendToUrl = query.length !== 0 ? `?query=${query}` : ''
-    navigate(`${pathname}/${appendToUrl}`, { replace: true })
-  }
-
   const getPageContent = () => {
-    if (query.length === 0) {
+    if (!debouncedQuery) {
       return null
     }
     if (loading) {
       return <LoadingSpinner />
     }
+
     return (
       <>
         <List>
@@ -108,7 +110,7 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
               title={title}
               contentWithoutHtml={parseHTML(content)}
               key={path}
-              query={query}
+              query={debouncedQuery}
               path={path}
               thumbnail={thumbnail}
             />
@@ -118,7 +120,7 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
           cityCode={cityCode}
           languageCode={languageCode}
           noResults={results.length === 0}
-          query={query}
+          query={debouncedQuery}
         />
       </>
     )
@@ -132,9 +134,9 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
         cityModel={city}
       />
       <SearchInput
-        filterText={query}
+        filterText={filterText}
         placeholderText={t('searchPlaceholder')}
-        onFilterTextChange={handleFilterTextChanged}
+        onFilterTextChange={setFilterText}
         spaceSearch
       />
       {getPageContent()}
