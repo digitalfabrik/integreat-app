@@ -63,24 +63,26 @@ type SearchListItemProps = {
   thumbnail: string | null
 }
 
-const SearchListItem = ({ title, contentWithoutHtml, query, path, thumbnail }: SearchListItemProps): ReactElement => {
-  const excerpt = getExcerpt(contentWithoutHtml, { query, maxChars: EXCERPT_MAX_CHARS })
+const SearchListItem = React.memo(
+  ({ title, contentWithoutHtml, query, path, thumbnail }: SearchListItemProps): ReactElement => {
+    const excerpt = getExcerpt(contentWithoutHtml, { query, maxChars: EXCERPT_MAX_CHARS })
 
-  return (
-    <Row>
-      <StyledLink to={path}>
-        <CategoryItemContainer dir='auto'>
-          <CategoryTitleContainer>
-            {!!thumbnail && <CategoryThumbnail alt='' src={thumbnail} />}
-            <Highlighter dir='auto' search={query} text={title} />
-          </CategoryTitleContainer>
-          <div style={{ margin: '0 5px', fontSize: '12px' }} dir='auto'>
-            {excerpt.length > 0 && <StyledHighlighter search={query} text={excerpt} />}
-          </div>
-        </CategoryItemContainer>
-      </StyledLink>
-    </Row>
-  )
-}
+    return (
+      <Row>
+        <StyledLink to={path}>
+          <CategoryItemContainer dir='auto'>
+            <CategoryTitleContainer>
+              {!!thumbnail && <CategoryThumbnail alt='' src={thumbnail} />}
+              <Highlighter dir='auto' search={query} text={title} />
+            </CategoryTitleContainer>
+            <div style={{ margin: '0 5px', fontSize: '12px' }} dir='auto'>
+              {excerpt.length > 0 && <StyledHighlighter search={query} text={excerpt} />}
+            </div>
+          </CategoryItemContainer>
+        </StyledLink>
+      </Row>
+    )
+  },
+)
 
 export default SearchListItem
