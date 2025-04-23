@@ -14,7 +14,6 @@ import Spacer from './Spacer'
 const OpeningLabel = styled.span<{ $isOpen: boolean }>`
   color: ${props => (props.$isOpen ? props.theme.colors.positiveHighlight : props.theme.colors.negativeHighlight)};
   padding-inline-end: 12px;
-  flex: 0;
 `
 
 const Content = styled.div`
@@ -25,8 +24,9 @@ const Content = styled.div`
 const TitleContainer = styled.div`
   display: flex;
   flex: 1;
-  font-weight: 700;
   justify-content: space-between;
+  flex-wrap: wrap;
+  font-weight: 700;
   ${helpers.adaptiveFontSize};
 `
 
