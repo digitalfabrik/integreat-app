@@ -61,8 +61,7 @@ const TileContainer = styled.div`
   }
 
   & img {
-    filter: ${props =>
-      props.theme.isContrastTheme ? 'invert(1) sepia(0) saturate(0) brightness(20.0) contrast(1.2)' : 'none'};
+    filter: ${props => (props.theme.isContrastTheme ? 'invert(1) saturate(0) brightness(7)' : 'none')};
   }
 
   & > a:hover img,

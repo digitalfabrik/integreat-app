@@ -19,7 +19,8 @@ const StyledIcon = styled(Icon)`
   color: ${props => props.theme.colors.backgroundColor};
 
   @media ${dimensions.smallViewport} {
-    color: ${props => props.theme.colors.textColor};
+    color: ${props =>
+      props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.textColor};
   }
 `
 

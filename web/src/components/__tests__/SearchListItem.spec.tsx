@@ -15,7 +15,7 @@ const differenCategoryName = 'Willkommen'
 
 describe('SearchListItem', () => {
   const highlightStyle = {
-    _values: {
+    values: {
       'background-color': 'rgb(255, 255, 255)',
       'font-weight': 'bold',
       color: 'rgb(0, 0, 0)',
@@ -35,8 +35,8 @@ describe('SearchListItem', () => {
 
     expect(getByLabelText(excerpt)).toBeTruthy()
     expect(getByText(excerptBeforeQuery)).not.toHaveStyle(highlightStyle)
-    expect(queryAllByText(query)[0]).toHaveStyle(highlightStyle._values)
-    expect(queryAllByText(query)[1]).toHaveStyle(highlightStyle._values)
+    expect(queryAllByText(query)[0]).toHaveStyle(highlightStyle.values)
+    expect(queryAllByText(query)[1]).toHaveStyle(highlightStyle.values)
     expect(getByText(excerptAfterQuery)).not.toHaveStyle(highlightStyle)
   })
 
@@ -49,9 +49,9 @@ describe('SearchListItem', () => {
       <SearchListItem {...categoryParams} title={differenCategoryName} query={query} />,
     )
 
-    expect(getByText(query)).toHaveStyle(highlightStyle._values)
+    expect(getByText(query)).toHaveStyle(highlightStyle.values)
     expect(getByLabelText(excerpt)).toBeTruthy()
-    expect(getByText(excerpt)).not.toHaveStyle(highlightStyle._values)
+    expect(getByText(excerpt)).not.toHaveStyle(highlightStyle.values)
   })
 
   it('should show excerpt around query if only match in content', () => {
@@ -63,9 +63,9 @@ describe('SearchListItem', () => {
     const { getByText, getByLabelText } = renderWithRouterAndTheme(<SearchListItem query={query} {...categoryParams} />)
 
     expect(getByLabelText(excerpt)).toBeTruthy()
-    expect(getByText(excerptBeforeQuery)).not.toHaveStyle(highlightStyle._values)
-    expect(getByText(query)).toHaveStyle(highlightStyle._values)
-    expect(getByText(excerptAfterQuery)).not.toHaveStyle(highlightStyle._values)
+    expect(getByText(excerptBeforeQuery)).not.toHaveStyle(highlightStyle.values)
+    expect(getByText(query)).toHaveStyle(highlightStyle.values)
+    expect(getByText(excerptAfterQuery)).not.toHaveStyle(highlightStyle.values)
   })
 
   it('should show beginning of excerpt if there is no match', () => {

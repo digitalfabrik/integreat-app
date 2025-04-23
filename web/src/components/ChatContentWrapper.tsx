@@ -22,6 +22,7 @@ const Header = styled.div<{ $small: boolean }>`
   display: flex;
   flex-direction: ${props => (props.$small ? 'row-reverse' : 'row')};
   justify-content: space-between;
+  color: ${props => (props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.textColor)};
   font-size: ${props => props.theme.fonts.hintFontSize};
   font-weight: bold;
   align-items: center;

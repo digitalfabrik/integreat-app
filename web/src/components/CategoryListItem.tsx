@@ -4,8 +4,6 @@ import styled from 'styled-components'
 
 import { CategoryModel } from 'shared/api'
 
-import { useContrastTheme } from '../hooks/useContrastTheme'
-
 const Row = styled.li`
   width: 100%;
 `
@@ -19,13 +17,13 @@ const SubCategory = styled.li`
   width: 100%;
 `
 
-const CategoryThumbnail = styled.img<{ $isContrastTheme: boolean }>`
+const CategoryThumbnail = styled.img`
   width: 30px;
   height: 30px;
   padding: 0 5px;
   flex-shrink: 0;
   object-fit: contain;
-  filter: ${props => props.$isContrastTheme && 'brightness(0) invert(1)'};
+  filter: ${props => (props.theme.isContrastTheme ? 'invert(1)' : 'none')};
 `
 
 const CategoryItemCaption = styled.span`
@@ -67,13 +65,10 @@ type CategoryListItemProps = {
 }
 
 const CategoryListItem = ({ category, subCategories }: CategoryListItemProps): ReactElement => {
-  const { isContrastTheme } = useContrastTheme()
   const SubCategories = subCategories.map(subCategory => (
     <SubCategory key={subCategory.path} dir='auto'>
       <StyledLink to={subCategory.path}>
-        {!!subCategory.thumbnail && (
-          <CategoryThumbnail alt='' $isContrastTheme={isContrastTheme} src={subCategory.thumbnail} />
-        )}
+        {!!subCategory.thumbnail && <CategoryThumbnail alt='' src={subCategory.thumbnail} />}
         <SubCategoryCaption>{subCategory.title}</SubCategoryCaption>
       </StyledLink>
     </SubCategory>
@@ -82,9 +77,7 @@ const CategoryListItem = ({ category, subCategories }: CategoryListItemProps): R
   return (
     <Row>
       <StyledLink dir='auto' to={category.path}>
-        {!!category.thumbnail && (
-          <CategoryThumbnail alt='' $isContrastTheme={isContrastTheme} src={category.thumbnail} />
-        )}
+        {!!category.thumbnail && <CategoryThumbnail alt='' src={category.thumbnail} />}
         <CategoryItemCaption>{category.title}</CategoryItemCaption>
       </StyledLink>
       <SubCategoriesContainer>{SubCategories}</SubCategoriesContainer>

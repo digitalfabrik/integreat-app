@@ -8,6 +8,7 @@ import { ExternalSourcePermissions } from 'shared'
 import buildConfig from '../constants/buildConfig'
 import { useContrastTheme } from '../hooks/useContrastTheme'
 import useLocalStorage from '../hooks/useLocalStorage'
+import { useThemeContext } from '../hooks/useThemeContext'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import {
   LOCAL_STORAGE_ITEM_EXTERNAL_SOURCES,
@@ -34,6 +35,7 @@ export const IFRAME_BLANK_SOURCE = 'about:blank'
 const RemoteContent = ({ html, centered = false, smallText = false }: RemoteContentProps): ReactElement => {
   const { isContrastTheme } = useContrastTheme()
   const navigate = useNavigate()
+  const { themeType } = useThemeContext()
   const sandBoxRef = React.createRef<HTMLDivElement>()
   const { value: externalSourcePermissions, updateLocalStorageItem } = useLocalStorage<ExternalSourcePermissions>({
     key: LOCAL_STORAGE_ITEM_EXTERNAL_SOURCES,
@@ -63,6 +65,13 @@ const RemoteContent = ({ html, centered = false, smallText = false }: RemoteCont
       return
     }
     const currentSandBoxRef = sandBoxRef.current
+
+    const allElements = currentSandBoxRef.querySelectorAll('*')
+    allElements.forEach(el => {
+      const element = el as HTMLElement
+      element.style.removeProperty('color')
+    })
+
     const anchors = currentSandBoxRef.getElementsByTagName('a')
     Array.from(anchors).forEach(anchor => anchor.addEventListener('click', handleAnchorClick))
 
@@ -110,6 +119,7 @@ const RemoteContent = ({ html, centered = false, smallText = false }: RemoteCont
     t,
     html,
     handleAnchorClick,
+    themeType,
     sandBoxRef,
     isContrastTheme,
     externalSourcePermissions,
