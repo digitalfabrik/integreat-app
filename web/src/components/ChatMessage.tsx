@@ -13,7 +13,8 @@ export const Message = styled.div`
   border-radius: 5px;
   padding: 8px;
   border: 1px solid ${props => props.theme.colors.textDecorationColor};
-  flex-basis: 70%;
+  max-width: 70%;
+  width: max-content;
 
   & > div > a {
     line-break: anywhere;
@@ -29,9 +30,6 @@ const Container = styled.div<{ $isAuthor: boolean }>`
 
 const IconContainer = styled.div<{ $visible: boolean }>`
   opacity: ${props => (props.$visible ? 1 : 0)};
-  height: 25px;
-  width: 25px;
-  display: flex;
 `
 
 const Circle = styled.div`
