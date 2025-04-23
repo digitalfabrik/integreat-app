@@ -7,6 +7,12 @@ const MockTts = {
   removeAllListeners: jest.fn(),
   getInitStatus: jest.fn(() => Promise.resolve('success')),
   addListener: jest.fn(),
+  voices: jest.fn(() =>
+    Promise.resolve([
+      { language: 'en-US', name: 'English' },
+      { language: 'de-DE', name: 'German' },
+    ]),
+  ),
 }
 
 export default MockTts

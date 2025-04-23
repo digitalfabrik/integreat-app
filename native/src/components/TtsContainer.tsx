@@ -1,4 +1,4 @@
-import React, { createContext, ReactElement, useCallback, useContext, useMemo, useState } from 'react'
+import React, { createContext, ReactElement, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import Tts, { Options } from 'react-native-tts'
 
@@ -12,8 +12,6 @@ import useSnackbar from '../hooks/useSnackbar'
 import { reportError } from '../utils/sentry'
 import TtsPlayer from './TtsPlayer'
 
-// For a list of available languages see https://cloud.google.com/text-to-speech/docs/list-voices-and-types#list_of_all_supported_languages
-const TTS_UNSUPPORTED_LANGUAGES = ['fa', 'ka', 'kmr']
 const TTS_OPTIONS: Options = {
   androidParams: {
     KEY_PARAM_PAN: 0,
@@ -50,12 +48,38 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
   const [sentenceIndex, setSentenceIndex] = useState(0)
   const [visible, setVisible] = useState(false)
   const [sentences, setSentences] = useState<string[]>([])
+  const [isLanguageSupported, setIsLanguageSupported] = useState(true)
   const { languageCode } = useContext(AppContext)
   const { t } = useTranslation('layout')
   const showSnackbar = useSnackbar()
   const title = sentences[0] || t('nothingToRead')
   const shortTitle = truncate(title, { maxChars: TTS_MAX_TITLE_DISPLAY_CHARS })
-  const enabled = buildConfig().featureFlags.tts && !TTS_UNSUPPORTED_LANGUAGES.includes(languageCode)
+
+  useEffect(() => {
+    const checkLanguageSupport = async () => {
+      console.log('language check')
+      try {
+        const voices = await Tts.voices()
+
+        const isSupported = voices.some(({ language }) => {
+          if (!language) {
+            return false
+          }
+          const code = language.split('-')[0]
+          return code === languageCode
+        })
+        return isSupported
+      } catch (error) {
+        // reportError(error)
+        return false
+      }
+    }
+    checkLanguageSupport().then(result => {
+      setIsLanguageSupported(result)
+    })
+  }, [languageCode])
+
+  const enabled = buildConfig().featureFlags.tts && isLanguageSupported
 
   const initializeTts = useCallback(async (): Promise<void> => {
     await Tts.getInitStatus().catch(async error =>
