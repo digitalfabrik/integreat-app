@@ -10,9 +10,6 @@ const Container = styled.div`
   font-size: ${props => props.theme.fonts.hintFontSize};
   overflow: auto;
 `
-const TypingIndicatorContainer = styled.div`
-  width: max-content;
-`
 
 const InitialMessage = styled.div`
   margin-bottom: 12px;
@@ -39,9 +36,7 @@ type TypingIndicatorProps = {
 
 const TypingIndicator = ({ isVisible }: TypingIndicatorProps): ReactElement | null =>
   isVisible ? (
-    <TypingIndicatorContainer>
-      <InnerChatMessage userIsAuthor={false} showIcon={false} isAutomaticAnswer content='...' messageId={0} />
-    </TypingIndicatorContainer>
+    <InnerChatMessage userIsAuthor={false} showIcon={false} isAutomaticAnswer content='...' messageId={0} />
   ) : null
 
 const TYPING_INDICATOR_TIMEOUT = 60000
