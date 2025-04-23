@@ -3,18 +3,16 @@ import { Settings as LuxonSettings } from 'luxon'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BrowserRouter as Router } from 'react-router-dom'
-import { ThemeProvider, createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from 'styled-components'
 
 import { setJpalTrackingCode } from 'shared/api'
 import { UiDirectionType, config } from 'translations'
 
 import RootSwitcher from './RootSwitcher'
-import { ContrastThemeProvider } from './components/ContrastThemeContext'
 import Helmet from './components/Helmet'
 import I18nProvider from './components/I18nProvider'
+import { ThemeContainer } from './components/ThemeContext'
 import TtsContainer from './components/TtsContainer'
-import buildConfig from './constants/buildConfig'
-import { useContrastTheme } from './hooks/useContrastTheme'
 import safeLocalStorage, { JPAL_TRACKING_CODE_KEY } from './utils/safeLocalStorage'
 import { initSentry } from './utils/sentry'
 
@@ -32,9 +30,8 @@ const GlobalStyle = createGlobalStyle`
 LuxonSettings.throwOnInvalid = true
 LuxonSettings.defaultLocale = config.defaultFallback
 
-const AppContent = (): ReactElement => {
+const App = (): ReactElement => {
   const [contentLanguage, setContentLanguage] = useState<string>(config.defaultFallback)
-  const { isContrastTheme } = useContrastTheme()
   const { t } = useTranslation('landing')
 
   const contentDirection = contentLanguage
@@ -46,12 +43,8 @@ const AppContent = (): ReactElement => {
     setJpalTrackingCode(safeLocalStorage.getItem(JPAL_TRACKING_CODE_KEY))
   }, [])
 
-  const theme = isContrastTheme
-    ? { ...buildConfig().highContrastTheme, contentDirection }
-    : { ...buildConfig().lightTheme, contentDirection }
-
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeContainer contentDirection={contentDirection}>
       <I18nProvider contentLanguage={contentLanguage}>
         <>
           <Helmet pageTitle={t('pageTitle')} rootPage />
@@ -63,15 +56,7 @@ const AppContent = (): ReactElement => {
           </Router>
         </>
       </I18nProvider>
-    </ThemeProvider>
-  )
-}
-
-const App = (): ReactElement => {
-  return (
-    <ContrastThemeProvider>
-      <AppContent />
-    </ContrastThemeProvider>
+    </ThemeContainer>
   )
 }
 
