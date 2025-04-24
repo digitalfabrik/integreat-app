@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { parseHTML, pathnameFromRouteInformation, SEARCH_ROUTE, useSearch, SEARCH_QUERY_KEY, useDebounce } from 'shared'
@@ -32,11 +32,10 @@ const SearchCounter = styled.p`
   color: ${props => props.theme.colors.textSecondaryColor};
 `
 
-const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps): ReactElement | null => {
+const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElement | null => {
   const [searchParams, setSearchParams] = useSearchParams()
-  const query = searchParams.get('query') ?? ''
+  const query = searchParams.get(SEARCH_QUERY_KEY) ?? ''
   const { t } = useTranslation('search')
-  const navigate = useNavigate()
   const fallbackLanguage = config.sourceLanguage
   const debouncedQuery = useDebounce(query)
 
@@ -84,12 +83,6 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
     )
   }
 
-  const handleFilterTextChanged = (query: string): void => {
-    setSearchParams({ query })
-    const appendToUrl = query.length !== 0 ? `?query=${query}` : ''
-    navigate(`${pathname}/${appendToUrl}`, { replace: true })
-  }
-
   const getPageContent = () => {
     if (query.length === 0) {
       return null
@@ -134,7 +127,7 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
       <SearchInput
         filterText={query}
         placeholderText={t('searchPlaceholder')}
-        onFilterTextChange={handleFilterTextChanged}
+        onFilterTextChange={query => setSearchParams({ query })}
         spaceSearch
       />
       {getPageContent()}
