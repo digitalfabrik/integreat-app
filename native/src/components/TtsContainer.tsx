@@ -57,7 +57,6 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
 
   useEffect(() => {
     const checkLanguageSupport = async () => {
-      console.log('language check')
       try {
         const voices = await Tts.voices()
 
@@ -145,7 +144,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
         stop()
       }
     },
-    [stop, stopPlayer, sentenceIndex, sentences, languageCode],
+    [stop, stopPlayer, sentenceIndex, sentences, languageCode, enabled],
   )
 
   useAppStateListener(appState => {
