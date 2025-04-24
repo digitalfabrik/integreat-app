@@ -62,20 +62,18 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
 
         const isSupported = voices.some(({ language }) => {
           if (!language) {
-            return false
+            setIsLanguageSupported(false)
           }
           const code = language.split('-')[0]
           return code === languageCode
         })
-        return isSupported
+        setIsLanguageSupported(isSupported)
       } catch (error) {
         reportError(error)
-        return false
+        setIsLanguageSupported(false)
       }
     }
-    checkLanguageSupport().then(result => {
-      setIsLanguageSupported(result)
-    })
+    checkLanguageSupport()
   }, [languageCode])
 
   const enabled = buildConfig().featureFlags.tts && isLanguageSupported
