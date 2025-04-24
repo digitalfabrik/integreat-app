@@ -2,9 +2,11 @@ import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { DataSecurityIcon } from '../assets'
+import { MailLockIcon } from '../assets'
+import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import Icon from './base/Icon'
+import Link from './base/Link'
 
 const SecurityInformationContainer = styled.div`
   position: relative;
@@ -44,13 +46,16 @@ const InformationTooltipContainer = styled.div`
 `
 
 const ChatSecurityInformation = (): ReactElement => {
+  const { privacyUrls } = buildConfig()
+  const privacyUrl = privacyUrls.default
   const { t } = useTranslation('chat')
   const [securityInformationVisible, setSecurityInformationVisible] = useState<boolean>(false)
   return (
     <SecurityInformationContainer>
-      {securityInformationVisible && <InformationTooltipContainer>{t('dataSecurity')}</InformationTooltipContainer>}
       <SecurityIconContainer onClick={() => setSecurityInformationVisible(!securityInformationVisible)}>
-        <SecurityIcon src={DataSecurityIcon} />
+        <Link to={privacyUrl}>
+          <SecurityIcon src={MailLockIcon} />
+        </Link>
       </SecurityIconContainer>
     </SecurityInformationContainer>
   )

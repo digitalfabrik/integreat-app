@@ -18,6 +18,7 @@ class CityModel {
   _prefix: string | null
   _latitude: number
   _longitude: number
+  _customChatPrivacyPolicy: string | null
 
   constructor(params: {
     name: string
@@ -35,6 +36,7 @@ class CityModel {
     longitude: number
     aliases: Record<string, CoordinateType> | null
     boundingBox: BBox
+    customChatPrivacyPolicy: string | null
   }) {
     this._name = params.name
     this._code = params.code
@@ -51,6 +53,7 @@ class CityModel {
     this._longitude = params.longitude
     this._aliases = params.aliases
     this._boundingBox = params.boundingBox
+    this._customChatPrivacyPolicy = params.customChatPrivacyPolicy
   }
 
   _boundingBox: BBox
