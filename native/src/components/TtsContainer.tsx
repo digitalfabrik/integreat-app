@@ -70,7 +70,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
         })
         return isSupported
       } catch (error) {
-        // reportError(error)
+        reportError(error)
         return false
       }
     }
@@ -134,7 +134,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
     async (index = sentenceIndex) => {
       const safeIndex = Math.max(0, index)
       const sentence = sentences[safeIndex]
-      if (sentence) {
+      if (sentence && enabled) {
         await stopPlayer()
         setIsPlaying(true)
         setSentenceIndex(safeIndex)
