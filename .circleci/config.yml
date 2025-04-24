@@ -30,12 +30,6 @@ commands:
             - run:
                 command: circleci config validate
                 name: Validate circle config
-    install_app_toolbelt:
-        steps:
-            - run:
-                command: npm ci --workspaces=false
-                name: Install app-toolbelt
-                working_directory: ~/project
     notify:
         description: Send a notification (to Mattermost) at the end of a job, based on success or failure. Must be the last step in a job.
         parameters:
