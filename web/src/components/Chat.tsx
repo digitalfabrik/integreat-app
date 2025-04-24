@@ -34,7 +34,7 @@ const SubmitContainer = styled.div`
 
 const SubmitButton = styled(TextButton)`
   flex: 1;
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => (props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.textColor)};
 `
 
 const LoadingText = styled.div`

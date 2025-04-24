@@ -9,7 +9,7 @@ const commonObdachBuildConfig: CommonBuildConfigType = {
   appName: 'Netzwerk Obdach & Wohnen',
   appIcon: 'app_icon_obdach',
   lightTheme,
-  highContrastTheme: lightTheme,
+  contrastTheme: lightTheme,
   assets: OBDACH_ASSETS,
   cmsUrl: 'https://cms.netzwerkobdachwohnen.de',
   hostName: 'netzwerkobdachwohnen.de',

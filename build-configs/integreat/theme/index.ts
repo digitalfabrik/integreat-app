@@ -1,5 +1,5 @@
 import { ThemeType } from '../../ThemeType'
-import { lightColors, highContrastColors } from './colors'
+import { lightColors, contrastColors } from './colors'
 import integreatFonts from './fonts'
 
 export const lightTheme: ThemeType = {
@@ -7,7 +7,7 @@ export const lightTheme: ThemeType = {
   fonts: integreatFonts,
 }
 
-export const highContrastTheme: ThemeType = {
-  colors: highContrastColors,
+export const contrastTheme: ThemeType = {
+  colors: contrastColors,
   fonts: integreatFonts,
 }

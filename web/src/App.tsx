@@ -12,6 +12,7 @@ import Helmet from './components/Helmet'
 import I18nProvider from './components/I18nProvider'
 import { ThemeContainer } from './components/ThemeContext'
 import TtsContainer from './components/TtsContainer'
+import GlobalStyle from './styles/global/GlobalStyle'
 import safeLocalStorage, { JPAL_TRACKING_CODE_KEY } from './utils/safeLocalStorage'
 import { initSentry } from './utils/sentry'
 
