@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import ChatMessageModel from 'shared/api/models/ChatMessageModel'
 
 import dimensions from '../constants/dimensions'
+import { helpers } from '../constants/theme'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import ChatConversation from './ChatConversation'
 import ChatSecurityInformation from './ChatSecurityInformation'
@@ -34,7 +35,7 @@ const SubmitContainer = styled.div`
 
 const SubmitButton = styled(TextButton)`
   flex: 1;
-  color: ${props => (props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.textColor)};
+  ${helpers.adaptiveThemeTextColor}
 `
 
 const LoadingText = styled.div`

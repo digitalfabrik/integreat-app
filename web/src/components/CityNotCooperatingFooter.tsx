@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import { CITY_NOT_COOPERATING_ROUTE, pathnameFromRouteInformation } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
+import { helpers } from '../constants/theme'
 import Icon from './base/Icon'
 
 const FooterContainer = styled.div`
@@ -26,7 +27,7 @@ const StyledIcon = styled(Icon)`
 const Button = styled(Link)`
   background-color: ${props => props.theme.colors.themeColor};
   text-decoration: none;
-  color: ${props => (props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.textColor)};
+  ${helpers.adaptiveThemeTextColor}
   padding: 5px 20px;
   margin: 15px;
   text-align: center;

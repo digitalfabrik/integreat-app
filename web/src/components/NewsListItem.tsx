@@ -17,10 +17,7 @@ const StyledLink = styled(Link)`
 const ReadMore = styled.div<{ $type: NewsType }>`
   align-self: flex-end;
   color: ${({ theme, $type }) => {
-    if (theme.isContrastTheme) {
-      return theme.colors.themeColor
-    }
-    if ($type === LOCAL_NEWS_TYPE) {
+    if (theme.isContrastTheme || $type === LOCAL_NEWS_TYPE) {
       return theme.colors.themeColor
     }
     return theme.colors.tunewsThemeColor

@@ -63,9 +63,10 @@ const RemoteContent = ({ html, centered = false, smallText = false }: RemoteCont
     const currentSandBoxRef = sandBoxRef.current
 
     const allElements = currentSandBoxRef.querySelectorAll('*')
-    allElements.forEach(el => {
-      const element = el as HTMLElement
-      element.style.removeProperty('color')
+    allElements.forEach(element => {
+      if (element instanceof HTMLElement && element.style.color === 'rgb(0, 0, 0)') {
+        element.style.removeProperty('color')
+      }
     })
 
     const anchors = currentSandBoxRef.getElementsByTagName('a')

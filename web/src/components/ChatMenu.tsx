@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 import { ArrowBackIcon, CloseIcon, MaximizeIcon, MinimizeIcon } from '../assets'
 import dimensions from '../constants/dimensions'
+import { helpers } from '../constants/theme'
 import { ChatVisibilityStatus } from './ChatContainer'
 import Button from './base/Button'
 import Icon from './base/Icon'
@@ -19,8 +20,7 @@ const StyledIcon = styled(Icon)`
   color: ${props => props.theme.colors.backgroundColor};
 
   @media ${dimensions.smallViewport} {
-    color: ${props =>
-      props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.textColor};
+    ${helpers.adaptiveThemeTextColor}
   }
 `
 

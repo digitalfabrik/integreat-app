@@ -2,6 +2,7 @@ import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
 import { NoteIcon } from '../assets'
+import { helpers } from '../constants/theme'
 import Icon from './base/Icon'
 
 const NoteContainer = styled.div`
@@ -14,7 +15,7 @@ const NoteContainer = styled.div`
 
 const NoteText = styled.span`
   font-size: ${props => props.theme.fonts.decorativeFontSizeSmall};
-  color: ${props => (props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.textColor)};
+  ${helpers.adaptiveThemeTextColor}
 `
 
 const StyledIcon = styled(Icon)`
