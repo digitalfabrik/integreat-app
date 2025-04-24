@@ -1,4 +1,3 @@
-import { act } from '@testing-library/react'
 import React from 'react'
 
 import ChatMessageModel from 'shared/api/models/ChatMessageModel'
@@ -12,8 +11,8 @@ jest.mock('react-inlinesvg')
 window.HTMLElement.prototype.scrollIntoView = jest.fn()
 jest.useFakeTimers()
 
-const render = (messages: ChatMessageModel[], hasError: boolean) =>
-  renderWithRouterAndTheme(<ChatConversation messages={messages} hasError={hasError} />)
+const render = (messages: ChatMessageModel[], hasError: boolean, isTyping: boolean) =>
+  renderWithRouterAndTheme(<ChatConversation messages={messages} hasError={hasError} isTyping={isTyping} />)
 
 describe('ChatConversation', () => {
   const testMessages: ChatMessageModel[] = [
@@ -90,39 +89,41 @@ describe('ChatConversation', () => {
   ]
 
   it('should display welcome text if conversation has not started', () => {
-    const { getByText } = render([], false)
+    const { getByText } = render([], false, false)
     expect(getByText('chat:conversationTitle')).toBeTruthy()
     expect(getByText('chat:conversationText')).toBeTruthy()
   })
 
   it('should display messages if conversation has started and the initial message', () => {
-    const { getByText, getByTestId } = render(testMessages, false)
+    const { getByText, getByTestId } = render(testMessages, false, false)
     expect(getByText('chat:initialMessage')).toBeTruthy()
     expect(getByTestId(testMessages[0]!.id)).toBeTruthy()
     expect(getByTestId(testMessages[2]!.id)).toBeTruthy()
   })
 
-  it('should display typing indicator before the initial automatic answer and after for 60 seconds', () => {
-    const { getByText, queryByText, getByTestId } = render(testMessages, false)
+  it('should display typing indicator', () => {
+    const { getByText, getByTestId } = render(testMessages, false, true)
     expect(getByTestId(testMessages[0]!.id)).toBeTruthy()
-    expect(getByText('...')).toBeTruthy()
     expect(getByTestId(testMessages[1]!.id)).toBeTruthy()
     expect(getByText('chat:human')).toBeTruthy()
     expect(getByText('...')).toBeTruthy()
-
-    act(() => jest.runAllTimers())
-    expect(queryByText('...')).toBeNull()
   })
 
-  it('should display typing indicator after opening the chatbot with existing conversation for unanswered user message', () => {
-    const { queryByText, getByTestId } = render(testMessages, false)
-    expect(getByTestId(testMessages[3]!.id)).toBeTruthy()
-    act(() => jest.runAllTimers())
+  it('should hide typing indicator if isTyping changes to false', () => {
+    const botMessage = new ChatMessageModel({
+      id: 20,
+      content: 'Bot Message',
+      userIsAuthor: false,
+      automaticAnswer: true,
+    })
+    const { queryByText, rerender } = render(testMessages, false, true)
+    expect(queryByText('...')).toBeTruthy()
+    rerender(<ChatConversation messages={[...testMessages, botMessage]} hasError={false} isTyping={false} />)
     expect(queryByText('...')).toBeNull()
   })
 
   it('should display error messages if error occurs', () => {
-    const { getByText } = render([], true)
+    const { getByText } = render([], true, false)
     expect(getByText('chat:errorMessage')).toBeTruthy()
   })
 
@@ -136,7 +137,7 @@ describe('ChatConversation', () => {
       { icon: 'bot', text: 'Bot Message 3', opacity: '0' },
     ]
 
-    const { getAllByRole } = render(testMessages2, false)
+    const { getAllByRole } = render(testMessages2, false, false)
     const icons = getAllByRole('img')
 
     expect(icons).toHaveLength(6)
