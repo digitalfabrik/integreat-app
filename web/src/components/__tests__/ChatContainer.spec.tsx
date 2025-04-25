@@ -15,7 +15,7 @@ jest.mock('shared/api', () => ({
 }))
 
 describe('ChatContainer', () => {
-  mockUseLoadFromEndpointWithData([])
+  mockUseLoadFromEndpointWithData({ messages: [] })
 
   it('should open chat modal and show content on chat button click', () => {
     const { getByTestId, getByText } = renderWithRouterAndTheme(<ChatContainer city='augsburg' language='de' />)

@@ -7,7 +7,7 @@ import ChatMessageModel from 'shared/api/models/ChatMessageModel'
 import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import ChatConversation from './ChatConversation'
-import ChatSecurityInformation from './ChatSecurityInformation'
+import ChatPrivacyInformation from './ChatPrivacyInformation'
 import LoadingSpinner from './LoadingSpinner'
 import Input from './base/Input'
 import InputSection from './base/InputSection'
@@ -54,6 +54,7 @@ const StyledChatConversation = styled(ChatConversation)<{ $height: number }>`
 `
 
 type ChatProps = {
+  cityCustomChatPrivacyPolicy: string | null
   submitMessage: (text: string) => void
   messages: ChatMessageModel[]
   hasError: boolean
@@ -61,7 +62,14 @@ type ChatProps = {
   isTyping: boolean
 }
 
-const Chat = ({ messages, submitMessage, hasError, isLoading, isTyping }: ChatProps): ReactElement => {
+const Chat = ({
+  cityCustomChatPrivacyPolicy,
+  messages,
+  submitMessage,
+  hasError,
+  isLoading,
+  isTyping,
+}: ChatProps): ReactElement => {
   const { t } = useTranslation('chat')
   const [textInput, setTextInput] = useState<string>('')
   const { height: deviceHeight } = useWindowDimensions()
@@ -110,7 +118,7 @@ const Chat = ({ messages, submitMessage, hasError, isLoading, isTyping }: ChatPr
         </InputSection>
         <SubmitContainer>
           <SubmitButton disabled={textInput.length === 0} onClick={onSubmit} text={t('sendButton')} />
-          <ChatSecurityInformation />
+          <ChatPrivacyInformation cityCustomChatPrivacyPolicy={cityCustomChatPrivacyPolicy} />
         </SubmitContainer>
       </InputWrapper>
     </Container>

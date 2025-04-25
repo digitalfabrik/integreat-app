@@ -5,6 +5,7 @@ import {
   createSendChatMessageEndpoint,
   NotFoundError,
   useLoadFromEndpoint,
+  CityModel,
 } from 'shared/api'
 
 import { cmsApiBaseUrl } from '../constants/urls'
@@ -14,7 +15,7 @@ import Chat from './Chat'
 import { SendingStatusType } from './FeedbackContainer'
 
 type ChatControllerProps = {
-  city: string
+  city: CityModel
   language: string
 }
 
@@ -23,8 +24,10 @@ const POLLING_INTERVAL = 8000
 
 const ChatController = ({ city, language }: ChatControllerProps): ReactElement => {
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
+  const cityCode = city.code
+  const cityCustomChatPrivacyPolicy = city.customChatPrivacyPolicy
   const { value: deviceId } = useLocalStorage({
-    key: `${LOCAL_STORAGE_ITEM_CHAT_MESSAGES}-${city}`,
+    key: `${LOCAL_STORAGE_ITEM_CHAT_MESSAGES}-${cityCode}`,
     initialValue: window.crypto.randomUUID(),
   })
   const {
@@ -33,21 +36,22 @@ const ChatController = ({ city, language }: ChatControllerProps): ReactElement =
     error,
     loading,
     setData,
-  } = useLoadFromEndpoint(createChatMessagesEndpoint, cmsApiBaseUrl, { city, language, deviceId })
+  } = useLoadFromEndpoint(createChatMessagesEndpoint, cmsApiBaseUrl, { cityCode, language, deviceId })
   const isBrowserTabActive = useIsTabActive()
 
   useEffect(() => {
-    if (isBrowserTabActive) {
-      const pollMessageInterval = setInterval(refreshMessages, POLLING_INTERVAL)
-      return () => clearInterval(pollMessageInterval)
+    const messageCount = chatMessagesReturn?.messages.length ?? 0
+    if (!isBrowserTabActive || messageCount === 0) {
+      return undefined
     }
-    return undefined
-  }, [refreshMessages, isBrowserTabActive])
+    const interval = setInterval(refreshMessages, POLLING_INTERVAL)
+    return () => clearInterval(interval)
+  }, [refreshMessages, isBrowserTabActive, chatMessagesReturn?.messages.length])
 
   const submitMessage = async (message: string) => {
     setSendingStatus('sending')
     const { data, error } = await createSendChatMessageEndpoint(cmsApiBaseUrl).request({
-      city,
+      cityCode,
       language,
       message,
       deviceId,
@@ -65,6 +69,7 @@ const ChatController = ({ city, language }: ChatControllerProps): ReactElement =
 
   return (
     <Chat
+      cityCustomChatPrivacyPolicy={cityCustomChatPrivacyPolicy}
       messages={chatMessagesReturn?.messages ?? []}
       submitMessage={submitMessage}
       // If no message has been sent yet, fetching the messages yields a 404 not found error

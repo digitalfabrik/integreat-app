@@ -58,7 +58,7 @@ const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
           ? !isLoading && Toolbar
           : showFooter && !isLoading && <CityContentFooter city={city.code} language={languageCode} />
       }
-      chat={isChatEnabled ? <ChatContainer city={city.code} language={languageCode} /> : undefined}
+      chat={isChatEnabled ? <ChatContainer city={city} language={languageCode} /> : undefined}
       toolbar={viewportSmall ? null : Toolbar}>
       {children}
     </Layout>
