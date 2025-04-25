@@ -19,7 +19,7 @@ const SecurityIconContainer = styled.button`
   cursor: pointer;
   display: flex;
   border: none;
-  background-color: ${props => props.theme.colors.textSecondaryColor};
+  background-color: ${props => props.theme.colors.themeColor};
   border-radius: 0.25em;
 `
 
