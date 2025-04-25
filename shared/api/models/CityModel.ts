@@ -118,6 +118,10 @@ class CityModel {
     return this._latitude
   }
 
+  get customChatPrivacyPolicy(): string | null {
+    return this._customChatPrivacyPolicy
+  }
+
   _aliases: Record<string, CoordinateType> | null
 
   get aliases(): Record<string, CoordinateType> | null {

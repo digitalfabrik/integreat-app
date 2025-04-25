@@ -2,6 +2,7 @@ import React, { KeyboardEvent, ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
+import { CityModel } from 'shared/api'
 import ChatMessageModel from 'shared/api/models/ChatMessageModel'
 
 import dimensions from '../constants/dimensions'
@@ -54,6 +55,7 @@ const StyledChatConversation = styled(ChatConversation)<{ $height: number }>`
 `
 
 type ChatProps = {
+  city: CityModel
   submitMessage: (text: string) => void
   messages: ChatMessageModel[]
   hasError: boolean
@@ -61,7 +63,7 @@ type ChatProps = {
   isTyping: boolean
 }
 
-const Chat = ({ messages, submitMessage, hasError, isLoading, isTyping }: ChatProps): ReactElement => {
+const Chat = ({ city, messages, submitMessage, hasError, isLoading, isTyping }: ChatProps): ReactElement => {
   const { t } = useTranslation('chat')
   const [textInput, setTextInput] = useState<string>('')
   const { height: deviceHeight } = useWindowDimensions()
@@ -110,7 +112,7 @@ const Chat = ({ messages, submitMessage, hasError, isLoading, isTyping }: ChatPr
         </InputSection>
         <SubmitContainer>
           <SubmitButton disabled={textInput.length === 0} onClick={onSubmit} text={t('sendButton')} />
-          <ChatSecurityInformation />
+          <ChatSecurityInformation city={city} />
         </SubmitContainer>
       </InputWrapper>
     </Container>

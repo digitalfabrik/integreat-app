@@ -2,6 +2,8 @@ import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
+import { CityModel } from 'shared/api'
+
 import { MailLockIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'
 import Icon from './base/Icon'
@@ -29,9 +31,13 @@ const SecurityIcon = styled(Icon)`
   color: ${props => props.theme.colors.textSecondaryColor};
 `
 
-const ChatSecurityInformation = (): ReactElement => {
+type ChatSecurityInformationProps = {
+  city: CityModel
+}
+
+const ChatSecurityInformation = ({ city }: ChatSecurityInformationProps): ReactElement => {
   const { privacyUrls } = buildConfig()
-  const privacyUrl = privacyUrls.default
+  const privacyUrl = city.customChatPrivacyPolicy || privacyUrls.default
   const { t } = useTranslation('chat')
   const [securityInformationVisible, setSecurityInformationVisible] = useState<boolean>(false)
   return (

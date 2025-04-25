@@ -74,7 +74,7 @@ export enum ChatVisibilityStatus {
 }
 
 type ChatContainerProps = {
-  city: string
+  city: CityModel
   language: string
 }
 
