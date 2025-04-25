@@ -26,7 +26,7 @@ const ChatController = ({ city, language }: ChatControllerProps): ReactElement =
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
   const cityCode = city.code
   const { value: deviceId } = useLocalStorage({
-    key: `${LOCAL_STORAGE_ITEM_CHAT_MESSAGES}-${city}`,
+    key: `${LOCAL_STORAGE_ITEM_CHAT_MESSAGES}-${cityCode}`,
     initialValue: window.crypto.randomUUID(),
   })
   const {
