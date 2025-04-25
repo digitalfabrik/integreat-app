@@ -37,6 +37,8 @@ const Section = styled.div`
 
 const Row = styled.div`
   display: flex;
+  gap: 8px;
+  align-items: center;
 `
 
 const SortingHint = styled.div`

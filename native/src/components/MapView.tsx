@@ -174,6 +174,8 @@ const MapView = ({
   return (
     <MapContainer>
       <StyledMap
+        importantForAccessibility='no'
+        accessibilityElementsHidden
         styleJSON={mapConfig.styleJSON}
         zoomEnabled
         onPress={onPress}
@@ -194,14 +196,18 @@ const MapView = ({
         </MapLibreGL.ShapeSource>
         <MapLibreGL.Camera defaultSettings={defaultSettings} followUserMode='normal' ref={cameraRef} />
       </StyledMap>
-      <OverlayContainer>{Overlay}</OverlayContainer>
-      <MapAttribution />
-      <StyledIcon
-        icon={<Icon Icon={locationPermissionIcon} />}
-        onPress={onRequestLocation}
-        position={bottomSheetFullscreen ? 0 : bottomSheetHeight}
-        accessibilityLabel={t('showOwnLocation')}
-      />
+      {Boolean(!bottomSheetFullscreen) && (
+        <>
+          <OverlayContainer>{Overlay}</OverlayContainer>
+          <MapAttribution />
+          <StyledIcon
+            icon={<Icon Icon={locationPermissionIcon} />}
+            onPress={onRequestLocation}
+            position={bottomSheetFullscreen ? 0 : bottomSheetHeight}
+            accessibilityLabel={t('showOwnLocation')}
+          />
+        </>
+      )}
     </MapContainer>
   )
 }

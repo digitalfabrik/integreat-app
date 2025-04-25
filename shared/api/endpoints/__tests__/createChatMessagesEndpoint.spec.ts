@@ -21,20 +21,22 @@ describe('createChatMessagesEndpoint', () => {
       messages: [
         {
           id: 2,
-          body: 'Informationen zu Ihrer Frage finden Sie auf folgenden Seiten:',
+          content: 'Informationen zu Ihrer Frage finden Sie auf folgenden Seiten:',
           user_is_author: false,
           automatic_answer: false,
         },
       ],
     }
     const chatMessageModel = endpoint.mapResponse(messageJson, params)
-    expect(chatMessageModel).toEqual([
-      new ChatMessageModel({
-        id: 2,
-        body: 'Informationen zu Ihrer Frage finden Sie auf folgenden Seiten:',
-        userIsAuthor: false,
-        automaticAnswer: false,
-      }),
-    ])
+    expect(chatMessageModel).toEqual({
+      messages: [
+        new ChatMessageModel({
+          id: 2,
+          content: 'Informationen zu Ihrer Frage finden Sie auf folgenden Seiten:',
+          userIsAuthor: false,
+          automaticAnswer: false,
+        }),
+      ],
+    })
   })
 })

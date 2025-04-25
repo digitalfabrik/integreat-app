@@ -27,7 +27,11 @@ jest.mock('react-native-inappbrowser-reborn', () => ({
 
 jest.mock('shared', () => ({
   ...jest.requireActual('shared'),
-  useSearch: (results: SearchResult[], query: string) => (query === 'no results, please' ? [] : results),
+  useSearch: (results: SearchResult[], query: string) => ({
+    data: query === 'no results, please' ? [] : results,
+    error: null,
+    loading: false,
+  }),
 }))
 
 describe('SearchModal', () => {

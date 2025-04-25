@@ -64,9 +64,16 @@ type OpeningHoursProps = {
   appointmentOverlayLink: string | null
 }
 
-const getOpeningLabel = (isTemporarilyClosed: boolean, isCurrentlyOpened: boolean): string => {
+const getOpeningLabel = (
+  isTemporarilyClosed: boolean,
+  isCurrentlyOpened: boolean,
+  openingHours: OpeningHoursModel[] | null,
+): string => {
   if (isTemporarilyClosed) {
     return 'temporarilyClosed'
+  }
+  if (!openingHours) {
+    return 'onlyWithAppointment'
   }
   return isCurrentlyOpened ? 'opened' : 'closed'
 }
@@ -81,20 +88,29 @@ const OpeningHours = ({
 }: OpeningHoursProps): ReactElement | null => {
   const { t } = useTranslation('pois')
   const showSnackbar = useSnackbar()
+  const isOnlyWithAppointment = !openingHours && !!appointmentUrl
 
   const openingHoursTitle = (
     <TitleContainer language={language}>
       <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>{t('openingHours')}</Text>
       <OpeningLabel isOpened={isCurrentlyOpen} $direction={contentDirection(language)}>
-        {t(getOpeningLabel(isTemporarilyClosed, isCurrentlyOpen))}
+        {t(getOpeningLabel(isTemporarilyClosed, isCurrentlyOpen, openingHours))}
       </OpeningLabel>
     </TitleContainer>
   )
 
-  if (isTemporarilyClosed) {
+  const appointmentLink = appointmentUrl ? (
+    <LinkContainer onPress={() => openExternalUrl(appointmentUrl, showSnackbar)} role='link'>
+      <Link>{t('makeAppointment')}</Link>
+      <StyledIcon Icon={ExternalLinkIcon} />
+    </LinkContainer>
+  ) : null
+
+  if (isTemporarilyClosed || isOnlyWithAppointment) {
     return (
       <>
-        <TitleContainer language={language}>{openingHoursTitle}</TitleContainer>
+        {openingHoursTitle}
+        {appointmentLink}
         <HorizontalLine />
       </>
     )
@@ -106,7 +122,7 @@ const OpeningHours = ({
 
   return (
     <>
-      <Collapsible headerContent={openingHoursTitle} language={language}>
+      <Collapsible headerContent={openingHoursTitle} language={language} initialCollapsed={!isCurrentlyOpen}>
         <Content>
           {openingHours.map((entry, index) => (
             <OpeningEntry
@@ -122,14 +138,9 @@ const OpeningHours = ({
               appointmentOverlayLink={appointmentOverlayLink}
             />
           ))}
-          {appointmentUrl !== null && (
-            <LinkContainer onPress={() => openExternalUrl(appointmentUrl, showSnackbar)} role='link'>
-              <Link>{t('makeAppointment')}</Link>
-              <StyledIcon Icon={ExternalLinkIcon} />
-            </LinkContainer>
-          )}
         </Content>
       </Collapsible>
+      {appointmentLink}
       <HorizontalLine />
     </>
   )

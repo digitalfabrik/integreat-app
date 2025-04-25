@@ -1,0 +1,8 @@
+issue_key: 3104
+show_in_stores: true
+platforms:
+  - android
+  - ios
+  - web
+en: Fix search behaving weirdly in some occurrences.
+de: Unerwartetes Verhalten der Suchfunktion behoben.
