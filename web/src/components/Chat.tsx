@@ -2,13 +2,12 @@ import React, { KeyboardEvent, ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { CityModel } from 'shared/api'
 import ChatMessageModel from 'shared/api/models/ChatMessageModel'
 
 import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import ChatConversation from './ChatConversation'
-import ChatSecurityInformation from './ChatSecurityInformation'
+import ChatPrivacyInformation from './ChatPrivacyInformation'
 import LoadingSpinner from './LoadingSpinner'
 import Input from './base/Input'
 import InputSection from './base/InputSection'
@@ -119,7 +118,7 @@ const Chat = ({
         </InputSection>
         <SubmitContainer>
           <SubmitButton disabled={textInput.length === 0} onClick={onSubmit} text={t('sendButton')} />
-          <ChatSecurityInformation cityCustomChatPrivacyPolicy={cityCustomChatPrivacyPolicy} />
+          <ChatPrivacyInformation cityCustomChatPrivacyPolicy={cityCustomChatPrivacyPolicy} />
         </SubmitContainer>
       </InputWrapper>
     </Container>
