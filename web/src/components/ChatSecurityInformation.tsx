@@ -7,6 +7,7 @@ import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import Icon from './base/Icon'
 import Link from './base/Link'
+import TextButton from './base/TextButton'
 
 const SecurityInformationContainer = styled.div`
   position: relative;
@@ -18,7 +19,7 @@ const SecurityIconContainer = styled.button`
   cursor: pointer;
   display: flex;
   border: none;
-  background-color: transparent;
+  background-color: ${props => props.theme.colors.textSecondaryColor};
   padding: 0;
 `
 
@@ -26,23 +27,6 @@ const SecurityIcon = styled(Icon)`
   width: 32px;
   height: 32px;
   color: ${props => props.theme.colors.textSecondaryColor};
-`
-
-const InformationTooltipContainer = styled.div`
-  position: absolute;
-  z-index: 2000;
-  border: 1px solid;
-  background-color: ${props => props.theme.colors.textSecondaryColor};
-  color: white;
-  padding: 12px;
-  text-align: center;
-  transform: translate(-95%, -90%);
-  white-space: pre-line;
-  width: 250px;
-
-  @media ${dimensions.smallViewport} {
-    width: 70vw;
-  }
 `
 
 const ChatSecurityInformation = (): ReactElement => {
