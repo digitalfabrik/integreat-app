@@ -4,10 +4,8 @@ import styled from 'styled-components'
 
 import { MailLockIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'
-import dimensions from '../constants/dimensions'
 import Icon from './base/Icon'
 import Link from './base/Link'
-import TextButton from './base/TextButton'
 
 const SecurityInformationContainer = styled.div`
   position: relative;
@@ -22,7 +20,7 @@ const SecurityIconContainer = styled.button`
   display: flex;
   border: none;
   background-color: ${props => props.theme.colors.textSecondaryColor};
-  padding: 0;
+  border-radius: 0.25em;
 `
 
 const SecurityIcon = styled(Icon)`
