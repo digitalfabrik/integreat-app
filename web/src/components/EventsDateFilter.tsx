@@ -22,6 +22,9 @@ const DateSection = styled.div`
     align-items: center;
   }
 `
+const Text = styled.span`
+  color: ${props => (props.theme.isContrastTheme ? props.theme.colors.textColor : props.theme.colors.backgroundColor)};
+`
 
 const StyledButton = styled(Button)`
   display: flex;
@@ -40,7 +43,7 @@ type ResetFilterTextProps = {
 const ResetFilterText = ({ startDate, endDate }: ResetFilterTextProps) => {
   const { t } = useTranslation('events')
   const text = `${t('resetFilter')} ${startDate ? startDate.toFormat('dd.MM.yyyy') : '∞'} - ${endDate ? endDate.toFormat('dd.MM.yyyy') : '∞'}`
-  return <span>{text}</span>
+  return <Text>{text}</Text>
 }
 
 type EventsDateFilterProps = {

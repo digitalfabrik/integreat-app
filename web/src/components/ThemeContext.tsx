@@ -1,15 +1,14 @@
 import React, { createContext, ReactElement, useEffect, useMemo, useState } from 'react'
 import { ThemeProvider } from 'styled-components'
 
+import { ThemeType, ThemeKey } from 'build-configs'
 import { UiDirectionType } from 'translations'
 
 import buildConfig from '../constants/buildConfig'
 
-type ThemeType = 'light' | 'contrast'
-
 export type ThemeContextType = {
-  theme: ReturnType<typeof buildConfig>['lightTheme'] | ReturnType<typeof buildConfig>['highContrastTheme']
-  themeType: ThemeType
+  theme: ThemeType
+  themeType: ThemeKey
   toggleTheme: () => void
 }
 
@@ -27,7 +26,7 @@ export const contrastThemeMediaQueries = [
   '(prefers-color-scheme: dark)' /* is used to detect if a user has requested light or dark color themes: https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme */,
 ].map(query => window.matchMedia(query))
 
-const getSystemTheme = (): ThemeType => (contrastThemeMediaQueries.some(query => query.matches) ? 'contrast' : 'light')
+const getSystemTheme = (): ThemeKey => (contrastThemeMediaQueries.some(query => query.matches) ? 'contrast' : 'light')
 
 type ThemeContainerProps = {
   children: ReactElement
@@ -35,7 +34,7 @@ type ThemeContainerProps = {
 }
 
 export const ThemeContainer = ({ children, contentDirection }: ThemeContainerProps): ReactElement => {
-  const [themeType, setThemeType] = useState<ThemeType>(getSystemTheme)
+  const [themeType, setThemeType] = useState<ThemeKey>(getSystemTheme)
 
   useEffect(() => {
     const updateTheme = () => setThemeType(getSystemTheme())
@@ -54,8 +53,8 @@ export const ThemeContainer = ({ children, contentDirection }: ThemeContainerPro
       setThemeType(prev => (prev === 'light' ? 'contrast' : 'light'))
     }
 
-    const baseTheme = themeType === 'contrast' ? themeConfig.highContrastTheme : themeConfig.lightTheme
-    const theme = { ...baseTheme, contentDirection }
+    const baseTheme = themeType === 'contrast' ? themeConfig.contrastTheme : themeConfig.lightTheme
+    const theme = { ...baseTheme, contentDirection, isContrastTheme: themeType === 'contrast' }
     return { theme, themeType, toggleTheme }
   }, [themeType, contentDirection])
 
