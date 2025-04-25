@@ -6,7 +6,6 @@ import { LogBox } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { enableScreens } from 'react-native-screens'
 import { HeaderButtonsProvider } from 'react-navigation-header-buttons'
-import { ThemeProvider } from 'styled-components/native'
 
 import { CLOSE_PAGE_SIGNAL_NAME, REDIRECT_ROUTE } from 'shared'
 import { setUserAgent } from 'shared/api'
@@ -19,9 +18,9 @@ import IOSSafeAreaView from './components/IOSSafeAreaView'
 import SnackbarContainer from './components/SnackbarContainer'
 import StaticServerProvider from './components/StaticServerProvider'
 import StatusBar from './components/StatusBar'
+import { ThemeContainer } from './components/ThemeContext'
 import TtsContainer from './components/TtsContainer'
 import { RoutesParamsType } from './constants/NavigationTypes'
-import buildConfig from './constants/buildConfig'
 import { userAgent } from './constants/endpoint'
 import AppContextProvider from './contexts/AppContextProvider'
 import useSendOfflineJpalSignals from './hooks/useSendOfflineJpalSignals'
@@ -82,7 +81,7 @@ const App = (): ReactElement => {
 
   return (
     <>
-      <ThemeProvider theme={buildConfig().lightTheme}>
+      <ThemeContainer>
         <StaticServerProvider>
           <I18nProvider>
             <SafeAreaProvider>
@@ -105,7 +104,7 @@ const App = (): ReactElement => {
             </SafeAreaProvider>
           </I18nProvider>
         </StaticServerProvider>
-      </ThemeProvider>
+      </ThemeContainer>
       <AppStateListener />
     </>
   )
