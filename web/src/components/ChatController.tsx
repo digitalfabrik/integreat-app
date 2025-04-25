@@ -25,6 +25,7 @@ const POLLING_INTERVAL = 8000
 const ChatController = ({ city, language }: ChatControllerProps): ReactElement => {
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
   const cityCode = city.code
+  const cityCustomChatPrivacyPolicy = city.customChatPrivacyPolicy
   const { value: deviceId } = useLocalStorage({
     key: `${LOCAL_STORAGE_ITEM_CHAT_MESSAGES}-${cityCode}`,
     initialValue: window.crypto.randomUUID(),
@@ -68,7 +69,7 @@ const ChatController = ({ city, language }: ChatControllerProps): ReactElement =
 
   return (
     <Chat
-      city={city}
+      cityCustomChatPrivacyPolicy={cityCustomChatPrivacyPolicy}
       messages={chatMessagesReturn?.messages ?? []}
       submitMessage={submitMessage}
       // If no message has been sent yet, fetching the messages yields a 404 not found error

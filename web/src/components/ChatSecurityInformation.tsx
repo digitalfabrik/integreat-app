@@ -32,12 +32,12 @@ const SecurityIcon = styled(Icon)`
 `
 
 type ChatSecurityInformationProps = {
-  city: CityModel
+  cityCustomChatPrivacyPolicy: string | null
 }
 
-const ChatSecurityInformation = ({ city }: ChatSecurityInformationProps): ReactElement => {
+const ChatSecurityInformation = ({ cityCustomChatPrivacyPolicy }: ChatSecurityInformationProps): ReactElement => {
   const { privacyUrls } = buildConfig()
-  const privacyUrl = city.customChatPrivacyPolicy || privacyUrls.default
+  const privacyUrl = cityCustomChatPrivacyPolicy || privacyUrls.default
   const { t } = useTranslation('chat')
   const [securityInformationVisible, setSecurityInformationVisible] = useState<boolean>(false)
   return (
