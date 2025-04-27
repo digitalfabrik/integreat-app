@@ -27,6 +27,7 @@ import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import { AppContext } from '../contexts/AppContextProvider'
 import useSnackbar from '../hooks/useSnackbar'
+import { useThemeContext } from '../hooks/useThemeContext'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import navigateToLanguageChange from '../navigation/navigateToLanguageChange'
@@ -53,6 +54,7 @@ enum HeaderButtonTitle {
   Location = 'changeLocation',
   Search = 'search',
   ReadAloud = 'readAloud',
+  ContrastTheme = 'contrastTheme',
   Share = 'share',
   Settings = 'settings',
   Feedback = 'feedback',
@@ -86,6 +88,7 @@ const Header = ({
   const [previousRoute] = useState(navigation.getState().routes[navigation.getState().routes.length - 2])
   const [canGoBack] = useState(navigation.canGoBack())
   const { enabled: isTtsEnabled, showTtsPlayer } = useTtsPlayer()
+  const { toggleTheme } = useThemeContext()
 
   const onShare = async () => {
     if (!shareUrl) {
@@ -196,6 +199,7 @@ const Header = ({
           ? [renderOverflowItem(HeaderButtonTitle.Location, () => navigation.navigate(LANDING_ROUTE))]
           : []),
         renderOverflowItem(HeaderButtonTitle.Settings, () => navigation.navigate(SETTINGS_ROUTE)),
+        ...[renderOverflowItem(t(HeaderButtonTitle.ContrastTheme), toggleTheme)],
         ...(isTtsEnabled ? [renderOverflowItem(t(HeaderButtonTitle.ReadAloud), showTtsPlayer)] : []),
         ...(route.name !== NEWS_ROUTE ? [renderOverflowItem(HeaderButtonTitle.Feedback, navigateToFeedback)] : []),
         ...(route.name !== DISCLAIMER_ROUTE
