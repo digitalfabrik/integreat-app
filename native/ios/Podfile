@@ -43,6 +43,6 @@ target 'Integreat' do
     )
 
     # Required for Mapbox
-    $RNMBGL.post_install(installer)
+    $MLRN.post_install(installer)
   end
 end

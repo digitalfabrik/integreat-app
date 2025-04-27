@@ -167,7 +167,6 @@ const RemoteContent = ({
       }}
       originWhitelist={['*']} // Needed by iOS to load the initial html
       javaScriptEnabled
-      dataDetectorTypes={['none']}
       userAgent={userAgent}
       domStorageEnabled={false}
       allowsFullscreenVideo

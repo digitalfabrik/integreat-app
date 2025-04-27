@@ -105,11 +105,11 @@ PODS:
   - hermes-engine (0.78.2):
     - hermes-engine/Pre-built (= 0.78.2)
   - hermes-engine/Pre-built (0.78.2)
-  - maplibre-react-native (9.1.0):
-    - maplibre-react-native/DynamicLibrary (= 9.1.0)
+  - maplibre-react-native (10.1.4):
+    - maplibre-react-native/DynamicLibrary (= 10.1.4)
     - React
     - React-Core
-  - maplibre-react-native/DynamicLibrary (9.1.0):
+  - maplibre-react-native/DynamicLibrary (10.1.4):
     - React
     - React-Core
   - nanopb (3.30910.0):
@@ -1915,7 +1915,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNReanimated (3.17.4):
+  - RNReanimated (3.17.5):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1937,10 +1937,10 @@ PODS:
     - ReactCodegen
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
-    - RNReanimated/reanimated (= 3.17.4)
-    - RNReanimated/worklets (= 3.17.4)
+    - RNReanimated/reanimated (= 3.17.5)
+    - RNReanimated/worklets (= 3.17.5)
     - Yoga
-  - RNReanimated/reanimated (3.17.4):
+  - RNReanimated/reanimated (3.17.5):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1962,9 +1962,9 @@ PODS:
     - ReactCodegen
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
-    - RNReanimated/reanimated/apple (= 3.17.4)
+    - RNReanimated/reanimated/apple (= 3.17.5)
     - Yoga
-  - RNReanimated/reanimated/apple (3.17.4):
+  - RNReanimated/reanimated/apple (3.17.5):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1987,7 +1987,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNReanimated/worklets (3.17.4):
+  - RNReanimated/worklets (3.17.5):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -2009,9 +2009,9 @@ PODS:
     - ReactCodegen
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
-    - RNReanimated/worklets/apple (= 3.17.4)
+    - RNReanimated/worklets/apple (= 3.17.5)
     - Yoga
-  - RNReanimated/worklets/apple (3.17.4):
+  - RNReanimated/worklets/apple (3.17.5):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -2079,7 +2079,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNSentry (6.10.0):
+  - RNSentry (6.11.0):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -2100,7 +2100,7 @@ PODS:
     - ReactCodegen
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
-    - Sentry/HybridSDK (= 8.48.0)
+    - Sentry/HybridSDK (= 8.49.0)
     - Yoga
   - RNSVG (15.11.2):
     - DoubleConversion
@@ -2145,7 +2145,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - Sentry/HybridSDK (8.48.0)
+  - Sentry/HybridSDK (8.49.0)
   - SocketRocket (0.7.1)
   - TextToSpeech (4.1.1):
     - React-Core
@@ -2469,7 +2469,7 @@ SPEC CHECKSUMS:
   GoogleDataTransport: aae35b7ea0c09004c3797d53c8c41f66f219d6a7
   GoogleUtilities: 26a3abef001b6533cf678d3eb38fd3f614b7872d
   hermes-engine: 2771b98fb813fdc6f92edd7c9c0035ecabf9fee7
-  maplibre-react-native: 3a0d9beca427ff9000d75e0974c366ecd3c5375e
+  maplibre-react-native: c2f06453adb392c99e436a4f115611e038ba87b5
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   RCT-Folly: 36fe2295e44b10d831836cc0d1daec5f8abcf809
@@ -2548,15 +2548,15 @@ SPEC CHECKSUMS:
   RNLocalize: 530c85d94ac53e0ce316f6fdf5d47545a687fca9
   RNNotifee: 4a6ee5c7deaf00e005050052d73ee6315dff7ec9
   RNPermissions: c3689d1de7c870edec93149d0b7e55658a342225
-  RNReanimated: 30430d627b5ad4d4d5e57b3d5a924fcb711c9bb1
+  RNReanimated: 66c4a3320d73cdec5f8f24d215c475a1d59643ae
   RNScreens: ef58b1f3077f7ee62b58f958536ee5ccb52d96b5
-  RNSentry: b0337e256f42ea8ad52c7a1a1634f94c2bfcbeea
+  RNSentry: 638761d324be0994e1aab9b2b8d07c1960f25228
   RNSVG: 05776cf3f0d52d3f8e7ebee34b2189da7b8638ff
-  Sentry: 1ca8405451040482877dcd344dfa3ef80b646631
+  Sentry: 5eda2559a20fa0c377b695ed9d7c178a47122891
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
   TextToSpeech: 2b930ec3756afde499061f4f01ea895e1f75dccb
   Yoga: 0c521d2eddeeff54ba1126068140b6e970a77fc0
 
-PODFILE CHECKSUM: 928ca94abbcfe4e16fa4a8ab6e5b7f15e98aaa3a
+PODFILE CHECKSUM: 8dc51366533eee3107e39df05b016546c095acee
 
 COCOAPODS: 1.15.2

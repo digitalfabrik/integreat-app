@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		051E12C629AF8FEA007A0950 /* Mapbox in Frameworks */ = {isa = PBXBuildFile; productRef = 58DA50835FA4C55D1A53318C /* Mapbox */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		17287B1D24FFC8D600CA52F4 /* LaunchScreenIntegreat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17287B1C24FFC8D600CA52F4 /* LaunchScreenIntegreat.storyboard */; };
 		17287B1F24FFCD9800CA52F4 /* LaunchScreenDefault.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17287B1E24FFCD9800CA52F4 /* LaunchScreenDefault.storyboard */; };
@@ -16,7 +15,6 @@
 		2E0440F826C127B000183828 /* NotoSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2E0440F426C127AF00183828 /* NotoSans-Bold.ttf */; };
 		2E0440FA26C127B000183828 /* NotoSansArabic-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2E0440F626C127B000183828 /* NotoSansArabic-Bold.ttf */; };
 		2E0440FC26C133EE00183828 /* NotoSans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2E0440FB26C133EE00183828 /* NotoSans.ttf */; };
-		2E673E9226C3C27C00B97628 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
 		616E1B072370E00100136B38 /* ConstantsModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616E1B062370E00100136B38 /* ConstantsModule.swift */; };
 		616E1B092370E07D00136B38 /* ConstantsModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 616E1B082370E07D00136B38 /* ConstantsModule.m */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
@@ -103,8 +101,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				051E12C629AF8FEA007A0950 /* Mapbox in Frameworks */,
-				2E673E9226C3C27C00B97628 /* BuildFile in Frameworks */,
 				ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */,
 				D8A132BA08CFC4B2FC6AE11E /* Pods_Integreat.framework in Frameworks */,
 			);
@@ -246,7 +242,7 @@
 			);
 			name = Integreat;
 			packageProductDependencies = (
-				58DA50835FA4C55D1A53318C /* Mapbox */,
+				6AB802EC1F82A845C8AC9C0F /* MapLibre */,
 			);
 			productName = "Hello World";
 			productReference = 13B07F961A680F5B00A75B9A /* Integreat.app */;
@@ -299,7 +295,7 @@
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			packageReferences = (
-				51FBDE884E168E57485F8AA0 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */,
+				35AFF70EFA189FFDF69E42B6 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */,
 			);
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
@@ -825,21 +821,21 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		51FBDE884E168E57485F8AA0 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */ = {
+		35AFF70EFA189FFDF69E42B6 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/maplibre/maplibre-gl-native-distribution";
 			requirement = {
 				kind = exactVersion;
-				version = 5.13.0;
+				version = 6.11.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		58DA50835FA4C55D1A53318C /* Mapbox */ = {
+		6AB802EC1F82A845C8AC9C0F /* MapLibre */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 51FBDE884E168E57485F8AA0 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */;
-			productName = Mapbox;
+			package = 35AFF70EFA189FFDF69E42B6 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */;
+			productName = MapLibre;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
