@@ -1,5 +1,5 @@
 {
-  "name": "integreat-app",
+  "name": "Anna",
   "license": "MIT",
   "private": true,
   "workspaces": {
@@ -71,5 +71,10 @@
     "ts-jest": "^29.1.2",
     "tsx": "^4.8.2",
     "typescript": "^5.4.5"
-  }
+  },
+  "version": "1.0.0",
+  "description": "3208-avoid-showing-complete-website-url",
+  "main": "index.js",
+  "repository": "https://github.com/Vasianandcarps/integreat-app-3208-avoid-showing-complete-website-url.git",
+  "author": "Anna <anna.2005.nikulina@gmail.com>"
 }

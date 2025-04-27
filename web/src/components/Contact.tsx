@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { ContactModel } from 'shared/api'
 
-import { MailIcon, PhoneIcon, WebsiteIcon } from '../assets'
+import { ExternalLinkIcon, MailIcon, PhoneIcon, WebsiteIcon } from '../assets'
 import Collapsible from './Collapsible'
 import ContactItem from './ContactItem'
 
@@ -17,7 +17,7 @@ const Contact = ({
   return (
     <Collapsible title={headline ?? t('contactInformation')}>
       <div>
-        {!!website && <ContactItem iconSrc={WebsiteIcon} iconAlt={t('website')} link={website} content={website} />}
+        {!!website && <ContactItem iconSrc={WebsiteIcon} iconAlt={t('website')} link={website} content={'Website'} />}
         {!!phoneNumber && (
           <ContactItem iconSrc={PhoneIcon} iconAlt={t('phone')} link={`tel:${phoneNumber}`} content={phoneNumber} />
         )}
