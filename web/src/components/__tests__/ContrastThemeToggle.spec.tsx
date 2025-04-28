@@ -14,7 +14,7 @@ jest.mock('react-i18next')
 
 const TestThemeTypeChange = () => {
   const { themeType } = useThemeContext()
-  return <div data-testid='theme-type'>{themeType}</div>
+  return <div>{themeType}</div>
 }
 
 const toggleContrastTheme = () =>
@@ -39,9 +39,9 @@ describe('ContrastThemeToggle', () => {
 
   it('toggles theme between light and contrast in mobile view', () => {
     mocked(useWindowDimensions).mockImplementation(() => ({ ...mockWindowDimensions, viewportSmall: true }))
-    const { getByRole, getByTestId } = toggleContrastTheme()
+    const { getByRole, getByText } = toggleContrastTheme()
     const toggleButton = getByRole('button', { name: 'layout:contrastTheme' })
-    const themeType = getByTestId('theme-type')
+    const themeType = getByText('light')
     expect(themeType).toHaveTextContent('light')
 
     fireEvent.click(toggleButton)
@@ -60,9 +60,9 @@ describe('ContrastThemeToggle', () => {
 
   it('toggles theme between light and contrast in desktop view', () => {
     mocked(useWindowDimensions).mockImplementation(() => ({ ...mockWindowDimensions, viewportSmall: false }))
-    const { getByRole, getByTestId } = toggleContrastTheme()
+    const { getByRole, getByText } = toggleContrastTheme()
     const toggleButton = getByRole('button', { name: 'layout:contrastTheme' })
-    const themeType = getByTestId('theme-type')
+    const themeType = getByText('light')
     expect(themeType).toHaveTextContent('light')
 
     fireEvent.click(toggleButton)
