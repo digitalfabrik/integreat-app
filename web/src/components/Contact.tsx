@@ -17,7 +17,15 @@ const Contact = ({
   return (
     <Collapsible title={headline ?? t('contactInformation')}>
       <div>
-        {!!website && <ContactItem iconSrc={WebsiteIcon} iconAlt={t('website')} link={website} isExternalLink={true} content={'Website'} />}
+        {!!website && (
+          <ContactItem
+            iconSrc={WebsiteIcon}
+            iconAlt={t('website')}
+            link={website}
+            content={'Website'}
+            isExternalLink={true}
+          />
+        )}
         {!!phoneNumber && (
           <ContactItem iconSrc={PhoneIcon} iconAlt={t('phone')} link={`tel:${phoneNumber}`} content={phoneNumber} />
         )}

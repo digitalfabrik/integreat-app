@@ -3,9 +3,8 @@ import styled from 'styled-components'
 
 import { ExternalLinkIcon } from '../assets'
 import { helpers } from '../constants/theme'
+import isExternalLink from './Contact'
 import Link from './base/Link'
-
-// импортируем иконку внешней ссылки
 
 const Marker = styled.img`
   width: 20px;
@@ -37,14 +36,14 @@ type ContactItemProps = {
   iconAlt: string
   link: string
   content: string
-  isWebsite?: boolean // Дополнительный проп для отображения иконки только для веб-сайта
+  isExternalLink?: boolean // Дополнительный проп для отображения иконки только для веб-сайта
 }
 
-const ContactItem = ({ iconSrc, iconAlt, link, content }: ContactItemProps): ReactElement => (
+const ContactItem = ({ iconSrc, iconAlt, link, content, isExternalLink }: ContactItemProps): ReactElement => (
   <StyledLink to={link}>
     <Marker src={iconSrc} alt={iconAlt} />
     {content}
-    {/* Show icon if Contakt info is Website  */}
+
     {isExternalLink && <StyledExternalLinkIcon alt=' ' src={ExternalLinkIcon} />}
   </StyledLink>
 )
