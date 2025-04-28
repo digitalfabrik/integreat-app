@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import Tts, { Options } from 'react-native-tts'
 
 import { TTS_MAX_TITLE_DISPLAY_CHARS } from 'shared'
+import { useLoadAsync } from 'shared/api'
 import { truncate } from 'shared/utils/getExcerpt'
 
 import buildConfig from '../constants/buildConfig'
@@ -48,35 +49,14 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
   const [sentenceIndex, setSentenceIndex] = useState(0)
   const [visible, setVisible] = useState(false)
   const [sentences, setSentences] = useState<string[]>([])
-  const [isLanguageSupported, setIsLanguageSupported] = useState(true)
   const { languageCode } = useContext(AppContext)
   const { t } = useTranslation('layout')
   const showSnackbar = useSnackbar()
   const title = sentences[0] || t('nothingToRead')
   const shortTitle = truncate(title, { maxChars: TTS_MAX_TITLE_DISPLAY_CHARS })
-
-  useEffect(() => {
-    const checkLanguageSupport = async () => {
-      try {
-        const voices = await Tts.voices()
-
-        const isSupported = voices.some(({ language }) => {
-          if (!language) {
-            setIsLanguageSupported(false)
-          }
-          const code = language.split('-')[0]
-          return code === languageCode
-        })
-        setIsLanguageSupported(isSupported)
-      } catch (error) {
-        reportError(error)
-        setIsLanguageSupported(false)
-      }
-    }
-    checkLanguageSupport()
-  }, [languageCode])
-
-  const enabled = buildConfig().featureFlags.tts && isLanguageSupported
+  const { data: voices } = useLoadAsync(Tts.voices)
+  const isLanguageSupported = voices && voices.some(({ language }) => language.split('-')[0] === languageCode)
+  const enabled = buildConfig().featureFlags.tts
 
   const initializeTts = useCallback(async (): Promise<void> => {
     await Tts.getInitStatus().catch(async error =>
@@ -90,6 +70,9 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
     }
     if (sentences.length === 0) {
       showSnackbar({ text: t('nothingToReadFullMessage') })
+      return
+    } else if (!isLanguageSupported) {
+      showSnackbar({ text: t('languageNotSupported') })
       return
     }
     initializeTts()
@@ -131,7 +114,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
     async (index = sentenceIndex) => {
       const safeIndex = Math.max(0, index)
       const sentence = sentences[safeIndex]
-      if (sentence && enabled) {
+      if (sentence && isLanguageSupported) {
         await stopPlayer()
         setIsPlaying(true)
         setSentenceIndex(safeIndex)
