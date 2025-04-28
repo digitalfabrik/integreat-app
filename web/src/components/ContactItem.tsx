@@ -45,7 +45,7 @@ const ContactItem = ({ iconSrc, iconAlt, link, content }: ContactItemProps): Rea
     <Marker src={iconSrc} alt={iconAlt} />
     {content}
     {/* Show icon if Contakt info is Website  */}
-    {content.toLowerCase() === 'website' && <StyledExternalLinkIcon alt=' ' src={ExternalLinkIcon} />}
+    {isExternalLink && <StyledExternalLinkIcon alt=' ' src={ExternalLinkIcon} />}
   </StyledLink>
 )
 
