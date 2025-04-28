@@ -1,6 +1,6 @@
 import React, { ReactElement, useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { parseHTML, pathnameFromRouteInformation, SEARCH_ROUTE, useSearch, SEARCH_QUERY_KEY, useDebounce } from 'shared'
@@ -32,14 +32,13 @@ const SearchCounter = styled.p`
   color: ${props => props.theme.colors.textSecondaryColor};
 `
 
-const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps): ReactElement | null => {
+const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElement | null => {
   const [searchParams, setSearchParams] = useSearchParams()
   const query = searchParams.get(SEARCH_QUERY_KEY) ?? ''
   const [draftSearchText, setDraftSearchText] = useState(query)
   const debouncedQuery = useDebounce(draftSearchText)
 
   const { t } = useTranslation('search')
-  const navigate = useNavigate()
   const fallbackLanguage = config.sourceLanguage
 
   const {
@@ -57,14 +56,9 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
   useReportError(contentLanguageReturn.error ?? fallbackLanguageReturn.error)
 
   useEffect(() => {
-    const params = new URLSearchParams()
-    if (debouncedQuery) {
-      params.set(SEARCH_QUERY_KEY, debouncedQuery)
-    }
-    setSearchParams(params)
-    const append = debouncedQuery ? `?${SEARCH_QUERY_KEY}=${debouncedQuery}` : ''
-    navigate(`${pathname}${append}`, { replace: true })
-  }, [debouncedQuery, setSearchParams, navigate, pathname])
+    const nextParams = debouncedQuery ? { [SEARCH_QUERY_KEY]: debouncedQuery } : ''
+    setSearchParams(nextParams, { replace: true })
+  }, [debouncedQuery, setSearchParams])
 
   if (!city) {
     return null
