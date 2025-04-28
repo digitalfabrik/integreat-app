@@ -1,4 +1,4 @@
-import React, { createContext, ReactElement, useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import React, { createContext, ReactElement, useCallback, useContext, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import Tts, { Options } from 'react-native-tts'
 
@@ -71,7 +71,8 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
     if (sentences.length === 0) {
       showSnackbar({ text: t('nothingToReadFullMessage') })
       return
-    } else if (!isLanguageSupported) {
+    }
+    if (!isLanguageSupported) {
       showSnackbar({ text: t('languageNotSupported') })
       return
     }
@@ -81,7 +82,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
         reportError(error)
         showSnackbar({ text: t('error:unknownError') })
       })
-  }, [initializeTts, enabled, sentences.length, visible, showSnackbar, t])
+  }, [initializeTts, enabled, sentences.length, visible, showSnackbar, t, isLanguageSupported])
 
   const stopPlayer = useCallback(async () => {
     // iOS wrongly sends tts-finish instead of tts-cancel if calling Tts.stop()
@@ -125,7 +126,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
         stop()
       }
     },
-    [stop, stopPlayer, sentenceIndex, sentences, languageCode, enabled],
+    [stop, stopPlayer, sentenceIndex, sentences, languageCode, isLanguageSupported],
   )
 
   useAppStateListener(appState => {
