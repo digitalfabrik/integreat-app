@@ -22,7 +22,7 @@ const Contact = ({
             iconSrc={WebsiteIcon}
             iconAlt={t('website')}
             link={website}
-            content={'Website'}
+            content={t('Website')}
             isExternalLink={true}
           />
         )}
