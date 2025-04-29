@@ -24,23 +24,20 @@ export type CityContentLayoutProps = {
   showFooter?: boolean
 }
 
-const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
-  const { viewportSmall } = useWindowDimensions()
-
-  const {
-    children,
-    languageCode,
-    languageChangePaths,
-    isLoading,
-    route,
-    Toolbar,
-    fullWidth = false,
-    disableScrollingSafari = false,
-    showFooter = true,
-    city,
-  } = props
-
+const CityContentLayout = ({
+  children,
+  city,
+  languageCode,
+  languageChangePaths,
+  isLoading,
+  route,
+  Toolbar,
+  fullWidth = false,
+  disableScrollingSafari = false,
+  showFooter = true,
+}: CityContentLayoutProps): ReactElement => {
   const [layoutReady, setLayoutReady] = useState(!isLoading)
+  const { viewportSmall } = useWindowDimensions()
   const isChatEnabled = buildConfig().featureFlags.chat && route !== POIS_ROUTE && city.chatEnabled
 
   const Footer = viewportSmall ? Toolbar : showFooter && <CityContentFooter city={city.code} language={languageCode} />
