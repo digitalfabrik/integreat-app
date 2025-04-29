@@ -44,7 +44,7 @@ const ContactItem = ({ iconSrc, iconAlt, link, content, isExternalLink }: Contac
     <Marker src={iconSrc} alt={iconAlt} />
     {content}
 
-    {isExternalLink && <StyledExternalLinkIcon alt=' ' src={ExternalLinkIcon} />}
+    {isExternalLink && <StyledExternalLinkIcon alt='' src={ExternalLinkIcon} />}
   </StyledLink>
 )
 
