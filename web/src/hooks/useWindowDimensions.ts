@@ -12,7 +12,7 @@ export type WindowDimensionsType = {
   visibleFooterHeight: number
 }
 
-export const getWindowDimensions = (): WindowDimensionsType => {
+const getWindowDimensions = (): WindowDimensionsType => {
   const { innerWidth: width, innerHeight: height, scrollY } = window
   const footer = document.querySelector('footer')
   const footerHeight = footer?.offsetHeight ?? 0

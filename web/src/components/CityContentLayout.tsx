@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode } from 'react'
+import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
 
 import { CityModel } from 'shared/api'
 import { POIS_ROUTE } from 'shared/routes'
@@ -40,7 +40,16 @@ const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
     city,
   } = props
 
+  const [layoutReady, setLayoutReady] = useState(!isLoading)
   const isChatEnabled = buildConfig().featureFlags.chat && route !== POIS_ROUTE && city.chatEnabled
+
+  const Footer = viewportSmall ? Toolbar : showFooter && <CityContentFooter city={city.code} language={languageCode} />
+
+  // Avoid flickering due to content (chat) being pushed up by the footer
+  useEffect(() => {
+    setLayoutReady(!isLoading)
+  }, [isLoading])
+
   return (
     <Layout
       disableScrollingSafari={disableScrollingSafari}
@@ -53,12 +62,8 @@ const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
           route={route}
         />
       }
-      footer={
-        viewportSmall
-          ? !isLoading && Toolbar
-          : showFooter && !isLoading && <CityContentFooter city={city.code} language={languageCode} />
-      }
-      chat={isChatEnabled ? <ChatContainer city={city.code} language={languageCode} /> : undefined}
+      footer={!isLoading && Footer}
+      chat={isChatEnabled && layoutReady ? <ChatContainer city={city.code} language={languageCode} /> : undefined}
       toolbar={viewportSmall ? null : Toolbar}>
       {children}
     </Layout>
