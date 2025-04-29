@@ -82,9 +82,9 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement => 
   return (
     <ChatButtonContainer $bottom={bottom} data-testid='chat-button-container' onClick={() => setChatVisible(true)}>
       <Circle>
-        <StyledIcon src={ChatIcon} title={t('button')} />
+        <StyledIcon src={ChatIcon} title={t('chat')} />
       </Circle>
-      {!viewportSmall && <ChatTitle>{t('button')}</ChatTitle>}
+      {!viewportSmall && <ChatTitle>{t('chat')}</ChatTitle>}
     </ChatButtonContainer>
   )
 }
