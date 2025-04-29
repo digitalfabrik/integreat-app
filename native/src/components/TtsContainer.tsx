@@ -1,4 +1,4 @@
-import React, { createContext, ReactElement, useCallback, useContext, useMemo, useState } from 'react'
+import React, { createContext, ReactElement, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import Tts, { Options } from 'react-native-tts'
 
@@ -115,11 +115,6 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
     async (index = sentenceIndex) => {
       const safeIndex = Math.max(0, index)
       const sentence = sentences[safeIndex]
-      if (!isLanguageSupported) {
-        close()
-        showSnackbar({ text: t('languageNotSupported') })
-        return
-      }
       if (sentence) {
         await stopPlayer()
         setIsPlaying(true)
@@ -131,7 +126,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
         stop()
       }
     },
-    [stop, stopPlayer, sentenceIndex, sentences, languageCode, isLanguageSupported],
+    [stop, stopPlayer, sentenceIndex, sentences, languageCode],
   )
 
   useAppStateListener(appState => {
@@ -141,10 +136,16 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
     }
   })
 
-  const close = async () => {
+  const close = useCallback(async () => {
     setVisible(false)
     stop()
-  }
+  }, [stop])
+
+  useEffect(() => {
+    if (visible && !isLanguageSupported) {
+      close()
+    }
+  }, [visible, isLanguageSupported, close])
 
   const updateSentences = useCallback(
     (newSentences: string[]) => {
