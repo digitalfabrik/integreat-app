@@ -11,8 +11,6 @@ const SecurityInformationContainer = styled.div`
   display: flex;
 `
 const SecurityIconContainer = styled.button`
-  width: 32px;
-  height: 32px;
   align-self: center;
   margin-inline-start: 8px;
   cursor: pointer;
@@ -23,8 +21,8 @@ const SecurityIconContainer = styled.button`
 `
 
 const SecurityIcon = styled(Icon)`
-  width: 100%;
-  height: 100%;
+  width: 32px;
+  height: 32px;
   color: ${props => props.theme.colors.textSecondaryColor};
 `
 

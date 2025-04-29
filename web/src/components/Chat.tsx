@@ -81,21 +81,23 @@ const Chat = ({ messages, submitMessage, hasError, isLoading, isTyping }: ChatPr
     }
   }
 
+  if (isLoading && !hasError) {
+    return (
+      <LoadingContainer>
+        <StyledLoadingSpinner />
+        <LoadingText>{t('loadingText')}</LoadingText>
+      </LoadingContainer>
+    )
+  }
+
   return (
     <Container>
-      {isLoading && !hasError ? (
-        <LoadingContainer>
-          <StyledLoadingSpinner />
-          <LoadingText>{t('loadingText')}</LoadingText>
-        </LoadingContainer>
-      ) : (
-        <StyledChatConversation
-          $height={deviceHeight - chatInputContainerHeight}
-          messages={messages}
-          hasError={hasError}
-          isTyping={isTyping}
-        />
-      )}
+      <StyledChatConversation
+        $height={deviceHeight - chatInputContainerHeight}
+        messages={messages}
+        hasError={hasError}
+        isTyping={isTyping}
+      />
       <InputWrapper $height={chatInputContainerHeight}>
         <InputSection id='chat' title={messages.length > 0 ? '' : t('inputLabel')}>
           <Input
