@@ -1211,6 +1211,7 @@
       "optional": "optional",
       "back": "Zurück",
       "ok": "Ok",
+      "minimize": "Minimieren",
       "privacyPolicy": "Ich habe die <1>Datenschutzerklärung</1> gelesen und stimme der Verarbeitung und Speicherung meiner Daten zu.",
       "privacyPolicyLink": "Datenschutzerklärung"
     },
@@ -1325,6 +1326,7 @@
       "optional": "optional",
       "back": "Back",
       "ok": "Ok",
+      "minimize": "Minimize",
       "privacyPolicy": "I have read the <1>privacy policy</1> and agree to the processing and storage of my data.",
       "privacyPolicyLink": "privacy policy"
     },
