@@ -55,7 +55,7 @@ const OrganizationContentInfo = ({ organization }: OrganizationContentInfoProps)
         <span>
           <Trans i18nKey='categories:organizationMoreInformation' domain={new URL(organization.url).hostname}>
             This gets{{ organization: organization.name }}replaced
-            <<a href={organization.url} target='_blank' rel='noopener noreferrer'>
+            <a href={organization.url} target='_blank' rel='noopener noreferrer'>
               {/* @ts-expect-error gets replaced by Trans component */}
               {{ domain: new URL(organization.url).hostname }}
             </a>
