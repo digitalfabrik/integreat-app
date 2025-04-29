@@ -1,11 +1,11 @@
 {
   "name": "web",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "webpack-ts": "cross-env TS_NODE_PROJECT=\"tools/tsconfig.webpack.json\" webpack --config tools/webpack.config.ts --env bundle_analyzer",
     "webpack-dev-server-ts": "cross-env TS_NODE_PROJECT=\"tools/tsconfig.webpack.json\" webpack-dev-server --config tools/webpack.config.ts --progress",
-    "start": "yarn run webpack-dev-server-ts --env config_name=integreat-test-cms --env dev_server start",
+    "start": "yarn run webpack-dev-server-ts --env config_name=integreat-test-cms --env dev_server",
     "start:malte": "yarn run webpack-dev-server-ts --env config_name=malte --env dev_server",
     "start:malte-test-cms": "yarn run webpack-dev-server-ts --env config_name=malte-test-cms --env dev_server",
     "start:aschaffenburg": "yarn run webpack-dev-server-ts --env config_name=aschaffenburg --env dev_server",
@@ -44,7 +44,6 @@
     "maplibre-gl": "^4.6.0",
     "normalize.css": "^8.0.1",
     "react": "18.2.0",
-    "react-datepicker": "^7.5.0",
     "react-dom": "18.2.0",
     "react-helmet": "^6.1.0",
     "react-highlight-words": "^0.20.0",
@@ -58,7 +57,8 @@
     "schema-dts": "^1.1.2",
     "shared": "0.0.1",
     "styled-components": "^6.1.13",
-    "translations": "0.0.1"
+    "translations": "0.0.1",
+    "react-datepicker": "^7.5.0"
   },
   "devDependencies": {
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.15",
@@ -98,8 +98,5 @@
     "webpack-bundle-analyzer": "^4.10.1",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.0.4"
-  },
-  "main": "index.js",
-  "repository": "https://github.com/Vasianandcarps/integreat-app-3208-avoid-showing-complete-website-url",
-  "license": "MIT"
+  }
 }
