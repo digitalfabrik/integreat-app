@@ -115,7 +115,12 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
     async (index = sentenceIndex) => {
       const safeIndex = Math.max(0, index)
       const sentence = sentences[safeIndex]
-      if (sentence && isLanguageSupported) {
+      if (!isLanguageSupported) {
+        close()
+        showSnackbar({ text: t('languageNotSupported') })
+        return
+      }
+      if (sentence) {
         await stopPlayer()
         setIsPlaying(true)
         setSentenceIndex(safeIndex)
