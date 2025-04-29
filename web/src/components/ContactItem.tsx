@@ -22,7 +22,7 @@ const StyledLink = styled(Link)`
   ${helpers.adaptiveFontSize};
 `
 
-// Новый Styled компонент для кнопки с иконкой внешней ссылки
+
 const StyledExternalLinkIcon = styled.img`
   width: 16px;
   height: 16px;
@@ -36,7 +36,7 @@ type ContactItemProps = {
   iconAlt: string
   link: string
   content: string
-  isExternalLink?: boolean // Дополнительный проп для отображения иконки только для веб-сайта
+  isExternalLink?: boolean 
 }
 
 const ContactItem = ({ iconSrc, iconAlt, link, content, isExternalLink }: ContactItemProps): ReactElement => (
