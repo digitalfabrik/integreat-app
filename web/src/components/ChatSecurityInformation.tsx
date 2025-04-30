@@ -26,7 +26,7 @@ const SecurityIcon = styled(Icon)`
   color: ${props => props.theme.colors.textSecondaryColor};
 `
 
-const InformationTooltipContainer = styled.div`
+const InformationTooltipContainer = styled.div<{ $isRtl: boolean }>`
   position: absolute;
   z-index: 2000;
   border: 1px solid;
@@ -34,7 +34,7 @@ const InformationTooltipContainer = styled.div`
   color: white;
   padding: 12px;
   text-align: center;
-  transform: translate(-95%, -90%);
+  transform: ${props => (props.$isRtl ? 'translate(95%, -90%)' : 'translate(-95%, -90%)')};
   white-space: pre-line;
   width: 250px;
 
@@ -44,11 +44,14 @@ const InformationTooltipContainer = styled.div`
 `
 
 const ChatSecurityInformation = (): ReactElement => {
-  const { t } = useTranslation('chat')
+  const { t, i18n } = useTranslation('chat')
   const [securityInformationVisible, setSecurityInformationVisible] = useState<boolean>(false)
+  const isRtl = i18n.dir() === 'rtl'
   return (
     <SecurityInformationContainer>
-      {securityInformationVisible && <InformationTooltipContainer>{t('dataSecurity')}</InformationTooltipContainer>}
+      {securityInformationVisible && (
+        <InformationTooltipContainer $isRtl={isRtl}>{t('dataSecurity')}</InformationTooltipContainer>
+      )}
       <SecurityIconContainer onClick={() => setSecurityInformationVisible(!securityInformationVisible)}>
         <SecurityIcon src={DataSecurityIcon} />
       </SecurityIconContainer>
