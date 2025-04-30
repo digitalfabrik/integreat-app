@@ -12,18 +12,19 @@ const PageContainer = styled.View`
   width: 100%;
 `
 
-const CollapseHeaderText = styled.Text`
-  font-size: 14px;
+const CollapseHeaderText = styled.Text<{ $isParent?: boolean }>`
+  font-size: ${props => (props.$isParent ? '18px' : '14px')};
   align-self: center;
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
 `
 
-const CollapseHeaderWrapper = styled.View<{ language: string }>`
+const CollapseHeaderWrapper = styled.View<{ language: string; $isParent?: boolean }>`
   flex-direction: ${props => contentDirection(props.language)};
   justify-content: space-between;
   width: 100%;
   align-self: center;
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
+  padding: ${props => (props.$isParent ? '20px 0' : 0)};
 `
 
 const StyledIcon = styled(Icon)<{ collapsed: boolean }>`
@@ -40,6 +41,7 @@ type CollapsibleProps = {
   Description?: ReactElement
   language: string
   initialCollapsed?: boolean
+  isParent?: boolean
 }
 
 const Collapsible = ({
@@ -48,6 +50,7 @@ const Collapsible = ({
   Description,
   language,
   initialCollapsed = false,
+  isParent = false,
 }: CollapsibleProps): ReactElement => {
   const [collapsed, setCollapsed] = useState<boolean>(initialCollapsed)
   const { t } = useTranslation()
@@ -59,9 +62,9 @@ const Collapsible = ({
         onToggle={() => setCollapsed(!collapsed)}
         touchableOpacityProps={{ activeOpacity: 1 }}>
         <CollapseHeader style={{ flexDirection: 'column' }}>
-          <CollapseHeaderWrapper language={language}>
+          <CollapseHeaderWrapper language={language} $isParent={isParent}>
             {typeof headerContent === 'string' ? (
-              <CollapseHeaderText>{headerContent}</CollapseHeaderText>
+              <CollapseHeaderText $isParent={isParent}>{headerContent}</CollapseHeaderText>
             ) : (
               headerContent
             )}

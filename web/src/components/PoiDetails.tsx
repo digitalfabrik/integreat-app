@@ -142,53 +142,57 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
         <Category>{category.name}</Category>
       </HeadingSection>
       <Spacer $borderColor={theme.colors.borderColor} />
-      {!viewportSmall && <Subheading>{t('detailsAddress')}</Subheading>}
-      <DetailSection>
-        <AddressContentWrapper>
-          {!viewportSmall && <StyledIcon src={LocationIcon} />}
-          <AddressContent>
-            <span>{location.address}</span>
-            <span>
-              {location.postcode} {location.town}
-            </span>
-          </AddressContent>
-        </AddressContentWrapper>
-        <StyledLink to={externalMapsLink}>
-          {!viewportSmall && <LinkLabel>{t('detailsMapLink')}</LinkLabel>}
-          <StyledExternalLinkIcon src={ExternalLinkIcon} directionDependent />
-        </StyledLink>
-      </DetailSection>
-      {contacts.map(contact => (
-        <Fragment key={contact.headline ?? contact.website ?? contact.name ?? contact.phoneNumber}>
-          <Spacer $borderColor={theme.colors.borderColor} />
-          <Contact contact={contact} />
-        </Fragment>
-      ))}
-      <>
-        {((openingHours && openingHours.length > 0) || temporarilyClosed) && (
-          <Spacer $borderColor={theme.colors.borderColor} />
-        )}
-        <OpeningHours
-          openingHours={openingHours}
-          isCurrentlyOpen={isCurrentlyOpen}
-          isTemporarilyClosed={temporarilyClosed}
-          appointmentOverlayLink={appointmentOverlayUrl}
-        />
-        {appointmentUrl !== null && (
-          <StyledLink to={appointmentUrl}>
-            <LinkLabel>{t('makeAppointment')}</LinkLabel>
-            <StyledExternalLinkIcon src={ExternalLinkIcon} directionDependent />
-          </StyledLink>
-        )}
-      </>
-      {content.length > 0 && (
+      <Collapsible isParent title={t('contacts')}>
         <>
-          <Spacer $borderColor={theme.colors.borderColor} />
-          <Collapsible title={t('detailsInformation')}>
-            <RemoteContent html={content} smallText />
-          </Collapsible>
+          {!viewportSmall && <Subheading>{t('detailsAddress')}</Subheading>}
+          <DetailSection>
+            <AddressContentWrapper>
+              {!viewportSmall && <StyledIcon src={LocationIcon} />}
+              <AddressContent>
+                <span>{location.address}</span>
+                <span>
+                  {location.postcode} {location.town}
+                </span>
+              </AddressContent>
+            </AddressContentWrapper>
+            <StyledLink to={externalMapsLink}>
+              {!viewportSmall && <LinkLabel>{t('detailsMapLink')}</LinkLabel>}
+              <StyledExternalLinkIcon src={ExternalLinkIcon} directionDependent />
+            </StyledLink>
+          </DetailSection>
+          {contacts.map(contact => (
+            <Fragment key={contact.headline ?? contact.website ?? contact.name ?? contact.phoneNumber}>
+              <Spacer $borderColor={theme.colors.borderColor} />
+              <Contact contact={contact} />
+            </Fragment>
+          ))}
+          <>
+            {((openingHours && openingHours.length > 0) || temporarilyClosed) && (
+              <Spacer $borderColor={theme.colors.borderColor} />
+            )}
+            <OpeningHours
+              openingHours={openingHours}
+              isCurrentlyOpen={isCurrentlyOpen}
+              isTemporarilyClosed={temporarilyClosed}
+              appointmentOverlayLink={appointmentOverlayUrl}
+            />
+            {appointmentUrl !== null && (
+              <StyledLink to={appointmentUrl}>
+                <LinkLabel>{t('makeAppointment')}</LinkLabel>
+                <StyledExternalLinkIcon src={ExternalLinkIcon} directionDependent />
+              </StyledLink>
+            )}
+          </>
+          {content.length > 0 && (
+            <>
+              <Spacer $borderColor={theme.colors.borderColor} />
+              <Collapsible title={t('detailsInformation')}>
+                <RemoteContent html={content} smallText />
+              </Collapsible>
+            </>
+          )}
         </>
-      )}
+      </Collapsible>
       {toolbar && (
         <>
           <Spacer $borderColor={theme.colors.borderColor} />

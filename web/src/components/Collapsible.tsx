@@ -13,17 +13,18 @@ const Container = styled.div`
   gap: 8px;
 `
 
-const CollapsibleHeader = styled(Button)`
+const CollapsibleHeader = styled(Button)<{ $isParent?: boolean }>`
   display: flex;
   justify-content: space-between;
+  padding: ${props => (props.$isParent ? '12px 0' : 0)};
 `
 
-const Title = styled.div`
+const Title = styled.div<{ $isParent?: boolean }>`
   display: flex;
   flex: 1;
   font-weight: 700;
   justify-content: space-between;
-  ${helpers.adaptiveFontSize}
+  ${props => (props.$isParent ? helpers.adaptiveMediumFontSize : helpers.adaptiveFontSize)}
 `
 
 const CollapseIcon = styled(Icon)<{ $collapsed: boolean }>`
@@ -38,6 +39,7 @@ type CollapsibleProps = {
   Description?: ReactElement
   initialCollapsed?: boolean
   className?: string
+  isParent?: boolean
 }
 
 const Collapsible = ({
@@ -45,6 +47,7 @@ const Collapsible = ({
   title,
   Description,
   initialCollapsed = false,
+  isParent = false,
   className,
 }: CollapsibleProps): ReactElement => {
   const [collapsed, setCollapsed] = useState<boolean>(initialCollapsed)
@@ -53,11 +56,12 @@ const Collapsible = ({
   return (
     <Container className={className}>
       <CollapsibleHeader
+        $isParent={isParent}
         label={t(collapsed ? 'showMore' : 'showLess')}
         onClick={() => setCollapsed(!collapsed)}
         aria-expanded={!collapsed}
         tabIndex={0}>
-        {typeof title === 'string' ? <Title>{title}</Title> : title}
+        {typeof title === 'string' ? <Title $isParent={isParent}>{title}</Title> : title}
         <CollapseIcon
           src={ArrowBackIcon}
           $collapsed={collapsed}

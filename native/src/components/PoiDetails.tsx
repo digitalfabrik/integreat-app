@@ -18,7 +18,7 @@ const Thumbnail = styled(SimpleImage)`
   height: 180px;
   width: 100%;
   border-radius: 8px;
-  margin-top: 12px;
+  margin: 12px 0 12px 0;
 `
 
 const PoiDetailsContainer = styled.View`
@@ -62,32 +62,33 @@ const PoiDetails = ({ poi, language, distance }: PoiDetailsProps): ReactElement 
       )}
       <StyledCategory>{category.name}</StyledCategory>
       <Thumbnail source={thumbnail} resizeMode='cover' />
-      <HorizontalLine />
-      <AddressInfo location={poi.location} language={language} />
-      <HorizontalLine />
-      {contacts.map(contact => (
-        <Contact
-          key={contact.headline ?? contact.website ?? contact.name ?? contact.phoneNumber}
-          contact={contact}
+      <Collapsible isParent headerContent={t('contacts')} language={language}>
+        <AddressInfo location={poi.location} language={language} />
+        <HorizontalLine />
+        {contacts.map(contact => (
+          <Contact
+            key={contact.headline ?? contact.website ?? contact.name ?? contact.phoneNumber}
+            contact={contact}
+            language={language}
+          />
+        ))}
+        <OpeningHours
           language={language}
+          openingHours={openingHours}
+          isCurrentlyOpen={isCurrentlyOpen}
+          isTemporarilyClosed={temporarilyClosed}
+          appointmentUrl={appointmentUrl}
+          appointmentOverlayLink={appointmentOverlayUrl}
         />
-      ))}
-      <OpeningHours
-        language={language}
-        openingHours={openingHours}
-        isCurrentlyOpen={isCurrentlyOpen}
-        isTemporarilyClosed={temporarilyClosed}
-        appointmentUrl={appointmentUrl}
-        appointmentOverlayLink={appointmentOverlayUrl}
-      />
-      {content.length > 0 && (
-        <>
-          <Collapsible headerContent={t('description')} language={language}>
-            <Page content={content} language={language} path={poi.path} padding={false} />
-          </Collapsible>
-          <HorizontalLine />
-        </>
-      )}
+        {content.length > 0 && (
+          <>
+            <Collapsible headerContent={t('description')} language={language}>
+              <Page content={content} language={language} path={poi.path} padding={false} />
+            </Collapsible>
+            <HorizontalLine />
+          </>
+        )}
+      </Collapsible>
     </PoiDetailsContainer>
   )
 }
