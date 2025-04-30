@@ -47,6 +47,7 @@ const ChatSecurityInformation = (): ReactElement => {
   const { t, i18n } = useTranslation('chat')
   const [securityInformationVisible, setSecurityInformationVisible] = useState<boolean>(false)
   const isRtl = i18n.dir() === 'rtl'
+
   return (
     <SecurityInformationContainer>
       {securityInformationVisible && (
