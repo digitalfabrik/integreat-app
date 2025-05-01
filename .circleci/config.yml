@@ -37,7 +37,7 @@ commands:
                 default: integreat-app-notifications
                 type: string
             failure_mentions:
-                default: '@steffen.kleinle @bahaaTuffaha @andreas.fischer @leandra.hahn @lunars97'
+                default: '@steffen.kleinle @bahaa.tuffaha @andreas.fischer @leandra.hahn @aizhan.alekbarova'
                 type: string
             only_for_branch:
                 default: main
