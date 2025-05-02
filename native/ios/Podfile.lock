@@ -1894,7 +1894,7 @@ PODS:
     - RNNotifee/NotifeeCore (= 9.1.8)
   - RNNotifee/NotifeeCore (9.1.8):
     - React-Core
-  - RNPermissions (5.3.0):
+  - RNPermissions (5.4.0):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -2079,7 +2079,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNSentry (6.11.0):
+  - RNSentry (6.13.0):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -2100,7 +2100,7 @@ PODS:
     - ReactCodegen
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
-    - Sentry/HybridSDK (= 8.49.0)
+    - Sentry/HybridSDK (= 8.49.2)
     - Yoga
   - RNSVG (15.11.2):
     - DoubleConversion
@@ -2145,7 +2145,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - Sentry/HybridSDK (8.49.0)
+  - Sentry/HybridSDK (8.49.2)
   - SocketRocket (0.7.1)
   - TextToSpeech (4.1.1):
     - React-Core
@@ -2547,16 +2547,16 @@ SPEC CHECKSUMS:
   RNInAppBrowser: e36d6935517101ccba0e875bac8ad7b0cb655364
   RNLocalize: 530c85d94ac53e0ce316f6fdf5d47545a687fca9
   RNNotifee: 4a6ee5c7deaf00e005050052d73ee6315dff7ec9
-  RNPermissions: c3689d1de7c870edec93149d0b7e55658a342225
+  RNPermissions: 20a15a2ff5ac9f6cc1ebdca1d49666767ff979e9
   RNReanimated: 66c4a3320d73cdec5f8f24d215c475a1d59643ae
   RNScreens: ef58b1f3077f7ee62b58f958536ee5ccb52d96b5
-  RNSentry: 638761d324be0994e1aab9b2b8d07c1960f25228
+  RNSentry: b6bb22ee3f9a962757b961e180eee92a04cddeaf
   RNSVG: 05776cf3f0d52d3f8e7ebee34b2189da7b8638ff
-  Sentry: 5eda2559a20fa0c377b695ed9d7c178a47122891
+  Sentry: 47021097466aa130802420d485a34da445963d99
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
   TextToSpeech: 2b930ec3756afde499061f4f01ea895e1f75dccb
   Yoga: 0c521d2eddeeff54ba1126068140b6e970a77fc0
 
-PODFILE CHECKSUM: 8dc51366533eee3107e39df05b016546c095acee
+PODFILE CHECKSUM: 1d81c132a2814f4d4335754b282dd3775ce70305
 
 COCOAPODS: 1.15.2

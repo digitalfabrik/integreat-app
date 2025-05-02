@@ -1,5 +1,6 @@
-import React, { ComponentType, ReactElement, ReactNode } from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
+import { ColorValue } from 'react-native'
 import {
   defaultOnOverflowMenuPress,
   HeaderButton,
@@ -7,7 +8,6 @@ import {
   HeaderButtons,
   OnOverflowMenuPressParams,
   OverflowMenu,
-  VisibleButtonProps,
 } from 'react-navigation-header-buttons'
 import styled from 'styled-components/native'
 
@@ -18,13 +18,18 @@ const StyledHeaderContainer = styled.View`
   margin: 0 10px;
 `
 
-type IconPropType = VisibleButtonProps['IconComponent'] extends ComponentType<infer T> | undefined ? T : never
+type HeaderIconProps = {
+  name: 'search' | 'language'
+  size?: number
+  color?: ColorValue
+  style?: { width?: number; height?: number; color?: ColorValue }
+}
 
-const HeaderIcon = ({ name, ...props }: IconPropType): ReactElement => {
+const HeaderIcon = ({ name, style, ...props }: HeaderIconProps): ReactElement => {
   if (!['language', 'search'].includes(name)) {
     throw new Error('Invalid icon name!')
   }
-  return <Icon Icon={name === 'search' ? SearchIcon : LanguageIcon} {...props} />
+  return <Icon Icon={name === 'search' ? SearchIcon : LanguageIcon} style={style} {...props} />
 }
 
 const CustomHeaderButton = (props: HeaderButtonProps) => (

@@ -48,7 +48,7 @@ const validate = (
 const handleInputChangeAndFocusNext = (
   text: string,
   setInputValue: (newValue: string | undefined) => void,
-  ref?: RefObject<TextInput>,
+  ref?: RefObject<TextInput | null>,
 ) => {
   setInputValue(text)
   if (ref && text.length === 2) {
@@ -56,7 +56,7 @@ const handleInputChangeAndFocusNext = (
   }
 }
 
-const handleKeyPress = (key: string, currentInput: string | undefined, refPrev?: RefObject<TextInput>) => {
+const handleKeyPress = (key: string, currentInput: string | undefined, refPrev?: RefObject<TextInput | null>) => {
   if (key === 'Backspace') {
     if (currentInput?.length === 0 && refPrev) {
       refPrev.current?.focus()
@@ -65,8 +65,8 @@ const handleKeyPress = (key: string, currentInput: string | undefined, refPrev?:
 }
 
 type DatePickerInputProps = {
-  nextTargetRef?: RefObject<TextInput>
-  prevTargetRef?: RefObject<TextInput>
+  nextTargetRef?: RefObject<TextInput | null>
+  prevTargetRef?: RefObject<TextInput | null>
   placeholder: string
   type: 'day' | 'month' | 'year'
   inputValue: string | undefined

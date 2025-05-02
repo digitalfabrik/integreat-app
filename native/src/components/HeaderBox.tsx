@@ -44,7 +44,7 @@ const HeaderBox = ({ goBack, canGoBack = true, text, language }: HeaderBoxProps)
     <HeaderBackButton
       onPress={goBack}
       accessibilityLabel={t('back')}
-      labelVisible={false}
+      displayMode='minimal'
       tintColor={theme.colors.textColor}
     />
   ) : (

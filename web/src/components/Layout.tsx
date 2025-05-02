@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 import styled, { css } from 'styled-components'
 
 import dimensions from '../constants/dimensions'
@@ -114,7 +114,7 @@ const Layout = ({
   children,
   fullWidth = false,
   disableScrollingSafari = false,
-}: LayoutProps): JSX.Element => {
+}: LayoutProps): ReactElement => {
   const { viewportSmall } = useWindowDimensions()
 
   return (
