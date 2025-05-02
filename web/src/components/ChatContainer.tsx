@@ -1,6 +1,9 @@
-import React, { ReactElement, useContext, useState } from 'react'
+import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useSearchParams } from 'react-router-dom'
 import styled from 'styled-components'
+
+import { CHAT_QUERY_KEY, parseQueryParams } from 'shared'
 
 import { ChatIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'
@@ -61,15 +64,24 @@ type ChatContainerProps = {
 }
 
 const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement => {
-  const { t } = useTranslation('chat')
-  const [chatVisible, setChatVisible] = useState(false)
+  const [queryParams, setQueryParams] = useSearchParams()
+  const initialChatVisibility = parseQueryParams(queryParams).chat ?? false
+  const [chatVisible, setChatVisible] = useState(initialChatVisibility)
   const { viewportSmall, visibleFooterHeight, width } = useWindowDimensions()
   const { visible: ttsPlayerVisible } = useContext(TtsContext)
+  const { t } = useTranslation('chat')
   useLockedBody(chatVisible)
+
   const bottom =
     ttsPlayerVisible && width <= dimensions.maxTtsPlayerWidth
       ? visibleFooterHeight + dimensions.ttsPlayerHeight + CHAT_BUTTON_SIZE
       : visibleFooterHeight
+
+  useEffect(() => {
+    const newQueryParams = queryParams
+    queryParams.delete(CHAT_QUERY_KEY)
+    setQueryParams(newQueryParams)
+  }, [queryParams, setQueryParams])
 
   if (chatVisible) {
     return (
@@ -80,7 +92,7 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement => 
   }
 
   return (
-    <ChatButtonContainer $bottom={bottom} data-testid='chat-button-container' onClick={() => setChatVisible(true)}>
+    <ChatButtonContainer $bottom={bottom} onClick={() => setChatVisible(true)}>
       <Circle>
         <StyledIcon src={ChatIcon} title={t('chat')} />
       </Circle>
