@@ -83,7 +83,7 @@ const SwitchCmsUrlIcon = ({ clearResourcesAndCache }: LandingIconProps): ReactEl
         role='button'
         focusable={false}
         importantForAccessibility='no'
-        accessibilityElementsHidden={true}
+        accessibilityElementsHidden
         accessible={false}>
         <StyledIcon Icon={LocationMarkerIcon} />
       </StyledPressable>
