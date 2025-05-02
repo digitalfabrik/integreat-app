@@ -15,7 +15,7 @@ jest.mock('shared/api', () => ({
 }))
 
 describe('ChatContainer', () => {
-  mockUseLoadFromEndpointWithData([])
+  mockUseLoadFromEndpointWithData({ messages: [] })
   const pathname = '/testumgebung/de'
   const routePattern = '/:cityCode/:languageCode'
 
