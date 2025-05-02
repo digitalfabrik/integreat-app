@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react'
 
 import { mockUseLoadFromEndpointWithData } from 'shared/api/endpoints/testing/mockUseLoadFromEndpoint'
 
-import { renderWithRouterAndTheme, renderWithTheme } from '../../testing/render'
+import { renderRoute } from '../../testing/render'
 import ChatContainer from '../ChatContainer'
 
 jest.mock('react-i18next')
@@ -16,10 +16,12 @@ jest.mock('shared/api', () => ({
 
 describe('ChatContainer', () => {
   mockUseLoadFromEndpointWithData([])
+  const pathname = '/testumgebung/de'
+  const routePattern = '/:cityCode/:languageCode'
 
   it('should open chat modal and show content on chat button click', () => {
-    const { getByTestId, getByText } = renderWithRouterAndTheme(<ChatContainer city='augsburg' language='de' />)
-    const chatButtonContainer = getByTestId('chat-button-container')
+    const { getByText } = renderRoute(<ChatContainer city='augsburg' language='de' />, { pathname, routePattern })
+    const chatButtonContainer = getByText('chat:chat')
     expect(chatButtonContainer).toBeTruthy()
     fireEvent.click(chatButtonContainer)
     expect(getByText('chat:header')).toBeTruthy()
@@ -28,10 +30,11 @@ describe('ChatContainer', () => {
   })
 
   it('should close chat if close button was clicked', () => {
-    const { getByTestId, getAllByLabelText, queryByText } = renderWithTheme(
-      <ChatContainer city='augsburg' language='de' />,
-    )
-    const chatButtonContainer = getByTestId('chat-button-container')
+    const { getAllByLabelText, queryByText, getByText } = renderRoute(<ChatContainer city='augsburg' language='de' />, {
+      pathname,
+      routePattern,
+    })
+    const chatButtonContainer = getByText('chat:chat')
     expect(chatButtonContainer).toBeTruthy()
     fireEvent.click(chatButtonContainer)
     const closeButton = getAllByLabelText('common:minimize')[0]!
@@ -39,5 +42,17 @@ describe('ChatContainer', () => {
     expect(queryByText('chat:header')).toBeFalsy()
     expect(queryByText('chat:conversationTitle')).toBeFalsy()
     expect(queryByText('chat:conversationText')).toBeFalsy()
+  })
+
+  it('should open chat if query param is set', () => {
+    const { getByText, queryByText } = renderRoute(<ChatContainer city='augsburg' language='de' />, {
+      pathname,
+      routePattern,
+      searchParams: '?chat=true',
+    })
+    expect(queryByText('chat:chat')).toBeFalsy()
+    expect(getByText('chat:header')).toBeTruthy()
+    expect(getByText('chat:conversationTitle')).toBeTruthy()
+    expect(getByText('chat:conversationText')).toBeTruthy()
   })
 })
