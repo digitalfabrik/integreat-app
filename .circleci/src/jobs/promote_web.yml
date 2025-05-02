@@ -4,7 +4,6 @@ resource_class: small
 shell: /bin/bash -eo pipefail
 steps:
   - checkout
-  - skip_job
   - restore_yarn_tools_cache
   - add_ssh_keys:
       fingerprints:
@@ -23,6 +22,12 @@ steps:
       command: ssh -o StrictHostKeyChecking=no web@web.integreat-app.de "rsync -arv --delete /var/www/beta.netzwerkobdachwohnen.de/ /var/www/netzwerkobdachwohnen.de"
   - run:
       name: Remove prerelease flag from github release
-      command: yarn github-promote-release promote --platform web --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME}
       working_directory: tools
-  - notify
+      command: |
+        PROMOTION_MESSAGE=$(yarn --silent github-promote-release promote --platform web --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME})
+        echo "export PROMOTION_MESSAGE='${PROMOTION_MESSAGE}'" >> $BASH_ENV
+  - notify:
+      success_message: '${PROMOTION_MESSAGE}'
+      channel: releases
+      only_for_branch: ${CIRCLE_BRANCH}
+  - persist_environment_variables

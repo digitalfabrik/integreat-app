@@ -1,0 +1,5 @@
+issue_key: 2934
+show_in_stores: false
+platforms:
+  - web
+en: The date icon of the events page now only shows one tooltip when hovering over it e.g. 'Today'

@@ -13,7 +13,8 @@ export const Message = styled.div`
   border-radius: 5px;
   padding: 8px;
   border: 1px solid ${props => props.theme.colors.textDecorationColor};
-  flex-basis: 70%;
+  max-width: 70%;
+  width: max-content;
 
   & > div > a {
     line-break: anywhere;
@@ -29,9 +30,6 @@ const Container = styled.div<{ $isAuthor: boolean }>`
 
 const IconContainer = styled.div<{ $visible: boolean }>`
   opacity: ${props => (props.$visible ? 1 : 0)};
-  height: 25px;
-  width: 25px;
-  display: flex;
 `
 
 const Circle = styled.div`
@@ -47,8 +45,6 @@ const Circle = styled.div`
   font-size: ${props => props.theme.fonts.decorativeFontSizeSmall};
 `
 
-type ChatMessageProps = { message: ChatMessageModel; previousMessage: ChatMessageModel | undefined }
-
 const getIcon = (userIsAuthor: boolean, isAutomaticAnswer: boolean, t: TFunction<'chat'>): ReactElement => {
   if (userIsAuthor) {
     return <Circle>{t('user')}</Circle>
@@ -57,20 +53,48 @@ const getIcon = (userIsAuthor: boolean, isAutomaticAnswer: boolean, t: TFunction
   return <Icon src={icon} title={isAutomaticAnswer ? t('bot') : t('human')} />
 }
 
-const ChatMessage = ({ message, previousMessage }: ChatMessageProps): ReactElement => {
+type InnerChatMessageProps = {
+  userIsAuthor: boolean
+  showIcon: boolean
+  isAutomaticAnswer: boolean
+  content: string
+  messageId: number
+}
+
+export const InnerChatMessage = ({
+  userIsAuthor,
+  showIcon,
+  isAutomaticAnswer,
+  content,
+  messageId,
+}: InnerChatMessageProps): ReactElement => {
   const { t } = useTranslation('chat')
-  const { body, userIsAuthor, isAutomaticAnswer } = message
+  return (
+    <Container $isAuthor={userIsAuthor}>
+      <IconContainer $visible={showIcon}>{getIcon(userIsAuthor, isAutomaticAnswer, t)}</IconContainer>
+      <Message data-testid={messageId}>
+        <RemoteContent html={content} smallText />
+      </Message>
+    </Container>
+  )
+}
+
+type ChatMessageProps = { message: ChatMessageModel; previousMessage: ChatMessageModel | undefined }
+
+const ChatMessage = ({ message, previousMessage }: ChatMessageProps): ReactElement => {
+  const { content, userIsAuthor, isAutomaticAnswer } = message
   const hasAuthorChanged = message.userIsAuthor !== previousMessage?.userIsAuthor
   const hasAutomaticAnswerChanged = message.isAutomaticAnswer !== previousMessage?.isAutomaticAnswer
   const showIcon = hasAuthorChanged || hasAutomaticAnswerChanged
 
   return (
-    <Container $isAuthor={userIsAuthor}>
-      <IconContainer $visible={showIcon}>{getIcon(userIsAuthor, isAutomaticAnswer, t)}</IconContainer>
-      <Message data-testid={message.id}>
-        <RemoteContent html={body} smallText />
-      </Message>
-    </Container>
+    <InnerChatMessage
+      userIsAuthor={userIsAuthor}
+      showIcon={showIcon}
+      isAutomaticAnswer={isAutomaticAnswer}
+      content={content}
+      messageId={message.id}
+    />
   )
 }
 

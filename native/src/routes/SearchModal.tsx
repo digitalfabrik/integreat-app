@@ -10,6 +10,7 @@ import List from '../components/List'
 import SearchHeader from '../components/SearchHeader'
 import SearchListItem from '../components/SearchListItem'
 import useAnnounceSearchResultsIOS from '../hooks/useAnnounceSearchResultsIOS'
+import useReportError from '../hooks/useReportError'
 import useResourceCache from '../hooks/useResourceCache'
 import testID from '../testing/testID'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
@@ -49,10 +50,11 @@ const SearchModal = ({
   const resourceCache = useResourceCache({ cityCode, languageCode })
   const { t } = useTranslation('search')
 
-  const contentLanguageResults = useSearch(documents, query)
-  const fallbackLanguageResults = useSearch(fallbackLanguageDocuments, query)
-  const searchResults = contentLanguageResults.concat(fallbackLanguageResults)
+  const contentLanguageReturn = useSearch(documents, query)
+  const fallbackLanguageReturn = useSearch(fallbackLanguageDocuments, query)
+  const searchResults = contentLanguageReturn.data.concat(fallbackLanguageReturn.data)
 
+  useReportError(contentLanguageReturn.error ?? fallbackLanguageReturn.error)
   useAnnounceSearchResultsIOS(searchResults)
 
   const onClose = (): void => {
@@ -93,6 +95,7 @@ const SearchModal = ({
               renderItem={renderItem}
               accessibilityLabel={t('searchResultsCount', { count: searchResults.length })}
               style={{ flex: 1 }}
+              keyboardShouldPersistTaps='handled'
               noItemsMessage={
                 <FeedbackContainer
                   routeType={SEARCH_ROUTE}

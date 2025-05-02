@@ -36,6 +36,7 @@
     "build-configs": "0.0.1",
     "core-js": "^3.40.0",
     "dompurify": "^3.2.4",
+    "easy-speech": "^2.4.0",
     "focus-trap-react": "^10.2.3",
     "i18next": "^25.0.1",
     "luxon": "^3.4.2",

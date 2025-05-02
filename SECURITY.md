@@ -26,3 +26,5 @@ If we verify a reported security vulnerability, our policy is:
 
 - A security advisory will be released on the project website detailing the
   vulnerability, as well as recommendations for end-users to protect themselves.
+
+For more information, please read our [full policy](https://security.tuerantuer.org/policy.txt).

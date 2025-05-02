@@ -4,13 +4,13 @@ import styled from 'styled-components/native'
 
 import { PoiModel } from 'shared/api'
 
-import { MailIcon, PhoneIcon, PoiThumbnailPlaceholderLarge, WebsiteIcon } from '../assets'
+import { PoiThumbnailPlaceholderLarge } from '../assets'
 import AddressInfo from './AddressInfo'
 import Collapsible from './Collapsible'
+import Contact from './Contact'
 import HorizontalLine from './HorizontalLine'
 import OpeningHours from './OpeningHours'
 import Page from './Page'
-import PoiDetailRow from './PoiDetailRow'
 import SimpleImage from './SimpleImage'
 
 const Thumbnail = styled(SimpleImage)`
@@ -50,40 +50,12 @@ type PoiDetailsProps = {
 const PoiDetails = ({ poi, language, distance }: PoiDetailsProps): ReactElement => {
   const { t } = useTranslation('pois')
   const thumbnail = poi.thumbnail ?? PoiThumbnailPlaceholderLarge
-  const {
-    title,
-    content,
-    email,
-    website,
-    phoneNumber,
-    openingHours,
-    temporarilyClosed,
-    isCurrentlyOpen,
-    category,
-    appointmentUrl,
-  } = poi
-
-  const contactInformationCollapsibleItem = (
-    <Collapsible headerContent={t('contactInformation')} language={language}>
-      {!!website && (
-        <PoiDetailRow externalUrl={website} accessibilityLabel={t('website')} text={website} Icon={WebsiteIcon} />
-      )}
-      {!!phoneNumber && (
-        <PoiDetailRow
-          externalUrl={`tel:${phoneNumber}`}
-          accessibilityLabel={t('phone')}
-          text={phoneNumber}
-          Icon={PhoneIcon}
-        />
-      )}
-      {!!email && (
-        <PoiDetailRow externalUrl={`mailto:${email}`} accessibilityLabel={t('eMail')} text={email} Icon={MailIcon} />
-      )}
-    </Collapsible>
-  )
+  const { title, content, contacts, openingHours, temporarilyClosed, isCurrentlyOpen, category, appointmentUrl } = poi
+  const appointmentOverlayUrl =
+    appointmentUrl ?? poi.contacts.find(contact => contact.website !== null)?.website ?? null
 
   return (
-    <PoiDetailsContainer>
+    <PoiDetailsContainer accessibilityLabel={`${title} - ${category.name}`}>
       <Title>{title}</Title>
       {distance !== null && (
         <StyledDistance>{t('distanceKilometre', { distance: distance.toFixed(1) })}</StyledDistance>
@@ -93,19 +65,20 @@ const PoiDetails = ({ poi, language, distance }: PoiDetailsProps): ReactElement 
       <HorizontalLine />
       <AddressInfo location={poi.location} language={language} />
       <HorizontalLine />
-      {!!(website || phoneNumber || email) && (
-        <>
-          {contactInformationCollapsibleItem}
-          <HorizontalLine />
-        </>
-      )}
+      {contacts.map(contact => (
+        <Contact
+          key={contact.headline ?? contact.website ?? contact.name ?? contact.phoneNumber}
+          contact={contact}
+          language={language}
+        />
+      ))}
       <OpeningHours
         language={language}
         openingHours={openingHours}
         isCurrentlyOpen={isCurrentlyOpen}
         isTemporarilyClosed={temporarilyClosed}
         appointmentUrl={appointmentUrl}
-        appointmentOverlayLink={appointmentUrl || website}
+        appointmentOverlayLink={appointmentOverlayUrl}
       />
       {content.length > 0 && (
         <>

@@ -19,7 +19,7 @@ type ChatControllerProps = {
 }
 
 const LOCAL_STORAGE_ITEM_CHAT_MESSAGES = 'Chat-Device-Id'
-const POLLING_INTERVAL = 16000
+const POLLING_INTERVAL = 8000
 
 const ChatController = ({ city, language }: ChatControllerProps): ReactElement => {
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
@@ -28,7 +28,7 @@ const ChatController = ({ city, language }: ChatControllerProps): ReactElement =
     initialValue: window.crypto.randomUUID(),
   })
   const {
-    data: chatMessages,
+    data: chatMessagesReturn,
     refresh: refreshMessages,
     error,
     loading,
@@ -37,12 +37,13 @@ const ChatController = ({ city, language }: ChatControllerProps): ReactElement =
   const isBrowserTabActive = useIsTabActive()
 
   useEffect(() => {
-    if (isBrowserTabActive) {
-      const pollMessageInterval = setInterval(refreshMessages, POLLING_INTERVAL)
-      return () => clearInterval(pollMessageInterval)
+    const messageCount = chatMessagesReturn?.messages.length ?? 0
+    if (!isBrowserTabActive || messageCount === 0) {
+      return undefined
     }
-    return undefined
-  }, [refreshMessages, isBrowserTabActive])
+    const interval = setInterval(refreshMessages, POLLING_INTERVAL)
+    return () => clearInterval(interval)
+  }, [refreshMessages, isBrowserTabActive, chatMessagesReturn?.messages.length])
 
   const submitMessage = async (message: string) => {
     setSendingStatus('sending')
@@ -54,7 +55,7 @@ const ChatController = ({ city, language }: ChatControllerProps): ReactElement =
     })
 
     if (data !== null) {
-      setData(messages => [...(messages ?? []), data])
+      setData(data)
       setSendingStatus('successful')
     }
 
@@ -65,11 +66,12 @@ const ChatController = ({ city, language }: ChatControllerProps): ReactElement =
 
   return (
     <Chat
-      messages={chatMessages ?? []}
+      messages={chatMessagesReturn?.messages ?? []}
       submitMessage={submitMessage}
       // If no message has been sent yet, fetching the messages yields a 404 not found error
       hasError={error !== null && !(error instanceof NotFoundError)}
-      isLoading={chatMessages === null && (loading || sendingStatus === 'sending')}
+      isLoading={chatMessagesReturn === null && (loading || sendingStatus === 'sending')}
+      isTyping={chatMessagesReturn?.typing ?? false}
     />
   )
 }

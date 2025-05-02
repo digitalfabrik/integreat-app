@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { parseHTML, pathnameFromRouteInformation, SEARCH_ROUTE, useSearch } from 'shared'
+import { parseHTML, pathnameFromRouteInformation, SEARCH_ROUTE, useSearch, SEARCH_QUERY_KEY } from 'shared'
 import { config } from 'translations'
 
 import { CityRouteProps } from '../CityContentSwitcher'
@@ -17,6 +17,7 @@ import SearchListItem from '../components/SearchListItem'
 import { helpers } from '../constants/theme'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useLoadSearchDocuments from '../hooks/useLoadSearchDocuments'
+import useReportError from '../hooks/useReportError'
 
 const List = styled.ul`
   list-style-type: none;
@@ -32,7 +33,7 @@ const SearchCounter = styled.p`
 `
 
 const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps): ReactElement | null => {
-  const query = new URLSearchParams(useLocation().search).get('query') ?? ''
+  const query = new URLSearchParams(useLocation().search).get(SEARCH_QUERY_KEY) ?? ''
   const [filterText, setFilterText] = useState<string>(query)
   const { t } = useTranslation('search')
   const navigate = useNavigate()
@@ -50,17 +51,19 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
     cmsApiBaseUrl,
   })
 
-  const contentLanguageResults = useSearch(contentLanguageDocuments, query)
+  const contentLanguageReturn = useSearch(contentLanguageDocuments, query)
   const fallbackLanguageDocuments = languageCode !== fallbackLanguage ? fallbackData : []
-  const fallbackLanguageResults = useSearch(fallbackLanguageDocuments, query)
-  const results = contentLanguageResults.concat(fallbackLanguageResults)
+  const fallbackLanguageReturn = useSearch(fallbackLanguageDocuments, query)
+  const results = contentLanguageReturn.data.concat(fallbackLanguageReturn.data)
+
+  useReportError(contentLanguageReturn.error ?? fallbackLanguageReturn.error)
 
   if (!city) {
     return null
   }
 
   const languageChangePaths = city.languages.map(({ code, name }) => ({
-    path: pathnameFromRouteInformation({ route: SEARCH_ROUTE, cityCode, languageCode: code }),
+    path: `${pathnameFromRouteInformation({ route: SEARCH_ROUTE, cityCode, languageCode: code })}/?${SEARCH_QUERY_KEY}=${query}`,
     name,
     code,
   }))
@@ -82,7 +85,7 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
 
   const handleFilterTextChanged = (filterText: string): void => {
     setFilterText(filterText)
-    const appendToUrl = filterText.length !== 0 ? `?query=${filterText}` : ''
+    const appendToUrl = filterText.length !== 0 ? `?${SEARCH_QUERY_KEY}=${filterText}` : ''
     navigate(`${pathname}/${appendToUrl}`, { replace: true })
   }
 

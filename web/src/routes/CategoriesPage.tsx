@@ -26,6 +26,7 @@ import LoadingSpinner from '../components/LoadingSpinner'
 import buildConfig from '../constants/buildConfig'
 import { cmsApiBaseUrl } from '../constants/urls'
 import usePreviousProp from '../hooks/usePreviousProp'
+import useTtsPlayer from '../hooks/useTtsPlayer'
 import BreadcrumbModel from '../models/BreadcrumbModel'
 
 const CATEGORY_NOT_FOUND_STATUS_CODE = 400
@@ -59,6 +60,9 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
     depth: categoryId ? 2 : 1,
     cityContentPath: pathname,
   })
+
+  const currentCategory = categories?.find(it => it.path === pathname)
+  useTtsPlayer(currentCategory, languageCode)
 
   const requestParents = useCallback(async () => {
     if (!categoryId) {

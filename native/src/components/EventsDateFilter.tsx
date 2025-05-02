@@ -65,6 +65,9 @@ const EventsDateFilter = ({
   const { t } = useTranslation('events')
   const currentInput = useRef<string>('from')
 
+  const today = DateTime.now()
+  const inAWeek = DateTime.now().plus({ week: 1 })
+
   const setModalOpenAndCurrentInputFrom = (openModal: boolean) => {
     currentInput.current = 'from'
     setModalOpen(openModal)
@@ -98,6 +101,7 @@ const EventsDateFilter = ({
               title={t('from')}
               error={startDateError ? t(startDateError) : ''}
               date={startDate}
+              placeholderDate={today}
             />
             <DatePicker
               modalOpen={modalOpen}
@@ -105,6 +109,7 @@ const EventsDateFilter = ({
               setDate={setEndDate}
               title={t('to')}
               date={endDate}
+              placeholderDate={inAWeek}
             />
           </>
         </DateSection>

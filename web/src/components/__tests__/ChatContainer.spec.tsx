@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react'
 
 import { mockUseLoadFromEndpointWithData } from 'shared/api/endpoints/testing/mockUseLoadFromEndpoint'
 
-import { renderWithRouterAndTheme, renderWithTheme } from '../../testing/render'
+import { renderRoute } from '../../testing/render'
 import ChatContainer from '../ChatContainer'
 
 jest.mock('react-i18next')
@@ -15,11 +15,13 @@ jest.mock('shared/api', () => ({
 }))
 
 describe('ChatContainer', () => {
-  mockUseLoadFromEndpointWithData([])
+  mockUseLoadFromEndpointWithData({ messages: [] })
+  const pathname = '/testumgebung/de'
+  const routePattern = '/:cityCode/:languageCode'
 
   it('should open chat modal and show content on chat button click', () => {
-    const { getByTestId, getByText } = renderWithRouterAndTheme(<ChatContainer city='augsburg' language='de' />)
-    const chatButtonContainer = getByTestId('chat-button-container')
+    const { getByText } = renderRoute(<ChatContainer city='augsburg' language='de' />, { pathname, routePattern })
+    const chatButtonContainer = getByText('chat:chat')
     expect(chatButtonContainer).toBeTruthy()
     fireEvent.click(chatButtonContainer)
     expect(getByText('chat:header')).toBeTruthy()
@@ -27,40 +29,28 @@ describe('ChatContainer', () => {
     expect(getByText('chat:conversationText')).toBeTruthy()
   })
 
-  it('should show minimized toolbar on minimize button click', () => {
-    const { getByTestId, getByLabelText } = renderWithTheme(<ChatContainer city='augsburg' language='de' />)
-    const chatButtonContainer = getByTestId('chat-button-container')
-    expect(chatButtonContainer).toBeTruthy()
-    fireEvent.click(chatButtonContainer)
-    const minimizeButton = getByLabelText('minimize')
-    fireEvent.click(minimizeButton)
-    expect(getByTestId('chat-minimized-toolbar')).toBeTruthy()
-  })
-
   it('should close chat if close button was clicked', () => {
-    const { getByTestId, queryByTestId, getByLabelText, queryByText } = renderWithTheme(
-      <ChatContainer city='augsburg' language='de' />,
-    )
-    const chatButtonContainer = getByTestId('chat-button-container')
+    const { getAllByLabelText, queryByText, getByText } = renderRoute(<ChatContainer city='augsburg' language='de' />, {
+      pathname,
+      routePattern,
+    })
+    const chatButtonContainer = getByText('chat:chat')
     expect(chatButtonContainer).toBeTruthy()
     fireEvent.click(chatButtonContainer)
-    const closeButton = getByLabelText('close')
+    const closeButton = getAllByLabelText('common:minimize')[0]!
     fireEvent.click(closeButton)
-    expect(queryByTestId('chat-minimized-toolbar')).toBeFalsy()
     expect(queryByText('chat:header')).toBeFalsy()
     expect(queryByText('chat:conversationTitle')).toBeFalsy()
     expect(queryByText('chat:conversationText')).toBeFalsy()
   })
 
-  it('should maximize chat on maximize button click if chat was minimized', () => {
-    const { getByTestId, getByText, getByLabelText } = renderWithTheme(<ChatContainer city='augsburg' language='de' />)
-    const chatButtonContainer = getByTestId('chat-button-container')
-    expect(chatButtonContainer).toBeTruthy()
-    fireEvent.click(chatButtonContainer)
-    const minimizeButton = getByLabelText('minimize')
-    fireEvent.click(minimizeButton)
-    const maximizeButton = getByLabelText('maximize')
-    fireEvent.click(maximizeButton)
+  it('should open chat if query param is set', () => {
+    const { getByText, queryByText } = renderRoute(<ChatContainer city='augsburg' language='de' />, {
+      pathname,
+      routePattern,
+      searchParams: '?chat=true',
+    })
+    expect(queryByText('chat:chat')).toBeFalsy()
     expect(getByText('chat:header')).toBeTruthy()
     expect(getByText('chat:conversationTitle')).toBeTruthy()
     expect(getByText('chat:conversationText')).toBeTruthy()

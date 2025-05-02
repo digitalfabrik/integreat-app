@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode } from 'react'
+import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
 
 import { CityModel } from 'shared/api'
 import { POIS_ROUTE } from 'shared/routes'
@@ -12,7 +12,7 @@ import CityContentHeader from './CityContentHeader'
 import Layout from './Layout'
 
 export type CityContentLayoutProps = {
-  Toolbar?: ReactNode
+  Toolbar?: ReactElement | null
   children?: ReactNode
   route: RouteType
   languageChangePaths: { code: string; path: string | null; name: string }[] | null
@@ -24,25 +24,29 @@ export type CityContentLayoutProps = {
   showFooter?: boolean
 }
 
-const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
+const CityContentLayout = ({
+  children,
+  city,
+  languageCode,
+  languageChangePaths,
+  isLoading,
+  route,
+  Toolbar,
+  fullWidth = false,
+  disableScrollingSafari = false,
+  showFooter = true,
+}: CityContentLayoutProps): ReactElement => {
+  const [layoutReady, setLayoutReady] = useState(!isLoading)
   const { viewportSmall } = useWindowDimensions()
-
-  const {
-    children,
-    languageCode,
-    languageChangePaths,
-    isLoading,
-    route,
-    Toolbar,
-    fullWidth = false,
-    disableScrollingSafari = false,
-    showFooter = true,
-    city,
-  } = props
-
   const isChatEnabled = buildConfig().featureFlags.chat && route !== POIS_ROUTE && city.chatEnabled
-  // to avoid jumping issues for desktop, isLoading is only checked on mobile viewport
-  const isLoadingMobile = isLoading && viewportSmall
+
+  const Footer = viewportSmall ? Toolbar : showFooter && <CityContentFooter city={city.code} language={languageCode} />
+
+  // Avoid flickering due to content (chat) being pushed up by the footer
+  useEffect(() => {
+    setLayoutReady(!isLoading)
+  }, [isLoading])
+
   return (
     <Layout
       disableScrollingSafari={disableScrollingSafari}
@@ -55,13 +59,9 @@ const CityContentLayout = (props: CityContentLayoutProps): ReactElement => {
           route={route}
         />
       }
-      footer={
-        !isLoading && showFooter && !viewportSmall ? (
-          <CityContentFooter city={city.code} language={languageCode} />
-        ) : null
-      }
-      chat={isChatEnabled ? <ChatContainer city={city.code} language={languageCode} /> : undefined}
-      toolbar={!isLoadingMobile && Toolbar}>
+      footer={!isLoading && Footer}
+      chat={isChatEnabled && layoutReady ? <ChatContainer city={city.code} language={languageCode} /> : undefined}
+      toolbar={viewportSmall ? null : Toolbar}>
       {children}
     </Layout>
   )
