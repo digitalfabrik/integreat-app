@@ -18,7 +18,7 @@ const Thumbnail = styled(SimpleImage)`
   height: 180px;
   width: 100%;
   border-radius: 8px;
-  margin: 12px 0 12px 0;
+  margin: 12px 0;
 `
 
 const PoiDetailsContainer = styled.View`
