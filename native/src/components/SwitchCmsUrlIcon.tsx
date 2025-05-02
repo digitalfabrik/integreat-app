@@ -78,7 +78,12 @@ const SwitchCmsUrlIcon = ({ clearResourcesAndCache }: LandingIconProps): ReactEl
 
   return (
     <Container>
-      <StyledPressable onPress={onImagePress} role='button'>
+      <StyledPressable
+        onPress={onImagePress}
+        role='button'
+        focusable={false}
+        importantForAccessibility='no'
+        accessible={false}>
         <StyledIcon Icon={LocationMarkerIcon} />
       </StyledPressable>
       {apiUrlOverride && apiUrlOverride !== buildConfig().cmsUrl ? (
