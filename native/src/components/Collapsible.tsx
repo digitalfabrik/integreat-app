@@ -24,7 +24,7 @@ const CollapseHeaderWrapper = styled.View<{ language: string; $isParent?: boolea
   width: 100%;
   align-self: center;
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
-  padding: ${props => (props.$isParent ? '20px 0' : 0)};
+  padding-bottom: ${props => (props.$isParent ? '20px' : '5px')};
 `
 
 const StyledIcon = styled(Icon)<{ collapsed: boolean }>`

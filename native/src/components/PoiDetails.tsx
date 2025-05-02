@@ -62,9 +62,9 @@ const PoiDetails = ({ poi, language, distance }: PoiDetailsProps): ReactElement 
       )}
       <StyledCategory>{category.name}</StyledCategory>
       <Thumbnail source={thumbnail} resizeMode='cover' />
+      <AddressInfo location={poi.location} language={language} />
+      <HorizontalLine />
       <Collapsible isParent headerContent={t('contacts')} language={language}>
-        <AddressInfo location={poi.location} language={language} />
-        <HorizontalLine />
         {contacts.map(contact => (
           <Contact
             key={contact.headline ?? contact.website ?? contact.name ?? contact.phoneNumber}

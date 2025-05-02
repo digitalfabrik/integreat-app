@@ -40,5 +40,5 @@ export const commonFonts = {
   subTitleFontSize: '1.125rem',
   hintFontSize: '0.85rem',
   adaptiveFontSizeSmall: { min: '0.55rem', value: '1.6vh', max: '0.85rem' },
-  adaptiveMediumFontSize: { min: '0.63rem', value: '1.82vh', max: '0.97rem' },
+  adaptiveMediumFontSize: { min: '0.65rem', value: '1.85vh', max: '1rem' },
 }

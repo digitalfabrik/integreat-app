@@ -142,32 +142,32 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
         <Category>{category.name}</Category>
       </HeadingSection>
       <Spacer $borderColor={theme.colors.borderColor} />
+      {!viewportSmall && <Subheading>{t('detailsAddress')}</Subheading>}
+      <DetailSection>
+        <AddressContentWrapper>
+          {!viewportSmall && <StyledIcon src={LocationIcon} />}
+          <AddressContent>
+            <span>{location.address}</span>
+            <span>
+              {location.postcode} {location.town}
+            </span>
+          </AddressContent>
+        </AddressContentWrapper>
+        <StyledLink to={externalMapsLink}>
+          {!viewportSmall && <LinkLabel>{t('detailsMapLink')}</LinkLabel>}
+          <StyledExternalLinkIcon src={ExternalLinkIcon} directionDependent />
+        </StyledLink>
+      </DetailSection>
+      <Spacer $borderColor={theme.colors.borderColor} />
       <Collapsible isParent title={t('contacts')}>
         <>
-          {!viewportSmall && <Subheading>{t('detailsAddress')}</Subheading>}
-          <DetailSection>
-            <AddressContentWrapper>
-              {!viewportSmall && <StyledIcon src={LocationIcon} />}
-              <AddressContent>
-                <span>{location.address}</span>
-                <span>
-                  {location.postcode} {location.town}
-                </span>
-              </AddressContent>
-            </AddressContentWrapper>
-            <StyledLink to={externalMapsLink}>
-              {!viewportSmall && <LinkLabel>{t('detailsMapLink')}</LinkLabel>}
-              <StyledExternalLinkIcon src={ExternalLinkIcon} directionDependent />
-            </StyledLink>
-          </DetailSection>
           {contacts.map(contact => (
             <Fragment key={contact.headline ?? contact.website ?? contact.name ?? contact.phoneNumber}>
-              <Spacer $borderColor={theme.colors.borderColor} />
               <Contact contact={contact} />
             </Fragment>
           ))}
           <>
-            {((openingHours && openingHours.length > 0) || temporarilyClosed) && (
+            {((openingHours && openingHours.length > 0) || temporarilyClosed) && contacts.length > 0 && (
               <Spacer $borderColor={theme.colors.borderColor} />
             )}
             <OpeningHours
