@@ -31,11 +31,13 @@ const StyledPressable = styled(Pressable)<{ language: string }>`
   border-bottom-color: ${props => props.theme.colors.textDisabledColor};
   flex-direction: ${props => contentDirection(props.language)};
   padding: 16px 0;
+  background-color: ${props => props.theme.colors.backgroundColor};
 `
 
 const Description = styled.View`
   flex: 1;
   flex-direction: column;
+  color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   padding: 0 32px;
   justify-content: center;

@@ -4,8 +4,13 @@ import styled from 'styled-components/native'
 
 import { findAllMatches, findNormalizedMatches, normalizeString } from 'shared'
 
+const StyledText = styled(Text)`
+  color: ${props => props.theme.colors.textColor};
+`
+
 const HighlightedText = styled(Text)`
   font-weight: bold;
+  color: ${props => props.theme.isContrastTheme && props.theme.colors.themeColor};
 `
 
 type HighlighterProps = {
@@ -24,12 +29,12 @@ const Highlighter = ({ search, text, style }: HighlighterProps): ReactElement =>
   })
 
   return (
-    <Text style={style}>
+    <StyledText style={style}>
       {chunks.map(chunk => {
         const matchedText = text.substring(chunk.start, chunk.end)
         return chunk.highlight ? <HighlightedText key={chunk.start}>{matchedText}</HighlightedText> : matchedText
       })}
-    </Text>
+    </StyledText>
   )
 }
 

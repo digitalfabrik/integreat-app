@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 import React, { forwardRef, ReactElement, RefObject } from 'react'
 import { NativeSyntheticEvent, StyleProp, TextInput, TextInputKeyPressEventData, ViewStyle } from 'react-native'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
 import { zeroPad } from 'shared/utils/dateFilterUtils'
 
@@ -75,23 +75,27 @@ type DatePickerInputProps = {
 }
 
 const DatePickerInput = forwardRef<TextInput, DatePickerInputProps>(
-  ({ nextTargetRef, prevTargetRef, placeholder, type, inputValue, setInputValue, style }, ref): ReactElement => (
-    <Input
-      style={style}
-      ref={ref}
-      placeholder={placeholder}
-      keyboardType='numeric'
-      maxLength={type === 'year' ? yearLength : 2}
-      onBlur={() => validate(inputValue, setInputValue, type)}
-      onChangeText={text => {
-        handleInputChangeAndFocusNext(text, setInputValue, nextTargetRef)
-      }}
-      selectTextOnFocus
-      value={inputValue}
-      onKeyPress={({ nativeEvent }: NativeSyntheticEvent<TextInputKeyPressEventData>) => {
-        handleKeyPress(nativeEvent.key, inputValue, prevTargetRef)
-      }}
-    />
-  ),
+  ({ nextTargetRef, prevTargetRef, placeholder, type, inputValue, setInputValue, style }, ref): ReactElement => {
+    const theme = useTheme()
+    return (
+      <Input
+        style={style}
+        ref={ref}
+        placeholder={placeholder}
+        placeholderTextColor={theme.isContrastTheme ? theme.colors.textColor : theme.colors.textSecondaryColor}
+        keyboardType='numeric'
+        maxLength={type === 'year' ? yearLength : 2}
+        onBlur={() => validate(inputValue, setInputValue, type)}
+        onChangeText={text => {
+          handleInputChangeAndFocusNext(text, setInputValue, nextTargetRef)
+        }}
+        selectTextOnFocus
+        value={inputValue}
+        onKeyPress={({ nativeEvent }: NativeSyntheticEvent<TextInputKeyPressEventData>) => {
+          handleKeyPress(nativeEvent.key, inputValue, prevTargetRef)
+        }}
+      />
+    )
+  },
 )
 export default DatePickerInput

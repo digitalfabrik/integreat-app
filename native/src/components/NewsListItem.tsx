@@ -28,7 +28,10 @@ const ReadMoreWrapper = styled.View<{ language: string }>`
 `
 const StyledIcon = styled(Icon)<{ isTunews: boolean }>`
   margin: 6px 4px 0;
-  color: ${props => (props.isTunews ? props.theme.colors.tunewsThemeColor : props.theme.colors.themeColor)};
+  color: ${props =>
+    props.isTunews && !props.theme.isContrastTheme
+      ? props.theme.colors.tunewsThemeColor
+      : props.theme.colors.themeColor};
   width: 14px;
   height: 14px;
 `
@@ -76,7 +79,10 @@ export const ReadMore = styled(Text)<{ isTunews: boolean }>`
   font-size: 12px;
   letter-spacing: 0.5px;
   margin-top: 5px;
-  color: ${props => (props.isTunews ? props.theme.colors.tunewsThemeColor : props.theme.colors.themeColor)};
+  color: ${props =>
+    props.isTunews && !props.theme.isContrastTheme
+      ? props.theme.colors.tunewsThemeColor
+      : props.theme.colors.themeColor};
 `
 
 const NewsListItem = ({ index, newsItem, navigateToNews, isTunews }: NewsListItemProps): ReactElement => {

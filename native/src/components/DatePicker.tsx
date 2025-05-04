@@ -33,6 +33,10 @@ const Wrapper = styled.View`
   width: 50%;
 `
 
+const StyledDatePickerInput = styled(DatePickerInput)`
+  color: ${props => props.theme.colors.textColor};
+`
+
 const StyledIconButton = styled(IconButton)<{ $isModalOpen: boolean }>`
   width: 40px;
   height: 40px;
@@ -46,6 +50,7 @@ const StyledTitle = styled.Text`
   top: -12px;
   left: 12px;
   padding: 2px 5px;
+  color: ${props => props.theme.colors.textColor};
   font-size: 12px;
   z-index: 1;
 `
@@ -54,6 +59,10 @@ const StyledError = styled.Text`
   font-size: 12px;
   font-weight: bold;
   color: ${props => props.theme.colors.invalidInput};
+`
+
+const StyledCalendarIcon = styled(Icon)`
+  color: ${props => (props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.textColor)};
 `
 
 export type DatePickerProps = {
@@ -117,7 +126,7 @@ const DatePicker = ({
       <StyledTitle>{title}</StyledTitle>
       <StyledInputWrapper>
         <Wrapper>
-          <DatePickerInput
+          <StyledDatePickerInput
             ref={dayRef}
             placeholder={placeholderDay}
             nextTargetRef={monthRef}
@@ -126,7 +135,7 @@ const DatePicker = ({
             type='day'
           />
           <Text>.</Text>
-          <DatePickerInput
+          <StyledDatePickerInput
             ref={monthRef}
             placeholder={placeholderMonth}
             nextTargetRef={yearRef}
@@ -136,7 +145,7 @@ const DatePicker = ({
             type='month'
           />
           <Text>.</Text>
-          <DatePickerInput
+          <StyledDatePickerInput
             style={{ marginLeft: 6 }}
             ref={yearRef}
             prevTargetRef={monthRef}
@@ -148,7 +157,7 @@ const DatePicker = ({
         </Wrapper>
         <StyledIconButton
           $isModalOpen={modalOpen}
-          icon={<Icon Icon={CalendarTodayIcon} />}
+          icon={<StyledCalendarIcon Icon={CalendarTodayIcon} />}
           accessibilityLabel={calendarLabel}
           onPress={() => setModalOpen(true)}
         />

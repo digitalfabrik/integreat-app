@@ -12,6 +12,10 @@ import Text from './base/Text'
 
 const Identifier = styled(Text)`
   font-weight: bold;
+  color: ${props => props.theme.colors.textColor};
+`
+const StyledText = styled(Text)`
+  color: ${props => props.theme.colors.textColor};
 `
 
 type DatesPageDetailProps = {
@@ -30,7 +34,7 @@ const DatesPageDetail = ({ date, languageCode }: DatesPageDetailProps): ReactEle
   }
 
   const Title = <Identifier>{t(hasMoreDates ? 'nextDate_other' : 'date_other')}: </Identifier>
-  const Dates = dates.map(it => <Text key={it}>{it}</Text>)
+  const Dates = dates.map(it => <StyledText key={it}>{it}</StyledText>)
   const AlwaysShownDates = <>{Dates.slice(0, MAX_DATE_RECURRENCES_COLLAPSED)}</>
 
   if (dates.length <= MAX_DATE_RECURRENCES_COLLAPSED) {

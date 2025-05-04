@@ -16,6 +16,7 @@ const Container = styled(Pressable)`
 const StyledText = styled(Text)`
   align-self: center;
   padding: 0 8px;
+  color: ${props => props.theme.colors.textColor};
 `
 
 type PoiDetailRowProps = {

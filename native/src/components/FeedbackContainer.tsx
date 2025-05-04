@@ -28,6 +28,7 @@ const Title = styled(Text)`
 const Hint = styled(Title)`
   margin-top: 8px;
   text-align: center;
+  color: ${props => props.theme.colors.textColor};
 `
 
 export type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
