@@ -189,6 +189,12 @@ const Header = ({
     renderItem(HeaderButtonTitle.Language, 'language', showItems, goToLanguageChange),
   ]
 
+  // Take up space during loading without rn-header-buttons complaining about animating an immutable object
+  const invisibleItems = [
+    renderItem(HeaderButtonTitle.Search, 'search', false, undefined),
+    renderItem(HeaderButtonTitle.Language, 'language', false, undefined),
+  ]
+
   const overflowItems = showOverflowItems
     ? [
         ...(shareUrl ? [renderOverflowItem(HeaderButtonTitle.Share, onShare)] : []),
@@ -243,7 +249,11 @@ const Header = ({
           text={getHeaderText().text}
           language={getHeaderText().language}
         />
-        <CustomHeaderButtons cancelLabel={t('cancel')} items={items} overflowItems={overflowItems} />
+        <CustomHeaderButtons
+          cancelLabel={t('cancel')}
+          items={showItems ? items : invisibleItems}
+          overflowItems={overflowItems}
+        />
       </Horizontal>
     </BoxShadow>
   )
