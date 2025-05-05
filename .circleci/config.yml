@@ -37,7 +37,7 @@ commands:
                 default: integreat-app-notifications
                 type: string
             failure_mentions:
-                default: '@steffen.kleinle @bahaaTuffaha @andreas.fischer @leandra.hahn @lunars97'
+                default: '@steffen.kleinle @bahaa.tuffaha @andreas.fischer @leandra.hahn @aizhan.alekbarova'
                 type: string
             only_for_branch:
                 default: main
@@ -589,6 +589,7 @@ jobs:
                     - production
                     - beta
                     - webnext
+                    - future
                 type: enum
         resource_class: small
         shell: /bin/bash -eo pipefail
@@ -656,6 +657,15 @@ jobs:
                     - run:
                         command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/obdach/ web@web.integreat-app.de:/var/www/webnext.netzwerkobdachwohnen.de
                         name: Obdach webnext delivery
+            - when:
+                condition:
+                    equal:
+                        - future
+                        - << parameters.delivery >>
+                steps:
+                    - run:
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/integreat-test-cms/ web@web.integreat-app.de:/var/www/future.integreat.app
+                        name: Integreat future delivery
             - notify
     e2e_android:
         docker:
@@ -1020,6 +1030,30 @@ workflows:
                     - main
                     - << pipeline.git.branch >>
                 - << pipeline.parameters.api_triggered >>
+    commit_design_system:
+        jobs:
+            - bump_version:
+                context:
+                    - mattermost
+                prepare_delivery: false
+            - build_web:
+                build_config_name: integreat-test-cms
+                context:
+                    - mattermost
+                requires:
+                    - bump_version
+            - deliver_web:
+                context:
+                    - mattermost
+                delivery: future
+                requires:
+                    - build_web
+        when:
+            and:
+                - equal:
+                    - 3231-design-system-web
+                    - << pipeline.git.branch >>
+                - not: << pipeline.parameters.api_triggered >>
     commit_main:
         jobs:
             - bump_version:

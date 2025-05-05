@@ -4,8 +4,6 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 import dimensions from '../constants/dimensions'
-import useWindowDimensions from '../hooks/useWindowDimensions'
-import { ChatVisibilityStatus } from './ChatContainer'
 import ChatModalContent from './ChatContentWrapper'
 import { LAYOUT_ELEMENT_ID } from './Layout'
 import Button from './base/Button'
@@ -50,12 +48,9 @@ type ChatModalProps = {
   title: string
   children: ReactNode
   closeModal: () => void
-  visibilityStatus: ChatVisibilityStatus
-  resizeModal: () => void
 }
 
-const ChatModal = ({ title, closeModal, children, visibilityStatus, resizeModal }: ChatModalProps): ReactElement => {
-  const { viewportSmall } = useWindowDimensions()
+const ChatModal = ({ title, closeModal, children }: ChatModalProps): ReactElement => {
   const { t } = useTranslation('common')
 
   useEffect(() => {
@@ -68,16 +63,11 @@ const ChatModal = ({ title, closeModal, children, visibilityStatus, resizeModal 
   return (
     <FocusTrap focusTrapOptions={{ clickOutsideDeactivates: true, tabbableOptions: { displayCheck: 'legacy-full' } }}>
       <ModalContainer role='dialog' aria-hidden={false} aria-modal>
-        <Overlay onClick={resizeModal} tabIndex={0} label={t('close')}>
+        <Overlay onClick={closeModal} tabIndex={0} label={t('minimize')}>
           <div />
         </Overlay>
         <ModalContentContainer>
-          <ChatModalContent
-            title={title}
-            onClose={closeModal}
-            small={viewportSmall}
-            onResize={resizeModal}
-            visibilityStatus={visibilityStatus}>
+          <ChatModalContent title={title} onClose={closeModal}>
             {children}
           </ChatModalContent>
         </ModalContentContainer>
