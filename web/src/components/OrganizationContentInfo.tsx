@@ -60,6 +60,7 @@ const OrganizationContentInfo = ({ organization }: OrganizationContentInfoProps)
               {{ domain: new URL(organization.url).hostname }}
             </a>
             by i18n
+            
           </Trans>
         </span>
       </Column>

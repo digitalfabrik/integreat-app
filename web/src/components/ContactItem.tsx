@@ -1,7 +1,9 @@
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
+import { ExternalLinkIcon } from '../assets'
 import { helpers } from '../constants/theme'
+import isExternalLink from './Contact'
 import Link from './base/Link'
 
 const Marker = styled.img`
@@ -20,17 +22,29 @@ const StyledLink = styled(Link)`
   ${helpers.adaptiveFontSize};
 `
 
+
+const StyledExternalLinkIcon = styled.img`
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  object-fit: contain;
+  margin-left: 8px; // Добавляем отступ между текстом и иконкой
+`
+
 type ContactItemProps = {
   iconSrc: string
   iconAlt: string
   link: string
   content: string
+  isExternalLink?: boolean 
 }
 
-const ContactItem = ({ iconSrc, iconAlt, link, content }: ContactItemProps): ReactElement => (
+const ContactItem = ({ iconSrc, iconAlt, link, content, isExternalLink }: ContactItemProps): ReactElement => (
   <StyledLink to={link}>
     <Marker src={iconSrc} alt={iconAlt} />
     {content}
+
+    {isExternalLink && <StyledExternalLinkIcon alt='' src={ExternalLinkIcon} />}
   </StyledLink>
 )
 
