@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactElement, ReactNode } from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 import styled, { css } from 'styled-components'
 
 import dimensions from '../constants/dimensions'
