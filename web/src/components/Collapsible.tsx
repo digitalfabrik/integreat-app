@@ -10,21 +10,19 @@ import Icon from './base/Icon'
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 8px;
 `
 
-const CollapsibleHeader = styled(Button)<{ $isParent?: boolean }>`
+const CollapsibleHeader = styled(Button)`
   display: flex;
   justify-content: space-between;
-  padding: ${props => (props.$isParent ? '12px 0' : 0)};
 `
 
-const Title = styled.div<{ $isParent?: boolean }>`
+const Title = styled.div`
   display: flex;
   flex: 1;
   font-weight: 700;
   justify-content: space-between;
-  ${props => (props.$isParent ? helpers.adaptiveMediumFontSize : helpers.adaptiveFontSize)}
+  ${helpers.adaptiveFontSize}
 `
 
 const CollapseIcon = styled(Icon)<{ $collapsed: boolean }>`
@@ -39,7 +37,6 @@ type CollapsibleProps = {
   Description?: ReactElement
   initialCollapsed?: boolean
   className?: string
-  isParent?: boolean
 }
 
 const Collapsible = ({
@@ -47,7 +44,6 @@ const Collapsible = ({
   title,
   Description,
   initialCollapsed = false,
-  isParent = false,
   className,
 }: CollapsibleProps): ReactElement => {
   const [collapsed, setCollapsed] = useState<boolean>(initialCollapsed)
@@ -56,12 +52,11 @@ const Collapsible = ({
   return (
     <Container className={className}>
       <CollapsibleHeader
-        $isParent={isParent}
         label={t(collapsed ? 'showMore' : 'showLess')}
         onClick={() => setCollapsed(!collapsed)}
         aria-expanded={!collapsed}
         tabIndex={0}>
-        {typeof title === 'string' ? <Title $isParent={isParent}>{title}</Title> : title}
+        {typeof title === 'string' ? <Title>{title}</Title> : title}
         <CollapseIcon
           src={ArrowBackIcon}
           $collapsed={collapsed}

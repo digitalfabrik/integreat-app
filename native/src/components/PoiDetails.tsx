@@ -18,7 +18,7 @@ const Thumbnail = styled(SimpleImage)`
   height: 180px;
   width: 100%;
   border-radius: 8px;
-  margin: 12px 0;
+  margin-top: 12px;
 `
 
 const PoiDetailsContainer = styled.View`
@@ -39,6 +39,10 @@ const StyledCategory = styled.Text`
   font-size: 12px;
   margin-top: 8px;
   color: ${props => props.theme.colors.textSecondaryColor};
+`
+
+const StyledContactsContainer = styled.View`
+  margin-top: 12px;
 `
 
 type PoiDetailsProps = {
@@ -62,33 +66,42 @@ const PoiDetails = ({ poi, language, distance }: PoiDetailsProps): ReactElement 
       )}
       <StyledCategory>{category.name}</StyledCategory>
       <Thumbnail source={thumbnail} resizeMode='cover' />
+      <HorizontalLine />
       <AddressInfo location={poi.location} language={language} />
       <HorizontalLine />
-      <Collapsible isParent headerContent={t('contacts')} language={language}>
-        {contacts.map(contact => (
-          <Contact
-            key={contact.headline ?? contact.website ?? contact.name ?? contact.phoneNumber}
-            contact={contact}
-            language={language}
-          />
-        ))}
-        <OpeningHours
-          language={language}
-          openingHours={openingHours}
-          isCurrentlyOpen={isCurrentlyOpen}
-          isTemporarilyClosed={temporarilyClosed}
-          appointmentUrl={appointmentUrl}
-          appointmentOverlayLink={appointmentOverlayUrl}
-        />
-        {content.length > 0 && (
-          <>
-            <Collapsible headerContent={t('description')} language={language}>
-              <Page content={content} language={language} path={poi.path} padding={false} />
-            </Collapsible>
-            <HorizontalLine />
-          </>
-        )}
-      </Collapsible>
+      {contacts.length > 0 && (
+        <>
+          <Collapsible headerContent={t('contacts')} language={language}>
+            <StyledContactsContainer>
+              {contacts.map((contact, index) => (
+                <Contact
+                  key={contact.headline ?? contact.website ?? contact.name ?? contact.phoneNumber}
+                  contact={contact}
+                  isLastContact={contacts.length - 1 === index}
+                />
+              ))}
+            </StyledContactsContainer>
+          </Collapsible>
+
+          <HorizontalLine />
+        </>
+      )}
+      <OpeningHours
+        language={language}
+        openingHours={openingHours}
+        isCurrentlyOpen={isCurrentlyOpen}
+        isTemporarilyClosed={temporarilyClosed}
+        appointmentUrl={appointmentUrl}
+        appointmentOverlayLink={appointmentOverlayUrl}
+      />
+      {content.length > 0 && (
+        <>
+          <Collapsible headerContent={t('description')} language={language}>
+            <Page content={content} language={language} path={poi.path} padding={false} />
+          </Collapsible>
+          <HorizontalLine />
+        </>
+      )}
     </PoiDetailsContainer>
   )
 }

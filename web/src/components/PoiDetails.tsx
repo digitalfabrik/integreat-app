@@ -110,6 +110,10 @@ const DetailSection = styled.div`
   }
 `
 
+const StyledContactsContainer = styled.div`
+  margin-top: 12px;
+`
+
 const ToolbarWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -158,41 +162,45 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
           <StyledExternalLinkIcon src={ExternalLinkIcon} directionDependent />
         </StyledLink>
       </DetailSection>
-      <Spacer $borderColor={theme.colors.borderColor} />
-      <Collapsible isParent title={t('contacts')}>
+      {contacts.length > 0 && (
         <>
-          {contacts.map(contact => (
-            <Fragment key={contact.headline ?? contact.website ?? contact.name ?? contact.phoneNumber}>
-              <Contact contact={contact} />
-            </Fragment>
-          ))}
-          <>
-            {((openingHours && openingHours.length > 0) || temporarilyClosed) && contacts.length > 0 && (
-              <Spacer $borderColor={theme.colors.borderColor} />
-            )}
-            <OpeningHours
-              openingHours={openingHours}
-              isCurrentlyOpen={isCurrentlyOpen}
-              isTemporarilyClosed={temporarilyClosed}
-              appointmentOverlayLink={appointmentOverlayUrl}
-            />
-            {appointmentUrl !== null && (
-              <StyledLink to={appointmentUrl}>
-                <LinkLabel>{t('makeAppointment')}</LinkLabel>
-                <StyledExternalLinkIcon src={ExternalLinkIcon} directionDependent />
-              </StyledLink>
-            )}
-          </>
-          {content.length > 0 && (
-            <>
-              <Spacer $borderColor={theme.colors.borderColor} />
-              <Collapsible title={t('detailsInformation')}>
-                <RemoteContent html={content} smallText />
-              </Collapsible>
-            </>
-          )}
+          <Spacer $borderColor={theme.colors.borderColor} />
+          <Collapsible title={t('contacts')}>
+            <StyledContactsContainer>
+              {contacts.map((contact, index) => (
+                <Fragment key={contact.headline ?? contact.website ?? contact.name ?? contact.phoneNumber}>
+                  <Contact isLastContact={contacts.length - 1 === index} contact={contact} />
+                </Fragment>
+              ))}
+            </StyledContactsContainer>
+          </Collapsible>
         </>
-      </Collapsible>
+      )}
+      <>
+        {((openingHours && openingHours.length > 0) || temporarilyClosed) && (
+          <Spacer $borderColor={theme.colors.borderColor} />
+        )}
+        <OpeningHours
+          openingHours={openingHours}
+          isCurrentlyOpen={isCurrentlyOpen}
+          isTemporarilyClosed={temporarilyClosed}
+          appointmentOverlayLink={appointmentOverlayUrl}
+        />
+        {appointmentUrl !== null && (
+          <StyledLink to={appointmentUrl}>
+            <LinkLabel>{t('makeAppointment')}</LinkLabel>
+            <StyledExternalLinkIcon src={ExternalLinkIcon} directionDependent />
+          </StyledLink>
+        )}
+      </>
+      {content.length > 0 && (
+        <>
+          <Spacer $borderColor={theme.colors.borderColor} />
+          <Collapsible title={t('detailsInformation')}>
+            <RemoteContent html={content} smallText />
+          </Collapsible>
+        </>
+      )}
       {toolbar && (
         <>
           <Spacer $borderColor={theme.colors.borderColor} />
