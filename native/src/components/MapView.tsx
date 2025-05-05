@@ -177,10 +177,8 @@ const MapView = ({
   const locationPermissionIcon = userLocation ? locationPermissionGrantedIcon : LocationOffIcon
 
   return (
-    <MapContainer>
+    <MapContainer importantForAccessibility='no' accessibilityElementsHidden>
       <StyledMap
-        importantForAccessibility='no'
-        accessibilityElementsHidden
         mapStyle={mapConfig.styleJSON}
         zoomEnabled
         onPress={onPress}
