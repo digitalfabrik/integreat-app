@@ -47,6 +47,8 @@ export const ThemeContainer = ({ children, contentDirection }: ThemeContainerPro
     }
 
     const baseTheme = themeType === 'contrast' ? themeConfig.contrastTheme : themeConfig.lightTheme
+    // Set body overflow color (visible on scroll to start/end)
+    document.body.style.backgroundColor = baseTheme.colors.backgroundAccentColor
     const theme = { ...baseTheme, contentDirection, isContrastTheme: themeType === 'contrast' }
     return { theme, themeType, toggleTheme }
   }, [themeType, setThemeType, contentDirection])
