@@ -19,6 +19,11 @@ const DateContainer = styled.div`
 
 const StyledInputWrapper = styled.div`
   display: flex;
+  /* stylelint-disable-next-line selector-class-pattern */
+  .react-datepicker__month-container {
+    background-color: ${props =>
+      props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.backgroundAccentColor};
+  }
 `
 
 const StyledIconButton = styled(Button)<{ $isCalendarOpen: boolean }>`

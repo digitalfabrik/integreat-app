@@ -61,6 +61,7 @@ export type CommonBuildConfigType = {
   internalUrlPattern: string
   featureFlags: FeatureFlagsType
   lightTheme: ThemeType
+  contrastTheme: ThemeType
   // Translations deviating from the standard integreat translations.
   translationsOverride?: TranslationsType
   // Assets like icons, logos and imprints.
