@@ -1,15 +1,17 @@
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled, { useTheme } from 'styled-components'
+import styled from 'styled-components'
 
 import { weekdays } from 'shared'
 import { OpeningHoursModel } from 'shared/api'
 
+import { ExternalLinkIcon } from '../assets'
 import { helpers } from '../constants/theme'
 import Collapsible from './Collapsible'
 import OpeningEntry from './OpeningEntry'
-import Spacer from './Spacer'
+import Icon from './base/Icon'
+import Link from './base/Link'
 
 const OpeningLabel = styled.span<{ $isOpen: boolean }>`
   color: ${props => (props.$isOpen ? props.theme.colors.positiveHighlight : props.theme.colors.negativeHighlight)};
@@ -26,6 +28,7 @@ const TitleContainer = styled.div`
   flex: 1;
   justify-content: space-between;
   flex-wrap: wrap;
+  gap: 12px;
   font-weight: 700;
   ${helpers.adaptiveFontSize};
 `
@@ -36,10 +39,31 @@ const OpeningContainer = styled.div`
   gap: 8px;
 `
 
+const StyledLink = styled(Link)`
+  display: flex;
+  margin-top: 8px;
+  gap: 8px;
+`
+
+const LinkLabel = styled.span`
+  color: ${props => props.theme.colors.linkColor};
+  ${helpers.adaptiveFontSize};
+  align-self: flex-end;
+`
+
+const StyledExternalLinkIcon = styled(Icon)`
+  flex-shrink: 0;
+  object-fit: contain;
+  align-self: center;
+  width: 16px;
+  height: 16px;
+`
+
 type OpeningHoursProps = {
   isCurrentlyOpen: boolean
   openingHours: OpeningHoursModel[] | null
   isTemporarilyClosed: boolean
+  appointmentUrl: string | null
   appointmentOverlayLink: string | null
 }
 
@@ -61,10 +85,10 @@ const OpeningHours = ({
   isCurrentlyOpen,
   openingHours,
   isTemporarilyClosed,
+  appointmentUrl,
   appointmentOverlayLink,
 }: OpeningHoursProps): ReactElement | null => {
   const { t } = useTranslation('pois')
-  const theme = useTheme()
   const isOnlyWithAppointment = !openingHours && !!appointmentOverlayLink
 
   const openingHoursTitle = (
@@ -77,11 +101,19 @@ const OpeningHours = ({
       </OpeningContainer>
     </TitleContainer>
   )
+
+  const appointmentLink = appointmentUrl ? (
+    <StyledLink to={appointmentUrl}>
+      <LinkLabel>{t('makeAppointment')}</LinkLabel>
+      <StyledExternalLinkIcon src={ExternalLinkIcon} directionDependent />
+    </StyledLink>
+  ) : null
+
   if (isTemporarilyClosed || isOnlyWithAppointment) {
     return (
       <>
-        <Spacer $borderColor={theme.colors.borderColor} />
         <TitleContainer>{openingHoursTitle}</TitleContainer>
+        {appointmentLink}
       </>
     )
   }
@@ -91,23 +123,26 @@ const OpeningHours = ({
   }
 
   return (
-    <Collapsible title={openingHoursTitle} initialCollapsed={!isCurrentlyOpen}>
-      <Content>
-        {openingHours.map((entry, index) => (
-          <OpeningEntry
-            key={`${weekdays[index]}-OpeningEntry`}
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            weekday={t(weekdays[index]!.toLowerCase())}
-            allDay={entry.allDay}
-            closed={entry.closed}
-            timeSlots={entry.timeSlots}
-            isCurrentDay={index === DateTime.now().weekday - 1}
-            appointmentOnly={entry.appointmentOnly}
-            appointmentOverlayLink={appointmentOverlayLink}
-          />
-        ))}
-      </Content>
-    </Collapsible>
+    <>
+      <Collapsible title={openingHoursTitle} initialCollapsed={!isCurrentlyOpen}>
+        <Content>
+          {openingHours.map((entry, index) => (
+            <OpeningEntry
+              key={`${weekdays[index]}-OpeningEntry`}
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+              weekday={t(weekdays[index]!.toLowerCase())}
+              allDay={entry.allDay}
+              closed={entry.closed}
+              timeSlots={entry.timeSlots}
+              isCurrentDay={index === DateTime.now().weekday - 1}
+              appointmentOnly={entry.appointmentOnly}
+              appointmentOverlayLink={appointmentOverlayLink}
+            />
+          ))}
+        </Content>
+      </Collapsible>
+      {appointmentLink}
+    </>
   )
 }
 
