@@ -1,7 +1,7 @@
 parameters:
   delivery:
     description: Whether to deliver to production, beta or to webnext.
-    enum: [production, beta, webnext]
+    enum: [production, beta, webnext, future]
     type: enum
 docker:
   - image: cimg/node:20.17.0
@@ -65,4 +65,11 @@ steps:
         - run:
             name: Obdach webnext delivery
             command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/obdach/ web@web.integreat-app.de:/var/www/webnext.netzwerkobdachwohnen.de
+  - when:
+      condition:
+        equal: [future, << parameters.delivery >>]
+      steps:
+        - run:
+            name: Integreat future delivery # StrictHostKeyChecking=no is not a security problem. The worst that could happen is a delivery to the wrong domain.
+            command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/integreat-test-cms/ web@web.integreat-app.de:/var/www/future.integreat.app
   - notify

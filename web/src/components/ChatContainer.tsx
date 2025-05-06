@@ -1,13 +1,15 @@
-import React, { ReactElement, useContext, useState } from 'react'
+import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useSearchParams } from 'react-router-dom'
 import styled from 'styled-components'
+
+import { CHAT_QUERY_KEY, parseQueryParams } from 'shared'
 
 import { ChatIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import useLockedBody from '../hooks/useLockedBody'
 import useWindowDimensions from '../hooks/useWindowDimensions'
-import ChatContentWrapper from './ChatContentWrapper'
 import ChatController from './ChatController'
 import ChatModal from './ChatModal'
 import { TtsContext } from './TtsContainer'
@@ -38,17 +40,6 @@ const Circle = styled.div`
   padding: 8px;
 `
 
-const MinimizedToolbar = styled.div`
-  position: fixed;
-  z-index: 200;
-  bottom: 0;
-  inset-inline-end: 20px;
-
-  @media ${dimensions.smallViewport} {
-    display: none;
-  }
-`
-
 const StyledIcon = styled(Icon)`
   display: flex;
   width: 24px;
@@ -68,66 +59,45 @@ const ChatTitle = styled.span`
   color: ${props => props.theme.colors.textColor};
 `
 
-export enum ChatVisibilityStatus {
-  closed,
-  minimized,
-  maximized,
-}
-
 type ChatContainerProps = {
   city: string
   language: string
 }
 
 const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement => {
-  const { t } = useTranslation('chat')
-  const [chatVisibilityStatus, setChatVisibilityStatus] = useState<ChatVisibilityStatus>(ChatVisibilityStatus.closed)
+  const [queryParams, setQueryParams] = useSearchParams()
+  const initialChatVisibility = parseQueryParams(queryParams).chat ?? false
+  const [chatVisible, setChatVisible] = useState(initialChatVisibility)
   const { viewportSmall, visibleFooterHeight, width } = useWindowDimensions()
   const { visible: ttsPlayerVisible } = useContext(TtsContext)
-  const isChatMaximized = chatVisibilityStatus === ChatVisibilityStatus.maximized
-  useLockedBody(isChatMaximized)
-  const title = t('header', { appName: buildConfig().appName })
+  const { t } = useTranslation('chat')
+  useLockedBody(chatVisible)
+
   const bottom =
     ttsPlayerVisible && width <= dimensions.maxTtsPlayerWidth
       ? visibleFooterHeight + dimensions.ttsPlayerHeight + CHAT_BUTTON_SIZE
       : visibleFooterHeight
 
-  if (isChatMaximized) {
+  useEffect(() => {
+    const newQueryParams = queryParams
+    queryParams.delete(CHAT_QUERY_KEY)
+    setQueryParams(newQueryParams)
+  }, [queryParams, setQueryParams])
+
+  if (chatVisible) {
     return (
-      <ChatModal
-        data-testid='chat-modal'
-        title={title}
-        resizeModal={() => setChatVisibilityStatus(ChatVisibilityStatus.minimized)}
-        closeModal={() => setChatVisibilityStatus(ChatVisibilityStatus.closed)}
-        visibilityStatus={chatVisibilityStatus}>
+      <ChatModal title={t('header', { appName: buildConfig().appName })} closeModal={() => setChatVisible(false)}>
         <ChatController city={city} language={language} />
       </ChatModal>
     )
   }
 
-  if (chatVisibilityStatus === ChatVisibilityStatus.minimized) {
-    return (
-      <MinimizedToolbar data-testid='chat-minimized-toolbar'>
-        <ChatContentWrapper
-          title={title}
-          onResize={() => setChatVisibilityStatus(ChatVisibilityStatus.maximized)}
-          onClose={() => setChatVisibilityStatus(ChatVisibilityStatus.closed)}
-          small={false}
-          visibilityStatus={chatVisibilityStatus}
-        />
-      </MinimizedToolbar>
-    )
-  }
-
   return (
-    <ChatButtonContainer
-      $bottom={bottom}
-      data-testid='chat-button-container'
-      onClick={() => setChatVisibilityStatus(ChatVisibilityStatus.maximized)}>
+    <ChatButtonContainer $bottom={bottom} onClick={() => setChatVisible(true)}>
       <Circle>
-        <StyledIcon src={ChatIcon} title={t('button')} />
+        <StyledIcon src={ChatIcon} title={t('chat')} />
       </Circle>
-      {!viewportSmall && <ChatTitle>{t('button')}</ChatTitle>}
+      {!viewportSmall && <ChatTitle>{t('chat')}</ChatTitle>}
     </ChatButtonContainer>
   )
 }

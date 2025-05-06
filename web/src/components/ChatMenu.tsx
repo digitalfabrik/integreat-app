@@ -1,10 +1,11 @@
 import React, { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
-import { ArrowBackIcon, CloseIcon, MaximizeIcon, MinimizeIcon } from '../assets'
+import { ArrowBackIcon, ShrinkIcon } from '../assets'
 import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
-import { ChatVisibilityStatus } from './ChatContainer'
+import useWindowDimensions from '../hooks/useWindowDimensions'
 import Button from './base/Button'
 import Icon from './base/Icon'
 
@@ -30,34 +31,19 @@ const ButtonContainer = styled.div`
 `
 
 type ChatMenuProps = {
-  visibilityStatus: ChatVisibilityStatus
   onClose: () => void
-  onResize: () => void
-  small: boolean
 }
-const ChatMenu = ({ onResize, onClose, visibilityStatus, small }: ChatMenuProps): ReactElement => (
-  <ButtonContainer>
-    {small ? (
-      <StyledButton label='close' onClick={onClose}>
-        <StyledIcon src={ArrowBackIcon} directionDependent />
+
+const ChatMenu = ({ onClose }: ChatMenuProps): ReactElement => {
+  const { viewportSmall } = useWindowDimensions()
+  const { t } = useTranslation('common')
+  return (
+    <ButtonContainer>
+      <StyledButton label={t(viewportSmall ? 'back' : 'minimize')} onClick={onClose}>
+        <StyledIcon src={viewportSmall ? ArrowBackIcon : ShrinkIcon} directionDependent />
       </StyledButton>
-    ) : (
-      <>
-        <StyledButton
-          label={visibilityStatus === ChatVisibilityStatus.maximized ? 'minimize' : 'maximize'}
-          onClick={onResize}>
-          {' '}
-          <StyledIcon
-            src={visibilityStatus === ChatVisibilityStatus.maximized ? MinimizeIcon : MaximizeIcon}
-            directionDependent
-          />{' '}
-        </StyledButton>
-        <StyledButton label='close' onClick={onClose}>
-          <StyledIcon src={CloseIcon} directionDependent />
-        </StyledButton>
-      </>
-    )}
-  </ButtonContainer>
-)
+    </ButtonContainer>
+  )
+}
 
 export default ChatMenu

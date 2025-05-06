@@ -74,8 +74,10 @@ const Chat = ({ messages, submitMessage, hasError, isLoading, isTyping }: ChatPr
     setTextInput('')
   }
 
+  const submitDisabled = textInput.trim().length === 0 || hasError || isLoading
   const submitOnEnter = (event: KeyboardEvent) => {
-    if (event.key === 'Enter' && !event.shiftKey) {
+    const isEnterAllowed = event.key === 'Enter' && !event.shiftKey && !submitDisabled
+    if (isEnterAllowed) {
       event.preventDefault()
       onSubmit()
     }
@@ -111,7 +113,7 @@ const Chat = ({ messages, submitMessage, hasError, isLoading, isTyping }: ChatPr
           />
         </InputSection>
         <SubmitContainer>
-          <SubmitButton disabled={textInput.length === 0} onClick={onSubmit} text={t('sendButton')} />
+          <SubmitButton disabled={submitDisabled} onClick={onSubmit} text={t('sendButton')} />
           <ChatSecurityInformation />
         </SubmitContainer>
       </InputWrapper>

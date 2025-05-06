@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
-import { ChatVisibilityStatus } from './ChatContainer'
+import useWindowDimensions from '../hooks/useWindowDimensions'
 import ChatMenu from './ChatMenu'
 
 const Container = styled.div`
@@ -41,43 +41,21 @@ const Header = styled.div<{ $small: boolean }>`
   }
 `
 
-const Title = styled.span<{ $isClickable: boolean }>`
-  flex: 1;
-  cursor: ${props => (props.$isClickable ? 'pointer' : 'auto')};
-`
-
 type ModalProps = {
   title: string
-  children?: ReactNode
+  children: ReactNode
   onClose: () => void
-  onResize: () => void
-  small: boolean
-  visibilityStatus: ChatVisibilityStatus
 }
 
-const ChatContentWrapper = ({
-  title,
-  onClose,
-  onResize,
-  children,
-  small,
-  visibilityStatus,
-}: ModalProps): ReactElement => {
-  const isMinimized = visibilityStatus === ChatVisibilityStatus.minimized
+const ChatContentWrapper = ({ title, onClose, children }: ModalProps): ReactElement => {
+  const { viewportSmall } = useWindowDimensions()
   return (
     <Container>
-      <Header $small={small}>
-        <Title
-          $isClickable={isMinimized}
-          onClick={isMinimized ? onResize : undefined}
-          role='button'
-          onKeyDown={isMinimized ? onResize : undefined}
-          tabIndex={0}>
-          {title}
-        </Title>
-        <ChatMenu onClose={onClose} onResize={onResize} visibilityStatus={visibilityStatus} small={small} />
+      <Header $small={viewportSmall}>
+        {title}
+        <ChatMenu onClose={onClose} />
       </Header>
-      {visibilityStatus === ChatVisibilityStatus.maximized && children}
+      {children}
     </Container>
   )
 }
