@@ -23,7 +23,7 @@ const DateSection = styled.div`
   }
 `
 const Text = styled.span`
-  color: ${props => (props.theme.isContrastTheme ? props.theme.colors.textColor : props.theme.colors.backgroundColor)};
+  color: ${props => props.theme.colors.textColor};
 `
 
 const StyledButton = styled(Button)`
