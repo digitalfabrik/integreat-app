@@ -21,7 +21,11 @@ const Highlighter = ({ search, text, className, dir }: HighlighterProps): ReactE
       searchWords={[search]}
       sanitize={normalizeString}
       findChunks={findNormalizedMatches}
-      highlightStyle={{ backgroundColor: theme.colors.backgroundColor, fontWeight: 'bold' }}
+      highlightStyle={{
+        backgroundColor: theme.colors.backgroundColor,
+        fontWeight: 'bold',
+        color: theme.isContrastTheme ? theme.colors.themeColor : theme.colors.textColor,
+      }}
       aria-label={text}
       autoEscape
       dir={dir}

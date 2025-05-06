@@ -53,6 +53,7 @@ export const Description = styled.div`
   flex-direction: column;
   flex-grow: 1;
   padding: 0 22px;
+  color: ${props => props.theme.colors.textColor};
   align-self: center;
   word-break: break-word;
   hyphens: auto;

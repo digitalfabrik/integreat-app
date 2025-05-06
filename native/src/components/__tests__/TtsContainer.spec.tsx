@@ -14,6 +14,14 @@ import TextButton from '../base/TextButton'
 jest.mock('react-i18next')
 jest.mock('react-native-tts')
 jest.mock('../../hooks/useSnackbar')
+jest.mock('shared/api', () => ({
+  useLoadAsync: jest.fn(() => ({
+    data: [
+      { language: 'en-US', name: 'English' },
+      { language: 'de-DE', name: 'German' },
+    ],
+  })),
+}))
 
 const mockBuildConfig = (tts: boolean) => {
   const previous = buildConfig()
