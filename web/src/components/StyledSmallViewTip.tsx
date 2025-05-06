@@ -6,7 +6,6 @@ const StyledSmallViewTip = styled.p`
   font-weight: 400;
   margin-bottom: 0;
   margin-top: 8px;
-  white-space: nowrap;
   word-break: break-word;
 `
 export default StyledSmallViewTip

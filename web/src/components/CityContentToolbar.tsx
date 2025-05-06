@@ -20,9 +20,8 @@ type CityContentToolbarProps = {
   pageTitle: string
   route: RouteType
   isInBottomActionSheet?: boolean
+  maxItems?: number
 }
-
-const COPY_TIMEOUT = 3000
 
 const CityContentToolbar = (props: CityContentToolbarProps) => {
   const { enabled: ttsEnabled, showTtsPlayer, canRead } = useContext(TtsContext)
@@ -37,50 +36,37 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
     route,
     pageTitle,
     isInBottomActionSheet = false,
+    maxItems,
   } = props
-  const [linkCopied, setLinkCopied] = useState<boolean>(false)
   const { t } = useTranslation('layout')
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(window.location.href).catch(reportError)
-    setLinkCopied(true)
-    setTimeout(() => {
-      setLinkCopied(false)
-    }, COPY_TIMEOUT)
-  }
+  const items = [
+    children,
+    hasFeedbackOption ? <FeedbackToolbarItem route={route} slug={feedbackTarget} positive /> : undefined,
+    hasFeedbackOption ? <FeedbackToolbarItem route={route} slug={feedbackTarget} positive={false} /> : undefined,
+    <SharingPopup
+      shareUrl={window.location.href}
+      flow={iconDirection === 'row' ? 'vertical' : 'horizontal'}
+      title={pageTitle}
+      portalNeeded={isInBottomActionSheet}
+    />,
+    ttsEnabled ? (
+      <ToolbarItem
+        icon={ReadAloudIcon}
+        isDisabled={!canRead}
+        text={t('readAloud')}
+        tooltip={canRead ? null : t('nothingToReadFullMessage')}
+        onClick={showTtsPlayer}
+        id='read-aloud-icon'
+      />
+    ) : undefined,
+    !viewportSmall ? <ContrastThemeToggle /> : undefined,
+  ]
+    .filter(it => it !== undefined)
+    .slice(0, maxItems)
 
   return (
     <Toolbar iconDirection={iconDirection} hideDivider={hideDivider}>
-      {children}
-
-      {ttsEnabled && (
-        <ToolbarItem
-          icon={ReadAloudIcon}
-          isDisabled={!canRead}
-          text={t('readAloud')}
-          tooltip={canRead ? null : t('nothingToReadFullMessage')}
-          onClick={showTtsPlayer}
-          id='read-aloud-icon'
-        />
-      )}
-
-      <SharingPopup
-        shareUrl={window.location.href}
-        flow={iconDirection === 'row' ? 'vertical' : 'horizontal'}
-        title={pageTitle}
-        portalNeeded={isInBottomActionSheet}
-      />
-
-      <ToolbarItem
-        icon={linkCopied ? DoneIcon : CopyIcon}
-        text={t('copyUrl')}
-        onClick={copyToClipboard}
-        id='copy-icon'
-        tooltip={t('common:copied')}
-        additionalTooltipProps={{ openOnClick: true, isOpen: linkCopied }}
-      />
-      {hasFeedbackOption && <FeedbackToolbarItem route={route} slug={feedbackTarget} positive />}
-      {hasFeedbackOption && <FeedbackToolbarItem route={route} slug={feedbackTarget} positive={false} />}
-      {!viewportSmall && <ContrastThemeToggle />}
+      {items}
     </Toolbar>
   )
 }

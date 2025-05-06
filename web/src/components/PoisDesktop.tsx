@@ -32,6 +32,7 @@ const ListViewWrapper = styled.div<{ $panelHeights: number; $bottomBarHeight: nu
 `
 
 const ToolbarContainer = styled.div`
+  padding: 0 8px;
   display: flex;
   justify-content: center;
   background-color: ${props => props.theme.colors.backgroundAccentColor};

@@ -49,6 +49,7 @@ const Pois = ({ pois: allPois, userLocation, city, languageCode, pageTitle }: Po
   const { viewportSmall, width } = useWindowDimensions()
 
   const slug = params.slug ? normalizePath(params.slug) : undefined
+  const desktopMaxToolbarItems = slug ? 4 : 3
 
   const preparedData = preparePois({
     pois: allPois,
@@ -105,6 +106,7 @@ const Pois = ({ pois: allPois, userLocation, city, languageCode, pageTitle }: Po
       hideDivider
       pageTitle={pageTitle}
       isInBottomActionSheet={viewportSmall}
+      maxItems={viewportSmall ? undefined : desktopMaxToolbarItems}
     />
   )
 
