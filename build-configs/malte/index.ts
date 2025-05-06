@@ -9,7 +9,7 @@ import {
 } from '../BuildConfigType'
 import { APP_STORE_TEAM_ID } from '../common/constants'
 import mainImprint from './mainImprint'
-import { lightTheme } from './theme'
+import { contrastTheme, lightTheme } from './theme'
 
 const APPLICATION_ID = 'de.malteapp'
 const BUNDLE_IDENTIFIER = 'de.malteapp'
@@ -19,6 +19,7 @@ const commonMalteBuildConfig: CommonBuildConfigType = {
   appIcon: 'app_icon_malte',
   notificationIcon: 'notification_icon_malte',
   lightTheme,
+  contrastTheme,
   assets: MALTE_ASSETS,
   cmsUrl: 'https://cms.malteapp.de',
   switchCmsUrl: 'https://malte-test.tuerantuer.org',

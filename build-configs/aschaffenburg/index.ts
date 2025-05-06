@@ -9,7 +9,7 @@ import {
 } from '../BuildConfigType'
 import { APP_STORE_TEAM_ID } from '../common/constants'
 import mainImprint from './mainImprint'
-import { lightTheme } from './theme'
+import { contrastTheme, lightTheme } from './theme'
 
 const APPLICATION_ID = 'app.aschaffenburg'
 const BUNDLE_IDENTIFIER = 'app.aschaffenburg'
@@ -19,6 +19,7 @@ const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
   appIcon: 'app_icon_aschaffenburg',
   notificationIcon: 'notification_icon_aschaffenburg',
   lightTheme,
+  contrastTheme,
   assets: ASCHAFFENBURG_ASSETS,
   cmsUrl: 'https://cms.integreat-app.de',
   hostName: 'halloaschaffenburg.de',
@@ -96,7 +97,7 @@ export const webAschaffenburgBuildConfig: WebBuildConfigType = {
   appDescription: 'Ihr digitaler Begleiter für die Stadt Aschaffenburg',
   mainImprint,
   icons: {
-    appLogo: '/app-logo.svg',
+    appLogo: '/app-icon-round.svg',
     appLogoMobile: '/app-icon-round.svg',
     appleTouchIcon: '/apple-touch-icon.png',
     socialMediaPreview: '/social-media-preview.png',

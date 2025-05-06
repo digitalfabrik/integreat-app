@@ -38,6 +38,7 @@ const Button = ({
     aria-label={label}
     tabIndex={tabIndex}
     type={type}
+    dir='auto'
     className={className}
     id={id}>
     {children}

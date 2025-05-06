@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { CopyIcon, DoneIcon, ReadAloudIcon } from '../assets'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { RouteType } from '../routes'
+import ContrastThemeToggle from './ContrastThemeToggle'
 import FeedbackToolbarItem from './FeedbackToolbarItem'
 import SharingPopup from './SharingPopup'
 import Toolbar from './Toolbar'
@@ -79,6 +80,7 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
       />
       {hasFeedbackOption && <FeedbackToolbarItem route={route} slug={feedbackTarget} positive />}
       {hasFeedbackOption && <FeedbackToolbarItem route={route} slug={feedbackTarget} positive={false} />}
+      {!viewportSmall && <ContrastThemeToggle />}
     </Toolbar>
   )
 }
