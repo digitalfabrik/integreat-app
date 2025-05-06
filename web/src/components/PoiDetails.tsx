@@ -165,7 +165,7 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
       {contacts.length > 0 && (
         <>
           <Spacer $borderColor={theme.colors.borderColor} />
-          <Collapsible title={t('contacts')}>
+          <Collapsible isGapEnabled={false} title={t('contacts')}>
             <StyledContactsContainer>
               {contacts.map((contact, index) => (
                 <Fragment key={contact.headline ?? contact.website ?? contact.name ?? contact.phoneNumber}>

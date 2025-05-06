@@ -7,9 +7,10 @@ import { helpers } from '../constants/theme'
 import Button from './base/Button'
 import Icon from './base/Icon'
 
-const Container = styled.div`
+const Container = styled.div<{ $isGapEnabled: boolean }>`
   display: flex;
   flex-direction: column;
+  gap: ${props => (props.$isGapEnabled ? '8px' : 0)};
 `
 
 const CollapsibleHeader = styled(Button)`
@@ -37,6 +38,7 @@ type CollapsibleProps = {
   Description?: ReactElement
   initialCollapsed?: boolean
   className?: string
+  isGapEnabled?: boolean
 }
 
 const Collapsible = ({
@@ -44,13 +46,14 @@ const Collapsible = ({
   title,
   Description,
   initialCollapsed = false,
+  isGapEnabled = true,
   className,
 }: CollapsibleProps): ReactElement => {
   const [collapsed, setCollapsed] = useState<boolean>(initialCollapsed)
   const { t } = useTranslation('common')
 
   return (
-    <Container className={className}>
+    <Container $isGapEnabled={isGapEnabled} className={className}>
       <CollapsibleHeader
         label={t(collapsed ? 'showMore' : 'showLess')}
         onClick={() => setCollapsed(!collapsed)}
