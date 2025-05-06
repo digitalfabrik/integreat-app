@@ -84,6 +84,7 @@ const ToolbarItem = ({
       </StyledTooltip>
     )
   }
+
   return (
     <StyledTooltip id={tooltipId} tooltipContent={tooltip} place={tooltipDirection} {...additionalTooltipProps}>
       <StyledToolbarItem

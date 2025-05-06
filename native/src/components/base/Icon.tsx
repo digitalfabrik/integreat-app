@@ -13,6 +13,7 @@ type IconProps = {
   directionDependent?: boolean
   reverse?: boolean
   style?: { width?: number; height?: number; color?: ColorValue }
+  color?: ColorValue
 }
 
 const Icon = ({
@@ -21,6 +22,7 @@ const Icon = ({
   directionDependent = false,
   reverse = false,
   style,
+  color,
 }: IconProps): ReactElement => {
   const theme = useTheme()
 
@@ -38,7 +40,7 @@ const Icon = ({
       ]}
       width={style?.width ?? DEFAULT_ICON_SIZE}
       height={style?.height ?? DEFAULT_ICON_SIZE}
-      color={style?.color ?? theme.colors.textColor}
+      color={color ?? style?.color ?? theme.colors.textColor}
       accessibilityLabel={label}
     />
   )

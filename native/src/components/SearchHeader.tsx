@@ -11,9 +11,11 @@ const Horizontal = styled.View`
   flex-direction: row;
   align-items: center;
 `
+
 const BoxShadow = styled(HighlightBox)`
   height: ${dimensions.headerHeight}px;
 `
+
 type SearchHeaderProps = {
   query: string
   closeSearchBar: (query: string) => void
@@ -27,7 +29,7 @@ const SearchHeader = ({ query, closeSearchBar, onSearchChanged }: SearchHeaderPr
       <Horizontal>
         <HeaderBackButton
           onPress={() => closeSearchBar(query)}
-          labelVisible={false}
+          displayMode='minimal'
           tintColor={theme.colors.textColor}
         />
         <ThemedSearchBar onChangeText={onSearchChanged} value={query} autofocus />

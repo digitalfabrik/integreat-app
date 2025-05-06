@@ -56,7 +56,7 @@ const NavigationBarScrollContainer = ({ children, activeIndex }: NavigationBarSc
   const { width } = useWindowDimensions()
   const [scrollPosition, setScrollPosition] = useState<number>(0)
   const scrollToActiveItem = useCallback(
-    (ref: RefObject<HTMLDivElement>) => {
+    (ref: RefObject<HTMLDivElement | null>) => {
       ref.current?.scroll({ left: getActiveItemScrollPosition(activeIndex) })
     },
     [activeIndex],

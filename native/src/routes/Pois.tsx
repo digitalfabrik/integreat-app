@@ -146,7 +146,7 @@ const Pois = ({ pois: allPois, cityModel, route, navigation }: PoisProps): React
       />
       <MapView
         selectFeature={selectMapFeature}
-        boundingBox={cityModel.boundingBox}
+        cityCoordinates={[cityModel.longitude, cityModel.latitude]}
         features={mapFeatures}
         selectedFeature={mapFeature ?? null}
         bottomSheetHeight={bottomSheetHeight}

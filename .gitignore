@@ -118,10 +118,13 @@ dist
 # png caches
 **/.png-cache
 
-# IntelliJ
+# Android/IntelliJ
 **/workspace.xml
 runConfigurations.xml
 **/prettier.xml
+**/.cxx
+**/.idea
+.kotlin/
 
 .tsbuild
 
