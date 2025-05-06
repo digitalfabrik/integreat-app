@@ -10,6 +10,8 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		17287B1D24FFC8D600CA52F4 /* LaunchScreenIntegreat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17287B1C24FFC8D600CA52F4 /* LaunchScreenIntegreat.storyboard */; };
 		17287B1F24FFCD9800CA52F4 /* LaunchScreenDefault.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17287B1E24FFCD9800CA52F4 /* LaunchScreenDefault.storyboard */; };
+		1F14DD3E2DC922F300D76647 /* MapLibre in Frameworks */ = {isa = PBXBuildFile; productRef = 6AB802EC1F82A845C8AC9C0F /* MapLibre */; };
+		1F14DD412DC9257C00D76647 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F14DD402DC9257B00D76647 /* GoogleService-Info.plist */; };
 		1F18CA8E2BD6BA7D002F319B /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 1F18CA8D2BD6BA7D002F319B /* PrivacyInfo.xcprivacy */; };
 		2E0440F726C127B000183828 /* NotoSansArabic-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2E0440F326C127AF00183828 /* NotoSansArabic-Regular.ttf */; };
 		2E0440F826C127B000183828 /* NotoSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2E0440F426C127AF00183828 /* NotoSans-Bold.ttf */; };
@@ -38,6 +40,7 @@
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = Integreat/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		17287B1C24FFC8D600CA52F4 /* LaunchScreenIntegreat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreenIntegreat.storyboard; sourceTree = "<group>"; };
 		17287B1E24FFCD9800CA52F4 /* LaunchScreenDefault.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreenDefault.storyboard; sourceTree = "<group>"; };
+		1F14DD402DC9257B00D76647 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1F18CA8D2BD6BA7D002F319B /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E0440F326C127AF00183828 /* NotoSansArabic-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansArabic-Regular.ttf"; sourceTree = "<group>"; };
@@ -101,6 +104,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F14DD3E2DC922F300D76647 /* MapLibre in Frameworks */,
 				ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */,
 				D8A132BA08CFC4B2FC6AE11E /* Pods_Integreat.framework in Frameworks */,
 			);
@@ -173,6 +177,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				1F14DD402DC9257B00D76647 /* GoogleService-Info.plist */,
 				1F18CA8D2BD6BA7D002F319B /* PrivacyInfo.xcprivacy */,
 				B8F3AC7E24ADE7E10010125F /* buildConfig.xcconfig */,
 				7B7EDC2C2428EE0900E64563 /* fastlane */,
@@ -324,6 +329,7 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				7B9749D322DC7A940078B456 /* InfoPlist.strings in Resources */,
 				17287B1F24FFCD9800CA52F4 /* LaunchScreenDefault.storyboard in Resources */,
+				1F14DD412DC9257C00D76647 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

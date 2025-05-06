@@ -1,9 +1,9 @@
 diff --git a/node_modules/react-native-tts/android/.project b/node_modules/react-native-tts/android/.project
 new file mode 100644
-index 0000000..2b001aa
+index 0000000..137f85a
 --- /dev/null
 +++ b/node_modules/react-native-tts/android/.project
-@@ -0,0 +1,34 @@
+@@ -0,0 +1,28 @@
 +<?xml version="1.0" encoding="UTF-8"?>
 +<projectDescription>
 +	<name>react-native-tts</name>
@@ -12,18 +12,12 @@ index 0000000..2b001aa
 +	</projects>
 +	<buildSpec>
 +		<buildCommand>
-+			<name>org.eclipse.jdt.core.javabuilder</name>
-+			<arguments>
-+			</arguments>
-+		</buildCommand>
-+		<buildCommand>
 +			<name>org.eclipse.buildship.core.gradleprojectbuilder</name>
 +			<arguments>
 +			</arguments>
 +		</buildCommand>
 +	</buildSpec>
 +	<natures>
-+		<nature>org.eclipse.jdt.core.javanature</nature>
 +		<nature>org.eclipse.buildship.core.gradleprojectnature</nature>
 +	</natures>
 +	<filteredResources>
@@ -38,95 +32,6 @@ index 0000000..2b001aa
 +		</filter>
 +	</filteredResources>
 +</projectDescription>
-diff --git a/node_modules/react-native-tts/android/bin/.project b/node_modules/react-native-tts/android/bin/.project
-new file mode 100644
-index 0000000..2b001aa
---- /dev/null
-+++ b/node_modules/react-native-tts/android/bin/.project
-@@ -0,0 +1,34 @@
-+<?xml version="1.0" encoding="UTF-8"?>
-+<projectDescription>
-+	<name>react-native-tts</name>
-+	<comment>Project react-native-tts created by Buildship.</comment>
-+	<projects>
-+	</projects>
-+	<buildSpec>
-+		<buildCommand>
-+			<name>org.eclipse.jdt.core.javabuilder</name>
-+			<arguments>
-+			</arguments>
-+		</buildCommand>
-+		<buildCommand>
-+			<name>org.eclipse.buildship.core.gradleprojectbuilder</name>
-+			<arguments>
-+			</arguments>
-+		</buildCommand>
-+	</buildSpec>
-+	<natures>
-+		<nature>org.eclipse.jdt.core.javanature</nature>
-+		<nature>org.eclipse.buildship.core.gradleprojectnature</nature>
-+	</natures>
-+	<filteredResources>
-+		<filter>
-+			<id>1744794502691</id>
-+			<name></name>
-+			<type>30</type>
-+			<matcher>
-+				<id>org.eclipse.core.resources.regexFilterMatcher</id>
-+				<arguments>node_modules|\.git|__CREATED_BY_JAVA_LANGUAGE_SERVER__</arguments>
-+			</matcher>
-+		</filter>
-+	</filteredResources>
-+</projectDescription>
-diff --git a/node_modules/react-native-tts/android/bin/build.gradle b/node_modules/react-native-tts/android/bin/build.gradle
-new file mode 100644
-index 0000000..dbbe046
---- /dev/null
-+++ b/node_modules/react-native-tts/android/bin/build.gradle
-@@ -0,0 +1,35 @@
-+def safeExtGet(prop, fallback) {
-+    rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
-+}
-+
-+buildscript {
-+    repositories {
-+        jcenter()
-+    }
-+
-+    dependencies {
-+        classpath 'com.android.tools.build:gradle:1.3.1'
-+    }
-+}
-+
-+apply plugin: 'com.android.library'
-+
-+android {
-+    compileSdkVersion safeExtGet('compileSdkVersion', 26)
-+    buildToolsVersion safeExtGet('buildToolsVersion', '26.0.3')
-+
-+    defaultConfig {
-+        minSdkVersion safeExtGet('minSdkVersion', 16)
-+        targetSdkVersion safeExtGet('targetSdkVersion', 26)
-+        versionCode 1
-+        versionName "1.0"
-+    }
-+}
-+
-+repositories {
-+    mavenCentral()
-+}
-+
-+dependencies {
-+    implementation 'com.facebook.react:react-native:+'
-+}
-diff --git a/node_modules/react-native-tts/android/bin/src/main/AndroidManifest.xml b/node_modules/react-native-tts/android/bin/src/main/AndroidManifest.xml
-new file mode 100644
-index 0000000..ed0c0a6
---- /dev/null
-+++ b/node_modules/react-native-tts/android/bin/src/main/AndroidManifest.xml
-@@ -0,0 +1,2 @@
-+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="net.no_mad.tts">
-+</manifest>
 diff --git a/node_modules/react-native-tts/ios/TextToSpeech/TextToSpeech.m b/node_modules/react-native-tts/ios/TextToSpeech/TextToSpeech.m
 index 1e769cc..3ea3767 100644
 --- a/node_modules/react-native-tts/ios/TextToSpeech/TextToSpeech.m

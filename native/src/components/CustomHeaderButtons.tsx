@@ -33,7 +33,7 @@ const HeaderIcon = ({ name, style, ...props }: HeaderIconProps): ReactElement =>
 }
 
 const CustomHeaderButton = (props: HeaderButtonProps) => (
-  <HeaderButton {...props} IconComponent={HeaderIcon} iconSize={23} color='black' role='button' />
+  <HeaderButton {...props} IconComponent={HeaderIcon} iconSize={23} role='button' />
 )
 
 // Adjust cancel label for ios overflow menu of HeaderButtons

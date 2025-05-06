@@ -2,7 +2,7 @@ import React, { ReactElement, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Share } from 'react-native'
 import { HiddenItem, Item } from 'react-navigation-header-buttons'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
 import {
   CATEGORIES_ROUTE,
@@ -86,6 +86,7 @@ const Header = ({
   const [previousRoute] = useState(navigation.getState().routes[navigation.getState().routes.length - 2])
   const [canGoBack] = useState(navigation.canGoBack())
   const { enabled: isTtsEnabled, showTtsPlayer } = useTtsPlayer()
+  const theme = useTheme()
 
   const onShare = async () => {
     if (!shareUrl) {
@@ -126,7 +127,7 @@ const Header = ({
       title={t(title)}
       iconName={iconName}
       onPress={visible ? onPress : () => undefined}
-      style={{ opacity: visible ? 1 : 0 }}
+      color={visible ? theme.colors.textColor : 'transparent'}
       accessibilityLabel={t(title)}
     />
   )
@@ -189,12 +190,6 @@ const Header = ({
     renderItem(HeaderButtonTitle.Language, 'language', showItems, goToLanguageChange),
   ]
 
-  // Take up space during loading without rn-header-buttons complaining about animating an immutable object
-  const invisibleItems = [
-    renderItem(HeaderButtonTitle.Search, 'search', false, undefined),
-    renderItem(HeaderButtonTitle.Language, 'language', false, undefined),
-  ]
-
   const overflowItems = showOverflowItems
     ? [
         ...(shareUrl ? [renderOverflowItem(HeaderButtonTitle.Share, onShare)] : []),
@@ -249,11 +244,7 @@ const Header = ({
           text={getHeaderText().text}
           language={getHeaderText().language}
         />
-        <CustomHeaderButtons
-          cancelLabel={t('cancel')}
-          items={showItems ? items : invisibleItems}
-          overflowItems={overflowItems}
-        />
+        <CustomHeaderButtons cancelLabel={t('cancel')} items={items} overflowItems={overflowItems} />
       </Horizontal>
     </BoxShadow>
   )

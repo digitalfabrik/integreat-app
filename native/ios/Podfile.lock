@@ -2079,7 +2079,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNSentry (6.13.0):
+  - RNSentry (6.13.1):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -2541,8 +2541,8 @@ SPEC CHECKSUMS:
   RNCAsyncStorage: 320c8b9217695928a64d8ae993653425c8605368
   RNCCheckbox: a3ca9978cb0846b981d28da4e9914bd437403d77
   RNCClipboard: de1561c12ba8a15f143347993a382c6474c0d2d6
-  RNFBApp: b67ded6e4b0a6c0fee5e4f8e75e3a31567949a08
-  RNFBMessaging: 7202ad4c49bdcdc7fd3634d85827a6305049c148
+  RNFBApp: fda4a8b08fe31bea8492808106aa638d1bb595b7
+  RNFBMessaging: 099972ab397d61815f32610514b0573d1db2b1e1
   RNGestureHandler: 3ca128bc8b8f15f04ba00dbbd05b90df34404b05
   RNInAppBrowser: e36d6935517101ccba0e875bac8ad7b0cb655364
   RNLocalize: 530c85d94ac53e0ce316f6fdf5d47545a687fca9
@@ -2550,13 +2550,13 @@ SPEC CHECKSUMS:
   RNPermissions: 20a15a2ff5ac9f6cc1ebdca1d49666767ff979e9
   RNReanimated: 66c4a3320d73cdec5f8f24d215c475a1d59643ae
   RNScreens: ef58b1f3077f7ee62b58f958536ee5ccb52d96b5
-  RNSentry: b6bb22ee3f9a962757b961e180eee92a04cddeaf
+  RNSentry: ead00a4375cdcbb9bea54909569a29e2f474c166
   RNSVG: 05776cf3f0d52d3f8e7ebee34b2189da7b8638ff
   Sentry: 47021097466aa130802420d485a34da445963d99
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
   TextToSpeech: 2b930ec3756afde499061f4f01ea895e1f75dccb
   Yoga: 0c521d2eddeeff54ba1126068140b6e970a77fc0
 
-PODFILE CHECKSUM: 1d81c132a2814f4d4335754b282dd3775ce70305
+PODFILE CHECKSUM: e90bdde1561bb415ec5df41526eaab74e2782aa9
 
 COCOAPODS: 1.15.2
