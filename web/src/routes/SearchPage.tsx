@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
 import styled from 'styled-components'
@@ -39,6 +39,10 @@ const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
   const fallbackLanguage = config.sourceLanguage
   const debouncedQuery = useDebounce(query)
 
+  useEffect(() => {
+    setQueryParams(debouncedQuery.length > 0 ? { query: debouncedQuery } : undefined)
+  }, [debouncedQuery, setQueryParams])
+
   const {
     data: contentLanguageDocuments,
     loading,
@@ -63,7 +67,11 @@ const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
   }
 
   const languageChangePaths = city.languages.map(({ code, name }) => ({
-    path: `${pathnameFromRouteInformation({ route: SEARCH_ROUTE, cityCode, languageCode: code })}/?${SEARCH_QUERY_KEY}=${query}`,
+    path: `${pathnameFromRouteInformation({
+      route: SEARCH_ROUTE,
+      cityCode,
+      languageCode: code,
+    })}/?${SEARCH_QUERY_KEY}=${query}`,
     name,
     code,
   }))
@@ -81,11 +89,6 @@ const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
         <FailureSwitcher error={error} />
       </CityContentLayout>
     )
-  }
-
-  const updateQuery = (query: string): void => {
-    setQuery(query)
-    setQueryParams(query.length > 0 ? { query } : undefined)
   }
 
   const getPageContent = () => {
@@ -132,7 +135,7 @@ const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
       <SearchInput
         filterText={query}
         placeholderText={t('searchPlaceholder')}
-        onFilterTextChange={updateQuery}
+        onFilterTextChange={setQuery}
         spaceSearch
       />
       {getPageContent()}
