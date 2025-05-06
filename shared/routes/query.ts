@@ -5,6 +5,7 @@ import { NonNullableRouteInformationType } from './RouteInformationTypes'
 
 export const MULTIPOI_QUERY_KEY = 'multipoi'
 export const SEARCH_QUERY_KEY = 'query'
+export const CHAT_QUERY_KEY = 'chat'
 export const POI_CATEGORY_QUERY_KEY = 'category'
 export const ZOOM_QUERY_KEY = 'zoom'
 
@@ -12,6 +13,9 @@ export const queryStringFromRouteInformation = (
   routeInformation: NonNullableRouteInformationType,
 ): string | undefined => {
   const queryParams = []
+  if ('chat' in routeInformation && routeInformation.chat) {
+    queryParams.push([CHAT_QUERY_KEY, routeInformation.chat.toString()])
+  }
   if (routeInformation.route === POIS_ROUTE) {
     const { multipoi, poiCategoryId, zoom } = routeInformation
     if (multipoi !== undefined) {
@@ -35,6 +39,7 @@ export const queryStringFromRouteInformation = (
 
 type QueryParams = {
   searchText?: string
+  chat?: boolean
   multipoi?: number
   poiCategoryId?: number
   zoom?: number
@@ -42,15 +47,17 @@ type QueryParams = {
 
 export const parseQueryParams = (queryParams: URLSearchParams): QueryParams => {
   const searchText = queryParams.get(SEARCH_QUERY_KEY) ?? undefined
+  const chat = queryParams.get(CHAT_QUERY_KEY) ? queryParams.get(CHAT_QUERY_KEY) === 'true' : undefined
   const multipoi = safeParseInt(queryParams.get(MULTIPOI_QUERY_KEY))
   const poiCategoryId = safeParseInt(queryParams.get(POI_CATEGORY_QUERY_KEY))
   const zoom = safeParseInt(queryParams.get(ZOOM_QUERY_KEY))
-  return { searchText, multipoi, poiCategoryId, zoom }
+  return { searchText, multipoi, poiCategoryId, zoom, chat }
 }
 
-export const toQueryParams = ({ multipoi, poiCategoryId, zoom, searchText }: QueryParams): URLSearchParams => {
+export const toQueryParams = ({ multipoi, poiCategoryId, zoom, searchText, chat }: QueryParams): URLSearchParams => {
   const queryParams: [string, string | undefined][] = [
     [SEARCH_QUERY_KEY, searchText],
+    [CHAT_QUERY_KEY, chat?.toString()],
     [MULTIPOI_QUERY_KEY, multipoi?.toString()],
     [POI_CATEGORY_QUERY_KEY, poiCategoryId?.toString()],
     [ZOOM_QUERY_KEY, zoom?.toString()],
