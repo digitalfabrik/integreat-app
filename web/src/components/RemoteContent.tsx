@@ -2,6 +2,7 @@ import Dompurify from 'dompurify'
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
+import { useTheme } from 'styled-components'
 
 import { ExternalSourcePermissions } from 'shared'
 
@@ -41,6 +42,7 @@ const RemoteContent = ({ html, centered = false, smallText = false }: RemoteCont
   const [contentIframeSources, setContentIframeSources] = useState<IframeSources>({})
   const { viewportSmall, width: deviceWidth } = useWindowDimensions()
   const { t } = useTranslation()
+  const { isContrastTheme } = useTheme()
 
   const handleAnchorClick = useCallback(
     (event: MouseEvent) => {
@@ -66,6 +68,9 @@ const RemoteContent = ({ html, centered = false, smallText = false }: RemoteCont
     allElements.forEach(element => {
       if (element instanceof HTMLElement && element.style.color === 'rgb(0, 0, 0)') {
         element.style.removeProperty('color')
+      }
+      if (element instanceof HTMLImageElement && element.src.endsWith('.svg') && isContrastTheme) {
+        element.style.setProperty('filter', 'invert(1)')
       }
     })
 
@@ -108,6 +113,7 @@ const RemoteContent = ({ html, centered = false, smallText = false }: RemoteCont
     onUpdateLocalStorage,
     viewportSmall,
     deviceWidth,
+    isContrastTheme,
   ])
 
   const dangerouslySetInnerHTML = {

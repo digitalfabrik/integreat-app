@@ -12,10 +12,9 @@ const RemoteContentSandBox = styled.div<{ $centered: boolean; $smallText: boolea
 
   ${props => (props.$centered ? 'text-align: center;' : '')}
   ${props => (props.$centered ? 'list-style-position: inside;' : '')}
-    img {
+  img {
     max-width: 100%;
     max-height: 100%;
-    filter: ${props => props.theme.isContrastTheme && 'invert(1)'};
     object-fit: contain;
 
     &.alignright {
@@ -174,7 +173,6 @@ const RemoteContentSandBox = styled.div<{ $centered: boolean; $smallText: boolea
     }
 
     img {
-      filter: ${props => props.theme.isContrastTheme && 'invert(1)'};
       color: ${props => props.theme.colors.textColor};
       margin-inline-end: 8px;
     }
