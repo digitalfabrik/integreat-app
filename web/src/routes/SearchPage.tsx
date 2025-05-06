@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
 import styled from 'styled-components'
@@ -33,8 +33,8 @@ const SearchCounter = styled.p`
 `
 
 const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElement | null => {
-  const [searchParams, setSearchParams] = useSearchParams()
-  const query = searchParams.get(SEARCH_QUERY_KEY) ?? ''
+  const [queryParams, setQueryParams] = useSearchParams()
+  const [query, setQuery] = useState(queryParams.get(SEARCH_QUERY_KEY) ?? '')
   const { t } = useTranslation('search')
   const fallbackLanguage = config.sourceLanguage
   const debouncedQuery = useDebounce(query)
@@ -83,6 +83,11 @@ const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
     )
   }
 
+  const updateQuery = (query: string): void => {
+    setQuery(query)
+    setQueryParams(query.length > 0 ? { query } : undefined)
+  }
+
   const getPageContent = () => {
     if (query.length === 0) {
       return null
@@ -127,7 +132,7 @@ const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
       <SearchInput
         filterText={query}
         placeholderText={t('searchPlaceholder')}
-        onFilterTextChange={query => setSearchParams({ query })}
+        onFilterTextChange={updateQuery}
         spaceSearch
       />
       {getPageContent()}
