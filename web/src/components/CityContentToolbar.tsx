@@ -20,14 +20,14 @@ type CityContentToolbarProps = {
   pageTitle: string
   route: RouteType
   isInBottomActionSheet?: boolean
+  maxItems?: number
 }
-
-const COPY_TIMEOUT = 3000
 
 const CityContentToolbar = (props: CityContentToolbarProps) => {
   const { enabled: ttsEnabled, showTtsPlayer, canRead } = useContext(TtsContext)
-
   const { viewportSmall } = useWindowDimensions()
+  const { t } = useTranslation('layout')
+
   const {
     feedbackTarget,
     children,
@@ -37,34 +37,39 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
     route,
     pageTitle,
     isInBottomActionSheet = false,
+    maxItems,
   } = props
-  const { t } = useTranslation('layout')
+
+  const items = [
+    children,
+    ttsEnabled && (
+      <ToolbarItem
+        key='tts'
+        icon={ReadAloudIcon}
+        isDisabled={!canRead}
+        text={t('readAloud')}
+        tooltip={canRead ? null : t('nothingToReadFullMessage')}
+        onClick={showTtsPlayer}
+        id='read-aloud-icon'
+      />
+    ),
+    <SharingPopup
+      key='share'
+      shareUrl={window.location.href}
+      flow={iconDirection === 'row' ? 'vertical' : 'horizontal'}
+      title={pageTitle}
+      portalNeeded={isInBottomActionSheet}
+    />,
+    hasFeedbackOption && <FeedbackToolbarItem key='positive' route={route} slug={feedbackTarget} positive />,
+    hasFeedbackOption && <FeedbackToolbarItem key='negative' route={route} slug={feedbackTarget} positive={false} />,
+    !viewportSmall && <ContrastThemeToggle key='theme' />,
+  ]
+    .filter(Boolean)
+    .slice(0, maxItems)
 
   return (
     <Toolbar iconDirection={iconDirection} hideDivider={hideDivider}>
-      {children}
-
-      {ttsEnabled && (
-        <ToolbarItem
-          icon={ReadAloudIcon}
-          isDisabled={!canRead}
-          text={t('readAloud')}
-          tooltip={canRead ? null : t('nothingToReadFullMessage')}
-          onClick={showTtsPlayer}
-          id='read-aloud-icon'
-        />
-      )}
-
-      <SharingPopup
-        shareUrl={window.location.href}
-        flow={iconDirection === 'row' ? 'vertical' : 'horizontal'}
-        title={pageTitle}
-        portalNeeded={isInBottomActionSheet}
-      />
-
-      {hasFeedbackOption && <FeedbackToolbarItem route={route} slug={feedbackTarget} positive />}
-      {hasFeedbackOption && <FeedbackToolbarItem route={route} slug={feedbackTarget} positive={false} />}
-      {!viewportSmall && <ContrastThemeToggle />}
+      {items}
     </Toolbar>
   )
 }

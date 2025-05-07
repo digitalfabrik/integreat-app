@@ -55,6 +55,9 @@ const Pois = ({ pois: allPois, userLocation, city, languageCode, pageTitle }: Po
     params: { slug, multipoi, poiCategoryId, currentlyOpen: currentlyOpenFilter },
   })
   const { pois, poi, poiCategories, poiCategory } = preparedData
+  const minToolbarItems = 3
+  const toolbarItemsWithTts = 4
+  const desktopMaxToolbarItems = poi ? toolbarItemsWithTts : minToolbarItems
 
   const deselectAll = () => navigate(`.?${toQueryParams({ poiCategoryId })}`)
 
@@ -105,6 +108,7 @@ const Pois = ({ pois: allPois, userLocation, city, languageCode, pageTitle }: Po
       hideDivider
       pageTitle={pageTitle}
       isInBottomActionSheet={viewportSmall}
+      maxItems={viewportSmall ? undefined : desktopMaxToolbarItems}
     />
   )
 
