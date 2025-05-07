@@ -1,7 +1,7 @@
-import React, { memo, ReactNode, useContext, useState } from 'react'
+import React, { memo, ReactNode, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CopyIcon, DoneIcon, ReadAloudIcon } from '../assets'
+import { ReadAloudIcon } from '../assets'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { RouteType } from '../routes'
 import ContrastThemeToggle from './ContrastThemeToggle'
@@ -38,15 +38,7 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
     pageTitle,
     isInBottomActionSheet = false,
   } = props
-  const [linkCopied, setLinkCopied] = useState<boolean>(false)
   const { t } = useTranslation('layout')
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(window.location.href).catch(reportError)
-    setLinkCopied(true)
-    setTimeout(() => {
-      setLinkCopied(false)
-    }, COPY_TIMEOUT)
-  }
 
   return (
     <Toolbar iconDirection={iconDirection} hideDivider={hideDivider}>
@@ -70,14 +62,6 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
         portalNeeded={isInBottomActionSheet}
       />
 
-      <ToolbarItem
-        icon={linkCopied ? DoneIcon : CopyIcon}
-        text={t('copyUrl')}
-        onClick={copyToClipboard}
-        id='copy-icon'
-        tooltip={t('common:copied')}
-        additionalTooltipProps={{ openOnClick: true, isOpen: linkCopied }}
-      />
       {hasFeedbackOption && <FeedbackToolbarItem route={route} slug={feedbackTarget} positive />}
       {hasFeedbackOption && <FeedbackToolbarItem route={route} slug={feedbackTarget} positive={false} />}
       {!viewportSmall && <ContrastThemeToggle />}
