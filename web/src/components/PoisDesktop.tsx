@@ -34,7 +34,7 @@ const ListViewWrapper = styled.div<{ $panelHeights: number; $bottomBarHeight: nu
 const ToolbarContainer = styled.div`
   display: flex;
   justify-content: center;
-  background-color: ${props => props.theme.colors.backgroundAccentColor};
+  background-color: ${props => props.theme.colors.backgroundColor};
   box-shadow: 1px 0 4px 0 rgb(0 0 0 / 20%);
 `
 
@@ -137,17 +137,13 @@ const PoisDesktop = ({
           <ListHeader>{t('listTitle')}</ListHeader>
         )}
 
-        <PoiSharedChildren
-          pois={pois}
-          poi={poi}
-          selectPoi={handleSelectPoi}
-          userLocation={userLocation}
-          toolbar={toolbar}
-          slug={slug}
-        />
+        <PoiSharedChildren pois={pois} poi={poi} selectPoi={handleSelectPoi} userLocation={userLocation} slug={slug} />
       </ListViewWrapper>
       {poi && pois.length > 0 ? (
-        <PoiPanelNavigation switchPoi={switchPoi} />
+        <>
+          <ToolbarContainer>{toolbar}</ToolbarContainer>
+          <PoiPanelNavigation switchPoi={switchPoi} />
+        </>
       ) : (
         <ToolbarContainer>{toolbar}</ToolbarContainer>
       )}
