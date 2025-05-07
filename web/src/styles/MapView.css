@@ -15,4 +15,5 @@
 .maplibregl-ctrl-top-left,
 .maplibregl-ctrl-top-right {
   z-index: 0;
+  margin-bottom: 48px;
 }
