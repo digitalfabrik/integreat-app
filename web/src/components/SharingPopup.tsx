@@ -232,7 +232,7 @@ const SharingPopup = ({ shareUrl, title, flow, portalNeeded }: SharingPopupProps
             </Portal>
           )}
           {Backdrop}
-          <TooltipContainer $flow={portalNeeded ? 'horizontal' : flow} $active={shareOptionsVisible}>
+          <TooltipContainer $flow={flow} $active={shareOptionsVisible}>
             <Tooltip
               id='copy'
               place={tooltipDirection}
