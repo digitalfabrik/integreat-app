@@ -42,6 +42,15 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
 
   const items = [
     children,
+    hasFeedbackOption && <FeedbackToolbarItem key='positive' route={route} slug={feedbackTarget} positive />,
+    hasFeedbackOption && <FeedbackToolbarItem key='negative' route={route} slug={feedbackTarget} positive={false} />,
+    <SharingPopup
+      key='share'
+      shareUrl={window.location.href}
+      flow={iconDirection === 'row' ? 'vertical' : 'horizontal'}
+      title={pageTitle}
+      portalNeeded={isInBottomActionSheet}
+    />,
     ttsEnabled && (
       <ToolbarItem
         key='tts'
@@ -53,15 +62,6 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
         id='read-aloud-icon'
       />
     ),
-    <SharingPopup
-      key='share'
-      shareUrl={window.location.href}
-      flow={iconDirection === 'row' ? 'vertical' : 'horizontal'}
-      title={pageTitle}
-      portalNeeded={isInBottomActionSheet}
-    />,
-    hasFeedbackOption && <FeedbackToolbarItem key='positive' route={route} slug={feedbackTarget} positive />,
-    hasFeedbackOption && <FeedbackToolbarItem key='negative' route={route} slug={feedbackTarget} positive={false} />,
     !viewportSmall && <ContrastThemeToggle key='theme' />,
   ]
     .filter(Boolean)
