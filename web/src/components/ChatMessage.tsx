@@ -10,6 +10,7 @@ import RemoteContent from './RemoteContent'
 import Icon from './base/Icon'
 
 export const Message = styled.div`
+  color: ${props => props.theme.colors.textColor};
   border-radius: 5px;
   padding: 8px;
   border: 1px solid ${props => props.theme.colors.textDecorationColor};

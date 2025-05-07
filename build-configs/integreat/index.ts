@@ -8,7 +8,7 @@ import {
 import { APP_STORE_TEAM_ID } from '../common/constants'
 import cityNotCooperatingTemplate from './assets/cityNotCooperatingTemplate'
 import mainImprint from './mainImprint'
-import { lightTheme } from './theme'
+import { lightTheme, contrastTheme } from './theme'
 
 const APPLICATION_ID = 'tuerantuer.app.integreat'
 const BUNDLE_IDENTIFIER = 'de.integreat-app'
@@ -18,6 +18,7 @@ const commonIntegreatBuildConfig: CommonBuildConfigType = {
   appIcon: 'app_icon_integreat',
   notificationIcon: 'notification_icon_integreat',
   lightTheme,
+  contrastTheme,
   assets: INTEGREAT_ASSETS,
   cmsUrl: 'https://cms.integreat-app.de',
   switchCmsUrl: 'https://cms-test.integreat-app.de',

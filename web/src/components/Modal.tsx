@@ -15,7 +15,8 @@ import Button from './base/Button'
 const Overlay = styled(Button)`
   position: absolute;
   inset: 0;
-  background-color: ${props => props.theme.colors.textSecondaryColor};
+  background-color: ${props =>
+    props.theme.isContrastTheme ? props.theme.colors.backgroundAccentColor : props.theme.colors.textSecondaryColor};
   opacity: 0.9;
   width: 100%;
   height: 100%;

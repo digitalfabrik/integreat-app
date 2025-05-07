@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
+import Icon from './base/Icon'
 import Link from './base/Link'
 
 type HeaderLogoProps = {
@@ -26,13 +27,6 @@ const LogoContainer = styled.div`
     height: 60%;
   }
 
-  & img {
-    height: 100%;
-    max-width: 100%;
-    object-fit: contain;
-    object-position: left;
-  }
-
   @media ${dimensions.smallViewport} {
     height: ${dimensions.headerHeightSmall}px;
     max-width: ${dimensions.headerHeightSmall}px;
@@ -43,12 +37,24 @@ const LogoContainer = styled.div`
   }
 `
 
+const StyledLogoIcon = styled(Icon)`
+  color: ${props => props.theme.colors.textColor};
+  height: 100%;
+  width: 200px;
+  max-width: 200px;
+
+  @media ${dimensions.smallViewport} {
+    max-width: 44px;
+  }
+`
+
 /**
  * A logo component designed for the Header.
  */
 export const HeaderLogo = ({ link }: HeaderLogoProps): ReactElement => {
   const { viewportSmall } = useWindowDimensions()
   const { campaign, appName, icons } = buildConfig()
+
   const currentDate = DateTime.now()
   const showCampaignLogo =
     campaign && currentDate > DateTime.fromISO(campaign.startDate) && currentDate < DateTime.fromISO(campaign.endDate)
@@ -58,7 +64,7 @@ export const HeaderLogo = ({ link }: HeaderLogoProps): ReactElement => {
   return (
     <LogoContainer>
       <Link to={link}>
-        <img src={viewportSmall ? srcMobile : src} alt={appName} width='100%' height='auto' />
+        <StyledLogoIcon src={viewportSmall ? srcMobile : src} title={appName} />
       </Link>
     </LogoContainer>
   )

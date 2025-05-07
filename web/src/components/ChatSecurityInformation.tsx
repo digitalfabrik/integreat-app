@@ -30,8 +30,9 @@ const InformationTooltipContainer = styled.div`
   position: absolute;
   z-index: 2000;
   border: 1px solid;
-  background-color: ${props => props.theme.colors.textSecondaryColor};
-  color: white;
+  background-color: ${props =>
+    props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.textSecondaryColor};
+  color: ${props => props.theme.colors.textColor};
   padding: 12px;
   text-align: center;
   transform: ${props => (props.theme.contentDirection === 'rtl' ? 'translate(95%, -90%)' : 'translate(-95%, -90%)')};
