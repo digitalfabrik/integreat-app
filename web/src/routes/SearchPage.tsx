@@ -3,7 +3,15 @@ import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { parseHTML, pathnameFromRouteInformation, SEARCH_ROUTE, useSearch, SEARCH_QUERY_KEY, useDebounce } from 'shared'
+import {
+  parseHTML,
+  pathnameFromRouteInformation,
+  SEARCH_ROUTE,
+  useSearch,
+  SEARCH_QUERY_KEY,
+  useDebounce,
+  MAX_SEARCH_RESULTS,
+} from 'shared'
 import { config } from 'translations'
 
 import { CityRouteProps } from '../CityContentSwitcher'
@@ -98,18 +106,20 @@ const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
     if (loading) {
       return <LoadingSpinner />
     }
+    const LimitedResults = results.slice(0, MAX_SEARCH_RESULTS)
+
     return (
       <>
         <List>
-          <SearchCounter aria-live={results.length === 0 ? 'assertive' : 'polite'}>
-            {t('searchResultsCount', { count: results.length })}
+          <SearchCounter aria-live={LimitedResults.length === 0 ? 'assertive' : 'polite'}>
+            {t('searchResultsCount', { count: LimitedResults.length })}
           </SearchCounter>
-          {results.map(({ title, content, path, thumbnail }) => (
+          {LimitedResults.map(({ title, content, path, thumbnail }) => (
             <SearchListItem
               title={title}
               contentWithoutHtml={parseHTML(content)}
               key={path}
-              query={query}
+              query={debouncedQuery}
               path={path}
               thumbnail={thumbnail}
             />
@@ -119,7 +129,7 @@ const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
           cityCode={cityCode}
           languageCode={languageCode}
           noResults={results.length === 0}
-          query={query}
+          query={debouncedQuery}
         />
       </>
     )

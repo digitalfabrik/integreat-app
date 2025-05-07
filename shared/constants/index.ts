@@ -1,5 +1,6 @@
 export const MAX_DATE_RECURRENCES = 10
 export const MAX_DATE_RECURRENCES_COLLAPSED = 3
+export const MAX_SEARCH_RESULTS = 80
 export const TTS_MAX_TITLE_DISPLAY_CHARS = 20
 
 export const SPRUNGBRETT_OFFER_ALIAS = 'sprungbrett'
