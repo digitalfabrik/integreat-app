@@ -62,10 +62,10 @@ const SearchModal = ({
   const contentLanguageReturn = useSearch(documents, debouncedQuery)
   const fallbackLanguageReturn = useSearch(fallbackLanguageDocuments, debouncedQuery)
   const searchResults = contentLanguageReturn.data.concat(fallbackLanguageReturn.data)
-  const LimitedResults = searchResults.slice(0, MAX_SEARCH_RESULTS)
+  const limitedResults = searchResults.slice(0, MAX_SEARCH_RESULTS)
 
   useReportError(contentLanguageReturn.error ?? fallbackLanguageReturn.error)
-  useAnnounceSearchResultsIOS(LimitedResults)
+  useAnnounceSearchResultsIOS(limitedResults)
 
   const onClose = (): void => {
     sendTrackingSignal({
@@ -97,11 +97,11 @@ const SearchModal = ({
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
         {query.length > 0 && (
           <>
-            <SearchCounter accessibilityLiveRegion={LimitedResults.length === 0 ? 'assertive' : 'polite'}>
-              {t('searchResultsCount', { count: LimitedResults.length })}
+            <SearchCounter accessibilityLiveRegion={limitedResults.length === 0 ? 'assertive' : 'polite'}>
+              {t('searchResultsCount', { count: limitedResults.length })}
             </SearchCounter>
             <List
-              items={LimitedResults}
+              items={limitedResults}
               renderItem={renderItem}
               accessibilityLabel={t('searchResultsCount', { count: searchResults.length })}
               style={{ flex: 1 }}
@@ -111,7 +111,7 @@ const SearchModal = ({
                   routeType={SEARCH_ROUTE}
                   language={languageCode}
                   cityCode={cityCode}
-                  noResults={LimitedResults.length === 0}
+                  noResults={limitedResults.length === 0}
                   query={query}
                 />
               }

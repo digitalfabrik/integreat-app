@@ -106,15 +106,15 @@ const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
     if (loading) {
       return <LoadingSpinner />
     }
-    const LimitedResults = results.slice(0, MAX_SEARCH_RESULTS)
+    const limitedResults = results.slice(0, MAX_SEARCH_RESULTS)
 
     return (
       <>
         <List>
-          <SearchCounter aria-live={LimitedResults.length === 0 ? 'assertive' : 'polite'}>
-            {t('searchResultsCount', { count: LimitedResults.length })}
+          <SearchCounter aria-live={limitedResults.length === 0 ? 'assertive' : 'polite'}>
+            {t('searchResultsCount', { count: limitedResults.length })}
           </SearchCounter>
-          {LimitedResults.map(({ title, content, path, thumbnail }) => (
+          {limitedResults.map(({ title, content, path, thumbnail }) => (
             <SearchListItem
               title={title}
               contentWithoutHtml={parseHTML(content)}
