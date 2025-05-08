@@ -30,11 +30,12 @@ const InformationTooltipContainer = styled.div`
   position: absolute;
   z-index: 2000;
   border: 1px solid;
-  background-color: ${props => props.theme.colors.textSecondaryColor};
-  color: white;
+  background-color: ${props =>
+    props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.textSecondaryColor};
+  color: ${props => props.theme.colors.textColor};
   padding: 12px;
   text-align: center;
-  transform: translate(-95%, -90%);
+  transform: ${props => (props.theme.contentDirection === 'rtl' ? 'translate(95%, -90%)' : 'translate(-95%, -90%)')};
   white-space: pre-line;
   width: 250px;
 
@@ -46,6 +47,7 @@ const InformationTooltipContainer = styled.div`
 const ChatSecurityInformation = (): ReactElement => {
   const { t } = useTranslation('chat')
   const [securityInformationVisible, setSecurityInformationVisible] = useState<boolean>(false)
+
   return (
     <SecurityInformationContainer>
       {securityInformationVisible && <InformationTooltipContainer>{t('dataSecurity')}</InformationTooltipContainer>}

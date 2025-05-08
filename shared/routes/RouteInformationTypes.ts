@@ -17,6 +17,7 @@ import {
 type ParamsType = {
   cityCode: string
   languageCode: string
+  chat?: boolean
 }
 
 export type LandingRouteInformationType = {
