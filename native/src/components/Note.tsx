@@ -21,6 +21,7 @@ const NoteText = styled.Text`
 const StyledIcon = styled(Icon)`
   align-self: center;
   margin-right: 12px;
+  ${props => props.theme.isContrastTheme && `color: ${props.theme.colors.backgroundColor}`}
 `
 
 type NoteProps = {

@@ -10,7 +10,8 @@ import Caption from './Caption'
 import TextButton from './base/TextButton'
 
 const DatePickerWrapper = styled.View`
-  background-color: ${props => props.theme.colors.textDecorationColor};
+  background-color: ${props =>
+    props.theme.isContrastTheme ? props.theme.colors.backgroundAccentColor : props.theme.colors.textDecorationColor};
   border-radius: 20px;
   position: absolute;
   width: 90%;
@@ -27,7 +28,9 @@ const StyledView = styled.View`
 
 const DISABLED_OPACITY = 0.5
 
-const StyledTextButton = styled(TextButton)`
+const StyledTextButton = styled(TextButton).attrs(props => ({
+  textStyle: { color: props.theme.isContrastTheme ? props.theme.colors.textColor : undefined },
+}))`
   background-color: transparent;
   opacity: ${props => (props.disabled ? DISABLED_OPACITY : 1)};
   height: 40px;
@@ -105,10 +108,11 @@ const CalendarRangeModal = ({
           markedDates={getMarkedDates(tempStartDate, tempEndDate, theme, currentInput ?? '')}
           onDayPress={handleDayPress}
           theme={{
-            calendarBackground: theme.colors.textDecorationColor,
+            calendarBackground: theme.isContrastTheme ? theme.colors.backgroundColor : theme.colors.textDecorationColor,
             dayTextColor: theme.colors.textColor,
+            monthTextColor: theme.colors.textColor,
             textDisabledColor: theme.colors.textSecondaryColor,
-            todayTextColor: theme.colors.backgroundColor,
+            todayTextColor: theme.isContrastTheme ? theme.colors.linkColor : theme.colors.backgroundColor,
             textSectionTitleColor: theme.colors.textColor,
             arrowColor: theme.colors.textColor,
           }}

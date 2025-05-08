@@ -32,6 +32,7 @@ const CategoryEntryContainer = styled.View`
 const TitleDirectionContainer = styled.View<{ language: string }>`
   align-items: center;
   flex-direction: ${props => contentDirection(props.language)};
+  color: ${props => props.theme.colors.textColor};
 `
 
 const CategoryTitle = styled.Text<{ language: string }>`

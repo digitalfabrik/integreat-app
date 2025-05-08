@@ -23,16 +23,19 @@ const Thumbnail = styled(SimpleImage)`
 
 const PoiDetailsContainer = styled.View`
   flex: 1;
+  background-color: ${props => props.theme.colors.backgroundColor};
 `
 
 const Title = styled.Text`
   font-size: 16px;
   font-weight: bold;
+  color: ${props => props.theme.colors.textColor};
 `
 
 const StyledDistance = styled.Text`
   font-size: 12px;
   margin-top: 8px;
+  color: ${props => props.theme.colors.textColor};
 `
 
 const StyledCategory = styled.Text`
