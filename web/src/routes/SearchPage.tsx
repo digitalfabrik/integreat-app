@@ -66,7 +66,7 @@ const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
   const contentLanguageReturn = useSearch(contentLanguageDocuments, debouncedQuery)
   const fallbackLanguageDocuments = languageCode !== fallbackLanguage ? fallbackData : []
   const fallbackLanguageReturn = useSearch(fallbackLanguageDocuments, debouncedQuery)
-  const results = contentLanguageReturn.data.concat(fallbackLanguageReturn.data)
+  const results = contentLanguageReturn.data.concat(fallbackLanguageReturn.data).slice(0, MAX_SEARCH_RESULTS)
 
   useReportError(contentLanguageReturn.error ?? fallbackLanguageReturn.error)
 
@@ -106,15 +106,14 @@ const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
     if (loading) {
       return <LoadingSpinner />
     }
-    const limitedResults = results.slice(0, MAX_SEARCH_RESULTS)
 
     return (
       <>
         <List>
-          <SearchCounter aria-live={limitedResults.length === 0 ? 'assertive' : 'polite'}>
-            {t('searchResultsCount', { count: limitedResults.length })}
+          <SearchCounter aria-live={results.length === 0 ? 'assertive' : 'polite'}>
+            {t('searchResultsCount', { count: results.length })}
           </SearchCounter>
-          {limitedResults.map(({ title, content, path, thumbnail }) => (
+          {results.map(({ title, content, path, thumbnail }) => (
             <SearchListItem
               title={title}
               contentWithoutHtml={parseHTML(content)}
