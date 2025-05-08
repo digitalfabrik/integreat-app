@@ -9,7 +9,9 @@ import Button from './base/Button'
 import Icon from './base/Icon'
 
 const StyledTtsPlayer = styled.dialog<{ $isPlaying: boolean; $footerHeight: number }>`
-  background-color: ${props => props.theme.colors.ttsPlayerBackground};
+  background-color: ${props =>
+    props.theme.isContrastTheme ? props.theme.colors.backgroundAccentColor : props.theme.colors.ttsPlayerBackground};
+  color: ${props => props.theme.colors.textColor};
   border-radius: 28px;
   width: 388px;
   max-width: 388px;
@@ -55,8 +57,12 @@ const BaseButton = styled(Button)`
 `
 
 const PlayButton = styled(BaseButton)<{ disabled: boolean }>`
-  background-color: ${props =>
-    props.disabled ? props.theme.colors.textDisabledColor : props.theme.colors.ttsPlayerPlayIconColor};
+  background-color: ${props => {
+    if (props.disabled) {
+      return props.theme.colors.textDisabledColor
+    }
+    return props.theme.isContrastTheme ? props.theme.colors.textColor : props.theme.colors.ttsPlayerPlayIconColor
+  }};
   width: 48px;
   height: 48px;
   border-radius: 48px;
@@ -71,11 +77,21 @@ const StyledButton = styled(Button)`
 `
 
 const StyledPlayIcon = styled(Icon)`
-  color: ${props => props.theme.colors.ttsPlayerBackground};
+  color: ${props =>
+    props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.ttsPlayerBackground};
+`
+
+const StyledCloseIcon = styled(Icon)`
+  color: ${props => (props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.textColor)};
+`
+
+const StyledCloseText = styled.span`
+  font-weight: bold;
 `
 
 const StyledText = styled.span`
   font-weight: bold;
+  color: ${props => props.theme.colors.textColor};
 `
 
 const HeaderText = styled.span`
@@ -87,6 +103,7 @@ const HeaderText = styled.span`
 const CloseButton = styled(BaseButton)`
   border-radius: 8px;
   background-color: ${props => props.theme.colors.themeColor};
+  color: ${props => (props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.textColor)};
   padding: 4px 8px;
   gap: 4px;
   box-shadow: 1px 4px 4px 1px grey;
@@ -145,8 +162,8 @@ const TtsPlayer = ({
       <CloseView>
         {!isPlaying && <HeaderText>{title}</HeaderText>}
         <CloseButton label={t('common:close')} onClick={close}>
-          <Icon src={CloseIcon} />
-          <StyledText>{t('common:close')}</StyledText>
+          <StyledCloseIcon src={CloseIcon} />
+          <StyledCloseText>{t('common:close')}</StyledCloseText>
         </CloseButton>
       </CloseView>
     </StyledTtsPlayer>

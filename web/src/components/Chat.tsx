@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import ChatMessageModel from 'shared/api/models/ChatMessageModel'
 
 import dimensions from '../constants/dimensions'
+import { helpers } from '../constants/theme'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import ChatConversation from './ChatConversation'
 import ChatSecurityInformation from './ChatSecurityInformation'
@@ -34,6 +35,7 @@ const SubmitContainer = styled.div`
 
 const SubmitButton = styled(TextButton)`
   flex: 1;
+  ${helpers.adaptiveThemeTextColor}
 `
 
 const LoadingText = styled.div`
@@ -72,8 +74,10 @@ const Chat = ({ messages, submitMessage, hasError, isLoading, isTyping }: ChatPr
     setTextInput('')
   }
 
+  const submitDisabled = textInput.trim().length === 0 || hasError || isLoading
   const submitOnEnter = (event: KeyboardEvent) => {
-    if (event.key === 'Enter' && !event.shiftKey) {
+    const isEnterAllowed = event.key === 'Enter' && !event.shiftKey && !submitDisabled
+    if (isEnterAllowed) {
       event.preventDefault()
       onSubmit()
     }
@@ -109,7 +113,7 @@ const Chat = ({ messages, submitMessage, hasError, isLoading, isTyping }: ChatPr
           />
         </InputSection>
         <SubmitContainer>
-          <SubmitButton disabled={textInput.length === 0} onClick={onSubmit} text={t('sendButton')} />
+          <SubmitButton disabled={submitDisabled} onClick={onSubmit} text={t('sendButton')} />
           <ChatSecurityInformation />
         </SubmitContainer>
       </InputWrapper>
