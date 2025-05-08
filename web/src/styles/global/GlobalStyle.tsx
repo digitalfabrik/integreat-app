@@ -52,10 +52,32 @@ const GlobalStyle = createGlobalStyle`
     /* react-spring-bottom-sheet */
     [data-rsbs-header] {
       background-color: ${props => props.theme.colors.backgroundAccentColor};
+      box-shadow: none;
+      padding-top: calc(24px + env(safe-area-inset-top));
     }
 
     [data-rsbs-header]::before {
       background-color: ${props => props.theme.colors.textColor};
+      width: 28px;
+      height: 3px;
+      top: calc(18px + env(safe-area-inset-top));
+    }
+
+    [data-rsbs-has-header='false'] [data-rsbs-header] {
+      padding-top: calc(32px + env(safe-area-inset-top));
+    }
+
+    [data-rsbs-content] {
+      min-height: 100%;
+      display: flex;
+    }
+
+    [data-rsbs-overlay] {
+      min-height: 40px;
+    }
+
+    [data-rsbs-scroll='true'] {
+      background-color: ${props => props.theme.colors.backgroundColor};
     }
   }
 `
