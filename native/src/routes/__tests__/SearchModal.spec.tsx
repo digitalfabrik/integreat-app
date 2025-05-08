@@ -25,6 +25,11 @@ jest.mock('react-native-inappbrowser-reborn', () => ({
   isAvailable: () => false,
 }))
 
+jest.mock('shared/hooks/useDebounce', () => ({
+  __esModule: true,
+  default: (value: string) => value,
+}))
+
 jest.mock('shared', () => ({
   ...jest.requireActual('shared'),
   useSearch: (results: SearchResult[], query: string) => ({
