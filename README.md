@@ -50,6 +50,10 @@ There are also separate sub-projects used by both projects:
 
 ### Prerequisites
 
+_We recommend to use either a Linux distribution or MacOS for development.
+If you want to develop on Windows anyway, we recommend to use the `Windows Subsystem for Linux (WSL)`
+and follow the docs [here](./docs/wsl-setup.md) first._
+
 - Rate our apps in the [PlayStore](https://play.google.com/store/apps/developer?id=T%C3%BCr+an+T%C3%BCr+-+Digitalfabrik+gGmbH)
   and the [Apple App Store](https://apps.apple.com/ae/developer/tur-an-tur-digitalfabrik-ggmbh/id1309363258).
 - Install [nodejs v20 LTS](https://nodejs.org/).
@@ -64,10 +68,6 @@ If you are using a different IDE like Visual Studio Code the steps might [differ
 - **Open either the [web](web) or [native](native) directory separately in IntelliJ (File > Open).**
 - Follow the steps mentioned in the [web README](web/README.md) or the [native README](native/README.md).
 - [optional]: Enable `Languages & Frameworks > JavaScript > Prettier > On Save` to enable prettier autoformatting.
-
-_We are recommending to use either a Linux distribution or MacOS for development.
-If you want to develop on Windows anyway, follow the steps [here](./docs/windows-setup.md)
-or use the Windows Subsystem for Linux following the information [here](./docs/wsl-setup.md)._
 
 ## Further Reading
 
