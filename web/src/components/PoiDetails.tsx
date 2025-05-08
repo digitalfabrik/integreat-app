@@ -110,6 +110,10 @@ const DetailSection = styled.div`
   }
 `
 
+const StyledCollapsible = styled(Collapsible)`
+  gap: 0;
+`
+
 const StyledContactsContainer = styled.div`
   margin-top: 12px;
 `
@@ -165,7 +169,7 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
       {contacts.length > 0 && (
         <>
           <Spacer $borderColor={theme.colors.borderColor} />
-          <Collapsible isGapEnabled={false} title={t('contacts')}>
+          <StyledCollapsible title={t('contacts')}>
             <StyledContactsContainer>
               {contacts.map((contact, index) => (
                 <Fragment key={contact.headline ?? contact.website ?? contact.name ?? contact.phoneNumber}>
@@ -173,7 +177,7 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
                 </Fragment>
               ))}
             </StyledContactsContainer>
-          </Collapsible>
+          </StyledCollapsible>
         </>
       )}
       <>
