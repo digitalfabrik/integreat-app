@@ -21,7 +21,7 @@ import malteBuildConfigName from './malte/build-config-name'
 import obdachBuildConfig from './obdach'
 import obdachBuildConfigName from './obdach/build-config-name'
 
-export type { ThemeType } from './ThemeType'
+export type { LegacyThemeType } from './LegacyThemeType'
 export type { ThemeKey } from './ThemeKey'
 
 export const COMMON = 'common'

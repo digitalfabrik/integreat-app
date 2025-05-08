@@ -37,7 +37,7 @@ const openExternalUrl = async (rawUrl: string, showSnackbar: (snackbar: Snackbar
       // Workaround by using http:// instead, see #2724
       const url = isInternalLink ? encodedUrl.replace('https://', 'http://') : encodedUrl
       await InAppBrowser.open(url, {
-        toolbarColor: buildConfig().lightTheme.colors.themeColor,
+        toolbarColor: buildConfig().legacyLightTheme.colors.themeColor,
       })
     } else if (isInternalLink) {
       // Opening internal links via Linking opens it in integreat again leading to an endless loop, see #2440

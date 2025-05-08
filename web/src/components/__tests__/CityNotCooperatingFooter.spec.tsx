@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { lightTheme } from 'build-configs/integreat/theme'
+import { legacyLightTheme } from 'build-configs/integreat/theme'
 
 import { renderWithRouterAndTheme } from '../../testing/render'
 import CityNotCooperatingFooter from '../CityNotCooperatingFooter'
@@ -10,7 +10,7 @@ jest.mock('../../constants/buildConfig', () =>
     featureFlags: {
       cityNotCooperating: true,
     },
-    lightTheme,
+    legacyLightTheme,
     icons: {
       cityNotCooperating: 'test',
     },

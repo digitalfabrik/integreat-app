@@ -82,7 +82,7 @@ const App = (): ReactElement => {
 
   return (
     <>
-      <ThemeProvider theme={buildConfig().lightTheme}>
+      <ThemeProvider theme={buildConfig().legacyLightTheme}>
         <StaticServerProvider>
           <I18nProvider>
             <SafeAreaProvider>

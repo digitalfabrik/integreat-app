@@ -86,7 +86,7 @@ const generateManifest = (content: Buffer, buildConfig: WebBuildConfigType) => {
 
   manifest.version = readVersionName()
   manifest.homepage_url = buildConfig.aboutUrls.default
-  manifest.theme_color = buildConfig.lightTheme.colors.themeColor
+  manifest.theme_color = buildConfig.legacyLightTheme.colors.themeColor
   manifest.name = buildConfig.appName
   manifest.description = buildConfig.appDescription
 

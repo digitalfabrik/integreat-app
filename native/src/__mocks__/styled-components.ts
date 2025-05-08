@@ -3,7 +3,7 @@ import buildConfig from '../constants/buildConfig'
 
 const realModule = jest.requireActual('styled-components')
 
-const useTheme = () => buildConfig().lightTheme
+const useTheme = () => buildConfig().legacyLightTheme
 
 module.exports = {
   ...realModule,

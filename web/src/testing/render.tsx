@@ -15,7 +15,7 @@ type RenderRouteOptions = {
   childPattern?: string
 }
 
-const theme = { ...buildConfig().lightTheme, contentDirection: 'ltr' as UiDirectionType }
+const theme = { ...buildConfig().legacyLightTheme, contentDirection: 'ltr' as UiDirectionType }
 
 const AllTheProviders = ({ children, options }: { children: ReactNode; options?: { pathname: string } }) => (
   <MemoryRouter initialEntries={options ? [options.pathname] : ['/']}>

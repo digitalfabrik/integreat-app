@@ -130,7 +130,7 @@ export const useForegroundPushNotificationListener = ({
             body: message.notification.body,
             android: {
               smallIcon: buildConfig().notificationIcon,
-              color: buildConfig().lightTheme.colors.themeColor,
+              color: buildConfig().legacyLightTheme.colors.themeColor,
               channelId: androidChannelId,
               importance: AndroidImportance.HIGH,
             },
