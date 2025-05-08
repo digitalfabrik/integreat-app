@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { KeyboardAvoidingView, Platform } from 'react-native'
 import styled from 'styled-components/native'
 
-import { parseHTML, SEARCH_FINISHED_SIGNAL_NAME, SEARCH_ROUTE, SearchResult, useSearch } from 'shared'
+import { parseHTML, SEARCH_FINISHED_SIGNAL_NAME, SEARCH_ROUTE, SearchResult, useSearch, useDebounce } from 'shared'
 
 import FeedbackContainer from '../components/FeedbackContainer'
 import List from '../components/List'
@@ -50,8 +50,9 @@ const SearchModal = ({
   const resourceCache = useResourceCache({ cityCode, languageCode })
   const { t } = useTranslation('search')
 
-  const contentLanguageReturn = useSearch(documents, query)
-  const fallbackLanguageReturn = useSearch(fallbackLanguageDocuments, query)
+  const debouncedQuery = useDebounce(query)
+  const contentLanguageReturn = useSearch(documents, debouncedQuery)
+  const fallbackLanguageReturn = useSearch(fallbackLanguageDocuments, debouncedQuery)
   const searchResults = contentLanguageReturn.data.concat(fallbackLanguageReturn.data)
 
   useReportError(contentLanguageReturn.error ?? fallbackLanguageReturn.error)

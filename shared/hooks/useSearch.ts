@@ -8,7 +8,6 @@ import PoiModel from '../api/models/PoiModel'
 import normalizeString from '../utils/normalizeString'
 
 export type SearchResult = ExtendedPageModel
-const DEBOUNCED_QUERY_TIMEOUT = 250
 
 const removeDuplicatedPaths = (documents: SearchResult[]) => {
   const paths = new Set()
@@ -41,8 +40,8 @@ type UseSearchReturn = {
 // Modifying single documents or replacing documents with a same length array will therefore NOT trigger an update
 const useSearch = (documents: SearchResult[], query: string): UseSearchReturn => {
   const [indexing, setIndexing] = useState(false)
-  const [debouncedQuery, setDebouncedQuery] = useState(normalizeString(query))
   const [error, setError] = useState<Error | null>(null)
+  const normalizedQuery = normalizeString(query)
 
   const [search] = useState(
     new MiniSearch({
@@ -59,14 +58,6 @@ const useSearch = (documents: SearchResult[], query: string): UseSearchReturn =>
   )
 
   useEffect(() => {
-    const debounceQueryTimeout = setTimeout(() => {
-      setDebouncedQuery(normalizeString(query))
-    }, DEBOUNCED_QUERY_TIMEOUT)
-
-    return () => clearTimeout(debounceQueryTimeout)
-  }, [query])
-
-  useEffect(() => {
     const sanitizedDocuments = removeDuplicatedPaths(documents)
     if (!indexing && search.documentCount !== sanitizedDocuments.length) {
       setIndexing(true)
@@ -79,7 +70,7 @@ const useSearch = (documents: SearchResult[], query: string): UseSearchReturn =>
   }, [indexing, search, documents])
 
   return {
-    data: debouncedQuery.length === 0 ? documents : (search.search(debouncedQuery) as unknown as SearchResult[]),
+    data: normalizedQuery.length === 0 ? documents : (search.search(normalizedQuery) as unknown as SearchResult[]),
     error,
     loading: indexing,
   }
