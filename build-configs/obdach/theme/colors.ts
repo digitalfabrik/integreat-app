@@ -1,19 +1,19 @@
-import { ColorsType, commonContrastColors, commonLightColors } from '../../common/theme/colors'
+import { legacyCommonContrastColors, LegacyColorsType, legacyCommonLightColors } from '../../common/theme/colors'
 
 const themeColor = '#E55129'
 const themeColorLight = 'rgba(229, 81, 41, 0.5)'
 const themeContrast = '#000000'
 
-export const lightColors: ColorsType = {
+export const legacyLightColors: LegacyColorsType = {
   themeColor,
   themeColorLight,
   themeContrast,
-  ...commonLightColors,
+  ...legacyCommonLightColors,
 }
 
-export const contrastColors: ColorsType = {
+export const legacyContrastColors: LegacyColorsType = {
   themeColor,
   themeColorLight,
   themeContrast,
-  ...commonContrastColors,
+  ...legacyCommonContrastColors,
 }
