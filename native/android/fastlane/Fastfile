@@ -178,8 +178,7 @@ platform :android do
       raise "'nil' passed as parameter! Aborting..."
     end
 
-    build_config = read_build_config(build_config_name, 'android')
-    application_id = build_config['applicationId']
+    application_id = sh("yarn app-toolbelt v0 build-config to-json #{build_config_name} android | jq -rj .applicationId ")
 
     production_version_codes = google_play_track_version_codes(
       track: "production",

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { PlacesType } from 'react-tooltip'
 import styled, { css, useTheme } from 'styled-components'
 
-import { CloseIcon, FacebookIcon, MailIcon, ShareIcon, WhatsappIcon } from '../assets'
+import { CloseIcon, CopyIcon, DoneIcon, FacebookIcon, MailIcon, ShareIcon, WhatsappIcon } from '../assets'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import Portal from './Portal'
 import ToolbarItem from './ToolbarItem'
@@ -64,6 +64,7 @@ const TooltipContainer = styled.div<{
   }
 
   /* White center of the arrow */
+
   &::before {
     z-index: 2000;
     border-bottom: 10px solid ${props => props.theme.colors.backgroundColor};
@@ -106,6 +107,7 @@ const TooltipContainer = styled.div<{
   }
 
   /* Border of the arrow */
+
   &::after {
     z-index: 1000;
     border-bottom: 11px solid ${props => props.theme.colors.textDecorationColor};
@@ -190,9 +192,12 @@ const SharingPopupContainer = styled.div`
   position: relative;
 `
 
+const COPY_TIMEOUT = 3000
+
 const SharingPopup = ({ shareUrl, title, flow, portalNeeded }: SharingPopupProps): ReactElement => {
-  const { t } = useTranslation('socialMedia')
   const [shareOptionsVisible, setShareOptionsVisible] = useState<boolean>(false)
+  const [linkCopied, setLinkCopied] = useState<boolean>(false)
+  const { t } = useTranslation('socialMedia')
 
   const encodedTitle = encodeURIComponent(title)
   const encodedShareUrl = encodeURIComponent(shareUrl)
@@ -202,6 +207,14 @@ const SharingPopup = ({ shareUrl, title, flow, portalNeeded }: SharingPopupProps
   const theme = useTheme()
   const tooltipDirectionMobile: PlacesType = theme.contentDirection === 'ltr' ? 'right' : 'left'
   const tooltipDirection: PlacesType = viewportSmall ? tooltipDirectionMobile : 'top'
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(window.location.href).catch(reportError)
+    setLinkCopied(true)
+    setTimeout(() => {
+      setLinkCopied(false)
+    }, COPY_TIMEOUT)
+  }
 
   const Backdrop = (
     <BackdropContainer onClick={() => setShareOptionsVisible(false)} label={t('closeTooltip')} tabIndex={0}>
@@ -219,7 +232,19 @@ const SharingPopup = ({ shareUrl, title, flow, portalNeeded }: SharingPopupProps
             </Portal>
           )}
           {Backdrop}
-          <TooltipContainer $flow={portalNeeded ? 'horizontal' : flow} $active={shareOptionsVisible}>
+          <TooltipContainer $flow={flow} $active={shareOptionsVisible}>
+            <Tooltip
+              id='copy'
+              place={tooltipDirection}
+              tooltipContent={t(linkCopied ? 'common:copied' : 'layout:copyUrl')}>
+              {/* @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112 */}
+              <StyledLink
+                as={Button}
+                onClick={copyToClipboard}
+                ariaLabel={t(linkCopied ? 'common:copied' : 'layout:copyUrl')}>
+                <StyledIcon src={linkCopied ? DoneIcon : CopyIcon} />
+              </StyledLink>
+            </Tooltip>
             <Tooltip id='share-whatsapp' place={tooltipDirection} tooltipContent={t('whatsappTooltip')}>
               <StyledLink
                 to={`https://api.whatsapp.com/send?text=${shareMessage}%0a${encodedShareUrl}`}
