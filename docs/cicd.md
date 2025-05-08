@@ -148,8 +148,11 @@ Therefore, you can follow the documentation for Manual Builds to set up [certifi
 
 ## Determining the Next Version
 
-The next version of the app must be determined programmatically. The tool [next-version](../tools/next-version.ts) can be used.
-More information on the version naming schema used can be found [here](conventions.md#versioning).
+The next version of the app must be determined programmatically.
+
+- Go to the tools folder
+- run: `yarn app-toolbelt v0 version calc | jq .versionName`
+  More information on the version naming schema used can be found [here](conventions.md#versioning).
 
 ## Environment Variables and Dependencies
 
