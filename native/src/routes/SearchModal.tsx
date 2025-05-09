@@ -84,7 +84,7 @@ const SearchModal = ({
       resourceCache={resourceCache[item.path] ?? {}}
       contentWithoutHtml={parseHTML(item.content)}
       language={languageCode}
-      query={query}
+      query={debouncedQuery}
       thumbnail={item.thumbnail}
       path={item.path}
     />
@@ -94,7 +94,7 @@ const SearchModal = ({
     <Wrapper {...testID('Search-Page')}>
       <SearchHeader query={query} closeSearchBar={onClose} onSearchChanged={setQuery} />
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
-        {query.length > 0 && (
+        {debouncedQuery.length > 0 && (
           <>
             <SearchCounter accessibilityLiveRegion={searchResults.length === 0 ? 'assertive' : 'polite'}>
               {t('searchResultsCount', { count: searchResults.length })}
@@ -111,7 +111,7 @@ const SearchModal = ({
                   language={languageCode}
                   cityCode={cityCode}
                   noResults={searchResults.length === 0}
-                  query={query}
+                  query={debouncedQuery}
                 />
               }
             />
