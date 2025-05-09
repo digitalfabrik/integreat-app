@@ -9,7 +9,8 @@
       "e2e-tests",
       "shared",
       "translations",
-      "build-configs"
+      "build-configs",
+      "tools"
     ],
     "nohoist": [
       "native/**",
@@ -17,7 +18,8 @@
       "e2e-tests/**",
       "shared/**",
       "translations/**",
-      "build-configs/**"
+      "build-configs/**",
+      "tools/**"
     ]
   },
   "scripts": {
