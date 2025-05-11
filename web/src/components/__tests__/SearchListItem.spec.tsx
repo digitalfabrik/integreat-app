@@ -80,14 +80,14 @@ describe('SearchListItem', () => {
   })
 
   it('should render with thumbnail when provided', () => {
-    const { getByAltText } = renderWithRouterAndTheme(<SearchListItem query={''} {...categoryParams} />)
+    const { getByAltText } = renderWithRouterAndTheme(<SearchListItem query='' {...categoryParams} />)
     const thumbnail = getByAltText('thumbnail')
     expect(thumbnail).toBeInTheDocument()
   })
 
   it('should render without thumbnail when not provided', () => {
     const { queryByAltText } = renderWithRouterAndTheme(
-      <SearchListItem {...categoryParams} thumbnail={null} query={''} />,
+      <SearchListItem {...categoryParams} thumbnail={null} query='' />,
     )
     expect(queryByAltText('thumbnail')).not.toBeInTheDocument()
   })

@@ -86,7 +86,7 @@ describe('SearchListItem', () => {
 
     const { getByText } = renderSearchListItem(query)
 
-    assertHighlighting(getByText(category.title), true) //Titles are bold all the time from HighlighterCategoryTitle
+    assertHighlighting(getByText(category.title), true) // Titles are bold all the time from HighlighterCategoryTitle
     assertHighlighting(getByText(excerptBeforeQuery, { exact: false }), false)
     assertHighlighting(getByText(query), true)
     assertHighlighting(getByText(excerptAfterQuery, { exact: false }), false)
