@@ -1,6 +1,7 @@
 import { TranslationsType } from 'translations'
 
 import { LegacyThemeType } from './LegacyThemeType'
+import { Theme } from './ThemeType'
 
 // Build Configs
 // These are the types of our build configs and therefore define the structure and available options.
@@ -60,6 +61,8 @@ export type CommonBuildConfigType = {
   // Regex defining which urls to intercept as they are internal ones.
   internalUrlPattern: string
   featureFlags: FeatureFlagsType
+  lightTheme: Theme
+  darkTheme: Theme
   legacyLightTheme: LegacyThemeType
   legacyContrastTheme: LegacyThemeType
   // Translations deviating from the standard integreat translations.
