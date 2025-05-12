@@ -6,7 +6,7 @@ import BottomSheet, {
 import React, { memo, ReactElement, Ref } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Platform } from 'react-native'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
 import { LocationType } from 'shared'
 import { ErrorCode, PoiModel } from 'shared/api'
@@ -65,6 +65,7 @@ const PoisBottomSheet = ({
 }: PoiBottomSheetProps): ReactElement | null => {
   const { languageCode } = useCityAppContext()
   const { t } = useTranslation('pois')
+  const theme = useTheme()
   // ios has scrolling issues if content panning gesture is not enabled
   const enableContentPanningGesture = Platform.OS === 'ios' || !isFullscreen
 
@@ -93,6 +94,7 @@ const PoisBottomSheet = ({
       enableContentPanningGesture={enableContentPanningGesture}
       enableDynamicSizing={false}
       animateOnMount
+      backgroundStyle={{ backgroundColor: theme.colors.backgroundColor }}
       handleComponent={BottomSheetHandle}
       onChange={setSnapPointIndex}>
       <BottomSheetContent>
