@@ -3,7 +3,15 @@ import { useTranslation } from 'react-i18next'
 import { KeyboardAvoidingView, Platform } from 'react-native'
 import styled from 'styled-components/native'
 
-import { parseHTML, SEARCH_FINISHED_SIGNAL_NAME, SEARCH_ROUTE, SearchResult, useSearch, useDebounce } from 'shared'
+import {
+  parseHTML,
+  SEARCH_FINISHED_SIGNAL_NAME,
+  SEARCH_ROUTE,
+  SearchResult,
+  useSearch,
+  useDebounce,
+  MAX_SEARCH_RESULTS,
+} from 'shared'
 
 import FeedbackContainer from '../components/FeedbackContainer'
 import List from '../components/List'
@@ -53,7 +61,7 @@ const SearchModal = ({
   const debouncedQuery = useDebounce(query)
   const contentLanguageReturn = useSearch(documents, debouncedQuery)
   const fallbackLanguageReturn = useSearch(fallbackLanguageDocuments, debouncedQuery)
-  const searchResults = contentLanguageReturn.data.concat(fallbackLanguageReturn.data)
+  const searchResults = contentLanguageReturn.data.concat(fallbackLanguageReturn.data).slice(0, MAX_SEARCH_RESULTS)
 
   useReportError(contentLanguageReturn.error ?? fallbackLanguageReturn.error)
   useAnnounceSearchResultsIOS(searchResults)
@@ -76,7 +84,7 @@ const SearchModal = ({
       resourceCache={resourceCache[item.path] ?? {}}
       contentWithoutHtml={parseHTML(item.content)}
       language={languageCode}
-      query={query}
+      query={debouncedQuery}
       thumbnail={item.thumbnail}
       path={item.path}
     />
@@ -86,7 +94,7 @@ const SearchModal = ({
     <Wrapper {...testID('Search-Page')}>
       <SearchHeader query={query} closeSearchBar={onClose} onSearchChanged={setQuery} />
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
-        {query.length > 0 && (
+        {debouncedQuery.length > 0 && (
           <>
             <SearchCounter accessibilityLiveRegion={searchResults.length === 0 ? 'assertive' : 'polite'}>
               {t('searchResultsCount', { count: searchResults.length })}
@@ -103,7 +111,7 @@ const SearchModal = ({
                   language={languageCode}
                   cityCode={cityCode}
                   noResults={searchResults.length === 0}
-                  query={query}
+                  query={debouncedQuery}
                 />
               }
             />
