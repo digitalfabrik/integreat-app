@@ -1,3 +1,5 @@
+import RocketLaunch from '@mui/icons-material/RocketLaunch'
+import Button from '@mui/material/Button'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import 'core-js/actual/array/at'
 import { Settings as LuxonSettings } from 'luxon'
@@ -13,6 +15,7 @@ import Helmet from './components/Helmet'
 import I18nProvider from './components/I18nProvider'
 import { ThemeContainer } from './components/ThemeContext'
 import TtsContainer from './components/TtsContainer'
+import buildConfig from './constants/buildConfig'
 import safeLocalStorage, { JPAL_TRACKING_CODE_KEY } from './utils/safeLocalStorage'
 import { initSentry } from './utils/sentry'
 
@@ -37,7 +40,14 @@ const App = (): ReactElement => {
   // https://github.com/mui/material-ui/issues/45432
   return (
     <ThemeContainer contentDirection={contentDirection}>
-      <ThemeProvider theme={createTheme()}>
+      <ThemeProvider
+        theme={createTheme({
+          colorSchemes: {
+            light: buildConfig().lightTheme,
+            dark: buildConfig().darkTheme,
+          },
+        })}>
+        <Button startIcon={<RocketLaunch color='secondary' />}>Test</Button>
         <I18nProvider contentLanguage={contentLanguage}>
           <>
             <Helmet pageTitle={t('pageTitle')} rootPage />
