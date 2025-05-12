@@ -46,60 +46,62 @@ PODS:
     - Yoga
   - fast_float (6.1.4)
   - FBLazyVector (0.78.2)
-  - Firebase/CoreOnly (11.11.0):
-    - FirebaseCore (~> 11.11.0)
-  - Firebase/Messaging (11.11.0):
+  - Firebase/CoreOnly (10.24.0):
+    - FirebaseCore (= 10.24.0)
+  - Firebase/Messaging (10.24.0):
     - Firebase/CoreOnly
-    - FirebaseMessaging (~> 11.11.0)
-  - FirebaseCore (11.11.0):
-    - FirebaseCoreInternal (~> 11.11.0)
-    - GoogleUtilities/Environment (~> 8.0)
-    - GoogleUtilities/Logger (~> 8.0)
-  - FirebaseCoreExtension (11.11.0):
-    - FirebaseCore (~> 11.11.0)
-  - FirebaseCoreInternal (11.11.0):
-    - "GoogleUtilities/NSData+zlib (~> 8.0)"
-  - FirebaseInstallations (11.11.0):
-    - FirebaseCore (~> 11.11.0)
-    - GoogleUtilities/Environment (~> 8.0)
-    - GoogleUtilities/UserDefaults (~> 8.0)
-    - PromisesObjC (~> 2.4)
-  - FirebaseMessaging (11.11.0):
-    - FirebaseCore (~> 11.11.0)
-    - FirebaseInstallations (~> 11.0)
-    - GoogleDataTransport (~> 10.0)
-    - GoogleUtilities/AppDelegateSwizzler (~> 8.0)
-    - GoogleUtilities/Environment (~> 8.0)
-    - GoogleUtilities/Reachability (~> 8.0)
-    - GoogleUtilities/UserDefaults (~> 8.0)
-    - nanopb (~> 3.30910.0)
+    - FirebaseMessaging (~> 10.24.0)
+  - FirebaseCore (10.24.0):
+    - FirebaseCoreInternal (~> 10.0)
+    - GoogleUtilities/Environment (~> 7.12)
+    - GoogleUtilities/Logger (~> 7.12)
+  - FirebaseCoreExtension (10.29.0):
+    - FirebaseCore (~> 10.0)
+  - FirebaseCoreInternal (10.29.0):
+    - "GoogleUtilities/NSData+zlib (~> 7.8)"
+  - FirebaseInstallations (10.29.0):
+    - FirebaseCore (~> 10.0)
+    - GoogleUtilities/Environment (~> 7.8)
+    - GoogleUtilities/UserDefaults (~> 7.8)
+    - PromisesObjC (~> 2.1)
+  - FirebaseMessaging (10.24.0):
+    - FirebaseCore (~> 10.0)
+    - FirebaseInstallations (~> 10.0)
+    - GoogleDataTransport (~> 9.3)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
+    - GoogleUtilities/Environment (~> 7.8)
+    - GoogleUtilities/Reachability (~> 7.8)
+    - GoogleUtilities/UserDefaults (~> 7.8)
+    - nanopb (< 2.30911.0, >= 2.30908.0)
   - fmt (11.0.2)
   - glog (0.3.5)
-  - GoogleDataTransport (10.1.0):
-    - nanopb (~> 3.30910.0)
-    - PromisesObjC (~> 2.4)
-  - GoogleUtilities/AppDelegateSwizzler (8.0.2):
+  - GoogleDataTransport (9.4.1):
+    - GoogleUtilities/Environment (~> 7.7)
+    - nanopb (< 2.30911.0, >= 2.30908.0)
+    - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleUtilities/AppDelegateSwizzler (7.13.3):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
     - GoogleUtilities/Network
     - GoogleUtilities/Privacy
-  - GoogleUtilities/Environment (8.0.2):
+  - GoogleUtilities/Environment (7.13.3):
     - GoogleUtilities/Privacy
-  - GoogleUtilities/Logger (8.0.2):
+    - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleUtilities/Logger (7.13.3):
     - GoogleUtilities/Environment
     - GoogleUtilities/Privacy
-  - GoogleUtilities/Network (8.0.2):
+  - GoogleUtilities/Network (7.13.3):
     - GoogleUtilities/Logger
     - "GoogleUtilities/NSData+zlib"
     - GoogleUtilities/Privacy
     - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (8.0.2)":
+  - "GoogleUtilities/NSData+zlib (7.13.3)":
     - GoogleUtilities/Privacy
-  - GoogleUtilities/Privacy (8.0.2)
-  - GoogleUtilities/Reachability (8.0.2):
+  - GoogleUtilities/Privacy (7.13.3)
+  - GoogleUtilities/Reachability (7.13.3):
     - GoogleUtilities/Logger
     - GoogleUtilities/Privacy
-  - GoogleUtilities/UserDefaults (8.0.2):
+  - GoogleUtilities/UserDefaults (7.13.3):
     - GoogleUtilities/Logger
     - GoogleUtilities/Privacy
   - hermes-engine (0.78.2):
@@ -112,11 +114,11 @@ PODS:
   - maplibre-react-native/DynamicLibrary (10.1.4):
     - React
     - React-Core
-  - nanopb (3.30910.0):
-    - nanopb/decode (= 3.30910.0)
-    - nanopb/encode (= 3.30910.0)
-  - nanopb/decode (3.30910.0)
-  - nanopb/encode (3.30910.0)
+  - nanopb (2.30910.0):
+    - nanopb/decode (= 2.30910.0)
+    - nanopb/encode (= 2.30910.0)
+  - nanopb/decode (2.30910.0)
+  - nanopb/encode (2.30910.0)
   - PromisesObjC (2.4.0)
   - RCT-Folly (2024.11.18.00):
     - boost
@@ -1836,11 +1838,11 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNFBApp (21.14.0):
-    - Firebase/CoreOnly (= 11.11.0)
+  - RNFBApp (19.3.0):
+    - Firebase/CoreOnly (= 10.24.0)
     - React-Core
-  - RNFBMessaging (21.14.0):
-    - Firebase/Messaging (= 11.11.0)
+  - RNFBMessaging (19.3.0):
+    - Firebase/Messaging (= 10.24.0)
     - FirebaseCoreExtension
     - React-Core
     - RNFBApp
@@ -2458,19 +2460,19 @@ SPEC CHECKSUMS:
   dr-pogodin-react-native-static-server: 03a5afe78a93fd2f752e0abd06882069f1a87ae9
   fast_float: 06eeec4fe712a76acc9376682e4808b05ce978b6
   FBLazyVector: e32d34492c519a2194ec9d7f5e7a79d11b73f91c
-  Firebase: 6a8f201c61eda24e98f1ce2b44b1b9c2caf525cc
-  FirebaseCore: 2321536f9c423b1f857e047a82b8a42abc6d9e2c
-  FirebaseCoreExtension: 3a64994969dd05f4bcb7e6896c654eded238e75b
-  FirebaseCoreInternal: 31ee350d87b30a9349e907f84bf49ef8e6791e5a
-  FirebaseInstallations: 781e0e37aa0e1c92b44d00e739aba79ad31b2dba
-  FirebaseMessaging: c7be9357fd8ba33bc45b9a6c3cdff0b466e1e2a4
+  Firebase: 91fefd38712feb9186ea8996af6cbdef41473442
+  FirebaseCore: 11dc8a16dfb7c5e3c3f45ba0e191a33ac4f50894
+  FirebaseCoreExtension: 705ca5b14bf71d2564a0ddc677df1fc86ffa600f
+  FirebaseCoreInternal: df84dd300b561c27d5571684f389bf60b0a5c934
+  FirebaseInstallations: 913cf60d0400ebd5d6b63a28b290372ab44590dd
+  FirebaseMessaging: 4d52717dd820707cc4eadec5eb981b4832ec8d5d
   fmt: a40bb5bd0294ea969aaaba240a927bd33d878cdd
   glog: eb93e2f488219332457c3c4eafd2738ddc7e80b8
-  GoogleDataTransport: aae35b7ea0c09004c3797d53c8c41f66f219d6a7
-  GoogleUtilities: 26a3abef001b6533cf678d3eb38fd3f614b7872d
+  GoogleDataTransport: 6c09b596d841063d76d4288cc2d2f42cc36e1e2a
+  GoogleUtilities: ea963c370a38a8069cc5f7ba4ca849a60b6d7d15
   hermes-engine: 2771b98fb813fdc6f92edd7c9c0035ecabf9fee7
   maplibre-react-native: c2f06453adb392c99e436a4f115611e038ba87b5
-  nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
+  nanopb: 438bc412db1928dac798aa6fd75726007be04262
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   RCT-Folly: 36fe2295e44b10d831836cc0d1daec5f8abcf809
   RCTDeprecation: be794de7dc6ed8f9f7fbf525f86e7651b8b68746
@@ -2541,8 +2543,8 @@ SPEC CHECKSUMS:
   RNCAsyncStorage: 320c8b9217695928a64d8ae993653425c8605368
   RNCCheckbox: a3ca9978cb0846b981d28da4e9914bd437403d77
   RNCClipboard: de1561c12ba8a15f143347993a382c6474c0d2d6
-  RNFBApp: fda4a8b08fe31bea8492808106aa638d1bb595b7
-  RNFBMessaging: 099972ab397d61815f32610514b0573d1db2b1e1
+  RNFBApp: dd35ba8340b89c36e42c4c137915c01d3c792143
+  RNFBMessaging: c8d34d9ad44a3258a77e548bba6dc3561af7cf2d
   RNGestureHandler: 3ca128bc8b8f15f04ba00dbbd05b90df34404b05
   RNInAppBrowser: e36d6935517101ccba0e875bac8ad7b0cb655364
   RNLocalize: 530c85d94ac53e0ce316f6fdf5d47545a687fca9
@@ -2557,6 +2559,6 @@ SPEC CHECKSUMS:
   TextToSpeech: 2b930ec3756afde499061f4f01ea895e1f75dccb
   Yoga: 0c521d2eddeeff54ba1126068140b6e970a77fc0
 
-PODFILE CHECKSUM: e90bdde1561bb415ec5df41526eaab74e2782aa9
+PODFILE CHECKSUM: 1d81c132a2814f4d4335754b282dd3775ce70305
 
 COCOAPODS: 1.15.2
