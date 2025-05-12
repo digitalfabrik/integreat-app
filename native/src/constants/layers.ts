@@ -22,7 +22,7 @@ type clusterLayerType = {
 export const clusterLayer = (theme: ThemeType): clusterLayerType => ({
   id: clusterLayerId,
   style: {
-    circleColor: ['step', ['get', 'point_count'], theme.colors.themeColor, groupCount, theme.colors.themeColor],
+    circleColor: ['case', ['has', 'point_count'], theme.colors.themeColor, 'transparent'],
     circleRadius: ['step', ['get', 'point_count'], circleRadiusSmall, groupCount, circleRadiusLarge],
   },
 })

@@ -107,7 +107,6 @@ const MapView = ({
     zoomLevel: zoom ?? defaultZoom,
     centerCoordinate: coordinates ?? cityCoordinates,
     animationDuration,
-    padding: {},
   })
 
   const moveTo = useCallback(
@@ -115,7 +114,6 @@ const MapView = ({
       setCameraSettings({
         centerCoordinate: location,
         zoomLevel,
-        padding: { paddingBottom: bottomSheetHeight },
         animationDuration,
       }),
     [bottomSheetHeight],
@@ -187,8 +185,8 @@ const MapView = ({
         logoEnabled={false}>
         <UserLocation visible={!!userLocation} onUpdate={updateUserLocation} />
         <ShapeSource id='location-pois' shape={embedInCollection(features)} cluster clusterRadius={clusterRadius}>
-          <SymbolLayer {...clusterCountLayer} />
           <CircleLayer {...clusterLayer(theme)} />
+          <SymbolLayer {...clusterCountLayer} />
           <SymbolLayer {...markerLayer(selectedFeature)} />
         </ShapeSource>
         <Camera
@@ -197,6 +195,7 @@ const MapView = ({
           ref={cameraRef}
           animationDuration={2000}
           animationMode='easeTo'
+          padding={{ paddingBottom: bottomSheetHeight }}
         />
       </StyledMap>
       {Boolean(!bottomSheetFullscreen) && (

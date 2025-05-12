@@ -82,7 +82,7 @@ export const mapConfig: MapConfigProps = {
 export const defaultViewportConfig: MapViewViewport = {
   latitude: 48.366512,
   longitude: 10.894446,
-  zoom: 8,
+  zoom: 10,
 }
 
 export const defaultMercatorViewportConfig: MapViewMercatorViewport = {
