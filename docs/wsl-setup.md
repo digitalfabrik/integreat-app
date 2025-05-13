@@ -1,63 +1,42 @@
-# How to run the webapp on linux subsystem on Windows (WSL1)?
+# Setup WSL for integreat-app
 
 Most of the webapp has been developed from a Linux environment.
-To avoid environment specific troubleshooting and to improve performance it is recommended to set up and use the Windows Subsystem for Linux (WSL) on Windows.
+To avoid environment specific troubleshooting and to improve performance
+it is recommended to set up and use the `Windows Subsystem for Linux (WSL)` on Windows.
 
 ## Setup
 
-1. Enable the linux subsystem ([Official Guide](https://docs.microsoft.com/en-us/windows/wsl/install-win10))
-   - In the powershell run:
+1. Install wsl ([Official Guide](https://docs.microsoft.com/en-us/windows/wsl/install-win10))
+   - Open `Windows PowerShell` and run:
    ```powershell
-   dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+   wsl --install
    ```
    - Restart Windows
-   - Install a Linux distribution of your choice (see Microsoft Store)
-   - (The following section relates to how to setup the bash on Ubuntu)
-2. In the cmd run bash to Initially setup your bash profile.
-
-   - in the bash run
-
+2. Setup Ubuntu user
+   - Open newly installed app `Ubuntu`
+   - Set a username and password
+3. Update packages and install `nodejs` and `npm`
    ```bash
-   sudo apt update
+   sudo apt update && sudo apt install nodejs npm yarn
    ```
-
-   - in the bash [install node](https://github.com/nodesource/distributions/blob/master/README.md):
-
+4. Update `nodejs` to v22: https://joshtronic.com/2024/05/26/ubuntu-nodejs-22-install/
+5. Install `yarn`
    ```bash
-   sudo apt-get nodejs
+   npm install --global yarn
    ```
-
-   - in the bash install npm (as nodejs does not contain npm)
-
+   [Optional] If you run into permission problems, run the following commands to change the npm installation directory:
    ```bash
-   sudo apt-get install npm
+   mkdir ~/.npm-global
+   npm config set prefix '~/.npm-global'
+   export PATH=~/.npm-global/bin:$PATH
+   source ~/.profile
    ```
-
-   - in the bash [install yarn](https://classic.yarnpkg.com/en/docs/install#debian-stable)
-
-   ```bash
-   curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-   echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-   sudo apt update && sudo apt install yarn
-   ```
-
-   Note: On Ubuntu you might encounter some issues regarding the package cmdtest and curl. For that remove cmdtest (`sudo apt remove cmdtest`) and if you have any problems with curl run
-
-   ```bash
-   sudo apt remove gpg
-   sudo apt-get update -y
-   sudo apt-get install -y gnupg1
-   ```
-
-3. Setup IntelliJ
-
+6. [Optional] Setup IntelliJ
    - In IntelliJ navigate to File > Settings > Languages & Frameworks > Node.js and NPM
    - In the Dropdown for the node interpreter select `Add... > Add WSL...` and then your node installation should be listed
    - If the package manager (yarn) is not detected automatically set the path manually (usr/share/yarn)
    - Confirm with OK.
    - Now the project will run in the Linux Subsystem.
    - **Note**: If you open a different project the default project interpreter will be your Windows node installation. In that case you can just navigate to File > Settings > Languages & Frameworks > Node.js and NPM and select the Subsystems node installation
-
-4. Optional: Setup the bash in IntelliJ
-
-- In IntelliJ navigate to File > Settings > Tools > Terminal and replace the shell path with `C:\Windows\system32\bash.exe` or `C:\Windows\system32\wsl.exe`
+   - Navigate to File > Settings > Tools > Terminal and replace the shell path with `C:\Windows\system32\bash.exe`
+7. [Optional] Setup VS Code: https://code.visualstudio.com/docs/remote/wsl
