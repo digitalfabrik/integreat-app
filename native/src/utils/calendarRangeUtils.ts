@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 
-import { ThemeType } from 'build-configs'
+import { LegacyThemeType } from 'build-configs'
 
 type MarkedDateType = {
   selected: boolean
@@ -11,7 +11,7 @@ type MarkedDateType = {
 export const getMarkedDates = (
   startDate: DateTime | null,
   endDate: DateTime | null,
-  theme: ThemeType,
+  theme: LegacyThemeType,
   currentInput: string,
 ): Record<string, MarkedDateType> => {
   const markedDateStyling = {
