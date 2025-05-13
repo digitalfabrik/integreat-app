@@ -1,0 +1,41 @@
+#!/bin/bash
+
+Send_notification() {
+    only_for_branch=${1:-'main'}
+    channel=${2:-'integreat-app-notifications'}
+    message=${3:-${MM_MESSAGE}}
+
+    if [ $only_for_branch != "${CIRCLE_BRANCH}" ]; then
+        echo "Not on $only_for_branch branch. Skipping."
+        exit 0
+    fi
+
+    if [ -z "$message" ]; then
+        echo "No message set. Skipping."
+        exit 0
+    fi
+
+    if [ -z "${MM_WEBHOOK}" ]; then
+        echo "NO MATTERMOST WEBHOOK SET"
+        echo "Please add the environment variable \"MM_WEBHOOK\" in the settings for this project."
+        exit 1
+    fi
+
+    STATUS=$(curl -o /dev/null -s -w "%{http_code}\n" -X POST -H 'Content-type: application/json' \
+        --data \
+        "{
+          \"channel\": \"$channel\",
+          \"username\": \"circleci\",
+          \"text\": \"$message\"
+        }" "${MM_WEBHOOK}")
+
+    if [ "$STATUS" -ne "200" ]; then
+        echo "Notification not sent due to an error. Status: $STATUS. Please check the webhook URL"
+        exit 1
+    fi
+
+    echo "Notification sent!"
+    exit 0
+  }
+
+Send_notification $1 $2 "$3"

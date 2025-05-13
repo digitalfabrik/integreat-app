@@ -9,6 +9,7 @@ docker:
 resource_class: small
 steps:
   - checkout
+  - restore_yarn_tools_cache
   - run:
       name: Calculate next version name
       command: echo "export NEW_VERSION_NAME=$(yarn --silent app-toolbelt v0 version calc | jq .versionName)" >> ${BASH_ENV}

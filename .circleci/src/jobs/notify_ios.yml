@@ -10,6 +10,7 @@ steps:
   - checkout
   - prepare_workspace
   - restore_environment_variables
+  - restore_yarn_tools_cache
   - run:
       name: Prepare artifact urls
       command: echo "export IOS_ARTIFACT_URLS='$(echo $(cat $(ls | grep ipa-url)))'" >> ${BASH_ENV}

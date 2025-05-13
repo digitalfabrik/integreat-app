@@ -11,6 +11,7 @@ environment:
 shell: /bin/bash --login -o pipefail
 steps:
   - checkout
+  - restore_yarn_tools_cache
   - restore_yarn_cache # Needed for babel-node run in util.rb. May be refactored and optimized later.
   - restore_ruby_cache:
       directory: native/ios

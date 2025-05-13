@@ -10,6 +10,7 @@ steps:
   - checkout
   - prepare_workspace
   - restore_environment_variables
+  - restore_yarn_tools_cache
   - run:
       name: Prepare artifact urls
       command: echo "export ANDROID_ARTIFACT_URLS='$(echo $(cat $(ls | grep apk-url)))'" >> ${BASH_ENV}
