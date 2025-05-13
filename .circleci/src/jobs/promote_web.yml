@@ -4,7 +4,6 @@ resource_class: small
 shell: /bin/bash -eo pipefail
 steps:
   - checkout
-  - restore_yarn_tools_cache
   - add_ssh_keys:
       fingerprints:
         - '68:a3:fe:e7:94:f7:a4:13:35:5c:63:30:2f:07:7d:02'
@@ -22,7 +21,7 @@ steps:
       command: ssh -o StrictHostKeyChecking=no web@web.integreat-app.de "rsync -arv --delete /var/www/beta.netzwerkobdachwohnen.de/ /var/www/netzwerkobdachwohnen.de"
   - run:
       name: Remove prerelease flag from github release
-      working_directory: tools
+      working_directory: .
       command: |
         PROMOTION_MESSAGE=$(yarn --silent app-toolbelt v0 release promote --platform web --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME})
         echo "export PROMOTION_MESSAGE='${PROMOTION_MESSAGE}'" >> $BASH_ENV

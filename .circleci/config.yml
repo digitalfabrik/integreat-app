@@ -177,23 +177,6 @@ commands:
                     - node_modules
                     - native/node_modules
                     - web/node_modules
-    restore_yarn_tools_cache:
-        description: Restores and saves the node_modules directories of the tools package.
-        steps:
-            - restore_cache:
-                keys:
-                    - 2-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
-                name: Restore Yarn Tools Package Cache
-            - run:
-                command: yarn --frozen-lockfile --cache-folder ~/.cache/yarn-tools
-                name: Yarn tools
-                working_directory: tools
-            - save_cache:
-                key: 2-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
-                name: Save Yarn Tools Package Cache
-                paths:
-                    - ~/.cache/yarn-tools
-                    - tools/node_modules
     unit_test:
         description: Runs the test task and stores coverage and junit data
         steps:
@@ -428,22 +411,21 @@ jobs:
         resource_class: small
         steps:
             - checkout
-            - restore_yarn_tools_cache
             - run:
                 command: echo "export NEW_VERSION_NAME=$(yarn --silent app-toolbelt v0 version calc | jq .versionName)" >> ${BASH_ENV}
                 name: Calculate next version name
-                working_directory: tools
+                working_directory: .
             - run:
                 command: echo "export NEW_VERSION_CODE=$(yarn --silent app-toolbelt v0 version calc | jq .versionCode)" >> ${BASH_ENV}
                 name: Calculate next version code
-                working_directory: tools
+                working_directory: .
             - when:
                 condition: << parameters.prepare_delivery >>
                 steps:
                     - run:
                         command: yarn app-toolbelt v0 release bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
                         name: Bump git version
-                        working_directory: tools
+                        working_directory: .
             - when:
                 condition:
                     and:
@@ -470,7 +452,6 @@ jobs:
             - checkout
             - check_config
             - restore_yarn_cache
-            - restore_yarn_tools_cache
             - run:
                 command: yarn prettier:check
                 name: Prettier
@@ -512,14 +493,13 @@ jobs:
             - checkout
             - prepare_workspace
             - restore_environment_variables
-            - restore_yarn_tools_cache
             - restore_yarn_cache
             - restore_ruby_cache:
                 directory: native
             - restore_ruby_cache:
                 directory: native/android
             - run:
-                command: yarn --cwd tools app-toolbelt v0 release-notes prepare-metadata << parameters.build_config_name >> playstore
+                command: yarn --cwd . app-toolbelt v0 release-notes prepare-metadata << parameters.build_config_name >> playstore
                 name: Prepare Play Store metadata
             - run:
                 command: bundle exec fastlane browserstack_upload path:attached_workspace/<< parameters.build_config_name >>.apk
@@ -551,14 +531,13 @@ jobs:
             - checkout
             - prepare_workspace
             - restore_environment_variables
-            - restore_yarn_tools_cache
             - restore_yarn_cache
             - restore_ruby_cache:
                 directory: native
             - restore_ruby_cache:
                 directory: native/ios
             - run:
-                command: yarn --cwd tools app-toolbelt v0 release-notes prepare-metadata << parameters.build_config_name >> appstore
+                command: yarn --cwd . app-toolbelt v0 release-notes prepare-metadata << parameters.build_config_name >> appstore
                 name: Prepare App Store metadata
             - run:
                 command: bundle exec fastlane browserstack_upload path:attached_workspace/<< parameters.build_config_name >>.ipa
@@ -729,11 +708,10 @@ jobs:
             - checkout
             - prepare_workspace
             - restore_environment_variables
-            - restore_yarn_tools_cache
             - run:
                 command: yarn app-toolbelt v0 release-notes move-to ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
                 name: Move release notes
-                working_directory: tools
+                working_directory: .
             - notify
     notify_android:
         docker:
@@ -747,7 +725,6 @@ jobs:
             - checkout
             - prepare_workspace
             - restore_environment_variables
-            - restore_yarn_tools_cache
             - run:
                 command: echo "export ANDROID_ARTIFACT_URLS='$(echo $(cat $(ls | grep apk-url)))'" >> ${BASH_ENV}
                 name: Prepare artifact urls
@@ -755,13 +732,13 @@ jobs:
             - run:
                 command: echo "export ANDROID_RELEASE_ID='$(yarn --silent app-toolbelt v0 release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --production-release << parameters.production_delivery >> --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent app-toolbelt v0 release-notes parse-release-notes --android --language en)")'" >> ${BASH_ENV}
                 name: Create github release
-                working_directory: tools
+                working_directory: .
             - run:
                 command: yarn app-toolbelt v0 release upload --releaseId ${ANDROID_RELEASE_ID} --files "$(ls ~/attached_workspace/*.apk)" --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME}
                 name: Upload apks to github release
-                working_directory: tools
+                working_directory: .
             - run:
-                command: echo "export RELEASE_NOTES=$(yarn --silent --cwd tools app-toolbelt v0 release-notes parse-release-notes --android --language en)" >> ${BASH_ENV}
+                command: echo "export RELEASE_NOTES=$(yarn --silent --cwd . app-toolbelt v0 release-notes parse-release-notes --android --language en)" >> ${BASH_ENV}
                 name: Create release notes
             - notify:
                 channel: releases
@@ -779,7 +756,6 @@ jobs:
             - checkout
             - prepare_workspace
             - restore_environment_variables
-            - restore_yarn_tools_cache
             - run:
                 command: echo "export IOS_ARTIFACT_URLS='$(echo $(cat $(ls | grep ipa-url)))'" >> ${BASH_ENV}
                 name: Prepare artifact urls
@@ -787,13 +763,13 @@ jobs:
             - run:
                 command: echo "export IOS_RELEASE_ID='$(yarn --silent app-toolbelt v0 release create ios ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --production-release << parameters.production_delivery >> --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent app-toolbelt v0 release-notes parse-release-notes --ios --language en)")'" >> ${BASH_ENV}
                 name: Create github release
-                working_directory: tools
+                working_directory: .
             - run:
                 command: yarn app-toolbelt v0 release upload --releaseId ${IOS_RELEASE_ID} --files "$(ls ~/attached_workspace/*.ipa)" --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME}
                 name: Upload ipas to github release
-                working_directory: tools
+                working_directory: .
             - run:
-                command: echo "export RELEASE_NOTES=$(yarn --silent --cwd tools app-toolbelt v0 release-notes parse-release-notes --ios --language en)" >> ${BASH_ENV}
+                command: echo "export RELEASE_NOTES=$(yarn --silent --cwd . app-toolbelt v0 release-notes parse-release-notes --ios --language en)" >> ${BASH_ENV}
                 name: Create release notes
             - notify:
                 channel: releases
@@ -811,13 +787,12 @@ jobs:
             - checkout
             - prepare_workspace
             - restore_environment_variables
-            - restore_yarn_tools_cache
             - run:
                 command: yarn app-toolbelt v0 release create web ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --production-release << parameters.production_delivery >> --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent app-toolbelt v0 release-notes parse-release-notes --web --language en)"
                 name: Create github release
-                working_directory: tools
+                working_directory: .
             - run:
-                command: echo "export RELEASE_NOTES=$(yarn --silent --cwd tools app-toolbelt v0 release-notes parse-release-notes --web --language en)" >> ${BASH_ENV}
+                command: echo "export RELEASE_NOTES=$(yarn --silent --cwd . app-toolbelt v0 release-notes parse-release-notes --web --language en)" >> ${BASH_ENV}
                 name: Create release notes
             - when:
                 condition: << parameters.production_delivery >>
@@ -852,7 +827,6 @@ jobs:
         steps:
             - checkout
             - restore_yarn_cache
-            - restore_yarn_tools_cache
             - restore_ruby_cache:
                 directory: native/android
             - run:
@@ -864,7 +838,7 @@ jobs:
                     PROMOTION_MESSAGE=$(yarn --silent app-toolbelt v0 release promote --platform android --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME})
                     echo "export PROMOTION_MESSAGE='${PROMOTION_MESSAGE}'" >> $BASH_ENV
                 name: Remove prerelease flag from github release
-                working_directory: tools
+                working_directory: .
             - notify:
                 channel: releases
                 only_for_branch: ${CIRCLE_BRANCH}
@@ -886,7 +860,6 @@ jobs:
         shell: /bin/bash --login -o pipefail
         steps:
             - checkout
-            - restore_yarn_tools_cache
             - restore_yarn_cache
             - restore_ruby_cache:
                 directory: native/ios
@@ -899,7 +872,7 @@ jobs:
                     PROMOTION_MESSAGE=$(yarn --silent app-toolbelt v0 release promote --platform ios --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME})
                     echo "export PROMOTION_MESSAGE='${PROMOTION_MESSAGE}'" >> $BASH_ENV
                 name: Remove prerelease flag from github release
-                working_directory: tools
+                working_directory: .
             - notify:
                 channel: releases
                 only_for_branch: ${CIRCLE_BRANCH}
@@ -912,7 +885,6 @@ jobs:
         shell: /bin/bash -eo pipefail
         steps:
             - checkout
-            - restore_yarn_tools_cache
             - add_ssh_keys:
                 fingerprints:
                     - 68:a3:fe:e7:94:f7:a4:13:35:5c:63:30:2f:07:7d:02
@@ -933,7 +905,7 @@ jobs:
                     PROMOTION_MESSAGE=$(yarn --silent app-toolbelt v0 release promote --platform web --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME})
                     echo "export PROMOTION_MESSAGE='${PROMOTION_MESSAGE}'" >> $BASH_ENV
                 name: Remove prerelease flag from github release
-                working_directory: tools
+                working_directory: .
             - notify:
                 channel: releases
                 only_for_branch: ${CIRCLE_BRANCH}

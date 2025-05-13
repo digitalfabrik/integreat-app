@@ -9,22 +9,21 @@ docker:
 resource_class: small
 steps:
   - checkout
-  - restore_yarn_tools_cache
   - run:
       name: Calculate next version name
       command: echo "export NEW_VERSION_NAME=$(yarn --silent app-toolbelt v0 version calc | jq .versionName)" >> ${BASH_ENV}
-      working_directory: tools
+      working_directory: .
   - run:
       name: Calculate next version code
       command: echo "export NEW_VERSION_CODE=$(yarn --silent app-toolbelt v0 version calc | jq .versionCode)" >> ${BASH_ENV}
-      working_directory: tools
+      working_directory: .
   - when:
       condition: << parameters.prepare_delivery >>
       steps:
         - run:
             name: Bump git version
             command: yarn app-toolbelt v0 release bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
-            working_directory: tools
+            working_directory: .
   - when:
       condition:
         and:

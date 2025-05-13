@@ -9,8 +9,7 @@
       "e2e-tests",
       "shared",
       "translations",
-      "build-configs",
-      "tools"
+      "build-configs"
     ],
     "nohoist": [
       "native/**",
@@ -18,8 +17,7 @@
       "e2e-tests/**",
       "shared/**",
       "translations/**",
-      "build-configs/**",
-      "tools/**"
+      "build-configs/**"
     ]
   },
   "scripts": {
@@ -72,6 +70,7 @@
     "stylelint-use-logical": "^2.1.2",
     "ts-jest": "^29.1.2",
     "tsx": "^4.8.2",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "app-toolbelt": "github:digitalfabrik/app-toolbelt#semver:0.5.1"
   }
 }

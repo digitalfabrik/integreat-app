@@ -1,9 +1,0 @@
-{
-  "version": "0.0.1",
-  "name": "tools",
-  "private": true,
-  "type": "module",
-  "devDependencies": {
-    "app-toolbelt": "github:digitalfabrik/app-toolbelt#semver:0.5.1"
-  }
-}

@@ -13,7 +13,6 @@ environment:
 steps:
   - checkout
   - restore_yarn_cache # Needed for babel-node run in util.rb. May be refactored and optimized later.
-  - restore_yarn_tools_cache
   - restore_ruby_cache:
       directory: native/android
   - run:
@@ -22,7 +21,7 @@ steps:
       working_directory: native/android
   - run:
       name: Remove prerelease flag from github release
-      working_directory: tools
+      working_directory: .
       command: |
         PROMOTION_MESSAGE=$(yarn --silent app-toolbelt v0 release promote --platform android --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME})
         echo "export PROMOTION_MESSAGE='${PROMOTION_MESSAGE}'" >> $BASH_ENV
