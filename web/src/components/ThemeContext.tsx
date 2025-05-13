@@ -1,14 +1,14 @@
 import React, { createContext, ReactElement, useMemo } from 'react'
 import { ThemeProvider } from 'styled-components'
 
-import { ThemeType, ThemeKey } from 'build-configs'
+import { LegacyThemeType, ThemeKey } from 'build-configs'
 import { UiDirectionType } from 'translations'
 
 import buildConfig from '../constants/buildConfig'
 import useLocalStorage from '../hooks/useLocalStorage'
 
 export type ThemeContextType = {
-  theme: ThemeType
+  theme: LegacyThemeType
   themeType: ThemeKey
   toggleTheme: () => void
 }
@@ -16,7 +16,7 @@ export type ThemeContextType = {
 const themeConfig = buildConfig()
 
 export const ThemeContext = createContext<ThemeContextType>({
-  theme: themeConfig.lightTheme,
+  theme: themeConfig.legacyLightTheme,
   themeType: 'light',
   toggleTheme: () => undefined,
 })
@@ -47,7 +47,7 @@ export const ThemeContainer = ({ children, contentDirection }: ThemeContainerPro
       setThemeType(currentTheme)
     }
 
-    const baseTheme = themeType === 'contrast' ? themeConfig.contrastTheme : themeConfig.lightTheme
+    const baseTheme = themeType === 'contrast' ? themeConfig.legacyContrastTheme : themeConfig.legacyLightTheme
     // Set body overflow color (visible on scroll to start/end)
     document.body.style.backgroundColor = baseTheme.colors.backgroundAccentColor
     const theme = { ...baseTheme, contentDirection, isContrastTheme: themeType === 'contrast' }
