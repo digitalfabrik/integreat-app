@@ -1384,8 +1384,7 @@
       "showLess": "कम दिखाएँ",
       "optional": "वैकल्पिक",
       "back": "वापस",
-      "ok": "ठीक",
-      "openCalendar": "कैलेंडर खोलें"
+      "ok": "ठीक"
     },
     "hr": {
       "copied": "kopirano",
@@ -1692,8 +1691,7 @@
       "showLess": "Onyesha machache",
       "optional": "si lazima",
       "back": "Nyuma",
-      "ok": "Sawa",
-      "openCalendar": "Fungua kalenda"
+      "ok": "Sawa"
     },
     "ti": {
       "copied": "ተቐዲሑ",
@@ -1763,8 +1761,7 @@
       "showLess": "Ẩn bớt",
       "optional": "không bắt buộc",
       "back": "Quay lại",
-      "ok": "Ok",
-      "openCalendar": "Mở lịch"
+      "ok": "Ok"
     },
     "zh-CN": {
       "copied": "已复制",
@@ -4038,6 +4035,8 @@
       "resetFilter": "Filter löschen:",
       "invalidDate": "Ungültiges Datum",
       "shouldBeEarlier": "Das Anfangsdatum sollte vor dem Enddatum liegen.",
+      "selectStartDateCalendar": "Startdatum im Kalender auswählen",
+      "selectEndDateCalendar": "Enddatum im Kalender auswählen",
       "hideFilters": "Filter verbergen",
       "showFilters": "Filter anzeigen",
       "selectRange": "Zeitraum auswählen",
@@ -4257,6 +4256,8 @@
       "resetFilter": "reset filter:",
       "invalidDate": "Invalid date",
       "shouldBeEarlier": "The start date should be before the end date.",
+      "selectStartDateCalendar": "Select start date in the calendar",
+      "selectEndDateCalendar": "Select end date in the calendar",
       "hideFilters": "Hide filters",
       "showFilters": "Show filters",
       "selectRange": "Select Range",

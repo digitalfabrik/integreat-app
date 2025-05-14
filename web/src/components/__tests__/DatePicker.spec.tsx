@@ -12,7 +12,14 @@ describe('DatePicker', () => {
 
   const renderCustomDatePicker = ({ setDate, title, date, error, placeholderDate }: CustomDatePickerProps) =>
     renderWithTheme(
-      <DatePicker setDate={setDate} title={title} date={date} error={error} placeholderDate={placeholderDate} />,
+      <DatePicker
+        setDate={setDate}
+        title={title}
+        date={date}
+        error={error}
+        placeholderDate={placeholderDate}
+        calendarLabel='calendar'
+      />,
     )
 
   it('renders correctly with given props', () => {
@@ -27,6 +34,7 @@ describe('DatePicker', () => {
       setDate,
       error: '',
       placeholderDate,
+      calendarLabel: 'calendar',
     })
 
     expect(getByText(title)).toBeInTheDocument()
@@ -44,6 +52,7 @@ describe('DatePicker', () => {
       setDate,
       error: '',
       placeholderDate,
+      calendarLabel: 'calendar',
     })
 
     const input = getByPlaceholderText(DateTime.fromJSDate(today).toFormat('dd.MM.yyyy'))
@@ -63,6 +72,7 @@ describe('DatePicker', () => {
       setDate,
       error,
       placeholderDate,
+      calendarLabel: 'calendar',
     })
 
     expect(getByText(error)).toBeInTheDocument()
