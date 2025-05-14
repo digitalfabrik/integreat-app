@@ -29,6 +29,7 @@ describe('DatePickerForNative', () => {
         date={date}
         error={error}
         placeholderDate={placeholderDate}
+        calendarLabel='calendar'
       />,
     )
 
@@ -41,6 +42,7 @@ describe('DatePickerForNative', () => {
       date: DateTime.now(),
       error: '',
       placeholderDate: DateTime.fromISO('1999-01-09'),
+      calendarLabel: 'calendar',
     })
     expect(getByPlaceholderText('01')).toBeTruthy()
     expect(getByPlaceholderText('09')).toBeTruthy()
@@ -57,6 +59,7 @@ describe('DatePickerForNative', () => {
       date: DateTime.now(),
       error: '',
       placeholderDate: DateTime.fromISO('1990-01-01'),
+      calendarLabel: 'calendar',
     })
 
     const dayMonthInput = getAllByPlaceholderText('01')
@@ -80,6 +83,7 @@ describe('DatePickerForNative', () => {
       date: null,
       error: 'Invalid date',
       placeholderDate,
+      calendarLabel: 'calendar',
     })
 
     expect(getByText('Invalid date')).toBeTruthy()
@@ -94,6 +98,7 @@ describe('DatePickerForNative', () => {
       date: null,
       error: '',
       placeholderDate: DateTime.fromISO('1990-01-01'),
+      calendarLabel: 'calendar',
     })
 
     const dayInputs = getAllByPlaceholderText('01')
@@ -115,6 +120,7 @@ describe('DatePickerForNative', () => {
       date: null,
       error: '',
       placeholderDate: DateTime.fromISO('1990-01-01'),
+      calendarLabel: 'calendar',
     })
 
     const monthInputs = getAllByPlaceholderText('01')
@@ -136,6 +142,7 @@ describe('DatePickerForNative', () => {
       date: null,
       error: '',
       placeholderDate: DateTime.fromISO('1990-01-01'),
+      calendarLabel: 'calendar',
     })
 
     const dayInputs = getAllByPlaceholderText('01')

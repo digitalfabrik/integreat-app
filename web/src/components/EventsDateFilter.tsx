@@ -79,8 +79,15 @@ const EventsDateFilter = ({
               setDate={setStartDate}
               error={startDateError ? t(startDateError) : ''}
               placeholderDate={today}
+              calendarLabel={t('selectStartDateCalendar')}
             />
-            <CustomDatePicker title={t('to')} date={endDate} setDate={setEndDate} placeholderDate={inAWeek} />
+            <CustomDatePicker
+              title={t('to')}
+              date={endDate}
+              setDate={setEndDate}
+              placeholderDate={inAWeek}
+              calendarLabel={t('selectEndDateCalendar')}
+            />
           </>
         </DateSection>
       </Accordion>

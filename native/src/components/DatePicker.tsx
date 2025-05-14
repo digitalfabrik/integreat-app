@@ -1,6 +1,5 @@
 import { DateTime } from 'luxon'
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { TextInput, View } from 'react-native'
 import styled from 'styled-components/native'
 
@@ -65,6 +64,7 @@ export type DatePickerProps = {
   modalOpen: boolean
   setModalOpen: (open: boolean) => void
   placeholderDate: DateTime
+  calendarLabel: string
 }
 
 const DatePicker = ({
@@ -75,8 +75,8 @@ const DatePicker = ({
   modalOpen,
   setModalOpen,
   placeholderDate,
+  calendarLabel,
 }: DatePickerProps): ReactElement => {
-  const { t } = useTranslation('events')
   const [inputDay, setInputDay] = useState(date?.toFormat('dd'))
   const [inputMonth, setInputMonth] = useState(date?.toFormat('MM'))
   const [inputYear, setInputYear] = useState(date?.toFormat('yyyy'))
@@ -149,10 +149,8 @@ const DatePicker = ({
         <StyledIconButton
           $isModalOpen={modalOpen}
           icon={<Icon Icon={CalendarTodayIcon} />}
-          accessibilityLabel={t('common:openCalendar')}
-          onPress={() => {
-            setModalOpen(true)
-          }}
+          accessibilityLabel={calendarLabel}
+          onPress={() => setModalOpen(true)}
         />
       </StyledInputWrapper>
       <View style={{ width: '80%' }}>
