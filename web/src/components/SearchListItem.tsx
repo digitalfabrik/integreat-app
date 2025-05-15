@@ -71,7 +71,7 @@ const SearchListItem = ({ title, contentWithoutHtml, query, path, thumbnail }: S
       <StyledLink to={path}>
         <CategoryItemContainer dir='auto'>
           <CategoryTitleContainer>
-            {!!thumbnail && <CategoryThumbnail alt='thumbnail' src={thumbnail} />}
+            {!!thumbnail && <CategoryThumbnail alt='' src={thumbnail} />}
             <Highlighter dir='auto' search={query} text={title} />
           </CategoryTitleContainer>
           <div style={{ margin: '0 5px', fontSize: '12px' }} dir='auto'>

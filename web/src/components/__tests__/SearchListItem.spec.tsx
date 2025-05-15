@@ -81,7 +81,7 @@ describe('SearchListItem', () => {
 
   it('should render with thumbnail when provided', () => {
     const { getByAltText } = renderWithRouterAndTheme(<SearchListItem query='' {...categoryParams} />)
-    const thumbnail = getByAltText('thumbnail')
+    const thumbnail = getByAltText('')
     expect(thumbnail).toBeInTheDocument()
   })
 
@@ -89,6 +89,6 @@ describe('SearchListItem', () => {
     const { queryByAltText } = renderWithRouterAndTheme(
       <SearchListItem {...categoryParams} thumbnail={null} query='' />,
     )
-    expect(queryByAltText('thumbnail')).not.toBeInTheDocument()
+    expect(queryByAltText('')).not.toBeInTheDocument()
   })
 })
