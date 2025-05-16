@@ -116,7 +116,7 @@ const MapView = ({
         zoomLevel,
         animationDuration,
       }),
-    [bottomSheetHeight],
+    [],
   )
 
   const onRequestLocation = useCallback(async () => {
