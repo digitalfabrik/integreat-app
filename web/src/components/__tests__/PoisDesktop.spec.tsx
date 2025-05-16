@@ -55,7 +55,6 @@ describe('PoisDesktop', () => {
     expect(queryByText('pois:distanceKilometre')).toBeTruthy()
     expect(queryByText(singlePoi.location.address!)).toBeTruthy()
     expect(queryByText(singlePoi.content)).toBeTruthy()
-    expect(queryByText('pois:makeAppointment')).toBeTruthy()
     expect(queryByText('pois:detailsHeader')).toBeTruthy()
     expect(queryByText('pois:listTitle')).toBeNull()
     expect(queryByLabelText('Toolbar')).toBeNull()

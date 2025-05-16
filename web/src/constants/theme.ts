@@ -5,6 +5,7 @@ export type HelpersType = {
   adaptiveFontSize: ReturnType<typeof css>
   adaptiveWidth: ReturnType<typeof css>
   adaptiveHeight: ReturnType<typeof css>
+  adaptiveThemeTextColor: ReturnType<typeof css>
 }
 
 export const helpers: HelpersType = {
@@ -32,5 +33,9 @@ export const helpers: HelpersType = {
       ${props => props.theme.fonts.adaptiveFontSizeSmall.value},
       ${props => props.theme.fonts.adaptiveFontSizeSmall.max}
     );
+  `,
+  adaptiveThemeTextColor: css`
+    color: ${props =>
+      props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.textColor};
   `,
 }

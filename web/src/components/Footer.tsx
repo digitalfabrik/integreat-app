@@ -21,6 +21,7 @@ const FooterContainer = styled.footer<{ $overlay: boolean }>`
   ${props => (props.$overlay ? 'color: rgba(0, 0, 0, 0.75);' : '')}
   & > * {
     margin: ${props => (props.$overlay ? 0 : '5px')};
+    color: ${props => props.theme.isContrastTheme && !props.$overlay && props.theme.colors.textColor};
   }
 
   & > *::after {

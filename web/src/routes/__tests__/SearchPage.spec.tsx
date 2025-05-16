@@ -20,6 +20,10 @@ jest.mock('react-i18next', () => ({
 }))
 jest.mock('../../hooks/useLoadSearchDocuments')
 jest.mock('react-tooltip')
+jest.mock('shared/hooks/useDebounce', () => ({
+  __esModule: true,
+  default: (value: string) => value,
+}))
 
 jest.mock('shared', () => ({
   ...jest.requireActual('shared'),

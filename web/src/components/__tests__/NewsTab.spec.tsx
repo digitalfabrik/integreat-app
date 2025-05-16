@@ -16,7 +16,7 @@ describe('NewsTab', () => {
   const active = true
   const destination = '/testcity/en/news/local'
   const t = ((key: string) => key) as TFunction
-  const theme = { ...buildConfig().lightTheme, contentDirection: 'ltr' as UiDirectionType }
+  const theme = { ...buildConfig().legacyLightTheme, contentDirection: 'ltr' as UiDirectionType }
 
   it('should render the local news tab', () => {
     const { getByText, queryByLabelText } = renderWithRouter(

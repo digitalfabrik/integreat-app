@@ -1,6 +1,6 @@
 import { CircleLayerStyle, SymbolLayerStyle } from '@maplibre/maplibre-react-native'
 
-import { ThemeType } from 'build-configs/ThemeType'
+import { LegacyThemeType } from 'build-configs/LegacyThemeType'
 import {
   circleRadiusLarge,
   circleRadiusSmall,
@@ -19,7 +19,7 @@ type clusterLayerType = {
   style: CircleLayerStyle
 }
 
-export const clusterLayer = (theme: ThemeType): clusterLayerType => ({
+export const clusterLayer = (theme: LegacyThemeType): clusterLayerType => ({
   id: clusterLayerId,
   style: {
     circleColor: ['case', ['has', 'point_count'], theme.colors.themeColor, 'transparent'],

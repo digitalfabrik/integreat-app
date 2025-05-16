@@ -12,7 +12,7 @@ const RemoteContentSandBox = styled.div<{ $centered: boolean; $smallText: boolea
 
   ${props => (props.$centered ? 'text-align: center;' : '')}
   ${props => (props.$centered ? 'list-style-position: inside;' : '')}
-    img {
+  img {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
@@ -71,6 +71,7 @@ const RemoteContentSandBox = styled.div<{ $centered: boolean; $smallText: boolea
 
   a {
     overflow-wrap: break-word;
+    color: ${props => props.theme.colors.linkColor};
   }
 
   details > * {
@@ -97,6 +98,7 @@ const RemoteContentSandBox = styled.div<{ $centered: boolean; $smallText: boolea
         ${helpers.adaptiveHeight}
         ${helpers.adaptiveWidth}
       `};
+    color: ${props => props.theme.colors.linkColor};
     background-size: contain;
     background-repeat: no-repeat;
     vertical-align: middle;
@@ -150,8 +152,10 @@ const RemoteContentSandBox = styled.div<{ $centered: boolean; $smallText: boolea
     padding: 16px;
     border-radius: 4px;
     background-repeat: no-repeat;
-    background-color: rgb(127 127 127 / 15%);
-    background-image: linear-gradient(to right, rgb(255 255 255 / 90%) 0 100%), url(${PersonIcon});
+    background-color: ${props =>
+      props.theme.isContrastTheme ? `${props.theme.colors.textColor}10` : 'rgb(127 127 127 / 15%)'};
+    background-image:
+      linear-gradient(to right, ${props => props.theme.colors.backgroundColor}F0 0 100%), url(${PersonIcon});
     background-blend-mode: difference;
     background-position:
       calc(100% + 32px) 100%,
@@ -171,6 +175,7 @@ const RemoteContentSandBox = styled.div<{ $centered: boolean; $smallText: boolea
     }
 
     img {
+      color: ${props => props.theme.colors.textColor};
       margin-inline-end: 8px;
     }
 

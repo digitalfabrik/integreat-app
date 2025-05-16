@@ -21,7 +21,7 @@ describe('SearchFeedback', () => {
   const cityCode = 'augsburg'
   const languageCode = 'de'
 
-  const theme = { ...buildConfig().lightTheme, contentDirection: 'ltr' as UiDirectionType }
+  const theme = { ...buildConfig().legacyLightTheme, contentDirection: 'ltr' as UiDirectionType }
 
   it('should open FeedbackSection on button click', () => {
     const { getByText, queryByText } = renderWithTheme(

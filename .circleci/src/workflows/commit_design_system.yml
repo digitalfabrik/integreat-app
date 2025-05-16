@@ -1,0 +1,21 @@
+when:
+  and:
+    - equal: [3231-design-system-web, << pipeline.git.branch >>]
+    - not: << pipeline.parameters.api_triggered >>
+jobs:
+  - bump_version:
+      prepare_delivery: false
+      context:
+        - mattermost
+  - build_web:
+      build_config_name: integreat-test-cms
+      context:
+        - mattermost
+      requires:
+        - bump_version
+  - deliver_web:
+      delivery: future
+      context:
+        - mattermost
+      requires:
+        - build_web

@@ -46,7 +46,6 @@ describe('PoisMobile', () => {
     expect(queryByText(singlePoi.content)).toBeTruthy()
     expect(queryByText('Toolbar')).toBeTruthy()
     expect(queryByText('listTitle')).toBeNull()
-    expect(queryByText('pois:makeAppointment')).toBeTruthy()
   })
 
   it('should render poiList & toolbar components no poi is provided', () => {
