@@ -5,7 +5,7 @@ exports[`DateModel toTimeSpanString() should return only start date + end date i
   "de: 27. November 2017 - 28. November 2017",
   "en: November 27, 2017 - November 28, 2017",
   "fr: 27 novembre 2017 - 28 novembre 2017",
-  "ar: 27 نوفمبر 2017 - 28 نوفمبر 2017",
+  "ar: ٢٧ نوفمبر ٢٠١٧ - ٢٨ نوفمبر ٢٠١٧",
   "fa: ۶ آذر ۱۳۹۶ - ۷ آذر ۱۳۹۶",
   "ru: 27 ноября 2017 г. - 28 ноября 2017 г.",
 ]
@@ -16,7 +16,7 @@ exports[`DateModel toTimeSpanString() should return only start date + time and e
   "de: 27. November 2017 19:30 - 21:30",
   "en: November 27, 2017 7:30 PM - 9:30 PM",
   "fr: 27 novembre 2017 19:30 - 21:30",
-  "ar: 27 نوفمبر 2017 7:30 م - 9:30 م",
+  "ar: ٢٧ نوفمبر ٢٠١٧ ٧:٣٠ م - ٩:٣٠ م",
   "fa: ۶ آذر ۱۳۹۶ ۱۹:۳۰ - ۲۱:۳۰",
   "ru: 27 ноября 2017 г. 19:30 - 21:30",
 ]
@@ -27,7 +27,7 @@ exports[`DateModel toTimeSpanString() should return only start date + time if st
   "de: 27. November 2017 19:30",
   "en: November 27, 2017 7:30 PM",
   "fr: 27 novembre 2017 19:30",
-  "ar: 27 نوفمبر 2017 7:30 م",
+  "ar: ٢٧ نوفمبر ٢٠١٧ ٧:٣٠ م",
   "fa: ۶ آذر ۱۳۹۶ ۱۹:۳۰",
   "ru: 27 ноября 2017 г. 19:30",
 ]
@@ -38,7 +38,7 @@ exports[`DateModel toTimeSpanString() should return only start date if allDay is
   "de: 27. November 2017",
   "en: November 27, 2017",
   "fr: 27 novembre 2017",
-  "ar: 27 نوفمبر 2017",
+  "ar: ٢٧ نوفمبر ٢٠١٧",
   "fa: ۶ آذر ۱۳۹۶",
   "ru: 27 ноября 2017 г.",
 ]
@@ -49,7 +49,7 @@ exports[`DateModel toTimeSpanString() should return start date + time and end da
   "de: 27. November 2017 19:30 - 28. November 2017 21:30",
   "en: November 27, 2017 7:30 PM - November 28, 2017 9:30 PM",
   "fr: 27 novembre 2017 19:30 - 28 novembre 2017 21:30",
-  "ar: 27 نوفمبر 2017 7:30 م - 28 نوفمبر 2017 9:30 م",
+  "ar: ٢٧ نوفمبر ٢٠١٧ ٧:٣٠ م - ٢٨ نوفمبر ٢٠١٧ ٩:٣٠ م",
   "fa: ۶ آذر ۱۳۹۶ ۱۹:۳۰ - ۷ آذر ۱۳۹۶ ۲۱:۳۰",
   "ru: 27 ноября 2017 г. 19:30 - 28 ноября 2017 г. 21:30",
 ]
