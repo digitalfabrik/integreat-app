@@ -4,7 +4,6 @@
   "main": "index.ts",
   "private": true,
   "scripts": {
-    "run:on:phone": "react-native run-ios --simulator=\"iPhone 16 Pro\" --mode \"Release\"",
     "start": "yarn start:integreat-test-cms",
     "start:integreat-test-cms": "node ./run packager integreat-test-cms",
     "start:integreat": "node ./run packager integreat",
