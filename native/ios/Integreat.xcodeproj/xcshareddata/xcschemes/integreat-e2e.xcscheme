@@ -10,7 +10,7 @@
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Setup build config"
-               scriptText = "export PATH=&quot;$PATH:/opt/homebrew/bin&quot;&#10;&#10;exec &gt; ${PROJECT_DIR}/prebuild_build_config.log 2&gt;&amp;1&#10;cd ${PROJECT_DIR} &amp;&amp; yarn workspace tools app-toolbelt v0 build-config write-xcconfig &quot;integreat-e2e&quot; ios --directory ${PROJECT_DIR}&#10;">
+               scriptText = "export PATH=&quot;$PATH:/opt/homebrew/bin&quot;&#10;&#10;exec &gt; ${PROJECT_DIR}/prebuild_build_config.log 2&gt;&amp;1&#10;cd ${PROJECT_DIR} &amp;&amp; yarn app-toolbelt v0 build-config write-xcconfig &quot;integreat-e2e&quot; ios --directory ${PROJECT_DIR}&#10;">
                <EnvironmentBuildable>
                   <BuildableReference
                      BuildableIdentifier = "primary"
