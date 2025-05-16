@@ -50,6 +50,7 @@ describe('Endpoint', () => {
     formData: jest.fn(),
     json: jest.fn(async () => responseJson),
     text: jest.fn(),
+    bytes: jest.fn(),
   }
 
   const responseOk: Response = {

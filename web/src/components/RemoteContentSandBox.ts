@@ -154,8 +154,8 @@ const RemoteContentSandBox = styled.div<{ $centered: boolean; $smallText: boolea
     background-repeat: no-repeat;
     background-color: ${props =>
       props.theme.isContrastTheme ? `${props.theme.colors.textColor}10` : 'rgb(127 127 127 / 15%)'};
-    background-image: linear-gradient(to right, ${props => props.theme.colors.backgroundColor}F0 0 100%),
-      url(${PersonIcon});
+    background-image:
+      linear-gradient(to right, ${props => props.theme.colors.backgroundColor}F0 0 100%), url(${PersonIcon});
     background-blend-mode: difference;
     background-position:
       calc(100% + 32px) 100%,

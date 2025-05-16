@@ -2,8 +2,9 @@
 const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config')
 const path = require('path')
 
-/** @type {import('metro-config').MetroConfig} */
+/** @type {import('@react-native/metro-config').MetroConfig} */
 const defaultConfig = getDefaultConfig(__dirname)
+defaultConfig.resolver.unstable_enablePackageExports = true
 const {
   resolver: { assetExts, sourceExts },
 } = defaultConfig
@@ -32,6 +33,7 @@ const config = {
           : moduleName
       return context.resolveRequest(context, module, platform)
     },
+    unstable_enablePackageExports: true,
   },
   watchFolders: [path.resolve(__dirname, '../')],
   transformer: {

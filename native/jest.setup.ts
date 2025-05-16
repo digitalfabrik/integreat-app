@@ -24,7 +24,6 @@ jest.mock('react-native-reanimated', () => {
 
   return Reanimated
 })
-jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper')
 
 const walkDir = (dir: string, callback: (filePath: string) => void): void => {
   fs.readdirSync(dir).forEach(f => {

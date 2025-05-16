@@ -2,13 +2,14 @@ declare module '@dr.pogodin/react-native-static-server' {
   type Options = {
     localOnly?: boolean
     keepAlive?: boolean
+    port: number
+    fileDir: string
   }
-
   export default class StaticServer {
-    constructor(port: number, root?: string, opts?: Options)
+    constructor(opts?: Options)
 
     port: number
-    root: string
+    fileDir: string
     localOnly: boolean
     keepAlive: boolean
     started: boolean

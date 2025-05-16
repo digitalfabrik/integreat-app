@@ -1,4 +1,4 @@
-import { CircleLayerProps, SymbolLayerProps } from '@maplibre/maplibre-react-native'
+import { CircleLayerStyle, SymbolLayerStyle } from '@maplibre/maplibre-react-native'
 
 import { LegacyThemeType } from 'build-configs/LegacyThemeType'
 import {
@@ -14,17 +14,25 @@ import {
   clusterLayerId,
 } from 'shared'
 
-export const clusterLayer = (theme: LegacyThemeType): CircleLayerProps => ({
+type clusterLayerType = {
+  id: string
+  style: CircleLayerStyle
+}
+
+export const clusterLayer = (theme: LegacyThemeType): clusterLayerType => ({
   id: clusterLayerId,
-  belowLayerID: 'pointCount',
-  filter: ['has', 'point_count'],
   style: {
-    circleColor: ['step', ['get', 'point_count'], theme.colors.themeColor, groupCount, theme.colors.themeColor],
+    circleColor: ['case', ['has', 'point_count'], theme.colors.themeColor, 'transparent'],
     circleRadius: ['step', ['get', 'point_count'], circleRadiusSmall, groupCount, circleRadiusLarge],
   },
 })
 
-export const markerLayer = (selectedFeature: MapFeature | null): SymbolLayerProps => ({
+type markerLayerType = {
+  id: string
+  style: SymbolLayerStyle
+}
+
+export const markerLayer = (selectedFeature: MapFeature | null): markerLayerType => ({
   id: featureLayerId,
   style: {
     symbolPlacement: 'point',
@@ -59,9 +67,13 @@ export const markerLayer = (selectedFeature: MapFeature | null): SymbolLayerProp
   },
 })
 
-export const clusterCountLayer: SymbolLayerProps = {
+type clusterCountLayerType = {
+  id: string
+  style: SymbolLayerStyle
+}
+
+export const clusterCountLayer: clusterCountLayerType = {
   id: 'pointCount',
-  filter: ['has', 'point_count'],
   style: {
     textField: '{point_count_abbreviated}',
     textFont: ['Noto Sans Regular'],

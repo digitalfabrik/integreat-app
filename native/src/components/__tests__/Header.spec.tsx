@@ -31,6 +31,11 @@ jest.mock('../../utils/sendTrackingSignal')
 jest.mock('react-navigation-header-buttons', () => ({
   ...jest.requireActual('react-navigation-header-buttons'),
   HiddenItem: ({ title }: { title: string }) => <Text>hidden: {title}</Text>,
+  Item: ({ title, color, ...props }: { title: string; color?: string }) => (
+    <Text accessibilityLabel={title} style={{ color }} {...props}>
+      <Text>{title}</Text>
+    </Text>
+  ),
 }))
 jest.mock(
   '../CustomHeaderButtons',
@@ -109,11 +114,11 @@ describe('Header', () => {
       languages: languageModels,
       availableLanguages: defaultAvailableLanguages,
     })
-    expect(getByLabelText(t('search'))).toHaveStyle({ opacity: 1 })
+    expect(getByLabelText(t('search'))).toHaveStyle({ color: '#000000' })
     fireEvent.press(getByLabelText(t('search')))
     await waitFor(() => expect(navigation.navigate).toHaveBeenCalledTimes(1))
     expect(navigation.navigate).toHaveBeenCalledWith(SEARCH_ROUTE, { searchText: null })
-    expect(getByLabelText(t('changeLanguage'))).toHaveStyle({ opacity: 1 })
+    expect(getByLabelText(t('changeLanguage'))).toHaveStyle({ color: '#000000' })
     fireEvent.press(getByLabelText(t('changeLanguage')))
     await waitFor(() => expect(navigateToLanguageChange).toHaveBeenCalledTimes(1))
   })
@@ -124,10 +129,10 @@ describe('Header', () => {
       languages: languageModels,
       availableLanguages: defaultAvailableLanguages,
     })
-    expect(getByLabelText(t('search'))).toHaveStyle({ opacity: 0 })
+    expect(getByLabelText(t('search'))).toHaveStyle({ color: 'transparent' })
     fireEvent.press(getByLabelText(t('search')))
     expect(navigation.navigate).not.toHaveBeenCalled()
-    expect(getByLabelText(t('changeLanguage'))).toHaveStyle({ opacity: 0 })
+    expect(getByLabelText(t('changeLanguage'))).toHaveStyle({ color: 'transparent' })
     fireEvent.press(getByLabelText(t('changeLanguage')))
     expect(navigateToLanguageChange).not.toHaveBeenCalled()
   })
