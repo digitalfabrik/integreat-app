@@ -1,0 +1,8 @@
+issue_key: 3266
+show_in_stores: true
+platforms:
+  - android
+  - ios
+  - web
+en: Fixed missing search results in some cases.
+de: Probleme mit fehlenden Suchergebnissen wurden behoben.

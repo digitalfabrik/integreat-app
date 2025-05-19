@@ -6,6 +6,7 @@ import EventModel from '../api/models/EventModel'
 import ExtendedPageModel from '../api/models/ExtendedPageModel'
 import PoiModel from '../api/models/PoiModel'
 import normalizeString from '../utils/normalizeString'
+import parseHTML from '../utils/parseHTML'
 
 export type SearchResult = ExtendedPageModel
 
@@ -36,6 +37,8 @@ type UseSearchReturn = {
   loading: boolean
 }
 
+const normalizeContent = (term: string) => normalizeString(parseHTML(term))
+
 // WARNING: This uses the document count to check whether the search documents have already been added.
 // Modifying single documents or replacing documents with a same length array will therefore NOT trigger an update
 const useSearch = (documents: SearchResult[], query: string): UseSearchReturn => {
@@ -47,7 +50,8 @@ const useSearch = (documents: SearchResult[], query: string): UseSearchReturn =>
     new MiniSearch({
       idField: 'path',
       fields: ['title', 'content'],
-      storeFields: ['title', 'content', 'path', 'thumbnail'],
+      extractField: (document, fieldName) =>
+        fieldName === 'content' ? normalizeContent(document.content) : document[fieldName],
       processTerm: normalizeString,
       searchOptions: {
         boost: { title: 2 },
@@ -69,8 +73,10 @@ const useSearch = (documents: SearchResult[], query: string): UseSearchReturn =>
     }
   }, [indexing, search, documents])
 
+  const results: string[] = search.search(normalizedQuery).map(result => result.id)
+
   return {
-    data: normalizedQuery.length === 0 ? documents : (search.search(normalizedQuery) as unknown as SearchResult[]),
+    data: normalizedQuery.length === 0 ? documents : documents.filter(document => results.includes(document.path)),
     error,
     loading: indexing,
   }
