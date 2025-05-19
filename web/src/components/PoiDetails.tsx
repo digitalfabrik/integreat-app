@@ -110,6 +110,14 @@ const DetailSection = styled.div`
   }
 `
 
+const StyledCollapsible = styled(Collapsible)`
+  gap: 0;
+`
+
+const StyledContactsContainer = styled.div`
+  margin-top: 12px;
+`
+
 const ToolbarWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -159,12 +167,20 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
           <StyledExternalLinkIcon src={ExternalLinkIcon} directionDependent />
         </StyledLink>
       </DetailSection>
-      {contacts.map(contact => (
-        <Fragment key={contact.headline ?? contact.website ?? contact.name ?? contact.phoneNumber}>
+      {contacts.length > 0 && (
+        <>
           <Spacer $borderColor={theme.colors.borderColor} />
-          <Contact contact={contact} />
-        </Fragment>
-      ))}
+          <StyledCollapsible title={t('contacts')}>
+            <StyledContactsContainer>
+              {contacts.map((contact, index) => (
+                <Fragment key={contact.headline ?? contact.website ?? contact.name ?? contact.phoneNumber}>
+                  <Contact isLastContact={contacts.length - 1 === index} contact={contact} />
+                </Fragment>
+              ))}
+            </StyledContactsContainer>
+          </StyledCollapsible>
+        </>
+      )}
       {((openingHours && openingHours.length > 0) || temporarilyClosed || isOnlyWithAppointment) && (
         <Spacer $borderColor={theme.colors.borderColor} />
       )}

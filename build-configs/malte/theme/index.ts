@@ -1,13 +1,13 @@
-import { ThemeType } from '../../ThemeType'
-import { contrastColors, lightColors } from './colors'
+import { LegacyThemeType } from '../../LegacyThemeType'
+import { legacyContrastColors, legacyLightColors } from './colors'
 import malteFonts from './fonts'
 
-export const lightTheme: ThemeType = {
-  colors: lightColors,
+export const legacyLightTheme: LegacyThemeType = {
+  colors: legacyLightColors,
   fonts: malteFonts,
 }
 
-export const contrastTheme: ThemeType = {
-  colors: contrastColors,
+export const legacyContrastTheme: LegacyThemeType = {
+  colors: legacyContrastColors,
   fonts: malteFonts,
 }

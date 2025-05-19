@@ -1,4 +1,4 @@
-export type ColorsType = {
+export type LegacyColorsType = {
   themeColor: string
   themeColorLight: string
   backgroundAccentColor: string
@@ -22,7 +22,8 @@ export type ColorsType = {
   ttsPlayerBackground: string
   ttsPlayerPlayIconColor: string
 }
-export const commonLightColors = {
+
+export const legacyCommonLightColors = {
   backgroundAccentColor: '#fafafa',
   textColor: '#000000',
   textSecondaryColor: '#585858',
@@ -43,8 +44,8 @@ export const commonLightColors = {
   ttsPlayerBackground: '#dedede',
   ttsPlayerPlayIconColor: '#232323',
 }
-export const commonContrastColors = {
-  ...commonLightColors,
+export const legacyCommonContrastColors = {
+  ...legacyCommonLightColors,
   backgroundAccentColor: '#20293A',
   textColor: '#FFFFFF',
   textSecondaryColor: '#FFFFFF',

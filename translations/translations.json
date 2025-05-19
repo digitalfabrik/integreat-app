@@ -10181,7 +10181,8 @@
       "poisCount_two": "{{count}} Orte",
       "poisCount_few": "{{count}} Orte",
       "poisCount_many": "{{count}} Orte",
-      "poisCount_other": "{{count}} Orte"
+      "poisCount_other": "{{count}} Orte",
+      "contacts": "Kontakte"
     },
     "am": {
       "pageTitle": "ካርታ",
@@ -10306,7 +10307,8 @@
       "makeAppointment": "تحديد موعد",
       "appointmentNecessary": "الموعد ضروري",
       "makeAppointmentTooltipWithLink": "حدد موعدًا في ذلك اليوم عبر <1>die Webseite</1> أو عبر الهاتف.",
-      "theWebsite": "موقع الويب"
+      "theWebsite": "موقع الويب",
+      "contacts": "جهات الاتصال"
     },
     "bg": {
       "pageTitle": "Карта",
@@ -10687,7 +10689,8 @@
       "poisCount_two": "{{count}} locations",
       "poisCount_few": "{{count}} locations",
       "poisCount_many": "{{count}} locations",
-      "poisCount_other": "{{count}} locations"
+      "poisCount_other": "{{count}} locations",
+      "contacts": "Contacts"
     },
     "es": {
       "pageTitle": "Mapa",
