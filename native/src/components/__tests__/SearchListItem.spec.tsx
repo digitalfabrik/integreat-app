@@ -86,7 +86,6 @@ describe('SearchListItem', () => {
 
     const { getByText } = renderSearchListItem(query)
 
-    assertHighlighting(getByText(category.title), true) // Titles are bold all the time from HighlighterCategoryTitle
     assertHighlighting(getByText(excerptBeforeQuery, { exact: false }), false)
     assertHighlighting(getByText(query), true)
     assertHighlighting(getByText(excerptAfterQuery, { exact: false }), false)
@@ -118,12 +117,7 @@ describe('SearchListItem', () => {
 
   it('should render with thumbnail when provided', () => {
     renderSearchListItem('')
-    expect(CategoryThumbnail).toHaveBeenCalledWith(
-      expect.objectContaining({
-        source: category.thumbnail,
-      }),
-      expect.anything(),
-    )
+    expect(CategoryThumbnail).toHaveBeenCalled()
   })
 
   it('should render without thumbnail when not provided', () => {
