@@ -1,0 +1,8 @@
+issue_key: 3207
+show_in_stores: true
+platforms:
+  - web
+  - android
+  - ios
+en: You can now collapse contact information beneath the location details on the map.
+de: Sie können die Kontaktinformationen jetzt unter den Standortdetails auf der Karte ausklappen oder einklappen.
