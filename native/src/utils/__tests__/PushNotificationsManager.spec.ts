@@ -1,18 +1,25 @@
-import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
+import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { mocked } from 'jest-mock'
 import { requestNotifications } from 'react-native-permissions'
 
 import buildConfig from '../../constants/buildConfig'
 import * as PushNotificationsManager from '../PushNotificationsManager'
 
-jest.mock('@react-native-firebase/messaging', () => jest.fn(() => ({})))
+const messaging = {
+  subscribeToTopic: jest.fn(),
+  unsubscribeFromTopic: jest.fn(),
+  getInitialNotification: jest.fn(),
+  requestPermission: jet.fn(),
+}
+
+jest.mock('@react-native-firebase/messaging', () => ({
+  getMessaging: () => mesaging,
+}))
 
 describe('PushNotificationsManager', () => {
   beforeEach(jest.clearAllMocks)
 
-  const mockedFirebaseMessaging = mocked<() => FirebaseMessagingTypes.Module>(messaging)
   const mockedBuildConfig = mocked(buildConfig)
-  const previousFirebaseMessaging = mockedFirebaseMessaging()
   const navigateToDeepLink = jest.fn()
   const updateSettings = jest.fn()
 
@@ -48,11 +55,7 @@ describe('PushNotificationsManager', () => {
     it('should return false if disabled in build configs', async () => {
       mockBuildConfig(false, false)
       const mockRequestPermission = jest.fn(async () => 0)
-      mockedFirebaseMessaging.mockImplementation(() => {
-        const previous = previousFirebaseMessaging
-        previous.requestPermission = mockRequestPermission
-        return previous
-      })
+      messaging.requestPermission = mockRequestPermission
 
       expect(await PushNotificationsManager.requestPushNotificationPermission(updateSettings)).toBeFalsy()
       expect(mockRequestPermission).not.toHaveBeenCalled()
@@ -61,11 +64,7 @@ describe('PushNotificationsManager', () => {
     it('should return false if it is a floss build', async () => {
       mockBuildConfig(true, true)
       const mockRequestPermission = jest.fn(async () => 0)
-      mockedFirebaseMessaging.mockImplementation(() => {
-        const previous = previousFirebaseMessaging
-        previous.requestPermission = mockRequestPermission
-        return previous
-      })
+      messaging.requestPermission.mockImplementation(mockRequestPermission)
 
       expect(await PushNotificationsManager.requestPushNotificationPermission(updateSettings)).toBeFalsy()
       expect(mockRequestPermission).not.toHaveBeenCalled()
@@ -93,11 +92,7 @@ describe('PushNotificationsManager', () => {
     it('should return and do nothing if disabled in build configs', async () => {
       mockBuildConfig(false, false)
       const mockUnsubscribeFromTopic = jest.fn()
-      mockedFirebaseMessaging.mockImplementation(() => {
-        const previous = previousFirebaseMessaging
-        previous.unsubscribeFromTopic = mockUnsubscribeFromTopic
-        return previous
-      })
+      messaging.unsubscribeFromTopic.mockImplementation(mockUnsubscribeFromTopic)
 
       await PushNotificationsManager.unsubscribeNews('augsburg', 'de')
       expect(mockUnsubscribeFromTopic).not.toHaveBeenCalled()
@@ -106,11 +101,7 @@ describe('PushNotificationsManager', () => {
     it('should return and do nothing if it is a floss build', async () => {
       mockBuildConfig(true, true)
       const mockUnsubscribeFromTopic = jest.fn()
-      mockedFirebaseMessaging.mockImplementation(() => {
-        const previous = previousFirebaseMessaging
-        previous.unsubscribeFromTopic = mockUnsubscribeFromTopic
-        return previous
-      })
+      messaging.unsubscribeFromTopic.mockImplementation(mockUnsubscribeFromTopic)
 
       await PushNotificationsManager.unsubscribeNews('augsburg', 'de')
       expect(mockUnsubscribeFromTopic).not.toHaveBeenCalled()
@@ -119,11 +110,7 @@ describe('PushNotificationsManager', () => {
     it('should call unsubscribeFromTopic', async () => {
       mockBuildConfig(true, false)
       const mockUnsubscribeFromTopic = jest.fn()
-      mockedFirebaseMessaging.mockImplementation(() => {
-        const previous = previousFirebaseMessaging
-        previous.unsubscribeFromTopic = mockUnsubscribeFromTopic
-        return previous
-      })
+      messaging.unsubscribeFromTopic.mockImplementation(mockUnsubscribeFromTopic)
 
       await PushNotificationsManager.unsubscribeNews('augsburg', 'de')
       expect(mockUnsubscribeFromTopic).toHaveBeenCalledWith('augsburg-de-news')
@@ -135,11 +122,7 @@ describe('PushNotificationsManager', () => {
     it('should return and do nothing if disabled in build configs', async () => {
       mockBuildConfig(false, false)
       const mockSubscribeToTopic = jest.fn()
-      mockedFirebaseMessaging.mockImplementation(() => {
-        const previous = previousFirebaseMessaging
-        previous.subscribeToTopic = mockSubscribeToTopic
-        return previous
-      })
+      messaging.subscribeToTopic.mockImplementation(mockSubscribeToTopic)
 
       await PushNotificationsManager.subscribeNews({
         cityCode: 'augsburg',
@@ -152,11 +135,7 @@ describe('PushNotificationsManager', () => {
     it('should return and do nothing if it is a floss build', async () => {
       mockBuildConfig(true, true)
       const mockSubscribeToTopic = jest.fn()
-      mockedFirebaseMessaging.mockImplementation(() => {
-        const previous = previousFirebaseMessaging
-        previous.subscribeToTopic = mockSubscribeToTopic
-        return previous
-      })
+      messaging.subscribeToTopic.mockImplementation(mockSubscribeToTopic)
 
       await PushNotificationsManager.subscribeNews({
         cityCode: 'augsburg',
@@ -169,11 +148,7 @@ describe('PushNotificationsManager', () => {
     it('should return and do nothing if it is disabled in settings', async () => {
       mockBuildConfig(true, false)
       const mockSubscribeToTopic = jest.fn()
-      mockedFirebaseMessaging.mockImplementation(() => {
-        const previous = previousFirebaseMessaging
-        previous.subscribeToTopic = mockSubscribeToTopic
-        return previous
-      })
+      messaging.subscribeToTopic.mockImplementation(mockSubscribeToTopic)
 
       await PushNotificationsManager.subscribeNews({
         cityCode: 'augsburg',
@@ -186,11 +161,7 @@ describe('PushNotificationsManager', () => {
     it('should call subscribeToTopic', async () => {
       mockBuildConfig(true, false)
       const mockSubscribeToTopic = jest.fn()
-      mockedFirebaseMessaging.mockImplementation(() => {
-        const previous = previousFirebaseMessaging
-        previous.subscribeToTopic = mockSubscribeToTopic
-        return previous
-      })
+      messaging.subscribeToTopic.mockImplementation(mockSubscribeToTopic)
 
       await PushNotificationsManager.subscribeNews({
         cityCode: 'augsburg',
@@ -204,11 +175,7 @@ describe('PushNotificationsManager', () => {
     it('should call subscribeToTopic even if push notifications are disabled but skipSettingsCheck is true', async () => {
       mockBuildConfig(true, false)
       const mockSubscribeToTopic = jest.fn()
-      mockedFirebaseMessaging.mockImplementation(() => {
-        const previous = previousFirebaseMessaging
-        previous.subscribeToTopic = mockSubscribeToTopic
-        return previous
-      })
+      messaging.subscribeToTopic.mockImplementation(mockSubscribeToTopic)
 
       await PushNotificationsManager.subscribeNews({
         cityCode: 'augsburg',
@@ -234,11 +201,7 @@ describe('PushNotificationsManager', () => {
     }
     it('should go to news if there is an initial message', async () => {
       const url = 'https://integreat.app/augsburg/de/news/local/123'
-      mockedFirebaseMessaging.mockImplementation(() => {
-        const previous = previousFirebaseMessaging
-        previous.getInitialNotification = async () => message
-        return previous
-      })
+      messaging.getInitialNotification.mockImplementation(async () => message)
 
       await PushNotificationsManager.quitAppStatePushNotificationListener(navigateToDeepLink)
       expect(navigateToDeepLink).toHaveBeenCalledTimes(1)
@@ -246,11 +209,7 @@ describe('PushNotificationsManager', () => {
     })
 
     it('should not go to news if there is no initial message', async () => {
-      mockedFirebaseMessaging.mockImplementation(() => {
-        const previous = previousFirebaseMessaging
-        previous.getInitialNotification = async () => null
-        return previous
-      })
+      messaging.getInitialNotification.mockImplementation(async () => null)
 
       await PushNotificationsManager.quitAppStatePushNotificationListener(navigateToDeepLink)
       expect(navigateToDeepLink).not.toHaveBeenCalled()
