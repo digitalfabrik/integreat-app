@@ -13,6 +13,12 @@ const parseHTML = (html: string, options: ParserOptions = { decodeEntities: true
         if (name === 'li') {
           decodedContent += '\n'
         }
+        if (name === 'p') {
+          decodedContent += '\n'
+        }
+        if (name === 'br') {
+          decodedContent += '\n'
+        }
       },
     },
     options,
@@ -21,7 +27,7 @@ const parseHTML = (html: string, options: ParserOptions = { decodeEntities: true
   parser.write(html)
   parser.end()
 
-  return decodedContent.replace(/\r/g, '')
+  return decodedContent.replace(/\r/g, '').trim()
 }
 
 export default parseHTML

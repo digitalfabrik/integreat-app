@@ -16,15 +16,14 @@ steps:
   - checkout
   - prepare_workspace
   - restore_environment_variables
-  - restore_yarn_tools_cache
-  - restore_yarn_cache # Needed for babel-node run in util.rb. May be refactored and optimized later.
+  - restore_yarn_cache
   - restore_ruby_cache:
       directory: native
   - restore_ruby_cache:
       directory: native/ios
   - run:
       name: Prepare App Store metadata
-      command: yarn --cwd tools manage-metadata prepare-metadata << parameters.build_config_name >> appstore
+      command: yarn app-toolbelt v0 release-notes prepare-metadata << parameters.build_config_name >> appstore
   - run:
       name: '[FL] Browserstack Upload Live'
       command: bundle exec fastlane browserstack_upload path:attached_workspace/<< parameters.build_config_name >>.ipa

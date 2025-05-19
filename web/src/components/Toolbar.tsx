@@ -1,5 +1,5 @@
 import React, { ReactElement, ReactNode } from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
@@ -15,6 +15,12 @@ const ToolbarContainer = styled.div<{ $direction: 'row' | 'column'; $hasPadding:
   align-items: center;
   font-family: ${props => props.theme.fonts.web.contentFont};
 
+  ${props =>
+    props.$direction === 'column' &&
+    css`
+      max-width: 120px;
+      width: max-content;
+    `}
   & > * {
     font-size: 1.5rem;
     transition: 0.2s opacity;

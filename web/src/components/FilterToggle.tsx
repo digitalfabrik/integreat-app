@@ -16,6 +16,10 @@ const StyledButton = styled(Button)`
   margin-bottom: 10px;
 `
 
+const Text = styled.span`
+  color: ${props => props.theme.isContrastTheme && props.theme.colors.textColor};
+`
+
 const FilterToggle = ({
   isDateFilterActive,
   setToggleDateFilter,
@@ -27,7 +31,7 @@ const FilterToggle = ({
   return (
     <StyledButton label='toggleDate' onClick={() => setToggleDateFilter(!isDateFilterActive)}>
       <Icon src={isDateFilterActive ? ShrinkIcon : ExpandIcon} />
-      <span>{t(isDateFilterActive ? 'hideFilters' : 'showFilters')}</span>
+      <Text>{t(isDateFilterActive ? 'hideFilters' : 'showFilters')}</Text>
     </StyledButton>
   )
 }

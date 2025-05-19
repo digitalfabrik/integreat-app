@@ -8,7 +8,7 @@ const StyledButton = styled(Button)<{ $disabled: boolean }>`
   padding: 8px 24px;
   background-color: ${props =>
     props.$disabled ? props.theme.colors.textDisabledColor : props.theme.colors.themeColor};
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => (props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.textColor)};
   text-align: center;
   font-weight: 700;
   border-radius: 0.25em;

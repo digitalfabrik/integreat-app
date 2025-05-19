@@ -28,7 +28,7 @@ const StyledButton = styled(Button)<{ $expanded: boolean }>`
 
 const OpenStreetMapsLink = styled(Link)`
   text-decoration: underline;
-  color: ${props => props.theme.colors.tunewsThemeColor};
+  color: ${props => props.theme.colors.linkColor};
 `
 
 const Label = styled.span`
