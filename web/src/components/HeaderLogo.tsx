@@ -1,6 +1,6 @@
+import styled from '@emotion/styled'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
-import styled from 'styled-components'
 
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'

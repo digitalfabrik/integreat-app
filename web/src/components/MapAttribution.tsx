@@ -1,5 +1,5 @@
+import styled from '@emotion/styled'
 import React, { ReactElement, useState } from 'react'
-import styled from 'styled-components'
 
 import { openStreeMapCopyright } from 'shared'
 

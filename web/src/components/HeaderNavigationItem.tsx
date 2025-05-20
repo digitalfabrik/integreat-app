@@ -1,5 +1,6 @@
+import { css } from '@emotion/react'
+import styled from '@emotion/styled'
 import React, { ReactElement } from 'react'
-import styled, { css } from 'styled-components'
 
 import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
@@ -50,7 +51,7 @@ const StyledLink = styled(Link)<{ $active: boolean }>`
   ${props =>
     props.$active &&
     css`
-      color: ${props => props.theme.colors.textColor};
+      color: ${props.theme.colors.textColor};
 
       & > div:first-child {
         box-shadow: 0 0 0 0 rgb(0 0 0 / 30%);

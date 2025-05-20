@@ -1,6 +1,6 @@
+import styled from '@emotion/styled'
 import React, { ReactElement, useState } from 'react'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
-import styled from 'styled-components'
 
 import {
   parseQueryParams,

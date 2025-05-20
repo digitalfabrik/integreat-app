@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 
 const HighlightBox = styled.div`
   background-color: ${props => props.theme.colors.backgroundAccentColor};

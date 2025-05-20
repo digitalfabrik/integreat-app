@@ -1,6 +1,6 @@
-import * as React from 'react'
-import { ReactElement } from 'react'
-import styled, { keyframes } from 'styled-components'
+import { keyframes } from '@emotion/react'
+import styled from '@emotion/styled'
+import React, { ReactElement } from 'react'
 
 /** From https://github.com/ConnorAtherton/loaders.css/blob/master/loaders.css */
 const lineScaleParty = keyframes`

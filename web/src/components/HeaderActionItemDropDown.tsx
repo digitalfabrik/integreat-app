@@ -1,5 +1,5 @@
+import styled from '@emotion/styled'
 import React, { ReactElement, ReactNode, useRef, useState } from 'react'
-import styled from 'styled-components'
 
 import useOnClickOutside from '../hooks/useOnClickOutside'
 import { spacesToDashes } from '../utils/stringUtils'

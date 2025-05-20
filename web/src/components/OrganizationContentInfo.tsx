@@ -1,6 +1,6 @@
+import styled from '@emotion/styled'
 import React, { ReactElement } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
-import styled from 'styled-components'
 
 import { OrganizationModel } from 'shared/api'
 

@@ -1,24 +1,24 @@
+import { css, SerializedStyles, Theme } from '@emotion/react'
+import styled from '@emotion/styled'
 import React, { ChangeEvent, ReactElement } from 'react'
-import styled, { css } from 'styled-components'
 
 const DEFAULT_MULTI_LINE_NUMBER = 7
 
-const GeneralInputStyles = css<{ $submitted: boolean }>`
+const GeneralInputStyles = ({ theme, $submitted }: { theme: Theme; $submitted: boolean }): SerializedStyles => css`
   padding: 0.75rem;
   background-clip: padding-box;
-  border: 1px solid ${props => props.theme.colors.textSecondaryColor};
-  ${props =>
-    props.$submitted &&
-    css`
-      :invalid {
-        :focus {
-          outline-color: ${props => props.theme.colors.invalidInput}33;
-        }
-
-        border-width: 2px;
-        border-color: ${props => props.theme.colors.invalidInput};
+  border: 1px solid ${theme.colors.textSecondaryColor};
+  ${$submitted &&
+  css`
+    :invalid {
+      :focus {
+        outline-color: ${theme.colors.invalidInput}33;
       }
-    `}
+
+      border-width: 2px;
+      border-color: ${theme.colors.invalidInput};
+    }
+  `}
 `
 
 const StyledTextArea = styled.textarea<{ $submitted: boolean; $small: boolean }>`

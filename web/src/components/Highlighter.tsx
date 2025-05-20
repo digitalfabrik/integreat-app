@@ -1,6 +1,6 @@
+import { useTheme } from '@emotion/react'
 import React, { ReactElement } from 'react'
 import ReactHighlighter from 'react-highlight-words'
-import { useTheme } from 'styled-components'
 
 import { findNormalizedMatches, normalizeString } from 'shared'
 import { UiDirectionType } from 'translations'

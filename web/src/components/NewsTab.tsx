@@ -1,7 +1,7 @@
+import styled from '@emotion/styled'
 import { TFunction } from 'i18next'
 import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
-import styled from 'styled-components'
 
 import { NewsType, TU_NEWS_TYPE } from 'shared'
 import { tunewsLabel } from 'shared/constants/news'

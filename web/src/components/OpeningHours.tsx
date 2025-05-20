@@ -1,7 +1,7 @@
+import styled from '@emotion/styled'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
 
 import { weekdays } from 'shared'
 import { OpeningHoursModel } from 'shared/api'

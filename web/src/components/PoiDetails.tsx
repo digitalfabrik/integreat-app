@@ -1,6 +1,7 @@
+import { useTheme } from '@emotion/react'
+import styled from '@emotion/styled'
 import React, { Fragment, ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled, { useTheme } from 'styled-components'
 
 import { getExternalMapsLink } from 'shared'
 import { PoiModel } from 'shared/api'

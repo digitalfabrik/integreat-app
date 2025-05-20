@@ -1,5 +1,6 @@
+import { css, useTheme } from '@emotion/react'
+import styled from '@emotion/styled'
 import React, { memo, ReactElement } from 'react'
-import styled, { css, useTheme } from 'styled-components'
 
 import { ArrowBackspaceIcon } from '../assets'
 import { helpers } from '../constants/theme'

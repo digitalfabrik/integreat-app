@@ -1,7 +1,7 @@
+import styled from '@emotion/styled'
 import { TFunction } from 'i18next'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
-import styled from 'styled-components'
 
 import { getExcerpt, LOCAL_NEWS_TYPE, NewsType } from 'shared'
 

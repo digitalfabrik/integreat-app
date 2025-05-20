@@ -1,6 +1,6 @@
+import styled from '@emotion/styled'
 import React, { ReactElement } from 'react'
 import SVG from 'react-inlinesvg'
-import styled from 'styled-components'
 
 const StyledIcon = styled(SVG)<{ $directionDependent: boolean; $reverse: boolean }>`
   transform: ${props =>

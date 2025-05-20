@@ -1,11 +1,11 @@
+import styled from '@emotion/styled'
 import React, { ReactElement, ReactNode, useRef, useState } from 'react'
-import styled from 'styled-components'
 
 import dimensions from '../constants/dimensions'
 import useOnClickOutside from '../hooks/useOnClickOutside'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import DropDownContainer from './DropDownContainer'
-import KebabActionItemLink from './KebabActionItemLink'
+import KebabActionItem from './KebabActionItem'
 import Button from './base/Button'
 
 const StyledButton = styled(Button)`
@@ -57,7 +57,7 @@ const KebabActionItemDropDown = ({
   return (
     <Container ref={wrapperRef}>
       <StyledButton label={text} onClick={toggleDropDown}>
-        <KebabActionItemLink text={text} iconSrc={iconSrc} />
+        <KebabActionItem text={text} iconSrc={iconSrc} />
       </StyledButton>
       <DropDownContainer
         data-testid='headerActionItemDropDown'

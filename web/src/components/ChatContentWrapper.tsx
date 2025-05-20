@@ -1,5 +1,5 @@
+import styled from '@emotion/styled'
 import React, { ReactElement, ReactNode } from 'react'
-import styled from 'styled-components'
 
 import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
