@@ -11,7 +11,9 @@ type StaticServerProps = {
 const SERVER_PATH = RESOURCE_CACHE_DIR_PATH
 const SERVER_PORT = 8080
 
-const staticServer = new StaticServer(SERVER_PORT, SERVER_PATH, {
+const staticServer = new StaticServer({
+  fileDir: SERVER_PATH,
+  port: SERVER_PORT,
   localOnly: true,
 })
 

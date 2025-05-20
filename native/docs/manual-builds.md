@@ -136,6 +136,9 @@ yarn start
 yarn android
 ```
 
+Alternatively, you can also use the GUI in Android Studio to build and run the app, this sometimes helps with
+troubleshooting.
+
 ### Running the App via ADB network
 
 Start the app on mobile device using **ADB over network**

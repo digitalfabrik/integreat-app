@@ -2,7 +2,7 @@ import React, { ReactElement, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Share } from 'react-native'
 import { HiddenItem, Item } from 'react-navigation-header-buttons'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
 import {
   CATEGORIES_ROUTE,
@@ -86,6 +86,7 @@ const Header = ({
   const [previousRoute] = useState(navigation.getState().routes[navigation.getState().routes.length - 2])
   const [canGoBack] = useState(navigation.canGoBack())
   const { enabled: isTtsEnabled, showTtsPlayer } = useTtsPlayer()
+  const theme = useTheme()
 
   const onShare = async () => {
     if (!shareUrl) {
@@ -126,7 +127,7 @@ const Header = ({
       title={t(title)}
       iconName={iconName}
       onPress={visible ? onPress : () => undefined}
-      style={{ opacity: visible ? 1 : 0 }}
+      color={visible ? theme.colors.textColor : 'transparent'}
       accessibilityLabel={t(title)}
     />
   )
