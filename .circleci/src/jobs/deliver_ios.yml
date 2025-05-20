@@ -24,6 +24,7 @@ steps:
   - run:
       name: Prepare App Store metadata
       command: yarn app-toolbelt v0 release-notes prepare-metadata << parameters.build_config_name >> appstore
+      working_directory: native
   - run:
       name: '[FL] Browserstack Upload Live'
       command: bundle exec fastlane browserstack_upload path:attached_workspace/<< parameters.build_config_name >>.ipa
