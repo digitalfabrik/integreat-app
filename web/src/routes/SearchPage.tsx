@@ -3,7 +3,15 @@ import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { parseHTML, pathnameFromRouteInformation, SEARCH_ROUTE, useSearch, SEARCH_QUERY_KEY, useDebounce } from 'shared'
+import {
+  parseHTML,
+  pathnameFromRouteInformation,
+  SEARCH_ROUTE,
+  useSearch,
+  SEARCH_QUERY_KEY,
+  useDebounce,
+  MAX_SEARCH_RESULTS,
+} from 'shared'
 import { config } from 'translations'
 
 import { CityRouteProps } from '../CityContentSwitcher'
@@ -58,7 +66,7 @@ const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
   const contentLanguageReturn = useSearch(contentLanguageDocuments, debouncedQuery)
   const fallbackLanguageDocuments = languageCode !== fallbackLanguage ? fallbackData : []
   const fallbackLanguageReturn = useSearch(fallbackLanguageDocuments, debouncedQuery)
-  const results = contentLanguageReturn.data.concat(fallbackLanguageReturn.data)
+  const results = contentLanguageReturn.data.concat(fallbackLanguageReturn.data).slice(0, MAX_SEARCH_RESULTS)
 
   useReportError(contentLanguageReturn.error ?? fallbackLanguageReturn.error)
 
@@ -98,6 +106,7 @@ const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
     if (loading) {
       return <LoadingSpinner />
     }
+
     return (
       <>
         <List>
@@ -109,7 +118,7 @@ const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
               title={title}
               contentWithoutHtml={parseHTML(content)}
               key={path}
-              query={query}
+              query={debouncedQuery}
               path={path}
               thumbnail={thumbnail}
             />
@@ -119,7 +128,7 @@ const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
           cityCode={cityCode}
           languageCode={languageCode}
           noResults={results.length === 0}
-          query={query}
+          query={debouncedQuery}
         />
       </>
     )

@@ -75,6 +75,7 @@ export type CustomDatePickerProps = {
   setDate: (date: DateTime | null) => void
   error?: string
   placeholderDate: DateTime
+  calendarLabel: string
 }
 
 const isValidJsDate = (date: Date | null): boolean => {
@@ -92,7 +93,14 @@ const isValidJsDate = (date: Date | null): boolean => {
 }
 const containsOnlyDigits = (str: string) => !Number.isNaN(Number(str))
 
-const CustomDatePicker = ({ title, date, setDate, error, placeholderDate }: CustomDatePickerProps): ReactElement => {
+const CustomDatePicker = ({
+  title,
+  date,
+  setDate,
+  error,
+  placeholderDate,
+  calendarLabel,
+}: CustomDatePickerProps): ReactElement => {
   const { t } = useTranslation('events')
   const [isCalendarOpen, setIsCalendarOpen] = useState(false)
   const [datePickerError, setDatePickerError] = useState('')
@@ -149,11 +157,9 @@ const CustomDatePicker = ({ title, date, setDate, error, placeholderDate }: Cust
           onChangeRaw={e => handleDateError(String((e?.target as HTMLInputElement).value))}
         />
         <StyledIconButton
-          label={t('common:openCalendar')}
+          label={calendarLabel}
           $isCalendarOpen={isCalendarOpen}
-          onClick={() => {
-            setIsCalendarOpen(true)
-          }}>
+          onClick={() => setIsCalendarOpen(true)}>
           <Icon src={CalendarTodayIcon} />
         </StyledIconButton>
       </StyledInputWrapper>
