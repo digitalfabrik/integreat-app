@@ -6357,7 +6357,8 @@
       "pageTitle": "Lokale Informationen für Dich",
       "metaDescription": "{{appName}} ist Dein digitaler Guide für Deutschland. Finde lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Deiner Sprache.",
       "cityNotFound": "Deine Region nicht gefunden? Werde jetzt aktiv!",
-      "suggestToRegion": "{{appName}} in Deiner Region vorschlagen"
+      "suggestToRegion": "{{appName}} in Deiner Region vorschlagen",
+      "searchCityTip": "Choose your district or the next largest city, e.g. Landkreis München"
     },
     "am": {
       "searchCity": "መፈለግ",

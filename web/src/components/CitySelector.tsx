@@ -62,7 +62,8 @@ const CitySelector = ({ cities, language }: CitySelectorProps): ReactElement => 
         onFilterTextChange={setFilterText}
         placeholderText={t('searchCity')}
         spaceSearch={false}
-        onStickyTopChanged={setStickyTop}>
+        onStickyTopChanged={setStickyTop}
+        helperText={t('searchCityTip')}>
         <SearchCounter aria-live={resultCities.length === 0 ? 'assertive' : 'polite'}>
           {t('search:searchResultsCount', { count: resultCities.length })}
         </SearchCounter>
