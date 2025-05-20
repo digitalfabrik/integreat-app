@@ -21,7 +21,7 @@ type SettingsProps = {
 const Settings = ({ navigation }: SettingsProps): ReactElement => {
   const appContext = useCityAppContext()
   const showSnackbar = useSnackbar()
-  const { t } = useTranslation('settings')
+  const { t } = useTranslation<['settings', 'layout']>(['settings', 'layout'])
   const { settings } = appContext
 
   const safeOnPress = (update: () => Promise<void> | void) => async () => {
