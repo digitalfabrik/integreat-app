@@ -19,9 +19,9 @@ const Container = styled.div`
   }
 `
 
-const Header = styled.div<{ $small: boolean }>`
+const Header = styled.div<{ small: boolean }>`
   display: flex;
-  flex-direction: ${props => (props.$small ? 'row-reverse' : 'row')};
+  flex-direction: ${props => (props.small ? 'row-reverse' : 'row')};
   justify-content: space-between;
   ${helpers.adaptiveThemeTextColor}
   font-size: ${props => props.theme.fonts.hintFontSize};
@@ -51,7 +51,7 @@ const ChatContentWrapper = ({ title, onClose, children }: ModalProps): ReactElem
   const { viewportSmall } = useWindowDimensions()
   return (
     <Container>
-      <Header $small={viewportSmall}>
+      <Header small={viewportSmall}>
         {title}
         <ChatMenu onClose={onClose} />
       </Header>

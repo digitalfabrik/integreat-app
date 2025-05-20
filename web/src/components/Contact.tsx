@@ -41,7 +41,7 @@ const Contact = ({
         />
       )}
       {!!email && <ContactItem iconSrc={MailIcon} iconAlt={t('eMail')} link={`mailto:${email}`} content={email} />}
-      {!isLastContact && <Spacer $borderColor={theme.colors.borderColor} />}
+      {!isLastContact && <Spacer borderColor={theme.colors.borderColor} />}
     </>
   )
 }

@@ -27,8 +27,8 @@ const Title = styled.div`
   ${helpers.adaptiveFontSize}
 `
 
-const CollapseIcon = styled(Icon)<{ $collapsed: boolean }>`
-  transform: rotate(-90deg) ${props => (!props.$collapsed ? 'scale(-1)' : '')};
+const CollapseIcon = styled(Icon)<{ collapsed: boolean }>`
+  transform: rotate(-90deg) ${props => (!props.collapsed ? 'scale(-1)' : '')};
   width: 16px;
   height: 16px;
 `
@@ -61,7 +61,7 @@ const Collapsible = ({
         {typeof title === 'string' ? <Title>{title}</Title> : title}
         <CollapseIcon
           src={ArrowBackIcon}
-          $collapsed={collapsed}
+          collapsed={collapsed}
           title={t(collapsed ? 'showMore' : 'showLess')}
           directionDependent
         />

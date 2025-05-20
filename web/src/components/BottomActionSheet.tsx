@@ -88,7 +88,7 @@ const BottomActionSheet = React.forwardRef(
         <StyledLayout>
           {children}
           <ToolbarContainer>
-            <StyledSpacer $borderColor={theme.colors.borderColor} />
+            <StyledSpacer borderColor={theme.colors.borderColor} />
             {toolbar}
           </ToolbarContainer>
         </StyledLayout>

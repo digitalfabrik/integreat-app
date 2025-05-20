@@ -18,15 +18,15 @@ const Container = styled.div`
   display: flex;
 `
 
-const Arrow = styled(Icon)<{ $visible: boolean }>`
+const Arrow = styled(Icon)<{ visible: boolean }>`
   width: 16px;
   height: 16px;
   padding: 0 8px;
   align-self: center;
-  opacity: ${props => (props.$visible ? 1 : 0)};
+  opacity: ${props => (props.visible ? 1 : 0)};
 `
 
-const ScrollContainer = styled.div<{ $showArrowContainer: boolean }>`
+const ScrollContainer = styled.div<{ showArrowContainer: boolean }>`
   display: flex;
   flex: 1;
   max-width: 100%;
@@ -40,7 +40,7 @@ const ScrollContainer = styled.div<{ $showArrowContainer: boolean }>`
     flex-wrap: wrap;
     min-height: ${dimensions.headerHeightSmall}px;
     overflow-x: auto;
-    padding: ${props => (props.$showArrowContainer ? '8px 0' : '8px')};
+    padding: ${props => (props.showArrowContainer ? '8px 0' : '8px')};
   }
 `
 
@@ -81,7 +81,7 @@ const NavigationBarScrollContainer = ({ children, activeIndex }: NavigationBarSc
     <ScrollContainer
       ref={ref}
       onScroll={(e: React.UIEvent<HTMLElement>) => setScrollPosition(Math.abs(e.currentTarget.scrollLeft))}
-      $showArrowContainer={showArrowContainer}>
+      showArrowContainer={showArrowContainer}>
       {children}
     </ScrollContainer>
   )
@@ -93,11 +93,11 @@ const NavigationBarScrollContainer = ({ children, activeIndex }: NavigationBarSc
   return (
     <Container>
       <Button disabled={!showArrowLeft} onClick={scrollToStart} label='' aria-hidden>
-        <Arrow src={ArrowBackIcon} $visible={showArrowLeft} />
+        <Arrow src={ArrowBackIcon} visible={showArrowLeft} />
       </Button>
       {Content}
       <Button disabled={!showArrowRight} onClick={scrollToEnd} label='' aria-hidden>
-        <Arrow src={ArrowBackIcon} $visible={showArrowRight} reverse />
+        <Arrow src={ArrowBackIcon} visible={showArrowRight} reverse />
       </Button>
     </Container>
   )

@@ -12,7 +12,7 @@ import Input from './base/Input'
 import InputSection from './base/InputSection'
 import TextButton from './base/TextButton'
 
-export const Container = styled.div<{ $fullWidth?: boolean }>`
+export const Container = styled.div<{ fullWidth?: boolean }>`
   display: flex;
   flex: 1;
   max-height: 80vh;
@@ -28,7 +28,7 @@ export const Container = styled.div<{ $fullWidth?: boolean }>`
   gap: 16px;
 
   @media ${dimensions.mediumLargeViewport} {
-    width: ${props => (props.$fullWidth ? 'auto' : '400px')};
+    width: ${props => (props.fullWidth ? 'auto' : '400px')};
   }
 `
 
@@ -87,7 +87,7 @@ const Feedback = ({
   }
 
   return (
-    <Container $fullWidth={isSearchFeedback}>
+    <Container fullWidth={isSearchFeedback}>
       {isSearchFeedback ? (
         <InputSection id='searchTerm' title={t('searchTermDescription')}>
           <Input id='searchTerm' value={searchTerm} onChange={setSearchTerm} />

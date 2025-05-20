@@ -32,10 +32,10 @@ const selectorItemStyle = ({ theme }: { theme: Theme }): SerializedStyles => css
   }
 `
 
-const SelectorItem = styled(Button)<{ $selected: boolean }>`
+const SelectorItem = styled(Button)<{ selected: boolean }>`
   ${selectorItemStyle};
   ${props =>
-    props.$selected
+    props.selected
       ? 'font-weight: 700;'
       : `&:hover {
           font-weight: 700;
@@ -55,7 +55,7 @@ const BoldSpacer = styled.div`
   visibility: hidden;
 `
 
-const Wrapper = styled.div<{ $vertical: boolean }>`
+const Wrapper = styled.div<{ vertical: boolean }>`
   display: flex;
   width: 100%;
   flex-flow: row wrap;
@@ -64,7 +64,7 @@ const Wrapper = styled.div<{ $vertical: boolean }>`
   text-align: center;
 
   ${props =>
-    props.$vertical &&
+    props.vertical &&
     css`
       flex-flow: column;
       align-items: center;
@@ -90,14 +90,14 @@ const Selector = ({
   closeDropDown,
   disabledItemTooltip,
 }: SelectorProps): ReactElement => (
-  <Wrapper $vertical={verticalLayout} id='languageSelector'>
+  <Wrapper vertical={verticalLayout} id='languageSelector'>
     {items.map(item =>
       item.href ? (
         <SelectorItem
           key={item.code}
           onClick={closeDropDown ?? (() => undefined)}
           label=''
-          $selected={item.code === activeItemCode}>
+          selected={item.code === activeItemCode}>
           <Link to={item.href} aria-selected={item.code === activeItemCode}>
             <BoldSpacer>{item.name}</BoldSpacer>
             {item.name}

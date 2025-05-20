@@ -11,7 +11,7 @@ const Container = styled.div`
   flex: 1 1 135px;
 `
 
-const StyledLink = styled(Link)<{ $active: boolean }>`
+const StyledLink = styled(Link)<{ active: boolean }>`
   ${helpers.removeLinkHighlighting};
   color: ${props => props.theme.colors.textSecondaryColor};
   font-family: ${props => props.theme.fonts.web.contentFont};
@@ -32,7 +32,7 @@ const StyledLink = styled(Link)<{ $active: boolean }>`
   }
 
   & > div > svg {
-    color: ${props => (props.$active ? props.theme.colors.textColor : props.theme.colors.textSecondaryColor)};
+    color: ${props => (props.active ? props.theme.colors.textColor : props.theme.colors.textSecondaryColor)};
   }
 
   &:hover {
@@ -49,7 +49,7 @@ const StyledLink = styled(Link)<{ $active: boolean }>`
   }
 
   ${props =>
-    props.$active &&
+    props.active &&
     css`
       color: ${props.theme.colors.textColor};
 
@@ -60,8 +60,8 @@ const StyledLink = styled(Link)<{ $active: boolean }>`
     `}
 `
 
-const StyledText = styled.span<{ $active: boolean }>`
-  font-weight: ${props => (props.$active ? 'bold' : 'normal')};
+const StyledText = styled.span<{ active: boolean }>`
+  font-weight: ${props => (props.active ? 'bold' : 'normal')};
 `
 
 const ICON_SIZE_LARGE = 50
@@ -105,11 +105,11 @@ export type HeaderNavigationItemProps = {
 
 const HeaderNavigationItem = ({ active, text, to, icon }: HeaderNavigationItemProps): ReactElement => (
   <Container className='header-navigation-item'>
-    <StyledLink to={to} $active={active}>
+    <StyledLink to={to} active={active}>
       <Circle>
         <StyledIcon src={icon} />
       </Circle>
-      <StyledText $active={active}>{text}</StyledText>
+      <StyledText active={active}>{text}</StyledText>
     </StyledLink>
   </Container>
 )

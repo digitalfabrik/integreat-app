@@ -8,7 +8,7 @@ import { tunewsLabel } from 'shared/constants/news'
 
 import { TuNewsActiveIcon, TuNewsInactiveIcon } from '../assets'
 
-const StyledTab = styled(Link)<{ $active: boolean }>`
+const StyledTab = styled(Link)<{ active: boolean }>`
   display: flex;
   width: 160px;
   height: 50px;
@@ -20,7 +20,7 @@ const StyledTab = styled(Link)<{ $active: boolean }>`
   padding: 13px 15px;
   color: ${({ theme }) => theme.colors.backgroundColor};
   object-fit: contain;
-  background-color: ${({ $active, theme }) => ($active ? theme.colors.themeColor : theme.colors.textDisabledColor)};
+  background-color: ${({ active, theme }) => (active ? theme.colors.themeColor : theme.colors.textDisabledColor)};
   border-radius: 11px;
   font-size: ${props => props.theme.fonts.subTitleFontSize};
   font-weight: 700;
@@ -32,9 +32,8 @@ const StyledTab = styled(Link)<{ $active: boolean }>`
 `
 
 const TuStyledTab = styled(StyledTab)`
-  background-image: ${({ $active }) => ($active ? `url(${TuNewsActiveIcon})` : `url(${TuNewsInactiveIcon})`)};
-  background-color: ${({ $active, theme }) =>
-    $active ? theme.colors.tunewsThemeColor : theme.colors.textDisabledColor};
+  background-image: ${({ active }) => (active ? `url(${TuNewsActiveIcon})` : `url(${TuNewsInactiveIcon})`)};
+  background-color: ${({ active, theme }) => (active ? theme.colors.tunewsThemeColor : theme.colors.textDisabledColor)};
   background-size: cover;
   background-position: center center;
 `
@@ -48,11 +47,11 @@ type NewsTabProps = {
 
 const NewsTab = ({ type, active, destination, t }: NewsTabProps): ReactElement => {
   if (type === TU_NEWS_TYPE) {
-    return <TuStyledTab $active={active} to={destination} aria-label={tunewsLabel} />
+    return <TuStyledTab active={active} to={destination} aria-label={tunewsLabel} />
   }
 
   return (
-    <StyledTab $active={active} to={destination} aria-label={t('local')}>
+    <StyledTab active={active} to={destination} aria-label={t('local')}>
       {t('local').toUpperCase()}
     </StyledTab>
   )
