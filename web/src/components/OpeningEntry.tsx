@@ -29,7 +29,7 @@ const OpeningContainer = styled.div`
 `
 
 const TimeSlotEntry = styled.span`
-  &:not(:first-child) {
+  &:not(:first-of-type) {
     margin-top: 8px;
   }
 `
