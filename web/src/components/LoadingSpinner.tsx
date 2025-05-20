@@ -34,22 +34,22 @@ const Spinner = styled.div`
     animation-iteration-count: infinite;
   }
 
-  > div:nth-child(1) {
+  > div:nth-of-type(1) {
     animation-delay: 0.48s;
     animation-duration: 0.54s;
   }
 
-  > div:nth-child(2) {
+  > div:nth-of-type(2) {
     animation-delay: -0.15s;
     animation-duration: 1.15s;
   }
 
-  > div:nth-child(3) {
+  > div:nth-of-type(3) {
     animation-delay: -0.04s;
     animation-duration: 0.77s;
   }
 
-  > div:nth-child(4) {
+  > div:nth-of-type(4) {
     animation-delay: -0.12s;
     animation-duration: 0.61s;
   }

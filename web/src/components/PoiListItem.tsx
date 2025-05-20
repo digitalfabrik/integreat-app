@@ -22,7 +22,7 @@ const ListItemContainer = styled.ul`
     }
   }
 
-  &:first-child {
+  &:first-of-type {
     padding-top: 0;
   }
 `

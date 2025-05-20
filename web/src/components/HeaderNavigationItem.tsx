@@ -43,7 +43,7 @@ const StyledLink = styled(Link)<{ active: boolean }>`
     color: ${props => props.theme.colors.textColor};
   }
 
-  &:hover > div:first-child {
+  &:hover > div:first-of-type {
     box-shadow: 0 0 0 0 rgb(0 0 0 / 30%);
     border-color: ${props => props.theme.colors.themeColor};
   }
@@ -53,7 +53,7 @@ const StyledLink = styled(Link)<{ active: boolean }>`
     css`
       color: ${props.theme.colors.textColor};
 
-      & > div:first-child {
+      & > div:first-of-type {
         box-shadow: 0 0 0 0 rgb(0 0 0 / 30%);
         border-color: ${props.theme.colors.themeColor};
       }
