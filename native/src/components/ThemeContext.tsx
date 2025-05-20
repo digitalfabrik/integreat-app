@@ -1,9 +1,10 @@
-import React, { createContext, ReactElement, useMemo, useState } from 'react'
+import React, { createContext, ReactElement, useCallback, useMemo } from 'react'
 import { ThemeProvider } from 'styled-components/native'
 
 import { ThemeType, ThemeKey } from 'build-configs/index'
 
 import buildConfig from '../constants/buildConfig'
+import { useAppContext } from '../hooks/useCityAppContext'
 
 export type ThemeContextType = {
   theme: ThemeType
@@ -24,17 +25,19 @@ type ThemeContainerProps = {
 }
 
 export const ThemeContainer = ({ children }: ThemeContainerProps): ReactElement => {
-  const [themeType, setThemeType] = useState<ThemeKey>('light')
+  const { settings, updateSettings } = useAppContext()
+  const themeType = settings.selectedTheme
+
+  const toggleTheme = useCallback(() => {
+    const newTheme: ThemeKey = themeType === 'light' ? 'contrast' : 'light'
+    updateSettings({ selectedTheme: newTheme })
+  }, [themeType, updateSettings])
 
   const contextValue = useMemo(() => {
-    const toggleTheme = () => {
-      setThemeType(prev => (prev === 'light' ? 'contrast' : 'light'))
-    }
-
     const baseTheme = themeType === 'contrast' ? themeConfig.contrastTheme : themeConfig.lightTheme
     const theme = { ...baseTheme, isContrastTheme: themeType === 'contrast' }
     return { theme, themeType, toggleTheme }
-  }, [themeType])
+  }, [themeType, toggleTheme])
 
   return (
     <ThemeContext.Provider value={contextValue}>

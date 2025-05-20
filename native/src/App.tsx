@@ -81,11 +81,11 @@ const App = (): ReactElement => {
 
   return (
     <>
-      <ThemeContainer>
-        <StaticServerProvider>
-          <I18nProvider>
-            <SafeAreaProvider>
-              <AppContextProvider>
+      <StaticServerProvider>
+        <I18nProvider>
+          <AppContextProvider>
+            <ThemeContainer>
+              <SafeAreaProvider>
                 <SnackbarContainer>
                   <TtsContainer>
                     <>
@@ -100,11 +100,11 @@ const App = (): ReactElement => {
                     </>
                   </TtsContainer>
                 </SnackbarContainer>
-              </AppContextProvider>
-            </SafeAreaProvider>
-          </I18nProvider>
-        </StaticServerProvider>
-      </ThemeContainer>
+              </SafeAreaProvider>
+            </ThemeContainer>
+          </AppContextProvider>
+        </I18nProvider>
+      </StaticServerProvider>
       <AppStateListener />
     </>
   )
