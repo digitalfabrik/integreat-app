@@ -1814,7 +1814,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNCCheckbox (0.5.17):
+  - RNCCheckbox (0.5.20):
     - BEMCheckBox (~> 1.4)
     - React-Core
   - RNCClipboard (1.16.2):
@@ -2081,7 +2081,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNSentry (6.13.1):
+  - RNSentry (6.14.0):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -2102,9 +2102,9 @@ PODS:
     - ReactCodegen
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
-    - Sentry/HybridSDK (= 8.49.2)
+    - Sentry/HybridSDK (= 8.50.2)
     - Yoga
-  - RNSVG (15.11.2):
+  - RNSVG (15.12.0):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -2124,9 +2124,9 @@ PODS:
     - ReactCodegen
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
-    - RNSVG/common (= 15.11.2)
+    - RNSVG/common (= 15.12.0)
     - Yoga
-  - RNSVG/common (15.11.2):
+  - RNSVG/common (15.12.0):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -2147,7 +2147,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - Sentry/HybridSDK (8.49.2)
+  - Sentry/HybridSDK (8.50.2)
   - SocketRocket (0.7.1)
   - TextToSpeech (4.1.1):
     - React-Core
@@ -2541,7 +2541,7 @@ SPEC CHECKSUMS:
   ReactCommon: 8fdc2d8511f4099f25d5929f7fa4284c14a7e509
   RNCalendarEvents: 7e65eb4a94f53c1744d1e275f7fafcfaa619f7a3
   RNCAsyncStorage: 320c8b9217695928a64d8ae993653425c8605368
-  RNCCheckbox: a3ca9978cb0846b981d28da4e9914bd437403d77
+  RNCCheckbox: 471ebdc33884c084f362615c1ef3507496cc07f1
   RNCClipboard: de1561c12ba8a15f143347993a382c6474c0d2d6
   RNFBApp: dd35ba8340b89c36e42c4c137915c01d3c792143
   RNFBMessaging: c8d34d9ad44a3258a77e548bba6dc3561af7cf2d
@@ -2552,9 +2552,9 @@ SPEC CHECKSUMS:
   RNPermissions: 20a15a2ff5ac9f6cc1ebdca1d49666767ff979e9
   RNReanimated: 66c4a3320d73cdec5f8f24d215c475a1d59643ae
   RNScreens: ef58b1f3077f7ee62b58f958536ee5ccb52d96b5
-  RNSentry: ead00a4375cdcbb9bea54909569a29e2f474c166
-  RNSVG: 05776cf3f0d52d3f8e7ebee34b2189da7b8638ff
-  Sentry: 47021097466aa130802420d485a34da445963d99
+  RNSentry: 1c96221be75e10c837d0ca8d58fb8524725bad23
+  RNSVG: 5d7992749922ef29078dcadcbac0d3546dc0a31d
+  Sentry: d95f5f3b32d01324b3e27d3c52747005302cc026
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
   TextToSpeech: 2b930ec3756afde499061f4f01ea895e1f75dccb
   Yoga: 0c521d2eddeeff54ba1126068140b6e970a77fc0

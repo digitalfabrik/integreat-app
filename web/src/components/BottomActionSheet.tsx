@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode, useImperativeHandle, useRef, useState } from 'react'
+import React, { ReactElement, ReactNode, RefObject, useImperativeHandle, useRef, useState } from 'react'
 import { BottomSheet, BottomSheetRef } from 'react-spring-bottom-sheet'
 import 'react-spring-bottom-sheet/dist/style.css'
 import { SpringEvent } from 'react-spring-bottom-sheet/dist/types'
@@ -34,66 +34,69 @@ const StyledLayout = styled(RichLayout)`
   min-height: unset;
 `
 
+export type ScrollableBottomSheetRef = {
+  scrollElement: HTMLElement | null
+  sheet?: BottomSheetRef | null
+}
+
 type BottomActionSheetProps = {
   title?: string
   children: ReactNode
   toolbar: ReactNode
   sibling: ReactNode
   setBottomActionSheetHeight: (height: number) => void
+  ref: RefObject<ScrollableBottomSheetRef | null>
 }
 
-export type ScrollableBottomSheetRef = {
-  scrollElement: HTMLElement | null
-  sheet?: BottomSheetRef | null
-}
-
-const BottomActionSheet = React.forwardRef(
-  (
-    { title, children, toolbar, sibling, setBottomActionSheetHeight }: BottomActionSheetProps,
-    ref: React.Ref<ScrollableBottomSheetRef>,
-  ): ReactElement => {
-    const theme = useTheme()
-    const [scrollElement, setScrollElement] = useState<HTMLElement | null>(null)
-    const bottomSheetRef = useRef<BottomSheetRef>(null)
-    useImperativeHandle(
-      ref,
-      () => ({
-        sheet: bottomSheetRef.current,
-        scrollElement,
-      }),
-      [bottomSheetRef, scrollElement],
-    )
-    const initializeScrollElement = (e: SpringEvent) => {
-      if (e.type === 'OPEN' && !scrollElement) {
-        const scrollElement = document.querySelector('[data-rsbs-scroll]') as HTMLElement | null
-        setScrollElement(scrollElement)
-      }
+const BottomActionSheet = ({
+  title,
+  children,
+  toolbar,
+  sibling,
+  setBottomActionSheetHeight,
+  ref,
+}: BottomActionSheetProps): ReactElement => {
+  const theme = useTheme()
+  const [scrollElement, setScrollElement] = useState<HTMLElement | null>(null)
+  const bottomSheetRef = useRef<BottomSheetRef>(null)
+  useImperativeHandle(
+    ref,
+    () => ({
+      sheet: bottomSheetRef.current,
+      scrollElement,
+    }),
+    [bottomSheetRef, scrollElement],
+  )
+  const initializeScrollElement = (e: SpringEvent) => {
+    if (e.type === 'OPEN' && !scrollElement) {
+      const scrollElement = document.querySelector('[data-rsbs-scroll]') as HTMLElement | null
+      setScrollElement(scrollElement)
     }
+  }
 
-    return (
-      <StyledBottomSheet
-        ref={bottomSheetRef}
-        open
-        sibling={sibling}
-        scrollLocking={false}
-        blocking={false}
-        onSpringStart={initializeScrollElement}
-        onSpringEnd={() => setBottomActionSheetHeight(bottomSheetRef.current?.height ?? 0)}
-        header={title ? <Title>{title}</Title> : null}
-        snapPoints={({ maxHeight }) => getSnapPoints(maxHeight)}
-        // snapPoints have been supplied in the previous line
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        defaultSnap={({ snapPoints }) => snapPoints[1]!}>
-        <StyledLayout>
-          {children}
-          <ToolbarContainer>
-            <StyledSpacer $borderColor={theme.colors.borderColor} />
-            {toolbar}
-          </ToolbarContainer>
-        </StyledLayout>
-      </StyledBottomSheet>
-    )
-  },
-)
+  return (
+    <StyledBottomSheet
+      ref={bottomSheetRef}
+      open
+      sibling={sibling}
+      scrollLocking={false}
+      blocking={false}
+      onSpringStart={initializeScrollElement}
+      onSpringEnd={() => setBottomActionSheetHeight(bottomSheetRef.current?.height ?? 0)}
+      header={title ? <Title>{title}</Title> : null}
+      snapPoints={({ maxHeight }) => getSnapPoints(maxHeight)}
+      // snapPoints have been supplied in the previous line
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      defaultSnap={({ snapPoints }) => snapPoints[1]!}>
+      <StyledLayout>
+        {children}
+        <ToolbarContainer>
+          <StyledSpacer $borderColor={theme.colors.borderColor} />
+          {toolbar}
+        </ToolbarContainer>
+      </StyledLayout>
+    </StyledBottomSheet>
+  )
+}
 
 export default BottomActionSheet
