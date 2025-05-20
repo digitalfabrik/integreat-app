@@ -1,7 +1,8 @@
+import { useTheme } from '@emotion/react'
+import styled from '@emotion/styled'
 import FocusTrap from 'focus-trap-react'
-import React, { ReactElement, ReactNode, useEffect } from 'react'
+import React, { CSSProperties, ReactElement, ReactNode, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled, { CSSProperties, useTheme } from 'styled-components'
 
 import dimensions from '../constants/dimensions'
 import useLockedBody from '../hooks/useLockedBody'

@@ -1,8 +1,9 @@
+import { useTheme } from '@emotion/react'
+import styled from '@emotion/styled'
 import React, { ReactElement, ReactNode, useImperativeHandle, useRef, useState } from 'react'
 import { BottomSheet, BottomSheetRef } from 'react-spring-bottom-sheet'
 import 'react-spring-bottom-sheet/dist/style.css'
 import { SpringEvent } from 'react-spring-bottom-sheet/dist/types'
-import styled, { useTheme } from 'styled-components'
 
 import { getSnapPoints } from '../utils/getSnapPoints'
 import { RichLayout } from './Layout'

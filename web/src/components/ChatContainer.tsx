@@ -1,7 +1,7 @@
+import styled from '@emotion/styled'
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
-import styled from 'styled-components'
 
 import { CHAT_QUERY_KEY, parseQueryParams } from 'shared'
 

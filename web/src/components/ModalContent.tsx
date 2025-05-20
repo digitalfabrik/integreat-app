@@ -1,6 +1,7 @@
+import { css } from '@emotion/react'
+import styled from '@emotion/styled'
 import React, { CSSProperties, ReactElement, ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled, { css } from 'styled-components'
 
 import { ArrowBackIcon, CloseIcon } from '../assets'
 import Button from './base/Button'

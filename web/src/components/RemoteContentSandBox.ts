@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components'
+import styled from '@emotion/styled'
 
 import { ExternalLinkIcon, PersonIcon } from '../assets'
 import dimensions from '../constants/dimensions'
@@ -92,12 +92,8 @@ const RemoteContentSandBox = styled.div<{ $centered: boolean; $smallText: boolea
     background-image: url('${ExternalLinkIcon}');
     width: ${props => props.theme.fonts.contentFontSize};
     height: ${props => props.theme.fonts.contentFontSize};
-    ${props =>
-      props.$smallText &&
-      css`
-        ${helpers.adaptiveHeight}
-        ${helpers.adaptiveWidth}
-      `};
+    ${props => props.$smallText && helpers.adaptiveHeight}
+    ${props => props.$smallText && helpers.adaptiveWidth}
     color: ${props => props.theme.colors.linkColor};
     background-size: contain;
     background-repeat: no-repeat;

@@ -1,5 +1,5 @@
+import styled from '@emotion/styled'
 import React, { ReactNode } from 'react'
-import styled from 'styled-components'
 
 const StyledList = styled.div<{ $borderless: boolean }>`
   border-top: 2px solid ${props => (props.$borderless ? 'transparent' : props.theme.colors.themeColor)};

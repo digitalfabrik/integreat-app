@@ -1,15 +1,14 @@
+import { css, SerializedStyles, Theme } from '@emotion/react'
+import styled from '@emotion/styled'
 import React, { ReactElement } from 'react'
-import { Link } from 'react-router-dom'
-import styled, { css } from 'styled-components'
 
 import dimensions from '../constants/dimensions'
-import { helpers } from '../constants/theme'
 import SelectorItemModel from '../models/SelectorItemModel'
 import Button from './base/Button'
+import Link from './base/Link'
 import Tooltip from './base/Tooltip'
 
-const Element = styled(Button)<{ $selected: boolean; $enabled: boolean }>`
-  ${helpers.removeLinkHighlighting};
+const selectorItemStyle = ({ theme }: { theme: Theme }): SerializedStyles => css`
   height: ${dimensions.headerHeightLarge}px;
   min-width: 90px;
   padding: 0 5px;
@@ -22,6 +21,7 @@ const Element = styled(Button)<{ $selected: boolean; $enabled: boolean }>`
     background-color 0.2s,
     border-radius 0.2s;
   user-select: none;
+  color: ${theme.colors.textColor};
 
   @media ${dimensions.smallViewport} {
     height: ${dimensions.headerHeightSmall}px;
@@ -30,9 +30,10 @@ const Element = styled(Button)<{ $selected: boolean; $enabled: boolean }>`
     font-size: 1em;
     line-height: ${dimensions.headerHeightSmall}px;
   }
+`
 
-  ${props => `color: ${props.$enabled ? props.theme.colors.textColor : props.theme.colors.textDisabledColor};`}
-
+const SelectorItem = styled(Button)<{ $selected: boolean }>`
+  ${selectorItemStyle};
   ${props =>
     props.$selected
       ? 'font-weight: 700;'
@@ -40,6 +41,11 @@ const Element = styled(Button)<{ $selected: boolean; $enabled: boolean }>`
           font-weight: 700;
           border-radius: 0;
         }`}
+`
+
+const DisabledSelectorItem = styled.div`
+  ${selectorItemStyle};
+  color: ${props => props.theme.colors.textDisabledColor};
 `
 
 const BoldSpacer = styled.div`
@@ -63,7 +69,7 @@ const Wrapper = styled.div<{ $vertical: boolean }>`
       flex-flow: column;
       align-items: center;
 
-      & ${Element} {
+      & ${SelectorItem} {
         flex: 1;
       }
     `}
@@ -85,35 +91,27 @@ const Selector = ({
   disabledItemTooltip,
 }: SelectorProps): ReactElement => (
   <Wrapper $vertical={verticalLayout} id='languageSelector'>
-    {items.map(item => {
-      if (item.href) {
-        return (
-          <Element
-            key={item.code}
-            role='option'
-            as={Link}
-            to={item.href}
-            onClick={closeDropDown}
-            aria-selected={item.code === activeItemCode}
-            label=''
-            tabIndex={0}
-            $enabled
-            $selected={item.code === activeItemCode}>
+    {items.map(item =>
+      item.href ? (
+        <SelectorItem
+          key={item.code}
+          onClick={closeDropDown ?? (() => undefined)}
+          label=''
+          $selected={item.code === activeItemCode}>
+          <Link to={item.href} aria-selected={item.code === activeItemCode}>
             <BoldSpacer>{item.name}</BoldSpacer>
             {item.name}
-          </Element>
-        )
-      }
-      return (
+          </Link>
+        </SelectorItem>
+      ) : (
         <Tooltip id={item.code} key={item.code} tooltipContent={disabledItemTooltip}>
-          {/* @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112 */}
-          <Element as='div' label='' $enabled={false} id={item.code}>
+          <DisabledSelectorItem id={item.code}>
             <BoldSpacer>{item.name}</BoldSpacer>
             {item.name}
-          </Element>
+          </DisabledSelectorItem>
         </Tooltip>
-      )
-    })}
+      ),
+    )}
   </Wrapper>
 )
 

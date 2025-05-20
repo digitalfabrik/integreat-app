@@ -1,5 +1,5 @@
+import styled from '@emotion/styled'
 import React, { ReactElement } from 'react'
-import styled from 'styled-components'
 
 import { MALTE_HELP_FORM_OFFER_ALIAS, SPRUNGBRETT_OFFER_ALIAS } from 'shared'
 import { CategoryModel } from 'shared/api'

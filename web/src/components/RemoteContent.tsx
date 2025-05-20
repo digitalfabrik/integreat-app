@@ -1,8 +1,8 @@
+import { useTheme } from '@emotion/react'
 import Dompurify from 'dompurify'
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
-import { useTheme } from 'styled-components'
 
 import { ExternalSourcePermissions } from 'shared'
 

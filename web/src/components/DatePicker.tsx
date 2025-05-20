@@ -1,9 +1,9 @@
+import styled from '@emotion/styled'
 import { DateTime } from 'luxon'
 import React, { ReactElement, useEffect, useState } from 'react'
 import DatePicker, { DatePickerProps } from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
 
 import { CalendarTodayIcon } from '../assets'
 import '../styles/DatePickerCalendar.css'

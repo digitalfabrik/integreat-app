@@ -1,7 +1,8 @@
+import { css, SerializedStyles, Theme, useTheme } from '@emotion/react'
+import styled from '@emotion/styled'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { PlacesType } from 'react-tooltip'
-import styled, { css, useTheme } from 'styled-components'
 
 import { CloseIcon, CopyIcon, DoneIcon, FacebookIcon, MailIcon, ShareIcon, WhatsappIcon } from '../assets'
 import useWindowDimensions from '../hooks/useWindowDimensions'
@@ -161,11 +162,19 @@ const CloseButton = styled(Button)`
   display: flex;
 `
 
-const StyledLink = styled(Link)`
-  background-color: ${props => props.theme.colors.backgroundColor};
+const itemStyles = ({ theme }: { theme: Theme }): SerializedStyles => css`
+  background-color: ${theme.colors.backgroundColor};
   border: none;
   padding: 0;
   display: flex;
+`
+
+const StyledLink = styled(Link)`
+  ${itemStyles}
+`
+
+const StyledButton = styled(Button)`
+  ${itemStyles}
 `
 
 const StyledIcon = styled(Icon)`
@@ -237,13 +246,9 @@ const SharingPopup = ({ shareUrl, title, flow, portalNeeded }: SharingPopupProps
               id='copy'
               place={tooltipDirection}
               tooltipContent={t(linkCopied ? 'common:copied' : 'layout:copyUrl')}>
-              {/* @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112 */}
-              <StyledLink
-                as={Button}
-                onClick={copyToClipboard}
-                ariaLabel={t(linkCopied ? 'common:copied' : 'layout:copyUrl')}>
+              <StyledButton onClick={copyToClipboard} label={t(linkCopied ? 'common:copied' : 'layout:copyUrl')}>
                 <StyledIcon src={linkCopied ? DoneIcon : CopyIcon} />
-              </StyledLink>
+              </StyledButton>
             </Tooltip>
             <Tooltip id='share-whatsapp' place={tooltipDirection} tooltipContent={t('whatsappTooltip')}>
               <StyledLink

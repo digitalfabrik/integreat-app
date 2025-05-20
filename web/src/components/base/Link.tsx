@@ -1,12 +1,17 @@
+import styled from '@emotion/styled'
 import React, { ReactElement, ReactNode } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
-import styled from 'styled-components'
 
 import { UiDirectionType } from 'translations'
 
 import { isInternalLink, NEW_TAB, NEW_TAB_FEATURES } from '../../utils/openLink'
 
-const StyledLink = styled(RouterLink)<{ $highlighted: boolean }>`
+const InternalLink = styled(RouterLink)<{ $highlighted: boolean }>`
+  color: ${props => (props.$highlighted ? props.theme.colors.linkColor : 'inherit')};
+  text-decoration: ${props => (props.$highlighted ? 'underline' : 'none')};
+`
+
+const ExternalLink = styled.a<{ $highlighted: boolean }>`
   color: ${props => (props.$highlighted ? props.theme.colors.linkColor : 'inherit')};
   text-decoration: ${props => (props.$highlighted ? 'underline' : 'none')};
 `
@@ -22,19 +27,24 @@ type LinkProps = {
 }
 
 const Link = ({ to, children, ariaLabel, className, dir, id, highlighted = false }: LinkProps): ReactElement => {
-  const linkProps = isInternalLink(to) ? { to } : { as: 'a', href: to, target: NEW_TAB, rel: NEW_TAB_FEATURES }
-
+  const commonProps = {
+    'aria-label': ariaLabel,
+    className,
+    dir,
+    highlighted,
+    id,
+  }
+  if (isInternalLink(to)) {
+    return (
+      <InternalLink to={to} $highlighted={highlighted} {...commonProps}>
+        {children}
+      </InternalLink>
+    )
+  }
   return (
-    // @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112
-    <StyledLink
-      id={id}
-      aria-label={ariaLabel}
-      className={className}
-      {...linkProps}
-      dir={dir}
-      $highlighted={highlighted}>
+    <ExternalLink href={to} target={NEW_TAB} rel={NEW_TAB_FEATURES} $highlighted={highlighted} {...commonProps}>
       {children}
-    </StyledLink>
+    </ExternalLink>
   )
 }
 

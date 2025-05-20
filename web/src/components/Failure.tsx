@@ -1,7 +1,7 @@
+import styled from '@emotion/styled'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
-import styled from 'styled-components'
 
 import { SadSmileyIcon } from '../assets'
 import Icon from './base/Icon'
