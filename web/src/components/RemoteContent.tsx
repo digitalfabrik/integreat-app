@@ -126,10 +126,10 @@ const RemoteContent = ({ html, centered = false, smallText = false }: RemoteCont
   return (
     <RemoteContentSandBox
       dir='auto'
-      $centered={centered}
+      centered={centered}
       dangerouslySetInnerHTML={dangerouslySetInnerHTML}
       ref={sandBoxRef}
-      $smallText={smallText}
+      smallText={smallText}
     />
   )
 }

@@ -4,11 +4,11 @@ import React, { ChangeEvent, ReactElement } from 'react'
 
 const DEFAULT_MULTI_LINE_NUMBER = 7
 
-const GeneralInputStyles = ({ theme, $submitted }: { theme: Theme; $submitted: boolean }): SerializedStyles => css`
+const GeneralInputStyles = ({ theme, submitted }: { theme: Theme; submitted: boolean }): SerializedStyles => css`
   padding: 0.75rem;
   background-clip: padding-box;
   border: 1px solid ${theme.colors.textSecondaryColor};
-  ${$submitted &&
+  ${submitted &&
   css`
     :invalid {
       :focus {
@@ -21,14 +21,14 @@ const GeneralInputStyles = ({ theme, $submitted }: { theme: Theme; $submitted: b
   `}
 `
 
-const StyledTextArea = styled.textarea<{ $submitted: boolean; $small: boolean }>`
+const StyledTextArea = styled.textarea<{ submitted: boolean; small: boolean }>`
   ${GeneralInputStyles};
   border-radius: 0.2rem 0.2rem 0;
-  min-height: ${props => (props.$small ? '16px' : '60px')};
+  min-height: ${props => (props.small ? '16px' : '60px')};
   resize: none;
 `
 
-const TextInput = styled.input<{ $submitted: boolean }>`
+const TextInput = styled.input<{ submitted: boolean }>`
   ${GeneralInputStyles};
   border-radius: 0.2rem;
   background-clip: padding-box;
@@ -101,9 +101,9 @@ const Input = ({
           rows={numberOfLines}
           maxLength={maxLength}
           required={required}
-          $submitted={submitted}
+          submitted={submitted}
           placeholder={placeholder}
-          $small={numberOfLines === 1}
+          small={numberOfLines === 1}
         />
       ) : (
         <TextInput
@@ -114,7 +114,7 @@ const Input = ({
           required={required}
           value={value}
           maxLength={maxLength}
-          $submitted={submitted}
+          submitted={submitted}
           placeholder={placeholder}
         />
       )}

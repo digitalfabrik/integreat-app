@@ -14,10 +14,10 @@ const StyledLink = styled(Link)`
   display: flex;
   background-color: ${({ theme }) => theme.colors.backgroundColor};
 `
-const ReadMore = styled.div<{ $type: NewsType }>`
+const ReadMore = styled.div<{ type: NewsType }>`
   align-self: flex-end;
-  color: ${({ theme, $type }) => {
-    if (theme.isContrastTheme || $type === LOCAL_NEWS_TYPE) {
+  color: ${({ theme, type }) => {
+    if (theme.isContrastTheme || type === LOCAL_NEWS_TYPE) {
       return theme.colors.themeColor
     }
     return theme.colors.tunewsThemeColor
@@ -70,7 +70,7 @@ const NewsListItem = ({ title, content, timestamp, t, type, link }: NewsListItem
           <Body dir='auto'>{excerpt}</Body>
           <StyledContainer>
             <LastUpdateInfo lastUpdate={timestamp} withText={false} />
-            <ReadMore $type={type}>{readMoreLinkText}</ReadMore>
+            <ReadMore type={type}>{readMoreLinkText}</ReadMore>
           </StyledContainer>
         </Description>
       </StyledLink>

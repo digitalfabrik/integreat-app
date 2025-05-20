@@ -27,11 +27,11 @@ const ListTitle = styled.div`
   font-weight: 700;
 `
 
-const GoBackContainer = styled.div<{ $hidden: boolean }>`
+const GoBackContainer = styled.div<{ hidden: boolean }>`
   display: flex;
   flex-direction: column;
-  max-height: ${props => (props.$hidden ? '0' : '10vh')};
-  opacity: ${props => (props.$hidden ? '0' : '1')};
+  max-height: ${props => (props.hidden ? '0' : '10vh')};
+  opacity: ${props => (props.hidden ? '0' : '1')};
   overflow: hidden;
   transition: all 1s;
   padding: 0 30px;
@@ -53,8 +53,8 @@ const StyledIcon = styled(Icon)`
   color: ${props => props.theme.colors.backgroundColor};
 `
 
-const GeocontrolContainer = styled.div<{ $height: number }>`
-  --max-icon-height: calc(${props => getSnapPoints(props.$height)[1]}px + ${geolocatorTopOffset}px);
+const GeocontrolContainer = styled.div<{ height: number }>`
+  --max-icon-height: calc(${props => getSnapPoints(props.height)[1]}px + ${geolocatorTopOffset}px);
 
   position: absolute;
   inset-inline-end: 10px;
@@ -157,9 +157,9 @@ const PoisMobile = ({
         toolbar={toolbar}
         ref={sheetRef}
         setBottomActionSheetHeight={setBottomActionSheetHeight}
-        sibling={<GeocontrolContainer id='geolocate' ref={geocontrolPosition} $height={height} />}>
+        sibling={<GeocontrolContainer id='geolocate' ref={geocontrolPosition} height={height} />}>
         {canDeselect && (
-          <GoBackContainer $hidden={!isBottomActionSheetFullScreen}>
+          <GoBackContainer hidden={!isBottomActionSheetFullScreen}>
             <GoBack goBack={deselect} viewportSmall text={t('detailsHeader')} />
           </GoBackContainer>
         )}

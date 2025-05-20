@@ -17,9 +17,9 @@ import Icon from './base/Icon'
 
 const CHAT_BUTTON_SIZE = 48
 
-const ChatButtonContainer = styled.button<{ $bottom: number }>`
+const ChatButtonContainer = styled.button<{ bottom: number }>`
   position: fixed;
-  bottom: ${props => props.$bottom}px;
+  bottom: ${props => props.bottom}px;
   inset-inline-end: 32px;
   margin-bottom: 8px;
   background-color: transparent;
@@ -93,7 +93,7 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement => 
   }
 
   return (
-    <ChatButtonContainer $bottom={bottom} onClick={() => setChatVisible(true)}>
+    <ChatButtonContainer bottom={bottom} onClick={() => setChatVisible(true)}>
       <Circle>
         <StyledIcon src={ChatIcon} title={t('chat')} />
       </Circle>
