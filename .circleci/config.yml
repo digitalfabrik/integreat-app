@@ -753,7 +753,7 @@ jobs:
                 name: Prepare artifact urls
                 working_directory: ~/attached_workspace
             - run:
-                command: echo "export ANDROID_RELEASE_ID='$(yarn --silent app-toolbelt v0 release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --production-release << parameters.production_delivery >> --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent app-toolbelt v0 release-notes parse-release-notes --android --language en)")'" >> ${BASH_ENV}
+                command: echo "export ANDROID_RELEASE_ID='$(yarn --silent app-toolbelt v0 release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} << parameters.production_delivery >> --production-delivery <</ parameters.production_delivery >> --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent app-toolbelt v0 release-notes parse-release-notes --android --language en)")'" >> ${BASH_ENV}
                 name: Create github release
                 working_directory: tools
             - run:
@@ -785,7 +785,7 @@ jobs:
                 name: Prepare artifact urls
                 working_directory: ~/attached_workspace
             - run:
-                command: echo "export IOS_RELEASE_ID='$(yarn --silent app-toolbelt v0 release create ios ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --production-release << parameters.production_delivery >> --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent app-toolbelt v0 release-notes parse-release-notes --ios --language en)")'" >> ${BASH_ENV}
+                command: echo "export IOS_RELEASE_ID='$(yarn --silent app-toolbelt v0 release create ios ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} << parameters.production_delivery >> --production-delivery <</ parameters.production_delivery >> --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent app-toolbelt v0 release-notes parse-release-notes --ios --language en)")'" >> ${BASH_ENV}
                 name: Create github release
                 working_directory: tools
             - run:
@@ -813,7 +813,7 @@ jobs:
             - restore_environment_variables
             - restore_yarn_tools_cache
             - run:
-                command: yarn app-toolbelt v0 release create web ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --production-release << parameters.production_delivery >> --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent app-toolbelt v0 release-notes parse-release-notes --web --language en)"
+                command: yarn app-toolbelt v0 release create web ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} << parameters.production_delivery >> --production-delivery <</ parameters.production_delivery >> --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent app-toolbelt v0 release-notes parse-release-notes --web --language en)"
                 name: Create github release
                 working_directory: tools
             - run:

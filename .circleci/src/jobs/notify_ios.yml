@@ -17,7 +17,7 @@ steps:
       working_directory: ~/attached_workspace
   - run:
       name: Create github release
-      command: echo "export IOS_RELEASE_ID='$(yarn --silent app-toolbelt v0 release create ios ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --production-release << parameters.production_delivery >> --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent app-toolbelt v0 release-notes parse-release-notes --ios --language en)")'" >> ${BASH_ENV}
+      command: echo "export IOS_RELEASE_ID='$(yarn --silent app-toolbelt v0 release create ios ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} << parameters.production_delivery >> --production-delivery <</ parameters.production_delivery >> --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent app-toolbelt v0 release-notes parse-release-notes --ios --language en)")'" >> ${BASH_ENV}
       working_directory: tools
   - run:
       name: Upload ipas to github release
