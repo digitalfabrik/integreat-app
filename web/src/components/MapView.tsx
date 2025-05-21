@@ -56,7 +56,7 @@ type MapViewProps = {
   viewport?: MapViewViewport
   setViewport: (mapViewport: MapViewViewport) => void
   Overlay?: ReactElement
-  ref: ForwardedRef<MapViewRef | null>
+  ref?: ForwardedRef<MapViewRef | null>
 }
 
 type MapCursorType = 'grab' | 'auto' | 'pointer'
