@@ -1,0 +1,14 @@
+changelog:
+  exclude:
+    labels:
+      - exclude-changelog
+  categories:
+    - title: Features, fixes, enhancements 🎉
+      labels:
+        - '*'
+      exclude:
+        labels:
+          - not-testable
+    - title: Maintenance 🛠
+      labels:
+        - not-testable
