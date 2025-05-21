@@ -2,6 +2,7 @@ import React, { ChangeEvent, ReactElement } from 'react'
 import styled from 'styled-components'
 
 import { SearchIcon } from '../assets'
+import { helpers } from '../constants/theme'
 import Icon from './base/Icon'
 
 const searchLogoWidth = '24px'
@@ -45,12 +46,21 @@ const StyledIcon = styled(Icon)`
   height: 20px;
 `
 
+const StyledHelperText = styled.div`
+  width: fit-content;
+  padding: 0 calc(10% + ${searchLogoWidth} + 5px);
+  background-color: ${props => props.theme.colors.backgroundColor};
+  ${helpers.adaptiveFontSize};
+`
+
 type SearchInputProps = {
   placeholderText: string
   filterText: string
   onFilterTextChange: (filterText: string) => void
   spaceSearch?: boolean
   onClickInput?: () => void
+  description?: string
+  searchInputRef?: React.LegacyRef<HTMLDivElement>
 }
 
 const SearchInput = ({
@@ -59,6 +69,8 @@ const SearchInput = ({
   onClickInput,
   onFilterTextChange,
   spaceSearch = false,
+  description,
+  searchInputRef,
 }: SearchInputProps): ReactElement => {
   const handleFilterTextChange = (event: ChangeEvent<HTMLInputElement>): void => {
     if (typeof event.target.value === 'string') {
@@ -67,7 +79,7 @@ const SearchInput = ({
   }
 
   return (
-    <Spacer $space={spaceSearch}>
+    <Spacer $space={spaceSearch} ref={searchInputRef}>
       <Wrapper>
         <StyledIcon src={SearchIcon} />
         {/* eslint-disable-next-line styled-components-a11y/no-autofocus -- in a dedicated search modal autofocus is fine */}
@@ -81,6 +93,7 @@ const SearchInput = ({
           type='text'
         />
       </Wrapper>
+      {!!description && <StyledHelperText>{description}</StyledHelperText>}
     </Spacer>
   )
 }

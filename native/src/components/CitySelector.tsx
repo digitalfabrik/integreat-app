@@ -14,7 +14,6 @@ import CityGroup from './CityGroup'
 import NearbyCities from './NearbyCities'
 import NothingFound from './NothingFound'
 import SearchInput from './SearchInput'
-import Text from './base/Text'
 
 const CityGroupContainer = styled.View`
   flex: 0;
@@ -32,13 +31,6 @@ const SearchCounter = styled.Text`
   margin: 15px 0 10px;
   color: ${props => props.theme.colors.textSecondaryColor};
   font-weight: 500;
-`
-
-const StyledHelperText = styled(Text)`
-  width: fit-content;
-  padding: 0 16%;
-  color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
 `
 
 type CitySelectorProps = {
@@ -79,9 +71,9 @@ const CitySelector = ({ cities, navigateToDashboard }: CitySelectorProps): React
           onFilterTextChange={setFilterText}
           placeholderText={t('searchCity')}
           spaceSearch={false}
+          description={t('searchCityDescription')}
         />
       </SearchBar>
-      <StyledHelperText>{t('searchCityTip')}</StyledHelperText>
       <View>
         <CityGroupContainer>
           <CityGroup>{t('nearbyCities')}</CityGroup>

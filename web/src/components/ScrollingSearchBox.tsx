@@ -1,26 +1,11 @@
 import Headroom from '@integreat-app/react-sticky-headroom'
-import React, { ReactElement, ReactNode, useRef } from 'react'
-import styled from 'styled-components'
+import React, { ReactElement, ReactNode, useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
-import dimensions from '../constants/dimensions'
-import { helpers } from '../constants/theme'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import SearchInput from './SearchInput'
 
-const SEARCH_BAR_HEIGHT = 60
-const SEARCH_BAR_HEIGHT_SMALL_DEVICES = 80
-const SEARCH_BAR_ORIGINAL_HEIGHT = 45
-
-const StyledHelperText = styled.div`
-  width: fit-content;
-  padding: 0 14%;
-  background-color: ${props => props.theme.colors.backgroundColor};
-
-  @media ${dimensions.smallViewport} {
-    padding: 0 16%;
-  }
-  ${helpers.adaptiveFontSize};
-`
+const SEARCH_BAR_HEIGHT = 45
 
 type ScrollingSearchBoxProps = {
   filterText: string
@@ -29,7 +14,6 @@ type ScrollingSearchBoxProps = {
   children: ReactNode
   placeholderText: string
   onStickyTopChanged: (stickyTop: number) => void
-  helperText?: string
 }
 
 const ScrollingSearchBox = ({
@@ -39,26 +23,34 @@ const ScrollingSearchBox = ({
   onStickyTopChanged,
   placeholderText,
   spaceSearch = false,
-  helperText,
 }: ScrollingSearchBoxProps): ReactElement => {
+  const [searchBarHeight, setSearchBarHeight] = useState(SEARCH_BAR_HEIGHT)
   const node = useRef<HTMLDivElement | null>(null)
-  const { viewportSmall } = useWindowDimensions()
-  const searchBarHeight = viewportSmall ? SEARCH_BAR_HEIGHT_SMALL_DEVICES : SEARCH_BAR_HEIGHT
+  const searchInputRef = useRef<HTMLDivElement | null>(null)
+  const { t } = useTranslation('landing')
+  const { width } = useWindowDimensions()
+
+  useEffect(() => {
+    if (searchInputRef.current) {
+      setSearchBarHeight(searchInputRef.current.clientHeight)
+    }
+  }, [width])
 
   return (
     <div ref={node}>
       <Headroom
         pinStart={node.current?.offsetTop ?? 0}
-        scrollHeight={helperText ? searchBarHeight : SEARCH_BAR_ORIGINAL_HEIGHT}
-        height={helperText ? searchBarHeight : SEARCH_BAR_ORIGINAL_HEIGHT}
+        scrollHeight={searchBarHeight}
+        height={searchBarHeight}
         onStickyTopChanged={onStickyTopChanged}>
         <SearchInput
           filterText={filterText}
           placeholderText={placeholderText}
           onFilterTextChange={onFilterTextChange}
           spaceSearch={spaceSearch}
+          description={t('searchCityDescription')}
+          searchInputRef={searchInputRef}
         />
-        {!!helperText && <StyledHelperText>{helperText}</StyledHelperText>}
       </Headroom>
       {children}
     </div>

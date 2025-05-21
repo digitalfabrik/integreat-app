@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react'
+import { Text, View } from 'react-native'
 import styled, { useTheme } from 'styled-components/native'
 
 import { SearchIcon } from '../assets'
@@ -20,11 +21,19 @@ const Wrapper = styled.View<{ space: boolean }>`
   background-color: ${props => props.theme.colors.backgroundColor};
 `
 
+const StyledHelperText = styled(Text)`
+  width: fit-content;
+  padding: 0 35px;
+  color: ${props => props.theme.colors.textColor};
+  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
+`
+
 type SearchInputProps = {
   placeholderText: string
   filterText: string
   onFilterTextChange: (filterText: string) => void
   spaceSearch: boolean
+  description?: string
 }
 
 const SearchInput = ({
@@ -32,23 +41,27 @@ const SearchInput = ({
   filterText,
   onFilterTextChange,
   spaceSearch = false,
+  description,
 }: SearchInputProps): ReactElement => {
   const theme = useTheme()
 
   return (
-    <Wrapper space={spaceSearch}>
-      <Icon Icon={SearchIcon} />
-      <Input
-        {...testID('Search-Input')}
-        multiline={false}
-        placeholderTextColor={theme.colors.textSecondaryColor}
-        placeholder={placeholderText}
-        aria-label={placeholderText}
-        defaultValue={filterText}
-        onChangeText={onFilterTextChange}
-        role='searchbox'
-      />
-    </Wrapper>
+    <View>
+      <Wrapper space={spaceSearch}>
+        <Icon Icon={SearchIcon} />
+        <Input
+          {...testID('Search-Input')}
+          multiline={false}
+          placeholderTextColor={theme.colors.textSecondaryColor}
+          placeholder={placeholderText}
+          aria-label={placeholderText}
+          defaultValue={filterText}
+          onChangeText={onFilterTextChange}
+          role='searchbox'
+        />
+      </Wrapper>
+      {!!description && <StyledHelperText>{description}</StyledHelperText>}
+    </View>
   )
 }
 
