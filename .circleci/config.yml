@@ -721,6 +721,31 @@ jobs:
                 command: yarn workspace e2e test:web
                 name: Web E2E Tests
             - notify
+    notify_promotion:
+        docker:
+            - image: cimg/node:20.17.0
+        parameters:
+            platform:
+                default: all
+                enum:
+                    - all
+                    - web
+                    - native
+                type: enum
+        resource_class: small
+        steps:
+            - checkout
+            - restore_yarn_tools_cache
+            - run:
+                command: |
+                    PROMOTION_MESSAGE=$(yarn --silent app-toolbelt v0 release promote --platform << parameters.platform >> --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME})
+                    echo "export PROMOTION_MESSAGE='${PROMOTION_MESSAGE}'" >> $BASH_ENV
+                name: Remove prerelease flag from github release
+                working_directory: tools
+            - notify:
+                allow_all_branches: true
+                channel: releases
+                success_message: ${PROMOTION_MESSAGE}
     notify_release:
         docker:
             - image: cimg/node:20.17.0
@@ -799,16 +824,7 @@ jobs:
                 command: bundle exec fastlane android playstore_promote build_config_name:<< parameters.build_config_name >>
                 name: '[FL] Google PlayStore Promotion'
                 working_directory: native/android
-            - run:
-                command: |
-                    PROMOTION_MESSAGE=$(yarn --silent app-toolbelt v0 release promote --platform android --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME})
-                    echo "export PROMOTION_MESSAGE='${PROMOTION_MESSAGE}'" >> $BASH_ENV
-                name: Remove prerelease flag from github release
-            - notify:
-                channel: releases
-                only_for_branch: ${CIRCLE_BRANCH}
-                success_message: ${PROMOTION_MESSAGE}
-            - persist_environment_variables
+            - notify
     promote_ios:
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
@@ -832,16 +848,7 @@ jobs:
                 command: bundle exec fastlane ios appstoreconnect_promote build_config_name:<< parameters.build_config_name >>
                 name: '[FL] Apple AppStoreConnect Promotion'
                 working_directory: native/ios
-            - run:
-                command: |
-                    PROMOTION_MESSAGE=$(yarn --silent app-toolbelt v0 release promote --platform ios --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME})
-                    echo "export PROMOTION_MESSAGE='${PROMOTION_MESSAGE}'" >> $BASH_ENV
-                name: Remove prerelease flag from github release
-            - notify:
-                channel: releases
-                only_for_branch: ${CIRCLE_BRANCH}
-                success_message: ${PROMOTION_MESSAGE}
-            - persist_environment_variables
+            - notify
     promote_web:
         docker:
             - image: cimg/node:20.17.0
@@ -865,17 +872,7 @@ jobs:
             - run:
                 command: ssh -o StrictHostKeyChecking=no web@web.integreat-app.de "rsync -arv --delete /var/www/beta.netzwerkobdachwohnen.de/ /var/www/netzwerkobdachwohnen.de"
                 name: Obdach production promotion
-            - run:
-                command: |
-                    PROMOTION_MESSAGE=$(yarn --silent app-toolbelt v0 release promote --platform web --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME})
-                    echo "export PROMOTION_MESSAGE='${PROMOTION_MESSAGE}'" >> $BASH_ENV
-                name: Remove prerelease flag from github release
-                working_directory: tools
-            - notify:
-                channel: releases
-                only_for_branch: ${CIRCLE_BRANCH}
-                success_message: ${PROMOTION_MESSAGE}
-            - persist_environment_variables
+            - notify
     sentry_android:
         docker:
             - image: cimg/node:20.17.0
@@ -1403,6 +1400,14 @@ workflows:
                             - integreat
                             - malte
                             - aschaffenburg
+            - notify_promotion:
+                context:
+                    - mattermost
+                    - deliverino
+                platform: native
+                requires:
+                    - promote_android
+                    - promote_ios
         when:
             and:
                 - << pipeline.parameters.api_triggered >>
@@ -1437,6 +1442,14 @@ workflows:
                             - integreat
                             - malte
                             - aschaffenburg
+            - notify_promotion:
+                context:
+                    - mattermost
+                    - deliverino
+                requires:
+                    - promote_android
+                    - promote_ios
+                    - promote_web
         when:
             and:
                 - << pipeline.parameters.api_triggered >>
@@ -1559,6 +1572,13 @@ workflows:
                 context:
                     - mattermost
                     - deliverino
+            - notify_promotion:
+                context:
+                    - mattermost
+                    - deliverino
+                platform: web
+                requires:
+                    - promote_web
         when:
             and:
                 - << pipeline.parameters.api_triggered >>
