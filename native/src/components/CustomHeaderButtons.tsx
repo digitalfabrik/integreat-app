@@ -22,18 +22,17 @@ type HeaderIconProps = {
   name: 'search' | 'language'
   size?: number
   color?: ColorValue
-  style?: { width?: number; height?: number; color?: ColorValue }
 }
 
-const HeaderIcon = ({ name, style, ...props }: HeaderIconProps): ReactElement => {
+const HeaderIcon = ({ name, ...props }: HeaderIconProps): ReactElement => {
   if (!['language', 'search'].includes(name)) {
     throw new Error('Invalid icon name!')
   }
-  return <Icon Icon={name === 'search' ? SearchIcon : LanguageIcon} style={style} {...props} />
+  return <Icon Icon={name === 'search' ? SearchIcon : LanguageIcon} {...props} />
 }
 
 const CustomHeaderButton = (props: HeaderButtonProps) => (
-  <HeaderButton {...props} IconComponent={HeaderIcon} iconSize={23} role='button' />
+  <HeaderButton {...props} IconComponent={HeaderIcon} iconSize={24} role='button' />
 )
 
 // Adjust cancel label for ios overflow menu of HeaderButtons

@@ -29,7 +29,6 @@
     "sentencex": "^0.4.2"
   },
   "devDependencies": {
-    "@babel/plugin-transform-export-namespace-from": "7.25.9",
     "@types/geojson": "^7946.0.16",
     "@types/luxon": "^3.6.2",
     "@types/md5": "^2.3.5",

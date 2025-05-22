@@ -1,16 +1,15 @@
 import {
   Camera,
-  CameraRef,
   CircleLayer,
   Location,
-  MapView as MLMapView,
+  MapView as MapLibreMapView,
   MapViewRef,
   ShapeSource,
   SymbolLayer,
   UserLocation,
   UserTrackingMode,
 } from '@maplibre/maplibre-react-native'
-import type { Feature, GeoJsonProperties, Geometry } from 'geojson'
+import type { BBox, Feature, GeoJsonProperties, Geometry } from 'geojson'
 import { Position } from 'geojson'
 import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -45,7 +44,7 @@ const MapContainer = styled.View`
   justify-content: center;
 `
 
-const StyledMap = styled(MLMapView)`
+const StyledMap = styled(MapLibreMapView)`
   width: 100%;
 `
 
@@ -69,7 +68,7 @@ const OverlayContainer = styled.View`
 `
 
 type MapViewProps = {
-  cityCoordinates: Position
+  boundingBox: BBox
   features: MapFeature[]
   selectedFeature: MapFeature | null
   userLocation: LocationType | null
@@ -82,7 +81,7 @@ type MapViewProps = {
 }
 
 const MapView = ({
-  cityCoordinates,
+  boundingBox,
   features,
   selectedFeature,
   userLocation,
@@ -93,19 +92,29 @@ const MapView = ({
   bottomSheetFullscreen,
   zoom,
 }: MapViewProps): ReactElement => {
-  const cameraRef = useRef<CameraRef>(null)
   const mapRef = useRef<MapViewRef>(null)
   const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
   const { refreshPermissionAndLocation } = useUserLocation({ requestPermissionInitially: true })
   const { t } = useTranslation('pois')
   const theme = useTheme()
 
+  const bounds = {
+    ne: [boundingBox[2], boundingBox[3]],
+    sw: [boundingBox[0], boundingBox[1]],
+  }
+
   const coordinates = selectedFeature?.geometry.coordinates
   const defaultZoom = coordinates ? normalDetailZoom : defaultViewportConfig.zoom
 
-  const [cameraSettings, setCameraSettings] = useState({
+  const [cameraSettings, setCameraSettings] = useState<{
+    zoomLevel: number
+    centerCoordinate: Position | undefined
+    bounds?: { ne: number[]; sw: number[] } | undefined
+    animationDuration: number
+  }>({
     zoomLevel: zoom ?? defaultZoom,
-    centerCoordinate: coordinates ?? cityCoordinates,
+    centerCoordinate: coordinates,
+    bounds: coordinates ? undefined : bounds,
     animationDuration,
   })
 
@@ -192,8 +201,7 @@ const MapView = ({
         <Camera
           {...cameraSettings}
           followUserMode={UserTrackingMode.Follow}
-          ref={cameraRef}
-          animationDuration={2000}
+          animationDuration={animationDuration}
           animationMode='easeTo'
           padding={{ paddingBottom: bottomSheetHeight }}
         />

@@ -14,7 +14,7 @@ const SERVER_PORT = 8080
 const staticServer = new StaticServer({
   fileDir: SERVER_PATH,
   port: SERVER_PORT,
-  localOnly: true,
+  nonLocal: false,
 })
 
 export const StaticServerContext = createContext('')

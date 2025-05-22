@@ -44,9 +44,9 @@
     "circleci:update-config": "yarn --cwd .. circleci:update-config"
   },
   "dependencies": {
-    "@dr.pogodin/react-native-fs": "2.32.1",
-    "@dr.pogodin/react-native-static-server": "0.20.1",
-    "@dr.pogodin/react-native-webview": "13.15.7",
+    "@dr.pogodin/react-native-fs": "~2.32.1",
+    "@dr.pogodin/react-native-static-server": "~0.20.1",
+    "@dr.pogodin/react-native-webview": "~13.15.7",
     "@gorhom/bottom-sheet": "^5.1.2",
     "@maplibre/maplibre-react-native": "^10.1.4",
     "@notifee/react-native": "^9.1.8",

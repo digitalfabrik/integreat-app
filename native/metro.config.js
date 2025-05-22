@@ -4,6 +4,8 @@ const path = require('path')
 
 /** @type {import('@react-native/metro-config').MetroConfig} */
 const defaultConfig = getDefaultConfig(__dirname)
+// Needed for rn-header-buttons, will be enabled by default in a future version of react-native
+// https://github.com/vonovak/react-navigation-header-buttons/blob/master/INSTALL.md#installation--setup
 defaultConfig.resolver.unstable_enablePackageExports = true
 const {
   resolver: { assetExts, sourceExts },

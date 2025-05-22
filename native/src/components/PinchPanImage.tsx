@@ -41,8 +41,8 @@ const PinchPanImage = ({ uri, onError }: PinchPanImageProps): ReactElement => {
     .onStart(() => {
       prevScale.value = scale.value
     })
-    .onUpdate(e => {
-      scale.value = prevScale.value * e.scale
+    .onUpdate(event => {
+      scale.value = prevScale.value * event.scale
     })
 
   const panGesture = Gesture.Pan()
@@ -51,9 +51,9 @@ const PinchPanImage = ({ uri, onError }: PinchPanImageProps): ReactElement => {
       prevTranslationX.value = translationX.value
       prevTranslationY.value = translationY.value
     })
-    .onUpdate(e => {
-      translationX.value = prevTranslationX.value + e.translationX
-      translationY.value = prevTranslationY.value + e.translationY
+    .onUpdate(event => {
+      translationX.value = prevTranslationX.value + event.translationX
+      translationY.value = prevTranslationY.value + event.translationY
     })
 
   const combinedGesture = Gesture.Simultaneous(pinchGesture, panGesture)
