@@ -6,7 +6,7 @@ import { TTS_MAX_TITLE_DISPLAY_CHARS } from 'shared'
 import { truncate } from 'shared/utils/getExcerpt'
 
 import buildConfig from '../constants/buildConfig'
-import { isTtsCancelError, ttsInitialized } from '../utils/tts'
+import { getTtsVoice, isTtsCancelError, ttsInitialized } from '../utils/tts'
 import TtsHelpModal from './TtsHelpModal'
 import TtsPlayer from './TtsPlayer'
 
@@ -77,7 +77,7 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
 
   const play = useCallback(
     async (index = sentenceIndex) => {
-      const voice = ttsInitialized() ? EasySpeech.voices().find(voice => voice.lang.startsWith(languageCode)) : null
+      const voice = getTtsVoice(languageCode)
       if (!voice) {
         setShowHelpModal(true)
         return
