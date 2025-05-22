@@ -33,7 +33,7 @@ describe('TtsContainer', () => {
 
   const testTtsObject = (text: string) => ({
     text,
-    voice: { lang: 'en-US' },
+    voice: { lang: 'en-US', name: 'Samantha' },
     volume: 0.6,
     rate: 0.8,
     end: expect.any(Function),
