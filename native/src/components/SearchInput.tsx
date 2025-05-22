@@ -21,9 +21,9 @@ const Wrapper = styled.View<{ space: boolean }>`
   background-color: ${props => props.theme.colors.backgroundColor};
 `
 
-const StyledHelperText = styled(Text)`
+const Description = styled(Text)`
   width: fit-content;
-  padding: 0 35px;
+  padding-left: 28px;
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
 `
@@ -60,7 +60,7 @@ const SearchInput = ({
           role='searchbox'
         />
       </Wrapper>
-      {!!description && <StyledHelperText>{description}</StyledHelperText>}
+      {!!description && <Description>{description}</Description>}
     </View>
   )
 }

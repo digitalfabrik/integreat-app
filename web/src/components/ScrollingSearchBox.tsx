@@ -5,8 +5,6 @@ import { useTranslation } from 'react-i18next'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import SearchInput from './SearchInput'
 
-const SEARCH_BAR_HEIGHT = 45
-
 type ScrollingSearchBoxProps = {
   filterText: string
   onFilterTextChange: (filterText: string) => void
@@ -24,7 +22,7 @@ const ScrollingSearchBox = ({
   placeholderText,
   spaceSearch = false,
 }: ScrollingSearchBoxProps): ReactElement => {
-  const [searchBarHeight, setSearchBarHeight] = useState(SEARCH_BAR_HEIGHT)
+  const [searchBarHeight, setSearchBarHeight] = useState(0)
   const node = useRef<HTMLDivElement | null>(null)
   const searchInputRef = useRef<HTMLDivElement | null>(null)
   const { t } = useTranslation('landing')

@@ -39,7 +39,7 @@ const Wrapper = styled.div`
   align-items: center;
 
   @media ${dimensions.smallViewport} {
-    padding: 0;
+    padding: 10px 0;
     justify-content: center;
   }
 `
@@ -54,8 +54,9 @@ const Column = styled.div`
   flex-direction: column;
 `
 
-const StyledHelperText = styled.div`
+const Description = styled.div`
   background-color: ${props => props.theme.colors.backgroundColor};
+  margin-top: 8px;
   ${helpers.adaptiveFontSize};
 `
 
@@ -92,7 +93,7 @@ const SearchInput = ({
           autoFocus
           type='text'
         />
-        {!!description && <StyledHelperText>{description}</StyledHelperText>}
+        {!!description && <Description>{description}</Description>}
       </Column>
     </Wrapper>
   </Spacer>
