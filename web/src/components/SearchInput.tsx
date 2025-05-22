@@ -1,21 +1,18 @@
-import React, { ChangeEvent, ReactElement } from 'react'
+import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 
 import { SearchIcon } from '../assets'
+import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
 import Icon from './base/Icon'
 
-const searchLogoWidth = '24px'
-
 const Spacer = styled.div<{ $space: boolean }>`
-  ${props => props.$space && 'margin: 15px 0;'}
+  ${props => props.$space && 'margin: 16px 0;'}
 `
 
 const TextInput = styled.input`
-  width: calc(100% - ${searchLogoWidth} - 5px);
-  height: 25px;
+  height: 24px;
   box-sizing: border-box;
-  margin-inline-start: 5px;
   color: ${props => props.theme.colors.textColor};
   background: transparent;
   border-width: 0 0 1px;
@@ -32,6 +29,7 @@ const TextInput = styled.input`
 `
 
 const Wrapper = styled.div`
+  gap: 4px;
   position: relative;
   width: 100%;
   box-sizing: border-box;
@@ -39,16 +37,24 @@ const Wrapper = styled.div`
   background-color: ${props => props.theme.colors.backgroundColor};
   display: flex;
   align-items: center;
+
+  @media ${dimensions.smallViewport} {
+    padding: 0;
+    justify-content: center;
+  }
 `
 
 const StyledIcon = styled(Icon)`
-  width: 20px;
-  height: 20px;
+  align-self: flex-start;
+  display: flex;
+`
+
+const Column = styled.div`
+  display: flex;
+  flex-direction: column;
 `
 
 const StyledHelperText = styled.div`
-  width: fit-content;
-  padding: 0 calc(10% + ${searchLogoWidth} + 5px);
   background-color: ${props => props.theme.colors.backgroundColor};
   ${helpers.adaptiveFontSize};
 `
@@ -71,31 +77,25 @@ const SearchInput = ({
   spaceSearch = false,
   description,
   searchInputRef,
-}: SearchInputProps): ReactElement => {
-  const handleFilterTextChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    if (typeof event.target.value === 'string') {
-      onFilterTextChange(event.target.value)
-    }
-  }
-
-  return (
-    <Spacer $space={spaceSearch} ref={searchInputRef}>
-      <Wrapper>
-        <StyledIcon src={SearchIcon} />
+}: SearchInputProps): ReactElement => (
+  <Spacer $space={spaceSearch} ref={searchInputRef}>
+    <Wrapper>
+      <StyledIcon src={SearchIcon} />
+      <Column>
         {/* eslint-disable-next-line styled-components-a11y/no-autofocus -- in a dedicated search modal autofocus is fine */}
         <TextInput
           placeholder={placeholderText}
           aria-label={placeholderText}
           value={filterText}
-          onChange={handleFilterTextChange}
+          onChange={event => onFilterTextChange(event.target.value)}
           onClick={onClickInput}
           autoFocus
           type='text'
         />
-      </Wrapper>
-      {!!description && <StyledHelperText>{description}</StyledHelperText>}
-    </Spacer>
-  )
-}
+        {!!description && <StyledHelperText>{description}</StyledHelperText>}
+      </Column>
+    </Wrapper>
+  </Spacer>
+)
 
 export default SearchInput
