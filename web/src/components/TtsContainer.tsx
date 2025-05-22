@@ -6,6 +6,7 @@ import { TTS_MAX_TITLE_DISPLAY_CHARS } from 'shared'
 import { truncate } from 'shared/utils/getExcerpt'
 
 import buildConfig from '../constants/buildConfig'
+import { isTtsCancelError, ttsInitialized } from '../utils/tts'
 import TtsHelpModal from './TtsHelpModal'
 import TtsPlayer from './TtsPlayer'
 
@@ -26,10 +27,6 @@ export const TtsContext = createContext<TtsContextType>({
   sentences: [],
   setSentences: () => undefined,
 })
-
-const cancelErrorMessages = ['interrupted', 'canceled']
-const initializedStatus = ['init: failed', 'created']
-const ttsInitialized = () => !initializedStatus.some(status => EasySpeech.status().status.includes(status))
 
 type TtsContainerProps = {
   languageCode: string
@@ -116,7 +113,7 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
         })
       } catch (e) {
         // Chrome and Safari throw an interrupted/canceled error event on cancel instead of emitting an end event
-        if (e instanceof SpeechSynthesisErrorEvent && cancelErrorMessages.includes(e.error)) {
+        if (isTtsCancelError(e)) {
           if (afterStopRef.current) {
             afterStopRef.current()
             afterStopRef.current = null
