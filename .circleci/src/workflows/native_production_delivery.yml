@@ -47,13 +47,6 @@ jobs:
         - sentry
       requires:
         - build_android
-  - notify_android:
-      production_delivery: true
-      context:
-        - mattermost
-        - deliverino
-      requires:
-        - deliver_android
 
   - build_ios:
       matrix:
@@ -90,10 +83,13 @@ jobs:
         - sentry
       requires:
         - build_ios
-  - notify_ios:
+
+  - notify_release:
       production_delivery: true
+      platform: native
       context:
         - mattermost
         - deliverino
       requires:
+        - deliver_android
         - deliver_ios
