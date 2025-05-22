@@ -40,7 +40,7 @@ const commonIntegreatBuildConfig: CommonBuildConfigType = {
     fixedCity: null,
     cityNotCooperatingTemplate,
     chat: true,
-    tts: false,
+    tts: true,
   },
   aboutUrls: {
     default: 'https://integreat-app.de/about/',

@@ -38,7 +38,7 @@ const buildConfig = jest.fn<CommonBuildConfigType, []>(
       fixedCity: null,
       cityNotCooperatingTemplate: 'template',
       chat: false,
-      tts: false,
+      tts: true,
     },
     aboutUrls: {
       default: 'https://integreat-app.de/about/',
