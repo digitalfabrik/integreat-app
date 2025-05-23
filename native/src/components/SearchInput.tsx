@@ -7,7 +7,7 @@ import testID from '../testing/testID'
 import Icon from './base/Icon'
 
 const Input = styled.TextInput`
-  margin: 0 5px;
+  margin: 0 4px;
   flex-grow: 1;
   border-bottom-width: 1px;
   border-bottom-color: ${props => props.theme.colors.textSecondaryColor};
