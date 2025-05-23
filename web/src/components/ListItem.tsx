@@ -1,5 +1,5 @@
+import styled from '@emotion/styled'
 import React, { ReactElement, ReactNode } from 'react'
-import styled from 'styled-components'
 
 import Link from './base/Link'
 
@@ -8,9 +8,9 @@ const ListItemContainer = styled.article`
   display: flex;
 `
 
-const Thumbnail = styled.img<{ $thumbnailSize?: number }>`
-  width: ${props => props.$thumbnailSize ?? '100'}px;
-  height: ${props => props.$thumbnailSize ?? '100'}px;
+const Thumbnail = styled.img<{ thumbnailSize?: number }>`
+  width: ${props => props.thumbnailSize ?? '100'}px;
+  height: ${props => props.thumbnailSize ?? '100'}px;
   flex-shrink: 0;
   padding: 15px 5px;
   object-fit: contain;
@@ -55,7 +55,7 @@ type ListItemProps = {
 const ListItem = ({ path, title, thumbnail, thumbnailSize, children, Icon }: ListItemProps): ReactElement => (
   <ListItemContainer dir='auto'>
     <FullWidthLink to={path}>
-      {!!thumbnail && <Thumbnail alt='' src={thumbnail} $thumbnailSize={thumbnailSize} />}
+      {!!thumbnail && <Thumbnail alt='' src={thumbnail} thumbnailSize={thumbnailSize} />}
       <Description>
         <TitleRow>
           <Title>{title}</Title>

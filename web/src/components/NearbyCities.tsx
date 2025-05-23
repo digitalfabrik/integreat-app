@@ -1,6 +1,6 @@
+import styled from '@emotion/styled'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
 
 import { getNearbyCities } from 'shared'
 import { CityModel } from 'shared/api'
@@ -55,7 +55,7 @@ const NearbyCities = ({ cities, language, filterText, stickyTop }: NearbyCitiesP
 
   return (
     <div>
-      <CityListParent $stickyTop={stickyTop}>{t('nearbyCities')}</CityListParent>
+      <CityListParent stickyTop={stickyTop}>{t('nearbyCities')}</CityListParent>
       {nearbyCities.length > 0 ? (
         nearbyCities.map(city => <CityEntry key={city.code} city={city} language={language} filterText={filterText} />)
       ) : (

@@ -1,9 +1,9 @@
+import styled from '@emotion/styled'
 import { DateTime } from 'luxon'
 import React, { ReactElement, useEffect, useState } from 'react'
 import DatePicker, { DatePickerProps } from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
 
 import { CalendarTodayIcon } from '../assets'
 import '../styles/DatePickerCalendar.css'
@@ -21,7 +21,7 @@ const StyledInputWrapper = styled.div`
   display: flex;
 `
 
-const StyledIconButton = styled(Button)<{ $isCalendarOpen: boolean }>`
+const StyledIconButton = styled(Button)<{ isCalendarOpen: boolean }>`
   width: 40px;
   height: 40px;
   border-radius: 20px;
@@ -32,7 +32,7 @@ const StyledIconButton = styled(Button)<{ $isCalendarOpen: boolean }>`
   ${props => (props.theme.contentDirection === 'rtl' ? 'left: 16px;' : 'right: 16px;')};
   align-self: center;
   background-color: ${props =>
-    props.$isCalendarOpen ? props.theme.colors.themeColorLight : props.theme.colors.textDisabledColor};
+    props.isCalendarOpen ? props.theme.colors.themeColorLight : props.theme.colors.textDisabledColor};
 `
 const DatePickerWrapper: React.FC<DatePickerProps> = props => <DatePicker {...props} />
 
@@ -156,10 +156,7 @@ const CustomDatePicker = ({
           onChange={(date: Date | null) => handleDateChange(date)}
           onChangeRaw={e => handleDateError(String((e?.target as HTMLInputElement).value))}
         />
-        <StyledIconButton
-          label={calendarLabel}
-          $isCalendarOpen={isCalendarOpen}
-          onClick={() => setIsCalendarOpen(true)}>
+        <StyledIconButton label={calendarLabel} isCalendarOpen={isCalendarOpen} onClick={() => setIsCalendarOpen(true)}>
           <Icon src={CalendarTodayIcon} />
         </StyledIconButton>
       </StyledInputWrapper>

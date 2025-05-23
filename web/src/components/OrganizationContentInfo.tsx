@@ -1,29 +1,29 @@
+import styled from '@emotion/styled'
 import React, { ReactElement } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
-import styled from 'styled-components'
 
 import { OrganizationModel } from 'shared/api'
 
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import HighlightBox from './HighlightBox'
 
-const StyledImage = styled.img<{ $viewportSmall: boolean }>`
+const StyledImage = styled.img<{ viewportSmall: boolean }>`
   width: 100%;
   transition: transform 0.2s;
   object-fit: contain;
-  ${props => props.$viewportSmall && 'margin-bottom: 8px;'}
+  ${props => props.viewportSmall && 'margin-bottom: 8px;'}
 `
 
 const ThumbnailSizer = styled.div`
   width: 150px;
 `
 
-const Box = styled(HighlightBox)<{ $viewportSmall: boolean }>`
+const Box = styled(HighlightBox)<{ viewportSmall: boolean }>`
   display: flex;
   place-content: space-evenly space-evenly;
   font-family: ${props => props.theme.fonts.web.decorativeFont};
   font-size: 14px;
-  flex-direction: ${props => (props.$viewportSmall ? 'column' : 'row')};
+  flex-direction: ${props => (props.viewportSmall ? 'column' : 'row')};
   gap: 20px;
 `
 
@@ -46,9 +46,9 @@ const OrganizationContentInfo = ({ organization }: OrganizationContentInfoProps)
   const { viewportSmall } = useWindowDimensions()
 
   return (
-    <Box $viewportSmall={viewportSmall}>
+    <Box viewportSmall={viewportSmall}>
       <ThumbnailSizer>
-        <StyledImage alt='' src={organization.logo} $viewportSmall={viewportSmall} />
+        <StyledImage alt='' src={organization.logo} viewportSmall={viewportSmall} />
       </ThumbnailSizer>
       <Column>
         <OrganizationContent>{t('organizationContent', { organization: organization.name })}</OrganizationContent>

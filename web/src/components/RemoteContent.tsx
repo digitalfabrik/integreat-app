@@ -1,8 +1,8 @@
+import { useTheme } from '@emotion/react'
 import Dompurify from 'dompurify'
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
-import { useTheme } from 'styled-components'
 
 import { ExternalSourcePermissions } from 'shared'
 
@@ -126,10 +126,10 @@ const RemoteContent = ({ html, centered = false, smallText = false }: RemoteCont
   return (
     <RemoteContentSandBox
       dir='auto'
-      $centered={centered}
+      centered={centered}
       dangerouslySetInnerHTML={dangerouslySetInnerHTML}
       ref={sandBoxRef}
-      $smallText={smallText}
+      smallText={smallText}
     />
   )
 }

@@ -1,6 +1,6 @@
+import styled from '@emotion/styled'
 import React, { ReactElement, ReactNode, useCallback, useEffect, useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroller'
-import styled from 'styled-components'
 
 import { loadAsync } from 'shared/api'
 

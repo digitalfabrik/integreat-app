@@ -1,5 +1,5 @@
+import styled from '@emotion/styled'
 import React, { useRef, useEffect, useState, ReactElement } from 'react'
-import styled from 'styled-components'
 
 const AccordionWrapper = styled.div<{ height: number; $overflowVisible: boolean }>`
   transition: height 0.3s ease;

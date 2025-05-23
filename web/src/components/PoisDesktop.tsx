@@ -1,7 +1,8 @@
+import { useTheme } from '@emotion/react'
+import styled from '@emotion/styled'
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { GeolocateControl, NavigationControl } from 'react-map-gl'
-import styled, { useTheme } from 'styled-components'
 
 import { LocationType, MapViewViewport, MapFeature, PreparePoisReturn } from 'shared'
 import { CityModel, PoiModel } from 'shared/api'
@@ -24,11 +25,10 @@ const PanelContainer = styled.article`
   min-width: ${dimensions.poiDesktopPanelWidth}px;
 `
 
-const ListViewWrapper = styled.div<{ $panelHeights: number; $bottomBarHeight: number }>`
+const ListViewWrapper = styled.div<{ panelHeights: number; bottomBarHeight: number }>`
   padding: 16px;
   overflow: auto;
-  ${({ $panelHeights: panelHeights, $bottomBarHeight: bottomBarHeight }) =>
-    `height: calc(100vh - ${panelHeights}px - ${bottomBarHeight}px);`};
+  ${({ panelHeights, bottomBarHeight }) => `height: calc(100vh - ${panelHeights}px - ${bottomBarHeight}px);`};
 `
 
 const ToolbarContainer = styled.div`
@@ -129,8 +129,8 @@ const PoisDesktop = ({
     <>
       <ListViewWrapper
         ref={listRef}
-        $panelHeights={panelHeights}
-        $bottomBarHeight={poi ? dimensions.poiDetailNavigation : dimensions.toolbarHeight}>
+        panelHeights={panelHeights}
+        bottomBarHeight={poi ? dimensions.poiDetailNavigation : dimensions.toolbarHeight}>
         {canDeselect ? (
           <GoBack goBack={deselect} text={t('detailsHeader')} />
         ) : (

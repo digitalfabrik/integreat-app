@@ -1,7 +1,7 @@
+import styled from '@emotion/styled'
 import { DateTime } from 'luxon'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
 
 import { CloseIcon } from '../assets'
 import dimensions from '../constants/dimensions'

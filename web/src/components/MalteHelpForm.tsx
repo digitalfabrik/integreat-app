@@ -1,7 +1,7 @@
+import styled from '@emotion/styled'
 import React, { ReactElement, SyntheticEvent, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
-import styled from 'styled-components'
 
 import { cityContentPath } from 'shared'
 import {

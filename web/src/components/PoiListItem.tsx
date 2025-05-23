@@ -1,6 +1,6 @@
+import styled from '@emotion/styled'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
 
 import { PoiModel } from 'shared/api'
 
@@ -22,7 +22,7 @@ const ListItemContainer = styled.ul`
     }
   }
 
-  &:first-child {
+  &:first-of-type {
     padding-top: 0;
   }
 `

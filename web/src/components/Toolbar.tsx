@@ -1,5 +1,6 @@
+import { css } from '@emotion/react'
+import styled from '@emotion/styled'
 import React, { ReactElement, ReactNode } from 'react'
-import styled, { css } from 'styled-components'
 
 import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
@@ -8,15 +9,15 @@ const Container = styled.div`
   /* noop */
 `
 
-const ToolbarContainer = styled.div<{ $direction: 'row' | 'column'; $hasPadding: boolean }>`
+const ToolbarContainer = styled.div<{ direction: 'row' | 'column'; hasPadding: boolean }>`
   display: flex;
   box-sizing: border-box;
-  flex-direction: ${props => props.$direction};
+  flex-direction: ${props => props.direction};
   align-items: center;
   font-family: ${props => props.theme.fonts.web.contentFont};
 
   ${props =>
-    props.$direction === 'column' &&
+    props.direction === 'column' &&
     css`
       max-width: 120px;
       width: max-content;
@@ -66,7 +67,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
   return (
     <Container as={viewportSmall ? 'footer' : 'div'}>
       {viewportSmall && !hideDivider && <Divider />}
-      <ToolbarContainer className={className} $direction={iconDirection} $hasPadding={hasPadding}>
+      <ToolbarContainer className={className} direction={iconDirection} hasPadding={hasPadding}>
         {children}
       </ToolbarContainer>
     </Container>
