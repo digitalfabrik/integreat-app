@@ -1,9 +1,15 @@
+import { fireEvent } from '@testing-library/react-native'
+import { mocked } from 'jest-mock'
 import React from 'react'
 
-import { parseHTML } from 'shared'
+import { NewsRouteType, parseHTML, SEARCH_FINISHED_SIGNAL_NAME } from 'shared'
 import { CategoriesMapModelBuilder, CityModelBuilder, LanguageModelBuilder } from 'shared/api'
 
+import useNavigate from '../../hooks/useNavigate'
+import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
+import sendTrackingSignal from '../../utils/sendTrackingSignal'
+import { CategoryThumbnail } from '../CategoryListItem'
 import SearchListItem from '../SearchListItem'
 
 jest.mock('react-i18next')
@@ -11,6 +17,12 @@ jest.mock('styled-components')
 jest.mock('@dr.pogodin/react-native-webview', () => ({
   default: () => jest.fn(),
 }))
+jest.mock('../../utils/sendTrackingSignal')
+
+jest.mock('../CategoryListItem', () => ({
+  CategoryThumbnail: jest.fn(() => null),
+}))
+jest.mock('../../hooks/useNavigate')
 
 describe('SearchListItem', () => {
   const cityModel = new CityModelBuilder(1).build()[0]!
@@ -26,13 +38,15 @@ describe('SearchListItem', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
+  const navigation = createNavigationScreenPropMock<NewsRouteType>()
+  mocked(useNavigate).mockImplementation(() => ({ navigateTo: jest.fn(), navigation }))
 
   const assertHighlighting = (element: HTMLElement, highlighted: boolean) =>
     highlighted
       ? expect(element).toHaveStyle({ fontWeight: 'bold' })
       : expect(element).not.toHaveStyle({ fontWeight: 'bold' })
 
-  const renderSearchListItem = (query: string) =>
+  const renderSearchListItem = (query: string, thumbnail: string | null = category.thumbnail) =>
     render(
       <SearchListItem
         contentWithoutHtml={contentWithoutHtml}
@@ -40,7 +54,7 @@ describe('SearchListItem', () => {
         language={language.code}
         title={category.title}
         path={category.path}
-        thumbnail={category.thumbnail}
+        thumbnail={thumbnail}
         resourceCache={resourceCache[category.path]!}
       />,
     )
@@ -65,25 +79,49 @@ describe('SearchListItem', () => {
     assertHighlighting(getByText(contentWithoutHtml), false)
   })
 
-  it.skip('should show excerpt around query if only match in content', () => {
+  it('should show excerpt around query if only match in content', () => {
     const excerptBeforeQuery = 'This is a'
     const query = 'sample'
     const excerptAfterQuery = 'page'
 
     const { getByText } = renderSearchListItem(query)
 
-    assertHighlighting(getByText(category.title), false)
     assertHighlighting(getByText(excerptBeforeQuery, { exact: false }), false)
     assertHighlighting(getByText(query), true)
     assertHighlighting(getByText(excerptAfterQuery, { exact: false }), false)
   })
 
-  it.skip('should show title if the query is empty', () => {
+  it('should show title if the query is empty', () => {
     const query = ''
 
-    const { getByText, queryByText } = renderSearchListItem(query)
+    const { getByText } = renderSearchListItem(query)
 
-    assertHighlighting(getByText(category.title), false)
-    expect(queryByText(contentWithoutHtml)).toBeFalsy()
+    expect(getByText(category.title)).toBeTruthy()
+    assertHighlighting(getByText(category.title), true)
+  })
+
+  it('should send tracking signal when pressed', () => {
+    const query = 'test'
+    const { getByRole } = renderSearchListItem(query)
+
+    fireEvent.press(getByRole('link'))
+
+    expect(sendTrackingSignal).toHaveBeenCalledWith({
+      signal: {
+        name: SEARCH_FINISHED_SIGNAL_NAME,
+        query,
+        url: expect.any(String),
+      },
+    })
+  })
+
+  it('should render with thumbnail when provided', () => {
+    renderSearchListItem('')
+    expect(CategoryThumbnail).toHaveBeenCalled()
+  })
+
+  it('should render without thumbnail when not provided', () => {
+    renderSearchListItem('', null)
+    expect(CategoryThumbnail).not.toHaveBeenCalled()
   })
 })
