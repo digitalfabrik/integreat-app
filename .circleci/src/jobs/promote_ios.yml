@@ -18,13 +18,4 @@ steps:
       name: '[FL] Apple AppStoreConnect Promotion'
       command: bundle exec fastlane ios appstoreconnect_promote build_config_name:<< parameters.build_config_name >>
       working_directory: native/ios
-  - run:
-      name: Remove prerelease flag from github release
-      command: |
-        PROMOTION_MESSAGE=$(yarn --silent app-toolbelt v0 release promote --platform ios --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME})
-        echo "export PROMOTION_MESSAGE='${PROMOTION_MESSAGE}'" >> $BASH_ENV
-  - notify:
-      success_message: '${PROMOTION_MESSAGE}'
-      channel: releases
-      only_for_branch: ${CIRCLE_BRANCH}
-  - persist_environment_variables
+  - notify

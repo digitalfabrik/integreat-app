@@ -1,0 +1,50 @@
+parameters:
+  production_delivery:
+    description: Whether builds are delivered to the production or beta lane of the play store.
+    type: boolean
+  platform:
+    type: enum
+    enum: [all, web, native]
+    default: all
+docker:
+  - image: cimg/node:20.17.0
+resource_class: small
+steps:
+  - checkout
+  - prepare_workspace
+  - restore_environment_variables
+  - restore_yarn_tools_cache
+  - run:
+      name: Create github release
+      command: echo "export RELEASE_ID='$(yarn --silent app-toolbelt v0 release create << parameters.platform >> ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} <<# parameters.production_delivery >>--production-release<</ parameters.production_delivery >>)'" >> ${BASH_ENV}
+      working_directory: tools
+  - unless:
+      condition:
+        equal:
+          - web
+          - << parameters.platform >>
+      steps:
+        - run:
+            name: Upload apks to github release
+            command: yarn app-toolbelt v0 release upload --releaseId ${RELEASE_ID} --files "$(ls ~/attached_workspace/*.apk)" --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME}
+            working_directory: tools
+        - run:
+            name: Upload ipas to github release
+            command: yarn app-toolbelt v0 release upload --releaseId ${IOS_RELEASE_ID} --files "$(ls ~/attached_workspace/*.ipa)" --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME}
+            working_directory: tools
+        - run:
+            name: Prepare android artifact urls
+            command: echo "export ANDROID_ARTIFACT_URLS='$(echo $(cat $(ls | grep apk-url)))'" >> ${BASH_ENV}
+            working_directory: ~/attached_workspace
+        - run:
+            name: Prepare ios artifact urls
+            command: echo "export IOS_ARTIFACT_URLS='$(echo $(cat $(ls | grep ipa-url)))'" >> ${BASH_ENV}
+            working_directory: ~/attached_workspace
+        - run:
+            name: Move release notes
+            command: yarn app-toolbelt v0 release-notes move-to ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
+            working_directory: tools
+  - notify:
+      success_message: <<^ parameters.production_delivery >>[Beta] <</ parameters.production_delivery >>Integreat, Malte, Aschaffenburg and Obdach ${NEW_VERSION_NAME} (<< parameters.platform >>) have been released successfully!\n[Release notes](https://github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/releases/tag/${NEW_VERSION_NAME}-<< parameters.platform >>)\n${ANDROID_ARTIFACT_URLS}${IOS_ARTIFACT_URLS}
+      channel: releases
+      allow_all_branches: true

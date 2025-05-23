@@ -23,3 +23,11 @@ jobs:
         - mattermost
         - tuerantuer-apple
         - deliverino
+  - notify_promotion:
+      context:
+        - mattermost
+        - deliverino
+      requires:
+        - promote_android
+        - promote_ios
+        - promote_web

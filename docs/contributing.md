@@ -55,6 +55,7 @@ They are also shown in the stores and the [release section of github](https://gi
 
 ### When to Write Release Notes
 
+Currently, release notes are only used for `android` and `ios`. Release notes for `web` are therefore NOT necessary!
 Our PRs can be divided into three categories:
 
 - PRs with user-facing changes: Write one (or more) release note. Exceptions:
