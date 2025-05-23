@@ -1,0 +1,8 @@
+issue_key: 3199
+show_in_stores: true
+platforms: # relevant platforms, possible values: web, android and ios
+  - web
+  - android
+  - ios
+en: We have added a helpful example to make it easier to choose your city or district.
+de: Wir haben ein hilfreiches Beispiel hinzugefügt, damit du deine Stadt oder deinen Landkreis leichter auswählen kannst.
