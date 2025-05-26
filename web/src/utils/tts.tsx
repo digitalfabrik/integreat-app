@@ -12,7 +12,7 @@ export const isTtsCancelError = (error: unknown): boolean =>
 
 const defaultVoices: { [key: string]: string } = {
   de: 'Anna',
-  en: 'Samantha',
+  en: 'Daniel',
 }
 
 export const getTtsVoice = (languageCode: string): SpeechSynthesisVoice | null => {

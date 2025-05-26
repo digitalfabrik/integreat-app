@@ -18,7 +18,7 @@ const MockTts = {
   status: jest.fn().mockReturnValue({
     status: 'init: complete',
   }),
-  voices: jest.fn().mockReturnValue([{ lang: 'en-US', name: 'Samantha' }]),
+  voices: jest.fn().mockReturnValue([{ lang: 'en-GB', name: 'Daniel' }]),
 }
 
 export default MockTts
