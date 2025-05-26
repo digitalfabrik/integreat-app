@@ -1,9 +1,9 @@
 import EasySpeech from 'easy-speech'
 
-const initializedStatus = ['init: failed', 'created']
+const uninitializedStatus = ['init: failed', 'created']
 
 export const ttsInitialized = (): boolean =>
-  !initializedStatus.some(status => EasySpeech.status().status.includes(status))
+  !uninitializedStatus.some(status => EasySpeech.status().status.includes(status))
 
 const cancelErrorMessages = ['interrupted', 'canceled']
 
