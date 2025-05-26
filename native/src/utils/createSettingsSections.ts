@@ -88,8 +88,9 @@ const createSettingsSections = ({
     : null,
   {
     title: t('layout:contrastTheme'),
+    description: t('layout:contrastThemeDescription'),
     getSettingValue: (settings: SettingsType) => settings.selectedTheme === 'contrast',
-    onPress: async () => {
+    onPress: () => {
       const newTheme: ThemeKey = settings.selectedTheme === 'light' ? 'contrast' : 'light'
       updateSettings({ selectedTheme: newTheme })
     },
