@@ -18,4 +18,4 @@ steps:
   - notify:
       success_message: '${PROMOTION_MESSAGE}'
       channel: releases
-      allow_all_branches: true
+      only_for_branch: ${CIRCLE_BRANCH}
