@@ -743,8 +743,8 @@ jobs:
                 name: Remove prerelease flag from github release
                 working_directory: tools
             - notify:
-                allow_all_branches: true
                 channel: releases
+                only_for_branch: ${CIRCLE_BRANCH}
                 success_message: ${PROMOTION_MESSAGE}
     notify_release:
         docker:
@@ -797,8 +797,8 @@ jobs:
                         name: Move release notes
                         working_directory: tools
             - notify:
-                allow_all_branches: true
                 channel: releases
+                only_for_branch: ${CIRCLE_BRANCH}
                 success_message: <<^ parameters.production_delivery >>[Beta] <</ parameters.production_delivery >>Integreat, Malte, Aschaffenburg and Obdach ${NEW_VERSION_NAME} (<< parameters.platform >>) have been released successfully!\n[Release notes](https://github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/releases/tag/${NEW_VERSION_NAME}-<< parameters.platform >>)\n${ANDROID_ARTIFACT_URLS}${IOS_ARTIFACT_URLS}
     promote_android:
         docker:
