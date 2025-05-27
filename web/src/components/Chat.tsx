@@ -2,6 +2,7 @@ import styled from '@emotion/styled'
 import React, { KeyboardEvent, ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { CityModel } from 'shared/api'
 import ChatMessageModel from 'shared/api/models/ChatMessageModel'
 
 import dimensions from '../constants/dimensions'
@@ -54,7 +55,7 @@ const InputWrapper = styled.div`
 `
 
 type ChatProps = {
-  cityCustomChatPrivacyPolicy: string | null
+  city: CityModel
   submitMessage: (text: string) => void
   messages: ChatMessageModel[]
   hasError: boolean
@@ -62,17 +63,21 @@ type ChatProps = {
   isTyping: boolean
 }
 
-const Chat = ({
-  cityCustomChatPrivacyPolicy,
-  messages,
-  submitMessage,
-  hasError,
-  isLoading,
-  isTyping,
-}: ChatProps): ReactElement => {
+const Chat = ({ city, messages, submitMessage, hasError, isLoading, isTyping }: ChatProps): ReactElement => {
   const { t } = useTranslation('chat')
   const [textInput, setTextInput] = useState<string>('')
-  const [accepted, setAccepted] = useState(false)
+  const [acceptedCustomPrivacyPolicies, setAcceptedCustomPrivacyPolicies] = useState<string[]>(() => {
+    const stored = localStorage.getItem('acceptedCustomPrivacyPolicies')
+    return stored ? JSON.parse(stored) : []
+  })
+
+  const acceptCustomPrivacyPolicy = () => {
+    if (!acceptedCustomPrivacyPolicies.includes(city.code)) {
+      const updated = [...acceptedCustomPrivacyPolicies, city.code]
+      setAcceptedCustomPrivacyPolicies(updated)
+      localStorage.setItem('acceptedCustomPrivacyPolicies', JSON.stringify(updated))
+    }
+  }
 
   const onSubmit = () => {
     submitMessage(textInput)
@@ -99,13 +104,13 @@ const Chat = ({
 
   return (
     <Container>
-      {!accepted && (
+      {!acceptedCustomPrivacyPolicies.includes(city.code) && (
         <ChatAcceptCustomPolicy
-          onAccept={() => setAccepted(true)}
-          onDecline={() => alert('You must accept to continue.')}
+          onAcceptPolicy={acceptCustomPrivacyPolicy}
+          customPrivacyPolicy={city.customChatPrivacyPolicy}
         />
       )}
-      {accepted && (
+      {acceptedCustomPrivacyPolicies.includes(city.code) && (
         <>
           <ChatConversation
             messages={messages}
@@ -126,7 +131,7 @@ const Chat = ({
             </InputSection>
             <SubmitContainer>
               <SubmitButton disabled={submitDisabled} onClick={onSubmit} text={t('sendButton')} />
-              <ChatPrivacyInformation cityCustomChatPrivacyPolicy={cityCustomChatPrivacyPolicy} />
+              <ChatPrivacyInformation cityCustomChatPrivacyPolicy={city.customChatPrivacyPolicy} />
             </SubmitContainer>
           </InputWrapper>
         </>
