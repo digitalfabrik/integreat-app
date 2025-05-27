@@ -174,7 +174,7 @@ platform :ios do
     puts("promoting #{build_config_name} v#{testflight_version} - #{testflight_build_number} to app store connect")
     puts("skip_screenshots: #{skip_screenshots}")
 
-    prepare_metadata(version_name: testflight_version, build_config_name: build_config_name)
+    `yarn app-toolbelt v0 release-notes prepare-metadata #{build_config_name} appstore --override-version-name #{testflight_version}`
 
     # https://docs.fastlane.tools/actions/deliver/#submit-build
     deliver(
@@ -194,21 +194,6 @@ platform :ios do
       submission_information: { add_id_info_uses_idfa: false } # https://firebase.google.com/docs/analytics/configure-data-collection?platform=ios
     # https://support.google.com/firebase/answer/6318039?hl=en
     )
-  end
-
-  # The following parameters have to be passed:
-  # build_config_name: The name of the build config
-  # version_name: The version name of the release notes to prepare
-  desc "Prepare metadata"
-  lane :prepare_metadata do |options|
-    build_config_name = options[:build_config_name]
-    version_name = options[:version_name]
-
-    if [build_config_name, version_name].include?(nil)
-      raise "'nil' passed as parameter! Aborting..."
-    end
-
-    `yarn --cwd ../../../tools app-toolbelt v0 release-notes prepare-metadata #{build_config_name} appstore --override-version-name #{version_name}`
   end
 
   # The following parameters have to be passed:
