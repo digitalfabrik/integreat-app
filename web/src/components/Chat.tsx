@@ -111,7 +111,7 @@ const Chat = ({
         />
       )}
       {accepted && (
-        <Container>
+        <>
           <StyledChatConversation
             $height={deviceHeight - chatInputContainerHeight}
             messages={messages}
@@ -135,7 +135,7 @@ const Chat = ({
               <ChatPrivacyInformation cityCustomChatPrivacyPolicy={cityCustomChatPrivacyPolicy} />
             </SubmitContainer>
           </InputWrapper>
-        </Container>
+        </>
       )}
     </Container>
   )
