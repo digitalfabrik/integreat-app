@@ -7,6 +7,7 @@ import ChatMessageModel from 'shared/api/models/ChatMessageModel'
 import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
 import useWindowDimensions from '../hooks/useWindowDimensions'
+import ChatAcceptCustomPolicy from './ChatAcceptCustomPolicy'
 import ChatConversation from './ChatConversation'
 import ChatPrivacyInformation from './ChatPrivacyInformation'
 import LoadingSpinner from './LoadingSpinner'
@@ -76,6 +77,7 @@ const Chat = ({
   const [textInput, setTextInput] = useState<string>('')
   const { height: deviceHeight } = useWindowDimensions()
   const chatInputContainerHeight = dimensions.getChatInputContainerHeight(messages)
+  const [accepted, setAccepted] = useState(false)
 
   const onSubmit = () => {
     submitMessage(textInput)
@@ -102,29 +104,39 @@ const Chat = ({
 
   return (
     <Container>
-      <StyledChatConversation
-        $height={deviceHeight - chatInputContainerHeight}
-        messages={messages}
-        hasError={hasError}
-        isTyping={isTyping}
-      />
-      <InputWrapper $height={chatInputContainerHeight}>
-        <InputSection id='chat' title={messages.length > 0 ? '' : t('inputLabel')}>
-          <Input
-            id='chat'
-            value={textInput}
-            onChange={setTextInput}
-            multiline
-            onKeyDown={submitOnEnter}
-            numberOfLines={2}
-            placeholder={t('inputPlaceholder')}
+      {!accepted && (
+        <ChatAcceptCustomPolicy
+          onAccept={() => setAccepted(true)}
+          onDecline={() => alert('You must accept to continue.')}
+        />
+      )}
+      {accepted && (
+        <Container>
+          <StyledChatConversation
+            $height={deviceHeight - chatInputContainerHeight}
+            messages={messages}
+            hasError={hasError}
+            isTyping={isTyping}
           />
-        </InputSection>
-        <SubmitContainer>
-          <SubmitButton disabled={submitDisabled} onClick={onSubmit} text={t('sendButton')} />
-          <ChatPrivacyInformation cityCustomChatPrivacyPolicy={cityCustomChatPrivacyPolicy} />
-        </SubmitContainer>
-      </InputWrapper>
+          <InputWrapper $height={chatInputContainerHeight}>
+            <InputSection id='chat' title={messages.length > 0 ? '' : t('inputLabel')}>
+              <Input
+                id='chat'
+                value={textInput}
+                onChange={setTextInput}
+                multiline
+                onKeyDown={submitOnEnter}
+                numberOfLines={2}
+                placeholder={t('inputPlaceholder')}
+              />
+            </InputSection>
+            <SubmitContainer>
+              <SubmitButton disabled={submitDisabled} onClick={onSubmit} text={t('sendButton')} />
+              <ChatPrivacyInformation cityCustomChatPrivacyPolicy={cityCustomChatPrivacyPolicy} />
+            </SubmitContainer>
+          </InputWrapper>
+        </Container>
+      )}
     </Container>
   )
 }

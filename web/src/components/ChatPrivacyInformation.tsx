@@ -1,5 +1,4 @@
 import React, { ReactElement, useState } from 'react'
-import { comLog } from 'react-component-logger'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
@@ -36,8 +35,7 @@ type ChatPrivacyInformationProps = {
 
 const ChatPrivacyInformation = ({ cityCustomChatPrivacyPolicy }: ChatPrivacyInformationProps): ReactElement => {
   const { privacyUrls } = buildConfig()
-  //const privacyUrl = cityCustomChatPrivacyPolicy === "" ? privacyUrls.default : cityCustomChatPrivacyPolicy
-  const privacyUrl = cityCustomChatPrivacyPolicy
+  const privacyUrl = cityCustomChatPrivacyPolicy === '' ? privacyUrls.default : cityCustomChatPrivacyPolicy
   const { t } = useTranslation('chat')
   const [securityInformationVisible, setSecurityInformationVisible] = useState<boolean>(false)
   return (
