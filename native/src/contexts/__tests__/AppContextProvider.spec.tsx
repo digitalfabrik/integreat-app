@@ -5,7 +5,6 @@ import React, { useContext } from 'react'
 import { Text, View } from 'react-native'
 
 import { FeatureFlagsType } from 'build-configs/BuildConfigType'
-import { ThemeKey } from 'build-configs/ThemeKey'
 
 import TextButton from '../../components/base/TextButton'
 import buildConfig from '../../constants/buildConfig'
@@ -85,7 +84,7 @@ describe('AppContextProvider', () => {
   })
 
   it('should initialize settings from async storage', async () => {
-    const settings = {
+    const settings: SettingsType = {
       storageVersion: 'v1.2',
       contentLanguage: 'de',
       selectedCity: 'augsburg',
@@ -97,7 +96,7 @@ describe('AppContextProvider', () => {
       jpalTrackingCode: '123456',
       jpalSignals: [],
       externalSourcePermissions: { 'https://vimeo.com': true },
-      selectedTheme: 'light' as ThemeKey,
+      selectedTheme: 'light',
     }
     await appSettings.setSettings(settings)
     const { getByText } = renderAppContextProvider({})
