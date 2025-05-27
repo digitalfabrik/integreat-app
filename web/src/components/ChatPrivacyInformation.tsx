@@ -1,6 +1,5 @@
 import styled from '@emotion/styled'
 import React, { ReactElement, useRef, useState } from 'react'
-import { comLog } from 'react-component-logger'
 import { useTranslation } from 'react-i18next'
 
 import { MailLockIcon } from '../assets'
@@ -42,8 +41,7 @@ const ChatPrivacyInformation = ({ cityCustomChatPrivacyPolicy }: ChatPrivacyInfo
   useOnClickOutside(privacyInformationRef, () => setSecurityInformationVisible(false))
 
   const { privacyUrls } = buildConfig()
-  //const privacyUrl = cityCustomChatPrivacyPolicy === "" ? privacyUrls.default : cityCustomChatPrivacyPolicy
-  const privacyUrl = cityCustomChatPrivacyPolicy
+  const privacyUrl = cityCustomChatPrivacyPolicy === '' ? privacyUrls.default : cityCustomChatPrivacyPolicy
   const { t } = useTranslation('chat')
   return (
     <PrivacyInformationContainer ref={privacyInformationRef}>
