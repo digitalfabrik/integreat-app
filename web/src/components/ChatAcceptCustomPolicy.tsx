@@ -18,6 +18,22 @@ const ChatAcceptCustomPolicy = ({ onAccept, onDecline }: ChatAcceptCustomPolicyP
             privacy policy and terms of use. For more information, read our full Privacy Policy.
           </p>
         </div>
+        <div className='flex justify-end gap-4'>
+          {onDecline && (
+            <button
+              onClick={onDecline}
+              className='px-4 py-2 rounded-md border border-gray-300 text-gray-700 hover:bg-gray-100'
+              type='button'>
+              Decline
+            </button>
+          )}
+          <button
+            onClick={onAccept}
+            className='px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700'
+            type='button'>
+            Accept
+          </button>
+        </div>
       </div>
     </div>
   )

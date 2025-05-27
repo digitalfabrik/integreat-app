@@ -106,7 +106,7 @@ const Chat = ({
         />
       )}
       {accepted && (
-        <Container>
+        <>
           <ChatConversation
             messages={messages}
             hasError={hasError}
@@ -129,7 +129,7 @@ const Chat = ({
               <ChatPrivacyInformation cityCustomChatPrivacyPolicy={cityCustomChatPrivacyPolicy} />
             </SubmitContainer>
           </InputWrapper>
-        </Container>
+        </>
       )}
     </Container>
   )
