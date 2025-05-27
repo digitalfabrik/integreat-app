@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
 
 import { CHAT_QUERY_KEY, parseQueryParams } from 'shared'
+import { CityModel } from 'shared/api'
 
 import { ChatIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'
@@ -60,7 +61,7 @@ const ChatTitle = styled.span`
 `
 
 type ChatContainerProps = {
-  city: string
+  city: CityModel
   language: string
 }
 
