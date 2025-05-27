@@ -1,6 +1,7 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 
 import {
+  CityModel,
   createChatMessagesEndpoint,
   createSendChatMessageEndpoint,
   NotFoundError,
@@ -14,7 +15,7 @@ import Chat from './Chat'
 import { SendingStatusType } from './FeedbackContainer'
 
 type ChatControllerProps = {
-  city: string
+  city: CityModel
   language: string
 }
 
@@ -22,9 +23,11 @@ const LOCAL_STORAGE_ITEM_CHAT_MESSAGES = 'Chat-Device-Id'
 const POLLING_INTERVAL = 8000
 
 const ChatController = ({ city, language }: ChatControllerProps): ReactElement => {
+  const cityCode = city.code
+  const cityCustomChatPrivacyPolicy = city.customChatPrivacyPolicy
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
   const { value: deviceId } = useLocalStorage({
-    key: `${LOCAL_STORAGE_ITEM_CHAT_MESSAGES}-${city}`,
+    key: `${LOCAL_STORAGE_ITEM_CHAT_MESSAGES}-${cityCode}`,
     initialValue: window.crypto.randomUUID(),
   })
   const {
@@ -48,7 +51,7 @@ const ChatController = ({ city, language }: ChatControllerProps): ReactElement =
   const submitMessage = async (message: string) => {
     setSendingStatus('sending')
     const { data, error } = await createSendChatMessageEndpoint(cmsApiBaseUrl).request({
-      city,
+      cityCode,
       language,
       message,
       deviceId,
@@ -66,6 +69,7 @@ const ChatController = ({ city, language }: ChatControllerProps): ReactElement =
 
   return (
     <Chat
+      cityCustomChatPrivacyPolicy={cityCustomChatPrivacyPolicy}
       messages={chatMessagesReturn?.messages ?? []}
       submitMessage={submitMessage}
       // If no message has been sent yet, fetching the messages yields a 404 not found error
