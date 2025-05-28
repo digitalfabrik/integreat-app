@@ -1,6 +1,7 @@
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import Checkbox from './base/Checkbox'
 import Link from './base/Link'
 
 type ChatAcceptCustomPolicyProps = {
@@ -23,9 +24,7 @@ const ChatAcceptCustomPolicy = ({
         <Link to={customPrivacyPolicy}>Privacy Policy</Link> to use the chat.
       </div>
       <div>
-        <button onClick={onAcceptPolicy} type='button'>
-          Accept
-        </button>
+        <Checkbox setChecked={onAcceptPolicy} label='I have read the privacy policy and accept the terms.' />
       </div>
     </div>
   )
