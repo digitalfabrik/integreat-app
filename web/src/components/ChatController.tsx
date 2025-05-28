@@ -24,7 +24,6 @@ const POLLING_INTERVAL = 8000
 
 const ChatController = ({ city, language }: ChatControllerProps): ReactElement => {
   const cityCode = city.code
-  const cityCustomChatPrivacyPolicy = city.customChatPrivacyPolicy
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
   const { value: deviceId } = useLocalStorage({
     key: `${LOCAL_STORAGE_ITEM_CHAT_MESSAGES}-${cityCode}`,
@@ -38,6 +37,24 @@ const ChatController = ({ city, language }: ChatControllerProps): ReactElement =
     setData,
   } = useLoadFromEndpoint(createChatMessagesEndpoint, cmsApiBaseUrl, { cityCode, language, deviceId })
   const isBrowserTabActive = useIsTabActive()
+
+  const [acceptedCustomPrivacyPolicies, setAcceptedCustomPrivacyPolicies] = useState<string[]>(() => {
+    const stored = localStorage.getItem('acceptedCustomPrivacyPolicies')
+    return stored ? JSON.parse(stored) : []
+  })
+
+  const acceptCustomPrivacyPolicy = () => {
+    if (!acceptedCustomPrivacyPolicies.includes(city.code)) {
+      const updated = [...acceptedCustomPrivacyPolicies, city.code]
+      setAcceptedCustomPrivacyPolicies(updated)
+      localStorage.setItem('acceptedCustomPrivacyPolicies', JSON.stringify(updated))
+    }
+  }
+
+  const acceptedPolicy = () => {
+    const accepted = acceptedCustomPrivacyPolicies.includes(city.code)
+    return accepted
+  }
 
   useEffect(() => {
     const messageCount = chatMessagesReturn?.messages.length ?? 0
@@ -76,6 +93,8 @@ const ChatController = ({ city, language }: ChatControllerProps): ReactElement =
       hasError={error !== null && !(error instanceof NotFoundError)}
       isLoading={chatMessagesReturn === null && (loading || sendingStatus === 'sending')}
       isTyping={chatMessagesReturn?.typing ?? false}
+      acceptedPolicy={acceptedPolicy}
+      acceptCustomPrivacyPolicy={acceptCustomPrivacyPolicy}
     />
   )
 }

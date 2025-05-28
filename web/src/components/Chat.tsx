@@ -64,25 +64,24 @@ type ChatProps = {
   hasError: boolean
   isLoading: boolean
   isTyping: boolean
+  acceptedPolicy: () => boolean
+  acceptCustomPrivacyPolicy: () => void
 }
 
-const Chat = ({ city, messages, submitMessage, hasError, isLoading, isTyping }: ChatProps): ReactElement => {
+const Chat = ({
+  city,
+  messages,
+  submitMessage,
+  hasError,
+  isLoading,
+  isTyping,
+  acceptedPolicy,
+  acceptCustomPrivacyPolicy,
+}: ChatProps): ReactElement => {
   const { t } = useTranslation('chat')
   const [textInput, setTextInput] = useState<string>('')
   const { height: deviceHeight } = useWindowDimensions()
   const chatInputContainerHeight = dimensions.getChatInputContainerHeight(messages)
-  const [acceptedCustomPrivacyPolicies, setAcceptedCustomPrivacyPolicies] = useState<string[]>(() => {
-    const stored = localStorage.getItem('acceptedCustomPrivacyPolicies')
-    return stored ? JSON.parse(stored) : []
-  })
-
-  const acceptCustomPrivacyPolicy = () => {
-    if (!acceptedCustomPrivacyPolicies.includes(city.code)) {
-      const updated = [...acceptedCustomPrivacyPolicies, city.code]
-      setAcceptedCustomPrivacyPolicies(updated)
-      localStorage.setItem('acceptedCustomPrivacyPolicies', JSON.stringify(updated))
-    }
-  }
 
   const onSubmit = () => {
     submitMessage(textInput)
@@ -109,14 +108,14 @@ const Chat = ({ city, messages, submitMessage, hasError, isLoading, isTyping }: 
 
   return (
     <Container>
-      {!acceptedCustomPrivacyPolicies.includes(city.code) && (
+      {!acceptedPolicy() && (
         <ChatAcceptCustomPolicy
           onAcceptPolicy={acceptCustomPrivacyPolicy}
           customPrivacyPolicy={city.customChatPrivacyPolicy}
           cityName={city.name}
         />
       )}
-      {acceptedCustomPrivacyPolicies.includes(city.code) && (
+      {acceptedPolicy() && (
         <>
           <StyledChatConversation
             $height={deviceHeight - chatInputContainerHeight}
