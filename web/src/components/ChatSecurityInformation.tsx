@@ -50,6 +50,7 @@ const ChatSecurityInformation = (): ReactElement => {
   return (
     <SecurityInformationContainer>
       {securityInformationVisible && (
+        // eslint-disable-next-line styled-components-a11y/no-static-element-interactions
         <InformationTooltipContainer onMouseLeave={() => setSecurityInformationVisible(false)}>
           {t('dataSecurity')}
         </InformationTooltipContainer>
