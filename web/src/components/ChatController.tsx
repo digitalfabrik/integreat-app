@@ -36,7 +36,7 @@ const ChatController = ({ city, language }: ChatControllerProps): ReactElement =
     error,
     loading,
     setData,
-  } = useLoadFromEndpoint(createChatMessagesEndpoint, cmsApiBaseUrl, { city, language, deviceId })
+  } = useLoadFromEndpoint(createChatMessagesEndpoint, cmsApiBaseUrl, { cityCode, language, deviceId })
   const isBrowserTabActive = useIsTabActive()
 
   useEffect(() => {
