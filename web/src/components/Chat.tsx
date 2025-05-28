@@ -113,6 +113,7 @@ const Chat = ({ city, messages, submitMessage, hasError, isLoading, isTyping }: 
         <ChatAcceptCustomPolicy
           onAcceptPolicy={acceptCustomPrivacyPolicy}
           customPrivacyPolicy={city.customChatPrivacyPolicy}
+          cityName={city.name}
         />
       )}
       {acceptedCustomPrivacyPolicies.includes(city.code) && (
