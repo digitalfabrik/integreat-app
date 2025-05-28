@@ -60,7 +60,7 @@ const CityContentLayout = ({
         />
       }
       footer={!isLoading && Footer}
-      chat={isChatEnabled && layoutReady ? <ChatContainer city={city.code} language={languageCode} /> : undefined}
+      chat={isChatEnabled && layoutReady ? <ChatContainer city={city} language={languageCode} /> : undefined}
       toolbar={viewportSmall ? null : Toolbar}>
       {children}
     </Layout>
