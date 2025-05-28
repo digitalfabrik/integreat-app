@@ -1,6 +1,6 @@
+import styled from '@emotion/styled'
 import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
-import styled from 'styled-components'
 
 import { UiDirectionType } from 'translations'
 

@@ -1,5 +1,6 @@
+import { css, useTheme } from '@emotion/react'
+import styled from '@emotion/styled'
 import React, { memo, ReactElement } from 'react'
-import styled, { css, useTheme } from 'styled-components'
 
 import { ArrowBackspaceIcon } from '../assets'
 import { helpers } from '../constants/theme'
@@ -7,12 +8,12 @@ import Spacer from './Spacer'
 import Button from './base/Button'
 import Icon from './base/Icon'
 
-const StyledButton = styled(Button)<{ $viewportSmall: boolean }>`
+const StyledButton = styled(Button)<{ viewportSmall: boolean }>`
   display: flex;
   padding-top: 12px;
 
   ${props =>
-    props.$viewportSmall &&
+    props.viewportSmall &&
     css`
       animation: fade-in 3s;
 
@@ -52,11 +53,11 @@ const GoBack = ({ goBack, viewportSmall = false, text }: GoBackProps): ReactElem
   const theme = useTheme()
   return (
     <>
-      <StyledButton onClick={goBack} label={text} tabIndex={0} $viewportSmall={viewportSmall}>
+      <StyledButton onClick={goBack} label={text} tabIndex={0} viewportSmall={viewportSmall}>
         <StyledIcon src={ArrowBackspaceIcon} directionDependent />
         <DetailsHeaderTitle>{text}</DetailsHeaderTitle>
       </StyledButton>
-      <Spacer $borderColor={theme.colors.borderColor} />
+      <Spacer borderColor={theme.colors.borderColor} />
     </>
   )
 }

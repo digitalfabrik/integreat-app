@@ -1,15 +1,15 @@
+import styled from '@emotion/styled'
 import React, { ReactElement } from 'react'
-import styled from 'styled-components'
 
 import dimensions from '../constants/dimensions'
 
 const LONG_TITLE_LENGTH = 25
 export const HEADER_TITLE_HEIGHT = 50
 
-const HeaderTitleContainer = styled.div<{ $long: boolean }>`
+const HeaderTitleContainer = styled.div<{ long: boolean }>`
   display: flex;
   align-items: center;
-  font-size: ${props => (props.$long ? '1.3rem' : '1.8rem')};
+  font-size: ${props => (props.long ? '1.3rem' : '1.8rem')};
   max-height: ${dimensions.headerHeightLarge};
   font-weight: 800;
   flex: 1;
@@ -18,7 +18,7 @@ const HeaderTitleContainer = styled.div<{ $long: boolean }>`
   box-sizing: border-box;
 
   @media ${dimensions.minMaxWidth} {
-    font-size: ${props => (props.$long ? '1.5rem' : '1.8rem')};
+    font-size: ${props => (props.long ? '1.5rem' : '1.8rem')};
   }
 
   @media ${dimensions.smallViewport} {
@@ -38,7 +38,7 @@ type HeaderTitleProps = {
 }
 
 const HeaderTitle = ({ title }: HeaderTitleProps): ReactElement => (
-  <HeaderTitleContainer $long={title.length >= LONG_TITLE_LENGTH}>{title}</HeaderTitleContainer>
+  <HeaderTitleContainer long={title.length >= LONG_TITLE_LENGTH}>{title}</HeaderTitleContainer>
 )
 
 export default HeaderTitle

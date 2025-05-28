@@ -1,6 +1,6 @@
+import styled from '@emotion/styled'
 import { TFunction } from 'i18next'
 import React, { ReactNode, ReactElement } from 'react'
-import styled from 'styled-components'
 
 import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NewsType, pathnameFromRouteInformation, TU_NEWS_TYPE } from 'shared'
 

@@ -1,6 +1,6 @@
+import styled from '@emotion/styled'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
 
 import { DataSecurityIcon } from '../assets'
 import dimensions from '../constants/dimensions'

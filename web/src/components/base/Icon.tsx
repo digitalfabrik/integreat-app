@@ -1,10 +1,11 @@
+import shouldForwardProp from '@emotion/is-prop-valid'
+import styled from '@emotion/styled'
 import React, { ReactElement } from 'react'
 import SVG from 'react-inlinesvg'
-import styled from 'styled-components'
 
-const StyledIcon = styled(SVG)<{ $directionDependent: boolean; $reverse: boolean }>`
+const StyledIcon = styled(SVG, { shouldForwardProp })<{ directionDependent: boolean; reverse: boolean }>`
   transform: ${props =>
-    (props.$reverse === true) !== (props.$directionDependent && props.theme.contentDirection === 'rtl')
+    (props.reverse === true) !== (props.directionDependent && props.theme.contentDirection === 'rtl')
       ? 'scaleX(-1)'
       : ''};
   color: ${props => props.theme.colors.textColor};
@@ -26,8 +27,8 @@ type IconProps = {
 const Icon = ({ src, directionDependent = false, reverse = false, className, title, id }: IconProps): ReactElement => (
   <StyledIcon
     src={src}
-    $directionDependent={directionDependent}
-    $reverse={reverse}
+    directionDependent={directionDependent}
+    reverse={reverse}
     className={className}
     title={title}
     id={id}

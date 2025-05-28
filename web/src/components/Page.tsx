@@ -1,6 +1,6 @@
+import styled from '@emotion/styled'
 import { DateTime } from 'luxon'
 import React, { ReactElement, ReactNode, useContext } from 'react'
-import styled from 'styled-components'
 
 import dimensions from '../constants/dimensions'
 import Caption from './Caption'
@@ -19,8 +19,8 @@ const Thumbnail = styled.img`
   object-fit: contain;
 `
 
-const SpaceForTts = styled.div<{ $ttsPlayerVisible: boolean }>`
-  height: ${props => (props.$ttsPlayerVisible ? dimensions.ttsPlayerHeight : 0)}px;
+const SpaceForTts = styled.div<{ ttsPlayerVisible: boolean }>`
+  height: ${props => (props.ttsPlayerVisible ? dimensions.ttsPlayerHeight : 0)}px;
   transition: height 250ms ease-in;
 `
 
@@ -58,7 +58,7 @@ const Page = ({
         <LastUpdateInfo lastUpdate={lastUpdate} withText={showLastUpdateText} />
       )}
       {Footer}
-      <SpaceForTts $ttsPlayerVisible={ttsPlayerVisible} />
+      <SpaceForTts ttsPlayerVisible={ttsPlayerVisible} />
     </>
   )
 }

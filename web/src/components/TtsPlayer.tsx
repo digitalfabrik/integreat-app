@@ -1,6 +1,6 @@
+import styled from '@emotion/styled'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
 
 import { CloseIcon, PauseIcon, PlaybackIcon, PlayIcon } from '../assets'
 import dimensions from '../constants/dimensions'
@@ -8,7 +8,7 @@ import useWindowDimensions from '../hooks/useWindowDimensions'
 import Button from './base/Button'
 import Icon from './base/Icon'
 
-const StyledTtsPlayer = styled.dialog<{ $isPlaying: boolean; $footerHeight: number }>`
+const StyledTtsPlayer = styled.dialog<{ isPlaying: boolean; footerHeight: number }>`
   background-color: ${props =>
     props.theme.isContrastTheme ? props.theme.colors.backgroundAccentColor : props.theme.colors.ttsPlayerBackground};
   color: ${props => props.theme.colors.textColor};
@@ -16,15 +16,15 @@ const StyledTtsPlayer = styled.dialog<{ $isPlaying: boolean; $footerHeight: numb
   width: 388px;
   max-width: 388px;
   display: flex;
-  flex-direction: ${props => (props.$isPlaying ? 'column' : 'row')};
+  flex-direction: ${props => (props.isPlaying ? 'column' : 'row')};
   justify-content: center;
   align-items: center;
   padding: 8px;
   position: fixed;
   margin-bottom: 8px;
-  bottom: ${props => props.$footerHeight}px;
+  bottom: ${props => props.footerHeight}px;
   min-height: 92px;
-  gap: ${props => (props.$isPlaying ? '4px;' : '36px')};
+  gap: ${props => (props.isPlaying ? '4px;' : '36px')};
   border-color: transparent;
 
   @media ${dimensions.smallViewport} {
@@ -34,11 +34,11 @@ const StyledTtsPlayer = styled.dialog<{ $isPlaying: boolean; $footerHeight: numb
 
 const verticalMargin = 12
 
-const StyledPanel = styled.div<{ $isPlaying?: boolean }>`
+const StyledPanel = styled.div<{ isPlaying?: boolean }>`
   display: flex;
   align-items: center;
   gap: 20px;
-  margin: ${props => (props.$isPlaying ? verticalMargin : 0)}px 0;
+  margin: ${props => (props.isPlaying ? verticalMargin : 0)}px 0;
   flex-direction: ${props => (props.theme.contentDirection === 'rtl' ? 'row-reverse' : 'row')};
 `
 
@@ -141,8 +141,8 @@ const TtsPlayer = ({
   const { visibleFooterHeight } = useWindowDimensions()
 
   return (
-    <StyledTtsPlayer $isPlaying={isPlaying} $footerHeight={visibleFooterHeight}>
-      <StyledPanel $isPlaying={isPlaying}>
+    <StyledTtsPlayer isPlaying={isPlaying} footerHeight={visibleFooterHeight}>
+      <StyledPanel isPlaying={isPlaying}>
         {isPlaying && (
           <StyledButton label={t('previous')} onClick={playPrevious}>
             <StyledText>{t('previous')}</StyledText>

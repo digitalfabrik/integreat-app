@@ -1,13 +1,13 @@
+import styled from '@emotion/styled'
 import React, { ChangeEvent, ReactElement } from 'react'
-import styled from 'styled-components'
 
 import { SearchIcon } from '../assets'
 import Icon from './base/Icon'
 
 const searchLogoWidth = '24px'
 
-const Spacer = styled.div<{ $space: boolean }>`
-  ${props => props.$space && 'margin: 15px 0;'}
+const Spacer = styled.div<{ space: boolean }>`
+  ${props => props.space && 'margin: 15px 0;'}
 `
 
 const TextInput = styled.input`
@@ -67,7 +67,7 @@ const SearchInput = ({
   }
 
   return (
-    <Spacer $space={spaceSearch}>
+    <Spacer space={spaceSearch}>
       <Wrapper>
         <StyledIcon src={SearchIcon} />
         {/* eslint-disable-next-line styled-components-a11y/no-autofocus -- in a dedicated search modal autofocus is fine */}

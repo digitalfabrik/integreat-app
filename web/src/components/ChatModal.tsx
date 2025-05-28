@@ -1,7 +1,7 @@
+import styled from '@emotion/styled'
 import FocusTrap from 'focus-trap-react'
 import React, { ReactElement, ReactNode, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
 
 import dimensions from '../constants/dimensions'
 import ChatModalContent from './ChatContentWrapper'

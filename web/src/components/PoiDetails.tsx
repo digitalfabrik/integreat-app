@@ -1,6 +1,7 @@
+import { useTheme } from '@emotion/react'
+import styled from '@emotion/styled'
 import React, { Fragment, ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled, { useTheme } from 'styled-components'
 
 import { getExternalMapsLink } from 'shared'
 import { PoiModel } from 'shared/api'
@@ -150,7 +151,7 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
         {distance !== null && <Distance>{t('distanceKilometre', { distance: distance.toFixed(1) })}</Distance>}
         <Category>{category.name}</Category>
       </HeadingSection>
-      <Spacer $borderColor={theme.colors.borderColor} />
+      <Spacer borderColor={theme.colors.borderColor} />
       {!viewportSmall && <Subheading>{t('detailsAddress')}</Subheading>}
       <DetailSection>
         <AddressContentWrapper>
@@ -169,7 +170,7 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
       </DetailSection>
       {contacts.length > 0 && (
         <>
-          <Spacer $borderColor={theme.colors.borderColor} />
+          <Spacer borderColor={theme.colors.borderColor} />
           <StyledCollapsible title={t('contacts')}>
             <StyledContactsContainer>
               {contacts.map((contact, index) => (
@@ -182,7 +183,7 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
         </>
       )}
       {((openingHours && openingHours.length > 0) || temporarilyClosed || isOnlyWithAppointment) && (
-        <Spacer $borderColor={theme.colors.borderColor} />
+        <Spacer borderColor={theme.colors.borderColor} />
       )}
       <OpeningHours
         openingHours={openingHours}
@@ -194,7 +195,7 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
 
       {content.length > 0 && (
         <>
-          <Spacer $borderColor={theme.colors.borderColor} />
+          <Spacer borderColor={theme.colors.borderColor} />
           <Collapsible title={t('detailsInformation')}>
             <RemoteContent html={content} smallText />
           </Collapsible>
@@ -202,7 +203,7 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
       )}
       {toolbar && (
         <>
-          <Spacer $borderColor={theme.colors.borderColor} />
+          <Spacer borderColor={theme.colors.borderColor} />
           <ToolbarWrapper>{toolbar}</ToolbarWrapper>
         </>
       )}

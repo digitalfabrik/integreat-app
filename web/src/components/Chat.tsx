@@ -1,6 +1,6 @@
+import styled from '@emotion/styled'
 import React, { KeyboardEvent, ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
 
 import ChatMessageModel from 'shared/api/models/ChatMessageModel'
 
@@ -46,13 +46,13 @@ const StyledLoadingSpinner = styled(LoadingSpinner)`
   margin-top: 0;
 `
 
-const InputWrapper = styled.div<{ $height: number }>`
-  height: ${props => props.$height}px;
+const InputWrapper = styled.div<{ height: number }>`
+  height: ${props => props.height}px;
   padding-top: 12px;
 `
 
-const StyledChatConversation = styled(ChatConversation)<{ $height: number }>`
-  height: ${props => props.$height}px;
+const StyledChatConversation = styled(ChatConversation)<{ height: number }>`
+  height: ${props => props.height}px;
 `
 
 type ChatProps = {
@@ -95,12 +95,12 @@ const Chat = ({ messages, submitMessage, hasError, isLoading, isTyping }: ChatPr
   return (
     <Container>
       <StyledChatConversation
-        $height={deviceHeight - chatInputContainerHeight}
+        height={deviceHeight - chatInputContainerHeight}
         messages={messages}
         hasError={hasError}
         isTyping={isTyping}
       />
-      <InputWrapper $height={chatInputContainerHeight}>
+      <InputWrapper height={chatInputContainerHeight}>
         <InputSection id='chat' title={messages.length > 0 ? '' : t('inputLabel')}>
           <Input
             id='chat'

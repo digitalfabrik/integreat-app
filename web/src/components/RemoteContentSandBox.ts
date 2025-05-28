@@ -1,17 +1,17 @@
-import styled, { css } from 'styled-components'
+import styled from '@emotion/styled'
 
 import { ExternalLinkIcon, PersonIcon } from '../assets'
 import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
 
-const RemoteContentSandBox = styled.div<{ $centered: boolean; $smallText: boolean }>`
+const RemoteContentSandBox = styled.div<{ centered: boolean; smallText: boolean }>`
   font-family: ${props => props.theme.fonts.web.contentFont};
-  font-size: ${props => (props.$smallText ? helpers.adaptiveFontSize : props.theme.fonts.contentFontSize)};
+  font-size: ${props => (props.smallText ? helpers.adaptiveFontSize : props.theme.fonts.contentFontSize)};
   line-height: ${props => props.theme.fonts.contentLineHeight};
   display: flow-root; /* clearfix for the img floats */
 
-  ${props => (props.$centered ? 'text-align: center;' : '')}
-  ${props => (props.$centered ? 'list-style-position: inside;' : '')}
+  ${props => (props.centered ? 'text-align: center;' : '')}
+  ${props => (props.centered ? 'list-style-position: inside;' : '')}
   img {
     max-width: 100%;
     max-height: 100%;
@@ -92,12 +92,8 @@ const RemoteContentSandBox = styled.div<{ $centered: boolean; $smallText: boolea
     background-image: url('${ExternalLinkIcon}');
     width: ${props => props.theme.fonts.contentFontSize};
     height: ${props => props.theme.fonts.contentFontSize};
-    ${props =>
-      props.$smallText &&
-      css`
-        ${helpers.adaptiveHeight}
-        ${helpers.adaptiveWidth}
-      `};
+    ${props => props.smallText && helpers.adaptiveHeight}
+    ${props => props.smallText && helpers.adaptiveWidth}
     color: ${props => props.theme.colors.linkColor};
     background-size: contain;
     background-repeat: no-repeat;
