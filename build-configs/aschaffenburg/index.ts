@@ -41,7 +41,7 @@ const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
     fixedCity: 'hallo',
     cityNotCooperatingTemplate: null,
     chat: false,
-    tts: false,
+    tts: true,
   },
   aboutUrls: {
     default: 'https://www.aschaffenburg.de/halloaschaffenburg',
