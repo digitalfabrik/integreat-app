@@ -12,6 +12,18 @@ type PinchPanImageProps = {
   onError: (error: unknown) => void
 }
 
+const clampTranslationToImageBounds = (newValue: number, imageMax: number): number => {
+  'worklet'
+
+  if (newValue < -imageMax / 2) {
+    return -imageMax / 2
+  }
+  if (newValue > imageMax / 2) {
+    return imageMax / 2
+  }
+  return newValue
+}
+
 const PinchPanImage = ({ uri, onError }: PinchPanImageProps): ReactElement => {
   const viewWidth = useWindowDimensions().width
   const viewHeight = useWindowDimensions().height
@@ -45,6 +57,8 @@ const PinchPanImage = ({ uri, onError }: PinchPanImageProps): ReactElement => {
       scale.value = prevScale.value * event.scale
     })
 
+  const { width: imageWidth, height: imageHeight } = imageDimensions || { width: 0, height: 0 }
+
   const panGesture = Gesture.Pan()
     .minDistance(MIN_DISTANCE)
     .onStart(() => {
@@ -52,17 +66,15 @@ const PinchPanImage = ({ uri, onError }: PinchPanImageProps): ReactElement => {
       prevTranslationY.value = translationY.value
     })
     .onUpdate(event => {
-      translationX.value = prevTranslationX.value + event.translationX
-      translationY.value = prevTranslationY.value + event.translationY
+      translationX.value = clampTranslationToImageBounds(prevTranslationX.value + event.translationX, imageWidth)
+      translationY.value = clampTranslationToImageBounds(prevTranslationY.value + event.translationY, imageHeight)
     })
 
   const combinedGesture = Gesture.Simultaneous(pinchGesture, panGesture)
 
-  const { width: imageWidth, height: imageHeight } = imageDimensions || { width: 0, height: 0 }
-
-  const shouldImageBeLandscape = viewWidth < viewHeight
-  const realImageWidth = shouldImageBeLandscape ? viewWidth : imageWidth * (viewHeight / imageHeight)
-  const realImageHeight = shouldImageBeLandscape ? imageHeight * (viewWidth / imageWidth) : viewHeight
+  const isPortraitMode = viewWidth < viewHeight
+  const realImageWidth = isPortraitMode ? viewWidth : imageWidth * (viewHeight / imageHeight)
+  const realImageHeight = isPortraitMode ? imageHeight * (viewWidth / imageWidth) : viewHeight
 
   return (
     <GestureDetector gesture={combinedGesture}>
