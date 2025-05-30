@@ -28,7 +28,7 @@ const TextInput = styled.input`
   }
 `
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ $smallViewportHorizontalPadding: number }>`
   gap: 4px;
   position: relative;
   width: 100%;
@@ -39,7 +39,7 @@ const Wrapper = styled.div`
   align-items: center;
 
   @media ${dimensions.smallViewport} {
-    padding: 10px 0;
+    padding: 10px ${props => props.$smallViewportHorizontalPadding}%;
     justify-content: center;
   }
 `
@@ -52,6 +52,7 @@ const StyledIcon = styled(Icon)`
 const Column = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
 `
 
 const Description = styled.div`
@@ -68,6 +69,7 @@ type SearchInputProps = {
   onClickInput?: () => void
   description?: string
   searchInputRef?: React.LegacyRef<HTMLDivElement>
+  smallViewportHorizontalPadding?: number
 }
 
 const SearchInput = ({
@@ -78,9 +80,10 @@ const SearchInput = ({
   spaceSearch = false,
   description,
   searchInputRef,
+  smallViewportHorizontalPadding = 0,
 }: SearchInputProps): ReactElement => (
   <Spacer $space={spaceSearch} ref={searchInputRef}>
-    <Wrapper>
+    <Wrapper $smallViewportHorizontalPadding={smallViewportHorizontalPadding}>
       <StyledIcon src={SearchIcon} />
       <Column>
         {/* eslint-disable-next-line styled-components-a11y/no-autofocus -- in a dedicated search modal autofocus is fine */}
