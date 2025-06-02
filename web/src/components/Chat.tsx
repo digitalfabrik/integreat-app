@@ -2,13 +2,15 @@ import React, { KeyboardEvent, ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
+import { CityModel } from 'shared/api'
 import ChatMessageModel from 'shared/api/models/ChatMessageModel'
 
 import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
 import useWindowDimensions from '../hooks/useWindowDimensions'
+import ChatAcceptCustomPolicy from './ChatAcceptCustomPolicy'
 import ChatConversation from './ChatConversation'
-import ChatSecurityInformation from './ChatSecurityInformation'
+import ChatPrivacyInformation from './ChatPrivacyInformation'
 import LoadingSpinner from './LoadingSpinner'
 import Input from './base/Input'
 import InputSection from './base/InputSection'
@@ -56,14 +58,26 @@ const StyledChatConversation = styled(ChatConversation)<{ $height: number }>`
 `
 
 type ChatProps = {
+  city: CityModel
   submitMessage: (text: string) => void
   messages: ChatMessageModel[]
   hasError: boolean
   isLoading: boolean
   isTyping: boolean
+  acceptedPolicy: () => boolean
+  acceptCustomPrivacyPolicy: () => void
 }
 
-const Chat = ({ messages, submitMessage, hasError, isLoading, isTyping }: ChatProps): ReactElement => {
+const Chat = ({
+  city,
+  messages,
+  submitMessage,
+  hasError,
+  isLoading,
+  isTyping,
+  acceptedPolicy,
+  acceptCustomPrivacyPolicy,
+}: ChatProps): ReactElement => {
   const { t } = useTranslation('chat')
   const [textInput, setTextInput] = useState<string>('')
   const { height: deviceHeight } = useWindowDimensions()
@@ -94,29 +108,40 @@ const Chat = ({ messages, submitMessage, hasError, isLoading, isTyping }: ChatPr
 
   return (
     <Container>
-      <StyledChatConversation
-        $height={deviceHeight - chatInputContainerHeight}
-        messages={messages}
-        hasError={hasError}
-        isTyping={isTyping}
-      />
-      <InputWrapper $height={chatInputContainerHeight}>
-        <InputSection id='chat' title={messages.length > 0 ? '' : t('inputLabel')}>
-          <Input
-            id='chat'
-            value={textInput}
-            onChange={setTextInput}
-            multiline
-            onKeyDown={submitOnEnter}
-            numberOfLines={2}
-            placeholder={t('inputPlaceholder')}
+      {!acceptedPolicy() && (
+        <ChatAcceptCustomPolicy
+          onAcceptPolicy={acceptCustomPrivacyPolicy}
+          customPrivacyPolicy={city.customChatPrivacyPolicy}
+          cityName={city.name}
+        />
+      )}
+      {acceptedPolicy() && (
+        <>
+          <StyledChatConversation
+            $height={deviceHeight - chatInputContainerHeight}
+            messages={messages}
+            hasError={hasError}
+            isTyping={isTyping}
           />
-        </InputSection>
-        <SubmitContainer>
-          <SubmitButton disabled={submitDisabled} onClick={onSubmit} text={t('sendButton')} />
-          <ChatSecurityInformation />
-        </SubmitContainer>
-      </InputWrapper>
+          <InputWrapper $height={chatInputContainerHeight}>
+            <InputSection id='chat' title={messages.length > 0 ? '' : t('inputLabel')}>
+              <Input
+                id='chat'
+                value={textInput}
+                onChange={setTextInput}
+                multiline
+                onKeyDown={submitOnEnter}
+                numberOfLines={2}
+                placeholder={t('inputPlaceholder')}
+              />
+            </InputSection>
+            <SubmitContainer>
+              <SubmitButton disabled={submitDisabled} onClick={onSubmit} text={t('sendButton')} />
+              <ChatPrivacyInformation cityCustomChatPrivacyPolicy={city.customChatPrivacyPolicy} />
+            </SubmitContainer>
+          </InputWrapper>
+        </>
+      )}
     </Container>
   )
 }

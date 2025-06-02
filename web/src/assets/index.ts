@@ -36,6 +36,7 @@ import LgbtqiIcon from '../../../assets/icons/lgbtqi.svg'
 import LocationMarkerIcon from '../../../assets/icons/location-marker.svg'
 import LocationIcon from '../../../assets/icons/location.svg'
 import MailIcon from '../../../assets/icons/mail.svg'
+import MailLockIcon from '../../../assets/icons/mail_lock.svg'
 import MaximizeIcon from '../../../assets/icons/maximize.svg'
 import MenuIcon from '../../../assets/icons/menu.svg'
 import MinimizeIcon from '../../../assets/icons/minimize.svg'
@@ -106,6 +107,7 @@ export {
   LocationIcon,
   LocationMarkerIcon,
   MailIcon,
+  MailLockIcon,
   MaximizeIcon,
   MenuIcon,
   MinimizeIcon,
