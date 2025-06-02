@@ -1,9 +1,7 @@
 import styled from '@emotion/styled'
 import React, { ReactElement, ReactNode, useRef, useState } from 'react'
 
-import dimensions from '../constants/dimensions'
 import useOnClickOutside from '../hooks/useOnClickOutside'
-import useWindowDimensions from '../hooks/useWindowDimensions'
 import DropDownContainer from './DropDownContainer'
 import KebabActionItem from './KebabActionItem'
 import Button from './base/Button'
@@ -36,7 +34,6 @@ const KebabActionItemDropDown = ({
   closeSidebar,
 }: KebabActionItemDropDownProps): ReactElement => {
   const [dropDownActive, setDropDownActive] = useState(false)
-  const { height } = useWindowDimensions()
 
   const toggleDropDown = (): void => {
     setDropDownActive(!dropDownActive)
@@ -62,7 +59,6 @@ const KebabActionItemDropDown = ({
       <DropDownContainer
         data-testid='headerActionItemDropDown'
         active={dropDownActive}
-        height={height - dimensions.headerHeightSmall}
         // We need to have the visibility here, else the jest-dom testing library can not assert on it
         style={{ visibility: dropDownActive ? 'visible' : 'hidden' }}>
         {children(onClickDropdownItem)}

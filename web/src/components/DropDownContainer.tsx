@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 
 import dimensions from '../constants/dimensions'
 
-const DropDownContainer = styled.div<{ active: boolean; height?: number }>`
+const DropDownContainer = styled.div<{ active: boolean }>`
   position: absolute;
   top: ${dimensions.headerHeightLarge}px;
   inset-inline-end: 0;
@@ -23,7 +23,7 @@ const DropDownContainer = styled.div<{ active: boolean; height?: number }>`
 
   @media ${dimensions.smallViewport} {
     top: ${dimensions.headerHeightSmall}px;
-    height: ${props => (props.height === undefined ? '100%;' : `${props.height}px;`)};
+    height: calc(100% - ${dimensions.headerHeightSmall}px);
     overflow: hidden auto;
   }
 
