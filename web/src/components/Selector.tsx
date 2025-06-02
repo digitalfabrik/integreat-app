@@ -1,14 +1,13 @@
-import { css, SerializedStyles, Theme } from '@emotion/react'
+import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import React, { ReactElement } from 'react'
 
 import dimensions from '../constants/dimensions'
 import SelectorItemModel from '../models/SelectorItemModel'
-import Button from './base/Button'
 import Link from './base/Link'
 import Tooltip from './base/Tooltip'
 
-const selectorItemStyle = ({ theme }: { theme: Theme }): SerializedStyles => css`
+const selectorItemStyle = css`
   height: ${dimensions.headerHeightLarge}px;
   min-width: 90px;
   padding: 0 5px;
@@ -21,7 +20,6 @@ const selectorItemStyle = ({ theme }: { theme: Theme }): SerializedStyles => css
     background-color 0.2s,
     border-radius 0.2s;
   user-select: none;
-  color: ${theme.colors.textColor};
 
   @media ${dimensions.smallViewport} {
     height: ${dimensions.headerHeightSmall}px;
@@ -32,8 +30,9 @@ const selectorItemStyle = ({ theme }: { theme: Theme }): SerializedStyles => css
   }
 `
 
-const SelectorItem = styled(Button)<{ selected: boolean }>`
+const SelectorItem = styled(Link)<{ selected: boolean }>`
   ${selectorItemStyle};
+  color: ${props => props.theme.colors.textColor};
   ${props =>
     props.selected
       ? 'font-weight: 700;'
@@ -58,21 +57,9 @@ const BoldSpacer = styled.div`
 const Wrapper = styled.div<{ vertical: boolean }>`
   display: flex;
   width: 100%;
-  flex-flow: row wrap;
-  justify-content: center;
+  flex-flow: ${props => (props.vertical ? 'column' : 'row wrap')};
+  justify-content: space-evenly;
   color: ${props => props.theme.colors.textColor};
-  text-align: center;
-
-  ${props =>
-    props.vertical &&
-    css`
-      flex-flow: column;
-      align-items: center;
-
-      & ${SelectorItem} {
-        flex: 1;
-      }
-    `}
 `
 
 type SelectorProps = {
@@ -95,13 +82,12 @@ const Selector = ({
       item.href ? (
         <SelectorItem
           key={item.code}
+          to={item.href}
+          aria-selected={item.code === activeItemCode}
           onClick={closeDropDown ?? (() => undefined)}
-          label=''
           selected={item.code === activeItemCode}>
-          <Link to={item.href} aria-selected={item.code === activeItemCode}>
-            <BoldSpacer>{item.name}</BoldSpacer>
-            {item.name}
-          </Link>
+          <BoldSpacer>{item.name}</BoldSpacer>
+          {item.name}
         </SelectorItem>
       ) : (
         <Tooltip id={item.code} key={item.code} tooltipContent={disabledItemTooltip}>

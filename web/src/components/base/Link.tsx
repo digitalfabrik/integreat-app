@@ -25,15 +25,26 @@ type LinkProps = {
   dir?: UiDirectionType | 'auto'
   id?: string
   highlighted?: boolean
+  onClick?: () => void
 }
 
-const Link = ({ to, children, ariaLabel, className, dir, id, highlighted = false }: LinkProps): ReactElement => {
+const Link = ({
+  to,
+  children,
+  ariaLabel,
+  className,
+  dir,
+  id,
+  highlighted = false,
+  onClick,
+}: LinkProps): ReactElement => {
   const commonProps = {
     'aria-label': ariaLabel,
     className,
     dir,
     highlightedLink: highlighted,
     id,
+    onClick,
   }
   if (isInternalLink(to)) {
     return (
