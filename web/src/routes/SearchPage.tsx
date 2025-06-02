@@ -146,7 +146,6 @@ const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
         placeholderText={t('searchPlaceholder')}
         onFilterTextChange={setQuery}
         spaceSearch
-        smallViewportHorizontalPadding={10}
       />
       {getPageContent()}
     </CityContentLayout>
