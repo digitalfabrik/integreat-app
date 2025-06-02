@@ -1,11 +1,11 @@
 import styled from '@emotion/styled'
 import React, { useRef, useEffect, useState, ReactElement } from 'react'
 
-const AccordionWrapper = styled.div<{ height: number; $overflowVisible: boolean }>`
+const AccordionWrapper = styled.div<{ height: number; overflowVisible: boolean }>`
   transition: height 0.3s ease;
   height: ${props => props.height}px;
   width: 100%;
-  overflow: ${props => (props.$overflowVisible ? 'visible' : 'hidden')};
+  overflow: ${props => (props.overflowVisible ? 'visible' : 'hidden')};
   padding-top: 1px;
 `
 
@@ -38,7 +38,7 @@ const Accordion = ({ isOpen, children }: AccordionProps): ReactElement => {
     <AccordionWrapper
       ref={contentRef}
       height={height}
-      $overflowVisible={overflowVisible}
+      overflowVisible={overflowVisible}
       onTransitionEnd={handleTransitionEnd}>
       {children}
     </AccordionWrapper>

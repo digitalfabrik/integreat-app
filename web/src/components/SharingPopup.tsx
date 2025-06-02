@@ -21,8 +21,8 @@ type SharingPopupProps = {
 }
 
 const TooltipContainer = styled.div<{
-  $flow: 'vertical' | 'horizontal'
-  $active: boolean
+  tooltipFlow: 'vertical' | 'horizontal'
+  optionsVisible: boolean
 }>`
   background-color: ${props => props.theme.colors.backgroundColor};
   padding: 8px;
@@ -35,14 +35,14 @@ const TooltipContainer = styled.div<{
   font-size: 1rem;
 
   ${props =>
-    props.$flow === 'vertical' &&
+    props.tooltipFlow === 'vertical' &&
     css`
       flex-flow: column-reverse;
       transform: translateY(-100%);
     `};
 
   ${props =>
-    props.$flow === 'horizontal' &&
+    props.tooltipFlow === 'horizontal' &&
     (props.theme.contentDirection === 'ltr'
       ? css`
           transform: translate(30%, -8px);
@@ -52,7 +52,7 @@ const TooltipContainer = styled.div<{
         `)};
 
   ${props =>
-    props.$active &&
+    props.optionsVisible &&
     css`
       animation: tooltips 300ms ease-out forwards;
     `};
@@ -73,7 +73,7 @@ const TooltipContainer = styled.div<{
     border-inline-end: 10px solid transparent;
 
     ${props =>
-      props.$flow === 'vertical' &&
+      props.tooltipFlow === 'vertical' &&
       (props.theme.contentDirection === 'ltr'
         ? css`
             left: 20px;
@@ -87,7 +87,7 @@ const TooltipContainer = styled.div<{
           `)};
 
     ${props =>
-      props.$flow === 'horizontal' &&
+      props.tooltipFlow === 'horizontal' &&
       (props.theme.contentDirection === 'ltr'
         ? css`
             left: -14px;
@@ -101,7 +101,7 @@ const TooltipContainer = styled.div<{
           `)};
 
     ${props =>
-      props.$active &&
+      props.optionsVisible &&
       css`
         animation: tooltips 300ms ease-out forwards;
       `};
@@ -116,7 +116,7 @@ const TooltipContainer = styled.div<{
     border-inline-end: 11px solid transparent;
 
     ${props =>
-      props.$flow === 'vertical' &&
+      props.tooltipFlow === 'vertical' &&
       (props.theme.contentDirection === 'ltr'
         ? css`
             left: 20px;
@@ -130,7 +130,7 @@ const TooltipContainer = styled.div<{
           `)};
 
     ${props =>
-      props.$flow === 'horizontal' &&
+      props.tooltipFlow === 'horizontal' &&
       (props.theme.contentDirection === 'ltr'
         ? css`
             left: -17px;
@@ -144,7 +144,7 @@ const TooltipContainer = styled.div<{
           `)};
 
     ${props =>
-      props.$active &&
+      props.optionsVisible &&
       css`
         animation: tooltips 300ms ease-out forwards;
       `};
@@ -241,7 +241,7 @@ const SharingPopup = ({ shareUrl, title, flow, portalNeeded }: SharingPopupProps
             </Portal>
           )}
           {Backdrop}
-          <TooltipContainer $flow={flow} $active={shareOptionsVisible}>
+          <TooltipContainer tooltipFlow={flow} optionsVisible={shareOptionsVisible}>
             <Tooltip
               id='copy'
               place={tooltipDirection}
