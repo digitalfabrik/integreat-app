@@ -35,17 +35,21 @@ Before starting to write code and opening a pull request, please take a look [at
 
 Pull requests should belong to one of our [issues](https://github.com/digitalfabrik/integreat-app/issues).
 If you are looking for issues to work on, a good place to start are
-our [Good first issues](https://github.com/orgs/digitalfabrik/projects/2/views/5).
+our [good first issues](https://github.com/orgs/digitalfabrik/projects/2/views/5).
 
 To merge a pull request, it has to match our Definition of Done. It includes among others:
 
-- All checks (linting, unit and e2e tests, ...) have to pass.
+- All checks (formatting, linting and unit tests) have to pass.
 - No changes are requested.
 - Two approvals are needed.
-- A [release note](#release-notes) was added.
 - New and changed functionality should be tested sufficiently, both manual and by writing unit tests.
+- If applicable: A [release note](#release-notes) was added.
 
-**Not all checks are executed for PRs in forked repositories.**
+_Note: All user facing texts must be translated.
+To do so, add them to the correct namespace in [translations.json](../translations/translations.json).
+Only add German and English translations, other languages must be collected and be [translated by professional translators](../translations/README.md#export-and-import-workflow).
+If you speak another language natively, feel free to add those translations as well.
+DO NOT use Google Translate or similar services to translate other languages._
 
 ### Release notes
 
