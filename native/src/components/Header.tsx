@@ -59,8 +59,8 @@ enum HeaderButtonTitle {
 }
 
 type HeaderProps = {
-  route: RouteProps
-  navigation: NavigationProps
+  route: RouteProps<RoutesType>
+  navigation: NavigationProps<RoutesType>
   showItems?: boolean
   showOverflowItems?: boolean
   languages?: LanguageModel[]
