@@ -34,8 +34,10 @@ export const ThemeContainer = ({ children }: ThemeContainerProps): ReactElement 
   }, [themeType, updateSettings])
 
   const contextValue = useMemo(() => {
-    const baseTheme = themeType === 'contrast' ? themeConfig.contrastTheme : themeConfig.lightTheme
-    const theme = { ...baseTheme, isContrastTheme: themeType === 'contrast' }
+    const theme =
+      themeType === 'contrast'
+        ? { ...themeConfig.contrastTheme, isContrastTheme: true }
+        : { ...themeConfig.lightTheme, isContrastTheme: false }
     return { theme, themeType, toggleTheme }
   }, [themeType, toggleTheme])
 
