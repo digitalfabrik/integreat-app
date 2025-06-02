@@ -59,8 +59,8 @@ enum HeaderButtonTitle {
 }
 
 type HeaderProps = {
-  route: RouteProps<RoutesType>
-  navigation: NavigationProps<RoutesType>
+  route: RouteProps
+  navigation: NavigationProps
   showItems?: boolean
   showOverflowItems?: boolean
   languages?: LanguageModel[]
@@ -84,7 +84,7 @@ const Header = ({
   const showSnackbar = useSnackbar()
   // Save route/canGoBack to state to prevent it from changing during navigating which would lead to flickering of the title and back button
   const [previousRoute] = useState(navigation.getState().routes[navigation.getState().routes.length - 2])
-  const [canGoBack] = useState(navigation.canGoBack())
+  const [canGoBack] = useState(previousRoute !== undefined)
   const { enabled: isTtsEnabled, showTtsPlayer } = useTtsPlayer()
   const theme = useTheme()
 
