@@ -24,7 +24,7 @@ export const Message = styled.div`
 
 const Container = styled.div<{ isAuthor: boolean }>`
   display: flex;
-  ${props => (props.isAuthor ? 'flex-direction:row-reverse' : 'flex-direction:row')};
+  flex-direction: ${props => (props.isAuthor ? 'row-reverse' : 'row')};
   margin-bottom: 12px;
   gap: 8px;
 `
