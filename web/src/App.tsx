@@ -1,5 +1,3 @@
-import RocketLaunch from '@mui/icons-material/RocketLaunch'
-import Button from '@mui/material/Button'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import 'core-js/actual/array/at'
 import { Settings as LuxonSettings } from 'luxon'
@@ -47,7 +45,6 @@ const App = (): ReactElement => {
             dark: buildConfig().darkTheme,
           },
         })}>
-        <Button startIcon={<RocketLaunch color='secondary' />}>Test</Button>
         <I18nProvider contentLanguage={contentLanguage}>
           <>
             <Helmet pageTitle={t('pageTitle')} rootPage />
