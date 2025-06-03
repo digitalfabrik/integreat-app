@@ -13,6 +13,8 @@ import 'webpack-dev-server'
 import loadBuildConfig, { WEB } from 'build-configs'
 import { WebBuildConfigType } from 'build-configs/BuildConfigType'
 
+const TerserPlugin = require('terser-webpack-plugin')
+
 // reset the tsconfig to the default configuration
 delete process.env.TS_NODE_PROJECT
 
@@ -189,6 +191,17 @@ const createConfig = (
     optimization: {
       usedExports: true,
       runtimeChunk: 'single',
+      minimize: !devServer,
+      minimizer: [
+        new TerserPlugin({
+          parallel: true,
+          terserOptions: {
+            compress: {
+              drop_console: true,
+            },
+          },
+        }),
+      ],
     },
     devtool: 'source-map',
     devServer: {
