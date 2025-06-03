@@ -12,7 +12,6 @@ const SecurityInformationContainer = styled.div`
 `
 const SecurityIconContainer = styled.button`
   align-self: center;
-  margin-inline-start: 8px;
   cursor: pointer;
   display: flex;
   border: none;

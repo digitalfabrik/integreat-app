@@ -1,22 +1,22 @@
 import styled from '@emotion/styled'
+import SendIcon from '@mui/icons-material/Send'
+import Button from '@mui/material/Button'
 import React, { KeyboardEvent, ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import ChatMessageModel from 'shared/api/models/ChatMessageModel'
 
 import dimensions from '../constants/dimensions'
-import { helpers } from '../constants/theme'
 import ChatConversation from './ChatConversation'
 import ChatSecurityInformation from './ChatSecurityInformation'
 import LoadingSpinner from './LoadingSpinner'
 import Input from './base/Input'
 import InputSection from './base/InputSection'
-import TextButton from './base/TextButton'
 
 const Container = styled.div`
   height: 100%;
-  padding-top: 8px;
-  gap: 8px;
+  padding: 12px 0;
+  gap: ${props => props.theme.spacing(1)};
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -32,12 +32,12 @@ const LoadingContainer = styled(Container)`
 `
 
 const SubmitContainer = styled.div`
+  gap: ${props => props.theme.spacing(1)};
   display: flex;
 `
 
-const SubmitButton = styled(TextButton)`
+const SubmitButton = styled(Button)`
   flex: 1;
-  ${helpers.adaptiveThemeTextColor}
 `
 
 const LoadingText = styled.div`
@@ -49,7 +49,10 @@ const StyledLoadingSpinner = styled(LoadingSpinner)`
 `
 
 const InputWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
   padding: 0 12px;
+  gap: ${props => props.theme.spacing(1)};
 `
 
 type ChatProps = {
@@ -103,7 +106,9 @@ const Chat = ({ messages, submitMessage, hasError, isLoading, isTyping }: ChatPr
           />
         </InputSection>
         <SubmitContainer>
-          <SubmitButton disabled={submitDisabled} onClick={onSubmit} text={t('sendButton')} />
+          <SubmitButton onClick={onSubmit} startIcon={<SendIcon />} variant='contained' disabled={submitDisabled}>
+            {t('sendButton')}
+          </SubmitButton>
           <ChatSecurityInformation />
         </SubmitContainer>
       </InputWrapper>
