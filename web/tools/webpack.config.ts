@@ -6,14 +6,13 @@ import { readFileSync } from 'fs'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import { join, resolve } from 'path'
 import ReactRefreshTypeScript from 'react-refresh-typescript'
+import TerserPlugin from 'terser-webpack-plugin'
 import { Configuration, DefinePlugin, LoaderOptionsPlugin, optimize, WebpackPluginInstance } from 'webpack'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 import 'webpack-dev-server'
 
 import loadBuildConfig, { WEB } from 'build-configs'
 import { WebBuildConfigType } from 'build-configs/BuildConfigType'
-
-const TerserPlugin = require('terser-webpack-plugin')
 
 // reset the tsconfig to the default configuration
 delete process.env.TS_NODE_PROJECT
