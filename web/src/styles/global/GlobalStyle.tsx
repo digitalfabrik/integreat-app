@@ -1,6 +1,8 @@
-import { css, SerializedStyles, Theme } from '@emotion/react'
+import { css, SerializedStyles } from '@emotion/react'
 
-const GlobalStyle = ({ theme }: { theme: Theme }): SerializedStyles => css`
+import { LegacyThemeType } from 'build-configs'
+
+const GlobalStyle = ({ theme }: { theme: LegacyThemeType }): SerializedStyles => css`
   body {
     position: relative;
 
