@@ -1,8 +1,7 @@
+import Button from '@mui/material/Button'
 import React, { ReactElement, ReactNode } from 'react'
 
 import { MapFeature } from 'shared'
-
-import TextButton from '../base/TextButton'
 
 const MockMapView = ({
   features,
@@ -17,9 +16,13 @@ const MockMapView = ({
     {features.map(feature => {
       const title =
         feature.properties.pois.length === 1 ? feature.properties.pois[0]?.title : (feature.id?.toString() ?? 'null')
-      return <TextButton key={title} onClick={() => selectFeature(feature)} text={`Feature-${title}`} />
+      return (
+        <Button key={title} onClick={() => selectFeature(feature)}>
+          Feature-${title}
+        </Button>
+      )
     })}
-    <TextButton onClick={() => selectFeature(null)} text='Map Press' />
+    <Button onClick={() => selectFeature(null)}>Map Press</Button>
     {Overlay}
   </>
 )
