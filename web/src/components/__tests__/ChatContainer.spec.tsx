@@ -1,4 +1,4 @@
-import { fireEvent, getAllByText } from '@testing-library/react'
+import { fireEvent } from '@testing-library/react'
 import React, { ReactElement } from 'react'
 
 import { getChatName } from 'shared'
@@ -33,7 +33,10 @@ describe('ChatContainer', () => {
   const pathname = `/${city.code}/de`
 
   it('should open chat modal and show content on chat button click', () => {
-    const { getByText, getAllByText } = renderRoute(<ChatContainer city={city} language='de' />, { pathname, routePattern })
+    const { getByText, getAllByText } = renderRoute(<ChatContainer city={city} language='de' />, {
+      pathname,
+      routePattern,
+    })
     const chatButtonContainer = getAllByText(getChatName('IntegreatTestCms'))[0]!
     expect(chatButtonContainer).toBeTruthy()
     fireEvent.click(chatButtonContainer)
