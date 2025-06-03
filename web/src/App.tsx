@@ -1,3 +1,4 @@
+import { createTheme, ThemeProvider } from '@mui/material/styles'
 import 'core-js/actual/array/at'
 import { Settings as LuxonSettings } from 'luxon'
 import React, { ReactElement, useEffect, useState } from 'react'
@@ -31,18 +32,23 @@ const App = (): ReactElement => {
     setJpalTrackingCode(safeLocalStorage.getItem(JPAL_TRACKING_CODE_KEY))
   }, [])
 
+  // TODO upgrade mui
+  // There are some errors in the console due to mui
+  // https://github.com/mui/material-ui/issues/45432
   return (
     <ThemeContainer contentDirection={contentDirection}>
-      <I18nProvider contentLanguage={contentLanguage}>
-        <>
-          <Helmet pageTitle={t('pageTitle')} rootPage />
-          <Router>
-            <TtsContainer languageCode={contentLanguage}>
-              <RootSwitcher setContentLanguage={setContentLanguage} />
-            </TtsContainer>
-          </Router>
-        </>
-      </I18nProvider>
+      <ThemeProvider theme={createTheme()}>
+        <I18nProvider contentLanguage={contentLanguage}>
+          <>
+            <Helmet pageTitle={t('pageTitle')} rootPage />
+            <Router>
+              <TtsContainer languageCode={contentLanguage}>
+                <RootSwitcher setContentLanguage={setContentLanguage} />
+              </TtsContainer>
+            </Router>
+          </>
+        </I18nProvider>
+      </ThemeProvider>
     </ThemeContainer>
   )
 }
