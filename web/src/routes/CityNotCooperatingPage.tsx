@@ -1,10 +1,12 @@
 import styled from '@emotion/styled'
+import CopyIcon from '@mui/icons-material/ContentCopy'
+import DoneIcon from '@mui/icons-material/Done'
+import Button from '@mui/material/Button'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import GeneralFooter from '../components/GeneralFooter'
 import Layout from '../components/Layout'
-import TextButton from '../components/base/TextButton'
 import buildConfig from '../constants/buildConfig'
 import { helpers } from '../constants/theme'
 import useScrollToTopOnMount from '../hooks/useScrollToTopOnMount'
@@ -59,12 +61,10 @@ const StepExplanation = styled(Text)`
   padding: 0 10px;
 `
 
-const StyledButton = styled(TextButton)`
+const StyledButton = styled(Button)`
   align-self: center;
   z-index: 10;
-  margin: 40px 0 0;
-  font-weight: normal;
-  box-shadow: none;
+  margin-top: 40px;
 `
 
 const TemplateText = styled(Text)`
@@ -115,7 +115,9 @@ const CityNotCooperatingPage = ({ languageCode }: CityNotCooperatingPageProps): 
           <StepNumber>2</StepNumber>
           <StepExplanation>{t('sendText')}</StepExplanation>
         </ListItem>
-        <StyledButton onClick={copyToClipboard} text={isCopied ? t('common:copied') : t('copyText')} />
+        <StyledButton onClick={copyToClipboard} startIcon={isCopied ? <DoneIcon /> : <CopyIcon />} variant='contained'>
+          {isCopied ? t('common:copied') : t('copyText')}
+        </StyledButton>
         <TemplateText>{template}</TemplateText>
       </Container>
     </Layout>
