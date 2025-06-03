@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import Button from '@mui/material/Button'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -8,7 +9,6 @@ import { ClockIcon } from '../assets'
 import ModalContent from './ModalContent'
 import Checkbox from './base/Checkbox'
 import Icon from './base/Icon'
-import TextButton from './base/TextButton'
 import ToggleButton, { toggleButtonWidth } from './base/ToggleButton'
 
 const tileColumnGap = 16
@@ -56,9 +56,8 @@ const TileRow = styled.div<{ itemCount: number }>`
   grid-template-columns: repeat(${props => props.itemCount}, ${toggleButtonWidth}px);
 `
 
-const StyledButton = styled(TextButton)`
+const StyledButton = styled(Button)`
   width: 100%;
-  margin: 0;
 `
 
 const StyledIcon = styled(Icon)`
@@ -121,7 +120,9 @@ const PoiFilters = ({
             ))}
           </TileRow>
         </Section>
-        <StyledButton onClick={closeModal} text={t('showPois', { count: poisCount })} disabled={poisCount === 0} />
+        <StyledButton onClick={closeModal} variant='contained' disabled={poisCount === 0}>
+          {t('showPois', { count: poisCount })}
+        </StyledButton>
       </Container>
     </ModalContent>
   )

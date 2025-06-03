@@ -28,7 +28,7 @@ const StyledButton = styled(Button)<{ active: boolean | null }>`
   text-align: center;
 `
 
-type TextButtonProps = {
+type ToggleButtonProps = {
   text: string
   onClick: () => void
   icon: string
@@ -36,7 +36,7 @@ type TextButtonProps = {
   className?: string
 }
 
-const ToggleButton = ({ text, onClick, className, ...props }: TextButtonProps): ReactElement => (
+const ToggleButton = ({ text, onClick, className, ...props }: ToggleButtonProps): ReactElement => (
   <StyledButton onClick={onClick} active={!!props.active} label='' className={className}>
     <img src={props.icon} alt='' />
     <StyledSmallViewTip as='span'>{text}</StyledSmallViewTip>

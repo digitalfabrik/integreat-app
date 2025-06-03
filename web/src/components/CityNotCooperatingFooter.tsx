@@ -1,13 +1,13 @@
 import styled from '@emotion/styled'
+import Button from '@mui/material/Button'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router'
 
 import { CITY_NOT_COOPERATING_ROUTE, pathnameFromRouteInformation } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
-import { helpers } from '../constants/theme'
 import Icon from './base/Icon'
+import Link from './base/Link'
 
 const FooterContainer = styled.div`
   background-color: ${props => props.theme.colors.backgroundAccentColor};
@@ -22,15 +22,6 @@ const StyledIcon = styled(Icon)`
   width: calc(30px + 8vw);
   height: calc(30px + 8vw);
   flex-shrink: 0;
-`
-
-const Button = styled(Link)`
-  background-color: ${props => props.theme.colors.themeColor};
-  text-decoration: none;
-  ${helpers.adaptiveThemeTextColor}
-  padding: 5px 20px;
-  margin: 15px;
-  text-align: center;
 `
 
 const Question = styled.p`
@@ -54,8 +45,10 @@ const CityNotCooperatingFooter = ({ languageCode }: CityNotCooperatingFooterProp
     <FooterContainer>
       <StyledIcon src={CityNotCooperatingIcon} />
       <Question>{t('cityNotFound')}</Question>
-      <Button to={pathnameFromRouteInformation({ route: CITY_NOT_COOPERATING_ROUTE, ...{ languageCode } })}>
-        {t('suggestToRegion', { appName: buildConfig().appName })}
+      <Button variant='outlined'>
+        <Link to={pathnameFromRouteInformation({ route: CITY_NOT_COOPERATING_ROUTE, ...{ languageCode } })}>
+          {t('suggestToRegion', { appName: buildConfig().appName })}
+        </Link>
       </Button>
     </FooterContainer>
   )
