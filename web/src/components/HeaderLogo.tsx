@@ -3,7 +3,6 @@ import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 
 import buildConfig from '../constants/buildConfig'
-import dimensions from '../constants/dimensions'
 import Link from './base/Link'
 
 type HeaderLogoProps = {
@@ -33,7 +32,7 @@ const StyledLogo = styled.img<{ $small: boolean }>`
   height: 100%;
   width: 200px;
 
-  @media ${dimensions.mediumLargeViewport} {
+  ${props => props.theme.breakpoints.up('md')} {
     ${props => (props.$small ? 'display: none;' : '')}
   }
 
