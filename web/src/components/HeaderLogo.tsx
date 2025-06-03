@@ -4,7 +4,6 @@ import React, { ReactElement } from 'react'
 import SVG from 'react-inlinesvg'
 
 import buildConfig from '../constants/buildConfig'
-import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import Link from './base/Link'
 
