@@ -13,7 +13,7 @@ describe('ExportEventButton', () => {
     const event = new EventModelBuilder('seed', 1, 'augsburg', 'de').build()[0]!
     const { queryAllByRole, getByText } = renderWithTheme(<ExportEventButton event={event} />)
     expect(queryAllByRole('button')).toHaveLength(1)
-    expect(getByText('events:exportAsICal')).toBeDefined()
+    expect(getByText('events:export')).toBeDefined()
   })
 
   it('renders correctly for a recurring event', () => {
@@ -21,7 +21,7 @@ describe('ExportEventButton', () => {
     const { getByText, queryAllByRole, queryByText } = renderWithTheme(<ExportEventButton event={event} />)
     expect(queryAllByRole('button')).toHaveLength(1)
 
-    const exportButton = getByText('events:exportAsICal')
+    const exportButton = getByText('events:export')
     fireEvent.click(exportButton)
     expect(queryAllByRole('button')).toHaveLength(2)
     expect(queryAllByRole('radio')).toHaveLength(2)
