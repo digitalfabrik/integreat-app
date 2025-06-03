@@ -1,10 +1,10 @@
+import styled from '@emotion/styled'
 import React, { ReactElement, ReactNode } from 'react'
-import styled from 'styled-components'
 
-const StyledButton = styled.button<{ $disabled: boolean }>`
+const StyledButton = styled.button<{ disabled: boolean }>`
   background-color: transparent;
-  cursor: ${props => (props.$disabled ? 'default' : 'pointer')};
-  pointer-events: ${props => (props.$disabled ? 'none' : 'default')};
+  cursor: ${props => (props.disabled ? 'default' : 'pointer')};
+  pointer-events: ${props => (props.disabled ? 'none' : 'default')};
   padding: 0;
   border: none;
   text-align: start;
@@ -34,7 +34,6 @@ const Button = ({
   <StyledButton
     onClick={onClick}
     disabled={disabled}
-    $disabled={disabled}
     aria-label={label}
     tabIndex={tabIndex}
     type={type}

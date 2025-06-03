@@ -1,11 +1,12 @@
+import { Global, ThemeProvider } from '@emotion/react'
 import React, { createContext, ReactElement, useMemo } from 'react'
-import { ThemeProvider } from 'styled-components'
 
 import { LegacyThemeType, ThemeKey } from 'build-configs'
 import { UiDirectionType } from 'translations'
 
 import buildConfig from '../constants/buildConfig'
 import useLocalStorage from '../hooks/useLocalStorage'
+import globalStyle from '../styles/global/GlobalStyle'
 
 export type ThemeContextType = {
   theme: LegacyThemeType
@@ -56,6 +57,7 @@ export const ThemeContainer = ({ children, contentDirection }: ThemeContainerPro
 
   return (
     <ThemeContext.Provider value={contextValue}>
+      <Global styles={globalStyle({ theme: contextValue.theme })} />
       <ThemeProvider theme={contextValue.theme}>{children}</ThemeProvider>
     </ThemeContext.Provider>
   )

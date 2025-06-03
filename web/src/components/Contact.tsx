@@ -1,6 +1,7 @@
+import { useTheme } from '@emotion/react'
+import styled from '@emotion/styled'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled, { useTheme } from 'styled-components'
 
 import { ContactModel } from 'shared/api'
 
@@ -40,7 +41,7 @@ const Contact = ({
         />
       )}
       {!!email && <ContactItem iconSrc={MailIcon} iconAlt={t('eMail')} link={`mailto:${email}`} content={email} />}
-      {!isLastContact && <Spacer $borderColor={theme.colors.borderColor} />}
+      {!isLastContact && <Spacer borderColor={theme.colors.borderColor} />}
     </>
   )
 }

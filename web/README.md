@@ -48,9 +48,7 @@ _Note: Steps for other [build configs](docs/build-configs.md) differ accordingly
   - Set _Configuration file_ to _jest.config.json_
 - [optional] Install the following plugins:
   - [Prettier](https://plugins.jetbrains.com/plugin/10456-prettier)
-  - [Styled Components](https://plugins.jetbrains.com/plugin/9997-styled-components--styled-jsx/)
   - [EJS](https://plugins.jetbrains.com/plugin/index?xmlId=com.jetbrains.lang.ejs)
-  -
 
 ## CMS
 

@@ -1,12 +1,12 @@
-import 'styled-components'
+import '@emotion/react'
 
 import { LegacyThemeType } from 'build-configs/LegacyThemeType'
 import { UiDirectionType } from 'translations'
 
-declare module 'styled-components' {
+declare module '@emotion/react' {
   // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-  export interface DefaultTheme extends LegacyThemeType {
+  export interface Theme extends LegacyThemeType {
     contentDirection: UiDirectionType
-    isContrastTheme?: boolean
+    isContrastTheme: boolean
   }
 }

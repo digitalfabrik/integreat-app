@@ -1,13 +1,13 @@
+import styled from '@emotion/styled'
 import React, { ReactElement } from 'react'
-import styled from 'styled-components'
 
 import { SearchIcon } from '../assets'
 import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
 import Icon from './base/Icon'
 
-const Spacer = styled.div<{ $space: boolean }>`
-  ${props => props.$space && 'margin: 16px 0;'}
+const Spacer = styled.div<{ space: boolean }>`
+  ${props => props.space && 'margin: 16px 0;'}
 `
 
 const TextInput = styled.input`
@@ -79,7 +79,7 @@ const SearchInput = ({
   description,
   searchInputRef,
 }: SearchInputProps): ReactElement => (
-  <Spacer $space={spaceSearch} ref={searchInputRef}>
+  <Spacer space={spaceSearch} ref={searchInputRef}>
     <Wrapper>
       <StyledIcon src={SearchIcon} />
       <Column>

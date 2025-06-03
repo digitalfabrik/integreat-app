@@ -1,7 +1,7 @@
+import styled from '@emotion/styled'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
 
 const TimeStamp = styled.p`
   color: ${props => props.theme.colors.textSecondaryColor};

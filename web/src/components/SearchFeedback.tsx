@@ -1,6 +1,6 @@
+import styled from '@emotion/styled'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
 
 import { SEARCH_ROUTE } from 'shared'
 import { config } from 'translations'

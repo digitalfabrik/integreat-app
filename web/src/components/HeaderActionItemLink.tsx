@@ -1,6 +1,7 @@
+import { useTheme } from '@emotion/react'
+import styled from '@emotion/styled'
 import React, { ReactElement } from 'react'
 import { PlacesType } from 'react-tooltip'
-import styled, { useTheme } from 'styled-components'
 
 import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
