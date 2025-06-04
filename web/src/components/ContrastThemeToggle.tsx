@@ -1,9 +1,9 @@
+import { useTheme } from '@emotion/react'
 import styled from '@emotion/styled'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ContrastIcon } from '../assets'
-import { useThemeContext } from '../hooks/useThemeContext'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import ToolbarItem from './ToolbarItem'
 import Button from './base/Button'
@@ -24,7 +24,7 @@ const ContrastButton = styled(Button)`
 const ContrastThemeToggle = (): ReactElement => {
   const { t } = useTranslation('layout')
   const { viewportSmall } = useWindowDimensions()
-  const { toggleTheme } = useThemeContext()
+  const { toggleTheme } = useTheme()
 
   if (viewportSmall) {
     return (
