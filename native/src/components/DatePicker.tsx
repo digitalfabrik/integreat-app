@@ -7,7 +7,6 @@ import { CalendarTodayIcon } from '../assets'
 import DatePickerInput from './DatePickerInput'
 import Icon from './base/Icon'
 import IconButton from './base/IconButton'
-import Text from './base/Text'
 
 const DateContainer = styled.View`
   width: auto;
@@ -33,8 +32,9 @@ const Wrapper = styled.View`
   width: 50%;
 `
 
-const StyledDatePickerInput = styled(DatePickerInput)`
-  color: ${props => props.theme.colors.textColor};
+const StyledText = styled.Text`
+  color: ${props =>
+    props.theme.isContrastTheme ? props.theme.colors.textColor : props.theme.colors.textSecondaryColor};
 `
 
 const StyledIconButton = styled(IconButton)<{ $isModalOpen: boolean }>`
@@ -126,7 +126,7 @@ const DatePicker = ({
       <StyledTitle>{title}</StyledTitle>
       <StyledInputWrapper>
         <Wrapper>
-          <StyledDatePickerInput
+          <DatePickerInput
             ref={dayRef}
             placeholder={placeholderDay}
             nextTargetRef={monthRef}
@@ -134,8 +134,8 @@ const DatePicker = ({
             setInputValue={setInputDay}
             type='day'
           />
-          <Text>.</Text>
-          <StyledDatePickerInput
+          <StyledText>.</StyledText>
+          <DatePickerInput
             ref={monthRef}
             placeholder={placeholderMonth}
             nextTargetRef={yearRef}
@@ -144,8 +144,8 @@ const DatePicker = ({
             setInputValue={setInputMonth}
             type='month'
           />
-          <Text>.</Text>
-          <StyledDatePickerInput
+          <StyledText>.</StyledText>
+          <DatePickerInput
             style={{ marginLeft: 6 }}
             ref={yearRef}
             prevTargetRef={monthRef}

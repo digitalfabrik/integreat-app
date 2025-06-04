@@ -23,6 +23,11 @@ const Container = styled.View`
 
 const Title = styled(Text)`
   font-weight: 600;
+  color: ${props => props.theme.colors.textColor};
+`
+
+const StyledText = styled(Text)`
+  color: ${props => props.theme.colors.textColor};
 `
 
 const Hint = styled(Title)`
@@ -125,7 +130,7 @@ const FeedbackContainer = ({
         <Title>
           {language === fallbackLanguage ? t('noResultsInUserLanguage') : t('noResultsInUserAndSourceLanguage')}
         </Title>
-        <Text>{t('checkQuery', { appName: buildConfig().appName })}</Text>
+        <StyledText>{t('checkQuery', { appName: buildConfig().appName })}</StyledText>
         <Hint>{t('informationMissing')}</Hint>
         <TextButton text={t('giveFeedback')} onPress={() => setShowFeedback(true)} />
       </>

@@ -8,6 +8,7 @@ import { zeroPad } from 'shared/utils/dateFilterUtils'
 const Input = styled(TextInput)`
   text-align: center;
   min-width: 20%;
+  color: ${props => props.theme.colors.textColor};
 `
 
 const containsOnlyDigits = (str: string) => !Number.isNaN(Number(str))
