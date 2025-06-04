@@ -3,7 +3,7 @@ import { render, RenderResult } from '@testing-library/react'
 import React, { ReactElement, ReactNode } from 'react'
 import { createMemoryRouter, MemoryRouter, RouterProvider } from 'react-router-dom'
 
-import { ThemeContainer } from '../components/ThemeContext'
+import ThemeContainer from '../components/ThemeContainer'
 
 type RenderRouteOptions = {
   pathname: string
