@@ -1,6 +1,6 @@
+import styled from '@emotion/styled'
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
 
 import ChatMessageModel from 'shared/api/models/ChatMessageModel'
 
@@ -9,6 +9,7 @@ import ChatMessage, { InnerChatMessage } from './ChatMessage'
 const Container = styled.div`
   font-size: ${props => props.theme.fonts.hintFontSize};
   overflow: auto;
+  padding: 0 12px;
 `
 
 const InitialMessage = styled.div`
@@ -38,8 +39,6 @@ const TypingIndicator = ({ isVisible }: TypingIndicatorProps): ReactElement | nu
   isVisible ? (
     <InnerChatMessage userIsAuthor={false} showIcon={false} isAutomaticAnswer content='...' messageId={0} />
   ) : null
-
-const TYPING_INDICATOR_TIMEOUT = 60000
 
 const ChatConversation = ({ messages, hasError, className, isTyping }: ChatConversationProps): ReactElement => {
   const { t } = useTranslation('chat')

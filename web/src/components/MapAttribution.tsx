@@ -1,5 +1,5 @@
+import styled from '@emotion/styled'
 import React, { ReactElement, useState } from 'react'
-import styled from 'styled-components'
 
 import { openStreeMapCopyright } from 'shared'
 
@@ -15,15 +15,15 @@ const Attribution = styled.div`
   color: rgb(0 0 0 / 75%);
 `
 
-const StyledButton = styled(Button)<{ $expanded: boolean }>`
+const StyledButton = styled(Button)<{ expanded: boolean }>`
   display: flex;
   position: absolute;
   top: 0;
   inset-inline-end: 0;
   justify-content: flex-end;
   font-size: ${props =>
-    props.$expanded ? props.theme.fonts.decorativeFontSizeSmall : props.theme.fonts.contentFontSize};
-  font-weight: ${props => (props.$expanded ? 'normal' : 'bold')};
+    props.expanded ? props.theme.fonts.decorativeFontSizeSmall : props.theme.fonts.contentFontSize};
+  font-weight: ${props => (props.expanded ? 'normal' : 'bold')};
 `
 
 const OpenStreetMapsLink = styled(Link)`
@@ -45,7 +45,7 @@ const MapAttribution = ({ initialExpanded }: MapAttributionProps): ReactElement 
   const [expanded, setExpanded] = useState<boolean>(initialExpanded)
   return (
     <StyledButton
-      $expanded={expanded}
+      expanded={expanded}
       tabIndex={0}
       onClick={() => setExpanded(!expanded)}
       label={`${linkText} ${label}`}>

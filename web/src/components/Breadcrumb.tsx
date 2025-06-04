@@ -1,14 +1,14 @@
+import styled from '@emotion/styled'
 import React, { ReactElement, ReactNode } from 'react'
-import styled from 'styled-components'
 
 import { helpers } from '../constants/theme'
 
 const SHRINK_FACTOR = 0.1
-const ListItem = styled.li<{ $shrink: boolean }>`
+const ListItem = styled.li<{ shrink: boolean }>`
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  flex-shrink: ${props => (props.$shrink ? SHRINK_FACTOR : 0)};
+  flex-shrink: ${props => (props.shrink ? SHRINK_FACTOR : 0)};
 
   &:not(:last-of-type) {
     flex-shrink: 1;
@@ -39,7 +39,7 @@ type BreadcrumbProps = {
  * Displays breadcrumbs (Links) for lower category levels
  */
 const Breadcrumb = ({ children, shrink }: BreadcrumbProps): ReactElement => (
-  <ListItem $shrink={shrink}>
+  <ListItem shrink={shrink}>
     <Separator aria-hidden />
     {children}
   </ListItem>

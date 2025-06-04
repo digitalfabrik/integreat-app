@@ -1,7 +1,8 @@
+import { css, SerializedStyles, Theme, useTheme } from '@emotion/react'
+import styled from '@emotion/styled'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { PlacesType } from 'react-tooltip'
-import styled, { css, useTheme } from 'styled-components'
 
 import { CloseIcon, CopyIcon, DoneIcon, FacebookIcon, MailIcon, ShareIcon, WhatsappIcon } from '../assets'
 import useWindowDimensions from '../hooks/useWindowDimensions'
@@ -20,8 +21,8 @@ type SharingPopupProps = {
 }
 
 const TooltipContainer = styled.div<{
-  $flow: 'vertical' | 'horizontal'
-  $active: boolean
+  tooltipFlow: 'vertical' | 'horizontal'
+  optionsVisible: boolean
 }>`
   background-color: ${props => props.theme.colors.backgroundColor};
   padding: 8px;
@@ -34,14 +35,14 @@ const TooltipContainer = styled.div<{
   font-size: 1rem;
 
   ${props =>
-    props.$flow === 'vertical' &&
+    props.tooltipFlow === 'vertical' &&
     css`
       flex-flow: column-reverse;
       transform: translateY(-100%);
     `};
 
   ${props =>
-    props.$flow === 'horizontal' &&
+    props.tooltipFlow === 'horizontal' &&
     (props.theme.contentDirection === 'ltr'
       ? css`
           transform: translate(30%, -8px);
@@ -51,7 +52,7 @@ const TooltipContainer = styled.div<{
         `)};
 
   ${props =>
-    props.$active &&
+    props.optionsVisible &&
     css`
       animation: tooltips 300ms ease-out forwards;
     `};
@@ -72,7 +73,7 @@ const TooltipContainer = styled.div<{
     border-inline-end: 10px solid transparent;
 
     ${props =>
-      props.$flow === 'vertical' &&
+      props.tooltipFlow === 'vertical' &&
       (props.theme.contentDirection === 'ltr'
         ? css`
             left: 20px;
@@ -86,7 +87,7 @@ const TooltipContainer = styled.div<{
           `)};
 
     ${props =>
-      props.$flow === 'horizontal' &&
+      props.tooltipFlow === 'horizontal' &&
       (props.theme.contentDirection === 'ltr'
         ? css`
             left: -14px;
@@ -100,7 +101,7 @@ const TooltipContainer = styled.div<{
           `)};
 
     ${props =>
-      props.$active &&
+      props.optionsVisible &&
       css`
         animation: tooltips 300ms ease-out forwards;
       `};
@@ -115,7 +116,7 @@ const TooltipContainer = styled.div<{
     border-inline-end: 11px solid transparent;
 
     ${props =>
-      props.$flow === 'vertical' &&
+      props.tooltipFlow === 'vertical' &&
       (props.theme.contentDirection === 'ltr'
         ? css`
             left: 20px;
@@ -129,7 +130,7 @@ const TooltipContainer = styled.div<{
           `)};
 
     ${props =>
-      props.$flow === 'horizontal' &&
+      props.tooltipFlow === 'horizontal' &&
       (props.theme.contentDirection === 'ltr'
         ? css`
             left: -17px;
@@ -143,7 +144,7 @@ const TooltipContainer = styled.div<{
           `)};
 
     ${props =>
-      props.$active &&
+      props.optionsVisible &&
       css`
         animation: tooltips 300ms ease-out forwards;
       `};
@@ -161,11 +162,19 @@ const CloseButton = styled(Button)`
   display: flex;
 `
 
-const StyledLink = styled(Link)`
-  background-color: ${props => props.theme.colors.backgroundColor};
+const itemStyles = ({ theme }: { theme: Theme }): SerializedStyles => css`
+  background-color: ${theme.colors.backgroundColor};
   border: none;
   padding: 0;
   display: flex;
+`
+
+const StyledLink = styled(Link)`
+  ${itemStyles}
+`
+
+const StyledButton = styled(Button)`
+  ${itemStyles}
 `
 
 const StyledIcon = styled(Icon)`
@@ -232,18 +241,14 @@ const SharingPopup = ({ shareUrl, title, flow, portalNeeded }: SharingPopupProps
             </Portal>
           )}
           {Backdrop}
-          <TooltipContainer $flow={flow} $active={shareOptionsVisible}>
+          <TooltipContainer tooltipFlow={flow} optionsVisible={shareOptionsVisible}>
             <Tooltip
               id='copy'
               place={tooltipDirection}
               tooltipContent={t(linkCopied ? 'common:copied' : 'layout:copyUrl')}>
-              {/* @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112 */}
-              <StyledLink
-                as={Button}
-                onClick={copyToClipboard}
-                ariaLabel={t(linkCopied ? 'common:copied' : 'layout:copyUrl')}>
+              <StyledButton onClick={copyToClipboard} label={t(linkCopied ? 'common:copied' : 'layout:copyUrl')}>
                 <StyledIcon src={linkCopied ? DoneIcon : CopyIcon} />
-              </StyledLink>
+              </StyledButton>
             </Tooltip>
             <Tooltip id='share-whatsapp' place={tooltipDirection} tooltipContent={t('whatsappTooltip')}>
               <StyledLink

@@ -1,6 +1,6 @@
+import styled from '@emotion/styled'
 import React, { ReactElement, ReactNode } from 'react'
 import { Tooltip as ReactTooltip, ITooltip as ReactTooltipType } from 'react-tooltip'
-import styled from 'styled-components'
 
 const StyledTooltip = styled(ReactTooltip)`
   z-index: 60;

@@ -1,8 +1,8 @@
+import styled from '@emotion/styled'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
-import styled from 'styled-components'
 
 import { EVENTS_ROUTE, pathnameFromRouteInformation, useDateFilter } from 'shared'
 import { createEventsEndpoint, EventModel, NotFoundError, useLoadFromEndpoint } from 'shared/api'
@@ -27,11 +27,11 @@ import usePreviousProp from '../hooks/usePreviousProp'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 import featuredImageToSrcSet from '../utils/featuredImageToSrcSet'
 
-const Spacing = styled.div<{ $content: string; $lastUpdate?: DateTime }>`
+const Spacing = styled.div<{ content: string; lastUpdate?: DateTime }>`
   display: flex;
   flex-direction: column;
   padding-top: 12px;
-  padding-bottom: ${props => (props.$content.length > 0 && props.$lastUpdate ? '0px' : '12px')};
+  padding-bottom: ${props => (props.content.length > 0 && props.lastUpdate ? '0px' : '12px')};
   gap: 8px;
 `
 
@@ -127,7 +127,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
           content={content}
           title={title}
           BeforeContent={
-            <Spacing $content={content} $lastUpdate={lastUpdate}>
+            <Spacing content={content} lastUpdate={lastUpdate}>
               <DatesPageDetail date={date} languageCode={languageCode} />
               {location && (
                 <PageDetail identifier={t('address')} information={location.fullAddress} path={event.poiPath} />
