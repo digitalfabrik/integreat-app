@@ -10,17 +10,13 @@ export type PaletteColor = SimplePaletteColor & {
 }
 
 export type ActionColor = {
+  disabled: string
+  disabledBackground: string
   active?: string
   hover?: string
-  hoverOpacity?: number
   selected?: string
   selectedOpacity?: number
-  disabled: string
-  disabledOpacity?: number
-  disabledBackground?: string
   focus?: string
-  focusOpacity?: number
-  activatedOpacity?: number
 }
 
 export type CommonColors = {
