@@ -1,4 +1,5 @@
 import { DateTime } from 'luxon'
+import { DefaultTheme } from 'styled-components'
 
 import { LegacyThemeType } from 'build-configs'
 
@@ -15,7 +16,7 @@ export const getMarkedDates = (
   currentInput: string,
 ): Record<string, MarkedDateType> => {
   const markedDateStyling = {
-    color: theme.colors.themeColor,
+    color: (theme as DefaultTheme).isContrastTheme === true ? theme.colors.linkColor : theme.colors.themeColor,
     textColor: theme.colors.textColor,
   }
 

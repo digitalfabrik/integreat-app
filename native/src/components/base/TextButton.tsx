@@ -15,7 +15,7 @@ const StyledPressable = styled(Pressable)<{ primary: boolean; disabled: boolean 
 `
 
 const StyledText = styled(Text)`
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => (props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.textColor)};
   font-weight: 500;
   font-size: 18px;
   text-align: center;

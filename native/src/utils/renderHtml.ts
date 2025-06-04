@@ -21,6 +21,7 @@ const renderJS = (
   supportedIframeSources: string[],
   externalSourcePermissions: ExternalSourcePermissions,
   t: TFunction,
+  theme: DefaultTheme,
   deviceWidth: number,
   pageContainerPadding: number,
 ) => `
@@ -91,6 +92,27 @@ const renderJS = (
         )
       }
     }
+  })();
+
+  (function removeBlackColorProperty() {
+    const elements = document.querySelectorAll('*');
+    elements.forEach(element => {
+      if (element instanceof HTMLElement && getComputedStyle(element).color === 'rgb(0, 0, 0)') {
+        element.style.removeProperty('color');
+      }
+    });
+  })();
+
+  (function invertSvgImagesInContrastTheme() {
+    const theme = ${JSON.stringify(theme.isContrastTheme)}
+    if (!theme) return;
+
+    const images = document.querySelectorAll('img');
+    images.forEach(img => {
+      if (img.src.endsWith('.svg')) {
+        img.style.filter = 'invert(1)';
+      }
+    });
   })();
 
   (function addWebviewHeightListeners() {
@@ -300,6 +322,7 @@ const renderHtml = (
         line-height: ${theme.fonts.contentLineHeight};
         font-size-adjust: ${theme.fonts.fontSizeAdjust};
         background-color: ${theme.colors.backgroundColor};
+        color: ${theme.colors.textColor}
       }
 
       body {
@@ -376,9 +399,8 @@ const renderHtml = (
         flex-direction: column;
         border: 1px solid ${theme.colors.borderColor};
         border-radius: 4px;
-        box-shadow:
-          0 1px 3px rgb(0 0 0 / 10%),
-          0 1px 2px rgb(0 0 0 / 15%);
+        box-shadow: 0 1px 3px rgb(0 0 0 / 10%),
+        0 1px 2px rgb(0 0 0 / 15%);
       }
 
       .iframe-info-text {
@@ -422,6 +444,10 @@ const renderHtml = (
         img {
           margin-inline-end: 8px;
         }
+
+        a {
+          color: ${theme.colors.linkColor};
+        }
       }
 
       #opt-in-settings-button {
@@ -448,6 +474,7 @@ const renderHtml = (
     supportedIframeSources,
     externalSourcePermissions,
     t,
+    theme,
     deviceWidth,
     pageContainerPadding,
   )}</script>

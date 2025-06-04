@@ -11,6 +11,7 @@ const Input = styled.TextInput`
   flex-grow: 1;
   border-bottom-width: 1px;
   border-bottom-color: ${props => props.theme.colors.textSecondaryColor};
+  color: ${props => props.theme.colors.textColor};
 `
 const Wrapper = styled.View<{ space: boolean }>`
   flex-direction: row;
