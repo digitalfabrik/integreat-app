@@ -1,12 +1,9 @@
-import { ThemeProvider } from '@emotion/react'
 import { fireEvent, waitFor } from '@testing-library/react'
 import React from 'react'
 
-import { UiDirectionType } from 'translations'
-
-import buildConfig from '../../constants/buildConfig'
 import { renderWithTheme } from '../../testing/render'
 import SearchFeedback from '../SearchFeedback'
+import { ThemeContainer } from '../ThemeContext'
 
 jest.mock('react-inlinesvg')
 jest.mock('react-i18next', () => ({
@@ -20,8 +17,6 @@ jest.mock('react-i18next', () => ({
 describe('SearchFeedback', () => {
   const cityCode = 'augsburg'
   const languageCode = 'de'
-
-  const theme = { ...buildConfig().legacyLightTheme, contentDirection: 'ltr' as UiDirectionType }
 
   it('should open FeedbackSection on button click', () => {
     const { getByText, queryByText } = renderWithTheme(
@@ -43,9 +38,9 @@ describe('SearchFeedback', () => {
     expect(getByText('feedback:wantedInformation')).toBeTruthy()
 
     rerender(
-      <ThemeProvider theme={theme}>
+      <ThemeContainer contentDirection='ltr'>
         <SearchFeedback cityCode={cityCode} languageCode={languageCode} query='a' noResults={false} />
-      </ThemeProvider>,
+      </ThemeContainer>,
     )
 
     expect(queryByText('feedback:wantedInformation')).toBeNull()
@@ -68,9 +63,9 @@ describe('SearchFeedback', () => {
 
     // the query is controlled in the parent of SearchFeedback, so we need to update the props
     rerender(
-      <ThemeProvider theme={theme}>
+      <ThemeContainer contentDirection='ltr'>
         <SearchFeedback cityCode={cityCode} languageCode={languageCode} query='' noResults />
-      </ThemeProvider>,
+      </ThemeContainer>,
     )
     fireEvent.click(getByText('feedback:giveFeedback'))
     await waitFor(() => expect(getByText('feedback:send')).toBeDisabled())
