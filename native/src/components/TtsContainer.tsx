@@ -115,7 +115,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
     async (index = sentenceIndex) => {
       const safeIndex = Math.max(0, index)
       const sentence = sentences[safeIndex]
-      if (sentence) {
+      if (sentence !== undefined) {
         await stopPlayer()
         setIsPlaying(true)
         setSentenceIndex(safeIndex)
