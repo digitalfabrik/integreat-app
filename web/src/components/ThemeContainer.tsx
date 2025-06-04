@@ -38,7 +38,7 @@ type ThemeContainerProps = {
   contentDirection: UiDirectionType
 }
 
-export const ThemeContainer = ({ children, contentDirection }: ThemeContainerProps): ReactElement => {
+const ThemeContainer = ({ children, contentDirection }: ThemeContainerProps): ReactElement => {
   const { value: themeType, updateLocalStorageItem: setThemeType } = useLocalStorage<ThemeKey>({
     key: 'theme',
     initialValue: 'light',
@@ -62,3 +62,5 @@ export const ThemeContainer = ({ children, contentDirection }: ThemeContainerPro
     </ThemeProvider>
   )
 }
+
+export default ThemeContainer
