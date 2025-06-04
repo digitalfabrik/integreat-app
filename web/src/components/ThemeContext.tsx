@@ -1,26 +1,13 @@
-import { Global, ThemeProvider } from '@emotion/react'
-import React, { createContext, ReactElement, useMemo } from 'react'
+import { Global, Theme, ThemeProvider } from '@emotion/react'
+import { createTheme as createMuiTheme } from '@mui/material/styles'
+import React, { ReactElement, ReactNode, useMemo } from 'react'
 
-import { LegacyThemeType, ThemeKey } from 'build-configs'
+import { ThemeKey } from 'build-configs'
 import { UiDirectionType } from 'translations'
 
 import buildConfig from '../constants/buildConfig'
 import useLocalStorage from '../hooks/useLocalStorage'
 import globalStyle from '../styles/global/GlobalStyle'
-
-export type ThemeContextType = {
-  theme: LegacyThemeType
-  themeType: ThemeKey
-  toggleTheme: () => void
-}
-
-const themeConfig = buildConfig()
-
-export const ThemeContext = createContext<ThemeContextType>({
-  theme: themeConfig.legacyLightTheme,
-  themeType: 'light',
-  toggleTheme: () => undefined,
-})
 
 // For now, we want the dark mode to be opt in as it is a beta feature for now
 // const contrastThemeMediaQueries = [
@@ -31,8 +18,23 @@ export const ThemeContext = createContext<ThemeContextType>({
 //
 // const getSystemTheme = (): ThemeKey => (contrastThemeMediaQueries.some(query => query.matches) ? 'contrast' : 'light')
 
+const createTheme = (
+  themeType: 'light' | 'contrast',
+  contentDirection: UiDirectionType,
+): Omit<Theme, 'toggleTheme'> => ({
+  ...(themeType === 'contrast' ? buildConfig().legacyContrastTheme : buildConfig().legacyLightTheme),
+  contentDirection,
+  isContrastTheme: themeType === 'contrast',
+  ...createMuiTheme({
+    colorSchemes: {
+      light: buildConfig().lightTheme,
+      dark: buildConfig().darkTheme,
+    },
+  }),
+})
+
 type ThemeContainerProps = {
-  children: ReactElement
+  children: ReactNode
   contentDirection: UiDirectionType
 }
 
@@ -42,23 +44,21 @@ export const ThemeContainer = ({ children, contentDirection }: ThemeContainerPro
     initialValue: 'light',
   })
 
-  const contextValue = useMemo(() => {
+  const theme: Theme = useMemo(() => {
     const toggleTheme = () => {
       const currentTheme = themeType === 'light' ? 'contrast' : 'light'
       setThemeType(currentTheme)
     }
 
-    const baseTheme = themeType === 'contrast' ? themeConfig.legacyContrastTheme : themeConfig.legacyLightTheme
-    // Set body overflow color (visible on scroll to start/end)
-    document.body.style.backgroundColor = baseTheme.colors.backgroundAccentColor
-    const theme = { ...baseTheme, contentDirection, isContrastTheme: themeType === 'contrast' }
-    return { theme, themeType, toggleTheme }
+    const theme = createTheme(themeType, contentDirection)
+    document.body.style.backgroundColor = theme.colors.backgroundAccentColor
+    return { ...theme, toggleTheme }
   }, [themeType, setThemeType, contentDirection])
 
   return (
-    <ThemeContext.Provider value={contextValue}>
-      <Global styles={globalStyle({ theme: contextValue.theme })} />
-      <ThemeProvider theme={contextValue.theme}>{children}</ThemeProvider>
-    </ThemeContext.Provider>
+    <ThemeProvider theme={theme}>
+      <Global styles={globalStyle({ theme })} />
+      {children}
+    </ThemeProvider>
   )
 }

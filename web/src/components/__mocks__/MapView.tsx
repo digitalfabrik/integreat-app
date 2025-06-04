@@ -18,7 +18,7 @@ const MockMapView = ({
         feature.properties.pois.length === 1 ? feature.properties.pois[0]?.title : (feature.id?.toString() ?? 'null')
       return (
         <Button key={title} onClick={() => selectFeature(feature)}>
-          Feature-${title}
+          Feature-{title}
         </Button>
       )
     })}

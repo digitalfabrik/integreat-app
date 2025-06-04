@@ -9,5 +9,6 @@ declare module '@emotion/react' {
   export interface Theme extends LegacyThemeType, MuiTheme {
     contentDirection: UiDirectionType
     isContrastTheme: boolean
+    toggleTheme: () => void
   }
 }
