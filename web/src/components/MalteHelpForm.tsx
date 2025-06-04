@@ -1,4 +1,6 @@
 import styled from '@emotion/styled'
+import SendIcon from '@mui/icons-material/Send'
+import Button from '@mui/material/Button'
 import React, { ReactElement, SyntheticEvent, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
@@ -20,7 +22,7 @@ import PrivacyCheckbox from './PrivacyCheckbox'
 import Input from './base/Input'
 import InputSection from './base/InputSection'
 import RadioGroup from './base/RadioGroup'
-import TextButton from './base/TextButton'
+import Spacing from './base/Spacing'
 
 const Note = styled.div`
   display: flex;
@@ -211,12 +213,15 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
             {sendingStatus !== 'invalidEmail' && t('submitFailedReasoning')}
           </ErrorSendingStatus>
         )}
-        <TextButton
-          type='submit'
-          disabled={sendingStatus === 'sending' || missingData || !privacyPolicyAccepted}
+        <Spacing />
+        <Button
           onClick={() => setSubmitted(true)}
-          text={t('submit')}
-        />
+          startIcon={<SendIcon />}
+          disabled={sendingStatus === 'sending' || missingData || !privacyPolicyAccepted}
+          type='submit'
+          variant='contained'>
+          {t('submit')}
+        </Button>
       </Form>
     </>
   )

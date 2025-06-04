@@ -1,11 +1,12 @@
-import RocketLaunch from '@mui/icons-material/RocketLaunch'
-import Button from '@mui/material/Button'
-import { createTheme, ThemeProvider } from '@mui/material/styles'
+import createCache from '@emotion/cache'
+import { CacheProvider } from '@emotion/react'
+import rtlPlugin from '@mui/stylis-plugin-rtl'
 import 'core-js/actual/array/at'
 import { Settings as LuxonSettings } from 'luxon'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BrowserRouter as Router } from 'react-router-dom'
+import { prefixer } from 'stylis'
 
 import { setJpalTrackingCode } from 'shared/api'
 import { UiDirectionType, config } from 'translations'
@@ -13,14 +14,18 @@ import { UiDirectionType, config } from 'translations'
 import RootSwitcher from './RootSwitcher'
 import Helmet from './components/Helmet'
 import I18nProvider from './components/I18nProvider'
-import { ThemeContainer } from './components/ThemeContext'
+import ThemeContainer from './components/ThemeContainer'
 import TtsContainer from './components/TtsContainer'
-import buildConfig from './constants/buildConfig'
 import safeLocalStorage, { JPAL_TRACKING_CODE_KEY } from './utils/safeLocalStorage'
 import { initSentry } from './utils/sentry'
 
 LuxonSettings.throwOnInvalid = true
 LuxonSettings.defaultLocale = config.defaultFallback
+
+const rtlCache = createCache({
+  key: 'muirtl',
+  stylisPlugins: [prefixer, rtlPlugin],
+})
 
 const App = (): ReactElement => {
   const [contentLanguage, setContentLanguage] = useState<string>(config.defaultFallback)
@@ -35,19 +40,9 @@ const App = (): ReactElement => {
     setJpalTrackingCode(safeLocalStorage.getItem(JPAL_TRACKING_CODE_KEY))
   }, [])
 
-  // TODO upgrade mui
-  // There are some errors in the console due to mui
-  // https://github.com/mui/material-ui/issues/45432
   return (
-    <ThemeContainer contentDirection={contentDirection}>
-      <ThemeProvider
-        theme={createTheme({
-          colorSchemes: {
-            light: buildConfig().lightTheme,
-            dark: buildConfig().darkTheme,
-          },
-        })}>
-        <Button startIcon={<RocketLaunch color='secondary' />}>Test</Button>
+    <CacheProvider value={rtlCache}>
+      <ThemeContainer contentDirection={contentDirection}>
         <I18nProvider contentLanguage={contentLanguage}>
           <>
             <Helmet pageTitle={t('pageTitle')} rootPage />
@@ -58,8 +53,8 @@ const App = (): ReactElement => {
             </Router>
           </>
         </I18nProvider>
-      </ThemeProvider>
-    </ThemeContainer>
+      </ThemeContainer>
+    </CacheProvider>
   )
 }
 

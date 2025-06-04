@@ -1,4 +1,6 @@
 import styled from '@emotion/styled'
+import SendIcon from '@mui/icons-material/Send'
+import Button from '@mui/material/Button'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -10,7 +12,6 @@ import Note from './Note'
 import PrivacyCheckbox from './PrivacyCheckbox'
 import Input from './base/Input'
 import InputSection from './base/InputSection'
-import TextButton from './base/TextButton'
 
 export const Container = styled.div<{ fullWidth?: boolean }>`
   display: flex;
@@ -34,10 +35,6 @@ export const Container = styled.div<{ fullWidth?: boolean }>`
 
 const ErrorSendingStatus = styled.div`
   font-weight: bold;
-`
-
-const StyledTextButton = styled(TextButton)`
-  margin: 0;
 `
 
 type FeedbackProps = {
@@ -81,7 +78,7 @@ const Feedback = ({
     return (
       <Container>
         <div>{t('thanksMessage')}</div>
-        {!!closeFeedback && !isSearchFeedback && <TextButton onClick={closeFeedback} text={t('common:close')} />}
+        {!!closeFeedback && !isSearchFeedback && <Button onClick={closeFeedback}>{t('common:close')}</Button>}
       </Container>
     )
   }
@@ -110,7 +107,9 @@ const Feedback = ({
       <PrivacyCheckbox language={language} checked={privacyPolicyAccepted} setChecked={setPrivacyPolicyAccepted} />
       {submitFeedbackDisabled && <Note text={t(feedbackFilled ? 'noteFillFeedback' : 'notePrivacyPolicy')} />}
       {sendingStatus === 'failed' && <ErrorSendingStatus role='alert'>{t('failedSendingFeedback')}</ErrorSendingStatus>}
-      <StyledTextButton disabled={submitFeedbackDisabled} onClick={onSubmit} text={t('send')} />
+      <Button onClick={onSubmit} variant='contained' startIcon={<SendIcon />} disabled={submitFeedbackDisabled}>
+        {t('send')}
+      </Button>
     </Container>
   )
 }
