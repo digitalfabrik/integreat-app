@@ -48,6 +48,7 @@ const TitleContainer = styled.div`
   justify-content: center;
   align-items: center;
   gap: 12px;
+  color: ${props => props.theme.colors.textColor};
 `
 
 type ModalProps = {

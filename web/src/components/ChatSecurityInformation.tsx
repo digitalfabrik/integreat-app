@@ -30,8 +30,7 @@ const InformationTooltipContainer = styled.div`
   position: absolute;
   z-index: 2000;
   border: 1px solid;
-  background-color: ${props =>
-    props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.textSecondaryColor};
+  background-color: ${props => props.theme.colors.backgroundColor};
   color: ${props => props.theme.colors.textColor};
   padding: 12px;
   text-align: center;
