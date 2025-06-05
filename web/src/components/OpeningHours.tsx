@@ -1,7 +1,7 @@
+import styled from '@emotion/styled'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
 
 import { weekdays } from 'shared'
 import { OpeningHoursModel } from 'shared/api'
@@ -13,8 +13,8 @@ import OpeningEntry from './OpeningEntry'
 import Icon from './base/Icon'
 import Link from './base/Link'
 
-const OpeningLabel = styled.span<{ $isOpen: boolean }>`
-  color: ${props => (props.$isOpen ? props.theme.colors.positiveHighlight : props.theme.colors.negativeHighlight)};
+const OpeningLabel = styled.span<{ isOpen: boolean }>`
+  color: ${props => (props.isOpen ? props.theme.colors.positiveHighlight : props.theme.colors.negativeHighlight)};
   padding-inline-end: 12px;
 `
 
@@ -95,7 +95,7 @@ const OpeningHours = ({
     <TitleContainer>
       <span>{t('openingHours')}</span>
       <OpeningContainer>
-        <OpeningLabel $isOpen={isCurrentlyOpen}>
+        <OpeningLabel isOpen={isCurrentlyOpen}>
           {t(getOpeningLabel(isTemporarilyClosed, isCurrentlyOpen, openingHours))}
         </OpeningLabel>
       </OpeningContainer>

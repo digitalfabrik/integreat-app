@@ -86,7 +86,7 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
       const safeIndex = Math.max(0, index)
       const sentence = sentences[safeIndex]
 
-      if (!sentence) {
+      if (sentence === undefined) {
         stop()
         return
       }

@@ -1,5 +1,5 @@
+import styled from '@emotion/styled'
 import React, { ReactElement } from 'react'
-import styled from 'styled-components'
 
 const Container = styled.div`
   display: flex;

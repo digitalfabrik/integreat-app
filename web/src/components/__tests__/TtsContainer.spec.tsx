@@ -57,10 +57,10 @@ describe('TtsContainer', () => {
     )
   }
 
-  const renderTtsPlayer = () =>
+  const renderTtsPlayer = (languageCode = 'en') =>
     renderWithTheme(
       <MemoryRouter>
-        <TtsContainer languageCode='en'>
+        <TtsContainer languageCode={languageCode}>
           <TestChild />
         </TtsContainer>
       </MemoryRouter>,
@@ -89,6 +89,20 @@ describe('TtsContainer', () => {
     fireEvent.click(getByRole('button', { name: 'layout:pause' }))
     expect(EasySpeech.cancel).toHaveBeenCalled()
     await waitFor(() => expect(getByRole('button', { name: 'layout:play' })).toBeTruthy())
+  })
+
+  it('should correctly play for Deutsch (leicht)', async () => {
+    const { getByText, getByRole } = renderTtsPlayer('de-si')
+    fireEvent.click(getByText('show'))
+    await waitFor(() => expect(getByRole('button', { name: 'layout:play' })).toBeInTheDocument())
+    fireEvent.click(getByRole('button', { name: 'layout:play' }))
+
+    expect(EasySpeech.speak).toHaveBeenCalledWith(
+      expect.objectContaining({
+        ...testTtsObject('test'),
+        voice: { lang: 'de-DE', name: 'Anna' },
+      }),
+    )
   })
 
   it('should close and cancel utterance', async () => {

@@ -1,6 +1,7 @@
+import { css, SerializedStyles, Theme, useTheme } from '@emotion/react'
+import styled from '@emotion/styled'
 import React, { ReactElement } from 'react'
 import { PlacesType } from 'react-tooltip'
-import styled, { useTheme } from 'styled-components'
 
 import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
@@ -11,18 +12,29 @@ import Icon from './base/Icon'
 import Link from './base/Link'
 import Tooltip from './base/Tooltip'
 
-const StyledToolbarItem = styled(Link)<{ disabled?: boolean }>`
+const toolbarItemStyle = ({ theme }: { theme: Theme }): SerializedStyles => css`
   display: inline-block;
   padding: 8px;
   border: none;
-  color: ${props => (props.disabled ? props.theme.colors.textDisabledColor : props.theme.colors.textColor)};
+  color: ${theme.colors.textColor};
   background-color: transparent;
   text-align: center;
-  ${props => props.disabled && 'cursor: default;'}
 
   @media ${dimensions.smallViewport} {
     line-height: 1.15;
   }
+`
+
+const ToolbarItemLink = styled(Link)`
+  ${toolbarItemStyle}
+`
+const ToolbarItemButton = styled(Button)`
+  ${toolbarItemStyle}
+`
+const DisabledToolbarItem = styled('div')`
+  ${toolbarItemStyle};
+  color: ${props => props.theme.colors.textDisabledColor};
+  cursor: default;
 `
 
 const StyledIcon = styled(Icon)<{ disabled?: boolean }>`
@@ -73,29 +85,32 @@ const ToolbarItem = ({
   const tooltipDirection: PlacesType = viewportSmall ? 'top' : tooltipDirectionForDesktop
   const tooltipId = id ?? spacesToDashes(text)
 
+  const Content = (
+    <>
+      <StyledIcon src={icon} disabled={isDisabled} />
+      <StyledSmallViewTip>{text}</StyledSmallViewTip>
+    </>
+  )
+
   if (isDisabled) {
     return (
       <StyledTooltip id={tooltipId} tooltipContent={tooltip} place={tooltipDirection} {...additionalTooltipProps}>
-        {/* @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112 */}
-        <StyledToolbarItem as='div' label={text} disabled>
-          <StyledIcon src={icon} disabled />
-          <StyledSmallViewTip>{text}</StyledSmallViewTip>
-        </StyledToolbarItem>
+        <DisabledToolbarItem aria-label={text}>{Content}</DisabledToolbarItem>
       </StyledTooltip>
     )
   }
+
   return (
     <StyledTooltip id={tooltipId} tooltipContent={tooltip} place={tooltipDirection} {...additionalTooltipProps}>
-      <StyledToolbarItem
-        as={onClick ? Button : undefined}
-        // @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112
-        to={to}
-        onClick={onClick}
-        label={text}
-        disabled={false}>
-        <StyledIcon src={icon} disabled={false} />
-        <StyledSmallViewTip>{text}</StyledSmallViewTip>
-      </StyledToolbarItem>
+      {onClick ? (
+        <ToolbarItemButton onClick={onClick} label={text}>
+          {Content}
+        </ToolbarItemButton>
+      ) : (
+        <ToolbarItemLink to={to} aria-label={text}>
+          {Content}
+        </ToolbarItemLink>
+      )}
     </StyledTooltip>
   )
 }

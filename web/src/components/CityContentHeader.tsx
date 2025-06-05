@@ -21,8 +21,9 @@ import ContrastThemeToggle from './ContrastThemeToggle'
 import Header from './Header'
 import HeaderActionItemLink from './HeaderActionItemLink'
 import HeaderNavigationItem from './HeaderNavigationItem'
-import KebabActionItemLink from './KebabActionItemLink'
+import KebabActionItem from './KebabActionItem'
 import LanguageSelector from './LanguageSelector'
+import Link from './base/Link'
 
 type CityContentHeaderProps = {
   cityModel: CityModel
@@ -70,7 +71,9 @@ const CityContentHeader = ({
       ]
 
   const kebabItems = [
-    <KebabActionItemLink key='location' to={landingPath} text={t('changeLocation')} iconSrc={LocationIcon} />,
+    <Link key='location' to={landingPath}>
+      <KebabActionItem text={t('changeLocation')} iconSrc={LocationIcon} />
+    </Link>,
     <LanguageSelector
       key='language'
       languageChangePaths={languageChangePaths}
