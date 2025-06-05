@@ -49,9 +49,9 @@ describe('TtsContainer', () => {
     )
   }
 
-  const renderTtsPlayer = (): RenderAPI =>
+  const renderTtsPlayer = (languageCode = 'en'): RenderAPI =>
     renderWithTheme(
-      <TestingAppContext languageCode='en'>
+      <TestingAppContext languageCode={languageCode}>
         <TtsContainer>
           <TestChild />
         </TtsContainer>
@@ -90,6 +90,20 @@ describe('TtsContainer', () => {
     expect(showSnackbar).not.toHaveBeenCalled()
     expect(Tts.getInitStatus).toHaveBeenCalledTimes(1)
     await waitFor(() => expect(getByRole('button', { name: 'play' })).toBeTruthy())
+  })
+
+  it('should set correct language for Deutsch (leicht)', async () => {
+    mockBuildConfig(true)
+    const { getByText, getByRole } = renderTtsPlayer('de-si')
+    fireEvent.press(getByText('set sentences'))
+    fireEvent.press(getByText('show'))
+
+    await waitFor(() => expect(getByRole('button', { name: 'play' })).toBeTruthy())
+    fireEvent.press(getByRole('button', { name: 'play' }))
+    await waitFor(() => expect(getByRole('button', { name: 'pause' })).toBeTruthy())
+
+    expect(Tts.setDefaultLanguage).toHaveBeenCalledTimes(1)
+    expect(Tts.setDefaultLanguage).toHaveBeenCalledWith('de')
   })
 
   it('should start playing and pause when the button is pressed', async () => {
