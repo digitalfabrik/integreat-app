@@ -2,7 +2,7 @@ import React, { createContext, ReactElement, useCallback, useContext, useEffect,
 import { useTranslation } from 'react-i18next'
 import Tts, { Options } from 'react-native-tts'
 
-import { TTS_MAX_TITLE_DISPLAY_CHARS } from 'shared'
+import { getGenericLanguageCode, TTS_MAX_TITLE_DISPLAY_CHARS } from 'shared'
 import { useLoadAsync } from 'shared/api'
 import { truncate } from 'shared/utils/getExcerpt'
 
@@ -55,7 +55,8 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
   const title = sentences[0] || t('nothingToRead')
   const shortTitle = truncate(title, { maxChars: TTS_MAX_TITLE_DISPLAY_CHARS })
   const { data: voices } = useLoadAsync(Tts.voices)
-  const isLanguageSupported = voices && voices.some(({ language }) => language.split('-')[0] === languageCode)
+  const isLanguageSupported =
+    voices && voices.some(({ language }) => getGenericLanguageCode(language) === getGenericLanguageCode(languageCode))
   const enabled = buildConfig().featureFlags.tts
 
   const initializeTts = useCallback(async (): Promise<void> => {
@@ -120,7 +121,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
         setIsPlaying(true)
         setSentenceIndex(safeIndex)
         Tts.addEventListener('tts-finish', () => play(safeIndex + 1))
-        Tts.setDefaultLanguage(languageCode)
+        Tts.setDefaultLanguage(getGenericLanguageCode(languageCode))
         Tts.speak(sentence, TTS_OPTIONS)
       } else {
         stop()

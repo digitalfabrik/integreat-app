@@ -39,7 +39,7 @@ const Wrapper = styled.div`
   align-items: center;
 
   @media ${dimensions.smallViewport} {
-    padding: 10px 0;
+    padding: 10px 5%;
     justify-content: center;
   }
 `
@@ -52,6 +52,7 @@ const StyledIcon = styled(Icon)`
 const Column = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
 `
 
 const Description = styled.div`

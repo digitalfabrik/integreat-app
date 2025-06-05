@@ -1,5 +1,7 @@
 import EasySpeech from 'easy-speech'
 
+import { getGenericLanguageCode } from 'shared'
+
 const uninitializedStatus = ['init: failed', 'created']
 
 export const ttsInitialized = (): boolean =>
@@ -19,6 +21,7 @@ export const getTtsVoice = (languageCode: string): SpeechSynthesisVoice | null =
   if (!ttsInitialized()) {
     return null
   }
-  const voices = EasySpeech.voices().filter(voice => voice.lang.startsWith(languageCode))
-  return voices.find(voice => voice.name.includes(defaultVoices[languageCode] ?? '')) ?? voices[0] ?? null
+  const genericLanguageCode = getGenericLanguageCode(languageCode)
+  const voices = EasySpeech.voices().filter(voice => voice.lang.startsWith(genericLanguageCode))
+  return voices.find(voice => voice.name.includes(defaultVoices[genericLanguageCode] ?? '')) ?? voices[0] ?? null
 }
