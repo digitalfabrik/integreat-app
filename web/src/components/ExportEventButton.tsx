@@ -76,7 +76,7 @@ const ExportEventButton = ({ event }: ExportEventButtonProps): ReactElement => {
             setExportRecurring(false)
             setIsExporting(false)
           }}
-          text={t('exportAsICal')}
+          text={t('export')}
           fullWidth={viewportSmall}
         />
       </ButtonContainer>
@@ -84,7 +84,7 @@ const ExportEventButton = ({ event }: ExportEventButtonProps): ReactElement => {
   ) : (
     <StyledButton
       onClick={() => (isRecurring ? setIsExporting(true) : downloadEventAsIcsFile(event, false))}
-      text={t('exportAsICal')}
+      text={t('export')}
       fullWidth={viewportSmall}
     />
   )
