@@ -421,6 +421,13 @@ jobs:
         docker:
             - image: cimg/node:20.17.0
         parameters:
+            platform:
+                default: all
+                enum:
+                    - all
+                    - web
+                    - native
+                type: enum
             prepare_delivery:
                 default: false
                 description: Whether to prepare for a delivery. If true, the version bump is committed.
@@ -441,7 +448,7 @@ jobs:
                 condition: << parameters.prepare_delivery >>
                 steps:
                     - run:
-                        command: yarn app-toolbelt v0 release bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
+                        command: yarn app-toolbelt v0 release bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH} --platforms << parameters.platform >>
                         name: Bump git version
                         working_directory: tools
             - when:
@@ -1164,6 +1171,7 @@ workflows:
                 context:
                     - mattermost
                     - deliverino
+                platform: native
                 prepare_delivery: true
             - check:
                 context:
@@ -1273,6 +1281,7 @@ workflows:
                 context:
                     - mattermost
                     - deliverino
+                platform: native
                 prepare_delivery: true
             - check:
                 context:
@@ -1462,6 +1471,7 @@ workflows:
                 context:
                     - mattermost
                     - deliverino
+                platform: web
                 prepare_delivery: true
             - check:
                 context:
@@ -1517,6 +1527,7 @@ workflows:
                 context:
                     - mattermost
                     - deliverino
+                platform: web
                 prepare_delivery: true
             - check:
                 context:

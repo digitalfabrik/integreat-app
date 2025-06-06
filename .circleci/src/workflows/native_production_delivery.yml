@@ -5,6 +5,7 @@ when:
 jobs:
   - bump_version:
       prepare_delivery: true
+      platform: native
       context:
         - mattermost
         - deliverino
