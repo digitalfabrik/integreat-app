@@ -378,9 +378,9 @@ agent-base@6:
   dependencies:
     debug "4"
 
-"app-toolbelt@github:digitalfabrik/app-toolbelt#semver:0.5.5":
-  version "0.5.3"
-  resolved "https://codeload.github.com/digitalfabrik/app-toolbelt/tar.gz/9ab3795bad41cfb699da2c20ed30ddb2445cc23e"
+"app-toolbelt@github:digitalfabrik/app-toolbelt#semver:0.5.6":
+  version "0.5.6"
+  resolved "https://codeload.github.com/digitalfabrik/app-toolbelt/tar.gz/69d2a7a2a571cd6f15a0bf9eba31615419f736aa"
   dependencies:
     "@octokit/auth-app" "^7.1.5"
     "@octokit/rest" "^21.1.1"
