@@ -3,6 +3,7 @@ import { TFunction } from 'i18next'
 import { Role } from 'react-native'
 import { openSettings } from 'react-native-permissions'
 
+import { ThemeKey } from 'build-configs/ThemeKey'
 import { CONSENT_ROUTE, JPAL_TRACKING_ROUTE, LICENSES_ROUTE, SettingsRouteType } from 'shared'
 
 import { SnackbarType } from '../components/SnackbarContainer'
@@ -85,6 +86,15 @@ const createSettingsSections = ({
         },
       }
     : null,
+  {
+    title: t('layout:contrastTheme'),
+    description: t('layout:contrastThemeDescription'),
+    getSettingValue: (settings: SettingsType) => settings.selectedTheme === 'contrast',
+    onPress: () => {
+      const newTheme: ThemeKey = settings.selectedTheme === 'light' ? 'contrast' : 'light'
+      updateSettings({ selectedTheme: newTheme })
+    },
+  },
   {
     title: t('sentryTitle'),
     description: t('sentryDescription', { appName: buildConfig().appName }),
