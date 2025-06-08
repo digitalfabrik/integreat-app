@@ -18,10 +18,6 @@ const TitleContainer = styled.View`
   justify-content: space-between;
 `
 
-const StyledText = styled(Text)`
-  color: ${props => props.theme.colors.textColor};
-`
-
 const ThemedText = styled(Text)`
   display: flex;
   text-align: center;
@@ -82,11 +78,11 @@ const InputSection = ({
       {title || showOptional || hint ? (
         <TitleContainer>
           {title ? <Title>{title}</Title> : null}
-          {hint ? <StyledText>{hint}</StyledText> : null}
-          {showOptional && <StyledText>({t('optional')})</StyledText>}
+          {hint ? <Text>{hint}</Text> : null}
+          {showOptional && <Text>({t('optional')})</Text>}
         </TitleContainer>
       ) : null}
-      {description ? <StyledText>{description}</StyledText> : null}
+      {description ? <Text>{description}</Text> : null}
       <Input
         onChangeText={onChange}
         onBlur={onBlur}

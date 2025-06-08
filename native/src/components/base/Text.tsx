@@ -6,6 +6,7 @@ import { contentAlignmentRTLText } from '../../constants/contentDirection'
 
 const StyledText = styled(RNText)<{ alignment: 'left' | 'right' }>`
   text-align: ${props => props.alignment};
+  color: ${props => props.theme.colors.textColor};
 `
 /** Direction aware text component */
 const Text = (props: TextProps): ReactElement => {

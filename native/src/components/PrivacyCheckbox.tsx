@@ -21,10 +21,6 @@ const StyledLabel = styled(Text)`
   flex: 1;
 `
 
-const StyledLink = styled(Link)`
-  color: ${props => props.theme.colors.linkColor};
-`
-
 type PrivacyCheckboxProps = {
   language: string
   checked: boolean
@@ -40,7 +36,7 @@ const PrivacyCheckbox = ({ language, checked, setChecked }: PrivacyCheckboxProps
       <StyledLabel>
         <Trans i18nKey='common:privacyPolicy'>
           This gets replaced
-          <StyledLink url={privacyUrl}>by react-i18next</StyledLink>
+          <Link url={privacyUrl}>by react-i18next</Link>
         </Trans>
       </StyledLabel>
     </StyledPressable>
