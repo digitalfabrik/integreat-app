@@ -56,6 +56,7 @@ const useSearch = (documents: SearchResult[], query: string): UseSearchReturn =>
       searchOptions: {
         boost: { title: 2 },
         fuzzy: true,
+        combineWith: 'AND',
         prefix: true,
       },
     }),
