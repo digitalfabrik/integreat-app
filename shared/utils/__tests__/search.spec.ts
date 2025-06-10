@@ -1,6 +1,9 @@
-import { filterSortCities } from '../..'
+import { DateTime } from 'luxon'
+
+import { filterRedundantFallbackLanguageResults, filterSortCities } from '../..'
 import LanguageModelBuilder from '../../api/endpoints/testing/LanguageModelBuilder'
 import CityModel from '../../api/models/CityModel'
+import ExtendedPageModel from '../../api/models/ExtendedPageModel'
 
 describe('search', () => {
   describe('filterSortCities', () => {
@@ -107,6 +110,72 @@ describe('search', () => {
         city({ sortingName: 'Nürnberg' }),
       ]
       expect(filterSortCities(cities, 'äch')).toEqual([cities[0], cities[3], cities[4], cities[5]])
+    })
+  })
+
+  describe('filterRedundantFallbackLanguageResults', () => {
+    it('should filter out fallback language results that are also found in the users language', () => {
+      const fallbackLanguageResults = [
+        new ExtendedPageModel({
+          path: '/testumgebung/de/arbeit',
+          title: 'Arbeit',
+          content: 'Arbeit',
+          lastUpdate: DateTime.now(),
+          thumbnail: null,
+          availableLanguages: { en: '/testumgebung/en/work' },
+        }),
+        new ExtendedPageModel({
+          path: '/testumgebung/de/willkommen',
+          title: 'Willkommen',
+          content: 'Willkommen in der Testumgebung',
+          lastUpdate: DateTime.now(),
+          thumbnail: null,
+          availableLanguages: { en: '/testumgebung/en/welcome' },
+        }),
+        new ExtendedPageModel({
+          path: '/testumgebung/de/willkommen/willkommen-in-deutschland',
+          title: 'Willkommen in Deutschland',
+          content: 'Willkommen in der Deutschland',
+          lastUpdate: DateTime.now(),
+          thumbnail: null,
+          availableLanguages: { en: '/testumgebung/en/welcome/welcome-to-germany' },
+        }),
+        new ExtendedPageModel({
+          path: '/testumgebung/de/bildung/grundschule',
+          title: 'Grundschule',
+          content: 'Grundschule',
+          lastUpdate: DateTime.now(),
+          thumbnail: null,
+          availableLanguages: { en: '/testumgebung/en/education/primary-school' },
+        }),
+      ]
+
+      const contentLanguageResults = [
+        new ExtendedPageModel({
+          path: '/testumgebung/en/welcome',
+          title: 'Willkommen',
+          content: 'Willkommen in der Testumgebung',
+          lastUpdate: DateTime.now(),
+          thumbnail: null,
+          availableLanguages: { de: '/testumgebung/de/willkommen' },
+        }),
+        new ExtendedPageModel({
+          path: '/testumgebung/en/welcome/welcome-to-germany',
+          title: 'Welcome to Germany',
+          content: 'Welcome to Germany',
+          lastUpdate: DateTime.now(),
+          thumbnail: null,
+          availableLanguages: { de: '/testumgebung/de/willkommen/willkommen-in-deutschland' },
+        }),
+      ]
+
+      expect(
+        filterRedundantFallbackLanguageResults({
+          fallbackLanguageResults,
+          contentLanguageResults,
+          fallbackLanguage: 'de',
+        }),
+      ).toEqual([fallbackLanguageResults[0], fallbackLanguageResults[3]])
     })
   })
 })

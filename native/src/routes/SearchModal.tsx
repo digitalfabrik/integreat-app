@@ -11,7 +11,9 @@ import {
   useSearch,
   useDebounce,
   MAX_SEARCH_RESULTS,
+  filterRedundantFallbackLanguageResults,
 } from 'shared'
+import { config } from 'translations'
 
 import FeedbackContainer from '../components/FeedbackContainer'
 import List from '../components/List'
@@ -61,7 +63,12 @@ const SearchModal = ({
   const debouncedQuery = useDebounce(query)
   const contentLanguageReturn = useSearch(documents, debouncedQuery)
   const fallbackLanguageReturn = useSearch(fallbackLanguageDocuments, debouncedQuery)
-  const searchResults = contentLanguageReturn.data.concat(fallbackLanguageReturn.data).slice(0, MAX_SEARCH_RESULTS)
+  const fallbackLanguageResults = filterRedundantFallbackLanguageResults({
+    fallbackLanguageResults: fallbackLanguageReturn.data,
+    contentLanguageResults: contentLanguageReturn.data,
+    fallbackLanguage: config.sourceLanguage,
+  })
+  const searchResults = contentLanguageReturn.data.concat(fallbackLanguageResults).slice(0, MAX_SEARCH_RESULTS)
 
   useReportError(contentLanguageReturn.error ?? fallbackLanguageReturn.error)
   useAnnounceSearchResultsIOS(searchResults)
