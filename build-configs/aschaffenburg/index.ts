@@ -9,7 +9,7 @@ import {
 } from '../BuildConfigType'
 import { APP_STORE_TEAM_ID } from '../common/constants'
 import mainImprint from './mainImprint'
-import { legacyContrastTheme, legacyLightTheme } from './theme'
+import { darkTheme, legacyContrastTheme, legacyLightTheme, lightTheme } from './theme'
 
 const APPLICATION_ID = 'app.aschaffenburg'
 const BUNDLE_IDENTIFIER = 'app.aschaffenburg'
@@ -18,6 +18,8 @@ const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
   appName: 'hallo aschaffenburg',
   appIcon: 'app_icon_aschaffenburg',
   notificationIcon: 'notification_icon_aschaffenburg',
+  lightTheme,
+  darkTheme,
   legacyLightTheme,
   legacyContrastTheme,
   assets: ASCHAFFENBURG_ASSETS,
