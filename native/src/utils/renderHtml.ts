@@ -94,37 +94,26 @@ const renderJS = (
     }
   })();
 
-  (function removeBlackColorProperty() {
-    const elements = document.querySelectorAll('*');
-    elements.forEach(element => {
-      if (element instanceof HTMLElement && getComputedStyle(element).color === 'rgb(0, 0, 0)') {
+  (function adjustForContrastTheme() {
+    const allElements = document.querySelectorAll('*');
+    allElements.forEach(element => {
+      if (element instanceof HTMLElement && element.style.color === 'rgb(0, 0, 0)') {
         element.style.removeProperty('color');
       }
-    });
-  })();
-
-  (function invertSvgImagesInContrastTheme() {
-    const theme = ${JSON.stringify(theme.isContrastTheme)}
-    if (!theme) return;
-
-    const images = document.querySelectorAll('img');
-    images.forEach(img => {
-      if (img.src.endsWith('.svg')) {
-        img.style.filter = 'invert(1)';
+      
+      if (element instanceof HTMLImageElement && element.src.endsWith('.svg') && ${theme.isContrastTheme}) {
+        element.style.setProperty('filter', 'invert(1)');
       }
     });
-  })();
-
-  (function changeContactCardIconBackgroundImageColor() {
-    const theme = ${JSON.stringify(theme.isContrastTheme)}; 
-    if(!theme) return;
-
+    
     const contactCards = document.querySelectorAll('.contact-card');
     contactCards.forEach(contactCard => {
-      contactCard.style.backgroundImage = "none";
+      if(contactCard instanceof HTMLElement && ${theme.isContrastTheme}){
+      contactCard.style.removeProperty('backgroundImage');
       contactCard.style.backgroundImage = \`
-            linear-gradient(to right, rgb(127 127 127 / 0) 0 100%),
-            url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTMuMDE4IDEyLjQ4aC0yLjAzNkE5LjA5IDkuMDkgMCAwIDAgMS45MiAyMS42YS40OC40OCAwIDAgMCAuNDguNDhoMTkuMmEuNTMuNTMgMCAwIDAgLjQ4LS41MzggOS4wOCA5LjA4IDAgMCAwLTkuMDYyLTkuMDYyTTE2LjggNi43MmE0LjggNC44IDAgMCAxLTQuOCA0LjggNC44IDQuOCAwIDAgMS00LjgtNC44IDQuOCA0LjggMCAwIDEgNC44LTQuOCA0LjggNC44IDAgMCAxIDQuOCA0LjgiLz48L3N2Zz4=')\`;
+      linear-gradient(to right, rgb(127 127 127 / 0) 0 100%),
+      url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTMuMDE4IDEyLjQ4aC0yLjAzNkE5LjA5IDkuMDkgMCAwIDAgMS45MiAyMS42YS40OC40OCAwIDAgMCAuNDguNDhoMTkuMmEuNTMuNTMgMCAwIDAgLjQ4LS41MzggOS4wOCA5LjA4IDAgMCAwLTkuMDYyLTkuMDYyTTE2LjggNi43MmE0LjggNC44IDAgMCAxLTQuOCA0LjggNC44IDQuOCAwIDAgMS00LjgtNC44IDQuOCA0LjggMCAwIDEgNC44LTQuOCA0LjggNC44IDAgMCAxIDQuOCA0LjgiLz48L3N2Zz4=')
+    \`;}
     });
   })();
 
