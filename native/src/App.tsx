@@ -25,7 +25,6 @@ import buildConfig from './constants/buildConfig'
 import { userAgent } from './constants/endpoint'
 import AppContextProvider from './contexts/AppContextProvider'
 import useSendOfflineJpalSignals from './hooks/useSendOfflineJpalSignals'
-import { backgroundAppStatePushNotificationListener } from './utils/PushNotificationsManager'
 import sendTrackingSignal from './utils/sendTrackingSignal'
 
 enableScreens(true)
@@ -54,7 +53,6 @@ const linking: LinkingOptions<RoutesParamsType> = {
       },
     ],
   }),
-  subscribe: backgroundAppStatePushNotificationListener,
 }
 setUserAgent(userAgent)
 
