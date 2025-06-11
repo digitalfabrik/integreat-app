@@ -58,8 +58,8 @@ import { ASYNC_STORAGE_VERSION } from './utils/AppSettings'
 import dataContainer from './utils/DefaultDataContainer'
 import {
   initialPushNotificationRequest,
-  quitAppStatePushNotificationListener,
-  useForegroundPushNotificationListener,
+  getInitialNotificationUrl,
+  useNotificationListener,
 } from './utils/PushNotificationsManager'
 import { initSentry, log, reportError } from './utils/sentry'
 
@@ -100,17 +100,12 @@ const Navigator = (): ReactElement | null => {
     initialPushNotificationRequest(appContext).catch(reportError)
   }, [appContext])
 
-  useForegroundPushNotificationListener({ showSnackbar, navigate: navigation.navigate })
+  useNotificationListener(navigation.navigate)
 
   useEffect(() => {
     // If the app is opened by clicking on a push notification, the navigation object is initially not ready
     // Therefore use the RedirectContainer to handle the deep link to the local news
-    quitAppStatePushNotificationListener((url: string) =>
-      setInitialRoute({
-        name: REDIRECT_ROUTE,
-        url,
-      }),
-    )
+    getInitialNotificationUrl(url => setInitialRoute({ name: REDIRECT_ROUTE, url }))
   }, [])
 
   const updateInitialRoute = useCallback(

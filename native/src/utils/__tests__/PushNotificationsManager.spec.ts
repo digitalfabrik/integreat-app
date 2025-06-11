@@ -1,4 +1,6 @@
+import notifee from '@notifee/react-native'
 import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
+import { waitFor } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import { requestNotifications } from 'react-native-permissions'
 
@@ -8,12 +10,15 @@ import * as PushNotificationsManager from '../PushNotificationsManager'
 const messaging = {
   subscribeToTopic: jest.fn(),
   unsubscribeFromTopic: jest.fn(),
-  getInitialNotification: jest.fn(),
   requestPermission: jest.fn(),
 }
 
 jest.mock('@react-native-firebase/messaging', () => ({
   getMessaging: () => messaging,
+}))
+
+jest.mock('@notifee/react-native', () => ({
+  getInitialNotification: jest.fn(),
 }))
 
 describe('PushNotificationsManager', () => {
@@ -196,22 +201,26 @@ describe('PushNotificationsManager', () => {
         language_code: 'de',
         news_id: '123',
         group: 'news',
+        url: '',
       },
       fcmOptions: {},
     }
     it('should go to news if there is an initial message', async () => {
       const url = 'https://integreat.app/augsburg/de/news/local/123'
-      messaging.getInitialNotification.mockImplementation(async () => message)
+      mocked(notifee.getInitialNotification).mockImplementation(async () => ({
+        notification: message,
+        pressAction: { id: 'PRESS' },
+      }))
 
-      await PushNotificationsManager.quitAppStatePushNotificationListener(navigateToDeepLink)
-      expect(navigateToDeepLink).toHaveBeenCalledTimes(1)
+      PushNotificationsManager.getInitialNotificationUrl(navigateToDeepLink)
+      await waitFor(() => expect(navigateToDeepLink).toHaveBeenCalledTimes(1))
       expect(navigateToDeepLink).toHaveBeenCalledWith(url)
     })
 
     it('should not go to news if there is no initial message', async () => {
-      messaging.getInitialNotification.mockImplementation(async () => null)
+      mocked(notifee.getInitialNotification).mockImplementation(async () => null)
 
-      await PushNotificationsManager.quitAppStatePushNotificationListener(navigateToDeepLink)
+      PushNotificationsManager.getInitialNotificationUrl(navigateToDeepLink)
       expect(navigateToDeepLink).not.toHaveBeenCalled()
     })
   })
