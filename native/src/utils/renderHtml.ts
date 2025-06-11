@@ -115,6 +115,20 @@ const renderJS = (
     });
   })();
 
+  (function changeContactCardIconBackgroundImageColor() {
+    const theme = ${JSON.stringify(theme.isContrastTheme)}; 
+    if(!theme) return;
+
+    const contactCards = document.querySelectorAll('.contact-card');
+    contactCards.forEach(contactCard => {
+      contactCard.style.backgroundImage = "none";
+      contactCard.style.backgroundImage = \`
+            linear-gradient(to right, rgb(127 127 127 / 0) 0 100%),
+            url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTMuMDE4IDEyLjQ4aC0yLjAzNkE5LjA5IDkuMDkgMCAwIDAgMS45MiAyMS42YS40OC40OCAwIDAgMCAuNDguNDhoMTkuMmEuNTMuNTMgMCAwIDAgLjQ4LS41MzggOS4wOCA5LjA4IDAgMCAwLTkuMDYyLTkuMDYyTTE2LjggNi43MmE0LjggNC44IDAgMCAxLTQuOCA0LjggNC44IDQuOCAwIDAgMS00LjgtNC44IDQuOCA0LjggMCAwIDEgNC44LTQuOCA0LjggNC44IDAgMCAxIDQuOCA0LjgiLz48L3N2Zz4=')\`;
+    });
+  })();
+
+
   (function addWebviewHeightListeners() {
     const container = document.getElementById('measure-container')
 
@@ -464,7 +478,7 @@ const renderHtml = (
         margin-left: 12px;
         align-self: center;
       }
-      
+
     </style>
   </head>
   <body dir='auto'>
