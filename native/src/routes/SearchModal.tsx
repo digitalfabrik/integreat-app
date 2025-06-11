@@ -7,12 +7,12 @@ import {
   parseHTML,
   SEARCH_FINISHED_SIGNAL_NAME,
   SEARCH_ROUTE,
-  SearchResult,
   useSearch,
   useDebounce,
   MAX_SEARCH_RESULTS,
   filterRedundantFallbackLanguageResults,
 } from 'shared'
+import { ExtendedPageModel } from 'shared/api'
 import { config } from 'translations'
 
 import FeedbackContainer from '../components/FeedbackContainer'
@@ -40,8 +40,8 @@ const SearchCounter = styled.Text`
 `
 
 export type SearchModalProps = {
-  documents: SearchResult[]
-  fallbackLanguageDocuments: SearchResult[]
+  documents: ExtendedPageModel[]
+  fallbackLanguageDocuments: ExtendedPageModel[]
   languageCode: string
   cityCode: string
   closeModal: (query: string) => void
@@ -84,7 +84,7 @@ const SearchModal = ({
     closeModal(query)
   }
 
-  const renderItem = ({ item }: { item: SearchResult }) => (
+  const renderItem = ({ item }: { item: ExtendedPageModel }) => (
     <SearchListItem
       key={item.path}
       title={item.title}
