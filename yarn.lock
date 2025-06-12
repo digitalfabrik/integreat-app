@@ -2396,10 +2396,10 @@
   resolved "https://registry.yarnpkg.com/@img/sharp-win32-x64/-/sharp-win32-x64-0.33.5.tgz#56f00962ff0c4e0eb93d34a047d29fa995e3e342"
   integrity sha512-MpY/o8/8kj+EcnxwvrP4aTJSWw/aZ7JIGR4aBeZkZw5B7/Jn+tY9/VNwtcoGmdT7GfggGIU4kygOMSbYnOrAbg==
 
-"@integreat-app/react-sticky-headroom@^2.2.1":
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/@integreat-app/react-sticky-headroom/-/react-sticky-headroom-2.2.1.tgz#2fda1e022d6df705bac371e88c443ad9e08ce674"
-  integrity sha512-2I3mJGHJulNL43Cr1k1NOKLZQ051TBplypXchDUjme1sikmOjNZAACdQt1MTNzr2rbgKbFkRvGxX6km7FegciA==
+"@integreat-app/react-sticky-headroom@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@integreat-app/react-sticky-headroom/-/react-sticky-headroom-3.0.0.tgz#6989dd9365c1340c1803547be4d37b0e35a33bb2"
+  integrity sha512-fWTehT3sQYj7qBmxLdM2jJviKeXpZLzyDBb2+9xXuamDcbP9Nyu5zakUYu0tkkiaFLEQVgSQBF16rGALBQknOw==
 
 "@isaacs/cliui@^8.0.2":
   version "8.0.2"
