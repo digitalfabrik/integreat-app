@@ -1,0 +1,8 @@
+issue_key: 3326
+show_in_stores: true
+platforms:
+  - android
+  - ios
+  - web
+en: Only show relevant search results for multi-word searches.
+de: Beschränkung der Suchergebnisse auf relevante Ergebnisse bei Suchanfragen mit mehreren Worten.

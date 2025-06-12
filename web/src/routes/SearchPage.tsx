@@ -11,6 +11,7 @@ import {
   SEARCH_QUERY_KEY,
   useDebounce,
   MAX_SEARCH_RESULTS,
+  filterRedundantFallbackLanguageResults,
 } from 'shared'
 import { config } from 'translations'
 
@@ -66,7 +67,12 @@ const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
   const contentLanguageReturn = useSearch(contentLanguageDocuments, debouncedQuery)
   const fallbackLanguageDocuments = languageCode !== fallbackLanguage ? fallbackData : []
   const fallbackLanguageReturn = useSearch(fallbackLanguageDocuments, debouncedQuery)
-  const results = contentLanguageReturn.data.concat(fallbackLanguageReturn.data).slice(0, MAX_SEARCH_RESULTS)
+  const fallbackLanguageResults = filterRedundantFallbackLanguageResults({
+    fallbackLanguageResults: fallbackLanguageReturn.data,
+    contentLanguageResults: contentLanguageReturn.data,
+    fallbackLanguage,
+  })
+  const results = contentLanguageReturn.data.concat(fallbackLanguageResults).slice(0, MAX_SEARCH_RESULTS)
 
   useReportError(contentLanguageReturn.error ?? fallbackLanguageReturn.error)
 

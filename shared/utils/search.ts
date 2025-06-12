@@ -1,4 +1,5 @@
 import CityModel from '../api/models/CityModel'
+import ExtendedPageModel from '../api/models/ExtendedPageModel'
 import { normalizeString } from './normalizeString'
 
 const cityFilter =
@@ -20,3 +21,18 @@ const citySort = (a: CityModel, b: CityModel): number =>
 
 export const filterSortCities = (cities: CityModel[], filterText: string, developerFriendly = false): CityModel[] =>
   cities.filter(cityFilter(filterText, developerFriendly)).sort(citySort)
+
+type FilterRedundantFallbackLanguageResultsParams = {
+  fallbackLanguageResults: ExtendedPageModel[]
+  contentLanguageResults: ExtendedPageModel[]
+  fallbackLanguage: string
+}
+
+export const filterRedundantFallbackLanguageResults = ({
+  fallbackLanguageResults,
+  contentLanguageResults,
+  fallbackLanguage,
+}: FilterRedundantFallbackLanguageResultsParams): ExtendedPageModel[] =>
+  fallbackLanguageResults.filter(
+    result => !contentLanguageResults.some(it => it.availableLanguages[fallbackLanguage] === result.path),
+  )

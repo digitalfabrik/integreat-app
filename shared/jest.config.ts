@@ -4,7 +4,7 @@ export default {
   automock: false,
   setupFiles: ['<rootDir>/jest.setup.ts'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
-  testEnvironment: 'node',
+  testEnvironment: 'jsdom',
   testPathIgnorePatterns: ['<rootDir>/dist/', '<rootDir>/node_modules/'],
   transform: {
     '^.+\\.(j|t)sx?$': ['ts-jest', { isolatedModules: true }],
