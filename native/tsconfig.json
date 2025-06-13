@@ -7,7 +7,8 @@
     "baseUrl": ".",
     "isolatedModules": true,
     "jsx": "react",
-    "module": "es2020",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "outDir": "dist",
     "paths": {
       "normalize-strings": ["../shared/@types/normalize-strings"],

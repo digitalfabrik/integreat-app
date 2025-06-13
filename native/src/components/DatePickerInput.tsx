@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import React, { forwardRef, ReactElement, RefObject } from 'react'
+import React, { ReactElement, RefObject } from 'react'
 import { NativeSyntheticEvent, StyleProp, TextInput, TextInputKeyPressEventData, ViewStyle } from 'react-native'
 import styled from 'styled-components/native'
 
@@ -48,7 +48,7 @@ const validate = (
 const handleInputChangeAndFocusNext = (
   text: string,
   setInputValue: (newValue: string | undefined) => void,
-  ref?: RefObject<TextInput>,
+  ref?: RefObject<TextInput | null>,
 ) => {
   setInputValue(text)
   if (ref && text.length === 2) {
@@ -56,7 +56,7 @@ const handleInputChangeAndFocusNext = (
   }
 }
 
-const handleKeyPress = (key: string, currentInput: string | undefined, refPrev?: RefObject<TextInput>) => {
+const handleKeyPress = (key: string, currentInput: string | undefined, refPrev?: RefObject<TextInput | null>) => {
   if (key === 'Backspace') {
     if (currentInput?.length === 0 && refPrev) {
       refPrev.current?.focus()
@@ -65,33 +65,42 @@ const handleKeyPress = (key: string, currentInput: string | undefined, refPrev?:
 }
 
 type DatePickerInputProps = {
-  nextTargetRef?: RefObject<TextInput>
-  prevTargetRef?: RefObject<TextInput>
+  nextTargetRef?: RefObject<TextInput | null>
+  prevTargetRef?: RefObject<TextInput | null>
   placeholder: string
   type: 'day' | 'month' | 'year'
   inputValue: string | undefined
   setInputValue: (newValue: string | undefined) => void
   style?: StyleProp<ViewStyle>
+  ref?: RefObject<TextInput | null>
 }
 
-const DatePickerInput = forwardRef<TextInput, DatePickerInputProps>(
-  ({ nextTargetRef, prevTargetRef, placeholder, type, inputValue, setInputValue, style }, ref): ReactElement => (
-    <Input
-      style={style}
-      ref={ref}
-      placeholder={placeholder}
-      keyboardType='numeric'
-      maxLength={type === 'year' ? yearLength : 2}
-      onBlur={() => validate(inputValue, setInputValue, type)}
-      onChangeText={text => {
-        handleInputChangeAndFocusNext(text, setInputValue, nextTargetRef)
-      }}
-      selectTextOnFocus
-      value={inputValue}
-      onKeyPress={({ nativeEvent }: NativeSyntheticEvent<TextInputKeyPressEventData>) => {
-        handleKeyPress(nativeEvent.key, inputValue, prevTargetRef)
-      }}
-    />
-  ),
+const DatePickerInput = ({
+  nextTargetRef,
+  prevTargetRef,
+  placeholder,
+  type,
+  inputValue,
+  setInputValue,
+  style,
+  ref,
+}: DatePickerInputProps): ReactElement => (
+  <Input
+    style={style}
+    ref={ref}
+    placeholder={placeholder}
+    keyboardType='numeric'
+    maxLength={type === 'year' ? yearLength : 2}
+    onBlur={() => validate(inputValue, setInputValue, type)}
+    onChangeText={text => {
+      handleInputChangeAndFocusNext(text, setInputValue, nextTargetRef)
+    }}
+    selectTextOnFocus
+    value={inputValue}
+    onKeyPress={({ nativeEvent }: NativeSyntheticEvent<TextInputKeyPressEventData>) => {
+      handleKeyPress(nativeEvent.key, inputValue, prevTargetRef)
+    }}
+  />
 )
+
 export default DatePickerInput

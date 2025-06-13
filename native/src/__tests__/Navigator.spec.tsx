@@ -25,6 +25,12 @@ jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter')
 jest.mock('@dr.pogodin/react-native-webview', () => ({
   default: () => jest.fn(),
 }))
+jest.mock('@dr.pogodin/react-native-static-server', () =>
+  jest.fn().mockImplementation(() => ({
+    start: jest.fn(() => Promise.resolve('http://localhost:8080')),
+    stop: jest.fn(() => Promise.resolve(true)),
+  })),
+)
 jest.mock('../routes/Intro', () => {
   const { Text } = require('react-native')
 
