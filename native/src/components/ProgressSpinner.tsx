@@ -18,6 +18,7 @@ const Text = styled.Text`
   padding-top: 25px;
   font-size: 20px;
   font-weight: 700;
+  color: ${props => props.theme.colors.textColor};
 `
 
 const LoadingImage = styled(buildConfigAssets().LoadingImage)`

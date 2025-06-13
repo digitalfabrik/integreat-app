@@ -21,6 +21,7 @@ const renderJS = (
   supportedIframeSources: string[],
   externalSourcePermissions: ExternalSourcePermissions,
   t: TFunction,
+  theme: DefaultTheme,
   deviceWidth: number,
   pageContainerPadding: number,
 ) => `
@@ -92,6 +93,30 @@ const renderJS = (
       }
     }
   })();
+
+  (function adjustForContrastTheme() {
+    const allElements = document.querySelectorAll('*');
+    allElements.forEach(element => {
+      if (element instanceof HTMLElement && element.style.color === 'rgb(0, 0, 0)') {
+        element.style.removeProperty('color');
+      }
+      
+      if (element instanceof HTMLImageElement && element.src.endsWith('.svg') && ${theme.isContrastTheme}) {
+        element.style.setProperty('filter', 'invert(1)');
+      }
+    });
+    
+    const contactCards = document.querySelectorAll('.contact-card');
+    contactCards.forEach(contactCard => {
+      if(contactCard instanceof HTMLElement && ${theme.isContrastTheme}){
+      contactCard.style.removeProperty('backgroundImage');
+      contactCard.style.backgroundImage = \`
+      linear-gradient(to right, rgb(127 127 127 / 0) 0 100%),
+      url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTMuMDE4IDEyLjQ4aC0yLjAzNkE5LjA5IDkuMDkgMCAwIDAgMS45MiAyMS42YS40OC40OCAwIDAgMCAuNDguNDhoMTkuMmEuNTMuNTMgMCAwIDAgLjQ4LS41MzggOS4wOCA5LjA4IDAgMCAwLTkuMDYyLTkuMDYyTTE2LjggNi43MmE0LjggNC44IDAgMCAxLTQuOCA0LjggNC44IDQuOCAwIDAgMS00LjgtNC44IDQuOCA0LjggMCAwIDEgNC44LTQuOCA0LjggNC44IDAgMCAxIDQuOCA0LjgiLz48L3N2Zz4=')
+    \`;}
+    });
+  })();
+
 
   (function addWebviewHeightListeners() {
     const container = document.getElementById('measure-container')
@@ -300,6 +325,7 @@ const renderHtml = (
         line-height: ${theme.fonts.contentLineHeight};
         font-size-adjust: ${theme.fonts.fontSizeAdjust};
         background-color: ${theme.colors.backgroundColor};
+        color: ${theme.colors.textColor}
       }
 
       body {
@@ -376,9 +402,8 @@ const renderHtml = (
         flex-direction: column;
         border: 1px solid ${theme.colors.borderColor};
         border-radius: 4px;
-        box-shadow:
-          0 1px 3px rgb(0 0 0 / 10%),
-          0 1px 2px rgb(0 0 0 / 15%);
+        box-shadow: 0 1px 3px rgb(0 0 0 / 10%),
+        0 1px 2px rgb(0 0 0 / 15%);
       }
 
       .iframe-info-text {
@@ -422,6 +447,10 @@ const renderHtml = (
         img {
           margin-inline-end: 8px;
         }
+
+        a {
+          color: ${theme.colors.linkColor};
+        }
       }
 
       #opt-in-settings-button {
@@ -438,7 +467,7 @@ const renderHtml = (
         margin-left: 12px;
         align-self: center;
       }
-      
+
     </style>
   </head>
   <body dir='auto'>
@@ -448,6 +477,7 @@ const renderHtml = (
     supportedIframeSources,
     externalSourcePermissions,
     t,
+    theme,
     deviceWidth,
     pageContainerPadding,
   )}</script>

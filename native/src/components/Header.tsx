@@ -2,6 +2,7 @@ import React, { ReactElement, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Share } from 'react-native'
 import { HiddenItem, Item } from 'react-navigation-header-buttons'
+import { useTheme } from 'styled-components'
 import styled from 'styled-components/native'
 
 import {
@@ -81,6 +82,7 @@ const Header = ({
 }: HeaderProps): ReactElement | null => {
   const { languageCode, cityCode } = useContext(AppContext)
   const { t } = useTranslation('layout')
+  const theme = useTheme()
   const showSnackbar = useSnackbar()
   // Save route/canGoBack to state to prevent it from changing during navigating which would lead to flickering of the title and back button
   const [previousRoute] = useState(navigation.getState().routes[navigation.getState().routes.length - 2])
@@ -132,7 +134,15 @@ const Header = ({
   )
 
   const renderOverflowItem = (title: string, onPress: () => void): ReactElement => (
-    <HiddenItem key={title} title={t(title)} onPress={onPress} />
+    <HiddenItem
+      key={title}
+      title={t(title)}
+      onPress={onPress}
+      style={{
+        backgroundColor: theme.colors.backgroundColor,
+      }}
+      titleStyle={{ color: theme.colors.textColor }}
+    />
   )
 
   const goToLanguageChange = () => {
