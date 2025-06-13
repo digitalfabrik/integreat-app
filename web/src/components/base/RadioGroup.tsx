@@ -1,5 +1,5 @@
+import styled from '@emotion/styled'
 import React, { ReactElement } from 'react'
-import styled from 'styled-components'
 
 import Input, { InputProps } from './Input'
 
@@ -20,7 +20,8 @@ const Radio = styled.input`
   width: 1.3em;
   height: 1.3em;
   align-self: center;
-  accent-color: ${props => props.theme.colors.textSecondaryColor};
+  accent-color: ${props =>
+    props.theme.isContrastTheme ? props.theme.colors.themeColor : props.theme.colors.textSecondaryColor};
   flex-shrink: 0;
 `
 

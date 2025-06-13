@@ -1,5 +1,5 @@
+import styled from '@emotion/styled'
 import React, { memo, ReactElement } from 'react'
-import styled from 'styled-components'
 
 import { SprungbrettJobModel } from 'shared/api'
 

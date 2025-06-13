@@ -3,7 +3,17 @@ import { useTranslation } from 'react-i18next'
 import { KeyboardAvoidingView, Platform } from 'react-native'
 import styled from 'styled-components/native'
 
-import { parseHTML, SEARCH_FINISHED_SIGNAL_NAME, SEARCH_ROUTE, SearchResult, useSearch, useDebounce } from 'shared'
+import {
+  parseHTML,
+  SEARCH_FINISHED_SIGNAL_NAME,
+  SEARCH_ROUTE,
+  useSearch,
+  useDebounce,
+  MAX_SEARCH_RESULTS,
+  filterRedundantFallbackLanguageResults,
+} from 'shared'
+import { ExtendedPageModel } from 'shared/api'
+import { config } from 'translations'
 
 import FeedbackContainer from '../components/FeedbackContainer'
 import List from '../components/List'
@@ -30,8 +40,8 @@ const SearchCounter = styled.Text`
 `
 
 export type SearchModalProps = {
-  documents: SearchResult[]
-  fallbackLanguageDocuments: SearchResult[]
+  documents: ExtendedPageModel[]
+  fallbackLanguageDocuments: ExtendedPageModel[]
   languageCode: string
   cityCode: string
   closeModal: (query: string) => void
@@ -53,7 +63,12 @@ const SearchModal = ({
   const debouncedQuery = useDebounce(query)
   const contentLanguageReturn = useSearch(documents, debouncedQuery)
   const fallbackLanguageReturn = useSearch(fallbackLanguageDocuments, debouncedQuery)
-  const searchResults = contentLanguageReturn.data.concat(fallbackLanguageReturn.data)
+  const fallbackLanguageResults = filterRedundantFallbackLanguageResults({
+    fallbackLanguageResults: fallbackLanguageReturn.data,
+    contentLanguageResults: contentLanguageReturn.data,
+    fallbackLanguage: config.sourceLanguage,
+  })
+  const searchResults = contentLanguageReturn.data.concat(fallbackLanguageResults).slice(0, MAX_SEARCH_RESULTS)
 
   useReportError(contentLanguageReturn.error ?? fallbackLanguageReturn.error)
   useAnnounceSearchResultsIOS(searchResults)
@@ -69,14 +84,14 @@ const SearchModal = ({
     closeModal(query)
   }
 
-  const renderItem = ({ item }: { item: SearchResult }) => (
+  const renderItem = ({ item }: { item: ExtendedPageModel }) => (
     <SearchListItem
       key={item.path}
       title={item.title}
       resourceCache={resourceCache[item.path] ?? {}}
       contentWithoutHtml={parseHTML(item.content)}
       language={languageCode}
-      query={query}
+      query={debouncedQuery}
       thumbnail={item.thumbnail}
       path={item.path}
     />
@@ -86,7 +101,7 @@ const SearchModal = ({
     <Wrapper {...testID('Search-Page')}>
       <SearchHeader query={query} closeSearchBar={onClose} onSearchChanged={setQuery} />
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
-        {query.length > 0 && (
+        {debouncedQuery.length > 0 && (
           <>
             <SearchCounter accessibilityLiveRegion={searchResults.length === 0 ? 'assertive' : 'polite'}>
               {t('searchResultsCount', { count: searchResults.length })}
@@ -103,7 +118,7 @@ const SearchModal = ({
                   language={languageCode}
                   cityCode={cityCode}
                   noResults={searchResults.length === 0}
-                  query={query}
+                  query={debouncedQuery}
                 />
               }
             />

@@ -1,6 +1,6 @@
+import { ThemeProvider } from '@emotion/react'
 import { fireEvent, waitFor } from '@testing-library/react'
 import React from 'react'
-import { ThemeProvider } from 'styled-components'
 
 import { UiDirectionType } from 'translations'
 

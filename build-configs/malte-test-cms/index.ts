@@ -23,7 +23,7 @@ const commonMalteTestCmsBuildConfig: CommonBuildConfigType = {
     fixedCity: null,
     cityNotCooperatingTemplate: null,
     chat: false,
-    tts: false,
+    tts: true,
   },
 }
 

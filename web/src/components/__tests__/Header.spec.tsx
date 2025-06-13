@@ -8,7 +8,8 @@ import { mockWindowDimensions } from '../../testing/utils'
 import { Header } from '../Header'
 import HeaderActionItemLink from '../HeaderActionItemLink'
 import HeaderNavigationItem from '../HeaderNavigationItem'
-import KebabActionItemLink from '../KebabActionItemLink'
+import KebabActionItem from '../KebabActionItem'
+import Link from '../base/Link'
 
 jest.mock('../../hooks/useWindowDimensions')
 jest.mock('react-inlinesvg')
@@ -42,7 +43,9 @@ describe('Header', () => {
         actionItems={[<HeaderActionItemLink key={0} to='/random_route' text='random route' iconSrc='/icon.jpg' />]}
         navigationItems={[<HeaderNavigationItem key={0} to='/another_route' text='text1' icon='icon.jpg' active />]}
         kebabItems={[
-          <KebabActionItemLink key='location' to='/kebab_route' text='Change Location' iconSrc='icon.jpg' />,
+          <Link key='location' to='/kebab_route'>
+            <KebabActionItem text='ChangeLocation' iconSrc='icon.jpg' />
+          </Link>,
         ]}
         cityName={cityName}
         cityCode='test'
@@ -53,7 +56,10 @@ describe('Header', () => {
     )
     expect(getByLabelText('layout:sideBarOpenAriaLabel')).toBeInTheDocument()
     fireEvent.click(getByLabelText('layout:sideBarOpenAriaLabel'))
-    expect(getByText('Change Location').parentElement).toHaveProperty('href', 'http://localhost/kebab_route')
+    expect(getByText('ChangeLocation').parentElement!.parentElement).toHaveProperty(
+      'href',
+      'http://localhost/kebab_route',
+    )
     expect(getByText('layout,settings:imprintAndContact')).toHaveProperty('href', 'http://localhost/test/de/disclaimer')
   })
 
@@ -65,7 +71,9 @@ describe('Header', () => {
         actionItems={[<HeaderActionItemLink key={0} to='/random_route' text='random route' iconSrc='/icon.jpg' />]}
         navigationItems={[<HeaderNavigationItem key={0} to='/another_route' text='text1' icon='icon.jpg' active />]}
         kebabItems={[
-          <KebabActionItemLink key='location' to='/kebab_route' text='Change Locaction' iconSrc='icon.jpg' />,
+          <Link key='location' to='/kebab_route'>
+            <KebabActionItem text='ChangeLocation' iconSrc='icon.jpg' />
+          </Link>,
         ]}
         language='de'
       />,

@@ -1,6 +1,6 @@
+import styled from '@emotion/styled'
 import Headroom from '@integreat-app/react-sticky-headroom'
 import React, { ReactElement, ReactNode } from 'react'
-import styled from 'styled-components'
 
 import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'

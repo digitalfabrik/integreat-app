@@ -2,8 +2,14 @@ import { fireEvent, waitFor } from '@testing-library/react'
 import { mocked } from 'jest-mock'
 import React from 'react'
 
-import { pathnameFromRouteInformation, SEARCH_ROUTE, SearchResult } from 'shared'
-import { CategoriesMapModelBuilder, CityModelBuilder, EventModelBuilder, PoiModelBuilder } from 'shared/api'
+import { pathnameFromRouteInformation, SEARCH_ROUTE } from 'shared'
+import {
+  CategoriesMapModelBuilder,
+  CityModelBuilder,
+  EventModelBuilder,
+  ExtendedPageModel,
+  PoiModelBuilder,
+} from 'shared/api'
 
 import useLoadSearchDocuments from '../../hooks/useLoadSearchDocuments'
 import { renderRoute } from '../../testing/render'
@@ -27,8 +33,8 @@ jest.mock('shared/hooks/useDebounce', () => ({
 
 jest.mock('shared', () => ({
   ...jest.requireActual('shared'),
-  useSearch: (results: SearchResult[], query: string) => ({
-    data: query === 'no results, please' ? [] : results,
+  useSearch: (documents: ExtendedPageModel[], query: string) => ({
+    data: query === 'no results, please' ? [] : documents,
     error: null,
     loading: false,
   }),

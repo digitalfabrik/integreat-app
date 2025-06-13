@@ -6,6 +6,7 @@ import { TTS_MAX_TITLE_DISPLAY_CHARS } from 'shared'
 import { truncate } from 'shared/utils/getExcerpt'
 
 import buildConfig from '../constants/buildConfig'
+import { getTtsVoice, isTtsCancelError, ttsInitialized } from '../utils/tts'
 import TtsHelpModal from './TtsHelpModal'
 import TtsPlayer from './TtsPlayer'
 
@@ -26,10 +27,6 @@ export const TtsContext = createContext<TtsContextType>({
   sentences: [],
   setSentences: () => undefined,
 })
-
-const cancelErrorMessages = ['interrupted', 'canceled']
-const initializedStatus = ['init: failed', 'created']
-const ttsInitialized = () => !initializedStatus.some(status => EasySpeech.status().status.includes(status))
 
 type TtsContainerProps = {
   languageCode: string
@@ -80,7 +77,7 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
 
   const play = useCallback(
     async (index = sentenceIndex) => {
-      const voice = ttsInitialized() ? EasySpeech.voices().find(voice => voice.lang.startsWith(languageCode)) : null
+      const voice = getTtsVoice(languageCode)
       if (!voice) {
         setShowHelpModal(true)
         return
@@ -89,7 +86,7 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
       const safeIndex = Math.max(0, index)
       const sentence = sentences[safeIndex]
 
-      if (!sentence) {
+      if (sentence === undefined) {
         stop()
         return
       }
@@ -116,7 +113,7 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
         })
       } catch (e) {
         // Chrome and Safari throw an interrupted/canceled error event on cancel instead of emitting an end event
-        if (e instanceof SpeechSynthesisErrorEvent && cancelErrorMessages.includes(e.error)) {
+        if (isTtsCancelError(e)) {
           if (afterStopRef.current) {
             afterStopRef.current()
             afterStopRef.current = null

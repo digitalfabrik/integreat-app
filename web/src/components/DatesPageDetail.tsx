@@ -1,6 +1,6 @@
+import styled from '@emotion/styled'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
 
 import { MAX_DATE_RECURRENCES, MAX_DATE_RECURRENCES_COLLAPSED } from 'shared'
 import { DateModel } from 'shared/api'

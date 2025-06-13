@@ -1,0 +1,8 @@
+issue_key: 3326
+show_in_stores: true
+platforms:
+  - android
+  - ios
+  - web
+en: Sort search results by relevance.
+de: Suchergebnisse werden nun nach Relevanz sortiert.

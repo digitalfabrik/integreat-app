@@ -4,7 +4,15 @@ import { CategoriesMapModelBuilder } from '../../api'
 import CategoryModel from '../../api/models/CategoryModel'
 import OfferModel from '../../api/models/OfferModel'
 import TileModel from '../../models/TileModel'
-import { addSubdomain, formatDateICal, getCategoryTiles, getSlugFromPath, safeParseInt } from '../index'
+import {
+  addSubdomain,
+  formatDateICal,
+  getGenericLanguageCode,
+  getCategoryTiles,
+  getSlugFromPath,
+  safeParseInt,
+  segmentText,
+} from '../index'
 
 describe('getSlugFromPath', () => {
   it('should return last path segment', () => {
@@ -149,5 +157,28 @@ describe('getCategoryTiles', () => {
         isExternalUrl: true,
       }),
     ])
+  })
+})
+
+describe('segmentText', () => {
+  it('should filter out empty sentences', () => {
+    expect(
+      segmentText(
+        'Dann könnte Ihnen eine geschulte Person helfen und das Gespräch übersetzen. \n \nKinder oder andere Familien-Mitglieder sind nicht immer passende Personen, wenn Sie eine Übersetzung brauchen.',
+        { languageCode: 'de' },
+      ),
+    ).toEqual([
+      'Dann könnte Ihnen eine geschulte Person helfen und das Gespräch übersetzen.',
+      'Kinder oder andere Familien-Mitglieder sind nicht immer passende Personen, wenn Sie eine Übersetzung brauchen.',
+    ])
+  })
+})
+
+describe('getGenericLanguageCode', () => {
+  it('should return correct generic language code', () => {
+    expect(getGenericLanguageCode('de')).toBe('de')
+    expect(getGenericLanguageCode('en')).toBe('en')
+    expect(getGenericLanguageCode('de-si')).toBe('de')
+    expect(getGenericLanguageCode('fr-FR')).toBe('fr')
   })
 })

@@ -102,6 +102,7 @@ const EventsDateFilter = ({
               error={startDateError ? t(startDateError) : ''}
               date={startDate}
               placeholderDate={today}
+              calendarLabel={t('selectStartDateCalendar')}
             />
             <DatePicker
               modalOpen={modalOpen}
@@ -110,6 +111,7 @@ const EventsDateFilter = ({
               title={t('to')}
               date={endDate}
               placeholderDate={inAWeek}
+              calendarLabel={t('selectEndDateCalendar')}
             />
           </>
         </DateSection>

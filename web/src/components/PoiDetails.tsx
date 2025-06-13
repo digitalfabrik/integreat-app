@@ -1,6 +1,7 @@
+import { useTheme } from '@emotion/react'
+import styled from '@emotion/styled'
 import React, { Fragment, ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled, { useTheme } from 'styled-components'
 
 import { getExternalMapsLink } from 'shared'
 import { PoiModel } from 'shared/api'
@@ -110,6 +111,14 @@ const DetailSection = styled.div`
   }
 `
 
+const StyledCollapsible = styled(Collapsible)`
+  gap: 0;
+`
+
+const StyledContactsContainer = styled.div`
+  margin-top: 12px;
+`
+
 const ToolbarWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -142,7 +151,7 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
         {distance !== null && <Distance>{t('distanceKilometre', { distance: distance.toFixed(1) })}</Distance>}
         <Category>{category.name}</Category>
       </HeadingSection>
-      <Spacer $borderColor={theme.colors.borderColor} />
+      <Spacer borderColor={theme.colors.borderColor} />
       {!viewportSmall && <Subheading>{t('detailsAddress')}</Subheading>}
       <DetailSection>
         <AddressContentWrapper>
@@ -159,14 +168,22 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
           <StyledExternalLinkIcon src={ExternalLinkIcon} directionDependent />
         </StyledLink>
       </DetailSection>
-      {contacts.map(contact => (
-        <Fragment key={contact.headline ?? contact.website ?? contact.name ?? contact.phoneNumber}>
-          <Spacer $borderColor={theme.colors.borderColor} />
-          <Contact contact={contact} />
-        </Fragment>
-      ))}
+      {contacts.length > 0 && (
+        <>
+          <Spacer borderColor={theme.colors.borderColor} />
+          <StyledCollapsible title={t('contacts')}>
+            <StyledContactsContainer>
+              {contacts.map((contact, index) => (
+                <Fragment key={contact.headline ?? contact.website ?? contact.name ?? contact.phoneNumber}>
+                  <Contact isLastContact={contacts.length - 1 === index} contact={contact} />
+                </Fragment>
+              ))}
+            </StyledContactsContainer>
+          </StyledCollapsible>
+        </>
+      )}
       {((openingHours && openingHours.length > 0) || temporarilyClosed || isOnlyWithAppointment) && (
-        <Spacer $borderColor={theme.colors.borderColor} />
+        <Spacer borderColor={theme.colors.borderColor} />
       )}
       <OpeningHours
         openingHours={openingHours}
@@ -178,7 +195,7 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
 
       {content.length > 0 && (
         <>
-          <Spacer $borderColor={theme.colors.borderColor} />
+          <Spacer borderColor={theme.colors.borderColor} />
           <Collapsible title={t('detailsInformation')}>
             <RemoteContent html={content} smallText />
           </Collapsible>
@@ -186,7 +203,7 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
       )}
       {toolbar && (
         <>
-          <Spacer $borderColor={theme.colors.borderColor} />
+          <Spacer borderColor={theme.colors.borderColor} />
           <ToolbarWrapper>{toolbar}</ToolbarWrapper>
         </>
       )}

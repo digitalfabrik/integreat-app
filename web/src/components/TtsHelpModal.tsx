@@ -1,6 +1,7 @@
+import { useTheme } from '@emotion/react'
+import styled from '@emotion/styled'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled, { useTheme } from 'styled-components'
 
 import { BookIcon, ExternalLinkIcon, WarningIcon } from '../assets'
 import { Container } from './Feedback'
@@ -23,6 +24,7 @@ const ModalContent = styled(Container)`
 const StyledWarningText = styled.div`
   font-family: ${props => props.theme.fonts.web.contentFont};
   font-size: 16px;
+  color: ${props => props.theme.colors.textColor};
 `
 
 const StyledWarningIcon = styled(Icon)`
@@ -33,6 +35,7 @@ const StyledList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
+  color: ${props => props.theme.colors.textColor};
 `
 
 const StyledExternalIcon = styled(Icon)`
@@ -78,7 +81,10 @@ const TtsHelpModal = ({ closeModal }: { closeModal: () => void }): ReactElement 
   const { t } = useTranslation('layout')
   return (
     <Modal
-      contentStyle={{ borderRadius: 5, backgroundColor: theme.colors.ttsPlayerWarningBackground }}
+      contentStyle={{
+        borderRadius: 5,
+        backgroundColor: theme.isContrastTheme ? theme.colors.backgroundColor : theme.colors.ttsPlayerWarningBackground,
+      }}
       title={t('voiceUnavailable')}
       icon={<StyledWarningIcon src={WarningIcon} />}
       closeModal={closeModal}>

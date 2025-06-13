@@ -421,6 +421,13 @@ jobs:
         docker:
             - image: cimg/node:20.17.0
         parameters:
+            platform:
+                default: all
+                enum:
+                    - all
+                    - web
+                    - native
+                type: enum
             prepare_delivery:
                 default: false
                 description: Whether to prepare for a delivery. If true, the version bump is committed.
@@ -441,7 +448,7 @@ jobs:
                 condition: << parameters.prepare_delivery >>
                 steps:
                     - run:
-                        command: yarn app-toolbelt v0 release bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
+                        command: yarn app-toolbelt v0 release bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH} --platforms << parameters.platform >>
                         name: Bump git version
                         working_directory: tools
             - when:
@@ -520,6 +527,7 @@ jobs:
             - run:
                 command: yarn app-toolbelt v0 release-notes prepare-metadata << parameters.build_config_name >> playstore
                 name: Prepare Play Store metadata
+                working_directory: native
             - run:
                 command: bundle exec fastlane browserstack_upload path:attached_workspace/<< parameters.build_config_name >>.apk
                 name: '[FL] Browserstack Upload Live'
@@ -558,6 +566,7 @@ jobs:
             - run:
                 command: yarn app-toolbelt v0 release-notes prepare-metadata << parameters.build_config_name >> appstore
                 name: Prepare App Store metadata
+                working_directory: native
             - run:
                 command: bundle exec fastlane browserstack_upload path:attached_workspace/<< parameters.build_config_name >>.ipa
                 name: '[FL] Browserstack Upload Live'
@@ -719,24 +728,42 @@ jobs:
                 command: yarn workspace e2e test:web
                 name: Web E2E Tests
             - notify
-    move_release_notes:
-        docker:
-            - image: cimg/node:20.17.0
-        resource_class: small
-        steps:
-            - checkout
-            - prepare_workspace
-            - restore_environment_variables
-            - restore_yarn_tools_cache
-            - run:
-                command: yarn app-toolbelt v0 release-notes move-to ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
-                name: Move release notes
-                working_directory: tools
-            - notify
-    notify_android:
+    notify_promotion:
         docker:
             - image: cimg/node:20.17.0
         parameters:
+            platform:
+                default: all
+                enum:
+                    - all
+                    - web
+                    - native
+                type: enum
+        resource_class: small
+        steps:
+            - checkout
+            - restore_yarn_tools_cache
+            - run:
+                command: |
+                    PROMOTION_MESSAGE=$(yarn --silent app-toolbelt v0 release promote --platform << parameters.platform >> --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME})
+                    echo "export PROMOTION_MESSAGE='${PROMOTION_MESSAGE}'" >> $BASH_ENV
+                name: Remove prerelease flag from github release
+                working_directory: tools
+            - notify:
+                channel: releases
+                only_for_branch: ${CIRCLE_BRANCH}
+                success_message: ${PROMOTION_MESSAGE}
+    notify_release:
+        docker:
+            - image: cimg/node:20.17.0
+        parameters:
+            platform:
+                default: all
+                enum:
+                    - all
+                    - web
+                    - native
+                type: enum
             production_delivery:
                 description: Whether builds are delivered to the production or beta lane of the play store.
                 type: boolean
@@ -747,91 +774,39 @@ jobs:
             - restore_environment_variables
             - restore_yarn_tools_cache
             - run:
-                command: echo "export ANDROID_ARTIFACT_URLS='$(echo $(cat $(ls | grep apk-url)))'" >> ${BASH_ENV}
-                name: Prepare artifact urls
-                working_directory: ~/attached_workspace
-            - run:
-                command: echo "export ANDROID_RELEASE_ID='$(yarn --silent app-toolbelt v0 release create android ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --production-release << parameters.production_delivery >> --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent app-toolbelt v0 release-notes parse-release-notes --android --language en)")'" >> ${BASH_ENV}
+                command: echo "export RELEASE_ID='$(yarn --silent app-toolbelt v0 release create << parameters.platform >> ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} <<# parameters.production_delivery >>--production-release<</ parameters.production_delivery >>)'" >> ${BASH_ENV}
                 name: Create github release
                 working_directory: tools
-            - run:
-                command: yarn app-toolbelt v0 release upload --releaseId ${ANDROID_RELEASE_ID} --files "$(ls ~/attached_workspace/*.apk)" --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME}
-                name: Upload apks to github release
-                working_directory: tools
-            - run:
-                command: echo "export RELEASE_NOTES=$(yarn --silent --cwd tools app-toolbelt v0 release-notes parse-release-notes --android --language en)" >> ${BASH_ENV}
-                name: Create release notes
-            - notify:
-                channel: releases
-                only_for_branch: ${CIRCLE_BRANCH}
-                success_message: <<^ parameters.production_delivery >>[Beta] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on Android!\n${RELEASE_NOTES}\n${ANDROID_ARTIFACT_URLS}
-    notify_ios:
-        docker:
-            - image: cimg/node:20.17.0
-        parameters:
-            production_delivery:
-                description: Whether builds are delivered to the app store or testflight.
-                type: boolean
-        resource_class: small
-        steps:
-            - checkout
-            - prepare_workspace
-            - restore_environment_variables
-            - restore_yarn_tools_cache
-            - run:
-                command: echo "export IOS_ARTIFACT_URLS='$(echo $(cat $(ls | grep ipa-url)))'" >> ${BASH_ENV}
-                name: Prepare artifact urls
-                working_directory: ~/attached_workspace
-            - run:
-                command: echo "export IOS_RELEASE_ID='$(yarn --silent app-toolbelt v0 release create ios ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --production-release << parameters.production_delivery >> --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent app-toolbelt v0 release-notes parse-release-notes --ios --language en)")'" >> ${BASH_ENV}
-                name: Create github release
-                working_directory: tools
-            - run:
-                command: yarn app-toolbelt v0 release upload --releaseId ${IOS_RELEASE_ID} --files "$(ls ~/attached_workspace/*.ipa)" --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME}
-                name: Upload ipas to github release
-                working_directory: tools
-            - run:
-                command: echo "export RELEASE_NOTES=$(yarn --silent --cwd tools app-toolbelt v0 release-notes parse-release-notes --ios --language en)" >> ${BASH_ENV}
-                name: Create release notes
-            - notify:
-                channel: releases
-                only_for_branch: ${CIRCLE_BRANCH}
-                success_message: <<^ parameters.production_delivery >>[Beta] <</ parameters.production_delivery >>Integreat, Malte and Aschaffenburg ${NEW_VERSION_NAME} have been released successfully on iOS!\n${RELEASE_NOTES}\n${IOS_ARTIFACT_URLS}
-    notify_web:
-        docker:
-            - image: cimg/node:20.17.0
-        parameters:
-            production_delivery:
-                description: Whether builds are delivered to production or beta.
-                type: boolean
-        resource_class: small
-        steps:
-            - checkout
-            - prepare_workspace
-            - restore_environment_variables
-            - restore_yarn_tools_cache
-            - run:
-                command: yarn app-toolbelt v0 release create web ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --production-release << parameters.production_delivery >> --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --release-notes "$(yarn --silent app-toolbelt v0 release-notes parse-release-notes --web --language en)"
-                name: Create github release
-                working_directory: tools
-            - run:
-                command: echo "export RELEASE_NOTES=$(yarn --silent --cwd tools app-toolbelt v0 release-notes parse-release-notes --web --language en)" >> ${BASH_ENV}
-                name: Create release notes
-            - when:
-                condition: << parameters.production_delivery >>
-                steps:
-                    - notify:
-                        channel: releases
-                        success_message: WebApp version ${NEW_VERSION_NAME} was delivered successfully to integreat.app, malteapp.de, aschaffenburg.app and netzwerkobdachwohnen.de!\n${RELEASE_NOTES}
             - unless:
-                condition: << parameters.production_delivery >>
+                condition:
+                    equal:
+                        - web
+                        - << parameters.platform >>
                 steps:
-                    - notify:
-                        channel: releases
-                        only_for_branch: ${CIRCLE_BRANCH}
-                        success_message: |-
-                            [Beta] WebApp version ${NEW_VERSION_NAME} was delivered successfully to beta.integreat.app, beta.malteapp.de, beta.aschaffenburg.app and beta.netzwerkobdachwohnen.de!
-                            ${RELEASE_NOTES}
+                    - run:
+                        command: yarn app-toolbelt v0 release upload --releaseId ${RELEASE_ID} --files "$(ls ~/attached_workspace/*.apk)" --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME}
+                        name: Upload apks to github release
+                        working_directory: tools
+                    - run:
+                        command: yarn app-toolbelt v0 release upload --releaseId ${RELEASE_ID} --files "$(ls ~/attached_workspace/*.ipa)" --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME}
+                        name: Upload ipas to github release
+                        working_directory: tools
+                    - run:
+                        command: echo "export ANDROID_ARTIFACT_URLS='$(echo $(cat $(ls | grep apk-url)))'" >> ${BASH_ENV}
+                        name: Prepare android artifact urls
+                        working_directory: ~/attached_workspace
+                    - run:
+                        command: echo "export IOS_ARTIFACT_URLS='$(echo $(cat $(ls | grep ipa-url)))'" >> ${BASH_ENV}
+                        name: Prepare ios artifact urls
+                        working_directory: ~/attached_workspace
+                    - run:
+                        command: yarn app-toolbelt v0 release-notes move-to ${NEW_VERSION_NAME} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
+                        name: Move release notes
+                        working_directory: tools
+            - notify:
+                channel: releases
+                only_for_branch: ${CIRCLE_BRANCH}
+                success_message: <<^ parameters.production_delivery >>[Beta] <</ parameters.production_delivery >>Integreat, Malte, Aschaffenburg and Obdach ${NEW_VERSION_NAME} (<< parameters.platform >>) have been released successfully!\n[Release notes](https://github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/releases/tag/${NEW_VERSION_NAME}-<< parameters.platform >>)\n${ANDROID_ARTIFACT_URLS}${IOS_ARTIFACT_URLS}
     promote_android:
         docker:
             - image: cimg/android:2024.08.1-node
@@ -856,16 +831,7 @@ jobs:
                 command: bundle exec fastlane android playstore_promote build_config_name:<< parameters.build_config_name >>
                 name: '[FL] Google PlayStore Promotion'
                 working_directory: native/android
-            - run:
-                command: |
-                    PROMOTION_MESSAGE=$(yarn --silent app-toolbelt v0 release promote --platform android --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME})
-                    echo "export PROMOTION_MESSAGE='${PROMOTION_MESSAGE}'" >> $BASH_ENV
-                name: Remove prerelease flag from github release
-            - notify:
-                channel: releases
-                only_for_branch: ${CIRCLE_BRANCH}
-                success_message: ${PROMOTION_MESSAGE}
-            - persist_environment_variables
+            - notify
     promote_ios:
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
@@ -889,16 +855,7 @@ jobs:
                 command: bundle exec fastlane ios appstoreconnect_promote build_config_name:<< parameters.build_config_name >>
                 name: '[FL] Apple AppStoreConnect Promotion'
                 working_directory: native/ios
-            - run:
-                command: |
-                    PROMOTION_MESSAGE=$(yarn --silent app-toolbelt v0 release promote --platform ios --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME})
-                    echo "export PROMOTION_MESSAGE='${PROMOTION_MESSAGE}'" >> $BASH_ENV
-                name: Remove prerelease flag from github release
-            - notify:
-                channel: releases
-                only_for_branch: ${CIRCLE_BRANCH}
-                success_message: ${PROMOTION_MESSAGE}
-            - persist_environment_variables
+            - notify
     promote_web:
         docker:
             - image: cimg/node:20.17.0
@@ -922,17 +879,7 @@ jobs:
             - run:
                 command: ssh -o StrictHostKeyChecking=no web@web.integreat-app.de "rsync -arv --delete /var/www/beta.netzwerkobdachwohnen.de/ /var/www/netzwerkobdachwohnen.de"
                 name: Obdach production promotion
-            - run:
-                command: |
-                    PROMOTION_MESSAGE=$(yarn --silent app-toolbelt v0 release promote --platform web --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME})
-                    echo "export PROMOTION_MESSAGE='${PROMOTION_MESSAGE}'" >> $BASH_ENV
-                name: Remove prerelease flag from github release
-                working_directory: tools
-            - notify:
-                channel: releases
-                only_for_branch: ${CIRCLE_BRANCH}
-                success_message: ${PROMOTION_MESSAGE}
-            - persist_environment_variables
+            - notify
     sentry_android:
         docker:
             - image: cimg/node:20.17.0
@@ -1119,13 +1066,6 @@ workflows:
                     - sentry
                 requires:
                     - build_web
-            - notify_web:
-                context:
-                    - mattermost
-                    - deliverino
-                production_delivery: false
-                requires:
-                    - deliver_web
             - build_android:
                 context:
                     - mattermost
@@ -1168,13 +1108,6 @@ workflows:
                     - sentry
                 requires:
                     - build_android
-            - notify_android:
-                context:
-                    - mattermost
-                    - deliverino
-                production_delivery: false
-                requires:
-                    - deliver_android
             - build_ios:
                 context:
                     - mattermost
@@ -1217,21 +1150,15 @@ workflows:
                     - sentry
                 requires:
                     - build_ios
-            - notify_ios:
+            - notify_release:
                 context:
                     - mattermost
                     - deliverino
                 production_delivery: false
                 requires:
+                    - deliver_android
                     - deliver_ios
-            - move_release_notes:
-                context:
-                    - mattermost
-                    - deliverino
-                requires:
-                    - notify_web
-                    - notify_android
-                    - notify_ios
+                    - deliver_web
         when:
             and:
                 - << pipeline.parameters.api_triggered >>
@@ -1244,6 +1171,7 @@ workflows:
                 context:
                     - mattermost
                     - deliverino
+                platform: native
                 prepare_delivery: true
             - check:
                 context:
@@ -1290,13 +1218,6 @@ workflows:
                     - sentry
                 requires:
                     - build_android
-            - notify_android:
-                context:
-                    - mattermost
-                    - deliverino
-                production_delivery: false
-                requires:
-                    - deliver_android
             - build_ios:
                 context:
                     - mattermost
@@ -1339,12 +1260,14 @@ workflows:
                     - sentry
                 requires:
                     - build_ios
-            - notify_ios:
+            - notify_release:
                 context:
                     - mattermost
                     - deliverino
+                platform: native
                 production_delivery: false
                 requires:
+                    - deliver_android
                     - deliver_ios
         when:
             and:
@@ -1358,6 +1281,7 @@ workflows:
                 context:
                     - mattermost
                     - deliverino
+                platform: native
                 prepare_delivery: true
             - check:
                 context:
@@ -1404,13 +1328,6 @@ workflows:
                     - sentry
                 requires:
                     - build_android
-            - notify_android:
-                context:
-                    - mattermost
-                    - deliverino
-                production_delivery: true
-                requires:
-                    - deliver_android
             - build_ios:
                 context:
                     - mattermost
@@ -1453,12 +1370,14 @@ workflows:
                     - sentry
                 requires:
                     - build_ios
-            - notify_ios:
+            - notify_release:
                 context:
                     - mattermost
                     - deliverino
+                platform: native
                 production_delivery: true
                 requires:
+                    - deliver_android
                     - deliver_ios
         when:
             and:
@@ -1490,6 +1409,14 @@ workflows:
                             - integreat
                             - malte
                             - aschaffenburg
+            - notify_promotion:
+                context:
+                    - mattermost
+                    - deliverino
+                platform: native
+                requires:
+                    - promote_android
+                    - promote_ios
         when:
             and:
                 - << pipeline.parameters.api_triggered >>
@@ -1524,6 +1451,14 @@ workflows:
                             - integreat
                             - malte
                             - aschaffenburg
+            - notify_promotion:
+                context:
+                    - mattermost
+                    - deliverino
+                requires:
+                    - promote_android
+                    - promote_ios
+                    - promote_web
         when:
             and:
                 - << pipeline.parameters.api_triggered >>
@@ -1536,6 +1471,7 @@ workflows:
                 context:
                     - mattermost
                     - deliverino
+                platform: web
                 prepare_delivery: true
             - check:
                 context:
@@ -1571,10 +1507,11 @@ workflows:
                     - sentry
                 requires:
                     - build_web
-            - notify_web:
+            - notify_release:
                 context:
                     - mattermost
                     - deliverino
+                platform: web
                 production_delivery: false
                 requires:
                     - deliver_web
@@ -1590,6 +1527,7 @@ workflows:
                 context:
                     - mattermost
                     - deliverino
+                platform: web
                 prepare_delivery: true
             - check:
                 context:
@@ -1625,10 +1563,11 @@ workflows:
                     - sentry
                 requires:
                     - build_web
-            - notify_web:
+            - notify_release:
                 context:
                     - mattermost
                     - deliverino
+                platform: web
                 production_delivery: true
                 requires:
                     - deliver_web
@@ -1644,6 +1583,13 @@ workflows:
                 context:
                     - mattermost
                     - deliverino
+            - notify_promotion:
+                context:
+                    - mattermost
+                    - deliverino
+                platform: web
+                requires:
+                    - promote_web
         when:
             and:
                 - << pipeline.parameters.api_triggered >>

@@ -1,7 +1,7 @@
+import styled from '@emotion/styled'
 import { DateTime } from 'luxon'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
 
 import { CloseIcon } from '../assets'
 import dimensions from '../constants/dimensions'
@@ -79,8 +79,15 @@ const EventsDateFilter = ({
               setDate={setStartDate}
               error={startDateError ? t(startDateError) : ''}
               placeholderDate={today}
+              calendarLabel={t('selectStartDateCalendar')}
             />
-            <CustomDatePicker title={t('to')} date={endDate} setDate={setEndDate} placeholderDate={inAWeek} />
+            <CustomDatePicker
+              title={t('to')}
+              date={endDate}
+              setDate={setEndDate}
+              placeholderDate={inAWeek}
+              calendarLabel={t('selectEndDateCalendar')}
+            />
           </>
         </DateSection>
       </Accordion>
