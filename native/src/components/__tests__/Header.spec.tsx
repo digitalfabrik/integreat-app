@@ -80,6 +80,22 @@ describe('Header', () => {
     params: { title: 'Test Category' },
   }
   const navigation = createNavigationMock()
+  const mockPreviousRoute = (hasPreviousRoute: boolean) => {
+    mocked(navigation.getState).mockImplementation(() => ({
+      key: 'stack-key',
+      index: hasPreviousRoute ? 1 : 0,
+      routeNames: hasPreviousRoute ? [CATEGORIES_ROUTE, CATEGORIES_ROUTE] : [CATEGORIES_ROUTE],
+      routes: hasPreviousRoute
+        ? [
+            { key: 'key-0', name: CATEGORIES_ROUTE },
+            { key: 'key-1', name: CATEGORIES_ROUTE },
+          ]
+        : [{ key: 'key-0', name: CATEGORIES_ROUTE }],
+      type: 'stack',
+      stale: false,
+      preloadedRoutes: [],
+    }))
+  }
 
   const renderHeader = ({
     showItems = true,
@@ -138,14 +154,14 @@ describe('Header', () => {
   })
 
   it('should show back button and navigate back on click', () => {
-    mocked(navigation.canGoBack).mockImplementation(() => true)
+    mockPreviousRoute(true)
     const { getByText } = renderHeader({})
     fireEvent.press(getByText('HeaderBackButton'))
     expect(navigation.goBack).toHaveBeenCalledTimes(1)
   })
 
   it('should not show back button if it is the home', () => {
-    mocked(navigation.canGoBack).mockImplementation(() => false)
+    mockPreviousRoute(false)
     const { queryByText } = renderHeader({})
     expect(queryByText('HeaderBackButton')).toBeFalsy()
   })
