@@ -79,9 +79,11 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement => 
       : visibleFooterHeight
 
   useEffect(() => {
-    const newQueryParams = queryParams
-    queryParams.delete(CHAT_QUERY_KEY)
-    setQueryParams(newQueryParams)
+    if (queryParams.has(CHAT_QUERY_KEY)) {
+      const newQueryParams = queryParams
+      queryParams.delete(CHAT_QUERY_KEY)
+      setQueryParams(newQueryParams)
+    }
   }, [queryParams, setQueryParams])
 
   if (chatVisible) {
