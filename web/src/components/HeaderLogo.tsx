@@ -4,7 +4,6 @@ import React, { ReactElement } from 'react'
 
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
-import useWindowDimensions from '../hooks/useWindowDimensions'
 import Icon from './base/Icon'
 import Link from './base/Link'
 
@@ -14,37 +13,34 @@ type HeaderLogoProps = {
 
 const LogoContainer = styled.div`
   box-sizing: border-box;
-  height: ${dimensions.headerHeightLarge}px;
   padding: 0 10px;
-  display: flex;
-  justify-content: start;
-  align-items: center;
   flex: initial;
   order: 1;
 
   & a {
+    display: block;
     width: 100%;
     height: 60%;
-  }
 
-  @media ${dimensions.smallViewport} {
-    height: ${dimensions.headerHeightSmall}px;
-    max-width: ${dimensions.headerHeightSmall}px;
-    flex: 1 1 0%; /* The % unit is necessary for IE11 */
-    & a {
-      max-height: 75%;
+    @media ${dimensions.smallViewport} {
+      height: 42px;
+      width: 42px;
     }
   }
 `
 
-const StyledLogoIcon = styled(Icon)`
+const StyledLogoIcon = styled(Icon)<{ small: boolean }>`
   color: ${props => props.theme.colors.textColor};
   height: 100%;
   width: 200px;
-  max-width: 200px;
+
+  @media ${dimensions.mediumLargeViewport} {
+    ${props => (props.small ? 'display: none;' : '')}
+  }
 
   @media ${dimensions.smallViewport} {
-    max-width: 44px;
+    ${props => (!props.small ? 'display: none;' : '')}
+    width: 100%;
   }
 `
 
@@ -52,7 +48,6 @@ const StyledLogoIcon = styled(Icon)`
  * A logo component designed for the Header.
  */
 export const HeaderLogo = ({ link }: HeaderLogoProps): ReactElement => {
-  const { viewportSmall } = useWindowDimensions()
   const { campaign, appName, icons } = buildConfig()
 
   const currentDate = DateTime.now()
@@ -64,7 +59,8 @@ export const HeaderLogo = ({ link }: HeaderLogoProps): ReactElement => {
   return (
     <LogoContainer>
       <Link to={link}>
-        <StyledLogoIcon src={viewportSmall ? srcMobile : src} title={appName} />
+        <StyledLogoIcon small src={srcMobile} title={appName} />
+        <StyledLogoIcon small={false} src={src} title={appName} />
       </Link>
     </LogoContainer>
   )

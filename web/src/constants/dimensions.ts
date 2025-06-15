@@ -30,7 +30,7 @@ const dimensions: DimensionsType = {
   ttsPlayerHeight: 90,
   maxTtsPlayerWidth: 576,
   headerHeightLarge: 90,
-  headerHeightSmall: 70,
+  headerHeightSmall: 86,
   navigationMenuHeight: 90,
   poiDesktopPanelWidth: 332,
   mainContainerHorizontalPadding: 10,

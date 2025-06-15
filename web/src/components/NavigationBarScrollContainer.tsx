@@ -31,6 +31,7 @@ const ScrollContainer = styled.div<{ showArrowContainer: boolean }>`
   flex: 1;
   max-width: 100%;
   align-items: stretch;
+  box-sizing: border-box;
   min-height: ${dimensions.headerHeightLarge}px;
   flex-direction: row;
 
