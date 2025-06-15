@@ -164,7 +164,8 @@ const MapView = ({
 
   useEffect(() => {
     const [longitude, latitude] = currentFeature?.geometry.coordinates ?? []
-    if (mapRef && longitude !== undefined && latitude !== undefined) {
+    const hasValidCoordinates = longitude !== undefined && latitude !== undefined
+    if (!!mapRef && hasValidCoordinates) {
       mapRef.flyTo({
         center: [longitude, latitude],
         zoom: closerDetailZoom,
