@@ -1,5 +1,4 @@
 import mockAsyncStorage from '@react-native-async-storage/async-storage/jest/async-storage-mock'
-import '@testing-library/jest-native/extend-expect'
 import fs from 'fs'
 import path from 'path'
 import { ReactNode } from 'react'
