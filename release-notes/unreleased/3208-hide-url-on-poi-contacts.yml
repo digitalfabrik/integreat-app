@@ -1,0 +1,8 @@
+issue_key: 3208
+show_in_stores: true
+platforms:
+  - web
+  - android
+  - ios
+en: Improve layout for contacts in locations
+de: Verbesserte Anzeige von Kontakten in Orten

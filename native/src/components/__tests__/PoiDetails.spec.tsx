@@ -49,7 +49,7 @@ describe('PoiDetails', () => {
 
     const contact = poi.contacts[0]!
     expect(getByText(contact.headline!)).toBeTruthy()
-    expect(getByText(contact.website!)).toBeTruthy()
+    expect(getByText('website')).toBeTruthy()
     expect(getByText(contact.phoneNumber!)).toBeTruthy()
     expect(getByText(contact.email!)).toBeTruthy()
   })
