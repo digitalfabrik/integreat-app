@@ -22,17 +22,24 @@ const StyledLink = styled(Link)`
   ${helpers.adaptiveFontSize};
 `
 
+const StyledSecondIcon = styled(Icon)`
+  width: 14px;
+  height: 14px;
+`
+
 type ContactItemProps = {
-  iconSrc: string
+  iconSource: string
   iconAlt: string
   link: string
-  content: string | ReactElement
+  content: string
+  secondIconSource?: string
 }
 
-const ContactItem = ({ iconSrc, iconAlt, link, content }: ContactItemProps): ReactElement => (
+const ContactItem = ({ iconSource, iconAlt, link, content, secondIconSource }: ContactItemProps): ReactElement => (
   <StyledLink to={link}>
-    <Marker src={iconSrc} title={iconAlt} />
+    <Marker src={iconSource} title={iconAlt} />
     {content}
+    {!!secondIconSource && <StyledSecondIcon src={secondIconSource} title='' />}
   </StyledLink>
 )
 

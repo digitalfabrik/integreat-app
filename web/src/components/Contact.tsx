@@ -9,16 +9,10 @@ import { ExternalLinkIcon, MailIcon, PhoneIcon, WebsiteIcon } from '../assets'
 import { helpers } from '../constants/theme'
 import ContactItem from './ContactItem'
 import Spacer from './Spacer'
-import Icon from './base/Icon'
 
 const StyledContactHeader = styled.div`
   margin-bottom: 6px;
   ${helpers.adaptiveFontSize};
-`
-
-const StyledIcon = styled(Icon)`
-  width: 14px;
-  height: 14px;
 `
 
 const Contact = ({
@@ -36,29 +30,25 @@ const Contact = ({
       <StyledContactHeader>{headline ?? t('contactInformation')}</StyledContactHeader>
       {!!website && (
         <ContactItem
-          iconSrc={WebsiteIcon}
+          iconSource={WebsiteIcon}
           iconAlt={t('website')}
           link={website}
-          content={
-            <>
-              <span>{t('website')}</span>
-              <StyledIcon src={ExternalLinkIcon} title={t('externalLink')} />
-            </>
-          }
+          content={t('website')}
+          secondIconSource={ExternalLinkIcon}
         />
       )}
       {!!phoneNumber && (
-        <ContactItem iconSrc={PhoneIcon} iconAlt={t('phone')} link={`tel:${phoneNumber}`} content={phoneNumber} />
+        <ContactItem iconSource={PhoneIcon} iconAlt={t('phone')} link={`tel:${phoneNumber}`} content={phoneNumber} />
       )}
       {!!mobilePhoneNumber && (
         <ContactItem
-          iconSrc={PhoneIcon}
+          iconSource={PhoneIcon}
           iconAlt={t('mobilePhone')}
           link={`tel:${mobilePhoneNumber}`}
           content={mobilePhoneNumber}
         />
       )}
-      {!!email && <ContactItem iconSrc={MailIcon} iconAlt={t('eMail')} link={`mailto:${email}`} content={email} />}
+      {!!email && <ContactItem iconSource={MailIcon} iconAlt={t('eMail')} link={`mailto:${email}`} content={email} />}
       {!isLastContact && <Spacer borderColor={theme.colors.borderColor} />}
     </>
   )
