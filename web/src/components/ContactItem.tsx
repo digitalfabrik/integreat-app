@@ -18,6 +18,7 @@ const StyledLink = styled(Link)`
   padding-top: 4px;
   gap: 8px;
   overflow-wrap: anywhere;
+  color: ${props => props.theme.colors.linkColor};
   ${helpers.adaptiveFontSize};
 `
 
@@ -25,7 +26,7 @@ type ContactItemProps = {
   iconSrc: string
   iconAlt: string
   link: string
-  content: string
+  content: string | ReactElement
 }
 
 const ContactItem = ({ iconSrc, iconAlt, link, content }: ContactItemProps): ReactElement => (

@@ -5,14 +5,20 @@ import { useTranslation } from 'react-i18next'
 
 import { ContactModel } from 'shared/api'
 
-import { MailIcon, PhoneIcon, WebsiteIcon } from '../assets'
+import { ExternalLinkIcon, MailIcon, PhoneIcon, WebsiteIcon } from '../assets'
 import { helpers } from '../constants/theme'
 import ContactItem from './ContactItem'
 import Spacer from './Spacer'
+import Icon from './base/Icon'
 
 const StyledContactHeader = styled.div`
   margin-bottom: 6px;
   ${helpers.adaptiveFontSize};
+`
+
+const StyledIcon = styled(Icon)`
+  width: 14px;
+  height: 14px;
 `
 
 const Contact = ({
@@ -28,7 +34,19 @@ const Contact = ({
   return (
     <>
       <StyledContactHeader>{headline ?? t('contactInformation')}</StyledContactHeader>
-      {!!website && <ContactItem iconSrc={WebsiteIcon} iconAlt={t('website')} link={website} content={website} />}
+      {!!website && (
+        <ContactItem
+          iconSrc={WebsiteIcon}
+          iconAlt={t('website')}
+          link={website}
+          content={
+            <>
+              <span>{t('website')}</span>
+              <StyledIcon src={ExternalLinkIcon} title={t('externalLink')} />
+            </>
+          }
+        />
+      )}
       {!!phoneNumber && (
         <ContactItem iconSrc={PhoneIcon} iconAlt={t('phone')} link={`tel:${phoneNumber}`} content={phoneNumber} />
       )}
