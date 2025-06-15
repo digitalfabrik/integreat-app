@@ -4,7 +4,7 @@ import styled from 'styled-components/native'
 
 import { ContactModel } from 'shared/api'
 
-import { MailIcon, PhoneIcon, WebsiteIcon } from '../assets'
+import { ExternalLinkIcon, MailIcon, PhoneIcon, WebsiteIcon } from '../assets'
 import HorizontalLine from './HorizontalLine'
 import PoiDetailRow from './PoiDetailRow'
 import Text from './base/Text'
@@ -28,7 +28,13 @@ const Contact = ({
     <>
       <StyledContactHeader>{headline ?? t('contactInformation')}</StyledContactHeader>
       {!!website && (
-        <PoiDetailRow externalUrl={website} accessibilityLabel={t('website')} text={website} Icon={WebsiteIcon} />
+        <PoiDetailRow
+          externalUrl={website}
+          accessibilityLabel={t('website')}
+          text={t('website')}
+          Icon={WebsiteIcon}
+          SecondIcon={ExternalLinkIcon}
+        />
       )}
       {!!phoneNumber && (
         <PoiDetailRow

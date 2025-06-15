@@ -16,6 +16,13 @@ const Container = styled(Pressable)`
 const StyledText = styled(Text)`
   align-self: center;
   padding: 0 8px;
+  color: ${props => props.theme.colors.linkColor};
+`
+
+const StyledSecondIcon = styled(Icon)`
+  width: 16px;
+  height: 16px;
+  align-self: center;
 `
 
 type PoiDetailRowProps = {
@@ -23,9 +30,16 @@ type PoiDetailRowProps = {
   accessibilityLabel: string
   text: string
   Icon: React.JSXElementConstructor<SvgProps>
+  SecondIcon?: React.JSXElementConstructor<SvgProps>
 }
 
-const PoiDetailRow = ({ externalUrl, text, accessibilityLabel, Icon: IconProp }: PoiDetailRowProps): ReactElement => {
+const PoiDetailRow = ({
+  externalUrl,
+  text,
+  accessibilityLabel,
+  Icon: IconProp,
+  SecondIcon,
+}: PoiDetailRowProps): ReactElement => {
   const showSnackbar = useSnackbar()
   return (
     <Container
@@ -34,6 +48,7 @@ const PoiDetailRow = ({ externalUrl, text, accessibilityLabel, Icon: IconProp }:
       accessibilityLabel={accessibilityLabel}>
       <Icon Icon={IconProp} />
       <StyledText>{text}</StyledText>
+      {SecondIcon && <StyledSecondIcon Icon={SecondIcon} />}
     </Container>
   )
 }
