@@ -20,7 +20,7 @@ import { LOCAL_NEWS_ROUTE, RouteType, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from
 import ContrastThemeToggle from './ContrastThemeToggle'
 import Header from './Header'
 import HeaderActionItemLink from './HeaderActionItemLink'
-import HeaderNavigationItem from './HeaderNavigationItem'
+import HeaderNavigationItem, { HeaderNavigationItemProps } from './HeaderNavigationItem'
 import KebabActionItem from './KebabActionItem'
 import LanguageSelector from './LanguageSelector'
 import Link from './base/Link'
@@ -85,7 +85,7 @@ const CityContentHeader = ({
     <ContrastThemeToggle key='contrastTheme' />,
   ]
 
-  const getNavigationItems = (): ReactElement[] => {
+  const getNavigationItems = (): ReactElement<HeaderNavigationItemProps>[] => {
     const isNewsVisible = buildConfig().featureFlags.newsStream && (localNewsEnabled || tunewsEnabled)
     const isEventsVisible = eventsEnabled
     const isPoisVisible = buildConfig().featureFlags.pois && poisEnabled
@@ -95,7 +95,7 @@ const CityContentHeader = ({
       return []
     }
 
-    const items: ReactElement[] = [
+    const items: ReactElement<HeaderNavigationItemProps>[] = [
       <HeaderNavigationItem
         key='categories'
         to={categoriesPath}

@@ -24,7 +24,7 @@ export default {
     '\\.svg': '<rootDir>/src/__mocks__/svgrMock.ts',
     uuid: require.resolve('uuid'),
   },
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts', '<rootDir>/node_modules/@testing-library/jest-native/extend-expect'],
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   transform: {
     '^.+\\.jsx?$': ['babel-jest', { rootMode: 'upward' }],
     '^.+\\.tsx?$': ['ts-jest', { isolatedModules: true }],

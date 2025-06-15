@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks'
+import { renderHook, waitFor } from '@testing-library/react'
 import { DateTime } from 'luxon'
 
 import ExtendedPageModel from '../../api/models/ExtendedPageModel'
@@ -49,24 +49,22 @@ describe('useSearch', () => {
   ]
 
   it('should return results matched by both title and content', async () => {
-    const { result, waitForNextUpdate } = renderHook(() => useSearch(documents, 'Willkommen'))
-    await waitForNextUpdate()
+    const { result } = renderHook(() => useSearch(documents, 'Willkommen'))
+    await waitFor(() => expect(result.current.loading).toBe(false))
     const { data } = result.current
     expect(data).toEqual([documents[1], documents[2], documents[3]])
   })
 
   it('should only return search results that match all search terms', async () => {
-    const { result, waitForNextUpdate } = renderHook(() => useSearch(documents, 'Willkommen in Deutschland'))
-    await waitForNextUpdate()
+    const { result } = renderHook(() => useSearch(documents, 'Willkommen in Deutschland'))
+    await waitFor(() => expect(result.current.loading).toBe(false))
     const { data } = result.current
     expect(data).toEqual([documents[2]])
   })
 
   it('should correctly handle documents with duplicated paths', async () => {
-    const { result, waitForNextUpdate } = renderHook(() =>
-      useSearch(documents.concat(documents), 'Willkommen in Deutschland'),
-    )
-    await waitForNextUpdate()
+    const { result } = renderHook(() => useSearch(documents.concat(documents), 'Willkommen in Deutschland'))
+    await waitFor(() => expect(result.current.loading).toBe(false))
     const { data, error } = result.current
     expect(data).toEqual([documents[2]])
     expect(error).toBeNull()
