@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
-import React, { ReactElement } from 'react'
+import { SvgIconProps } from '@mui/material'
+import React, { ElementType, ReactElement } from 'react'
 
 import { helpers } from '../constants/theme'
 import Icon from './base/Icon'
@@ -22,7 +23,7 @@ const StyledLink = styled(Link)`
 `
 
 type ContactItemProps = {
-  iconSrc: string
+  iconSrc: string | ElementType<SvgIconProps>
   iconAlt: string
   link: string
   content: string

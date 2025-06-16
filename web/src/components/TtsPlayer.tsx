@@ -1,7 +1,6 @@
 import styled from '@emotion/styled'
 import CloseIcon from '@mui/icons-material/Close'
 import PauseIcon from '@mui/icons-material/Pause'
-// import { CloseIcon, PauseIcon, PlaybackIcon, PlayIcon } from '../assets'
 import PlayArrowIcon from '@mui/icons-material/PlayArrow'
 import RefreshIcon from '@mui/icons-material/Refresh'
 import React, { ReactElement } from 'react'

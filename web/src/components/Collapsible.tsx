@@ -1,8 +1,8 @@
 import styled from '@emotion/styled'
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ArrowBackIcon } from '../assets'
 import { helpers } from '../constants/theme'
 import Button from './base/Button'
 import Icon from './base/Icon'
@@ -60,7 +60,7 @@ const Collapsible = ({
         tabIndex={0}>
         {typeof title === 'string' ? <Title>{title}</Title> : title}
         <CollapseIcon
-          src={ArrowBackIcon}
+          src={ArrowBackIosNewIcon}
           collapsed={collapsed}
           title={t(collapsed ? 'showMore' : 'showLess')}
           directionDependent

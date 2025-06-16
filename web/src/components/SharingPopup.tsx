@@ -1,10 +1,16 @@
 import { css, SerializedStyles, Theme, useTheme } from '@emotion/react'
 import styled from '@emotion/styled'
+import CheckIcon from '@mui/icons-material/Check'
+import CloseIcon from '@mui/icons-material/Close'
+import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined'
+import FileCopyOutlinedIcon from '@mui/icons-material/FileCopyOutlined'
+import MailOutlinedIcon from '@mui/icons-material/MailOutlined'
+import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined'
+import WhatsAppIcon from '@mui/icons-material/WhatsApp'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { PlacesType } from 'react-tooltip'
 
-import { CloseIcon, CopyIcon, DoneIcon, FacebookIcon, MailIcon, ShareIcon, WhatsappIcon } from '../assets'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import Portal from './Portal'
 import ToolbarItem from './ToolbarItem'
@@ -247,28 +253,28 @@ const SharingPopup = ({ shareUrl, title, flow, portalNeeded }: SharingPopupProps
               place={tooltipDirection}
               tooltipContent={t(linkCopied ? 'common:copied' : 'layout:copyUrl')}>
               <StyledButton onClick={copyToClipboard} label={t(linkCopied ? 'common:copied' : 'layout:copyUrl')}>
-                <StyledIcon src={linkCopied ? DoneIcon : CopyIcon} />
+                <StyledIcon src={linkCopied ? CheckIcon : FileCopyOutlinedIcon} />
               </StyledButton>
             </Tooltip>
             <Tooltip id='share-whatsapp' place={tooltipDirection} tooltipContent={t('whatsappTooltip')}>
               <StyledLink
                 to={`https://api.whatsapp.com/send?text=${shareMessage}%0a${encodedShareUrl}`}
                 ariaLabel={t('whatsappTooltip')}>
-                <StyledIcon src={WhatsappIcon} />
+                <StyledIcon src={WhatsAppIcon} />
               </StyledLink>
             </Tooltip>
             <Tooltip id='share-facebook' place={tooltipDirection} tooltipContent={t('facebookTooltip')}>
               <StyledLink
                 to={`https://www.facebook.com/sharer/sharer.php?u=${encodedShareUrl}&t${shareMessage}`}
                 ariaLabel={t('facebookTooltip')}>
-                <StyledIcon src={FacebookIcon} />
+                <StyledIcon src={FacebookOutlinedIcon} />
               </StyledLink>
             </Tooltip>
             <Tooltip id='share-email' place={tooltipDirection} tooltipContent={t('mailTooltip')}>
               <StyledLink
                 to={`mailto:?subject=${encodedTitle}&body=${shareMessage} ${encodedShareUrl}`}
                 ariaLabel={t('mailTooltip')}>
-                <StyledIcon src={MailIcon} />
+                <StyledIcon src={MailOutlinedIcon} />
               </StyledLink>
             </Tooltip>
             <Tooltip id='close-button' place={tooltipDirection} tooltipContent={t('closeTooltip')}>
@@ -279,7 +285,7 @@ const SharingPopup = ({ shareUrl, title, flow, portalNeeded }: SharingPopupProps
           </TooltipContainer>
         </>
       )}
-      <ToolbarItem icon={ShareIcon} text={t('layout:share')} onClick={() => setShareOptionsVisible(true)} />
+      <ToolbarItem icon={ShareOutlinedIcon} text={t('layout:share')} onClick={() => setShareOptionsVisible(true)} />
     </SharingPopupContainer>
   )
 }
