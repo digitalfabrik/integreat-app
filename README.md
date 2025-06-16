@@ -5,6 +5,8 @@
 [![CircleCI Status](https://circleci.com/gh/digitalfabrik/integreat-app.svg?style=shield)](https://circleci.com/gh/digitalfabrik/integreat-app)
 [![CodeScene Code Health](https://codescene.io/projects/53058/status-badges/code-health)](https://codescene.io/projects/53058)
 
+Testing
+
 # integreat-app
 
 React JS and React Native App for [Integreat](https://integreat-app.de), [Malte](https://www.malteser-werke.de/malte-app.html) and [Aschaffenburg](https://aschaffenburg.app).
