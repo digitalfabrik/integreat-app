@@ -10,7 +10,7 @@ const fonts: FontsType = {
   },
   web: {
     decorativeFont: 'Raleway, Noto Sans Arabic, Noto Sans SC, Noto Sans Georgian, sans-serif',
-    contentFont: 'Noto Sans, Noto Sans Arabic, Noto Sans SC, Noto Sans Georgian, sans-serif',
+    contentFont: 'Inter, Noto Sans, Noto Sans Arabic, Noto Sans SC, Noto Sans Georgian, sans-serif',
   },
   ...commonFonts,
 }
