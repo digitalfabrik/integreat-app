@@ -2,6 +2,27 @@ import { TypographyType } from '../../TypographyType'
 import fonts from '../../integreat/theme/fonts'
 
 export const commonTypography: TypographyType = {
+  display1: {
+    fontSize: 57,
+    lineHeight: 64,
+    letterSpacing: -0.25,
+    fontWeight: 500,
+    fontFamily: fonts.web.decorativeFont,
+  },
+  display2: {
+    fontSize: 45,
+    lineHeight: 52,
+    letterSpacing: 0,
+    fontWeight: 500,
+    fontFamily: fonts.web.decorativeFont,
+  },
+  display3: {
+    fontSize: 32,
+    lineHeight: 44,
+    letterSpacing: 0,
+    fontWeight: 500,
+    fontFamily: fonts.web.decorativeFont,
+  },
   h1: {
     fontSize: 32,
     lineHeight: 40,
@@ -22,6 +43,27 @@ export const commonTypography: TypographyType = {
     letterSpacing: 0,
     fontWeight: 600,
     fontFamily: fonts.web.decorativeFont,
+  },
+  title1: {
+    fontSize: 22,
+    lineHeight: 28,
+    letterSpacing: 0,
+    fontWeight: 500,
+    fontFamily: fonts.web.contentFont,
+  },
+  title2: {
+    fontSize: 16,
+    lineHeight: 24,
+    letterSpacing: 0.15,
+    fontWeight: 500,
+    fontFamily: fonts.web.contentFont,
+  },
+  title3: {
+    fontSize: 14,
+    lineHeight: 20,
+    letterSpacing: 0.1,
+    fontWeight: 500,
+    fontFamily: fonts.web.contentFont,
   },
   body1: {
     fontSize: 16,
