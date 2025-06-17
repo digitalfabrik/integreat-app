@@ -82,12 +82,15 @@ type Palette = {
 }
 
 type TypographyVariant =
+  | 'display1'
+  | 'display2'
+  | 'display3'
   | 'h1'
   | 'h2'
   | 'h3'
-  | 'h4'
-  | 'h5'
-  | 'h6'
+  | 'title1'
+  | 'title2'
+  | 'title3'
   | 'subtitle1'
   | 'subtitle2'
   | 'body1'
