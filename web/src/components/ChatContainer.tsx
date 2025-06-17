@@ -82,7 +82,7 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement => 
     if (queryParams.has(CHAT_QUERY_KEY)) {
       const newQueryParams = queryParams
       queryParams.delete(CHAT_QUERY_KEY)
-      setQueryParams(newQueryParams)
+      setQueryParams(newQueryParams, { replace: true })
     }
   }, [queryParams, setQueryParams])
 
