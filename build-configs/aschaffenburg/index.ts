@@ -10,6 +10,7 @@ import {
 import { APP_STORE_TEAM_ID } from '../common/constants'
 import mainImprint from './mainImprint'
 import { darkTheme, legacyContrastTheme, legacyLightTheme, lightTheme } from './theme'
+import { typography } from './theme/typography'
 
 const APPLICATION_ID = 'app.aschaffenburg'
 const BUNDLE_IDENTIFIER = 'app.aschaffenburg'
@@ -22,6 +23,7 @@ const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
   darkTheme,
   legacyLightTheme,
   legacyContrastTheme,
+  typography,
   assets: ASCHAFFENBURG_ASSETS,
   cmsUrl: 'https://cms.integreat-app.de',
   hostName: 'halloaschaffenburg.de',
