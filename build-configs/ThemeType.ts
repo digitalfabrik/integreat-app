@@ -32,14 +32,18 @@ export type CommonColors = {
   link: string
 }
 
+export type PaletteMode = 'light' | 'dark'
+
+export type TypeText = {
+  primary: string
+  secondary: string
+  disabled: string
+}
+
 export type CommonColorPalette = CommonColors & {
-  mode: 'light' | 'dark'
+  mode: PaletteMode
   surface: PaletteColor
-  text: {
-    primary: string
-    secondary: string
-    disabled: string
-  }
+  text: TypeText
 }
 
 export type ThemeColorPalette = CommonColorPalette & {
