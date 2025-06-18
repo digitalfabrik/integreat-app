@@ -50,6 +50,7 @@ const Icon = ({ src, directionDependent = false, reverse = false, className, tit
       fontSize='small'
       className={className}
       titleAccess={title}
+      role='img'
       sx={{
         color: theme.colors.textColor,
         transform: shouldFlip ? 'scaleX(-1)' : undefined,
