@@ -45,14 +45,25 @@ describe('ChatContainer', () => {
   })
 
   it('should open chat if query param is set', () => {
-    const { getByText, queryByText } = renderRoute(<ChatContainer city='augsburg' language='de' />, {
+    const { getByText, queryByText, router } = renderRoute(<ChatContainer city='augsburg' language='de' />, {
       pathname,
       routePattern,
-      searchParams: '?chat=true',
+      searchParams: '?chat=true&test=asdf',
     })
     expect(queryByText('chat:chat')).toBeFalsy()
     expect(getByText('chat:header')).toBeTruthy()
     expect(getByText('chat:conversationTitle')).toBeTruthy()
     expect(getByText('chat:conversationText')).toBeTruthy()
+    expect(router.state.location.search).toBe('?test=asdf')
+  })
+
+  it('should only update query params if open chat query param is set', () => {
+    const { getByText, router } = renderRoute(<ChatContainer city='augsburg' language='de' />, {
+      pathname,
+      routePattern,
+      searchParams: '?',
+    })
+    expect(getByText('chat:chat')).toBeTruthy()
+    expect(router.state.location.search).toBe('?')
   })
 })
