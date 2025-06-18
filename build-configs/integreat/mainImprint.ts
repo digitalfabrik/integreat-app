@@ -57,7 +57,7 @@ Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte
 </p>
 <p><strong>Urheber- und Nutzungsrecht</strong></p>
 <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. 
-Alle auf www.integreat.app befindlichen Inhalte sind unter der Creative Commons-Lizenz <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> lizenziert.
+Alle auf integreat.app befindlichen Inhalte sind unter der Creative Commons-Lizenz <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> lizenziert.
 </p>
 `
 export default mainImprint
