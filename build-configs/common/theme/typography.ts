@@ -1,7 +1,7 @@
 import { TypographyType } from '../../TypographyType'
-import fonts from '../../integreat/theme/fonts'
+import { FontsType } from './fonts'
 
-export const commonTypography: TypographyType = {
+export const commonTypography = (fonts: FontsType): TypographyType => ({
   display1: {
     fontSize: 57,
     lineHeight: 64,
@@ -48,7 +48,7 @@ export const commonTypography: TypographyType = {
     fontSize: 22,
     lineHeight: 28,
     letterSpacing: 0,
-    fontWeight: 500,
+    fontWeight: 400,
     fontFamily: fonts.web.contentFont,
   },
   title2: {
@@ -62,6 +62,27 @@ export const commonTypography: TypographyType = {
     fontSize: 14,
     lineHeight: 20,
     letterSpacing: 0.1,
+    fontWeight: 500,
+    fontFamily: fonts.web.contentFont,
+  },
+  label1: {
+    fontSize: 14,
+    lineHeight: 20,
+    letterSpacing: 0.1,
+    fontWeight: 500,
+    fontFamily: fonts.web.contentFont,
+  },
+  label2: {
+    fontSize: 12,
+    lineHeight: 16,
+    letterSpacing: 0.5,
+    fontWeight: 500,
+    fontFamily: fonts.web.contentFont,
+  },
+  label3: {
+    fontSize: 11,
+    lineHeight: 16,
+    letterSpacing: 0.5,
     fontWeight: 500,
     fontFamily: fonts.web.contentFont,
   },
@@ -86,6 +107,27 @@ export const commonTypography: TypographyType = {
     fontWeight: 400,
     fontFamily: fonts.web.contentFont,
   },
+  chip1: {
+    fontSize: 14,
+    lineHeight: 20,
+    letterSpacing: 0,
+    fontWeight: 400,
+    fontFamily: fonts.web.contentFont,
+  },
+  chip2: {
+    fontSize: 12,
+    lineHeight: 20,
+    letterSpacing: 0,
+    fontWeight: 400,
+    fontFamily: fonts.web.contentFont,
+  },
+  chip3: {
+    fontSize: 10,
+    lineHeight: 20,
+    letterSpacing: 0,
+    fontWeight: 400,
+    fontFamily: fonts.web.contentFont,
+  },
   button: {
     fontSize: 14,
     lineHeight: 36,
@@ -94,4 +136,13 @@ export const commonTypography: TypographyType = {
     textTransform: 'capitalize',
     fontFamily: fonts.web.contentFont,
   },
-}
+  textLink: {
+    fontSize: 12,
+    lineHeight: 16,
+    letterSpacing: 0,
+    fontWeight: 400,
+    // TODO this value should be replaced when color system is ready
+    color: '#4E80EE',
+    fontFamily: fonts.web.contentFont,
+  },
+})
