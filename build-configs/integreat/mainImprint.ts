@@ -1,5 +1,5 @@
 const mainImprint = `
-<h3>Angaben gemäß § 5 TMG:</h3>
+<h3>Angaben gemäß § 5 DDG:</h3>
 <p>
   Tür an Tür – Digitalfabrik gGmbH<br />
   Wertachstr. 29<br />
@@ -26,7 +26,7 @@ const mainImprint = `
   </tr>
   </tbody>
 </table>
-<h3>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:</h3>
+<h3>Verantwortlich für den Inhalt:</h3>
 <p>Tür an Tür – Digitalfabrik gGmbH<br />
   Wertachstr.
   29<br /> 86153 Augsburg
@@ -34,15 +34,13 @@ const mainImprint = `
 <h3>Haftungsausschluss (Disclaimer)</h3>
 <p><strong>Haftung für Inhalte</strong></p>
 <p>
-  Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen
-  Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet,
-  übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf
-  eine
-  rechtswidrige Tätigkeit hinweisen. Verpflichtungen zur Entfernung oder Sperrung der Nutzung von
-  Informationen
-  nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem
-  Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden
-  Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.
+Als Diensteanbieter sind wir gemäß Digitale-Dienste-Gesetz (DDG) für eigene Inhalte auf diesen Seiten nach 
+den allgemeinen Gesetzen verantwortlich. Als Diensteanbieter sind wir jedoch nicht verpflichtet, übermittelte 
+oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, 
+die auf eine rechtswidrige Tätigkeit hinweisen. Verpflichtungen zur Entfernung oder Sperrung der Nutzung 
+von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist 
+jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. 
+Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.
 </p>
 <p><strong>Haftung für Links</strong></p>
 <p>
@@ -59,7 +57,7 @@ const mainImprint = `
 </p>
 <p><strong>Urheber- und Nutzungsrecht</strong></p>
 <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. 
-Alle auf www.integreat.app befindlichen Inhalte sind unter der Creative Commons-Lizenz <a href="https://creativecommons.org/licenses/by/4.0/">CC BY-NC 4.0</a> lizenziert.
+Alle auf www.integreat.app befindlichen Inhalte sind unter der Creative Commons-Lizenz <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> lizenziert.
 </p>
 `
 export default mainImprint
