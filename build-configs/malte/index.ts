@@ -10,6 +10,7 @@ import {
 import { APP_STORE_TEAM_ID } from '../common/constants'
 import mainImprint from './mainImprint'
 import { legacyContrastTheme, darkTheme, legacyLightTheme, lightTheme } from './theme'
+import { typography } from './theme/typography'
 
 const APPLICATION_ID = 'de.malteapp'
 const BUNDLE_IDENTIFIER = 'de.malteapp'
@@ -22,6 +23,7 @@ const commonMalteBuildConfig: CommonBuildConfigType = {
   darkTheme,
   legacyLightTheme,
   legacyContrastTheme,
+  typography,
   assets: MALTE_ASSETS,
   cmsUrl: 'https://cms.malteapp.de',
   switchCmsUrl: 'https://malte-test.tuerantuer.org',
