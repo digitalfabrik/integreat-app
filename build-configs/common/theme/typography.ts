@@ -141,8 +141,6 @@ export const commonTypography = (fonts: FontsType): TypographyType => ({
     lineHeight: 16,
     letterSpacing: 0,
     fontWeight: 400,
-    // TODO this value should be replaced when color system is ready
-    color: '#4E80EE',
     fontFamily: fonts.web.contentFont,
   },
 })

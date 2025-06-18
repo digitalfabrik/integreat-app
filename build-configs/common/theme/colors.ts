@@ -34,7 +34,7 @@ const commonColors: CommonColors = {
     light: '#99CADC',
   },
   divider: '#C9C9C9',
-  link: '#0B57D0',
+  link: '#4E80EE',
   action: {
     disabledBackground: '#C9C9C9',
     disabled: '#FFFFFF',
