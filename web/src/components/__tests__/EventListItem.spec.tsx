@@ -94,7 +94,7 @@ describe('EventListItem', () => {
       )
 
       expect(queryByText('events:todayRecurring')).toBeFalsy()
-      expect(getAllByText('events:recurring').length).toEqual(2) // tooltip and icon got the same title
+      expect(getAllByText('events:recurring')).toHaveLength(2) // tooltip and icon got the same title
       expect(queryByText('events:today')).toBeFalsy()
     })
 
@@ -107,7 +107,7 @@ describe('EventListItem', () => {
 
       expect(queryByText('events:todayRecurring')).toBeFalsy()
       expect(queryByText('events:recurring')).toBeFalsy()
-      expect(getAllByText('events:today').length).toEqual(2) // tooltip and icon got the same title
+      expect(getAllByText('events:today')).toHaveLength(2) // tooltip and icon got the same title
     })
   })
 })

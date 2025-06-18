@@ -2,8 +2,7 @@ import shouldForwardProp from '@emotion/is-prop-valid'
 import { useTheme } from '@emotion/react'
 import styled from '@emotion/styled'
 import { SvgIconProps } from '@mui/material/SvgIcon'
-import React, { ReactElement } from 'react'
-import { ElementType } from 'react'
+import React, { ReactElement, ElementType } from 'react'
 import SVG from 'react-inlinesvg'
 
 const StyledIcon = styled(SVG, { shouldForwardProp })<{ directionDependent: boolean; reverse: boolean }>`
@@ -28,6 +27,7 @@ type IconProps = {
 }
 
 const Icon = ({ src, directionDependent = false, reverse = false, className, title, id }: IconProps): ReactElement => {
+  const theme = useTheme()
   if (typeof src === 'string') {
     return (
       <StyledIcon
@@ -42,7 +42,6 @@ const Icon = ({ src, directionDependent = false, reverse = false, className, tit
   }
 
   const MuiIcon = src
-  const theme = useTheme()
   const isRtl = theme.contentDirection === 'rtl'
   const shouldFlip = (reverse === true) !== (directionDependent && isRtl)
   return (

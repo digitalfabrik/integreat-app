@@ -1,6 +1,5 @@
 import { useTheme } from '@emotion/react'
 import styled from '@emotion/styled'
-import AutoStoriesOutlinedIcon from '@mui/icons-material/AutoStoriesOutlined'
 import LaunchIcon from '@mui/icons-material/Launch'
 import MenuBookIcon from '@mui/icons-material/MenuBook'
 import WarningAmberOutlinedIcon from '@mui/icons-material/WarningAmberOutlined'
