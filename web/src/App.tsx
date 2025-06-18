@@ -50,7 +50,7 @@ const App = (): ReactElement => {
         })}>
         <Button startIcon={<RocketLaunch color='secondary' />}>Test</Button>
         <Typography variant='h1'>Testüberschrift</Typography>
-        <Typography variant='body3'>Testtext</Typography>
+        <Typography variant='body3'>Body3Text</Typography>
         <I18nProvider contentLanguage={contentLanguage}>
           <>
             <Helmet pageTitle={t('pageTitle')} rootPage />
