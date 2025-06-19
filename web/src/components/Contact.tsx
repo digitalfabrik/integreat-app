@@ -34,7 +34,7 @@ const Contact = ({
           iconAlt={t('website')}
           link={website}
           content={t('website')}
-          secondIconSource={ExternalLinkIcon}
+          sourceIconEnd={ExternalLinkIcon}
         />
       )}
       {!!phoneNumber && (

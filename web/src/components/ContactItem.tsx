@@ -32,14 +32,14 @@ type ContactItemProps = {
   iconAlt: string
   link: string
   content: string
-  secondIconSource?: string
+  sourceIconEnd?: string
 }
 
-const ContactItem = ({ iconSource, iconAlt, link, content, secondIconSource }: ContactItemProps): ReactElement => (
+const ContactItem = ({ iconSource, iconAlt, link, content, sourceIconEnd }: ContactItemProps): ReactElement => (
   <StyledLink to={link}>
     <Marker src={iconSource} title={iconAlt} />
     {content}
-    {!!secondIconSource && <StyledSecondIcon src={secondIconSource} title='' />}
+    {!!sourceIconEnd && <StyledSecondIcon src={sourceIconEnd} title='' directionDependent />}
   </StyledLink>
 )
 

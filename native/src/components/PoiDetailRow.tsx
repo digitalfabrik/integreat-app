@@ -30,7 +30,7 @@ type PoiDetailRowProps = {
   accessibilityLabel: string
   text: string
   Icon: React.JSXElementConstructor<SvgProps>
-  SecondIcon?: React.JSXElementConstructor<SvgProps>
+  IconEnd?: React.JSXElementConstructor<SvgProps>
 }
 
 const PoiDetailRow = ({
@@ -38,7 +38,7 @@ const PoiDetailRow = ({
   text,
   accessibilityLabel,
   Icon: IconProp,
-  SecondIcon,
+  IconEnd,
 }: PoiDetailRowProps): ReactElement => {
   const showSnackbar = useSnackbar()
   return (
@@ -48,7 +48,7 @@ const PoiDetailRow = ({
       accessibilityLabel={accessibilityLabel}>
       <Icon Icon={IconProp} />
       <StyledText>{text}</StyledText>
-      {SecondIcon && <StyledSecondIcon Icon={SecondIcon} />}
+      {IconEnd && <StyledSecondIcon Icon={IconEnd} />}
     </Container>
   )
 }

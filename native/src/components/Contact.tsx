@@ -33,7 +33,7 @@ const Contact = ({
           accessibilityLabel={t('website')}
           text={t('website')}
           Icon={WebsiteIcon}
-          SecondIcon={ExternalLinkIcon}
+          IconEnd={ExternalLinkIcon}
         />
       )}
       {!!phoneNumber && (
