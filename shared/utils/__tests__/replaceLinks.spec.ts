@@ -70,6 +70,18 @@ describe('replaceLinks', () => {
     )
   })
 
+  it('should add mailto to email addresses', () => {
+    expect(replaceLinks('Please contact app@integreat-app.de')).toBe(
+      "Please contact <a href='mailto:app@integreat-app.de'>app@integreat-app.de</a>",
+    )
+  })
+
+  it('should not add mailto when already present', () => {
+    expect(replaceLinks('Send to mailto:app@integreat-app.de')).toBe(
+      "Send to <a href='mailto:app@integreat-app.de'>mailto:app@integreat-app.de</a>",
+    )
+  })
+
   it('should match links separately', () => {
     replaceLinks(
       'https://stackoverflow.com/a/150078 https://stackoverflow.com/a/150079\nhttps://stackoverflow.com/a/160078',
