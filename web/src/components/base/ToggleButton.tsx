@@ -9,6 +9,8 @@ import Icon from './Icon'
 export const toggleButtonWidth = 100
 
 const StyledIcon = styled(Icon)`
+  width: 40px;
+  height: 40px;
   color: ${props =>
     props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.textSecondaryColor};
 `
