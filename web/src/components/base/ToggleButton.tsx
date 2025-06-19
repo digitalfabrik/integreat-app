@@ -1,10 +1,19 @@
 import styled from '@emotion/styled'
-import React, { ReactElement } from 'react'
+import { SvgIconProps } from '@mui/material'
+import React, { ElementType, ReactElement } from 'react'
 
 import StyledSmallViewTip from '../StyledSmallViewTip'
 import Button from './Button'
+import Icon from './Icon'
 
 export const toggleButtonWidth = 100
+
+const StyledIcon = styled(Icon)`
+  width: 40px;
+  height: 40px;
+  color: ${props =>
+    props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.textSecondaryColor};
+`
 
 const StyledButton = styled(Button)<{ active: boolean | null }>`
   box-shadow:
@@ -31,14 +40,14 @@ const StyledButton = styled(Button)<{ active: boolean | null }>`
 type ToggleButtonProps = {
   text: string
   onClick: () => void
-  icon: string
+  icon: string | ElementType<SvgIconProps>
   active?: boolean
   className?: string
 }
 
 const ToggleButton = ({ text, onClick, className, ...props }: ToggleButtonProps): ReactElement => (
   <StyledButton onClick={onClick} active={!!props.active} label='' className={className}>
-    <img src={props.icon} alt='' />
+    <StyledIcon src={props.icon} />
     <StyledSmallViewTip as='span'>{text}</StyledSmallViewTip>
   </StyledButton>
 )

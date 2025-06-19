@@ -1,8 +1,9 @@
 import styled from '@emotion/styled'
+import SentimentDissatisfiedOutlinedIcon from '@mui/icons-material/SentimentDissatisfiedOutlined'
+import SentimentSatisfiedOutlinedIcon from '@mui/icons-material/SentimentSatisfiedOutlined'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { HappySmileyIcon, SadSmileyIcon } from '../assets'
 import ToggleButton from './base/ToggleButton'
 
 const ButtonContainer = styled.div`
@@ -25,13 +26,13 @@ const FeedbackButtons = ({ isPositive, onRatingChange }: FeedbackButtonsProps): 
         <ToggleButton
           onClick={() => onRatingChange(isPositive ? null : true)}
           active={isPositive === true}
-          icon={HappySmileyIcon}
+          icon={SentimentSatisfiedOutlinedIcon}
           text={t('useful')}
         />
         <ToggleButton
           onClick={() => onRatingChange(isPositive === false ? null : false)}
           active={isPositive === false}
-          icon={SadSmileyIcon}
+          icon={SentimentDissatisfiedOutlinedIcon}
           text={t('notUseful')}
         />
       </ButtonContainer>
