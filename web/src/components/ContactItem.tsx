@@ -18,20 +18,28 @@ const StyledLink = styled(Link)`
   padding-top: 4px;
   gap: 8px;
   overflow-wrap: anywhere;
+  color: ${props => props.theme.colors.linkColor};
   ${helpers.adaptiveFontSize};
 `
 
+const StyledSecondIcon = styled(Icon)`
+  width: 14px;
+  height: 14px;
+`
+
 type ContactItemProps = {
-  iconSrc: string
+  iconSource: string
   iconAlt: string
   link: string
   content: string
+  sourceIconEnd?: string
 }
 
-const ContactItem = ({ iconSrc, iconAlt, link, content }: ContactItemProps): ReactElement => (
+const ContactItem = ({ iconSource, iconAlt, link, content, sourceIconEnd }: ContactItemProps): ReactElement => (
   <StyledLink to={link}>
-    <Marker src={iconSrc} title={iconAlt} />
+    <Marker src={iconSource} title={iconAlt} />
     {content}
+    {!!sourceIconEnd && <StyledSecondIcon src={sourceIconEnd} title='' directionDependent />}
   </StyledLink>
 )
 
