@@ -12,13 +12,13 @@ const path = `(?:\\/(?:[+~%/_.${unicode}-]*[+~%/${unicode}-]+)?)?`
 const query = `(?:\\?([-+=&;%@.${unicode}]*[-+=&;%@${unicode}]+)?)?`
 // language=RegExp
 const hash = `(?:#([.!/\\\\${unicode}]*[!/\\\\${unicode}]+)?)?`
-const mail = /[.\-;:&=+$,\w]+@([A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*)/
+const mail = /[.\-;:&=+$,\w]{1,64}@([A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*)/
 
 const regex = new RegExp(`(${protocol.source}${hostname.source}${path}${query}${hash}|${mail.source})`, 'g')
 
 type ReplaceType = (match: string) => string
 export const linkify = (link: string): string => {
-  const isEmail = mail.test(link) && !link.toLowerCase().startsWith('mailto:') && !link.includes('://')
+  const isEmail = mail.test(link) && !link.toLowerCase().startsWith('mailto:')
   const href = isEmail ? `mailto:${link}` : link
   return `<a href='${href}'>${link}</a>`
 }
