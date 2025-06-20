@@ -17,12 +17,14 @@ import {
   EventThumbnailPlaceholder3,
 } from '../assets'
 import { EXCERPT_MAX_LINES } from '../constants'
+import { contentAlignment } from '../constants/contentDirection'
 import ListItem from './ListItem'
 import Icon from './base/Icon'
 
-const Description = styled.Text`
+const Description = styled.Text<{ language: string }>`
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.contentFontRegular};
+  text-align: ${props => contentAlignment(props.language)};
 `
 
 const placeholderThumbnails = [EventThumbnailPlaceholder1, EventThumbnailPlaceholder2, EventThumbnailPlaceholder3]
@@ -74,8 +76,10 @@ const EventListItem = ({
       language={language}
       navigateTo={navigateToEvent}
       Icon={DateIcon}>
-      <Description>{dateToDisplay.toFormattedString(language, true)}</Description>
-      <Description numberOfLines={EXCERPT_MAX_LINES}>{content}</Description>
+      <Description language={language}>{dateToDisplay.toFormattedString(language, true)}</Description>
+      <Description numberOfLines={EXCERPT_MAX_LINES} language={language}>
+        {content}
+      </Description>
     </ListItem>
   )
 }
