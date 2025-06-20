@@ -96,6 +96,7 @@ const CalendarRangeModal = ({
   }
 
   return (
+    // View needs to stay until https://github.com/digitalfabrik/integreat-app/issues/3331 is done
     <View>
       <Modal animationType='slide' transparent visible={modalVisible} onRequestClose={closeModal}>
         <Background onPress={closeModal} />

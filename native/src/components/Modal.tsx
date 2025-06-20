@@ -40,6 +40,7 @@ const Modal = ({
   children,
   scrollView = true,
 }: ModalProps): ReactElement => (
+  // View needs to stay until https://github.com/digitalfabrik/integreat-app/issues/3331 is done
   <View>
     <RNModal
       visible={modalVisible}
