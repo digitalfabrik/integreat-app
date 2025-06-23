@@ -4,7 +4,6 @@ import {
   LinkingOptions,
   NavigationContainer,
   NavigationState,
-  ParamListBase,
   Theme as NavigationContainerTheme,
 } from '@react-navigation/native'
 import { Settings as LuxonSettings } from 'luxon'
@@ -67,13 +66,9 @@ setUserAgent(userAgent)
 
 type NavigationContainerWithThemeProps = {
   onStateChange: (state: NavigationState | undefined) => void
-  linking: LinkingOptions<ParamListBase>
 }
 
-export const NavigationContainerWithTheme = ({
-  onStateChange,
-  linking,
-}: NavigationContainerWithThemeProps): ReactElement => {
+export const NavigationContainerWithTheme = ({ onStateChange }: NavigationContainerWithThemeProps): ReactElement => {
   const theme = useTheme()
 
   const navigationTheme: NavigationContainerTheme = {
@@ -85,16 +80,11 @@ export const NavigationContainerWithTheme = ({
   }
 
   return (
-    <>
-      <StatusBar />
-      <IOSSafeAreaView>
-        <NavigationContainer onStateChange={onStateChange} linking={linking} theme={navigationTheme}>
-          <HeaderButtonsProvider stackType='native'>
-            <Navigator />
-          </HeaderButtonsProvider>
-        </NavigationContainer>
-      </IOSSafeAreaView>
-    </>
+    <NavigationContainer onStateChange={onStateChange} theme={navigationTheme} linking={linking}>
+      <HeaderButtonsProvider stackType='native'>
+        <Navigator />
+      </HeaderButtonsProvider>
+    </NavigationContainer>
   )
 }
 
@@ -129,7 +119,12 @@ const App = (): ReactElement => {
               <SafeAreaProvider>
                 <SnackbarContainer>
                   <TtsContainer>
-                    <NavigationContainerWithTheme onStateChange={onStateChange} linking={linking} />
+                    <>
+                      <StatusBar />
+                      <IOSSafeAreaView>
+                        <NavigationContainerWithTheme onStateChange={onStateChange} />
+                      </IOSSafeAreaView>
+                    </>
                   </TtsContainer>
                 </SnackbarContainer>
               </SafeAreaProvider>
