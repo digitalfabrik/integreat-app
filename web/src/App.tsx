@@ -22,6 +22,11 @@ import { initSentry } from './utils/sentry'
 LuxonSettings.throwOnInvalid = true
 LuxonSettings.defaultLocale = config.defaultFallback
 
+const ltrCache = createCache({
+  key: 'muiltr',
+  stylisPlugins: [prefixer],
+})
+
 const rtlCache = createCache({
   key: 'muirtl',
   stylisPlugins: [prefixer, rtlPlugin],
@@ -41,7 +46,7 @@ const App = (): ReactElement => {
   }, [])
 
   return (
-    <CacheProvider value={rtlCache}>
+    <CacheProvider value={contentDirection === 'rtl' ? rtlCache : ltrCache}>
       <ThemeContainer contentDirection={contentDirection}>
         <I18nProvider contentLanguage={contentLanguage}>
           <>
