@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next'
 import { CloseIcon, MenuIcon } from '../assets'
 import dimensions from '../constants/dimensions'
 import useLockedBody from '../hooks/useLockedBody'
-import '../styles/KebabMenu.css'
 import Portal from './Portal'
 import Button from './base/Button'
 import Icon from './base/Icon'
@@ -55,7 +54,7 @@ const Overlay = styled.div<{ show: boolean }>`
 
 const Heading = styled.div`
   display: flex;
-  justify-content: ${props => (props.theme.contentDirection === 'rtl' ? `flex-start` : `flex-end`)};
+  justify-content: flex-end;
   background-color: ${props => props.theme.colors.backgroundAccentColor};
   box-shadow: -3px 3px 3px 0 rgb(0 0 0 / 13%);
   min-height: ${dimensions.headerHeightSmall}px;
@@ -66,7 +65,6 @@ const Heading = styled.div`
 const ActionBar = styled.nav`
   display: flex;
   align-items: center;
-  justify-content: flex-end;
   padding: 0 16px;
 `
 
