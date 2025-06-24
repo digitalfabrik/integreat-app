@@ -35,21 +35,14 @@ const TooltipContainer = styled.div<{
   font-size: 1rem;
 
   ${props =>
-    props.tooltipFlow === 'vertical' &&
-    css`
-      flex-flow: column-reverse;
-      transform: translateY(-100%);
-    `};
-
-  ${props =>
-    props.tooltipFlow === 'horizontal' &&
-    (props.theme.contentDirection === 'ltr'
+    props.tooltipFlow === 'vertical'
       ? css`
-          transform: translate(30%, -8px);
+          flex-flow: column-reverse;
+          transform: translateY(-100%);
         `
       : css`
-          transform: translate(-30%, -8px);
-        `)};
+          transform: translate(30%, -8px);
+        `};
 
   ${props =>
     props.optionsVisible &&
@@ -73,32 +66,17 @@ const TooltipContainer = styled.div<{
     border-inline-end: 10px solid transparent;
 
     ${props =>
-      props.tooltipFlow === 'vertical' &&
-      (props.theme.contentDirection === 'ltr'
+      props.tooltipFlow === 'vertical'
         ? css`
             left: 20px;
             bottom: -8px;
             transform: rotate(-180deg);
           `
         : css`
-            right: 11px;
-            bottom: -8px;
-            transform: translateX(-55%) rotate(180deg);
-          `)};
-
-    ${props =>
-      props.tooltipFlow === 'horizontal' &&
-      (props.theme.contentDirection === 'ltr'
-        ? css`
             left: -14px;
-            transform: rotate(-90deg);
+            transform: rotate(${props.theme.contentDirection === 'ltr' ? '-90deg' : '90deg'});
             top: 45%;
-          `
-        : css`
-            right: -14px;
-            transform: rotate(90deg);
-            top: 45%;
-          `)};
+          `};
 
     ${props =>
       props.optionsVisible &&
@@ -116,32 +94,17 @@ const TooltipContainer = styled.div<{
     border-inline-end: 11px solid transparent;
 
     ${props =>
-      props.tooltipFlow === 'vertical' &&
-      (props.theme.contentDirection === 'ltr'
+      props.tooltipFlow === 'vertical'
         ? css`
             left: 20px;
             bottom: -11px;
             transform: rotate(-180deg);
           `
         : css`
-            right: 11px;
-            bottom: -11px;
-            transform: translateX(-45%) rotate(180deg);
-          `)};
-
-    ${props =>
-      props.tooltipFlow === 'horizontal' &&
-      (props.theme.contentDirection === 'ltr'
-        ? css`
             left: -17px;
-            transform: rotate(-90deg) scaleX(-1);
+            transform: rotate(${props.theme.contentDirection === 'ltr' ? '-90deg' : '90deg'}) scaleX(-1);
             top: 45%;
-          `
-        : css`
-            right: -17px;
-            transform: rotate(90deg) scaleX(-1);
-            top: 45%;
-          `)};
+          `};
 
     ${props =>
       props.optionsVisible &&
