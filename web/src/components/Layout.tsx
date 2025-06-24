@@ -3,7 +3,6 @@ import styled from '@emotion/styled'
 import React, { ReactElement, ReactNode } from 'react'
 
 import dimensions from '../constants/dimensions'
-import '../styles/Aside.css'
 import { MobileBanner } from './MobileBanner'
 import Portal from './Portal'
 
@@ -94,6 +93,21 @@ const Main = styled.main<{ fullWidth: boolean }>`
   }
 `
 
+const Aside = styled.aside`
+  position: fixed;
+  top: 35%;
+  width: 100px;
+  left: 0;
+
+  @media ${dimensions.minMaxWidth} {
+    inset-inline-start: 8%;
+  }
+
+  &:empty {
+    display: none;
+  }
+`
+
 export const LAYOUT_ELEMENT_ID = 'layout'
 
 type LayoutProps = {
@@ -121,7 +135,7 @@ const Layout = ({
     <Body fullWidth={fullWidth} disableScrollingSafari={disableScrollingSafari}>
       {toolbar ? (
         <Portal className='aside' show>
-          {toolbar}
+          <Aside>{toolbar}</Aside>
         </Portal>
       ) : null}
       <Main fullWidth={fullWidth}>{children}</Main>
