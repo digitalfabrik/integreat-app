@@ -23,7 +23,7 @@ const ToggleContainer = styled.div`
   z-index: 50;
 `
 
-const List = styled.div<{ show: boolean }>`
+const List = styled.div`
   font-family: ${props => props.theme.fonts.web.decorativeFont};
   position: absolute;
   top: 0;
@@ -37,10 +37,7 @@ const List = styled.div<{ show: boolean }>`
   transform-origin: 0 0;
   transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
   z-index: 40;
-  ${props => (props.theme.contentDirection === 'rtl' ? `left: 0;` : `right:0;`)}
-  ${props =>
-    props.theme.contentDirection === 'rtl' ? `transform: translate(-100%, 0);` : `transform: translate(100%, 0);`}
-  ${props => props.show && `opacity: 1;transform: none;`}
+  right: 0;
   display: flex;
   flex-direction: column;
 `
@@ -116,7 +113,7 @@ const KebabMenu = ({ items, show, setShow, Footer }: KebabMenuProps): ReactEleme
         {/* disabled because this is an overlay for backdrop close */}
         {/* eslint-disable-next-line styled-components-a11y/no-static-element-interactions,styled-components-a11y/click-events-have-key-events */}
         <Overlay onClick={onClick} show={show} />
-        <List show={show}>
+        <List>
           <Heading>
             <ActionBar>
               <Button onClick={onClick} label={t('sideBarCloseAriaLabel')}>
