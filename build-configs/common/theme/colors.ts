@@ -35,6 +35,10 @@ const commonColors: CommonColors = {
   },
   divider: '#C9C9C9',
   link: '#0B57D0',
+  action: {
+    disabledBackground: '#C9C9C9',
+    disabled: '#FFFFFF',
+  },
 }
 
 export const commonLightColors: CommonColorPalette = {

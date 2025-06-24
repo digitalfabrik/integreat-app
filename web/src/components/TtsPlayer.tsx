@@ -39,7 +39,6 @@ const StyledPanel = styled.div<{ isPlaying?: boolean }>`
   align-items: center;
   gap: 20px;
   margin: ${props => (props.isPlaying ? verticalMargin : 0)}px 0;
-  flex-direction: ${props => (props.theme.contentDirection === 'rtl' ? 'row-reverse' : 'row')};
 `
 
 const BaseButton = styled(Button)`
@@ -73,7 +72,6 @@ const StyledButton = styled(Button)`
   display: flex;
   gap: 4px;
   align-items: flex-end;
-  flex-direction: ${props => (props.theme.contentDirection === 'rtl' ? 'row-reverse' : 'row')};
 `
 
 const StyledPlayIcon = styled(Icon)`

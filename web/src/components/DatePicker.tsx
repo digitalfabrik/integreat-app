@@ -29,7 +29,7 @@ const StyledIconButton = styled(Button)<{ isCalendarOpen: boolean }>`
   justify-content: center;
   align-items: center;
   position: absolute;
-  ${props => (props.theme.contentDirection === 'rtl' ? 'left: 16px;' : 'right: 16px;')};
+  right: 16px;
   align-self: center;
   background-color: ${props =>
     props.isCalendarOpen ? props.theme.colors.themeColorLight : props.theme.colors.textDisabledColor};
@@ -57,9 +57,8 @@ const StyledTitle = styled.span`
   background-color: ${props => props.theme.colors.backgroundColor};
   position: absolute;
   top: -12px;
-  left: ${props => (props.theme.contentDirection === 'rtl' ? 'auto' : '12px')};
-  right: ${props => (props.theme.contentDirection === 'rtl' ? '12px' : 'auto')};
-  padding: 2px 5px;
+  left: 12px;
+  padding: 2px 4px;
   font-size: 12px;
 `
 

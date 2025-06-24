@@ -9,6 +9,16 @@ export type PaletteColor = SimplePaletteColor & {
   contrastText: string
 }
 
+export type ActionColor = {
+  disabled: string
+  disabledBackground: string
+  active?: string
+  hover?: string
+  selected?: string
+  selectedOpacity?: number
+  focus?: string
+}
+
 export type CommonColors = {
   primary: PaletteColor
   tertiary: PaletteColor
@@ -17,6 +27,7 @@ export type CommonColors = {
   success: SimplePaletteColor
   info?: SimplePaletteColor
   tunews: SimplePaletteColor
+  action: ActionColor
   divider: string
   link: string
 }
