@@ -20,7 +20,6 @@ const ActionBox = styled(Button)`
   border-radius: 4px;
   justify-content: center;
   align-items: center;
-  flex-direction: ${props => (props.theme.contentDirection === 'rtl' ? 'row-reverse' : 'row')};
   gap: 4px;
 `
 
