@@ -1,4 +1,5 @@
-import { CSSProperties, ReactNode, ReactPortal, useEffect, useLayoutEffect, useState } from 'react'
+import { useTheme } from '@emotion/react'
+import React, { CSSProperties, ReactNode, ReactPortal, useEffect, useLayoutEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 
 type PortalProps = {
@@ -11,6 +12,7 @@ type PortalProps = {
 /** A portal creates a new DOM Node outside the regular DOM. You can use it f.e. to fix z-index problems */
 const Portal = ({ children, className, element = 'reach-portal', show = false, style }: PortalProps): ReactPortal => {
   const [container] = useState(() => document.createElement(element))
+  const theme = useTheme()
 
   useEffect(() => {
     container.classList.add(className)
@@ -32,7 +34,7 @@ const Portal = ({ children, className, element = 'reach-portal', show = false, s
     }
   }, [container, show, style])
 
-  return createPortal(children, container)
+  return createPortal(<div dir={theme.contentDirection}>{children}</div>, container)
 }
 
 export default Portal
