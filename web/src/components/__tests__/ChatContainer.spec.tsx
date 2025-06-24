@@ -24,7 +24,7 @@ describe('ChatContainer', () => {
       pathname,
       routePattern,
     })
-    const chatButtonContainer = getAllByText('chat:chat').find(node => node.tagName === 'SPAN')
+    const chatButtonContainer = getAllByText('chat:chat')[0]
     expect(chatButtonContainer).toBeTruthy()
     fireEvent.click(chatButtonContainer!)
     expect(getByText('chat:header')).toBeTruthy()
@@ -40,7 +40,7 @@ describe('ChatContainer', () => {
         routePattern,
       },
     )
-    const chatButtonContainer = getAllByText('chat:chat').find(node => node.tagName !== 'SPAN')
+    const chatButtonContainer = getAllByText('chat:chat')[0]
     expect(chatButtonContainer).toBeTruthy()
     fireEvent.click(chatButtonContainer!)
     const closeButton = getAllByLabelText('common:minimize')[0]!
