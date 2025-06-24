@@ -1,12 +1,8 @@
-import createCache from '@emotion/cache'
-import { CacheProvider } from '@emotion/react'
-import rtlPlugin from '@mui/stylis-plugin-rtl'
 import 'core-js/actual/array/at'
 import { Settings as LuxonSettings } from 'luxon'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BrowserRouter as Router } from 'react-router-dom'
-import { prefixer } from 'stylis'
 
 import { setJpalTrackingCode } from 'shared/api'
 import { UiDirectionType, config } from 'translations'
@@ -22,16 +18,6 @@ import { initSentry } from './utils/sentry'
 LuxonSettings.throwOnInvalid = true
 LuxonSettings.defaultLocale = config.defaultFallback
 
-const ltrCache = createCache({
-  key: 'muiltr',
-  stylisPlugins: [prefixer],
-})
-
-const rtlCache = createCache({
-  key: 'muirtl',
-  stylisPlugins: [prefixer, rtlPlugin],
-})
-
 const App = (): ReactElement => {
   const [contentLanguage, setContentLanguage] = useState<string>(config.defaultFallback)
   const { t } = useTranslation('landing')
@@ -46,20 +32,18 @@ const App = (): ReactElement => {
   }, [])
 
   return (
-    <CacheProvider value={contentDirection === 'rtl' ? rtlCache : ltrCache}>
-      <ThemeContainer contentDirection={contentDirection}>
-        <I18nProvider contentLanguage={contentLanguage}>
-          <>
-            <Helmet pageTitle={t('pageTitle')} rootPage />
-            <Router>
-              <TtsContainer languageCode={contentLanguage}>
-                <RootSwitcher setContentLanguage={setContentLanguage} />
-              </TtsContainer>
-            </Router>
-          </>
-        </I18nProvider>
-      </ThemeContainer>
-    </CacheProvider>
+    <ThemeContainer contentDirection={contentDirection}>
+      <I18nProvider contentLanguage={contentLanguage}>
+        <>
+          <Helmet pageTitle={t('pageTitle')} rootPage />
+          <Router>
+            <TtsContainer languageCode={contentLanguage}>
+              <RootSwitcher setContentLanguage={setContentLanguage} />
+            </TtsContainer>
+          </Router>
+        </>
+      </I18nProvider>
+    </ThemeContainer>
   )
 }
 
