@@ -1,6 +1,9 @@
-import { Global, Theme, ThemeProvider } from '@emotion/react'
+import createCache from '@emotion/cache'
+import { CacheProvider, Global, Theme, ThemeProvider } from '@emotion/react'
 import { createTheme as createMuiTheme } from '@mui/material/styles'
+import rtlPlugin from '@mui/stylis-plugin-rtl'
 import React, { ReactElement, ReactNode, useMemo } from 'react'
+import { prefixer } from 'stylis'
 
 import { ThemeKey } from 'build-configs'
 import { UiDirectionType } from 'translations'
@@ -17,6 +20,16 @@ import globalStyle from '../styles/global/GlobalStyle'
 // ].map(query => window.matchMedia(query))
 //
 // const getSystemTheme = (): ThemeKey => (contrastThemeMediaQueries.some(query => query.matches) ? 'contrast' : 'light')
+
+const ltrCache = createCache({
+  key: 'mui-ltr-cache',
+  stylisPlugins: [prefixer],
+})
+
+const rtlCache = createCache({
+  key: 'mui-rtl-cache',
+  stylisPlugins: [prefixer, rtlPlugin],
+})
 
 const createTheme = (
   themeType: 'light' | 'contrast',
@@ -57,10 +70,12 @@ const ThemeContainer = ({ children, contentDirection }: ThemeContainerProps): Re
   }, [themeType, setThemeType, contentDirection])
 
   return (
-    <ThemeProvider theme={theme}>
-      <Global styles={globalStyle({ theme })} />
-      {children}
-    </ThemeProvider>
+    <CacheProvider value={contentDirection === 'rtl' ? rtlCache : ltrCache}>
+      <ThemeProvider theme={theme}>
+        <Global styles={globalStyle({ theme })} />
+        {children}
+      </ThemeProvider>
+    </CacheProvider>
   )
 }
 
