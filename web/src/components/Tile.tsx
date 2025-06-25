@@ -1,5 +1,5 @@
+import styled from '@emotion/styled'
 import React, { ReactElement, ReactNode, useRef } from 'react'
-import styled from 'styled-components'
 
 import { TileModel } from 'shared'
 import { request } from 'shared/api'
@@ -28,6 +28,15 @@ const ThumbnailSizer = styled.div`
   width: 150px;
   max-width: 33.3vw;
   margin: 0 auto;
+
+  & div:hover {
+    ${props =>
+      props.theme.isContrastTheme &&
+      `
+        outline: 8px solid ${props.theme.colors.themeColor};
+        border-radius: 24px;
+      `}
+  }
 `
 
 const TileTitle = styled.div`
@@ -49,6 +58,10 @@ const TileContainer = styled.div`
     border: none;
     box-shadow: none;
     cursor: pointer;
+  }
+
+  & img {
+    filter: ${props => (props.theme.isContrastTheme ? 'invert(1) saturate(0) brightness(7)' : 'none')};
   }
 
   & > a:hover img,

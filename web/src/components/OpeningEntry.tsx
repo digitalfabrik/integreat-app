@@ -1,6 +1,6 @@
+import styled from '@emotion/styled'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
 
 import { TimeSlot } from 'shared/api/types'
 
@@ -9,11 +9,11 @@ import AppointmentOnlyIcon from './AppointmentOnlyIcon'
 const fontBold = 600
 const fontStandard = 400
 
-const EntryContainer = styled.div<{ $isCurrentDay: boolean }>`
+const EntryContainer = styled.div<{ isCurrentDay: boolean }>`
   display: flex;
   justify-content: space-between;
   padding: 4px 0;
-  font-weight: ${props => (props.$isCurrentDay ? fontBold : fontStandard)};
+  font-weight: ${props => (props.isCurrentDay ? fontBold : fontStandard)};
   position: relative;
 `
 
@@ -29,7 +29,7 @@ const OpeningContainer = styled.div`
 `
 
 const TimeSlotEntry = styled.span`
-  &:not(:first-child) {
+  &:not(:first-of-type) {
     margin-top: 8px;
   }
 `
@@ -56,7 +56,7 @@ const OpeningEntry = ({
   const { t } = useTranslation('pois')
 
   return (
-    <EntryContainer $isCurrentDay={isCurrentDay} id={`openingEntryContainer-${weekday}`}>
+    <EntryContainer isCurrentDay={isCurrentDay} id={`openingEntryContainer-${weekday}`}>
       <span>{weekday}</span>
       <OpeningContainer>
         {allDay && <span>{t('allDay')}</span>}

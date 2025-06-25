@@ -1,6 +1,6 @@
+import styled from '@emotion/styled'
 import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
-import styled from 'styled-components'
 
 import { CategoryModel } from 'shared/api'
 
@@ -23,6 +23,7 @@ const CategoryThumbnail = styled.img`
   padding: 0 5px;
   flex-shrink: 0;
   object-fit: contain;
+  filter: ${props => (props.theme.isContrastTheme ? 'invert(1)' : 'none')};
 `
 
 const CategoryItemCaption = styled.span`

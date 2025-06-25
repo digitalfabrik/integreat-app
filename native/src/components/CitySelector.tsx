@@ -24,7 +24,6 @@ const SearchBar = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding: 0 10%;
 `
 
 const SearchCounter = styled.Text`
@@ -71,6 +70,7 @@ const CitySelector = ({ cities, navigateToDashboard }: CitySelectorProps): React
           onFilterTextChange={setFilterText}
           placeholderText={t('searchCity')}
           spaceSearch={false}
+          description={t('searchCityDescription')}
         />
       </SearchBar>
       <View>

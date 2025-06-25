@@ -1,11 +1,12 @@
+import styled from '@emotion/styled'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
 
 import GeneralFooter from '../components/GeneralFooter'
 import Layout from '../components/Layout'
 import TextButton from '../components/base/TextButton'
 import buildConfig from '../constants/buildConfig'
+import { helpers } from '../constants/theme'
 import useScrollToTopOnMount from '../hooks/useScrollToTopOnMount'
 
 const Container = styled.div`
@@ -51,6 +52,7 @@ const StepNumber = styled.div`
   height: 2rem;
   text-align: center;
   background-color: ${props => props.theme.colors.themeColor};
+  ${helpers.adaptiveThemeTextColor}
 `
 
 const StepExplanation = styled(Text)`

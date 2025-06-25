@@ -1,7 +1,8 @@
+import { useTheme } from '@emotion/react'
+import styled from '@emotion/styled'
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { GeolocateControl, NavigationControl } from 'react-map-gl'
-import styled, { useTheme } from 'styled-components'
 
 import { LocationType, MapViewViewport, MapFeature, PreparePoisReturn } from 'shared'
 import { CityModel, PoiModel } from 'shared/api'
@@ -24,17 +25,16 @@ const PanelContainer = styled.article`
   min-width: ${dimensions.poiDesktopPanelWidth}px;
 `
 
-const ListViewWrapper = styled.div<{ $panelHeights: number; $bottomBarHeight: number }>`
+const ListViewWrapper = styled.div<{ panelHeights: number; bottomBarHeight: number }>`
   padding: 16px;
   overflow: auto;
-  ${({ $panelHeights: panelHeights, $bottomBarHeight: bottomBarHeight }) =>
-    `height: calc(100vh - ${panelHeights}px - ${bottomBarHeight}px);`};
+  ${({ panelHeights, bottomBarHeight }) => `height: calc(100vh - ${panelHeights}px - ${bottomBarHeight}px);`};
 `
 
 const ToolbarContainer = styled.div`
   display: flex;
   justify-content: center;
-  background-color: ${props => props.theme.colors.backgroundAccentColor};
+  background-color: ${props => props.theme.colors.backgroundColor};
   box-shadow: 1px 0 4px 0 rgb(0 0 0 / 20%);
 `
 
@@ -129,25 +129,21 @@ const PoisDesktop = ({
     <>
       <ListViewWrapper
         ref={listRef}
-        $panelHeights={panelHeights}
-        $bottomBarHeight={poi ? dimensions.poiDetailNavigation : dimensions.toolbarHeight}>
+        panelHeights={panelHeights}
+        bottomBarHeight={poi ? dimensions.poiDetailNavigation : dimensions.toolbarHeight}>
         {canDeselect ? (
           <GoBack goBack={deselect} text={t('detailsHeader')} />
         ) : (
           <ListHeader>{t('listTitle')}</ListHeader>
         )}
 
-        <PoiSharedChildren
-          pois={pois}
-          poi={poi}
-          selectPoi={handleSelectPoi}
-          userLocation={userLocation}
-          toolbar={toolbar}
-          slug={slug}
-        />
+        <PoiSharedChildren pois={pois} poi={poi} selectPoi={handleSelectPoi} userLocation={userLocation} slug={slug} />
       </ListViewWrapper>
       {poi && pois.length > 0 ? (
-        <PoiPanelNavigation switchPoi={switchPoi} />
+        <>
+          <ToolbarContainer>{toolbar}</ToolbarContainer>
+          <PoiPanelNavigation switchPoi={switchPoi} />
+        </>
       ) : (
         <ToolbarContainer>{toolbar}</ToolbarContainer>
       )}

@@ -39,13 +39,6 @@ jobs:
         - sentry
       requires:
         - build_web
-  - notify_web:
-      production_delivery: false
-      context:
-        - mattermost
-        - deliverino
-      requires:
-        - deliver_web
 
   - build_android:
       matrix:
@@ -82,13 +75,6 @@ jobs:
         - sentry
       requires:
         - build_android
-  - notify_android:
-      production_delivery: false
-      context:
-        - mattermost
-        - deliverino
-      requires:
-        - deliver_android
 
   - build_ios:
       matrix:
@@ -125,19 +111,13 @@ jobs:
         - sentry
       requires:
         - build_ios
-  - notify_ios:
+
+  - notify_release:
       production_delivery: false
       context:
         - mattermost
         - deliverino
       requires:
+        - deliver_android
         - deliver_ios
-
-  - move_release_notes:
-      context:
-        - mattermost
-        - deliverino
-      requires:
-        - notify_web
-        - notify_android
-        - notify_ios
+        - deliver_web

@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 
 const StyledSmallViewTip = styled.p`
   display: block;
@@ -6,7 +6,6 @@ const StyledSmallViewTip = styled.p`
   font-weight: 400;
   margin-bottom: 0;
   margin-top: 8px;
-  white-space: nowrap;
   word-break: break-word;
 `
 export default StyledSmallViewTip

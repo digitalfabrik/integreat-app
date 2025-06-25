@@ -6,6 +6,7 @@ import { readFileSync } from 'fs'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import { join, resolve } from 'path'
 import ReactRefreshTypeScript from 'react-refresh-typescript'
+import TerserPlugin from 'terser-webpack-plugin'
 import { Configuration, DefinePlugin, LoaderOptionsPlugin, optimize, WebpackPluginInstance } from 'webpack'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 import 'webpack-dev-server'
@@ -86,7 +87,7 @@ const generateManifest = (content: Buffer, buildConfig: WebBuildConfigType) => {
 
   manifest.version = readVersionName()
   manifest.homepage_url = buildConfig.aboutUrls.default
-  manifest.theme_color = buildConfig.lightTheme.colors.themeColor
+  manifest.theme_color = buildConfig.legacyLightTheme.colors.themeColor
   manifest.name = buildConfig.appName
   manifest.description = buildConfig.appDescription
 
@@ -189,6 +190,17 @@ const createConfig = (
     optimization: {
       usedExports: true,
       runtimeChunk: 'single',
+      minimize: !devServer,
+      minimizer: [
+        new TerserPlugin({
+          parallel: true,
+          terserOptions: {
+            compress: {
+              drop_console: true,
+            },
+          },
+        }),
+      ],
     },
     devtool: 'source-map',
     devServer: {

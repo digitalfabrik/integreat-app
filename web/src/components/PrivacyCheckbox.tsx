@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react'
 import { Trans } from 'react-i18next'
-import { Link } from 'react-router-dom'
 
 import buildConfig from '../constants/buildConfig'
 import Checkbox from './base/Checkbox'
+import Link from './base/Link'
 
 type PrivacyCheckboxProps = {
   language: string
@@ -22,7 +22,9 @@ const PrivacyCheckbox = ({ language, checked, setChecked }: PrivacyCheckboxProps
       label={
         <Trans i18nKey='common:privacyPolicy'>
           This gets replaced
-          <Link to={privacyUrl}>by react-i18next</Link>
+          <Link to={privacyUrl} highlighted>
+            by react-i18next
+          </Link>
         </Trans>
       }
     />

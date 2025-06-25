@@ -1,9 +1,10 @@
+import { css, SerializedStyles, Theme, useTheme } from '@emotion/react'
+import styled from '@emotion/styled'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { PlacesType } from 'react-tooltip'
-import styled, { css, useTheme } from 'styled-components'
 
-import { CloseIcon, FacebookIcon, MailIcon, ShareIcon, WhatsappIcon } from '../assets'
+import { CloseIcon, CopyIcon, DoneIcon, FacebookIcon, MailIcon, ShareIcon, WhatsappIcon } from '../assets'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import Portal from './Portal'
 import ToolbarItem from './ToolbarItem'
@@ -20,8 +21,8 @@ type SharingPopupProps = {
 }
 
 const TooltipContainer = styled.div<{
-  $flow: 'vertical' | 'horizontal'
-  $active: boolean
+  tooltipFlow: 'vertical' | 'horizontal'
+  optionsVisible: boolean
 }>`
   background-color: ${props => props.theme.colors.backgroundColor};
   padding: 8px;
@@ -34,14 +35,14 @@ const TooltipContainer = styled.div<{
   font-size: 1rem;
 
   ${props =>
-    props.$flow === 'vertical' &&
+    props.tooltipFlow === 'vertical' &&
     css`
       flex-flow: column-reverse;
       transform: translateY(-100%);
     `};
 
   ${props =>
-    props.$flow === 'horizontal' &&
+    props.tooltipFlow === 'horizontal' &&
     (props.theme.contentDirection === 'ltr'
       ? css`
           transform: translate(30%, -8px);
@@ -51,7 +52,7 @@ const TooltipContainer = styled.div<{
         `)};
 
   ${props =>
-    props.$active &&
+    props.optionsVisible &&
     css`
       animation: tooltips 300ms ease-out forwards;
     `};
@@ -64,6 +65,7 @@ const TooltipContainer = styled.div<{
   }
 
   /* White center of the arrow */
+
   &::before {
     z-index: 2000;
     border-bottom: 10px solid ${props => props.theme.colors.backgroundColor};
@@ -71,7 +73,7 @@ const TooltipContainer = styled.div<{
     border-inline-end: 10px solid transparent;
 
     ${props =>
-      props.$flow === 'vertical' &&
+      props.tooltipFlow === 'vertical' &&
       (props.theme.contentDirection === 'ltr'
         ? css`
             left: 20px;
@@ -85,7 +87,7 @@ const TooltipContainer = styled.div<{
           `)};
 
     ${props =>
-      props.$flow === 'horizontal' &&
+      props.tooltipFlow === 'horizontal' &&
       (props.theme.contentDirection === 'ltr'
         ? css`
             left: -14px;
@@ -99,13 +101,14 @@ const TooltipContainer = styled.div<{
           `)};
 
     ${props =>
-      props.$active &&
+      props.optionsVisible &&
       css`
         animation: tooltips 300ms ease-out forwards;
       `};
   }
 
   /* Border of the arrow */
+
   &::after {
     z-index: 1000;
     border-bottom: 11px solid ${props => props.theme.colors.textDecorationColor};
@@ -113,7 +116,7 @@ const TooltipContainer = styled.div<{
     border-inline-end: 11px solid transparent;
 
     ${props =>
-      props.$flow === 'vertical' &&
+      props.tooltipFlow === 'vertical' &&
       (props.theme.contentDirection === 'ltr'
         ? css`
             left: 20px;
@@ -127,7 +130,7 @@ const TooltipContainer = styled.div<{
           `)};
 
     ${props =>
-      props.$flow === 'horizontal' &&
+      props.tooltipFlow === 'horizontal' &&
       (props.theme.contentDirection === 'ltr'
         ? css`
             left: -17px;
@@ -141,7 +144,7 @@ const TooltipContainer = styled.div<{
           `)};
 
     ${props =>
-      props.$active &&
+      props.optionsVisible &&
       css`
         animation: tooltips 300ms ease-out forwards;
       `};
@@ -159,11 +162,19 @@ const CloseButton = styled(Button)`
   display: flex;
 `
 
-const StyledLink = styled(Link)`
-  background-color: ${props => props.theme.colors.backgroundColor};
+const itemStyles = ({ theme }: { theme: Theme }): SerializedStyles => css`
+  background-color: ${theme.colors.backgroundColor};
   border: none;
   padding: 0;
   display: flex;
+`
+
+const StyledLink = styled(Link)`
+  ${itemStyles}
+`
+
+const StyledButton = styled(Button)`
+  ${itemStyles}
 `
 
 const StyledIcon = styled(Icon)`
@@ -190,9 +201,12 @@ const SharingPopupContainer = styled.div`
   position: relative;
 `
 
+const COPY_TIMEOUT = 3000
+
 const SharingPopup = ({ shareUrl, title, flow, portalNeeded }: SharingPopupProps): ReactElement => {
-  const { t } = useTranslation('socialMedia')
   const [shareOptionsVisible, setShareOptionsVisible] = useState<boolean>(false)
+  const [linkCopied, setLinkCopied] = useState<boolean>(false)
+  const { t } = useTranslation('socialMedia')
 
   const encodedTitle = encodeURIComponent(title)
   const encodedShareUrl = encodeURIComponent(shareUrl)
@@ -202,6 +216,14 @@ const SharingPopup = ({ shareUrl, title, flow, portalNeeded }: SharingPopupProps
   const theme = useTheme()
   const tooltipDirectionMobile: PlacesType = theme.contentDirection === 'ltr' ? 'right' : 'left'
   const tooltipDirection: PlacesType = viewportSmall ? tooltipDirectionMobile : 'top'
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(window.location.href).catch(reportError)
+    setLinkCopied(true)
+    setTimeout(() => {
+      setLinkCopied(false)
+    }, COPY_TIMEOUT)
+  }
 
   const Backdrop = (
     <BackdropContainer onClick={() => setShareOptionsVisible(false)} label={t('closeTooltip')} tabIndex={0}>
@@ -219,7 +241,15 @@ const SharingPopup = ({ shareUrl, title, flow, portalNeeded }: SharingPopupProps
             </Portal>
           )}
           {Backdrop}
-          <TooltipContainer $flow={portalNeeded ? 'horizontal' : flow} $active={shareOptionsVisible}>
+          <TooltipContainer tooltipFlow={flow} optionsVisible={shareOptionsVisible}>
+            <Tooltip
+              id='copy'
+              place={tooltipDirection}
+              tooltipContent={t(linkCopied ? 'common:copied' : 'layout:copyUrl')}>
+              <StyledButton onClick={copyToClipboard} label={t(linkCopied ? 'common:copied' : 'layout:copyUrl')}>
+                <StyledIcon src={linkCopied ? DoneIcon : CopyIcon} />
+              </StyledButton>
+            </Tooltip>
             <Tooltip id='share-whatsapp' place={tooltipDirection} tooltipContent={t('whatsappTooltip')}>
               <StyledLink
                 to={`https://api.whatsapp.com/send?text=${shareMessage}%0a${encodedShareUrl}`}

@@ -1,9 +1,10 @@
+import styled from '@emotion/styled'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
 
 import { ArrowBackIcon, ShrinkIcon } from '../assets'
 import dimensions from '../constants/dimensions'
+import { helpers } from '../constants/theme'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import Button from './base/Button'
 import Icon from './base/Icon'
@@ -20,7 +21,7 @@ const StyledIcon = styled(Icon)`
   color: ${props => props.theme.colors.backgroundColor};
 
   @media ${dimensions.smallViewport} {
-    color: ${props => props.theme.colors.textColor};
+    ${helpers.adaptiveThemeTextColor}
   }
 `
 

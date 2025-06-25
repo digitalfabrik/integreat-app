@@ -1,0 +1,21 @@
+parameters:
+  platform:
+    type: enum
+    enum: [all, web, native]
+    default: all
+docker:
+  - image: cimg/node:20.17.0
+resource_class: small
+steps:
+  - checkout
+  - restore_yarn_tools_cache
+  - run:
+      name: Remove prerelease flag from github release
+      command: |
+        PROMOTION_MESSAGE=$(yarn --silent app-toolbelt v0 release promote --platform << parameters.platform >> --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME})
+        echo "export PROMOTION_MESSAGE='${PROMOTION_MESSAGE}'" >> $BASH_ENV
+      working_directory: tools
+  - notify:
+      success_message: '${PROMOTION_MESSAGE}'
+      channel: releases
+      only_for_branch: ${CIRCLE_BRANCH}

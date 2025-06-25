@@ -1,7 +1,8 @@
+import styled from '@emotion/styled'
 import React, { ReactElement, ReactNode } from 'react'
-import styled from 'styled-components'
 
 import dimensions from '../constants/dimensions'
+import { helpers } from '../constants/theme'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import ChatMenu from './ChatMenu'
 
@@ -18,10 +19,11 @@ const Container = styled.div`
   }
 `
 
-const Header = styled.div<{ $small: boolean }>`
+const Header = styled.div<{ small: boolean }>`
   display: flex;
-  flex-direction: ${props => (props.$small ? 'row-reverse' : 'row')};
+  flex-direction: ${props => (props.small ? 'row-reverse' : 'row')};
   justify-content: space-between;
+  ${helpers.adaptiveThemeTextColor}
   font-size: ${props => props.theme.fonts.hintFontSize};
   font-weight: bold;
   align-items: center;
@@ -49,7 +51,7 @@ const ChatContentWrapper = ({ title, onClose, children }: ModalProps): ReactElem
   const { viewportSmall } = useWindowDimensions()
   return (
     <Container>
-      <Header $small={viewportSmall}>
+      <Header small={viewportSmall}>
         {title}
         <ChatMenu onClose={onClose} />
       </Header>

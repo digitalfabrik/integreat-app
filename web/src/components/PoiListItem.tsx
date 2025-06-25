@@ -1,6 +1,6 @@
+import styled from '@emotion/styled'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
 
 import { PoiModel } from 'shared/api'
 
@@ -22,7 +22,7 @@ const ListItemContainer = styled.ul`
     }
   }
 
-  &:first-child {
+  &:first-of-type {
     padding-top: 0;
   }
 `
@@ -53,6 +53,7 @@ export const Description = styled.div`
   flex-direction: column;
   flex-grow: 1;
   padding: 0 22px;
+  color: ${props => props.theme.colors.textColor};
   align-self: center;
   word-break: break-word;
   hyphens: auto;

@@ -1,6 +1,6 @@
+import styled from '@emotion/styled'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
 
 import { EventModel } from 'shared/api'
 
@@ -19,14 +19,14 @@ const ButtonContainer = styled.div`
   }
 `
 
-const CancelButton = styled(TextButton)<{ $fullWidth: boolean }>`
-  ${props => props.$fullWidth && 'width: 100%;'}
+const CancelButton = styled(TextButton)<{ fullWidth: boolean }>`
+  ${props => props.fullWidth && 'width: 100%;'}
   background-color: ${props => props.theme.colors.textDecorationColor};
   margin: 0;
 `
 
-const StyledButton = styled(TextButton)<{ $fullWidth: boolean }>`
-  ${props => props.$fullWidth && 'width: 100%;'}
+const StyledButton = styled(TextButton)<{ fullWidth: boolean }>`
+  ${props => props.fullWidth && 'width: 100%;'}
   margin: 0;
 `
 
@@ -69,23 +69,23 @@ const ExportEventButton = ({ event }: ExportEventButtonProps): ReactElement => {
         ]}
       />
       <ButtonContainer>
-        <CancelButton onClick={() => setIsExporting(false)} text={t('layout:cancel')} $fullWidth={viewportSmall} />
+        <CancelButton onClick={() => setIsExporting(false)} text={t('layout:cancel')} fullWidth={viewportSmall} />
         <StyledButton
           onClick={() => {
             downloadEventAsIcsFile(event, exportRecurring)
             setExportRecurring(false)
             setIsExporting(false)
           }}
-          text={t('exportAsICal')}
-          $fullWidth={viewportSmall}
+          text={t('export')}
+          fullWidth={viewportSmall}
         />
       </ButtonContainer>
     </>
   ) : (
     <StyledButton
       onClick={() => (isRecurring ? setIsExporting(true) : downloadEventAsIcsFile(event, false))}
-      text={t('exportAsICal')}
-      $fullWidth={viewportSmall}
+      text={t('export')}
+      fullWidth={viewportSmall}
     />
   )
 }

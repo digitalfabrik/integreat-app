@@ -21,8 +21,8 @@ Several workflows exist for different purposes:
 | commit_main                | commits on main  | :x:                | :x:             | webnext      | :x:                | :x:                |
 | delivery                   | script           | :heavy_check_mark: | beta            | beta         | :heavy_check_mark: | :heavy_check_mark: |
 | promotion                  | script           | :x:                | promotion       | promotion    | :x:                | :x:                |
-| native_beta_delivery       | script           | :heavy_check_mark: | beta            | :x:          | :heavy_check_mark: | :x:                |
-| native_production_delivery | script           | :heavy_check_mark: | production      | :x:          | :heavy_check_mark: | :x:                |
+| native_beta_delivery       | script           | :heavy_check_mark: | beta            | :x:          | :heavy_check_mark: | :heavy_check_mark: |
+| native_production_delivery | script           | :heavy_check_mark: | production      | :x:          | :heavy_check_mark: | :heavy_check_mark: |
 | native_promotion           | script           | :x:                | promotion       | :x:          | :x:                | :x:                |
 | web_beta_delivery          | script           | :heavy_check_mark: | :x:             | beta         | :heavy_check_mark: | :x:                |
 | web_production_delivery    | script           | :heavy_check_mark: | :x:             | production   | :heavy_check_mark: | :x:                |
@@ -36,7 +36,7 @@ Steps executed if _Checks_ is checked :heavy_check_mark::
 - Unit testing with jest
 - Building the app
 
-If _Version bump_ is checked, the version bumps are committed and a tag and release is created on github.
+If _Version bump_ is checked, the version bumps are committed and a tag and release are created on github.
 
 ## Failed Delivery
 
@@ -148,8 +148,11 @@ Therefore, you can follow the documentation for Manual Builds to set up [certifi
 
 ## Determining the Next Version
 
-The next version of the app must be determined programmatically. The tool [next-version](../tools/next-version.ts) can be used.
-More information on the version naming schema used can be found [here](conventions.md#versioning).
+The next version of the app must be determined programmatically.
+
+- Go to the tools folder
+- run: `yarn app-toolbelt v0 version calc | jq .versionName`
+  More information on the version naming schema used can be found [here](conventions.md#versioning).
 
 ## Environment Variables and Dependencies
 

@@ -17,11 +17,13 @@ import { CalendarIcon, CategoriesIcon, LocationIcon, NewsIcon, POIsIcon, SearchI
 import buildConfig from '../constants/buildConfig'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { LOCAL_NEWS_ROUTE, RouteType, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from '../routes'
+import ContrastThemeToggle from './ContrastThemeToggle'
 import Header from './Header'
 import HeaderActionItemLink from './HeaderActionItemLink'
 import HeaderNavigationItem from './HeaderNavigationItem'
-import KebabActionItemLink from './KebabActionItemLink'
+import KebabActionItem from './KebabActionItem'
 import LanguageSelector from './LanguageSelector'
+import Link from './base/Link'
 
 type CityContentHeaderProps = {
   cityModel: CityModel
@@ -69,7 +71,9 @@ const CityContentHeader = ({
       ]
 
   const kebabItems = [
-    <KebabActionItemLink key='location' to={landingPath} text={t('changeLocation')} iconSrc={LocationIcon} />,
+    <Link key='location' to={landingPath}>
+      <KebabActionItem text={t('changeLocation')} iconSrc={LocationIcon} />
+    </Link>,
     <LanguageSelector
       key='language'
       languageChangePaths={languageChangePaths}
@@ -78,6 +82,7 @@ const CityContentHeader = ({
       inKebabMenu
       closeSidebar={() => setIsSidebarOpen(false)}
     />,
+    <ContrastThemeToggle key='contrastTheme' />,
   ]
 
   const getNavigationItems = (): ReactElement[] => {

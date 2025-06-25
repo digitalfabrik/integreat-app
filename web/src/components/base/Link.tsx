@@ -1,14 +1,20 @@
+import shouldForwardProp from '@emotion/is-prop-valid'
+import styled from '@emotion/styled'
 import React, { ReactElement, ReactNode } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
-import styled from 'styled-components'
 
 import { UiDirectionType } from 'translations'
 
 import { isInternalLink, NEW_TAB, NEW_TAB_FEATURES } from '../../utils/openLink'
 
-const StyledLink = styled(RouterLink)<{ $highlighted: boolean }>`
-  color: ${props => (props.$highlighted ? props.theme.colors.linkColor : 'inherit')};
-  text-decoration: ${props => (props.$highlighted ? 'underline' : 'none')};
+const InternalLink = styled(RouterLink, { shouldForwardProp })<{ highlightedLink: boolean }>`
+  color: ${props => (props.highlightedLink ? props.theme.colors.linkColor : 'inherit')};
+  text-decoration: ${props => (props.highlightedLink ? 'underline' : 'none')};
+`
+
+const ExternalLink = styled.a<{ highlightedLink: boolean }>`
+  color: ${props => (props.highlightedLink ? props.theme.colors.linkColor : 'inherit')};
+  text-decoration: ${props => (props.highlightedLink ? 'underline' : 'none')};
 `
 
 type LinkProps = {
@@ -19,22 +25,38 @@ type LinkProps = {
   dir?: UiDirectionType | 'auto'
   id?: string
   highlighted?: boolean
+  onClick?: () => void
 }
 
-const Link = ({ to, children, ariaLabel, className, dir, id, highlighted = false }: LinkProps): ReactElement => {
-  const linkProps = isInternalLink(to) ? { to } : { as: 'a', href: to, target: NEW_TAB, rel: NEW_TAB_FEATURES }
-
+const Link = ({
+  to,
+  children,
+  ariaLabel,
+  className,
+  dir,
+  id,
+  highlighted = false,
+  onClick,
+}: LinkProps): ReactElement => {
+  const commonProps = {
+    'aria-label': ariaLabel,
+    className,
+    dir,
+    highlightedLink: highlighted,
+    id,
+    onClick,
+  }
+  if (isInternalLink(to)) {
+    return (
+      <InternalLink to={to} {...commonProps}>
+        {children}
+      </InternalLink>
+    )
+  }
   return (
-    // @ts-expect-error wrong types from polymorphic 'as', see https://github.com/styled-components/styled-components/issues/4112
-    <StyledLink
-      id={id}
-      aria-label={ariaLabel}
-      className={className}
-      {...linkProps}
-      dir={dir}
-      $highlighted={highlighted}>
+    <ExternalLink href={to} target={NEW_TAB} rel={NEW_TAB_FEATURES} {...commonProps}>
       {children}
-    </StyledLink>
+    </ExternalLink>
   )
 }
 

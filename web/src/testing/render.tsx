@@ -1,8 +1,8 @@
+import { ThemeProvider } from '@emotion/react'
 import type { Router } from '@remix-run/router'
 import { render, RenderResult } from '@testing-library/react'
 import React, { ReactElement, ReactNode } from 'react'
 import { createMemoryRouter, MemoryRouter, RouterProvider } from 'react-router-dom'
-import { ThemeProvider } from 'styled-components'
 
 import { UiDirectionType } from 'translations'
 
@@ -15,7 +15,7 @@ type RenderRouteOptions = {
   childPattern?: string
 }
 
-const theme = { ...buildConfig().lightTheme, contentDirection: 'ltr' as UiDirectionType }
+const theme = { ...buildConfig().legacyLightTheme, contentDirection: 'ltr' as UiDirectionType }
 
 const AllTheProviders = ({ children, options }: { children: ReactNode; options?: { pathname: string } }) => (
   <MemoryRouter initialEntries={options ? [options.pathname] : ['/']}>

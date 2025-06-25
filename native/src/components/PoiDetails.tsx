@@ -41,6 +41,10 @@ const StyledCategory = styled.Text`
   color: ${props => props.theme.colors.textSecondaryColor};
 `
 
+const StyledContactsContainer = styled.View`
+  margin-top: 12px;
+`
+
 type PoiDetailsProps = {
   poi: PoiModel
   language: string
@@ -65,13 +69,23 @@ const PoiDetails = ({ poi, language, distance }: PoiDetailsProps): ReactElement 
       <HorizontalLine />
       <AddressInfo location={poi.location} language={language} />
       <HorizontalLine />
-      {contacts.map(contact => (
-        <Contact
-          key={contact.headline ?? contact.website ?? contact.name ?? contact.phoneNumber}
-          contact={contact}
-          language={language}
-        />
-      ))}
+      {contacts.length > 0 && (
+        <>
+          <Collapsible headerContent={t('contacts')} language={language}>
+            <StyledContactsContainer>
+              {contacts.map((contact, index) => (
+                <Contact
+                  key={contact.headline ?? contact.website ?? contact.name ?? contact.phoneNumber}
+                  contact={contact}
+                  isLastContact={contacts.length - 1 === index}
+                />
+              ))}
+            </StyledContactsContainer>
+          </Collapsible>
+
+          <HorizontalLine />
+        </>
+      )}
       <OpeningHours
         language={language}
         openingHours={openingHours}

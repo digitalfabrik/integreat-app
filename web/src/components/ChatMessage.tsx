@@ -1,7 +1,7 @@
+import styled from '@emotion/styled'
 import { TFunction } from 'i18next'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
 
 import ChatMessageModel from 'shared/api/models/ChatMessageModel'
 
@@ -10,6 +10,7 @@ import RemoteContent from './RemoteContent'
 import Icon from './base/Icon'
 
 export const Message = styled.div`
+  color: ${props => props.theme.colors.textColor};
   border-radius: 5px;
   padding: 8px;
   border: 1px solid ${props => props.theme.colors.textDecorationColor};
@@ -21,15 +22,15 @@ export const Message = styled.div`
   }
 `
 
-const Container = styled.div<{ $isAuthor: boolean }>`
+const Container = styled.div<{ isAuthor: boolean }>`
   display: flex;
-  ${props => (props.$isAuthor ? 'flex-direction:row-reverse' : 'flex-direction:row')};
+  flex-direction: ${props => (props.isAuthor ? 'row-reverse' : 'row')};
   margin-bottom: 12px;
   gap: 8px;
 `
 
-const IconContainer = styled.div<{ $visible: boolean }>`
-  opacity: ${props => (props.$visible ? 1 : 0)};
+const IconContainer = styled.div<{ visible: boolean }>`
+  opacity: ${props => (props.visible ? 1 : 0)};
 `
 
 const Circle = styled.div`
@@ -70,8 +71,8 @@ export const InnerChatMessage = ({
 }: InnerChatMessageProps): ReactElement => {
   const { t } = useTranslation('chat')
   return (
-    <Container $isAuthor={userIsAuthor}>
-      <IconContainer $visible={showIcon}>{getIcon(userIsAuthor, isAutomaticAnswer, t)}</IconContainer>
+    <Container isAuthor={userIsAuthor}>
+      <IconContainer visible={showIcon}>{getIcon(userIsAuthor, isAutomaticAnswer, t)}</IconContainer>
       <Message data-testid={messageId}>
         <RemoteContent html={content} smallText />
       </Message>

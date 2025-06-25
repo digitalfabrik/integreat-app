@@ -1,9 +1,10 @@
-import React, { ReactElement, useState } from 'react'
+import styled from '@emotion/styled'
+import React, { ReactElement, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
 
 import { DataSecurityIcon } from '../assets'
 import dimensions from '../constants/dimensions'
+import useOnClickOutside from '../hooks/useOnClickOutside'
 import Icon from './base/Icon'
 
 const SecurityInformationContainer = styled.div`
@@ -30,8 +31,8 @@ const InformationTooltipContainer = styled.div`
   position: absolute;
   z-index: 2000;
   border: 1px solid;
-  background-color: ${props => props.theme.colors.textSecondaryColor};
-  color: white;
+  background-color: ${props => props.theme.colors.backgroundColor};
+  color: ${props => props.theme.colors.textColor};
   padding: 12px;
   text-align: center;
   transform: ${props => (props.theme.contentDirection === 'rtl' ? 'translate(95%, -90%)' : 'translate(-95%, -90%)')};
@@ -44,11 +45,13 @@ const InformationTooltipContainer = styled.div`
 `
 
 const ChatSecurityInformation = (): ReactElement => {
+  const [securityInformationVisible, setSecurityInformationVisible] = useState(false)
+  const securityInformationRef = useRef(null)
+  useOnClickOutside(securityInformationRef, () => setSecurityInformationVisible(false))
   const { t } = useTranslation('chat')
-  const [securityInformationVisible, setSecurityInformationVisible] = useState<boolean>(false)
 
   return (
-    <SecurityInformationContainer>
+    <SecurityInformationContainer ref={securityInformationRef}>
       {securityInformationVisible && <InformationTooltipContainer>{t('dataSecurity')}</InformationTooltipContainer>}
       <SecurityIconContainer onClick={() => setSecurityInformationVisible(!securityInformationVisible)}>
         <SecurityIcon src={DataSecurityIcon} />

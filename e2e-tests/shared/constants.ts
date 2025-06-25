@@ -1,5 +1,5 @@
 export const filter = 'wirschaffendas'
-export const contentSearch = 'language'
+export const contentSearch = 'language courses'
 export const defaultCity = 'E2E-Testumgebung'
 export const augsburgCity = 'Stadt Augsburg'
 export const language = 'en'

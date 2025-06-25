@@ -1,3 +1,4 @@
+import { useTheme } from '@emotion/react'
 import Dompurify from 'dompurify'
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -41,6 +42,7 @@ const RemoteContent = ({ html, centered = false, smallText = false }: RemoteCont
   const [contentIframeSources, setContentIframeSources] = useState<IframeSources>({})
   const { viewportSmall, width: deviceWidth } = useWindowDimensions()
   const { t } = useTranslation()
+  const { isContrastTheme } = useTheme()
 
   const handleAnchorClick = useCallback(
     (event: MouseEvent) => {
@@ -61,6 +63,17 @@ const RemoteContent = ({ html, centered = false, smallText = false }: RemoteCont
       return
     }
     const currentSandBoxRef = sandBoxRef.current
+
+    const allElements = currentSandBoxRef.querySelectorAll('*')
+    allElements.forEach(element => {
+      if (element instanceof HTMLElement && element.style.color === 'rgb(0, 0, 0)') {
+        element.style.removeProperty('color')
+      }
+      if (element instanceof HTMLImageElement && element.src.endsWith('.svg') && isContrastTheme) {
+        element.style.setProperty('filter', 'invert(1)')
+      }
+    })
+
     const anchors = currentSandBoxRef.getElementsByTagName('a')
     Array.from(anchors).forEach(anchor => anchor.addEventListener('click', handleAnchorClick))
 
@@ -100,6 +113,7 @@ const RemoteContent = ({ html, centered = false, smallText = false }: RemoteCont
     onUpdateLocalStorage,
     viewportSmall,
     deviceWidth,
+    isContrastTheme,
   ])
 
   const dangerouslySetInnerHTML = {
@@ -112,10 +126,10 @@ const RemoteContent = ({ html, centered = false, smallText = false }: RemoteCont
   return (
     <RemoteContentSandBox
       dir='auto'
-      $centered={centered}
+      centered={centered}
       dangerouslySetInnerHTML={dangerouslySetInnerHTML}
       ref={sandBoxRef}
-      $smallText={smallText}
+      smallText={smallText}
     />
   )
 }

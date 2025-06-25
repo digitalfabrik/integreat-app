@@ -1,10 +1,10 @@
+import { useTheme } from '@emotion/react'
+import styled from '@emotion/styled'
 import React, { ReactElement, ReactNode, useImperativeHandle, useRef, useState } from 'react'
 import { BottomSheet, BottomSheetRef } from 'react-spring-bottom-sheet'
 import 'react-spring-bottom-sheet/dist/style.css'
 import { SpringEvent } from 'react-spring-bottom-sheet/dist/types'
-import styled, { useTheme } from 'styled-components'
 
-import '../styles/BottomActionSheet.css'
 import { getSnapPoints } from '../utils/getSnapPoints'
 import { RichLayout } from './Layout'
 import Spacer from './Spacer'
@@ -15,6 +15,10 @@ const Title = styled.h1`
 `
 
 const ToolbarContainer = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   margin-top: 16px;
 `
 
@@ -27,6 +31,7 @@ const StyledBottomSheet = styled(BottomSheet)`
 `
 
 const StyledLayout = styled(RichLayout)`
+  width: 100%;
   min-height: unset;
 `
 
@@ -73,11 +78,8 @@ const BottomActionSheet = React.forwardRef(
         sibling={sibling}
         scrollLocking={false}
         blocking={false}
-        id='sheet'
         onSpringStart={initializeScrollElement}
-        onSpringEnd={() => {
-          setBottomActionSheetHeight(bottomSheetRef.current?.height ?? 0)
-        }}
+        onSpringEnd={() => setBottomActionSheetHeight(bottomSheetRef.current?.height ?? 0)}
         header={title ? <Title>{title}</Title> : null}
         snapPoints={({ maxHeight }) => getSnapPoints(maxHeight)}
         // snapPoints have been supplied in the previous line
@@ -85,8 +87,10 @@ const BottomActionSheet = React.forwardRef(
         defaultSnap={({ snapPoints }) => snapPoints[1]!}>
         <StyledLayout>
           {children}
-          <StyledSpacer $borderColor={theme.colors.borderColor} />
-          <ToolbarContainer>{toolbar}</ToolbarContainer>
+          <ToolbarContainer>
+            <StyledSpacer borderColor={theme.colors.borderColor} />
+            {toolbar}
+          </ToolbarContainer>
         </StyledLayout>
       </StyledBottomSheet>
     )

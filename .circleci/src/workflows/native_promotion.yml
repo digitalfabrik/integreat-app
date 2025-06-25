@@ -19,3 +19,11 @@ jobs:
         - mattermost
         - tuerantuer-apple
         - deliverino
+  - notify_promotion:
+      platform: native
+      context:
+        - mattermost
+        - deliverino
+      requires:
+        - promote_android
+        - promote_ios

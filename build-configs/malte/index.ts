@@ -9,7 +9,7 @@ import {
 } from '../BuildConfigType'
 import { APP_STORE_TEAM_ID } from '../common/constants'
 import mainImprint from './mainImprint'
-import { lightTheme } from './theme'
+import { legacyContrastTheme, legacyLightTheme } from './theme'
 
 const APPLICATION_ID = 'de.malteapp'
 const BUNDLE_IDENTIFIER = 'de.malteapp'
@@ -18,7 +18,8 @@ const commonMalteBuildConfig: CommonBuildConfigType = {
   appName: 'Malte',
   appIcon: 'app_icon_malte',
   notificationIcon: 'notification_icon_malte',
-  lightTheme,
+  legacyLightTheme,
+  legacyContrastTheme,
   assets: MALTE_ASSETS,
   cmsUrl: 'https://cms.malteapp.de',
   switchCmsUrl: 'https://malte-test.tuerantuer.org',
@@ -41,7 +42,7 @@ const commonMalteBuildConfig: CommonBuildConfigType = {
     fixedCity: null,
     cityNotCooperatingTemplate: null,
     chat: false,
-    tts: false,
+    tts: true,
   },
   aboutUrls: {
     default: 'https://www.malteser-werke.de/malte-app',

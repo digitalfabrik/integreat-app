@@ -1,10 +1,11 @@
-import { css, RuleSet } from 'styled-components'
+import { css, SerializedStyles, Theme } from '@emotion/react'
 
 export type HelpersType = {
-  removeLinkHighlighting: RuleSet
-  adaptiveFontSize: RuleSet
-  adaptiveWidth: RuleSet
-  adaptiveHeight: RuleSet
+  removeLinkHighlighting: SerializedStyles
+  adaptiveFontSize: (props: { theme: Theme }) => SerializedStyles
+  adaptiveWidth: (props: { theme: Theme }) => SerializedStyles
+  adaptiveHeight: (props: { theme: Theme }) => SerializedStyles
+  adaptiveThemeTextColor: (props: { theme: Theme }) => SerializedStyles
 }
 
 export const helpers: HelpersType = {
@@ -12,25 +13,28 @@ export const helpers: HelpersType = {
     color: inherit;
     text-decoration: none;
   `,
-  adaptiveFontSize: css`
+  adaptiveFontSize: ({ theme }): SerializedStyles => css`
     font-size: clamp(
-      ${props => props.theme.fonts.adaptiveFontSizeSmall.min},
-      ${props => props.theme.fonts.adaptiveFontSizeSmall.value},
-      ${props => props.theme.fonts.adaptiveFontSizeSmall.max}
+      ${theme.fonts.adaptiveFontSizeSmall.min},
+      ${theme.fonts.adaptiveFontSizeSmall.value},
+      ${theme.fonts.adaptiveFontSizeSmall.max}
     );
   `,
-  adaptiveWidth: css`
+  adaptiveWidth: ({ theme }): SerializedStyles => css`
     width: clamp(
-      ${props => props.theme.fonts.adaptiveFontSizeSmall.min},
-      ${props => props.theme.fonts.adaptiveFontSizeSmall.value},
-      ${props => props.theme.fonts.adaptiveFontSizeSmall.max}
+      ${theme.fonts.adaptiveFontSizeSmall.min},
+      ${theme.fonts.adaptiveFontSizeSmall.value},
+      ${theme.fonts.adaptiveFontSizeSmall.max}
     );
   `,
-  adaptiveHeight: css`
+  adaptiveHeight: ({ theme }): SerializedStyles => css`
     height: clamp(
-      ${props => props.theme.fonts.adaptiveFontSizeSmall.min},
-      ${props => props.theme.fonts.adaptiveFontSizeSmall.value},
-      ${props => props.theme.fonts.adaptiveFontSizeSmall.max}
+      ${theme.fonts.adaptiveFontSizeSmall.min},
+      ${theme.fonts.adaptiveFontSizeSmall.value},
+      ${theme.fonts.adaptiveFontSizeSmall.max}
     );
+  `,
+  adaptiveThemeTextColor: ({ theme }): SerializedStyles => css`
+    color: ${theme.isContrastTheme ? theme.colors.backgroundColor : theme.colors.textColor};
   `,
 }

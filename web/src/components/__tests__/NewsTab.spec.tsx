@@ -1,6 +1,6 @@
+import { ThemeProvider } from '@emotion/react'
 import { TFunction } from 'i18next'
 import React from 'react'
-import { ThemeProvider } from 'styled-components'
 
 import { LOCAL_NEWS_TYPE, TU_NEWS_TYPE } from 'shared'
 import { UiDirectionType } from 'translations'
@@ -16,7 +16,7 @@ describe('NewsTab', () => {
   const active = true
   const destination = '/testcity/en/news/local'
   const t = ((key: string) => key) as TFunction
-  const theme = { ...buildConfig().lightTheme, contentDirection: 'ltr' as UiDirectionType }
+  const theme = { ...buildConfig().legacyLightTheme, contentDirection: 'ltr' as UiDirectionType }
 
   it('should render the local news tab', () => {
     const { getByText, queryByLabelText } = renderWithRouter(

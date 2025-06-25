@@ -1,7 +1,8 @@
+import { useTheme } from '@emotion/react'
+import styled from '@emotion/styled'
 import FocusTrap from 'focus-trap-react'
-import React, { ReactElement, ReactNode, useEffect } from 'react'
+import React, { CSSProperties, ReactElement, ReactNode, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled, { CSSProperties, useTheme } from 'styled-components'
 
 import dimensions from '../constants/dimensions'
 import useLockedBody from '../hooks/useLockedBody'
@@ -15,7 +16,8 @@ import Button from './base/Button'
 const Overlay = styled(Button)`
   position: absolute;
   inset: 0;
-  background-color: ${props => props.theme.colors.textSecondaryColor};
+  background-color: ${props =>
+    props.theme.isContrastTheme ? props.theme.colors.backgroundAccentColor : props.theme.colors.textSecondaryColor};
   opacity: 0.9;
   width: 100%;
   height: 100%;

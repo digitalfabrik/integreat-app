@@ -5,6 +5,7 @@ when:
 jobs:
   - bump_version:
       prepare_delivery: true
+      platform: web
       context:
         - mattermost
         - deliverino
@@ -38,8 +39,9 @@ jobs:
         - sentry
       requires:
         - build_web
-  - notify_web:
+  - notify_release:
       production_delivery: false
+      platform: web
       context:
         - mattermost
         - deliverino

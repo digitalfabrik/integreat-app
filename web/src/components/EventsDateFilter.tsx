@@ -1,7 +1,7 @@
+import styled from '@emotion/styled'
 import { DateTime } from 'luxon'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
 
 import { CloseIcon } from '../assets'
 import dimensions from '../constants/dimensions'
@@ -22,6 +22,9 @@ const DateSection = styled.div`
     align-items: center;
   }
 `
+const Text = styled.span`
+  color: ${props => props.theme.colors.textColor};
+`
 
 const StyledButton = styled(Button)`
   display: flex;
@@ -40,7 +43,7 @@ type ResetFilterTextProps = {
 const ResetFilterText = ({ startDate, endDate }: ResetFilterTextProps) => {
   const { t } = useTranslation('events')
   const text = `${t('resetFilter')} ${startDate ? startDate.toFormat('dd.MM.yyyy') : '∞'} - ${endDate ? endDate.toFormat('dd.MM.yyyy') : '∞'}`
-  return <span>{text}</span>
+  return <Text>{text}</Text>
 }
 
 type EventsDateFilterProps = {
@@ -76,8 +79,15 @@ const EventsDateFilter = ({
               setDate={setStartDate}
               error={startDateError ? t(startDateError) : ''}
               placeholderDate={today}
+              calendarLabel={t('selectStartDateCalendar')}
             />
-            <CustomDatePicker title={t('to')} date={endDate} setDate={setEndDate} placeholderDate={inAWeek} />
+            <CustomDatePicker
+              title={t('to')}
+              date={endDate}
+              setDate={setEndDate}
+              placeholderDate={inAWeek}
+              calendarLabel={t('selectEndDateCalendar')}
+            />
           </>
         </DateSection>
       </Accordion>

@@ -4,6 +4,10 @@ parameters:
     description: Whether to prepare for a delivery. If true, the version bump is committed.
     type: boolean
     default: false
+  platform:
+    type: enum
+    enum: [all, web, native]
+    default: all
 docker:
   - image: cimg/node:20.17.0
 resource_class: small
@@ -12,18 +16,18 @@ steps:
   - restore_yarn_tools_cache
   - run:
       name: Calculate next version name
-      command: echo "export NEW_VERSION_NAME=$(yarn --silent next-version calc | jq .versionName)" >> ${BASH_ENV}
+      command: echo "export NEW_VERSION_NAME=$(yarn --silent app-toolbelt v0 version calc | jq .versionName)" >> ${BASH_ENV}
       working_directory: tools
   - run:
       name: Calculate next version code
-      command: echo "export NEW_VERSION_CODE=$(yarn --silent next-version calc | jq .versionCode)" >> ${BASH_ENV}
+      command: echo "export NEW_VERSION_CODE=$(yarn --silent app-toolbelt v0 version calc | jq .versionCode)" >> ${BASH_ENV}
       working_directory: tools
   - when:
       condition: << parameters.prepare_delivery >>
       steps:
         - run:
             name: Bump git version
-            command: yarn git-version bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
+            command: yarn app-toolbelt v0 release bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH} --platforms << parameters.platform >>
             working_directory: tools
   - when:
       condition:

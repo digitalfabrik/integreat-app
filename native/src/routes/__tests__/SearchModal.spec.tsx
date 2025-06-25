@@ -6,9 +6,8 @@ import {
   CategoriesRouteInformationType,
   OPEN_PAGE_SIGNAL_NAME,
   SEARCH_FINISHED_SIGNAL_NAME,
-  SearchResult,
 } from 'shared'
-import { CategoriesMapModelBuilder, EventModelBuilder, PoiModelBuilder } from 'shared/api'
+import { CategoriesMapModelBuilder, EventModelBuilder, ExtendedPageModel, PoiModelBuilder } from 'shared/api'
 
 import { urlFromRouteInformation } from '../../navigation/url'
 import render from '../../testing/render'
@@ -25,10 +24,15 @@ jest.mock('react-native-inappbrowser-reborn', () => ({
   isAvailable: () => false,
 }))
 
+jest.mock('shared/hooks/useDebounce', () => ({
+  __esModule: true,
+  default: (value: string) => value,
+}))
+
 jest.mock('shared', () => ({
   ...jest.requireActual('shared'),
-  useSearch: (results: SearchResult[], query: string) => ({
-    data: query === 'no results, please' ? [] : results,
+  useSearch: (documents: ExtendedPageModel[], query: string) => ({
+    data: query === 'no results, please' ? [] : documents,
     error: null,
     loading: false,
   }),

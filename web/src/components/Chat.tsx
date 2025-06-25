@@ -1,11 +1,11 @@
+import styled from '@emotion/styled'
 import React, { KeyboardEvent, ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
 
 import ChatMessageModel from 'shared/api/models/ChatMessageModel'
 
 import dimensions from '../constants/dimensions'
-import useWindowDimensions from '../hooks/useWindowDimensions'
+import { helpers } from '../constants/theme'
 import ChatConversation from './ChatConversation'
 import ChatSecurityInformation from './ChatSecurityInformation'
 import LoadingSpinner from './LoadingSpinner'
@@ -14,9 +14,12 @@ import InputSection from './base/InputSection'
 import TextButton from './base/TextButton'
 
 const Container = styled.div`
-  padding: 12px;
+  height: 100%;
+  padding-top: 8px;
+  gap: 8px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 
   @media ${dimensions.mediumLargeViewport} {
     height: 600px;
@@ -34,6 +37,7 @@ const SubmitContainer = styled.div`
 
 const SubmitButton = styled(TextButton)`
   flex: 1;
+  ${helpers.adaptiveThemeTextColor}
 `
 
 const LoadingText = styled.div`
@@ -44,13 +48,8 @@ const StyledLoadingSpinner = styled(LoadingSpinner)`
   margin-top: 0;
 `
 
-const InputWrapper = styled.div<{ $height: number }>`
-  height: ${props => props.$height}px;
-  padding-top: 12px;
-`
-
-const StyledChatConversation = styled(ChatConversation)<{ $height: number }>`
-  height: ${props => props.$height}px;
+const InputWrapper = styled.div`
+  padding: 0 12px;
 `
 
 type ChatProps = {
@@ -64,8 +63,6 @@ type ChatProps = {
 const Chat = ({ messages, submitMessage, hasError, isLoading, isTyping }: ChatProps): ReactElement => {
   const { t } = useTranslation('chat')
   const [textInput, setTextInput] = useState<string>('')
-  const { height: deviceHeight } = useWindowDimensions()
-  const chatInputContainerHeight = dimensions.getChatInputContainerHeight(messages)
 
   const onSubmit = () => {
     submitMessage(textInput)
@@ -92,13 +89,8 @@ const Chat = ({ messages, submitMessage, hasError, isLoading, isTyping }: ChatPr
 
   return (
     <Container>
-      <StyledChatConversation
-        $height={deviceHeight - chatInputContainerHeight}
-        messages={messages}
-        hasError={hasError}
-        isTyping={isTyping}
-      />
-      <InputWrapper $height={chatInputContainerHeight}>
+      <ChatConversation messages={messages} hasError={hasError} isTyping={isTyping} />
+      <InputWrapper>
         <InputSection id='chat' title={messages.length > 0 ? '' : t('inputLabel')}>
           <Input
             id='chat'

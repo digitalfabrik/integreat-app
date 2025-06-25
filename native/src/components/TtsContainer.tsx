@@ -1,8 +1,9 @@
-import React, { createContext, ReactElement, useCallback, useContext, useMemo, useState } from 'react'
+import React, { createContext, ReactElement, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import Tts, { Options } from 'react-native-tts'
 
-import { TTS_MAX_TITLE_DISPLAY_CHARS } from 'shared'
+import { getGenericLanguageCode, TTS_MAX_TITLE_DISPLAY_CHARS } from 'shared'
+import { useLoadAsync } from 'shared/api'
 import { truncate } from 'shared/utils/getExcerpt'
 
 import buildConfig from '../constants/buildConfig'
@@ -12,8 +13,6 @@ import useSnackbar from '../hooks/useSnackbar'
 import { reportError } from '../utils/sentry'
 import TtsPlayer from './TtsPlayer'
 
-// For a list of available languages see https://cloud.google.com/text-to-speech/docs/list-voices-and-types#list_of_all_supported_languages
-const TTS_UNSUPPORTED_LANGUAGES = ['fa', 'ka', 'kmr']
 const TTS_OPTIONS: Options = {
   androidParams: {
     KEY_PARAM_PAN: 0,
@@ -55,7 +54,10 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
   const showSnackbar = useSnackbar()
   const title = sentences[0] || t('nothingToRead')
   const shortTitle = truncate(title, { maxChars: TTS_MAX_TITLE_DISPLAY_CHARS })
-  const enabled = buildConfig().featureFlags.tts && !TTS_UNSUPPORTED_LANGUAGES.includes(languageCode)
+  const { data: voices } = useLoadAsync(Tts.voices)
+  const isLanguageSupported =
+    voices && voices.some(({ language }) => getGenericLanguageCode(language) === getGenericLanguageCode(languageCode))
+  const enabled = buildConfig().featureFlags.tts
 
   const initializeTts = useCallback(async (): Promise<void> => {
     await Tts.getInitStatus().catch(async error =>
@@ -71,13 +73,17 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
       showSnackbar({ text: t('nothingToReadFullMessage') })
       return
     }
+    if (!isLanguageSupported) {
+      showSnackbar({ text: t('languageNotSupported') })
+      return
+    }
     initializeTts()
       .then(() => setVisible(true))
       .catch(error => {
         reportError(error)
         showSnackbar({ text: t('error:unknownError') })
       })
-  }, [initializeTts, enabled, sentences.length, visible, showSnackbar, t])
+  }, [initializeTts, enabled, sentences.length, visible, showSnackbar, t, isLanguageSupported])
 
   const stopPlayer = useCallback(async () => {
     // iOS wrongly sends tts-finish instead of tts-cancel if calling Tts.stop()
@@ -110,12 +116,12 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
     async (index = sentenceIndex) => {
       const safeIndex = Math.max(0, index)
       const sentence = sentences[safeIndex]
-      if (sentence) {
+      if (sentence !== undefined) {
         await stopPlayer()
         setIsPlaying(true)
         setSentenceIndex(safeIndex)
         Tts.addEventListener('tts-finish', () => play(safeIndex + 1))
-        Tts.setDefaultLanguage(languageCode)
+        Tts.setDefaultLanguage(getGenericLanguageCode(languageCode))
         Tts.speak(sentence, TTS_OPTIONS)
       } else {
         stop()
@@ -131,10 +137,16 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
     }
   })
 
-  const close = async () => {
+  const close = useCallback(async () => {
     setVisible(false)
     stop()
-  }
+  }, [stop])
+
+  useEffect(() => {
+    if (visible && !isLanguageSupported) {
+      close()
+    }
+  }, [visible, isLanguageSupported, close])
 
   const updateSentences = useCallback(
     (newSentences: string[]) => {

@@ -60,5 +60,13 @@ export const segmentText = (content: string, { languageCode }: SegmentOptions): 
   segment(languageCode, content)
     .map(segment => segment.split('\n'))
     .flat()
-    .filter(sentence => sentence.length > 0)
     .map(sentence => sentence.trim())
+    .filter(sentence => sentence.length > 0)
+
+export const getGenericLanguageCode = (languageCode: string): string => {
+  const genericLanguageCode = languageCode.split('-')[0]
+  if (!genericLanguageCode) {
+    throw new Error('Invalid language code!')
+  }
+  return genericLanguageCode
+}

@@ -1,18 +1,18 @@
-import styled, { css } from 'styled-components'
+import styled from '@emotion/styled'
 
 import { ExternalLinkIcon, PersonIcon } from '../assets'
 import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
 
-const RemoteContentSandBox = styled.div<{ $centered: boolean; $smallText: boolean }>`
+const RemoteContentSandBox = styled.div<{ centered: boolean; smallText: boolean }>`
   font-family: ${props => props.theme.fonts.web.contentFont};
-  font-size: ${props => (props.$smallText ? helpers.adaptiveFontSize : props.theme.fonts.contentFontSize)};
+  font-size: ${props => (props.smallText ? helpers.adaptiveFontSize : props.theme.fonts.contentFontSize)};
   line-height: ${props => props.theme.fonts.contentLineHeight};
   display: flow-root; /* clearfix for the img floats */
 
-  ${props => (props.$centered ? 'text-align: center;' : '')}
-  ${props => (props.$centered ? 'list-style-position: inside;' : '')}
-    img {
+  ${props => (props.centered ? 'text-align: center;' : '')}
+  ${props => (props.centered ? 'list-style-position: inside;' : '')}
+  img {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
@@ -71,6 +71,7 @@ const RemoteContentSandBox = styled.div<{ $centered: boolean; $smallText: boolea
 
   a {
     overflow-wrap: break-word;
+    color: ${props => props.theme.colors.linkColor};
   }
 
   details > * {
@@ -91,12 +92,9 @@ const RemoteContentSandBox = styled.div<{ $centered: boolean; $smallText: boolea
     background-image: url('${ExternalLinkIcon}');
     width: ${props => props.theme.fonts.contentFontSize};
     height: ${props => props.theme.fonts.contentFontSize};
-    ${props =>
-      props.$smallText &&
-      css`
-        ${helpers.adaptiveHeight}
-        ${helpers.adaptiveWidth}
-      `};
+    ${props => props.smallText && helpers.adaptiveHeight}
+    ${props => props.smallText && helpers.adaptiveWidth}
+    color: ${props => props.theme.colors.linkColor};
     background-size: contain;
     background-repeat: no-repeat;
     vertical-align: middle;
@@ -150,8 +148,10 @@ const RemoteContentSandBox = styled.div<{ $centered: boolean; $smallText: boolea
     padding: 16px;
     border-radius: 4px;
     background-repeat: no-repeat;
-    background-color: rgb(127 127 127 / 15%);
-    background-image: linear-gradient(to right, rgb(255 255 255 / 90%) 0 100%), url(${PersonIcon});
+    background-color: ${props =>
+      props.theme.isContrastTheme ? `${props.theme.colors.textColor}10` : 'rgb(127 127 127 / 15%)'};
+    background-image: linear-gradient(to right, ${props => props.theme.colors.backgroundColor}F0 0 100%),
+      url(${PersonIcon});
     background-blend-mode: difference;
     background-position:
       calc(100% + 32px) 100%,
@@ -171,6 +171,7 @@ const RemoteContentSandBox = styled.div<{ $centered: boolean; $smallText: boolea
     }
 
     img {
+      color: ${props => props.theme.colors.textColor};
       margin-inline-end: 8px;
     }
 

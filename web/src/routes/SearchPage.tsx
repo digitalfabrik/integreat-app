@@ -1,9 +1,18 @@
-import React, { ReactElement, useState } from 'react'
+import styled from '@emotion/styled'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useLocation, useNavigate } from 'react-router-dom'
-import styled from 'styled-components'
+import { useSearchParams } from 'react-router-dom'
 
-import { parseHTML, pathnameFromRouteInformation, SEARCH_ROUTE, useSearch, SEARCH_QUERY_KEY } from 'shared'
+import {
+  parseHTML,
+  pathnameFromRouteInformation,
+  SEARCH_ROUTE,
+  useSearch,
+  SEARCH_QUERY_KEY,
+  useDebounce,
+  MAX_SEARCH_RESULTS,
+  filterRedundantFallbackLanguageResults,
+} from 'shared'
 import { config } from 'translations'
 
 import { CityRouteProps } from '../CityContentSwitcher'
@@ -32,12 +41,16 @@ const SearchCounter = styled.p`
   color: ${props => props.theme.colors.textSecondaryColor};
 `
 
-const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps): ReactElement | null => {
-  const query = new URLSearchParams(useLocation().search).get(SEARCH_QUERY_KEY) ?? ''
-  const [filterText, setFilterText] = useState<string>(query)
+const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElement | null => {
+  const [queryParams, setQueryParams] = useSearchParams()
+  const [query, setQuery] = useState(queryParams.get(SEARCH_QUERY_KEY) ?? '')
   const { t } = useTranslation('search')
-  const navigate = useNavigate()
   const fallbackLanguage = config.sourceLanguage
+  const debouncedQuery = useDebounce(query)
+
+  useEffect(() => {
+    setQueryParams(debouncedQuery.length > 0 ? { query: debouncedQuery } : undefined)
+  }, [debouncedQuery, setQueryParams])
 
   const {
     data: contentLanguageDocuments,
@@ -51,10 +64,15 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
     cmsApiBaseUrl,
   })
 
-  const contentLanguageReturn = useSearch(contentLanguageDocuments, query)
+  const contentLanguageReturn = useSearch(contentLanguageDocuments, debouncedQuery)
   const fallbackLanguageDocuments = languageCode !== fallbackLanguage ? fallbackData : []
-  const fallbackLanguageReturn = useSearch(fallbackLanguageDocuments, query)
-  const results = contentLanguageReturn.data.concat(fallbackLanguageReturn.data)
+  const fallbackLanguageReturn = useSearch(fallbackLanguageDocuments, debouncedQuery)
+  const fallbackLanguageResults = filterRedundantFallbackLanguageResults({
+    fallbackLanguageResults: fallbackLanguageReturn.data,
+    contentLanguageResults: contentLanguageReturn.data,
+    fallbackLanguage,
+  })
+  const results = contentLanguageReturn.data.concat(fallbackLanguageResults).slice(0, MAX_SEARCH_RESULTS)
 
   useReportError(contentLanguageReturn.error ?? fallbackLanguageReturn.error)
 
@@ -63,7 +81,11 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
   }
 
   const languageChangePaths = city.languages.map(({ code, name }) => ({
-    path: `${pathnameFromRouteInformation({ route: SEARCH_ROUTE, cityCode, languageCode: code })}/?${SEARCH_QUERY_KEY}=${query}`,
+    path: `${pathnameFromRouteInformation({
+      route: SEARCH_ROUTE,
+      cityCode,
+      languageCode: code,
+    })}/?${SEARCH_QUERY_KEY}=${query}`,
     name,
     code,
   }))
@@ -83,12 +105,6 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
     )
   }
 
-  const handleFilterTextChanged = (filterText: string): void => {
-    setFilterText(filterText)
-    const appendToUrl = filterText.length !== 0 ? `?${SEARCH_QUERY_KEY}=${filterText}` : ''
-    navigate(`${pathname}/${appendToUrl}`, { replace: true })
-  }
-
   const getPageContent = () => {
     if (query.length === 0) {
       return null
@@ -96,6 +112,7 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
     if (loading) {
       return <LoadingSpinner />
     }
+
     return (
       <>
         <List>
@@ -107,7 +124,7 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
               title={title}
               contentWithoutHtml={parseHTML(content)}
               key={path}
-              query={query}
+              query={debouncedQuery}
               path={path}
               thumbnail={thumbnail}
             />
@@ -117,7 +134,7 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
           cityCode={cityCode}
           languageCode={languageCode}
           noResults={results.length === 0}
-          query={filterText}
+          query={debouncedQuery}
         />
       </>
     )
@@ -131,9 +148,9 @@ const SearchPage = ({ city, cityCode, languageCode, pathname }: CityRouteProps):
         cityModel={city}
       />
       <SearchInput
-        filterText={filterText}
+        filterText={query}
         placeholderText={t('searchPlaceholder')}
-        onFilterTextChange={handleFilterTextChanged}
+        onFilterTextChange={setQuery}
         spaceSearch
       />
       {getPageContent()}

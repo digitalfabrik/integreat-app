@@ -1,5 +1,5 @@
+import styled from '@emotion/styled'
 import React, { ReactElement, ReactNode, useRef, useState } from 'react'
-import styled from 'styled-components'
 
 import useOnClickOutside from '../hooks/useOnClickOutside'
 import { spacesToDashes } from '../utils/stringUtils'
@@ -15,6 +15,7 @@ const StyledIcon = styled(Icon)`
 const ActionBox = styled(Button)`
   padding: 4px 6px;
   display: flex;
+  color: ${props => props.theme.colors.textColor};
   border: 1px solid ${props => props.theme.colors.textColor};
   border-radius: 4px;
   justify-content: center;
@@ -78,7 +79,7 @@ const HeaderActionItemDropDown = ({
       </Tooltip>
       <DropDownContainer
         data-testid='headerActionItemDropDown'
-        $active={dropDownActive}
+        active={dropDownActive}
         // We need to have the visibility here, else the jest-dom testing library can not assert on it
         style={{ visibility: dropDownActive ? 'visible' : 'hidden' }}>
         {children(closeDropDown)}

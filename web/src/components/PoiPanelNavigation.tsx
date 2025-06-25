@@ -1,6 +1,6 @@
+import styled from '@emotion/styled'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
 
 import { ArrowBackIcon } from '../assets'
 import { helpers } from '../constants/theme'
@@ -15,6 +15,7 @@ const NavigationContainer = styled.div`
 
 const StyledButton = styled(Button)`
   display: flex;
+  color: ${props => props.theme.colors.textColor};
 `
 
 const Label = styled.span`
