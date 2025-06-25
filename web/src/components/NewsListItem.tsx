@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { TFunction } from 'i18next'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
@@ -48,13 +47,13 @@ const StyledContainer = styled.div`
 type NewsListItemProps = {
   title: string
   content: string
-  display_date: DateTime
+  displayDate: DateTime
   link: string
   type: NewsType
   t: TFunction<'news'>
 }
 
-const NewsListItem = ({ title, content, display_date, t, type, link }: NewsListItemProps): ReactElement => {
+const NewsListItem = ({ title, content, displayDate, t, type, link }: NewsListItemProps): ReactElement => {
   const readMoreLinkText = `${t('readMore')} >`
   const excerpt = getExcerpt(content, { maxChars: EXCERPT_MAX_CHARS, replaceLineBreaks: false })
 
@@ -65,7 +64,7 @@ const NewsListItem = ({ title, content, display_date, t, type, link }: NewsListI
           <Title dir='auto'>{title}</Title>
           <Body dir='auto'>{excerpt}</Body>
           <StyledContainer>
-            <LastUpdateInfo lastUpdate={display_date} withText={false} />
+            <LastUpdateInfo lastUpdate={displayDate} withText={false} />
             <ReadMore $type={type}>{readMoreLinkText}</ReadMore>
           </StyledContainer>
         </Description>

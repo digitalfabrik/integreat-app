@@ -67,7 +67,7 @@ const CategoryListItem = ({ category, subCategories }: CategoryListItemProps): R
   const SubCategories = subCategories.map(subCategory => (
     <SubCategory key={subCategory.path} dir='auto'>
       <StyledLink to={subCategory.path}>
-        {/* <CategoryThumbnail alt='' src={subCategory.thumbnail} /> */}
+        <CategoryThumbnail alt='' src={subCategory.thumbnail} />
         <SubCategoryCaption>{subCategory.title}</SubCategoryCaption>
       </StyledLink>
     </SubCategory>
@@ -76,7 +76,7 @@ const CategoryListItem = ({ category, subCategories }: CategoryListItemProps): R
   return (
     <Row>
       <StyledLink dir='auto' to={category.path}>
-        {/* {category.thumbnail !=="" && <CategoryThumbnail alt='' src={category.thumbnail} />} */}
+        <CategoryThumbnail alt='' src={category.thumbnail} />
         <CategoryItemCaption>{category.title}</CategoryItemCaption>
       </StyledLink>
       <SubCategoriesContainer>{SubCategories}</SubCategoriesContainer>
