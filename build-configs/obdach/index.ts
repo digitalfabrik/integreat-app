@@ -4,6 +4,7 @@ import { OBDACH_ASSETS } from '../AssetsType'
 import { CommonBuildConfigType, WebBuildConfigType } from '../BuildConfigType'
 import mainImprint from './mainImprint'
 import { legacyContrastTheme, darkTheme, legacyLightTheme, lightTheme } from './theme'
+import { typography } from './theme/typography'
 
 const commonObdachBuildConfig: CommonBuildConfigType = {
   appName: 'Netzwerk Obdach & Wohnen',
@@ -12,6 +13,7 @@ const commonObdachBuildConfig: CommonBuildConfigType = {
   darkTheme,
   legacyLightTheme,
   legacyContrastTheme,
+  typography,
   assets: OBDACH_ASSETS,
   cmsUrl: 'https://cms.netzwerkobdachwohnen.de',
   hostName: 'netzwerkobdachwohnen.de',

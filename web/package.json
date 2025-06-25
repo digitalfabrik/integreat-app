@@ -34,7 +34,7 @@
     "@emotion/styled": "^11.14.0",
     "@integreat-app/react-sticky-headroom": "^2.2.1",
     "@math.gl/web-mercator": "^3.6.3",
-    "@mui/material": "^7.0.2",
+    "@mui/material": "^7.1.1",
     "@mui/icons-material": "^7.0.2",
     "@sentry/react": "^8.33.1",
     "@sentry/types": "^8.33.1",
