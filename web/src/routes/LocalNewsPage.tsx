@@ -53,12 +53,12 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
       newsId,
     })
   const renderLocalNewsListItem = (localNewsItem: LocalNewsModel) => {
-    const { id, title, content, timestamp, display_date: displayDate } = localNewsItem
+    const { id, title, content, timestamp } = localNewsItem
     return (
       <NewsListItem
         title={title}
         content={content}
-        displayDate={displayDate}
+        timestamp={timestamp}
         key={id}
         link={createNewsPath({ newsId: id })}
         t={t}
@@ -133,7 +133,7 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
         <Page
           title={newsModel.title}
           content={linkedContent}
-          lastUpdate={newsModel.displayDate}
+          lastUpdate={newsModel.timestamp}
           showLastUpdateText={false}
         />
       </CityContentLayout>

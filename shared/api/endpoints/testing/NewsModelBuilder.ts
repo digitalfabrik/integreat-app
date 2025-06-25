@@ -36,7 +36,6 @@ class LocalNewsModelBuilder {
           id: 12,
           title: 'first news item',
           timestamp: DateTime.fromISO('2017-11-18T19:30:00.000Z'),
-          display_date: DateTime.fromISO('2017-11-18T19:30:00.000Z'),
           content: 'This is a sample news',
           availableLanguages: {},
         }),

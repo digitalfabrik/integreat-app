@@ -47,13 +47,13 @@ const StyledContainer = styled.div`
 type NewsListItemProps = {
   title: string
   content: string
-  displayDate: DateTime
+  timestamp: DateTime
   link: string
   type: NewsType
   t: TFunction<'news'>
 }
 
-const NewsListItem = ({ title, content, displayDate, t, type, link }: NewsListItemProps): ReactElement => {
+const NewsListItem = ({ title, content, timestamp, t, type, link }: NewsListItemProps): ReactElement => {
   const readMoreLinkText = `${t('readMore')} >`
   const excerpt = getExcerpt(content, { maxChars: EXCERPT_MAX_CHARS, replaceLineBreaks: false })
 
@@ -64,7 +64,7 @@ const NewsListItem = ({ title, content, displayDate, t, type, link }: NewsListIt
           <Title dir='auto'>{title}</Title>
           <Body dir='auto'>{excerpt}</Body>
           <StyledContainer>
-            <LastUpdateInfo lastUpdate={displayDate} withText={false} />
+            <LastUpdateInfo lastUpdate={timestamp} withText={false} />
             <ReadMore $type={type}>{readMoreLinkText}</ReadMore>
           </StyledContainer>
         </Description>

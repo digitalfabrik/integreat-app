@@ -24,7 +24,6 @@ export default (baseUrl: string): Endpoint<ParamsType, LocalNewsModel[]> =>
           new LocalNewsModel({
             id: localNews.id,
             timestamp: DateTime.fromISO(localNews.display_date),
-            displayDate: DateTime.fromISO(localNews.display_date),
             title: localNews.title,
             content: localNews.message,
             availableLanguages: mapNewsAvailableLanguages(localNews.available_languages),
