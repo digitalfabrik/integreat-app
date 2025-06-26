@@ -105,16 +105,6 @@ const renderJS = (
         element.style.setProperty('filter', 'invert(1)');
       }
     });
-    
-    const contactCards = document.querySelectorAll('.contact-card');
-    contactCards.forEach(contactCard => {
-      if(contactCard instanceof HTMLElement && ${theme.isContrastTheme}){
-      contactCard.style.removeProperty('backgroundImage');
-      contactCard.style.backgroundImage = \`
-      linear-gradient(to right, rgb(127 127 127 / 0) 0 100%),
-      url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTMuMDE4IDEyLjQ4aC0yLjAzNkE5LjA5IDkuMDkgMCAwIDAgMS45MiAyMS42YS40OC40OCAwIDAgMCAuNDguNDhoMTkuMmEuNTMuNTMgMCAwIDAgLjQ4LS41MzggOS4wOCA5LjA4IDAgMCAwLTkuMDYyLTkuMDYyTTE2LjggNi43MmE0LjggNC44IDAgMCAxLTQuOCA0LjggNC44IDQuOCAwIDAgMS00LjgtNC44IDQuOCA0LjggMCAwIDEgNC44LTQuOCA0LjggNC44IDAgMCAxIDQuOCA0LjgiLz48L3N2Zz4=')
-    \`;}
-    });
   })();
 
 
@@ -377,6 +367,10 @@ const renderHtml = (
       pre {
         overflow-x: auto;
       }
+      
+      a {
+        color: ${theme.colors.linkColor};
+      }
 
       .link-external::after {
         /* ExternalIcon, WebView can't handle imported svg as background */
@@ -426,7 +420,7 @@ const renderHtml = (
         border-radius: 4px;
         background-repeat: no-repeat;
         background-color: rgb(127 127 127 / 15%);
-        background-image: linear-gradient(to right, rgb(255 255 255 / 90%) 0 100%),
+        background-image: linear-gradient(to right, ${theme.isContrastTheme ? 'rgb(127 127 127 / 0)' : 'rgb(255 255 255 / 90%)'} 0 100%),
           url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTMuMDE4IDEyLjQ4aC0yLjAzNkE5LjA5IDkuMDkgMCAwIDAgMS45MiAyMS42YS40OC40OCAwIDAgMCAuNDguNDhoMTkuMmEuNTMuNTMgMCAwIDAgLjQ4LS41MzggOS4wOCA5LjA4IDAgMCAwLTkuMDYyLTkuMDYyTTE2LjggNi43MmE0LjggNC44IDAgMCAxLTQuOCA0LjggNC44IDQuOCAwIDAgMS00LjgtNC44IDQuOCA0LjggMCAwIDEgNC44LTQuOCA0LjggNC44IDAgMCAxIDQuOCA0LjgiLz48L3N2Zz4=');
         background-blend-mode: difference;
         background-position: calc(100% + 32px) 100%, calc(100% + 24px) calc(100% + 24px);
@@ -446,10 +440,6 @@ const renderHtml = (
 
         img {
           margin-inline-end: 8px;
-        }
-
-        a {
-          color: ${theme.colors.linkColor};
         }
       }
 
