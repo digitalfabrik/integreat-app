@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import KeyboardBackspaceOutlinedIcon from '@mui/icons-material/KeyboardBackspaceOutlined'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import { GeolocateControl } from 'maplibre-gl'
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -141,7 +141,7 @@ const PoisMobile = ({
           <>
             {canDeselect && (
               <BackNavigation onClick={deselect} tabIndex={0} label={t('detailsHeader')}>
-                <StyledIcon src={KeyboardBackspaceOutlinedIcon} directionDependent />
+                <StyledIcon src={ArrowBackIcon} directionDependent />
               </BackNavigation>
             )}
             {MapOverlay}

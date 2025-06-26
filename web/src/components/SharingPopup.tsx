@@ -2,8 +2,8 @@ import { css, SerializedStyles, Theme, useTheme } from '@emotion/react'
 import styled from '@emotion/styled'
 import CheckIcon from '@mui/icons-material/Check'
 import CloseIcon from '@mui/icons-material/Close'
+import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined'
-import FileCopyOutlinedIcon from '@mui/icons-material/FileCopyOutlined'
 import MailOutlinedIcon from '@mui/icons-material/MailOutlined'
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined'
 import WhatsAppIcon from '@mui/icons-material/WhatsApp'
@@ -253,7 +253,7 @@ const SharingPopup = ({ shareUrl, title, flow, portalNeeded }: SharingPopupProps
               place={tooltipDirection}
               tooltipContent={t(linkCopied ? 'common:copied' : 'layout:copyUrl')}>
               <StyledButton onClick={copyToClipboard} label={t(linkCopied ? 'common:copied' : 'layout:copyUrl')}>
-                <StyledIcon src={linkCopied ? CheckIcon : FileCopyOutlinedIcon} />
+                <StyledIcon src={linkCopied ? CheckIcon : ContentCopyIcon} />
               </StyledButton>
             </Tooltip>
             <Tooltip id='share-whatsapp' place={tooltipDirection} tooltipContent={t('whatsappTooltip')}>

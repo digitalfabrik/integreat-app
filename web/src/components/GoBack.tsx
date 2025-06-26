@@ -1,6 +1,6 @@
 import { css, useTheme } from '@emotion/react'
 import styled from '@emotion/styled'
-import KeyboardBackspaceOutlinedIcon from '@mui/icons-material/KeyboardBackspaceOutlined'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import React, { memo, ReactElement } from 'react'
 
 import { helpers } from '../constants/theme'
@@ -54,7 +54,7 @@ const GoBack = ({ goBack, viewportSmall = false, text }: GoBackProps): ReactElem
   return (
     <>
       <StyledButton onClick={goBack} label={text} tabIndex={0} viewportSmall={viewportSmall}>
-        <StyledIcon src={KeyboardBackspaceOutlinedIcon} directionDependent />
+        <StyledIcon src={ArrowBackIcon} directionDependent />
         <DetailsHeaderTitle>{text}</DetailsHeaderTitle>
       </StyledButton>
       <Spacer borderColor={theme.colors.borderColor} />

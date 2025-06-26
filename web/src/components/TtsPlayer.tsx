@@ -1,5 +1,7 @@
 import styled from '@emotion/styled'
 import CloseIcon from '@mui/icons-material/Close'
+import FastForwardIcon from '@mui/icons-material/FastForward'
+import FastRewindIcon from '@mui/icons-material/FastRewind'
 import PauseIcon from '@mui/icons-material/Pause'
 import PlayArrowIcon from '@mui/icons-material/PlayArrow'
 import RefreshIcon from '@mui/icons-material/Refresh'
@@ -155,7 +157,7 @@ const TtsPlayer = ({
         {isPlaying && (
           <StyledButton label={t('previous')} onClick={playPrevious}>
             <StyledText>{t('previous')}</StyledText>
-            <StyledPlaybackIcon reverse src={RefreshIcon} />
+            <StyledPlaybackIcon src={FastRewindIcon} />
           </StyledButton>
         )}
         <PlayButton label={t(isPlaying ? 'pause' : 'play')} onClick={isPlaying ? pause : play} disabled={disabled}>
@@ -163,7 +165,7 @@ const TtsPlayer = ({
         </PlayButton>
         {isPlaying && (
           <StyledButton label={t('next')} onClick={playNext}>
-            <StyledPlaybackIcon src={RefreshIcon} />
+            <StyledPlaybackIcon src={FastForwardIcon} />
             <StyledText>{t('next')}</StyledText>
           </StyledButton>
         )}

@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
+import ExpandLessIcon from '@mui/icons-material/ExpandLess'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -27,10 +28,9 @@ const Title = styled.div`
   ${helpers.adaptiveFontSize}
 `
 
-const CollapseIcon = styled(Icon)<{ collapsed: boolean }>`
-  transform: rotate(-90deg) ${props => (!props.collapsed ? 'scale(-1)' : '')};
-  width: 16px;
-  height: 16px;
+const CollapseIcon = styled(Icon)`
+  width: 24px;
+  height: 24px;
 `
 
 type CollapsibleProps = {
@@ -60,8 +60,7 @@ const Collapsible = ({
         tabIndex={0}>
         {typeof title === 'string' ? <Title>{title}</Title> : title}
         <CollapseIcon
-          src={ArrowBackIosNewIcon}
-          collapsed={collapsed}
+          src={collapsed ? ExpandMoreIcon : ExpandLessIcon}
           title={t(collapsed ? 'showMore' : 'showLess')}
           directionDependent
         />

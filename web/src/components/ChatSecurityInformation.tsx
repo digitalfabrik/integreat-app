@@ -20,13 +20,13 @@ const SecurityIconContainer = styled.button`
 `
 
 const SecurityIcon = styled(Icon)`
-  width: 18px;
-  height: 18px;
+  width: 24px;
+  height: 24px;
   color: ${props => props.theme.colors.textSecondaryColor};
   border-radius: 50%;
   border-color: ${props => props.theme.colors.textSecondaryColor};
   border-style: solid;
-  padding: 5px;
+  padding: 4px;
 `
 
 const InformationTooltipContainer = styled.div`

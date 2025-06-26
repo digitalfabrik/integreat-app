@@ -1,7 +1,7 @@
 import { useTheme } from '@emotion/react'
 import styled from '@emotion/styled'
-import LocalPhoneOutlinedIcon from '@mui/icons-material/LocalPhoneOutlined'
 import MailOutlinedIcon from '@mui/icons-material/MailOutlined'
+import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined'
 import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -35,7 +35,7 @@ const Contact = ({
       )}
       {!!phoneNumber && (
         <ContactItem
-          iconSrc={LocalPhoneOutlinedIcon}
+          iconSrc={PhoneOutlinedIcon}
           iconAlt={t('phone')}
           link={`tel:${phoneNumber}`}
           content={phoneNumber}
@@ -43,7 +43,7 @@ const Contact = ({
       )}
       {!!mobilePhoneNumber && (
         <ContactItem
-          iconSrc={LocalPhoneOutlinedIcon}
+          iconSrc={PhoneOutlinedIcon}
           iconAlt={t('mobilePhone')}
           link={`tel:${mobilePhoneNumber}`}
           content={mobilePhoneNumber}
