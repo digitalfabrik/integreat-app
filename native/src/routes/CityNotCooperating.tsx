@@ -10,6 +10,7 @@ import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 const Container = styled.ScrollView`
   flex: 1;
   padding: 30px;
+  background-color: ${props => props.theme.colors.backgroundColor};
 `
 
 const Heading = styled.Text`
@@ -17,10 +18,12 @@ const Heading = styled.Text`
   font-size: 18px;
   padding: 20px 20px 40px;
   text-align: center;
+  color: ${props => props.theme.colors.textColor};
 `
 
 const Description = styled.Text`
   font-family: ${props => props.theme.fonts.native.contentFontRegular};
+  color: ${props => props.theme.colors.textColor};
 `
 
 const ListHeading = styled(Heading)`
@@ -50,6 +53,7 @@ const StepExplanation = styled.Text`
   align-self: center;
   flex-shrink: 1;
   padding-bottom: 4px;
+  color: ${props => props.theme.colors.textColor};
 `
 
 const StyledButton = styled(TextButton)`
@@ -63,6 +67,7 @@ const TemplateText = styled.Text`
   border: 1px solid ${props => props.theme.colors.themeColor};
   padding: 30px 20px 20px;
   margin-bottom: 250px;
+  color: ${props => props.theme.colors.textColor};
 `
 
 const StyledIcon = styled(Icon)`

@@ -20,6 +20,7 @@ const FlexStyledLink = styled(Pressable)`
   display: flex;
   flex-direction: column;
   margin: 0 20px;
+  color: ${props => props.theme.colors.textColor};
 `
 
 const DirectionContainer = styled.View<{ language: string }>`

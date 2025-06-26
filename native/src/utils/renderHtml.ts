@@ -21,6 +21,7 @@ const renderJS = (
   supportedIframeSources: string[],
   externalSourcePermissions: ExternalSourcePermissions,
   t: TFunction,
+  theme: DefaultTheme,
   deviceWidth: number,
   pageContainerPadding: number,
 ) => `
@@ -92,6 +93,20 @@ const renderJS = (
       }
     }
   })();
+
+  (function adjustForContrastTheme() {
+    const allElements = document.querySelectorAll('*');
+    allElements.forEach(element => {
+      if (element instanceof HTMLElement && element.style.color === 'rgb(0, 0, 0)') {
+        element.style.removeProperty('color');
+      }
+      
+      if (element instanceof HTMLImageElement && element.src.endsWith('.svg') && ${theme.isContrastTheme}) {
+        element.style.setProperty('filter', 'invert(1)');
+      }
+    });
+  })();
+
 
   (function addWebviewHeightListeners() {
     const container = document.getElementById('measure-container')
@@ -300,6 +315,7 @@ const renderHtml = (
         line-height: ${theme.fonts.contentLineHeight};
         font-size-adjust: ${theme.fonts.fontSizeAdjust};
         background-color: ${theme.colors.backgroundColor};
+        color: ${theme.colors.textColor}
       }
 
       body {
@@ -351,6 +367,10 @@ const renderHtml = (
       pre {
         overflow-x: auto;
       }
+      
+      a {
+        color: ${theme.colors.linkColor};
+      }
 
       .link-external::after {
         /* ExternalIcon, WebView can't handle imported svg as background */
@@ -376,9 +396,8 @@ const renderHtml = (
         flex-direction: column;
         border: 1px solid ${theme.colors.borderColor};
         border-radius: 4px;
-        box-shadow:
-          0 1px 3px rgb(0 0 0 / 10%),
-          0 1px 2px rgb(0 0 0 / 15%);
+        box-shadow: 0 1px 3px rgb(0 0 0 / 10%),
+        0 1px 2px rgb(0 0 0 / 15%);
       }
 
       .iframe-info-text {
@@ -401,7 +420,7 @@ const renderHtml = (
         border-radius: 4px;
         background-repeat: no-repeat;
         background-color: rgb(127 127 127 / 15%);
-        background-image: linear-gradient(to right, rgb(255 255 255 / 90%) 0 100%),
+        background-image: linear-gradient(to right, ${theme.isContrastTheme ? 'rgb(127 127 127 / 0)' : 'rgb(255 255 255 / 90%)'} 0 100%),
           url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTMuMDE4IDEyLjQ4aC0yLjAzNkE5LjA5IDkuMDkgMCAwIDAgMS45MiAyMS42YS40OC40OCAwIDAgMCAuNDguNDhoMTkuMmEuNTMuNTMgMCAwIDAgLjQ4LS41MzggOS4wOCA5LjA4IDAgMCAwLTkuMDYyLTkuMDYyTTE2LjggNi43MmE0LjggNC44IDAgMCAxLTQuOCA0LjggNC44IDQuOCAwIDAgMS00LjgtNC44IDQuOCA0LjggMCAwIDEgNC44LTQuOCA0LjggNC44IDAgMCAxIDQuOCA0LjgiLz48L3N2Zz4=');
         background-blend-mode: difference;
         background-position: calc(100% + 32px) 100%, calc(100% + 24px) calc(100% + 24px);
@@ -438,7 +457,7 @@ const renderHtml = (
         margin-left: 12px;
         align-self: center;
       }
-      
+
     </style>
   </head>
   <body dir='auto'>
@@ -448,6 +467,7 @@ const renderHtml = (
     supportedIframeSources,
     externalSourcePermissions,
     t,
+    theme,
     deviceWidth,
     pageContainerPadding,
   )}</script>
