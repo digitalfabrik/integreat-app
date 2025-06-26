@@ -38,7 +38,7 @@ const InformationTooltipContainer = styled.div`
   color: ${props => props.theme.colors.textColor};
   padding: 12px;
   text-align: center;
-  transform: ${props => (props.theme.contentDirection === 'rtl' ? 'translate(95%, -90%)' : 'translate(-95%, -90%)')};
+  transform: translate(-95%, -90%);
   white-space: pre-line;
   width: 250px;
 

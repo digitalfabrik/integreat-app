@@ -1,6 +1,9 @@
-import { Global, Theme, ThemeProvider } from '@emotion/react'
+import createCache from '@emotion/cache'
+import { CacheProvider, Global, Theme, ThemeProvider } from '@emotion/react'
 import { createTheme as createMuiTheme } from '@mui/material/styles'
+import rtlPlugin from '@mui/stylis-plugin-rtl'
 import React, { ReactElement, ReactNode, useMemo } from 'react'
+import { prefixer } from 'stylis'
 
 import { ThemeKey } from 'build-configs'
 import { UiDirectionType } from 'translations'
@@ -9,14 +12,15 @@ import buildConfig from '../constants/buildConfig'
 import useLocalStorage from '../hooks/useLocalStorage'
 import globalStyle from '../styles/global/GlobalStyle'
 
-// For now, we want the dark mode to be opt in as it is a beta feature for now
-// const contrastThemeMediaQueries = [
-//   '(forced-colors: active)' /* to detect enabled forced colors mode: https://developer.mozilla.org/en-US/docs/Web/CSS/@media/forced-colors */,
-//   '(prefers-contrast: more)' /* to detect a lower/higher contrast: https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-contrast */,
-//   '(prefers-color-scheme: dark)' /* is used to detect if a user has requested light or dark color themes: https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme */,
-// ].map(query => window.matchMedia(query))
-//
-// const getSystemTheme = (): ThemeKey => (contrastThemeMediaQueries.some(query => query.matches) ? 'contrast' : 'light')
+const ltrCache = createCache({
+  key: 'mui-ltr-cache',
+  stylisPlugins: [prefixer],
+})
+
+const rtlCache = createCache({
+  key: 'mui-rtl-cache',
+  stylisPlugins: [prefixer, rtlPlugin],
+})
 
 const createTheme = (
   themeType: 'light' | 'contrast',
@@ -57,10 +61,12 @@ const ThemeContainer = ({ children, contentDirection }: ThemeContainerProps): Re
   }, [themeType, setThemeType, contentDirection])
 
   return (
-    <ThemeProvider theme={theme}>
-      <Global styles={globalStyle({ theme })} />
-      {children}
-    </ThemeProvider>
+    <CacheProvider value={contentDirection === 'rtl' ? rtlCache : ltrCache}>
+      <ThemeProvider theme={theme}>
+        <Global styles={globalStyle({ theme })} />
+        {children}
+      </ThemeProvider>
+    </CacheProvider>
   )
 }
 
