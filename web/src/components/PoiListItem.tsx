@@ -16,7 +16,7 @@ const ListItemContainer = styled.ul`
   border-bottom: 1px solid ${props => props.theme.colors.borderColor};
   cursor: pointer;
 
-  @media screen and ${dimensions.smallViewport} {
+  @media screen and (${dimensions.smallViewport}) {
     &:last-child {
       border-bottom: none;
     }

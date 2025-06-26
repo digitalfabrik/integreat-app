@@ -1,9 +1,11 @@
 import { useTheme } from '@emotion/react'
 import styled from '@emotion/styled'
+import MenuBookIcon from '@mui/icons-material/MenuBook'
+import OpenInNewIcon from '@mui/icons-material/OpenInNew'
+import WarningAmberOutlinedIcon from '@mui/icons-material/WarningAmberOutlined'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { BookIcon, ExternalLinkIcon, WarningIcon } from '../assets'
 import { Container } from './Feedback'
 import Modal from './Modal'
 import Icon from './base/Icon'
@@ -39,6 +41,11 @@ const StyledList = styled.div`
 const StyledExternalIcon = styled(Icon)`
   height: 12px;
   width: 12px;
+  color: ${props => props.theme.colors.linkColor};
+`
+
+const StyledBookIcon = styled(Icon)`
+  color: black;
 `
 
 const helpItemsData = [
@@ -67,9 +74,9 @@ const helpItemsData = [
 const HelpModalItem = ({ title, path }: { title: string; path: string }) => (
   <div>
     <StyledLink to={path}>
-      <Icon src={BookIcon} />
+      <StyledBookIcon src={MenuBookIcon} />
       {title}
-      <StyledExternalIcon src={ExternalLinkIcon} />
+      <StyledExternalIcon src={OpenInNewIcon} />
     </StyledLink>
   </div>
 )
@@ -81,7 +88,7 @@ const TtsHelpModal = ({ closeModal }: { closeModal: () => void }): ReactElement 
     <Modal
       contentStyle={{ borderRadius: 5, backgroundColor: theme.colors.ttsPlayerWarningBackground }}
       title={t('voiceUnavailable')}
-      icon={<StyledWarningIcon src={WarningIcon} />}
+      icon={<StyledWarningIcon src={WarningAmberOutlinedIcon} />}
       closeModal={closeModal}>
       <ModalContent>
         <StyledWarningText>{t('voiceUnavailableMessage')}</StyledWarningText>

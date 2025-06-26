@@ -1,3 +1,9 @@
+import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined'
+import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined'
+import MapOutlinedIcon from '@mui/icons-material/MapOutlined'
+import NewspaperOutlinedIcon from '@mui/icons-material/NewspaperOutlined'
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined'
+import SignpostOutlinedIcon from '@mui/icons-material/SignpostOutlined'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -13,7 +19,6 @@ import {
 } from 'shared'
 import { CityModel } from 'shared/api'
 
-import { CalendarIcon, CategoriesIcon, LocationIcon, NewsIcon, POIsIcon, SearchIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { LOCAL_NEWS_ROUTE, RouteType, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from '../routes'
@@ -53,14 +58,23 @@ const CityContentHeader = ({
 
   const { t } = useTranslation('layout')
 
-  const SearchButton = <HeaderActionItemLink key='search' to={searchPath} text={t('search')} iconSrc={SearchIcon} />
+  const SearchButton = (
+    <HeaderActionItemLink key='search' to={searchPath} text={t('search')} iconSrc={SearchOutlinedIcon} />
+  )
 
   const actionItems = viewportSmall
     ? [SearchButton]
     : [
         SearchButton,
         ...(!buildConfig().featureFlags.fixedCity
-          ? [<HeaderActionItemLink key='location' to={landingPath} text={t('changeLocation')} iconSrc={LocationIcon} />]
+          ? [
+              <HeaderActionItemLink
+                key='location'
+                to={landingPath}
+                text={t('changeLocation')}
+                iconSrc={LocationOnOutlinedIcon}
+              />,
+            ]
           : []),
         <LanguageSelector
           key='language'
@@ -72,7 +86,7 @@ const CityContentHeader = ({
 
   const kebabItems = [
     <Link key='location' to={landingPath}>
-      <KebabActionItem text={t('changeLocation')} iconSrc={LocationIcon} />
+      <KebabActionItem text={t('changeLocation')} iconSrc={LocationOnOutlinedIcon} />
     </Link>,
     <LanguageSelector
       key='language'
@@ -101,7 +115,7 @@ const CityContentHeader = ({
         to={categoriesPath}
         active={route === CATEGORIES_ROUTE}
         text={t('localInformation')}
-        icon={CategoriesIcon}
+        icon={SignpostOutlinedIcon}
       />,
     ]
 
@@ -112,7 +126,7 @@ const CityContentHeader = ({
           to={poisPath}
           active={route === POIS_ROUTE}
           text={t('locations')}
-          icon={POIsIcon}
+          icon={MapOutlinedIcon}
         />,
       )
     }
@@ -124,7 +138,7 @@ const CityContentHeader = ({
           active={route === LOCAL_NEWS_ROUTE || route === TU_NEWS_ROUTE || route === TU_NEWS_DETAIL_ROUTE}
           to={newsPath}
           text={t('news')}
-          icon={NewsIcon}
+          icon={NewspaperOutlinedIcon}
         />,
       )
     }
@@ -136,7 +150,7 @@ const CityContentHeader = ({
           to={eventsPath}
           active={route === EVENTS_ROUTE}
           text={t('events')}
-          icon={CalendarIcon}
+          icon={CalendarTodayOutlinedIcon}
         />,
       )
     }
