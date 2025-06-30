@@ -20,9 +20,12 @@ const StyledPressable = styled(Pressable)<{ active: boolean }>`
   justify-content: space-around;
 `
 
-const StyledText = styled(Text)`
+const StyledText = styled(Text)<{ active: boolean }>`
   font-size: 12px;
-  color: ${props => props.theme.colors.textSecondaryColor};
+  color: ${props =>
+    props.active && props.theme.isContrastTheme
+      ? props.theme.colors.backgroundColor
+      : props.theme.colors.textSecondaryColor};
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
   text-align: center;
   width: 84px;
@@ -39,7 +42,9 @@ type TextButtonProps = {
 const ToggleButton = ({ text, onPress, Icon, active, style }: TextButtonProps): ReactElement => (
   <StyledPressable role='switch' active={active} onPress={onPress} style={style}>
     {Icon}
-    <StyledText numberOfLines={1}>{text}</StyledText>
+    <StyledText active={active} numberOfLines={1}>
+      {text}
+    </StyledText>
   </StyledPressable>
 )
 

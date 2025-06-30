@@ -17,8 +17,11 @@ const Spacing = styled.View`
   padding: 10px;
 `
 
-const StyledIcon = styled(Icon)`
-  color: ${props => props.theme.colors.textSecondaryColor};
+const StyledIcon = styled(Icon)<{ active: boolean }>`
+  color: ${props =>
+    props.active && props.theme.isContrastTheme
+      ? props.theme.colors.backgroundColor
+      : props.theme.colors.textSecondaryColor};
   width: 32px;
   height: 32px;
 `
@@ -35,14 +38,14 @@ const FeedbackButtons = ({ isPositiveFeedback, setIsPositiveFeedback }: Feedback
       <ToggleButton
         text={t('useful')}
         onPress={() => setIsPositiveFeedback(isPositiveFeedback !== true ? true : null)}
-        Icon={<StyledIcon Icon={HappySmileyIcon} />}
+        Icon={<StyledIcon active={isPositiveFeedback === true} Icon={HappySmileyIcon} />}
         active={isPositiveFeedback === true}
       />
       <Spacing />
       <ToggleButton
         text={t('notUseful')}
         onPress={() => setIsPositiveFeedback(isPositiveFeedback !== false ? false : null)}
-        Icon={<StyledIcon Icon={SadSmileyIcon} />}
+        Icon={<StyledIcon active={isPositiveFeedback === false} Icon={SadSmileyIcon} />}
         active={isPositiveFeedback === false}
       />
     </Container>

@@ -15,7 +15,12 @@ const Ring = styled.View<{ selected: boolean }>`
   width: 24px;
   border-radius: 12px;
   border-width: 2px;
-  border-color: ${props => (props.selected ? props.theme.colors.textColor : props.theme.colors.textSecondaryColor)};
+  border-color: ${props => {
+    if (!props.selected) {
+      return props.theme.colors.textSecondaryColor
+    }
+    return props.theme.isContrastTheme ? props.theme.colors.themeColor : props.theme.colors.textColor
+  }};
   align-items: center;
   justify-content: center;
 `
@@ -24,7 +29,8 @@ const Marker = styled.View`
   height: 14px;
   width: 14px;
   border-radius: 7px;
-  background-color: ${props => props.theme.colors.textColor};
+  background-color: ${props =>
+    props.theme.isContrastTheme ? props.theme.colors.themeColor : props.theme.colors.textColor};
 `
 
 type RadioButtonProps = {
