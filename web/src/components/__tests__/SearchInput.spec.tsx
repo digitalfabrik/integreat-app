@@ -6,6 +6,7 @@ import SearchInput from '../SearchInput'
 
 jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
+jest.mock('stylis')
 
 describe('SearchInput', () => {
   it('should pass onFilterTextChange and onClickInput', () => {
