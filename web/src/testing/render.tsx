@@ -1,12 +1,9 @@
-import { ThemeProvider } from '@emotion/react'
 import type { Router } from '@remix-run/router'
 import { render, RenderResult } from '@testing-library/react'
 import React, { ReactElement, ReactNode } from 'react'
 import { createMemoryRouter, MemoryRouter, RouterProvider } from 'react-router-dom'
 
-import { UiDirectionType } from 'translations'
-
-import buildConfig from '../constants/buildConfig'
+import ThemeContainer from '../components/ThemeContainer'
 
 type RenderRouteOptions = {
   pathname: string
@@ -15,11 +12,9 @@ type RenderRouteOptions = {
   childPattern?: string
 }
 
-const theme = { ...buildConfig().legacyLightTheme, contentDirection: 'ltr' as UiDirectionType }
-
 const AllTheProviders = ({ children, options }: { children: ReactNode; options?: { pathname: string } }) => (
   <MemoryRouter initialEntries={options ? [options.pathname] : ['/']}>
-    <ThemeProvider theme={theme}>{children}</ThemeProvider>
+    <ThemeContainer contentDirection='ltr'>{children}</ThemeContainer>
   </MemoryRouter>
 )
 
@@ -27,7 +22,7 @@ export const renderWithRouterAndTheme = (ui: ReactElement, options?: { pathname:
   render(ui, { wrapper: (props: { children: ReactNode }) => <AllTheProviders {...props} options={options} /> })
 
 export const renderWithTheme = (ui: ReactElement): RenderResult =>
-  render(<ThemeProvider theme={theme}>{ui}</ThemeProvider>)
+  render(<ThemeContainer contentDirection='ltr'>{ui}</ThemeContainer>)
 
 export const renderWithRouter = (ui: ReactElement): RenderResult => render(ui, { wrapper: MemoryRouter })
 
