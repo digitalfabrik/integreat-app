@@ -18,13 +18,13 @@ jest.mock('react-i18next', () => ({
   }),
   Trans: ({ i18nKey }: { i18nKey: string }) => i18nKey,
 }))
-jest.mock('../../hooks/useLoadSearchDocuments')
 jest.mock('react-tooltip')
+jest.mock('stylis')
+
 jest.mock('shared/hooks/useDebounce', () => ({
   __esModule: true,
   default: (value: string) => value,
 }))
-
 jest.mock('shared', () => ({
   ...jest.requireActual('shared'),
   useSearch: (results: SearchResult[], query: string) => ({
@@ -33,6 +33,8 @@ jest.mock('shared', () => ({
     loading: false,
   }),
 }))
+
+jest.mock('../../hooks/useLoadSearchDocuments')
 
 describe('SearchPage', () => {
   const cities = new CityModelBuilder(2).build()
