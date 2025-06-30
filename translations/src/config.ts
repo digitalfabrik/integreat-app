@@ -150,6 +150,9 @@ class Config {
     vi: {
       rtl: false,
     },
+    th: {
+      rtl: false,
+    },
   }
 
   // Fallbacks for unnormalized language codes from our backend
