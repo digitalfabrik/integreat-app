@@ -198,7 +198,7 @@ commands:
         description: Runs the test task and stores coverage and junit data
         steps:
             - run:
-                command: yarn test:ci --maxWorkers ${TOTAL_CPUS}
+                command: yarn test:ci --maxWorkers=${TOTAL_CPUS}
                 name: Unit Tests with Coverage
             - store_test_results:
                 path: reports/unit-test
