@@ -6,6 +6,7 @@ import ScrollingSearchBox from '../ScrollingSearchBox'
 
 jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
+jest.mock('stylis')
 
 describe('ScrollingSearchBox', () => {
   const MockNode = () => <div />
