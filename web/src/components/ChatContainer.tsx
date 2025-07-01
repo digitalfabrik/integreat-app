@@ -1,11 +1,11 @@
 import styled from '@emotion/styled'
+import QuestionAnswerOutlinedIcon from '@mui/icons-material/QuestionAnswerOutlined'
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router'
 
 import { getChatName, CHAT_QUERY_KEY, parseQueryParams } from 'shared'
 import { CityModel } from 'shared/api'
 
-import { ChatIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import useLockedBody from '../hooks/useLockedBody'
@@ -89,7 +89,7 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement => 
   return (
     <ChatButtonContainer bottom={bottom} onClick={() => setChatVisible(true)}>
       <Circle>
-        <StyledIcon src={ChatIcon} title={chatName} />
+        <StyledIcon src={QuestionAnswerOutlinedIcon} title={chatName} />
       </Circle>
       {!viewportSmall && <ChatTitle>{chatName}</ChatTitle>}
     </ChatButtonContainer>

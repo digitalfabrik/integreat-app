@@ -1,9 +1,9 @@
 import styled from '@emotion/styled'
+import CloseIcon from '@mui/icons-material/Close'
 import { DateTime } from 'luxon'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CloseIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import useLocalStorage from '../hooks/useLocalStorage'

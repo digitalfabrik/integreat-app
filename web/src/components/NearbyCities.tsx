@@ -1,11 +1,11 @@
 import styled from '@emotion/styled'
+import RefreshIcon from '@mui/icons-material/Refresh'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { getNearbyCities } from 'shared'
 import { CityModel } from 'shared/api'
 
-import { RefreshIcon } from '../assets'
 import useUserLocation from '../hooks/useUserLocation'
 import CityEntry from './CityEntry'
 import { CityListParent } from './CitySelector'

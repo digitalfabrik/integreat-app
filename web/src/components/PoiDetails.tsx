@@ -1,12 +1,14 @@
 import { useTheme } from '@emotion/react'
 import styled from '@emotion/styled'
+import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined'
+import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import React, { Fragment, ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { getExternalMapsLink } from 'shared'
 import { PoiModel } from 'shared/api'
 
-import { ExternalLinkIcon, LocationIcon, PoiThumbnailPlaceholderLarge } from '../assets'
+import { PoiThumbnailPlaceholderLarge } from '../assets'
 import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
 import useWindowDimensions from '../hooks/useWindowDimensions'
@@ -32,6 +34,7 @@ const StyledIcon = styled(Icon)`
 const StyledExternalLinkIcon = styled(StyledIcon)`
   width: 16px;
   height: 16px;
+  color: ${props => props.theme.colors.linkColor};
 `
 
 const Thumbnail = styled.img`
@@ -147,7 +150,7 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
       {!viewportSmall && <Subheading>{t('detailsAddress')}</Subheading>}
       <DetailSection>
         <AddressContentWrapper>
-          {!viewportSmall && <StyledIcon src={LocationIcon} />}
+          {!viewportSmall && <StyledIcon src={LocationOnOutlinedIcon} />}
           <AddressContent>
             <span>{location.address}</span>
             <span>
@@ -157,7 +160,7 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
         </AddressContentWrapper>
         <StyledLink to={externalMapsLink}>
           {!viewportSmall && <LinkLabel>{t('detailsMapLink')}</LinkLabel>}
-          <StyledExternalLinkIcon src={ExternalLinkIcon} directionDependent />
+          <StyledExternalLinkIcon src={OpenInNewIcon} directionDependent />
         </StyledLink>
       </DetailSection>
       {contacts.length > 0 && (

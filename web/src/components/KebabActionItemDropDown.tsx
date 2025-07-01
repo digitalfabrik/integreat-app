@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
-import React, { ReactElement, ReactNode, useRef, useState } from 'react'
+import { SvgIconProps } from '@mui/material'
+import React, { ElementType, ReactElement, ReactNode, useRef, useState } from 'react'
 
 import useOnClickOutside from '../hooks/useOnClickOutside'
 import DropDownContainer from './DropDownContainer'
@@ -17,7 +18,7 @@ const Container = styled.div`
 
 type KebabActionItemDropDownProps = {
   children: (closeDropDown: () => void) => ReactNode
-  iconSrc: string
+  iconSrc: string | ElementType<SvgIconProps>
   text: string
   closeSidebar: () => void
 }

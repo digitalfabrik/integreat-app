@@ -1,9 +1,9 @@
 import styled from '@emotion/styled'
+import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined'
 import React, { ReactElement } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { Link } from 'react-router'
 
-import { NoteIcon } from '../assets'
 import dimensions from '../constants/dimensions'
 import Icon from './base/Icon'
 import Tooltip from './base/Tooltip'
@@ -71,7 +71,7 @@ const AppointmentOnlyIcon = ({ appointmentUrl }: AppointmentOnlyIconProps): Reac
           </>
         }>
         <IconContainer title={t('appointmentNecessary')}>
-          <StyledIcon src={NoteIcon} />
+          <StyledIcon src={ErrorOutlineOutlinedIcon} />
         </IconContainer>
       </StyledTooltip>
     </Container>

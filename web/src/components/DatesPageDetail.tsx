@@ -1,15 +1,16 @@
 import styled from '@emotion/styled'
+import AccessTimeIcon from '@mui/icons-material/AccessTime'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import TodayIcon from '@mui/icons-material/TodayOutlined'
 import React, { Fragment, ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { MAX_DATE_RECURRENCES } from 'shared'
 import { DateModel } from 'shared/api'
 
-import { CalendarTodayIcon, ClockIcon, ExpandIcon } from '../assets'
 import dimensions from '../constants/dimensions'
 import PageDetail from './PageDetail'
 import Button from './base/Button'
-import Icon from './base/Icon'
 
 const Container = styled.div`
   display: grid;
@@ -43,12 +44,6 @@ const StyledButton = styled(Button)`
   }
 `
 
-const StyledIcon = styled(Icon)`
-  width: 16px;
-  height: 16px;
-  margin-inline-end: 8px;
-`
-
 type DatesPageDetailProps = {
   date: DateModel
   language: string
@@ -64,8 +59,8 @@ const DatesPageDetail = ({ date, language }: DatesPageDetailProps): ReactElement
     .map(recurrence => recurrence.formatMonthlyOrYearlyRecurrence(language, t))
     .map(formattedDate => (
       <Fragment key={formattedDate.date}>
-        <PageDetail icon={CalendarTodayIcon} information={formattedDate.date} />
-        <PageDetail icon={ClockIcon} information={formattedDate.time} />
+        <PageDetail icon={<TodayIcon />} information={formattedDate.date} />
+        <PageDetail icon={<AccessTimeIcon />} information={formattedDate.time} />
       </Fragment>
     ))
 
@@ -75,7 +70,7 @@ const DatesPageDetail = ({ date, language }: DatesPageDetailProps): ReactElement
         {recurrences}
         {date.hasMoreRecurrencesThan(visibleRecurrences) && (
           <StyledButton type='button' onClick={() => setClicksOnShowMore(clicksOnShowMore + 1)}>
-            <StyledIcon src={ExpandIcon} title='' />
+            <ExpandMoreIcon />
             {t('common:showMore')}
           </StyledButton>
         )}
@@ -87,9 +82,9 @@ const DatesPageDetail = ({ date, language }: DatesPageDetailProps): ReactElement
 
   return (
     <ContainerForThreeElements>
-      <PageDetail icon={CalendarTodayIcon} information={formattedDate.date} />
+      <PageDetail icon={<TodayIcon />} information={formattedDate.date} />
       {!!formattedDate.weekday && <PageDetail information={formattedDate.weekday} />}
-      <PageDetail icon={ClockIcon} information={formattedDate.time} />
+      <PageDetail icon={<AccessTimeIcon />} information={formattedDate.time} />
     </ContainerForThreeElements>
   )
 }

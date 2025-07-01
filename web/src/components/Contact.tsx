@@ -1,11 +1,15 @@
 import { useTheme } from '@emotion/react'
 import styled from '@emotion/styled'
+import MailOutlinedIcon from '@mui/icons-material/MailOutlined'
+import OpenInNewIcon from '@mui/icons-material/OpenInNew'
+import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined'
+import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'
+import SmartphoneOutlinedIcon from '@mui/icons-material/SmartphoneOutlined'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ContactModel } from 'shared/api'
 
-import { ExternalLinkIcon, MailIcon, PhoneIcon, WebsiteIcon, MobilePhoneIcon } from '../assets'
 import { helpers } from '../constants/theme'
 import ContactItem from './ContactItem'
 import Spacer from './Spacer'
@@ -30,25 +34,32 @@ const Contact = ({
       <StyledContactHeader>{headline ?? t('contactInformation')}</StyledContactHeader>
       {!!website && (
         <ContactItem
-          iconSource={WebsiteIcon}
+          iconSource={PublicOutlinedIcon}
           iconAlt={t('website')}
           link={website}
           content={t('website')}
-          sourceIconEnd={ExternalLinkIcon}
+          sourceIconEnd={OpenInNewIcon}
         />
       )}
       {!!phoneNumber && (
-        <ContactItem iconSource={PhoneIcon} iconAlt={t('phone')} link={`tel:${phoneNumber}`} content={phoneNumber} />
+        <ContactItem
+          iconSource={PhoneOutlinedIcon}
+          iconAlt={t('phone')}
+          link={`tel:${phoneNumber}`}
+          content={phoneNumber}
+        />
       )}
       {!!mobileNumber && (
         <ContactItem
-          iconSource={MobilePhoneIcon}
+          iconSource={SmartphoneOutlinedIcon}
           iconAlt={t('mobilePhone')}
           link={`tel:${mobileNumber}`}
           content={mobileNumber}
         />
       )}
-      {!!email && <ContactItem iconSource={MailIcon} iconAlt={t('eMail')} link={`mailto:${email}`} content={email} />}
+      {!!email && (
+        <ContactItem iconSource={MailOutlinedIcon} iconAlt={t('eMail')} link={`mailto:${email}`} content={email} />
+      )}
       {!isLastContact && <Spacer borderColor={theme.colors.borderColor} />}
     </>
   )
