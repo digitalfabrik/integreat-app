@@ -1,9 +1,10 @@
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
+import CloseIcon from '@mui/icons-material/Close'
 import React, { CSSProperties, ReactElement, ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ArrowBackIcon, CloseIcon } from '../assets'
 import Button from './base/Button'
 import Icon from './base/Icon'
 
@@ -71,7 +72,7 @@ const ModalContent = ({ title, icon, style, closeModal, children, small }: Modal
           <span>{title}</span>
         </TitleContainer>
         <CloseButton label={t('close')} onClick={closeModal}>
-          <StyledIcon src={small ? ArrowBackIcon : CloseIcon} directionDependent />
+          <StyledIcon src={small ? ArrowBackIosNewIcon : CloseIcon} directionDependent />
         </CloseButton>
       </Header>
       {children}

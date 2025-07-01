@@ -1,8 +1,9 @@
 import styled from '@emotion/styled'
+import CloseIcon from '@mui/icons-material/Close'
+import MoreVertIcon from '@mui/icons-material/MoreVert'
 import React, { ReactElement, ReactNode, useLayoutEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CloseIcon, MenuIcon } from '../assets'
 import dimensions from '../constants/dimensions'
 import useLockedBody from '../hooks/useLockedBody'
 import Portal from './Portal'
@@ -99,7 +100,7 @@ const KebabMenu = ({ items, show, setShow, Footer }: KebabMenuProps): ReactEleme
   return (
     <ToggleContainer>
       <Button onClick={onClick} label={t('sideBarOpenAriaLabel')} aria-expanded={show}>
-        <StyledIcon src={MenuIcon} />
+        <StyledIcon src={MoreVertIcon} />
       </Button>
       <Portal
         className='kebab-menu'

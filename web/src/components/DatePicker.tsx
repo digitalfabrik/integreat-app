@@ -1,11 +1,11 @@
 import styled from '@emotion/styled'
+import EventIcon from '@mui/icons-material/Event'
 import { DateTime } from 'luxon'
 import React, { ReactElement, useEffect, useState } from 'react'
 import DatePicker, { DatePickerProps } from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { useTranslation } from 'react-i18next'
 
-import { CalendarTodayIcon } from '../assets'
 import '../styles/DatePickerCalendar.css'
 import Button from './base/Button'
 import Icon from './base/Icon'
@@ -156,7 +156,7 @@ const CustomDatePicker = ({
           onChangeRaw={e => handleDateError(String((e?.target as HTMLInputElement).value))}
         />
         <StyledIconButton label={calendarLabel} isCalendarOpen={isCalendarOpen} onClick={() => setIsCalendarOpen(true)}>
-          <Icon src={CalendarTodayIcon} />
+          <Icon src={EventIcon} />
         </StyledIconButton>
       </StyledInputWrapper>
       <StyledTitle>{title}</StyledTitle>
