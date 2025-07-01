@@ -23,6 +23,12 @@ const OpeningLabel = styled.Text<{ isOpened: boolean; $direction: string }>`
   align-self: center;
 `
 
+const StyledText = styled(Text)`
+  color: ${props => props.theme.colors.textColor};
+  font-weight: bold;
+  align-self: center;
+`
+
 const Content = styled.View`
   font-size: 12px;
 `
@@ -92,7 +98,7 @@ const OpeningHours = ({
 
   const openingHoursTitle = (
     <TitleContainer language={language}>
-      <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>{t('openingHours')}</Text>
+      <StyledText>{t('openingHours')}</StyledText>
       <OpeningLabel isOpened={isCurrentlyOpen} $direction={contentDirection(language)}>
         {t(getOpeningLabel(isTemporarilyClosed, isCurrentlyOpen, openingHours))}
       </OpeningLabel>

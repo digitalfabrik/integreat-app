@@ -1,12 +1,18 @@
 import NetInfo from '@react-native-community/netinfo'
-import { LinkingOptions, NavigationContainer, NavigationState } from '@react-navigation/native'
+import {
+  DefaultTheme,
+  LinkingOptions,
+  NavigationContainer,
+  NavigationState,
+  Theme as NavigationContainerTheme,
+} from '@react-navigation/native'
 import { Settings as LuxonSettings } from 'luxon'
 import React, { ReactElement, useCallback, useState } from 'react'
 import { LogBox } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { enableScreens } from 'react-native-screens'
 import { HeaderButtonsProvider } from 'react-navigation-header-buttons'
-import { ThemeProvider } from 'styled-components/native'
+import { useTheme } from 'styled-components'
 
 import { CLOSE_PAGE_SIGNAL_NAME, REDIRECT_ROUTE } from 'shared'
 import { setUserAgent } from 'shared/api'
@@ -19,9 +25,9 @@ import IOSSafeAreaView from './components/IOSSafeAreaView'
 import SnackbarContainer from './components/SnackbarContainer'
 import StaticServerProvider from './components/StaticServerProvider'
 import StatusBar from './components/StatusBar'
+import { ThemeContainer } from './components/ThemeContext'
 import TtsContainer from './components/TtsContainer'
 import { RoutesParamsType } from './constants/NavigationTypes'
-import buildConfig from './constants/buildConfig'
 import { userAgent } from './constants/endpoint'
 import AppContextProvider from './contexts/AppContextProvider'
 import useSendOfflineJpalSignals from './hooks/useSendOfflineJpalSignals'
@@ -58,6 +64,30 @@ const linking: LinkingOptions<RoutesParamsType> = {
 }
 setUserAgent(userAgent)
 
+type NavigationContainerWithThemeProps = {
+  onStateChange: (state: NavigationState | undefined) => void
+}
+
+export const NavigationContainerWithTheme = ({ onStateChange }: NavigationContainerWithThemeProps): ReactElement => {
+  const theme = useTheme()
+
+  const navigationTheme: NavigationContainerTheme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      card: theme.colors.backgroundColor,
+    },
+  }
+
+  return (
+    <NavigationContainer onStateChange={onStateChange} theme={navigationTheme} linking={linking}>
+      <HeaderButtonsProvider stackType='native'>
+        <Navigator />
+      </HeaderButtonsProvider>
+    </NavigationContainer>
+  )
+}
+
 const App = (): ReactElement => {
   const [routeIndex, setRouteIndex] = useState<number>(0)
 
@@ -82,30 +112,26 @@ const App = (): ReactElement => {
 
   return (
     <>
-      <ThemeProvider theme={buildConfig().legacyLightTheme}>
-        <StaticServerProvider>
-          <I18nProvider>
-            <SafeAreaProvider>
-              <AppContextProvider>
+      <StaticServerProvider>
+        <I18nProvider>
+          <AppContextProvider>
+            <ThemeContainer>
+              <SafeAreaProvider>
                 <SnackbarContainer>
                   <TtsContainer>
                     <>
                       <StatusBar />
                       <IOSSafeAreaView>
-                        <NavigationContainer onStateChange={onStateChange} linking={linking}>
-                          <HeaderButtonsProvider stackType='native'>
-                            <Navigator />
-                          </HeaderButtonsProvider>
-                        </NavigationContainer>
+                        <NavigationContainerWithTheme onStateChange={onStateChange} />
                       </IOSSafeAreaView>
                     </>
                   </TtsContainer>
                 </SnackbarContainer>
-              </AppContextProvider>
-            </SafeAreaProvider>
-          </I18nProvider>
-        </StaticServerProvider>
-      </ThemeProvider>
+              </SafeAreaProvider>
+            </ThemeContainer>
+          </AppContextProvider>
+        </I18nProvider>
+      </StaticServerProvider>
       <AppStateListener />
     </>
   )

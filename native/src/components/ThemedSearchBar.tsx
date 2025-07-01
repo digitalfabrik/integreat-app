@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TextInput, View } from 'react-native'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
 import { CloseIcon, SearchIcon } from '../assets'
 import testID from '../testing/testID'
@@ -39,6 +39,7 @@ type ThemedSearchBarProps = {
 
 const ThemedSearchBar = ({ onChangeText, value, autofocus }: ThemedSearchBarProps): ReactElement => {
   const { t } = useTranslation('search')
+  const theme = useTheme()
   return (
     <StyledBackground>
       <StyledIcon Icon={SearchIcon} />
@@ -49,6 +50,7 @@ const ThemedSearchBar = ({ onChangeText, value, autofocus }: ThemedSearchBarProp
         value={value}
         autoFocus={autofocus}
         placeholder={t('searchPlaceholder')}
+        placeholderTextColor={theme.isContrastTheme ? theme.colors.textColor : theme.colors.textSecondaryColor}
       />
       {!!value && (
         <IconButton
