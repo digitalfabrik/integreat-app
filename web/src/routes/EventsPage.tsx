@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import LocationIcon from '@mui/icons-material/LocationOnOutlined'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -8,7 +9,6 @@ import { EVENTS_ROUTE, pathnameFromRouteInformation, useDateFilter } from 'share
 import { createEventsEndpoint, EventModel, NotFoundError, useLoadFromEndpoint } from 'shared/api'
 
 import { CityRouteProps } from '../CityContentSwitcher'
-import { LocationIcon } from '../assets'
 import Caption from '../components/Caption'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
@@ -130,7 +130,9 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
           BeforeContent={
             <Spacing content={content} lastUpdate={lastUpdate}>
               <DatesPageDetail date={date} language={languageCode} />
-              {location && <PageDetail icon={LocationIcon} information={location.fullAddress} path={event.poiPath} />}
+              {location && (
+                <PageDetail icon={<LocationIcon />} information={location.fullAddress} path={event.poiPath} />
+              )}
             </Spacing>
           }
           Footer={<ExportEventButton event={event} />}

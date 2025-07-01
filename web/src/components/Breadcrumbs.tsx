@@ -1,10 +1,10 @@
 import styled from '@emotion/styled'
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
 import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 
 import { UiDirectionType } from 'translations'
 
-import { HouseIcon } from '../assets'
 import BreadcrumbModel from '../models/BreadcrumbModel'
 import Breadcrumb from './Breadcrumb'
 import JsonLdBreadcrumbs from './JsonLdBreadcrumbs'
@@ -70,7 +70,7 @@ const Breadcrumbs = ({ ancestorBreadcrumbs, currentBreadcrumb }: BreadcrumbsProp
           ancestorBreadcrumbs.length > 1 && index === 0 ? (
             <li key={breadcrumb.pathname}>
               <StyledLink to={breadcrumb.pathname}>
-                <StyledIcon src={HouseIcon} title={breadcrumb.title} />
+                <StyledIcon src={HomeOutlinedIcon} title={breadcrumb.title} />
               </StyledLink>
             </li>
           ) : (

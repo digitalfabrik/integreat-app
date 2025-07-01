@@ -94,25 +94,25 @@ describe('EventListItem', () => {
     it('should show icon if recurring but not today', () => {
       const event = createEvent('DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=TU;UNTIL=20231029T050000')
 
-      const { queryByText } = renderWithRouterAndTheme(
+      const { queryByText, getAllByText } = renderWithRouterAndTheme(
         <EventListItem index={0} event={event} languageCode={language} />,
       )
 
       expect(queryByText('events:todayRecurring')).toBeFalsy()
-      expect(queryByText('events:recurring')).toBeTruthy()
+      expect(getAllByText('events:recurring')).toHaveLength(2) // tooltip and icon got the same title
       expect(queryByText('events:today')).toBeFalsy()
     })
 
     it('should show icon if today but not recurring', () => {
       const event = createEvent('DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO;UNTIL=20231003T050000')
 
-      const { queryByText } = renderWithRouterAndTheme(
+      const { queryByText, getAllByText } = renderWithRouterAndTheme(
         <EventListItem index={0} event={event} languageCode={language} />,
       )
 
       expect(queryByText('events:todayRecurring')).toBeFalsy()
       expect(queryByText('events:recurring')).toBeFalsy()
-      expect(queryByText('events:today')).toBeTruthy()
+      expect(getAllByText('events:today')).toHaveLength(2) // tooltip and icon got the same title
     })
   })
 })

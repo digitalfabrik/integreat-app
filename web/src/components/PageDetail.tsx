@@ -1,7 +1,6 @@
 import styled from '@emotion/styled'
 import React, { ReactElement } from 'react'
 
-import Icon from './base/Icon'
 import Link from './base/Link'
 
 const Container = styled.div<{ withPadding?: boolean }>`
@@ -13,14 +12,9 @@ const Identifier = styled.span`
   font-weight: 700;
 `
 
-const StyledIcon = styled(Icon)`
-  color: ${props => props.theme.colors.textSecondaryColor};
-  margin-inline-end: 8px;
-`
-
 type PageDetailProps = {
   identifier?: string
-  icon?: string
+  icon?: ReactElement
   information: string
   path?: string | null
 }
@@ -28,7 +22,7 @@ type PageDetailProps = {
 const PageDetail = ({ identifier, information, path, icon }: PageDetailProps): ReactElement => (
   <Container withPadding={!icon && !identifier}>
     {!!identifier && <Identifier>{identifier}: </Identifier>}
-    {!!icon && <StyledIcon src={icon} title='' />}
+    {icon}
     {path ? (
       <Link to={path} highlighted>
         {information}

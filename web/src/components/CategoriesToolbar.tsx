@@ -1,3 +1,4 @@
+import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -5,7 +6,6 @@ import { CATEGORIES_ROUTE } from 'shared'
 import { CategoryModel } from 'shared/api'
 import config from 'translations/src/config'
 
-import { PdfIcon } from '../assets'
 import { cmsApiBaseUrl } from '../constants/urls'
 import CityContentToolbar from './CityContentToolbar'
 import ToolbarItem from './ToolbarItem'
@@ -33,7 +33,7 @@ const CategoriesToolbar = (props: CategoriesToolbarProps): ReactElement => {
       feedbackTarget={category && !category.isRoot() ? category.slug : undefined}
       pageTitle={pageTitle}>
       <ToolbarItem
-        icon={PdfIcon}
+        icon={DescriptionOutlinedIcon}
         text={t('createPdf')}
         to={pdfUrl}
         isDisabled={isDisabled}

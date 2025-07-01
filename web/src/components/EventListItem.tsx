@@ -1,6 +1,8 @@
 import styled from '@emotion/styled'
+import EventRepeatOutlinedIcon from '@mui/icons-material/EventRepeatOutlined'
+import TodayOutlinedIcon from '@mui/icons-material/TodayOutlined'
 import { DateTime } from 'luxon'
-import React, { ReactElement } from 'react'
+import React, { ReactElement, ElementType } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { getExcerpt } from 'shared'
@@ -8,8 +10,6 @@ import { DateModel, DateIcon, EventModel } from 'shared/api'
 import { getDisplayDate } from 'shared/utils/dateFilterUtils'
 
 import {
-  CalendarRecurringIcon,
-  CalendarTodayIcon,
   CalendarTodayRecurringIcon,
   EventThumbnailPlaceholder1,
   EventThumbnailPlaceholder2,
@@ -54,11 +54,11 @@ const getEventPlaceholder = (path: string): string => {
   return placeholders[pseudoId % placeholders.length]!
 }
 
-export const getDateIcon = (date: DateModel): { icon: string; tooltip: string } | null => {
-  const icons: { [key in DateIcon]: string } = {
+export const getDateIcon = (date: DateModel): { icon: string | ElementType; tooltip: string } | null => {
+  const icons: { [key in DateIcon]: string | ElementType } = {
     CalendarTodayRecurringIcon,
-    CalendarRecurringIcon,
-    CalendarTodayIcon,
+    CalendarRecurringIcon: EventRepeatOutlinedIcon,
+    CalendarTodayIcon: TodayOutlinedIcon,
   }
   const iconToUse = date.getDateIcon()
   return iconToUse

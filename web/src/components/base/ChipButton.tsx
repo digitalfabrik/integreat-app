@@ -1,7 +1,8 @@
 import styled from '@emotion/styled'
-import React, { ReactElement } from 'react'
+import CloseIcon from '@mui/icons-material/Close'
+import { SvgIconProps } from '@mui/material'
+import React, { ElementType, ReactElement } from 'react'
 
-import { CloseIcon } from '../../assets'
 import Button from './Button'
 import Icon from './Icon'
 
@@ -27,7 +28,7 @@ const StyledIcon = styled(Icon)`
 
 type ChipButtonProps = {
   text: string
-  icon: string
+  icon: string | ElementType<SvgIconProps>
   onClick: () => void
   label?: string
   closeButton?: boolean

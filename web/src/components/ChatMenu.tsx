@@ -1,8 +1,9 @@
 import styled from '@emotion/styled'
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
+import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ArrowBackIcon, ShrinkIcon } from '../assets'
 import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
 import useWindowDimensions from '../hooks/useWindowDimensions'
@@ -40,7 +41,7 @@ const ChatMenu = ({ onClose }: ChatMenuProps): ReactElement => {
   return (
     <ButtonContainer>
       <StyledButton label={t(viewportSmall ? 'back' : 'minimize')} onClick={onClose}>
-        <StyledIcon src={viewportSmall ? ArrowBackIcon : ShrinkIcon} directionDependent />
+        <StyledIcon src={viewportSmall ? ArrowBackIosNewIcon : CloseFullscreenIcon} directionDependent />
       </StyledButton>
     </ButtonContainer>
   )

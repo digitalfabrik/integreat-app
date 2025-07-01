@@ -1,9 +1,10 @@
+import AccessTimeIcon from '@mui/icons-material/AccessTime'
+import EditLocationOutlinedIcon from '@mui/icons-material/EditLocationOutlined'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { PoiCategoryModel } from 'shared/api'
 
-import { ClockIcon, EditLocationIcon } from '../assets'
 import ChipButton from './base/ChipButton'
 
 type PoiFiltersOverlayButtonsProps = {
@@ -28,14 +29,14 @@ const PoiFiltersOverlayButtons = ({
     <>
       <ChipButton
         text={t('adjustFilters')}
-        icon={EditLocationIcon}
+        icon={EditLocationOutlinedIcon}
         onClick={() => setShowFilterSelection(!poiFiltersShown)}
       />
       {currentlyOpenFilter && (
         <ChipButton
           text={t('opened')}
           label={t('clearFilter', { filter: t('opened') })}
-          icon={ClockIcon}
+          icon={AccessTimeIcon}
           onClick={() => setCurrentlyOpenFilter(false)}
           closeButton
         />
