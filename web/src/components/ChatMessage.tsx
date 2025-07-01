@@ -1,11 +1,12 @@
 import styled from '@emotion/styled'
+import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined'
+import SmartToyOutlinedIcon from '@mui/icons-material/SmartToyOutlined'
 import { TFunction } from 'i18next'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import ChatMessageModel from 'shared/api/models/ChatMessageModel'
 
-import { ChatBot, ChatPerson } from '../assets'
 import RemoteContent from './RemoteContent'
 import Icon from './base/Icon'
 
@@ -20,6 +21,11 @@ export const Message = styled.div`
   & > div > a {
     line-break: anywhere;
   }
+`
+const StyledChatIcon = styled(Icon)`
+  background-color: ${props => props.theme.colors.themeColor};
+  color: black;
+  border-radius: 4px;
 `
 
 const Container = styled.div<{ isAuthor: boolean }>`
@@ -50,8 +56,8 @@ const getIcon = (userIsAuthor: boolean, isAutomaticAnswer: boolean, t: TFunction
   if (userIsAuthor) {
     return <Circle>{t('user')}</Circle>
   }
-  const icon = isAutomaticAnswer ? ChatBot : ChatPerson
-  return <Icon src={icon} title={isAutomaticAnswer ? t('bot') : t('human')} />
+  const icon = isAutomaticAnswer ? SmartToyOutlinedIcon : PersonOutlinedIcon
+  return <StyledChatIcon src={icon} title={isAutomaticAnswer ? t('bot') : t('human')} />
 }
 
 type InnerChatMessageProps = {

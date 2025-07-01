@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components/native'
 
-import { CloseIcon, PauseIcon, PlaybackIcon, PlayIcon } from '../assets'
+import { CloseIcon, PauseIcon, PlayIcon, FastRewindIcon, FastForwardIcon } from '../assets'
 import Icon from './base/Icon'
 import IconButton from './base/IconButton'
 import Pressable from './base/Pressable'
@@ -55,7 +55,7 @@ const StyledBackForthButton = styled(Pressable)`
   display: flex;
   flex-direction: row;
   gap: 5px;
-  align-items: flex-end;
+  align-items: center;
 `
 
 const PlayButtonIcon = styled(Icon)`
@@ -76,6 +76,8 @@ const StyledPlayerHeaderText = styled(Text)`
 
 const StyledIcon = styled(Icon)`
   color: ${props => (props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.textColor)};
+  width: 28px;
+  height: 28px;
 `
 
 const CloseButton = styled(Pressable)`
@@ -125,7 +127,7 @@ const TtsPlayer = ({
         {isPlaying && (
           <StyledBackForthButton role='button' accessibilityLabel={t('previous')} onPress={playPrevious}>
             <StyledText>{t('previous')}</StyledText>
-            <StyledIcon Icon={PlaybackIcon} reverse />
+            <StyledIcon Icon={FastRewindIcon} />
           </StyledBackForthButton>
         )}
         <StyledPlayIcon
@@ -136,7 +138,7 @@ const TtsPlayer = ({
         />
         {isPlaying && (
           <StyledBackForthButton role='button' accessibilityLabel={t('next')} onPress={playNext}>
-            <StyledIcon Icon={PlaybackIcon} />
+            <StyledIcon Icon={FastForwardIcon} />
             <StyledText>{t('next')}</StyledText>
           </StyledBackForthButton>
         )}

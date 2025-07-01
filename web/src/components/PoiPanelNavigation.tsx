@@ -1,8 +1,8 @@
 import styled from '@emotion/styled'
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ArrowBackIcon } from '../assets'
 import { helpers } from '../constants/theme'
 import Button from './base/Button'
 import Icon from './base/Icon'
@@ -41,12 +41,12 @@ const PoiPanelNavigation = ({ switchPoi }: PoiPanelNavigationProps): ReactElemen
   return (
     <NavigationContainer>
       <StyledButton onClick={() => switchPoi(-1)} tabIndex={0} label={t('previousPoi')}>
-        <StyledIcon src={ArrowBackIcon} directionDependent />
+        <StyledIcon src={ArrowBackIosNewIcon} directionDependent />
         <Label>{t('detailsPreviousPoi')}</Label>
       </StyledButton>
       <StyledButton onClick={() => switchPoi(1)} tabIndex={0} label={t('nextPoi')}>
         <Label>{t('detailsNextPoi')}</Label>
-        <StyledIcon src={ArrowBackIcon} directionDependent reverse />
+        <StyledIcon src={ArrowBackIosNewIcon} directionDependent reverse />
       </StyledButton>
     </NavigationContainer>
   )

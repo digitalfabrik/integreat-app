@@ -1,6 +1,7 @@
 import { css, SerializedStyles, Theme, useTheme } from '@emotion/react'
 import styled from '@emotion/styled'
-import React, { ReactElement } from 'react'
+import { SvgIconProps } from '@mui/material'
+import React, { ElementType, ReactElement } from 'react'
 import { PlacesType } from 'react-tooltip'
 
 import dimensions from '../constants/dimensions'
@@ -61,7 +62,7 @@ type ItemProps =
     }
 
 type ToolbarItemProps = {
-  icon: string
+  icon: string | ElementType<SvgIconProps>
   text: string
   id?: string
   isDisabled?: boolean
