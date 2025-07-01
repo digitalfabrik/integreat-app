@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
-import React, { ReactElement } from 'react'
+import { SvgIconProps } from '@mui/material'
+import React, { ElementType, ReactElement } from 'react'
 
 import { helpers } from '../constants/theme'
 import Icon from './base/Icon'
@@ -28,18 +29,18 @@ const StyledSecondIcon = styled(Icon)`
 `
 
 type ContactItemProps = {
-  iconSource: string
+  iconSource: string | ElementType<SvgIconProps>
   iconAlt: string
   link: string
   content: string
-  sourceIconEnd?: string
+  sourceIconEnd?: string | ElementType<SvgIconProps>
 }
 
 const ContactItem = ({ iconSource, iconAlt, link, content, sourceIconEnd }: ContactItemProps): ReactElement => (
   <StyledLink to={link}>
     <Marker src={iconSource} title={iconAlt} />
     {content}
-    {!!sourceIconEnd && <StyledSecondIcon src={sourceIconEnd} title='' directionDependent />}
+    {sourceIconEnd !== undefined && <StyledSecondIcon src={sourceIconEnd} title='' directionDependent />}
   </StyledLink>
 )
 

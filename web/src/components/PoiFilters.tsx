@@ -1,11 +1,11 @@
 import styled from '@emotion/styled'
+import AccessTimeIcon from '@mui/icons-material/AccessTime'
 import Button from '@mui/material/Button'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { PoiCategoryModel } from 'shared/api'
 
-import { ClockIcon } from '../assets'
 import ModalContent from './ModalContent'
 import Checkbox from './base/Checkbox'
 import Icon from './base/Icon'
@@ -94,7 +94,7 @@ const PoiFilters = ({
         <Section>
           <SubTitle>{t('openingHours')}</SubTitle>
           <Row>
-            <StyledIcon src={ClockIcon} />
+            <StyledIcon src={AccessTimeIcon} />
             <Checkbox
               id='poi-filters-currently-opened'
               checked={currentlyOpenFilter}
