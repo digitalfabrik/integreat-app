@@ -1,4 +1,6 @@
 import styled from '@emotion/styled'
+import HealthAndSafetyOutlinedIcon from '@mui/icons-material/HealthAndSafetyOutlined'
+import PeopleOutlineOutlinedIcon from '@mui/icons-material/PeopleOutlineOutlined'
 import SendIcon from '@mui/icons-material/Send'
 import Button from '@mui/material/Button'
 import React, { ReactElement, SyntheticEvent, useState } from 'react'
@@ -15,7 +17,6 @@ import {
   MALTE_HELP_FORM_MAX_COMMENT_LENGTH,
 } from 'shared/api'
 
-import { SecurityIcon, SupportIcon } from '../assets'
 import Icon from '../components/base/Icon'
 import { Container } from './Feedback'
 import PrivacyCheckbox from './PrivacyCheckbox'
@@ -132,11 +133,11 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
   return (
     <>
       <Note>
-        <StyledIcon src={SupportIcon} />
+        <StyledIcon src={PeopleOutlineOutlinedIcon} />
         {t('supportNote')}
       </Note>
       <Note>
-        <StyledIcon src={SecurityIcon} />
+        <StyledIcon src={HealthAndSafetyOutlinedIcon} />
         {t('securityNote')}
       </Note>
       <Form onSubmit={submitHandler}>
