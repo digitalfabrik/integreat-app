@@ -1,8 +1,8 @@
 import styled from '@emotion/styled'
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import React, { ReactElement, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { DataSecurityIcon } from '../assets'
 import dimensions from '../constants/dimensions'
 import useOnClickOutside from '../hooks/useOnClickOutside'
 import Icon from './base/Icon'
@@ -21,9 +21,13 @@ const SecurityIconContainer = styled.button`
 `
 
 const SecurityIcon = styled(Icon)`
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
   color: ${props => props.theme.colors.textSecondaryColor};
+  border-radius: 50%;
+  border-color: ${props => props.theme.colors.textSecondaryColor};
+  border-style: solid;
+  padding: 4px;
 `
 
 const InformationTooltipContainer = styled.div`
@@ -53,7 +57,7 @@ const ChatSecurityInformation = (): ReactElement => {
     <SecurityInformationContainer ref={securityInformationRef}>
       {securityInformationVisible && <InformationTooltipContainer>{t('dataSecurity')}</InformationTooltipContainer>}
       <SecurityIconContainer onClick={() => setSecurityInformationVisible(!securityInformationVisible)}>
-        <SecurityIcon src={DataSecurityIcon} />
+        <SecurityIcon src={LockOutlinedIcon} />
       </SecurityIconContainer>
     </SecurityInformationContainer>
   )

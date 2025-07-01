@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
-import React, { ReactElement } from 'react'
+import { SvgIconProps } from '@mui/material'
+import React, { ElementType, ReactElement } from 'react'
 
 import { helpers } from '../constants/theme'
 import Icon from './base/Icon'
@@ -28,7 +29,7 @@ const StyledSecondIcon = styled(Icon)`
 `
 
 type ContactItemProps = {
-  iconSource: string
+  iconSource: string | ElementType<SvgIconProps>
   iconAlt: string
   link: string
   content: string
