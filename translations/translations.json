@@ -5404,8 +5404,7 @@
       "negativeRating": "यह साइट उपयोगी नहीं है",
       "positiveRating": "यह साइट उपयोगी है",
       "searchTermDescription": "निम्नलिखित शब्द के लिए कोई परिणाम नहीं मिल सका:",
-      "contactMailAddress": "आगे के प्रश्नों के लिए ई-मेल करें",
-      "note": "कृपया फ़ीडबैक भेजने के लिए कोई प्रतिक्रिया चुनें या टिप्पणी लिखें।"
+      "contactMailAddress": "आगे के प्रश्नों के लिए ई-मेल करें"
     },
     "hr": {
       "disclaimer": "Kontakt i impresum",
@@ -5749,8 +5748,7 @@
       "negativeRating": "Akava sajti nane korisno",
       "positiveRating": "Akava sajti si korisno",
       "searchTermDescription": "Našti te ovel arakhlo rezultato akale lafea:",
-      "contactMailAddress": "I-Mejl bašo avera pučiba",
-      "note": "Birin reakcia jali hramon komentari te šaj te bičhale dževapi."
+      "contactMailAddress": "I-Mejl bašo avera pučiba"
     },
     "ru": {
       "disclaimer": "Контактная информация и выходные данные",
@@ -5910,8 +5908,7 @@
       "negativeRating": "Tovuti hii haisaidii?",
       "positiveRating": "Tovuti hii inasaidia",
       "searchTermDescription": "Hakuna matokeo yaliyopatikana ya hoja ifuatayo:",
-      "contactMailAddress": "Anwani ya Barua Pepe ya kuuliza maswali zaidi",
-      "note": "Tafadhali chagua emoji au andika maoni ili utume maoni."
+      "contactMailAddress": "Anwani ya Barua Pepe ya kuuliza maswali zaidi"
     },
     "ti": {
       "disclaimer": "ናይ ርክብ ሓበሬታን ናይ ደራሲ ዝርዝራት ሓበሬታን",
@@ -6025,8 +6022,7 @@
       "negativeRating": "Trang này không hữu ích",
       "positiveRating": "Trang này hữu ích",
       "searchTermDescription": "Không tìm thấy kết quả nào cho cụm từ sau:",
-      "contactMailAddress": "Gửi email để đặt thêm câu hỏi",
-      "note": "Hãy chọn phản ứng hoặc viết bình luận để gửi góp ý."
+      "contactMailAddress": "Gửi email để đặt thêm câu hỏi"
     },
     "zh-CN": {
       "disclaimer": "版本说明和联系方式",
@@ -7020,6 +7016,7 @@
       "settings": "Einstellungen",
       "copyUrl": "Link kopieren",
       "contrastTheme": "Hoher Kontrast (beta)",
+      "contrastThemeDescription": "Mit dem Kontrastmodus wird die Lesbarkeit verbessert",
       "feedback": "Feedback",
       "share": "Teilen",
       "cancel": "Abbrechen",
@@ -7249,6 +7246,7 @@
       "settings": "Settings",
       "copyUrl": "Copy link",
       "contrastTheme": "High Contrast (beta)",
+      "contrastThemeDescription": "The contrast mode improves the readability",
       "feedback": "Feedback",
       "share": "Share",
       "cancel": "Cancel",
@@ -7771,6 +7769,8 @@
       "changeLanguage": "Изменить язык",
       "settings": "Настройки",
       "copyUrl": "Копировать ссылку",
+      "contrastTheme": "Контрастный режим",
+      "contrastThemeDescription": "Контрастный режим улучшает читаемость",
       "feedback": "Обратная связь",
       "share": "Поделиться",
       "cancel": "Отменить",

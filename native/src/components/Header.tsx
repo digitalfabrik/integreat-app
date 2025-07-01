@@ -81,12 +81,12 @@ const Header = ({
 }: HeaderProps): ReactElement | null => {
   const { languageCode, cityCode } = useContext(AppContext)
   const { t } = useTranslation('layout')
+  const theme = useTheme()
   const showSnackbar = useSnackbar()
   // Save route/canGoBack to state to prevent it from changing during navigating which would lead to flickering of the title and back button
   const [previousRoute] = useState(navigation.getState().routes[navigation.getState().routes.length - 2])
   const canGoBack = previousRoute !== undefined
   const { enabled: isTtsEnabled, showTtsPlayer } = useTtsPlayer()
-  const theme = useTheme()
 
   const onShare = async () => {
     if (!shareUrl) {
@@ -133,7 +133,15 @@ const Header = ({
   )
 
   const renderOverflowItem = (title: string, onPress: () => void): ReactElement => (
-    <HiddenItem key={title} title={t(title)} onPress={onPress} />
+    <HiddenItem
+      key={title}
+      title={t(title)}
+      onPress={onPress}
+      style={{
+        backgroundColor: theme.colors.backgroundColor,
+      }}
+      titleStyle={{ color: theme.colors.textColor }}
+    />
   )
 
   const goToLanguageChange = () => {

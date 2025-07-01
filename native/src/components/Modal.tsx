@@ -8,6 +8,7 @@ import HeaderBox from './HeaderBox'
 
 const Container = styled.SafeAreaView`
   flex: 1;
+  background-color: ${props => props.theme.colors.backgroundColor};
 `
 
 const Header = styled.View`

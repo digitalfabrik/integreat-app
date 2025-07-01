@@ -64,12 +64,18 @@ const PlayButtonIcon = styled(Icon)`
 
 const StyledText = styled(Text)`
   font-weight: bold;
+  color: ${props => (props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.textColor)};
 `
 
 const StyledPlayerHeaderText = styled(Text)`
   font-weight: 600;
   align-self: center;
   font-size: 18px;
+  color: ${props => (props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.textColor)};
+`
+
+const StyledIcon = styled(Icon)`
+  color: ${props => (props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.textColor)};
 `
 
 const CloseButton = styled(Pressable)`
@@ -119,7 +125,7 @@ const TtsPlayer = ({
         {isPlaying && (
           <StyledBackForthButton role='button' accessibilityLabel={t('previous')} onPress={playPrevious}>
             <StyledText>{t('previous')}</StyledText>
-            <Icon Icon={PlaybackIcon} reverse />
+            <StyledIcon Icon={PlaybackIcon} reverse />
           </StyledBackForthButton>
         )}
         <StyledPlayIcon
@@ -130,7 +136,7 @@ const TtsPlayer = ({
         />
         {isPlaying && (
           <StyledBackForthButton role='button' accessibilityLabel={t('next')} onPress={playNext}>
-            <Icon Icon={PlaybackIcon} />
+            <StyledIcon Icon={PlaybackIcon} />
             <StyledText>{t('next')}</StyledText>
           </StyledBackForthButton>
         )}
@@ -138,7 +144,7 @@ const TtsPlayer = ({
       <CloseView $isPlaying={isPlaying}>
         {!isPlaying && <StyledPlayerHeaderText>{title}</StyledPlayerHeaderText>}
         <CloseButton role='button' accessibilityLabel='Close player' onPress={close}>
-          <Icon Icon={CloseIcon} />
+          <StyledIcon Icon={CloseIcon} />
           <StyledText>{t('common:close')}</StyledText>
         </CloseButton>
       </CloseView>

@@ -211,7 +211,12 @@ const MapView = ({
           <OverlayContainer>{Overlay}</OverlayContainer>
           <MapAttribution />
           <StyledIcon
-            icon={<Icon Icon={locationPermissionIcon} />}
+            icon={
+              <Icon
+                style={{ color: theme.isContrastTheme ? theme.colors.backgroundColor : undefined }}
+                Icon={locationPermissionIcon}
+              />
+            }
             onPress={onRequestLocation}
             position={bottomSheetFullscreen ? 0 : bottomSheetHeight}
             accessibilityLabel={t('showOwnLocation')}

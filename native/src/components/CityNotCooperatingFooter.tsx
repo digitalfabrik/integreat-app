@@ -16,6 +16,7 @@ const FooterContainer = styled.View`
 `
 
 const Question = styled.Text`
+  color: ${props => props.theme.colors.textColor};
   margin-top: 5%;
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
   font-size: 16px;

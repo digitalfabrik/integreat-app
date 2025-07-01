@@ -12,6 +12,7 @@ const Heading = styled.Text`
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
   font-size: 16px;
   margin: 16px 0;
+  color: ${props => props.theme.colors.textColor};
 `
 
 // styled-components doesn't have the right types for FlatList
@@ -21,6 +22,7 @@ const StyledList = styled(FlatList as typeof FlatList<Calendar>)`
 
 const ButtonTitle = styled.Text`
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
+  color: ${props => props.theme.colors.textColor};
 `
 
 const ButtonDescription = styled.Text`
@@ -36,6 +38,7 @@ const Divider = styled.View`
 
 const StyledText = styled.Text`
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
+  color: ${props => props.theme.colors.textColor};
 `
 
 type CalendarChoiceProps = {

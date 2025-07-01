@@ -1894,10 +1894,10 @@
   resolved "https://registry.yarnpkg.com/@img/sharp-win32-x64/-/sharp-win32-x64-0.34.1.tgz#8a7922fec949f037c204c79f6b83238d2482384b"
   integrity sha512-hw1iIAHpNE8q3uMIRCgGOeDoz9KtFNarFLQclLxr/LK1VBkj8nby18RjFvr6aP7USRYAjTZW6yisnBWMX571Tw==
 
-"@integreat-app/react-sticky-headroom@^2.2.1":
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/@integreat-app/react-sticky-headroom/-/react-sticky-headroom-2.2.1.tgz#2fda1e022d6df705bac371e88c443ad9e08ce674"
-  integrity sha512-2I3mJGHJulNL43Cr1k1NOKLZQ051TBplypXchDUjme1sikmOjNZAACdQt1MTNzr2rbgKbFkRvGxX6km7FegciA==
+"@integreat-app/react-sticky-headroom@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@integreat-app/react-sticky-headroom/-/react-sticky-headroom-3.0.0.tgz#6989dd9365c1340c1803547be4d37b0e35a33bb2"
+  integrity sha512-fWTehT3sQYj7qBmxLdM2jJviKeXpZLzyDBb2+9xXuamDcbP9Nyu5zakUYu0tkkiaFLEQVgSQBF16rGALBQknOw==
 
 "@isaacs/cliui@^8.0.2":
   version "8.0.2"
@@ -14398,21 +14398,6 @@ styled-components@6.1.17:
   version "6.1.17"
   resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-6.1.17.tgz#59032edd7efa59e114ddbc41165f0984d0fa4fb7"
   integrity sha512-97D7DwWanI7nN24v0D4SvbfjLE9656umNSJZkBkDIWL37aZqG/wRQ+Y9pWtXyBIM/NSfcBzHLErEsqHmJNSVUg==
-  dependencies:
-    "@emotion/is-prop-valid" "1.2.2"
-    "@emotion/unitless" "0.8.1"
-    "@types/stylis" "4.2.5"
-    css-to-react-native "3.2.0"
-    csstype "3.1.3"
-    postcss "8.4.49"
-    shallowequal "1.1.0"
-    stylis "4.3.2"
-    tslib "2.6.2"
-
-styled-components@^6.1.17:
-  version "6.1.18"
-  resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-6.1.18.tgz#9647497a92326ba9d758051c914f15004d524bb9"
-  integrity sha512-Mvf3gJFzZCkhjY2Y/Fx9z1m3dxbza0uI9H1CbNZm/jSHCojzJhQ0R7bByrlFJINnMzz/gPulpoFFGymNwrsMcw==
   dependencies:
     "@emotion/is-prop-valid" "1.2.2"
     "@emotion/unitless" "0.8.1"

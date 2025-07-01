@@ -29,6 +29,7 @@ const StyledButton = styled.TouchableOpacity`
 const StyledText = styled(Text)`
   font-weight: bold;
   padding: 5px;
+  color: ${props => props.theme.colors.textColor};
 `
 
 type ResetFilterTextProps = {
