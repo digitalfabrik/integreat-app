@@ -2,8 +2,8 @@
 import EventThumbnailPlaceholder1 from '../../../assets/event-thumbnail-placeholder-1.jpg'
 import EventThumbnailPlaceholder2 from '../../../assets/event-thumbnail-placeholder-2.jpg'
 import EventThumbnailPlaceholder3 from '../../../assets/event-thumbnail-placeholder-3.jpg'
+import BookIcon from '../../../assets/icons/book.svg'
 import CalendarTodayRecurringIcon from '../../../assets/icons/calendar-today-recurring.svg'
-import ChatBot from '../../../assets/icons/chat-bot.svg'
 import ExternalLinkIcon from '../../../assets/icons/external-link.svg'
 import PersonIcon from '../../../assets/icons/person.svg'
 import ReadAloudIcon from '../../../assets/icons/readAloud.svg'
@@ -14,8 +14,8 @@ import PoiThumbnailPlaceholderLarge from '../../../assets/poi-thumbnail-placehol
 import PoiThumbnailPlaceholder from '../../../assets/poi-thumbnail-placeholder.jpg'
 
 export {
+  BookIcon,
   CalendarTodayRecurringIcon,
-  ChatBot,
   EventThumbnailPlaceholder1,
   EventThumbnailPlaceholder2,
   EventThumbnailPlaceholder3,

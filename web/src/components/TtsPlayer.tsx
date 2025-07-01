@@ -75,7 +75,7 @@ const PlayButton = styled(BaseButton)<{ disabled: boolean }>`
 const StyledButton = styled(Button)`
   display: flex;
   gap: 4px;
-  align-items: flex-end;
+  align-items: center;
 `
 
 const StyledPlayIcon = styled(Icon)`

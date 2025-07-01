@@ -1,11 +1,11 @@
 import { useTheme } from '@emotion/react'
 import styled from '@emotion/styled'
-import MenuBookIcon from '@mui/icons-material/MenuBook'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import WarningAmberOutlinedIcon from '@mui/icons-material/WarningAmberOutlined'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { BookIcon } from '../assets'
 import { Container } from './Feedback'
 import Modal from './Modal'
 import Icon from './base/Icon'
@@ -74,7 +74,7 @@ const helpItemsData = [
 const HelpModalItem = ({ title, path }: { title: string; path: string }) => (
   <div>
     <StyledLink to={path}>
-      <StyledBookIcon src={MenuBookIcon} />
+      <StyledBookIcon src={BookIcon} />
       {title}
       <StyledExternalIcon src={OpenInNewIcon} />
     </StyledLink>
