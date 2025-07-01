@@ -1,9 +1,9 @@
 import { useTheme } from '@emotion/react'
 import styled from '@emotion/styled'
+import ContrastIcon from '@mui/icons-material/Contrast'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ContrastIcon } from '../assets'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import ToolbarItem from './ToolbarItem'
 import Button from './base/Button'

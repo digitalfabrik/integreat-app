@@ -1,9 +1,10 @@
+import SentimentDissatisfiedOutlinedIcon from '@mui/icons-material/SentimentDissatisfiedOutlined'
+import SentimentSatisfiedOutlinedIcon from '@mui/icons-material/SentimentSatisfiedOutlined'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { FeedbackRouteType } from 'shared/api'
 
-import { HappySmileyIcon, SadSmileyIcon } from '../assets'
 import useCityContentParams from '../hooks/useCityContentParams'
 import { RouteType } from '../routes'
 import FeedbackContainer from './FeedbackContainer'
@@ -39,7 +40,7 @@ const FeedbackToolbarItem = ({ route, slug, positive }: FeedbackToolbarItemProps
         </Modal>
       )}
       <ToolbarItem
-        icon={positive ? HappySmileyIcon : SadSmileyIcon}
+        icon={positive ? SentimentSatisfiedOutlinedIcon : SentimentDissatisfiedOutlinedIcon}
         text={t(positive ? 'useful' : 'notUseful')}
         onClick={() => setIsFeedbackOpen(true)}
       />
