@@ -24,7 +24,7 @@ type ConsentSectionProps = {
 const ConsentSection = ({ description, allowed, onPress }: ConsentSectionProps): ReactElement => (
   <>
     <Container>
-      <Checkbox id={description} checked={allowed} setChecked={onPress} label={description} />
+      <Checkbox checked={allowed} setChecked={onPress} label={description} />
     </Container>
     <Divider />
   </>
