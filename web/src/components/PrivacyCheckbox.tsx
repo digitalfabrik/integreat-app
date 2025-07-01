@@ -16,7 +16,6 @@ const PrivacyCheckbox = ({ language, checked, setChecked }: PrivacyCheckboxProps
   const privacyUrl = privacyUrls[language] || privacyUrls.default
   return (
     <Checkbox
-      id='privacyPolicy'
       checked={checked}
       setChecked={setChecked}
       label={
