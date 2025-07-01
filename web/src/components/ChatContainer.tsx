@@ -52,8 +52,6 @@ const ChatTitle = styled.span`
 `
 
 const ChatActionButton = styled(Fab)`
-  box-shadow: 0 2px 3px 3px rgb(0 0 0 / 20%);
-
   &:hover {
     background-color: ${props => props.theme.colors.themeColor};
   }
