@@ -8,6 +8,7 @@ import { OrganizationModel } from 'shared/api'
 import HighlightBox from './HighlightBox'
 import Link from './Link'
 import SimpleImage from './SimpleImage'
+import Text from './base/Text'
 
 const Thumbnail = styled(SimpleImage)`
   height: 80px;
@@ -20,12 +21,12 @@ const Box = styled(HighlightBox)`
   border-radius: 4px;
 `
 
-const OrganizationContent = styled.Text`
+const OrganizationContent = styled(Text)`
   font-family: ${props => props.theme.fonts.native.decorativeFontBold};
   padding: 16px 0 8px;
 `
 
-const StyledText = styled.Text`
+const StyledText = styled(Text)`
   flex-flow: row wrap;
 `
 
