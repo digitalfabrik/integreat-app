@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 import { Image, useWindowDimensions } from 'react-native'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
-import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated'
+import Animated, { clamp, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated'
 
 const MIN_DISTANCE = 10
 
@@ -12,16 +12,13 @@ type PinchPanImageProps = {
   onError: (error: unknown) => void
 }
 
-const clampTranslationToImageBounds = (newValue: number, imageMax: number): number => {
+const clampTranslationToImageBounds = (translation: number, viewSize: number, scale: number): number => {
   'worklet'
 
-  if (newValue < -imageMax / 2) {
-    return -imageMax / 2
+  if (scale <= 1) {
+    return 0
   }
-  if (newValue > imageMax / 2) {
-    return imageMax / 2
-  }
-  return newValue
+  return clamp(translation, -(viewSize / 2) * (scale - 1), (viewSize / 2) * (scale - 1))
 }
 
 const PinchPanImage = ({ uri, onError }: PinchPanImageProps): ReactElement => {
@@ -66,8 +63,16 @@ const PinchPanImage = ({ uri, onError }: PinchPanImageProps): ReactElement => {
       prevTranslationY.value = translationY.value
     })
     .onUpdate(event => {
-      translationX.value = clampTranslationToImageBounds(prevTranslationX.value + event.translationX, imageWidth)
-      translationY.value = clampTranslationToImageBounds(prevTranslationY.value + event.translationY, imageHeight)
+      translationX.value = prevTranslationX.value + event.translationX
+      translationY.value = prevTranslationY.value + event.translationY
+    })
+    .onFinalize(() => {
+      translationX.value = withSpring(clampTranslationToImageBounds(translationX.value, viewWidth, scale.value), {
+        damping: 20,
+      })
+      translationY.value = withSpring(clampTranslationToImageBounds(translationY.value, viewHeight, scale.value), {
+        damping: 20,
+      })
     })
 
   const combinedGesture = Gesture.Simultaneous(pinchGesture, panGesture)
