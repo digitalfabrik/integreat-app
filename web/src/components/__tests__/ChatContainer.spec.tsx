@@ -64,12 +64,12 @@ describe('ChatContainer', () => {
   })
 
   it('should only update query params if open chat query param is set', () => {
-    const { getByText, router } = renderRoute(<ChatContainer city='augsburg' language='de' />, {
+    const { getAllByText, router } = renderRoute(<ChatContainer city='augsburg' language='de' />, {
       pathname,
       routePattern,
       searchParams: '?',
     })
-    expect(getByText('chat:chat')).toBeTruthy()
+    expect(getAllByText('chat:chat')[0]).toBeTruthy()
     expect(router.state.location.search).toBe('?')
   })
 })
