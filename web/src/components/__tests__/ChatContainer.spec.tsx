@@ -20,23 +20,29 @@ describe('ChatContainer', () => {
   const routePattern = '/:cityCode/:languageCode'
 
   it('should open chat modal and show content on chat button click', () => {
-    const { getByText } = renderRoute(<ChatContainer city='augsburg' language='de' />, { pathname, routePattern })
-    const chatButtonContainer = getByText('chat:chat')
+    const { getAllByText, getByText } = renderRoute(<ChatContainer city='augsburg' language='de' />, {
+      pathname,
+      routePattern,
+    })
+    const chatButtonContainer = getAllByText('chat:chat')[0]
     expect(chatButtonContainer).toBeTruthy()
-    fireEvent.click(chatButtonContainer)
+    fireEvent.click(chatButtonContainer!)
     expect(getByText('chat:header')).toBeTruthy()
     expect(getByText('chat:conversationTitle')).toBeTruthy()
     expect(getByText('chat:conversationText')).toBeTruthy()
   })
 
   it('should close chat if close button was clicked', () => {
-    const { getAllByLabelText, queryByText, getByText } = renderRoute(<ChatContainer city='augsburg' language='de' />, {
-      pathname,
-      routePattern,
-    })
-    const chatButtonContainer = getByText('chat:chat')
+    const { getAllByLabelText, queryByText, getAllByText } = renderRoute(
+      <ChatContainer city='augsburg' language='de' />,
+      {
+        pathname,
+        routePattern,
+      },
+    )
+    const chatButtonContainer = getAllByText('chat:chat')[0]
     expect(chatButtonContainer).toBeTruthy()
-    fireEvent.click(chatButtonContainer)
+    fireEvent.click(chatButtonContainer!)
     const closeButton = getAllByLabelText('common:minimize')[0]!
     fireEvent.click(closeButton)
     expect(queryByText('chat:header')).toBeFalsy()
@@ -58,12 +64,12 @@ describe('ChatContainer', () => {
   })
 
   it('should only update query params if open chat query param is set', () => {
-    const { getByText, router } = renderRoute(<ChatContainer city='augsburg' language='de' />, {
+    const { getAllByText, router } = renderRoute(<ChatContainer city='augsburg' language='de' />, {
       pathname,
       routePattern,
       searchParams: '?',
     })
-    expect(getByText('chat:chat')).toBeTruthy()
+    expect(getAllByText('chat:chat')[0]).toBeTruthy()
     expect(router.state.location.search).toBe('?')
   })
 })

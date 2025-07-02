@@ -1,8 +1,8 @@
 import styled from '@emotion/styled'
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import React, { ReactElement, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { DataSecurityIcon } from '../assets'
 import dimensions from '../constants/dimensions'
 import useOnClickOutside from '../hooks/useOnClickOutside'
 import Icon from './base/Icon'
@@ -13,7 +13,6 @@ const SecurityInformationContainer = styled.div`
 `
 const SecurityIconContainer = styled.button`
   align-self: center;
-  margin-inline-start: 8px;
   cursor: pointer;
   display: flex;
   border: none;
@@ -22,9 +21,13 @@ const SecurityIconContainer = styled.button`
 `
 
 const SecurityIcon = styled(Icon)`
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
   color: ${props => props.theme.colors.textSecondaryColor};
+  border-radius: 50%;
+  border-color: ${props => props.theme.colors.textSecondaryColor};
+  border-style: solid;
+  padding: 4px;
 `
 
 const InformationTooltipContainer = styled.div`
@@ -35,7 +38,7 @@ const InformationTooltipContainer = styled.div`
   color: ${props => props.theme.colors.textColor};
   padding: 12px;
   text-align: center;
-  transform: ${props => (props.theme.contentDirection === 'rtl' ? 'translate(95%, -90%)' : 'translate(-95%, -90%)')};
+  transform: translate(-95%, -90%);
   white-space: pre-line;
   width: 250px;
 
@@ -54,7 +57,7 @@ const ChatSecurityInformation = (): ReactElement => {
     <SecurityInformationContainer ref={securityInformationRef}>
       {securityInformationVisible && <InformationTooltipContainer>{t('dataSecurity')}</InformationTooltipContainer>}
       <SecurityIconContainer onClick={() => setSecurityInformationVisible(!securityInformationVisible)}>
-        <SecurityIcon src={DataSecurityIcon} />
+        <SecurityIcon src={LockOutlinedIcon} />
       </SecurityIconContainer>
     </SecurityInformationContainer>
   )

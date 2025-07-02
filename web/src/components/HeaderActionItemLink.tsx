@@ -1,6 +1,7 @@
 import { useTheme } from '@emotion/react'
 import styled from '@emotion/styled'
-import React, { ReactElement } from 'react'
+import { SvgIconProps } from '@mui/material'
+import React, { ElementType, ReactElement } from 'react'
 import { PlacesType } from 'react-tooltip'
 
 import dimensions from '../constants/dimensions'
@@ -18,7 +19,7 @@ const StyledIcon = styled(Icon)`
 type HeaderActionItemLinkProps = {
   to?: string
   text: string
-  iconSrc: string
+  iconSrc: string | ElementType<SvgIconProps>
 }
 
 const HeaderActionItemLink = ({ to, text, iconSrc }: HeaderActionItemLinkProps): ReactElement => {

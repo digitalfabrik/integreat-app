@@ -1,4 +1,8 @@
 import styled from '@emotion/styled'
+import HealthAndSafetyOutlinedIcon from '@mui/icons-material/HealthAndSafetyOutlined'
+import PeopleOutlineOutlinedIcon from '@mui/icons-material/PeopleOutlineOutlined'
+import SendIcon from '@mui/icons-material/Send'
+import Button from '@mui/material/Button'
 import React, { ReactElement, SyntheticEvent, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
@@ -13,14 +17,13 @@ import {
   MALTE_HELP_FORM_MAX_COMMENT_LENGTH,
 } from 'shared/api'
 
-import { SecurityIcon, SupportIcon } from '../assets'
 import Icon from '../components/base/Icon'
 import { Container } from './Feedback'
 import PrivacyCheckbox from './PrivacyCheckbox'
 import Input from './base/Input'
 import InputSection from './base/InputSection'
 import RadioGroup from './base/RadioGroup'
-import TextButton from './base/TextButton'
+import Spacing from './base/Spacing'
 
 const Note = styled.div`
   display: flex;
@@ -130,11 +133,11 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
   return (
     <>
       <Note>
-        <StyledIcon src={SupportIcon} />
+        <StyledIcon src={PeopleOutlineOutlinedIcon} />
         {t('supportNote')}
       </Note>
       <Note>
-        <StyledIcon src={SecurityIcon} />
+        <StyledIcon src={HealthAndSafetyOutlinedIcon} />
         {t('securityNote')}
       </Note>
       <Form onSubmit={submitHandler}>
@@ -211,12 +214,15 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
             {sendingStatus !== 'invalidEmail' && t('submitFailedReasoning')}
           </ErrorSendingStatus>
         )}
-        <TextButton
-          type='submit'
-          disabled={sendingStatus === 'sending' || missingData || !privacyPolicyAccepted}
+        <Spacing />
+        <Button
           onClick={() => setSubmitted(true)}
-          text={t('submit')}
-        />
+          startIcon={<SendIcon />}
+          disabled={sendingStatus === 'sending' || missingData || !privacyPolicyAccepted}
+          type='submit'
+          variant='contained'>
+          {t('submit')}
+        </Button>
       </Form>
     </>
   )
