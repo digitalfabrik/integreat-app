@@ -11,6 +11,7 @@ it is recommended to set up and use the `Windows Subsystem for Linux (WSL)` on W
    ```powershell
    wsl --install
    ```
+
    - Restart Windows
 2. Setup Ubuntu user
    - Open newly installed app `Ubuntu`
