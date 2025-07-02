@@ -12,6 +12,7 @@ const transformNodeModules = [
   '@sentry/react-native',
   'build-configs',
   '@dr.pogodin/react-native-static-server',
+  '@gorhom/bottom-sheet',
 ]
 process.env.TZ = 'Europe/Berlin'
 export default {
@@ -24,7 +25,7 @@ export default {
     '\\.svg': '<rootDir>/src/__mocks__/svgrMock.ts',
     uuid: require.resolve('uuid'),
   },
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts', '<rootDir>/node_modules/@testing-library/jest-native/extend-expect'],
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   transform: {
     '^.+\\.jsx?$': ['babel-jest', { rootMode: 'upward' }],
     '^.+\\.tsx?$': ['ts-jest', { isolatedModules: true }],

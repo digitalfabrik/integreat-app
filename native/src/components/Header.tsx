@@ -2,8 +2,7 @@ import React, { ReactElement, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Share } from 'react-native'
 import { HiddenItem, Item } from 'react-navigation-header-buttons'
-import { useTheme } from 'styled-components'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
 import {
   CATEGORIES_ROUTE,
@@ -86,7 +85,7 @@ const Header = ({
   const showSnackbar = useSnackbar()
   // Save route/canGoBack to state to prevent it from changing during navigating which would lead to flickering of the title and back button
   const [previousRoute] = useState(navigation.getState().routes[navigation.getState().routes.length - 2])
-  const [canGoBack] = useState(navigation.canGoBack())
+  const canGoBack = previousRoute !== undefined
   const { enabled: isTtsEnabled, showTtsPlayer } = useTtsPlayer()
 
   const onShare = async () => {
@@ -128,7 +127,7 @@ const Header = ({
       title={t(title)}
       iconName={iconName}
       onPress={visible ? onPress : () => undefined}
-      style={{ opacity: visible ? 1 : 0 }}
+      color={visible ? theme.colors.textColor : 'transparent'}
       accessibilityLabel={t(title)}
     />
   )

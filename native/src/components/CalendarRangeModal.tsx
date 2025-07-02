@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Modal } from 'react-native'
+import { Modal, View } from 'react-native'
 import { Calendar } from 'react-native-calendars'
 import styled, { useTheme } from 'styled-components/native'
 
@@ -21,7 +21,7 @@ const DatePickerWrapper = styled.View`
 
 const StyledView = styled.View`
   gap: 8px;
-  justify-content: ${props => (props.theme.contentDirection === 'rtl' ? 'flex-start' : 'flex-end')};
+  justify-content: flex-end;
   flex-direction: row;
   padding: 5px 14px;
 `
@@ -99,48 +99,53 @@ const CalendarRangeModal = ({
   }
 
   return (
-    <Modal animationType='slide' transparent visible={modalVisible} onRequestClose={closeModal}>
-      <Background onPress={closeModal} />
-      <DatePickerWrapper>
-        <Caption title={t('selectRange')} />
-        <Calendar
-          markingType='period'
-          markedDates={getMarkedDates(tempStartDate, tempEndDate, theme, currentInput ?? '')}
-          onDayPress={handleDayPress}
-          theme={{
-            calendarBackground: theme.isContrastTheme ? theme.colors.backgroundColor : theme.colors.textDecorationColor,
-            dayTextColor: theme.colors.textColor,
-            monthTextColor: theme.colors.textColor,
-            textDisabledColor: theme.colors.textSecondaryColor,
-            todayTextColor: theme.isContrastTheme ? theme.colors.linkColor : theme.colors.backgroundColor,
-            textSectionTitleColor: theme.colors.textColor,
-            arrowColor: theme.colors.textColor,
-          }}
-        />
-        <StyledView>
-          <StyledTextButton
-            textStyle={textButtonStyles.text}
-            onPress={() => {
-              setTempStartDate(startDate)
-              setTempEndDate(endDate)
-              closeModal()
+    // View needs to stay until https://github.com/digitalfabrik/integreat-app/issues/3331 is done
+    <View>
+      <Modal animationType='slide' transparent visible={modalVisible} onRequestClose={closeModal}>
+        <Background onPress={closeModal} />
+        <DatePickerWrapper>
+          <Caption title={t('selectRange')} />
+          <Calendar
+            markingType='period'
+            markedDates={getMarkedDates(tempStartDate, tempEndDate, theme, currentInput ?? '')}
+            onDayPress={handleDayPress}
+            theme={{
+              calendarBackground: theme.isContrastTheme
+                ? theme.colors.backgroundColor
+                : theme.colors.textDecorationColor,
+              dayTextColor: theme.colors.textColor,
+              monthTextColor: theme.colors.textColor,
+              textDisabledColor: theme.colors.textSecondaryColor,
+              todayTextColor: theme.isContrastTheme ? theme.colors.linkColor : theme.colors.backgroundColor,
+              textSectionTitleColor: theme.colors.textColor,
+              arrowColor: theme.colors.textColor,
             }}
-            text={t('layout:cancel')}
-            type='clear'
           />
-          <StyledTextButton
-            textStyle={textButtonStyles.text}
-            onPress={() => updateCalendar(tempStartDate, tempEndDate, currentInput ?? '')}
-            text={t('common:ok')}
-            type='clear'
-            disabled={
-              (tempStartDate === null && tempEndDate === null) ||
-              !!(tempStartDate && tempEndDate && tempStartDate > tempEndDate)
-            }
-          />
-        </StyledView>
-      </DatePickerWrapper>
-    </Modal>
+          <StyledView>
+            <StyledTextButton
+              textStyle={textButtonStyles.text}
+              onPress={() => {
+                setTempStartDate(startDate)
+                setTempEndDate(endDate)
+                closeModal()
+              }}
+              text={t('layout:cancel')}
+              type='clear'
+            />
+            <StyledTextButton
+              textStyle={textButtonStyles.text}
+              onPress={() => updateCalendar(tempStartDate, tempEndDate, currentInput ?? '')}
+              text={t('common:ok')}
+              type='clear'
+              disabled={
+                (tempStartDate === null && tempEndDate === null) ||
+                !!(tempStartDate && tempEndDate && tempStartDate > tempEndDate)
+              }
+            />
+          </StyledView>
+        </DatePickerWrapper>
+      </Modal>
+    </View>
   )
 }
 

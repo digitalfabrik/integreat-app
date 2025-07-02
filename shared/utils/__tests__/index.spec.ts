@@ -26,6 +26,11 @@ describe('formatDateICal', () => {
   it('should return date in iCal format', () => {
     expect(formatDateICal(DateTime.fromISO('2023-10-09T07:00:00.000+02:00'))).toBe('20231009T070000')
   })
+
+  it('should return date in iCal format when given a date in Arabic', () => {
+    const arabicDate = DateTime.fromISO('2023-10-09T07:00:00.000+02:00', { locale: 'ar', numberingSystem: 'arab' })
+    expect(formatDateICal(arabicDate)).toBe('20231009T070000')
+  })
 })
 
 describe('safeParseInt', () => {

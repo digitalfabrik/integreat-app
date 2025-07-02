@@ -31,6 +31,11 @@ jest.mock('../../utils/sendTrackingSignal')
 jest.mock('react-navigation-header-buttons', () => ({
   ...jest.requireActual('react-navigation-header-buttons'),
   HiddenItem: ({ title }: { title: string }) => <Text>hidden: {title}</Text>,
+  Item: ({ title, color, ...props }: { title: string; color?: string }) => (
+    <Text accessibilityLabel={title} style={{ color }} {...props}>
+      <Text>{title}</Text>
+    </Text>
+  ),
 }))
 jest.mock(
   '../CustomHeaderButtons',
@@ -75,6 +80,22 @@ describe('Header', () => {
     params: { title: 'Test Category' },
   }
   const navigation = createNavigationMock()
+  const mockPreviousRoute = (hasPreviousRoute: boolean) => {
+    mocked(navigation.getState).mockImplementation(() => ({
+      key: 'stack-key',
+      index: hasPreviousRoute ? 1 : 0,
+      routeNames: hasPreviousRoute ? [CATEGORIES_ROUTE, CATEGORIES_ROUTE] : [CATEGORIES_ROUTE],
+      routes: hasPreviousRoute
+        ? [
+            { key: 'key-0', name: CATEGORIES_ROUTE },
+            { key: 'key-1', name: CATEGORIES_ROUTE },
+          ]
+        : [{ key: 'key-0', name: CATEGORIES_ROUTE }],
+      type: 'stack',
+      stale: false,
+      preloadedRoutes: [],
+    }))
+  }
 
   const renderHeader = ({
     showItems = true,
@@ -109,11 +130,11 @@ describe('Header', () => {
       languages: languageModels,
       availableLanguages: defaultAvailableLanguages,
     })
-    expect(getByLabelText(t('search'))).toHaveStyle({ opacity: 1 })
+    expect(getByLabelText(t('search'))).toHaveStyle({ color: '#000000' })
     fireEvent.press(getByLabelText(t('search')))
     await waitFor(() => expect(navigation.navigate).toHaveBeenCalledTimes(1))
     expect(navigation.navigate).toHaveBeenCalledWith(SEARCH_ROUTE, { searchText: null })
-    expect(getByLabelText(t('changeLanguage'))).toHaveStyle({ opacity: 1 })
+    expect(getByLabelText(t('changeLanguage'))).toHaveStyle({ color: '#000000' })
     fireEvent.press(getByLabelText(t('changeLanguage')))
     await waitFor(() => expect(navigateToLanguageChange).toHaveBeenCalledTimes(1))
   })
@@ -124,23 +145,23 @@ describe('Header', () => {
       languages: languageModels,
       availableLanguages: defaultAvailableLanguages,
     })
-    expect(getByLabelText(t('search'))).toHaveStyle({ opacity: 0 })
+    expect(getByLabelText(t('search'))).toHaveStyle({ color: 'transparent' })
     fireEvent.press(getByLabelText(t('search')))
     expect(navigation.navigate).not.toHaveBeenCalled()
-    expect(getByLabelText(t('changeLanguage'))).toHaveStyle({ opacity: 0 })
+    expect(getByLabelText(t('changeLanguage'))).toHaveStyle({ color: 'transparent' })
     fireEvent.press(getByLabelText(t('changeLanguage')))
     expect(navigateToLanguageChange).not.toHaveBeenCalled()
   })
 
   it('should show back button and navigate back on click', () => {
-    mocked(navigation.canGoBack).mockImplementation(() => true)
+    mockPreviousRoute(true)
     const { getByText } = renderHeader({})
     fireEvent.press(getByText('HeaderBackButton'))
     expect(navigation.goBack).toHaveBeenCalledTimes(1)
   })
 
   it('should not show back button if it is the home', () => {
-    mocked(navigation.canGoBack).mockImplementation(() => false)
+    mockPreviousRoute(false)
     const { queryByText } = renderHeader({})
     expect(queryByText('HeaderBackButton')).toBeFalsy()
   })

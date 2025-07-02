@@ -1,5 +1,5 @@
 import React, { ReactElement, ReactNode } from 'react'
-import { Modal as RNModal } from 'react-native'
+import { Modal as RNModal, View } from 'react-native'
 import styled from 'styled-components/native'
 
 import dimensions from '../constants/dimensions'
@@ -41,28 +41,31 @@ const Modal = ({
   children,
   scrollView = true,
 }: ModalProps): ReactElement => (
-  <RNModal
-    visible={modalVisible}
-    onRequestClose={closeModal}
-    animationType='fade'
-    supportedOrientations={['portrait', 'landscape']}>
-    <Container>
-      <Header>
-        <HeaderBox goBack={closeModal} text={headerTitle} />
-      </Header>
-      {scrollView ? (
-        <ScrollContent contentContainerStyle={{ flexGrow: 1 }}>
-          {!!title && <Caption title={title} />}
-          {children}
-        </ScrollContent>
-      ) : (
-        <Content>
-          {!!title && <Caption title={title} />}
-          {children}
-        </Content>
-      )}
-    </Container>
-  </RNModal>
+  // View needs to stay until https://github.com/digitalfabrik/integreat-app/issues/3331 is done
+  <View>
+    <RNModal
+      visible={modalVisible}
+      onRequestClose={closeModal}
+      animationType='fade'
+      supportedOrientations={['portrait', 'landscape']}>
+      <Container>
+        <Header>
+          <HeaderBox goBack={closeModal} text={headerTitle} />
+        </Header>
+        {scrollView ? (
+          <ScrollContent contentContainerStyle={{ flexGrow: 1 }}>
+            {!!title && <Caption title={title} />}
+            {children}
+          </ScrollContent>
+        ) : (
+          <Content>
+            {!!title && <Caption title={title} />}
+            {children}
+          </Content>
+        )}
+      </Container>
+    </RNModal>
+  </View>
 )
 
 export default Modal

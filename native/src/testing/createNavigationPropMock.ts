@@ -14,6 +14,7 @@ const createNavigationMock = <T extends RoutesType>(routeIndex = 0): NavigationP
     routeNames: [CATEGORIES_ROUTE],
     type: 'stack',
     stale: false,
+    preloadedRoutes: [],
   })),
   navigate: jest.fn(),
   setParams: jest.fn(),
@@ -27,6 +28,10 @@ const createNavigationMock = <T extends RoutesType>(routeIndex = 0): NavigationP
   removeListener: jest.fn(),
   setOptions: jest.fn(),
   getId: jest.fn(),
+  navigateDeprecated: jest.fn(),
+  preload: jest.fn(),
+  popTo: jest.fn(),
+  replaceParams: jest.fn(),
 })
 
 export default createNavigationMock
