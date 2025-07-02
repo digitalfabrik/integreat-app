@@ -12,6 +12,7 @@ const transformNodeModules = [
   '@sentry/react-native',
   'build-configs',
   '@dr.pogodin/react-native-static-server',
+  '@gorhom/bottom-sheet',
 ]
 process.env.TZ = 'Europe/Berlin'
 export default {
