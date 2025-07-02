@@ -47,7 +47,8 @@ const OrganizationContentInfo = ({ organization }: OrganizationContentInfoProps)
         <StyledText>
           <Trans i18nKey='categories:organizationMoreInformation' domain={new URL(organization.url).hostname}>
             This gets{{ organization: organization.name }}replaced
-            <StyledLink url={organization.url}>{new URL(organization.url).hostname}</StyledLink>
+            {/* @ts-expect-error gets replaced by Trans component */}
+            <StyledLink url={organization.url}>{{ domain: new URL(organization.url).hostname }}</StyledLink>
             by i18n
           </Trans>
         </StyledText>
