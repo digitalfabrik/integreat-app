@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { DefaultTheme } from 'styled-components'
+import { DefaultTheme } from 'styled-components/native'
 
 type MarkedDateType = {
   selected: boolean
