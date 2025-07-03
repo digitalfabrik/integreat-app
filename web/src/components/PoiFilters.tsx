@@ -94,12 +94,8 @@ const PoiFilters = ({
   const { t } = useTranslation('pois')
 
   const handleFilterChange = (event: React.MouseEvent<HTMLElement>, newValue: string | null) => {
-    if (newValue === null) {
-      setSelectedPoiCategory(null)
-    } else {
-      const category = poiCategories.find(cat => cat.id.toString() === newValue)
-      setSelectedPoiCategory(category ?? null)
-    }
+    const category = poiCategories.find(cat => cat.id.toString() === newValue)
+    setSelectedPoiCategory(category ?? null)
   }
 
   return (
