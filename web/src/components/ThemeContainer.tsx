@@ -41,7 +41,7 @@ const createTheme = (
           root: {
             '&:hover': {
               backgroundColor: 'transparent',
-              color: buildConfig().legacyContrastTheme.colors.linkColor,
+              color: '#3B82F6',
             },
           },
         },
