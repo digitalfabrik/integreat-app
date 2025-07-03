@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next'
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import FeedbackButtons from './FeedbackButtons'
-import { SendingStatusType } from './FeedbackContainer'
+import { Rating, SendingStatusType } from './FeedbackContainer'
 import Note from './Note'
 import PrivacyCheckbox from './PrivacyCheckbox'
 import Input from './base/Input'
@@ -39,12 +39,12 @@ const ErrorSendingStatus = styled.div`
 
 type FeedbackProps = {
   language: string
-  isPositiveFeedback: boolean | null
+  isPositiveFeedback: Rating | null
   comment: string
   contactMail: string
   onCommentChanged: (comment: string) => void
   onContactMailChanged: (contactMail: string) => void
-  onFeedbackChanged?: (isPositiveFeedback: boolean | null) => void
+  onFeedbackChanged?: (isPositiveFeedback: Rating | null) => void
   onSubmit: () => void
   sendingStatus: SendingStatusType
   searchTerm: string | undefined
@@ -90,7 +90,7 @@ const Feedback = ({
           <Input id='searchTerm' value={searchTerm} onChange={setSearchTerm} />
         </InputSection>
       ) : (
-        onFeedbackChanged && <FeedbackButtons isPositive={isPositiveFeedback} onRatingChange={onFeedbackChanged} />
+        onFeedbackChanged && <FeedbackButtons rating={isPositiveFeedback} setRating={onFeedbackChanged} />
       )}
 
       <InputSection

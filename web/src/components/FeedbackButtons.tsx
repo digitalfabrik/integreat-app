@@ -5,6 +5,7 @@ import { ToggleButtonGroup } from '@mui/material'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { Rating } from './FeedbackContainer'
 import ToggleButton from './base/ToggleButton'
 
 const StyledToggleButtonGroup = styled(ToggleButtonGroup)`
@@ -14,37 +15,23 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)`
 `
 
 type FeedbackButtonsProps = {
-  isPositive: boolean | null
-  onRatingChange: (isPositive: boolean | null) => void
+  rating: Rating | null
+  setRating: (isPositive: Rating | null) => void
 }
 
-const FeedbackButtons = ({ isPositive, onRatingChange }: FeedbackButtonsProps): ReactElement => {
+const FeedbackButtons = ({ rating, setRating }: FeedbackButtonsProps): ReactElement => {
   const { t } = useTranslation('feedback')
 
-  const handleChange = (event: React.MouseEvent<HTMLElement>, newValue: string | null) => {
-    if (newValue === t('useful')) {
-      onRatingChange(isPositive === true ? null : true)
-    } else if (newValue === t('notUseful')) {
-      onRatingChange(isPositive === false ? null : false)
-    }
-  }
-
-  const currentValue = () => {
-    if (isPositive === null) {
-      return null
-    }
-    if (isPositive) {
-      return t('useful')
-    }
-    return t('notUseful')
+  const handleChange = (event: React.MouseEvent<HTMLElement>, newValue: Rating | null) => {
+    setRating(newValue === rating ? null : newValue)
   }
 
   return (
     <>
       <div>{t('description')}</div>
-      <StyledToggleButtonGroup exclusive value={currentValue()} onChange={handleChange}>
-        <ToggleButton icon={SentimentSatisfiedOutlinedIcon} text={t('useful')} />
-        <ToggleButton icon={SentimentDissatisfiedOutlinedIcon} text={t('notUseful')} />
+      <StyledToggleButtonGroup exclusive value={rating} onChange={handleChange}>
+        <ToggleButton value={'positive'} icon={SentimentSatisfiedOutlinedIcon} text={t('useful')} />
+        <ToggleButton value={'negative'} icon={SentimentDissatisfiedOutlinedIcon} text={t('notUseful')} />
       </StyledToggleButtonGroup>
     </>
   )
