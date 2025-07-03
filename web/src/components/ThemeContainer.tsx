@@ -35,6 +35,18 @@ const createTheme = (
       light: buildConfig().lightTheme,
       dark: buildConfig().darkTheme,
     },
+    components: {
+      MuiToggleButton: {
+        styleOverrides: {
+          root: {
+            '&:hover': {
+              backgroundColor: 'transparent',
+              color: '#3B82F6',
+            },
+          },
+        },
+      },
+    },
   }),
 })
 
