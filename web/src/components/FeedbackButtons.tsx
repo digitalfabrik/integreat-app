@@ -5,7 +5,8 @@ import { ToggleButtonGroup } from '@mui/material'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Rating } from './FeedbackContainer'
+import { Rating, RATING_NEGATIVE, RATING_POSITIVE } from 'shared'
+
 import ToggleButton from './base/ToggleButton'
 
 const StyledToggleButtonGroup = styled(ToggleButtonGroup)`
@@ -22,16 +23,14 @@ type FeedbackButtonsProps = {
 const FeedbackButtons = ({ rating, setRating }: FeedbackButtonsProps): ReactElement => {
   const { t } = useTranslation('feedback')
 
-  const handleChange = (event: React.MouseEvent<HTMLElement>, newValue: Rating | null) => {
-    setRating(newValue === rating ? null : newValue)
-  }
+  const handleChange = (_: React.MouseEvent<HTMLElement>, newValue: Rating | null) => setRating(newValue)
 
   return (
     <>
       <div>{t('description')}</div>
       <StyledToggleButtonGroup exclusive value={rating} onChange={handleChange}>
-        <ToggleButton value='positive' icon={SentimentSatisfiedOutlinedIcon} text={t('useful')} />
-        <ToggleButton value='negative' icon={SentimentDissatisfiedOutlinedIcon} text={t('notUseful')} />
+        <ToggleButton value={RATING_POSITIVE} icon={SentimentSatisfiedOutlinedIcon} text={t('useful')} />
+        <ToggleButton value={RATING_NEGATIVE} icon={SentimentDissatisfiedOutlinedIcon} text={t('notUseful')} />
       </StyledToggleButtonGroup>
     </>
   )

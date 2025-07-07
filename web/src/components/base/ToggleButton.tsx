@@ -16,8 +16,7 @@ const StyledIcon = styled(Icon)<{ iconSize: 'small' | 'medium' }>`
 const StyledButton = styled(MuiToggleButton)`
   display: flex;
   flex-direction: column;
-  border-radius: 18px;
-  border: 0.5px solid gray !important;
+  border-color: ${props => props.theme.colors.textDisabledColor} !important;
   width: ${toggleButtonWidth}px;
   height: 100px;
   background-color: ${props => {

@@ -4,10 +4,12 @@ import Button from '@mui/material/Button'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { Rating } from 'shared'
+
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import FeedbackButtons from './FeedbackButtons'
-import { Rating, SendingStatusType } from './FeedbackContainer'
+import { SendingStatusType } from './FeedbackContainer'
 import Note from './Note'
 import PrivacyCheckbox from './PrivacyCheckbox'
 import Input from './base/Input'
@@ -39,12 +41,12 @@ const ErrorSendingStatus = styled.div`
 
 type FeedbackProps = {
   language: string
-  isPositiveFeedback: Rating | null
+  rating: Rating | null
   comment: string
   contactMail: string
   onCommentChanged: (comment: string) => void
   onContactMailChanged: (contactMail: string) => void
-  onFeedbackChanged?: (isPositiveFeedback: Rating | null) => void
+  setRating?: (rating: Rating | null) => void
   onSubmit: () => void
   sendingStatus: SendingStatusType
   searchTerm: string | undefined
@@ -54,14 +56,14 @@ type FeedbackProps = {
 
 const Feedback = ({
   language,
-  isPositiveFeedback,
+  rating,
   comment,
   contactMail,
   sendingStatus,
   onSubmit,
   onCommentChanged,
   onContactMailChanged,
-  onFeedbackChanged,
+  setRating,
   searchTerm,
   setSearchTerm,
   closeFeedback,
@@ -71,7 +73,7 @@ const Feedback = ({
   const isSearchFeedback = searchTerm !== undefined
   const commentTitle = isSearchFeedback ? 'wantedInformation' : 'commentHeadline'
   const [privacyPolicyAccepted, setPrivacyPolicyAccepted] = useState(false)
-  const feedbackFilled = isPositiveFeedback === null && comment.trim().length === 0 && !searchTerm
+  const feedbackFilled = rating === null && comment.trim().length === 0 && !searchTerm
   const submitFeedbackDisabled = feedbackFilled || !privacyPolicyAccepted
 
   if (sendingStatus === 'successful') {
@@ -90,7 +92,7 @@ const Feedback = ({
           <Input id='searchTerm' value={searchTerm} onChange={setSearchTerm} />
         </InputSection>
       ) : (
-        onFeedbackChanged && <FeedbackButtons rating={isPositiveFeedback} setRating={onFeedbackChanged} />
+        setRating && <FeedbackButtons rating={rating} setRating={setRating} />
       )}
 
       <InputSection

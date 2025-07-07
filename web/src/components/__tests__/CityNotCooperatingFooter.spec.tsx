@@ -11,6 +11,12 @@ jest.mock('../../constants/buildConfig', () =>
       cityNotCooperating: true,
     },
     legacyLightTheme,
+    legacyContrastTheme: {
+      colors: {
+        linkColor: '#0000FF',
+        backgroundAccentColor: '#FFFFFF',
+      },
+    },
     icons: {
       cityNotCooperating: 'test',
     },

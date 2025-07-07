@@ -55,10 +55,6 @@ const TileRow = styled(ToggleButtonGroup)<{ itemCount: number }>`
   gap: 24px ${tileColumnGap}px;
   justify-content: center;
   grid-template-columns: repeat(${props => props.itemCount}, ${toggleButtonWidth}px);
-
-  & [class*='MuiToggleButton-root'] {
-    border-radius: 18px;
-  }
 `
 
 const StyledButton = styled(Button)`
@@ -94,7 +90,7 @@ const PoiFilters = ({
   const { t } = useTranslation('pois')
 
   const handleFilterChange = (event: React.MouseEvent<HTMLElement>, newValue: string | null) => {
-    const category = poiCategories.find(cat => cat.id.toString() === newValue)
+    const category = poiCategories.find(category => category.id === Number(newValue))
     setSelectedPoiCategory(category ?? null)
   }
 
@@ -120,10 +116,10 @@ const PoiFilters = ({
           <TileRow
             itemCount={Math.floor(panelWidth / (toggleButtonWidth + tileColumnGap))}
             exclusive
-            value={selectedPoiCategory?.id.toString()}
+            value={selectedPoiCategory?.id}
             onChange={handleFilterChange}>
             {poiCategories.map(it => (
-              <ToggleButton iconSize='medium' key={it.id} value={it.id.toString()} text={it.name} icon={it.icon} />
+              <ToggleButton iconSize='medium' key={it.id} value={it.id} text={it.name} icon={it.icon} />
             ))}
           </TileRow>
         </Section>
