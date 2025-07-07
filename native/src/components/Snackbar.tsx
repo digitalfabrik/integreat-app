@@ -49,6 +49,8 @@ const Snackbar = ({ text, positiveAction, negativeAction }: SnackbarProps): Reac
         {text}
       </Message>
       <ActionContainer row={!horizontal}>
+        {/* Using onPress={() => negativeAction.onPress()} to not pass in any parameter, onPress={negativeAction.onPress} would pass in the event as parameter */}
+        {/* https://github.com/digitalfabrik/integreat-app/pull/3158/files#r2190224651 */}
         {negativeAction && <Action onPress={() => negativeAction.onPress()}>{negativeAction.label}</Action>}
         {positiveAction && <Action onPress={() => positiveAction.onPress()}>{positiveAction.label}</Action>}
       </ActionContainer>
