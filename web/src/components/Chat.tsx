@@ -102,7 +102,7 @@ const Chat = ({ messages, submitMessage, hasError, isLoading, isTyping }: ChatPr
             multiline
             onKeyDown={submitOnEnter}
             numberOfLines={2}
-            placeholder={t('inputPlaceholder')}
+            label={t('inputPlaceholder')}
           />
         </InputSection>
         <SubmitContainer>

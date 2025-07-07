@@ -54,12 +54,12 @@ describe('MalteHelpForm', () => {
   }
 
   it('should submit the form successfully with an email', () => {
-    const { getByLabelText, getByText, getAllByLabelText } = renderWithTheme(<MalteHelpForm {...props} />)
+    const { getByLabelText, getByText, getByPlaceholderText } = renderWithTheme(<MalteHelpForm {...props} />)
 
     const submitButton = getByText(submitButtonLabel)
     expect(submitButton).toBeDisabled()
 
-    const nameInput = getByLabelText(nameInputLabel)
+    const nameInput = getByPlaceholderText(nameInputLabel)
     fireEvent.change(nameInput, { target: { value: name } })
     expect(submitButton).toBeDisabled()
 
@@ -67,7 +67,7 @@ describe('MalteHelpForm', () => {
     fireEvent.change(roomNumberInput, { target: { value: roomNumber } })
     expect(submitButton).toBeDisabled()
 
-    const emailInput = getAllByLabelText(emailInputLabel)[1]!
+    const emailInput = getByPlaceholderText(emailInputLabel)
     fireEvent.change(emailInput, { target: { value: email } })
     fireEvent.click(getByText('common:privacyPolicy'))
     expect(submitButton).toBeEnabled()
@@ -91,12 +91,14 @@ describe('MalteHelpForm', () => {
   })
 
   it('should submit the form successfully with a phone number', () => {
-    const { getByLabelText, getByText, getAllByLabelText } = renderWithTheme(<MalteHelpForm {...props} />)
+    const { getByLabelText, getByText, getAllByLabelText, getByPlaceholderText } = renderWithTheme(
+      <MalteHelpForm {...props} />,
+    )
 
     const submitButton = getByText(submitButtonLabel)
     expect(submitButton).toBeDisabled()
 
-    const nameInput = getByLabelText(nameInputLabel)
+    const nameInput = getByPlaceholderText(nameInputLabel)
     fireEvent.change(nameInput, { target: { value: name } })
     expect(submitButton).toBeDisabled()
 
@@ -110,7 +112,7 @@ describe('MalteHelpForm', () => {
     expect(phoneButton).toBeChecked()
     expect(submitButton).toBeDisabled()
 
-    const phoneInput = getAllByLabelText(phoneInputLabel)[1]!
+    const phoneInput = getByPlaceholderText(phoneInputLabel)!
     fireEvent.change(phoneInput, { target: { value: phoneNumber } })
     fireEvent.click(getByText('common:privacyPolicy'))
     expect(submitButton).toBeEnabled()
@@ -134,12 +136,14 @@ describe('MalteHelpForm', () => {
   })
 
   it('should submit the form successfully with a request for contact in person', () => {
-    const { getByLabelText, getByText, getAllByLabelText } = renderWithTheme(<MalteHelpForm {...props} />)
+    const { getByLabelText, getByText, getAllByLabelText, getByPlaceholderText } = renderWithTheme(
+      <MalteHelpForm {...props} />,
+    )
 
     const submitButton = getByText(submitButtonLabel)
     expect(submitButton).toBeDisabled()
 
-    const nameInput = getByLabelText(nameInputLabel)
+    const nameInput = getByPlaceholderText(nameInputLabel)
     fireEvent.change(nameInput, { target: { value: name } })
     expect(submitButton).toBeDisabled()
 
@@ -173,12 +177,14 @@ describe('MalteHelpForm', () => {
   })
 
   it('should submit the form successfully with a request to be contacted by a woman', () => {
-    const { getByLabelText, getByText, getAllByLabelText } = renderWithTheme(<MalteHelpForm {...props} />)
+    const { getByLabelText, getByText, getAllByLabelText, getByPlaceholderText } = renderWithTheme(
+      <MalteHelpForm {...props} />,
+    )
 
     const submitButton = getByText(submitButtonLabel)
     expect(submitButton).toBeDisabled()
 
-    const nameInput = getByLabelText(nameInputLabel)
+    const nameInput = getByPlaceholderText(nameInputLabel)
     fireEvent.change(nameInput, { target: { value: name } })
     expect(submitButton).toBeDisabled()
 
@@ -218,12 +224,14 @@ describe('MalteHelpForm', () => {
   })
 
   it('should submit the form successfully with a request to be contacted by a man', () => {
-    const { getByLabelText, getByText, getAllByLabelText } = renderWithTheme(<MalteHelpForm {...props} />)
+    const { getByLabelText, getByText, getAllByLabelText, getByPlaceholderText } = renderWithTheme(
+      <MalteHelpForm {...props} />,
+    )
 
     const submitButton = getByText(submitButtonLabel)
     expect(submitButton).toBeDisabled()
 
-    const nameInput = getByLabelText(nameInputLabel)
+    const nameInput = getByPlaceholderText(nameInputLabel)
     fireEvent.change(nameInput, { target: { value: name } })
     expect(submitButton).toBeDisabled()
 
@@ -263,7 +271,7 @@ describe('MalteHelpForm', () => {
   })
 
   it('should not submit if the name is empty', () => {
-    const { getByLabelText, getByText, getAllByLabelText } = renderWithTheme(<MalteHelpForm {...props} />)
+    const { getByLabelText, getByText, getByPlaceholderText } = renderWithTheme(<MalteHelpForm {...props} />)
 
     const submitButton = getByText(submitButtonLabel)
     expect(submitButton).toBeDisabled()
@@ -272,7 +280,7 @@ describe('MalteHelpForm', () => {
     fireEvent.change(roomNumberInput, { target: { value: roomNumber } })
     expect(submitButton).toBeDisabled()
 
-    const emailInput = getAllByLabelText(emailInputLabel)[1]!
+    const emailInput = getByPlaceholderText(emailInputLabel)!
     fireEvent.change(emailInput, { target: { value: email } })
     expect(submitButton).toBeDisabled()
 
@@ -288,12 +296,12 @@ describe('MalteHelpForm', () => {
     jest.mocked(submitMalteHelpForm).mockImplementation(() => {
       throw new InvalidEmailError()
     })
-    const { getByLabelText, getByText, getAllByLabelText } = renderWithRouterAndTheme(<MalteHelpForm {...props} />)
+    const { getByLabelText, getByText, getByPlaceholderText } = renderWithRouterAndTheme(<MalteHelpForm {...props} />)
 
     const submitButton = getByText(submitButtonLabel)
     expect(submitButton).toBeDisabled()
 
-    const nameInput = getByLabelText(nameInputLabel)
+    const nameInput = getByPlaceholderText(nameInputLabel)
     fireEvent.change(nameInput, { target: { value: name } })
     expect(submitButton).toBeDisabled()
 
@@ -301,7 +309,7 @@ describe('MalteHelpForm', () => {
     fireEvent.change(roomNumberInput, { target: { value: roomNumber } })
     expect(submitButton).toBeDisabled()
 
-    const emailInput = getAllByLabelText(emailInputLabel)[1]!
+    const emailInput = getByPlaceholderText(emailInputLabel)!
     fireEvent.change(emailInput, { target: { value: 'email' } })
     fireEvent.click(getByText('common:privacyPolicy'))
     expect(submitButton).toBeEnabled()
@@ -332,12 +340,12 @@ describe('MalteHelpForm', () => {
     })
     global.reportError = jest.fn()
 
-    const { getByLabelText, getByText, getAllByLabelText } = renderWithRouterAndTheme(<MalteHelpForm {...props} />)
+    const { getByLabelText, getByText, getByPlaceholderText } = renderWithRouterAndTheme(<MalteHelpForm {...props} />)
 
     const submitButton = getByText(submitButtonLabel)
     expect(submitButton).toBeDisabled()
 
-    const nameInput = getByLabelText(nameInputLabel)
+    const nameInput = getByPlaceholderText(nameInputLabel)
     fireEvent.change(nameInput, { target: { value: name } })
     expect(submitButton).toBeDisabled()
 
@@ -345,7 +353,7 @@ describe('MalteHelpForm', () => {
     fireEvent.change(roomNumberInput, { target: { value: roomNumber } })
     expect(submitButton).toBeDisabled()
 
-    const emailInput = getAllByLabelText(emailInputLabel)[1]!
+    const emailInput = getByPlaceholderText(emailInputLabel)!
     fireEvent.change(emailInput, { target: { value: email } })
     fireEvent.click(getByText('common:privacyPolicy'))
     expect(submitButton).toBeEnabled()

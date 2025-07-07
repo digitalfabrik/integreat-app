@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined'
+import { InputAdornment, TextField } from '@mui/material'
 import React, { ReactElement } from 'react'
 
 import dimensions from '../constants/dimensions'
@@ -8,24 +9,6 @@ import Icon from './base/Icon'
 
 const Spacer = styled.div<{ space: boolean }>`
   ${props => props.space && 'margin: 16px 0;'}
-`
-
-const TextInput = styled.input`
-  height: 24px;
-  box-sizing: border-box;
-  color: ${props => props.theme.colors.textColor};
-  background: transparent;
-  border-width: 0 0 1px;
-  border-color: ${props => props.theme.colors.textSecondaryColor};
-  border-radius: 0;
-
-  &:focus-visible {
-    outline: none !important;
-  }
-
-  &::placeholder {
-    color: ${props => props.theme.colors.textColor};
-  }
 `
 
 const Wrapper = styled.div`
@@ -44,20 +27,23 @@ const Wrapper = styled.div`
   }
 `
 
-const StyledIcon = styled(Icon)`
-  align-self: flex-start;
-  display: flex;
-`
-
 const Column = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
 `
 
+const StyledTextField = styled(TextField)`
+  & [class*='MuiOutlinedInput-root'] {
+    border-radius: 28px;
+    padding: 0 12px;
+  }
+`
+
 const Description = styled.div`
   background-color: ${props => props.theme.colors.backgroundColor};
   margin-top: 8px;
+  margin-left: 24px;
   ${helpers.adaptiveFontSize};
 `
 
@@ -82,17 +68,23 @@ const SearchInput = ({
 }: SearchInputProps): ReactElement => (
   <Spacer space={spaceSearch} ref={searchInputRef}>
     <Wrapper>
-      <StyledIcon src={SearchOutlinedIcon} />
       <Column>
-        {/* eslint-disable-next-line styled-components-a11y/no-autofocus -- in a dedicated search modal autofocus is fine */}
-        <TextInput
+        <StyledTextField
           placeholder={placeholderText}
           aria-label={placeholderText}
           value={filterText}
           onChange={event => onFilterTextChange(event.target.value)}
           onClick={onClickInput}
           autoFocus
-          type='text'
+          slotProps={{
+            input: {
+              endAdornment: (
+                <InputAdornment position='start'>
+                  <Icon src={SearchOutlinedIcon} />
+                </InputAdornment>
+              ),
+            },
+          }}
         />
         {!!description && <Description>{description}</Description>}
       </Column>

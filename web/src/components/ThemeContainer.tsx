@@ -35,6 +35,38 @@ const createTheme = (
       light: buildConfig().lightTheme,
       dark: buildConfig().darkTheme,
     },
+    components: {
+      MuiTextField: {
+        styleOverrides: {
+          root: {
+            '& .MuiOutlinedInput-input': {
+              '&:focus': {
+                outline: 'none',
+              },
+              ...(themeType === 'contrast' && {
+                color: buildConfig().legacyContrastTheme.colors.textColor,
+              }),
+            },
+            ...(themeType === 'contrast' && {
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: buildConfig().legacyContrastTheme.colors.borderColor,
+                },
+                '&:hover:not(.Mui-focused) fieldset': {
+                  borderColor: buildConfig().legacyContrastTheme.colors.textDisabledColor,
+                },
+              },
+              '& .MuiInputLabel-root': {
+                color: buildConfig().legacyContrastTheme.colors.textColor,
+              },
+              '& .MuiFormHelperText-root': {
+                color: buildConfig().legacyContrastTheme.colors.textColor,
+              },
+            }),
+          },
+        },
+      },
+    },
   }),
 })
 

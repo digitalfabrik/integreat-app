@@ -38,6 +38,7 @@ const StyledIcon = styled(Icon)`
 const Form = styled.form`
   display: flex;
   flex-direction: column;
+  gap: 12px;
 `
 
 const SubmitErrorHeading = styled.h5`
@@ -141,11 +142,10 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
         {t('securityNote')}
       </Note>
       <Form onSubmit={submitHandler}>
-        <Input id='name' hint={t('name')} hintIsLabel required value={name} onChange={setName} submitted={submitted} />
+        <Input id='name' label={t('name')} required value={name} onChange={setName} submitted={submitted} />
         <Input
           id='roomNumber'
-          hint={`${t('roomNumber')} (${t('common:optional')})`}
-          hintIsLabel
+          label={`${t('roomNumber')} (${t('common:optional')})`}
           value={roomNumber}
           onChange={setRoomNumber}
           submitted={submitted}
@@ -194,7 +194,7 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
         <InputSection id='comment' title={t('contactReason')}>
           <Input
             id='comment'
-            hint={t('maxCharacters', { numberOfCharacters: MALTE_HELP_FORM_MAX_COMMENT_LENGTH })}
+            label={t('maxCharacters', { numberOfCharacters: MALTE_HELP_FORM_MAX_COMMENT_LENGTH })}
             multiline
             value={comment}
             onChange={setComment}
