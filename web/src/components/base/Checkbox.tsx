@@ -1,4 +1,4 @@
-import { Checkbox as MUICheckbox, FormControlLabel, Typography } from '@mui/material'
+import { Checkbox as MuiCheckbox, FormControlLabel, Typography } from '@mui/material'
 import React, { ReactElement } from 'react'
 
 type CheckboxProps = {
@@ -9,7 +9,7 @@ type CheckboxProps = {
 
 const Checkbox = ({ checked, setChecked, label }: CheckboxProps): ReactElement => (
   <FormControlLabel
-    control={<MUICheckbox checked={checked} onChange={() => setChecked(!checked)} />}
+    control={<MuiCheckbox checked={checked} onChange={() => setChecked(!checked)} />}
     label={<Typography variant='label1'>{label}</Typography>}
   />
 )
