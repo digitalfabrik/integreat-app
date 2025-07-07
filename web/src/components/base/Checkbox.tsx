@@ -1,10 +1,5 @@
-import styled from '@emotion/styled'
-import { Checkbox as MUICheckbox, FormControlLabel } from '@mui/material'
+import { Checkbox as MUICheckbox, FormControlLabel, Typography } from '@mui/material'
 import React, { ReactElement } from 'react'
-
-const StyledLabel = styled(FormControlLabel)`
-  font-weight: 400;
-`
 
 type CheckboxProps = {
   checked: boolean
@@ -13,7 +8,10 @@ type CheckboxProps = {
 }
 
 const Checkbox = ({ checked, setChecked, label }: CheckboxProps): ReactElement => (
-  <StyledLabel control={<MUICheckbox checked={checked} onChange={() => setChecked(!checked)} />} label={label} />
+  <FormControlLabel
+    control={<MUICheckbox checked={checked} onChange={() => setChecked(!checked)} />}
+    label={<Typography variant='label1'>{label}</Typography>}
+  />
 )
 
 export default Checkbox
