@@ -53,6 +53,9 @@ const PinchPanImage = ({ uri, onError }: PinchPanImageProps): ReactElement => {
     .onUpdate(event => {
       scale.value = prevScale.value * event.scale
     })
+    .onFinalize(() => {
+      scale.value = withSpring(scale.value >= 1 ? scale.value : 1, { damping: 20 })
+    })
 
   const { width: imageWidth, height: imageHeight } = imageDimensions || { width: 0, height: 0 }
 
