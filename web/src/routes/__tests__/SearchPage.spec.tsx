@@ -83,7 +83,7 @@ describe('SearchPage', () => {
     renderRoute(searchPage, { routePattern, pathname, searchParams: query })
 
   it('should not display results if no query entered', () => {
-    const { queryByText, getAllByText, getByPlaceholderText } = renderSearch()
+    const { queryByText, getByPlaceholderText, getAllByText } = renderSearch()
 
     expect(queryByText(category1.title)).toBeNull()
     expect(queryByText(event0.title)).toBeNull()
@@ -101,7 +101,7 @@ describe('SearchPage', () => {
   })
 
   it('should display nothing found for search', () => {
-    const { getByText, getByPlaceholderText } = renderSearch()
+    const { getByPlaceholderText, getByText } = renderSearch()
 
     fireEvent.change(getByPlaceholderText('search:searchPlaceholder'), {
       target: {
