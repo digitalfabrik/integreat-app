@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup as MUIRadioGroup } from '@mui/material'
+import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup as MuiRadioGroup } from '@mui/material'
 import React, { ReactElement } from 'react'
 
 import Input, { InputProps } from './Input'
@@ -33,7 +33,7 @@ export const RadioGroup = <T extends string>({
 }: RadioGroupProps<T>): ReactElement => (
   <StyledFormControl>
     <FormLabel id={groupId}>{caption}</FormLabel>
-    <MUIRadioGroup
+    <MuiRadioGroup
       aria-labelledby={groupId}
       defaultValue={selectedValue}
       name={groupId}
@@ -54,7 +54,7 @@ export const RadioGroup = <T extends string>({
           )}
         </>
       ))}
-    </MUIRadioGroup>
+    </MuiRadioGroup>
   </StyledFormControl>
 )
 
