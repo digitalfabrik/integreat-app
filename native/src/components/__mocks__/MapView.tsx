@@ -16,7 +16,7 @@ const MockMapView = ({
   <>
     {features.map(feature => {
       const title =
-        feature.properties.pois.length === 1 ? feature.properties.pois[0]?.title : feature.id?.toString() ?? 'null'
+        feature.properties.pois.length === 1 ? feature.properties.pois[0]?.title : (feature.id?.toString() ?? 'null')
       return <TextButton key={title} onPress={() => selectFeature(feature)} text={`Feature-${title}`} />
     })}
     <TextButton onPress={() => selectFeature(null)} text='Map Press' />

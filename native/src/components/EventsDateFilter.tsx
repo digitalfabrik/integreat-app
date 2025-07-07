@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import React, { useRef, useState } from 'react'
+import React, { ReactElement, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
@@ -61,7 +61,7 @@ const EventsDateFilter = ({
   setEndDate,
   modalOpen,
   setModalOpen,
-}: EventsDateFilterProps): JSX.Element => {
+}: EventsDateFilterProps): ReactElement => {
   const [showDateFilter, setShowDateFilter] = useState(false)
   const { t } = useTranslation('events')
   const currentInput = useRef<string>('from')

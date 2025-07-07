@@ -1,4 +1,4 @@
-import 'styled-components'
+import 'styled-components/native'
 
 import { LegacyThemeType } from 'build-configs/LegacyThemeType'
 

@@ -20,6 +20,8 @@ Android and iOS React Native App for [Integreat](https://integreat-app.de)
 _Make sure to have read and followed the steps in the [general README](../README.md#project-setup)._
 
 - Run `yarn` in the terminal to install all dependencies.
+- If you are on a Mac, you might need to manually install CMake:
+  https://dr.pogodin.studio/docs/react-native-static-server#getting-started
 - Take a look at the [available scripts](package.json). The most important scripts are also available as IntelliJ Run
   Configurations.
 

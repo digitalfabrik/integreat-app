@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import { DateTime } from 'luxon'
-import React, { useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { CloseIcon } from '../assets'
@@ -60,7 +60,7 @@ const EventsDateFilter = ({
   startDateError,
   endDate,
   setEndDate,
-}: EventsDateFilterProps): JSX.Element => {
+}: EventsDateFilterProps): ReactElement => {
   const [showDateFilter, setShowDateFilter] = useState(false)
   const { t } = useTranslation('events')
 

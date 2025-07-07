@@ -7,7 +7,11 @@ import TileModel from '../models/TileModel'
 
 export const getSlugFromPath = (path: string): string => path.split('/').pop() ?? ''
 
-export const formatDateICal = (date: DateTime): string => date.toFormat("yyyyMMdd'T'HHmm'00'")
+export const formatDateICal = (date: DateTime): string =>
+  // DateTime.toFormat() does not respect the locale settings on some devices
+  // Therefore hackily convert an ISO date to ICal format
+  // https://github.com/digitalfabrik/integreat-app/pull/3158#pullrequestreview-2935063754
+  date.toISO().replace(/-/g, '').replace(/:/g, '').replace(/\..*/, '')
 
 export const safeParseInt = (value: string | number | undefined | null): number | undefined => {
   if (value === null || value === undefined || value === '') {

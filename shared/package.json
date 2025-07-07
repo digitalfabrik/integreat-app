@@ -13,38 +13,37 @@
     "ts:check": "tsc --build"
   },
   "peerDependencies": {
-    "react": "18.2.0"
+    "react": "19.0.0"
   },
   "dependencies": {
-    "@turf/distance": "^7.1.0",
-    "deepmerge-ts": "^7.1.0",
-    "entities": "^4.5.0",
-    "htmlparser2": "^9.1.0",
+    "@turf/distance": "^7.2.0",
+    "deepmerge-ts": "^7.1.5",
+    "entities": "^6.0.0",
+    "htmlparser2": "^10.0.0",
     "highlight-words-core": "^1.2.3",
-    "luxon": "^3.5.0",
-    "minisearch": "^7.1.0",
+    "luxon": "^3.6.1",
+    "minisearch": "^7.1.2",
     "normalize-path": "^3.0.0",
     "rrule": "2.8.1",
-    "uuid": "^10.0.0",
+    "uuid": "^11.0.0",
     "sentencex": "^0.4.2"
   },
   "devDependencies": {
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "6.5.0",
     "@testing-library/react": "^16.0.1",
-    "@testing-library/react-hooks": "^8.0.1",
-    "@types/geojson": "^7946.0.10",
-    "@types/luxon": "^3.3.1",
-    "@types/md5": "^2.3.2",
-    "@types/normalize-path": "^3.0.0",
-    "@types/react": "^18.2.79",
-    "@types/react-dom": "^18.2.25",
-    "@types/seedrandom": "^3.0.5",
+    "@types/geojson": "^7946.0.16",
+    "@types/luxon": "^3.6.2",
+    "@types/md5": "^2.3.5",
+    "@types/normalize-path": "^3.0.2",
+    "@types/react": "19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@types/seedrandom": "^3.0.8",
     "@types/uuid": "^10.0.0",
     "jest-environment-jsdom": "29.7.0",
     "md5": "^2.3.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
     "seedrandom": "^3.0.5"
   }
 }

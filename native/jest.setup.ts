@@ -1,5 +1,4 @@
 import mockAsyncStorage from '@react-native-async-storage/async-storage/jest/async-storage-mock'
-import '@testing-library/jest-native/extend-expect'
 import fs from 'fs'
 import path from 'path'
 import { ReactNode } from 'react'
@@ -24,7 +23,6 @@ jest.mock('react-native-reanimated', () => {
 
   return Reanimated
 })
-jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper')
 
 const walkDir = (dir: string, callback: (filePath: string) => void): void => {
   fs.readdirSync(dir).forEach(f => {

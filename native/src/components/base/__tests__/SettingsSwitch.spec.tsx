@@ -5,13 +5,6 @@ import render from '../../../testing/render'
 import SettingsSwitch from '../SettingsSwitch'
 
 jest.mock('styled-components')
-// https://github.com/callstack/react-native-testing-library/issues/329
-jest.mock('react-native/Libraries/Components/Switch/Switch', () => {
-  const mockComponent = require('react-native/jest/mockComponent')
-  return {
-    default: mockComponent('react-native/Libraries/Components/Switch/Switch'),
-  }
-})
 
 describe('SettingsSwitch', () => {
   const createTestSwitch = (onPressMock: jest.Mock) => {

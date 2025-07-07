@@ -1,4 +1,14 @@
-import MapLibreGL, { CameraSettings } from '@maplibre/maplibre-react-native'
+import {
+  Camera,
+  CircleLayer,
+  Location,
+  MapView as MapLibreMapView,
+  MapViewRef,
+  ShapeSource,
+  SymbolLayer,
+  UserLocation,
+  UserTrackingMode,
+} from '@maplibre/maplibre-react-native'
 import type { BBox, Feature, GeoJsonProperties, Geometry } from 'geojson'
 import { Position } from 'geojson'
 import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
@@ -28,16 +38,13 @@ import MapAttribution from './MapsAttribution'
 import Icon from './base/Icon'
 import IconButton from './base/IconButton'
 
-// Has to be set even if we use map libre
-MapLibreGL.setAccessToken(null)
-
 const MapContainer = styled.View`
   flex: 1;
   flex-direction: row;
   justify-content: center;
 `
 
-const StyledMap = styled(MapLibreGL.MapView)`
+const StyledMap = styled(MapLibreMapView)`
   width: 100%;
 `
 
@@ -85,8 +92,7 @@ const MapView = ({
   bottomSheetFullscreen,
   zoom,
 }: MapViewProps): ReactElement => {
-  const cameraRef = useRef<MapLibreGL.Camera>(null)
-  const mapRef = useRef<MapLibreGL.MapView>(null)
+  const mapRef = useRef<MapViewRef>(null)
   const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
   const { refreshPermissionAndLocation } = useUserLocation({ requestPermissionInitially: true })
   const { t } = useTranslation('pois')
@@ -99,21 +105,27 @@ const MapView = ({
 
   const coordinates = selectedFeature?.geometry.coordinates
   const defaultZoom = coordinates ? normalDetailZoom : defaultViewportConfig.zoom
-  const defaultSettings: CameraSettings = {
+
+  const [cameraSettings, setCameraSettings] = useState<{
+    zoomLevel: number
+    centerCoordinate: Position | undefined
+    bounds?: { ne: number[]; sw: number[] } | undefined
+    animationDuration: number
+  }>({
     zoomLevel: zoom ?? defaultZoom,
     centerCoordinate: coordinates,
     bounds: coordinates ? undefined : bounds,
-  }
+    animationDuration,
+  })
 
   const moveTo = useCallback(
     (location: Position, zoomLevel = normalDetailZoom) =>
-      cameraRef.current?.setCamera({
+      setCameraSettings({
         centerCoordinate: location,
         zoomLevel,
         animationDuration,
-        padding: { paddingBottom: bottomSheetHeight },
       }),
-    [bottomSheetHeight],
+    [],
   )
 
   const onRequestLocation = useCallback(async () => {
@@ -154,13 +166,13 @@ const MapView = ({
       featureLayerId,
     ])
 
-    const feature = featureCollection?.features.find((it): it is MapFeature => it.geometry.type === 'Point')
+    const feature = featureCollection.features.find((it): it is MapFeature => it.geometry.type === 'Point')
     selectFeature(feature ?? null)
 
     zoomOnClusterPress(pressedCoordinates)
   }
 
-  const updateUserLocation = (location: MapLibreGL.Location) => {
+  const updateUserLocation = (location: Location) => {
     const newUserLocation: [number, number] = [location.coords.longitude, location.coords.latitude]
     // Avoid frequent rerenders if distance only changes minimally
     if (!userLocation || calculateDistance(userLocation, newUserLocation) > MIN_DISTANCE_THRESHOLD) {
@@ -172,29 +184,27 @@ const MapView = ({
   const locationPermissionIcon = userLocation ? locationPermissionGrantedIcon : LocationOffIcon
 
   return (
-    <MapContainer>
+    <MapContainer importantForAccessibility='no' accessibilityElementsHidden>
       <StyledMap
-        importantForAccessibility='no'
-        accessibilityElementsHidden
-        styleJSON={mapConfig.styleJSON}
+        mapStyle={mapConfig.styleJSON}
         zoomEnabled
         onPress={onPress}
         ref={mapRef}
-        onStartShouldSetResponder={() => true}
-        onResponderMove={() => setFollowUserLocation(false)}
         attributionEnabled={false}
         logoEnabled={false}>
-        <MapLibreGL.UserLocation visible={!!userLocation} onUpdate={updateUserLocation} />
-        <MapLibreGL.ShapeSource
-          id='location-pois'
-          shape={embedInCollection(features)}
-          cluster
-          clusterRadius={clusterRadius}>
-          <MapLibreGL.SymbolLayer {...clusterCountLayer} />
-          <MapLibreGL.CircleLayer {...clusterLayer(theme)} />
-          <MapLibreGL.SymbolLayer {...markerLayer(selectedFeature)} />
-        </MapLibreGL.ShapeSource>
-        <MapLibreGL.Camera defaultSettings={defaultSettings} followUserMode='normal' ref={cameraRef} />
+        <UserLocation visible={!!userLocation} onUpdate={updateUserLocation} />
+        <ShapeSource id='location-pois' shape={embedInCollection(features)} cluster clusterRadius={clusterRadius}>
+          <CircleLayer {...clusterLayer(theme)} />
+          <SymbolLayer {...clusterCountLayer} />
+          <SymbolLayer {...markerLayer(selectedFeature)} />
+        </ShapeSource>
+        <Camera
+          {...cameraSettings}
+          followUserMode={UserTrackingMode.Follow}
+          animationDuration={animationDuration}
+          animationMode='easeTo'
+          padding={{ paddingBottom: bottomSheetHeight }}
+        />
       </StyledMap>
       {Boolean(!bottomSheetFullscreen) && (
         <>
@@ -203,7 +213,7 @@ const MapView = ({
           <StyledIcon
             icon={
               <Icon
-                style={{ color: theme.isContrastTheme ? theme.colors.backgroundColor : undefined }}
+                style={{ color: theme.isContrastTheme ? theme.colors.backgroundColor : theme.colors.textColor }}
                 Icon={locationPermissionIcon}
               />
             }

@@ -17,7 +17,6 @@ const StyledButton = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
   gap: 5px;
-  align-self: ${props => (props.theme.contentDirection === 'rtl' ? 'flex-end' : 'flex-start')};
 `
 
 type DateFilterToggleProps = {
