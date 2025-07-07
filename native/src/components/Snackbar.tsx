@@ -49,8 +49,8 @@ const Snackbar = ({ text, positiveAction, negativeAction }: SnackbarProps): Reac
         {text}
       </Message>
       <ActionContainer row={!horizontal}>
-        {negativeAction && <Action onPress={negativeAction.onPress}>{negativeAction.label}</Action>}
-        {positiveAction && <Action onPress={positiveAction.onPress}>{positiveAction.label}</Action>}
+        {negativeAction && <Action onPress={() => negativeAction.onPress()}>{negativeAction.label}</Action>}
+        {positiveAction && <Action onPress={() => positiveAction.onPress()}>{positiveAction.label}</Action>}
       </ActionContainer>
     </Container>
   )
