@@ -16,17 +16,8 @@ const StyledIcon = styled(Icon)<{ iconSize: 'small' | 'medium' }>`
 const StyledButton = styled(MuiToggleButton)`
   display: flex;
   flex-direction: column;
-  border-color: ${props => props.theme.colors.textDisabledColor} !important;
   width: ${toggleButtonWidth}px;
   height: 100px;
-  background-color: ${props => {
-    if (props.theme.isContrastTheme) {
-      return props.theme.colors.textColor
-    }
-    return props.theme.colors.backgroundColor
-  }};
-  color: ${props =>
-    props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.textSecondaryColor};
   padding: 8px;
   text-align: center;
 `

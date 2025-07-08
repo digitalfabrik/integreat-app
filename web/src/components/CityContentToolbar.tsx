@@ -45,10 +45,10 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
   const items = [
     children,
     hasFeedbackOption && (
-      <FeedbackToolbarItem key='positive' route={route} slug={feedbackTarget} feedbackRating={RATING_POSITIVE} />
+      <FeedbackToolbarItem key='positive' route={route} slug={feedbackTarget} rating={RATING_POSITIVE} />
     ),
     hasFeedbackOption && (
-      <FeedbackToolbarItem key='negative' route={route} slug={feedbackTarget} feedbackRating={RATING_NEGATIVE} />
+      <FeedbackToolbarItem key='negative' route={route} slug={feedbackTarget} rating={RATING_NEGATIVE} />
     ),
     <SharingPopup
       key='share'

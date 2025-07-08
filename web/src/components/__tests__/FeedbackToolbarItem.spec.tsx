@@ -24,7 +24,7 @@ jest.mock('focus-trap-react', () => ({ children }: { children: ReactElement }) =
 describe('FeedbackToolbarItem', () => {
   it('should open and update title on submit feedback', async () => {
     const { queryByText, findByText, getByText } = renderWithRouterAndTheme(
-      <FeedbackToolbarItem route={CATEGORIES_ROUTE} slug='my-slug' feedbackRating={RATING_POSITIVE} />,
+      <FeedbackToolbarItem route={CATEGORIES_ROUTE} slug='my-slug' rating={RATING_POSITIVE} />,
     )
 
     expect(queryByText('feedback:headline')).toBeFalsy()

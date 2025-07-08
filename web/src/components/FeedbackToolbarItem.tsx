@@ -15,10 +15,10 @@ import ToolbarItem from './ToolbarItem'
 type FeedbackToolbarItemProps = {
   route: RouteType
   slug?: string
-  feedbackRating: Rating | null
+  rating: Rating | null
 }
 
-const FeedbackToolbarItem = ({ route, slug, feedbackRating }: FeedbackToolbarItemProps): ReactElement => {
+const FeedbackToolbarItem = ({ route, slug, rating }: FeedbackToolbarItemProps): ReactElement => {
   const { cityCode, languageCode } = useCityContentParams()
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -36,13 +36,13 @@ const FeedbackToolbarItem = ({ route, slug, feedbackRating }: FeedbackToolbarIte
             cityCode={cityCode}
             language={languageCode}
             slug={slug}
-            initialRating={feedbackRating}
+            initialRating={rating}
           />
         </Modal>
       )}
       <ToolbarItem
-        icon={feedbackRating === RATING_POSITIVE ? SentimentSatisfiedOutlinedIcon : SentimentDissatisfiedOutlinedIcon}
-        text={t(feedbackRating === RATING_POSITIVE ? 'useful' : 'notUseful')}
+        icon={rating === RATING_POSITIVE ? SentimentSatisfiedOutlinedIcon : SentimentDissatisfiedOutlinedIcon}
+        text={t(rating === RATING_POSITIVE ? 'useful' : 'notUseful')}
         onClick={() => setIsFeedbackOpen(true)}
       />
     </>

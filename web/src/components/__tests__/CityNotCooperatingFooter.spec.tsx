@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { legacyLightTheme } from 'build-configs/integreat/theme'
+import { darkTheme, legacyLightTheme, lightTheme } from 'build-configs/integreat/theme'
 
 import { renderWithRouterAndTheme } from '../../testing/render'
 import CityNotCooperatingFooter from '../CityNotCooperatingFooter'
@@ -11,12 +11,8 @@ jest.mock('../../constants/buildConfig', () =>
       cityNotCooperating: true,
     },
     legacyLightTheme,
-    legacyContrastTheme: {
-      colors: {
-        linkColor: '#0000FF',
-        backgroundAccentColor: '#FFFFFF',
-      },
-    },
+    lightTheme,
+    darkTheme,
     icons: {
       cityNotCooperating: 'test',
     },
