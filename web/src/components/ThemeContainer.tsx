@@ -39,28 +39,23 @@ const createTheme = (
       MuiTextField: {
         styleOverrides: {
           root: {
-            '& .MuiOutlinedInput-input': {
-              '&:focus': {
-                outline: 'none',
-              },
-              ...(themeType === 'contrast' && {
-                color: buildConfig().legacyContrastTheme.colors.textColor,
-              }),
-            },
             ...(themeType === 'contrast' && {
+              '& .MuiOutlinedInput-input': {
+                color: buildConfig().darkTheme.palette.text.primary,
+              },
               '& .MuiOutlinedInput-root': {
                 '& fieldset': {
-                  borderColor: buildConfig().legacyContrastTheme.colors.borderColor,
+                  borderColor: buildConfig().darkTheme.palette.divider,
                 },
                 '&:hover:not(.Mui-focused) fieldset': {
-                  borderColor: buildConfig().legacyContrastTheme.colors.textDisabledColor,
+                  borderColor: buildConfig().darkTheme.palette.text.disabled,
                 },
               },
               '& .MuiInputLabel-root': {
-                color: buildConfig().legacyContrastTheme.colors.textColor,
+                color: buildConfig().darkTheme.palette.text.primary,
               },
               '& .MuiFormHelperText-root': {
-                color: buildConfig().legacyContrastTheme.colors.textColor,
+                color: buildConfig().darkTheme.palette.text.primary,
               },
             }),
           },

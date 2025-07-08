@@ -19,11 +19,9 @@ export type InputProps = {
   onChange: (input: string) => void
   onKeyDown?: (e: React.KeyboardEvent<HTMLDivElement>) => void
   multiline?: boolean
-  numberOfLines?: number
   maxLength?: number
   required?: boolean
   hint?: string
-  size?: 'small' | 'medium'
   label?: string
   autoFocus?: boolean
   onClick?: React.MouseEventHandler<HTMLDivElement> | undefined
@@ -33,7 +31,6 @@ const Input = ({
   id,
   onChange,
   onKeyDown,
-  numberOfLines = DEFAULT_MULTI_LINE_NUMBER,
   value,
   submitted = false,
   multiline,
@@ -41,7 +38,6 @@ const Input = ({
   label,
   required,
   hint,
-  size = 'small',
   autoFocus = false,
   onClick,
 }: InputProps): ReactElement => {
@@ -62,11 +58,11 @@ const Input = ({
         onKeyDown={onKeyDown}
         value={value}
         multiline={multiline}
-        rows={numberOfLines}
+        rows={multiline ? DEFAULT_MULTI_LINE_NUMBER : 1}
         required={required}
         label={label}
         placeholder={label}
-        size={size}
+        size='small'
         variant='outlined'
         fullWidth
         helperText={hint}
