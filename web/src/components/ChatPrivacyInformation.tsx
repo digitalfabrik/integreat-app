@@ -32,17 +32,17 @@ const SecurityIcon = styled(Icon)`
 `
 
 type ChatPrivacyInformationProps = {
-  cityCustomChatPrivacyPolicy: string | null
+  customPrivacyUrl: string | null
 }
 
-const ChatPrivacyInformation = ({ cityCustomChatPrivacyPolicy }: ChatPrivacyInformationProps): ReactElement => {
+const ChatPrivacyInformation = ({ customPrivacyUrl }: ChatPrivacyInformationProps): ReactElement => {
   const [securityInformationVisible, setSecurityInformationVisible] = useState<boolean>(false)
   const privacyInformationRef = useRef(null)
   useOnClickOutside(privacyInformationRef, () => setSecurityInformationVisible(false))
 
   const { privacyUrls } = buildConfig()
-  const privacyUrl = cityCustomChatPrivacyPolicy === '' ? privacyUrls.default : cityCustomChatPrivacyPolicy
-  const { t } = useTranslation('chat')
+  const privacyUrl = customPrivacyUrl ?? privacyUrls.default
+
   return (
     <PrivacyInformationContainer ref={privacyInformationRef}>
       <SecurityIconContainer onClick={() => setSecurityInformationVisible(!securityInformationVisible)}>

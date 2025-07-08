@@ -106,18 +106,15 @@ const Chat = ({
       {!acceptedPolicy() && (
         <ChatAcceptCustomPolicy
           onAcceptPolicy={acceptCustomPrivacyPolicy}
-          customPrivacyPolicy={city.customChatPrivacyPolicy}
+          customPrivacyPolicy={city.chatPrivacyPolicyUrl}
           cityName={city.name}
         />
       )}
       {acceptedPolicy() && (
         <>
-          <ChatConversation
-            messages={messages}
-            hasError={hasError}
-            isTyping={isTyping}/>
+          <ChatConversation messages={messages} hasError={hasError} isTyping={isTyping} />
 
-          <InputWrapper >
+          <InputWrapper>
             <InputSection id='chat' title={messages.length > 0 ? '' : t('inputLabel')}>
               <Input
                 id='chat'
@@ -131,7 +128,7 @@ const Chat = ({
             </InputSection>
             <SubmitContainer>
               <SubmitButton disabled={submitDisabled} onClick={onSubmit} text={t('sendButton')} />
-              <ChatPrivacyInformation cityCustomChatPrivacyPolicy={city.customChatPrivacyPolicy} />
+              <ChatPrivacyInformation customPrivacyUrl={city.chatPrivacyPolicyUrl} />
             </SubmitContainer>
           </InputWrapper>
         </>

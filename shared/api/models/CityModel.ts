@@ -10,6 +10,7 @@ class CityModel {
   _live: boolean
   _languages: LanguageModel[]
   _chatEnabled: boolean
+  _chatPrivacyPolicyUrl: string | null
   _eventsEnabled: boolean
   _poisEnabled: boolean
   _localNewsEnabled: boolean
@@ -18,7 +19,6 @@ class CityModel {
   _prefix: string | null
   _latitude: number
   _longitude: number
-  _customChatPrivacyPolicy: string | null
 
   constructor(params: {
     name: string
@@ -36,7 +36,7 @@ class CityModel {
     longitude: number
     aliases: Record<string, CoordinateType> | null
     boundingBox: BBox
-    customChatPrivacyPolicy: string | null
+    chatPrivacyPolicyUrl: string | null
   }) {
     this._name = params.name
     this._code = params.code
@@ -53,7 +53,7 @@ class CityModel {
     this._longitude = params.longitude
     this._aliases = params.aliases
     this._boundingBox = params.boundingBox
-    this._customChatPrivacyPolicy = params.customChatPrivacyPolicy
+    this._chatPrivacyPolicyUrl = params.chatPrivacyPolicyUrl
   }
 
   _boundingBox: BBox
@@ -118,8 +118,8 @@ class CityModel {
     return this._latitude
   }
 
-  get customChatPrivacyPolicy(): string | null {
-    return this._customChatPrivacyPolicy
+  get chatPrivacyPolicyUrl(): string | null {
+    return this._chatPrivacyPolicyUrl
   }
 
   _aliases: Record<string, CoordinateType> | null
