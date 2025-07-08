@@ -20,6 +20,7 @@ type ChatControllerProps = {
 }
 
 const LOCAL_STORAGE_ITEM_CHAT_MESSAGES = 'Chat-Device-Id'
+const LOCAL_STORAGE_ITEM_CHAT_PRIVACY_POLICIES = 'Chat-Privacy-Policies'
 const POLLING_INTERVAL = 8000
 
 const ChatController = ({ city, language }: ChatControllerProps): ReactElement => {
@@ -38,23 +39,12 @@ const ChatController = ({ city, language }: ChatControllerProps): ReactElement =
   } = useLoadFromEndpoint(createChatMessagesEndpoint, cmsApiBaseUrl, { cityCode, language, deviceId })
   const isBrowserTabActive = useIsTabActive()
 
-  const [acceptedCustomPrivacyPolicies, setAcceptedCustomPrivacyPolicies] = useState<string[]>(() => {
-    const stored = localStorage.getItem('acceptedCustomPrivacyPolicies')
-    return stored ? JSON.parse(stored) : []
+  const { value, updateLocalStorageItem } = useLocalStorage<Record<string, boolean>>({
+    key: LOCAL_STORAGE_ITEM_CHAT_PRIVACY_POLICIES,
+    initialValue: {},
   })
-
-  const acceptCustomPrivacyPolicy = () => {
-    if (!acceptedCustomPrivacyPolicies.includes(city.code)) {
-      const updated = [...acceptedCustomPrivacyPolicies, city.code]
-      setAcceptedCustomPrivacyPolicies(updated)
-      localStorage.setItem('acceptedCustomPrivacyPolicies', JSON.stringify(updated))
-    }
-  }
-
-  const acceptedPolicy = () => {
-    const accepted = acceptedCustomPrivacyPolicies.includes(city.code)
-    return accepted
-  }
+  const privacyPolicyAccepted = value[city.code] ?? false
+  const acceptCustomPrivacyPolicy = () => updateLocalStorageItem({ ...value, [city.code]: true })
 
   useEffect(() => {
     const messageCount = chatMessagesReturn?.messages.length ?? 0
@@ -93,8 +83,9 @@ const ChatController = ({ city, language }: ChatControllerProps): ReactElement =
       hasError={error !== null && !(error instanceof NotFoundError)}
       isLoading={chatMessagesReturn === null && (loading || sendingStatus === 'sending')}
       isTyping={chatMessagesReturn?.typing ?? false}
-      acceptedPolicy={acceptedPolicy}
-      acceptCustomPrivacyPolicy={acceptCustomPrivacyPolicy}
+      privacyPolicyAccepted={privacyPolicyAccepted}
+      acceptPrivacyPolicy={acceptCustomPrivacyPolicy}
+      languageCode={language}
     />
   )
 }

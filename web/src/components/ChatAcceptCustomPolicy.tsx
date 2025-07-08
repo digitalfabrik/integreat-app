@@ -1,31 +1,29 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import Checkbox from './base/Checkbox'
-import Link from './base/Link'
+import { CityModel } from 'shared/api'
+
+import Caption from './Caption'
+import PrivacyCheckbox from './PrivacyCheckbox'
 
 type ChatAcceptCustomPolicyProps = {
   onAcceptPolicy: () => void
-  customPrivacyPolicy: string | null
-  cityName: string
+  city: CityModel
+  languageCode: string
 }
 
-const ChatAcceptCustomPolicy = ({
-  onAcceptPolicy,
-  customPrivacyPolicy,
-  cityName,
-}: ChatAcceptCustomPolicyProps): ReactElement => {
-  const { t } = useTranslation('common')
+const ChatAcceptCustomPolicy = ({ onAcceptPolicy, city, languageCode }: ChatAcceptCustomPolicyProps): ReactElement => {
+  const { t } = useTranslation('chat')
   return (
     <div>
-      <h2>Privacy Policy</h2>
-      <div>
-        The chat content will be sent to {cityName}. Please accept their{' '}
-        <Link to={customPrivacyPolicy}>Privacy Policy</Link> to use the chat.
-      </div>
-      <div>
-        <Checkbox setChecked={onAcceptPolicy} label='I have read the privacy policy and accept the terms.' />
-      </div>
+      <Caption title={t('settings:privacyPolicy')} />
+      {t('privacyPolicyInformation', { city: city.name })}
+      <PrivacyCheckbox
+        language={languageCode}
+        checked={false}
+        setChecked={onAcceptPolicy}
+        url={city.chatPrivacyPolicyUrl}
+      />
     </div>
   )
 }

@@ -61,8 +61,9 @@ type ChatProps = {
   hasError: boolean
   isLoading: boolean
   isTyping: boolean
-  acceptedPolicy: () => boolean
-  acceptCustomPrivacyPolicy: () => void
+  privacyPolicyAccepted: boolean
+  acceptPrivacyPolicy: () => void
+  languageCode: string
 }
 
 const Chat = ({
@@ -72,8 +73,9 @@ const Chat = ({
   hasError,
   isLoading,
   isTyping,
-  acceptedPolicy,
-  acceptCustomPrivacyPolicy,
+  privacyPolicyAccepted,
+  acceptPrivacyPolicy,
+  languageCode,
 }: ChatProps): ReactElement => {
   const { t } = useTranslation('chat')
   const [textInput, setTextInput] = useState<string>('')
@@ -101,38 +103,37 @@ const Chat = ({
     )
   }
 
+  if (!privacyPolicyAccepted) {
+    return (
+      <Container>
+        <InputWrapper>
+          <ChatAcceptCustomPolicy onAcceptPolicy={acceptPrivacyPolicy} city={city} languageCode={languageCode} />
+        </InputWrapper>
+      </Container>
+    )
+  }
+
   return (
     <Container>
-      {!acceptedPolicy() && (
-        <ChatAcceptCustomPolicy
-          onAcceptPolicy={acceptCustomPrivacyPolicy}
-          customPrivacyPolicy={city.chatPrivacyPolicyUrl}
-          cityName={city.name}
-        />
-      )}
-      {acceptedPolicy() && (
-        <>
-          <ChatConversation messages={messages} hasError={hasError} isTyping={isTyping} />
+      <ChatConversation messages={messages} hasError={hasError} isTyping={isTyping} />
 
-          <InputWrapper>
-            <InputSection id='chat' title={messages.length > 0 ? '' : t('inputLabel')}>
-              <Input
-                id='chat'
-                value={textInput}
-                onChange={setTextInput}
-                multiline
-                onKeyDown={submitOnEnter}
-                numberOfLines={2}
-                placeholder={t('inputPlaceholder')}
-              />
-            </InputSection>
-            <SubmitContainer>
-              <SubmitButton disabled={submitDisabled} onClick={onSubmit} text={t('sendButton')} />
-              <ChatPrivacyInformation customPrivacyUrl={city.chatPrivacyPolicyUrl} />
-            </SubmitContainer>
-          </InputWrapper>
-        </>
-      )}
+      <InputWrapper>
+        <InputSection id='chat' title={messages.length > 0 ? '' : t('inputLabel')}>
+          <Input
+            id='chat'
+            value={textInput}
+            onChange={setTextInput}
+            multiline
+            onKeyDown={submitOnEnter}
+            numberOfLines={2}
+            placeholder={t('inputPlaceholder')}
+          />
+        </InputSection>
+        <SubmitContainer>
+          <SubmitButton disabled={submitDisabled} onClick={onSubmit} text={t('sendButton')} />
+          <ChatPrivacyInformation customPrivacyUrl={city.chatPrivacyPolicyUrl} />
+        </SubmitContainer>
+      </InputWrapper>
     </Container>
   )
 }

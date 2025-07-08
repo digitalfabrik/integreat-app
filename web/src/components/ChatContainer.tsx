@@ -1,9 +1,8 @@
 import styled from '@emotion/styled'
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
 
-import { CHAT_QUERY_KEY, parseQueryParams } from 'shared'
+import { getChatName, CHAT_QUERY_KEY, parseQueryParams } from 'shared'
 import { CityModel } from 'shared/api'
 
 import { ChatIcon } from '../assets'
@@ -71,7 +70,7 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement => 
   const [chatVisible, setChatVisible] = useState(initialChatVisibility)
   const { viewportSmall, visibleFooterHeight, width } = useWindowDimensions()
   const { visible: ttsPlayerVisible } = useContext(TtsContext)
-  const { t } = useTranslation('chat')
+  const chatName = getChatName(buildConfig().appName)
   useLockedBody(chatVisible)
 
   const bottom =
@@ -89,7 +88,7 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement => 
 
   if (chatVisible) {
     return (
-      <ChatModal title={t('header', { appName: buildConfig().appName })} closeModal={() => setChatVisible(false)}>
+      <ChatModal title={chatName} closeModal={() => setChatVisible(false)}>
         <ChatController city={city} language={language} />
       </ChatModal>
     )
@@ -98,9 +97,9 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement => 
   return (
     <ChatButtonContainer bottom={bottom} onClick={() => setChatVisible(true)}>
       <Circle>
-        <StyledIcon src={ChatIcon} title={t('chat')} />
+        <StyledIcon src={ChatIcon} title={chatName} />
       </Circle>
-      {!viewportSmall && <ChatTitle>{t('chat')}</ChatTitle>}
+      {!viewportSmall && <ChatTitle>{chatName}</ChatTitle>}
     </ChatButtonContainer>
   )
 }
