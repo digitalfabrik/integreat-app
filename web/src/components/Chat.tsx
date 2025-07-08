@@ -7,10 +7,11 @@ import ChatMessageModel from 'shared/api/models/ChatMessageModel'
 
 import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
-import ChatAcceptCustomPolicy from './ChatAcceptCustomPolicy'
+import Caption from './Caption'
 import ChatConversation from './ChatConversation'
 import ChatPrivacyInformation from './ChatPrivacyInformation'
 import LoadingSpinner from './LoadingSpinner'
+import PrivacyCheckbox from './PrivacyCheckbox'
 import Input from './base/Input'
 import InputSection from './base/InputSection'
 import TextButton from './base/TextButton'
@@ -107,7 +108,14 @@ const Chat = ({
     return (
       <Container>
         <InputWrapper>
-          <ChatAcceptCustomPolicy onAcceptPolicy={acceptPrivacyPolicy} city={city} languageCode={languageCode} />
+          <Caption title={t('settings:privacyPolicy')} />
+          {t('privacyPolicyInformation', { city: city.name })}
+          <PrivacyCheckbox
+            language={languageCode}
+            checked={false}
+            setChecked={acceptPrivacyPolicy}
+            url={city.chatPrivacyPolicyUrl}
+          />
         </InputWrapper>
       </Container>
     )
