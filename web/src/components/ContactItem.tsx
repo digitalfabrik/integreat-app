@@ -33,14 +33,14 @@ type ContactItemProps = {
   iconAlt: string
   link: string
   content: string
-  sourceIconEnd?: string
+  sourceIconEnd?: string | ElementType<SvgIconProps>
 }
 
 const ContactItem = ({ iconSource, iconAlt, link, content, sourceIconEnd }: ContactItemProps): ReactElement => (
   <StyledLink to={link}>
     <Marker src={iconSource} title={iconAlt} />
     {content}
-    {!!sourceIconEnd && <StyledSecondIcon src={sourceIconEnd} title='' directionDependent />}
+    {sourceIconEnd !== undefined && <StyledSecondIcon src={sourceIconEnd} title='' directionDependent />}
   </StyledLink>
 )
 

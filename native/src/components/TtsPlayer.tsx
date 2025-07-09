@@ -76,6 +76,8 @@ const StyledPlayerHeaderText = styled(Text)`
 
 const StyledIcon = styled(Icon)`
   color: ${props => (props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.textColor)};
+  width: 28px;
+  height: 28px;
 `
 
 const CloseButton = styled(Pressable)`
@@ -95,11 +97,6 @@ const CloseView = styled.View<{ $isPlaying?: boolean }>`
   flex-direction: column;
   gap: 10px;
   margin-bottom: ${props => (props.$isPlaying ? verticalMargin : 0)}px;
-`
-
-const StyledIcon = styled(Icon)`
-  width: 28px;
-  height: 28px;
 `
 
 type TtsPlayerProps = {
