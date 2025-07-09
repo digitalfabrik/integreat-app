@@ -4,7 +4,6 @@ import FocusTrap from 'focus-trap-react'
 import React, { CSSProperties, ReactElement, ReactNode, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import dimensions from '../constants/dimensions'
 import useLockedBody from '../hooks/useLockedBody'
 import useScrollToTop from '../hooks/useScrollToTop'
 import useWindowDimensions from '../hooks/useWindowDimensions'
@@ -37,7 +36,7 @@ const ModalContentContainer = styled.div`
   display: flex;
   flex-direction: column;
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     height: 100%;
     align-items: center;
     width: 100%;
