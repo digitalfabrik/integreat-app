@@ -36,12 +36,12 @@ describe('Chat', () => {
   })
 
   it('should be able to send a message if text is provided', () => {
-    const { getByRole, getByPlaceholderText } = render([], false, false, submitMessage)
+    const { getByRole, getByLabelText } = render([], false, false, submitMessage)
     const buttonSendMessage = getByRole('button', {
       name: 'chat:sendButton',
     })
 
-    fireEvent.change(getByPlaceholderText('chat:inputPlaceholder'), {
+    fireEvent.change(getByLabelText('chat:inputPlaceholder', { exact: false }), {
       target: {
         value: 'Meine Nachricht',
       },

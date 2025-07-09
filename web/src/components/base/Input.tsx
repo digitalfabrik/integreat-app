@@ -5,8 +5,6 @@ import React, { ChangeEvent, ReactElement } from 'react'
 
 import Icon from './Icon'
 
-const DEFAULT_MULTI_LINE_NUMBER = 7
-
 const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -18,11 +16,12 @@ export type InputProps = {
   submitted?: boolean
   onChange: (input: string) => void
   onKeyDown?: (e: React.KeyboardEvent<HTMLDivElement>) => void
-  multiline?: boolean
+  rows?: number
   maxLength?: number
   required?: boolean
   hint?: string
   label?: string
+  placeholder?: string
   autoFocus?: boolean
   onClick?: React.MouseEventHandler<HTMLDivElement> | undefined
 }
@@ -33,9 +32,10 @@ const Input = ({
   onKeyDown,
   value,
   submitted = false,
-  multiline,
+  rows = 1,
   maxLength,
   label,
+  placeholder,
   required,
   hint,
   autoFocus = false,
@@ -57,11 +57,11 @@ const Input = ({
         onChange={onInputChange}
         onKeyDown={onKeyDown}
         value={value}
-        multiline={multiline}
-        rows={multiline ? DEFAULT_MULTI_LINE_NUMBER : 1}
+        multiline={rows !== 1}
+        rows={rows}
         required={required}
         label={label}
-        placeholder={label}
+        placeholder={placeholder}
         size='small'
         variant='outlined'
         fullWidth
@@ -71,6 +71,9 @@ const Input = ({
         slotProps={{
           htmlInput: {
             maxLength,
+          },
+          inputLabel: {
+            shrink: true,
           },
           input: {
             endAdornment: value && (

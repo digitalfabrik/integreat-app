@@ -99,8 +99,8 @@ const Chat = ({ messages, submitMessage, hasError, isLoading, isTyping }: ChatPr
             id='chat'
             value={textInput}
             onChange={setTextInput}
-            multiline
             onKeyDown={submitOnEnter}
+            rows={2}
             label={t('inputPlaceholder')}
           />
         </InputSection>

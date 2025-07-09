@@ -7,7 +7,7 @@ import React, { ReactElement, SyntheticEvent, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-import { cityContentPath } from 'shared'
+import { cityContentPath, DEFAULT_ROWS_NUMBER } from 'shared'
 import {
   OfferModel,
   InvalidEmailError,
@@ -195,7 +195,7 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
           <Input
             id='comment'
             label={t('maxCharacters', { numberOfCharacters: MALTE_HELP_FORM_MAX_COMMENT_LENGTH })}
-            multiline
+            rows={DEFAULT_ROWS_NUMBER}
             value={comment}
             onChange={setComment}
             maxLength={MALTE_HELP_FORM_MAX_COMMENT_LENGTH}
