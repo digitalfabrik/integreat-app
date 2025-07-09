@@ -34,6 +34,8 @@
     "@emotion/styled": "^11.14.0",
     "@integreat-app/react-sticky-headroom": "^3.0.1",
     "@math.gl/web-mercator": "^3.6.3",
+    "@mui/material": "^7.0.2",
+    "@mui/icons-material": "^7.0.2",
     "@sentry/react": "^9.11.0",
     "@sentry/types": "^9.11.0",
     "build-configs": "0.0.1",
