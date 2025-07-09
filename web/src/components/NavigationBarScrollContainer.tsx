@@ -35,7 +35,7 @@ const ScrollContainer = styled.div<{ showArrowContainer: boolean }>`
   min-height: ${dimensions.headerHeightLarge}px;
   flex-direction: row;
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     background-color: ${props => props.theme.colors.backgroundAccentColor};
     justify-content: space-between;
     flex-wrap: wrap;

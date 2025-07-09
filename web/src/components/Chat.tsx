@@ -8,7 +8,6 @@ import { CityModel } from 'shared/api'
 import ChatMessageModel from 'shared/api/models/ChatMessageModel'
 
 import buildConfig from '../constants/buildConfig'
-import dimensions from '../constants/dimensions'
 import Caption from './Caption'
 import ChatConversation from './ChatConversation'
 import ChatPrivacyInformation from './ChatPrivacyInformation'
@@ -25,7 +24,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: space-between;
 
-  @media ${dimensions.mediumLargeViewport} {
+  ${props => props.theme.breakpoints.up('md')} {
     height: 600px;
     min-width: 300px;
   }

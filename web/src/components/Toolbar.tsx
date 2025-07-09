@@ -2,7 +2,6 @@ import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import React, { ReactElement, ReactNode } from 'react'
 
-import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 
 const Container = styled.div`
@@ -35,7 +34,7 @@ const ToolbarContainer = styled.div<{ direction: 'row' | 'column'; hasPadding: b
     margin: 0.5rem 0 0;
   }
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     width: 100%;
     flex-flow: row wrap;
     justify-content: center;

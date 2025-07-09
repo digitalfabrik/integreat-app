@@ -23,7 +23,7 @@ const LogoContainer = styled.div`
     width: 100%;
     height: 48px;
 
-    @media ${dimensions.smallViewport} {
+    ${props => props.theme.breakpoints.down('md')} {
       width: 48px;
     }
   }
@@ -34,7 +34,7 @@ const StyledLogo = styled(SVG)`
   height: 100%;
   width: 200px;
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     width: 100%;
   }
 `

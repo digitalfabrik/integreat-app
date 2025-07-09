@@ -3,7 +3,6 @@ import FocusTrap from 'focus-trap-react'
 import React, { ReactElement, ReactNode, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import dimensions from '../constants/dimensions'
 import ChatModalContent from './ChatContentWrapper'
 import { LAYOUT_ELEMENT_ID } from './Layout'
 import Button from './base/Button'
@@ -27,7 +26,7 @@ const ModalContainer = styled.div`
 `
 
 const ModalContentContainer = styled.div`
-  @media ${dimensions.mediumLargeViewport} {
+  ${props => props.theme.breakpoints.up('md')} {
     margin-inline-end: 20px;
   }
 
@@ -37,7 +36,7 @@ const ModalContentContainer = styled.div`
   background-color: ${props => props.theme.colors.backgroundColor};
   border-radius: 5px;
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     height: 100%;
     align-items: center;
     width: 100%;
