@@ -26,8 +26,10 @@ type Message = FirebaseMessagingTypes.RemoteMessage & {
 
 const WAITING_TIME_FOR_CMS = 1000
 
-const importFirebaseMessaging = async (): Promise<() => FirebaseMessagingTypes.Module> =>
-  import('@react-native-firebase/messaging').then(firebase => firebase.default)
+const importFirebaseMessaging = async (): Promise<FirebaseMessagingTypes.Module> => {
+  const { getMessaging } = await import('@react-native-firebase/messaging')
+  return getMessaging()
+}
 
 export const pushNotificationsEnabled = (): boolean =>
   buildConfig().featureFlags.pushNotifications && !buildConfig().featureFlags.floss
@@ -61,7 +63,7 @@ export const unsubscribeNews = async (city: string, language: string): Promise<v
 
   try {
     const messaging = await importFirebaseMessaging()
-    await messaging().unsubscribeFromTopic(topic)
+    await messaging.unsubscribeFromTopic(topic)
   } catch (e) {
     reportError(e)
   }
@@ -90,7 +92,7 @@ export const subscribeNews = async ({
     const topic = newsTopic(cityCode, languageCode)
 
     const messaging = await importFirebaseMessaging()
-    await messaging().subscribeToTopic(topic)
+    await messaging.subscribeToTopic(topic)
     log(`Subscribed to ${topic} topic!`)
   } catch (e) {
     reportError(e)
@@ -116,7 +118,7 @@ export const useForegroundPushNotificationListener = ({
   useEffect(() => {
     let mounted = true
     importFirebaseMessaging().then(messaging =>
-      messaging().onMessage(async _message => {
+      messaging.onMessage(async _message => {
         const message = _message as Message
         if (mounted) {
           const androidChannelId = await notifee.createChannel({
@@ -155,7 +157,7 @@ export const quitAppStatePushNotificationListener = async (
   navigateToDeepLink: (url: string) => void,
 ): Promise<void> => {
   const messaging = await importFirebaseMessaging()
-  const message = (await messaging().getInitialNotification()) as Message | null
+  const message = (await messaging.getInitialNotification()) as Message | null
 
   if (message) {
     // Use navigateToDeepLink instead of normal navigation to avoid navigation not being initialized
@@ -170,7 +172,7 @@ export const backgroundAppStatePushNotificationListener = (listener: (url: strin
         const onReceiveURL = ({ url }: { url: string }) => listener(url)
         const onReceiveURLListener = Linking.addListener('url', onReceiveURL)
 
-        const unsubscribeNotification = messaging().onNotificationOpenedApp(message =>
+        const unsubscribeNotification = messaging.onNotificationOpenedApp(message =>
           listener(urlFromMessage(message as Message)),
         )
 
