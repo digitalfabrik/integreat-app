@@ -20,16 +20,13 @@ const CHAT_BUTTON_SIZE = 48
 const ChatButtonContainer = styled.button<{ bottom: number }>`
   position: fixed;
   bottom: ${props => props.bottom}px;
-  inset-inline-end: 32px;
+  inset-inline-end: 16px;
   margin-bottom: 8px;
   background-color: transparent;
   border: none;
   display: flex;
   flex-direction: column;
-
-  @media ${dimensions.smallViewport} {
-    inset-inline-end: 12px;
-  }
+  width: min-content;
 `
 
 const Circle = styled.div`
@@ -42,16 +39,11 @@ const Circle = styled.div`
 
 const StyledIcon = styled(Icon)`
   display: flex;
-  width: 24px;
-  height: 24px;
+  width: 40px;
+  height: 40px;
   align-self: center;
   justify-content: center;
   color: ${props => props.theme.colors.backgroundColor};
-
-  @media ${dimensions.smallViewport} {
-    width: 40px;
-    height: 40px;
-  }
 `
 
 const ChatTitle = styled.span`
