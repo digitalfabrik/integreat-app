@@ -4,6 +4,20 @@ import React from 'react'
 import useWindowDimensions from '../useWindowDimensions'
 
 jest.mock('react-i18next')
+jest.mock('@mui/material', () => ({
+  useTheme: () => ({
+    breakpoints: {
+      values: {
+        xs: 0,
+        sm: 600,
+        md: 840,
+        lg: 1200,
+        xl: 1600,
+      },
+    },
+  }),
+}))
+
 describe('useWindowDimensions', () => {
   const MockComponent = () => {
     const { width, height, viewportSmall } = useWindowDimensions()
@@ -21,9 +35,9 @@ describe('useWindowDimensions', () => {
   })
 
   it('should correctly set all properties', () => {
-    // The small viewport media queries kick in with width <= 768.
-    const width = 769
-    const height = 400
+    // The small viewport media queries kick in with width <= 840.
+    const width = 841
+    const height = 800
     Object.defineProperty(window, 'innerWidth', { value: width })
     Object.defineProperty(window, 'innerHeight', { value: height })
 
