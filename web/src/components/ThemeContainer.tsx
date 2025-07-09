@@ -26,6 +26,7 @@ const createTheme = (
   contentDirection,
   isContrastTheme: themeType === 'contrast',
   ...createMuiTheme({
+    direction: contentDirection,
     colorSchemes: {
       light: buildConfig().lightTheme,
       dark: buildConfig().darkTheme,
