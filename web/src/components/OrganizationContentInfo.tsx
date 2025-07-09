@@ -6,6 +6,7 @@ import { OrganizationModel } from 'shared/api'
 
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import HighlightBox from './HighlightBox'
+import Link from './base/Link'
 
 const StyledImage = styled.img<{ viewportSmall: boolean }>`
   width: 100%;
@@ -55,10 +56,10 @@ const OrganizationContentInfo = ({ organization }: OrganizationContentInfoProps)
         <span>
           <Trans i18nKey='categories:organizationMoreInformation' domain={new URL(organization.url).hostname}>
             This gets{{ organization: organization.name }}replaced
-            <a href={organization.url} target='_blank' rel='noopener noreferrer'>
+            <Link to={organization.url} highlighted>
               {/* @ts-expect-error gets replaced by Trans component */}
               {{ domain: new URL(organization.url).hostname }}
-            </a>
+            </Link>
             by i18n
           </Trans>
         </span>
