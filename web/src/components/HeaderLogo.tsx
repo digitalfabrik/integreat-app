@@ -21,7 +21,7 @@ const LogoContainer = styled.div`
     width: 100%;
     height: 60%;
 
-    @media ${dimensions.smallViewport} {
+    ${props => props.theme.breakpoints.down('md')} {
       height: 42px;
       width: 42px;
     }
@@ -37,7 +37,7 @@ const StyledLogo = styled.img<{ $small: boolean }>`
     ${props => (props.$small ? 'display: none;' : '')}
   }
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     ${props => (!props.$small ? 'display: none;' : '')}
     width: 100%;
   }

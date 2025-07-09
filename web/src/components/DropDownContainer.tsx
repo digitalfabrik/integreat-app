@@ -21,13 +21,13 @@ const DropDownContainer = styled.div<{ active: boolean }>`
   background-color: ${props => props.theme.colors.backgroundColor};
   visibility: ${props => (props.active ? 'visible' : 'hidden')};
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     top: ${dimensions.headerHeightSmall}px;
     height: calc(100% - ${dimensions.headerHeightSmall}px);
     overflow: hidden auto;
   }
 
-  @media ${dimensions.minMaxWidth} {
+  ${props => props.theme.breakpoints.up('lg')} {
     padding-inline: calc((100vw - ${dimensions.maxWidth}px) / 2) calc((200% - 100vw - ${dimensions.maxWidth}px) / 2);
   }
 `
