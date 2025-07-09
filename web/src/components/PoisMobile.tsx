@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import { GeolocateControl } from 'maplibre-gl'
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -6,7 +7,6 @@ import { useTranslation } from 'react-i18next'
 import { LocationType, MapViewViewport, MapFeature, PreparePoisReturn } from 'shared'
 import { PoiModel } from 'shared/api'
 
-import { ArrowBackspaceIcon } from '../assets'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { getSnapPoints } from '../utils/getSnapPoints'
 import BottomActionSheet, { ScrollableBottomSheetRef } from './BottomActionSheet'
@@ -141,7 +141,7 @@ const PoisMobile = ({
           <>
             {canDeselect && (
               <BackNavigation onClick={deselect} tabIndex={0} label={t('detailsHeader')}>
-                <StyledIcon src={ArrowBackspaceIcon} directionDependent />
+                <StyledIcon src={ArrowBackIcon} directionDependent />
               </BackNavigation>
             )}
             {MapOverlay}

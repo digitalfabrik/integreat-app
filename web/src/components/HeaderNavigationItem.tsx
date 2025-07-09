@@ -1,6 +1,7 @@
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
-import React, { ReactElement } from 'react'
+import { SvgIconProps } from '@mui/material'
+import React, { ElementType, ReactElement } from 'react'
 
 import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
@@ -100,7 +101,7 @@ export type HeaderNavigationItemProps = {
   text: string
   to: string
   active: boolean
-  icon: string
+  icon: string | ElementType<SvgIconProps>
 }
 
 const HeaderNavigationItem = ({ active, text, to, icon }: HeaderNavigationItemProps): ReactElement => (

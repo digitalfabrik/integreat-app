@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
-import React, { ReactElement, ReactNode, useRef, useState } from 'react'
+import { SvgIconProps } from '@mui/material'
+import React, { ElementType, ReactElement, ReactNode, useRef, useState } from 'react'
 
 import useOnClickOutside from '../hooks/useOnClickOutside'
 import { spacesToDashes } from '../utils/stringUtils'
@@ -20,7 +21,6 @@ const ActionBox = styled(Button)`
   border-radius: 4px;
   justify-content: center;
   align-items: center;
-  flex-direction: ${props => (props.theme.contentDirection === 'rtl' ? 'row-reverse' : 'row')};
   gap: 4px;
 `
 
@@ -32,7 +32,7 @@ const StyledText = styled.span`
 
 type HeaderActionItemDropDownProps = {
   children: (closeDropDown: () => void) => ReactNode
-  iconSrc: string
+  iconSrc: string | ElementType<SvgIconProps>
   text: string
   innerText?: string
 }
