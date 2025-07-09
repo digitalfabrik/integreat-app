@@ -35,23 +35,14 @@ const createTheme = (
       light: buildConfig().lightTheme,
       dark: buildConfig().darkTheme,
     },
+    palette: {
+      mode: themeType === 'contrast' ? 'dark' : 'light',
+    },
     components: {
       MuiToggleButton: {
         styleOverrides: {
           root: {
-            '&:hover': {
-              backgroundColor: 'transparent',
-              color: buildConfig().darkTheme.palette.link,
-            },
-            color:
-              themeType === 'contrast'
-                ? buildConfig().darkTheme.palette.text.primary
-                : buildConfig().lightTheme.palette.text.primary,
             borderRadius: '18px !important',
-            backgroundColor:
-              themeType === 'contrast'
-                ? buildConfig().darkTheme.palette.surface.light
-                : buildConfig().lightTheme.palette.surface.light,
             borderColor: `${buildConfig().lightTheme.palette.divider} !important`,
           },
         },
