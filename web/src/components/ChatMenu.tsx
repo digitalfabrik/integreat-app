@@ -4,7 +4,6 @@ import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import Button from './base/Button'
@@ -21,7 +20,7 @@ const StyledIcon = styled(Icon)`
   display: flex;
   color: ${props => props.theme.colors.backgroundColor};
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     ${helpers.adaptiveThemeTextColor}
   }
 `

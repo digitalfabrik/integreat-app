@@ -9,7 +9,6 @@ import { getExternalMapsLink } from 'shared'
 import { PoiModel } from 'shared/api'
 
 import { PoiThumbnailPlaceholderLarge } from '../assets'
-import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import Collapsible from './Collapsible'
@@ -45,7 +44,7 @@ const Thumbnail = styled.img`
   object-fit: cover;
   border-radius: 10px;
 
-  @media screen and (${dimensions.smallViewport}) {
+  ${props => props.theme.breakpoints.down('md')} {
     order: 1;
     margin-top: 12px;
   }
@@ -66,7 +65,7 @@ const AddressContent = styled.div`
   flex-direction: column;
   ${helpers.adaptiveFontSize};
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     align-self: center;
   }
 `
@@ -103,7 +102,7 @@ const DetailSection = styled.div`
   display: flex;
   flex-direction: column;
 
-  @media screen and (${dimensions.smallViewport}) {
+  ${props => props.theme.breakpoints.down('md')} {
     flex-direction: row;
     justify-content: space-between;
   }
