@@ -79,6 +79,7 @@
     "@types/react-helmet": "^6.1.11",
     "@types/react-highlight-words": "^0.20.0",
     "@types/react-infinite-scroller": "^1.2.5",
+    "@types/stylis": "^4.2.7",
     "@types/webpack-bundle-analyzer": "^4.7.0",
     "assets-webpack-plugin": "^7.1.1",
     "clean-webpack-plugin": "^4.0.0",
