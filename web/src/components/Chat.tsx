@@ -101,7 +101,7 @@ const Chat = ({ messages, submitMessage, hasError, isLoading, isTyping }: ChatPr
             onChange={setTextInput}
             onKeyDown={submitOnEnter}
             rows={2}
-            label={t('inputPlaceholder')}
+            label={t('chatInputHelperText')}
           />
         </InputSection>
         <SubmitContainer>

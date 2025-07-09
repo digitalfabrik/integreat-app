@@ -35,7 +35,7 @@ const Column = styled.div`
 
 const StyledTextField = styled(TextField)`
   & [class*='MuiOutlinedInput-root'] {
-    border-radius: 28px;
+    border-radius: 24px;
     padding: 0 12px;
     height: 48px;
   }

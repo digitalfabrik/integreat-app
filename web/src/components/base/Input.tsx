@@ -2,13 +2,9 @@ import styled from '@emotion/styled'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff'
 import { TextField, IconButton, InputAdornment } from '@mui/material'
 import React, { ChangeEvent, ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import Icon from './Icon'
-
-const InputContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`
 
 export type InputProps = {
   id: string
@@ -49,44 +45,43 @@ const Input = ({
     }
     onChange(element.value)
   }
+  const { t } = useTranslation('malteHelpForm')
   return (
-    <InputContainer>
-      <TextField
-        id={id}
-        onClick={onClick}
-        onChange={onInputChange}
-        onKeyDown={onKeyDown}
-        value={value}
-        multiline={rows !== 1}
-        rows={rows}
-        required={required}
-        label={label}
-        placeholder={placeholder}
-        size='small'
-        variant='outlined'
-        fullWidth
-        helperText={hint}
-        autoFocus={autoFocus}
-        error={submitted && required && !value}
-        slotProps={{
-          htmlInput: {
-            maxLength,
-          },
-          inputLabel: {
-            shrink: true,
-          },
-          input: {
-            endAdornment: value && (
-              <InputAdornment position='end'>
-                <IconButton onClick={() => onChange('')} edge='end' size='small' aria-label='clear input'>
-                  <Icon src={HighlightOffIcon} />
-                </IconButton>
-              </InputAdornment>
-            ),
-          },
-        }}
-      />
-    </InputContainer>
+    <TextField
+      id={id}
+      onClick={onClick}
+      onChange={onInputChange}
+      onKeyDown={onKeyDown}
+      value={value}
+      multiline={rows !== 1}
+      rows={rows}
+      required={required}
+      label={label}
+      placeholder={placeholder}
+      size='small'
+      variant='outlined'
+      fullWidth
+      helperText={hint}
+      autoFocus={autoFocus}
+      error={submitted && required && !value}
+      slotProps={{
+        htmlInput: {
+          maxLength,
+        },
+        inputLabel: {
+          shrink: true,
+        },
+        input: {
+          endAdornment: value && (
+            <InputAdornment position='end'>
+              <IconButton onClick={() => onChange('')} edge='end' size='small' aria-label={t('clearInput')}>
+                <Icon src={HighlightOffIcon} />
+              </IconButton>
+            </InputAdornment>
+          ),
+        },
+      }}
+    />
   )
 }
 

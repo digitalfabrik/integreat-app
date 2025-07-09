@@ -41,7 +41,7 @@ describe('Chat', () => {
       name: 'chat:sendButton',
     })
 
-    fireEvent.change(getByLabelText('chat:inputPlaceholder', { exact: false }), {
+    fireEvent.change(getByLabelText('chat:chatInputHelperText', { exact: false }), {
       target: {
         value: 'Meine Nachricht',
       },

@@ -35,32 +35,8 @@ const createTheme = (
       light: buildConfig().lightTheme,
       dark: buildConfig().darkTheme,
     },
-    components: {
-      MuiTextField: {
-        styleOverrides: {
-          root: {
-            ...(themeType === 'contrast' && {
-              '& .MuiOutlinedInput-input': {
-                color: buildConfig().darkTheme.palette.text.primary,
-              },
-              '& .MuiOutlinedInput-root': {
-                '& fieldset': {
-                  borderColor: buildConfig().darkTheme.palette.divider,
-                },
-                '&:hover:not(.Mui-focused) fieldset': {
-                  borderColor: buildConfig().darkTheme.palette.text.disabled,
-                },
-              },
-              '& .MuiInputLabel-root': {
-                color: buildConfig().darkTheme.palette.text.primary,
-              },
-              '& .MuiFormHelperText-root': {
-                color: buildConfig().darkTheme.palette.text.primary,
-              },
-            }),
-          },
-        },
-      },
+    palette: {
+      mode: themeType === 'contrast' ? 'dark' : 'light',
     },
   }),
 })
