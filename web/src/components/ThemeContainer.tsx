@@ -22,6 +22,14 @@ const rtlCache = createCache({
   stylisPlugins: [prefixer, rtlPlugin],
 })
 
+export const BREAKPOINTS = {
+  xs: 0,
+  sm: 600,
+  md: 840,
+  lg: 1200,
+  xl: 1600,
+}
+
 const createTheme = (
   themeType: 'light' | 'contrast',
   contentDirection: UiDirectionType,
@@ -31,13 +39,7 @@ const createTheme = (
   isContrastTheme: themeType === 'contrast',
   ...createMuiTheme({
     breakpoints: {
-      values: {
-        xs: 0,
-        sm: 600,
-        md: 840,
-        lg: 1200,
-        xl: 1600,
-      },
+      values: BREAKPOINTS,
     },
     direction: contentDirection,
     colorSchemes: {
