@@ -1,5 +1,5 @@
-import { useTheme } from '@mui/material'
 import { useState, useEffect } from 'react'
+import { BREAKPOINTS } from 'src/components/ThemeContainer'
 
 export type WindowDimensionsType = {
   width: number
@@ -11,7 +11,7 @@ export type WindowDimensionsType = {
   visibleFooterHeight: number
 }
 
-const getWindowDimensions = (maxWidthViewportSmall: number): WindowDimensionsType => {
+const getWindowDimensions = (): WindowDimensionsType => {
   const { innerWidth: width, innerHeight: height, scrollY } = window
   const footer = document.querySelector('footer')
   const footerHeight = footer?.offsetHeight ?? 0
@@ -20,7 +20,7 @@ const getWindowDimensions = (maxWidthViewportSmall: number): WindowDimensionsTyp
     width,
     height,
     scrollY,
-    viewportSmall: width <= maxWidthViewportSmall,
+    viewportSmall: width <= BREAKPOINTS.md,
     footerHeight,
     documentHeight,
     visibleFooterHeight: Math.max(0, height + scrollY + footerHeight - documentHeight),
@@ -28,27 +28,25 @@ const getWindowDimensions = (maxWidthViewportSmall: number): WindowDimensionsTyp
 }
 
 const useWindowDimensions = (): WindowDimensionsType => {
-  const theme = useTheme()
-  const maxWidthViewportSmall = theme.breakpoints.values.md
-  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions(maxWidthViewportSmall))
+  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions())
 
   useEffect(() => {
     // Observe changes to the DOM body and recalculate all window dimensions (e.g. for adding/removing the tts player)
-    const resizeObserver = new ResizeObserver(() => setWindowDimensions(getWindowDimensions(maxWidthViewportSmall)))
+    const resizeObserver = new ResizeObserver(() => setWindowDimensions(getWindowDimensions()))
     resizeObserver.observe(document.body)
     return () => resizeObserver.disconnect()
-  }, [maxWidthViewportSmall])
+  }, [])
 
   useEffect(() => {
     // Observe changes to the window sizes or the scroll position and recalculate all window dimensions
-    const handleResize = () => setWindowDimensions(getWindowDimensions(maxWidthViewportSmall))
+    const handleResize = () => setWindowDimensions(getWindowDimensions())
     window.addEventListener('resize', handleResize)
     window.addEventListener('scroll', handleResize)
     return () => {
       window.removeEventListener('resize', handleResize)
       window.removeEventListener('scroll', handleResize)
     }
-  }, [maxWidthViewportSmall])
+  }, [])
 
   return windowDimensions
 }
