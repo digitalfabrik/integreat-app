@@ -44,7 +44,7 @@ const Input = ({
     }
     onChange(element.value)
   }
-  const { t } = useTranslation('malteHelpForm')
+  const { t } = useTranslation('common')
   return (
     <TextField
       id={id}

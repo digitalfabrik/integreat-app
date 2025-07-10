@@ -33,9 +33,6 @@ const RadioLabel = styled.label`
 const RadioElementContainer = styled.div`
   width: 100%;
   padding: 12px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
 `
 
 type RadioGroupProps<T extends string> = {
@@ -79,7 +76,8 @@ export const RadioGroup = <T extends string>({
         {selectedValue === key && inputProps && (
           <Input
             id={`${key}-input`}
-            label={label}
+            hint={inputProps.hint ?? label}
+            hintIsLabel={inputProps.hintIsLabel ?? true}
             required={inputProps.required ?? true}
             value={inputProps.value}
             onChange={inputProps.onChange}

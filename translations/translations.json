@@ -1213,7 +1213,8 @@
       "ok": "Ok",
       "minimize": "Minimieren",
       "privacyPolicy": "Ich habe die <1>Datenschutzerklärung</1> gelesen und stimme der Verarbeitung und Speicherung meiner Daten zu.",
-      "privacyPolicyLink": "Datenschutzerklärung"
+      "privacyPolicyLink": "Datenschutzerklärung",
+      "clearInput": "Eingabe löschen"
     },
     "am": {
       "copied": "ተቀድቷል",
@@ -1328,7 +1329,8 @@
       "ok": "Ok",
       "minimize": "Minimize",
       "privacyPolicy": "I have read the <1>privacy policy</1> and agree to the processing and storage of my data.",
-      "privacyPolicyLink": "privacy policy"
+      "privacyPolicyLink": "privacy policy",
+      "clearInput": "Clear input"
     },
     "es": {
       "copied": "Copiado",
@@ -8451,8 +8453,7 @@
       "submitSuccessful": "Formular erfolgreich versandt",
       "submitFailed": "Formular konnte nicht versandt werden",
       "submitFailedReasoning": "Bitte gewährleisten Sie eine stabile Internetverbindung und versuchen Sie es erneut.",
-      "invalidEmailAddress": "Die angegebene E-Mail Adresse ist ungültig.",
-      "clearInput": "Eingabe löschen"
+      "invalidEmailAddress": "Die angegebene E-Mail Adresse ist ungültig."
     },
     "am": {
       "supportNote": "ማናቸውም ችግሮች ወይም ጥያቄዎች ካሉዎት ደህንነት እንዲሰማዎት እና እንዲደግፉ እንፈልጋለን። ከተገናኙ ሰዎች ጋር ለመገናኘት የሚከተለውን የእውቂያ ቅጽ መጠቀም ይችላሉ። የጭንቀትዎን አይነት መግለጽ እና ከተለያዩ የእውቂያ አማራጮች መምረጥ ይችላሉ።",
@@ -8636,8 +8637,7 @@
       "submitSuccessful": "Form successfully submitted",
       "submitFailed": "Form could not be submitted",
       "submitFailedReasoning": "Please ensure a stable internet connection and try again.",
-      "invalidEmailAddress": "The e-mail address you entered is invalid.",
-      "clearInput": "Clear input"
+      "invalidEmailAddress": "The e-mail address you entered is invalid."
     },
     "es": {
       "supportNote": "Queremos ofrecerle seguridad y apoyo ante cualquier problema o pregunta. Puede utilizar el siguiente formulario de contacto para ponerse en contacto con su persona de contacto. Puede especificar el motivo de su consulta y elegir entre varias opciones de contacto.",
