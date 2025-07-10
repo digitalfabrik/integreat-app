@@ -4,19 +4,6 @@ import React from 'react'
 import useWindowDimensions from '../useWindowDimensions'
 
 jest.mock('react-i18next')
-jest.mock('@mui/material', () => ({
-  useTheme: () => ({
-    breakpoints: {
-      values: {
-        xs: 0,
-        sm: 600,
-        md: 840,
-        lg: 1200,
-        xl: 1600,
-      },
-    },
-  }),
-}))
 
 describe('useWindowDimensions', () => {
   const MockComponent = () => {
