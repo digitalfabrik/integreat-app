@@ -28,7 +28,8 @@ const DropDownContainer = styled.div<{ active: boolean }>`
   }
 
   ${props => props.theme.breakpoints.up('lg')} {
-    padding-inline: calc((100vw - ${dimensions.maxWidth}px) / 2) calc((200% - 100vw - ${dimensions.maxWidth}px) / 2);
+    padding-inline: calc((100vw - ${props => props.theme.breakpoints.values.lg}px) / 2)
+      calc((200% - 100vw - ${props => props.theme.breakpoints.values.lg}px) / 2);
   }
 `
 

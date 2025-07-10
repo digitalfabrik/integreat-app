@@ -1,5 +1,4 @@
 export type DimensionsType = {
-  maxWidth: number
   toolbarWidth: number
   toolbarHeight: number
   ttsPlayerHeight: number
@@ -13,7 +12,6 @@ export type DimensionsType = {
 }
 
 const dimensions: DimensionsType = {
-  maxWidth: 1200,
   toolbarWidth: 200,
   poiDetailNavigation: 42,
   toolbarHeight: 66,
