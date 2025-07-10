@@ -27,7 +27,7 @@ const ChatButtonContainer = styled.div<{ bottom: number }>`
   flex-direction: column;
   align-items: center;
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     inset-inline-end: 12px;
   }
 `
@@ -40,7 +40,7 @@ const StyledIcon = styled(Icon)`
   justify-content: center;
   color: ${props => props.theme.colors.backgroundColor};
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     width: 40px;
     height: 40px;
   }

@@ -3,7 +3,6 @@ import styled from '@emotion/styled'
 import { SvgIconProps } from '@mui/material'
 import React, { ElementType, ReactElement } from 'react'
 
-import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
 import Icon from './base/Icon'
 import Link from './base/Link'
@@ -26,7 +25,7 @@ const StyledLink = styled(Link)<{ active: boolean }>`
   transition: color 0.2s;
   height: 100%;
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     font-size: ${props => props.theme.fonts.decorativeFontSizeSmall};
     font-weight: 400;
     min-width: 50px;
@@ -73,7 +72,7 @@ const Circle = styled.div`
   justify-content: center;
   align-items: center;
 
-  @media ${dimensions.mediumLargeViewport} {
+  ${props => props.theme.breakpoints.up('md')} {
     background-color: ${props => props.theme.colors.backgroundColor};
     box-sizing: border-box;
     border-radius: 100%;
@@ -86,7 +85,7 @@ const Circle = styled.div`
     border: ${props => props.theme.colors.backgroundColor} 2px solid;
   }
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     height: ${ICON_SIZE_SMALL}px;
     width: ${ICON_SIZE_SMALL}px;
   }

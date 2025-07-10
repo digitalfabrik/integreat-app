@@ -2,7 +2,6 @@ import styled from '@emotion/styled'
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined'
 import React, { ReactElement } from 'react'
 
-import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
 import Icon from './base/Icon'
 
@@ -38,7 +37,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     padding: 10px 5%;
     justify-content: center;
   }

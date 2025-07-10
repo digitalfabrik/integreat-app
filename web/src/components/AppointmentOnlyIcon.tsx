@@ -4,7 +4,6 @@ import React, { ReactElement } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-import dimensions from '../constants/dimensions'
 import Icon from './base/Icon'
 import Tooltip from './base/Tooltip'
 
@@ -33,7 +32,7 @@ const StyledIcon = styled(Icon)`
 `
 
 const TooltipContent = styled.span`
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     font-size: 14px;
   }
 `
@@ -42,7 +41,7 @@ const TooltipTitle = styled.div`
   font-weight: 700;
   margin-bottom: 8px;
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     font-size: 14px;
   }
 `

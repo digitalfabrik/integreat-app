@@ -4,7 +4,6 @@ import { SvgIconProps } from '@mui/material'
 import React, { ElementType, ReactElement } from 'react'
 import { PlacesType } from 'react-tooltip'
 
-import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { spacesToDashes } from '../utils/stringUtils'
 import StyledSmallViewTip from './StyledSmallViewTip'
@@ -21,7 +20,7 @@ const toolbarItemStyle = ({ theme }: { theme: Theme }): SerializedStyles => css`
   background-color: transparent;
   text-align: center;
 
-  @media ${dimensions.smallViewport} {
+  ${theme.breakpoints.down('md')} {
     line-height: 1.15;
   }
 `
