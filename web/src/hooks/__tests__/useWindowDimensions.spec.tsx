@@ -35,7 +35,7 @@ describe('useWindowDimensions', () => {
   })
 
   it('should correctly set all properties', () => {
-    // The small viewport media queries kick in with width <= 840.
+    // The small viewport media queries kick in with width < 840.
     const width = 841
     const height = 800
     Object.defineProperty(window, 'innerWidth', { value: width })
