@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import { BREAKPOINTS } from 'src/components/ThemeContainer'
+
+import { BREAKPOINTS } from '../components/ThemeContainer'
 
 export type WindowDimensionsType = {
   width: number
