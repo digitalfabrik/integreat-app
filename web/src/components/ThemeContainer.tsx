@@ -35,6 +35,9 @@ const createTheme = (
       light: buildConfig().lightTheme,
       dark: buildConfig().darkTheme,
     },
+    palette: {
+      mode: themeType === 'contrast' ? 'dark' : 'light',
+    },
   }),
 })
 
