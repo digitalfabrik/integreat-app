@@ -119,9 +119,6 @@ class CityModel {
   }
 
   get chatPrivacyPolicyUrl(): string | null {
-    if (this._chatPrivacyPolicyUrl === '') {
-      return null
-    }
     return this._chatPrivacyPolicyUrl
   }
 
