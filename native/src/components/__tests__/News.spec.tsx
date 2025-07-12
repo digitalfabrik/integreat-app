@@ -90,6 +90,7 @@ describe('News', () => {
       aliases: null,
       boundingBox: [10.7880103, 48.447238, 11.0174493, 48.297834],
       chatEnabled: false,
+      chatPrivacyPolicyUrl: null,
     })
     const props = { cityModel, language, navigateToNews, loadMore, refresh, selectedNewsType }
     return render(<News {...props} news={data} newsId={newsId} loadingMore={loadingMore} languageCode='de' />)

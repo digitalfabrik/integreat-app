@@ -10,6 +10,7 @@ class CityModel {
   _live: boolean
   _languages: LanguageModel[]
   _chatEnabled: boolean
+  _chatPrivacyPolicyUrl: string | null
   _eventsEnabled: boolean
   _poisEnabled: boolean
   _localNewsEnabled: boolean
@@ -35,6 +36,7 @@ class CityModel {
     longitude: number
     aliases: Record<string, CoordinateType> | null
     boundingBox: BBox
+    chatPrivacyPolicyUrl: string | null
   }) {
     this._name = params.name
     this._code = params.code
@@ -51,6 +53,7 @@ class CityModel {
     this._longitude = params.longitude
     this._aliases = params.aliases
     this._boundingBox = params.boundingBox
+    this._chatPrivacyPolicyUrl = params.chatPrivacyPolicyUrl
   }
 
   _boundingBox: BBox
@@ -113,6 +116,10 @@ class CityModel {
 
   get latitude(): number {
     return this._latitude
+  }
+
+  get chatPrivacyPolicyUrl(): string | null {
+    return this._chatPrivacyPolicyUrl
   }
 
   _aliases: Record<string, CoordinateType> | null

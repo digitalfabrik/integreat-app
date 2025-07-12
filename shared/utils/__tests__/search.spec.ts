@@ -30,6 +30,7 @@ describe('search', () => {
         longitude: 10.892578,
         boundingBox: [10.7880103, 48.447238, 11.0174493, 48.297834],
         chatEnabled: false,
+        chatPrivacyPolicyUrl: null,
       })
 
     it('should sort by sorting name', () => {

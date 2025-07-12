@@ -2,6 +2,7 @@ import { fireEvent } from '@testing-library/react'
 import React from 'react'
 
 import ChatMessageModel from 'shared/api/models/ChatMessageModel'
+import { CityModelBuilder } from 'shared/dist/api'
 
 import { renderWithTheme } from '../../testing/render'
 import Chat from '../Chat'
@@ -10,19 +11,26 @@ const submitMessage = jest.fn()
 jest.mock('react-i18next')
 window.HTMLElement.prototype.scrollIntoView = jest.fn()
 
+const acceptPrivacyPolicy = jest.fn()
+
 const render = (
   messages: ChatMessageModel[],
   hasError: boolean,
   isLoading: boolean,
   submitMessage: (text: string, deviceId?: string | undefined, refreshMessages?: () => void | undefined) => void,
+  privacyPolicyAccepted = true,
 ) =>
   renderWithTheme(
     <Chat
+      city={new CityModelBuilder(1).build()[0]!}
+      acceptPrivacyPolicy={acceptPrivacyPolicy}
+      privacyPolicyAccepted={privacyPolicyAccepted}
       messages={messages}
       hasError={hasError}
       isLoading={isLoading}
       submitMessage={submitMessage}
       isTyping={false}
+      languageCode='de'
     />,
   )
 

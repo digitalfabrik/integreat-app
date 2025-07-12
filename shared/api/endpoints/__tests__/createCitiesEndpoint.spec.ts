@@ -50,6 +50,7 @@ describe('cities', () => {
       [11.0174493, 48.297834],
     ],
     is_chat_enabled: false,
+    zammad_privacy_policy: null,
   }
   const city2: JsonCityType = {
     name: 'Stadt Regensburg',
@@ -70,6 +71,7 @@ describe('cities', () => {
       [12.145, 49.085],
     ],
     is_chat_enabled: false,
+    zammad_privacy_policy: 'https://example.com/privacy',
   }
 
   const cityJson = [city1, city2]
@@ -87,6 +89,7 @@ describe('cities', () => {
         live: city1.live,
         languages,
         chatEnabled: false,
+        chatPrivacyPolicyUrl: null,
         eventsEnabled: true,
         poisEnabled: true,
         localNewsEnabled: true,
@@ -109,6 +112,7 @@ describe('cities', () => {
         live: city2.live,
         languages,
         chatEnabled: false,
+        chatPrivacyPolicyUrl: 'https://example.com/privacy',
         eventsEnabled: false,
         poisEnabled: false,
         localNewsEnabled: false,

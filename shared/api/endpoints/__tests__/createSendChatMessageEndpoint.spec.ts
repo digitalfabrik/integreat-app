@@ -4,7 +4,7 @@ import createSendChatMessageEndpoint from '../createSendChatMessageEndpoint'
 describe('createSendChatMessageEndpoint', () => {
   const baseUrl = 'https://example.com'
   const params = {
-    city: 'augsburg',
+    cityCode: 'augsburg',
     language: 'fa',
     deviceId: '23123-dsasd1-2dsa12',
     message: 'Ich habe eine Frage',
@@ -12,7 +12,7 @@ describe('createSendChatMessageEndpoint', () => {
   const endpoint = createSendChatMessageEndpoint(baseUrl)
   it('should map params to url', () => {
     expect(endpoint.mapParamsToUrl(params)).toBe(
-      `${baseUrl}/api/${API_VERSION}/${params.city}/${params.language}/chat/${params.deviceId}/`,
+      `${baseUrl}/api/${API_VERSION}/${params.cityCode}/${params.language}/chat/${params.deviceId}/`,
     )
   })
 
@@ -26,7 +26,7 @@ describe('createSendChatMessageEndpoint', () => {
     }
     expect(
       endpoint.mapParamsToBody({
-        city: 'augsburg',
+        cityCode: 'augsburg',
         language: 'fa',
         deviceId: params.deviceId,
         message: params.message,

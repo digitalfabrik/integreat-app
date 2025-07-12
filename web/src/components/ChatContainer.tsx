@@ -1,9 +1,9 @@
 import styled from '@emotion/styled'
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
 
-import { CHAT_QUERY_KEY, parseQueryParams } from 'shared'
+import { getChatName, CHAT_QUERY_KEY, parseQueryParams } from 'shared'
+import { CityModel } from 'shared/api'
 
 import { ChatIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'
@@ -20,16 +20,13 @@ const CHAT_BUTTON_SIZE = 48
 const ChatButtonContainer = styled.button<{ bottom: number }>`
   position: fixed;
   bottom: ${props => props.bottom}px;
-  inset-inline-end: 32px;
+  inset-inline-end: 16px;
   margin-bottom: 8px;
   background-color: transparent;
   border: none;
   display: flex;
   flex-direction: column;
-
-  @media ${dimensions.smallViewport} {
-    inset-inline-end: 12px;
-  }
+  width: min-content;
 `
 
 const Circle = styled.div`
@@ -42,16 +39,11 @@ const Circle = styled.div`
 
 const StyledIcon = styled(Icon)`
   display: flex;
-  width: 24px;
-  height: 24px;
+  width: 40px;
+  height: 40px;
   align-self: center;
   justify-content: center;
   color: ${props => props.theme.colors.backgroundColor};
-
-  @media ${dimensions.smallViewport} {
-    width: 40px;
-    height: 40px;
-  }
 `
 
 const ChatTitle = styled.span`
@@ -60,7 +52,7 @@ const ChatTitle = styled.span`
 `
 
 type ChatContainerProps = {
-  city: string
+  city: CityModel
   language: string
 }
 
@@ -70,7 +62,7 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement => 
   const [chatVisible, setChatVisible] = useState(initialChatVisibility)
   const { viewportSmall, visibleFooterHeight, width } = useWindowDimensions()
   const { visible: ttsPlayerVisible } = useContext(TtsContext)
-  const { t } = useTranslation('chat')
+  const chatName = getChatName(buildConfig().appName)
   useLockedBody(chatVisible)
 
   const bottom =
@@ -88,7 +80,7 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement => 
 
   if (chatVisible) {
     return (
-      <ChatModal title={t('header', { appName: buildConfig().appName })} closeModal={() => setChatVisible(false)}>
+      <ChatModal title={chatName} closeModal={() => setChatVisible(false)}>
         <ChatController city={city} language={language} />
       </ChatModal>
     )
@@ -97,9 +89,9 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement => 
   return (
     <ChatButtonContainer bottom={bottom} onClick={() => setChatVisible(true)}>
       <Circle>
-        <StyledIcon src={ChatIcon} title={t('chat')} />
+        <StyledIcon src={ChatIcon} title={chatName} />
       </Circle>
-      {!viewportSmall && <ChatTitle>{t('chat')}</ChatTitle>}
+      {!viewportSmall && <ChatTitle>{chatName}</ChatTitle>}
     </ChatButtonContainer>
   )
 }
