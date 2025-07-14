@@ -27,7 +27,7 @@ const LogoContainer = styled.div`
     height: 60%;
   }
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     height: ${dimensions.headerHeightSmall}px;
     max-width: ${dimensions.headerHeightSmall}px;
     flex: 1 1 0%; /* The % unit is necessary for IE11 */
@@ -43,7 +43,7 @@ const StyledLogoIcon = styled(Icon)`
   width: 200px;
   max-width: 200px;
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     max-width: 44px;
   }
 `

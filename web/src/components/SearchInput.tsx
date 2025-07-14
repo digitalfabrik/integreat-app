@@ -1,8 +1,7 @@
 import styled from '@emotion/styled'
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined'
 import React, { ReactElement } from 'react'
 
-import { SearchIcon } from '../assets'
-import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
 import Icon from './base/Icon'
 
@@ -38,7 +37,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     padding: 10px 5%;
     justify-content: center;
   }
@@ -82,7 +81,7 @@ const SearchInput = ({
 }: SearchInputProps): ReactElement => (
   <Spacer space={spaceSearch} ref={searchInputRef}>
     <Wrapper>
-      <StyledIcon src={SearchIcon} />
+      <StyledIcon src={SearchOutlinedIcon} />
       <Column>
         {/* eslint-disable-next-line styled-components-a11y/no-autofocus -- in a dedicated search modal autofocus is fine */}
         <TextInput

@@ -1,10 +1,16 @@
 import { css, SerializedStyles, Theme, useTheme } from '@emotion/react'
 import styled from '@emotion/styled'
+import CheckIcon from '@mui/icons-material/Check'
+import CloseIcon from '@mui/icons-material/Close'
+import ContentCopyIcon from '@mui/icons-material/ContentCopy'
+import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined'
+import MailOutlinedIcon from '@mui/icons-material/MailOutlined'
+import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined'
+import WhatsAppIcon from '@mui/icons-material/WhatsApp'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { PlacesType } from 'react-tooltip'
 
-import { CloseIcon, CopyIcon, DoneIcon, FacebookIcon, MailIcon, ShareIcon, WhatsappIcon } from '../assets'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import Portal from './Portal'
 import ToolbarItem from './ToolbarItem'
@@ -35,21 +41,14 @@ const TooltipContainer = styled.div<{
   font-size: 1rem;
 
   ${props =>
-    props.tooltipFlow === 'vertical' &&
-    css`
-      flex-flow: column-reverse;
-      transform: translateY(-100%);
-    `};
-
-  ${props =>
-    props.tooltipFlow === 'horizontal' &&
-    (props.theme.contentDirection === 'ltr'
+    props.tooltipFlow === 'vertical'
       ? css`
-          transform: translate(30%, -8px);
+          flex-flow: column-reverse;
+          transform: translateY(-100%);
         `
       : css`
-          transform: translate(-30%, -8px);
-        `)};
+          transform: translate(30%, -8px);
+        `};
 
   ${props =>
     props.optionsVisible &&
@@ -73,32 +72,17 @@ const TooltipContainer = styled.div<{
     border-inline-end: 10px solid transparent;
 
     ${props =>
-      props.tooltipFlow === 'vertical' &&
-      (props.theme.contentDirection === 'ltr'
+      props.tooltipFlow === 'vertical'
         ? css`
             left: 20px;
             bottom: -8px;
             transform: rotate(-180deg);
           `
         : css`
-            right: 11px;
-            bottom: -8px;
-            transform: translateX(-55%) rotate(180deg);
-          `)};
-
-    ${props =>
-      props.tooltipFlow === 'horizontal' &&
-      (props.theme.contentDirection === 'ltr'
-        ? css`
             left: -14px;
-            transform: rotate(-90deg);
+            transform: rotate(${props.theme.contentDirection === 'ltr' ? '-90deg' : '90deg'});
             top: 45%;
-          `
-        : css`
-            right: -14px;
-            transform: rotate(90deg);
-            top: 45%;
-          `)};
+          `};
 
     ${props =>
       props.optionsVisible &&
@@ -116,32 +100,17 @@ const TooltipContainer = styled.div<{
     border-inline-end: 11px solid transparent;
 
     ${props =>
-      props.tooltipFlow === 'vertical' &&
-      (props.theme.contentDirection === 'ltr'
+      props.tooltipFlow === 'vertical'
         ? css`
             left: 20px;
             bottom: -11px;
             transform: rotate(-180deg);
           `
         : css`
-            right: 11px;
-            bottom: -11px;
-            transform: translateX(-45%) rotate(180deg);
-          `)};
-
-    ${props =>
-      props.tooltipFlow === 'horizontal' &&
-      (props.theme.contentDirection === 'ltr'
-        ? css`
             left: -17px;
-            transform: rotate(-90deg) scaleX(-1);
+            transform: rotate(${props.theme.contentDirection === 'ltr' ? '-90deg' : '90deg'}) scaleX(-1);
             top: 45%;
-          `
-        : css`
-            right: -17px;
-            transform: rotate(90deg) scaleX(-1);
-            top: 45%;
-          `)};
+          `};
 
     ${props =>
       props.optionsVisible &&
@@ -247,28 +216,28 @@ const SharingPopup = ({ shareUrl, title, flow, portalNeeded }: SharingPopupProps
               place={tooltipDirection}
               tooltipContent={t(linkCopied ? 'common:copied' : 'layout:copyUrl')}>
               <StyledButton onClick={copyToClipboard} label={t(linkCopied ? 'common:copied' : 'layout:copyUrl')}>
-                <StyledIcon src={linkCopied ? DoneIcon : CopyIcon} />
+                <StyledIcon src={linkCopied ? CheckIcon : ContentCopyIcon} />
               </StyledButton>
             </Tooltip>
             <Tooltip id='share-whatsapp' place={tooltipDirection} tooltipContent={t('whatsappTooltip')}>
               <StyledLink
                 to={`https://api.whatsapp.com/send?text=${shareMessage}%0a${encodedShareUrl}`}
                 ariaLabel={t('whatsappTooltip')}>
-                <StyledIcon src={WhatsappIcon} />
+                <StyledIcon src={WhatsAppIcon} />
               </StyledLink>
             </Tooltip>
             <Tooltip id='share-facebook' place={tooltipDirection} tooltipContent={t('facebookTooltip')}>
               <StyledLink
                 to={`https://www.facebook.com/sharer/sharer.php?u=${encodedShareUrl}&t${shareMessage}`}
                 ariaLabel={t('facebookTooltip')}>
-                <StyledIcon src={FacebookIcon} />
+                <StyledIcon src={FacebookOutlinedIcon} />
               </StyledLink>
             </Tooltip>
             <Tooltip id='share-email' place={tooltipDirection} tooltipContent={t('mailTooltip')}>
               <StyledLink
                 to={`mailto:?subject=${encodedTitle}&body=${shareMessage} ${encodedShareUrl}`}
                 ariaLabel={t('mailTooltip')}>
-                <StyledIcon src={MailIcon} />
+                <StyledIcon src={MailOutlinedIcon} />
               </StyledLink>
             </Tooltip>
             <Tooltip id='close-button' place={tooltipDirection} tooltipContent={t('closeTooltip')}>
@@ -279,7 +248,7 @@ const SharingPopup = ({ shareUrl, title, flow, portalNeeded }: SharingPopupProps
           </TooltipContainer>
         </>
       )}
-      <ToolbarItem icon={ShareIcon} text={t('layout:share')} onClick={() => setShareOptionsVisible(true)} />
+      <ToolbarItem icon={ShareOutlinedIcon} text={t('layout:share')} onClick={() => setShareOptionsVisible(true)} />
     </SharingPopupContainer>
   )
 }

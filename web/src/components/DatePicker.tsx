@@ -1,11 +1,11 @@
 import styled from '@emotion/styled'
+import EventIcon from '@mui/icons-material/Event'
 import { DateTime } from 'luxon'
 import React, { ReactElement, useEffect, useState } from 'react'
 import DatePicker, { DatePickerProps } from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { useTranslation } from 'react-i18next'
 
-import { CalendarTodayIcon } from '../assets'
 import '../styles/DatePickerCalendar.css'
 import Button from './base/Button'
 import Icon from './base/Icon'
@@ -29,7 +29,7 @@ const StyledIconButton = styled(Button)<{ isCalendarOpen: boolean }>`
   justify-content: center;
   align-items: center;
   position: absolute;
-  ${props => (props.theme.contentDirection === 'rtl' ? 'left: 16px;' : 'right: 16px;')};
+  right: 16px;
   align-self: center;
   background-color: ${props =>
     props.isCalendarOpen ? props.theme.colors.themeColorLight : props.theme.colors.textDisabledColor};
@@ -57,9 +57,8 @@ const StyledTitle = styled.span`
   background-color: ${props => props.theme.colors.backgroundColor};
   position: absolute;
   top: -12px;
-  left: ${props => (props.theme.contentDirection === 'rtl' ? 'auto' : '12px')};
-  right: ${props => (props.theme.contentDirection === 'rtl' ? '12px' : 'auto')};
-  padding: 2px 5px;
+  left: 12px;
+  padding: 2px 4px;
   font-size: 12px;
 `
 
@@ -157,7 +156,7 @@ const CustomDatePicker = ({
           onChangeRaw={e => handleDateError(String((e?.target as HTMLInputElement).value))}
         />
         <StyledIconButton label={calendarLabel} isCalendarOpen={isCalendarOpen} onClick={() => setIsCalendarOpen(true)}>
-          <Icon src={CalendarTodayIcon} />
+          <Icon src={EventIcon} />
         </StyledIconButton>
       </StyledInputWrapper>
       <StyledTitle>{title}</StyledTitle>
