@@ -1,41 +1,47 @@
 import styled from '@emotion/styled'
 import SentimentDissatisfiedOutlinedIcon from '@mui/icons-material/SentimentDissatisfiedOutlined'
 import SentimentSatisfiedOutlinedIcon from '@mui/icons-material/SentimentSatisfiedOutlined'
+import { ToggleButtonGroup } from '@mui/material'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { Rating, RATING_NEGATIVE, RATING_POSITIVE } from 'shared'
+
 import ToggleButton from './base/ToggleButton'
 
-const ButtonContainer = styled.div`
+const StyledToggleButtonGroup = styled(ToggleButtonGroup)`
   display: flex;
   justify-content: center;
   gap: 16px;
 `
 
 type FeedbackButtonsProps = {
-  isPositive: boolean | null
-  onRatingChange: (isPositive: boolean | null) => void
+  rating: Rating | null
+  setRating: (isPositive: Rating | null) => void
 }
 
-const FeedbackButtons = ({ isPositive, onRatingChange }: FeedbackButtonsProps): ReactElement => {
+const FeedbackButtons = ({ rating, setRating }: FeedbackButtonsProps): ReactElement => {
   const { t } = useTranslation('feedback')
+
+  const handleChange = (_: React.MouseEvent<HTMLElement>, newValue: Rating | null) => setRating(newValue)
+
   return (
     <>
       <div>{t('description')}</div>
-      <ButtonContainer>
+      <StyledToggleButtonGroup exclusive value={rating} onChange={handleChange}>
         <ToggleButton
-          onClick={() => onRatingChange(isPositive ? null : true)}
-          active={isPositive === true}
+          iconSize='medium'
+          value={RATING_POSITIVE}
           icon={SentimentSatisfiedOutlinedIcon}
           text={t('useful')}
         />
         <ToggleButton
-          onClick={() => onRatingChange(isPositive === false ? null : false)}
-          active={isPositive === false}
+          iconSize='medium'
+          value={RATING_NEGATIVE}
           icon={SentimentDissatisfiedOutlinedIcon}
           text={t('notUseful')}
         />
-      </ButtonContainer>
+      </StyledToggleButtonGroup>
     </>
   )
 }
