@@ -20,6 +20,7 @@ const StyledButton = styled(MuiToggleButton)`
   height: 100px;
   padding: 8px;
   text-align: center;
+  border-color: ${props => props.theme.colors.textDisabledColor} !important;
 `
 
 type ToggleButtonProps = {
@@ -35,7 +36,7 @@ type ToggleButtonProps = {
 const ToggleButton = ({ text, onClick, className, value, ...props }: ToggleButtonProps): ReactElement => (
   <StyledButton
     color='primary'
-    sx={{ textTransform: 'inherit' }}
+    sx={{ textTransform: 'inherit', borderRadius: '18px !important' }}
     value={value}
     selected={props.active}
     onChange={onClick}
