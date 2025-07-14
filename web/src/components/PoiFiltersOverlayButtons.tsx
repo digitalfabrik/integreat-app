@@ -28,26 +28,24 @@ const PoiFiltersOverlayButtons = ({
   return (
     <>
       <ChipButton
-        text={t('adjustFilters')}
-        icon={EditLocationOutlinedIcon}
+        label={t('adjustFilters')}
+        icon={<EditLocationOutlinedIcon />}
         onClick={() => setShowFilterSelection(!poiFiltersShown)}
       />
       {currentlyOpenFilter && (
         <ChipButton
-          text={t('opened')}
-          label={t('clearFilter', { filter: t('opened') })}
-          icon={AccessTimeIcon}
+          label={t('opened')}
+          icon={<AccessTimeIcon />}
           onClick={() => setCurrentlyOpenFilter(false)}
-          closeButton
+          onDelete={() => setCurrentlyOpenFilter(false)}
         />
       )}
       {!!poiCategory && (
         <ChipButton
-          text={poiCategory.name}
-          label={t('clearFilter', { filter: poiCategory.name })}
+          label={poiCategory.name}
           icon={poiCategory.icon}
           onClick={() => setPoiCategoryFilter(null)}
-          closeButton
+          onDelete={() => setPoiCategoryFilter(null)}
         />
       )}
     </>
