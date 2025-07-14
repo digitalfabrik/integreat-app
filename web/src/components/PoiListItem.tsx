@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next'
 import { PoiModel } from 'shared/api'
 
 import { PoiThumbnailPlaceholder } from '../assets'
-import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
 import Button from './base/Button'
 
@@ -16,7 +15,7 @@ const ListItemContainer = styled.ul`
   border-bottom: 1px solid ${props => props.theme.colors.borderColor};
   cursor: pointer;
 
-  @media screen and (${dimensions.smallViewport}) {
+  ${props => props.theme.breakpoints.down('md')} {
     &:last-child {
       border-bottom: none;
     }
