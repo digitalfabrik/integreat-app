@@ -1,46 +1,126 @@
-import CloseIcon from '@mui/icons-material/Close'
-import { SvgIconProps } from '@mui/material/SvgIcon'
+import { Chip, ChipOwnProps, Theme, useTheme } from '@mui/material/SvgIcon'
 import { styled } from '@mui/material/styles'
-import React, { ElementType, ReactElement } from 'react'
+import React, { ReactElement } from 'react'
 
-import Button from './Button'
 import Icon from './Icon'
 
-const StyledButton = styled(Button)`
-  display: flex;
-  height: 30px;
-  padding: 4px 8px;
-  align-items: center;
-  margin: 0 2px;
-  border-radius: 20px;
-  gap: 4px;
-  background-color: ${props => props.theme.legacy.colors.backgroundColor};
-  color: ${props => props.theme.legacy.colors.textSecondaryColor};
-  font-family: ${props => props.theme.legacy.fonts.web.contentFont};
-  font-size: 0.875rem;
+const sharedIconMargins = `
+  .MuiChip-icon {
+    margin-inline-start: 12px;
+  }
+
+  .MuiChip-deleteIcon {
+    margin-inline-end: 12px;
+  }
 `
 
-const StyledIcon = styled(Icon)`
-  color: ${props => props.theme.legacy.colors.textSecondaryColor};
-  height: 16px;
-  width: 16px;
+const ExtraSmallChip = styled(Chip)`
+  ${sharedIconMargins}
+  height: 20px;
+  font-size: 10px;
+
+  .MuiChip-icon,
+  .MuiChip-deleteIcon {
+    height: 10px;
+    width: 10px;
+  }
 `
 
-type ChipButtonProps = {
-  text: string
-  icon: string | ElementType<SvgIconProps>
-  onClick: () => void
-  label?: string
-  closeButton?: boolean
-  className?: string
+const SmallChip = styled(Chip)`
+  ${sharedIconMargins}
+  height: 24px;
+  font-size: 12px;
+
+  .MuiChip-icon,
+  .MuiChip-deleteIcon {
+    height: 12px;
+    width: 12px;
+  }
+`
+
+const MediumChip = styled(Chip)`
+  ${sharedIconMargins}
+  font-size: 14px;
+
+  .MuiChip-icon,
+  .MuiChip-deleteIcon {
+    height: 14px;
+    width: 14px;
+  }
+`
+
+const getIconElement = (IconProp: undefined | string | ReactElement): ReactElement | undefined => {
+  if (typeof IconProp === 'string') {
+    return <Icon src={IconProp} />
+  }
+  return IconProp
 }
 
-const ChipButton = ({ text, onClick, label, className, ...props }: ChipButtonProps): ReactElement => (
-  <StyledButton label={label ?? text} onClick={onClick} className={className}>
-    <StyledIcon src={props.icon} />
-    <div>{text}</div>
-    {props.closeButton && <StyledIcon src={CloseIcon} />}
-  </StyledButton>
-)
+const mapPropsToMuiChipProps = (props: ChipButtonProps, theme: Theme): ChipOwnProps => {
+  const { variant, icon, size, ...rest } = props
+  const iconElement = getIconElement(icon)
+  if (variant === 'outlined') {
+    return {
+      variant: 'outlined',
+      icon: iconElement,
+      sx: {
+        '.MuiChip-label': {
+          color: theme.palette.neutral[900],
+        },
+        '.MuiChip-icon, .MuiChip-deleteIcon': {
+          color: theme.palette.neutral[400],
+        },
+      },
+      ...rest,
+    }
+  }
+  if (variant === 'primary') {
+    return {
+      color: 'primary',
+      icon: iconElement,
+      sx: {
+        '.MuiChip-label, .MuiChip-icon, .MuiChip-deleteIcon': {
+          color: theme.palette.neutral[50],
+        },
+      },
+      ...rest,
+    }
+  }
+  return {
+    variant: 'filled',
+    icon: iconElement,
+    sx: {
+      '.MuiChip-label': {
+        color: theme.palette.neutral[900],
+      },
+      '.MuiChip-icon, .MuiChip-deleteIcon': {
+        color: theme.palette.neutral[600],
+      },
+    },
+    ...rest,
+  }
+}
+
+type ChipButtonProps = {
+  label: string
+  icon?: string | ReactElement
+  onClick?: () => void
+  onDelete?: () => void
+  closeButton?: boolean
+  size?: 'xs' | 'sm' | 'default'
+  variant?: 'outlined' | 'grey' | 'primary'
+}
+
+const ChipButton = (props: ChipButtonProps): ReactElement => {
+  const { size } = props
+  const theme = useTheme()
+  if (size === 'xs') {
+    return <ExtraSmallChip {...mapPropsToMuiChipProps(props, theme)} />
+  }
+  if (size === 'sm') {
+    return <SmallChip {...mapPropsToMuiChipProps(props, theme)} />
+  }
+  return <MediumChip {...mapPropsToMuiChipProps(props, theme)} />
+}
 
 export default ChipButton
