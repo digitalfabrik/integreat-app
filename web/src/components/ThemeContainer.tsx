@@ -35,6 +35,7 @@ const createTheme = (
       light: buildConfig().lightTheme,
       dark: buildConfig().darkTheme,
     },
+    typography: buildConfig().typography,
   }),
 })
 
