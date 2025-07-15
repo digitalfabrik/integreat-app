@@ -56,6 +56,8 @@ const pois = [
         mobilePhoneNumber: '017012345678',
       }),
     ],
+    organization: null,
+    barrierFree: null,
   }),
   new PoiModel({
     path: '/augsburg/en/locations/test_path_2',
@@ -97,6 +99,8 @@ const pois = [
     ],
     appointmentUrl: 'https://booking.an/appointment',
     contacts: [],
+    organization: null,
+    barrierFree: null,
   }),
   new PoiModel({
     path: '/augsburg/en/locations/another_test_path',
@@ -131,6 +135,8 @@ const pois = [
     openingHours: null,
     appointmentUrl: null,
     contacts: [],
+    organization: null,
+    barrierFree: null,
   }),
 ]
 
