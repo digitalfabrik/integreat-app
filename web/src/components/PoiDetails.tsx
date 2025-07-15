@@ -6,7 +6,13 @@ import { useTranslation } from 'react-i18next'
 import { getExternalMapsLink } from 'shared'
 import { PoiModel } from 'shared/api'
 
-import { ExternalLinkIcon, LocationIcon, PoiThumbnailPlaceholderLarge } from '../assets'
+import {
+  AccessibleIcon,
+  ExternalLinkIcon,
+  LocationIcon,
+  NotAccessibleIcon,
+  PoiThumbnailPlaceholderLarge,
+} from '../assets'
 import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
 import useWindowDimensions from '../hooks/useWindowDimensions'
@@ -51,10 +57,31 @@ const Distance = styled.div`
   ${helpers.adaptiveFontSize};
 `
 
-const Category = styled.div`
-  ${helpers.adaptiveFontSize};
-  color: ${props => props.theme.colors.textSecondaryColor};
+const ChipsContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
   margin-top: 8px;
+  margin-bottom: 8px;
+  align-items: center;
+  justify-content: flex-start;
+`
+
+const Chip = styled.div`
+  color: ${props => props.theme.colors.textSecondaryColor};
+  display: flex;
+  padding-inline: 12px;
+  align-items: center;
+  gap: 6px;
+  border-radius: 12px;
+  border: 1px solid rgb(0 0 0 / 38%);
+  height: 20px;
+  font-size: 12px;
+`
+
+const ChipIcon = styled(Icon)`
+  width: 12px;
+  height: 12px;
 `
 
 const AddressContentWrapper = styled.div`
@@ -143,13 +170,33 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
   const appointmentOverlayUrl = appointmentUrl ?? poi.contacts.find(contact => contact.website !== null)?.website ?? ''
   const isOnlyWithAppointment = !openingHours && !!appointmentOverlayUrl
 
+  const barrierFreeChip =
+    poi.barrierFree === true ? (
+      <>
+        <ChipIcon src={AccessibleIcon} />
+        {t('common:accessible')}
+      </>
+    ) : (
+      <>
+        <ChipIcon src={NotAccessibleIcon} />
+        {t('common:notAccessible')}
+      </>
+    )
+
   return (
     <DetailsContainer>
       <HeadingSection>
         <Thumbnail alt='' src={thumbnail} />
         <Heading>{poi.title}</Heading>
         {distance !== null && <Distance>{t('distanceKilometre', { distance: distance.toFixed(1) })}</Distance>}
-        <Category>{category.name}</Category>
+        <ChipsContainer>
+          {poi.barrierFree !== null && <Chip>{barrierFreeChip}</Chip>}
+          <Chip>{poi.organization?.name}</Chip>
+          <Chip>
+            <ChipIcon src={category.icon} />
+            {category.name}
+          </Chip>
+        </ChipsContainer>
       </HeadingSection>
       <Spacer borderColor={theme.colors.borderColor} />
       {!viewportSmall && <Subheading>{t('detailsAddress')}</Subheading>}
