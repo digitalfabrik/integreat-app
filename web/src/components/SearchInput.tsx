@@ -1,30 +1,15 @@
 import styled from '@emotion/styled'
+import HighlightOffIcon from '@mui/icons-material/HighlightOff'
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined'
+import { IconButton, InputAdornment, TextField } from '@mui/material'
 import React, { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { helpers } from '../constants/theme'
 import Icon from './base/Icon'
 
 const Spacer = styled.div<{ space: boolean }>`
   ${props => props.space && 'margin: 16px 0;'}
-`
-
-const TextInput = styled.input`
-  height: 24px;
-  box-sizing: border-box;
-  color: ${props => props.theme.colors.textColor};
-  background: transparent;
-  border-width: 0 0 1px;
-  border-color: ${props => props.theme.colors.textSecondaryColor};
-  border-radius: 0;
-
-  &:focus-visible {
-    outline: none !important;
-  }
-
-  &::placeholder {
-    color: ${props => props.theme.colors.textColor};
-  }
 `
 
 const Wrapper = styled.div`
@@ -43,20 +28,24 @@ const Wrapper = styled.div`
   }
 `
 
-const StyledIcon = styled(Icon)`
-  align-self: flex-start;
-  display: flex;
-`
-
 const Column = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
 `
 
+const StyledTextField = styled(TextField)`
+  & [class*='MuiOutlinedInput-root'] {
+    border-radius: 24px;
+    padding: 0 12px;
+    height: 48px;
+  }
+`
+
 const Description = styled.div`
   background-color: ${props => props.theme.colors.backgroundColor};
   margin-top: 8px;
+  margin-left: 24px;
   ${helpers.adaptiveFontSize};
 `
 
@@ -78,25 +67,44 @@ const SearchInput = ({
   spaceSearch = false,
   description,
   searchInputRef,
-}: SearchInputProps): ReactElement => (
-  <Spacer space={spaceSearch} ref={searchInputRef}>
-    <Wrapper>
-      <StyledIcon src={SearchOutlinedIcon} />
-      <Column>
-        {/* eslint-disable-next-line styled-components-a11y/no-autofocus -- in a dedicated search modal autofocus is fine */}
-        <TextInput
-          placeholder={placeholderText}
-          aria-label={placeholderText}
-          value={filterText}
-          onChange={event => onFilterTextChange(event.target.value)}
-          onClick={onClickInput}
-          autoFocus
-          type='text'
-        />
-        {!!description && <Description>{description}</Description>}
-      </Column>
-    </Wrapper>
-  </Spacer>
-)
+}: SearchInputProps): ReactElement => {
+  const { t } = useTranslation('common')
+  return (
+    <Spacer space={spaceSearch} ref={searchInputRef}>
+      <Wrapper>
+        <Column>
+          <StyledTextField
+            placeholder={placeholderText}
+            aria-label={placeholderText}
+            value={filterText}
+            onChange={event => onFilterTextChange(event.target.value)}
+            onClick={onClickInput}
+            autoFocus
+            slotProps={{
+              input: {
+                endAdornment: filterText ? (
+                  <InputAdornment position='start'>
+                    <IconButton
+                      onClick={() => onFilterTextChange('')}
+                      edge='end'
+                      size='small'
+                      aria-label={t('clearInput')}>
+                      <Icon src={HighlightOffIcon} />
+                    </IconButton>
+                  </InputAdornment>
+                ) : (
+                  <InputAdornment position='start'>
+                    <Icon src={SearchOutlinedIcon} />
+                  </InputAdornment>
+                ),
+              },
+            }}
+          />
+          {!!description && <Description>{description}</Description>}
+        </Column>
+      </Wrapper>
+    </Spacer>
+  )
+}
 
 export default SearchInput

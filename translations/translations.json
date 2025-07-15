@@ -299,7 +299,7 @@
       "human": "Berater*in",
       "initialMessage": "Deine Chatanfrage wurde gesendet. Die Berater*in beantwortet deine Nachricht so schnell wie möglich.",
       "inputLabel": "Meine Frage:",
-      "inputPlaceholder": "Ich möchte wissen...",
+      "chatInputHelperText": "Ich möchte wissen...",
       "loadingText": "Einen Moment bitte, der Chat wird gestartet...",
       "sendButton": "Senden",
       "user": "Du"
@@ -313,7 +313,7 @@
       "header": "{{appName}}የውይይት ድጋፍ",
       "initialMessage": "የውይይት ጥያቄህ ተልኳል። አማካሪው በተቻለ ፍጥነት መልእክትዎን ይመልሳል።",
       "inputLabel": "የኔ ጥያቄ፡-",
-      "inputPlaceholder": "ማወቅ እፈልጋለሁ...",
+      "chatInputHelperText": "ማወቅ እፈልጋለሁ...",
       "loadingText": "እባካችሁ አንድ አፍታ ውይይቱ እየተጀመረ ነው...",
       "sendButton": "ለክ ",
       "user": "እርስዎ "
@@ -327,7 +327,7 @@
       "header": "{{appName}} دعم الدردشة",
       "initialMessage": "تم إرسال طلب الدردشة الخاص بك. سيقوم المستشار بالرد على رسالتك في أسرع وقت ممكن.",
       "inputLabel": "سؤالي:",
-      "inputPlaceholder": "أريد أن أعرف...",
+      "chatInputHelperText": "أريد أن أعرف...",
       "loadingText": "لحظة واحدة من فضلك، يتم بدء المحادثة...",
       "sendButton": "إرسال",
       "user": "أنت"
@@ -341,7 +341,7 @@
       "header": "{{appName}} Чат поддръжка",
       "initialMessage": "Вашата заявка за чат е изпратена. Консултантът ще отговори на съобщението ви възможно най-скоро.",
       "inputLabel": "Моят въпрос:",
-      "inputPlaceholder": "Искам да знам...",
+      "chatInputHelperText": "Искам да знам...",
       "loadingText": "Един момент, моля, чатът започва...",
       "sendButton": "Изпрати",
       "user": "Вие"
@@ -355,7 +355,7 @@
       "header": "{{appName}} پاڵپشتی چات",
       "initialMessage": "داواکاری چاتەکەت نێردرا. ڕاوێژکار بە زووترین کات وەڵامی پەیامەکەت دەداتەوە.",
       "inputLabel": "پرسیارەکەم:",
-      "inputPlaceholder": "دەمەوێت بزانم...",
+      "chatInputHelperText": "دەمەوێت بزانم...",
       "loadingText": "تکایە ساتێک چاوەڕێ بکە، چاتەکە خەریکە دەست پێدەکات...",
       "sendButton": "ناردن",
       "user": "تۆ"
@@ -369,7 +369,7 @@
       "header": "{{appName}} Chatová podpora",
       "initialMessage": "Váš požadavek na chat byl odeslán. Poradce/poradkyně* na vaši zprávu odpoví podle možností co nejdříve.",
       "inputLabel": "Moje otázka:",
-      "inputPlaceholder": "Rád bych věděl/a...",
+      "chatInputHelperText": "Rád bych věděl/a...",
       "loadingText": "Moment, prosím, spouští se chat...",
       "sendButton": "Odeslat",
       "user": "Vy"
@@ -383,7 +383,7 @@
       "header": "{{appName}} Chat-support",
       "initialMessage": "Din chatanmodning er blevet sendt. Rådgiveren* vil svare på din besked så hurtigt som muligt.",
       "inputLabel": "Mit spørgsmål:",
-      "inputPlaceholder": "Jeg kunne godt tænke mig at vide...",
+      "chatInputHelperText": "Jeg kunne godt tænke mig at vide...",
       "loadingText": "Et øjeblik, chatten starter...",
       "sendButton": "Send",
       "user": "Du"
@@ -397,7 +397,7 @@
       "header": "{{appName}} Υποστήριξη συνομιλίας",
       "initialMessage": "Το αίτημα συνομιλίας σας έχει σταλεί. Ο/Η σύμβουλος θα απαντήσει στο μήνυμά σας το συντομότερο δυνατό.",
       "inputLabel": "Η ερώτησή μου:",
-      "inputPlaceholder": "Θα ήθελα να ξέρω...",
+      "chatInputHelperText": "Θα ήθελα να ξέρω...",
       "loadingText": "Μια στιγμή παρακαλώ, η συνομιλία ξεκινά...",
       "sendButton": "Αποστολή",
       "user": "Εσείς"
@@ -413,7 +413,7 @@
       "human": "Advisor",
       "initialMessage": "Your chat request has been sent. The advisor will answer your message as soon as possible.",
       "inputLabel": "My question:",
-      "inputPlaceholder": "I would like to know...",
+      "chatInputHelperText": "I would like to know...",
       "loadingText": "One moment please, the chat is being started...",
       "sendButton": "Send",
       "user": "You"
@@ -427,7 +427,7 @@
       "header": "Soporte de chat de {{appName}}",
       "initialMessage": "Tu solicitud de chat se ha enviado. Tu asesor/a responderá a tu mensaje lo antes posible.",
       "inputLabel": "Mi pregunta:",
-      "inputPlaceholder": "Me gustaría saber...",
+      "chatInputHelperText": "Me gustaría saber...",
       "loadingText": "Un momento por favor, el chat se está iniciando...",
       "sendButton": "Enviar",
       "user": "Tú"
@@ -441,7 +441,7 @@
       "header": "Sovelluksen {{appName}} chattituki",
       "initialMessage": "Chattipyyntösi on lähetetty. Neuvoja vastaa viestiisi mahdollisimman pian.",
       "inputLabel": "Kysymykseni:",
-      "inputPlaceholder": "Haluaisin tietää...",
+      "chatInputHelperText": "Haluaisin tietää...",
       "loadingText": "Pikku hetki. Chatti käynnistyy...",
       "sendButton": "Lähetä",
       "user": "Sinä"
@@ -455,7 +455,7 @@
       "header": "Assistance du chat {{appName}}",
       "initialMessage": "Ta demande de chat a été envoyée. Le conseiller/la conseillère répond à ton message le plus rapidement possible.",
       "inputLabel": "Ma question :",
-      "inputPlaceholder": "Je veux savoir...",
+      "chatInputHelperText": "Je veux savoir...",
       "loadingText": "Un instant s’il te plaît, le chat va commencer...",
       "sendButton": "Envoyer",
       "user": "Toi"
@@ -469,7 +469,7 @@
       "header": "{{appName}} चैट सहायता",
       "initialMessage": "आपका चैट अनुरोध भेज दिया गया है। सलाहकार यथाशीघ्र आपके संदेश का उत्तर देंगे।",
       "inputLabel": "मेरा प्रश्न:",
-      "inputPlaceholder": "मेरी जानने की इच्छा है...",
+      "chatInputHelperText": "मेरी जानने की इच्छा है...",
       "loadingText": "कृपया एक पल रुकें, चैट शुरू हो रही है...",
       "sendButton": "भेजें",
       "user": "आप"
@@ -483,7 +483,7 @@
       "header": "{{appName}} chat pomoć",
       "initialMessage": "Tvoj upit za chat je poslat. Savjetnik/ca će prvom prilikom odgovoriti na tvoju poruku.",
       "inputLabel": "Moje pitanje:",
-      "inputPlaceholder": "Želim znati...",
+      "chatInputHelperText": "Želim znati...",
       "loadingText": "Sačekajte trenutak, chat se pokreće...",
       "sendButton": "Pošalji",
       "user": "Ti"
@@ -497,7 +497,7 @@
       "header": "{{appName}} Segítségnyújtás csevegőben",
       "initialMessage": "Elküldtük a csevegő iránti kérését. A tanácsadó a lehető leghamarabb válaszol az üzenetére.",
       "inputLabel": "A kérdésem:",
-      "inputPlaceholder": "Szeretném tudni, hogy...",
+      "chatInputHelperText": "Szeretném tudni, hogy...",
       "loadingText": "Kérem, várjon egy pillanatot, amíg a csevegő elindul...",
       "sendButton": "Küldés",
       "user": "Te"
@@ -511,7 +511,7 @@
       "header": "Assistenza {{appName}} via chat",
       "initialMessage": "La tua richiesta di chat è stata inviata. Il consulente risponderà al tuo messaggio quanto prima.",
       "inputLabel": "La mia domanda:",
-      "inputPlaceholder": "Vorrei sapere...",
+      "chatInputHelperText": "Vorrei sapere...",
       "loadingText": "Un momento per favore, avvio chat in corso...",
       "sendButton": "Invia",
       "user": "Tu"
@@ -525,7 +525,7 @@
       "header": "{{appName}} მხარდაჭერა ჩატით",
       "initialMessage": "ჩატის მოთხოვნა გაიგზავნა. კონსულტანტი მაქსიმალურად სწრაფად უპასუხებს შენს შეტყობინებას.",
       "inputLabel": "ჩემი შეკითხვა:",
-      "inputPlaceholder": "მსურს, ვიცოდე...",
+      "chatInputHelperText": "მსურს, ვიცოდე...",
       "loadingText": "ერთი წუთით, თუ შეიძლება, ჩატი დაიწყება...",
       "sendButton": "გაგზავნა",
       "user": "შენ"
@@ -539,7 +539,7 @@
       "header": "{{appName}} Piştevaniya Chatê",
       "initialMessage": "Daxwaza te ya chatê hat şandin. Şêwirmend dê di dema herî lez da bersiva peyama te bide.",
       "inputLabel": "Pirsa min:",
-      "inputPlaceholder": "Ez dixwazim bizanim...",
+      "chatInputHelperText": "Ez dixwazim bizanim...",
       "loadingText": "Ji kerema xwe kêliyekê li bendê bimîne, chat tê destpêkirin...",
       "sendButton": "Şandin",
       "user": "Tu"
@@ -553,7 +553,7 @@
       "header": "Поддршка преку разговор на {{appName}}",
       "initialMessage": "Вашето барање за разговор е испратено. Советувачот ќе одговори на вашата порака што е можно побрзо.",
       "inputLabel": "Моето прашање:",
-      "inputPlaceholder": "Сакам да знам...",
+      "chatInputHelperText": "Сакам да знам...",
       "loadingText": "Почекајте момент, разговорот започнува...",
       "sendButton": "Испраќање",
       "user": "Ти"
@@ -567,7 +567,7 @@
       "header": "{{appName}} Chatondersteuning",
       "initialMessage": "Je chatverzoek is verzonden. De counsellor zal je bericht zo snel mogelijk beantwoorden.",
       "inputLabel": "Mijn vraag:",
-      "inputPlaceholder": "Ik zou graag willen weten...",
+      "chatInputHelperText": "Ik zou graag willen weten...",
       "loadingText": "Een moment alstublieft, de chat begint...",
       "sendButton": "Verzenden",
       "user": "Jij"
@@ -581,7 +581,7 @@
       "header": "{{appName}} Deggersa Chaatii",
       "initialMessage": "Gaaffiin chaatii keessanii ergamee jira. Hanga dandaametti gorsaan hatattamaan deebii isiniif kenna.",
       "inputLabel": "Gaaffii koo:",
-      "inputPlaceholder": "Wanti ani baruu barbaade….",
+      "chatInputHelperText": "Wanti ani baruu barbaade….",
       "loadingText": "Maaloo yeroo tokko, chaatiin jalqabeera….",
       "sendButton": "Erguu",
       "user": "Sii"
@@ -595,7 +595,7 @@
       "header": "{{appName}} پشتیبانی چت",
       "initialMessage": "درخواست چت شما ارسال شد. مشاور در اسرع وقت به پیام شما پاسخ خواهد داد.",
       "inputLabel": "سوال من:",
-      "inputPlaceholder": "من می‌خواهم بدانم...",
+      "chatInputHelperText": "من می‌خواهم بدانم...",
       "loadingText": "لطفاً یک لحظه صبر کنید، چت در حال شروع است...",
       "sendButton": "ارسال",
       "user": "شما"
@@ -609,7 +609,7 @@
       "header": "Obsługa czatu {{appName}}",
       "initialMessage": "Twoja prośba o czat została wysłana. Doradca odpowie na Twoją wiadomość tak szybko, jak to możliwe.",
       "inputLabel": "Moje pytanie:",
-      "inputPlaceholder": "Chcę wiedzieć...",
+      "chatInputHelperText": "Chcę wiedzieć...",
       "loadingText": "Chwileczkę, czat się zaczyna...",
       "sendButton": "Wyślij",
       "user": "Ty"
@@ -623,7 +623,7 @@
       "header": "{{appName}} پشتیبانی چت",
       "initialMessage": "درخواست چت شما ارسال شد. مشاور در اسرع وقت به پیام شما پاسخ خواهد داد.",
       "inputLabel": "سوال من:",
-      "inputPlaceholder": "من میخواهم بدانم...",
+      "chatInputHelperText": "من میخواهم بدانم...",
       "loadingText": "لطفاً یک لحظه صبر کنید، چت در حال شروع شدن است...",
       "sendButton": "ارسال",
       "user": "شما"
@@ -637,7 +637,7 @@
       "header": "{{appName}} د چټ ملاتړ",
       "initialMessage": "ستاسو د چټ غوښتنه واستول شوه. مشاور به ستاسو پيغام ته ژر تر ژره ځواب ووايي.",
       "inputLabel": "زما پوښتنه:",
-      "inputPlaceholder": "زه غواړم په دې پوه شم چې...",
+      "chatInputHelperText": "زه غواړم په دې پوه شم چې...",
       "loadingText": "د مهربانۍ له مخې يوه شېبه انتظار وکړئ، چټ د پيلېدو په حال کې دی...",
       "sendButton": "لېږل",
       "user": "تاسو"
@@ -651,7 +651,7 @@
       "header": "{{appName}} Suporte de conversa",
       "initialMessage": "O teu pedido de conversa foi enviado. O consultor responderá à tua mensagem o mais rapidamente possível.",
       "inputLabel": "A minha pergunta:",
-      "inputPlaceholder": "Gostaria de saber...",
+      "chatInputHelperText": "Gostaria de saber...",
       "loadingText": "Um momento, por favor, a conversa está a começar...",
       "sendButton": "Enviar",
       "user": "Tu"
@@ -665,7 +665,7 @@
       "header": "{{appName}} Suport chat",
       "initialMessage": "Cererea dvs. de chat a fost trimisă. Consilierul va răspunde la mesajul dvs. cât mai curând posibil.",
       "inputLabel": "Întrebarea mea:",
-      "inputPlaceholder": "Aș dori să știu...",
+      "chatInputHelperText": "Aș dori să știu...",
       "loadingText": "Vă rugăm să așteptați un moment; începe chat-ul...",
       "sendButton": "Trimitere",
       "user": "Tu"
@@ -679,7 +679,7 @@
       "header": "{{appName}} Keribaske lafi dejbe dumo",
       "initialMessage": "To keribaskoro lafi rodibe si bičhaldo. O  godjarno ka iranel ko tiro mesaži so šaj sigjeder.",
       "inputLabel": "Mo pučiba:",
-      "inputPlaceholder": "Bi mangav te džanav...",
+      "chatInputHelperText": "Bi mangav te džanav...",
       "loadingText": "Adžikeren harica, o lafi keribe ka širdinel...",
       "sendButton": "Bičhal",
       "user": "Tu"
@@ -693,7 +693,7 @@
       "header": "Чат поддержки {{appName}}",
       "initialMessage": "Твой запрос в чат отправлен. Консультант ответит на твое сообщение в самое ближайшее время.",
       "inputLabel": "Мой вопрос:",
-      "inputPlaceholder": "Я бы хотел/а знать...",
+      "chatInputHelperText": "Я бы хотел/а знать...",
       "loadingText": "Подождите, чат запускается...",
       "sendButton": "Отправить",
       "user": "Ты"
@@ -707,7 +707,7 @@
       "header": "{{appName}} Chatová podpora",
       "initialMessage": "Vaša žiadosť o chat bola odoslaná. Poradca/kyňa odpovie na vašu správu podľa možnosti čo najskôr.",
       "inputLabel": "Moja otázka:",
-      "inputPlaceholder": "Chcel/a by som vedieť...",
+      "chatInputHelperText": "Chcel/a by som vedieť...",
       "loadingText": "Moment, prosím, spúšťa sa chat...",
       "sendButton": "Odoslať",
       "user": "Vy"
@@ -721,7 +721,7 @@
       "header": "{{appName}} Chat Support",
       "initialMessage": "Codsigaaga wada sheekaysiga waa la diray. La-taliyaha ayaa fariintaada sida ugu dhakhsaha badan uga jawaabi doona.",
       "inputLabel": "Su'aashayda:",
-      "inputPlaceholder": "Waxaan doonayaa inaan ogaado...",
+      "chatInputHelperText": "Waxaan doonayaa inaan ogaado...",
       "loadingText": "Hal daqiiqo, wada sheekaysiga wuu bilaabanayaa...",
       "sendButton": "Dir",
       "user": "Adiga"
@@ -735,7 +735,7 @@
       "header": "{{appName}} Chat Support",
       "initialMessage": "Kërkesa jote për bisedë është dërguar. Këshilluesi do t'i përgjigjet mesazhit tënd sa më shpejt të jetë e mundur.",
       "inputLabel": "Pyetja ime:",
-      "inputPlaceholder": "Dua të di...",
+      "chatInputHelperText": "Dua të di...",
       "loadingText": "Një moment të lutem, biseda po fillon...",
       "sendButton": "Dërgo",
       "user": "Ti"
@@ -749,7 +749,7 @@
       "header": "Подршка ћаскањем за {{appName}}",
       "initialMessage": "Твој упит за ћаскање је послат. Саветник/ца ће првом приликом одговорити на твоју поруку.",
       "inputLabel": "Моје питање:",
-      "inputPlaceholder": "Желим да знам...",
+      "chatInputHelperText": "Желим да знам...",
       "loadingText": "Само секунд, ћаскање се покреће...",
       "sendButton": "Пошаљи",
       "user": "Ти"
@@ -763,7 +763,7 @@
       "header": "Podrška ćaskanjem za {{appName}}",
       "initialMessage": "Tvoj upit za ćaskanje je poslat. Savetnik/ca će prvom prilikom odgovoriti na tvoju poruku.",
       "inputLabel": "Moje pitanje:",
-      "inputPlaceholder": "Želim da znam...",
+      "chatInputHelperText": "Želim da znam...",
       "loadingText": "Samo sekund, ćaskanje se pokreće...",
       "sendButton": "Pošalji",
       "user": "Ti"
@@ -777,7 +777,7 @@
       "header": "Usaidizi wa Mazungumzo wa {{appName}}",
       "initialMessage": "Ombi lako la mazungumzo limetumwa. Mshauri atajibu ujumbe wako haraka iwezekanavyo.",
       "inputLabel": "Swali langu:",
-      "inputPlaceholder": "Ningependa kujua...",
+      "chatInputHelperText": "Ningependa kujua...",
       "loadingText": "Tafadhali subiri kidogo, mazungumzo yanaanzishwa...",
       "sendButton": "Tuma",
       "user": "Wewe"
@@ -791,7 +791,7 @@
       "header": "{{appName}} ቻት ደገ ንርእይዮ ኣብቲ.",
       "initialMessage": "ናትካ ሓበሬታ በታ ምርእካ ተሰድደትን ኣብ ሓግ ኣብኩ. በረድ ንሕኡርክትኻ ሰልኣካ ብትኽክልነት እንድውል ይሕብርር ነራን.",
       "inputLabel": "ሕቶይ፡",
-      "inputPlaceholder": "እንተዘሎ…",
+      "chatInputHelperText": "እንተዘሎ…",
       "loadingText": "ቅንይልካ ሓዱሽ በርዕት ትምህሩና እናሓልፎም…",
       "sendButton": "ምርኣይ",
       "user": "ንስኻ"
@@ -805,7 +805,7 @@
       "header": "{{appName}} Sohbet Desteği",
       "initialMessage": "Sohbet isteğin gönderildi. Danışmanlar mesajına mümkün olan en kısa sürede yanıt verecektir.",
       "inputLabel": "Benim sorum:",
-      "inputPlaceholder": "Öğrenmek istediğim...",
+      "chatInputHelperText": "Öğrenmek istediğim...",
       "loadingText": "Lütfen kısaca bekle, sohbet başlatılıyor...",
       "sendButton": "Gönder",
       "user": "Sen"
@@ -819,7 +819,7 @@
       "header": "Підтримка в чаті {{appName}}",
       "initialMessage": "Ваш запит на початок чату відправлено. Консультант якнайшвидше відповість на ваше повідомлення.",
       "inputLabel": "Моє запитання:",
-      "inputPlaceholder": "Мені хотілося б дізнатися...",
+      "chatInputHelperText": "Мені хотілося б дізнатися...",
       "loadingText": "Зачекайте хвилинку, чат починається...",
       "sendButton": "Надіслати",
       "user": "Ви"
@@ -833,7 +833,7 @@
       "header": "{{appName}} چیٹ سپورٹ",
       "initialMessage": "آپ کی چیٹ کی درخواست بھیج دی گئی ہے۔ مشیر جلد از جلد آپ کے پیغام کا جواب دے گا۔",
       "inputLabel": "میرا سوال:",
-      "inputPlaceholder": "میں جاننا چاہتا ہوں...",
+      "chatInputHelperText": "میں جاننا چاہتا ہوں...",
       "loadingText": "براه کرم تھوڑی دیر انتظار کریں، چیٹ شروع ہو رہی ہے...",
       "sendButton": "بھیجیں",
       "user": "آپ"
@@ -847,7 +847,7 @@
       "header": "Hỗ trợ trò chuyện của {{appName}}",
       "initialMessage": "Yêu cầu trò chuyện của bạn đã được gửi. Cố vấn sẽ trả lời tin nhắn trong thời gian sớm nhất có thể.",
       "inputLabel": "Câu hỏi của tôi:",
-      "inputPlaceholder": "Tôi muốn biết...",
+      "chatInputHelperText": "Tôi muốn biết...",
       "loadingText": "Vui lòng chờ một chút, cuộc trò chuyện đang được khởi tạo...",
       "sendButton": "Gửi",
       "user": "Bạn"
@@ -861,7 +861,7 @@
       "header": "{{appName}} 聊天支持",
       "initialMessage": "您的聊天请求已发送。咨询师会尽快回复您的信息。",
       "inputLabel": "我的问题是：",
-      "inputPlaceholder": "我想知道...",
+      "chatInputHelperText": "我想知道...",
       "loadingText": "请稍等，聊天即将开始...",
       "sendButton": "发送",
       "user": "您"
@@ -1213,7 +1213,8 @@
       "ok": "Ok",
       "minimize": "Minimieren",
       "privacyPolicy": "Ich habe die <1>Datenschutzerklärung</1> gelesen und stimme der Verarbeitung und Speicherung meiner Daten zu.",
-      "privacyPolicyLink": "Datenschutzerklärung"
+      "privacyPolicyLink": "Datenschutzerklärung",
+      "clearInput": "Eingabe löschen"
     },
     "am": {
       "copied": "ተቀድቷል",
@@ -1328,7 +1329,8 @@
       "ok": "Ok",
       "minimize": "Minimize",
       "privacyPolicy": "I have read the <1>privacy policy</1> and agree to the processing and storage of my data.",
-      "privacyPolicyLink": "privacy policy"
+      "privacyPolicyLink": "privacy policy",
+      "clearInput": "Clear input"
     },
     "es": {
       "copied": "Copiado",
