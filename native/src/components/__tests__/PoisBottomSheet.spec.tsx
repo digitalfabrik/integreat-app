@@ -11,6 +11,9 @@ jest.mock('../../components/Page')
 jest.mock('@react-native-clipboard/clipboard', () => () => ({ setString: jest.fn() }))
 jest.mock('react-i18next')
 jest.mock('styled-components')
+jest.mock('react-native-safe-area-context', () => ({
+  useSafeAreaInsets: () => jest.fn(),
+}))
 jest.mock('@gorhom/bottom-sheet', () => ({
   __esModule: true,
   ...require('@gorhom/bottom-sheet/mock'),
