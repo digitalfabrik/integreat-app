@@ -30,7 +30,7 @@ const BottomSheetContent = styled.View`
 
 const BottomSpace = styled.View<{ bottomInset: number }>`
   width: 100%;
-  height: ${props => props.bottomInset + 'px'};
+  height: ${props => `${props.bottomInset}px`};
   background-color: ${props => props.theme.colors.backgroundColor};
 `
 
