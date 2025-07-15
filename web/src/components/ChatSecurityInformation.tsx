@@ -3,7 +3,6 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import React, { ReactElement, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import dimensions from '../constants/dimensions'
 import useOnClickOutside from '../hooks/useOnClickOutside'
 import Icon from './base/Icon'
 
@@ -42,7 +41,7 @@ const InformationTooltipContainer = styled.div`
   white-space: pre-line;
   width: 250px;
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     width: 70vw;
   }
 `

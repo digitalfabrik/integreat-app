@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next'
 
 import ChatMessageModel from 'shared/api/models/ChatMessageModel'
 
-import dimensions from '../constants/dimensions'
 import ChatConversation from './ChatConversation'
 import ChatSecurityInformation from './ChatSecurityInformation'
 import LoadingSpinner from './LoadingSpinner'
@@ -21,7 +20,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: space-between;
 
-  @media ${dimensions.mediumLargeViewport} {
+  ${props => props.theme.breakpoints.up('md')} {
     height: 600px;
     min-width: 300px;
   }

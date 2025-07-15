@@ -7,7 +7,6 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import Button from './base/Button'
 import Icon from './base/Icon'
@@ -31,7 +30,7 @@ const StyledTtsPlayer = styled.dialog<{ isPlaying: boolean; footerHeight: number
   gap: ${props => (props.isPlaying ? '4px;' : '36px')};
   border-color: transparent;
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     width: auto;
   }
 `

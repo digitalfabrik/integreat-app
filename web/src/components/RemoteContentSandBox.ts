@@ -1,7 +1,6 @@
 import styled from '@emotion/styled'
 
 import { ExternalLinkIcon, PersonIcon } from '../assets'
-import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
 
 const RemoteContentSandBox = styled.div<{ centered: boolean; smallText: boolean }>`
@@ -105,7 +104,7 @@ const RemoteContentSandBox = styled.div<{ centered: boolean; smallText: boolean 
     border: none;
     border-bottom: 1px solid ${props => props.theme.colors.borderColor};
 
-    @media ${dimensions.smallViewport} {
+    ${props => props.theme.breakpoints.down('md')} {
       max-width: 100%;
     }
   }
@@ -175,7 +174,7 @@ const RemoteContentSandBox = styled.div<{ centered: boolean; smallText: boolean 
       margin-inline-end: 8px;
     }
 
-    @media ${dimensions.smallViewport} {
+    ${props => props.theme.breakpoints.down('md')} {
       width: 100%;
     }
   }

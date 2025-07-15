@@ -7,7 +7,6 @@ import { useTranslation } from 'react-i18next'
 import { DEFAULT_ROWS_NUMBER } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
-import dimensions from '../constants/dimensions'
 import FeedbackButtons from './FeedbackButtons'
 import { SendingStatusType } from './FeedbackContainer'
 import Note from './Note'
@@ -30,7 +29,7 @@ export const Container = styled.div<{ fullWidth?: boolean }>`
   align-self: center;
   gap: 16px;
 
-  @media ${dimensions.mediumLargeViewport} {
+  ${props => props.theme.breakpoints.up('md')} {
     width: ${props => (props.fullWidth ? 'auto' : '400px')};
   }
 `

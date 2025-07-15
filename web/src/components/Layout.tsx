@@ -53,15 +53,17 @@ const Body = styled.div<{ fullWidth: boolean; disableScrollingSafari: boolean }>
   ${props =>
     !props.fullWidth &&
     css`
-      @media screen and ${dimensions.minMaxWidth} {
-        padding-inline: calc((100vw - ${dimensions.maxWidth}px) / 2) calc((200% - 100vw - ${dimensions.maxWidth}px) / 2);
+      ${props.theme.breakpoints.up('lg')} {
+        padding-inline: calc((100vw - ${props.theme.breakpoints.values.lg}px) / 2)
+          calc((200% - 100vw - ${props.theme.breakpoints.values.lg}px) / 2);
       }
     `};
 `
 
 const Main = styled.main<{ fullWidth: boolean }>`
   display: inline-block;
-  width: ${props => (props.fullWidth ? '100%' : `${dimensions.maxWidth - 2 * dimensions.toolbarWidth}px`)};
+  width: ${props =>
+    props.fullWidth ? '100%' : `${props.theme.breakpoints.values.lg - 2 * dimensions.toolbarWidth}px`};
   max-width: ${props => (props.fullWidth ? '100%' : `calc(100% - ${dimensions.toolbarWidth}px)`)};
   box-sizing: border-box;
   margin: 0 auto;
@@ -73,7 +75,7 @@ const Main = styled.main<{ fullWidth: boolean }>`
     margin: ${props => props.theme.fonts.standardParagraphMargin} 0;
   }
 
-  @media screen and ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     position: static;
     width: 100%;
     max-width: initial;
@@ -87,7 +89,7 @@ const Aside = styled.aside`
   width: 100px;
   left: 0;
 
-  @media ${dimensions.minMaxWidth} {
+  ${props => props.theme.breakpoints.up('lg')} {
     inset-inline-start: 8%;
   }
 
