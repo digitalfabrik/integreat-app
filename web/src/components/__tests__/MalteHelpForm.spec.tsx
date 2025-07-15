@@ -54,7 +54,7 @@ describe('MalteHelpForm', () => {
   }
 
   it('should submit the form successfully with an email', () => {
-    const { getByLabelText, getAllByLabelText, getByText } = renderWithTheme(<MalteHelpForm {...props} />)
+    const { getByLabelText, getByText } = renderWithTheme(<MalteHelpForm {...props} />)
 
     const submitButton = getByText(submitButtonLabel)
     expect(submitButton).toBeDisabled()
@@ -67,7 +67,7 @@ describe('MalteHelpForm', () => {
     fireEvent.change(roomNumberInput, { target: { value: roomNumber } })
     expect(submitButton).toBeDisabled()
 
-    const emailInput = getAllByLabelText(emailInputLabel, { exact: false })[1]!
+    const emailInput = document.getElementById('email-input')!
     fireEvent.change(emailInput, { target: { value: email } })
     fireEvent.click(getByText('common:privacyPolicy'))
     expect(submitButton).toBeEnabled()
@@ -104,13 +104,13 @@ describe('MalteHelpForm', () => {
     fireEvent.change(roomNumberInput, { target: { value: roomNumber } })
     expect(submitButton).toBeDisabled()
 
-    const phoneButton = getAllByLabelText(phoneInputLabel, { exact: false })[0]!
+    const phoneButton = getByLabelText(phoneInputLabel, { exact: false })
     expect(phoneButton).not.toBeChecked()
     fireEvent.click(phoneButton)
     expect(phoneButton).toBeChecked()
     expect(submitButton).toBeDisabled()
 
-    const phoneInput = getAllByLabelText(phoneInputLabel, { exact: false })[1]!
+    const phoneInput = document.getElementById('telephone-input')!
     fireEvent.change(phoneInput, { target: { value: phoneNumber } })
     fireEvent.click(getByText('common:privacyPolicy'))
     expect(submitButton).toBeEnabled()
@@ -272,7 +272,7 @@ describe('MalteHelpForm', () => {
     fireEvent.change(roomNumberInput, { target: { value: roomNumber } })
     expect(submitButton).toBeDisabled()
 
-    const emailInput = getAllByLabelText(emailInputLabel, { exact: false })[1]!
+    const emailInput = document.getElementById('email-input')!
     fireEvent.change(emailInput, { target: { value: email } })
     expect(submitButton).toBeDisabled()
 
@@ -301,7 +301,7 @@ describe('MalteHelpForm', () => {
     fireEvent.change(roomNumberInput, { target: { value: roomNumber } })
     expect(submitButton).toBeDisabled()
 
-    const emailInput = getAllByLabelText(emailInputLabel, { exact: false })[1]!
+    const emailInput = document.getElementById('email-input')!
     fireEvent.change(emailInput, { target: { value: 'email' } })
     fireEvent.click(getByText('common:privacyPolicy'))
     expect(submitButton).toBeEnabled()
@@ -345,7 +345,7 @@ describe('MalteHelpForm', () => {
     fireEvent.change(roomNumberInput, { target: { value: roomNumber } })
     expect(submitButton).toBeDisabled()
 
-    const emailInput = getAllByLabelText(emailInputLabel, { exact: false })[1]!
+    const emailInput = document.getElementById('email-input')!
     fireEvent.change(emailInput, { target: { value: email } })
     fireEvent.click(getByText('common:privacyPolicy'))
     expect(submitButton).toBeEnabled()

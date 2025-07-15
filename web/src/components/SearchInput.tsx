@@ -1,7 +1,9 @@
 import styled from '@emotion/styled'
+import HighlightOffIcon from '@mui/icons-material/HighlightOff'
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined'
-import { InputAdornment, TextField } from '@mui/material'
+import { IconButton, InputAdornment, TextField } from '@mui/material'
 import React, { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
@@ -66,31 +68,44 @@ const SearchInput = ({
   spaceSearch = false,
   description,
   searchInputRef,
-}: SearchInputProps): ReactElement => (
-  <Spacer space={spaceSearch} ref={searchInputRef}>
-    <Wrapper>
-      <Column>
-        <StyledTextField
-          placeholder={placeholderText}
-          aria-label={placeholderText}
-          value={filterText}
-          onChange={event => onFilterTextChange(event.target.value)}
-          onClick={onClickInput}
-          autoFocus
-          slotProps={{
-            input: {
-              endAdornment: (
-                <InputAdornment position='start'>
-                  <Icon src={SearchOutlinedIcon} />
-                </InputAdornment>
-              ),
-            },
-          }}
-        />
-        {!!description && <Description>{description}</Description>}
-      </Column>
-    </Wrapper>
-  </Spacer>
-)
+}: SearchInputProps): ReactElement => {
+  const { t } = useTranslation('common')
+  return (
+    <Spacer space={spaceSearch} ref={searchInputRef}>
+      <Wrapper>
+        <Column>
+          <StyledTextField
+            placeholder={placeholderText}
+            aria-label={placeholderText}
+            value={filterText}
+            onChange={event => onFilterTextChange(event.target.value)}
+            onClick={onClickInput}
+            autoFocus
+            slotProps={{
+              input: {
+                endAdornment: filterText ? (
+                  <InputAdornment position='start'>
+                    <IconButton
+                      onClick={() => onFilterTextChange('')}
+                      edge='end'
+                      size='small'
+                      aria-label={t('clearInput')}>
+                      <Icon src={HighlightOffIcon} />
+                    </IconButton>
+                  </InputAdornment>
+                ) : (
+                  <InputAdornment position='start'>
+                    <Icon src={SearchOutlinedIcon} />
+                  </InputAdornment>
+                ),
+              },
+            }}
+          />
+          {!!description && <Description>{description}</Description>}
+        </Column>
+      </Wrapper>
+    </Spacer>
+  )
+}
 
 export default SearchInput

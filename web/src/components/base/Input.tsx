@@ -18,6 +18,7 @@ export type InputProps = {
   label?: string
   placeholder?: string
   autoFocus?: boolean
+  isClearbuttonEnabled?: boolean
   onClick?: React.MouseEventHandler<HTMLDivElement> | undefined
 }
 
@@ -34,6 +35,7 @@ const Input = ({
   required,
   hint,
   autoFocus = false,
+  isClearbuttonEnabled = false,
   onClick,
 }: InputProps): ReactElement => {
   const onInputChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -67,11 +69,8 @@ const Input = ({
         htmlInput: {
           maxLength,
         },
-        inputLabel: {
-          shrink: true,
-        },
         input: {
-          endAdornment: value && (
+          endAdornment: value && isClearbuttonEnabled && (
             <InputAdornment position='end'>
               <IconButton onClick={() => onChange('')} edge='end' size='small' aria-label={t('clearInput')}>
                 <Icon src={HighlightOffIcon} />
