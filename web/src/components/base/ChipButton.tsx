@@ -90,6 +90,7 @@ const mapPropsToMuiChipProps = (props: ChipButtonProps, theme: Theme): ChipOwnPr
     variant: 'filled',
     icon: iconElement,
     sx: {
+      backgroundColor: theme.palette.neutral[100],
       '.MuiChip-label': {
         color: theme.palette.neutral[900],
       },
