@@ -140,6 +140,13 @@ const SharingPopupContainer = styled.div`
   position: relative;
 `
 
+const StyledCheckIcon = withIconStyle(CheckIcon)
+const StyledCopyIcon = withIconStyle(ContentCopyIcon)
+const StyledWhatsAppIcon = withIconStyle(WhatsAppIcon)
+const StyledMailIcon = withIconStyle(MailOutlinedIcon)
+const StyledFacebookIcon = withIconStyle(FacebookOutlinedIcon)
+const StyledCloseIcon = withIconStyle(CloseIcon)
+
 const COPY_TIMEOUT = 3000
 
 const SharingPopup = ({ shareUrl, title, flow, portalNeeded }: SharingPopupProps): ReactElement => {
