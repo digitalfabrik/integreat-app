@@ -4,6 +4,7 @@ import FastForwardIcon from '@mui/icons-material/FastForward'
 import FastRewindIcon from '@mui/icons-material/FastRewind'
 import PauseIcon from '@mui/icons-material/Pause'
 import PlayArrowIcon from '@mui/icons-material/PlayArrow'
+import IconButton from '@mui/material/IconButton'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -58,7 +59,7 @@ const BaseButton = styled(Button)`
   }
 `
 
-const PlayButton = styled(BaseButton)<{ disabled: boolean }>`
+const PlayButton = styled(IconButton)<{ disabled: boolean }>`
   background-color: ${props => {
     if (props.disabled) {
       return props.theme.colors.textDisabledColor
@@ -156,7 +157,11 @@ const TtsPlayer = ({
             <StyledPlaybackIcon src={FastRewindIcon} />
           </StyledButton>
         )}
-        <PlayButton label={t(isPlaying ? 'pause' : 'play')} onClick={isPlaying ? pause : play} disabled={disabled}>
+        <PlayButton
+          aria-label={t(isPlaying ? 'pause' : 'play')}
+          onClick={isPlaying ? pause : play}
+          disabled={disabled}
+          disableRipple>
           <StyledPlayIcon src={isPlaying ? PauseIcon : PlayArrowIcon} />
         </PlayButton>
         {isPlaying && (
