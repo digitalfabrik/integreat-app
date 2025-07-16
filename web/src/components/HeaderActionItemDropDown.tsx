@@ -10,18 +10,19 @@ import Icon from './base/Icon'
 import Tooltip from './base/Tooltip'
 
 const StyledIcon = styled(Icon)`
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
+  color: ${props => props.theme.palette.primary.dark};
 `
 const ActionBox = styled(Button)`
-  padding: 4px 6px;
+  padding: 6px 12px;
   display: flex;
-  color: ${props => props.theme.colors.textColor};
-  border: 1px solid ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.palette.primary.dark};
+  background-color: ${props => props.theme.palette.tertiary.light};
   border-radius: 4px;
   justify-content: center;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
 `
 
 const StyledText = styled.span`

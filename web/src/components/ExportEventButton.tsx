@@ -13,6 +13,11 @@ const ButtonContainer = styled.div`
   display: flex;
   gap: 16px;
 `
+const StyledButton = styled(Button)`
+  &:hover {
+    background-color: ${props => props.theme.palette.primary.light};
+  }
+`
 
 type ExportEventButtonProps = {
   event: EventModel
@@ -52,8 +57,8 @@ const ExportEventButton = ({ event }: ExportEventButtonProps): ReactElement => {
         ]}
       />
       <ButtonContainer>
-        <Button onClick={() => setIsExporting(false)}>{t('layout:cancel')}</Button>
-        <Button
+        <StyledButton onClick={() => setIsExporting(false)}>{t('layout:cancel')}</StyledButton>
+        <StyledButton
           onClick={() => {
             downloadEventAsIcsFile(event, exportRecurring)
             setExportRecurring(false)
@@ -62,15 +67,16 @@ const ExportEventButton = ({ event }: ExportEventButtonProps): ReactElement => {
           variant='outlined'
           startIcon={<DownloadIcon />}>
           {t('export')}
-        </Button>
+        </StyledButton>
       </ButtonContainer>
     </>
   ) : (
-    <Button
+    <StyledButton
       onClick={() => (isRecurring ? setIsExporting(true) : downloadEventAsIcsFile(event, false))}
-      startIcon={<DownloadIcon />}>
+      startIcon={<DownloadIcon />}
+      variant='outlined'>
       {t('export')}
-    </Button>
+    </StyledButton>
   )
 }
 
