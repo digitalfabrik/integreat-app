@@ -1,13 +1,13 @@
 import { useTheme } from '@emotion/react'
 import styled from '@emotion/styled'
 import { IconButton, SvgIconProps } from '@mui/material/SvgIcon'
+import IconButton from '@mui/material/IconButton'
 import React, { ElementType, ReactElement } from 'react'
 import { PlacesType } from 'react-tooltip'
 
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { spacesToDashes } from '../utils/stringUtils'
 import Icon from './base/Icon'
-import Link from './base/Link'
 import Tooltip from './base/Tooltip'
 
 const StyledIcon = styled(Icon)`
@@ -33,7 +33,12 @@ const HeaderActionItemLink = ({ to, text, iconSrc }: HeaderActionItemLinkProps):
   return (
     <Tooltip id={id} place={tooltipDirection} tooltipContent={text}>
       {to ? (
-        <Link to={to} ariaLabel={text} id={id}>
+        <IconButton
+          component='a'
+          href={to}
+          aria-label={text}
+          id={id}
+          sx={{ backgroundColor: theme.palette.tertiary.light }}>
           <IconButton
             name={text}
             sx={{ backgroundColor: theme.palette.tertiary.light }}
@@ -42,7 +47,7 @@ const HeaderActionItemLink = ({ to, text, iconSrc }: HeaderActionItemLinkProps):
             aria-label={text}>
             <StyledIcon src={iconSrc} />
           </IconButton>
-        </Link>
+        </IconButton>
       ) : (
         <span aria-label={text} id={id}>
           <StyledIcon src={iconSrc} />
