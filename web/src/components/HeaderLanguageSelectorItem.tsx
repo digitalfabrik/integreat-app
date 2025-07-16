@@ -1,4 +1,4 @@
-import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined'
+import TranslateOutlinedIcon from '@mui/icons-material/TranslateOutlined'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -37,7 +37,7 @@ const HeaderLanguageSelectorItem = ({
   const renderActionItem = () => {
     if (inKebabMenu && closeSidebar) {
       return (
-        <KebabActionItemDropDown iconSrc={LanguageOutlinedIcon} text={t('changeLanguage')} closeSidebar={closeSidebar}>
+        <KebabActionItemDropDown iconSrc={TranslateOutlinedIcon} text={t('changeLanguage')} closeSidebar={closeSidebar}>
           {renderItem}
         </KebabActionItemDropDown>
       )
@@ -45,7 +45,7 @@ const HeaderLanguageSelectorItem = ({
 
     return (
       <HeaderActionItemDropDown
-        iconSrc={LanguageOutlinedIcon}
+        iconSrc={TranslateOutlinedIcon}
         text={t('changeLanguage')}
         innerText={selectorItems.find(item => item.code === activeItemCode)?.name}>
         {renderItem}
@@ -57,7 +57,7 @@ const HeaderLanguageSelectorItem = ({
     return renderActionItem()
   }
 
-  return <HeaderActionBarItemLink text={noLanguagesHint} iconSrc={LanguageOutlinedIcon} />
+  return <HeaderActionBarItemLink text={noLanguagesHint} iconSrc={TranslateOutlinedIcon} />
 }
 
 export default HeaderLanguageSelectorItem
