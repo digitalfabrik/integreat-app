@@ -44,6 +44,8 @@ describe('pois', () => {
     temporarily_closed: false,
     appointment_url: 'https://set.up/an/appointment',
     opening_hours: null,
+    organization: null,
+    barrier_free: null,
   })
 
   const createPoiModel = () =>
@@ -77,6 +79,8 @@ describe('pois', () => {
       temporarilyClosed: false,
       openingHours: null,
       appointmentUrl: 'https://set.up/an/appointment',
+      organization: null,
+      barrierFree: null,
     })
 
   const poi1 = createPoi(2730)

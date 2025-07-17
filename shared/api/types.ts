@@ -55,6 +55,12 @@ type JsonEventInfoType = {
   recurrence_id: string | null | undefined
 }
 
+export type OrganizationType = {
+  name: string
+  website: string
+  logo: string
+} | null
+
 export type JsonCategoryType = {
   id: number
   url: string
@@ -71,11 +77,7 @@ export type JsonCategoryType = {
     path: string | null
   }
   order: number
-  organization: {
-    name: string
-    logo: string
-    website: string
-  } | null
+  organization: OrganizationType
   embedded_offers: JsonOfferType[]
 }
 
@@ -119,6 +121,8 @@ export type JsonPoiType = {
   appointment_url: string | null
   category: JsonPoiCategoryType
   contacts: JsonContactType[]
+  organization: OrganizationType
+  barrier_free: boolean | null
 }
 
 export type JsonEventType = {

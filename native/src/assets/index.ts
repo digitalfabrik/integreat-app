@@ -2,6 +2,7 @@
 import EventThumbnailPlaceholder1 from '../../../assets/event-thumbnail-placeholder-1.jpg'
 import EventThumbnailPlaceholder2 from '../../../assets/event-thumbnail-placeholder-2.jpg'
 import EventThumbnailPlaceholder3 from '../../../assets/event-thumbnail-placeholder-3.jpg'
+import AccessibleIcon from '../../../assets/icons/accessible.svg'
 import ArrowBackIcon from '../../../assets/icons/arrow-back.svg'
 import CalendarRecurringIcon from '../../../assets/icons/calendar-recurring.svg'
 import CalendarTodayRecurringIcon from '../../../assets/icons/calendar-today-recurring.svg'
@@ -23,6 +24,7 @@ import MailIcon from '../../../assets/icons/mail.svg'
 import MenuIcon from '../../../assets/icons/menu.svg'
 import NewsIcon from '../../../assets/icons/news.svg'
 import NoInternetIcon from '../../../assets/icons/no-internet.svg'
+import NotAccessibleIcon from '../../../assets/icons/not-accessible.svg'
 import NoteIcon from '../../../assets/icons/note.svg'
 import PauseIcon from '../../../assets/icons/pause.svg'
 import PhoneIcon from '../../../assets/icons/phone.svg'
@@ -50,25 +52,21 @@ import PoiThumbnailPlaceholderLarge from '../../../assets/poi-thumbnail-placehol
 import PoiThumbnailPlaceholder from '../../../assets/poi-thumbnail-placeholder.jpg'
 
 export {
+  AccessibleIcon,
   ArrowBackIcon,
-  CategoriesIcon,
   CalendarIcon,
   CalendarRecurringIcon,
   CalendarTodayIcon,
   CalendarTodayRecurringIcon,
+  CategoriesIcon,
   ClockIcon,
   CloseIcon,
   EditLocationIcon,
   EventThumbnailPlaceholder1,
   EventThumbnailPlaceholder2,
   EventThumbnailPlaceholder3,
-  ExternalLinkIcon,
   ExpandIcon,
-  ShrinkIcon,
-  LocationFixedIcon,
-  LocationMarkerIcon,
-  LocationNotFixedIcon,
-  LocationOffIcon,
+  ExternalLinkIcon,
   HappySmileyIcon,
   IntroLanguageIcon,
   IntroNewsIcon,
@@ -77,26 +75,32 @@ export {
   IntroSearchIcon,
   IntroWelcomeIcon,
   LanguageIcon,
+  LocationFixedIcon,
+  LocationMarkerIcon,
+  LocationNotFixedIcon,
+  LocationOffIcon,
   MailIcon,
   MenuIcon,
   NewsIcon,
   NoInternetIcon,
+  NotAccessibleIcon,
   NoteIcon,
   PhoneIcon,
   POIsIcon,
+  PauseIcon,
+  PlaybackIcon,
+  PlayIcon,
   PoiThumbnailPlaceholder,
   PoiThumbnailPlaceholderLarge,
   RefreshIcon,
   SadSmileyIcon,
   SearchIcon,
   SecurityIcon,
+  ShrinkIcon,
   SprungbrettIcon,
   SupportIcon,
   TuNewsActiveIcon,
   TuNewsInactiveIcon,
   WarningIcon,
   WebsiteIcon,
-  PauseIcon,
-  PlaybackIcon,
-  PlayIcon,
 }

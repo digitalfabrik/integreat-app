@@ -20,6 +20,7 @@ import {
   PoiCategoryModel,
   OrganizationModel,
   OfferModel,
+  OrganizationType,
 } from 'shared/api'
 
 import DatabaseContext from '../models/DatabaseContext'
@@ -57,11 +58,7 @@ type ContentCategoryJsonType = {
   parent_path: string
   children: string[]
   order: number
-  organization: {
-    name: string
-    logo: string
-    url: string
-  } | null
+  organization: OrganizationType
   embedded_offers: OfferJsonType[]
 }
 
@@ -165,6 +162,8 @@ type ContentPoiJsonType = {
     | null
   temporarilyClosed: boolean
   appointmentUrl: string | null
+  organization: OrganizationType | null
+  barrierFree: boolean | null
 }
 
 type ContentLocalNewsJsonType = {
@@ -410,7 +409,7 @@ class DatabaseConnector {
           ? {
               name: category.organization.name,
               logo: category.organization.logo,
-              url: category.organization.url,
+              website: category.organization.url,
             }
           : null,
         embedded_offers: category.embeddedOffers.map(offer => ({
@@ -440,13 +439,14 @@ class DatabaseConnector {
               order: jsonObject.order,
               availableLanguages: jsonObject.available_languages,
               lastUpdate: DateTime.fromISO(jsonObject.last_update),
-              organization: jsonObject.organization
-                ? new OrganizationModel({
-                    name: jsonObject.organization.name,
-                    logo: jsonObject.organization.logo,
-                    url: jsonObject.organization.url,
-                  })
-                : null,
+              organization:
+                jsonObject.organization !== null
+                  ? new OrganizationModel({
+                      name: jsonObject.organization.name,
+                      logo: jsonObject.organization.logo,
+                      url: jsonObject.organization.website,
+                    })
+                  : null,
               embeddedOffers: jsonObject.embedded_offers.map(
                 jsonOffer =>
                   new OfferModel({
@@ -510,6 +510,15 @@ class DatabaseConnector {
           })) ?? null,
         temporarilyClosed: poi.temporarilyClosed,
         appointmentUrl: poi.appointmentUrl,
+        organization:
+          poi.organization !== null
+            ? {
+                name: poi.organization.name,
+                logo: poi.organization.logo,
+                website: poi.organization.url,
+              }
+            : null,
+        barrierFree: poi.barrierFree ?? null,
       }),
     )
     await this.writeFile(this.getContentPath('pois', context), JSON.stringify(jsonModels))
@@ -572,6 +581,15 @@ class DatabaseConnector {
             ) ?? null,
           temporarilyClosed: jsonObject.temporarilyClosed,
           appointmentUrl: jsonObject.appointmentUrl,
+          organization:
+            jsonObject.organization !== null
+              ? new OrganizationModel({
+                  name: jsonObject.organization.name,
+                  logo: jsonObject.organization.logo,
+                  url: jsonObject.organization.website,
+                })
+              : null,
+          barrierFree: jsonObject.barrierFree ?? null,
         })
       })
 
