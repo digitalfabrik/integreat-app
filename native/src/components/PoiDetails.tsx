@@ -1,17 +1,17 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Text } from 'react-native'
 import styled from 'styled-components/native'
 
 import { PoiModel } from 'shared/api'
 
-import { AccessibleIcon, NotAccessibleIcon, PoiThumbnailPlaceholderLarge } from '../assets'
+import { PoiThumbnailPlaceholderLarge } from '../assets'
 import AddressInfo from './AddressInfo'
 import Collapsible from './Collapsible'
 import Contact from './Contact'
 import HorizontalLine from './HorizontalLine'
 import OpeningHours from './OpeningHours'
 import Page from './Page'
+import PoiChips from './PoiChips'
 import SimpleImage from './SimpleImage'
 
 const Thumbnail = styled(SimpleImage)`
@@ -39,26 +39,6 @@ const StyledDistance = styled.Text`
   color: ${props => props.theme.colors.textColor};
 `
 
-const ChipsContainer = styled.View`
-  flex-flow: row wrap;
-  gap: 8px;
-`
-
-const Chip = styled.View`
-  height: 24px;
-  border-radius: 12px;
-  border: 1px solid rgba(0, 0, 0, 0.38);
-  flex-direction: row;
-  align-items: center;
-  gap: 6px;
-  padding-inline: 12px;
-`
-
-const ChipIcon = styled(SimpleImage)`
-  width: 12px;
-  height: 12px;
-`
-
 const StyledContactsContainer = styled.View`
   margin-top: 12px;
 `
@@ -76,19 +56,6 @@ const PoiDetails = ({ poi, language, distance }: PoiDetailsProps): ReactElement 
   const appointmentOverlayUrl =
     appointmentUrl ?? poi.contacts.find(contact => contact.website !== null)?.website ?? null
 
-  const barrierFreeChip =
-    poi.barrierFree === true ? (
-      <>
-        <ChipIcon source={AccessibleIcon} />
-        <Text>{t('common:accessible')}</Text>
-      </>
-    ) : (
-      <>
-        <ChipIcon source={NotAccessibleIcon} />
-        <Text>{t('common:notAccessible')}</Text>
-      </>
-    )
-
   return (
     <PoiDetailsContainer accessibilityLabel={`${title} - ${category.name}`}>
       <Title>{title}</Title>
@@ -97,16 +64,7 @@ const PoiDetails = ({ poi, language, distance }: PoiDetailsProps): ReactElement 
       )}
       <Thumbnail source={thumbnail} resizeMode='cover' />
       <HorizontalLine />
-      <ChipsContainer>
-        {poi.barrierFree !== null && <Chip>{barrierFreeChip}</Chip>}
-        <Chip>
-          <Text>{poi.organization?.name}</Text>
-        </Chip>
-        <Chip>
-          <ChipIcon source={poi.category.icon} />
-          <Text>{poi.category.name}</Text>
-        </Chip>
-      </ChipsContainer>
+      <PoiChips poi={poi} />
       <HorizontalLine />
       <AddressInfo location={poi.location} language={language} />
       <HorizontalLine />
