@@ -57,7 +57,7 @@ const pois = [
       }),
     ],
     organization: null,
-    barrierFree: null,
+    barrierFree: true,
   }),
   new PoiModel({
     path: '/augsburg/en/locations/test_path_2',
@@ -100,7 +100,7 @@ const pois = [
     appointmentUrl: 'https://booking.an/appointment',
     contacts: [],
     organization: null,
-    barrierFree: null,
+    barrierFree: false,
   }),
   new PoiModel({
     path: '/augsburg/en/locations/another_test_path',
