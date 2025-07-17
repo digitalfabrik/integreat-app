@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { AccessibilityRole, KeyboardTypeOptions } from 'react-native'
+// react-native-external-keyboard can be removed after we update react native to 0.80.0 which fixes the keyboard focus issue for TextInput
 import { KeyboardExtendedInput } from 'react-native-external-keyboard'
 import styled, { css } from 'styled-components/native'
 

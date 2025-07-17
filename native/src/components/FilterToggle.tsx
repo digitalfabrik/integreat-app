@@ -30,7 +30,7 @@ type DateFilterToggleProps = {
 const FilterToggle = ({ isDateFilterActive, setToggleDateFilter }: DateFilterToggleProps): ReactElement => {
   const { t } = useTranslation('events')
   return (
-    <KeyboardedTouchable onPress={() => setToggleDateFilter(!isDateFilterActive)}>
+    <KeyboardedTouchable onPress={() => setToggleDateFilter(!isDateFilterActive)} focusable autoFocus>
       <Icon Icon={isDateFilterActive ? ShrinkIcon : ExpandIcon} />
       <StyledText>{t(isDateFilterActive ? 'hideFilters' : 'showFilters')}</StyledText>
     </KeyboardedTouchable>
