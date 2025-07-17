@@ -1,18 +1,27 @@
 import React, { ReactElement } from 'react'
-import { Text, View } from 'react-native'
+import { Text, View, Keyboard } from 'react-native'
+// react-native-external-keyboard can be removed after we update react native to 0.80.0 which fixes the keyboard focus issue for TextInput
+import { KeyboardExtendedInput } from 'react-native-external-keyboard'
 import styled, { useTheme } from 'styled-components/native'
 
 import { SearchIcon } from '../assets'
 import testID from '../testing/testID'
 import Icon from './base/Icon'
 
-const Input = styled.TextInput`
+const InputWrapper = styled.View`
   margin: 0 4px;
   flex-grow: 1;
   border-bottom-width: 1px;
   border-bottom-color: ${props => props.theme.colors.textSecondaryColor};
   color: ${props => props.theme.colors.textColor};
 `
+
+const Input = (props: React.ComponentProps<typeof KeyboardExtendedInput>) => (
+  <InputWrapper>
+    <KeyboardExtendedInput {...props} />
+  </InputWrapper>
+)
+
 const Wrapper = styled.View<{ space: boolean }>`
   flex-direction: row;
   ${props => (props.space ? 'margin: 50px 0;' : '')}
@@ -53,10 +62,14 @@ const SearchInput = ({
         <Input
           {...testID('Search-Input')}
           multiline={false}
+          autoFocus
+          onBlur={() => {
+            Keyboard.dismiss()
+          }}
           placeholderTextColor={theme.colors.textSecondaryColor}
           placeholder={placeholderText}
           aria-label={placeholderText}
-          defaultValue={filterText}
+          value={filterText}
           onChangeText={onFilterTextChange}
           role='searchbox'
         />

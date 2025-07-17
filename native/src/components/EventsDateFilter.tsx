@@ -93,29 +93,31 @@ const EventsDateFilter = ({
       )}
       <FilterToggle isDateFilterActive={showDateFilter} setToggleDateFilter={setShowDateFilter} />
       <Accordion isOpen={showDateFilter} viewKey='Accordion'>
-        <DateSection>
-          <>
-            <DatePicker
-              modalOpen={modalOpen}
-              setModalOpen={setModalOpenAndCurrentInputFrom}
-              setDate={setStartDate}
-              title={t('from')}
-              error={startDateError ? t(startDateError) : ''}
-              date={startDate}
-              placeholderDate={today}
-              calendarLabel={t('selectStartDateCalendar')}
-            />
-            <DatePicker
-              modalOpen={modalOpen}
-              setModalOpen={setModalOpenAndCurrentInputTo}
-              setDate={setEndDate}
-              title={t('to')}
-              date={endDate}
-              placeholderDate={inAWeek}
-              calendarLabel={t('selectEndDateCalendar')}
-            />
-          </>
-        </DateSection>
+        {showDateFilter ? (
+          <DateSection>
+            <>
+              <DatePicker
+                modalOpen={modalOpen}
+                setModalOpen={setModalOpenAndCurrentInputFrom}
+                setDate={setStartDate}
+                title={t('from')}
+                error={startDateError ? t(startDateError) : ''}
+                date={startDate}
+                placeholderDate={today}
+                calendarLabel={t('selectStartDateCalendar')}
+              />
+              <DatePicker
+                modalOpen={modalOpen}
+                setModalOpen={setModalOpenAndCurrentInputTo}
+                setDate={setEndDate}
+                title={t('to')}
+                date={endDate}
+                placeholderDate={inAWeek}
+                calendarLabel={t('selectEndDateCalendar')}
+              />
+            </>
+          </DateSection>
+        ) : null}
       </Accordion>
       <>
         {(startDate || endDate) && (
