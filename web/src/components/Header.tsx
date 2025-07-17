@@ -33,8 +33,9 @@ const HeaderContainer = styled.header`
   overflow: visible;
   box-shadow: 0 2px 5px -3px rgb(0 0 0 / 20%);
 
-  @media ${dimensions.minMaxWidth} {
-    padding-inline: calc((100vw - ${dimensions.maxWidth}px) / 2) calc((200% - 100vw - ${dimensions.maxWidth}px) / 2);
+  ${props => props.theme.breakpoints.up('lg')} {
+    padding-inline: calc((100vw - ${props => props.theme.breakpoints.values.lg}px) / 2)
+      calc((200% - 100vw - ${props => props.theme.breakpoints.values.lg}px) / 2);
   }
 `
 
@@ -47,7 +48,7 @@ const Row = styled.div`
   flex-direction: row;
   justify-content: space-between;
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     background-color: ${props => props.theme.colors.backgroundAccentColor};
     justify-content: space-between;
     flex-wrap: wrap;
@@ -65,7 +66,7 @@ const HeaderSeparator = styled.div`
   background-color: ${props => props.theme.colors.textDecorationColor};
   order: 2;
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     display: none;
   }
 `
@@ -78,7 +79,7 @@ const ActionBar = styled.nav`
   gap: 12px;
   padding: 0 16px;
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     order: 2;
   }
 `
@@ -90,7 +91,7 @@ const NavigationBar = styled.nav`
   justify-content: center;
   gap: 24px;
 
-  @media ${dimensions.mediumLargeViewport} {
+  ${props => props.theme.breakpoints.up('md')} {
     padding: 0 10px;
   }
 `

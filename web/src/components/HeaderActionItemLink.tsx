@@ -5,7 +5,6 @@ import IconButton from '@mui/material/IconButton'
 import React, { ElementType, ReactElement } from 'react'
 import { PlacesType } from 'react-tooltip'
 
-import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { spacesToDashes } from '../utils/stringUtils'
 import Icon from './base/Icon'
@@ -29,7 +28,7 @@ const HeaderActionItemLink = ({ to, text, iconSrc }: HeaderActionItemLinkProps):
   const theme = useTheme()
   const { width } = useWindowDimensions()
   const bufferForTooltipOverflow = 130
-  const isMediumViewport = width < dimensions.maxWidth + bufferForTooltipOverflow
+  const isMediumViewport = width < theme.breakpoints.values.lg + bufferForTooltipOverflow
   const tooltipDirectionMediumDesktop: PlacesType = theme.contentDirection === 'ltr' ? 'left' : 'right'
   const tooltipDirection: PlacesType = isMediumViewport ? tooltipDirectionMediumDesktop : 'bottom'
 
