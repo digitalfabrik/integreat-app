@@ -15,6 +15,14 @@ jest.mock('react-native-permissions', () => require('react-native-permissions/mo
 require('react-native-gesture-handler/jestSetup')
 
 jest.mock('react-native-tts')
+jest.mock('@dr.pogodin/react-native-fs', () => require('./src/__mocks__/react-native-fs'))
+
+// Mock Sentry to prevent timer leaks in tests
+jest.mock('@sentry/react-native', () => ({
+  init: jest.fn(),
+  captureException: jest.fn(),
+  addBreadcrumb: jest.fn(),
+}))
 
 jest.mock('react-native-reanimated', () => {
   const Reanimated = require('react-native-reanimated/mock')
@@ -52,7 +60,6 @@ jest.doMock('react-native/Libraries/ReactNative/I18nManager', () => I18nManager)
 jest.doMock(`${rootPath}/constants/NativeConstants`)
 jest.doMock('build-config-name')
 jest.doMock(`${rootPath}/constants/buildConfig`)
-jest.doMock('react-native-blob-util')
 jest.doMock('path', () => path.posix)
 
 // See https://github.com/callstack/react-native-testing-library/issues/329#issuecomment-737307473
