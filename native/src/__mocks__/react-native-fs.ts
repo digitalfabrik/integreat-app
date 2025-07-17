@@ -3,7 +3,7 @@ import path from 'path'
 type MockFilesType = Record<string, string>
 const mockFiles: MockFilesType = {}
 
-const deleteAllMockFiles = () => {
+const deleteAllMockFiles = (): void => {
   Object.keys(mockFiles).forEach(path => {
     delete mockFiles[path]
   })
@@ -17,33 +17,39 @@ const writeMockFile = (file: string, content: string, _unusedEncoding: string): 
 
 const readMockFile = (file: string, _unusedEncoding: string): Promise<string> => {
   const filePath = path.normalize(file)
-  return Promise.resolve(mockFiles[filePath] || '')
+  return Promise.resolve(mockFiles[filePath]!)
+}
+
+const getPathInfo = (filePath: string) => {
+  const normalizedPath = path.normalize(filePath)
+  const fileExists = normalizedPath in mockFiles
+  const hasChildFiles = Object.keys(mockFiles).some(mockPath => mockPath.startsWith(filePath))
+
+  return {
+    exists: fileExists || hasChildFiles,
+    isFile: fileExists,
+    isDirectory: hasChildFiles && !fileExists,
+  }
 }
 
 const existsMock = (file: string): Promise<boolean> => {
-  const filePath = path.normalize(file)
-  const exists = filePath in mockFiles
-  const isParentOfExisting = Object.keys(mockFiles).some(filePath => filePath.startsWith(file))
-  return Promise.resolve(exists || isParentOfExisting)
+  const { exists } = getPathInfo(file)
+  return Promise.resolve(exists)
 }
 
-const statMock = (path: string): Promise<{ isDirectory: () => boolean }> => {
-  const filePath = path.normalize(path)
-  const exists = filePath in mockFiles
-  const isParentOfExisting = Object.keys(mockFiles).some(filePath => filePath.startsWith(path))
+const statMock = (filePath: string): Promise<{ isDirectory: () => boolean }> => {
+  const { exists, isDirectory } = getPathInfo(filePath)
 
-  if (exists || isParentOfExisting) {
-    return Promise.resolve({
-      isDirectory: () => isParentOfExisting && !exists,
-    })
+  if (!exists) {
+    return Promise.reject(new Error(`ENOENT: no such file or directory, stat '${filePath}'`))
   }
 
-  return Promise.reject(new Error(`File ${path} does not exist`))
+  return Promise.resolve({
+    isDirectory: () => isDirectory,
+  })
 }
 
-const mkdirMock = (): Promise<void> => {
-  return Promise.resolve()
-}
+const mkdirMock = (): Promise<void> => Promise.resolve()
 
 /**
  * Delete a file or an entire folder at path. Note that there will be no error if the file to be deleted does not exist
@@ -69,5 +75,5 @@ export const stat = jest.fn<Promise<{ isDirectory: () => boolean }>, [string]>(s
 export const writeFile = jest.fn<Promise<void>, [string, string, string]>(writeMockFile)
 export const readFile = jest.fn<Promise<string>, [string, string]>(readMockFile)
 export const unlink = jest.fn<Promise<void>, [string]>(unlinkMock)
-export const mkdir = jest.fn<Promise<void>, [string, any?]>(mkdirMock)
+export const mkdir = jest.fn<Promise<void>, [string, string?]>(mkdirMock)
 export const _reset = deleteAllMockFiles
