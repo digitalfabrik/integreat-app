@@ -6,7 +6,7 @@ const transformNodeModules = [
   '@react-native-community',
   '@react-navigation',
   'react-navigation-header-buttons',
-  'react-native-blob-util',
+  '@dr.pogodin/react-native-fs',
   'shared',
   'translations',
   '@sentry/react-native',

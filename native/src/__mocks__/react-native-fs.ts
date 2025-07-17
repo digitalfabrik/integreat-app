@@ -17,7 +17,7 @@ const writeMockFile = (file: string, content: string, _unusedEncoding: string): 
 
 const readMockFile = (file: string, _unusedEncoding: string): Promise<string> => {
   const filePath = path.normalize(file)
-  return Promise.resolve(mockFiles[filePath]!)
+  return Promise.resolve(mockFiles[filePath] || '')
 }
 
 const existsMock = (file: string): Promise<boolean> => {
@@ -27,9 +27,22 @@ const existsMock = (file: string): Promise<boolean> => {
   return Promise.resolve(exists || isParentOfExisting)
 }
 
-const lsMock = (path: string): Promise<string[]> => {
-  const filesInPath = Object.keys(mockFiles).filter(filePath => filePath.startsWith(path))
-  return Promise.resolve(filesInPath)
+const statMock = (path: string): Promise<{ isDirectory: () => boolean }> => {
+  const filePath = path.normalize(path)
+  const exists = filePath in mockFiles
+  const isParentOfExisting = Object.keys(mockFiles).some(filePath => filePath.startsWith(path))
+
+  if (exists || isParentOfExisting) {
+    return Promise.resolve({
+      isDirectory: () => isParentOfExisting && !exists,
+    })
+  }
+
+  return Promise.reject(new Error(`File ${path} does not exist`))
+}
+
+const mkdirMock = (): Promise<void> => {
+  return Promise.resolve()
 }
 
 /**
@@ -37,7 +50,7 @@ const lsMock = (path: string): Promise<string[]> => {
  * @param file
  * @return {Promise<void>}
  */
-const unlink = (file: string): Promise<void> => {
+const unlinkMock = (file: string): Promise<void> => {
   const filePath = path.normalize(file)
   Object.keys(mockFiles).forEach(path => {
     const slicedPath = path.slice(0, filePath.length)
@@ -50,25 +63,11 @@ const unlink = (file: string): Promise<void> => {
   return Promise.resolve()
 }
 
-export default {
-  DocumentDir: (): void => undefined,
-  ImageCache: {
-    get: {
-      clear: (): void => undefined,
-    },
-  },
-  fs: {
-    ls: jest.fn<Promise<string[]>, [string]>(lsMock),
-    exists: jest.fn<Promise<boolean>, [string]>(existsMock),
-    isDir: jest.fn<Promise<boolean>, [string]>(async () => true),
-    writeFile: jest.fn<Promise<void>, [string, string, string]>(writeMockFile),
-    readFile: jest.fn<Promise<string>, [string, string]>(readMockFile),
-    unlink: jest.fn<Promise<void>, [string]>(unlink),
-    _reset: jest.fn<void, []>(deleteAllMockFiles),
-    dirs: {
-      MainBundleDir: 'path/to/mainBundleDir',
-      CacheDir: 'path/to/cacheDir',
-      DocumentDir: 'path/to/documentDir',
-    },
-  },
-}
+export const DocumentDirectoryPath = 'path/to/documentDir'
+export const exists = jest.fn<Promise<boolean>, [string]>(existsMock)
+export const stat = jest.fn<Promise<{ isDirectory: () => boolean }>, [string]>(statMock)
+export const writeFile = jest.fn<Promise<void>, [string, string, string]>(writeMockFile)
+export const readFile = jest.fn<Promise<string>, [string, string]>(readMockFile)
+export const unlink = jest.fn<Promise<void>, [string]>(unlinkMock)
+export const mkdir = jest.fn<Promise<void>, [string, any?]>(mkdirMock)
+export const _reset = deleteAllMockFiles

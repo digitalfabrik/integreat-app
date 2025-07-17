@@ -5,7 +5,7 @@ import CityModelBuilder from 'shared/api/endpoints/testing/CityModelBuilder'
 import EventModelBuilder from 'shared/api/endpoints/testing/EventModelBuilder'
 import PoiModelBuilder from 'shared/api/endpoints/testing/PoiModelBuilder'
 
-import BlobUtil from '../../__mocks__/react-native-blob-util'
+import * as RNFS from '../../__mocks__/react-native-fs'
 import DatabaseContext from '../../models/DatabaseContext'
 import DatabaseConnector from '../DatabaseConnector'
 import defaultDataContainer from '../DefaultDataContainer'
@@ -37,7 +37,7 @@ const anotherTestResources = {
 
 describe('DefaultDataContainer', () => {
   beforeEach(() => {
-    BlobUtil.fs._reset()
+    RNFS._reset()
     jest.clearAllMocks()
     defaultDataContainer.clearInMemoryCache()
   })
@@ -136,14 +136,14 @@ describe('DefaultDataContainer', () => {
   describe('setResourceCache', () => {
     it('should not delete any data if there are no previous resources available', async () => {
       await defaultDataContainer.setResourceCache('testCity', 'de', testResources)
-      expect(BlobUtil.fs.unlink).not.toHaveBeenCalled()
+      expect(RNFS.unlink).not.toHaveBeenCalled()
     })
     it('should unlink the outdated resources if there are new resources available', async () => {
       await defaultDataContainer.setResourceCache('testCity', 'de', previousResources)
       // Add mock file, normally this is done in the NativeFetcherModule.fetchAsync
-      await BlobUtil.fs.writeFile('/local/path/to/resource/b4b5dca65e423.png', '', 'UTF-8')
+      await RNFS.writeFile('/local/path/to/resource/b4b5dca65e423.png', '', 'UTF-8')
       await defaultDataContainer.setResourceCache('testCity', 'de', testResources)
-      expect(BlobUtil.fs.unlink).toHaveBeenCalledWith('/local/path/to/resource/b4b5dca65e423.png')
+      expect(RNFS.unlink).toHaveBeenCalledWith('/local/path/to/resource/b4b5dca65e423.png')
     })
   })
   describe('citiesAvailable', () => {
