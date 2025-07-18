@@ -68,7 +68,8 @@ const ExportEventButton = ({ event }: ExportEventButtonProps): ReactElement => {
   ) : (
     <Button
       onClick={() => (isRecurring ? setIsExporting(true) : downloadEventAsIcsFile(event, false))}
-      startIcon={<DownloadIcon />}>
+      startIcon={<DownloadIcon />}
+      variant='outlined'>
       {t('export')}
     </Button>
   )
