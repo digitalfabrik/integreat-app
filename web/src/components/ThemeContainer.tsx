@@ -1,6 +1,6 @@
 import createCache from '@emotion/cache'
-import { CacheProvider, Global, Theme, ThemeProvider } from '@emotion/react'
-import { createTheme as createMuiTheme } from '@mui/material/styles'
+import { CacheProvider, Global, Theme } from '@emotion/react'
+import { createTheme as createMuiTheme, ThemeProvider } from '@mui/material/styles'
 import rtlPlugin from '@mui/stylis-plugin-rtl'
 import React, { ReactElement, ReactNode, useMemo } from 'react'
 import { prefixer } from 'stylis'
@@ -38,6 +38,22 @@ const createTheme = (
   contentDirection,
   isContrastTheme: themeType === 'contrast',
   ...createMuiTheme({
+    components: {
+      MuiIconButton: {
+        defaultProps: {
+          disableRipple: true,
+          disableFocusRipple: true,
+        },
+        styleOverrides: {
+          root: ({ theme }) => ({
+            '&:focus-visible': {
+              outline: `2px solid ${themeType === 'contrast' ? theme.palette.common.white : theme.palette.common.black}`,
+              borderRadius: 0,
+            },
+          }),
+        },
+      },
+    },
     breakpoints: {
       values: BREAKPOINTS,
     },
