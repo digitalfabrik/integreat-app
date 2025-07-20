@@ -70,6 +70,14 @@ const PlayButton = styled(IconButton)<{ disabled: boolean }>`
   height: 48px;
   border-radius: 48px;
   box-shadow: 1px 4px 8px 1px grey;
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.1s ease;
+
+  &:active {
+    box-shadow: none;
+    transform: translateY(2px);
+  }
 `
 
 const StyledButton = styled(Button)`
