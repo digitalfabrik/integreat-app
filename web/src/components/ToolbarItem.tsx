@@ -30,6 +30,9 @@ const ToolbarItemLink = styled(Link)`
 `
 const ToolbarItemButton = styled(IconButton)`
   ${toolbarItemStyle}
+  min-width: 80px;
+  min-height: 80px;
+  border-radius: 8px;
 `
 
 const DisabledToolbarItem = styled('div')`
