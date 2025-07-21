@@ -290,27 +290,24 @@
   "chat": {
     "de": {
       "bot": "Chatbot",
-      "chat": "Chat (beta)",
       "conversationTitle": "Bitte gib deine Frage in das Textfeld ein.",
       "conversationText": "Du kannst alles fragen, von lokalen Informationen bis hin zu spezifischen Anfragen bezüglich deiner Situation.",
       "dataSecurity": "Datenschutz und Sicherheit: Deine Privatsphäre ist uns sehr wichtig. Alle Gespräche werden vertraulich behandelt und deine Daten werden sicher verarbeitet. Mehr Informationen zum Datenschutz findest du in unseren Datenschutzrichtlinien.",
       "errorMessage": "Es ist ein Fehler bei der Kommunikation aufgetreten.",
-      "header": "{{appName}} Chat Support",
       "human": "Berater*in",
-      "initialMessage": "Deine Chatanfrage wurde gesendet. Die Berater*in beantwortet deine Nachricht so schnell wie möglich.",
+      "initialMessage": "Deine Anfrage wurde gesendet. Die Berater*in beantwortet deine Nachricht so schnell wie möglich.",
       "inputLabel": "Meine Frage:",
       "inputPlaceholder": "Ich möchte wissen...",
       "loadingText": "Einen Moment bitte, der Chat wird gestartet...",
       "sendButton": "Senden",
-      "user": "Du"
+      "user": "Du",
+      "privacyPolicyInformation": "Der Inhalt des Chats wird an Mitarbeitende von Integreat ({{city}}) gesendet. Bitte akzeptiere die Datenschutzerklärung, um den Chat zu nutzen."
     },
     "am": {
-      "chat": "ተወያይ(beta)",
       "conversationTitle": "እባክዎትን ጥያቄዎን በጽሑፍ መስኩ ውስጥ ያስገቡ።",
       "conversationText": "ስለሁኔታዎ ከአካባቢያዊ መረጃ እስከ ልዩ ጥያቄዎች ድረስ ማንኛውንም ነገር መጠየቅ ይችላሉ።",
       "dataSecurity": "ግላዊነትና ደህንነት፡ የእርስዎ ግላዊነት ለእኛ በጣም አስፈላጊ ነው። ሁሉም ንግግሮች በሚስጥር ይያዛሉና የእርስዎ ውሂብ ደህንነቱ በተጠበቀ ሁኔታ ይከናወናል። ስለ ውሂብ/data/ ጥበቃ ተጨማሪ መረጃ በእኛ የውሂብ ጥበቃ መመሪያ ውስጥ ማግኘት ይችላሉ።",
       "errorMessage": "የግንኙነት ስህተት ተከስቷል።",
-      "header": "{{appName}}የውይይት ድጋፍ",
       "initialMessage": "የውይይት ጥያቄህ ተልኳል። አማካሪው በተቻለ ፍጥነት መልእክትዎን ይመልሳል።",
       "inputLabel": "የኔ ጥያቄ፡-",
       "inputPlaceholder": "ማወቅ እፈልጋለሁ...",
@@ -319,12 +316,10 @@
       "user": "እርስዎ "
     },
     "ar": {
-      "chat": "دردشة (بيتا)",
       "conversationTitle": "الرجاء إدخال سؤالك في حقل النص.",
       "conversationText": "يمكنك طرح سؤال عن أي شيء بدءًا من المعلومات المحلية وحتى الاستفسارات المتخصصة حول موقفك.",
       "dataSecurity": "حماية البيانات والسلامة: خصوصيتك مهمة جدًا بالنسبة لنا. يتم التعامل مع جميع المحادثات بسرية وتتم معالجة بياناتك بشكل آمن. تجد المزيد من المعلومات حول حماية البيانات في مبادئنا التوجيهية لحماية البيانات.",
       "errorMessage": "حدث خطأ في الاتصال.",
-      "header": "{{appName}} دعم الدردشة",
       "initialMessage": "تم إرسال طلب الدردشة الخاص بك. سيقوم المستشار بالرد على رسالتك في أسرع وقت ممكن.",
       "inputLabel": "سؤالي:",
       "inputPlaceholder": "أريد أن أعرف...",
@@ -333,12 +328,10 @@
       "user": "أنت"
     },
     "bg": {
-      "chat": "Чат (бета версия)",
       "conversationTitle": "Моля, въведете въпроса си в текстовото поле.",
       "conversationText": "Можете да зададете всякакви въпроси - от местна информация до конкретни запитвания за вашата ситуация.",
       "dataSecurity": "Защита и сигурност на данните: Вашата поверителност е много важна за нас. Всички разговори са поверителни и данните ви се обработват сигурно. Можете да намерите повече информация за защитата на данните в нашата политика за поверителност.",
       "errorMessage": "По време на комуникацията е възникнала грешка.",
-      "header": "{{appName}} Чат поддръжка",
       "initialMessage": "Вашата заявка за чат е изпратена. Консултантът ще отговори на съобщението ви възможно най-скоро.",
       "inputLabel": "Моят въпрос:",
       "inputPlaceholder": "Искам да знам...",
@@ -347,12 +340,10 @@
       "user": "Вие"
     },
     "ckb": {
-      "chat": "چات (بێتا)",
       "conversationTitle": "تکایە لە فیلدی تێکستەکەدا پرسیارەکەت داخڵ بکە.",
       "conversationText": "دەتوانیت سەبارەت بە هەر شتێک پرسیار بکەیت لە زانیاری ناوخۆییەوە تا پرسیاری تایبەت سەبارەت بە دۆخەکەت.",
       "dataSecurity": "پاراستن نهێنی زانیاری و ئاسایش: پاراستنی نهێنی زانیارییەکانی تۆ بۆ ئێمە زۆر گرنگە. هەموو گفتوگۆکان بە نهێنی دادەنرێت و زانیارییەکانت بە شێوەیەکی پارێزراو پرۆسێس دەکرێن. دەتوانی زانیاری زیاتر دەربارەی پاراستنی زانیارییەکان لە بەشی ڕێنماییەکانی پاراستنی زانیارییەکانماندا بدۆزییەوە.",
       "errorMessage": "هەڵەیەک لە پەیوەندیکردندا ڕوویداوە.",
-      "header": "{{appName}} پاڵپشتی چات",
       "initialMessage": "داواکاری چاتەکەت نێردرا. ڕاوێژکار بە زووترین کات وەڵامی پەیامەکەت دەداتەوە.",
       "inputLabel": "پرسیارەکەم:",
       "inputPlaceholder": "دەمەوێت بزانم...",
@@ -361,12 +352,10 @@
       "user": "تۆ"
     },
     "cs": {
-      "chat": "Chat (beta)",
       "conversationTitle": "Zadejte svůj dotaz do textového pole.",
       "conversationText": "Můžete se ptát na cokoli, od místních informací až po konkrétní dotazy týkající se vaší situace.",
       "dataSecurity": "Ochrana a zabezpečení dat: Vaše soukromí je pro nás velmi důležité. Všechny rozhovory jsou důvěrné a vaše údaje jsou zpracovávány bezpečně. Další informace o ochraně osobních údajů najdete v našich zásadách ochrany osobních údajů.",
       "errorMessage": "Během komunikace došlo k chybě.",
-      "header": "{{appName}} Chatová podpora",
       "initialMessage": "Váš požadavek na chat byl odeslán. Poradce/poradkyně* na vaši zprávu odpoví podle možností co nejdříve.",
       "inputLabel": "Moje otázka:",
       "inputPlaceholder": "Rád bych věděl/a...",
@@ -375,12 +364,10 @@
       "user": "Vy"
     },
     "da": {
-      "chat": "Chat (beta)",
       "conversationTitle": "Skriv venligst dit spørgsmål i tekstfeltet.",
       "conversationText": "Du kan spørge om alt fra lokale oplysninger til specifikke spørgsmål om din situation.",
       "dataSecurity": "Databeskyttelse og sikkerhed: Dit privatliv er meget vigtigt for os. Alle samtaler behandles fortroligt, og dine data behandles sikkert. Du kan finde flere oplysninger om databeskyttelse i vores privatlivspolitik.",
       "errorMessage": "Der er opstået en fejl under kommunikationen.",
-      "header": "{{appName}} Chat-support",
       "initialMessage": "Din chatanmodning er blevet sendt. Rådgiveren* vil svare på din besked så hurtigt som muligt.",
       "inputLabel": "Mit spørgsmål:",
       "inputPlaceholder": "Jeg kunne godt tænke mig at vide...",
@@ -389,12 +376,10 @@
       "user": "Du"
     },
     "el": {
-      "chat": "Συνομιλία (beta)",
       "conversationTitle": "Παρακαλούμε εισάγετε την ερώτησή σας στο πεδίο κειμένου.",
       "conversationText": "Μπορείτε να ζητήσετε οτιδήποτε, από τοπικές πληροφορίες μέχρι συγκεκριμένες ερωτήσεις σχετικά με την κατάστασή σας.",
       "dataSecurity": "Προστασία δεδομένων και ασφάλεια: Το απόρρητό σας είναι πολύ σημαντικό για εμάς. Όλες οι συνομιλίες αντιμετωπίζονται εμπιστευτικά και τα δεδομένα σας υποβάλλονται σε ασφαλή επεξεργασία. Μπορείτε να βρείτε περισσότερες πληροφορίες σχετικά με την προστασία δεδομένων στην πολιτική απορρήτου μας.",
       "errorMessage": "Προέκυψε σφάλμα κατά τη διάρκεια της επικοινωνίας.",
-      "header": "{{appName}} Υποστήριξη συνομιλίας",
       "initialMessage": "Το αίτημα συνομιλίας σας έχει σταλεί. Ο/Η σύμβουλος θα απαντήσει στο μήνυμά σας το συντομότερο δυνατό.",
       "inputLabel": "Η ερώτησή μου:",
       "inputPlaceholder": "Θα ήθελα να ξέρω...",
@@ -404,27 +389,24 @@
     },
     "en": {
       "bot": "Chatbot",
-      "chat": "Chat (beta)",
       "conversationTitle": "Please enter your question in the text field.",
       "conversationText": "You can ask anything from local information to specific requests regarding your situation.",
       "dataSecurity": "Data protection and security: Your privacy is very important to us. All conversations are treated confidentially and your data is processed securely. You can find more information on data protection in our privacy policy.",
       "errorMessage": "An error has occurred during communication.",
-      "header": "{{appName}} Chat Support",
       "human": "Advisor",
       "initialMessage": "Your chat request has been sent. The advisor will answer your message as soon as possible.",
       "inputLabel": "My question:",
       "inputPlaceholder": "I would like to know...",
       "loadingText": "One moment please, the chat is being started...",
       "sendButton": "Send",
-      "user": "You"
+      "user": "You",
+      "privacyPolicyInformation": "The chat content will be sent to {{city}}. Please accept their privacy policy to use the chat."
     },
     "es": {
-      "chat": "Chat (beta)",
       "conversationTitle": "Introduce tu pregunta en el campo de texto.",
       "conversationText": "Puedes preguntar cualquier cosa, desde información local hasta cuestiones concretas sobre tu situación.",
       "dataSecurity": "Protección de datos y seguridad: tu privacidad es muy importante para nosotros. Todas las conversaciones se tratan confidencialmente y tus datos se tratan de forma segura. Puedes encontrar más información sobre la protección de datos en nuestra política de privacidad.",
       "errorMessage": "Se ha producido un error durante la comunicación.",
-      "header": "Soporte de chat de {{appName}}",
       "initialMessage": "Tu solicitud de chat se ha enviado. Tu asesor/a responderá a tu mensaje lo antes posible.",
       "inputLabel": "Mi pregunta:",
       "inputPlaceholder": "Me gustaría saber...",
@@ -433,12 +415,10 @@
       "user": "Tú"
     },
     "fi": {
-      "chat": "Chatti (beeta)",
       "conversationTitle": "Kirjoita kysymyksesi tekstikenttään.",
       "conversationText": "Voit kysyä mitä tahansa paikallisista tiedoista henkilökohtaiseen tilanteeseesi liittyviin tietoihin.",
       "dataSecurity": "Tietosuoja ja turvallisuus: Yksityisyytesi on meille erittäin tärkeää. Kaikki keskustelut ovat luottamuksellisia, ja tietojasi käsitellään turvallisesti. Lisätietoja tietosuojasta on tietosuojaselosteessamme.",
       "errorMessage": "Tiedonsiirrossa on tapahtunut virhe.",
-      "header": "Sovelluksen {{appName}} chattituki",
       "initialMessage": "Chattipyyntösi on lähetetty. Neuvoja vastaa viestiisi mahdollisimman pian.",
       "inputLabel": "Kysymykseni:",
       "inputPlaceholder": "Haluaisin tietää...",
@@ -447,12 +427,10 @@
       "user": "Sinä"
     },
     "fr": {
-      "chat": "Chat (bêta)",
       "conversationTitle": "Saisis ta question dans le champ de texte.",
       "conversationText": "Tu peux n’importe quelle question : des informations locales ou des demandes spécifiques concernant ta situation.",
       "dataSecurity": "Protection des données et sécurité : Ta vie privée est très importante pour nous. Toutes les conversations sont traitées de manière confidentielle et tes données sont traitées en toute sécurité. Tu trouveras plus d’informations sur la protection des données dans notre politique de confidentialité.",
       "errorMessage": "Une erreur s’est produite lors de la communication.",
-      "header": "Assistance du chat {{appName}}",
       "initialMessage": "Ta demande de chat a été envoyée. Le conseiller/la conseillère répond à ton message le plus rapidement possible.",
       "inputLabel": "Ma question :",
       "inputPlaceholder": "Je veux savoir...",
@@ -461,12 +439,10 @@
       "user": "Toi"
     },
     "hi": {
-      "chat": "चैट (बीटा)",
       "conversationTitle": "कृपया अपना प्रश्न टेक्स्ट फ़ील्ड में दर्ज करें।",
       "conversationText": "आप स्थानीय जानकारी से लेकर अपनी स्थिति के संबंध में विशिष्ट अनुरोध तक कुछ भी पूछ सकते हैं।",
       "dataSecurity": "डेटा संरक्षण और सुरक्षा: आपकी निजता हमारे लिए बहुत महत्वपूर्ण है। सभी वार्तालापों को गोपनीय रखा जाता है और आपके डेटा को सुरक्षित रूप से संसाधित किया जाता है। आप हमारी गोपनीयता नीति में डेटा संरक्षण पर ज़्यादा जानकारी पा सकते हैं।",
       "errorMessage": "संचार के दौरान एक त्रुटि हुई है।",
-      "header": "{{appName}} चैट सहायता",
       "initialMessage": "आपका चैट अनुरोध भेज दिया गया है। सलाहकार यथाशीघ्र आपके संदेश का उत्तर देंगे।",
       "inputLabel": "मेरा प्रश्न:",
       "inputPlaceholder": "मेरी जानने की इच्छा है...",
@@ -475,12 +451,10 @@
       "user": "आप"
     },
     "hr": {
-      "chat": "Chat (beta)",
       "conversationTitle": "Unesi svoje pitanje u polje za tekst.",
       "conversationText": "Možeš pitati bilo što, od lokalnih informacija do specifičnih upita vezano za svoju situaciju.",
       "dataSecurity": "Zaštita osobnih podataka i sigurnost: Tvoja privatnost nam je veoma važna. Svi razgovori se tretiraju povjerljivo i tvoji podaci se obrađuju na siguran način. Više informacije o zaštiti osobnih podataka možeš naći u našim smjernicama o zaštiti osobnih podataka.",
       "errorMessage": "Došlo je do greške u komunikaciji.",
-      "header": "{{appName}} chat pomoć",
       "initialMessage": "Tvoj upit za chat je poslat. Savjetnik/ca će prvom prilikom odgovoriti na tvoju poruku.",
       "inputLabel": "Moje pitanje:",
       "inputPlaceholder": "Želim znati...",
@@ -489,12 +463,10 @@
       "user": "Ti"
     },
     "hu": {
-      "chat": "Csevegő (béta)",
       "conversationTitle": "Írja be kérdését a mezőbe.",
       "conversationText": "A helyi információktól kezdve a saját helyzetével kapcsolatos konkrét kérdésekig bármit kérdezhet.",
       "dataSecurity": "Adatvédelem és biztonság: Az adatai védelme nagyon fontos számunkra. Minden beszélgetést és az Ön adatait is biztonságosan kezeljük. Az adatvédelemmel kapcsolatos további információkat az adatvédelmi szabályzatunkban talál.",
       "errorMessage": "Hiba történt a kommunikáció során.",
-      "header": "{{appName}} Segítségnyújtás csevegőben",
       "initialMessage": "Elküldtük a csevegő iránti kérését. A tanácsadó a lehető leghamarabb válaszol az üzenetére.",
       "inputLabel": "A kérdésem:",
       "inputPlaceholder": "Szeretném tudni, hogy...",
@@ -503,12 +475,10 @@
       "user": "Te"
     },
     "it": {
-      "chat": "Chat (beta)",
       "conversationTitle": "Inserisci la tua domanda nel campo di testo.",
       "conversationText": "Puoi chiedere qualsiasi cosa, da informazioni locali a richieste specifiche sulla tua situazione.",
       "dataSecurity": "Protezione e sicurezza dei dati: la tua privacy è molto importante per noi. Tutte le conversazioni sono trattate in modo confidenziale e i tuoi dati sono elaborati in modo sicuro. Puoi trovare maggiori informazioni sulla protezione dei dati nella nostra informativa sulla privacy.",
       "errorMessage": "Si è verificato un errore durante la comunicazione.",
-      "header": "Assistenza {{appName}} via chat",
       "initialMessage": "La tua richiesta di chat è stata inviata. Il consulente risponderà al tuo messaggio quanto prima.",
       "inputLabel": "La mia domanda:",
       "inputPlaceholder": "Vorrei sapere...",
@@ -517,12 +487,10 @@
       "user": "Tu"
     },
     "ka": {
-      "chat": "ჩატი (ბეტა)",
       "conversationTitle": "მიუთითე შენი შეკითხვა ტექსტურ ველში.",
       "conversationText": "შეგიძლია, იკითხო ნებისმიერი რამ – ინფორმაცია ადგილობრივი ცხოვრების შესახებ თუ კონკრეტული შეკითხვები შენს მდგომარეობასთან დაკავშირებით.",
       "dataSecurity": "მონაცემთა დაცვა და უსაფრთხოება: შენი კონფიდენციალურობის დაცვა ჩვენთვის ძალიან მნიშვნელოვანია. ყველა საუბარი კონფიდენციალურად იმართება, ხოლო შენი მონაცემები უსაფრთხოდ მუშავდება. უფრო დაწვრილებითი ინფორმაცია მონაცემთა დაცვის შესახებ შეგიძლია, იხილო მონაცემთა დაცვის დებულებაში.",
       "errorMessage": "კომუნიკაციის დროს მოხდა შეცდომა.",
-      "header": "{{appName}} მხარდაჭერა ჩატით",
       "initialMessage": "ჩატის მოთხოვნა გაიგზავნა. კონსულტანტი მაქსიმალურად სწრაფად უპასუხებს შენს შეტყობინებას.",
       "inputLabel": "ჩემი შეკითხვა:",
       "inputPlaceholder": "მსურს, ვიცოდე...",
@@ -531,12 +499,10 @@
       "user": "შენ"
     },
     "kmr": {
-      "chat": "Chat (Beta)",
       "conversationTitle": "Ji kerema xwe pirsên xwe di xaneyê nivîsê da binivîsîne.",
       "conversationText": "Tu dikarî ji zanyariyên xwecihî bigire heta pirsên taybet li ser rewşa xwe bipirsî.",
       "dataSecurity": "Parastina datayan û ewlehî: Nihêniya ji bo me gelekî giring e. Tevahiya hevpeyîvînan wek nihênî tên zanîn û datayên te bi awayê êmin tên pêvajokirin. Tu dikarî zanyariyên zêdetir li ser parastina datayan li destûrkarên me yên parastina datayan bibînî.",
       "errorMessage": "Çewtiyek qewimiye.",
-      "header": "{{appName}} Piştevaniya Chatê",
       "initialMessage": "Daxwaza te ya chatê hat şandin. Şêwirmend dê di dema herî lez da bersiva peyama te bide.",
       "inputLabel": "Pirsa min:",
       "inputPlaceholder": "Ez dixwazim bizanim...",
@@ -545,12 +511,10 @@
       "user": "Tu"
     },
     "mk": {
-      "chat": "Разговор (бета)",
       "conversationTitle": "Внесете прашање во текстуалното поле.",
       "conversationText": "Можете да прашате сè, од локални информации до специфични прашања за вашата ситуација.",
       "dataSecurity": "Заштита на податоците и безбедност: Вашата приватност е многу важна за нас. Сите разговори се третираат доверливо и вашите податоци ќе бидат обработени безбедно. Можете да најдете повеќе информации за заштитата на податоците во нашите упатства за заштита на податоците.",
       "errorMessage": "Се појави грешка во комуникацијата.",
-      "header": "Поддршка преку разговор на {{appName}}",
       "initialMessage": "Вашето барање за разговор е испратено. Советувачот ќе одговори на вашата порака што е можно побрзо.",
       "inputLabel": "Моето прашање:",
       "inputPlaceholder": "Сакам да знам...",
@@ -559,12 +523,10 @@
       "user": "Ти"
     },
     "nl": {
-      "chat": "Chatten (beta)",
       "conversationTitle": "Voer je vraag in het tekstveld in.",
       "conversationText": "Je kunt alles vragen, van plaatselijke informatie tot specifieke vragen over jouw situatie.",
       "dataSecurity": "Gegevensbescherming en -beveiliging: Jouw privacy is voor ons heel belangrijk. Alle gesprekken worden vertrouwelijk behandeld en je gegevens worden veilig verwerkt. Meer informatie over gegevensbescherming vind je in ons privacybeleid.",
       "errorMessage": "Er is een fout opgetreden tijdens de communicatie.",
-      "header": "{{appName}} Chatondersteuning",
       "initialMessage": "Je chatverzoek is verzonden. De counsellor zal je bericht zo snel mogelijk beantwoorden.",
       "inputLabel": "Mijn vraag:",
       "inputPlaceholder": "Ik zou graag willen weten...",
@@ -573,12 +535,10 @@
       "user": "Jij"
     },
     "orm": {
-      "chat": "Chat (beta)",
       "conversationTitle": "Bakka barrreefa kanaatti gaaffii keessan barreessaa.",
       "conversationText": "Odeeffannoo naannoo irraa kaasee hanga gaaffii dhimma dhuunfaa keetti waan kamiyyuu gaafachuu dandeessa.",
       "dataSecurity": "Eegumsa daataa fi of eeggannoo : Icciittiin kee nuuf baayyee barbaachisaadha. Haasaan hundi iccitiidhaan kan ilaalamu yoo ta'u, daataan kee haala nageenya qabuun kan hojjetamudha. Odeeffannoo dabalataa waa'ee eegumsa daataa imaammata icciitii keenya keessatti argachuu dandeessa.",
       "errorMessage": "Yeroo qunnamtii keenyaa dogoggorri uumameera.",
-      "header": "{{appName}} Deggersa Chaatii",
       "initialMessage": "Gaaffiin chaatii keessanii ergamee jira. Hanga dandaametti gorsaan hatattamaan deebii isiniif kenna.",
       "inputLabel": "Gaaffii koo:",
       "inputPlaceholder": "Wanti ani baruu barbaade….",
@@ -587,12 +547,10 @@
       "user": "Sii"
     },
     "pes": {
-      "chat": "چت (بتا)",
       "conversationTitle": "لطفاً سوال خود را در فیلد متن وارد نمایید.",
       "conversationText": "شما می‌توانید از اطلاعات محلی گرفته تا سوالات خاص در مورد وضعیت خود را بپرسید.",
       "dataSecurity": "حفاظت از داده‌ها و امنیت: حریم خصوصی شما برای ما بسیار مهم است. کلیه مکالمات محرمانه تلقی می‌شوند و داده‌های شما به صورت امن پردازش می‌گردند. شما می‌توانید اطلاعات بیشتر در مورد حفاظت از داده‌ها را در دستورالعمل‌های حفاظت از داده‌های ما بیابید.",
       "errorMessage": "یک خطای ارتباطی رخ داده است.",
-      "header": "{{appName}} پشتیبانی چت",
       "initialMessage": "درخواست چت شما ارسال شد. مشاور در اسرع وقت به پیام شما پاسخ خواهد داد.",
       "inputLabel": "سوال من:",
       "inputPlaceholder": "من می‌خواهم بدانم...",
@@ -601,12 +559,10 @@
       "user": "شما"
     },
     "pl": {
-      "chat": "Czat (beta)",
       "conversationTitle": "Wpisz Twoje pytanie w polu tekstowym.",
       "conversationText": "Możesz pytać o wszystko, od informacji lokalnych po konkretne pytania dotyczące Twojej sytuacji.",
       "dataSecurity": "Ochrona i bezpieczeństwo danych: Twoja prywatność jest dla nas bardzo ważna. Wszystkie rozmowy są traktowane jako poufne, a Twoje dane są przetwarzane w bezpieczny sposób. Więcej informacji na temat ochrony danych znajdziesz w naszej polityce prywatności.",
       "errorMessage": "Wystąpił błąd podczas komunikacji.",
-      "header": "Obsługa czatu {{appName}}",
       "initialMessage": "Twoja prośba o czat została wysłana. Doradca odpowie na Twoją wiadomość tak szybko, jak to możliwe.",
       "inputLabel": "Moje pytanie:",
       "inputPlaceholder": "Chcę wiedzieć...",
@@ -615,12 +571,10 @@
       "user": "Ty"
     },
     "prs": {
-      "chat": "چت (بیتا)",
       "conversationTitle": "لطفاً پرسش خود را در فیلد (جای) متن وارد نمایید.",
       "conversationText": "شما میتوانید از معلومات محلی گرفته تا سوالات خاص در مورد وضعیت خود را بپرسید.",
       "dataSecurity": "حريم خصوصی و امنيت: حریم خصوصی شما برای ما بسیار مهم است. تمام مکالمات محرمانه تلقی میشوند و معلومات شما به صورت امن پروسس میگردد. شما میتوانید معلومات بیشتر در مورد حفاظت از معلومات را در دستورالعمل های حفاظت از معلومات ما بیابید.",
       "errorMessage": "یک خطای ارتباطی رخ داد.",
-      "header": "{{appName}} پشتیبانی چت",
       "initialMessage": "درخواست چت شما ارسال شد. مشاور در اسرع وقت به پیام شما پاسخ خواهد داد.",
       "inputLabel": "سوال من:",
       "inputPlaceholder": "من میخواهم بدانم...",
@@ -629,12 +583,10 @@
       "user": "شما"
     },
     "ps": {
-      "chat": "چټ (بيټا)",
       "conversationTitle": "د مهربانۍ له مخې خپله پوښتنه د متن په ځای کې دننه کړئ.",
       "conversationText": "تاسو کولی شئ جې د ځايي معلوماتو څخه نيولې بيا د خپل حالت په اړه تر ځانګړو پوښتنو پورې هرڅه وپوښتئ.",
       "dataSecurity": "محرميت او خونديتوب: ستاسو محرميت زمونږ لپاره ډېر مهم دی. ټولې خبرې اترې په محرم ډول ترسره کېږي او ستاسو له معلوماتو څخه په خوندي ډول ګټه اخيستل کېږي. تاسو کولی شئ چې زموږ د معلوماتو خوندي ساتنې په لارښودونو کې د معلوماتو خوندي ساتنې په اړه نور معلومات ومومئ.",
       "errorMessage": "په خبرو اترو کې يوه خرابي رامنځته شوه.",
-      "header": "{{appName}} د چټ ملاتړ",
       "initialMessage": "ستاسو د چټ غوښتنه واستول شوه. مشاور به ستاسو پيغام ته ژر تر ژره ځواب ووايي.",
       "inputLabel": "زما پوښتنه:",
       "inputPlaceholder": "زه غواړم په دې پوه شم چې...",
@@ -643,12 +595,10 @@
       "user": "تاسو"
     },
     "pt": {
-      "chat": "Conversa (beta)",
       "conversationTitle": "Introduz a tua pergunta no campo de texto.",
       "conversationText": "Podes perguntar qualquer coisa, desde informações locais a perguntas específicas sobre a tua situação.",
       "dataSecurity": "Proteção e segurança dos dados: A tua privacidade é muito importante para nós. Todas as conversas são tratadas confidencialmente e os teus dados são processados de forma segura. Podes encontrar mais informações sobre a proteção de dados na nossa política de privacidade.",
       "errorMessage": "Ocorreu um erro durante a comunicação.",
-      "header": "{{appName}} Suporte de conversa",
       "initialMessage": "O teu pedido de conversa foi enviado. O consultor responderá à tua mensagem o mais rapidamente possível.",
       "inputLabel": "A minha pergunta:",
       "inputPlaceholder": "Gostaria de saber...",
@@ -657,12 +607,10 @@
       "user": "Tu"
     },
     "ro": {
-      "chat": "Chat (beta)",
       "conversationTitle": "Vă rugăm să introduceți întrebarea dvs. în câmpul de text.",
       "conversationText": "Puteți solicita orice, de la informații locale, la întrebări specifice privind situația dumneavoastră.",
       "dataSecurity": "Protecția și securitatea datelor: Confidențialitatea dumneavoastră este foarte importantă pentru noi. Toate conversațiile sunt tratate confidențial, iar datele dumneavoastră sunt prelucrate în siguranță. Puteți găsi mai multe informații privind protecția datelor în politica noastră de confidențialitate.",
       "errorMessage": "A apărut o eroare în timpul comunicării.",
-      "header": "{{appName}} Suport chat",
       "initialMessage": "Cererea dvs. de chat a fost trimisă. Consilierul va răspunde la mesajul dvs. cât mai curând posibil.",
       "inputLabel": "Întrebarea mea:",
       "inputPlaceholder": "Aș dori să știu...",
@@ -671,12 +619,10 @@
       "user": "Tu"
     },
     "rom": {
-      "chat": "Keribe lafi (beta)",
       "conversationTitle": "Hramon tiro pučiba ko kotor taro teksti.",
       "conversationText": "Šaj te puče so mangea taro lokalnikane informacie bašo disave rodiba prema tiri situacia.",
       "dataSecurity": "Arakhiba podatke thaj garavibe: Tiri privatnost si but vastno amengje. Sa o lafikeriba si arakhle thaj tire podatke si garavde. Šaj te arakhe buteder informacie ko arakhibe e podatkonoro ki amari privatnikani polisa.",
       "errorMessage": "Bangipe ulo prekal i komunikacia.",
-      "header": "{{appName}} Keribaske lafi dejbe dumo",
       "initialMessage": "To keribaskoro lafi rodibe si bičhaldo. O  godjarno ka iranel ko tiro mesaži so šaj sigjeder.",
       "inputLabel": "Mo pučiba:",
       "inputPlaceholder": "Bi mangav te džanav...",
@@ -685,12 +631,10 @@
       "user": "Tu"
     },
     "ru": {
-      "chat": "Чат (бета-версия)",
       "conversationTitle": "Введи свой вопрос в текстовое поле.",
       "conversationText": "Ты можешь спрашивать о чем угодно, начиная с информации о местной жизни и заканчивая конкретными вопросами о твоей ситуации.",
       "dataSecurity": "Защита данных и безопасность: Безопасность твоей частной жизни очень важна для нас. Все разговоры ведутся конфиденциально, а твои данные обрабатываются с соблюдением необходимых стандартов безопасности. Более подробную информацию о защите данных ты можешь найти в нашей политике конфиденциальности.",
       "errorMessage": "Во время сеанса связи произошла ошибка.",
-      "header": "Чат поддержки {{appName}}",
       "initialMessage": "Твой запрос в чат отправлен. Консультант ответит на твое сообщение в самое ближайшее время.",
       "inputLabel": "Мой вопрос:",
       "inputPlaceholder": "Я бы хотел/а знать...",
@@ -699,12 +643,10 @@
       "user": "Ты"
     },
     "sk": {
-      "chat": "Chat (beta)",
       "conversationTitle": "Do textového poľa zadajte svoju otázku.",
       "conversationText": "Môžete sa pýtať na čokoľvek, od miestnych informácií až po špecifické otázky týkajúce sa vašej situácie.",
       "dataSecurity": "Ochrana a bezpečnosť údajov: Vaša súkromná sféra je pre nás veľmi dôležitá. So všetkými rozhovormi sa zaobchádza dôverne a vaše údaje sa spracúvajú bezpečne. Viac informácií ohľadom ochrany osobných údajov nájdete v našich Smerniciach o ochrane osobných údajov.",
       "errorMessage": "Pri komunikácii sa vyskytla chyba.",
-      "header": "{{appName}} Chatová podpora",
       "initialMessage": "Vaša žiadosť o chat bola odoslaná. Poradca/kyňa odpovie na vašu správu podľa možnosti čo najskôr.",
       "inputLabel": "Moja otázka:",
       "inputPlaceholder": "Chcel/a by som vedieť...",
@@ -713,12 +655,10 @@
       "user": "Vy"
     },
     "so": {
-      "chat": "Chat (beta)",
       "conversationTitle": "Fadlan ku qor su'aashaada gudaha goobta qoraalka.",
       "conversationText": "Waxaad weydiin kartaa wax kasta, laga bilaabo macluumaadka deegaanka ilaa codsiyada gaarka ah ee xaaladdaada ku saabsan.",
       "dataSecurity": "Asturnaanta iyo Amniga: Asturnaantaada waa muhiim noo. Dhammaan wada sheekaysigu waxaa loo tixgaliyaa si sir ah, waxaana xogtaada loo habeeyaa si ammaan ah. Macluumaad dheeri ah oo ku saabsan ilaalinta xogta waxaad ka heli kartaa siyaasadeena asturnaanta.",
       "errorMessage": "Khalad ayaa ka dhacay xiligii isgaarsiinta.",
-      "header": "{{appName}} Chat Support",
       "initialMessage": "Codsigaaga wada sheekaysiga waa la diray. La-taliyaha ayaa fariintaada sida ugu dhakhsaha badan uga jawaabi doona.",
       "inputLabel": "Su'aashayda:",
       "inputPlaceholder": "Waxaan doonayaa inaan ogaado...",
@@ -727,12 +667,10 @@
       "user": "Adiga"
     },
     "sq": {
-      "chat": "Chat (beta)",
       "conversationTitle": "Jepe pyetjen në këtë fushë teksti këtu.",
       "conversationText": "Mund të pyesësh çfarëdo nga informacioni lokal deri te pyetjet specifike rreth situatës tënde.",
       "dataSecurity": "Mbrojtja e të dhënave dhe siguria: Sfera jote private është shumë e rëndësishme për ne. Të gjitha bisedat trajtohen në mënyrë konfidenciale dhe të dhënat e tua përpunohen në mënyrë të sigurt. Më shumë informacione lidhur me mbrojtjen e të dhënave i gjen në këtë politikë privatësie.",
       "errorMessage": "Ndodhi një gabim në komunikim.",
-      "header": "{{appName}} Chat Support",
       "initialMessage": "Kërkesa jote për bisedë është dërguar. Këshilluesi do t'i përgjigjet mesazhit tënd sa më shpejt të jetë e mundur.",
       "inputLabel": "Pyetja ime:",
       "inputPlaceholder": "Dua të di...",
@@ -741,12 +679,10 @@
       "user": "Ti"
     },
     "sr-Cyrl": {
-      "chat": "Ћаскање (бета)",
       "conversationTitle": "Унеси своје питање у поље за текст.",
       "conversationText": "Можеш да питаш било шта, од локалних информација до специфичних упита везано за своју ситуацију.",
       "dataSecurity": "Заштита података и безбедност: Твоја приватност нам је веома важна. Сви разговори се третирају поверљиво и твоји подаци се обрађују на безбедан начин. Више информације о заштити података о личности можеш наћи у нашим смерницама о заштити података о личности.",
       "errorMessage": "Дошло је до грешке у комуникацији.",
-      "header": "Подршка ћаскањем за {{appName}}",
       "initialMessage": "Твој упит за ћаскање је послат. Саветник/ца ће првом приликом одговорити на твоју поруку.",
       "inputLabel": "Моје питање:",
       "inputPlaceholder": "Желим да знам...",
@@ -755,12 +691,10 @@
       "user": "Ти"
     },
     "sr-Latn": {
-      "chat": "Ćaskanje (beta)",
       "conversationTitle": "Unesi svoje pitanje u polje za tekst.",
       "conversationText": "Možeš da pitaš bilo šta, od lokalnih informacija do specifičnih upita vezano za svoju situaciju.",
       "dataSecurity": "Zaštita podataka i bezbednost: Tvoja privatnost nam je veoma važna. Svi razgovori se tretiraju poverljivo i tvoji podaci se obrađuju na bezbedan način. Više informacije o zaštiti podataka o ličnosti možeš naći u našim smernicama o zaštiti podataka o ličnosti.",
       "errorMessage": "Došlo je do greške u komunikaciji.",
-      "header": "Podrška ćaskanjem za {{appName}}",
       "initialMessage": "Tvoj upit za ćaskanje je poslat. Savetnik/ca će prvom prilikom odgovoriti na tvoju poruku.",
       "inputLabel": "Moje pitanje:",
       "inputPlaceholder": "Želim da znam...",
@@ -769,12 +703,10 @@
       "user": "Ti"
     },
     "sw": {
-      "chat": "Mazungumzo (beta)",
       "conversationTitle": "Tafadhali andika swali lako katika sehemu ya maandishi.",
       "conversationText": "Unaweza kuuliza chochote kuanzia kwa habari za nchini hadi kwa maombi maalum kuhusu hali yako.",
       "dataSecurity": "Ulinzi na usalama wa data: Tunajali zaidi faragha yako. Mazungumzo yote yanachukuliwa kuwa ya siri na data yako hutumika kwa njia salama. Unaweza kupata maelezo zaidi kuhusu ulinzi wa data katika sera yetu ya faragha.",
       "errorMessage": "Hitilafu fulani imetokea wakati wa mawasiliano.",
-      "header": "Usaidizi wa Mazungumzo wa {{appName}}",
       "initialMessage": "Ombi lako la mazungumzo limetumwa. Mshauri atajibu ujumbe wako haraka iwezekanavyo.",
       "inputLabel": "Swali langu:",
       "inputPlaceholder": "Ningependa kujua...",
@@ -783,12 +715,10 @@
       "user": "Wewe"
     },
     "ti": {
-      "chat": "ቻት (ቤታ)",
       "conversationTitle": "በጣም ጽሑፍካን በኩልን እንደትግበር ኣብቲ ህብልጽ መልእኽት ጸሓፈካን ናብኡ እንድውል ይቕረቡ",
       "conversationText": "ንስኻ እንታይም ነገር ብሕቶት ብዘይ ገድሊ ትሓትት ከምኡ'ውን ከባብሎም ሓበሬታታትካን እሞ ብዘይ ከይትጸልእ እንኳ ትኸታትካላ.",
       "dataSecurity": "ጥልቃዊ ሕብረትን ውርሃትን. ንናትና ናብ ሕጉሲካ ብጣዕሚ ንግርን ቅነን ይረክብሉና. ኩሉ ዝተሰማማዕ ዝርከቡ ቅነናት ብተንክልነት ክጥንቀቅ ኣብርሆ ኢልና. ተጨማሪ ሓበሬታ ብተንክልነትና ኣብ ዝተቓተለት ኣማኻሪያትና ትረኽብ ዶ.",
       "errorMessage": " ገጸኻሪ ብቲ ትህታት ኣንደምሳልኩ ኣዕምሩ እዩ.",
-      "header": "{{appName}} ቻት ደገ ንርእይዮ ኣብቲ.",
       "initialMessage": "ናትካ ሓበሬታ በታ ምርእካ ተሰድደትን ኣብ ሓግ ኣብኩ. በረድ ንሕኡርክትኻ ሰልኣካ ብትኽክልነት እንድውል ይሕብርር ነራን.",
       "inputLabel": "ሕቶይ፡",
       "inputPlaceholder": "እንተዘሎ…",
@@ -797,12 +727,10 @@
       "user": "ንስኻ"
     },
     "tr": {
-      "chat": "Sohbet (beta)",
       "conversationTitle": "Lütfen sorunu metin alanına gir.",
       "conversationText": "Yerel bilgilerden durumunla ilgili özel sorulara kadar her şeyi sorabilirsin.",
       "dataSecurity": "Gizlilik ve güvenlik: Gizliliğin bizim için çok önemlidir. Tüm görüşmeler gizlilikle ele alınır ve verilerin güvenli bir şekilde işlenir. Gizlilik ile ilgili daha fazla bilgiye gizlilik politikamız altından ulaşabilirsin.",
       "errorMessage": "İletişim sırasında bir hata oluştu.",
-      "header": "{{appName}} Sohbet Desteği",
       "initialMessage": "Sohbet isteğin gönderildi. Danışmanlar mesajına mümkün olan en kısa sürede yanıt verecektir.",
       "inputLabel": "Benim sorum:",
       "inputPlaceholder": "Öğrenmek istediğim...",
@@ -811,12 +739,10 @@
       "user": "Sen"
     },
     "uk": {
-      "chat": "Чат (бета-версія)",
       "conversationTitle": "Введіть своє запитання в текстовому полі.",
       "conversationText": "Ви можете поставити запитання на будь-яку тему: від місцевої інформації до конкретних запитів щодо вашої ситуації.",
       "dataSecurity": "Захист і безпека даних: Для нас дуже важлива ваша конфіденційність. Всі розмови є конфіденційними, а ваші дані обробляються безпечним способом. З додатковою інформацією про захист даних можна ознайомитися в нашій політиці конфіденційності.",
       "errorMessage": "Під час спілкування сталася помилка.",
-      "header": "Підтримка в чаті {{appName}}",
       "initialMessage": "Ваш запит на початок чату відправлено. Консультант якнайшвидше відповість на ваше повідомлення.",
       "inputLabel": "Моє запитання:",
       "inputPlaceholder": "Мені хотілося б дізнатися...",
@@ -825,12 +751,10 @@
       "user": "Ви"
     },
     "ur": {
-      "chat": "چیٹ (بی ٹا)",
       "conversationTitle": "براہ کرم ٹیکسٹ فیلڈ میں اپنا سوال درج کریں۔",
       "conversationText": "آپ مقامی معلومات سے لے کر اپنی صورتحال کے بارے میں مخصوص پوچھ تاچھ تک کچھ بھی پوچھ سکتے ہیں۔",
       "dataSecurity": "رازداری اور سیکورٹی: آپ کی رازداری ہمارے لیے بہت اہم ہے۔ تمام بات چیت کو خفیہ رکھا جاتا ہے اور آپ کے ڈیٹا کو محفوظ طریقے سے پروسیس کیا جاتا ہے۔ آپ ڈیٹا کے تحفظ کے بارے میں مزید معلومات ہمارے ڈیٹا کے تحفظ کے رہنما خطوط میں حاصل کر سکتے ہیں۔",
       "errorMessage": "ایک مواصلاتی خرابی پیش آگئی۔",
-      "header": "{{appName}} چیٹ سپورٹ",
       "initialMessage": "آپ کی چیٹ کی درخواست بھیج دی گئی ہے۔ مشیر جلد از جلد آپ کے پیغام کا جواب دے گا۔",
       "inputLabel": "میرا سوال:",
       "inputPlaceholder": "میں جاننا چاہتا ہوں...",
@@ -839,12 +763,10 @@
       "user": "آپ"
     },
     "vi": {
-      "chat": "Trò chuyện (beta)",
       "conversationTitle": "Vui lòng nhập câu hỏi vào trường văn bản.",
       "conversationText": "Bạn có thể hỏi bất cứ điều gì, từ thông tin về địa phương cho đến các yêu cầu cụ thể liên quan đến tình huống của bạn.",
       "dataSecurity": "Bảo vệ dữ liệu và bảo mật: Chúng tôi rất coi trọng quyền riêng tư của bạn. Tất cả cuộc trò chuyện đều được bảo mật và dữ liệu của bạn được xử lý theo cách an toàn. Bạn có thể tìm thêm thông tin về bảo vệ dữ liệu trong chính sách quyền riêng tư của chúng tôi.",
       "errorMessage": "Đã xảy ra lỗi trong quá trình liên lạc.",
-      "header": "Hỗ trợ trò chuyện của {{appName}}",
       "initialMessage": "Yêu cầu trò chuyện của bạn đã được gửi. Cố vấn sẽ trả lời tin nhắn trong thời gian sớm nhất có thể.",
       "inputLabel": "Câu hỏi của tôi:",
       "inputPlaceholder": "Tôi muốn biết...",
@@ -853,12 +775,10 @@
       "user": "Bạn"
     },
     "zh-CN": {
-      "chat": "聊天（测试版）",
       "conversationTitle": "请在文本框中输入您的问题。",
       "conversationText": "您可以询问任何问题，无论是本地信息还是有关您情况的具体询问均可。",
       "dataSecurity": "数据保护和安全：我们非常重视您的隐私。所有对话都会保密，您的数据也会得到安全处理。有关数据保护的更多信息，请参阅我们的隐私政策。",
       "errorMessage": "通信过程中发生错误。",
-      "header": "{{appName}} 聊天支持",
       "initialMessage": "您的聊天请求已发送。咨询师会尽快回复您的信息。",
       "inputLabel": "我的问题是：",
       "inputPlaceholder": "我想知道...",
@@ -1212,8 +1132,7 @@
       "back": "Zurück",
       "ok": "Ok",
       "minimize": "Minimieren",
-      "privacyPolicy": "Ich habe die <1>Datenschutzerklärung</1> gelesen und stimme der Verarbeitung und Speicherung meiner Daten zu.",
-      "privacyPolicyLink": "Datenschutzerklärung"
+      "privacyPolicy": "Ich habe die <1>Datenschutzerklärung</1> gelesen und stimme der Verarbeitung und Speicherung meiner Daten zu."
     },
     "am": {
       "copied": "ተቀድቷል",
@@ -1327,8 +1246,7 @@
       "back": "Back",
       "ok": "Ok",
       "minimize": "Minimize",
-      "privacyPolicy": "I have read the <1>privacy policy</1> and agree to the processing and storage of my data.",
-      "privacyPolicyLink": "privacy policy"
+      "privacyPolicy": "I have read the <1>privacy policy</1> and agree to the processing and storage of my data."
     },
     "es": {
       "copied": "Copiado",
