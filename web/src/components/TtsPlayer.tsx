@@ -4,12 +4,12 @@ import FastForwardIcon from '@mui/icons-material/FastForward'
 import FastRewindIcon from '@mui/icons-material/FastRewind'
 import PauseIcon from '@mui/icons-material/Pause'
 import PlayArrowIcon from '@mui/icons-material/PlayArrow'
-import IconButton from '@mui/material/IconButton'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import Button from './base/Button'
+import CustomIconButton from './base/CustomIconButton'
 import Icon from './base/Icon'
 
 const StyledTtsPlayer = styled.dialog<{ isPlaying: boolean; footerHeight: number }>`
@@ -59,38 +59,40 @@ const BaseButton = styled(Button)`
   }
 `
 
-const PlayButton = styled(IconButton)<{ disabled: boolean }>`
-  background-color: ${props => {
-    if (props.disabled) {
-      return props.theme.colors.textDisabledColor
-    }
-    return props.theme.isContrastTheme ? props.theme.colors.textColor : props.theme.colors.ttsPlayerPlayIconColor
-  }};
-  width: 48px;
-  height: 48px;
-  border-radius: 48px;
-  box-shadow: 1px 4px 8px 1px grey;
-  transition:
-    box-shadow 0.2s ease,
-    transform 0.1s ease;
+const PlayButton = styled(CustomIconButton)<{ disabled: boolean }>(({ theme, disabled }) => {
+  let backgroundColor: string
 
-  &:active {
-    box-shadow: none;
-    transform: translateY(2px);
+  if (disabled) {
+    backgroundColor = theme.colors.textDisabledColor
+  } else if (theme.isContrastTheme) {
+    backgroundColor = theme.colors.textColor
+  } else {
+    backgroundColor = theme.colors.ttsPlayerPlayIconColor
   }
-`
+
+  return {
+    backgroundColor,
+    width: '48px',
+    height: '48px',
+    borderRadius: '48px',
+    boxShadow: '1px 4px 8px 1px grey',
+    transition: 'box-shadow 0.2s ease, transform 0.1s ease',
+    '&:active': {
+      boxShadow: 'none',
+      transform: 'translateY(2px)',
+    },
+    '& svg': {
+      width: '32px',
+      height: '32px',
+      color: theme.isContrastTheme ? theme.colors.backgroundColor : theme.colors.ttsPlayerBackground,
+    },
+  }
+})
 
 const StyledButton = styled(Button)`
   display: flex;
   gap: 4px;
   align-items: center;
-`
-
-const StyledPlayIcon = styled(Icon)`
-  width: 32px;
-  height: 32px;
-  color: ${props =>
-    props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.ttsPlayerBackground};
 `
 
 const StyledCloseIcon = styled(Icon)`
@@ -166,12 +168,11 @@ const TtsPlayer = ({
           </StyledButton>
         )}
         <PlayButton
-          aria-label={t(isPlaying ? 'pause' : 'play')}
+          ariaLabel={t(isPlaying ? 'pause' : 'play')}
           onClick={isPlaying ? pause : play}
           disabled={disabled}
-          disableRipple>
-          <StyledPlayIcon src={isPlaying ? PauseIcon : PlayArrowIcon} />
-        </PlayButton>
+          icon={isPlaying ? PauseIcon : PlayArrowIcon}
+        />
         {isPlaying && (
           <StyledButton label={t('next')} onClick={playNext}>
             <StyledPlaybackIcon src={FastForwardIcon} />
