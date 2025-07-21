@@ -1,6 +1,5 @@
 import styled from '@emotion/styled'
 import AccessTimeIcon from '@mui/icons-material/AccessTime'
-import { ToggleButtonGroup } from '@mui/material'
 import Button from '@mui/material/Button'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -8,6 +7,7 @@ import { useTranslation } from 'react-i18next'
 import { PoiCategoryModel } from 'shared/api'
 
 import ModalContent from './ModalContent'
+import SpacedToggleButtonGroup from './SpacedToggleButtonGroup'
 import Checkbox from './base/Checkbox'
 import Icon from './base/Icon'
 import ToggleButton, { toggleButtonWidth } from './base/ToggleButton'
@@ -50,7 +50,7 @@ const SortingHint = styled.div`
   padding: 0 4px;
 `
 
-const TileRow = styled(ToggleButtonGroup)<{ itemCount: number }>`
+const TileRow = styled(SpacedToggleButtonGroup)<{ itemCount: number }>`
   display: grid;
   gap: 24px ${tileColumnGap}px;
   justify-content: center;
@@ -119,7 +119,7 @@ const PoiFilters = ({
             value={selectedPoiCategory?.id}
             onChange={handleFilterChange}>
             {poiCategories.map(it => (
-              <ToggleButton iconSize='medium' key={it.id} value={it.id} text={it.name} icon={it.icon} />
+              <ToggleButton key={it.id} value={it.id} text={it.name} icon={it.icon} />
             ))}
           </TileRow>
         </Section>

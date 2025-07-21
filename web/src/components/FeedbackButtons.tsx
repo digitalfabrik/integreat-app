@@ -1,15 +1,15 @@
 import styled from '@emotion/styled'
 import SentimentDissatisfiedOutlinedIcon from '@mui/icons-material/SentimentDissatisfiedOutlined'
 import SentimentSatisfiedOutlinedIcon from '@mui/icons-material/SentimentSatisfiedOutlined'
-import { ToggleButtonGroup } from '@mui/material'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Rating, RATING_NEGATIVE, RATING_POSITIVE } from 'shared'
 
+import SpacedToggleButtonGroup from './SpacedToggleButtonGroup'
 import ToggleButton from './base/ToggleButton'
 
-const StyledToggleButtonGroup = styled(ToggleButtonGroup)`
+const StyledToggleButtonGroup = styled(SpacedToggleButtonGroup)`
   display: flex;
   justify-content: center;
   gap: 16px;
@@ -29,18 +29,8 @@ const FeedbackButtons = ({ rating, setRating }: FeedbackButtonsProps): ReactElem
     <>
       <div>{t('description')}</div>
       <StyledToggleButtonGroup exclusive value={rating} onChange={handleChange}>
-        <ToggleButton
-          iconSize='medium'
-          value={RATING_POSITIVE}
-          icon={SentimentSatisfiedOutlinedIcon}
-          text={t('useful')}
-        />
-        <ToggleButton
-          iconSize='medium'
-          value={RATING_NEGATIVE}
-          icon={SentimentDissatisfiedOutlinedIcon}
-          text={t('notUseful')}
-        />
+        <ToggleButton value={RATING_POSITIVE} icon={SentimentSatisfiedOutlinedIcon} text={t('useful')} />
+        <ToggleButton value={RATING_NEGATIVE} icon={SentimentDissatisfiedOutlinedIcon} text={t('notUseful')} />
       </StyledToggleButtonGroup>
     </>
   )
