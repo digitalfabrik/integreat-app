@@ -1,6 +1,5 @@
 import styled from '@emotion/styled'
 import EventIcon from '@mui/icons-material/Event'
-import IconButton from '@mui/material/IconButton'
 import { DateTime } from 'luxon'
 import React, { ReactElement, useEffect, useState } from 'react'
 import DatePicker, { DatePickerProps } from 'react-datepicker'
@@ -8,7 +7,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { useTranslation } from 'react-i18next'
 
 import '../styles/DatePickerCalendar.css'
-import Icon from './base/Icon'
+import CustomIconButton from './base/CustomIconButton'
 
 const INPUT_HEIGHT = '56px'
 
@@ -21,7 +20,7 @@ const StyledInputWrapper = styled.div`
   display: flex;
 `
 
-const StyledIconButton = styled(IconButton)<{ isCalendarOpen: boolean }>`
+const StyledIconButton = styled(CustomIconButton)<{ isCalendarOpen: boolean }>`
   width: 40px;
   height: 40px;
   border-radius: 20px;
@@ -156,12 +155,11 @@ const CustomDatePicker = ({
           onChangeRaw={e => handleDateError(String((e?.target as HTMLInputElement).value))}
         />
         <StyledIconButton
-          aria-label={calendarLabel}
+          ariaLabel={calendarLabel}
           isCalendarOpen={isCalendarOpen}
           onClick={() => setIsCalendarOpen(true)}
-          disableRipple>
-          <Icon src={EventIcon} />
-        </StyledIconButton>
+          icon={EventIcon}
+        />
       </StyledInputWrapper>
       <StyledTitle>{title}</StyledTitle>
       {!!(error || datePickerError) && <StyledError>{error || datePickerError}</StyledError>}
