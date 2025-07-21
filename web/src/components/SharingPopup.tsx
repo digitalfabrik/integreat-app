@@ -7,8 +7,6 @@ import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined'
 import MailOutlinedIcon from '@mui/icons-material/MailOutlined'
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined'
 import WhatsAppIcon from '@mui/icons-material/WhatsApp'
-import { SvgIcon } from '@mui/material'
-import IconButton from '@mui/material/IconButton'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { PlacesType } from 'react-tooltip'
@@ -17,6 +15,7 @@ import useWindowDimensions from '../hooks/useWindowDimensions'
 import Portal from './Portal'
 import ToolbarItem from './ToolbarItem'
 import Button from './base/Button'
+import CustomIconButton from './base/CustomIconButton'
 import Tooltip from './base/Tooltip'
 
 type SharingPopupProps = {
@@ -126,13 +125,15 @@ const TooltipContainer = styled.div<{
   }
 `
 
-const withIconStyle = (IconComponent: typeof SvgIcon) => styled(IconComponent)`
-  width: 32px;
-  height: 32px;
-  object-fit: contain;
-  align-self: center;
-  color: ${props => props.theme.colors.textSecondaryColor};
-`
+const StyledIconButton = styled(CustomIconButton)(({ theme }) => ({
+  padding: 8,
+  '& svg': {
+    width: 32,
+    height: 32,
+    alignSelf: 'center',
+    color: `${theme.colors.textSecondaryColor}`,
+  },
+}))
 
 const BackdropContainer = styled(Button)`
   background: transparent;
@@ -147,13 +148,6 @@ const BackdropContainer = styled(Button)`
 const SharingPopupContainer = styled.div`
   position: relative;
 `
-
-const StyledCheckIcon = withIconStyle(CheckIcon)
-const StyledCopyIcon = withIconStyle(ContentCopyIcon)
-const StyledWhatsAppIcon = withIconStyle(WhatsAppIcon)
-const StyledMailIcon = withIconStyle(MailOutlinedIcon)
-const StyledFacebookIcon = withIconStyle(FacebookOutlinedIcon)
-const StyledCloseIcon = withIconStyle(CloseIcon)
 
 const COPY_TIMEOUT = 3000
 
@@ -200,44 +194,48 @@ const SharingPopup = ({ shareUrl, title, flow, portalNeeded }: SharingPopupProps
               id='copy'
               place={tooltipDirection}
               tooltipContent={t(linkCopied ? 'common:copied' : 'layout:copyUrl')}>
-              <IconButton onClick={copyToClipboard} aria-label={t(linkCopied ? 'common:copied' : 'layout:copyUrl')}>
-                {linkCopied ? <StyledCheckIcon /> : <StyledCopyIcon />}
-              </IconButton>
+              <StyledIconButton
+                onClick={copyToClipboard}
+                ariaLabel={t(linkCopied ? 'common:copied' : 'layout:copyUrl')}
+                icon={linkCopied ? CheckIcon : ContentCopyIcon}
+              />
             </Tooltip>
             <Tooltip id='share-whatsapp' place={tooltipDirection} tooltipContent={t('whatsappTooltip')}>
-              <IconButton
+              <StyledIconButton
                 component='a'
                 href={`https://api.whatsapp.com/send?text=${shareMessage}%0a${encodedShareUrl}`}
                 target='_blank'
                 rel='noopener noreferrer'
-                aria-label={t('whatsappTooltip')}>
-                <StyledWhatsAppIcon />
-              </IconButton>
+                ariaLabel={t('whatsappTooltip')}
+                icon={WhatsAppIcon}
+              />
             </Tooltip>
             <Tooltip id='share-facebook' place={tooltipDirection} tooltipContent={t('facebookTooltip')}>
-              <IconButton
+              <StyledIconButton
                 component='a'
                 href={`https://www.facebook.com/sharer/sharer.php?u=${encodedShareUrl}&t${shareMessage}`}
                 target='_blank'
                 rel='noopener noreferrer'
-                aria-label={t('facebookTooltip')}>
-                <StyledFacebookIcon />
-              </IconButton>
+                ariaLabel={t('facebookTooltip')}
+                icon={FacebookOutlinedIcon}
+              />
             </Tooltip>
             <Tooltip id='share-email' place={tooltipDirection} tooltipContent={t('mailTooltip')}>
-              <IconButton
+              <StyledIconButton
                 component='a'
                 href={`mailto:?subject=${encodedTitle}&body=${shareMessage} ${encodedShareUrl}`}
                 target='_blank'
                 rel='noopener noreferrer'
-                aria-label={t('mailTooltip')}>
-                <StyledMailIcon />
-              </IconButton>
+                ariaLabel={t('mailTooltip')}
+                icon={MailOutlinedIcon}
+              />
             </Tooltip>
             <Tooltip id='close-button' place={tooltipDirection} tooltipContent={t('closeTooltip')}>
-              <IconButton onClick={() => setShareOptionsVisible(false)} aria-label={t('closeTooltip')}>
-                <StyledCloseIcon />
-              </IconButton>
+              <StyledIconButton
+                onClick={() => setShareOptionsVisible(false)}
+                ariaLabel={t('closeTooltip')}
+                icon={CloseIcon}
+              />
             </Tooltip>
           </TooltipContainer>
         </>
