@@ -4,12 +4,12 @@ import FastForwardIcon from '@mui/icons-material/FastForward'
 import FastRewindIcon from '@mui/icons-material/FastRewind'
 import PauseIcon from '@mui/icons-material/Pause'
 import PlayArrowIcon from '@mui/icons-material/PlayArrow'
+import IconButton from '@mui/material/IconButton'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import Button from './base/Button'
-import CustomIconButton from './base/CustomIconButton'
 import Icon from './base/Icon'
 
 const StyledTtsPlayer = styled.dialog<{ isPlaying: boolean; footerHeight: number }>`
@@ -59,7 +59,7 @@ const BaseButton = styled(Button)`
   }
 `
 
-const PlayButton = styled(CustomIconButton)<{ disabled: boolean }>(({ theme, disabled }) => {
+const PlayButton = styled(IconButton)<{ disabled: boolean }>(({ theme, disabled }) => {
   let backgroundColor: string
 
   if (disabled) {
@@ -82,8 +82,6 @@ const PlayButton = styled(CustomIconButton)<{ disabled: boolean }>(({ theme, dis
       transform: 'translateY(2px)',
     },
     '& svg': {
-      width: '32px',
-      height: '32px',
       color: theme.isContrastTheme ? theme.colors.backgroundColor : theme.colors.ttsPlayerBackground,
     },
   }
@@ -168,11 +166,13 @@ const TtsPlayer = ({
           </StyledButton>
         )}
         <PlayButton
-          ariaLabel={t(isPlaying ? 'pause' : 'play')}
+          name={t(isPlaying ? 'pause' : 'play')}
+          aria-label={t(isPlaying ? 'pause' : 'play')}
           onClick={isPlaying ? pause : play}
           disabled={disabled}
-          icon={isPlaying ? PauseIcon : PlayArrowIcon}
-        />
+          size='large'>
+          {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
+        </PlayButton>
         {isPlaying && (
           <StyledButton label={t('next')} onClick={playNext}>
             <StyledPlaybackIcon src={FastForwardIcon} />
