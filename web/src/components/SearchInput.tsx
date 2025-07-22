@@ -1,11 +1,10 @@
 import styled from '@emotion/styled'
 import ClearIcon from '@mui/icons-material/Clear'
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined'
-import { IconButton, InputAdornment, Stack, TextField } from '@mui/material'
+import { formHelperTextClasses, IconButton, InputAdornment, TextField } from '@mui/material'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { helpers } from '../constants/theme'
 import Icon from './base/Icon'
 
 const Spacer = styled.div<{ space: boolean }>`
@@ -40,15 +39,11 @@ const StyledTextField = styled(TextField)`
     padding: 0 12px;
     height: 48px;
   }
-`
 
-const Description = styled.div`
-  background-color: ${props => props.theme.colors.backgroundColor};
-  margin-top: 8px;
-  margin-left: 24px;
-  ${helpers.adaptiveFontSize};
+  .${formHelperTextClasses.root} {
+    margin-inline-start: 24px;
+  }
 `
-
 type SearchInputProps = {
   placeholderText: string
   filterText: string
@@ -73,36 +68,34 @@ const SearchInput = ({
     <Spacer space={spaceSearch} ref={searchInputRef}>
       <Wrapper>
         <Column>
-          <Stack>
-            <StyledTextField
-              placeholder={placeholderText}
-              aria-label={placeholderText}
-              value={filterText}
-              onChange={event => onFilterTextChange(event.target.value)}
-              onClick={onClickInput}
-              autoFocus
-              slotProps={{
-                input: {
-                  endAdornment: filterText ? (
-                    <InputAdornment position='start'>
-                      <IconButton
-                        onClick={() => onFilterTextChange('')}
-                        edge='end'
-                        size='small'
-                        aria-label={t('clearInput')}>
-                        <Icon src={ClearIcon} />
-                      </IconButton>
-                    </InputAdornment>
-                  ) : (
-                    <InputAdornment position='start'>
-                      <Icon src={SearchOutlinedIcon} />
-                    </InputAdornment>
-                  ),
-                },
-              }}
-            />
-          </Stack>
-          {!!description && <Description>{description}</Description>}
+          <StyledTextField
+            placeholder={placeholderText}
+            aria-label={placeholderText}
+            value={filterText}
+            helperText={description}
+            onChange={event => onFilterTextChange(event.target.value)}
+            onClick={onClickInput}
+            autoFocus
+            slotProps={{
+              input: {
+                endAdornment: filterText ? (
+                  <InputAdornment position='start'>
+                    <IconButton
+                      onClick={() => onFilterTextChange('')}
+                      edge='end'
+                      size='small'
+                      aria-label={t('clearInput')}>
+                      <Icon src={ClearIcon} />
+                    </IconButton>
+                  </InputAdornment>
+                ) : (
+                  <InputAdornment position='start'>
+                    <Icon src={SearchOutlinedIcon} />
+                  </InputAdornment>
+                ),
+              },
+            }}
+          />
         </Column>
       </Wrapper>
     </Spacer>
