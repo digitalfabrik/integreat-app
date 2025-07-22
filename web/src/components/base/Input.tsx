@@ -1,9 +1,5 @@
-import HighlightOffIcon from '@mui/icons-material/HighlightOff'
-import { TextField, IconButton, InputAdornment } from '@mui/material'
+import { TextField } from '@mui/material'
 import React, { ChangeEvent, ReactElement } from 'react'
-import { useTranslation } from 'react-i18next'
-
-import Icon from './Icon'
 
 export type InputProps = {
   id: string
@@ -18,7 +14,6 @@ export type InputProps = {
   label?: string
   placeholder?: string
   autoFocus?: boolean
-  isClearbuttonEnabled?: boolean
   onClick?: React.MouseEventHandler<HTMLDivElement> | undefined
 }
 
@@ -35,7 +30,6 @@ const Input = ({
   required,
   hint,
   autoFocus = false,
-  isClearbuttonEnabled = false,
   onClick,
 }: InputProps): ReactElement => {
   const onInputChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -46,7 +40,7 @@ const Input = ({
     }
     onChange(element.value)
   }
-  const { t } = useTranslation('common')
+
   return (
     <TextField
       id={id}
@@ -68,15 +62,6 @@ const Input = ({
       slotProps={{
         htmlInput: {
           maxLength,
-        },
-        input: {
-          endAdornment: value && isClearbuttonEnabled && (
-            <InputAdornment position='end'>
-              <IconButton onClick={() => onChange('')} edge='end' size='small' aria-label={t('clearInput')}>
-                <Icon src={HighlightOffIcon} />
-              </IconButton>
-            </InputAdornment>
-          ),
         },
       }}
     />

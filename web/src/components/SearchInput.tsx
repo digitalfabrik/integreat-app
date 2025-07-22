@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
-import HighlightOffIcon from '@mui/icons-material/HighlightOff'
+import ClearIcon from '@mui/icons-material/CancelOutlined'
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined'
-import { IconButton, InputAdornment, TextField } from '@mui/material'
+import { IconButton, InputAdornment, Stack, TextField } from '@mui/material'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -73,33 +73,35 @@ const SearchInput = ({
     <Spacer space={spaceSearch} ref={searchInputRef}>
       <Wrapper>
         <Column>
-          <StyledTextField
-            placeholder={placeholderText}
-            aria-label={placeholderText}
-            value={filterText}
-            onChange={event => onFilterTextChange(event.target.value)}
-            onClick={onClickInput}
-            autoFocus
-            slotProps={{
-              input: {
-                endAdornment: filterText ? (
-                  <InputAdornment position='start'>
-                    <IconButton
-                      onClick={() => onFilterTextChange('')}
-                      edge='end'
-                      size='small'
-                      aria-label={t('clearInput')}>
-                      <Icon src={HighlightOffIcon} />
-                    </IconButton>
-                  </InputAdornment>
-                ) : (
-                  <InputAdornment position='start'>
-                    <Icon src={SearchOutlinedIcon} />
-                  </InputAdornment>
-                ),
-              },
-            }}
-          />
+          <Stack>
+            <StyledTextField
+              placeholder={placeholderText}
+              aria-label={placeholderText}
+              value={filterText}
+              onChange={event => onFilterTextChange(event.target.value)}
+              onClick={onClickInput}
+              autoFocus
+              slotProps={{
+                input: {
+                  endAdornment: filterText ? (
+                    <InputAdornment position='start'>
+                      <IconButton
+                        onClick={() => onFilterTextChange('')}
+                        edge='end'
+                        size='small'
+                        aria-label={t('clearInput')}>
+                        <Icon src={ClearIcon} />
+                      </IconButton>
+                    </InputAdornment>
+                  ) : (
+                    <InputAdornment position='start'>
+                      <Icon src={SearchOutlinedIcon} />
+                    </InputAdornment>
+                  ),
+                },
+              }}
+            />
+          </Stack>
           {!!description && <Description>{description}</Description>}
         </Column>
       </Wrapper>
