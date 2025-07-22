@@ -4,7 +4,6 @@ import React, { ReactElement } from 'react'
 
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
-import Icon from './base/Icon'
 import Link from './base/Link'
 
 type HeaderLogoProps = {
@@ -29,17 +28,17 @@ const LogoContainer = styled.div`
   }
 `
 
-const StyledLogoIcon = styled(Icon)<{ small: boolean }>`
+const StyledLogo = styled.img<{ $small: boolean }>`
   color: ${props => props.theme.colors.textColor};
   height: 100%;
   width: 200px;
 
   @media ${dimensions.mediumLargeViewport} {
-    ${props => (props.small ? 'display: none;' : '')}
+    ${props => (props.$small ? 'display: none;' : '')}
   }
 
   @media ${dimensions.smallViewport} {
-    ${props => (!props.small ? 'display: none;' : '')}
+    ${props => (!props.$small ? 'display: none;' : '')}
     width: 100%;
   }
 `
@@ -59,8 +58,9 @@ export const HeaderLogo = ({ link }: HeaderLogoProps): ReactElement => {
   return (
     <LogoContainer>
       <Link to={link}>
-        <StyledLogoIcon small src={srcMobile} title={appName} />
-        <StyledLogoIcon small={false} src={src} title={appName} />
+        {/* Using `loading="lazy"` makes the browser only fetch the image that is actually visible */}
+        <StyledLogo $small src={srcMobile} alt={appName} loading='lazy' />
+        <StyledLogo $small={false} src={src} alt={appName} loading='lazy' />
       </Link>
     </LogoContainer>
   )

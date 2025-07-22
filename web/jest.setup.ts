@@ -13,6 +13,10 @@ window.ResizeObserver = jest.fn().mockImplementation(() => ({
 global.fetch = require('jest-fetch-mock')
 
 console.error = () => undefined
+
+// structuredClone is still not available in JSDOM, so we hack around it... https://github.com/jsdom/jsdom/issues/3363
+global.structuredClone = <T>(it: T): T => JSON.parse(JSON.stringify(it))
+
 Element.prototype.scrollIntoView = jest.fn()
 
 const walkDir = (dir: string, callback: (dir: string) => void) => {
