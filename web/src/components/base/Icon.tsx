@@ -5,17 +5,22 @@ import { SvgIconProps } from '@mui/material/SvgIcon'
 import React, { ReactElement, ElementType } from 'react'
 import SVG from 'react-inlinesvg'
 
-const StyledIcon = styled(SVG, { shouldForwardProp })<{ directionDependent: boolean; reverse: boolean }>`
+const StyledIcon = styled(SVG, { shouldForwardProp })<{
+  directionDependent: boolean
+  reverse: boolean
+  iconSize?: number | string
+}>`
   transform: ${props =>
     (props.reverse === true) !== (props.directionDependent && props.theme.contentDirection === 'rtl')
       ? 'scaleX(-1)'
       : ''};
   color: ${props => props.theme.colors.textColor};
-  width: 24px;
-  height: 24px;
+  width: ${props => props.iconSize ?? '24px'};
+  height: ${props => props.iconSize ?? '24px'};
 
   --theme-color: ${props => props.theme.colors.themeColor};
 `
+const DEFAULT_ICON_SIZE = 24
 
 type IconProps = {
   src: string | ElementType<SvgIconProps>
@@ -25,6 +30,7 @@ type IconProps = {
   title?: string
   id?: string
   color?: string
+  iconSize?: number | string
 }
 
 const Icon = ({
@@ -35,6 +41,7 @@ const Icon = ({
   title,
   id,
   color,
+  iconSize,
 }: IconProps): ReactElement => {
   const theme = useTheme()
   if (typeof src === 'string') {
@@ -46,6 +53,7 @@ const Icon = ({
         className={className}
         title={title}
         id={id}
+        iconSize={iconSize}
       />
     )
   }
@@ -60,8 +68,8 @@ const Icon = ({
       sx={{
         color: color || theme.colors.textColor,
         transform: shouldFlip ? 'scaleX(-1)' : undefined,
-        width: 24,
-        height: 24,
+        width: iconSize ?? DEFAULT_ICON_SIZE,
+        height: iconSize ?? DEFAULT_ICON_SIZE,
       }}
     />
   )
