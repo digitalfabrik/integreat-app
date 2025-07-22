@@ -8,6 +8,7 @@ import { PlacesType } from 'react-tooltip'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { spacesToDashes } from '../utils/stringUtils'
 import Icon from './base/Icon'
+import Link from './base/Link'
 import Tooltip from './base/Tooltip'
 
 const StyledIcon = styled(Icon)`
@@ -50,7 +51,7 @@ const HeaderActionItemLink = ({ to, text, iconSrc }: HeaderActionItemLinkProps):
         </IconButton>
       ) : (
         <span aria-label={text} id={id}>
-          <Icon src={iconSrc} color={theme.palette.primary.main} />
+          <StyledIcon src={iconSrc} />
         </span>
       )}
     </Tooltip>

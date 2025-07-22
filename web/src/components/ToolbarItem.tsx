@@ -1,13 +1,13 @@
 import { css, SerializedStyles, Theme, useTheme } from '@emotion/react'
 import styled from '@emotion/styled'
 import { SvgIconProps } from '@mui/material/SvgIcon'
-import IconButton from '@mui/material/IconButton'
 import React, { ElementType, ReactElement } from 'react'
 import { PlacesType } from 'react-tooltip'
 
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { spacesToDashes } from '../utils/stringUtils'
 import StyledSmallViewTip from './StyledSmallViewTip'
+import Button from './base/Button'
 import Icon from './base/Icon'
 import Link from './base/Link'
 import Tooltip from './base/Tooltip'
@@ -28,7 +28,7 @@ const toolbarItemStyle = ({ theme }: { theme: Theme }): SerializedStyles => css`
 const ToolbarItemLink = styled(Link)`
   ${toolbarItemStyle}
 `
-const ToolbarItemButton = styled(IconButton)`
+const ToolbarItemButton = styled(Button)`
   ${toolbarItemStyle}
 `
 
@@ -104,7 +104,9 @@ const ToolbarItem = ({
   return (
     <StyledTooltip id={tooltipId} tooltipContent={tooltip} place={tooltipDirection} {...additionalTooltipProps}>
       {onClick ? (
-        <ToolbarItemButton onClick={onClick}>{Content}</ToolbarItemButton>
+        <ToolbarItemButton onClick={onClick} label={text}>
+          {Content}
+        </ToolbarItemButton>
       ) : (
         <ToolbarItemLink to={to} aria-label={text}>
           {Content}
