@@ -1,5 +1,4 @@
 import { useTheme } from '@emotion/react'
-import styled from '@emotion/styled'
 import { SvgIconProps } from '@mui/material/SvgIcon'
 import React, { ElementType, ReactElement } from 'react'
 import { PlacesType } from 'react-tooltip'
@@ -9,12 +8,6 @@ import { spacesToDashes } from '../utils/stringUtils'
 import CustomIconButton from './base/CustomIconButton'
 import Icon from './base/Icon'
 import Tooltip from './base/Tooltip'
-
-const StyledIcon = styled(Icon)`
-  width: 24px;
-  height: 24px;
-  color: ${props => props.theme.palette.primary.main};
-`
 
 type HeaderActionItemLinkProps = {
   to?: string
@@ -46,7 +39,7 @@ const HeaderActionItemLink = ({ to, text, iconSrc }: HeaderActionItemLinkProps):
         />
       ) : (
         <span aria-label={text} id={id}>
-          <StyledIcon src={iconSrc} />
+          <Icon src={iconSrc} color={theme.palette.primary.main} />
         </span>
       )}
     </Tooltip>
