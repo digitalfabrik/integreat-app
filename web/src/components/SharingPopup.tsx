@@ -129,8 +129,6 @@ const StyledIconButton = styled(CustomIconButton)`
   padding: 8px;
 
   & svg {
-    width: 32px;
-    height: 32px;
     color: ${props => props.theme.colors.textSecondaryColor};
   }
 `
@@ -198,6 +196,7 @@ const SharingPopup = ({ shareUrl, title, flow, portalNeeded }: SharingPopupProps
                 onClick={copyToClipboard}
                 ariaLabel={t(linkCopied ? 'common:copied' : 'layout:copyUrl')}
                 icon={linkCopied ? CheckIcon : ContentCopyIcon}
+                iconSize={32}
               />
             </Tooltip>
             <Tooltip id='share-whatsapp' place={tooltipDirection} tooltipContent={t('whatsappTooltip')}>
@@ -208,6 +207,7 @@ const SharingPopup = ({ shareUrl, title, flow, portalNeeded }: SharingPopupProps
                 rel='noopener noreferrer'
                 ariaLabel={t('whatsappTooltip')}
                 icon={WhatsAppIcon}
+                iconSize={32}
               />
             </Tooltip>
             <Tooltip id='share-facebook' place={tooltipDirection} tooltipContent={t('facebookTooltip')}>
@@ -218,6 +218,7 @@ const SharingPopup = ({ shareUrl, title, flow, portalNeeded }: SharingPopupProps
                 rel='noopener noreferrer'
                 ariaLabel={t('facebookTooltip')}
                 icon={FacebookOutlinedIcon}
+                iconSize={32}
               />
             </Tooltip>
             <Tooltip id='share-email' place={tooltipDirection} tooltipContent={t('mailTooltip')}>
@@ -228,6 +229,7 @@ const SharingPopup = ({ shareUrl, title, flow, portalNeeded }: SharingPopupProps
                 rel='noopener noreferrer'
                 ariaLabel={t('mailTooltip')}
                 icon={MailOutlinedIcon}
+                iconSize={32}
               />
             </Tooltip>
             <Tooltip id='close-button' place={tooltipDirection} tooltipContent={t('closeTooltip')}>
@@ -235,6 +237,7 @@ const SharingPopup = ({ shareUrl, title, flow, portalNeeded }: SharingPopupProps
                 onClick={() => setShareOptionsVisible(false)}
                 ariaLabel={t('closeTooltip')}
                 icon={CloseIcon}
+                iconSize={32}
               />
             </Tooltip>
           </TooltipContainer>

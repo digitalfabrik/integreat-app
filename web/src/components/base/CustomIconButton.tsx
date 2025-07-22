@@ -1,4 +1,3 @@
-import styled from '@emotion/styled'
 import { IconButton, IconButtonProps, SvgIconProps } from '@mui/material'
 import React, { ComponentType, ReactElement } from 'react'
 
@@ -8,19 +7,14 @@ type CustomIconButtonProps = IconButtonProps &
   React.AnchorHTMLAttributes<HTMLAnchorElement> & {
     icon: string | ComponentType<SvgIconProps>
     ariaLabel: string
+    className?: string
+    iconSize?: string | number
   }
 
-const StyledIconButton = styled(IconButton)(() => ({
-  '& svg': {
-    width: 24,
-    height: 24,
-  },
-}))
-
-const CustomIconButton = ({ icon, ariaLabel, ...props }: CustomIconButtonProps): ReactElement => (
-  <StyledIconButton aria-label={ariaLabel} {...props}>
-    <Icon src={icon} color='inherit' />
-  </StyledIconButton>
+const CustomIconButton = ({ icon, ariaLabel, className, iconSize, ...props }: CustomIconButtonProps): ReactElement => (
+  <IconButton aria-label={ariaLabel} className={className} {...props}>
+    <Icon src={icon} color='inherit' iconSize={iconSize} />
+  </IconButton>
 )
 
 export default CustomIconButton
