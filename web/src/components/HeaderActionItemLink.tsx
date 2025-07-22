@@ -50,7 +50,7 @@ const HeaderActionItemLink = ({ to, text, iconSrc }: HeaderActionItemLinkProps):
         </IconButton>
       ) : (
         <span aria-label={text} id={id}>
-          <StyledIcon src={iconSrc} />
+          <Icon src={iconSrc} color={theme.palette.primary.main} />
         </span>
       )}
     </Tooltip>
