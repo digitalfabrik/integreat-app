@@ -14,14 +14,6 @@ import TextButton from '../base/TextButton'
 jest.mock('react-i18next')
 jest.mock('react-native-tts')
 jest.mock('../../hooks/useSnackbar')
-jest.mock('react-native-fs', () => ({
-  mkdir: jest.fn().mockResolvedValue(undefined),
-  exists: jest.fn().mockResolvedValue(false),
-  stat: jest.fn().mockRejectedValue(new Error('File does not exist')),
-  writeFile: jest.fn().mockResolvedValue(undefined),
-  readFile: jest.fn().mockResolvedValue('{}'),
-  unlink: jest.fn().mockResolvedValue(undefined),
-}))
 jest.mock('shared/api', () => ({
   useLoadAsync: jest.fn(() => ({
     data: [

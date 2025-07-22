@@ -1,4 +1,4 @@
-import * as RNFS from '@dr.pogodin/react-native-fs'
+import { exists, unlink } from '@dr.pogodin/react-native-fs'
 import { last } from 'lodash'
 import Url from 'url-parse'
 
@@ -9,8 +9,8 @@ import { log } from './sentry'
 // Android throws an error if attempting to delete non existing directories/files
 // https://github.com/joltup/rn-fetch-blob/issues/333
 export const deleteIfExists = async (path: string): Promise<void> => {
-  if (await RNFS.exists(path)) {
-    await RNFS.unlink(path)
+  if (await exists(path)) {
+    await unlink(path)
   } else {
     log(`File or directory ${path} does not exist and was therefore not deleted.`, 'warning')
   }

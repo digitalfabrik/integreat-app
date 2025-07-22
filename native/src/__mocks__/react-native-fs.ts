@@ -37,18 +37,6 @@ const existsMock = (file: string): Promise<boolean> => {
   return Promise.resolve(exists)
 }
 
-const statMock = (filePath: string): Promise<{ isDirectory: () => boolean }> => {
-  const { exists, isDirectory } = getPathInfo(filePath)
-
-  if (!exists) {
-    return Promise.reject(new Error(`ENOENT: no such file or directory, stat '${filePath}'`))
-  }
-
-  return Promise.resolve({
-    isDirectory: () => isDirectory,
-  })
-}
-
 const mkdirMock = (): Promise<void> => Promise.resolve()
 
 /**
@@ -71,7 +59,6 @@ const unlinkMock = (file: string): Promise<void> => {
 
 export const DocumentDirectoryPath = 'path/to/documentDir'
 export const exists = jest.fn<Promise<boolean>, [string]>(existsMock)
-export const stat = jest.fn<Promise<{ isDirectory: () => boolean }>, [string]>(statMock)
 export const writeFile = jest.fn<Promise<void>, [string, string, string]>(writeMockFile)
 export const readFile = jest.fn<Promise<string>, [string, string]>(readMockFile)
 export const unlink = jest.fn<Promise<void>, [string]>(unlinkMock)

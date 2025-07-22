@@ -1,4 +1,4 @@
-import * as RNFS from '@dr.pogodin/react-native-fs'
+import { DocumentDirectoryPath, exists, mkdir, readFile, unlink, writeFile } from '@dr.pogodin/react-native-fs'
 import { BBox } from 'geojson'
 import { map, mapValues } from 'lodash'
 import { DateTime } from 'luxon'
@@ -36,7 +36,7 @@ export const CONTENT_VERSION = 'v9'
 export const RESOURCE_CACHE_VERSION = 'v1'
 
 // Our pdf view can only load from DocumentDir. Therefore we need to use that
-export const CACHE_DIR_PATH = RNFS.DocumentDirectoryPath
+export const CACHE_DIR_PATH = DocumentDirectoryPath
 export const UNVERSIONED_CONTENT_DIR_PATH = `${CACHE_DIR_PATH}/content`
 // Offline saved content like categories, events and pois
 export const CONTENT_DIR_PATH = `${UNVERSIONED_CONTENT_DIR_PATH}/${CONTENT_VERSION}`
@@ -226,27 +226,19 @@ class DatabaseConnector {
   }
 
   async migrationRoutine(): Promise<void> {
-    const contentDirExists = await RNFS.stat(CONTENT_DIR_PATH)
-      .then(stat => stat.isDirectory())
-      .catch(() => false)
-    const baseContentDirExists = await RNFS.stat(UNVERSIONED_CONTENT_DIR_PATH)
-      .then(stat => stat.isDirectory())
-      .catch(() => false)
-    const resourceCacheDirExists = await RNFS.stat(RESOURCE_CACHE_DIR_PATH)
-      .then(stat => stat.isDirectory())
-      .catch(() => false)
-    const baseResourceCacheDirExists = await RNFS.stat(UNVERSIONED_RESOURCE_CACHE_DIR_PATH)
-      .then(stat => stat.isDirectory())
-      .catch(() => false)
+    const contentDirExists = await exists(CONTENT_DIR_PATH)
+    const baseContentDirExists = await exists(UNVERSIONED_CONTENT_DIR_PATH)
+    const resourceCacheDirExists = await exists(RESOURCE_CACHE_DIR_PATH)
+    const baseResourceCacheDirExists = await exists(UNVERSIONED_RESOURCE_CACHE_DIR_PATH)
 
     // Delete old content if version is upgraded (if the base dir exists but the current content doesn't, the old content is still there)
     if (!contentDirExists && baseContentDirExists) {
-      await RNFS.unlink(UNVERSIONED_CONTENT_DIR_PATH)
+      await unlink(UNVERSIONED_CONTENT_DIR_PATH)
     }
 
     // Delete old resource cache if version is upgraded (if the base dir exists but the current resource cache doesn't, the old resource cache is still there)
     if (!resourceCacheDirExists && baseResourceCacheDirExists) {
-      await RNFS.unlink(UNVERSIONED_RESOURCE_CACHE_DIR_PATH)
+      await unlink(UNVERSIONED_RESOURCE_CACHE_DIR_PATH)
     }
   }
 
@@ -281,7 +273,7 @@ class DatabaseConnector {
   }
 
   async deleteAllFiles(): Promise<void> {
-    await RNFS.unlink(CACHE_DIR_PATH)
+    await unlink(CACHE_DIR_PATH)
   }
 
   async storeLastUpdate(lastUpdate: DateTime | null, context: DatabaseContext): Promise<void> {
@@ -335,7 +327,7 @@ class DatabaseConnector {
 
   async _loadMetaCities(): Promise<MetaCitiesType> {
     const path = this.getMetaCitiesPath()
-    const fileExists = await RNFS.exists(path)
+    const fileExists = await exists(path)
 
     if (!fileExists) {
       return {}
@@ -760,7 +752,7 @@ class DatabaseConnector {
 
   async loadResourceCache(context: DatabaseContext): Promise<CityResourceCacheStateType> {
     const path = this.getResourceCachePath(context)
-    const fileExists: boolean = await RNFS.exists(path)
+    const fileExists: boolean = await exists(path)
 
     if (!fileExists) {
       return {}
@@ -856,17 +848,17 @@ class DatabaseConnector {
   }
 
   _isPersisted(path: string): Promise<boolean> {
-    return RNFS.exists(path)
+    return exists(path)
   }
 
   async readFile<R, T>(path: string, mapJson: (json: R) => T, isRetry = false): Promise<T> {
-    const fileExists = await RNFS.exists(path)
+    const fileExists = await exists(path)
 
     if (!fileExists) {
       throw Error(`File ${path} does not exist`)
     }
 
-    const jsonString = await RNFS.readFile(path, 'utf8')
+    const jsonString = await readFile(path, 'utf8')
 
     try {
       const json: R = JSON.parse(jsonString)
@@ -889,13 +881,9 @@ class DatabaseConnector {
   }
 
   async writeFile(path: string, data: string): Promise<void> {
-    // Create directory structure if it doesn't exist
     const dirname = path.substring(0, path.lastIndexOf('/'))
-    const dirExists = await RNFS.exists(dirname)
-    if (!dirExists) {
-      await RNFS.mkdir(dirname, { NSURLIsExcludedFromBackupKey: true })
-    }
-    return RNFS.writeFile(path, data, 'utf8')
+    await mkdir(dirname, { NSURLIsExcludedFromBackupKey: true })
+    return writeFile(path, data, 'utf8')
   }
 }
 

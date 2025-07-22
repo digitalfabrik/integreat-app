@@ -591,27 +591,21 @@ describe('DatabaseConnector', () => {
 
   describe('migration routine', () => {
     it('should delete old content dir if version is upgraded', async () => {
-      RNFS.stat.mockImplementation(async path =>
-        path === UNVERSIONED_CONTENT_DIR_PATH ? { isDirectory: () => true } : Promise.reject(new Error('not found')),
-      )
+      RNFS.exists.mockImplementation(async path => path === UNVERSIONED_CONTENT_DIR_PATH)
       const _ = new DatabaseConnector()
       await waitFor(() => expect(RNFS.unlink).toHaveBeenCalledWith(UNVERSIONED_CONTENT_DIR_PATH))
     })
 
     it('should delete old resource cache dir if version is upgraded', async () => {
-      RNFS.stat.mockImplementation(async path =>
-        path === UNVERSIONED_RESOURCE_CACHE_DIR_PATH
-          ? { isDirectory: () => true }
-          : Promise.reject(new Error('not found')),
-      )
+      RNFS.exists.mockImplementation(async path => path === UNVERSIONED_RESOURCE_CACHE_DIR_PATH)
       const _ = new DatabaseConnector()
       await waitFor(() => expect(RNFS.unlink).toHaveBeenCalledWith(UNVERSIONED_RESOURCE_CACHE_DIR_PATH))
     })
 
     it('should not delete current cache if new version exists', async () => {
-      RNFS.stat.mockImplementation(async () => ({ isDirectory: () => true }))
+      RNFS.exists.mockImplementation(async () => true)
       const _ = new DatabaseConnector()
-      await waitFor(() => expect(RNFS.stat).toHaveBeenCalledWith(RESOURCE_CACHE_DIR_PATH))
+      await waitFor(() => expect(RNFS.exists).toHaveBeenCalledWith(RESOURCE_CACHE_DIR_PATH))
       expect(RNFS.unlink).not.toHaveBeenCalled()
     })
   })
