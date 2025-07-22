@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 
 import {
   parseHTML,
@@ -42,17 +42,15 @@ const SearchCounter = styled.p`
 `
 
 const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElement | null => {
-  const [queryParams] = useSearchParams()
-  const navigate = useNavigate()
+  const [queryParams, setQueryParams] = useSearchParams()
   const [query, setQuery] = useState(queryParams.get(SEARCH_QUERY_KEY) ?? '')
   const { t } = useTranslation('search')
   const fallbackLanguage = config.sourceLanguage
   const debouncedQuery = useDebounce(query)
 
   useEffect(() => {
-    const search = debouncedQuery ? `?${SEARCH_QUERY_KEY}=${debouncedQuery}` : ''
-    navigate({ search }, { replace: false })
-  }, [debouncedQuery, navigate])
+    setQueryParams(debouncedQuery.length > 0 ? { query: debouncedQuery } : undefined, { replace: true })
+  }, [debouncedQuery, setQueryParams])
 
   const {
     data: contentLanguageDocuments,

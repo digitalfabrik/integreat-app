@@ -133,18 +133,20 @@ describe('SearchPage', () => {
   })
 
   it('should go back to previous url when using back navigation', async () => {
-    const { getByPlaceholderText, router } = renderRoute(searchPage, { pathname, routePattern })
+    const { getByPlaceholderText, router } = renderRoute(searchPage, {
+      pathname: '/search',
+      routePattern: '/search',
+      initialEntries: [{ pathname: '/augsburg/en' }, { pathname: '/search' }],
+    })
 
-    fireEvent.change(getByPlaceholderText('search:searchPlaceholder'), { target: { value: 'firstQuery' } })
-    await waitFor(() => expect(router.state.location.search).toMatch(/\?query=firstQuery/))
-
-    fireEvent.change(getByPlaceholderText('search:searchPlaceholder'), { target: { value: 'secondQuery' } })
-    await waitFor(() => expect(router.state.location.search).toMatch(/\?query=secondQuery/))
-
-    router.navigate(-1)
+    fireEvent.change(getByPlaceholderText('search:searchPlaceholder'), { target: { value: 'testQuery' } })
+    await waitFor(() => {
+      expect(router.state.location.search).toBe('?query=testQuery')
+    })
+    await router.navigate(-1)
 
     await waitFor(() => {
-      expect(router.state.location.search).toMatch(/\?query=firstQuery/)
+      expect(router.state.location.pathname).toBe('/augsburg/en')
     })
   })
 
