@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { CityModel } from 'shared/api'
 import ChatMessageModel from 'shared/api/models/ChatMessageModel'
 
+import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
 import Caption from './Caption'
@@ -109,7 +110,7 @@ const Chat = ({
       <Container>
         <InputWrapper>
           <Caption title={t('settings:privacyPolicy')} />
-          {t('privacyPolicyInformation', { city: city.name })}
+          {t('privacyPolicyInformation', { city: city.name, appName: buildConfig().appName })}
           <PrivacyCheckbox
             language={languageCode}
             checked={false}

@@ -309,7 +309,7 @@
       "loadingText": "Einen Moment bitte, der Chat wird gestartet...",
       "sendButton": "Senden",
       "user": "Du",
-      "privacyPolicyInformation": "Der Inhalt des Chats wird an Mitarbeitende von Integreat ({{city}}) gesendet. Bitte akzeptiere die Datenschutzerklärung, um den Chat zu nutzen."
+      "privacyPolicyInformation": "Der Inhalt des Chats wird an Mitarbeitende von {{appName}} ({{city}}) gesendet. Bitte akzeptiere die Datenschutzerklärung, um den Chat zu nutzen."
     },
     "am": {
       "bot": "የውይይት ቦት",
@@ -422,7 +422,7 @@
       "loadingText": "One moment please, the chat is being started...",
       "sendButton": "Send",
       "user": "You",
-      "privacyPolicyInformation": "The chat content will be sent to {{city}}. Please accept their privacy policy to use the chat."
+      "privacyPolicyInformation": "The content of the chat will be sent to employees of {{appName}} ({{city}}). Please accept the privacy policy to use the chat."
     },
     "es": {
       "bot": "Chatbot",
