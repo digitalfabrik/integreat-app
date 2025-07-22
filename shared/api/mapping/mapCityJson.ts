@@ -37,6 +37,7 @@ const mapCityJson = (json: JsonCityType): CityModel =>
     aliases: json.aliases,
     boundingBox: [...json.bounding_box[0], ...json.bounding_box[1]],
     chatEnabled: json.is_chat_enabled,
+    chatPrivacyPolicyUrl: json.zammad_privacy_policy,
   })
 
 export default mapCityJson

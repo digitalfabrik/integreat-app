@@ -2,13 +2,16 @@ import styled from '@emotion/styled'
 import React, { KeyboardEvent, ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { CityModel } from 'shared/api'
 import ChatMessageModel from 'shared/api/models/ChatMessageModel'
 
 import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
+import Caption from './Caption'
 import ChatConversation from './ChatConversation'
-import ChatSecurityInformation from './ChatSecurityInformation'
+import ChatPrivacyInformation from './ChatPrivacyInformation'
 import LoadingSpinner from './LoadingSpinner'
+import PrivacyCheckbox from './PrivacyCheckbox'
 import Input from './base/Input'
 import InputSection from './base/InputSection'
 import TextButton from './base/TextButton'
@@ -53,14 +56,28 @@ const InputWrapper = styled.div`
 `
 
 type ChatProps = {
+  city: CityModel
   submitMessage: (text: string) => void
   messages: ChatMessageModel[]
   hasError: boolean
   isLoading: boolean
   isTyping: boolean
+  privacyPolicyAccepted: boolean
+  acceptPrivacyPolicy: () => void
+  languageCode: string
 }
 
-const Chat = ({ messages, submitMessage, hasError, isLoading, isTyping }: ChatProps): ReactElement => {
+const Chat = ({
+  city,
+  messages,
+  submitMessage,
+  hasError,
+  isLoading,
+  isTyping,
+  privacyPolicyAccepted,
+  acceptPrivacyPolicy,
+  languageCode,
+}: ChatProps): ReactElement => {
   const { t } = useTranslation('chat')
   const [textInput, setTextInput] = useState<string>('')
 
@@ -87,9 +104,27 @@ const Chat = ({ messages, submitMessage, hasError, isLoading, isTyping }: ChatPr
     )
   }
 
+  if (!privacyPolicyAccepted) {
+    return (
+      <Container>
+        <InputWrapper>
+          <Caption title={t('settings:privacyPolicy')} />
+          {t('privacyPolicyInformation', { city: city.name })}
+          <PrivacyCheckbox
+            language={languageCode}
+            checked={false}
+            setChecked={acceptPrivacyPolicy}
+            url={city.chatPrivacyPolicyUrl}
+          />
+        </InputWrapper>
+      </Container>
+    )
+  }
+
   return (
     <Container>
       <ChatConversation messages={messages} hasError={hasError} isTyping={isTyping} />
+
       <InputWrapper>
         <InputSection id='chat' title={messages.length > 0 ? '' : t('inputLabel')}>
           <Input
@@ -104,7 +139,7 @@ const Chat = ({ messages, submitMessage, hasError, isLoading, isTyping }: ChatPr
         </InputSection>
         <SubmitContainer>
           <SubmitButton disabled={submitDisabled} onClick={onSubmit} text={t('sendButton')} />
-          <ChatSecurityInformation />
+          <ChatPrivacyInformation customPrivacyUrl={city.chatPrivacyPolicyUrl} />
         </SubmitContainer>
       </InputWrapper>
     </Container>
