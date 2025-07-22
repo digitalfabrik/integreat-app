@@ -1,12 +1,13 @@
 import { useTheme } from '@emotion/react'
-import { SvgIconProps } from '@mui/material/SvgIcon'
+import styled from '@emotion/styled'
+import { IconButton, SvgIconProps } from '@mui/material/SvgIcon'
 import React, { ElementType, ReactElement } from 'react'
 import { PlacesType } from 'react-tooltip'
 
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { spacesToDashes } from '../utils/stringUtils'
-import CustomIconButton from './base/CustomIconButton'
 import Icon from './base/Icon'
+import Link from './base/Link'
 import Tooltip from './base/Tooltip'
 
 type HeaderActionItemLinkProps = {
@@ -14,6 +15,12 @@ type HeaderActionItemLinkProps = {
   text: string
   iconSrc: string | ElementType<SvgIconProps>
 }
+
+const StyledIcon = styled(Icon)`
+  width: 28px;
+  height: 28px;
+  color: ${props => props.theme.palette.primary.main};
+`
 
 const HeaderActionItemLink = ({ to, text, iconSrc }: HeaderActionItemLinkProps): ReactElement => {
   const id = spacesToDashes(text)
@@ -28,18 +35,18 @@ const HeaderActionItemLink = ({ to, text, iconSrc }: HeaderActionItemLinkProps):
   return (
     <Tooltip id={id} place={tooltipDirection} tooltipContent={text}>
       {to ? (
-        <CustomIconButton
-          component='a'
-          href={to}
-          ariaLabel={text}
-          id={id}
-          sx={{ backgroundColor: theme.palette.tertiary.light }}
-          icon={iconSrc}
-          color='primary'
-        />
+        <Link to={to} ariaLabel={text} id={id}>
+          <IconButton
+            name={text}
+            sx={{ backgroundColor: theme.palette.tertiary.light }}
+            size='medium'
+            aria-label={text}>
+            <Icon src={iconSrc} color={theme.palette.primary.dark} />
+          </IconButton>
+        </Link>
       ) : (
         <span aria-label={text} id={id}>
-          <Icon src={iconSrc} color={theme.palette.primary.main} />
+          <StyledIcon src={iconSrc} />
         </span>
       )}
     </Tooltip>
