@@ -8,3 +8,5 @@ export const MALTE_HELP_FORM_OFFER_ALIAS = 'help'
 export const APPOINTMENT_BOOKING_OFFER_ALIAS = 'terminbuchung'
 
 export const INTERNAL_OFFERS = [SPRUNGBRETT_OFFER_ALIAS, MALTE_HELP_FORM_OFFER_ALIAS]
+
+export const getChatName = (appName: string): string => `Frag${appName} (beta)`
