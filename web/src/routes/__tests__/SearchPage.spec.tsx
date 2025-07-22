@@ -136,7 +136,7 @@ describe('SearchPage', () => {
     const { getByPlaceholderText, router } = renderRoute(searchPage, {
       pathname: '/search',
       routePattern: '/search',
-      initialEntries: [{ pathname: '/augsburg/en' }, { pathname: '/search' }],
+      previousRoutes: [{ pathname: '/augsburg/en' }],
     })
 
     fireEvent.change(getByPlaceholderText('search:searchPlaceholder'), { target: { value: 'testQuery' } })
