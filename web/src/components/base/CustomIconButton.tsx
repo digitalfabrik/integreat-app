@@ -2,6 +2,8 @@ import styled from '@emotion/styled'
 import { IconButton, IconButtonProps, SvgIconProps } from '@mui/material'
 import React, { ComponentType, ReactElement } from 'react'
 
+import Icon from './Icon'
+
 type CustomIconButtonProps = IconButtonProps &
   React.AnchorHTMLAttributes<HTMLAnchorElement> & {
     icon: string | ComponentType<SvgIconProps>
@@ -15,14 +17,10 @@ const StyledIconButton = styled(IconButton)(() => ({
   },
 }))
 
-const CustomIconButton = ({ icon, ariaLabel, ...props }: CustomIconButtonProps): ReactElement => {
-  const renderIcon = typeof icon === 'string' ? <img src={icon} alt={ariaLabel} /> : React.createElement(icon)
-
-  return (
-    <StyledIconButton aria-label={ariaLabel} {...props}>
-      {renderIcon}
-    </StyledIconButton>
-  )
-}
+const CustomIconButton = ({ icon, ariaLabel, ...props }: CustomIconButtonProps): ReactElement => (
+  <StyledIconButton aria-label={ariaLabel} {...props}>
+    <Icon src={icon} color='inherit' />
+  </StyledIconButton>
+)
 
 export default CustomIconButton

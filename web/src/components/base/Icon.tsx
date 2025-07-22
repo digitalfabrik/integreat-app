@@ -24,9 +24,18 @@ type IconProps = {
   className?: string
   title?: string
   id?: string
+  color?: string
 }
 
-const Icon = ({ src, directionDependent = false, reverse = false, className, title, id }: IconProps): ReactElement => {
+const Icon = ({
+  src,
+  directionDependent = false,
+  reverse = false,
+  className,
+  title,
+  id,
+  color,
+}: IconProps): ReactElement => {
   const theme = useTheme()
   if (typeof src === 'string') {
     return (
@@ -49,7 +58,7 @@ const Icon = ({ src, directionDependent = false, reverse = false, className, tit
       className={className}
       titleAccess={title}
       sx={{
-        color: theme.colors.textColor,
+        color: color || theme.colors.textColor,
         transform: shouldFlip ? 'scaleX(-1)' : undefined,
         width: 24,
         height: 24,

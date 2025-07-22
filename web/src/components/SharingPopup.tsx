@@ -125,15 +125,15 @@ const TooltipContainer = styled.div<{
   }
 `
 
-const StyledIconButton = styled(CustomIconButton)(({ theme }) => ({
-  padding: 8,
-  '& svg': {
-    width: 32,
-    height: 32,
-    alignSelf: 'center',
-    color: `${theme.colors.textSecondaryColor}`,
-  },
-}))
+const StyledIconButton = styled(CustomIconButton)`
+  padding: 8px;
+
+  & svg {
+    width: 32px;
+    height: 32px;
+    color: ${props => props.theme.colors.textSecondaryColor};
+  }
+`
 
 const BackdropContainer = styled(Button)`
   background: transparent;
