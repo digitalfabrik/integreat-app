@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import ClearIcon from '@mui/icons-material/CancelOutlined'
+import ClearIcon from '@mui/icons-material/Clear'
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined'
 import { IconButton, InputAdornment, Stack, TextField } from '@mui/material'
 import React, { ReactElement } from 'react'
