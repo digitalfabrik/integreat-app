@@ -26,18 +26,6 @@ export const RichLayout = styled.div`
 
     cursor: pointer;
   }
-
-  input {
-    &:focus-visible {
-      outline: 2px solid ${props => props.theme.colors.textSecondaryColor};
-    }
-  }
-
-  textarea {
-    &:focus-visible {
-      outline: 2px solid ${props => props.theme.colors.textSecondaryColor};
-    }
-  }
 `
 
 const Body = styled.div<{ fullWidth: boolean; disableScrollingSafari: boolean }>`
