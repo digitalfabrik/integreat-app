@@ -1,5 +1,6 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 
+import { Rating } from 'shared'
 import { createFeedbackEndpoint, FeedbackRouteType } from 'shared/api'
 
 import { cmsApiBaseUrl } from '../constants/urls'
@@ -15,7 +16,7 @@ type FeedbackContainerProps = {
   noResults?: boolean
   slug?: string
   onSubmit?: () => void
-  initialRating: boolean | null
+  initialRating: Rating | null
 }
 
 export type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
@@ -31,7 +32,7 @@ export const FeedbackContainer = ({
   onSubmit,
   initialRating,
 }: FeedbackContainerProps): ReactElement => {
-  const [isPositiveRating, setIsPositiveRating] = useState<boolean | null>(initialRating)
+  const [rating, setRating] = useState<Rating | null>(initialRating)
   const [comment, setComment] = useState<string>('')
   const [contactMail, setContactMail] = useState<string>('')
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
@@ -55,7 +56,7 @@ export const FeedbackContainer = ({
         query,
         slug,
         searchTerm,
-        isPositiveRating: !noResults && isPositiveRating,
+        isPositiveRating: !noResults && rating === 'positive',
       })
 
       setSendingStatus('successful')
@@ -78,9 +79,9 @@ export const FeedbackContainer = ({
       onContactMailChanged={setContactMail}
       onSubmit={handleSubmit}
       sendingStatus={sendingStatus}
-      isPositiveFeedback={isPositiveRating}
+      rating={rating}
       comment={comment}
-      onFeedbackChanged={setIsPositiveRating}
+      setRating={setRating}
       contactMail={contactMail}
       searchTerm={searchTerm}
       setSearchTerm={setSearchTerm}

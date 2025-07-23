@@ -47,6 +47,9 @@ const createTheme = (
       dark: buildConfig().darkTheme,
     },
     typography: buildConfig().typography,
+    palette: {
+      mode: themeType === 'contrast' ? 'dark' : 'light',
+    },
   }),
 })
 

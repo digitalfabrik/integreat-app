@@ -1,7 +1,7 @@
 import { fireEvent } from '@testing-library/react'
 import React, { ReactElement } from 'react'
 
-import { CATEGORIES_ROUTE } from 'shared'
+import { CATEGORIES_ROUTE, RATING_POSITIVE } from 'shared'
 
 import { renderWithRouterAndTheme } from '../../testing/render'
 import FeedbackToolbarItem from '../FeedbackToolbarItem'
@@ -24,7 +24,7 @@ jest.mock('focus-trap-react', () => ({ children }: { children: ReactElement }) =
 describe('FeedbackToolbarItem', () => {
   it('should open and update title on submit feedback', async () => {
     const { queryByText, findByText, getByText } = renderWithRouterAndTheme(
-      <FeedbackToolbarItem route={CATEGORIES_ROUTE} slug='my-slug' positive />,
+      <FeedbackToolbarItem route={CATEGORIES_ROUTE} slug='my-slug' rating={RATING_POSITIVE} />,
     )
 
     expect(queryByText('feedback:headline')).toBeFalsy()
