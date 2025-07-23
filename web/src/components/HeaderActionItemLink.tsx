@@ -10,17 +10,17 @@ import Icon from './base/Icon'
 import Link from './base/Link'
 import Tooltip from './base/Tooltip'
 
-type HeaderActionItemLinkProps = {
-  to?: string
-  text: string
-  iconSrc: string | ElementType<SvgIconProps>
-}
-
 const StyledIcon = styled(Icon)`
   width: 28px;
   height: 28px;
   color: ${props => props.theme.palette.primary.main};
 `
+
+type HeaderActionItemLinkProps = {
+  to?: string
+  text: string
+  iconSrc: string | ElementType<SvgIconProps>
+}
 
 const HeaderActionItemLink = ({ to, text, iconSrc }: HeaderActionItemLinkProps): ReactElement => {
   const id = spacesToDashes(text)
