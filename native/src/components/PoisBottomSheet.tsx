@@ -6,7 +6,6 @@ import BottomSheet, {
 import React, { memo, ReactElement, Ref } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Platform } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import styled, { useTheme } from 'styled-components/native'
 
 import { LocationType } from 'shared'
@@ -26,12 +25,6 @@ const StyledBottomSheet = styled(BottomSheet)<{ isFullscreen: boolean }>`
 const BottomSheetContent = styled.View`
   flex: 1;
   margin: 0 24px;
-`
-
-const BottomSpace = styled.View<{ bottomInset: number }>`
-  width: 100%;
-  height: ${props => `${props.bottomInset}px`};
-  background-color: ${props => props.theme.colors.backgroundColor};
 `
 
 const Title = styled.Text`
@@ -73,7 +66,6 @@ const PoisBottomSheet = ({
   const { languageCode } = useCityAppContext()
   const { t } = useTranslation('pois')
   const theme = useTheme()
-  const insets = useSafeAreaInsets()
   // ios has scrolling issues if content panning gesture is not enabled
   const enableContentPanningGesture = Platform.OS === 'ios' || !isFullscreen
 
@@ -94,39 +86,35 @@ const PoisBottomSheet = ({
   )
 
   return (
-    <>
-      <StyledBottomSheet
-        accessibilityLabel=''
-        index={snapPointIndex}
-        isFullscreen={isFullscreen}
-        snapPoints={snapPoints}
-        enableContentPanningGesture={enableContentPanningGesture}
-        enableDynamicSizing={false}
-        animateOnMount
-        backgroundStyle={{ backgroundColor: theme.colors.backgroundColor }}
-        handleComponent={BottomSheetHandle}
-        bottomInset={insets.bottom}
-        onChange={setSnapPointIndex}>
-        <BottomSheetContent>
-          {slug ? (
-            <BottomSheetScrollView showsVerticalScrollIndicator={false}>{PoiDetail}</BottomSheetScrollView>
-          ) : (
-            <BottomSheetFlatList
-              ref={poiListRef}
-              data={pois}
-              role='list'
-              accessibilityLabel={t('poisCount', { count: pois.length })}
-              renderItem={renderPoiListItem}
-              onMomentumScrollBegin={event => setScrollPosition(event.nativeEvent.contentOffset.y)}
-              showsVerticalScrollIndicator={false}
-              ListHeaderComponent={<Title>{t('listTitle')}</Title>}
-              ListEmptyComponent={<NoItemsMessage>{t('noPois')}</NoItemsMessage>}
-            />
-          )}
-        </BottomSheetContent>
-      </StyledBottomSheet>
-      <BottomSpace bottomInset={insets.bottom} />
-    </>
+    <StyledBottomSheet
+      accessibilityLabel=''
+      index={snapPointIndex}
+      isFullscreen={isFullscreen}
+      snapPoints={snapPoints}
+      enableContentPanningGesture={enableContentPanningGesture}
+      enableDynamicSizing={false}
+      animateOnMount
+      backgroundStyle={{ backgroundColor: theme.colors.backgroundColor }}
+      handleComponent={BottomSheetHandle}
+      onChange={setSnapPointIndex}>
+      <BottomSheetContent>
+        {slug ? (
+          <BottomSheetScrollView showsVerticalScrollIndicator={false}>{PoiDetail}</BottomSheetScrollView>
+        ) : (
+          <BottomSheetFlatList
+            ref={poiListRef}
+            data={pois}
+            role='list'
+            accessibilityLabel={t('poisCount', { count: pois.length })}
+            renderItem={renderPoiListItem}
+            onMomentumScrollBegin={event => setScrollPosition(event.nativeEvent.contentOffset.y)}
+            showsVerticalScrollIndicator={false}
+            ListHeaderComponent={<Title>{t('listTitle')}</Title>}
+            ListEmptyComponent={<NoItemsMessage>{t('noPois')}</NoItemsMessage>}
+          />
+        )}
+      </BottomSheetContent>
+    </StyledBottomSheet>
   )
 }
 

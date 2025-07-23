@@ -9,7 +9,7 @@ import {
 import { Settings as LuxonSettings } from 'luxon'
 import React, { ReactElement, useCallback, useState } from 'react'
 import { LogBox } from 'react-native'
-import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
 import { enableScreens } from 'react-native-screens'
 import { HeaderButtonsProvider } from 'react-navigation-header-buttons/HeaderButtonsProvider'
 import { useTheme } from 'styled-components/native'
@@ -88,6 +88,21 @@ export const NavigationContainerWithTheme = ({ onStateChange }: NavigationContai
   )
 }
 
+const ThemedSafeAreaView = ({
+  onStateChange,
+}: {
+  onStateChange: (state: NavigationState | undefined) => void
+}): ReactElement => {
+  const theme = useTheme()
+
+  return (
+    <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.backgroundAccentColor }} edges={['bottom']}>
+      <StatusBar />
+      <NavigationContainerWithTheme onStateChange={onStateChange} />
+    </SafeAreaView>
+  )
+}
+
 const App = (): ReactElement => {
   const [routeIndex, setRouteIndex] = useState<number>(0)
 
@@ -119,12 +134,7 @@ const App = (): ReactElement => {
               <SafeAreaProvider>
                 <SnackbarContainer>
                   <TtsContainer>
-                    <>
-                      <StatusBar />
-                      <IOSSafeAreaView>
-                        <NavigationContainerWithTheme onStateChange={onStateChange} />
-                      </IOSSafeAreaView>
-                    </>
+                    <ThemedSafeAreaView onStateChange={onStateChange} />
                   </TtsContainer>
                 </SnackbarContainer>
               </SafeAreaProvider>
