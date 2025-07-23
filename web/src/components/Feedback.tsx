@@ -5,7 +5,7 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Rating } from 'shared'
+import { Rating, DEFAULT_ROWS_NUMBER } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
 import FeedbackButtons from './FeedbackButtons'
@@ -23,8 +23,8 @@ export const Container = styled('div')<{ fullWidth?: boolean }>`
   justify-content: space-between;
   padding: 16px;
   border-radius: 10px;
-  border-color: ${props => props.theme.colors.textSecondaryColor};
-  font-size: ${props => props.theme.fonts.contentFontSize};
+  border-color: ${props => props.theme.legacy.colors.textSecondaryColor};
+  font-size: ${props => props.theme.legacy.fonts.contentFontSize};
   overflow: auto;
   align-self: center;
   gap: 16px;
@@ -97,7 +97,13 @@ const Feedback = ({
       )}
       <FormControl>
         <InputLabel htmlFor='comment'>{t(commentTitle)}</InputLabel>
-        <Input id='comment' value={comment} aria-describedby={comment} onChange={onCommentChanged} multiline />
+        <Input
+          id='comment'
+          value={comment}
+          aria-describedby={comment}
+          onChange={onCommentChanged}
+          rows={DEFAULT_ROWS_NUMBER}
+        />
         <FormHelperText id={comment}>{t('commentDescription', { appName: buildConfig().appName })}</FormHelperText>
       </FormControl>
       <FormControl>
