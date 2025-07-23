@@ -1,7 +1,7 @@
 import { fireEvent } from '@testing-library/react'
 import React, { ComponentProps } from 'react'
 
-import { CATEGORIES_ROUTE, SEARCH_ROUTE } from 'shared'
+import { CATEGORIES_ROUTE, RATING_POSITIVE, SEARCH_ROUTE } from 'shared'
 import { FeedbackRouteType } from 'shared/api'
 
 import { renderWithTheme } from '../../testing/render'
@@ -45,7 +45,7 @@ describe('FeedbackContainer', () => {
 
   it('should display thanks message for modal', async () => {
     const { getByRole, findByText, getByText } = renderWithTheme(
-      <FeedbackContainer {...buildDefaultProps(CATEGORIES_ROUTE)} initialRating />,
+      <FeedbackContainer {...buildDefaultProps(CATEGORIES_ROUTE)} initialRating={RATING_POSITIVE} />,
     )
     const buttonRating = getByRole('button', {
       name: 'feedback:useful',
@@ -115,7 +115,7 @@ describe('FeedbackContainer', () => {
       language: 'de',
       comment: '',
       contactMail: '',
-      isPositiveRating: null,
+      isPositiveRating: false,
       query,
       searchTerm: 'zeugnis',
       slug: undefined,
@@ -144,7 +144,7 @@ describe('FeedbackContainer', () => {
       language: 'de',
       comment: '',
       contactMail: '',
-      isPositiveRating: null,
+      isPositiveRating: false,
       query,
       searchTerm: fullSearchTerm,
       slug: undefined,
