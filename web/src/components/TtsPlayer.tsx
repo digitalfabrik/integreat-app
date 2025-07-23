@@ -1,4 +1,3 @@
-import { useTheme } from '@emotion/react'
 import styled from '@emotion/styled'
 import CloseIcon from '@mui/icons-material/Close'
 import FastForwardIcon from '@mui/icons-material/FastForward'
@@ -38,6 +37,14 @@ const StyledTtsPlayer = styled.dialog<{ isPlaying: boolean; footerHeight: number
 `
 
 const verticalMargin = 12
+
+const StyledIconButton = styled(IconButton)(({ theme }) => ({
+  backgroundColor: theme.palette.tertiary.light,
+
+  '&.Mui-disabled': {
+    backgroundColor: theme.palette.action.disabledBackground,
+  },
+}))
 
 const StyledPanel = styled.div<{ isPlaying?: boolean }>`
   display: flex;
@@ -128,8 +135,6 @@ const TtsPlayer = ({
 }: TtsPlayerProps): ReactElement => {
   const { t } = useTranslation('layout')
   const { visibleFooterHeight } = useWindowDimensions()
-  const theme = useTheme()
-
   return (
     <StyledTtsPlayer isPlaying={isPlaying} footerHeight={visibleFooterHeight}>
       <StyledPanel isPlaying={isPlaying}>
@@ -139,22 +144,15 @@ const TtsPlayer = ({
             <StyledPlaybackIcon src={FastRewindIcon} />
           </StyledButton>
         )}
-        <IconButton
+        <StyledIconButton
           name={t(isPlaying ? 'pause' : 'play')}
           aria-label={t(isPlaying ? 'pause' : 'play')}
           onClick={isPlaying ? pause : play}
           disabled={disabled}
-          sx={{
-            backgroundColor: theme.palette.tertiary.light,
-            '&.Mui-disabled': {
-              backgroundColor: theme.palette.action.disabledBackground,
-              color: theme.palette.action.disabled,
-            },
-          }}
           color='primary'
           size='large'>
           {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
-        </IconButton>
+        </StyledIconButton>
         {isPlaying && (
           <StyledButton label={t('next')} onClick={playNext}>
             <StyledPlaybackIcon src={FastForwardIcon} />
