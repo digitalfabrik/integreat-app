@@ -4,6 +4,7 @@ import Button from '@mui/material/Button'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { Rating } from 'shared'
 import { DEFAULT_ROWS_NUMBER } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
@@ -40,12 +41,12 @@ const ErrorSendingStatus = styled.div`
 
 type FeedbackProps = {
   language: string
-  isPositiveFeedback: boolean | null
+  rating: Rating | null
   comment: string
   contactMail: string
   onCommentChanged: (comment: string) => void
   onContactMailChanged: (contactMail: string) => void
-  onFeedbackChanged?: (isPositiveFeedback: boolean | null) => void
+  setRating?: (rating: Rating | null) => void
   onSubmit: () => void
   sendingStatus: SendingStatusType
   searchTerm: string | undefined
@@ -55,14 +56,14 @@ type FeedbackProps = {
 
 const Feedback = ({
   language,
-  isPositiveFeedback,
+  rating,
   comment,
   contactMail,
   sendingStatus,
   onSubmit,
   onCommentChanged,
   onContactMailChanged,
-  onFeedbackChanged,
+  setRating,
   searchTerm,
   setSearchTerm,
   closeFeedback,
@@ -72,7 +73,7 @@ const Feedback = ({
   const isSearchFeedback = searchTerm !== undefined
   const commentTitle = isSearchFeedback ? 'wantedInformation' : 'commentHeadline'
   const [privacyPolicyAccepted, setPrivacyPolicyAccepted] = useState(false)
-  const feedbackFilled = isPositiveFeedback === null && comment.trim().length === 0 && !searchTerm
+  const feedbackFilled = rating === null && comment.trim().length === 0 && !searchTerm
   const submitFeedbackDisabled = feedbackFilled || !privacyPolicyAccepted
 
   if (sendingStatus === 'successful') {
@@ -91,7 +92,7 @@ const Feedback = ({
           <Input id='searchTerm' value={searchTerm} onChange={setSearchTerm} />
         </InputSection>
       ) : (
-        onFeedbackChanged && <FeedbackButtons isPositive={isPositiveFeedback} onRatingChange={onFeedbackChanged} />
+        setRating && <FeedbackButtons rating={rating} setRating={setRating} />
       )}
 
       <InputSection

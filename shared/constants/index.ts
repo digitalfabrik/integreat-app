@@ -9,3 +9,7 @@ export const MALTE_HELP_FORM_OFFER_ALIAS = 'help'
 export const APPOINTMENT_BOOKING_OFFER_ALIAS = 'terminbuchung'
 
 export const INTERNAL_OFFERS = [SPRUNGBRETT_OFFER_ALIAS, MALTE_HELP_FORM_OFFER_ALIAS]
+
+export type Rating = 'positive' | 'negative'
+export const RATING_POSITIVE: Rating = 'positive'
+export const RATING_NEGATIVE: Rating = 'negative'
