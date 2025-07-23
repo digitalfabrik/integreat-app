@@ -1,6 +1,8 @@
 import React, { memo, ReactNode, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { RATING_NEGATIVE, RATING_POSITIVE } from 'shared'
+
 import { ReadAloudIcon } from '../assets'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { RouteType } from '../routes'
@@ -42,8 +44,12 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
 
   const items = [
     children,
-    hasFeedbackOption && <FeedbackToolbarItem key='positive' route={route} slug={feedbackTarget} positive />,
-    hasFeedbackOption && <FeedbackToolbarItem key='negative' route={route} slug={feedbackTarget} positive={false} />,
+    hasFeedbackOption && (
+      <FeedbackToolbarItem key='positive' route={route} slug={feedbackTarget} rating={RATING_POSITIVE} />
+    ),
+    hasFeedbackOption && (
+      <FeedbackToolbarItem key='negative' route={route} slug={feedbackTarget} rating={RATING_NEGATIVE} />
+    ),
     <SharingPopup
       key='share'
       shareUrl={window.location.href}

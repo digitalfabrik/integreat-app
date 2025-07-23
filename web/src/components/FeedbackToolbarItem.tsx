@@ -3,6 +3,7 @@ import SentimentSatisfiedOutlinedIcon from '@mui/icons-material/SentimentSatisfi
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { Rating, RATING_POSITIVE } from 'shared'
 import { FeedbackRouteType } from 'shared/api'
 
 import useCityContentParams from '../hooks/useCityContentParams'
@@ -14,10 +15,10 @@ import ToolbarItem from './ToolbarItem'
 type FeedbackToolbarItemProps = {
   route: RouteType
   slug?: string
-  positive: boolean
+  rating: Rating | null
 }
 
-const FeedbackToolbarItem = ({ route, slug, positive }: FeedbackToolbarItemProps): ReactElement => {
+const FeedbackToolbarItem = ({ route, slug, rating }: FeedbackToolbarItemProps): ReactElement => {
   const { cityCode, languageCode } = useCityContentParams()
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -35,13 +36,13 @@ const FeedbackToolbarItem = ({ route, slug, positive }: FeedbackToolbarItemProps
             cityCode={cityCode}
             language={languageCode}
             slug={slug}
-            initialRating={positive}
+            initialRating={rating}
           />
         </Modal>
       )}
       <ToolbarItem
-        icon={positive ? SentimentSatisfiedOutlinedIcon : SentimentDissatisfiedOutlinedIcon}
-        text={t(positive ? 'useful' : 'notUseful')}
+        icon={rating === RATING_POSITIVE ? SentimentSatisfiedOutlinedIcon : SentimentDissatisfiedOutlinedIcon}
+        text={t(rating === RATING_POSITIVE ? 'useful' : 'notUseful')}
         onClick={() => setIsFeedbackOpen(true)}
       />
     </>
