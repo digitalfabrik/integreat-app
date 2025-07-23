@@ -9,7 +9,7 @@ import { zeroPad } from 'shared/utils/dateFilterUtils'
 
 const Input = styled(KeyboardExtendedInput)`
   text-align: center;
-  min-width: 20%;
+  min-width: 40%;
   color: ${props => props.theme.colors.textColor};
 `
 
