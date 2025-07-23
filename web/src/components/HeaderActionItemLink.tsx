@@ -11,9 +11,7 @@ import Link from './base/Link'
 import Tooltip from './base/Tooltip'
 
 const StyledIcon = styled(Icon)`
-  width: 28px;
-  height: 28px;
-  color: ${props => props.theme.palette.primary.main};
+  color: ${props => props.theme.palette.primary.dark};
 `
 
 type HeaderActionItemLinkProps = {
@@ -40,8 +38,9 @@ const HeaderActionItemLink = ({ to, text, iconSrc }: HeaderActionItemLinkProps):
             name={text}
             sx={{ backgroundColor: theme.palette.tertiary.light }}
             size='medium'
+            color='primary'
             aria-label={text}>
-            <Icon src={iconSrc} color={theme.palette.primary.dark} />
+            <StyledIcon src={iconSrc} />
           </IconButton>
         </Link>
       ) : (

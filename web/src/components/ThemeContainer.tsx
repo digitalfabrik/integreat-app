@@ -6,7 +6,6 @@ import React, { ReactElement, ReactNode, useMemo } from 'react'
 import { prefixer } from 'stylis'
 
 import { ThemeKey } from 'build-configs'
-import { commonDarkColors, commonLightColors } from 'build-configs/common/theme/colors'
 import { UiDirectionType } from 'translations'
 
 import buildConfig from '../constants/buildConfig'
@@ -36,7 +35,6 @@ const createTheme = (
   contentDirection: UiDirectionType,
 ): Omit<Theme, 'toggleTheme'> => {
   const isContrast = themeType === 'contrast'
-  const commonPalette = isContrast ? commonDarkColors : commonLightColors
 
   return {
     ...(isContrast ? buildConfig().legacyContrastTheme : buildConfig().legacyLightTheme),
@@ -52,9 +50,7 @@ const createTheme = (
         dark: buildConfig().darkTheme,
       },
       typography: buildConfig().typography,
-      palette: {
-        ...commonPalette,
-      },
+      palette: isContrast ? buildConfig().darkTheme.palette : buildConfig().lightTheme.palette,
     }),
   }
 }
