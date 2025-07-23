@@ -4,7 +4,7 @@ import Button from '@mui/material/Button'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Rating } from 'shared'
+import { Rating, DEFAULT_ROWS_NUMBER } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
 import FeedbackButtons from './FeedbackButtons'
@@ -99,7 +99,7 @@ const Feedback = ({
         title={t(commentTitle)}
         description={t('commentDescription', { appName: buildConfig().appName })}
         showOptional>
-        <Input id='comment' value={comment} onChange={onCommentChanged} multiline />
+        <Input id='comment' value={comment} onChange={onCommentChanged} rows={DEFAULT_ROWS_NUMBER} />
       </InputSection>
 
       <InputSection id='email' title={t('contactMailAddress')} showOptional>
