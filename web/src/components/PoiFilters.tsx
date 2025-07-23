@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next'
 import { PoiCategoryModel } from 'shared/api'
 
 import ModalContent from './ModalContent'
+import SpacedToggleButtonGroup from './SpacedToggleButtonGroup'
 import Checkbox from './base/Checkbox'
 import Icon from './base/Icon'
 import ToggleButton, { toggleButtonWidth } from './base/ToggleButton'
@@ -49,7 +50,7 @@ const SortingHint = styled.div`
   padding: 0 4px;
 `
 
-const TileRow = styled.div<{ itemCount: number }>`
+const TileRow = styled(SpacedToggleButtonGroup)<{ itemCount: number }>`
   display: grid;
   gap: 24px ${tileColumnGap}px;
   justify-content: center;
@@ -88,6 +89,11 @@ const PoiFilters = ({
 }: PoiFiltersProps): ReactElement => {
   const { t } = useTranslation('pois')
 
+  const handleFilterChange = (_: React.MouseEvent<HTMLElement>, newValue: number | null) => {
+    const category = poiCategories.find(category => category.id === newValue)
+    setSelectedPoiCategory(category ?? null)
+  }
+
   return (
     <ModalContent title={t('adjustFilters')} closeModal={closeModal} small>
       <Container>
@@ -107,15 +113,13 @@ const PoiFilters = ({
             <SubTitle>{t('poiCategories')}</SubTitle>
             <SortingHint>{t('alphabetLetters')}</SortingHint>
           </Row>
-          <TileRow itemCount={Math.floor(panelWidth / (toggleButtonWidth + tileColumnGap))}>
+          <TileRow
+            itemCount={Math.floor(panelWidth / (toggleButtonWidth + tileColumnGap))}
+            exclusive
+            value={selectedPoiCategory?.id}
+            onChange={handleFilterChange}>
             {poiCategories.map(it => (
-              <ToggleButton
-                key={it.id}
-                text={it.name}
-                active={it.id === selectedPoiCategory?.id}
-                onClick={() => setSelectedPoiCategory(it.id === selectedPoiCategory?.id ? null : it)}
-                icon={it.icon}
-              />
+              <ToggleButton key={it.id} value={it.id} text={it.name} icon={it.icon} />
             ))}
           </TileRow>
         </Section>
