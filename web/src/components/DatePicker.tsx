@@ -21,17 +21,12 @@ const StyledInputWrapper = styled.div`
 `
 
 const StyledIconButton = styled(IconButton)<{ isCalendarOpen: boolean }>`
-  width: 40px;
-  height: 40px;
-  border-radius: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
   right: 16px;
   align-self: center;
-  background-color: ${props =>
-    props.isCalendarOpen ? props.theme.colors.themeColorLight : props.theme.colors.textDisabledColor};
 `
 const DatePickerWrapper: React.FC<DatePickerProps> = props => <DatePicker {...props} />
 
@@ -154,7 +149,12 @@ const CustomDatePicker = ({
           onChange={(date: Date | null) => handleDateChange(date)}
           onChangeRaw={e => handleDateError(String((e?.target as HTMLInputElement).value))}
         />
-        <StyledIconButton name={calendarLabel} isCalendarOpen={isCalendarOpen} onClick={() => setIsCalendarOpen(true)}>
+        <StyledIconButton
+          color='primary'
+          size='large'
+          name={calendarLabel}
+          isCalendarOpen={isCalendarOpen}
+          onClick={() => setIsCalendarOpen(true)}>
           <EventIcon />
         </StyledIconButton>
       </StyledInputWrapper>
