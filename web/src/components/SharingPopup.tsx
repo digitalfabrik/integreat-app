@@ -186,7 +186,6 @@ const SharingPopup = ({ shareUrl, title, flow, portalNeeded }: SharingPopupProps
               place={tooltipDirection}
               tooltipContent={t(linkCopied ? 'common:copied' : 'layout:copyUrl')}>
               <IconButton
-                name={t(linkCopied ? 'common:copied' : 'layout:copyUrl')}
                 aria-label={t(linkCopied ? 'common:copied' : 'layout:copyUrl')}
                 size='large'
                 onClick={copyToClipboard}>
@@ -195,31 +194,27 @@ const SharingPopup = ({ shareUrl, title, flow, portalNeeded }: SharingPopupProps
             </Tooltip>
             <Tooltip id='share-whatsapp' place={tooltipDirection} tooltipContent={t('whatsappTooltip')}>
               <Link to={`https://api.whatsapp.com/send?text=${shareMessage}%0a${encodedShareUrl}`}>
-                <IconButton name={t('whatsappTooltip')} size='large' aria-label={t('whatsappTooltip')}>
+                <IconButton size='large' aria-label={t('whatsappTooltip')}>
                   <WhatsAppIcon fontSize='inherit' />
                 </IconButton>
               </Link>
             </Tooltip>
             <Tooltip id='share-facebook' place={tooltipDirection} tooltipContent={t('facebookTooltip')}>
               <Link to={`https://www.facebook.com/sharer/sharer.php?u=${encodedShareUrl}&t${shareMessage}`}>
-                <IconButton name={t('facebookTooltip')} size='large' aria-label={t('facebookTooltip')}>
+                <IconButton size='large' aria-label={t('facebookTooltip')}>
                   <FacebookOutlinedIcon fontSize='inherit' />
                 </IconButton>
               </Link>
             </Tooltip>
             <Tooltip id='share-email' place={tooltipDirection} tooltipContent={t('mailTooltip')}>
               <Link to={`mailto:?subject=${encodedTitle}&body=${shareMessage} ${encodedShareUrl}`}>
-                <IconButton name={t('mailTooltip')} size='large' aria-label={t('mailTooltip')}>
+                <IconButton size='large' aria-label={t('mailTooltip')}>
                   <MailOutlinedIcon fontSize='inherit' />
                 </IconButton>
               </Link>
             </Tooltip>
             <Tooltip id='close-button' place={tooltipDirection} tooltipContent={t('closeTooltip')}>
-              <IconButton
-                name={t('closeTooltip')}
-                size='large'
-                onClick={() => setShareOptionsVisible(false)}
-                aria-label={t('closeTooltip')}>
+              <IconButton size='large' onClick={() => setShareOptionsVisible(false)} aria-label={t('closeTooltip')}>
                 <CloseIcon fontSize='inherit' />
               </IconButton>
             </Tooltip>
