@@ -1,11 +1,12 @@
 import createCache from '@emotion/cache'
-import { CacheProvider, Global, Theme } from '@emotion/react'
-import { createTheme as createMuiTheme, ThemeProvider } from '@mui/material/styles'
+import { CacheProvider, Global, Theme, ThemeProvider } from '@emotion/react'
+import { createTheme as createMuiTheme } from '@mui/material/styles'
 import rtlPlugin from '@mui/stylis-plugin-rtl'
 import React, { ReactElement, ReactNode, useMemo } from 'react'
 import { prefixer } from 'stylis'
 
 import { ThemeKey } from 'build-configs'
+import { commonDarkColors, commonLightColors } from 'build-configs/common/theme/colors'
 import { UiDirectionType } from 'translations'
 
 import buildConfig from '../constants/buildConfig'
@@ -33,25 +34,30 @@ export const BREAKPOINTS = {
 const createTheme = (
   themeType: 'light' | 'contrast',
   contentDirection: UiDirectionType,
-): Omit<Theme, 'toggleTheme'> => ({
-  ...(themeType === 'contrast' ? buildConfig().legacyContrastTheme : buildConfig().legacyLightTheme),
-  contentDirection,
-  isContrastTheme: themeType === 'contrast',
-  ...createMuiTheme({
-    breakpoints: {
-      values: BREAKPOINTS,
-    },
-    direction: contentDirection,
-    colorSchemes: {
-      light: buildConfig().lightTheme,
-      dark: buildConfig().darkTheme,
-    },
-    typography: buildConfig().typography,
-    palette: {
-      mode: themeType === 'contrast' ? 'dark' : 'light',
-    },
-  }),
-})
+): Omit<Theme, 'toggleTheme'> => {
+  const isContrast = themeType === 'contrast'
+  const commonPalette = isContrast ? commonDarkColors : commonLightColors
+
+  return {
+    ...(isContrast ? buildConfig().legacyContrastTheme : buildConfig().legacyLightTheme),
+    contentDirection,
+    isContrastTheme: isContrast,
+    ...createMuiTheme({
+      breakpoints: {
+        values: BREAKPOINTS,
+      },
+      direction: contentDirection,
+      colorSchemes: {
+        light: buildConfig().lightTheme,
+        dark: buildConfig().darkTheme,
+      },
+      typography: buildConfig().typography,
+      palette: {
+        ...commonPalette,
+      },
+    }),
+  }
+}
 
 type ThemeContainerProps = {
   children: ReactNode
