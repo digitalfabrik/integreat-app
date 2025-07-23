@@ -1,4 +1,3 @@
-import { useTheme } from '@emotion/react'
 import styled from '@emotion/styled'
 import CloseIcon from '@mui/icons-material/Close'
 import FastForwardIcon from '@mui/icons-material/FastForward'
