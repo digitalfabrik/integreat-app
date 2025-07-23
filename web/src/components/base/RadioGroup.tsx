@@ -44,8 +44,7 @@ export const RadioGroup = <T extends string>({
           {selectedValue === key && inputProps && (
             <Input
               id={`${key}-input`}
-              hint={inputProps.hint ?? label}
-              hintIsLabel={inputProps.hintIsLabel ?? true}
+              label={inputProps.label ?? label}
               required={inputProps.required ?? true}
               value={inputProps.value}
               onChange={inputProps.onChange}
