@@ -34,21 +34,16 @@ const HeaderActionItemLink = ({ to, text, iconSrc }: HeaderActionItemLinkProps):
   return (
     <Tooltip id={id} place={tooltipDirection} tooltipContent={text}>
       {to ? (
-        <IconButton
-          component='a'
-          href={to}
-          aria-label={text}
-          id={id}
-          sx={{ backgroundColor: theme.palette.tertiary.light }}>
+        <Link to={to} ariaLabel={text} id={id}>
           <IconButton
             name={text}
             sx={{ backgroundColor: theme.palette.tertiary.light }}
             size='medium'
             color='primary'
             aria-label={text}>
-            <StyledIcon src={iconSrc} />
+            <Icon src={iconSrc} color={theme.palette.primary.dark} />
           </IconButton>
-        </IconButton>
+        </Link>
       ) : (
         <span aria-label={text} id={id}>
           <StyledIcon src={iconSrc} />
