@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-import dimensions from '../constants/dimensions'
+import { BREAKPOINTS } from '../components/ThemeContainer'
 
 export type WindowDimensionsType = {
   width: number
@@ -21,7 +21,7 @@ const getWindowDimensions = (): WindowDimensionsType => {
     width,
     height,
     scrollY,
-    viewportSmall: width <= dimensions.maxWidthViewportSmall,
+    viewportSmall: width <= BREAKPOINTS.md,
     footerHeight,
     documentHeight,
     visibleFooterHeight: Math.max(0, height + scrollY + footerHeight - documentHeight),
