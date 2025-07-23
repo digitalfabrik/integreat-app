@@ -79,25 +79,13 @@ export const NavigationContainerWithTheme = ({ onStateChange }: NavigationContai
   }
 
   return (
-    <NavigationContainer onStateChange={onStateChange} theme={navigationTheme} linking={linking}>
-      <HeaderButtonsProvider stackType='native'>
-        <Navigator />
-      </HeaderButtonsProvider>
-    </NavigationContainer>
-  )
-}
-
-const ThemedSafeAreaView = ({
-  onStateChange,
-}: {
-  onStateChange: (state: NavigationState | undefined) => void
-}): ReactElement => {
-  const theme = useTheme()
-
-  return (
     <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.backgroundAccentColor }} edges={['bottom']}>
       <StatusBar />
-      <NavigationContainerWithTheme onStateChange={onStateChange} />
+      <NavigationContainer onStateChange={onStateChange} theme={navigationTheme} linking={linking}>
+        <HeaderButtonsProvider stackType='native'>
+          <Navigator />
+        </HeaderButtonsProvider>
+      </NavigationContainer>
     </SafeAreaView>
   )
 }
@@ -133,7 +121,7 @@ const App = (): ReactElement => {
               <SafeAreaProvider>
                 <SnackbarContainer>
                   <TtsContainer>
-                    <ThemedSafeAreaView onStateChange={onStateChange} />
+                    <NavigationContainerWithTheme onStateChange={onStateChange} />
                   </TtsContainer>
                 </SnackbarContainer>
               </SafeAreaProvider>
