@@ -1838,10 +1838,10 @@
   resolved "https://registry.yarnpkg.com/@img/sharp-win32-x64/-/sharp-win32-x64-0.34.2.tgz#ecf19250f8fe35de684aa2b0ec6f773b3447247b"
   integrity sha512-aUdT6zEYtDKCaxkofmmJDJYGCf0+pJg3eU9/oBuqvEeoB9dKI6ZLc/1iLJCTuJQDO4ptntAlkUmHgGjyuobZbw==
 
-"@integreat-app/react-sticky-headroom@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@integreat-app/react-sticky-headroom/-/react-sticky-headroom-3.0.0.tgz#6989dd9365c1340c1803547be4d37b0e35a33bb2"
-  integrity sha512-fWTehT3sQYj7qBmxLdM2jJviKeXpZLzyDBb2+9xXuamDcbP9Nyu5zakUYu0tkkiaFLEQVgSQBF16rGALBQknOw==
+"@integreat-app/react-sticky-headroom@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@integreat-app/react-sticky-headroom/-/react-sticky-headroom-3.0.1.tgz#d2549ce1c26c4e9ce507eadf81d7b7396fdadf97"
+  integrity sha512-vK46VjqFfginqHF4dO6fwZZqtP3pdXMtE/GP5/wKTP+eRcst7LV9Jqupo8SItSznsMOVhdXA2UmqOa2uNjBbnQ==
 
 "@isaacs/balanced-match@^4.0.1":
   version "4.0.1"
