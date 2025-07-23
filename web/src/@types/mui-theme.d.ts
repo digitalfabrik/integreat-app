@@ -38,6 +38,6 @@ declare module '@mui/material/styles' {
   }
   // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
   interface PaletteOptions {
-    tertiary?: PaletteColor
+    tertiary: PaletteColor
   }
 }
