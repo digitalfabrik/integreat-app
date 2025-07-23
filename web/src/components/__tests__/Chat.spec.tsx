@@ -49,7 +49,7 @@ describe('Chat', () => {
       name: 'chat:sendButton',
     })
 
-    fireEvent.change(getByPlaceholderText('chat:chatInputHelperText'), {
+    fireEvent.change(getByPlaceholderText('chat:chatInputHelperText', { exact: false }), {
       target: {
         value: 'Meine Nachricht',
       },
