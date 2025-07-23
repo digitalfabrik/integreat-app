@@ -59,7 +59,6 @@ const ExportEventButton = ({ event }: ExportEventButtonProps): ReactElement => {
             setExportRecurring(false)
             setIsExporting(false)
           }}
-          variant='outlined'
           startIcon={<DownloadIcon />}>
           {t('export')}
         </Button>
