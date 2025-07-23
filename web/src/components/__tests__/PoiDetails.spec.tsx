@@ -11,7 +11,7 @@ jest.mock('react-i18next', () => ({
   }),
 }))
 
-describe('PoiDetails (web)', () => {
+describe('PoiDetails', () => {
   const pois = new PoiModelBuilder(3).build()
   const distance = 3
 

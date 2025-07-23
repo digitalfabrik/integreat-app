@@ -20,7 +20,6 @@ import {
   PoiCategoryModel,
   OrganizationModel,
   OfferModel,
-  OrganizationType,
 } from 'shared/api'
 
 import DatabaseContext from '../models/DatabaseContext'
@@ -47,6 +46,12 @@ export const RESOURCE_CACHE_DIR_PATH = `${UNVERSIONED_RESOURCE_CACHE_DIR_PATH}/$
 
 const MAX_STORED_CITIES = 3
 
+type OrganizationJsonType = {
+  name: string
+  logo: string
+  url: string
+}
+
 type ContentCategoryJsonType = {
   root: boolean
   path: string
@@ -58,7 +63,7 @@ type ContentCategoryJsonType = {
   parent_path: string
   children: string[]
   order: number
-  organization: OrganizationType
+  organization: OrganizationJsonType | null
   embedded_offers: OfferJsonType[]
 }
 
@@ -162,7 +167,7 @@ type ContentPoiJsonType = {
     | null
   temporarilyClosed: boolean
   appointmentUrl: string | null
-  organization: OrganizationType | null
+  organization: OrganizationJsonType | null
   barrierFree: boolean | null
 }
 
@@ -409,7 +414,7 @@ class DatabaseConnector {
           ? {
               name: category.organization.name,
               logo: category.organization.logo,
-              website: category.organization.url,
+              url: category.organization.url,
             }
           : null,
         embedded_offers: category.embeddedOffers.map(offer => ({
@@ -444,7 +449,7 @@ class DatabaseConnector {
                   ? new OrganizationModel({
                       name: jsonObject.organization.name,
                       logo: jsonObject.organization.logo,
-                      url: jsonObject.organization.website,
+                      url: jsonObject.organization.url,
                     })
                   : null,
               embeddedOffers: jsonObject.embedded_offers.map(
@@ -515,7 +520,7 @@ class DatabaseConnector {
             ? {
                 name: poi.organization.name,
                 logo: poi.organization.logo,
-                website: poi.organization.url,
+                url: poi.organization.url,
               }
             : null,
         barrierFree: poi.barrierFree ?? null,
@@ -586,7 +591,7 @@ class DatabaseConnector {
               ? new OrganizationModel({
                   name: jsonObject.organization.name,
                   logo: jsonObject.organization.logo,
-                  url: jsonObject.organization.website,
+                  url: jsonObject.organization.url,
                 })
               : null,
           barrierFree: jsonObject.barrierFree ?? null,

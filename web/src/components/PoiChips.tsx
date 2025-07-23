@@ -53,12 +53,12 @@ const PoiChips = ({ poi }: { poi: PoiModel }): ReactElement => {
 
   return (
     <ChipsContainer>
-      {poi.barrierFree !== null && <Chip>{barrierFreeChip}</Chip>}
-      {poi.organization !== null && <Chip>{poi.organization.name}</Chip>}
       <Chip>
         <ChipIcon src={category.icon} />
         {category.name}
       </Chip>
+      {poi.organization !== null && <Chip>{poi.organization.name}</Chip>}
+      {poi.barrierFree !== null && <Chip>{barrierFreeChip}</Chip>}
     </ChipsContainer>
   )
 }
