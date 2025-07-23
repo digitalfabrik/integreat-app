@@ -13,6 +13,7 @@ type RenderRouteOptions = {
   routePattern: string
   searchParams?: string
   childPattern?: string
+  previousRoutes?: { pathname: string; search?: string }[]
 }
 
 const theme = { ...buildConfig().legacyLightTheme, contentDirection: 'ltr' as UiDirectionType }
@@ -51,7 +52,7 @@ export const renderRoute = (ui: ReactElement, options: RenderRouteOptions): Exte
     },
   ]
   const router = createMemoryRouter(routes, {
-    initialEntries: [{ pathname: options.pathname, search: options.searchParams }],
+    initialEntries: [...(options.previousRoutes ?? []), { pathname: options.pathname, search: options.searchParams }],
   })
   return {
     ...renderWithTheme(<RouterProvider router={router} />),

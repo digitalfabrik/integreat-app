@@ -132,6 +132,24 @@ describe('SearchPage', () => {
     await waitFor(() => expect(router.state.location.search).toMatch(/\?query=ChangeToThis/))
   })
 
+  it('should go back to previous url when using back navigation', async () => {
+    const { getByPlaceholderText, router } = renderRoute(searchPage, {
+      pathname: '/search',
+      routePattern: '/search',
+      previousRoutes: [{ pathname: '/augsburg/en' }],
+    })
+
+    fireEvent.change(getByPlaceholderText('search:searchPlaceholder'), { target: { value: 'testQuery' } })
+    await waitFor(() => {
+      expect(router.state.location.search).toBe('?query=testQuery')
+    })
+    await router.navigate(-1)
+
+    await waitFor(() => {
+      expect(router.state.location.pathname).toBe('/augsburg/en')
+    })
+  })
+
   it('should remove ?query= when filteredText is empty', () => {
     const query = '?query=RemoveThis'
 

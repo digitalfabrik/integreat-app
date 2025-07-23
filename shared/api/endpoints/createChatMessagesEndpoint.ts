@@ -5,7 +5,7 @@ import { ChatMessagesReturn, mapChatMessages } from '../mapping/mapChatMessages'
 import { CHAT_ENDPOINT_NAME } from './createSendChatMessageEndpoint'
 
 type ParamsType = {
-  city: string
+  cityCode: string
   language: string
   deviceId: string
 }
@@ -14,7 +14,7 @@ export default (baseUrl: string): Endpoint<ParamsType, ChatMessagesReturn> =>
   new EndpointBuilder<ParamsType, ChatMessagesReturn>(CHAT_ENDPOINT_NAME)
     .withParamsToUrlMapper(
       (params: ParamsType): string =>
-        `${baseUrl}/api/${API_VERSION}/${params.city}/${params.language}/${CHAT_ENDPOINT_NAME}/${params.deviceId}/`,
+        `${baseUrl}/api/${API_VERSION}/${params.cityCode}/${params.language}/${CHAT_ENDPOINT_NAME}/${params.deviceId}/`,
     )
     .withMapper(mapChatMessages)
     .build()

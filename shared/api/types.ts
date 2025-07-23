@@ -202,6 +202,7 @@ export type JsonCityType = {
   aliases: Record<string, { longitude: number; latitude: number }> | null
   bounding_box: [[number, number], [number, number]]
   is_chat_enabled: boolean
+  zammad_privacy_policy: string | null
 }
 
 export type TimeSlot = {
