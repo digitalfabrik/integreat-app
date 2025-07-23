@@ -41,7 +41,7 @@ const HeaderActionItemLink = ({ to, text, iconSrc }: HeaderActionItemLinkProps):
             size='medium'
             color='primary'
             aria-label={text}>
-            <Icon src={iconSrc} color={theme.palette.primary.dark} />
+            <StyledIcon src={iconSrc} />
           </IconButton>
         </Link>
       ) : (
