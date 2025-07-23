@@ -4,8 +4,7 @@ import Button from '@mui/material/Button'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Rating } from 'shared'
-import { DEFAULT_ROWS_NUMBER } from 'shared'
+import { Rating, DEFAULT_ROWS_NUMBER } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
 import FeedbackButtons from './FeedbackButtons'
