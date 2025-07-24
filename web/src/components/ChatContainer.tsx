@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import QuestionAnswerOutlinedIcon from '@mui/icons-material/QuestionAnswerOutlined'
-import { Fab } from '@mui/material'
+import Fab from '@mui/material/Fab'
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
