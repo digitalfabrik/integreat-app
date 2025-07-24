@@ -1,5 +1,7 @@
+import { useTheme } from '@emotion/react'
 import styled from '@emotion/styled'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import IconButton from '@mui/material/IconButton'
 import { GeolocateControl } from 'maplibre-gl'
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -13,8 +15,6 @@ import BottomActionSheet, { ScrollableBottomSheetRef } from './BottomActionSheet
 import GoBack from './GoBack'
 import MapView, { MapViewRef } from './MapView'
 import PoiSharedChildren from './PoiSharedChildren'
-import Button from './base/Button'
-import Icon from './base/Icon'
 
 const ListContainer = styled.div`
   padding: 0 30px;
@@ -32,22 +32,6 @@ const GoBackContainer = styled.div`
   overflow: hidden;
   transition: all 1s;
   padding: 0 30px;
-`
-
-const BackNavigation = styled(Button)`
-  background-color: ${props => props.theme.colors.textSecondaryColor};
-  height: 28px;
-  width: 28px;
-  border: 1px solid ${props => props.theme.colors.textDisabledColor};
-  border-radius: 50px;
-  box-shadow: 1px 1px 2px 0 rgb(0 0 0 / 20%);
-  justify-content: center;
-  align-items: center;
-  display: flex;
-`
-
-const StyledIcon = styled(Icon)`
-  color: ${props => props.theme.colors.backgroundColor};
 `
 
 const GeocontrolContainer = styled.div<{ maxOffset: number }>`
@@ -88,6 +72,7 @@ const PoisMobile = ({
   const [mapViewRef, setMapViewRef] = useState<MapViewRef | null>(null)
   const { pois, poi, mapFeatures, mapFeature } = data
   const { height } = useWindowDimensions()
+  const theme = useTheme()
   const canDeselect = !!mapFeature || !!slug
   const { t } = useTranslation('pois')
 
@@ -140,9 +125,13 @@ const PoisMobile = ({
         Overlay={
           <>
             {canDeselect && (
-              <BackNavigation onClick={deselect} tabIndex={0} label={t('detailsHeader')}>
-                <StyledIcon src={ArrowBackIcon} directionDependent />
-              </BackNavigation>
+              <IconButton onClick={deselect} tabIndex={0} aria-label={t('detailsHeader')} color='primary'>
+                <ArrowBackIcon
+                  sx={{
+                    transform: theme.direction === 'rtl' ? 'scaleX(-1)' : 'none',
+                  }}
+                />
+              </IconButton>
             )}
             {MapOverlay}
           </>
