@@ -1,9 +1,12 @@
 import styled from '@emotion/styled'
+import CloseIcon from '@mui/icons-material/Close'
+import FastForwardIcon from '@mui/icons-material/FastForward'
+import FastRewindIcon from '@mui/icons-material/FastRewind'
+import PauseIcon from '@mui/icons-material/Pause'
+import PlayArrowIcon from '@mui/icons-material/PlayArrow'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CloseIcon, PauseIcon, PlaybackIcon, PlayIcon } from '../assets'
-import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import Button from './base/Button'
 import Icon from './base/Icon'
@@ -27,7 +30,7 @@ const StyledTtsPlayer = styled.dialog<{ isPlaying: boolean; footerHeight: number
   gap: ${props => (props.isPlaying ? '4px;' : '36px')};
   border-color: transparent;
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     width: auto;
   }
 `
@@ -39,7 +42,6 @@ const StyledPanel = styled.div<{ isPlaying?: boolean }>`
   align-items: center;
   gap: 20px;
   margin: ${props => (props.isPlaying ? verticalMargin : 0)}px 0;
-  flex-direction: ${props => (props.theme.contentDirection === 'rtl' ? 'row-reverse' : 'row')};
 `
 
 const BaseButton = styled(Button)`
@@ -72,17 +74,22 @@ const PlayButton = styled(BaseButton)<{ disabled: boolean }>`
 const StyledButton = styled(Button)`
   display: flex;
   gap: 4px;
-  align-items: flex-end;
-  flex-direction: ${props => (props.theme.contentDirection === 'rtl' ? 'row-reverse' : 'row')};
+  align-items: center;
 `
 
 const StyledPlayIcon = styled(Icon)`
+  width: 32px;
+  height: 32px;
   color: ${props =>
     props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.ttsPlayerBackground};
 `
 
 const StyledCloseIcon = styled(Icon)`
   color: ${props => (props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.textColor)};
+`
+const StyledPlaybackIcon = styled(Icon)`
+  width: 32px;
+  height: 32px;
 `
 
 const StyledCloseText = styled.span`
@@ -146,15 +153,15 @@ const TtsPlayer = ({
         {isPlaying && (
           <StyledButton label={t('previous')} onClick={playPrevious}>
             <StyledText>{t('previous')}</StyledText>
-            <Icon reverse src={PlaybackIcon} />
+            <StyledPlaybackIcon src={FastRewindIcon} />
           </StyledButton>
         )}
         <PlayButton label={t(isPlaying ? 'pause' : 'play')} onClick={isPlaying ? pause : play} disabled={disabled}>
-          <StyledPlayIcon src={isPlaying ? PauseIcon : PlayIcon} />
+          <StyledPlayIcon src={isPlaying ? PauseIcon : PlayArrowIcon} />
         </PlayButton>
         {isPlaying && (
           <StyledButton label={t('next')} onClick={playNext}>
-            <Icon src={PlaybackIcon} />
+            <StyledPlaybackIcon src={FastForwardIcon} />
             <StyledText>{t('next')}</StyledText>
           </StyledButton>
         )}

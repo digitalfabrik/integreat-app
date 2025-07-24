@@ -1,11 +1,10 @@
 import styled from '@emotion/styled'
+import CloseIcon from '@mui/icons-material/Close'
 import { DateTime } from 'luxon'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CloseIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'
-import dimensions from '../constants/dimensions'
 import useLocalStorage from '../hooks/useLocalStorage'
 import Button from './base/Button'
 import Icon from './base/Icon'
@@ -19,7 +18,7 @@ const StyledBanner = styled.div<{ isInstalled: boolean }>`
   transition: all 2s ease-out;
   height: ${props => (props.isInstalled ? 'fit-content' : '80px')};
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     display: flex;
   }
 `

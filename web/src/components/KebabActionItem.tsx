@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
-import React, { ReactElement } from 'react'
+import { SvgIconProps } from '@mui/material'
+import React, { ElementType, ReactElement } from 'react'
 
 import Icon from './base/Icon'
 
@@ -24,7 +25,7 @@ const StyledIcon = styled(Icon)`
 
 type KebabActionItemProps = {
   text: string
-  iconSrc: string
+  iconSrc: string | ElementType<SvgIconProps>
 }
 
 const KebabActionItem = ({ text, iconSrc }: KebabActionItemProps): ReactElement => (
