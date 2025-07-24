@@ -1,6 +1,6 @@
 import React from 'react'
 
-import ChatMessageModel from 'shared/api/models/ChatMessageModel'
+import { ChatMessageModel } from 'shared/api'
 
 import { renderWithRouterAndTheme } from '../../testing/render'
 import ChatConversation from '../ChatConversation'
