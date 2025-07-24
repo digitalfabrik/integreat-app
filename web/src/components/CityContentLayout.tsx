@@ -1,7 +1,7 @@
 import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
 
+import { POIS_ROUTE } from 'shared'
 import { CityModel } from 'shared/api'
-import { POIS_ROUTE } from 'shared/routes'
 
 import buildConfig from '../constants/buildConfig'
 import useWindowDimensions from '../hooks/useWindowDimensions'

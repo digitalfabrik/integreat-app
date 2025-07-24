@@ -4,8 +4,7 @@ import Button from '@mui/material/Button'
 import React, { KeyboardEvent, ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CityModel } from 'shared/api'
-import ChatMessageModel from 'shared/api/models/ChatMessageModel'
+import { ChatMessageModel, CityModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
 import Caption from './Caption'

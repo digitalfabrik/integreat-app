@@ -5,9 +5,8 @@ import { DateTime } from 'luxon'
 import React, { ReactElement, ElementType } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { getExcerpt } from 'shared'
+import { getExcerpt, getDisplayDate } from 'shared'
 import { DateModel, DateIcon, EventModel } from 'shared/api'
-import { getDisplayDate } from 'shared/utils/dateFilterUtils'
 
 import {
   CalendarTodayRecurringIcon,
