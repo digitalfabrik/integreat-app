@@ -15,11 +15,13 @@ jest.mock('react-i18next')
 jest.mock('react-native-tts')
 jest.mock('../../hooks/useSnackbar')
 jest.mock('shared/api', () => ({
+  ...jest.requireActual('shared/api'),
   useLoadAsync: jest.fn(() => ({
     data: [
       { language: 'en-US', name: 'English' },
       { language: 'de-DE', name: 'German' },
     ],
+    refresh: jest.fn(),
   })),
 }))
 

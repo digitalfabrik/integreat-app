@@ -110,7 +110,7 @@ const RemoteContent = ({
       }
 
       if (message.type === WARNING_MESSAGE_TYPE) {
-        log(message.message, 'warning')
+        log(message.message, { level: 'warning' })
       } else {
         const messageText: string | undefined = message.message
         const error = new Error(messageText ? JSON.stringify(messageText) : 'Unknown message received from webview')
