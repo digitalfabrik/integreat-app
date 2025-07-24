@@ -12,7 +12,7 @@ export const deleteIfExists = async (path: string): Promise<void> => {
   if (await BlobUtil.fs.exists(path)) {
     await BlobUtil.fs.unlink(path)
   } else {
-    log(`File or directory ${path} does not exist and was therefore not deleted.`, 'warning')
+    log(`File or directory ${path} does not exist and was therefore not deleted.`, { level: 'warning' })
   }
 }
 
