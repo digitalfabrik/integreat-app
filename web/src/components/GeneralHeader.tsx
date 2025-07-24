@@ -1,4 +1,4 @@
-import LocationOnIcon from '@mui/icons-material/LocationOn'
+import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -17,7 +17,14 @@ const GeneralHeader = ({ languageCode }: GeneralHeaderProps): ReactElement => {
   const landingPath = pathnameFromRouteInformation({ route: LANDING_ROUTE, languageCode })
   const actionItems = buildConfig().featureFlags.fixedCity
     ? []
-    : [<HeaderActionItemLink key='landing' to={landingPath} iconSrc={LocationOnIcon} text={t('changeLocation')} />]
+    : [
+        <HeaderActionItemLink
+          key='landing'
+          to={landingPath}
+          icon={<LocationOnOutlinedIcon />}
+          text={t('changeLocation')}
+        />,
+      ]
 
   return (
     <Header

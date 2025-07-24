@@ -38,6 +38,7 @@ const commonColors: CommonColors = {
   action: {
     disabledBackground: '#C9C9C9',
     disabled: '#FFFFFF',
+    active: '#242D3B',
   },
 }
 
