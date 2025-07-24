@@ -1,56 +1,43 @@
 import styled from '@emotion/styled'
 import CloseIcon from '@mui/icons-material/Close'
 import FastForwardIcon from '@mui/icons-material/FastForward'
-import FastRewindIcon from '@mui/icons-material/FastRewind'
 import PauseIcon from '@mui/icons-material/Pause'
 import PlayArrowIcon from '@mui/icons-material/PlayArrow'
-import IconButton from '@mui/material/IconButton'
+import { Typography } from '@mui/material'
+import Button from '@mui/material/Button'
 import React, { ReactElement } from 'react'
-import { useTranslation } from 'react-i18next'
 
 import useWindowDimensions from '../hooks/useWindowDimensions'
-import Button from './base/Button'
 import Icon from './base/Icon'
 
-const StyledTtsPlayer = styled.dialog<{ isPlaying: boolean; footerHeight: number }>`
+const StyledTtsPlayer = styled.dialog<{ footerHeight: number }>`
   background-color: ${props =>
     props.theme.isContrastTheme ? props.theme.colors.backgroundAccentColor : props.theme.colors.ttsPlayerBackground};
   color: ${props => props.theme.colors.textColor};
-  border-radius: 28px;
-  width: 388px;
-  max-width: 388px;
+  border-radius: 8px;
+  width: 300px;
   display: flex;
-  flex-direction: ${props => (props.isPlaying ? 'column' : 'row')};
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 8px;
+  padding: 24px;
   position: fixed;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   bottom: ${props => props.footerHeight}px;
-  min-height: 92px;
-  gap: ${props => (props.isPlaying ? '4px;' : '36px')};
+  gap: 16px;
   border-color: transparent;
+  opacity: 0.98;
 
   ${props => props.theme.breakpoints.down('md')} {
     width: auto;
+    margin: 12px;
   }
 `
 
-const verticalMargin = 12
-
-const StyledIconButton = styled(IconButton)(({ theme }) => ({
-  backgroundColor: theme.palette.tertiary.light,
-
-  '&.Mui-disabled': {
-    backgroundColor: theme.palette.action.disabledBackground,
-  },
-}))
-
-const StyledPanel = styled.div<{ isPlaying?: boolean }>`
+const StyledPanel = styled.div`
   display: flex;
   align-items: center;
   gap: 20px;
-  margin: ${props => (props.isPlaying ? verticalMargin : 0)}px 0;
 `
 
 const BaseButton = styled(Button)`
@@ -60,11 +47,19 @@ const BaseButton = styled(Button)`
   transition:
     box-shadow 0.2s ease,
     transform 0.1s ease;
+`
 
-  &:active {
-    box-shadow: none;
-    transform: translateY(2px);
-  }
+const PlayButton = styled(BaseButton)<{ disabled: boolean }>`
+  background-color: ${props => {
+    if (props.disabled) {
+      return props.theme.colors.textDisabledColor
+    }
+    return props.theme.isContrastTheme ? props.theme.colors.textColor : props.theme.colors.ttsPlayerPlayIconColor
+  }};
+  width: 48px;
+  height: 48px;
+  border-radius: 48px;
+  box-shadow: 1px 4px 8px 1px grey;
 `
 
 const StyledButton = styled(Button)`
@@ -73,21 +68,29 @@ const StyledButton = styled(Button)`
   align-items: center;
 `
 
-const StyledCloseIcon = styled(Icon)`
-  color: ${props => (props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.textColor)};
-`
-const StyledPlaybackIcon = styled(Icon)`
+const StyledPlayIcon = styled(Icon)`
   width: 32px;
   height: 32px;
+  color: ${props =>
+    props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.ttsPlayerBackground};
 `
 
-const StyledCloseText = styled.span`
-  font-weight: bold;
-`
-
-const StyledText = styled.span`
-  font-weight: bold;
+const StyledCloseIcon = styled(Icon)`
   color: ${props => props.theme.colors.textColor};
+`
+
+const StyledFastForwardIcon = styled(FastForwardIcon)<{ disabled: boolean; $rotate?: boolean }>`
+  ${props => (props.$rotate ? 'rotate: 180deg;' : '')}
+  color: ${props => {
+    if (props.disabled) {
+      return props.theme.isContrastTheme
+        ? props.theme.colors.ttsPlayerPlayIconColor
+        : props.theme.colors.textDisabledColor
+    }
+    return props.theme.isContrastTheme ? props.theme.colors.textColor : props.theme.colors.ttsPlayerPlayIconColor
+  }};
+  width: 32px;
+  height: 32px;
 `
 
 const HeaderText = styled.span`
@@ -97,19 +100,11 @@ const HeaderText = styled.span`
 `
 
 const CloseButton = styled(BaseButton)`
-  border-radius: 8px;
-  background-color: ${props => props.theme.colors.themeColor};
-  color: ${props => (props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.textColor)};
-  padding: 4px 8px;
-  gap: 4px;
-  box-shadow: 1px 4px 4px 1px grey;
-`
-
-const CloseView = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  justify-content: center;
+  border: none;
+  background-color: transparent;
+  top: 0;
+  right: -12px;
+  position: absolute;
 `
 
 type TtsPlayerProps = {
@@ -133,40 +128,31 @@ const TtsPlayer = ({
   pause,
   disabled,
 }: TtsPlayerProps): ReactElement => {
-  const { t } = useTranslation('layout')
   const { visibleFooterHeight } = useWindowDimensions()
+
   return (
-    <StyledTtsPlayer isPlaying={isPlaying} footerHeight={visibleFooterHeight}>
-      <StyledPanel isPlaying={isPlaying}>
-        {isPlaying && (
-          <StyledButton label={t('previous')} onClick={playPrevious}>
-            <StyledText>{t('previous')}</StyledText>
-            <StyledPlaybackIcon src={FastRewindIcon} />
-          </StyledButton>
-        )}
-        <StyledIconButton
-          name={t(isPlaying ? 'pause' : 'play')}
-          aria-label={t(isPlaying ? 'pause' : 'play')}
-          onClick={isPlaying ? pause : play}
-          disabled={disabled}
-          color='primary'
-          size='large'>
-          {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
-        </StyledIconButton>
-        {isPlaying && (
-          <StyledButton label={t('next')} onClick={playNext}>
-            <StyledPlaybackIcon src={FastForwardIcon} />
-            <StyledText>{t('next')}</StyledText>
-          </StyledButton>
-        )}
+    <StyledTtsPlayer footerHeight={visibleFooterHeight}>
+      <CloseButton onClick={close}>
+        <StyledCloseIcon src={CloseIcon} />
+      </CloseButton>
+      <HeaderText>
+        <Typography variant='title1'>{title}</Typography>
+      </HeaderText>
+      <StyledPanel>
+        <StyledButton
+          onClick={playPrevious}
+          disabled={!isPlaying}
+          startIcon={<StyledFastForwardIcon disabled={!isPlaying} $rotate />}
+        />
+        <PlayButton onClick={isPlaying ? pause : play} disabled={disabled}>
+          <StyledPlayIcon src={isPlaying ? PauseIcon : PlayArrowIcon} />
+        </PlayButton>
+        <StyledButton
+          onClick={playNext}
+          disabled={!isPlaying}
+          endIcon={<StyledFastForwardIcon disabled={!isPlaying} />}
+        />
       </StyledPanel>
-      <CloseView>
-        {!isPlaying && <HeaderText>{title}</HeaderText>}
-        <CloseButton label={t('common:close')} onClick={close}>
-          <StyledCloseIcon src={CloseIcon} />
-          <StyledCloseText>{t('common:close')}</StyledCloseText>
-        </CloseButton>
-      </CloseView>
     </StyledTtsPlayer>
   )
 }
