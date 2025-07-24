@@ -3,6 +3,7 @@ import { DateTime } from 'luxon'
 import ContactModel from '../../models/ContactModel'
 import LocationModel from '../../models/LocationModel'
 import OpeningHoursModel from '../../models/OpeningHoursModel'
+import OrganizationModel from '../../models/OrganizationModel'
 import PoiCategoryModel from '../../models/PoiCategoryModel'
 import PoiModel from '../../models/PoiModel'
 
@@ -56,6 +57,12 @@ const pois = [
         mobilePhoneNumber: '017012345678',
       }),
     ],
+    organization: new OrganizationModel({
+      name: 'Tür an Tür',
+      url: 'https://tuerantuer.de/digitalfabrik/',
+      logo: 'https://integreat-test.tuerantuer.org/media/global/2024/07/1719820470_Aichach-Friedberg-Landkreis.png',
+    }),
+    barrierFree: true,
   }),
   new PoiModel({
     path: '/augsburg/en/locations/test_path_2',
@@ -97,6 +104,8 @@ const pois = [
     ],
     appointmentUrl: 'https://booking.an/appointment',
     contacts: [],
+    organization: null,
+    barrierFree: false,
   }),
   new PoiModel({
     path: '/augsburg/en/locations/another_test_path',
@@ -131,6 +140,8 @@ const pois = [
     openingHours: null,
     appointmentUrl: null,
     contacts: [],
+    organization: null,
+    barrierFree: null,
   }),
 ]
 

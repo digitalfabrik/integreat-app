@@ -1,5 +1,5 @@
 import React, { JSXElementConstructor, ReactElement, useMemo } from 'react'
-import { Image, View, StyleProp, ImageStyle, ImageResizeMode } from 'react-native'
+import { Image, View, StyleProp, ImageStyle, ImageResizeMode, StyleSheet } from 'react-native'
 import { SvgProps } from 'react-native-svg'
 import { SvgCssUri } from 'react-native-svg/css'
 import styled from 'styled-components/native'
@@ -73,7 +73,12 @@ const SimpleImage = ({
   const cachedSource = getCachedThumbnail(source, resourceCache)
 
   if (cachedSource.endsWith('.svg')) {
-    return <SvgCssUri uri={cachedSource} style={style} />
+    // SvgCssUri doesn't use the width and height in the style prop
+    const flattenedStyle = StyleSheet.flatten(style)
+    const { width, height } = flattenedStyle
+    const widthFromStyleObject = typeof width === 'number' || typeof width === 'string' ? width : undefined
+    const heightFromStyleObject = typeof height === 'number' || typeof height === 'string' ? height : undefined
+    return <SvgCssUri uri={cachedSource} style={style} width={widthFromStyleObject} height={heightFromStyleObject} />
   }
 
   return (

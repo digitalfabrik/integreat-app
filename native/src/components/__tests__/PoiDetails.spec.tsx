@@ -31,7 +31,7 @@ describe('PoiDetails', () => {
   const showSnackbar = jest.fn()
   mocked(useSnackbar).mockImplementation(() => showSnackbar)
 
-  const pois = new PoiModelBuilder(2).build()
+  const pois = new PoiModelBuilder(3).build()
   const language = 'de'
   const distance = 3.1
 
@@ -87,5 +87,32 @@ describe('PoiDetails', () => {
     fireEvent.press(getByText(poi.location.address))
     expect(Clipboard.setString).toHaveBeenCalledWith('Test Address 1, 12345 Test Town')
     expect(showSnackbar).toHaveBeenCalledWith({ text: 'addressCopied' })
+  })
+
+  it('should show accessibility information for accessible POI', () => {
+    const accessiblePoi = pois[0]!
+    const { getByText } = renderWithTheme(<PoiDetails poi={accessiblePoi} language={language} distance={distance} />)
+    expect(getByText('common:accessible')).toBeTruthy()
+  })
+
+  it('should show accessibility information for not accessible POI', () => {
+    const notAccessiblePoi = pois[1]!
+    const { getByText } = renderWithTheme(<PoiDetails poi={notAccessiblePoi} language={language} distance={distance} />)
+    expect(getByText('common:notAccessible')).toBeTruthy()
+  })
+
+  it('should not show accessibility information for POI with unknown accessibility', () => {
+    const unknownAccessiblePoi = pois[2]!
+    const { queryByText } = renderWithTheme(
+      <PoiDetails poi={unknownAccessiblePoi} language={language} distance={distance} />,
+    )
+    expect(queryByText('common:accessible')).toBeFalsy()
+    expect(queryByText('common:notAccessible')).toBeFalsy()
+  })
+
+  it('should show the POI organization if there is one', () => {
+    const poi = pois[0]!
+    const { getByText } = renderWithTheme(<PoiDetails poi={poi} language={language} distance={distance} />)
+    expect(getByText('Tür an Tür')).toBeTruthy()
   })
 })

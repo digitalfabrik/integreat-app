@@ -1132,7 +1132,9 @@
       "back": "Zurück",
       "ok": "Ok",
       "minimize": "Minimieren",
-      "privacyPolicy": "Ich habe die <1>Datenschutzerklärung</1> gelesen und stimme der Verarbeitung und Speicherung meiner Daten zu."
+      "privacyPolicy": "Ich habe die <1>Datenschutzerklärung</1> gelesen und stimme der Verarbeitung und Speicherung meiner Daten zu.",
+      "accessible": "Barrierefrei",
+      "notAccessible": "Nicht barrierefrei"
     },
     "am": {
       "copied": "ተቀድቷል",
