@@ -15,7 +15,7 @@ describe('PoiDetails', () => {
   const pois = new PoiModelBuilder(3).build()
   const distance = 3
 
-  it('renders the poi information', () => {
+  it('should render the poi information', () => {
     const poi = pois[0]!
     const { getByText } = renderWithRouterAndTheme(<PoiDetails poi={poi} distance={distance} />)
 
@@ -33,39 +33,52 @@ describe('PoiDetails', () => {
     expect(getByText('contacts')).toBeTruthy()
   })
 
-  it('does not render the distance if it is null', () => {
+  it('should not render the distance if it is null', () => {
     const poi = pois[0]!
     const { queryByText } = renderWithRouterAndTheme(<PoiDetails poi={poi} distance={null} />)
     expect(queryByText('distanceKilometre', { exact: false })).toBeFalsy()
   })
 
-  it('does not render contacts section if there are no contacts', () => {
+  it('should not render contacts section if there are no contacts', () => {
     const poi = pois[1]!
     const { queryByText } = renderWithRouterAndTheme(<PoiDetails poi={poi} distance={distance} />)
     expect(queryByText('contacts')).toBeFalsy()
   })
 
-  it('renders the opening hours', () => {
+  it('should render the opening hours', () => {
     const poi = pois[0]!
     const { getByText } = renderWithRouterAndTheme(<PoiDetails poi={poi} distance={distance} />)
     expect(getByText('detailsInformation')).toBeTruthy()
   })
 
-  it('renders the content section', () => {
+  it('should render the content section', () => {
     const poi = pois[0]!
     const { getByText } = renderWithRouterAndTheme(<PoiDetails poi={poi} distance={distance} />)
     expect(getByText(poi.content)).toBeTruthy()
   })
 
-  it('shows accessibility information for an accessible POI', () => {
+  it('should show accessibility information for an accessible POI', () => {
     const accessiblePoi = pois[0]!
     const { getByText } = renderWithRouterAndTheme(<PoiDetails poi={accessiblePoi} distance={distance} />)
     expect(getByText('common:accessible')).toBeTruthy()
   })
 
-  it('shows accessibility information for a not accessible POI', () => {
+  it('should show accessibility information for a not accessible POI', () => {
     const notAccessiblePoi = pois[1]!
     const { getByText } = renderWithRouterAndTheme(<PoiDetails poi={notAccessiblePoi} distance={distance} />)
     expect(getByText('common:notAccessible')).toBeTruthy()
+  })
+
+  it('should not show accessibility information for a POI with unknown accessibility', () => {
+    const unknownAccessiblePoi = pois[2]!
+    const { queryByText } = renderWithRouterAndTheme(<PoiDetails poi={unknownAccessiblePoi} distance={distance} />)
+    expect(queryByText('common:accessible')).toBeFalsy()
+    expect(queryByText('common:notAccessible')).toBeFalsy()
+  })
+
+  it('should show the POI organization if there is one', () => {
+    const poi = pois[0]!
+    const { getByText } = renderWithRouterAndTheme(<PoiDetails poi={poi} distance={distance} />)
+    expect(getByText('Tür an Tür')).toBeTruthy()
   })
 })
