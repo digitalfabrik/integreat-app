@@ -1,7 +1,6 @@
 import React from 'react'
 
 import { OpeningHoursModel } from 'shared/api'
-import OpenHoursModel from 'shared/api/models/OpeningHoursModel'
 
 import { renderWithTheme } from '../../testing/render'
 import OpeningHours from '../OpeningHours'
@@ -28,7 +27,7 @@ describe('OpeningHours', () => {
   const openingHours = Array.from(
     { length: 7 },
     () =>
-      new OpenHoursModel({
+      new OpeningHoursModel({
         allDay: false,
         closed: false,
         timeSlots: [{ end: '18:00', start: '08:00' }],

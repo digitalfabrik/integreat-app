@@ -5,7 +5,7 @@ import { TFunction } from 'i18next'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import ChatMessageModel from 'shared/api/models/ChatMessageModel'
+import { ChatMessageModel } from 'shared/api'
 
 import RemoteContent from './RemoteContent'
 import Icon from './base/Icon'
