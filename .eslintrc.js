@@ -83,6 +83,20 @@ module.exports = {
           { name: '@mui/material', message: 'Use import from "@mui/material/<your-component>" instead.' },
           { name: '@mui/icons-material', message: 'Use import from "@mui/icons-material/<your-icon>" instead.' },
         ],
+        patterns: [
+          {
+            group: ['shared/*', '!shared/api'],
+            message: 'Use import from "shared" instead (you might need to add it as an export in index.ts).',
+          },
+          {
+            group: ['shared/api/*', '!shared/api/endpoints'],
+            message: 'Use import from "shared/api" instead (you might need to add it as an export in index.ts).',
+          },
+          {
+            group: ['shared/api/endpoints/*', '!shared/api/endpoints/testing'],
+            message: 'Use import from "shared/api" instead (you might need to add it as an export in index.ts).',
+          },
+        ],
       },
     ],
 

@@ -4,8 +4,7 @@ import { TFunction } from 'i18next'
 import React, { ReactElement } from 'react'
 import { Link } from 'react-router'
 
-import { NewsType, TU_NEWS_TYPE } from 'shared'
-import { tunewsLabel } from 'shared/constants/news'
+import { NewsType, TU_NEWS_TYPE, tunewsLabel } from 'shared'
 
 import { TuNewsActiveIcon, TuNewsInactiveIcon } from '../assets'
 

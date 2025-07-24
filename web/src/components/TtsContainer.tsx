@@ -2,8 +2,7 @@ import EasySpeech from 'easy-speech'
 import React, { createContext, ReactElement, useCallback, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { TTS_MAX_TITLE_DISPLAY_CHARS } from 'shared'
-import { truncate } from 'shared/utils/getExcerpt'
+import { TTS_MAX_TITLE_DISPLAY_CHARS, truncate } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
 import { getTtsVoice, isTtsCancelError, ttsInitialized } from '../utils/tts'
