@@ -1,4 +1,3 @@
-import AVFoundation
 import React
 import ReactAppDependencyProvider
 import React_RCTAppDelegate
@@ -10,15 +9,6 @@ class AppDelegate: RCTAppDelegate {
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
   ) -> Bool {
-    // Play audio even when the device is in silent mode
-    do {
-      try AVAudioSession.sharedInstance().setCategory(
-        .playback, mode: .default, options: [.mixWithOthers])
-      try AVAudioSession.sharedInstance().setActive(true)
-    } catch {
-      print("Failed to set audio session category: \(error)")
-    }
-
     self.moduleName = "Integreat"
     self.dependencyProvider = RCTAppDependencyProvider()
 
