@@ -3,9 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { Platform } from 'react-native'
 import Tts, { Options } from 'react-native-tts'
 
-import { getGenericLanguageCode, TTS_MAX_TITLE_DISPLAY_CHARS } from 'shared'
+import { getGenericLanguageCode, TTS_MAX_TITLE_DISPLAY_CHARS, truncate } from 'shared'
 import { useLoadAsync } from 'shared/api'
-import { truncate } from 'shared/utils/getExcerpt'
 
 import buildConfig from '../constants/buildConfig'
 import { AppContext } from '../contexts/AppContextProvider'
