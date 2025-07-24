@@ -1,5 +1,9 @@
 import styled from '@emotion/styled'
-import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup as MuiRadioGroup } from '@mui/material'
+import FormControl from '@mui/material/FormControl'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import FormLabel from '@mui/material/FormLabel'
+import Radio from '@mui/material/Radio'
+import MuiRadioGroup from '@mui/material/RadioGroup'
 import React, { ReactElement } from 'react'
 
 import Input, { InputProps } from './Input'

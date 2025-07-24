@@ -76,6 +76,15 @@ module.exports = {
     ],
     'prefer-destructuring': ['error', { array: false }],
     'prefer-object-spread': 'error',
+    'no-restricted-imports': [
+      'error',
+      {
+        paths: [
+          { name: '@mui/material', message: 'Use import from "@mui/material/<your-component>" instead.' },
+          { name: '@mui/icons-material', message: 'Use import from "@mui/icons-material/<your-icon>" instead.' },
+        ],
+      },
+    ],
 
     'react/function-component-definition': [
       'error',
