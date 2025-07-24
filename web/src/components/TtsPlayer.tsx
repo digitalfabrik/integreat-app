@@ -132,7 +132,7 @@ const TtsPlayer = ({
 
   return (
     <StyledTtsPlayer footerHeight={visibleFooterHeight}>
-      <CloseButton onClick={close}>
+      <CloseButton onClick={close} data-testid='close-button'>
         <StyledCloseIcon src={CloseIcon} />
       </CloseButton>
       <HeaderText>
@@ -140,14 +140,19 @@ const TtsPlayer = ({
       </HeaderText>
       <StyledPanel>
         <StyledButton
+          data-testid='previous-button'
           onClick={playPrevious}
           disabled={!isPlaying}
           startIcon={<StyledFastForwardIcon disabled={!isPlaying} iconRotate />}
         />
-        <PlayButton onClick={isPlaying ? pause : play} disabled={disabled}>
+        <PlayButton
+          data-testid={isPlaying ? 'pause-button' : 'play-button'}
+          onClick={isPlaying ? pause : play}
+          disabled={disabled}>
           <StyledPlayIcon src={isPlaying ? PauseIcon : PlayArrowIcon} />
         </PlayButton>
         <StyledButton
+          data-testid='next-button'
           onClick={playNext}
           disabled={!isPlaying}
           endIcon={<StyledFastForwardIcon disabled={!isPlaying} />}
