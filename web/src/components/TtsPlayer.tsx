@@ -138,7 +138,8 @@ const TtsPlayer = ({
       <HeaderText>
         <Typography variant='title1'>{title}</Typography>
       </HeaderText>
-      <StyledPanel>
+      {/* Sound player panel shouldn't be rotated in rtl */}
+      <StyledPanel dir='ltr'>
         <StyledButton
           data-testid='previous-button'
           onClick={playPrevious}
