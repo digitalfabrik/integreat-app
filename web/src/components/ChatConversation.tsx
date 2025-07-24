@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import ChatMessageModel from 'shared/api/models/ChatMessageModel'
+import { ChatMessageModel } from 'shared/api'
 
 import ChatMessage, { InnerChatMessage } from './ChatMessage'
 
