@@ -1,14 +1,13 @@
 import styled from '@emotion/styled'
 import CloseIcon from '@mui/icons-material/Close'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
+import IconButton from '@mui/material/IconButton'
 import React, { ReactElement, ReactNode, useLayoutEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import dimensions from '../constants/dimensions'
 import useLockedBody from '../hooks/useLockedBody'
 import Portal from './Portal'
-import Button from './base/Button'
-import Icon from './base/Icon'
 
 type KebabMenuProps = {
   items: ReactNode[]
@@ -73,11 +72,6 @@ const Content = styled.div`
   padding: 0 32px;
 `
 
-const StyledIcon = styled(Icon)`
-  width: 28px;
-  height: 28px;
-`
-
 const KebabMenu = ({ items, show, setShow, Footer }: KebabMenuProps): ReactElement | null => {
   useLockedBody(show)
   const { t } = useTranslation('layout')
@@ -99,9 +93,9 @@ const KebabMenu = ({ items, show, setShow, Footer }: KebabMenuProps): ReactEleme
 
   return (
     <ToggleContainer>
-      <Button onClick={onClick} label={t('sideBarOpenAriaLabel')} aria-expanded={show}>
-        <StyledIcon src={MoreVertIcon} />
-      </Button>
+      <IconButton color='primary' onClick={onClick} aria-label={t('sideBarOpenAriaLabel')} aria-expanded={show}>
+        <MoreVertIcon />
+      </IconButton>
       <Portal
         className='kebab-menu'
         show={show}
@@ -115,9 +109,9 @@ const KebabMenu = ({ items, show, setShow, Footer }: KebabMenuProps): ReactEleme
         <List>
           <Heading>
             <ActionBar>
-              <Button onClick={onClick} label={t('sideBarCloseAriaLabel')}>
-                <Icon src={CloseIcon} />
-              </Button>
+              <IconButton color='primary' onClick={onClick} aria-label={t('sideBarCloseAriaLabel')}>
+                <CloseIcon />
+              </IconButton>
             </ActionBar>
           </Heading>
           <Content>{items}</Content>

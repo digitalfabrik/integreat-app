@@ -1,12 +1,10 @@
-import { css } from '@emotion/react'
+import { css, useTheme } from '@emotion/react'
 import styled from '@emotion/styled'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import CloseIcon from '@mui/icons-material/Close'
+import IconButton from '@mui/material/IconButton'
 import React, { CSSProperties, ReactElement, ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-
-import Button from './base/Button'
-import Icon from './base/Icon'
 
 const Container = styled.div`
   display: flex;
@@ -32,17 +30,6 @@ const Header = styled.div<{ small: boolean }>`
     `}
 `
 
-const CloseButton = styled(Button)`
-  background-color: transparent;
-`
-
-const StyledIcon = styled(Icon)`
-  width: 24px;
-  height: 24px;
-  align-self: center;
-  display: flex;
-`
-
 const TitleContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -63,6 +50,7 @@ type ModalProps = {
 
 const ModalContent = ({ title, icon, style, closeModal, children, small }: ModalProps): ReactElement => {
   const { t } = useTranslation('common')
+  const theme = useTheme()
 
   return (
     <Container style={style}>
@@ -71,9 +59,17 @@ const ModalContent = ({ title, icon, style, closeModal, children, small }: Modal
           {icon}
           <span>{title}</span>
         </TitleContainer>
-        <CloseButton label={t('close')} onClick={closeModal}>
-          <StyledIcon src={small ? ArrowBackIosNewIcon : CloseIcon} directionDependent />
-        </CloseButton>
+        <IconButton aria-label={t('close')} onClick={closeModal} color='primary'>
+          {small ? (
+            <ArrowBackIosNewIcon
+              sx={{
+                transform: theme.direction === 'rtl' ? 'scaleX(-1)' : 'none',
+              }}
+            />
+          ) : (
+            <CloseIcon />
+          )}
+        </IconButton>
       </Header>
       {children}
     </Container>
