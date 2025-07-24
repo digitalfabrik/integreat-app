@@ -49,7 +49,7 @@ const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
   const debouncedQuery = useDebounce(query)
 
   useEffect(() => {
-    setQueryParams(debouncedQuery.length > 0 ? { query: debouncedQuery } : undefined)
+    setQueryParams(debouncedQuery.length > 0 ? { query: debouncedQuery } : undefined, { replace: true })
   }, [debouncedQuery, setQueryParams])
 
   const {

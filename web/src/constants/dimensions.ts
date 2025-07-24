@@ -19,10 +19,10 @@ export type DimensionsType = {
 
 const dimensions: DimensionsType = {
   maxWidthViewportSmall: 768,
-  smallViewport: '(max-width: 768px)',
-  mediumViewport: '(min-width: 769px) and (max-width: 1100px)',
-  mediumLargeViewport: '(min-width: 769px)',
-  minMaxWidth: '(min-width: 1101px)',
+  smallViewport: '(width <= 768px)',
+  mediumViewport: '(width > 768px) and (width <= 1100px)',
+  mediumLargeViewport: '(width > 768px)',
+  minMaxWidth: '(width > 1100px)',
   maxWidth: 1100,
   toolbarWidth: 200,
   poiDetailNavigation: 42,
@@ -30,7 +30,7 @@ const dimensions: DimensionsType = {
   ttsPlayerHeight: 90,
   maxTtsPlayerWidth: 576,
   headerHeightLarge: 90,
-  headerHeightSmall: 70,
+  headerHeightSmall: 86,
   navigationMenuHeight: 90,
   poiDesktopPanelWidth: 332,
   mainContainerHorizontalPadding: 10,

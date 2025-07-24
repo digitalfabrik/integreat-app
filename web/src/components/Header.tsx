@@ -42,7 +42,7 @@ const Row = styled.div`
   display: flex;
   flex: 1;
   max-width: 100%;
-  align-items: stretch;
+  align-items: center;
   min-height: ${dimensions.headerHeightLarge}px;
   flex-direction: row;
   justify-content: space-between;
@@ -53,7 +53,6 @@ const Row = styled.div`
     flex-wrap: wrap;
     min-height: ${dimensions.headerHeightSmall}px;
     overflow-x: auto;
-    padding: 8px 0;
   }
 `
 
