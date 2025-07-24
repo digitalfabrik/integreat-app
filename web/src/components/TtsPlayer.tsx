@@ -1,3 +1,4 @@
+import { useTheme } from '@emotion/react'
 import styled from '@emotion/styled'
 import CloseIcon from '@mui/icons-material/Close'
 import FastForwardIcon from '@mui/icons-material/FastForward'
@@ -58,34 +59,6 @@ const BaseButton = styled(Button)`
     transform: translateY(2px);
   }
 `
-
-const PlayButton = styled(IconButton)<{ disabled: boolean }>(({ theme, disabled }) => {
-  let backgroundColor: string
-
-  if (disabled) {
-    backgroundColor = theme.colors.textDisabledColor
-  } else if (theme.isContrastTheme) {
-    backgroundColor = theme.colors.textColor
-  } else {
-    backgroundColor = theme.colors.ttsPlayerPlayIconColor
-  }
-
-  return {
-    backgroundColor,
-    width: '48px',
-    height: '48px',
-    borderRadius: '48px',
-    boxShadow: '1px 4px 8px 1px grey',
-    transition: 'box-shadow 0.2s ease, transform 0.1s ease',
-    '&:active': {
-      boxShadow: 'none',
-      transform: 'translateY(2px)',
-    },
-    '& svg': {
-      color: theme.isContrastTheme ? theme.colors.backgroundColor : theme.colors.ttsPlayerBackground,
-    },
-  }
-})
 
 const StyledButton = styled(Button)`
   display: flex;
@@ -155,6 +128,7 @@ const TtsPlayer = ({
 }: TtsPlayerProps): ReactElement => {
   const { t } = useTranslation('layout')
   const { visibleFooterHeight } = useWindowDimensions()
+  const theme = useTheme()
 
   return (
     <StyledTtsPlayer isPlaying={isPlaying} footerHeight={visibleFooterHeight}>
@@ -165,14 +139,22 @@ const TtsPlayer = ({
             <StyledPlaybackIcon src={FastRewindIcon} />
           </StyledButton>
         )}
-        <PlayButton
+        <IconButton
           name={t(isPlaying ? 'pause' : 'play')}
           aria-label={t(isPlaying ? 'pause' : 'play')}
           onClick={isPlaying ? pause : play}
           disabled={disabled}
+          sx={{
+            backgroundColor: theme.palette.tertiary.light,
+            '&.Mui-disabled': {
+              backgroundColor: theme.palette.action.disabledBackground,
+              color: theme.palette.action.disabled,
+            },
+          }}
+          color='primary'
           size='large'>
           {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
-        </PlayButton>
+        </IconButton>
         {isPlaying && (
           <StyledButton label={t('next')} onClick={playNext}>
             <StyledPlaybackIcon src={FastForwardIcon} />
