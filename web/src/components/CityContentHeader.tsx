@@ -59,7 +59,7 @@ const CityContentHeader = ({
   const { t } = useTranslation('layout')
 
   const SearchButton = (
-    <HeaderActionItemLink key='search' to={searchPath} text={t('search')} iconSrc={SearchOutlinedIcon} />
+    <HeaderActionItemLink key='search' to={searchPath} text={t('search')} icon={<SearchOutlinedIcon />} />
   )
 
   const actionItems = viewportSmall
@@ -72,7 +72,7 @@ const CityContentHeader = ({
                 key='location'
                 to={landingPath}
                 text={t('changeLocation')}
-                iconSrc={LocationOnOutlinedIcon}
+                icon={<LocationOnOutlinedIcon />}
               />,
             ]
           : []),
