@@ -6,13 +6,6 @@ import { FetchError, NotFoundError } from 'shared/api'
 import buildConfig from '../../constants/buildConfig'
 import { initSentry, log, reportError } from '../sentry'
 
-jest.mock('@sentry/react-native', () => ({
-  ...jest.requireActual('@sentry/react-native'),
-  captureException: jest.fn(),
-  addBreadcrumb: jest.fn(),
-  init: jest.fn(),
-}))
-
 beforeEach(() => {
   jest.clearAllMocks()
 })
