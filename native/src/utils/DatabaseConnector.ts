@@ -299,7 +299,7 @@ class DatabaseConnector {
     const cityMetaData = metaData[cityCode]
 
     if (!cityMetaData) {
-      log(`Did not find city '${cityCode}' im metaData '${JSON.stringify(metaData)}'`, 'warning')
+      log(`Did not find city '${cityCode}' im metaData '${JSON.stringify(metaData)}'`, { level: 'warning' })
       throw Error('cannot store last update for unused city')
     }
 
@@ -891,16 +891,14 @@ class DatabaseConnector {
       return mapJson(json)
     } catch (e) {
       if (!isRetry) {
-        log(
-          `An error occurred while trying to parse or map json '${jsonString}' from path '${path}', retrying.`,
-          'warning',
-        )
+        log(`An error occurred while trying to parse or map json '${jsonString}' from path '${path}', retrying.`, {
+          level: 'warning',
+        })
         return this.readFile(path, mapJson, true)
       }
-      log(
-        `An error occurred while trying to parse or map json '${jsonString}' from path '${path}', deleting file.`,
-        'warning',
-      )
+      log(`An error occurred while trying to parse or map json '${jsonString}' from path '${path}', deleting file.`, {
+        level: 'warning',
+      })
       await deleteIfExists(path)
       throw e
     }

@@ -75,9 +75,9 @@ describe('reportError', () => {
   it('should report to sentry if enabled in build config', () => {
     mockBuildConfig(true)
     const error = new Error('my error')
-    reportError(error)
+    reportError(error, { data: 'extra' })
     expect(Sentry.captureException).toHaveBeenCalledTimes(1)
-    expect(Sentry.captureException).toHaveBeenCalledWith(error)
+    expect(Sentry.captureException).toHaveBeenCalledWith(error, { data: 'extra' })
   })
 })
 
@@ -85,7 +85,7 @@ describe('log', () => {
   it('should not report to sentry if disabled in build config', () => {
     const warnSpy = jest.spyOn(console, 'warn').mockImplementation()
     mockBuildConfig(false, true)
-    log('test log', 'warning')
+    log('test log', { level: 'warning' })
     expect(Sentry.addBreadcrumb).not.toHaveBeenCalled()
     expect(warnSpy).toHaveBeenCalledTimes(1)
     expect(warnSpy).toHaveBeenCalledWith('test log')
@@ -102,34 +102,46 @@ describe('log', () => {
   it('should report to sentry if enabled in build config', () => {
     mockBuildConfig(true, false)
     const errorSpy = jest.spyOn(console, 'error').mockImplementation()
-    log('test error log', 'error')
+    log('test error log', { level: 'error', data: 'extra' })
     expect(Sentry.addBreadcrumb).toHaveBeenCalledTimes(1)
-    expect(Sentry.addBreadcrumb).toHaveBeenCalledWith({
-      message: 'test error log',
-      level: 'error',
-    })
+    expect(Sentry.addBreadcrumb).toHaveBeenCalledWith(
+      {
+        message: 'test error log',
+        level: 'error',
+      },
+      { data: 'extra' },
+    )
     expect(errorSpy).not.toHaveBeenCalled()
     errorSpy.mockRestore()
 
-    log('test warn log', 'warning')
+    log('test warn log', { level: 'warning' })
     expect(Sentry.addBreadcrumb).toHaveBeenCalledTimes(2)
-    expect(Sentry.addBreadcrumb).toHaveBeenCalledWith({
-      message: 'test warn log',
-      level: 'warning',
-    })
+    expect(Sentry.addBreadcrumb).toHaveBeenCalledWith(
+      {
+        message: 'test warn log',
+        level: 'warning',
+      },
+      undefined,
+    )
 
-    log('test log', 'log')
+    log('test log', { level: 'log' })
     expect(Sentry.addBreadcrumb).toHaveBeenCalledTimes(3)
-    expect(Sentry.addBreadcrumb).toHaveBeenCalledWith({
-      message: 'test log',
-      level: 'log',
-    })
+    expect(Sentry.addBreadcrumb).toHaveBeenCalledWith(
+      {
+        message: 'test log',
+        level: 'log',
+      },
+      undefined,
+    )
 
     log('test debug log')
     expect(Sentry.addBreadcrumb).toHaveBeenCalledTimes(4)
-    expect(Sentry.addBreadcrumb).toHaveBeenCalledWith({
-      message: 'test debug log',
-      level: 'debug',
-    })
+    expect(Sentry.addBreadcrumb).toHaveBeenCalledWith(
+      {
+        message: 'test debug log',
+        level: 'debug',
+      },
+      undefined,
+    )
   })
 })
