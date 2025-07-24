@@ -1,9 +1,6 @@
 import styled from '@emotion/styled'
-import CloseIcon from '@mui/icons-material/Close'
-import FastForwardIcon from '@mui/icons-material/FastForward'
-import PauseIcon from '@mui/icons-material/Pause'
-import PlayArrowIcon from '@mui/icons-material/PlayArrow'
-import { Typography } from '@mui/material'
+import { Close, FastForward, Pause, PlayArrow } from '@mui/icons-material'
+import { IconButton, Typography } from '@mui/material'
 import Button from '@mui/material/Button'
 import React, { ReactElement } from 'react'
 
@@ -40,19 +37,18 @@ const StyledPanel = styled.div`
   gap: 20px;
 `
 
-const BaseButton = styled(Button)`
+const PlayButton = styled(Button)<{ disabled: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
   transition:
     box-shadow 0.2s ease,
     transform 0.1s ease;
-`
-
-const PlayButton = styled(BaseButton)<{ disabled: boolean }>`
   background-color: ${props => {
     if (props.disabled) {
-      return props.theme.colors.textDisabledColor
+      return props.theme.isContrastTheme
+        ? props.theme.colors.ttsPlayerPlayIconColor
+        : props.theme.colors.textDisabledColor
     }
     return props.theme.isContrastTheme ? props.theme.colors.textColor : props.theme.colors.ttsPlayerPlayIconColor
   }};
@@ -62,7 +58,7 @@ const PlayButton = styled(BaseButton)<{ disabled: boolean }>`
   box-shadow: 1px 4px 8px 1px grey;
 `
 
-const StyledButton = styled(Button)`
+const StyledIconButton = styled(IconButton)`
   display: flex;
   gap: 4px;
   align-items: center;
@@ -75,11 +71,7 @@ const StyledPlayIcon = styled(Icon)`
     props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.ttsPlayerBackground};
 `
 
-const StyledCloseIcon = styled(Icon)`
-  color: ${props => props.theme.colors.textColor};
-`
-
-const StyledFastForwardIcon = styled(FastForwardIcon)<{ disabled: boolean; iconRotate?: boolean }>`
+const StyledFastForwardIcon = styled(FastForward)<{ disabled: boolean; iconRotate?: boolean }>`
   ${props => (props.iconRotate ? 'rotate: 180deg;' : '')}
   color: ${props => {
     if (props.disabled) {
@@ -99,11 +91,11 @@ const HeaderText = styled.span`
   font-size: 16px;
 `
 
-const CloseButton = styled(BaseButton)`
+const CloseIconButton = styled(IconButton)`
   border: none;
   background-color: transparent;
   top: 0;
-  right: -12px;
+  right: 0;
   position: absolute;
 `
 
@@ -132,32 +124,26 @@ const TtsPlayer = ({
 
   return (
     <StyledTtsPlayer footerHeight={visibleFooterHeight}>
-      <CloseButton onClick={close} data-testid='close-button'>
-        <StyledCloseIcon src={CloseIcon} />
-      </CloseButton>
+      <CloseIconButton onClick={close} data-testid='close-button'>
+        <Close />
+      </CloseIconButton>
       <HeaderText>
         <Typography variant='title1'>{title}</Typography>
       </HeaderText>
       {/* Sound player panel shouldn't be rotated in rtl */}
       <StyledPanel dir='ltr'>
-        <StyledButton
-          data-testid='previous-button'
-          onClick={playPrevious}
-          disabled={!isPlaying}
-          startIcon={<StyledFastForwardIcon disabled={!isPlaying} iconRotate />}
-        />
+        <StyledIconButton data-testid='previous-button' onClick={playPrevious} disabled={!isPlaying}>
+          <StyledFastForwardIcon disabled={!isPlaying} iconRotate />
+        </StyledIconButton>
         <PlayButton
           data-testid={isPlaying ? 'pause-button' : 'play-button'}
           onClick={isPlaying ? pause : play}
           disabled={disabled}>
-          <StyledPlayIcon src={isPlaying ? PauseIcon : PlayArrowIcon} />
+          <StyledPlayIcon src={isPlaying ? Pause : PlayArrow} />
         </PlayButton>
-        <StyledButton
-          data-testid='next-button'
-          onClick={playNext}
-          disabled={!isPlaying}
-          endIcon={<StyledFastForwardIcon disabled={!isPlaying} />}
-        />
+        <StyledIconButton data-testid='next-button' onClick={playNext} disabled={!isPlaying}>
+          <StyledFastForwardIcon disabled={!isPlaying} />
+        </StyledIconButton>
       </StyledPanel>
     </StyledTtsPlayer>
   )
