@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { SvgIconProps } from '@mui/material'
+import { SvgIconProps } from '@mui/material/SvgIcon'
 import React, { ElementType, ReactElement, ReactNode, useRef, useState } from 'react'
 
 import useOnClickOutside from '../hooks/useOnClickOutside'
