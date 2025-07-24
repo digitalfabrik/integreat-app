@@ -1,39 +1,16 @@
-import styled from '@emotion/styled'
-import { SvgIconProps } from '@mui/material/SvgIcon'
-import React, { ElementType, ReactElement, ReactNode, useRef, useState } from 'react'
+import { useTheme } from '@emotion/react'
+import Button from '@mui/material/Button'
+import IconButton from '@mui/material/IconButton'
+import React, { ReactElement, ReactNode, useRef, useState } from 'react'
 
 import useOnClickOutside from '../hooks/useOnClickOutside'
 import { spacesToDashes } from '../utils/stringUtils'
 import DropDownContainer from './DropDownContainer'
-import Button from './base/Button'
-import Icon from './base/Icon'
 import Tooltip from './base/Tooltip'
-
-const StyledIcon = styled(Icon)`
-  width: 24px;
-  height: 24px;
-  color: ${props => props.theme.palette.primary.dark};
-`
-const ActionBox = styled(Button)`
-  padding: 6px 12px;
-  display: flex;
-  color: ${props => props.theme.palette.primary.dark};
-  background-color: ${props => props.theme.palette.tertiary.light};
-  border-radius: 4px;
-  justify-content: center;
-  align-items: center;
-  gap: 6px;
-`
-
-const StyledText = styled.span`
-  font-weight: bold;
-  font-size: 14px;
-  letter-spacing: 1.25px;
-`
 
 type HeaderActionItemDropDownProps = {
   children: (closeDropDown: () => void) => ReactNode
-  iconSrc: string | ElementType<SvgIconProps>
+  icon: ReactElement
   text: string
   innerText?: string
 }
@@ -43,13 +20,9 @@ type HeaderActionItemDropDownProps = {
  * Header. Once the user clicks outside, the node is hidden again. Additionally, the inner node gets a
  * closeDropDownCallback through its props to close the dropDown and hide itself.
  */
-const HeaderActionItemDropDown = ({
-  iconSrc,
-  text,
-  innerText,
-  children,
-}: HeaderActionItemDropDownProps): ReactElement => {
+const HeaderActionItemDropDown = ({ icon, text, innerText, children }: HeaderActionItemDropDownProps): ReactElement => {
   const [dropDownActive, setDropDownActive] = useState(false)
+  const theme = useTheme()
 
   const toggleDropDown = (): void => {
     setDropDownActive(!dropDownActive)
@@ -68,14 +41,25 @@ const HeaderActionItemDropDown = ({
     <div ref={wrapperRef}>
       <Tooltip id={id} tooltipContent={text}>
         {innerText ? (
-          <ActionBox label={text} onClick={toggleDropDown}>
-            <StyledIcon src={iconSrc} />
-            <StyledText>{innerText}</StyledText>
-          </ActionBox>
-        ) : (
-          <Button label={text} onClick={toggleDropDown} id={id}>
-            <StyledIcon src={iconSrc} />
+          <Button
+            onClick={toggleDropDown}
+            id={id}
+            name={text}
+            sx={{ backgroundColor: theme.palette.tertiary.light }}
+            aria-label={text}
+            startIcon={icon}>
+            {innerText}
           </Button>
+        ) : (
+          <IconButton
+            onClick={toggleDropDown}
+            id={id}
+            name={text}
+            color='primary'
+            sx={{ backgroundColor: theme.palette.tertiary.light }}
+            aria-label={text}>
+            {icon}
+          </IconButton>
         )}
       </Tooltip>
       <DropDownContainer
