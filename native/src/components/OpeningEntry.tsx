@@ -2,7 +2,7 @@ import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
-import { TimeSlot } from 'shared/api/types'
+import { TimeSlot } from 'shared/api'
 
 import { NoteIcon } from '../assets'
 import { contentDirection, isContentDirectionReversalRequired } from '../constants/contentDirection'

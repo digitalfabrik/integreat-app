@@ -1,8 +1,7 @@
 import { fireEvent } from '@testing-library/react'
 import React from 'react'
 
-import ChatMessageModel from 'shared/api/models/ChatMessageModel'
-import { CityModelBuilder } from 'shared/dist/api'
+import { CityModelBuilder, ChatMessageModel } from 'shared/api'
 
 import { renderWithTheme } from '../../testing/render'
 import Chat from '../Chat'

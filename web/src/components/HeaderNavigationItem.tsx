@@ -1,6 +1,6 @@
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
-import { SvgIconProps } from '@mui/material'
+import { SvgIconProps } from '@mui/material/SvgIcon'
 import React, { ElementType, ReactElement } from 'react'
 
 import { helpers } from '../constants/theme'
