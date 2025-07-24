@@ -25,13 +25,13 @@ const Chip = styled.div`
   gap: 6px;
   border-radius: 12px;
   border: 1px solid rgb(0 0 0 / 38%);
-  height: 20px;
+  height: 24px;
   font-size: 12px;
 `
 
 const ChipIcon = styled(Icon)`
-  width: 12px;
-  height: 12px;
+  width: 16px;
+  height: 16px;
 `
 
 const PoiChips = ({ poi }: { poi: PoiModel }): ReactElement => {

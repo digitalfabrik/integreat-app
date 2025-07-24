@@ -24,8 +24,8 @@ const Chip = styled.View`
 `
 
 const ChipIcon = styled(SimpleImage)`
-  width: 12px;
-  height: 12px;
+  width: 16px;
+  height: 16px;
 `
 
 const PoiChips = ({ poi }: { poi: PoiModel }): ReactElement => {
