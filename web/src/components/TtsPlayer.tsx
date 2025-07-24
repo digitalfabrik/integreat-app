@@ -79,8 +79,8 @@ const StyledCloseIcon = styled(Icon)`
   color: ${props => props.theme.colors.textColor};
 `
 
-const StyledFastForwardIcon = styled(FastForwardIcon)<{ disabled: boolean; $rotate?: boolean }>`
-  ${props => (props.$rotate ? 'rotate: 180deg;' : '')}
+const StyledFastForwardIcon = styled(FastForwardIcon)<{ disabled: boolean; iconRotate?: boolean }>`
+  ${props => (props.iconRotate ? 'rotate: 180deg;' : '')}
   color: ${props => {
     if (props.disabled) {
       return props.theme.isContrastTheme
@@ -142,7 +142,7 @@ const TtsPlayer = ({
         <StyledButton
           onClick={playPrevious}
           disabled={!isPlaying}
-          startIcon={<StyledFastForwardIcon disabled={!isPlaying} $rotate />}
+          startIcon={<StyledFastForwardIcon disabled={!isPlaying} iconRotate />}
         />
         <PlayButton onClick={isPlaying ? pause : play} disabled={disabled}>
           <StyledPlayIcon src={isPlaying ? PauseIcon : PlayArrowIcon} />
