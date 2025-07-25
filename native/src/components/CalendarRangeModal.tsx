@@ -103,7 +103,7 @@ const CalendarRangeModal = ({
     <View>
       <Modal animationType='slide' transparent visible={modalVisible} onRequestClose={closeModal}>
         <Background onPress={closeModal} />
-        <DatePickerWrapper>
+        <DatePickerWrapper accessibilityViewIsModal role='dialog'>
           <Caption title={t('selectRange')} />
           <Calendar
             markingType='period'
