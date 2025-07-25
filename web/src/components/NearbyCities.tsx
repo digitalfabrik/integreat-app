@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
 import RefreshIcon from '@mui/icons-material/Refresh'
+import { Divider } from '@mui/material'
 import IconButton from '@mui/material/IconButton'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -46,7 +47,12 @@ const NearbyCities = ({ cities, language, filterText, stickyTop }: NearbyCitiesP
     <div>
       <CityListParent stickyTop={stickyTop}>{t('nearbyCities')}</CityListParent>
       {nearbyCities.length > 0 ? (
-        nearbyCities.map(city => <CityEntry key={city.code} city={city} language={language} filterText={filterText} />)
+        nearbyCities.map(city => (
+          <>
+            <Divider />
+            <CityEntry key={city.code} city={city} language={language} filterText={filterText} />
+          </>
+        ))
       ) : (
         <NearbyMessageContainer>
           <NearbyMessage>{userLocation ? t('noNearbyCities') : t('locationError')}</NearbyMessage>

@@ -4,6 +4,7 @@ import MapOutlinedIcon from '@mui/icons-material/MapOutlined'
 import NewspaperOutlinedIcon from '@mui/icons-material/NewspaperOutlined'
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined'
 import SignpostOutlinedIcon from '@mui/icons-material/SignpostOutlined'
+import { Divider } from '@mui/material'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -29,6 +30,13 @@ import HeaderNavigationItem, { HeaderNavigationItemProps } from './HeaderNavigat
 import KebabActionItem from './KebabActionItem'
 import LanguageSelector from './LanguageSelector'
 import Link from './base/Link'
+
+const KebabItemDivider = ({ children }: { children: ReactElement }): ReactElement => (
+  <>
+    {children}
+    <Divider />
+  </>
+)
 
 type CityContentHeaderProps = {
   cityModel: CityModel
@@ -85,17 +93,20 @@ const CityContentHeader = ({
       ]
 
   const kebabItems = [
-    <Link key='location' to={landingPath}>
-      <KebabActionItem text={t('changeLocation')} iconSrc={LocationOnOutlinedIcon} />
-    </Link>,
-    <LanguageSelector
-      key='language'
-      languageChangePaths={languageChangePaths}
-      isHeaderActionItem
-      languageCode={languageCode}
-      inKebabMenu
-      closeSidebar={() => setIsSidebarOpen(false)}
-    />,
+    <KebabItemDivider key='location'>
+      <Link to={landingPath}>
+        <KebabActionItem text={t('changeLocation')} iconSrc={LocationOnOutlinedIcon} />
+      </Link>
+    </KebabItemDivider>,
+    <KebabItemDivider key='language'>
+      <LanguageSelector
+        languageChangePaths={languageChangePaths}
+        isHeaderActionItem
+        languageCode={languageCode}
+        inKebabMenu
+        closeSidebar={() => setIsSidebarOpen(false)}
+      />
+    </KebabItemDivider>,
     <ContrastThemeToggle key='contrastTheme' />,
   ]
 

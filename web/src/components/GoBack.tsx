@@ -1,4 +1,4 @@
-import { css, useTheme } from '@emotion/react'
+import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import React, { memo, ReactElement } from 'react'
@@ -49,17 +49,14 @@ type GoBackProps = {
   viewportSmall?: boolean
 }
 
-const GoBack = ({ goBack, viewportSmall = false, text }: GoBackProps): ReactElement => {
-  const theme = useTheme()
-  return (
-    <>
-      <StyledButton onClick={goBack} label={text} tabIndex={0} viewportSmall={viewportSmall}>
-        <StyledIcon src={ArrowBackIcon} directionDependent />
-        <DetailsHeaderTitle>{text}</DetailsHeaderTitle>
-      </StyledButton>
-      <Spacer borderColor={theme.colors.borderColor} />
-    </>
-  )
-}
+const GoBack = ({ goBack, viewportSmall = false, text }: GoBackProps): ReactElement => (
+  <>
+    <StyledButton onClick={goBack} label={text} tabIndex={0} viewportSmall={viewportSmall}>
+      <StyledIcon src={ArrowBackIcon} directionDependent />
+      <DetailsHeaderTitle>{text}</DetailsHeaderTitle>
+    </StyledButton>
+    <Spacer />
+  </>
+)
 
 export default memo(GoBack)

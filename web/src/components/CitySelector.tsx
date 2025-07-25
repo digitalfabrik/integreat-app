@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import { Divider, Typography } from '@mui/material'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -16,7 +17,7 @@ const Container = styled.div`
   padding-top: 22px;
 `
 
-export const CityListParent = styled.div<{ stickyTop: number }>`
+export const CityListParent = styled(Typography)<{ stickyTop: number }>`
   position: sticky;
   top: ${props => props.stickyTop}px;
   height: 30px;
@@ -24,7 +25,6 @@ export const CityListParent = styled.div<{ stickyTop: number }>`
   line-height: 30px;
   transition: top 0.2s ease-out;
   background-color: ${props => props.theme.colors.backgroundColor};
-  border-bottom: 1px solid ${props => props.theme.colors.themeColor};
 `
 
 const SearchCounter = styled.p`
@@ -49,7 +49,10 @@ const CitySelector = ({ cities, language }: CitySelectorProps): ReactElement => 
       {resultCities
         .filter(it => it.sortCategory === group)
         .map(city => (
-          <CityEntry key={city.code} city={city} language={language} filterText={filterText} />
+          <>
+            <Divider />
+            <CityEntry key={city.code} city={city} language={language} filterText={filterText} />
+          </>
         ))}
     </div>
   ))
