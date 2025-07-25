@@ -1,0 +1,6 @@
+issue_key: 3410
+show_in_stores: true
+platforms:
+  - ios
+en: Play sound even in silent mode
+de: Ton wird auch im Lautlos-Modus abgespielt

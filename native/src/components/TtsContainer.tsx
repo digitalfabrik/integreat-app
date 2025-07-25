@@ -1,5 +1,6 @@
 import React, { createContext, ReactElement, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Platform } from 'react-native'
 import Tts, { Options } from 'react-native-tts'
 
 import { getGenericLanguageCode, TTS_MAX_TITLE_DISPLAY_CHARS } from 'shared'
@@ -60,9 +61,13 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
   const enabled = buildConfig().featureFlags.tts
 
   const initializeTts = useCallback(async (): Promise<void> => {
-    await Tts.getInitStatus().catch(async error =>
-      error.code === 'no_engine' ? Tts.requestInstallEngine() : undefined,
-    )
+    await Tts.getInitStatus()
+      .catch(async error => (error.code === 'no_engine' ? Tts.requestInstallEngine() : undefined))
+      .then(() => {
+        if (Platform.OS === 'ios') {
+          Tts.setIgnoreSilentSwitch('ignore')
+        }
+      })
   }, [])
 
   const showTtsPlayer = useCallback((): void => {
