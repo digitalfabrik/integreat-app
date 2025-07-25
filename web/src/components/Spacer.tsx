@@ -1,7 +1,8 @@
 import styled from '@emotion/styled'
+import { Divider } from '@mui/material'
 
-const Spacer = styled.hr<{ borderColor: string }>`
+const Spacer = styled(Divider)`
   margin: 12px 0;
-  border: 1px solid ${props => props.borderColor};
 `
+
 export default Spacer

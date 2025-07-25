@@ -1,4 +1,3 @@
-import { useTheme } from '@emotion/react'
 import styled from '@emotion/styled'
 import MailOutlinedIcon from '@mui/icons-material/MailOutlined'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
@@ -26,7 +25,6 @@ const Contact = ({
   isLastContact?: boolean
 }): ReactElement => {
   const { t } = useTranslation('pois')
-  const theme = useTheme()
 
   return (
     <>
@@ -59,7 +57,7 @@ const Contact = ({
       {!!email && (
         <ContactItem iconSource={MailOutlinedIcon} iconAlt={t('eMail')} link={`mailto:${email}`} content={email} />
       )}
-      {!isLastContact && <Spacer borderColor={theme.colors.borderColor} />}
+      {!isLastContact && <Spacer />}
     </>
   )
 }
