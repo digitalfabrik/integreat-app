@@ -1,4 +1,3 @@
-import { useTheme } from '@emotion/react'
 import styled from '@emotion/styled'
 import React, { ReactElement, ReactNode, RefObject, useImperativeHandle, useRef, useState } from 'react'
 import { BottomSheet, BottomSheetRef } from 'react-spring-bottom-sheet'
@@ -57,7 +56,6 @@ const BottomActionSheet = ({
   setBottomActionSheetHeight,
   ref,
 }: BottomActionSheetProps): ReactElement => {
-  const theme = useTheme()
   const [scrollElement, setScrollElement] = useState<HTMLElement | null>(null)
   const bottomSheetRef = useRef<BottomSheetRef>(null)
   useImperativeHandle(
@@ -92,7 +90,7 @@ const BottomActionSheet = ({
       <StyledLayout>
         {children}
         <ToolbarContainer>
-          <StyledSpacer borderColor={theme.colors.borderColor} />
+          <StyledSpacer />
           {toolbar}
         </ToolbarContainer>
       </StyledLayout>
