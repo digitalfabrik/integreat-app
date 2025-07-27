@@ -1,4 +1,5 @@
 import { useTheme } from '@emotion/react'
+import styled from '@emotion/styled'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import React, { ReactElement, ReactNode, useRef, useState } from 'react'
@@ -7,6 +8,11 @@ import useOnClickOutside from '../hooks/useOnClickOutside'
 import { spacesToDashes } from '../utils/stringUtils'
 import DropDownContainer from './DropDownContainer'
 import Tooltip from './base/Tooltip'
+
+const StyledButton = styled(Button)`
+  background-color: ${props => props.theme.palette.tertiary.light};
+  padding: 2px 14px;
+`
 
 type HeaderActionItemDropDownProps = {
   children: (closeDropDown: () => void) => ReactNode
@@ -41,15 +47,9 @@ const HeaderActionItemDropDown = ({ icon, text, innerText, children }: HeaderAct
     <div ref={wrapperRef}>
       <Tooltip id={id} tooltipContent={text}>
         {innerText ? (
-          <Button
-            onClick={toggleDropDown}
-            id={id}
-            name={text}
-            sx={{ backgroundColor: theme.palette.tertiary.light }}
-            aria-label={text}
-            startIcon={icon}>
+          <StyledButton onClick={toggleDropDown} id={id} name={text} aria-label={text} startIcon={icon}>
             {innerText}
-          </Button>
+          </StyledButton>
         ) : (
           <IconButton
             onClick={toggleDropDown}
