@@ -9,7 +9,7 @@ import {
 import { Settings as LuxonSettings } from 'luxon'
 import React, { ReactElement, useCallback, useState } from 'react'
 import { LogBox } from 'react-native'
-import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
 import { enableScreens } from 'react-native-screens'
 import { HeaderButtonsProvider } from 'react-navigation-header-buttons/HeaderButtonsProvider'
 import { useTheme } from 'styled-components/native'
@@ -21,7 +21,6 @@ import { config } from 'translations'
 import Navigator from './Navigator'
 import AppStateListener from './components/AppStateListener'
 import I18nProvider from './components/I18nProvider'
-import IOSSafeAreaView from './components/IOSSafeAreaView'
 import SnackbarContainer from './components/SnackbarContainer'
 import StaticServerProvider from './components/StaticServerProvider'
 import StatusBar from './components/StatusBar'
@@ -80,11 +79,14 @@ export const NavigationContainerWithTheme = ({ onStateChange }: NavigationContai
   }
 
   return (
-    <NavigationContainer onStateChange={onStateChange} theme={navigationTheme} linking={linking}>
-      <HeaderButtonsProvider stackType='native'>
-        <Navigator />
-      </HeaderButtonsProvider>
-    </NavigationContainer>
+    <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.backgroundColor }} edges={['bottom']}>
+      <StatusBar />
+      <NavigationContainer onStateChange={onStateChange} theme={navigationTheme} linking={linking}>
+        <HeaderButtonsProvider stackType='native'>
+          <Navigator />
+        </HeaderButtonsProvider>
+      </NavigationContainer>
+    </SafeAreaView>
   )
 }
 
@@ -119,12 +121,7 @@ const App = (): ReactElement => {
               <SafeAreaProvider>
                 <SnackbarContainer>
                   <TtsContainer>
-                    <>
-                      <StatusBar />
-                      <IOSSafeAreaView>
-                        <NavigationContainerWithTheme onStateChange={onStateChange} />
-                      </IOSSafeAreaView>
-                    </>
+                    <NavigationContainerWithTheme onStateChange={onStateChange} />
                   </TtsContainer>
                 </SnackbarContainer>
               </SafeAreaProvider>
