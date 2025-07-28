@@ -11,6 +11,7 @@ import { UiDirectionType } from 'translations'
 import buildConfig from '../constants/buildConfig'
 import useLocalStorage from '../hooks/useLocalStorage'
 import globalStyle from '../styles/global/GlobalStyle'
+import { muiShadowCreator } from '../utils/muiShadowCreator'
 
 const ltrCache = createCache({
   key: 'mui-ltr-cache',
@@ -49,8 +50,29 @@ const createTheme = (
         light: buildConfig().lightTheme,
         dark: buildConfig().darkTheme,
       },
-      typography: buildConfig().typography,
-      palette: isContrast ? buildConfig().darkTheme.palette : buildConfig().lightTheme.palette,
+      shadows: muiShadowCreator(themeType),
+    typography: buildConfig().typography,
+    palette: isContrast ? buildConfig().darkTheme.palette : buildConfig().lightTheme.palette,
+    },
+    components: {
+      MuiIconButton: {
+        styleOverrides: {
+          root: {
+            variants: [
+              {
+                props: { color: 'default' },
+                style: {
+                  color: themeType === 'contrast' ? '#FFFFFF' : '#212121',
+
+                  '&:disabled': {
+                    color: themeType === 'contrast' ? '#333D51' : '#8E8E8E',
+                  },
+                },
+              },
+            ],
+          },
+        },
+      },
     }),
   }
 }

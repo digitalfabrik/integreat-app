@@ -5,7 +5,6 @@ import Button from '@mui/material/Button'
 import React, { ReactElement } from 'react'
 
 import useWindowDimensions from '../hooks/useWindowDimensions'
-import Icon from './base/Icon'
 
 const StyledTtsPlayer = styled.dialog<{ footerHeight: number }>`
   background-color: ${props =>
@@ -44,18 +43,9 @@ const PlayButton = styled(Button)<{ disabled: boolean }>`
   transition:
     box-shadow 0.2s ease,
     transform 0.1s ease;
-  background-color: ${props => {
-    if (props.disabled) {
-      return props.theme.isContrastTheme
-        ? props.theme.colors.ttsPlayerPlayIconColor
-        : props.theme.colors.textDisabledColor
-    }
-    return props.theme.isContrastTheme ? props.theme.colors.textColor : props.theme.colors.ttsPlayerPlayIconColor
-  }};
   width: 48px;
   height: 48px;
   border-radius: 48px;
-  box-shadow: 1px 4px 8px 1px grey;
 `
 
 const StyledIconButton = styled(IconButton)`
@@ -64,23 +54,8 @@ const StyledIconButton = styled(IconButton)`
   align-items: center;
 `
 
-const StyledPlayIcon = styled(Icon)`
-  width: 32px;
-  height: 32px;
-  color: ${props =>
-    props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.ttsPlayerBackground};
-`
-
 const StyledFastForwardIcon = styled(FastForward)<{ disabled: boolean; iconRotate?: boolean }>`
   ${props => (props.iconRotate ? 'rotate: 180deg;' : '')}
-  color: ${props => {
-    if (props.disabled) {
-      return props.theme.isContrastTheme
-        ? props.theme.colors.ttsPlayerPlayIconColor
-        : props.theme.colors.textDisabledColor
-    }
-    return props.theme.isContrastTheme ? props.theme.colors.textColor : props.theme.colors.ttsPlayerPlayIconColor
-  }};
   width: 32px;
   height: 32px;
 `
@@ -136,10 +111,12 @@ const TtsPlayer = ({
           <StyledFastForwardIcon disabled={!isPlaying} iconRotate />
         </StyledIconButton>
         <PlayButton
+          color='primary'
+          sx={{ boxShadow: 3 }}
           data-testid={isPlaying ? 'pause-button' : 'play-button'}
           onClick={isPlaying ? pause : play}
           disabled={disabled}>
-          <StyledPlayIcon src={isPlaying ? Pause : PlayArrow} />
+          {isPlaying ? <Pause /> : <PlayArrow />}
         </PlayButton>
         <StyledIconButton data-testid='next-button' onClick={playNext} disabled={!isPlaying}>
           <StyledFastForwardIcon disabled={!isPlaying} />
