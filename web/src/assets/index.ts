@@ -41,6 +41,7 @@ import MaximizeIcon from '../../../assets/icons/maximize.svg'
 import MenuIcon from '../../../assets/icons/menu.svg'
 import MinimizeIcon from '../../../assets/icons/minimize.svg'
 import NewsIcon from '../../../assets/icons/news.svg'
+import NotAccessibleIcon from '../../../assets/icons/not-accessible.svg'
 import NoteIcon from '../../../assets/icons/note.svg'
 import PauseIcon from '../../../assets/icons/pause.svg'
 import PdfIcon from '../../../assets/icons/pdf.svg'
@@ -112,6 +113,7 @@ export {
   MenuIcon,
   MinimizeIcon,
   NewsIcon,
+  NotAccessibleIcon,
   NoteIcon,
   PdfIcon,
   PlayIcon,

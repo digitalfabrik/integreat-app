@@ -46,6 +46,12 @@ export const RESOURCE_CACHE_DIR_PATH = `${UNVERSIONED_RESOURCE_CACHE_DIR_PATH}/$
 
 const MAX_STORED_CITIES = 3
 
+type OrganizationJsonType = {
+  name: string
+  logo: string
+  url: string
+}
+
 type ContentCategoryJsonType = {
   root: boolean
   path: string
@@ -57,11 +63,7 @@ type ContentCategoryJsonType = {
   parent_path: string
   children: string[]
   order: number
-  organization: {
-    name: string
-    logo: string
-    url: string
-  } | null
+  organization: OrganizationJsonType | null
   embedded_offers: OfferJsonType[]
 }
 
@@ -166,6 +168,8 @@ type ContentPoiJsonType = {
     | null
   temporarilyClosed: boolean
   appointmentUrl: string | null
+  organization: OrganizationJsonType | null
+  barrierFree: boolean | null
 }
 
 type ContentLocalNewsJsonType = {
@@ -295,7 +299,7 @@ class DatabaseConnector {
     const cityMetaData = metaData[cityCode]
 
     if (!cityMetaData) {
-      log(`Did not find city '${cityCode}' im metaData '${JSON.stringify(metaData)}'`, 'warning')
+      log(`Did not find city '${cityCode}' im metaData '${JSON.stringify(metaData)}'`, { level: 'warning' })
       throw Error('cannot store last update for unused city')
     }
 
@@ -441,13 +445,14 @@ class DatabaseConnector {
               order: jsonObject.order,
               availableLanguages: jsonObject.available_languages,
               lastUpdate: DateTime.fromISO(jsonObject.last_update),
-              organization: jsonObject.organization
-                ? new OrganizationModel({
-                    name: jsonObject.organization.name,
-                    logo: jsonObject.organization.logo,
-                    url: jsonObject.organization.url,
-                  })
-                : null,
+              organization:
+                jsonObject.organization !== null
+                  ? new OrganizationModel({
+                      name: jsonObject.organization.name,
+                      logo: jsonObject.organization.logo,
+                      url: jsonObject.organization.url,
+                    })
+                  : null,
               embeddedOffers: jsonObject.embedded_offers.map(
                 jsonOffer =>
                   new OfferModel({
@@ -511,6 +516,15 @@ class DatabaseConnector {
           })) ?? null,
         temporarilyClosed: poi.temporarilyClosed,
         appointmentUrl: poi.appointmentUrl,
+        organization:
+          poi.organization !== null
+            ? {
+                name: poi.organization.name,
+                logo: poi.organization.logo,
+                url: poi.organization.url,
+              }
+            : null,
+        barrierFree: poi.barrierFree ?? null,
       }),
     )
     await this.writeFile(this.getContentPath('pois', context), JSON.stringify(jsonModels))
@@ -573,6 +587,15 @@ class DatabaseConnector {
             ) ?? null,
           temporarilyClosed: jsonObject.temporarilyClosed,
           appointmentUrl: jsonObject.appointmentUrl,
+          organization:
+            jsonObject.organization !== null
+              ? new OrganizationModel({
+                  name: jsonObject.organization.name,
+                  logo: jsonObject.organization.logo,
+                  url: jsonObject.organization.url,
+                })
+              : null,
+          barrierFree: jsonObject.barrierFree ?? null,
         })
       })
 
@@ -868,16 +891,14 @@ class DatabaseConnector {
       return mapJson(json)
     } catch (e) {
       if (!isRetry) {
-        log(
-          `An error occurred while trying to parse or map json '${jsonString}' from path '${path}', retrying.`,
-          'warning',
-        )
+        log(`An error occurred while trying to parse or map json '${jsonString}' from path '${path}', retrying.`, {
+          level: 'warning',
+        })
         return this.readFile(path, mapJson, true)
       }
-      log(
-        `An error occurred while trying to parse or map json '${jsonString}' from path '${path}', deleting file.`,
-        'warning',
-      )
+      log(`An error occurred while trying to parse or map json '${jsonString}' from path '${path}', deleting file.`, {
+        level: 'warning',
+      })
       await deleteIfExists(path)
       throw e
     }

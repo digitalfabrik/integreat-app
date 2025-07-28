@@ -22,27 +22,37 @@ export const initSentry = (): void => {
   })
 }
 
-export const log = (message: string, level: SeverityLevel = 'debug'): void => {
+export const log = (
+  message: string,
+  {
+    level = 'debug',
+    data,
+  }: {
+    level?: SeverityLevel
+    data?: unknown
+  } = { level: 'debug' },
+): void => {
   if (sentryEnabled()) {
-    Sentry.addBreadcrumb({ message, level })
+    Sentry.addBreadcrumb({ message, level }, data === undefined ? undefined : { data })
   }
   if (developerFriendly()) {
+    const params = [message, data].filter(Boolean)
     switch (level) {
       case 'fatal':
       case 'error':
-        console.error(message)
+        console.error(...params)
         break
       case 'warning':
-        console.warn(message)
+        console.warn(...params)
         break
       case 'log':
-        console.log(message)
+        console.log(...params)
         break
       case 'info':
-        console.info(message)
+        console.info(...params)
         break
       case 'debug':
-        console.debug(message)
+        console.debug(...params)
         break
     }
   }
@@ -54,7 +64,7 @@ const storeLastUpdate = 'cannot store last update for unused city'
 const noTtsEngineInstalled = 'No TTS engine installed'
 const expectedErrors = [storeLastUpdate, noTtsEngineInstalled]
 
-export const reportError = (error: unknown): void => {
+export const reportError = (error: unknown, { data }: { data?: unknown } = {}): void => {
   const isNotFoundError = error instanceof NotFoundError
   const isNoInternetError = error instanceof FetchError
   const isExpectedError = error instanceof Error && expectedErrors.some(message => error.message.includes(message))
@@ -65,9 +75,9 @@ export const reportError = (error: unknown): void => {
   }
 
   if (sentryEnabled()) {
-    Sentry.captureException(error)
+    Sentry.captureException(error, data === undefined ? undefined : { data })
   }
   if (developerFriendly()) {
-    console.error(error)
+    console.error(...[error, data].filter(Boolean))
   }
 }

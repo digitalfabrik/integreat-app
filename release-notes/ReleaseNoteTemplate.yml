@@ -1,6 +1,6 @@
-issue_key: <github issue number> # e.g. #1234
+issue_key: <github issue number> # e.g. 1234
 show_in_stores: <boolean> # whether this note should be shown in the stores, either true or false
-platforms: # relevant platforms, possible values: web, android and ios
+platforms: # relevant platforms, possible values are android and ios
   - <platform1>
   - <platform2>
 en: <your note> # english version of the note

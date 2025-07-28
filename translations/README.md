@@ -63,7 +63,7 @@ Make sure to revert this after exporting.
 The following regex can be used to find invalid placeholders (make sure to enable case-sensitive and regex search):
 
 ```regexp
-\{\{(?!appName|distance|count|organization|domain|source|message|numberOfCharacters|filter|version|number)[^}]*}}
+\{\{(?!appName|distance|count|organization|domain|source|message|numberOfCharacters|filter|version|number|city)[^}]*}}
 ```
 
 ## Conversion between JSON, CSV and ODS
