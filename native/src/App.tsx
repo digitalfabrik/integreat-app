@@ -79,7 +79,7 @@ export const NavigationContainerWithTheme = ({ onStateChange }: NavigationContai
   }
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.backgroundAccentColor }} edges={['bottom']}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.backgroundColor }} edges={['bottom']}>
       <StatusBar />
       <NavigationContainer onStateChange={onStateChange} theme={navigationTheme} linking={linking}>
         <HeaderButtonsProvider stackType='native'>
