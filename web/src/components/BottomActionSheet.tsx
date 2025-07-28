@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import Divider from '@mui/material/Divider'
 import React, { ReactElement, ReactNode, RefObject, useImperativeHandle, useRef, useState } from 'react'
 import { BottomSheet, BottomSheetRef } from 'react-spring-bottom-sheet'
 import 'react-spring-bottom-sheet/dist/style.css'
@@ -6,7 +7,6 @@ import { SpringEvent } from 'react-spring-bottom-sheet/dist/types'
 
 import { getSnapPoints } from '../utils/getSnapPoints'
 import { RichLayout } from './Layout'
-import Spacer from './Spacer'
 
 const Title = styled.h1`
   font-size: 1.25rem;
@@ -21,7 +21,7 @@ const ToolbarContainer = styled.div`
   margin-top: 16px;
 `
 
-const StyledSpacer = styled(Spacer)`
+const StyledSpacer = styled(Divider)`
   margin: 12px 30px;
 `
 

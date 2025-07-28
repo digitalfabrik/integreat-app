@@ -1,10 +1,10 @@
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import Divider from '@mui/material/Divider'
 import React, { memo, ReactElement } from 'react'
 
 import { helpers } from '../constants/theme'
-import Spacer from './Spacer'
 import Button from './base/Button'
 import Icon from './base/Icon'
 
@@ -55,7 +55,7 @@ const GoBack = ({ goBack, viewportSmall = false, text }: GoBackProps): ReactElem
       <StyledIcon src={ArrowBackIcon} directionDependent />
       <DetailsHeaderTitle>{text}</DetailsHeaderTitle>
     </StyledButton>
-    <Spacer />
+    <Divider style={{ margin: '12px 0' }} />
   </>
 )
 

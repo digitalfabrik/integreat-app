@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import RefreshIcon from '@mui/icons-material/Refresh'
-import { Divider } from '@mui/material'
+import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'

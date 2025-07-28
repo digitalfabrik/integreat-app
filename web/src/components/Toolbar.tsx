@@ -1,6 +1,6 @@
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
-import { Divider } from '@mui/material'
+import Divider from '@mui/material/Divider'
 import React, { ReactElement, ReactNode } from 'react'
 
 import useWindowDimensions from '../hooks/useWindowDimensions'

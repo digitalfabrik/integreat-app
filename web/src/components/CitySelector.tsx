@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
-import { Divider, Typography } from '@mui/material'
+import Divider from '@mui/material/Divider'
+import Typography from '@mui/material/Typography'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
