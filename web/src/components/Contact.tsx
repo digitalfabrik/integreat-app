@@ -3,6 +3,7 @@ import MailOutlinedIcon from '@mui/icons-material/MailOutlined'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined'
 import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'
+import Divider from '@mui/material/Divider'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -10,7 +11,6 @@ import { ContactModel } from 'shared/api'
 
 import { helpers } from '../constants/theme'
 import ContactItem from './ContactItem'
-import Spacer from './Spacer'
 
 const StyledContactHeader = styled.div`
   margin-bottom: 6px;
@@ -57,7 +57,7 @@ const Contact = ({
       {!!email && (
         <ContactItem iconSource={MailOutlinedIcon} iconAlt={t('eMail')} link={`mailto:${email}`} content={email} />
       )}
-      {!isLastContact && <Spacer />}
+      {!isLastContact && <Divider style={{ margin: '12px 0' }} />}
     </>
   )
 }

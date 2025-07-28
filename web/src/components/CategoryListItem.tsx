@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { Divider } from '@mui/material'
+import Divider from '@mui/material/Divider'
 import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -65,13 +65,13 @@ type CategoryListItemProps = {
 }
 
 const CategoryListItem = ({ category, subCategories }: CategoryListItemProps): ReactElement => {
-  const SubCategories = subCategories.map((subCategory, index) => (
+  const SubCategories = subCategories.map(subCategory => (
     <SubCategory key={subCategory.path} dir='auto'>
       <StyledLink to={subCategory.path}>
         {!!subCategory.thumbnail && <CategoryThumbnail alt='' src={subCategory.thumbnail} />}
         <SubCategoryCaption>{subCategory.title}</SubCategoryCaption>
       </StyledLink>
-      {index < subCategories.length - 1 && <Divider />}
+      <Divider />
     </SubCategory>
   ))
 

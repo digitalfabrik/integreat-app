@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { Divider } from '@mui/material'
+import Divider from '@mui/material/Divider'
 import { TFunction } from 'i18next'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'

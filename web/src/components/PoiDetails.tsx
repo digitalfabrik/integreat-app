@@ -1,6 +1,7 @@
 import styled from '@emotion/styled'
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
+import Divider from '@mui/material/Divider'
 import React, { Fragment, ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -15,9 +16,12 @@ import Contact from './Contact'
 import OpeningHours from './OpeningHours'
 import PoiChips from './PoiChips'
 import RemoteContent from './RemoteContent'
-import Spacer from './Spacer'
 import Icon from './base/Icon'
 import Link from './base/Link'
+
+const StyledDivider = styled(Divider)`
+  margin: 12px 0;
+`
 
 const DetailsContainer = styled.div`
   font-family: ${props => props.theme.fonts.web.contentFont};
@@ -145,7 +149,7 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
         {distance !== null && <Distance>{t('distanceKilometre', { distance: distance.toFixed(1) })}</Distance>}
         <PoiChips poi={poi} />
       </HeadingSection>
-      <Spacer />
+      <StyledDivider />
       {!viewportSmall && <Subheading>{t('detailsAddress')}</Subheading>}
       <DetailSection>
         <AddressContentWrapper>
@@ -164,7 +168,7 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
       </DetailSection>
       {contacts.length > 0 && (
         <>
-          <Spacer />
+          <StyledDivider />
           <StyledCollapsible title={t('contacts')}>
             <StyledContactsContainer>
               {contacts.map((contact, index) => (
@@ -176,7 +180,7 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
           </StyledCollapsible>
         </>
       )}
-      {((openingHours && openingHours.length > 0) || temporarilyClosed || isOnlyWithAppointment) && <Spacer />}
+      {((openingHours && openingHours.length > 0) || temporarilyClosed || isOnlyWithAppointment) && <StyledDivider />}
       <OpeningHours
         openingHours={openingHours}
         isCurrentlyOpen={isCurrentlyOpen}
@@ -187,7 +191,7 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
 
       {content.length > 0 && (
         <>
-          <Spacer />
+          <StyledDivider />
           <Collapsible title={t('detailsInformation')}>
             <RemoteContent html={content} smallText />
           </Collapsible>
@@ -195,7 +199,7 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
       )}
       {toolbar && (
         <>
-          <Spacer />
+          <StyledDivider />
           <ToolbarWrapper>{toolbar}</ToolbarWrapper>
         </>
       )}
