@@ -1,6 +1,7 @@
 import { fireEvent, RenderAPI, waitFor } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import React, { useContext } from 'react'
+import { Platform } from 'react-native'
 import Tts from 'react-native-tts'
 
 import buildConfig from '../../constants/buildConfig'
@@ -36,6 +37,7 @@ const mockBuildConfig = (tts: boolean) => {
 jest.useFakeTimers()
 
 describe('TtsContainer', () => {
+  Platform.OS = 'android'
   const showSnackbar = jest.fn()
   mocked(useSnackbar).mockImplementation(() => showSnackbar)
   const sentences = ['This is my first sentence', 'Second sentence', 'Third time is the charm']
