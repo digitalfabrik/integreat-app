@@ -50,10 +50,10 @@ const CitySelector = ({ cities, language }: CitySelectorProps): ReactElement => 
       {resultCities
         .filter(it => it.sortCategory === group)
         .map(city => (
-          <>
+          <React.Fragment key={city.code}>
             <Divider />
-            <CityEntry key={city.code} city={city} language={language} filterText={filterText} />
-          </>
+            <CityEntry city={city} language={language} filterText={filterText} />
+          </React.Fragment>
         ))}
     </div>
   ))

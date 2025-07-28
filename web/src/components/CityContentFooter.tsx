@@ -15,7 +15,7 @@ const SidebarFooterContainer = styled.div`
   margin-top: -10px; /* to counteract the padding-top of the normal footer */
   padding: 0 27px;
 
-  > *:not(hr) {
+  > a {
     color: ${props => props.theme.colors.textColor};
     padding: 16px 0;
     display: flex;
