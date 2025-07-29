@@ -1,5 +1,6 @@
 import { useTheme } from '@emotion/react'
 import Dompurify from 'dompurify'
+import { decode } from 'html-entities'
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
@@ -22,6 +23,7 @@ type RemoteContentProps = {
   html: string
   centered?: boolean
   smallText?: boolean
+  highlightedSentence?: string
 }
 
 const DOMPURIFY_TAG_IFRAME = 'iframe'
@@ -31,7 +33,12 @@ const DOMPURIFY_ATTRIBUTE_TARGET = 'target'
 export type IframeSources = Record<number, string>
 export const IFRAME_BLANK_SOURCE = 'about:blank'
 
-const RemoteContent = ({ html, centered = false, smallText = false }: RemoteContentProps): ReactElement => {
+const RemoteContent = ({
+  html,
+  centered = false,
+  smallText = false,
+  highlightedSentence,
+}: RemoteContentProps): ReactElement => {
   const navigate = useNavigate()
   const sandBoxRef = React.createRef<HTMLDivElement>()
   const { value: externalSourcePermissions, updateLocalStorageItem } = useLocalStorage<ExternalSourcePermissions>({
@@ -116,8 +123,15 @@ const RemoteContent = ({ html, centered = false, smallText = false }: RemoteCont
     isContrastTheme,
   ])
 
+  const decodedHTML = decode(html)
+  // http://localhost:9000/augsburg/de/news/tu-news/1925
+  // TODO Highlight texts with HTML tags, check html links only. Avoid jump back to already read sentence if sentences are duplicated.
+  const highlightedHtml = highlightedSentence
+    ? decodedHTML.replace(highlightedSentence, `<mark class="highlight-sentence">${highlightedSentence}</mark>`)
+    : decodedHTML
+
   const dangerouslySetInnerHTML = {
-    __html: Dompurify.sanitize(html, {
+    __html: Dompurify.sanitize(highlightedHtml, {
       ADD_TAGS: [DOMPURIFY_TAG_IFRAME],
       ADD_ATTR: [DOMPURIFY_ATTRIBUTE_FULLSCREEN, DOMPURIFY_ATTRIBUTE_TARGET],
     }),
@@ -127,6 +141,7 @@ const RemoteContent = ({ html, centered = false, smallText = false }: RemoteCont
     <RemoteContentSandBox
       dir='auto'
       centered={centered}
+      charLength={highlightedHtml.length}
       dangerouslySetInnerHTML={dangerouslySetInnerHTML}
       ref={sandBoxRef}
       smallText={smallText}
