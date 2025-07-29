@@ -338,6 +338,9 @@ jobs:
                 directory: native/ios
             - restore_cocoa_pods_cache
             - run:
+                command: brew install cmake
+                name: Install CMake
+            - run:
                 command: bundle exec fastlane ios build build_config_name:<< parameters.build_config_name >> version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
                 name: '[FL] << parameters.build_config_name >> iOS Build'
                 working_directory: native/ios
