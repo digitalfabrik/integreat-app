@@ -1,7 +1,6 @@
 import { DateTime } from 'luxon'
 import React, { ReactElement, RefObject } from 'react'
 import { NativeSyntheticEvent, StyleProp, TextInput, TextInputKeyPressEventData, ViewStyle } from 'react-native'
-// react-native-external-keyboard can be removed after we update react native to 0.80.0 which fixes the keyboard focus issue for TextInput
 import { KeyboardExtendedInput } from 'react-native-external-keyboard'
 import styled, { useTheme } from 'styled-components/native'
 
