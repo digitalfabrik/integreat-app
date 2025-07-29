@@ -2477,7 +2477,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   BEMCheckBox: 5ba6e37ade3d3657b36caecc35c8b75c6c2b1a4e
   boost: 7e761d76ca2ce687f7cc98e698152abd03a18f90
-  DoubleConversion: cb417026b2400c8f53ae97020b2be961b59470cb
+  DoubleConversion: 76ab83afb40bddeeee456813d9c04f67f78771b5
   dr-pogodin-react-native-fs: 9b94c84ef3fb7d507f646ebb64144d7ba49d7b08
   dr-pogodin-react-native-static-server: ec4441ec53a6fdd516f18290529bfff40299da09
   fast_float: 06eeec4fe712a76acc9376682e4808b05ce978b6
@@ -2489,7 +2489,7 @@ SPEC CHECKSUMS:
   FirebaseInstallations: 317270fec08a5d418fdbc8429282238cab3ac843
   FirebaseMessaging: 3b26e2cee503815e01c3701236b020aa9b576f09
   fmt: a40bb5bd0294ea969aaaba240a927bd33d878cdd
-  glog: eb93e2f488219332457c3c4eafd2738ddc7e80b8
+  glog: fdfdfe5479092de0c4bdbebedd9056951f092c4f
   GoogleDataTransport: aae35b7ea0c09004c3797d53c8c41f66f219d6a7
   GoogleUtilities: 00c88b9a86066ef77f0da2fab05f65d7768ed8e1
   hermes-engine: 2771b98fb813fdc6f92edd7c9c0035ecabf9fee7
