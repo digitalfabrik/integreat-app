@@ -1,7 +1,10 @@
 import styled from '@emotion/styled'
 import ClearIcon from '@mui/icons-material/Clear'
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined'
-import { formHelperTextClasses, IconButton, InputAdornment, TextField } from '@mui/material'
+import { formHelperTextClasses } from '@mui/material/FormHelperText'
+import IconButton from '@mui/material/IconButton'
+import InputAdornment from '@mui/material/InputAdornment'
+import TextField from '@mui/material/TextField'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 

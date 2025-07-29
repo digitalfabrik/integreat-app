@@ -3,7 +3,7 @@ import React, { ReactElement, RefObject } from 'react'
 import { NativeSyntheticEvent, StyleProp, TextInput, TextInputKeyPressEventData, ViewStyle } from 'react-native'
 import styled, { useTheme } from 'styled-components/native'
 
-import { zeroPad } from 'shared/utils/dateFilterUtils'
+import { zeroPad } from 'shared'
 
 const Input = styled(TextInput)`
   text-align: center;

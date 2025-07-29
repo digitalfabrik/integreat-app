@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
-import { SvgIconProps, ToggleButton as MuiToggleButton } from '@mui/material'
+import { SvgIconProps } from '@mui/material/SvgIcon'
+import MuiToggleButton from '@mui/material/ToggleButton'
 import React, { ElementType, ReactElement } from 'react'
 
 import Icon from './Icon'
