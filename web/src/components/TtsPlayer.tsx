@@ -54,7 +54,7 @@ const StyledIconButton = styled(IconButton)`
   align-items: center;
 `
 
-const StyledFastForwardIcon = styled(FastForward)<{ disabled: boolean; iconRotate?: boolean }>`
+const StyledFastForwardIcon = styled(FastForward)<{ iconRotate?: boolean }>`
   ${props => (props.iconRotate ? 'rotate: 180deg;' : '')}
   width: 32px;
   height: 32px;
@@ -108,7 +108,7 @@ const TtsPlayer = ({
       {/* Sound player panel shouldn't be rotated in rtl */}
       <StyledPanel dir='ltr'>
         <StyledIconButton data-testid='previous-button' onClick={playPrevious} disabled={!isPlaying}>
-          <StyledFastForwardIcon disabled={!isPlaying} iconRotate />
+          <StyledFastForwardIcon iconRotate />
         </StyledIconButton>
         <PlayButton
           color='primary'
@@ -119,7 +119,7 @@ const TtsPlayer = ({
           {isPlaying ? <Pause /> : <PlayArrow />}
         </PlayButton>
         <StyledIconButton data-testid='next-button' onClick={playNext} disabled={!isPlaying}>
-          <StyledFastForwardIcon disabled={!isPlaying} />
+          <StyledFastForwardIcon />
         </StyledIconButton>
       </StyledPanel>
     </StyledTtsPlayer>
