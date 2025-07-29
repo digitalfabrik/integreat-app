@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react'
 import { Text, View, Keyboard } from 'react-native'
-// react-native-external-keyboard can be removed after we update react native to 0.80.0 which fixes the keyboard focus issue for TextInput
 import { KeyboardExtendedInput } from 'react-native-external-keyboard'
 import styled, { useTheme } from 'styled-components/native'
 
@@ -63,9 +62,7 @@ const SearchInput = ({
           {...testID('Search-Input')}
           multiline={false}
           autoFocus
-          onBlur={() => {
-            Keyboard.dismiss()
-          }}
+          onBlur={Keyboard.dismiss}
           placeholderTextColor={theme.colors.textSecondaryColor}
           placeholder={placeholderText}
           aria-label={placeholderText}
