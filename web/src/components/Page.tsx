@@ -45,14 +45,15 @@ const Page = ({
   AfterContent,
   Footer,
 }: PageProps): ReactElement => {
-  const { visible: ttsPlayerVisible } = useContext(TtsContext)
+  const { visible: ttsPlayerVisible, sentences, sentenceIndex, isPlaying } = useContext(TtsContext)
+  const isTitleHighlighted = title === sentences[sentenceIndex]
 
   return (
     <>
       {!!thumbnailSrcSet && <Thumbnail alt='' srcSet={thumbnailSrcSet} />}
-      <Caption title={title} />
+      <Caption title={title} highlighted={isTitleHighlighted && isPlaying} />
       {BeforeContent}
-      <RemoteContent html={content} />
+      <RemoteContent html={content} highlightedSentence={isTitleHighlighted ? undefined : sentences[sentenceIndex]} />
       {AfterContent}
       {lastUpdate && !!content && content.length > 0 && (
         <LastUpdateInfo lastUpdate={lastUpdate} withText={showLastUpdateText} />

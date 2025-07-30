@@ -17,6 +17,8 @@ export type TtsContextType = {
   showTtsPlayer: () => void
   sentences: string[]
   setSentences: (sentences: string[]) => void
+  sentenceIndex: number
+  isPlaying: boolean
 }
 
 export const TtsContext = createContext<TtsContextType>({
@@ -26,6 +28,8 @@ export const TtsContext = createContext<TtsContextType>({
   showTtsPlayer: () => undefined,
   sentences: [],
   setSentences: () => undefined,
+  sentenceIndex: 0,
+  isPlaying: false,
 })
 
 type TtsContainerProps = {
@@ -156,8 +160,10 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
       showTtsPlayer: initializeTts,
       sentences,
       setSentences: updateSentences,
+      sentenceIndex,
+      isPlaying,
     }),
-    [enabled, canRead, visible, sentences, updateSentences, initializeTts],
+    [enabled, canRead, visible, initializeTts, sentences, updateSentences, sentenceIndex, isPlaying],
   )
 
   return (

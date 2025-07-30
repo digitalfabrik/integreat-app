@@ -4,7 +4,7 @@ import { ExternalLinkIcon, PersonIcon } from '../assets'
 import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
 
-const RemoteContentSandBox = styled.div<{ centered: boolean; smallText: boolean }>`
+const RemoteContentSandBox = styled.div<{ centered: boolean; smallText: boolean; charLength: number }>`
   font-family: ${props => props.theme.fonts.web.contentFont};
   font-size: ${props => (props.smallText ? helpers.adaptiveFontSize : props.theme.fonts.contentFontSize)};
   line-height: ${props => props.theme.fonts.contentLineHeight};
@@ -185,6 +185,10 @@ const RemoteContentSandBox = styled.div<{ centered: boolean; smallText: boolean 
     padding: 0;
     cursor: pointer;
     align-self: center;
+  }
+
+  .highlight-sentence {
+    background-color: ${props => props.theme.colors.themeColor};
   }
 `
 
