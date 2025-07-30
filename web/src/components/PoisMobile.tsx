@@ -125,7 +125,7 @@ const PoisMobile = ({
         Overlay={
           <>
             {canDeselect && (
-              <IconButton onClick={deselect} tabIndex={0} aria-label={t('detailsHeader')} color='primary'>
+              <IconButton onClick={deselect} tabIndex={0} aria-label={t('detailsHeader')}>
                 <ArrowBackIcon
                   sx={{
                     transform: theme.direction === 'rtl' ? 'scaleX(-1)' : 'none',
