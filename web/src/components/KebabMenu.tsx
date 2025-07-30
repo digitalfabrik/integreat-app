@@ -1,6 +1,7 @@
 import styled from '@emotion/styled'
 import CloseIcon from '@mui/icons-material/Close'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
+import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
 import React, { ReactElement, ReactNode, useLayoutEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -114,7 +115,14 @@ const KebabMenu = ({ items, show, setShow, Footer }: KebabMenuProps): ReactEleme
               </IconButton>
             </ActionBar>
           </Heading>
-          <Content>{items}</Content>
+          <Content>
+            {items.map((item, index) => (
+              <React.Fragment key={`menu-item-${index + 1}`}>
+                {item}
+                {index < items.length - 1 && <Divider />}
+              </React.Fragment>
+            ))}
+          </Content>
           {Footer}
         </List>
       </Portal>

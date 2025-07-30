@@ -1,4 +1,6 @@
 import styled from '@emotion/styled'
+import Divider from '@mui/material/Divider'
+import Typography from '@mui/material/Typography'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -16,7 +18,7 @@ const Container = styled.div`
   padding-top: 22px;
 `
 
-export const CityListParent = styled.div<{ stickyTop: number }>`
+export const CityListParent = styled(Typography)<{ stickyTop: number }>`
   position: sticky;
   top: ${props => props.stickyTop}px;
   height: 30px;
@@ -24,7 +26,6 @@ export const CityListParent = styled.div<{ stickyTop: number }>`
   line-height: 30px;
   transition: top 0.2s ease-out;
   background-color: ${props => props.theme.colors.backgroundColor};
-  border-bottom: 1px solid ${props => props.theme.colors.themeColor};
 `
 
 const SearchCounter = styled.p`
@@ -49,7 +50,10 @@ const CitySelector = ({ cities, language }: CitySelectorProps): ReactElement => 
       {resultCities
         .filter(it => it.sortCategory === group)
         .map(city => (
-          <CityEntry key={city.code} city={city} language={language} filterText={filterText} />
+          <React.Fragment key={city.code}>
+            <Divider />
+            <CityEntry city={city} language={language} filterText={filterText} />
+          </React.Fragment>
         ))}
     </div>
   ))
@@ -67,6 +71,7 @@ const CitySelector = ({ cities, language }: CitySelectorProps): ReactElement => 
           {t('search:searchResultsCount', { count: resultCities.length })}
         </SearchCounter>
         <NearbyCities stickyTop={stickyTop} cities={cities} language={language} filterText={filterText} />
+        <Divider />
         {resultCities.length === 0 ? <Failure errorMessage='search:nothingFound' /> : groups}
       </ScrollingSearchBox>
     </Container>

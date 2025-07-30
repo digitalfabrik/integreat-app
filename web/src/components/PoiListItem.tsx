@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import Divider from '@mui/material/Divider'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -12,14 +13,7 @@ const ListItemContainer = styled.ul`
   font-family: ${props => props.theme.fonts.web.contentFont};
   display: flex;
   padding: clamp(10px, 1vh, 20px) 0;
-  border-bottom: 1px solid ${props => props.theme.colors.borderColor};
   cursor: pointer;
-
-  ${props => props.theme.breakpoints.down('md')} {
-    &:last-child {
-      border-bottom: none;
-    }
-  }
 
   &:first-of-type {
     padding-top: 0;
@@ -79,16 +73,19 @@ const PoiListItem = ({ poi, distance, selectPoi }: PoiListItemProps): ReactEleme
   const { thumbnail, title, category, slug } = poi
 
   return (
-    <ListItemContainer id={slug}>
-      <LinkContainer onClick={selectPoi} tabIndex={0} label={title}>
-        <Thumbnail alt='' src={thumbnail || PoiThumbnailPlaceholder} />
-        <Description>
-          <Title>{title}</Title>
-          {distance !== null && <Distance>{t('distanceKilometre', { distance: distance.toFixed(1) })}</Distance>}
-          <Category>{category.name}</Category>
-        </Description>
-      </LinkContainer>
-    </ListItemContainer>
+    <>
+      <ListItemContainer id={slug}>
+        <LinkContainer onClick={selectPoi} tabIndex={0} label={title}>
+          <Thumbnail alt='' src={thumbnail || PoiThumbnailPlaceholder} />
+          <Description>
+            <Title>{title}</Title>
+            {distance !== null && <Distance>{t('distanceKilometre', { distance: distance.toFixed(1) })}</Distance>}
+            <Category>{category.name}</Category>
+          </Description>
+        </LinkContainer>
+      </ListItemContainer>
+      <Divider sx={{ '&:last-child': { display: 'none' } }} />
+    </>
   )
 }
 
