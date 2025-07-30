@@ -59,7 +59,7 @@ const ModalContent = ({ title, icon, style, closeModal, children, small }: Modal
           {icon}
           <span>{title}</span>
         </TitleContainer>
-        <IconButton aria-label={t('close')} onClick={closeModal} color='primary'>
+        <IconButton aria-label={t('close')} onClick={closeModal}>
           {small ? (
             <ArrowBackIosNewIcon
               sx={{
