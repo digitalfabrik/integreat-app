@@ -1,9 +1,8 @@
 import React, { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { NEWS_ROUTE, pathnameFromRouteInformation, TU_NEWS_TYPE } from 'shared'
+import { NEWS_ROUTE, pathnameFromRouteInformation, TU_NEWS_TYPE, tunewsLabel } from 'shared'
 import { createTunewsEndpoint, createTunewsLanguagesEndpoint, TunewsModel, useLoadFromEndpoint } from 'shared/api'
-import { tunewsLabel } from 'shared/constants/news'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
