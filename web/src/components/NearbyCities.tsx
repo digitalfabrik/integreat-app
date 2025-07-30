@@ -48,10 +48,10 @@ const NearbyCities = ({ cities, language, filterText, stickyTop }: NearbyCitiesP
       <CityListParent stickyTop={stickyTop}>{t('nearbyCities')}</CityListParent>
       {nearbyCities.length > 0 ? (
         nearbyCities.map(city => (
-          <>
+          <React.Fragment key={city.code}>
             <Divider />
             <CityEntry key={city.code} city={city} language={language} filterText={filterText} />
-          </>
+          </React.Fragment>
         ))
       ) : (
         <NearbyMessageContainer>

@@ -71,6 +71,7 @@ const CitySelector = ({ cities, language }: CitySelectorProps): ReactElement => 
           {t('search:searchResultsCount', { count: resultCities.length })}
         </SearchCounter>
         <NearbyCities stickyTop={stickyTop} cities={cities} language={language} filterText={filterText} />
+        <Divider />
         {resultCities.length === 0 ? <Failure errorMessage='search:nothingFound' /> : groups}
       </ScrollingSearchBox>
     </Container>
