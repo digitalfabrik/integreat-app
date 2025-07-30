@@ -7,12 +7,6 @@ const commonColors: CommonColors = {
     dark: '#475CC7',
     contrastText: '#E6E0E9',
   },
-  tertiary: {
-    light: '#EAEEF9',
-    main: '#364153',
-    dark: '#242D3B',
-    contrastText: '#E6E0E9',
-  },
   error: {
     light: '#FFCCCF',
     main: '#DF1D1D',
@@ -35,16 +29,17 @@ const commonColors: CommonColors = {
   },
   divider: '#C9C9C9',
   link: '#4E80EE',
-  action: {
-    disabledBackground: '#C9C9C9',
-    disabled: '#FFFFFF',
-    active: '#242D3B',
-  },
 }
 
 export const commonLightColors: CommonColorPalette = {
   ...commonColors,
   mode: 'light',
+  tertiary: {
+    light: '#EAEEF9',
+    main: '#364153',
+    dark: '#242D3B',
+    contrastText: '#E6E0E9',
+  },
   surface: {
     light: '#FFFFFF',
     main: '#EAEEF9',
@@ -57,11 +52,22 @@ export const commonLightColors: CommonColorPalette = {
     secondary: '#585858',
     disabled: '#858585',
   },
+  action: {
+    disabledBackground: '#FFFFFF',
+    disabled: '#C9C9C9',
+    active: '#000000',
+  },
 }
 
 export const commonDarkColors: CommonColorPalette = {
   ...commonColors,
   mode: 'dark',
+  tertiary: {
+    light: '#E9EDFB',
+    main: '#AFBACC',
+    dark: '#364153',
+    contrastText: '#E6E0E9',
+  },
   surface: {
     light: '#333D51',
     main: '#20293A',
@@ -73,6 +79,11 @@ export const commonDarkColors: CommonColorPalette = {
     // TODO
     secondary: '#E6E0E9',
     disabled: '#858585',
+  },
+  action: {
+    disabledBackground: '#000000',
+    disabled: '#364153',
+    active: '#FFFFFF',
   },
 }
 
