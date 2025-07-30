@@ -1,9 +1,13 @@
 import styled from '@emotion/styled'
+import HealthAndSafetyOutlinedIcon from '@mui/icons-material/HealthAndSafetyOutlined'
+import PeopleOutlineOutlinedIcon from '@mui/icons-material/PeopleOutlineOutlined'
+import SendIcon from '@mui/icons-material/Send'
+import Button from '@mui/material/Button'
 import React, { ReactElement, SyntheticEvent, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-import { cityContentPath } from 'shared'
+import { cityContentPath, DEFAULT_ROWS_NUMBER } from 'shared'
 import {
   OfferModel,
   InvalidEmailError,
@@ -13,14 +17,13 @@ import {
   MALTE_HELP_FORM_MAX_COMMENT_LENGTH,
 } from 'shared/api'
 
-import { SecurityIcon, SupportIcon } from '../assets'
 import Icon from '../components/base/Icon'
 import { Container } from './Feedback'
 import PrivacyCheckbox from './PrivacyCheckbox'
 import Input from './base/Input'
 import InputSection from './base/InputSection'
 import RadioGroup from './base/RadioGroup'
-import TextButton from './base/TextButton'
+import Spacing from './base/Spacing'
 
 const Note = styled.div`
   display: flex;
@@ -35,6 +38,7 @@ const StyledIcon = styled(Icon)`
 const Form = styled.form`
   display: flex;
   flex-direction: column;
+  gap: 12px;
 `
 
 const SubmitErrorHeading = styled.h5`
@@ -130,19 +134,18 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
   return (
     <>
       <Note>
-        <StyledIcon src={SupportIcon} />
+        <StyledIcon src={PeopleOutlineOutlinedIcon} />
         {t('supportNote')}
       </Note>
       <Note>
-        <StyledIcon src={SecurityIcon} />
+        <StyledIcon src={HealthAndSafetyOutlinedIcon} />
         {t('securityNote')}
       </Note>
       <Form onSubmit={submitHandler}>
-        <Input id='name' hint={t('name')} hintIsLabel required value={name} onChange={setName} submitted={submitted} />
+        <Input id='name' label={t('name')} required value={name} onChange={setName} submitted={submitted} />
         <Input
           id='roomNumber'
-          hint={`${t('roomNumber')} (${t('common:optional')})`}
-          hintIsLabel
+          label={`${t('roomNumber')} (${t('common:optional')})`}
           value={roomNumber}
           onChange={setRoomNumber}
           submitted={submitted}
@@ -191,8 +194,8 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
         <InputSection id='comment' title={t('contactReason')}>
           <Input
             id='comment'
-            hint={t('maxCharacters', { numberOfCharacters: MALTE_HELP_FORM_MAX_COMMENT_LENGTH })}
-            multiline
+            label={t('maxCharacters', { numberOfCharacters: MALTE_HELP_FORM_MAX_COMMENT_LENGTH })}
+            rows={DEFAULT_ROWS_NUMBER}
             value={comment}
             onChange={setComment}
             maxLength={MALTE_HELP_FORM_MAX_COMMENT_LENGTH}
@@ -211,12 +214,15 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
             {sendingStatus !== 'invalidEmail' && t('submitFailedReasoning')}
           </ErrorSendingStatus>
         )}
-        <TextButton
-          type='submit'
-          disabled={sendingStatus === 'sending' || missingData || !privacyPolicyAccepted}
+        <Spacing />
+        <Button
           onClick={() => setSubmitted(true)}
-          text={t('submit')}
-        />
+          startIcon={<SendIcon />}
+          disabled={sendingStatus === 'sending' || missingData || !privacyPolicyAccepted}
+          type='submit'
+          variant='contained'>
+          {t('submit')}
+        </Button>
       </Form>
     </>
   )

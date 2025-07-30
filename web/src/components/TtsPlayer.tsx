@@ -1,9 +1,13 @@
 import styled from '@emotion/styled'
+import CloseIcon from '@mui/icons-material/Close'
+import FastForwardIcon from '@mui/icons-material/FastForward'
+import FastRewindIcon from '@mui/icons-material/FastRewind'
+import PauseIcon from '@mui/icons-material/Pause'
+import PlayArrowIcon from '@mui/icons-material/PlayArrow'
+import IconButton from '@mui/material/IconButton'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CloseIcon, PauseIcon, PlaybackIcon, PlayIcon } from '../assets'
-import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import Button from './base/Button'
 import Icon from './base/Icon'
@@ -27,19 +31,26 @@ const StyledTtsPlayer = styled.dialog<{ isPlaying: boolean; footerHeight: number
   gap: ${props => (props.isPlaying ? '4px;' : '36px')};
   border-color: transparent;
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     width: auto;
   }
 `
 
 const verticalMargin = 12
 
+const StyledIconButton = styled(IconButton)(({ theme }) => ({
+  backgroundColor: theme.palette.tertiary.light,
+
+  '&.Mui-disabled': {
+    backgroundColor: theme.palette.action.disabledBackground,
+  },
+}))
+
 const StyledPanel = styled.div<{ isPlaying?: boolean }>`
   display: flex;
   align-items: center;
   gap: 20px;
   margin: ${props => (props.isPlaying ? verticalMargin : 0)}px 0;
-  flex-direction: ${props => (props.theme.contentDirection === 'rtl' ? 'row-reverse' : 'row')};
 `
 
 const BaseButton = styled(Button)`
@@ -56,33 +67,18 @@ const BaseButton = styled(Button)`
   }
 `
 
-const PlayButton = styled(BaseButton)<{ disabled: boolean }>`
-  background-color: ${props => {
-    if (props.disabled) {
-      return props.theme.colors.textDisabledColor
-    }
-    return props.theme.isContrastTheme ? props.theme.colors.textColor : props.theme.colors.ttsPlayerPlayIconColor
-  }};
-  width: 48px;
-  height: 48px;
-  border-radius: 48px;
-  box-shadow: 1px 4px 8px 1px grey;
-`
-
 const StyledButton = styled(Button)`
   display: flex;
   gap: 4px;
-  align-items: flex-end;
-  flex-direction: ${props => (props.theme.contentDirection === 'rtl' ? 'row-reverse' : 'row')};
-`
-
-const StyledPlayIcon = styled(Icon)`
-  color: ${props =>
-    props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.ttsPlayerBackground};
+  align-items: center;
 `
 
 const StyledCloseIcon = styled(Icon)`
   color: ${props => (props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.textColor)};
+`
+const StyledPlaybackIcon = styled(Icon)`
+  width: 32px;
+  height: 32px;
 `
 
 const StyledCloseText = styled.span`
@@ -139,22 +135,27 @@ const TtsPlayer = ({
 }: TtsPlayerProps): ReactElement => {
   const { t } = useTranslation('layout')
   const { visibleFooterHeight } = useWindowDimensions()
-
   return (
     <StyledTtsPlayer isPlaying={isPlaying} footerHeight={visibleFooterHeight}>
       <StyledPanel isPlaying={isPlaying}>
         {isPlaying && (
           <StyledButton label={t('previous')} onClick={playPrevious}>
             <StyledText>{t('previous')}</StyledText>
-            <Icon reverse src={PlaybackIcon} />
+            <StyledPlaybackIcon src={FastRewindIcon} />
           </StyledButton>
         )}
-        <PlayButton label={t(isPlaying ? 'pause' : 'play')} onClick={isPlaying ? pause : play} disabled={disabled}>
-          <StyledPlayIcon src={isPlaying ? PauseIcon : PlayIcon} />
-        </PlayButton>
+        <StyledIconButton
+          name={t(isPlaying ? 'pause' : 'play')}
+          aria-label={t(isPlaying ? 'pause' : 'play')}
+          onClick={isPlaying ? pause : play}
+          disabled={disabled}
+          color='primary'
+          size='large'>
+          {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
+        </StyledIconButton>
         {isPlaying && (
           <StyledButton label={t('next')} onClick={playNext}>
-            <Icon src={PlaybackIcon} />
+            <StyledPlaybackIcon src={FastForwardIcon} />
             <StyledText>{t('next')}</StyledText>
           </StyledButton>
         )}

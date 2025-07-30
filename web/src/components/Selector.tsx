@@ -1,4 +1,4 @@
-import { css } from '@emotion/react'
+import { css, Theme } from '@emotion/react'
 import styled from '@emotion/styled'
 import React, { ReactElement } from 'react'
 
@@ -7,7 +7,7 @@ import SelectorItemModel from '../models/SelectorItemModel'
 import Link from './base/Link'
 import Tooltip from './base/Tooltip'
 
-const selectorItemStyle = css`
+const selectorItemStyle = ({ theme }: { theme: Theme }) => css`
   height: ${dimensions.headerHeightLarge}px;
   min-width: 90px;
   padding: 0 5px;
@@ -21,7 +21,7 @@ const selectorItemStyle = css`
     border-radius 0.2s;
   user-select: none;
 
-  @media ${dimensions.smallViewport} {
+  ${theme.breakpoints.down('md')} {
     height: ${dimensions.headerHeightSmall}px;
     width: 100%;
     flex: 1 1 auto;

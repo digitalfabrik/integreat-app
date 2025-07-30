@@ -1,10 +1,11 @@
 import styled from '@emotion/styled'
+import AccessibleIcon from '@mui/icons-material/Accessible'
+import NotAccessibleIcon from '@mui/icons-material/NotAccessible'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { PoiModel } from 'shared/api'
 
-import { AccessibleIcon, NotAccessibleIcon } from '../assets'
 import Icon from './base/Icon'
 
 const ChipsContainer = styled.div`

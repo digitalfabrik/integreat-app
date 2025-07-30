@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline'
 import React, { ReactElement } from 'react'
 
-import { NoteIcon } from '../assets'
 import { helpers } from '../constants/theme'
 import Icon from './base/Icon'
 
@@ -28,7 +28,7 @@ type NoteProps = {
 
 const Note = ({ text }: NoteProps): ReactElement => (
   <NoteContainer>
-    <StyledIcon src={NoteIcon} />
+    <StyledIcon src={ErrorOutlineIcon} />
     <NoteText>{text}</NoteText>
   </NoteContainer>
 )

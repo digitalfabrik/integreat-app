@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { TimeSlot } from 'shared/api/types'
+import { TimeSlot } from 'shared/api'
 
 import AppointmentOnlyIcon from './AppointmentOnlyIcon'
 
