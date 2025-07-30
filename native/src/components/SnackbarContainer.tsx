@@ -1,11 +1,13 @@
 import React, { createContext, ReactElement, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Animated, View, LayoutChangeEvent } from 'react-native'
+import { Animated, LayoutChangeEvent } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import styled from 'styled-components/native'
 
 import Snackbar, { SnackbarActionType } from '../components/Snackbar'
 
-const Container = styled(View)`
+const Container = styled(SafeAreaView)`
+  background-color: ${props => props.theme.colors.textSecondaryColor};
   position: absolute;
   bottom: 0;
   left: 0;
@@ -83,6 +85,7 @@ const SnackbarContainer = ({ children }: SnackbarContainerProps): ReactElement |
       {displayedSnackbar ? (
         <AnimatedContainer
           onLayout={onLayout}
+          edges={['bottom']}
           style={{
             transform: [
               {
