@@ -31,6 +31,7 @@ const ToolbarItemLink = styled(Link)`
 const ToolbarItemButton = styled(Button)`
   ${toolbarItemStyle}
 `
+
 const DisabledToolbarItem = styled('div')`
   ${toolbarItemStyle};
   color: ${props => props.theme.colors.textDisabledColor};

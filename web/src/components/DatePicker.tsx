@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
 import EventIcon from '@mui/icons-material/Event'
+import IconButton from '@mui/material/IconButton'
 import { DateTime } from 'luxon'
 import React, { ReactElement, useEffect, useState } from 'react'
 import DatePicker, { DatePickerProps } from 'react-datepicker'
@@ -7,8 +8,6 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { useTranslation } from 'react-i18next'
 
 import '../styles/DatePickerCalendar.css'
-import Button from './base/Button'
-import Icon from './base/Icon'
 
 const INPUT_HEIGHT = '56px'
 
@@ -21,18 +20,13 @@ const StyledInputWrapper = styled.div`
   display: flex;
 `
 
-const StyledIconButton = styled(Button)<{ isCalendarOpen: boolean }>`
-  width: 40px;
-  height: 40px;
-  border-radius: 20px;
+const StyledIconButton = styled(IconButton)<{ isCalendarOpen: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
   right: 16px;
   align-self: center;
-  background-color: ${props =>
-    props.isCalendarOpen ? props.theme.colors.themeColorLight : props.theme.colors.textDisabledColor};
 `
 const DatePickerWrapper: React.FC<DatePickerProps> = props => <DatePicker {...props} />
 
@@ -155,8 +149,13 @@ const CustomDatePicker = ({
           onChange={(date: Date | null) => handleDateChange(date)}
           onChangeRaw={e => handleDateError(String((e?.target as HTMLInputElement).value))}
         />
-        <StyledIconButton label={calendarLabel} isCalendarOpen={isCalendarOpen} onClick={() => setIsCalendarOpen(true)}>
-          <Icon src={EventIcon} />
+        <StyledIconButton
+          color='primary'
+          size='large'
+          name={calendarLabel}
+          isCalendarOpen={isCalendarOpen}
+          onClick={() => setIsCalendarOpen(true)}>
+          <EventIcon />
         </StyledIconButton>
       </StyledInputWrapper>
       <StyledTitle>{title}</StyledTitle>

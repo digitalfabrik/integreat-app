@@ -21,13 +21,11 @@ export type ActionColor = {
 
 export type CommonColors = {
   primary: PaletteColor
-  tertiary: PaletteColor
   error: PaletteColor
   warning: SimplePaletteColor
   success: SimplePaletteColor
   info?: SimplePaletteColor
   tunews: SimplePaletteColor
-  action: ActionColor
   divider: string
   link: string
 }
@@ -42,8 +40,10 @@ export type TypeText = {
 
 export type CommonColorPalette = CommonColors & {
   mode: PaletteMode
+  tertiary: PaletteColor
   surface: PaletteColor
   text: TypeText
+  action: ActionColor
 }
 
 export type ThemeColorPalette = CommonColorPalette & {

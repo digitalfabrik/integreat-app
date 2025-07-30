@@ -1,4 +1,4 @@
-import { css, SerializedStyles, Theme, useTheme } from '@emotion/react'
+import { css, useTheme } from '@emotion/react'
 import styled from '@emotion/styled'
 import CheckIcon from '@mui/icons-material/Check'
 import CloseIcon from '@mui/icons-material/Close'
@@ -7,6 +7,7 @@ import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined'
 import MailOutlinedIcon from '@mui/icons-material/MailOutlined'
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined'
 import WhatsAppIcon from '@mui/icons-material/WhatsApp'
+import IconButton from '@mui/material/IconButton'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { PlacesType } from 'react-tooltip'
@@ -15,7 +16,6 @@ import useWindowDimensions from '../hooks/useWindowDimensions'
 import Portal from './Portal'
 import ToolbarItem from './ToolbarItem'
 import Button from './base/Button'
-import Icon from './base/Icon'
 import Link from './base/Link'
 import Tooltip from './base/Tooltip'
 
@@ -126,36 +126,6 @@ const TooltipContainer = styled.div<{
   }
 `
 
-const CloseButton = styled(Button)`
-  background-color: ${props => props.theme.colors.backgroundColor};
-  display: flex;
-`
-
-const itemStyles = ({ theme }: { theme: Theme }): SerializedStyles => css`
-  background-color: ${theme.colors.backgroundColor};
-  border: none;
-  padding: 0;
-  display: flex;
-`
-
-const StyledLink = styled(Link)`
-  ${itemStyles}
-`
-
-const StyledButton = styled(Button)`
-  ${itemStyles}
-`
-
-const StyledIcon = styled(Icon)`
-  width: 32px;
-  height: 32px;
-  flex-shrink: 0;
-  padding: 8px;
-  object-fit: contain;
-  align-self: center;
-  color: ${props => props.theme.colors.textSecondaryColor};
-`
-
 const BackdropContainer = styled(Button)`
   background: transparent;
   width: 100%;
@@ -215,35 +185,38 @@ const SharingPopup = ({ shareUrl, title, flow, portalNeeded }: SharingPopupProps
               id='copy'
               place={tooltipDirection}
               tooltipContent={t(linkCopied ? 'common:copied' : 'layout:copyUrl')}>
-              <StyledButton onClick={copyToClipboard} label={t(linkCopied ? 'common:copied' : 'layout:copyUrl')}>
-                <StyledIcon src={linkCopied ? CheckIcon : ContentCopyIcon} />
-              </StyledButton>
+              <IconButton
+                aria-label={t(linkCopied ? 'common:copied' : 'layout:copyUrl')}
+                size='large'
+                onClick={copyToClipboard}>
+                {linkCopied ? <CheckIcon fontSize='inherit' /> : <ContentCopyIcon fontSize='inherit' />}
+              </IconButton>
             </Tooltip>
             <Tooltip id='share-whatsapp' place={tooltipDirection} tooltipContent={t('whatsappTooltip')}>
-              <StyledLink
-                to={`https://api.whatsapp.com/send?text=${shareMessage}%0a${encodedShareUrl}`}
-                ariaLabel={t('whatsappTooltip')}>
-                <StyledIcon src={WhatsAppIcon} />
-              </StyledLink>
+              <Link to={`https://api.whatsapp.com/send?text=${shareMessage}%0a${encodedShareUrl}`}>
+                <IconButton size='large' aria-label={t('whatsappTooltip')}>
+                  <WhatsAppIcon fontSize='inherit' />
+                </IconButton>
+              </Link>
             </Tooltip>
             <Tooltip id='share-facebook' place={tooltipDirection} tooltipContent={t('facebookTooltip')}>
-              <StyledLink
-                to={`https://www.facebook.com/sharer/sharer.php?u=${encodedShareUrl}&t${shareMessage}`}
-                ariaLabel={t('facebookTooltip')}>
-                <StyledIcon src={FacebookOutlinedIcon} />
-              </StyledLink>
+              <Link to={`https://www.facebook.com/sharer/sharer.php?u=${encodedShareUrl}&t${shareMessage}`}>
+                <IconButton size='large' aria-label={t('facebookTooltip')}>
+                  <FacebookOutlinedIcon fontSize='inherit' />
+                </IconButton>
+              </Link>
             </Tooltip>
             <Tooltip id='share-email' place={tooltipDirection} tooltipContent={t('mailTooltip')}>
-              <StyledLink
-                to={`mailto:?subject=${encodedTitle}&body=${shareMessage} ${encodedShareUrl}`}
-                ariaLabel={t('mailTooltip')}>
-                <StyledIcon src={MailOutlinedIcon} />
-              </StyledLink>
+              <Link to={`mailto:?subject=${encodedTitle}&body=${shareMessage} ${encodedShareUrl}`}>
+                <IconButton size='large' aria-label={t('mailTooltip')}>
+                  <MailOutlinedIcon fontSize='inherit' />
+                </IconButton>
+              </Link>
             </Tooltip>
             <Tooltip id='close-button' place={tooltipDirection} tooltipContent={t('closeTooltip')}>
-              <CloseButton onClick={() => setShareOptionsVisible(false)} label={t('closeTooltip')}>
-                <StyledIcon src={CloseIcon} />
-              </CloseButton>
+              <IconButton size='large' onClick={() => setShareOptionsVisible(false)} aria-label={t('closeTooltip')}>
+                <CloseIcon fontSize='inherit' />
+              </IconButton>
             </Tooltip>
           </TooltipContainer>
         </>
