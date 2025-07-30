@@ -24,7 +24,7 @@ const ToggleContainer = styled.div`
 
 const List = styled.div`
   font-family: ${props => props.theme.fonts.web.decorativeFont};
-  position: absolute;
+  position: fixed;
   top: 0;
   width: 80vw;
   height: 100vh;
@@ -42,7 +42,7 @@ const List = styled.div`
 `
 
 const Overlay = styled.div<{ show: boolean }>`
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100vh;
   top: 0;
