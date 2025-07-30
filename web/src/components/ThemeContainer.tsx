@@ -33,25 +33,27 @@ export const BREAKPOINTS = {
 const createTheme = (
   themeType: 'light' | 'contrast',
   contentDirection: UiDirectionType,
-): Omit<Theme, 'toggleTheme'> => ({
-  ...(themeType === 'contrast' ? buildConfig().legacyContrastTheme : buildConfig().legacyLightTheme),
-  contentDirection,
-  isContrastTheme: themeType === 'contrast',
-  ...createMuiTheme({
-    breakpoints: {
-      values: BREAKPOINTS,
-    },
-    direction: contentDirection,
-    colorSchemes: {
-      light: buildConfig().lightTheme,
-      dark: buildConfig().darkTheme,
-    },
-    typography: buildConfig().typography,
-    palette: {
-      mode: themeType === 'contrast' ? 'dark' : 'light',
-    },
-  }),
-})
+): Omit<Theme, 'toggleTheme'> => {
+  const isContrast = themeType === 'contrast'
+
+  return {
+    ...(isContrast ? buildConfig().legacyContrastTheme : buildConfig().legacyLightTheme),
+    contentDirection,
+    isContrastTheme: isContrast,
+    ...createMuiTheme({
+      breakpoints: {
+        values: BREAKPOINTS,
+      },
+      direction: contentDirection,
+      colorSchemes: {
+        light: buildConfig().lightTheme,
+        dark: buildConfig().darkTheme,
+      },
+      typography: buildConfig().typography,
+      palette: isContrast ? buildConfig().darkTheme.palette : buildConfig().lightTheme.palette,
+    }),
+  }
+}
 
 type ThemeContainerProps = {
   children: ReactNode
