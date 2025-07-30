@@ -93,7 +93,7 @@ const KebabMenu = ({ items, show, setShow, Footer }: KebabMenuProps): ReactEleme
 
   return (
     <ToggleContainer>
-      <IconButton color='primary' onClick={onClick} aria-label={t('sideBarOpenAriaLabel')} aria-expanded={show}>
+      <IconButton onClick={onClick} aria-label={t('sideBarOpenAriaLabel')} aria-expanded={show}>
         <MoreVertIcon />
       </IconButton>
       <Portal
@@ -109,7 +109,7 @@ const KebabMenu = ({ items, show, setShow, Footer }: KebabMenuProps): ReactEleme
         <List>
           <Heading>
             <ActionBar>
-              <IconButton color='primary' onClick={onClick} aria-label={t('sideBarCloseAriaLabel')}>
+              <IconButton onClick={onClick} aria-label={t('sideBarCloseAriaLabel')}>
                 <CloseIcon />
               </IconButton>
             </ActionBar>
