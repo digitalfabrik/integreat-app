@@ -1,6 +1,7 @@
 import { fireEvent, RenderAPI, waitFor } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import React, { useContext } from 'react'
+import mockSafeAreaContext from 'react-native-safe-area-context/jest/mock'
 import Tts from 'react-native-tts'
 
 import buildConfig from '../../constants/buildConfig'
@@ -11,6 +12,7 @@ import TtsContainer, { TtsContext } from '../TtsContainer'
 import Text from '../base/Text'
 import TextButton from '../base/TextButton'
 
+jest.mock('react-native-safe-area-context', () => mockSafeAreaContext)
 jest.mock('react-i18next')
 jest.mock('react-native-tts')
 jest.mock('../../hooks/useSnackbar')
@@ -128,7 +130,7 @@ describe('TtsContainer', () => {
 
   it('should close the player', async () => {
     mockBuildConfig(true)
-    const { getByText, queryByText, getByRole, queryByRole } = renderTtsPlayer()
+    const { getByText, queryByText, getByRole, queryByRole, getByLabelText } = renderTtsPlayer()
     fireEvent.press(getByText('set sentences'))
     fireEvent.press(getByText('show'))
 
@@ -140,7 +142,7 @@ describe('TtsContainer', () => {
     expect(Tts.stop).toHaveBeenCalledTimes(2)
 
     expect(getByText('visible')).toBeTruthy()
-    fireEvent.press(getByText('common:close'))
+    fireEvent.press(getByLabelText('common:close'))
     expect(queryByRole('button', { name: 'play' })).toBeFalsy()
     expect(Tts.stop).toHaveBeenCalledTimes(3)
     expect(queryByText('visible')).toBeFalsy()

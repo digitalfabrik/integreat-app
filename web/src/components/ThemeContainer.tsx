@@ -11,6 +11,7 @@ import { UiDirectionType } from 'translations'
 import buildConfig from '../constants/buildConfig'
 import useLocalStorage from '../hooks/useLocalStorage'
 import globalStyle from '../styles/global/GlobalStyle'
+import { muiShadowCreator } from '../utils/muiShadowCreator'
 
 const ltrCache = createCache({
   key: 'mui-ltr-cache',
@@ -49,6 +50,7 @@ const createTheme = (
         light: buildConfig().lightTheme,
         dark: buildConfig().darkTheme,
       },
+      shadows: muiShadowCreator(themeType),
       typography: buildConfig().typography,
       palette: isContrast ? buildConfig().darkTheme.palette : buildConfig().lightTheme.palette,
     }),
