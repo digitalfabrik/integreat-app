@@ -1,10 +1,13 @@
-import { act, render } from '@testing-library/react-native'
+import { act } from '@testing-library/react-native'
 import React, { useContext } from 'react'
+import mockSafeAreaContext from 'react-native-safe-area-context/jest/mock'
 
+import renderWithTheme from '../../testing/render'
 import SnackbarContainer, { SnackbarContext } from '../SnackbarContainer'
 
 jest.useFakeTimers()
 
+jest.mock('react-native-safe-area-context', () => mockSafeAreaContext)
 jest.mock('react-i18next')
 jest.mock('../../components/Snackbar', () => {
   const { Text } = require('react-native')
@@ -34,7 +37,7 @@ describe('SnackbarContainer', () => {
   it('should show a snackbar if included in the state', () => {
     const snackbarText1 = 'snackbarText1'
     const snackbarText2 = 'snackbarText2'
-    const { update, queryByText } = render(<MockComponentWithSnackbar />)
+    const { update, queryByText } = renderWithTheme(<MockComponentWithSnackbar />, false)
     expect(queryByText(snackbarText1)).toBeFalsy()
     expect(queryByText(snackbarText2)).toBeFalsy()
 
