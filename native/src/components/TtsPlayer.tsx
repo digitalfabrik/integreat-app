@@ -42,7 +42,7 @@ const StyledPanel = styled.View`
   gap: 20px;
 `
 
-const StyledButton = styled(Pressable)<{ disabled: boolean }>`
+const StyledButton = styled(Pressable)`
   display: flex;
   flex-direction: row;
   gap: 5px;
@@ -56,15 +56,16 @@ const StyledIcon = styled(Icon)<{ disabled?: boolean }>`
   height: 28px;
 `
 
-const StyledPlayIconButton = styled(IconButton)<{ disabled: boolean }>`
-  background-color: ${props => props.theme.colors.ttsPlayerBackground};
+const StyledPlayIconButton = styled(IconButton)<{ disabled?: boolean }>`
+  background-color: ${props =>
+    props.disabled ? props.theme.colors.textDisabledColor : props.theme.colors.ttsPlayerBackground};
   width: 70px;
   height: 50px;
   border-radius: 50px;
   ${elevatedStyle}
 `
 
-const PlayButtonIcon = styled(Icon)<{ disabled: boolean }>`
+const PlayButtonIcon = styled(Icon)`
   color: ${props => props.theme.colors.ttsPlayerPlayIconColor};
 `
 
@@ -75,13 +76,11 @@ const StyledPlayerHeaderText = styled(Text)`
   color: ${props => props.theme.colors.textColor};
 `
 
-const CloseButton = styled(Pressable)<{ isRTL: boolean }>`
+const CloseButton = styled(Pressable)`
   position: absolute;
-  ${props => (props.isRTL ? `left: 0` : `right: 0`)};
+  ${isRTL() ? `left: 0` : `right: 0`};
   top: 0;
   padding: 12px;
-  background-color: transparent;
-  ${elevatedStyle}
 `
 
 type TtsPlayerProps = {
@@ -110,11 +109,10 @@ const TtsPlayer = ({
 
   return (
     <StyledTtsPlayer insetBottom={bottom}>
-      <CloseButton role='button' accessibilityLabel='Close player' onPress={close} isRTL={isRTL()}>
+      <CloseButton role='button' accessibilityLabel={t('common:close')} onPress={close}>
         <StyledIcon Icon={CloseIcon} />
       </CloseButton>
       <StyledPlayerHeaderText>{title}</StyledPlayerHeaderText>
-
       <StyledPanel>
         <StyledButton role='button' accessibilityLabel={t('previous')} onPress={playPrevious} disabled={!isPlaying}>
           <StyledIcon Icon={FastRewindIcon} disabled={!isPlaying} />
@@ -123,7 +121,7 @@ const TtsPlayer = ({
           disabled={disabled}
           accessibilityLabel={t(isPlaying ? 'pause' : 'play')}
           onPress={() => (isPlaying ? pause() : play())}
-          icon={<PlayButtonIcon Icon={isPlaying ? PauseIcon : PlayIcon} disabled={disabled} />}
+          icon={<PlayButtonIcon Icon={isPlaying ? PauseIcon : PlayIcon} />}
         />
         <StyledButton role='button' accessibilityLabel={t('next')} onPress={playNext} disabled={!isPlaying}>
           <StyledIcon Icon={FastForwardIcon} disabled={!isPlaying} />
