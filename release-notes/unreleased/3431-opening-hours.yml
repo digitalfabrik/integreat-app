@@ -1,0 +1,7 @@
+issue_key: 3431
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Hide opening hours if no information is given.
+de: Öffnungszeiten werden bei fehlenden Informationen nicht mehr angezeigt.

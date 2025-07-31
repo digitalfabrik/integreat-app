@@ -61,27 +61,30 @@ const StyledIcon = styled(Icon)`
   height: 16px;
 `
 
+type OpeningHoursTitleProps = {
+  isCurrentlyOpen: boolean
+  label?: string
+  language: string
+}
+
+const OpeningHoursTitle = ({ isCurrentlyOpen, label, language }: OpeningHoursTitleProps) => {
+  const { t } = useTranslation('pois')
+  return (
+    <TitleContainer language={language}>
+      <StyledText>{t('openingHours')}</StyledText>
+      <OpeningLabel isOpened={isCurrentlyOpen} $direction={contentDirection(language)}>
+        {t(label ?? (isCurrentlyOpen ? 'opened' : 'closed'))}
+      </OpeningLabel>
+    </TitleContainer>
+  )
+}
+
 type OpeningHoursProps = {
   isCurrentlyOpen: boolean
   language: string
   openingHours: OpeningHoursModel[] | null
   isTemporarilyClosed: boolean
   appointmentUrl: string | null
-  appointmentOverlayLink: string | null
-}
-
-const getOpeningLabel = (
-  isTemporarilyClosed: boolean,
-  isCurrentlyOpened: boolean,
-  openingHours: OpeningHoursModel[] | null,
-): string => {
-  if (isTemporarilyClosed) {
-    return 'temporarilyClosed'
-  }
-  if (!openingHours) {
-    return 'onlyWithAppointment'
-  }
-  return isCurrentlyOpened ? 'opened' : 'closed'
 }
 
 const OpeningHours = ({
@@ -90,63 +93,57 @@ const OpeningHours = ({
   openingHours,
   isTemporarilyClosed,
   appointmentUrl,
-  appointmentOverlayLink,
 }: OpeningHoursProps): ReactElement | null => {
   const { t } = useTranslation('pois')
   const showSnackbar = useSnackbar()
-  const isOnlyWithAppointment = !openingHours && !!appointmentUrl
+  const appointmentOnly = !openingHours && !!appointmentUrl
 
-  const openingHoursTitle = (
-    <TitleContainer language={language}>
-      <StyledText>{t('openingHours')}</StyledText>
-      <OpeningLabel isOpened={isCurrentlyOpen} $direction={contentDirection(language)}>
-        {t(getOpeningLabel(isTemporarilyClosed, isCurrentlyOpen, openingHours))}
-      </OpeningLabel>
-    </TitleContainer>
-  )
-
-  const appointmentLink = appointmentUrl ? (
+  const AppointmentLink = appointmentUrl ? (
     <LinkContainer onPress={() => openExternalUrl(appointmentUrl, showSnackbar)} role='link'>
       <Link>{t('makeAppointment')}</Link>
       <StyledIcon Icon={ExternalLinkIcon} />
     </LinkContainer>
   ) : null
 
-  if (isTemporarilyClosed || isOnlyWithAppointment) {
+  if (isTemporarilyClosed || appointmentOnly) {
     return (
       <>
-        {openingHoursTitle}
-        {appointmentLink}
+        <OpeningHoursTitle
+          isCurrentlyOpen={isCurrentlyOpen}
+          label={isTemporarilyClosed ? 'temporarilyClosed' : 'onlyWithAppointment'}
+          language={language}
+        />
+        {AppointmentLink}
         <HorizontalLine />
       </>
     )
   }
 
-  if (!openingHours || openingHours.length !== weekdays.length) {
+  if (openingHours?.length !== weekdays.length) {
     return null
   }
 
   return (
     <>
-      <Collapsible headerContent={openingHoursTitle} language={language} initialCollapsed={!isCurrentlyOpen}>
+      <Collapsible
+        headerContent={<OpeningHoursTitle isCurrentlyOpen={isCurrentlyOpen} language={language} />}
+        language={language}
+        initialCollapsed={!isCurrentlyOpen}>
         <Content>
-          {openingHours.map((entry, index) => (
+          {openingHours.map((openingHours, index) => (
             <OpeningEntry
-              key={`${weekdays[index]}-OpeningEntry`}
+              key={weekdays[index]}
               // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
               weekday={t(weekdays[index]!)}
-              allDay={entry.allDay}
-              closed={entry.closed}
-              timeSlots={entry.timeSlots}
               isCurrentDay={index === DateTime.now().weekday - 1}
               language={language}
-              appointmentOnly={entry.appointmentOnly}
-              appointmentOverlayLink={appointmentOverlayLink}
+              appointmentUrl={appointmentUrl}
+              openingHours={openingHours}
             />
           ))}
         </Content>
       </Collapsible>
-      {appointmentLink}
+      {AppointmentLink}
       <HorizontalLine />
     </>
   )

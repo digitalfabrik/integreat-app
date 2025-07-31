@@ -59,26 +59,28 @@ const StyledExternalLinkIcon = styled(Icon)`
   height: 16px;
 `
 
+type OpeningHoursTitleProps = {
+  isCurrentlyOpen: boolean
+  label?: string
+}
+
+const OpeningHoursTitle = ({ isCurrentlyOpen, label }: OpeningHoursTitleProps) => {
+  const { t } = useTranslation('pois')
+  return (
+    <TitleContainer>
+      <span>{t('openingHours')}</span>
+      <OpeningContainer>
+        <OpeningLabel isOpen={isCurrentlyOpen}>{t(label ?? (isCurrentlyOpen ? 'opened' : 'closed'))}</OpeningLabel>
+      </OpeningContainer>
+    </TitleContainer>
+  )
+}
+
 type OpeningHoursProps = {
   isCurrentlyOpen: boolean
   openingHours: OpeningHoursModel[] | null
   isTemporarilyClosed: boolean
   appointmentUrl: string | null
-  appointmentOverlayLink: string | null
-}
-
-const getOpeningLabel = (
-  isTemporarilyClosed: boolean,
-  isCurrentlyOpened: boolean,
-  openingHours: OpeningHoursModel[] | null,
-): string => {
-  if (isTemporarilyClosed) {
-    return 'temporarilyClosed'
-  }
-  if (!openingHours) {
-    return 'onlyWithAppointment'
-  }
-  return isCurrentlyOpened ? 'opened' : 'closed'
 }
 
 const OpeningHours = ({
@@ -86,62 +88,52 @@ const OpeningHours = ({
   openingHours,
   isTemporarilyClosed,
   appointmentUrl,
-  appointmentOverlayLink,
 }: OpeningHoursProps): ReactElement | null => {
   const { t } = useTranslation('pois')
-  const isOnlyWithAppointment = !openingHours && !!appointmentOverlayLink
+  const appointmentOnly = !openingHours && !!appointmentUrl
 
-  const openingHoursTitle = (
-    <TitleContainer>
-      <span>{t('openingHours')}</span>
-      <OpeningContainer>
-        <OpeningLabel isOpen={isCurrentlyOpen}>
-          {t(getOpeningLabel(isTemporarilyClosed, isCurrentlyOpen, openingHours))}
-        </OpeningLabel>
-      </OpeningContainer>
-    </TitleContainer>
-  )
-
-  const appointmentLink = appointmentUrl ? (
+  const AppointmentLink = appointmentUrl ? (
     <StyledLink to={appointmentUrl}>
       <LinkLabel>{t('makeAppointment')}</LinkLabel>
       <StyledExternalLinkIcon src={ExternalLinkIcon} directionDependent />
     </StyledLink>
   ) : null
 
-  if (isTemporarilyClosed || isOnlyWithAppointment) {
+  if (isTemporarilyClosed || appointmentOnly) {
     return (
       <>
-        <TitleContainer>{openingHoursTitle}</TitleContainer>
-        {appointmentLink}
+        <TitleContainer>
+          <OpeningHoursTitle
+            isCurrentlyOpen={isCurrentlyOpen}
+            label={isTemporarilyClosed ? 'temporarilyClosed' : 'onlyWithAppointment'}
+          />
+        </TitleContainer>
+        {AppointmentLink}
       </>
     )
   }
 
-  if (!openingHours || openingHours.length !== weekdays.length) {
+  if (openingHours?.length !== weekdays.length) {
     return null
   }
 
   return (
     <>
-      <Collapsible title={openingHoursTitle} initialCollapsed={!isCurrentlyOpen}>
+      <Collapsible title={<OpeningHoursTitle isCurrentlyOpen={isCurrentlyOpen} />} initialCollapsed={!isCurrentlyOpen}>
         <Content>
-          {openingHours.map((entry, index) => (
+          {openingHours.map((openingHours, index) => (
             <OpeningEntry
-              key={`${weekdays[index]}-OpeningEntry`}
+              key={weekdays[index]}
               // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
               weekday={t(weekdays[index]!.toLowerCase())}
-              allDay={entry.allDay}
-              closed={entry.closed}
-              timeSlots={entry.timeSlots}
+              openingHours={openingHours}
               isCurrentDay={index === DateTime.now().weekday - 1}
-              appointmentOnly={entry.appointmentOnly}
-              appointmentOverlayLink={appointmentOverlayLink}
+              appointmentUrl={appointmentUrl}
             />
           ))}
         </Content>
       </Collapsible>
-      {appointmentLink}
+      {AppointmentLink}
     </>
   )
 }
