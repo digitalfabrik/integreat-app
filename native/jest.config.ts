@@ -28,7 +28,7 @@ export default {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   transform: {
     '^.+\\.jsx?$': ['babel-jest', { rootMode: 'upward' }],
-    '^.+\\.tsx?$': ['ts-jest', { isolatedModules: true }],
+    '^.+\\.tsx?$': ['ts-jest', {}],
   },
   transformIgnorePatterns: [`node_modules/(?!${transformNodeModules.join('|')}/)`],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
