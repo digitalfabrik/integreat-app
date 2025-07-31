@@ -51,25 +51,25 @@ const createTheme = (
         dark: buildConfig().darkTheme,
       },
       shadows: muiShadowCreator(themeType),
-    typography: buildConfig().typography,
-    palette: isContrast ? buildConfig().darkTheme.palette : buildConfig().lightTheme.palette,
-    },
-    components: {
-      MuiIconButton: {
-        styleOverrides: {
-          root: {
-            variants: [
-              {
-                props: { color: 'default' },
-                style: {
-                  color: themeType === 'contrast' ? '#FFFFFF' : '#212121',
+      typography: buildConfig().typography,
+      palette: isContrast ? buildConfig().darkTheme.palette : buildConfig().lightTheme.palette,
+      components: {
+        MuiIconButton: {
+          styleOverrides: {
+            root: {
+              variants: [
+                {
+                  props: { color: 'default' },
+                  style: {
+                    color: themeType === 'contrast' ? '#FFFFFF' : '#212121',
 
-                  '&:disabled': {
-                    color: themeType === 'contrast' ? '#333D51' : '#8E8E8E',
+                    '&:disabled': {
+                      color: themeType === 'contrast' ? '#333D51' : '#8E8E8E',
+                    },
                   },
                 },
-              },
-            ],
+              ],
+            },
           },
         },
       },
