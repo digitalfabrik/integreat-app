@@ -53,8 +53,6 @@ const PoiDetails = ({ poi, language, distance }: PoiDetailsProps): ReactElement 
   const { t } = useTranslation('pois')
   const thumbnail = poi.thumbnail ?? PoiThumbnailPlaceholderLarge
   const { title, content, contacts, openingHours, temporarilyClosed, isCurrentlyOpen, category, appointmentUrl } = poi
-  const appointmentOverlayUrl =
-    appointmentUrl ?? poi.contacts.find(contact => contact.website !== null)?.website ?? null
 
   return (
     <PoiDetailsContainer accessibilityLabel={`${title} - ${category.name}`}>
@@ -91,7 +89,6 @@ const PoiDetails = ({ poi, language, distance }: PoiDetailsProps): ReactElement 
         isCurrentlyOpen={isCurrentlyOpen}
         isTemporarilyClosed={temporarilyClosed}
         appointmentUrl={appointmentUrl}
-        appointmentOverlayLink={appointmentOverlayUrl}
       />
       {content.length > 0 && (
         <>
