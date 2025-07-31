@@ -1,8 +1,14 @@
 import styled from '@emotion/styled'
-import { Close, FastForward, Pause, PlayArrow } from '@mui/icons-material'
-import { IconButton, Typography } from '@mui/material'
+import CloseIcon from '@mui/icons-material/Close'
+import FastForwardIcon from '@mui/icons-material/FastForward'
+import FastRewindIcon from '@mui/icons-material/FastRewind'
+import PauseIcon from '@mui/icons-material/Pause'
+import PlayArrowIcon from '@mui/icons-material/PlayArrow'
 import Button from '@mui/material/Button'
+import IconButton from '@mui/material/IconButton'
+import Typography from '@mui/material/Typography'
 import React, { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import useWindowDimensions from '../hooks/useWindowDimensions'
 
@@ -22,7 +28,6 @@ const StyledTtsPlayer = styled.dialog<{ footerHeight: number }>`
   bottom: ${props => props.footerHeight}px;
   gap: 16px;
   border-color: transparent;
-  opacity: 0.98;
 
   ${props => props.theme.breakpoints.down('md')} {
     width: auto;
@@ -36,7 +41,7 @@ const StyledPanel = styled.div`
   gap: 20px;
 `
 
-const PlayButton = styled(Button)<{ disabled: boolean }>`
+const PlayButton = styled(Button)`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -54,12 +59,6 @@ const StyledIconButton = styled(IconButton)`
   align-items: center;
 `
 
-const StyledFastForwardIcon = styled(FastForward)<{ iconRotate?: boolean }>`
-  ${props => (props.iconRotate ? 'rotate: 180deg;' : '')}
-  width: 32px;
-  height: 32px;
-`
-
 const HeaderText = styled.span`
   font-weight: 600;
   align-self: center;
@@ -67,8 +66,6 @@ const HeaderText = styled.span`
 `
 
 const CloseIconButton = styled(IconButton)`
-  border: none;
-  background-color: transparent;
   top: 0;
   right: 0;
   position: absolute;
@@ -96,30 +93,30 @@ const TtsPlayer = ({
   disabled,
 }: TtsPlayerProps): ReactElement => {
   const { visibleFooterHeight } = useWindowDimensions()
-
+  const { t } = useTranslation('layout')
   return (
     <StyledTtsPlayer footerHeight={visibleFooterHeight}>
-      <CloseIconButton onClick={close} data-testid='close-button'>
-        <Close />
+      <CloseIconButton onClick={close} aria-label={t('common:close')}>
+        <CloseIcon />
       </CloseIconButton>
       <HeaderText>
         <Typography variant='title1'>{title}</Typography>
       </HeaderText>
       {/* Sound player panel shouldn't be rotated in rtl */}
       <StyledPanel dir='ltr'>
-        <StyledIconButton data-testid='previous-button' onClick={playPrevious} disabled={!isPlaying}>
-          <StyledFastForwardIcon iconRotate />
+        <StyledIconButton aria-label={t('previous')} onClick={playPrevious} disabled={!isPlaying} size='small'>
+          <FastRewindIcon />
         </StyledIconButton>
         <PlayButton
           color='primary'
           sx={{ boxShadow: 3 }}
-          data-testid={isPlaying ? 'pause-button' : 'play-button'}
+          aria-label={t(isPlaying ? 'pause' : 'play')}
           onClick={isPlaying ? pause : play}
           disabled={disabled}>
-          {isPlaying ? <Pause /> : <PlayArrow />}
+          {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
         </PlayButton>
-        <StyledIconButton data-testid='next-button' onClick={playNext} disabled={!isPlaying}>
-          <StyledFastForwardIcon />
+        <StyledIconButton aria-label={t('next')} onClick={playNext} disabled={!isPlaying} size='small'>
+          <FastForwardIcon />
         </StyledIconButton>
       </StyledPanel>
     </StyledTtsPlayer>
