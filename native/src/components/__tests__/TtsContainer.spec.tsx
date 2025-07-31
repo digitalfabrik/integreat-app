@@ -142,7 +142,7 @@ describe('TtsContainer', () => {
 
   it('should close the player', async () => {
     mockBuildConfig(true)
-    const { getByText, queryByText, getByRole, queryByRole } = renderTtsPlayer()
+    const { getByText, queryByText, getByRole, queryByRole, getByLabelText } = renderTtsPlayer()
     fireEvent.press(getByText('set sentences'))
     fireEvent.press(getByText('show'))
 
@@ -154,7 +154,7 @@ describe('TtsContainer', () => {
     expect(Tts.stop).toHaveBeenCalledTimes(2)
 
     expect(getByText('visible')).toBeTruthy()
-    fireEvent.press(getByText('common:close'))
+    fireEvent.press(getByLabelText('common:close'))
     expect(queryByRole('button', { name: 'play' })).toBeFalsy()
     expect(Tts.stop).toHaveBeenCalledTimes(3)
     expect(queryByText('visible')).toBeFalsy()
