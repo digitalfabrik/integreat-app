@@ -1371,7 +1371,10 @@
       "back": "Back",
       "ok": "Ok",
       "minimize": "Minimize",
-      "privacyPolicy": "I have read the <1>privacy policy</1> and agree to the processing and storage of my data."
+      "privacyPolicy": "I have read the <1>privacy policy</1> and agree to the processing and storage of my data.",
+      "accessible": "Accessible",
+      "notAccessible": "Not accessible",
+      "clearInput": "Clear input"
     },
     "es": {
       "copied": "Copiado",
