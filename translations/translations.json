@@ -797,7 +797,7 @@
       "human": "ที่ปรึกษา",
       "initialMessage": "คำขอสนทนาของคุณถูกส่งไปแล้ว ที่ปรึกษาจะตอบข้อความของคุณโดยเร็วที่สุด",
       "inputLabel": "คำถามของฉัน:",
-      "chatInputHelperText": "ฉันอยากรู้ว่า...",
+      "inputPlaceholder": "ฉันอยากรู้ว่า...",
       "loadingText": "กรุณารอสักครู่ การแชทกำลังเริ่มต้น...",
       "sendButton": "ส่ง",
       "user": "คุณ"
@@ -1258,8 +1258,7 @@
       "back": "ወደኋላ ተመለስ",
       "ok": "እሺ",
       "minimize": "ማሳነስ",
-      "privacyPolicy": "<1>የግላዊነት ፖሊሲ</1>ን አንብቤያለሁ እና ውሂቤን ለማስኬድ እና ለማከማቸት ተስማምቻለሁ።",
-      "privacyPolicyLink": "የግላዊነት ፖሊሲ"
+      "privacyPolicy": "<1>የግላዊነት ፖሊሲ</1>ን አንብቤያለሁ እና ውሂቤን ለማስኬድ እና ለማከማቸት ተስማምቻለሁ።"
     },
     "ar": {
       "copied": "تم النسخ",
@@ -1275,8 +1274,7 @@
       "back": "تراجع",
       "ok": "موافق",
       "minimize": "تصغير",
-      "privacyPolicy": "لقد قرأت <1>سياسة الخصوصية</1> وأوافق على معالجة بياناتي وتخزينها.",
-      "privacyPolicyLink": "سياسة الخصوصية"
+      "privacyPolicy": "لقد قرأت <1>سياسة الخصوصية</1> وأوافق على معالجة بياناتي وتخزينها."
     },
     "bg": {
       "copied": "Копиран",
@@ -1292,8 +1290,7 @@
       "back": "Обратно",
       "ok": "Добре",
       "minimize": "Минимизиране",
-      "privacyPolicy": "Прочетох <1>политиката за поверителност</1> и се съгласявам с обработката и съхранението на моите данни.",
-      "privacyPolicyLink": "Политика за поверителност"
+      "privacyPolicy": "Прочетох <1>политиката за поверителност</1> и се съгласявам с обработката и съхранението на моите данни."
     },
     "ckb": {
       "copied": "کۆپی کرا",
@@ -1309,8 +1306,7 @@
       "back": "گەڕانەوە",
       "ok": "پەسەندکردن",
       "minimize": "بچووککردنەوە",
-      "privacyPolicy": "من <1> بەیاننامەی نهێنی پارێزی</1>م خوێندووەتەوە و ڕازیم بە پرۆسەکردن و خەزنکردنی زانیارییەکانم.",
-      "privacyPolicyLink": "بەیاننامەی نهێنی پارێزی"
+      "privacyPolicy": "من <1> بەیاننامەی نهێنی پارێزی</1>م خوێندووەتەوە و ڕازیم بە پرۆسەکردن و خەزنکردنی زانیارییەکانم."
     },
     "cs": {
       "copied": "Kopírovat",
@@ -1326,8 +1322,7 @@
       "back": "Zpět",
       "ok": "OK",
       "minimize": "Minimalizovat",
-      "privacyPolicy": "Přečetl/a jsem si <1>zásady ochrany osobních údajů</1> a souhlasím se zpracováním a uchováváním svých údajů.",
-      "privacyPolicyLink": "Zásady ochrany osobních údajů"
+      "privacyPolicy": "Přečetl/a jsem si <1>zásady ochrany osobních údajů</1> a souhlasím se zpracováním a uchováváním svých údajů."
     },
     "da": {
       "copied": "Kopieret",
@@ -1343,8 +1338,7 @@
       "back": "Tilbage",
       "ok": "Ok",
       "minimize": "Minimer",
-      "privacyPolicy": "Jeg har læst <1>Privatlivspolitikken</1> og giver samtykke til behandling og opbevaring af mine data.",
-      "privacyPolicyLink": "Privatlivspolitik"
+      "privacyPolicy": "Jeg har læst <1>Privatlivspolitikken</1> og giver samtykke til behandling og opbevaring af mine data."
     },
     "el": {
       "copied": "Αντιγράφηκε",
@@ -1360,8 +1354,7 @@
       "back": "Πίσω",
       "ok": "Εντάξει",
       "minimize": "Ελαχιστοποίηση",
-      "privacyPolicy": "Έχω διαβάσει την <1>Πολιτική απορρήτου</1> και συναινώ στην επεξεργασία και αποθήκευση των δεδομένων μου.",
-      "privacyPolicyLink": "Πολιτική απορρήτου"
+      "privacyPolicy": "Έχω διαβάσει την <1>Πολιτική απορρήτου</1> και συναινώ στην επεξεργασία και αποθήκευση των δεδομένων μου."
     },
     "en": {
       "copied": "Copied",
@@ -1393,8 +1386,7 @@
       "back": "Atrás",
       "ok": "OK",
       "minimize": "Minimizar",
-      "privacyPolicy": "He leído la <1>Política de privacidad</1> y consiento el tratamiento y almacenamiento de mis datos.",
-      "privacyPolicyLink": "Política de privacidad"
+      "privacyPolicy": "He leído la <1>Política de privacidad</1> y consiento el tratamiento y almacenamiento de mis datos."
     },
     "fi": {
       "copied": "Kopioitu",
@@ -1410,8 +1402,7 @@
       "back": "Takaisin",
       "ok": "OK",
       "minimize": "Pienennä",
-      "privacyPolicy": "Olen lukenut <1>tietosuojakäytännön</1> ja annan suostumukseni tietojeni käsittelyyn ja säilytykseen.",
-      "privacyPolicyLink": "Tietosuojakäytäntö"
+      "privacyPolicy": "Olen lukenut <1>tietosuojakäytännön</1> ja annan suostumukseni tietojeni käsittelyyn ja säilytykseen."
     },
     "fr": {
       "copied": "Copié",
@@ -1427,8 +1418,7 @@
       "back": "Retour",
       "ok": "Ok",
       "minimize": "Réduire",
-      "privacyPolicy": "J’ai lu la <1>Politique de confidentialité</1> et j’accepte le traitement et le stockage de mes données.",
-      "privacyPolicyLink": "Politique de confidentialité"
+      "privacyPolicy": "J’ai lu la <1>Politique de confidentialité</1> et j’accepte le traitement et le stockage de mes données."
     },
     "hi": {
       "copied": "कॉपी किया गया",
@@ -1444,8 +1434,7 @@
       "back": "वापस",
       "ok": "ठीक",
       "minimize": "मिनीमाइज़",
-      "privacyPolicy": "मैंने <1>गोपनीयता नीति</1> पढ़ ली है, और मैं अपनी जानकारी की प्रोसेसिंग और स्टोरेज के लिए सहमत हूँ।",
-      "privacyPolicyLink": "गोपनीयता नीति"
+      "privacyPolicy": "मैंने <1>गोपनीयता नीति</1> पढ़ ली है, और मैं अपनी जानकारी की प्रोसेसिंग और स्टोरेज के लिए सहमत हूँ।"
     },
     "hr": {
       "copied": "kopirano",
@@ -1461,8 +1450,7 @@
       "back": "Natrag",
       "ok": "U redu",
       "minimize": "Minimiziraj",
-      "privacyPolicy": "Pročitao/la sam <1>Izjavu o zaštiti podataka</1> i saglasan/na sam sa obradom i pohranom mojih podataka.",
-      "privacyPolicyLink": "Izjava o zaštiti podataka"
+      "privacyPolicy": "Pročitao/la sam <1>Izjavu o zaštiti podataka</1> i saglasan/na sam sa obradom i pohranom mojih podataka."
     },
     "hu": {
       "copied": "Bemásolva",
@@ -1478,8 +1466,7 @@
       "back": "Vissza",
       "ok": "Rendben",
       "minimize": "Minimalizál",
-      "privacyPolicy": "Elolvastam a <1>adatvédelmi szabályzatot</1> és hozzájárulok az adataim feldolgozásához és tárolásához.",
-      "privacyPolicyLink": "Adatvédelmi szabályzat"
+      "privacyPolicy": "Elolvastam a <1>adatvédelmi szabályzatot</1> és hozzájárulok az adataim feldolgozásához és tárolásához."
     },
     "it": {
       "copied": "Copiato",
@@ -1495,8 +1482,7 @@
       "back": "Indietro",
       "ok": "OK",
       "minimize": "Ridurre al minimo",
-      "privacyPolicy": "Ho letto l'<1>informativa sulla privacy</1> e acconsento al trattamento e alla conservazione dei miei dati.",
-      "privacyPolicyLink": "Informativa sulla privacy"
+      "privacyPolicy": "Ho letto l'<1>informativa sulla privacy</1> e acconsento al trattamento e alla conservazione dei miei dati."
     },
     "ka": {
       "copied": "დაკოპირებულია",
@@ -1512,8 +1498,7 @@
       "back": "უკან",
       "ok": "კარგი",
       "minimize": "ჩაკეცვა",
-      "privacyPolicy": "წავიკითხე <1>კონფიდენციალურობის პოლიტიკა</1> და თანხმობას ვაცხადებ ჩემი მონაცემების დამუშავებასა და შენახვაზე.",
-      "privacyPolicyLink": "კონფიდენციალურობის პოლიტიკა"
+      "privacyPolicy": "წავიკითხე <1>კონფიდენციალურობის პოლიტიკა</1> და თანხმობას ვაცხადებ ჩემი მონაცემების დამუშავებასა და შენახვაზე."
     },
     "kmr": {
       "copied": "Kopî bû",
@@ -1529,8 +1514,7 @@
       "back": "Vegeriyan",
       "ok": "Piştrastkirin",
       "minimize": "Kêmînekirin",
-      "privacyPolicy": "Min <1>Daxuyaniya parastina daneyan</1> xwend û pêvajokirin û hilgirtina daneyên xwe dipejirînim.",
-      "privacyPolicyLink": "Daxuyaniya parastina daneyan"
+      "privacyPolicy": "Min <1>Daxuyaniya parastina daneyan</1> xwend û pêvajokirin û hilgirtina daneyên xwe dipejirînim."
     },
     "mk": {
       "copied": "Копирано",
@@ -1546,8 +1530,7 @@
       "back": "Назад",
       "ok": "Во ред",
       "minimize": "Минимизирај",
-      "privacyPolicy": "Ја прочитав <1>Политиката за приватност</1> и се согласувам со обработката и складирањето на моите податоци.",
-      "privacyPolicyLink": "Политика за приватност"
+      "privacyPolicy": "Ја прочитав <1>Политиката за приватност</1> и се согласувам со обработката и складирањето на моите податоци."
     },
     "nl": {
       "copied": "Gekopieerd",
@@ -1563,8 +1546,7 @@
       "back": "Terug",
       "ok": "OK",
       "minimize": "Minimaliseren",
-      "privacyPolicy": "Ik heb het <1>privacybeleid</1> gelezen en ga akkoord met de verwerking en opslag van mijn gegevens.",
-      "privacyPolicyLink": "Privacybeleid"
+      "privacyPolicy": "Ik heb het <1>privacybeleid</1> gelezen en ga akkoord met de verwerking en opslag van mijn gegevens."
     },
     "orm": {
       "copied": "Koppii taeera",
@@ -1580,8 +1562,7 @@
       "back": "Duubatti",
       "ok": "Tole",
       "minimize": "Xiqqeessi",
-      "privacyPolicy": "<1>privacy policy</1> dubbisee odeeffannoon kiyya akka xinxaalamuufi olkaa’amuuf itti walii galeera.",
-      "privacyPolicyLink": "imaammata icciitii"
+      "privacyPolicy": "<1>privacy policy</1> dubbisee odeeffannoon kiyya akka xinxaalamuufi olkaa’amuuf itti walii galeera."
     },
     "pes": {
       "copied": "کپی شد",
@@ -1597,8 +1578,7 @@
       "back": "بازگشت",
       "ok": "اوکی",
       "minimize": "کوچک کردن",
-      "privacyPolicy": "اینجانب <1>بیانیه حفظ حریم خصوصی</1> را خوانده‌ام و با پردازش و ذخیره داده‌های خود موافق هستم.",
-      "privacyPolicyLink": "بیانیه حفظ حریم خصوصی"
+      "privacyPolicy": "اینجانب <1>بیانیه حفظ حریم خصوصی</1> را خوانده‌ام و با پردازش و ذخیره داده‌های خود موافق هستم."
     },
     "pl": {
       "copied": "Skopiowano",
@@ -1614,8 +1594,7 @@
       "back": "Powrót",
       "ok": "Ok",
       "minimize": "Zminimalizuj",
-      "privacyPolicy": "Potwierdzam zapoznanie się z <1>polityką prywatności</1> i wyrażam zgodę na przetwarzanie i przechowywanie moich danych.",
-      "privacyPolicyLink": "Polityka prywatności"
+      "privacyPolicy": "Potwierdzam zapoznanie się z <1>polityką prywatności</1> i wyrażam zgodę na przetwarzanie i przechowywanie moich danych."
     },
     "prs": {
       "copied": "کپی شد",
@@ -1631,8 +1610,7 @@
       "back": "بازگشت",
       "ok": "درست است",
       "minimize": "به حداقل رساندن",
-      "privacyPolicy": "اينجانب <1>پالیسی حفظ حریم خصوصی</1> را خوانده ام و با پروسس و ذخیره معلوماتم موافق هستم.",
-      "privacyPolicyLink": "پالیسی حفظ حریم خصوصی"
+      "privacyPolicy": "اينجانب <1>پالیسی حفظ حریم خصوصی</1> را خوانده ام و با پروسس و ذخیره معلوماتم موافق هستم."
     },
     "ps": {
       "copied": "کاپی شولو",
@@ -1648,8 +1626,7 @@
       "back": "بيرته ګرځېدل",
       "ok": "سمه ده",
       "minimize": "راکموي",
-      "privacyPolicy": "ما د <1>محرمیت تګلاره</1> لوستلې ده او د خپلو معلوماتو پروسس او ذخیره کولو سره موافقه کوم.",
-      "privacyPolicyLink": "د محرميت تګلاره"
+      "privacyPolicy": "ما د <1>محرمیت تګلاره</1> لوستلې ده او د خپلو معلوماتو پروسس او ذخیره کولو سره موافقه کوم."
     },
     "pt": {
       "copied": "Copiado",
@@ -1665,8 +1642,7 @@
       "back": "Voltar",
       "ok": "Está bem",
       "minimize": "Minimizar",
-      "privacyPolicy": "Li a <1>política de privacidade</1> e concordo com o processamento e armazenamento dos meus dados.",
-      "privacyPolicyLink": "Política de privacidade"
+      "privacyPolicy": "Li a <1>política de privacidade</1> e concordo com o processamento e armazenamento dos meus dados."
     },
     "ro": {
       "copied": "Copiat",
@@ -1682,8 +1658,7 @@
       "back": "Înapoi",
       "ok": "Bine",
       "minimize": "Minimizare",
-      "privacyPolicy": "Am citit <1>Politica de confidențialitate</1> și sunt de acord cu prelucrarea și stocarea datelor mele.",
-      "privacyPolicyLink": "Politica de confidențialitate"
+      "privacyPolicy": "Am citit <1>Politica de confidențialitate</1> și sunt de acord cu prelucrarea și stocarea datelor mele."
     },
     "rom": {
       "copied": "Kopirimo",
@@ -1699,8 +1674,7 @@
       "back": "Palal",
       "ok": "Ok",
       "minimize": "Tiknjarel",
-      "privacyPolicy": "Me <1>Datenschutzerklärung</1> drabargjum thaj soglasinava man e procesiribaja thaj o khedibe mire podatkongoro.",
-      "privacyPolicyLink": "Privatnikane bukja"
+      "privacyPolicy": "Me <1>Datenschutzerklärung</1> drabargjum thaj soglasinava man e procesiribaja thaj o khedibe mire podatkongoro."
     },
     "ru": {
       "copied": "Скопировано",
@@ -1716,8 +1690,7 @@
       "back": "Назад",
       "ok": "Ок",
       "minimize": "Минимизировать",
-      "privacyPolicy": "Я прочитал(-а) <1>Политику конфиденциальности</1> и даю согласие на обработку и хранение моих данных.",
-      "privacyPolicyLink": "Политика конфиденциальности"
+      "privacyPolicy": "Я прочитал(-а) <1>Политику конфиденциальности</1> и даю согласие на обработку и хранение моих данных."
     },
     "sk": {
       "copied": "Skopírované",
@@ -1733,8 +1706,7 @@
       "back": "Späť",
       "ok": "Ok",
       "minimize": "Minimalizovať",
-      "privacyPolicy": "Prečítal/a som si <1>Vyhlásenie o ochrane osobných údajov</1> a súhlasím so spracovaním a ukladaním mojich údajov.",
-      "privacyPolicyLink": "Vyhlásenie o ochrane osobných údajov"
+      "privacyPolicy": "Prečítal/a som si <1>Vyhlásenie o ochrane osobných údajov</1> a súhlasím so spracovaním a ukladaním mojich údajov."
     },
     "so": {
       "copied": "la koobiyeeyay",
@@ -1750,8 +1722,7 @@
       "back": "Dib u noqo",
       "ok": "Haye",
       "minimize": "Yareyn",
-      "privacyPolicy": "Waxaan akhriyay <1>Bayaanka Qarsoodiga Xogta</1> waxaana oggolahay in xogtayda la farsameeyo oo la kaydiyo.",
-      "privacyPolicyLink": "Bayaanka Qarsoodiga Xogta"
+      "privacyPolicy": "Waxaan akhriyay <1>Bayaanka Qarsoodiga Xogta</1> waxaana oggolahay in xogtayda la farsameeyo oo la kaydiyo."
     },
     "sq": {
       "copied": "e kopjuar",
@@ -1767,8 +1738,7 @@
       "back": "Kthehu",
       "ok": "Në rregull",
       "minimize": "Minimizo",
-      "privacyPolicy": "E kam lexuar <1>deklaratën e mbrojtjes së të dhënave</1> dhe jam dakord me përpunimin dhe ruajtjen e të dhënave të mia.",
-      "privacyPolicyLink": "Deklarata e mbrojtjes së të dhënave"
+      "privacyPolicy": "E kam lexuar <1>deklaratën e mbrojtjes së të dhënave</1> dhe jam dakord me përpunimin dhe ruajtjen e të dhënave të mia."
     },
     "sr-Cyrl": {
       "copied": "копирано",
@@ -1784,8 +1754,7 @@
       "back": "Назад",
       "ok": "У реду",
       "minimize": "Минимизуј",
-      "privacyPolicy": "Прочитао/ла сам <1>Изјаву о заштити података</1> и сагласан/на сам са обрадом и чувањем мојих података.",
-      "privacyPolicyLink": "Изјава о заштити података о личности"
+      "privacyPolicy": "Прочитао/ла сам <1>Изјаву о заштити података</1> и сагласан/на сам са обрадом и чувањем мојих података."
     },
     "sr-Latn": {
       "copied": "kopirano",
@@ -1801,8 +1770,7 @@
       "back": "Nazad",
       "ok": "U redu",
       "minimize": "Minimizuj",
-      "privacyPolicy": "Pročitao/la sam <1>Izjavu o zaštiti podataka</1> i saglasan/na sam sa obradom i čuvanjem mojih podataka.",
-      "privacyPolicyLink": "Izjava o zaštiti podataka o ličnosti"
+      "privacyPolicy": "Pročitao/la sam <1>Izjavu o zaštiti podataka</1> i saglasan/na sam sa obradom i čuvanjem mojih podataka."
     },
     "sw": {
       "copied": "Yamenakiliwa",
@@ -1818,8 +1786,7 @@
       "back": "Nyuma",
       "ok": "Sawa",
       "minimize": "Punguza",
-      "privacyPolicy": "Nimesoma <1>sera ya faragha</1> na ninakubali kutumiwa na kuhifadhiwa kwa data yangu.",
-      "privacyPolicyLink": "sera ya faragha"
+      "privacyPolicy": "Nimesoma <1>sera ya faragha</1> na ninakubali kutumiwa na kuhifadhiwa kwa data yangu."
     },
     "th": {
       "copied": "คัดลอกแล้ว",
@@ -1835,8 +1802,7 @@
       "back": "ย้อนกลับ",
       "ok": "ตกลง",
       "minimize": "ย่อขนาด",
-      "privacyPolicy": "ฉันได้อ่าน<1>นโยบายความเป็นส่วนตัว</1>แล้วและยอมรับการประมวลผลและจัดเก็บข้อมูลของฉัน",
-      "privacyPolicyLink": "นโยบายความเป็นส่วนตัว"
+      "privacyPolicy": "ฉันได้อ่าน<1>นโยบายความเป็นส่วนตัว</1>แล้วและยอมรับการประมวลผลและจัดเก็บข้อมูลของฉัน"
     },
     "ti": {
       "copied": "ተቐዲሑ",
@@ -1852,8 +1818,7 @@
       "back": "ዝባን",
       "ok": "እሺ",
       "minimize": "ምጉዳል",
-      "privacyPolicy": "<1>ናይ ውልቀ ፖሊሲ</1> ኣንቢበ ኣብ መስርሕን ምኽዛንን ሓበሬታይ ተሰማሚዐ ኣለኹ።",
-      "privacyPolicyLink": "ናይ ውልቀ ፖሊሲ ግላዊነት"
+      "privacyPolicy": "<1>ናይ ውልቀ ፖሊሲ</1> ኣንቢበ ኣብ መስርሕን ምኽዛንን ሓበሬታይ ተሰማሚዐ ኣለኹ።"
     },
     "tr": {
       "copied": "kopyalandı",
@@ -1869,8 +1834,7 @@
       "back": "Geri",
       "ok": "Tamam",
       "minimize": "Simge durumuna küçült",
-      "privacyPolicy": "<1>Gizlilik Politikasını</1> okudum, verilerimin işlenmesini ve saklanmasını onaylıyorum.",
-      "privacyPolicyLink": "Gizlilik Politikası"
+      "privacyPolicy": "<1>Gizlilik Politikasını</1> okudum, verilerimin işlenmesini ve saklanmasını onaylıyorum."
     },
     "uk": {
       "copied": "Копіювати",
@@ -1886,8 +1850,7 @@
       "back": "Назад",
       "ok": "Гаразд",
       "minimize": "Звести до мінімуму",
-      "privacyPolicy": "Я прочитав(-ла) <1>Політику конфіденційності</1> і даю згоду на обробку та зберігання моїх даних.",
-      "privacyPolicyLink": "Політика конфіденційності"
+      "privacyPolicy": "Я прочитав(-ла) <1>Політику конфіденційності</1> і даю згоду на обробку та зберігання моїх даних."
     },
     "ur": {
       "copied": "کاپی کیا گیا",
@@ -1903,8 +1866,7 @@
       "back": "واپسی",
       "ok": "ٹھیک ہے",
       "minimize": "کم سے کم کرنا",
-      "privacyPolicy": "میں نے <1>رازداری کی پالیسی</1> کو پڑھ لیا/پڑی ہے اور اپنے ڈیٹا کی پروسیسنگ اور اسٹوریج سے اتفاق کرتا/کرتی ہوں۔",
-      "privacyPolicyLink": "رازداری کی پالیسی"
+      "privacyPolicy": "میں نے <1>رازداری کی پالیسی</1> کو پڑھ لیا/پڑی ہے اور اپنے ڈیٹا کی پروسیسنگ اور اسٹوریج سے اتفاق کرتا/کرتی ہوں۔"
     },
     "vi": {
       "copied": "Đã sao chép",
@@ -1920,8 +1882,7 @@
       "back": "Quay lại",
       "ok": "Ok",
       "minimize": "Thu nhỏ",
-      "privacyPolicy": "Tôi đã đọc <1>chính sách quyền riêng tư</1> và đồng ý với việc xử lý và lưu trữ dữ liệu của tôi.",
-      "privacyPolicyLink": "chính sách quyền riêng tư"
+      "privacyPolicy": "Tôi đã đọc <1>chính sách quyền riêng tư</1> và đồng ý với việc xử lý và lưu trữ dữ liệu của tôi."
     },
     "zh-CN": {
       "copied": "已复制",
@@ -1937,8 +1898,7 @@
       "back": "返回",
       "ok": "确认",
       "minimize": "最小化",
-      "privacyPolicy": "我已阅读<1>隐私政策</1>，并同意处理和存储我的数据。",
-      "privacyPolicyLink": "隐私政策"
+      "privacyPolicy": "我已阅读<1>隐私政策</1>，并同意处理和存储我的数据。"
     }
   },
   "consent": {
