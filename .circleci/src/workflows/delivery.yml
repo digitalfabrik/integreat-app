@@ -29,15 +29,10 @@ jobs:
       delivery: beta
       context:
         - mattermost
+        - sentry
       requires:
         - check
         - e2e_web
-        - build_web
-  - sentry_web:
-      context:
-        - mattermost
-        - sentry
-      requires:
         - build_web
 
   - build_android:
@@ -64,16 +59,11 @@ jobs:
       context:
         - mattermost
         - tuerantuer-google-play
+        - sentry
       requires:
         - check
         - e2e_android
         - build_android-<< matrix.build_config_name >>
-  - sentry_android:
-      context:
-        - mattermost
-        - sentry
-      requires:
-        - build_android
 
   - build_ios:
       matrix:
@@ -99,16 +89,11 @@ jobs:
       context:
         - mattermost
         - tuerantuer-apple
+        - sentry
       requires:
         - check
         - e2e_ios
         - build_ios-<< matrix.build_config_name >>
-  - sentry_ios:
-      context:
-        - mattermost
-        - sentry
-      requires:
-        - build_ios
 
   - notify_release:
       production_delivery: false
