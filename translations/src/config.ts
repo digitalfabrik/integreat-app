@@ -153,6 +153,12 @@ class Config {
     th: {
       rtl: false,
     },
+    id: {
+      rtl: false,
+    },
+    ha: {
+      rtl: false,
+    },
   }
 
   // Fallbacks for unnormalized language codes from our backend
