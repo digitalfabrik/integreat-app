@@ -520,6 +520,12 @@ jobs:
                 command: bundle exec fastlane android playstore_upload build_config_name:<< parameters.build_config_name >> aab_path:attached_workspace/<< parameters.build_config_name >>.aab production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
                 name: '[FL] Google PlayStore Upload'
                 working_directory: native/android
+            - run:
+                command: |
+                    tools/sentry-release tuerantuer.app.integreat "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/integreat --version-code "${NEW_VERSION_CODE}"
+                    tools/sentry-release de.malteapp "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/malte --version-code "${NEW_VERSION_CODE}"
+                    tools/sentry-release app.aschaffenburg "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/aschaffenburg --version-code "${NEW_VERSION_CODE}"
+                name: Upload Source Maps to Sentry
             - notify
     deliver_ios:
         environment:
@@ -563,6 +569,12 @@ jobs:
                         command: bundle exec fastlane ios testflight_upload build_config_name:<< parameters.build_config_name >> ipa_path:attached_workspace/<< parameters.build_config_name >>.ipa
                         name: '[FL] Apple TestFlight Upload'
                         working_directory: native/ios
+            - run:
+                command: |
+                    tools/sentry-release de.integreat-app "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/integreat --version-code "${NEW_VERSION_CODE}"
+                    tools/sentry-release de.malteapp "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/malte --version-code "${NEW_VERSION_CODE}"
+                    tools/sentry-release app.aschaffenburg "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/aschaffenburg --version-code "${NEW_VERSION_CODE}"
+                name: Upload Source Maps to Sentry
             - notify
     deliver_web:
         docker:
@@ -651,6 +663,23 @@ jobs:
                     - run:
                         command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/integreat-test-cms/ web@web.integreat-app.de:/var/www/future.integreat.app
                         name: Integreat future delivery
+            - when:
+                condition:
+                    or:
+                        - equal:
+                            - production
+                            - << parameters.delivery >>
+                        - equal:
+                            - beta
+                            - << parameters.delivery >>
+                steps:
+                    - run:
+                        command: |
+                            tools/sentry-release web-integreat "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat
+                            tools/sentry-release web-malte "${NEW_VERSION_NAME}" ~/attached_workspace/dist/malte
+                            tools/sentry-release web-aschaffenburg "${NEW_VERSION_NAME}" ~/attached_workspace/dist/aschaffenburg
+                            tools/sentry-release web-obdach "${NEW_VERSION_NAME}" ~/attached_workspace/dist/obdach
+                        name: Upload Source Maps to Sentry
             - notify
     e2e_android:
         docker:
@@ -858,66 +887,6 @@ jobs:
                 command: ssh -o StrictHostKeyChecking=no web@web.integreat-app.de "rsync -arv --delete /var/www/beta.netzwerkobdachwohnen.de/ /var/www/netzwerkobdachwohnen.de"
                 name: Obdach production promotion
             - notify
-    sentry_android:
-        docker:
-            - image: cimg/node:20.17.0
-        resource_class: small
-        shell: /bin/bash -eo pipefail
-        steps:
-            - checkout
-            - prepare_workspace
-            - restore_environment_variables
-            - run:
-                command: tools/sentry-release tuerantuer.app.integreat "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/integreat --version-code "${NEW_VERSION_CODE}"
-                name: 'Sentry Upload: integreat'
-            - run:
-                command: tools/sentry-release de.malteapp "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/malte --version-code "${NEW_VERSION_CODE}"
-                name: 'Sentry Upload: malte'
-            - run:
-                command: tools/sentry-release app.aschaffenburg "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/aschaffenburg --version-code "${NEW_VERSION_CODE}"
-                name: 'Sentry Upload: aschaffenburg'
-            - notify
-    sentry_ios:
-        docker:
-            - image: cimg/node:20.17.0
-        resource_class: small
-        shell: /bin/bash -eo pipefail
-        steps:
-            - checkout
-            - prepare_workspace
-            - restore_environment_variables
-            - run:
-                command: tools/sentry-release de.integreat-app "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/integreat --version-code "${NEW_VERSION_CODE}"
-                name: 'Sentry Upload: integreat'
-            - run:
-                command: tools/sentry-release de.malteapp "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/malte --version-code "${NEW_VERSION_CODE}"
-                name: 'Sentry Upload: malte'
-            - run:
-                command: tools/sentry-release app.aschaffenburg "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/aschaffenburg --version-code "${NEW_VERSION_CODE}"
-                name: 'Sentry Upload: aschaffenburg'
-            - notify
-    sentry_web:
-        docker:
-            - image: cimg/node:20.17.0
-        resource_class: small
-        shell: /bin/bash -eo pipefail
-        steps:
-            - checkout
-            - prepare_workspace
-            - restore_environment_variables
-            - run:
-                command: tools/sentry-release web-integreat "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat
-                name: 'Sentry Upload: integreat'
-            - run:
-                command: tools/sentry-release web-malte "${NEW_VERSION_NAME}" ~/attached_workspace/dist/malte
-                name: 'Sentry Upload: malte'
-            - run:
-                command: tools/sentry-release web-aschaffenburg "${NEW_VERSION_NAME}" ~/attached_workspace/dist/aschaffenburg
-                name: 'Sentry Upload: aschaffenburg'
-            - run:
-                command: tools/sentry-release web-obdach "${NEW_VERSION_NAME}" ~/attached_workspace/dist/obdach
-                name: 'Sentry Upload: obdach'
-            - notify
 parameters:
     api_triggered:
         default: false
@@ -1033,16 +1002,11 @@ workflows:
             - deliver_web:
                 context:
                     - mattermost
+                    - sentry
                 delivery: beta
                 requires:
                     - check
                     - e2e_web
-                    - build_web
-            - sentry_web:
-                context:
-                    - mattermost
-                    - sentry
-                requires:
                     - build_web
             - build_android:
                 context:
@@ -1068,6 +1032,7 @@ workflows:
                 context:
                     - mattermost
                     - tuerantuer-google-play
+                    - sentry
                 matrix:
                     parameters:
                         build_config_name:
@@ -1079,12 +1044,6 @@ workflows:
                     - check
                     - e2e_android
                     - build_android-<< matrix.build_config_name >>
-            - sentry_android:
-                context:
-                    - mattermost
-                    - sentry
-                requires:
-                    - build_android
             - build_ios:
                 context:
                     - mattermost
@@ -1109,6 +1068,7 @@ workflows:
                 context:
                     - mattermost
                     - tuerantuer-apple
+                    - sentry
                 matrix:
                     parameters:
                         build_config_name:
@@ -1120,12 +1080,6 @@ workflows:
                     - check
                     - e2e_ios
                     - build_ios-<< matrix.build_config_name >>
-            - sentry_ios:
-                context:
-                    - mattermost
-                    - sentry
-                requires:
-                    - build_ios
             - notify_release:
                 context:
                     - mattermost
@@ -1176,6 +1130,7 @@ workflows:
                 context:
                     - mattermost
                     - tuerantuer-google-play
+                    - sentry
                 matrix:
                     parameters:
                         build_config_name:
@@ -1187,12 +1142,6 @@ workflows:
                     - check
                     - e2e_android
                     - build_android-<< matrix.build_config_name >>
-            - sentry_android:
-                context:
-                    - mattermost
-                    - sentry
-                requires:
-                    - build_android
             - build_ios:
                 context:
                     - mattermost
@@ -1217,6 +1166,7 @@ workflows:
                 context:
                     - mattermost
                     - tuerantuer-apple
+                    - sentry
                 matrix:
                     parameters:
                         build_config_name:
@@ -1228,12 +1178,6 @@ workflows:
                     - check
                     - e2e_ios
                     - build_ios-<< matrix.build_config_name >>
-            - sentry_ios:
-                context:
-                    - mattermost
-                    - sentry
-                requires:
-                    - build_ios
             - notify_release:
                 context:
                     - mattermost
@@ -1284,6 +1228,7 @@ workflows:
                 context:
                     - mattermost
                     - tuerantuer-google-play
+                    - sentry
                 matrix:
                     parameters:
                         build_config_name:
@@ -1295,12 +1240,6 @@ workflows:
                     - check
                     - e2e_android
                     - build_android-<< matrix.build_config_name >>
-            - sentry_android:
-                context:
-                    - mattermost
-                    - sentry
-                requires:
-                    - build_android
             - build_ios:
                 context:
                     - mattermost
@@ -1325,6 +1264,7 @@ workflows:
                 context:
                     - mattermost
                     - tuerantuer-apple
+                    - sentry
                 matrix:
                     parameters:
                         build_config_name:
@@ -1336,12 +1276,6 @@ workflows:
                     - check
                     - e2e_ios
                     - build_ios-<< matrix.build_config_name >>
-            - sentry_ios:
-                context:
-                    - mattermost
-                    - sentry
-                requires:
-                    - build_ios
             - notify_release:
                 context:
                     - mattermost
@@ -1468,16 +1402,11 @@ workflows:
             - deliver_web:
                 context:
                     - mattermost
+                    - sentry
                 delivery: beta
                 requires:
                     - check
                     - e2e_web
-                    - build_web
-            - sentry_web:
-                context:
-                    - mattermost
-                    - sentry
-                requires:
                     - build_web
             - notify_release:
                 context:
@@ -1524,16 +1453,11 @@ workflows:
             - deliver_web:
                 context:
                     - mattermost
+                    - sentry
                 delivery: production
                 requires:
                     - check
                     - e2e_web
-                    - build_web
-            - sentry_web:
-                context:
-                    - mattermost
-                    - sentry
-                requires:
                     - build_web
             - notify_release:
                 context:
