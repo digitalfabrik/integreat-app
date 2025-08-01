@@ -5,12 +5,10 @@ when:
 jobs:
   - promote_web:
       context:
-        - mattermost
         - deliverino
   - notify_promotion:
       platform: web
       context:
-        - mattermost
         - deliverino
       requires:
         - promote_web
