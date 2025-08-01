@@ -28,4 +28,10 @@ steps:
       name: '[FL] Google PlayStore Upload'
       command: bundle exec fastlane android playstore_upload build_config_name:<< parameters.build_config_name >> aab_path:attached_workspace/<< parameters.build_config_name >>.aab production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
       working_directory: native/android
+  - run:
+      name: Upload Source Maps to Sentry
+      command: |
+        tools/sentry-release tuerantuer.app.integreat "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/integreat --version-code "${NEW_VERSION_CODE}"
+        tools/sentry-release de.malteapp "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/malte --version-code "${NEW_VERSION_CODE}"
+        tools/sentry-release app.aschaffenburg "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/aschaffenburg --version-code "${NEW_VERSION_CODE}"
   - notify
