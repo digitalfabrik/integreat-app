@@ -19,16 +19,10 @@ steps:
   - restore_environment_variables
   - restore_yarn_cache
   - restore_ruby_cache:
-      directory: native
-  - restore_ruby_cache:
       directory: native/android
   - run:
       name: Prepare Play Store metadata
       command: yarn app-toolbelt v0 release-notes prepare-metadata << parameters.build_config_name >> playstore
-      working_directory: native
-  - run:
-      name: '[FL] Browserstack Upload Live'
-      command: bundle exec fastlane browserstack_upload path:attached_workspace/<< parameters.build_config_name >>.apk
       working_directory: native
   - run:
       name: '[FL] Google PlayStore Upload'
