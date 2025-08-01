@@ -93,6 +93,7 @@ const News = ({
               : selectedNewsItem.content
           }
           language={languageCode}
+          accessible
           Footer={
             selectedNewsItem instanceof LocalNewsModel && (
               <TimeStampContent language={languageCode}>
