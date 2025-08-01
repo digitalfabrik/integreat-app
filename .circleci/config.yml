@@ -909,9 +909,7 @@ version: 2.1
 workflows:
     commit:
         jobs:
-            - check:
-                context:
-                    - mattermost
+            - check
         unless:
             or:
                 - equal:
@@ -921,18 +919,12 @@ workflows:
     commit_design_system:
         jobs:
             - bump_version:
-                context:
-                    - mattermost
                 prepare_delivery: false
             - build_web:
                 build_config_name: integreat-test-cms
-                context:
-                    - mattermost
                 requires:
                     - bump_version
             - deliver_web:
-                context:
-                    - mattermost
                 delivery: future
                 requires:
                     - build_web
@@ -945,12 +937,8 @@ workflows:
     commit_main:
         jobs:
             - bump_version:
-                context:
-                    - mattermost
                 prepare_delivery: false
             - build_web:
-                context:
-                    - mattermost
                 matrix:
                     parameters:
                         build_config_name:
@@ -961,8 +949,6 @@ workflows:
                 requires:
                     - bump_version
             - deliver_web:
-                context:
-                    - mattermost
                 delivery: webnext
                 requires:
                     - build_web
@@ -976,20 +962,13 @@ workflows:
         jobs:
             - bump_version:
                 context:
-                    - mattermost
                     - deliverino
                 prepare_delivery: true
-            - check:
-                context:
-                    - mattermost
+            - check
             - e2e_web:
-                context:
-                    - mattermost
                 requires:
                     - bump_version
             - build_web:
-                context:
-                    - mattermost
                 matrix:
                     parameters:
                         build_config_name:
@@ -1001,7 +980,6 @@ workflows:
                     - bump_version
             - deliver_web:
                 context:
-                    - mattermost
                     - sentry
                 delivery: beta
                 requires:
@@ -1010,7 +988,6 @@ workflows:
                     - build_web
             - build_android:
                 context:
-                    - mattermost
                     - credentials-repo
                     - credentials-integreat
                 matrix:
@@ -1024,13 +1001,11 @@ workflows:
                     - bump_version
             - e2e_android:
                 context:
-                    - mattermost
                     - browserstack
                 requires:
                     - build_android-integreat-e2e
             - deliver_android:
                 context:
-                    - mattermost
                     - tuerantuer-google-play
                     - sentry
                 matrix:
@@ -1046,7 +1021,6 @@ workflows:
                     - build_android-<< matrix.build_config_name >>
             - build_ios:
                 context:
-                    - mattermost
                     - tuerantuer-apple
                     - fastlane-match
                 matrix:
@@ -1060,13 +1034,11 @@ workflows:
                     - bump_version
             - e2e_ios:
                 context:
-                    - mattermost
                     - browserstack
                 requires:
                     - build_ios-integreat-e2e
             - deliver_ios:
                 context:
-                    - mattermost
                     - tuerantuer-apple
                     - sentry
                 matrix:
@@ -1082,7 +1054,6 @@ workflows:
                     - build_ios-<< matrix.build_config_name >>
             - notify_release:
                 context:
-                    - mattermost
                     - deliverino
                 production_delivery: false
                 requires:
@@ -1099,16 +1070,12 @@ workflows:
         jobs:
             - bump_version:
                 context:
-                    - mattermost
                     - deliverino
                 platform: native
                 prepare_delivery: true
-            - check:
-                context:
-                    - mattermost
+            - check
             - build_android:
                 context:
-                    - mattermost
                     - credentials-repo
                     - credentials-integreat
                 matrix:
@@ -1122,13 +1089,11 @@ workflows:
                     - bump_version
             - e2e_android:
                 context:
-                    - mattermost
                     - browserstack
                 requires:
                     - build_android-integreat-e2e
             - deliver_android:
                 context:
-                    - mattermost
                     - tuerantuer-google-play
                     - sentry
                 matrix:
@@ -1144,7 +1109,6 @@ workflows:
                     - build_android-<< matrix.build_config_name >>
             - build_ios:
                 context:
-                    - mattermost
                     - tuerantuer-apple
                     - fastlane-match
                 matrix:
@@ -1158,13 +1122,11 @@ workflows:
                     - bump_version
             - e2e_ios:
                 context:
-                    - mattermost
                     - browserstack
                 requires:
                     - build_ios-integreat-e2e
             - deliver_ios:
                 context:
-                    - mattermost
                     - tuerantuer-apple
                     - sentry
                 matrix:
@@ -1180,7 +1142,6 @@ workflows:
                     - build_ios-<< matrix.build_config_name >>
             - notify_release:
                 context:
-                    - mattermost
                     - deliverino
                 platform: native
                 production_delivery: false
@@ -1197,16 +1158,12 @@ workflows:
         jobs:
             - bump_version:
                 context:
-                    - mattermost
                     - deliverino
                 platform: native
                 prepare_delivery: true
-            - check:
-                context:
-                    - mattermost
+            - check
             - build_android:
                 context:
-                    - mattermost
                     - credentials-repo
                     - credentials-integreat
                 matrix:
@@ -1220,13 +1177,11 @@ workflows:
                     - bump_version
             - e2e_android:
                 context:
-                    - mattermost
                     - browserstack
                 requires:
                     - build_android-integreat-e2e
             - deliver_android:
                 context:
-                    - mattermost
                     - tuerantuer-google-play
                     - sentry
                 matrix:
@@ -1242,7 +1197,6 @@ workflows:
                     - build_android-<< matrix.build_config_name >>
             - build_ios:
                 context:
-                    - mattermost
                     - tuerantuer-apple
                     - fastlane-match
                 matrix:
@@ -1256,13 +1210,11 @@ workflows:
                     - bump_version
             - e2e_ios:
                 context:
-                    - mattermost
                     - browserstack
                 requires:
                     - build_ios-integreat-e2e
             - deliver_ios:
                 context:
-                    - mattermost
                     - tuerantuer-apple
                     - sentry
                 matrix:
@@ -1278,7 +1230,6 @@ workflows:
                     - build_ios-<< matrix.build_config_name >>
             - notify_release:
                 context:
-                    - mattermost
                     - deliverino
                 platform: native
                 production_delivery: true
@@ -1295,7 +1246,6 @@ workflows:
         jobs:
             - promote_android:
                 context:
-                    - mattermost
                     - tuerantuer-google-play
                     - deliverino
                 matrix:
@@ -1306,7 +1256,6 @@ workflows:
                             - aschaffenburg
             - promote_ios:
                 context:
-                    - mattermost
                     - tuerantuer-apple
                     - deliverino
                 matrix:
@@ -1317,7 +1266,6 @@ workflows:
                             - aschaffenburg
             - notify_promotion:
                 context:
-                    - mattermost
                     - deliverino
                 platform: native
                 requires:
@@ -1333,11 +1281,9 @@ workflows:
         jobs:
             - promote_web:
                 context:
-                    - mattermost
                     - deliverino
             - promote_android:
                 context:
-                    - mattermost
                     - tuerantuer-google-play
                     - deliverino
                 matrix:
@@ -1348,7 +1294,6 @@ workflows:
                             - aschaffenburg
             - promote_ios:
                 context:
-                    - mattermost
                     - tuerantuer-apple
                     - deliverino
                 matrix:
@@ -1359,7 +1304,6 @@ workflows:
                             - aschaffenburg
             - notify_promotion:
                 context:
-                    - mattermost
                     - deliverino
                 requires:
                     - promote_android
@@ -1375,21 +1319,14 @@ workflows:
         jobs:
             - bump_version:
                 context:
-                    - mattermost
                     - deliverino
                 platform: web
                 prepare_delivery: true
-            - check:
-                context:
-                    - mattermost
+            - check
             - e2e_web:
-                context:
-                    - mattermost
                 requires:
                     - bump_version
             - build_web:
-                context:
-                    - mattermost
                 matrix:
                     parameters:
                         build_config_name:
@@ -1401,7 +1338,6 @@ workflows:
                     - bump_version
             - deliver_web:
                 context:
-                    - mattermost
                     - sentry
                 delivery: beta
                 requires:
@@ -1410,7 +1346,6 @@ workflows:
                     - build_web
             - notify_release:
                 context:
-                    - mattermost
                     - deliverino
                 platform: web
                 production_delivery: false
@@ -1426,21 +1361,14 @@ workflows:
         jobs:
             - bump_version:
                 context:
-                    - mattermost
                     - deliverino
                 platform: web
                 prepare_delivery: true
-            - check:
-                context:
-                    - mattermost
+            - check
             - e2e_web:
-                context:
-                    - mattermost
                 requires:
                     - bump_version
             - build_web:
-                context:
-                    - mattermost
                 matrix:
                     parameters:
                         build_config_name:
@@ -1452,7 +1380,6 @@ workflows:
                     - bump_version
             - deliver_web:
                 context:
-                    - mattermost
                     - sentry
                 delivery: production
                 requires:
@@ -1461,7 +1388,6 @@ workflows:
                     - build_web
             - notify_release:
                 context:
-                    - mattermost
                     - deliverino
                 platform: web
                 production_delivery: true
@@ -1477,11 +1403,9 @@ workflows:
         jobs:
             - promote_web:
                 context:
-                    - mattermost
                     - deliverino
             - notify_promotion:
                 context:
-                    - mattermost
                     - deliverino
                 platform: web
                 requires:
