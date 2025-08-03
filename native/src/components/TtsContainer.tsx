@@ -61,13 +61,9 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
   const enabled = buildConfig().featureFlags.tts
 
   const initializeTts = useCallback(async (): Promise<void> => {
-    await Tts.getInitStatus()
-      .catch(async error => (error.code === 'no_engine' ? Tts.requestInstallEngine() : undefined))
-      .then(() => {
-        if (Platform.OS === 'ios') {
-          Tts.setIgnoreSilentSwitch('ignore')
-        }
-      })
+    await Tts.getInitStatus().catch(async error =>
+      error.code === 'no_engine' ? Tts.requestInstallEngine() : undefined,
+    )
   }, [])
 
   const showTtsPlayer = useCallback((): void => {
@@ -83,6 +79,11 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
       return
     }
     initializeTts()
+      .then(() => {
+        if (Platform.OS === 'ios') {
+          Tts.setIgnoreSilentSwitch('ignore')
+        }
+      })
       .then(() => setVisible(true))
       .catch(error => {
         reportError(error)
