@@ -7,6 +7,7 @@ import mapAvailableLanguages from '../mapping/mapAvailableLanguages'
 import ContactModel from '../models/ContactModel'
 import LocationModel from '../models/LocationModel'
 import OpeningHoursModel from '../models/OpeningHoursModel'
+import OrganizationModel from '../models/OrganizationModel'
 import PoiCategoryModel from '../models/PoiCategoryModel'
 import PoiModel from '../models/PoiModel'
 import { JsonPoiType } from '../types'
@@ -65,6 +66,15 @@ export default (baseUrl: string): Endpoint<ParamsType, PoiModel[]> =>
               longitude: poi.location.longitude,
             }),
             lastUpdate: DateTime.fromISO(poi.last_updated),
+            organization:
+              poi.organization !== null
+                ? new OrganizationModel({
+                    name: poi.organization.name,
+                    url: poi.organization.website,
+                    logo: poi.organization.logo,
+                  })
+                : null,
+            barrierFree: poi.barrier_free ?? null,
           }),
       ),
     )

@@ -29,7 +29,7 @@ const Settings = ({ navigation }: SettingsProps): ReactElement => {
     try {
       await update()
     } catch (e) {
-      log('Failed to persist settings.', 'error')
+      log('Failed to persist settings.', { level: 'error' })
       reportError(e)
       appContext.updateSettings(oldSettings)
       showSnackbar({ text: t('error:settingsError') })

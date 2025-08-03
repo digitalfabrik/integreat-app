@@ -6,6 +6,7 @@ import ContactModel from './ContactModel'
 import ExtendedPageModel from './ExtendedPageModel'
 import LocationModel from './LocationModel'
 import OpeningHoursModel from './OpeningHoursModel'
+import OrganizationModel from './OrganizationModel'
 import PageModel from './PageModel'
 import PoiCategoryModel from './PoiCategoryModel'
 
@@ -18,6 +19,8 @@ class PoiModel extends ExtendedPageModel {
   _category: PoiCategoryModel
   _appointmentUrl: string | null
   _contacts: ContactModel[]
+  _organization: OrganizationModel | null
+  _barrierFree: boolean | null
 
   constructor(params: {
     path: string
@@ -34,6 +37,8 @@ class PoiModel extends ExtendedPageModel {
     category: PoiCategoryModel
     appointmentUrl: string | null
     contacts: ContactModel[]
+    organization: OrganizationModel | null
+    barrierFree: boolean | null
   }) {
     const {
       category,
@@ -44,6 +49,8 @@ class PoiModel extends ExtendedPageModel {
       metaDescription,
       appointmentUrl,
       contacts,
+      organization,
+      barrierFree,
       ...other
     } = params
     super(other)
@@ -55,6 +62,8 @@ class PoiModel extends ExtendedPageModel {
     this._category = category
     this._appointmentUrl = appointmentUrl
     this._contacts = contacts
+    this._organization = organization
+    this._barrierFree = barrierFree
   }
 
   get location(): LocationModel<number> {
@@ -138,6 +147,14 @@ class PoiModel extends ExtendedPageModel {
 
   get contacts(): ContactModel[] {
     return this._contacts
+  }
+
+  get organization(): OrganizationModel | null {
+    return this._organization
+  }
+
+  get barrierFree(): boolean | null {
+    return this._barrierFree
   }
 }
 

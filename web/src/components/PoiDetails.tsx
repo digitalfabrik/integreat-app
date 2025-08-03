@@ -13,6 +13,7 @@ import useWindowDimensions from '../hooks/useWindowDimensions'
 import Collapsible from './Collapsible'
 import Contact from './Contact'
 import OpeningHours from './OpeningHours'
+import PoiChips from './PoiChips'
 import RemoteContent from './RemoteContent'
 import Spacer from './Spacer'
 import Icon from './base/Icon'
@@ -49,12 +50,6 @@ const Thumbnail = styled.img`
 
 const Distance = styled.div`
   ${helpers.adaptiveFontSize};
-`
-
-const Category = styled.div`
-  ${helpers.adaptiveFontSize};
-  color: ${props => props.theme.colors.textSecondaryColor};
-  margin-top: 8px;
 `
 
 const AddressContentWrapper = styled.div`
@@ -134,14 +129,11 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
   const { viewportSmall } = useWindowDimensions()
   const theme = useTheme()
   const { t } = useTranslation('pois')
-  const { content, location, contacts, isCurrentlyOpen, openingHours, temporarilyClosed, category, appointmentUrl } =
-    poi
+  const { content, location, contacts, isCurrentlyOpen, openingHours, temporarilyClosed, appointmentUrl } = poi
 
   const thumbnail = poi.thumbnail ?? PoiThumbnailPlaceholderLarge
   const isAndroid = /Android/i.test(navigator.userAgent)
   const externalMapsLink = getExternalMapsLink(location, isAndroid ? 'android' : 'web')
-  const appointmentOverlayUrl = appointmentUrl ?? poi.contacts.find(contact => contact.website !== null)?.website ?? ''
-  const isOnlyWithAppointment = !openingHours && !!appointmentOverlayUrl
 
   return (
     <DetailsContainer>
@@ -149,7 +141,7 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
         <Thumbnail alt='' src={thumbnail} />
         <Heading>{poi.title}</Heading>
         {distance !== null && <Distance>{t('distanceKilometre', { distance: distance.toFixed(1) })}</Distance>}
-        <Category>{category.name}</Category>
+        <PoiChips poi={poi} />
       </HeadingSection>
       <Spacer borderColor={theme.colors.borderColor} />
       {!viewportSmall && <Subheading>{t('detailsAddress')}</Subheading>}
@@ -182,16 +174,17 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
           </StyledCollapsible>
         </>
       )}
-      {((openingHours && openingHours.length > 0) || temporarilyClosed || isOnlyWithAppointment) && (
-        <Spacer borderColor={theme.colors.borderColor} />
+      {((openingHours && openingHours.length > 0) || temporarilyClosed || !!appointmentUrl) && (
+        <>
+          <Spacer borderColor={theme.colors.borderColor} />
+          <OpeningHours
+            openingHours={openingHours}
+            isCurrentlyOpen={isCurrentlyOpen}
+            isTemporarilyClosed={temporarilyClosed}
+            appointmentUrl={appointmentUrl}
+          />
+        </>
       )}
-      <OpeningHours
-        openingHours={openingHours}
-        isCurrentlyOpen={isCurrentlyOpen}
-        isTemporarilyClosed={temporarilyClosed}
-        appointmentUrl={appointmentUrl}
-        appointmentOverlayLink={appointmentOverlayUrl}
-      />
 
       {content.length > 0 && (
         <>

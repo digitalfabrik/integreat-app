@@ -2,6 +2,7 @@ import { fireEvent, RenderAPI, waitFor } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import React, { useContext } from 'react'
 import { Platform } from 'react-native'
+import mockSafeAreaContext from 'react-native-safe-area-context/jest/mock'
 import Tts from 'react-native-tts'
 
 import buildConfig from '../../constants/buildConfig'
@@ -12,15 +13,18 @@ import TtsContainer, { TtsContext } from '../TtsContainer'
 import Text from '../base/Text'
 import TextButton from '../base/TextButton'
 
+jest.mock('react-native-safe-area-context', () => mockSafeAreaContext)
 jest.mock('react-i18next')
 jest.mock('react-native-tts')
 jest.mock('../../hooks/useSnackbar')
 jest.mock('shared/api', () => ({
+  ...jest.requireActual('shared/api'),
   useLoadAsync: jest.fn(() => ({
     data: [
       { language: 'en-US', name: 'English' },
       { language: 'de-DE', name: 'German' },
     ],
+    refresh: jest.fn(),
   })),
 }))
 

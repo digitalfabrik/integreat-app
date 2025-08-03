@@ -11,6 +11,7 @@ import Contact from './Contact'
 import HorizontalLine from './HorizontalLine'
 import OpeningHours from './OpeningHours'
 import Page from './Page'
+import PoiChips from './PoiChips'
 import SimpleImage from './SimpleImage'
 
 const Thumbnail = styled(SimpleImage)`
@@ -38,12 +39,6 @@ const StyledDistance = styled.Text`
   color: ${props => props.theme.colors.textColor};
 `
 
-const StyledCategory = styled.Text`
-  font-size: 12px;
-  margin-top: 8px;
-  color: ${props => props.theme.colors.textSecondaryColor};
-`
-
 const StyledContactsContainer = styled.View`
   margin-top: 12px;
 `
@@ -58,8 +53,6 @@ const PoiDetails = ({ poi, language, distance }: PoiDetailsProps): ReactElement 
   const { t } = useTranslation('pois')
   const thumbnail = poi.thumbnail ?? PoiThumbnailPlaceholderLarge
   const { title, content, contacts, openingHours, temporarilyClosed, isCurrentlyOpen, category, appointmentUrl } = poi
-  const appointmentOverlayUrl =
-    appointmentUrl ?? poi.contacts.find(contact => contact.website !== null)?.website ?? null
 
   return (
     <PoiDetailsContainer accessibilityLabel={`${title} - ${category.name}`}>
@@ -67,8 +60,9 @@ const PoiDetails = ({ poi, language, distance }: PoiDetailsProps): ReactElement 
       {distance !== null && (
         <StyledDistance>{t('distanceKilometre', { distance: distance.toFixed(1) })}</StyledDistance>
       )}
-      <StyledCategory>{category.name}</StyledCategory>
       <Thumbnail source={thumbnail} resizeMode='cover' />
+      <HorizontalLine />
+      <PoiChips poi={poi} />
       <HorizontalLine />
       <AddressInfo location={poi.location} language={language} />
       <HorizontalLine />
@@ -95,7 +89,6 @@ const PoiDetails = ({ poi, language, distance }: PoiDetailsProps): ReactElement 
         isCurrentlyOpen={isCurrentlyOpen}
         isTemporarilyClosed={temporarilyClosed}
         appointmentUrl={appointmentUrl}
-        appointmentOverlayLink={appointmentOverlayUrl}
       />
       {content.length > 0 && (
         <>
