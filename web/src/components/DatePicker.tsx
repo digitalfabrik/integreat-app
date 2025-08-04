@@ -41,24 +41,15 @@ const isValidJsDate = (date: Date | null): boolean => {
   if (date == null) {
     return false
   }
-  try {
-    const checkDate = DateTime.fromJSDate(date)
-    const maxValidYear = 2500
-    return checkDate.year <= maxValidYear
-  } catch (_) {
-    return false
-  }
+  const checkDate = DateTime.fromJSDate(date)
+  const maxValidYear = 2500
+  return checkDate.year <= maxValidYear
 }
 
 class CustomAdapterLuxon extends AdapterLuxon {
   parse = (value: string, format: string): DateTime | null => {
-    if (value.includes('MM') || value.includes('YYYY') || value.includes('DD')) {
-      return null
-    }
-
     try {
-      const parsed = DateTime.fromFormat(value, format)
-      return parsed.isValid ? parsed : null
+      return DateTime.fromFormat(value, format)
     } catch (_) {
       return null
     }
