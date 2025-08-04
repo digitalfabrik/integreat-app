@@ -43,6 +43,10 @@ const StyledIcon = styled(Icon)`
   width: 24px;
 `
 
+const StyledDivider = styled(Divider)`
+  margin: 12px 0;
+`
+
 type GoBackProps = {
   text: string
   goBack: () => void
@@ -55,7 +59,7 @@ const GoBack = ({ goBack, viewportSmall = false, text }: GoBackProps): ReactElem
       <StyledIcon src={ArrowBackIcon} directionDependent />
       <DetailsHeaderTitle>{text}</DetailsHeaderTitle>
     </StyledButton>
-    <Divider style={{ margin: '12px 0' }} />
+    <StyledDivider />
   </>
 )
 

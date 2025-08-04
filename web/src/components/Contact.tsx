@@ -17,6 +17,10 @@ const StyledContactHeader = styled.div`
   ${helpers.adaptiveFontSize};
 `
 
+const StyledDivider = styled(Divider)`
+  margin: 12px 0;
+`
+
 const Contact = ({
   contact: { headline, website, phoneNumber, email, mobilePhoneNumber },
   isLastContact,
@@ -57,7 +61,7 @@ const Contact = ({
       {!!email && (
         <ContactItem iconSource={MailOutlinedIcon} iconAlt={t('eMail')} link={`mailto:${email}`} content={email} />
       )}
-      {!isLastContact && <Divider style={{ margin: '12px 0' }} />}
+      {!isLastContact && <StyledDivider />}
     </>
   )
 }
