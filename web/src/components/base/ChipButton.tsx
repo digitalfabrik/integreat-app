@@ -28,16 +28,24 @@ const mapPropsToMuiChipProps = (props: ChipButtonProps, theme: Theme): ChipOwnPr
     return {
       variant: 'outlined',
       icon: iconElement,
-      sx: {
-        '.MuiChip-label': {
-          color: isContrastMode ? theme.palette.neutral[50] : theme.palette.neutral[900],
-        },
-        '.MuiChip-icon, .MuiChip-deleteIcon': {
-          color: isContrastMode ? theme.palette.neutral[50] : theme.palette.neutral[400],
-        },
-        borderColor: isContrastMode ? theme.palette.neutral[50] : theme.palette.neutral[400],
-        backgroundColor: isContrastMode ? '#000' : theme.palette.neutral[50],
-      },
+      sx: isContrastMode
+        ? {
+            '.MuiChip-label, .MuiChip-icon, .MuiChip-deleteIcon': {
+              color: theme.palette.neutral[50],
+            },
+            borderColor: theme.palette.neutral[50],
+            backgroundColor: '#000',
+          }
+        : {
+            '.MuiChip-label': {
+              color: theme.palette.neutral[900],
+            },
+            '.MuiChip-icon, .MuiChip-deleteIcon': {
+              color: theme.palette.neutral[400],
+            },
+            borderColor: theme.palette.neutral[400],
+            backgroundColor: theme.palette.neutral[50],
+          },
       ...rest,
     }
   }
@@ -45,15 +53,22 @@ const mapPropsToMuiChipProps = (props: ChipButtonProps, theme: Theme): ChipOwnPr
   if (variant === 'primary') {
     return {
       icon: iconElement,
-      sx: {
-        '.MuiChip-label': {
-          color: isContrastMode ? theme.palette.neutral[1000] : theme.palette.neutral[50],
-        },
-        '.MuiChip-icon, .MuiChip-deleteIcon': {
-          color: isContrastMode ? theme.palette.neutral[800] : theme.palette.neutral[50],
-        },
-        backgroundColor: isContrastMode ? theme.palette.quartary[50] : theme.palette.primary.main,
-      },
+      sx: isContrastMode
+        ? {
+            '.MuiChip-label': {
+              color: theme.palette.neutral[1000],
+            },
+            '.MuiChip-icon, .MuiChip-deleteIcon': {
+              color: theme.palette.neutral[800],
+            },
+            backgroundColor: theme.palette.quartary[50],
+          }
+        : {
+            '.MuiChip-label, .MuiChip-icon, .MuiChip-deleteIcon': {
+              color: theme.palette.neutral[50],
+            },
+            backgroundColor: theme.palette.primary.main,
+          },
       ...rest,
     }
   }
