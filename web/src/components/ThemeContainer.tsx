@@ -68,19 +68,8 @@ const createTheme = (
           },
         },
       },
-      neutral: {
-        1000: '#020202',
-        900: 'rgba(0, 0, 0, 0.87)',
-        800: 'rgba(0, 0, 0, 0.60)',
-        700: 'rgba(0, 0, 0, 0.58)',
-        600: 'rgba(0, 0, 0, 0.54)',
-        500: 'rgba(0, 0, 0, 0.42)',
-        400: 'rgba(0, 0, 0, 0.38)',
-        300: 'rgba(0, 0, 0, 0.26)',
-        200: 'rgba(0, 0, 0, 0.18)',
-        100: 'rgba(0, 0, 0, 0.06)',
-        50: '#FFFFFF',
-      },
+      neutral: buildConfig().lightTheme.palette.neutral,
+      quartary: buildConfig().lightTheme.palette.quartary,
     },
   })
 }
