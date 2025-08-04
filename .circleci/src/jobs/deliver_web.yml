@@ -72,4 +72,17 @@ steps:
         - run:
             name: Integreat future delivery # StrictHostKeyChecking=no is not a security problem. The worst that could happen is a delivery to the wrong domain.
             command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/integreat-test-cms/ web@web.integreat-app.de:/var/www/future.integreat.app
+  - when:
+      condition:
+        or:
+          - equal: [production, << parameters.delivery >>]
+          - equal: [beta, << parameters.delivery >>]
+      steps:
+        - run:
+            name: Upload Source Maps to Sentry
+            command: |
+              tools/sentry-release web-integreat "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat
+              tools/sentry-release web-malte "${NEW_VERSION_NAME}" ~/attached_workspace/dist/malte
+              tools/sentry-release web-aschaffenburg "${NEW_VERSION_NAME}" ~/attached_workspace/dist/aschaffenburg
+              tools/sentry-release web-obdach "${NEW_VERSION_NAME}" ~/attached_workspace/dist/obdach
   - notify
