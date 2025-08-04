@@ -253,7 +253,7 @@ const createConfig = (
                 },
                 {
                   from: appleAppSiteAssociationPreset,
-                  to: distDirectory,
+                  to: wellKnownDirectory,
                   transform: () => generateAppleAppSiteAssociation(buildConfig),
                 },
               ]
