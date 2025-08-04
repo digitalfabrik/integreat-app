@@ -138,22 +138,14 @@ export const Header = ({
           </ActionBar>
         </Row>
         <div style={{ display: 'flex', gap: '8px', marginBottom: '8px', alignItems: 'center' }}>
-          <ChipButton label='x-small chip' onDelete={() => console.log('click')} size='xs' icon={<PersonIcon />} />
-          <ChipButton label='small chip' onDelete={() => console.log('click')} size='sm' icon={<PersonIcon />} />
+          <ChipButton label='small chip' onDelete={() => console.log('click')} size='small' icon={<PersonIcon />} />
           <ChipButton label='default chip' onDelete={() => console.log('click')} icon={<PersonIcon />} />
         </div>
         <div style={{ display: 'flex', gap: '8px', marginBottom: '8px', alignItems: 'center' }}>
           <ChipButton
-            label='x-small chip'
-            onDelete={() => console.log('click')}
-            size='xs'
-            variant='primary'
-            icon={<PersonIcon />}
-          />
-          <ChipButton
             label='small chip'
             onDelete={() => console.log('click')}
-            size='sm'
+            size='small'
             variant='primary'
             icon={<PersonIcon />}
           />
@@ -166,16 +158,9 @@ export const Header = ({
         </div>
         <div style={{ display: 'flex', gap: '8px', marginBottom: '8px', alignItems: 'center' }}>
           <ChipButton
-            label='x-small chip'
-            onDelete={() => console.log('click')}
-            size='xs'
-            variant='outlined'
-            icon={<PersonIcon />}
-          />
-          <ChipButton
             label='small chip'
             onDelete={() => console.log('click')}
-            size='sm'
+            size='small'
             variant='outlined'
             icon={<PersonIcon />}
           />
