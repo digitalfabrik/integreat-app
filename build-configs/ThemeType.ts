@@ -19,7 +19,7 @@ export type ActionColor = {
   focus?: string
 }
 
-type ToneColor = {
+export type ToneColor = {
   /* eslint-disable no-magic-numbers */
   1000?: string
   900: string
@@ -45,6 +45,7 @@ export type CommonColors = {
   divider: string
   link: string
   neutral: ToneColor
+  quartary: ToneColor
 }
 
 export type PaletteMode = 'light' | 'dark'
