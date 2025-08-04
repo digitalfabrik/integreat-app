@@ -7,7 +7,7 @@ export default {
   testEnvironment: 'jsdom',
   testPathIgnorePatterns: ['<rootDir>/dist/', '<rootDir>/node_modules/'],
   transform: {
-    '^.+\\.(j|t)sx?$': ['ts-jest', { isolatedModules: true }],
+    '^.+\\.(j|t)sx?$': ['ts-jest', {}],
   },
   maxWorkers: '50%',
 }
