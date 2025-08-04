@@ -1,5 +1,3 @@
-/* eslint-disable no-magic-numbers */
-
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -7,8 +5,10 @@
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
 import { TypographyPropsVariantOverrides } from '@mui/material/Typography'
 import { PaletteColor, Palette, PaletteOptions } from '@mui/material/styles'
+import { To } from 'react-router-dom'
 
 import { LegacyThemeType } from 'build-configs'
+import { ToneColor } from 'build-configs/ThemeType'
 
 // Enable and disable typography variants according to our design system
 // docs: https://mui.com/material-ui/customization/typography/#adding-amp-disabling-variants
@@ -54,36 +54,14 @@ declare module '@mui/material/styles' {
 
   interface Palette {
     tertiary: PaletteColor
-    neutral: {
-      1000?: string
-      900: string
-      800: string
-      700: string
-      600: string
-      500: string
-      400: string
-      300: string
-      200: string
-      100: string
-      50: string
-    }
+    neutral: ToneColor
+    quartary: ToneColor
   }
 
   interface PaletteOptions {
     tertiary: PaletteColor
-    neutral: {
-      1000?: string
-      900: string
-      800: string
-      700: string
-      600: string
-      500: string
-      400: string
-      300: string
-      200: string
-      100: string
-      50: string
-    }
+    neutral: ToneColor
+    quartary: ToneColor
   }
 }
 
