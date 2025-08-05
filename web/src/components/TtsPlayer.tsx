@@ -109,7 +109,7 @@ const TtsPlayer = ({
       </HeaderText>
       {/* Sound player panel shouldn't be rotated in rtl */}
       <StyledPanel dir='ltr'>
-        <StyledIconButton aria-label={t('previous')} onClick={playPrevious} disabled={!isPlaying} size='small'>
+        <StyledIconButton aria-label={t('previous')} onClick={playPrevious} size='small'>
           <FastRewindIcon />
         </StyledIconButton>
         <PlayButton
@@ -120,7 +120,7 @@ const TtsPlayer = ({
           disabled={disabled}>
           {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
         </PlayButton>
-        <StyledIconButton aria-label={t('next')} onClick={playNext} disabled={!isPlaying} size='small'>
+        <StyledIconButton aria-label={t('next')} onClick={playNext} size='small'>
           <FastForwardIcon />
         </StyledIconButton>
       </StyledPanel>

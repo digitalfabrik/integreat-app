@@ -136,8 +136,8 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
     stop()
   }
 
-  const playPrevious = () => stopPlayer(() => play(sentenceIndex - 1))
-  const playNext = () => stopPlayer(() => play(sentenceIndex + 1))
+  const playPrevious = () => (isPlaying ? stopPlayer(() => play(sentenceIndex - 1)) : play(sentenceIndex - 1))
+  const playNext = () => (isPlaying ? stopPlayer(() => play(sentenceIndex + 1)) : play(sentenceIndex + 1))
 
   const updateSentences = useCallback(
     (newSentences: string[]) => {
