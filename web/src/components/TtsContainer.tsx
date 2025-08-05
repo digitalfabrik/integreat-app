@@ -2,8 +2,6 @@ import EasySpeech from 'easy-speech'
 import React, { createContext, ReactElement, useCallback, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { TTS_MAX_TITLE_DISPLAY_CHARS, truncate } from 'shared'
-
 import buildConfig from '../constants/buildConfig'
 import { getTtsVoice, isTtsCancelError, ttsInitialized } from '../utils/tts'
 import TtsHelpModal from './TtsHelpModal'
@@ -44,7 +42,6 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
   const [sentenceIndex, setSentenceIndex] = useState(0)
   const [showHelpModal, setShowHelpModal] = useState(false)
   const title = sentences[0] || t('nothingToRead')
-  const shortTitle = truncate(title, { maxChars: TTS_MAX_TITLE_DISPLAY_CHARS })
   const enabled = buildConfig().featureFlags.tts
   const canRead = enabled && sentences.length > 1
 
@@ -175,7 +172,7 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
           isPlaying={isPlaying}
           pause={pause}
           play={startPlaying}
-          title={shortTitle}
+          title={title}
         />
       )}
     </TtsContext.Provider>

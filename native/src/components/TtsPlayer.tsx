@@ -30,7 +30,7 @@ const StyledTtsPlayer = styled.View<{ insetBottom: number }>`
   position: absolute;
   margin: 8px;
   bottom: ${props => props.insetBottom}px;
-  padding: 24px;
+  padding: 32px 24px 24px;
   gap: 12px;
   ${elevatedStyle}
 `
@@ -112,7 +112,7 @@ const TtsPlayer = ({
       <CloseButton role='button' accessibilityLabel={t('common:close')} onPress={close}>
         <StyledIcon Icon={CloseIcon} />
       </CloseButton>
-      <StyledPlayerHeaderText>{title}</StyledPlayerHeaderText>
+      <StyledPlayerHeaderText numberOfLines={1}>{title}</StyledPlayerHeaderText>
       <StyledPanel>
         <StyledButton role='button' accessibilityLabel={t('previous')} onPress={playPrevious} disabled={!isPlaying}>
           <StyledIcon Icon={FastRewindIcon} disabled={!isPlaying} />
