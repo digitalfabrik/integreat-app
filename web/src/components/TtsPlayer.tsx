@@ -22,7 +22,7 @@ const StyledTtsPlayer = styled.dialog<{ footerHeight: number }>`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 24px;
+  padding: 32px 24px 24px;
   position: fixed;
   margin-bottom: 12px;
   bottom: ${props => props.footerHeight}px;
@@ -59,10 +59,15 @@ const StyledIconButton = styled(IconButton)`
   align-items: center;
 `
 
-const HeaderText = styled.span`
+const HeaderText = styled.div`
+  display: inline-block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
   font-weight: 600;
   align-self: center;
   font-size: 16px;
+  max-width: 100%;
 `
 
 const CloseIconButton = styled(IconButton)`

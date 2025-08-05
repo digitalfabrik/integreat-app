@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Platform } from 'react-native'
 import Tts, { Options } from 'react-native-tts'
 
-import { getGenericLanguageCode, TTS_MAX_TITLE_DISPLAY_CHARS, truncate } from 'shared'
+import { getGenericLanguageCode } from 'shared'
 import { useLoadAsync } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
@@ -55,7 +55,6 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
   const { t } = useTranslation('layout')
   const showSnackbar = useSnackbar()
   const title = sentences[0] || t('nothingToRead')
-  const shortTitle = truncate(title, { maxChars: TTS_MAX_TITLE_DISPLAY_CHARS })
   const { data: voices, error, refresh, loading } = useLoadAsync(Tts.voices)
   const isLanguageSupported =
     voices && voices.some(({ language }) => getGenericLanguageCode(language) === getGenericLanguageCode(languageCode))
@@ -198,7 +197,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
           close={close}
           pause={pause}
           play={play}
-          title={shortTitle}
+          title={title}
         />
       )}
     </TtsContext.Provider>
