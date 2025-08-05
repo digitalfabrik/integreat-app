@@ -39,6 +39,7 @@ const StyledIcon = styled(Icon)`
 `
 
 const ChatTitle = styled.span`
+  text-align: center;
   margin-top: 8px;
   color: ${props => props.theme.legacy.colors.textColor};
 `
