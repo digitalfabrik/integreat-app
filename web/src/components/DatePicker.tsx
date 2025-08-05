@@ -46,7 +46,7 @@ const isValidJsDate = (date: Date | null): boolean => {
   return checkDate.year <= maxValidYear
 }
 
-class CustomAdapterLuxon extends AdapterLuxon {
+export class CustomAdapterLuxon extends AdapterLuxon {
   parse = (value: string, format: string): DateTime | null => {
     try {
       return DateTime.fromFormat(value, format)
@@ -101,7 +101,9 @@ const CustomDatePicker = ({
           }}
           slotProps={{
             textField: {
-              placeholder: placeholderDate.setLocale(languageCode).toLocaleString(),
+              placeholder: placeholderDate
+                .setLocale(languageCode)
+                .toLocaleString({ month: '2-digit', day: '2-digit', year: 'numeric' }),
             },
             openPickerButton: {
               'aria-label': calendarLabel,
