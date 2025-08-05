@@ -24,7 +24,6 @@ jest.mock('react-i18next', () => ({
   }),
   Trans: ({ i18nKey }: { i18nKey: string }) => i18nKey,
 }))
-jest.mock('react-tooltip')
 jest.mock('stylis')
 
 jest.mock('shared/hooks/useDebounce', () => ({

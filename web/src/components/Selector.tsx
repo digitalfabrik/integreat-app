@@ -1,11 +1,11 @@
 import { css, Theme } from '@emotion/react'
 import styled from '@emotion/styled'
+import Tooltip from '@mui/material/Tooltip'
 import React, { ReactElement } from 'react'
 
 import dimensions from '../constants/dimensions'
 import SelectorItemModel from '../models/SelectorItemModel'
 import Link from './base/Link'
-import Tooltip from './base/Tooltip'
 
 const selectorItemStyle = ({ theme }: { theme: Theme }) => css`
   height: ${dimensions.headerHeightLarge}px;
@@ -77,7 +77,7 @@ const Selector = ({
   closeDropDown,
   disabledItemTooltip,
 }: SelectorProps): ReactElement => (
-  <Wrapper vertical={verticalLayout} id='languageSelector'>
+  <Wrapper vertical={verticalLayout}>
     {items.map(item =>
       item.href ? (
         <SelectorItem
@@ -90,8 +90,8 @@ const Selector = ({
           {item.name}
         </SelectorItem>
       ) : (
-        <Tooltip id={item.code} key={item.code} tooltipContent={disabledItemTooltip}>
-          <DisabledSelectorItem id={item.code}>
+        <Tooltip key={item.code} title={disabledItemTooltip}>
+          <DisabledSelectorItem>
             <BoldSpacer>{item.name}</BoldSpacer>
             {item.name}
           </DisabledSelectorItem>

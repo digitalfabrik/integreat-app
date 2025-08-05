@@ -37,6 +37,7 @@ const Link = ({
   id,
   highlighted = false,
   onClick,
+  ...props
 }: LinkProps): ReactElement => {
   const commonProps = {
     'aria-label': ariaLabel,
@@ -45,6 +46,7 @@ const Link = ({
     highlightedLink: highlighted,
     id,
     onClick,
+    ...props,
   }
   if (isInternalLink(to)) {
     return (

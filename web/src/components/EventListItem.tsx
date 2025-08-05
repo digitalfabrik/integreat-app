@@ -1,12 +1,14 @@
 import styled from '@emotion/styled'
 import EventRepeatOutlinedIcon from '@mui/icons-material/EventRepeatOutlined'
 import TodayOutlinedIcon from '@mui/icons-material/TodayOutlined'
+import Tooltip from '@mui/material/Tooltip'
 import { DateTime } from 'luxon'
-import React, { ReactElement, ElementType } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
+import SVG from 'react-inlinesvg'
 
-import { getExcerpt, getDisplayDate } from 'shared'
-import { DateModel, DateIcon, EventModel } from 'shared/api'
+import { getDisplayDate, getExcerpt } from 'shared'
+import { DateIcon, DateModel, EventModel } from 'shared/api'
 
 import {
   CalendarTodayRecurringIcon,
@@ -16,8 +18,6 @@ import {
 } from '../assets'
 import { EXCERPT_MAX_CHARS } from '../constants'
 import ListItem from './ListItem'
-import Icon from './base/Icon'
-import Tooltip from './base/Tooltip'
 
 const Container = styled.div`
   display: flex;
@@ -40,7 +40,6 @@ const Content = styled.div`
 type EventListItemProps = {
   event: EventModel
   languageCode: string
-  index: number
   filterStartDate?: DateTime | null
   filterEndDate?: DateTime | null
 }
@@ -52,16 +51,16 @@ const getEventPlaceholder = (path: string): string => {
   return placeholders[pseudoId % placeholders.length]!
 }
 
-export const getDateIcon = (date: DateModel): { icon: string | ElementType; tooltip: string } | null => {
-  const icons: { [key in DateIcon]: string | ElementType } = {
-    CalendarTodayRecurringIcon,
-    CalendarRecurringIcon: EventRepeatOutlinedIcon,
-    CalendarTodayIcon: TodayOutlinedIcon,
+export const getDateIcon = (date: DateModel): { Icon: ReactElement; tooltip: string } | null => {
+  const icons: { [key in DateIcon]: ReactElement } = {
+    CalendarTodayRecurringIcon: <SVG src={CalendarTodayRecurringIcon} />,
+    CalendarRecurringIcon: <EventRepeatOutlinedIcon />,
+    CalendarTodayIcon: <TodayOutlinedIcon />,
   }
   const iconToUse = date.getDateIcon()
   return iconToUse
     ? {
-        icon: icons[iconToUse.icon],
+        Icon: icons[iconToUse.icon],
         tooltip: iconToUse.label,
       }
     : null
@@ -70,7 +69,6 @@ export const getDateIcon = (date: DateModel): { icon: string | ElementType; tool
 const EventListItem = ({
   event,
   languageCode,
-  index,
   filterStartDate = null,
   filterEndDate = null,
 }: EventListItemProps): ReactElement => {
@@ -78,19 +76,12 @@ const EventListItem = ({
   const { t } = useTranslation('events')
   const dateToDisplay = getDisplayDate(event, filterStartDate, filterEndDate)
 
-  const tooltipId = `calendar-icon-${index}`
-  const DateIcon = dateIcon && (
-    <Tooltip id={tooltipId} tooltipContent={t(dateIcon.tooltip)}>
-      <Icon src={dateIcon.icon} id='calendar-icon' title={t(dateIcon.tooltip)} />
-    </Tooltip>
-  )
-
   return (
     <ListItem
       thumbnail={event.thumbnail || getEventPlaceholder(event.path)}
       title={event.title}
       path={event.path}
-      Icon={DateIcon}>
+      Icon={dateIcon && <Tooltip title={t(dateIcon.tooltip)}>{dateIcon.Icon}</Tooltip>}>
       <Container>
         <Content dir='auto'>{dateToDisplay.formatEventDateInOneLine(languageCode, t)}</Content>
         {!!event.location && (
