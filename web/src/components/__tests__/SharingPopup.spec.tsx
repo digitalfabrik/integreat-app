@@ -1,11 +1,17 @@
 import { fireEvent } from '@testing-library/react'
-import React from 'react'
+import React, { ReactElement } from 'react'
 
 import { renderWithTheme } from '../../testing/render'
 import SharingPopup from '../SharingPopup'
 
 jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
+jest.mock('@mui/material/Tooltip', () => ({ title, children }: { title: string; children: ReactElement }) => (
+  <>
+    {title}
+    {children}
+  </>
+))
 
 describe('SharingPopup', () => {
   const shareMessage = 'socialMedia:layout:shareMessage'

@@ -1,20 +1,16 @@
 import styled from '@emotion/styled'
 import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined'
+import Tooltip from '@mui/material/Tooltip'
 import React, { ReactElement } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
 
 import Icon from './base/Icon'
-import Tooltip from './base/Tooltip'
+import Link from './base/Link'
 
 const Container = styled.div`
   position: absolute;
   inset-inline-end: -27px;
   top: 4px;
-`
-
-const StyledTooltip = styled(Tooltip)`
-  max-width: 250px;
 `
 
 const IconContainer = styled.button`
@@ -46,6 +42,10 @@ const TooltipTitle = styled.div`
   }
 `
 
+const StyledLink = styled(Link)`
+  color: ${props => props.theme.palette.text.primary};
+`
+
 type AppointmentOnlyIconProps = {
   appointmentUrl: string | null
 }
@@ -55,16 +55,20 @@ const AppointmentOnlyIcon = ({ appointmentUrl }: AppointmentOnlyIconProps): Reac
 
   return (
     <Container>
-      <StyledTooltip
-        id='appointment'
-        clickable
-        tooltipContent={
+      <Tooltip
+        title={
           <>
             <TooltipTitle>{t('appointmentNecessary')}</TooltipTitle>
             <TooltipContent>
               <Trans i18nKey='pois:makeAppointmentTooltipWithLink'>
                 This gets replaced
-                {appointmentUrl ? <Link to={appointmentUrl}>by react-i18next</Link> : <span>by react-i18next</span>}
+                {appointmentUrl ? (
+                  <Link to={appointmentUrl} highlighted>
+                    by react-i18next
+                  </Link>
+                ) : (
+                  <span>by react-i18next</span>
+                )}
               </Trans>
             </TooltipContent>
           </>
@@ -72,7 +76,7 @@ const AppointmentOnlyIcon = ({ appointmentUrl }: AppointmentOnlyIconProps): Reac
         <IconContainer title={t('appointmentNecessary')}>
           <StyledIcon src={ErrorOutlineOutlinedIcon} />
         </IconContainer>
-      </StyledTooltip>
+      </Tooltip>
     </Container>
   )
 }

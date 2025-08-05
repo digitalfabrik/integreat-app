@@ -1,6 +1,6 @@
 import createCache from '@emotion/cache'
-import { CacheProvider, Global, Theme, ThemeProvider } from '@emotion/react'
-import { createTheme as createMuiTheme } from '@mui/material/styles'
+import { CacheProvider, Global, Theme } from '@emotion/react'
+import { createTheme as createMuiTheme, ThemeProvider } from '@mui/material/styles'
 import rtlPlugin from '@mui/stylis-plugin-rtl'
 import React, { ReactElement, ReactNode, useMemo } from 'react'
 import { prefixer } from 'stylis'
