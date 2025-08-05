@@ -60,7 +60,6 @@
     "react-map-gl": "^7.1.7",
     "react-router-dom": "^6.26.1",
     "react-spring-bottom-sheet": "^3.4.1",
-    "react-tooltip": "^5.28.0",
     "schema-dts": "^1.1.2",
     "shared": "0.0.1",
     "stylis": "^4.3.6",
