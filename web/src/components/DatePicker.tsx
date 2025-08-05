@@ -20,7 +20,7 @@ const StyledInputWrapper = styled.div`
   display: flex;
 `
 
-const StyledIconButton = styled(IconButton)<{ isCalendarOpen: boolean }>`
+const StyledIconButton = styled(IconButton)`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -149,12 +149,7 @@ const CustomDatePicker = ({
           onChange={(date: Date | null) => handleDateChange(date)}
           onChangeRaw={e => handleDateError(String((e?.target as HTMLInputElement).value))}
         />
-        <StyledIconButton
-          color='primary'
-          size='large'
-          name={calendarLabel}
-          isCalendarOpen={isCalendarOpen}
-          onClick={() => setIsCalendarOpen(true)}>
+        <StyledIconButton color='primary' size='large' name={calendarLabel} onClick={() => setIsCalendarOpen(true)}>
           <EventIcon />
         </StyledIconButton>
       </StyledInputWrapper>

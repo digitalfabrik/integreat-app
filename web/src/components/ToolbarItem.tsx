@@ -1,16 +1,14 @@
-import { css, SerializedStyles, Theme, useTheme } from '@emotion/react'
+import { css, SerializedStyles, Theme } from '@emotion/react'
 import styled from '@emotion/styled'
 import { SvgIconProps } from '@mui/material/SvgIcon'
+import Tooltip from '@mui/material/Tooltip'
 import React, { ElementType, ReactElement } from 'react'
-import { PlacesType } from 'react-tooltip'
 
 import useWindowDimensions from '../hooks/useWindowDimensions'
-import { spacesToDashes } from '../utils/stringUtils'
 import StyledSmallViewTip from './StyledSmallViewTip'
 import Button from './base/Button'
 import Icon from './base/Icon'
 import Link from './base/Link'
-import Tooltip from './base/Tooltip'
 
 const toolbarItemStyle = ({ theme }: { theme: Theme }): SerializedStyles => css`
   display: inline-block;
@@ -43,15 +41,6 @@ const StyledIcon = styled(Icon)<{ disabled?: boolean }>`
     props.disabled ? props.theme.legacy.colors.textDisabledColor : props.theme.legacy.colors.textSecondaryColor};
 `
 
-const StyledTooltip = styled(Tooltip)`
-  max-width: 250px;
-`
-
-type AdditionalTooltipProps = {
-  isOpen: boolean
-  openOnClick: boolean
-}
-
 type ItemProps =
   | {
       onClick: () => void
@@ -65,28 +54,13 @@ type ItemProps =
 type ToolbarItemProps = {
   icon: string | ElementType<SvgIconProps>
   text: string
-  id?: string
   isDisabled?: boolean
   tooltip?: string | null
-  additionalTooltipProps?: AdditionalTooltipProps
 } & ItemProps
 
-const ToolbarItem = ({
-  to,
-  text,
-  icon,
-  isDisabled = false,
-  tooltip,
-  additionalTooltipProps,
-  onClick,
-  id,
-}: ToolbarItemProps): ReactElement => {
-  const theme = useTheme()
+const ToolbarItem = ({ to, text, icon, isDisabled = false, tooltip, onClick }: ToolbarItemProps): ReactElement => {
   const { viewportSmall } = useWindowDimensions()
-  const tooltipDirectionForDesktop: PlacesType = theme.contentDirection === 'ltr' ? 'right' : 'left'
-  const tooltipDirection: PlacesType = viewportSmall ? 'top' : tooltipDirectionForDesktop
-  const tooltipId = id ?? spacesToDashes(text)
-
+  const tooltipPlacement = viewportSmall ? 'top' : 'right'
   const Content = (
     <>
       <StyledIcon src={icon} disabled={isDisabled} />
@@ -96,14 +70,14 @@ const ToolbarItem = ({
 
   if (isDisabled) {
     return (
-      <StyledTooltip id={tooltipId} tooltipContent={tooltip} place={tooltipDirection} {...additionalTooltipProps}>
+      <Tooltip title={tooltip} placement={tooltipPlacement} arrow>
         <DisabledToolbarItem aria-label={text}>{Content}</DisabledToolbarItem>
-      </StyledTooltip>
+      </Tooltip>
     )
   }
 
   return (
-    <StyledTooltip id={tooltipId} tooltipContent={tooltip} place={tooltipDirection} {...additionalTooltipProps}>
+    <Tooltip title={tooltip} placement={tooltipPlacement}>
       {onClick ? (
         <ToolbarItemButton onClick={onClick} label={text}>
           {Content}
@@ -113,7 +87,7 @@ const ToolbarItem = ({
           {Content}
         </ToolbarItemLink>
       )}
-    </StyledTooltip>
+    </Tooltip>
   )
 }
 
