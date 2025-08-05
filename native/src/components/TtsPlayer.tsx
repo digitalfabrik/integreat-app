@@ -114,8 +114,8 @@ const TtsPlayer = ({
       </CloseButton>
       <StyledPlayerHeaderText numberOfLines={1}>{title}</StyledPlayerHeaderText>
       <StyledPanel>
-        <StyledButton role='button' accessibilityLabel={t('previous')} onPress={playPrevious} disabled={!isPlaying}>
-          <StyledIcon Icon={FastRewindIcon} disabled={!isPlaying} />
+        <StyledButton role='button' accessibilityLabel={t('previous')} onPress={playPrevious}>
+          <StyledIcon Icon={FastRewindIcon} />
         </StyledButton>
         <StyledPlayIconButton
           disabled={disabled}
@@ -123,8 +123,8 @@ const TtsPlayer = ({
           onPress={() => (isPlaying ? pause() : play())}
           icon={<PlayButtonIcon Icon={isPlaying ? PauseIcon : PlayIcon} />}
         />
-        <StyledButton role='button' accessibilityLabel={t('next')} onPress={playNext} disabled={!isPlaying}>
-          <StyledIcon Icon={FastForwardIcon} disabled={!isPlaying} />
+        <StyledButton role='button' accessibilityLabel={t('next')} onPress={playNext}>
+          <StyledIcon Icon={FastForwardIcon} />
         </StyledButton>
       </StyledPanel>
     </StyledTtsPlayer>
