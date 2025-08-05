@@ -65,7 +65,6 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
         text={t('readAloud')}
         tooltip={canRead ? null : t('nothingToReadFullMessage')}
         onClick={showTtsPlayer}
-        id='read-aloud-icon'
       />
     ),
     !viewportSmall && <ContrastThemeToggle key='theme' />,
