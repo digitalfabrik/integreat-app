@@ -1,9 +1,10 @@
 import styled from '@emotion/styled'
+import { inputLabelClasses } from '@mui/material/InputLabel'
 import TextField from '@mui/material/TextField'
 import React, { ChangeEvent, ReactElement } from 'react'
 
 const StyledTextField = styled(TextField)`
-  .MuiInputLabel-root {
+  .${inputLabelClasses.root} {
     z-index: 0;
   }
 `
