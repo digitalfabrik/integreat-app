@@ -7,8 +7,11 @@ const StyledTextField = styled(TextField)`
   .${inputLabelClasses.root} {
     z-index: 0;
   }
-`
 
+  input:autofill {
+    transition-delay: calc(infinity * 1s);
+  }
+`
 export type InputProps = {
   id: string
   value: string
