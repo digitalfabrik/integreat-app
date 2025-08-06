@@ -5,7 +5,6 @@
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
 import { TypographyPropsVariantOverrides } from '@mui/material/Typography'
 import { PaletteColor, Palette, PaletteOptions } from '@mui/material/styles'
-import { To } from 'react-router-dom'
 
 import { LegacyThemeType } from 'build-configs'
 import { ToneColor } from 'build-configs/ThemeType'
