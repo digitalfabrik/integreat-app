@@ -38,7 +38,6 @@
     "luxon": "3.6.1",
     "react": "19.0.0",
     "@types/react": "19.0.0",
-    "axios": "^1.8.2",
     "webpack-dev-middleware": "7.2.1",
     "webpack-dev-server": "5.0.4"
   },
