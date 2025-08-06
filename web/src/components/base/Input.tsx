@@ -1,5 +1,12 @@
+import styled from '@emotion/styled'
 import TextField from '@mui/material/TextField'
 import React, { ChangeEvent, ReactElement } from 'react'
+
+const StyledTextField = styled(TextField)`
+  .MuiInputLabel-root {
+    z-index: 0;
+  }
+`
 
 export type InputProps = {
   id: string
@@ -42,7 +49,7 @@ const Input = ({
   }
 
   return (
-    <TextField
+    <StyledTextField
       id={id}
       onClick={onClick}
       onChange={onInputChange}
