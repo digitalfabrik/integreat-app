@@ -1,4 +1,5 @@
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
+import { fireEvent } from '@testing-library/react'
 import { DateTime } from 'luxon'
 import React from 'react'
 
@@ -39,7 +40,7 @@ describe('DatePicker', () => {
 
     const placeholderDate = DateTime.fromISO('2025-04-08')
 
-    const { getByText, getByPlaceholderText } = renderCustomDatePicker({
+    const { getByLabelText, getByPlaceholderText } = renderCustomDatePicker({
       title,
       date,
       setDate,
@@ -48,8 +49,28 @@ describe('DatePicker', () => {
       calendarLabel: 'calendar',
     })
 
-    expect(getByText(title)).toBeInTheDocument()
+    expect(getByLabelText(title)).toBeInTheDocument()
     expect(getByPlaceholderText('08.04.2025')).toBeInTheDocument()
+  })
+
+  it('handles date change correctly', () => {
+    const currentDate = DateTime.local()
+    const newValue = DateTime.now().plus({ days: 1 }).setLocale('de')
+    const placeholderDate = DateTime.now()
+    const ariaLabel = `Choose date, selected date is ${currentDate.toLocaleString({ day: 'numeric', month: 'short', year: 'numeric' }, { locale: 'de' })}`
+
+    const { getByLabelText, getByText } = renderCustomDatePicker({
+      title: 'From Date',
+      date: currentDate,
+      setDate,
+      error: '',
+      placeholderDate,
+      calendarLabel: 'calendar',
+    })
+    fireEvent.click(getByLabelText(ariaLabel))
+    fireEvent.click(getByText(newValue.day))
+
+    expect(setDate).toHaveBeenCalledWith(newValue)
   })
 
   it('displays an error message when error prop is provided', () => {

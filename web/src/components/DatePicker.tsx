@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import { formHelperTextClasses } from '@mui/material/FormHelperText'
 import { AdapterLuxon } from '@mui/x-date-pickers/AdapterLuxon'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
@@ -12,20 +13,11 @@ const DateContainer = styled.div`
   width: fit-content;
   position: relative;
 `
-
-const StyledTitle = styled.span`
-  background-color: ${props => props.theme.colors.backgroundColor};
-  position: absolute;
-  top: -12px;
-  left: 12px;
-  padding: 2px 4px;
-  font-size: 12px;
-`
-
-const StyledError = styled.div`
-  font-size: 12px;
-  font-weight: bold;
-  color: ${props => props.theme.colors.invalidInput};
+const StyledDatePicker = styled(DatePicker)`
+  margin-bottom: 8px;
+  .${formHelperTextClasses.root} {
+    margin-top: 0;
+  }
 `
 
 export type CustomDatePickerProps = {
@@ -37,15 +29,8 @@ export type CustomDatePickerProps = {
   calendarLabel: string
 }
 
-const isValidJsDate = (date: Date | null): boolean => {
-  if (date == null) {
-    return false
-  }
-  const checkDate = DateTime.fromJSDate(date)
-  const maxValidYear = 2500
-  return checkDate.year <= maxValidYear
-}
-
+// AdapterLuxon doesn't support (throwOnInvalid = true) so I overridden parse and getInvalidDate.
+// https://mui.com/x/react-date-pickers/adapters-locale/#with-luxon
 export class CustomAdapterLuxon extends AdapterLuxon {
   parse = (value: string, format: string): DateTime | null => {
     try {
@@ -68,21 +53,21 @@ const CustomDatePicker = ({
 }: CustomDatePickerProps): ReactElement => {
   const { t } = useTranslation('events')
   const [datePickerError, setDatePickerError] = useState('')
-  const [value, setValue] = useState('')
   const { languageCode } = useCityContentParams()
 
-  const maxInputLength = 10
+  const maxDate = DateTime.fromISO('2099-12-31')
+  const minDate = DateTime.now().minus({ days: 1 })
+  const isWithinRange = (newValue: DateTime<true>) => newValue > minDate && newValue < maxDate
 
-  const handleDateChange = (date: Date | null) => {
-    if (isValidJsDate(date)) {
-      setDate(DateTime.fromJSDate(date ?? new Date()))
-    } else if (value.length < maxInputLength) {
-      setDatePickerError(t('invalidDate'))
+  const handleDateChange = (newValue: DateTime | null) => {
+    if (newValue && isWithinRange(newValue)) {
+      setDate(newValue)
+      setDatePickerError('')
     }
   }
+
   useEffect(() => {
     if (date == null) {
-      setValue('')
       setDatePickerError('')
     }
   }, [date])
@@ -90,20 +75,20 @@ const CustomDatePicker = ({
   return (
     <DateContainer>
       <LocalizationProvider dateAdapter={CustomAdapterLuxon} adapterLocale={languageCode}>
-        <DatePicker
+        <StyledDatePicker
+          disablePast
+          minDate={minDate}
+          maxDate={maxDate}
+          label={title}
           value={date}
-          onChange={newValue => {
-            if (newValue) {
-              handleDateChange(newValue.toJSDate())
-              setValue(newValue.toFormat('dd.MM.yyyy'))
-              setDatePickerError('')
-            }
-          }}
+          onChange={handleDateChange}
           slotProps={{
             textField: {
+              InputLabelProps: { shrink: true },
               placeholder: placeholderDate
                 .setLocale(languageCode)
                 .toLocaleString({ month: '2-digit', day: '2-digit', year: 'numeric' }),
+              helperText: error || datePickerError || null,
             },
             openPickerButton: {
               'aria-label': calendarLabel,
@@ -116,8 +101,6 @@ const CustomDatePicker = ({
           }}
         />
       </LocalizationProvider>
-      <StyledTitle>{title}</StyledTitle>
-      {error || datePickerError ? <StyledError>{error || datePickerError}</StyledError> : null}
     </DateContainer>
   )
 }
