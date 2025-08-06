@@ -46,9 +46,29 @@ const createTheme = (
     },
     direction: contentDirection,
     shadows: muiShadowCreator(themeType),
-    typography: buildConfig().typography,
-    palette: isContrast ? buildConfig().darkTheme.palette : buildConfig().lightTheme.palette,
-  })
+      typography: buildConfig().typography,
+      palette: isContrast ? buildConfig().darkTheme.palette : buildConfig().lightTheme.palette,
+      components: {
+        MuiTooltip: {
+          defaultProps: {
+            arrow: true,
+          },
+          styleOverrides: {
+            popper: {
+              padding: '8px',
+            },
+            arrow: {
+              color: buildConfig().darkTheme.palette.primary.main,
+            },
+            tooltip: {
+              backgroundColor: buildConfig().darkTheme.palette.primary.main,
+              fontSize: buildConfig().typography.label1?.fontSize,
+              padding: '8px 16px',
+            },
+          },
+        },
+      },
+    })
 }
 
 type ThemeContainerProps = {
