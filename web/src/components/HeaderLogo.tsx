@@ -19,11 +19,10 @@ const LogoContainer = styled.div`
   & a {
     display: block;
     width: 100%;
-    height: 60%;
+    height: 48px;
 
     @media ${dimensions.smallViewport} {
-      height: 42px;
-      width: 42px;
+      width: 48px;
     }
   }
 `
