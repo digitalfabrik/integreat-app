@@ -63,9 +63,9 @@ const AppointmentOnlyIcon = ({ appointmentUrl }: AppointmentOnlyIconProps): Reac
               <Trans i18nKey='pois:makeAppointmentTooltipWithLink'>
                 This gets replaced
                 {appointmentUrl ? (
-                  <Link to={appointmentUrl} highlighted>
+                  <StyledLink to={appointmentUrl} highlighted>
                     by react-i18next
-                  </Link>
+                  </StyledLink>
                 ) : (
                   <span>by react-i18next</span>
                 )}
