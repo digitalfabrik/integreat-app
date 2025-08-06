@@ -38,6 +38,7 @@ jobs:
         - mattermost
         - tuerantuer-google-play
         - sentry
+        - browserstack
       requires:
         - check
         - e2e_android
