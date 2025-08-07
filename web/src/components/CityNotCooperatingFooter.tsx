@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
 import Button from '@mui/material/Button'
+import Divider from '@mui/material/Divider'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -15,7 +16,6 @@ const FooterContainer = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  border-bottom: 2px solid ${props => props.theme.colors.footerLineColor};
 `
 
 const StyledIcon = styled(Icon)`
@@ -50,6 +50,7 @@ const CityNotCooperatingFooter = ({ languageCode }: CityNotCooperatingFooterProp
           {t('suggestToRegion', { appName: buildConfig().appName })}
         </Link>
       </Button>
+      <Divider />
     </FooterContainer>
   )
 }

@@ -1,9 +1,9 @@
-import { useTheme } from '@emotion/react'
 import styled from '@emotion/styled'
 import MailOutlinedIcon from '@mui/icons-material/MailOutlined'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined'
 import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'
+import Divider from '@mui/material/Divider'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -11,11 +11,14 @@ import { ContactModel } from 'shared/api'
 
 import { helpers } from '../constants/theme'
 import ContactItem from './ContactItem'
-import Spacer from './Spacer'
 
 const StyledContactHeader = styled.div`
   margin-bottom: 6px;
   ${helpers.adaptiveFontSize};
+`
+
+const StyledDivider = styled(Divider)`
+  margin: 12px 0;
 `
 
 const Contact = ({
@@ -26,7 +29,6 @@ const Contact = ({
   isLastContact?: boolean
 }): ReactElement => {
   const { t } = useTranslation('pois')
-  const theme = useTheme()
 
   return (
     <>
@@ -59,7 +61,7 @@ const Contact = ({
       {!!email && (
         <ContactItem iconSource={MailOutlinedIcon} iconAlt={t('eMail')} link={`mailto:${email}`} content={email} />
       )}
-      {!isLastContact && <Spacer borderColor={theme.colors.borderColor} />}
+      {!isLastContact && <StyledDivider />}
     </>
   )
 }
