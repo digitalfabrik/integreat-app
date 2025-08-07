@@ -26,6 +26,7 @@ const Title = styled.div`
   font-weight: 700;
   justify-content: space-between;
   ${helpers.adaptiveFontSize}
+  align-items: center;
 `
 
 const CollapseIcon = styled(Icon)`
