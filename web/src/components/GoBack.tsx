@@ -1,10 +1,10 @@
-import { css, useTheme } from '@emotion/react'
+import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import Divider from '@mui/material/Divider'
 import React, { memo, ReactElement } from 'react'
 
 import { helpers } from '../constants/theme'
-import Spacer from './Spacer'
 import Button from './base/Button'
 import Icon from './base/Icon'
 
@@ -43,23 +43,24 @@ const StyledIcon = styled(Icon)`
   width: 24px;
 `
 
+const StyledDivider = styled(Divider)`
+  margin: 12px 0;
+`
+
 type GoBackProps = {
   text: string
   goBack: () => void
   viewportSmall?: boolean
 }
 
-const GoBack = ({ goBack, viewportSmall = false, text }: GoBackProps): ReactElement => {
-  const theme = useTheme()
-  return (
-    <>
-      <StyledButton onClick={goBack} label={text} tabIndex={0} viewportSmall={viewportSmall}>
-        <StyledIcon src={ArrowBackIcon} directionDependent />
-        <DetailsHeaderTitle>{text}</DetailsHeaderTitle>
-      </StyledButton>
-      <Spacer borderColor={theme.colors.borderColor} />
-    </>
-  )
-}
+const GoBack = ({ goBack, viewportSmall = false, text }: GoBackProps): ReactElement => (
+  <>
+    <StyledButton onClick={goBack} label={text} tabIndex={0} viewportSmall={viewportSmall}>
+      <StyledIcon src={ArrowBackIcon} directionDependent />
+      <DetailsHeaderTitle>{text}</DetailsHeaderTitle>
+    </StyledButton>
+    <StyledDivider />
+  </>
+)
 
 export default memo(GoBack)

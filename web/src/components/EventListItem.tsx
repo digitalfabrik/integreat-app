@@ -15,7 +15,6 @@ import {
   EventThumbnailPlaceholder3,
 } from '../assets'
 import { EXCERPT_MAX_CHARS } from '../constants'
-import dimensions from '../constants/dimensions'
 import ListItem from './ListItem'
 import Icon from './base/Icon'
 import Tooltip from './base/Tooltip'
@@ -23,13 +22,13 @@ import Tooltip from './base/Tooltip'
 const Container = styled.div`
   display: flex;
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     flex-direction: column;
   }
 `
 
 const CommaContainer = styled.span`
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     display: none;
   }
 `

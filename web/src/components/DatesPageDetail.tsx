@@ -8,7 +8,6 @@ import { useTranslation } from 'react-i18next'
 import { MAX_DATE_RECURRENCES } from 'shared'
 import { DateModel } from 'shared/api'
 
-import dimensions from '../constants/dimensions'
 import PageDetail from './PageDetail'
 import Button from './base/Button'
 
@@ -17,13 +16,13 @@ const Container = styled.div`
   width: fit-content;
   gap: 8px 16px;
 
-  @media ${dimensions.mediumLargeViewport} {
+  ${props => props.theme.breakpoints.up('md')} {
     grid-template-columns: auto auto;
   }
 `
 
 const ContainerForThreeElements = styled(Container)`
-  @media ${dimensions.mediumLargeViewport} {
+  ${props => props.theme.breakpoints.up('md')} {
     & > :nth-of-type(3) {
       grid-column: 1 / 3;
     }
@@ -39,7 +38,7 @@ const StyledButton = styled(Button)`
   padding: 4px 8px;
   display: flex;
 
-  @media ${dimensions.mediumLargeViewport} {
+  ${props => props.theme.breakpoints.up('md')} {
     grid-column: 1 / 3;
   }
 `

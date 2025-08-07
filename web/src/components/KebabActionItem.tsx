@@ -9,7 +9,6 @@ const Container = styled.span`
   flex: 1;
   text-decoration: none;
   padding: 24px 0;
-  border-bottom: 1px solid ${props => props.theme.colors.themeColor};
 
   & > span {
     padding: 0 28px;
