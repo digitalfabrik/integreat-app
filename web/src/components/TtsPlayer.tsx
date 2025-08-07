@@ -4,112 +4,76 @@ import FastForwardIcon from '@mui/icons-material/FastForward'
 import FastRewindIcon from '@mui/icons-material/FastRewind'
 import PauseIcon from '@mui/icons-material/Pause'
 import PlayArrowIcon from '@mui/icons-material/PlayArrow'
+import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
+import Typography from '@mui/material/Typography'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import useWindowDimensions from '../hooks/useWindowDimensions'
-import Button from './base/Button'
-import Icon from './base/Icon'
 
-const StyledTtsPlayer = styled.dialog<{ isPlaying: boolean; footerHeight: number }>`
+const StyledTtsPlayer = styled.dialog<{ footerHeight: number }>`
   background-color: ${props =>
     props.theme.isContrastTheme ? props.theme.colors.backgroundAccentColor : props.theme.colors.ttsPlayerBackground};
   color: ${props => props.theme.colors.textColor};
-  border-radius: 28px;
-  width: 388px;
-  max-width: 388px;
+  border-radius: 8px;
+  width: 300px;
   display: flex;
-  flex-direction: ${props => (props.isPlaying ? 'column' : 'row')};
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 8px;
+  padding: 32px 24px 24px;
   position: fixed;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   bottom: ${props => props.footerHeight}px;
-  min-height: 92px;
-  gap: ${props => (props.isPlaying ? '4px;' : '36px')};
+  gap: 16px;
   border-color: transparent;
 
   ${props => props.theme.breakpoints.down('md')} {
     width: auto;
+    margin: 12px;
   }
 `
 
-const verticalMargin = 12
-
-const StyledIconButton = styled(IconButton)(({ theme }) => ({
-  backgroundColor: theme.palette.tertiary.light,
-
-  '&.Mui-disabled': {
-    backgroundColor: theme.palette.action.disabledBackground,
-  },
-}))
-
-const StyledPanel = styled.div<{ isPlaying?: boolean }>`
+const StyledPanel = styled.div`
   display: flex;
   align-items: center;
   gap: 20px;
-  margin: ${props => (props.isPlaying ? verticalMargin : 0)}px 0;
 `
 
-const BaseButton = styled(Button)`
+const PlayButton = styled(Button)`
   display: flex;
   justify-content: center;
   align-items: center;
   transition:
     box-shadow 0.2s ease,
     transform 0.1s ease;
-
-  &:active {
-    box-shadow: none;
-    transform: translateY(2px);
-  }
+  width: 48px;
+  height: 48px;
+  border-radius: 48px;
 `
 
-const StyledButton = styled(Button)`
+const StyledIconButton = styled(IconButton)`
   display: flex;
   gap: 4px;
   align-items: center;
 `
 
-const StyledCloseIcon = styled(Icon)`
-  color: ${props => (props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.textColor)};
-`
-const StyledPlaybackIcon = styled(Icon)`
-  width: 32px;
-  height: 32px;
-`
-
-const StyledCloseText = styled.span`
-  font-weight: bold;
-`
-
-const StyledText = styled.span`
-  font-weight: bold;
-  color: ${props => props.theme.colors.textColor};
-`
-
-const HeaderText = styled.span`
+const HeaderText = styled.div`
+  display: inline-block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
   font-weight: 600;
   align-self: center;
   font-size: 16px;
+  max-width: 100%;
 `
 
-const CloseButton = styled(BaseButton)`
-  border-radius: 8px;
-  background-color: ${props => props.theme.colors.themeColor};
-  color: ${props => (props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.textColor)};
-  padding: 4px 8px;
-  gap: 4px;
-  box-shadow: 1px 4px 4px 1px grey;
-`
-
-const CloseView = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  justify-content: center;
+const CloseIconButton = styled(IconButton)`
+  top: 0;
+  right: 0;
+  position: absolute;
 `
 
 type TtsPlayerProps = {
@@ -133,40 +97,33 @@ const TtsPlayer = ({
   pause,
   disabled,
 }: TtsPlayerProps): ReactElement => {
-  const { t } = useTranslation('layout')
   const { visibleFooterHeight } = useWindowDimensions()
+  const { t } = useTranslation('layout')
   return (
-    <StyledTtsPlayer isPlaying={isPlaying} footerHeight={visibleFooterHeight}>
-      <StyledPanel isPlaying={isPlaying}>
-        {isPlaying && (
-          <StyledButton label={t('previous')} onClick={playPrevious}>
-            <StyledText>{t('previous')}</StyledText>
-            <StyledPlaybackIcon src={FastRewindIcon} />
-          </StyledButton>
-        )}
-        <StyledIconButton
-          name={t(isPlaying ? 'pause' : 'play')}
+    <StyledTtsPlayer footerHeight={visibleFooterHeight}>
+      <CloseIconButton onClick={close} aria-label={t('common:close')}>
+        <CloseIcon />
+      </CloseIconButton>
+      <HeaderText>
+        <Typography variant='title1'>{title}</Typography>
+      </HeaderText>
+      {/* Sound player panel shouldn't be rotated in rtl */}
+      <StyledPanel dir='ltr'>
+        <StyledIconButton aria-label={t('previous')} onClick={playPrevious} size='small'>
+          <FastRewindIcon />
+        </StyledIconButton>
+        <PlayButton
+          color='primary'
+          sx={{ boxShadow: 3 }}
           aria-label={t(isPlaying ? 'pause' : 'play')}
           onClick={isPlaying ? pause : play}
-          disabled={disabled}
-          color='primary'
-          size='large'>
+          disabled={disabled}>
           {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
+        </PlayButton>
+        <StyledIconButton aria-label={t('next')} onClick={playNext} size='small'>
+          <FastForwardIcon />
         </StyledIconButton>
-        {isPlaying && (
-          <StyledButton label={t('next')} onClick={playNext}>
-            <StyledPlaybackIcon src={FastForwardIcon} />
-            <StyledText>{t('next')}</StyledText>
-          </StyledButton>
-        )}
       </StyledPanel>
-      <CloseView>
-        {!isPlaying && <HeaderText>{title}</HeaderText>}
-        <CloseButton label={t('common:close')} onClick={close}>
-          <StyledCloseIcon src={CloseIcon} />
-          <StyledCloseText>{t('common:close')}</StyledCloseText>
-        </CloseButton>
-      </CloseView>
     </StyledTtsPlayer>
   )
 }
