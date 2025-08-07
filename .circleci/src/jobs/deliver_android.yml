@@ -19,6 +19,8 @@ steps:
   - restore_environment_variables
   - restore_yarn_cache
   - restore_ruby_cache:
+      directory: native
+  - restore_ruby_cache:
       directory: native/android
   - run:
       name: Prepare Play Store metadata
@@ -28,6 +30,10 @@ steps:
       name: '[FL] Google PlayStore Upload'
       command: bundle exec fastlane android playstore_upload build_config_name:<< parameters.build_config_name >> aab_path:attached_workspace/<< parameters.build_config_name >>.aab production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
       working_directory: native/android
+  - run:
+      name: '[FL] Browserstack Upload Live'
+      command: bundle exec fastlane browserstack_upload path:attached_workspace/<< parameters.build_config_name >>.apk
+      working_directory: native
   - run:
       name: Upload Source Maps to Sentry
       command: |
