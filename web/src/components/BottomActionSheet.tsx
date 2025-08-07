@@ -28,6 +28,7 @@ const StyledSpacer = styled(Spacer)`
 
 const StyledBottomSheet = styled(BottomSheet)`
   direction: ${props => props.theme.contentDirection};
+  z-index: 3;
 `
 
 const StyledLayout = styled(RichLayout)`

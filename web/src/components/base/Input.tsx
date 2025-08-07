@@ -1,17 +1,6 @@
-import styled from '@emotion/styled'
-import { inputLabelClasses } from '@mui/material/InputLabel'
 import TextField from '@mui/material/TextField'
 import React, { ChangeEvent, ReactElement } from 'react'
 
-const StyledTextField = styled(TextField)`
-  .${inputLabelClasses.root} {
-    z-index: 0;
-  }
-
-  input:autofill {
-    transition-delay: calc(infinity * 1s);
-  }
-`
 export type InputProps = {
   id: string
   value: string
@@ -53,7 +42,7 @@ const Input = ({
   }
 
   return (
-    <StyledTextField
+    <TextField
       id={id}
       onClick={onClick}
       onChange={onInputChange}
