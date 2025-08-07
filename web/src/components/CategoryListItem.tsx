@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import Divider from '@mui/material/Divider'
 import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -49,7 +50,6 @@ const StyledLink = styled(Link)`
   align-items: center;
   margin: 0 auto;
   width: inherit;
-  border-bottom: 1px solid ${props => props.theme.colors.themeColor};
 
   &:hover {
     color: inherit;
@@ -71,6 +71,7 @@ const CategoryListItem = ({ category, subCategories }: CategoryListItemProps): R
         {!!subCategory.thumbnail && <CategoryThumbnail alt='' src={subCategory.thumbnail} />}
         <SubCategoryCaption>{subCategory.title}</SubCategoryCaption>
       </StyledLink>
+      <Divider />
     </SubCategory>
   ))
 
@@ -80,6 +81,7 @@ const CategoryListItem = ({ category, subCategories }: CategoryListItemProps): R
         {!!category.thumbnail && <CategoryThumbnail alt='' src={category.thumbnail} />}
         <CategoryItemCaption>{category.title}</CategoryItemCaption>
       </StyledLink>
+      <Divider />
       <SubCategoriesContainer>{SubCategories}</SubCategoriesContainer>
     </Row>
   )
