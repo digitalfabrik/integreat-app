@@ -1,13 +1,14 @@
-import { useTheme } from '@emotion/react'
 import styled from '@emotion/styled'
+import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined'
+import OpenInNewIcon from '@mui/icons-material/OpenInNew'
+import Divider from '@mui/material/Divider'
 import React, { Fragment, ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { getExternalMapsLink } from 'shared'
 import { PoiModel } from 'shared/api'
 
-import { ExternalLinkIcon, LocationIcon, PoiThumbnailPlaceholderLarge } from '../assets'
-import dimensions from '../constants/dimensions'
+import { PoiThumbnailPlaceholderLarge } from '../assets'
 import { helpers } from '../constants/theme'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import Collapsible from './Collapsible'
@@ -15,9 +16,12 @@ import Contact from './Contact'
 import OpeningHours from './OpeningHours'
 import PoiChips from './PoiChips'
 import RemoteContent from './RemoteContent'
-import Spacer from './Spacer'
 import Icon from './base/Icon'
 import Link from './base/Link'
+
+const StyledDivider = styled(Divider)`
+  margin: 12px 0;
+`
 
 const DetailsContainer = styled.div`
   font-family: ${props => props.theme.fonts.web.contentFont};
@@ -32,6 +36,7 @@ const StyledIcon = styled(Icon)`
 const StyledExternalLinkIcon = styled(StyledIcon)`
   width: 16px;
   height: 16px;
+  color: ${props => props.theme.colors.linkColor};
 `
 
 const Thumbnail = styled.img`
@@ -42,7 +47,7 @@ const Thumbnail = styled.img`
   object-fit: cover;
   border-radius: 10px;
 
-  @media screen and (${dimensions.smallViewport}) {
+  ${props => props.theme.breakpoints.down('md')} {
     order: 1;
     margin-top: 12px;
   }
@@ -63,7 +68,7 @@ const AddressContent = styled.div`
   flex-direction: column;
   ${helpers.adaptiveFontSize};
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     align-self: center;
   }
 `
@@ -100,7 +105,7 @@ const DetailSection = styled.div`
   display: flex;
   flex-direction: column;
 
-  @media screen and (${dimensions.smallViewport}) {
+  ${props => props.theme.breakpoints.down('md')} {
     flex-direction: row;
     justify-content: space-between;
   }
@@ -127,7 +132,6 @@ type PoiDetailsProps = {
 
 const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement => {
   const { viewportSmall } = useWindowDimensions()
-  const theme = useTheme()
   const { t } = useTranslation('pois')
   const { content, location, contacts, isCurrentlyOpen, openingHours, temporarilyClosed, appointmentUrl } = poi
 
@@ -143,11 +147,11 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
         {distance !== null && <Distance>{t('distanceKilometre', { distance: distance.toFixed(1) })}</Distance>}
         <PoiChips poi={poi} />
       </HeadingSection>
-      <Spacer borderColor={theme.colors.borderColor} />
+      <StyledDivider />
       {!viewportSmall && <Subheading>{t('detailsAddress')}</Subheading>}
       <DetailSection>
         <AddressContentWrapper>
-          {!viewportSmall && <StyledIcon src={LocationIcon} />}
+          {!viewportSmall && <StyledIcon src={LocationOnOutlinedIcon} />}
           <AddressContent>
             <span>{location.address}</span>
             <span>
@@ -157,12 +161,12 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
         </AddressContentWrapper>
         <StyledLink to={externalMapsLink}>
           {!viewportSmall && <LinkLabel>{t('detailsMapLink')}</LinkLabel>}
-          <StyledExternalLinkIcon src={ExternalLinkIcon} directionDependent />
+          <StyledExternalLinkIcon src={OpenInNewIcon} directionDependent />
         </StyledLink>
       </DetailSection>
       {contacts.length > 0 && (
         <>
-          <Spacer borderColor={theme.colors.borderColor} />
+          <StyledDivider />
           <StyledCollapsible title={t('contacts')}>
             <StyledContactsContainer>
               {contacts.map((contact, index) => (
@@ -176,7 +180,7 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
       )}
       {((openingHours && openingHours.length > 0) || temporarilyClosed || !!appointmentUrl) && (
         <>
-          <Spacer borderColor={theme.colors.borderColor} />
+          <StyledDivider />
           <OpeningHours
             openingHours={openingHours}
             isCurrentlyOpen={isCurrentlyOpen}
@@ -188,7 +192,7 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
 
       {content.length > 0 && (
         <>
-          <Spacer borderColor={theme.colors.borderColor} />
+          <StyledDivider />
           <Collapsible title={t('detailsInformation')}>
             <RemoteContent html={content} smallText />
           </Collapsible>
@@ -196,7 +200,7 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
       )}
       {toolbar && (
         <>
-          <Spacer borderColor={theme.colors.borderColor} />
+          <StyledDivider />
           <ToolbarWrapper>{toolbar}</ToolbarWrapper>
         </>
       )}

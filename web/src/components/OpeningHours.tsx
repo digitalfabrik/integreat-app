@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -6,7 +7,6 @@ import { useTranslation } from 'react-i18next'
 import { weekdays } from 'shared'
 import { OpeningHoursModel } from 'shared/api'
 
-import { ExternalLinkIcon } from '../assets'
 import { helpers } from '../constants/theme'
 import Collapsible from './Collapsible'
 import OpeningEntry from './OpeningEntry'
@@ -57,6 +57,7 @@ const StyledExternalLinkIcon = styled(Icon)`
   align-self: center;
   width: 16px;
   height: 16px;
+  color: ${props => props.theme.colors.linkColor};
 `
 
 type OpeningHoursTitleProps = {
@@ -95,7 +96,7 @@ const OpeningHours = ({
   const AppointmentLink = appointmentUrl ? (
     <StyledLink to={appointmentUrl}>
       <LinkLabel>{t('makeAppointment')}</LinkLabel>
-      <StyledExternalLinkIcon src={ExternalLinkIcon} directionDependent />
+      <StyledExternalLinkIcon src={OpenInNewIcon} directionDependent />
     </StyledLink>
   ) : null
 

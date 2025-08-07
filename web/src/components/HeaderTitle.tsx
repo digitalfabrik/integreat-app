@@ -17,11 +17,11 @@ const HeaderTitleContainer = styled.div<{ long: boolean }>`
   padding: 0 10px;
   box-sizing: border-box;
 
-  @media ${dimensions.minMaxWidth} {
+  ${props => props.theme.breakpoints.up('lg')} {
     font-size: ${props => (props.long ? '1.5rem' : '1.8rem')};
   }
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     font-family: ${props => props.theme.fonts.web.decorativeFont};
     font-size: ${props => props.theme.fonts.decorativeFontSize};
     height: ${HEADER_TITLE_HEIGHT}px;

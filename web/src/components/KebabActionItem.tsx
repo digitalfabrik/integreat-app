@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
-import React, { ReactElement } from 'react'
+import { SvgIconProps } from '@mui/material/SvgIcon'
+import React, { ElementType, ReactElement } from 'react'
 
 import Icon from './base/Icon'
 
@@ -8,7 +9,6 @@ const Container = styled.span`
   flex: 1;
   text-decoration: none;
   padding: 24px 0;
-  border-bottom: 1px solid ${props => props.theme.colors.themeColor};
 
   & > span {
     padding: 0 28px;
@@ -24,7 +24,7 @@ const StyledIcon = styled(Icon)`
 
 type KebabActionItemProps = {
   text: string
-  iconSrc: string
+  iconSrc: string | ElementType<SvgIconProps>
 }
 
 const KebabActionItem = ({ text, iconSrc }: KebabActionItemProps): ReactElement => (

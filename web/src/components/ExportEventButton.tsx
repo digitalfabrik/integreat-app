@@ -1,33 +1,17 @@
 import styled from '@emotion/styled'
+import DownloadIcon from '@mui/icons-material/Download'
+import Button from '@mui/material/Button'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { EventModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
-import dimensions from '../constants/dimensions'
-import useWindowDimensions from '../hooks/useWindowDimensions'
 import RadioGroup from './base/RadioGroup'
-import TextButton from './base/TextButton'
 
 const ButtonContainer = styled.div`
   display: flex;
   gap: 16px;
-
-  @media ${dimensions.smallViewport} {
-    flex-direction: column;
-  }
-`
-
-const CancelButton = styled(TextButton)<{ fullWidth: boolean }>`
-  ${props => props.fullWidth && 'width: 100%;'}
-  background-color: ${props => props.theme.colors.textDecorationColor};
-  margin: 0;
-`
-
-const StyledButton = styled(TextButton)<{ fullWidth: boolean }>`
-  ${props => props.fullWidth && 'width: 100%;'}
-  margin: 0;
 `
 
 type ExportEventButtonProps = {
@@ -38,7 +22,6 @@ const ExportEventButton = ({ event }: ExportEventButtonProps): ReactElement => {
   const [isExporting, setIsExporting] = useState<boolean>(false)
   const [exportRecurring, setExportRecurring] = useState<boolean>(false)
   const { t } = useTranslation('events')
-  const { viewportSmall } = useWindowDimensions()
 
   const isRecurring = event.date.hasMoreRecurrencesThan(1)
 
@@ -69,24 +52,25 @@ const ExportEventButton = ({ event }: ExportEventButtonProps): ReactElement => {
         ]}
       />
       <ButtonContainer>
-        <CancelButton onClick={() => setIsExporting(false)} text={t('layout:cancel')} fullWidth={viewportSmall} />
-        <StyledButton
+        <Button onClick={() => setIsExporting(false)}>{t('layout:cancel')}</Button>
+        <Button
           onClick={() => {
             downloadEventAsIcsFile(event, exportRecurring)
             setExportRecurring(false)
             setIsExporting(false)
           }}
-          text={t('export')}
-          fullWidth={viewportSmall}
-        />
+          variant='outlined'
+          startIcon={<DownloadIcon />}>
+          {t('export')}
+        </Button>
       </ButtonContainer>
     </>
   ) : (
-    <StyledButton
+    <Button
       onClick={() => (isRecurring ? setIsExporting(true) : downloadEventAsIcsFile(event, false))}
-      text={t('export')}
-      fullWidth={viewportSmall}
-    />
+      startIcon={<DownloadIcon />}>
+      {t('export')}
+    </Button>
   )
 }
 

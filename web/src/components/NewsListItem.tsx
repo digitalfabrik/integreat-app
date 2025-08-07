@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import Divider from '@mui/material/Divider'
 import { TFunction } from 'i18next'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
@@ -36,7 +37,6 @@ const Body = styled.p`
 
 const StyledNewsListItem = styled.article`
   padding-bottom: 2px;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.textSecondaryColor};
 `
 
 const StyledContainer = styled.div`
@@ -70,6 +70,7 @@ const NewsListItem = ({ title, content, timestamp, t, type, link }: NewsListItem
           </StyledContainer>
         </Description>
       </StyledLink>
+      <Divider />
     </StyledNewsListItem>
   )
 }

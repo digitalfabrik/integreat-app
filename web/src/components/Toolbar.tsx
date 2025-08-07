@@ -1,8 +1,8 @@
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
+import Divider from '@mui/material/Divider'
 import React, { ReactElement, ReactNode } from 'react'
 
-import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 
 const Container = styled.div`
@@ -35,18 +35,11 @@ const ToolbarContainer = styled.div<{ direction: 'row' | 'column'; hasPadding: b
     margin: 0.5rem 0 0;
   }
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     width: 100%;
     flex-flow: row wrap;
     justify-content: center;
   }
-`
-
-const Divider = styled.hr`
-  margin: 12px 24px;
-  background-color: ${props => props.theme.colors.borderColor};
-  height: 1px;
-  border: none;
 `
 
 type ToolbarProps = {
@@ -66,7 +59,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
   const hasPadding = iconDirection === 'column'
   return (
     <Container as={viewportSmall ? 'footer' : 'div'}>
-      {viewportSmall && !hideDivider && <Divider />}
+      {viewportSmall && !hideDivider && <Divider variant='middle' />}
       <ToolbarContainer className={className} direction={iconDirection} hasPadding={hasPadding}>
         {children}
       </ToolbarContainer>
