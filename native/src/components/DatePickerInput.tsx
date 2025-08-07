@@ -1,13 +1,14 @@
 import { DateTime } from 'luxon'
 import React, { ReactElement, RefObject } from 'react'
 import { NativeSyntheticEvent, StyleProp, TextInput, TextInputKeyPressEventData, ViewStyle } from 'react-native'
+import { KeyboardExtendedInput } from 'react-native-external-keyboard'
 import styled, { useTheme } from 'styled-components/native'
 
 import { zeroPad } from 'shared/utils/dateFilterUtils'
 
-const Input = styled(TextInput)`
+const Input = styled(KeyboardExtendedInput)`
   text-align: center;
-  min-width: 20%;
+  min-width: 40%;
   color: ${props => props.theme.colors.textColor};
 `
 
@@ -90,6 +91,8 @@ const DatePickerInput = ({
   return (
     <Input
       style={style}
+      focusType='default'
+      blurType='auto'
       ref={ref}
       placeholder={placeholder}
       placeholderTextColor={theme.isContrastTheme ? theme.colors.textColor : theme.colors.textSecondaryColor}
