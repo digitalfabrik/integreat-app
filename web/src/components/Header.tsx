@@ -115,7 +115,7 @@ export const Header = ({
   const scrollHeight = viewportSmall ? headerHeightSmall : headerHeightLarge
 
   return (
-    <Headroom scrollHeight={scrollHeight} height={height} zIndex={10}>
+    <Headroom scrollHeight={scrollHeight} height={height} zIndex={2}>
       <HeaderContainer>
         <Row>
           <HeaderLogo link={logoHref} />
