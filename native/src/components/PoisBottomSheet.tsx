@@ -74,7 +74,7 @@ const PoisBottomSheet = ({
 
   const handlePoiFocus = useCallback(() => {
     setLastInteractionWasKeyboard(true)
-    if (!isFullscreen && bottomSheetRef?.current) {
+    if (!isFullscreen && bottomSheetRef.current) {
       const fullscreenIndex = snapPoints.length - 1
       bottomSheetRef.current.snapToIndex(fullscreenIndex)
       setSnapPointIndex(fullscreenIndex)
@@ -83,7 +83,7 @@ const PoisBottomSheet = ({
 
   const handlePoiSelection = (poi: PoiModel) => {
     selectPoi(poi)
-    if (bottomSheetRef?.current && lastInteractionWasKeyboard) {
+    if (bottomSheetRef.current && lastInteractionWasKeyboard) {
       bottomSheetRef.current.snapToIndex(1)
       setSnapPointIndex(1)
     }
