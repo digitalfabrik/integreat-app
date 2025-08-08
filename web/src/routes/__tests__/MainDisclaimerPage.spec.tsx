@@ -5,7 +5,6 @@ import MainDisclaimerPage from '../MainDisclaimerPage'
 
 jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
-jest.mock('react-tooltip')
 
 describe('MainDisclaimerPage', () => {
   const languageCode = 'de'

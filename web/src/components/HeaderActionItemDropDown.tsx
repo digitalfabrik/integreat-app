@@ -2,12 +2,11 @@ import { useTheme } from '@emotion/react'
 import styled from '@emotion/styled'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
+import Tooltip from '@mui/material/Tooltip'
 import React, { ReactElement, ReactNode, useRef, useState } from 'react'
 
 import useOnClickOutside from '../hooks/useOnClickOutside'
-import { spacesToDashes } from '../utils/stringUtils'
 import DropDownContainer from './DropDownContainer'
-import Tooltip from './base/Tooltip'
 
 const StyledButton = styled(Button)`
   background-color: ${props => props.theme.palette.tertiary.light};
@@ -41,19 +40,16 @@ const HeaderActionItemDropDown = ({ icon, text, innerText, children }: HeaderAct
   const wrapperRef = useRef(null)
   useOnClickOutside(wrapperRef, closeDropDown)
 
-  const id = spacesToDashes(text)
-
   return (
     <div ref={wrapperRef}>
-      <Tooltip id={id} tooltipContent={text}>
+      <Tooltip title={text}>
         {innerText ? (
-          <StyledButton onClick={toggleDropDown} id={id} name={text} aria-label={text} startIcon={icon}>
+          <StyledButton onClick={toggleDropDown} name={text} aria-label={text} startIcon={icon}>
             {innerText}
           </StyledButton>
         ) : (
           <IconButton
             onClick={toggleDropDown}
-            id={id}
             name={text}
             color='primary'
             sx={{ backgroundColor: theme.palette.tertiary.light }}

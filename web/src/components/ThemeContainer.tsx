@@ -1,6 +1,6 @@
 import createCache from '@emotion/cache'
-import { CacheProvider, Global, Theme, ThemeProvider } from '@emotion/react'
-import { createTheme as createMuiTheme } from '@mui/material/styles'
+import { CacheProvider, Global, Theme } from '@emotion/react'
+import { createTheme as createMuiTheme, ThemeProvider } from '@mui/material/styles'
 import rtlPlugin from '@mui/stylis-plugin-rtl'
 import React, { ReactElement, ReactNode, useMemo } from 'react'
 import { prefixer } from 'stylis'
@@ -53,6 +53,26 @@ const createTheme = (
       shadows: muiShadowCreator(themeType),
       typography: buildConfig().typography,
       palette: isContrast ? buildConfig().darkTheme.palette : buildConfig().lightTheme.palette,
+      components: {
+        MuiTooltip: {
+          defaultProps: {
+            arrow: true,
+          },
+          styleOverrides: {
+            popper: {
+              padding: '8px',
+            },
+            arrow: {
+              color: buildConfig().darkTheme.palette.primary.main,
+            },
+            tooltip: {
+              backgroundColor: buildConfig().darkTheme.palette.primary.main,
+              fontSize: buildConfig().typography.label1?.fontSize,
+              padding: '8px 16px',
+            },
+          },
+        },
+      },
     }),
   }
 }
