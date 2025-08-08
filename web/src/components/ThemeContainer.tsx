@@ -53,6 +53,8 @@ const createTheme = (
       shadows: muiShadowCreator(themeType),
       typography: buildConfig().typography,
       palette: isContrast ? buildConfig().darkTheme.palette : buildConfig().lightTheme.palette,
+      neutral: buildConfig().lightTheme.palette.neutral,
+      quartary: buildConfig().lightTheme.palette.quartary,
     }),
   }
 }
