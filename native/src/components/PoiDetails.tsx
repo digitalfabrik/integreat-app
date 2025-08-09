@@ -72,7 +72,9 @@ const PoiDetails = ({ poi, language, distance }: PoiDetailsProps): ReactElement 
             <StyledContactsContainer>
               {contacts.map((contact, index) => (
                 <Contact
-                  key={contact.headline ?? contact.website ?? contact.name ?? contact.phoneNumber}
+                  key={
+                    contact.headline ?? contact.website ?? contact.name ?? contact.phoneNumber ?? contact.mobileNumber
+                  }
                   contact={contact}
                   isLastContact={contacts.length - 1 === index}
                 />
