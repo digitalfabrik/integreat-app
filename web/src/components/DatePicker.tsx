@@ -13,6 +13,11 @@ const DateContainer = styled.div`
   width: fit-content;
   position: relative;
 `
+
+const StyledError = styled.span`
+  color: ${props => props.theme.colors.invalidInput};
+`
+
 const StyledDatePicker = styled(DatePicker)`
   margin-bottom: 8px;
   .${formHelperTextClasses.root} {
@@ -54,13 +59,10 @@ const CustomDatePicker = ({
   const { t } = useTranslation('events')
   const [datePickerError, setDatePickerError] = useState('')
   const { languageCode } = useCityContentParams()
-
-  const maxDate = DateTime.fromISO('2099-12-31')
-  const minDate = DateTime.now().minus({ days: 1 })
-  const isWithinRange = (newValue: DateTime<true>) => newValue > minDate && newValue < maxDate
+  const isError = error || datePickerError
 
   const handleDateChange = (newValue: DateTime | null) => {
-    if (newValue && isWithinRange(newValue)) {
+    if (newValue) {
       setDate(newValue)
       setDatePickerError('')
     }
@@ -76,9 +78,6 @@ const CustomDatePicker = ({
     <DateContainer>
       <LocalizationProvider dateAdapter={CustomAdapterLuxon} adapterLocale={languageCode}>
         <StyledDatePicker
-          disablePast
-          minDate={minDate}
-          maxDate={maxDate}
           label={title}
           value={date}
           onChange={handleDateChange}
@@ -88,7 +87,7 @@ const CustomDatePicker = ({
               placeholder: placeholderDate
                 .setLocale(languageCode)
                 .toLocaleString({ month: '2-digit', day: '2-digit', year: 'numeric' }),
-              helperText: error || datePickerError || null,
+              helperText: isError ? <StyledError>{isError}</StyledError> : null,
             },
             openPickerButton: {
               'aria-label': calendarLabel,
