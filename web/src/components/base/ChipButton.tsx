@@ -1,4 +1,5 @@
-import { Chip, ChipOwnProps, Theme, useTheme } from '@mui/material/SvgIcon'
+import { Theme, useTheme } from '@emotion/react'
+import Chip, { ChipOwnProps } from '@mui/material/Chip'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
