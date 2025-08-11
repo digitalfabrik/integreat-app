@@ -7,25 +7,20 @@ jobs:
       prepare_delivery: true
       platform: native
       context:
-        - mattermost
         - deliverino
-  - check:
-      context:
-        - mattermost
+  - check
 
   - build_android:
       matrix:
         parameters:
           build_config_name: [integreat-e2e, integreat, malte, aschaffenburg]
       context:
-        - mattermost
         - credentials-repo
         - credentials-integreat
       requires:
         - bump_version
   - e2e_android:
       context:
-        - mattermost
         - browserstack
       requires:
         - build_android-integreat-e2e
@@ -35,7 +30,6 @@ jobs:
         parameters:
           build_config_name: [integreat, malte, aschaffenburg]
       context:
-        - mattermost
         - tuerantuer-google-play
         - sentry
         - browserstack
@@ -49,14 +43,12 @@ jobs:
         parameters:
           build_config_name: [integreat-e2e, integreat, malte, aschaffenburg]
       context:
-        - mattermost
         - tuerantuer-apple
         - fastlane-match
       requires:
         - bump_version
   - e2e_ios:
       context:
-        - mattermost
         - browserstack
       requires:
         - build_ios-integreat-e2e
@@ -66,7 +58,6 @@ jobs:
         parameters:
           build_config_name: [integreat, malte, aschaffenburg]
       context:
-        - mattermost
         - tuerantuer-apple
         - sentry
       requires:
@@ -78,7 +69,6 @@ jobs:
       production_delivery: true
       platform: native
       context:
-        - mattermost
         - deliverino
       requires:
         - deliver_android
