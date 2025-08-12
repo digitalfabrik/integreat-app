@@ -1,40 +1,31 @@
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
+import Box from '@mui/material/Box'
+import MuiBreadcrumbs from '@mui/material/Breadcrumbs'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
-
-import { UiDirectionType } from 'translations'
 
 import BreadcrumbModel from '../models/BreadcrumbModel'
 import Breadcrumb from './Breadcrumb'
 import JsonLdBreadcrumbs from './JsonLdBreadcrumbs'
 import Icon from './base/Icon'
 
-const opposite = (direction: UiDirectionType) => (direction === 'ltr' ? 'rtl' : 'ltr')
-
-const Wrapper = styled('nav')`
+const StyledBox = styled(Box)`
   margin: 10px 0;
-  text-align: start;
-  white-space: nowrap;
   overflow: hidden;
   width: 100%;
-  direction: ${props => opposite(props.theme.contentDirection)};
+  align-items: center;
 `
 
-const OrderedList = styled('ol')`
-  direction: ${props => props.theme.contentDirection};
-  display: flex;
-  white-space: nowrap;
-  overflow: hidden;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+const StyledMuiBreadcrumbs = styled(MuiBreadcrumbs)`
+  & ol {
+    flex-wrap: nowrap;
+    overflow: hidden;
+    align-items: flex-start;
+  }
 
-  /* avoid changing height when switching between pages (show one line even if there are no breadcrumbs) */
-
-  &:empty::after {
-    padding-inline-start: 1px;
-    content: '';
+  & li {
+    overflow: hidden;
   }
 `
 
@@ -45,6 +36,15 @@ const StyledIcon = styled(Icon)`
 
 const StyledLink = styled(Link)`
   margin-inline-end: 4px;
+  flex-shrink: 0;
+`
+
+const Separator = styled('span')`
+  &::before {
+    color: ${props => props.theme.legacy.colors.textColor};
+    font-size: 19px;
+    content: ' > ';
+  }
 `
 
 type BreadcrumbsProps = {
@@ -58,29 +58,29 @@ const Breadcrumbs = ({ ancestorBreadcrumbs, currentBreadcrumb }: BreadcrumbsProp
   // Min text length after which the last breadcrumb item should shrink
   const MIN_SHRINK_CHARS = 20
 
-  /* We do some funky stuff with directions here. See this link for more information about the idea:
-   https://css-tricks.com/position-vertical-scrollbars-on-opposite-side-with-css/
-   Basically, we are inverting the direction on the wrapper and then making sure that the direction of the content
-   has the opposite direction of the wrapper. */
   return (
-    <Wrapper>
+    <StyledBox>
       <JsonLdBreadcrumbs breadcrumbs={jsonLdBreadcrumbs} />
-      <OrderedList>
-        {ancestorBreadcrumbs.map((breadcrumb, index) =>
-          ancestorBreadcrumbs.length > 1 && index === 0 ? (
-            <li key={breadcrumb.pathname}>
-              <StyledLink to={breadcrumb.pathname}>
+      <StyledMuiBreadcrumbs aria-label='breadcrumb' separator={<Separator />}>
+        {ancestorBreadcrumbs.map((breadcrumb, index) => {
+          if (ancestorBreadcrumbs.length > 1 && index === 0) {
+            return (
+              <StyledLink key={breadcrumb.pathname} to={breadcrumb.pathname}>
                 <StyledIcon src={HomeOutlinedIcon} title={breadcrumb.title} />
               </StyledLink>
-            </li>
-          ) : (
-            <Breadcrumb key={breadcrumb.title} shrink={breadcrumb.title.length >= MIN_SHRINK_CHARS}>
-              {breadcrumb.node}
-            </Breadcrumb>
-          ),
-        )}
-      </OrderedList>
-    </Wrapper>
+            )
+          }
+          return (
+            <Breadcrumb
+              title={breadcrumb.title}
+              to={breadcrumb.pathname}
+              shrink={breadcrumb.title.length >= MIN_SHRINK_CHARS}
+              key={breadcrumb.title}
+            />
+          )
+        })}
+      </StyledMuiBreadcrumbs>
+    </StyledBox>
   )
 }
 
