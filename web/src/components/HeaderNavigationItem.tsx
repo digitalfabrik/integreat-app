@@ -13,8 +13,8 @@ const Container = styled.div`
 
 const StyledLink = styled(Link)<{ active: boolean }>`
   ${helpers.removeLinkHighlighting};
-  color: ${props => props.theme.colors.textSecondaryColor};
-  font-family: ${props => props.theme.fonts.web.contentFont};
+  color: ${props => props.theme.legacy.colors.textSecondaryColor};
+  font-family: ${props => props.theme.legacy.fonts.web.contentFont};
   font-size: 0.9em;
   font-weight: 800;
   text-align: center;
@@ -26,36 +26,37 @@ const StyledLink = styled(Link)<{ active: boolean }>`
   height: 100%;
 
   ${props => props.theme.breakpoints.down('md')} {
-    font-size: ${props => props.theme.fonts.decorativeFontSizeSmall};
+    font-size: ${props => props.theme.legacy.fonts.decorativeFontSizeSmall};
     font-weight: 400;
     min-width: 50px;
   }
 
   & > div > svg {
-    color: ${props => (props.active ? props.theme.colors.textColor : props.theme.colors.textSecondaryColor)};
+    color: ${props =>
+      props.active ? props.theme.legacy.colors.textColor : props.theme.legacy.colors.textSecondaryColor};
   }
 
   &:hover {
-    color: ${props => props.theme.colors.textColor};
+    color: ${props => props.theme.legacy.colors.textColor};
   }
 
   &:hover > div > svg {
-    color: ${props => props.theme.colors.textColor};
+    color: ${props => props.theme.legacy.colors.textColor};
   }
 
   &:hover > div:first-of-type {
     box-shadow: 0 0 0 0 rgb(0 0 0 / 30%);
-    border-color: ${props => props.theme.colors.themeColor};
+    border-color: ${props => props.theme.legacy.colors.themeColor};
   }
 
   ${props =>
     props.active &&
     css`
-      color: ${props.theme.colors.textColor};
+      color: ${props.theme.legacy.colors.textColor};
 
       & > div:first-of-type {
         box-shadow: 0 0 0 0 rgb(0 0 0 / 30%);
-        border-color: ${props.theme.colors.themeColor};
+        border-color: ${props.theme.legacy.colors.themeColor};
       }
     `}
 `
@@ -73,7 +74,7 @@ const Circle = styled.div`
   align-items: center;
 
   ${props => props.theme.breakpoints.up('md')} {
-    background-color: ${props => props.theme.colors.backgroundColor};
+    background-color: ${props => props.theme.legacy.colors.backgroundColor};
     box-sizing: border-box;
     border-radius: 100%;
     height: ${ICON_SIZE_LARGE}px;
@@ -82,7 +83,7 @@ const Circle = styled.div`
     transition:
       box-shadow 0.2s,
       border 0.2s;
-    border: ${props => props.theme.colors.backgroundColor} 2px solid;
+    border: ${props => props.theme.legacy.colors.backgroundColor} 2px solid;
   }
 
   ${props => props.theme.breakpoints.down('md')} {

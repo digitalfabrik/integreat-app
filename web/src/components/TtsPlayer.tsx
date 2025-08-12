@@ -14,8 +14,10 @@ import useWindowDimensions from '../hooks/useWindowDimensions'
 
 const StyledTtsPlayer = styled.dialog<{ footerHeight: number }>`
   background-color: ${props =>
-    props.theme.isContrastTheme ? props.theme.colors.backgroundAccentColor : props.theme.colors.ttsPlayerBackground};
-  color: ${props => props.theme.colors.textColor};
+    props.theme.isContrastTheme
+      ? props.theme.legacy.colors.backgroundAccentColor
+      : props.theme.legacy.colors.ttsPlayerBackground};
+  color: ${props => props.theme.legacy.colors.textColor};
   border-radius: 8px;
   width: 300px;
   display: flex;

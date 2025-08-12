@@ -35,20 +35,20 @@ const StyledInput = styled(DatePickerWrapper)`
   height: ${INPUT_HEIGHT};
   padding: 0 16px;
   border-radius: 8px;
-  border-color: ${props => props.theme.colors.themeColorLight};
+  border-color: ${props => props.theme.legacy.colors.themeColorLight};
   border-width: 3px;
   border-style: solid;
 
   &&& {
     &:focus {
       outline: none;
-      border-color: ${props => props.theme.colors.themeColor};
+      border-color: ${props => props.theme.legacy.colors.themeColor};
     }
   }
 `
 
 const StyledTitle = styled.span`
-  background-color: ${props => props.theme.colors.backgroundColor};
+  background-color: ${props => props.theme.legacy.colors.backgroundColor};
   position: absolute;
   top: -12px;
   left: 12px;
@@ -59,7 +59,7 @@ const StyledTitle = styled.span`
 const StyledError = styled.div`
   font-size: 12px;
   font-weight: bold;
-  color: ${props => props.theme.colors.invalidInput};
+  color: ${props => props.theme.legacy.colors.invalidInput};
 `
 
 export type CustomDatePickerProps = {

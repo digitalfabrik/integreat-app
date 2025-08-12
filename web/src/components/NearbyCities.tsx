@@ -20,8 +20,8 @@ const NearbyMessageContainer = styled.div`
 `
 
 const NearbyMessage = styled.span`
-  color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.web.decorativeFont};
+  color: ${props => props.theme.legacy.colors.textColor};
+  font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
   align-self: center;
 `
 

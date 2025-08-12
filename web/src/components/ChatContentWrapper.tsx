@@ -8,7 +8,7 @@ import ChatMenu from './ChatMenu'
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  font-family: ${props => props.theme.fonts.web.decorativeFont};
+  font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
   border-radius: 5px;
   flex: 1;
   width: 400px;
@@ -23,10 +23,10 @@ const Header = styled.div<{ small: boolean }>`
   flex-direction: ${props => (props.small ? 'row-reverse' : 'row')};
   justify-content: space-between;
   ${helpers.adaptiveThemeTextColor}
-  font-size: ${props => props.theme.fonts.hintFontSize};
+  font-size: ${props => props.theme.legacy.fonts.hintFontSize};
   font-weight: bold;
   align-items: center;
-  background-color: ${props => props.theme.colors.themeColor};
+  background-color: ${props => props.theme.legacy.colors.themeColor};
   padding: 4px 8px;
 
   ${props => props.theme.breakpoints.up('md')} {

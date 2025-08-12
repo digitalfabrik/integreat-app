@@ -13,7 +13,7 @@ const Container = styled.span`
   & > span {
     padding: 0 28px;
     align-self: center;
-    color: ${props => props.theme.colors.textColor};
+    color: ${props => props.theme.legacy.colors.textColor};
   }
 `
 

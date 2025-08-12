@@ -38,7 +38,7 @@ const List = styled.ul`
 
 const SearchCounter = styled.p`
   padding: 0 5px;
-  color: ${props => props.theme.colors.textSecondaryColor};
+  color: ${props => props.theme.legacy.colors.textSecondaryColor};
 `
 
 const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElement | null => {

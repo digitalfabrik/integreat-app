@@ -12,16 +12,16 @@ export const RichLayout = styled.div`
   min-height: 100vh;
   flex-direction: column;
   justify-content: space-between;
-  color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.web.decorativeFont};
-  font-size-adjust: ${props => props.theme.fonts.fontSizeAdjust};
-  background-color: ${props => props.theme.colors.backgroundColor};
-  line-height: ${props => props.theme.fonts.decorativeLineHeight};
+  color: ${props => props.theme.legacy.colors.textColor};
+  font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
+  font-size-adjust: ${props => props.theme.legacy.fonts.fontSizeAdjust};
+  background-color: ${props => props.theme.legacy.colors.backgroundColor};
+  line-height: ${props => props.theme.legacy.fonts.decorativeLineHeight};
 
   & a,
   button {
     &:focus-visible {
-      outline: 2px solid ${props => props.theme.colors.textSecondaryColor};
+      outline: 2px solid ${props => props.theme.legacy.colors.textSecondaryColor};
     }
 
     cursor: pointer;
@@ -33,7 +33,7 @@ const Body = styled.div<{ fullWidth: boolean; disableScrollingSafari: boolean }>
   box-sizing: border-box;
   margin: 0 auto;
   flex-grow: 1;
-  background-color: ${props => props.theme.colors.backgroundColor};
+  background-color: ${props => props.theme.legacy.colors.backgroundColor};
   word-wrap: break-word;
   min-height: 100%;
   display: flex;
@@ -72,7 +72,7 @@ const Main = styled.main<{ fullWidth: boolean }>`
   word-wrap: break-word;
 
   & p {
-    margin: ${props => props.theme.fonts.standardParagraphMargin} 0;
+    margin: ${props => props.theme.legacy.fonts.standardParagraphMargin} 0;
   }
 
   ${props => props.theme.breakpoints.down('md')} {

@@ -9,8 +9,8 @@ import { useTranslation } from 'react-i18next'
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: ${props => props.theme.colors.backgroundColor};
-  font-family: ${props => props.theme.fonts.web.decorativeFont};
+  background-color: ${props => props.theme.legacy.colors.backgroundColor};
+  font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
 `
 
 const Header = styled.div<{ small: boolean }>`
@@ -18,7 +18,7 @@ const Header = styled.div<{ small: boolean }>`
   padding: 16px;
   flex-direction: ${props => (props.small ? 'row-reverse' : 'row')};
   justify-content: space-between;
-  font-size: ${props => props.theme.fonts.subTitleFontSize};
+  font-size: ${props => props.theme.legacy.fonts.subTitleFontSize};
   font-weight: bold;
   align-items: center;
 
@@ -36,7 +36,7 @@ const TitleContainer = styled.div`
   justify-content: center;
   align-items: center;
   gap: 12px;
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
 `
 
 type ModalProps = {

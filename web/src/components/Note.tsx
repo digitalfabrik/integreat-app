@@ -7,19 +7,19 @@ import Icon from './base/Icon'
 
 const NoteContainer = styled.div`
   display: flex;
-  background-color: ${props => props.theme.colors.warningColor};
+  background-color: ${props => props.theme.legacy.colors.warningColor};
   padding: 12px;
   gap: 12px;
   align-items: center;
 `
 
 const NoteText = styled.span`
-  font-size: ${props => props.theme.fonts.decorativeFontSizeSmall};
+  font-size: ${props => props.theme.legacy.fonts.decorativeFontSizeSmall};
   ${helpers.adaptiveThemeTextColor}
 `
 
 const StyledIcon = styled(Icon)`
-  color: ${props => props.theme.isContrastTheme && props.theme.colors.backgroundColor};
+  color: ${props => props.theme.isContrastTheme && props.theme.legacy.colors.backgroundColor};
 `
 
 type NoteProps = {

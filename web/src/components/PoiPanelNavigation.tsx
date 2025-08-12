@@ -15,7 +15,7 @@ const NavigationContainer = styled.div`
 
 const StyledButton = styled(Button)`
   display: flex;
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
 `
 
 const Label = styled.span`

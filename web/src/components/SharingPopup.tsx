@@ -30,9 +30,9 @@ const TooltipContainer = styled.div<{
   tooltipFlow: 'vertical' | 'horizontal'
   optionsVisible: boolean
 }>`
-  background-color: ${props => props.theme.colors.backgroundColor};
+  background-color: ${props => props.theme.legacy.colors.backgroundColor};
   padding: 8px;
-  border: 2px solid ${props => props.theme.colors.textDecorationColor};
+  border: 2px solid ${props => props.theme.legacy.colors.textDecorationColor};
   width: max-content;
   position: absolute;
   display: flex;
@@ -67,7 +67,7 @@ const TooltipContainer = styled.div<{
 
   &::before {
     z-index: 2000;
-    border-bottom: 10px solid ${props => props.theme.colors.backgroundColor};
+    border-bottom: 10px solid ${props => props.theme.legacy.colors.backgroundColor};
     border-inline-start: 10px solid transparent;
     border-inline-end: 10px solid transparent;
 
@@ -95,7 +95,7 @@ const TooltipContainer = styled.div<{
 
   &::after {
     z-index: 1000;
-    border-bottom: 11px solid ${props => props.theme.colors.textDecorationColor};
+    border-bottom: 11px solid ${props => props.theme.legacy.colors.textDecorationColor};
     border-inline-start: 11px solid transparent;
     border-inline-end: 11px solid transparent;
 

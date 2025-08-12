@@ -20,7 +20,7 @@ const CityListItem = styled(Link)`
     color: inherit;
     text-decoration: inherit;
     transition: background-color 0.5s ease;
-    background-color: ${props => props.theme.colors.backgroundAccentColor};
+    background-color: ${props => props.theme.legacy.colors.backgroundAccentColor};
   }
 `
 

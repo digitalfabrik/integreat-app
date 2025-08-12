@@ -10,7 +10,7 @@ import Button from './base/Button'
 import Icon from './base/Icon'
 
 const StyledButton = styled(Button)`
-  background-color: ${props => props.theme.colors.themeColor};
+  background-color: ${props => props.theme.legacy.colors.themeColor};
 `
 
 const StyledIcon = styled(Icon)`
@@ -18,7 +18,7 @@ const StyledIcon = styled(Icon)`
   height: 24px;
   align-self: center;
   display: flex;
-  color: ${props => props.theme.colors.backgroundColor};
+  color: ${props => props.theme.legacy.colors.backgroundColor};
 
   ${props => props.theme.breakpoints.down('md')} {
     ${helpers.adaptiveThemeTextColor}

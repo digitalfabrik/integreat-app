@@ -27,7 +27,7 @@ const HeaderContainer = styled.header`
   display: flex;
   width: 100%;
   box-sizing: border-box;
-  background-color: ${props => props.theme.colors.backgroundAccentColor};
+  background-color: ${props => props.theme.legacy.colors.backgroundAccentColor};
   user-select: none;
   flex-direction: column;
   overflow: visible;
@@ -49,7 +49,7 @@ const Row = styled.div`
   justify-content: space-between;
 
   ${props => props.theme.breakpoints.down('md')} {
-    background-color: ${props => props.theme.colors.backgroundAccentColor};
+    background-color: ${props => props.theme.legacy.colors.backgroundAccentColor};
     justify-content: space-between;
     flex-wrap: wrap;
     min-height: ${dimensions.headerHeightSmall}px;
@@ -62,7 +62,7 @@ const HeaderSeparator = styled.div`
   height: ${dimensions.headerHeightLarge / 2}px;
   width: 2px;
   margin: 0 5px;
-  background-color: ${props => props.theme.colors.textDecorationColor};
+  background-color: ${props => props.theme.legacy.colors.textDecorationColor};
   order: 2;
 
   ${props => props.theme.breakpoints.down('md')} {

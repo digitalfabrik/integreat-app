@@ -24,7 +24,7 @@ const StyledDivider = styled(Divider)`
 `
 
 const DetailsContainer = styled.div`
-  font-family: ${props => props.theme.fonts.web.contentFont};
+  font-family: ${props => props.theme.legacy.fonts.web.contentFont};
 `
 
 const StyledIcon = styled(Icon)`
@@ -36,7 +36,7 @@ const StyledIcon = styled(Icon)`
 const StyledExternalLinkIcon = styled(StyledIcon)`
   width: 16px;
   height: 16px;
-  color: ${props => props.theme.colors.linkColor};
+  color: ${props => props.theme.legacy.colors.linkColor};
 `
 
 const Thumbnail = styled.img`
@@ -91,7 +91,7 @@ const StyledLink = styled(Link)`
 `
 
 const LinkLabel = styled.span`
-  color: ${props => props.theme.colors.linkColor};
+  color: ${props => props.theme.legacy.colors.linkColor};
   ${helpers.adaptiveFontSize};
   align-self: flex-end;
 `
