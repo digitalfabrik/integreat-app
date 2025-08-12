@@ -11,7 +11,7 @@ import Icon from './base/Icon'
 import Link from './base/Link'
 
 const FooterContainer = styled.div`
-  background-color: ${props => props.theme.colors.backgroundAccentColor};
+  background-color: ${props => props.theme.legacy.colors.backgroundAccentColor};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,7 +25,7 @@ const StyledIcon = styled(Icon)`
 `
 
 const Question = styled.p`
-  font: ${props => props.theme.fonts.web.decorativeFont};
+  font: ${props => props.theme.legacy.fonts.web.decorativeFont};
   font-weight: 400;
 `
 

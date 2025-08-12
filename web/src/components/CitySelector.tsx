@@ -25,11 +25,11 @@ export const CityListParent = styled(Typography)<{ stickyTop: number }>`
   margin-top: 10px;
   line-height: 30px;
   transition: top 0.2s ease-out;
-  background-color: ${props => props.theme.colors.backgroundColor};
+  background-color: ${props => props.theme.legacy.colors.backgroundColor};
 `
 
 const SearchCounter = styled.p`
-  color: ${props => props.theme.colors.textSecondaryColor};
+  color: ${props => props.theme.legacy.colors.textSecondaryColor};
 `
 
 type CitySelectorProps = {

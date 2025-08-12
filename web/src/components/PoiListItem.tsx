@@ -10,7 +10,7 @@ import { helpers } from '../constants/theme'
 import Button from './base/Button'
 
 const ListItemContainer = styled.ul`
-  font-family: ${props => props.theme.fonts.web.contentFont};
+  font-family: ${props => props.theme.legacy.fonts.web.contentFont};
   display: flex;
   padding: clamp(10px, 1vh, 20px) 0;
   cursor: pointer;
@@ -35,7 +35,7 @@ const Distance = styled.div`
 
 const Category = styled.div`
   ${helpers.adaptiveFontSize};
-  color: ${props => props.theme.colors.textSecondaryColor};
+  color: ${props => props.theme.legacy.colors.textSecondaryColor};
 `
 
 export const Description = styled.div`
@@ -46,7 +46,7 @@ export const Description = styled.div`
   flex-direction: column;
   flex-grow: 1;
   padding: 0 22px;
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
   align-self: center;
   word-break: break-word;
   hyphens: auto;

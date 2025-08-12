@@ -11,10 +11,10 @@ import RemoteContent from './RemoteContent'
 import Icon from './base/Icon'
 
 export const Message = styled.div`
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
   border-radius: 5px;
   padding: 8px;
-  border: 1px solid ${props => props.theme.colors.textDecorationColor};
+  border: 1px solid ${props => props.theme.legacy.colors.textDecorationColor};
   max-width: 70%;
   width: max-content;
 
@@ -23,7 +23,7 @@ export const Message = styled.div`
   }
 `
 const StyledChatIcon = styled(Icon)`
-  background-color: ${props => props.theme.colors.themeColor};
+  background-color: ${props => props.theme.legacy.colors.themeColor};
   color: black;
   border-radius: 4px;
 `
@@ -41,15 +41,15 @@ const IconContainer = styled.div<{ visible: boolean }>`
 
 const Circle = styled.div`
   display: flex;
-  background-color: ${props => props.theme.colors.textColor};
+  background-color: ${props => props.theme.legacy.colors.textColor};
   border-radius: 50%;
   height: 18px;
   width: 18px;
-  color: ${props => props.theme.colors.backgroundColor};
+  color: ${props => props.theme.legacy.colors.backgroundColor};
   justify-content: center;
   align-items: center;
   padding: 4px;
-  font-size: ${props => props.theme.fonts.decorativeFontSizeSmall};
+  font-size: ${props => props.theme.legacy.fonts.decorativeFontSizeSmall};
 `
 
 const getIcon = (userIsAuthor: boolean, isAutomaticAnswer: boolean, t: TFunction<'chat'>): ReactElement => {

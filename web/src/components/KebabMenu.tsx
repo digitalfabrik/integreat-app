@@ -24,12 +24,12 @@ const ToggleContainer = styled.div`
 `
 
 const List = styled.div`
-  font-family: ${props => props.theme.fonts.web.decorativeFont};
+  font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
   position: fixed;
   top: 0;
   width: 80vw;
   height: 100vh;
-  background-color: ${props => props.theme.colors.backgroundColor};
+  background-color: ${props => props.theme.legacy.colors.backgroundColor};
   box-shadow: -3px 3px 3px 0 rgb(0 0 0 / 13%);
 
   /* to stop flickering of text in safari */
@@ -56,7 +56,7 @@ const Overlay = styled.div<{ show: boolean }>`
 const Heading = styled.div`
   display: flex;
   justify-content: flex-end;
-  background-color: ${props => props.theme.colors.backgroundAccentColor};
+  background-color: ${props => props.theme.legacy.colors.backgroundAccentColor};
   box-shadow: -3px 3px 3px 0 rgb(0 0 0 / 13%);
   min-height: ${dimensions.headerHeightSmall}px;
   box-sizing: border-box;
