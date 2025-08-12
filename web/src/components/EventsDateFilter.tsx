@@ -22,7 +22,7 @@ const DateSection = styled.div`
   }
 `
 const Text = styled.span`
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
 `
 
 const StyledButton = styled(Button)`

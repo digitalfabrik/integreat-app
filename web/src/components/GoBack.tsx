@@ -30,12 +30,12 @@ const StyledButton = styled(Button)<{ viewportSmall: boolean }>`
 `
 
 const DetailsHeaderTitle = styled.span`
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
   align-self: center;
   white-space: pre;
   padding-inline-start: 8px;
   ${helpers.adaptiveFontSize};
-  font-family: ${props => props.theme.fonts.web.contentFont};
+  font-family: ${props => props.theme.legacy.fonts.web.contentFont};
 `
 
 const StyledIcon = styled(Icon)`

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 
 const HighlightBox = styled.div`
-  background-color: ${props => props.theme.colors.backgroundAccentColor};
+  background-color: ${props => props.theme.legacy.colors.backgroundAccentColor};
   border-radius: 4px;
   padding: 20px;
   box-shadow:

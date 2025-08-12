@@ -16,7 +16,7 @@ const ListItem = styled.li<{ shrink: boolean }>`
 
   & * {
     ${helpers.removeLinkHighlighting}
-    color: ${props => props.theme.colors.textColor};
+    color: ${props => props.theme.legacy.colors.textColor};
     font-size: 16px;
     margin: 0 2px;
   }
@@ -24,7 +24,7 @@ const ListItem = styled.li<{ shrink: boolean }>`
 
 const Separator = styled.span`
   &::before {
-    color: ${props => props.theme.colors.textColor};
+    color: ${props => props.theme.legacy.colors.textColor};
     font-size: 19px;
     content: ' > ';
   }

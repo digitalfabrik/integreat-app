@@ -19,7 +19,7 @@ const StyledLink = styled(Link)`
   padding-top: 4px;
   gap: 8px;
   overflow-wrap: anywhere;
-  color: ${props => props.theme.colors.linkColor};
+  color: ${props => props.theme.legacy.colors.linkColor};
   ${helpers.adaptiveFontSize};
 `
 

@@ -17,7 +17,7 @@ const ContrastButton = styled(Button)`
 
   & > span {
     padding: 0 28px;
-    color: ${props => props.theme.colors.textColor};
+    color: ${props => props.theme.legacy.colors.textColor};
   }
 `
 

@@ -22,13 +22,13 @@ const StyledButton = styled(Button)<{ expanded: boolean }>`
   inset-inline-end: 0;
   justify-content: flex-end;
   font-size: ${props =>
-    props.expanded ? props.theme.fonts.decorativeFontSizeSmall : props.theme.fonts.contentFontSize};
+    props.expanded ? props.theme.legacy.fonts.decorativeFontSizeSmall : props.theme.legacy.fonts.contentFontSize};
   font-weight: ${props => (props.expanded ? 'normal' : 'bold')};
 `
 
 const OpenStreetMapsLink = styled(Link)`
   text-decoration: underline;
-  color: ${props => props.theme.colors.linkColor};
+  color: ${props => props.theme.legacy.colors.linkColor};
 `
 
 const Label = styled.span`

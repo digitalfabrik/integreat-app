@@ -35,17 +35,17 @@ const StyledIcon = styled(Icon)`
   height: 40px;
   align-self: center;
   justify-content: center;
-  color: ${props => props.theme.colors.backgroundColor};
+  color: ${props => props.theme.legacy.colors.backgroundColor};
 `
 
 const ChatTitle = styled.span`
   margin-top: 8px;
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
 `
 
 const ChatActionButton = styled(Fab)`
   &:hover {
-    background-color: ${props => props.theme.colors.themeColor};
+    background-color: ${props => props.theme.legacy.colors.themeColor};
   }
 `
 

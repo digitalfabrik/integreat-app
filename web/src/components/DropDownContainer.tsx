@@ -18,7 +18,7 @@ const DropDownContainer = styled.div<{ active: boolean }>`
     transform 0.2s,
     opacity 0.2s,
     visibility 0s ${props => (props.active ? '0s' : '0.2s')};
-  background-color: ${props => props.theme.colors.backgroundColor};
+  background-color: ${props => props.theme.legacy.colors.backgroundColor};
   visibility: ${props => (props.active ? 'visible' : 'hidden')};
 
   ${props => props.theme.breakpoints.down('md')} {

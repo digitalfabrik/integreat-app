@@ -20,14 +20,14 @@ const Heading = styled.p`
   font-weight: 600;
   text-align: center;
   font-size: 1.4rem;
-  font-family: ${props => props.theme.fonts.web.decorativeFont};
+  font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
   padding: 20px;
   white-space: pre-line;
 `
 
 const Text = styled.p`
-  font-size: ${props => props.theme.fonts.contentFontSize};
-  font-family: ${props => props.theme.fonts.web.contentFont};
+  font-size: ${props => props.theme.legacy.fonts.contentFontSize};
+  font-family: ${props => props.theme.legacy.fonts.web.contentFont};
 `
 
 const Icon = styled.img`
@@ -39,7 +39,7 @@ const Icon = styled.img`
 
 const ListHeading = styled(Heading)`
   padding: 0;
-  font-size: ${props => props.theme.fonts.decorativeFontSize};
+  font-size: ${props => props.theme.legacy.fonts.decorativeFontSize};
 `
 
 const ListItem = styled.div`
@@ -53,7 +53,7 @@ const StepNumber = styled.div`
   min-width: 2rem;
   height: 2rem;
   text-align: center;
-  background-color: ${props => props.theme.colors.themeColor};
+  background-color: ${props => props.theme.legacy.colors.themeColor};
   ${helpers.adaptiveThemeTextColor}
 `
 
@@ -71,7 +71,7 @@ const TemplateText = styled(Text)`
   position: relative;
   direction: ltr;
   top: -30px;
-  border: 1px solid ${props => props.theme.colors.themeColor};
+  border: 1px solid ${props => props.theme.legacy.colors.themeColor};
   padding: 50px 30px 30px;
   white-space: pre-line;
 `

@@ -33,7 +33,7 @@ const ThumbnailSizer = styled.div`
     ${props =>
       props.theme.isContrastTheme &&
       `
-        outline: 8px solid ${props.theme.colors.themeColor};
+        outline: 8px solid ${props.theme.legacy.colors.themeColor};
         border-radius: 24px;
       `}
   }
@@ -41,7 +41,7 @@ const ThumbnailSizer = styled.div`
 
 const TileTitle = styled.div`
   margin: 5px 0;
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
   text-align: center;
 `
 
@@ -54,7 +54,7 @@ const TileContainer = styled.div`
     max-width: 160px;
     margin: 0 auto;
     padding: 0;
-    background-color: ${props => props.theme.colors.backgroundColor};
+    background-color: ${props => props.theme.legacy.colors.backgroundColor};
     border: none;
     box-shadow: none;
     cursor: pointer;

@@ -10,11 +10,11 @@ const StyledIcon = styled(SVG, { shouldForwardProp })<{ directionDependent: bool
     (props.reverse === true) !== (props.directionDependent && props.theme.contentDirection === 'rtl')
       ? 'scaleX(-1)'
       : ''};
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
   width: 24px;
   height: 24px;
 
-  --theme-color: ${props => props.theme.colors.themeColor};
+  --theme-color: ${props => props.theme.legacy.colors.themeColor};
 `
 
 type IconProps = {
@@ -49,7 +49,7 @@ const Icon = ({ src, directionDependent = false, reverse = false, className, tit
       className={className}
       titleAccess={title}
       sx={{
-        color: theme.colors.textColor,
+        color: theme.legacy.colors.textColor,
         transform: shouldFlip ? 'scaleX(-1)' : undefined,
         width: 24,
         height: 24,

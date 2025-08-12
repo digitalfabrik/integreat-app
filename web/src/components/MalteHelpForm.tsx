@@ -43,11 +43,11 @@ const Form = styled.form`
 
 const SubmitErrorHeading = styled.h5`
   margin: 0;
-  font-size: ${props => props.theme.fonts.subTitleFontSize};
+  font-size: ${props => props.theme.legacy.fonts.subTitleFontSize};
 `
 
 const ErrorSendingStatus = styled.div`
-  background-color: ${props => props.theme.colors.invalidInput}35;
+  background-color: ${props => props.theme.legacy.colors.invalidInput}35;
   padding: 20px 10px;
   margin: 10px 0;
 `

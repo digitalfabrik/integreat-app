@@ -7,8 +7,8 @@ const StyledTooltip = styled(ReactTooltip)`
   ${props =>
     props.theme.isContrastTheme &&
     `
-        color: ${props.theme.colors.textColor};
-        background-color: ${props.theme.colors.textSecondaryColor};
+        color: ${props.theme.legacy.colors.textColor};
+        background-color: ${props.theme.legacy.colors.textSecondaryColor};
       `}
 `
 

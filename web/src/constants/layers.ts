@@ -1,7 +1,7 @@
+import { Theme } from '@mui/material/styles'
 import { Expression } from 'mapbox-gl'
 import { LayerProps } from 'react-map-gl/maplibre'
 
-import { LegacyThemeType } from 'build-configs/LegacyThemeType'
 import {
   circleRadiusLarge,
   circleRadiusSmall,
@@ -15,13 +15,19 @@ import {
   featureLayerId,
 } from 'shared'
 
-export const clusterLayer = (theme: LegacyThemeType): LayerProps => ({
+export const clusterLayer = (theme: Theme): LayerProps => ({
   id: clusterLayerId,
   type: 'circle',
   source: 'point',
   filter: ['has', 'point_count'],
   paint: {
-    'circle-color': ['step', ['get', 'point_count'], theme.colors.themeColor, groupCount, theme.colors.themeColor],
+    'circle-color': [
+      'step',
+      ['get', 'point_count'],
+      theme.legacy.colors.themeColor,
+      groupCount,
+      theme.legacy.colors.themeColor,
+    ],
     'circle-radius': ['step', ['get', 'point_count'], circleRadiusSmall, groupCount, circleRadiusLarge],
   },
 })

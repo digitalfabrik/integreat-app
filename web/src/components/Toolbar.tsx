@@ -14,7 +14,7 @@ const ToolbarContainer = styled.div<{ direction: 'row' | 'column'; hasPadding: b
   box-sizing: border-box;
   flex-direction: ${props => props.direction};
   align-items: center;
-  font-family: ${props => props.theme.fonts.web.contentFont};
+  font-family: ${props => props.theme.legacy.fonts.web.contentFont};
 
   ${props =>
     props.direction === 'column' &&

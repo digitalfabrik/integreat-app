@@ -16,7 +16,7 @@ const SidebarFooterContainer = styled.div`
   padding: 0 27px;
 
   > a {
-    color: ${props => props.theme.colors.textColor};
+    color: ${props => props.theme.legacy.colors.textColor};
     padding: 16px 0;
     display: flex;
     align-items: center;

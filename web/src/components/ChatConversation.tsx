@@ -7,7 +7,7 @@ import { ChatMessageModel } from 'shared/api'
 import ChatMessage, { InnerChatMessage } from './ChatMessage'
 
 const Container = styled.div`
-  font-size: ${props => props.theme.fonts.hintFontSize};
+  font-size: ${props => props.theme.legacy.fonts.hintFontSize};
   overflow: auto;
   padding: 0 12px;
 `
@@ -17,10 +17,10 @@ const InitialMessage = styled.div`
 `
 
 const ErrorSendingStatus = styled.div`
-  background-color: ${props => props.theme.colors.invalidInput};
+  background-color: ${props => props.theme.legacy.colors.invalidInput};
   border-radius: 5px;
   padding: 8px;
-  border: 1px solid ${props => props.theme.colors.textDecorationColor};
+  border: 1px solid ${props => props.theme.legacy.colors.textDecorationColor};
   margin: 16px;
 `
 

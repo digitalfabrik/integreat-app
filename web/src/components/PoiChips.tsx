@@ -19,13 +19,13 @@ const ChipsContainer = styled.div`
 `
 
 const Chip = styled.div`
-  color: ${props => props.theme.colors.textSecondaryColor};
+  color: ${props => props.theme.legacy.colors.textSecondaryColor};
   display: flex;
   padding-inline: 12px;
   align-items: center;
   gap: 6px;
   border-radius: 12px;
-  border: 1px solid ${props => props.theme.colors.textSecondaryColor};
+  border: 1px solid ${props => props.theme.legacy.colors.textSecondaryColor};
   height: 24px;
   font-size: 12px;
 `
