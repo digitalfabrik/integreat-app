@@ -106,10 +106,10 @@ const navigateToDeepLink = <T extends RoutesType>({
   navigateTo(routeInformation)
 }
 
-const useNavigateToDeepLink = (): ((url: string) => void) => {
+const useNavigateToDeepLink = ({ redirect } = { redirect: false }): ((url: string) => void) => {
   const showSnackbar = useSnackbar()
   const appContext = useAppContext()
-  const { navigation, navigateTo } = useNavigate()
+  const { navigation, navigateTo } = useNavigate({ redirect })
 
   return useCallback(
     (url: string) => navigateToDeepLink({ url, navigation, navigateTo, appContext, showSnackbar }),

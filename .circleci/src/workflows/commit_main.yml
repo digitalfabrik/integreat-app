@@ -5,19 +5,13 @@ when:
 jobs:
   - bump_version:
       prepare_delivery: false
-      context:
-        - mattermost
   - build_web:
       matrix:
         parameters:
           build_config_name: [integreat-test-cms, malte-test-cms, aschaffenburg, obdach]
-      context:
-        - mattermost
       requires:
         - bump_version
   - deliver_web:
       delivery: webnext
-      context:
-        - mattermost
       requires:
         - build_web
