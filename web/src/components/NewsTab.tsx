@@ -18,12 +18,12 @@ const StyledTab = styled(Link, { shouldForwardProp })<{ tabSelected: boolean }>`
   justify-content: center;
   cursor: pointer;
   padding: 13px 15px;
-  color: ${({ theme }) => theme.colors.backgroundColor};
+  color: ${({ theme }) => theme.legacy.colors.backgroundColor};
   object-fit: contain;
   background-color: ${({ tabSelected, theme }) =>
-    tabSelected ? theme.colors.themeColor : theme.colors.textDisabledColor};
+    tabSelected ? theme.legacy.colors.themeColor : theme.legacy.colors.textDisabledColor};
   border-radius: 11px;
-  font-size: ${props => props.theme.fonts.subTitleFontSize};
+  font-size: ${props => props.theme.legacy.fonts.subTitleFontSize};
   font-weight: 700;
   text-decoration: none;
 
@@ -35,7 +35,7 @@ const StyledTab = styled(Link, { shouldForwardProp })<{ tabSelected: boolean }>`
 const TuStyledTab = styled(StyledTab)`
   background-image: ${({ tabSelected }) => (tabSelected ? `url(${TuNewsActiveIcon})` : `url(${TuNewsInactiveIcon})`)};
   background-color: ${({ tabSelected, theme }) =>
-    tabSelected ? theme.colors.tunewsThemeColor : theme.colors.textDisabledColor};
+    tabSelected ? theme.legacy.colors.tunewsThemeColor : theme.legacy.colors.textDisabledColor};
   background-size: cover;
   background-position: center center;
 `

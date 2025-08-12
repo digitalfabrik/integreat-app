@@ -1,6 +1,6 @@
 import createCache from '@emotion/cache'
-import { CacheProvider, Global, Theme, ThemeProvider } from '@emotion/react'
-import { createTheme as createMuiTheme } from '@mui/material/styles'
+import { CacheProvider, Global } from '@emotion/react'
+import { createTheme as createMuiTheme, Theme, ThemeProvider } from '@mui/material/styles'
 import rtlPlugin from '@mui/stylis-plugin-rtl'
 import React, { ReactElement, ReactNode, useMemo } from 'react'
 import { prefixer } from 'stylis'
@@ -37,24 +37,22 @@ const createTheme = (
 ): Omit<Theme, 'toggleTheme'> => {
   const isContrast = themeType === 'contrast'
 
-  return {
-    ...(isContrast ? buildConfig().legacyContrastTheme : buildConfig().legacyLightTheme),
+  return createMuiTheme({
+    legacy: isContrast ? buildConfig().legacyContrastTheme : buildConfig().legacyLightTheme,
     contentDirection,
     isContrastTheme: isContrast,
-    ...createMuiTheme({
-      breakpoints: {
-        values: BREAKPOINTS,
-      },
-      direction: contentDirection,
-      colorSchemes: {
-        light: buildConfig().lightTheme,
-        dark: buildConfig().darkTheme,
-      },
-      shadows: muiShadowCreator(themeType),
-      typography: buildConfig().typography,
-      palette: isContrast ? buildConfig().darkTheme.palette : buildConfig().lightTheme.palette,
-    }),
-  }
+    breakpoints: {
+      values: BREAKPOINTS,
+    },
+    direction: contentDirection,
+    colorSchemes: {
+      light: buildConfig().lightTheme,
+      dark: buildConfig().darkTheme,
+    },
+    shadows: muiShadowCreator(themeType),
+    typography: buildConfig().typography,
+    palette: isContrast ? buildConfig().darkTheme.palette : buildConfig().lightTheme.palette,
+  })
 }
 
 type ThemeContainerProps = {
@@ -75,7 +73,7 @@ const ThemeContainer = ({ children, contentDirection }: ThemeContainerProps): Re
     }
 
     const theme = createTheme(themeType, contentDirection)
-    document.body.style.backgroundColor = theme.colors.backgroundAccentColor
+    document.body.style.backgroundColor = theme.legacy.colors.backgroundAccentColor
     return { ...theme, toggleTheme }
   }, [themeType, setThemeType, contentDirection])
 

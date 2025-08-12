@@ -10,7 +10,7 @@ import { RichLayout } from './Layout'
 
 const Title = styled.h1`
   font-size: 1.25rem;
-  font-family: ${props => props.theme.fonts.web.contentFont};
+  font-family: ${props => props.theme.legacy.fonts.web.contentFont};
 `
 
 const ToolbarContainer = styled.div`

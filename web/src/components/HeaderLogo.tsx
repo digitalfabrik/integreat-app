@@ -29,7 +29,7 @@ const LogoContainer = styled.div`
 `
 
 const StyledLogo = styled(SVG)`
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
   height: 100%;
   width: 200px;
 

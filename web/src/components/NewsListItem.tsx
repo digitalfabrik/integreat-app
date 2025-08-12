@@ -13,19 +13,21 @@ import Link from './base/Link'
 
 const StyledLink = styled(Link)`
   display: flex;
-  background-color: ${({ theme }) => theme.colors.backgroundColor};
+  background-color: ${({ theme }) => theme.legacy.colors.backgroundColor};
 `
 const ReadMore = styled.div<{ newsType: NewsType }>`
   align-self: flex-end;
   color: ${({ theme, newsType }) =>
-    theme.isContrastTheme || newsType === LOCAL_NEWS_TYPE ? theme.colors.themeColor : theme.colors.tunewsThemeColor};
+    theme.isContrastTheme || newsType === LOCAL_NEWS_TYPE
+      ? theme.legacy.colors.themeColor
+      : theme.legacy.colors.tunewsThemeColor};
   font-weight: 600;
 `
 
 const Title = styled.h3`
   margin-bottom: 0;
-  font-family: ${props => props.theme.fonts.web.decorativeFont};
-  font-size: ${props => props.theme.fonts.subTitleFontSize};
+  font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
+  font-size: ${props => props.theme.legacy.fonts.subTitleFontSize};
   font-weight: 700;
 `
 

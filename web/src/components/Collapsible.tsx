@@ -17,7 +17,7 @@ const Container = styled.div`
 const CollapsibleHeader = styled(Button)`
   display: flex;
   justify-content: space-between;
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
 `
 
 const Title = styled.div`

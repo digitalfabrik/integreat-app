@@ -23,7 +23,7 @@ const Spinner = styled.div`
   animation-name: ${lineScaleParty};
 
   > div {
-    background-color: ${props => props.theme.colors.textSecondaryColor};
+    background-color: ${props => props.theme.legacy.colors.textSecondaryColor};
     width: 4px;
     height: 35px;
     border-radius: 2px;
