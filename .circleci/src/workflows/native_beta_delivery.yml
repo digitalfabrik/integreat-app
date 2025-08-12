@@ -60,6 +60,7 @@ jobs:
       context:
         - tuerantuer-apple
         - sentry
+        - browserstack
       requires:
         - check
         - e2e_ios
