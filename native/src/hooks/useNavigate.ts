@@ -32,6 +32,7 @@ const navigate = <T extends RoutesType>(
   appCityCode: string | null,
   appLanguageCode: string,
   showSnackbar: (snackbar: SnackbarType) => void,
+  redirect: boolean,
 ): void => {
   if (!routeInformation) {
     return
@@ -44,26 +45,27 @@ const navigate = <T extends RoutesType>(
       url,
     },
   })
+  const navigate = redirect ? navigation.replace : navigation.push
 
   if (routeInformation.route === LICENSES_ROUTE) {
-    navigation.push(LICENSES_ROUTE)
+    navigate(LICENSES_ROUTE)
     return
   }
   if (routeInformation.route === CONSENT_ROUTE) {
-    navigation.push(CONSENT_ROUTE)
+    navigate(CONSENT_ROUTE)
     return
   }
   if (routeInformation.route === LANDING_ROUTE) {
-    navigation.push(LANDING_ROUTE)
+    navigate(LANDING_ROUTE)
     return
   }
   if (routeInformation.route === CITY_NOT_COOPERATING_ROUTE) {
-    navigation.push(CITY_NOT_COOPERATING_ROUTE)
+    navigate(CITY_NOT_COOPERATING_ROUTE)
     return
   }
   if (routeInformation.route === JPAL_TRACKING_ROUTE) {
     if (buildConfig().featureFlags.jpalTracking) {
-      navigation.push(JPAL_TRACKING_ROUTE)
+      navigate(JPAL_TRACKING_ROUTE)
     }
     return
   }
@@ -83,15 +85,15 @@ const navigate = <T extends RoutesType>(
 
   switch (routeInformation.route) {
     case CATEGORIES_ROUTE:
-      navigation.push(CATEGORIES_ROUTE, { path: routeInformation.cityContentPath })
+      navigate(CATEGORIES_ROUTE, { path: routeInformation.cityContentPath })
       return
 
     case DISCLAIMER_ROUTE:
-      navigation.push(DISCLAIMER_ROUTE)
+      navigate(DISCLAIMER_ROUTE)
       return
 
     case EVENTS_ROUTE:
-      navigation.push(EVENTS_ROUTE, { slug: routeInformation.slug })
+      navigate(EVENTS_ROUTE, { slug: routeInformation.slug })
       return
 
     case NEWS_ROUTE:
@@ -99,7 +101,7 @@ const navigate = <T extends RoutesType>(
         break
       }
 
-      navigation.push(NEWS_ROUTE, {
+      navigate(NEWS_ROUTE, {
         ...params,
         newsType: routeInformation.newsType,
         newsId: routeInformation.newsId ?? null,
@@ -110,7 +112,7 @@ const navigate = <T extends RoutesType>(
       if (!buildConfig().featureFlags.pois) {
         break
       }
-      navigation.push(POIS_ROUTE, {
+      navigate(POIS_ROUTE, {
         slug: routeInformation.slug,
         multipoi: routeInformation.multipoi,
         zoom: routeInformation.zoom,
@@ -119,7 +121,7 @@ const navigate = <T extends RoutesType>(
       return
 
     case SEARCH_ROUTE:
-      navigation.push(SEARCH_ROUTE, { searchText: routeInformation.searchText })
+      navigate(SEARCH_ROUTE, { searchText: routeInformation.searchText })
   }
 }
 
@@ -128,15 +130,15 @@ type UseNavigateReturn = {
   navigation: NavigationProps<RoutesType>
 }
 
-const useNavigate = (): UseNavigateReturn => {
+const useNavigate = ({ redirect } = { redirect: false }): UseNavigateReturn => {
   const navigation = useNavigation<NavigationProps<RoutesType>>()
   const { cityCode, languageCode } = useContext(AppContext)
   const showSnackbar = useSnackbar()
 
   const navigateTo = useCallback(
     (routeInformation: RouteInformationType) =>
-      navigate(routeInformation, navigation, cityCode, languageCode, showSnackbar),
-    [navigation, cityCode, languageCode, showSnackbar],
+      navigate(routeInformation, navigation, cityCode, languageCode, showSnackbar, redirect),
+    [navigation, cityCode, languageCode, showSnackbar, redirect],
   )
 
   return { navigateTo, navigation }
