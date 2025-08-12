@@ -45,10 +45,6 @@ const createTheme = (
       values: BREAKPOINTS,
     },
     direction: contentDirection,
-    colorSchemes: {
-      light: buildConfig().lightTheme,
-      dark: buildConfig().darkTheme,
-    },
     shadows: muiShadowCreator(themeType),
     typography: buildConfig().typography,
     palette: isContrast ? buildConfig().darkTheme.palette : buildConfig().lightTheme.palette,
