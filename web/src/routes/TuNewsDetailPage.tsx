@@ -32,7 +32,7 @@ const StyledBanner = styled.div`
   overflow: hidden;
   align-items: center;
   margin: 25px 0;
-  background-color: ${props => props.theme.colors.tunewsThemeColorLight};
+  background-color: ${props => props.theme.legacy.colors.tunewsThemeColorLight};
   border-radius: 11px;
 `
 
@@ -47,8 +47,8 @@ const StyledTitle = styled.div`
   height: 100%;
   align-items: center;
   justify-content: center;
-  background-color: ${props => props.theme.colors.tunewsThemeColor};
-  color: ${props => props.theme.colors.backgroundColor};
+  background-color: ${props => props.theme.legacy.colors.tunewsThemeColor};
+  color: ${props => props.theme.legacy.colors.backgroundColor};
   font-size: 20px;
   font-weight: 700;
 `

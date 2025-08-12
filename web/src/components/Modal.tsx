@@ -16,7 +16,9 @@ const Overlay = styled(Button)`
   position: absolute;
   inset: 0;
   background-color: ${props =>
-    props.theme.isContrastTheme ? props.theme.colors.backgroundAccentColor : props.theme.colors.textSecondaryColor};
+    props.theme.isContrastTheme
+      ? props.theme.legacy.colors.backgroundAccentColor
+      : props.theme.legacy.colors.textSecondaryColor};
   opacity: 0.9;
   width: 100%;
   height: 100%;

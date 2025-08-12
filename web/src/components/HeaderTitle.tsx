@@ -22,8 +22,8 @@ const HeaderTitleContainer = styled.div<{ long: boolean }>`
   }
 
   ${props => props.theme.breakpoints.down('md')} {
-    font-family: ${props => props.theme.fonts.web.decorativeFont};
-    font-size: ${props => props.theme.fonts.decorativeFontSize};
+    font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
+    font-size: ${props => props.theme.legacy.fonts.decorativeFontSize};
     height: ${HEADER_TITLE_HEIGHT}px;
     justify-content: start;
     padding: 0 10px;

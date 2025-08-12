@@ -10,7 +10,7 @@ import Button from './base/Button'
 const Overlay = styled(Button)`
   position: absolute;
   inset: 0;
-  background-color: ${props => props.theme.colors.textSecondaryColor};
+  background-color: ${props => props.theme.legacy.colors.textSecondaryColor};
   opacity: 0.4;
   width: 100%;
   height: 100%;
@@ -33,7 +33,7 @@ const ModalContentContainer = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  background-color: ${props => props.theme.colors.backgroundColor};
+  background-color: ${props => props.theme.legacy.colors.backgroundColor};
   border-radius: 5px;
 
   ${props => props.theme.breakpoints.down('md')} {

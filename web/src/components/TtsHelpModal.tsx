@@ -24,26 +24,26 @@ const ModalContent = styled(Container)`
 `
 
 const StyledWarningText = styled.div`
-  font-family: ${props => props.theme.fonts.web.contentFont};
+  font-family: ${props => props.theme.legacy.fonts.web.contentFont};
   font-size: 16px;
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
 `
 
 const StyledWarningIcon = styled(Icon)`
-  color: ${props => props.theme.colors.ttsPlayerWarningColor};
+  color: ${props => props.theme.legacy.colors.ttsPlayerWarningColor};
 `
 
 const StyledList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
 `
 
 const StyledExternalIcon = styled(Icon)`
   height: 12px;
   width: 12px;
-  color: ${props => props.theme.colors.linkColor};
+  color: ${props => props.theme.legacy.colors.linkColor};
 `
 
 const StyledBookIcon = styled(Icon)`
@@ -90,7 +90,9 @@ const TtsHelpModal = ({ closeModal }: { closeModal: () => void }): ReactElement 
     <Modal
       contentStyle={{
         borderRadius: 5,
-        backgroundColor: theme.isContrastTheme ? theme.colors.backgroundColor : theme.colors.ttsPlayerWarningBackground,
+        backgroundColor: theme.isContrastTheme
+          ? theme.legacy.colors.backgroundColor
+          : theme.legacy.colors.ttsPlayerWarningBackground,
       }}
       title={t('voiceUnavailable')}
       icon={<StyledWarningIcon src={WarningAmberOutlinedIcon} />}

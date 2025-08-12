@@ -4,9 +4,9 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 const TimeStamp = styled.p`
-  color: ${props => props.theme.colors.textSecondaryColor};
-  font-family: ${props => props.theme.fonts.web.contentFont};
-  font-size: ${props => props.theme.fonts.contentFontSize};
+  color: ${props => props.theme.legacy.colors.textSecondaryColor};
+  font-family: ${props => props.theme.legacy.fonts.web.contentFont};
+  font-size: ${props => props.theme.legacy.fonts.contentFontSize};
 `
 
 type LastUpdateInfoProps = {
