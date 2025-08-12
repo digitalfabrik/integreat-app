@@ -70,7 +70,7 @@ const ToolbarItem = ({ to, text, icon, isDisabled = false, tooltip, onClick }: T
 
   if (isDisabled) {
     return (
-      <Tooltip title={tooltip} placement={tooltipPlacement} arrow>
+      <Tooltip title={tooltip} placement={tooltipPlacement}>
         <DisabledToolbarItem aria-label={text}>{Content}</DisabledToolbarItem>
       </Tooltip>
     )
