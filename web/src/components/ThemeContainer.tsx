@@ -68,8 +68,6 @@ const createTheme = (
           },
         },
       },
-      neutral: buildConfig().lightTheme.palette.neutral,
-      quartary: buildConfig().lightTheme.palette.quartary,
     },
   })
 }
