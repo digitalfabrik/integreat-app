@@ -4,6 +4,8 @@
 import { TypographyPropsVariantOverrides } from '@mui/material/Typography'
 import { PaletteColor, Palette, PaletteOptions } from '@mui/material/styles'
 
+import { ToneColor } from 'build-configs/ThemeType'
+
 // Enable and disable typography variants according to our design system
 // docs: https://mui.com/material-ui/customization/typography/#adding-amp-disabling-variants
 declare module '@mui/material/Typography' {
@@ -35,10 +37,14 @@ declare module '@mui/material/Typography' {
 declare module '@mui/material/styles' {
   interface Palette {
     tertiary: PaletteColor
+    neutral: ToneColor
+    quartary: ToneColor
   }
 
   interface PaletteOptions {
     tertiary: PaletteColor
+    neutral: ToneColor
+    quartary: ToneColor
   }
 }
 

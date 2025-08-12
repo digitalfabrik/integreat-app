@@ -2,5 +2,6 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/native/ios/DerivedData/Integreat/SourcePackages/checkouts/maplibre-gl-native-distribution" vcs="Git" />
   </component>
 </project>
