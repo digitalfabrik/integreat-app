@@ -12,10 +12,6 @@ jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
 jest.mock('react-tooltip')
 
-jest.mock('../HeaderNavigationItem', () => ({ text, active }: { text: string; active: boolean }) => (
-  <div>{`${text} ${active ? 'active' : 'inactive'}`}</div>
-))
-
 describe('CityContentHeader', () => {
   const cityModel = (eventsEnabled: boolean, poisEnabled: boolean, tunewsEnabled: boolean, localNewsEnabled: boolean) =>
     new CityModel({
@@ -129,10 +125,10 @@ describe('CityContentHeader', () => {
           languageChangePaths={languageChangePaths}
         />,
       )
-      expect(getByText('layout:localInformation active')).toBeTruthy()
-      expect(getByText('layout:news inactive')).toBeTruthy()
-      expect(getByText('layout:events inactive')).toBeTruthy()
-      expect(getByText('layout:locations inactive')).toBeTruthy()
+      expect(getByText('layout:localInformation')).toHaveClass('Mui-selected')
+      expect(getByText('layout:news')).not.toHaveClass('Mui-selected')
+      expect(getByText('layout:events')).not.toHaveClass('Mui-selected')
+      expect(getByText('layout:locations')).not.toHaveClass('Mui-selected')
     })
 
     it('should highlight news if the local news route is selected', () => {
@@ -144,10 +140,10 @@ describe('CityContentHeader', () => {
           languageChangePaths={languageChangePaths}
         />,
       )
-      expect(getByText('layout:localInformation inactive')).toBeTruthy()
-      expect(getByText('layout:news active')).toBeTruthy()
-      expect(getByText('layout:events inactive')).toBeTruthy()
-      expect(getByText('layout:locations inactive')).toBeTruthy()
+      expect(getByText('layout:localInformation')).not.toHaveClass('Mui-selected')
+      expect(getByText('layout:news')).toHaveClass('Mui-selected')
+      expect(getByText('layout:events')).not.toHaveClass('Mui-selected')
+      expect(getByText('layout:locations')).not.toHaveClass('Mui-selected')
     })
 
     it('should highlight news if the tu news route is selected', () => {
@@ -159,10 +155,10 @@ describe('CityContentHeader', () => {
           languageChangePaths={languageChangePaths}
         />,
       )
-      expect(getByText('layout:localInformation inactive')).toBeTruthy()
-      expect(getByText('layout:news active')).toBeTruthy()
-      expect(getByText('layout:events inactive')).toBeTruthy()
-      expect(getByText('layout:locations inactive')).toBeTruthy()
+      expect(getByText('layout:localInformation')).not.toHaveClass('Mui-selected')
+      expect(getByText('layout:news')).toHaveClass('Mui-selected')
+      expect(getByText('layout:events')).not.toHaveClass('Mui-selected')
+      expect(getByText('layout:locations')).not.toHaveClass('Mui-selected')
     })
 
     it('should highlight news if the tu news detail route is selected', () => {
@@ -174,10 +170,10 @@ describe('CityContentHeader', () => {
           languageChangePaths={languageChangePaths}
         />,
       )
-      expect(getByText('layout:localInformation inactive')).toBeTruthy()
-      expect(getByText('layout:news active')).toBeTruthy()
-      expect(getByText('layout:events inactive')).toBeTruthy()
-      expect(getByText('layout:locations inactive')).toBeTruthy()
+      expect(getByText('layout:localInformation')).not.toHaveClass('Mui-selected')
+      expect(getByText('layout:news')).toHaveClass('Mui-selected')
+      expect(getByText('layout:events')).not.toHaveClass('Mui-selected')
+      expect(getByText('layout:locations')).not.toHaveClass('Mui-selected')
     })
 
     it('should highlight events if route corresponds', () => {
@@ -189,10 +185,10 @@ describe('CityContentHeader', () => {
           languageChangePaths={languageChangePaths}
         />,
       )
-      expect(getByText('layout:localInformation inactive')).toBeTruthy()
-      expect(getByText('layout:news inactive')).toBeTruthy()
-      expect(getByText('layout:events active')).toBeTruthy()
-      expect(getByText('layout:locations inactive')).toBeTruthy()
+      expect(getByText('layout:localInformation')).not.toHaveClass('Mui-selected')
+      expect(getByText('layout:news')).not.toHaveClass('Mui-selected')
+      expect(getByText('layout:events')).toHaveClass('Mui-selected')
+      expect(getByText('layout:locations')).not.toHaveClass('Mui-selected')
     })
 
     it('should highlight pois if pois route is selected', () => {
@@ -204,10 +200,10 @@ describe('CityContentHeader', () => {
           languageChangePaths={languageChangePaths}
         />,
       )
-      expect(getByText('layout:localInformation inactive')).toBeTruthy()
-      expect(getByText('layout:news inactive')).toBeTruthy()
-      expect(getByText('layout:events inactive')).toBeTruthy()
-      expect(getByText('layout:locations active')).toBeTruthy()
+      expect(getByText('layout:localInformation')).not.toHaveClass('Mui-selected')
+      expect(getByText('layout:news')).not.toHaveClass('Mui-selected')
+      expect(getByText('layout:events')).not.toHaveClass('Mui-selected')
+      expect(getByText('layout:locations')).toHaveClass('Mui-selected')
     })
   })
 })

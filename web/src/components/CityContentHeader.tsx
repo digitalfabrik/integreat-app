@@ -1,9 +1,5 @@
-import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined'
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined'
-import MapOutlinedIcon from '@mui/icons-material/MapOutlined'
-import NewspaperOutlinedIcon from '@mui/icons-material/NewspaperOutlined'
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined'
-import SignpostOutlinedIcon from '@mui/icons-material/SignpostOutlined'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -25,9 +21,9 @@ import { LOCAL_NEWS_ROUTE, RouteType, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from
 import ContrastThemeToggle from './ContrastThemeToggle'
 import Header from './Header'
 import HeaderActionItemLink from './HeaderActionItemLink'
-import HeaderNavigationItem, { HeaderNavigationItemProps } from './HeaderNavigationItem'
 import KebabActionItem from './KebabActionItem'
 import LanguageSelector from './LanguageSelector'
+import { NavigationItemProps } from './NavigationBar'
 import Link from './base/Link'
 
 type CityContentHeaderProps = {
@@ -99,7 +95,7 @@ const CityContentHeader = ({
     <ContrastThemeToggle key='contrastTheme' />,
   ]
 
-  const getNavigationItems = (): ReactElement<HeaderNavigationItemProps>[] => {
+  const getNavigationItems = (): NavigationItemProps[] => {
     const isNewsVisible = buildConfig().featureFlags.newsStream && (localNewsEnabled || tunewsEnabled)
     const isEventsVisible = eventsEnabled
     const isPoisVisible = buildConfig().featureFlags.pois && poisEnabled
@@ -109,50 +105,36 @@ const CityContentHeader = ({
       return []
     }
 
-    const items: ReactElement<HeaderNavigationItemProps>[] = [
-      <HeaderNavigationItem
-        key='categories'
-        to={categoriesPath}
-        active={route === CATEGORIES_ROUTE}
-        text={t('localInformation')}
-        icon={SignpostOutlinedIcon}
-      />,
+    const items: NavigationItemProps[] = [
+      {
+        text: t('localInformation'),
+        to: categoriesPath,
+        active: route === CATEGORIES_ROUTE,
+      },
     ]
 
     if (isPoisVisible) {
-      items.push(
-        <HeaderNavigationItem
-          key='locations'
-          to={poisPath}
-          active={route === POIS_ROUTE}
-          text={t('locations')}
-          icon={MapOutlinedIcon}
-        />,
-      )
+      items.push({
+        text: t('locations'),
+        to: poisPath,
+        active: route === POIS_ROUTE,
+      })
     }
 
     if (isNewsVisible) {
-      items.push(
-        <HeaderNavigationItem
-          key='news'
-          active={route === LOCAL_NEWS_ROUTE || route === TU_NEWS_ROUTE || route === TU_NEWS_DETAIL_ROUTE}
-          to={newsPath}
-          text={t('news')}
-          icon={NewspaperOutlinedIcon}
-        />,
-      )
+      items.push({
+        text: t('news'),
+        to: newsPath,
+        active: route === LOCAL_NEWS_ROUTE || route === TU_NEWS_ROUTE || route === TU_NEWS_DETAIL_ROUTE,
+      })
     }
 
     if (isEventsVisible) {
-      items.push(
-        <HeaderNavigationItem
-          key='events'
-          to={eventsPath}
-          active={route === EVENTS_ROUTE}
-          text={t('events')}
-          icon={CalendarTodayOutlinedIcon}
-        />,
-      )
+      items.push({
+        text: t('events'),
+        to: eventsPath,
+        active: route === EVENTS_ROUTE,
+      })
     }
 
     return items

@@ -7,7 +7,6 @@ import { renderWithRouterAndTheme } from '../../testing/render'
 import { mockWindowDimensions } from '../../testing/utils'
 import { Header } from '../Header'
 import HeaderActionItemLink from '../HeaderActionItemLink'
-import HeaderNavigationItem from '../HeaderNavigationItem'
 import KebabActionItem from '../KebabActionItem'
 import Link from '../base/Link'
 
@@ -41,7 +40,7 @@ describe('Header', () => {
       <Header
         logoHref='/random_route'
         actionItems={[<HeaderActionItemLink key={0} to='/random_route' text='random route' icon={<div />} />]}
-        navigationItems={[<HeaderNavigationItem key={0} to='/another_route' text='text1' icon='icon.jpg' active />]}
+        navigationItems={[{ text: 'text1', to: '/another_route', active: true }]}
         kebabItems={[
           <Link key='location' to='/kebab_route'>
             <KebabActionItem text='ChangeLocation' iconSrc='icon.jpg' />
@@ -69,7 +68,7 @@ describe('Header', () => {
       <Header
         logoHref='/random_route'
         actionItems={[<HeaderActionItemLink key={0} to='/random_route' text='random route' icon={<div />} />]}
-        navigationItems={[<HeaderNavigationItem key={0} to='/another_route' text='text1' icon='icon.jpg' active />]}
+        navigationItems={[{ text: 'text1', to: '/another_route', active: true }]}
         kebabItems={[
           <Link key='location' to='/kebab_route'>
             <KebabActionItem text='ChangeLocation' iconSrc='icon.jpg' />

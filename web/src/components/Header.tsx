@@ -1,20 +1,17 @@
 import styled from '@emotion/styled'
 import Headroom from '@integreat-app/react-sticky-headroom'
-import PersonIcon from '@mui/icons-material/Person'
 import React, { ReactElement, ReactNode } from 'react'
 
 import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import CityContentFooter from './CityContentFooter'
 import HeaderLogo from './HeaderLogo'
-import { HeaderNavigationItemProps } from './HeaderNavigationItem'
 import HeaderTitle from './HeaderTitle'
 import KebabMenu from './KebabMenu'
-import NavigationBarScrollContainer from './NavigationBarScrollContainer'
-import ChipButton from './base/ChipButton'
+import NavigationBar, { NavigationItemProps } from './NavigationBar'
 
 type HeaderProps = {
-  navigationItems: ReactElement<HeaderNavigationItemProps>[]
+  navigationItems: NavigationItemProps[]
   actionItems: ReactNode[]
   kebabItems: ReactNode[]
   logoHref: string
@@ -85,18 +82,6 @@ const ActionBar = styled.nav`
   }
 `
 
-const NavigationBar = styled.nav`
-  display: flex;
-  flex: 1 1 0;
-  align-items: stretch;
-  justify-content: center;
-  gap: 24px;
-
-  ${props => props.theme.breakpoints.up('md')} {
-    padding: 0 10px;
-  }
-`
-
 export const Header = ({
   actionItems = [],
   kebabItems = [],
@@ -135,45 +120,7 @@ export const Header = ({
             )}
           </ActionBar>
         </Row>
-        <div style={{ display: 'flex', gap: '8px', marginBottom: '8px', alignItems: 'center' }}>
-          <ChipButton label='small chip' onDelete={() => console.log('click')} size='small' icon={<PersonIcon />} />
-          <ChipButton label='default chip' onDelete={() => console.log('click')} icon={<PersonIcon />} />
-        </div>
-        <div style={{ display: 'flex', gap: '8px', marginBottom: '8px', alignItems: 'center' }}>
-          <ChipButton
-            label='small chip'
-            onDelete={() => console.log('click')}
-            size='small'
-            variant='primary'
-            icon={<PersonIcon />}
-          />
-          <ChipButton
-            label='default chip'
-            onDelete={() => console.log('click')}
-            variant='primary'
-            icon={<PersonIcon />}
-          />
-        </div>
-        <div style={{ display: 'flex', gap: '8px', marginBottom: '8px', alignItems: 'center' }}>
-          <ChipButton
-            label='small chip'
-            onDelete={() => console.log('click')}
-            size='small'
-            variant='outlined'
-            icon={<PersonIcon />}
-          />
-          <ChipButton
-            label='default chip'
-            onDelete={() => console.log('click')}
-            variant='outlined'
-            icon={<PersonIcon />}
-          />
-        </div>
-        {hasNavigationBar && (
-          <NavigationBarScrollContainer activeIndex={navigationItems.findIndex(el => el.props.active)}>
-            <NavigationBar id='navigation-bar'>{navigationItems}</NavigationBar>
-          </NavigationBarScrollContainer>
-        )}
+        {hasNavigationBar && <NavigationBar navigationItems={navigationItems} />}
       </HeaderContainer>
     </Headroom>
   )
