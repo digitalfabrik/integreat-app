@@ -15,7 +15,6 @@ jest.mock('../../constants/buildConfig', () =>
     icons: {
       cityNotCooperating: 'test',
     },
-    lightTheme,
   })),
 )
 jest.mock('react-i18next')
