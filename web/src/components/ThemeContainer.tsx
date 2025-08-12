@@ -36,6 +36,7 @@ const createTheme = (
   contentDirection: UiDirectionType,
 ): Omit<Theme, 'toggleTheme'> => {
   const isContrast = themeType === 'contrast'
+  const theme = isContrast ? buildConfig().darkTheme : buildConfig().lightTheme
 
   return createMuiTheme({
     legacy: isContrast ? buildConfig().legacyContrastTheme : buildConfig().legacyLightTheme,
@@ -47,7 +48,7 @@ const createTheme = (
     direction: contentDirection,
     shadows: muiShadowCreator(themeType),
       typography: buildConfig().typography,
-      palette: isContrast ? buildConfig().darkTheme.palette : buildConfig().lightTheme.palette,
+      palette: theme.palette,
       components: {
         MuiTooltip: {
           defaultProps: {
@@ -58,10 +59,10 @@ const createTheme = (
               padding: '8px',
             },
             arrow: {
-              color: buildConfig().darkTheme.palette.primary.main,
+              color: theme.palette.primary.main,
             },
             tooltip: {
-              backgroundColor: buildConfig().darkTheme.palette.primary.main,
+              backgroundColor: theme.palette.primary.main,
               fontSize: buildConfig().typography.label1?.fontSize,
               padding: '8px 16px',
             },
