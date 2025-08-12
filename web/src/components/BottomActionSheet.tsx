@@ -27,6 +27,7 @@ const StyledSpacer = styled(Divider)`
 
 const StyledBottomSheet = styled(BottomSheet)`
   direction: ${props => props.theme.contentDirection};
+  z-index: 2;
 `
 
 const StyledLayout = styled(RichLayout)`
