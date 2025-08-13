@@ -56,11 +56,7 @@ import SearchModalContainer from './routes/SearchModalContainer'
 import Settings from './routes/Settings'
 import { ASYNC_STORAGE_VERSION } from './utils/AppSettings'
 import dataContainer from './utils/DefaultDataContainer'
-import {
-  initialPushNotificationRequest,
-  quitAppStatePushNotificationListener,
-  useForegroundPushNotificationListener,
-} from './utils/PushNotificationsManager'
+import { usePushNotificationListener } from './utils/PushNotificationsManager'
 import { initSentry, log, reportError } from './utils/sentry'
 
 type HeaderProps = {
@@ -96,22 +92,7 @@ const Navigator = (): ReactElement | null => {
   // Preload cities
   const { data: cities, error: citiesError, refresh: refreshCities } = useLoadCities()
 
-  useEffect(() => {
-    initialPushNotificationRequest(appContext).catch(reportError)
-  }, [appContext])
-
-  useForegroundPushNotificationListener({ showSnackbar, navigate: navigation.navigate })
-
-  useEffect(() => {
-    // If the app is opened by clicking on a push notification, the navigation object is initially not ready
-    // Therefore use the RedirectContainer to handle the deep link to the local news
-    quitAppStatePushNotificationListener((url: string) =>
-      setInitialRoute({
-        name: REDIRECT_ROUTE,
-        url,
-      }),
-    )
-  }, [])
+  usePushNotificationListener(navigation.navigate)
 
   const updateInitialRoute = useCallback(
     (initialRoute: InitialRouteType) =>
