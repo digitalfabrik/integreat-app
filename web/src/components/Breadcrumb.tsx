@@ -5,7 +5,7 @@ import React, { ReactElement } from 'react'
 import { helpers } from '../constants/theme'
 
 const SHRINK_FACTOR = 0.1
-const StyledTitle = styled('span')<{ shrink: boolean }>`
+const StyledTitle = styled('span')<{ shrink: boolean; isCurrent?: boolean }>`
   display: list-item;
   overflow: hidden;
   white-space: nowrap;
@@ -16,7 +16,7 @@ const StyledTitle = styled('span')<{ shrink: boolean }>`
     flex-shrink: 1;
   }
 
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => (props.isCurrent ? props.theme.palette.primary.main : props.theme.palette.text.secondary)};
   margin: 0 2px;
 `
 
@@ -24,14 +24,17 @@ type BreadcrumbProps = {
   title: string
   to?: string
   shrink: boolean
+  isCurrent?: boolean
 }
 
 /**
  * Displays breadcrumbs (Links) for lower category levels
  */
-const Breadcrumb = ({ title, to, shrink }: BreadcrumbProps): ReactElement => (
+const Breadcrumb = ({ title, to, shrink, isCurrent }: BreadcrumbProps): ReactElement => (
   <Link css={helpers.removeLinkHighlighting} color='inherit' href={to}>
-    <StyledTitle shrink={shrink}>{title}</StyledTitle>
+    <StyledTitle shrink={shrink} isCurrent={isCurrent}>
+      {title}
+    </StyledTitle>
   </Link>
 )
 

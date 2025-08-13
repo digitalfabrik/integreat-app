@@ -37,18 +37,20 @@ const render = (ancestors: BreadcrumbModel[], current: BreadcrumbModel) =>
 describe('Breadcrumbs', () => {
   it('should display correctly on the first level', () => {
     const ancestors = [breadcrumb0]
-    const { getByText, queryByText } = render(ancestors, breadcrumb0)
+    const { getByRole, queryByText } = render(ancestors, breadcrumb0)
 
-    expect(getByText(breadcrumb0.title).getAttribute('href')).toBe(breadcrumb0.pathname)
+    const breadcrumbLink = getByRole('link', { name: breadcrumb0.title })
+    expect(breadcrumbLink.getAttribute('href')).toBe(breadcrumb0.pathname)
     expect(queryByText(breadcrumb1.title)).toBeFalsy()
   })
 
   it('should display correctly on a lower level', () => {
     const ancestors = [breadcrumb0, breadcrumb1]
-    const { getAllByRole, getByText, queryByText } = render(ancestors, breadcrumb2)
+    const { getAllByRole, getByRole, queryByText } = render(ancestors, breadcrumb2)
 
     expect(getAllByRole('link')[0]?.getAttribute('href')).toBe(breadcrumb0.pathname)
-    expect(getByText(breadcrumb1.title).getAttribute('href')).toBe(breadcrumb1.pathname)
-    expect(queryByText(breadcrumb2.title)).toBeFalsy()
+    const breadcrumbLink = getByRole('link', { name: breadcrumb1.title })
+    expect(breadcrumbLink.getAttribute('href')).toBe(breadcrumb1.pathname)
+    expect(queryByText(breadcrumb2.title)).toBeTruthy()
   })
 })

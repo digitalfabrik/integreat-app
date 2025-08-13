@@ -79,6 +79,14 @@ const Breadcrumbs = ({ ancestorBreadcrumbs, currentBreadcrumb }: BreadcrumbsProp
             />
           )
         })}
+        {ancestorBreadcrumbs.length > 0 && (
+          <Breadcrumb
+            title={currentBreadcrumb.title}
+            shrink={currentBreadcrumb.title.length >= MIN_SHRINK_CHARS}
+            isCurrent
+            key={currentBreadcrumb.title}
+          />
+        )}
       </StyledMuiBreadcrumbs>
     </StyledBox>
   )
