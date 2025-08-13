@@ -3,25 +3,22 @@ import { fireEvent } from '@testing-library/react'
 import { DateTime } from 'luxon'
 import React from 'react'
 
-import useCityContentParams from '../../hooks/useCityContentParams'
-import { renderWithTheme } from '../../testing/render'
-import DatePicker, { CustomAdapterLuxon, CustomDatePickerProps } from '../DatePicker'
+import { EVENTS_ROUTE } from 'shared'
+
+import { RoutePatterns } from '../../routes'
+import { renderRoute } from '../../testing/render'
+import CustomAdapterLuxon from '../../utils/CustomAdapterLuxon'
+import DatePicker, { CustomDatePickerProps } from '../DatePicker'
 
 jest.mock('react-i18next')
-jest.mock('../../hooks/useCityContentParams')
 
-const mockedUseCityContentParams = useCityContentParams as jest.MockedFunction<typeof useCityContentParams>
 describe('DatePicker', () => {
   const setDate = jest.fn()
-  beforeEach(() => {
-    mockedUseCityContentParams.mockReturnValue({
-      cityCode: 'city',
-      languageCode: 'de',
-    })
-  })
+  const routePattern = `/:cityCode/:languageCode/${RoutePatterns[EVENTS_ROUTE]}`
+  const pathname = '/augsburg/de/events'
 
   const renderCustomDatePicker = ({ setDate, title, date, error, placeholderDate }: CustomDatePickerProps) =>
-    renderWithTheme(
+    renderRoute(
       <LocalizationProvider dateAdapter={CustomAdapterLuxon} adapterLocale='de'>
         <DatePicker
           setDate={setDate}
@@ -32,6 +29,7 @@ describe('DatePicker', () => {
           calendarLabel='calendar'
         />
       </LocalizationProvider>,
+      { pathname, routePattern },
     )
 
   it('renders correctly with given props', () => {
