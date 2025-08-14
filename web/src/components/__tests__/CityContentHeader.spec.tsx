@@ -10,7 +10,6 @@ import CityContentHeader from '../CityContentHeader'
 
 jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
-jest.mock('react-tooltip')
 
 jest.mock('../HeaderNavigationItem', () => ({ text, active }: { text: string; active: boolean }) => (
   <div>{`${text} ${active ? 'active' : 'inactive'}`}</div>
