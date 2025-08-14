@@ -47,29 +47,29 @@ const createTheme = (
     },
     direction: contentDirection,
     shadows: muiShadowCreator(themeType),
-      typography: buildConfig().typography,
-      palette: theme.palette,
-      components: {
-        MuiTooltip: {
-          defaultProps: {
-            arrow: true,
+    typography: buildConfig().typography,
+    palette: theme.palette,
+    components: {
+      MuiTooltip: {
+        defaultProps: {
+          arrow: true,
+        },
+        styleOverrides: {
+          popper: {
+            padding: '8px',
           },
-          styleOverrides: {
-            popper: {
-              padding: '8px',
-            },
-            arrow: {
-              color: theme.palette.primary.main,
-            },
-            tooltip: {
-              backgroundColor: theme.palette.primary.main,
-              fontSize: buildConfig().typography.label1?.fontSize,
-              padding: '8px 16px',
-            },
+          arrow: {
+            color: theme.palette.primary.main,
+          },
+          tooltip: {
+            backgroundColor: theme.palette.primary.main,
+            fontSize: buildConfig().typography.label1?.fontSize,
+            padding: '8px 16px',
           },
         },
       },
-    })
+    },
+  })
 }
 
 type ThemeContainerProps = {
