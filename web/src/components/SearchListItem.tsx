@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import Divider from '@mui/material/Divider'
 import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -45,13 +46,12 @@ const StyledLink = styled(Link)`
   display: inline-flex;
   margin: 0 auto;
   width: inherit;
-  border-bottom: 1px solid ${props => props.theme.colors.themeColor};
 
   &:hover {
     color: inherit;
     text-decoration: inherit;
     transition: background-color 0.5s ease;
-    background-color: ${props => props.theme.colors.backgroundAccentColor};
+    background-color: ${props => props.theme.legacy.colors.backgroundAccentColor};
   }
 `
 
@@ -79,6 +79,7 @@ const SearchListItem = ({ title, contentWithoutHtml, query, path, thumbnail }: S
           </div>
         </CategoryItemContainer>
       </StyledLink>
+      <Divider />
     </Row>
   )
 }

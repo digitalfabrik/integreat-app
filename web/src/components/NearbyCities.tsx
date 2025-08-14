@@ -1,38 +1,28 @@
 import styled from '@emotion/styled'
+import RefreshIcon from '@mui/icons-material/Refresh'
+import Divider from '@mui/material/Divider'
+import IconButton from '@mui/material/IconButton'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { getNearbyCities } from 'shared'
 import { CityModel } from 'shared/api'
 
-import { RefreshIcon } from '../assets'
 import useUserLocation from '../hooks/useUserLocation'
 import CityEntry from './CityEntry'
 import { CityListParent } from './CitySelector'
-import Button from './base/Button'
 import Icon from './base/Icon'
 
 const NearbyMessageContainer = styled.div`
+  display: flex;
   padding: 8px;
-  flex-direction: row;
   justify-content: space-between;
 `
 
 const NearbyMessage = styled.span`
-  color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.web.decorativeFont};
-  padding-top: 16px;
-`
-
-const RetryButtonContainer = styled(Button)`
-  flex-direction: column;
-  height: 24px;
-`
-
-const StyledMessageWrapper = styled.div`
-  display: flex;
-  align-items: end;
-  justify-content: space-between;
+  color: ${props => props.theme.legacy.colors.textColor};
+  font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
+  align-self: center;
 `
 
 type NearbyCitiesProps = {
@@ -57,15 +47,18 @@ const NearbyCities = ({ cities, language, filterText, stickyTop }: NearbyCitiesP
     <div>
       <CityListParent stickyTop={stickyTop}>{t('nearbyCities')}</CityListParent>
       {nearbyCities.length > 0 ? (
-        nearbyCities.map(city => <CityEntry key={city.code} city={city} language={language} filterText={filterText} />)
+        nearbyCities.map(city => (
+          <React.Fragment key={city.code}>
+            <Divider />
+            <CityEntry key={city.code} city={city} language={language} filterText={filterText} />
+          </React.Fragment>
+        ))
       ) : (
         <NearbyMessageContainer>
-          <StyledMessageWrapper>
-            <NearbyMessage>{userLocation ? t('noNearbyCities') : t('locationError')}</NearbyMessage>
-            <RetryButtonContainer label={t('refresh')} onClick={refresh}>
-              <Icon src={RefreshIcon} />
-            </RetryButtonContainer>
-          </StyledMessageWrapper>
+          <NearbyMessage>{userLocation ? t('noNearbyCities') : t('locationError')}</NearbyMessage>
+          <IconButton aria-label={t('refresh')} onClick={refresh}>
+            <Icon src={RefreshIcon} />
+          </IconButton>
         </NearbyMessageContainer>
       )}
     </div>

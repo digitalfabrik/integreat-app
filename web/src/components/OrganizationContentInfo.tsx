@@ -22,7 +22,7 @@ const ThumbnailSizer = styled.div`
 const Box = styled(HighlightBox)<{ viewportSmall: boolean }>`
   display: flex;
   place-content: space-evenly space-evenly;
-  font-family: ${props => props.theme.fonts.web.decorativeFont};
+  font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
   font-size: 14px;
   flex-direction: ${props => (props.viewportSmall ? 'column' : 'row')};
   gap: 20px;

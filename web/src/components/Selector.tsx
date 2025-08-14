@@ -1,13 +1,13 @@
-import { css } from '@emotion/react'
+import { css, Theme } from '@emotion/react'
 import styled from '@emotion/styled'
+import Tooltip from '@mui/material/Tooltip'
 import React, { ReactElement } from 'react'
 
 import dimensions from '../constants/dimensions'
 import SelectorItemModel from '../models/SelectorItemModel'
 import Link from './base/Link'
-import Tooltip from './base/Tooltip'
 
-const selectorItemStyle = css`
+const selectorItemStyle = ({ theme }: { theme: Theme }) => css`
   height: ${dimensions.headerHeightLarge}px;
   min-width: 90px;
   padding: 0 5px;
@@ -21,7 +21,7 @@ const selectorItemStyle = css`
     border-radius 0.2s;
   user-select: none;
 
-  @media ${dimensions.smallViewport} {
+  ${theme.breakpoints.down('md')} {
     height: ${dimensions.headerHeightSmall}px;
     width: 100%;
     flex: 1 1 auto;
@@ -32,7 +32,7 @@ const selectorItemStyle = css`
 
 const SelectorItem = styled(Link)<{ selected: boolean }>`
   ${selectorItemStyle};
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
   ${props =>
     props.selected
       ? 'font-weight: 700;'
@@ -44,7 +44,7 @@ const SelectorItem = styled(Link)<{ selected: boolean }>`
 
 const DisabledSelectorItem = styled.div`
   ${selectorItemStyle};
-  color: ${props => props.theme.colors.textDisabledColor};
+  color: ${props => props.theme.legacy.colors.textDisabledColor};
 `
 
 const BoldSpacer = styled.div`
@@ -59,7 +59,7 @@ const Wrapper = styled.div<{ vertical: boolean }>`
   width: 100%;
   flex-flow: ${props => (props.vertical ? 'column' : 'row wrap')};
   justify-content: space-evenly;
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
 `
 
 type SelectorProps = {
@@ -77,7 +77,7 @@ const Selector = ({
   closeDropDown,
   disabledItemTooltip,
 }: SelectorProps): ReactElement => (
-  <Wrapper vertical={verticalLayout} id='languageSelector'>
+  <Wrapper vertical={verticalLayout}>
     {items.map(item =>
       item.href ? (
         <SelectorItem
@@ -90,8 +90,8 @@ const Selector = ({
           {item.name}
         </SelectorItem>
       ) : (
-        <Tooltip id={item.code} key={item.code} tooltipContent={disabledItemTooltip}>
-          <DisabledSelectorItem id={item.code}>
+        <Tooltip key={item.code} title={disabledItemTooltip}>
+          <DisabledSelectorItem>
             <BoldSpacer>{item.name}</BoldSpacer>
             {item.name}
           </DisabledSelectorItem>

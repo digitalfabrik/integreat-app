@@ -18,17 +18,18 @@ const DropDownContainer = styled.div<{ active: boolean }>`
     transform 0.2s,
     opacity 0.2s,
     visibility 0s ${props => (props.active ? '0s' : '0.2s')};
-  background-color: ${props => props.theme.colors.backgroundColor};
+  background-color: ${props => props.theme.legacy.colors.backgroundColor};
   visibility: ${props => (props.active ? 'visible' : 'hidden')};
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     top: ${dimensions.headerHeightSmall}px;
     height: calc(100% - ${dimensions.headerHeightSmall}px);
     overflow: hidden auto;
   }
 
-  @media ${dimensions.minMaxWidth} {
-    padding-inline: calc((100vw - ${dimensions.maxWidth}px) / 2) calc((200% - 100vw - ${dimensions.maxWidth}px) / 2);
+  ${props => props.theme.breakpoints.up('lg')} {
+    padding-inline: calc((100vw - ${props => props.theme.breakpoints.values.lg}px) / 2)
+      calc((200% - 100vw - ${props => props.theme.breakpoints.values.lg}px) / 2);
   }
 `
 

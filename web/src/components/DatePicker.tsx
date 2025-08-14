@@ -1,14 +1,13 @@
 import styled from '@emotion/styled'
+import EventIcon from '@mui/icons-material/Event'
+import IconButton from '@mui/material/IconButton'
 import { DateTime } from 'luxon'
 import React, { ReactElement, useEffect, useState } from 'react'
 import DatePicker, { DatePickerProps } from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { useTranslation } from 'react-i18next'
 
-import { CalendarTodayIcon } from '../assets'
 import '../styles/DatePickerCalendar.css'
-import Button from './base/Button'
-import Icon from './base/Icon'
 
 const INPUT_HEIGHT = '56px'
 
@@ -21,18 +20,13 @@ const StyledInputWrapper = styled.div`
   display: flex;
 `
 
-const StyledIconButton = styled(Button)<{ isCalendarOpen: boolean }>`
-  width: 40px;
-  height: 40px;
-  border-radius: 20px;
+const StyledIconButton = styled(IconButton)`
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
-  ${props => (props.theme.contentDirection === 'rtl' ? 'left: 16px;' : 'right: 16px;')};
+  right: 16px;
   align-self: center;
-  background-color: ${props =>
-    props.isCalendarOpen ? props.theme.colors.themeColorLight : props.theme.colors.textDisabledColor};
 `
 const DatePickerWrapper: React.FC<DatePickerProps> = props => <DatePicker {...props} />
 
@@ -41,32 +35,31 @@ const StyledInput = styled(DatePickerWrapper)`
   height: ${INPUT_HEIGHT};
   padding: 0 16px;
   border-radius: 8px;
-  border-color: ${props => props.theme.colors.themeColorLight};
+  border-color: ${props => props.theme.legacy.colors.themeColorLight};
   border-width: 3px;
   border-style: solid;
 
   &&& {
     &:focus {
       outline: none;
-      border-color: ${props => props.theme.colors.themeColor};
+      border-color: ${props => props.theme.legacy.colors.themeColor};
     }
   }
 `
 
 const StyledTitle = styled.span`
-  background-color: ${props => props.theme.colors.backgroundColor};
+  background-color: ${props => props.theme.legacy.colors.backgroundColor};
   position: absolute;
   top: -12px;
-  left: ${props => (props.theme.contentDirection === 'rtl' ? 'auto' : '12px')};
-  right: ${props => (props.theme.contentDirection === 'rtl' ? '12px' : 'auto')};
-  padding: 2px 5px;
+  left: 12px;
+  padding: 2px 4px;
   font-size: 12px;
 `
 
 const StyledError = styled.div`
   font-size: 12px;
   font-weight: bold;
-  color: ${props => props.theme.colors.invalidInput};
+  color: ${props => props.theme.legacy.colors.invalidInput};
 `
 
 export type CustomDatePickerProps = {
@@ -156,8 +149,8 @@ const CustomDatePicker = ({
           onChange={(date: Date | null) => handleDateChange(date)}
           onChangeRaw={e => handleDateError(String((e?.target as HTMLInputElement).value))}
         />
-        <StyledIconButton label={calendarLabel} isCalendarOpen={isCalendarOpen} onClick={() => setIsCalendarOpen(true)}>
-          <Icon src={CalendarTodayIcon} />
+        <StyledIconButton color='primary' size='large' name={calendarLabel} onClick={() => setIsCalendarOpen(true)}>
+          <EventIcon />
         </StyledIconButton>
       </StyledInputWrapper>
       <StyledTitle>{title}</StyledTitle>

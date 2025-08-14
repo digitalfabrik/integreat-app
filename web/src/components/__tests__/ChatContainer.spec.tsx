@@ -33,8 +33,11 @@ describe('ChatContainer', () => {
   const pathname = `/${city.code}/de`
 
   it('should open chat modal and show content on chat button click', () => {
-    const { getByText } = renderRoute(<ChatContainer city={city} language='de' />, { pathname, routePattern })
-    const chatButtonContainer = getByText(getChatName('IntegreatTestCms'))
+    const { getByText, getAllByText } = renderRoute(<ChatContainer city={city} language='de' />, {
+      pathname,
+      routePattern,
+    })
+    const chatButtonContainer = getAllByText(getChatName('IntegreatTestCms'))[0]!
     expect(chatButtonContainer).toBeTruthy()
     fireEvent.click(chatButtonContainer)
     expect(getByText('chat:conversationTitle')).toBeTruthy()
@@ -42,13 +45,13 @@ describe('ChatContainer', () => {
   })
 
   it('should close chat if close button was clicked', () => {
-    const { getAllByLabelText, queryByText, getByText } = renderRoute(<ChatContainer city={city} language='de' />, {
+    const { getAllByLabelText, queryByText, getAllByText } = renderRoute(<ChatContainer city={city} language='de' />, {
       pathname,
       routePattern,
     })
-    const chatButtonContainer = getByText(getChatName('IntegreatTestCms'))
+    const chatButtonContainer = getAllByText(getChatName('IntegreatTestCms'))[0]!
     expect(chatButtonContainer).toBeTruthy()
-    fireEvent.click(chatButtonContainer)
+    fireEvent.click(chatButtonContainer!)
     const closeButton = getAllByLabelText('common:minimize')[0]!
     fireEvent.click(closeButton)
     expect(queryByText('chat:conversationTitle')).toBeFalsy()
@@ -67,12 +70,12 @@ describe('ChatContainer', () => {
   })
 
   it('should only update query params if open chat query param is set', () => {
-    const { getByText, router } = renderRoute(<ChatContainer city={city} language='de' />, {
+    const { getAllByText, router } = renderRoute(<ChatContainer city={city} language='de' />, {
       pathname,
       routePattern,
       searchParams: '?',
     })
-    expect(getByText(getChatName('IntegreatTestCms'))).toBeTruthy()
+    expect(getAllByText(getChatName('IntegreatTestCms'))).toHaveLength(2)
     expect(router.state.location.search).toBe('?')
   })
 })

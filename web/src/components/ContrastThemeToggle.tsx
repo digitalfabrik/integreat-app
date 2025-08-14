@@ -1,9 +1,9 @@
+import { useTheme } from '@emotion/react'
 import styled from '@emotion/styled'
+import ContrastIcon from '@mui/icons-material/Contrast'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ContrastIcon } from '../assets'
-import { useThemeContext } from '../hooks/useThemeContext'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import ToolbarItem from './ToolbarItem'
 import Button from './base/Button'
@@ -17,14 +17,14 @@ const ContrastButton = styled(Button)`
 
   & > span {
     padding: 0 28px;
-    color: ${props => props.theme.colors.textColor};
+    color: ${props => props.theme.legacy.colors.textColor};
   }
 `
 
 const ContrastThemeToggle = (): ReactElement => {
   const { t } = useTranslation('layout')
   const { viewportSmall } = useWindowDimensions()
-  const { toggleTheme } = useThemeContext()
+  const { toggleTheme } = useTheme()
 
   if (viewportSmall) {
     return (
@@ -35,7 +35,7 @@ const ContrastThemeToggle = (): ReactElement => {
     )
   }
 
-  return <ToolbarItem icon={ContrastIcon} text={t('contrastTheme')} onClick={toggleTheme} id='contrast-theme' />
+  return <ToolbarItem icon={ContrastIcon} text={t('contrastTheme')} onClick={toggleTheme} />
 }
 
 export default ContrastThemeToggle

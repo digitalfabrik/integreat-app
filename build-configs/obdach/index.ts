@@ -3,13 +3,17 @@ import obdachOverrideTranslations from 'translations/override-translations/obdac
 import { OBDACH_ASSETS } from '../AssetsType'
 import { CommonBuildConfigType, WebBuildConfigType } from '../BuildConfigType'
 import mainImprint from './mainImprint'
-import { legacyContrastTheme, legacyLightTheme } from './theme'
+import { legacyContrastTheme, darkTheme, legacyLightTheme, lightTheme } from './theme'
+import { typography } from './theme/typography'
 
 const commonObdachBuildConfig: CommonBuildConfigType = {
   appName: 'Netzwerk Obdach & Wohnen',
   appIcon: 'app_icon_obdach',
+  lightTheme,
+  darkTheme,
   legacyLightTheme,
   legacyContrastTheme,
+  typography,
   assets: OBDACH_ASSETS,
   cmsUrl: 'https://cms.netzwerkobdachwohnen.de',
   hostName: 'netzwerkobdachwohnen.de',

@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import Divider from '@mui/material/Divider'
 import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -30,7 +31,7 @@ const CategoryItemCaption = styled.span`
   align-items: center;
   padding: 15px 5px;
   color: inherit;
-  font-size: ${props => props.theme.fonts.contentFontSize};
+  font-size: ${props => props.theme.legacy.fonts.contentFontSize};
   font-weight: bold;
   text-decoration: inherit;
   height: 100%;
@@ -49,13 +50,12 @@ const StyledLink = styled(Link)`
   align-items: center;
   margin: 0 auto;
   width: inherit;
-  border-bottom: 1px solid ${props => props.theme.colors.themeColor};
 
   &:hover {
     color: inherit;
     text-decoration: inherit;
     transition: background-color 0.5s ease;
-    background-color: ${props => props.theme.colors.backgroundAccentColor};
+    background-color: ${props => props.theme.legacy.colors.backgroundAccentColor};
   }
 `
 
@@ -71,6 +71,7 @@ const CategoryListItem = ({ category, subCategories }: CategoryListItemProps): R
         {!!subCategory.thumbnail && <CategoryThumbnail alt='' src={subCategory.thumbnail} />}
         <SubCategoryCaption>{subCategory.title}</SubCategoryCaption>
       </StyledLink>
+      <Divider />
     </SubCategory>
   ))
 
@@ -80,6 +81,7 @@ const CategoryListItem = ({ category, subCategories }: CategoryListItemProps): R
         {!!category.thumbnail && <CategoryThumbnail alt='' src={category.thumbnail} />}
         <CategoryItemCaption>{category.title}</CategoryItemCaption>
       </StyledLink>
+      <Divider />
       <SubCategoriesContainer>{SubCategories}</SubCategoriesContainer>
     </Row>
   )

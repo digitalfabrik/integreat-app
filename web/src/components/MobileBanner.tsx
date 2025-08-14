@@ -1,11 +1,10 @@
 import styled from '@emotion/styled'
+import CloseIcon from '@mui/icons-material/Close'
 import { DateTime } from 'luxon'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CloseIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'
-import dimensions from '../constants/dimensions'
 import useLocalStorage from '../hooks/useLocalStorage'
 import Button from './base/Button'
 import Icon from './base/Icon'
@@ -13,13 +12,13 @@ import Icon from './base/Icon'
 const StyledBanner = styled.div<{ isInstalled: boolean }>`
   display: none;
   justify-content: space-between;
-  background-color: ${props => props.theme.colors.themeColor};
+  background-color: ${props => props.theme.legacy.colors.themeColor};
   padding: 15px;
   align-items: center;
   transition: all 2s ease-out;
   height: ${props => (props.isInstalled ? 'fit-content' : '80px')};
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     display: flex;
   }
 `
@@ -51,20 +50,21 @@ const StyledDivText = styled.div`
 const StyledAppName = styled.span`
   font-weight: bold;
   font-size: 12px;
-  color: ${props => props.theme.colors.themeContrast};
+  color: ${props => props.theme.legacy.colors.themeContrast};
 `
 
 const smallScreenSize = 400
 
 const StyledDescription = styled.span<{ screenSize: number }>`
-  color: ${props => props.theme.colors.themeContrast};
+  color: ${props => props.theme.legacy.colors.themeContrast};
   white-space: nowrap;
   font-size: ${props => (props.screenSize <= smallScreenSize ? '10px' : '12px')};
 `
 
 const StyledButton = styled.button<{ isInstalled: boolean }>`
-  background-color: ${props => (!props.isInstalled ? 'transparent' : props.theme.colors.textColor)};
-  color: ${props => (!props.isInstalled ? props.theme.colors.themeContrast : props.theme.colors.themeColor)};
+  background-color: ${props => (!props.isInstalled ? 'transparent' : props.theme.legacy.colors.textColor)};
+  color: ${props =>
+    !props.isInstalled ? props.theme.legacy.colors.themeContrast : props.theme.legacy.colors.themeColor};
   border: ${props => !props.isInstalled && 'none'};
   border-radius: 40px;
   padding: 6px 12px;
