@@ -44,21 +44,7 @@ const CustomDatePicker = ({
   const { t } = useTranslation('events')
   const [validationError, setValidationError] = useState<DateValidationError | null>(null)
   const { languageCode } = useCityContentParams()
-  const defaultMaxDate = '2099-12-31'
-  const defaultMinDate = '1900-01-01'
-
   const errorMessage = error ?? (validationError ? t('invalidDate') : null)
-
-  const handleDateChange = (newValue: DateTime | null) => {
-    if (newValue) {
-      setDate(newValue)
-      if (newValue > DateTime.fromISO(defaultMaxDate) || newValue < DateTime.fromISO(defaultMinDate)) {
-        setValidationError('invalidDate')
-      } else {
-        setValidationError(null)
-      }
-    }
-  }
 
   useEffect(() => {
     if (date == null) {
@@ -71,7 +57,7 @@ const CustomDatePicker = ({
       <StyledDatePicker
         label={title}
         value={date}
-        onChange={handleDateChange}
+        onChange={setDate}
         slotProps={{
           textField: {
             InputLabelProps: { shrink: true },

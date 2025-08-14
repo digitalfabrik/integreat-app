@@ -68,7 +68,7 @@ describe('DatePicker', () => {
     fireEvent.click(getByLabelText(ariaLabel))
     fireEvent.click(getByText(newValue.day))
 
-    expect(setDate).toHaveBeenCalledWith(newValue)
+    expect(setDate).toHaveBeenCalledWith(newValue, { validationError: null })
   })
 
   it('displays an error message when error prop is provided', () => {
