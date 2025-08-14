@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
 import SendIcon from '@mui/icons-material/Send'
+import { FormControl, FormHelperText, InputLabel } from '@mui/material'
 import Button from '@mui/material/Button'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -12,7 +13,6 @@ import { SendingStatusType } from './FeedbackContainer'
 import Note from './Note'
 import PrivacyCheckbox from './PrivacyCheckbox'
 import Input from './base/Input'
-import InputSection from './base/InputSection'
 
 export const Container = styled.div<{ fullWidth?: boolean }>`
   display: flex;
@@ -87,24 +87,29 @@ const Feedback = ({
   return (
     <Container fullWidth={isSearchFeedback}>
       {isSearchFeedback ? (
-        <InputSection id='searchTerm' title={t('searchTermDescription')}>
-          <Input id='searchTerm' value={searchTerm} onChange={setSearchTerm} />
-        </InputSection>
+        <FormControl>
+          <FormHelperText id={searchTerm}>{t('searchTermDescription')}</FormHelperText>
+          <InputLabel htmlFor='searchTerm' />
+          <Input id='searchTerm' value={searchTerm} aria-describedby={searchTerm} onChange={setSearchTerm} />
+        </FormControl>
       ) : (
         setRating && <FeedbackButtons rating={rating} setRating={setRating} />
       )}
-
-      <InputSection
-        id='comment'
-        title={t(commentTitle)}
-        description={t('commentDescription', { appName: buildConfig().appName })}
-        showOptional>
-        <Input id='comment' value={comment} onChange={onCommentChanged} rows={DEFAULT_ROWS_NUMBER} />
-      </InputSection>
-
-      <InputSection id='email' title={t('contactMailAddress')} showOptional>
+      <FormControl>
+        <InputLabel htmlFor='comment'>{t(commentTitle)}</InputLabel>
+        <Input
+          id='comment'
+          value={comment}
+          aria-describedby={comment}
+          onChange={onCommentChanged}
+          rows={DEFAULT_ROWS_NUMBER}
+        />
+        <FormHelperText id={comment}>{t('commentDescription', { appName: buildConfig().appName })}</FormHelperText>
+      </FormControl>
+      <FormControl>
+        <InputLabel htmlFor='email'>{t('contactMailAddress')}</InputLabel>
         <Input id='email' value={contactMail} onChange={onContactMailChanged} />
-      </InputSection>
+      </FormControl>
       <PrivacyCheckbox language={language} checked={privacyPolicyAccepted} setChecked={setPrivacyPolicyAccepted} />
       {submitFeedbackDisabled && <Note text={t(feedbackFilled ? 'noteFillFeedback' : 'notePrivacyPolicy')} />}
       {sendingStatus === 'failed' && <ErrorSendingStatus role='alert'>{t('failedSendingFeedback')}</ErrorSendingStatus>}
