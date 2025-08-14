@@ -20,7 +20,7 @@ const Wrapper = styled.div`
   width: 100%;
   box-sizing: border-box;
   padding: 10px 10%;
-  background-color: ${props => props.theme.colors.backgroundColor};
+  background-color: ${props => props.theme.legacy.colors.backgroundColor};
   display: flex;
   align-items: center;
 

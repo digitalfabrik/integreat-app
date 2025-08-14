@@ -32,7 +32,7 @@ const selectorItemStyle = ({ theme }: { theme: Theme }) => css`
 
 const SelectorItem = styled(Link)<{ selected: boolean }>`
   ${selectorItemStyle};
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
   ${props =>
     props.selected
       ? 'font-weight: 700;'
@@ -44,7 +44,7 @@ const SelectorItem = styled(Link)<{ selected: boolean }>`
 
 const DisabledSelectorItem = styled.div`
   ${selectorItemStyle};
-  color: ${props => props.theme.colors.textDisabledColor};
+  color: ${props => props.theme.legacy.colors.textDisabledColor};
 `
 
 const BoldSpacer = styled.div`
@@ -59,7 +59,7 @@ const Wrapper = styled.div<{ vertical: boolean }>`
   width: 100%;
   flex-flow: ${props => (props.vertical ? 'column' : 'row wrap')};
   justify-content: space-evenly;
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
 `
 
 type SelectorProps = {

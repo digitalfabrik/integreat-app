@@ -23,8 +23,8 @@ export const Container = styled.div<{ fullWidth?: boolean }>`
   justify-content: space-between;
   padding: 16px;
   border-radius: 10px;
-  border-color: ${props => props.theme.colors.textSecondaryColor};
-  font-size: ${props => props.theme.fonts.contentFontSize};
+  border-color: ${props => props.theme.legacy.colors.textSecondaryColor};
+  font-size: ${props => props.theme.legacy.fonts.contentFontSize};
   overflow: auto;
   align-self: center;
   gap: 16px;
