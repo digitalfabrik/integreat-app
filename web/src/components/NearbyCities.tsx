@@ -1,5 +1,4 @@
 import RefreshIcon from '@mui/icons-material/Refresh'
-import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
@@ -10,8 +9,9 @@ import { CityModel } from 'shared/api'
 
 import useUserLocation from '../hooks/useUserLocation'
 import CityEntry from './CityEntry'
-import { CityListParent } from './CitySelector'
+import { StyledListItem, StyledListSubheader } from './CitySelector'
 import Icon from './base/Icon'
+import List from './base/List'
 
 const NearbyMessageContainer = styled('div')`
   display: flex;
@@ -43,25 +43,28 @@ const NearbyCities = ({ cities, language, filterText, stickyTop }: NearbyCitiesP
       )
     : []
 
-  return (
-    <div>
-      <CityListParent stickyTop={stickyTop}>{t('nearbyCities')}</CityListParent>
-      {nearbyCities.length > 0 ? (
-        nearbyCities.map(city => (
-          <React.Fragment key={city.code}>
-            <Divider />
-            <CityEntry key={city.code} city={city} language={language} filterText={filterText} />
-          </React.Fragment>
-        ))
-      ) : (
+  if (nearbyCities.length === 0) {
+    return (
+      <>
+        <StyledListSubheader stickyTop={stickyTop}>{t('nearbyCities')}</StyledListSubheader>
         <NearbyMessageContainer>
           <NearbyMessage>{userLocation ? t('noNearbyCities') : t('locationError')}</NearbyMessage>
           <IconButton aria-label={t('refresh')} onClick={refresh}>
             <Icon src={RefreshIcon} />
           </IconButton>
         </NearbyMessageContainer>
-      )}
-    </div>
+      </>
+    )
+  }
+
+  return (
+    <StyledListItem alignItems='flex-start'>
+      <List
+        header={<StyledListSubheader stickyTop={stickyTop}>{t('nearbyCities')}</StyledListSubheader>}
+        items={nearbyCities}
+        renderItem={city => <CityEntry key={city.code} city={city} language={language} filterText={filterText} />}
+      />
+    </StyledListItem>
   )
 }
 
