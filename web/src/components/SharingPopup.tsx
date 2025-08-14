@@ -125,7 +125,7 @@ const TooltipContainer = styled.div<{
 `
 
 const StyledIconButton = styled(IconButton)`
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.palette.text.primary};
 `
 
 const BackdropContainer = styled(Button)`
