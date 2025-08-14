@@ -3,7 +3,7 @@ import { formHelperTextClasses } from '@mui/material/FormHelperText'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { DateValidationError } from '@mui/x-date-pickers/models'
 import { DateTime } from 'luxon'
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import useCityContentParams from '../hooks/useCityContentParams'
@@ -45,12 +45,6 @@ const CustomDatePicker = ({
   const [validationError, setValidationError] = useState<DateValidationError | null>(null)
   const { languageCode } = useCityContentParams()
   const errorMessage = error ?? (validationError ? t('invalidDate') : null)
-
-  useEffect(() => {
-    if (date == null) {
-      setValidationError(null)
-    }
-  }, [date])
 
   return (
     <DateContainer>
