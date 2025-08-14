@@ -73,7 +73,7 @@ const AppointmentOnlyIcon = ({ appointmentUrl }: AppointmentOnlyIconProps): Reac
             </TooltipContent>
           </>
         }>
-        <IconContainer title={t('appointmentNecessary')}>
+        <IconContainer>
           <StyledIcon src={ErrorOutlineOutlinedIcon} />
         </IconContainer>
       </Tooltip>
