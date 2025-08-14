@@ -556,6 +556,8 @@ jobs:
             - restore_environment_variables
             - restore_yarn_cache
             - restore_ruby_cache:
+                directory: native
+            - restore_ruby_cache:
                 directory: native/ios
             - run:
                 command: yarn app-toolbelt v0 release-notes prepare-metadata << parameters.build_config_name >> appstore
@@ -575,6 +577,10 @@ jobs:
                         command: bundle exec fastlane ios testflight_upload build_config_name:<< parameters.build_config_name >> ipa_path:attached_workspace/<< parameters.build_config_name >>.ipa
                         name: '[FL] Apple TestFlight Upload'
                         working_directory: native/ios
+            - run:
+                command: bundle exec fastlane browserstack_upload path:attached_workspace/<< parameters.build_config_name >>.ipa
+                name: '[FL] Browserstack Upload Live'
+                working_directory: native
             - run:
                 command: |
                     tools/sentry-release de.integreat-app "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/integreat --version-code "${NEW_VERSION_CODE}"
@@ -1048,6 +1054,7 @@ workflows:
                 context:
                     - tuerantuer-apple
                     - sentry
+                    - browserstack
                 matrix:
                     parameters:
                         build_config_name:
@@ -1137,6 +1144,7 @@ workflows:
                 context:
                     - tuerantuer-apple
                     - sentry
+                    - browserstack
                 matrix:
                     parameters:
                         build_config_name:
@@ -1226,6 +1234,7 @@ workflows:
                 context:
                     - tuerantuer-apple
                     - sentry
+                    - browserstack
                 matrix:
                     parameters:
                         build_config_name:
