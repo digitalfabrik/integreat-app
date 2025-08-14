@@ -1,65 +1,27 @@
 import styled from '@emotion/styled'
-import EventIcon from '@mui/icons-material/Event'
-import IconButton from '@mui/material/IconButton'
+import { formHelperTextClasses } from '@mui/material/FormHelperText'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+import { DateValidationError } from '@mui/x-date-pickers/models'
 import { DateTime } from 'luxon'
-import React, { ReactElement, useEffect, useState } from 'react'
-import DatePicker, { DatePickerProps } from 'react-datepicker'
-import 'react-datepicker/dist/react-datepicker.css'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import '../styles/DatePickerCalendar.css'
-
-const INPUT_HEIGHT = '56px'
+import useCityContentParams from '../hooks/useCityContentParams'
 
 const DateContainer = styled.div`
   width: fit-content;
   position: relative;
 `
 
-const StyledInputWrapper = styled.div`
-  display: flex;
+const StyledError = styled.span`
+  color: ${props => props.theme.palette.error.main};
 `
 
-const StyledIconButton = styled(IconButton)<{ isCalendarOpen: boolean }>`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  right: 16px;
-  align-self: center;
-`
-const DatePickerWrapper: React.FC<DatePickerProps> = props => <DatePicker {...props} />
-
-const StyledInput = styled(DatePickerWrapper)`
-  width: 240px;
-  height: ${INPUT_HEIGHT};
-  padding: 0 16px;
-  border-radius: 8px;
-  border-color: ${props => props.theme.legacy.colors.themeColorLight};
-  border-width: 3px;
-  border-style: solid;
-
-  &&& {
-    &:focus {
-      outline: none;
-      border-color: ${props => props.theme.legacy.colors.themeColor};
-    }
+const StyledDatePicker = styled(DatePicker)`
+  margin-bottom: 8px;
+  .${formHelperTextClasses.root} {
+    margin-top: 0;
   }
-`
-
-const StyledTitle = styled.span`
-  background-color: ${props => props.theme.legacy.colors.backgroundColor};
-  position: absolute;
-  top: -12px;
-  left: 12px;
-  padding: 2px 4px;
-  font-size: 12px;
-`
-
-const StyledError = styled.div`
-  font-size: 12px;
-  font-weight: bold;
-  color: ${props => props.theme.legacy.colors.invalidInput};
 `
 
 export type CustomDatePickerProps = {
@@ -71,21 +33,6 @@ export type CustomDatePickerProps = {
   calendarLabel: string
 }
 
-const isValidJsDate = (date: Date | null): boolean => {
-  if (date == null) {
-    return false
-  }
-  try {
-    const checkDate = DateTime.fromJSDate(date)
-    const maxValidYear = 2500
-    // Added this operator to prevent crashing rrule when typing random number
-    return checkDate.year <= maxValidYear
-  } catch (_) {
-    return false
-  }
-}
-const containsOnlyDigits = (str: string) => !Number.isNaN(Number(str))
-
 const CustomDatePicker = ({
   title,
   date,
@@ -95,71 +42,30 @@ const CustomDatePicker = ({
   calendarLabel,
 }: CustomDatePickerProps): ReactElement => {
   const { t } = useTranslation('events')
-  const [isCalendarOpen, setIsCalendarOpen] = useState(false)
-  const [datePickerError, setDatePickerError] = useState('')
-  const [value, setValue] = useState('')
-  const maxInputLength = 10
-
-  const handleDateChange = (date: Date | null) => {
-    if (isValidJsDate(date)) {
-      setDate(DateTime.fromJSDate(date ?? new Date()))
-    } else if (value.length < maxInputLength) {
-      setDatePickerError(t('invalidDate'))
-    }
-  }
-  const handleDateError = (date: string) => {
-    if (!containsOnlyDigits(date.replace('.', '')) || date.length > maxInputLength) {
-      return
-    }
-    setValue(date)
-    const errorString = 'unit out of range'
-    setDatePickerError('')
-    try {
-      DateTime.fromFormat(date, 'dd.MM.yyyy')
-    } catch (e) {
-      if (e instanceof Error && String(e.message).includes(errorString)) {
-        setDatePickerError(t('outOfRangeError'))
-      }
-    }
-  }
-
-  useEffect(() => {
-    if (date == null) {
-      setValue('')
-      setDatePickerError('')
-    }
-  }, [date])
+  const [validationError, setValidationError] = useState<DateValidationError | null>(null)
+  const { languageCode } = useCityContentParams()
+  const errorMessage = error ?? (validationError ? t('invalidDate') : null)
 
   return (
     <DateContainer>
-      <StyledInputWrapper>
-        <StyledInput
-          open={isCalendarOpen}
-          value={value}
-          popperPlacement='bottom'
-          selected={isValidJsDate(date?.toJSDate() ?? null) ? date?.toJSDate() : null}
-          onSelect={e => {
-            setValue(DateTime.fromJSDate(e ?? new Date()).toFormat('dd.MM.yyyy'))
-            setDatePickerError('')
-          }}
-          onClickOutside={() => setIsCalendarOpen(false)}
-          calendarClassName='calenderStyle'
-          dateFormat='dd.MM.yyyy'
-          placeholderText={placeholderDate.toFormat('dd.MM.yyyy')}
-          onChange={(date: Date | null) => handleDateChange(date)}
-          onChangeRaw={e => handleDateError(String((e?.target as HTMLInputElement).value))}
-        />
-        <StyledIconButton
-          color='primary'
-          size='large'
-          name={calendarLabel}
-          isCalendarOpen={isCalendarOpen}
-          onClick={() => setIsCalendarOpen(true)}>
-          <EventIcon />
-        </StyledIconButton>
-      </StyledInputWrapper>
-      <StyledTitle>{title}</StyledTitle>
-      {!!(error || datePickerError) && <StyledError>{error || datePickerError}</StyledError>}
+      <StyledDatePicker
+        label={title}
+        value={date}
+        onChange={setDate}
+        slotProps={{
+          textField: {
+            InputLabelProps: { shrink: true },
+            placeholder: placeholderDate
+              .setLocale(languageCode)
+              .toLocaleString({ month: '2-digit', day: '2-digit', year: 'numeric' }),
+            helperText: errorMessage ? <StyledError>{errorMessage}</StyledError> : null,
+          },
+          openPickerButton: {
+            'aria-label': calendarLabel,
+          },
+        }}
+        onError={setValidationError}
+      />
     </DateContainer>
   )
 }
