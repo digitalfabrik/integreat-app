@@ -5,7 +5,7 @@ import React, { ReactElement, useState } from 'react'
 import Icon from './base/Icon'
 
 const StyledIcon = styled(Icon)`
-  color: ${props => props.theme.colors.themeColor};
+  color: ${props => props.theme.legacy.colors.themeColor};
   display: block;
   height: 64px;
   width: 96px;

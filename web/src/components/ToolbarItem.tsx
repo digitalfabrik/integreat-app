@@ -16,7 +16,7 @@ const toolbarItemStyle = ({ theme }: { theme: Theme }): SerializedStyles => css`
   display: inline-block;
   padding: 8px;
   border: none;
-  color: ${theme.colors.textColor};
+  color: ${theme.legacy.colors.textColor};
   background-color: transparent;
   text-align: center;
 
@@ -34,12 +34,13 @@ const ToolbarItemButton = styled(Button)`
 
 const DisabledToolbarItem = styled('div')`
   ${toolbarItemStyle};
-  color: ${props => props.theme.colors.textDisabledColor};
+  color: ${props => props.theme.legacy.colors.textDisabledColor};
   cursor: default;
 `
 
 const StyledIcon = styled(Icon)<{ disabled?: boolean }>`
-  color: ${props => (props.disabled ? props.theme.colors.textDisabledColor : props.theme.colors.textSecondaryColor)};
+  color: ${props =>
+    props.disabled ? props.theme.legacy.colors.textDisabledColor : props.theme.legacy.colors.textSecondaryColor};
 `
 
 const StyledTooltip = styled(Tooltip)`

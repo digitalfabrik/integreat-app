@@ -24,8 +24,8 @@ const Container = styled.div`
 
 const SubTitle = styled.div`
   font-size: 0.875rem;
-  color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.web.decorativeFont};
+  color: ${props => props.theme.legacy.colors.textColor};
+  font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
   font-weight: bold;
 `
 
@@ -45,8 +45,8 @@ const Row = styled.div`
 const SortingHint = styled.div`
   align-self: flex-end;
   font-size: 0.75rem;
-  color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.web.decorativeFont};
+  color: ${props => props.theme.legacy.colors.textColor};
+  font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
   padding: 0 4px;
 `
 

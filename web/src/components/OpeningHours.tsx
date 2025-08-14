@@ -14,7 +14,8 @@ import Icon from './base/Icon'
 import Link from './base/Link'
 
 const OpeningLabel = styled.span<{ isOpen: boolean }>`
-  color: ${props => (props.isOpen ? props.theme.colors.positiveHighlight : props.theme.colors.negativeHighlight)};
+  color: ${props =>
+    props.isOpen ? props.theme.legacy.colors.positiveHighlight : props.theme.legacy.colors.negativeHighlight};
   padding-inline-end: 12px;
 `
 
@@ -46,7 +47,7 @@ const StyledLink = styled(Link)`
 `
 
 const LinkLabel = styled.span`
-  color: ${props => props.theme.colors.linkColor};
+  color: ${props => props.theme.legacy.colors.linkColor};
   ${helpers.adaptiveFontSize};
   align-self: flex-end;
 `
@@ -57,7 +58,7 @@ const StyledExternalLinkIcon = styled(Icon)`
   align-self: center;
   width: 16px;
   height: 16px;
-  color: ${props => props.theme.colors.linkColor};
+  color: ${props => props.theme.legacy.colors.linkColor};
 `
 
 type OpeningHoursTitleProps = {
