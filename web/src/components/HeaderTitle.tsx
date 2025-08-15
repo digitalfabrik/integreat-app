@@ -1,4 +1,5 @@
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
@@ -7,7 +8,6 @@ import { useTranslation } from 'react-i18next'
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import Link from './base/Link'
-import Tooltip from './base/Tooltip'
 
 const LONG_TITLE_LENGTH = 25
 export const HEADER_TITLE_HEIGHT = 50
@@ -52,7 +52,7 @@ const HeaderTitle = ({ title, landingPath }: HeaderTitleProps): ReactElement => 
         withPadding={isIntegreat}
         aria-label={t('changeLocation')}
         variant={title.length >= LONG_TITLE_LENGTH ? 'title3' : 'title2'}>
-        <Tooltip id='location' place='left' tooltipContent={t('changeLocation')}>
+        <Tooltip id='location' title={t('changeLocation')}>
           <StyledLink to={landingPath}>
             {title}
             <KeyboardArrowDownIcon />
