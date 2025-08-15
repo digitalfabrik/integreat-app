@@ -35,7 +35,7 @@ const ContrastThemeToggle = (): ReactElement => {
     )
   }
 
-  return <ToolbarItem icon={ContrastIcon} text={t('contrastTheme')} onClick={toggleTheme} id='contrast-theme' />
+  return <ToolbarItem icon={ContrastIcon} text={t('contrastTheme')} onClick={toggleTheme} />
 }
 
 export default ContrastThemeToggle

@@ -5,11 +5,6 @@ const GlobalStyle = ({ theme }: { theme: Theme }): SerializedStyles => css`
   body {
     position: relative;
 
-    /* react-tooltip: https://react-tooltip.com/docs/getting-started#styling */
-    --rt-color-dark: ${theme.legacy.colors.textSecondaryColor};
-    --rt-color-white: ${theme.legacy.colors.backgroundColor};
-    --rt-opacity: 1;
-
     /* stylelint-disable selector-class-pattern */
 
     /* react-datepicker */
