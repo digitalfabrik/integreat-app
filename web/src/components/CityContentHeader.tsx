@@ -1,9 +1,9 @@
 import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined'
-import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined'
 import MapOutlinedIcon from '@mui/icons-material/MapOutlined'
 import NewspaperOutlinedIcon from '@mui/icons-material/NewspaperOutlined'
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined'
 import SignpostOutlinedIcon from '@mui/icons-material/SignpostOutlined'
+import TranslateOutlinedIcon from '@mui/icons-material/TranslateOutlined'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -26,9 +26,7 @@ import ContrastThemeToggle from './ContrastThemeToggle'
 import Header from './Header'
 import HeaderActionItemLink from './HeaderActionItemLink'
 import HeaderNavigationItem, { HeaderNavigationItemProps } from './HeaderNavigationItem'
-import KebabActionItem from './KebabActionItem'
 import LanguageSelector from './LanguageSelector'
-import Link from './base/Link'
 
 type CityContentHeaderProps = {
   cityModel: CityModel
@@ -46,6 +44,7 @@ const CityContentHeader = ({
   const { viewportSmall } = useWindowDimensions()
   const { eventsEnabled, poisEnabled, tunewsEnabled, localNewsEnabled } = cityModel
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+  const [showLanguageSelector, setShowLanguageSelector] = useState(false)
 
   const params = { cityCode: cityModel.code, languageCode }
   const newsType = localNewsEnabled ? LOCAL_NEWS_ROUTE : TU_NEWS_ROUTE
@@ -54,7 +53,6 @@ const CityContentHeader = ({
   const poisPath = pathnameFromRouteInformation({ route: POIS_ROUTE, ...params })
   const newsPath = pathnameFromRouteInformation({ route: NEWS_ROUTE, newsType, ...params })
   const searchPath = pathnameFromRouteInformation({ route: SEARCH_ROUTE, ...params })
-  const landingPath = pathnameFromRouteInformation({ route: LANDING_ROUTE, ...{ languageCode } })
 
   const { t } = useTranslation('layout')
 
@@ -62,20 +60,22 @@ const CityContentHeader = ({
     <HeaderActionItemLink key='search' to={searchPath} text={t('search')} icon={<SearchOutlinedIcon />} />
   )
 
+  const LanguageButton = (
+    <HeaderActionItemLink
+      key='languageActionButton'
+      onClick={() => {
+        setShowLanguageSelector(true)
+        setIsSidebarOpen(true)
+      }}
+      text={t('changeLanguage')}
+      icon={<TranslateOutlinedIcon />}
+    />
+  )
+
   const actionItems = viewportSmall
-    ? [SearchButton]
+    ? [SearchButton, LanguageButton]
     : [
         SearchButton,
-        ...(!buildConfig().featureFlags.fixedCity
-          ? [
-              <HeaderActionItemLink
-                key='location'
-                to={landingPath}
-                text={t('changeLocation')}
-                icon={<LocationOnOutlinedIcon />}
-              />,
-            ]
-          : []),
         <LanguageSelector
           key='language'
           languageChangePaths={languageChangePaths}
@@ -84,20 +84,22 @@ const CityContentHeader = ({
         />,
       ]
 
-  const kebabItems = [
-    <Link key='location' to={landingPath}>
-      <KebabActionItem text={t('changeLocation')} iconSrc={LocationOnOutlinedIcon} />
-    </Link>,
-    <LanguageSelector
-      key='language'
-      languageChangePaths={languageChangePaths}
-      isHeaderActionItem
-      languageCode={languageCode}
-      inKebabMenu
-      closeSidebar={() => setIsSidebarOpen(false)}
-    />,
-    <ContrastThemeToggle key='contrastTheme' />,
-  ]
+  const kebabItems =
+    viewportSmall && showLanguageSelector
+      ? [
+          <LanguageSelector
+            key='language'
+            languageChangePaths={languageChangePaths}
+            isHeaderActionItem
+            languageCode={languageCode}
+            inKebabMenu
+            closeSidebar={() => {
+              setIsSidebarOpen(false)
+              setShowLanguageSelector(false)
+            }}
+          />,
+        ]
+      : [<ContrastThemeToggle key='contrastTheme' />]
 
   const getNavigationItems = (): ReactElement<HeaderNavigationItemProps>[] => {
     const isNewsVisible = buildConfig().featureFlags.newsStream && (localNewsEnabled || tunewsEnabled)
@@ -158,6 +160,13 @@ const CityContentHeader = ({
     return items
   }
 
+  const handleSetSidebarOpen = (open: boolean) => {
+    setIsSidebarOpen(open)
+    if (!open) {
+      setShowLanguageSelector(false)
+    }
+  }
+
   return (
     <Header
       logoHref={categoriesPath}
@@ -167,7 +176,7 @@ const CityContentHeader = ({
       cityCode={cityModel.code}
       navigationItems={getNavigationItems()}
       isSidebarOpen={isSidebarOpen}
-      setIsSidebarOpen={setIsSidebarOpen}
+      setIsSidebarOpen={handleSetSidebarOpen}
       language={languageCode}
     />
   )
