@@ -9,12 +9,13 @@ import Link from './base/Link'
 import Tooltip from './base/Tooltip'
 
 type HeaderActionItemLinkProps = {
-  to: string
+  to?: string
+  onClick?: () => void
   text: string
   icon: ReactElement
 }
 
-const HeaderActionItemLink = ({ to, text, icon }: HeaderActionItemLinkProps): ReactElement => {
+const HeaderActionItemLink = ({ to, text, icon, onClick }: HeaderActionItemLinkProps): ReactElement => {
   const id = spacesToDashes(text)
   const theme = useTheme()
   const { width } = useWindowDimensions()
@@ -25,7 +26,7 @@ const HeaderActionItemLink = ({ to, text, icon }: HeaderActionItemLinkProps): Re
 
   return (
     <Tooltip id={id} place={tooltipDirection} tooltipContent={text}>
-      <Link to={to} ariaLabel={text} id={id}>
+      <Link to={to ?? ''} ariaLabel={text} id={id} onClick={to ? undefined : onClick}>
         <IconButton
           name={text}
           color='primary'

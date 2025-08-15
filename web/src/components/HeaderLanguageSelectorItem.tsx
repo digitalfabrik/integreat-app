@@ -33,11 +33,7 @@ const HeaderLanguageSelectorItem = ({
   )
 
   if (inKebabMenu && closeSidebar) {
-    return (
-      <KebabActionItemDropDown iconSrc={TranslateOutlinedIcon} text={t('changeLanguage')} closeSidebar={closeSidebar}>
-        {renderItem}
-      </KebabActionItemDropDown>
-    )
+    return <KebabActionItemDropDown closeSidebar={closeSidebar}>{renderItem}</KebabActionItemDropDown>
   }
 
   return (
