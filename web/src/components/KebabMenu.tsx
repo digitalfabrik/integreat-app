@@ -19,7 +19,6 @@ type KebabMenuProps = {
 
 const ToggleContainer = styled('div')`
   display: flex;
-  padding: 0 8px;
   z-index: 50;
 `
 
