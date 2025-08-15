@@ -12,14 +12,11 @@ const InputWrapper = styled.View`
   flex-grow: 1;
   border-bottom-width: 1px;
   border-bottom-color: ${props => props.theme.colors.textSecondaryColor};
-  color: ${props => props.theme.colors.textColor};
 `
 
-const Input = (props: React.ComponentProps<typeof KeyboardExtendedInput>) => (
-  <InputWrapper>
-    <KeyboardExtendedInput {...props} />
-  </InputWrapper>
-)
+const StyledInput = styled(KeyboardExtendedInput)`
+  color: ${props => props.theme.colors.textColor};
+`
 
 const Wrapper = styled.View<{ space: boolean }>`
   flex-direction: row;
@@ -58,18 +55,20 @@ const SearchInput = ({
     <View>
       <Wrapper space={spaceSearch}>
         <Icon Icon={SearchIcon} />
-        <Input
-          {...testID('Search-Input')}
-          multiline={false}
-          autoFocus
-          onBlur={Keyboard.dismiss}
-          placeholderTextColor={theme.colors.textSecondaryColor}
-          placeholder={placeholderText}
-          aria-label={placeholderText}
-          value={filterText}
-          onChangeText={onFilterTextChange}
-          role='searchbox'
-        />
+        <InputWrapper>
+          <StyledInput
+            {...testID('Search-Input')}
+            multiline={false}
+            autoFocus
+            onBlur={Keyboard.dismiss}
+            placeholderTextColor={theme.colors.textSecondaryColor}
+            placeholder={placeholderText}
+            aria-label={placeholderText}
+            value={filterText}
+            onChangeText={onFilterTextChange}
+            role='searchbox'
+          />
+        </InputWrapper>
       </Wrapper>
       {!!description && <Description>{description}</Description>}
     </View>
