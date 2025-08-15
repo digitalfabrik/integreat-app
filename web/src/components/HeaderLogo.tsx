@@ -23,7 +23,7 @@ const LogoContainer = styled('div')`
     height: 48px;
 
     ${props => props.theme.breakpoints.down('md')} {
-      width: 48px;
+      width: 30px;
     }
   }
 `
@@ -31,7 +31,7 @@ const LogoContainer = styled('div')`
 const StyledLogo = styled(SVG)`
   color: ${props => props.theme.legacy.colors.textColor};
   height: 100%;
-  width: 200px;
+  width: fit-content;
 
   ${props => props.theme.breakpoints.down('md')} {
     width: 100%;
