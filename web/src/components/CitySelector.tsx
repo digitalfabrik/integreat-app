@@ -1,9 +1,7 @@
-import shouldForwardProp from '@emotion/is-prop-valid'
 import Divider from '@mui/material/Divider'
 import MuiList from '@mui/material/List'
-import ListItem from '@mui/material/ListItem'
-import ListSubheader from '@mui/material/ListSubheader'
-import { styled } from '@mui/material/styles'
+import Stack from '@mui/material/Stack'
+import Typography from '@mui/material/Typography'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -11,30 +9,12 @@ import { filterSortCities } from 'shared'
 import { CityModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
-import { join } from '../utils'
-import CityEntry from './CityEntry'
+import { withDividers } from '../utils'
+import CityListGroup from './CityListGroup'
 import CrashTestingIcon from './CrashTestingIcon'
 import Failure from './Failure'
 import NearbyCities from './NearbyCities'
 import ScrollingSearchBox from './ScrollingSearchBox'
-import List from './base/List'
-
-const Container = styled('div')`
-  padding-top: 22px;
-`
-
-export const StyledListSubheader = styled(ListSubheader, { shouldForwardProp })<{ stickyTop: number }>`
-  top: ${props => props.stickyTop}px;
-  transition: top 0.2s ease-out;
-`
-
-export const StyledListItem = styled(ListItem)`
-  flex-direction: column;
-`
-
-const SearchCounter = styled('p')`
-  color: ${props => props.theme.legacy.colors.textSecondaryColor};
-`
 
 type CitySelectorProps = {
   cities: CityModel[]
@@ -49,17 +29,18 @@ const CitySelector = ({ cities, language }: CitySelectorProps): ReactElement => 
   const resultCities = filterSortCities(cities, filterText, buildConfig().featureFlags.developerFriendly)
 
   const groups = [...new Set(resultCities.map(it => it.sortCategory))].map(group => (
-    <StyledListItem key={group} alignItems='flex-start'>
-      <List
-        header={<StyledListSubheader stickyTop={stickyTop}>{group}</StyledListSubheader>}
-        items={resultCities.filter(it => it.sortCategory === group)}
-        renderItem={city => <CityEntry key={city.code} city={city} language={language} filterText={filterText} />}
-      />
-    </StyledListItem>
+    <CityListGroup
+      key={group}
+      cities={resultCities.filter(it => it.sortCategory === group)}
+      title={group}
+      stickyTop={stickyTop}
+      languageCode={language}
+      filterText={filterText}
+    />
   ))
 
   return (
-    <Container>
+    <Stack paddingTop={4}>
       <CrashTestingIcon />
       <ScrollingSearchBox
         filterText={filterText}
@@ -67,16 +48,16 @@ const CitySelector = ({ cities, language }: CitySelectorProps): ReactElement => 
         placeholderText={t('searchCity')}
         spaceSearch={false}
         onStickyTopChanged={setStickyTop}>
-        <SearchCounter aria-live={resultCities.length === 0 ? 'assertive' : 'polite'}>
+        <Typography variant='label1' aria-live={resultCities.length === 0 ? 'assertive' : 'polite'}>
           {t('search:searchResultsCount', { count: resultCities.length })}
-        </SearchCounter>
+        </Typography>
         <MuiList>
           <NearbyCities stickyTop={stickyTop} cities={cities} language={language} filterText={filterText} />
           <Divider />
-          {resultCities.length === 0 ? <Failure errorMessage='search:nothingFound' /> : join(groups, <Divider />)}
+          {resultCities.length > 0 ? withDividers(groups) : <Failure errorMessage='search:nothingFound' />}
         </MuiList>
       </ScrollingSearchBox>
-    </Container>
+    </Stack>
   )
 }
 

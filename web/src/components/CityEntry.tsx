@@ -1,4 +1,5 @@
 import ListItem from '@mui/material/ListItem'
+import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
@@ -26,19 +27,23 @@ const CityEntry = ({ filterText, city, language }: CityEntryProps): ReactElement
   const aliasesText = aliases.slice(0, MAX_NUMBER_OF_ALIASES).join(', ')
 
   return (
-    <ListItem
-      component={Link}
-      to={cityContentPath({ cityCode: city.code, languageCode: language })}
-      alignItems='flex-start'>
-      <ListItemText
-        primary={<Highlighter search={filterText} text={city.name} />}
-        secondary={
-          <>
-            <Highlighter search={filterText} text={aliasesText} />
-            {aliases.length > MAX_NUMBER_OF_ALIASES && <span> ... </span>}
-          </>
-        }
-      />
+    <ListItem alignItems='flex-start'>
+      <ListItemButton component={Link} to={cityContentPath({ cityCode: city.code, languageCode: language })}>
+        <ListItemText
+          primary={<Highlighter search={filterText} text={city.name} />}
+          secondary={
+            <>
+              <Highlighter search={filterText} text={aliasesText} />
+              {aliases.length > MAX_NUMBER_OF_ALIASES && <span> ... </span>}
+            </>
+          }
+          slotProps={{
+            secondary: {
+              component: 'div',
+            },
+          }}
+        />
+      </ListItemButton>
     </ListItem>
   )
 }
