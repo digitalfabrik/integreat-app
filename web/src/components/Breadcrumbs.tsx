@@ -17,7 +17,7 @@ const StyledBox = styled(Box)`
   align-items: center;
 `
 
-const StyledMuiBreadcrumbs = styled(MuiBreadcrumbs)`
+const StyledMuiBreadcrumbs = styled(MuiBreadcrumbs)<{ length: number }>`
   & ol {
     flex-wrap: nowrap;
     overflow: hidden;
@@ -26,6 +26,21 @@ const StyledMuiBreadcrumbs = styled(MuiBreadcrumbs)`
 
   & li {
     overflow: hidden;
+
+    &:first-of-type {
+      overflow: visible;
+    }
+
+    // Shrink last breadcrumb item more if it has more than 2 items on small screens to make previous items more readable
+    ${props => props.theme.breakpoints.down('sm')} {
+      &:last-of-type {
+        max-width: ${props => (props.length > 2 ? '100px' : 'none')};
+      }
+    }
+  }
+
+  & .MuiBreadcrumbs-separator {
+    overflow: visible;
   }
 `
 
@@ -37,6 +52,7 @@ const StyledIcon = styled(Icon)`
 const StyledLink = styled(Link)`
   margin-inline-end: 4px;
   flex-shrink: 0;
+  overflow: visible;
 `
 
 const Separator = styled('span')`
@@ -47,9 +63,40 @@ const Separator = styled('span')`
   }
 `
 
+const StyledEllipsis = styled.span`
+  white-space: nowrap;
+`
+
 type BreadcrumbsProps = {
   ancestorBreadcrumbs: BreadcrumbModel[]
   currentBreadcrumb: BreadcrumbModel
+}
+
+const getLastBreadcrumbs = (
+  ancestorBreadcrumbs: BreadcrumbModel[],
+  currentBreadcrumb: BreadcrumbModel,
+): BreadcrumbModel[] => {
+  const allBreadcrumbs = [...ancestorBreadcrumbs, currentBreadcrumb]
+  const breadCrumbsLimit = 3 // with home included
+  const lastTwoCrumbs = -2
+
+  if (allBreadcrumbs.length === 0) {
+    return []
+  }
+
+  if (allBreadcrumbs.length <= breadCrumbsLimit) {
+    return allBreadcrumbs
+  }
+
+  const home = allBreadcrumbs[0] as BreadcrumbModel
+  const rest = allBreadcrumbs.slice(1)
+  const ellipsis = new BreadcrumbModel({
+    title: '...',
+    pathname: '',
+    node: <StyledEllipsis>...</StyledEllipsis>,
+  })
+
+  return [home, ellipsis, ...rest.slice(lastTwoCrumbs)]
 }
 
 const Breadcrumbs = ({ ancestorBreadcrumbs, currentBreadcrumb }: BreadcrumbsProps): ReactElement => {
@@ -61,32 +108,33 @@ const Breadcrumbs = ({ ancestorBreadcrumbs, currentBreadcrumb }: BreadcrumbsProp
   return (
     <StyledBox>
       <JsonLdBreadcrumbs breadcrumbs={jsonLdBreadcrumbs} />
-      <StyledMuiBreadcrumbs aria-label='breadcrumb' separator={<Separator />}>
-        {ancestorBreadcrumbs.map((breadcrumb, index) => {
-          if (ancestorBreadcrumbs.length > 1 && index === 0) {
+      <StyledMuiBreadcrumbs length={ancestorBreadcrumbs.length} aria-label='breadcrumb' separator={<Separator />}>
+        {getLastBreadcrumbs(ancestorBreadcrumbs, currentBreadcrumb).map((breadcrumb, index, array) => {
+          const isHome = array.length > 1 && index === 0
+          const isLast = index === array.length - 1
+
+          if (isHome) {
             return (
               <StyledLink key={breadcrumb.pathname} to={breadcrumb.pathname}>
                 <StyledIcon src={HomeOutlinedIcon} title={breadcrumb.title} />
               </StyledLink>
             )
           }
+
+          if (breadcrumb.title === '...') {
+            return <StyledEllipsis key='ellipsis'>...</StyledEllipsis>
+          }
+
           return (
             <Breadcrumb
               title={breadcrumb.title}
               to={breadcrumb.pathname}
               shrink={breadcrumb.title.length >= MIN_SHRINK_CHARS}
+              isCurrent={isLast}
               key={breadcrumb.title}
             />
           )
         })}
-        {ancestorBreadcrumbs.length > 0 && (
-          <Breadcrumb
-            title={currentBreadcrumb.title}
-            shrink={currentBreadcrumb.title.length >= MIN_SHRINK_CHARS}
-            isCurrent
-            key={currentBreadcrumb.title}
-          />
-        )}
       </StyledMuiBreadcrumbs>
     </StyledBox>
   )
