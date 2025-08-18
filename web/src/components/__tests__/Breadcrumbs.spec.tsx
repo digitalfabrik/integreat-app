@@ -4,6 +4,15 @@ import BreadcrumbModel from '../../models/BreadcrumbModel'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import Breadcrumbs from '../Breadcrumbs'
 
+const homeBreadcrumb: BreadcrumbModel = {
+  title: 'Home',
+  _title: 'Home',
+  pathname: '/',
+  _pathname: '/',
+  node: <a href='/'>Home</a>,
+  _node: <a href='/'>Home</a>,
+}
+
 const breadcrumb0: BreadcrumbModel = {
   title: 'Landkreis München',
   _title: 'Landkreis München',
@@ -37,10 +46,10 @@ const render = (ancestors: BreadcrumbModel[], current: BreadcrumbModel) =>
 describe('Breadcrumbs', () => {
   it('should display correctly on the first level', () => {
     const ancestors = [breadcrumb0]
-    const { getByRole, queryByText } = render(ancestors, breadcrumb0)
+    const { getAllByRole, queryByText } = render(ancestors, breadcrumb0)
 
-    const breadcrumbLink = getByRole('link', { name: breadcrumb0.title })
-    expect(breadcrumbLink.getAttribute('href')).toBe(breadcrumb0.pathname)
+    const breadcrumbLink = getAllByRole('link', { name: breadcrumb0.title })
+    expect(breadcrumbLink[0]?.getAttribute('href')).toBe(breadcrumb0.pathname)
     expect(queryByText(breadcrumb1.title)).toBeFalsy()
   })
 
@@ -52,5 +61,27 @@ describe('Breadcrumbs', () => {
     const breadcrumbLink = getByRole('link', { name: breadcrumb1.title })
     expect(breadcrumbLink.getAttribute('href')).toBe(breadcrumb1.pathname)
     expect(queryByText(breadcrumb2.title)).toBeTruthy()
+  })
+
+  it('should show ellipsis when there are more than 3 breadcrumbs', () => {
+    const ancestors = [homeBreadcrumb, breadcrumb0, breadcrumb1]
+    const { getByText } = render(ancestors, breadcrumb2)
+
+    expect(getByText('...')).toBeTruthy()
+  })
+
+  it('should show home icon for first breadcrumb when multiple exist', () => {
+    const ancestors = [homeBreadcrumb, breadcrumb0]
+    const { getByTestId } = render(ancestors, breadcrumb1)
+
+    expect(getByTestId('HomeOutlinedIcon')).toBeTruthy()
+  })
+
+  it('should apply primary color to current breadcrumb', () => {
+    const ancestors = [homeBreadcrumb, breadcrumb0]
+    const { getByText } = render(ancestors, breadcrumb1)
+
+    const currentBreadcrumb = getByText(breadcrumb1.title)
+    expect(currentBreadcrumb).toHaveStyle('color:#4B6EDA')
   })
 })
