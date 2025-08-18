@@ -31,7 +31,7 @@ const StyledMuiBreadcrumbs = styled(MuiBreadcrumbs)<{ length: number }>`
       overflow: visible;
     }
 
-    // Shrink last breadcrumb item more if it has more than 2 items on small screens to make previous items more readable
+    /* Shrink last breadcrumb item more if it has more than 2 items on small screens to make previous items more readable */
     ${props => props.theme.breakpoints.down('sm')} {
       &:last-of-type {
         max-width: ${props => (props.length > 2 ? '100px' : 'none')};
@@ -39,7 +39,7 @@ const StyledMuiBreadcrumbs = styled(MuiBreadcrumbs)<{ length: number }>`
     }
   }
 
-  & .MuiBreadcrumbs-separator {
+  & li:nth-child(even) {
     overflow: visible;
   }
 `
@@ -80,7 +80,7 @@ const getLastBreadcrumbs = (
   const breadCrumbsLimit = 3 // with home included
   const lastTwoCrumbs = -2
 
-  if (allBreadcrumbs.length === 0) {
+  if (ancestorBreadcrumbs.length === 0) {
     return []
   }
 
