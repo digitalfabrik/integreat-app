@@ -1,18 +1,22 @@
 import SendIcon from '@mui/icons-material/Send'
-import { FormControl, FormHelperText, InputLabel } from '@mui/material'
 import Button from '@mui/material/Button'
+import Checkbox from '@mui/material/Checkbox'
+import FormControl from '@mui/material/FormControl'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import FormGroup from '@mui/material/FormGroup'
+import FormHelperText from '@mui/material/FormHelperText'
+import InputLabel from '@mui/material/InputLabel'
+import Input from '@mui/material/OutlinedInput'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation, Trans } from 'react-i18next'
 
-import { Rating, DEFAULT_ROWS_NUMBER } from 'shared'
+import { Rating } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
 import FeedbackButtons from './FeedbackButtons'
 import { SendingStatusType } from './FeedbackContainer'
-import Note from './Note'
-import PrivacyCheckbox from './PrivacyCheckbox'
-import Input from './base/Input'
+import Link from './base/Link'
 
 export const Container = styled('div')<{ fullWidth?: boolean }>`
   display: flex;
@@ -45,12 +49,13 @@ type FeedbackProps = {
   contactMail: string
   onCommentChanged: (comment: string) => void
   onContactMailChanged: (contactMail: string) => void
-  setRating?: (rating: Rating | null) => void
+  setRating: (rating: Rating | null) => void
   onSubmit: () => void
   sendingStatus: SendingStatusType
   searchTerm: string | undefined
   setSearchTerm: (newTerm: string) => void
   closeFeedback: (() => void) | undefined
+  url?: string | null
 }
 
 const Feedback = ({
@@ -66,6 +71,7 @@ const Feedback = ({
   searchTerm,
   setSearchTerm,
   closeFeedback,
+  url,
 }: FeedbackProps): ReactElement => {
   const { t } = useTranslation('feedback')
 
@@ -74,6 +80,17 @@ const Feedback = ({
   const [privacyPolicyAccepted, setPrivacyPolicyAccepted] = useState(false)
   const feedbackFilled = rating === null && comment.trim().length === 0 && !searchTerm
   const submitFeedbackDisabled = feedbackFilled || !privacyPolicyAccepted
+  const [submitted, setSubmitted] = useState(false)
+  const { privacyUrls } = buildConfig()
+  const privacyUrl = url ?? privacyUrls[language] ?? privacyUrls.default
+
+  const handleSubmit = () => {
+    setSubmitted(true)
+    if (submitFeedbackDisabled) {
+      return
+    }
+    onSubmit()
+  }
 
   if (sendingStatus === 'successful') {
     return (
@@ -87,33 +104,67 @@ const Feedback = ({
   return (
     <Container fullWidth={isSearchFeedback}>
       {isSearchFeedback ? (
-        <FormControl>
-          <FormHelperText id={searchTerm}>{t('searchTermDescription')}</FormHelperText>
+        <FormControl error={submitted && !searchTerm}>
+          <FormHelperText id={searchTerm}>
+            {submitted && !searchTerm ? t('noteFillFeedback') : t('searchTermDescription')}
+          </FormHelperText>
           <InputLabel htmlFor='searchTerm' />
-          <Input id='searchTerm' value={searchTerm} aria-describedby={searchTerm} onChange={setSearchTerm} />
+          <Input
+            id='searchTerm'
+            value={searchTerm}
+            aria-describedby='searchTerm'
+            onChange={e => setSearchTerm(e.target.value)}
+            fullWidth
+            required
+          />
         </FormControl>
       ) : (
-        setRating && <FeedbackButtons rating={rating} setRating={setRating} />
+        <FormControl error={submitted && rating === null}>
+          <FeedbackButtons rating={rating} setRating={setRating} />
+          {submitted && rating === null && <FormHelperText>{t('noteFillFeedback')}</FormHelperText>}
+        </FormControl>
       )}
-      <FormControl>
-        <InputLabel htmlFor='comment'>{t(commentTitle)}</InputLabel>
+      <FormControl fullWidth>
+        <InputLabel htmlFor={comment}>{t(commentTitle)}</InputLabel>
         <Input
           id='comment'
           value={comment}
+          onChange={e => onCommentChanged(e.target.value)}
           aria-describedby={comment}
-          onChange={onCommentChanged}
-          rows={DEFAULT_ROWS_NUMBER}
+          multiline
         />
         <FormHelperText id={comment}>{t('commentDescription', { appName: buildConfig().appName })}</FormHelperText>
       </FormControl>
-      <FormControl>
+      <FormControl fullWidth>
         <InputLabel htmlFor='email'>{t('contactMailAddress')}</InputLabel>
-        <Input id='email' value={contactMail} onChange={onContactMailChanged} />
+        <Input
+          id='email'
+          value={contactMail}
+          onChange={e => onContactMailChanged(e.target.value)}
+          aria-describedby='email'
+        />
       </FormControl>
-      <PrivacyCheckbox language={language} checked={privacyPolicyAccepted} setChecked={setPrivacyPolicyAccepted} />
-      {submitFeedbackDisabled && <Note text={t(feedbackFilled ? 'noteFillFeedback' : 'notePrivacyPolicy')} />}
+      <FormControl error={submitted && !privacyPolicyAccepted}>
+        <FormGroup>
+          <FormControlLabel
+            required
+            control={
+              <Checkbox checked={privacyPolicyAccepted} onChange={e => setPrivacyPolicyAccepted(e.target.checked)} />
+            }
+            label={
+              <Trans i18nKey='common:privacyPolicy'>
+                This gets replaced
+                <Link to={privacyUrl} highlighted>
+                  by react-i18next
+                </Link>
+              </Trans>
+            }
+          />
+        </FormGroup>
+        {submitted && !privacyPolicyAccepted && <FormHelperText>{t('notePrivacyPolicy')}</FormHelperText>}
+      </FormControl>
       {sendingStatus === 'failed' && <ErrorSendingStatus role='alert'>{t('failedSendingFeedback')}</ErrorSendingStatus>}
-      <Button onClick={onSubmit} variant='contained' startIcon={<SendIcon />} disabled={submitFeedbackDisabled}>
+      <Button onClick={handleSubmit} variant='contained' startIcon={<SendIcon />}>
         {t('send')}
       </Button>
     </Container>
