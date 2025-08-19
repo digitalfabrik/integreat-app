@@ -104,15 +104,15 @@ const Feedback = ({
   return (
     <Container fullWidth={isSearchFeedback}>
       {isSearchFeedback ? (
-        <FormControl error={submitted && !searchTerm}>
-          <FormHelperText id={searchTerm}>
+        <FormControl error={submitted && !searchTerm} variant='outlined'>
+          <FormHelperText id='searchTerm'>
             {submitted && !searchTerm ? t('noteFillFeedback') : t('searchTermDescription')}
           </FormHelperText>
           <InputLabel htmlFor='searchTerm' />
           <Input
             id='searchTerm'
             value={searchTerm}
-            aria-describedby='searchTerm'
+            aria-describedby={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
             fullWidth
             required
@@ -124,23 +124,25 @@ const Feedback = ({
           {submitted && rating === null && <FormHelperText>{t('noteFillFeedback')}</FormHelperText>}
         </FormControl>
       )}
-      <FormControl fullWidth>
+      <FormControl fullWidth variant='outlined'>
         <InputLabel htmlFor={comment}>{t(commentTitle)}</InputLabel>
         <Input
           id='comment'
           value={comment}
           onChange={e => onCommentChanged(e.target.value)}
           aria-describedby={comment}
+          label={t(commentTitle)}
           multiline
         />
         <FormHelperText id={comment}>{t('commentDescription', { appName: buildConfig().appName })}</FormHelperText>
       </FormControl>
-      <FormControl fullWidth>
+      <FormControl fullWidth variant='outlined'>
         <InputLabel htmlFor='email'>{t('contactMailAddress')}</InputLabel>
         <Input
           id='email'
           value={contactMail}
           onChange={e => onContactMailChanged(e.target.value)}
+          label={t('contactMailAddress')}
           aria-describedby='email'
         />
       </FormControl>
