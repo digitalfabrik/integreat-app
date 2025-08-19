@@ -1,10 +1,11 @@
 import SendIcon from '@mui/icons-material/Send'
+import { FormControl, FormHelperText, InputLabel } from '@mui/material'
 import Button from '@mui/material/Button'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Rating, DEFAULT_ROWS_NUMBER } from 'shared'
+import { Rating } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
 import FeedbackButtons from './FeedbackButtons'
@@ -12,7 +13,6 @@ import { SendingStatusType } from './FeedbackContainer'
 import Note from './Note'
 import PrivacyCheckbox from './PrivacyCheckbox'
 import Input from './base/Input'
-import InputSection from './base/InputSection'
 
 export const Container = styled('div')<{ fullWidth?: boolean }>`
   display: flex;
@@ -23,8 +23,8 @@ export const Container = styled('div')<{ fullWidth?: boolean }>`
   justify-content: space-between;
   padding: 16px;
   border-radius: 10px;
-  border-color: ${props => props.theme.legacy.colors.textSecondaryColor};
-  font-size: ${props => props.theme.legacy.fonts.contentFontSize};
+  border-color: ${props => props.theme.colors.textSecondaryColor};
+  font-size: ${props => props.theme.fonts.contentFontSize};
   overflow: auto;
   align-self: center;
   gap: 16px;
@@ -87,24 +87,23 @@ const Feedback = ({
   return (
     <Container fullWidth={isSearchFeedback}>
       {isSearchFeedback ? (
-        <InputSection id='searchTerm' title={t('searchTermDescription')}>
-          <Input id='searchTerm' value={searchTerm} onChange={setSearchTerm} />
-        </InputSection>
+        <FormControl>
+          <FormHelperText id={searchTerm}>{t('searchTermDescription')}</FormHelperText>
+          <InputLabel htmlFor='searchTerm' />
+          <Input id='searchTerm' value={searchTerm} aria-describedby={searchTerm} onChange={setSearchTerm} />
+        </FormControl>
       ) : (
         setRating && <FeedbackButtons rating={rating} setRating={setRating} />
       )}
-
-      <InputSection
-        id='comment'
-        title={t(commentTitle)}
-        description={t('commentDescription', { appName: buildConfig().appName })}
-        showOptional>
-        <Input id='comment' value={comment} onChange={onCommentChanged} rows={DEFAULT_ROWS_NUMBER} />
-      </InputSection>
-
-      <InputSection id='email' title={t('contactMailAddress')} showOptional>
+      <FormControl>
+        <InputLabel htmlFor='comment'>{t(commentTitle)}</InputLabel>
+        <Input id='comment' value={comment} aria-describedby={comment} onChange={onCommentChanged} multiline />
+        <FormHelperText id={comment}>{t('commentDescription', { appName: buildConfig().appName })}</FormHelperText>
+      </FormControl>
+      <FormControl>
+        <InputLabel htmlFor='email'>{t('contactMailAddress')}</InputLabel>
         <Input id='email' value={contactMail} onChange={onContactMailChanged} />
-      </InputSection>
+      </FormControl>
       <PrivacyCheckbox language={language} checked={privacyPolicyAccepted} setChecked={setPrivacyPolicyAccepted} />
       {submitFeedbackDisabled && <Note text={t(feedbackFilled ? 'noteFillFeedback' : 'notePrivacyPolicy')} />}
       {sendingStatus === 'failed' && <ErrorSendingStatus role='alert'>{t('failedSendingFeedback')}</ErrorSendingStatus>}
