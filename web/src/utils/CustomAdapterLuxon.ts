@@ -1,7 +1,7 @@
 import { AdapterLuxon } from '@mui/x-date-pickers/AdapterLuxon'
 import { DateTime } from 'luxon'
 
-// AdapterLuxon doesn't support (throwOnInvalid = true) so I overridden parse and getInvalidDate.
+// AdapterLuxon doesn't support (throwOnInvalid = true) so I have overridden parse and getInvalidDate.
 // https://mui.com/x/react-date-pickers/adapters-locale/#with-luxon
 class CustomAdapterLuxon extends AdapterLuxon {
   parse = (value: string, format: string): DateTime | null => {
