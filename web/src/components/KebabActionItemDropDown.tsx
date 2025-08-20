@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import React, { ReactElement, ReactNode, useRef, useState } from 'react'
+import React, { ReactElement, ReactNode, useRef } from 'react'
 
 import useOnClickOutside from '../hooks/useOnClickOutside'
 import DropDownContainer from './DropDownContainer'
@@ -19,19 +19,12 @@ type KebabActionItemDropDownProps = {
  * closeDropDownCallback through its props to close the dropDown and hide itself.
  */
 const KebabActionItemDropDown = ({ children, closeSidebar }: KebabActionItemDropDownProps): ReactElement => {
-  const [, setDropDownActive] = useState(false)
-
-  const closeDropDown = (): void => {
-    setDropDownActive(false)
-  }
-
   const onClickDropdownItem = (): void => {
-    closeDropDown()
     closeSidebar()
   }
 
   const wrapperRef = useRef(null)
-  useOnClickOutside(wrapperRef, closeDropDown)
+  useOnClickOutside(wrapperRef, closeSidebar)
 
   return (
     <Container ref={wrapperRef}>
