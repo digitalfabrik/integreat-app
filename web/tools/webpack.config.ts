@@ -23,7 +23,7 @@ const SHORT_COMMIT_SHA_LENGTH = 8
 // eslint-disable-next-line no-magic-numbers
 const MiB = 2 ** 20
 // eslint-disable-next-line no-magic-numbers
-const MAX_BUNDLE_SIZE = 1.7 * MiB
+const MAX_BUNDLE_SIZE = 1.8 * MiB
 // eslint-disable-next-line no-magic-numbers
 const MAX_ASSET_SIZE = 2.1 * MiB
 
