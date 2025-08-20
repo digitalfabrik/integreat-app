@@ -60,9 +60,9 @@ const CityContentHeader = ({
     <HeaderActionItemLink key='search' to={searchPath} text={t('search')} icon={<SearchOutlinedIcon />} />
   )
 
-  const LanguageButton = (
+  const MobileLanguageButton = (
     <HeaderActionItemLink
-      key='languageActionButton'
+      key='languageChange'
       onClick={() => {
         setShowLanguageSelector(true)
         setIsSidebarOpen(true)
@@ -72,34 +72,32 @@ const CityContentHeader = ({
     />
   )
 
-  const actionItems = viewportSmall
-    ? [SearchButton, LanguageButton]
-    : [
-        SearchButton,
-        <LanguageSelector
-          key='language'
-          languageChangePaths={languageChangePaths}
-          isHeaderActionItem
-          languageCode={languageCode}
-        />,
-      ]
+  const DesktopLanguageSelector = (
+    <LanguageSelector
+      key='language'
+      languageChangePaths={languageChangePaths}
+      isHeaderActionItem
+      languageCode={languageCode}
+    />
+  )
 
-  const kebabItems =
-    viewportSmall && showLanguageSelector
-      ? [
-          <LanguageSelector
-            key='language'
-            languageChangePaths={languageChangePaths}
-            isHeaderActionItem
-            languageCode={languageCode}
-            inKebabMenu
-            closeSidebar={() => {
-              setIsSidebarOpen(false)
-              setShowLanguageSelector(false)
-            }}
-          />,
-        ]
-      : [<ContrastThemeToggle key='contrastTheme' />]
+  const MobileLanguageSelector = (
+    <LanguageSelector
+      key='language'
+      languageChangePaths={languageChangePaths}
+      isHeaderActionItem
+      languageCode={languageCode}
+      inKebabMenu
+      closeSidebar={() => {
+        setIsSidebarOpen(false)
+        setShowLanguageSelector(false)
+      }}
+    />
+  )
+
+  const actionItems = viewportSmall ? [SearchButton, MobileLanguageButton] : [SearchButton, DesktopLanguageSelector]
+
+  const sidebarItems = showLanguageSelector ? [MobileLanguageSelector] : [<ContrastThemeToggle key='contrastTheme' />]
 
   const getNavigationItems = (): ReactElement<HeaderNavigationItemProps>[] => {
     const isNewsVisible = buildConfig().featureFlags.newsStream && (localNewsEnabled || tunewsEnabled)
@@ -171,7 +169,7 @@ const CityContentHeader = ({
     <Header
       logoHref={categoriesPath}
       actionItems={actionItems}
-      kebabItems={kebabItems}
+      sidebarItems={sidebarItems}
       cityName={cityModel.name}
       cityCode={cityModel.code}
       navigationItems={getNavigationItems()}

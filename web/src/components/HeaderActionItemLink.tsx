@@ -6,18 +6,16 @@ import React, { ReactElement } from 'react'
 import Link from './base/Link'
 
 type HeaderActionItemLinkProps = {
-  to?: string
-  onClick?: () => void
   text: string
   icon: ReactElement
-}
+} & ({ to: string; onClick?: never } | { to?: never; onClick: () => void })
 
 const HeaderActionItemLink = ({ to, text, icon, onClick }: HeaderActionItemLinkProps): ReactElement => {
   const theme = useTheme()
 
   return (
     <Tooltip id={id} place={tooltipDirection} tooltipContent={text}>
-      <Link to={to ?? ''} ariaLabel={text} id={id} onClick={to ? undefined : onClick}>
+      <Link to={to ?? ''} ariaLabel={text} id={id} onClick={onClick}>
         <IconButton
           name={text}
           color='primary'
