@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
 import { formHelperTextClasses } from '@mui/material/FormHelperText'
+import { ThemeProvider, useTheme } from '@mui/material/styles'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { DateValidationError } from '@mui/x-date-pickers/models'
 import { DateTime } from 'luxon'
@@ -7,6 +8,7 @@ import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import useCityContentParams from '../hooks/useCityContentParams'
+import { getDatePickerLocaleText } from '../utils/muiDatePickerLocales'
 
 const DateContainer = styled.div`
   width: fit-content;
@@ -45,27 +47,33 @@ const CustomDatePicker = ({
   const [validationError, setValidationError] = useState<DateValidationError | null>(null)
   const { languageCode } = useCityContentParams()
   const errorMessage = error ?? (validationError ? t('invalidDate') : null)
+  const muiLocaleText = getDatePickerLocaleText(languageCode)
+  const currentTheme = useTheme()
+  const ltrTheme = { ...currentTheme, direction: 'ltr' }
 
   return (
     <DateContainer>
-      <StyledDatePicker
-        label={title}
-        value={date}
-        onChange={setDate}
-        slotProps={{
-          textField: {
-            InputLabelProps: { shrink: true },
-            placeholder: placeholderDate
-              .setLocale(languageCode)
-              .toLocaleString({ month: '2-digit', day: '2-digit', year: 'numeric' }),
-            helperText: errorMessage ? <StyledError>{errorMessage}</StyledError> : null,
-          },
-          openPickerButton: {
-            'aria-label': calendarLabel,
-          },
-        }}
-        onError={setValidationError}
-      />
+      <ThemeProvider theme={ltrTheme}>
+        <StyledDatePicker
+          label={title}
+          value={date}
+          onChange={setDate}
+          localeText={muiLocaleText}
+          slotProps={{
+            textField: {
+              InputLabelProps: { shrink: true },
+              placeholder: placeholderDate
+                .setLocale(languageCode)
+                .toLocaleString({ month: '2-digit', day: '2-digit', year: 'numeric' }),
+              helperText: errorMessage ? <StyledError>{errorMessage}</StyledError> : null,
+            },
+            openPickerButton: {
+              'aria-label': calendarLabel,
+            },
+          }}
+          onError={setValidationError}
+        />
+      </ThemeProvider>
     </DateContainer>
   )
 }
