@@ -41,12 +41,12 @@ type HeaderTitleProps = {
 
 const HeaderTitle = ({ title, landingPath }: HeaderTitleProps): ReactElement => {
   const { t } = useTranslation('layout')
-  const { appName } = buildConfig()
-  const isNotAschaffenburg = !(appName === 'aschaffenburg')
+  const { appName, featureFlags } = buildConfig()
+  const isFixedCity = !featureFlags.fixedCity
   const integreatConfigs = ['Integreat', 'IntegreatTestCms']
   const isIntegreat = integreatConfigs.includes(appName)
 
-  if (isNotAschaffenburg) {
+  if (isFixedCity) {
     return (
       <HeaderTitleContainer
         withPadding={isIntegreat}
