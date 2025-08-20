@@ -16,7 +16,7 @@ import NavigationBarScrollContainer from './NavigationBarScrollContainer'
 type HeaderProps = {
   navigationItems: ReactElement<HeaderNavigationItemProps>[]
   actionItems: ReactNode[]
-  kebabItems: ReactNode[]
+  sidebarItems: ReactNode[]
   logoHref: string
   cityName?: string
   cityCode?: string
@@ -91,7 +91,7 @@ const NavigationBar = styled('nav')`
 
 export const Header = ({
   actionItems = [],
-  kebabItems = [],
+  sidebarItems = [],
   logoHref,
   navigationItems = [],
   cityName,
@@ -121,7 +121,7 @@ export const Header = ({
               <KebabMenu
                 setShow={setIsSidebarOpen}
                 show={isSidebarOpen}
-                items={kebabItems}
+                items={sidebarItems}
                 Footer={<CityContentFooter city={cityCode} language={language} mode='sidebar' />}
               />
             )}
