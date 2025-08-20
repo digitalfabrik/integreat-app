@@ -105,6 +105,13 @@
       "organizationMoreInformation": "További <1>{{organization}}</1>-információkat <3>{{domain}}</3> oldalon találhat.",
       "disabledPdf": "PDF-export ezen a nyelven jelenleg nem lehetséges."
     },
+    "id": {
+      "createPdf": "Buat fail PDF",
+      "metaDescription": "{{appName}} adalah panduan digital untuk kehidupan di Jerman. Temukan informasi lokal, acara dan saran. Selalu diperbarui dan tersedia dalam bahasa Anda sendiri.",
+      "organizationContent": "Konten dalam halaman ini adalah dari {{organization}}.",
+      "organizationMoreInformation": "Anda dapat memperoleh informasi tentang <1>{{organization}}</1> di <3>{{domain}}</3>.",
+      "disabledPdf": "Saat ini, ekspor PDF tidak dapat dilakukan dalam bahasa ini."
+    },
     "it": {
       "createPdf": "Crea PDF",
       "metaDescription": "{{appName}} è la tua guida digitale in Germania. Trova informazioni, eventi e consigli locali. Sempre aggiornata e nella tua lingua.",
@@ -507,6 +514,21 @@
       "loadingText": "Kérem, várjon egy pillanatot, amíg a csevegő elindul...",
       "sendButton": "Küldés",
       "user": "Te"
+    },
+    "id": {
+      "bot": "Chatbot",
+      "conversationTitle": "Masukkan pertanyaan Anda di kolom teks.",
+      "conversationText": "Anda dapat menanyakan apa saja dari mulai informasi lokal hingga permintaan khusus tentang situasi Anda.",
+      "dataSecurity": "Proteksi data dan keamanan: Privasi Anda sangat penting bagi kami. Semua percakapan diperlakukan secara rahasia dan data Anda diproses dengan aman. Anda dapat menemukan lebih banyak informasi tentang proteksi data di kebijakan privasi kami.",
+      "errorMessage": "Telah terjadi galat selama komunikasi.",
+      "human": "Penasihat",
+      "initialMessage": "Permintaan obrolan Anda telah dikirim. Penasihat akan menjawab pesan Anda sesegera mungkin.",
+      "inputLabel": "Pertanyaan saya:",
+      "chatInputHelperText": "Saya ingin tahu...",
+      "loadingText": "Sebentar, obrolan sedang dimulai...",
+      "sendButton": "Kirim",
+      "user": "Anda",
+      "privacyPolicyInformation": "Konten obrolan akan dikirim ke para pegawai di {{appName}} ({{city}}). Terimalah kebijakan privasi agar dapat menggunakan obrolan."
     },
     "it": {
       "bot": "Chatbot",
@@ -1008,6 +1030,14 @@
       "sendText": "Másold be ezt a szöveget, [ ]-töltsd ki a tartalmat az adataiddal és küldd el",
       "copyText": "Szöveg bemásolása"
     },
+    "id": {
+      "callToAction": "Sarankan wilayah Anda ke Integreat!",
+      "explanation": "Konsep bersifat amal dari aplikasi Integreat ini telah meyakinkan Anda dan Anda menganggap bahwa kota Anda,\ndaerah Anda atau komunitas Anda juga bisa mendapatkan manfaat dari solusi digital ini? Dalam hal ini, Anda dapat menjadi aktif di sini sekarang.",
+      "whatToDo": "Inilah yang dapat Anda lakukan:",
+      "findOutMail": "Dapatkan alamat sur-el wilayah Anda",
+      "sendText": "Salin teks ini, lengkapi konten-[ ] dengan detail Anda dan kirimkan",
+      "copyText": "Salin teks"
+    },
     "it": {
       "callToAction": "Suggerisci Integreat nella tua regione!",
       "explanation": "Il concetto no-profit dell'app Integreat ti ha convinto e credi che anche la tua città, circondario o comune potrebbe beneficiare della soluzione digitale? Allora qui puoi attivarti in modo molto semplice",
@@ -1471,6 +1501,25 @@
       "ok": "Rendben",
       "minimize": "Minimalizál",
       "privacyPolicy": "Elolvastam a <1>adatvédelmi szabályzatot</1> és hozzájárulok az adataim feldolgozásához és tárolásához."
+    },
+    "id": {
+      "copied": "Disalin",
+      "moreOptions": "Opsi lainnya",
+      "languageNotAvailable": "Maaf, bahasa Anda tidak tersedia di sini.",
+      "chooseALanguage": "Pilih bahasa.",
+      "lastUpdate": "Pembaruan terakhir:",
+      "loading": "Memuat...",
+      "close": "Tutup",
+      "showMore": "Tampilkan lebih banyak",
+      "showLess": "Tunjukkan lebih sedikit",
+      "optional": "opsional",
+      "back": "Kembali",
+      "ok": "Oke",
+      "minimize": "Minimalkan",
+      "privacyPolicy": "Saya telah membaca <1>kebijakan privasi</1> dan setuju untuk memproses dan menyimpan data saya.",
+      "accessible": "Dapat diakses",
+      "notAccessible": "Tidak dapat diakses",
+      "clearInput": "Hapus input"
     },
     "it": {
       "copied": "Copiato",
@@ -2056,6 +2105,16 @@
       "knownResourceBlocked": "Letiltotta ebből a forrásból származó külső tartalmakat. Ezt a forrást a beállításokban engedélyezheti.",
       "noSources": "Külső források nem állnak rendelkezésre."
     },
+    "id": {
+      "title": "Sumber Eksternal",
+      "description": "Anda dapat menyetujui secara permanen untuk menampilkan konten yang tertanam dari penyedia pihak ketiga. Pilihan ini akan disimpan secara permanen di peramban internet Anda. Anda dapat mencabut izin Anda kapan pun di sini.",
+      "descriptionNative": "Anda dapat menyetujui secara permanen untuk menampilkan konten yang tertanam dari penyedia pihak ketiga. Pilihan ini akan disimpan secara permanen di perangkat lokal Anda. Anda dapat mencabut izin Anda kapan pun di sini.",
+      "consentDescription": "Izinkan konten dari {{source}}",
+      "knownResourceOptIn": "Saya menyetujui bahwa konten dari sumber eksternal ini boleh ditampilkan kepada saya.",
+      "knownResourceContentMessage": "Elemen ini berisi data dari sumber eksternal. Anda dapat memblokir penanaman konten seperti itu di pengaturan.",
+      "knownResourceBlocked": "Konten eksternal dari sumber ini telah diblokir. Anda dapat mengizinkan sumber ini di pengaturan.",
+      "noSources": "Tidak ada sumber eksternal yang tersedia."
+    },
     "it": {
       "title": "Fonti esterne",
       "description": "È possibile fornire in modo permanente il consenso alla visualizzazione di contenuti incorporati provenienti da fonti esterne. La selezione verrà quindi salvata in modo permanente nel browser Internet. Il consenso può essere revocato qui in qualsiasi momento.",
@@ -2418,6 +2477,12 @@
       "news": "Hírek",
       "pois": "Térkép"
     },
+    "id": {
+      "localInformation": "Informasi lokal",
+      "events": "Acara",
+      "news": "Berita",
+      "pois": "Peta"
+    },
     "it": {
       "localInformation": "Informazioni locali",
       "events": "Eventi",
@@ -2626,6 +2691,9 @@
     },
     "hu": {
       "pageTitle": "Impresszum és elérhetőség"
+    },
+    "id": {
+      "pageTitle": "Cetak dan kontak"
     },
     "it": {
       "pageTitle": "Impressum e contatti"
@@ -3264,6 +3332,43 @@
       "noCalendarPermission": "A hozzáférés a naptárhoz nem engedélyezett.",
       "noCalendarFound": "Nem találtunk megfelelő naptárat.",
       "settingsError": "Hiba a beállítások alkalmazásakor"
+    },
+    "id": {
+      "notFound": {
+        "language": "Maaf, bahasa ini tidak tersedia di sini.",
+        "city": "Maaf, wilayah ini tidak ditemukan.",
+        "category": "Maaf, halaman yang diminta tidak ditemukan.",
+        "event": "Maaf, acara ini tidak ditemukan.",
+        "poi": "Maaf, tempat ini tidak ditemukan.",
+        "news": "Maaf, pesan ini tidak ditemukan.",
+        "pageTitle": "Halaman tidak ditemukan"
+      },
+      "pageNotFound": "Maaf, halaman yang diminta tidak ditemukan.",
+      "noSuitableAppInstalled": "Tidak ada aplikasi terinstal yang sesuai.",
+      "networkConnectionFailed": "Koneksi ke server gagal.",
+      "networkRequestFailed": "Permintaan tidak dapat diproses.",
+      "responseMappingFailed": "Terjadi galat selama memproses respons server.",
+      "unknownError": "Terjadi galat yang tidak dikenal.",
+      "tryAgain": "Coba lagi",
+      "loadingFailed": "Maaf, halaman yang diminta tidak dapat dimuat.",
+      "chooseALanguage": "Pilih bahasa:",
+      "goTo": {
+        "start": "Pergi ke halaman utama",
+        "categories": "Pergi ke kategori",
+        "events": "Pergi ke acara",
+        "pois": "Pergi ke peta",
+        "news": "Pergi ke berita",
+        "pageNumber": "Pergi ke halaman {{number}}"
+      },
+      "pageTitle": "Galat",
+      "generalError": "Terjadi galat",
+      "notSupportedByDevice": "Fungsi ini tidak didukung pada perangkat ini.",
+      "languageSwitchFailedTitle": "Sayangnya, pengubahan bahasa gagal.",
+      "languageSwitchFailedMessage": "Bahasa yang dipilih tidak tersedia jika Anda luring. Diperlukan koneksi internet yang aktif.",
+      "permissionRequired": "Diperlukan izin",
+      "noCalendarPermission": "Akses ke kalender tidak diizinkan.",
+      "noCalendarFound": "Tidak ditemukan kalender yang sesuai.",
+      "settingsError": "Gagal menerapkan pengaturan"
     },
     "it": {
       "notFound": {
@@ -4731,6 +4836,37 @@
       "selectRange": "Időszak kiválasztása",
       "outOfRangeError": "Dátum a tartományon kívül"
     },
+    "id": {
+      "address": "Alamat",
+      "date_one": "Tanggal",
+      "date_other": "Tanggal",
+      "nextDate_one": "Tanggal berikutnya",
+      "nextDate_other": "Tanggal berikutnya",
+      "events": "Acara",
+      "export": "Mengekspor",
+      "addToCalendar": "Tambah ke kalender",
+      "currentlyNoEvents": "Tidak ada acara yang tersedia saat ini.",
+      "pageTitle": "Acara",
+      "chooseCalendar": "Pilihan kalender",
+      "added": "Ditambahkan",
+      "goToCalendar": "Pergi ke kalender",
+      "recurring": "berulang",
+      "today": "hari ini",
+      "todayRecurring": "hari ini, berulang",
+      "onlyThisEvent": "Hanya acara ini",
+      "thisAndAllFutureEvents": "Acara ini dan acara berikutnya",
+      "from": "dari",
+      "to": "ke",
+      "resetFilter": "reset filter:",
+      "invalidDate": "Tanggal tidak benar",
+      "shouldBeEarlier": "Tanggal mulai seharusnya sebelum tanggal selesai.",
+      "selectStartDateCalendar": "Pilih tanggal mulai di kalender",
+      "selectEndDateCalendar": "Pilih tanggal selesai di kalender",
+      "hideFilters": "Sembunyikan filter",
+      "showFilters": "Tampilkan filter",
+      "selectRange": "Pilih Rentang",
+      "outOfRangeError": "Tanggal diluar rentang"
+    },
     "it": {
       "address": "Indirizzo",
       "date_one": "Data",
@@ -6005,6 +6141,35 @@
       "noResultsInUserLanguage": "Sajnos az Ön nyelvén nincs találat.",
       "noResultsInUserAndSourceLanguage": "Sajnos az Ön nyelvén vagy németül nincs találat."
     },
+    "id": {
+      "disclaimer": "Kontak dan cetak",
+      "send": "Kirim",
+      "failedSendingFeedback": "Terjadi galat saat mengirim umpan balik.",
+      "feedback": "Umpan balik",
+      "headline": "Apa pendapat Anda tentang halaman ini?",
+      "description": "Pilih reaksi dan/atau tulis komentar.",
+      "commentHeadline": "Komentar",
+      "commentDescription": "Bagikan umpan balik Anda dengan kami! Kami menyambut setiap umpan balik baik positif maupun negatif, karena itu membantu kami mengembangkan {{appName}}.",
+      "isThisSiteUseful": "Apakah situs ini berguna?",
+      "useful": "Berguna",
+      "notUseful": "Tidak berguna",
+      "informationNotFound": "Tidak menemukan apa yang Anda cari?",
+      "wantedInformation": "Informasi apa yang tidak ada?",
+      "feedbackSent": "Umpan balik terkirim",
+      "thanksHeadline": "Terima kasih atas umpan balik Anda.",
+      "thanksMessage": "Umpan balik telah berhasil dikirim.",
+      "negativeRating": "Situs ini tidak berguna",
+      "positiveRating": "Situs ini berguna",
+      "searchTermDescription": "Tidak ada hasil yang ditemukan untuk istilah berikut ini:",
+      "contactMailAddress": "Kirim sur-el untuk pertanyaan lainnya",
+      "noteFillFeedback": "Pilih reaksi atau tulis komentar untuk mengirim umpan balik.",
+      "notePrivacyPolicy": "Setujui kebijakan privasi agar dapat mengirim umpan balik.",
+      "giveFeedback": "Beri umpan balik",
+      "checkQuery": "Periksa istilah pencarian Anda atau pilih bahasa lain di aplikasi {{appName}}.",
+      "informationMissing": "Apakah ada Informasi yang tidak ada?",
+      "noResultsInUserLanguage": "Maaf, kami tidak dapat menemukan hasil yang cocok dalam bahasa Anda.",
+      "noResultsInUserAndSourceLanguage": "Maaf, kami tidak dapat menemukan hasil yang cocok dalam bahasa Anda atau bahasa Jerman."
+    },
     "it": {
       "disclaimer": "Contatti e impressum",
       "send": "Invia",
@@ -7060,6 +7225,24 @@
       "skip": "Átugrás",
       "next": "Tovább"
     },
+    "id": {
+      "welcome": "Selamat datang di {{appName}}",
+      "welcomeDescription": "Di {{appName}}, Anda dapat menemukan jawaban dan tip dalam bahasa Anda. Misalnya: Di mana saya menemukan bantuan? Kapan saya boleh bekerja?",
+      "search": "Pencarian Sederhana",
+      "searchDescription": "Anda dapat dengan cepat menemukan informasi yang benar melalui pencarian di kanan atas pada menu.",
+      "languageChange": "Ubah bahasa",
+      "languageChangeDescription": "Anda dapat mengubah bahasa {{appName}} di menu atas.",
+      "events": "Acara",
+      "eventsDescription": "Acara dan tanggal saat ini di area tersebut",
+      "pois": "Tawaran di Dekat Anda",
+      "poisDescription": "Di peta, Anda dapat mencari tempat-tempat di dekat Anda, misalnya tempat untuk kursus bahasa.",
+      "offline": "Berfungsi Saat Luring",
+      "offlineDescription": "Tidak selalu punya internet? Tidak masalah. Anda dapat menggunakan {{appName}} walaupun tanpa internet.",
+      "news": "Berita Terkini",
+      "newsDescription": "Apa hal baru di area Anda? Cari tahu di {{appName}}.",
+      "skip": "Lewati",
+      "next": "Lanjutkan"
+    },
     "it": {
       "welcome": "Benvenuti a {{appName}}",
       "welcomeDescription": "In {{appName}} troverai risposte e suggerimenti nella tua lingua madre. Ad esempio: Dove posso trovare aiuto? Quando posso lavorare?",
@@ -7816,6 +7999,24 @@
       "cityNotFound": "Nem találja a régióját? Legyél most aktív!",
       "suggestToRegion": "{{appName}} javaslata a régiójában",
       "searchCityDescription": "Válaszd ki a lakhelyedet vagy a legközelebbi nagyvárost, pl. München járást"
+    },
+    "id": {
+      "searchCity": "Cari",
+      "noCitiesFound": "Tidak ada hasil",
+      "nearbyCities": "Di sekitarnya",
+      "noNearbyCities": "Tidak ada wilayah yang ditemukan di sekitarnya.",
+      "alert": "Catatan",
+      "locationError": "Untuk menampilkan wilayah di sekitarnya, layanan pelacakan harus diaktifkan.",
+      "noPermission": "Akses lokasi diperlukan",
+      "loading": "Menentukan lokasi...",
+      "notAvailable": "Penentuan lokasi dinonaktifkan",
+      "timeout": "Penentuan lokasi gagal",
+      "refresh": "Perbarui daftar wilayah terdekat",
+      "pageTitle": "Informasi Lokal Bagi Anda",
+      "metaDescription": "{{appName}} adalah panduan digital untuk kehidupan di Jerman. Temukan informasi lokal, acara dan saran. Selalu diperbarui dan tersedia dalam bahasa Anda sendiri.",
+      "cityNotFound": "Wilayah Anda tidak ditemukan? Ambil tindakan sekarang.",
+      "suggestToRegion": "Sarankan {{appName}} di wilayah Anda",
+      "searchCityDescription": "Pilih wilayah Anda atau kota terbesar berikutnya, misalnya Landkreis München"
     },
     "it": {
       "searchCity": "Ricerca",
@@ -8906,6 +9107,47 @@
       "pause": "Szünet",
       "voiceUnavailable": "Nem telepített hangot",
       "voiceUnavailableMessage": "Nem található hang. A felolvasás funkciónak telepített hangra van szüksége. Tartsa be az operációs rendszerére vonatkozó utasításokat."
+    },
+    "id": {
+      "imprintAndContact": "Cetak dan kontak",
+      "privacy": "Proteksi data",
+      "localInformation": "Informasi lokal",
+      "events": "Acara",
+      "noEvents": "Tidak ada acara",
+      "news": "Berita",
+      "noLanguages": "Tidak tersedia dalam bahasa lain",
+      "noTranslation": "Terjemahan tidak tersedia",
+      "search": "Cari",
+      "locations": "Peta",
+      "changeLocation": "Ubah lokasi",
+      "changeLanguage": "Ubah bahasa",
+      "settings": "Pengaturan",
+      "copyUrl": "Salin tautan",
+      "contrastTheme": "Kontras Tinggi (beta)",
+      "contrastThemeDescription": "Mode kontras mengembangkan tingkat keterbacaan",
+      "feedback": "Umpan balik",
+      "share": "Bagikan",
+      "cancel": "Batalkan",
+      "shareMessage": "Baru ditemukan: {{message}}",
+      "shareFailDefaultMessage": "Sayangnya, terjadi galat saat berbagi konten.",
+      "disclaimer": "Cetak",
+      "sideBarOpenAriaLabel": "Buka bilah samping",
+      "sideBarCloseAriaLabel": "Tutup bilah samping",
+      "openInApp": "Buka di aplikasi {{appName}}",
+      "open": "Buka",
+      "view": "Lihat",
+      "getOnPlayStore": "DAPATKAN — Di Google Play Store",
+      "accessibility": "Aksesibilitas",
+      "readAloud": "Baca keras-keras",
+      "nothingToRead": "Tidak ada yang bisa dibaca",
+      "nothingToReadFullMessage": "Tidak ada bahan untuk dibaca di halaman ini.",
+      "languageNotSupported": "Bahasa tidak didukung.",
+      "previous": "Sebelumnya",
+      "next": "Berikutnya",
+      "play": "Putar",
+      "pause": "Jeda",
+      "voiceUnavailable": "Suara tidak terinstal",
+      "voiceUnavailableMessage": "Suara tidak ditemukan. Agar dapat menggunakan fungsi baca keras-keras, harus ada suara yang diinstal. Mengaculah ke buku panduan sistem operasi Anda di bawah ini."
     },
     "it": {
       "imprintAndContact": "Impressum e contatti",
@@ -10065,6 +10307,11 @@
       "license": "Licenc:",
       "noLicensesMessage": "Nem áll rendelkezésre licencre vonatkozó információ"
     },
+    "id": {
+      "version": "Versi:",
+      "license": "Lisensi:",
+      "noLicensesMessage": "Informasi lisensi tidak tersedia"
+    },
     "it": {
       "version": "Versione:",
       "license": "Licenza:",
@@ -10246,6 +10493,9 @@
     },
     "hu": {
       "pageTitle": "Impresszum és elérhetőség- {{appName}}"
+    },
+    "id": {
+      "pageTitle": "Cetak dan kontak - {{appName}}"
     },
     "it": {
       "pageTitle": "Impressum e contatti - {{appName}}"
@@ -10674,6 +10924,29 @@
       "submitFailed": "Az űrlapot elküldése nem sikerült",
       "submitFailedReasoning": "Biztosítson stabil internetkapcsolatot, és próbálja újra.",
       "invalidEmailAddress": "A megadott e-mail-cím érvénytelen."
+    },
+    "id": {
+      "supportNote": "Kami ingin Anda merasa aman dan didukung setiap kali Anda mengalami kesulitan atau ada pertanyaan. Formulir kontak berikut ini memberi Anda kesempatan untuk tetap berkomunikasi dengan narahubung. Anda dapat menentukan jenis permintaan Anda dan memilih dari berbagai opsi kontak.",
+      "securityNote": "Keamanan Anda prioritas utama kami. Data Anda diperlakukan dengan kerahasiaan sehingga privasi Anda terlindungi setiap saat.",
+      "name": "Nama belakang, nama depan",
+      "roomNumber": "Nomor ruang",
+      "howToBeContacted": "Begini cara untuk menghubungi saya:",
+      "eMail": "via sur-el",
+      "telephone": "via telepon",
+      "telephoneNumber": "Nomor telepon",
+      "personally": "Secara pribadi",
+      "contactPerson": "Narahubung:",
+      "contactPersonAnyGender": "Jenis kelamin narahubung tidak relevan",
+      "contactPersonGenderFemale": "Saya lebih suka dihubungi oleh perempuan",
+      "contactPersonGenderMale": "Saya lebih suka dihubungi oleh pria",
+      "contactReason": "Permintaan Anda:",
+      "maxCharacters": "maksimum {{numberOfCharacters}} karakter",
+      "responseDisclaimer": "Mungkin perlu beberapa hari kerja sebelum Anda menerima respons. Kami berusaha sebaik mungkin untuk memproses permintaan Anda secepatnya.",
+      "submit": "Serahkan formulir",
+      "submitSuccessful": "Formulir berhasil diserahkan",
+      "submitFailed": "Formulir tidak dapat diserahkan",
+      "submitFailedReasoning": "Pastikan koneksi internet stabil, lalu coba lagi.",
+      "invalidEmailAddress": "Alamat sur-el yang Anda masukkan salah."
     },
     "it": {
       "supportNote": "Vogliamo che vi sentiate sicuri/e e supportati/e in caso di problemi o domande. Potete utilizzare il seguente modulo per mettervi in contatto con i vostri referenti. È possibile specificare la natura della richiesta e scegliere tra diverse opzioni di contatto.",
@@ -11403,6 +11676,13 @@
       "NSCalendarsUsageDescription": "{{appName}} szeretne hozzáférni a naptárához egy esemény hozzáadásához.",
       "NSCalendarsFullAccessUsageDescription": "{{appName}} szeretne hozzáférni a naptárához egy esemény hozzáadásához."
     },
+    "id": {
+      "NSPhotoLibraryAddUsageDescription": "{{appName}} ingin menyimpan foto-foto ke perpustakaan Anda.",
+      "NSLocationWhenInUseUsageDescription": "{{appName}} ingin menggunakan lokasi Anda untuk menemukan kota-kota terdekat.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "{{appName}} ingin menggunakan lokasi Anda untuk menemukan kota-kota terdekat.",
+      "NSCalendarsUsageDescription": "{{appName}} ingin mengakses kalender untuk menambahkan acara.",
+      "NSCalendarsFullAccessUsageDescription": "{{appName}} ingin mengakses kalender untuk menambahkan acara."
+    },
     "it": {
       "NSPhotoLibraryAddUsageDescription": "Per salvare le immagini, {{appName}} deve poter accedere alla galleria.",
       "NSLocationWhenInUseUsageDescription": "Per trovare luoghi nelle vicinanze, {{appName}} deve poter accedere alla posizione.",
@@ -11743,6 +12023,16 @@
       "local": "Helyi",
       "readMore": "Továbbolvasás",
       "currentlyNoNews": "Jelenleg nincsenek hírek."
+    },
+    "id": {
+      "news": "Berita",
+      "localNews": {
+        "localNews": "Berita lokal",
+        "pageTitle": "Berita lokal"
+      },
+      "local": "Lokal",
+      "readMore": "Lanjutkan",
+      "currentlyNoNews": "Tidak ada berita saat ini."
     },
     "it": {
       "news": "Messaggi",
@@ -13080,6 +13370,77 @@
       "poisCount_many": "{{count}} hely",
       "poisCount_other": "{{count}} hely",
       "contacts": "Kapcsolat"
+    },
+    "id": {
+      "pageTitle": "Peta",
+      "poi": "Tempat",
+      "pois": "Tempat",
+      "map": "Peta",
+      "showOnMap": "Tampilkan pada peta",
+      "noPois": "Tempat tidak ditemukan.",
+      "unitKilometre": "km",
+      "unitMetre": "m",
+      "distanceKilometre": "{{distance}} km jauhnya",
+      "distanceKilometreAlternative": "{{distance}} km",
+      "distanceMetre": "{{distance}} m jauhnya ",
+      "distanceMetreAlternative": "{{distance}} m",
+      "contactInformation": "Perincian kontak",
+      "address": "Alamat",
+      "copyAddress": "Salin alamat",
+      "phone": "Nomor telepon",
+      "mobilePhone": "Nomor telepon genggam",
+      "eMail": "Alamat sur-el",
+      "website": "Situs web",
+      "openingHours": "Jam buka",
+      "description": "Deskripsi",
+      "addressCopied": "Alamat disalin ke papan klip",
+      "phoneCopied": "Nomor telepon disalin ke papan klip",
+      "eMailCopied": "Alamat sur-el disalin ke papan klip",
+      "websiteCopied": "Situs web disalin ke papan klip",
+      "listTitle": "Di dekat Anda",
+      "detailsHeader": "Kembali",
+      "detailsAddress": "Arah",
+      "detailsMapLink": "Buka di Google Maps",
+      "detailsInformation": "Info",
+      "detailsNextPoi": "Berikutnya",
+      "detailsPreviousPoi": "Sebelumnya",
+      "previousPoi": "Tempat sebelumnya",
+      "nextPoi": "Tempat berikutnya",
+      "openExternalMaps": "Buka di aplikasi peta",
+      "allDay": "sepanjang hari",
+      "opened": "buka",
+      "closed": "tutup",
+      "temporarilyClosed": "tutup sementara",
+      "montag": "Senin",
+      "dienstag": "Selasa",
+      "mittwoch": "Rabu",
+      "donnerstag": "Kamis",
+      "freitag": "Jumat",
+      "samstag": "Sabtu",
+      "sonntag": "Minggu",
+      "adjustFilters": "Filter lokasi",
+      "onlyCurrentlyOpen": "hanya tampilkan lokasi-lokasi yang saat ini terbuka",
+      "poiCategories": "Kategori",
+      "showPois_zero": "Tampilkan 0 tempat",
+      "showPois_one": "Tampilkan 1 tempat",
+      "showPois_two": "Tampilkan {{count}} tempat",
+      "showPois_few": "Tampilkan {{count}} tempat",
+      "showPois_many": "Tampilkan {{count}} tempat",
+      "showPois_other": "Tampilkan {{count}} tempat",
+      "alphabetLetters": "A-Z",
+      "clearFilter": "Hapus filter {{filter}}",
+      "showOwnLocation": "Tampilkan lokasi Anda",
+      "makeAppointment": "Buat janji",
+      "onlyWithAppointment": "Hanya dengan janji",
+      "appointmentNecessary": "Perlu membuat janji",
+      "makeAppointmentTooltipWithLink": "Buat janji pada hari ini via <1>situs web</1> atau melalui telepon.",
+      "poisCount_zero": "0 lokasi",
+      "poisCount_one": "1 lokasi",
+      "poisCount_two": "{{count}} lokasi",
+      "poisCount_few": "{{count}} lokasi",
+      "poisCount_many": "{{count}} lokasi",
+      "poisCount_other": "{{count}} lokasi",
+      "contacts": "Kontak"
     },
     "it": {
       "pageTitle": "Mappa",
@@ -15195,6 +15556,19 @@
       "pageTitle": "Keresés",
       "delete": "bevitt adat törlése"
     },
+    "id": {
+      "nothingFound": "Maaf, kami tidak dapat menemukan hasil yang cocok.",
+      "searchPlaceholder": "Cari",
+      "itemHint": "Lihat hasil pencarian",
+      "searchResultsCount_zero": "0 hasil pencarian",
+      "searchResultsCount_one": "1 hasil pencarian",
+      "searchResultsCount_two": "2 hasil pencarian",
+      "searchResultsCount_few": "{{count}} hasil pencarian",
+      "searchResultsCount_many": "{{count}} hasil pencarian",
+      "searchResultsCount_other": "{{count}} hasil pencarian",
+      "pageTitle": "Cari",
+      "delete": "Hapus input"
+    },
     "it": {
       "nothingFound": "Purtroppo non sono stati trovati risultati corrispondenti.",
       "searchPlaceholder": "Ricerca",
@@ -15877,6 +16251,28 @@
       "decline": "Elutasítás",
       "externalResourcesTitle": "Külső források",
       "externalResourcesDescription": "Adja meg, hogy mely külső forrásokat engedélyezi."
+    },
+    "id": {
+      "sentryTitle": "Stabilitas aplikasi",
+      "sentryDescription": "Kembangkan aplikasi {{appName}} dengan mengirim laporan kegagalan secara otomatis",
+      "pushNewsTitle": "Notifikasi otomatis",
+      "pushNewsDescription": "Terima notifikasi otomatis untuk berita lokal terbaru",
+      "about": "Tentang {{appName}}",
+      "privacyPolicy": "Kebijakan proteksi data",
+      "version": "Versi: {{version}}",
+      "openSourceLicenses": "Buka lisensi sumber",
+      "tracking": "Evaluasi J-PAL",
+      "allowTracking": "Izinkan pelacakan",
+      "trackingShortDescription": "Ambil bagian dalam studi evaluasi J-PAL untuk mengembangkan {{appName}}.",
+      "trackingMoreInformation": "Informasi lebih lanjut tentang evaluasi J-Pal dan tujuan penelitiannya",
+      "trackingDescription": "{{appName}} meminta izin untuk melacak penggunaan Anda dalam aplikasi. Data Anda dianonimkan dan akan digunakan untuk tujuan penelitian serta mengembangkan aplikasi. Data pelacakan tidak akan dibagikan atau diproses untuk tujuan iklan atau komersial lain.",
+      "trackingLeaveTitle": "Izinkan pelacakan?",
+      "trackingLeaveDescription": "Anda telah menonaktifkan pelacakan. Pelacakan membantu kami mengembangkan aplikasi {{appName}} dan memberikan informasi yang lebih baik bagi para imigran. Apakah Anda yakin ingin meninggalkan layar tanpa mengaktifkan pelacakan?",
+      "enabled": "diaktifkan",
+      "disabled": "dinonaktifkan",
+      "decline": "Tolak",
+      "externalResourcesTitle": "Sumber Eksternal",
+      "externalResourcesDescription": "Tentukan sumber eksternal mana yang diizinkan."
     },
     "it": {
       "sentryTitle": "Stabilità dell’app",
@@ -16564,6 +16960,12 @@
       "whatsappTooltip": "megosztás a WhatsAppban",
       "closeTooltip": "bezár"
     },
+    "id": {
+      "facebookTooltip": "bagikan di Facebook",
+      "mailTooltip": "rekomendasikan via sur-el",
+      "whatsappTooltip": "bagikan di WhatsApp",
+      "closeTooltip": "Tutup"
+    },
     "it": {
       "facebookTooltip": "condividi su Facebook",
       "mailTooltip": "consiglia via e-mail",
@@ -16772,6 +17174,9 @@
     },
     "hu": {
       "noOffersAvailable": "Nincsenek ajánlatok"
+    },
+    "id": {
+      "noOffersAvailable": "Tidak ada tawaran yang tersedia"
     },
     "it": {
       "noOffersAvailable": "Non sono disponibili offerte"
