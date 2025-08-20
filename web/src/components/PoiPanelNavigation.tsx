@@ -1,5 +1,5 @@
-import styled from '@emotion/styled'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -7,7 +7,7 @@ import { helpers } from '../constants/theme'
 import Button from './base/Button'
 import Icon from './base/Icon'
 
-const NavigationContainer = styled.div`
+const NavigationContainer = styled('div')`
   display: flex;
   padding: 12px;
   justify-content: space-between;
@@ -18,7 +18,7 @@ const StyledButton = styled(Button)`
   color: ${props => props.theme.legacy.colors.textColor};
 `
 
-const Label = styled.span`
+const Label = styled('span')`
   align-self: center;
   ${helpers.adaptiveFontSize};
 `

@@ -1,6 +1,6 @@
-import styled from '@emotion/styled'
 import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -14,7 +14,7 @@ import Failure from './Failure'
 import NearbyCities from './NearbyCities'
 import ScrollingSearchBox from './ScrollingSearchBox'
 
-const Container = styled.div`
+const Container = styled('div')`
   padding-top: 22px;
 `
 
@@ -28,7 +28,7 @@ export const CityListParent = styled(Typography)<{ stickyTop: number }>`
   background-color: ${props => props.theme.legacy.colors.backgroundColor};
 `
 
-const SearchCounter = styled.p`
+const SearchCounter = styled('p')`
   color: ${props => props.theme.legacy.colors.textSecondaryColor};
 `
 

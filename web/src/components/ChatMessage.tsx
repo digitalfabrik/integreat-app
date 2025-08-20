@@ -1,6 +1,6 @@
-import styled from '@emotion/styled'
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined'
 import SmartToyOutlinedIcon from '@mui/icons-material/SmartToyOutlined'
+import { styled } from '@mui/material/styles'
 import { TFunction } from 'i18next'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -10,7 +10,7 @@ import { ChatMessageModel } from 'shared/api'
 import RemoteContent from './RemoteContent'
 import Icon from './base/Icon'
 
-export const Message = styled.div`
+export const Message = styled('div')`
   color: ${props => props.theme.legacy.colors.textColor};
   border-radius: 5px;
   padding: 8px;
@@ -28,18 +28,18 @@ const StyledChatIcon = styled(Icon)`
   border-radius: 4px;
 `
 
-const Container = styled.div<{ isAuthor: boolean }>`
+const Container = styled('div')<{ isAuthor: boolean }>`
   display: flex;
   flex-direction: ${props => (props.isAuthor ? 'row-reverse' : 'row')};
   margin-bottom: 12px;
   gap: 8px;
 `
 
-const IconContainer = styled.div<{ visible: boolean }>`
+const IconContainer = styled('div')<{ visible: boolean }>`
   opacity: ${props => (props.visible ? 1 : 0)};
 `
 
-const Circle = styled.div`
+const Circle = styled('div')`
   display: flex;
   background-color: ${props => props.theme.legacy.colors.textColor};
   border-radius: 50%;
