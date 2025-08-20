@@ -31,7 +31,7 @@ const GeneralHeader = ({ languageCode }: GeneralHeaderProps): ReactElement => {
       logoHref={landingPath}
       actionItems={actionItems}
       navigationItems={[]}
-      kebabItems={[]}
+      sidebarItems={[]}
       language={languageCode}
     />
   )
