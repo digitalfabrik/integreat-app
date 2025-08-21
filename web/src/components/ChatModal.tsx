@@ -3,7 +3,6 @@ import FocusTrap from 'focus-trap-react'
 import React, { ReactElement, ReactNode, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import dimensions from '../constants/dimensions'
 import ChatModalContent from './ChatContentWrapper'
 import { LAYOUT_ELEMENT_ID } from './Layout'
 import Button from './base/Button'
@@ -11,7 +10,7 @@ import Button from './base/Button'
 const Overlay = styled(Button)`
   position: absolute;
   inset: 0;
-  background-color: ${props => props.theme.colors.textSecondaryColor};
+  background-color: ${props => props.theme.legacy.colors.textSecondaryColor};
   opacity: 0.4;
   width: 100%;
   height: 100%;
@@ -27,17 +26,17 @@ const ModalContainer = styled.div`
 `
 
 const ModalContentContainer = styled.div`
-  @media ${dimensions.mediumLargeViewport} {
+  ${props => props.theme.breakpoints.up('md')} {
     margin-inline-end: 20px;
   }
 
   position: relative;
   display: flex;
   flex-direction: column;
-  background-color: ${props => props.theme.colors.backgroundColor};
+  background-color: ${props => props.theme.legacy.colors.backgroundColor};
   border-radius: 5px;
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     height: 100%;
     align-items: center;
     width: 100%;

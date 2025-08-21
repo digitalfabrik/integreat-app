@@ -1,10 +1,9 @@
 import styled from '@emotion/styled'
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import { DateTime } from 'luxon'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CloseIcon } from '../assets'
-import dimensions from '../constants/dimensions'
 import Accordion from './Accordion'
 import CustomDatePicker from './DatePicker'
 import FilterToggle from './FilterToggle'
@@ -17,13 +16,13 @@ const DateSection = styled.div`
   margin: 15px 5px;
   justify-content: space-evenly;
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     flex-direction: column;
     align-items: center;
   }
 `
 const Text = styled.span`
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
 `
 
 const StyledButton = styled(Button)`
@@ -98,7 +97,7 @@ const EventsDateFilter = ({
             setStartDate(null)
             setEndDate(null)
           }}>
-          <Icon src={CloseIcon} />
+          <Icon src={CloseOutlinedIcon} />
           <ResetFilterText startDate={startDate} endDate={endDate} />
         </StyledButton>
       )}

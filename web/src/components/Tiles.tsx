@@ -3,22 +3,16 @@ import React, { ReactElement } from 'react'
 
 import { TileModel } from 'shared'
 
-import dimensions from '../constants/dimensions'
 import Caption from './Caption'
 import Tile from './Tile'
 
 const TilesRow = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+
+  /* https://css-tricks.com/intrinsically-responsive-css-grid-with-minmax-and-min/ */
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
   padding: 10px 0;
-
-  @media ${dimensions.mediumViewport} {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  @media ${dimensions.smallViewport} {
-    grid-template-columns: repeat(2, 1fr);
-  }
 `
 
 type TilesProps = {

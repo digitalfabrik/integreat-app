@@ -14,6 +14,8 @@ import CloseIcon from '../../../assets/icons/close.svg'
 import EditLocationIcon from '../../../assets/icons/edit-location.svg'
 import ExpandIcon from '../../../assets/icons/expand.svg'
 import ExternalLinkIcon from '../../../assets/icons/external-link.svg'
+import FastForwardIcon from '../../../assets/icons/fastForward.svg'
+import FastRewindIcon from '../../../assets/icons/fastRewind.svg'
 import HappySmileyIcon from '../../../assets/icons/happy-smiley.svg'
 import LanguageIcon from '../../../assets/icons/language.svg'
 import LocationFixedIcon from '../../../assets/icons/location-fixed.svg'
@@ -29,7 +31,6 @@ import NoteIcon from '../../../assets/icons/note.svg'
 import PauseIcon from '../../../assets/icons/pause.svg'
 import PhoneIcon from '../../../assets/icons/phone.svg'
 import PlayIcon from '../../../assets/icons/play.svg'
-import PlaybackIcon from '../../../assets/icons/playback.svg'
 import POIsIcon from '../../../assets/icons/pois.svg'
 import RefreshIcon from '../../../assets/icons/refresh.svg'
 import SadSmileyIcon from '../../../assets/icons/sad-smiley.svg'
@@ -67,6 +68,8 @@ export {
   EventThumbnailPlaceholder3,
   ExpandIcon,
   ExternalLinkIcon,
+  FastRewindIcon,
+  FastForwardIcon,
   HappySmileyIcon,
   IntroLanguageIcon,
   IntroNewsIcon,
@@ -88,7 +91,6 @@ export {
   PhoneIcon,
   POIsIcon,
   PauseIcon,
-  PlaybackIcon,
   PlayIcon,
   PoiThumbnailPlaceholder,
   PoiThumbnailPlaceholderLarge,

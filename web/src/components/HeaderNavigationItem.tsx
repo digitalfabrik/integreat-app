@@ -1,8 +1,8 @@
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
-import React, { ReactElement } from 'react'
+import { SvgIconProps } from '@mui/material/SvgIcon'
+import React, { ElementType, ReactElement } from 'react'
 
-import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
 import Icon from './base/Icon'
 import Link from './base/Link'
@@ -13,8 +13,8 @@ const Container = styled.div`
 
 const StyledLink = styled(Link)<{ active: boolean }>`
   ${helpers.removeLinkHighlighting};
-  color: ${props => props.theme.colors.textSecondaryColor};
-  font-family: ${props => props.theme.fonts.web.contentFont};
+  color: ${props => props.theme.legacy.colors.textSecondaryColor};
+  font-family: ${props => props.theme.legacy.fonts.web.contentFont};
   font-size: 0.9em;
   font-weight: 800;
   text-align: center;
@@ -25,37 +25,38 @@ const StyledLink = styled(Link)<{ active: boolean }>`
   transition: color 0.2s;
   height: 100%;
 
-  @media ${dimensions.smallViewport} {
-    font-size: ${props => props.theme.fonts.decorativeFontSizeSmall};
+  ${props => props.theme.breakpoints.down('md')} {
+    font-size: ${props => props.theme.legacy.fonts.decorativeFontSizeSmall};
     font-weight: 400;
     min-width: 50px;
   }
 
   & > div > svg {
-    color: ${props => (props.active ? props.theme.colors.textColor : props.theme.colors.textSecondaryColor)};
+    color: ${props =>
+      props.active ? props.theme.legacy.colors.textColor : props.theme.legacy.colors.textSecondaryColor};
   }
 
   &:hover {
-    color: ${props => props.theme.colors.textColor};
+    color: ${props => props.theme.legacy.colors.textColor};
   }
 
   &:hover > div > svg {
-    color: ${props => props.theme.colors.textColor};
+    color: ${props => props.theme.legacy.colors.textColor};
   }
 
   &:hover > div:first-of-type {
     box-shadow: 0 0 0 0 rgb(0 0 0 / 30%);
-    border-color: ${props => props.theme.colors.themeColor};
+    border-color: ${props => props.theme.legacy.colors.themeColor};
   }
 
   ${props =>
     props.active &&
     css`
-      color: ${props.theme.colors.textColor};
+      color: ${props.theme.legacy.colors.textColor};
 
       & > div:first-of-type {
         box-shadow: 0 0 0 0 rgb(0 0 0 / 30%);
-        border-color: ${props.theme.colors.themeColor};
+        border-color: ${props.theme.legacy.colors.themeColor};
       }
     `}
 `
@@ -72,8 +73,8 @@ const Circle = styled.div`
   justify-content: center;
   align-items: center;
 
-  @media ${dimensions.mediumLargeViewport} {
-    background-color: ${props => props.theme.colors.backgroundColor};
+  ${props => props.theme.breakpoints.up('md')} {
+    background-color: ${props => props.theme.legacy.colors.backgroundColor};
     box-sizing: border-box;
     border-radius: 100%;
     height: ${ICON_SIZE_LARGE}px;
@@ -82,10 +83,10 @@ const Circle = styled.div`
     transition:
       box-shadow 0.2s,
       border 0.2s;
-    border: ${props => props.theme.colors.backgroundColor} 2px solid;
+    border: ${props => props.theme.legacy.colors.backgroundColor} 2px solid;
   }
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     height: ${ICON_SIZE_SMALL}px;
     width: ${ICON_SIZE_SMALL}px;
   }
@@ -100,7 +101,7 @@ export type HeaderNavigationItemProps = {
   text: string
   to: string
   active: boolean
-  icon: string
+  icon: string | ElementType<SvgIconProps>
 }
 
 const HeaderNavigationItem = ({ active, text, to, icon }: HeaderNavigationItemProps): ReactElement => (

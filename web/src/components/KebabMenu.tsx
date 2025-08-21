@@ -1,14 +1,14 @@
 import styled from '@emotion/styled'
+import CloseIcon from '@mui/icons-material/Close'
+import MoreVertIcon from '@mui/icons-material/MoreVert'
+import Divider from '@mui/material/Divider'
+import IconButton from '@mui/material/IconButton'
 import React, { ReactElement, ReactNode, useLayoutEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CloseIcon, MenuIcon } from '../assets'
 import dimensions from '../constants/dimensions'
 import useLockedBody from '../hooks/useLockedBody'
-import '../styles/KebabMenu.css'
 import Portal from './Portal'
-import Button from './base/Button'
-import Icon from './base/Icon'
 
 type KebabMenuProps = {
   items: ReactNode[]
@@ -23,13 +23,13 @@ const ToggleContainer = styled.div`
   z-index: 50;
 `
 
-const List = styled.div<{ show: boolean }>`
-  font-family: ${props => props.theme.fonts.web.decorativeFont};
-  position: absolute;
+const List = styled.div`
+  font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
+  position: fixed;
   top: 0;
   width: 80vw;
   height: 100vh;
-  background-color: ${props => props.theme.colors.backgroundColor};
+  background-color: ${props => props.theme.legacy.colors.backgroundColor};
   box-shadow: -3px 3px 3px 0 rgb(0 0 0 / 13%);
 
   /* to stop flickering of text in safari */
@@ -37,16 +37,13 @@ const List = styled.div<{ show: boolean }>`
   transform-origin: 0 0;
   transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
   z-index: 40;
-  ${props => (props.theme.contentDirection === 'rtl' ? `left: 0;` : `right:0;`)}
-  ${props =>
-    props.theme.contentDirection === 'rtl' ? `transform: translate(-100%, 0);` : `transform: translate(100%, 0);`}
-  ${props => props.show && `opacity: 1;transform: none;`}
+  right: 0;
   display: flex;
   flex-direction: column;
 `
 
 const Overlay = styled.div<{ show: boolean }>`
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100vh;
   top: 0;
@@ -58,8 +55,8 @@ const Overlay = styled.div<{ show: boolean }>`
 
 const Heading = styled.div`
   display: flex;
-  justify-content: ${props => (props.theme.contentDirection === 'rtl' ? `flex-start` : `flex-end`)};
-  background-color: ${props => props.theme.colors.backgroundAccentColor};
+  justify-content: flex-end;
+  background-color: ${props => props.theme.legacy.colors.backgroundAccentColor};
   box-shadow: -3px 3px 3px 0 rgb(0 0 0 / 13%);
   min-height: ${dimensions.headerHeightSmall}px;
   box-sizing: border-box;
@@ -69,17 +66,11 @@ const Heading = styled.div`
 const ActionBar = styled.nav`
   display: flex;
   align-items: center;
-  justify-content: flex-end;
   padding: 0 16px;
 `
 
 const Content = styled.div`
   padding: 0 32px;
-`
-
-const StyledIcon = styled(Icon)`
-  width: 28px;
-  height: 28px;
 `
 
 const KebabMenu = ({ items, show, setShow, Footer }: KebabMenuProps): ReactElement | null => {
@@ -103,9 +94,9 @@ const KebabMenu = ({ items, show, setShow, Footer }: KebabMenuProps): ReactEleme
 
   return (
     <ToggleContainer>
-      <Button onClick={onClick} label={t('sideBarOpenAriaLabel')} aria-expanded={show}>
-        <StyledIcon src={MenuIcon} />
-      </Button>
+      <IconButton onClick={onClick} aria-label={t('sideBarOpenAriaLabel')} aria-expanded={show}>
+        <MoreVertIcon />
+      </IconButton>
       <Portal
         className='kebab-menu'
         show={show}
@@ -116,15 +107,22 @@ const KebabMenu = ({ items, show, setShow, Footer }: KebabMenuProps): ReactEleme
         {/* disabled because this is an overlay for backdrop close */}
         {/* eslint-disable-next-line styled-components-a11y/no-static-element-interactions,styled-components-a11y/click-events-have-key-events */}
         <Overlay onClick={onClick} show={show} />
-        <List show={show}>
+        <List>
           <Heading>
             <ActionBar>
-              <Button onClick={onClick} label={t('sideBarCloseAriaLabel')}>
-                <Icon src={CloseIcon} />
-              </Button>
+              <IconButton onClick={onClick} aria-label={t('sideBarCloseAriaLabel')}>
+                <CloseIcon />
+              </IconButton>
             </ActionBar>
           </Heading>
-          <Content>{items}</Content>
+          <Content>
+            {items.map((item, index) => (
+              <React.Fragment key={`menu-item-${index + 1}`}>
+                {item}
+                {index < items.length - 1 && <Divider />}
+              </React.Fragment>
+            ))}
+          </Content>
           {Footer}
         </List>
       </Portal>

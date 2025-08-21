@@ -4,7 +4,6 @@ import React, { ReactElement } from 'react'
 import SVG from 'react-inlinesvg'
 
 import buildConfig from '../constants/buildConfig'
-import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import Link from './base/Link'
 
@@ -23,18 +22,18 @@ const LogoContainer = styled.div`
     width: 100%;
     height: 48px;
 
-    @media ${dimensions.smallViewport} {
+    ${props => props.theme.breakpoints.down('md')} {
       width: 48px;
     }
   }
 `
 
 const StyledLogo = styled(SVG)`
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
   height: 100%;
   width: 200px;
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     width: 100%;
   }
 `

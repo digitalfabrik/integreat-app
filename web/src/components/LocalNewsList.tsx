@@ -13,7 +13,7 @@ const StyledList = styled.div`
   padding-top: 1px;
 `
 const Wrapper = styled.div`
-  background-color: ${({ theme }) => theme.colors.backgroundColor};
+  background-color: ${({ theme }) => theme.legacy.colors.backgroundColor};
 `
 
 type LocalNewsListProps = {

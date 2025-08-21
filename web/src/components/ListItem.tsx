@@ -1,10 +1,10 @@
 import styled from '@emotion/styled'
+import Divider from '@mui/material/Divider'
 import React, { ReactElement, ReactNode } from 'react'
 
 import Link from './base/Link'
 
 const ListItemContainer = styled.article`
-  border-bottom: 2px solid ${props => props.theme.colors.themeColor};
   display: flex;
 `
 
@@ -53,18 +53,21 @@ type ListItemProps = {
 }
 
 const ListItem = ({ path, title, thumbnail, thumbnailSize, children, Icon }: ListItemProps): ReactElement => (
-  <ListItemContainer dir='auto'>
-    <FullWidthLink to={path}>
-      {!!thumbnail && <Thumbnail alt='' src={thumbnail} thumbnailSize={thumbnailSize} />}
-      <Description>
-        <TitleRow>
-          <Title>{title}</Title>
-          {Icon}
-        </TitleRow>
-        {children}
-      </Description>
-    </FullWidthLink>
-  </ListItemContainer>
+  <>
+    <ListItemContainer dir='auto'>
+      <FullWidthLink to={path}>
+        {!!thumbnail && <Thumbnail alt='' src={thumbnail} thumbnailSize={thumbnailSize} />}
+        <Description>
+          <TitleRow>
+            <Title>{title}</Title>
+            {Icon}
+          </TitleRow>
+          {children}
+        </Description>
+      </FullWidthLink>
+    </ListItemContainer>
+    <Divider />
+  </>
 )
 
 export default ListItem
