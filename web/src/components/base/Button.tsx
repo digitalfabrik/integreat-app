@@ -1,7 +1,7 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode } from 'react'
 
-const StyledButton = styled.button<{ disabled: boolean }>`
+const StyledButton = styled('button')<{ disabled: boolean }>`
   background-color: transparent;
   cursor: ${props => (props.disabled ? 'default' : 'pointer')};
   pointer-events: ${props => (props.disabled ? 'none' : 'default')};

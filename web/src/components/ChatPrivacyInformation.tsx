@@ -1,5 +1,5 @@
-import styled from '@emotion/styled'
 import MailLock from '@mui/icons-material/MailLock'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
 import buildConfig from '../constants/buildConfig'

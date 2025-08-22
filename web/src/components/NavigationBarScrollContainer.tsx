@@ -1,6 +1,5 @@
-import { useTheme } from '@emotion/react'
-import styled from '@emotion/styled'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
+import { styled, useTheme } from '@mui/material/styles'
 import React, { ReactElement, ReactNode, RefObject, useCallback, useState } from 'react'
 
 import dimensions from '../constants/dimensions'
@@ -14,7 +13,7 @@ type NavigationBarScrollContainerProps = {
   activeIndex: number
 }
 
-const Container = styled.div`
+const Container = styled('div')`
   display: flex;
 `
 
@@ -26,7 +25,7 @@ const Arrow = styled(Icon)<{ visible: boolean }>`
   opacity: ${props => (props.visible ? 1 : 0)};
 `
 
-const ScrollContainer = styled.div<{ showArrowContainer: boolean }>`
+const ScrollContainer = styled('div')<{ showArrowContainer: boolean }>`
   display: flex;
   flex: 1;
   max-width: 100%;

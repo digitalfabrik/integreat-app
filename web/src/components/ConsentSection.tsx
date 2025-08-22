@@ -1,10 +1,10 @@
-import styled from '@emotion/styled'
 import Divider from '@mui/material/Divider'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
 import Checkbox from './base/Checkbox'
 
-const Container = styled.div`
+const Container = styled('div')`
   flex-direction: row;
   padding: 16px 0;
 `

@@ -1,6 +1,6 @@
-import styled from '@emotion/styled'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -10,7 +10,7 @@ import buildConfig from '../constants/buildConfig'
 import Icon from './base/Icon'
 import Link from './base/Link'
 
-const FooterContainer = styled.div`
+const FooterContainer = styled('div')`
   background-color: ${props => props.theme.legacy.colors.backgroundAccentColor};
   display: flex;
   flex-direction: column;
@@ -24,7 +24,7 @@ const StyledIcon = styled(Icon)`
   flex-shrink: 0;
 `
 
-const Question = styled.p`
+const Question = styled('p')`
   font: ${props => props.theme.legacy.fonts.web.decorativeFont};
   font-weight: 400;
 `

@@ -1,9 +1,9 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 
 import { ExternalLinkIcon, PersonIcon } from '../assets'
 import { helpers } from '../constants/theme'
 
-const RemoteContentSandBox = styled.div<{ centered: boolean; smallText: boolean }>`
+const RemoteContentSandBox = styled('div')<{ centered: boolean; smallText: boolean }>`
   font-family: ${props => props.theme.legacy.fonts.web.contentFont};
   font-size: ${props => (props.smallText ? helpers.adaptiveFontSize : props.theme.legacy.fonts.contentFontSize)};
   line-height: ${props => props.theme.legacy.fonts.contentLineHeight};

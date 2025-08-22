@@ -1,4 +1,4 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
 import { MALTE_HELP_FORM_OFFER_ALIAS, SPRUNGBRETT_OFFER_ALIAS } from 'shared'
@@ -8,7 +8,7 @@ import { CityRouteProps } from '../CityContentSwitcher'
 import MalteHelpForm from './MalteHelpForm'
 import SprungbrettOffer from './SprungbrettOffer'
 
-const Container = styled.div<{ withMargin: boolean }>`
+const Container = styled('div')<{ withMargin: boolean }>`
   ${props => props.withMargin && 'margin-top: 48px;'}
 `
 

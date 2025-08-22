@@ -1,4 +1,4 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
 import dimensions from '../constants/dimensions'
@@ -6,7 +6,7 @@ import dimensions from '../constants/dimensions'
 const LONG_TITLE_LENGTH = 25
 export const HEADER_TITLE_HEIGHT = 50
 
-const HeaderTitleContainer = styled.div<{ long: boolean }>`
+const HeaderTitleContainer = styled('div')<{ long: boolean }>`
   display: flex;
   align-items: center;
   font-size: ${props => (props.long ? '1.3rem' : '1.8rem')};

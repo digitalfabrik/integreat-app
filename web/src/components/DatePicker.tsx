@@ -1,6 +1,6 @@
-import styled from '@emotion/styled'
 import EventIcon from '@mui/icons-material/Event'
 import IconButton from '@mui/material/IconButton'
+import { styled } from '@mui/material/styles'
 import { DateTime } from 'luxon'
 import React, { ReactElement, useEffect, useState } from 'react'
 import DatePicker, { DatePickerProps } from 'react-datepicker'
@@ -11,12 +11,12 @@ import '../styles/DatePickerCalendar.css'
 
 const INPUT_HEIGHT = '56px'
 
-const DateContainer = styled.div`
+const DateContainer = styled('div')`
   width: fit-content;
   position: relative;
 `
 
-const StyledInputWrapper = styled.div`
+const StyledInputWrapper = styled('div')`
   display: flex;
 `
 
@@ -47,7 +47,7 @@ const StyledInput = styled(DatePickerWrapper)`
   }
 `
 
-const StyledTitle = styled.span`
+const StyledTitle = styled('span')`
   background-color: ${props => props.theme.legacy.colors.backgroundColor};
   position: absolute;
   top: -12px;
@@ -56,7 +56,7 @@ const StyledTitle = styled.span`
   font-size: 12px;
 `
 
-const StyledError = styled.div`
+const StyledError = styled('div')`
   font-size: 12px;
   font-weight: bold;
   color: ${props => props.theme.legacy.colors.invalidInput};

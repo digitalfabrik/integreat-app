@@ -1,6 +1,6 @@
-import styled from '@emotion/styled'
 import SendIcon from '@mui/icons-material/Send'
 import Button from '@mui/material/Button'
+import { styled } from '@mui/material/styles'
 import React, { KeyboardEvent, ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -15,7 +15,7 @@ import PrivacyCheckbox from './PrivacyCheckbox'
 import Input from './base/Input'
 import InputSection from './base/InputSection'
 
-const Container = styled.div`
+const Container = styled('div')`
   height: 100%;
   padding: 12px 0;
   gap: ${props => props.theme.spacing(1)};
@@ -33,7 +33,7 @@ const LoadingContainer = styled(Container)`
   justify-content: center;
 `
 
-const SubmitContainer = styled.div`
+const SubmitContainer = styled('div')`
   gap: ${props => props.theme.spacing(1)};
   display: flex;
 `
@@ -42,7 +42,7 @@ const SubmitButton = styled(Button)`
   flex: 1;
 `
 
-const LoadingText = styled.div`
+const LoadingText = styled('div')`
   text-align: center;
 `
 
@@ -50,7 +50,7 @@ const StyledLoadingSpinner = styled(LoadingSpinner)`
   margin-top: 0;
 `
 
-const InputWrapper = styled.div`
+const InputWrapper = styled('div')`
   display: flex;
   flex-direction: column;
   padding: 0 12px;

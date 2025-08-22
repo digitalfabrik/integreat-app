@@ -1,6 +1,6 @@
-import styled from '@emotion/styled'
 import AccessTimeIcon from '@mui/icons-material/AccessTime'
 import Button from '@mui/material/Button'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -14,7 +14,7 @@ import ToggleButton, { toggleButtonWidth } from './base/ToggleButton'
 
 const tileColumnGap = 16
 
-const Container = styled.div`
+const Container = styled('div')`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -22,27 +22,27 @@ const Container = styled.div`
   gap: 24px;
 `
 
-const SubTitle = styled.div`
+const SubTitle = styled('div')`
   font-size: 0.875rem;
   color: ${props => props.theme.legacy.colors.textColor};
   font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
   font-weight: bold;
 `
 
-const Section = styled.div`
+const Section = styled('div')`
   display: flex;
   flex-direction: column;
   width: 100%;
   gap: 24px;
 `
 
-const Row = styled.div`
+const Row = styled('div')`
   display: flex;
   gap: 8px;
   align-items: center;
 `
 
-const SortingHint = styled.div`
+const SortingHint = styled('div')`
   align-self: flex-end;
   font-size: 0.75rem;
   color: ${props => props.theme.legacy.colors.textColor};

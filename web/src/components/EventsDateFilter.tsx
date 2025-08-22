@@ -1,5 +1,5 @@
-import styled from '@emotion/styled'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
+import { styled } from '@mui/material/styles'
 import { DateTime } from 'luxon'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -10,7 +10,7 @@ import FilterToggle from './FilterToggle'
 import Button from './base/Button'
 import Icon from './base/Icon'
 
-const DateSection = styled.div`
+const DateSection = styled('div')`
   display: flex;
   gap: 10px;
   margin: 15px 5px;
@@ -21,7 +21,7 @@ const DateSection = styled.div`
     align-items: center;
   }
 `
-const Text = styled.span`
+const Text = styled('span')`
   color: ${props => props.theme.legacy.colors.textColor};
 `
 

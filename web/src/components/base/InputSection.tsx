@@ -1,22 +1,22 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import InputComponent from './Input'
 
-const Container = styled.div`
+const Container = styled('div')`
   display: flex;
   flex-direction: column;
   gap: 8px;
 `
 
-const TitleContainer = styled.div`
+const TitleContainer = styled('div')`
   display: flex;
   justify-content: space-between;
   align-items: center;
 `
 
-export const Title = styled.label`
+export const Title = styled('label')`
   font-weight: bold;
 `
 

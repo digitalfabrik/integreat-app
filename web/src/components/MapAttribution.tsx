@@ -1,4 +1,4 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
 
 import { openStreeMapCopyright } from 'shared'
@@ -6,7 +6,7 @@ import { openStreeMapCopyright } from 'shared'
 import Button from './base/Button'
 import Link from './base/Link'
 
-const Attribution = styled.div`
+const Attribution = styled('div')`
   display: flex;
   direction: ltr;
   padding: 0 4px;
@@ -31,7 +31,7 @@ const OpenStreetMapsLink = styled(Link)`
   color: ${props => props.theme.legacy.colors.linkColor};
 `
 
-const Label = styled.span`
+const Label = styled('span')`
   padding: 0 4px;
   color: rgb(0 0 0 / 75%);
 `

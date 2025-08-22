@@ -1,4 +1,4 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
 import { TileModel } from 'shared'
@@ -6,7 +6,7 @@ import { TileModel } from 'shared'
 import Caption from './Caption'
 import Tile from './Tile'
 
-const TilesRow = styled.div`
+const TilesRow = styled('div')`
   display: grid;
 
   /* https://css-tricks.com/intrinsically-responsive-css-grid-with-minmax-and-min/ */

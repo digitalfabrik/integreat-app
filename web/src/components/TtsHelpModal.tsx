@@ -1,7 +1,6 @@
-import { useTheme } from '@emotion/react'
-import styled from '@emotion/styled'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import WarningAmberOutlinedIcon from '@mui/icons-material/WarningAmberOutlined'
+import { styled, useTheme } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -23,7 +22,7 @@ const ModalContent = styled(Container)`
   padding: 0 16px 16px;
 `
 
-const StyledWarningText = styled.div`
+const StyledWarningText = styled('div')`
   font-family: ${props => props.theme.legacy.fonts.web.contentFont};
   font-size: 16px;
   color: ${props => props.theme.legacy.colors.textColor};
@@ -33,7 +32,7 @@ const StyledWarningIcon = styled(Icon)`
   color: ${props => props.theme.legacy.colors.ttsPlayerWarningColor};
 `
 
-const StyledList = styled.div`
+const StyledList = styled('div')`
   display: flex;
   flex-direction: column;
   gap: 8px;

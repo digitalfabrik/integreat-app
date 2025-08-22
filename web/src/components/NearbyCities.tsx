@@ -1,7 +1,7 @@
-import styled from '@emotion/styled'
 import RefreshIcon from '@mui/icons-material/Refresh'
 import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -13,13 +13,13 @@ import CityEntry from './CityEntry'
 import { CityListParent } from './CitySelector'
 import Icon from './base/Icon'
 
-const NearbyMessageContainer = styled.div`
+const NearbyMessageContainer = styled('div')`
   display: flex;
   padding: 8px;
   justify-content: space-between;
 `
 
-const NearbyMessage = styled.span`
+const NearbyMessage = styled('span')`
   color: ${props => props.theme.legacy.colors.textColor};
   font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
   align-self: center;

@@ -1,7 +1,7 @@
-import { css, SerializedStyles, Theme } from '@emotion/react'
-import styled from '@emotion/styled'
+import { css, SerializedStyles } from '@emotion/react'
 import { SvgIconProps } from '@mui/material/SvgIcon'
 import Tooltip from '@mui/material/Tooltip'
+import { styled, Theme } from '@mui/material/styles'
 import React, { ElementType, ReactElement } from 'react'
 
 import useWindowDimensions from '../hooks/useWindowDimensions'

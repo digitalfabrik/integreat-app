@@ -1,7 +1,7 @@
-import styled from '@emotion/styled'
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import Divider from '@mui/material/Divider'
+import { styled } from '@mui/material/styles'
 import React, { Fragment, ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -23,7 +23,7 @@ const StyledDivider = styled(Divider)`
   margin: 12px 0;
 `
 
-const DetailsContainer = styled.div`
+const DetailsContainer = styled('div')`
   font-family: ${props => props.theme.legacy.fonts.web.contentFont};
 `
 
@@ -39,7 +39,7 @@ const StyledExternalLinkIcon = styled(StyledIcon)`
   color: ${props => props.theme.legacy.colors.linkColor};
 `
 
-const Thumbnail = styled.img`
+const Thumbnail = styled('img')`
   height: clamp(120px, 14vh, 160px);
   width: 100%;
   flex-shrink: 0;
@@ -53,17 +53,17 @@ const Thumbnail = styled.img`
   }
 `
 
-const Distance = styled.div`
+const Distance = styled('div')`
   ${helpers.adaptiveFontSize};
 `
 
-const AddressContentWrapper = styled.div`
+const AddressContentWrapper = styled('div')`
   display: flex;
   ${helpers.adaptiveFontSize};
   gap: 8px;
 `
 
-const AddressContent = styled.div`
+const AddressContent = styled('div')`
   display: flex;
   flex-direction: column;
   ${helpers.adaptiveFontSize};
@@ -73,12 +73,12 @@ const AddressContent = styled.div`
   }
 `
 
-const Heading = styled.div`
+const Heading = styled('div')`
   margin: 12px 0;
   font-weight: 700;
 `
 
-const Subheading = styled.div`
+const Subheading = styled('div')`
   margin: 12px 0;
   font-weight: 700;
   ${helpers.adaptiveFontSize};
@@ -90,18 +90,18 @@ const StyledLink = styled(Link)`
   gap: 8px;
 `
 
-const LinkLabel = styled.span`
+const LinkLabel = styled('span')`
   color: ${props => props.theme.legacy.colors.linkColor};
   ${helpers.adaptiveFontSize};
   align-self: flex-end;
 `
 
-const HeadingSection = styled.div`
+const HeadingSection = styled('div')`
   display: flex;
   flex-direction: column;
 `
 
-const DetailSection = styled.div`
+const DetailSection = styled('div')`
   display: flex;
   flex-direction: column;
 
@@ -115,11 +115,11 @@ const StyledCollapsible = styled(Collapsible)`
   gap: 0;
 `
 
-const StyledContactsContainer = styled.div`
+const StyledContactsContainer = styled('div')`
   margin-top: 12px;
 `
 
-const ToolbarWrapper = styled.div`
+const ToolbarWrapper = styled('div')`
   display: flex;
   justify-content: center;
 `

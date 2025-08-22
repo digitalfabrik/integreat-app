@@ -1,5 +1,4 @@
-import { useTheme } from '@emotion/react'
-import styled from '@emotion/styled'
+import { styled, useTheme } from '@mui/material/styles'
 import FocusTrap from 'focus-trap-react'
 import React, { CSSProperties, ReactElement, ReactNode, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -24,7 +23,7 @@ const Overlay = styled(Button)`
   height: 100%;
 `
 
-const ModalContainer = styled.div`
+const ModalContainer = styled('div')`
   position: fixed;
   inset: 0;
   z-index: 100;
@@ -33,7 +32,7 @@ const ModalContainer = styled.div`
   justify-content: center;
 `
 
-const ModalContentContainer = styled.div`
+const ModalContentContainer = styled('div')`
   position: relative;
   display: flex;
   flex-direction: column;

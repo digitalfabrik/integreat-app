@@ -1,9 +1,9 @@
-import styled from '@emotion/styled'
 import MailOutlinedIcon from '@mui/icons-material/MailOutlined'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined'
 import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'
 import Divider from '@mui/material/Divider'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -12,7 +12,7 @@ import { ContactModel } from 'shared/api'
 import { helpers } from '../constants/theme'
 import ContactItem from './ContactItem'
 
-const StyledContactHeader = styled.div`
+const StyledContactHeader = styled('div')`
   margin-bottom: 6px;
   ${helpers.adaptiveFontSize};
 `

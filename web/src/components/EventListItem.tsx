@@ -1,7 +1,7 @@
-import styled from '@emotion/styled'
 import EventRepeatOutlinedIcon from '@mui/icons-material/EventRepeatOutlined'
 import TodayOutlinedIcon from '@mui/icons-material/TodayOutlined'
 import Tooltip from '@mui/material/Tooltip'
+import { styled } from '@mui/material/styles'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -20,7 +20,7 @@ import { EXCERPT_MAX_CHARS } from '../constants'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import ListItem from './ListItem'
 
-const Content = styled.div`
+const Content = styled('div')`
   overflow-wrap: anywhere;
 `
 

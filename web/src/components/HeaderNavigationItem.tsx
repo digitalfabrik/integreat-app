@@ -1,13 +1,13 @@
 import { css } from '@emotion/react'
-import styled from '@emotion/styled'
 import { SvgIconProps } from '@mui/material/SvgIcon'
+import { styled } from '@mui/material/styles'
 import React, { ElementType, ReactElement } from 'react'
 
 import { helpers } from '../constants/theme'
 import Icon from './base/Icon'
 import Link from './base/Link'
 
-const Container = styled.div`
+const Container = styled('div')`
   flex: 1 1 135px;
 `
 
@@ -61,14 +61,14 @@ const StyledLink = styled(Link)<{ active: boolean }>`
     `}
 `
 
-const StyledText = styled.span<{ active: boolean }>`
+const StyledText = styled('span')<{ active: boolean }>`
   font-weight: ${props => (props.active ? 'bold' : 'normal')};
 `
 
 const ICON_SIZE_LARGE = 50
 const ICON_SIZE_SMALL = 35
 
-const Circle = styled.div`
+const Circle = styled('div')`
   display: flex;
   justify-content: center;
   align-items: center;

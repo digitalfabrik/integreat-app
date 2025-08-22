@@ -1,10 +1,10 @@
-import styled from '@emotion/styled'
 import { SvgIconProps } from '@mui/material/SvgIcon'
+import { styled } from '@mui/material/styles'
 import React, { ElementType, ReactElement } from 'react'
 
 import Icon from './base/Icon'
 
-const Container = styled.span`
+const Container = styled('span')`
   display: flex;
   flex: 1;
   text-decoration: none;

@@ -1,6 +1,6 @@
-import styled from '@emotion/styled'
 import { SvgIconProps } from '@mui/material/SvgIcon'
 import MuiToggleButton from '@mui/material/ToggleButton'
+import { styled } from '@mui/material/styles'
 import React, { ElementType, ReactElement } from 'react'
 
 import Icon from './Icon'
@@ -22,7 +22,7 @@ const StyledButton = styled(MuiToggleButton)`
   text-align: center;
 `
 
-const StyledLabel = styled.span`
+const StyledLabel = styled('span')`
   line-height: 1;
   font-size: 12px;
   font-weight: 400;

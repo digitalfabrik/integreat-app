@@ -1,6 +1,6 @@
-import styled from '@emotion/styled'
 import CloseIcon from '@mui/icons-material/Close'
 import { SvgIconProps } from '@mui/material/SvgIcon'
+import { styled } from '@mui/material/styles'
 import React, { ElementType, ReactElement } from 'react'
 
 import Button from './Button'

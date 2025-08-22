@@ -1,6 +1,6 @@
-import { css, Theme } from '@emotion/react'
-import styled from '@emotion/styled'
+import { css } from '@emotion/react'
 import Tooltip from '@mui/material/Tooltip'
+import { styled, Theme } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
 import dimensions from '../constants/dimensions'
@@ -42,19 +42,19 @@ const SelectorItem = styled(Link)<{ selected: boolean }>`
         }`}
 `
 
-const DisabledSelectorItem = styled.div`
+const DisabledSelectorItem = styled('div')`
   ${selectorItemStyle};
   color: ${props => props.theme.legacy.colors.textDisabledColor};
 `
 
-const BoldSpacer = styled.div`
+const BoldSpacer = styled('div')`
   font-weight: 700;
   height: 0;
   overflow: hidden;
   visibility: hidden;
 `
 
-const Wrapper = styled.div<{ vertical: boolean }>`
+const Wrapper = styled('div')<{ vertical: boolean }>`
   display: flex;
   width: 100%;
   flex-flow: ${props => (props.vertical ? 'column' : 'row wrap')};

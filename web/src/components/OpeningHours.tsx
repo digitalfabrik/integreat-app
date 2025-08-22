@@ -1,5 +1,5 @@
-import styled from '@emotion/styled'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
+import { styled } from '@mui/material/styles'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -13,18 +13,18 @@ import OpeningEntry from './OpeningEntry'
 import Icon from './base/Icon'
 import Link from './base/Link'
 
-const OpeningLabel = styled.span<{ isOpen: boolean }>`
+const OpeningLabel = styled('span')<{ isOpen: boolean }>`
   color: ${props =>
     props.isOpen ? props.theme.legacy.colors.positiveHighlight : props.theme.legacy.colors.negativeHighlight};
   padding-inline-end: 12px;
 `
 
-const Content = styled.div`
+const Content = styled('div')`
   padding-inline-end: 26px;
   ${helpers.adaptiveFontSize};
 `
 
-const TitleContainer = styled.div`
+const TitleContainer = styled('div')`
   display: flex;
   flex: 1;
   justify-content: space-between;
@@ -34,7 +34,7 @@ const TitleContainer = styled.div`
   ${helpers.adaptiveFontSize};
 `
 
-const OpeningContainer = styled.div`
+const OpeningContainer = styled('div')`
   display: flex;
   align-items: center;
   gap: 8px;
@@ -46,7 +46,7 @@ const StyledLink = styled(Link)`
   gap: 8px;
 `
 
-const LinkLabel = styled.span`
+const LinkLabel = styled('span')`
   color: ${props => props.theme.legacy.colors.linkColor};
   ${helpers.adaptiveFontSize};
   align-self: flex-end;

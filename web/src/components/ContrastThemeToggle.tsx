@@ -1,6 +1,5 @@
-import { useTheme } from '@emotion/react'
-import styled from '@emotion/styled'
 import ContrastIcon from '@mui/icons-material/Contrast'
+import { useTheme, styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
