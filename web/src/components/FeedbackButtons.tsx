@@ -27,7 +27,7 @@ const FeedbackButtons = ({ rating, setRating }: FeedbackButtonsProps): ReactElem
 
   return (
     <>
-      <div>{t('description')}</div>
+      <div style={{ paddingBottom: '8px' }}>{t('description')}</div>
       <StyledToggleButtonGroup exclusive value={rating} onChange={handleChange}>
         <ToggleButton value={RATING_POSITIVE} icon={SentimentSatisfiedOutlinedIcon} text={t('useful')} />
         <ToggleButton value={RATING_NEGATIVE} icon={SentimentDissatisfiedOutlinedIcon} text={t('notUseful')} />

@@ -7,7 +7,7 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 import FormGroup from '@mui/material/FormGroup'
 import FormHelperText from '@mui/material/FormHelperText'
 import InputLabel from '@mui/material/InputLabel'
-import Input from '@mui/material/OutlinedInput'
+import OutlinedInput from '@mui/material/OutlinedInput'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation, Trans } from 'react-i18next'
 
@@ -35,6 +35,10 @@ export const Container = styled.div<{ fullWidth?: boolean }>`
 
   ${props => props.theme.breakpoints.up('md')} {
     width: ${props => (props.fullWidth ? 'auto' : '400px')};
+  }
+
+  & [class*='MuiFormHelperText-root'] {
+    font-size: ${props => props.theme.legacy.fonts.hintFontSize};
   }
 `
 
@@ -105,14 +109,14 @@ const Feedback = ({
     <Container fullWidth={isSearchFeedback}>
       {isSearchFeedback ? (
         <FormControl error={submitted && !searchTerm} variant='outlined'>
-          <FormHelperText id='searchTerm'>
+          <FormHelperText id='searchTermDescription'>
             {submitted && !searchTerm ? t('noteFillFeedback') : t('searchTermDescription')}
           </FormHelperText>
           <InputLabel htmlFor='searchTerm' />
-          <Input
+          <OutlinedInput
             id='searchTerm'
             value={searchTerm}
-            aria-describedby={searchTerm}
+            aria-describedby='searchTermDescription'
             onChange={e => setSearchTerm(e.target.value)}
             fullWidth
             required
@@ -125,28 +129,31 @@ const Feedback = ({
         </FormControl>
       )}
       <FormControl fullWidth variant='outlined'>
-        <InputLabel htmlFor={comment}>{t(commentTitle)}</InputLabel>
-        <Input
+        <InputLabel htmlFor='comment'>{t(commentTitle)}</InputLabel>
+        <OutlinedInput
           id='comment'
           value={comment}
           onChange={e => onCommentChanged(e.target.value)}
-          aria-describedby={comment}
+          aria-describedby='commentDescription'
           label={t(commentTitle)}
           multiline
+          rows={4}
         />
-        <FormHelperText id={comment}>{t('commentDescription', { appName: buildConfig().appName })}</FormHelperText>
+        <FormHelperText id='commentDescription'>
+          {t('commentDescription', { appName: buildConfig().appName })}
+        </FormHelperText>
       </FormControl>
       <FormControl fullWidth variant='outlined'>
         <InputLabel htmlFor='email'>{t('contactMailAddress')}</InputLabel>
-        <Input
+        <OutlinedInput
           id='email'
           value={contactMail}
           onChange={e => onContactMailChanged(e.target.value)}
           label={t('contactMailAddress')}
-          aria-describedby='email'
+          defaultValue={t('optional')}
         />
       </FormControl>
-      <FormControl error={submitted && !privacyPolicyAccepted}>
+      <FormControl error={submitted && !privacyPolicyAccepted} required>
         <FormGroup>
           <FormControlLabel
             required
