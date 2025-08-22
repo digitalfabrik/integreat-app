@@ -56,7 +56,7 @@ const CityContentHeader = ({
 
   const { t } = useTranslation('layout')
 
-  const SearchButton = (
+  const SearchLink = (
     <HeaderActionItemLink key='search' to={searchPath} text={t('search')} icon={<SearchOutlinedIcon />} />
   )
 
@@ -95,7 +95,7 @@ const CityContentHeader = ({
     />
   )
 
-  const actionItems = viewportSmall ? [SearchButton, MobileLanguageButton] : [SearchButton, DesktopLanguageSelector]
+  const actionItems = viewportSmall ? [SearchLink, MobileLanguageButton] : [SearchLink, DesktopLanguageSelector]
 
   const sidebarItems = showLanguageSelector ? [MobileLanguageSelector] : [<ContrastThemeToggle key='contrastTheme' />]
 
