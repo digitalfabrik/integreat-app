@@ -22,7 +22,7 @@ const ListItem = styled('li')<{ shrink: boolean }>`
   }
 `
 
-const Separator = styled('li')`
+const Separator = styled('span')`
   &::before {
     color: ${props => props.theme.legacy.colors.textColor};
     font-size: 19px;
