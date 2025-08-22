@@ -1,44 +1,74 @@
 import styled from '@emotion/styled'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+import Tooltip from '@mui/material/Tooltip'
+import Typography from '@mui/material/Typography'
 import React, { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 
+import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
+import Link from './base/Link'
 
 const LONG_TITLE_LENGTH = 25
 export const HEADER_TITLE_HEIGHT = 50
 
-const HeaderTitleContainer = styled.div<{ long: boolean }>`
+const HeaderTitleContainer = styled(Typography)<{ withPadding?: boolean }>`
   display: flex;
-  align-items: center;
-  font-size: ${props => (props.long ? '1.3rem' : '1.8rem')};
+  align-items: flex-start;
   max-height: ${dimensions.headerHeightLarge};
-  font-weight: 800;
   flex: 1;
   order: 2;
-  padding: 0 10px;
-  box-sizing: border-box;
 
-  ${props => props.theme.breakpoints.up('lg')} {
-    font-size: ${props => (props.long ? '1.5rem' : '1.8rem')};
+  ${props => props.withPadding && props.theme.breakpoints.up('md')} {
+    padding-bottom: 8px;
   }
+`
+
+const StyledLink = styled(Link)`
+  display: flex;
+  align-items: center;
+  gap: 12px;
 
   ${props => props.theme.breakpoints.down('md')} {
-    font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
-    font-size: ${props => props.theme.legacy.fonts.decorativeFontSize};
-    height: ${HEADER_TITLE_HEIGHT}px;
-    justify-content: start;
-    padding: 0 10px;
-    text-align: start;
-    align-self: center;
-    font-weight: 400;
+    gap: 0;
   }
 `
 
 type HeaderTitleProps = {
   title: string
+  landingPath: string
 }
 
-const HeaderTitle = ({ title }: HeaderTitleProps): ReactElement => (
-  <HeaderTitleContainer long={title.length >= LONG_TITLE_LENGTH}>{title}</HeaderTitleContainer>
-)
+const HeaderTitle = ({ title, landingPath }: HeaderTitleProps): ReactElement => {
+  const { t } = useTranslation('layout')
+  const { appName, featureFlags } = buildConfig()
+  const isFixedCity = !featureFlags.fixedCity
+  const integreatConfigs = ['Integreat', 'IntegreatTestCms']
+  const isIntegreat = integreatConfigs.includes(appName)
+
+  if (isFixedCity) {
+    return (
+      <HeaderTitleContainer
+        withPadding={isIntegreat}
+        aria-label={t('changeLocation')}
+        variant={title.length >= LONG_TITLE_LENGTH ? 'title3' : 'title2'}>
+        <Tooltip id='location' title={t('changeLocation')}>
+          <StyledLink to={landingPath}>
+            {title}
+            <KeyboardArrowDownIcon />
+          </StyledLink>
+        </Tooltip>
+      </HeaderTitleContainer>
+    )
+  }
+
+  return (
+    <HeaderTitleContainer
+      aria-label={t('changeLocation')}
+      variant={title.length >= LONG_TITLE_LENGTH ? 'title3' : 'title2'}>
+      <StyledLink to={landingPath}>{title}</StyledLink>
+    </HeaderTitleContainer>
+  )
+}
 
 export default HeaderTitle
