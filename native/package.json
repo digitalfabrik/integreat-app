@@ -82,6 +82,7 @@
     "react-native-get-random-values": "^1.11.0",
     "react-native-inappbrowser-reborn": "^3.7.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
+    "react-native-external-keyboard": "^0.6.0",
     "react-native-localize": "^3.4.1",
     "react-native-pdf": "^6.7.7",
     "react-native-permissions": "^5.3.0",

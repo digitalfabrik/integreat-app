@@ -64,6 +64,7 @@ const Categories = ({
       lastUpdate={category.lastUpdate}
       language={language}
       path={category.path}
+      accessible={children.length === 0}
       AfterContent={category.organization && <OrganizationContentInfo organization={category.organization} />}
       Footer={
         children.length ? (

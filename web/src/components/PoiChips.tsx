@@ -24,7 +24,7 @@ const Chip = styled.div`
   align-items: center;
   gap: 6px;
   border-radius: 12px;
-  border: 1px solid rgb(0 0 0 / 38%);
+  border: 1px solid ${props => props.theme.colors.textSecondaryColor};
   height: 24px;
   font-size: 12px;
 `

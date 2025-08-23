@@ -361,7 +361,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
-			shellScript = "# Workaround for Mapbox ios certificates issue - https://stackoverflow.com/questions/77397157\n  if [ \"$XCODE_VERSION_MAJOR\" -ge \"1500\" ]; then\n    echo \"Remove signature files (Xcode 15 workaround)\"\n\n    rm \"$BUILD_DIR/Release-iphoneos/Mapbox.xcframework-ios.signature\"\n  fi\n";
+			shellScript = "# Workaround for Mapbox ios certificates issue\n# https://github.com/CocoaPods/CocoaPods/issues/12022\n# https://stackoverflow.com/questions/77397157\n  if [ \"$XCODE_VERSION_MAJOR\" -ge \"1600\" ]; then\n    echo \"Remove signature files (Xcode 16 workaround)\"\n\n    rm \"$BUILD_DIR/Release-iphoneos/MapLibre.xcframework-ios.signature\"\n  fi\n";
 		};
 		2E9D39FF8FCBC7D755021350 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

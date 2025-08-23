@@ -4,11 +4,11 @@ import buildConfig from '../../constants/buildConfig'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import HeaderLogo from '../HeaderLogo'
 
+jest.mock('react-inlinesvg')
 jest.mock('../../constants/buildConfig', () => ({
   __esModule: true,
   default: jest.fn(() => __BUILD_CONFIG__),
 }))
-
 jest.useFakeTimers()
 
 describe('HeaderLogo', () => {
@@ -31,44 +31,39 @@ describe('HeaderLogo', () => {
     jest.setSystemTime(1615374110000) // Wed Mar 10 2021 11:01:50 GMT+0000
     config.campaign = undefined
     config.icons.appLogo = '/my-regular-logo'
-    const { getAllByRole } = renderWithRouterAndTheme(<HeaderLogo link='https://example.com' />)
-    const logos = getAllByRole('img')
+    const { getByRole } = renderWithRouterAndTheme(<HeaderLogo link='https://example.com' />)
+    const logo = getByRole('img')
 
-    expect(logos[0]!.getAttribute('src')).toBe(config.icons.appLogoMobile)
-    expect(logos[1]!.getAttribute('src')).toBe(config.icons.appLogo)
-    logos.forEach(it => expect(it.getAttribute('alt')).toBe('IntegreatTestCms'))
+    expect(logo.getAttribute('id')).toBe(config.icons.appLogo)
   })
 
   it('should show the campaign logo if the current date is between start and end date', () => {
     jest.setSystemTime(1615374110000) // Wed Mar 10 2021 11:01:50 GMT+0000
     config.campaign = womensDayCampaign
     config.icons.appLogo = '/my-regular-logo'
-    const { getAllByRole } = renderWithRouterAndTheme(<HeaderLogo link='https://example.com' />)
-    const logos = getAllByRole('img')
+    const { getByRole } = renderWithRouterAndTheme(<HeaderLogo link='https://example.com' />)
+    const logo = getByRole('img')
 
-    expect(logos[0]!.getAttribute('src')).toBe(womensDayCampaign.campaignAppLogoMobile)
-    expect(logos[1]!.getAttribute('src')).toBe(womensDayCampaign.campaignAppLogo)
+    expect(logo.getAttribute('id')).toBe(womensDayCampaign.campaignAppLogo)
   })
 
   it('should show the regular logo if the current date is before the start date', () => {
     jest.setSystemTime(1614942686000) // Fri Mar 05 2021 11:11:26
     config.campaign = womensDayCampaign
     config.icons.appLogo = '/my-regular-logo'
-    const { getAllByRole } = renderWithRouterAndTheme(<HeaderLogo link='https://example.com' />)
-    const logos = getAllByRole('img')
+    const { getByRole } = renderWithRouterAndTheme(<HeaderLogo link='https://example.com' />)
+    const logo = getByRole('img')
 
-    expect(logos[0]!.getAttribute('src')).toBe(config.icons.appLogoMobile)
-    expect(logos[1]!.getAttribute('src')).toBe(config.icons.appLogo)
+    expect(logo.getAttribute('id')).toBe(config.icons.appLogo)
   })
 
   it('should show the regular logo if the current date is after the end date', () => {
     jest.setSystemTime(1615806686000) // Mon Mar 15 2021 11:11:26
     config.campaign = womensDayCampaign
     config.icons.appLogo = '/my-regular-logo'
-    const { getAllByRole } = renderWithRouterAndTheme(<HeaderLogo link='https://example.com' />)
-    const logos = getAllByRole('img')
+    const { getByRole } = renderWithRouterAndTheme(<HeaderLogo link='https://example.com' />)
+    const logo = getByRole('img')
 
-    expect(logos[0]!.getAttribute('src')).toBe(config.icons.appLogoMobile)
-    expect(logos[1]!.getAttribute('src')).toBe(config.icons.appLogo)
+    expect(logo.getAttribute('id')).toBe(config.icons.appLogo)
   })
 })

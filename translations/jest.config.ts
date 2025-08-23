@@ -5,6 +5,6 @@ export default {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
   maxWorkers: '50%',
   transform: {
-    '^.+\\.(j|t)sx?$': ['ts-jest', { isolatedModules: true }],
+    '^.+\\.(j|t)sx?$': ['ts-jest', {}],
   },
 }

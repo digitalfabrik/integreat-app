@@ -7,43 +7,29 @@ jobs:
       prepare_delivery: true
       platform: web
       context:
-        - mattermost
         - deliverino
-  - check:
-      context:
-        - mattermost
+  - check
   - e2e_web:
-      context:
-        - mattermost
       requires:
         - bump_version
   - build_web:
       matrix:
         parameters:
           build_config_name: [integreat, malte, aschaffenburg, obdach]
-      context:
-        - mattermost
       requires:
         - bump_version
   - deliver_web:
       delivery: production
       context:
-        - mattermost
+        - sentry
       requires:
         - check
         - e2e_web
-        - build_web
-  - sentry_web:
-      context:
-        - mattermost
-        - sentry
-      requires:
         - build_web
   - notify_release:
       production_delivery: true
       platform: web
       context:
-        - mattermost
         - deliverino
       requires:
         - deliver_web

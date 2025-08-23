@@ -1,6 +1,8 @@
 import { fireEvent, RenderAPI, waitFor } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import React, { useContext } from 'react'
+import { Platform } from 'react-native'
+import mockSafeAreaContext from 'react-native-safe-area-context/jest/mock'
 import Tts from 'react-native-tts'
 
 import buildConfig from '../../constants/buildConfig'
@@ -11,8 +13,17 @@ import TtsContainer, { TtsContext } from '../TtsContainer'
 import Text from '../base/Text'
 import TextButton from '../base/TextButton'
 
+jest.mock('react-native-safe-area-context', () => mockSafeAreaContext)
 jest.mock('react-i18next')
-jest.mock('react-native-tts')
+jest.mock('react-native-tts', () => ({
+  addEventListener: jest.fn(),
+  getInitStatus: jest.fn(() => Promise.resolve()),
+  removeAllListeners: jest.fn(),
+  setDefaultLanguage: jest.fn(),
+  setIgnoreSilentSwitch: jest.fn(),
+  speak: jest.fn(),
+  stop: jest.fn(() => Promise.resolve()),
+}))
 jest.mock('../../hooks/useSnackbar')
 jest.mock('shared/api', () => ({
   ...jest.requireActual('shared/api'),
@@ -36,6 +47,7 @@ const mockBuildConfig = (tts: boolean) => {
 jest.useFakeTimers()
 
 describe('TtsContainer', () => {
+  Platform.OS = 'android'
   const showSnackbar = jest.fn()
   mocked(useSnackbar).mockImplementation(() => showSnackbar)
   const sentences = ['This is my first sentence', 'Second sentence', 'Third time is the charm']
@@ -189,5 +201,16 @@ describe('TtsContainer', () => {
     expect(Tts.speak).toHaveBeenCalledTimes(6)
     expect(Tts.speak).toHaveBeenLastCalledWith(sentences[1], expect.objectContaining({}))
     expect(Tts.stop).toHaveBeenCalledTimes(8)
+  })
+
+  it('should call Tts.setIgnoreSilentSwitch when on iOS', async () => {
+    Platform.OS = 'ios'
+    mockBuildConfig(true)
+    const { getByText, getByRole } = renderTtsPlayer()
+    fireEvent.press(getByText('set sentences'))
+    fireEvent.press(getByText('show'))
+
+    await waitFor(() => expect(getByRole('button', { name: 'play' })).toBeTruthy())
+    expect(Tts.setIgnoreSilentSwitch).toHaveBeenCalledWith('ignore')
   })
 })

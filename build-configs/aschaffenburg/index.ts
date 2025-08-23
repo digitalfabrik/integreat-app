@@ -33,7 +33,7 @@ const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
     floss: false,
     pois: false,
     newsStream: true,
-    pushNotifications: false,
+    pushNotifications: true,
     introSlides: false,
     jpalTracking: false,
     sentry: true,

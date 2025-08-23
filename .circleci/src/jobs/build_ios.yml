@@ -4,7 +4,7 @@ parameters:
     enum: [integreat, malte, integreat-e2e, integreat-test-cms, aschaffenburg]
     default: integreat
 macos:
-  xcode: 16.2.0
+  xcode: 16.3.0
 resource_class: macos.m1.medium.gen1
 environment:
   FL_OUTPUT_DIR: output
@@ -22,6 +22,10 @@ steps:
   - restore_ruby_cache:
       directory: native/ios
   - restore_cocoa_pods_cache
+  - run:
+      # Required for react-native-static-server
+      name: Install CMake
+      command: brew install cmake
   - run:
       name: '[FL] << parameters.build_config_name >> iOS Build'
       command: bundle exec fastlane ios build build_config_name:<< parameters.build_config_name >> version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
