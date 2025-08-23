@@ -52,7 +52,7 @@ class ContactModelBuilder {
     })
   }
 
-  nomobileNumber(): ContactModel {
+  noMobileNumber(): ContactModel {
     return new ContactModel({
       name,
       areaOfResponsibility,

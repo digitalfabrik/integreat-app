@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 
 import { ContactModel } from 'shared/api'
 
-import { ExternalLinkIcon, MailIcon, PhoneIcon, WebsiteIcon, mobileIcon } from '../assets'
+import { ExternalLinkIcon, MailIcon, PhoneIcon, WebsiteIcon, MobileIcon } from '../assets'
 import { helpers } from '../constants/theme'
 import ContactItem from './ContactItem'
 import Spacer from './Spacer'
@@ -42,10 +42,10 @@ const Contact = ({
       )}
       {!!mobileNumber && (
         <ContactItem
-          iconSource={mobileIcon}
+          iconSource={MobileIcon}
           iconAlt={t('mobilePhone')}
           link={`tel:${mobileNumber.replace(/\s/g, '')}`}
-          content={mobileNumber.replace(/\s/g, '')}
+          content={mobileNumber}
         />
       )}
       {!!email && <ContactItem iconSource={MailIcon} iconAlt={t('eMail')} link={`mailto:${email}`} content={email} />}

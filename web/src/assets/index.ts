@@ -2,6 +2,7 @@
 import EventThumbnailPlaceholder1 from '../../../assets/event-thumbnail-placeholder-1.jpg'
 import EventThumbnailPlaceholder2 from '../../../assets/event-thumbnail-placeholder-2.jpg'
 import EventThumbnailPlaceholder3 from '../../../assets/event-thumbnail-placeholder-3.jpg'
+import MobileIcon from '../../../assets/icons/MobileIcon.svg'
 import AccessibleIcon from '../../../assets/icons/accessible.svg'
 import ArrowBackIcon from '../../../assets/icons/arrow-back.svg'
 import ArrowBackspaceIcon from '../../../assets/icons/arrow-backspace.svg'
@@ -30,7 +31,6 @@ import FacebookIcon from '../../../assets/icons/facebook.svg'
 import FeedbackIcon from '../../../assets/icons/feedback.svg'
 import HappySmileyIcon from '../../../assets/icons/happy-smiley.svg'
 import HouseIcon from '../../../assets/icons/house.svg'
-import mobileIcon from '../../../assets/icons/iphone.png'
 import KeyIcon from '../../../assets/icons/key.svg'
 import LanguageIcon from '../../../assets/icons/language.svg'
 import LgbtqiIcon from '../../../assets/icons/lgbtqi.svg'
@@ -72,7 +72,7 @@ import PoiThumbnailPlaceholderLarge from '../../../assets/poi-thumbnail-placehol
 import PoiThumbnailPlaceholder from '../../../assets/poi-thumbnail-placeholder.jpg'
 
 export {
-  mobileIcon,
+  MobileIcon,
   AccessibleIcon,
   ArrowBackIcon,
   ArrowBackspaceIcon,
