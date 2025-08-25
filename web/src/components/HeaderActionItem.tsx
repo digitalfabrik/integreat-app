@@ -10,7 +10,7 @@ type HeaderActionItemLinkProps = {
   icon: ReactElement
 } & ({ to: string; onClick?: never } | { to?: never; onClick: () => void })
 
-const HeaderActionItemLink = ({ to, text, icon, onClick }: HeaderActionItemLinkProps): ReactElement => {
+const HeaderActionItem = ({ to, text, icon, onClick }: HeaderActionItemLinkProps): ReactElement => {
   const theme = useTheme()
 
   return (
@@ -29,4 +29,4 @@ const HeaderActionItemLink = ({ to, text, icon, onClick }: HeaderActionItemLinkP
   )
 }
 
-export default HeaderActionItemLink
+export default HeaderActionItem
