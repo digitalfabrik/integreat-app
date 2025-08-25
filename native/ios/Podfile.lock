@@ -1371,6 +1371,27 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
+  - react-native-external-keyboard (0.6.0):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.11.18.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
   - react-native-geolocation (3.4.0):
     - DoubleConversion
     - glog
@@ -2197,6 +2218,7 @@ DEPENDENCIES:
   - React-Mapbuffer (from `../node_modules/react-native/ReactCommon`)
   - React-microtasksnativemodule (from `../node_modules/react-native/ReactCommon/react/nativemodule/microtasks`)
   - react-native-blob-util (from `../node_modules/react-native-blob-util`)
+  - react-native-external-keyboard (from `../node_modules/react-native-external-keyboard`)
   - "react-native-geolocation (from `../node_modules/@react-native-community/geolocation`)"
   - react-native-get-random-values (from `../node_modules/react-native-get-random-values`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
@@ -2349,6 +2371,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/react/nativemodule/microtasks"
   react-native-blob-util:
     :path: "../node_modules/react-native-blob-util"
+  react-native-external-keyboard:
+    :path: "../node_modules/react-native-external-keyboard"
   react-native-geolocation:
     :path: "../node_modules/@react-native-community/geolocation"
   react-native-get-random-values:
@@ -2505,6 +2529,7 @@ SPEC CHECKSUMS:
   React-Mapbuffer: 86e068fae064bbd3f24781d6ae5445b0266b2a10
   React-microtasksnativemodule: fd98e3e44af51599576705ec7a85a36e35978913
   react-native-blob-util: 775b994555980f1687e3fd918a4e6d0044aaeb39
+  react-native-external-keyboard: 1e2e16a0db1c2cb7864f02fa7e795faa51cb0eb6
   react-native-geolocation: 57a4a35c149d8613f81b89ff155e6ae28e76aea0
   react-native-get-random-values: d16467cf726c618e9c7a8c3c39c31faa2244bbba
   react-native-netinfo: cec9c4e86083cb5b6aba0e0711f563e2fbbff187
@@ -2561,4 +2586,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 1d81c132a2814f4d4335754b282dd3775ce70305
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.16.2
