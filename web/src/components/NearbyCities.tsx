@@ -9,7 +9,7 @@ import { getNearbyCities } from 'shared'
 import { CityModel } from 'shared/api'
 
 import useUserLocation from '../hooks/useUserLocation'
-import CityListGroup, { StyledListSubheader } from './CityListGroup'
+import CityListGroup, { CityGroupHeader } from './CityListGroup'
 import Icon from './base/Icon'
 
 type NearbyCitiesProps = {
@@ -27,10 +27,9 @@ const NearbyCities = ({ cities, language, filterText, stickyTop }: NearbyCitiesP
 
   const NoItemsMessage = (
     <Stack width='100%'>
-      {/* @ts-expect-error https://mui.com/material-ui/guides/typescript/#complications-with-the-component-prop */}
-      <StyledListSubheader stickyTop={stickyTop} component='div'>
+      <CityGroupHeader component='div' stickyTop={stickyTop}>
         {t('nearbyCities')}
-      </StyledListSubheader>
+      </CityGroupHeader>
       <Stack direction='row' alignItems='center' justifyContent='space-between' paddingInline={4}>
         <ListItemText primary={t(userLocation ? 'noNearbyCities' : 'locationError')} />
         <IconButton aria-label={t('refresh')} onClick={refresh}>
