@@ -8,7 +8,7 @@ import { mockWindowDimensions } from '../../testing/utils'
 import { Header } from '../Header'
 import HeaderActionItemLink from '../HeaderActionItemLink'
 import HeaderNavigationItem from '../HeaderNavigationItem'
-import KebabActionItem from '../KebabActionItem'
+import KebabActionItem from '../SidebarActionItem'
 import Link from '../base/Link'
 
 jest.mock('../../hooks/useWindowDimensions')
