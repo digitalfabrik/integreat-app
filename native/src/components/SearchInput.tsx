@@ -58,6 +58,7 @@ const SearchInput = ({
         <InputWrapper>
           <StyledInput
             {...testID('Search-Input')}
+            tintType='none'
             multiline={false}
             autoFocus
             onBlur={Keyboard.dismiss}
