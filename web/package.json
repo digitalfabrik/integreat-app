@@ -47,6 +47,7 @@
     "maplibre-gl": "^4.6.0",
     "normalize.css": "^8.0.1",
     "react": "19.0.0",
+    "react-datepicker": "^7.5.0",
     "react-dom": "19.0.0",
     "react-helmet": "^6.1.0",
     "react-highlight-words": "^0.21.0",
@@ -59,8 +60,7 @@
     "react-tooltip": "^5.28.0",
     "schema-dts": "^1.1.2",
     "shared": "0.0.1",
-    "translations": "0.0.1",
-    "react-datepicker": "^7.5.0"
+    "translations": "0.0.1"
   },
   "devDependencies": {
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.15",

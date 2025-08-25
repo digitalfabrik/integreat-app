@@ -21,6 +21,7 @@ import LocationMarkerIcon from '../../../assets/icons/location-marker.svg'
 import LocationNotFixedIcon from '../../../assets/icons/location-not-fixed.svg'
 import LocationOffIcon from '../../../assets/icons/location-off.svg'
 import MailIcon from '../../../assets/icons/mail.svg'
+import MobileIcon from '../../../assets/icons/MobileIcon.svg'
 import MenuIcon from '../../../assets/icons/menu.svg'
 import NewsIcon from '../../../assets/icons/news.svg'
 import NoInternetIcon from '../../../assets/icons/no-internet.svg'
@@ -60,6 +61,7 @@ export {
   CalendarTodayRecurringIcon,
   CategoriesIcon,
   ClockIcon,
+  MobileIcon,
   CloseIcon,
   EditLocationIcon,
   EventThumbnailPlaceholder1,
