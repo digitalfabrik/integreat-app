@@ -23,7 +23,7 @@ import useWindowDimensions from '../hooks/useWindowDimensions'
 import { LOCAL_NEWS_ROUTE, RouteType, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from '../routes'
 import ContrastThemeToggle from './ContrastThemeToggle'
 import Header from './Header'
-import HeaderActionItemLink from './HeaderActionItemLink'
+import HeaderActionItem from './HeaderActionItem'
 import HeaderNavigationItem, { HeaderNavigationItemProps } from './HeaderNavigationItem'
 import LanguageSelector from './LanguageSelector'
 import MobileLanguageSelector from './MobileLanguageSelector'
@@ -55,9 +55,7 @@ const CityContentHeader = ({
 
   const { t } = useTranslation('layout')
 
-  const SearchLink = (
-    <HeaderActionItemLink key='search' to={searchPath} text={t('search')} icon={<SearchOutlinedIcon />} />
-  )
+  const SearchLink = <HeaderActionItem key='search' to={searchPath} text={t('search')} icon={<SearchOutlinedIcon />} />
 
   const DesktopLanguageSelector = (
     <LanguageSelector
