@@ -6,7 +6,7 @@ import useWindowDimensions from '../../hooks/useWindowDimensions'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import { mockWindowDimensions } from '../../testing/utils'
 import { Header } from '../Header'
-import HeaderActionItemLink from '../HeaderActionItemLink'
+import HeaderActionItem from '../HeaderActionItem'
 import HeaderNavigationItem from '../HeaderNavigationItem'
 import KebabActionItem from '../SidebarActionItem'
 import Link from '../base/Link'
@@ -40,7 +40,7 @@ describe('Header', () => {
     const { getByLabelText, getByText } = renderWithRouterAndTheme(
       <Header
         logoHref='/random_route'
-        actionItems={[<HeaderActionItemLink key={0} to='/random_route' text='random route' icon={<div />} />]}
+        actionItems={[<HeaderActionItem key={0} to='/random_route' text='random route' icon={<div />} />]}
         navigationItems={[<HeaderNavigationItem key={0} to='/another_route' text='text1' icon='icon.jpg' active />]}
         sidebarItems={[
           <Link key='location' to='/kebab_route'>
@@ -68,7 +68,7 @@ describe('Header', () => {
     const { queryByTestId } = renderWithRouterAndTheme(
       <Header
         logoHref='/random_route'
-        actionItems={[<HeaderActionItemLink key={0} to='/random_route' text='random route' icon={<div />} />]}
+        actionItems={[<HeaderActionItem key={0} to='/random_route' text='random route' icon={<div />} />]}
         navigationItems={[<HeaderNavigationItem key={0} to='/another_route' text='text1' icon='icon.jpg' active />]}
         sidebarItems={[
           <Link key='location' to='/kebab_route'>

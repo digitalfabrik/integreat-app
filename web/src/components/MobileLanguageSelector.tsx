@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import SelectorItemModel from '../models/SelectorItemModel'
 import CityContentFooter from './CityContentFooter'
-import HeaderActionItemLink from './HeaderActionItemLink'
+import HeaderActionItem from './HeaderActionItem'
 import HeaderLanguageSelectorItem from './HeaderLanguageSelectorItem'
 import SidebarMenu from './SidebarMenu'
 
@@ -23,7 +23,7 @@ const MobileLanguageSelector = ({
   const [isLanguageSidebarOpen, setIsLanguageSidebarOpen] = useState(false)
 
   const MobileLanguageButton = (
-    <HeaderActionItemLink
+    <HeaderActionItem
       key='languageChange'
       onClick={() => {
         setIsLanguageSidebarOpen(true)
