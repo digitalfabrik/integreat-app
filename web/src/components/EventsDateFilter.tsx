@@ -76,7 +76,7 @@ const EventsDateFilter = ({
               title={t('from')}
               date={startDate}
               setDate={setStartDate}
-              error={startDateError ? t(startDateError) : ''}
+              error={startDateError ? t(startDateError) : undefined}
               placeholderDate={today}
               calendarLabel={t('selectStartDateCalendar')}
             />
