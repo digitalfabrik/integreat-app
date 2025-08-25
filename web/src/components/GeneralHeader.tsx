@@ -6,7 +6,7 @@ import { LANDING_ROUTE, pathnameFromRouteInformation } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
 import Header from './Header'
-import HeaderActionItemLink from './HeaderActionItemLink'
+import HeaderActionItem from './HeaderActionItem'
 
 type GeneralHeaderProps = {
   languageCode: string
@@ -17,14 +17,7 @@ const GeneralHeader = ({ languageCode }: GeneralHeaderProps): ReactElement => {
   const landingPath = pathnameFromRouteInformation({ route: LANDING_ROUTE, languageCode })
   const actionItems = buildConfig().featureFlags.fixedCity
     ? []
-    : [
-        <HeaderActionItemLink
-          key='landing'
-          to={landingPath}
-          icon={<LocationOnOutlinedIcon />}
-          text={t('changeLocation')}
-        />,
-      ]
+    : [<HeaderActionItem key='landing' to={landingPath} icon={<LocationOnOutlinedIcon />} text={t('changeLocation')} />]
 
   return (
     <Header
