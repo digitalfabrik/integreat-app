@@ -23,7 +23,7 @@ const LogoContainer = styled('div')`
     height: 48px;
 
     ${props => props.theme.breakpoints.down('md')} {
-      width: 30px;
+      width: 32px;
     }
   }
 `

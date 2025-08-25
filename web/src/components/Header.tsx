@@ -10,8 +10,8 @@ import CityContentFooter from './CityContentFooter'
 import HeaderLogo from './HeaderLogo'
 import { HeaderNavigationItemProps } from './HeaderNavigationItem'
 import HeaderTitle from './HeaderTitle'
-import KebabMenu from './KebabMenu'
 import NavigationBarScrollContainer from './NavigationBarScrollContainer'
+import SidebarMenu from './SidebarMenu'
 
 type HeaderProps = {
   navigationItems: ReactElement<HeaderNavigationItemProps>[]
@@ -71,7 +71,7 @@ const ActionBar = styled('nav')`
   padding: 0 12px;
 
   ${props => props.theme.breakpoints.down('md')} {
-    padding: 0 8px;
+    padding: 0 4px;
     gap: 8px;
     order: 2;
   }
@@ -118,7 +118,7 @@ export const Header = ({
           <ActionBar>
             {actionItems}
             {viewportSmall && setIsSidebarOpen && !!cityCode && (
-              <KebabMenu
+              <SidebarMenu
                 setShow={setIsSidebarOpen}
                 show={isSidebarOpen}
                 items={sidebarItems}

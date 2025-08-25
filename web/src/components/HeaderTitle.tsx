@@ -12,16 +12,12 @@ import Link from './base/Link'
 const LONG_TITLE_LENGTH = 25
 export const HEADER_TITLE_HEIGHT = 50
 
-const HeaderTitleContainer = styled(Typography)<{ withPadding?: boolean }>`
+const HeaderTitleContainer = styled(Typography)`
   display: flex;
   align-items: flex-start;
   max-height: ${dimensions.headerHeightLarge};
   flex: 1;
   order: 2;
-
-  ${props => props.withPadding && props.theme.breakpoints.up('md')} {
-    padding-bottom: 8px;
-  }
 `
 
 const StyledLink = styled(Link)`
@@ -41,32 +37,25 @@ type HeaderTitleProps = {
 
 const HeaderTitle = ({ title, landingPath }: HeaderTitleProps): ReactElement => {
   const { t } = useTranslation('layout')
-  const { appName, featureFlags } = buildConfig()
-  const isFixedCity = !featureFlags.fixedCity
-  const integreatConfigs = ['Integreat', 'IntegreatTestCms']
-  const isIntegreat = integreatConfigs.includes(appName)
+  const { featureFlags } = buildConfig()
+  const isFixedCity = featureFlags.fixedCity
+  const variant = title.length >= LONG_TITLE_LENGTH ? 'title3' : 'title2'
 
   if (isFixedCity) {
     return (
-      <HeaderTitleContainer
-        withPadding={isIntegreat}
-        aria-label={t('changeLocation')}
-        variant={title.length >= LONG_TITLE_LENGTH ? 'title3' : 'title2'}>
-        <Tooltip id='location' title={t('changeLocation')}>
-          <StyledLink to={landingPath}>
-            {title}
-            <KeyboardArrowDownIcon />
-          </StyledLink>
-        </Tooltip>
+      <HeaderTitleContainer aria-label={t('changeLocation')} variant={variant}>
+        <StyledLink to={landingPath}>{title}</StyledLink>
       </HeaderTitleContainer>
     )
   }
-
   return (
-    <HeaderTitleContainer
-      aria-label={t('changeLocation')}
-      variant={title.length >= LONG_TITLE_LENGTH ? 'title3' : 'title2'}>
-      <StyledLink to={landingPath}>{title}</StyledLink>
+    <HeaderTitleContainer aria-label={t('changeLocation')} variant={variant}>
+      <Tooltip id='location' title={t('changeLocation')}>
+        <StyledLink to={landingPath}>
+          {title}
+          <KeyboardArrowDownIcon />
+        </StyledLink>
+      </Tooltip>
     </HeaderTitleContainer>
   )
 }
