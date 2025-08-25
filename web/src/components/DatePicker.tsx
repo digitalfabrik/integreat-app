@@ -49,11 +49,11 @@ const CustomDatePicker = ({
   const errorMessage = error ?? (validationError ? t('invalidDate') : null)
   const muiLocaleText = getDatePickerLocaleText(languageCode)
   const currentTheme = useTheme()
-  const ltrTheme = { ...currentTheme, direction: 'ltr' }
+  const directionAdjustedTheme = muiLocaleText ? currentTheme : { ...currentTheme, direction: 'ltr' }
 
   return (
     <DateContainer>
-      <ThemeProvider theme={ltrTheme}>
+      <ThemeProvider theme={directionAdjustedTheme}>
         <StyledDatePicker
           label={title}
           value={date}

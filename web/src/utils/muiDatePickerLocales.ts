@@ -1,63 +1,17 @@
-import {
-  bgBG,
-  csCZ,
-  daDK,
-  deDE,
-  elGR,
-  enUS,
-  esES,
-  fiFI,
-  frFR,
-  hrHR,
-  huHU,
-  itIT,
-  nlNL,
-  plPL,
-  ptPT,
-  roRO,
-  ruRU,
-  skSK,
-  svSE,
-  trTR,
-  ukUA,
-  zhCN,
-} from '@mui/x-date-pickers/locales'
+import * as Locales from '@mui/x-date-pickers/locales'
+import { PickersInputComponentLocaleText } from '@mui/x-date-pickers/locales'
+import { DateTime } from 'luxon'
 
-const LOCALE_MAP = {
-  bg: bgBG,
-  cs: csCZ,
-  da: daDK,
-  de: deDE,
-  el: elGR,
-  en: enUS,
-  es: esES,
-  fi: fiFI,
-  fr: frFR,
-  hr: hrHR,
-  hu: huHU,
-  it: itIT,
-  nl: nlNL,
-  pl: plPL,
-  pt: ptPT,
-  ro: roRO,
-  ru: ruRU,
-  sk: skSK,
-  sv: svSE,
-  tr: trTR,
-  uk: ukUA,
-  'zh-CN': zhCN,
-}
+const localeRegex = /[a-z]{2,3}([A-Z]{2})*/
 
-type SupportedLanguageCode = keyof typeof LOCALE_MAP
+export const getDatePickerLocaleText = (
+  languageCode: string,
+): PickersInputComponentLocaleText<DateTime> | undefined => {
+  const muiDatePickerLocaleKey = Object.keys(Locales)
+    .filter(locale => localeRegex.test(locale))
+    .find(locale => locale.includes(languageCode.replace('-', '').toLowerCase())) as keyof typeof Locales | undefined
+  const muiDatePickerLocale = muiDatePickerLocaleKey ? Locales[muiDatePickerLocaleKey] : undefined
 
-/**
- * Get MUI date picker locale text for the given language code
- * @param languageCode - The language code (e.g., 'de', 'fr', 'es')
- * @returns MUI locale text object or undefined for unsupported languages
- */
-export const getDatePickerLocaleText = (languageCode: string): Record<string, unknown> | undefined => {
-  if (languageCode in LOCALE_MAP) {
-    return LOCALE_MAP[languageCode as SupportedLanguageCode].components.MuiLocalizationProvider.defaultProps.localeText
-  }
-  return undefined
+  // @ts-expect-error the typing is not correct here
+  return muiDatePickerLocale?.components.MuiLocalizationProvider.defaultProps.localeText
 }
