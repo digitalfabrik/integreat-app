@@ -15,6 +15,7 @@ type KebabMenuProps = {
   show: boolean
   setShow: (show: boolean) => void
   Footer: ReactNode
+  showButton?: boolean
 }
 
 const ToggleContainer = styled('div')`
@@ -65,14 +66,13 @@ const Heading = styled('div')`
 const ActionBar = styled('nav')`
   display: flex;
   align-items: center;
-  padding: 0 16px;
 `
 
 const Content = styled('div')`
   padding: 0 32px;
 `
 
-const KebabMenu = ({ items, show, setShow, Footer }: KebabMenuProps): ReactElement | null => {
+const SidebarMenu = ({ items, show, setShow, Footer, showButton = true }: KebabMenuProps): ReactElement | null => {
   useLockedBody(show)
   const { t } = useTranslation('layout')
   const [scrollY, setScrollY] = useState<number>(0)
@@ -92,10 +92,14 @@ const KebabMenu = ({ items, show, setShow, Footer }: KebabMenuProps): ReactEleme
   }
 
   return (
-    <ToggleContainer>
-      <IconButton onClick={onClick} aria-label={t('sideBarOpenAriaLabel')} aria-expanded={show}>
-        <MoreVertIcon />
-      </IconButton>
+    <>
+      {showButton && (
+        <ToggleContainer>
+          <IconButton onClick={onClick} aria-label={t('sideBarOpenAriaLabel')} aria-expanded={show}>
+            <MoreVertIcon />
+          </IconButton>
+        </ToggleContainer>
+      )}
       <Portal
         className='kebab-menu'
         show={show}
@@ -125,8 +129,8 @@ const KebabMenu = ({ items, show, setShow, Footer }: KebabMenuProps): ReactEleme
           {Footer}
         </List>
       </Portal>
-    </ToggleContainer>
+    </>
   )
 }
 
-export default KebabMenu
+export default SidebarMenu
