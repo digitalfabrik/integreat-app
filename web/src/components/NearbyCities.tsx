@@ -1,7 +1,7 @@
-import styled from '@emotion/styled'
 import RefreshIcon from '@mui/icons-material/Refresh'
-import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
+import ListItemText from '@mui/material/ListItemText'
+import Stack from '@mui/material/Stack'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -9,21 +9,8 @@ import { getNearbyCities } from 'shared'
 import { CityModel } from 'shared/api'
 
 import useUserLocation from '../hooks/useUserLocation'
-import CityEntry from './CityEntry'
-import { CityListParent } from './CitySelector'
+import CityListGroup, { CityGroupHeader } from './CityListGroup'
 import Icon from './base/Icon'
-
-const NearbyMessageContainer = styled.div`
-  display: flex;
-  padding: 8px;
-  justify-content: space-between;
-`
-
-const NearbyMessage = styled.span`
-  color: ${props => props.theme.legacy.colors.textColor};
-  font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
-  align-self: center;
-`
 
 type NearbyCitiesProps = {
   cities: CityModel[]
@@ -35,33 +22,32 @@ type NearbyCitiesProps = {
 const NearbyCities = ({ cities, language, filterText, stickyTop }: NearbyCitiesProps): ReactElement => {
   const { t } = useTranslation('landing')
   const { data: userLocation, refresh } = useUserLocation()
+  const liveCities = cities.filter(city => city.live)
+  const nearbyCities = userLocation ? getNearbyCities(userLocation, liveCities) : []
 
-  const nearbyCities = userLocation
-    ? getNearbyCities(
-        userLocation,
-        cities.filter(city => city.live),
-      )
-    : []
+  const NoItemsMessage = (
+    <Stack width='100%'>
+      <CityGroupHeader component='div' stickyTop={stickyTop}>
+        {t('nearbyCities')}
+      </CityGroupHeader>
+      <Stack direction='row' alignItems='center' justifyContent='space-between' paddingInline={4}>
+        <ListItemText primary={t(userLocation ? 'noNearbyCities' : 'locationError')} />
+        <IconButton aria-label={t('refresh')} onClick={refresh}>
+          <Icon src={RefreshIcon} />
+        </IconButton>
+      </Stack>
+    </Stack>
+  )
 
   return (
-    <div>
-      <CityListParent stickyTop={stickyTop}>{t('nearbyCities')}</CityListParent>
-      {nearbyCities.length > 0 ? (
-        nearbyCities.map(city => (
-          <React.Fragment key={city.code}>
-            <Divider />
-            <CityEntry key={city.code} city={city} language={language} filterText={filterText} />
-          </React.Fragment>
-        ))
-      ) : (
-        <NearbyMessageContainer>
-          <NearbyMessage>{userLocation ? t('noNearbyCities') : t('locationError')}</NearbyMessage>
-          <IconButton aria-label={t('refresh')} onClick={refresh}>
-            <Icon src={RefreshIcon} />
-          </IconButton>
-        </NearbyMessageContainer>
-      )}
-    </div>
+    <CityListGroup
+      title={t('nearbyCities')}
+      cities={nearbyCities}
+      stickyTop={stickyTop}
+      languageCode={language}
+      filterText={filterText}
+      NoItemsMessage={NoItemsMessage}
+    />
   )
 }
 
