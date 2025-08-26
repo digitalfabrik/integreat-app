@@ -1,5 +1,3 @@
-import Divider from '@mui/material/Divider'
-import MuiList from '@mui/material/List'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import React, { ReactElement, useState } from 'react'
@@ -9,12 +7,11 @@ import { filterSortCities } from 'shared'
 import { CityModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
-import { withDividers } from '../utils'
 import CityListGroup from './CityListGroup'
 import CrashTestingIcon from './CrashTestingIcon'
-import Failure from './Failure'
 import NearbyCities from './NearbyCities'
 import ScrollingSearchBox from './ScrollingSearchBox'
+import List from './base/List'
 
 type CitySelectorProps = {
   cities: CityModel[]
@@ -51,11 +48,20 @@ const CitySelector = ({ cities, language }: CitySelectorProps): ReactElement => 
         <Typography variant='label1' aria-live={resultCities.length === 0 ? 'assertive' : 'polite'}>
           {t('search:searchResultsCount', { count: resultCities.length })}
         </Typography>
-        <MuiList>
-          <NearbyCities stickyTop={stickyTop} cities={cities} language={language} filterText={filterText} />
-          <Divider />
-          {resultCities.length > 0 ? withDividers(groups) : <Failure errorMessage='search:nothingFound' />}
-        </MuiList>
+        <List
+          items={[
+            <NearbyCities
+              key='nearby'
+              stickyTop={stickyTop}
+              cities={cities}
+              language={language}
+              filterText={filterText}
+            />,
+            ...groups,
+          ]}
+          renderItem={item => item}
+          NoItemsMessage='search:nothingFound'
+        />
       </ScrollingSearchBox>
     </Stack>
   )
