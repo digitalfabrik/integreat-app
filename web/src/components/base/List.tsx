@@ -4,18 +4,17 @@ import React, { ReactElement } from 'react'
 import { withDividers } from '../../utils'
 import Failure from '../Failure'
 
-type ListProps<T> = {
-  items: T[]
-  renderItem: (item: T) => ReactElement
+type ListProps = {
+  items: ReactElement[]
   NoItemsMessage: string | ReactElement
   className?: string
 }
 
-const List = <T,>({ items, renderItem, NoItemsMessage, className }: ListProps<T>): ReactElement => {
+const List = ({ items, NoItemsMessage, className }: ListProps): ReactElement => {
   if (items.length === 0) {
     return typeof NoItemsMessage === 'string' ? <Failure errorMessage={NoItemsMessage} /> : NoItemsMessage
   }
-  return <MuiList className={className}>{withDividers(items.map(renderItem))}</MuiList>
+  return <MuiList className={className}>{withDividers(items)}</MuiList>
 }
 
 export default List

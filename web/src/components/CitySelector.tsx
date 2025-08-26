@@ -24,8 +24,7 @@ const CitySelector = ({ cities, language }: CitySelectorProps): ReactElement => 
   const { t } = useTranslation('landing')
 
   const resultCities = filterSortCities(cities, filterText, buildConfig().featureFlags.developerFriendly)
-
-  const groups = [...new Set(resultCities.map(it => it.sortCategory))].map(group => (
+  const firstLetterGroups = [...new Set(resultCities.map(it => it.sortCategory))].map(group => (
     <CityListGroup
       key={group}
       cities={resultCities.filter(it => it.sortCategory === group)}
@@ -35,6 +34,10 @@ const CitySelector = ({ cities, language }: CitySelectorProps): ReactElement => 
       filterText={filterText}
     />
   ))
+  const groups = [
+    <NearbyCities key='nearby' stickyTop={stickyTop} cities={cities} language={language} filterText={filterText} />,
+    ...firstLetterGroups,
+  ]
 
   return (
     <Stack paddingTop={4}>
@@ -48,20 +51,7 @@ const CitySelector = ({ cities, language }: CitySelectorProps): ReactElement => 
         <Typography variant='label1' aria-live={resultCities.length === 0 ? 'assertive' : 'polite'}>
           {t('search:searchResultsCount', { count: resultCities.length })}
         </Typography>
-        <List
-          items={[
-            <NearbyCities
-              key='nearby'
-              stickyTop={stickyTop}
-              cities={cities}
-              language={language}
-              filterText={filterText}
-            />,
-            ...groups,
-          ]}
-          renderItem={item => item}
-          NoItemsMessage='search:nothingFound'
-        />
+        <List items={groups} NoItemsMessage='search:nothingFound' />
       </ScrollingSearchBox>
     </Stack>
   )
