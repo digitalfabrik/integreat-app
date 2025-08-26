@@ -23,6 +23,7 @@ const Chip = styled.View`
 `
 
 const ChipIcon = styled(SimpleImage)`
+  color: ${props => props.theme.colors.textColor};
   width: 24px;
   height: 24px;
 `
