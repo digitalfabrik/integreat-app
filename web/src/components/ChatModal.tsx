@@ -1,4 +1,4 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import FocusTrap from 'focus-trap-react'
 import React, { ReactElement, ReactNode, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -16,7 +16,7 @@ const Overlay = styled(Button)`
   height: 100%;
 `
 
-const ModalContainer = styled.div`
+const ModalContainer = styled('div')`
   position: fixed;
   inset: 0;
   z-index: 100;
@@ -25,7 +25,7 @@ const ModalContainer = styled.div`
   justify-content: flex-end;
 `
 
-const ModalContentContainer = styled.div`
+const ModalContentContainer = styled('div')`
   ${props => props.theme.breakpoints.up('md')} {
     margin-inline-end: 20px;
   }

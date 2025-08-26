@@ -1,4 +1,4 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import SVG from 'react-inlinesvg'
@@ -11,7 +11,7 @@ type HeaderLogoProps = {
   link: string
 }
 
-const LogoContainer = styled.div`
+const LogoContainer = styled('div')`
   box-sizing: border-box;
   padding: 0 10px;
   flex: initial;

@@ -1,4 +1,4 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 
@@ -25,7 +25,7 @@ import useWindowDimensions from '../hooks/useWindowDimensions'
 import moveViewportToCity from '../utils/moveViewportToCity'
 import PoiFiltersOverlayButtons from './PoiFiltersOverlayButtons'
 
-const Container = styled.div<{ panelHeights: number }>`
+const Container = styled('div')<{ panelHeights: number }>`
   display: flex;
   ${({ panelHeights }) => `height: calc(100vh - ${panelHeights}px);`};
 `

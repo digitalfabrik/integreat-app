@@ -1,12 +1,12 @@
 import { css } from '@emotion/react'
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode } from 'react'
 
 import dimensions from '../constants/dimensions'
 import { MobileBanner } from './MobileBanner'
 import Portal from './Portal'
 
-export const RichLayout = styled.div`
+export const RichLayout = styled('div')`
   position: relative;
   display: flex;
   min-height: 100vh;
@@ -28,7 +28,7 @@ export const RichLayout = styled.div`
   }
 `
 
-const Body = styled.div<{ fullWidth: boolean; disableScrollingSafari: boolean }>`
+const Body = styled('div')<{ fullWidth: boolean; disableScrollingSafari: boolean }>`
   width: 100%;
   box-sizing: border-box;
   margin: 0 auto;
@@ -60,7 +60,7 @@ const Body = styled.div<{ fullWidth: boolean; disableScrollingSafari: boolean }>
     `};
 `
 
-const Main = styled.main<{ fullWidth: boolean }>`
+const Main = styled('main')<{ fullWidth: boolean }>`
   display: inline-block;
   width: ${props =>
     props.fullWidth ? '100%' : `${props.theme.breakpoints.values.lg - 2 * dimensions.toolbarWidth}px`};
@@ -83,7 +83,7 @@ const Main = styled.main<{ fullWidth: boolean }>`
   }
 `
 
-const Aside = styled.aside`
+const Aside = styled('aside')`
   position: fixed;
   top: 35%;
   width: 100px;

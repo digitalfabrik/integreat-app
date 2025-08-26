@@ -1,18 +1,18 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode } from 'react'
 
 import { LocalNewsModel } from 'shared/api'
 
-const NoItemsMessage = styled.div`
+const NoItemsMessage = styled('div')`
   padding-top: 25px;
   text-align: center;
 `
 
-const StyledList = styled.div`
+const StyledList = styled('div')`
   position: relative;
   padding-top: 1px;
 `
-const Wrapper = styled.div`
+const Wrapper = styled('div')`
   background-color: ${({ theme }) => theme.legacy.colors.backgroundColor};
 `
 

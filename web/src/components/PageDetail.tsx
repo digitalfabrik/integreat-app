@@ -1,9 +1,9 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
 import Link from './base/Link'
 
-const Identifier = styled.span`
+const Identifier = styled('span')`
   font-weight: 700;
 `
 

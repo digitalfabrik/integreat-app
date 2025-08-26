@@ -1,9 +1,9 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-const TimeStamp = styled.p`
+const TimeStamp = styled('p')`
   color: ${props => props.theme.legacy.colors.textSecondaryColor};
   font-family: ${props => props.theme.legacy.fonts.web.contentFont};
   font-size: ${props => props.theme.legacy.fonts.contentFontSize};
