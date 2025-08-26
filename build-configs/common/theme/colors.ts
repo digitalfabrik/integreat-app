@@ -29,6 +29,31 @@ const commonColors: CommonColors = {
   },
   divider: '#C9C9C9',
   link: '#4E80EE',
+  neutral: {
+    1000: '#020202',
+    900: 'rgba(0, 0, 0, 0.87)',
+    800: 'rgba(0, 0, 0, 0.60)',
+    700: 'rgba(0, 0, 0, 0.58)',
+    600: 'rgba(0, 0, 0, 0.54)',
+    500: 'rgba(0, 0, 0, 0.42)',
+    400: 'rgba(0, 0, 0, 0.38)',
+    300: 'rgba(0, 0, 0, 0.26)',
+    200: 'rgba(0, 0, 0, 0.18)',
+    100: 'rgba(0, 0, 0, 0.06)',
+    50: '#FFFFFF',
+  },
+  quartary: {
+    900: '#20293A',
+    800: '#333D51',
+    700: '#364153',
+    600: '#53627E',
+    500: '#60708F',
+    400: '#7785A1',
+    300: '#8E9AB3',
+    200: '#8E9AB3',
+    100: '#CAD4E5',
+    50: '#E9EDFB',
+  },
 }
 
 export const commonLightColors: CommonColorPalette = {
