@@ -1,19 +1,19 @@
-import { css, useTheme } from '@emotion/react'
-import styled from '@emotion/styled'
+import { css } from '@emotion/react'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import CloseIcon from '@mui/icons-material/Close'
 import IconButton from '@mui/material/IconButton'
+import { styled, useTheme } from '@mui/material/styles'
 import React, { CSSProperties, ReactElement, ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  background-color: ${props => props.theme.legacy.colors.backgroundColor};
-  font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
-`
+const Container = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  backgroundColor: theme.legacy.colors.backgroundColor,
+  fontFamily: theme.legacy.fonts.web.decorativeFont,
+}))
 
-const Header = styled.div<{ small: boolean }>`
+const Header = styled('div')<{ small: boolean }>`
   display: flex;
   padding: 16px;
   flex-direction: ${props => (props.small ? 'row-reverse' : 'row')};
@@ -30,7 +30,7 @@ const Header = styled.div<{ small: boolean }>`
     `}
 `
 
-const TitleContainer = styled.div`
+const TitleContainer = styled('div')`
   display: flex;
   flex-direction: row;
   justify-content: center;

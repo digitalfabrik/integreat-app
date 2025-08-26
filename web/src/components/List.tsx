@@ -1,8 +1,8 @@
-import styled from '@emotion/styled'
 import Divider from '@mui/material/Divider'
+import { styled } from '@mui/material/styles'
 import React, { ReactNode } from 'react'
 
-const NoItemsMessage = styled.div`
+const NoItemsMessage = styled('div')`
   padding-top: 25px;
   text-align: center;
 `

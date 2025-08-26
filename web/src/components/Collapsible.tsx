@@ -1,6 +1,6 @@
-import styled from '@emotion/styled'
 import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -8,7 +8,7 @@ import { helpers } from '../constants/theme'
 import Button from './base/Button'
 import Icon from './base/Icon'
 
-const Container = styled.div`
+const Container = styled('div')`
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -20,7 +20,7 @@ const CollapsibleHeader = styled(Button)`
   color: ${props => props.theme.legacy.colors.textColor};
 `
 
-const Title = styled.div`
+const Title = styled('div')`
   display: flex;
   flex: 1;
   font-weight: 700;

@@ -1,5 +1,5 @@
-import styled from '@emotion/styled'
 import Divider from '@mui/material/Divider'
+import { styled } from '@mui/material/styles'
 import { TFunction } from 'i18next'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
@@ -15,7 +15,7 @@ const StyledLink = styled(Link)`
   display: flex;
   background-color: ${({ theme }) => theme.legacy.colors.backgroundColor};
 `
-const ReadMore = styled.div<{ newsType: NewsType }>`
+const ReadMore = styled('div')<{ newsType: NewsType }>`
   align-self: flex-end;
   color: ${({ theme, newsType }) =>
     theme.isContrastTheme || newsType === LOCAL_NEWS_TYPE
@@ -24,24 +24,24 @@ const ReadMore = styled.div<{ newsType: NewsType }>`
   font-weight: 600;
 `
 
-const Title = styled.h3`
+const Title = styled('h3')`
   margin-bottom: 0;
   font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
   font-size: ${props => props.theme.legacy.fonts.subTitleFontSize};
   font-weight: 700;
 `
 
-const Body = styled.p`
+const Body = styled('p')`
   font-size: 16px;
   line-height: 1.38;
   white-space: pre-line;
 `
 
-const StyledNewsListItem = styled.article`
+const StyledNewsListItem = styled('article')`
   padding-bottom: 2px;
 `
 
-const StyledContainer = styled.div`
+const StyledContainer = styled('div')`
   display: flex;
   width: 100%;
   justify-content: space-between;

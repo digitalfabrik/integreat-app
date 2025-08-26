@@ -1,4 +1,4 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode, useCallback, useEffect, useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroller'
 
@@ -6,12 +6,12 @@ import { loadAsync } from 'shared/api'
 
 import FailureSwitcher from './FailureSwitcher'
 
-const NoItemsMessage = styled.div`
+const NoItemsMessage = styled('div')`
   padding-top: 25px;
   text-align: center;
 `
 
-const StyledList = styled.div`
+const StyledList = styled('div')`
   position: relative;
   margin-bottom: 40px;
   padding-top: 1px;

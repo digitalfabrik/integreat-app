@@ -1,5 +1,5 @@
-import styled from '@emotion/styled'
 import Headroom from '@integreat-app/react-sticky-headroom'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode } from 'react'
 
 import dimensions from '../constants/dimensions'
@@ -23,7 +23,7 @@ type HeaderProps = {
   language: string
 }
 
-const HeaderContainer = styled.header`
+const HeaderContainer = styled('header')`
   display: flex;
   width: 100%;
   box-sizing: border-box;
@@ -39,7 +39,7 @@ const HeaderContainer = styled.header`
   }
 `
 
-const Row = styled.div`
+const Row = styled('div')`
   display: flex;
   flex: 1;
   max-width: 100%;
@@ -57,7 +57,7 @@ const Row = styled.div`
   }
 `
 
-const HeaderSeparator = styled.div`
+const HeaderSeparator = styled('div')`
   align-self: center;
   height: ${dimensions.headerHeightLarge / 2}px;
   width: 2px;
@@ -70,7 +70,7 @@ const HeaderSeparator = styled.div`
   }
 `
 
-const ActionBar = styled.nav`
+const ActionBar = styled('nav')`
   order: 3;
   display: flex;
   align-items: center;
@@ -83,7 +83,7 @@ const ActionBar = styled.nav`
   }
 `
 
-const NavigationBar = styled.nav`
+const NavigationBar = styled('nav')`
   display: flex;
   flex: 1 1 0;
   align-items: stretch;

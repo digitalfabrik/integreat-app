@@ -1,4 +1,4 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
@@ -19,13 +19,13 @@ import { tunewsApiBaseUrl } from '../constants/urls'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 import { TU_NEWS_DETAIL_ROUTE } from './index'
 
-const StyledContainer = styled.div`
+const StyledContainer = styled('div')`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 `
 
-const StyledBanner = styled.div`
+const StyledBanner = styled('div')`
   position: relative;
   display: flex;
   height: 60px;
@@ -41,7 +41,7 @@ const StyledIcon = styled(Icon)`
   height: 100%;
 `
 
-const StyledTitle = styled.div`
+const StyledTitle = styled('div')`
   display: flex;
   width: 185px;
   height: 100%;

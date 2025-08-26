@@ -1,5 +1,5 @@
 import shouldForwardProp from '@emotion/is-prop-valid'
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 
@@ -12,7 +12,7 @@ const InternalLink = styled(RouterLink, { shouldForwardProp })<{ highlightedLink
   text-decoration: ${props => (props.highlightedLink ? 'underline' : 'none')};
 `
 
-const ExternalLink = styled.a<{ highlightedLink: boolean }>`
+const ExternalLink = styled('a')<{ highlightedLink: boolean }>`
   color: ${props => (props.highlightedLink ? props.theme.legacy.colors.linkColor : 'inherit')};
   text-decoration: ${props => (props.highlightedLink ? 'underline' : 'none')};
 `

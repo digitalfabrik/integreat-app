@@ -1,4 +1,4 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import React, { memo, ReactElement } from 'react'
 
 import { SprungbrettJobModel } from 'shared/api'
@@ -6,7 +6,7 @@ import { SprungbrettJobModel } from 'shared/api'
 import { SprungbrettIcon } from '../assets'
 import ListItem from './ListItem'
 
-const Content = styled.div`
+const Content = styled('div')`
   overflow-wrap: anywhere;
 `
 

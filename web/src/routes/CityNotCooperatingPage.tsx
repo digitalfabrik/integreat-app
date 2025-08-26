@@ -1,7 +1,7 @@
-import styled from '@emotion/styled'
 import CopyIcon from '@mui/icons-material/ContentCopy'
 import DoneIcon from '@mui/icons-material/Done'
 import Button from '@mui/material/Button'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -11,12 +11,12 @@ import buildConfig from '../constants/buildConfig'
 import { helpers } from '../constants/theme'
 import useScrollToTopOnMount from '../hooks/useScrollToTopOnMount'
 
-const Container = styled.div`
+const Container = styled('div')`
   display: flex;
   flex-direction: column;
 `
 
-const Heading = styled.p`
+const Heading = styled('p')`
   font-weight: 600;
   text-align: center;
   font-size: 1.4rem;
@@ -25,12 +25,12 @@ const Heading = styled.p`
   white-space: pre-line;
 `
 
-const Text = styled.p`
+const Text = styled('p')`
   font-size: ${props => props.theme.legacy.fonts.contentFontSize};
   font-family: ${props => props.theme.legacy.fonts.web.contentFont};
 `
 
-const Icon = styled.img`
+const Icon = styled('img')`
   width: calc(40px + 10vw);
   height: calc(40px + 10vw);
   flex-shrink: 0;
@@ -42,12 +42,12 @@ const ListHeading = styled(Heading)`
   font-size: ${props => props.theme.legacy.fonts.decorativeFontSize};
 `
 
-const ListItem = styled.div`
+const ListItem = styled('div')`
   display: flex;
   align-items: center;
 `
 
-const StepNumber = styled.div`
+const StepNumber = styled('div')`
   border-radius: 50%;
   line-height: 2rem;
   min-width: 2rem;

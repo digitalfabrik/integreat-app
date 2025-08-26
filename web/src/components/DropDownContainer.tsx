@@ -1,8 +1,8 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 
 import dimensions from '../constants/dimensions'
 
-const DropDownContainer = styled.div<{ active: boolean }>`
+const DropDownContainer = styled('div')<{ active: boolean }>`
   position: absolute;
   top: ${dimensions.headerHeightLarge}px;
   inset-inline-end: 0;

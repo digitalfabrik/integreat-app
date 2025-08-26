@@ -1,4 +1,4 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import AccessTimeIcon from '@mui/icons-material/AccessTime'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import TodayIcon from '@mui/icons-material/TodayOutlined'
@@ -11,7 +11,7 @@ import { DateModel } from 'shared/api'
 import PageDetail from './PageDetail'
 import Button from './base/Button'
 
-const Container = styled.div`
+const Container = styled('div')`
   display: grid;
   width: fit-content;
   gap: 8px 16px;
@@ -31,7 +31,7 @@ const ContainerForThreeElements = styled(Container)`
 
 const StyledButton = styled(Button)`
   justify-self: start;
-  border-color: ${props => props.theme.colors.themeColor};
+  border-color: ${props => props.theme.palette.secondary.main};
   border-width: 1px;
   border-style: solid;
   border-radius: 4px;

@@ -1,8 +1,8 @@
-import styled from '@emotion/styled'
 import HealthAndSafetyOutlinedIcon from '@mui/icons-material/HealthAndSafetyOutlined'
 import PeopleOutlineOutlinedIcon from '@mui/icons-material/PeopleOutlineOutlined'
 import SendIcon from '@mui/icons-material/Send'
 import Button from '@mui/material/Button'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, SyntheticEvent, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
@@ -25,7 +25,7 @@ import InputSection from './base/InputSection'
 import RadioGroup from './base/RadioGroup'
 import Spacing from './base/Spacing'
 
-const Note = styled.div`
+const Note = styled('div')`
   display: flex;
   padding-bottom: 10px;
   gap: 20px;
@@ -35,18 +35,18 @@ const StyledIcon = styled(Icon)`
   flex-shrink: 0;
 `
 
-const Form = styled.form`
+const Form = styled('form')`
   display: flex;
   flex-direction: column;
   gap: 12px;
 `
 
-const SubmitErrorHeading = styled.h5`
+const SubmitErrorHeading = styled('h5')`
   margin: 0;
   font-size: ${props => props.theme.legacy.fonts.subTitleFontSize};
 `
 
-const ErrorSendingStatus = styled.div`
+const ErrorSendingStatus = styled('div')`
   background-color: ${props => props.theme.legacy.colors.invalidInput}35;
   padding: 20px 10px;
   margin: 10px 0;
