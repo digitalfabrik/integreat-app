@@ -12,6 +12,10 @@ import Link from './base/Link'
 
 const MAX_NUMBER_OF_ALIASES = 3
 
+const StyledListItem = styled(ListItem)({
+  paddingBlock: 4,
+})
+
 type CityEntryProps = {
   language: string
   city: CityModel
@@ -27,7 +31,7 @@ const CityEntry = ({ filterText, city, language }: CityEntryProps): ReactElement
   const aliasesText = aliases.slice(0, MAX_NUMBER_OF_ALIASES).join(', ')
 
   return (
-    <ListItem alignItems='flex-start'>
+    <StyledListItem alignItems='flex-start'>
       <ListItemButton component={Link} to={cityContentPath({ cityCode: city.code, languageCode: language })}>
         <ListItemText
           primary={<Highlighter search={filterText} text={city.name} />}
@@ -44,7 +48,7 @@ const CityEntry = ({ filterText, city, language }: CityEntryProps): ReactElement
           }}
         />
       </ListItemButton>
-    </ListItem>
+    </StyledListItem>
   )
 }
 
