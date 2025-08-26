@@ -375,7 +375,7 @@ describe('DateModel', () => {
           recurrenceRule,
           startDate: DateTime.fromISO('2024-01-15T00:00:00.000+01:00'),
           endDate: DateTime.fromISO('2024-01-15T23:59:00.000+01:00'),
-          offset: 120,
+          offset: 60,
         }),
       ])
     })
@@ -466,7 +466,7 @@ describe('DateModel', () => {
           recurrenceRule,
           startDate: DateTime.fromISO('2024-10-30T00:00:00.000+01:00'),
           endDate: DateTime.fromISO('2024-10-30T23:59:00.000+01:00'),
-          offset: 120,
+          offset: 60,
         }),
       ])
     })
