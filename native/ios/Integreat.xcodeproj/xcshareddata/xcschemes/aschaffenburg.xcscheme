@@ -25,6 +25,22 @@
          <ExecutionAction
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
+               title = "Setup firebase GoogleService-Info.plist"
+               scriptText = "export PATH=&quot;$PATH:/opt/homebrew/bin&quot;&#10;&#10;exec &gt; ${PROJECT_DIR}/prebuild_plist.log 2&gt;&amp;1&#10;cd ${PROJECT_DIR} &amp;&amp; yarn app-toolbelt v0 build-config write-plist aschaffenburg &quot;GoogleService-Info.plist&quot; --directory ${PROJECT_DIR}&#10;">
+               <EnvironmentBuildable>
+                  <BuildableReference
+                     BuildableIdentifier = "primary"
+                     BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
+                     BuildableName = "Integreat.app"
+                     BlueprintName = "Integreat"
+                     ReferencedContainer = "container:Integreat.xcodeproj">
+                  </BuildableReference>
+               </EnvironmentBuildable>
+            </ActionContent>
+         </ExecutionAction>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
                title = "Setup native translations"
                scriptText = "export PATH=&quot;$PATH:/opt/homebrew/bin&quot;&#10;&#10;exec &gt; ${PROJECT_DIR}/prebuild_native_translations.log 2&gt;&amp;1&#10;cd ${PROJECT_DIR} &amp;&amp; yarn workspace translations manage write-plist Aschaffenburg --translations &quot;../translations/translations.json&quot; --destination ${PROJECT_DIR}/Integreat&#10;">
                <EnvironmentBuildable>

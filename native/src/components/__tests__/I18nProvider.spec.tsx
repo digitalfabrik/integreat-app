@@ -54,6 +54,16 @@ describe('I18nProvider', () => {
     await waitFor(() => expect(getByText('Zanyariyên xwecihî')).toBeTruthy())
   })
 
+  it('should choose the default fallback for ui translations for fallback languages', async () => {
+    mockDetect.mockReturnValue(['zh'])
+    const { findByText } = render(
+      <I18nProvider>
+        <Translation>{t => <Text>{t('dashboard:events')}</Text>}</Translation>
+      </I18nProvider>,
+    )
+    expect(await findByText('Veranstaltungen')).toBeTruthy()
+  })
+
   it('should choose the default fallback for ui translations', async () => {
     mockDetect.mockReturnValue('en')
     const { getByText } = render(

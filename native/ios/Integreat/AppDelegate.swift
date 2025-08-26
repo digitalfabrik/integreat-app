@@ -1,5 +1,6 @@
 import React
 import ReactAppDependencyProvider
+import Firebase
 import React_RCTAppDelegate
 import UIKit
 
@@ -9,6 +10,7 @@ class AppDelegate: RCTAppDelegate {
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
   ) -> Bool {
+    FirebaseApp.configure()
     self.moduleName = "Integreat"
     self.dependencyProvider = RCTAppDependencyProvider()
 

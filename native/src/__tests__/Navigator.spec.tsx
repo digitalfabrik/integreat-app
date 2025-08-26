@@ -1,4 +1,3 @@
-import { mocked } from 'jest-mock'
 import React from 'react'
 
 import { CityModelBuilder } from 'shared/api'
@@ -7,7 +6,7 @@ import Navigator from '../Navigator'
 import TestingAppContext from '../testing/TestingAppContext'
 import render from '../testing/render'
 import dataContainer from '../utils/DefaultDataContainer'
-import { quitAppStatePushNotificationListener } from '../utils/PushNotificationsManager'
+import { usePushNotificationListener } from '../utils/PushNotificationsManager'
 
 const cities = new CityModelBuilder(3).build()
 jest.mock('styled-components')
@@ -112,10 +111,7 @@ jest.mock('../components/TransparentHeader', () => {
   return () => <Text>TransparentHeader</Text>
 })
 jest.mock('../utils/PushNotificationsManager', () => ({
-  pushNotificationsSupported: jest.fn(() => true),
-  quitAppStatePushNotificationListener: jest.fn(),
-  useForegroundPushNotificationListener: jest.fn(),
-  initialPushNotificationRequest: jest.fn(async () => undefined),
+  usePushNotificationListener: jest.fn(() => undefined),
 }))
 jest.mock('../utils/FetcherModule')
 
@@ -162,13 +158,8 @@ describe('Navigator', () => {
     await findByText('Intro')
   })
 
-  it('should listen for push notification press in quit state', async () => {
-    mocked(quitAppStatePushNotificationListener).mockImplementation(async navigate =>
-      navigate('https://integreat.app/augsbug/de/news/local/1234'),
-    )
-    const { findByText } = renderNavigator({ introShown: true })
-
-    await findByText('Redirect')
-    expect(quitAppStatePushNotificationListener).toHaveBeenCalledTimes(1)
+  it('should listen for push notifications', async () => {
+    renderNavigator({ introShown: true })
+    expect(usePushNotificationListener).toHaveBeenCalled()
   })
 })

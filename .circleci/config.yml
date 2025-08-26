@@ -515,7 +515,7 @@ jobs:
             - restore_ruby_cache:
                 directory: native/android
             - run:
-                command: yarn app-toolbelt v0 release-notes prepare-metadata << parameters.build_config_name >> playstore
+                command: yarn app-toolbelt v0 release-notes prepare-metadata << parameters.build_config_name >> playstore ../native/android/fastlane/<< parameters.build_config_name >>/metadata
                 name: Prepare Play Store metadata
                 working_directory: native
             - run:
@@ -560,7 +560,7 @@ jobs:
             - restore_ruby_cache:
                 directory: native/ios
             - run:
-                command: yarn app-toolbelt v0 release-notes prepare-metadata << parameters.build_config_name >> appstore
+                command: yarn app-toolbelt v0 release-notes prepare-metadata << parameters.build_config_name >> appstore ../native/ios/fastlane/<< parameters.build_config_name >>/metadata
                 name: Prepare App Store metadata
                 working_directory: native
             - when:

@@ -23,7 +23,7 @@ steps:
       directory: native/ios
   - run:
       name: Prepare App Store metadata
-      command: yarn app-toolbelt v0 release-notes prepare-metadata << parameters.build_config_name >> appstore
+      command: yarn app-toolbelt v0 release-notes prepare-metadata << parameters.build_config_name >> appstore ../native/ios/fastlane/<< parameters.build_config_name >>/metadata
       working_directory: native
   - when:
       condition: << parameters.production_delivery >>
