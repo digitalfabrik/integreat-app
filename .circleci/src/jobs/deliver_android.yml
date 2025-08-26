@@ -24,7 +24,7 @@ steps:
       directory: native/android
   - run:
       name: Prepare Play Store metadata
-      command: yarn app-toolbelt v0 release-notes prepare-metadata << parameters.build_config_name >> playstore
+      command: yarn app-toolbelt v0 release-notes prepare-metadata << parameters.build_config_name >> playstore ../native/android/fastlane/<< parameters.build_config_name >>/metadata
       working_directory: native
   - run:
       name: '[FL] Google PlayStore Upload'
