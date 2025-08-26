@@ -130,6 +130,16 @@ describe('I18nProvider', () => {
     expect(await findByText('Lokale Informationen')).toBeTruthy()
   })
 
+  it('should choose the default fallback for ui translations for fallback languages', async () => {
+    mockDetect.mockReturnValue(['zh'])
+    const { findByText } = render(
+      <I18nProvider contentLanguage={undefined}>
+        <Translation>{t => <p>{t('dashboard:events')}</p>}</Translation>
+      </I18nProvider>,
+    )
+    expect(await findByText('Veranstaltungen')).toBeTruthy()
+  })
+
   it('should set document language', async () => {
     render(<I18nProvider contentLanguage='ar'>Hello</I18nProvider>)
     await waitFor(() => expect(document.documentElement.lang).toBe('ar'))
