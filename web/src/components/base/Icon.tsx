@@ -1,7 +1,6 @@
 import shouldForwardProp from '@emotion/is-prop-valid'
-import { useTheme } from '@emotion/react'
-import styled from '@emotion/styled'
 import { SvgIconProps } from '@mui/material/SvgIcon'
+import { styled, useTheme } from '@mui/material/styles'
 import React, { ReactElement, ElementType } from 'react'
 import SVG from 'react-inlinesvg'
 

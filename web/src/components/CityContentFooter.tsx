@@ -1,5 +1,5 @@
-import styled from '@emotion/styled'
 import Divider from '@mui/material/Divider'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -10,7 +10,7 @@ import useWindowDimensions from '../hooks/useWindowDimensions'
 import Footer from './Footer'
 import Link from './base/Link'
 
-const SidebarFooterContainer = styled.div`
+const SidebarFooterContainer = styled('div')`
   width: 100%;
   margin-top: -10px; /* to counteract the padding-top of the normal footer */
   padding: 0 27px;

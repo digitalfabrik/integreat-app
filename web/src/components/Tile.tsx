@@ -1,4 +1,4 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode, useRef } from 'react'
 
 import { TileModel } from 'shared'
@@ -6,7 +6,7 @@ import { request } from 'shared/api'
 
 import Link from './base/Link'
 
-const Thumbnail = styled.div`
+const Thumbnail = styled('div')`
   position: relative;
   display: block;
   width: 100%;
@@ -24,7 +24,7 @@ const Thumbnail = styled.div`
   }
 `
 
-const ThumbnailSizer = styled.div`
+const ThumbnailSizer = styled('div')`
   width: 150px;
   max-width: 33.3vw;
   margin: 0 auto;
@@ -39,13 +39,13 @@ const ThumbnailSizer = styled.div`
   }
 `
 
-const TileTitle = styled.div`
+const TileTitle = styled('div')`
   margin: 5px 0;
   color: ${props => props.theme.legacy.colors.textColor};
   text-align: center;
 `
 
-const TileContainer = styled.div`
+const TileContainer = styled('div')`
   margin-bottom: 20px;
 
   & > a,

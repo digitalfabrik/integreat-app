@@ -1,5 +1,5 @@
-import styled from '@emotion/styled'
 import { SvgIconProps } from '@mui/material/SvgIcon'
+import { styled } from '@mui/material/styles'
 import React, { ElementType, ReactElement, ReactNode, useRef, useState } from 'react'
 
 import useOnClickOutside from '../hooks/useOnClickOutside'
@@ -12,7 +12,7 @@ const StyledButton = styled(Button)`
   flex: 1;
 `
 
-const Container = styled.div`
+const Container = styled('div')`
   display: flex;
 `
 

@@ -1,4 +1,4 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode } from 'react'
 
 import buildConfig from '../constants/buildConfig'
@@ -8,7 +8,7 @@ type FooterProps = {
   overlay?: boolean
 }
 
-const FooterContainer = styled.footer<{ overlay: boolean }>`
+const FooterContainer = styled('footer')<{ overlay: boolean }>`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
