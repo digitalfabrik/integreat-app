@@ -14,8 +14,8 @@ const HeaderActionItem = ({ to, text, icon, onClick }: HeaderActionItemLinkProps
   const theme = useTheme()
 
   return (
-    <Tooltip id={id} place={tooltipDirection} tooltipContent={text}>
-      <Link to={to ?? ''} ariaLabel={text} id={id} onClick={onClick}>
+    <Tooltip title={text}>
+      <Link to={to ?? ''} ariaLabel={text} onClick={onClick}>
         <IconButton
           name={text}
           color='primary'
