@@ -1,24 +1,24 @@
-import styled from '@emotion/styled'
 import Divider from '@mui/material/Divider'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { Link } from 'react-router'
 
 import { CategoryModel } from 'shared/api'
 
-const Row = styled.li`
+const Row = styled('li')`
   width: 100%;
 `
 
-const SubCategoriesContainer = styled.ul`
+const SubCategoriesContainer = styled('ul')`
   list-style-type: none;
 `
 
-const SubCategory = styled.li`
+const SubCategory = styled('li')`
   text-align: start;
   width: 100%;
 `
 
-const CategoryThumbnail = styled.img`
+const CategoryThumbnail = styled('img')`
   width: 30px;
   height: 30px;
   padding: 0 5px;
@@ -27,7 +27,7 @@ const CategoryThumbnail = styled.img`
   filter: ${props => (props.theme.isContrastTheme ? 'invert(1)' : 'none')};
 `
 
-const CategoryItemCaption = styled.span`
+const CategoryItemCaption = styled('span')`
   align-items: center;
   padding: 15px 5px;
   color: inherit;

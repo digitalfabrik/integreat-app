@@ -1,6 +1,6 @@
-import styled from '@emotion/styled'
 import QuestionAnswerOutlinedIcon from '@mui/icons-material/QuestionAnswerOutlined'
 import Fab from '@mui/material/Fab'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router'
 
@@ -18,7 +18,7 @@ import Icon from './base/Icon'
 
 const CHAT_BUTTON_SIZE = 48
 
-const ChatButtonContainer = styled.div<{ bottom: number }>`
+const ChatButtonContainer = styled('div')<{ bottom: number }>`
   position: fixed;
   bottom: ${props => props.bottom}px;
   inset-inline-end: 16px;
@@ -38,7 +38,7 @@ const StyledIcon = styled(Icon)`
   color: ${props => props.theme.legacy.colors.backgroundColor};
 `
 
-const ChatTitle = styled.span`
+const ChatTitle = styled('span')`
   text-align: center;
   margin-top: 8px;
   color: ${props => props.theme.legacy.colors.textColor};

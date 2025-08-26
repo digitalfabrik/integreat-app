@@ -1,7 +1,7 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import React, { useRef, useEffect, useState, ReactElement } from 'react'
 
-const AccordionWrapper = styled.div<{ height: number; overflowVisible: boolean }>`
+const AccordionWrapper = styled('div')<{ height: number; overflowVisible: boolean }>`
   transition: height 0.3s ease;
   height: ${props => props.height}px;
   width: 100%;

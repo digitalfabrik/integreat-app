@@ -1,6 +1,6 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 
-const StyledSmallViewTip = styled.p`
+const StyledSmallViewTip = styled('p')`
   display: block;
   font-size: 12px;
   font-weight: 400;

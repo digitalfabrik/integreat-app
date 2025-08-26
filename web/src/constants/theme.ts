@@ -1,4 +1,5 @@
-import { css, SerializedStyles, Theme } from '@emotion/react'
+import { css, SerializedStyles } from '@emotion/react'
+import { Theme } from '@mui/material/styles'
 
 export type HelpersType = {
   removeLinkHighlighting: SerializedStyles

@@ -1,4 +1,4 @@
-import { useTheme } from '@emotion/react'
+import { useTheme } from '@mui/material/styles'
 import { fireEvent } from '@testing-library/react'
 import { mocked } from 'jest-mock'
 import React from 'react'

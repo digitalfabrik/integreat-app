@@ -1,4 +1,4 @@
-import { useTheme } from '@emotion/react'
+import { useTheme } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import ReactHighlighter from 'react-highlight-words'
 

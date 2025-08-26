@@ -1,4 +1,3 @@
-import styled from '@emotion/styled'
 import CloseIcon from '@mui/icons-material/Close'
 import FastForwardIcon from '@mui/icons-material/FastForward'
 import FastRewindIcon from '@mui/icons-material/FastRewind'
@@ -7,12 +6,13 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import useWindowDimensions from '../hooks/useWindowDimensions'
 
-const StyledTtsPlayer = styled.dialog<{ footerHeight: number }>`
+const StyledTtsPlayer = styled('dialog')<{ footerHeight: number }>`
   background-color: ${props =>
     props.theme.isContrastTheme
       ? props.theme.legacy.colors.backgroundAccentColor
@@ -37,7 +37,7 @@ const StyledTtsPlayer = styled.dialog<{ footerHeight: number }>`
   }
 `
 
-const StyledPanel = styled.div`
+const StyledPanel = styled('div')`
   display: flex;
   align-items: center;
   gap: 20px;
@@ -61,7 +61,7 @@ const StyledIconButton = styled(IconButton)`
   align-items: center;
 `
 
-const HeaderText = styled.div`
+const HeaderText = styled('div')`
   display: inline-block;
   white-space: nowrap;
   text-overflow: ellipsis;

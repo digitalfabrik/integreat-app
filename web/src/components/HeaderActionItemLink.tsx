@@ -1,6 +1,6 @@
-import { useTheme } from '@emotion/react'
 import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
+import { useTheme } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
 import Link from './base/Link'

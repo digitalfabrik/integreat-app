@@ -1,15 +1,15 @@
 import { css } from '@emotion/react'
-import styled from '@emotion/styled'
 import Divider from '@mui/material/Divider'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode } from 'react'
 
 import useWindowDimensions from '../hooks/useWindowDimensions'
 
-const Container = styled.div`
+const Container = styled('div')`
   /* noop */
 `
 
-const ToolbarContainer = styled.div<{ direction: 'row' | 'column'; hasPadding: boolean }>`
+const ToolbarContainer = styled('div')<{ direction: 'row' | 'column'; hasPadding: boolean }>`
   display: flex;
   box-sizing: border-box;
   flex-direction: ${props => props.direction};

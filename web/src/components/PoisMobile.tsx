@@ -1,7 +1,6 @@
-import { useTheme } from '@emotion/react'
-import styled from '@emotion/styled'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import IconButton from '@mui/material/IconButton'
+import { styled, useTheme } from '@mui/material/styles'
 import { GeolocateControl } from 'maplibre-gl'
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -16,16 +15,16 @@ import GoBack from './GoBack'
 import MapView, { MapViewRef } from './MapView'
 import PoiSharedChildren from './PoiSharedChildren'
 
-const ListContainer = styled.div`
+const ListContainer = styled('div')`
   padding: 0 30px;
 `
 
-const ListTitle = styled.div`
+const ListTitle = styled('div')`
   margin: 12px 0;
   font-weight: 700;
 `
 
-const GoBackContainer = styled.div`
+const GoBackContainer = styled('div')`
   display: flex;
   flex-direction: column;
   max-height: 10vh;
@@ -34,7 +33,7 @@ const GoBackContainer = styled.div`
   padding: 0 30px;
 `
 
-const GeocontrolContainer = styled.div<{ maxOffset: number }>`
+const GeocontrolContainer = styled('div')<{ maxOffset: number }>`
   position: absolute;
   inset-inline-end: 10px;
   bottom: calc(min(var(--rsbs-overlay-h, 0), ${props => props.maxOffset}px) + 8px);

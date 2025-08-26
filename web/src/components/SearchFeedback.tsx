@@ -1,5 +1,5 @@
-import styled from '@emotion/styled'
 import Button from '@mui/material/Button'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -9,21 +9,21 @@ import { config } from 'translations'
 import buildConfig from '../constants/buildConfig'
 import FeedbackContainer from './FeedbackContainer'
 
-const Container = styled.div`
+const Container = styled('div')`
   display: flex;
   flex-direction: column;
   align-items: center;
 `
 
-const CenteredContainer = styled.div`
+const CenteredContainer = styled('div')`
   text-align: center;
 `
 
-const SmallTitle = styled.p`
+const SmallTitle = styled('p')`
   font-weight: 600;
 `
 
-const Hint = styled.p`
+const Hint = styled('p')`
   padding-bottom: 16px;
 `
 

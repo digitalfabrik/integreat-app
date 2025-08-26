@@ -1,4 +1,4 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router'
@@ -28,7 +28,7 @@ import { cmsApiBaseUrl } from '../constants/urls'
 import useLoadSearchDocuments from '../hooks/useLoadSearchDocuments'
 import useReportError from '../hooks/useReportError'
 
-const List = styled.ul`
+const List = styled('ul')`
   list-style-type: none;
 
   & a {
@@ -36,7 +36,7 @@ const List = styled.ul`
   }
 `
 
-const SearchCounter = styled.p`
+const SearchCounter = styled('p')`
   padding: 0 5px;
   color: ${props => props.theme.legacy.colors.textSecondaryColor};
 `

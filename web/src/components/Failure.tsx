@@ -1,12 +1,12 @@
-import styled from '@emotion/styled'
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router'
 
 import Icon from './base/Icon'
 
-const Container = styled.div`
+const Container = styled('div')`
   display: flex;
   flex-direction: column;
   gap: 24px;

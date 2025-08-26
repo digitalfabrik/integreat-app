@@ -1,5 +1,5 @@
 import shouldForwardProp from '@emotion/is-prop-valid'
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import { TFunction } from 'i18next'
 import React, { ReactElement } from 'react'
 import { Link } from 'react-router'

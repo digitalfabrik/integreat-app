@@ -1,6 +1,6 @@
-import styled from '@emotion/styled'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -25,7 +25,7 @@ const StyledIcon = styled(Icon)`
   }
 `
 
-const ButtonContainer = styled.div`
+const ButtonContainer = styled('div')`
   display: flex;
   gap: 8px;
 `

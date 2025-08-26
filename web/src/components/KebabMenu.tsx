@@ -1,8 +1,8 @@
-import styled from '@emotion/styled'
 import CloseIcon from '@mui/icons-material/Close'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode, useLayoutEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -17,13 +17,13 @@ type KebabMenuProps = {
   Footer: ReactNode
 }
 
-const ToggleContainer = styled.div`
+const ToggleContainer = styled('div')`
   display: flex;
   padding: 0 8px;
   z-index: 50;
 `
 
-const List = styled.div`
+const List = styled('div')`
   font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
   position: fixed;
   top: 0;
@@ -42,7 +42,7 @@ const List = styled.div`
   flex-direction: column;
 `
 
-const Overlay = styled.div<{ show: boolean }>`
+const Overlay = styled('div')<{ show: boolean }>`
   position: fixed;
   width: 100%;
   height: 100vh;
@@ -53,7 +53,7 @@ const Overlay = styled.div<{ show: boolean }>`
   display: ${props => (props.show ? `block` : `none`)};
 `
 
-const Heading = styled.div`
+const Heading = styled('div')`
   display: flex;
   justify-content: flex-end;
   background-color: ${props => props.theme.legacy.colors.backgroundAccentColor};
@@ -63,13 +63,13 @@ const Heading = styled.div`
   padding: 8px;
 `
 
-const ActionBar = styled.nav`
+const ActionBar = styled('nav')`
   display: flex;
   align-items: center;
   padding: 0 16px;
 `
 
-const Content = styled.div`
+const Content = styled('div')`
   padding: 0 32px;
 `
 

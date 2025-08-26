@@ -1,5 +1,5 @@
-import styled from '@emotion/styled'
 import Divider from '@mui/material/Divider'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode, RefObject, useImperativeHandle, useRef, useState } from 'react'
 import { BottomSheet, BottomSheetRef } from 'react-spring-bottom-sheet'
 import 'react-spring-bottom-sheet/dist/style.css'
@@ -8,12 +8,12 @@ import { SpringEvent } from 'react-spring-bottom-sheet/dist/types'
 import { getSnapPoints } from '../utils/getSnapPoints'
 import { RichLayout } from './Layout'
 
-const Title = styled.h1`
+const Title = styled('h1')`
   font-size: 1.25rem;
   font-family: ${props => props.theme.legacy.fonts.web.contentFont};
 `
 
-const ToolbarContainer = styled.div`
+const ToolbarContainer = styled('div')`
   flex: 1;
   display: flex;
   flex-direction: column;

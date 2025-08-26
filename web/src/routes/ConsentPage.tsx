@@ -1,4 +1,4 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -14,7 +14,7 @@ import buildConfig from '../constants/buildConfig'
 import useLocalStorage from '../hooks/useLocalStorage'
 import { LOCAL_STORAGE_ITEM_EXTERNAL_SOURCES } from '../utils/iframes'
 
-const Description = styled.div`
+const Description = styled('div')`
   margin-bottom: 24px;
 `
 

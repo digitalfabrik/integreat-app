@@ -1,6 +1,6 @@
-import styled from '@emotion/styled'
 import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen'
 import FilterListIcon from '@mui/icons-material/FilterList'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -17,7 +17,7 @@ const StyledButton = styled(Button)`
   margin-bottom: 10px;
 `
 
-const Text = styled.span`
+const Text = styled('span')`
   color: ${props => props.theme.legacy.colors.textColor};
 `
 

@@ -1,5 +1,5 @@
-import styled from '@emotion/styled'
 import Divider from '@mui/material/Divider'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -9,7 +9,7 @@ import { PoiThumbnailPlaceholder } from '../assets'
 import { helpers } from '../constants/theme'
 import Button from './base/Button'
 
-const ListItemContainer = styled.ul`
+const ListItemContainer = styled('ul')`
   font-family: ${props => props.theme.legacy.fonts.web.contentFont};
   display: flex;
   padding: clamp(10px, 1vh, 20px) 0;
@@ -20,7 +20,7 @@ const ListItemContainer = styled.ul`
   }
 `
 
-const Thumbnail = styled.img`
+const Thumbnail = styled('img')`
   width: clamp(70px, 10vh, 100px);
   height: clamp(70px, 10vh, 100px);
   flex-shrink: 0;
@@ -29,16 +29,16 @@ const Thumbnail = styled.img`
   border-radius: 10px;
 `
 
-const Distance = styled.div`
+const Distance = styled('div')`
   ${helpers.adaptiveFontSize};
 `
 
-const Category = styled.div`
+const Category = styled('div')`
   ${helpers.adaptiveFontSize};
   color: ${props => props.theme.legacy.colors.textSecondaryColor};
 `
 
-export const Description = styled.div`
+export const Description = styled('div')`
   display: flex;
   justify-content: center;
   height: 100%;
@@ -52,7 +52,7 @@ export const Description = styled.div`
   hyphens: auto;
 `
 
-const Title = styled.span`
+const Title = styled('span')`
   ${helpers.adaptiveFontSize};
   font-weight: 700;
 `

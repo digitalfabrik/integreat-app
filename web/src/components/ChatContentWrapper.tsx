@@ -1,11 +1,11 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode } from 'react'
 
 import { helpers } from '../constants/theme'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import ChatMenu from './ChatMenu'
 
-const Container = styled.div`
+const Container = styled('div')`
   display: flex;
   flex-direction: column;
   font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
@@ -18,7 +18,7 @@ const Container = styled.div`
   }
 `
 
-const Header = styled.div<{ small: boolean }>`
+const Header = styled('div')<{ small: boolean }>`
   display: flex;
   flex-direction: ${props => (props.small ? 'row-reverse' : 'row')};
   justify-content: space-between;

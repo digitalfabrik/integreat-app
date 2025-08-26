@@ -1,5 +1,5 @@
-import styled from '@emotion/styled'
 import Divider from '@mui/material/Divider'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { Link } from 'react-router'
 
@@ -8,11 +8,11 @@ import { getExcerpt } from 'shared'
 import { EXCERPT_MAX_CHARS } from '../constants'
 import Highlighter from './Highlighter'
 
-const Row = styled.li`
+const Row = styled('li')`
   width: 100%;
 `
 
-const CategoryThumbnail = styled.img`
+const CategoryThumbnail = styled('img')`
   width: 30px;
   height: 30px;
   padding: 0 5px;
@@ -20,13 +20,13 @@ const CategoryThumbnail = styled.img`
   object-fit: contain;
 `
 
-const CategoryTitleContainer = styled.div`
+const CategoryTitleContainer = styled('div')`
   display: flex;
   align-items: center;
   flex-direction: row;
 `
 
-const CategoryItemContainer = styled.div`
+const CategoryItemContainer = styled('div')`
   display: flex;
   flex-direction: column;
   padding: 15px 5px;
