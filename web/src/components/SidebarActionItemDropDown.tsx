@@ -4,7 +4,7 @@ import React, { ElementType, ReactElement, ReactNode, useRef, useState } from 'r
 
 import useOnClickOutside from '../hooks/useOnClickOutside'
 import DropDownContainer from './DropDownContainer'
-import KebabActionItem from './SidebarActionItem'
+import SidebarActionItem from './SidebarActionItem'
 import Button from './base/Button'
 
 const StyledButton = styled(Button)`
@@ -16,7 +16,7 @@ const Container = styled.div`
   display: flex;
 `
 
-type KebabActionItemDropDownProps = {
+type SidebarActionItemDropDownProps = {
   children: (closeDropDown: () => void) => ReactNode
   iconSrc: string | ElementType<SvgIconProps>
   text: string
@@ -35,7 +35,7 @@ const SidebarActionItemDropDown = ({
   children,
   closeSidebar,
   isOpen = false,
-}: KebabActionItemDropDownProps): ReactElement => {
+}: SidebarActionItemDropDownProps): ReactElement => {
   const [dropDownActive, setDropDownActive] = useState(isOpen)
 
   const toggleDropDown = (): void => {
@@ -62,7 +62,7 @@ const SidebarActionItemDropDown = ({
   return (
     <Container ref={wrapperRef}>
       <StyledButton label={text} onClick={toggleDropDown}>
-        <KebabActionItem text={text} iconSrc={iconSrc} />
+        <SidebarActionItem text={text} iconSrc={iconSrc} />
       </StyledButton>
 
       <DropDownContainer

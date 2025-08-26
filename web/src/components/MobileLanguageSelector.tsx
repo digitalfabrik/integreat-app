@@ -3,7 +3,6 @@ import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import SelectorItemModel from '../models/SelectorItemModel'
-import CityContentFooter from './CityContentFooter'
 import HeaderActionItem from './HeaderActionItem'
 import HeaderLanguageSelectorItem from './HeaderLanguageSelectorItem'
 import SidebarMenu from './SidebarMenu'
@@ -11,14 +10,9 @@ import SidebarMenu from './SidebarMenu'
 type MobileLanguageSelectorProps = {
   languageChangePaths: { code: string; path: string | null; name: string }[] | null
   languageCode: string
-  cityCode: string
 }
 
-const MobileLanguageSelector = ({
-  languageChangePaths,
-  languageCode,
-  cityCode,
-}: MobileLanguageSelectorProps): ReactElement => {
+const MobileLanguageSelector = ({ languageChangePaths, languageCode }: MobileLanguageSelectorProps): ReactElement => {
   const { t } = useTranslation('layout')
   const [isLanguageSidebarOpen, setIsLanguageSidebarOpen] = useState(false)
 
@@ -57,13 +51,9 @@ const MobileLanguageSelector = ({
   return (
     <>
       {MobileLanguageButton}
-      <SidebarMenu
-        showButton={false}
-        setShow={setIsLanguageSidebarOpen}
-        show={isLanguageSidebarOpen}
-        items={languageSidebarItems}
-        Footer={<CityContentFooter city={cityCode} language={languageCode} mode='sidebar' />}
-      />
+      <SidebarMenu showButton={false} setShow={setIsLanguageSidebarOpen} show={isLanguageSidebarOpen} Footer={null}>
+        {languageSidebarItems}
+      </SidebarMenu>
     </>
   )
 }
