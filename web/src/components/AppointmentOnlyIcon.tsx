@@ -1,19 +1,19 @@
-import styled from '@emotion/styled'
 import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined'
 import Tooltip from '@mui/material/Tooltip'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 
 import Icon from './base/Icon'
 import Link from './base/Link'
 
-const Container = styled.div`
+const Container = styled('div')`
   position: absolute;
   inset-inline-end: -27px;
   top: 4px;
 `
 
-const IconContainer = styled.button`
+const IconContainer = styled('button')`
   padding: 0;
   border: none;
   background-color: transparent;
@@ -27,13 +27,13 @@ const StyledIcon = styled(Icon)`
   align-self: center;
 `
 
-const TooltipContent = styled.span`
+const TooltipContent = styled('span')`
   ${props => props.theme.breakpoints.down('md')} {
     font-size: 14px;
   }
 `
 
-const TooltipTitle = styled.div`
+const TooltipTitle = styled('div')`
   font-weight: 700;
   margin-bottom: 8px;
 

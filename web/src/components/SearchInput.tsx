@@ -1,20 +1,20 @@
-import styled from '@emotion/styled'
 import ClearIcon from '@mui/icons-material/Clear'
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined'
 import { formHelperTextClasses } from '@mui/material/FormHelperText'
 import IconButton from '@mui/material/IconButton'
 import InputAdornment from '@mui/material/InputAdornment'
 import TextField from '@mui/material/TextField'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import Icon from './base/Icon'
 
-const Spacer = styled.div<{ space: boolean }>`
+const Spacer = styled('div')<{ space: boolean }>`
   ${props => props.space && 'margin: 16px 0;'}
 `
 
-const Wrapper = styled.div`
+const Wrapper = styled('div')`
   gap: 4px;
   position: relative;
   width: 100%;
@@ -30,7 +30,7 @@ const Wrapper = styled.div`
   }
 `
 
-const Column = styled.div`
+const Column = styled('div')`
   display: flex;
   flex-direction: column;
   width: 100%;

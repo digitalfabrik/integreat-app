@@ -1,6 +1,5 @@
-import styled from '@emotion/styled'
 import { formHelperTextClasses } from '@mui/material/FormHelperText'
-import { ThemeProvider, useTheme } from '@mui/material/styles'
+import { ThemeProvider, useTheme, styled } from '@mui/material/styles'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { DateValidationError } from '@mui/x-date-pickers/models'
 import { DateTime } from 'luxon'
@@ -10,12 +9,12 @@ import { useTranslation } from 'react-i18next'
 import useCityContentParams from '../hooks/useCityContentParams'
 import { getDatePickerLocaleText } from '../utils/muiDatePickerLocales'
 
-const DateContainer = styled.div`
+const DateContainer = styled('div')`
   width: fit-content;
   position: relative;
 `
 
-const StyledError = styled.span`
+const StyledError = styled('span')`
   color: ${props => props.theme.palette.error.main};
 `
 

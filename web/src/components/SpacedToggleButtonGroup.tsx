@@ -1,5 +1,5 @@
-import styled from '@emotion/styled'
 import ToggleButtonGroup, { toggleButtonGroupClasses } from '@mui/material/ToggleButtonGroup'
+import { styled } from '@mui/material/styles'
 
 const SpacedToggleButtonGroup = styled(ToggleButtonGroup)`
   .${toggleButtonGroupClasses.grouped} {
