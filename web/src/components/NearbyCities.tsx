@@ -10,7 +10,6 @@ import { CityModel } from 'shared/api'
 
 import useUserLocation from '../hooks/useUserLocation'
 import CityListGroup, { CityGroupHeader } from './CityListGroup'
-import Icon from './base/Icon'
 
 type NearbyCitiesProps = {
   cities: CityModel[]
@@ -25,19 +24,19 @@ const NearbyCities = ({ cities, language, filterText, stickyTop }: NearbyCitiesP
   const liveCities = cities.filter(city => city.live)
   const nearbyCities = userLocation ? getNearbyCities(userLocation, liveCities) : []
 
-  const NoItemsMessage = (
-    <Stack width='100%'>
-      <CityGroupHeader component='div' stickyTop={stickyTop}>
-        {t('nearbyCities')}
-      </CityGroupHeader>
-      <Stack direction='row' alignItems='center' justifyContent='space-between' paddingInline={4}>
-        <ListItemText primary={t(userLocation ? 'noNearbyCities' : 'locationError')} />
-        <IconButton aria-label={t('refresh')} onClick={refresh}>
-          <Icon src={RefreshIcon} />
-        </IconButton>
-      </Stack>
-    </Stack>
-  )
+  if (nearbyCities.length === 0) {
+    return (
+      <>
+        <CityGroupHeader stickyTop={stickyTop}>{t('nearbyCities')}</CityGroupHeader>
+        <Stack direction='row' alignItems='center' justifyContent='space-between' paddingInline={4}>
+          <ListItemText primary={t(userLocation ? 'noNearbyCities' : 'locationError')} />
+          <IconButton aria-label={t('refresh')} onClick={refresh}>
+            <RefreshIcon />
+          </IconButton>
+        </Stack>
+      </>
+    )
+  }
 
   return (
     <CityListGroup
@@ -46,7 +45,6 @@ const NearbyCities = ({ cities, language, filterText, stickyTop }: NearbyCitiesP
       stickyTop={stickyTop}
       languageCode={language}
       filterText={filterText}
-      NoItemsMessage={NoItemsMessage}
     />
   )
 }
