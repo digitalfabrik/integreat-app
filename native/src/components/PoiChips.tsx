@@ -14,18 +14,17 @@ const ChipsContainer = styled.View`
 `
 
 const Chip = styled.View`
-  height: 24px;
-  border-radius: 12px;
+  border-radius: 32px;
   border: 1px solid ${props => props.theme.colors.textSecondaryColor};
   flex-direction: row;
   align-items: center;
   gap: 6px;
-  padding-inline: 12px;
+  padding: 6px 12px;
 `
 
 const ChipIcon = styled(SimpleImage)`
-  width: 16px;
-  height: 16px;
+  width: 24px;
+  height: 24px;
 `
 
 const PoiChips = ({ poi }: { poi: PoiModel }): ReactElement => {
