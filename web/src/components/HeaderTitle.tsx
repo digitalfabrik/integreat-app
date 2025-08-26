@@ -1,7 +1,7 @@
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
-import { styled } from '@mui/material/styles'
+import { styled, Theme } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -20,14 +20,22 @@ const HeaderTitleContainer = styled(Typography)`
   order: 2;
 `
 
-const StyledLink = styled(Link)`
+const titleStyles = ({ theme }: { theme: Theme }) => `
   display: flex;
   align-items: center;
   gap: 12px;
 
-  ${props => props.theme.breakpoints.down('md')} {
+  ${theme.breakpoints.down('md')} {
     gap: 0;
   }
+`
+
+const StyledLink = styled(Link)`
+  ${titleStyles}
+`
+
+const StyledTitle = styled('span')`
+  ${titleStyles}
 `
 
 type HeaderTitleProps = {
@@ -44,12 +52,12 @@ const HeaderTitle = ({ title, landingPath }: HeaderTitleProps): ReactElement => 
   if (isFixedCity) {
     return (
       <HeaderTitleContainer aria-label={t('changeLocation')} variant={variant}>
-        <StyledLink to={landingPath}>{title}</StyledLink>
+        <StyledTitle>{title}</StyledTitle>
       </HeaderTitleContainer>
     )
   }
   return (
-    <HeaderTitleContainer aria-label={t('changeLocation')} variant={variant}>
+    <HeaderTitleContainer variant={variant}>
       <Tooltip id='location' title={t('changeLocation')}>
         <StyledLink to={landingPath}>
           {title}

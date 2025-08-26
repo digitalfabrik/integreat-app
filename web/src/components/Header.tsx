@@ -1,4 +1,5 @@
 import Headroom from '@integreat-app/react-sticky-headroom'
+import Divider from '@mui/material/Divider'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode } from 'react'
 
@@ -109,6 +110,13 @@ export const Header = ({
   const scrollHeight = viewportSmall ? headerHeightSmall : headerHeightLarge
   const landingPath = pathnameFromRouteInformation({ route: LANDING_ROUTE, languageCode: language })
 
+  const sidebarContent = sidebarItems.map((item, index) => (
+    <React.Fragment key={`menu-item-${index + 1}`}>
+      {item}
+      {index < sidebarItems.length - 1 && <Divider />}
+    </React.Fragment>
+  ))
+
   return (
     <Headroom scrollHeight={scrollHeight} height={height} zIndex={2}>
       <HeaderContainer>
@@ -121,9 +129,9 @@ export const Header = ({
               <SidebarMenu
                 setShow={setIsSidebarOpen}
                 show={isSidebarOpen}
-                items={sidebarItems}
-                Footer={<CityContentFooter city={cityCode} language={language} mode='sidebar' />}
-              />
+                Footer={<CityContentFooter city={cityCode} language={language} mode='sidebar' />}>
+                {sidebarContent}
+              </SidebarMenu>
             )}
           </ActionBar>
         </Row>

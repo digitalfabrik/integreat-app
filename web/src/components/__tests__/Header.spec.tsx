@@ -8,7 +8,7 @@ import { mockWindowDimensions } from '../../testing/utils'
 import { Header } from '../Header'
 import HeaderActionItem from '../HeaderActionItem'
 import HeaderNavigationItem from '../HeaderNavigationItem'
-import KebabActionItem from '../SidebarActionItem'
+import SidebarActionItem from '../SidebarActionItem'
 import Link from '../base/Link'
 
 jest.mock('../../hooks/useWindowDimensions')
@@ -34,7 +34,7 @@ describe('Header', () => {
     expect(getByText(cityName)).toBeDefined()
   })
 
-  it('should render KebabMenu with elements on small viewport', () => {
+  it('should render SidebarMenu with elements on small viewport', () => {
     mocked(useWindowDimensions).mockImplementation(() => ({ ...mockWindowDimensions, viewportSmall: true }))
     const setShowSidebar = jest.fn()
     const { getByLabelText, getByText } = renderWithRouterAndTheme(
@@ -44,7 +44,7 @@ describe('Header', () => {
         navigationItems={[<HeaderNavigationItem key={0} to='/another_route' text='text1' icon='icon.jpg' active />]}
         sidebarItems={[
           <Link key='location' to='/kebab_route'>
-            <KebabActionItem text='ChangeLocation' iconSrc='icon.jpg' />
+            <SidebarActionItem text='ChangeLocation' iconSrc='icon.jpg' />
           </Link>,
         ]}
         cityName={cityName}
@@ -72,7 +72,7 @@ describe('Header', () => {
         navigationItems={[<HeaderNavigationItem key={0} to='/another_route' text='text1' icon='icon.jpg' active />]}
         sidebarItems={[
           <Link key='location' to='/kebab_route'>
-            <KebabActionItem text='ChangeLocation' iconSrc='icon.jpg' />
+            <SidebarActionItem text='ChangeLocation' iconSrc='icon.jpg' />
           </Link>,
         ]}
         language='de'

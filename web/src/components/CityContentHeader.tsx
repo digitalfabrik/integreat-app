@@ -71,7 +71,6 @@ const CityContentHeader = ({
       key='mobileLanguageSelector'
       languageChangePaths={languageChangePaths}
       languageCode={languageCode}
-      cityCode={cityModel.code}
     />
   )
 
