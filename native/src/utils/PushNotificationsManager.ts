@@ -57,10 +57,10 @@ export const unsubscribeNews = async (city: string, language: string): Promise<v
   try {
     const { getMessaging, unsubscribeFromTopic } = await import('@react-native-firebase/messaging')
     await unsubscribeFromTopic(getMessaging(), topic)
+    log(`Unsubscribed from ${topic} topic!`)
   } catch (e) {
     reportError(e)
   }
-  log(`Unsubscribed from ${topic} topic!`)
 }
 
 type SubscribeNewsParams = {
