@@ -1,5 +1,5 @@
-import styled from '@emotion/styled'
 import LocationOnIcon from '@mui/icons-material/LocationOn'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
 
 import Icon from './base/Icon'

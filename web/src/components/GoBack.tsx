@@ -1,7 +1,7 @@
 import { css } from '@emotion/react'
-import styled from '@emotion/styled'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import Divider from '@mui/material/Divider'
+import { styled } from '@mui/material/styles'
 import React, { memo, ReactElement } from 'react'
 
 import { helpers } from '../constants/theme'
@@ -29,7 +29,7 @@ const StyledButton = styled(Button)<{ viewportSmall: boolean }>`
     `};
 `
 
-const DetailsHeaderTitle = styled.span`
+const DetailsHeaderTitle = styled('span')`
   color: ${props => props.theme.legacy.colors.textColor};
   align-self: center;
   white-space: pre;

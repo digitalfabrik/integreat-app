@@ -1,7 +1,7 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
-const H1 = styled.h1`
+const H1 = styled('h1')`
   margin: 25px 0;
   font-size: 2rem;
   text-align: center;

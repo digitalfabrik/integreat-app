@@ -1,5 +1,4 @@
 import { css } from '@emotion/react'
-import styled from '@emotion/styled'
 import CheckIcon from '@mui/icons-material/Check'
 import CloseIcon from '@mui/icons-material/Close'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
@@ -9,6 +8,7 @@ import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined'
 import WhatsAppIcon from '@mui/icons-material/WhatsApp'
 import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -24,7 +24,7 @@ type SharingPopupProps = {
   portalNeeded: boolean
 }
 
-const TooltipContainer = styled.div<{
+const TooltipContainer = styled('div')<{
   tooltipFlow: 'vertical' | 'horizontal'
   optionsVisible: boolean
 }>`
@@ -138,7 +138,7 @@ const BackdropContainer = styled(Button)`
   z-index: 1;
 `
 
-const SharingPopupContainer = styled.div`
+const SharingPopupContainer = styled('div')`
   position: relative;
 `
 

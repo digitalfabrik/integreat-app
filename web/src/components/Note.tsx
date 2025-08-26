@@ -1,11 +1,11 @@
-import styled from '@emotion/styled'
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
 import { helpers } from '../constants/theme'
 import Icon from './base/Icon'
 
-const NoteContainer = styled.div`
+const NoteContainer = styled('div')`
   display: flex;
   background-color: ${props => props.theme.legacy.colors.warningColor};
   padding: 12px;
@@ -13,7 +13,7 @@ const NoteContainer = styled.div`
   align-items: center;
 `
 
-const NoteText = styled.span`
+const NoteText = styled('span')`
   font-size: ${props => props.theme.legacy.fonts.decorativeFontSizeSmall};
   ${helpers.adaptiveThemeTextColor}
 `

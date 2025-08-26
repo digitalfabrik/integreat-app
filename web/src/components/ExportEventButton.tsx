@@ -1,6 +1,6 @@
-import styled from '@emotion/styled'
 import DownloadIcon from '@mui/icons-material/Download'
 import Button from '@mui/material/Button'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -9,7 +9,7 @@ import { EventModel } from 'shared/api'
 import buildConfig from '../constants/buildConfig'
 import RadioGroup from './base/RadioGroup'
 
-const ButtonContainer = styled.div`
+const ButtonContainer = styled('div')`
   display: flex;
   gap: 16px;
 `

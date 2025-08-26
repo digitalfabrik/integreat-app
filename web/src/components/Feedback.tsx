@@ -1,6 +1,6 @@
-import styled from '@emotion/styled'
 import SendIcon from '@mui/icons-material/Send'
 import Button from '@mui/material/Button'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -14,7 +14,7 @@ import PrivacyCheckbox from './PrivacyCheckbox'
 import Input from './base/Input'
 import InputSection from './base/InputSection'
 
-export const Container = styled.div<{ fullWidth?: boolean }>`
+export const Container = styled('div')<{ fullWidth?: boolean }>`
   display: flex;
   flex: 1;
   max-height: 80vh;
@@ -34,7 +34,7 @@ export const Container = styled.div<{ fullWidth?: boolean }>`
   }
 `
 
-const ErrorSendingStatus = styled.div`
+const ErrorSendingStatus = styled('div')`
   font-weight: bold;
 `
 
