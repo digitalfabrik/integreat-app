@@ -1,26 +1,26 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import ChatMessageModel from 'shared/api/models/ChatMessageModel'
+import { ChatMessageModel } from 'shared/api'
 
 import ChatMessage, { InnerChatMessage } from './ChatMessage'
 
-const Container = styled.div`
-  font-size: ${props => props.theme.fonts.hintFontSize};
+const Container = styled('div')`
+  font-size: ${props => props.theme.legacy.fonts.hintFontSize};
   overflow: auto;
   padding: 0 12px;
 `
 
-const InitialMessage = styled.div`
+const InitialMessage = styled('div')`
   margin-bottom: 12px;
 `
 
-const ErrorSendingStatus = styled.div`
-  background-color: ${props => props.theme.colors.invalidInput};
+const ErrorSendingStatus = styled('div')`
+  background-color: ${props => props.theme.legacy.colors.invalidInput};
   border-radius: 5px;
   padding: 8px;
-  border: 1px solid ${props => props.theme.colors.textDecorationColor};
+  border: 1px solid ${props => props.theme.legacy.colors.textDecorationColor};
   margin: 16px;
 `
 

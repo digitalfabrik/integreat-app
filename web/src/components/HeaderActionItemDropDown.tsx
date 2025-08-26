@@ -1,38 +1,20 @@
-import styled from '@emotion/styled'
+import Button from '@mui/material/Button'
+import IconButton from '@mui/material/IconButton'
+import Tooltip from '@mui/material/Tooltip'
+import { useTheme, styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode, useRef, useState } from 'react'
 
 import useOnClickOutside from '../hooks/useOnClickOutside'
-import { spacesToDashes } from '../utils/stringUtils'
 import DropDownContainer from './DropDownContainer'
-import Button from './base/Button'
-import Icon from './base/Icon'
-import Tooltip from './base/Tooltip'
 
-const StyledIcon = styled(Icon)`
-  width: 28px;
-  height: 28px;
-`
-const ActionBox = styled(Button)`
-  padding: 4px 6px;
-  display: flex;
-  color: ${props => props.theme.colors.textColor};
-  border: 1px solid ${props => props.theme.colors.textColor};
-  border-radius: 4px;
-  justify-content: center;
-  align-items: center;
-  flex-direction: ${props => (props.theme.contentDirection === 'rtl' ? 'row-reverse' : 'row')};
-  gap: 4px;
-`
-
-const StyledText = styled.span`
-  font-weight: bold;
-  font-size: 14px;
-  letter-spacing: 1.25px;
+const StyledButton = styled(Button)`
+  background-color: ${props => props.theme.palette.tertiary.light};
+  padding: 2px 14px;
 `
 
 type HeaderActionItemDropDownProps = {
   children: (closeDropDown: () => void) => ReactNode
-  iconSrc: string
+  icon: ReactElement
   text: string
   innerText?: string
 }
@@ -42,13 +24,9 @@ type HeaderActionItemDropDownProps = {
  * Header. Once the user clicks outside, the node is hidden again. Additionally, the inner node gets a
  * closeDropDownCallback through its props to close the dropDown and hide itself.
  */
-const HeaderActionItemDropDown = ({
-  iconSrc,
-  text,
-  innerText,
-  children,
-}: HeaderActionItemDropDownProps): ReactElement => {
+const HeaderActionItemDropDown = ({ icon, text, innerText, children }: HeaderActionItemDropDownProps): ReactElement => {
   const [dropDownActive, setDropDownActive] = useState(false)
+  const theme = useTheme()
 
   const toggleDropDown = (): void => {
     setDropDownActive(!dropDownActive)
@@ -61,20 +39,22 @@ const HeaderActionItemDropDown = ({
   const wrapperRef = useRef(null)
   useOnClickOutside(wrapperRef, closeDropDown)
 
-  const id = spacesToDashes(text)
-
   return (
     <div ref={wrapperRef}>
-      <Tooltip id={id} tooltipContent={text}>
+      <Tooltip title={text}>
         {innerText ? (
-          <ActionBox label={text} onClick={toggleDropDown}>
-            <StyledIcon src={iconSrc} />
-            <StyledText>{innerText}</StyledText>
-          </ActionBox>
+          <StyledButton onClick={toggleDropDown} name={text} aria-label={text} startIcon={icon}>
+            {innerText}
+          </StyledButton>
         ) : (
-          <Button label={text} onClick={toggleDropDown} id={id}>
-            <StyledIcon src={iconSrc} />
-          </Button>
+          <IconButton
+            onClick={toggleDropDown}
+            name={text}
+            color='primary'
+            sx={{ backgroundColor: theme.palette.tertiary.light }}
+            aria-label={text}>
+            {icon}
+          </IconButton>
         )}
       </Tooltip>
       <DropDownContainer

@@ -1,4 +1,4 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -20,11 +20,11 @@ const CityListItem = styled(Link)`
     color: inherit;
     text-decoration: inherit;
     transition: background-color 0.5s ease;
-    background-color: ${props => props.theme.colors.backgroundAccentColor};
+    background-color: ${props => props.theme.legacy.colors.backgroundAccentColor};
   }
 `
 
-const AliasContainer = styled.div`
+const AliasContainer = styled('div')`
   margin: 0 4px;
   font-size: 12px;
 `

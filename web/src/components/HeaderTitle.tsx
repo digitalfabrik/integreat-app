@@ -1,4 +1,4 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
 import dimensions from '../constants/dimensions'
@@ -6,7 +6,7 @@ import dimensions from '../constants/dimensions'
 const LONG_TITLE_LENGTH = 25
 export const HEADER_TITLE_HEIGHT = 50
 
-const HeaderTitleContainer = styled.div<{ long: boolean }>`
+const HeaderTitleContainer = styled('div')<{ long: boolean }>`
   display: flex;
   align-items: center;
   font-size: ${props => (props.long ? '1.3rem' : '1.8rem')};
@@ -17,13 +17,13 @@ const HeaderTitleContainer = styled.div<{ long: boolean }>`
   padding: 0 10px;
   box-sizing: border-box;
 
-  @media ${dimensions.minMaxWidth} {
+  ${props => props.theme.breakpoints.up('lg')} {
     font-size: ${props => (props.long ? '1.5rem' : '1.8rem')};
   }
 
-  @media ${dimensions.smallViewport} {
-    font-family: ${props => props.theme.fonts.web.decorativeFont};
-    font-size: ${props => props.theme.fonts.decorativeFontSize};
+  ${props => props.theme.breakpoints.down('md')} {
+    font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
+    font-size: ${props => props.theme.legacy.fonts.decorativeFontSize};
     height: ${HEADER_TITLE_HEIGHT}px;
     justify-content: start;
     padding: 0 10px;

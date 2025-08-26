@@ -1,14 +1,12 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
-import dimensions from '../constants/dimensions'
-
-const H1 = styled.h1`
+const H1 = styled('h1')`
   margin: 25px 0;
   font-size: 2rem;
   text-align: center;
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     margin: 10px 0;
   }
 `

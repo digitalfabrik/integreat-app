@@ -1,17 +1,21 @@
-import { css, SerializedStyles, Theme, useTheme } from '@emotion/react'
-import styled from '@emotion/styled'
+import { css } from '@emotion/react'
+import CheckIcon from '@mui/icons-material/Check'
+import CloseIcon from '@mui/icons-material/Close'
+import ContentCopyIcon from '@mui/icons-material/ContentCopy'
+import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined'
+import MailOutlinedIcon from '@mui/icons-material/MailOutlined'
+import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined'
+import WhatsAppIcon from '@mui/icons-material/WhatsApp'
+import IconButton from '@mui/material/IconButton'
+import Tooltip from '@mui/material/Tooltip'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { PlacesType } from 'react-tooltip'
 
-import { CloseIcon, CopyIcon, DoneIcon, FacebookIcon, MailIcon, ShareIcon, WhatsappIcon } from '../assets'
-import useWindowDimensions from '../hooks/useWindowDimensions'
 import Portal from './Portal'
 import ToolbarItem from './ToolbarItem'
 import Button from './base/Button'
-import Icon from './base/Icon'
 import Link from './base/Link'
-import Tooltip from './base/Tooltip'
 
 type SharingPopupProps = {
   shareUrl: string
@@ -20,36 +24,29 @@ type SharingPopupProps = {
   portalNeeded: boolean
 }
 
-const TooltipContainer = styled.div<{
+const TooltipContainer = styled('div')<{
   tooltipFlow: 'vertical' | 'horizontal'
   optionsVisible: boolean
 }>`
-  background-color: ${props => props.theme.colors.backgroundColor};
+  background-color: ${props => props.theme.legacy.colors.backgroundColor};
   padding: 8px;
-  border: 2px solid ${props => props.theme.colors.textDecorationColor};
+  border: 2px solid ${props => props.theme.legacy.colors.textDecorationColor};
   width: max-content;
   position: absolute;
   display: flex;
-  z-index: 2000;
+  z-index: 10;
   opacity: 0;
   font-size: 1rem;
 
   ${props =>
-    props.tooltipFlow === 'vertical' &&
-    css`
-      flex-flow: column-reverse;
-      transform: translateY(-100%);
-    `};
-
-  ${props =>
-    props.tooltipFlow === 'horizontal' &&
-    (props.theme.contentDirection === 'ltr'
+    props.tooltipFlow === 'vertical'
       ? css`
-          transform: translate(30%, -8px);
+          flex-flow: column-reverse;
+          transform: translateY(-100%);
         `
       : css`
-          transform: translate(-30%, -8px);
-        `)};
+          transform: translate(30%, -8px);
+        `};
 
   ${props =>
     props.optionsVisible &&
@@ -68,37 +65,22 @@ const TooltipContainer = styled.div<{
 
   &::before {
     z-index: 2000;
-    border-bottom: 10px solid ${props => props.theme.colors.backgroundColor};
+    border-bottom: 10px solid ${props => props.theme.legacy.colors.backgroundColor};
     border-inline-start: 10px solid transparent;
     border-inline-end: 10px solid transparent;
 
     ${props =>
-      props.tooltipFlow === 'vertical' &&
-      (props.theme.contentDirection === 'ltr'
+      props.tooltipFlow === 'vertical'
         ? css`
             left: 20px;
             bottom: -8px;
             transform: rotate(-180deg);
           `
         : css`
-            right: 11px;
-            bottom: -8px;
-            transform: translateX(-55%) rotate(180deg);
-          `)};
-
-    ${props =>
-      props.tooltipFlow === 'horizontal' &&
-      (props.theme.contentDirection === 'ltr'
-        ? css`
             left: -14px;
-            transform: rotate(-90deg);
+            transform: rotate(${props.theme.contentDirection === 'ltr' ? '-90deg' : '90deg'});
             top: 45%;
-          `
-        : css`
-            right: -14px;
-            transform: rotate(90deg);
-            top: 45%;
-          `)};
+          `};
 
     ${props =>
       props.optionsVisible &&
@@ -111,37 +93,22 @@ const TooltipContainer = styled.div<{
 
   &::after {
     z-index: 1000;
-    border-bottom: 11px solid ${props => props.theme.colors.textDecorationColor};
+    border-bottom: 11px solid ${props => props.theme.legacy.colors.textDecorationColor};
     border-inline-start: 11px solid transparent;
     border-inline-end: 11px solid transparent;
 
     ${props =>
-      props.tooltipFlow === 'vertical' &&
-      (props.theme.contentDirection === 'ltr'
+      props.tooltipFlow === 'vertical'
         ? css`
             left: 20px;
             bottom: -11px;
             transform: rotate(-180deg);
           `
         : css`
-            right: 11px;
-            bottom: -11px;
-            transform: translateX(-45%) rotate(180deg);
-          `)};
-
-    ${props =>
-      props.tooltipFlow === 'horizontal' &&
-      (props.theme.contentDirection === 'ltr'
-        ? css`
             left: -17px;
-            transform: rotate(-90deg) scaleX(-1);
+            transform: rotate(${props.theme.contentDirection === 'ltr' ? '-90deg' : '90deg'}) scaleX(-1);
             top: 45%;
-          `
-        : css`
-            right: -17px;
-            transform: rotate(90deg) scaleX(-1);
-            top: 45%;
-          `)};
+          `};
 
     ${props =>
       props.optionsVisible &&
@@ -157,34 +124,8 @@ const TooltipContainer = styled.div<{
   }
 `
 
-const CloseButton = styled(Button)`
-  background-color: ${props => props.theme.colors.backgroundColor};
-  display: flex;
-`
-
-const itemStyles = ({ theme }: { theme: Theme }): SerializedStyles => css`
-  background-color: ${theme.colors.backgroundColor};
-  border: none;
-  padding: 0;
-  display: flex;
-`
-
-const StyledLink = styled(Link)`
-  ${itemStyles}
-`
-
-const StyledButton = styled(Button)`
-  ${itemStyles}
-`
-
-const StyledIcon = styled(Icon)`
-  width: 32px;
-  height: 32px;
-  flex-shrink: 0;
-  padding: 8px;
-  object-fit: contain;
-  align-self: center;
-  color: ${props => props.theme.colors.textSecondaryColor};
+const StyledIconButton = styled(IconButton)`
+  color: ${props => props.theme.palette.text.primary};
 `
 
 const BackdropContainer = styled(Button)`
@@ -197,7 +138,7 @@ const BackdropContainer = styled(Button)`
   z-index: 1;
 `
 
-const SharingPopupContainer = styled.div`
+const SharingPopupContainer = styled('div')`
   position: relative;
 `
 
@@ -212,17 +153,10 @@ const SharingPopup = ({ shareUrl, title, flow, portalNeeded }: SharingPopupProps
   const encodedShareUrl = encodeURIComponent(shareUrl)
   const shareMessage = t('layout:shareMessage', { message: encodedTitle })
 
-  const { viewportSmall } = useWindowDimensions()
-  const theme = useTheme()
-  const tooltipDirectionMobile: PlacesType = theme.contentDirection === 'ltr' ? 'right' : 'left'
-  const tooltipDirection: PlacesType = viewportSmall ? tooltipDirectionMobile : 'top'
-
   const copyToClipboard = () => {
     navigator.clipboard.writeText(window.location.href).catch(reportError)
     setLinkCopied(true)
-    setTimeout(() => {
-      setLinkCopied(false)
-    }, COPY_TIMEOUT)
+    setTimeout(() => setLinkCopied(false), COPY_TIMEOUT)
   }
 
   const Backdrop = (
@@ -242,44 +176,47 @@ const SharingPopup = ({ shareUrl, title, flow, portalNeeded }: SharingPopupProps
           )}
           {Backdrop}
           <TooltipContainer tooltipFlow={flow} optionsVisible={shareOptionsVisible}>
-            <Tooltip
-              id='copy'
-              place={tooltipDirection}
-              tooltipContent={t(linkCopied ? 'common:copied' : 'layout:copyUrl')}>
-              <StyledButton onClick={copyToClipboard} label={t(linkCopied ? 'common:copied' : 'layout:copyUrl')}>
-                <StyledIcon src={linkCopied ? DoneIcon : CopyIcon} />
-              </StyledButton>
+            <Tooltip title={t(linkCopied ? 'common:copied' : 'layout:copyUrl')}>
+              <StyledIconButton
+                aria-label={t(linkCopied ? 'common:copied' : 'layout:copyUrl')}
+                size='large'
+                onClick={copyToClipboard}>
+                {linkCopied ? <CheckIcon fontSize='inherit' /> : <ContentCopyIcon fontSize='inherit' />}
+              </StyledIconButton>
             </Tooltip>
-            <Tooltip id='share-whatsapp' place={tooltipDirection} tooltipContent={t('whatsappTooltip')}>
-              <StyledLink
-                to={`https://api.whatsapp.com/send?text=${shareMessage}%0a${encodedShareUrl}`}
-                ariaLabel={t('whatsappTooltip')}>
-                <StyledIcon src={WhatsappIcon} />
-              </StyledLink>
+            <Tooltip title={t('whatsappTooltip')}>
+              <Link to={`https://api.whatsapp.com/send?text=${shareMessage}%0a${encodedShareUrl}`}>
+                <StyledIconButton size='large' aria-label={t('whatsappTooltip')}>
+                  <WhatsAppIcon fontSize='inherit' />
+                </StyledIconButton>
+              </Link>
             </Tooltip>
-            <Tooltip id='share-facebook' place={tooltipDirection} tooltipContent={t('facebookTooltip')}>
-              <StyledLink
-                to={`https://www.facebook.com/sharer/sharer.php?u=${encodedShareUrl}&t${shareMessage}`}
-                ariaLabel={t('facebookTooltip')}>
-                <StyledIcon src={FacebookIcon} />
-              </StyledLink>
+            <Tooltip title={t('facebookTooltip')}>
+              <Link to={`https://www.facebook.com/sharer/sharer.php?u=${encodedShareUrl}&t${shareMessage}`}>
+                <StyledIconButton size='large' aria-label={t('facebookTooltip')}>
+                  <FacebookOutlinedIcon fontSize='inherit' />
+                </StyledIconButton>
+              </Link>
             </Tooltip>
-            <Tooltip id='share-email' place={tooltipDirection} tooltipContent={t('mailTooltip')}>
-              <StyledLink
-                to={`mailto:?subject=${encodedTitle}&body=${shareMessage} ${encodedShareUrl}`}
-                ariaLabel={t('mailTooltip')}>
-                <StyledIcon src={MailIcon} />
-              </StyledLink>
+            <Tooltip title={t('mailTooltip')}>
+              <Link to={`mailto:?subject=${encodedTitle}&body=${shareMessage} ${encodedShareUrl}`}>
+                <StyledIconButton size='large' aria-label={t('mailTooltip')}>
+                  <MailOutlinedIcon fontSize='inherit' />
+                </StyledIconButton>
+              </Link>
             </Tooltip>
-            <Tooltip id='close-button' place={tooltipDirection} tooltipContent={t('closeTooltip')}>
-              <CloseButton onClick={() => setShareOptionsVisible(false)} label={t('closeTooltip')}>
-                <StyledIcon src={CloseIcon} />
-              </CloseButton>
+            <Tooltip title={t('closeTooltip')}>
+              <StyledIconButton
+                size='large'
+                onClick={() => setShareOptionsVisible(false)}
+                aria-label={t('closeTooltip')}>
+                <CloseIcon fontSize='inherit' />
+              </StyledIconButton>
             </Tooltip>
           </TooltipContainer>
         </>
       )}
-      <ToolbarItem icon={ShareIcon} text={t('layout:share')} onClick={() => setShareOptionsVisible(true)} />
+      <ToolbarItem icon={ShareOutlinedIcon} text={t('layout:share')} onClick={() => setShareOptionsVisible(true)} />
     </SharingPopupContainer>
   )
 }

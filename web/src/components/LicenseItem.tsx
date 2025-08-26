@@ -1,10 +1,10 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import ListItem from '../components/ListItem'
 
-const LicenseContainer = styled.div`
+const LicenseContainer = styled('div')`
   padding: 5px 10px;
   line-height: 120%;
 `

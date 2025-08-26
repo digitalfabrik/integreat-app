@@ -1,5 +1,5 @@
-import styled from '@emotion/styled'
 import Headroom from '@integreat-app/react-sticky-headroom'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode } from 'react'
 
 import dimensions from '../constants/dimensions'
@@ -23,22 +23,23 @@ type HeaderProps = {
   language: string
 }
 
-const HeaderContainer = styled.header`
+const HeaderContainer = styled('header')`
   display: flex;
   width: 100%;
   box-sizing: border-box;
-  background-color: ${props => props.theme.colors.backgroundAccentColor};
+  background-color: ${props => props.theme.legacy.colors.backgroundAccentColor};
   user-select: none;
   flex-direction: column;
   overflow: visible;
   box-shadow: 0 2px 5px -3px rgb(0 0 0 / 20%);
 
-  @media ${dimensions.minMaxWidth} {
-    padding-inline: calc((100vw - ${dimensions.maxWidth}px) / 2) calc((200% - 100vw - ${dimensions.maxWidth}px) / 2);
+  ${props => props.theme.breakpoints.up('lg')} {
+    padding-inline: calc((100vw - ${props => props.theme.breakpoints.values.lg}px) / 2)
+      calc((200% - 100vw - ${props => props.theme.breakpoints.values.lg}px) / 2);
   }
 `
 
-const Row = styled.div`
+const Row = styled('div')`
   display: flex;
   flex: 1;
   max-width: 100%;
@@ -47,8 +48,8 @@ const Row = styled.div`
   flex-direction: row;
   justify-content: space-between;
 
-  @media ${dimensions.smallViewport} {
-    background-color: ${props => props.theme.colors.backgroundAccentColor};
+  ${props => props.theme.breakpoints.down('md')} {
+    background-color: ${props => props.theme.legacy.colors.backgroundAccentColor};
     justify-content: space-between;
     flex-wrap: wrap;
     min-height: ${dimensions.headerHeightSmall}px;
@@ -56,20 +57,20 @@ const Row = styled.div`
   }
 `
 
-const HeaderSeparator = styled.div`
+const HeaderSeparator = styled('div')`
   align-self: center;
   height: ${dimensions.headerHeightLarge / 2}px;
   width: 2px;
   margin: 0 5px;
-  background-color: ${props => props.theme.colors.textDecorationColor};
+  background-color: ${props => props.theme.legacy.colors.textDecorationColor};
   order: 2;
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     display: none;
   }
 `
 
-const ActionBar = styled.nav`
+const ActionBar = styled('nav')`
   order: 3;
   display: flex;
   align-items: center;
@@ -77,19 +78,19 @@ const ActionBar = styled.nav`
   gap: 12px;
   padding: 0 16px;
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     order: 2;
   }
 `
 
-const NavigationBar = styled.nav`
+const NavigationBar = styled('nav')`
   display: flex;
   flex: 1 1 0;
   align-items: stretch;
   justify-content: center;
   gap: 24px;
 
-  @media ${dimensions.mediumLargeViewport} {
+  ${props => props.theme.breakpoints.up('md')} {
     padding: 0 10px;
   }
 `
@@ -114,7 +115,7 @@ export const Header = ({
   const scrollHeight = viewportSmall ? headerHeightSmall : headerHeightLarge
 
   return (
-    <Headroom scrollHeight={scrollHeight} height={height}>
+    <Headroom scrollHeight={scrollHeight} height={height} zIndex={2}>
       <HeaderContainer>
         <Row>
           <HeaderLogo link={logoHref} />

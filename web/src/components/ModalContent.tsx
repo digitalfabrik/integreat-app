@@ -1,25 +1,24 @@
 import { css } from '@emotion/react'
-import styled from '@emotion/styled'
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
+import CloseIcon from '@mui/icons-material/Close'
+import IconButton from '@mui/material/IconButton'
+import { styled, useTheme } from '@mui/material/styles'
 import React, { CSSProperties, ReactElement, ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ArrowBackIcon, CloseIcon } from '../assets'
-import Button from './base/Button'
-import Icon from './base/Icon'
+const Container = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  backgroundColor: theme.legacy.colors.backgroundColor,
+  fontFamily: theme.legacy.fonts.web.decorativeFont,
+}))
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  background-color: ${props => props.theme.colors.backgroundColor};
-  font-family: ${props => props.theme.fonts.web.decorativeFont};
-`
-
-const Header = styled.div<{ small: boolean }>`
+const Header = styled('div')<{ small: boolean }>`
   display: flex;
   padding: 16px;
   flex-direction: ${props => (props.small ? 'row-reverse' : 'row')};
   justify-content: space-between;
-  font-size: ${props => props.theme.fonts.subTitleFontSize};
+  font-size: ${props => props.theme.legacy.fonts.subTitleFontSize};
   font-weight: bold;
   align-items: center;
 
@@ -31,24 +30,13 @@ const Header = styled.div<{ small: boolean }>`
     `}
 `
 
-const CloseButton = styled(Button)`
-  background-color: transparent;
-`
-
-const StyledIcon = styled(Icon)`
-  width: 24px;
-  height: 24px;
-  align-self: center;
-  display: flex;
-`
-
-const TitleContainer = styled.div`
+const TitleContainer = styled('div')`
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   gap: 12px;
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
 `
 
 type ModalProps = {
@@ -62,6 +50,7 @@ type ModalProps = {
 
 const ModalContent = ({ title, icon, style, closeModal, children, small }: ModalProps): ReactElement => {
   const { t } = useTranslation('common')
+  const theme = useTheme()
 
   return (
     <Container style={style}>
@@ -70,9 +59,17 @@ const ModalContent = ({ title, icon, style, closeModal, children, small }: Modal
           {icon}
           <span>{title}</span>
         </TitleContainer>
-        <CloseButton label={t('close')} onClick={closeModal}>
-          <StyledIcon src={small ? ArrowBackIcon : CloseIcon} directionDependent />
-        </CloseButton>
+        <IconButton aria-label={t('close')} onClick={closeModal}>
+          {small ? (
+            <ArrowBackIosNewIcon
+              sx={{
+                transform: theme.direction === 'rtl' ? 'scaleX(-1)' : 'none',
+              }}
+            />
+          ) : (
+            <CloseIcon />
+          )}
+        </IconButton>
       </Header>
       {children}
     </Container>
