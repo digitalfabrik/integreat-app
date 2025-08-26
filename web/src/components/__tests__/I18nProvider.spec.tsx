@@ -31,7 +31,8 @@ describe('I18nProvider', () => {
     ${'ku'}          | ${undefined}    | ${'ku'}          | ${'Zanyariyên xwecihî'}
     ${'en'}          | ${'invalid'}    | ${'en'}          | ${'Lokale Informationen'}
     ${'zh-CN'}       | ${undefined}    | ${'zh-CN'}       | ${'本地信息'}
-    ${'zh-hans'}     | ${undefined}    | ${'zh-CN'}       | ${'本地信息'}
+    ${'zh-hans'}     | ${undefined}    | ${'zh'}          | ${'本地信息'}
+    ${'zh'}          | ${undefined}    | ${'zh'}          | ${'本地信息'}
     ${'de-DE'}       | ${undefined}    | ${'de'}          | ${'Lokale Informationen'}
   `(
     `should detect correct language and translation for detected $detectedLanguage and content language $contentLanguage`,

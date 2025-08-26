@@ -168,6 +168,7 @@ class Config {
     sr: ['sr-Cyrl'],
     'pt-br': ['pt'],
     'zh-hans': ['zh-CN'],
+    zh: ['zh-CN'],
     // Slugs from the CMS are (and have to be) lowercase
     'sr-cyrl': ['sr-Cyrl'],
     'sr-latn': ['sr-Latn'],
