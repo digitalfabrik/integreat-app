@@ -61,7 +61,6 @@ const PoiDetails = ({ poi, language, distance }: PoiDetailsProps): ReactElement 
         <StyledDistance>{t('distanceKilometre', { distance: distance.toFixed(1) })}</StyledDistance>
       )}
       <Thumbnail source={thumbnail} resizeMode='cover' />
-      <HorizontalLine />
       <PoiChips poi={poi} />
       <HorizontalLine />
       <AddressInfo location={poi.location} language={language} />
