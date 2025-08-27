@@ -174,7 +174,7 @@ platform :ios do
     puts("promoting #{build_config_name} v#{testflight_version} - #{testflight_build_number} to app store connect")
     puts("skip_screenshots: #{skip_screenshots}")
 
-    `yarn app-toolbelt v0 release-notes prepare-metadata #{build_config_name} appstore --override-version-name #{testflight_version}`
+    `yarn app-toolbelt v0 release-notes prepare-metadata #{build_config_name} appstore ../native/ios/fastlane/#{build_config_name}/metadata --override-version-name #{testflight_version}`
 
     # https://docs.fastlane.tools/actions/deliver/#submit-build
     deliver(

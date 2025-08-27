@@ -1,16 +1,14 @@
-import notifee, { EventType, AndroidImportance } from '@notifee/react-native'
+import notifee, { AndroidImportance, Event, EventType } from '@notifee/react-native'
 import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { useEffect } from 'react'
-import { Linking } from 'react-native'
 import { checkNotifications, requestNotifications, RESULTS } from 'react-native-permissions'
 
 import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NonNullableRouteInformationType } from 'shared'
 
-import { SnackbarType } from '../components/SnackbarContainer'
 import { RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import { AppContextType } from '../contexts/AppContextProvider'
-import urlFromRouteInformation from '../navigation/url'
+import { useAppContext } from '../hooks/useCityAppContext'
 import { log, reportError } from './sentry'
 
 type UpdateSettingsType = (settings: { allowPushNotifications: boolean }) => void
@@ -25,9 +23,6 @@ type Message = FirebaseMessagingTypes.RemoteMessage & {
 }
 
 const WAITING_TIME_FOR_CMS = 1000
-
-const importFirebaseMessaging = async (): Promise<() => FirebaseMessagingTypes.Module> =>
-  import('@react-native-firebase/messaging').then(firebase => firebase.default)
 
 export const pushNotificationsEnabled = (): boolean =>
   buildConfig().featureFlags.pushNotifications && !buildConfig().featureFlags.floss
@@ -60,12 +55,12 @@ export const unsubscribeNews = async (city: string, language: string): Promise<v
   const topic = newsTopic(city, language)
 
   try {
-    const messaging = await importFirebaseMessaging()
-    await messaging().unsubscribeFromTopic(topic)
+    const { getMessaging, unsubscribeFromTopic } = await import('@react-native-firebase/messaging')
+    await unsubscribeFromTopic(getMessaging(), topic)
+    log(`Unsubscribed from ${topic} topic!`)
   } catch (e) {
     reportError(e)
   }
-  log(`Unsubscribed from ${topic} topic!`)
 }
 
 type SubscribeNewsParams = {
@@ -89,12 +84,41 @@ export const subscribeNews = async ({
 
     const topic = newsTopic(cityCode, languageCode)
 
-    const messaging = await importFirebaseMessaging()
-    await messaging().subscribeToTopic(topic)
+    const { getMessaging, subscribeToTopic } = await import('@react-native-firebase/messaging')
+    await subscribeToTopic(getMessaging(), topic)
     log(`Subscribed to ${topic} topic!`)
   } catch (e) {
     reportError(e)
   }
+}
+
+const displayNotification = async (message: Message): Promise<void> => {
+  const androidChannelId = await notifee.createChannel({
+    id: buildConfig().appName,
+    name: buildConfig().appName,
+    importance: AndroidImportance.HIGH,
+  })
+
+  await notifee.displayNotification({
+    title: message.notification.title,
+    body: message.notification.body,
+    data: message.data,
+    android: {
+      smallIcon: buildConfig().notificationIcon,
+      color: buildConfig().legacyLightTheme.colors.themeColor,
+      channelId: androidChannelId,
+      importance: AndroidImportance.HIGH,
+    },
+  })
+}
+
+const pushNotificationListener = async () => {
+  const { getMessaging, onMessage, setBackgroundMessageHandler } = await import('@react-native-firebase/messaging')
+  // Foreground notifications
+  onMessage(getMessaging(), message => displayNotification(message as Message))
+  // It is not necessary to set a background message handler as the notification is automatically displayed by the OS
+  // Set one anyway to avoid the warning that no background message handler is set
+  setBackgroundMessageHandler(getMessaging(), async () => undefined)
 }
 
 const routeInformationFromMessage = (message: Message): NonNullableRouteInformationType => ({
@@ -104,91 +128,38 @@ const routeInformationFromMessage = (message: Message): NonNullableRouteInformat
   newsType: LOCAL_NEWS_TYPE,
   newsId: parseInt(message.data.news_id, 10),
 })
-const urlFromMessage = (message: Message): string => urlFromRouteInformation(routeInformationFromMessage(message))
 
-export const useForegroundPushNotificationListener = ({
-  showSnackbar,
-  navigate,
-}: {
-  showSnackbar: (snackbar: SnackbarType) => void
-  navigate: (route: RoutesType, params: Record<string, unknown>) => void
-}): void =>
-  useEffect(() => {
-    let mounted = true
-    importFirebaseMessaging().then(messaging =>
-      messaging().onMessage(async _message => {
-        const message = _message as Message
-        if (mounted) {
-          const androidChannelId = await notifee.createChannel({
-            id: buildConfig().appName,
-            name: buildConfig().appName,
-            importance: AndroidImportance.HIGH,
-          })
+const openMessage = (message: Message, navigate: (route: RoutesType, params: unknown) => void): void => {
+  // The CMS needs some time until the push notification is available in the API response
+  setTimeout(() => navigate(NEWS_ROUTE, routeInformationFromMessage(message)), WAITING_TIME_FOR_CMS)
+}
 
-          await notifee.displayNotification({
-            title: message.notification.title,
-            body: message.notification.body,
-            android: {
-              smallIcon: buildConfig().notificationIcon,
-              color: buildConfig().legacyLightTheme.colors.themeColor,
-              channelId: androidChannelId,
-              importance: AndroidImportance.HIGH,
-            },
-          })
-          notifee.onForegroundEvent(({ type }) => {
-            if (type === EventType.PRESS) {
-              // The CMS needs some time until the push notification is available in the API response
-              setTimeout(() => {
-                navigate(NEWS_ROUTE, routeInformationFromMessage(message))
-              }, WAITING_TIME_FOR_CMS)
-            }
-          })
-        }
-      }),
-    )
-    return () => {
-      mounted = false
-    }
-  }, [showSnackbar, navigate])
-
-export const quitAppStatePushNotificationListener = async (
-  navigateToDeepLink: (url: string) => void,
-): Promise<void> => {
-  const messaging = await importFirebaseMessaging()
-  const message = (await messaging().getInitialNotification()) as Message | null
-
-  if (message) {
-    // Use navigateToDeepLink instead of normal navigation to avoid navigation not being initialized
-    navigateToDeepLink(urlFromMessage(message))
+const notifeeEventHandler = ({ type, detail }: Event, navigate: (route: RoutesType, params: unknown) => void): void => {
+  if (type === EventType.PRESS) {
+    openMessage(detail.notification as Message, navigate)
   }
 }
 
-export const backgroundAppStatePushNotificationListener = (listener: (url: string) => void): (() => void) | void => {
-  if (pushNotificationsEnabled()) {
-    importFirebaseMessaging()
-      .then(messaging => {
-        const onReceiveURL = ({ url }: { url: string }) => listener(url)
-        const onReceiveURLListener = Linking.addListener('url', onReceiveURL)
-
-        const unsubscribeNotification = messaging().onNotificationOpenedApp(message =>
-          listener(urlFromMessage(message as Message)),
-        )
-
-        return () => {
-          onReceiveURLListener.remove()
-          unsubscribeNotification()
-        }
-      })
-      .catch(() => log('Failed to import firebase'))
+const pushNotificationPressListener = async (navigate: (route: RoutesType, params: unknown) => void) => {
+  const { getMessaging, onNotificationOpenedApp, getInitialNotification } = await import(
+    '@react-native-firebase/messaging'
+  )
+  // FCM quit state notifications
+  const initialMessage = await getInitialNotification(getMessaging())
+  if (initialMessage) {
+    openMessage(initialMessage as Message, navigate)
   }
-
-  return undefined
+  // FCM background notifications
+  onNotificationOpenedApp(getMessaging(), message => openMessage(message as Message, navigate))
+  // Notifee foreground notifications
+  notifee.onForegroundEvent(event => notifeeEventHandler(event, navigate))
+  notifee.onBackgroundEvent(async event => notifeeEventHandler(event, navigate))
 }
 
 // Since Android 13 and iOS 17 an explicit permission request is needed, otherwise push notifications are not received.
-// Therefore request the permissions once if not yet granted and subscribe to the current channel if successful.
+// Therefore, request the permissions once if not yet granted and subscribe to the current channel if successful.
 // See https://github.com/digitalfabrik/integreat-app/issues/2438 and https://github.com/digitalfabrik/integreat-app/issues/2655
-export const initialPushNotificationRequest = async (appContext: AppContextType): Promise<void> => {
+const initialPushNotificationRequest = async (appContext: AppContextType): Promise<void> => {
   const { cityCode, languageCode, settings, updateSettings } = appContext
   const { allowPushNotifications } = settings
 
@@ -199,4 +170,20 @@ export const initialPushNotificationRequest = async (appContext: AppContextType)
       await subscribeNews({ cityCode, languageCode, allowPushNotifications })
     }
   }
+}
+
+export const usePushNotificationListener = (navigate: (route: RoutesType, params: unknown) => void): void => {
+  const appContext = useAppContext()
+
+  useEffect(() => {
+    initialPushNotificationRequest(appContext).catch(reportError)
+  }, [appContext])
+
+  useEffect(() => {
+    pushNotificationListener().catch(reportError)
+  }, [])
+
+  useEffect(() => {
+    pushNotificationPressListener(navigate).catch(reportError)
+  }, [navigate])
 }

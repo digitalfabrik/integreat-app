@@ -1,0 +1,7 @@
+issue_key: 3171
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Fix various problems with push notifications.
+de: Verschiedene Probleme mit Push Nachrichten wurden behoben.

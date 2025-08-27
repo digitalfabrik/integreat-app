@@ -31,7 +31,8 @@ describe('I18nProvider', () => {
     ${'ku'}          | ${undefined}    | ${'ku'}          | ${'Zanyariyên xwecihî'}
     ${'en'}          | ${'invalid'}    | ${'en'}          | ${'Lokale Informationen'}
     ${'zh-CN'}       | ${undefined}    | ${'zh-CN'}       | ${'本地信息'}
-    ${'zh-hans'}     | ${undefined}    | ${'zh-CN'}       | ${'本地信息'}
+    ${'zh-hans'}     | ${undefined}    | ${'zh'}          | ${'本地信息'}
+    ${'zh'}          | ${undefined}    | ${'zh'}          | ${'本地信息'}
     ${'de-DE'}       | ${undefined}    | ${'de'}          | ${'Lokale Informationen'}
   `(
     `should detect correct language and translation for detected $detectedLanguage and content language $contentLanguage`,
@@ -127,6 +128,16 @@ describe('I18nProvider', () => {
       </I18nProvider>,
     )
     expect(await findByText('Lokale Informationen')).toBeTruthy()
+  })
+
+  it('should choose the default fallback for ui translations for fallback languages', async () => {
+    mockDetect.mockReturnValue(['zh'])
+    const { findByText } = render(
+      <I18nProvider contentLanguage={undefined}>
+        <Translation>{t => <p>{t('dashboard:events')}</p>}</Translation>
+      </I18nProvider>,
+    )
+    expect(await findByText('Veranstaltungen')).toBeTruthy()
   })
 
   it('should set document language', async () => {
