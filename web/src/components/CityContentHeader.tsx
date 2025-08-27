@@ -1,4 +1,5 @@
 import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined'
+import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined'
 import MapOutlinedIcon from '@mui/icons-material/MapOutlined'
 import NewspaperOutlinedIcon from '@mui/icons-material/NewspaperOutlined'
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined'
@@ -27,6 +28,8 @@ import HeaderActionItem from './HeaderActionItem'
 import HeaderNavigationItem, { HeaderNavigationItemProps } from './HeaderNavigationItem'
 import LanguageSelector from './LanguageSelector'
 import MobileLanguageSelector from './MobileLanguageSelector'
+import SidebarActionItem from './SidebarActionItem'
+import Link from './base/Link'
 
 type CityContentHeaderProps = {
   cityModel: CityModel
@@ -52,12 +55,15 @@ const CityContentHeader = ({
   const poisPath = pathnameFromRouteInformation({ route: POIS_ROUTE, ...params })
   const newsPath = pathnameFromRouteInformation({ route: NEWS_ROUTE, newsType, ...params })
   const searchPath = pathnameFromRouteInformation({ route: SEARCH_ROUTE, ...params })
+  const landingPath = pathnameFromRouteInformation({ route: LANDING_ROUTE, ...{ languageCode } })
 
   const { t } = useTranslation('layout')
 
-  const SearchLink = <HeaderActionItem key='search' to={searchPath} text={t('search')} icon={<SearchOutlinedIcon />} />
+  const SearchActionItem = (
+    <HeaderActionItem key='search' to={searchPath} text={t('search')} icon={<SearchOutlinedIcon />} />
+  )
 
-  const DesktopLanguageSelector = (
+  const DesktopLanguageSelectorActionItem = (
     <LanguageSelector
       key='language'
       languageChangePaths={languageChangePaths}
@@ -66,7 +72,7 @@ const CityContentHeader = ({
     />
   )
 
-  const MobileLanguageSelectorComponent = (
+  const MobileLanguageSelectorActionItem = (
     <MobileLanguageSelector
       key='mobileLanguageSelector'
       languageChangePaths={languageChangePaths}
@@ -75,11 +81,13 @@ const CityContentHeader = ({
   )
 
   const actionItems = viewportSmall
-    ? [SearchLink, MobileLanguageSelectorComponent]
-    : [SearchLink, DesktopLanguageSelector]
+    ? [SearchActionItem, MobileLanguageSelectorActionItem]
+    : [SearchActionItem, DesktopLanguageSelectorActionItem]
 
   const sidebarItems = [
-    <ContrastThemeToggle key='contrastTheme' />,
+    <Link key='location' to={landingPath}>
+      <SidebarActionItem text={t('changeLocation')} iconSrc={LocationOnOutlinedIcon} />
+    </Link>,
     <LanguageSelector
       key='language'
       languageChangePaths={languageChangePaths}
@@ -88,6 +96,7 @@ const CityContentHeader = ({
       inSidebarMenu
       closeSidebar={() => setIsSidebarOpen(false)}
     />,
+    <ContrastThemeToggle key='contrastTheme' />,
   ]
 
   const getNavigationItems = (): ReactElement<HeaderNavigationItemProps>[] => {

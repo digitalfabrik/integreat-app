@@ -19,9 +19,7 @@ const MobileLanguageSelector = ({ languageChangePaths, languageCode }: MobileLan
   const MobileLanguageButton = (
     <HeaderActionItem
       key='languageChange'
-      onClick={() => {
-        setIsLanguageSidebarOpen(true)
-      }}
+      onClick={() => setIsLanguageSidebarOpen(true)}
       text={t('changeLanguage')}
       icon={<TranslateOutlinedIcon />}
     />
@@ -37,23 +35,21 @@ const MobileLanguageSelector = ({ languageChangePaths, languageCode }: MobileLan
         }),
     ) ?? []
 
-  const languageSidebarItems = [
-    <HeaderLanguageSelectorItem
-      key='language'
-      selectorItems={selectorItems}
-      activeItemCode={languageCode}
-      inSidebarMenu
-      closeSidebar={() => setIsLanguageSidebarOpen(false)}
-      isOpen
-    />,
-  ]
-
   return (
     <>
       {MobileLanguageButton}
-      <SidebarMenu showButton={false} setShow={setIsLanguageSidebarOpen} show={isLanguageSidebarOpen} Footer={null}>
-        {languageSidebarItems}
-      </SidebarMenu>
+      {isLanguageSidebarOpen && (
+        <SidebarMenu showButton={false} setShow={setIsLanguageSidebarOpen} show={isLanguageSidebarOpen}>
+          <HeaderLanguageSelectorItem
+            key='language'
+            selectorItems={selectorItems}
+            activeItemCode={languageCode}
+            inSidebarMenu
+            closeSidebar={() => setIsLanguageSidebarOpen(false)}
+            isOpen
+          />
+        </SidebarMenu>
+      )}
     </>
   )
 }
