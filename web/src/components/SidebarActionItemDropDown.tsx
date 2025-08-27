@@ -39,9 +39,7 @@ const SidebarActionItemDropDown = ({
   const [dropDownActive, setDropDownActive] = useState(isOpen)
 
   const toggleDropDown = (): void => {
-    if (!isOpen) {
-      setDropDownActive(!dropDownActive)
-    }
+    setDropDownActive(!dropDownActive)
   }
 
   const closeDropDown = (): void => {
