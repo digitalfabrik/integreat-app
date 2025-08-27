@@ -1,7 +1,8 @@
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
 import Box from '@mui/material/Box'
 import MuiBreadcrumbs from '@mui/material/Breadcrumbs'
-import { styled } from '@mui/material/styles'
+import { styled, useTheme } from '@mui/material/styles'
+import useMediaQuery from '@mui/material/useMediaQuery'
 import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -39,7 +40,20 @@ const StyledMuiBreadcrumbs = styled(MuiBreadcrumbs)<{ length: number }>`
     }
   }
 
-  & li:nth-child(even) {
+  & li:nth-of-type(even) {
+    overflow: visible;
+    flex-shrink: 0;
+    min-width: 16px;
+  }
+
+  /* Collapsed MuiBreadcrumbs */
+  /* stylelint-disable-next-line selector-class-pattern */
+  & .MuiButtonBase-root {
+    justify-self: center;
+    margin-top: 5px;
+  }
+
+  & li:has([data-ellipsis]) {
     overflow: visible;
   }
 `
@@ -55,7 +69,7 @@ const StyledLink = styled(Link)`
   overflow: visible;
 `
 
-const Separator = styled('span')`
+const Separator = styled('div')`
   &::before {
     color: ${props => props.theme.legacy.colors.textColor};
     font-size: 19px;
@@ -63,7 +77,7 @@ const Separator = styled('span')`
   }
 `
 
-const StyledEllipsis = styled.span`
+const StyledEllipsis = styled('span')`
   white-space: nowrap;
 `
 
@@ -72,9 +86,10 @@ type BreadcrumbsProps = {
   currentBreadcrumb: BreadcrumbModel
 }
 
-const getLastBreadcrumbs = (
+const getBreadcrumbs = (
   ancestorBreadcrumbs: BreadcrumbModel[],
   currentBreadcrumb: BreadcrumbModel,
+  returnAllBreadcrumbs: boolean,
 ): BreadcrumbModel[] => {
   const allBreadcrumbs = [...ancestorBreadcrumbs, currentBreadcrumb]
   const breadCrumbsLimit = 3 // with home included
@@ -96,6 +111,10 @@ const getLastBreadcrumbs = (
     node: <StyledEllipsis>...</StyledEllipsis>,
   })
 
+  if (returnAllBreadcrumbs) {
+    return [home, ...rest]
+  }
+
   return [home, ellipsis, ...rest.slice(lastTwoCrumbs)]
 }
 
@@ -105,11 +124,19 @@ const Breadcrumbs = ({ ancestorBreadcrumbs, currentBreadcrumb }: BreadcrumbsProp
   // Min text length after which the last breadcrumb item should shrink
   const MIN_SHRINK_CHARS = 20
 
+  const theme = useTheme()
+  const isDesktop = useMediaQuery(theme.breakpoints.up('md'))
   return (
     <StyledBox>
       <JsonLdBreadcrumbs breadcrumbs={jsonLdBreadcrumbs} />
-      <StyledMuiBreadcrumbs length={ancestorBreadcrumbs.length} aria-label='breadcrumb' separator={<Separator />}>
-        {getLastBreadcrumbs(ancestorBreadcrumbs, currentBreadcrumb).map((breadcrumb, index, array) => {
+      <StyledMuiBreadcrumbs
+        length={ancestorBreadcrumbs.length}
+        aria-label='breadcrumb'
+        separator={<Separator />}
+        maxItems={isDesktop ? 2 : undefined}
+        itemsBeforeCollapse={isDesktop ? 1 : undefined}
+        itemsAfterCollapse={isDesktop ? 2 : undefined}>
+        {getBreadcrumbs(ancestorBreadcrumbs, currentBreadcrumb, isDesktop).map((breadcrumb, index, array) => {
           const isHome = array.length > 1 && index === 0
           const isLast = index === array.length - 1
 
@@ -122,7 +149,11 @@ const Breadcrumbs = ({ ancestorBreadcrumbs, currentBreadcrumb }: BreadcrumbsProp
           }
 
           if (breadcrumb.title === '...') {
-            return <StyledEllipsis key='ellipsis'>...</StyledEllipsis>
+            return (
+              <StyledEllipsis key='ellipsis' data-ellipsis>
+                ...
+              </StyledEllipsis>
+            )
           }
 
           return (
