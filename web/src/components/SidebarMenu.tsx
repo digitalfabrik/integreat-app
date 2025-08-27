@@ -10,10 +10,10 @@ import useLockedBody from '../hooks/useLockedBody'
 import Portal from './Portal'
 
 type SidebarProps = {
-  children?: ReactNode
+  children: ReactNode
   show: boolean
   setShow: (show: boolean) => void
-  Footer: ReactNode
+  Footer?: ReactNode
   showButton?: boolean
 }
 
@@ -89,10 +89,6 @@ const SidebarMenu = ({ children, show, setShow, Footer, showButton = true }: Sid
 
   const onClick = () => {
     setShow(!show)
-  }
-
-  if (children == null) {
-    return null
   }
 
   return (
