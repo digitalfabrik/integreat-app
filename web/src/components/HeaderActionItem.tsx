@@ -13,18 +13,27 @@ type HeaderActionItemLinkProps = {
 const HeaderActionItem = ({ to, text, icon, onClick }: HeaderActionItemLinkProps): ReactElement => {
   const theme = useTheme()
 
+  const Button = (
+    <IconButton
+      name={text}
+      onClick={onClick}
+      color='primary'
+      sx={{ backgroundColor: theme.palette.tertiary.light }}
+      size='medium'
+      aria-label={text}>
+      {icon}
+    </IconButton>
+  )
+
   return (
     <Tooltip title={text}>
-      <Link to={to ?? ''} ariaLabel={text} onClick={onClick}>
-        <IconButton
-          name={text}
-          color='primary'
-          sx={{ backgroundColor: theme.palette.tertiary.light }}
-          size='medium'
-          aria-label={text}>
-          {icon}
-        </IconButton>
-      </Link>
+      {to ? (
+        <Link to={to} ariaLabel={text}>
+          {Button}
+        </Link>
+      ) : (
+        Button
+      )}
     </Tooltip>
   )
 }

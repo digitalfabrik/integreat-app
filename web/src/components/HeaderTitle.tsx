@@ -16,8 +16,14 @@ const HeaderTitleContainer = styled(Typography)`
   display: flex;
   align-items: flex-start;
   max-height: ${dimensions.headerHeightLarge};
-  flex: 1;
+  margin-inline-end: auto;
   order: 2;
+
+  /* Used margin-inline-end to let Tooltip be in the center of the title and flex:1 for small screens. */
+  ${props => props.theme.breakpoints.down('sm')} {
+    margin-inline-end: 0;
+    flex: 1;
+  }
 `
 
 const titleStyles = ({ theme }: { theme: Theme }) => `
@@ -57,14 +63,14 @@ const HeaderTitle = ({ title, landingPath }: HeaderTitleProps): ReactElement => 
     )
   }
   return (
-    <HeaderTitleContainer variant={variant}>
-      <Tooltip id='location' title={t('changeLocation')}>
+    <Tooltip id='location' title={t('changeLocation')}>
+      <HeaderTitleContainer variant={variant}>
         <StyledLink to={landingPath}>
           {title}
           <KeyboardArrowDownIcon />
         </StyledLink>
-      </Tooltip>
-    </HeaderTitleContainer>
+      </HeaderTitleContainer>
+    </Tooltip>
   )
 }
 
