@@ -22,16 +22,16 @@ const StyledIcon = styled(Icon)`
   height: 24px;
 `
 
-type KebabActionItemProps = {
+type SidebarActionItemProps = {
   text: string
   iconSrc: string | ElementType<SvgIconProps>
 }
 
-const KebabActionItem = ({ text, iconSrc }: KebabActionItemProps): ReactElement => (
+const SidebarActionItem = ({ text, iconSrc }: SidebarActionItemProps): ReactElement => (
   <Container aria-label={text} dir='auto'>
     <StyledIcon src={iconSrc} />
     <span>{text}</span>
   </Container>
 )
 
-export default KebabActionItem
+export default SidebarActionItem

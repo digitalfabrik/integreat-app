@@ -1,10 +1,10 @@
+import styled from '@emotion/styled'
 import { SvgIconProps } from '@mui/material/SvgIcon'
-import { styled } from '@mui/material/styles'
 import React, { ElementType, ReactElement, ReactNode, useRef, useState } from 'react'
 
 import useOnClickOutside from '../hooks/useOnClickOutside'
 import DropDownContainer from './DropDownContainer'
-import KebabActionItem from './KebabActionItem'
+import SidebarActionItem from './SidebarActionItem'
 import Button from './base/Button'
 
 const StyledButton = styled(Button)`
@@ -12,15 +12,16 @@ const StyledButton = styled(Button)`
   flex: 1;
 `
 
-const Container = styled('div')`
+const Container = styled.div`
   display: flex;
 `
 
-type KebabActionItemDropDownProps = {
+type SidebarActionItemDropDownProps = {
   children: (closeDropDown: () => void) => ReactNode
   iconSrc: string | ElementType<SvgIconProps>
   text: string
   closeSidebar: () => void
+  isOpen?: boolean
 }
 
 /**
@@ -28,13 +29,14 @@ type KebabActionItemDropDownProps = {
  * Header. Once the user clicks outside, the node is hidden again. Additionally, the inner node gets a
  * closeDropDownCallback through its props to close the dropDown and hide itself.
  */
-const KebabActionItemDropDown = ({
+const SidebarActionItemDropDown = ({
   iconSrc,
   text,
   children,
   closeSidebar,
-}: KebabActionItemDropDownProps): ReactElement => {
-  const [dropDownActive, setDropDownActive] = useState(false)
+  isOpen = false,
+}: SidebarActionItemDropDownProps): ReactElement => {
+  const [dropDownActive, setDropDownActive] = useState(isOpen)
 
   const toggleDropDown = (): void => {
     setDropDownActive(!dropDownActive)
@@ -45,18 +47,22 @@ const KebabActionItemDropDown = ({
   }
 
   const onClickDropdownItem = (): void => {
-    closeDropDown()
+    if (!isOpen) {
+      closeDropDown()
+    }
     closeSidebar()
   }
 
   const wrapperRef = useRef(null)
-  useOnClickOutside(wrapperRef, closeDropDown)
+
+  useOnClickOutside(wrapperRef, isOpen ? () => undefined : closeDropDown)
 
   return (
     <Container ref={wrapperRef}>
       <StyledButton label={text} onClick={toggleDropDown}>
-        <KebabActionItem text={text} iconSrc={iconSrc} />
+        <SidebarActionItem text={text} iconSrc={iconSrc} />
       </StyledButton>
+
       <DropDownContainer
         data-testid='headerActionItemDropDown'
         active={dropDownActive}
@@ -68,4 +74,4 @@ const KebabActionItemDropDown = ({
   )
 }
 
-export default KebabActionItemDropDown
+export default SidebarActionItemDropDown

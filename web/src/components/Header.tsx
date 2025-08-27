@@ -1,6 +1,9 @@
 import Headroom from '@integreat-app/react-sticky-headroom'
+import Divider from '@mui/material/Divider'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode } from 'react'
+
+import { LANDING_ROUTE, pathnameFromRouteInformation } from 'shared'
 
 import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
@@ -8,13 +11,13 @@ import CityContentFooter from './CityContentFooter'
 import HeaderLogo from './HeaderLogo'
 import { HeaderNavigationItemProps } from './HeaderNavigationItem'
 import HeaderTitle from './HeaderTitle'
-import KebabMenu from './KebabMenu'
 import NavigationBarScrollContainer from './NavigationBarScrollContainer'
+import SidebarMenu from './SidebarMenu'
 
 type HeaderProps = {
   navigationItems: ReactElement<HeaderNavigationItemProps>[]
   actionItems: ReactNode[]
-  kebabItems: ReactNode[]
+  sidebarItems: ReactNode[]
   logoHref: string
   cityName?: string
   cityCode?: string
@@ -55,18 +58,8 @@ const Row = styled('div')`
     min-height: ${dimensions.headerHeightSmall}px;
     overflow-x: auto;
   }
-`
-
-const HeaderSeparator = styled('div')`
-  align-self: center;
-  height: ${dimensions.headerHeightLarge / 2}px;
-  width: 2px;
-  margin: 0 5px;
-  background-color: ${props => props.theme.legacy.colors.textDecorationColor};
-  order: 2;
-
-  ${props => props.theme.breakpoints.down('md')} {
-    display: none;
+  ${props => props.theme.breakpoints.up('md')} {
+    margin-inline-start: 80px;
   }
 `
 
@@ -76,9 +69,11 @@ const ActionBar = styled('nav')`
   align-items: center;
   justify-content: flex-end;
   gap: 12px;
-  padding: 0 16px;
+  padding: 0 12px;
 
   ${props => props.theme.breakpoints.down('md')} {
+    padding: 0 4px;
+    gap: 8px;
     order: 2;
   }
 `
@@ -97,7 +92,7 @@ const NavigationBar = styled('nav')`
 
 export const Header = ({
   actionItems = [],
-  kebabItems = [],
+  sidebarItems = [],
   logoHref,
   navigationItems = [],
   cityName,
@@ -113,23 +108,30 @@ export const Header = ({
     ? (1 + (hasNavigationBar ? 1 : 0)) * headerHeightSmall
     : (1 + (hasNavigationBar ? 1 : 0)) * headerHeightLarge
   const scrollHeight = viewportSmall ? headerHeightSmall : headerHeightLarge
+  const landingPath = pathnameFromRouteInformation({ route: LANDING_ROUTE, languageCode: language })
+
+  const sidebarContent = sidebarItems.map((item, index) => (
+    <React.Fragment key={`menu-item-${index + 1}`}>
+      {item}
+      {index < sidebarItems.length - 1 && <Divider />}
+    </React.Fragment>
+  ))
 
   return (
     <Headroom scrollHeight={scrollHeight} height={height} zIndex={2}>
       <HeaderContainer>
         <Row>
           <HeaderLogo link={logoHref} />
-          {!viewportSmall && !!cityName && <HeaderSeparator />}
-          {!!cityName && <HeaderTitle title={cityName} />}
+          {!!cityName && <HeaderTitle title={cityName} landingPath={landingPath} />}
           <ActionBar>
             {actionItems}
             {viewportSmall && setIsSidebarOpen && !!cityCode && (
-              <KebabMenu
+              <SidebarMenu
                 setShow={setIsSidebarOpen}
                 show={isSidebarOpen}
-                items={kebabItems}
-                Footer={<CityContentFooter city={cityCode} language={language} mode='sidebar' />}
-              />
+                Footer={<CityContentFooter city={cityCode} language={language} mode='sidebar' />}>
+                {sidebarContent}
+              </SidebarMenu>
             )}
           </ActionBar>
         </Row>

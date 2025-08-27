@@ -1,6 +1,5 @@
 import CloseIcon from '@mui/icons-material/Close'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
-import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode, useLayoutEffect, useState } from 'react'
@@ -10,16 +9,17 @@ import dimensions from '../constants/dimensions'
 import useLockedBody from '../hooks/useLockedBody'
 import Portal from './Portal'
 
-type KebabMenuProps = {
-  items: ReactNode[]
+type SidebarProps = {
+  children: ReactNode
   show: boolean
   setShow: (show: boolean) => void
-  Footer: ReactNode
+  Footer?: ReactNode
+  showButton?: boolean
 }
 
 const ToggleContainer = styled('div')`
   display: flex;
-  padding: 0 8px;
+  padding-right: 8px;
   z-index: 50;
 `
 
@@ -66,14 +66,17 @@ const Heading = styled('div')`
 const ActionBar = styled('nav')`
   display: flex;
   align-items: center;
-  padding: 0 16px;
 `
 
 const Content = styled('div')`
   padding: 0 32px;
 `
 
-const KebabMenu = ({ items, show, setShow, Footer }: KebabMenuProps): ReactElement | null => {
+const StyledIconButton = styled(IconButton)`
+  right: 4px;
+`
+
+const SidebarMenu = ({ children, show, setShow, Footer, showButton = true }: SidebarProps): ReactElement | null => {
   useLockedBody(show)
   const { t } = useTranslation('layout')
   const [scrollY, setScrollY] = useState<number>(0)
@@ -88,15 +91,15 @@ const KebabMenu = ({ items, show, setShow, Footer }: KebabMenuProps): ReactEleme
     setShow(!show)
   }
 
-  if (items.length === 0) {
-    return null
-  }
-
   return (
-    <ToggleContainer>
-      <IconButton onClick={onClick} aria-label={t('sideBarOpenAriaLabel')} aria-expanded={show}>
-        <MoreVertIcon />
-      </IconButton>
+    <>
+      {showButton && (
+        <ToggleContainer>
+          <IconButton onClick={onClick} aria-label={t('sideBarOpenAriaLabel')} aria-expanded={show}>
+            <MoreVertIcon />
+          </IconButton>
+        </ToggleContainer>
+      )}
       <Portal
         className='kebab-menu'
         show={show}
@@ -110,24 +113,17 @@ const KebabMenu = ({ items, show, setShow, Footer }: KebabMenuProps): ReactEleme
         <List>
           <Heading>
             <ActionBar>
-              <IconButton onClick={onClick} aria-label={t('sideBarCloseAriaLabel')}>
+              <StyledIconButton onClick={onClick} aria-label={t('sideBarCloseAriaLabel')}>
                 <CloseIcon />
-              </IconButton>
+              </StyledIconButton>
             </ActionBar>
           </Heading>
-          <Content>
-            {items.map((item, index) => (
-              <React.Fragment key={`menu-item-${index + 1}`}>
-                {item}
-                {index < items.length - 1 && <Divider />}
-              </React.Fragment>
-            ))}
-          </Content>
+          <Content>{children}</Content>
           {Footer}
         </List>
       </Portal>
-    </ToggleContainer>
+    </>
   )
 }
 
-export default KebabMenu
+export default SidebarMenu
