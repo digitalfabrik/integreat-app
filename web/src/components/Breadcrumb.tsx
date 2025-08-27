@@ -1,10 +1,12 @@
+import Link from '@mui/material/Link'
 import { styled } from '@mui/material/styles'
-import React, { ReactElement, ReactNode } from 'react'
+import React, { ReactElement } from 'react'
 
 import { helpers } from '../constants/theme'
 
 const SHRINK_FACTOR = 0.1
-const ListItem = styled('li')<{ shrink: boolean }>`
+const StyledTitle = styled('span')<{ shrink: boolean; isCurrent?: boolean }>`
+  display: list-item;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -14,35 +16,26 @@ const ListItem = styled('li')<{ shrink: boolean }>`
     flex-shrink: 1;
   }
 
-  & * {
-    ${helpers.removeLinkHighlighting}
-    color: ${props => props.theme.legacy.colors.textColor};
-    font-size: 16px;
-    margin: 0 2px;
-  }
-`
-
-const Separator = styled('span')`
-  &::before {
-    color: ${props => props.theme.legacy.colors.textColor};
-    font-size: 19px;
-    content: ' > ';
-  }
+  color: ${props => (props.isCurrent ? props.theme.palette.primary.main : props.theme.palette.text.secondary)};
+  margin: 0 2px;
 `
 
 type BreadcrumbProps = {
-  children: ReactNode
+  title: string
+  to?: string
   shrink: boolean
+  isCurrent?: boolean
 }
 
 /**
  * Displays breadcrumbs (Links) for lower category levels
  */
-const Breadcrumb = ({ children, shrink }: BreadcrumbProps): ReactElement => (
-  <ListItem shrink={shrink}>
-    <Separator aria-hidden />
-    {children}
-  </ListItem>
+const Breadcrumb = ({ title, to, shrink, isCurrent }: BreadcrumbProps): ReactElement => (
+  <Link css={helpers.removeLinkHighlighting} color='inherit' href={to}>
+    <StyledTitle shrink={shrink} isCurrent={isCurrent}>
+      {title}
+    </StyledTitle>
+  </Link>
 )
 
 export default Breadcrumb

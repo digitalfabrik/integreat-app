@@ -1,40 +1,60 @@
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
-import { styled } from '@mui/material/styles'
+import Box from '@mui/material/Box'
+import MuiBreadcrumbs from '@mui/material/Breadcrumbs'
+import { styled, useTheme } from '@mui/material/styles'
+import useMediaQuery from '@mui/material/useMediaQuery'
 import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
-
-import { UiDirectionType } from 'translations'
 
 import BreadcrumbModel from '../models/BreadcrumbModel'
 import Breadcrumb from './Breadcrumb'
 import JsonLdBreadcrumbs from './JsonLdBreadcrumbs'
 import Icon from './base/Icon'
 
-const opposite = (direction: UiDirectionType) => (direction === 'ltr' ? 'rtl' : 'ltr')
-
-const Wrapper = styled('nav')`
+const StyledBox = styled(Box)`
   margin: 10px 0;
-  text-align: start;
-  white-space: nowrap;
   overflow: hidden;
   width: 100%;
-  direction: ${props => opposite(props.theme.contentDirection)};
+  align-items: center;
 `
 
-const OrderedList = styled('ol')`
-  direction: ${props => props.theme.contentDirection};
-  display: flex;
-  white-space: nowrap;
-  overflow: hidden;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+const StyledMuiBreadcrumbs = styled(MuiBreadcrumbs)<{ length: number }>`
+  & ol {
+    flex-wrap: nowrap;
+    overflow: hidden;
+    align-items: flex-start;
+  }
 
-  /* avoid changing height when switching between pages (show one line even if there are no breadcrumbs) */
+  & li {
+    overflow: hidden;
 
-  &:empty::after {
-    padding-inline-start: 1px;
-    content: '';
+    &:first-of-type {
+      overflow: visible;
+    }
+
+    /* Shrink last breadcrumb item more if it has more than 2 items on small screens to make previous items more readable */
+    ${props => props.theme.breakpoints.down('sm')} {
+      &:last-of-type {
+        max-width: ${props => (props.length > 2 ? '100px' : 'none')};
+      }
+    }
+  }
+
+  & li:nth-of-type(even) {
+    overflow: visible;
+    flex-shrink: 0;
+    min-width: 16px;
+  }
+
+  /* Collapsed MuiBreadcrumbs */
+  /* stylelint-disable-next-line selector-class-pattern */
+  & .MuiButtonBase-root {
+    justify-self: center;
+    margin-top: 5px;
+  }
+
+  & li:has([data-ellipsis]) {
+    overflow: visible;
   }
 `
 
@@ -45,11 +65,57 @@ const StyledIcon = styled(Icon)`
 
 const StyledLink = styled(Link)`
   margin-inline-end: 4px;
+  flex-shrink: 0;
+  overflow: visible;
+`
+
+const Separator = styled('div')`
+  &::before {
+    color: ${props => props.theme.legacy.colors.textColor};
+    font-size: 19px;
+    content: ' > ';
+  }
+`
+
+const StyledEllipsis = styled('span')`
+  white-space: nowrap;
 `
 
 type BreadcrumbsProps = {
   ancestorBreadcrumbs: BreadcrumbModel[]
   currentBreadcrumb: BreadcrumbModel
+}
+
+const getBreadcrumbs = (
+  ancestorBreadcrumbs: BreadcrumbModel[],
+  currentBreadcrumb: BreadcrumbModel,
+  returnAllBreadcrumbs: boolean,
+): BreadcrumbModel[] => {
+  const allBreadcrumbs = [...ancestorBreadcrumbs, currentBreadcrumb]
+  const breadCrumbsLimit = 3 // with home included
+  const lastTwoCrumbs = -2
+
+  if (ancestorBreadcrumbs.length === 0) {
+    return []
+  }
+
+  if (allBreadcrumbs.length <= breadCrumbsLimit) {
+    return allBreadcrumbs
+  }
+
+  const home = allBreadcrumbs[0] as BreadcrumbModel
+  const rest = allBreadcrumbs.slice(1)
+  const ellipsis = new BreadcrumbModel({
+    title: '...',
+    pathname: '',
+    node: <StyledEllipsis>...</StyledEllipsis>,
+  })
+
+  if (returnAllBreadcrumbs) {
+    return [home, ...rest]
+  }
+
+  return [home, ellipsis, ...rest.slice(lastTwoCrumbs)]
 }
 
 const Breadcrumbs = ({ ancestorBreadcrumbs, currentBreadcrumb }: BreadcrumbsProps): ReactElement => {
@@ -58,29 +124,50 @@ const Breadcrumbs = ({ ancestorBreadcrumbs, currentBreadcrumb }: BreadcrumbsProp
   // Min text length after which the last breadcrumb item should shrink
   const MIN_SHRINK_CHARS = 20
 
-  /* We do some funky stuff with directions here. See this link for more information about the idea:
-   https://css-tricks.com/position-vertical-scrollbars-on-opposite-side-with-css/
-   Basically, we are inverting the direction on the wrapper and then making sure that the direction of the content
-   has the opposite direction of the wrapper. */
+  const theme = useTheme()
+  const isDesktop = useMediaQuery(theme.breakpoints.up('md'))
   return (
-    <Wrapper>
+    <StyledBox>
       <JsonLdBreadcrumbs breadcrumbs={jsonLdBreadcrumbs} />
-      <OrderedList>
-        {ancestorBreadcrumbs.map((breadcrumb, index) =>
-          ancestorBreadcrumbs.length > 1 && index === 0 ? (
-            <li key={breadcrumb.pathname}>
-              <StyledLink to={breadcrumb.pathname}>
+      <StyledMuiBreadcrumbs
+        length={ancestorBreadcrumbs.length}
+        aria-label='breadcrumb'
+        separator={<Separator />}
+        maxItems={isDesktop ? 2 : undefined}
+        itemsBeforeCollapse={isDesktop ? 1 : undefined}
+        itemsAfterCollapse={isDesktop ? 2 : undefined}>
+        {getBreadcrumbs(ancestorBreadcrumbs, currentBreadcrumb, isDesktop).map((breadcrumb, index, array) => {
+          const isHome = array.length > 1 && index === 0
+          const isLast = index === array.length - 1
+
+          if (isHome) {
+            return (
+              <StyledLink key={breadcrumb.pathname} to={breadcrumb.pathname}>
                 <StyledIcon src={HomeOutlinedIcon} title={breadcrumb.title} />
               </StyledLink>
-            </li>
-          ) : (
-            <Breadcrumb key={breadcrumb.title} shrink={breadcrumb.title.length >= MIN_SHRINK_CHARS}>
-              {breadcrumb.node}
-            </Breadcrumb>
-          ),
-        )}
-      </OrderedList>
-    </Wrapper>
+            )
+          }
+
+          if (breadcrumb.title === '...') {
+            return (
+              <StyledEllipsis key='ellipsis' data-ellipsis>
+                ...
+              </StyledEllipsis>
+            )
+          }
+
+          return (
+            <Breadcrumb
+              title={breadcrumb.title}
+              to={breadcrumb.pathname}
+              shrink={breadcrumb.title.length >= MIN_SHRINK_CHARS}
+              isCurrent={isLast}
+              key={breadcrumb.title}
+            />
+          )
+        })}
+      </StyledMuiBreadcrumbs>
+    </StyledBox>
   )
 }
 
