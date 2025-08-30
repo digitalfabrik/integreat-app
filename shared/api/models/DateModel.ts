@@ -96,8 +96,7 @@ class DateModel {
     return localRecurrenceRule
       .between(minDate, maxDate, true, (_, index) => index < count)
       .map(offsetDate => {
-        const actualDate = DateTime.fromJSDate(offsetDate).plus({ minutes: offsetDate.getTimezoneOffset() })
-
+        const actualDate = DateTime.fromJSDate(offsetDate, { zone: 'local' }).toUTC()
         if (this.allDay) {
           return new DateModel({
             allDay: true,
