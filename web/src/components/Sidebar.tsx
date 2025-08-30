@@ -15,7 +15,7 @@ const ToggleContainer = styled('div')`
   z-index: 50;
 `
 
-const List = styled('div')`
+const SidebarContainer = styled('div')`
   font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
   position: fixed;
   top: 0;
@@ -79,7 +79,7 @@ type SidebarProps = {
   OpenButton?: ReactElement
 }
 
-const SidebarMenu = ({ children, show, setShow, Footer, OpenButton }: SidebarProps): ReactElement | null => {
+const Sidebar = ({ children, show, setShow, Footer, OpenButton }: SidebarProps): ReactElement | null => {
   useLockedBody(show)
   const { t } = useTranslation('layout')
   const [scrollY, setScrollY] = useState<number>(0)
@@ -90,21 +90,17 @@ const SidebarMenu = ({ children, show, setShow, Footer, OpenButton }: SidebarPro
     }
   }, [show])
 
-  const onClick = () => {
-    setShow(!show)
-  }
-
   return (
     <>
       {OpenButton ?? (
         <ToggleContainer>
-          <IconButton onClick={onClick} aria-label={t('sideBarOpenAriaLabel')} aria-expanded={show}>
+          <IconButton onClick={() => setShow(!show)} aria-label={t('sideBarOpenAriaLabel')} aria-expanded={show}>
             <MoreVertIcon />
           </IconButton>
         </ToggleContainer>
       )}
       <Portal
-        className='kebab-menu'
+        className='sidebar'
         show={show}
         style={{
           display: show ? 'block' : 'none',
@@ -112,21 +108,21 @@ const SidebarMenu = ({ children, show, setShow, Footer, OpenButton }: SidebarPro
         }}>
         {/* disabled because this is an overlay for backdrop close */}
         {/* eslint-disable-next-line styled-components-a11y/no-static-element-interactions,styled-components-a11y/click-events-have-key-events */}
-        <Overlay onClick={onClick} show={show} />
-        <List>
+        <Overlay onClick={() => setShow(false)} show={show} />
+        <SidebarContainer>
           <Heading>
             <ActionBar>
-              <StyledIconButton onClick={onClick} aria-label={t('sideBarCloseAriaLabel')}>
+              <StyledIconButton onClick={() => setShow(false)} aria-label={t('sideBarCloseAriaLabel')}>
                 <CloseIcon />
               </StyledIconButton>
             </ActionBar>
           </Heading>
           <Content>{children}</Content>
           {Footer}
-        </List>
+        </SidebarContainer>
       </Portal>
     </>
   )
 }
 
-export default SidebarMenu
+export default Sidebar

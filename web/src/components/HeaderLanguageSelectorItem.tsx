@@ -6,7 +6,7 @@ import useWindowDimensions from '../hooks/useWindowDimensions'
 import Dropdown from './Dropdown'
 import HeaderActionItem from './HeaderActionItem'
 import LanguageSelector from './LanguageSelector'
-import SidebarMenu from './SidebarMenu'
+import Sidebar from './Sidebar'
 
 type HeaderLanguageSelectorItemProps = {
   languageChangePaths: { code: string; path: string | null; name: string }[] | null
@@ -35,14 +35,14 @@ const HeaderLanguageSelectorItem = ({
 
   if (viewportSmall) {
     return (
-      <SidebarMenu OpenButton={ChangeLanguageButton} setShow={setOpen} show={open}>
+      <Sidebar OpenButton={ChangeLanguageButton} setShow={setOpen} show={open}>
         <LanguageSelector
           languageChangePaths={languageChangePaths}
           languageCode={languageCode}
           close={() => setOpen(false)}
           vertical
         />
-      </SidebarMenu>
+      </Sidebar>
     )
   }
 
