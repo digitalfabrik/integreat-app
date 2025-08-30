@@ -2648,133 +2648,133 @@
   },
   "disclaimer": {
     "de": {
-      "pageTitle": "Impressum und Kontakt"
+      "pageTitle": "Impressum"
     },
     "am": {
-      "pageTitle": "ዕትም እና የግንኙነት መረጃ"
+      "pageTitle": "ዕትም"
     },
     "ar": {
-      "pageTitle": "هيئة التحرير وجهة الاتصال"
+      "pageTitle": "هيئة التحرير"
     },
     "bg": {
-      "pageTitle": "Импресум и контакт"
+      "pageTitle": "Импресум"
     },
     "ckb": {
-      "pageTitle": "زانیارییەکانی ناوەندی بڵاوکەرەوە و زانیارییەکانی پەیوەندی"
+      "pageTitle": "زانیارییەکانی ناوەندی بڵاوکەرەوە"
     },
     "cs": {
-      "pageTitle": "Impresum a kontakt"
+      "pageTitle": "Impresum"
     },
     "da": {
-      "pageTitle": "Kolofon og kontakt"
+      "pageTitle": "Kolofon"
     },
     "el": {
-      "pageTitle": "Στοιχεία έκδοσης και επικοινωνία"
+      "pageTitle": "Στοιχεία έκδοσης"
     },
     "en": {
-      "pageTitle": "Imprint and contacts"
+      "pageTitle": "Imprint"
     },
     "es": {
-      "pageTitle": "Aviso legal y contacto"
+      "pageTitle": "Aviso legal"
     },
     "fi": {
-      "pageTitle": "Julkaisu- ja yhteystiedot"
+      "pageTitle": "Julkaisutiedot"
     },
     "fr": {
-      "pageTitle": "Mentions légales et contact"
+      "pageTitle": "Mentions légales"
     },
     "hi": {
-      "pageTitle": "छाप और संपर्क"
+      "pageTitle": "छाप"
     },
     "hr": {
-      "pageTitle": "Impresum i kontakt"
+      "pageTitle": "Impresum"
     },
     "hu": {
-      "pageTitle": "Impresszum és elérhetőség"
+      "pageTitle": "Impresszum"
     },
     "id": {
-      "pageTitle": "Cetak dan kontak"
+      "pageTitle": "Cetak"
     },
     "it": {
-      "pageTitle": "Impressum e contatti"
+      "pageTitle": "Impressum"
     },
     "ka": {
-      "pageTitle": "მისამართი და საკონტაქტო ინფორმაცია"
+      "pageTitle": "მისამართი"
     },
     "kmr": {
-      "pageTitle": "Lêzanînên Weşîner û Têkillî"
+      "pageTitle": "Lêzanînên Weşîner"
     },
     "mk": {
-      "pageTitle": "Импресум и контакт"
+      "pageTitle": "Импресум"
     },
     "nl": {
-      "pageTitle": "Impressum en contactgegevens"
+      "pageTitle": "Impressum"
     },
     "orm": {
-      "pageTitle": "Ashaaraa fi quunnamtii"
+      "pageTitle": "Ashaaraa"
     },
     "pes": {
-      "pageTitle": "اطلاعات ناشر و تماس"
+      "pageTitle": "اطلاعات ناشر"
     },
     "pl": {
-      "pageTitle": "Nota prawna i kontakt"
+      "pageTitle": "Nota prawna"
     },
     "prs": {
-      "pageTitle": "معلومات ناشر و تماس"
+      "pageTitle": "معلومات ناشر"
     },
     "ps": {
-      "pageTitle": "چاپ او اړیکه"
+      "pageTitle": "چاپ کوونکی"
     },
     "pt": {
-      "pageTitle": "Pé de imprensa e contactos"
+      "pageTitle": "Pé de imprensa"
     },
     "ro": {
-      "pageTitle": "Caseta tehnică și contact"
+      "pageTitle": "Caseta tehnică"
     },
     "rom": {
-      "pageTitle": "Otpečatkoja thaj kontaktia"
+      "pageTitle": "Otpečatkoja"
     },
     "ru": {
-      "pageTitle": "Выходные данные и контактная информация"
+      "pageTitle": "Выходные данные"
     },
     "sk": {
-      "pageTitle": "Tiráž a kontakt"
+      "pageTitle": "Tiráž"
     },
     "so": {
-      "pageTitle": "Faahfaahinta qoraaga iyo macaluumaadkiisa xiriirka"
+      "pageTitle": "Faahfaahinta qoraaga"
     },
     "sq": {
-      "pageTitle": "Botuesi dhe kontakti"
+      "pageTitle": "Botuesi"
     },
     "sr-Cyrl": {
-      "pageTitle": "Импресум и контакт"
+      "pageTitle": "Импресум"
     },
     "sr-Latn": {
-      "pageTitle": "Impresum i kontakt"
+      "pageTitle": "Impresum"
     },
     "sw": {
-      "pageTitle": "Chapa na anwani"
+      "pageTitle": "Chapa"
     },
     "th": {
-      "pageTitle": "ข้อมูลการพิมพ์และการติดต่อ"
+      "pageTitle": "ข้อมูลการพิมพ์"
     },
     "ti": {
-      "pageTitle": "ናይ ደራሲ ዝርዝራት ሓበሬታን ናይ ርክብን"
+      "pageTitle": "ናይ ደራሲ ዝርዝራት"
     },
     "tr": {
-      "pageTitle": "Künye ve iletişim"
+      "pageTitle": "Künye"
     },
     "uk": {
-      "pageTitle": "Імпресум та контакт"
+      "pageTitle": "Імпресум"
     },
     "ur": {
-      "pageTitle": "چھاپ اور رابطہ"
+      "pageTitle": "چھاپ"
     },
     "vi": {
-      "pageTitle": "Thông tin xuất bản và liên hệ"
+      "pageTitle": "Thông tin xuất bản"
     },
     "zh-CN": {
-      "pageTitle": "版本说明和联系方式"
+      "pageTitle": "版本说明"
     }
   },
   "error": {
@@ -8507,7 +8507,7 @@
   },
   "layout": {
     "de": {
-      "imprintAndContact": "Impressum und Kontakt",
+      "imprint": "Impressum",
       "privacy": "Datenschutz",
       "localInformation": "Lokale Informationen",
       "events": "Veranstaltungen",
@@ -8548,7 +8548,7 @@
       "voiceUnavailableMessage": "Es wurde keine Stimme gefunden. Um die Vorlesefunktion nutzen zu können, muss eine Stimme installiert sein. Bitte beachten Sie die folgenden Anweisungen für Ihr Betriebssystem."
     },
     "am": {
-      "imprintAndContact": "ዕትም እና የግንኙነት መረጃ",
+      "imprint": "ዕትም",
       "privacy": "የግላዊነት ፖሊሲ",
       "localInformation": "አካባቢያዊ መረጃ",
       "events": "ዝግጅቶች",
@@ -8588,7 +8588,7 @@
       "voiceUnavailableMessage": "ምንም ድምፅ አልተገኘም። የማንበብ ተግባሩን ለመጠቀም ድምፅ መጫን አለበት። ለእርስዎ ሥርዓተ ክወና እባክዎ የሚከተሉትን መመሪያዎች ይከተሉ።"
     },
     "ar": {
-      "imprintAndContact": "هيئة التحرير وجهة الاتصال",
+      "imprint": "هيئة التحرير",
       "privacy": "حماية البيانات",
       "localInformation": "معلومات محلية",
       "events": "الفعاليات",
@@ -8628,7 +8628,7 @@
       "voiceUnavailableMessage": "لم يتم العثور على صوت. لاستخدام خاصية القراءة بصوت عالٍ، يجب تثبيت صوت. الرجاء الرجوع إلى التعليمات الخاصة بنظام التشغيل أدناه."
     },
     "bg": {
-      "imprintAndContact": "Импресум и контакт",
+      "imprint": "Импресум",
       "privacy": "Защита на личните данни",
       "localInformation": "Местна информация",
       "events": "Събития",
@@ -8668,7 +8668,7 @@
       "voiceUnavailableMessage": "Не беше намерен глас. За да се използва функцията за четене на глас, трябва да има инсталиран глас. Моля, обърнете внимание на следните инструкции за Вашата операционна система."
     },
     "ckb": {
-      "imprintAndContact": "زانیارییەکانی ناوەندی بڵاوکەرەوە و زانیارییەکانی پەیوەندی",
+      "imprint": "زانیارییەکانی ناوەندی بڵاوکەرەوە",
       "privacy": "پاراستنی دێیتاکان",
       "localInformation": "زانیارییە خۆجییەکان",
       "events": "ڕووداوەکان",
@@ -8708,7 +8708,7 @@
       "voiceUnavailableMessage": "هیچ دەنگێک نەدۆزراوەتەوە. بۆ بەکارهێنانی توانای خوێندنەوە دەبێت دەنگێک دابنرێت. تکایە ڕێنماییەکانی خوارەوە بۆ سیستەمی کارپێکردنەکەت پەیڕەو بکە."
     },
     "cs": {
-      "imprintAndContact": "Impresum a kontakt",
+      "imprint": "Impresum",
       "privacy": "Ochrana údajů",
       "localInformation": "Lokální informace",
       "events": "Akce",
@@ -8748,7 +8748,7 @@
       "voiceUnavailableMessage": "Žádný hlas nebyl nalezen. Pro použití funkce hlasitého čtení musí být nainstalován hlas. Vezměte prosím na vědomí následující pokyny pro váš operační systém."
     },
     "da": {
-      "imprintAndContact": "Kolofon og kontakt",
+      "imprint": "Kolofon",
       "privacy": "Beskyttelse af data",
       "localInformation": "Lokale oplysninger",
       "events": "Begivenheder",
@@ -8788,7 +8788,7 @@
       "voiceUnavailableMessage": "Der blev ikke fundet nogen stemme. Der skal være installeret en stemme for at kunne bruge højtlæsningsfunktionen. Vær opmærksom på følgende anvisninger for dit operativsystem."
     },
     "el": {
-      "imprintAndContact": "Στοιχεία έκδοσης και επικοινωνία",
+      "imprint": "Στοιχεία έκδοσης",
       "privacy": "Προστασία δεδομένων ",
       "localInformation": "Τοπικές πληροφορίες",
       "events": "Εκδηλώσεις",
@@ -8828,7 +8828,7 @@
       "voiceUnavailableMessage": "Δεν βρέθηκε φωνή. Για να χρησιμοποιήσετε τη λειτουργία ανάγνωσης πρέπει να εγκαταστήσετε μια φωνή. Λάβετε υπόψη τις ακόλουθες οδηγίες για το λειτουργικό σας σύστημα."
     },
     "en": {
-      "imprintAndContact": "Imprint and contacts",
+      "imprint": "Imprint",
       "privacy": "Data protection",
       "localInformation": "Local information",
       "events": "Events",
@@ -8869,7 +8869,7 @@
       "voiceUnavailableMessage": "No voice found. In order to use the read aloud functionality, a voice has to be installed. Please refer to the instructions for your operating system below."
     },
     "es": {
-      "imprintAndContact": "Aviso legal y contacto",
+      "imprint": "Aviso legal",
       "privacy": "Privacidad",
       "localInformation": "Información local",
       "events": "Actividades",
@@ -8909,7 +8909,7 @@
       "voiceUnavailableMessage": "No se encontró ninguna voz. Para utilizar la función de lectura en voz alta, es necesario tener instalada una voz. Ten en cuenta las siguientes instrucciones para tu sistema operativo."
     },
     "fi": {
-      "imprintAndContact": "Julkaisu- ja yhteystiedot",
+      "imprint": "Julkaisutiedot",
       "privacy": "Tietosuoja",
       "localInformation": "Paikalliset tiedot",
       "events": "Tapahtumat",
@@ -8949,7 +8949,7 @@
       "voiceUnavailableMessage": "Ääntä ei löytynyt. Äänen on oltava asennettuna, jotta voit käyttää ääneenlukutoimintoa. Ota huomioon seuraavat käyttöjärjestelmää koskevat ohjeet."
     },
     "fr": {
-      "imprintAndContact": "Mentions légales et contact",
+      "imprint": "Mentions légales",
       "privacy": "Protection des données",
       "localInformation": "Informations locales",
       "events": "Événements",
@@ -8989,7 +8989,7 @@
       "voiceUnavailableMessage": "Aucune voix n’a été trouvée. Pour pouvoir utiliser la fonction de lecture, une voix doit être installée. Veuillez suivre les instructions suivantes pour votre système d’exploitation."
     },
     "hi": {
-      "imprintAndContact": "छाप और संपर्क",
+      "imprint": "छाप",
       "privacy": "डेटा संरक्षण",
       "localInformation": "स्थानीय जानकारी",
       "events": "ईवेंट",
@@ -9029,7 +9029,7 @@
       "voiceUnavailableMessage": "कोई वॉइस नहीं मिली रीड अलाउड के फ़ंक्शन का उपयोग करने के लिए, वॉइस इंस्टॉल किया जाना जरूरी है। अपने ऑपरेटिंग सिस्टम के लिए नीचे दिए गए निर्देश देखें।"
     },
     "hr": {
-      "imprintAndContact": "Impresum i kontakt",
+      "imprint": "Impresum",
       "privacy": "Zaštita podataka",
       "localInformation": "Lokalne informacije",
       "events": "Događanja",
@@ -9069,7 +9069,7 @@
       "voiceUnavailableMessage": "Nije pronađen glas. Kako biste koristili funkciju čitanja, neophodno je da postoji instaliran glas. Obratite pažnju na sljedeće instrukcije za vaš operativni sustav."
     },
     "hu": {
-      "imprintAndContact": "Impresszum és elérhetőség",
+      "imprint": "Impresszum",
       "privacy": "Adatvédelem",
       "localInformation": "Helyi információk",
       "events": "Események",
@@ -9109,7 +9109,7 @@
       "voiceUnavailableMessage": "Nem található hang. A felolvasás funkciónak telepített hangra van szüksége. Tartsa be az operációs rendszerére vonatkozó utasításokat."
     },
     "id": {
-      "imprintAndContact": "Cetak dan kontak",
+      "imprint": "Cetak",
       "privacy": "Proteksi data",
       "localInformation": "Informasi lokal",
       "events": "Acara",
@@ -9150,7 +9150,7 @@
       "voiceUnavailableMessage": "Suara tidak ditemukan. Agar dapat menggunakan fungsi baca keras-keras, harus ada suara yang diinstal. Mengaculah ke buku panduan sistem operasi Anda di bawah ini."
     },
     "it": {
-      "imprintAndContact": "Impressum e contatti",
+      "imprint": "Impressum",
       "privacy": "Protezione dei dati",
       "localInformation": "Informazioni locali",
       "events": "Eventi",
@@ -9190,7 +9190,7 @@
       "voiceUnavailableMessage": "Non è stata trovata alcuna voce. Per utilizzare la funzione di lettura ad alta voce è necessario installare una voce. Tieni presente le seguenti istruzioni relative al tuo sistema operativo."
     },
     "ka": {
-      "imprintAndContact": "მისამართი და საკონტაქტო ინფორმაცია",
+      "imprint": "მისამართი",
       "privacy": "მონაცემთა დაცვა",
       "localInformation": "ადგილობრივი ინფორმაციები",
       "events": "ღონისძიებები",
@@ -9230,7 +9230,7 @@
       "voiceUnavailableMessage": "ხმა არ მოიძებნა. ხმამაღლა წაკითხვის ფუნქციის გამოსაყენებლად ხმა უნდა იყოს დაყენებული. ყურადღება მიაქციეთ შემდეგ მითითებებს თქვენს ოპერაციულ სისტემასთან დაკავშირებით."
     },
     "kmr": {
-      "imprintAndContact": "Lêzanînên Weşîner û Têkillî",
+      "imprint": "Lêzanînên Weşîner",
       "privacy": "Parastina daneyan",
       "localInformation": "Zanyariyên xwecihî",
       "events": "Rûdan",
@@ -9270,7 +9270,7 @@
       "voiceUnavailableMessage": "Ti dengek nehat dîtin Ji bo ku bikarî funksyona xwendinê bi kar bînî, divê deng were sazkirin. Ji kerema xwe destûrkarên xwarê ji bo pergala cihêner a xwe binivîsîne."
     },
     "mk": {
-      "imprintAndContact": "Импресум и контакт",
+      "imprint": "Импресум",
       "privacy": "Заштита на лични податоци",
       "localInformation": "Локални информации",
       "events": "Настани",
@@ -9310,7 +9310,7 @@
       "voiceUnavailableMessage": "Не е најден глас. За да ја користите функцијата за читање, мора да се инсталира глас. Следете ги упатствата подолу за вашиот оперативен систем."
     },
     "nl": {
-      "imprintAndContact": "Impressum en contactgegevens",
+      "imprint": "Impressum",
       "privacy": "Gegevensbescherming",
       "localInformation": "Lokale informatie",
       "events": "Evenementen",
@@ -9350,7 +9350,7 @@
       "voiceUnavailableMessage": "Er werd geen stem gevonden. Er moet een stem geïnstalleerd zijn om de voorleesfunctie te kunnen gebruiken. Neem de volgende instructies voor jouw besturingssysteem in acht."
     },
     "orm": {
-      "imprintAndContact": "Ashaaraa fi quunnamtii",
+      "imprint": "Ashaaraa",
       "privacy": "Eegumsa daataa",
       "localInformation": "Odeeffannoo naannoo",
       "events": "Sagantaalee",
@@ -9390,7 +9390,7 @@
       "voiceUnavailableMessage": "Sagaleen hin jiru.s Sagalee olguddisuu fayyadamuuf, sagaleen inistool ta’uu qaba. Qajeelfama ittiin hojjatan kan gajjalaa jiru ilaali."
     },
     "pes": {
-      "imprintAndContact": "اطلاعات ناشر و تماس",
+      "imprint": "اطلاعات ناشر",
       "privacy": "حفاظت از داده ها",
       "localInformation": "اطلاعات محلی",
       "events": "رویدادها",
@@ -9430,7 +9430,7 @@
       "voiceUnavailableMessage": "صدایی یافت نشد. برای استفاده از قابلیت خواندن، باید یک صدا نصب شود. لطفاً دستورالعمل‌های زیر را برای سیستم عامل خود دنبال کنید."
     },
     "pl": {
-      "imprintAndContact": "Nota prawna i kontakt",
+      "imprint": "Nota prawna",
       "privacy": "Ochrona danych",
       "localInformation": "Informacje lokalne",
       "events": "Wydarzenia",
@@ -9470,7 +9470,7 @@
       "voiceUnavailableMessage": "Nie znaleziono żadnego głosu. Aby korzystać z funkcji lektora, należy zainstalować głos. Zwróć uwagę na poniższe instrukcje dla Twojego systemu operacyjnego."
     },
     "prs": {
-      "imprintAndContact": "معلومات ناشر و تماس",
+      "imprint": "معلومات ناشر",
       "privacy": "حفاظت از داده ها",
       "localInformation": "معلومات محلی",
       "events": "رویدادها",
@@ -9510,7 +9510,7 @@
       "voiceUnavailableMessage": "صدایی پیدا نشد. برای استفاده از قابلیت خواندن، باید یک صدا نصب شود. لطفا هدایاتی ذیل را برای سیستم عامل خود دنبال کنید."
     },
     "ps": {
-      "imprintAndContact": "چاپ او اړیکه",
+      "imprint": "چاپ کوونکی",
       "privacy": "د ډاټا حفاظت",
       "localInformation": "سیمه ییز معلومات",
       "events": "غونډې",
@@ -9530,7 +9530,7 @@
       "cancel": "ختمول",
       "shareMessage": "همدا اوس پیدا شو: {{message}}",
       "shareFailDefaultMessage": "د منځپانګو شریکول له بده مرغه ناکام شول.",
-      "disclaimer": "چاپ کؤنکی",
+      "disclaimer": "چاپ کوونکی",
       "sideBarOpenAriaLabel": "د سايډبار پرانيستل",
       "sideBarCloseAriaLabel": "د سايډبار بندول",
       "openInApp": "په {{appName}} اپلیکیشن کې يې پرانیزئ",
@@ -9550,7 +9550,7 @@
       "voiceUnavailableMessage": "هیڅ غږ ونه موندل شو. د لوستلو ځانګړنې کارولو لپاره، یو غږ باید نصب شي. د مهربانۍ له مخې د خپل عملیاتي سیسټم لپاره لاندې لارښوونې تعقیب کړئ."
     },
     "pt": {
-      "imprintAndContact": "Pé de imprensa e contactos",
+      "imprint": "Pé de imprensa",
       "privacy": "Proteção de dados",
       "localInformation": "Informações locais",
       "events": "Eventos",
@@ -9590,7 +9590,7 @@
       "voiceUnavailableMessage": "Não encontraste nenhuma voz. Para utilizares a função de leitura em voz alta, tens de ter uma voz instalada. Tem em atenção as seguintes instruções para o teu sistema operativo."
     },
     "ro": {
-      "imprintAndContact": "Caseta tehnică și contact",
+      "imprint": "Caseta tehnică",
       "privacy": "Confidențialitate",
       "localInformation": "Informații locale",
       "events": "Evenimente",
@@ -9630,7 +9630,7 @@
       "voiceUnavailableMessage": "Nu a fost găsită nicio voce. Pentru a utiliza funcția de citire cu voce tare, trebuie instalată o voce. Vă rugăm să țineți cont de următoarele instrucțiuni pentru sistemul dvs. de operare."
     },
     "rom": {
-      "imprintAndContact": "Otpečatkoja thaj kontaktia",
+      "imprint": "Otpečatkoja",
       "privacy": "Arakhiba podatke",
       "localInformation": "Lokalnikane informacie",
       "events": "Čipote",
@@ -9670,7 +9670,7 @@
       "voiceUnavailableMessage": "Nane arakhlo avazi. Baši te labare o drabaripe ko glaso, valjani te čhive avazi. Molinaja tu te dikhe o instrukcie baši to sistemo tele."
     },
     "ru": {
-      "imprintAndContact": "Выходные данные и контактная информация",
+      "imprint": "Выходные данные",
       "privacy": "Защита данных",
       "localInformation": "Местная информация",
       "events": "Мероприятия",
@@ -9711,7 +9711,7 @@
       "voiceUnavailableMessage": "Голос не был обнаружен. Для использования функции чтения вслух необходимо установить голос. Обратите внимание на следующие инструкции для вашей операционной системы."
     },
     "sk": {
-      "imprintAndContact": "Tiráž a kontakt",
+      "imprint": "Tiráž",
       "privacy": "Ochrana osobných údajov",
       "localInformation": "Lokálne informácie",
       "events": "Podujatia",
@@ -9751,7 +9751,7 @@
       "voiceUnavailableMessage": "Žiadny hlas nebol nájdený. Ak chcete používať funkciu prečítania, musí byť nainštalovaný hlas. Zohľadnite, prosím, nasledujúce pokyny pre váš operačný systém."
     },
     "so": {
-      "imprintAndContact": "Faahfaahinta qoraaga iyo macaluumaadkiisa xiriirka",
+      "imprint": "Faahfaahinta qoraaga",
       "privacy": "Asturnaanta",
       "localInformation": "Macluumaadka deegaanka",
       "events": "Dhacdooyinka",
@@ -9791,7 +9791,7 @@
       "voiceUnavailableMessage": "Cod lama helin. Si aad u isticmaasho hawsha akhriska codka, cod waa in la rakibaa. Fadlan raac tilmaamaha soo socda ee nidaamkaaga hawlgalka."
     },
     "sq": {
-      "imprintAndContact": "Botuesi dhe kontakti",
+      "imprint": "Botuesi",
       "privacy": "Mbrojtja e të dhënave",
       "localInformation": "Informata lokale",
       "events": "Evenimentet",
@@ -9831,7 +9831,7 @@
       "voiceUnavailableMessage": "Nuk u gjet asnjë tingull. Për të përdorur funksionin e leximit duhet të instalohen tinguj. Ndiq udhëzimet e mëposhtme për sistemin tënd operativ."
     },
     "sr-Cyrl": {
-      "imprintAndContact": "Импресум и контакт",
+      "imprint": "Импресум",
       "privacy": "Заштита података",
       "localInformation": "Локалне информације",
       "events": "Догађаји",
@@ -9871,7 +9871,7 @@
       "voiceUnavailableMessage": "Није пронађен глас Да бисте користили функцију читања, неопходно је да постоји инсталиран глас. Обратите пажњу на следеће инструкције за ваш оперативни систем."
     },
     "sr-Latn": {
-      "imprintAndContact": "Impresum i kontakt",
+      "imprint": "Impresum",
       "privacy": "Zaštita podataka",
       "localInformation": "Lokalne informacije",
       "events": "Događaji",
@@ -9911,7 +9911,7 @@
       "voiceUnavailableMessage": "Nije pronađen glas. Da biste koristili funkciju čitanja, neophodno je da postoji instaliran glas. Obratite pažnju na sledeće instrukcije za vaš operativni sistem."
     },
     "sw": {
-      "imprintAndContact": "Chapa na anwani",
+      "imprint": "Chapa",
       "privacy": "Ulinzi wa data",
       "localInformation": "Habari za nchini",
       "events": "Matukio",
@@ -9951,7 +9951,7 @@
       "voiceUnavailableMessage": "Hakuna sauti iliyopatikana. Ili utumie kipengele cha kusoma kwa sauti, ni lazima uweke sauti. Tafadhali soma maagizo ya mfumo wako wa uendeshaji hapa chini."
     },
     "th": {
-      "imprintAndContact": "ข้อมูลการพิมพ์และการติดต่อ",
+      "imprint": "ข้อมูลการพิมพ์",
       "privacy": "การคุ้มครองข้อมูล",
       "localInformation": "ข้อมูลท้องถิ่น",
       "events": "กิจกรรม",
@@ -9991,7 +9991,7 @@
       "voiceUnavailableMessage": "ไม่พบเสียงใดๆ เพื่อใช้ฟังก์ชันการอ่านจะต้องติดตั้งเสียง โปรดปฏิบัติตามคำแนะนำด้านล่างนี้สำหรับระบบปฏิบัติการของคุณ"
     },
     "ti": {
-      "imprintAndContact": "ናይ ደራሲ ዝርዝራት ሓበሬታን ናይ ርክብን",
+      "imprint": "ናይ ደራሲ ዝርዝራት",
       "privacy": "ምስጢርነት",
       "localInformation": "ከባብያዊ ሓበሬታ",
       "events": "ኣጋጣሚታት",
@@ -10031,7 +10031,7 @@
       "voiceUnavailableMessage": "ዝኾነ ድምጺ ኣይተረኽበን። ነቲ ዓው ኢልካ ምንባብ ዝብል ተግባር ንምጥቃም፣ ድምጺ ክጸዓን ኣለዎ። በጃኹም ነቲ መምርሒታት ስርዓተ ምምሕዳርኩም ተኸተሉ።"
     },
     "tr": {
-      "imprintAndContact": "Künye ve iletişim",
+      "imprint": "Künye",
       "privacy": "Kişisel verilerin korunması",
       "localInformation": "Yerel bilgiler",
       "events": "Etkinlikler",
@@ -10071,7 +10071,7 @@
       "voiceUnavailableMessage": "Ses bulunamadı. Sesli okuma işlevini kullanabilmek için bir sesin yüklenmiş olması gerekir. Lütfen işletim sisteminiz için aşağıdaki talimatları dikkate alın."
     },
     "uk": {
-      "imprintAndContact": "Імпресум та контакт",
+      "imprint": "Імпресум",
       "privacy": "Захист даних",
       "localInformation": "Місцева інформація",
       "events": "Події",
@@ -10111,7 +10111,7 @@
       "voiceUnavailableMessage": "Голос не знайдено. Для використання функції читання вголос необхідно інсталювати голос. Зверніть увагу на наступні інструкції для вашої операційної системи."
     },
     "ur": {
-      "imprintAndContact": "چھاپ اور رابطہ",
+      "imprint": "چھاپ",
       "privacy": "ڈیٹا کا تحفظ",
       "localInformation": "مقامی معلومات",
       "events": "ایونٹس",
@@ -10151,7 +10151,7 @@
       "voiceUnavailableMessage": "کوئی آواز نہیں ملی۔ پڑھنے کے فنکشن کو استعمال کرنے کے لیے، آواز کو انسٹال کرنا ضروری ہے۔ براہ کرم اپنے آپریٹنگ سسٹم کے لیے نیچے دی گئی ہدایات پر عمل کریں۔"
     },
     "vi": {
-      "imprintAndContact": "Thông tin xuất bản và liên hệ",
+      "imprint": "Thông tin xuất bản",
       "privacy": "Bảo vệ dữ liệu",
       "localInformation": "Thông tin về địa phương",
       "events": "Sự kiện",
@@ -10191,7 +10191,7 @@
       "voiceUnavailableMessage": "Không tìm thấy giọng nói. Bạn cần cài đặt giọng nói để sử dụng chức năng đọc to. Vui lòng tham khảo hướng dẫn cho hệ điều hành của bạn bên dưới."
     },
     "zh-CN": {
-      "imprintAndContact": "版本说明和联系方式",
+      "imprint": "版本说明",
       "privacy": "数据保护",
       "localInformation": "本地信息",
       "events": "活动",
@@ -10450,133 +10450,133 @@
   },
   "mainDisclaimer": {
     "de": {
-      "pageTitle": "Impressum und Kontakt - {{appName}}"
+      "pageTitle": "Impressum - {{appName}}"
     },
     "am": {
-      "pageTitle": "ዕትም እና የግንኙነት መረጃ - {{appName}}"
+      "pageTitle": "ዕትም - {{appName}}"
     },
     "ar": {
-      "pageTitle": "هيئة التحرير وجهة الاتصال - {{appName}}"
+      "pageTitle": "هيئة التحرير - {{appName}}"
     },
     "bg": {
-      "pageTitle": "Импресум и контакт - {{appName}}"
+      "pageTitle": "Импресум - {{appName}}"
     },
     "ckb": {
-      "pageTitle": "زانیارییەکانی ناوەندی بڵاوکەرەوە و زانیارییەکانی پەیوەندی - {{appName}}"
+      "pageTitle": "زانیارییەکانی ناوەندی بڵاوکەرەوە - {{appName}}"
     },
     "cs": {
-      "pageTitle": "Impresum a kontakt - {{appName}}"
+      "pageTitle": "Impresum - {{appName}}"
     },
     "da": {
-      "pageTitle": "Kolofon og kontakt - {{appName}}"
+      "pageTitle": "Kolofon - {{appName}}"
     },
     "el": {
-      "pageTitle": "Στοιχεία έκδοσης και επικοινωνία"
+      "pageTitle": "Στοιχεία έκδοσης - {{appName}}"
     },
     "en": {
-      "pageTitle": "Imprint and contacts - {{appName}}"
+      "pageTitle": "Imprint - {{appName}}"
     },
     "es": {
-      "pageTitle": "Aviso legal y contacto - {{appName}}"
+      "pageTitle": "Aviso legal - {{appName}}"
     },
     "fi": {
-      "pageTitle": "Julkaisu- ja yhteystiedot – {{appName}}"
+      "pageTitle": "Julkaisutiedot – {{appName}}"
     },
     "fr": {
-      "pageTitle": "Mentions légales et contact - {{appName}}"
+      "pageTitle": "Mentions légales - {{appName}}"
     },
     "hi": {
-      "pageTitle": "छाप और संपर्क - {{appName}}"
+      "pageTitle": "छाप - {{appName}}"
     },
     "hr": {
-      "pageTitle": "Impresum i kontakt - {{appName}}"
+      "pageTitle": "Impresum - {{appName}}"
     },
     "hu": {
-      "pageTitle": "Impresszum és elérhetőség- {{appName}}"
+      "pageTitle": "Impresszum - {{appName}}"
     },
     "id": {
-      "pageTitle": "Cetak dan kontak - {{appName}}"
+      "pageTitle": "Cetak - {{appName}}"
     },
     "it": {
-      "pageTitle": "Impressum e contatti - {{appName}}"
+      "pageTitle": "Impressum - {{appName}}"
     },
     "ka": {
-      "pageTitle": "მისამართი და საკონტაქტო ინფორმაცია {{appName}}"
+      "pageTitle": "მისამართი - {{appName}}"
     },
     "kmr": {
-      "pageTitle": "Lêzanînên Weşanîner û Têkillî – '{{appName}}'"
+      "pageTitle": "Lêzanînên Weşanîner - {{appName}}"
     },
     "mk": {
-      "pageTitle": "Импресум и контакт - {{appName}}"
+      "pageTitle": "Импресум - {{appName}}"
     },
     "nl": {
-      "pageTitle": "Impressum en contactgegevens - {{appName}}"
+      "pageTitle": "Impressum - {{appName}}"
     },
     "orm": {
-      "pageTitle": "Ashaaraa fi qunnamtii - {{appName}}"
+      "pageTitle": "Ashaaraa - {{appName}}"
     },
     "pes": {
-      "pageTitle": "اطلاعات ناشر و تماس - {{appName}}"
+      "pageTitle": "اطلاعات ناشر - {{appName}}"
     },
     "pl": {
-      "pageTitle": "Nota prawna i kontakt - {{appName}}"
+      "pageTitle": "Nota prawna - {{appName}}"
     },
     "prs": {
-      "pageTitle": "معلومات ناشر و تماس - {{appName}}"
+      "pageTitle": "معلومات ناشر - {{appName}}"
     },
     "ps": {
-      "pageTitle": "چاپ کؤونکی او ا ړیکہ - {{appName}}"
+      "pageTitle": "چاپ کوونکی - {{appName}}"
     },
     "pt": {
-      "pageTitle": "Pé de imprensa e contactos — {{appName}}"
+      "pageTitle": "Pé de imprensa - {{appName}}"
     },
     "ro": {
-      "pageTitle": "Caseta tehnică și contact - {{appName}}"
+      "pageTitle": "Caseta tehnică - {{appName}}"
     },
     "rom": {
-      "pageTitle": "Otpečatkoja thaj kontaktia - {{appName}}"
+      "pageTitle": "Otpečatkoja - {{appName}}"
     },
     "ru": {
-      "pageTitle": "Выходные данные и контактная информация – {{appName}}"
+      "pageTitle": "Выходные данные - {{appName}}"
     },
     "sk": {
-      "pageTitle": "Tiráž a kontakt – {{appName}}"
+      "pageTitle": "Tiráž - {{appName}}"
     },
     "so": {
-      "pageTitle": "Faahfaahinta qoraaga iyo macaluumaadkiisa xiriirka - {{appName}}"
+      "pageTitle": "Faahfaahinta qoraaga - {{appName}}"
     },
     "sq": {
-      "pageTitle": "Botuesi dhe kontakti - {{appName}}"
+      "pageTitle": "Botuesi - {{appName}}"
     },
     "sr-Cyrl": {
-      "pageTitle": "Импресум и контакт - {{appName}}"
+      "pageTitle": "Импресум - {{appName}}"
     },
     "sr-Latn": {
-      "pageTitle": "Impresum i kontakt - {{appName}}"
+      "pageTitle": "Impresum - {{appName}}"
     },
     "sw": {
-      "pageTitle": "Chapa na anwani - {{appName}}"
+      "pageTitle": "Chapa - {{appName}}"
     },
     "th": {
-      "pageTitle": "ข้อมูลการพิมพ์และการติดต่อ - {{appName}}"
+      "pageTitle": "ข้อมูลการพิมพ์ - {{appName}}"
     },
     "ti": {
-      "pageTitle": "ናይ ደራሲ ዝርዝራት ሓበሬታን ናይ ርክብን - {{appName}}"
+      "pageTitle": "ናይ ደራሲ ዝርዝራት - {{appName}}"
     },
     "tr": {
-      "pageTitle": "Künye ve iletişim - {{appName}}"
+      "pageTitle": "Künye - {{appName}}"
     },
     "uk": {
-      "pageTitle": "Імпресум та контакт - {{appName}}"
+      "pageTitle": "Імпресум - {{appName}}"
     },
     "ur": {
-      "pageTitle": "چھاپ اور رابطہ - {{appName}}"
+      "pageTitle": "چھاپ - {{appName}}"
     },
     "vi": {
-      "pageTitle": "Thông tin xuất bản và liên hệ - {{appName}}"
+      "pageTitle": "Thông tin xuất bản - {{appName}}"
     },
     "zh-CN": {
-      "pageTitle": "版本说明和联系方式- {{appName}}"
+      "pageTitle": "版本说明 - {{appName}}"
     }
   },
   "malteHelpForm": {
