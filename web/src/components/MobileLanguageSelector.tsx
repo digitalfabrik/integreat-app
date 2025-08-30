@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import SelectorItemModel from '../models/SelectorItemModel'
 import HeaderActionItem from './HeaderActionItem'
-import HeaderLanguageSelectorItem from './HeaderLanguageSelectorItem'
+import Selector from './Selector'
 import SidebarMenu from './SidebarMenu'
 
 type MobileLanguageSelectorProps = {
@@ -14,12 +14,12 @@ type MobileLanguageSelectorProps = {
 
 const MobileLanguageSelector = ({ languageChangePaths, languageCode }: MobileLanguageSelectorProps): ReactElement => {
   const { t } = useTranslation('layout')
-  const [isLanguageSidebarOpen, setIsLanguageSidebarOpen] = useState(false)
+  const [open, setOpen] = useState(false)
 
   const MobileLanguageButton = (
     <HeaderActionItem
       key='languageChange'
-      onClick={() => setIsLanguageSidebarOpen(true)}
+      onClick={() => setOpen(true)}
       text={t('changeLanguage')}
       icon={<TranslateOutlinedIcon />}
     />
@@ -38,15 +38,14 @@ const MobileLanguageSelector = ({ languageChangePaths, languageCode }: MobileLan
   return (
     <>
       {MobileLanguageButton}
-      {isLanguageSidebarOpen && (
-        <SidebarMenu showButton={false} setShow={setIsLanguageSidebarOpen} show={isLanguageSidebarOpen}>
-          <HeaderLanguageSelectorItem
-            key='language'
-            selectorItems={selectorItems}
+      {open && (
+        <SidebarMenu showButton={false} setShow={setOpen} show={open}>
+          <Selector
+            closeDropDown={() => setOpen(false)}
+            verticalLayout={false}
+            items={selectorItems}
             activeItemCode={languageCode}
-            inSidebarMenu
-            closeSidebar={() => setIsLanguageSidebarOpen(false)}
-            isOpen
+            disabledItemTooltip={t('noTranslation')}
           />
         </SidebarMenu>
       )}

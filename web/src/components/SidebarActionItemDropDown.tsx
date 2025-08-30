@@ -21,7 +21,6 @@ type SidebarActionItemDropDownProps = {
   iconSrc: string | ElementType<SvgIconProps>
   text: string
   closeSidebar: () => void
-  isOpen?: boolean
 }
 
 /**
@@ -34,9 +33,8 @@ const SidebarActionItemDropDown = ({
   text,
   children,
   closeSidebar,
-  isOpen = false,
 }: SidebarActionItemDropDownProps): ReactElement => {
-  const [dropDownActive, setDropDownActive] = useState(isOpen)
+  const [dropDownActive, setDropDownActive] = useState(false)
 
   const toggleDropDown = (): void => {
     setDropDownActive(!dropDownActive)
@@ -47,15 +45,13 @@ const SidebarActionItemDropDown = ({
   }
 
   const onClickDropdownItem = (): void => {
-    if (!isOpen) {
-      closeDropDown()
-    }
+    closeDropDown()
     closeSidebar()
   }
 
   const wrapperRef = useRef(null)
 
-  useOnClickOutside(wrapperRef, isOpen ? () => undefined : closeDropDown)
+  useOnClickOutside(wrapperRef, closeDropDown)
 
   return (
     <Container ref={wrapperRef}>

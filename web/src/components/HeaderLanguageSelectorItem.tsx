@@ -20,7 +20,6 @@ const HeaderLanguageSelectorItem = ({
   activeItemCode,
   inSidebarMenu = false,
   closeSidebar,
-  isOpen = false,
 }: HeaderLanguageSelectorItemProps): ReactElement => {
   const { t } = useTranslation('layout')
 
@@ -36,11 +35,7 @@ const HeaderLanguageSelectorItem = ({
 
   if (inSidebarMenu && closeSidebar) {
     return (
-      <SidebarActionItemDropDown
-        iconSrc={TranslateOutlinedIcon}
-        text={t('changeLanguage')}
-        closeSidebar={closeSidebar}
-        isOpen={isOpen}>
+      <SidebarActionItemDropDown iconSrc={TranslateOutlinedIcon} text={t('changeLanguage')} closeSidebar={closeSidebar}>
         {renderItem}
       </SidebarActionItemDropDown>
     )

@@ -69,6 +69,9 @@ const ActionBar = styled('nav')`
 `
 
 const Content = styled('div')`
+  top: ${dimensions.headerHeightSmall}px;
+  height: calc(100% - ${dimensions.headerHeightSmall}px);
+  overflow: hidden auto;
   padding: 0 32px;
 `
 
