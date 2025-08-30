@@ -88,14 +88,6 @@ const CityContentHeader = ({
     <Link key='location' to={landingPath}>
       <SidebarActionItem text={t('changeLocation')} iconSrc={LocationOnOutlinedIcon} />
     </Link>,
-    <LanguageSelector
-      key='language'
-      languageChangePaths={languageChangePaths}
-      isHeaderActionItem
-      languageCode={languageCode}
-      inSidebarMenu
-      closeSidebar={() => setIsSidebarOpen(false)}
-    />,
     <ContrastThemeToggle key='contrastTheme' />,
   ]
 
