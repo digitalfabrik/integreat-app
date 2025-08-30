@@ -27,10 +27,10 @@ The `cities-meta.json` contains information about the last content update as wel
   "regensburg": {
     "languages": {
       "de": {
-        "last_update": "2019-08-12T00:03:19.457Z"
+        "lastUpdate": Luxon.DateTime
       }
     },
-    "last_usage": "2019-008-13T00:03:19.457Z"
+    "lastUsage": Luxon.DateTime
   }
 }
 ```
@@ -43,9 +43,29 @@ The `cities.json` contains information about all cities:
     "name": "Stadt Regensburg",
     "live": true,
     "code": "regensburg",
+    "languages": [
+      {
+        "code": "de",
+        "name": "Deutsch"
+      }
+    ],
     "prefix": "Stadt",
-    "events_enabled": true,
-    "sorting_name": "Regensburg"
+    "eventsEnabled": true,
+    "chatEnabled": false,
+    "chatPrivacyPolicyUrl": "https://privacy.org",
+    "poisEnabled": true,
+    "pushNotificationsEnabled": true,
+    "tunewsEnabled": false,
+    "sortingName": "Regensburg",
+    "longitude": 50,
+    "latitude": 40,
+    "aliases": {
+      "Regnesburg": {
+        "longitude": 50,
+        "latitude": 40
+      }
+    },
+    "boundingBox": [40, 60, 30, 50]
   }
 ]
 ```
@@ -64,8 +84,7 @@ The format of the files is:
   "en": {
     "/ahaus/en/everyday-life-and-free-time/donate-stock/": {
       "https://cms.integreat-app.de/altmuehlfranken/wp-content/uploads/sites/163/2017/11/calendar159-150x150.png": {
-        "file_path": "/data/user/0/com.integreat/cache/city/hash(path)/hash(url)extension(url)",
-        "last_update": "2011-02-04T00:00:00.000Z",
+        "filePath": "/data/user/0/com.integreat/cache/city/hash(path)/hash(url)extension(url)",
         "hash": "2f97435138745"
       }
     }
@@ -80,18 +99,29 @@ If an URL does not have an extension then `extension(url)` is an empty string. `
 ```json
 [
   {
+    "root": false,
     "path": "/ahaus/en/everyday-life-and-free-time/donate-stock/",
     "title": "Donate stock",
     "content": "<h1>This is a sample category</h1>",
-    "last_update": "2011-02-04T00:00:00.000Z",
+    "lastUpdate": Luxon.DateTime,
     "thumbnail": "https://cms.integreat-app.de/ahaus/wp-content/uploads/sites/20/2016/05/truck69b-150x150.png",
-    "available_languages": {
+    "availableLanguages": {
       "de": "/ahaus/de/alltag-und-freizeit/spendenlager/"
     },
-    "parent_path": "/ahaus/en/everyday-life-and-free-time/",
+    "parentPath": "/ahaus/en/everyday-life-and-free-time/",
     "children": ["/ahaus/de/alltag-und-freizeit/spendenlager/"],
     "order": 100,
-    "hash": "1ebd072de279a714f831526b1861d4ec"
+    "organization": {
+      "name": "Digitalfabrik",
+      "logo": "https://some.logo",
+      "url": "https://digitalfabrik.de"
+    },
+    "embeddedOffers": [{
+      "title": "Sprungbrett",
+      "alias": "",
+      "thumbnail": "https://another.logo",
+      "path": "/path/to/a/list/of/offers"
+    }]
   }
 ]
 ```
@@ -104,24 +134,55 @@ If an URL does not have an extension then `extension(url)` is an empty string. `
     "path": "/augsburg/en/events/event0",
     "title": "first Event",
     "content": "<h1>This is a sample event</h1>",
-    "last_update": "2019-10-01T04:07:35.659Z",
+    "lastUpdate": Luxon.DateTime,
     "thumbnail": "http://thumbnails/event_0.png",
-    "available_languages": {
+    "availableLanguages": {
       "de": "/augsburg/de/events/event0",
       "ar": "/augsburg/ar/events/event0"
     },
-    "hash": "93b885adfe0da089cdf634904fd59f71",
     "excerpt": "excerpt",
     "date": {
-      "start_date": "2020-03-01T00:00:00.000Z",
-      "end_date": "2020-03-01T05:07:35.659Z",
-      "all_day": false
+      "start": Luxon.DateTime,
+      "end": Luxon.DateTime,
+      "allDay": false,
+      "recurrenceRule": "DTSTART:20240116T090000\nRRULE:FREQ=WEEKLY;BYDAY=TU",
+      "offset": 60,
+      "onlyWeekdays": false
     },
     "location": {
+      "id": 1,
       "address": "address",
       "town": "town",
-      "postcode": "postcode"
-    }
+      "postcode": "postcode",
+      "latitude": 40,
+      "longitude": 50,
+      "country": "Germany",
+      "name": "Location"
+    },
+    "featuredImage": {
+      "description": "An image",
+      "thumbnail": {
+        "url": "https://thumbnail.test",
+        "width": 500,
+        "height": 300,
+      },
+      "medium": {
+        "url": "https://thumbnail.test",
+        "width": 500,
+        "height": 300,
+      },
+      "large": {
+        "url": "https://thumbnail.test",
+        "width": 500,
+        "height": 300,
+      },
+      "full": {
+        "url": "https://thumbnail.test",
+        "width": 500,
+        "height": 300,
+      },
+    },
+    "poiPath": "/path/to/poi"
   }
 ]
 ```
