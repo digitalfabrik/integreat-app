@@ -9,14 +9,6 @@ import dimensions from '../constants/dimensions'
 import useLockedBody from '../hooks/useLockedBody'
 import Portal from './Portal'
 
-type SidebarProps = {
-  children: ReactNode
-  show: boolean
-  setShow: (show: boolean) => void
-  Footer?: ReactNode
-  showButton?: boolean
-}
-
 const ToggleContainer = styled('div')`
   display: flex;
   padding-right: 8px;
@@ -79,7 +71,15 @@ const StyledIconButton = styled(IconButton)`
   right: 4px;
 `
 
-const SidebarMenu = ({ children, show, setShow, Footer, showButton = true }: SidebarProps): ReactElement | null => {
+type SidebarProps = {
+  children: ReactNode
+  show: boolean
+  setShow: (show: boolean) => void
+  Footer?: ReactNode
+  OpenButton?: ReactElement
+}
+
+const SidebarMenu = ({ children, show, setShow, Footer, OpenButton }: SidebarProps): ReactElement | null => {
   useLockedBody(show)
   const { t } = useTranslation('layout')
   const [scrollY, setScrollY] = useState<number>(0)
@@ -96,7 +96,7 @@ const SidebarMenu = ({ children, show, setShow, Footer, showButton = true }: Sid
 
   return (
     <>
-      {showButton && (
+      {OpenButton ?? (
         <ToggleContainer>
           <IconButton onClick={onClick} aria-label={t('sideBarOpenAriaLabel')} aria-expanded={show}>
             <MoreVertIcon />

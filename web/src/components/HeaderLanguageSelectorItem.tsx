@@ -12,7 +12,6 @@ type HeaderLanguageSelectorItemProps = {
   activeItemCode: string
   inSidebarMenu?: boolean
   closeSidebar?: () => void
-  isOpen?: boolean
 }
 
 const HeaderLanguageSelectorItem = ({

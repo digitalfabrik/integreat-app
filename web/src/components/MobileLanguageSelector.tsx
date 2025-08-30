@@ -16,15 +16,6 @@ const MobileLanguageSelector = ({ languageChangePaths, languageCode }: MobileLan
   const { t } = useTranslation('layout')
   const [open, setOpen] = useState(false)
 
-  const MobileLanguageButton = (
-    <HeaderActionItem
-      key='languageChange'
-      onClick={() => setOpen(true)}
-      text={t('changeLanguage')}
-      icon={<TranslateOutlinedIcon />}
-    />
-  )
-
   const selectorItems =
     languageChangePaths?.map(
       ({ code, name, path }) =>
@@ -35,21 +26,25 @@ const MobileLanguageSelector = ({ languageChangePaths, languageCode }: MobileLan
         }),
     ) ?? []
 
+  const ChangeLanguageButton = (
+    <HeaderActionItem
+      key='languageChange'
+      onClick={() => setOpen(true)}
+      text={t('changeLanguage')}
+      icon={<TranslateOutlinedIcon />}
+    />
+  )
+
   return (
-    <>
-      {MobileLanguageButton}
-      {open && (
-        <SidebarMenu showButton={false} setShow={setOpen} show={open}>
-          <Selector
-            closeDropDown={() => setOpen(false)}
-            verticalLayout={false}
-            items={selectorItems}
-            activeItemCode={languageCode}
-            disabledItemTooltip={t('noTranslation')}
-          />
-        </SidebarMenu>
-      )}
-    </>
+    <SidebarMenu OpenButton={ChangeLanguageButton} setShow={setOpen} show={open}>
+      <Selector
+        closeDropDown={() => setOpen(false)}
+        verticalLayout={false}
+        items={selectorItems}
+        activeItemCode={languageCode}
+        disabledItemTooltip={t('noTranslation')}
+      />
+    </SidebarMenu>
   )
 }
 
