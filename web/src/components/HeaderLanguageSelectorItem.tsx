@@ -3,8 +3,8 @@ import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import useWindowDimensions from '../hooks/useWindowDimensions'
+import Dropdown from './Dropdown'
 import HeaderActionItem from './HeaderActionItem'
-import HeaderActionItemDropDown from './HeaderActionItemDropDown'
 import LanguageSelector from './LanguageSelector'
 import SidebarMenu from './SidebarMenu'
 
@@ -21,16 +21,19 @@ const HeaderLanguageSelectorItem = ({
   const { viewportSmall } = useWindowDimensions()
   const { t } = useTranslation('layout')
 
-  if (viewportSmall) {
-    const ChangeLanguageButton = (
-      <HeaderActionItem
-        key='languageChange'
-        onClick={() => setOpen(true)}
-        text={t('changeLanguage')}
-        icon={<TranslateOutlinedIcon />}
-      />
-    )
+  const currentLanguageName = languageChangePaths?.find(item => item.code === languageCode)?.name
 
+  const ChangeLanguageButton = (
+    <HeaderActionItem
+      key='languageChange'
+      onClick={() => setOpen(open => !open)}
+      text={t('changeLanguage')}
+      icon={<TranslateOutlinedIcon />}
+      innerText={viewportSmall ? undefined : currentLanguageName}
+    />
+  )
+
+  if (viewportSmall) {
     return (
       <SidebarMenu OpenButton={ChangeLanguageButton} setShow={setOpen} show={open}>
         <LanguageSelector
@@ -44,19 +47,14 @@ const HeaderLanguageSelectorItem = ({
   }
 
   return (
-    <HeaderActionItemDropDown
-      icon={<TranslateOutlinedIcon />}
-      text={t('changeLanguage')}
-      innerText={languageChangePaths?.find(item => item.code === languageCode)?.name}>
-      {close => (
-        <LanguageSelector
-          languageChangePaths={languageChangePaths}
-          languageCode={languageCode}
-          vertical={false}
-          close={close}
-        />
-      )}
-    </HeaderActionItemDropDown>
+    <Dropdown ToggleButton={ChangeLanguageButton} setOpen={setOpen} open={open}>
+      <LanguageSelector
+        languageChangePaths={languageChangePaths}
+        languageCode={languageCode}
+        vertical={false}
+        close={() => setOpen(false)}
+      />
+    </Dropdown>
   )
 }
 
