@@ -25,8 +25,8 @@ import { LOCAL_NEWS_ROUTE, RouteType, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from
 import ContrastThemeToggle from './ContrastThemeToggle'
 import Header from './Header'
 import HeaderActionItem from './HeaderActionItem'
+import HeaderLanguageSelectorItem from './HeaderLanguageSelectorItem'
 import HeaderNavigationItem, { HeaderNavigationItemProps } from './HeaderNavigationItem'
-import LanguageSelector from './LanguageSelector'
 import MobileLanguageSelector from './MobileLanguageSelector'
 import SidebarActionItem from './SidebarActionItem'
 import Link from './base/Link'
@@ -64,12 +64,7 @@ const CityContentHeader = ({
   )
 
   const DesktopLanguageSelectorActionItem = (
-    <LanguageSelector
-      key='language'
-      languageChangePaths={languageChangePaths}
-      isHeaderActionItem
-      languageCode={languageCode}
-    />
+    <HeaderLanguageSelectorItem key='language' languageChangePaths={languageChangePaths} languageCode={languageCode} />
   )
 
   const MobileLanguageSelectorActionItem = (

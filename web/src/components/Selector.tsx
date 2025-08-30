@@ -64,7 +64,7 @@ const Wrapper = styled('div')<{ vertical: boolean }>`
 
 type SelectorProps = {
   verticalLayout: boolean
-  closeDropDown?: () => void
+  close?: () => void
   items: SelectorItemModel[]
   activeItemCode?: string
   disabledItemTooltip: string
@@ -74,7 +74,7 @@ const Selector = ({
   items,
   activeItemCode,
   verticalLayout,
-  closeDropDown,
+  close,
   disabledItemTooltip,
 }: SelectorProps): ReactElement => (
   <Wrapper vertical={verticalLayout}>
@@ -84,7 +84,7 @@ const Selector = ({
           key={item.code}
           to={item.href}
           aria-selected={item.code === activeItemCode}
-          onClick={closeDropDown ?? (() => undefined)}
+          onClick={close ?? (() => undefined)}
           selected={item.code === activeItemCode}>
           <BoldSpacer>{item.name}</BoldSpacer>
           {item.name}

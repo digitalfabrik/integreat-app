@@ -38,7 +38,7 @@ const MobileLanguageSelector = ({ languageChangePaths, languageCode }: MobileLan
   return (
     <SidebarMenu OpenButton={ChangeLanguageButton} setShow={setOpen} show={open}>
       <Selector
-        closeDropDown={() => setOpen(false)}
+        close={() => setOpen(false)}
         verticalLayout={false}
         items={selectorItems}
         activeItemCode={languageCode}

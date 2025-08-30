@@ -2,37 +2,33 @@ import TranslateOutlinedIcon from '@mui/icons-material/TranslateOutlined'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import SelectorItemModel from '../models/SelectorItemModel'
 import HeaderActionItemDropDown from './HeaderActionItemDropDown'
-import Selector from './Selector'
+import LanguageSelector from './LanguageSelector'
 
 type HeaderLanguageSelectorItemProps = {
-  selectorItems: SelectorItemModel[]
-  activeItemCode: string
+  languageChangePaths: { code: string; path: string | null; name: string }[] | null
+  languageCode: string
 }
 
 const HeaderLanguageSelectorItem = ({
-  selectorItems,
-  activeItemCode,
+  languageChangePaths,
+  languageCode,
 }: HeaderLanguageSelectorItemProps): ReactElement => {
   const { t } = useTranslation('layout')
-
-  const renderItem = (closeDropDown: () => void): ReactElement => (
-    <Selector
-      closeDropDown={closeDropDown}
-      verticalLayout={false}
-      items={selectorItems}
-      activeItemCode={activeItemCode}
-      disabledItemTooltip={t('noTranslation')}
-    />
-  )
 
   return (
     <HeaderActionItemDropDown
       icon={<TranslateOutlinedIcon />}
       text={t('changeLanguage')}
-      innerText={selectorItems.find(item => item.code === activeItemCode)?.name}>
-      {renderItem}
+      innerText={languageChangePaths?.find(item => item.code === languageCode)?.name}>
+      {close => (
+        <LanguageSelector
+          languageChangePaths={languageChangePaths}
+          languageCode={languageCode}
+          vertical={false}
+          close={close}
+        />
+      )}
     </HeaderActionItemDropDown>
   )
 }
