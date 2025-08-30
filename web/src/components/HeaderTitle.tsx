@@ -10,7 +10,6 @@ import dimensions from '../constants/dimensions'
 import Link from './base/Link'
 
 const LONG_TITLE_LENGTH = 25
-export const HEADER_TITLE_HEIGHT = 50
 
 const HeaderTitleContainer = styled(Typography)`
   display: flex;

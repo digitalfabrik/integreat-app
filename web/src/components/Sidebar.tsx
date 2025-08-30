@@ -9,21 +9,13 @@ import dimensions from '../constants/dimensions'
 import useLockedBody from '../hooks/useLockedBody'
 import Portal from './Portal'
 
-type SidebarProps = {
-  children: ReactNode
-  show: boolean
-  setShow: (show: boolean) => void
-  Footer?: ReactNode
-  showButton?: boolean
-}
-
 const ToggleContainer = styled('div')`
   display: flex;
   padding-right: 8px;
   z-index: 50;
 `
 
-const List = styled('div')`
+const SidebarContainer = styled('div')`
   font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
   position: fixed;
   top: 0;
@@ -69,6 +61,9 @@ const ActionBar = styled('nav')`
 `
 
 const Content = styled('div')`
+  top: ${dimensions.headerHeightSmall}px;
+  height: calc(100% - ${dimensions.headerHeightSmall}px);
+  overflow: hidden auto;
   padding: 0 32px;
 `
 
@@ -76,7 +71,15 @@ const StyledIconButton = styled(IconButton)`
   right: 4px;
 `
 
-const SidebarMenu = ({ children, show, setShow, Footer, showButton = true }: SidebarProps): ReactElement | null => {
+type SidebarProps = {
+  children: ReactNode
+  show: boolean
+  setShow: (show: boolean) => void
+  Footer?: ReactNode
+  OpenButton?: ReactElement
+}
+
+const Sidebar = ({ children, show, setShow, Footer, OpenButton }: SidebarProps): ReactElement | null => {
   useLockedBody(show)
   const { t } = useTranslation('layout')
   const [scrollY, setScrollY] = useState<number>(0)
@@ -87,21 +90,17 @@ const SidebarMenu = ({ children, show, setShow, Footer, showButton = true }: Sid
     }
   }, [show])
 
-  const onClick = () => {
-    setShow(!show)
-  }
-
   return (
     <>
-      {showButton && (
+      {OpenButton ?? (
         <ToggleContainer>
-          <IconButton onClick={onClick} aria-label={t('sideBarOpenAriaLabel')} aria-expanded={show}>
+          <IconButton onClick={() => setShow(!show)} aria-label={t('sideBarOpenAriaLabel')} aria-expanded={show}>
             <MoreVertIcon />
           </IconButton>
         </ToggleContainer>
       )}
       <Portal
-        className='kebab-menu'
+        className='sidebar'
         show={show}
         style={{
           display: show ? 'block' : 'none',
@@ -109,21 +108,21 @@ const SidebarMenu = ({ children, show, setShow, Footer, showButton = true }: Sid
         }}>
         {/* disabled because this is an overlay for backdrop close */}
         {/* eslint-disable-next-line styled-components-a11y/no-static-element-interactions,styled-components-a11y/click-events-have-key-events */}
-        <Overlay onClick={onClick} show={show} />
-        <List>
+        <Overlay onClick={() => setShow(false)} show={show} />
+        <SidebarContainer>
           <Heading>
             <ActionBar>
-              <StyledIconButton onClick={onClick} aria-label={t('sideBarCloseAriaLabel')}>
+              <StyledIconButton onClick={() => setShow(false)} aria-label={t('sideBarCloseAriaLabel')}>
                 <CloseIcon />
               </StyledIconButton>
             </ActionBar>
           </Heading>
           <Content>{children}</Content>
           {Footer}
-        </List>
+        </SidebarContainer>
       </Portal>
     </>
   )
 }
 
-export default SidebarMenu
+export default Sidebar
