@@ -9,15 +9,13 @@ type LanguageSelectorProps = {
   languageCode: string
   isHeaderActionItem: boolean
   languageChangePaths: { code: string; path: string | null; name: string }[] | null
-  inSidebarMenu?: boolean
-  closeSidebar?: () => void
 }
 
 /**
  * Displays a dropDown menu to handle changing of the language
  */
 const LanguageSelector = (props: LanguageSelectorProps): ReactElement => {
-  const { isHeaderActionItem, languageChangePaths, languageCode, inSidebarMenu = false, closeSidebar } = props
+  const { isHeaderActionItem, languageChangePaths, languageCode } = props
   const activeItemCode = languageCode
   const { t } = useTranslation('layout')
 
@@ -32,14 +30,7 @@ const LanguageSelector = (props: LanguageSelectorProps): ReactElement => {
     ) ?? []
 
   if (isHeaderActionItem) {
-    return (
-      <HeaderLanguageSelectorItem
-        selectorItems={selectorItems}
-        activeItemCode={activeItemCode}
-        inSidebarMenu={inSidebarMenu}
-        closeSidebar={closeSidebar}
-      />
-    )
+    return <HeaderLanguageSelectorItem selectorItems={selectorItems} activeItemCode={activeItemCode} />
   }
 
   const availableItems = selectorItems.filter(item => item.href !== null)

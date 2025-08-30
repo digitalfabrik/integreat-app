@@ -5,20 +5,15 @@ import { useTranslation } from 'react-i18next'
 import SelectorItemModel from '../models/SelectorItemModel'
 import HeaderActionItemDropDown from './HeaderActionItemDropDown'
 import Selector from './Selector'
-import SidebarActionItemDropDown from './SidebarActionItemDropDown'
 
 type HeaderLanguageSelectorItemProps = {
   selectorItems: SelectorItemModel[]
   activeItemCode: string
-  inSidebarMenu?: boolean
-  closeSidebar?: () => void
 }
 
 const HeaderLanguageSelectorItem = ({
   selectorItems,
   activeItemCode,
-  inSidebarMenu = false,
-  closeSidebar,
 }: HeaderLanguageSelectorItemProps): ReactElement => {
   const { t } = useTranslation('layout')
 
@@ -32,13 +27,6 @@ const HeaderLanguageSelectorItem = ({
     />
   )
 
-  if (inSidebarMenu && closeSidebar) {
-    return (
-      <SidebarActionItemDropDown iconSrc={TranslateOutlinedIcon} text={t('changeLanguage')} closeSidebar={closeSidebar}>
-        {renderItem}
-      </SidebarActionItemDropDown>
-    )
-  }
   return (
     <HeaderActionItemDropDown
       icon={<TranslateOutlinedIcon />}
