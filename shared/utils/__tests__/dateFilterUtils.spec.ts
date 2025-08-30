@@ -40,6 +40,7 @@ describe('isEventWithinRange', () => {
       endDate,
       allDay: false,
       recurrenceRule: recurrenceRule ? rrulestr(recurrenceRule) : null,
+      onlyWeekdays: false,
     })
 
     return new EventModel({

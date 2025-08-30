@@ -15,6 +15,7 @@ describe('formatEventDate', () => {
       endDate: DateTime.fromISO('2025-08-29T13:00:00+02:00'),
       allDay: false,
       recurrenceRule: null,
+      onlyWeekdays: false,
     })
     expect(formatEventDate(date)).toStrictEqual([
       {
@@ -31,6 +32,7 @@ describe('formatEventDate', () => {
       endDate: DateTime.fromISO('2025-09-03T23:59:00+02:00'),
       allDay: true,
       recurrenceRule: null,
+      onlyWeekdays: false,
     })
     expect(formatEventDate(date)).toStrictEqual([
       {
@@ -47,6 +49,7 @@ describe('formatEventDate', () => {
       endDate: DateTime.fromISO('2025-08-20T09:30:00+02:00'),
       allDay: false,
       recurrenceRule: rrulestr('DTSTART:20250820T070000\nRRULE:FREQ=WEEKLY;UNTIL=20261031T235959;BYDAY=WE,FR'),
+      onlyWeekdays: false,
     })
     expect(formatEventDate(date)).toStrictEqual([
       {
@@ -63,6 +66,7 @@ describe('formatEventDate', () => {
       endDate: DateTime.fromISO('2025-08-18T19:00:00+02:00'),
       allDay: false,
       recurrenceRule: rrulestr('DTSTART:20250818T160000\nRRULE:FREQ=WEEKLY;BYDAY=MO'),
+      onlyWeekdays: false,
     })
     expect(formatEventDate(date)).toStrictEqual([
       {
@@ -79,6 +83,7 @@ describe('formatEventDate', () => {
       endDate: DateTime.fromISO('2025-08-20T15:00:00+02:00'),
       allDay: false,
       recurrenceRule: rrulestr('DTSTART:20250820T110000\nRRULE:FREQ=MONTHLY;UNTIL=20251130T235959;BYDAY=+4WE'),
+      onlyWeekdays: false,
     })
     expect(formatEventDate(date)).toStrictEqual([
       {
@@ -110,6 +115,7 @@ describe('formatEventDate', () => {
       endDate: DateTime.fromISO('2025-08-20T15:00:00+02:00'),
       allDay: false,
       recurrenceRule: rrulestr('DTSTART:20250820T110000\nRRULE:FREQ=MONTHLY;BYDAY=+4WE'),
+      onlyWeekdays: false,
     })
     expect(formatEventDate(date)).toStrictEqual([
       {
@@ -148,6 +154,7 @@ describe('formatEventDate', () => {
       recurrenceRule: rrulestr(
         'DTSTART:20250820T080000\nRRULE:FREQ=YEARLY;UNTIL=20260831T235959;BYMONTH=8;BYMONTHDAY=20',
       ),
+      onlyWeekdays: false,
     })
     expect(formatEventDate(date)).toStrictEqual([
       {
@@ -169,6 +176,7 @@ describe('formatEventDate', () => {
       endDate: DateTime.fromISO('2025-08-20T12:00:00+02:00'),
       allDay: false,
       recurrenceRule: rrulestr('DTSTART:20250820T080000\nRRULE:FREQ=YEARLY;BYMONTH=8;BYMONTHDAY=20'),
+      onlyWeekdays: false,
     })
     expect(formatEventDate(date)).toStrictEqual([
       {
@@ -205,6 +213,7 @@ describe('formatEventDate', () => {
       endDate: DateTime.fromISO('2025-08-29T23:59:00+02:00'),
       allDay: true,
       recurrenceRule: null,
+      onlyWeekdays: false,
     })
     expect(formatEventDate(date)).toStrictEqual({
       date: '18. August 2025 - 29. August 2025',
@@ -220,6 +229,7 @@ describe('formatEventDate', () => {
       endDate: DateTime.fromISO('2025-08-29T15:00:00+02:00'),
       allDay: false,
       recurrenceRule: null,
+      onlyWeekdays: true,
     })
     expect(formatEventDate(date)).toStrictEqual([
       {

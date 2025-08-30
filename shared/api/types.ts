@@ -52,7 +52,7 @@ type JsonEventInfoType = {
   start: string
   end: string
   all_day: boolean
-  recurrence_id: string | null | undefined
+  only_weekdays: boolean
 }
 
 export type OrganizationType = {

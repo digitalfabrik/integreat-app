@@ -14,6 +14,7 @@ class DateModel {
   _recurrenceRule: RRuleType | null
   _offset: number
   _duration: Duration
+  _onlyWeekdays: boolean
 
   constructor({
     startDate,
@@ -21,12 +22,14 @@ class DateModel {
     allDay,
     recurrenceRule,
     offset,
+    onlyWeekdays,
   }: {
     startDate: DateTime
     endDate: DateTime
     allDay: boolean
     recurrenceRule: RRuleType | null
     offset?: number
+    onlyWeekdays: boolean
   }) {
     this._recurrenceRule = recurrenceRule
     this._offset = offset ?? startDate.offset
@@ -34,6 +37,7 @@ class DateModel {
     this._duration = endDate.diff(startDate)
     this._startDate = startDate
     this._endDate = endDate
+    this._onlyWeekdays = onlyWeekdays
   }
 
   // This should only be called on recurrences as start dates are not updated in the CMS
@@ -58,6 +62,10 @@ class DateModel {
 
   get offset(): number {
     return this._offset
+  }
+
+  get onlyWeekdays(): boolean {
+    return this._onlyWeekdays
   }
 
   get isToday(): boolean {
@@ -97,6 +105,7 @@ class DateModel {
           endDate: actualDate.plus(duration),
           recurrenceRule: this.recurrenceRule,
           offset: this.offset,
+          onlyWeekdays: this.onlyWeekdays,
         })
       })
   }

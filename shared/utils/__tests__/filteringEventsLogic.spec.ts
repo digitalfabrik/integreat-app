@@ -33,6 +33,7 @@ describe('filteringEventsLogic', () => {
       endDate,
       allDay: false,
       recurrenceRule: null,
+      onlyWeekdays: false,
     })
 
     return new EventModel({

@@ -31,6 +31,7 @@ describe('EventListItem', () => {
           endDate: DateTime.fromISO('2023-10-10T09:00:00.000+02:00'),
           allDay: false,
           recurrenceRule: rrule ? rrulestr(rrule) : null,
+          onlyWeekdays: false,
         }),
       })
 
