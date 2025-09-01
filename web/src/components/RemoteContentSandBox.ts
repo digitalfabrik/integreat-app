@@ -75,11 +75,6 @@ const RemoteContentSandBox = styled('div')<{ centered: boolean; smallText: boole
 
   details > * {
     padding: 0 8px;
-    user-select: text;
-  }
-
-  details {
-    user-select: none;
   }
 
   details > img {
