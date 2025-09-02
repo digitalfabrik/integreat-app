@@ -40,7 +40,8 @@ const ScrollingSearchBox = ({
         pinStart={node.current?.offsetTop ?? 0}
         scrollHeight={searchBarHeight}
         height={searchBarHeight}
-        onStickyTopChanged={onStickyTopChanged}>
+        onStickyTopChanged={onStickyTopChanged}
+        zIndex={2}>
         <SearchInput
           filterText={filterText}
           placeholderText={placeholderText}
