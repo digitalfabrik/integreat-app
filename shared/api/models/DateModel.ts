@@ -111,7 +111,7 @@ class DateModel {
           startDate: actualDate,
           endDate: actualDate.plus(duration),
           recurrenceRule: this.recurrenceRule,
-          offset: this.offset,
+          offset: actualDate.offset,
         })
       })
   }
