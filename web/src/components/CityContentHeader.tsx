@@ -20,14 +20,12 @@ import {
 import { CityModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
-import useWindowDimensions from '../hooks/useWindowDimensions'
 import { LOCAL_NEWS_ROUTE, RouteType, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from '../routes'
 import ContrastThemeToggle from './ContrastThemeToggle'
 import Header from './Header'
 import HeaderActionItem from './HeaderActionItem'
+import HeaderLanguageSelectorItem from './HeaderLanguageSelectorItem'
 import HeaderNavigationItem, { HeaderNavigationItemProps } from './HeaderNavigationItem'
-import LanguageSelector from './LanguageSelector'
-import MobileLanguageSelector from './MobileLanguageSelector'
 import SidebarActionItem from './SidebarActionItem'
 import Link from './base/Link'
 
@@ -44,7 +42,6 @@ const CityContentHeader = ({
   languageChangePaths,
   route,
 }: CityContentHeaderProps): ReactElement => {
-  const { viewportSmall } = useWindowDimensions()
   const { eventsEnabled, poisEnabled, tunewsEnabled, localNewsEnabled } = cityModel
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
@@ -63,39 +60,20 @@ const CityContentHeader = ({
     <HeaderActionItem key='search' to={searchPath} text={t('search')} icon={<SearchOutlinedIcon />} />
   )
 
-  const DesktopLanguageSelectorActionItem = (
-    <LanguageSelector
-      key='language'
-      languageChangePaths={languageChangePaths}
-      isHeaderActionItem
-      languageCode={languageCode}
-    />
-  )
-
-  const MobileLanguageSelectorActionItem = (
-    <MobileLanguageSelector
-      key='mobileLanguageSelector'
+  const LanguageSelectorActionItem = (
+    <HeaderLanguageSelectorItem
+      key='languageChange'
       languageChangePaths={languageChangePaths}
       languageCode={languageCode}
     />
   )
 
-  const actionItems = viewportSmall
-    ? [SearchActionItem, MobileLanguageSelectorActionItem]
-    : [SearchActionItem, DesktopLanguageSelectorActionItem]
+  const actionItems = [SearchActionItem, LanguageSelectorActionItem]
 
   const sidebarItems = [
     <Link key='location' to={landingPath}>
       <SidebarActionItem text={t('changeLocation')} iconSrc={LocationOnOutlinedIcon} />
     </Link>,
-    <LanguageSelector
-      key='language'
-      languageChangePaths={languageChangePaths}
-      isHeaderActionItem
-      languageCode={languageCode}
-      inSidebarMenu
-      closeSidebar={() => setIsSidebarOpen(false)}
-    />,
     <ContrastThemeToggle key='contrastTheme' />,
   ]
 

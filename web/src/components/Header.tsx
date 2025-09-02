@@ -12,7 +12,7 @@ import HeaderLogo from './HeaderLogo'
 import { HeaderNavigationItemProps } from './HeaderNavigationItem'
 import HeaderTitle from './HeaderTitle'
 import NavigationBarScrollContainer from './NavigationBarScrollContainer'
-import SidebarMenu from './SidebarMenu'
+import Sidebar from './Sidebar'
 
 type HeaderProps = {
   navigationItems: ReactElement<HeaderNavigationItemProps>[]
@@ -126,12 +126,12 @@ export const Header = ({
           <ActionBar>
             {actionItems}
             {viewportSmall && setIsSidebarOpen && !!cityCode && (
-              <SidebarMenu
+              <Sidebar
                 setShow={setIsSidebarOpen}
                 show={isSidebarOpen}
                 Footer={<CityContentFooter city={cityCode} language={language} mode='sidebar' />}>
                 {sidebarContent}
-              </SidebarMenu>
+              </Sidebar>
             )}
           </ActionBar>
         </Row>
