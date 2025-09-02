@@ -3,52 +3,42 @@ import { useTranslation } from 'react-i18next'
 
 import Selector from '../components/Selector'
 import SelectorItemModel from '../models/SelectorItemModel'
-import HeaderLanguageSelectorItem from './HeaderLanguageSelectorItem'
 
 type LanguageSelectorProps = {
-  languageCode: string
-  isHeaderActionItem: boolean
   languageChangePaths: { code: string; path: string | null; name: string }[] | null
-  inSidebarMenu?: boolean
-  closeSidebar?: () => void
+  languageCode: string
+  vertical: boolean
+  close?: () => void
+  availableOnly?: boolean
 }
 
-/**
- * Displays a dropDown menu to handle changing of the language
- */
-const LanguageSelector = (props: LanguageSelectorProps): ReactElement => {
-  const { isHeaderActionItem, languageChangePaths, languageCode, inSidebarMenu = false, closeSidebar } = props
-  const activeItemCode = languageCode
+const LanguageSelector = ({
+  languageChangePaths,
+  languageCode,
+  vertical,
+  close,
+  availableOnly = false,
+}: LanguageSelectorProps): ReactElement => {
   const { t } = useTranslation('layout')
 
   const selectorItems =
-    languageChangePaths?.map(
-      ({ code, name, path }) =>
-        new SelectorItemModel({
-          code,
-          name,
-          href: path,
-        }),
-    ) ?? []
-
-  if (isHeaderActionItem) {
-    return (
-      <HeaderLanguageSelectorItem
-        selectorItems={selectorItems}
-        activeItemCode={activeItemCode}
-        inSidebarMenu={inSidebarMenu}
-        closeSidebar={closeSidebar}
-      />
-    )
-  }
-
-  const availableItems = selectorItems.filter(item => item.href !== null)
+    languageChangePaths
+      ?.filter(it => !availableOnly || it.path)
+      .map(
+        ({ code, name, path }) =>
+          new SelectorItemModel({
+            code,
+            name,
+            href: path,
+          }),
+      ) ?? []
 
   return (
     <Selector
-      verticalLayout
-      items={availableItems}
-      activeItemCode={activeItemCode}
+      close={close}
+      verticalLayout={vertical}
+      items={selectorItems}
+      activeItemCode={languageCode}
       disabledItemTooltip={t('noTranslation')}
     />
   )
