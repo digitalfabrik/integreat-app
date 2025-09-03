@@ -38,7 +38,7 @@ class InternalPathnameParser {
     const parts = pathname.split('/').filter(Boolean)
     const [first, second, ...rest] = parts
 
-    const isLanguageIndependentUrl = !!first && !!second && (RESERVED_CITY_CONTENT_SLUGS as string[]).includes(second)
+    const isLanguageIndependentUrl = !!first && !!second && RESERVED_CITY_CONTENT_SLUGS.includes(second)
     if (isLanguageIndependentUrl) {
       return [first, this._fallbackLanguageCode, second, ...rest]
     }
@@ -210,10 +210,7 @@ class InternalPathnameParser {
       return null
     }
 
-    if (
-      this._length > 2 &&
-      !([SEARCH_ROUTE, DISCLAIMER_ROUTE, POIS_ROUTE, EVENTS_ROUTE, NEWS_ROUTE] as string[]).includes(this._parts[2]!)
-    ) {
+    if (this._length > 2 && !RESERVED_CITY_CONTENT_SLUGS.includes(this._parts[2]!)) {
       return {
         route: CATEGORIES_ROUTE,
         cityCode: this._parts[0]!,
