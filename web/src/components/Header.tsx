@@ -14,38 +14,29 @@ import HeaderTitle from './HeaderTitle'
 import Sidebar from './Sidebar'
 
 const HeaderContainer = styled('header')`
-  display: flex;
-  width: 100%;
-  box-sizing: border-box;
-  background-color: ${props => props.theme.legacy.colors.backgroundAccentColor};
   user-select: none;
   flex-direction: column;
-  overflow: visible;
 
   ${props => props.theme.breakpoints.up('lg')} {
     padding-inline: calc((100vw - ${props => props.theme.breakpoints.values.lg}px) / 2)
       calc((200% - 100vw - ${props => props.theme.breakpoints.values.lg}px) / 2);
   }
+
+  ${props => props.theme.breakpoints.up('md')} {
+    margin-inline-start: 80px;
+  }
 `
 
 const Row = styled('div')`
   display: flex;
-  flex: 1;
-  max-width: 100%;
   align-items: center;
   min-height: ${dimensions.headerHeightLarge}px;
-  flex-direction: row;
   justify-content: space-between;
+  flex-wrap: wrap;
+  overflow-x: auto;
 
   ${props => props.theme.breakpoints.down('md')} {
-    background-color: ${props => props.theme.legacy.colors.backgroundAccentColor};
-    justify-content: space-between;
-    flex-wrap: wrap;
     min-height: ${dimensions.headerHeightSmall}px;
-    overflow-x: auto;
-  }
-  ${props => props.theme.breakpoints.up('md')} {
-    margin-inline-start: 80px;
   }
 `
 
@@ -54,12 +45,10 @@ const ActionBar = styled('nav')`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 12px;
+  gap: 8px;
   padding: 0 12px;
 
   ${props => props.theme.breakpoints.down('md')} {
-    padding: 0 4px;
-    gap: 8px;
     order: 2;
   }
 `
