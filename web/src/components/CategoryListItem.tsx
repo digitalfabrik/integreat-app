@@ -2,6 +2,7 @@ import shouldForwardProp from '@emotion/is-prop-valid'
 import Divider from '@mui/material/Divider'
 import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
+import ListItemText from '@mui/material/ListItemText'
 import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
@@ -42,12 +43,12 @@ const CategoryThumbnail = styled('img')`
   filter: ${props => (props.theme.isContrastTheme ? 'invert(1)' : 'none')};
 `
 
-const CategoryItemCaption = styled(Typography)`
+const StyledTypography = styled(Typography)`
   font-weight: 500;
   word-wrap: break-word;
 `
 
-const SubCategoryCaption = styled(CategoryItemCaption)`
+const StyledSubTypography = styled(StyledTypography)`
   font-weight: 400;
 `
 
@@ -57,20 +58,23 @@ type CategoryListItemProps = {
 }
 
 const CategoryListItem = ({ category, subCategories }: CategoryListItemProps): ReactElement => {
-  const SubCategories = subCategories.map(subCategory => (
-    <SubCategoryListItem key={subCategory.path}>
-      <StyledSubCategoryListItemButton component={Link} to={subCategory.path}>
-        {!!subCategory.thumbnail && <CategoryThumbnail alt='' src={subCategory.thumbnail} />}
-        <SubCategoryCaption>{subCategory.title}</SubCategoryCaption>
-      </StyledSubCategoryListItemButton>
-    </SubCategoryListItem>
-  ))
+  const SubCategories = subCategories.map(subCategory => {
+    const { path, thumbnail, title } = subCategory
+    return (
+      <SubCategoryListItem key={path}>
+        <StyledSubCategoryListItemButton component={Link} to={path}>
+          {!!thumbnail && <CategoryThumbnail alt='' src={thumbnail} />}
+          <ListItemText primary={<StyledSubTypography variant='body1'>{title}</StyledSubTypography>} />
+        </StyledSubCategoryListItemButton>
+      </SubCategoryListItem>
+    )
+  })
 
   return (
     <StyledListItem>
       <StyledListItemButton component={Link} to={category.path} dir='auto'>
         {!!category.thumbnail && <CategoryThumbnail alt='' src={category.thumbnail} />}
-        <CategoryItemCaption variant='body1'>{category.title}</CategoryItemCaption>
+        <ListItemText primary={<StyledTypography variant='body1'>{category.title}</StyledTypography>} />
       </StyledListItemButton>
       <Divider />
       {SubCategories.length > 0 && <StyledList lastDivider={false} NoItemsMessage='noItems' items={SubCategories} />}
