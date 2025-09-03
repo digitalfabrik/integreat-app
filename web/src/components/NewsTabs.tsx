@@ -1,4 +1,4 @@
-import { styled } from '@mui/material/styles'
+import Stack from '@mui/material/Stack'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -6,12 +6,6 @@ import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NewsType, pathnameFromRouteInformation, TU
 
 import Caption from './Caption'
 import NewsTab from './NewsTab'
-
-const StyledTabs = styled('div')`
-  display: flex;
-  padding-bottom: 40px;
-  justify-content: center;
-`
 
 type NewsTabsProps = {
   type: NewsType
@@ -31,10 +25,10 @@ const NewsTabs = ({ language, city, localNewsEnabled, tunewsEnabled, type }: New
     <>
       <Caption title={t('news')} />
       {localNewsEnabled && tunewsEnabled && (
-        <StyledTabs>
-          <NewsTab active={type === LOCAL_NEWS_TYPE} type={LOCAL_NEWS_TYPE} destination={localNewsPath} t={t} />
-          <NewsTab active={type === TU_NEWS_TYPE} type={TU_NEWS_TYPE} destination={tunewsPath} t={t} />
-        </StyledTabs>
+        <Stack paddingBottom={4} flexDirection='row' justifyContent='center' gap={4}>
+          <NewsTab active={type === LOCAL_NEWS_TYPE} type={LOCAL_NEWS_TYPE} destination={localNewsPath} />
+          <NewsTab active={type === TU_NEWS_TYPE} type={TU_NEWS_TYPE} destination={tunewsPath} />
+        </Stack>
       )}
     </>
   )
