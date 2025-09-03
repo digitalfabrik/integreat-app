@@ -66,7 +66,7 @@ const InfiniteScrollList = <T,>({
 
   return (
     <InfiniteScroll loadMore={load} hasMore={!loading && hasMore}>
-      <List items={data.map(renderItem)} NoItemsMessage={<div />} />
+      <List Items={data.map(renderItem)} NoItemsMessage={<div />} />
     </InfiniteScroll>
   )
 }
