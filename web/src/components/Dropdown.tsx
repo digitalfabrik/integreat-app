@@ -11,7 +11,7 @@ const DropdownContainer = styled('div')<{ open: boolean }>`
   width: 100%;
   box-sizing: border-box;
   opacity: ${props => (props.open ? '1' : '0')};
-  z-index: 1; /* this is only necessary for IE11 to have the DropDown above NavigationItems */
+  z-index: 1;
   transform: scale(${props => (props.open ? '1' : '0.9')});
   transform-origin: center top;
   justify-content: center;
