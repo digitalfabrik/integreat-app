@@ -1,3 +1,4 @@
+import MuiList from '@mui/material/List'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -13,9 +14,7 @@ import OrganizationContentInfo from './OrganizationContentInfo'
 import Page from './Page'
 import Tiles from './Tiles'
 
-const List = styled('ul')`
-  list-style-type: none;
-
+const StyledMuiList = styled(MuiList)`
   & a {
     ${helpers.removeLinkHighlighting}
   }
@@ -69,11 +68,11 @@ const CategoriesContent = ({
       content={categoryModel.content}
       lastUpdate={categoryModel.lastUpdate}
       Footer={
-        <List>
+        <StyledMuiList>
           {children.map(it => (
             <CategoryListItem key={it.path} category={it} subCategories={categories.getChildren(it)} />
           ))}
-        </List>
+        </StyledMuiList>
       }
     />
   )
