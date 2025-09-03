@@ -1273,7 +1273,8 @@
       "privacyPolicy": "Ich habe die <1>Datenschutzerklärung</1> gelesen und stimme der Verarbeitung und Speicherung meiner Daten zu.",
       "accessible": "Barrierefrei",
       "notAccessible": "Nicht barrierefrei",
-      "clearInput": "Eingabe löschen"
+      "clearInput": "Eingabe löschen",
+      "more": "Mehr"
     },
     "am": {
       "copied": "ተቀድቷል",
@@ -1404,7 +1405,8 @@
       "privacyPolicy": "I have read the <1>privacy policy</1> and agree to the processing and storage of my data.",
       "accessible": "Accessible",
       "notAccessible": "Not accessible",
-      "clearInput": "Clear input"
+      "clearInput": "Clear input",
+      "more": "More"
     },
     "es": {
       "copied": "Copiado",
