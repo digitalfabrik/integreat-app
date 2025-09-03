@@ -10,8 +10,6 @@ import useLockedBody from '../hooks/useLockedBody'
 import Portal from './Portal'
 
 const ToggleContainer = styled('div')`
-  display: flex;
-  padding-right: 8px;
   z-index: 50;
 `
 
