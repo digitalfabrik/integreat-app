@@ -147,7 +147,7 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
         localNewsEnabled={city.localNewsEnabled}
         language={languageCode}
       />
-      <List items={NewsListItems} NoItemsMessage={t('currentlyNoNews')} />
+      <List Items={NewsListItems} NoItemsMessage={t('currentlyNoNews')} />
     </CityContentLayout>
   )
 }
