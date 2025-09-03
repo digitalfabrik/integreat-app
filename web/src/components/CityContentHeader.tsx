@@ -20,14 +20,13 @@ import {
 import { CityModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
-import useWindowDimensions from '../hooks/useWindowDimensions'
 import { LOCAL_NEWS_ROUTE, RouteType, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from '../routes'
 import ContrastThemeToggle from './ContrastThemeToggle'
 import Header from './Header'
-import HeaderActionItemLink from './HeaderActionItemLink'
+import HeaderActionItem from './HeaderActionItem'
+import HeaderLanguageSelectorItem from './HeaderLanguageSelectorItem'
 import HeaderNavigationItem, { HeaderNavigationItemProps } from './HeaderNavigationItem'
-import KebabActionItem from './KebabActionItem'
-import LanguageSelector from './LanguageSelector'
+import SidebarActionItem from './SidebarActionItem'
 import Link from './base/Link'
 
 type CityContentHeaderProps = {
@@ -43,7 +42,6 @@ const CityContentHeader = ({
   languageChangePaths,
   route,
 }: CityContentHeaderProps): ReactElement => {
-  const { viewportSmall } = useWindowDimensions()
   const { eventsEnabled, poisEnabled, tunewsEnabled, localNewsEnabled } = cityModel
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
@@ -58,44 +56,24 @@ const CityContentHeader = ({
 
   const { t } = useTranslation('layout')
 
-  const SearchButton = (
-    <HeaderActionItemLink key='search' to={searchPath} text={t('search')} icon={<SearchOutlinedIcon />} />
+  const SearchActionItem = (
+    <HeaderActionItem key='search' to={searchPath} text={t('search')} icon={<SearchOutlinedIcon />} />
   )
 
-  const actionItems = viewportSmall
-    ? [SearchButton]
-    : [
-        SearchButton,
-        ...(!buildConfig().featureFlags.fixedCity
-          ? [
-              <HeaderActionItemLink
-                key='location'
-                to={landingPath}
-                text={t('changeLocation')}
-                icon={<LocationOnOutlinedIcon />}
-              />,
-            ]
-          : []),
-        <LanguageSelector
-          key='language'
-          languageChangePaths={languageChangePaths}
-          isHeaderActionItem
-          languageCode={languageCode}
-        />,
-      ]
-
-  const kebabItems = [
-    <Link key='location' to={landingPath}>
-      <KebabActionItem text={t('changeLocation')} iconSrc={LocationOnOutlinedIcon} />
-    </Link>,
-    <LanguageSelector
-      key='language'
+  const LanguageSelectorActionItem = (
+    <HeaderLanguageSelectorItem
+      key='languageChange'
       languageChangePaths={languageChangePaths}
-      isHeaderActionItem
       languageCode={languageCode}
-      inKebabMenu
-      closeSidebar={() => setIsSidebarOpen(false)}
-    />,
+    />
+  )
+
+  const actionItems = [SearchActionItem, LanguageSelectorActionItem]
+
+  const sidebarItems = [
+    <Link key='location' to={landingPath}>
+      <SidebarActionItem text={t('changeLocation')} iconSrc={LocationOnOutlinedIcon} />
+    </Link>,
     <ContrastThemeToggle key='contrastTheme' />,
   ]
 
@@ -162,7 +140,7 @@ const CityContentHeader = ({
     <Header
       logoHref={categoriesPath}
       actionItems={actionItems}
-      kebabItems={kebabItems}
+      sidebarItems={sidebarItems}
       cityName={cityModel.name}
       cityCode={cityModel.code}
       navigationItems={getNavigationItems()}

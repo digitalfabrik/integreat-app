@@ -1,6 +1,5 @@
 import CloseIcon from '@mui/icons-material/Close'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
-import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode, useLayoutEffect, useState } from 'react'
@@ -10,20 +9,13 @@ import dimensions from '../constants/dimensions'
 import useLockedBody from '../hooks/useLockedBody'
 import Portal from './Portal'
 
-type KebabMenuProps = {
-  items: ReactNode[]
-  show: boolean
-  setShow: (show: boolean) => void
-  Footer: ReactNode
-}
-
 const ToggleContainer = styled('div')`
   display: flex;
-  padding: 0 8px;
+  padding-right: 8px;
   z-index: 50;
 `
 
-const List = styled('div')`
+const SidebarContainer = styled('div')`
   font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
   position: fixed;
   top: 0;
@@ -66,14 +58,28 @@ const Heading = styled('div')`
 const ActionBar = styled('nav')`
   display: flex;
   align-items: center;
-  padding: 0 16px;
 `
 
 const Content = styled('div')`
+  top: ${dimensions.headerHeightSmall}px;
+  height: calc(100% - ${dimensions.headerHeightSmall}px);
+  overflow: hidden auto;
   padding: 0 32px;
 `
 
-const KebabMenu = ({ items, show, setShow, Footer }: KebabMenuProps): ReactElement | null => {
+const StyledIconButton = styled(IconButton)`
+  right: 4px;
+`
+
+type SidebarProps = {
+  children: ReactNode
+  show: boolean
+  setShow: (show: boolean) => void
+  Footer?: ReactNode
+  OpenButton?: ReactElement
+}
+
+const Sidebar = ({ children, show, setShow, Footer, OpenButton }: SidebarProps): ReactElement | null => {
   useLockedBody(show)
   const { t } = useTranslation('layout')
   const [scrollY, setScrollY] = useState<number>(0)
@@ -84,21 +90,17 @@ const KebabMenu = ({ items, show, setShow, Footer }: KebabMenuProps): ReactEleme
     }
   }, [show])
 
-  const onClick = () => {
-    setShow(!show)
-  }
-
-  if (items.length === 0) {
-    return null
-  }
-
   return (
-    <ToggleContainer>
-      <IconButton onClick={onClick} aria-label={t('sideBarOpenAriaLabel')} aria-expanded={show}>
-        <MoreVertIcon />
-      </IconButton>
+    <>
+      {OpenButton ?? (
+        <ToggleContainer>
+          <IconButton onClick={() => setShow(!show)} aria-label={t('sideBarOpenAriaLabel')} aria-expanded={show}>
+            <MoreVertIcon />
+          </IconButton>
+        </ToggleContainer>
+      )}
       <Portal
-        className='kebab-menu'
+        className='sidebar'
         show={show}
         style={{
           display: show ? 'block' : 'none',
@@ -106,28 +108,21 @@ const KebabMenu = ({ items, show, setShow, Footer }: KebabMenuProps): ReactEleme
         }}>
         {/* disabled because this is an overlay for backdrop close */}
         {/* eslint-disable-next-line styled-components-a11y/no-static-element-interactions,styled-components-a11y/click-events-have-key-events */}
-        <Overlay onClick={onClick} show={show} />
-        <List>
+        <Overlay onClick={() => setShow(false)} show={show} />
+        <SidebarContainer>
           <Heading>
             <ActionBar>
-              <IconButton onClick={onClick} aria-label={t('sideBarCloseAriaLabel')}>
+              <StyledIconButton onClick={() => setShow(false)} aria-label={t('sideBarCloseAriaLabel')}>
                 <CloseIcon />
-              </IconButton>
+              </StyledIconButton>
             </ActionBar>
           </Heading>
-          <Content>
-            {items.map((item, index) => (
-              <React.Fragment key={`menu-item-${index + 1}`}>
-                {item}
-                {index < items.length - 1 && <Divider />}
-              </React.Fragment>
-            ))}
-          </Content>
+          <Content>{children}</Content>
           {Footer}
-        </List>
+        </SidebarContainer>
       </Portal>
-    </ToggleContainer>
+    </>
   )
 }
 
-export default KebabMenu
+export default Sidebar

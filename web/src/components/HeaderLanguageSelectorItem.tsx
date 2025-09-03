@@ -1,52 +1,60 @@
 import TranslateOutlinedIcon from '@mui/icons-material/TranslateOutlined'
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import SelectorItemModel from '../models/SelectorItemModel'
-import HeaderActionItemDropDown from './HeaderActionItemDropDown'
-import KebabActionItemDropDown from './KebabActionItemDropDown'
-import Selector from './Selector'
+import useWindowDimensions from '../hooks/useWindowDimensions'
+import Dropdown from './Dropdown'
+import HeaderActionItem from './HeaderActionItem'
+import LanguageSelector from './LanguageSelector'
+import Sidebar from './Sidebar'
 
 type HeaderLanguageSelectorItemProps = {
-  selectorItems: SelectorItemModel[]
-  activeItemCode: string
-  inKebabMenu?: boolean
-  closeSidebar?: () => void
+  languageChangePaths: { code: string; path: string | null; name: string }[] | null
+  languageCode: string
 }
 
 const HeaderLanguageSelectorItem = ({
-  selectorItems,
-  activeItemCode,
-  inKebabMenu = false,
-  closeSidebar,
+  languageChangePaths,
+  languageCode,
 }: HeaderLanguageSelectorItemProps): ReactElement => {
+  const [open, setOpen] = useState(false)
+  const { viewportSmall } = useWindowDimensions()
   const { t } = useTranslation('layout')
 
-  const renderItem = (closeDropDown: () => void): ReactElement => (
-    <Selector
-      closeDropDown={closeDropDown}
-      verticalLayout={false}
-      items={selectorItems}
-      activeItemCode={activeItemCode}
-      disabledItemTooltip={t('noTranslation')}
+  const currentLanguageName = languageChangePaths?.find(item => item.code === languageCode)?.name
+
+  const ChangeLanguageButton = (
+    <HeaderActionItem
+      key='languageChange'
+      onClick={() => setOpen(open => !open)}
+      text={t('changeLanguage')}
+      icon={<TranslateOutlinedIcon />}
+      innerText={viewportSmall ? undefined : currentLanguageName}
     />
   )
 
-  if (inKebabMenu && closeSidebar) {
+  if (viewportSmall) {
     return (
-      <KebabActionItemDropDown iconSrc={TranslateOutlinedIcon} text={t('changeLanguage')} closeSidebar={closeSidebar}>
-        {renderItem}
-      </KebabActionItemDropDown>
+      <Sidebar OpenButton={ChangeLanguageButton} setShow={setOpen} show={open}>
+        <LanguageSelector
+          languageChangePaths={languageChangePaths}
+          languageCode={languageCode}
+          close={() => setOpen(false)}
+          vertical
+        />
+      </Sidebar>
     )
   }
 
   return (
-    <HeaderActionItemDropDown
-      icon={<TranslateOutlinedIcon />}
-      text={t('changeLanguage')}
-      innerText={selectorItems.find(item => item.code === activeItemCode)?.name}>
-      {renderItem}
-    </HeaderActionItemDropDown>
+    <Dropdown ToggleButton={ChangeLanguageButton} setOpen={setOpen} open={open}>
+      <LanguageSelector
+        languageChangePaths={languageChangePaths}
+        languageCode={languageCode}
+        vertical={false}
+        close={() => setOpen(false)}
+      />
+    </Dropdown>
   )
 }
 
