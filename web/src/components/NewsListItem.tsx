@@ -1,79 +1,48 @@
-import Divider from '@mui/material/Divider'
+import Button from '@mui/material/Button'
+import ListItem from '@mui/material/ListItem'
+import ListItemButton from '@mui/material/ListItemButton'
+import ListItemText from '@mui/material/ListItemText'
+import Stack from '@mui/material/Stack'
 import { styled } from '@mui/material/styles'
-import { TFunction } from 'i18next'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 
-import { getExcerpt, LOCAL_NEWS_TYPE, NewsType } from 'shared'
+import { getExcerpt } from 'shared'
 
 import { EXCERPT_MAX_CHARS } from '../constants'
 import LastUpdateInfo from './LastUpdateInfo'
-import { Description } from './ListItem'
 import Link from './base/Link'
 
-const StyledLink = styled(Link)`
-  display: flex;
-  background-color: ${({ theme }) => theme.legacy.colors.backgroundColor};
-`
-const ReadMore = styled('div')<{ newsType: NewsType }>`
-  align-self: flex-end;
-  color: ${({ theme, newsType }) =>
-    theme.isContrastTheme || newsType === LOCAL_NEWS_TYPE
-      ? theme.legacy.colors.themeColor
-      : theme.legacy.colors.tunewsThemeColor};
-  font-weight: 600;
-`
+const StyledListItemButton = styled(ListItemButton)({
+  justifyContent: 'space-between',
+}) as typeof ListItemButton
 
-const Title = styled('h3')`
-  margin-bottom: 0;
-  font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
-  font-size: ${props => props.theme.legacy.fonts.subTitleFontSize};
-  font-weight: 700;
-`
-
-const Body = styled('p')`
-  font-size: 16px;
-  line-height: 1.38;
-  white-space: pre-line;
-`
-
-const StyledNewsListItem = styled('article')`
-  padding-bottom: 2px;
-`
-
-const StyledContainer = styled('div')`
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-`
+const StyledButton = styled(Button)({
+  backgroundColor: 'transparent',
+})
 
 type NewsListItemProps = {
   title: string
   content: string
   timestamp: DateTime
-  link: string
-  type: NewsType
-  t: TFunction<'news'>
+  to: string
 }
 
-const NewsListItem = ({ title, content, timestamp, t, type, link }: NewsListItemProps): ReactElement => {
-  const readMoreLinkText = `${t('readMore')} >`
+const NewsListItem = ({ title, content, timestamp, to }: NewsListItemProps): ReactElement => {
+  const { t } = useTranslation('news')
   const excerpt = getExcerpt(content, { maxChars: EXCERPT_MAX_CHARS, replaceLineBreaks: false })
 
   return (
-    <StyledNewsListItem>
-      <StyledLink to={link}>
-        <Description>
-          <Title dir='auto'>{title}</Title>
-          <Body dir='auto'>{excerpt}</Body>
-          <StyledContainer>
-            <LastUpdateInfo lastUpdate={timestamp} withText={false} />
-            <ReadMore newsType={type}>{readMoreLinkText}</ReadMore>
-          </StyledContainer>
-        </Description>
-      </StyledLink>
-      <Divider />
-    </StyledNewsListItem>
+    <ListItem>
+      <StyledListItemButton component={Link} to={to}>
+        <Stack>
+          <ListItemText primary={title} secondary={excerpt} />
+          <LastUpdateInfo lastUpdate={timestamp} withText={false} />
+        </Stack>
+        <StyledButton disableRipple>{t('readMore')}</StyledButton>
+      </StyledListItemButton>
+    </ListItem>
   )
 }
 

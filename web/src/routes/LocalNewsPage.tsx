@@ -17,10 +17,10 @@ import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
 import LoadingSpinner from '../components/LoadingSpinner'
-import LocalNewsList from '../components/LocalNewsList'
 import NewsListItem from '../components/NewsListItem'
 import NewsTabs from '../components/NewsTabs'
 import Page from '../components/Page'
+import List from '../components/base/List'
 import { cmsApiBaseUrl } from '../constants/urls'
 import usePreviousProp from '../hooks/usePreviousProp'
 import useTtsPlayer from '../hooks/useTtsPlayer'
@@ -52,20 +52,6 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
       languageCode: newLanguageCode ?? languageCode,
       newsId,
     })
-  const renderLocalNewsListItem = (localNewsItem: LocalNewsModel) => {
-    const { id, title, content, timestamp } = localNewsItem
-    return (
-      <NewsListItem
-        title={title}
-        content={content}
-        timestamp={timestamp}
-        key={id}
-        link={createNewsPath({ newsId: id })}
-        t={t}
-        type={LOCAL_NEWS_TYPE}
-      />
-    )
-  }
 
   const languageChangePaths = city.languages.map(({ code, name }) => {
     const newNewsId = newsModel?.availableLanguages[code]
@@ -99,10 +85,9 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
           city={cityCode}
           tunewsEnabled={city.tunewsEnabled}
           localNewsEnabled={city.localNewsEnabled}
-          t={t}
-          language={languageCode}>
-          <LoadingSpinner />
-        </NewsTabs>
+          language={languageCode}
+        />
+        <LoadingSpinner />
       </CityContentLayout>
     )
   }
@@ -139,6 +124,19 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
     )
   }
 
+  const NewsListItems = localNews.map(localNewsItem => {
+    const { id, title, content, timestamp } = localNewsItem
+    return (
+      <NewsListItem
+        title={title}
+        content={content}
+        timestamp={timestamp}
+        key={id}
+        to={createNewsPath({ newsId: id })}
+      />
+    )
+  })
+
   return (
     <CityContentLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
@@ -147,15 +145,9 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
         city={cityCode}
         tunewsEnabled={city.tunewsEnabled}
         localNewsEnabled={city.localNewsEnabled}
-        t={t}
-        language={languageCode}>
-        <LocalNewsList
-          items={localNews}
-          noItemsMessage={t('currentlyNoNews')}
-          renderItem={renderLocalNewsListItem}
-          city={cityCode}
-        />
-      </NewsTabs>
+        language={languageCode}
+      />
+      <List items={NewsListItems} NoItemsMessage={t('currentlyNoNews')} />
     </CityContentLayout>
   )
 }
