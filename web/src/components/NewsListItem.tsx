@@ -40,7 +40,7 @@ const NewsListItem = ({ title, content, timestamp, to }: NewsListItemProps): Rea
           <ListItemText primary={title} secondary={excerpt} />
           <LastUpdateInfo lastUpdate={timestamp} withText={false} />
         </Stack>
-        <StyledButton disableRipple>{t('readMore')}</StyledButton>
+        <StyledButton disableRipple>{t('common:more')}</StyledButton>
       </StyledListItemButton>
     </ListItem>
   )
