@@ -6,25 +6,12 @@ import React, { ReactElement, ReactNode } from 'react'
 import { LANDING_ROUTE, pathnameFromRouteInformation } from 'shared'
 
 import dimensions from '../constants/dimensions'
+import useElementRect from '../hooks/useElementRect'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import CityContentFooter from './CityContentFooter'
 import HeaderLogo from './HeaderLogo'
-import { HeaderNavigationItemProps } from './HeaderNavigationItem'
 import HeaderTitle from './HeaderTitle'
-import NavigationBarScrollContainer from './NavigationBarScrollContainer'
 import Sidebar from './Sidebar'
-
-type HeaderProps = {
-  navigationItems: ReactElement<HeaderNavigationItemProps>[]
-  actionItems: ReactNode[]
-  sidebarItems: ReactNode[]
-  logoHref: string
-  cityName?: string
-  cityCode?: string
-  isSidebarOpen?: boolean
-  setIsSidebarOpen?: (show: boolean) => void
-  language: string
-}
 
 const HeaderContainer = styled('header')`
   display: flex;
@@ -34,7 +21,6 @@ const HeaderContainer = styled('header')`
   user-select: none;
   flex-direction: column;
   overflow: visible;
-  box-shadow: 0 2px 5px -3px rgb(0 0 0 / 20%);
 
   ${props => props.theme.breakpoints.up('lg')} {
     padding-inline: calc((100vw - ${props => props.theme.breakpoints.values.lg}px) / 2)
@@ -78,35 +64,33 @@ const ActionBar = styled('nav')`
   }
 `
 
-const NavigationBar = styled('nav')`
-  display: flex;
-  flex: 1 1 0;
-  align-items: stretch;
-  justify-content: center;
-  gap: 24px;
-
-  ${props => props.theme.breakpoints.up('md')} {
-    padding: 0 10px;
-  }
-`
+type HeaderProps = {
+  actionItems: ReactNode[]
+  sidebarItems: ReactNode[]
+  logoHref: string
+  cityName?: string
+  cityCode?: string
+  isSidebarOpen?: boolean
+  setIsSidebarOpen?: (show: boolean) => void
+  language: string
+  TabBar?: ReactElement
+}
 
 export const Header = ({
   actionItems = [],
   sidebarItems = [],
   logoHref,
-  navigationItems = [],
   cityName,
   cityCode,
   isSidebarOpen = false,
   setIsSidebarOpen,
   language,
+  TabBar,
 }: HeaderProps): ReactElement => {
+  const { rect: headerRect, ref } = useElementRect()
+  const height = headerRect?.height ?? 0
   const { viewportSmall } = useWindowDimensions()
   const { headerHeightSmall, headerHeightLarge } = dimensions
-  const hasNavigationBar = navigationItems.length > 0
-  const height = viewportSmall
-    ? (1 + (hasNavigationBar ? 1 : 0)) * headerHeightSmall
-    : (1 + (hasNavigationBar ? 1 : 0)) * headerHeightLarge
   const scrollHeight = viewportSmall ? headerHeightSmall : headerHeightLarge
   const landingPath = pathnameFromRouteInformation({ route: LANDING_ROUTE, languageCode: language })
 
@@ -119,7 +103,7 @@ export const Header = ({
 
   return (
     <Headroom scrollHeight={scrollHeight} height={height} zIndex={2}>
-      <HeaderContainer>
+      <HeaderContainer ref={ref}>
         <Row>
           <HeaderLogo link={logoHref} />
           {!!cityName && <HeaderTitle title={cityName} landingPath={landingPath} />}
@@ -135,11 +119,7 @@ export const Header = ({
             )}
           </ActionBar>
         </Row>
-        {hasNavigationBar && (
-          <NavigationBarScrollContainer activeIndex={navigationItems.findIndex(el => el.props.active)}>
-            <NavigationBar id='navigation-bar'>{navigationItems}</NavigationBar>
-          </NavigationBarScrollContainer>
-        )}
+        {TabBar}
       </HeaderContainer>
     </Headroom>
   )
