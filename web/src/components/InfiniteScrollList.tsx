@@ -1,26 +1,16 @@
-import { styled } from '@mui/material/styles'
-import React, { ReactElement, ReactNode, useCallback, useEffect, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroller'
 
 import { loadAsync } from 'shared/api'
 
+import Failure from './Failure'
 import FailureSwitcher from './FailureSwitcher'
-
-const NoItemsMessage = styled('div')`
-  padding-top: 25px;
-  text-align: center;
-`
-
-const StyledList = styled('div')`
-  position: relative;
-  margin-bottom: 40px;
-  padding-top: 1px;
-`
+import List from './base/List'
 
 type InfiniteScrollListProps<T> = {
   loadPage: (page: number) => Promise<T[]>
   noItemsMessage: string
-  renderItem: (item: T) => ReactNode
+  renderItem: (item: T) => ReactElement
   defaultPage: number
   itemsPerPage: number
 }
@@ -71,15 +61,13 @@ const InfiniteScrollList = <T,>({
   }
 
   if (data.length === 0 && !hasMore) {
-    return <NoItemsMessage>{noItemsMessage}</NoItemsMessage>
+    return <Failure errorMessage={noItemsMessage} />
   }
 
   return (
-    <StyledList>
-      <InfiniteScroll loadMore={load} hasMore={!loading && hasMore}>
-        <div>{data.map(renderItem)}</div>
-      </InfiniteScroll>
-    </StyledList>
+    <InfiniteScroll loadMore={load} hasMore={!loading && hasMore}>
+      <List items={data.map(renderItem)} NoItemsMessage={<div />} />
+    </InfiniteScroll>
   )
 }
 
