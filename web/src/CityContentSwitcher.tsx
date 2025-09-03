@@ -103,12 +103,7 @@ const CityContentSwitcher = ({ languageCode }: CityContentSwitcherProps): ReactE
         <Suspense
           fallback={
             city ? (
-              <CityContentLayout
-                languageChangePaths={null}
-                languageCode={languageCode}
-                isLoading
-                route={route}
-                city={city}>
+              <CityContentLayout languageChangePaths={null} languageCode={languageCode} isLoading city={city}>
                 <LoadingSpinner />
               </CityContentLayout>
             ) : (

@@ -51,7 +51,6 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
   const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
     city,
     languageChangePaths,
-    route: POIS_ROUTE,
     languageCode,
     disableScrollingSafari: true,
     showFooter: false,

@@ -80,7 +80,6 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
   const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
     city,
     languageChangePaths,
-    route: LOCAL_NEWS_ROUTE,
     languageCode,
     Toolbar: (
       <CityContentToolbar
