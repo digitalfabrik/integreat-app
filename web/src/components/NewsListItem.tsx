@@ -16,6 +16,7 @@ import Link from './base/Link'
 
 const StyledListItemButton = styled(ListItemButton)({
   justifyContent: 'space-between',
+  gap: 32,
 }) as typeof ListItemButton
 
 const StyledButton = styled(Button)({
