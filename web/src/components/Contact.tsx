@@ -50,7 +50,7 @@ const Contact = ({
           content={phoneNumber}
         />
       )}
-      {!!mobilePhoneNumber && (
+      {mobilePhoneNumber !== null && (
         <ContactItem
           iconSource={PhoneOutlinedIcon}
           iconAlt={t('mobilePhone')}
