@@ -1,7 +1,7 @@
 import shouldForwardProp from '@emotion/is-prop-valid'
 import { styled } from '@mui/material/styles'
-import { TFunction } from 'i18next'
 import React, { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router'
 
 import { NewsType, TU_NEWS_TYPE, tunewsLabel } from 'shared'
@@ -26,10 +26,6 @@ const StyledTab = styled(Link, { shouldForwardProp })<{ tabSelected: boolean }>`
   font-size: ${props => props.theme.legacy.fonts.subTitleFontSize};
   font-weight: 700;
   text-decoration: none;
-
-  &:not(:last-child) {
-    margin-inline-end: 30px;
-  }
 `
 
 const TuStyledTab = styled(StyledTab)`
@@ -44,10 +40,10 @@ type NewsTabProps = {
   type: NewsType
   active: boolean
   destination: string
-  t: TFunction<'news'>
 }
 
-const NewsTab = ({ type, active, destination, t }: NewsTabProps): ReactElement => {
+const NewsTab = ({ type, active, destination }: NewsTabProps): ReactElement => {
+  const { t } = useTranslation('news')
   if (type === TU_NEWS_TYPE) {
     return <TuStyledTab tabSelected={active} to={destination} aria-label={tunewsLabel} />
   }
