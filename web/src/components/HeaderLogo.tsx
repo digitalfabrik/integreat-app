@@ -13,7 +13,7 @@ type HeaderLogoProps = {
 
 const LogoContainer = styled('div')`
   box-sizing: border-box;
-  padding: 0 10px;
+  padding: 0 16px;
   flex: initial;
   order: 1;
 
