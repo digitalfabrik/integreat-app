@@ -55,15 +55,13 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
         content={content}
         timestamp={date}
         key={id}
-        link={pathnameFromRouteInformation({
+        to={pathnameFromRouteInformation({
           route: NEWS_ROUTE,
           newsType: TU_NEWS_TYPE,
           cityCode,
           languageCode,
           newsId: id,
         })}
-        t={t}
-        type={TU_NEWS_TYPE}
       />
     )
   }
@@ -105,10 +103,9 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
           city={cityCode}
           tunewsEnabled={city.tunewsEnabled}
           localNewsEnabled={city.localNewsEnabled}
-          t={t}
-          language={languageCode}>
-          <LoadingSpinner />
-        </NewsTabs>
+          language={languageCode}
+        />
+        <LoadingSpinner />
       </CityContentLayout>
     )
   }
@@ -121,10 +118,9 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
           city={cityCode}
           tunewsEnabled={city.tunewsEnabled}
           localNewsEnabled={city.localNewsEnabled}
-          t={t}
-          language={languageCode}>
-          <LanguageFailure cityModel={city} languageCode={languageCode} languageChangePaths={languageChangePaths} />
-        </NewsTabs>
+          language={languageCode}
+        />
+        <LanguageFailure cityModel={city} languageCode={languageCode} languageChangePaths={languageChangePaths} />
       </CityContentLayout>
     )
   }
@@ -137,16 +133,15 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
         city={cityCode}
         tunewsEnabled={city.tunewsEnabled}
         localNewsEnabled={city.localNewsEnabled}
-        t={t}
-        language={languageCode}>
-        <InfiniteScrollList
-          loadPage={loadTuNews}
-          renderItem={renderTuNewsListItem}
-          noItemsMessage={t('currentlyNoNews')}
-          defaultPage={DEFAULT_PAGE}
-          itemsPerPage={DEFAULT_COUNT}
-        />
-      </NewsTabs>
+        language={languageCode}
+      />
+      <InfiniteScrollList
+        loadPage={loadTuNews}
+        renderItem={renderTuNewsListItem}
+        noItemsMessage={t('currentlyNoNews')}
+        defaultPage={DEFAULT_PAGE}
+        itemsPerPage={DEFAULT_COUNT}
+      />
     </CityContentLayout>
   )
 }

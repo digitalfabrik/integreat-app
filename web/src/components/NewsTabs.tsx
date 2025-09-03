@@ -1,6 +1,6 @@
 import { styled } from '@mui/material/styles'
-import { TFunction } from 'i18next'
-import React, { ReactNode, ReactElement } from 'react'
+import React, { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NewsType, pathnameFromRouteInformation, TU_NEWS_TYPE } from 'shared'
 
@@ -15,23 +15,14 @@ const StyledTabs = styled('div')`
 
 type NewsTabsProps = {
   type: NewsType
-  children: ReactNode
   city: string
   localNewsEnabled: boolean
   tunewsEnabled: boolean
   language: string
-  t: TFunction<'news'>
 }
 
-const NewsTabs = ({
-  children,
-  language,
-  city,
-  localNewsEnabled,
-  tunewsEnabled,
-  t,
-  type,
-}: NewsTabsProps): ReactElement => {
+const NewsTabs = ({ language, city, localNewsEnabled, tunewsEnabled, type }: NewsTabsProps): ReactElement => {
+  const { t } = useTranslation('news')
   const params = { route: NEWS_ROUTE, cityCode: city, languageCode: language }
   const localNewsPath = pathnameFromRouteInformation({ ...params, newsType: LOCAL_NEWS_TYPE })
   const tunewsPath = pathnameFromRouteInformation({ ...params, newsType: TU_NEWS_TYPE })
@@ -45,7 +36,6 @@ const NewsTabs = ({
           <NewsTab active={type === TU_NEWS_TYPE} type={TU_NEWS_TYPE} destination={tunewsPath} t={t} />
         </StyledTabs>
       )}
-      {children}
     </>
   )
 }
