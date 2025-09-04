@@ -19,7 +19,7 @@ const GeneralHeader = ({ languageCode }: GeneralHeaderProps): ReactElement => {
     ? []
     : [<HeaderActionItem key='landing' to={landingPath} icon={<LocationOnOutlinedIcon />} text={t('changeLocation')} />]
 
-  return <Header logoHref={landingPath} actionItems={actionItems} sidebarItems={[]} language={languageCode} />
+  return <Header logoHref={landingPath} actionItems={actionItems} language={languageCode} />
 }
 
 export default GeneralHeader
