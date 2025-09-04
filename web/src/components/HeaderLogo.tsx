@@ -11,20 +11,12 @@ type HeaderLogoProps = {
   link: string
 }
 
-const LogoContainer = styled('div')`
-  box-sizing: border-box;
-  padding: 0 16px;
-  flex: initial;
+const StyledLink = styled(Link)`
   order: 1;
+  height: 48px;
 
-  & a {
-    display: block;
-    width: 100%;
-    height: 48px;
-
-    ${props => props.theme.breakpoints.down('md')} {
-      width: 32px;
-    }
+  ${props => props.theme.breakpoints.down('md')} {
+    width: 32px;
   }
 `
 
@@ -38,9 +30,6 @@ const StyledLogo = styled(SVG)`
   }
 `
 
-/**
- * A logo component designed for the Header.
- */
 export const HeaderLogo = ({ link }: HeaderLogoProps): ReactElement => {
   const { campaign, appName, icons } = buildConfig()
 
@@ -52,11 +41,9 @@ export const HeaderLogo = ({ link }: HeaderLogoProps): ReactElement => {
   const { viewportSmall } = useWindowDimensions()
 
   return (
-    <LogoContainer>
-      <Link to={link}>
-        <StyledLogo src={viewportSmall ? srcMobile : src} title={appName} />
-      </Link>
-    </LogoContainer>
+    <StyledLink to={link}>
+      <StyledLogo src={viewportSmall ? srcMobile : src} title={appName} />
+    </StyledLink>
   )
 }
 
