@@ -31,9 +31,12 @@ const Row = styled('div')`
   justify-content: space-between;
   flex-wrap: wrap;
   overflow-x: auto;
+  padding: 0 16px;
+  gap: 8px;
 
   ${props => props.theme.breakpoints.down('md')} {
     min-height: ${dimensions.headerHeightSmall}px;
+    padding: 0 8px;
   }
 `
 
@@ -43,7 +46,6 @@ const ActionBar = styled('nav')`
   align-items: center;
   justify-content: flex-end;
   gap: 8px;
-  padding: 0 12px;
 
   ${props => props.theme.breakpoints.down('md')} {
     order: 2;
