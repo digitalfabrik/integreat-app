@@ -77,7 +77,7 @@ const CategoryListItem = ({ category, subCategories }: CategoryListItemProps): R
         <ListItemText primary={<StyledTypography variant='body1'>{category.title}</StyledTypography>} />
       </StyledListItemButton>
       <Divider />
-      {SubCategories.length > 0 && <StyledList lastDivider={false} NoItemsMessage='noItems' items={SubCategories} />}
+      {SubCategories.length > 0 && <StyledList NoItemsMessage='noItems' items={SubCategories} />}
     </StyledListItem>
   )
 }
