@@ -1,4 +1,3 @@
-import { fireEvent } from '@testing-library/react'
 import { mocked } from 'jest-mock'
 import React from 'react'
 
@@ -6,9 +5,6 @@ import useWindowDimensions from '../../hooks/useWindowDimensions'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import { mockWindowDimensions } from '../../testing/utils'
 import { Header } from '../Header'
-import HeaderActionItem from '../HeaderActionItem'
-import SidebarActionItem from '../SidebarActionItem'
-import Link from '../base/Link'
 
 jest.mock('../../hooks/useWindowDimensions')
 jest.mock('react-inlinesvg')
@@ -21,7 +17,7 @@ describe('Header', () => {
   it('should render correctly', () => {
     mocked(useWindowDimensions).mockImplementation(() => ({ ...mockWindowDimensions, viewportSmall: true }))
     const { getByText } = renderWithRouterAndTheme(
-      <Header logoHref='/random_route' actionItems={[]} sidebarItems={[]} cityName={cityName} language='de' />,
+      <Header logoHref='/random_route' actionItems={[]} cityName={cityName} language='de' />,
     )
     expect(getByText(cityName)).toBeDefined()
   })
