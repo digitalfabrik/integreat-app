@@ -1,12 +1,16 @@
+import { mocked } from 'jest-mock'
 import React from 'react'
 
 import { CityModelBuilder } from 'shared/api'
 
+import useWindowDimensions from '../../hooks/useWindowDimensions'
 import { renderWithRouterAndTheme } from '../../testing/render'
+import { mockWindowDimensions } from '../../testing/utils'
 import CityContentHeader from '../CityContentHeader'
 
 jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
+jest.mock('../../hooks/useWindowDimensions')
 
 describe('CityContentHeader', () => {
   const cities = new CityModelBuilder(2).build()
@@ -24,9 +28,20 @@ describe('CityContentHeader', () => {
     )
 
   it('should render correctly', () => {
-    const { getAllByText, getByText } = renderCityContentHeader()
+    mocked(useWindowDimensions).mockImplementation(() => ({ ...mockWindowDimensions, viewportSmall: false }))
+    const { getAllByText, getByText, queryByLabelText } = renderCityContentHeader()
     expect(getByText(cityModel.name)).toBeTruthy()
     expect(getAllByText('Deutsch')).toBeTruthy()
     expect(getByText('layout:events')).toBeTruthy()
+    expect(queryByLabelText('layout:sideBarOpenAriaLabel')).toBeFalsy()
+  })
+
+  it('should show sidebar on small viewports', () => {
+    mocked(useWindowDimensions).mockImplementation(() => ({ ...mockWindowDimensions, viewportSmall: true }))
+    const { getAllByText, getByText, getByLabelText } = renderCityContentHeader()
+    expect(getByText(cityModel.name)).toBeTruthy()
+    expect(getAllByText('Deutsch')).toBeTruthy()
+    expect(getByText('layout:events')).toBeTruthy()
+    expect(getByLabelText('layout:sideBarOpenAriaLabel')).toBeTruthy()
   })
 })
