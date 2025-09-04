@@ -72,6 +72,8 @@ const GlobalStyle = ({ theme }: { theme: Theme }): SerializedStyles => css`
 
     [data-rsbs-overlay] {
       min-height: 40px;
+      bottom: 56px;
+      height: calc(100% - 56px);
     }
 
     [data-rsbs-scroll='true'] {
