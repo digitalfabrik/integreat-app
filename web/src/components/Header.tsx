@@ -1,4 +1,5 @@
 import Headroom from '@integreat-app/react-sticky-headroom'
+import Paper from '@mui/material/Paper'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode } from 'react'
 
@@ -70,14 +71,16 @@ export const Header = ({ actionItems = [], logoHref, cityName, language, TabBar 
 
   return (
     <Headroom scrollHeight={scrollHeight} height={height} zIndex={2}>
-      <HeaderContainer ref={ref}>
-        <Row>
-          <HeaderLogo link={logoHref} />
-          {!!cityName && <HeaderTitle title={cityName} landingPath={landingPath} />}
-          <ActionBar>{actionItems}</ActionBar>
-        </Row>
-        {TabBar}
-      </HeaderContainer>
+      <Paper>
+        <HeaderContainer ref={ref}>
+          <Row>
+            <HeaderLogo link={logoHref} />
+            {!!cityName && <HeaderTitle title={cityName} landingPath={landingPath} />}
+            <ActionBar>{actionItems}</ActionBar>
+          </Row>
+          {TabBar}
+        </HeaderContainer>
+      </Paper>
     </Headroom>
   )
 }
