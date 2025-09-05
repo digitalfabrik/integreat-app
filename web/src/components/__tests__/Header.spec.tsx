@@ -60,7 +60,10 @@ describe('Header', () => {
       'href',
       'http://localhost/sidebar_route',
     )
-    expect(getByText('layout,settings:imprint')).toHaveProperty('href', 'http://localhost/test/de/disclaimer')
+    expect(getByText('layout,settings:imprint').closest('a')).toHaveProperty(
+      'href',
+      'http://localhost/test/de/disclaimer',
+    )
   })
 
   it('should not render sidebar on large viewport', () => {
