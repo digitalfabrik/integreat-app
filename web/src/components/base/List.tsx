@@ -5,16 +5,16 @@ import { withDividers } from '../../utils'
 import Failure from '../Failure'
 
 type ListProps = {
-  items: ReactElement[]
+  Items: ReactElement[]
   NoItemsMessage: string | ReactElement
   className?: string
 }
 
-const List = ({ items, NoItemsMessage, className }: ListProps): ReactElement => {
-  if (items.length === 0) {
+const List = ({ Items, NoItemsMessage, className }: ListProps): ReactElement => {
+  if (Items.length === 0) {
     return typeof NoItemsMessage === 'string' ? <Failure errorMessage={NoItemsMessage} /> : NoItemsMessage
   }
-  return <MuiList className={className}>{withDividers(items)}</MuiList>
+  return <MuiList className={className}>{withDividers(Items)}</MuiList>
 }
 
 export default List
