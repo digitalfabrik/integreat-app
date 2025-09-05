@@ -31,6 +31,12 @@ const TitleRow = styled('div')`
   gap: 8px;
 `
 
+const Description = styled('div')`
+  & [class*='MuiTypography-root'] {
+    margin: 0;
+  }
+`
+
 type EventListItemProps = {
   event: EventModel
   languageCode: string
@@ -97,11 +103,11 @@ const EventListItem = ({
           </TitleRow>
         }
         secondary={
-          <div dir='auto'>
+          <Description dir='auto'>
             <Typography variant='body1'>{dateToDisplay.toFormattedString(languageCode, viewportSmall)}</Typography>
             {event.location && <Typography variant='body1'>{event.location.fullAddress}</Typography>}
             <Typography variant='body1'>{getExcerpt(event.excerpt, { maxChars: EXCERPT_MAX_CHARS })}</Typography>
-          </div>
+          </Description>
         }
       />
     </ListItem>
