@@ -12,7 +12,6 @@ class DateModel {
   _endDate: DateTime
   _allDay: boolean
   _recurrenceRule: RRuleType | null
-  _offset: number
   _duration: Duration
 
   constructor({
@@ -20,7 +19,6 @@ class DateModel {
     endDate,
     allDay,
     recurrenceRule,
-    offset,
   }: {
     startDate: DateTime
     endDate: DateTime
@@ -28,19 +26,11 @@ class DateModel {
     recurrenceRule: RRuleType | null
     offset?: number
   }) {
-    this._allDay = allDay
     this._recurrenceRule = recurrenceRule
-    this._offset = offset ?? startDate.offset
-
-    if (allDay) {
-      this._startDate = startDate.startOf('day')
-      this._endDate = endDate.startOf('day').set({ hour: 23, minute: 59, second: 0 })
-      this._duration = this._endDate.diff(this._startDate)
-    } else {
-      this._startDate = startDate
-      this._endDate = endDate
-      this._duration = endDate.diff(startDate)
-    }
+    this._allDay = allDay
+    this._duration = endDate.diff(startDate)
+    this._startDate = startDate
+    this._endDate = endDate
   }
   // This should only be called on recurrences as start dates are not updated in the CMS
   // E.g. date.recurrences(1)[0]?.startDate
@@ -60,10 +50,6 @@ class DateModel {
 
   get recurrenceRule(): RRuleType | null {
     return this._recurrenceRule
-  }
-
-  get offset(): number {
-    return this._offset
   }
 
   get isToday(): boolean {
@@ -97,21 +83,11 @@ class DateModel {
       .between(minDate, maxDate, true, (_, index) => index < count)
       .map(offsetDate => {
         const actualDate = DateTime.fromJSDate(offsetDate, { zone: 'local' }).toUTC()
-        if (this.allDay) {
-          return new DateModel({
-            allDay: true,
-            startDate: actualDate.startOf('day'),
-            endDate: actualDate.startOf('day').set({ hour: 23, minute: 59, second: 0 }),
-            recurrenceRule: this.recurrenceRule,
-            offset: actualDate.offset,
-          })
-        }
         return new DateModel({
-          allDay: false,
+          allDay: this.allDay,
           startDate: actualDate,
           endDate: actualDate.plus(duration),
           recurrenceRule: this.recurrenceRule,
-          offset: actualDate.offset,
         })
       })
   }

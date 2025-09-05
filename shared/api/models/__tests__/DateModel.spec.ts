@@ -8,13 +8,12 @@ describe('DateModel', () => {
   const locales = ['de', 'en', 'fr', 'ar', 'fa', 'ru']
 
   const normalizeWhitespaces = (str: string) => str.replace(/\s+/g, ' ')
-  const toUTCSpans = (models: DateModel[]) =>
-    models.map(m => ({
-      allDay: m.allDay,
-      recurrenceRule: m.recurrenceRule ?? null,
-      startDate: m.startDate.toUTC().toISO(),
-      endDate: m.endDate.toUTC().toISO(),
-      offset: m.offset,
+  const toUTCSpans = (dates: DateModel[]) =>
+    dates.map(date => ({
+      allDay: date.allDay,
+      recurrenceRule: date.recurrenceRule ?? null,
+      startDate: date.startDate.toUTC().toISO(),
+      endDate: date.endDate.toUTC().toISO(),
     }))
 
   describe('toTimeSpanString()', () => {
@@ -167,28 +166,24 @@ describe('DateModel', () => {
           recurrenceRule,
           startDate: '2023-10-09T07:00:00.000Z',
           endDate: '2023-10-10T09:00:00.000Z',
-          offset: 0,
         },
         {
           allDay: false,
           recurrenceRule,
           startDate: '2023-10-16T07:00:00.000Z',
           endDate: '2023-10-17T09:00:00.000Z',
-          offset: 0,
         },
         {
           allDay: false,
           recurrenceRule,
           startDate: '2023-10-23T07:00:00.000Z',
           endDate: '2023-10-24T09:00:00.000Z',
-          offset: 0,
         },
         {
           allDay: false,
           recurrenceRule,
           startDate: '2023-10-30T07:00:00.000Z',
           endDate: '2023-10-31T09:00:00.000Z',
-          offset: 0,
         },
       ])
     })
@@ -208,7 +203,6 @@ describe('DateModel', () => {
           recurrenceRule,
           startDate: '2023-10-09T07:00:00.000Z',
           endDate: '2023-10-10T09:00:00.000Z',
-          offset: 0,
         },
       ])
     })
@@ -228,21 +222,18 @@ describe('DateModel', () => {
           recurrenceRule,
           startDate: '2024-03-25T14:00:00.000Z',
           endDate: '2024-03-25T16:00:00.000Z',
-          offset: 0,
         },
         {
           allDay: false,
           recurrenceRule,
           startDate: '2024-04-01T14:00:00.000Z',
           endDate: '2024-04-01T16:00:00.000Z',
-          offset: 0,
         },
         {
           allDay: false,
           recurrenceRule,
           startDate: '2024-04-08T14:00:00.000Z',
           endDate: '2024-04-08T16:00:00.000Z',
-          offset: 0,
         },
       ])
     })
@@ -279,7 +270,6 @@ describe('DateModel', () => {
           recurrenceRule,
           startDate: '2024-01-15T08:00:00.000Z',
           endDate: '2024-01-15T10:00:00.000Z',
-          offset: 0,
         },
       ])
     })
@@ -300,7 +290,6 @@ describe('DateModel', () => {
           recurrenceRule,
           startDate: '2024-01-17T14:00:00.000Z',
           endDate: '2024-01-17T15:00:00.000Z',
-          offset: 0,
         },
       ])
     })
@@ -321,7 +310,6 @@ describe('DateModel', () => {
           recurrenceRule,
           startDate: '2024-08-13T16:00:00.000Z',
           endDate: '2024-08-13T18:00:00.000Z',
-          offset: 0,
         },
       ])
     })
@@ -342,7 +330,6 @@ describe('DateModel', () => {
           recurrenceRule,
           startDate: '2024-08-15T01:00:00.000Z',
           endDate: '2024-08-15T23:59:00.000Z',
-          offset: 0,
         },
       ])
     })
@@ -363,7 +350,6 @@ describe('DateModel', () => {
           recurrenceRule,
           startDate: '2024-08-17T00:00:00.000Z',
           endDate: '2024-08-17T23:59:00.000Z',
-          offset: 0,
         },
       ])
     })
@@ -384,7 +370,6 @@ describe('DateModel', () => {
           recurrenceRule,
           startDate: '2024-01-15T00:00:00.000Z',
           endDate: '2024-01-15T23:59:00.000Z',
-          offset: 0,
         },
       ])
     })
@@ -405,7 +390,6 @@ describe('DateModel', () => {
           recurrenceRule,
           startDate: '2024-08-15T14:00:00.000Z',
           endDate: '2024-08-15T16:00:00.000Z',
-          offset: 0,
         },
       ])
     })
@@ -426,21 +410,18 @@ describe('DateModel', () => {
           recurrenceRule,
           startDate: '2024-08-12T10:30:00.000Z',
           endDate: '2024-08-12T12:00:00.000Z',
-          offset: 0,
         },
         {
           allDay: false,
           recurrenceRule,
           startDate: '2024-09-09T10:30:00.000Z',
           endDate: '2024-09-09T12:00:00.000Z',
-          offset: 0,
         },
         {
           allDay: false,
           recurrenceRule,
           startDate: '2024-10-14T10:30:00.000Z',
           endDate: '2024-10-14T12:00:00.000Z',
-          offset: 0,
         },
       ])
     })
@@ -461,21 +442,18 @@ describe('DateModel', () => {
           recurrenceRule,
           startDate: '2024-08-28T00:00:00.000Z',
           endDate: '2024-08-28T23:59:00.000Z',
-          offset: 0,
         },
         {
           allDay: true,
           recurrenceRule,
           startDate: '2024-09-25T00:00:00.000Z',
           endDate: '2024-09-25T23:59:00.000Z',
-          offset: 0,
         },
         {
           allDay: true,
           recurrenceRule,
           startDate: '2024-10-30T00:00:00.000Z',
           endDate: '2024-10-30T23:59:00.000Z',
-          offset: 0,
         },
       ])
     })
@@ -496,21 +474,18 @@ describe('DateModel', () => {
           recurrenceRule,
           startDate: '2024-10-17T10:30:00.000Z',
           endDate: '2024-10-17T12:00:00.000Z',
-          offset: 0,
         },
         {
           allDay: false,
           recurrenceRule,
           startDate: '2024-12-19T10:30:00.000Z',
           endDate: '2024-12-19T12:00:00.000Z',
-          offset: 0,
         },
         {
           allDay: false,
           recurrenceRule,
           startDate: '2025-02-20T10:30:00.000Z',
           endDate: '2025-02-20T12:00:00.000Z',
-          offset: 0,
         },
       ])
     })
@@ -531,21 +506,18 @@ describe('DateModel', () => {
           startDate: '2024-12-06T00:00:00.000Z',
           endDate: '2024-12-06T23:59:00.000Z',
           recurrenceRule,
-          offset: 0,
         },
         {
           allDay: true,
           startDate: '2025-12-06T00:00:00.000Z',
           endDate: '2025-12-06T23:59:00.000Z',
           recurrenceRule,
-          offset: 0,
         },
         {
           allDay: true,
           startDate: '2026-12-06T00:00:00.000Z',
           endDate: '2026-12-06T23:59:00.000Z',
           recurrenceRule,
-          offset: 0,
         },
       ])
     })
@@ -566,21 +538,18 @@ describe('DateModel', () => {
           startDate: '2024-12-06T00:00:00.000Z',
           endDate: '2024-12-06T23:59:00.000Z',
           recurrenceRule,
-          offset: 0,
         },
         {
           allDay: true,
           startDate: '2026-12-06T00:00:00.000Z',
           endDate: '2026-12-06T23:59:00.000Z',
           recurrenceRule,
-          offset: 0,
         },
         {
           allDay: true,
           startDate: '2028-12-06T00:00:00.000Z',
           endDate: '2028-12-06T23:59:00.000Z',
           recurrenceRule,
-          offset: 0,
         },
       ])
     })
@@ -608,21 +577,18 @@ describe('DateModel', () => {
           recurrenceRule,
           startDate: '2025-03-23T14:00:00.000Z',
           endDate: '2025-03-23T16:00:00.000Z',
-          offset: 0,
         },
         {
           allDay: false,
           recurrenceRule,
           startDate: '2025-03-30T14:00:00.000Z',
           endDate: '2025-03-30T16:00:00.000Z',
-          offset: 0,
         },
         {
           allDay: false,
           recurrenceRule,
           startDate: '2025-04-06T14:00:00.000Z',
           endDate: '2025-04-06T16:00:00.000Z',
-          offset: 0,
         },
       ])
 
@@ -632,21 +598,18 @@ describe('DateModel', () => {
           recurrenceRule: allDayRecurrence,
           startDate: '2025-03-23T00:00:00.000Z',
           endDate: '2025-03-23T23:59:00.000Z',
-          offset: 0,
         },
         {
           allDay: true,
           recurrenceRule: allDayRecurrence,
           startDate: '2025-03-30T00:00:00.000Z',
           endDate: '2025-03-30T23:59:00.000Z',
-          offset: 0,
         },
         {
           allDay: true,
           recurrenceRule: allDayRecurrence,
           startDate: '2025-04-06T00:00:00.000Z',
           endDate: '2025-04-06T23:59:00.000Z',
-          offset: 0,
         },
       ])
     })
@@ -674,21 +637,18 @@ describe('DateModel', () => {
           recurrenceRule,
           startDate: '2025-10-19T14:00:00.000Z',
           endDate: '2025-10-19T16:00:00.000Z',
-          offset: 0,
         },
         {
           allDay: false,
           recurrenceRule,
           startDate: '2025-10-26T14:00:00.000Z',
           endDate: '2025-10-26T16:00:00.000Z',
-          offset: 0,
         },
         {
           allDay: false,
           recurrenceRule,
           startDate: '2025-11-02T14:00:00.000Z',
           endDate: '2025-11-02T16:00:00.000Z',
-          offset: 0,
         },
       ])
 
@@ -698,21 +658,18 @@ describe('DateModel', () => {
           recurrenceRule: allDayRecurrence,
           startDate: '2025-10-19T00:00:00.000Z',
           endDate: '2025-10-19T23:59:00.000Z',
-          offset: 0,
         },
         {
           allDay: true,
           recurrenceRule: allDayRecurrence,
           startDate: '2025-10-26T00:00:00.000Z',
           endDate: '2025-10-26T23:59:00.000Z',
-          offset: 0,
         },
         {
           allDay: true,
           recurrenceRule: allDayRecurrence,
           startDate: '2025-11-02T00:00:00.000Z',
           endDate: '2025-11-02T23:59:00.000Z',
-          offset: 0,
         },
       ])
     })
@@ -737,21 +694,18 @@ describe('DateModel', () => {
         startDate: '2024-01-03T10:00:00.000Z',
         endDate: '2024-01-03T11:00:00.000Z',
         recurrenceRule,
-        offset: 0,
       },
       {
         allDay: false,
         startDate: '2024-01-04T10:00:00.000Z',
         endDate: '2024-01-04T11:00:00.000Z',
         recurrenceRule,
-        offset: 0,
       },
       {
         allDay: false,
         startDate: '2024-01-05T10:00:00.000Z',
         endDate: '2024-01-05T11:00:00.000Z',
         recurrenceRule,
-        offset: 0,
       },
     ])
   })
@@ -774,21 +728,18 @@ describe('DateModel', () => {
         endDate: '2024-01-05T11:00:00.000Z',
         allDay: false,
         recurrenceRule,
-        offset: 0,
       },
       {
         startDate: '2024-01-06T10:00:00.000Z',
         endDate: '2024-01-06T11:00:00.000Z',
         allDay: false,
         recurrenceRule,
-        offset: 0,
       },
       {
         startDate: '2024-01-07T10:00:00.000Z',
         endDate: '2024-01-07T11:00:00.000Z',
         allDay: false,
         recurrenceRule,
-        offset: 0,
       },
     ])
   })
@@ -811,14 +762,12 @@ describe('DateModel', () => {
         endDate: '2024-01-01T11:00:00.000Z',
         allDay: false,
         recurrenceRule,
-        offset: 0,
       },
       {
         startDate: '2024-01-02T10:00:00.000Z',
         endDate: '2024-01-02T11:00:00.000Z',
         allDay: false,
         recurrenceRule,
-        offset: 0,
       },
     ])
   })
