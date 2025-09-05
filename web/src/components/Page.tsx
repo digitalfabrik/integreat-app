@@ -1,4 +1,4 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import { DateTime } from 'luxon'
 import React, { ReactElement, ReactNode, useContext } from 'react'
 
@@ -10,7 +10,7 @@ import { TtsContext } from './TtsContainer'
 
 export const THUMBNAIL_WIDTH = 300
 
-const Thumbnail = styled.img`
+const Thumbnail = styled('img')`
   display: flex;
   width: ${THUMBNAIL_WIDTH}px;
   height: ${THUMBNAIL_WIDTH}px;
@@ -19,7 +19,7 @@ const Thumbnail = styled.img`
   object-fit: contain;
 `
 
-const SpaceForTts = styled.div<{ ttsPlayerVisible: boolean }>`
+const SpaceForTts = styled('div')<{ ttsPlayerVisible: boolean }>`
   height: ${props => (props.ttsPlayerVisible ? dimensions.ttsPlayerHeight : 0)}px;
   transition: height 250ms ease-in;
 `

@@ -80,22 +80,22 @@ describe('TtsContainer', () => {
   })
 
   it('should correctly play and pause tts', async () => {
-    const { getByText, getByRole } = renderTtsPlayer()
+    const { getByText, getByLabelText } = renderTtsPlayer()
     fireEvent.click(getByText('show'))
-    await waitFor(() => expect(getByRole('button', { name: 'layout:play' })).toBeInTheDocument())
-    fireEvent.click(getByRole('button', { name: 'layout:play' }))
+    await waitFor(() => expect(getByLabelText('layout:play')).toBeInTheDocument())
+    fireEvent.click(getByLabelText('layout:play'))
 
     expect(EasySpeech.speak).toHaveBeenCalledWith(expect.objectContaining(testTtsObject('test')))
-    fireEvent.click(getByRole('button', { name: 'layout:pause' }))
+    fireEvent.click(getByLabelText('layout:pause'))
     expect(EasySpeech.cancel).toHaveBeenCalled()
-    await waitFor(() => expect(getByRole('button', { name: 'layout:play' })).toBeTruthy())
+    await waitFor(() => expect(getByLabelText('layout:play')).toBeTruthy())
   })
 
   it('should correctly play for Deutsch (leicht)', async () => {
-    const { getByText, getByRole } = renderTtsPlayer('de-si')
+    const { getByText, getByLabelText } = renderTtsPlayer('de-si')
     fireEvent.click(getByText('show'))
-    await waitFor(() => expect(getByRole('button', { name: 'layout:play' })).toBeInTheDocument())
-    fireEvent.click(getByRole('button', { name: 'layout:play' }))
+    await waitFor(() => expect(getByLabelText('layout:play')).toBeInTheDocument())
+    fireEvent.click(getByLabelText('layout:play'))
 
     expect(EasySpeech.speak).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -106,12 +106,12 @@ describe('TtsContainer', () => {
   })
 
   it('should close and cancel utterance', async () => {
-    const { getByText, getByRole, queryByRole } = renderTtsPlayer()
+    const { getByText, queryByRole, getByLabelText } = renderTtsPlayer()
     fireEvent.click(getByText('show'))
-    await waitFor(() => expect(getByRole('button', { name: 'layout:play' })).toBeInTheDocument())
-    fireEvent.click(getByRole('button', { name: 'layout:play' }))
+    await waitFor(() => expect(getByLabelText('layout:play')).toBeInTheDocument())
+    fireEvent.click(getByLabelText('layout:play'))
 
-    const closeButton = getByRole('button', { name: 'layout:common:close' })
+    const closeButton = getByLabelText('layout:common:close')
     fireEvent.click(closeButton)
 
     expect(EasySpeech.cancel).toHaveBeenCalled()
@@ -120,43 +120,43 @@ describe('TtsContainer', () => {
   })
 
   it('should play previous and next sentences', async () => {
-    const { getByText, getByRole } = renderTtsPlayer()
+    const { getByText, getByLabelText } = renderTtsPlayer()
     fireEvent.click(getByText('set sentences'))
     fireEvent.click(getByText('show'))
 
-    await waitFor(() => expect(getByRole('button', { name: 'layout:play' })).toBeTruthy())
+    await waitFor(() => expect(getByLabelText('layout:play')).toBeTruthy())
 
-    fireEvent.click(getByRole('button', { name: 'layout:play' }))
-    await waitFor(() => expect(getByRole('button', { name: 'layout:pause' })).toBeTruthy())
+    fireEvent.click(getByLabelText('layout:play'))
+    await waitFor(() => expect(getByLabelText('layout:pause')).toBeTruthy())
     await waitFor(() => expect(EasySpeech.speak).toHaveBeenCalledTimes(2))
     expect(EasySpeech.cancel).toHaveBeenCalledTimes(3)
 
-    fireEvent.click(getByRole('button', { name: 'layout:previous' }))
+    fireEvent.click(getByLabelText('layout:previous'))
     await waitFor(() => expect(EasySpeech.speak).toHaveBeenCalledTimes(3))
     expect(EasySpeech.speak).toHaveBeenLastCalledWith(expect.objectContaining(testTtsObject(sentences[0]!)))
     expect(EasySpeech.cancel).toHaveBeenCalledTimes(4)
 
-    fireEvent.click(getByRole('button', { name: 'layout:next' }))
+    fireEvent.click(getByLabelText('layout:next'))
     await waitFor(() => expect(EasySpeech.speak).toHaveBeenCalledTimes(4))
     expect(EasySpeech.speak).toHaveBeenLastCalledWith(expect.objectContaining(testTtsObject(sentences[1]!)))
     expect(EasySpeech.cancel).toHaveBeenCalledTimes(5)
 
-    fireEvent.click(getByRole('button', { name: 'layout:next' }))
+    fireEvent.click(getByLabelText('layout:next'))
     await waitFor(() => expect(EasySpeech.speak).toHaveBeenCalledTimes(5))
     expect(EasySpeech.speak).toHaveBeenCalledWith(expect.objectContaining(testTtsObject(sentences[2]!)))
     expect(EasySpeech.cancel).toHaveBeenCalledTimes(6)
 
-    fireEvent.click(getByRole('button', { name: 'layout:previous' }))
+    fireEvent.click(getByLabelText('layout:previous'))
     await waitFor(() => expect(EasySpeech.speak).toHaveBeenCalledTimes(6))
     expect(EasySpeech.speak).toHaveBeenCalledWith(expect.objectContaining(testTtsObject(sentences[1]!)))
     expect(EasySpeech.cancel).toHaveBeenCalledTimes(7)
 
-    fireEvent.click(getByRole('button', { name: 'layout:pause' }))
-    await waitFor(() => expect(getByRole('button', { name: 'layout:play' })).toBeTruthy())
+    fireEvent.click(getByLabelText('layout:pause'))
+    await waitFor(() => expect(getByLabelText('layout:play')).toBeTruthy())
     expect(EasySpeech.cancel).toHaveBeenCalledTimes(8)
 
-    fireEvent.click(getByRole('button', { name: 'layout:play' }))
-    await waitFor(() => expect(getByRole('button', { name: 'layout:pause' })).toBeTruthy())
+    fireEvent.click(getByLabelText('layout:play'))
+    await waitFor(() => expect(getByLabelText('layout:pause')).toBeTruthy())
     expect(EasySpeech.speak).toHaveBeenCalledTimes(7)
     expect(EasySpeech.speak).toHaveBeenLastCalledWith(expect.objectContaining(testTtsObject(sentences[1]!)))
     expect(EasySpeech.cancel).toHaveBeenCalledTimes(8)

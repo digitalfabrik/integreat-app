@@ -1,4 +1,5 @@
-import styled from '@emotion/styled'
+import Button from '@mui/material/Button'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -7,28 +8,23 @@ import { config } from 'translations'
 
 import buildConfig from '../constants/buildConfig'
 import FeedbackContainer from './FeedbackContainer'
-import TextButton from './base/TextButton'
 
-const Container = styled.div`
+const Container = styled('div')`
   display: flex;
   flex-direction: column;
   align-items: center;
 `
 
-const CenteredContainer = styled.div`
+const CenteredContainer = styled('div')`
   text-align: center;
 `
 
-const SmallTitle = styled.p`
+const SmallTitle = styled('p')`
   font-weight: 600;
 `
 
-const Hint = styled.p`
+const Hint = styled('p')`
   padding-bottom: 16px;
-`
-
-const StyledButton = styled(TextButton)`
-  margin-top: 8px;
 `
 
 type SearchFeedbackProps = {
@@ -69,14 +65,16 @@ const SearchFeedback = ({ cityCode, languageCode, query, noResults }: SearchFeed
         </SmallTitle>
         <Hint>{t('checkQuery', { appName: buildConfig().appName })}</Hint>
         <SmallTitle>{t('informationMissing')}</SmallTitle>
-        <StyledButton type='button' text={t('giveFeedback')} onClick={() => setShowFeedback(true)} />
+        <Button onClick={() => setShowFeedback(true)} variant='outlined'>
+          {t('giveFeedback')}
+        </Button>
       </CenteredContainer>
     )
   }
 
   return (
     <Container>
-      <TextButton onClick={() => setShowFeedback(true)} text={t('informationNotFound')} />
+      <Button onClick={() => setShowFeedback(true)}>{t('informationNotFound')}</Button>
     </Container>
   )
 }

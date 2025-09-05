@@ -1,34 +1,36 @@
-import styled from '@emotion/styled'
+import CopyIcon from '@mui/icons-material/ContentCopy'
+import DoneIcon from '@mui/icons-material/Done'
+import Button from '@mui/material/Button'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import GeneralFooter from '../components/GeneralFooter'
 import Layout from '../components/Layout'
-import TextButton from '../components/base/TextButton'
 import buildConfig from '../constants/buildConfig'
 import { helpers } from '../constants/theme'
 import useScrollToTopOnMount from '../hooks/useScrollToTopOnMount'
 
-const Container = styled.div`
+const Container = styled('div')`
   display: flex;
   flex-direction: column;
 `
 
-const Heading = styled.p`
+const Heading = styled('p')`
   font-weight: 600;
   text-align: center;
   font-size: 1.4rem;
-  font-family: ${props => props.theme.fonts.web.decorativeFont};
+  font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
   padding: 20px;
   white-space: pre-line;
 `
 
-const Text = styled.p`
-  font-size: ${props => props.theme.fonts.contentFontSize};
-  font-family: ${props => props.theme.fonts.web.contentFont};
+const Text = styled('p')`
+  font-size: ${props => props.theme.legacy.fonts.contentFontSize};
+  font-family: ${props => props.theme.legacy.fonts.web.contentFont};
 `
 
-const Icon = styled.img`
+const Icon = styled('img')`
   width: calc(40px + 10vw);
   height: calc(40px + 10vw);
   flex-shrink: 0;
@@ -37,21 +39,21 @@ const Icon = styled.img`
 
 const ListHeading = styled(Heading)`
   padding: 0;
-  font-size: ${props => props.theme.fonts.decorativeFontSize};
+  font-size: ${props => props.theme.legacy.fonts.decorativeFontSize};
 `
 
-const ListItem = styled.div`
+const ListItem = styled('div')`
   display: flex;
   align-items: center;
 `
 
-const StepNumber = styled.div`
+const StepNumber = styled('div')`
   border-radius: 50%;
   line-height: 2rem;
   min-width: 2rem;
   height: 2rem;
   text-align: center;
-  background-color: ${props => props.theme.colors.themeColor};
+  background-color: ${props => props.theme.legacy.colors.themeColor};
   ${helpers.adaptiveThemeTextColor}
 `
 
@@ -59,19 +61,17 @@ const StepExplanation = styled(Text)`
   padding: 0 10px;
 `
 
-const StyledButton = styled(TextButton)`
+const StyledButton = styled(Button)`
   align-self: center;
   z-index: 10;
-  margin: 40px 0 0;
-  font-weight: normal;
-  box-shadow: none;
+  margin-top: 40px;
 `
 
 const TemplateText = styled(Text)`
   position: relative;
   direction: ltr;
   top: -30px;
-  border: 1px solid ${props => props.theme.colors.themeColor};
+  border: 1px solid ${props => props.theme.legacy.colors.themeColor};
   padding: 50px 30px 30px;
   white-space: pre-line;
 `
@@ -115,7 +115,9 @@ const CityNotCooperatingPage = ({ languageCode }: CityNotCooperatingPageProps): 
           <StepNumber>2</StepNumber>
           <StepExplanation>{t('sendText')}</StepExplanation>
         </ListItem>
-        <StyledButton onClick={copyToClipboard} text={isCopied ? t('common:copied') : t('copyText')} />
+        <StyledButton onClick={copyToClipboard} startIcon={isCopied ? <DoneIcon /> : <CopyIcon />} variant='contained'>
+          {isCopied ? t('common:copied') : t('copyText')}
+        </StyledButton>
         <TemplateText>{template}</TemplateText>
       </Container>
     </Layout>

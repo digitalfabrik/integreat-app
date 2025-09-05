@@ -1,4 +1,4 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -9,7 +9,7 @@ import useWindowDimensions from '../hooks/useWindowDimensions'
 import Collapsible from './Collapsible'
 import PageDetail from './PageDetail'
 
-const Identifier = styled.span`
+const Identifier = styled('span')`
   font-weight: bold;
 `
 

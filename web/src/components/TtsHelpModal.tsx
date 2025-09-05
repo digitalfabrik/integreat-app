@@ -1,9 +1,10 @@
-import { useTheme } from '@emotion/react'
-import styled from '@emotion/styled'
+import OpenInNewIcon from '@mui/icons-material/OpenInNew'
+import WarningAmberOutlinedIcon from '@mui/icons-material/WarningAmberOutlined'
+import { styled, useTheme } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { BookIcon, ExternalLinkIcon, WarningIcon } from '../assets'
+import { BookIcon } from '../assets'
 import { Container } from './Feedback'
 import Modal from './Modal'
 import Icon from './base/Icon'
@@ -21,26 +22,31 @@ const ModalContent = styled(Container)`
   padding: 0 16px 16px;
 `
 
-const StyledWarningText = styled.div`
-  font-family: ${props => props.theme.fonts.web.contentFont};
+const StyledWarningText = styled('div')`
+  font-family: ${props => props.theme.legacy.fonts.web.contentFont};
   font-size: 16px;
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
 `
 
 const StyledWarningIcon = styled(Icon)`
-  color: ${props => props.theme.colors.ttsPlayerWarningColor};
+  color: ${props => props.theme.legacy.colors.ttsPlayerWarningColor};
 `
 
-const StyledList = styled.div`
+const StyledList = styled('div')`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
 `
 
 const StyledExternalIcon = styled(Icon)`
   height: 12px;
   width: 12px;
+  color: ${props => props.theme.legacy.colors.linkColor};
+`
+
+const StyledBookIcon = styled(Icon)`
+  color: black;
 `
 
 const helpItemsData = [
@@ -69,9 +75,9 @@ const helpItemsData = [
 const HelpModalItem = ({ title, path }: { title: string; path: string }) => (
   <div>
     <StyledLink to={path}>
-      <Icon src={BookIcon} />
+      <StyledBookIcon src={BookIcon} />
       {title}
-      <StyledExternalIcon src={ExternalLinkIcon} />
+      <StyledExternalIcon src={OpenInNewIcon} />
     </StyledLink>
   </div>
 )
@@ -83,10 +89,12 @@ const TtsHelpModal = ({ closeModal }: { closeModal: () => void }): ReactElement 
     <Modal
       contentStyle={{
         borderRadius: 5,
-        backgroundColor: theme.isContrastTheme ? theme.colors.backgroundColor : theme.colors.ttsPlayerWarningBackground,
+        backgroundColor: theme.isContrastTheme
+          ? theme.legacy.colors.backgroundColor
+          : theme.legacy.colors.ttsPlayerWarningBackground,
       }}
       title={t('voiceUnavailable')}
-      icon={<StyledWarningIcon src={WarningIcon} />}
+      icon={<StyledWarningIcon src={WarningAmberOutlinedIcon} />}
       closeModal={closeModal}>
       <ModalContent>
         <StyledWarningText>{t('voiceUnavailableMessage')}</StyledWarningText>

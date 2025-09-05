@@ -1,10 +1,9 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import SVG from 'react-inlinesvg'
 
 import buildConfig from '../constants/buildConfig'
-import dimensions from '../constants/dimensions'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import Link from './base/Link'
 
@@ -12,7 +11,7 @@ type HeaderLogoProps = {
   link: string
 }
 
-const LogoContainer = styled.div`
+const LogoContainer = styled('div')`
   box-sizing: border-box;
   padding: 0 10px;
   flex: initial;
@@ -23,18 +22,18 @@ const LogoContainer = styled.div`
     width: 100%;
     height: 48px;
 
-    @media ${dimensions.smallViewport} {
-      width: 48px;
+    ${props => props.theme.breakpoints.down('md')} {
+      width: 32px;
     }
   }
 `
 
 const StyledLogo = styled(SVG)`
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
   height: 100%;
-  width: 200px;
+  width: fit-content;
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     width: 100%;
   }
 `

@@ -1,16 +1,16 @@
-import styled from '@emotion/styled'
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
+import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ArrowBackIcon, ShrinkIcon } from '../assets'
-import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import Button from './base/Button'
 import Icon from './base/Icon'
 
 const StyledButton = styled(Button)`
-  background-color: ${props => props.theme.colors.themeColor};
+  background-color: ${props => props.theme.legacy.colors.themeColor};
 `
 
 const StyledIcon = styled(Icon)`
@@ -18,14 +18,14 @@ const StyledIcon = styled(Icon)`
   height: 24px;
   align-self: center;
   display: flex;
-  color: ${props => props.theme.colors.backgroundColor};
+  color: ${props => props.theme.legacy.colors.backgroundColor};
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     ${helpers.adaptiveThemeTextColor}
   }
 `
 
-const ButtonContainer = styled.div`
+const ButtonContainer = styled('div')`
   display: flex;
   gap: 8px;
 `
@@ -40,7 +40,7 @@ const ChatMenu = ({ onClose }: ChatMenuProps): ReactElement => {
   return (
     <ButtonContainer>
       <StyledButton label={t(viewportSmall ? 'back' : 'minimize')} onClick={onClose}>
-        <StyledIcon src={viewportSmall ? ArrowBackIcon : ShrinkIcon} directionDependent />
+        <StyledIcon src={viewportSmall ? ArrowBackIosNewIcon : CloseFullscreenIcon} directionDependent />
       </StyledButton>
     </ButtonContainer>
   )

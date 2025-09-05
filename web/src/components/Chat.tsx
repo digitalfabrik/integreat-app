@@ -1,13 +1,12 @@
-import styled from '@emotion/styled'
+import SendIcon from '@mui/icons-material/Send'
+import Button from '@mui/material/Button'
+import { styled } from '@mui/material/styles'
 import React, { KeyboardEvent, ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CityModel } from 'shared/api'
-import ChatMessageModel from 'shared/api/models/ChatMessageModel'
+import { ChatMessageModel, CityModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
-import dimensions from '../constants/dimensions'
-import { helpers } from '../constants/theme'
 import Caption from './Caption'
 import ChatConversation from './ChatConversation'
 import ChatPrivacyInformation from './ChatPrivacyInformation'
@@ -15,17 +14,16 @@ import LoadingSpinner from './LoadingSpinner'
 import PrivacyCheckbox from './PrivacyCheckbox'
 import Input from './base/Input'
 import InputSection from './base/InputSection'
-import TextButton from './base/TextButton'
 
-const Container = styled.div`
+const Container = styled('div')`
   height: 100%;
-  padding-top: 8px;
-  gap: 8px;
+  padding: 12px 0;
+  gap: ${props => props.theme.spacing(1)};
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
-  @media ${dimensions.mediumLargeViewport} {
+  ${props => props.theme.breakpoints.up('md')} {
     height: 600px;
     min-width: 300px;
   }
@@ -35,16 +33,16 @@ const LoadingContainer = styled(Container)`
   justify-content: center;
 `
 
-const SubmitContainer = styled.div`
+const SubmitContainer = styled('div')`
+  gap: ${props => props.theme.spacing(1)};
   display: flex;
 `
 
-const SubmitButton = styled(TextButton)`
+const SubmitButton = styled(Button)`
   flex: 1;
-  ${helpers.adaptiveThemeTextColor}
 `
 
-const LoadingText = styled.div`
+const LoadingText = styled('div')`
   text-align: center;
 `
 
@@ -52,8 +50,11 @@ const StyledLoadingSpinner = styled(LoadingSpinner)`
   margin-top: 0;
 `
 
-const InputWrapper = styled.div`
+const InputWrapper = styled('div')`
+  display: flex;
+  flex-direction: column;
   padding: 0 12px;
+  gap: ${props => props.theme.spacing(1)};
 `
 
 type ChatProps = {
@@ -132,14 +133,15 @@ const Chat = ({
             id='chat'
             value={textInput}
             onChange={setTextInput}
-            multiline
             onKeyDown={submitOnEnter}
-            numberOfLines={2}
+            rows={2}
             placeholder={t('chatInputHelperText')}
           />
         </InputSection>
         <SubmitContainer>
-          <SubmitButton disabled={submitDisabled} onClick={onSubmit} text={t('sendButton')} />
+          <SubmitButton onClick={onSubmit} startIcon={<SendIcon />} variant='contained' disabled={submitDisabled}>
+            {t('sendButton')}
+          </SubmitButton>
           <ChatPrivacyInformation customPrivacyUrl={city.chatPrivacyPolicyUrl} />
         </SubmitContainer>
       </InputWrapper>

@@ -22,6 +22,7 @@ const integreatTestCms = {
     developerFriendly: true,
     fixedCity: null,
     cityNotCooperatingTemplate,
+    cityNotCooperating: true,
     chat: true,
     tts: true,
   },

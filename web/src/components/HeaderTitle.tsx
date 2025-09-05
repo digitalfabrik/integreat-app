@@ -1,44 +1,76 @@
-import styled from '@emotion/styled'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+import Tooltip from '@mui/material/Tooltip'
+import Typography from '@mui/material/Typography'
+import { styled, Theme } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 
+import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
+import Link from './base/Link'
 
 const LONG_TITLE_LENGTH = 25
-export const HEADER_TITLE_HEIGHT = 50
 
-const HeaderTitleContainer = styled.div<{ long: boolean }>`
+const HeaderTitleContainer = styled(Typography)`
+  display: flex;
+  align-items: flex-start;
+  max-height: ${dimensions.headerHeightLarge};
+  margin-inline-end: auto;
+  order: 2;
+
+  /* Used margin-inline-end to let Tooltip be in the center of the title and flex:1 for small screens. */
+  ${props => props.theme.breakpoints.down('sm')} {
+    margin-inline-end: 0;
+    flex: 1;
+  }
+`
+
+const titleStyles = ({ theme }: { theme: Theme }) => `
   display: flex;
   align-items: center;
-  font-size: ${props => (props.long ? '1.3rem' : '1.8rem')};
-  max-height: ${dimensions.headerHeightLarge};
-  font-weight: 800;
-  flex: 1;
-  order: 2;
-  padding: 0 10px;
-  box-sizing: border-box;
+  gap: 12px;
 
-  @media ${dimensions.minMaxWidth} {
-    font-size: ${props => (props.long ? '1.5rem' : '1.8rem')};
+  ${theme.breakpoints.down('md')} {
+    gap: 0;
   }
+`
 
-  @media ${dimensions.smallViewport} {
-    font-family: ${props => props.theme.fonts.web.decorativeFont};
-    font-size: ${props => props.theme.fonts.decorativeFontSize};
-    height: ${HEADER_TITLE_HEIGHT}px;
-    justify-content: start;
-    padding: 0 10px;
-    text-align: start;
-    align-self: center;
-    font-weight: 400;
-  }
+const StyledLink = styled(Link)`
+  ${titleStyles}
+`
+
+const StyledTitle = styled('span')`
+  ${titleStyles}
 `
 
 type HeaderTitleProps = {
   title: string
+  landingPath: string
 }
 
-const HeaderTitle = ({ title }: HeaderTitleProps): ReactElement => (
-  <HeaderTitleContainer long={title.length >= LONG_TITLE_LENGTH}>{title}</HeaderTitleContainer>
-)
+const HeaderTitle = ({ title, landingPath }: HeaderTitleProps): ReactElement => {
+  const { t } = useTranslation('layout')
+  const { featureFlags } = buildConfig()
+  const isFixedCity = featureFlags.fixedCity
+  const variant = title.length >= LONG_TITLE_LENGTH ? 'title3' : 'title2'
+
+  if (isFixedCity) {
+    return (
+      <HeaderTitleContainer aria-label={t('changeLocation')} variant={variant}>
+        <StyledTitle>{title}</StyledTitle>
+      </HeaderTitleContainer>
+    )
+  }
+  return (
+    <Tooltip id='location' title={t('changeLocation')}>
+      <HeaderTitleContainer variant={variant}>
+        <StyledLink to={landingPath}>
+          {title}
+          <KeyboardArrowDownIcon />
+        </StyledLink>
+      </HeaderTitleContainer>
+    </Tooltip>
+  )
+}
 
 export default HeaderTitle

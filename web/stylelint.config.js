@@ -5,8 +5,5 @@ module.exports = {
   rules: {
     // Enforce better ltr / rtl handling
     'csstools/use-logical': [true, { except: [/bottom$/, /top$/, /width$/, /height$/] }],
-
-    // False positives for string interpolated values e.g. '@media screen and ${dimensions.smallViewport}'
-    'media-query-no-invalid': null,
   },
 }
