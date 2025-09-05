@@ -1,46 +1,98 @@
-import CloseIcon from '@mui/icons-material/Close'
-import { SvgIconProps } from '@mui/material/SvgIcon'
+import { Theme, useTheme } from '@emotion/react'
+import Chip, { ChipOwnProps } from '@mui/material/Chip'
 import { styled } from '@mui/material/styles'
-import React, { ElementType, ReactElement } from 'react'
+import React, { ReactElement } from 'react'
 
-import Button from './Button'
 import Icon from './Icon'
 
-const StyledButton = styled(Button)`
-  display: flex;
-  height: 30px;
-  padding: 4px 8px;
-  align-items: center;
-  margin: 0 2px;
-  border-radius: 20px;
-  gap: 4px;
-  background-color: ${props => props.theme.legacy.colors.backgroundColor};
-  color: ${props => props.theme.legacy.colors.textSecondaryColor};
-  font-family: ${props => props.theme.legacy.fonts.web.contentFont};
-  font-size: 0.875rem;
-`
-
-const StyledIcon = styled(Icon)`
-  color: ${props => props.theme.legacy.colors.textSecondaryColor};
-  height: 16px;
-  width: 16px;
-`
-
 type ChipButtonProps = {
-  text: string
-  icon: string | ElementType<SvgIconProps>
-  onClick: () => void
-  label?: string
+  label: string
+  icon?: string | ReactElement
+  onClick?: () => void
+  onDelete?: () => void
   closeButton?: boolean
-  className?: string
+  variant?: 'outlined' | 'grey' | 'primary'
+} & Omit<ChipOwnProps, 'label' | 'icon' | 'variant'>
+
+const getIconElement = (IconProp: undefined | string | ReactElement): ReactElement | undefined => {
+  if (typeof IconProp === 'string') {
+    return <Icon src={IconProp} />
+  }
+  return IconProp
 }
 
-const ChipButton = ({ text, onClick, label, className, ...props }: ChipButtonProps): ReactElement => (
-  <StyledButton label={label ?? text} onClick={onClick} className={className}>
-    <StyledIcon src={props.icon} />
-    <div>{text}</div>
-    {props.closeButton && <StyledIcon src={CloseIcon} />}
-  </StyledButton>
-)
+const mapPropsToMuiChipProps = (props: ChipButtonProps, theme: Theme): ChipOwnProps => {
+  const { variant, icon, ...rest } = props
+  const iconElement = getIconElement(icon)
+  const isContrastMode = theme.palette.mode === 'dark'
+  if (variant === 'outlined') {
+    return {
+      variant: 'outlined',
+      icon: iconElement,
+      sx: isContrastMode
+        ? {
+            '.MuiChip-label, .MuiChip-icon, .MuiChip-deleteIcon': {
+              color: theme.palette.neutral[50],
+            },
+            borderColor: theme.palette.neutral[50],
+            backgroundColor: '#000',
+          }
+        : {
+            '.MuiChip-label': {
+              color: theme.palette.neutral[900],
+            },
+            '.MuiChip-icon, .MuiChip-deleteIcon': {
+              color: theme.palette.neutral[400],
+            },
+            borderColor: theme.palette.neutral[400],
+            backgroundColor: theme.palette.neutral[50],
+          },
+      ...rest,
+    }
+  }
+
+  if (variant === 'primary') {
+    return {
+      icon: iconElement,
+      sx: isContrastMode
+        ? {
+            '.MuiChip-label': {
+              color: theme.palette.neutral[1000],
+            },
+            '.MuiChip-icon, .MuiChip-deleteIcon': {
+              color: theme.palette.neutral[800],
+            },
+            backgroundColor: theme.palette.quartary[50],
+          }
+        : {
+            '.MuiChip-label, .MuiChip-icon, .MuiChip-deleteIcon': {
+              color: theme.palette.neutral[50],
+            },
+            backgroundColor: theme.palette.primary.main,
+          },
+      ...rest,
+    }
+  }
+
+  return {
+    variant: 'filled',
+    icon: iconElement,
+    sx: {
+      backgroundColor: isContrastMode ? theme.palette.quartary[50] : theme.palette.neutral[100],
+      '.MuiChip-label': {
+        color: theme.palette.neutral[900],
+      },
+      '.MuiChip-icon, .MuiChip-deleteIcon': {
+        color: theme.palette.neutral[600],
+      },
+    },
+    ...rest,
+  }
+}
+
+const ChipButton = (props: ChipButtonProps): ReactElement => {
+  const theme = useTheme()
+  return <Chip {...mapPropsToMuiChipProps(props, theme)} />
+}
 
 export default ChipButton
