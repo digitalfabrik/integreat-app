@@ -1,4 +1,7 @@
-import Divider from '@mui/material/Divider'
+import ListItem from '@mui/material/ListItem'
+import ListItemButton from '@mui/material/ListItemButton'
+import ListItemText from '@mui/material/ListItemText'
+import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -6,22 +9,31 @@ import { useTranslation } from 'react-i18next'
 import { DISCLAIMER_ROUTE, LICENSES_ROUTE, pathnameFromRouteInformation } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
-import useWindowDimensions from '../hooks/useWindowDimensions'
 import Footer from './Footer'
 import Link from './base/Link'
+import List from './base/List'
+
+const StyledList = styled(List)`
+  padding: 0;
+`
+
+const StyledListItem = styled(ListItem)`
+  padding: 0;
+  width: fit-content;
+
+  ${props => props.theme.breakpoints.down('md')} {
+    width: 100%;
+  }
+`
+
+const StyledTypography = styled(Typography)`
+  text-align: center;
+`
 
 const SidebarFooterContainer = styled('div')`
   width: 100%;
   margin-top: -10px; /* to counteract the padding-top of the normal footer */
   padding: 0 27px;
-
-  > a {
-    color: ${props => props.theme.legacy.colors.textColor};
-    padding: 16px 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
 `
 
 type CityContentFooterProps = {
@@ -31,7 +43,6 @@ type CityContentFooterProps = {
 }
 
 const CityContentFooter = ({ city, language, mode = 'normal' }: CityContentFooterProps): ReactElement => {
-  const { viewportSmall } = useWindowDimensions()
   const { aboutUrls, privacyUrls, accessibilityUrls } = buildConfig()
   const { t } = useTranslation(['layout', 'settings'])
   const aboutUrl = aboutUrls[language] || aboutUrls.default
@@ -53,26 +64,29 @@ const CityContentFooter = ({ city, language, mode = 'normal' }: CityContentFoote
     { to: licensesPath, text: t('settings:openSourceLicenses') },
     ...(accessibilityUrl ? [{ to: accessibilityUrl, text: t('accessibility') }] : []),
   ]
-  const Links = (
-    <>
-      {linkItems.map((item, index) => (
-        <React.Fragment key={item.to}>
-          <Link to={item.to}>{item.text}</Link>
-          {viewportSmall && index < linkItems.length - 1 && <Divider />}
-        </React.Fragment>
-      ))}
-    </>
-  )
+
+  const linkListItems = linkItems.map(item => {
+    const { to, text } = item
+    return (
+      <StyledListItem key={to}>
+        <ListItemButton component={Link} to={to}>
+          <ListItemText primary={<StyledTypography variant='body2'>{text}</StyledTypography>} />
+        </ListItemButton>
+      </StyledListItem>
+    )
+  })
+
+  const LinksList = <StyledList NoItemsMessage='' items={linkListItems} horizontal={mode !== 'sidebar'} />
 
   if (mode === 'sidebar') {
     return (
       <Footer>
-        <SidebarFooterContainer>{Links}</SidebarFooterContainer>
+        <SidebarFooterContainer>{LinksList}</SidebarFooterContainer>
       </Footer>
     )
   }
 
-  return <Footer overlay={mode === 'overlay'}>{Links}</Footer>
+  return <Footer overlay={mode === 'overlay'}>{LinksList}</Footer>
 }
 
 export default CityContentFooter
