@@ -1,11 +1,9 @@
-import styled from '@emotion/styled'
+import Divider from '@mui/material/Divider'
+import MUIList from '@mui/material/List'
+import { styled } from '@mui/material/styles'
 import React, { ReactNode } from 'react'
 
-const StyledList = styled.div<{ borderless: boolean }>`
-  border-top: 2px solid ${props => (props.borderless ? 'transparent' : props.theme.colors.themeColor)};
-`
-
-const NoItemsMessage = styled.div`
+const NoItemsMessage = styled('div')`
   padding-top: 25px;
   text-align: center;
 `
@@ -24,7 +22,12 @@ class List<T> extends React.PureComponent<ListProps<T>> {
       return <NoItemsMessage>{noItemsMessage}</NoItemsMessage>
     }
 
-    return <StyledList borderless={borderless}>{items.map(renderItem)}</StyledList>
+    return (
+      <MUIList>
+        {!borderless && <Divider />}
+        {items.map(renderItem)}
+      </MUIList>
+    )
   }
 }
 
