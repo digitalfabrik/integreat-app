@@ -10,8 +10,6 @@ import useLockedBody from '../hooks/useLockedBody'
 import Portal from './Portal'
 
 const ToggleContainer = styled('div')`
-  display: flex;
-  padding-right: 8px;
   z-index: 50;
 `
 
@@ -49,7 +47,6 @@ const Heading = styled('div')`
   display: flex;
   justify-content: flex-end;
   background-color: ${props => props.theme.legacy.colors.backgroundAccentColor};
-  box-shadow: -3px 3px 3px 0 rgb(0 0 0 / 13%);
   min-height: ${dimensions.headerHeightSmall}px;
   box-sizing: border-box;
   padding: 8px;

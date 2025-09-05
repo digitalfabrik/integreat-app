@@ -1,4 +1,3 @@
-import { fireEvent } from '@testing-library/react'
 import { mocked } from 'jest-mock'
 import React from 'react'
 
@@ -6,10 +5,6 @@ import useWindowDimensions from '../../hooks/useWindowDimensions'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import { mockWindowDimensions } from '../../testing/utils'
 import { Header } from '../Header'
-import HeaderActionItem from '../HeaderActionItem'
-import HeaderNavigationItem from '../HeaderNavigationItem'
-import SidebarActionItem from '../SidebarActionItem'
-import Link from '../base/Link'
 
 jest.mock('../../hooks/useWindowDimensions')
 jest.mock('react-inlinesvg')
@@ -22,14 +17,7 @@ describe('Header', () => {
   it('should render correctly', () => {
     mocked(useWindowDimensions).mockImplementation(() => ({ ...mockWindowDimensions, viewportSmall: true }))
     const { getByText } = renderWithRouterAndTheme(
-      <Header
-        logoHref='/random_route'
-        actionItems={[]}
-        sidebarItems={[]}
-        navigationItems={[]}
-        cityName={cityName}
-        language='de'
-      />,
+      <Header logoHref='/random_route' actionItems={[]} cityName={cityName} language='de' />,
     )
     expect(getByText(cityName)).toBeDefined()
   })
@@ -41,7 +29,6 @@ describe('Header', () => {
       <Header
         logoHref='/random_route'
         actionItems={[<HeaderActionItem key={0} to='/random_route' text='random route' icon={<div />} />]}
-        navigationItems={[<HeaderNavigationItem key={0} to='/another_route' text='text1' icon='icon.jpg' active />]}
         sidebarItems={[
           <Link key='location' to='/sidebar_route'>
             <SidebarActionItem text='ChangeLocation' iconSrc='icon.jpg' />
@@ -69,7 +56,6 @@ describe('Header', () => {
       <Header
         logoHref='/random_route'
         actionItems={[<HeaderActionItem key={0} to='/random_route' text='random route' icon={<div />} />]}
-        navigationItems={[<HeaderNavigationItem key={0} to='/another_route' text='text1' icon='icon.jpg' active />]}
         sidebarItems={[
           <Link key='location' to='/sidebar_route'>
             <SidebarActionItem text='ChangeLocation' iconSrc='icon.jpg' />
