@@ -1,10 +1,8 @@
-import { useTheme } from '@emotion/react'
-import styled from '@emotion/styled'
+import { styled, useTheme } from '@mui/material/styles'
 import FocusTrap from 'focus-trap-react'
 import React, { CSSProperties, ReactElement, ReactNode, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import dimensions from '../constants/dimensions'
 import useLockedBody from '../hooks/useLockedBody'
 import useScrollToTop from '../hooks/useScrollToTop'
 import useWindowDimensions from '../hooks/useWindowDimensions'
@@ -17,13 +15,15 @@ const Overlay = styled(Button)`
   position: absolute;
   inset: 0;
   background-color: ${props =>
-    props.theme.isContrastTheme ? props.theme.colors.backgroundAccentColor : props.theme.colors.textSecondaryColor};
+    props.theme.isContrastTheme
+      ? props.theme.legacy.colors.backgroundAccentColor
+      : props.theme.legacy.colors.textSecondaryColor};
   opacity: 0.9;
   width: 100%;
   height: 100%;
 `
 
-const ModalContainer = styled.div`
+const ModalContainer = styled('div')`
   position: fixed;
   inset: 0;
   z-index: 100;
@@ -32,12 +32,12 @@ const ModalContainer = styled.div`
   justify-content: center;
 `
 
-const ModalContentContainer = styled.div`
+const ModalContentContainer = styled('div')`
   position: relative;
   display: flex;
   flex-direction: column;
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     height: 100%;
     align-items: center;
     width: 100%;

@@ -1,5 +1,4 @@
-import { useTheme } from '@emotion/react'
-import styled from '@emotion/styled'
+import { styled, useTheme } from '@mui/material/styles'
 import maplibregl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import React, {
@@ -31,7 +30,7 @@ import { midSnapPercentage } from '../utils/getSnapPoints'
 import { reportError } from '../utils/sentry'
 import MapAttribution from './MapAttribution'
 
-const MapContainer = styled.div`
+const MapContainer = styled('div')`
   height: 100%;
   width: 100%;
   display: flex;
@@ -39,7 +38,7 @@ const MapContainer = styled.div`
   position: relative;
 `
 
-const OverlayContainer = styled.div`
+const OverlayContainer = styled('div')`
   display: flex;
   padding: 12px 8px;
   flex: 1;

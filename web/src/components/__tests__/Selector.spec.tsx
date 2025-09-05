@@ -31,12 +31,7 @@ describe('Selector', () => {
 
   it('should render items', () => {
     const { getAllByText } = renderWithRouterAndTheme(
-      <Selector
-        verticalLayout={false}
-        items={selectorItems}
-        disabledItemTooltip='tooltip'
-        closeDropDown={closeDropDown}
-      />,
+      <Selector verticalLayout={false} items={selectorItems} disabledItemTooltip='tooltip' close={closeDropDown} />,
     )
     const hrefItem1 = getAllByText(selectorItems[0].name)[0]!
     expect(hrefItem1.closest('a')).toHaveProperty('href', `http://localhost${selectorItems[0].href}`)
@@ -50,12 +45,7 @@ describe('Selector', () => {
 
   it('should close dropdown', () => {
     const { getAllByText } = renderWithRouterAndTheme(
-      <Selector
-        verticalLayout={false}
-        items={selectorItems}
-        disabledItemTooltip='tooltip'
-        closeDropDown={closeDropDown}
-      />,
+      <Selector verticalLayout={false} items={selectorItems} disabledItemTooltip='tooltip' close={closeDropDown} />,
     )
     fireEvent.click(getAllByText(selectorItems[0].name)[0]!)
     expect(closeDropDown).toHaveBeenCalledTimes(1)

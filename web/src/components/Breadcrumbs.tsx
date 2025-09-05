@@ -1,10 +1,10 @@
-import styled from '@emotion/styled'
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 
 import { UiDirectionType } from 'translations'
 
-import { HouseIcon } from '../assets'
 import BreadcrumbModel from '../models/BreadcrumbModel'
 import Breadcrumb from './Breadcrumb'
 import JsonLdBreadcrumbs from './JsonLdBreadcrumbs'
@@ -12,7 +12,7 @@ import Icon from './base/Icon'
 
 const opposite = (direction: UiDirectionType) => (direction === 'ltr' ? 'rtl' : 'ltr')
 
-const Wrapper = styled.nav`
+const Wrapper = styled('nav')`
   margin: 10px 0;
   text-align: start;
   white-space: nowrap;
@@ -21,7 +21,7 @@ const Wrapper = styled.nav`
   direction: ${props => opposite(props.theme.contentDirection)};
 `
 
-const OrderedList = styled.ol`
+const OrderedList = styled('ol')`
   direction: ${props => props.theme.contentDirection};
   display: flex;
   white-space: nowrap;
@@ -70,7 +70,7 @@ const Breadcrumbs = ({ ancestorBreadcrumbs, currentBreadcrumb }: BreadcrumbsProp
           ancestorBreadcrumbs.length > 1 && index === 0 ? (
             <li key={breadcrumb.pathname}>
               <StyledLink to={breadcrumb.pathname}>
-                <StyledIcon src={HouseIcon} title={breadcrumb.title} />
+                <StyledIcon src={HomeOutlinedIcon} title={breadcrumb.title} />
               </StyledLink>
             </li>
           ) : (

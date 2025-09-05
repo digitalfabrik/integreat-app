@@ -1,13 +1,14 @@
-import styled from '@emotion/styled'
+import ExpandLessIcon from '@mui/icons-material/ExpandLess'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ArrowBackIcon } from '../assets'
 import { helpers } from '../constants/theme'
 import Button from './base/Button'
 import Icon from './base/Icon'
 
-const Container = styled.div`
+const Container = styled('div')`
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -16,21 +17,21 @@ const Container = styled.div`
 const CollapsibleHeader = styled(Button)`
   display: flex;
   justify-content: space-between;
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
 `
 
-const Title = styled.div`
+const Title = styled('div')`
   display: flex;
   flex: 1;
   font-weight: 700;
   justify-content: space-between;
   ${helpers.adaptiveFontSize}
+  align-items: center;
 `
 
-const CollapseIcon = styled(Icon)<{ collapsed: boolean }>`
-  transform: rotate(-90deg) ${props => (!props.collapsed ? 'scale(-1)' : '')};
-  width: 16px;
-  height: 16px;
+const CollapseIcon = styled(Icon)`
+  width: 24px;
+  height: 24px;
 `
 
 type CollapsibleProps = {
@@ -60,8 +61,7 @@ const Collapsible = ({
         tabIndex={0}>
         {typeof title === 'string' ? <Title>{title}</Title> : title}
         <CollapseIcon
-          src={ArrowBackIcon}
-          collapsed={collapsed}
+          src={collapsed ? ExpandMoreIcon : ExpandLessIcon}
           title={t(collapsed ? 'showMore' : 'showLess')}
           directionDependent
         />

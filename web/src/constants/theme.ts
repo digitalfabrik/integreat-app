@@ -1,4 +1,5 @@
-import { css, SerializedStyles, Theme } from '@emotion/react'
+import { css, SerializedStyles } from '@emotion/react'
+import { Theme } from '@mui/material/styles'
 
 export type HelpersType = {
   removeLinkHighlighting: SerializedStyles
@@ -15,26 +16,26 @@ export const helpers: HelpersType = {
   `,
   adaptiveFontSize: ({ theme }): SerializedStyles => css`
     font-size: clamp(
-      ${theme.fonts.adaptiveFontSizeSmall.min},
-      ${theme.fonts.adaptiveFontSizeSmall.value},
-      ${theme.fonts.adaptiveFontSizeSmall.max}
+      ${theme.legacy.fonts.adaptiveFontSizeSmall.min},
+      ${theme.legacy.fonts.adaptiveFontSizeSmall.value},
+      ${theme.legacy.fonts.adaptiveFontSizeSmall.max}
     );
   `,
   adaptiveWidth: ({ theme }): SerializedStyles => css`
     width: clamp(
-      ${theme.fonts.adaptiveFontSizeSmall.min},
-      ${theme.fonts.adaptiveFontSizeSmall.value},
-      ${theme.fonts.adaptiveFontSizeSmall.max}
+      ${theme.legacy.fonts.adaptiveFontSizeSmall.min},
+      ${theme.legacy.fonts.adaptiveFontSizeSmall.value},
+      ${theme.legacy.fonts.adaptiveFontSizeSmall.max}
     );
   `,
   adaptiveHeight: ({ theme }): SerializedStyles => css`
     height: clamp(
-      ${theme.fonts.adaptiveFontSizeSmall.min},
-      ${theme.fonts.adaptiveFontSizeSmall.value},
-      ${theme.fonts.adaptiveFontSizeSmall.max}
+      ${theme.legacy.fonts.adaptiveFontSizeSmall.min},
+      ${theme.legacy.fonts.adaptiveFontSizeSmall.value},
+      ${theme.legacy.fonts.adaptiveFontSizeSmall.max}
     );
   `,
   adaptiveThemeTextColor: ({ theme }): SerializedStyles => css`
-    color: ${theme.isContrastTheme ? theme.colors.backgroundColor : theme.colors.textColor};
+    color: ${theme.isContrastTheme ? theme.legacy.colors.backgroundColor : theme.legacy.colors.textColor};
   `,
 }

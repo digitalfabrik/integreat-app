@@ -1,8 +1,7 @@
-import { useTheme } from '@emotion/react'
-import styled from '@emotion/styled'
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
+import { styled, useTheme } from '@mui/material/styles'
 import React, { ReactElement, ReactNode, RefObject, useCallback, useState } from 'react'
 
-import { ArrowBackIcon } from '../assets'
 import dimensions from '../constants/dimensions'
 import useCallbackRef from '../hooks/useCallbackRef'
 import useWindowDimensions from '../hooks/useWindowDimensions'
@@ -14,7 +13,7 @@ type NavigationBarScrollContainerProps = {
   activeIndex: number
 }
 
-const Container = styled.div`
+const Container = styled('div')`
   display: flex;
 `
 
@@ -26,7 +25,7 @@ const Arrow = styled(Icon)<{ visible: boolean }>`
   opacity: ${props => (props.visible ? 1 : 0)};
 `
 
-const ScrollContainer = styled.div<{ showArrowContainer: boolean }>`
+const ScrollContainer = styled('div')<{ showArrowContainer: boolean }>`
   display: flex;
   flex: 1;
   max-width: 100%;
@@ -35,8 +34,8 @@ const ScrollContainer = styled.div<{ showArrowContainer: boolean }>`
   min-height: ${dimensions.headerHeightLarge}px;
   flex-direction: row;
 
-  @media ${dimensions.smallViewport} {
-    background-color: ${props => props.theme.colors.backgroundAccentColor};
+  ${props => props.theme.breakpoints.down('md')} {
+    background-color: ${props => props.theme.legacy.colors.backgroundAccentColor};
     justify-content: space-between;
     flex-wrap: wrap;
     min-height: ${dimensions.headerHeightSmall}px;
@@ -94,11 +93,11 @@ const NavigationBarScrollContainer = ({ children, activeIndex }: NavigationBarSc
   return (
     <Container>
       <Button disabled={!showArrowLeft} onClick={scrollToStart} label='' aria-hidden>
-        <Arrow src={ArrowBackIcon} visible={showArrowLeft} />
+        <Arrow src={ArrowBackIosNewIcon} visible={showArrowLeft} />
       </Button>
       {Content}
       <Button disabled={!showArrowRight} onClick={scrollToEnd} label='' aria-hidden>
-        <Arrow src={ArrowBackIcon} visible={showArrowRight} reverse />
+        <Arrow src={ArrowBackIosNewIcon} visible={showArrowRight} reverse />
       </Button>
     </Container>
   )

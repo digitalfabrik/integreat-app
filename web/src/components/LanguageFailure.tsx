@@ -1,4 +1,4 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -7,7 +7,7 @@ import { CityModel } from 'shared/api'
 import Caption from './Caption'
 import LanguageSelector from './LanguageSelector'
 
-const ChooseLanguage = styled.p`
+const ChooseLanguage = styled('p')`
   margin: 25px 0;
   text-align: center;
 `
@@ -24,11 +24,7 @@ const LanguageFailure = ({ cityModel, languageCode, languageChangePaths }: Langu
     <>
       <Caption title={cityModel.name} />
       <ChooseLanguage>{`${t('notFound.language')} ${t('chooseALanguage')}`}</ChooseLanguage>
-      <LanguageSelector
-        isHeaderActionItem={false}
-        languageCode={languageCode}
-        languageChangePaths={languageChangePaths}
-      />
+      <LanguageSelector languageCode={languageCode} languageChangePaths={languageChangePaths} vertical availableOnly />
     </>
   )
 }

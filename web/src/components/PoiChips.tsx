@@ -1,13 +1,14 @@
-import styled from '@emotion/styled'
+import AccessibleIcon from '@mui/icons-material/Accessible'
+import NotAccessibleIcon from '@mui/icons-material/NotAccessible'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { PoiModel } from 'shared/api'
 
-import { AccessibleIcon, NotAccessibleIcon } from '../assets'
 import Icon from './base/Icon'
 
-const ChipsContainer = styled.div`
+const ChipsContainer = styled('div')`
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
@@ -17,14 +18,14 @@ const ChipsContainer = styled.div`
   justify-content: flex-start;
 `
 
-const Chip = styled.div`
-  color: ${props => props.theme.colors.textSecondaryColor};
+const Chip = styled('div')`
+  color: ${props => props.theme.legacy.colors.textSecondaryColor};
   display: flex;
   padding-inline: 12px;
   align-items: center;
   gap: 6px;
   border-radius: 12px;
-  border: 1px solid ${props => props.theme.colors.textSecondaryColor};
+  border: 1px solid ${props => props.theme.legacy.colors.textSecondaryColor};
   height: 24px;
   font-size: 12px;
 `

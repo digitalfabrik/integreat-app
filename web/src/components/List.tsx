@@ -1,5 +1,4 @@
 import Divider from '@mui/material/Divider'
-import MUIList from '@mui/material/List'
 import { styled } from '@mui/material/styles'
 import React, { ReactNode } from 'react'
 
@@ -23,10 +22,10 @@ class List<T> extends React.PureComponent<ListProps<T>> {
     }
 
     return (
-      <MUIList>
+      <div>
         {!borderless && <Divider />}
         {items.map(renderItem)}
-      </MUIList>
+      </div>
     )
   }
 }

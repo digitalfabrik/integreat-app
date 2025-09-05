@@ -1,24 +1,19 @@
-import styled from '@emotion/styled'
+import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined'
+import Tooltip from '@mui/material/Tooltip'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
 
-import { NoteIcon } from '../assets'
-import dimensions from '../constants/dimensions'
 import Icon from './base/Icon'
-import Tooltip from './base/Tooltip'
+import Link from './base/Link'
 
-const Container = styled.div`
+const Container = styled('div')`
   position: absolute;
   inset-inline-end: -27px;
   top: 4px;
 `
 
-const StyledTooltip = styled(Tooltip)`
-  max-width: 250px;
-`
-
-const IconContainer = styled.button`
+const IconContainer = styled('button')`
   padding: 0;
   border: none;
   background-color: transparent;
@@ -32,19 +27,23 @@ const StyledIcon = styled(Icon)`
   align-self: center;
 `
 
-const TooltipContent = styled.span`
-  @media ${dimensions.smallViewport} {
+const TooltipContent = styled('span')`
+  ${props => props.theme.breakpoints.down('md')} {
     font-size: 14px;
   }
 `
 
-const TooltipTitle = styled.div`
+const TooltipTitle = styled('div')`
   font-weight: 700;
   margin-bottom: 8px;
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     font-size: 14px;
   }
+`
+
+const StyledLink = styled(Link)`
+  color: ${props => props.theme.palette.text.primary};
 `
 
 type AppointmentOnlyIconProps = {
@@ -56,24 +55,28 @@ const AppointmentOnlyIcon = ({ appointmentUrl }: AppointmentOnlyIconProps): Reac
 
   return (
     <Container>
-      <StyledTooltip
-        id='appointment'
-        clickable
-        tooltipContent={
+      <Tooltip
+        title={
           <>
             <TooltipTitle>{t('appointmentNecessary')}</TooltipTitle>
             <TooltipContent>
               <Trans i18nKey='pois:makeAppointmentTooltipWithLink'>
                 This gets replaced
-                {appointmentUrl ? <Link to={appointmentUrl}>by react-i18next</Link> : <span>by react-i18next</span>}
+                {appointmentUrl ? (
+                  <StyledLink to={appointmentUrl} highlighted>
+                    by react-i18next
+                  </StyledLink>
+                ) : (
+                  <span>by react-i18next</span>
+                )}
               </Trans>
             </TooltipContent>
           </>
         }>
-        <IconContainer title={t('appointmentNecessary')}>
-          <StyledIcon src={NoteIcon} />
+        <IconContainer>
+          <StyledIcon src={ErrorOutlineOutlinedIcon} />
         </IconContainer>
-      </StyledTooltip>
+      </Tooltip>
     </Container>
   )
 }

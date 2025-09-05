@@ -1,4 +1,4 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
@@ -19,20 +19,20 @@ import { tunewsApiBaseUrl } from '../constants/urls'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 import { TU_NEWS_DETAIL_ROUTE } from './index'
 
-const StyledContainer = styled.div`
+const StyledContainer = styled('div')`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 `
 
-const StyledBanner = styled.div`
+const StyledBanner = styled('div')`
   position: relative;
   display: flex;
   height: 60px;
   overflow: hidden;
   align-items: center;
   margin: 25px 0;
-  background-color: ${props => props.theme.colors.tunewsThemeColorLight};
+  background-color: ${props => props.theme.legacy.colors.tunewsThemeColorLight};
   border-radius: 11px;
 `
 
@@ -41,14 +41,14 @@ const StyledIcon = styled(Icon)`
   height: 100%;
 `
 
-const StyledTitle = styled.div`
+const StyledTitle = styled('div')`
   display: flex;
   width: 185px;
   height: 100%;
   align-items: center;
   justify-content: center;
-  background-color: ${props => props.theme.colors.tunewsThemeColor};
-  color: ${props => props.theme.colors.backgroundColor};
+  background-color: ${props => props.theme.legacy.colors.tunewsThemeColor};
+  color: ${props => props.theme.legacy.colors.backgroundColor};
   font-size: 20px;
   font-weight: 700;
 `

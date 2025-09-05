@@ -1,52 +1,39 @@
 import { css } from '@emotion/react'
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode } from 'react'
 
 import dimensions from '../constants/dimensions'
-import '../styles/Aside.css'
 import { MobileBanner } from './MobileBanner'
 import Portal from './Portal'
 
-export const RichLayout = styled.div`
+export const RichLayout = styled('div')`
   position: relative;
   display: flex;
   min-height: 100vh;
   flex-direction: column;
   justify-content: space-between;
-  color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.web.decorativeFont};
-  font-size-adjust: ${props => props.theme.fonts.fontSizeAdjust};
-  background-color: ${props => props.theme.colors.backgroundColor};
-  line-height: ${props => props.theme.fonts.decorativeLineHeight};
+  color: ${props => props.theme.legacy.colors.textColor};
+  font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
+  font-size-adjust: ${props => props.theme.legacy.fonts.fontSizeAdjust};
+  background-color: ${props => props.theme.legacy.colors.backgroundColor};
+  line-height: ${props => props.theme.legacy.fonts.decorativeLineHeight};
 
   & a,
   button {
     &:focus-visible {
-      outline: 2px solid ${props => props.theme.colors.textSecondaryColor};
+      outline: 2px solid ${props => props.theme.legacy.colors.textSecondaryColor};
     }
 
     cursor: pointer;
   }
-
-  input {
-    &:focus-visible {
-      outline: 2px solid ${props => props.theme.colors.textSecondaryColor};
-    }
-  }
-
-  textarea {
-    &:focus-visible {
-      outline: 2px solid ${props => props.theme.colors.textSecondaryColor};
-    }
-  }
 `
 
-const Body = styled.div<{ fullWidth: boolean; disableScrollingSafari: boolean }>`
+const Body = styled('div')<{ fullWidth: boolean; disableScrollingSafari: boolean }>`
   width: 100%;
   box-sizing: border-box;
   margin: 0 auto;
   flex-grow: 1;
-  background-color: ${props => props.theme.colors.backgroundColor};
+  background-color: ${props => props.theme.legacy.colors.backgroundColor};
   word-wrap: break-word;
   min-height: 100%;
   display: flex;
@@ -66,15 +53,17 @@ const Body = styled.div<{ fullWidth: boolean; disableScrollingSafari: boolean }>
   ${props =>
     !props.fullWidth &&
     css`
-      @media screen and ${dimensions.minMaxWidth} {
-        padding-inline: calc((100vw - ${dimensions.maxWidth}px) / 2) calc((200% - 100vw - ${dimensions.maxWidth}px) / 2);
+      ${props.theme.breakpoints.up('lg')} {
+        padding-inline: calc((100vw - ${props.theme.breakpoints.values.lg}px) / 2)
+          calc((200% - 100vw - ${props.theme.breakpoints.values.lg}px) / 2);
       }
     `};
 `
 
-const Main = styled.main<{ fullWidth: boolean }>`
+const Main = styled('main')<{ fullWidth: boolean }>`
   display: inline-block;
-  width: ${props => (props.fullWidth ? '100%' : `${dimensions.maxWidth - 2 * dimensions.toolbarWidth}px`)};
+  width: ${props =>
+    props.fullWidth ? '100%' : `${props.theme.breakpoints.values.lg - 2 * dimensions.toolbarWidth}px`};
   max-width: ${props => (props.fullWidth ? '100%' : `calc(100% - ${dimensions.toolbarWidth}px)`)};
   box-sizing: border-box;
   margin: 0 auto;
@@ -83,14 +72,29 @@ const Main = styled.main<{ fullWidth: boolean }>`
   word-wrap: break-word;
 
   & p {
-    margin: ${props => props.theme.fonts.standardParagraphMargin} 0;
+    margin: ${props => props.theme.legacy.fonts.standardParagraphMargin} 0;
   }
 
-  @media screen and ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     position: static;
     width: 100%;
     max-width: initial;
     margin-top: 0;
+  }
+`
+
+const Aside = styled('aside')`
+  position: fixed;
+  top: 35%;
+  width: 100px;
+  left: 0;
+
+  ${props => props.theme.breakpoints.up('lg')} {
+    inset-inline-start: 8%;
+  }
+
+  &:empty {
+    display: none;
   }
 `
 
@@ -121,7 +125,7 @@ const Layout = ({
     <Body fullWidth={fullWidth} disableScrollingSafari={disableScrollingSafari}>
       {toolbar ? (
         <Portal className='aside' show>
-          {toolbar}
+          <Aside>{toolbar}</Aside>
         </Portal>
       ) : null}
       <Main fullWidth={fullWidth}>{children}</Main>

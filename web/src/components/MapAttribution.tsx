@@ -1,4 +1,4 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
 
 import { openStreeMapCopyright } from 'shared'
@@ -6,7 +6,7 @@ import { openStreeMapCopyright } from 'shared'
 import Button from './base/Button'
 import Link from './base/Link'
 
-const Attribution = styled.div`
+const Attribution = styled('div')`
   display: flex;
   direction: ltr;
   padding: 0 4px;
@@ -22,16 +22,16 @@ const StyledButton = styled(Button)<{ expanded: boolean }>`
   inset-inline-end: 0;
   justify-content: flex-end;
   font-size: ${props =>
-    props.expanded ? props.theme.fonts.decorativeFontSizeSmall : props.theme.fonts.contentFontSize};
+    props.expanded ? props.theme.legacy.fonts.decorativeFontSizeSmall : props.theme.legacy.fonts.contentFontSize};
   font-weight: ${props => (props.expanded ? 'normal' : 'bold')};
 `
 
 const OpenStreetMapsLink = styled(Link)`
   text-decoration: underline;
-  color: ${props => props.theme.colors.linkColor};
+  color: ${props => props.theme.legacy.colors.linkColor};
 `
 
-const Label = styled.span`
+const Label = styled('span')`
   padding: 0 4px;
   color: rgb(0 0 0 / 75%);
 `

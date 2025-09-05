@@ -1,30 +1,29 @@
-import styled from '@emotion/styled'
+import CloseIcon from '@mui/icons-material/Close'
+import { styled } from '@mui/material/styles'
 import { DateTime } from 'luxon'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CloseIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'
-import dimensions from '../constants/dimensions'
 import useLocalStorage from '../hooks/useLocalStorage'
 import Button from './base/Button'
 import Icon from './base/Icon'
 
-const StyledBanner = styled.div<{ isInstalled: boolean }>`
+const StyledBanner = styled('div')<{ isInstalled: boolean }>`
   display: none;
   justify-content: space-between;
-  background-color: ${props => props.theme.colors.themeColor};
+  background-color: ${props => props.theme.legacy.colors.themeColor};
   padding: 15px;
   align-items: center;
   transition: all 2s ease-out;
   height: ${props => (props.isInstalled ? 'fit-content' : '80px')};
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     display: flex;
   }
 `
 
-const StyledDiv = styled.div`
+const StyledDiv = styled('div')`
   display: flex;
   align-items: center;
   gap: 10px;
@@ -41,30 +40,31 @@ const StyledBannerIcon = styled(Icon)<{ isInstalled: boolean }>`
   border-radius: 5;
 `
 
-const StyledDivText = styled.div`
+const StyledDivText = styled('div')`
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 2px;
 `
 
-const StyledAppName = styled.span`
+const StyledAppName = styled('span')`
   font-weight: bold;
   font-size: 12px;
-  color: ${props => props.theme.colors.themeContrast};
+  color: ${props => props.theme.legacy.colors.themeContrast};
 `
 
 const smallScreenSize = 400
 
-const StyledDescription = styled.span<{ screenSize: number }>`
-  color: ${props => props.theme.colors.themeContrast};
+const StyledDescription = styled('span')<{ screenSize: number }>`
+  color: ${props => props.theme.legacy.colors.themeContrast};
   white-space: nowrap;
   font-size: ${props => (props.screenSize <= smallScreenSize ? '10px' : '12px')};
 `
 
-const StyledButton = styled.button<{ isInstalled: boolean }>`
-  background-color: ${props => (!props.isInstalled ? 'transparent' : props.theme.colors.textColor)};
-  color: ${props => (!props.isInstalled ? props.theme.colors.themeContrast : props.theme.colors.themeColor)};
+const StyledButton = styled('button')<{ isInstalled: boolean }>`
+  background-color: ${props => (!props.isInstalled ? 'transparent' : props.theme.legacy.colors.textColor)};
+  color: ${props =>
+    !props.isInstalled ? props.theme.legacy.colors.themeContrast : props.theme.legacy.colors.themeColor};
   border: ${props => !props.isInstalled && 'none'};
   border-radius: 40px;
   padding: 6px 12px;

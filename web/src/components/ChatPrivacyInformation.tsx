@@ -1,7 +1,7 @@
-import styled from '@emotion/styled'
+import MailLock from '@mui/icons-material/MailLock'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
-import { MailLockIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'
 import Icon from './base/Icon'
 import Link from './base/Link'
@@ -20,7 +20,7 @@ const PrivacyPolicyLink = styled(Link)`
 const SecurityIcon = styled(Icon)`
   width: 100%;
   height: 100%;
-  color: ${props => props.theme.colors.textSecondaryColor};
+  color: ${props => props.theme.legacy.colors.textSecondaryColor};
 `
 
 type ChatPrivacyInformationProps = {
@@ -33,7 +33,7 @@ const ChatPrivacyInformation = ({ customPrivacyUrl }: ChatPrivacyInformationProp
 
   return (
     <PrivacyPolicyLink to={privacyUrl}>
-      <SecurityIcon src={MailLockIcon} />
+      <SecurityIcon src={MailLock} />
     </PrivacyPolicyLink>
   )
 }

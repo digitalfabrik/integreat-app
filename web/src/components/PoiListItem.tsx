@@ -1,33 +1,26 @@
-import styled from '@emotion/styled'
+import Divider from '@mui/material/Divider'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { PoiModel } from 'shared/api'
 
 import { PoiThumbnailPlaceholder } from '../assets'
-import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
 import Button from './base/Button'
 
-const ListItemContainer = styled.ul`
-  font-family: ${props => props.theme.fonts.web.contentFont};
+const ListItemContainer = styled('ul')`
+  font-family: ${props => props.theme.legacy.fonts.web.contentFont};
   display: flex;
   padding: clamp(10px, 1vh, 20px) 0;
-  border-bottom: 1px solid ${props => props.theme.colors.borderColor};
   cursor: pointer;
-
-  @media screen and ${dimensions.smallViewport} {
-    &:last-child {
-      border-bottom: none;
-    }
-  }
 
   &:first-of-type {
     padding-top: 0;
   }
 `
 
-const Thumbnail = styled.img`
+const Thumbnail = styled('img')`
   width: clamp(70px, 10vh, 100px);
   height: clamp(70px, 10vh, 100px);
   flex-shrink: 0;
@@ -36,16 +29,16 @@ const Thumbnail = styled.img`
   border-radius: 10px;
 `
 
-const Distance = styled.div`
+const Distance = styled('div')`
   ${helpers.adaptiveFontSize};
 `
 
-const Category = styled.div`
+const Category = styled('div')`
   ${helpers.adaptiveFontSize};
-  color: ${props => props.theme.colors.textSecondaryColor};
+  color: ${props => props.theme.legacy.colors.textSecondaryColor};
 `
 
-export const Description = styled.div`
+export const Description = styled('div')`
   display: flex;
   justify-content: center;
   height: 100%;
@@ -53,13 +46,13 @@ export const Description = styled.div`
   flex-direction: column;
   flex-grow: 1;
   padding: 0 22px;
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
   align-self: center;
   word-break: break-word;
   hyphens: auto;
 `
 
-const Title = styled.span`
+const Title = styled('span')`
   ${helpers.adaptiveFontSize};
   font-weight: 700;
 `
@@ -80,16 +73,19 @@ const PoiListItem = ({ poi, distance, selectPoi }: PoiListItemProps): ReactEleme
   const { thumbnail, title, category, slug } = poi
 
   return (
-    <ListItemContainer id={slug}>
-      <LinkContainer onClick={selectPoi} tabIndex={0} label={title}>
-        <Thumbnail alt='' src={thumbnail || PoiThumbnailPlaceholder} />
-        <Description>
-          <Title>{title}</Title>
-          {distance !== null && <Distance>{t('distanceKilometre', { distance: distance.toFixed(1) })}</Distance>}
-          <Category>{category.name}</Category>
-        </Description>
-      </LinkContainer>
-    </ListItemContainer>
+    <>
+      <ListItemContainer id={slug}>
+        <LinkContainer onClick={selectPoi} tabIndex={0} label={title}>
+          <Thumbnail alt='' src={thumbnail || PoiThumbnailPlaceholder} />
+          <Description>
+            <Title>{title}</Title>
+            {distance !== null && <Distance>{t('distanceKilometre', { distance: distance.toFixed(1) })}</Distance>}
+            <Category>{category.name}</Category>
+          </Description>
+        </LinkContainer>
+      </ListItemContainer>
+      <Divider sx={{ '&:last-child': { display: 'none' } }} />
+    </>
   )
 }
 

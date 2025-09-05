@@ -1,25 +1,25 @@
-import styled from '@emotion/styled'
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
-import { NoteIcon } from '../assets'
 import { helpers } from '../constants/theme'
 import Icon from './base/Icon'
 
-const NoteContainer = styled.div`
+const NoteContainer = styled('div')`
   display: flex;
-  background-color: ${props => props.theme.colors.warningColor};
+  background-color: ${props => props.theme.legacy.colors.warningColor};
   padding: 12px;
   gap: 12px;
   align-items: center;
 `
 
-const NoteText = styled.span`
-  font-size: ${props => props.theme.fonts.decorativeFontSizeSmall};
+const NoteText = styled('span')`
+  font-size: ${props => props.theme.legacy.fonts.decorativeFontSizeSmall};
   ${helpers.adaptiveThemeTextColor}
 `
 
 const StyledIcon = styled(Icon)`
-  color: ${props => props.theme.isContrastTheme && props.theme.colors.backgroundColor};
+  color: ${props => props.theme.isContrastTheme && props.theme.legacy.colors.backgroundColor};
 `
 
 type NoteProps = {
@@ -28,7 +28,7 @@ type NoteProps = {
 
 const Note = ({ text }: NoteProps): ReactElement => (
   <NoteContainer>
-    <StyledIcon src={NoteIcon} />
+    <StyledIcon src={ErrorOutlineIcon} />
     <NoteText>{text}</NoteText>
   </NoteContainer>
 )

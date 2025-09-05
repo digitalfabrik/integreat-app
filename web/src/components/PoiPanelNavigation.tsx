@@ -1,13 +1,13 @@
-import styled from '@emotion/styled'
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ArrowBackIcon } from '../assets'
 import { helpers } from '../constants/theme'
 import Button from './base/Button'
 import Icon from './base/Icon'
 
-const NavigationContainer = styled.div`
+const NavigationContainer = styled('div')`
   display: flex;
   padding: 12px;
   justify-content: space-between;
@@ -15,10 +15,10 @@ const NavigationContainer = styled.div`
 
 const StyledButton = styled(Button)`
   display: flex;
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
 `
 
-const Label = styled.span`
+const Label = styled('span')`
   align-self: center;
   ${helpers.adaptiveFontSize};
 `
@@ -41,12 +41,12 @@ const PoiPanelNavigation = ({ switchPoi }: PoiPanelNavigationProps): ReactElemen
   return (
     <NavigationContainer>
       <StyledButton onClick={() => switchPoi(-1)} tabIndex={0} label={t('previousPoi')}>
-        <StyledIcon src={ArrowBackIcon} directionDependent />
+        <StyledIcon src={ArrowBackIosNewIcon} directionDependent />
         <Label>{t('detailsPreviousPoi')}</Label>
       </StyledButton>
       <StyledButton onClick={() => switchPoi(1)} tabIndex={0} label={t('nextPoi')}>
         <Label>{t('detailsNextPoi')}</Label>
-        <StyledIcon src={ArrowBackIcon} directionDependent reverse />
+        <StyledIcon src={ArrowBackIosNewIcon} directionDependent reverse />
       </StyledButton>
     </NavigationContainer>
   )

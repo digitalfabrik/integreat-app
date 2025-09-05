@@ -6,9 +6,9 @@ import useWindowDimensions from '../../hooks/useWindowDimensions'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import { mockWindowDimensions } from '../../testing/utils'
 import { Header } from '../Header'
-import HeaderActionItemLink from '../HeaderActionItemLink'
+import HeaderActionItem from '../HeaderActionItem'
 import HeaderNavigationItem from '../HeaderNavigationItem'
-import KebabActionItem from '../KebabActionItem'
+import SidebarActionItem from '../SidebarActionItem'
 import Link from '../base/Link'
 
 jest.mock('../../hooks/useWindowDimensions')
@@ -25,7 +25,7 @@ describe('Header', () => {
       <Header
         logoHref='/random_route'
         actionItems={[]}
-        kebabItems={[]}
+        sidebarItems={[]}
         navigationItems={[]}
         cityName={cityName}
         language='de'
@@ -34,17 +34,17 @@ describe('Header', () => {
     expect(getByText(cityName)).toBeDefined()
   })
 
-  it('should render KebabMenu with elements on small viewport', () => {
+  it('should render SidebarMenu with elements on small viewport', () => {
     mocked(useWindowDimensions).mockImplementation(() => ({ ...mockWindowDimensions, viewportSmall: true }))
     const setShowSidebar = jest.fn()
     const { getByLabelText, getByText } = renderWithRouterAndTheme(
       <Header
         logoHref='/random_route'
-        actionItems={[<HeaderActionItemLink key={0} to='/random_route' text='random route' iconSrc='/icon.jpg' />]}
+        actionItems={[<HeaderActionItem key={0} to='/random_route' text='random route' icon={<div />} />]}
         navigationItems={[<HeaderNavigationItem key={0} to='/another_route' text='text1' icon='icon.jpg' active />]}
-        kebabItems={[
-          <Link key='location' to='/kebab_route'>
-            <KebabActionItem text='ChangeLocation' iconSrc='icon.jpg' />
+        sidebarItems={[
+          <Link key='location' to='/sidebar_route'>
+            <SidebarActionItem text='ChangeLocation' iconSrc='icon.jpg' />
           </Link>,
         ]}
         cityName={cityName}
@@ -58,21 +58,21 @@ describe('Header', () => {
     fireEvent.click(getByLabelText('layout:sideBarOpenAriaLabel'))
     expect(getByText('ChangeLocation').parentElement!.parentElement).toHaveProperty(
       'href',
-      'http://localhost/kebab_route',
+      'http://localhost/sidebar_route',
     )
-    expect(getByText('layout,settings:imprintAndContact')).toHaveProperty('href', 'http://localhost/test/de/disclaimer')
+    expect(getByText('layout,settings:imprint')).toHaveProperty('href', 'http://localhost/test/de/disclaimer')
   })
 
-  it('should not render KebabMenu on large viewport', () => {
+  it('should not render sidebar on large viewport', () => {
     mocked(useWindowDimensions).mockImplementation(() => ({ ...mockWindowDimensions, viewportSmall: false }))
     const { queryByTestId } = renderWithRouterAndTheme(
       <Header
         logoHref='/random_route'
-        actionItems={[<HeaderActionItemLink key={0} to='/random_route' text='random route' iconSrc='/icon.jpg' />]}
+        actionItems={[<HeaderActionItem key={0} to='/random_route' text='random route' icon={<div />} />]}
         navigationItems={[<HeaderNavigationItem key={0} to='/another_route' text='text1' icon='icon.jpg' active />]}
-        kebabItems={[
-          <Link key='location' to='/kebab_route'>
-            <KebabActionItem text='ChangeLocation' iconSrc='icon.jpg' />
+        sidebarItems={[
+          <Link key='location' to='/sidebar_route'>
+            <SidebarActionItem text='ChangeLocation' iconSrc='icon.jpg' />
           </Link>,
         ]}
         language='de'

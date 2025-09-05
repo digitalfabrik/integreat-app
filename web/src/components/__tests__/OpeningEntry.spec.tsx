@@ -53,9 +53,4 @@ describe('OpeningEntry', () => {
     expect(getByText(`${timeSlots[0]!.start}-${timeSlots[0]!.end}`)).toBeTruthy()
     expect(containerStyle.fontWeight).toBe('600')
   })
-
-  it('should display that the location is only open with an appointment', () => {
-    const { getByTitle } = renderOpeningEntries(false, false, false, true)
-    expect(getByTitle('pois:appointmentNecessary')).toBeDefined()
-  })
 })

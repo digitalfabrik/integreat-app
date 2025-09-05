@@ -1,10 +1,10 @@
-import { css, useTheme } from '@emotion/react'
-import styled from '@emotion/styled'
+import { css } from '@emotion/react'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import Divider from '@mui/material/Divider'
+import { styled } from '@mui/material/styles'
 import React, { memo, ReactElement } from 'react'
 
-import { ArrowBackspaceIcon } from '../assets'
 import { helpers } from '../constants/theme'
-import Spacer from './Spacer'
 import Button from './base/Button'
 import Icon from './base/Icon'
 
@@ -29,18 +29,22 @@ const StyledButton = styled(Button)<{ viewportSmall: boolean }>`
     `};
 `
 
-const DetailsHeaderTitle = styled.span`
-  color: ${props => props.theme.colors.textColor};
+const DetailsHeaderTitle = styled('span')`
+  color: ${props => props.theme.legacy.colors.textColor};
   align-self: center;
   white-space: pre;
   padding-inline-start: 8px;
   ${helpers.adaptiveFontSize};
-  font-family: ${props => props.theme.fonts.web.contentFont};
+  font-family: ${props => props.theme.legacy.fonts.web.contentFont};
 `
 
 const StyledIcon = styled(Icon)`
   height: 24px;
   width: 24px;
+`
+
+const StyledDivider = styled(Divider)`
+  margin: 12px 0;
 `
 
 type GoBackProps = {
@@ -49,17 +53,14 @@ type GoBackProps = {
   viewportSmall?: boolean
 }
 
-const GoBack = ({ goBack, viewportSmall = false, text }: GoBackProps): ReactElement => {
-  const theme = useTheme()
-  return (
-    <>
-      <StyledButton onClick={goBack} label={text} tabIndex={0} viewportSmall={viewportSmall}>
-        <StyledIcon src={ArrowBackspaceIcon} directionDependent />
-        <DetailsHeaderTitle>{text}</DetailsHeaderTitle>
-      </StyledButton>
-      <Spacer borderColor={theme.colors.borderColor} />
-    </>
-  )
-}
+const GoBack = ({ goBack, viewportSmall = false, text }: GoBackProps): ReactElement => (
+  <>
+    <StyledButton onClick={goBack} label={text} tabIndex={0} viewportSmall={viewportSmall}>
+      <StyledIcon src={ArrowBackIcon} directionDependent />
+      <DetailsHeaderTitle>{text}</DetailsHeaderTitle>
+    </StyledButton>
+    <StyledDivider />
+  </>
+)
 
 export default memo(GoBack)

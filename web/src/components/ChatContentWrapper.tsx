@@ -1,41 +1,40 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode } from 'react'
 
-import dimensions from '../constants/dimensions'
 import { helpers } from '../constants/theme'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import ChatMenu from './ChatMenu'
 
-const Container = styled.div`
+const Container = styled('div')`
   display: flex;
   flex-direction: column;
-  font-family: ${props => props.theme.fonts.web.decorativeFont};
+  font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
   border-radius: 5px;
   flex: 1;
   width: 400px;
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     width: 100%;
   }
 `
 
-const Header = styled.div<{ small: boolean }>`
+const Header = styled('div')<{ small: boolean }>`
   display: flex;
   flex-direction: ${props => (props.small ? 'row-reverse' : 'row')};
   justify-content: space-between;
   ${helpers.adaptiveThemeTextColor}
-  font-size: ${props => props.theme.fonts.hintFontSize};
+  font-size: ${props => props.theme.legacy.fonts.hintFontSize};
   font-weight: bold;
   align-items: center;
-  background-color: ${props => props.theme.colors.themeColor};
+  background-color: ${props => props.theme.legacy.colors.themeColor};
   padding: 4px 8px;
 
-  @media ${dimensions.mediumLargeViewport} {
+  ${props => props.theme.breakpoints.up('md')} {
     border-start-start-radius: 5px;
     border-start-end-radius: 5px;
   }
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     padding: 8px 16px;
     gap: 12px;
   }

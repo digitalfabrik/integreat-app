@@ -1,4 +1,4 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -27,7 +27,7 @@ import usePreviousProp from '../hooks/usePreviousProp'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 import featuredImageToSrcSet from '../utils/featuredImageToSrcSet'
 
-const Spacing = styled.div<{ content: string; lastUpdate?: DateTime }>`
+const Spacing = styled('div')<{ content: string; lastUpdate?: DateTime }>`
   display: flex;
   flex-direction: column;
   padding-top: 12px;
@@ -140,12 +140,11 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     )
   }
 
-  const renderEventListItem = (event: EventModel, index: number) => (
+  const renderEventListItem = (event: EventModel) => (
     <EventListItem
       event={event}
       languageCode={languageCode}
       key={event.path}
-      index={index}
       filterStartDate={startDate}
       filterEndDate={endDate}
     />

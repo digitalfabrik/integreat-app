@@ -2,13 +2,13 @@ import EasySpeech from 'easy-speech'
 import React, { createContext, ReactElement, useCallback, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { TTS_MAX_TITLE_DISPLAY_CHARS } from 'shared'
-import { truncate } from 'shared/utils/getExcerpt'
-
 import buildConfig from '../constants/buildConfig'
 import { getTtsVoice, isTtsCancelError, ttsInitialized } from '../utils/tts'
 import TtsHelpModal from './TtsHelpModal'
 import TtsPlayer from './TtsPlayer'
+
+const TTS_TIMEOUT = 5000
+const TTS_RETRY_INTERVAL = 250
 
 export type TtsContextType = {
   enabled?: boolean
@@ -42,13 +42,12 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
   const [sentenceIndex, setSentenceIndex] = useState(0)
   const [showHelpModal, setShowHelpModal] = useState(false)
   const title = sentences[0] || t('nothingToRead')
-  const shortTitle = truncate(title, { maxChars: TTS_MAX_TITLE_DISPLAY_CHARS })
   const enabled = buildConfig().featureFlags.tts
   const canRead = enabled && sentences.length > 1
 
   const initializeTts = useCallback(() => {
     if (buildConfig().featureFlags.tts) {
-      EasySpeech.init({ maxTimeout: 500, interval: 250 })
+      EasySpeech.init({ maxTimeout: TTS_TIMEOUT, interval: TTS_RETRY_INTERVAL })
         .then(() => setVisible(true))
         .catch(() => setShowHelpModal(true))
     }
@@ -137,8 +136,8 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
     stop()
   }
 
-  const playPrevious = () => stopPlayer(() => play(sentenceIndex - 1))
-  const playNext = () => stopPlayer(() => play(sentenceIndex + 1))
+  const playPrevious = () => (isPlaying ? stopPlayer(() => play(sentenceIndex - 1)) : play(sentenceIndex - 1))
+  const playNext = () => (isPlaying ? stopPlayer(() => play(sentenceIndex + 1)) : play(sentenceIndex + 1))
 
   const updateSentences = useCallback(
     (newSentences: string[]) => {
@@ -173,7 +172,7 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
           isPlaying={isPlaying}
           pause={pause}
           play={startPlaying}
-          title={shortTitle}
+          title={title}
         />
       )}
     </TtsContext.Provider>
