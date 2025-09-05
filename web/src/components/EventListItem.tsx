@@ -31,19 +31,6 @@ const TitleRow = styled('div')`
   gap: 8px;
 `
 
-const Description = styled('div')`
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  min-width: 1px;
-  gap: 8px;
-  overflow-wrap: anywhere;
-`
-
-const Content = styled('div')`
-  overflow-wrap: anywhere;
-`
-
 type EventListItemProps = {
   event: EventModel
   languageCode: string
@@ -110,11 +97,11 @@ const EventListItem = ({
           </TitleRow>
         }
         secondary={
-          <Description>
-            <Content dir='auto'>{dateToDisplay.toFormattedString(languageCode, viewportSmall)}</Content>
-            {event.location && <Content dir='auto'>{event.location.fullAddress}</Content>}
-            <Content dir='auto'>{getExcerpt(event.excerpt, { maxChars: EXCERPT_MAX_CHARS })}</Content>
-          </Description>
+          <div dir='auto'>
+            <Typography variant='body1'>{dateToDisplay.toFormattedString(languageCode, viewportSmall)}</Typography>
+            {event.location && <Typography variant='body1'>{event.location.fullAddress}</Typography>}
+            <Typography variant='body1'>{getExcerpt(event.excerpt, { maxChars: EXCERPT_MAX_CHARS })}</Typography>
+          </div>
         }
       />
     </ListItem>
