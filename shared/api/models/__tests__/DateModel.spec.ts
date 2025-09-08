@@ -154,8 +154,8 @@ describe('DateModel', () => {
     it('should return exactly count recurrences', () => {
       const recurrenceRule = rrulestr('DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO')
       const date = new DateModel({
-        startDate: DateTime.fromISO('2017-09-27T19:30:00'),
-        endDate: DateTime.fromISO('2017-09-28T21:30:00'),
+        startDate: DateTime.fromISO('2017-09-27T19:30:00+02:00'),
+        endDate: DateTime.fromISO('2017-09-28T21:30:00+02:00'),
         allDay: false,
         recurrenceRule,
       })
