@@ -13,8 +13,7 @@ jest.mock('react-i18next')
 jest.mock('../../hooks/useWindowDimensions')
 
 describe('CityContentHeader', () => {
-  const cities = new CityModelBuilder(2).build()
-  const cityModel = cities[0]!
+  const cityModel = new CityModelBuilder(1).build()[0]!
 
   const languageChangePaths = [
     { code: 'de', name: 'Deutsch', path: '/augsburg/de' },

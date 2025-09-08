@@ -52,14 +52,14 @@ const NavigationTabs = ({ cityModel, languageCode }: NavigationTabsProps): React
     isEventsVisible && <Tab key='events' component={Link} to={eventsPath} value={EVENTS_ROUTE} label={t('events')} />,
   ].filter((tab): tab is ReactElement => tab !== false)
 
-  const validTabValues: string[] = [CATEGORIES_ROUTE, POIS_ROUTE, NEWS_ROUTE, EVENTS_ROUTE]
-  const value = validTabValues.includes(route) ? route : false
+  const allTabValues: string[] = [CATEGORIES_ROUTE, POIS_ROUTE, NEWS_ROUTE, EVENTS_ROUTE]
+  const currentTabValue = allTabValues.includes(route) ? route : false
 
   if (tabs.length < 2) {
     return null
   }
   return (
-    <Tabs value={value} component='nav'>
+    <Tabs value={currentTabValue} component='nav'>
       {tabs}
     </Tabs>
   )
