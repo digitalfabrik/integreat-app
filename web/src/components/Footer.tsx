@@ -9,12 +9,16 @@ type FooterProps = {
   overlay?: boolean
 }
 
+const MarginRightSpacing = 6
+
 const FooterContainer = styled('footer')<{ overlay: boolean }>`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding: ${props => (props.overlay ? '0 10px' : '15px 5px')};
-  margin-top: auto;
+  align-items: center;
+  gap: ${props => (props.overlay ? 0 : props.theme.spacing(2))};
+  padding: ${props => props.theme.spacing(2)};
+  box-shadow: ${props => (props.overlay ? '0 2px 3px 3px rgb(0 0 0 / 10%)' : 'none')};
   background-color: ${props => {
     if (props.overlay) {
       return `rgba(255, 255, 255, 0.5)`
@@ -23,32 +27,10 @@ const FooterContainer = styled('footer')<{ overlay: boolean }>`
   }};
 
   ${props => props.theme.breakpoints.up('md')} {
-    background-color: ${props => (!props.overlay ? props.theme.legacy.colors.themeColorLight : undefined)};
-    padding: ${props => (props.overlay ? '0 10px' : '0px 5px')};
+    background-color: ${props => (props.overlay ? undefined : props.theme.palette.secondary.light)};
+    padding: ${props => (props.overlay ? `0 ${props.theme.spacing(1)}` : '0px 4px')};
+    margin-inline-end: ${props => (props.overlay ? props.theme.spacing(MarginRightSpacing) : 0)};
   }
-
-  box-shadow: 0 2px 3px 3px rgb(0 0 0 / 10%);
-
-  ${props => (props.overlay ? 'color: rgba(0, 0, 0, 0.75);' : '')}
-  & > * {
-    margin: ${props => (props.overlay ? 0 : '5px')};
-    color: ${props => props.theme.isContrastTheme && !props.overlay && props.theme.legacy.colors.textColor};
-  }
-
-  & > *::after {
-    padding-inline-end: 10px;
-    content: '';
-  }
-
-  & > *:last-child::after {
-    content: '';
-  }
-`
-
-const StyledDevText = styled(Typography)`
-  display: flex;
-  align-items: center;
-  padding: 5px 0;
 `
 
 /**
@@ -60,9 +42,9 @@ const Footer = ({ children, overlay = false }: FooterProps): ReactElement => (
   <FooterContainer overlay={overlay}>
     {children}
     {buildConfig().featureFlags.developerFriendly && (
-      <StyledDevText variant='body2'>
+      <Typography variant='body2'>
         {__VERSION_NAME__}+{__COMMIT_SHA__}
-      </StyledDevText>
+      </Typography>
     )}
   </FooterContainer>
 )

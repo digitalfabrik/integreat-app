@@ -20,8 +20,11 @@ const List = ({ items, NoItemsMessage, className, horizontal = false }: ListProp
   if (items.length === 0) {
     return typeof NoItemsMessage === 'string' ? <Failure errorMessage={NoItemsMessage} /> : NoItemsMessage
   }
-  const ListComponent = horizontal ? HorizontalList : MuiList
-  return <ListComponent className={className}>{horizontal ? items : withDividers(items)}</ListComponent>
+  return horizontal ? (
+    <HorizontalList className={className}>{items}</HorizontalList>
+  ) : (
+    <MuiList className={className}>{withDividers(items)}</MuiList>
+  )
 }
 
 export default List

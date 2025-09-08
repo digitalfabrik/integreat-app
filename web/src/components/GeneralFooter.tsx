@@ -1,32 +1,39 @@
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
-import { useTranslation } from 'react-i18next'
 
-import { LICENSES_ROUTE, MAIN_DISCLAIMER_ROUTE } from 'shared'
-
-import buildConfig from '../constants/buildConfig'
-import { RoutePatterns } from '../routes'
+import useFooterLinks from '../hooks/useFooterLinks'
+import useWindowDimensions from '../hooks/useWindowDimensions'
+import { linkListItems } from './CityContentFooter'
 import Footer from './Footer'
-import Link from './base/Link'
+import List from './base/List'
+
+const SidebarFooterContainer = styled('div')`
+  width: 100%;
+  margin-top: -10px; /* to counteract the padding-top of the normal footer */
+  padding: 0 27px;
+`
+
+const StyledList = styled(List)`
+  padding: 0;
+`
 
 type GeneralFooterProps = {
   language: string
 }
 
 const GeneralFooter = ({ language }: GeneralFooterProps): ReactElement => {
-  const { aboutUrls, privacyUrls, accessibilityUrls } = buildConfig()
-  const { t } = useTranslation('layout')
-
-  const aboutUrl = aboutUrls[language] || aboutUrls.default
-  const privacyUrl = privacyUrls[language] || privacyUrls.default
-  const accessibilityUrl = accessibilityUrls?.[language] ?? accessibilityUrls?.default
+  const linkItems = useFooterLinks({ language })
+  const { viewportSmall } = useWindowDimensions()
 
   return (
     <Footer>
-      <Link to={RoutePatterns[MAIN_DISCLAIMER_ROUTE]}>{t('imprint')}</Link>
-      <Link to={aboutUrl}>{t('settings:about', { appName: buildConfig().appName })}</Link>
-      <Link to={privacyUrl}>{t('privacy')}</Link>
-      <Link to={RoutePatterns[LICENSES_ROUTE]}>{t('settings:openSourceLicenses')}</Link>
-      {!!accessibilityUrl && <Link to={accessibilityUrl}>{t('accessibility')}</Link>}
+      {viewportSmall ? (
+        <SidebarFooterContainer>
+          <StyledList NoItemsMessage='' items={linkListItems(linkItems)} horizontal={false} />
+        </SidebarFooterContainer>
+      ) : (
+        <StyledList NoItemsMessage='' items={linkListItems(linkItems)} horizontal />
+      )}
     </Footer>
   )
 }

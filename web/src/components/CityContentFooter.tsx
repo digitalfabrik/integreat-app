@@ -4,11 +4,8 @@ import ListItemText from '@mui/material/ListItemText'
 import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
-import { useTranslation } from 'react-i18next'
 
-import { DISCLAIMER_ROUTE, LICENSES_ROUTE, pathnameFromRouteInformation } from 'shared'
-
-import buildConfig from '../constants/buildConfig'
+import useFooterLinks from '../hooks/useFooterLinks'
 import Footer from './Footer'
 import Link from './base/Link'
 import List from './base/List'
@@ -18,16 +15,11 @@ const StyledList = styled(List)`
 `
 
 const StyledListItem = styled(ListItem)`
-  padding: 0;
   width: fit-content;
 
   ${props => props.theme.breakpoints.down('md')} {
     width: 100%;
   }
-`
-
-const StyledTypography = styled(Typography)`
-  text-align: center;
 `
 
 const SidebarFooterContainer = styled('div')`
@@ -42,41 +34,33 @@ type CityContentFooterProps = {
   mode?: 'normal' | 'overlay' | 'sidebar'
 }
 
-const CityContentFooter = ({ city, language, mode = 'normal' }: CityContentFooterProps): ReactElement => {
-  const { aboutUrls, privacyUrls, accessibilityUrls } = buildConfig()
-  const { t } = useTranslation(['layout', 'settings'])
-  const aboutUrl = aboutUrls[language] || aboutUrls.default
-  const privacyUrl = privacyUrls[language] || privacyUrls.default
-  const accessibilityUrl = accessibilityUrls?.[language] ?? accessibilityUrls?.default
-  const disclaimerPath = pathnameFromRouteInformation({
-    route: DISCLAIMER_ROUTE,
-    cityCode: city,
-    languageCode: language,
-  })
-  const licensesPath = pathnameFromRouteInformation({
-    route: LICENSES_ROUTE,
-  })
+export type FooterLinkItem = {
+  to: string
+  text: string
+}
 
-  const linkItems = [
-    { to: disclaimerPath, text: t('imprint') },
-    { to: aboutUrl, text: t('settings:about', { appName: buildConfig().appName }) },
-    { to: privacyUrl, text: t('privacy') },
-    { to: licensesPath, text: t('settings:openSourceLicenses') },
-    ...(accessibilityUrl ? [{ to: accessibilityUrl, text: t('accessibility') }] : []),
-  ]
-
-  const linkListItems = linkItems.map(item => {
+export const linkListItems = (linkItems: FooterLinkItem[]): ReactElement[] =>
+  linkItems.map(item => {
     const { to, text } = item
     return (
-      <StyledListItem key={to}>
+      <StyledListItem key={to} disablePadding>
         <ListItemButton component={Link} to={to}>
-          <ListItemText primary={<StyledTypography variant='body2'>{text}</StyledTypography>} />
+          <ListItemText
+            primary={
+              <Typography variant='body2' textAlign='center'>
+                {text}
+              </Typography>
+            }
+          />
         </ListItemButton>
       </StyledListItem>
     )
   })
 
-  const LinksList = <StyledList NoItemsMessage='' items={linkListItems} horizontal={mode !== 'sidebar'} />
+const CityContentFooter = ({ city, language, mode = 'normal' }: CityContentFooterProps): ReactElement => {
+  const linkItems = useFooterLinks({ city, language })
+
+  const LinksList = <StyledList NoItemsMessage='' items={linkListItems(linkItems)} horizontal={mode !== 'sidebar'} />
 
   if (mode === 'sidebar') {
     return (
