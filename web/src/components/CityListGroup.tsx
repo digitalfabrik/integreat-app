@@ -1,5 +1,6 @@
 import shouldForwardProp from '@emotion/is-prop-valid'
 import ListSubheader from '@mui/material/ListSubheader'
+import Stack from '@mui/material/Stack'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
@@ -23,12 +24,12 @@ type CityListGroupProps = {
 }
 
 const CityListGroup = ({ title, cities, stickyTop, filterText, languageCode }: CityListGroupProps): ReactElement => (
-  <>
+  <Stack paddingBlock={1}>
     <CityGroupHeader stickyTop={stickyTop}>{title}</CityGroupHeader>
     {cities.map(city => (
       <CityEntry key={city.code} city={city} language={languageCode} filterText={filterText} />
     ))}
-  </>
+  </Stack>
 )
 
 export default CityListGroup
