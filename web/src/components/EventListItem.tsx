@@ -106,7 +106,9 @@ const EventListItem = ({
           <Description dir='auto'>
             <Typography variant='body1'>{dateToDisplay.toFormattedString(languageCode, viewportSmall)}</Typography>
             {event.location && <Typography variant='body1'>{event.location.fullAddress}</Typography>}
-            <Typography variant='body1'>{getExcerpt(event.excerpt, { maxChars: EXCERPT_MAX_CHARS })}</Typography>
+            <Typography variant='body1' sx={{ paddingTop: '4px' }}>
+              {getExcerpt(event.excerpt, { maxChars: EXCERPT_MAX_CHARS })}
+            </Typography>
           </Description>
         }
       />
