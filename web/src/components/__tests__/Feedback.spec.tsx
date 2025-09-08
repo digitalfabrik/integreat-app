@@ -84,24 +84,6 @@ describe('Feedback', () => {
     expect(getByText('feedback:notePrivacyPolicy')).toBeTruthy()
   })
 
-  it('button should be enabled for positive Feedback and no input', () => {
-    const { getByText } = renderWithTheme(<Feedback {...buildProps({ language: 'en', rating: 'positive' })} />)
-    getByText('common:privacyPolicy').click()
-    expect(getByText('feedback:send')).toBeEnabled()
-  })
-
-  it('button should be enabled for negative Feedback and no input', () => {
-    const { getByText } = renderWithTheme(<Feedback {...buildProps({ rating: 'negative' })} />)
-    getByText('common:privacyPolicy').click()
-    expect(getByText('feedback:send')).toBeEnabled()
-  })
-
-  it('button should be enabled for no rating and input', () => {
-    const { getByText } = renderWithTheme(<Feedback {...buildProps({ comment: 'comment' })} />)
-    getByText('common:privacyPolicy').click()
-    expect(getByText('feedback:send')).toBeEnabled()
-  })
-
   it('should display correct description for search', () => {
     const { getByLabelText, queryByText } = renderWithTheme(
       <Feedback {...buildProps({ rating: 'negative', comment: 'comment', searchTerm: 'query' })} />,

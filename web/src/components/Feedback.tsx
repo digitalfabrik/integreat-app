@@ -155,7 +155,6 @@ const Feedback = ({
           value={contactMail}
           onChange={e => onContactMailChanged(e.target.value)}
           label={t('contactMailAddress')}
-          defaultValue={t('optional')}
         />
       </FormControl>
       <FormControl error={submitted && !privacyPolicyAccepted} required margin='normal'>
