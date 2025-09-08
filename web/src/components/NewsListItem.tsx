@@ -17,11 +17,15 @@ import Link from './base/Link'
 const StyledListItemButton = styled(ListItemButton)({
   justifyContent: 'space-between',
   gap: 32,
+  marginBlock: 8,
 }) as typeof ListItemButton
 
-const StyledButton = styled(Button)({
+const StyledButton = styled(Button)(({ theme }) => ({
   backgroundColor: 'transparent',
-})
+  [theme.breakpoints.down('sm')]: {
+    display: 'none',
+  },
+}))
 
 type NewsListItemProps = {
   title: string
@@ -35,9 +39,9 @@ const NewsListItem = ({ title, content, timestamp, to }: NewsListItemProps): Rea
   const excerpt = getExcerpt(content, { maxChars: EXCERPT_MAX_CHARS, replaceLineBreaks: false })
 
   return (
-    <ListItem>
+    <ListItem disablePadding>
       <StyledListItemButton component={Link} to={to}>
-        <Stack>
+        <Stack maxWidth='100%'>
           <ListItemText primary={title} secondary={excerpt} />
           <LastUpdateInfo lastUpdate={timestamp} withText={false} />
         </Stack>
