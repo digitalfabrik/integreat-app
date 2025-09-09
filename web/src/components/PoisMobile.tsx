@@ -70,15 +70,15 @@ const PoisMobile = ({
   const geocontrolPosition = useRef<HTMLDivElement>(null)
   const [mapViewRef, setMapViewRef] = useState<MapViewRef | null>(null)
   const { pois, poi, mapFeatures, mapFeature } = data
-  const { height } = useWindowDimensions()
+  const dimensions = useWindowDimensions()
   const theme = useTheme()
   const canDeselect = !!mapFeature || !!slug
   const { t } = useTranslation('pois')
 
-  const isBottomActionSheetFullScreen = bottomActionSheetHeight >= height
+  const isBottomActionSheetFullScreen = bottomActionSheetHeight >= dimensions.height
   const changeSnapPoint = (snapPoint: number) => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    sheetRef.current?.sheet?.snapTo(({ maxHeight }) => getSnapPoints(maxHeight)[snapPoint]!)
+    sheetRef.current?.sheet?.snapTo(() => getSnapPoints(dimensions)[snapPoint]!)
   }
 
   const handleSelectPoi = (poi: PoiModel) => {
@@ -140,7 +140,9 @@ const PoisMobile = ({
         toolbar={toolbar}
         ref={sheetRef}
         setBottomActionSheetHeight={setBottomActionSheetHeight}
-        sibling={<GeocontrolContainer id='geolocate' ref={geocontrolPosition} maxOffset={getSnapPoints(height)[1]} />}>
+        sibling={
+          <GeocontrolContainer id='geolocate' ref={geocontrolPosition} maxOffset={getSnapPoints(dimensions)[1]} />
+        }>
         {canDeselect && isBottomActionSheetFullScreen && (
           <GoBackContainer>
             <GoBack goBack={deselect} viewportSmall text={t('detailsHeader')} />

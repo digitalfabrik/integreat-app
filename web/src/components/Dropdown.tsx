@@ -1,12 +1,12 @@
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, useRef } from 'react'
 
-import dimensions from '../constants/dimensions'
 import useOnClickOutside from '../hooks/useOnClickOutside'
+import useWindowDimensions from '../hooks/useWindowDimensions'
 
-const DropdownContainer = styled('div')<{ open: boolean }>`
+const DropdownContainer = styled('div')<{ open: boolean; headerHeight: number }>`
   position: absolute;
-  top: ${dimensions.headerHeightLarge}px;
+  top: ${props => props.headerHeight}px;
   inset-inline-end: 0;
   width: 100%;
   box-sizing: border-box;
@@ -24,8 +24,8 @@ const DropdownContainer = styled('div')<{ open: boolean }>`
   visibility: ${props => (props.open ? 'visible' : 'hidden')};
 
   ${props => props.theme.breakpoints.down('md')} {
-    top: ${dimensions.headerHeightSmall}px;
-    height: calc(100% - ${dimensions.headerHeightSmall}px);
+    top: ${props => props.headerHeight}px;
+    height: calc(100% - ${props => props.headerHeight}px);
     overflow: hidden auto;
   }
 
@@ -44,12 +44,14 @@ type DropdownProps = {
 
 const Dropdown = ({ ToggleButton, children, open, setOpen }: DropdownProps): ReactElement => {
   const wrapperRef = useRef(null)
+  const { headerHeight } = useWindowDimensions()
   useOnClickOutside(wrapperRef, () => setOpen(false))
 
   return (
     <div ref={wrapperRef}>
       {ToggleButton}
       <DropdownContainer
+        headerHeight={headerHeight}
         data-testid='headerActionItemDropDown'
         open={open}
         // We need to have the visibility here, else the jest-dom testing library can not assert on it

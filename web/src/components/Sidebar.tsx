@@ -5,8 +5,8 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode, useLayoutEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import dimensions from '../constants/dimensions'
 import useLockedBody from '../hooks/useLockedBody'
+import useWindowDimensions from '../hooks/useWindowDimensions'
 import Portal from './Portal'
 
 const ToggleContainer = styled('div')`
@@ -43,11 +43,11 @@ const Overlay = styled('div')<{ show: boolean }>`
   display: ${props => (props.show ? `block` : `none`)};
 `
 
-const Heading = styled('div')`
+const Heading = styled('div')<{ headerHeight: number }>`
   display: flex;
   justify-content: flex-end;
   background-color: ${props => props.theme.legacy.colors.backgroundAccentColor};
-  min-height: ${dimensions.headerHeightSmall}px;
+  min-height: ${props => props.headerHeight}px;
   box-sizing: border-box;
   padding: 8px;
 `
@@ -57,9 +57,9 @@ const ActionBar = styled('nav')`
   align-items: center;
 `
 
-const Content = styled('div')`
-  top: ${dimensions.headerHeightSmall}px;
-  height: calc(100% - ${dimensions.headerHeightSmall}px);
+const Content = styled('div')<{ headerHeight: number }>`
+  top: ${props => props.headerHeight}px;
+  height: calc(100% - ${props => props.headerHeight}px);
   overflow: hidden auto;
   padding: 0 32px;
 `
@@ -80,6 +80,7 @@ const Sidebar = ({ children, show, setShow, Footer, OpenButton }: SidebarProps):
   useLockedBody(show)
   const { t } = useTranslation('layout')
   const [scrollY, setScrollY] = useState<number>(0)
+  const { headerHeight } = useWindowDimensions()
 
   useLayoutEffect(() => {
     if (show) {
@@ -107,14 +108,14 @@ const Sidebar = ({ children, show, setShow, Footer, OpenButton }: SidebarProps):
         {/* eslint-disable-next-line styled-components-a11y/no-static-element-interactions,styled-components-a11y/click-events-have-key-events */}
         <Overlay onClick={() => setShow(false)} show={show} />
         <SidebarContainer>
-          <Heading>
+          <Heading headerHeight={headerHeight}>
             <ActionBar>
               <StyledIconButton onClick={() => setShow(false)} aria-label={t('sideBarCloseAriaLabel')}>
                 <CloseIcon />
               </StyledIconButton>
             </ActionBar>
           </Heading>
-          <Content>{children}</Content>
+          <Content headerHeight={headerHeight}>{children}</Content>
           {Footer}
         </SidebarContainer>
       </Portal>

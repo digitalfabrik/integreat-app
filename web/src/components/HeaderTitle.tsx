@@ -6,7 +6,6 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import buildConfig from '../constants/buildConfig'
-import dimensions from '../constants/dimensions'
 import Link from './base/Link'
 
 const LONG_TITLE_LENGTH = 25
@@ -14,7 +13,6 @@ const LONG_TITLE_LENGTH = 25
 const HeaderTitleContainer = styled(Typography)`
   display: flex;
   align-items: flex-start;
-  max-height: ${dimensions.headerHeightLarge};
   margin-inline-end: auto;
   order: 2;
 
