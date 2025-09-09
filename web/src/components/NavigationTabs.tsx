@@ -1,5 +1,6 @@
 import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
+import { useTheme } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -26,6 +27,8 @@ type NavigationTabsProps = {
 const NavigationTabs = ({ cityModel, languageCode }: NavigationTabsProps): ReactElement | null => {
   const { route } = useCityContentParams()
   const { t } = useTranslation('layout')
+  const theme = useTheme()
+  const color = theme.isContrastTheme ? 'secondary' : 'primary'
 
   const { eventsEnabled, poisEnabled, tunewsEnabled, localNewsEnabled } = cityModel
   const isNewsVisible = buildConfig().featureFlags.newsStream && (localNewsEnabled || tunewsEnabled)
@@ -58,8 +61,9 @@ const NavigationTabs = ({ cityModel, languageCode }: NavigationTabsProps): React
   if (tabs.length < 2) {
     return null
   }
+
   return (
-    <Tabs value={currentTabValue} component='nav'>
+    <Tabs value={currentTabValue} component='nav' textColor={color} indicatorColor={color}>
       {tabs}
     </Tabs>
   )
