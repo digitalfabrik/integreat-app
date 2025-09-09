@@ -1,16 +1,12 @@
-import dimensions from '../constants/dimensions'
+import { WindowDimensionsType } from '../hooks/useWindowDimensions'
 
 const minSnapPercentage = 0.05
-export const midSnapPercentage = 0.35
+const midSnapPercentage = 0.35
 const mapIconsHeight = 60
 
-// Calculates detail snapPoint by reducing height with navigation and iconHeight on the map
-const getLargeSnapPoint = (maxHeight: number) =>
-  maxHeight - dimensions.headerHeightLarge - dimensions.navigationMenuHeight - mapIconsHeight
-
-export const getSnapPoints = (maxHeight: number): [number, number, number, number] => [
-  maxHeight * minSnapPercentage,
-  maxHeight * midSnapPercentage,
-  getLargeSnapPoint(maxHeight),
-  maxHeight,
+export const getSnapPoints = (dimensions: WindowDimensionsType): [number, number, number, number] => [
+  dimensions.height * minSnapPercentage,
+  dimensions.height * midSnapPercentage,
+  dimensions.height - dimensions.headerHeight - mapIconsHeight,
+  dimensions.height,
 ]

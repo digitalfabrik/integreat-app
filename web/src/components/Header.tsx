@@ -5,11 +5,11 @@ import React, { ReactElement, ReactNode } from 'react'
 
 import { LANDING_ROUTE, pathnameFromRouteInformation } from 'shared'
 
-import dimensions from '../constants/dimensions'
 import useElementRect from '../hooks/useElementRect'
-import useWindowDimensions from '../hooks/useWindowDimensions'
 import HeaderLogo from './HeaderLogo'
 import HeaderTitle from './HeaderTitle'
+
+const HEADER_HEIGHT = 80
 
 const HeaderContainer = styled('header')`
   user-select: none;
@@ -28,7 +28,7 @@ const HeaderContainer = styled('header')`
 const Row = styled('div')`
   display: flex;
   align-items: center;
-  min-height: ${dimensions.headerHeightLarge}px;
+  min-height: ${HEADER_HEIGHT}px;
   justify-content: space-between;
   flex-wrap: wrap;
   overflow-x: auto;
@@ -36,7 +36,6 @@ const Row = styled('div')`
   gap: 8px;
 
   ${props => props.theme.breakpoints.down('md')} {
-    min-height: ${dimensions.headerHeightSmall}px;
     padding: 0 8px;
   }
 `
@@ -64,13 +63,10 @@ type HeaderProps = {
 export const Header = ({ actionItems = [], logoHref, cityName, language, TabBar }: HeaderProps): ReactElement => {
   const { rect: headerRect, ref } = useElementRect()
   const height = headerRect?.height ?? 0
-  const { viewportSmall } = useWindowDimensions()
-  const { headerHeightSmall, headerHeightLarge } = dimensions
-  const scrollHeight = viewportSmall ? headerHeightSmall : headerHeightLarge
   const landingPath = pathnameFromRouteInformation({ route: LANDING_ROUTE, languageCode: language })
 
   return (
-    <Headroom scrollHeight={scrollHeight} height={height} zIndex={2}>
+    <Headroom scrollHeight={HEADER_HEIGHT} height={height} zIndex={2}>
       <Paper>
         <HeaderContainer ref={ref}>
           <Row>

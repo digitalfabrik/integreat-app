@@ -5,6 +5,7 @@ import { BottomSheet, BottomSheetRef } from 'react-spring-bottom-sheet'
 import 'react-spring-bottom-sheet/dist/style.css'
 import { SpringEvent } from 'react-spring-bottom-sheet/dist/types'
 
+import useWindowDimensions from '../hooks/useWindowDimensions'
 import { getSnapPoints } from '../utils/getSnapPoints'
 import { RichLayout } from './Layout'
 
@@ -58,6 +59,7 @@ const BottomActionSheet = ({
   ref,
 }: BottomActionSheetProps): ReactElement => {
   const [scrollElement, setScrollElement] = useState<HTMLElement | null>(null)
+  const dimensions = useWindowDimensions()
   const bottomSheetRef = useRef<BottomSheetRef>(null)
   useImperativeHandle(
     ref,
@@ -84,7 +86,7 @@ const BottomActionSheet = ({
       onSpringStart={initializeScrollElement}
       onSpringEnd={() => setBottomActionSheetHeight(bottomSheetRef.current?.height ?? 0)}
       header={title ? <Title>{title}</Title> : null}
-      snapPoints={({ maxHeight }) => getSnapPoints(maxHeight)}
+      snapPoints={() => getSnapPoints(dimensions)}
       // snapPoints have been supplied in the previous line
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       defaultSnap={({ snapPoints }) => snapPoints[1]!}>

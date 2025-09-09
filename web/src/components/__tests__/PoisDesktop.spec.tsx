@@ -30,7 +30,6 @@ describe('PoisDesktop', () => {
   const renderPoisDesktop = (poi?: PoiModel, mapFeature?: MapFeature) =>
     renderWithRouterAndTheme(
       <PoisDesktop
-        panelHeights={0}
         toolbar={<div>Toolbar</div>}
         data={{ pois, mapFeatures, poi, mapFeature, poiCategories }}
         selectMapFeature={selectMapFeature}

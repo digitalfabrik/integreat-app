@@ -24,10 +24,9 @@ const PanelContainer = styled('article')`
   min-width: ${dimensions.poiDesktopPanelWidth}px;
 `
 
-const ListViewWrapper = styled('div')<{ panelHeights: number; bottomBarHeight: number }>`
+const ListViewWrapper = styled('div')`
   padding: 16px;
   overflow: auto;
-  ${({ panelHeights, bottomBarHeight }) => `height: calc(100vh - ${panelHeights}px - ${bottomBarHeight}px);`};
 `
 
 const ToolbarContainer = styled('div')`
@@ -54,7 +53,6 @@ const FooterContainer = styled('div')`
 `
 
 type PoisDesktopProps = {
-  panelHeights: number
   toolbar: ReactElement
   cityModel: CityModel
   data: PreparePoisReturn
@@ -81,7 +79,6 @@ const nextPoiIndex = (step: 1 | -1, arrayLength: number, currentIndex: number): 
 }
 
 const PoisDesktop = ({
-  panelHeights,
   toolbar,
   data,
   userLocation,
@@ -125,10 +122,7 @@ const PoisDesktop = ({
 
   const PanelContent = (
     <>
-      <ListViewWrapper
-        ref={listRef}
-        panelHeights={panelHeights}
-        bottomBarHeight={poi ? dimensions.poiDetailNavigation : dimensions.toolbarHeight}>
+      <ListViewWrapper ref={listRef}>
         {canDeselect ? (
           <GoBack goBack={deselect} text={t('detailsHeader')} />
         ) : (
