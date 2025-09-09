@@ -45,9 +45,9 @@ const Contact = ({
           Icon={PhoneIcon}
         />
       )}
-      {!!mobileNumber && (
+      {mobileNumber != null && (
         <PoiDetailRow
-          externalUrl={`tel:${mobileNumber}`}
+          externalUrl={`tel:${mobileNumber.replace(/\s/g, '')}`}
           accessibilityLabel={t('mobilePhone')}
           text={mobileNumber}
           Icon={MobileIcon}

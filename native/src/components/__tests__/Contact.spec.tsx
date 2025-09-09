@@ -16,7 +16,7 @@ describe('Contact', () => {
     expect(getByText(contact.headline!)).toBeTruthy()
     expect(getByLabelText('website')).toHaveTextContent('website')
     expect(getByLabelText('phone')).toHaveTextContent(contact.phoneNumber!)
-    expect(getByLabelText('mobile')).toHaveTextContent(contact.mobileNumber!)
+    expect(getByLabelText('mobilePhone')).toHaveTextContent(contact.mobileNumber!)
     expect(getByLabelText('eMail')).toHaveTextContent(contact.email!)
   })
 
@@ -26,7 +26,7 @@ describe('Contact', () => {
     expect(getByText(contact.headline!)).toBeTruthy()
     expect(queryByLabelText('website')).toBeNull()
     expect(getByLabelText('phone')).toHaveTextContent(contact.phoneNumber!)
-    expect(getByLabelText('mobile')).toHaveTextContent(contact.mobileNumber!)
+    expect(getByLabelText('mobilePhone')).toHaveTextContent(contact.mobileNumber!)
     expect(getByLabelText('eMail')).toHaveTextContent(contact.email!)
   })
 
@@ -36,7 +36,7 @@ describe('Contact', () => {
     expect(getByText(contact.headline!)).toBeTruthy()
     expect(getByLabelText('website')).toHaveTextContent('website')
     expect(queryByLabelText('phone')).toBeNull()
-    expect(getByLabelText('mobile')).toHaveTextContent(contact.mobileNumber!)
+    expect(getByLabelText('mobilePhone')).toHaveTextContent(contact.mobileNumber!)
     expect(getByLabelText('eMail')).toHaveTextContent(contact.email!)
   })
 
@@ -46,7 +46,7 @@ describe('Contact', () => {
     expect(getByText(contact.headline!)).toBeTruthy()
     expect(getByLabelText('website')).toHaveTextContent('website')
     expect(getByLabelText('phone')).toHaveTextContent(contact.phoneNumber!)
-    expect(getByLabelText('mobile')).toHaveTextContent(contact.mobileNumber!)
+    expect(getByLabelText('mobilePhone')).toHaveTextContent(contact.mobileNumber!)
     expect(queryByLabelText('eMail')).toBeNull()
   })
 
