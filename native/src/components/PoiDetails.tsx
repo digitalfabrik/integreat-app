@@ -19,7 +19,7 @@ const Thumbnail = styled(SimpleImage)`
   height: 180px;
   width: 100%;
   border-radius: 8px;
-  margin-top: 12px;
+  margin: 12px 0;
 `
 
 const PoiDetailsContainer = styled.View`
@@ -61,7 +61,6 @@ const PoiDetails = ({ poi, language, distance }: PoiDetailsProps): ReactElement 
         <StyledDistance>{t('distanceKilometre', { distance: distance.toFixed(1) })}</StyledDistance>
       )}
       <Thumbnail source={thumbnail} resizeMode='cover' />
-      <HorizontalLine />
       <PoiChips poi={poi} />
       <HorizontalLine />
       <AddressInfo location={poi.location} language={language} />

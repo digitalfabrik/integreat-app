@@ -74,6 +74,13 @@ const StyledTextButton = styled(TextButton)`
   margin-bottom: 8px;
 `
 
+const StyledSvgUri = styled(SvgUri)<{ active: boolean }>`
+  color: ${props =>
+    props.active && props.theme.isContrastTheme
+      ? props.theme.colors.backgroundColor
+      : props.theme.colors.textSecondaryColor};
+`
+
 type PoiFiltersModalProps = {
   modalVisible: boolean
   closeModal: () => void
@@ -124,7 +131,7 @@ const PoiFiltersModal = ({
                 text={it.name}
                 active={it.id === selectedPoiCategory?.id}
                 onPress={() => setSelectedPoiCategory(it.id === selectedPoiCategory?.id ? null : it)}
-                Icon={<SvgUri uri={it.icon} />}
+                Icon={<StyledSvgUri uri={it.icon} active={it.id === selectedPoiCategory?.id} />}
               />
             ))}
           </TileRow>
