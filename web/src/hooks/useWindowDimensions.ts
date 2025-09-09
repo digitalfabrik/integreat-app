@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
 
-import dimensions from '../constants/dimensions'
+import { BREAKPOINTS } from '../components/ThemeContainer'
 
 export type WindowDimensionsType = {
   width: number
   height: number
   viewportSmall: boolean
+  headerHeight: number
   footerHeight: number
   scrollY: number
   documentHeight: number
@@ -14,6 +15,8 @@ export type WindowDimensionsType = {
 
 const getWindowDimensions = (): WindowDimensionsType => {
   const { innerWidth: width, innerHeight: height, scrollY } = window
+  const header = document.querySelector('header')
+  const headerHeight = header?.offsetHeight ?? 0
   const footer = document.querySelector('footer')
   const footerHeight = footer?.offsetHeight ?? 0
   const documentHeight = document.body.offsetHeight
@@ -21,7 +24,8 @@ const getWindowDimensions = (): WindowDimensionsType => {
     width,
     height,
     scrollY,
-    viewportSmall: width <= dimensions.maxWidthViewportSmall,
+    viewportSmall: width <= BREAKPOINTS.md,
+    headerHeight,
     footerHeight,
     documentHeight,
     visibleFooterHeight: Math.max(0, height + scrollY + footerHeight - documentHeight),

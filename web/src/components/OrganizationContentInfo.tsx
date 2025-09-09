@@ -1,4 +1,4 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 
@@ -8,32 +8,32 @@ import useWindowDimensions from '../hooks/useWindowDimensions'
 import HighlightBox from './HighlightBox'
 import Link from './base/Link'
 
-const StyledImage = styled.img<{ viewportSmall: boolean }>`
+const StyledImage = styled('img')<{ viewportSmall: boolean }>`
   width: 100%;
   transition: transform 0.2s;
   object-fit: contain;
   ${props => props.viewportSmall && 'margin-bottom: 8px;'}
 `
 
-const ThumbnailSizer = styled.div`
+const ThumbnailSizer = styled('div')`
   width: 150px;
 `
 
 const Box = styled(HighlightBox)<{ viewportSmall: boolean }>`
   display: flex;
   place-content: space-evenly space-evenly;
-  font-family: ${props => props.theme.fonts.web.decorativeFont};
+  font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
   font-size: 14px;
   flex-direction: ${props => (props.viewportSmall ? 'column' : 'row')};
   gap: 20px;
 `
 
-const Column = styled.div`
+const Column = styled('div')`
   display: flex;
   flex-direction: column;
 `
 
-const OrganizationContent = styled.div`
+const OrganizationContent = styled('div')`
   padding-bottom: 8px;
   font-weight: 600;
 `

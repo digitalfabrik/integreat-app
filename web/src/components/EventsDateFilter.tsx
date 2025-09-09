@@ -1,29 +1,28 @@
-import styled from '@emotion/styled'
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
+import { styled } from '@mui/material/styles'
 import { DateTime } from 'luxon'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CloseIcon } from '../assets'
-import dimensions from '../constants/dimensions'
 import Accordion from './Accordion'
 import CustomDatePicker from './DatePicker'
 import FilterToggle from './FilterToggle'
 import Button from './base/Button'
 import Icon from './base/Icon'
 
-const DateSection = styled.div`
+const DateSection = styled('div')`
   display: flex;
   gap: 10px;
   margin: 15px 5px;
   justify-content: space-evenly;
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     flex-direction: column;
     align-items: center;
   }
 `
-const Text = styled.span`
-  color: ${props => props.theme.colors.textColor};
+const Text = styled('span')`
+  color: ${props => props.theme.legacy.colors.textColor};
 `
 
 const StyledButton = styled(Button)`
@@ -77,7 +76,7 @@ const EventsDateFilter = ({
               title={t('from')}
               date={startDate}
               setDate={setStartDate}
-              error={startDateError ? t(startDateError) : ''}
+              error={startDateError ? t(startDateError) : undefined}
               placeholderDate={today}
               calendarLabel={t('selectStartDateCalendar')}
             />
@@ -98,7 +97,7 @@ const EventsDateFilter = ({
             setStartDate(null)
             setEndDate(null)
           }}>
-          <Icon src={CloseIcon} />
+          <Icon src={CloseOutlinedIcon} />
           <ResetFilterText startDate={startDate} endDate={endDate} />
         </StyledButton>
       )}

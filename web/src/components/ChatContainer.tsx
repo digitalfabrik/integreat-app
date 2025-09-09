@@ -1,11 +1,12 @@
-import styled from '@emotion/styled'
+import QuestionAnswerOutlinedIcon from '@mui/icons-material/QuestionAnswerOutlined'
+import Fab from '@mui/material/Fab'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
 import { getChatName, CHAT_QUERY_KEY, parseQueryParams } from 'shared'
 import { CityModel } from 'shared/api'
 
-import { ChatIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import useLockedBody from '../hooks/useLockedBody'
@@ -17,24 +18,15 @@ import Icon from './base/Icon'
 
 const CHAT_BUTTON_SIZE = 48
 
-const ChatButtonContainer = styled.button<{ bottom: number }>`
+const ChatButtonContainer = styled('div')<{ bottom: number }>`
   position: fixed;
   bottom: ${props => props.bottom}px;
   inset-inline-end: 16px;
   margin-bottom: 8px;
-  background-color: transparent;
-  border: none;
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: min-content;
-`
-
-const Circle = styled.div`
-  background-color: ${props => props.theme.colors.themeColor};
-  border-radius: 50%;
-  box-shadow: 0 2px 3px 3px rgb(0 0 0 / 20%);
-  align-self: center;
-  padding: 8px;
 `
 
 const StyledIcon = styled(Icon)`
@@ -43,12 +35,19 @@ const StyledIcon = styled(Icon)`
   height: 40px;
   align-self: center;
   justify-content: center;
-  color: ${props => props.theme.colors.backgroundColor};
+  color: ${props => props.theme.legacy.colors.backgroundColor};
 `
 
-const ChatTitle = styled.span`
+const ChatTitle = styled('span')`
+  text-align: center;
   margin-top: 8px;
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
+`
+
+const ChatActionButton = styled(Fab)`
+  &:hover {
+    background-color: ${props => props.theme.legacy.colors.themeColor};
+  }
 `
 
 type ChatContainerProps = {
@@ -87,10 +86,10 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement => 
   }
 
   return (
-    <ChatButtonContainer bottom={bottom} onClick={() => setChatVisible(true)}>
-      <Circle>
-        <StyledIcon src={ChatIcon} title={chatName} />
-      </Circle>
+    <ChatButtonContainer bottom={bottom}>
+      <ChatActionButton onClick={() => setChatVisible(true)} color='primary'>
+        <StyledIcon src={QuestionAnswerOutlinedIcon} title={chatName} />
+      </ChatActionButton>
       {!viewportSmall && <ChatTitle>{chatName}</ChatTitle>}
     </ChatButtonContainer>
   )

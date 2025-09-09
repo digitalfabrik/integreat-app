@@ -1,18 +1,12 @@
-import styled from '@emotion/styled'
+import Divider from '@mui/material/Divider'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
 import Checkbox from './base/Checkbox'
 
-const Container = styled.div`
+const Container = styled('div')`
   flex-direction: row;
   padding: 16px 0;
-`
-
-const Divider = styled.hr`
-  background-color: ${props => props.theme.colors.borderColor};
-  height: 1px;
-  border: none;
-  margin: 0;
 `
 
 type ConsentSectionProps = {
@@ -24,7 +18,7 @@ type ConsentSectionProps = {
 const ConsentSection = ({ description, allowed, onPress }: ConsentSectionProps): ReactElement => (
   <>
     <Container>
-      <Checkbox id={description} checked={allowed} setChecked={onPress} label={description} />
+      <Checkbox checked={allowed} setChecked={onPress} label={description} />
     </Container>
     <Divider />
   </>

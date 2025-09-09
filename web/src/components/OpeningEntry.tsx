@@ -1,4 +1,4 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -9,7 +9,7 @@ import AppointmentOnlyIcon from './AppointmentOnlyIcon'
 const fontBold = 600
 const fontStandard = 400
 
-const EntryContainer = styled.div<{ isCurrentDay: boolean }>`
+const EntryContainer = styled('div')<{ isCurrentDay: boolean }>`
   display: flex;
   justify-content: space-between;
   padding: 4px 0;
@@ -17,18 +17,18 @@ const EntryContainer = styled.div<{ isCurrentDay: boolean }>`
   position: relative;
 `
 
-const Timeslot = styled.div`
+const Timeslot = styled('div')`
   display: flex;
   flex-direction: column;
 `
 
-const OpeningContainer = styled.div`
+const OpeningContainer = styled('div')`
   display: flex;
   align-items: center;
   gap: 8px;
 `
 
-const TimeSlotEntry = styled.span`
+const TimeSlotEntry = styled('span')`
   &:not(:first-of-type) {
     margin-top: 8px;
   }

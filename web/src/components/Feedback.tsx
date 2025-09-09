@@ -1,18 +1,20 @@
-import styled from '@emotion/styled'
+import SendIcon from '@mui/icons-material/Send'
+import Button from '@mui/material/Button'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { Rating, DEFAULT_ROWS_NUMBER } from 'shared'
+
 import buildConfig from '../constants/buildConfig'
-import dimensions from '../constants/dimensions'
 import FeedbackButtons from './FeedbackButtons'
 import { SendingStatusType } from './FeedbackContainer'
 import Note from './Note'
 import PrivacyCheckbox from './PrivacyCheckbox'
 import Input from './base/Input'
 import InputSection from './base/InputSection'
-import TextButton from './base/TextButton'
 
-export const Container = styled.div<{ fullWidth?: boolean }>`
+export const Container = styled('div')<{ fullWidth?: boolean }>`
   display: flex;
   flex: 1;
   max-height: 80vh;
@@ -21,33 +23,29 @@ export const Container = styled.div<{ fullWidth?: boolean }>`
   justify-content: space-between;
   padding: 16px;
   border-radius: 10px;
-  border-color: ${props => props.theme.colors.textSecondaryColor};
-  font-size: ${props => props.theme.fonts.contentFontSize};
+  border-color: ${props => props.theme.legacy.colors.textSecondaryColor};
+  font-size: ${props => props.theme.legacy.fonts.contentFontSize};
   overflow: auto;
   align-self: center;
   gap: 16px;
 
-  @media ${dimensions.mediumLargeViewport} {
+  ${props => props.theme.breakpoints.up('md')} {
     width: ${props => (props.fullWidth ? 'auto' : '400px')};
   }
 `
 
-const ErrorSendingStatus = styled.div`
+const ErrorSendingStatus = styled('div')`
   font-weight: bold;
-`
-
-const StyledTextButton = styled(TextButton)`
-  margin: 0;
 `
 
 type FeedbackProps = {
   language: string
-  isPositiveFeedback: boolean | null
+  rating: Rating | null
   comment: string
   contactMail: string
   onCommentChanged: (comment: string) => void
   onContactMailChanged: (contactMail: string) => void
-  onFeedbackChanged?: (isPositiveFeedback: boolean | null) => void
+  setRating?: (rating: Rating | null) => void
   onSubmit: () => void
   sendingStatus: SendingStatusType
   searchTerm: string | undefined
@@ -57,14 +55,14 @@ type FeedbackProps = {
 
 const Feedback = ({
   language,
-  isPositiveFeedback,
+  rating,
   comment,
   contactMail,
   sendingStatus,
   onSubmit,
   onCommentChanged,
   onContactMailChanged,
-  onFeedbackChanged,
+  setRating,
   searchTerm,
   setSearchTerm,
   closeFeedback,
@@ -74,14 +72,14 @@ const Feedback = ({
   const isSearchFeedback = searchTerm !== undefined
   const commentTitle = isSearchFeedback ? 'wantedInformation' : 'commentHeadline'
   const [privacyPolicyAccepted, setPrivacyPolicyAccepted] = useState(false)
-  const feedbackFilled = isPositiveFeedback === null && comment.trim().length === 0 && !searchTerm
+  const feedbackFilled = rating === null && comment.trim().length === 0 && !searchTerm
   const submitFeedbackDisabled = feedbackFilled || !privacyPolicyAccepted
 
   if (sendingStatus === 'successful') {
     return (
       <Container>
         <div>{t('thanksMessage')}</div>
-        {!!closeFeedback && !isSearchFeedback && <TextButton onClick={closeFeedback} text={t('common:close')} />}
+        {!!closeFeedback && !isSearchFeedback && <Button onClick={closeFeedback}>{t('common:close')}</Button>}
       </Container>
     )
   }
@@ -93,7 +91,7 @@ const Feedback = ({
           <Input id='searchTerm' value={searchTerm} onChange={setSearchTerm} />
         </InputSection>
       ) : (
-        onFeedbackChanged && <FeedbackButtons isPositive={isPositiveFeedback} onRatingChange={onFeedbackChanged} />
+        setRating && <FeedbackButtons rating={rating} setRating={setRating} />
       )}
 
       <InputSection
@@ -101,7 +99,7 @@ const Feedback = ({
         title={t(commentTitle)}
         description={t('commentDescription', { appName: buildConfig().appName })}
         showOptional>
-        <Input id='comment' value={comment} onChange={onCommentChanged} multiline />
+        <Input id='comment' value={comment} onChange={onCommentChanged} rows={DEFAULT_ROWS_NUMBER} />
       </InputSection>
 
       <InputSection id='email' title={t('contactMailAddress')} showOptional>
@@ -110,7 +108,9 @@ const Feedback = ({
       <PrivacyCheckbox language={language} checked={privacyPolicyAccepted} setChecked={setPrivacyPolicyAccepted} />
       {submitFeedbackDisabled && <Note text={t(feedbackFilled ? 'noteFillFeedback' : 'notePrivacyPolicy')} />}
       {sendingStatus === 'failed' && <ErrorSendingStatus role='alert'>{t('failedSendingFeedback')}</ErrorSendingStatus>}
-      <StyledTextButton disabled={submitFeedbackDisabled} onClick={onSubmit} text={t('send')} />
+      <Button onClick={onSubmit} variant='contained' startIcon={<SendIcon />} disabled={submitFeedbackDisabled}>
+        {t('send')}
+      </Button>
     </Container>
   )
 }

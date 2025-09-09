@@ -1,5 +1,4 @@
-import { useTheme } from '@emotion/react'
-import styled from '@emotion/styled'
+import { styled, useTheme } from '@mui/material/styles'
 import maplibregl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import React, {
@@ -27,11 +26,11 @@ import {
 import { clusterCountLayer, clusterLayer, clusterProperties, markerLayer } from '../constants/layers'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import '../styles/MapView.css'
-import { midSnapPercentage } from '../utils/getSnapPoints'
+import { getSnapPoints } from '../utils/getSnapPoints'
 import { reportError } from '../utils/sentry'
 import MapAttribution from './MapAttribution'
 
-const MapContainer = styled.div`
+const MapContainer = styled('div')`
   height: 100%;
   width: 100%;
   display: flex;
@@ -39,7 +38,7 @@ const MapContainer = styled.div`
   position: relative;
 `
 
-const OverlayContainer = styled.div`
+const OverlayContainer = styled('div')`
   display: flex;
   padding: 12px 8px;
   flex: 1;
@@ -81,7 +80,7 @@ const MapView = ({
   const [mapRef, setMapRef] = useState<maplibregl.Map | null>(null)
   const theme = useTheme()
 
-  const { viewportSmall, height } = useWindowDimensions()
+  const dimensions = useWindowDimensions()
 
   useEffect(() => {
     if (maplibregl.getRTLTextPluginStatus() === 'unavailable') {
@@ -169,10 +168,10 @@ const MapView = ({
       mapRef.flyTo({
         center: [longitude, latitude],
         zoom: closerDetailZoom,
-        padding: { bottom: viewportSmall ? height * midSnapPercentage : 0, top: 0, left: 0, right: 0 },
+        padding: { bottom: dimensions.viewportSmall ? getSnapPoints(dimensions)[1] : 0, top: 0, left: 0, right: 0 },
       })
     }
-  }, [currentFeature?.geometry.coordinates, height, mapRef, viewportSmall])
+  }, [currentFeature?.geometry.coordinates, dimensions, mapRef])
 
   return (
     <MapContainer>
@@ -210,7 +209,7 @@ const MapView = ({
           <Layer {...clusterCountLayer} />
           <Layer {...markerLayer(currentFeature)} />
         </Source>
-        <MapAttribution initialExpanded={!viewportSmall} />
+        <MapAttribution initialExpanded={!dimensions.viewportSmall} />
       </Map>
     </MapContainer>
   )

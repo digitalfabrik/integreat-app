@@ -4,7 +4,7 @@ import { NativeSyntheticEvent, StyleProp, TextInput, TextInputKeyPressEventData,
 import { KeyboardExtendedInput } from 'react-native-external-keyboard'
 import styled, { useTheme } from 'styled-components/native'
 
-import { zeroPad } from 'shared/utils/dateFilterUtils'
+import { zeroPad } from 'shared'
 
 const Input = styled(KeyboardExtendedInput)`
   text-align: center;

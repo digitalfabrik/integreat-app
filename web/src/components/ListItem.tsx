@@ -1,14 +1,14 @@
-import styled from '@emotion/styled'
+import Divider from '@mui/material/Divider'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode } from 'react'
 
 import Link from './base/Link'
 
-const ListItemContainer = styled.article`
-  border-bottom: 2px solid ${props => props.theme.colors.themeColor};
+const ListItemContainer = styled('article')`
   display: flex;
 `
 
-const Thumbnail = styled.img<{ thumbnailSize?: number }>`
+const Thumbnail = styled('img')<{ thumbnailSize?: number }>`
   width: ${props => props.thumbnailSize ?? '100'}px;
   height: ${props => props.thumbnailSize ?? '100'}px;
   flex-shrink: 0;
@@ -17,7 +17,7 @@ const Thumbnail = styled.img<{ thumbnailSize?: number }>`
   align-self: center;
 `
 
-export const Description = styled.div`
+export const Description = styled('div')`
   display: flex;
   height: 100%;
   min-width: 1px; /* needed to enable line breaks for too long words, exact value doesn't matter */
@@ -28,7 +28,7 @@ export const Description = styled.div`
   gap: 8px;
 `
 
-const Title = styled.div`
+const Title = styled('div')`
   font-weight: 700;
 `
 
@@ -37,7 +37,7 @@ const FullWidthLink = styled(Link)`
   flex: 1;
 `
 
-const TitleRow = styled.div`
+const TitleRow = styled('div')`
   display: flex;
   justify-content: space-between;
   gap: 8px;
@@ -53,18 +53,21 @@ type ListItemProps = {
 }
 
 const ListItem = ({ path, title, thumbnail, thumbnailSize, children, Icon }: ListItemProps): ReactElement => (
-  <ListItemContainer dir='auto'>
-    <FullWidthLink to={path}>
-      {!!thumbnail && <Thumbnail alt='' src={thumbnail} thumbnailSize={thumbnailSize} />}
-      <Description>
-        <TitleRow>
-          <Title>{title}</Title>
-          {Icon}
-        </TitleRow>
-        {children}
-      </Description>
-    </FullWidthLink>
-  </ListItemContainer>
+  <>
+    <ListItemContainer dir='auto'>
+      <FullWidthLink to={path}>
+        {!!thumbnail && <Thumbnail alt='' src={thumbnail} thumbnailSize={thumbnailSize} />}
+        <Description>
+          <TitleRow>
+            <Title>{title}</Title>
+            {Icon}
+          </TitleRow>
+          {children}
+        </Description>
+      </FullWidthLink>
+    </ListItemContainer>
+    <Divider />
+  </>
 )
 
 export default ListItem

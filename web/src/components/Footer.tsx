@@ -1,4 +1,4 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode } from 'react'
 
 import buildConfig from '../constants/buildConfig'
@@ -8,19 +8,20 @@ type FooterProps = {
   overlay?: boolean
 }
 
-const FooterContainer = styled.footer<{ overlay: boolean }>`
+const FooterContainer = styled('footer')<{ overlay: boolean }>`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   padding: ${props => (props.overlay ? '0 10px' : '15px 5px')};
   margin-top: auto;
-  background-color: ${props => (props.overlay ? `rgba(255, 255, 255, 0.5)` : props.theme.colors.backgroundAccentColor)};
+  background-color: ${props =>
+    props.overlay ? `rgba(255, 255, 255, 0.5)` : props.theme.legacy.colors.backgroundAccentColor};
   box-shadow: 0 2px 3px 3px rgb(0 0 0 / 10%);
 
   ${props => (props.overlay ? 'color: rgba(0, 0, 0, 0.75);' : '')}
   & > * {
     margin: ${props => (props.overlay ? 0 : '5px')};
-    color: ${props => props.theme.isContrastTheme && !props.overlay && props.theme.colors.textColor};
+    color: ${props => props.theme.isContrastTheme && !props.overlay && props.theme.legacy.colors.textColor};
   }
 
   & > *::after {

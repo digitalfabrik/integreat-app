@@ -1,5 +1,4 @@
-import { useTheme } from '@emotion/react'
-import styled from '@emotion/styled'
+import { styled, useTheme } from '@mui/material/styles'
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { GeolocateControl, NavigationControl } from 'react-map-gl'
@@ -14,7 +13,7 @@ import MapView from './MapView'
 import PoiPanelNavigation from './PoiPanelNavigation'
 import PoiSharedChildren from './PoiSharedChildren'
 
-const PanelContainer = styled.article`
+const PanelContainer = styled('article')`
   overflow: auto;
   height: 100%;
   display: flex;
@@ -25,38 +24,35 @@ const PanelContainer = styled.article`
   min-width: ${dimensions.poiDesktopPanelWidth}px;
 `
 
-const ListViewWrapper = styled.div<{ panelHeights: number; bottomBarHeight: number }>`
+const ListViewWrapper = styled('div')`
   padding: 16px;
   overflow: auto;
-  ${({ panelHeights, bottomBarHeight }) => `height: calc(100vh - ${panelHeights}px - ${bottomBarHeight}px);`};
 `
 
-const ToolbarContainer = styled.div`
+const ToolbarContainer = styled('div')`
   display: flex;
   justify-content: center;
-  background-color: ${props => props.theme.colors.backgroundColor};
+  background-color: ${props => props.theme.legacy.colors.backgroundColor};
   box-shadow: 1px 0 4px 0 rgb(0 0 0 / 20%);
 `
 
-const ListHeader = styled.div`
+const ListHeader = styled('div')`
   padding-top: clamp(16px, 1.4vh, 32px);
   padding-bottom: clamp(10px, 1vh, 20px);
   text-align: center;
-  font-size: ${props => props.theme.fonts.subTitleFontSize};
-  font-family: ${props => props.theme.fonts.web.decorativeFont};
-  line-height: ${props => props.theme.fonts.decorativeLineHeight};
+  font-size: ${props => props.theme.legacy.fonts.subTitleFontSize};
+  font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
+  line-height: ${props => props.theme.legacy.fonts.decorativeLineHeight};
   font-weight: 600;
-  border-bottom: 1px solid ${props => props.theme.colors.borderColor};
   margin-bottom: clamp(10px, 1vh, 20px);
 `
 
-const FooterContainer = styled.div`
+const FooterContainer = styled('div')`
   position: absolute;
   bottom: 0;
 `
 
 type PoisDesktopProps = {
-  panelHeights: number
   toolbar: ReactElement
   cityModel: CityModel
   data: PreparePoisReturn
@@ -83,7 +79,6 @@ const nextPoiIndex = (step: 1 | -1, arrayLength: number, currentIndex: number): 
 }
 
 const PoisDesktop = ({
-  panelHeights,
   toolbar,
   data,
   userLocation,
@@ -127,10 +122,7 @@ const PoisDesktop = ({
 
   const PanelContent = (
     <>
-      <ListViewWrapper
-        ref={listRef}
-        panelHeights={panelHeights}
-        bottomBarHeight={poi ? dimensions.poiDetailNavigation : dimensions.toolbarHeight}>
+      <ListViewWrapper ref={listRef}>
         {canDeselect ? (
           <GoBack goBack={deselect} text={t('detailsHeader')} />
         ) : (

@@ -1,4 +1,6 @@
-import styled from '@emotion/styled'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import IconButton from '@mui/material/IconButton'
+import { styled, useTheme } from '@mui/material/styles'
 import { GeolocateControl } from 'maplibre-gl'
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -6,26 +8,23 @@ import { useTranslation } from 'react-i18next'
 import { LocationType, MapViewViewport, MapFeature, PreparePoisReturn } from 'shared'
 import { PoiModel } from 'shared/api'
 
-import { ArrowBackspaceIcon } from '../assets'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { getSnapPoints } from '../utils/getSnapPoints'
 import BottomActionSheet, { ScrollableBottomSheetRef } from './BottomActionSheet'
 import GoBack from './GoBack'
 import MapView, { MapViewRef } from './MapView'
 import PoiSharedChildren from './PoiSharedChildren'
-import Button from './base/Button'
-import Icon from './base/Icon'
 
-const ListContainer = styled.div`
+const ListContainer = styled('div')`
   padding: 0 30px;
 `
 
-const ListTitle = styled.div`
+const ListTitle = styled('div')`
   margin: 12px 0;
   font-weight: 700;
 `
 
-const GoBackContainer = styled.div`
+const GoBackContainer = styled('div')`
   display: flex;
   flex-direction: column;
   max-height: 10vh;
@@ -34,23 +33,7 @@ const GoBackContainer = styled.div`
   padding: 0 30px;
 `
 
-const BackNavigation = styled(Button)`
-  background-color: ${props => props.theme.colors.textSecondaryColor};
-  height: 28px;
-  width: 28px;
-  border: 1px solid ${props => props.theme.colors.textDisabledColor};
-  border-radius: 50px;
-  box-shadow: 1px 1px 2px 0 rgb(0 0 0 / 20%);
-  justify-content: center;
-  align-items: center;
-  display: flex;
-`
-
-const StyledIcon = styled(Icon)`
-  color: ${props => props.theme.colors.backgroundColor};
-`
-
-const GeocontrolContainer = styled.div<{ maxOffset: number }>`
+const GeocontrolContainer = styled('div')<{ maxOffset: number }>`
   position: absolute;
   inset-inline-end: 10px;
   bottom: calc(min(var(--rsbs-overlay-h, 0), ${props => props.maxOffset}px) + 8px);
@@ -87,14 +70,15 @@ const PoisMobile = ({
   const geocontrolPosition = useRef<HTMLDivElement>(null)
   const [mapViewRef, setMapViewRef] = useState<MapViewRef | null>(null)
   const { pois, poi, mapFeatures, mapFeature } = data
-  const { height } = useWindowDimensions()
+  const dimensions = useWindowDimensions()
+  const theme = useTheme()
   const canDeselect = !!mapFeature || !!slug
   const { t } = useTranslation('pois')
 
-  const isBottomActionSheetFullScreen = bottomActionSheetHeight >= height
+  const isBottomActionSheetFullScreen = bottomActionSheetHeight >= dimensions.height
   const changeSnapPoint = (snapPoint: number) => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    sheetRef.current?.sheet?.snapTo(({ maxHeight }) => getSnapPoints(maxHeight)[snapPoint]!)
+    sheetRef.current?.sheet?.snapTo(() => getSnapPoints(dimensions)[snapPoint]!)
   }
 
   const handleSelectPoi = (poi: PoiModel) => {
@@ -140,9 +124,13 @@ const PoisMobile = ({
         Overlay={
           <>
             {canDeselect && (
-              <BackNavigation onClick={deselect} tabIndex={0} label={t('detailsHeader')}>
-                <StyledIcon src={ArrowBackspaceIcon} directionDependent />
-              </BackNavigation>
+              <IconButton onClick={deselect} tabIndex={0} aria-label={t('detailsHeader')}>
+                <ArrowBackIcon
+                  sx={{
+                    transform: theme.direction === 'rtl' ? 'scaleX(-1)' : 'none',
+                  }}
+                />
+              </IconButton>
             )}
             {MapOverlay}
           </>
@@ -152,7 +140,9 @@ const PoisMobile = ({
         toolbar={toolbar}
         ref={sheetRef}
         setBottomActionSheetHeight={setBottomActionSheetHeight}
-        sibling={<GeocontrolContainer id='geolocate' ref={geocontrolPosition} maxOffset={getSnapPoints(height)[1]} />}>
+        sibling={
+          <GeocontrolContainer id='geolocate' ref={geocontrolPosition} maxOffset={getSnapPoints(dimensions)[1]} />
+        }>
         {canDeselect && isBottomActionSheetFullScreen && (
           <GoBackContainer>
             <GoBack goBack={deselect} viewportSmall text={t('detailsHeader')} />

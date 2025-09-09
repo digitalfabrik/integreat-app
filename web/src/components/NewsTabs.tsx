@@ -1,4 +1,4 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import { TFunction } from 'i18next'
 import React, { ReactNode, ReactElement } from 'react'
 
@@ -7,7 +7,7 @@ import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NewsType, pathnameFromRouteInformation, TU
 import Caption from './Caption'
 import NewsTab from './NewsTab'
 
-const StyledTabs = styled.div`
+const StyledTabs = styled('div')`
   display: flex;
   padding-bottom: 40px;
   justify-content: center;

@@ -1,19 +1,20 @@
-import styled from '@emotion/styled'
+import AccessTimeIcon from '@mui/icons-material/AccessTime'
+import Button from '@mui/material/Button'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { PoiCategoryModel } from 'shared/api'
 
-import { ClockIcon } from '../assets'
 import ModalContent from './ModalContent'
+import SpacedToggleButtonGroup from './SpacedToggleButtonGroup'
 import Checkbox from './base/Checkbox'
 import Icon from './base/Icon'
-import TextButton from './base/TextButton'
 import ToggleButton, { toggleButtonWidth } from './base/ToggleButton'
 
 const tileColumnGap = 16
 
-const Container = styled.div`
+const Container = styled('div')`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -21,44 +22,43 @@ const Container = styled.div`
   gap: 24px;
 `
 
-const SubTitle = styled.div`
+const SubTitle = styled('div')`
   font-size: 0.875rem;
-  color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.web.decorativeFont};
+  color: ${props => props.theme.legacy.colors.textColor};
+  font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
   font-weight: bold;
 `
 
-const Section = styled.div`
+const Section = styled('div')`
   display: flex;
   flex-direction: column;
   width: 100%;
   gap: 24px;
 `
 
-const Row = styled.div`
+const Row = styled('div')`
   display: flex;
   gap: 8px;
   align-items: center;
 `
 
-const SortingHint = styled.div`
+const SortingHint = styled('div')`
   align-self: flex-end;
   font-size: 0.75rem;
-  color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.web.decorativeFont};
+  color: ${props => props.theme.legacy.colors.textColor};
+  font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
   padding: 0 4px;
 `
 
-const TileRow = styled.div<{ itemCount: number }>`
+const TileRow = styled(SpacedToggleButtonGroup)<{ itemCount: number }>`
   display: grid;
   gap: 24px ${tileColumnGap}px;
   justify-content: center;
   grid-template-columns: repeat(${props => props.itemCount}, ${toggleButtonWidth}px);
 `
 
-const StyledButton = styled(TextButton)`
+const StyledButton = styled(Button)`
   width: 100%;
-  margin: 0;
 `
 
 const StyledIcon = styled(Icon)`
@@ -89,15 +89,19 @@ const PoiFilters = ({
 }: PoiFiltersProps): ReactElement => {
   const { t } = useTranslation('pois')
 
+  const handleFilterChange = (_: React.MouseEvent<HTMLElement>, newValue: number | null) => {
+    const category = poiCategories.find(category => category.id === newValue)
+    setSelectedPoiCategory(category ?? null)
+  }
+
   return (
     <ModalContent title={t('adjustFilters')} closeModal={closeModal} small>
       <Container>
         <Section>
           <SubTitle>{t('openingHours')}</SubTitle>
           <Row>
-            <StyledIcon src={ClockIcon} />
+            <StyledIcon src={AccessTimeIcon} />
             <Checkbox
-              id='poi-filters-currently-opened'
               checked={currentlyOpenFilter}
               setChecked={setCurrentlyOpenFilter}
               label={t('onlyCurrentlyOpen')}
@@ -109,19 +113,19 @@ const PoiFilters = ({
             <SubTitle>{t('poiCategories')}</SubTitle>
             <SortingHint>{t('alphabetLetters')}</SortingHint>
           </Row>
-          <TileRow itemCount={Math.floor(panelWidth / (toggleButtonWidth + tileColumnGap))}>
+          <TileRow
+            itemCount={Math.floor(panelWidth / (toggleButtonWidth + tileColumnGap))}
+            exclusive
+            value={selectedPoiCategory?.id}
+            onChange={handleFilterChange}>
             {poiCategories.map(it => (
-              <ToggleButton
-                key={it.id}
-                text={it.name}
-                active={it.id === selectedPoiCategory?.id}
-                onClick={() => setSelectedPoiCategory(it.id === selectedPoiCategory?.id ? null : it)}
-                icon={it.icon}
-              />
+              <ToggleButton key={it.id} value={it.id} text={it.name} icon={it.icon} />
             ))}
           </TileRow>
         </Section>
-        <StyledButton onClick={closeModal} text={t('showPois', { count: poisCount })} disabled={poisCount === 0} />
+        <StyledButton onClick={closeModal} variant='contained' disabled={poisCount === 0}>
+          {t('showPois', { count: poisCount })}
+        </StyledButton>
       </Container>
     </ModalContent>
   )
