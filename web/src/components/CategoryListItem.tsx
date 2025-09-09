@@ -47,7 +47,7 @@ const StyledTypography = styled(Typography)`
   word-wrap: break-word;
 
   [dir='rtl'] & {
-    font-weight: 600;
+    font-weight: 700;
   }
 `
 
