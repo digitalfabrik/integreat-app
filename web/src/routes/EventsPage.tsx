@@ -77,7 +77,6 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
   const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
     city,
     languageChangePaths,
-    route: EVENTS_ROUTE,
     languageCode,
     Toolbar: (
       <CityContentToolbar
