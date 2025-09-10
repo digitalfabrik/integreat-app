@@ -44,6 +44,6 @@ describe('CategoryListItem', () => {
 
     expect(getByText(childCategory.title)).toBeTruthy()
     expect(getByText(childCategory.title).closest('a')).toHaveProperty('href', `http://localhost${childCategory.path}`)
-    expect(getByRole('presentation')).toHaveProperty('src', childCategory.thumbnail)
+    expect(getByRole('img')).toHaveProperty('src', childCategory.thumbnail)
   })
 })

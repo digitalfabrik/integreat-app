@@ -1,6 +1,7 @@
-import shouldForwardProp from '@emotion/is-prop-valid'
+import Avatar from '@mui/material/Avatar'
 import Divider from '@mui/material/Divider'
 import ListItem from '@mui/material/ListItem'
+import ListItemAvatar from '@mui/material/ListItemAvatar'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 import Typography from '@mui/material/Typography'
@@ -25,37 +26,15 @@ const SubCategoryListItem = styled(ListItem)`
   padding: 0;
 `
 
-const StyledListItemButton = styled(ListItemButton, { shouldForwardProp })`
-  min-height: 56px;
-` as typeof ListItemButton
-
-const StyledSubCategoryListItemButton = styled(StyledListItemButton)`
+const StyledSubCategoryListItemButton = styled(ListItemButton)`
   padding-left: 56px;
 ` as typeof ListItemButton
 
-const CategoryThumbnail = styled('img')`
-  width: 24px;
-  height: 24px;
-  margin-right: 16px;
-  flex-shrink: 0;
-  object-fit: contain;
-  filter: ${props => (props.theme.isContrastTheme ? 'invert(1)' : 'none')};
-`
-
 const StyledTypography = styled(Typography)`
-  font-weight: 500;
   word-wrap: break-word;
 
   [dir='rtl'] & {
     font-weight: 700;
-  }
-`
-
-const StyledSubTypography = styled(StyledTypography)`
-  font-weight: 400;
-
-  [dir='rtl'] & {
-    font-weight: 400;
   }
 `
 
@@ -70,8 +49,12 @@ const CategoryListItem = ({ category, subCategories }: CategoryListItemProps): R
     return (
       <SubCategoryListItem key={path}>
         <StyledSubCategoryListItemButton component={Link} to={path}>
-          {!!thumbnail && <CategoryThumbnail alt='' src={thumbnail} />}
-          <ListItemText primary={<StyledSubTypography variant='body1'>{title}</StyledSubTypography>} />
+          {!!thumbnail && (
+            <ListItemAvatar>
+              <Avatar src={thumbnail} variant='square' />
+            </ListItemAvatar>
+          )}
+          <ListItemText primary={<Typography variant='body1'>{title}</Typography>} />
         </StyledSubCategoryListItemButton>
       </SubCategoryListItem>
     )
@@ -79,12 +62,16 @@ const CategoryListItem = ({ category, subCategories }: CategoryListItemProps): R
 
   return (
     <StyledListItem disablePadding>
-      <StyledListItemButton component={Link} to={category.path} dir='auto'>
-        {!!category.thumbnail && <CategoryThumbnail alt='' src={category.thumbnail} />}
-        <ListItemText primary={<StyledTypography variant='body1'>{category.title}</StyledTypography>} />
-      </StyledListItemButton>
+      <ListItemButton component={Link} to={category.path} dir='auto'>
+        {!!category.thumbnail && (
+          <ListItemAvatar>
+            <Avatar src={category.thumbnail} variant='square' />
+          </ListItemAvatar>
+        )}
+        <ListItemText primary={<StyledTypography variant='title2'>{category.title}</StyledTypography>} />
+      </ListItemButton>
       <Divider />
-      {SubCategories.length > 0 && <StyledList NoItemsMessage='noItems' items={SubCategories} />}
+      <StyledList items={SubCategories} />
     </StyledListItem>
   )
 }

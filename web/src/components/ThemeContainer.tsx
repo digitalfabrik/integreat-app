@@ -68,6 +68,16 @@ const createTheme = (
           },
         },
       },
+      MuiAvatar: {
+        styleOverrides: {
+          root: {
+            backgroundColor: 'transparent',
+            '.MuiAvatar-fallback': {
+              display: 'none',
+            },
+          },
+        },
+      },
     },
   })
 }
