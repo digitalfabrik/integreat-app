@@ -6,30 +6,20 @@ import buildConfig from '../constants/buildConfig'
 
 type FooterProps = {
   children: ReactNode[] | ReactNode
-  overlay?: boolean
 }
 
-const MarginRightSpacing = 6
-
-const FooterContainer = styled('footer')<{ overlay: boolean }>`
+const FooterContainer = styled('footer')`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: ${props => (props.overlay ? 0 : props.theme.spacing(2))};
-  padding: ${props => props.theme.spacing(2)};
-  box-shadow: ${props => (props.overlay ? '0 2px 3px 3px rgb(0 0 0 / 10%)' : 'none')};
-  background-color: ${props => {
-    if (props.overlay) {
-      return `rgba(255, 255, 255, 0.5)`
-    }
-    return props.theme.legacy.colors.backgroundAccentColor
-  }};
+  gap: ${props => props.theme.spacing(2)};
+  background-color: ${props => props.theme.legacy.colors.backgroundAccentColor};
+  padding-bottom: ${props => props.theme.spacing(2)};
 
   ${props => props.theme.breakpoints.up('md')} {
-    background-color: ${props => (props.overlay ? undefined : props.theme.palette.secondary.light)};
-    padding: ${props => (props.overlay ? `0 ${props.theme.spacing(1)}` : '0px 4px')};
-    margin-inline-end: ${props => (props.overlay ? props.theme.spacing(MarginRightSpacing) : 0)};
+    background-color: ${props => props.theme.palette.secondary.light};
+    padding: 0 4px;
   }
 `
 
@@ -38,8 +28,8 @@ const FooterContainer = styled('footer')<{ overlay: boolean }>`
  * number if it's a dev build.
  */
 
-const Footer = ({ children, overlay = false }: FooterProps): ReactElement => (
-  <FooterContainer overlay={overlay}>
+const Footer = ({ children }: FooterProps): ReactElement => (
+  <FooterContainer>
     {children}
     {buildConfig().featureFlags.developerFriendly && (
       <Typography variant='body2'>

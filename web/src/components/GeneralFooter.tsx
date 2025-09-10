@@ -1,20 +1,18 @@
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
-import useFooterLinks from '../hooks/useFooterLinks'
 import useWindowDimensions from '../hooks/useWindowDimensions'
-import { linkListItems } from './CityContentFooter'
+import getFooterLinks from '../utils/getFooterLinks'
 import Footer from './Footer'
+import FooterLinksList from './FooterLinksList'
 import List from './base/List'
 
-const SidebarFooterContainer = styled('div')`
-  width: 100%;
-  margin-top: -10px; /* to counteract the padding-top of the normal footer */
-  padding: 0 27px;
-`
-
-const StyledList = styled(List)`
-  padding: 0;
+const StyledList = styled(List)<{ horizontal: boolean }>`
+  display: flex;
+  justify-content: center;
+  flex-direction: ${props => (props.horizontal ? 'row' : 'column')};
+  width: ${props => (props.horizontal ? 'inherit' : '100%')};
+  padding: ${props => (props.horizontal ? '0' : '0 32px')};
 `
 
 type GeneralFooterProps = {
@@ -22,18 +20,12 @@ type GeneralFooterProps = {
 }
 
 const GeneralFooter = ({ language }: GeneralFooterProps): ReactElement => {
-  const linkItems = useFooterLinks({ language })
+  const linkItems = getFooterLinks({ language })
   const { viewportSmall } = useWindowDimensions()
 
   return (
     <Footer>
-      {viewportSmall ? (
-        <SidebarFooterContainer>
-          <StyledList NoItemsMessage='' items={linkListItems(linkItems)} horizontal={false} />
-        </SidebarFooterContainer>
-      ) : (
-        <StyledList NoItemsMessage='' items={linkListItems(linkItems)} horizontal />
-      )}
+      <StyledList NoItemsMessage='' items={FooterLinksList({ linkItems })} horizontal={viewportSmall === false} />
     </Footer>
   )
 }
