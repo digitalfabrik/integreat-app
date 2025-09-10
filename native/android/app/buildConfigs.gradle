@@ -88,7 +88,7 @@ def setupResourceValues(buildConfigName, resValue) {
 
 
 def determineIcon(buildConfig) {
-    return [icon: "${buildConfig.appIcon}"]
+    return [icon: "${buildConfig.appIcon}", notificationIcon: "${buildConfig.notificationIcon}"]
 }
 
 ext {
