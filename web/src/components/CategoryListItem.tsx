@@ -1,61 +1,40 @@
+import Avatar from '@mui/material/Avatar'
 import Divider from '@mui/material/Divider'
+import ListItem from '@mui/material/ListItem'
+import ListItemAvatar from '@mui/material/ListItemAvatar'
+import ListItemButton from '@mui/material/ListItemButton'
+import ListItemText from '@mui/material/ListItemText'
+import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
-import { Link } from 'react-router-dom'
 
 import { CategoryModel } from 'shared/api'
 
-const Row = styled('li')`
-  width: 100%;
+import Link from './base/Link'
+import List from './base/List'
+
+const StyledList = styled(List)`
+  padding: 0;
 `
 
-const SubCategoriesContainer = styled('ul')`
-  list-style-type: none;
+const StyledListItem = styled(ListItem)`
+  flex-direction: column;
+  align-items: stretch;
 `
 
-const SubCategory = styled('li')`
-  text-align: start;
-  width: 100%;
+const SubCategoryListItem = styled(ListItem)`
+  padding: 0;
 `
 
-const CategoryThumbnail = styled('img')`
-  width: 30px;
-  height: 30px;
-  padding: 0 5px;
-  flex-shrink: 0;
-  object-fit: contain;
-  filter: ${props => (props.theme.isContrastTheme ? 'invert(1)' : 'none')};
-`
+const StyledSubCategoryListItemButton = styled(ListItemButton)`
+  padding-left: 56px;
+` as typeof ListItemButton
 
-const CategoryItemCaption = styled('span')`
-  align-items: center;
-  padding: 15px 5px;
-  color: inherit;
-  font-size: ${props => props.theme.legacy.fonts.contentFontSize};
-  font-weight: bold;
-  text-decoration: inherit;
-  height: 100%;
-  min-width: 1px; /* needed to enable line breaks for too long words, exact value doesn't matter */
-  flex-grow: 1;
+const StyledTypography = styled(Typography)`
   word-wrap: break-word;
-`
 
-const SubCategoryCaption = styled(CategoryItemCaption)`
-  padding: 10px 5px;
-  font-weight: 400;
-`
-
-const StyledLink = styled(Link)`
-  display: inline-flex;
-  align-items: center;
-  margin: 0 auto;
-  width: inherit;
-
-  &:hover {
-    color: inherit;
-    text-decoration: inherit;
-    transition: background-color 0.5s ease;
-    background-color: ${props => props.theme.legacy.colors.backgroundAccentColor};
+  [dir='rtl'] & {
+    font-weight: 700;
   }
 `
 
@@ -65,25 +44,35 @@ type CategoryListItemProps = {
 }
 
 const CategoryListItem = ({ category, subCategories }: CategoryListItemProps): ReactElement => {
-  const SubCategories = subCategories.map(subCategory => (
-    <SubCategory key={subCategory.path} dir='auto'>
-      <StyledLink to={subCategory.path}>
-        {!!subCategory.thumbnail && <CategoryThumbnail alt='' src={subCategory.thumbnail} />}
-        <SubCategoryCaption>{subCategory.title}</SubCategoryCaption>
-      </StyledLink>
-      <Divider />
-    </SubCategory>
-  ))
+  const SubCategories = subCategories.map(subCategory => {
+    const { path, thumbnail, title } = subCategory
+    return (
+      <SubCategoryListItem key={path}>
+        <StyledSubCategoryListItemButton component={Link} to={path}>
+          {!!thumbnail && (
+            <ListItemAvatar>
+              <Avatar src={thumbnail} variant='square' />
+            </ListItemAvatar>
+          )}
+          <ListItemText primary={<Typography variant='body1'>{title}</Typography>} />
+        </StyledSubCategoryListItemButton>
+      </SubCategoryListItem>
+    )
+  })
 
   return (
-    <Row>
-      <StyledLink dir='auto' to={category.path}>
-        {!!category.thumbnail && <CategoryThumbnail alt='' src={category.thumbnail} />}
-        <CategoryItemCaption>{category.title}</CategoryItemCaption>
-      </StyledLink>
+    <StyledListItem disablePadding>
+      <ListItemButton component={Link} to={category.path} dir='auto'>
+        {!!category.thumbnail && (
+          <ListItemAvatar>
+            <Avatar src={category.thumbnail} variant='square' />
+          </ListItemAvatar>
+        )}
+        <ListItemText primary={<StyledTypography variant='title2'>{category.title}</StyledTypography>} />
+      </ListItemButton>
       <Divider />
-      <SubCategoriesContainer>{SubCategories}</SubCategoriesContainer>
-    </Row>
+      <StyledList items={SubCategories} />
+    </StyledListItem>
   )
 }
 
