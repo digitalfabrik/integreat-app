@@ -1,0 +1,6 @@
+issue_key: 3520
+show_in_stores: true
+platforms:
+  - android
+en: Push notifications now use the app icon.
+de: Push Nachrichten zeigen jetzt das App Icon.
