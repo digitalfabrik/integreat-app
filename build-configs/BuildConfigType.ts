@@ -159,8 +159,6 @@ export type AndroidBuildConfigType = CommonBuildConfigType & {
 // Firebase config for iOS
 // These values can be retrieved from the GoogleService-Info.plist.
 type iOSGoogleServicesConfigType = {
-  clientId: string
-  reversedClientId: string
   apiKey: string
   gcmSenderId: string
   plistVersion: string
@@ -173,7 +171,6 @@ type iOSGoogleServicesConfigType = {
   isGCMEnabled: boolean
   isSigninEnabled: boolean
   googleAppId: string
-  databaseUrl: string
 }
 
 // Only available on iOS

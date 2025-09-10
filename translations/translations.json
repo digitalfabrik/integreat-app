@@ -105,6 +105,13 @@
       "organizationMoreInformation": "További <1>{{organization}}</1>-információkat <3>{{domain}}</3> oldalon találhat.",
       "disabledPdf": "PDF-export ezen a nyelven jelenleg nem lehetséges."
     },
+    "id": {
+      "createPdf": "Buat fail PDF",
+      "metaDescription": "{{appName}} adalah panduan digital untuk kehidupan di Jerman. Temukan informasi lokal, acara dan saran. Selalu diperbarui dan tersedia dalam bahasa Anda sendiri.",
+      "organizationContent": "Konten dalam halaman ini adalah dari {{organization}}.",
+      "organizationMoreInformation": "Anda dapat memperoleh informasi tentang <1>{{organization}}</1> di <3>{{domain}}</3>.",
+      "disabledPdf": "Saat ini, ekspor PDF tidak dapat dilakukan dalam bahasa ini."
+    },
     "it": {
       "createPdf": "Crea PDF",
       "metaDescription": "{{appName}} è la tua guida digitale in Germania. Trova informazioni, eventi e consigli locali. Sempre aggiornata e nella tua lingua.",
@@ -507,6 +514,21 @@
       "loadingText": "Kérem, várjon egy pillanatot, amíg a csevegő elindul...",
       "sendButton": "Küldés",
       "user": "Te"
+    },
+    "id": {
+      "bot": "Chatbot",
+      "conversationTitle": "Masukkan pertanyaan Anda di kolom teks.",
+      "conversationText": "Anda dapat menanyakan apa saja dari mulai informasi lokal hingga permintaan khusus tentang situasi Anda.",
+      "dataSecurity": "Proteksi data dan keamanan: Privasi Anda sangat penting bagi kami. Semua percakapan diperlakukan secara rahasia dan data Anda diproses dengan aman. Anda dapat menemukan lebih banyak informasi tentang proteksi data di kebijakan privasi kami.",
+      "errorMessage": "Telah terjadi galat selama komunikasi.",
+      "human": "Penasihat",
+      "initialMessage": "Permintaan obrolan Anda telah dikirim. Penasihat akan menjawab pesan Anda sesegera mungkin.",
+      "inputLabel": "Pertanyaan saya:",
+      "chatInputHelperText": "Saya ingin tahu...",
+      "loadingText": "Sebentar, obrolan sedang dimulai...",
+      "sendButton": "Kirim",
+      "user": "Anda",
+      "privacyPolicyInformation": "Konten obrolan akan dikirim ke para pegawai di {{appName}} ({{city}}). Terimalah kebijakan privasi agar dapat menggunakan obrolan."
     },
     "it": {
       "bot": "Chatbot",
@@ -1008,6 +1030,14 @@
       "sendText": "Másold be ezt a szöveget, [ ]-töltsd ki a tartalmat az adataiddal és küldd el",
       "copyText": "Szöveg bemásolása"
     },
+    "id": {
+      "callToAction": "Sarankan wilayah Anda ke Integreat!",
+      "explanation": "Konsep bersifat amal dari aplikasi Integreat ini telah meyakinkan Anda dan Anda menganggap bahwa kota Anda,\ndaerah Anda atau komunitas Anda juga bisa mendapatkan manfaat dari solusi digital ini? Dalam hal ini, Anda dapat menjadi aktif di sini sekarang.",
+      "whatToDo": "Inilah yang dapat Anda lakukan:",
+      "findOutMail": "Dapatkan alamat sur-el wilayah Anda",
+      "sendText": "Salin teks ini, lengkapi konten-[ ] dengan detail Anda dan kirimkan",
+      "copyText": "Salin teks"
+    },
     "it": {
       "callToAction": "Suggerisci Integreat nella tua regione!",
       "explanation": "Il concetto no-profit dell'app Integreat ti ha convinto e credi che anche la tua città, circondario o comune potrebbe beneficiare della soluzione digitale? Allora qui puoi attivarti in modo molto semplice",
@@ -1471,6 +1501,25 @@
       "ok": "Rendben",
       "minimize": "Minimalizál",
       "privacyPolicy": "Elolvastam a <1>adatvédelmi szabályzatot</1> és hozzájárulok az adataim feldolgozásához és tárolásához."
+    },
+    "id": {
+      "copied": "Disalin",
+      "moreOptions": "Opsi lainnya",
+      "languageNotAvailable": "Maaf, bahasa Anda tidak tersedia di sini.",
+      "chooseALanguage": "Pilih bahasa.",
+      "lastUpdate": "Pembaruan terakhir:",
+      "loading": "Memuat...",
+      "close": "Tutup",
+      "showMore": "Tampilkan lebih banyak",
+      "showLess": "Tunjukkan lebih sedikit",
+      "optional": "opsional",
+      "back": "Kembali",
+      "ok": "Oke",
+      "minimize": "Minimalkan",
+      "privacyPolicy": "Saya telah membaca <1>kebijakan privasi</1> dan setuju untuk memproses dan menyimpan data saya.",
+      "accessible": "Dapat diakses",
+      "notAccessible": "Tidak dapat diakses",
+      "clearInput": "Hapus input"
     },
     "it": {
       "copied": "Copiato",
@@ -2056,6 +2105,16 @@
       "knownResourceBlocked": "Letiltotta ebből a forrásból származó külső tartalmakat. Ezt a forrást a beállításokban engedélyezheti.",
       "noSources": "Külső források nem állnak rendelkezésre."
     },
+    "id": {
+      "title": "Sumber Eksternal",
+      "description": "Anda dapat menyetujui secara permanen untuk menampilkan konten yang tertanam dari penyedia pihak ketiga. Pilihan ini akan disimpan secara permanen di peramban internet Anda. Anda dapat mencabut izin Anda kapan pun di sini.",
+      "descriptionNative": "Anda dapat menyetujui secara permanen untuk menampilkan konten yang tertanam dari penyedia pihak ketiga. Pilihan ini akan disimpan secara permanen di perangkat lokal Anda. Anda dapat mencabut izin Anda kapan pun di sini.",
+      "consentDescription": "Izinkan konten dari {{source}}",
+      "knownResourceOptIn": "Saya menyetujui bahwa konten dari sumber eksternal ini boleh ditampilkan kepada saya.",
+      "knownResourceContentMessage": "Elemen ini berisi data dari sumber eksternal. Anda dapat memblokir penanaman konten seperti itu di pengaturan.",
+      "knownResourceBlocked": "Konten eksternal dari sumber ini telah diblokir. Anda dapat mengizinkan sumber ini di pengaturan.",
+      "noSources": "Tidak ada sumber eksternal yang tersedia."
+    },
     "it": {
       "title": "Fonti esterne",
       "description": "È possibile fornire in modo permanente il consenso alla visualizzazione di contenuti incorporati provenienti da fonti esterne. La selezione verrà quindi salvata in modo permanente nel browser Internet. Il consenso può essere revocato qui in qualsiasi momento.",
@@ -2418,6 +2477,12 @@
       "news": "Hírek",
       "pois": "Térkép"
     },
+    "id": {
+      "localInformation": "Informasi lokal",
+      "events": "Acara",
+      "news": "Berita",
+      "pois": "Peta"
+    },
     "it": {
       "localInformation": "Informazioni locali",
       "events": "Eventi",
@@ -2583,130 +2648,133 @@
   },
   "disclaimer": {
     "de": {
-      "pageTitle": "Impressum und Kontakt"
+      "pageTitle": "Impressum"
     },
     "am": {
-      "pageTitle": "ዕትም እና የግንኙነት መረጃ"
+      "pageTitle": "ዕትም"
     },
     "ar": {
-      "pageTitle": "هيئة التحرير وجهة الاتصال"
+      "pageTitle": "هيئة التحرير"
     },
     "bg": {
-      "pageTitle": "Импресум и контакт"
+      "pageTitle": "Импресум"
     },
     "ckb": {
-      "pageTitle": "زانیارییەکانی ناوەندی بڵاوکەرەوە و زانیارییەکانی پەیوەندی"
+      "pageTitle": "زانیارییەکانی ناوەندی بڵاوکەرەوە"
     },
     "cs": {
-      "pageTitle": "Impresum a kontakt"
+      "pageTitle": "Impresum"
     },
     "da": {
-      "pageTitle": "Kolofon og kontakt"
+      "pageTitle": "Kolofon"
     },
     "el": {
-      "pageTitle": "Στοιχεία έκδοσης και επικοινωνία"
+      "pageTitle": "Στοιχεία έκδοσης"
     },
     "en": {
-      "pageTitle": "Imprint and contacts"
+      "pageTitle": "Imprint"
     },
     "es": {
-      "pageTitle": "Aviso legal y contacto"
+      "pageTitle": "Aviso legal"
     },
     "fi": {
-      "pageTitle": "Julkaisu- ja yhteystiedot"
+      "pageTitle": "Julkaisutiedot"
     },
     "fr": {
-      "pageTitle": "Mentions légales et contact"
+      "pageTitle": "Mentions légales"
     },
     "hi": {
-      "pageTitle": "छाप और संपर्क"
+      "pageTitle": "छाप"
     },
     "hr": {
-      "pageTitle": "Impresum i kontakt"
+      "pageTitle": "Impresum"
     },
     "hu": {
-      "pageTitle": "Impresszum és elérhetőség"
+      "pageTitle": "Impresszum"
+    },
+    "id": {
+      "pageTitle": "Cetak"
     },
     "it": {
-      "pageTitle": "Impressum e contatti"
+      "pageTitle": "Impressum"
     },
     "ka": {
-      "pageTitle": "მისამართი და საკონტაქტო ინფორმაცია"
+      "pageTitle": "მისამართი"
     },
     "kmr": {
-      "pageTitle": "Lêzanînên Weşîner û Têkillî"
+      "pageTitle": "Lêzanînên Weşîner"
     },
     "mk": {
-      "pageTitle": "Импресум и контакт"
+      "pageTitle": "Импресум"
     },
     "nl": {
-      "pageTitle": "Impressum en contactgegevens"
+      "pageTitle": "Impressum"
     },
     "orm": {
-      "pageTitle": "Ashaaraa fi quunnamtii"
+      "pageTitle": "Ashaaraa"
     },
     "pes": {
-      "pageTitle": "اطلاعات ناشر و تماس"
+      "pageTitle": "اطلاعات ناشر"
     },
     "pl": {
-      "pageTitle": "Nota prawna i kontakt"
+      "pageTitle": "Nota prawna"
     },
     "prs": {
-      "pageTitle": "معلومات ناشر و تماس"
+      "pageTitle": "معلومات ناشر"
     },
     "ps": {
-      "pageTitle": "چاپ او اړیکه"
+      "pageTitle": "چاپ کوونکی"
     },
     "pt": {
-      "pageTitle": "Pé de imprensa e contactos"
+      "pageTitle": "Pé de imprensa"
     },
     "ro": {
-      "pageTitle": "Caseta tehnică și contact"
+      "pageTitle": "Caseta tehnică"
     },
     "rom": {
-      "pageTitle": "Otpečatkoja thaj kontaktia"
+      "pageTitle": "Otpečatkoja"
     },
     "ru": {
-      "pageTitle": "Выходные данные и контактная информация"
+      "pageTitle": "Выходные данные"
     },
     "sk": {
-      "pageTitle": "Tiráž a kontakt"
+      "pageTitle": "Tiráž"
     },
     "so": {
-      "pageTitle": "Faahfaahinta qoraaga iyo macaluumaadkiisa xiriirka"
+      "pageTitle": "Faahfaahinta qoraaga"
     },
     "sq": {
-      "pageTitle": "Botuesi dhe kontakti"
+      "pageTitle": "Botuesi"
     },
     "sr-Cyrl": {
-      "pageTitle": "Импресум и контакт"
+      "pageTitle": "Импресум"
     },
     "sr-Latn": {
-      "pageTitle": "Impresum i kontakt"
+      "pageTitle": "Impresum"
     },
     "sw": {
-      "pageTitle": "Chapa na anwani"
+      "pageTitle": "Chapa"
     },
     "th": {
-      "pageTitle": "ข้อมูลการพิมพ์และการติดต่อ"
+      "pageTitle": "ข้อมูลการพิมพ์"
     },
     "ti": {
-      "pageTitle": "ናይ ደራሲ ዝርዝራት ሓበሬታን ናይ ርክብን"
+      "pageTitle": "ናይ ደራሲ ዝርዝራት"
     },
     "tr": {
-      "pageTitle": "Künye ve iletişim"
+      "pageTitle": "Künye"
     },
     "uk": {
-      "pageTitle": "Імпресум та контакт"
+      "pageTitle": "Імпресум"
     },
     "ur": {
-      "pageTitle": "چھاپ اور رابطہ"
+      "pageTitle": "چھاپ"
     },
     "vi": {
-      "pageTitle": "Thông tin xuất bản và liên hệ"
+      "pageTitle": "Thông tin xuất bản"
     },
     "zh-CN": {
-      "pageTitle": "版本说明和联系方式"
+      "pageTitle": "版本说明"
     }
   },
   "error": {
@@ -3264,6 +3332,43 @@
       "noCalendarPermission": "A hozzáférés a naptárhoz nem engedélyezett.",
       "noCalendarFound": "Nem találtunk megfelelő naptárat.",
       "settingsError": "Hiba a beállítások alkalmazásakor"
+    },
+    "id": {
+      "notFound": {
+        "language": "Maaf, bahasa ini tidak tersedia di sini.",
+        "city": "Maaf, wilayah ini tidak ditemukan.",
+        "category": "Maaf, halaman yang diminta tidak ditemukan.",
+        "event": "Maaf, acara ini tidak ditemukan.",
+        "poi": "Maaf, tempat ini tidak ditemukan.",
+        "news": "Maaf, pesan ini tidak ditemukan.",
+        "pageTitle": "Halaman tidak ditemukan"
+      },
+      "pageNotFound": "Maaf, halaman yang diminta tidak ditemukan.",
+      "noSuitableAppInstalled": "Tidak ada aplikasi terinstal yang sesuai.",
+      "networkConnectionFailed": "Koneksi ke server gagal.",
+      "networkRequestFailed": "Permintaan tidak dapat diproses.",
+      "responseMappingFailed": "Terjadi galat selama memproses respons server.",
+      "unknownError": "Terjadi galat yang tidak dikenal.",
+      "tryAgain": "Coba lagi",
+      "loadingFailed": "Maaf, halaman yang diminta tidak dapat dimuat.",
+      "chooseALanguage": "Pilih bahasa:",
+      "goTo": {
+        "start": "Pergi ke halaman utama",
+        "categories": "Pergi ke kategori",
+        "events": "Pergi ke acara",
+        "pois": "Pergi ke peta",
+        "news": "Pergi ke berita",
+        "pageNumber": "Pergi ke halaman {{number}}"
+      },
+      "pageTitle": "Galat",
+      "generalError": "Terjadi galat",
+      "notSupportedByDevice": "Fungsi ini tidak didukung pada perangkat ini.",
+      "languageSwitchFailedTitle": "Sayangnya, pengubahan bahasa gagal.",
+      "languageSwitchFailedMessage": "Bahasa yang dipilih tidak tersedia jika Anda luring. Diperlukan koneksi internet yang aktif.",
+      "permissionRequired": "Diperlukan izin",
+      "noCalendarPermission": "Akses ke kalender tidak diizinkan.",
+      "noCalendarFound": "Tidak ditemukan kalender yang sesuai.",
+      "settingsError": "Gagal menerapkan pengaturan"
     },
     "it": {
       "notFound": {
@@ -4731,6 +4836,37 @@
       "selectRange": "Időszak kiválasztása",
       "outOfRangeError": "Dátum a tartományon kívül"
     },
+    "id": {
+      "address": "Alamat",
+      "date_one": "Tanggal",
+      "date_other": "Tanggal",
+      "nextDate_one": "Tanggal berikutnya",
+      "nextDate_other": "Tanggal berikutnya",
+      "events": "Acara",
+      "export": "Mengekspor",
+      "addToCalendar": "Tambah ke kalender",
+      "currentlyNoEvents": "Tidak ada acara yang tersedia saat ini.",
+      "pageTitle": "Acara",
+      "chooseCalendar": "Pilihan kalender",
+      "added": "Ditambahkan",
+      "goToCalendar": "Pergi ke kalender",
+      "recurring": "berulang",
+      "today": "hari ini",
+      "todayRecurring": "hari ini, berulang",
+      "onlyThisEvent": "Hanya acara ini",
+      "thisAndAllFutureEvents": "Acara ini dan acara berikutnya",
+      "from": "dari",
+      "to": "ke",
+      "resetFilter": "reset filter:",
+      "invalidDate": "Tanggal tidak benar",
+      "shouldBeEarlier": "Tanggal mulai seharusnya sebelum tanggal selesai.",
+      "selectStartDateCalendar": "Pilih tanggal mulai di kalender",
+      "selectEndDateCalendar": "Pilih tanggal selesai di kalender",
+      "hideFilters": "Sembunyikan filter",
+      "showFilters": "Tampilkan filter",
+      "selectRange": "Pilih Rentang",
+      "outOfRangeError": "Tanggal diluar rentang"
+    },
     "it": {
       "address": "Indirizzo",
       "date_one": "Data",
@@ -6005,6 +6141,35 @@
       "noResultsInUserLanguage": "Sajnos az Ön nyelvén nincs találat.",
       "noResultsInUserAndSourceLanguage": "Sajnos az Ön nyelvén vagy németül nincs találat."
     },
+    "id": {
+      "disclaimer": "Kontak dan cetak",
+      "send": "Kirim",
+      "failedSendingFeedback": "Terjadi galat saat mengirim umpan balik.",
+      "feedback": "Umpan balik",
+      "headline": "Apa pendapat Anda tentang halaman ini?",
+      "description": "Pilih reaksi dan/atau tulis komentar.",
+      "commentHeadline": "Komentar",
+      "commentDescription": "Bagikan umpan balik Anda dengan kami! Kami menyambut setiap umpan balik baik positif maupun negatif, karena itu membantu kami mengembangkan {{appName}}.",
+      "isThisSiteUseful": "Apakah situs ini berguna?",
+      "useful": "Berguna",
+      "notUseful": "Tidak berguna",
+      "informationNotFound": "Tidak menemukan apa yang Anda cari?",
+      "wantedInformation": "Informasi apa yang tidak ada?",
+      "feedbackSent": "Umpan balik terkirim",
+      "thanksHeadline": "Terima kasih atas umpan balik Anda.",
+      "thanksMessage": "Umpan balik telah berhasil dikirim.",
+      "negativeRating": "Situs ini tidak berguna",
+      "positiveRating": "Situs ini berguna",
+      "searchTermDescription": "Tidak ada hasil yang ditemukan untuk istilah berikut ini:",
+      "contactMailAddress": "Kirim sur-el untuk pertanyaan lainnya",
+      "noteFillFeedback": "Pilih reaksi atau tulis komentar untuk mengirim umpan balik.",
+      "notePrivacyPolicy": "Setujui kebijakan privasi agar dapat mengirim umpan balik.",
+      "giveFeedback": "Beri umpan balik",
+      "checkQuery": "Periksa istilah pencarian Anda atau pilih bahasa lain di aplikasi {{appName}}.",
+      "informationMissing": "Apakah ada Informasi yang tidak ada?",
+      "noResultsInUserLanguage": "Maaf, kami tidak dapat menemukan hasil yang cocok dalam bahasa Anda.",
+      "noResultsInUserAndSourceLanguage": "Maaf, kami tidak dapat menemukan hasil yang cocok dalam bahasa Anda atau bahasa Jerman."
+    },
     "it": {
       "disclaimer": "Contatti e impressum",
       "send": "Invia",
@@ -7060,6 +7225,24 @@
       "skip": "Átugrás",
       "next": "Tovább"
     },
+    "id": {
+      "welcome": "Selamat datang di {{appName}}",
+      "welcomeDescription": "Di {{appName}}, Anda dapat menemukan jawaban dan tip dalam bahasa Anda. Misalnya: Di mana saya menemukan bantuan? Kapan saya boleh bekerja?",
+      "search": "Pencarian Sederhana",
+      "searchDescription": "Anda dapat dengan cepat menemukan informasi yang benar melalui pencarian di kanan atas pada menu.",
+      "languageChange": "Ubah bahasa",
+      "languageChangeDescription": "Anda dapat mengubah bahasa {{appName}} di menu atas.",
+      "events": "Acara",
+      "eventsDescription": "Acara dan tanggal saat ini di area tersebut",
+      "pois": "Tawaran di Dekat Anda",
+      "poisDescription": "Di peta, Anda dapat mencari tempat-tempat di dekat Anda, misalnya tempat untuk kursus bahasa.",
+      "offline": "Berfungsi Saat Luring",
+      "offlineDescription": "Tidak selalu punya internet? Tidak masalah. Anda dapat menggunakan {{appName}} walaupun tanpa internet.",
+      "news": "Berita Terkini",
+      "newsDescription": "Apa hal baru di area Anda? Cari tahu di {{appName}}.",
+      "skip": "Lewati",
+      "next": "Lanjutkan"
+    },
     "it": {
       "welcome": "Benvenuti a {{appName}}",
       "welcomeDescription": "In {{appName}} troverai risposte e suggerimenti nella tua lingua madre. Ad esempio: Dove posso trovare aiuto? Quando posso lavorare?",
@@ -7817,6 +8000,24 @@
       "suggestToRegion": "{{appName}} javaslata a régiójában",
       "searchCityDescription": "Válaszd ki a lakhelyedet vagy a legközelebbi nagyvárost, pl. München járást"
     },
+    "id": {
+      "searchCity": "Cari",
+      "noCitiesFound": "Tidak ada hasil",
+      "nearbyCities": "Di sekitarnya",
+      "noNearbyCities": "Tidak ada wilayah yang ditemukan di sekitarnya.",
+      "alert": "Catatan",
+      "locationError": "Untuk menampilkan wilayah di sekitarnya, layanan pelacakan harus diaktifkan.",
+      "noPermission": "Akses lokasi diperlukan",
+      "loading": "Menentukan lokasi...",
+      "notAvailable": "Penentuan lokasi dinonaktifkan",
+      "timeout": "Penentuan lokasi gagal",
+      "refresh": "Perbarui daftar wilayah terdekat",
+      "pageTitle": "Informasi Lokal Bagi Anda",
+      "metaDescription": "{{appName}} adalah panduan digital untuk kehidupan di Jerman. Temukan informasi lokal, acara dan saran. Selalu diperbarui dan tersedia dalam bahasa Anda sendiri.",
+      "cityNotFound": "Wilayah Anda tidak ditemukan? Ambil tindakan sekarang.",
+      "suggestToRegion": "Sarankan {{appName}} di wilayah Anda",
+      "searchCityDescription": "Pilih wilayah Anda atau kota terbesar berikutnya, misalnya Landkreis München"
+    },
     "it": {
       "searchCity": "Ricerca",
       "noCitiesFound": "Nessun risultato",
@@ -8306,7 +8507,7 @@
   },
   "layout": {
     "de": {
-      "imprintAndContact": "Impressum und Kontakt",
+      "imprint": "Impressum",
       "privacy": "Datenschutz",
       "localInformation": "Lokale Informationen",
       "events": "Veranstaltungen",
@@ -8347,7 +8548,7 @@
       "voiceUnavailableMessage": "Es wurde keine Stimme gefunden. Um die Vorlesefunktion nutzen zu können, muss eine Stimme installiert sein. Bitte beachten Sie die folgenden Anweisungen für Ihr Betriebssystem."
     },
     "am": {
-      "imprintAndContact": "ዕትም እና የግንኙነት መረጃ",
+      "imprint": "ዕትም",
       "privacy": "የግላዊነት ፖሊሲ",
       "localInformation": "አካባቢያዊ መረጃ",
       "events": "ዝግጅቶች",
@@ -8387,7 +8588,7 @@
       "voiceUnavailableMessage": "ምንም ድምፅ አልተገኘም። የማንበብ ተግባሩን ለመጠቀም ድምፅ መጫን አለበት። ለእርስዎ ሥርዓተ ክወና እባክዎ የሚከተሉትን መመሪያዎች ይከተሉ።"
     },
     "ar": {
-      "imprintAndContact": "هيئة التحرير وجهة الاتصال",
+      "imprint": "هيئة التحرير",
       "privacy": "حماية البيانات",
       "localInformation": "معلومات محلية",
       "events": "الفعاليات",
@@ -8427,7 +8628,7 @@
       "voiceUnavailableMessage": "لم يتم العثور على صوت. لاستخدام خاصية القراءة بصوت عالٍ، يجب تثبيت صوت. الرجاء الرجوع إلى التعليمات الخاصة بنظام التشغيل أدناه."
     },
     "bg": {
-      "imprintAndContact": "Импресум и контакт",
+      "imprint": "Импресум",
       "privacy": "Защита на личните данни",
       "localInformation": "Местна информация",
       "events": "Събития",
@@ -8467,7 +8668,7 @@
       "voiceUnavailableMessage": "Не беше намерен глас. За да се използва функцията за четене на глас, трябва да има инсталиран глас. Моля, обърнете внимание на следните инструкции за Вашата операционна система."
     },
     "ckb": {
-      "imprintAndContact": "زانیارییەکانی ناوەندی بڵاوکەرەوە و زانیارییەکانی پەیوەندی",
+      "imprint": "زانیارییەکانی ناوەندی بڵاوکەرەوە",
       "privacy": "پاراستنی دێیتاکان",
       "localInformation": "زانیارییە خۆجییەکان",
       "events": "ڕووداوەکان",
@@ -8507,7 +8708,7 @@
       "voiceUnavailableMessage": "هیچ دەنگێک نەدۆزراوەتەوە. بۆ بەکارهێنانی توانای خوێندنەوە دەبێت دەنگێک دابنرێت. تکایە ڕێنماییەکانی خوارەوە بۆ سیستەمی کارپێکردنەکەت پەیڕەو بکە."
     },
     "cs": {
-      "imprintAndContact": "Impresum a kontakt",
+      "imprint": "Impresum",
       "privacy": "Ochrana údajů",
       "localInformation": "Lokální informace",
       "events": "Akce",
@@ -8547,7 +8748,7 @@
       "voiceUnavailableMessage": "Žádný hlas nebyl nalezen. Pro použití funkce hlasitého čtení musí být nainstalován hlas. Vezměte prosím na vědomí následující pokyny pro váš operační systém."
     },
     "da": {
-      "imprintAndContact": "Kolofon og kontakt",
+      "imprint": "Kolofon",
       "privacy": "Beskyttelse af data",
       "localInformation": "Lokale oplysninger",
       "events": "Begivenheder",
@@ -8587,7 +8788,7 @@
       "voiceUnavailableMessage": "Der blev ikke fundet nogen stemme. Der skal være installeret en stemme for at kunne bruge højtlæsningsfunktionen. Vær opmærksom på følgende anvisninger for dit operativsystem."
     },
     "el": {
-      "imprintAndContact": "Στοιχεία έκδοσης και επικοινωνία",
+      "imprint": "Στοιχεία έκδοσης",
       "privacy": "Προστασία δεδομένων ",
       "localInformation": "Τοπικές πληροφορίες",
       "events": "Εκδηλώσεις",
@@ -8627,7 +8828,7 @@
       "voiceUnavailableMessage": "Δεν βρέθηκε φωνή. Για να χρησιμοποιήσετε τη λειτουργία ανάγνωσης πρέπει να εγκαταστήσετε μια φωνή. Λάβετε υπόψη τις ακόλουθες οδηγίες για το λειτουργικό σας σύστημα."
     },
     "en": {
-      "imprintAndContact": "Imprint and contacts",
+      "imprint": "Imprint",
       "privacy": "Data protection",
       "localInformation": "Local information",
       "events": "Events",
@@ -8668,7 +8869,7 @@
       "voiceUnavailableMessage": "No voice found. In order to use the read aloud functionality, a voice has to be installed. Please refer to the instructions for your operating system below."
     },
     "es": {
-      "imprintAndContact": "Aviso legal y contacto",
+      "imprint": "Aviso legal",
       "privacy": "Privacidad",
       "localInformation": "Información local",
       "events": "Actividades",
@@ -8708,7 +8909,7 @@
       "voiceUnavailableMessage": "No se encontró ninguna voz. Para utilizar la función de lectura en voz alta, es necesario tener instalada una voz. Ten en cuenta las siguientes instrucciones para tu sistema operativo."
     },
     "fi": {
-      "imprintAndContact": "Julkaisu- ja yhteystiedot",
+      "imprint": "Julkaisutiedot",
       "privacy": "Tietosuoja",
       "localInformation": "Paikalliset tiedot",
       "events": "Tapahtumat",
@@ -8748,7 +8949,7 @@
       "voiceUnavailableMessage": "Ääntä ei löytynyt. Äänen on oltava asennettuna, jotta voit käyttää ääneenlukutoimintoa. Ota huomioon seuraavat käyttöjärjestelmää koskevat ohjeet."
     },
     "fr": {
-      "imprintAndContact": "Mentions légales et contact",
+      "imprint": "Mentions légales",
       "privacy": "Protection des données",
       "localInformation": "Informations locales",
       "events": "Événements",
@@ -8788,7 +8989,7 @@
       "voiceUnavailableMessage": "Aucune voix n’a été trouvée. Pour pouvoir utiliser la fonction de lecture, une voix doit être installée. Veuillez suivre les instructions suivantes pour votre système d’exploitation."
     },
     "hi": {
-      "imprintAndContact": "छाप और संपर्क",
+      "imprint": "छाप",
       "privacy": "डेटा संरक्षण",
       "localInformation": "स्थानीय जानकारी",
       "events": "ईवेंट",
@@ -8828,7 +9029,7 @@
       "voiceUnavailableMessage": "कोई वॉइस नहीं मिली रीड अलाउड के फ़ंक्शन का उपयोग करने के लिए, वॉइस इंस्टॉल किया जाना जरूरी है। अपने ऑपरेटिंग सिस्टम के लिए नीचे दिए गए निर्देश देखें।"
     },
     "hr": {
-      "imprintAndContact": "Impresum i kontakt",
+      "imprint": "Impresum",
       "privacy": "Zaštita podataka",
       "localInformation": "Lokalne informacije",
       "events": "Događanja",
@@ -8868,7 +9069,7 @@
       "voiceUnavailableMessage": "Nije pronađen glas. Kako biste koristili funkciju čitanja, neophodno je da postoji instaliran glas. Obratite pažnju na sljedeće instrukcije za vaš operativni sustav."
     },
     "hu": {
-      "imprintAndContact": "Impresszum és elérhetőség",
+      "imprint": "Impresszum",
       "privacy": "Adatvédelem",
       "localInformation": "Helyi információk",
       "events": "Események",
@@ -8907,8 +9108,49 @@
       "voiceUnavailable": "Nem telepített hangot",
       "voiceUnavailableMessage": "Nem található hang. A felolvasás funkciónak telepített hangra van szüksége. Tartsa be az operációs rendszerére vonatkozó utasításokat."
     },
+    "id": {
+      "imprint": "Cetak",
+      "privacy": "Proteksi data",
+      "localInformation": "Informasi lokal",
+      "events": "Acara",
+      "noEvents": "Tidak ada acara",
+      "news": "Berita",
+      "noLanguages": "Tidak tersedia dalam bahasa lain",
+      "noTranslation": "Terjemahan tidak tersedia",
+      "search": "Cari",
+      "locations": "Peta",
+      "changeLocation": "Ubah lokasi",
+      "changeLanguage": "Ubah bahasa",
+      "settings": "Pengaturan",
+      "copyUrl": "Salin tautan",
+      "contrastTheme": "Kontras Tinggi (beta)",
+      "contrastThemeDescription": "Mode kontras mengembangkan tingkat keterbacaan",
+      "feedback": "Umpan balik",
+      "share": "Bagikan",
+      "cancel": "Batalkan",
+      "shareMessage": "Baru ditemukan: {{message}}",
+      "shareFailDefaultMessage": "Sayangnya, terjadi galat saat berbagi konten.",
+      "disclaimer": "Cetak",
+      "sideBarOpenAriaLabel": "Buka bilah samping",
+      "sideBarCloseAriaLabel": "Tutup bilah samping",
+      "openInApp": "Buka di aplikasi {{appName}}",
+      "open": "Buka",
+      "view": "Lihat",
+      "getOnPlayStore": "DAPATKAN — Di Google Play Store",
+      "accessibility": "Aksesibilitas",
+      "readAloud": "Baca keras-keras",
+      "nothingToRead": "Tidak ada yang bisa dibaca",
+      "nothingToReadFullMessage": "Tidak ada bahan untuk dibaca di halaman ini.",
+      "languageNotSupported": "Bahasa tidak didukung.",
+      "previous": "Sebelumnya",
+      "next": "Berikutnya",
+      "play": "Putar",
+      "pause": "Jeda",
+      "voiceUnavailable": "Suara tidak terinstal",
+      "voiceUnavailableMessage": "Suara tidak ditemukan. Agar dapat menggunakan fungsi baca keras-keras, harus ada suara yang diinstal. Mengaculah ke buku panduan sistem operasi Anda di bawah ini."
+    },
     "it": {
-      "imprintAndContact": "Impressum e contatti",
+      "imprint": "Impressum",
       "privacy": "Protezione dei dati",
       "localInformation": "Informazioni locali",
       "events": "Eventi",
@@ -8948,7 +9190,7 @@
       "voiceUnavailableMessage": "Non è stata trovata alcuna voce. Per utilizzare la funzione di lettura ad alta voce è necessario installare una voce. Tieni presente le seguenti istruzioni relative al tuo sistema operativo."
     },
     "ka": {
-      "imprintAndContact": "მისამართი და საკონტაქტო ინფორმაცია",
+      "imprint": "მისამართი",
       "privacy": "მონაცემთა დაცვა",
       "localInformation": "ადგილობრივი ინფორმაციები",
       "events": "ღონისძიებები",
@@ -8988,7 +9230,7 @@
       "voiceUnavailableMessage": "ხმა არ მოიძებნა. ხმამაღლა წაკითხვის ფუნქციის გამოსაყენებლად ხმა უნდა იყოს დაყენებული. ყურადღება მიაქციეთ შემდეგ მითითებებს თქვენს ოპერაციულ სისტემასთან დაკავშირებით."
     },
     "kmr": {
-      "imprintAndContact": "Lêzanînên Weşîner û Têkillî",
+      "imprint": "Lêzanînên Weşîner",
       "privacy": "Parastina daneyan",
       "localInformation": "Zanyariyên xwecihî",
       "events": "Rûdan",
@@ -9028,7 +9270,7 @@
       "voiceUnavailableMessage": "Ti dengek nehat dîtin Ji bo ku bikarî funksyona xwendinê bi kar bînî, divê deng were sazkirin. Ji kerema xwe destûrkarên xwarê ji bo pergala cihêner a xwe binivîsîne."
     },
     "mk": {
-      "imprintAndContact": "Импресум и контакт",
+      "imprint": "Импресум",
       "privacy": "Заштита на лични податоци",
       "localInformation": "Локални информации",
       "events": "Настани",
@@ -9068,7 +9310,7 @@
       "voiceUnavailableMessage": "Не е најден глас. За да ја користите функцијата за читање, мора да се инсталира глас. Следете ги упатствата подолу за вашиот оперативен систем."
     },
     "nl": {
-      "imprintAndContact": "Impressum en contactgegevens",
+      "imprint": "Impressum",
       "privacy": "Gegevensbescherming",
       "localInformation": "Lokale informatie",
       "events": "Evenementen",
@@ -9108,7 +9350,7 @@
       "voiceUnavailableMessage": "Er werd geen stem gevonden. Er moet een stem geïnstalleerd zijn om de voorleesfunctie te kunnen gebruiken. Neem de volgende instructies voor jouw besturingssysteem in acht."
     },
     "orm": {
-      "imprintAndContact": "Ashaaraa fi quunnamtii",
+      "imprint": "Ashaaraa",
       "privacy": "Eegumsa daataa",
       "localInformation": "Odeeffannoo naannoo",
       "events": "Sagantaalee",
@@ -9148,7 +9390,7 @@
       "voiceUnavailableMessage": "Sagaleen hin jiru.s Sagalee olguddisuu fayyadamuuf, sagaleen inistool ta’uu qaba. Qajeelfama ittiin hojjatan kan gajjalaa jiru ilaali."
     },
     "pes": {
-      "imprintAndContact": "اطلاعات ناشر و تماس",
+      "imprint": "اطلاعات ناشر",
       "privacy": "حفاظت از داده ها",
       "localInformation": "اطلاعات محلی",
       "events": "رویدادها",
@@ -9188,7 +9430,7 @@
       "voiceUnavailableMessage": "صدایی یافت نشد. برای استفاده از قابلیت خواندن، باید یک صدا نصب شود. لطفاً دستورالعمل‌های زیر را برای سیستم عامل خود دنبال کنید."
     },
     "pl": {
-      "imprintAndContact": "Nota prawna i kontakt",
+      "imprint": "Nota prawna",
       "privacy": "Ochrona danych",
       "localInformation": "Informacje lokalne",
       "events": "Wydarzenia",
@@ -9228,7 +9470,7 @@
       "voiceUnavailableMessage": "Nie znaleziono żadnego głosu. Aby korzystać z funkcji lektora, należy zainstalować głos. Zwróć uwagę na poniższe instrukcje dla Twojego systemu operacyjnego."
     },
     "prs": {
-      "imprintAndContact": "معلومات ناشر و تماس",
+      "imprint": "معلومات ناشر",
       "privacy": "حفاظت از داده ها",
       "localInformation": "معلومات محلی",
       "events": "رویدادها",
@@ -9268,7 +9510,7 @@
       "voiceUnavailableMessage": "صدایی پیدا نشد. برای استفاده از قابلیت خواندن، باید یک صدا نصب شود. لطفا هدایاتی ذیل را برای سیستم عامل خود دنبال کنید."
     },
     "ps": {
-      "imprintAndContact": "چاپ او اړیکه",
+      "imprint": "چاپ کوونکی",
       "privacy": "د ډاټا حفاظت",
       "localInformation": "سیمه ییز معلومات",
       "events": "غونډې",
@@ -9288,7 +9530,7 @@
       "cancel": "ختمول",
       "shareMessage": "همدا اوس پیدا شو: {{message}}",
       "shareFailDefaultMessage": "د منځپانګو شریکول له بده مرغه ناکام شول.",
-      "disclaimer": "چاپ کؤنکی",
+      "disclaimer": "چاپ کوونکی",
       "sideBarOpenAriaLabel": "د سايډبار پرانيستل",
       "sideBarCloseAriaLabel": "د سايډبار بندول",
       "openInApp": "په {{appName}} اپلیکیشن کې يې پرانیزئ",
@@ -9308,7 +9550,7 @@
       "voiceUnavailableMessage": "هیڅ غږ ونه موندل شو. د لوستلو ځانګړنې کارولو لپاره، یو غږ باید نصب شي. د مهربانۍ له مخې د خپل عملیاتي سیسټم لپاره لاندې لارښوونې تعقیب کړئ."
     },
     "pt": {
-      "imprintAndContact": "Pé de imprensa e contactos",
+      "imprint": "Pé de imprensa",
       "privacy": "Proteção de dados",
       "localInformation": "Informações locais",
       "events": "Eventos",
@@ -9348,7 +9590,7 @@
       "voiceUnavailableMessage": "Não encontraste nenhuma voz. Para utilizares a função de leitura em voz alta, tens de ter uma voz instalada. Tem em atenção as seguintes instruções para o teu sistema operativo."
     },
     "ro": {
-      "imprintAndContact": "Caseta tehnică și contact",
+      "imprint": "Caseta tehnică",
       "privacy": "Confidențialitate",
       "localInformation": "Informații locale",
       "events": "Evenimente",
@@ -9388,7 +9630,7 @@
       "voiceUnavailableMessage": "Nu a fost găsită nicio voce. Pentru a utiliza funcția de citire cu voce tare, trebuie instalată o voce. Vă rugăm să țineți cont de următoarele instrucțiuni pentru sistemul dvs. de operare."
     },
     "rom": {
-      "imprintAndContact": "Otpečatkoja thaj kontaktia",
+      "imprint": "Otpečatkoja",
       "privacy": "Arakhiba podatke",
       "localInformation": "Lokalnikane informacie",
       "events": "Čipote",
@@ -9428,7 +9670,7 @@
       "voiceUnavailableMessage": "Nane arakhlo avazi. Baši te labare o drabaripe ko glaso, valjani te čhive avazi. Molinaja tu te dikhe o instrukcie baši to sistemo tele."
     },
     "ru": {
-      "imprintAndContact": "Выходные данные и контактная информация",
+      "imprint": "Выходные данные",
       "privacy": "Защита данных",
       "localInformation": "Местная информация",
       "events": "Мероприятия",
@@ -9469,7 +9711,7 @@
       "voiceUnavailableMessage": "Голос не был обнаружен. Для использования функции чтения вслух необходимо установить голос. Обратите внимание на следующие инструкции для вашей операционной системы."
     },
     "sk": {
-      "imprintAndContact": "Tiráž a kontakt",
+      "imprint": "Tiráž",
       "privacy": "Ochrana osobných údajov",
       "localInformation": "Lokálne informácie",
       "events": "Podujatia",
@@ -9509,7 +9751,7 @@
       "voiceUnavailableMessage": "Žiadny hlas nebol nájdený. Ak chcete používať funkciu prečítania, musí byť nainštalovaný hlas. Zohľadnite, prosím, nasledujúce pokyny pre váš operačný systém."
     },
     "so": {
-      "imprintAndContact": "Faahfaahinta qoraaga iyo macaluumaadkiisa xiriirka",
+      "imprint": "Faahfaahinta qoraaga",
       "privacy": "Asturnaanta",
       "localInformation": "Macluumaadka deegaanka",
       "events": "Dhacdooyinka",
@@ -9549,7 +9791,7 @@
       "voiceUnavailableMessage": "Cod lama helin. Si aad u isticmaasho hawsha akhriska codka, cod waa in la rakibaa. Fadlan raac tilmaamaha soo socda ee nidaamkaaga hawlgalka."
     },
     "sq": {
-      "imprintAndContact": "Botuesi dhe kontakti",
+      "imprint": "Botuesi",
       "privacy": "Mbrojtja e të dhënave",
       "localInformation": "Informata lokale",
       "events": "Evenimentet",
@@ -9589,7 +9831,7 @@
       "voiceUnavailableMessage": "Nuk u gjet asnjë tingull. Për të përdorur funksionin e leximit duhet të instalohen tinguj. Ndiq udhëzimet e mëposhtme për sistemin tënd operativ."
     },
     "sr-Cyrl": {
-      "imprintAndContact": "Импресум и контакт",
+      "imprint": "Импресум",
       "privacy": "Заштита података",
       "localInformation": "Локалне информације",
       "events": "Догађаји",
@@ -9629,7 +9871,7 @@
       "voiceUnavailableMessage": "Није пронађен глас Да бисте користили функцију читања, неопходно је да постоји инсталиран глас. Обратите пажњу на следеће инструкције за ваш оперативни систем."
     },
     "sr-Latn": {
-      "imprintAndContact": "Impresum i kontakt",
+      "imprint": "Impresum",
       "privacy": "Zaštita podataka",
       "localInformation": "Lokalne informacije",
       "events": "Događaji",
@@ -9669,7 +9911,7 @@
       "voiceUnavailableMessage": "Nije pronađen glas. Da biste koristili funkciju čitanja, neophodno je da postoji instaliran glas. Obratite pažnju na sledeće instrukcije za vaš operativni sistem."
     },
     "sw": {
-      "imprintAndContact": "Chapa na anwani",
+      "imprint": "Chapa",
       "privacy": "Ulinzi wa data",
       "localInformation": "Habari za nchini",
       "events": "Matukio",
@@ -9709,7 +9951,7 @@
       "voiceUnavailableMessage": "Hakuna sauti iliyopatikana. Ili utumie kipengele cha kusoma kwa sauti, ni lazima uweke sauti. Tafadhali soma maagizo ya mfumo wako wa uendeshaji hapa chini."
     },
     "th": {
-      "imprintAndContact": "ข้อมูลการพิมพ์และการติดต่อ",
+      "imprint": "ข้อมูลการพิมพ์",
       "privacy": "การคุ้มครองข้อมูล",
       "localInformation": "ข้อมูลท้องถิ่น",
       "events": "กิจกรรม",
@@ -9749,7 +9991,7 @@
       "voiceUnavailableMessage": "ไม่พบเสียงใดๆ เพื่อใช้ฟังก์ชันการอ่านจะต้องติดตั้งเสียง โปรดปฏิบัติตามคำแนะนำด้านล่างนี้สำหรับระบบปฏิบัติการของคุณ"
     },
     "ti": {
-      "imprintAndContact": "ናይ ደራሲ ዝርዝራት ሓበሬታን ናይ ርክብን",
+      "imprint": "ናይ ደራሲ ዝርዝራት",
       "privacy": "ምስጢርነት",
       "localInformation": "ከባብያዊ ሓበሬታ",
       "events": "ኣጋጣሚታት",
@@ -9789,7 +10031,7 @@
       "voiceUnavailableMessage": "ዝኾነ ድምጺ ኣይተረኽበን። ነቲ ዓው ኢልካ ምንባብ ዝብል ተግባር ንምጥቃም፣ ድምጺ ክጸዓን ኣለዎ። በጃኹም ነቲ መምርሒታት ስርዓተ ምምሕዳርኩም ተኸተሉ።"
     },
     "tr": {
-      "imprintAndContact": "Künye ve iletişim",
+      "imprint": "Künye",
       "privacy": "Kişisel verilerin korunması",
       "localInformation": "Yerel bilgiler",
       "events": "Etkinlikler",
@@ -9829,7 +10071,7 @@
       "voiceUnavailableMessage": "Ses bulunamadı. Sesli okuma işlevini kullanabilmek için bir sesin yüklenmiş olması gerekir. Lütfen işletim sisteminiz için aşağıdaki talimatları dikkate alın."
     },
     "uk": {
-      "imprintAndContact": "Імпресум та контакт",
+      "imprint": "Імпресум",
       "privacy": "Захист даних",
       "localInformation": "Місцева інформація",
       "events": "Події",
@@ -9869,7 +10111,7 @@
       "voiceUnavailableMessage": "Голос не знайдено. Для використання функції читання вголос необхідно інсталювати голос. Зверніть увагу на наступні інструкції для вашої операційної системи."
     },
     "ur": {
-      "imprintAndContact": "چھاپ اور رابطہ",
+      "imprint": "چھاپ",
       "privacy": "ڈیٹا کا تحفظ",
       "localInformation": "مقامی معلومات",
       "events": "ایونٹس",
@@ -9909,7 +10151,7 @@
       "voiceUnavailableMessage": "کوئی آواز نہیں ملی۔ پڑھنے کے فنکشن کو استعمال کرنے کے لیے، آواز کو انسٹال کرنا ضروری ہے۔ براہ کرم اپنے آپریٹنگ سسٹم کے لیے نیچے دی گئی ہدایات پر عمل کریں۔"
     },
     "vi": {
-      "imprintAndContact": "Thông tin xuất bản và liên hệ",
+      "imprint": "Thông tin xuất bản",
       "privacy": "Bảo vệ dữ liệu",
       "localInformation": "Thông tin về địa phương",
       "events": "Sự kiện",
@@ -9949,7 +10191,7 @@
       "voiceUnavailableMessage": "Không tìm thấy giọng nói. Bạn cần cài đặt giọng nói để sử dụng chức năng đọc to. Vui lòng tham khảo hướng dẫn cho hệ điều hành của bạn bên dưới."
     },
     "zh-CN": {
-      "imprintAndContact": "版本说明和联系方式",
+      "imprint": "版本说明",
       "privacy": "数据保护",
       "localInformation": "本地信息",
       "events": "活动",
@@ -10064,6 +10306,11 @@
       "version": "Verzió:",
       "license": "Licenc:",
       "noLicensesMessage": "Nem áll rendelkezésre licencre vonatkozó információ"
+    },
+    "id": {
+      "version": "Versi:",
+      "license": "Lisensi:",
+      "noLicensesMessage": "Informasi lisensi tidak tersedia"
     },
     "it": {
       "version": "Versione:",
@@ -10203,130 +10450,133 @@
   },
   "mainDisclaimer": {
     "de": {
-      "pageTitle": "Impressum und Kontakt - {{appName}}"
+      "pageTitle": "Impressum - {{appName}}"
     },
     "am": {
-      "pageTitle": "ዕትም እና የግንኙነት መረጃ - {{appName}}"
+      "pageTitle": "ዕትም - {{appName}}"
     },
     "ar": {
-      "pageTitle": "هيئة التحرير وجهة الاتصال - {{appName}}"
+      "pageTitle": "هيئة التحرير - {{appName}}"
     },
     "bg": {
-      "pageTitle": "Импресум и контакт - {{appName}}"
+      "pageTitle": "Импресум - {{appName}}"
     },
     "ckb": {
-      "pageTitle": "زانیارییەکانی ناوەندی بڵاوکەرەوە و زانیارییەکانی پەیوەندی - {{appName}}"
+      "pageTitle": "زانیارییەکانی ناوەندی بڵاوکەرەوە - {{appName}}"
     },
     "cs": {
-      "pageTitle": "Impresum a kontakt - {{appName}}"
+      "pageTitle": "Impresum - {{appName}}"
     },
     "da": {
-      "pageTitle": "Kolofon og kontakt - {{appName}}"
+      "pageTitle": "Kolofon - {{appName}}"
     },
     "el": {
-      "pageTitle": "Στοιχεία έκδοσης και επικοινωνία"
+      "pageTitle": "Στοιχεία έκδοσης - {{appName}}"
     },
     "en": {
-      "pageTitle": "Imprint and contacts - {{appName}}"
+      "pageTitle": "Imprint - {{appName}}"
     },
     "es": {
-      "pageTitle": "Aviso legal y contacto - {{appName}}"
+      "pageTitle": "Aviso legal - {{appName}}"
     },
     "fi": {
-      "pageTitle": "Julkaisu- ja yhteystiedot – {{appName}}"
+      "pageTitle": "Julkaisutiedot – {{appName}}"
     },
     "fr": {
-      "pageTitle": "Mentions légales et contact - {{appName}}"
+      "pageTitle": "Mentions légales - {{appName}}"
     },
     "hi": {
-      "pageTitle": "छाप और संपर्क - {{appName}}"
+      "pageTitle": "छाप - {{appName}}"
     },
     "hr": {
-      "pageTitle": "Impresum i kontakt - {{appName}}"
+      "pageTitle": "Impresum - {{appName}}"
     },
     "hu": {
-      "pageTitle": "Impresszum és elérhetőség- {{appName}}"
+      "pageTitle": "Impresszum - {{appName}}"
+    },
+    "id": {
+      "pageTitle": "Cetak - {{appName}}"
     },
     "it": {
-      "pageTitle": "Impressum e contatti - {{appName}}"
+      "pageTitle": "Impressum - {{appName}}"
     },
     "ka": {
-      "pageTitle": "მისამართი და საკონტაქტო ინფორმაცია {{appName}}"
+      "pageTitle": "მისამართი - {{appName}}"
     },
     "kmr": {
-      "pageTitle": "Lêzanînên Weşanîner û Têkillî – '{{appName}}'"
+      "pageTitle": "Lêzanînên Weşanîner - {{appName}}"
     },
     "mk": {
-      "pageTitle": "Импресум и контакт - {{appName}}"
+      "pageTitle": "Импресум - {{appName}}"
     },
     "nl": {
-      "pageTitle": "Impressum en contactgegevens - {{appName}}"
+      "pageTitle": "Impressum - {{appName}}"
     },
     "orm": {
-      "pageTitle": "Ashaaraa fi qunnamtii - {{appName}}"
+      "pageTitle": "Ashaaraa - {{appName}}"
     },
     "pes": {
-      "pageTitle": "اطلاعات ناشر و تماس - {{appName}}"
+      "pageTitle": "اطلاعات ناشر - {{appName}}"
     },
     "pl": {
-      "pageTitle": "Nota prawna i kontakt - {{appName}}"
+      "pageTitle": "Nota prawna - {{appName}}"
     },
     "prs": {
-      "pageTitle": "معلومات ناشر و تماس - {{appName}}"
+      "pageTitle": "معلومات ناشر - {{appName}}"
     },
     "ps": {
-      "pageTitle": "چاپ کؤونکی او ا ړیکہ - {{appName}}"
+      "pageTitle": "چاپ کوونکی - {{appName}}"
     },
     "pt": {
-      "pageTitle": "Pé de imprensa e contactos — {{appName}}"
+      "pageTitle": "Pé de imprensa - {{appName}}"
     },
     "ro": {
-      "pageTitle": "Caseta tehnică și contact - {{appName}}"
+      "pageTitle": "Caseta tehnică - {{appName}}"
     },
     "rom": {
-      "pageTitle": "Otpečatkoja thaj kontaktia - {{appName}}"
+      "pageTitle": "Otpečatkoja - {{appName}}"
     },
     "ru": {
-      "pageTitle": "Выходные данные и контактная информация – {{appName}}"
+      "pageTitle": "Выходные данные - {{appName}}"
     },
     "sk": {
-      "pageTitle": "Tiráž a kontakt – {{appName}}"
+      "pageTitle": "Tiráž - {{appName}}"
     },
     "so": {
-      "pageTitle": "Faahfaahinta qoraaga iyo macaluumaadkiisa xiriirka - {{appName}}"
+      "pageTitle": "Faahfaahinta qoraaga - {{appName}}"
     },
     "sq": {
-      "pageTitle": "Botuesi dhe kontakti - {{appName}}"
+      "pageTitle": "Botuesi - {{appName}}"
     },
     "sr-Cyrl": {
-      "pageTitle": "Импресум и контакт - {{appName}}"
+      "pageTitle": "Импресум - {{appName}}"
     },
     "sr-Latn": {
-      "pageTitle": "Impresum i kontakt - {{appName}}"
+      "pageTitle": "Impresum - {{appName}}"
     },
     "sw": {
-      "pageTitle": "Chapa na anwani - {{appName}}"
+      "pageTitle": "Chapa - {{appName}}"
     },
     "th": {
-      "pageTitle": "ข้อมูลการพิมพ์และการติดต่อ - {{appName}}"
+      "pageTitle": "ข้อมูลการพิมพ์ - {{appName}}"
     },
     "ti": {
-      "pageTitle": "ናይ ደራሲ ዝርዝራት ሓበሬታን ናይ ርክብን - {{appName}}"
+      "pageTitle": "ናይ ደራሲ ዝርዝራት - {{appName}}"
     },
     "tr": {
-      "pageTitle": "Künye ve iletişim - {{appName}}"
+      "pageTitle": "Künye - {{appName}}"
     },
     "uk": {
-      "pageTitle": "Імпресум та контакт - {{appName}}"
+      "pageTitle": "Імпресум - {{appName}}"
     },
     "ur": {
-      "pageTitle": "چھاپ اور رابطہ - {{appName}}"
+      "pageTitle": "چھاپ - {{appName}}"
     },
     "vi": {
-      "pageTitle": "Thông tin xuất bản và liên hệ - {{appName}}"
+      "pageTitle": "Thông tin xuất bản - {{appName}}"
     },
     "zh-CN": {
-      "pageTitle": "版本说明和联系方式- {{appName}}"
+      "pageTitle": "版本说明 - {{appName}}"
     }
   },
   "malteHelpForm": {
@@ -10674,6 +10924,29 @@
       "submitFailed": "Az űrlapot elküldése nem sikerült",
       "submitFailedReasoning": "Biztosítson stabil internetkapcsolatot, és próbálja újra.",
       "invalidEmailAddress": "A megadott e-mail-cím érvénytelen."
+    },
+    "id": {
+      "supportNote": "Kami ingin Anda merasa aman dan didukung setiap kali Anda mengalami kesulitan atau ada pertanyaan. Formulir kontak berikut ini memberi Anda kesempatan untuk tetap berkomunikasi dengan narahubung. Anda dapat menentukan jenis permintaan Anda dan memilih dari berbagai opsi kontak.",
+      "securityNote": "Keamanan Anda prioritas utama kami. Data Anda diperlakukan dengan kerahasiaan sehingga privasi Anda terlindungi setiap saat.",
+      "name": "Nama belakang, nama depan",
+      "roomNumber": "Nomor ruang",
+      "howToBeContacted": "Begini cara untuk menghubungi saya:",
+      "eMail": "via sur-el",
+      "telephone": "via telepon",
+      "telephoneNumber": "Nomor telepon",
+      "personally": "Secara pribadi",
+      "contactPerson": "Narahubung:",
+      "contactPersonAnyGender": "Jenis kelamin narahubung tidak relevan",
+      "contactPersonGenderFemale": "Saya lebih suka dihubungi oleh perempuan",
+      "contactPersonGenderMale": "Saya lebih suka dihubungi oleh pria",
+      "contactReason": "Permintaan Anda:",
+      "maxCharacters": "maksimum {{numberOfCharacters}} karakter",
+      "responseDisclaimer": "Mungkin perlu beberapa hari kerja sebelum Anda menerima respons. Kami berusaha sebaik mungkin untuk memproses permintaan Anda secepatnya.",
+      "submit": "Serahkan formulir",
+      "submitSuccessful": "Formulir berhasil diserahkan",
+      "submitFailed": "Formulir tidak dapat diserahkan",
+      "submitFailedReasoning": "Pastikan koneksi internet stabil, lalu coba lagi.",
+      "invalidEmailAddress": "Alamat sur-el yang Anda masukkan salah."
     },
     "it": {
       "supportNote": "Vogliamo che vi sentiate sicuri/e e supportati/e in caso di problemi o domande. Potete utilizzare il seguente modulo per mettervi in contatto con i vostri referenti. È possibile specificare la natura della richiesta e scegliere tra diverse opzioni di contatto.",
@@ -11403,6 +11676,13 @@
       "NSCalendarsUsageDescription": "{{appName}} szeretne hozzáférni a naptárához egy esemény hozzáadásához.",
       "NSCalendarsFullAccessUsageDescription": "{{appName}} szeretne hozzáférni a naptárához egy esemény hozzáadásához."
     },
+    "id": {
+      "NSPhotoLibraryAddUsageDescription": "{{appName}} ingin menyimpan foto-foto ke perpustakaan Anda.",
+      "NSLocationWhenInUseUsageDescription": "{{appName}} ingin menggunakan lokasi Anda untuk menemukan kota-kota terdekat.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "{{appName}} ingin menggunakan lokasi Anda untuk menemukan kota-kota terdekat.",
+      "NSCalendarsUsageDescription": "{{appName}} ingin mengakses kalender untuk menambahkan acara.",
+      "NSCalendarsFullAccessUsageDescription": "{{appName}} ingin mengakses kalender untuk menambahkan acara."
+    },
     "it": {
       "NSPhotoLibraryAddUsageDescription": "Per salvare le immagini, {{appName}} deve poter accedere alla galleria.",
       "NSLocationWhenInUseUsageDescription": "Per trovare luoghi nelle vicinanze, {{appName}} deve poter accedere alla posizione.",
@@ -11743,6 +12023,16 @@
       "local": "Helyi",
       "readMore": "Továbbolvasás",
       "currentlyNoNews": "Jelenleg nincsenek hírek."
+    },
+    "id": {
+      "news": "Berita",
+      "localNews": {
+        "localNews": "Berita lokal",
+        "pageTitle": "Berita lokal"
+      },
+      "local": "Lokal",
+      "readMore": "Lanjutkan",
+      "currentlyNoNews": "Tidak ada berita saat ini."
     },
     "it": {
       "news": "Messaggi",
@@ -13080,6 +13370,77 @@
       "poisCount_many": "{{count}} hely",
       "poisCount_other": "{{count}} hely",
       "contacts": "Kapcsolat"
+    },
+    "id": {
+      "pageTitle": "Peta",
+      "poi": "Tempat",
+      "pois": "Tempat",
+      "map": "Peta",
+      "showOnMap": "Tampilkan pada peta",
+      "noPois": "Tempat tidak ditemukan.",
+      "unitKilometre": "km",
+      "unitMetre": "m",
+      "distanceKilometre": "{{distance}} km jauhnya",
+      "distanceKilometreAlternative": "{{distance}} km",
+      "distanceMetre": "{{distance}} m jauhnya ",
+      "distanceMetreAlternative": "{{distance}} m",
+      "contactInformation": "Perincian kontak",
+      "address": "Alamat",
+      "copyAddress": "Salin alamat",
+      "phone": "Nomor telepon",
+      "mobilePhone": "Nomor telepon genggam",
+      "eMail": "Alamat sur-el",
+      "website": "Situs web",
+      "openingHours": "Jam buka",
+      "description": "Deskripsi",
+      "addressCopied": "Alamat disalin ke papan klip",
+      "phoneCopied": "Nomor telepon disalin ke papan klip",
+      "eMailCopied": "Alamat sur-el disalin ke papan klip",
+      "websiteCopied": "Situs web disalin ke papan klip",
+      "listTitle": "Di dekat Anda",
+      "detailsHeader": "Kembali",
+      "detailsAddress": "Arah",
+      "detailsMapLink": "Buka di Google Maps",
+      "detailsInformation": "Info",
+      "detailsNextPoi": "Berikutnya",
+      "detailsPreviousPoi": "Sebelumnya",
+      "previousPoi": "Tempat sebelumnya",
+      "nextPoi": "Tempat berikutnya",
+      "openExternalMaps": "Buka di aplikasi peta",
+      "allDay": "sepanjang hari",
+      "opened": "buka",
+      "closed": "tutup",
+      "temporarilyClosed": "tutup sementara",
+      "montag": "Senin",
+      "dienstag": "Selasa",
+      "mittwoch": "Rabu",
+      "donnerstag": "Kamis",
+      "freitag": "Jumat",
+      "samstag": "Sabtu",
+      "sonntag": "Minggu",
+      "adjustFilters": "Filter lokasi",
+      "onlyCurrentlyOpen": "hanya tampilkan lokasi-lokasi yang saat ini terbuka",
+      "poiCategories": "Kategori",
+      "showPois_zero": "Tampilkan 0 tempat",
+      "showPois_one": "Tampilkan 1 tempat",
+      "showPois_two": "Tampilkan {{count}} tempat",
+      "showPois_few": "Tampilkan {{count}} tempat",
+      "showPois_many": "Tampilkan {{count}} tempat",
+      "showPois_other": "Tampilkan {{count}} tempat",
+      "alphabetLetters": "A-Z",
+      "clearFilter": "Hapus filter {{filter}}",
+      "showOwnLocation": "Tampilkan lokasi Anda",
+      "makeAppointment": "Buat janji",
+      "onlyWithAppointment": "Hanya dengan janji",
+      "appointmentNecessary": "Perlu membuat janji",
+      "makeAppointmentTooltipWithLink": "Buat janji pada hari ini via <1>situs web</1> atau melalui telepon.",
+      "poisCount_zero": "0 lokasi",
+      "poisCount_one": "1 lokasi",
+      "poisCount_two": "{{count}} lokasi",
+      "poisCount_few": "{{count}} lokasi",
+      "poisCount_many": "{{count}} lokasi",
+      "poisCount_other": "{{count}} lokasi",
+      "contacts": "Kontak"
     },
     "it": {
       "pageTitle": "Mappa",
@@ -15195,6 +15556,19 @@
       "pageTitle": "Keresés",
       "delete": "bevitt adat törlése"
     },
+    "id": {
+      "nothingFound": "Maaf, kami tidak dapat menemukan hasil yang cocok.",
+      "searchPlaceholder": "Cari",
+      "itemHint": "Lihat hasil pencarian",
+      "searchResultsCount_zero": "0 hasil pencarian",
+      "searchResultsCount_one": "1 hasil pencarian",
+      "searchResultsCount_two": "2 hasil pencarian",
+      "searchResultsCount_few": "{{count}} hasil pencarian",
+      "searchResultsCount_many": "{{count}} hasil pencarian",
+      "searchResultsCount_other": "{{count}} hasil pencarian",
+      "pageTitle": "Cari",
+      "delete": "Hapus input"
+    },
     "it": {
       "nothingFound": "Purtroppo non sono stati trovati risultati corrispondenti.",
       "searchPlaceholder": "Ricerca",
@@ -15877,6 +16251,28 @@
       "decline": "Elutasítás",
       "externalResourcesTitle": "Külső források",
       "externalResourcesDescription": "Adja meg, hogy mely külső forrásokat engedélyezi."
+    },
+    "id": {
+      "sentryTitle": "Stabilitas aplikasi",
+      "sentryDescription": "Kembangkan aplikasi {{appName}} dengan mengirim laporan kegagalan secara otomatis",
+      "pushNewsTitle": "Notifikasi otomatis",
+      "pushNewsDescription": "Terima notifikasi otomatis untuk berita lokal terbaru",
+      "about": "Tentang {{appName}}",
+      "privacyPolicy": "Kebijakan proteksi data",
+      "version": "Versi: {{version}}",
+      "openSourceLicenses": "Buka lisensi sumber",
+      "tracking": "Evaluasi J-PAL",
+      "allowTracking": "Izinkan pelacakan",
+      "trackingShortDescription": "Ambil bagian dalam studi evaluasi J-PAL untuk mengembangkan {{appName}}.",
+      "trackingMoreInformation": "Informasi lebih lanjut tentang evaluasi J-Pal dan tujuan penelitiannya",
+      "trackingDescription": "{{appName}} meminta izin untuk melacak penggunaan Anda dalam aplikasi. Data Anda dianonimkan dan akan digunakan untuk tujuan penelitian serta mengembangkan aplikasi. Data pelacakan tidak akan dibagikan atau diproses untuk tujuan iklan atau komersial lain.",
+      "trackingLeaveTitle": "Izinkan pelacakan?",
+      "trackingLeaveDescription": "Anda telah menonaktifkan pelacakan. Pelacakan membantu kami mengembangkan aplikasi {{appName}} dan memberikan informasi yang lebih baik bagi para imigran. Apakah Anda yakin ingin meninggalkan layar tanpa mengaktifkan pelacakan?",
+      "enabled": "diaktifkan",
+      "disabled": "dinonaktifkan",
+      "decline": "Tolak",
+      "externalResourcesTitle": "Sumber Eksternal",
+      "externalResourcesDescription": "Tentukan sumber eksternal mana yang diizinkan."
     },
     "it": {
       "sentryTitle": "Stabilità dell’app",
@@ -16564,6 +16960,12 @@
       "whatsappTooltip": "megosztás a WhatsAppban",
       "closeTooltip": "bezár"
     },
+    "id": {
+      "facebookTooltip": "bagikan di Facebook",
+      "mailTooltip": "rekomendasikan via sur-el",
+      "whatsappTooltip": "bagikan di WhatsApp",
+      "closeTooltip": "Tutup"
+    },
     "it": {
       "facebookTooltip": "condividi su Facebook",
       "mailTooltip": "consiglia via e-mail",
@@ -16772,6 +17174,9 @@
     },
     "hu": {
       "noOffersAvailable": "Nincsenek ajánlatok"
+    },
+    "id": {
+      "noOffersAvailable": "Tidak ada tawaran yang tersedia"
     },
     "it": {
       "noOffersAvailable": "Non sono disponibili offerte"

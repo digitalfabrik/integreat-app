@@ -33,7 +33,7 @@ const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
     floss: false,
     pois: false,
     newsStream: true,
-    pushNotifications: false,
+    pushNotifications: true,
     introSlides: false,
     jpalTracking: false,
     sentry: true,
@@ -73,8 +73,6 @@ export const iosAschaffenburgBuildConfig: iOSBuildConfigType = {
   bundleIdentifier: BUNDLE_IDENTIFIER,
   provisioningProfileSpecifier: `match Development ${BUNDLE_IDENTIFIER}`,
   googleServices: {
-    clientId: '164298278764-b6gagnbo2vmickaeq2070fg4jipithsk.apps.googleusercontent.com',
-    reversedClientId: 'com.googleusercontent.apps.164298278764-b6gagnbo2vmickaeq2070fg4jipithsk',
     apiKey: 'AIzaSyBSnGYrUWfIAPcEsFya1OYvTMbjvfUyOEU',
     gcmSenderId: '164298278764',
     plistVersion: '1',
@@ -87,7 +85,6 @@ export const iosAschaffenburgBuildConfig: iOSBuildConfigType = {
     isGCMEnabled: true,
     isSigninEnabled: true,
     googleAppId: '1:164298278764:ios:ce4707c860f0a2cb6fd549',
-    databaseUrl: 'https://integreat-2020.firebaseio.com',
   },
   launchScreen: 'LaunchScreenDefault',
 }

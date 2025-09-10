@@ -18,10 +18,12 @@ steps:
   - restore_environment_variables
   - restore_yarn_cache
   - restore_ruby_cache:
+      directory: native
+  - restore_ruby_cache:
       directory: native/ios
   - run:
       name: Prepare App Store metadata
-      command: yarn app-toolbelt v0 release-notes prepare-metadata << parameters.build_config_name >> appstore
+      command: yarn app-toolbelt v0 release-notes prepare-metadata << parameters.build_config_name >> appstore ../native/ios/fastlane/<< parameters.build_config_name >>/metadata
       working_directory: native
   - when:
       condition: << parameters.production_delivery >>
@@ -37,6 +39,10 @@ steps:
             name: '[FL] Apple TestFlight Upload'
             command: bundle exec fastlane ios testflight_upload build_config_name:<< parameters.build_config_name >> ipa_path:attached_workspace/<< parameters.build_config_name >>.ipa
             working_directory: native/ios
+  - run:
+      name: '[FL] Browserstack Upload Live'
+      command: bundle exec fastlane browserstack_upload path:attached_workspace/<< parameters.build_config_name >>.ipa
+      working_directory: native
   - run:
       name: Upload Source Maps to Sentry
       command: |

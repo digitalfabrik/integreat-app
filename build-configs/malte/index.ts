@@ -73,13 +73,10 @@ const iosMalteBuildConfig: iOSBuildConfigType = {
   bundleIdentifier: BUNDLE_IDENTIFIER,
   provisioningProfileSpecifier: `match Development ${BUNDLE_IDENTIFIER}`,
   googleServices: {
-    clientId: '146599424234-b6rfm4skhbsv4qvob3ieh34s2chjm54k.apps.googleusercontent.com',
-    reversedClientId: 'com.googleusercontent.apps.146599424234-b6rfm4skhbsv4qvob3ieh34s2chjm54k',
     apiKey: 'AIzaSyAWOaqdFwZ7-tbwiQ79dwMyzpmR_g1cBbI',
     googleAppId: '1:146599424234:ios:56dde1442250260651a793',
     gcmSenderId: '146599424234',
     bundleId: BUNDLE_IDENTIFIER,
-    databaseUrl: 'https://malte-2020.firebaseio.com',
     projectId: 'malte-2020',
     plistVersion: '1',
     storageBucket: 'malte-2020.appspot.com',
