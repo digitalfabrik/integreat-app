@@ -91,7 +91,12 @@ const PoisBottomSheet = ({
   }
 
   const PoiDetail = poi ? (
-    <PoiDetails language={languageCode} poi={poi} distance={userLocation && poi.distance(userLocation)} />
+    <PoiDetails
+      onFocus={handlePoiFocus}
+      language={languageCode}
+      poi={poi}
+      distance={userLocation && poi.distance(userLocation)}
+    />
   ) : (
     <Failure code={ErrorCode.PageNotFound} buttonAction={deselectAll} buttonLabel={t('detailsHeader')} />
   )
