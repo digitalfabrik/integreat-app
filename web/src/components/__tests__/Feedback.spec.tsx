@@ -104,7 +104,7 @@ describe('Feedback', () => {
         })}
       />,
     )
-    expect(getByLabelText('feedback:wantedInformation')).toBeInTheDocument()
+    expect(getByLabelText('feedback:wantedInformation')).toBeTruthy()
   })
 
   it('should display error', () => {

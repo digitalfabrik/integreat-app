@@ -19,27 +19,23 @@ describe('SearchFeedback', () => {
   const languageCode = 'de'
 
   it('should open FeedbackSection on button click', () => {
-    const { getByText, queryByText } = renderWithTheme(
+    const { getByText, getByLabelText, queryByText } = renderWithTheme(
       <SearchFeedback cityCode={cityCode} languageCode={languageCode} query='ab' noResults={false} />,
     )
     expect(queryByText('feedback:wantedInformation')).toBeNull()
 
     fireEvent.click(getByText('feedback:informationNotFound'))
 
-    expect(
-      getByText((content, element) => element?.tagName === 'SPAN' && content === 'feedback:wantedInformation'),
-    ).toBeTruthy()
+    expect(getByLabelText('feedback:wantedInformation')).toBeTruthy()
   })
 
   it('should stop showing feedback if query changes', () => {
-    const { getByText, queryByText, rerender } = renderWithTheme(
+    const { getByLabelText, getByText, queryByText, rerender } = renderWithTheme(
       <SearchFeedback cityCode={cityCode} languageCode={languageCode} query='ab' noResults={false} />,
     )
     expect(queryByText('feedback:wantedInformation')).toBeNull()
     fireEvent.click(getByText('feedback:informationNotFound'))
-    expect(
-      getByText((content, element) => element?.tagName === 'SPAN' && content === 'feedback:wantedInformation'),
-    ).toBeTruthy()
+    expect(getByLabelText('feedback:wantedInformation')).toBeTruthy()
 
     rerender(
       <ThemeContainer contentDirection='ltr'>

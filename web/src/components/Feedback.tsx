@@ -1,22 +1,20 @@
 import SendIcon from '@mui/icons-material/Send'
 import Button from '@mui/material/Button'
-import Checkbox from '@mui/material/Checkbox'
 import FormControl from '@mui/material/FormControl'
-import FormControlLabel from '@mui/material/FormControlLabel'
-import FormGroup from '@mui/material/FormGroup'
 import FormHelperText from '@mui/material/FormHelperText'
 import InputLabel from '@mui/material/InputLabel'
 import OutlinedInput from '@mui/material/OutlinedInput'
+import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
-import { useTranslation, Trans } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 
 import { Rating } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
 import FeedbackButtons from './FeedbackButtons'
 import { SendingStatusType } from './FeedbackContainer'
-import Link from './base/Link'
+import PrivacyCheckbox from './PrivacyCheckbox'
 
 export const Container = styled('div')<{ fullWidth?: boolean }>`
   display: flex;
@@ -34,10 +32,6 @@ export const Container = styled('div')<{ fullWidth?: boolean }>`
 
   ${props => props.theme.breakpoints.up('md')} {
     width: ${props => (props.fullWidth ? 'auto' : '400px')};
-  }
-
-  & [class*='MuiFormHelperText-root'] {
-    font-size: ${props => props.theme.legacy.fonts.hintFontSize};
   }
 `
 
@@ -62,7 +56,6 @@ type FeedbackProps = {
   searchTerm: string | undefined
   setSearchTerm: (newTerm: string) => void
   closeFeedback: (() => void) | undefined
-  url?: string | null
 }
 
 const Feedback = ({
@@ -78,7 +71,6 @@ const Feedback = ({
   searchTerm,
   setSearchTerm,
   closeFeedback,
-  url,
 }: FeedbackProps): ReactElement => {
   const { t } = useTranslation('feedback')
 
@@ -87,12 +79,10 @@ const Feedback = ({
   const [privacyPolicyAccepted, setPrivacyPolicyAccepted] = useState(false)
   const feedbackFilled = rating === null && comment.trim().length === 0 && !searchTerm
   const submitFeedbackDisabled = feedbackFilled || !privacyPolicyAccepted
-  const [submitted, setSubmitted] = useState(false)
-  const { privacyUrls } = buildConfig()
-  const privacyUrl = url ?? privacyUrls[language] ?? privacyUrls.default
+  const [showErrors, setShowErrors] = useState(false)
 
   const handleSubmit = () => {
-    setSubmitted(true)
+    setShowErrors(true)
     if (submitFeedbackDisabled) {
       return
     }
@@ -111,9 +101,11 @@ const Feedback = ({
   return (
     <Container fullWidth={isSearchFeedback}>
       {isSearchFeedback ? (
-        <FormControl error={submitted && !searchTerm} variant='outlined'>
-          <FormHelperText id='searchTermDescription'>
-            {submitted && !searchTerm ? t('noteFillFeedback') : t('searchTermDescription')}
+        <FormControl error={showErrors && !searchTerm} variant='outlined' margin='dense'>
+          <FormHelperText id='searchTermDescription' component='span'>
+            <Typography variant='body2'>
+              {showErrors && !searchTerm ? t('noteFillFeedback') : t('searchTermDescription')}
+            </Typography>
           </FormHelperText>
           <InputLabel htmlFor='searchTerm' />
           <OutlinedInput
@@ -126,9 +118,15 @@ const Feedback = ({
           />
         </FormControl>
       ) : (
-        <FormControl error={submitted && rating === null}>
+        <FormControl error={showErrors && rating === null}>
           <FeedbackButtons rating={rating} setRating={setRating} />
-          {submitted && rating === null && <FormHelperText>{t('noteFillFeedback')}</FormHelperText>}
+          {showErrors && rating === null && (
+            <FormHelperText>
+              <Typography component='p' variant='body2'>
+                {t('noteFillFeedback')}
+              </Typography>
+            </FormHelperText>
+          )}
         </FormControl>
       )}
       <OptionalHint>({t('common:optional')})</OptionalHint>
@@ -143,12 +141,14 @@ const Feedback = ({
           multiline
           rows={4}
         />
-        <FormHelperText id='commentDescription'>
-          {t('commentDescription', { appName: buildConfig().appName })}
+        <FormHelperText id='commentDescription' component='div' sx={{ margin: 0 }}>
+          <Typography variant='body2' component='span' sx={{ margin: 0 }}>
+            {t('commentDescription', { appName: buildConfig().appName })}
+          </Typography>
         </FormHelperText>
       </FormControl>
       <OptionalHint>({t('common:optional')})</OptionalHint>
-      <FormControl fullWidth variant='outlined'>
+      <FormControl fullWidth variant='outlined' margin='dense'>
         <InputLabel htmlFor='email'>{t('contactMailAddress')}</InputLabel>
         <OutlinedInput
           id='email'
@@ -157,23 +157,13 @@ const Feedback = ({
           label={t('contactMailAddress')}
         />
       </FormControl>
-      <FormControl error={submitted && !privacyPolicyAccepted} required margin='normal'>
-        <FormGroup>
-          <FormControlLabel
-            control={
-              <Checkbox checked={privacyPolicyAccepted} onChange={e => setPrivacyPolicyAccepted(e.target.checked)} />
-            }
-            label={
-              <Trans i18nKey='common:privacyPolicy'>
-                This gets replaced
-                <Link to={privacyUrl} highlighted>
-                  by react-i18next
-                </Link>
-              </Trans>
-            }
-          />
-        </FormGroup>
-        {submitted && !privacyPolicyAccepted && <FormHelperText>{t('notePrivacyPolicy')}</FormHelperText>}
+      <FormControl error={showErrors && !privacyPolicyAccepted} required sx={{ margin: '8px 0' }}>
+        <PrivacyCheckbox language={language} checked={privacyPolicyAccepted} setChecked={setPrivacyPolicyAccepted} />
+        {showErrors && !privacyPolicyAccepted && (
+          <FormHelperText component='span'>
+            <Typography variant='body2'>{t('notePrivacyPolicy')}</Typography>
+          </FormHelperText>
+        )}
       </FormControl>
       {sendingStatus === 'failed' && <ErrorSendingStatus role='alert'>{t('failedSendingFeedback')}</ErrorSendingStatus>}
       <Button onClick={handleSubmit} variant='contained' startIcon={<SendIcon />}>
