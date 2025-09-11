@@ -7,7 +7,7 @@ describe('ContactModel', () => {
     email: 'test@tuerantuer.org',
     phoneNumber: '123456789',
     website: 'https://tuerantuer.org',
-    mobilePhoneNumber: '01701234567',
+    mobileNumber: '01701234567',
   })
 
   const contactWithoutAreaOfResponsibility = new ContactModel({
@@ -16,7 +16,7 @@ describe('ContactModel', () => {
     email: 'test@tuerantuer.org',
     phoneNumber: '123456789',
     website: 'https://tuerantuer.org',
-    mobilePhoneNumber: '01701234567',
+    mobileNumber: '01701234567',
   })
 
   const contactWithoutName = new ContactModel({
@@ -25,7 +25,7 @@ describe('ContactModel', () => {
     email: 'test@tuerantuer.org',
     phoneNumber: '123456789',
     website: 'https://tuerantuer.org',
-    mobilePhoneNumber: '01701234567',
+    mobileNumber: '01701234567',
   })
 
   const contactWithoutAreaOfResponsibilityAndName = new ContactModel({
@@ -34,7 +34,7 @@ describe('ContactModel', () => {
     email: 'test@tuerantuer.org',
     phoneNumber: '123456789',
     website: 'https://tuerantuer.org',
-    mobilePhoneNumber: '01701234567',
+    mobileNumber: '01701234567',
   })
 
   it('should return the correct headline', () => {
