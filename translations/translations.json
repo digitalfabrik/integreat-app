@@ -2648,133 +2648,133 @@
   },
   "disclaimer": {
     "de": {
-      "pageTitle": "Impressum und Kontakt"
+      "pageTitle": "Impressum"
     },
     "am": {
-      "pageTitle": "ዕትም እና የግንኙነት መረጃ"
+      "pageTitle": "ዕትም"
     },
     "ar": {
-      "pageTitle": "هيئة التحرير وجهة الاتصال"
+      "pageTitle": "هيئة التحرير"
     },
     "bg": {
-      "pageTitle": "Импресум и контакт"
+      "pageTitle": "Импресум"
     },
     "ckb": {
-      "pageTitle": "زانیارییەکانی ناوەندی بڵاوکەرەوە و زانیارییەکانی پەیوەندی"
+      "pageTitle": "زانیارییەکانی ناوەندی بڵاوکەرەوە"
     },
     "cs": {
-      "pageTitle": "Impresum a kontakt"
+      "pageTitle": "Impresum"
     },
     "da": {
-      "pageTitle": "Kolofon og kontakt"
+      "pageTitle": "Kolofon"
     },
     "el": {
-      "pageTitle": "Στοιχεία έκδοσης και επικοινωνία"
+      "pageTitle": "Στοιχεία έκδοσης"
     },
     "en": {
-      "pageTitle": "Imprint and contacts"
+      "pageTitle": "Imprint"
     },
     "es": {
-      "pageTitle": "Aviso legal y contacto"
+      "pageTitle": "Aviso legal"
     },
     "fi": {
-      "pageTitle": "Julkaisu- ja yhteystiedot"
+      "pageTitle": "Julkaisutiedot"
     },
     "fr": {
-      "pageTitle": "Mentions légales et contact"
+      "pageTitle": "Mentions légales"
     },
     "hi": {
-      "pageTitle": "छाप और संपर्क"
+      "pageTitle": "छाप"
     },
     "hr": {
-      "pageTitle": "Impresum i kontakt"
+      "pageTitle": "Impresum"
     },
     "hu": {
-      "pageTitle": "Impresszum és elérhetőség"
+      "pageTitle": "Impresszum"
     },
     "id": {
-      "pageTitle": "Cetak dan kontak"
+      "pageTitle": "Cetak"
     },
     "it": {
-      "pageTitle": "Impressum e contatti"
+      "pageTitle": "Impressum"
     },
     "ka": {
-      "pageTitle": "მისამართი და საკონტაქტო ინფორმაცია"
+      "pageTitle": "მისამართი"
     },
     "kmr": {
-      "pageTitle": "Lêzanînên Weşîner û Têkillî"
+      "pageTitle": "Lêzanînên Weşîner"
     },
     "mk": {
-      "pageTitle": "Импресум и контакт"
+      "pageTitle": "Импресум"
     },
     "nl": {
-      "pageTitle": "Impressum en contactgegevens"
+      "pageTitle": "Impressum"
     },
     "orm": {
-      "pageTitle": "Ashaaraa fi quunnamtii"
+      "pageTitle": "Ashaaraa"
     },
     "pes": {
-      "pageTitle": "اطلاعات ناشر و تماس"
+      "pageTitle": "اطلاعات ناشر"
     },
     "pl": {
-      "pageTitle": "Nota prawna i kontakt"
+      "pageTitle": "Nota prawna"
     },
     "prs": {
-      "pageTitle": "معلومات ناشر و تماس"
+      "pageTitle": "معلومات ناشر"
     },
     "ps": {
-      "pageTitle": "چاپ او اړیکه"
+      "pageTitle": "چاپ کوونکی"
     },
     "pt": {
-      "pageTitle": "Pé de imprensa e contactos"
+      "pageTitle": "Pé de imprensa"
     },
     "ro": {
-      "pageTitle": "Caseta tehnică și contact"
+      "pageTitle": "Caseta tehnică"
     },
     "rom": {
-      "pageTitle": "Otpečatkoja thaj kontaktia"
+      "pageTitle": "Otpečatkoja"
     },
     "ru": {
-      "pageTitle": "Выходные данные и контактная информация"
+      "pageTitle": "Выходные данные"
     },
     "sk": {
-      "pageTitle": "Tiráž a kontakt"
+      "pageTitle": "Tiráž"
     },
     "so": {
-      "pageTitle": "Faahfaahinta qoraaga iyo macaluumaadkiisa xiriirka"
+      "pageTitle": "Faahfaahinta qoraaga"
     },
     "sq": {
-      "pageTitle": "Botuesi dhe kontakti"
+      "pageTitle": "Botuesi"
     },
     "sr-Cyrl": {
-      "pageTitle": "Импресум и контакт"
+      "pageTitle": "Импресум"
     },
     "sr-Latn": {
-      "pageTitle": "Impresum i kontakt"
+      "pageTitle": "Impresum"
     },
     "sw": {
-      "pageTitle": "Chapa na anwani"
+      "pageTitle": "Chapa"
     },
     "th": {
-      "pageTitle": "ข้อมูลการพิมพ์และการติดต่อ"
+      "pageTitle": "ข้อมูลการพิมพ์"
     },
     "ti": {
-      "pageTitle": "ናይ ደራሲ ዝርዝራት ሓበሬታን ናይ ርክብን"
+      "pageTitle": "ናይ ደራሲ ዝርዝራት"
     },
     "tr": {
-      "pageTitle": "Künye ve iletişim"
+      "pageTitle": "Künye"
     },
     "uk": {
-      "pageTitle": "Імпресум та контакт"
+      "pageTitle": "Імпресум"
     },
     "ur": {
-      "pageTitle": "چھاپ اور رابطہ"
+      "pageTitle": "چھاپ"
     },
     "vi": {
-      "pageTitle": "Thông tin xuất bản và liên hệ"
+      "pageTitle": "Thông tin xuất bản"
     },
     "zh-CN": {
-      "pageTitle": "版本说明和联系方式"
+      "pageTitle": "版本说明"
     }
   },
   "error": {
@@ -5707,7 +5707,6 @@
   },
   "feedback": {
     "de": {
-      "disclaimer": "Kontakt und Impressum",
       "send": "Abschicken",
       "failedSendingFeedback": "Beim Senden des Feedbacks ist ein Fehler aufgetreten.",
       "feedback": "Feedback",
@@ -5736,7 +5735,6 @@
       "noResultsInUserAndSourceLanguage": "Es wurden leider keine passenden Ergebnisse in Deiner Sprache oder auf Deutsch gefunden."
     },
     "am": {
-      "disclaimer": "የግንኙነት መረጃና ዕትም",
       "send": "ይላኩ",
       "failedSendingFeedback": "ግብረ መልሱ በሚላክበት ወቅት ስህተት ተፈጥሯል።",
       "feedback": "ግብረ መልስ",
@@ -5765,7 +5763,6 @@
       "noResultsInUserAndSourceLanguage": "በሚያሳዝን ሁኔታ በቋንቋዎም ሆነ በጀርመንኛ ምንም የሚዛመዱ ውጤቶች አልተገኙም።"
     },
     "ar": {
-      "disclaimer": "جهة الاتصال وهيئة التحرير",
       "send": "إرسال",
       "failedSendingFeedback": "حدث خطأ ما عند إرسال الملاحظة.",
       "feedback": "ملاحظة",
@@ -5794,7 +5791,6 @@
       "noResultsInUserAndSourceLanguage": "للأسف لم يتم العثور على نتائج مطابقة بلغتك أو باللغة الألمانية."
     },
     "bg": {
-      "disclaimer": "Контакт и импресум",
       "send": "Изпращане",
       "failedSendingFeedback": "Възникна грешка при изпращане на Вашите отзиви.",
       "feedback": "Обратна връзка",
@@ -5823,7 +5819,6 @@
       "noResultsInUserAndSourceLanguage": "Съжаляваме, но не бяха намерени подходящи резултати на Вашия език или на немски език."
     },
     "ckb": {
-      "disclaimer": "زانیارییەکانی پەیوەندی و ناوەندی بڵاوکەرەوە",
       "send": "ناردن",
       "failedSendingFeedback": "کاتی ناردن بۆچوونی هەڵە ڕووی داوە.",
       "feedback": "بۆچوون",
@@ -5852,7 +5847,6 @@
       "noResultsInUserAndSourceLanguage": "بەداخەوە هیچ ئەنجامێکی گونجاو لەگەڵ زمانەکەت و زمانی ئەڵمانی نەدۆزراوەتەوە."
     },
     "cs": {
-      "disclaimer": "Kontakt a impresum",
       "send": "Odeslat",
       "failedSendingFeedback": "Při odesílání zpětné vazby došlo k chybě.",
       "feedback": "Zpětná vazba",
@@ -5881,7 +5875,6 @@
       "noResultsInUserAndSourceLanguage": "Je nám líto, ale ve vašem jazyce ani v němčině nebyly nalezeny žádné odpovídající výsledky."
     },
     "da": {
-      "disclaimer": "Kontakt og kolofon",
       "send": "Send",
       "failedSendingFeedback": "Der opstod en fejl under afsendelsen af feedbacken.",
       "feedback": "Feedback",
@@ -5910,7 +5903,6 @@
       "noResultsInUserAndSourceLanguage": "Beklager, der blev ikke fundet nogen matchende resultater på dit sprog eller på tysk."
     },
     "el": {
-      "disclaimer": "Στοιχεία έκδοσης και επικοινωνία",
       "send": "Αποστολή",
       "failedSendingFeedback": "Παρουσιάστηκε σφάλμα κατά την αποστολή σχολίων.",
       "feedback": "Σχόλια",
@@ -5939,7 +5931,6 @@
       "noResultsInUserAndSourceLanguage": "Δυστυχώς δεν βρέθηκαν αποτελέσματα που να ταιριάζουν στη γλώσσα σας ή στα γερμανικά."
     },
     "en": {
-      "disclaimer": "Contacts and imprint",
       "send": "Send",
       "failedSendingFeedback": "An error occurred while sending the feedback.",
       "feedback": "Feedback",
@@ -5968,7 +5959,6 @@
       "noResultsInUserAndSourceLanguage": "Sorry, we could not find any matching results in your language or in German."
     },
     "es": {
-      "disclaimer": "Contacto y aviso legal",
       "send": "Enviar",
       "failedSendingFeedback": "Se ha producido un error al enviar los comentarios.",
       "feedback": "Comentarios",
@@ -5997,7 +5987,6 @@
       "noResultsInUserAndSourceLanguage": "Lo sentimos, pero no se han encontrado resultados coincidentes en tu idioma ni en alemán."
     },
     "fi": {
-      "disclaimer": "Yhteys- ja julkaisutiedot",
       "send": "Lähetä",
       "failedSendingFeedback": "Palautteen lähettämisessä on tapahtunut virhe.",
       "feedback": "Palaute",
@@ -6026,7 +6015,6 @@
       "noResultsInUserAndSourceLanguage": "Hakua vastaavia tuloksia ei löytynyt kielelläsi tai saksaksi."
     },
     "fr": {
-      "disclaimer": "Contact et mentions légales",
       "send": "Envoyer",
       "failedSendingFeedback": "Une erreur s'est produite lors de l'envoi de l'avis.",
       "feedback": "Avis",
@@ -6055,7 +6043,6 @@
       "noResultsInUserAndSourceLanguage": "Désolé, aucun résultat correspondant n’a été trouvé dans ta langue ou en français."
     },
     "hi": {
-      "disclaimer": "संपर्क और छाप",
       "send": "भेजें",
       "failedSendingFeedback": "फ़ीडबैक भेजते समय एक त्रुटि उत्पन्न हुई।",
       "feedback": "फ़ीडबैक",
@@ -6084,7 +6071,6 @@
       "noResultsInUserAndSourceLanguage": "माफ करें, आपकी भाषा या जर्मन में मेल खाता हमें कोई परिणाम नहीं मिला।"
     },
     "hr": {
-      "disclaimer": "Kontakt i impresum",
       "send": "Pošalji",
       "failedSendingFeedback": "Pri slanju povratne informacije došlo je do pogreške.",
       "feedback": "Povratna informacija",
@@ -6113,7 +6099,6 @@
       "noResultsInUserAndSourceLanguage": "Nažalost nisu pronađeni odgovarajući rezultati na tvom jeziku ili na njemačkom."
     },
     "hu": {
-      "disclaimer": "Elérhetőség és impresszum",
       "send": "Küldés",
       "failedSendingFeedback": "A visszajelzés elküldésekor hiba lépett fel.",
       "feedback": "Visszajelzés",
@@ -6142,7 +6127,6 @@
       "noResultsInUserAndSourceLanguage": "Sajnos az Ön nyelvén vagy németül nincs találat."
     },
     "id": {
-      "disclaimer": "Kontak dan cetak",
       "send": "Kirim",
       "failedSendingFeedback": "Terjadi galat saat mengirim umpan balik.",
       "feedback": "Umpan balik",
@@ -6171,7 +6155,6 @@
       "noResultsInUserAndSourceLanguage": "Maaf, kami tidak dapat menemukan hasil yang cocok dalam bahasa Anda atau bahasa Jerman."
     },
     "it": {
-      "disclaimer": "Contatti e impressum",
       "send": "Invia",
       "failedSendingFeedback": "Si è verificato un errore nell’invio del feedback.",
       "feedback": "Feedback",
@@ -6200,7 +6183,6 @@
       "noResultsInUserAndSourceLanguage": "Siamo spiacenti, non sono stati trovati risultati corrispondenti nella tua lingua o in tedesco."
     },
     "ka": {
-      "disclaimer": "საკონტაქტო ინფორმაცია და მისამართი",
       "send": "გაგზავნა",
       "failedSendingFeedback": "შეფასების გაგზავნის დროს მოხდა შეცდომა.",
       "feedback": "შეფასება",
@@ -6229,7 +6211,6 @@
       "noResultsInUserAndSourceLanguage": "სამწუხაროდ, თქვენს ენაზე და გერმანულ ენაზე შესაფერისი შედეგები არ მოიძებნა."
     },
     "kmr": {
-      "disclaimer": "Lêzanînên Weşîner û Têkillî",
       "send": "Şandin",
       "failedSendingFeedback": "Dema şandina fîdbekekê Şaşitiyek qewimî.",
       "feedback": "Fîdbek",
@@ -6258,7 +6239,6 @@
       "noResultsInUserAndSourceLanguage": "Mixabin ti encameke guncan di zimanê te de yan jî bi Zimanê Almanî nehat dîtin."
     },
     "mk": {
-      "disclaimer": "Контакт и импресум",
       "send": "Испрати",
       "failedSendingFeedback": "При праќање на повратната информација се појави грешка.",
       "feedback": "Повратна информација",
@@ -6287,7 +6267,6 @@
       "noResultsInUserAndSourceLanguage": "За жал, не се најдени соодветни резултати на вашиот јазик или на германски јазик."
     },
     "nl": {
-      "disclaimer": "Contactgegevens en impressum",
       "send": "Versturen",
       "failedSendingFeedback": "Er is een fout opgetreden bij het versturen van de feedback.",
       "feedback": "Feedback",
@@ -6316,7 +6295,6 @@
       "noResultsInUserAndSourceLanguage": "Sorry, er zijn geen overeenkomende resultaten gevonden in jouw taal of in het Duits."
     },
     "orm": {
-      "disclaimer": "Quunnamtii fi ashaaraa",
       "send": "Erguu",
       "failedSendingFeedback": "Yeroo duub deebii erguu dogongorri uumamee jira.",
       "feedback": "Duub deebii",
@@ -6345,7 +6323,6 @@
       "noResultsInUserAndSourceLanguage": "Dhiifama, afaan keetiin ykn agaan Jarmaniinwaan barbaaddu kan madaalu argachuu hin dandeenye."
     },
     "pes": {
-      "disclaimer": "اطلاعات ناشر و تماس",
       "send": "ارسال",
       "failedSendingFeedback": "هنگام ارسال بازخورد خطایی روی داد.",
       "feedback": "بازخورد",
@@ -6374,7 +6351,6 @@
       "noResultsInUserAndSourceLanguage": "متأسفانه، هیچ نتیجه منطبقی به زبان شما یا به زبان آلمانی یافت نشد."
     },
     "pl": {
-      "disclaimer": "Kontakt i nota prawna",
       "send": "Wyślij",
       "failedSendingFeedback": "Wystąpił błąd podczas wysyłania opinii.",
       "feedback": "Opinia",
@@ -6403,7 +6379,6 @@
       "noResultsInUserAndSourceLanguage": "Przepraszamy, nie znaleziono pasujących wyników w Twoim języku lub w języku niemieckim."
     },
     "prs": {
-      "disclaimer": "تماس و چاپ",
       "send": "ارسال",
       "failedSendingFeedback": "در زمان ارسال فیدبک خطایی رخ داد‎.",
       "feedback": "فیدبک",
@@ -6432,7 +6407,6 @@
       "noResultsInUserAndSourceLanguage": "متأسفانه، هیچ نتیجه مشابه به زبان شما یا به زبان آلمانی یافت نشد."
     },
     "ps": {
-      "disclaimer": "د لټون",
       "send": "لېږل",
       "failedSendingFeedback": "د تبصرې په لېږلو کې یوه اشتباه رامینځته شوه.",
       "feedback": "تبصره",
@@ -6461,7 +6435,6 @@
       "noResultsInUserAndSourceLanguage": "له بده مرغه، ستاسو په ژبه يا آلماني ژبه کې هیڅ ورته پایلې ونه موندل شوې."
     },
     "pt": {
-      "disclaimer": "Contactos e pé de imprensa",
       "send": "Enviar",
       "failedSendingFeedback": "Ocorreu um erro ao enviar o comentário.",
       "feedback": "Feedback",
@@ -6490,7 +6463,6 @@
       "noResultsInUserAndSourceLanguage": "Lamento, mas não foram encontrados resultados correspondentes na tua língua ou em alemão."
     },
     "ro": {
-      "disclaimer": "Contact și caseta tehnică",
       "send": "Trimiteți",
       "failedSendingFeedback": "La expedierea feedback-ului a apărut o greșeală.",
       "feedback": "Feedback",
@@ -6519,7 +6491,6 @@
       "noResultsInUserAndSourceLanguage": "Din păcate nu au fost găsite rezultate corespunzătoare în limba dvs. sau în germană."
     },
     "rom": {
-      "disclaimer": "Kontaktia thaj otpečatokoja",
       "send": "Bičhal",
       "failedSendingFeedback": "Bangin uli ko bičhalibe o dževapi.",
       "feedback": "Dževapi",
@@ -6548,7 +6519,6 @@
       "noResultsInUserAndSourceLanguage": "Afi ker, našti te arakha nisave pasujbaskere rezultatoja ki tiri čhib jali germanikani."
     },
     "ru": {
-      "disclaimer": "Контактная информация и выходные данные",
       "send": "Отправить",
       "failedSendingFeedback": "При отправке отзыва произошла ошибка.",
       "feedback": "Отзыв",
@@ -6577,7 +6547,6 @@
       "noResultsInUserAndSourceLanguage": "К сожалению, не найдено ни одного подходящего результата на вашем языке или на немецком языке."
     },
     "sk": {
-      "disclaimer": "Kontakt a tiráž",
       "send": "Odoslať",
       "failedSendingFeedback": "Pri posielaní spätnej väzby sa vyskytla chyba.",
       "feedback": "Spätná väzba",
@@ -6606,7 +6575,6 @@
       "noResultsInUserAndSourceLanguage": "Žiaľ vo vašom jazyku ani v nemčine neboli nájdené žiadne vhodné výsledky."
     },
     "so": {
-      "disclaimer": "Macluumaadka xiriirka iyo faahfaahinta qoraaga",
       "send": "Dir",
       "failedSendingFeedback": "Cillad ayaa ka jirtay soo diritaanka jawaab celinta.",
       "feedback": "Jawaab celin",
@@ -6635,7 +6603,6 @@
       "noResultsInUserAndSourceLanguage": "Nasiib darro, wax natiijo ku habboon luqaddaada ama Jarmalka laguma helin."
     },
     "sq": {
-      "disclaimer": "Kontakti dhe botuesi",
       "send": "Dërgo",
       "failedSendingFeedback": "Pati një gabim gjatë dërgimit të komenteve.",
       "feedback": "Komenti",
@@ -6664,7 +6631,6 @@
       "noResultsInUserAndSourceLanguage": "Fatkeqësisht, nuk u gjetën rezultate që përputhen në gjuhën tënde ose në gjermanisht."
     },
     "sr-Cyrl": {
-      "disclaimer": "Контакт и импресум",
       "send": "Слање",
       "failedSendingFeedback": "Дошло је до грешке приликом слања повратне информације.",
       "feedback": "Повратна информација",
@@ -6693,7 +6659,6 @@
       "noResultsInUserAndSourceLanguage": "Нажалост нису пронађени одговарајући резултати на твом језику или на немачком."
     },
     "sr-Latn": {
-      "disclaimer": "Kontakt i impresum",
       "send": "Pošaljite",
       "failedSendingFeedback": "Prilikom slanja povratnih informacija pojavila se greška.",
       "feedback": "Povratne informacije",
@@ -6722,7 +6687,6 @@
       "noResultsInUserAndSourceLanguage": "Nažalost nisu pronađeni odgovarajući rezultati na tvom jeziku ili na nemačkom."
     },
     "sw": {
-      "disclaimer": "Anwani na chapa",
       "send": "Tuma",
       "failedSendingFeedback": "Hitilafu fulani imetokea wakati wa kutuma maoni.",
       "feedback": "Maoni",
@@ -6751,7 +6715,6 @@
       "noResultsInUserAndSourceLanguage": "Samahani, hatujapata matokeo yoyote yanayolingana katika lugha yako au katika Kijerumani."
     },
     "th": {
-      "disclaimer": "การติดต่อและข้อมูลการพิมพ์",
       "send": "ส่ง",
       "failedSendingFeedback": "เกิดข้อผิดพลาดขณะส่งคำติชม",
       "feedback": "ข้อเสนอแนะ",
@@ -6780,7 +6743,6 @@
       "noResultsInUserAndSourceLanguage": "ขออภัย ไม่พบผลลัพธ์ที่ตรงกันในภาษาของคุณหรือภาษาเยอรมัน"
     },
     "ti": {
-      "disclaimer": "ናይ ርክብ ሓበሬታን ናይ ደራሲ ዝርዝራት ሓበሬታን",
       "send": "ስደድ",
       "failedSendingFeedback": "መልሰ-ሓበሬታ ኣብ ምስዳድ ጌጋ ነይሩ።",
       "feedback": "መልሰ-ሓበሬታ",
@@ -6809,7 +6771,6 @@
       "noResultsInUserAndSourceLanguage": "እቲ ዘሕዝን ግን ብቋንቋኹም ይኹን ብቋንቋ ጀርመን ዝኾነ ኣገዳሲ ውጽኢት ኣይተረኽበን።"
     },
     "tr": {
-      "disclaimer": "İletişim ve künye",
       "send": "Gönder",
       "failedSendingFeedback": "Geri bildirim gönderilirken bir hata oluştu.",
       "feedback": "Geri bildirim",
@@ -6838,7 +6799,6 @@
       "noResultsInUserAndSourceLanguage": "Senin dilin veya Almanca için maalesef eşleşen sonuçlar bulunamadı."
     },
     "uk": {
-      "disclaimer": "Контакт та імпресум",
       "send": "Відправити",
       "failedSendingFeedback": "При надсиланні відгуку сталася помилка.",
       "feedback": "Зворотній зв'язок",
@@ -6867,7 +6827,6 @@
       "noResultsInUserAndSourceLanguage": "Вибачте, на вашій мові або німецькою мовою не знайдено жодного відповідника."
     },
     "ur": {
-      "disclaimer": "رابطہ اور چھاپ",
       "send": "بھیجیں",
       "failedSendingFeedback": "رائے بھیجنے میں ایک خرابی پیش آئی۔",
       "feedback": "رائے",
@@ -6896,7 +6855,6 @@
       "noResultsInUserAndSourceLanguage": "بدقسمتی سے، آپ کی زبان یا جرمن میں کوئی مماثل نتائج نہیں ملے۔"
     },
     "vi": {
-      "disclaimer": "Liên hệ và thông tin xuất bản",
       "send": "Gửi",
       "failedSendingFeedback": "Đã xảy ra lỗi khi gửi ý kiến góp ý.",
       "feedback": "Góp ý",
@@ -6925,7 +6883,6 @@
       "noResultsInUserAndSourceLanguage": "Rất tiếc, chúng tôi không tìm thấy kết quả phù hợp bằng ngôn ngữ của bạn hoặc bằng tiếng Đức."
     },
     "zh-CN": {
-      "disclaimer": "版本说明和联系方式",
       "send": "发送",
       "failedSendingFeedback": "发送反馈时出错。",
       "feedback": "反馈",
@@ -8507,7 +8464,7 @@
   },
   "layout": {
     "de": {
-      "imprintAndContact": "Impressum und Kontakt",
+      "disclaimer": "Impressum",
       "privacy": "Datenschutz",
       "localInformation": "Lokale Informationen",
       "events": "Veranstaltungen",
@@ -8528,7 +8485,6 @@
       "cancel": "Abbrechen",
       "shareMessage": "Gerade gefunden: {{message}}",
       "shareFailDefaultMessage": "Das Teilen des Inhalts ist leider fehlgeschlagen.",
-      "disclaimer": "Impressum",
       "sideBarOpenAriaLabel": "Seitenleiste öffnen",
       "sideBarCloseAriaLabel": "Seitenleiste schließen",
       "openInApp": "In der {{appName}} App öffnen",
@@ -8548,7 +8504,7 @@
       "voiceUnavailableMessage": "Es wurde keine Stimme gefunden. Um die Vorlesefunktion nutzen zu können, muss eine Stimme installiert sein. Bitte beachten Sie die folgenden Anweisungen für Ihr Betriebssystem."
     },
     "am": {
-      "imprintAndContact": "ዕትም እና የግንኙነት መረጃ",
+      "disclaimer": "ዕትም",
       "privacy": "የግላዊነት ፖሊሲ",
       "localInformation": "አካባቢያዊ መረጃ",
       "events": "ዝግጅቶች",
@@ -8568,7 +8524,6 @@
       "cancel": "ሰርዝ",
       "shareMessage": "አሁን ተገኝቷል: {{message}}",
       "shareFailDefaultMessage": "ይቅርታ፣ ይዘቱን ማጋራቱ አልተሳካም።",
-      "disclaimer": "ዕትም",
       "sideBarOpenAriaLabel": "የጎን አሞሌን ክፈት",
       "sideBarCloseAriaLabel": "የጎን አሞሌን ዝጋ",
       "openInApp": " በ {{appName}} መተግበሪያ ውስጥ ይክፈቱ",
@@ -8588,7 +8543,7 @@
       "voiceUnavailableMessage": "ምንም ድምፅ አልተገኘም። የማንበብ ተግባሩን ለመጠቀም ድምፅ መጫን አለበት። ለእርስዎ ሥርዓተ ክወና እባክዎ የሚከተሉትን መመሪያዎች ይከተሉ።"
     },
     "ar": {
-      "imprintAndContact": "هيئة التحرير وجهة الاتصال",
+      "disclaimer": "هيئة التحرير",
       "privacy": "حماية البيانات",
       "localInformation": "معلومات محلية",
       "events": "الفعاليات",
@@ -8608,7 +8563,6 @@
       "cancel": "إلغاء",
       "shareMessage": "تم حالاً العثور على: {{message}}",
       "shareFailDefaultMessage": "للأسف، فشل في مشاركة المحتوى.",
-      "disclaimer": "هيئة التحرير",
       "sideBarOpenAriaLabel": "فتح الشريط الجانبي",
       "sideBarCloseAriaLabel": "غلق الشريط الجانبي",
       "openInApp": "افتح في تطبيق {{appName}}",
@@ -8628,7 +8582,7 @@
       "voiceUnavailableMessage": "لم يتم العثور على صوت. لاستخدام خاصية القراءة بصوت عالٍ، يجب تثبيت صوت. الرجاء الرجوع إلى التعليمات الخاصة بنظام التشغيل أدناه."
     },
     "bg": {
-      "imprintAndContact": "Импресум и контакт",
+      "disclaimer": "Импресум",
       "privacy": "Защита на личните данни",
       "localInformation": "Местна информация",
       "events": "Събития",
@@ -8648,7 +8602,6 @@
       "cancel": "Отказ",
       "shareMessage": "Току що намерено: {{message}}",
       "shareFailDefaultMessage": "За съжаление споделянето на съдържанието не бе успешно.",
-      "disclaimer": "Импресум",
       "sideBarOpenAriaLabel": "Отваряне на страничната лента",
       "sideBarCloseAriaLabel": "Затваряне на страничната лента",
       "openInApp": "Отваряне на приложение в {{appName}}",
@@ -8668,7 +8621,7 @@
       "voiceUnavailableMessage": "Не беше намерен глас. За да се използва функцията за четене на глас, трябва да има инсталиран глас. Моля, обърнете внимание на следните инструкции за Вашата операционна система."
     },
     "ckb": {
-      "imprintAndContact": "زانیارییەکانی ناوەندی بڵاوکەرەوە و زانیارییەکانی پەیوەندی",
+      "disclaimer": "زانیارییەکانی ناوەندی بڵاوکەرەوە",
       "privacy": "پاراستنی دێیتاکان",
       "localInformation": "زانیارییە خۆجییەکان",
       "events": "ڕووداوەکان",
@@ -8688,7 +8641,6 @@
       "cancel": "پچراندن",
       "shareMessage": "ئێستا نەدۆزراوە: {{message}}",
       "shareFailDefaultMessage": "بەداخەوە هاوبەشکردنی انوەرۆک ئەنجام نەدرا.",
-      "disclaimer": "زانیارییەکانی ناوەندی بڵاوکەرەوە",
       "sideBarOpenAriaLabel": "کردنەوەی سایدبار",
       "sideBarCloseAriaLabel": "داخستنی سایدبار",
       "openInApp": "لە ئەپی {{appName}} بیکەوە",
@@ -8708,7 +8660,7 @@
       "voiceUnavailableMessage": "هیچ دەنگێک نەدۆزراوەتەوە. بۆ بەکارهێنانی توانای خوێندنەوە دەبێت دەنگێک دابنرێت. تکایە ڕێنماییەکانی خوارەوە بۆ سیستەمی کارپێکردنەکەت پەیڕەو بکە."
     },
     "cs": {
-      "imprintAndContact": "Impresum a kontakt",
+      "disclaimer": "Impresum",
       "privacy": "Ochrana údajů",
       "localInformation": "Lokální informace",
       "events": "Akce",
@@ -8728,7 +8680,6 @@
       "cancel": "Zrušit",
       "shareMessage": "Právě nalezeno: {{message}}",
       "shareFailDefaultMessage": "Je nám líto, sdílení obsahu se nezdařilo.",
-      "disclaimer": "Impresum",
       "sideBarOpenAriaLabel": "Otevřít postranní panel",
       "sideBarCloseAriaLabel": "Zavřít postranní panel",
       "openInApp": "V {{appName}} otevřít aplikaci",
@@ -8748,7 +8699,7 @@
       "voiceUnavailableMessage": "Žádný hlas nebyl nalezen. Pro použití funkce hlasitého čtení musí být nainstalován hlas. Vezměte prosím na vědomí následující pokyny pro váš operační systém."
     },
     "da": {
-      "imprintAndContact": "Kolofon og kontakt",
+      "disclaimer": "Kolofon",
       "privacy": "Beskyttelse af data",
       "localInformation": "Lokale oplysninger",
       "events": "Begivenheder",
@@ -8768,7 +8719,6 @@
       "cancel": "Annuller",
       "shareMessage": "Lige fundet: {{message}}",
       "shareFailDefaultMessage": "Det er desværre ikke lykkedes at dele indholdet.",
-      "disclaimer": "Kolofon",
       "sideBarOpenAriaLabel": "Åbn sidepanelet",
       "sideBarCloseAriaLabel": "Luk sidepanelet",
       "openInApp": "Åbn i {{appName}}-appen",
@@ -8788,7 +8738,7 @@
       "voiceUnavailableMessage": "Der blev ikke fundet nogen stemme. Der skal være installeret en stemme for at kunne bruge højtlæsningsfunktionen. Vær opmærksom på følgende anvisninger for dit operativsystem."
     },
     "el": {
-      "imprintAndContact": "Στοιχεία έκδοσης και επικοινωνία",
+      "disclaimer": "Στοιχεία έκδοσης",
       "privacy": "Προστασία δεδομένων ",
       "localInformation": "Τοπικές πληροφορίες",
       "events": "Εκδηλώσεις",
@@ -8808,7 +8758,6 @@
       "cancel": "Διακοπή",
       "shareMessage": "Μόλις βρέθηκε: {{message}}",
       "shareFailDefaultMessage": "Δυστυχώς, η κοινοποίηση του περιεχομένου απέτυχε.",
-      "disclaimer": "Στοιχεία έκδοσης",
       "sideBarOpenAriaLabel": "Ανοίξτε την πλευρική μπάρα",
       "sideBarCloseAriaLabel": "Κλείστε την πλευρική μπάρα",
       "openInApp": "Άνοιγμα στο {{appName}}",
@@ -8828,7 +8777,7 @@
       "voiceUnavailableMessage": "Δεν βρέθηκε φωνή. Για να χρησιμοποιήσετε τη λειτουργία ανάγνωσης πρέπει να εγκαταστήσετε μια φωνή. Λάβετε υπόψη τις ακόλουθες οδηγίες για το λειτουργικό σας σύστημα."
     },
     "en": {
-      "imprintAndContact": "Imprint and contacts",
+      "disclaimer": "Imprint",
       "privacy": "Data protection",
       "localInformation": "Local information",
       "events": "Events",
@@ -8849,7 +8798,6 @@
       "cancel": "Cancel",
       "shareMessage": "Just found: {{message}}",
       "shareFailDefaultMessage": "Unfortunately an error occurred when sharing the content.",
-      "disclaimer": "Imprint",
       "sideBarOpenAriaLabel": "Open sidebar",
       "sideBarCloseAriaLabel": "Close sidebar",
       "openInApp": "Open in the {{appName}} app",
@@ -8869,7 +8817,7 @@
       "voiceUnavailableMessage": "No voice found. In order to use the read aloud functionality, a voice has to be installed. Please refer to the instructions for your operating system below."
     },
     "es": {
-      "imprintAndContact": "Aviso legal y contacto",
+      "disclaimer": "Aviso legal",
       "privacy": "Privacidad",
       "localInformation": "Información local",
       "events": "Actividades",
@@ -8889,7 +8837,6 @@
       "cancel": "Cancelar",
       "shareMessage": "Acabamos de encontrar: {{message}}",
       "shareFailDefaultMessage": "No se ha podido compartir el contenido.",
-      "disclaimer": "Aviso legal",
       "sideBarOpenAriaLabel": "Abrir barra lateral",
       "sideBarCloseAriaLabel": "Cerrar barra lateral",
       "openInApp": "Abrir en la aplicación {{appName}}",
@@ -8909,7 +8856,7 @@
       "voiceUnavailableMessage": "No se encontró ninguna voz. Para utilizar la función de lectura en voz alta, es necesario tener instalada una voz. Ten en cuenta las siguientes instrucciones para tu sistema operativo."
     },
     "fi": {
-      "imprintAndContact": "Julkaisu- ja yhteystiedot",
+      "disclaimer": "Julkaisutiedot",
       "privacy": "Tietosuoja",
       "localInformation": "Paikalliset tiedot",
       "events": "Tapahtumat",
@@ -8929,7 +8876,6 @@
       "cancel": "Keskeytä",
       "shareMessage": "Juuri löydetty: {{message}}",
       "shareFailDefaultMessage": "Sisällön jakaminen epäonnistui.",
-      "disclaimer": "Julkaisutiedot",
       "sideBarOpenAriaLabel": "Avaa sivupalkki",
       "sideBarCloseAriaLabel": "Sulje sivupalkki",
       "openInApp": "Avaa sovelluksessa {{appName}}",
@@ -8949,7 +8895,7 @@
       "voiceUnavailableMessage": "Ääntä ei löytynyt. Äänen on oltava asennettuna, jotta voit käyttää ääneenlukutoimintoa. Ota huomioon seuraavat käyttöjärjestelmää koskevat ohjeet."
     },
     "fr": {
-      "imprintAndContact": "Mentions légales et contact",
+      "disclaimer": "Mentions légales",
       "privacy": "Protection des données",
       "localInformation": "Informations locales",
       "events": "Événements",
@@ -8969,7 +8915,6 @@
       "cancel": "Annuler",
       "shareMessage": "Tout juste trouvé : {{message}}",
       "shareFailDefaultMessage": "Le partage du contenu a malheureusement échoué.",
-      "disclaimer": "Mentions légales",
       "sideBarOpenAriaLabel": "Ouvrir la barre latérale",
       "sideBarCloseAriaLabel": "Fermer la barre latérale",
       "openInApp": "Dans l’application {{appName}} Ouvrir l’appli",
@@ -8989,7 +8934,7 @@
       "voiceUnavailableMessage": "Aucune voix n’a été trouvée. Pour pouvoir utiliser la fonction de lecture, une voix doit être installée. Veuillez suivre les instructions suivantes pour votre système d’exploitation."
     },
     "hi": {
-      "imprintAndContact": "छाप और संपर्क",
+      "disclaimer": "छाप",
       "privacy": "डेटा संरक्षण",
       "localInformation": "स्थानीय जानकारी",
       "events": "ईवेंट",
@@ -9009,7 +8954,6 @@
       "cancel": "रद्द करें",
       "shareMessage": "अभी मिला: {{message}}",
       "shareFailDefaultMessage": "दुर्भाग्यवश सामग्री शेयर करते समय एक त्रुटि हुई।",
-      "disclaimer": "छाप",
       "sideBarOpenAriaLabel": "साइडबार खोलें",
       "sideBarCloseAriaLabel": "साइडबार बंद करें",
       "openInApp": "{{appName}} ऐप में खोलें",
@@ -9029,7 +8973,7 @@
       "voiceUnavailableMessage": "कोई वॉइस नहीं मिली रीड अलाउड के फ़ंक्शन का उपयोग करने के लिए, वॉइस इंस्टॉल किया जाना जरूरी है। अपने ऑपरेटिंग सिस्टम के लिए नीचे दिए गए निर्देश देखें।"
     },
     "hr": {
-      "imprintAndContact": "Impresum i kontakt",
+      "disclaimer": "Impresum",
       "privacy": "Zaštita podataka",
       "localInformation": "Lokalne informacije",
       "events": "Događanja",
@@ -9049,7 +8993,6 @@
       "cancel": "Prekid",
       "shareMessage": "Upravo pronađeno: {{message}}",
       "shareFailDefaultMessage": "Dijeljenje sadržaja nažalost nije uspjelo.",
-      "disclaimer": "Impresum",
       "sideBarOpenAriaLabel": "Otvori bočnu traku",
       "sideBarCloseAriaLabel": "Zatvori bočnu traku",
       "openInApp": "Otvori u aplikaciji {{appName}}",
@@ -9069,7 +9012,7 @@
       "voiceUnavailableMessage": "Nije pronađen glas. Kako biste koristili funkciju čitanja, neophodno je da postoji instaliran glas. Obratite pažnju na sljedeće instrukcije za vaš operativni sustav."
     },
     "hu": {
-      "imprintAndContact": "Impresszum és elérhetőség",
+      "disclaimer": "Impresszum",
       "privacy": "Adatvédelem",
       "localInformation": "Helyi információk",
       "events": "Események",
@@ -9089,7 +9032,6 @@
       "cancel": "Megszakítás",
       "shareMessage": "Ezt találtuk éppen: {{message}}",
       "shareFailDefaultMessage": "Sikertelen tartalom megosztás.",
-      "disclaimer": "Impresszum",
       "sideBarOpenAriaLabel": "Oldalsáv megnyitása",
       "sideBarCloseAriaLabel": "Oldalsáv bezárása",
       "openInApp": "{{appName}} alkalmazás megnyitása",
@@ -9109,7 +9051,7 @@
       "voiceUnavailableMessage": "Nem található hang. A felolvasás funkciónak telepített hangra van szüksége. Tartsa be az operációs rendszerére vonatkozó utasításokat."
     },
     "id": {
-      "imprintAndContact": "Cetak dan kontak",
+      "disclaimer": "Cetak",
       "privacy": "Proteksi data",
       "localInformation": "Informasi lokal",
       "events": "Acara",
@@ -9130,7 +9072,6 @@
       "cancel": "Batalkan",
       "shareMessage": "Baru ditemukan: {{message}}",
       "shareFailDefaultMessage": "Sayangnya, terjadi galat saat berbagi konten.",
-      "disclaimer": "Cetak",
       "sideBarOpenAriaLabel": "Buka bilah samping",
       "sideBarCloseAriaLabel": "Tutup bilah samping",
       "openInApp": "Buka di aplikasi {{appName}}",
@@ -9150,7 +9091,7 @@
       "voiceUnavailableMessage": "Suara tidak ditemukan. Agar dapat menggunakan fungsi baca keras-keras, harus ada suara yang diinstal. Mengaculah ke buku panduan sistem operasi Anda di bawah ini."
     },
     "it": {
-      "imprintAndContact": "Impressum e contatti",
+      "disclaimer": "Impressum",
       "privacy": "Protezione dei dati",
       "localInformation": "Informazioni locali",
       "events": "Eventi",
@@ -9170,7 +9111,6 @@
       "cancel": "Annulla",
       "shareMessage": "Appena trovato: {{message}}",
       "shareFailDefaultMessage": "Purtroppo la condivisione del contenuto non è riuscita.",
-      "disclaimer": "Impressum",
       "sideBarOpenAriaLabel": "Apri la barra laterale",
       "sideBarCloseAriaLabel": "Chiudi la barra laterale",
       "openInApp": "Apri un’applicazione in {{appName}}",
@@ -9190,7 +9130,7 @@
       "voiceUnavailableMessage": "Non è stata trovata alcuna voce. Per utilizzare la funzione di lettura ad alta voce è necessario installare una voce. Tieni presente le seguenti istruzioni relative al tuo sistema operativo."
     },
     "ka": {
-      "imprintAndContact": "მისამართი და საკონტაქტო ინფორმაცია",
+      "disclaimer": "მისამართი",
       "privacy": "მონაცემთა დაცვა",
       "localInformation": "ადგილობრივი ინფორმაციები",
       "events": "ღონისძიებები",
@@ -9210,7 +9150,6 @@
       "cancel": "გაწყვეტა",
       "shareMessage": "ეხლა ნაპოვნი: {{appName}}",
       "shareFailDefaultMessage": "შინაარსის გაზიარება ჩაიშალა",
-      "disclaimer": "მისამართი",
       "sideBarOpenAriaLabel": "გვერდის ბმულის გახსნა",
       "sideBarCloseAriaLabel": "გვერდის ბმულის დახურვა",
       "openInApp": "{{appName}} აპში გახსნა",
@@ -9230,7 +9169,7 @@
       "voiceUnavailableMessage": "ხმა არ მოიძებნა. ხმამაღლა წაკითხვის ფუნქციის გამოსაყენებლად ხმა უნდა იყოს დაყენებული. ყურადღება მიაქციეთ შემდეგ მითითებებს თქვენს ოპერაციულ სისტემასთან დაკავშირებით."
     },
     "kmr": {
-      "imprintAndContact": "Lêzanînên Weşîner û Têkillî",
+      "disclaimer": "Lêzanînên Weşîner",
       "privacy": "Parastina daneyan",
       "localInformation": "Zanyariyên xwecihî",
       "events": "Rûdan",
@@ -9250,7 +9189,6 @@
       "cancel": "Qutbûn",
       "shareMessage": "Niha hat dîtin: {{message}}",
       "shareFailDefaultMessage": "Mixabin parvekirina babetên pêk nehat.",
-      "disclaimer": "Lêzanînên Weşîner",
       "sideBarOpenAriaLabel": "Zîvala kêlekê veke",
       "sideBarCloseAriaLabel": "Zîvala kêlekê girêde",
       "openInApp": "Sepana {{appName}} veke",
@@ -9270,7 +9208,7 @@
       "voiceUnavailableMessage": "Ti dengek nehat dîtin Ji bo ku bikarî funksyona xwendinê bi kar bînî, divê deng were sazkirin. Ji kerema xwe destûrkarên xwarê ji bo pergala cihêner a xwe binivîsîne."
     },
     "mk": {
-      "imprintAndContact": "Импресум и контакт",
+      "disclaimer": "Импресум",
       "privacy": "Заштита на лични податоци",
       "localInformation": "Локални информации",
       "events": "Настани",
@@ -9290,7 +9228,6 @@
       "cancel": "Поништи",
       "shareMessage": "Само што е пронајдено: {{message}}",
       "shareFailDefaultMessage": "Деловите од содржината за жал не се вчитани.",
-      "disclaimer": "Импресум",
       "sideBarOpenAriaLabel": "Отвори ја страничната лента",
       "sideBarCloseAriaLabel": "Затвори ја страничната лента",
       "openInApp": "Отвори во апликацијата {{appName}}",
@@ -9310,7 +9247,7 @@
       "voiceUnavailableMessage": "Не е најден глас. За да ја користите функцијата за читање, мора да се инсталира глас. Следете ги упатствата подолу за вашиот оперативен систем."
     },
     "nl": {
-      "imprintAndContact": "Impressum en contactgegevens",
+      "disclaimer": "Impressum",
       "privacy": "Gegevensbescherming",
       "localInformation": "Lokale informatie",
       "events": "Evenementen",
@@ -9330,7 +9267,6 @@
       "cancel": "Annuleer",
       "shareMessage": "Zojuist gevonden: {{message}}",
       "shareFailDefaultMessage": "Helaas is er een fout opgetreden bij het delen van de content",
-      "disclaimer": "Impressum",
       "sideBarOpenAriaLabel": "Zijbalk openen",
       "sideBarCloseAriaLabel": "Zijbalk sluiten",
       "openInApp": "Openen in de {{appName}}-app",
@@ -9350,7 +9286,7 @@
       "voiceUnavailableMessage": "Er werd geen stem gevonden. Er moet een stem geïnstalleerd zijn om de voorleesfunctie te kunnen gebruiken. Neem de volgende instructies voor jouw besturingssysteem in acht."
     },
     "orm": {
-      "imprintAndContact": "Ashaaraa fi quunnamtii",
+      "disclaimer": "Ashaaraa",
       "privacy": "Eegumsa daataa",
       "localInformation": "Odeeffannoo naannoo",
       "events": "Sagantaalee",
@@ -9370,7 +9306,6 @@
       "cancel": "Kuffiisi",
       "shareMessage": "Reefu argame: {{message}}",
       "shareFailDefaultMessage": "Amma yeroo qabiyyeen qoodamu dogongorri uumame.",
-      "disclaimer": "Ashaaraa",
       "sideBarOpenAriaLabel": "Barruu cinaa banaa",
       "sideBarCloseAriaLabel": "Barruu cinaa cufaa",
       "openInApp": "Appii {{appName}} irratti bani",
@@ -9390,7 +9325,7 @@
       "voiceUnavailableMessage": "Sagaleen hin jiru.s Sagalee olguddisuu fayyadamuuf, sagaleen inistool ta’uu qaba. Qajeelfama ittiin hojjatan kan gajjalaa jiru ilaali."
     },
     "pes": {
-      "imprintAndContact": "اطلاعات ناشر و تماس",
+      "disclaimer": "اطلاعات ناشر",
       "privacy": "حفاظت از داده ها",
       "localInformation": "اطلاعات محلی",
       "events": "رویدادها",
@@ -9410,7 +9345,6 @@
       "cancel": "قطع",
       "shareMessage": "اکنون یافت شد: {{message}}",
       "shareFailDefaultMessage": "متأسفانه به اشتراک گذاشتن محتوا انجام نشد.",
-      "disclaimer": "اطلاعات ناشر",
       "sideBarOpenAriaLabel": "باز کردن نوار کناری",
       "sideBarCloseAriaLabel": "بستن نوار کناری",
       "openInApp": "در برنامه {{appName}} باز کنید",
@@ -9430,7 +9364,7 @@
       "voiceUnavailableMessage": "صدایی یافت نشد. برای استفاده از قابلیت خواندن، باید یک صدا نصب شود. لطفاً دستورالعمل‌های زیر را برای سیستم عامل خود دنبال کنید."
     },
     "pl": {
-      "imprintAndContact": "Nota prawna i kontakt",
+      "disclaimer": "Nota prawna",
       "privacy": "Ochrona danych",
       "localInformation": "Informacje lokalne",
       "events": "Wydarzenia",
@@ -9450,7 +9384,6 @@
       "cancel": "Przerwij",
       "shareMessage": "Właśnie znaleziono: {{message}}",
       "shareFailDefaultMessage": "Niestety udostępnianie treści nie powiodło się.",
-      "disclaimer": "Nota prawna",
       "sideBarOpenAriaLabel": "Otwórz pasek boczny",
       "sideBarCloseAriaLabel": "Zamknij pasek boczny",
       "openInApp": "Otwórz aplikację w {{appName}}",
@@ -9470,7 +9403,7 @@
       "voiceUnavailableMessage": "Nie znaleziono żadnego głosu. Aby korzystać z funkcji lektora, należy zainstalować głos. Zwróć uwagę na poniższe instrukcje dla Twojego systemu operacyjnego."
     },
     "prs": {
-      "imprintAndContact": "معلومات ناشر و تماس",
+      "disclaimer": "معلومات ناشر",
       "privacy": "حفاظت از داده ها",
       "localInformation": "معلومات محلی",
       "events": "رویدادها",
@@ -9490,7 +9423,6 @@
       "cancel": "قطع نمودن",
       "shareMessage": "اکنون پیدا شد: {{message}}",
       "shareFailDefaultMessage": "متاسفانه اشتراک گذاری محتوا صورت نگرفت.",
-      "disclaimer": "معلومات ناشر",
       "sideBarOpenAriaLabel": "باز کردن نوار کناری",
       "sideBarCloseAriaLabel": "بستن نوار کناری",
       "openInApp": "در اپليکيشن {{appName}} باز کنید",
@@ -9510,7 +9442,7 @@
       "voiceUnavailableMessage": "صدایی پیدا نشد. برای استفاده از قابلیت خواندن، باید یک صدا نصب شود. لطفا هدایاتی ذیل را برای سیستم عامل خود دنبال کنید."
     },
     "ps": {
-      "imprintAndContact": "چاپ او اړیکه",
+      "disclaimer": "چاپ کوونکی",
       "privacy": "د ډاټا حفاظت",
       "localInformation": "سیمه ییز معلومات",
       "events": "غونډې",
@@ -9530,7 +9462,6 @@
       "cancel": "ختمول",
       "shareMessage": "همدا اوس پیدا شو: {{message}}",
       "shareFailDefaultMessage": "د منځپانګو شریکول له بده مرغه ناکام شول.",
-      "disclaimer": "چاپ کؤنکی",
       "sideBarOpenAriaLabel": "د سايډبار پرانيستل",
       "sideBarCloseAriaLabel": "د سايډبار بندول",
       "openInApp": "په {{appName}} اپلیکیشن کې يې پرانیزئ",
@@ -9550,7 +9481,7 @@
       "voiceUnavailableMessage": "هیڅ غږ ونه موندل شو. د لوستلو ځانګړنې کارولو لپاره، یو غږ باید نصب شي. د مهربانۍ له مخې د خپل عملیاتي سیسټم لپاره لاندې لارښوونې تعقیب کړئ."
     },
     "pt": {
-      "imprintAndContact": "Pé de imprensa e contactos",
+      "disclaimer": "Pé de imprensa",
       "privacy": "Proteção de dados",
       "localInformation": "Informações locais",
       "events": "Eventos",
@@ -9570,7 +9501,6 @@
       "cancel": "Cancelar",
       "shareMessage": "Encontrado agora: {{message}}",
       "shareFailDefaultMessage": "Lamentamos, mas a partilha do conteúdo falhou.",
-      "disclaimer": "Pé de imprensa",
       "sideBarOpenAriaLabel": "Abrir a barra lateral",
       "sideBarCloseAriaLabel": "Fechar a barra lateral",
       "openInApp": "Na {{appName}} abre a aplicação",
@@ -9590,7 +9520,7 @@
       "voiceUnavailableMessage": "Não encontraste nenhuma voz. Para utilizares a função de leitura em voz alta, tens de ter uma voz instalada. Tem em atenção as seguintes instruções para o teu sistema operativo."
     },
     "ro": {
-      "imprintAndContact": "Caseta tehnică și contact",
+      "disclaimer": "Caseta tehnică",
       "privacy": "Confidențialitate",
       "localInformation": "Informații locale",
       "events": "Evenimente",
@@ -9610,7 +9540,6 @@
       "cancel": "Întrerupeți",
       "shareMessage": "Tocmai s-a găsit: {{message}}",
       "shareFailDefaultMessage": "Distribuirea conținutului a eșuat.",
-      "disclaimer": "Caseta tehnică",
       "sideBarOpenAriaLabel": "Deschideți bara laterală",
       "sideBarCloseAriaLabel": "Închideți bara laterală",
       "openInApp": "Deschidere în aplicația {{appName}}",
@@ -9630,7 +9559,7 @@
       "voiceUnavailableMessage": "Nu a fost găsită nicio voce. Pentru a utiliza funcția de citire cu voce tare, trebuie instalată o voce. Vă rugăm să țineți cont de următoarele instrucțiuni pentru sistemul dvs. de operare."
     },
     "rom": {
-      "imprintAndContact": "Otpečatkoja thaj kontaktia",
+      "disclaimer": "Otpečatkoja",
       "privacy": "Arakhiba podatke",
       "localInformation": "Lokalnikane informacie",
       "events": "Čipote",
@@ -9650,7 +9579,6 @@
       "cancel": "Čhinav",
       "shareMessage": "Arakhlilo: {{message}}",
       "shareFailDefaultMessage": "Jasineste bangin uli ko ulavibe o kotor.",
-      "disclaimer": "Otpečatkoja",
       "sideBarOpenAriaLabel": "Phrav rigakorothan",
       "sideBarCloseAriaLabel": "Phan rigakorothan",
       "openInApp": "Phrav ki {{appName}} app",
@@ -9670,7 +9598,7 @@
       "voiceUnavailableMessage": "Nane arakhlo avazi. Baši te labare o drabaripe ko glaso, valjani te čhive avazi. Molinaja tu te dikhe o instrukcie baši to sistemo tele."
     },
     "ru": {
-      "imprintAndContact": "Выходные данные и контактная информация",
+      "disclaimer": "Выходные данные",
       "privacy": "Защита данных",
       "localInformation": "Местная информация",
       "events": "Мероприятия",
@@ -9691,7 +9619,6 @@
       "cancel": "Отменить",
       "shareMessage": "Найдено: {{message}}",
       "shareFailDefaultMessage": "К сожалению, не удалось поделиться содержимым.",
-      "disclaimer": "Выходные данные",
       "sideBarOpenAriaLabel": "Открыть боковую панель",
       "sideBarCloseAriaLabel": "Закрыть боковую панель",
       "openInApp": "Открыть в приложении {{appName}}",
@@ -9711,7 +9638,7 @@
       "voiceUnavailableMessage": "Голос не был обнаружен. Для использования функции чтения вслух необходимо установить голос. Обратите внимание на следующие инструкции для вашей операционной системы."
     },
     "sk": {
-      "imprintAndContact": "Tiráž a kontakt",
+      "disclaimer": "Tiráž",
       "privacy": "Ochrana osobných údajov",
       "localInformation": "Lokálne informácie",
       "events": "Podujatia",
@@ -9731,7 +9658,6 @@
       "cancel": "Zrušiť",
       "shareMessage": "Práve nájdené: {{message}}",
       "shareFailDefaultMessage": "Zdieľanie obsahu sa žiaľ nepodarilo.",
-      "disclaimer": "Tiráž",
       "sideBarOpenAriaLabel": "Otvoriť bočnú lištu",
       "sideBarCloseAriaLabel": "Zatvoriť bočnú lištu",
       "openInApp": "V {{appName}} Otvoriť aplikáciu",
@@ -9751,7 +9677,7 @@
       "voiceUnavailableMessage": "Žiadny hlas nebol nájdený. Ak chcete používať funkciu prečítania, musí byť nainštalovaný hlas. Zohľadnite, prosím, nasledujúce pokyny pre váš operačný systém."
     },
     "so": {
-      "imprintAndContact": "Faahfaahinta qoraaga iyo macaluumaadkiisa xiriirka",
+      "disclaimer": "Faahfaahinta qoraaga",
       "privacy": "Asturnaanta",
       "localInformation": "Macluumaadka deegaanka",
       "events": "Dhacdooyinka",
@@ -9771,7 +9697,6 @@
       "cancel": "Jooji",
       "shareMessage": "Hada la helay: {{message}}",
       "shareFailDefaultMessage": "Nasiib darro, wadaagista tusmada ayaa lagu guuldaraystay.",
-      "disclaimer": "Qoraa",
       "sideBarOpenAriaLabel": "Fur qaybta dhinaca",
       "sideBarCloseAriaLabel": "Xidh qaybta dhinaca",
       "openInApp": "Ku fur barnaamijka {{appName}}.",
@@ -9791,7 +9716,7 @@
       "voiceUnavailableMessage": "Cod lama helin. Si aad u isticmaasho hawsha akhriska codka, cod waa in la rakibaa. Fadlan raac tilmaamaha soo socda ee nidaamkaaga hawlgalka."
     },
     "sq": {
-      "imprintAndContact": "Botuesi dhe kontakti",
+      "disclaimer": "Botuesi",
       "privacy": "Mbrojtja e të dhënave",
       "localInformation": "Informata lokale",
       "events": "Evenimentet",
@@ -9811,7 +9736,6 @@
       "cancel": "Anulo",
       "shareMessage": "Sapo u gjet: {{message}}",
       "shareFailDefaultMessage": "Fatkeqësisht, ndarja e përmbajtjes dështoi.",
-      "disclaimer": "Botuesi",
       "sideBarOpenAriaLabel": "Hap shiritin anësor",
       "sideBarCloseAriaLabel": "Mbyll shiritin anësor",
       "openInApp": "Hape në aplikacionin {{appName}}",
@@ -9831,7 +9755,7 @@
       "voiceUnavailableMessage": "Nuk u gjet asnjë tingull. Për të përdorur funksionin e leximit duhet të instalohen tinguj. Ndiq udhëzimet e mëposhtme për sistemin tënd operativ."
     },
     "sr-Cyrl": {
-      "imprintAndContact": "Импресум и контакт",
+      "disclaimer": "Импресум",
       "privacy": "Заштита података",
       "localInformation": "Локалне информације",
       "events": "Догађаји",
@@ -9851,7 +9775,6 @@
       "cancel": "Прекид",
       "shareMessage": "Управо пронађено: {{message}}",
       "shareFailDefaultMessage": "Нажалост, није било могуће дељење садржаја.",
-      "disclaimer": "Импресум",
       "sideBarOpenAriaLabel": "Отвори бочну траку",
       "sideBarCloseAriaLabel": "Затвори бочну траку",
       "openInApp": "Отвори у апликацији {{appName}}",
@@ -9871,7 +9794,7 @@
       "voiceUnavailableMessage": "Није пронађен глас Да бисте користили функцију читања, неопходно је да постоји инсталиран глас. Обратите пажњу на следеће инструкције за ваш оперативни систем."
     },
     "sr-Latn": {
-      "imprintAndContact": "Impresum i kontakt",
+      "disclaimer": "Impresum",
       "privacy": "Zaštita podataka",
       "localInformation": "Lokalne informacije",
       "events": "Događaji",
@@ -9891,7 +9814,6 @@
       "cancel": "Prekid",
       "shareMessage": "Upravo pronađeno: {{message}}",
       "shareFailDefaultMessage": "Nažalost, nije bilo moguće deljenje sadržaja.",
-      "disclaimer": "Impresum",
       "sideBarOpenAriaLabel": "Otvori bočnu traku",
       "sideBarCloseAriaLabel": "Zatvori bočnu traku",
       "openInApp": "Otvori u aplikaciji {{appName}}",
@@ -9911,7 +9833,7 @@
       "voiceUnavailableMessage": "Nije pronađen glas. Da biste koristili funkciju čitanja, neophodno je da postoji instaliran glas. Obratite pažnju na sledeće instrukcije za vaš operativni sistem."
     },
     "sw": {
-      "imprintAndContact": "Chapa na anwani",
+      "disclaimer": "Chapa",
       "privacy": "Ulinzi wa data",
       "localInformation": "Habari za nchini",
       "events": "Matukio",
@@ -9931,7 +9853,6 @@
       "cancel": "Acha",
       "shareMessage": "Uliopatikana hivi sasa: {{message}}",
       "shareFailDefaultMessage": "Samahani, hitilafu fulani imetokea wakati wa kutuma maudhui.",
-      "disclaimer": "Chapa",
       "sideBarOpenAriaLabel": "Fungua utepe",
       "sideBarCloseAriaLabel": "Fungua utepe",
       "openInApp": "Fungua katika programu ya {{appName}}",
@@ -9951,7 +9872,7 @@
       "voiceUnavailableMessage": "Hakuna sauti iliyopatikana. Ili utumie kipengele cha kusoma kwa sauti, ni lazima uweke sauti. Tafadhali soma maagizo ya mfumo wako wa uendeshaji hapa chini."
     },
     "th": {
-      "imprintAndContact": "ข้อมูลการพิมพ์และการติดต่อ",
+      "disclaimer": "ข้อมูลการพิมพ์",
       "privacy": "การคุ้มครองข้อมูล",
       "localInformation": "ข้อมูลท้องถิ่น",
       "events": "กิจกรรม",
@@ -9971,7 +9892,6 @@
       "cancel": "ยกเลิก",
       "shareMessage": "เพิ่งพบ: {{message}}",
       "shareFailDefaultMessage": "ขออภัย การแบ่งปันเนื้อหาล้มเหลว",
-      "disclaimer": "ข้อมูลการพิมพ์",
       "sideBarOpenAriaLabel": "เปิดแถบด้านข้าง",
       "sideBarCloseAriaLabel": "ปิดแถบด้านข้าง",
       "openInApp": "เปิดในแอป {{appName}}",
@@ -9991,7 +9911,7 @@
       "voiceUnavailableMessage": "ไม่พบเสียงใดๆ เพื่อใช้ฟังก์ชันการอ่านจะต้องติดตั้งเสียง โปรดปฏิบัติตามคำแนะนำด้านล่างนี้สำหรับระบบปฏิบัติการของคุณ"
     },
     "ti": {
-      "imprintAndContact": "ናይ ደራሲ ዝርዝራት ሓበሬታን ናይ ርክብን",
+      "disclaimer": "ናይ ደራሲ ዝርዝራት",
       "privacy": "ምስጢርነት",
       "localInformation": "ከባብያዊ ሓበሬታ",
       "events": "ኣጋጣሚታት",
@@ -10011,7 +9931,6 @@
       "cancel": "ደው ኣብል",
       "shareMessage": "ተረኺቡ ኣሎ፥ {{message}}",
       "shareFailDefaultMessage": "ሕማቕ ኣጋጣሚ ኾይኑ፡ ምክፋል እቲ ትሕዝቶ ኣይተዓወተን።",
-      "disclaimer": "ደራሲ",
       "sideBarOpenAriaLabel": "ክፉት ጎናዊ መስመር",
       "sideBarCloseAriaLabel": "ጎናዊ መስመር ዕጸዎ",
       "openInApp": "ኣብ {{appName}} መተግበሪ ክፉቱ",
@@ -10031,7 +9950,7 @@
       "voiceUnavailableMessage": "ዝኾነ ድምጺ ኣይተረኽበን። ነቲ ዓው ኢልካ ምንባብ ዝብል ተግባር ንምጥቃም፣ ድምጺ ክጸዓን ኣለዎ። በጃኹም ነቲ መምርሒታት ስርዓተ ምምሕዳርኩም ተኸተሉ።"
     },
     "tr": {
-      "imprintAndContact": "Künye ve iletişim",
+      "disclaimer": "Künye",
       "privacy": "Kişisel verilerin korunması",
       "localInformation": "Yerel bilgiler",
       "events": "Etkinlikler",
@@ -10051,7 +9970,6 @@
       "cancel": "İptal",
       "shareMessage": "Şimdi bulundu: {{message}}",
       "shareFailDefaultMessage": "İçeriğin paylaşılması maalesef başarısız.",
-      "disclaimer": "Künye",
       "sideBarOpenAriaLabel": "Kenar çubuğunu aç",
       "sideBarCloseAriaLabel": "Kenar çubuğunu kapat",
       "openInApp": "{{appName}} uygulamasında aç",
@@ -10071,7 +9989,7 @@
       "voiceUnavailableMessage": "Ses bulunamadı. Sesli okuma işlevini kullanabilmek için bir sesin yüklenmiş olması gerekir. Lütfen işletim sisteminiz için aşağıdaki talimatları dikkate alın."
     },
     "uk": {
-      "imprintAndContact": "Імпресум та контакт",
+      "disclaimer": "Імпресум",
       "privacy": "Захист даних",
       "localInformation": "Місцева інформація",
       "events": "Події",
@@ -10091,7 +10009,6 @@
       "cancel": "Cкасування",
       "shareMessage": "Щойно знайдено: {{message}}",
       "shareFailDefaultMessage": "Вибачте, поділитися вмістом не вдалося.",
-      "disclaimer": "Імпресум",
       "sideBarOpenAriaLabel": "Відкрити бічну панель",
       "sideBarCloseAriaLabel": "Закрити бічну панель",
       "openInApp": "Відкрити в додатку {{appName}}",
@@ -10111,7 +10028,7 @@
       "voiceUnavailableMessage": "Голос не знайдено. Для використання функції читання вголос необхідно інсталювати голос. Зверніть увагу на наступні інструкції для вашої операційної системи."
     },
     "ur": {
-      "imprintAndContact": "چھاپ اور رابطہ",
+      "disclaimer": "چھاپ",
       "privacy": "ڈیٹا کا تحفظ",
       "localInformation": "مقامی معلومات",
       "events": "ایونٹس",
@@ -10131,7 +10048,6 @@
       "cancel": "منسوخ کریں",
       "shareMessage": "ابھی ملا: {{message}}",
       "shareFailDefaultMessage": "بدقسمتی سے مواد شیئر کرنے میں ناکام رہے۔",
-      "disclaimer": "چھاپ",
       "sideBarOpenAriaLabel": "سائڈبار کھولیں",
       "sideBarCloseAriaLabel": "سائڈبار بند کریں",
       "openInApp": "{{appName}} ایپ میں کھولیں",
@@ -10151,7 +10067,7 @@
       "voiceUnavailableMessage": "کوئی آواز نہیں ملی۔ پڑھنے کے فنکشن کو استعمال کرنے کے لیے، آواز کو انسٹال کرنا ضروری ہے۔ براہ کرم اپنے آپریٹنگ سسٹم کے لیے نیچے دی گئی ہدایات پر عمل کریں۔"
     },
     "vi": {
-      "imprintAndContact": "Thông tin xuất bản và liên hệ",
+      "disclaimer": "Thông tin xuất bản",
       "privacy": "Bảo vệ dữ liệu",
       "localInformation": "Thông tin về địa phương",
       "events": "Sự kiện",
@@ -10171,7 +10087,6 @@
       "cancel": "Hủy",
       "shareMessage": "Vừa tìm thấy: {{message}}",
       "shareFailDefaultMessage": "Rất tiếc, đã xảy ra lỗi khi chia sẻ nội dung.",
-      "disclaimer": "Thông tin xuất bản",
       "sideBarOpenAriaLabel": "Mở thanh bên",
       "sideBarCloseAriaLabel": "Đóng thanh bên",
       "openInApp": "Mở trong ứng dụng {{appName}}",
@@ -10191,7 +10106,7 @@
       "voiceUnavailableMessage": "Không tìm thấy giọng nói. Bạn cần cài đặt giọng nói để sử dụng chức năng đọc to. Vui lòng tham khảo hướng dẫn cho hệ điều hành của bạn bên dưới."
     },
     "zh-CN": {
-      "imprintAndContact": "版本说明和联系方式",
+      "disclaimer": "版本说明",
       "privacy": "数据保护",
       "localInformation": "本地信息",
       "events": "活动",
@@ -10211,7 +10126,6 @@
       "cancel": "取消",
       "shareMessage": "刚找到：{{message}}",
       "shareFailDefaultMessage": "很抱歉，共享内容时出错。",
-      "disclaimer": "版本说明",
       "sideBarOpenAriaLabel": "开启侧边栏",
       "sideBarCloseAriaLabel": "关闭侧边栏",
       "openInApp": "在 {{appName}} 应用中打开",
@@ -10450,133 +10364,133 @@
   },
   "mainDisclaimer": {
     "de": {
-      "pageTitle": "Impressum und Kontakt - {{appName}}"
+      "pageTitle": "Impressum - {{appName}}"
     },
     "am": {
-      "pageTitle": "ዕትም እና የግንኙነት መረጃ - {{appName}}"
+      "pageTitle": "ዕትም - {{appName}}"
     },
     "ar": {
-      "pageTitle": "هيئة التحرير وجهة الاتصال - {{appName}}"
+      "pageTitle": "هيئة التحرير - {{appName}}"
     },
     "bg": {
-      "pageTitle": "Импресум и контакт - {{appName}}"
+      "pageTitle": "Импресум - {{appName}}"
     },
     "ckb": {
-      "pageTitle": "زانیارییەکانی ناوەندی بڵاوکەرەوە و زانیارییەکانی پەیوەندی - {{appName}}"
+      "pageTitle": "زانیارییەکانی ناوەندی بڵاوکەرەوە - {{appName}}"
     },
     "cs": {
-      "pageTitle": "Impresum a kontakt - {{appName}}"
+      "pageTitle": "Impresum - {{appName}}"
     },
     "da": {
-      "pageTitle": "Kolofon og kontakt - {{appName}}"
+      "pageTitle": "Kolofon - {{appName}}"
     },
     "el": {
-      "pageTitle": "Στοιχεία έκδοσης και επικοινωνία"
+      "pageTitle": "Στοιχεία έκδοσης - {{appName}}"
     },
     "en": {
-      "pageTitle": "Imprint and contacts - {{appName}}"
+      "pageTitle": "Imprint - {{appName}}"
     },
     "es": {
-      "pageTitle": "Aviso legal y contacto - {{appName}}"
+      "pageTitle": "Aviso legal - {{appName}}"
     },
     "fi": {
-      "pageTitle": "Julkaisu- ja yhteystiedot – {{appName}}"
+      "pageTitle": "Julkaisutiedot – {{appName}}"
     },
     "fr": {
-      "pageTitle": "Mentions légales et contact - {{appName}}"
+      "pageTitle": "Mentions légales - {{appName}}"
     },
     "hi": {
-      "pageTitle": "छाप और संपर्क - {{appName}}"
+      "pageTitle": "छाप - {{appName}}"
     },
     "hr": {
-      "pageTitle": "Impresum i kontakt - {{appName}}"
+      "pageTitle": "Impresum - {{appName}}"
     },
     "hu": {
-      "pageTitle": "Impresszum és elérhetőség- {{appName}}"
+      "pageTitle": "Impresszum - {{appName}}"
     },
     "id": {
-      "pageTitle": "Cetak dan kontak - {{appName}}"
+      "pageTitle": "Cetak - {{appName}}"
     },
     "it": {
-      "pageTitle": "Impressum e contatti - {{appName}}"
+      "pageTitle": "Impressum - {{appName}}"
     },
     "ka": {
-      "pageTitle": "მისამართი და საკონტაქტო ინფორმაცია {{appName}}"
+      "pageTitle": "მისამართი - {{appName}}"
     },
     "kmr": {
-      "pageTitle": "Lêzanînên Weşanîner û Têkillî – '{{appName}}'"
+      "pageTitle": "Lêzanînên Weşanîner - {{appName}}"
     },
     "mk": {
-      "pageTitle": "Импресум и контакт - {{appName}}"
+      "pageTitle": "Импресум - {{appName}}"
     },
     "nl": {
-      "pageTitle": "Impressum en contactgegevens - {{appName}}"
+      "pageTitle": "Impressum - {{appName}}"
     },
     "orm": {
-      "pageTitle": "Ashaaraa fi qunnamtii - {{appName}}"
+      "pageTitle": "Ashaaraa - {{appName}}"
     },
     "pes": {
-      "pageTitle": "اطلاعات ناشر و تماس - {{appName}}"
+      "pageTitle": "اطلاعات ناشر - {{appName}}"
     },
     "pl": {
-      "pageTitle": "Nota prawna i kontakt - {{appName}}"
+      "pageTitle": "Nota prawna - {{appName}}"
     },
     "prs": {
-      "pageTitle": "معلومات ناشر و تماس - {{appName}}"
+      "pageTitle": "معلومات ناشر - {{appName}}"
     },
     "ps": {
-      "pageTitle": "چاپ کؤونکی او ا ړیکہ - {{appName}}"
+      "pageTitle": "چاپ کوونکی - {{appName}}"
     },
     "pt": {
-      "pageTitle": "Pé de imprensa e contactos — {{appName}}"
+      "pageTitle": "Pé de imprensa - {{appName}}"
     },
     "ro": {
-      "pageTitle": "Caseta tehnică și contact - {{appName}}"
+      "pageTitle": "Caseta tehnică - {{appName}}"
     },
     "rom": {
-      "pageTitle": "Otpečatkoja thaj kontaktia - {{appName}}"
+      "pageTitle": "Otpečatkoja - {{appName}}"
     },
     "ru": {
-      "pageTitle": "Выходные данные и контактная информация – {{appName}}"
+      "pageTitle": "Выходные данные - {{appName}}"
     },
     "sk": {
-      "pageTitle": "Tiráž a kontakt – {{appName}}"
+      "pageTitle": "Tiráž - {{appName}}"
     },
     "so": {
-      "pageTitle": "Faahfaahinta qoraaga iyo macaluumaadkiisa xiriirka - {{appName}}"
+      "pageTitle": "Faahfaahinta qoraaga - {{appName}}"
     },
     "sq": {
-      "pageTitle": "Botuesi dhe kontakti - {{appName}}"
+      "pageTitle": "Botuesi - {{appName}}"
     },
     "sr-Cyrl": {
-      "pageTitle": "Импресум и контакт - {{appName}}"
+      "pageTitle": "Импресум - {{appName}}"
     },
     "sr-Latn": {
-      "pageTitle": "Impresum i kontakt - {{appName}}"
+      "pageTitle": "Impresum - {{appName}}"
     },
     "sw": {
-      "pageTitle": "Chapa na anwani - {{appName}}"
+      "pageTitle": "Chapa - {{appName}}"
     },
     "th": {
-      "pageTitle": "ข้อมูลการพิมพ์และการติดต่อ - {{appName}}"
+      "pageTitle": "ข้อมูลการพิมพ์ - {{appName}}"
     },
     "ti": {
-      "pageTitle": "ናይ ደራሲ ዝርዝራት ሓበሬታን ናይ ርክብን - {{appName}}"
+      "pageTitle": "ናይ ደራሲ ዝርዝራት - {{appName}}"
     },
     "tr": {
-      "pageTitle": "Künye ve iletişim - {{appName}}"
+      "pageTitle": "Künye - {{appName}}"
     },
     "uk": {
-      "pageTitle": "Імпресум та контакт - {{appName}}"
+      "pageTitle": "Імпресум - {{appName}}"
     },
     "ur": {
-      "pageTitle": "چھاپ اور رابطہ - {{appName}}"
+      "pageTitle": "چھاپ - {{appName}}"
     },
     "vi": {
-      "pageTitle": "Thông tin xuất bản và liên hệ - {{appName}}"
+      "pageTitle": "Thông tin xuất bản - {{appName}}"
     },
     "zh-CN": {
-      "pageTitle": "版本说明和联系方式- {{appName}}"
+      "pageTitle": "版本说明 - {{appName}}"
     }
   },
   "malteHelpForm": {

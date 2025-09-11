@@ -22,7 +22,7 @@ const GeneralFooter = ({ language }: GeneralFooterProps): ReactElement => {
 
   return (
     <Footer>
-      <Link to={RoutePatterns[MAIN_DISCLAIMER_ROUTE]}>{t('imprintAndContact')}</Link>
+      <Link to={RoutePatterns[MAIN_DISCLAIMER_ROUTE]}>{t('disclaimer')}</Link>
       <Link to={aboutUrl}>{t('settings:about', { appName: buildConfig().appName })}</Link>
       <Link to={privacyUrl}>{t('privacy')}</Link>
       <Link to={RoutePatterns[LICENSES_ROUTE]}>{t('settings:openSourceLicenses')}</Link>

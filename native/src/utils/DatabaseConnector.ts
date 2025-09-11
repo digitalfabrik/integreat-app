@@ -112,7 +112,6 @@ type ContentEventJsonType = {
     end: string
     allDay: boolean
     recurrenceRule: string | null
-    offset: number
     onlyWeekdays: boolean
   }
   location: LocationJsonType<number | null> | null
@@ -700,7 +699,6 @@ class DatabaseConnector {
           end: event.date.endDate.toISO(),
           allDay: event.date.allDay,
           recurrenceRule: event.date.recurrenceRule?.toString() ?? null,
-          offset: event.date.offset,
           onlyWeekdays: event.date.onlyWeekdays,
         },
         location: event.location
@@ -755,7 +753,6 @@ class DatabaseConnector {
           date: new DateModel({
             startDate: DateTime.fromISO(jsonDate.start),
             endDate: DateTime.fromISO(jsonDate.end),
-            offset: jsonDate.offset,
             allDay: jsonDate.allDay,
             recurrenceRule: jsonDate.recurrenceRule ? rrulestr(jsonDate.recurrenceRule) : null,
             onlyWeekdays: jsonDate.onlyWeekdays,

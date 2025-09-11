@@ -60,7 +60,7 @@ describe('Header', () => {
       'href',
       'http://localhost/kebab_route',
     )
-    expect(getByText('layout,settings:imprintAndContact')).toHaveProperty('href', 'http://localhost/test/de/disclaimer')
+    expect(getByText('layout,settings:disclaimer')).toHaveProperty('href', 'http://localhost/test/de/disclaimer')
   })
 
   it('should not render KebabMenu on large viewport', () => {
