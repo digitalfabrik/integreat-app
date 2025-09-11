@@ -2,7 +2,6 @@ import { RenderResult } from '@testing-library/react'
 import { mocked } from 'jest-mock'
 import React, { ReactElement } from 'react'
 
-import { CATEGORIES_ROUTE } from 'shared'
 import { CityModelBuilder } from 'shared/api'
 
 import useWindowDimensions from '../../hooks/useWindowDimensions'
@@ -32,7 +31,6 @@ describe('CityContentLayout', () => {
         Toolbar={Toolbar}
         city={cityModel}
         languageCode={language}
-        route={CATEGORIES_ROUTE}
         languageChangePaths={languageChangePaths}
         isLoading={isLoading}>
         <MockNode />

@@ -3,16 +3,15 @@ import Tooltip from '@mui/material/Tooltip'
 import { styled, Theme } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
-import dimensions from '../constants/dimensions'
 import SelectorItemModel from '../models/SelectorItemModel'
 import Link from './base/Link'
 
 const selectorItemStyle = ({ theme }: { theme: Theme }) => css`
-  height: ${dimensions.headerHeightLarge}px;
+  height: 64px;
   min-width: 90px;
   padding: 0 5px;
   font-size: 1.2em;
-  line-height: ${dimensions.headerHeightLarge}px;
+  line-height: 64px;
   text-align: center;
   white-space: nowrap;
   border-radius: 30px;
@@ -22,11 +21,9 @@ const selectorItemStyle = ({ theme }: { theme: Theme }) => css`
   user-select: none;
 
   ${theme.breakpoints.down('md')} {
-    height: ${dimensions.headerHeightSmall}px;
     width: 100%;
     flex: 1 1 auto;
     font-size: 1em;
-    line-height: ${dimensions.headerHeightSmall}px;
   }
 `
 

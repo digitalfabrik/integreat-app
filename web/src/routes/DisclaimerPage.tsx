@@ -42,7 +42,6 @@ const DisclaimerPage = ({ cityCode, languageCode, city }: CityRouteProps): React
   const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
     city,
     languageChangePaths,
-    route: DISCLAIMER_ROUTE,
     languageCode,
     Toolbar,
   }
