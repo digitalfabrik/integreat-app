@@ -93,7 +93,7 @@ Close the app on the device complete and re-open it on the device
 ## `bundle exec fastlane certificates` hangs on `Cloning remote git repo...`
 
 Copy the last command printed to the console (`git clone ...`) and execute it manually for more information, errors or password prompts.
-_ Make sure to have read and write access to the app-credentials repo.
+_ Make sure to have read and write access to the app-signing repo.
 _ Make sure to have git properly set up on the machine (using **ssh** protocol instead of https). \* The ssh key has to be added permanently in order for the command to work: `cd ~/.ssh/; ssh-add`.
 
 ## `Failed to get language code from native side!` in the simulator
