@@ -3,7 +3,7 @@ import { RRule as RRuleType, rrulestr } from 'rrule'
 
 import { formatDateICal } from '../../utils'
 
-const MAX_RECURRENCE_YEARS = 5
+const MAX_RECURRENCE_YEARS = 6
 
 export type DateIcon = 'CalendarTodayRecurringIcon' | 'CalendarRecurringIcon' | 'CalendarTodayIcon'
 
@@ -90,7 +90,8 @@ class DateModel {
     return localRecurrenceRule
       .between(minDate, maxDate, true, (_, index) => index < count)
       .map(offsetDate => {
-        const actualDate = DateTime.fromJSDate(offsetDate).toUTC()
+        // TODO: See if setting the locale is necessary for anything other than the tests
+        const actualDate = DateTime.fromJSDate(offsetDate).toUTC().setLocale(this.startDate.locale)
         return new DateModel({
           allDay: this.allDay,
           startDate: actualDate,
