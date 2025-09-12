@@ -37,6 +37,10 @@ const StyledButton = styled(Button)`
   padding: 5px;
 `
 
+const StyledAccordion = styled(Accordion)`
+  background-color: transparent;
+`
+
 const StyledAccordionSummary = styled(AccordionSummary)`
   display: none;
 `
@@ -80,7 +84,7 @@ const EventsDateFilter = ({
   return (
     <>
       <FilterToggle isDateFilterActive={showDateFilter} setToggleDateFilter={setShowDateFilter} />
-      <Accordion disableGutters expanded={showDateFilter} elevation={0}>
+      <StyledAccordion disableGutters expanded={showDateFilter} elevation={0}>
         <StyledAccordionSummary />
         <StyledAccordionDetails>
           <DateSection>
@@ -103,7 +107,7 @@ const EventsDateFilter = ({
             </>
           </DateSection>
         </StyledAccordionDetails>
-      </Accordion>
+      </StyledAccordion>
       {(startDate || endDate) && (
         <StyledButton
           label='resetDate'
