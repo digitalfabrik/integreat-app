@@ -93,7 +93,6 @@ const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
   const layoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
     city,
     languageChangePaths,
-    route: SEARCH_ROUTE,
     languageCode,
   }
 
