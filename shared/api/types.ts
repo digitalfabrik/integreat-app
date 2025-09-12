@@ -140,6 +140,7 @@ export type JsonEventType = {
   featured_image: JsonFeaturedImageType | null | undefined
   recurrence_rule?: string | null
   location_path: string | null
+  meeting_url: string | null
 }
 
 export type JsonTunewsType = {

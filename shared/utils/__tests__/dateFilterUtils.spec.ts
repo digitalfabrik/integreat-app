@@ -48,6 +48,7 @@ describe('isEventWithinRange', () => {
       path: `/test/event-${id}`,
       title: `Test Event ${id}`,
       date: dateModel,
+      meetingUrl: null,
     })
   }
 
