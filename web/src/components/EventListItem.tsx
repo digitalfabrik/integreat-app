@@ -6,7 +6,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 import Tooltip from '@mui/material/Tooltip'
-import Typography from '@mui/material/Typography'
+import Typography, { TypographyProps } from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
@@ -33,8 +33,6 @@ const StyledListItem = styled(ListItem)(() => ({
 }))
 
 const StyledListItemButton = styled(ListItemButton)(() => ({
-  display: 'flex',
-  justifyContent: 'space-between',
   alignItems: 'flex-start',
   gap: 16,
 })) as typeof ListItemButton
@@ -54,15 +52,14 @@ const StyledListItemAvatar = styled(ListItemAvatar)(({ theme }) => ({
   },
 }))
 
-const Description = styled('div')`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  & [class*='MuiTypography-root'] {
-    margin: 0;
-  }
-`
+const StyledTypography = styled(Typography)<TypographyProps>(() => ({
+  '& p': {
+    margin: 0,
+  },
+  '& p:nth-of-type(2)': {
+    marginBottom: '4px',
+  },
+}))
 
 type EventListItemProps = {
   event: EventModel
@@ -112,26 +109,17 @@ const EventListItem = ({
       disablePadding
       secondaryAction={dateIcon && <Tooltip title={t(dateIcon.tooltip)}>{dateIcon.Icon}</Tooltip>}>
       <StyledListItemButton component={Link} to={event.path} dir='auto'>
-        {Boolean(thumbnailSrc) && (
-          <StyledListItemAvatar>
-            <Avatar src={thumbnailSrc} alt='' variant='square' />
-          </StyledListItemAvatar>
-        )}
+        <StyledListItemAvatar>
+          <Avatar src={thumbnailSrc} alt='' variant='square' />
+        </StyledListItemAvatar>
         <ListItemText
           primary={<Typography variant='title2'>{event.title}</Typography>}
-          slotProps={{
-            secondary: {
-              component: 'div',
-            },
-          }}
           secondary={
-            <Description dir='auto'>
-              <Typography variant='body1'>{dateToDisplay.toFormattedString(languageCode, viewportSmall)}</Typography>
-              {event.location && <Typography variant='body1'>{event.location.fullAddress}</Typography>}
-              <Typography variant='body1' sx={{ paddingTop: '4px' }}>
-                {getExcerpt(event.excerpt, { maxChars: EXCERPT_MAX_CHARS })}
-              </Typography>
-            </Description>
+            <StyledTypography variant='body1' flexDirection='column' component='div'>
+              <p>{dateToDisplay.toFormattedString(languageCode, viewportSmall)}</p>
+              {event.location && <p>{event.location.fullAddress}</p>}
+              <p>{getExcerpt(event.excerpt, { maxChars: EXCERPT_MAX_CHARS })}</p>
+            </StyledTypography>
           }
         />
       </StyledListItemButton>
