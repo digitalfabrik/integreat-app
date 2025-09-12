@@ -1,10 +1,12 @@
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
+import Accordion from '@mui/material/Accordion'
+import AccordionDetails from '@mui/material/AccordionDetails'
+import AccordionSummary from '@mui/material/AccordionSummary'
 import { styled } from '@mui/material/styles'
 import { DateTime } from 'luxon'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import Accordion from './Accordion'
 import CustomDatePicker from './DatePicker'
 import FilterToggle from './FilterToggle'
 import Button from './base/Button'
@@ -21,6 +23,7 @@ const DateSection = styled('div')`
     align-items: center;
   }
 `
+
 const Text = styled('span')`
   color: ${props => props.theme.legacy.colors.textColor};
 `
@@ -32,6 +35,14 @@ const StyledButton = styled(Button)`
   white-space: nowrap;
   font-weight: bold;
   padding: 5px;
+`
+
+const StyledAccordionSummary = styled(AccordionSummary)`
+  display: none;
+`
+
+const StyledAccordionDetails = styled(AccordionDetails)`
+  padding: 0;
 `
 
 type ResetFilterTextProps = {
@@ -69,26 +80,29 @@ const EventsDateFilter = ({
   return (
     <>
       <FilterToggle isDateFilterActive={showDateFilter} setToggleDateFilter={setShowDateFilter} />
-      <Accordion isOpen={showDateFilter}>
-        <DateSection>
-          <>
-            <CustomDatePicker
-              title={t('from')}
-              date={startDate}
-              setDate={setStartDate}
-              error={startDateError ? t(startDateError) : undefined}
-              placeholderDate={today}
-              calendarLabel={t('selectStartDateCalendar')}
-            />
-            <CustomDatePicker
-              title={t('to')}
-              date={endDate}
-              setDate={setEndDate}
-              placeholderDate={inAWeek}
-              calendarLabel={t('selectEndDateCalendar')}
-            />
-          </>
-        </DateSection>
+      <Accordion disableGutters expanded={showDateFilter} elevation={0}>
+        <StyledAccordionSummary />
+        <StyledAccordionDetails>
+          <DateSection>
+            <>
+              <CustomDatePicker
+                title={t('from')}
+                date={startDate}
+                setDate={setStartDate}
+                error={startDateError ? t(startDateError) : undefined}
+                placeholderDate={today}
+                calendarLabel={t('selectStartDateCalendar')}
+              />
+              <CustomDatePicker
+                title={t('to')}
+                date={endDate}
+                setDate={setEndDate}
+                placeholderDate={inAWeek}
+                calendarLabel={t('selectEndDateCalendar')}
+              />
+            </>
+          </DateSection>
+        </StyledAccordionDetails>
       </Accordion>
       {(startDate || endDate) && (
         <StyledButton
