@@ -1,5 +1,4 @@
 import React, { ReactElement, useCallback } from 'react'
-import { useTranslation } from 'react-i18next'
 
 import { NEWS_ROUTE, pathnameFromRouteInformation, TU_NEWS_TYPE, tunewsLabel } from 'shared'
 import { createTunewsEndpoint, createTunewsLanguagesEndpoint, TunewsModel, useLoadFromEndpoint } from 'shared/api'
@@ -22,7 +21,6 @@ const DEFAULT_PAGE = 1
 const DEFAULT_COUNT = 10
 
 const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElement | null => {
-  const { t } = useTranslation('news')
   const { viewportSmall } = useWindowDimensions()
 
   const { data: tuNewsLanguages, error } = useLoadFromEndpoint(
@@ -138,7 +136,7 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
       <InfiniteScrollList
         loadPage={loadTuNews}
         renderItem={renderTuNewsListItem}
-        noItemsMessage={t('currentlyNoNews')}
+        noItemsMessage='news:currentlyNoNews'
         defaultPage={DEFAULT_PAGE}
         itemsPerPage={DEFAULT_COUNT}
       />
