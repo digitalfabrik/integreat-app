@@ -1,3 +1,4 @@
+import Typography, { TypographyProps } from '@mui/material/Typography'
 import { styled, useTheme } from '@mui/material/styles'
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -36,14 +37,9 @@ const ToolbarContainer = styled('div')`
   box-shadow: 1px 0 4px 0 rgb(0 0 0 / 20%);
 `
 
-const ListHeader = styled('div')`
+const StyledTypography = styled(Typography)<TypographyProps>`
   padding-top: clamp(16px, 1.4vh, 32px);
   padding-bottom: clamp(10px, 1vh, 20px);
-  text-align: center;
-  font-size: ${props => props.theme.legacy.fonts.subTitleFontSize};
-  font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
-  line-height: ${props => props.theme.legacy.fonts.decorativeLineHeight};
-  font-weight: 600;
   margin-bottom: clamp(10px, 1vh, 20px);
 `
 
@@ -126,7 +122,9 @@ const PoisDesktop = ({
         {canDeselect ? (
           <GoBack goBack={deselect} text={t('detailsHeader')} />
         ) : (
-          <ListHeader>{t('listTitle')}</ListHeader>
+          <StyledTypography component='h1' variant='h3'>
+            {t('listTitle')}
+          </StyledTypography>
         )}
 
         <PoiSharedChildren pois={pois} poi={poi} selectPoi={handleSelectPoi} userLocation={userLocation} slug={slug} />
