@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react'
 
 import getFooterLinks from '../utils/getFooterLinks'
 import Footer from './Footer'
-import FooterLinksList from './FooterLinksList'
+import FooterLink from './FooterLink'
 import OverlayFooter from './OverlayFooter'
 import List from './base/List'
 
@@ -24,7 +24,12 @@ type CityContentFooterProps = {
 const CityContentFooter = ({ city, language, mode = 'normal' }: CityContentFooterProps): ReactElement => {
   const linkItems = getFooterLinks({ city, language })
   const FooterContent = (
-    <StyledList NoItemsMessage='' items={FooterLinksList({ linkItems })} horizontal={mode !== 'sidebar'} />
+    <StyledList
+      items={linkItems.map(item => (
+        <FooterLink key={item.to} to={item.to} text={item.text} mode={mode} />
+      ))}
+      horizontal={mode !== 'sidebar'}
+    />
   )
 
   if (mode === 'sidebar') {

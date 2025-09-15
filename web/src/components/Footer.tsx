@@ -18,7 +18,8 @@ const FooterContainer = styled('footer')`
   padding-bottom: ${props => props.theme.spacing(2)};
 
   ${props => props.theme.breakpoints.up('md')} {
-    background-color: ${props => props.theme.palette.secondary.light};
+    background-color: ${props =>
+      props.theme.isContrastTheme ? props.theme.palette.secondary.dark : props.theme.palette.secondary.light};
     padding: 0 4px;
   }
 `

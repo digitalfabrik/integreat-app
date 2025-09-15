@@ -4,7 +4,7 @@ import React, { ReactElement } from 'react'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import getFooterLinks from '../utils/getFooterLinks'
 import Footer from './Footer'
-import FooterLinksList from './FooterLinksList'
+import FooterLink from './FooterLink'
 import List from './base/List'
 
 const StyledList = styled(List)<{ horizontal: boolean }>`
@@ -25,7 +25,12 @@ const GeneralFooter = ({ language }: GeneralFooterProps): ReactElement => {
 
   return (
     <Footer>
-      <StyledList NoItemsMessage='' items={FooterLinksList({ linkItems })} horizontal={viewportSmall === false} />
+      <StyledList
+        items={linkItems.map(item => (
+          <FooterLink key={item.to} to={item.to} text={item.text} />
+        ))}
+        horizontal={viewportSmall === false}
+      />
     </Footer>
   )
 }

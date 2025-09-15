@@ -6,7 +6,6 @@ import { RoutePatterns } from '../routes'
 type FooterLinkItem = {
   to: string
   text: string
-  prefix?: string
 }
 
 type GetFooterLinksProps = {
@@ -32,7 +31,7 @@ const getFooterLinks = ({ language, city }: GetFooterLinksProps): FooterLinkItem
 
   return [
     { to: disclaimerPath, text: 'imprint' },
-    { to: aboutUrl, text: 'settings:about', prefix: buildConfig().appName },
+    { to: aboutUrl, text: 'settings:aboutUs' },
     { to: privacyUrl, text: 'privacy' },
     { to: licensesPath, text: 'settings:openSourceLicenses' },
     ...(accessibilityUrl ? [{ to: accessibilityUrl, text: 'accessibility' }] : []),

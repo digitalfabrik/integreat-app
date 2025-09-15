@@ -16,32 +16,28 @@ const StyledListItem = styled(ListItem)`
   }
 `
 
-export type FooterLinkItem = {
+export type FooterLinkProps = {
   to: string
   text: string
-  prefix?: string
+  mode?: 'normal' | 'overlay' | 'sidebar'
 }
 
-type FooterLinksListProps = {
-  linkItems: FooterLinkItem[]
-}
-
-const FooterLinksList = ({ linkItems }: FooterLinksListProps): ReactElement[] => {
+const FooterLink = ({ to, text, mode = 'normal' }: FooterLinkProps): ReactElement => {
   const { t } = useTranslation(['layout', 'settings'])
 
-  return linkItems.map(item => (
-    <StyledListItem key={item.to} disablePadding>
-      <ListItemButton component={Link} to={item.to}>
+  return (
+    <StyledListItem key={to} disablePadding>
+      <ListItemButton component={Link} to={to}>
         <ListItemText
           primary={
-            <Typography variant='body2' textAlign='center'>
-              {t(item.text, item.prefix ? { appName: item.prefix } : undefined)}
+            <Typography variant={mode === 'overlay' ? 'body3' : 'body2'} textAlign='center'>
+              {t(text)}
             </Typography>
           }
         />
       </ListItemButton>
     </StyledListItem>
-  ))
+  )
 }
 
-export default FooterLinksList
+export default FooterLink
