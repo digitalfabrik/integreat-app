@@ -14,31 +14,30 @@ import { PoiModel } from 'shared/api'
 import { PoiThumbnailPlaceholder } from '../assets'
 import Link from './base/Link'
 
-const StyledListItemButton = styled(ListItemButton)(() => ({
-  alignItems: 'flex-start',
-  gap: 16,
-})) as typeof ListItemButton
+const StyledListItemButton = styled(ListItemButton)`
+  align-items: flex-start;
+  gap: ${props => props.theme.spacing(2)};
+` as typeof ListItemButton
 
-const StyledListItemAvatar = styled(ListItemAvatar)(() => ({
-  '& .MuiAvatar-root': {
-    marginTop: 8,
-    width: '94px',
-    height: '94px',
-    borderRadius: '10px',
-  },
-}))
+const StyledListItemAvatar = styled(ListItemAvatar)`
+  [class*='MuiAvatar-root'] {
+    margin-top: 8px;
+    width: 94px;
+    height: 94px;
+  }
+`
 
 const StyledListItemText = styled(ListItemText)`
-  min-width: 1px; /* needed to enable line breaks for too long words, exact value doesn't matter */
+  min-width: 1px;
   word-break: break-word;
   hyphens: auto;
 `
 
-const StyledTypography = styled(Typography)<TypographyProps>(() => ({
-  '& p': {
-    margin: 0,
-  },
-}))
+const StyledTypography = styled(Typography)<TypographyProps>`
+  p {
+    margin: 0;
+  }
+`
 
 type PoiListItemProps = {
   poi: PoiModel
@@ -58,11 +57,7 @@ const PoiListItem = ({ poi, distance, selectPoi }: PoiListItemProps): ReactEleme
             <Avatar src={thumbnail || PoiThumbnailPlaceholder} alt='' variant='square' />
           </StyledListItemAvatar>
           <StyledListItemText
-            slotProps={{
-              secondary: {
-                component: 'div',
-              },
-            }}
+            disableTypography
             primary={
               <StyledTypography variant='title2' component='h2'>
                 {title}
