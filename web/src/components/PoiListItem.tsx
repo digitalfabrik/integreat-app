@@ -59,9 +59,6 @@ const PoiListItem = ({ poi, distance, selectPoi }: PoiListItemProps): ReactEleme
           </StyledListItemAvatar>
           <StyledListItemText
             slotProps={{
-              primary: {
-                component: 'div',
-              },
               secondary: {
                 component: 'div',
               },
