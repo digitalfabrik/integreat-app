@@ -1,6 +1,5 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import IconButton from '@mui/material/IconButton'
-import Typography, { TypographyProps } from '@mui/material/Typography'
 import { styled, useTheme } from '@mui/material/styles'
 import { GeolocateControl } from 'maplibre-gl'
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
@@ -20,7 +19,7 @@ const ListContainer = styled('div')`
   padding: 0 30px;
 `
 
-const StyledTypography = styled(Typography)<TypographyProps>`
+const ListTitle = styled('div')`
   margin: 12px 0;
   font-weight: 700;
 `
@@ -150,11 +149,7 @@ const PoisMobile = ({
           </GoBackContainer>
         )}
         <ListContainer>
-          {!canDeselect && (
-            <StyledTypography component='h1' variant='h3'>
-              {t('listTitle')}
-            </StyledTypography>
-          )}
+          {!canDeselect && <ListTitle>{t('listTitle')}</ListTitle>}
           <PoiSharedChildren
             pois={pois}
             poi={poi}
