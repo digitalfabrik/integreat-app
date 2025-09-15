@@ -26,40 +26,37 @@ import { EXCERPT_MAX_CHARS } from '../constants'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import Link from './base/Link'
 
-const StyledListItem = styled(ListItem)(() => ({
-  '& .MuiListItemSecondaryAction-root': {
-    top: 32,
-  },
-}))
+const StyledListItem = styled(ListItem)`
+  [class*='MuiListItemSecondaryAction-root'] {
+    top: 32px;
+  }
+`
 
-const StyledListItemButton = styled(ListItemButton)(() => ({
-  alignItems: 'flex-start',
-  gap: 16,
-})) as typeof ListItemButton
+const StyledListItemButton = styled(ListItemButton)`
+  align-items: flex-start;
+  gap: ${props => props.theme.spacing(2)};
+` as typeof ListItemButton
 
-const StyledListItemAvatar = styled(ListItemAvatar)(({ theme }) => ({
-  '& .MuiAvatar-root': {
-    marginTop: 8,
-    width: 96,
-    height: 96,
-  },
+const StyledAvatar = styled(Avatar)(({ theme }) => ({
+  marginTop: 8,
+  width: 96,
+  height: 96,
 
   [theme.breakpoints.down('sm')]: {
-    '& .MuiAvatar-root': {
-      width: 64,
-      height: 64,
-    },
+    width: 64,
+    height: 64,
   },
 }))
 
-const StyledTypography = styled(Typography)<TypographyProps>(() => ({
-  '& p': {
-    margin: 0,
-  },
-  '& p:nth-of-type(2)': {
-    marginBottom: '4px',
-  },
-}))
+const StyledTypography = styled(Typography)<TypographyProps>`
+  p {
+    margin: 0;
+  }
+
+  p:nth-of-type(2) {
+    margin-bottom: 4px;
+  }
+`
 
 type EventListItemProps = {
   event: EventModel
@@ -109,10 +106,11 @@ const EventListItem = ({
       disablePadding
       secondaryAction={dateIcon && <Tooltip title={t(dateIcon.tooltip)}>{dateIcon.Icon}</Tooltip>}>
       <StyledListItemButton component={Link} to={event.path} dir='auto'>
-        <StyledListItemAvatar>
-          <Avatar src={thumbnailSrc} alt='' variant='square' />
-        </StyledListItemAvatar>
+        <ListItemAvatar>
+          <StyledAvatar src={thumbnailSrc} alt='' variant='square' />
+        </ListItemAvatar>
         <ListItemText
+          disableTypography
           primary={<Typography variant='title2'>{event.title}</Typography>}
           secondary={
             <StyledTypography variant='body1' flexDirection='column' component='div'>
