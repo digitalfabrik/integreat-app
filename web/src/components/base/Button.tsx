@@ -13,7 +13,7 @@ const StyledButton = styled.button<{ disabled: boolean }>`
 type ButtonProps = {
   onClick: () => void
   children: ReactNode
-  label: string
+  label?: string
   type?: 'submit' | 'button'
   disabled?: boolean
   tabIndex?: number

@@ -125,7 +125,7 @@ describe('events', () => {
         },
       }),
       poiPath: '/testumgebung/de/locations/testort/',
-      meetingUrl: null,
+      meetingUrl: 'https://meet.jit.si/test',
     })
 
   const event1 = createEvent(false, '2016-01-31T10:00:00+01:00', '2016-01-31T13:00:00+01:00')

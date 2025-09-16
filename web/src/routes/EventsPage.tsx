@@ -8,6 +8,7 @@ import { EVENTS_ROUTE, pathnameFromRouteInformation, useDateFilter } from 'share
 import { createEventsEndpoint, EventModel, NotFoundError, useLoadFromEndpoint } from 'shared/api'
 
 import { CityRouteProps } from '../CityContentSwitcher'
+import { LinkIcon, LocationIcon } from '../assets'
 import Caption from '../components/Caption'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
@@ -115,7 +116,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
   }
 
   if (event) {
-    const { featuredImage, lastUpdate, content, title, location, date } = event
+    const { featuredImage, lastUpdate, content, title, location, date, meetingUrl } = event
 
     return (
       <CityContentLayout isLoading={false} {...locationLayoutParams}>
@@ -128,10 +129,9 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
           title={title}
           BeforeContent={
             <Spacing content={content} lastUpdate={lastUpdate}>
-              <DatesPageDetail date={date} languageCode={languageCode} />
-              {location && (
-                <PageDetail identifier={t('address')} information={location.fullAddress} path={event.poiPath} />
-              )}
+              <DatesPageDetail date={date} />
+              {location && <PageDetail icon={LocationIcon} information={location.fullAddress} path={event.poiPath} />}
+              {meetingUrl !== null && <PageDetail icon={LinkIcon} information={meetingUrl} path={meetingUrl} />}
             </Spacing>
           }
           Footer={<ExportEventButton event={event} />}

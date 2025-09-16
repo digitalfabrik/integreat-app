@@ -2,53 +2,72 @@ import styled from '@emotion/styled'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { MAX_DATE_RECURRENCES, MAX_DATE_RECURRENCES_COLLAPSED } from 'shared'
+import { MAX_DATE_RECURRENCES } from 'shared'
 import { DateModel } from 'shared/api'
 
-import useWindowDimensions from '../hooks/useWindowDimensions'
-import Collapsible from './Collapsible'
+import { CalendarIcon, CalendarTodayIcon, ClockIcon } from '../assets'
+import dimensions from '../constants/dimensions'
 import PageDetail from './PageDetail'
+import Button from './base/Button'
 
-const Identifier = styled.span`
-  font-weight: bold;
+const Container = styled.div`
+  display: grid;
+  width: fit-content;
+  gap: 8px 16px;
+
+  @media ${dimensions.mediumLargeViewport} {
+    grid-template-columns: auto auto;
+  }
+`
+
+const ContainerForThreeElements = styled(Container)`
+  @media ${dimensions.mediumLargeViewport} {
+    & > :nth-child(3) {
+      grid-column: 1 / 3;
+    }
+  }
+`
+
+const StyledButton = styled(Button)`
+  grid-column: 1 / 3;
+  justify-self: start;
 `
 
 type DatesPageDetailProps = {
   date: DateModel
-  languageCode: string
 }
 
-const DatesPageDetail = ({ date, languageCode }: DatesPageDetailProps): ReactElement | null => {
-  const { viewportSmall } = useWindowDimensions()
-  const dates = date.recurrences(MAX_DATE_RECURRENCES).map(it => it.toFormattedString(languageCode, viewportSmall))
-  const nextDate = dates[0] ?? date.toFormattedString(languageCode, viewportSmall)
-  const hasMoreDates = date.hasMoreRecurrencesThan(MAX_DATE_RECURRENCES)
+const DatesPageDetail = ({ date }: DatesPageDetailProps): ReactElement | null => {
+  const [clicksOnShowMore, setClicksOnShowMore] = React.useState(0)
   const { t } = useTranslation('events')
 
-  if (dates.length === 1) {
-    return <PageDetail identifier={t('date_one')} information={nextDate} />
-  }
-
-  const Title = <Identifier>{t(hasMoreDates ? 'nextDate_other' : 'date_other')}: </Identifier>
-  const Dates = dates.map(it => <div key={it}>{it}</div>)
-  const AlwaysShownDates = <>{Dates.slice(0, MAX_DATE_RECURRENCES_COLLAPSED)}</>
-
-  if (dates.length <= MAX_DATE_RECURRENCES_COLLAPSED) {
+  if (date.isMonthlyOrYearlyRecurrence()) {
     return (
-      <div>
-        {Title}
-        {AlwaysShownDates}
-      </div>
+      <Container>
+        {date
+          .recurrences(MAX_DATE_RECURRENCES * (clicksOnShowMore + 1))
+          .map(recurrence => recurrence.formatMonthlyOrYearlyRecurrence(t))
+          .map(formattedDate => (
+            <React.Fragment key={formattedDate.date}>
+              <PageDetail icon={CalendarIcon} information={formattedDate.date} />
+              <PageDetail icon={ClockIcon} information={formattedDate.time} />
+            </React.Fragment>
+          ))}
+        <StyledButton type='button' onClick={() => setClicksOnShowMore(clicksOnShowMore + 1)}>
+          {t('common:showMore')}
+        </StyledButton>
+      </Container>
     )
   }
 
+  const formattedDate = date.formatEventDate(t)
+
   return (
-    <Collapsible title={Title} Description={AlwaysShownDates} initialCollapsed>
-      <>
-        {Dates.slice(MAX_DATE_RECURRENCES_COLLAPSED)}
-        {hasMoreDates && '...'}
-      </>
-    </Collapsible>
+    <ContainerForThreeElements>
+      <PageDetail icon={CalendarTodayIcon} information={formattedDate.date} />
+      {formattedDate.weekday !== undefined && <PageDetail information={formattedDate.weekday} />}
+      <PageDetail icon={ClockIcon} information={formattedDate.time} />
+    </ContainerForThreeElements>
   )
 }
 
