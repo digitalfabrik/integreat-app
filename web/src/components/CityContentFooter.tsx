@@ -32,10 +32,6 @@ const CityContentFooter = ({ city, language, mode = 'normal' }: CityContentFoote
     />
   )
 
-  if (mode === 'sidebar') {
-    return <Footer>{FooterContent}</Footer>
-  }
-
   return mode === 'overlay' ? <OverlayFooter>{FooterContent}</OverlayFooter> : <Footer>{FooterContent}</Footer>
 }
 

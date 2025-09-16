@@ -16,11 +16,13 @@ const FooterContainer = styled('footer')`
   gap: ${props => props.theme.spacing(2)};
   background-color: ${props => props.theme.legacy.colors.backgroundAccentColor};
   padding-bottom: ${props => props.theme.spacing(2)};
+  color: ${props => props.theme.palette.text.primary};
 
   ${props => props.theme.breakpoints.up('md')} {
     background-color: ${props =>
       props.theme.isContrastTheme ? props.theme.palette.secondary.dark : props.theme.palette.secondary.light};
     padding: 0 4px;
+    color: inherit;
   }
 `
 
