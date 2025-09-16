@@ -107,7 +107,9 @@ const NewsListItem = ({ index, newsItem, navigateToNews, isTunews }: NewsListIte
         </StyledPressable>
         <Pressable role='link' onPress={navigateToNews}>
           <ReadMoreWrapper language={i18n.language}>
-            <ReadMore isTunews={isTunews} onPress={navigateToNews}>{`${t('readMore')}`}</ReadMore>
+            <ReadMore isTunews={isTunews} onPress={navigateToNews}>
+              {t('common:more')}
+            </ReadMore>
             <StyledIcon Icon={ArrowBackIcon} directionDependent reverse isTunews={isTunews} />
           </ReadMoreWrapper>
         </Pressable>
