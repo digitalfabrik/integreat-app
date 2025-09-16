@@ -7,6 +7,7 @@ import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 
 import BreadcrumbModel from '../models/BreadcrumbModel'
+import getBreadcrumbs from '../utils/getBreadcrumbs'
 import Breadcrumb from './Breadcrumb'
 import JsonLdBreadcrumbs from './JsonLdBreadcrumbs'
 import Icon from './base/Icon'
@@ -77,7 +78,7 @@ const Separator = styled('div')`
   }
 `
 
-const StyledEllipsis = styled('span')`
+const StyledEllipsis = styled(Link)`
   white-space: nowrap;
 `
 
@@ -86,43 +87,12 @@ type BreadcrumbsProps = {
   currentBreadcrumb: BreadcrumbModel
 }
 
-const getBreadcrumbs = (
-  ancestorBreadcrumbs: BreadcrumbModel[],
-  currentBreadcrumb: BreadcrumbModel,
-  returnAllBreadcrumbs: boolean,
-): BreadcrumbModel[] => {
-  const allBreadcrumbs = [...ancestorBreadcrumbs, currentBreadcrumb]
-  const breadCrumbsLimit = 3 // with home included
-  const lastTwoCrumbs = -2
-
-  if (ancestorBreadcrumbs.length === 0) {
-    return []
-  }
-
-  if (allBreadcrumbs.length <= breadCrumbsLimit) {
-    return allBreadcrumbs
-  }
-
-  const home = allBreadcrumbs[0] as BreadcrumbModel
-  const rest = allBreadcrumbs.slice(1)
-  const ellipsis = new BreadcrumbModel({
-    title: '...',
-    pathname: '',
-    node: <StyledEllipsis>...</StyledEllipsis>,
-  })
-
-  if (returnAllBreadcrumbs) {
-    return [home, ...rest]
-  }
-
-  return [home, ellipsis, ...rest.slice(lastTwoCrumbs)]
-}
-
 const Breadcrumbs = ({ ancestorBreadcrumbs, currentBreadcrumb }: BreadcrumbsProps): ReactElement => {
   // The current page should not be listed in the UI, but should be within the JsonLd.
   const jsonLdBreadcrumbs = [...ancestorBreadcrumbs, currentBreadcrumb]
   // Min text length after which the last breadcrumb item should shrink
   const MIN_SHRINK_CHARS = 20
+  const MAX_BREADCRUMBS = 3
 
   const theme = useTheme()
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'))
@@ -133,39 +103,41 @@ const Breadcrumbs = ({ ancestorBreadcrumbs, currentBreadcrumb }: BreadcrumbsProp
         length={ancestorBreadcrumbs.length}
         aria-label='breadcrumb'
         separator={<Separator />}
-        maxItems={isDesktop ? 2 : undefined}
+        maxItems={isDesktop ? MAX_BREADCRUMBS : undefined}
         itemsBeforeCollapse={isDesktop ? 1 : undefined}
         itemsAfterCollapse={isDesktop ? 2 : undefined}>
-        {getBreadcrumbs(ancestorBreadcrumbs, currentBreadcrumb, isDesktop).map((breadcrumb, index, array) => {
-          const isHome = array.length > 1 && index === 0
-          const isLast = index === array.length - 1
+        {getBreadcrumbs(ancestorBreadcrumbs, currentBreadcrumb, isDesktop, StyledEllipsis).map(
+          (breadcrumb, index, array) => {
+            const isHome = array.length > 1 && index === 0
+            const isLast = index === array.length - 1
 
-          if (isHome) {
+            if (isHome) {
+              return (
+                <StyledLink key={breadcrumb.pathname} to={breadcrumb.pathname}>
+                  <StyledIcon src={HomeOutlinedIcon} title={breadcrumb.title} />
+                </StyledLink>
+              )
+            }
+
+            if (breadcrumb.title === '...') {
+              return (
+                <StyledEllipsis to={breadcrumb.pathname} key='ellipsis' data-ellipsis>
+                  ...
+                </StyledEllipsis>
+              )
+            }
+
             return (
-              <StyledLink key={breadcrumb.pathname} to={breadcrumb.pathname}>
-                <StyledIcon src={HomeOutlinedIcon} title={breadcrumb.title} />
-              </StyledLink>
+              <Breadcrumb
+                title={breadcrumb.title}
+                to={breadcrumb.pathname}
+                shrink={breadcrumb.title.length >= MIN_SHRINK_CHARS}
+                isCurrent={isLast}
+                key={breadcrumb.title}
+              />
             )
-          }
-
-          if (breadcrumb.title === '...') {
-            return (
-              <StyledEllipsis key='ellipsis' data-ellipsis>
-                ...
-              </StyledEllipsis>
-            )
-          }
-
-          return (
-            <Breadcrumb
-              title={breadcrumb.title}
-              to={breadcrumb.pathname}
-              shrink={breadcrumb.title.length >= MIN_SHRINK_CHARS}
-              isCurrent={isLast}
-              key={breadcrumb.title}
-            />
-          )
-        })}
+          },
+        )}
       </StyledMuiBreadcrumbs>
     </StyledBox>
   )

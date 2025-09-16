@@ -5,18 +5,19 @@ import React, { ReactElement } from 'react'
 import { helpers } from '../constants/theme'
 
 const SHRINK_FACTOR = 0.1
-const StyledTitle = styled('span')<{ shrink: boolean; isCurrent?: boolean }>`
+const StyledLink = styled(Link)<{ shrinkFactor: number; isCurrent?: boolean }>`
   display: list-item;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  flex-shrink: ${props => (props.shrink ? SHRINK_FACTOR : 0)};
+  flex-shrink: ${props => props.shrinkFactor};
 
   &:not(:last-of-type) {
     flex-shrink: 1;
   }
 
-  color: ${props => (props.isCurrent ? props.theme.palette.primary.main : props.theme.palette.text.secondary)};
+  color: ${props =>
+    props.isCurrent ? props.theme.palette.primary.main : props.theme.palette.text.secondary} !important;
   margin: 0 2px;
 `
 
@@ -31,11 +32,14 @@ type BreadcrumbProps = {
  * Displays breadcrumbs (Links) for lower category levels
  */
 const Breadcrumb = ({ title, to, shrink, isCurrent }: BreadcrumbProps): ReactElement => (
-  <Link css={helpers.removeLinkHighlighting} color='inherit' href={to}>
-    <StyledTitle shrink={shrink} isCurrent={isCurrent}>
-      {title}
-    </StyledTitle>
-  </Link>
+  <StyledLink
+    css={helpers.removeLinkHighlighting}
+    color='inherit'
+    href={to}
+    shrinkFactor={shrink ? SHRINK_FACTOR : 0}
+    isCurrent={isCurrent}>
+    {title}
+  </StyledLink>
 )
 
 export default Breadcrumb

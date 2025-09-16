@@ -82,6 +82,6 @@ describe('Breadcrumbs', () => {
     const { getByText } = render(ancestors, breadcrumb1)
 
     const currentBreadcrumb = getByText(breadcrumb1.title)
-    expect(currentBreadcrumb).toHaveStyle('color:#4B6EDA')
+    expect(currentBreadcrumb).toHaveStyle('color:#4B6EDA !important')
   })
 })
