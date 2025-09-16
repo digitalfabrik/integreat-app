@@ -14,15 +14,35 @@ import { EXCERPT_MAX_CHARS } from '../constants'
 import LastUpdateInfo from './LastUpdateInfo'
 import Link from './base/Link'
 
-const StyledListItemButton = styled(ListItemButton)({
+const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
   justifyContent: 'space-between',
   gap: 32,
-}) as typeof ListItemButton
+
+  [theme.breakpoints.down('sm')]: {
+    display: 'grid',
+    gridTemplateColumns: '1fr auto',
+    gap: 8,
+  },
+})) as typeof ListItemButton
 
 const StyledButton = styled(Button)(({ theme }) => ({
   backgroundColor: 'transparent',
+
   [theme.breakpoints.down('sm')]: {
-    display: 'none',
+    padding: 0,
+    width: 'fit-content',
+  },
+}))
+
+const StyledListItemText = styled(ListItemText)(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    gridColumn: '1/3',
+  },
+}))
+
+const StyledStack = styled(Stack)(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    display: 'contents',
   },
 }))
 
@@ -40,10 +60,10 @@ const NewsListItem = ({ title, content, timestamp, to }: NewsListItemProps): Rea
   return (
     <ListItem disablePadding>
       <StyledListItemButton component={Link} to={to}>
-        <Stack maxWidth='100%'>
-          <ListItemText primary={title} secondary={excerpt} />
+        <StyledStack maxWidth='100%'>
+          <StyledListItemText primary={title} secondary={excerpt} />
           <LastUpdateInfo lastUpdate={timestamp} withText={false} />
-        </Stack>
+        </StyledStack>
         <StyledButton disableRipple>{t('common:more')}</StyledButton>
       </StyledListItemButton>
     </ListItem>
