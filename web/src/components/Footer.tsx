@@ -21,7 +21,7 @@ const FooterContainer = styled('footer')`
   ${props => props.theme.breakpoints.up('md')} {
     background-color: ${props =>
       props.theme.isContrastTheme ? props.theme.palette.secondary.dark : props.theme.palette.secondary.light};
-    padding: 0 4px;
+    padding: 8px;
     color: inherit;
   }
 `
