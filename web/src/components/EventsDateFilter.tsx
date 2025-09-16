@@ -1,7 +1,6 @@
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import Accordion from '@mui/material/Accordion'
 import AccordionDetails from '@mui/material/AccordionDetails'
-import AccordionSummary from '@mui/material/AccordionSummary'
 import { styled } from '@mui/material/styles'
 import { DateTime } from 'luxon'
 import React, { ReactElement, useState } from 'react'
@@ -39,10 +38,6 @@ const StyledButton = styled(Button)`
 
 const StyledAccordion = styled(Accordion)`
   background-color: transparent;
-`
-
-const StyledAccordionSummary = styled(AccordionSummary)`
-  display: none;
 `
 
 const StyledAccordionDetails = styled(AccordionDetails)`
@@ -83,9 +78,8 @@ const EventsDateFilter = ({
 
   return (
     <>
-      <FilterToggle isDateFilterActive={showDateFilter} setToggleDateFilter={setShowDateFilter} />
       <StyledAccordion disableGutters expanded={showDateFilter} elevation={0}>
-        <StyledAccordionSummary />
+        <FilterToggle isDateFilterActive={showDateFilter} setToggleDateFilter={setShowDateFilter} />
         <StyledAccordionDetails>
           <DateSection>
             <>
