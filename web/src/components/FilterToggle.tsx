@@ -8,6 +8,10 @@ import { useTranslation } from 'react-i18next'
 
 import Icon from './base/Icon'
 
+const StyledAccordionSummary = styled(AccordionSummary)`
+  padding: 0;
+`
+
 const StyledContainer = styled('div')`
   display: flex;
   align-items: center;
@@ -34,12 +38,12 @@ const FilterToggle = ({
 }): ReactElement => {
   const { t } = useTranslation('events')
   return (
-    <AccordionSummary onClick={() => setToggleDateFilter(!isDateFilterActive)}>
+    <StyledAccordionSummary onClick={() => setToggleDateFilter(!isDateFilterActive)}>
       <StyledContainer>
         <StyledIcon src={isDateFilterActive ? CloseFullscreenIcon : FilterListIcon} />
         <StyledTypography variant='button'>{t(isDateFilterActive ? 'hideFilters' : 'showFilters')}</StyledTypography>
       </StyledContainer>
-    </AccordionSummary>
+    </StyledAccordionSummary>
   )
 }
 
