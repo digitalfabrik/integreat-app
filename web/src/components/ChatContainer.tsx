@@ -53,9 +53,10 @@ const ChatActionButton = styled(Fab)`
 type ChatContainerProps = {
   city: CityModel
   language: string
+  bottomOffset?: number
 }
 
-const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement => {
+const ChatContainer = ({ city, language, bottomOffset = 0 }: ChatContainerProps): ReactElement => {
   const [queryParams, setQueryParams] = useSearchParams()
   const initialChatVisibility = parseQueryParams(queryParams).chat ?? false
   const [chatVisible, setChatVisible] = useState(initialChatVisibility)
@@ -66,8 +67,8 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement => 
 
   const bottom =
     ttsPlayerVisible && width <= dimensions.maxTtsPlayerWidth
-      ? visibleFooterHeight + dimensions.ttsPlayerHeight + CHAT_BUTTON_SIZE
-      : visibleFooterHeight
+      ? visibleFooterHeight + bottomOffset + dimensions.ttsPlayerHeight + CHAT_BUTTON_SIZE
+      : visibleFooterHeight + bottomOffset
 
   useEffect(() => {
     if (queryParams.has(CHAT_QUERY_KEY)) {
