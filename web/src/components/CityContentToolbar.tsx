@@ -1,6 +1,6 @@
 import ContrastIcon from '@mui/icons-material/Contrast'
 import { useTheme } from '@mui/material/styles'
-import React, { memo, ReactNode, useContext } from 'react'
+import React, { ReactElement, ReactNode, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { RATING_NEGATIVE, RATING_POSITIVE } from 'shared'
@@ -9,24 +9,24 @@ import { ReadAloudIcon } from '../assets'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { RouteType } from '../routes'
 import FeedbackToolbarItem from './FeedbackToolbarItem'
-import SharingPopup from './SharingPopup'
+import SharingPopupToolbarItem from './SharingPopupToolbarItem'
 import Toolbar from './Toolbar'
 import ToolbarItem from './ToolbarItem'
 import { TtsContext } from './TtsContainer'
+import Icon from './base/Icon'
 
 type CityContentToolbarProps = {
   feedbackTarget?: string
   children?: ReactNode
   iconDirection?: 'row' | 'column'
   hasFeedbackOption?: boolean
-  hideDivider?: boolean
   pageTitle: string
   route: RouteType
   isInBottomActionSheet?: boolean
   maxItems?: number
 }
 
-const CityContentToolbar = (props: CityContentToolbarProps) => {
+const CityContentToolbar = (props: CityContentToolbarProps): ReactElement => {
   const { enabled: ttsEnabled, showTtsPlayer, canRead } = useContext(TtsContext)
   const { toggleTheme } = useTheme()
   const { viewportSmall } = useWindowDimensions()
@@ -37,7 +37,6 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
     children,
     iconDirection = viewportSmall ? 'row' : 'column',
     hasFeedbackOption = true,
-    hideDivider,
     route,
     pageTitle,
     isInBottomActionSheet = false,
@@ -52,9 +51,8 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
     hasFeedbackOption && (
       <FeedbackToolbarItem key='negative' route={route} slug={feedbackTarget} rating={RATING_NEGATIVE} />
     ),
-    <SharingPopup
+    <SharingPopupToolbarItem
       key='share'
-      shareUrl={window.location.href}
       flow={iconDirection === 'row' ? 'vertical' : 'horizontal'}
       title={pageTitle}
       portalNeeded={isInBottomActionSheet}
@@ -62,22 +60,20 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
     ttsEnabled && (
       <ToolbarItem
         key='tts'
-        icon={ReadAloudIcon}
-        isDisabled={!canRead}
+        icon={<Icon src={ReadAloudIcon} />}
+        disabled={!canRead}
         text={t('readAloud')}
         tooltip={canRead ? null : t('nothingToReadFullMessage')}
         onClick={showTtsPlayer}
       />
     ),
-    !viewportSmall && <ToolbarItem key='theme' icon={ContrastIcon} text={t('contrastTheme')} onClick={toggleTheme} />,
+    !viewportSmall && (
+      <ToolbarItem key='theme' icon={<ContrastIcon />} text={t('contrastTheme')} onClick={toggleTheme} />
+    ),
   ]
     .filter(Boolean)
     .slice(0, maxItems)
 
-  return (
-    <Toolbar iconDirection={iconDirection} hideDivider={hideDivider}>
-      {items}
-    </Toolbar>
-  )
+  return <Toolbar>{items}</Toolbar>
 }
-export default memo(CityContentToolbar)
+export default CityContentToolbar

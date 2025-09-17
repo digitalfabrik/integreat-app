@@ -67,14 +67,7 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
     city,
     languageChangePaths,
     languageCode,
-    Toolbar: (
-      <CityContentToolbar
-        route={LOCAL_NEWS_ROUTE}
-        hasFeedbackOption={false}
-        hideDivider={localNews?.length !== 0 && !newsId}
-        pageTitle={pageTitle}
-      />
-    ),
+    Toolbar: <CityContentToolbar route={LOCAL_NEWS_ROUTE} hasFeedbackOption={false} pageTitle={pageTitle} />,
   }
 
   if (loading || previousPathname !== pathname) {
