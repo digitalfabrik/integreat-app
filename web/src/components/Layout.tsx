@@ -4,7 +4,6 @@ import React, { ReactElement, ReactNode } from 'react'
 
 import dimensions from '../constants/dimensions'
 import { MobileBanner } from './MobileBanner'
-import Portal from './Portal'
 
 export const RichLayout = styled('div')`
   position: relative;
@@ -64,7 +63,7 @@ const Main = styled('main')<{ fullWidth: boolean }>`
   display: inline-block;
   width: ${props =>
     props.fullWidth ? '100%' : `${props.theme.breakpoints.values.lg - 2 * dimensions.toolbarWidth}px`};
-  max-width: ${props => (props.fullWidth ? '100%' : `calc(100% - ${dimensions.toolbarWidth}px)`)};
+  max-width: ${props => (props.fullWidth ? '100%' : `calc(100% - 2 * ${dimensions.toolbarWidth}px)`)};
   box-sizing: border-box;
   margin: 0 auto;
   padding: ${props => (props.fullWidth ? '0' : `0 ${dimensions.mainContainerHorizontalPadding}px 30px`)};
@@ -90,11 +89,7 @@ const Aside = styled('aside')`
   left: 0;
 
   ${props => props.theme.breakpoints.up('lg')} {
-    inset-inline-start: 8%;
-  }
-
-  &:empty {
-    display: none;
+    inset-inline-start: 8px;
   }
 `
 
@@ -123,11 +118,7 @@ const Layout = ({
     <MobileBanner />
     {header}
     <Body fullWidth={fullWidth} disableScrollingSafari={disableScrollingSafari}>
-      {toolbar ? (
-        <Portal className='aside' show>
-          <Aside>{toolbar}</Aside>
-        </Portal>
-      ) : null}
+      {toolbar && <Aside>{toolbar}</Aside>}
       <Main fullWidth={fullWidth}>{children}</Main>
     </Body>
     {chat}
