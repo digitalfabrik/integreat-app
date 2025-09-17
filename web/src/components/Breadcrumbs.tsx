@@ -90,7 +90,6 @@ const getBreadcrumbs = (
   ancestorBreadcrumbs: BreadcrumbModel[],
   currentBreadcrumb: BreadcrumbModel,
   returnAllBreadcrumbs: boolean,
-  StyledEllipsis: React.ElementType,
 ): BreadcrumbModel[] => {
   const allBreadcrumbs = [...ancestorBreadcrumbs, currentBreadcrumb]
   const breadCrumbsLimit = 3 // with home included
@@ -111,7 +110,7 @@ const getBreadcrumbs = (
   const ellipsis = new BreadcrumbModel({
     title: '...',
     pathname: ellipsisPathname,
-    node: <StyledEllipsis>...</StyledEllipsis>,
+    node: null,
   })
 
   if (returnAllBreadcrumbs) {
@@ -140,38 +139,36 @@ const Breadcrumbs = ({ ancestorBreadcrumbs, currentBreadcrumb }: BreadcrumbsProp
         maxItems={isDesktop ? MAX_BREADCRUMBS : undefined}
         itemsBeforeCollapse={isDesktop ? 1 : undefined}
         itemsAfterCollapse={isDesktop ? 2 : undefined}>
-        {getBreadcrumbs(ancestorBreadcrumbs, currentBreadcrumb, isDesktop, StyledEllipsis).map(
-          (breadcrumb, index, array) => {
-            const isHome = array.length > 1 && index === 0
-            const isLast = index === array.length - 1
+        {getBreadcrumbs(ancestorBreadcrumbs, currentBreadcrumb, isDesktop).map((breadcrumb, index, array) => {
+          const isHome = array.length > 1 && index === 0
+          const isLast = index === array.length - 1
 
-            if (isHome) {
-              return (
-                <StyledLink key={breadcrumb.pathname} to={breadcrumb.pathname}>
-                  <StyledIcon src={HomeOutlinedIcon} title={breadcrumb.title} />
-                </StyledLink>
-              )
-            }
-
-            if (breadcrumb.title === '...') {
-              return (
-                <StyledEllipsis to={breadcrumb.pathname} key='ellipsis' data-ellipsis>
-                  ...
-                </StyledEllipsis>
-              )
-            }
-
+          if (isHome) {
             return (
-              <Breadcrumb
-                title={breadcrumb.title}
-                to={breadcrumb.pathname}
-                shrink={breadcrumb.title.length >= MIN_SHRINK_CHARS}
-                isCurrent={isLast}
-                key={breadcrumb.title}
-              />
+              <StyledLink key={breadcrumb.pathname} to={breadcrumb.pathname}>
+                <StyledIcon src={HomeOutlinedIcon} title={breadcrumb.title} />
+              </StyledLink>
             )
-          },
-        )}
+          }
+
+          if (breadcrumb.title === '...') {
+            return (
+              <StyledEllipsis to={breadcrumb.pathname} key='ellipsis' data-ellipsis>
+                ...
+              </StyledEllipsis>
+            )
+          }
+
+          return (
+            <Breadcrumb
+              title={breadcrumb.title}
+              to={breadcrumb.pathname}
+              shrink={breadcrumb.title.length >= MIN_SHRINK_CHARS}
+              isCurrent={isLast}
+              key={breadcrumb.title}
+            />
+          )
+        })}
       </StyledMuiBreadcrumbs>
     </StyledBox>
   )
