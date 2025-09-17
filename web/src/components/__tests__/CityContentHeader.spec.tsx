@@ -37,9 +37,9 @@ describe('CityContentHeader', () => {
 
   it('should show sidebar on small viewports', () => {
     mocked(useWindowDimensions).mockImplementation(() => ({ ...mockWindowDimensions, viewportSmall: true }))
-    const { getAllByText, getByText, getByLabelText } = renderCityContentHeader()
+    const { getByText, getByLabelText } = renderCityContentHeader()
     expect(getByText(cityModel.name)).toBeTruthy()
-    expect(getAllByText('Deutsch')).toBeTruthy()
+    expect(getByLabelText('layout:changeLanguage')).toBeTruthy()
     expect(getByText('layout:events')).toBeTruthy()
     expect(getByLabelText('layout:sideBarOpenAriaLabel')).toBeTruthy()
   })
