@@ -75,8 +75,6 @@ describe('CategoriesToolbar', () => {
     const { getByText } = renderWithRouterAndTheme(
       <CategoriesToolbar category={rootCategory} cityCode={cityCode} languageCode={languageCode} pageTitle='Test' />,
     )
-    const pdfUrlLink = getByText('categories:createPdf').closest('a')
-
-    expect(pdfUrlLink?.href).toBeFalsy()
+    expect(getByText('categories:createPdf').closest('a')).toHaveClass('Mui-disabled')
   })
 })
