@@ -42,7 +42,7 @@ const CityContentHeader = ({ cityModel, languageCode, languageChangePaths }: Cit
       actionItems={actionItems}
       cityName={cityModel.name}
       language={languageCode}
-      TabBar={<NavigationTabs cityModel={cityModel} languageCode={languageCode} />}
+      TabBar={!viewportSmall && <NavigationTabs cityModel={cityModel} languageCode={languageCode} />}
     />
   )
 }
