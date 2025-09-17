@@ -4,19 +4,11 @@ import { useTheme } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import {
-  CATEGORIES_ROUTE,
-  cityContentPath,
-  EVENTS_ROUTE,
-  NEWS_ROUTE,
-  pathnameFromRouteInformation,
-  POIS_ROUTE,
-} from 'shared'
+import { CATEGORIES_ROUTE, EVENTS_ROUTE, NEWS_ROUTE, POIS_ROUTE } from 'shared'
 import { CityModel } from 'shared/api'
 
-import buildConfig from '../constants/buildConfig'
 import useCityContentParams from '../hooks/useCityContentParams'
-import { LOCAL_NEWS_ROUTE, TU_NEWS_ROUTE } from '../routes'
+import getNavigationItems from '../utils/navigationItems'
 import Link from './base/Link'
 
 type NavigationTabsProps = {
@@ -30,41 +22,19 @@ const NavigationTabs = ({ cityModel, languageCode }: NavigationTabsProps): React
   const theme = useTheme()
   const color = theme.isContrastTheme ? 'secondary' : 'primary'
 
-  const { eventsEnabled, poisEnabled, tunewsEnabled, localNewsEnabled } = cityModel
-  const isNewsVisible = buildConfig().featureFlags.newsStream && (localNewsEnabled || tunewsEnabled)
-  const isEventsVisible = eventsEnabled
-  const isPoisVisible = buildConfig().featureFlags.pois && poisEnabled
-
-  const params = { cityCode: cityModel.code, languageCode }
-  const categoriesPath = cityContentPath(params)
-  const eventsPath = pathnameFromRouteInformation({ route: EVENTS_ROUTE, ...params })
-  const poisPath = pathnameFromRouteInformation({ route: POIS_ROUTE, ...params })
-  const newsType = localNewsEnabled ? LOCAL_NEWS_ROUTE : TU_NEWS_ROUTE
-  const newsPath = pathnameFromRouteInformation({ route: NEWS_ROUTE, newsType, ...params })
-
-  const tabs = [
-    <Tab
-      key='categories'
-      component={Link}
-      to={categoriesPath}
-      value={CATEGORIES_ROUTE}
-      label={t('localInformation')}
-    />,
-    isPoisVisible && <Tab key='locations' component={Link} to={poisPath} value={POIS_ROUTE} label={t('locations')} />,
-    isNewsVisible && <Tab key='news' component={Link} value={NEWS_ROUTE} to={newsPath} label={t('news')} />,
-    isEventsVisible && <Tab key='events' component={Link} to={eventsPath} value={EVENTS_ROUTE} label={t('events')} />,
-  ].filter((tab): tab is ReactElement => tab !== false)
-
+  const navigationItems = getNavigationItems({ cityModel, languageCode })
   const allTabValues: string[] = [CATEGORIES_ROUTE, POIS_ROUTE, NEWS_ROUTE, EVENTS_ROUTE]
   const currentTabValue = allTabValues.includes(route) ? route : false
 
-  if (tabs.length < 2) {
+  if (!navigationItems) {
     return null
   }
 
   return (
     <Tabs value={currentTabValue} component='nav' textColor={color} indicatorColor={color}>
-      {tabs}
+      {navigationItems.map(item => (
+        <Tab key={item.value} component={Link} to={item.to} value={item.value} label={t(item.label)} />
+      ))}
     </Tabs>
   )
 }
