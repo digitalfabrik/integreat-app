@@ -1,14 +1,34 @@
 import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen'
 import FilterListIcon from '@mui/icons-material/FilterList'
 import AccordionSummary from '@mui/material/AccordionSummary'
-import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import Icon from './base/Icon'
+
 const StyledAccordionSummary = styled(AccordionSummary)`
   padding: 0;
 `
+
+const StyledContainer = styled('div')`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+  font-weight: bold;
+  padding: 5px;
+`
+
+const StyledTypography = styled(Typography)`
+  color: ${props => props.theme.palette.primary.main};
+`
+
+const StyledIcon = styled(Icon)`
+  color: ${props => props.theme.palette.primary.main};
+`
+
 const FilterToggle = ({
   isDateFilterActive,
   setToggleDateFilter,
@@ -19,9 +39,10 @@ const FilterToggle = ({
   const { t } = useTranslation('events')
   return (
     <StyledAccordionSummary onClick={() => setToggleDateFilter(!isDateFilterActive)}>
-      <Button startIcon={isDateFilterActive ? <CloseFullscreenIcon /> : <FilterListIcon />}>
-        {t(isDateFilterActive ? 'hideFilters' : 'showFilters')}
-      </Button>
+      <StyledContainer>
+        <StyledIcon src={isDateFilterActive ? CloseFullscreenIcon : FilterListIcon} />
+        <StyledTypography variant='button'>{t(isDateFilterActive ? 'hideFilters' : 'showFilters')}</StyledTypography>
+      </StyledContainer>
     </StyledAccordionSummary>
   )
 }
