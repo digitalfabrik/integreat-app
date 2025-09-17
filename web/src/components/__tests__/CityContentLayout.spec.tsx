@@ -5,7 +5,7 @@ import React, { ReactElement } from 'react'
 import { CityModelBuilder } from 'shared/api'
 
 import useWindowDimensions from '../../hooks/useWindowDimensions'
-import { renderWithTheme } from '../../testing/render'
+import { renderAllRoutes } from '../../testing/render'
 import { mockWindowDimensions } from '../../testing/utils'
 import CityContentLayout from '../CityContentLayout'
 
@@ -26,16 +26,18 @@ describe('CityContentLayout', () => {
 
   const MockNode = () => <div />
   const renderCityContentLayout = (isLoading: boolean, Toolbar?: ReactElement): RenderResult =>
-    renderWithTheme(
-      <CityContentLayout
-        Toolbar={Toolbar}
-        city={cityModel}
-        languageCode={language}
-        languageChangePaths={languageChangePaths}
-        isLoading={isLoading}>
-        <MockNode />
-      </CityContentLayout>,
-    )
+    renderAllRoutes('/augsburg/de', {
+      CityContentElement: (
+        <CityContentLayout
+          Toolbar={Toolbar}
+          city={cityModel}
+          languageCode={language}
+          languageChangePaths={languageChangePaths}
+          isLoading={isLoading}>
+          <MockNode />
+        </CityContentLayout>
+      ),
+    })
 
   it('should render a toolbar on big screens', () => {
     mocked(useWindowDimensions).mockImplementation(() => ({ ...mockWindowDimensions, viewportSmall: false }))
