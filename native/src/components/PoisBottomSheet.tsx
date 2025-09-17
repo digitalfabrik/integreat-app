@@ -3,7 +3,7 @@ import BottomSheet, {
   BottomSheetFlatListMethods,
   BottomSheetScrollView,
 } from '@gorhom/bottom-sheet'
-import React, { memo, ReactElement, Ref, useCallback, useRef, useState } from 'react'
+import React, { memo, ReactElement, Ref, useCallback, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Platform } from 'react-native'
 import styled, { useTheme } from 'styled-components/native'
@@ -67,27 +67,19 @@ const PoisBottomSheet = ({
   const { t } = useTranslation('pois')
   const theme = useTheme()
   const bottomSheetRef = useRef<BottomSheet>(null)
-  const [lastInteractionWasKeyboard, setLastInteractionWasKeyboard] = useState(false)
-
   // ios has scrolling issues if content panning gesture is not enabled
   const enableContentPanningGesture = Platform.OS === 'ios' || !isFullscreen
 
   const handlePoiFocus = useCallback(() => {
-    setLastInteractionWasKeyboard(true)
     if (!isFullscreen && bottomSheetRef.current) {
       const fullscreenIndex = snapPoints.length - 1
       bottomSheetRef.current.snapToIndex(fullscreenIndex)
-      setSnapPointIndex(fullscreenIndex)
     }
-  }, [isFullscreen, snapPoints.length, setSnapPointIndex])
+  }, [isFullscreen, snapPoints.length])
 
   const handlePoiSelection = (poi: PoiModel) => {
     selectPoi(poi)
-    if (bottomSheetRef.current && lastInteractionWasKeyboard) {
-      bottomSheetRef.current.snapToIndex(1)
-      setSnapPointIndex(1)
-    }
-    setLastInteractionWasKeyboard(false)
+    bottomSheetRef.current?.snapToIndex(1)
   }
 
   const PoiDetail = poi ? (
