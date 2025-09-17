@@ -2388,266 +2388,6 @@
       "noSources": "无外部来源。"
     }
   },
-  "dashboard": {
-    "de": {
-      "localInformation": "Lokale Informationen",
-      "events": "Veranstaltungen",
-      "news": "Nachrichten",
-      "pois": "Karte"
-    },
-    "am": {
-      "localInformation": "አካባቢያዊ መረጃ",
-      "events": "ዝግጅቶች",
-      "news": "ዜናዎች",
-      "pois": "ካርታ"
-    },
-    "ar": {
-      "localInformation": "معلومات محلية",
-      "events": "الفعاليات",
-      "news": "الأخبار",
-      "pois": "الخريطة"
-    },
-    "bg": {
-      "localInformation": "Местна информация",
-      "events": "Събития",
-      "news": "Новини",
-      "pois": "Карта"
-    },
-    "ckb": {
-      "localInformation": "زانیارییە خۆجییەکان",
-      "events": "ڕووداوەکان",
-      "news": "هەواڵ",
-      "pois": "نەخشە"
-    },
-    "cs": {
-      "localInformation": "Místní informace",
-      "events": "Akce",
-      "news": "Zprávy",
-      "pois": "Mapa"
-    },
-    "da": {
-      "localInformation": "Lokale oplysninger",
-      "events": "Begivenheder",
-      "news": "Nyheder",
-      "pois": "Kort"
-    },
-    "el": {
-      "localInformation": "Τοπικές πληροφορίες",
-      "events": "Εκδηλώσεις",
-      "news": "Ειδήσεις",
-      "pois": "Χάρτης"
-    },
-    "en": {
-      "localInformation": "Local information",
-      "events": "Events",
-      "news": "News",
-      "pois": "Map"
-    },
-    "es": {
-      "localInformation": "Información local",
-      "events": "Actividades",
-      "news": "Noticias",
-      "pois": "Mapa"
-    },
-    "fi": {
-      "localInformation": "Paikalliset tiedot",
-      "events": "Tapahtumat",
-      "news": "Viestit",
-      "pois": "Kartta"
-    },
-    "fr": {
-      "localInformation": "Informations locales",
-      "events": "Événements",
-      "news": "Nouvelles",
-      "pois": "Carte"
-    },
-    "hi": {
-      "localInformation": "स्थानीय जानकारी",
-      "events": "ईवेंट",
-      "news": "समाचार",
-      "pois": "मैप"
-    },
-    "hr": {
-      "localInformation": "Lokalne informacije",
-      "events": "Događanja",
-      "news": "Vijesti",
-      "pois": "Karta"
-    },
-    "hu": {
-      "localInformation": "Helyi információk",
-      "events": "Események",
-      "news": "Hírek",
-      "pois": "Térkép"
-    },
-    "id": {
-      "localInformation": "Informasi lokal",
-      "events": "Acara",
-      "news": "Berita",
-      "pois": "Peta"
-    },
-    "it": {
-      "localInformation": "Informazioni locali",
-      "events": "Eventi",
-      "news": "Messaggi",
-      "pois": "Mappa"
-    },
-    "ka": {
-      "localInformation": "ადგილობრივი ინფორმაციები",
-      "events": "ღონისძიებები",
-      "news": "ინფორმაციები",
-      "pois": "რუქა"
-    },
-    "kmr": {
-      "localInformation": "Zanyariyên xwecihî",
-      "events": "Rûdan",
-      "news": "Nûçe",
-      "pois": "Nexşe"
-    },
-    "mk": {
-      "localInformation": "Локални информации",
-      "events": "Настани",
-      "news": "Вести",
-      "pois": "Мапа"
-    },
-    "nl": {
-      "localInformation": "Lokale informatie",
-      "events": "Evenementen",
-      "news": "Nieuws",
-      "pois": "Kaart"
-    },
-    "orm": {
-      "localInformation": "Odeeffannoo naannoo",
-      "events": "Sagantaalee",
-      "news": "Oduu",
-      "pois": "Kaartaa"
-    },
-    "pes": {
-      "localInformation": "اطلاعات محلی",
-      "events": "رویدادها",
-      "news": "اخبار",
-      "pois": "نقشه"
-    },
-    "pl": {
-      "localInformation": "Informacje lokalne",
-      "events": "Wydarzenia",
-      "news": "Wiadomości",
-      "pois": "Mapa"
-    },
-    "prs": {
-      "localInformation": "اطلاعات تماس",
-      "events": "بازگشت به خلاصه",
-      "news": "مسیریابی",
-      "pois": "باز کردن در Google Maps"
-    },
-    "ps": {
-      "localInformation": "سیمه ییز معلومات",
-      "events": "غونډې",
-      "news": "خبرونه",
-      "pois": "کارت"
-    },
-    "pt": {
-      "localInformation": "Informações locais",
-      "events": "Eventos",
-      "news": "Notícias",
-      "pois": "Mapa"
-    },
-    "ro": {
-      "localInformation": "Informații locale",
-      "events": "Evenimente",
-      "news": "Știri",
-      "pois": "Hartă"
-    },
-    "rom": {
-      "localInformation": "Lokalnikane informacie",
-      "events": "Čipote",
-      "news": "Haberia",
-      "pois": "Mapa"
-    },
-    "ru": {
-      "localInformation": "Местная информация",
-      "events": "Мероприятия",
-      "news": "Новости",
-      "pois": "Карта"
-    },
-    "sk": {
-      "localInformation": "Lokálne informácie",
-      "events": "Podujatia",
-      "news": "Správy",
-      "pois": "Mapa"
-    },
-    "so": {
-      "localInformation": "Macluumaadka deegaanka",
-      "events": "Dhacdooyinka",
-      "news": "war",
-      "pois": "khariidad"
-    },
-    "sq": {
-      "localInformation": "Informata lokale",
-      "events": "Evenimentet",
-      "news": "Lajme",
-      "pois": "Harta"
-    },
-    "sr-Cyrl": {
-      "localInformation": "Локалне информације",
-      "events": "Догађаји",
-      "news": "Вести",
-      "pois": "Карта"
-    },
-    "sr-Latn": {
-      "localInformation": "Lokalne informacije",
-      "events": "Događaji",
-      "news": "Vesti",
-      "pois": "Karta"
-    },
-    "sw": {
-      "localInformation": "Habari za nchini",
-      "events": "Matukio",
-      "news": "Habari",
-      "pois": "Ramani"
-    },
-    "th": {
-      "localInformation": "ข้อมูลท้องถิ่น",
-      "events": "กิจกรรม",
-      "news": "ข่าว",
-      "pois": "แผนที่"
-    },
-    "ti": {
-      "localInformation": "ከባብያዊ ሓበሬታ",
-      "events": "ኣጋጣሚታት",
-      "news": "ዜና",
-      "pois": "ካርታ"
-    },
-    "tr": {
-      "localInformation": "Yerel bilgiler",
-      "events": "Etkinlikler",
-      "news": "Mesajlar",
-      "pois": "Harita"
-    },
-    "uk": {
-      "localInformation": "Місцева інформація",
-      "events": "Події",
-      "news": "Новини",
-      "pois": "Мапа"
-    },
-    "ur": {
-      "localInformation": "مقامی معلومات",
-      "events": "واقعات",
-      "news": "خبریں",
-      "pois": "نقشہ"
-    },
-    "vi": {
-      "localInformation": "Thông tin về địa phương",
-      "events": "Sự kiện",
-      "news": "Tin tức",
-      "pois": "Bản đồ"
-    },
-    "zh-CN": {
-      "localInformation": "本地信息",
-      "events": "活动",
-      "news": "新闻",
-      "pois": "地图"
-    }
-  },
   "disclaimer": {
     "de": {
       "pageTitle": "Impressum"
@@ -8302,7 +8042,6 @@
       "privacy": "Datenschutz",
       "localInformation": "Lokale Informationen",
       "events": "Veranstaltungen",
-      "noEvents": "Keine Veranstaltungen",
       "news": "Nachrichten",
       "noLanguages": "Nicht verfügbar in anderen Sprachen",
       "noTranslation": "Keine Übersetzung verfügbar",
@@ -8342,7 +8081,6 @@
       "privacy": "የግላዊነት ፖሊሲ",
       "localInformation": "አካባቢያዊ መረጃ",
       "events": "ዝግጅቶች",
-      "noEvents": "ምንም ዝግጅቶች የሉም",
       "news": "ዜናዎች",
       "noLanguages": "በሌሎች ቋንቋዎች አይገኝም",
       "noTranslation": "ትርጉም አይቀርብም",
@@ -8381,7 +8119,6 @@
       "privacy": "حماية البيانات",
       "localInformation": "معلومات محلية",
       "events": "الفعاليات",
-      "noEvents": "لا توجد فعاليات",
       "news": "الأخبار",
       "noLanguages": "غير متوفر بلغات أخرى",
       "noTranslation": "لا توجد ترجمة متاحة",
@@ -8420,7 +8157,6 @@
       "privacy": "Защита на личните данни",
       "localInformation": "Местна информация",
       "events": "Събития",
-      "noEvents": "Няма събития",
       "news": "Новини",
       "noLanguages": "Не се предлага на други езици",
       "noTranslation": "Няма превод",
@@ -8459,7 +8195,6 @@
       "privacy": "پاراستنی دێیتاکان",
       "localInformation": "زانیارییە خۆجییەکان",
       "events": "ڕووداوەکان",
-      "noEvents": "هیچ ڕووداوێکی تێدا نییە",
       "news": "هەواڵ",
       "noLanguages": "بە زمانەکانی دیکەی تێدا نییە",
       "noTranslation": "وەرگێرانەکەی تێدا نییە",
@@ -8498,7 +8233,6 @@
       "privacy": "Ochrana údajů",
       "localInformation": "Lokální informace",
       "events": "Akce",
-      "noEvents": "Žádné akce",
       "news": "Zprávy",
       "noLanguages": "Není k dispozici v jiných jazycích",
       "noTranslation": "Žádný překlad není k dispozici",
@@ -8537,7 +8271,6 @@
       "privacy": "Beskyttelse af data",
       "localInformation": "Lokale oplysninger",
       "events": "Begivenheder",
-      "noEvents": "Ingen begivenheder",
       "news": "Nyheder",
       "noLanguages": "Ikke tilgængelig på andre sprog",
       "noTranslation": "Ingen oversættelse tilgængelig",
@@ -8576,7 +8309,6 @@
       "privacy": "Προστασία δεδομένων ",
       "localInformation": "Τοπικές πληροφορίες",
       "events": "Εκδηλώσεις",
-      "noEvents": "Δεν υπάρχουν εκδηλώσεις",
       "news": "Ειδήσεις",
       "noLanguages": "Δεν διατίθεται σε άλλες γλώσσες",
       "noTranslation": "Δεν υπάρχει διαθέσιμη μετάφραση",
@@ -8615,7 +8347,6 @@
       "privacy": "Data protection",
       "localInformation": "Local information",
       "events": "Events",
-      "noEvents": "No events",
       "news": "News",
       "noLanguages": "Not available in other languages",
       "noTranslation": "No translation available",
@@ -8655,7 +8386,6 @@
       "privacy": "Privacidad",
       "localInformation": "Información local",
       "events": "Actividades",
-      "noEvents": "No hay actividades",
       "news": "Noticias",
       "noLanguages": "No disponible en otros idiomas",
       "noTranslation": "No hay traducción disponible",
@@ -8694,7 +8424,6 @@
       "privacy": "Tietosuoja",
       "localInformation": "Paikalliset tiedot",
       "events": "Tapahtumat",
-      "noEvents": "Ei tapahtumia",
       "news": "Viestit",
       "noLanguages": "Ei saatavilla muilla kielillä",
       "noTranslation": "Käännöksiä ei saatavilla",
@@ -8733,7 +8462,6 @@
       "privacy": "Protection des données",
       "localInformation": "Informations locales",
       "events": "Événements",
-      "noEvents": "Aucun événement",
       "news": "Nouvelles",
       "noLanguages": "Non disponible dans d'autres langues",
       "noTranslation": "Aucune traduction disponible",
@@ -8772,7 +8500,6 @@
       "privacy": "डेटा संरक्षण",
       "localInformation": "स्थानीय जानकारी",
       "events": "ईवेंट",
-      "noEvents": "कोई ईवेंट नहीं",
       "news": "समाचार",
       "noLanguages": "अन्य भाषाओं में उपलब्ध नहीं है",
       "noTranslation": "कोई अनुवाद उपलब्ध नहीं है",
@@ -8811,7 +8538,6 @@
       "privacy": "Zaštita podataka",
       "localInformation": "Lokalne informacije",
       "events": "Događanja",
-      "noEvents": "Nema događanja",
       "news": "Vijesti",
       "noLanguages": "Nije dostupno na drugim jezicima",
       "noTranslation": "Prijevod nije dostupan",
@@ -8850,7 +8576,6 @@
       "privacy": "Adatvédelem",
       "localInformation": "Helyi információk",
       "events": "Események",
-      "noEvents": "Nincs esemény",
       "news": "Hírek",
       "noLanguages": "Más nyelveken nem elérhető",
       "noTranslation": "Nincs fordítás",
@@ -8889,7 +8614,6 @@
       "privacy": "Proteksi data",
       "localInformation": "Informasi lokal",
       "events": "Acara",
-      "noEvents": "Tidak ada acara",
       "news": "Berita",
       "noLanguages": "Tidak tersedia dalam bahasa lain",
       "noTranslation": "Terjemahan tidak tersedia",
@@ -8929,7 +8653,6 @@
       "privacy": "Protezione dei dati",
       "localInformation": "Informazioni locali",
       "events": "Eventi",
-      "noEvents": "Nessun evento",
       "news": "Messaggi",
       "noLanguages": "Non disponibile in altre lingue",
       "noTranslation": "Nessuna traduzione disponibile",
@@ -8968,7 +8691,6 @@
       "privacy": "მონაცემთა დაცვა",
       "localInformation": "ადგილობრივი ინფორმაციები",
       "events": "ღონისძიებები",
-      "noEvents": "არანაირი ღონისძიებები",
       "news": "ინფორმაციები",
       "noLanguages": "არ არსებობს სხვა ენებზე",
       "noTranslation": "თარგმანი არ არსებობს",
@@ -9007,7 +8729,6 @@
       "privacy": "Parastina daneyan",
       "localInformation": "Zanyariyên xwecihî",
       "events": "Rûdan",
-      "noEvents": "Tu rûdanek tuneye",
       "news": "Nûçe",
       "noLanguages": "Bi zimanên din tuneye",
       "noTranslation": "Werger tuneye",
@@ -9046,7 +8767,6 @@
       "privacy": "Заштита на лични податоци",
       "localInformation": "Локални информации",
       "events": "Настани",
-      "noEvents": "Нема настани",
       "news": "Вести",
       "noLanguages": "Не се достапни на други јазици",
       "noTranslation": "Не е достапен превод",
@@ -9085,7 +8805,6 @@
       "privacy": "Gegevensbescherming",
       "localInformation": "Lokale informatie",
       "events": "Evenementen",
-      "noEvents": "Geen evenementen",
       "news": "Nieuws",
       "noLanguages": "Niet beschikbaar in andere talen",
       "noTranslation": "Geen vertaling beschikbaar",
@@ -9124,7 +8843,6 @@
       "privacy": "Eegumsa daataa",
       "localInformation": "Odeeffannoo naannoo",
       "events": "Sagantaalee",
-      "noEvents": "Sagantaan hin jiru",
       "news": "Oduu",
       "noLanguages": "Afaan biraatiin hin jiru",
       "noTranslation": "Hiikkaan hin jiru",
@@ -9163,7 +8881,6 @@
       "privacy": "حفاظت از داده ها",
       "localInformation": "اطلاعات محلی",
       "events": "رویدادها",
-      "noEvents": "رویدادی وجود ندارد",
       "news": "اخبار",
       "noLanguages": "به زبان های دیگر موجود نیست",
       "noTranslation": "ترجمه موجود نیست",
@@ -9202,7 +8919,6 @@
       "privacy": "Ochrona danych",
       "localInformation": "Informacje lokalne",
       "events": "Wydarzenia",
-      "noEvents": "Brak wydarzeń",
       "news": "Wiadomości",
       "noLanguages": "Niedostępne w innych językach",
       "noTranslation": "Brak dostępnego tłumaczenia",
@@ -9241,7 +8957,6 @@
       "privacy": "حفاظت از داده ها",
       "localInformation": "معلومات محلی",
       "events": "رویدادها",
-      "noEvents": "هیچ رویدادی وجود ندارد",
       "news": "اخبار",
       "noLanguages": "به لسان های دیگر موجود نیست",
       "noTranslation": "ترجمه موجود نیست",
@@ -9280,7 +8995,6 @@
       "privacy": "د ډاټا حفاظت",
       "localInformation": "سیمه ییز معلومات",
       "events": "غونډې",
-      "noEvents": "غونډې نشته",
       "news": "خبرونه",
       "noLanguages": "په نورو ژبو کې موجود ندی",
       "noTranslation": "ترجمه موجود نده",
@@ -9319,7 +9033,6 @@
       "privacy": "Proteção de dados",
       "localInformation": "Informações locais",
       "events": "Eventos",
-      "noEvents": "Não existem eventos",
       "news": "Notícias",
       "noLanguages": "Não disponível noutros idiomas",
       "noTranslation": "Nenhuma tradução disponível",
@@ -9358,7 +9071,6 @@
       "privacy": "Confidențialitate",
       "localInformation": "Informații locale",
       "events": "Evenimente",
-      "noEvents": "Nici un fel de evenimente",
       "news": "Știri",
       "noLanguages": "Indisponibil în alte limbi",
       "noTranslation": "Nicio traducere disponibilă",
@@ -9397,7 +9109,6 @@
       "privacy": "Arakhiba podatke",
       "localInformation": "Lokalnikane informacie",
       "events": "Čipote",
-      "noEvents": "Nane čipote",
       "news": "Haberia",
       "noLanguages": "Nane ko avera čhiba",
       "noTranslation": "Nane prevod",
@@ -9436,7 +9147,6 @@
       "privacy": "Защита данных",
       "localInformation": "Местная информация",
       "events": "Мероприятия",
-      "noEvents": "Мероприятия отсутствуют",
       "news": "Новости",
       "noLanguages": "Недоступно на других языках",
       "noTranslation": "Перевод недоступен",
@@ -9476,7 +9186,6 @@
       "privacy": "Ochrana osobných údajov",
       "localInformation": "Lokálne informácie",
       "events": "Podujatia",
-      "noEvents": "Žiadne podujatia",
       "news": "Správy",
       "noLanguages": "Nie je k dispozícii v iných jazykoch",
       "noTranslation": "Nie je k dispozícii žiadny preklad",
@@ -9515,7 +9224,6 @@
       "privacy": "Asturnaanta",
       "localInformation": "Macluumaadka deegaanka",
       "events": "Dhacdooyinka",
-      "noEvents": "Ma jiraan dhacdooyin",
       "news": "war",
       "noLanguages": "Luuqad kale laguma heli karo",
       "noTranslation": "Turjumaad lama heli karo",
@@ -9554,7 +9262,6 @@
       "privacy": "Mbrojtja e të dhënave",
       "localInformation": "Informata lokale",
       "events": "Evenimentet",
-      "noEvents": "Nuk ka evenimente",
       "news": "Lajme",
       "noLanguages": "Nuk është në dispozicion në gjuhë të tjera",
       "noTranslation": "Nuk ka përkthim të disponueshëm",
@@ -9593,7 +9300,6 @@
       "privacy": "Заштита података",
       "localInformation": "Локалне информације",
       "events": "Догађаји",
-      "noEvents": "Нема догађаја",
       "news": "Вести",
       "noLanguages": "Није доступно на другим језицима",
       "noTranslation": "Није доступан превод",
@@ -9632,7 +9338,6 @@
       "privacy": "Zaštita podataka",
       "localInformation": "Lokalne informacije",
       "events": "Događaji",
-      "noEvents": "Nema događaja",
       "news": "Vesti",
       "noLanguages": "Nije dostupno na drugim jezicima",
       "noTranslation": "Nije dostupan prevod",
@@ -9671,7 +9376,6 @@
       "privacy": "Ulinzi wa data",
       "localInformation": "Habari za nchini",
       "events": "Matukio",
-      "noEvents": "Hakuna matukio",
       "news": "Habari",
       "noLanguages": "Haipatikani katika lugha zingine",
       "noTranslation": "Hakuna tafsiri inayopatikana",
@@ -9710,7 +9414,6 @@
       "privacy": "การคุ้มครองข้อมูล",
       "localInformation": "ข้อมูลท้องถิ่น",
       "events": "กิจกรรม",
-      "noEvents": "ไม่มีกิจกรรม",
       "news": "ข่าว",
       "noLanguages": "ไม่สามารถใช้งานได้ในภาษาอื่น",
       "noTranslation": "ไม่มีคำแปล",
@@ -9749,7 +9452,6 @@
       "privacy": "ምስጢርነት",
       "localInformation": "ከባብያዊ ሓበሬታ",
       "events": "ኣጋጣሚታት",
-      "noEvents": "ኣጋጣሚታት የለዉን",
       "news": "ዜና",
       "noLanguages": "ብኻልእ ቋንቋታት የለን",
       "noTranslation": "ትርጉም የለን",
@@ -9788,7 +9490,6 @@
       "privacy": "Kişisel verilerin korunması",
       "localInformation": "Yerel bilgiler",
       "events": "Etkinlikler",
-      "noEvents": "Etkinlik yok",
       "news": "Bildirimler",
       "noLanguages": "Diğer dillerde mevcut değil",
       "noTranslation": "Çeviri yok",
@@ -9827,7 +9528,6 @@
       "privacy": "Захист даних",
       "localInformation": "Місцева інформація",
       "events": "Події",
-      "noEvents": "Немає подій",
       "news": "Новини",
       "noLanguages": "Недоступно іншими мовами",
       "noTranslation": "Переклад відсутній",
@@ -9866,7 +9566,6 @@
       "privacy": "ڈیٹا کا تحفظ",
       "localInformation": "مقامی معلومات",
       "events": "ایونٹس",
-      "noEvents": "کوئی ایونٹس نہیں ہیں",
       "news": "خبریں",
       "noLanguages": "دیگر زبانوں میں دستیاب نہیں",
       "noTranslation": "ترجمہ دستیاب نہیں",
@@ -9905,7 +9604,6 @@
       "privacy": "Bảo vệ dữ liệu",
       "localInformation": "Thông tin về địa phương",
       "events": "Sự kiện",
-      "noEvents": "Không có sự kiện nào",
       "news": "Tin tức",
       "noLanguages": "Không có sẵn bằng ngôn ngữ khác",
       "noTranslation": "Không có bản dịch nào",
@@ -9944,7 +9642,6 @@
       "privacy": "数据保护",
       "localInformation": "本地信息",
       "events": "活动",
-      "noEvents": "没有活动",
       "news": "新闻",
       "noLanguages": "没有其他语言版本",
       "noTranslation": "没有翻译",
