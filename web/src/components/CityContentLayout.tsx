@@ -38,13 +38,10 @@ const CityContentLayout = ({
   const [layoutReady, setLayoutReady] = useState(!isLoading)
   const { viewportSmall } = useWindowDimensions()
   const isChatEnabled = buildConfig().featureFlags.chat && route !== POIS_ROUTE && city.chatEnabled
-
-  const Footer = viewportSmall ? Toolbar : showFooter && <CityContentFooter city={city.code} language={languageCode} />
+  const isFooterVisible = !isLoading && !viewportSmall && showFooter
 
   // Avoid flickering due to content (chat) being pushed up by the footer
-  useEffect(() => {
-    setLayoutReady(!isLoading)
-  }, [isLoading])
+  useEffect(() => setLayoutReady(!isLoading), [isLoading])
 
   return (
     <Layout
@@ -53,7 +50,7 @@ const CityContentLayout = ({
       header={
         <CityContentHeader cityModel={city} languageChangePaths={languageChangePaths} languageCode={languageCode} />
       }
-      footer={!isLoading && Footer}
+      footer={isFooterVisible && <CityContentFooter city={city.code} language={languageCode} />}
       chat={isChatEnabled && layoutReady ? <ChatContainer city={city} language={languageCode} /> : undefined}
       toolbar={viewportSmall ? null : Toolbar}>
       {children}
