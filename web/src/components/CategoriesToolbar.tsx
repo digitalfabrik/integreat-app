@@ -20,7 +20,7 @@ type CategoriesToolbarProps = {
 const CategoriesToolbar = (props: CategoriesToolbarProps): ReactElement => {
   const { category, cityCode, languageCode, pageTitle } = props
   const { t } = useTranslation('categories')
-  const isDisabled = config.hasRTLScript(languageCode)
+  const pdfDisabled = config.hasRTLScript(languageCode)
 
   const pdfUrl =
     !category || category.isRoot()
@@ -33,11 +33,11 @@ const CategoriesToolbar = (props: CategoriesToolbarProps): ReactElement => {
       feedbackTarget={category && !category.isRoot() ? category.slug : undefined}
       pageTitle={pageTitle}>
       <ToolbarItem
-        icon={DescriptionOutlinedIcon}
+        icon={<DescriptionOutlinedIcon />}
         text={t('createPdf')}
         to={pdfUrl}
-        isDisabled={isDisabled}
-        tooltip={isDisabled ? t('disabledPdf') : null}
+        disabled={pdfDisabled}
+        tooltip={pdfDisabled ? t('disabledPdf') : null}
       />
     </CityContentToolbar>
   )

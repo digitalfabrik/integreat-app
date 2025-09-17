@@ -9,7 +9,7 @@ export type DimensionsType = {
 }
 
 const dimensions: DimensionsType = {
-  toolbarWidth: 200,
+  toolbarWidth: 120,
   poiDetailNavigation: 42,
   toolbarHeight: 66,
   ttsPlayerHeight: 90,

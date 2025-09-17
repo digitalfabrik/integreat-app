@@ -41,7 +41,7 @@ const FeedbackToolbarItem = ({ route, slug, rating }: FeedbackToolbarItemProps):
         </Modal>
       )}
       <ToolbarItem
-        icon={rating === RATING_POSITIVE ? SentimentSatisfiedOutlinedIcon : SentimentDissatisfiedOutlinedIcon}
+        icon={rating === RATING_POSITIVE ? <SentimentSatisfiedOutlinedIcon /> : <SentimentDissatisfiedOutlinedIcon />}
         text={t(rating === RATING_POSITIVE ? 'useful' : 'notUseful')}
         onClick={() => setIsFeedbackOpen(true)}
       />
