@@ -21,8 +21,8 @@ const CityContentSidebar = (): ReactElement => {
 
   return (
     <Sidebar
-      setShow={setOpen}
-      show={open}
+      setOpen={setOpen}
+      open={open}
       Footer={<CityContentFooter city={cityCode} language={languageCode} mode='sidebar' />}>
       <List
         Items={[
