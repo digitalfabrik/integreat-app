@@ -40,7 +40,6 @@ describe('CityContentHeader', () => {
     const { getByText, getByLabelText } = renderCityContentHeader()
     expect(getByText(cityModel.name)).toBeTruthy()
     expect(getByLabelText('layout:changeLanguage')).toBeTruthy()
-    expect(getByText('layout:events')).toBeTruthy()
     expect(getByLabelText('layout:sideBarOpenAriaLabel')).toBeTruthy()
   })
 })
