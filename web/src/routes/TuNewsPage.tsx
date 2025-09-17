@@ -14,15 +14,12 @@ import LoadingSpinner from '../components/LoadingSpinner'
 import NewsListItem from '../components/NewsListItem'
 import NewsTabs from '../components/NewsTabs'
 import { tunewsApiBaseUrl } from '../constants/urls'
-import useWindowDimensions from '../hooks/useWindowDimensions'
 import { TU_NEWS_ROUTE } from './index'
 
 const DEFAULT_PAGE = 1
 const DEFAULT_COUNT = 10
 
 const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElement | null => {
-  const { viewportSmall } = useWindowDimensions()
-
   const { data: tuNewsLanguages, error } = useLoadFromEndpoint(
     createTunewsLanguagesEndpoint,
     tunewsApiBaseUrl,
@@ -80,9 +77,7 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
     city,
     languageChangePaths,
     languageCode,
-    Toolbar: viewportSmall ? null : (
-      <CityContentToolbar route={TU_NEWS_ROUTE} hasFeedbackOption={false} hideDivider pageTitle={pageTitle} />
-    ),
+    Toolbar: <CityContentToolbar route={TU_NEWS_ROUTE} hasFeedbackOption={false} hideDivider pageTitle={pageTitle} />,
   }
 
   if (error) {
