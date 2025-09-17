@@ -37,10 +37,16 @@ describe('CityContentLayout', () => {
       </CityContentLayout>,
     )
 
-  it('should render a toolbar', () => {
-    mocked(useWindowDimensions).mockImplementation(() => ({ ...mockWindowDimensions, viewportSmall: true }))
+  it('should render a toolbar on big screens', () => {
+    mocked(useWindowDimensions).mockImplementation(() => ({ ...mockWindowDimensions, viewportSmall: false }))
     const { getByText } = renderCityContentLayout(false, <div>Toolbar</div>)
     expect(getByText('Toolbar')).toBeTruthy()
+  })
+
+  it('should hide the toolbar on small screens', () => {
+    mocked(useWindowDimensions).mockImplementation(() => ({ ...mockWindowDimensions, viewportSmall: true }))
+    const { queryByText } = renderCityContentLayout(false, <div>Toolbar</div>)
+    expect(queryByText('Toolbar')).toBeFalsy()
   })
 
   it('should show CityContentHeader and CityContentFooter if not loading and on a big screen', () => {
