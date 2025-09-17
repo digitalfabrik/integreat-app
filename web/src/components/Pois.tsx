@@ -105,7 +105,6 @@ const Pois = ({ pois: allPois, userLocation, city, languageCode, pageTitle }: Po
       feedbackTarget={poi?.slug}
       route={POIS_ROUTE}
       iconDirection='row'
-      hideDivider
       pageTitle={pageTitle}
       isInBottomActionSheet={viewportSmall}
       maxItems={viewportSmall ? undefined : desktopMaxToolbarItems}
