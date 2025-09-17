@@ -25,7 +25,7 @@ const CityContentSidebar = (): ReactElement => {
       show={open}
       Footer={<CityContentFooter city={cityCode} language={languageCode} mode='sidebar' />}>
       <List
-        items={[
+        Items={[
           <Link key='location' to={landingPath}>
             <SidebarActionItem text={t('changeLocation')} iconSrc={LocationOnOutlinedIcon} />
           </Link>,
