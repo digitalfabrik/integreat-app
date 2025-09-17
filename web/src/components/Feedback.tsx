@@ -1,5 +1,6 @@
 import SendIcon from '@mui/icons-material/Send'
 import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -78,7 +79,9 @@ const Feedback = ({
   if (sendingStatus === 'successful') {
     return (
       <Container>
-        <div>{t('thanksMessage')}</div>
+        <Typography component='div' variant='title2'>
+          {t('thanksMessage')}
+        </Typography>
         {!!closeFeedback && !isSearchFeedback && <Button onClick={closeFeedback}>{t('common:close')}</Button>}
       </Container>
     )

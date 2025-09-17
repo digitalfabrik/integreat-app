@@ -1,3 +1,4 @@
+import Typography, { TypographyProps } from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode, useRef } from 'react'
 
@@ -39,10 +40,12 @@ const ThumbnailSizer = styled('div')`
   }
 `
 
-const TileTitle = styled('div')`
-  margin: 5px 0;
-  color: ${props => props.theme.legacy.colors.textColor};
+const TileTitle = styled(Typography)<TypographyProps>`
   text-align: center;
+  font-size: 1rem;
+  line-height: 20px;
+  font-weight: 500;
+  margin: 4px 0;
 `
 
 const TileContainer = styled('div')`
@@ -98,7 +101,7 @@ const Tile = ({ tile }: TileProps): ReactElement => {
             <img alt='' ref={imageRef} />
           </Thumbnail>
         </ThumbnailSizer>
-        <TileTitle>{tile.title}</TileTitle>
+        <TileTitle variant='h2'>{tile.title}</TileTitle>
       </>
     )
   }
