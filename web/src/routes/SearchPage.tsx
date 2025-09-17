@@ -1,3 +1,4 @@
+import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -34,11 +35,6 @@ const List = styled('ul')`
   & a {
     ${helpers.removeLinkHighlighting}
   }
-`
-
-const SearchCounter = styled('p')`
-  padding: 0 5px;
-  color: ${props => props.theme.legacy.colors.textSecondaryColor};
 `
 
 const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElement | null => {
@@ -115,9 +111,9 @@ const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
     return (
       <>
         <List>
-          <SearchCounter aria-live={results.length === 0 ? 'assertive' : 'polite'}>
+          <Typography variant='body1' aria-live={results.length === 0 ? 'assertive' : 'polite'}>
             {t('searchResultsCount', { count: results.length })}
-          </SearchCounter>
+          </Typography>
           {results.map(({ title, content, path, thumbnail }) => (
             <SearchListItem
               title={title}

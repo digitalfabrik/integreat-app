@@ -1,11 +1,11 @@
 import { css, SerializedStyles } from '@emotion/react'
 import { SvgIconProps } from '@mui/material/SvgIcon'
 import Tooltip from '@mui/material/Tooltip'
+import Typography from '@mui/material/Typography'
 import { styled, Theme } from '@mui/material/styles'
 import React, { ElementType, ReactElement } from 'react'
 
 import useWindowDimensions from '../hooks/useWindowDimensions'
-import StyledSmallViewTip from './StyledSmallViewTip'
 import Button from './base/Button'
 import Icon from './base/Icon'
 import Link from './base/Link'
@@ -64,7 +64,7 @@ const ToolbarItem = ({ to, text, icon, isDisabled = false, tooltip, onClick }: T
   const Content = (
     <>
       <StyledIcon src={icon} disabled={isDisabled} />
-      <StyledSmallViewTip>{text}</StyledSmallViewTip>
+      <Typography variant='body2'>{text}</Typography>
     </>
   )
 
