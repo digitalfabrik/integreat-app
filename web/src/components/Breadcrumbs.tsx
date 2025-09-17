@@ -7,7 +7,6 @@ import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 
 import BreadcrumbModel from '../models/BreadcrumbModel'
-import getBreadcrumbs from '../utils/getBreadcrumbs'
 import Breadcrumb from './Breadcrumb'
 import JsonLdBreadcrumbs from './JsonLdBreadcrumbs'
 import Icon from './base/Icon'
@@ -85,6 +84,41 @@ const StyledEllipsis = styled(Link)`
 type BreadcrumbsProps = {
   ancestorBreadcrumbs: BreadcrumbModel[]
   currentBreadcrumb: BreadcrumbModel
+}
+
+const getBreadcrumbs = (
+  ancestorBreadcrumbs: BreadcrumbModel[],
+  currentBreadcrumb: BreadcrumbModel,
+  returnAllBreadcrumbs: boolean,
+  StyledEllipsis: React.ElementType,
+): BreadcrumbModel[] => {
+  const allBreadcrumbs = [...ancestorBreadcrumbs, currentBreadcrumb]
+  const breadCrumbsLimit = 3 // with home included
+  const lastTwoCrumbs = -2
+
+  if (ancestorBreadcrumbs.length === 0) {
+    return []
+  }
+
+  if (allBreadcrumbs.length <= breadCrumbsLimit) {
+    return allBreadcrumbs
+  }
+
+  const home = allBreadcrumbs[0] as BreadcrumbModel
+  const rest = allBreadcrumbs.slice(1)
+  const ellipsisPathname = returnAllBreadcrumbs ? '' : (rest[0]?.pathname ?? '/')
+
+  const ellipsis = new BreadcrumbModel({
+    title: '...',
+    pathname: ellipsisPathname,
+    node: <StyledEllipsis>...</StyledEllipsis>,
+  })
+
+  if (returnAllBreadcrumbs) {
+    return [home, ...rest]
+  }
+
+  return [home, ellipsis, ...rest.slice(lastTwoCrumbs)]
 }
 
 const Breadcrumbs = ({ ancestorBreadcrumbs, currentBreadcrumb }: BreadcrumbsProps): ReactElement => {

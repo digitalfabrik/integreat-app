@@ -1,3 +1,4 @@
+import shouldForwardProp from '@emotion/is-prop-valid'
 import Link from '@mui/material/Link'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
@@ -5,7 +6,7 @@ import React, { ReactElement } from 'react'
 import { helpers } from '../constants/theme'
 
 const SHRINK_FACTOR = 0.1
-const StyledLink = styled(Link)<{ shrinkFactor: number; isCurrent?: boolean }>`
+const StyledLink = styled(Link, { shouldForwardProp })<{ shrinkFactor: number; isCurrent?: boolean }>`
   display: list-item;
   overflow: hidden;
   white-space: nowrap;
