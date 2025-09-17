@@ -120,9 +120,7 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
     }
   })
 
-  const pageTitle = `${category && !category.isRoot() ? category.title : t('dashboard:localInformation')} - ${
-    city.name
-  }`
+  const pageTitle = `${category && !category.isRoot() ? category.title : t('localInformation')} - ${city.name}`
   const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
     city,
     languageChangePaths,
