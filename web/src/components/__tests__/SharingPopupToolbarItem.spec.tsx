@@ -28,9 +28,7 @@ describe('SharingPopupToolbarItem', () => {
     writable: true,
   })
 
-  const SharingPopupComponent = (
-    <SharingPopupToolbarItem title='Aktuelle Themen und Informationen' flow='horizontal' portalNeeded={false} />
-  )
+  const SharingPopupComponent = <SharingPopupToolbarItem title='Aktuelle Themen und Informationen' flow='horizontal' />
 
   it('should render correct share link for facebook', () => {
     const facebookShareLink = `https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fintegreat.app%2Faugsburg%2Fde%2Faktuelle-themen-und-informationen&t${shareMessage}`
