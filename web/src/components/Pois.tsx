@@ -101,13 +101,7 @@ const Pois = ({ pois: allPois, userLocation, city, languageCode, pageTitle }: Po
   }
 
   const toolbar = (
-    <CityContentToolbar
-      slug={poi?.slug}
-      iconDirection='row'
-      pageTitle={pageTitle}
-      isInBottomActionSheet={viewportSmall}
-      maxItems={viewportSmall ? undefined : desktopMaxToolbarItems}
-    />
+    <CityContentToolbar slug={poi?.slug} iconDirection='row' pageTitle={pageTitle} maxItems={desktopMaxToolbarItems} />
   )
 
   const FiltersModal = (

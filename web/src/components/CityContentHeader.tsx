@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { cityContentPath, pathnameFromRouteInformation, SEARCH_ROUTE } from 'shared'
-import { CityModel } from 'shared/api'
+import { CategoryModel, CityModel } from 'shared/api'
 
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import CityContentSidebar from './CityContentSidebar'
@@ -16,9 +16,15 @@ type CityContentHeaderProps = {
   cityModel: CityModel
   languageCode: string
   languageChangePaths: { code: string; path: string | null; name: string }[] | null
+  category?: CategoryModel
 }
 
-const CityContentHeader = ({ cityModel, languageCode, languageChangePaths }: CityContentHeaderProps): ReactElement => {
+const CityContentHeader = ({
+  cityModel,
+  languageCode,
+  languageChangePaths,
+  category,
+}: CityContentHeaderProps): ReactElement => {
   const { t } = useTranslation('layout')
 
   const params = { cityCode: cityModel.code, languageCode }
@@ -33,7 +39,7 @@ const CityContentHeader = ({ cityModel, languageCode, languageChangePaths }: Cit
       languageChangePaths={languageChangePaths}
       languageCode={languageCode}
     />,
-    viewportSmall ? <CityContentSidebar key='sidebar' /> : null,
+    viewportSmall ? <CityContentSidebar key='sidebar' category={category} /> : null,
   ]
 
   return (

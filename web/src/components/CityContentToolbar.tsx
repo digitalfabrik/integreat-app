@@ -8,7 +8,6 @@ import { CategoryModel } from 'shared/api'
 
 import { ReadAloudIcon } from '../assets'
 import useCityContentParams from '../hooks/useCityContentParams'
-import useWindowDimensions from '../hooks/useWindowDimensions'
 import { RouteType } from '../routes'
 import FeedbackToolbarItem from './FeedbackToolbarItem'
 import PdfToolbarItem from './PdfToolbarItem'
@@ -23,7 +22,6 @@ type CityContentToolbarProps = {
   category?: CategoryModel
   iconDirection?: 'row' | 'column'
   pageTitle: string
-  isInBottomActionSheet?: boolean
   maxItems?: number
 }
 
@@ -31,17 +29,9 @@ const CityContentToolbar = (props: CityContentToolbarProps): ReactElement => {
   const { route, cityCode, languageCode } = useCityContentParams()
   const { enabled: ttsEnabled, showTtsPlayer, canRead } = useContext(TtsContext)
   const { toggleTheme } = useTheme()
-  const { viewportSmall } = useWindowDimensions()
   const { t } = useTranslation('layout')
 
-  const {
-    slug,
-    category,
-    iconDirection = viewportSmall ? 'row' : 'column',
-    pageTitle,
-    isInBottomActionSheet = false,
-    maxItems,
-  } = props
+  const { slug, category, iconDirection = 'column', pageTitle, maxItems } = props
 
   const items = [
     route === CATEGORIES_ROUTE && (
@@ -57,7 +47,6 @@ const CityContentToolbar = (props: CityContentToolbarProps): ReactElement => {
       key='share'
       flow={iconDirection === 'row' ? 'vertical' : 'horizontal'}
       title={pageTitle}
-      portalNeeded={isInBottomActionSheet}
     />,
     ttsEnabled && (
       <ToolbarItem
@@ -69,13 +58,11 @@ const CityContentToolbar = (props: CityContentToolbarProps): ReactElement => {
         onClick={showTtsPlayer}
       />
     ),
-    !viewportSmall && (
-      <ToolbarItem key='theme' icon={<ContrastIcon />} text={t('contrastTheme')} onClick={toggleTheme} />
-    ),
+    <ToolbarItem key='theme' icon={<ContrastIcon />} text={t('contrastTheme')} onClick={toggleTheme} />,
   ]
     .filter(Boolean)
     .slice(0, maxItems)
 
-  return <Toolbar>{items}</Toolbar>
+  return <Toolbar direction={iconDirection}>{items}</Toolbar>
 }
 export default CityContentToolbar
