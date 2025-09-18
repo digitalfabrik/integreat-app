@@ -1,4 +1,5 @@
 import ContrastIcon from '@mui/icons-material/Contrast'
+import Stack from '@mui/material/Stack'
 import { useTheme } from '@mui/material/styles'
 import React, { ReactElement, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -7,12 +8,12 @@ import { CATEGORIES_ROUTE, NEWS_ROUTE, RATING_NEGATIVE, RATING_POSITIVE } from '
 import { CategoryModel } from 'shared/api'
 
 import { ReadAloudIcon } from '../assets'
+import dimensions from '../constants/dimensions'
 import useCityContentParams from '../hooks/useCityContentParams'
 import { RouteType } from '../routes'
 import FeedbackToolbarItem from './FeedbackToolbarItem'
 import PdfToolbarItem from './PdfToolbarItem'
 import SharingPopupToolbarItem from './SharingPopupToolbarItem'
-import Toolbar from './Toolbar'
 import ToolbarItem from './ToolbarItem'
 import { TtsContext } from './TtsContainer'
 import Icon from './base/Icon'
@@ -20,7 +21,7 @@ import Icon from './base/Icon'
 type CityContentToolbarProps = {
   slug?: string
   category?: CategoryModel
-  iconDirection?: 'row' | 'column'
+  direction?: 'row' | 'column'
   pageTitle: string
   maxItems?: number
 }
@@ -31,7 +32,7 @@ const CityContentToolbar = (props: CityContentToolbarProps): ReactElement => {
   const { toggleTheme } = useTheme()
   const { t } = useTranslation('layout')
 
-  const { slug, category, iconDirection = 'column', pageTitle, maxItems } = props
+  const { slug, category, direction = 'column', pageTitle, maxItems } = props
 
   const items = [
     route === CATEGORIES_ROUTE && (
@@ -43,11 +44,7 @@ const CityContentToolbar = (props: CityContentToolbarProps): ReactElement => {
     route !== NEWS_ROUTE && (
       <FeedbackToolbarItem key='negative' route={route as RouteType} slug={slug} rating={RATING_NEGATIVE} />
     ),
-    <SharingPopupToolbarItem
-      key='share'
-      flow={iconDirection === 'row' ? 'vertical' : 'horizontal'}
-      title={pageTitle}
-    />,
+    <SharingPopupToolbarItem key='share' flow={direction === 'row' ? 'vertical' : 'horizontal'} title={pageTitle} />,
     ttsEnabled && (
       <ToolbarItem
         key='tts'
@@ -63,6 +60,10 @@ const CityContentToolbar = (props: CityContentToolbarProps): ReactElement => {
     .filter(Boolean)
     .slice(0, maxItems)
 
-  return <Toolbar direction={iconDirection}>{items}</Toolbar>
+  return (
+    <Stack direction={direction} width={direction === 'column' ? dimensions.toolbarWidth : '100%'} overflow='hidden'>
+      {items}
+    </Stack>
+  )
 }
 export default CityContentToolbar
