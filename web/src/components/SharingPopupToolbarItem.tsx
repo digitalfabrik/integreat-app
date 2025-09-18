@@ -12,7 +12,6 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import Portal from './Portal'
 import ToolbarItem from './ToolbarItem'
 import Button from './base/Button'
 import Link from './base/Link'
@@ -140,10 +139,9 @@ const COPY_TIMEOUT = 3000
 type SharingPopupToolbarItemProps = {
   title: string
   flow: 'vertical' | 'horizontal'
-  portalNeeded: boolean
 }
 
-const SharingPopupToolbarItem = ({ title, flow, portalNeeded }: SharingPopupToolbarItemProps): ReactElement => {
+const SharingPopupToolbarItem = ({ title, flow }: SharingPopupToolbarItemProps): ReactElement => {
   const [shareOptionsVisible, setShareOptionsVisible] = useState<boolean>(false)
   const [linkCopied, setLinkCopied] = useState<boolean>(false)
   const { t } = useTranslation('socialMedia')
@@ -169,11 +167,6 @@ const SharingPopupToolbarItem = ({ title, flow, portalNeeded }: SharingPopupTool
     <SharingPopupContainer>
       {shareOptionsVisible && (
         <>
-          {portalNeeded && (
-            <Portal className='sharing-popup-backdrop-portal' show={shareOptionsVisible}>
-              {Backdrop}
-            </Portal>
-          )}
           {Backdrop}
           <TooltipContainer tooltipFlow={flow} optionsVisible={shareOptionsVisible}>
             <Tooltip title={t(linkCopied ? 'common:copied' : 'layout:copyUrl')}>

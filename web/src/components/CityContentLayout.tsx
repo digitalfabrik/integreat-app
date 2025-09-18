@@ -1,7 +1,7 @@
 import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
 
 import { POIS_ROUTE } from 'shared'
-import { CityModel } from 'shared/api'
+import { CategoryModel, CityModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
 import useCityContentParams from '../hooks/useCityContentParams'
@@ -21,10 +21,12 @@ export type CityContentLayoutProps = {
   fullWidth?: boolean
   disableScrollingSafari?: boolean
   showFooter?: boolean
+  category?: CategoryModel
 }
 
 const CityContentLayout = ({
   children,
+  category,
   city,
   languageCode,
   languageChangePaths,
@@ -48,7 +50,12 @@ const CityContentLayout = ({
       disableScrollingSafari={disableScrollingSafari}
       fullWidth={fullWidth}
       header={
-        <CityContentHeader cityModel={city} languageChangePaths={languageChangePaths} languageCode={languageCode} />
+        <CityContentHeader
+          category={category}
+          cityModel={city}
+          languageChangePaths={languageChangePaths}
+          languageCode={languageCode}
+        />
       }
       footer={isFooterVisible && <CityContentFooter city={city.code} language={languageCode} />}
       chat={isChatEnabled && layoutReady ? <ChatContainer city={city} language={languageCode} /> : undefined}
