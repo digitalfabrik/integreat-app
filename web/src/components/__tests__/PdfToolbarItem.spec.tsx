@@ -5,7 +5,7 @@ import { CategoryModel } from 'shared/api'
 
 import { cmsApiBaseUrl } from '../../constants/urls'
 import { renderWithRouterAndTheme } from '../../testing/render'
-import CategoriesToolbar from '../CategoriesToolbar'
+import PdfToolbarItem from '../PdfToolbarItem'
 
 jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
@@ -47,7 +47,7 @@ describe('CategoriesToolbar', () => {
     const cityCode = 'augsburg'
     const languageCode = 'de'
     const { getByText } = renderWithRouterAndTheme(
-      <CategoriesToolbar category={rootCategory} cityCode={cityCode} languageCode={languageCode} pageTitle='Test' />,
+      <PdfToolbarItem category={rootCategory} cityCode={cityCode} languageCode={languageCode} />,
     )
     const pdfUrlLink = getByText('categories:createPdf').closest('a')
 
@@ -58,7 +58,7 @@ describe('CategoriesToolbar', () => {
     const cityCode = 'augsburg'
     const languageCode = 'de'
     const { getByText } = renderWithRouterAndTheme(
-      <CategoriesToolbar category={childCategory} cityCode={cityCode} languageCode={languageCode} pageTitle='Test' />,
+      <PdfToolbarItem category={childCategory} cityCode={cityCode} languageCode={languageCode} />,
     )
     const pdfUrlLink = getByText('categories:createPdf').closest('a')
 
@@ -73,7 +73,7 @@ describe('CategoriesToolbar', () => {
     const cityCode = 'augsburg'
     const languageCode = 'ar'
     const { getByText } = renderWithRouterAndTheme(
-      <CategoriesToolbar category={rootCategory} cityCode={cityCode} languageCode={languageCode} pageTitle='Test' />,
+      <PdfToolbarItem category={rootCategory} cityCode={cityCode} languageCode={languageCode} />,
     )
     expect(getByText('categories:createPdf').closest('a')).toHaveClass('Mui-disabled')
   })

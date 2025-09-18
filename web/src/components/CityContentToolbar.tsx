@@ -1,14 +1,17 @@
 import ContrastIcon from '@mui/icons-material/Contrast'
 import { useTheme } from '@mui/material/styles'
-import React, { ReactElement, ReactNode, useContext } from 'react'
+import React, { ReactElement, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { RATING_NEGATIVE, RATING_POSITIVE } from 'shared'
+import { CATEGORIES_ROUTE, RATING_NEGATIVE, RATING_POSITIVE } from 'shared'
+import { CategoryModel } from 'shared/api'
 
 import { ReadAloudIcon } from '../assets'
+import useCityContentParams from '../hooks/useCityContentParams'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { RouteType } from '../routes'
 import FeedbackToolbarItem from './FeedbackToolbarItem'
+import PdfToolbarItem from './PdfToolbarItem'
 import SharingPopupToolbarItem from './SharingPopupToolbarItem'
 import Toolbar from './Toolbar'
 import ToolbarItem from './ToolbarItem'
@@ -17,7 +20,7 @@ import Icon from './base/Icon'
 
 type CityContentToolbarProps = {
   feedbackTarget?: string
-  children?: ReactNode
+  category?: CategoryModel
   iconDirection?: 'row' | 'column'
   hasFeedbackOption?: boolean
   pageTitle: string
@@ -27,6 +30,7 @@ type CityContentToolbarProps = {
 }
 
 const CityContentToolbar = (props: CityContentToolbarProps): ReactElement => {
+  const { cityCode, languageCode } = useCityContentParams()
   const { enabled: ttsEnabled, showTtsPlayer, canRead } = useContext(TtsContext)
   const { toggleTheme } = useTheme()
   const { viewportSmall } = useWindowDimensions()
@@ -34,7 +38,7 @@ const CityContentToolbar = (props: CityContentToolbarProps): ReactElement => {
 
   const {
     feedbackTarget,
-    children,
+    category,
     iconDirection = viewportSmall ? 'row' : 'column',
     hasFeedbackOption = true,
     route,
@@ -44,7 +48,9 @@ const CityContentToolbar = (props: CityContentToolbarProps): ReactElement => {
   } = props
 
   const items = [
-    children,
+    route === CATEGORIES_ROUTE && (
+      <PdfToolbarItem key='pdf' category={category} cityCode={cityCode} languageCode={languageCode} />
+    ),
     hasFeedbackOption && (
       <FeedbackToolbarItem key='positive' route={route} slug={feedbackTarget} rating={RATING_POSITIVE} />
     ),
