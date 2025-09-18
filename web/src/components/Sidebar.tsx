@@ -14,7 +14,11 @@ import { LAYOUT_ELEMENT_ID } from './Layout'
 
 const StyledDrawer = styled(Drawer)`
   .${drawerClasses.paper} {
-    width: min(400px, 100%);
+    width: 400px;
+
+    ${props => props.theme.breakpoints.down('sm')} {
+      width: 100%;
+    }
   }
 `
 
