@@ -23,7 +23,12 @@ describe('CityContentHeader', () => {
 
   const renderCityContentHeader = () =>
     renderWithRouterAndTheme(
-      <CityContentHeader cityModel={cityModel} languageCode={languageCode} languageChangePaths={languageChangePaths} />,
+      <CityContentHeader
+        cityModel={cityModel}
+        languageCode={languageCode}
+        languageChangePaths={languageChangePaths}
+        category={undefined}
+      />,
     )
 
   it('should render correctly', () => {
