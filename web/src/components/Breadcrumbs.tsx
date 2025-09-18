@@ -4,12 +4,12 @@ import MuiBreadcrumbs from '@mui/material/Breadcrumbs'
 import { styled, useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import React, { ReactElement } from 'react'
-import { Link } from 'react-router-dom'
 
 import BreadcrumbModel from '../models/BreadcrumbModel'
 import Breadcrumb from './Breadcrumb'
 import JsonLdBreadcrumbs from './JsonLdBreadcrumbs'
 import Icon from './base/Icon'
+import Link from './base/Link'
 
 const StyledBox = styled(Box)`
   margin: 10px 0;
