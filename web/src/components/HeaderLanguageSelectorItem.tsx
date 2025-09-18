@@ -35,7 +35,7 @@ const HeaderLanguageSelectorItem = ({
 
   if (viewportSmall) {
     return (
-      <Sidebar OpenButton={ChangeLanguageButton} setShow={setOpen} show={open}>
+      <Sidebar OpenButton={ChangeLanguageButton} setOpen={setOpen} open={open}>
         <LanguageSelector
           languageChangePaths={languageChangePaths}
           languageCode={languageCode}

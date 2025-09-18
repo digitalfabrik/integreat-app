@@ -57,7 +57,7 @@ type HeaderProps = {
   logoHref: string
   cityName?: string
   language: string
-  TabBar?: ReactElement
+  TabBar?: ReactNode
 }
 
 export const Header = ({ actionItems = [], logoHref, cityName, language, TabBar }: HeaderProps): ReactElement => {
