@@ -17,13 +17,15 @@ import Link from './base/Link'
 const StyledListItemButton = styled(ListItemButton)`
   align-items: flex-start;
   gap: ${props => props.theme.spacing(2)};
+  padding: 12px 16px;
+  min-height: 80px;
 ` as typeof ListItemButton
 
 const StyledListItemAvatar = styled(ListItemAvatar)`
   [class*='MuiAvatar-root'] {
     margin-top: 8px;
-    width: 94px;
-    height: 94px;
+    width: 64px;
+    height: 64px;
   }
 `
 
