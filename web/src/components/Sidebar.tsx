@@ -8,6 +8,7 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import useLockedBody from '../hooks/useLockedBody'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { LAYOUT_ELEMENT_ID } from './Layout'
 
@@ -31,8 +32,9 @@ type SidebarProps = {
 }
 
 const Sidebar = ({ children, open, setOpen, Footer, OpenButton }: SidebarProps): ReactElement | null => {
-  const { t } = useTranslation('layout')
   const { headerHeight } = useWindowDimensions()
+  const { t } = useTranslation('layout')
+  useLockedBody(open)
 
   // This is necessary to ensure the theme is correctly applied to the drawer content
   const drawerContainer = document.getElementById(LAYOUT_ELEMENT_ID)
@@ -44,7 +46,15 @@ const Sidebar = ({ children, open, setOpen, Footer, OpenButton }: SidebarProps):
           <MoreVertIcon />
         </IconButton>
       )}
-      <StyledDrawer open={open} onClose={() => setOpen(false)} container={drawerContainer} anchor='right'>
+      <StyledDrawer
+        open={open}
+        onClose={() => setOpen(false)}
+        container={drawerContainer}
+        anchor='right'
+        // Locking scroll causes the headroom to disappear when opening the drawer if scrolled down
+        disableScrollLock
+        // Restoring focus when closing the drawer to a sticky element (headroom) scrolls the content to the top
+        disableRestoreFocus>
         <Header>
           <Stack minHeight={headerHeight} justifyContent='center' alignItems='flex-end' paddingInline={1}>
             <IconButton onClick={() => setOpen(false)} aria-label={t('sideBarCloseAriaLabel')}>
