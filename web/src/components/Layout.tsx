@@ -1,9 +1,13 @@
 import { css } from '@emotion/react'
+import Stack from '@mui/material/Stack'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode } from 'react'
 
 import dimensions from '../constants/dimensions'
+import useWindowDimensions from '../hooks/useWindowDimensions'
 import { MobileBanner } from './MobileBanner'
+
+export const LAYOUT_ELEMENT_ID = 'layout'
 
 export const RichLayout = styled('div')`
   position: relative;
@@ -92,7 +96,9 @@ const Aside = styled('aside')`
   }
 `
 
-export const LAYOUT_ELEMENT_ID = 'layout'
+const Spacer = styled(Stack)`
+  transition: height 250ms ease-in;
+`
 
 type LayoutProps = {
   footer?: ReactNode
@@ -110,16 +116,25 @@ const Layout = ({
   children,
   fullWidth = false,
   disableScrollingSafari = false,
-}: LayoutProps): ReactElement => (
-  <RichLayout id={LAYOUT_ELEMENT_ID}>
-    <MobileBanner />
-    {header}
-    <Body fullWidth={fullWidth} disableScrollingSafari={disableScrollingSafari}>
-      {toolbar && <Aside>{toolbar}</Aside>}
-      <Main fullWidth={fullWidth}>{children}</Main>
-    </Body>
-    {footer}
-  </RichLayout>
-)
+}: LayoutProps): ReactElement => {
+  const { ttsPlayerHeight, bottomNavigationHeight } = useWindowDimensions()
+  const chatButtonSpace = 16
+  const extraBottomSpace = ttsPlayerHeight + (bottomNavigationHeight ?? 0) + chatButtonSpace
+
+  return (
+    <RichLayout id={LAYOUT_ELEMENT_ID}>
+      <MobileBanner />
+      {header}
+      <Body fullWidth={fullWidth} disableScrollingSafari={disableScrollingSafari}>
+        {toolbar && <Aside>{toolbar}</Aside>}
+        <Main fullWidth={fullWidth}>
+          {children}
+          <Spacer height={extraBottomSpace} />
+        </Main>
+      </Body>
+      {footer}
+    </RichLayout>
+  )
+}
 
 export default Layout
