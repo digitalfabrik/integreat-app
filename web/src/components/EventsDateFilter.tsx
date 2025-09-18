@@ -1,10 +1,11 @@
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
+import Accordion from '@mui/material/Accordion'
+import AccordionDetails from '@mui/material/AccordionDetails'
 import { styled } from '@mui/material/styles'
 import { DateTime } from 'luxon'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import Accordion from './Accordion'
 import CustomDatePicker from './DatePicker'
 import FilterToggle from './FilterToggle'
 import Button from './base/Button'
@@ -13,7 +14,6 @@ import Icon from './base/Icon'
 const DateSection = styled('div')`
   display: flex;
   gap: 10px;
-  margin: 15px 5px;
   justify-content: space-evenly;
 
   ${props => props.theme.breakpoints.down('md')} {
@@ -21,6 +21,7 @@ const DateSection = styled('div')`
     align-items: center;
   }
 `
+
 const Text = styled('span')`
   color: ${props => props.theme.legacy.colors.textColor};
 `
@@ -32,6 +33,10 @@ const StyledButton = styled(Button)`
   white-space: nowrap;
   font-weight: bold;
   padding: 5px;
+`
+
+const StyledAccordion = styled(Accordion)`
+  background-color: transparent;
 `
 
 type ResetFilterTextProps = {
@@ -68,10 +73,10 @@ const EventsDateFilter = ({
 
   return (
     <>
-      <FilterToggle isDateFilterActive={showDateFilter} setToggleDateFilter={setShowDateFilter} />
-      <Accordion isOpen={showDateFilter}>
-        <DateSection>
-          <>
+      <StyledAccordion disableGutters expanded={showDateFilter} elevation={0}>
+        <FilterToggle isDateFilterActive={showDateFilter} setToggleDateFilter={setShowDateFilter} />
+        <AccordionDetails>
+          <DateSection>
             <CustomDatePicker
               title={t('from')}
               date={startDate}
@@ -87,9 +92,9 @@ const EventsDateFilter = ({
               placeholderDate={inAWeek}
               calendarLabel={t('selectEndDateCalendar')}
             />
-          </>
-        </DateSection>
-      </Accordion>
+          </DateSection>
+        </AccordionDetails>
+      </StyledAccordion>
       {(startDate || endDate) && (
         <StyledButton
           label='resetDate'
