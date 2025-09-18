@@ -57,7 +57,7 @@ type PoiListItemProps = {
   language: string
   navigateToPoi: () => void
   distance: number | null
-  onFocus?: () => void
+  onFocus: () => void
 }
 
 const PoiListItem = ({ poi, language, navigateToPoi, distance, onFocus }: PoiListItemProps) => {
