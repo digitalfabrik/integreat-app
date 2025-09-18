@@ -12,17 +12,9 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import Portal from './Portal'
 import ToolbarItem from './ToolbarItem'
 import Button from './base/Button'
 import Link from './base/Link'
-
-type SharingPopupProps = {
-  shareUrl: string
-  title: string
-  flow: 'vertical' | 'horizontal'
-  portalNeeded: boolean
-}
 
 const TooltipContainer = styled('div')<{
   tooltipFlow: 'vertical' | 'horizontal'
@@ -144,17 +136,23 @@ const SharingPopupContainer = styled('div')`
 
 const COPY_TIMEOUT = 3000
 
-const SharingPopup = ({ shareUrl, title, flow, portalNeeded }: SharingPopupProps): ReactElement => {
+type SharingPopupToolbarItemProps = {
+  title: string
+  flow: 'vertical' | 'horizontal'
+}
+
+const SharingPopupToolbarItem = ({ title, flow }: SharingPopupToolbarItemProps): ReactElement => {
   const [shareOptionsVisible, setShareOptionsVisible] = useState<boolean>(false)
   const [linkCopied, setLinkCopied] = useState<boolean>(false)
   const { t } = useTranslation('socialMedia')
 
+  const shareUrl = window.location.href
   const encodedTitle = encodeURIComponent(title)
   const encodedShareUrl = encodeURIComponent(shareUrl)
   const shareMessage = t('layout:shareMessage', { message: encodedTitle })
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(window.location.href).catch(reportError)
+    navigator.clipboard.writeText(shareUrl).catch(reportError)
     setLinkCopied(true)
     setTimeout(() => setLinkCopied(false), COPY_TIMEOUT)
   }
@@ -169,11 +167,6 @@ const SharingPopup = ({ shareUrl, title, flow, portalNeeded }: SharingPopupProps
     <SharingPopupContainer>
       {shareOptionsVisible && (
         <>
-          {portalNeeded && (
-            <Portal className='sharing-popup-backdrop-portal' show={shareOptionsVisible}>
-              {Backdrop}
-            </Portal>
-          )}
           {Backdrop}
           <TooltipContainer tooltipFlow={flow} optionsVisible={shareOptionsVisible}>
             <Tooltip title={t(linkCopied ? 'common:copied' : 'layout:copyUrl')}>
@@ -216,9 +209,9 @@ const SharingPopup = ({ shareUrl, title, flow, portalNeeded }: SharingPopupProps
           </TooltipContainer>
         </>
       )}
-      <ToolbarItem icon={ShareOutlinedIcon} text={t('layout:share')} onClick={() => setShareOptionsVisible(true)} />
+      <ToolbarItem icon={<ShareOutlinedIcon />} text={t('layout:share')} onClick={() => setShareOptionsVisible(true)} />
     </SharingPopupContainer>
   )
 }
 
-export default SharingPopup
+export default SharingPopupToolbarItem

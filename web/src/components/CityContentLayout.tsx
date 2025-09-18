@@ -1,7 +1,7 @@
 import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
 
 import { POIS_ROUTE } from 'shared'
-import { CityModel } from 'shared/api'
+import { CategoryModel, CityModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
 import useCityContentParams from '../hooks/useCityContentParams'
@@ -21,10 +21,12 @@ export type CityContentLayoutProps = {
   fullWidth?: boolean
   disableScrollingSafari?: boolean
   showFooter?: boolean
+  category?: CategoryModel
 }
 
 const CityContentLayout = ({
   children,
+  category,
   city,
   languageCode,
   languageChangePaths,
@@ -38,22 +40,24 @@ const CityContentLayout = ({
   const [layoutReady, setLayoutReady] = useState(!isLoading)
   const { viewportSmall } = useWindowDimensions()
   const isChatEnabled = buildConfig().featureFlags.chat && route !== POIS_ROUTE && city.chatEnabled
-
-  const Footer = viewportSmall ? Toolbar : showFooter && <CityContentFooter city={city.code} language={languageCode} />
+  const isFooterVisible = !isLoading && !viewportSmall && showFooter
 
   // Avoid flickering due to content (chat) being pushed up by the footer
-  useEffect(() => {
-    setLayoutReady(!isLoading)
-  }, [isLoading])
+  useEffect(() => setLayoutReady(!isLoading), [isLoading])
 
   return (
     <Layout
       disableScrollingSafari={disableScrollingSafari}
       fullWidth={fullWidth}
       header={
-        <CityContentHeader cityModel={city} languageChangePaths={languageChangePaths} languageCode={languageCode} />
+        <CityContentHeader
+          category={category}
+          cityModel={city}
+          languageChangePaths={languageChangePaths}
+          languageCode={languageCode}
+        />
       }
-      footer={!isLoading && Footer}
+      footer={isFooterVisible && <CityContentFooter city={city.code} language={languageCode} />}
       chat={isChatEnabled && layoutReady ? <ChatContainer city={city} language={languageCode} /> : undefined}
       toolbar={viewportSmall ? null : Toolbar}>
       {children}
