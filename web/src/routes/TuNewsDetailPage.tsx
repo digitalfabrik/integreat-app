@@ -17,7 +17,6 @@ import Page from '../components/Page'
 import Icon from '../components/base/Icon'
 import { tunewsApiBaseUrl } from '../constants/urls'
 import useTtsPlayer from '../hooks/useTtsPlayer'
-import { TU_NEWS_DETAIL_ROUTE } from './index'
 
 const StyledContainer = styled('div')`
   display: flex;
@@ -79,7 +78,7 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
     city,
     languageChangePaths,
     languageCode,
-    Toolbar: <CityContentToolbar hasFeedbackOption={false} route={TU_NEWS_DETAIL_ROUTE} pageTitle={pageTitle} />,
+    Toolbar: <CityContentToolbar pageTitle={pageTitle} />,
   }
 
   if (loading) {
