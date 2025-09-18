@@ -14,7 +14,6 @@ import LoadingSpinner from '../components/LoadingSpinner'
 import NewsListItem from '../components/NewsListItem'
 import NewsTabs from '../components/NewsTabs'
 import { tunewsApiBaseUrl } from '../constants/urls'
-import { TU_NEWS_ROUTE } from './index'
 
 const DEFAULT_PAGE = 1
 const DEFAULT_COUNT = 10
@@ -77,7 +76,7 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
     city,
     languageChangePaths,
     languageCode,
-    Toolbar: <CityContentToolbar route={TU_NEWS_ROUTE} hasFeedbackOption={false} pageTitle={pageTitle} />,
+    Toolbar: <CityContentToolbar pageTitle={pageTitle} />,
   }
 
   if (error) {

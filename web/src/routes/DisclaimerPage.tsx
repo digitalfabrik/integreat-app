@@ -30,9 +30,7 @@ const DisclaimerPage = ({ cityCode, languageCode, city }: CityRouteProps): React
   }
 
   const pageTitle = `${t('pageTitle')} - ${city.name}`
-  const Toolbar = (
-    <CityContentToolbar feedbackTarget={disclaimer?.slug} route={DISCLAIMER_ROUTE} pageTitle={pageTitle} />
-  )
+  const Toolbar = <CityContentToolbar slug={disclaimer?.slug} pageTitle={pageTitle} />
 
   const languageChangePaths = city.languages.map(({ code, name }) => {
     const disclaimerPath = pathnameFromRouteInformation({ route: DISCLAIMER_ROUTE, cityCode, languageCode: code })
