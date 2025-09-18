@@ -16,7 +16,7 @@ describe('Contact', () => {
     expect(getByText(contact.headline!)).toBeTruthy()
     expect(getByText('pois:website')).toBeTruthy()
     expect(getByText(contact.phoneNumber!)).toBeTruthy()
-    expect(getByText(contact.mobilePhoneNumber!)).toBeTruthy()
+    expect(getByText(contact.mobileNumber!)).toBeTruthy()
     expect(getByText(contact.email!)).toBeTruthy()
   })
 
@@ -26,7 +26,7 @@ describe('Contact', () => {
     expect(getByText(contact.headline!)).toBeTruthy()
     expect(queryByText('pois:website')).toBeNull()
     expect(getByText(contact.phoneNumber!)).toBeTruthy()
-    expect(getByText(contact.mobilePhoneNumber!)).toBeTruthy()
+    expect(getByText(contact.mobileNumber!)).toBeTruthy()
     expect(getByText(contact.email!)).toBeTruthy()
   })
 
@@ -36,7 +36,7 @@ describe('Contact', () => {
     expect(getByText(contact.headline!)).toBeTruthy()
     expect(getByText('pois:website')).toBeTruthy()
     expect(queryByText('030 1234567')).toBeNull()
-    expect(getByText(contact.mobilePhoneNumber!)).toBeTruthy()
+    expect(getByText(contact.mobileNumber!)).toBeTruthy()
     expect(getByText(contact.email!)).toBeTruthy()
   })
 
@@ -46,12 +46,12 @@ describe('Contact', () => {
     expect(getByText(contact.headline!)).toBeTruthy()
     expect(getByText('pois:website')).toBeTruthy()
     expect(getByText(contact.phoneNumber!)).toBeTruthy()
-    expect(getByText(contact.mobilePhoneNumber!)).toBeTruthy()
+    expect(getByText(contact.mobileNumber!)).toBeTruthy()
     expect(queryByText('maria@musterfrau.de')).toBeNull()
   })
 
   it('should render correctly without mobile phone number', () => {
-    const contact = contactBuilder.noMobilePhoneNumber()
+    const contact = contactBuilder.noMobileNumber()
     const { getByText, queryByText } = renderWithTheme(<Contact contact={contact} />)
     expect(getByText(contact.headline!)).toBeTruthy()
     expect(getByText('pois:website')).toBeTruthy()

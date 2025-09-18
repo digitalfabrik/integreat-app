@@ -148,7 +148,7 @@ type ContactJsonType = {
   email: string | null
   phone_number: string | null
   website: string | null
-  mobile_phone_number: string | null
+  mobile_number: string | null
 }
 
 type ContentPoiJsonType = {
@@ -483,7 +483,7 @@ class DatabaseConnector {
           email: contact.email,
           phone_number: contact.phoneNumber,
           website: contact.website,
-          mobile_phone_number: contact.mobilePhoneNumber,
+          mobile_number: contact.mobileNumber,
         })),
         location: {
           id: poi.location.id,
@@ -550,7 +550,7 @@ class DatabaseConnector {
                 email: contact.email,
                 phoneNumber: contact.phone_number,
                 website: contact.website,
-                mobilePhoneNumber: contact.mobile_phone_number,
+                mobileNumber: contact.mobile_number,
               }),
           ),
           location: new LocationModel({

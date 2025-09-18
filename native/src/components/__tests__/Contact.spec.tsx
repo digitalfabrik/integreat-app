@@ -16,7 +16,7 @@ describe('Contact', () => {
     expect(getByText(contact.headline!)).toBeTruthy()
     expect(getByLabelText('website')).toHaveTextContent('website')
     expect(getByLabelText('phone')).toHaveTextContent(contact.phoneNumber!)
-    expect(getByLabelText('mobilePhone')).toHaveTextContent(contact.mobilePhoneNumber!)
+    expect(getByLabelText('mobilePhone')).toHaveTextContent(contact.mobileNumber!)
     expect(getByLabelText('eMail')).toHaveTextContent(contact.email!)
   })
 
@@ -26,7 +26,7 @@ describe('Contact', () => {
     expect(getByText(contact.headline!)).toBeTruthy()
     expect(queryByLabelText('website')).toBeNull()
     expect(getByLabelText('phone')).toHaveTextContent(contact.phoneNumber!)
-    expect(getByLabelText('mobilePhone')).toHaveTextContent(contact.mobilePhoneNumber!)
+    expect(getByLabelText('mobilePhone')).toHaveTextContent(contact.mobileNumber!)
     expect(getByLabelText('eMail')).toHaveTextContent(contact.email!)
   })
 
@@ -36,7 +36,7 @@ describe('Contact', () => {
     expect(getByText(contact.headline!)).toBeTruthy()
     expect(getByLabelText('website')).toHaveTextContent('website')
     expect(queryByLabelText('phone')).toBeNull()
-    expect(getByLabelText('mobilePhone')).toHaveTextContent(contact.mobilePhoneNumber!)
+    expect(getByLabelText('mobilePhone')).toHaveTextContent(contact.mobileNumber!)
     expect(getByLabelText('eMail')).toHaveTextContent(contact.email!)
   })
 
@@ -46,12 +46,12 @@ describe('Contact', () => {
     expect(getByText(contact.headline!)).toBeTruthy()
     expect(getByLabelText('website')).toHaveTextContent('website')
     expect(getByLabelText('phone')).toHaveTextContent(contact.phoneNumber!)
-    expect(getByLabelText('mobilePhone')).toHaveTextContent(contact.mobilePhoneNumber!)
+    expect(getByLabelText('mobilePhone')).toHaveTextContent(contact.mobileNumber!)
     expect(queryByLabelText('eMail')).toBeNull()
   })
 
   it('should render correctly without mobile phone number', () => {
-    const contact = contactBuilder.noMobilePhoneNumber()
+    const contact = contactBuilder.noMobileNumber()
     const { getByText, getByLabelText, queryByLabelText } = render(<Contact contact={contact} />)
     expect(getByText(contact.headline!)).toBeTruthy()
     expect(getByLabelText('website')).toHaveTextContent('website')
