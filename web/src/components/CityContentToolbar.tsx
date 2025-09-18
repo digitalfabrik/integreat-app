@@ -3,7 +3,7 @@ import { useTheme } from '@mui/material/styles'
 import React, { ReactElement, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CATEGORIES_ROUTE, RATING_NEGATIVE, RATING_POSITIVE } from 'shared'
+import { CATEGORIES_ROUTE, NEWS_ROUTE, RATING_NEGATIVE, RATING_POSITIVE } from 'shared'
 import { CategoryModel } from 'shared/api'
 
 import { ReadAloudIcon } from '../assets'
@@ -19,29 +19,25 @@ import { TtsContext } from './TtsContainer'
 import Icon from './base/Icon'
 
 type CityContentToolbarProps = {
-  feedbackTarget?: string
+  slug?: string
   category?: CategoryModel
   iconDirection?: 'row' | 'column'
-  hasFeedbackOption?: boolean
   pageTitle: string
-  route: RouteType
   isInBottomActionSheet?: boolean
   maxItems?: number
 }
 
 const CityContentToolbar = (props: CityContentToolbarProps): ReactElement => {
-  const { cityCode, languageCode } = useCityContentParams()
+  const { route, cityCode, languageCode } = useCityContentParams()
   const { enabled: ttsEnabled, showTtsPlayer, canRead } = useContext(TtsContext)
   const { toggleTheme } = useTheme()
   const { viewportSmall } = useWindowDimensions()
   const { t } = useTranslation('layout')
 
   const {
-    feedbackTarget,
+    slug,
     category,
     iconDirection = viewportSmall ? 'row' : 'column',
-    hasFeedbackOption = true,
-    route,
     pageTitle,
     isInBottomActionSheet = false,
     maxItems,
@@ -51,11 +47,11 @@ const CityContentToolbar = (props: CityContentToolbarProps): ReactElement => {
     route === CATEGORIES_ROUTE && (
       <PdfToolbarItem key='pdf' category={category} cityCode={cityCode} languageCode={languageCode} />
     ),
-    hasFeedbackOption && (
-      <FeedbackToolbarItem key='positive' route={route} slug={feedbackTarget} rating={RATING_POSITIVE} />
+    route !== NEWS_ROUTE && (
+      <FeedbackToolbarItem key='positive' route={route as RouteType} slug={slug} rating={RATING_POSITIVE} />
     ),
-    hasFeedbackOption && (
-      <FeedbackToolbarItem key='negative' route={route} slug={feedbackTarget} rating={RATING_NEGATIVE} />
+    route !== NEWS_ROUTE && (
+      <FeedbackToolbarItem key='negative' route={route as RouteType} slug={slug} rating={RATING_NEGATIVE} />
     ),
     <SharingPopupToolbarItem
       key='share'
