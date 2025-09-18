@@ -1,6 +1,6 @@
 import CloseIcon from '@mui/icons-material/Close'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
-import Drawer from '@mui/material/Drawer'
+import Drawer, { drawerClasses } from '@mui/material/Drawer'
 import IconButton from '@mui/material/IconButton'
 import Paper from '@mui/material/Paper'
 import Stack from '@mui/material/Stack'
@@ -11,15 +11,15 @@ import { useTranslation } from 'react-i18next'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { LAYOUT_ELEMENT_ID } from './Layout'
 
-const Content = styled('div')`
-  width: calc(100vw - 120px);
-  padding: 8px;
+const StyledDrawer = styled(Drawer)`
+  .${drawerClasses.paper} {
+    width: min(400px, 100%);
+  }
 `
 
-const Header = styled(Stack)`
-  align-items: flex-end;
-  justify-content: center;
-  padding: 0 8px;
+const Header = styled(Paper)`
+  position: fixed;
+  width: inherit;
 `
 
 type SidebarProps = {
@@ -44,17 +44,19 @@ const Sidebar = ({ children, open, setOpen, Footer, OpenButton }: SidebarProps):
           <MoreVertIcon />
         </IconButton>
       )}
-      <Drawer open={open} onClose={() => setOpen(false)} container={drawerContainer} anchor='right'>
-        <Paper>
-          <Header minHeight={headerHeight}>
+      <StyledDrawer open={open} onClose={() => setOpen(false)} container={drawerContainer} anchor='right'>
+        <Header>
+          <Stack minHeight={headerHeight} justifyContent='center' alignItems='flex-end' paddingInline={1}>
             <IconButton onClick={() => setOpen(false)} aria-label={t('sideBarCloseAriaLabel')}>
               <CloseIcon />
             </IconButton>
-          </Header>
-        </Paper>
-        <Content>{children}</Content>
+          </Stack>
+        </Header>
+        <Stack marginTop={`${headerHeight}px`} padding={2}>
+          {children}
+        </Stack>
         {Footer}
-      </Drawer>
+      </StyledDrawer>
     </>
   )
 }
