@@ -14,7 +14,7 @@ import useWindowDimensions from '../hooks/useWindowDimensions'
 
 export const TTS_PLAYER_ELEMENT_ID = 'tts-player'
 
-const StyledTtsPlayer = styled('dialog')<{ footerHeight: number }>`
+const StyledTtsPlayer = styled('dialog')<{ bottomOffset: number }>`
   background-color: ${props =>
     props.theme.isContrastTheme
       ? props.theme.legacy.colors.backgroundAccentColor
@@ -29,14 +29,9 @@ const StyledTtsPlayer = styled('dialog')<{ footerHeight: number }>`
   padding: 32px 24px 24px;
   position: fixed;
   margin-bottom: 12px;
-  bottom: ${props => props.footerHeight}px;
+  bottom: ${props => props.bottomOffset}px;
   gap: 16px;
   border-color: transparent;
-
-  ${props => props.theme.breakpoints.down('md')} {
-    width: auto;
-    margin: 12px;
-  }
 `
 
 const StyledPanel = styled('div')`
@@ -101,10 +96,12 @@ const TtsPlayer = ({
   pause,
   disabled,
 }: TtsPlayerProps): ReactElement => {
-  const { visibleFooterHeight } = useWindowDimensions()
+  const { visibleFooterHeight, bottomNavigationHeight } = useWindowDimensions()
   const { t } = useTranslation('layout')
+  const bottomOffset = bottomNavigationHeight ?? visibleFooterHeight
+
   return (
-    <StyledTtsPlayer id={TTS_PLAYER_ELEMENT_ID} footerHeight={visibleFooterHeight}>
+    <StyledTtsPlayer id={TTS_PLAYER_ELEMENT_ID} bottomOffset={bottomOffset}>
       <CloseIconButton onClick={close} aria-label={t('common:close')}>
         <CloseIcon />
       </CloseIconButton>
