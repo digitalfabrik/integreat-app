@@ -66,7 +66,7 @@ const Sidebar = ({ children, open, setOpen, Footer, OpenButton }: SidebarProps):
             </IconButton>
           </Stack>
         </Header>
-        <Stack marginTop={`${headerHeight}px`} padding={2}>
+        <Stack marginTop={`${headerHeight}px`} padding={2} height='100%'>
           {children}
         </Stack>
         {Footer}
