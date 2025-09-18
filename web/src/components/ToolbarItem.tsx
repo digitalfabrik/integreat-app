@@ -30,7 +30,7 @@ const ToolbarItem = ({ to, text, icon, disabled = false, tooltip, onClick }: Too
   return (
     <Tooltip title={tooltip} placement={tooltipPlacement}>
       <ListItem disablePadding>
-        <StyledButton component={onClick ? ListItemButton : Link} onClick={onClick} to={to} disabled={disabled}>
+        <StyledButton component={to ? Link : ListItemButton} onClick={onClick} to={to} disabled={disabled}>
           {icon}
           <ListItemText
             disableTypography
