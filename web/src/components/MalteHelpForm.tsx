@@ -2,26 +2,28 @@ import HealthAndSafetyOutlinedIcon from '@mui/icons-material/HealthAndSafetyOutl
 import PeopleOutlineOutlinedIcon from '@mui/icons-material/PeopleOutlineOutlined'
 import SendIcon from '@mui/icons-material/Send'
 import Button from '@mui/material/Button'
+import FormControl from '@mui/material/FormControl'
+import FormHelperText from '@mui/material/FormHelperText'
+import Input from '@mui/material/Input'
+import InputLabel from '@mui/material/InputLabel'
 import { styled } from '@mui/material/styles'
-import React, { ReactElement, SyntheticEvent, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 import { cityContentPath, DEFAULT_ROWS_NUMBER } from 'shared'
 import {
   OfferModel,
-  InvalidEmailError,
   ContactChannel,
   ContactGender,
   submitMalteHelpForm,
   MALTE_HELP_FORM_MAX_COMMENT_LENGTH,
+  InvalidEmailError,
 } from 'shared/api'
 
 import Icon from '../components/base/Icon'
 import { Container } from './Feedback'
 import PrivacyCheckbox from './PrivacyCheckbox'
-import Input from './base/Input'
-import InputSection from './base/InputSection'
 import RadioGroup from './base/RadioGroup'
 import Spacing from './base/Spacing'
 
@@ -35,7 +37,7 @@ const StyledIcon = styled(Icon)`
   flex-shrink: 0;
 `
 
-const Form = styled('form')`
+const Wrapper = styled('div')`
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -60,11 +62,6 @@ type MalteHelpFormProps = {
   malteHelpFormOffer: OfferModel
 }
 
-const scrollToFirstError = (form: HTMLFormElement) => {
-  const invalidInput = form.querySelector(':invalid:not(fieldset)')
-  invalidInput?.scrollIntoView({ behavior: 'smooth' })
-}
-
 const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }: MalteHelpFormProps): ReactElement => {
   const { t } = useTranslation('malteHelpForm')
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
@@ -77,47 +74,39 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
   const [roomNumber, setRoomNumber] = useState('')
   const [contactGender, setContactGender] = useState<ContactGender>('any')
   const [comment, setComment] = useState('')
-  const missingData =
-    !name.length ||
-    (!email.length && contactChannel === 'email') ||
-    (!telephone.length && contactChannel === 'telephone')
   const dashboardRoute = cityContentPath({ languageCode, cityCode })
 
-  const submitHandler = async (event: SyntheticEvent<HTMLFormElement>) => {
-    const form = event.currentTarget
-    if (!form.checkValidity()) {
-      event.stopPropagation()
-      scrollToFirstError(form)
-      setSendingStatus('idle')
-    } else {
-      event.preventDefault()
-      setSendingStatus('sending')
-      try {
-        await submitMalteHelpForm({
-          url: window.location.href,
-          pageTitle,
-          cityCode,
-          malteHelpFormOffer,
-          name,
-          email,
-          telephone,
-          roomNumber,
-          contactChannel,
-          contactGender,
-          comment,
-        })
-        setSendingStatus('successful')
-      } catch (error) {
-        if (error instanceof InvalidEmailError) {
-          setSendingStatus('invalidEmail')
-          const emailInput = form.querySelector<HTMLInputElement>('#email-input')
-          emailInput?.setCustomValidity(t('invalidEmailAddress'))
-          emailInput?.reportValidity()
-          scrollToFirstError(form)
-        } else {
-          reportError(error)
-          setSendingStatus('failed')
-        }
+  const submitHandler = async () => {
+    setSubmitted(true)
+    if (
+      !name.trim() ||
+      (contactChannel === 'email' && !email.trim()) ||
+      (contactChannel === 'telephone' && !telephone.trim())
+    ) {
+      return
+    }
+    setSendingStatus('sending')
+    try {
+      await submitMalteHelpForm({
+        url: window.location.href,
+        pageTitle,
+        cityCode,
+        malteHelpFormOffer,
+        name,
+        email,
+        telephone,
+        roomNumber,
+        contactChannel,
+        contactGender,
+        comment,
+      })
+      setSendingStatus('successful')
+    } catch (error) {
+      if (error instanceof InvalidEmailError) {
+        setSendingStatus('invalidEmail')
+      } else {
+        reportError(error)
+        setSendingStatus('failed')
       }
     }
   }
@@ -141,46 +130,38 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
         <StyledIcon src={HealthAndSafetyOutlinedIcon} />
         {t('securityNote')}
       </Note>
-      <Form onSubmit={submitHandler}>
-        <Input id='name' label={t('name')} required value={name} onChange={setName} submitted={submitted} />
-        <Input
-          id='roomNumber'
-          label={`${t('roomNumber')} (${t('common:optional')})`}
-          value={roomNumber}
-          onChange={setRoomNumber}
-          submitted={submitted}
-        />
+      <Wrapper>
+        <FormControl required error={submitted && !name}>
+          <InputLabel htmlFor='name'>{t('name')}</InputLabel>
+          <Input id='name' required value={name} onChange={e => setName(e.target.value)} />
+          {submitted && !name && <FormHelperText>{`${t('name')} ${t('requiredField')}`}</FormHelperText>}
+        </FormControl>
+        <FormControl>
+          <InputLabel htmlFor='roomNumber'>{`${t('roomNumber')} (${t('common:optional')})`}</InputLabel>
+          <Input id='roomNumber' value={roomNumber} onChange={e => setRoomNumber(e.target.value)} />
+        </FormControl>
         <RadioGroup
           caption={t('howToBeContacted')}
           groupId='contactChannel'
-          submitted={submitted}
           selectedValue={contactChannel}
+          submitted={submitted}
           onChange={setContactChannel}
+          required
           values={[
             {
               key: 'email',
               label: t('eMail'),
-              inputProps: {
-                value: email,
-                onChange: setEmail,
-              },
+              inputProps: { value: email, onChange: setEmail, required: true },
             },
             {
               key: 'telephone',
               label: t('telephone'),
-              inputProps: {
-                value: telephone,
-                onChange: setTelephone,
-              },
+              inputProps: { value: telephone, onChange: setTelephone, required: true },
             },
-            {
-              key: 'personally',
-              label: t('personally'),
-            },
+            { key: 'personally', label: t('personally') },
           ]}
         />
         <RadioGroup
-          submitted={submitted}
           caption={t('contactPerson')}
           groupId='contactPerson'
           selectedValue={contactGender}
@@ -191,39 +172,40 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
             { key: 'male', label: t('contactPersonGenderMale') },
           ]}
         />
-        <InputSection id='comment' title={t('contactReason')}>
+        <FormControl>
+          <InputLabel htmlFor='comment'>{t('contactReason')}</InputLabel>
           <Input
             id='comment'
-            label={t('maxCharacters', { numberOfCharacters: MALTE_HELP_FORM_MAX_COMMENT_LENGTH })}
+            aria-describedby='commentText'
             rows={DEFAULT_ROWS_NUMBER}
             value={comment}
-            onChange={setComment}
-            maxLength={MALTE_HELP_FORM_MAX_COMMENT_LENGTH}
-            submitted={submitted}
+            onChange={e => setComment(e.target.value)}
+            maxRows={MALTE_HELP_FORM_MAX_COMMENT_LENGTH}
           />
-        </InputSection>
+          <FormHelperText id='commentText'>
+            {t('maxCharacters', { numberOfCharacters: MALTE_HELP_FORM_MAX_COMMENT_LENGTH })}
+          </FormHelperText>
+        </FormControl>
         <p>{t('responseDisclaimer')}</p>
-        <PrivacyCheckbox
-          language={languageCode}
-          checked={privacyPolicyAccepted}
-          setChecked={setPrivacyPolicyAccepted}
-        />
+        <FormControl required error={submitted && !privacyPolicyAccepted}>
+          <PrivacyCheckbox
+            language={languageCode}
+            checked={privacyPolicyAccepted}
+            setChecked={setPrivacyPolicyAccepted}
+          />
+          {submitted && !privacyPolicyAccepted && <FormHelperText>{t('notePrivacyPolicy')}</FormHelperText>}
+        </FormControl>
         {(sendingStatus === 'failed' || sendingStatus === 'invalidEmail') && (
           <ErrorSendingStatus role='alert'>
             <SubmitErrorHeading>{t('submitFailed')}</SubmitErrorHeading>
-            {sendingStatus !== 'invalidEmail' && t('submitFailedReasoning')}
+            {sendingStatus === 'invalidEmail' ? t('invalidEmailAddress') : t('submitFailedReasoning')}
           </ErrorSendingStatus>
         )}
         <Spacing />
-        <Button
-          onClick={() => setSubmitted(true)}
-          startIcon={<SendIcon />}
-          disabled={sendingStatus === 'sending' || missingData || !privacyPolicyAccepted}
-          type='submit'
-          variant='contained'>
+        <Button onClick={submitHandler} startIcon={<SendIcon />} variant='contained'>
           {t('submit')}
         </Button>
-      </Form>
+      </Wrapper>
     </>
   )
 }
