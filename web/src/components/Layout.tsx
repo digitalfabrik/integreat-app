@@ -31,7 +31,7 @@ export const RichLayout = styled('div')`
   }
 `
 
-const Body = styled('div')<{ fullWidth: boolean; disableScrollingSafari: boolean }>`
+const Body = styled('div')<{ fitScreen: boolean }>`
   width: 100%;
   box-sizing: border-box;
   margin: 0 auto;
@@ -41,36 +41,33 @@ const Body = styled('div')<{ fullWidth: boolean; disableScrollingSafari: boolean
   min-height: 100%;
   display: flex;
 
-  /* Fix jumping iOS Safari Toolbar by prevent scrolling on body */
-
   ${props =>
-    props.disableScrollingSafari &&
-    css`
-      @supports (-webkit-touch-callout: none) {
-        /* CSS specific to iOS safari devices */
-        position: fixed;
-        overflow: hidden;
-      }
-    `};
-  /* https://aykevl.nl/2014/09/fix-jumping-scrollbar */
-  ${props =>
-    !props.fullWidth &&
-    css`
-      ${props.theme.breakpoints.up('lg')} {
-        padding-inline: calc((100vw - ${props.theme.breakpoints.values.lg}px) / 2)
-          calc((200% - 100vw - ${props.theme.breakpoints.values.lg}px) / 2);
-      }
-    `};
+    props.fitScreen
+      ? /* Fix jumping iOS Safari Toolbar by prevent scrolling on body */
+        css`
+          @supports (-webkit-touch-callout: none) {
+            /* CSS specific to iOS safari devices */
+            position: fixed;
+            overflow: hidden;
+          }
+        `
+      : /* https://aykevl.nl/2014/09/fix-jumping-scrollbar */
+        css`
+          ${props.theme.breakpoints.up('lg')} {
+            padding-inline: calc((100vw - ${props.theme.breakpoints.values.lg}px) / 2)
+              calc((200% - 100vw - ${props.theme.breakpoints.values.lg}px) / 2);
+          }
+        `};
 `
 
-const Main = styled('main')<{ fullWidth: boolean }>`
+const Main = styled('main')<{ fitScreen: boolean }>`
   display: inline-block;
   width: ${props =>
-    props.fullWidth ? '100%' : `${props.theme.breakpoints.values.lg - 2 * dimensions.toolbarWidth}px`};
-  max-width: ${props => (props.fullWidth ? '100%' : `calc(100% - 2 * ${dimensions.toolbarWidth}px)`)};
+    props.fitScreen ? '100%' : `${props.theme.breakpoints.values.lg - 2 * dimensions.toolbarWidth}px`};
+  max-width: ${props => (props.fitScreen ? '100%' : `calc(100% - 2 * ${dimensions.toolbarWidth}px)`)};
   box-sizing: border-box;
   margin: 0 auto;
-  padding: ${props => (props.fullWidth ? '0' : `0 ${dimensions.mainContainerHorizontalPadding}px 30px`)};
+  padding: ${props => (props.fitScreen ? '0' : `0 ${dimensions.mainContainerHorizontalPadding}px 32px`)};
   text-align: start;
   word-wrap: break-word;
 
@@ -105,18 +102,10 @@ type LayoutProps = {
   header?: ReactNode
   toolbar?: ReactElement | null
   children?: ReactNode
-  fullWidth?: boolean
-  disableScrollingSafari?: boolean
+  fitScreen?: boolean
 }
 
-const Layout = ({
-  footer,
-  header,
-  toolbar,
-  children,
-  fullWidth = false,
-  disableScrollingSafari = false,
-}: LayoutProps): ReactElement => {
+const Layout = ({ footer, header, toolbar, children, fitScreen = false }: LayoutProps): ReactElement => {
   const { ttsPlayerHeight, bottomNavigationHeight } = useWindowDimensions()
   const chatButtonSpace = 16
   const extraBottomSpace = ttsPlayerHeight + (bottomNavigationHeight ?? 0) + chatButtonSpace
@@ -125,9 +114,9 @@ const Layout = ({
     <RichLayout id={LAYOUT_ELEMENT_ID}>
       <MobileBanner />
       {header}
-      <Body fullWidth={fullWidth} disableScrollingSafari={disableScrollingSafari}>
+      <Body fitScreen={fitScreen}>
         {toolbar && <Aside>{toolbar}</Aside>}
-        <Main fullWidth={fullWidth}>
+        <Main fitScreen={fitScreen}>
           {children}
           <Spacer height={extraBottomSpace} />
         </Main>
