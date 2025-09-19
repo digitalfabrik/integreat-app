@@ -2,7 +2,7 @@ import MuiBottomNavigation from '@mui/material/BottomNavigation'
 import BottomNavigationAction from '@mui/material/BottomNavigationAction'
 import Paper from '@mui/material/Paper'
 import { styled } from '@mui/material/styles'
-import React, { ReactElement, Ref } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { CATEGORIES_ROUTE, EVENTS_ROUTE, NEWS_ROUTE, POIS_ROUTE } from 'shared'
@@ -24,10 +24,9 @@ const Container = styled(Paper)({
 type BottomNavigationProps = {
   cityModel: CityModel
   languageCode: string
-  ref?: Ref<HTMLDivElement>
 }
 
-const BottomNavigation = ({ cityModel, languageCode, ref }: BottomNavigationProps): ReactElement | null => {
+const BottomNavigation = ({ cityModel, languageCode }: BottomNavigationProps): ReactElement | null => {
   const { route } = useCityContentParams()
   const { t } = useTranslation('layout')
 
@@ -40,7 +39,7 @@ const BottomNavigation = ({ cityModel, languageCode, ref }: BottomNavigationProp
   }
 
   return (
-    <Container elevation={4} ref={ref}>
+    <Container elevation={4}>
       <MuiBottomNavigation id={BOTTOM_NAVIGATION_ELEMENT_ID} showLabels value={value} component='nav'>
         {navigationItems.map(item => (
           <BottomNavigationAction
