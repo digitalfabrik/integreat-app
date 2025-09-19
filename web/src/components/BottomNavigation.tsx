@@ -19,6 +19,8 @@ const Container = styled(Paper)({
   bottom: 0,
   left: 0,
   right: 0,
+  // Positon bottom navigation above bottom sheet
+  zIndex: 10,
 })
 
 type BottomNavigationProps = {
