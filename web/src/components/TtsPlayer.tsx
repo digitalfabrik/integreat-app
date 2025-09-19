@@ -12,6 +12,8 @@ import { useTranslation } from 'react-i18next'
 
 import useWindowDimensions from '../hooks/useWindowDimensions'
 
+export const TTS_PLAYER_ELEMENT_ID = 'tts-player'
+
 const StyledTtsPlayer = styled('dialog')<{ footerHeight: number }>`
   background-color: ${props =>
     props.theme.isContrastTheme
@@ -102,7 +104,7 @@ const TtsPlayer = ({
   const { visibleFooterHeight } = useWindowDimensions()
   const { t } = useTranslation('layout')
   return (
-    <StyledTtsPlayer footerHeight={visibleFooterHeight}>
+    <StyledTtsPlayer id={TTS_PLAYER_ELEMENT_ID} footerHeight={visibleFooterHeight}>
       <CloseIconButton onClick={close} aria-label={t('common:close')}>
         <CloseIcon />
       </CloseIconButton>
