@@ -19,9 +19,7 @@ export type CityContentLayoutProps = {
   isLoading: boolean
   city: CityModel
   languageCode: string
-  fullWidth?: boolean
-  disableScrollingSafari?: boolean
-  showFooter?: boolean
+  fitScreen?: boolean
   category?: CategoryModel
 }
 
@@ -33,15 +31,13 @@ const CityContentLayout = ({
   languageChangePaths,
   isLoading,
   Toolbar,
-  fullWidth = false,
-  disableScrollingSafari = false,
-  showFooter = true,
+  fitScreen = false,
 }: CityContentLayoutProps): ReactElement => {
   const { route } = useCityContentParams()
   const [layoutReady, setLayoutReady] = useState(!isLoading)
   const { viewportSmall } = useWindowDimensions()
   const isChatEnabled = buildConfig().featureFlags.chat && route !== POIS_ROUTE && city.chatEnabled
-  const footerVisible = !isLoading && !viewportSmall && showFooter
+  const footerVisible = !isLoading && !viewportSmall && !fitScreen
   const chatVisible = isChatEnabled && layoutReady
 
   // Avoid flickering due to content (chat) being pushed up by the footer
@@ -49,8 +45,7 @@ const CityContentLayout = ({
 
   return (
     <Layout
-      disableScrollingSafari={disableScrollingSafari}
-      fullWidth={fullWidth}
+      fitScreen={fitScreen}
       header={
         <CityContentHeader
           category={category}
