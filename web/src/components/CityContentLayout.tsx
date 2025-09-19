@@ -1,4 +1,3 @@
-import Stack from '@mui/material/Stack'
 import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
 
 import { POIS_ROUTE } from 'shared'
@@ -6,7 +5,6 @@ import { CategoryModel, CityModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
 import useCityContentParams from '../hooks/useCityContentParams'
-import useElementRect from '../hooks/useElementRect'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import BottomNavigation from './BottomNavigation'
 import ChatContainer from './ChatContainer'
@@ -41,10 +39,10 @@ const CityContentLayout = ({
 }: CityContentLayoutProps): ReactElement => {
   const { route } = useCityContentParams()
   const [layoutReady, setLayoutReady] = useState(!isLoading)
-  const { rect: bottomNavigationRect, ref } = useElementRect()
   const { viewportSmall } = useWindowDimensions()
   const isChatEnabled = buildConfig().featureFlags.chat && route !== POIS_ROUTE && city.chatEnabled
-  const isFooterVisible = !isLoading && !viewportSmall && showFooter
+  const footerVisible = !isLoading && !viewportSmall && showFooter
+  const chatVisible = isChatEnabled && layoutReady
 
   // Avoid flickering due to content (chat) being pushed up by the footer
   useEffect(() => setLayoutReady(!isLoading), [isLoading])
@@ -63,12 +61,9 @@ const CityContentLayout = ({
       }
       footer={
         <>
-          {isFooterVisible && <CityContentFooter city={city.code} language={languageCode} />}
-          <Stack height={bottomNavigationRect?.height} />
-          {isChatEnabled && layoutReady ? (
-            <ChatContainer city={city} language={languageCode} bottomOffset={bottomNavigationRect?.height} />
-          ) : undefined}
-          {viewportSmall && <BottomNavigation cityModel={city} languageCode={languageCode} ref={ref} />}
+          {footerVisible && <CityContentFooter city={city.code} language={languageCode} />}
+          {chatVisible && <ChatContainer city={city} language={languageCode} />}
+          {viewportSmall && <BottomNavigation cityModel={city} languageCode={languageCode} />}
         </>
       }
       toolbar={viewportSmall ? null : Toolbar}>
