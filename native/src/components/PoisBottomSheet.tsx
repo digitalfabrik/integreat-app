@@ -3,7 +3,7 @@ import BottomSheet, {
   BottomSheetFlatListMethods,
   BottomSheetScrollView,
 } from '@gorhom/bottom-sheet'
-import React, { memo, ReactElement, Ref } from 'react'
+import React, { memo, ReactElement, Ref, useCallback, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Platform } from 'react-native'
 import styled, { useTheme } from 'styled-components/native'
@@ -66,11 +66,29 @@ const PoisBottomSheet = ({
   const { languageCode } = useCityAppContext()
   const { t } = useTranslation('pois')
   const theme = useTheme()
+  const bottomSheetRef = useRef<BottomSheet>(null)
   // ios has scrolling issues if content panning gesture is not enabled
   const enableContentPanningGesture = Platform.OS === 'ios' || !isFullscreen
 
+  const handlePoiFocus = useCallback(() => {
+    if (!isFullscreen && bottomSheetRef.current) {
+      const fullscreenIndex = snapPoints.length - 1
+      bottomSheetRef.current.snapToIndex(fullscreenIndex)
+    }
+  }, [isFullscreen, snapPoints.length])
+
+  const handlePoiSelection = (poi: PoiModel) => {
+    selectPoi(poi)
+    bottomSheetRef.current?.snapToIndex(1)
+  }
+
   const PoiDetail = poi ? (
-    <PoiDetails language={languageCode} poi={poi} distance={userLocation && poi.distance(userLocation)} />
+    <PoiDetails
+      onFocus={handlePoiFocus}
+      language={languageCode}
+      poi={poi}
+      distance={userLocation && poi.distance(userLocation)}
+    />
   ) : (
     <Failure code={ErrorCode.PageNotFound} buttonAction={deselectAll} buttonLabel={t('detailsHeader')} />
   )
@@ -80,13 +98,15 @@ const PoisBottomSheet = ({
       key={poi.path}
       poi={poi}
       language={languageCode}
-      navigateToPoi={() => selectPoi(poi)}
+      navigateToPoi={() => handlePoiSelection(poi)}
       distance={userLocation && poi.distance(userLocation)}
+      onFocus={handlePoiFocus}
     />
   )
 
   return (
     <StyledBottomSheet
+      ref={bottomSheetRef}
       accessibilityLabel=''
       index={snapPointIndex}
       isFullscreen={isFullscreen}
