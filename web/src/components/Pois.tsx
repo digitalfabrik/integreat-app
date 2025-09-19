@@ -121,7 +121,6 @@ const Pois = ({ pois: allPois, userLocation, city, languageCode, pageTitle }: Po
   }
 
   const sharedPoiProps = {
-    toolbar,
     data: preparedData,
     selectMapFeature,
     selectPoi,
@@ -150,6 +149,7 @@ const Pois = ({ pois: allPois, userLocation, city, languageCode, pageTitle }: Po
       ) : (
         <PoisDesktop
           {...sharedPoiProps}
+          toolbar={toolbar}
           cityModel={city}
           PanelContent={showFilterSelection ? FiltersModal : undefined}
         />
