@@ -34,9 +34,9 @@ const GoBackContainer = styled('div')`
 `
 
 const GeocontrolContainer = styled('div')<{ maxOffset: number }>`
-  position: absolute;
-  inset-inline-end: 10px;
-  bottom: calc(min(var(--rsbs-overlay-h, 0), ${props => props.maxOffset}px) + 8px);
+  position: fixed;
+  inset-inline-end: 16px;
+  bottom: calc(min(var(--rsbs-overlay-h, 0), ${props => props.maxOffset}px) + 16px);
 `
 
 type PoisMobileProps = {
@@ -137,9 +137,7 @@ const PoisMobile = ({
       <BottomActionSheet
         ref={sheetRef}
         setBottomActionSheetHeight={setBottomActionSheetHeight}
-        sibling={
-          <GeocontrolContainer id='geolocate' ref={geocontrolPosition} maxOffset={getSnapPoints(dimensions)[1]} />
-        }>
+        sibling={<GeocontrolContainer ref={geocontrolPosition} maxOffset={getSnapPoints(dimensions)[1]} />}>
         {canDeselect && isBottomActionSheetFullScreen && (
           <GoBackContainer>
             <GoBack goBack={deselect} viewportSmall text={t('detailsHeader')} />

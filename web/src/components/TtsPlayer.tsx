@@ -32,6 +32,8 @@ const StyledTtsPlayer = styled('dialog')<{ bottomOffset: number }>`
   bottom: ${props => props.bottomOffset}px;
   gap: 16px;
   border-color: transparent;
+  // Position tts player above bottom sheet
+  z-index: 10;
 `
 
 const StyledPanel = styled('div')`
