@@ -50,7 +50,7 @@ type PoiDetailsProps = {
   poi: PoiModel
   language: string
   distance: number | null
-  onFocus?: () => void
+  onFocus: () => void
 }
 
 const PoiDetails = ({ poi, language, distance, onFocus }: PoiDetailsProps): ReactElement => {
