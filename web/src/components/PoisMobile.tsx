@@ -40,7 +40,6 @@ const GeocontrolContainer = styled('div')<{ maxOffset: number }>`
 `
 
 type PoisMobileProps = {
-  toolbar: ReactElement
   data: PreparePoisReturn
   userLocation: LocationType | null
   slug: string | undefined
@@ -53,7 +52,6 @@ type PoisMobileProps = {
 }
 
 const PoisMobile = ({
-  toolbar,
   data,
   userLocation,
   slug,
@@ -137,7 +135,6 @@ const PoisMobile = ({
         }
       />
       <BottomActionSheet
-        toolbar={toolbar}
         ref={sheetRef}
         setBottomActionSheetHeight={setBottomActionSheetHeight}
         sibling={

@@ -22,7 +22,6 @@ describe('PoisMobile', () => {
   const renderPoisDesktop = (poi?: PoiModel) =>
     renderWithRouterAndTheme(
       <PoisMobile
-        toolbar={<div>Toolbar</div>}
         data={{ pois, mapFeatures, poi, poiCategories }}
         userLocation={userLocation}
         slug={poi?.slug}
@@ -44,7 +43,6 @@ describe('PoisMobile', () => {
     expect(queryByText('pois:distanceKilometre')).toBeTruthy()
     expect(queryByText(singlePoi.location.address!)).toBeTruthy()
     expect(queryByText(singlePoi.content)).toBeTruthy()
-    expect(queryByText('Toolbar')).toBeTruthy()
     expect(queryByText('listTitle')).toBeNull()
   })
 
