@@ -12,6 +12,8 @@ import useCityContentParams from '../hooks/useCityContentParams'
 import getNavigationItems from '../utils/navigationItems'
 import Link from './base/Link'
 
+export const BOTTOM_NAVIGATION_ELEMENT_ID = 'bottom-navigation'
+
 const Container = styled(Paper)({
   position: 'fixed',
   bottom: 0,
@@ -39,7 +41,7 @@ const BottomNavigation = ({ cityModel, languageCode, ref }: BottomNavigationProp
 
   return (
     <Container elevation={4} ref={ref}>
-      <MuiBottomNavigation showLabels value={value}>
+      <MuiBottomNavigation id={BOTTOM_NAVIGATION_ELEMENT_ID} showLabels value={value} component='nav'>
         {navigationItems.map(item => (
           <BottomNavigationAction
             key={item.value}

@@ -8,5 +8,7 @@ export const mockWindowDimensions: WindowDimensionsType = {
   footerHeight: 64,
   visibleFooterHeight: 64,
   documentHeight: 700,
+  bottomNavigationHeight: undefined,
+  ttsPlayerHeight: 100,
   scrollY: 0,
 }
