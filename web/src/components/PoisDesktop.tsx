@@ -6,7 +6,6 @@ import { GeolocateControl, NavigationControl } from 'react-map-gl'
 import { LocationType, MapViewViewport, MapFeature, PreparePoisReturn } from 'shared'
 import { CityModel, PoiModel } from 'shared/api'
 
-import dimensions from '../constants/dimensions'
 import CityContentFooter from './CityContentFooter'
 import GoBack from './GoBack'
 import MapView from './MapView'
@@ -18,10 +17,10 @@ const PanelContainer = styled('article')`
   height: 100%;
   display: flex;
   flex-direction: column;
-  width: ${dimensions.poiDesktopPanelWidth}px;
+  width: 400px;
 
   /* additional min-width is needed because the article would shrink to a smaller width if the content can be smaller */
-  min-width: ${dimensions.poiDesktopPanelWidth}px;
+  min-width: 400px;
 `
 
 const ListViewWrapper = styled('div')`
