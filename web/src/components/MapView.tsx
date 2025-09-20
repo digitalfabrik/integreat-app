@@ -168,7 +168,7 @@ const MapView = ({
       mapRef.flyTo({
         center: [longitude, latitude],
         zoom: closerDetailZoom,
-        padding: { bottom: dimensions.viewportSmall ? getSnapPoints(dimensions)[1] : 0, top: 0, left: 0, right: 0 },
+        padding: { bottom: dimensions.mobile ? getSnapPoints(dimensions)[1] : 0, top: 0, left: 0, right: 0 },
       })
     }
   }, [currentFeature?.geometry.coordinates, dimensions, mapRef])
@@ -209,7 +209,7 @@ const MapView = ({
           <Layer {...clusterCountLayer} />
           <Layer {...markerLayer(currentFeature)} />
         </Source>
-        <MapAttribution initialExpanded={!dimensions.viewportSmall} />
+        <MapAttribution initialExpanded={!dimensions.mobile} />
       </Map>
     </MapContainer>
   )

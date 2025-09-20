@@ -46,7 +46,7 @@ const Pois = ({ pois: allPois, userLocation, city, languageCode, pageTitle }: Po
   const [mapViewport, setMapViewport] = useState<MapViewViewport>(moveViewportToCity(city, zoom))
   const params = useParams()
   const navigate = useNavigate()
-  const { viewportSmall, width, headerHeight } = useWindowDimensions()
+  const { mobile, width, headerHeight } = useWindowDimensions()
 
   const slug = params.slug ? normalizePath(params.slug) : undefined
 
@@ -112,11 +112,11 @@ const Pois = ({ pois: allPois, userLocation, city, languageCode, pageTitle }: Po
       setSelectedPoiCategory={updatePoiCategoryFilter}
       currentlyOpenFilter={currentlyOpenFilter}
       setCurrentlyOpenFilter={updatePoiCurrentlyOpenFilter}
-      panelWidth={viewportSmall ? width : dimensions.poiDesktopPanelWidth}
+      panelWidth={mobile ? width : dimensions.poiDesktopPanelWidth}
       poisCount={pois.length}
     />
   )
-  if (showFilterSelection && viewportSmall) {
+  if (showFilterSelection && mobile) {
     return FiltersModal
   }
 
@@ -144,7 +144,7 @@ const Pois = ({ pois: allPois, userLocation, city, languageCode, pageTitle }: Po
 
   return (
     <Container offset={headerHeight}>
-      {viewportSmall ? (
+      {mobile ? (
         <PoisMobile {...sharedPoiProps} />
       ) : (
         <PoisDesktop

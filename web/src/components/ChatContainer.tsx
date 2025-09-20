@@ -57,7 +57,7 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement | n
   const [queryParams, setQueryParams] = useSearchParams()
   const initialChatVisibility = parseQueryParams(queryParams).chat ?? false
   const [chatVisible, setChatVisible] = useState(initialChatVisibility)
-  const { viewportSmall, visibleFooterHeight, bottomNavigationHeight } = useWindowDimensions()
+  const { mobile, visibleFooterHeight, bottomNavigationHeight } = useWindowDimensions()
   const { visible: ttsPlayerVisible } = useContext(TtsContext)
   const chatName = getChatName(buildConfig().appName)
   useLockedBody(chatVisible)
@@ -90,7 +90,7 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement | n
       <ChatActionButton onClick={() => setChatVisible(true)} color='primary'>
         <StyledIcon src={QuestionAnswerOutlinedIcon} title={chatName} />
       </ChatActionButton>
-      {!viewportSmall && <ChatTitle>{chatName}</ChatTitle>}
+      {!mobile && <ChatTitle>{chatName}</ChatTitle>}
     </ChatButtonContainer>
   )
 }

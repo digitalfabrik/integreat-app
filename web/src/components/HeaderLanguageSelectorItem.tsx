@@ -18,7 +18,7 @@ const HeaderLanguageSelectorItem = ({
   languageCode,
 }: HeaderLanguageSelectorItemProps): ReactElement => {
   const [open, setOpen] = useState(false)
-  const { viewportSmall } = useWindowDimensions()
+  const { mobile } = useWindowDimensions()
   const { t } = useTranslation('layout')
 
   const currentLanguageName = languageChangePaths?.find(item => item.code === languageCode)?.name
@@ -29,11 +29,11 @@ const HeaderLanguageSelectorItem = ({
       onClick={() => setOpen(open => !open)}
       text={t('changeLanguage')}
       icon={<TranslateOutlinedIcon />}
-      innerText={viewportSmall ? undefined : currentLanguageName}
+      innerText={mobile ? undefined : currentLanguageName}
     />
   )
 
-  if (viewportSmall) {
+  if (mobile) {
     return (
       <Sidebar OpenButton={ChangeLanguageButton} setOpen={setOpen} open={open}>
         <LanguageSelector

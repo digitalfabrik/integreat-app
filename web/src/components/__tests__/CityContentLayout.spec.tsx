@@ -39,34 +39,34 @@ describe('CityContentLayout', () => {
       ),
     })
 
-  it('should render a toolbar on big screens', () => {
-    mocked(useWindowDimensions).mockImplementation(() => ({ ...mockWindowDimensions, viewportSmall: false }))
+  it('should render a toolbar on desktop', () => {
+    mocked(useWindowDimensions).mockImplementation(() => ({ ...mockWindowDimensions, mobile: false }))
     const { getByText } = renderCityContentLayout(false, <div>Toolbar</div>)
     expect(getByText('Toolbar')).toBeTruthy()
   })
 
-  it('should hide the toolbar on small screens', () => {
-    mocked(useWindowDimensions).mockImplementation(() => ({ ...mockWindowDimensions, viewportSmall: true }))
+  it('should hide the toolbar on mobile', () => {
+    mocked(useWindowDimensions).mockImplementation(() => ({ ...mockWindowDimensions, mobile: true }))
     const { queryByText } = renderCityContentLayout(false, <div>Toolbar</div>)
     expect(queryByText('Toolbar')).toBeFalsy()
   })
 
   it('should show CityContentHeader and CityContentFooter if not loading and on a big screen', () => {
-    mocked(useWindowDimensions).mockImplementation(() => ({ ...mockWindowDimensions, viewportSmall: false }))
+    mocked(useWindowDimensions).mockImplementation(() => ({ ...mockWindowDimensions, mobile: false }))
     const { getByText } = renderCityContentLayout(false)
     expect(getByText('CityContentHeader')).toBeTruthy()
     expect(getByText('CityContentFooter')).toBeTruthy()
   })
 
   it('should show CityContentHeader and not CityContentFooter if not loading and on a small screen', () => {
-    mocked(useWindowDimensions).mockImplementation(() => ({ ...mockWindowDimensions, viewportSmall: true }))
+    mocked(useWindowDimensions).mockImplementation(() => ({ ...mockWindowDimensions, mobile: true }))
     const { getByText } = renderCityContentLayout(false)
     expect(getByText('CityContentHeader')).toBeTruthy()
     expect(() => getByText('CityContentFooter')).toThrow()
   })
 
   it('should not render CityContentFooter if loading', () => {
-    mocked(useWindowDimensions).mockImplementation(() => ({ ...mockWindowDimensions, viewportSmall: true }))
+    mocked(useWindowDimensions).mockImplementation(() => ({ ...mockWindowDimensions, mobile: true }))
     const { getByText } = renderCityContentLayout(true)
     expect(getByText('CityContentHeader')).toBeTruthy()
     expect(() => getByText('CityContentFooter')).toThrow()

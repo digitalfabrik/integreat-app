@@ -7,10 +7,10 @@ jest.mock('react-i18next')
 
 describe('useWindowDimensions', () => {
   const MockComponent = () => {
-    const { width, height, viewportSmall } = useWindowDimensions()
+    const { width, height, mobile } = useWindowDimensions()
     return (
       <div>
-        {width} {height} {viewportSmall.toString()}
+        {width} {height} {mobile.toString()}
       </div>
     )
   }
@@ -22,7 +22,7 @@ describe('useWindowDimensions', () => {
   })
 
   it('should correctly set all properties', () => {
-    // The small viewport media queries kick in with width < 840.
+    // The mobile media queries kick in with width < 840.
     const width = 841
     const height = 800
     Object.defineProperty(window, 'innerWidth', { value: width })

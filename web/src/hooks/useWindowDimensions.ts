@@ -8,7 +8,7 @@ import { TTS_PLAYER_ELEMENT_ID } from '../components/TtsPlayer'
 export type WindowDimensionsType = {
   width: number
   height: number
-  viewportSmall: boolean
+  mobile: boolean
   headerHeight: number
   footerHeight: number
   scrollY: number
@@ -33,7 +33,7 @@ const getWindowDimensions = (): WindowDimensionsType => {
     width,
     height,
     scrollY,
-    viewportSmall: width <= BREAKPOINTS.md,
+    mobile: width <= BREAKPOINTS.md,
     headerHeight,
     footerHeight,
     documentHeight,
