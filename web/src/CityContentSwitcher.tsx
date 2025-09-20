@@ -65,7 +65,9 @@ const CityContentSwitcher = ({ languageCode }: CityContentSwitcherProps): ReactE
   const language = city?.languages.find(it => it.code === languageCode) ?? null
   if (city && !language) {
     return (
-      <Layout header={<GeneralHeader languageCode={languageCode} />} footer={<GeneralFooter language={languageCode} />}>
+      <Layout
+        header={<GeneralHeader languageCode={languageCode} cityLanguages={city.languages} />}
+        footer={<GeneralFooter language={languageCode} />}>
         <LanguageFailure
           cityModel={city}
           languageCode={languageCode}
