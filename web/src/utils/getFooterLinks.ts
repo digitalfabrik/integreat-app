@@ -1,7 +1,6 @@
 import { DISCLAIMER_ROUTE, LICENSES_ROUTE, MAIN_DISCLAIMER_ROUTE, pathnameFromRouteInformation } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
-import { RoutePatterns } from '../routes'
 
 type FooterLinkItem = {
   to: string
@@ -25,9 +24,9 @@ const getFooterLinks = ({ language, city }: GetFooterLinksProps): FooterLinkItem
         cityCode: city,
         languageCode: language,
       })
-    : RoutePatterns[MAIN_DISCLAIMER_ROUTE]
+    : `/${MAIN_DISCLAIMER_ROUTE}/${language}`
 
-  const licensesPath = pathnameFromRouteInformation({ route: LICENSES_ROUTE })
+  const licensesPath = `/${LICENSES_ROUTE}/${language}`
 
   return [
     { to: disclaimerPath, text: 'disclaimer' },

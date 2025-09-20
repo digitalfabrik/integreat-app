@@ -1,23 +1,40 @@
-import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined'
 import React, { ReactElement } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useLocation } from 'react-router-dom'
 
 import { LANDING_ROUTE, pathnameFromRouteInformation } from 'shared'
+import { createCitiesEndpoint, useLoadFromEndpoint } from 'shared/api'
 
-import buildConfig from '../constants/buildConfig'
+import { cmsApiBaseUrl } from '../constants/urls'
 import Header from './Header'
-import HeaderActionItem from './HeaderActionItem'
+import HeaderLanguageSelectorItem from './HeaderLanguageSelectorItem'
 
 type GeneralHeaderProps = {
   languageCode: string
 }
 
 const GeneralHeader = ({ languageCode }: GeneralHeaderProps): ReactElement => {
-  const { t } = useTranslation('layout')
+  const { data: cities } = useLoadFromEndpoint(createCitiesEndpoint, cmsApiBaseUrl, undefined)
   const landingPath = pathnameFromRouteInformation({ route: LANDING_ROUTE, languageCode })
-  const actionItems = buildConfig().featureFlags.fixedCity
-    ? []
-    : [<HeaderActionItem key='landing' to={landingPath} icon={<LocationOnOutlinedIcon />} text={t('changeLocation')} />]
+  const slug = useLocation().pathname.split('/')[1]
+  const languages = [
+    ...new Map(cities?.flatMap(city => (city.live ? city.languages : [])).map(item => [item.code, item])).values(),
+  ]
+  const languageChangePaths = languages.map(language => ({
+    code: language.code,
+    name: language.name,
+    path: `/${slug}/${language.code}`,
+  }))
+
+  const actionItems =
+    languageChangePaths.length > 0
+      ? [
+          <HeaderLanguageSelectorItem
+            key='languageChange'
+            languageChangePaths={languageChangePaths}
+            languageCode={languageCode}
+          />,
+        ]
+      : []
 
   return <Header logoHref={landingPath} actionItems={actionItems} language={languageCode} />
 }
