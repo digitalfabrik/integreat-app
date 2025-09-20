@@ -3,14 +3,14 @@ import React from 'react'
 
 import { CityModelBuilder } from 'shared/api'
 
-import { mockWindowDimensions } from '../../__mocks__/useWindowDimensions'
-import useWindowDimensions from '../../hooks/useWindowDimensions'
+import { mockDimensions } from '../../__mocks__/useDimensions'
+import useDimensions from '../../hooks/useDimensions'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import CityContentHeader from '../CityContentHeader'
 
 jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
-jest.mock('../../hooks/useWindowDimensions')
+jest.mock('../../hooks/useDimensions')
 
 describe('CityContentHeader', () => {
   const cityModel = new CityModelBuilder(1).build()[0]!
@@ -32,7 +32,7 @@ describe('CityContentHeader', () => {
     )
 
   it('should render correctly', () => {
-    mocked(useWindowDimensions).mockImplementation(() => ({ ...mockWindowDimensions, mobile: false }))
+    mocked(useDimensions).mockImplementation(() => ({ ...mockDimensions, mobile: false }))
     const { getAllByText, getByText, queryByLabelText } = renderCityContentHeader()
     expect(getByText(cityModel.name)).toBeTruthy()
     expect(getAllByText('Deutsch')).toBeTruthy()
@@ -41,7 +41,7 @@ describe('CityContentHeader', () => {
   })
 
   it('should show sidebar and hide navigation tabs on mobile', () => {
-    mocked(useWindowDimensions).mockImplementation(() => ({ ...mockWindowDimensions, mobile: true }))
+    mocked(useDimensions).mockImplementation(() => ({ ...mockDimensions, mobile: true }))
     const { getByText, getByLabelText, queryByText } = renderCityContentHeader()
     expect(getByText(cityModel.name)).toBeTruthy()
     expect(getByLabelText('layout:changeLanguage')).toBeTruthy()

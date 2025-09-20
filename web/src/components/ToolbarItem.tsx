@@ -7,7 +7,7 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
 import dimensions from '../constants/dimensions'
-import useWindowDimensions from '../hooks/useWindowDimensions'
+import useDimensions from '../hooks/useDimensions'
 import Link from './base/Link'
 
 const StyledButton = styled(ListItemButton)({
@@ -24,7 +24,7 @@ export type ToolbarItemProps = {
 } & ({ to: string; onClick?: never } | { to?: never; onClick: () => void })
 
 const ToolbarItem = ({ to, text, icon, disabled = false, tooltip, onClick }: ToolbarItemProps): ReactElement => {
-  const { mobile } = useWindowDimensions()
+  const { mobile } = useDimensions()
   const tooltipPlacement = mobile ? 'top' : 'right'
 
   return (

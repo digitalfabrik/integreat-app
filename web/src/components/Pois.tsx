@@ -21,7 +21,7 @@ import PoiFilters from '../components/PoiFilters'
 import PoisDesktop from '../components/PoisDesktop'
 import PoisMobile from '../components/PoisMobile'
 import dimensions from '../constants/dimensions'
-import useWindowDimensions from '../hooks/useWindowDimensions'
+import useDimensions from '../hooks/useDimensions'
 import moveViewportToCity from '../utils/moveViewportToCity'
 import PoiFiltersOverlayButtons from './PoiFiltersOverlayButtons'
 
@@ -46,7 +46,7 @@ const Pois = ({ pois: allPois, userLocation, city, languageCode, pageTitle }: Po
   const [mapViewport, setMapViewport] = useState<MapViewViewport>(moveViewportToCity(city, zoom))
   const params = useParams()
   const navigate = useNavigate()
-  const { mobile, window, headerHeight } = useWindowDimensions()
+  const { mobile, window, headerHeight } = useDimensions()
 
   const slug = params.slug ? normalizePath(params.slug) : undefined
 

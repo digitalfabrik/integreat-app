@@ -4,7 +4,7 @@ import { Trans, useTranslation } from 'react-i18next'
 
 import { OrganizationModel } from 'shared/api'
 
-import useWindowDimensions from '../hooks/useWindowDimensions'
+import useDimensions from '../hooks/useDimensions'
 import HighlightBox from './HighlightBox'
 import Link from './base/Link'
 
@@ -44,7 +44,7 @@ type OrganizationContentInfoProps = {
 
 const OrganizationContentInfo = ({ organization }: OrganizationContentInfoProps): ReactElement => {
   const { t } = useTranslation('categories')
-  const { mobile } = useWindowDimensions()
+  const { mobile } = useDimensions()
 
   return (
     <Box viewportSmall={mobile}>

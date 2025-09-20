@@ -10,7 +10,7 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import useWindowDimensions from '../hooks/useWindowDimensions'
+import useDimensions from '../hooks/useDimensions'
 
 export const TTS_PLAYER_ELEMENT_ID = 'tts-player'
 
@@ -99,7 +99,7 @@ const TtsPlayer = ({
   pause,
   disabled,
 }: TtsPlayerProps): ReactElement => {
-  const { visibleFooterHeight, bottomNavigationHeight } = useWindowDimensions()
+  const { visibleFooterHeight, bottomNavigationHeight } = useDimensions()
   const { t } = useTranslation('layout')
   const bottomOffset = bottomNavigationHeight ?? visibleFooterHeight
 

@@ -23,7 +23,7 @@ import {
   EventThumbnailPlaceholder3,
 } from '../assets'
 import { EXCERPT_MAX_CHARS } from '../constants'
-import useWindowDimensions from '../hooks/useWindowDimensions'
+import useDimensions from '../hooks/useDimensions'
 import Link from './base/Link'
 
 const StyledListItem = styled(ListItem)`
@@ -94,7 +94,7 @@ const EventListItem = ({
   filterEndDate = null,
 }: EventListItemProps): ReactElement => {
   const dateIcon = getDateIcon(event.date)
-  const { mobile } = useWindowDimensions()
+  const { mobile } = useDimensions()
   const { t } = useTranslation('events')
   const dateToDisplay = getDisplayDate(event, filterStartDate, filterEndDate)
   const thumbnailSrc = event.thumbnail || getEventPlaceholder(event.path)

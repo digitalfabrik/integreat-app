@@ -2,7 +2,7 @@ import TranslateOutlinedIcon from '@mui/icons-material/TranslateOutlined'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import useWindowDimensions from '../hooks/useWindowDimensions'
+import useDimensions from '../hooks/useDimensions'
 import Dropdown from './Dropdown'
 import HeaderActionItem from './HeaderActionItem'
 import LanguageSelector from './LanguageSelector'
@@ -18,7 +18,7 @@ const HeaderLanguageSelectorItem = ({
   languageCode,
 }: HeaderLanguageSelectorItemProps): ReactElement => {
   const [open, setOpen] = useState(false)
-  const { mobile } = useWindowDimensions()
+  const { mobile } = useDimensions()
   const { t } = useTranslation('layout')
 
   const currentLanguageName = languageChangePaths?.find(item => item.code === languageCode)?.name

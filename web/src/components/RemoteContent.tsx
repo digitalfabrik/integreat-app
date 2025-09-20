@@ -7,8 +7,8 @@ import { useNavigate } from 'react-router-dom'
 import { ExternalSourcePermissions } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
+import useDimensions from '../hooks/useDimensions'
 import useLocalStorage from '../hooks/useLocalStorage'
-import useWindowDimensions from '../hooks/useWindowDimensions'
 import {
   LOCAL_STORAGE_ITEM_EXTERNAL_SOURCES,
   handleAllowedIframeSources,
@@ -40,7 +40,7 @@ const RemoteContent = ({ html, centered = false, smallText = false }: RemoteCont
   })
 
   const [contentIframeSources, setContentIframeSources] = useState<IframeSources>({})
-  const { mobile, window } = useWindowDimensions()
+  const { mobile, window } = useDimensions()
   const { t } = useTranslation()
   const { isContrastTheme } = useTheme()
 

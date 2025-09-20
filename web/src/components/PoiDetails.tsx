@@ -10,7 +10,7 @@ import { PoiModel } from 'shared/api'
 
 import { PoiThumbnailPlaceholderLarge } from '../assets'
 import { helpers } from '../constants/theme'
-import useWindowDimensions from '../hooks/useWindowDimensions'
+import useDimensions from '../hooks/useDimensions'
 import Collapsible from './Collapsible'
 import Contact from './Contact'
 import OpeningHours from './OpeningHours'
@@ -131,7 +131,7 @@ type PoiDetailsProps = {
 }
 
 const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement => {
-  const { mobile } = useWindowDimensions()
+  const { mobile } = useDimensions()
   const { t } = useTranslation('pois')
   const { content, location, contacts, isCurrentlyOpen, openingHours, temporarilyClosed, appointmentUrl } = poi
 

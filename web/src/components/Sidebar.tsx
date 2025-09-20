@@ -8,8 +8,8 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import useDimensions from '../hooks/useDimensions'
 import useLockedBody from '../hooks/useLockedBody'
-import useWindowDimensions from '../hooks/useWindowDimensions'
 import { LAYOUT_ELEMENT_ID } from './Layout'
 
 const StyledDrawer = styled(Drawer)`
@@ -39,7 +39,7 @@ type SidebarProps = {
 }
 
 const Sidebar = ({ children, open, setOpen, Footer, OpenButton }: SidebarProps): ReactElement | null => {
-  const { headerHeight } = useWindowDimensions()
+  const { headerHeight } = useDimensions()
   const { t } = useTranslation('layout')
   useLockedBody(open)
 

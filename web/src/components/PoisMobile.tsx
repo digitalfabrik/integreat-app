@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next'
 import { LocationType, MapViewViewport, MapFeature, PreparePoisReturn } from 'shared'
 import { PoiModel } from 'shared/api'
 
-import useWindowDimensions from '../hooks/useWindowDimensions'
+import useDimensions from '../hooks/useDimensions'
 import { getSnapPoints } from '../utils/getSnapPoints'
 import BottomActionSheet, { ScrollableBottomSheetRef } from './BottomActionSheet'
 import GoBack from './GoBack'
@@ -68,7 +68,7 @@ const PoisMobile = ({
   const geocontrolPosition = useRef<HTMLDivElement>(null)
   const [mapViewRef, setMapViewRef] = useState<MapViewRef | null>(null)
   const { pois, poi, mapFeatures, mapFeature } = data
-  const dimensions = useWindowDimensions()
+  const dimensions = useDimensions()
   const theme = useTheme()
   const canDeselect = !!mapFeature || !!slug
   const { t } = useTranslation('pois')
