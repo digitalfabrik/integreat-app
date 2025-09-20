@@ -1,7 +1,6 @@
 import QuestionAnswerOutlinedIcon from '@mui/icons-material/QuestionAnswerOutlined'
 import Fab from '@mui/material/Fab'
-import { styled, useTheme } from '@mui/material/styles'
-import useMediaQuery from '@mui/material/useMediaQuery'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router'
 
@@ -57,13 +56,12 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement | n
   const [queryParams, setQueryParams] = useSearchParams()
   const initialChatVisibility = parseQueryParams(queryParams).chat ?? false
   const [chatVisible, setChatVisible] = useState(initialChatVisibility)
-  const { mobile, visibleFooterHeight, bottomNavigationHeight } = useDimensions()
+  const { desktop, visibleFooterHeight, bottomNavigationHeight, small } = useDimensions()
   const { visible: ttsPlayerVisible } = useContext(TtsContext)
   const chatName = getChatName(buildConfig().appName)
   useLockedBody(chatVisible)
 
-  const theme = useTheme()
-  const hideChatButton = useMediaQuery(theme.breakpoints.down('sm')) && ttsPlayerVisible
+  const hideChatButton = small && ttsPlayerVisible
 
   useEffect(() => {
     if (queryParams.has(CHAT_QUERY_KEY)) {
@@ -90,7 +88,7 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement | n
       <ChatActionButton onClick={() => setChatVisible(true)} color='primary'>
         <StyledIcon src={QuestionAnswerOutlinedIcon} title={chatName} />
       </ChatActionButton>
-      {!mobile && <ChatTitle>{chatName}</ChatTitle>}
+      {desktop && <ChatTitle>{chatName}</ChatTitle>}
     </ChatButtonContainer>
   )
 }
