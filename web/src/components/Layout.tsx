@@ -3,7 +3,6 @@ import Stack from '@mui/material/Stack'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode } from 'react'
 
-import dimensions from '../constants/dimensions'
 import useDimensions from '../hooks/useDimensions'
 import { MobileBanner } from './MobileBanner'
 
@@ -66,7 +65,7 @@ const Main = styled('main')<{ fitScreen: boolean; toolbarWidth: number }>`
   max-width: ${props => (props.fitScreen ? '100%' : `calc(100% - 2 * ${props.toolbarWidth}px)`)};
   box-sizing: border-box;
   margin: 0 auto;
-  padding: ${props => (props.fitScreen ? '0' : `0 ${dimensions.mainContainerHorizontalPadding}px 32px`)};
+  padding: ${props => (props.fitScreen ? '0' : `0 16px 32px`)};
   text-align: start;
   word-wrap: break-word;
 
