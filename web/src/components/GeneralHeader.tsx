@@ -26,8 +26,13 @@ const GeneralHeader = ({ languageCode }: GeneralHeaderProps): ReactElement => {
 
   const landingPath = pathnameFromRouteInformation({ route: LANDING_ROUTE, languageCode })
   const languages = [
-    ...new Map(cities?.flatMap(city => (city.live ? city.languages : [])).map(item => [item.code, item])).values(),
-  ]
+    ...new Map(
+      cities
+        ?.filter(city => city.live)
+        .flatMap(city => city.languages)
+        .map(item => [item.code, item]),
+    ).values(),
+  ].sort((a, b) => a.code.localeCompare(b.code))
   const languageChangePaths = languages.map(language => ({
     code: language.code,
     name: language.name,
