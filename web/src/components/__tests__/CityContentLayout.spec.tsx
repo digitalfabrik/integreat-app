@@ -4,9 +4,9 @@ import React, { ReactElement } from 'react'
 
 import { CityModelBuilder } from 'shared/api'
 
+import { mockWindowDimensions } from '../../__mocks__/useWindowDimensions'
 import useWindowDimensions from '../../hooks/useWindowDimensions'
 import { renderAllRoutes } from '../../testing/render'
-import { mockWindowDimensions } from '../../testing/utils'
 import CityContentLayout from '../CityContentLayout'
 
 jest.mock('../../hooks/useWindowDimensions', () => jest.fn(() => ({ viewportSmall: false })))
