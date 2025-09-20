@@ -19,3 +19,5 @@ export const mockWindowDimensions: WindowDimensionsType = {
   large: false,
   xlarge: false,
 }
+
+export default (): WindowDimensionsType => mockWindowDimensions

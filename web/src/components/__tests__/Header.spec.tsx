@@ -1,9 +1,9 @@
 import { mocked } from 'jest-mock'
 import React from 'react'
 
+import { mockWindowDimensions } from '../../__mocks__/useWindowDimensions'
 import useWindowDimensions from '../../hooks/useWindowDimensions'
 import { renderWithRouterAndTheme } from '../../testing/render'
-import { mockWindowDimensions } from '../../testing/utils'
 import { Header } from '../Header'
 
 jest.mock('../../hooks/useWindowDimensions')
