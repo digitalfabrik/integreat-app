@@ -68,13 +68,6 @@ const createTheme = (
           },
         },
       },
-      MuiBottomNavigationAction: {
-        styleOverrides: {
-          root: {
-            textAlign: 'center',
-          },
-        },
-      },
     },
   })
 }

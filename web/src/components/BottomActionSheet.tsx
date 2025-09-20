@@ -15,7 +15,8 @@ const Title = styled('h1')`
 
 const StyledBottomSheet = styled(BottomSheet)<{ bottomOffset: number }>`
   direction: ${props => props.theme.contentDirection};
-  // Position bottom sheet above content
+
+  /* Position bottom sheet above content */
   z-index: 2;
 
   [data-rsbs-scroll] {
