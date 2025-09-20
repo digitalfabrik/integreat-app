@@ -1259,8 +1259,6 @@
     "de": {
       "copied": "Kopiert",
       "moreOptions": "Mehr Optionen",
-      "languageNotAvailable": "Deine Sprache ist hier leider nicht verfügbar.",
-      "chooseALanguage": "Wähle eine Sprache.",
       "lastUpdate": "Letzte Aktualisierung:",
       "loading": "Lade ...",
       "close": "Schließen",
@@ -1281,8 +1279,6 @@
     "am": {
       "copied": "ተቀድቷል",
       "moreOptions": "የበዛ ኣማራጭ",
-      "languageNotAvailable": "ይቅርታ፣ ቋንቋዎ እዚህ ላይ የለም።",
-      "chooseALanguage": "ቋንቋ ይምረጡ።",
       "lastUpdate": "መጨረሻ የተሻሻለበት ጊዜ:",
       "loading": "እየጫነ ነው ...",
       "close": "ይዝጉ",
@@ -1298,8 +1294,6 @@
     "ar": {
       "copied": "تم النسخ",
       "moreOptions": "مزيد من الخيارات",
-      "languageNotAvailable": "للأسف، لغتك ليست متاحة.",
-      "chooseALanguage": "اختر لغة.",
       "lastUpdate": "التحديث الأخير:",
       "loading": "حمّل...",
       "close": "إغلاق",
@@ -1315,8 +1309,6 @@
     "bg": {
       "copied": "Копиран",
       "moreOptions": "Още опции",
-      "languageNotAvailable": "За съжаление, езикът Ви не е наличен тук.",
-      "chooseALanguage": "Изберете език.",
       "lastUpdate": "Последна актуализация:",
       "loading": "Зареждане...",
       "close": "Затваряне",
@@ -1332,8 +1324,6 @@
     "ckb": {
       "copied": "کۆپی کرا",
       "moreOptions": "بژاردەی زیاتر",
-      "languageNotAvailable": "بەداخەوە زمانەکەتی تێدا نییە.",
-      "chooseALanguage": "زمانێک هەڵبژێرە.",
       "lastUpdate": "دوایین بەڕۆژکردنەوە:",
       "loading": "خەریکی بارکردنە...",
       "close": "داخستن",
@@ -1349,8 +1339,6 @@
     "cs": {
       "copied": "Kopírovat",
       "moreOptions": "Další možnosti",
-      "languageNotAvailable": "Váš jazyk zde není k dispozici.",
-      "chooseALanguage": "Vyberte si jazyk.",
       "lastUpdate": "Poslední aktualizace:",
       "loading": "Načítání ...",
       "close": "Zavřít",
@@ -1366,8 +1354,6 @@
     "da": {
       "copied": "Kopieret",
       "moreOptions": "Flere muligheder",
-      "languageNotAvailable": "Dit sprog er desværre ikke tilgængeligt her.",
-      "chooseALanguage": "Vælg et sprog.",
       "lastUpdate": "Sidst opdateret:",
       "loading": "Indlæs ...",
       "close": "Luk",
@@ -1383,8 +1369,6 @@
     "el": {
       "copied": "Αντιγράφηκε",
       "moreOptions": "Περισσότερες επιλογές",
-      "languageNotAvailable": "Δυστυχώς, η γλώσσα σας δεν είναι διαθέσιμη εδώ.",
-      "chooseALanguage": "Επιλέξτε μια γλώσσα.",
       "lastUpdate": "Τελευταία ενημέρωση:",
       "loading": "Φόρτωση ...",
       "close": "Κλείσιμο",
@@ -1400,8 +1384,6 @@
     "en": {
       "copied": "Copied",
       "moreOptions": "More options",
-      "languageNotAvailable": "Sorry, but your language is not available here.",
-      "chooseALanguage": "Choose a language.",
       "lastUpdate": "Last update:",
       "loading": "Loading ...",
       "close": "Close",
@@ -1422,8 +1404,6 @@
     "es": {
       "copied": "Copiado",
       "moreOptions": "Más opciones",
-      "languageNotAvailable": "Tu idioma no está disponible aquí.",
-      "chooseALanguage": "Selecciona un idioma.",
       "lastUpdate": "Última actualización:",
       "loading": "Cargando...",
       "close": "Cerrar",
@@ -1439,8 +1419,6 @@
     "fi": {
       "copied": "Kopioitu",
       "moreOptions": "Lisää vaihtoehtoja",
-      "languageNotAvailable": "Kielesi ei ole saatavilla.",
-      "chooseALanguage": "Valitse kieli.",
       "lastUpdate": "Viimeisin päivitys:",
       "loading": "Lataa...",
       "close": "Sulje",
@@ -1456,8 +1434,6 @@
     "fr": {
       "copied": "Copié",
       "moreOptions": "Plus d’options",
-      "languageNotAvailable": "Malheureusement, ta langue n'est pas disponible ici.",
-      "chooseALanguage": "Choisis une langue.",
       "lastUpdate": "Dernière actualisation :",
       "loading": "Chargement ...",
       "close": "Fermer",
@@ -1473,8 +1449,6 @@
     "hi": {
       "copied": "कॉपी किया गया",
       "moreOptions": "और विकल्प",
-      "languageNotAvailable": "क्षमा करें, लेकिन आपकी भाषा यहाँ उपलब्ध नहीं है।",
-      "chooseALanguage": "एक भाषा चुनें।",
       "lastUpdate": "अंतिम अपडेट:",
       "loading": "लोड हो रहा है...",
       "close": "बंद करें",
@@ -1490,8 +1464,6 @@
     "hr": {
       "copied": "kopirano",
       "moreOptions": "Više opcija",
-      "languageNotAvailable": "Tvoj jezik ovdje nažalost nije dostupan.",
-      "chooseALanguage": "Odaberi jezik.",
       "lastUpdate": "Zadnje ažuriranje:",
       "loading": "Učitava se...",
       "close": "Zatvori",
@@ -1507,8 +1479,6 @@
     "hu": {
       "copied": "Bemásolva",
       "moreOptions": "További lehetőségek",
-      "languageNotAvailable": "A nyelved sajnos nem elérhető.",
-      "chooseALanguage": "Válassz ki egy nyelvet.",
       "lastUpdate": "Utolsó aktualizálás:",
       "loading": "Betöltés...",
       "close": "Bezárás",
@@ -1524,8 +1494,6 @@
     "id": {
       "copied": "Disalin",
       "moreOptions": "Opsi lainnya",
-      "languageNotAvailable": "Maaf, bahasa Anda tidak tersedia di sini.",
-      "chooseALanguage": "Pilih bahasa.",
       "lastUpdate": "Pembaruan terakhir:",
       "loading": "Memuat...",
       "close": "Tutup",
@@ -1544,8 +1512,6 @@
     "it": {
       "copied": "Copiato",
       "moreOptions": "Più opzioni",
-      "languageNotAvailable": "Purtroppo la tua lingua non è disponibile qui.",
-      "chooseALanguage": "Scegli una lingua.",
       "lastUpdate": "Ultimo aggiornamento:",
       "loading": "Caricamento...",
       "close": "Chiudi",
@@ -1561,8 +1527,6 @@
     "ka": {
       "copied": "დაკოპირებულია",
       "moreOptions": "მეტი ვარიანტი",
-      "languageNotAvailable": "შენი ენა აქ არ მოიხმარება",
-      "chooseALanguage": "აირჩიე ენა.",
       "lastUpdate": "ბოლო აქტუალიზირება:",
       "loading": "ატვირთე…",
       "close": "დახურვა",
@@ -1578,8 +1542,6 @@
     "kmr": {
       "copied": "Kopî bû",
       "moreOptions": "Bijardeyên zêdetir",
-      "languageNotAvailable": "Mixabin zimanê te li vir li ber dest nîne.",
-      "chooseALanguage": "Zimanekî bibijêre.",
       "lastUpdate": "Birojkirina herî dawî:",
       "loading": "Di halê birojkirinê da...",
       "close": "Girêdan",
@@ -1595,8 +1557,6 @@
     "mk": {
       "copied": "Копирано",
       "moreOptions": "Повеќе опции",
-      "languageNotAvailable": "За жал твојот јазик не е достапен.",
-      "chooseALanguage": "Избери јазик.",
       "lastUpdate": "Последно ажурирање:",
       "loading": "Вчитај...",
       "close": "Затвори",
@@ -1612,8 +1572,6 @@
     "nl": {
       "copied": "Gekopieerd",
       "moreOptions": "Meer opties",
-      "languageNotAvailable": "Sorry, jouw taal is hier niet beschikbaar",
-      "chooseALanguage": "Kies een taal",
       "lastUpdate": "Laatste update:",
       "loading": "Aan het laden…",
       "close": "sluit af",
@@ -1629,8 +1587,6 @@
     "orm": {
       "copied": "Koppii taeera",
       "moreOptions": "Filannoo dabalataa",
-      "languageNotAvailable": "Dhiifama, garuu afaanni keessan as keessa hin jiru.",
-      "chooseALanguage": "Afaan filadhaa!",
       "lastUpdate": "Yeroo dhumaaf kan fooyyae:",
       "loading": "Barbaadaa jira…",
       "close": "Cufi",
@@ -1646,8 +1602,6 @@
     "pes": {
       "copied": "کپی شد",
       "moreOptions": "گزینه‌های بیشتر",
-      "languageNotAvailable": "متاسفانه زبان شما در اینجا در دسترس نیست.",
-      "chooseALanguage": "یک زبان را انتخاب کنید.",
       "lastUpdate": "آخرین تغییرات:",
       "loading": "در حال بارگیری ...",
       "close": "بستن",
@@ -1663,8 +1617,6 @@
     "pl": {
       "copied": "Skopiowano",
       "moreOptions": "Więcej opcji",
-      "languageNotAvailable": "Niestety Twój język nie jest tutaj dostępny.",
-      "chooseALanguage": "Wybierz język.",
       "lastUpdate": "Ostatnia aktualizacja",
       "loading": "Załaduj...",
       "close": "Zamknij",
@@ -1680,8 +1632,6 @@
     "prs": {
       "copied": "کپی شد",
       "moreOptions": "انتخاب‌‌های بیشتر",
-      "languageNotAvailable": "متاسفانه لسان شما در اینجا موجود نیست‎.",
-      "chooseALanguage": "یک لسان انتخاب کنید.",
       "lastUpdate": "آخرین به‎​روز رسانی:",
       "loading": "در حال دانلود ...",
       "close": "بستن",
@@ -1697,8 +1647,6 @@
     "ps": {
       "copied": "کاپی شولو",
       "moreOptions": "نور اختیارونه",
-      "languageNotAvailable": "له بده مرغه ستا ژبه دلته موجوده نده.",
-      "chooseALanguage": "یوه ژبه انتخاب کړه.",
       "lastUpdate": "آخري تغیر شوے:",
       "loading": "بارولے کیږی ۔۔۔",
       "close": "پای ته رسول",
@@ -1714,8 +1662,6 @@
     "pt": {
       "copied": "Copiado",
       "moreOptions": "Mais opções",
-      "languageNotAvailable": "Lamentamos, mas o teu idioma não está disponível.",
-      "chooseALanguage": "Escolhe um idioma.",
       "lastUpdate": "Última atualização:",
       "loading": "A carregar ...",
       "close": "Fechar",
@@ -1731,8 +1677,6 @@
     "ro": {
       "copied": "Copiat",
       "moreOptions": "Mai multe opțiuni",
-      "languageNotAvailable": "Din păcate, aici nu este disponibilă limba ta.",
-      "chooseALanguage": "Alege o limbă.",
       "lastUpdate": "Ultima actualizare:",
       "loading": "Se încarcă ...",
       "close": "Închideți",
@@ -1748,8 +1692,6 @@
     "rom": {
       "copied": "Kopirimo",
       "moreOptions": "Buteder opcie",
-      "languageNotAvailable": "Afi ker, numa tiri čhib nane akate.",
-      "chooseALanguage": "Birin čhib.",
       "lastUpdate": "Paluno ikeribe ko tek:",
       "loading": "Avela ...",
       "close": "Phande",
@@ -1765,8 +1707,6 @@
     "ru": {
       "copied": "Скопировано",
       "moreOptions": "дополнительные опции",
-      "languageNotAvailable": "К сожалению, ваш язык здесь не используется.",
-      "chooseALanguage": "Выбор языка.",
       "lastUpdate": "Последнее обновление:",
       "loading": "Загрузка...",
       "close": "Закрыть",
@@ -1783,8 +1723,6 @@
     "sk": {
       "copied": "Skopírované",
       "moreOptions": "Viac možností",
-      "languageNotAvailable": "Váš jazyk tu žiaľ nie je k dispozícii.",
-      "chooseALanguage": "Vyberte si jazyk.",
       "lastUpdate": "Posledná aktualizácia:",
       "loading": "Načítajte ...",
       "close": "Zatvoriť",
@@ -1800,8 +1738,6 @@
     "so": {
       "copied": "la koobiyeeyay",
       "moreOptions": "Xulashooyin dheeraad ah",
-      "languageNotAvailable": "Nasiib darro, luqaddaada halkan lagama heli karo.",
-      "chooseALanguage": "Dooro luuqad.",
       "lastUpdate": "Cusbooneysiinta ugu dambeyso:",
       "loading": "Xareysmeyso ...",
       "close": "Xidh",
@@ -1817,8 +1753,6 @@
     "sq": {
       "copied": "e kopjuar",
       "moreOptions": "Me shumë opsione",
-      "languageNotAvailable": "Fatkeqësisht, gjuha juaj nuk është në dispozicion këtu.",
-      "chooseALanguage": "Zgjidh një gjuhë.",
       "lastUpdate": "Përditësimi i fundit:",
       "loading": "Ngarko ...",
       "close": "Mbyll",
@@ -1834,8 +1768,6 @@
     "sr-Cyrl": {
       "copied": "копирано",
       "moreOptions": "Више опција",
-      "languageNotAvailable": "Нажалост, твој језик овде није доступан.",
-      "chooseALanguage": "Изабери језик.",
       "lastUpdate": "Последње ажурирање:",
       "loading": "Учитава се ...",
       "close": "Затвори",
@@ -1851,8 +1783,6 @@
     "sr-Latn": {
       "copied": "kopirano",
       "moreOptions": "Više opcija",
-      "languageNotAvailable": "Nažalost, tvoj jezik ovde nije dostupan.",
-      "chooseALanguage": "Izaberi jezik.",
       "lastUpdate": "Poslednje ažuriranje:",
       "loading": "Učitava se ...",
       "close": "Zatvorite",
@@ -1868,8 +1798,6 @@
     "sw": {
       "copied": "Yamenakiliwa",
       "moreOptions": "Chaguo zaidi",
-      "languageNotAvailable": "Samahani, lugha yako haipatikani hapa.",
-      "chooseALanguage": "Chagua lugha.",
       "lastUpdate": "Ilisasishwa mara ya mwisho:",
       "loading": "Inapakia...",
       "close": "Funga",
@@ -1885,8 +1813,6 @@
     "th": {
       "copied": "คัดลอกแล้ว",
       "moreOptions": "ตัวเลือกเพิ่มเติม",
-      "languageNotAvailable": "ขออภัย ภาษาของคุณไม่สามารถใช้งานได้ที่นี่",
-      "chooseALanguage": "เลือกภาษา",
       "lastUpdate": "ปรับปรุงล่าสุด:",
       "loading": "กำลังโหลด...",
       "close": "ปิด",
@@ -1902,8 +1828,6 @@
     "ti": {
       "copied": "ተቐዲሑ",
       "moreOptions": "ዝበዝሐ ኣማራጺ",
-      "languageNotAvailable": "ሕማቕ ኣጋጣሚ ኮይኑ፡ ቋንቋኻ ኣብዚ የለን።",
-      "chooseALanguage": "ቋንቋ ምረጽ።",
       "lastUpdate": "መወዳእታ ዝተሓደሰ",
       "loading": "ይጽዓን ኣሎ ...",
       "close": "ዕጾ",
@@ -1919,8 +1843,6 @@
     "tr": {
       "copied": "kopyalandı",
       "moreOptions": "Daha fazla seçenek",
-      "languageNotAvailable": "Senin dilin burada maalesef yok.",
-      "chooseALanguage": "Bir dil seçin.",
       "lastUpdate": "Son güncelleme:",
       "loading": "Yükleniyor ...",
       "close": "Kapat",
@@ -1936,8 +1858,6 @@
     "uk": {
       "copied": "Копіювати",
       "moreOptions": "Більше опцій",
-      "languageNotAvailable": "Ваша мова тут недоступна.",
-      "chooseALanguage": "Виберіть мову.",
       "lastUpdate": "Останнє оновлення:",
       "loading": "Завантаження ...",
       "close": "Закрити",
@@ -1953,8 +1873,6 @@
     "ur": {
       "copied": "کاپی کیا گیا",
       "moreOptions": "نسخہ:",
-      "languageNotAvailable": "معذرت، آپ کی زبان یہاں دستیاب نہیں۔",
-      "chooseALanguage": "زبان منتخب کریں۔",
       "lastUpdate": "آخری ترمیم:",
       "loading": "لوڈ ہو رہا ہے ‎…",
       "close": "بند کریں",
@@ -1970,8 +1888,6 @@
     "vi": {
       "copied": "Đã sao chép",
       "moreOptions": "Thêm tùy chọn",
-      "languageNotAvailable": "Rất tiếc, nhưng ngôn ngữ bạn sử dụng không có sẵn tại đây.",
-      "chooseALanguage": "Chọn ngôn ngữ.",
       "lastUpdate": "Cập nhật gần nhất:",
       "loading": "Đang tải...",
       "close": "Đóng",
@@ -1987,8 +1903,6 @@
     "zh-CN": {
       "copied": "已复制",
       "moreOptions": "更多选项",
-      "languageNotAvailable": "很抱歉，这里没有提供您的语言。",
-      "chooseALanguage": "请选择一种语言。",
       "lastUpdate": "上次更新：",
       "loading": "加载中。。。",
       "close": "关闭",
@@ -2568,7 +2482,7 @@
   "error": {
     "de": {
       "notFound": {
-        "language": "Diese Sprache ist hier leider nicht verfügbar.",
+        "language": "Die aktuell ausgewählte Sprache ist in dieser Region nicht verfügbar. Bitte wählen Sie eine andere Sprache aus:",
         "city": "Diese Region wurde leider nicht gefunden.",
         "category": "Diese Seite wurde leider nicht gefunden.",
         "event": "Dieses Event wurde leider nicht gefunden.",
@@ -2584,7 +2498,6 @@
       "unknownError": "Ein unbekannter Fehler ist aufgetreten.",
       "tryAgain": "Erneut versuchen",
       "loadingFailed": "Die Seite konnte leider nicht geladen werden.",
-      "chooseALanguage": "Wähle eine Sprache:",
       "goTo": {
         "start": "Zur Startseite",
         "categories": "Zu den Kategorien",
@@ -2605,7 +2518,6 @@
     },
     "am": {
       "notFound": {
-        "language": "ይቅርታ፣ ይህ ቋንቋ እዚህ ላይ የለም።",
         "city": "ይህ ወረዳ ሊገኝ ኣልቻለም።",
         "category": "ይቅርታ፣ ይህ ገጽ አልተገኘም።",
         "event": "ይቅርታ፣ ይህ ጽግጅት አልተገኘም።",
@@ -2621,7 +2533,6 @@
       "unknownError": "ያልታወቀ ስህተት ተፈጥሯል።",
       "tryAgain": "ድጋሚ ይሞክሩ",
       "loadingFailed": "ይቅርታ፣ ገጹን መጫን አልተቻለም።",
-      "chooseALanguage": "ቋንቋ ይምረጡ:",
       "goTo": {
         "start": "ወደ ሆም ገጽ",
         "categories": "ወደ ምድቦች",
@@ -2642,7 +2553,6 @@
     },
     "ar": {
       "notFound": {
-        "language": "للأسف، هذه اللغة ليست متاحة.",
         "city": "للأسف لم يتم العثور على هذه المنطقة.",
         "category": "للأسف، تعذر العثور على هذه الصفحة.",
         "event": "للأسف، تعذر العثور على هذا الحدث.",
@@ -2658,7 +2568,6 @@
       "unknownError": "حدث خطأ غير معروف.",
       "tryAgain": "إعادة المحاولة",
       "loadingFailed": "للأسف، لا يُمكن تحميل الصفحة.",
-      "chooseALanguage": "اختر لغة:",
       "goTo": {
         "start": "إلى الصفحة الرئيسية",
         "categories": "إلى الفئات",
@@ -2679,7 +2588,6 @@
     },
     "bg": {
       "notFound": {
-        "language": "За съжаление този език не е наличен тук.",
         "city": "За съжаление този регион не беше намерен.",
         "category": "За съжаление тази страница не беше намерена.",
         "event": "За съжаление това събитие не беше намерено.",
@@ -2695,7 +2603,6 @@
       "unknownError": "Възникна непозната грешка.",
       "tryAgain": "Опитайте отново",
       "loadingFailed": "За съжаление страницата не можа да бъде заредена.",
-      "chooseALanguage": "Избери език:",
       "goTo": {
         "start": "Към началната страница",
         "categories": "Към категориите",
@@ -2716,7 +2623,6 @@
     },
     "ckb": {
       "notFound": {
-        "language": "بەداخەوە ئەم زمانەی تێدا نییە.",
         "city": "بەداخەوە، ئەم ناوچەیە نەدۆزرایەوە.",
         "category": "بەداخەوە ئەم لاپەڕەیە نەدۆزرایەوە.",
         "event": "بەداخەوە ئەم ڕووداوە نەدۆزرایەوە.",
@@ -2732,7 +2638,6 @@
       "unknownError": "هەڵەیەکی نەناسراو ڕووی دا.",
       "tryAgain": "دووبارە تاقی بکەوە",
       "loadingFailed": "بەداخەوە لاپەڕەکە بار نەکرا.",
-      "chooseALanguage": "زمانێک هەڵبژێرە:",
       "goTo": {
         "start": "بۆ لاپەڕەی سەرەکی",
         "categories": "بۆ کۆمەڵەکان",
@@ -2753,7 +2658,6 @@
     },
     "cs": {
       "notFound": {
-        "language": "Je nám líto, tento jazyk zde není k dispozici.",
         "city": "Je nám líto, tato oblast nebyla nalezena.",
         "category": "Je nám líto, tato stránka nebyla nalezena.",
         "event": "Je nám líto, tato akce nebyla nalezena.",
@@ -2769,7 +2673,6 @@
       "unknownError": "Došlo k neznámé chybě.",
       "tryAgain": "Zkuste to znovu",
       "loadingFailed": "Je nám líto, stránku se nepodařilo načíst.",
-      "chooseALanguage": "Vyberte si jazyk:",
       "goTo": {
         "start": "Na domovskou stránku",
         "categories": "Ke kategoriím",
@@ -2790,7 +2693,6 @@
     },
     "da": {
       "notFound": {
-        "language": "Dette sprog er desværre ikke tilgængeligt her.",
         "city": "Beklager, denne region blev ikke fundet.",
         "category": "Beklager, denne side blev ikke fundet.",
         "event": "Beklager, denne begivenhed blev ikke fundet.",
@@ -2806,7 +2708,6 @@
       "unknownError": "Der er opstået en ukendt fejl.",
       "tryAgain": "Prøv igen",
       "loadingFailed": "Beklager, siden kunne ikke indlæses.",
-      "chooseALanguage": "Vælg et sprog:",
       "goTo": {
         "start": "Til startsiden",
         "categories": "Til kategorierne",
@@ -2827,7 +2728,6 @@
     },
     "el": {
       "notFound": {
-        "language": "Δυστυχώς, αυτή η γλώσσα δεν είναι διαθέσιμη εδώ.",
         "city": "Δυστυχώς δεν βρέθηκε αυτή η περιοχή.",
         "category": "Δυστυχώς, αυτή η σελίδα δεν βρέθηκε.",
         "event": "Δυστυχώς, αυτή η εκδήλωση δεν βρέθηκε.",
@@ -2843,7 +2743,6 @@
       "unknownError": "Προέκυψε ένα άγνωστο σφάλμα.",
       "tryAgain": "Προσπαθήστε ξανά",
       "loadingFailed": "Δυστυχώς δεν ήταν δυνατή η φόρτωση της σελίδας.",
-      "chooseALanguage": "Επιλέξτε μια γλώσσα:",
       "goTo": {
         "start": "Προς αρχική σελίδα",
         "categories": "Προς κατηγορίες",
@@ -2864,7 +2763,7 @@
     },
     "en": {
       "notFound": {
-        "language": "Sorry, but this language is not available here.",
+        "language": "The currently selected language is not available in this region. Please select another language:",
         "city": "Sorry this region was not found.",
         "category": "Sorry, but the requested page could not be found.",
         "event": "Sorry, but this event could not be found.",
@@ -2880,7 +2779,6 @@
       "unknownError": "An unknown error occurred.",
       "tryAgain": "Try again",
       "loadingFailed": "Sorry, but the requested page could not be loaded.",
-      "chooseALanguage": "Choose a language:",
       "goTo": {
         "start": "Go to the homepage",
         "categories": "Go to categories",
@@ -2901,7 +2799,6 @@
     },
     "es": {
       "notFound": {
-        "language": "Tu idioma no está disponible aquí.",
         "city": "No se ha encontrado esta región.",
         "category": "No se ha encontrado esta página.",
         "event": "No se ha encontrado este evento.",
@@ -2917,7 +2814,6 @@
       "unknownError": "Se ha producido un error desconocido.",
       "tryAgain": "Intentar de nuevo",
       "loadingFailed": "No se ha podido cagar la página.",
-      "chooseALanguage": "Selecciona un idioma:",
       "goTo": {
         "start": "Ir a la página de inicio",
         "categories": "Ir a las categorías",
@@ -2938,7 +2834,6 @@
     },
     "fi": {
       "notFound": {
-        "language": "Tämä kieli ei ole saatavilla.",
         "city": "Aluetta ei löydetty.",
         "category": "Sivua ei löydetty.",
         "event": "Tapahtumaa ei löydetty.",
@@ -2954,7 +2849,6 @@
       "unknownError": "Ilmeni tuntematon virhe.",
       "tryAgain": "Yritä uudelleen",
       "loadingFailed": "Sivua ei voitu ladata.",
-      "chooseALanguage": "Valitse kieli:",
       "goTo": {
         "start": "Siirry kotisivulle",
         "categories": "Siirry kategorioihin",
@@ -2975,7 +2869,6 @@
     },
     "fr": {
       "notFound": {
-        "language": "Malheureusement, cette langue n'est pas disponible ici.",
         "city": "Cette région n’a malheureusement pas été trouvée.",
         "category": "Malheureusement, cette page est introuvable.",
         "event": "Malheureusement, cet événement est introuvable.",
@@ -2991,7 +2884,6 @@
       "unknownError": "Une erreur inconnue s'est produite.",
       "tryAgain": "Essayer à nouveau",
       "loadingFailed": "Malheureusement, la page n'a pas pu être chargée.",
-      "chooseALanguage": "Choisis une langue :",
       "goTo": {
         "start": "Vers la page de démarrage",
         "categories": "Vers les catégories",
@@ -3012,7 +2904,6 @@
     },
     "hi": {
       "notFound": {
-        "language": "क्षमा करें, लेकिन यह भाषा यहाँ उपलब्ध नहीं है।",
         "city": "क्षमा करें, यह क्षेत्र नहीं मिला।",
         "category": "क्षमा करें, लेकिन अनुरोधित पेज नहीं मिल सका।",
         "event": "क्षमा करें, लेकिन यह ईवेंट नहीं मिल सका.",
@@ -3028,7 +2919,6 @@
       "unknownError": "एक अज्ञात त्रुटि हुई।",
       "tryAgain": "दोबारा प्रयास करें",
       "loadingFailed": "क्षमा करें, लेकिन अनुरोधित पेज लोड नहीं किया जा सका।",
-      "chooseALanguage": "एक भाषा चुनें:",
       "goTo": {
         "start": "होमपेज पर जाएँ",
         "categories": "श्रेणियाँ पर जाएँ",
@@ -3049,7 +2939,6 @@
     },
     "hr": {
       "notFound": {
-        "language": "Tvoj jezik ovdje nažalost nije dostupan.",
         "city": "Ta regija nažalost nije pronađena.",
         "category": "Ova stranica nažalost nije pronađena.",
         "event": "Ovo događanje nažalost nije pronađeno.",
@@ -3065,7 +2954,6 @@
       "unknownError": "Došlo je do nepoznate pogreške.",
       "tryAgain": "Pokušaj ponovo",
       "loadingFailed": "Stranica se nažalost nije mogla učitati.",
-      "chooseALanguage": "Odaberi jezik:",
       "goTo": {
         "start": "Na početnu stranicu",
         "categories": "Na kategorije",
@@ -3086,7 +2974,6 @@
     },
     "hu": {
       "notFound": {
-        "language": "A nyelved itt sajnos nem elérhető.",
         "city": "Ez a régió nem található.",
         "category": "Ez az oldal sajnos nem található.",
         "event": "Ez az esemény sajnos nem található.",
@@ -3102,7 +2989,6 @@
       "unknownError": "Ismeretlen hiba lépett fel.",
       "tryAgain": "Próbáld meg újra",
       "loadingFailed": "Az oldal betöltése sikertelen.",
-      "chooseALanguage": "Válassz ki egy nyelvet:",
       "goTo": {
         "start": "A Kezdőoldalra",
         "categories": "A Kategóriákhoz",
@@ -3123,7 +3009,6 @@
     },
     "id": {
       "notFound": {
-        "language": "Maaf, bahasa ini tidak tersedia di sini.",
         "city": "Maaf, wilayah ini tidak ditemukan.",
         "category": "Maaf, halaman yang diminta tidak ditemukan.",
         "event": "Maaf, acara ini tidak ditemukan.",
@@ -3139,7 +3024,6 @@
       "unknownError": "Terjadi galat yang tidak dikenal.",
       "tryAgain": "Coba lagi",
       "loadingFailed": "Maaf, halaman yang diminta tidak dapat dimuat.",
-      "chooseALanguage": "Pilih bahasa:",
       "goTo": {
         "start": "Pergi ke halaman utama",
         "categories": "Pergi ke kategori",
@@ -3160,7 +3044,6 @@
     },
     "it": {
       "notFound": {
-        "language": "Purtroppo questa lingua non è disponibile qui.",
         "city": "Purtroppo questa regione non è stata trovata.",
         "category": "Purtroppo questa pagina non è stata trovata.",
         "event": "Purtroppo questo evento non è stato trovato.",
@@ -3176,7 +3059,6 @@
       "unknownError": "Si è verificato un errore sconosciuto.",
       "tryAgain": "Riprova",
       "loadingFailed": "Purtroppo non è stato possibile trovare la pagina richiesta.",
-      "chooseALanguage": "Scegli una lingua:",
       "goTo": {
         "start": "Vai alla home page",
         "categories": "Vai su Categorie",
@@ -3197,7 +3079,6 @@
     },
     "ka": {
       "notFound": {
-        "language": "სამწუხაროდ ეს ენა აქ არ გამოიყენება.",
         "city": "ეს რეგიონი სამწუხაროდ ვერ მოიძებნა.",
         "category": "სამწუხაროდ ეს გვერდი ვერ მოიძებნა.",
         "event": "სამწუხაროდ ეს ღონისძიება ვერ მოიძებნა.",
@@ -3213,7 +3094,6 @@
       "unknownError": "გამოვლინდა უცნობი შეცდომა.",
       "tryAgain": "კიდევ სცადეთ",
       "loadingFailed": "სამწუხაროდ გვერდი არ იტვირთება.",
-      "chooseALanguage": "აირჩიე ენა:",
       "goTo": {
         "start": "სასტარტო გვერდისაკენ",
         "categories": "კატეგორიებისაკენ",
@@ -3234,7 +3114,6 @@
     },
     "kmr": {
       "notFound": {
-        "language": "Mixabin zimanê te li vir li ber dest nîne.",
         "city": "Mixabin, ev navçe peyda nebû.",
         "category": "Mixabin ev rûpel peyde nebû.",
         "event": "Mixabin ev rûdan peyde nebû.",
@@ -3250,7 +3129,6 @@
       "unknownError": "Şaşitiyeka (Eror) nenas qewimiye.",
       "tryAgain": "Ji nû va hewil bide",
       "loadingFailed": "Mixabin rûpel nayê barkirin.",
-      "chooseALanguage": "Zimanekî bibijêre:",
       "goTo": {
         "start": "Ber bi Rûpela Sereke va",
         "categories": "Ber bi destebendiyan va",
@@ -3271,7 +3149,6 @@
     },
     "mk": {
       "notFound": {
-        "language": "За жал твојот јазик не е достапен.",
         "city": "За жал, овој регион не беше пронајден.",
         "category": "За жал оваа страница не е пронајдена.",
         "event": "За жал овој настан не е пронајден.",
@@ -3287,7 +3164,6 @@
       "unknownError": "Настапи непозната грешка.",
       "tryAgain": "Обиди се повторно",
       "loadingFailed": "За жал страницата не може да се вчита.",
-      "chooseALanguage": "Избери јазик:",
       "goTo": {
         "start": "Кон почетната страна",
         "categories": "Кон категориите",
@@ -3308,7 +3184,6 @@
     },
     "nl": {
       "notFound": {
-        "language": "Sorry, deze taal is hier niet beschikbaar.",
         "city": "Sorry, deze regio is niet gevonden.",
         "category": "Sorry, de gevraagde pagina kan niet worden gevonden.",
         "event": "Sorry, dit evenement kan niet worden gevonden.",
@@ -3324,7 +3199,6 @@
       "unknownError": "Er is een onbekende fout opgetreden.",
       "tryAgain": "Probeer opnieuw",
       "loadingFailed": "Sorry, de gevraagde pagina kan niet worden geladen.",
-      "chooseALanguage": "Kies een taal:",
       "goTo": {
         "start": "Ga naar de beginpagina",
         "categories": "Ga naar categorieën",
@@ -3345,7 +3219,6 @@
     },
     "orm": {
       "notFound": {
-        "language": "Dhiifama, garuu afaan kun as keessa hin jiru.",
         "city": "Dhiifama naannoon kun as keessa him jiru.",
         "category": "Dhiifama, garuu bakki isin gaafattan hin jiru.",
         "event": "Dhiifama, garuu sagantaan kun hin jiru.",
@@ -3361,7 +3234,6 @@
       "unknownError": "Dogoggorri hin beekamne uumameera.",
       "tryAgain": "Irra deebiin yaali",
       "loadingFailed": "Dhiifama, garuu fuulli gaafatame hin barbaadamne.",
-      "chooseALanguage": "Afaan filadhu:",
       "goTo": {
         "start": "Gara fuula jalqabaa deemi",
         "categories": "Gara qabiyyee deemi",
@@ -3382,7 +3254,6 @@
     },
     "pes": {
       "notFound": {
-        "language": "متاسفانه زبان شما در اینجا در دسترس نیست.",
         "city": "متاسفانه این منطقه پیدا نشد.",
         "category": "متاسفانه این صفحه یافت نشد.",
         "event": "متأسفانه این رویداد یافت نشد.",
@@ -3398,7 +3269,6 @@
       "unknownError": "خطای ناشناخته رخ داده است.",
       "tryAgain": "مجددا سعی کنید",
       "loadingFailed": "متاسفانه صفحه بارگیری نمی شود.",
-      "chooseALanguage": "یک زبان را انتخاب کنید:",
       "goTo": {
         "start": "به سوی صفحه اصلی",
         "categories": "به سوی دسته بندی ها",
@@ -3419,7 +3289,6 @@
     },
     "pl": {
       "notFound": {
-        "language": "Niestety ten język nie jest tutaj dostępny.",
         "city": "Niestety ten region nie został znaleziony.",
         "category": "Niestety nie znaleziono tej strony.",
         "event": "Niestety nie znaleziono tego wydarzenia.",
@@ -3435,7 +3304,6 @@
       "unknownError": "Wystąpił nieznany błąd.",
       "tryAgain": "Spróbuj ponownie",
       "loadingFailed": "Niestety nie udało się załadować strony.",
-      "chooseALanguage": "Wybierz język:",
       "goTo": {
         "start": "Do strony startowej",
         "categories": "Do kategorii",
@@ -3456,7 +3324,6 @@
     },
     "prs": {
       "notFound": {
-        "language": "متاسفانه این لسان در اینجا موجود نیست‎.",
         "city": "متاسفانه این منطقه پیدا نشد.",
         "category": "متاسفانه این صفحه پیدا نشد.",
         "event": "متاسفانه این رویداد پیدا نشد‎.",
@@ -3472,7 +3339,6 @@
       "unknownError": "یک خطای ناشناخته رخ داده است‎.",
       "tryAgain": "دوباره امتحان کنید",
       "loadingFailed": "متاسفانه صفحه دانلود نشد‎.",
-      "chooseALanguage": "یک لسان انتخاب نمایید‎:",
       "goTo": {
         "start": "به صفحه اصلی",
         "categories": "به دسته ها",
@@ -3493,7 +3359,6 @@
     },
     "ps": {
       "notFound": {
-        "language": "دا ژبه له بده مرغه دلته موجوده نده.",
         "city": "له بده مرغه، دا سیمه ونه موندل شوه.",
         "category": "دا پاڼه له بده مرغه پیدا نشوه.",
         "event": "دا غونډه له بده مرغه پیدا نشوه.",
@@ -3509,7 +3374,6 @@
       "unknownError": "یوه نامعلومه اشتباه رامینځته شوه.",
       "tryAgain": "یو ځل بیا کوښښ اوکئ",
       "loadingFailed": "له بده مرغه پاڼه ډاونلوډ نکړی شوه.",
-      "chooseALanguage": "یوه ژبه انتخاب کړه:",
       "goTo": {
         "start": "مخپاڼې ته تلل",
         "categories": "کټګوریو یعنی انواعو  ته تلل",
@@ -3530,7 +3394,6 @@
     },
     "pt": {
       "notFound": {
-        "language": "Lamentamos, mas este idioma não está disponível.",
         "city": "Lamentamos, mas esta região não foi encontrada.",
         "category": "Lamentamos, mas esta página não foi encontrada.",
         "event": "Lamentamos, mas este evento não foi encontrado.",
@@ -3546,7 +3409,6 @@
       "unknownError": "Ocorreu um erro desconhecido.",
       "tryAgain": "Tente novamente",
       "loadingFailed": "Lamentamos, mas não foi possível carregar a página.",
-      "chooseALanguage": "Escolhe um idioma:",
       "goTo": {
         "start": "Ir para a página inicial",
         "categories": "Ir para as categorias",
@@ -3567,7 +3429,6 @@
     },
     "ro": {
       "notFound": {
-        "language": "Aici nu este disponibilă această limbă, din păcate.",
         "city": "Ne pare rău, această regiune nu a fost găsită.",
         "category": "Această pagină nu a fost găsită, din păcate.",
         "event": "Acest eveniment nu a fost găsit, din păcate.",
@@ -3583,7 +3444,6 @@
       "unknownError": "A apărut o eroare necunoscută.",
       "tryAgain": "Încercați din nou",
       "loadingFailed": "Pagina nu a putut fi încărcată, din păcate.",
-      "chooseALanguage": "Alege o limbă:",
       "goTo": {
         "start": "Spre pagina de start",
         "categories": "Spre categorii",
@@ -3604,7 +3464,6 @@
     },
     "rom": {
       "notFound": {
-        "language": "Afi ker, numa akaja čhib nane akate.",
         "city": "Afi ker akaja regia na sine arakhli.",
         "category": "Afi ker, numa i rodimi strana našti te ovel arakhli.",
         "event": "Afi ker, numa akaja čipota naši te ovel arakhli.",
@@ -3620,7 +3479,6 @@
       "unknownError": "Bipendžardi bangin uli.",
       "tryAgain": "Panda jekh far probin.",
       "loadingFailed": "Afi ker, numa i rodimi strana našti te avel.",
-      "chooseALanguage": "Birin čhib:",
       "goTo": {
         "start": "Dža ki kherutni strana",
         "categories": "Dža ko kategorie",
@@ -3641,7 +3499,6 @@
     },
     "ru": {
       "notFound": {
-        "language": "К сожалению, этот язык не поддерживается.",
         "city": "К сожалению, этот регион не найден.",
         "category": "К сожалению, эта страница не найдена.",
         "event": "К сожалению, это событие не найдено.",
@@ -3657,7 +3514,6 @@
       "unknownError": "Произошла неизвестная ошибка.",
       "tryAgain": "Повторить попытку",
       "loadingFailed": "К сожалению, не удалось загрузить страницу.",
-      "chooseALanguage": "Выбор языка:",
       "goTo": {
         "start": "К начальной странице",
         "categories": "К категориям",
@@ -3678,7 +3534,6 @@
     },
     "sk": {
       "notFound": {
-        "language": "Tento jazyk tu žiaľ nie je k dispozícii.",
         "city": "Tento región žiaľ nebol nájdený.",
         "category": "Táto stránka žiaľ nebola nájdená.",
         "event": "Táto udalosť žiaľ nebola nájdená.",
@@ -3694,7 +3549,6 @@
       "unknownError": "Vyskytla sa neznáma chyba.",
       "tryAgain": "Pokúste sa znova",
       "loadingFailed": "Stránku žiaľ nebolo možné načítať.",
-      "chooseALanguage": "Vyberte si jazyk:",
       "goTo": {
         "start": "Na úvodnú stránku",
         "categories": "Ku kategóriám",
@@ -3715,7 +3569,6 @@
     },
     "so": {
       "notFound": {
-        "language": "Nasiib darro, luuqadan halkan lagama heli karo.",
         "city": "Nasiib darro, gobolkan lama helin.",
         "category": "Nasiib darro, boggan lama helin.",
         "event": "Nasiib darro, dhacdadan lama helin.",
@@ -3731,7 +3584,6 @@
       "unknownError": "Khalad aan la aqoon ayaa dhacay.",
       "tryAgain": "Mar kale isku day",
       "loadingFailed": "Boggu waa la soo kicin kari waayey.",
-      "chooseALanguage": "Dooro luqad:",
       "goTo": {
         "start": "Aad bogga koowaad",
         "categories": "Aad Qaybaha",
@@ -3752,7 +3604,6 @@
     },
     "sq": {
       "notFound": {
-        "language": "Fatkeqësisht, kjo gjuhë nuk është në dispozicion këtu.",
         "city": "Fatkeqësisht, ky rajon nuk u gjet.",
         "category": "Kjo faqe për fat të keq nuk u gjet.",
         "event": "Ky eveniment për fat të keq nuk u gjet.",
@@ -3768,7 +3619,6 @@
       "unknownError": "Një gabim i panjohur ka ndodhur.",
       "tryAgain": "Provo përsëri",
       "loadingFailed": "Fatkeqësisht faqja nuk mund të ngarkohej.",
-      "chooseALanguage": "Zgjidh një gjuhë:",
       "goTo": {
         "start": "Në faqen kryesore",
         "categories": "Tek kategoritë",
@@ -3789,7 +3639,6 @@
     },
     "sr-Cyrl": {
       "notFound": {
-        "language": "Нажалост, овај језик овде није доступан.",
         "city": "Нажалост, овај регион није пронађен.",
         "category": "Нажалост, ова страница није пронађена.",
         "event": "Нажалост, овај догађај није пронађен.",
@@ -3805,7 +3654,6 @@
       "unknownError": "Дошло је до непознате грешке.",
       "tryAgain": "Покушај поново",
       "loadingFailed": "Нажалост, није било могуће учитавање ове странице.",
-      "chooseALanguage": "Изабери језик:",
       "goTo": {
         "start": "Ка почетној страници",
         "categories": "Ка категоријама",
@@ -3826,7 +3674,6 @@
     },
     "sr-Latn": {
       "notFound": {
-        "language": "Nažalost, ovaj jezik ovde nije dostupan.",
         "city": "Nažalost, ovaj region nije pronađen.",
         "category": "Nažalost, ova stranica nije pronađena.",
         "event": "Nažalost, ovaj događaj nije pronađen.",
@@ -3842,7 +3689,6 @@
       "unknownError": "Došlo je do nepoznate greške.",
       "tryAgain": "Pokušaj ponovo",
       "loadingFailed": "Nažalost, nije bilo moguće učitavanje ove stranice.",
-      "chooseALanguage": "Izaberi jezik:",
       "goTo": {
         "start": "Ka početnoj stranici",
         "categories": "Ka kategorijama",
@@ -3863,7 +3709,6 @@
     },
     "sw": {
       "notFound": {
-        "language": "Samahani, lugha hii haipatikani hapa.",
         "city": "Samahani, eneo hili halijapatikani.",
         "category": "Samahani, ukurasa ulioomba haujapatikana.",
         "event": "Samahani, tukio hili halijapatikana.",
@@ -3879,7 +3724,6 @@
       "unknownError": "Hitilafu isiyojulikana imetokea.",
       "tryAgain": "Jaribu tena",
       "loadingFailed": "Samahani, ukurasa ulioomba umeshindwa kupakiwa.",
-      "chooseALanguage": "Chagua lugha:",
       "goTo": {
         "start": "Nenda kwenye ukurasa wa kwanza",
         "categories": "Nenda kwenye aina",
@@ -3900,7 +3744,6 @@
     },
     "th": {
       "notFound": {
-        "language": "ขออภัย ภาษาที่ใช้ไม่พร้อมใช้งานที่นี่",
         "city": "น่าเสียดายที่ไม่พบภูมิภาคนี้",
         "category": "ขออภัยไม่พบหน้านี้",
         "event": "ขออภัยไม่พบกิจกรรมนี้",
@@ -3916,7 +3759,6 @@
       "unknownError": "เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ",
       "tryAgain": "ลองใหม่อีกครั้ง",
       "loadingFailed": "ขออภัย ไม่สามารถโหลดหน้าได้",
-      "chooseALanguage": "เลือกภาษา:",
       "goTo": {
         "start": "ไปหน้าเริ่มต้น",
         "categories": "ไปยังประเภทต่างๆ",
@@ -3937,7 +3779,6 @@
     },
     "ti": {
       "notFound": {
-        "language": "ሕማቕ ኣጋጣሚ ኮይኑ፡ እዚ ቋንቋ’ዚ ኣብዚ የለን።",
         "city": "እዚ ከባቢ ክርከብ ኣይተኸኣለን።",
         "category": "ሕማቕ ኣጋጣሚ ኮይኑ፡ እዚ ገጽ’ዚ ኣይተረኽበን።",
         "event": "ሕማቕ ኣጋጣሚ ኮይኑ፡ እዚ ኣጋጣሚ እዚ ኣይተረኽበን።",
@@ -3953,7 +3794,6 @@
       "unknownError": "ሓደ ዝተይተፈልጠ ጌጋ ተኸሲቱ ኣሎ።",
       "tryAgain": "ደጊምካ ፈትን",
       "loadingFailed": "እቲ ገጽ ክጽዓን ኣይክኣለን።",
-      "chooseALanguage": "ቋንቋ ምረጽ፥",
       "goTo": {
         "start": "ናብ ቀዳማይ ገጽ",
         "categories": "ናብቶም ምድባት",
@@ -3974,7 +3814,6 @@
     },
     "tr": {
       "notFound": {
-        "language": "Bu dil burada maalesef mevcut değil.",
         "city": "Maalesef, bu bölge bulunamadı.",
         "category": "Bu sayfa maalesef bulunamadı.",
         "event": "Bu etkinlik maalesef bulunamadı.",
@@ -3990,7 +3829,6 @@
       "unknownError": "Bilinmeyen bir hata oluştu.",
       "tryAgain": "Yeniden deneyin",
       "loadingFailed": "Sayfa maalesef yüklenemedi.",
-      "chooseALanguage": "Bir dil seçin:",
       "goTo": {
         "start": "Ana sayfaya git",
         "categories": "Kategorilere git",
@@ -4011,7 +3849,6 @@
     },
     "uk": {
       "notFound": {
-        "language": "Вибачте, ця мова тут недоступна.",
         "city": "Вибачте, цей регіон не знайдено.",
         "category": "Вибачте, ця сторінка не знайдено.",
         "event": "Вибачте, це не знайдено.",
@@ -4027,7 +3864,6 @@
       "unknownError": "Сталася невідома помилка.",
       "tryAgain": "спробуйте ще раз",
       "loadingFailed": "Вибачте, сторінка не може бути завантажена.",
-      "chooseALanguage": "Виберіть мову:",
       "goTo": {
         "start": "На головну сторінку",
         "categories": "До категорій",
@@ -4048,7 +3884,6 @@
     },
     "ur": {
       "notFound": {
-        "language": "معذرت، یہ زبان یہاں دستیاب نہیں۔",
         "city": "معذرت، یہ علاقہ یہاں دستیاب نہیں۔",
         "category": "معذرت، یہ صفحہ نہیں ملا۔",
         "event": "معذرت، یہ ایونٹ نہیں ملا۔",
@@ -4064,7 +3899,6 @@
       "unknownError": "نامعلوم خرابی پیش آئی ہے۔",
       "tryAgain": "دوبارہ کوشش کریں",
       "loadingFailed": "معذرت، یہ صفجہ لوڈ نہیں ہو سکا۔",
-      "chooseALanguage": "زبان منتخب کریں:",
       "goTo": {
         "start": "صفحہ اول پر",
         "categories": "زمروں پر",
@@ -4085,7 +3919,6 @@
     },
     "vi": {
       "notFound": {
-        "language": "Rất tiếc, ngôn ngữ này không có sẵn tại đây.",
         "city": "Rất tiếc, không tìm thấy khu vực này.",
         "category": "Rất tiếc, không tìm thấy trang được yêu cầu.",
         "event": "Rất tiếc, không tìm thấy sự kiện này.",
@@ -4101,7 +3934,6 @@
       "unknownError": "Đã xảy ra lỗi không xác định.",
       "tryAgain": "Thử lại",
       "loadingFailed": "Rất tiếc, không thể tải trang được yêu cầu.",
-      "chooseALanguage": "Chọn ngôn ngữ:",
       "goTo": {
         "start": "Đi đến trang chủ",
         "categories": "Đi đến danh mục",
@@ -4122,7 +3954,6 @@
     },
     "zh-CN": {
       "notFound": {
-        "language": "很抱歉，这里没有提供该语言。",
         "city": "很遗憾，未找到此地区。",
         "category": "很抱歉，找不到此页面。",
         "event": "很抱歉，找不到此活动。",
@@ -4138,7 +3969,6 @@
       "unknownError": "发生未知的错误。",
       "tryAgain": "请重试",
       "loadingFailed": "很抱歉，此页面无法加载。",
-      "chooseALanguage": "请选择一种语言：",
       "goTo": {
         "start": "前往主页",
         "categories": "前往类别",
