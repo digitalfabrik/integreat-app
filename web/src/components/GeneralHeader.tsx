@@ -32,6 +32,7 @@ const GeneralHeader = ({ languageCode }: GeneralHeaderProps): ReactElement => {
             key='languageChange'
             languageChangePaths={languageChangePaths}
             languageCode={languageCode}
+            forceText
           />,
         ]
       : []
