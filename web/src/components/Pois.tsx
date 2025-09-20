@@ -46,7 +46,7 @@ const Pois = ({ pois: allPois, userLocation, city, languageCode, pageTitle }: Po
   const [mapViewport, setMapViewport] = useState<MapViewViewport>(moveViewportToCity(city, zoom))
   const params = useParams()
   const navigate = useNavigate()
-  const { mobile, width, headerHeight } = useWindowDimensions()
+  const { mobile, window, headerHeight } = useWindowDimensions()
 
   const slug = params.slug ? normalizePath(params.slug) : undefined
 
@@ -112,7 +112,7 @@ const Pois = ({ pois: allPois, userLocation, city, languageCode, pageTitle }: Po
       setSelectedPoiCategory={updatePoiCategoryFilter}
       currentlyOpenFilter={currentlyOpenFilter}
       setCurrentlyOpenFilter={updatePoiCurrentlyOpenFilter}
-      panelWidth={mobile ? width : dimensions.poiDesktopPanelWidth}
+      panelWidth={mobile ? window.width : dimensions.poiDesktopPanelWidth}
       poisCount={pois.length}
     />
   )

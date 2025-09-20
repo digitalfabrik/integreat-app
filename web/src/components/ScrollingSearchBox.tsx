@@ -26,13 +26,13 @@ const ScrollingSearchBox = ({
   const node = useRef<HTMLDivElement | null>(null)
   const searchInputRef = useRef<HTMLDivElement | null>(null)
   const { t } = useTranslation('landing')
-  const { width } = useWindowDimensions()
+  const { window } = useWindowDimensions()
 
   useEffect(() => {
     if (searchInputRef.current) {
       setSearchBarHeight(searchInputRef.current.clientHeight)
     }
-  }, [width])
+  }, [window.width])
 
   return (
     <div ref={node}>

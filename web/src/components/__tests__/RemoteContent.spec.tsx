@@ -2,6 +2,7 @@ import { fireEvent } from '@testing-library/react'
 import React from 'react'
 
 import { renderWithTheme } from '../../testing/render'
+import { mockWindowDimensions } from '../../testing/utils'
 import RemoteContent from '../RemoteContent'
 
 const navigate = jest.fn()
@@ -11,8 +12,7 @@ jest.mock('react-router', () => ({
   useNavigate: () => navigate,
 }))
 jest.mock('react-i18next')
-
-jest.mock('../../hooks/useWindowDimensions', () => jest.fn(() => ({})))
+jest.mock('../../hooks/useWindowDimensions', () => jest.fn(() => mockWindowDimensions))
 
 describe('RemoteContent', () => {
   window.open = jest.fn()
