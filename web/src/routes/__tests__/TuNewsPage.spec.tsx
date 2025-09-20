@@ -54,7 +54,7 @@ describe('TuNewsPage', () => {
   it('should render language failure if language is not available', () => {
     mockUseLoadFromEndpointWithData(tuNewsLanguages)
     const { getAllByText, queryByText } = renderTuNewsRoute(city.languages[2]!)
-    expect(getAllByText('error:notFound.language error:chooseALanguage')).toBeTruthy()
+    expect(getAllByText('error:notFound.language')).toBeTruthy()
     // Available languages
     tuNewsLanguages.forEach(({ name, code }) => {
       expect(getAllByText(name)[0]!.closest('a')).toHaveProperty(
