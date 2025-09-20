@@ -73,7 +73,7 @@ const PoisMobile = ({
   const canDeselect = !!mapFeature || !!slug
   const { t } = useTranslation('pois')
 
-  const isBottomActionSheetFullScreen = bottomActionSheetHeight >= dimensions.height
+  const isBottomActionSheetFullScreen = bottomActionSheetHeight >= dimensions.window.height
   const changeSnapPoint = (snapPoint: number) => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     sheetRef.current?.sheet?.snapTo(() => getSnapPoints(dimensions)[snapPoint]!)

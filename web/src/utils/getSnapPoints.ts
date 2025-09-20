@@ -6,7 +6,7 @@ const mapIconsHeight = 60
 
 export const getSnapPoints = (dimensions: WindowDimensionsType): [number, number, number, number] => [
   bottomSheetHandleHeight + (dimensions.bottomNavigationHeight ?? 0),
-  dimensions.height * midSnapPercentage,
-  dimensions.height - dimensions.headerHeight - mapIconsHeight,
-  dimensions.height,
+  dimensions.window.height * midSnapPercentage,
+  dimensions.window.height - dimensions.headerHeight - mapIconsHeight,
+  dimensions.window.height,
 ]

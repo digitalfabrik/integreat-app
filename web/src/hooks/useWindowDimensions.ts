@@ -1,45 +1,56 @@
-import { useState, useEffect, useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
 import { BOTTOM_NAVIGATION_ELEMENT_ID } from '../components/BottomNavigation'
 import { BREAKPOINTS } from '../components/ThemeContainer'
 import { TtsContext } from '../components/TtsContainer'
 import { TTS_PLAYER_ELEMENT_ID } from '../components/TtsPlayer'
 
-export type WindowDimensionsType = {
+type WindowDimensions = {
   width: number
   height: number
-  mobile: boolean
-  headerHeight: number
-  footerHeight: number
+  scrollX: number
   scrollY: number
-  documentHeight: number
+}
+
+export type WindowDimensionsType = {
+  window: WindowDimensions
+
+  headerHeight: number
   visibleFooterHeight: number
   ttsPlayerHeight: number
   bottomNavigationHeight: number | undefined
+
+  mobile: boolean
+  desktop: boolean
+  small: boolean
+  medium: boolean
+  large: boolean
+  xlarge: boolean
 }
 
 const getWindowDimensions = (): WindowDimensionsType => {
-  const { innerWidth: width, innerHeight: height, scrollY } = window
-  const header = document.querySelector('header')
-  const headerHeight = header?.offsetHeight ?? 0
-  const footer = document.querySelector('footer')
-  const footerHeight = footer?.offsetHeight ?? 0
+  const { innerWidth: width, innerHeight: height, scrollX, scrollY } = window
+  const headerHeight = document.querySelector('header')?.offsetHeight ?? 0
+  const ttsPlayerHeight = document.getElementById(TTS_PLAYER_ELEMENT_ID)?.getBoundingClientRect().height ?? 0
+  const bottomNavigationHeight = document.getElementById(BOTTOM_NAVIGATION_ELEMENT_ID)?.getBoundingClientRect().height
+
+  const footerHeight = document.querySelector('footer')?.offsetHeight ?? 0
   const documentHeight = document.body.offsetHeight
-  const ttsPlayer = document.getElementById(TTS_PLAYER_ELEMENT_ID)
-  const ttsPlayerHeight = ttsPlayer?.getBoundingClientRect().height ?? 0
-  const bottomNavigation = document.getElementById(BOTTOM_NAVIGATION_ELEMENT_ID)
-  const bottomNavigationHeight = bottomNavigation?.getBoundingClientRect().height
+  const visibleFooterHeight = Math.max(0, height + scrollY + footerHeight - documentHeight)
+
   return {
-    width,
-    height,
-    scrollY,
-    mobile: width <= BREAKPOINTS.md,
+    window: { width, height, scrollX, scrollY },
     headerHeight,
-    footerHeight,
-    documentHeight,
+    visibleFooterHeight,
     ttsPlayerHeight,
     bottomNavigationHeight,
-    visibleFooterHeight: Math.max(0, height + scrollY + footerHeight - documentHeight),
+
+    mobile: width <= BREAKPOINTS.md,
+    desktop: width > BREAKPOINTS.md,
+    small: width <= BREAKPOINTS.sm,
+    medium: width > BREAKPOINTS.sm && width <= BREAKPOINTS.md,
+    large: width > BREAKPOINTS.md && width <= BREAKPOINTS.xl,
+    xlarge: width > BREAKPOINTS.xl,
   }
 }
 
