@@ -9,7 +9,7 @@ import useDimensions from '../../hooks/useDimensions'
 import { renderAllRoutes } from '../../testing/render'
 import CityContentLayout from '../CityContentLayout'
 
-jest.mock('../../hooks/useDimensions', () => jest.fn(() => ({ viewportSmall: false })))
+jest.mock('../../hooks/useDimensions')
 jest.mock('../CityContentFooter', () => () => <div>CityContentFooter</div>)
 jest.mock('../CityContentHeader', () => () => <div>CityContentHeader</div>)
 jest.mock('react-i18next')
