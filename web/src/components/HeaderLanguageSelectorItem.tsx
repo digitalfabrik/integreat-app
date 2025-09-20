@@ -18,7 +18,7 @@ const HeaderLanguageSelectorItem = ({
   languageCode,
 }: HeaderLanguageSelectorItemProps): ReactElement => {
   const [open, setOpen] = useState(false)
-  const { mobile } = useDimensions()
+  const { mobile, desktop } = useDimensions()
   const { t } = useTranslation('layout')
 
   const currentLanguageName = languageChangePaths?.find(item => item.code === languageCode)?.name
@@ -29,7 +29,7 @@ const HeaderLanguageSelectorItem = ({
       onClick={() => setOpen(open => !open)}
       text={t('changeLanguage')}
       icon={<TranslateOutlinedIcon />}
-      innerText={mobile ? undefined : currentLanguageName}
+      innerText={desktop ? currentLanguageName : undefined}
     />
   )
 

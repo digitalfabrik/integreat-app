@@ -10,7 +10,7 @@ import CityContentHeader from '../CityContentHeader'
 
 jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
-jest.mock('../../hooks/useDimensions')
+jest.mock('../../hooks/useDimensions', () => jest.fn(() => mockDimensions))
 
 describe('CityContentHeader', () => {
   const cityModel = new CityModelBuilder(1).build()[0]!
@@ -32,7 +32,7 @@ describe('CityContentHeader', () => {
     )
 
   it('should render correctly', () => {
-    mocked(useDimensions).mockImplementation(() => ({ ...mockDimensions, mobile: false }))
+    mocked(useDimensions).mockImplementation(() => ({ ...mockDimensions, desktop: true, mobile: false }))
     const { getAllByText, getByText, queryByLabelText } = renderCityContentHeader()
     expect(getByText(cityModel.name)).toBeTruthy()
     expect(getAllByText('Deutsch')).toBeTruthy()

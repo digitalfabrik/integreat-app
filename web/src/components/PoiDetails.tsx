@@ -131,7 +131,7 @@ type PoiDetailsProps = {
 }
 
 const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement => {
-  const { mobile } = useDimensions()
+  const { desktop } = useDimensions()
   const { t } = useTranslation('pois')
   const { content, location, contacts, isCurrentlyOpen, openingHours, temporarilyClosed, appointmentUrl } = poi
 
@@ -148,10 +148,10 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
         <PoiChips poi={poi} />
       </HeadingSection>
       <StyledDivider />
-      {!mobile && <Subheading>{t('detailsAddress')}</Subheading>}
+      {desktop && <Subheading>{t('detailsAddress')}</Subheading>}
       <DetailSection>
         <AddressContentWrapper>
-          {!mobile && <StyledIcon src={LocationOnOutlinedIcon} />}
+          {desktop && <StyledIcon src={LocationOnOutlinedIcon} />}
           <AddressContent>
             <span>{location.address}</span>
             <span>
@@ -160,7 +160,7 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
           </AddressContent>
         </AddressContentWrapper>
         <StyledLink to={externalMapsLink}>
-          {!mobile && <LinkLabel>{t('detailsMapLink')}</LinkLabel>}
+          {desktop && <LinkLabel>{t('detailsMapLink')}</LinkLabel>}
           <StyledExternalLinkIcon src={OpenInNewIcon} directionDependent />
         </StyledLink>
       </DetailSection>

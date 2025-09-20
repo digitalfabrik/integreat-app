@@ -35,9 +35,9 @@ const CityContentLayout = ({
 }: CityContentLayoutProps): ReactElement => {
   const { route } = useCityContentParams()
   const [layoutReady, setLayoutReady] = useState(!isLoading)
-  const { mobile } = useDimensions()
+  const { desktop, mobile } = useDimensions()
   const isChatEnabled = buildConfig().featureFlags.chat && route !== POIS_ROUTE && city.chatEnabled
-  const footerVisible = !isLoading && !mobile && !fitScreen
+  const footerVisible = !isLoading && desktop && !fitScreen
   const chatVisible = isChatEnabled && layoutReady
 
   // Avoid flickering due to content (chat) being pushed up by the footer
@@ -61,7 +61,7 @@ const CityContentLayout = ({
           {mobile && <BottomNavigation cityModel={city} languageCode={languageCode} />}
         </>
       }
-      toolbar={mobile ? null : Toolbar}>
+      toolbar={desktop ? Toolbar : null}>
       {children}
     </Layout>
   )
