@@ -4,28 +4,34 @@ import { Trans, useTranslation } from 'react-i18next'
 
 import { OrganizationModel } from 'shared/api'
 
-import useDimensions from '../hooks/useDimensions'
 import HighlightBox from './HighlightBox'
 import Link from './base/Link'
 
-const StyledImage = styled('img')<{ viewportSmall: boolean }>`
+const StyledImage = styled('img')`
   width: 100%;
   transition: transform 0.2s;
   object-fit: contain;
-  ${props => props.viewportSmall && 'margin-bottom: 8px;'}
+
+  ${props => props.theme.breakpoints.down('md')} {
+    margin-bottom: 8px;
+  }
 `
 
 const ThumbnailSizer = styled('div')`
   width: 150px;
 `
 
-const Box = styled(HighlightBox)<{ viewportSmall: boolean }>`
+const Box = styled(HighlightBox)`
   display: flex;
   place-content: space-evenly space-evenly;
   font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
   font-size: 14px;
-  flex-direction: ${props => (props.viewportSmall ? 'column' : 'row')};
+  flex-direction: row;
   gap: 20px;
+
+  ${props => props.theme.breakpoints.down('md')} {
+    flex-direction: 'column';
+  }
 `
 
 const Column = styled('div')`
@@ -44,12 +50,11 @@ type OrganizationContentInfoProps = {
 
 const OrganizationContentInfo = ({ organization }: OrganizationContentInfoProps): ReactElement => {
   const { t } = useTranslation('categories')
-  const { mobile } = useDimensions()
 
   return (
-    <Box viewportSmall={mobile}>
+    <Box>
       <ThumbnailSizer>
-        <StyledImage alt='' src={organization.logo} viewportSmall={mobile} />
+        <StyledImage alt='' src={organization.logo} />
       </ThumbnailSizer>
       <Column>
         <OrganizationContent>{t('organizationContent', { organization: organization.name })}</OrganizationContent>

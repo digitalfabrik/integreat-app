@@ -47,7 +47,7 @@ const getContainer = (element: HTMLElement, className: string, id: string): HTML
 
 const getIframeContainer = (
   id: string,
-  viewportSmall: boolean,
+  mobile: boolean,
   iframe: HTMLIFrameElement,
   deviceWidth: number,
 ): HTMLDivElement => {
@@ -60,7 +60,7 @@ const getIframeContainer = (
   iframeContainer.id = id
   iframe.parentNode?.appendChild(iframeContainer)
   iframeContainer.appendChild(iframe)
-  if (viewportSmall) {
+  if (mobile) {
     // Scale the height depending on device width minus padding
     const padding = 16
     const scaledHeight = (deviceWidth / Number(iframe.width)) * Number(iframe.height) - padding
@@ -162,12 +162,12 @@ export const handleAllowedIframeSources = (
   onUpdateLocalStorage: (source: string) => void,
   iframeIndex: number,
   supportedSource: string,
-  viewportSmall: boolean,
+  mobile: boolean,
   deviceWidth: number,
 ): void => {
   const permission = supportedSource ? externalSourcePermissions[supportedSource] : undefined
   const iframeContainerId = `iframe-container${supportedSource}${iframeIndex}`
-  const iframeContainer = getIframeContainer(iframeContainerId, viewportSmall, iframe, deviceWidth)
+  const iframeContainer = getIframeContainer(iframeContainerId, mobile, iframe, deviceWidth)
 
   if (permission === undefined) {
     const message = t('consent:knownResourceOptIn')
