@@ -11,6 +11,7 @@ export const mockDimensions: Dimensions = {
   visibleFooterHeight: 64,
   bottomNavigationHeight: undefined,
   ttsPlayerHeight: 100,
+  toolbarWidth: 120,
 
   mobile: true,
   desktop: false,

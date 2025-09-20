@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 
 import { BOTTOM_NAVIGATION_ELEMENT_ID } from '../components/BottomNavigation'
+import { TOOLBAR_ELEMENT_ID } from '../components/CityContentToolbar'
 import { BREAKPOINTS } from '../components/ThemeContainer'
 import { TtsContext } from '../components/TtsContainer'
 import { TTS_PLAYER_ELEMENT_ID } from '../components/TtsPlayer'
@@ -19,6 +20,7 @@ export type Dimensions = {
   visibleFooterHeight: number
   ttsPlayerHeight: number
   bottomNavigationHeight: number | undefined
+  toolbarWidth: number
 
   mobile: boolean
   desktop: boolean
@@ -33,6 +35,7 @@ const getDimensions = (): Dimensions => {
   const headerHeight = document.querySelector('header')?.offsetHeight ?? 0
   const ttsPlayerHeight = document.getElementById(TTS_PLAYER_ELEMENT_ID)?.getBoundingClientRect().height ?? 0
   const bottomNavigationHeight = document.getElementById(BOTTOM_NAVIGATION_ELEMENT_ID)?.getBoundingClientRect().height
+  const toolbarWidth = document.getElementById(TOOLBAR_ELEMENT_ID)?.getBoundingClientRect().width ?? 0
 
   const footerHeight = document.querySelector('footer')?.offsetHeight ?? 0
   const documentHeight = document.body.offsetHeight
@@ -44,6 +47,7 @@ const getDimensions = (): Dimensions => {
     visibleFooterHeight,
     ttsPlayerHeight,
     bottomNavigationHeight,
+    toolbarWidth,
 
     mobile: width <= BREAKPOINTS.md,
     desktop: width > BREAKPOINTS.md,
