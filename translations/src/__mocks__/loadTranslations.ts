@@ -13,7 +13,7 @@ export const testTranslations: TranslationsType = {
         'Integreat ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Ihrer Sprache.',
     },
   },
-  dashboard: {
+  layout: {
     kmr: {
       localInformation: 'Zanyariyên xwecihî',
     },

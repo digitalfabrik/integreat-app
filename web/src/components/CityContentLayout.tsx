@@ -6,6 +6,7 @@ import { CategoryModel, CityModel } from 'shared/api'
 import buildConfig from '../constants/buildConfig'
 import useCityContentParams from '../hooks/useCityContentParams'
 import useWindowDimensions from '../hooks/useWindowDimensions'
+import BottomNavigation from './BottomNavigation'
 import ChatContainer from './ChatContainer'
 import CityContentFooter from './CityContentFooter'
 import CityContentHeader from './CityContentHeader'
@@ -18,9 +19,7 @@ export type CityContentLayoutProps = {
   isLoading: boolean
   city: CityModel
   languageCode: string
-  fullWidth?: boolean
-  disableScrollingSafari?: boolean
-  showFooter?: boolean
+  fitScreen?: boolean
   category?: CategoryModel
 }
 
@@ -32,23 +31,21 @@ const CityContentLayout = ({
   languageChangePaths,
   isLoading,
   Toolbar,
-  fullWidth = false,
-  disableScrollingSafari = false,
-  showFooter = true,
+  fitScreen = false,
 }: CityContentLayoutProps): ReactElement => {
   const { route } = useCityContentParams()
   const [layoutReady, setLayoutReady] = useState(!isLoading)
   const { viewportSmall } = useWindowDimensions()
   const isChatEnabled = buildConfig().featureFlags.chat && route !== POIS_ROUTE && city.chatEnabled
-  const isFooterVisible = !isLoading && !viewportSmall && showFooter
+  const footerVisible = !isLoading && !viewportSmall && !fitScreen
+  const chatVisible = isChatEnabled && layoutReady
 
   // Avoid flickering due to content (chat) being pushed up by the footer
   useEffect(() => setLayoutReady(!isLoading), [isLoading])
 
   return (
     <Layout
-      disableScrollingSafari={disableScrollingSafari}
-      fullWidth={fullWidth}
+      fitScreen={fitScreen}
       header={
         <CityContentHeader
           category={category}
@@ -57,8 +54,13 @@ const CityContentLayout = ({
           languageCode={languageCode}
         />
       }
-      footer={isFooterVisible && <CityContentFooter city={city.code} language={languageCode} />}
-      chat={isChatEnabled && layoutReady ? <ChatContainer city={city} language={languageCode} /> : undefined}
+      footer={
+        <>
+          {footerVisible && <CityContentFooter city={city.code} language={languageCode} />}
+          {chatVisible && <ChatContainer city={city} language={languageCode} />}
+          {viewportSmall && <BottomNavigation cityModel={city} languageCode={languageCode} />}
+        </>
+      }
       toolbar={viewportSmall ? null : Toolbar}>
       {children}
     </Layout>

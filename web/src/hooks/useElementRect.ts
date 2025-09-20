@@ -8,11 +8,7 @@ type UseElementRectReturn = {
 const useElementRect = (): UseElementRectReturn => {
   const [rect, setRect] = useState<DOMRect | null>(null)
 
-  const ref = useCallback((node: Element | null) => {
-    if (node !== null) {
-      setRect(node.getBoundingClientRect())
-    }
-  }, [])
+  const ref = useCallback((node: Element | null) => setRect(node?.getBoundingClientRect() ?? null), [])
 
   return { rect, ref }
 }
