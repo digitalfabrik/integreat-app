@@ -54,7 +54,7 @@ type ModalProps = {
 }
 
 const Modal = ({ title, icon, contentStyle, closeModal, children, wrapInPortal = false }: ModalProps): ReactElement => {
-  const { viewportSmall } = useWindowDimensions()
+  const { mobile } = useWindowDimensions()
   const { t } = useTranslation('common')
   useScrollToTop()
   useLockedBody(true)
@@ -76,7 +76,7 @@ const Modal = ({ title, icon, contentStyle, closeModal, children, wrapInPortal =
           <div />
         </Overlay>
         <ModalContentContainer>
-          <ModalContent title={title} style={contentStyle} icon={icon} closeModal={closeModal} small={viewportSmall}>
+          <ModalContent title={title} style={contentStyle} icon={icon} closeModal={closeModal} small={mobile}>
             {children}
           </ModalContent>
         </ModalContentContainer>

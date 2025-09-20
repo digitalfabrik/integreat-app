@@ -21,7 +21,7 @@ type GeneralFooterProps = {
 
 const GeneralFooter = ({ language }: GeneralFooterProps): ReactElement => {
   const linkItems = getFooterLinks({ language })
-  const { viewportSmall } = useWindowDimensions()
+  const { mobile } = useWindowDimensions()
 
   return (
     <Footer>
@@ -29,7 +29,7 @@ const GeneralFooter = ({ language }: GeneralFooterProps): ReactElement => {
         items={linkItems.map(item => (
           <FooterLink key={item.to} to={item.to} text={item.text} />
         ))}
-        horizontal={!viewportSmall}
+        horizontal={!mobile}
       />
     </Footer>
   )

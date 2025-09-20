@@ -35,12 +35,12 @@ type ChatMenuProps = {
 }
 
 const ChatMenu = ({ onClose }: ChatMenuProps): ReactElement => {
-  const { viewportSmall } = useWindowDimensions()
+  const { mobile } = useWindowDimensions()
   const { t } = useTranslation('common')
   return (
     <ButtonContainer>
-      <StyledButton label={t(viewportSmall ? 'back' : 'minimize')} onClick={onClose}>
-        <StyledIcon src={viewportSmall ? ArrowBackIosNewIcon : CloseFullscreenIcon} directionDependent />
+      <StyledButton label={t(mobile ? 'back' : 'minimize')} onClick={onClose}>
+        <StyledIcon src={mobile ? ArrowBackIosNewIcon : CloseFullscreenIcon} directionDependent />
       </StyledButton>
     </ButtonContainer>
   )

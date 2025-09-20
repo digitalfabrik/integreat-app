@@ -38,11 +38,11 @@ export const HeaderLogo = ({ link }: HeaderLogoProps): ReactElement => {
     campaign && currentDate > DateTime.fromISO(campaign.startDate) && currentDate < DateTime.fromISO(campaign.endDate)
   const src = showCampaignLogo ? campaign.campaignAppLogo : icons.appLogo
   const srcMobile = showCampaignLogo ? campaign.campaignAppLogoMobile : icons.appLogoMobile
-  const { viewportSmall } = useWindowDimensions()
+  const { mobile } = useWindowDimensions()
 
   return (
     <StyledLink to={link}>
-      <StyledLogo src={viewportSmall ? srcMobile : src} title={appName} />
+      <StyledLogo src={mobile ? srcMobile : src} title={appName} />
     </StyledLink>
   )
 }

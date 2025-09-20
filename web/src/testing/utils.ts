@@ -1,7 +1,7 @@
 import { WindowDimensionsType } from '../hooks/useWindowDimensions'
 
 export const mockWindowDimensions: WindowDimensionsType = {
-  viewportSmall: true,
+  mobile: true,
   width: 400,
   height: 400,
   headerHeight: 90,

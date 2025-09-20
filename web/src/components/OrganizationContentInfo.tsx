@@ -44,12 +44,12 @@ type OrganizationContentInfoProps = {
 
 const OrganizationContentInfo = ({ organization }: OrganizationContentInfoProps): ReactElement => {
   const { t } = useTranslation('categories')
-  const { viewportSmall } = useWindowDimensions()
+  const { mobile } = useWindowDimensions()
 
   return (
-    <Box viewportSmall={viewportSmall}>
+    <Box viewportSmall={mobile}>
       <ThumbnailSizer>
-        <StyledImage alt='' src={organization.logo} viewportSmall={viewportSmall} />
+        <StyledImage alt='' src={organization.logo} viewportSmall={mobile} />
       </ThumbnailSizer>
       <Column>
         <OrganizationContent>{t('organizationContent', { organization: organization.name })}</OrganizationContent>

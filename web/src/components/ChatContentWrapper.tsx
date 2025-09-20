@@ -47,10 +47,10 @@ type ModalProps = {
 }
 
 const ChatContentWrapper = ({ title, onClose, children }: ModalProps): ReactElement => {
-  const { viewportSmall } = useWindowDimensions()
+  const { mobile } = useWindowDimensions()
   return (
     <Container>
-      <Header small={viewportSmall}>
+      <Header small={mobile}>
         {title}
         <ChatMenu onClose={onClose} />
       </Header>

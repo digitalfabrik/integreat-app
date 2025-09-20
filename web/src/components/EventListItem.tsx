@@ -94,7 +94,7 @@ const EventListItem = ({
   filterEndDate = null,
 }: EventListItemProps): ReactElement => {
   const dateIcon = getDateIcon(event.date)
-  const { viewportSmall } = useWindowDimensions()
+  const { mobile } = useWindowDimensions()
   const { t } = useTranslation('events')
   const dateToDisplay = getDisplayDate(event, filterStartDate, filterEndDate)
   const thumbnailSrc = event.thumbnail || getEventPlaceholder(event.path)
@@ -114,7 +114,7 @@ const EventListItem = ({
           primary={<Typography variant='title2'>{event.title}</Typography>}
           secondary={
             <StyledTypography variant='body1' flexDirection='column' component='div'>
-              <p>{dateToDisplay.toFormattedString(languageCode, viewportSmall)}</p>
+              <p>{dateToDisplay.toFormattedString(languageCode, mobile)}</p>
               {event.location && <p>{event.location.fullAddress}</p>}
               <p>{getExcerpt(event.excerpt, { maxChars: EXCERPT_MAX_CHARS })}</p>
             </StyledTypography>
