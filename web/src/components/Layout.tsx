@@ -60,11 +60,10 @@ const Body = styled('div')<{ fitScreen: boolean }>`
         `};
 `
 
-const Main = styled('main')<{ fitScreen: boolean }>`
+const Main = styled('main')<{ fitScreen: boolean; toolbarWidth: number }>`
   display: inline-block;
-  width: ${props =>
-    props.fitScreen ? '100%' : `${props.theme.breakpoints.values.lg - 2 * dimensions.toolbarWidth}px`};
-  max-width: ${props => (props.fitScreen ? '100%' : `calc(100% - 2 * ${dimensions.toolbarWidth}px)`)};
+  width: ${props => (props.fitScreen ? '100%' : `${props.theme.breakpoints.values.lg - 2 * props.toolbarWidth}px`)};
+  max-width: ${props => (props.fitScreen ? '100%' : `calc(100% - 2 * ${props.toolbarWidth}px)`)};
   box-sizing: border-box;
   margin: 0 auto;
   padding: ${props => (props.fitScreen ? '0' : `0 ${dimensions.mainContainerHorizontalPadding}px 32px`)};
@@ -106,7 +105,7 @@ type LayoutProps = {
 }
 
 const Layout = ({ footer, header, toolbar, children, fitScreen = false }: LayoutProps): ReactElement => {
-  const { ttsPlayerHeight, bottomNavigationHeight } = useDimensions()
+  const { ttsPlayerHeight, bottomNavigationHeight, toolbarWidth } = useDimensions()
   const chatButtonSpace = 16
   const extraBottomSpace = ttsPlayerHeight + (bottomNavigationHeight ?? 0) + chatButtonSpace
 
@@ -116,7 +115,7 @@ const Layout = ({ footer, header, toolbar, children, fitScreen = false }: Layout
       {header}
       <Body fitScreen={fitScreen}>
         {toolbar && <Aside>{toolbar}</Aside>}
-        <Main fitScreen={fitScreen}>
+        <Main fitScreen={fitScreen} toolbarWidth={toolbarWidth}>
           {children}
           {!fitScreen && <Spacer height={extraBottomSpace} />}
         </Main>

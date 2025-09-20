@@ -8,7 +8,6 @@ import { CATEGORIES_ROUTE, NEWS_ROUTE, RATING_NEGATIVE, RATING_POSITIVE } from '
 import { CategoryModel } from 'shared/api'
 
 import { ReadAloudIcon } from '../assets'
-import dimensions from '../constants/dimensions'
 import useCityContentParams from '../hooks/useCityContentParams'
 import { RouteType } from '../routes'
 import FeedbackToolbarItem from './FeedbackToolbarItem'
@@ -17,6 +16,8 @@ import SharingPopupToolbarItem from './SharingPopupToolbarItem'
 import ToolbarItem from './ToolbarItem'
 import { TtsContext } from './TtsContainer'
 import Icon from './base/Icon'
+
+export const TOOLBAR_ELEMENT_ID = 'toolbar'
 
 type CityContentToolbarProps = {
   slug?: string
@@ -61,7 +62,7 @@ const CityContentToolbar = (props: CityContentToolbarProps): ReactElement => {
     .slice(0, maxItems)
 
   return (
-    <Stack direction={direction} width={direction === 'column' ? dimensions.toolbarWidth : '100%'}>
+    <Stack id={TOOLBAR_ELEMENT_ID} direction={direction} width={direction === 'row' ? '100%' : undefined}>
       {items}
     </Stack>
   )

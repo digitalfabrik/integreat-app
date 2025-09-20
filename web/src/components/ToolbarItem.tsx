@@ -6,14 +6,13 @@ import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
-import dimensions from '../constants/dimensions'
 import useDimensions from '../hooks/useDimensions'
 import Link from './base/Link'
 
 const StyledButton = styled(ListItemButton)({
   flexDirection: 'column',
   padding: 8,
-  width: dimensions.toolbarWidth,
+  width: 120,
 }) as typeof ListItemButton
 
 export type ToolbarItemProps = {
