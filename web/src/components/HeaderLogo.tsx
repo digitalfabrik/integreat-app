@@ -7,28 +7,28 @@ import buildConfig from '../constants/buildConfig'
 import useDimensions from '../hooks/useDimensions'
 import Link from './base/Link'
 
+const StyledLink = styled(Link)(({ theme }) => ({
+  order: 1,
+  height: 48,
+
+  [theme.breakpoints.down('md')]: {
+    width: 48,
+  },
+}))
+
+const StyledLogo = styled(SVG)(({ theme }) => ({
+  color: theme.palette.text.primary,
+  height: '100%',
+  width: 'fit-content',
+
+  [theme.breakpoints.down('md')]: {
+    width: '100%',
+  },
+}))
+
 type HeaderLogoProps = {
   link: string
 }
-
-const StyledLink = styled(Link)`
-  order: 1;
-  height: 48px;
-
-  ${props => props.theme.breakpoints.down('md')} {
-    width: 32px;
-  }
-`
-
-const StyledLogo = styled(SVG)`
-  color: ${props => props.theme.legacy.colors.textColor};
-  height: 100%;
-  width: fit-content;
-
-  ${props => props.theme.breakpoints.down('md')} {
-    width: 100%;
-  }
-`
 
 export const HeaderLogo = ({ link }: HeaderLogoProps): ReactElement => {
   const { campaign, appName, icons } = buildConfig()
