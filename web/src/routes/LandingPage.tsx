@@ -43,6 +43,7 @@ const LandingPage = ({ languageCode }: LandingPageProps): ReactElement => {
 
   return (
     <Layout
+      header={<GeneralHeader languageCode={languageCode} />}
       footer={
         <>
           {buildConfig().featureFlags.cityNotCooperating && <CityNotCooperatingFooter languageCode={languageCode} />}
