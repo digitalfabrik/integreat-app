@@ -6,6 +6,10 @@ import { BREAKPOINTS } from '../components/ThemeContainer'
 import { TtsContext } from '../components/TtsContainer'
 import { TTS_PLAYER_ELEMENT_ID } from '../components/TtsPlayer'
 
+const bottomSheetHandleHeight = 40
+const midSnapPercentage = 0.35
+const mapIconsHeight = 60
+
 type WindowDimensions = {
   width: number
   height: number
@@ -13,8 +17,19 @@ type WindowDimensions = {
   scrollY: number
 }
 
+type BottomSheet = {
+  snapPoints: {
+    min: number
+    medium: number
+    large: number
+    max: number
+    all: number[]
+  }
+}
+
 export type Dimensions = {
   window: WindowDimensions
+  bottomSheet: BottomSheet
 
   headerHeight: number
   visibleFooterHeight: number
@@ -41,8 +56,22 @@ const getDimensions = (): Dimensions => {
   const documentHeight = document.body.offsetHeight
   const visibleFooterHeight = Math.max(0, height + scrollY + footerHeight - documentHeight)
 
+  const snapPoints = {
+    min: bottomSheetHandleHeight + (bottomNavigationHeight ?? 0),
+    medium: height * midSnapPercentage,
+    large: height - headerHeight - mapIconsHeight,
+    max: height,
+  }
+
   return {
     window: { width, height, scrollX, scrollY },
+    bottomSheet: {
+      snapPoints: {
+        ...snapPoints,
+        all: [snapPoints.min, snapPoints.medium, snapPoints.large, snapPoints.max],
+      },
+    },
+
     headerHeight,
     visibleFooterHeight,
     ttsPlayerHeight,

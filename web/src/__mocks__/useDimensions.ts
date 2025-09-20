@@ -7,6 +7,16 @@ export const mockDimensions: Dimensions = {
     scrollX: 0,
     scrollY: 0,
   },
+  bottomSheet: {
+    snapPoints: {
+      min: 96,
+      medium: 200,
+      large: 350,
+      max: 400,
+      all: [96, 200, 350, 400],
+    },
+  },
+
   headerHeight: 90,
   visibleFooterHeight: 64,
   bottomNavigationHeight: undefined,
