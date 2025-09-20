@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next'
 import { LICENSES_ROUTE, MAIN_DISCLAIMER_ROUTE } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
-import { RoutePatterns } from '../routes'
 import Footer from './Footer'
 import Link from './base/Link'
 
@@ -22,10 +21,10 @@ const GeneralFooter = ({ language }: GeneralFooterProps): ReactElement => {
 
   return (
     <Footer>
-      <Link to={RoutePatterns[MAIN_DISCLAIMER_ROUTE]}>{t('imprint')}</Link>
+      <Link to={`/${MAIN_DISCLAIMER_ROUTE}`}>{t('imprint')}</Link>
       <Link to={aboutUrl}>{t('settings:about', { appName: buildConfig().appName })}</Link>
       <Link to={privacyUrl}>{t('privacy')}</Link>
-      <Link to={RoutePatterns[LICENSES_ROUTE]}>{t('settings:openSourceLicenses')}</Link>
+      <Link to={`/${LICENSES_ROUTE}`}>{t('settings:openSourceLicenses')}</Link>
       {!!accessibilityUrl && <Link to={accessibilityUrl}>{t('accessibility')}</Link>}
     </Footer>
   )
