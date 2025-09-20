@@ -5,7 +5,6 @@ import 'react-spring-bottom-sheet/dist/style.css'
 import { SpringEvent } from 'react-spring-bottom-sheet/dist/types'
 
 import useDimensions from '../hooks/useDimensions'
-import { getSnapPoints } from '../utils/getSnapPoints'
 import { RichLayout } from './Layout'
 
 const Title = styled('h1')`
@@ -79,7 +78,7 @@ const BottomActionSheet = ({
       onSpringStart={initializeScrollElement}
       onSpringEnd={() => setBottomActionSheetHeight(bottomSheetRef.current?.height ?? 0)}
       header={title ? <Title>{title}</Title> : null}
-      snapPoints={() => getSnapPoints(dimensions)}
+      snapPoints={() => dimensions.bottomSheet.snapPoints.all}
       // snapPoints have been supplied in the previous line
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       defaultSnap={({ snapPoints }) => snapPoints[1]!}>

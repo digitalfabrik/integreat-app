@@ -26,7 +26,6 @@ import {
 import { clusterCountLayer, clusterLayer, clusterProperties, markerLayer } from '../constants/layers'
 import useDimensions from '../hooks/useDimensions'
 import '../styles/MapView.css'
-import { getSnapPoints } from '../utils/getSnapPoints'
 import { reportError } from '../utils/sentry'
 import MapAttribution from './MapAttribution'
 
@@ -168,7 +167,12 @@ const MapView = ({
       mapRef.flyTo({
         center: [longitude, latitude],
         zoom: closerDetailZoom,
-        padding: { bottom: dimensions.mobile ? getSnapPoints(dimensions)[1] : 0, top: 0, left: 0, right: 0 },
+        padding: {
+          bottom: dimensions.mobile ? dimensions.bottomSheet.snapPoints.medium : 0,
+          top: 0,
+          left: 0,
+          right: 0,
+        },
       })
     }
   }, [currentFeature?.geometry.coordinates, dimensions, mapRef])
