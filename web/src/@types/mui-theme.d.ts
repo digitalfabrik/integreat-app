@@ -6,6 +6,8 @@ import { PaletteColor, Palette, PaletteOptions } from '@mui/material/styles'
 
 import { LegacyThemeType } from 'build-configs'
 
+import { Dimensions } from '../hooks/useDimensions'
+
 // Enable and disable typography variants according to our design system
 // docs: https://mui.com/material-ui/customization/typography/#adding-amp-disabling-variants
 declare module '@mui/material/Typography' {
@@ -40,6 +42,7 @@ declare module '@mui/material/styles' {
     contentDirection: UiDirectionType
     isContrastTheme: boolean
     toggleTheme: () => void
+    dimensions: Dimensions
   }
 
   interface ThemeOptions {
