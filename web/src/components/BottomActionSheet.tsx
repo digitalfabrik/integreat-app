@@ -4,7 +4,7 @@ import { BottomSheet, BottomSheetRef } from 'react-spring-bottom-sheet'
 import 'react-spring-bottom-sheet/dist/style.css'
 import { SpringEvent } from 'react-spring-bottom-sheet/dist/types'
 
-import useWindowDimensions from '../hooks/useWindowDimensions'
+import useDimensions from '../hooks/useDimensions'
 import { getSnapPoints } from '../utils/getSnapPoints'
 import { RichLayout } from './Layout'
 
@@ -52,7 +52,7 @@ const BottomActionSheet = ({
   ref,
 }: BottomActionSheetProps): ReactElement => {
   const [scrollElement, setScrollElement] = useState<HTMLElement | null>(null)
-  const dimensions = useWindowDimensions()
+  const dimensions = useDimensions()
   const bottomSheetRef = useRef<BottomSheetRef>(null)
   useImperativeHandle(
     ref,

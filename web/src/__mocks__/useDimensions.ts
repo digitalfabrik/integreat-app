@@ -1,6 +1,6 @@
-import { WindowDimensionsType } from '../hooks/useWindowDimensions'
+import { Dimensions } from '../hooks/useDimensions'
 
-export const mockWindowDimensions: WindowDimensionsType = {
+export const mockDimensions: Dimensions = {
   window: {
     width: 400,
     height: 400,
@@ -20,4 +20,4 @@ export const mockWindowDimensions: WindowDimensionsType = {
   xlarge: false,
 }
 
-export default (): WindowDimensionsType => mockWindowDimensions
+export default (): Dimensions => mockDimensions

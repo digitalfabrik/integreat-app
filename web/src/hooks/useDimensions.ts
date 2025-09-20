@@ -12,7 +12,7 @@ type WindowDimensions = {
   scrollY: number
 }
 
-export type WindowDimensionsType = {
+export type Dimensions = {
   window: WindowDimensions
 
   headerHeight: number
@@ -28,7 +28,7 @@ export type WindowDimensionsType = {
   xlarge: boolean
 }
 
-const getWindowDimensions = (): WindowDimensionsType => {
+const getDimensions = (): Dimensions => {
   const { innerWidth: width, innerHeight: height, scrollX, scrollY } = window
   const headerHeight = document.querySelector('header')?.offsetHeight ?? 0
   const ttsPlayerHeight = document.getElementById(TTS_PLAYER_ELEMENT_ID)?.getBoundingClientRect().height ?? 0
@@ -54,20 +54,20 @@ const getWindowDimensions = (): WindowDimensionsType => {
   }
 }
 
-const useWindowDimensions = (): WindowDimensionsType => {
-  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions())
+const useDimensions = (): Dimensions => {
+  const [dimensions, setDimensions] = useState(getDimensions())
   const { visible } = useContext(TtsContext)
 
   useEffect(() => {
     // Observe changes to the DOM body and recalculate all window dimensions (e.g. for adding/removing the tts player)
-    const resizeObserver = new ResizeObserver(() => setWindowDimensions(getWindowDimensions()))
+    const resizeObserver = new ResizeObserver(() => setDimensions(getDimensions()))
     resizeObserver.observe(document.body)
     return () => resizeObserver.disconnect()
   }, [visible])
 
   useEffect(() => {
     // Observe changes to the window sizes or the scroll position and recalculate all window dimensions
-    const handleResize = () => setWindowDimensions(getWindowDimensions())
+    const handleResize = () => setDimensions(getDimensions())
     window.addEventListener('resize', handleResize)
     window.addEventListener('scroll', handleResize)
     return () => {
@@ -76,7 +76,7 @@ const useWindowDimensions = (): WindowDimensionsType => {
     }
   }, [])
 
-  return windowDimensions
+  return dimensions
 }
 
-export default useWindowDimensions
+export default useDimensions

@@ -1,8 +1,8 @@
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, useRef } from 'react'
 
+import useDimensions from '../hooks/useDimensions'
 import useOnClickOutside from '../hooks/useOnClickOutside'
-import useWindowDimensions from '../hooks/useWindowDimensions'
 
 const DropdownContainer = styled('div')<{ open: boolean; headerHeight: number }>`
   position: absolute;
@@ -44,7 +44,7 @@ type DropdownProps = {
 
 const Dropdown = ({ ToggleButton, children, open, setOpen }: DropdownProps): ReactElement => {
   const wrapperRef = useRef(null)
-  const { headerHeight } = useWindowDimensions()
+  const { headerHeight } = useDimensions()
   useOnClickOutside(wrapperRef, () => setOpen(false))
 
   return (

@@ -5,7 +5,7 @@ import { CategoryModel, CityModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
 import useCityContentParams from '../hooks/useCityContentParams'
-import useWindowDimensions from '../hooks/useWindowDimensions'
+import useDimensions from '../hooks/useDimensions'
 import BottomNavigation from './BottomNavigation'
 import ChatContainer from './ChatContainer'
 import CityContentFooter from './CityContentFooter'
@@ -35,7 +35,7 @@ const CityContentLayout = ({
 }: CityContentLayoutProps): ReactElement => {
   const { route } = useCityContentParams()
   const [layoutReady, setLayoutReady] = useState(!isLoading)
-  const { mobile } = useWindowDimensions()
+  const { mobile } = useDimensions()
   const isChatEnabled = buildConfig().featureFlags.chat && route !== POIS_ROUTE && city.chatEnabled
   const footerVisible = !isLoading && !mobile && !fitScreen
   const chatVisible = isChatEnabled && layoutReady
