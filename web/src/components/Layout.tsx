@@ -59,10 +59,11 @@ const Body = styled('div')<{ fitScreen: boolean }>`
         `};
 `
 
-const Main = styled('main')<{ fitScreen: boolean; toolbarWidth: number }>`
+const Main = styled('main')<{ fitScreen: boolean }>`
   display: inline-block;
-  width: ${props => (props.fitScreen ? '100%' : `${props.theme.breakpoints.values.lg - 2 * props.toolbarWidth}px`)};
-  max-width: ${props => (props.fitScreen ? '100%' : `calc(100% - 2 * ${props.toolbarWidth}px)`)};
+  width: ${props =>
+    props.fitScreen ? '100%' : `${props.theme.breakpoints.values.lg - 2 * props.theme.dimensions.toolbarWidth}px`};
+  max-width: ${props => (props.fitScreen ? '100%' : `calc(100% - 2 * ${props.theme.dimensions.toolbarWidth}px)`)};
   box-sizing: border-box;
   margin: 0 auto;
   padding: ${props => (props.fitScreen ? '0' : `0 16px 32px`)};
@@ -104,9 +105,9 @@ type LayoutProps = {
 }
 
 const Layout = ({ footer, header, toolbar, children, fitScreen = false }: LayoutProps): ReactElement => {
-  const { ttsPlayerHeight, bottomNavigationHeight, toolbarWidth } = useDimensions()
-  const chatButtonSpace = 16
-  const extraBottomSpace = ttsPlayerHeight + (bottomNavigationHeight ?? 0) + chatButtonSpace
+  const { ttsPlayerHeight, bottomNavigationHeight } = useDimensions()
+  const extraChatButtonPadding = 16
+  const extraBottomSpace = ttsPlayerHeight + (bottomNavigationHeight ?? 0) + extraChatButtonPadding
 
   return (
     <RichLayout id={LAYOUT_ELEMENT_ID}>
@@ -114,7 +115,7 @@ const Layout = ({ footer, header, toolbar, children, fitScreen = false }: Layout
       {header}
       <Body fitScreen={fitScreen}>
         {toolbar && <Aside>{toolbar}</Aside>}
-        <Main fitScreen={fitScreen} toolbarWidth={toolbarWidth}>
+        <Main fitScreen={fitScreen}>
           {children}
           {!fitScreen && <Spacer height={extraBottomSpace} />}
         </Main>

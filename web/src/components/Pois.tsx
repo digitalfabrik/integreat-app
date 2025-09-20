@@ -23,9 +23,9 @@ import useDimensions from '../hooks/useDimensions'
 import moveViewportToCity from '../utils/moveViewportToCity'
 import PoiFiltersOverlayButtons from './PoiFiltersOverlayButtons'
 
-const Container = styled('div')<{ offset: number }>`
+const Container = styled('div')`
   display: flex;
-  ${({ offset }) => `height: calc(100vh - ${offset}px);`};
+  height: calc(100vh - ${props => props.theme.dimensions.headerHeight}px);
 `
 
 type PoiProps = {
@@ -44,7 +44,7 @@ const Pois = ({ pois: allPois, userLocation, city, languageCode, pageTitle }: Po
   const [mapViewport, setMapViewport] = useState<MapViewViewport>(moveViewportToCity(city, zoom))
   const params = useParams()
   const navigate = useNavigate()
-  const { mobile, headerHeight } = useDimensions()
+  const { mobile } = useDimensions()
 
   const slug = params.slug ? normalizePath(params.slug) : undefined
 
@@ -140,7 +140,7 @@ const Pois = ({ pois: allPois, userLocation, city, languageCode, pageTitle }: Po
   }
 
   return (
-    <Container offset={headerHeight}>
+    <Container>
       {mobile ? (
         <PoisMobile {...sharedPoiProps} />
       ) : (

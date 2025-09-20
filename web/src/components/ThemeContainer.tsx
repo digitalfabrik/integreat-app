@@ -9,6 +9,7 @@ import { ThemeKey } from 'build-configs'
 import { UiDirectionType } from 'translations'
 
 import buildConfig from '../constants/buildConfig'
+import useDimensions from '../hooks/useDimensions'
 import useLocalStorage from '../hooks/useLocalStorage'
 import globalStyle from '../styles/global/GlobalStyle'
 import { muiShadowCreator } from '../utils/muiShadowCreator'
@@ -78,6 +79,7 @@ type ThemeContainerProps = {
 }
 
 const ThemeContainer = ({ children, contentDirection }: ThemeContainerProps): ReactElement => {
+  const dimensions = useDimensions()
   const { value: themeType, updateLocalStorageItem: setThemeType } = useLocalStorage<ThemeKey>({
     key: 'theme',
     initialValue: 'light',
@@ -96,7 +98,7 @@ const ThemeContainer = ({ children, contentDirection }: ThemeContainerProps): Re
 
   return (
     <CacheProvider value={contentDirection === 'rtl' ? rtlCache : ltrCache}>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={{ ...theme, dimensions }}>
         <Global styles={globalStyle({ theme })} />
         {children}
       </ThemeProvider>

@@ -10,11 +10,9 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import useDimensions from '../hooks/useDimensions'
-
 export const TTS_PLAYER_ELEMENT_ID = 'tts-player'
 
-const StyledTtsPlayer = styled('dialog')<{ bottomOffset: number }>`
+const StyledTtsPlayer = styled('dialog')`
   background-color: ${props =>
     props.theme.isContrastTheme
       ? props.theme.legacy.colors.backgroundAccentColor
@@ -29,7 +27,7 @@ const StyledTtsPlayer = styled('dialog')<{ bottomOffset: number }>`
   padding: 32px 24px 24px;
   position: fixed;
   margin-bottom: 12px;
-  bottom: ${props => props.bottomOffset}px;
+  bottom: ${props => props.theme.dimensions.bottomNavigationHeight ?? props.theme.dimensions.visibleFooterHeight}px;
   gap: 16px;
   border-color: transparent;
 
@@ -99,12 +97,10 @@ const TtsPlayer = ({
   pause,
   disabled,
 }: TtsPlayerProps): ReactElement => {
-  const { visibleFooterHeight, bottomNavigationHeight } = useDimensions()
   const { t } = useTranslation('layout')
-  const bottomOffset = bottomNavigationHeight ?? visibleFooterHeight
 
   return (
-    <StyledTtsPlayer id={TTS_PLAYER_ELEMENT_ID} bottomOffset={bottomOffset}>
+    <StyledTtsPlayer id={TTS_PLAYER_ELEMENT_ID}>
       <CloseIconButton onClick={close} aria-label={t('common:close')}>
         <CloseIcon />
       </CloseIconButton>

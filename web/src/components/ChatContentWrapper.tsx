@@ -2,7 +2,6 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode } from 'react'
 
 import { helpers } from '../constants/theme'
-import useDimensions from '../hooks/useDimensions'
 import ChatMenu from './ChatMenu'
 
 const Container = styled('div')`
@@ -18,9 +17,9 @@ const Container = styled('div')`
   }
 `
 
-const Header = styled('div')<{ small: boolean }>`
+const Header = styled('div')`
   display: flex;
-  flex-direction: ${props => (props.small ? 'row-reverse' : 'row')};
+  flex-direction: row;
   justify-content: space-between;
   ${helpers.adaptiveThemeTextColor}
   font-size: ${props => props.theme.legacy.fonts.hintFontSize};
@@ -37,6 +36,7 @@ const Header = styled('div')<{ small: boolean }>`
   ${props => props.theme.breakpoints.down('md')} {
     padding: 8px 16px;
     gap: 12px;
+    flex-direction: row-reverse;
   }
 `
 
@@ -46,17 +46,14 @@ type ModalProps = {
   onClose: () => void
 }
 
-const ChatContentWrapper = ({ title, onClose, children }: ModalProps): ReactElement => {
-  const { mobile } = useDimensions()
-  return (
-    <Container>
-      <Header small={mobile}>
-        {title}
-        <ChatMenu onClose={onClose} />
-      </Header>
-      {children}
-    </Container>
-  )
-}
+const ChatContentWrapper = ({ title, onClose, children }: ModalProps): ReactElement => (
+  <Container>
+    <Header>
+      {title}
+      <ChatMenu onClose={onClose} />
+    </Header>
+    {children}
+  </Container>
+)
 
 export default ChatContentWrapper
