@@ -2,7 +2,7 @@ import Headroom from '@integreat-app/react-sticky-headroom'
 import React, { ReactElement, ReactNode, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import useWindowDimensions from '../hooks/useWindowDimensions'
+import useDimensions from '../hooks/useDimensions'
 import SearchInput from './SearchInput'
 
 type ScrollingSearchBoxProps = {
@@ -26,7 +26,7 @@ const ScrollingSearchBox = ({
   const node = useRef<HTMLDivElement | null>(null)
   const searchInputRef = useRef<HTMLDivElement | null>(null)
   const { t } = useTranslation('landing')
-  const { window } = useWindowDimensions()
+  const { window } = useDimensions()
 
   useEffect(() => {
     if (searchInputRef.current) {

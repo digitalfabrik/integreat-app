@@ -24,7 +24,7 @@ import {
 } from 'shared'
 
 import { clusterCountLayer, clusterLayer, clusterProperties, markerLayer } from '../constants/layers'
-import useWindowDimensions from '../hooks/useWindowDimensions'
+import useDimensions from '../hooks/useDimensions'
 import '../styles/MapView.css'
 import { getSnapPoints } from '../utils/getSnapPoints'
 import { reportError } from '../utils/sentry'
@@ -80,7 +80,7 @@ const MapView = ({
   const [mapRef, setMapRef] = useState<maplibregl.Map | null>(null)
   const theme = useTheme()
 
-  const dimensions = useWindowDimensions()
+  const dimensions = useDimensions()
 
   useEffect(() => {
     if (maplibregl.getRTLTextPluginStatus() === 'unavailable') {

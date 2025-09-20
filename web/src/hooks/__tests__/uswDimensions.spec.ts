@@ -1,10 +1,10 @@
 import { act, renderHook, waitFor } from '@testing-library/react'
 
-import useWindowDimensions from '../useWindowDimensions'
+import useDimensions from '../useDimensions'
 
 jest.mock('react-i18next')
 
-describe('useWindowDimensions', () => {
+describe('useDimensions', () => {
   const { innerWidth, innerHeight } = window
 
   afterAll(() => {
@@ -20,7 +20,7 @@ describe('useWindowDimensions', () => {
 
     const {
       result: { current },
-    } = renderHook(useWindowDimensions)
+    } = renderHook(useDimensions)
 
     expect(current.window.width).toBe(841)
     expect(current.window.height).toBe(800)
@@ -58,7 +58,7 @@ describe('useWindowDimensions', () => {
 
     const {
       result: { current },
-    } = renderHook(useWindowDimensions)
+    } = renderHook(useDimensions)
 
     expect(current.window.width).toBe(450)
     expect(current.window.height).toBe(800)
@@ -78,7 +78,7 @@ describe('useWindowDimensions', () => {
 
     const {
       result: { current },
-    } = renderHook(useWindowDimensions)
+    } = renderHook(useDimensions)
 
     expect(current.window.width).toBe(1920)
     expect(current.window.height).toBe(800)

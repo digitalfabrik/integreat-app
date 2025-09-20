@@ -9,8 +9,8 @@ import { getChatName, CHAT_QUERY_KEY, parseQueryParams } from 'shared'
 import { CityModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
+import useDimensions from '../hooks/useDimensions'
 import useLockedBody from '../hooks/useLockedBody'
-import useWindowDimensions from '../hooks/useWindowDimensions'
 import ChatController from './ChatController'
 import ChatModal from './ChatModal'
 import { TtsContext } from './TtsContainer'
@@ -57,7 +57,7 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement | n
   const [queryParams, setQueryParams] = useSearchParams()
   const initialChatVisibility = parseQueryParams(queryParams).chat ?? false
   const [chatVisible, setChatVisible] = useState(initialChatVisibility)
-  const { mobile, visibleFooterHeight, bottomNavigationHeight } = useWindowDimensions()
+  const { mobile, visibleFooterHeight, bottomNavigationHeight } = useDimensions()
   const { visible: ttsPlayerVisible } = useContext(TtsContext)
   const chatName = getChatName(buildConfig().appName)
   useLockedBody(chatVisible)

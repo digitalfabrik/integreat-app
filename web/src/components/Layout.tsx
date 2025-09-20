@@ -4,7 +4,7 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode } from 'react'
 
 import dimensions from '../constants/dimensions'
-import useWindowDimensions from '../hooks/useWindowDimensions'
+import useDimensions from '../hooks/useDimensions'
 import { MobileBanner } from './MobileBanner'
 
 export const LAYOUT_ELEMENT_ID = 'layout'
@@ -106,7 +106,7 @@ type LayoutProps = {
 }
 
 const Layout = ({ footer, header, toolbar, children, fitScreen = false }: LayoutProps): ReactElement => {
-  const { ttsPlayerHeight, bottomNavigationHeight } = useWindowDimensions()
+  const { ttsPlayerHeight, bottomNavigationHeight } = useDimensions()
   const chatButtonSpace = 16
   const extraBottomSpace = ttsPlayerHeight + (bottomNavigationHeight ?? 0) + chatButtonSpace
 

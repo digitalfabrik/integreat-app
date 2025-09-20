@@ -2,7 +2,7 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode } from 'react'
 
 import { helpers } from '../constants/theme'
-import useWindowDimensions from '../hooks/useWindowDimensions'
+import useDimensions from '../hooks/useDimensions'
 import ChatMenu from './ChatMenu'
 
 const Container = styled('div')`
@@ -47,7 +47,7 @@ type ModalProps = {
 }
 
 const ChatContentWrapper = ({ title, onClose, children }: ModalProps): ReactElement => {
-  const { mobile } = useWindowDimensions()
+  const { mobile } = useDimensions()
   return (
     <Container>
       <Header small={mobile}>

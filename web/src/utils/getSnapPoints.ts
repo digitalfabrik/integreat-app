@@ -1,10 +1,10 @@
-import { WindowDimensionsType } from '../hooks/useWindowDimensions'
+import { Dimensions } from '../hooks/useDimensions'
 
 const bottomSheetHandleHeight = 40
 const midSnapPercentage = 0.35
 const mapIconsHeight = 60
 
-export const getSnapPoints = (dimensions: WindowDimensionsType): [number, number, number, number] => [
+export const getSnapPoints = (dimensions: Dimensions): [number, number, number, number] => [
   bottomSheetHandleHeight + (dimensions.bottomNavigationHeight ?? 0),
   dimensions.window.height * midSnapPercentage,
   dimensions.window.height - dimensions.headerHeight - mapIconsHeight,
