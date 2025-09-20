@@ -1,4 +1,3 @@
-import { css } from '@emotion/react'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import Divider from '@mui/material/Divider'
 import { styled } from '@mui/material/styles'
@@ -8,25 +7,23 @@ import { helpers } from '../constants/theme'
 import Button from './base/Button'
 import Icon from './base/Icon'
 
-const StyledButton = styled(Button)<{ viewportSmall: boolean }>`
+const StyledButton = styled(Button)`
   display: flex;
   padding-top: 12px;
 
-  ${props =>
-    props.viewportSmall &&
-    css`
-      animation: fade-in 3s;
+  ${props => props.theme.breakpoints.down('md')} {
+    animation: fade-in 3s;
 
-      @keyframes fade-in {
-        0% {
-          opacity: 0;
-        }
-
-        100% {
-          opacity: 1;
-        }
+    @keyframes fade-in {
+      0% {
+        opacity: 0;
       }
-    `};
+
+      100% {
+        opacity: 1;
+      }
+    }
+  }
 `
 
 const DetailsHeaderTitle = styled('span')`
@@ -50,12 +47,11 @@ const StyledDivider = styled(Divider)`
 type GoBackProps = {
   text: string
   goBack: () => void
-  viewportSmall?: boolean
 }
 
-const GoBack = ({ goBack, viewportSmall = false, text }: GoBackProps): ReactElement => (
+const GoBack = ({ goBack, text }: GoBackProps): ReactElement => (
   <>
-    <StyledButton onClick={goBack} label={text} tabIndex={0} viewportSmall={viewportSmall}>
+    <StyledButton onClick={goBack} label={text} tabIndex={0}>
       <StyledIcon src={ArrowBackIcon} directionDependent />
       <DetailsHeaderTitle>{text}</DetailsHeaderTitle>
     </StyledButton>

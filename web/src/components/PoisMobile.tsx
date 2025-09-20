@@ -140,7 +140,7 @@ const PoisMobile = ({
         sibling={<GeocontrolContainer ref={geocontrolPosition} maxOffset={getSnapPoints(dimensions)[1]} />}>
         {canDeselect && isBottomActionSheetFullScreen && (
           <GoBackContainer>
-            <GoBack goBack={deselect} viewportSmall text={t('detailsHeader')} />
+            <GoBack goBack={deselect} text={t('detailsHeader')} />
           </GoBackContainer>
         )}
         <ListContainer>
