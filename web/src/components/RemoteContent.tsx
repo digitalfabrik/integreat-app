@@ -40,7 +40,7 @@ const RemoteContent = ({ html, centered = false, smallText = false }: RemoteCont
   })
 
   const [contentIframeSources, setContentIframeSources] = useState<IframeSources>({})
-  const { mobile, width: deviceWidth } = useWindowDimensions()
+  const { mobile, window } = useWindowDimensions()
   const { t } = useTranslation()
   const { isContrastTheme } = useTheme()
 
@@ -99,7 +99,7 @@ const RemoteContent = ({ html, centered = false, smallText = false }: RemoteCont
           index,
           supportedSource,
           mobile,
-          deviceWidth,
+          window.width,
         )
       }
     })
@@ -112,7 +112,7 @@ const RemoteContent = ({ html, centered = false, smallText = false }: RemoteCont
     contentIframeSources,
     onUpdateLocalStorage,
     mobile,
-    deviceWidth,
+    window.width,
     isContrastTheme,
   ])
 
