@@ -30,7 +30,7 @@ const CityContentHeader = ({
   const params = { cityCode: cityModel.code, languageCode }
   const categoriesPath = cityContentPath(params)
   const searchPath = pathnameFromRouteInformation({ route: SEARCH_ROUTE, ...params })
-  const { mobile } = useDimensions()
+  const { desktop, mobile } = useDimensions()
 
   const actionItems = [
     <HeaderActionItem key='search' to={searchPath} text={t('search')} icon={<SearchOutlinedIcon />} />,
@@ -48,7 +48,7 @@ const CityContentHeader = ({
       actionItems={actionItems}
       cityName={cityModel.name}
       language={languageCode}
-      TabBar={!mobile && <NavigationTabs cityModel={cityModel} languageCode={languageCode} />}
+      TabBar={desktop && <NavigationTabs cityModel={cityModel} languageCode={languageCode} />}
     />
   )
 }
