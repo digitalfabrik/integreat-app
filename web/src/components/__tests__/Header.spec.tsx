@@ -15,7 +15,7 @@ describe('Header', () => {
   const cityName = 'TestCity'
 
   it('should render correctly', () => {
-    mocked(useWindowDimensions).mockImplementation(() => ({ ...mockWindowDimensions, viewportSmall: true }))
+    mocked(useWindowDimensions).mockImplementation(() => ({ ...mockWindowDimensions, mobile: true }))
     const { getByText } = renderWithRouterAndTheme(
       <Header logoHref='/random_route' actionItems={[]} cityName={cityName} language='de' />,
     )

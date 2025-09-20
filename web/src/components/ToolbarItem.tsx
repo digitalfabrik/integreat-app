@@ -24,8 +24,8 @@ export type ToolbarItemProps = {
 } & ({ to: string; onClick?: never } | { to?: never; onClick: () => void })
 
 const ToolbarItem = ({ to, text, icon, disabled = false, tooltip, onClick }: ToolbarItemProps): ReactElement => {
-  const { viewportSmall } = useWindowDimensions()
-  const tooltipPlacement = viewportSmall ? 'top' : 'right'
+  const { mobile } = useWindowDimensions()
+  const tooltipPlacement = mobile ? 'top' : 'right'
 
   return (
     <Tooltip title={tooltip} placement={tooltipPlacement}>
