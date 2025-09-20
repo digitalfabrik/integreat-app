@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router-dom'
 
 import { LANDING_ROUTE, pathnameFromRouteInformation } from 'shared'
-import { createCitiesEndpoint, useLoadFromEndpoint } from 'shared/api'
+import { createCitiesEndpoint, LanguageModel, useLoadFromEndpoint } from 'shared/api'
 
 import { cmsApiBaseUrl } from '../constants/urls'
 import Header from './Header'
@@ -15,9 +15,10 @@ import SidebarActionItem from './SidebarActionItem'
 
 type GeneralHeaderProps = {
   languageCode: string
+  cityLanguages?: LanguageModel[]
 }
 
-const GeneralHeader = ({ languageCode }: GeneralHeaderProps): ReactElement => {
+const GeneralHeader = ({ languageCode, cityLanguages }: GeneralHeaderProps): ReactElement => {
   const { data: cities } = useLoadFromEndpoint(createCitiesEndpoint, cmsApiBaseUrl, undefined)
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const { toggleTheme } = useTheme()
@@ -25,14 +26,16 @@ const GeneralHeader = ({ languageCode }: GeneralHeaderProps): ReactElement => {
   const slug = useLocation().pathname.split('/')[1]
 
   const landingPath = pathnameFromRouteInformation({ route: LANDING_ROUTE, languageCode })
-  const languages = [
-    ...new Map(
-      cities
-        ?.filter(city => city.live)
-        .flatMap(city => city.languages)
-        .map(item => [item.code, item]),
-    ).values(),
-  ].sort((a, b) => a.code.localeCompare(b.code))
+  const languages =
+    cityLanguages ??
+    [
+      ...new Map(
+        cities
+          ?.filter(city => city.live)
+          .flatMap(city => city.languages)
+          .map(item => [item.code, item]),
+      ).values(),
+    ].sort((a, b) => a.code.localeCompare(b.code))
   const languageChangePaths = languages.map(language => ({
     code: language.code,
     name: language.name,
