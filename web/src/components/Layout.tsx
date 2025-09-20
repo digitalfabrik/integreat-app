@@ -61,9 +61,8 @@ const Body = styled('div')<{ fitScreen: boolean }>`
 
 const Main = styled('main')<{ fitScreen: boolean }>`
   display: inline-block;
-  width: ${props =>
-    props.fitScreen ? '100%' : `${props.theme.breakpoints.values.lg - 2 * props.theme.dimensions.toolbarWidth}px`};
-  max-width: ${props => (props.fitScreen ? '100%' : `calc(100% - 2 * ${props.theme.dimensions.toolbarWidth}px)`)};
+  width: ${props => (props.fitScreen ? '100%' : `calc(${props.theme.breakpoints.values.lg}px - 240px)`)};
+  max-width: ${props => (props.fitScreen ? '100%' : `calc(100% - 240px)`)};
   box-sizing: border-box;
   margin: 0 auto;
   padding: ${props => (props.fitScreen ? '0' : `0 16px 32px`)};
