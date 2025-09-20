@@ -3,7 +3,6 @@ import { TFunction } from 'i18next'
 import { CONSENT_ROUTE, ExternalSourcePermissions } from 'shared'
 
 import { IFRAME_BLANK_SOURCE, IframeSources } from '../components/RemoteContent'
-import dimensions from '../constants/dimensions'
 
 export const LOCAL_STORAGE_ITEM_EXTERNAL_SOURCES = 'Opt-In-External-Sources'
 export const addDoNotTrackParameter = (iframe: HTMLIFrameElement): void => {
@@ -63,8 +62,8 @@ const getIframeContainer = (
   iframeContainer.appendChild(iframe)
   if (viewportSmall) {
     // Scale the height depending on device width minus padding
-    const scaledHeight =
-      (deviceWidth / Number(iframe.width)) * Number(iframe.height) - dimensions.mainContainerHorizontalPadding
+    const padding = 16
+    const scaledHeight = (deviceWidth / Number(iframe.width)) * Number(iframe.height) - padding
     iframe.setAttribute('height', `${scaledHeight}`)
   } else {
     // Set the container width according to the iframe width
