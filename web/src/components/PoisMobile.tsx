@@ -9,7 +9,6 @@ import { LocationType, MapViewViewport, MapFeature, PreparePoisReturn } from 'sh
 import { PoiModel } from 'shared/api'
 
 import useDimensions from '../hooks/useDimensions'
-import { getSnapPoints } from '../utils/getSnapPoints'
 import BottomActionSheet, { ScrollableBottomSheetRef } from './BottomActionSheet'
 import GoBack from './GoBack'
 import MapView, { MapViewRef } from './MapView'
@@ -33,10 +32,12 @@ const GoBackContainer = styled('div')`
   padding: 0 30px;
 `
 
-const GeocontrolContainer = styled('div')<{ maxOffset: number }>`
+const GeocontrolContainer = styled('div')`
   position: fixed;
   inset-inline-end: 16px;
-  bottom: calc(min(var(--rsbs-overlay-h, 0), ${props => props.maxOffset}px) + 16px);
+  bottom: calc(
+    min(var(--rsbs-overlay-h, 0), ${props => props.theme.dimensions.bottomSheet.snapPoints.medium}px) + 16px
+  );
 `
 
 type PoisMobileProps = {
@@ -76,7 +77,7 @@ const PoisMobile = ({
   const isBottomActionSheetFullScreen = bottomActionSheetHeight >= dimensions.window.height
   const changeSnapPoint = (snapPoint: number) => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    sheetRef.current?.sheet?.snapTo(() => getSnapPoints(dimensions)[snapPoint]!)
+    sheetRef.current?.sheet?.snapTo(() => dimensions.bottomSheet.snapPoints.all[snapPoint]!)
   }
 
   const handleSelectPoi = (poi: PoiModel) => {
@@ -137,7 +138,7 @@ const PoisMobile = ({
       <BottomActionSheet
         ref={sheetRef}
         setBottomActionSheetHeight={setBottomActionSheetHeight}
-        sibling={<GeocontrolContainer ref={geocontrolPosition} maxOffset={getSnapPoints(dimensions)[1]} />}>
+        sibling={<GeocontrolContainer ref={geocontrolPosition} />}>
         {canDeselect && isBottomActionSheetFullScreen && (
           <GoBackContainer>
             <GoBack goBack={deselect} text={t('detailsHeader')} />
