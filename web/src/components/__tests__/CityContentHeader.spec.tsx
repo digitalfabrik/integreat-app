@@ -3,9 +3,9 @@ import React from 'react'
 
 import { CityModelBuilder } from 'shared/api'
 
+import { mockWindowDimensions } from '../../__mocks__/useWindowDimensions'
 import useWindowDimensions from '../../hooks/useWindowDimensions'
 import { renderWithRouterAndTheme } from '../../testing/render'
-import { mockWindowDimensions } from '../../testing/utils'
 import CityContentHeader from '../CityContentHeader'
 
 jest.mock('react-inlinesvg')
