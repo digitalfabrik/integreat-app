@@ -49,7 +49,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
 
   // Support legacy slugs of old recurring events with one event per recurrence
   const pathnameWithoutDate = pathname.split('$')[0]
-  const event = eventId ? events?.find(it => it.path === pathnameWithoutDate) : null
+  const event = eventId ? events?.find(it => it.path === pathnameWithoutDate) : null // TODO chatgpt -> shortIF
   useTtsPlayer(event, languageCode)
 
   if (!city) {

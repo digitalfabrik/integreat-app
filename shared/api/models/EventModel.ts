@@ -8,6 +8,8 @@ import ExtendedPageModel from './ExtendedPageModel'
 import FeaturedImageModel from './FeaturedImageModel'
 import LocationModel from './LocationModel'
 
+// TODO understand the construct of this file and add meeting_url to this class (focus on location)
+
 class EventModel extends ExtendedPageModel {
   _date: DateModel
   _location: LocationModel<number | null> | null
@@ -44,7 +46,7 @@ class EventModel extends ExtendedPageModel {
 
   get location(): LocationModel<number | null> | null {
     return this._location
-  }
+  } // TODO get funktion anschauen --> typescript
 
   get excerpt(): string {
     return this._excerpt

@@ -29,7 +29,7 @@ const DatesPageDetail = ({ date, languageCode }: DatesPageDetailProps): ReactEle
     return <PageDetail identifier={t('date_one')} information={nextDate} />
   }
 
-  const Title = <Identifier>{t(hasMoreDates ? 'nextDate_other' : 'date_other')}: </Identifier>
+  const Title = <Identifier>{t(hasMoreDates ? 'nextDate_other' : 'date_other')}:</Identifier>
   const Dates = dates.map(it => <div key={it}>{it}</div>)
   const AlwaysShownDates = <>{Dates.slice(0, MAX_DATE_RECURRENCES_COLLAPSED)}</>
 
