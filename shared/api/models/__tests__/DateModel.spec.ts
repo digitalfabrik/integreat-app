@@ -871,44 +871,47 @@ describe('DateModel', () => {
 
   describe('formatEventDate', () => {
     it('should format a one-time, not all-day event correctly', () => {
+      const locale = 'de'
       const date = new DateModel({
-        startDate: DateTime.fromISO('2025-08-29T11:00:00+02:00', { locale: 'de' }),
-        endDate: DateTime.fromISO('2025-08-29T13:00:00+02:00', { locale: 'de' }),
+        startDate: DateTime.fromISO('2025-08-29T11:00:00+02:00', { locale }),
+        endDate: DateTime.fromISO('2025-08-29T13:00:00+02:00', { locale }),
         allDay: false,
         recurrenceRule: null,
         onlyWeekdays: false,
       })
-      expect(date.formatEventDate(t)).toStrictEqual({
+      expect(date.formatEventDate(locale, t)).toStrictEqual({
         date: '29. August 2025',
         weekday: undefined,
-        time: '11:00–13:00 Uhr',
+        time: 'timeRange, startTime: 11:00, endTime: 13:00',
       })
     })
 
     it('should format a one-time, not all-day event correctly in English', () => {
+      const locale = 'en'
       const date = new DateModel({
-        startDate: DateTime.fromISO('2025-08-29T11:00:00+02:00', { locale: 'en' }),
-        endDate: DateTime.fromISO('2025-08-29T13:00:00+02:00', { locale: 'en' }),
+        startDate: DateTime.fromISO('2025-08-29T11:00:00+02:00', { locale }),
+        endDate: DateTime.fromISO('2025-08-29T13:00:00+02:00', { locale }),
         allDay: false,
         recurrenceRule: null,
         onlyWeekdays: false,
       })
-      expect(date.formatEventDate(t)).toStrictEqual({
+      expect(date.formatEventDate(locale, t)).toStrictEqual({
         date: 'August 29, 2025',
         weekday: undefined,
-        time: '11:00 AM – 1:00 PM',
+        time: 'timeRange, startTime: 11:00 AM, endTime: 1:00 PM',
       })
     })
 
     it('should format a one-time, all-day event correctly', () => {
+      const locale = 'de'
       const date = new DateModel({
-        startDate: DateTime.fromISO('2025-09-03T00:00:00+02:00', { locale: 'de' }),
-        endDate: DateTime.fromISO('2025-09-03T23:59:00+02:00', { locale: 'de' }),
+        startDate: DateTime.fromISO('2025-09-03T00:00:00+02:00', { locale }),
+        endDate: DateTime.fromISO('2025-09-03T23:59:00+02:00', { locale }),
         allDay: true,
         recurrenceRule: null,
         onlyWeekdays: false,
       })
-      expect(date.formatEventDate(t)).toStrictEqual({
+      expect(date.formatEventDate(locale, t)).toStrictEqual({
         date: '3. September 2025',
         weekday: undefined,
         time: 'pois:allDay',
@@ -916,131 +919,140 @@ describe('DateModel', () => {
     })
 
     it('should format a weekly recurring event with an end date correctly', () => {
+      const locale = 'de'
       const date = new DateModel({
-        startDate: DateTime.fromISO('2025-08-20T09:00:00+02:00', { locale: 'de' }),
-        endDate: DateTime.fromISO('2025-08-20T09:30:00+02:00', { locale: 'de' }),
+        startDate: DateTime.fromISO('2025-08-20T09:00:00+02:00', { locale }),
+        endDate: DateTime.fromISO('2025-08-20T09:30:00+02:00', { locale }),
         allDay: false,
         recurrenceRule: rrulestr('DTSTART:20250820T070000\nRRULE:FREQ=WEEKLY;UNTIL=20261101T235959;BYDAY=WE,FR'),
         onlyWeekdays: false,
       })
-      expect(date.formatEventDate(t)).toStrictEqual({
-        date: '20. August 2025 – 30. Oktober 2026',
+      expect(date.formatEventDate(locale, t)).toStrictEqual({
+        date: '20. August 2025 - 30. Oktober 2026',
         weekday: 'Mittwoch, Freitag',
-        time: '09:00–09:30 Uhr',
+        time: 'timeRange, startTime: 9:00, endTime: 9:30',
       })
     })
 
     it('should format a weekly recurring event without an end date correctly', () => {
+      const locale = 'de'
       const date = new DateModel({
-        startDate: DateTime.fromISO('2025-08-18T18:00:00+02:00', { locale: 'de' }),
-        endDate: DateTime.fromISO('2025-08-18T19:00:00+02:00', { locale: 'de' }),
+        startDate: DateTime.fromISO('2025-08-18T18:00:00+02:00', { locale }),
+        endDate: DateTime.fromISO('2025-08-18T19:00:00+02:00', { locale }),
         allDay: false,
         recurrenceRule: rrulestr('DTSTART:20250818T160000\nRRULE:FREQ=WEEKLY;BYDAY=MO'),
         onlyWeekdays: false,
       })
-      expect(date.formatEventDate(t)).toStrictEqual({
+      expect(date.formatEventDate(locale, t)).toStrictEqual({
         date: 'startingFrom, date: 18. August 2025',
         weekday: 'Montag',
-        time: '18:00–19:00 Uhr',
+        time: 'timeRange, startTime: 18:00, endTime: 19:00',
       })
     })
 
     it('should format a weekly recurring event without an end date correctly in English', () => {
+      const locale = 'en'
       const date = new DateModel({
-        startDate: DateTime.fromISO('2025-08-18T18:00:00+02:00', { locale: 'en' }),
-        endDate: DateTime.fromISO('2025-08-18T19:00:00+02:00', { locale: 'en' }),
+        startDate: DateTime.fromISO('2025-08-18T18:00:00+02:00', { locale }),
+        endDate: DateTime.fromISO('2025-08-18T19:00:00+02:00', { locale }),
         allDay: false,
         recurrenceRule: rrulestr('DTSTART:20250818T160000\nRRULE:FREQ=WEEKLY;BYDAY=MO'),
         onlyWeekdays: false,
       })
-      expect(date.formatEventDate(t)).toStrictEqual({
+      expect(date.formatEventDate(locale, t)).toStrictEqual({
         date: 'startingFrom, date: August 18, 2025',
         weekday: 'Monday',
-        time: '6:00 – 7:00 PM',
+        time: 'timeRange, startTime: 6:00 PM, endTime: 7:00 PM',
       })
     })
 
     it('should format a long-term all-day event correctly', () => {
+      const locale = 'de'
       const date = new DateModel({
-        startDate: DateTime.fromISO('2025-08-18T00:00:00+02:00', { locale: 'de' }),
-        endDate: DateTime.fromISO('2025-08-29T23:59:00+02:00', { locale: 'de' }),
+        startDate: DateTime.fromISO('2025-08-18T00:00:00+02:00', { locale }),
+        endDate: DateTime.fromISO('2025-08-29T23:59:00+02:00', { locale }),
         allDay: true,
         recurrenceRule: null,
         onlyWeekdays: false,
       })
-      expect(date.formatEventDate(t)).toStrictEqual({
-        date: '18.–29. August 2025',
+      expect(date.formatEventDate(locale, t)).toStrictEqual({
+        date: '18. August 2025 - 29. August 2025',
         weekday: undefined,
         time: 'pois:allDay',
       })
     })
 
     it('should format a long-term, during-the-week-only event correctly', () => {
+      const locale = 'de'
       const date = new DateModel({
-        startDate: DateTime.fromISO('2025-08-18T10:00:00+02:00', { locale: 'de' }),
-        endDate: DateTime.fromISO('2025-08-29T15:00:00+02:00', { locale: 'de' }),
+        startDate: DateTime.fromISO('2025-08-18T10:00:00+02:00', { locale }),
+        endDate: DateTime.fromISO('2025-08-29T15:00:00+02:00', { locale }),
         allDay: false,
         recurrenceRule: null,
         onlyWeekdays: true,
       })
-      expect(date.formatEventDate(t)).toStrictEqual({
-        date: '18.–29. August 2025',
-        weekday: 'Montag – Freitag',
-        time: '10:00–15:00 Uhr',
+      expect(date.formatEventDate(locale, t)).toStrictEqual({
+        date: '18. August 2025 - 29. August 2025',
+        weekday: 'Montag - Freitag',
+        time: 'timeRange, startTime: 10:00, endTime: 15:00',
       })
     })
 
     it('should format a long-term, during-the-week-only event correctly in English', () => {
+      const locale = 'en'
       const date = new DateModel({
-        startDate: DateTime.fromISO('2025-08-18T10:00:00+02:00', { locale: 'en' }),
-        endDate: DateTime.fromISO('2025-08-29T15:00:00+02:00', { locale: 'en' }),
+        startDate: DateTime.fromISO('2025-08-18T10:00:00+02:00', { locale }),
+        endDate: DateTime.fromISO('2025-08-29T15:00:00+02:00', { locale }),
         allDay: false,
         recurrenceRule: null,
         onlyWeekdays: true,
       })
-      expect(date.formatEventDate(t)).toStrictEqual({
-        date: 'August 18 – 29, 2025',
-        weekday: 'Monday – Friday',
-        time: '10:00 AM – 3:00 PM',
+      expect(date.formatEventDate(locale, t)).toStrictEqual({
+        date: 'August 18, 2025 - August 29, 2025',
+        weekday: 'Monday - Friday',
+        time: 'timeRange, startTime: 10:00 AM, endTime: 3:00 PM',
       })
     })
 
     it('should format a long-term event correctly', () => {
+      const locale = 'de'
       const date = new DateModel({
-        startDate: DateTime.fromISO('2025-08-18T11:00:00+02:00', { locale: 'de' }),
-        endDate: DateTime.fromISO('2025-09-19T12:00:00+02:00', { locale: 'de' }),
+        startDate: DateTime.fromISO('2025-08-18T11:00:00+02:00', { locale }),
+        endDate: DateTime.fromISO('2025-09-19T12:00:00+02:00', { locale }),
         allDay: false,
         recurrenceRule: null,
         onlyWeekdays: false,
       })
-      expect(date.formatEventDate(t)).toStrictEqual({
-        date: '18. August – 19. September 2025',
+      expect(date.formatEventDate(locale, t)).toStrictEqual({
+        date: '18. August 2025 - 19. September 2025',
         weekday: undefined,
-        time: '11:00–12:00 Uhr',
+        time: 'timeRange, startTime: 11:00, endTime: 12:00',
       })
     })
 
     it('should format a long-term event correctly in English', () => {
+      const locale = 'en'
       const date = new DateModel({
-        startDate: DateTime.fromISO('2025-08-18T11:00:00+02:00', { locale: 'en' }),
-        endDate: DateTime.fromISO('2025-09-19T12:00:00+02:00', { locale: 'en' }),
+        startDate: DateTime.fromISO('2025-08-18T11:00:00+02:00', { locale }),
+        endDate: DateTime.fromISO('2025-09-19T12:00:00+02:00', { locale }),
         allDay: false,
         recurrenceRule: null,
         onlyWeekdays: false,
       })
-      expect(date.formatEventDate(t)).toStrictEqual({
-        date: 'August 18 – September 19, 2025',
+      expect(date.formatEventDate(locale, t)).toStrictEqual({
+        date: 'August 18, 2025 - September 19, 2025',
         weekday: undefined,
-        time: '11:00 AM – 12:00 PM',
+        time: 'timeRange, startTime: 11:00 AM, endTime: 12:00 PM',
       })
     })
   })
 
   describe('isMonthlyOrYearlyRecurrence', () => {
+    const locale = 'de'
     it('should return true for a monthly recurrence', () => {
       const date = new DateModel({
-        startDate: DateTime.fromISO('2025-08-20T13:00:00+02:00', { locale: 'de' }),
-        endDate: DateTime.fromISO('2025-08-20T15:00:00+02:00', { locale: 'de' }),
+        startDate: DateTime.fromISO('2025-08-20T13:00:00+02:00', { locale }),
+        endDate: DateTime.fromISO('2025-08-20T15:00:00+02:00', { locale }),
         allDay: false,
         recurrenceRule: rrulestr('DTSTART:20250820T110000\nRRULE:FREQ=MONTHLY;BYDAY=+4WE'),
         onlyWeekdays: false,
@@ -1050,8 +1062,8 @@ describe('DateModel', () => {
 
     it('should return true for a yearly recurrence', () => {
       const date = new DateModel({
-        startDate: DateTime.fromISO('2025-08-20T10:00:00+02:00', { locale: 'de' }),
-        endDate: DateTime.fromISO('2025-08-20T12:00:00+02:00', { locale: 'de' }),
+        startDate: DateTime.fromISO('2025-08-20T10:00:00+02:00', { locale }),
+        endDate: DateTime.fromISO('2025-08-20T12:00:00+02:00', { locale }),
         allDay: false,
         recurrenceRule: rrulestr('DTSTART:20250820T080000\nRRULE:FREQ=YEARLY;BYMONTH=8;BYMONTHDAY=20'),
         onlyWeekdays: false,
@@ -1061,8 +1073,8 @@ describe('DateModel', () => {
 
     it('should return false for a weekly recurrence', () => {
       const date = new DateModel({
-        startDate: DateTime.fromISO('2025-08-20T10:00:00+02:00', { locale: 'de' }),
-        endDate: DateTime.fromISO('2025-08-20T12:00:00+02:00', { locale: 'de' }),
+        startDate: DateTime.fromISO('2025-08-20T10:00:00+02:00', { locale }),
+        endDate: DateTime.fromISO('2025-08-20T12:00:00+02:00', { locale }),
         allDay: false,
         recurrenceRule: rrulestr('DTSTART:20250820T080000\nRRULE:FREQ=WEEKLY;BYDAY=MO,WE,FR'),
         onlyWeekdays: false,
@@ -1072,8 +1084,8 @@ describe('DateModel', () => {
 
     it('should return false for a non-recurring event', () => {
       const date = new DateModel({
-        startDate: DateTime.fromISO('2025-08-20T10:00:00+02:00', { locale: 'de' }),
-        endDate: DateTime.fromISO('2025-08-20T12:00:00+02:00', { locale: 'de' }),
+        startDate: DateTime.fromISO('2025-08-20T10:00:00+02:00', { locale }),
+        endDate: DateTime.fromISO('2025-08-20T12:00:00+02:00', { locale }),
         allDay: false,
         recurrenceRule: null,
         onlyWeekdays: false,
@@ -1084,32 +1096,34 @@ describe('DateModel', () => {
 
   describe('formatMonthlyOrYearlyRecurrence', () => {
     it('should format a single date correctly in German', () => {
+      const locale = 'de'
       const date = new DateModel({
-        startDate: DateTime.fromISO('2025-08-20T13:00:00+02:00', { locale: 'de' }),
-        endDate: DateTime.fromISO('2025-08-20T15:00:00+02:00', { locale: 'de' }),
+        startDate: DateTime.fromISO('2025-08-20T13:00:00+02:00', { locale }),
+        endDate: DateTime.fromISO('2025-08-20T15:00:00+02:00', { locale }),
         allDay: false,
         recurrenceRule: rrulestr('DTSTART:20250820T110000\nRRULE:FREQ=MONTHLY;BYDAY=+4WE'),
         onlyWeekdays: false,
       })
-      expect(date.formatMonthlyOrYearlyRecurrence(t)).toStrictEqual({
+      expect(date.formatMonthlyOrYearlyRecurrence(locale, t)).toStrictEqual({
         date: 'Mittwoch, 20. August 2025',
         weekday: undefined,
-        time: '13:00–15:00 Uhr',
+        time: 'timeRange, startTime: 13:00, endTime: 15:00',
       })
     })
 
     it('should format a single date correctly in English', () => {
+      const locale = 'en'
       const date = new DateModel({
-        startDate: DateTime.fromISO('2025-08-20T13:00:00+02:00', { locale: 'en' }),
-        endDate: DateTime.fromISO('2025-08-20T15:00:00+02:00', { locale: 'en' }),
+        startDate: DateTime.fromISO('2025-08-20T13:00:00+02:00', { locale }),
+        endDate: DateTime.fromISO('2025-08-20T15:00:00+02:00', { locale }),
         allDay: false,
         recurrenceRule: rrulestr('DTSTART:20250820T110000\nRRULE:FREQ=MONTHLY;BYDAY=+4WE'),
         onlyWeekdays: false,
       })
-      expect(date.formatMonthlyOrYearlyRecurrence(t)).toStrictEqual({
+      expect(date.formatMonthlyOrYearlyRecurrence(locale, t)).toStrictEqual({
         date: 'Wednesday, August 20, 2025',
         weekday: undefined,
-        time: '1:00 – 3:00 PM',
+        time: 'timeRange, startTime: 1:00 PM, endTime: 3:00 PM',
       })
     })
   })
@@ -1131,109 +1145,118 @@ describe('getWeekdaysFromIndices', () => {
 
 describe('formatDateInterval', () => {
   it('should format single dates correctly in German', () => {
-    const germanDate = DateTime.fromISO('2025-08-20T10:00:00+02:00', { locale: 'de' })
-    expect(formatDateInterval(germanDate, null)).toBe('20. August 2025')
+    const locale = 'de'
+    const germanDate = DateTime.fromISO('2025-08-20T10:00:00+02:00', { locale })
+    expect(formatDateInterval(locale, germanDate, null)).toBe('20. August 2025')
   })
 
   it('should format single dates correctly in English', () => {
-    const englishDate = DateTime.fromISO('2025-08-20T10:00:00+02:00', { locale: 'en' })
-    expect(formatDateInterval(englishDate, null)).toBe('August 20, 2025')
+    const locale = 'en'
+    const englishDate = DateTime.fromISO('2025-08-20T10:00:00+02:00', { locale })
+    expect(formatDateInterval(locale, englishDate, null)).toBe('August 20, 2025')
   })
 
   it('should format date intervals correctly in German', () => {
-    const germanDate = DateTime.fromISO('2025-08-20T10:00:00+02:00', { locale: 'de' })
+    const locale = 'de'
+    const germanDate = DateTime.fromISO('2025-08-20T10:00:00+02:00', { locale })
 
-    expect(formatDateInterval(germanDate, germanDate)).toBe('20. August 2025')
+    expect(formatDateInterval(locale, germanDate, germanDate)).toBe('20. August 2025')
 
-    const dateSameMonth = DateTime.fromISO('2025-08-21T12:00:00+02:00', { locale: 'de' })
-    expect(formatDateInterval(germanDate, dateSameMonth)).toBe('20.–21. August 2025')
+    const dateSameMonth = DateTime.fromISO('2025-08-21T12:00:00+02:00', { locale })
+    expect(formatDateInterval(locale, germanDate, dateSameMonth)).toBe('20. August 2025 - 21. August 2025')
 
-    const dateSameYear = DateTime.fromISO('2025-09-19T12:00:00+02:00', { locale: 'de' })
-    expect(formatDateInterval(germanDate, dateSameYear)).toBe('20. August – 19. September 2025')
+    const dateSameYear = DateTime.fromISO('2025-09-19T12:00:00+02:00', { locale })
+    expect(formatDateInterval(locale, germanDate, dateSameYear)).toBe('20. August 2025 - 19. September 2025')
 
-    const dateDifferentYear = DateTime.fromISO('2026-09-19T12:00:00+02:00', { locale: 'de' })
-    expect(formatDateInterval(germanDate, dateDifferentYear)).toBe('20. August 2025 – 19. September 2026')
+    const dateDifferentYear = DateTime.fromISO('2026-09-19T12:00:00+02:00', { locale })
+    expect(formatDateInterval(locale, germanDate, dateDifferentYear)).toBe('20. August 2025 - 19. September 2026')
   })
 
   it('should format date intervals correctly in English', () => {
-    const englishDate = DateTime.fromISO('2025-08-20T10:00:00+02:00', { locale: 'en' })
+    const locale = 'en'
+    const englishDate = DateTime.fromISO('2025-08-20T10:00:00+02:00', { locale })
 
-    expect(formatDateInterval(englishDate, englishDate)).toBe('August 20, 2025')
+    expect(formatDateInterval(locale, englishDate, englishDate)).toBe('August 20, 2025')
 
-    const dateSameMonth = DateTime.fromISO('2025-08-21T12:00:00+02:00', { locale: 'en' })
-    expect(formatDateInterval(englishDate, dateSameMonth)).toBe('August 20 – 21, 2025')
+    const dateSameMonth = DateTime.fromISO('2025-08-21T12:00:00+02:00', { locale })
+    expect(formatDateInterval(locale, englishDate, dateSameMonth)).toBe('August 20, 2025 - August 21, 2025')
 
-    const dateSameYear = DateTime.fromISO('2025-09-19T12:00:00+02:00', { locale: 'en' })
-    expect(formatDateInterval(englishDate, dateSameYear)).toBe('August 20 – September 19, 2025')
+    const dateSameYear = DateTime.fromISO('2025-09-19T12:00:00+02:00', { locale })
+    expect(formatDateInterval(locale, englishDate, dateSameYear)).toBe('August 20, 2025 - September 19, 2025')
 
-    const dateDifferentYear = DateTime.fromISO('2026-09-19T12:00:00+02:00', { locale: 'en' })
-    expect(formatDateInterval(englishDate, dateDifferentYear)).toBe('August 20, 2025 – September 19, 2026')
+    const dateDifferentYear = DateTime.fromISO('2026-09-19T12:00:00+02:00', { locale })
+    expect(formatDateInterval(locale, englishDate, dateDifferentYear)).toBe('August 20, 2025 - September 19, 2026')
   })
 })
 
 describe('formatTime', () => {
   it('should format an interval on the same day correctly in German', () => {
+    const locale = 'de'
     const date = new DateModel({
-      startDate: DateTime.fromISO('2025-08-20T11:00:00+02:00', { locale: 'de' }),
-      endDate: DateTime.fromISO('2025-08-20T13:00:00+02:00', { locale: 'de' }),
+      startDate: DateTime.fromISO('2025-08-20T11:00:00+02:00', { locale }),
+      endDate: DateTime.fromISO('2025-08-20T13:00:00+02:00', { locale }),
       allDay: false,
       recurrenceRule: null,
       onlyWeekdays: false,
     })
-    expect(formatTime(date, t)).toBe('11:00–13:00 Uhr')
+    expect(formatTime(locale, date, t)).toBe('timeRange, startTime: 11:00, endTime: 13:00')
   })
 
   it('should format an interval on the same day correctly in English', () => {
+    const locale = 'en'
     const date = new DateModel({
-      startDate: DateTime.fromISO('2025-08-20T11:00:00+02:00', { locale: 'en' }),
-      endDate: DateTime.fromISO('2025-08-20T13:00:00+02:00', { locale: 'en' }),
+      startDate: DateTime.fromISO('2025-08-20T11:00:00+02:00', { locale }),
+      endDate: DateTime.fromISO('2025-08-20T13:00:00+02:00', { locale }),
       allDay: false,
       recurrenceRule: null,
       onlyWeekdays: false,
     })
-    expect(formatTime(date, t)).toBe('11:00 AM – 1:00 PM')
+    expect(formatTime(locale, date, t)).toBe('timeRange, startTime: 11:00 AM, endTime: 1:00 PM')
   })
 
   it('should format a long-term event correctly in German', () => {
+    const locale = 'de'
     const date = new DateModel({
-      startDate: DateTime.fromISO('2025-08-20T11:00:00+02:00', { locale: 'de' }),
-      endDate: DateTime.fromISO('2025-09-19T12:00:00+02:00', { locale: 'de' }),
+      startDate: DateTime.fromISO('2025-08-20T11:00:00+02:00', { locale }),
+      endDate: DateTime.fromISO('2025-09-19T12:00:00+02:00', { locale }),
       allDay: false,
       recurrenceRule: null,
       onlyWeekdays: false,
     })
-    expect(formatTime(date, t)).toBe('11:00–12:00 Uhr')
+    expect(formatTime(locale, date, t)).toBe('timeRange, startTime: 11:00, endTime: 12:00')
   })
 
   it('should format a long-term event correctly in English', () => {
+    const locale = 'en'
     const date = new DateModel({
-      startDate: DateTime.fromISO('2025-08-20T11:00:00+02:00', { locale: 'en' }),
-      endDate: DateTime.fromISO('2025-09-19T12:00:00+02:00', { locale: 'en' }),
+      startDate: DateTime.fromISO('2025-08-20T11:00:00+02:00', { locale }),
+      endDate: DateTime.fromISO('2025-09-19T12:00:00+02:00', { locale }),
       allDay: false,
       recurrenceRule: null,
       onlyWeekdays: false,
     })
-    expect(formatTime(date, t)).toBe('11:00 AM – 12:00 PM')
+    expect(formatTime(locale, date, t)).toBe('timeRange, startTime: 11:00 AM, endTime: 12:00 PM')
   })
 
   it('should format an all-day event correctly', () => {
+    const locale = 'de'
     const date = new DateModel({
-      startDate: DateTime.fromISO('2025-08-20T00:00:00+02:00', { locale: 'de' }),
-      endDate: DateTime.fromISO('2025-08-20T23:59:00+02:00', { locale: 'de' }),
+      startDate: DateTime.fromISO('2025-08-20T00:00:00+02:00', { locale }),
+      endDate: DateTime.fromISO('2025-08-20T23:59:00+02:00', { locale }),
       allDay: true,
       recurrenceRule: null,
       onlyWeekdays: false,
     })
-    expect(formatTime(date, t)).toBe('pois:allDay')
+    expect(formatTime(locale, date, t)).toBe('pois:allDay')
   })
 })
 
 describe('translateMondayToFriday', () => {
   it('should return the correct translation in German', () => {
-    expect(translateMondayToFriday('de')).toBe('Montag – Freitag')
+    expect(translateMondayToFriday('de')).toBe('Montag - Freitag')
   })
 
   it('should return the correct translation in English', () => {
-    expect(translateMondayToFriday('en')).toBe('Monday – Friday')
+    expect(translateMondayToFriday('en')).toBe('Monday - Friday')
   })
 })

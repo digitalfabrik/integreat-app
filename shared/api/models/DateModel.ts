@@ -1,4 +1,4 @@
-import { DateTime, Duration, Info, Interval } from 'luxon'
+import { DateTime, DateTimeFormatOptions, Duration, Info } from 'luxon'
 import { RRule as RRuleType, rrulestr } from 'rrule'
 
 import { formatDateICal } from '../../utils'
@@ -13,32 +13,47 @@ type FormattedEventDate = {
   time: string
 }
 
+const timeFormat: DateTimeFormatOptions = { hour: 'numeric', minute: '2-digit' }
+const dateFormatWithoutWeekday: DateTimeFormatOptions = { day: 'numeric', month: 'long', year: 'numeric' }
+const dateFormatWithWeekday: DateTimeFormatOptions = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }
+
 export const getWeekdaysFromIndices = (indices: number[], locale: string): string => {
+  // TODO: Info isn't available on native.
   const weekdays = Info.weekdays('long', { locale })
-  return indices.map(index => weekdays[index]).join(', ')
+  console.log('indices', indices)
+  console.log(weekdays)
+  return indices
+    .filter(index => !!index)
+    .map(index => weekdays[index])
+    .join(', ')
 }
 
-export const formatDateInterval = (startDate: DateTime, endDate?: DateTime | null): string => {
-  if (!endDate) {
-    return startDate.toLocaleString({ day: 'numeric', month: 'long', year: 'numeric' })
+export const formatDateInterval = (locale: string, startDate: DateTime, endDate?: DateTime | null): string => {
+  const formattedStartDate = startDate.toLocaleString(dateFormatWithoutWeekday, { locale })
+  if (!endDate || startDate.hasSame(endDate, 'day')) {
+    return formattedStartDate
   }
-  const interval = Interval.fromDateTimes(startDate, endDate)
-  return interval.toLocaleString({ month: 'long', day: 'numeric', year: 'numeric' })
+  const formattedEndDate = endDate.toLocaleString(dateFormatWithoutWeekday, { locale })
+  return `${formattedStartDate} - ${formattedEndDate}`
 }
 
-export const formatTime = (date: DateModel, t: (key: string) => string): string => {
+export const formatTime = (
+  locale: string,
+  date: DateModel,
+  t: (key: string, options?: Record<string, unknown>) => string,
+): string => {
+  const startTime = date.startDate.toLocaleString(timeFormat, { locale })
   // For long-term events, the endDate is on the last day, but we need the end time on the first day
-  const endDate = date.startDate.set({ hour: date.endDate.hour, minute: date.endDate.minute })
-  const interval = Interval.fromDateTimes(date.startDate, endDate)
-  return date.allDay ? t('pois:allDay') : interval.toLocaleString({ hour: 'numeric', minute: '2-digit' })
+  const endTime = date.startDate
+    .set({ hour: date.endDate.hour, minute: date.endDate.minute })
+    .toLocaleString(timeFormat, { locale })
+  return date.allDay ? t('pois:allDay') : t('timeRange', { startTime, endTime })
 }
 
 export const translateMondayToFriday = (locale: string): string => {
-  const randomMondayToFriday = Interval.fromDateTimes(
-    DateTime.fromObject({ day: 8, month: 9, year: 2025 }).setLocale(locale),
-    DateTime.fromObject({ day: 12, month: 9, year: 2025 }).setLocale(locale),
-  )
-  return randomMondayToFriday.toLocaleString({ weekday: 'long' })
+  // TODO: Info isn't available on native
+  const weekdays = Info.weekdays('long', { locale })
+  return `${weekdays[0]} - ${weekdays[4]}`
 }
 
 class DateModel {
@@ -147,15 +162,19 @@ class DateModel {
     return frequency === RRuleType.MONTHLY || frequency === RRuleType.YEARLY
   }
 
-  formatMonthlyOrYearlyRecurrence(t: (key: string, options?: Record<string, unknown>) => string): FormattedEventDate {
+  formatMonthlyOrYearlyRecurrence(
+    locale: string,
+    t: (key: string, options?: Record<string, unknown>) => string,
+  ): FormattedEventDate {
     return {
-      date: this.startDate.toLocaleString({ weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }),
+      date: this.startDate.toLocaleString(dateFormatWithWeekday, { locale }),
       weekday: undefined,
-      time: formatTime(this, t),
+      time: formatTime(locale, this, t),
     }
   }
 
   private formatRecurringDate(
+    locale: string,
     date: DateModel,
     t: (key: string, options?: Record<string, unknown>) => string,
   ): FormattedEventDate {
@@ -166,14 +185,14 @@ class DateModel {
     const recurrenceObject = date.recurrenceRule.options
     if (recurrenceObject.until) {
       const finalDate = this.getFinalDate(date)
-      formattedDate = formatDateInterval(date.startDate, finalDate)
+      formattedDate = formatDateInterval(locale, date.startDate, finalDate)
     } else {
       formattedDate = t('startingFrom', {
-        date: date.startDate.toLocaleString({ day: 'numeric', month: 'long', year: 'numeric' }),
+        date: date.startDate.toLocaleString(dateFormatWithoutWeekday),
       })
     }
-    const weekday = getWeekdaysFromIndices(recurrenceObject.byweekday, date.startDate.locale)
-    const time = formatTime(date, t)
+    const weekday = getWeekdaysFromIndices(recurrenceObject.byweekday, locale)
+    const time = formatTime(locale, date, t)
 
     return {
       date: formattedDate,
@@ -182,24 +201,24 @@ class DateModel {
     }
   }
 
-  formatEventDate(t: (key: string, options?: Record<string, unknown>) => string): FormattedEventDate {
+  formatEventDate(locale: string, t: (key: string, options?: Record<string, unknown>) => string): FormattedEventDate {
     let formattedDate = ''
     let weekday: string | undefined
 
     if (this.recurrenceRule) {
-      return this.formatRecurringDate(this, t)
+      return this.formatRecurringDate(locale, this, t)
     }
     if (this.startDate.hasSame(this.endDate, 'day')) {
-      formattedDate = this.startDate.toLocaleString({ day: 'numeric', month: 'long', year: 'numeric' })
+      formattedDate = this.startDate.toLocaleString(dateFormatWithoutWeekday)
     } else {
       // long-term event
-      formattedDate = formatDateInterval(this.startDate, this.endDate)
+      formattedDate = formatDateInterval(locale, this.startDate, this.endDate)
       if (this.onlyWeekdays) {
-        weekday = translateMondayToFriday(this.startDate.locale)
+        weekday = translateMondayToFriday(locale)
       }
     }
 
-    const time = formatTime(this, t)
+    const time = formatTime(locale, this, t)
 
     return {
       date: formattedDate,

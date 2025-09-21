@@ -129,7 +129,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
           title={title}
           BeforeContent={
             <Spacing content={content} lastUpdate={lastUpdate}>
-              <DatesPageDetail date={date} />
+              <DatesPageDetail date={date} language={languageCode} />
               {location && <PageDetail icon={LocationIcon} information={location.fullAddress} path={event.poiPath} />}
               {meetingUrl !== null && <PageDetail icon={LinkIcon} information={meetingUrl} path={meetingUrl} />}
             </Spacing>

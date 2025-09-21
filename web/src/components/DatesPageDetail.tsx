@@ -1,11 +1,11 @@
 import styled from '@emotion/styled'
-import React, { ReactElement } from 'react'
+import React, { Fragment, ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { MAX_DATE_RECURRENCES } from 'shared'
 import { DateModel } from 'shared/api'
 
-import { CalendarIcon, CalendarTodayIcon, ClockIcon, ExpandIcon } from '../assets'
+import { CalendarTodayIcon, ClockIcon, ExpandIcon } from '../assets'
 import dimensions from '../constants/dimensions'
 import PageDetail from './PageDetail'
 import Button from './base/Button'
@@ -51,10 +51,11 @@ const StyledIcon = styled(Icon)`
 
 type DatesPageDetailProps = {
   date: DateModel
+  language: string
 }
 
-const DatesPageDetail = ({ date }: DatesPageDetailProps): ReactElement | null => {
-  const [clicksOnShowMore, setClicksOnShowMore] = React.useState(0)
+const DatesPageDetail = ({ date, language }: DatesPageDetailProps): ReactElement | null => {
+  const [clicksOnShowMore, setClicksOnShowMore] = useState(0)
   const { t } = useTranslation('events')
 
   if (date.isMonthlyOrYearlyRecurrence()) {
@@ -62,22 +63,24 @@ const DatesPageDetail = ({ date }: DatesPageDetailProps): ReactElement | null =>
       <Container>
         {date
           .recurrences(MAX_DATE_RECURRENCES * (clicksOnShowMore + 1))
-          .map(recurrence => recurrence.formatMonthlyOrYearlyRecurrence(t))
+          .map(recurrence => recurrence.formatMonthlyOrYearlyRecurrence(language, t))
           .map(formattedDate => (
-            <React.Fragment key={formattedDate.date}>
-              <PageDetail icon={CalendarIcon} information={formattedDate.date} />
+            <Fragment key={formattedDate.date}>
+              <PageDetail icon={CalendarTodayIcon} information={formattedDate.date} />
               <PageDetail icon={ClockIcon} information={formattedDate.time} />
-            </React.Fragment>
+            </Fragment>
           ))}
-        <StyledButton type='button' onClick={() => setClicksOnShowMore(clicksOnShowMore + 1)}>
-          <StyledIcon src={ExpandIcon} title='' />
-          {t('common:showMore')}
-        </StyledButton>
+        {date.hasMoreRecurrencesThan(MAX_DATE_RECURRENCES * (clicksOnShowMore + 1)) && (
+          <StyledButton type='button' onClick={() => setClicksOnShowMore(clicksOnShowMore + 1)}>
+            <StyledIcon src={ExpandIcon} title='' />
+            {t('common:showMore')}
+          </StyledButton>
+        )}
       </Container>
     )
   }
 
-  const formattedDate = date.formatEventDate(t)
+  const formattedDate = date.formatEventDate(language, t)
 
   return (
     <ContainerForThreeElements>
