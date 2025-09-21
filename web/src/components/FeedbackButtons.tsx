@@ -15,7 +15,6 @@ const StyledToggleButtonGroup = styled(SpacedToggleButtonGroup)`
   display: flex;
   justify-content: center;
   gap: 16px;
-  margin-bottom: 8px;
 `
 
 type FeedbackButtonsProps = {

@@ -4,8 +4,7 @@ import SendIcon from '@mui/icons-material/Send'
 import Button from '@mui/material/Button'
 import FormControl from '@mui/material/FormControl'
 import FormHelperText from '@mui/material/FormHelperText'
-import Input from '@mui/material/Input'
-import InputLabel from '@mui/material/InputLabel'
+import TextField from '@mui/material/TextField'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -131,15 +130,23 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
         {t('securityNote')}
       </Note>
       <Wrapper>
-        <FormControl required error={submitted && !name}>
-          <InputLabel htmlFor='name'>{t('name')}</InputLabel>
-          <Input id='name' required value={name} onChange={e => setName(e.target.value)} />
-          {submitted && !name && <FormHelperText>{`${t('name')} ${t('requiredField')}`}</FormHelperText>}
-        </FormControl>
-        <FormControl>
-          <InputLabel htmlFor='roomNumber'>{`${t('roomNumber')} (${t('common:optional')})`}</InputLabel>
-          <Input id='roomNumber' value={roomNumber} onChange={e => setRoomNumber(e.target.value)} />
-        </FormControl>
+        <TextField
+          id='name'
+          label={t('name')}
+          required
+          fullWidth
+          value={name}
+          onChange={event => setName(event.target.value)}
+          error={submitted && !name}
+          helperText={submitted && !name ? `${t('name')} ${t('common:required')}` : undefined}
+        />
+        <TextField
+          id='roomNumber'
+          label={`${t('roomNumber')} (${t('common:optional')})`}
+          fullWidth
+          value={roomNumber}
+          onChange={event => setRoomNumber(event.target.value)}
+        />
         <RadioGroup
           caption={t('howToBeContacted')}
           groupId='contactChannel'
@@ -172,20 +179,16 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
             { key: 'male', label: t('contactPersonGenderMale') },
           ]}
         />
-        <FormControl>
-          <InputLabel htmlFor='comment'>{t('contactReason')}</InputLabel>
-          <Input
-            id='comment'
-            aria-describedby='commentText'
-            rows={DEFAULT_ROWS_NUMBER}
-            value={comment}
-            onChange={e => setComment(e.target.value)}
-            maxRows={MALTE_HELP_FORM_MAX_COMMENT_LENGTH}
-          />
-          <FormHelperText id='commentText'>
-            {t('maxCharacters', { numberOfCharacters: MALTE_HELP_FORM_MAX_COMMENT_LENGTH })}
-          </FormHelperText>
-        </FormControl>
+        <TextField
+          id='comment'
+          label={t('contactReason')}
+          fullWidth
+          multiline
+          rows={DEFAULT_ROWS_NUMBER}
+          value={comment}
+          onChange={event => setComment(event.target.value)}
+          helperText={t('maxCharacters', { numberOfCharacters: MALTE_HELP_FORM_MAX_COMMENT_LENGTH })}
+        />
         <p>{t('responseDisclaimer')}</p>
         <FormControl required error={submitted && !privacyPolicyAccepted}>
           <PrivacyCheckbox
@@ -193,7 +196,7 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
             checked={privacyPolicyAccepted}
             setChecked={setPrivacyPolicyAccepted}
           />
-          {submitted && !privacyPolicyAccepted && <FormHelperText>{t('notePrivacyPolicy')}</FormHelperText>}
+          {submitted && !privacyPolicyAccepted && <FormHelperText>{t('common:notePrivacyPolicy')}</FormHelperText>}
         </FormControl>
         {(sendingStatus === 'failed' || sendingStatus === 'invalidEmail') && (
           <ErrorSendingStatus role='alert'>

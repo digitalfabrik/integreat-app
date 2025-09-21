@@ -65,7 +65,7 @@ export const RadioGroup = <T extends string>({
                   submitted={submitted}
                 />
                 {hasInputError && (
-                  <FormHelperText>{`${inputProps.label ?? label} ${t('requiredField')}`}</FormHelperText>
+                  <FormHelperText>{`${inputProps.label ?? label} ${t('common:required')}`}</FormHelperText>
                 )}
               </>
             )}

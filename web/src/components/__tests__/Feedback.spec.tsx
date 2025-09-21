@@ -81,7 +81,7 @@ describe('Feedback', () => {
     const button = getByText('feedback:send')
     expect(button).toBeEnabled()
     fireEvent.click(button)
-    expect(getByText('feedback:notePrivacyPolicy')).toBeTruthy()
+    expect(getByText('feedback:common:notePrivacyPolicy')).toBeTruthy()
   })
 
   it('should display correct description for search', () => {

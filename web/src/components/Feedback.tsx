@@ -2,14 +2,13 @@ import SendIcon from '@mui/icons-material/Send'
 import Button from '@mui/material/Button'
 import FormControl from '@mui/material/FormControl'
 import FormHelperText from '@mui/material/FormHelperText'
-import InputLabel from '@mui/material/InputLabel'
-import OutlinedInput from '@mui/material/OutlinedInput'
+import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Rating } from 'shared'
+import { DEFAULT_ROWS_NUMBER, Rating } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
 import FeedbackButtons from './FeedbackButtons'
@@ -37,6 +36,10 @@ export const Container = styled('div')<{ fullWidth?: boolean }>`
 
 const OptionalHint = styled('p')`
   text-align: end;
+`
+
+const PrivacyFormControl = styled(FormControl)`
+  margin: 8px 0;
 `
 
 const ErrorSendingStatus = styled('div')`
@@ -83,10 +86,9 @@ const Feedback = ({
 
   const handleSubmit = () => {
     setShowErrors(true)
-    if (submitFeedbackDisabled) {
-      return
+    if (!submitFeedbackDisabled) {
+      onSubmit()
     }
-    onSubmit()
   }
 
   if (sendingStatus === 'successful') {
@@ -101,28 +103,22 @@ const Feedback = ({
   return (
     <Container fullWidth={isSearchFeedback}>
       {isSearchFeedback ? (
-        <FormControl error={showErrors && !searchTerm} variant='outlined' margin='dense'>
-          <FormHelperText id='searchTermDescription' component='span'>
-            <Typography variant='body2'>
-              {showErrors && !searchTerm ? t('noteFillFeedback') : t('searchTermDescription')}
-            </Typography>
-          </FormHelperText>
-          <InputLabel htmlFor='searchTerm' />
-          <OutlinedInput
-            id='searchTerm'
-            value={searchTerm}
-            aria-describedby='searchTermDescription'
-            onChange={e => setSearchTerm(e.target.value)}
-            fullWidth
-            required
-          />
-        </FormControl>
+        <TextField
+          id='searchTerm'
+          value={searchTerm}
+          onChange={event => setSearchTerm(event.target.value)}
+          label={t('searchTermDescription')}
+          required
+          fullWidth
+          error={showErrors && !searchTerm}
+          helperText={showErrors && !searchTerm ? t('noteFillFeedback') : undefined}
+        />
       ) : (
         <FormControl error={showErrors && rating === null}>
           <FeedbackButtons rating={rating} setRating={setRating} />
           {showErrors && rating === null && (
             <FormHelperText>
-              <Typography component='p' variant='body2'>
+              <Typography component='span' variant='body2'>
                 {t('noteFillFeedback')}
               </Typography>
             </FormHelperText>
@@ -130,41 +126,32 @@ const Feedback = ({
         </FormControl>
       )}
       <OptionalHint>({t('common:optional')})</OptionalHint>
-      <FormControl fullWidth variant='outlined'>
-        <InputLabel htmlFor='comment'>{t(commentTitle)}</InputLabel>
-        <OutlinedInput
-          id='comment'
-          value={comment}
-          onChange={e => onCommentChanged(e.target.value)}
-          aria-describedby='commentDescription'
-          label={t(commentTitle)}
-          multiline
-          rows={4}
-        />
-        <FormHelperText id='commentDescription' component='div' sx={{ margin: 0 }}>
-          <Typography variant='body2' component='span' sx={{ margin: 0 }}>
-            {t('commentDescription', { appName: buildConfig().appName })}
-          </Typography>
-        </FormHelperText>
-      </FormControl>
+      <TextField
+        id='comment'
+        value={comment}
+        onChange={event => onCommentChanged(event.target.value)}
+        label={t(commentTitle)}
+        variant='outlined'
+        multiline
+        rows={DEFAULT_ROWS_NUMBER}
+        helperText={t('commentDescription', { appName: buildConfig().appName })}
+      />
       <OptionalHint>({t('common:optional')})</OptionalHint>
-      <FormControl fullWidth variant='outlined' margin='dense'>
-        <InputLabel htmlFor='email'>{t('contactMailAddress')}</InputLabel>
-        <OutlinedInput
-          id='email'
-          value={contactMail}
-          onChange={e => onContactMailChanged(e.target.value)}
-          label={t('contactMailAddress')}
-        />
-      </FormControl>
-      <FormControl error={showErrors && !privacyPolicyAccepted} required sx={{ margin: '8px 0' }}>
+      <TextField
+        id='email'
+        value={contactMail}
+        onChange={event => onContactMailChanged(event.target.value)}
+        label={t('contactMailAddress')}
+        variant='outlined'
+      />
+      <PrivacyFormControl error={showErrors && !privacyPolicyAccepted} required>
         <PrivacyCheckbox language={language} checked={privacyPolicyAccepted} setChecked={setPrivacyPolicyAccepted} />
         {showErrors && !privacyPolicyAccepted && (
           <FormHelperText component='span'>
-            <Typography variant='body2'>{t('notePrivacyPolicy')}</Typography>
+            <Typography variant='body2'>{t('common:notePrivacyPolicy')}</Typography>
           </FormHelperText>
         )}
-      </FormControl>
+      </PrivacyFormControl>
       {sendingStatus === 'failed' && <ErrorSendingStatus role='alert'>{t('failedSendingFeedback')}</ErrorSendingStatus>}
       <Button onClick={handleSubmit} variant='contained' startIcon={<SendIcon />}>
         {t('send')}
