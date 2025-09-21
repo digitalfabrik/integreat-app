@@ -12,7 +12,6 @@ class DateModel {
   _endDate: DateTime
   _allDay: boolean
   _recurrenceRule: RRuleType | null
-  _offset: number
   _duration: Duration
 
   constructor({
@@ -20,7 +19,6 @@ class DateModel {
     endDate,
     allDay,
     recurrenceRule,
-    offset,
   }: {
     startDate: DateTime
     endDate: DateTime
@@ -29,13 +27,11 @@ class DateModel {
     offset?: number
   }) {
     this._recurrenceRule = recurrenceRule
-    this._offset = offset ?? startDate.offset
     this._allDay = allDay
     this._duration = endDate.diff(startDate)
     this._startDate = startDate
     this._endDate = endDate
   }
-
   // This should only be called on recurrences as start dates are not updated in the CMS
   // E.g. date.recurrences(1)[0]?.startDate
   get startDate(): DateTime {
@@ -54,10 +50,6 @@ class DateModel {
 
   get recurrenceRule(): RRuleType | null {
     return this._recurrenceRule
-  }
-
-  get offset(): number {
-    return this._offset
   }
 
   get isToday(): boolean {
@@ -90,13 +82,12 @@ class DateModel {
     return localRecurrenceRule
       .between(minDate, maxDate, true, (_, index) => index < count)
       .map(offsetDate => {
-        const actualDate = DateTime.fromJSDate(offsetDate).plus({ minutes: offsetDate.getTimezoneOffset() })
+        const actualDate = DateTime.fromJSDate(offsetDate).toUTC()
         return new DateModel({
           allDay: this.allDay,
           startDate: actualDate,
           endDate: actualDate.plus(duration),
           recurrenceRule: this.recurrenceRule,
-          offset: this.offset,
         })
       })
   }
