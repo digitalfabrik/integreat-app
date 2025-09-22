@@ -61,7 +61,7 @@ const CategoriesContent = ({
       lastUpdate={categoryModel.lastUpdate}
       Footer={
         <List
-          items={children.map(it => (
+          Items={children.map(it => (
             <CategoryListItem key={it.path} category={it} subCategories={categories.getChildren(it)} />
           ))}
         />
