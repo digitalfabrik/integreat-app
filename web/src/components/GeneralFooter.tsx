@@ -26,7 +26,7 @@ const GeneralFooter = ({ language }: GeneralFooterProps): ReactElement => {
   return (
     <Footer>
       <StyledList
-        items={linkItems.map(item => (
+        Items={linkItems.map(item => (
           <FooterLink key={item.to} to={item.to} text={item.text} />
         ))}
         horizontal={!viewportSmall}

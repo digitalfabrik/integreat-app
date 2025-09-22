@@ -25,7 +25,7 @@ const CityContentFooter = ({ city, language, mode = 'normal' }: CityContentFoote
   const linkItems = getFooterLinks({ city, language })
   const FooterContent = (
     <StyledList
-      items={linkItems.map(item => (
+      Items={linkItems.map(item => (
         <FooterLink key={item.to} to={item.to} text={item.text} mode={mode} />
       ))}
       horizontal={mode !== 'sidebar'}
