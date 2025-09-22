@@ -1,6 +1,12 @@
 import EventRepeatOutlinedIcon from '@mui/icons-material/EventRepeatOutlined'
 import TodayOutlinedIcon from '@mui/icons-material/TodayOutlined'
+import Avatar from '@mui/material/Avatar'
+import ListItem from '@mui/material/ListItem'
+import ListItemAvatar from '@mui/material/ListItemAvatar'
+import ListItemButton from '@mui/material/ListItemButton'
+import ListItemText from '@mui/material/ListItemText'
 import Tooltip from '@mui/material/Tooltip'
+import Typography, { TypographyProps } from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
@@ -18,10 +24,38 @@ import {
 } from '../assets'
 import { EXCERPT_MAX_CHARS } from '../constants'
 import useWindowDimensions from '../hooks/useWindowDimensions'
-import ListItem from './ListItem'
+import Link from './base/Link'
 
-const Content = styled('div')`
-  overflow-wrap: anywhere;
+const StyledListItem = styled(ListItem)`
+  [class*='MuiListItemSecondaryAction-root'] {
+    top: 32px;
+  }
+`
+
+const StyledListItemButton = styled(ListItemButton)`
+  align-items: flex-start;
+  gap: ${props => props.theme.spacing(2)};
+` as typeof ListItemButton
+
+const StyledAvatar = styled(Avatar)(({ theme }) => ({
+  marginTop: 8,
+  width: 96,
+  height: 96,
+
+  [theme.breakpoints.down('sm')]: {
+    width: 64,
+    height: 64,
+  },
+}))
+
+const StyledTypography = styled(Typography)<TypographyProps>`
+  p {
+    margin: 0;
+  }
+
+  p:nth-of-type(2) {
+    margin-bottom: 4px;
+  }
 `
 
 type EventListItemProps = {
@@ -63,19 +97,31 @@ const EventListItem = ({
   const { viewportSmall } = useWindowDimensions()
   const { t } = useTranslation('events')
   const dateToDisplay = getDisplayDate(event, filterStartDate, filterEndDate)
+  const thumbnailSrc = event.thumbnail || getEventPlaceholder(event.path)
 
   return (
-    <ListItem
-      thumbnail={event.thumbnail || getEventPlaceholder(event.path)}
-      title={event.title}
-      path={event.path}
-      Icon={dateIcon && <Tooltip title={t(dateIcon.tooltip)}>{dateIcon.Icon}</Tooltip>}>
-      <Content>
-        <Content dir='auto'>{dateToDisplay.toFormattedString(languageCode, viewportSmall)}</Content>
-        {event.location && <Content dir='auto'>{event.location.fullAddress}</Content>}
-      </Content>
-      <Content dir='auto'>{getExcerpt(event.excerpt, { maxChars: EXCERPT_MAX_CHARS })}</Content>
-    </ListItem>
+    <StyledListItem
+      dir='auto'
+      divider
+      disablePadding
+      secondaryAction={dateIcon && <Tooltip title={t(dateIcon.tooltip)}>{dateIcon.Icon}</Tooltip>}>
+      <StyledListItemButton component={Link} to={event.path} dir='auto'>
+        <ListItemAvatar>
+          <StyledAvatar src={thumbnailSrc} alt='' variant='square' />
+        </ListItemAvatar>
+        <ListItemText
+          disableTypography
+          primary={<Typography variant='title2'>{event.title}</Typography>}
+          secondary={
+            <StyledTypography variant='body1' flexDirection='column' component='div'>
+              <p>{dateToDisplay.toFormattedString(languageCode, viewportSmall)}</p>
+              {event.location && <p>{event.location.fullAddress}</p>}
+              <p>{getExcerpt(event.excerpt, { maxChars: EXCERPT_MAX_CHARS })}</p>
+            </StyledTypography>
+          }
+        />
+      </StyledListItemButton>
+    </StyledListItem>
   )
 }
 

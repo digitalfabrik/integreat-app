@@ -26,15 +26,15 @@ const NearbyCities = ({ cities, language, filterText, stickyTop }: NearbyCitiesP
 
   if (nearbyCities.length === 0) {
     return (
-      <>
+      <Stack paddingBlock={1}>
         <CityGroupHeader stickyTop={stickyTop}>{t('nearbyCities')}</CityGroupHeader>
-        <Stack direction='row' alignItems='center' justifyContent='space-between' paddingInline={4}>
+        <Stack direction='row' alignItems='center' justifyContent='space-between' paddingInline={2}>
           <ListItemText primary={t(userLocation ? 'noNearbyCities' : 'locationError')} />
           <IconButton aria-label={t('refresh')} onClick={refresh}>
             <RefreshIcon />
           </IconButton>
         </Stack>
-      </>
+      </Stack>
     )
   }
 
