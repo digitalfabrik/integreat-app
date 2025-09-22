@@ -1,3 +1,5 @@
+import ContrastIcon from '@mui/icons-material/Contrast'
+import { useTheme } from '@mui/material/styles'
 import React, { memo, ReactNode, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -6,7 +8,6 @@ import { RATING_NEGATIVE, RATING_POSITIVE } from 'shared'
 import { ReadAloudIcon } from '../assets'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { RouteType } from '../routes'
-import ContrastThemeToggle from './ContrastThemeToggle'
 import FeedbackToolbarItem from './FeedbackToolbarItem'
 import SharingPopup from './SharingPopup'
 import Toolbar from './Toolbar'
@@ -27,6 +28,7 @@ type CityContentToolbarProps = {
 
 const CityContentToolbar = (props: CityContentToolbarProps) => {
   const { enabled: ttsEnabled, showTtsPlayer, canRead } = useContext(TtsContext)
+  const { toggleTheme } = useTheme()
   const { viewportSmall } = useWindowDimensions()
   const { t } = useTranslation('layout')
 
@@ -67,7 +69,7 @@ const CityContentToolbar = (props: CityContentToolbarProps) => {
         onClick={showTtsPlayer}
       />
     ),
-    !viewportSmall && <ContrastThemeToggle key='theme' />,
+    !viewportSmall && <ToolbarItem key='theme' icon={ContrastIcon} text={t('contrastTheme')} onClick={toggleTheme} />,
   ]
     .filter(Boolean)
     .slice(0, maxItems)
