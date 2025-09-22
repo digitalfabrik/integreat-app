@@ -8,10 +8,11 @@ import buildConfig from '../constants/buildConfig'
 import useNavigate from '../hooks/useNavigate'
 import Icon from './base/Icon'
 
-const DetailContainer = styled.View`
+const DetailContainer = styled.View<{ widthPadding?: boolean }>`
   flex-direction: row;
   color: ${props => props.theme.colors.textColor};
   align-items: center;
+  padding-inline-start: ${props => (props.widthPadding ? '32px' : '0')};
 `
 
 const Identifier = styled.Text`
@@ -22,6 +23,7 @@ const Identifier = styled.Text`
 
 const StyledIcon = styled(Icon)`
   color: ${props => props.theme.colors.textSecondaryColor};
+  margin-inline-end: 8px;
 `
 
 const StyledButton = styled.Pressable`
@@ -53,7 +55,7 @@ const PageDetail = ({ identifier, Icon, information, language, path }: PageDetai
   const route = path ? new InternalPathnameParser(path, language, buildConfig().featureFlags.fixedCity).route() : null
 
   return (
-    <DetailContainer>
+    <DetailContainer widthPadding={!Icon && !identifier}>
       {!!identifier && <Identifier>{identifier}: </Identifier>}
       {!!Icon && <StyledIcon Icon={Icon} />}
       {route ? (
