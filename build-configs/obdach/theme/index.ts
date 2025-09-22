@@ -7,9 +7,9 @@ import obdachFonts from './fonts'
 const customColors = {
   secondary: {
     // TODO we do not yet have light/dark colors for obdach
-    light: '#F08762',
+    light: '#E55129',
     main: '#E55129',
-    dark: '#C4451F',
+    dark: '#E55129',
     contrastText: '#E6E0E9',
   },
 }

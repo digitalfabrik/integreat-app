@@ -7,9 +7,9 @@ import aschaffenburgFonts from './fonts'
 const customColors = {
   secondary: {
     // TODO we do not yet have light/dark colors for aschaffenburg
-    light: '#33A695',
+    light: '#009684',
     main: '#009684',
-    dark: '#007A6B',
+    dark: '#009684',
     contrastText: '#1D1B20',
   },
 }

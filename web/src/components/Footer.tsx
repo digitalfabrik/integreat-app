@@ -14,13 +14,12 @@ const FooterContainer = styled('footer')`
   justify-content: center;
   align-items: center;
   gap: ${props => props.theme.spacing(2)};
-  background-color: ${props => props.theme.legacy.colors.backgroundAccentColor};
+  background-color: ${props =>
+    props.theme.isContrastTheme ? props.theme.palette.tertiary.dark : props.theme.palette.tertiary.light};
   padding-bottom: ${props => props.theme.spacing(2)};
   color: ${props => props.theme.palette.text.primary};
 
   ${props => props.theme.breakpoints.up('md')} {
-    background-color: ${props =>
-      props.theme.isContrastTheme ? props.theme.palette.secondary.dark : props.theme.palette.secondary.light};
     padding: 8px;
     color: inherit;
   }
