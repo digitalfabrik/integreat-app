@@ -50,7 +50,13 @@ const PoiSharedChildren = ({
     />
   )
   return (
-    <List noItemsMessage={t('noPois')} items={sortPois(pois, userLocation)} renderItem={renderPoiListItem} borderless />
+    <List
+      noItemsMessage={t('noPois')}
+      items={sortPois(pois, userLocation)}
+      renderItem={renderPoiListItem}
+      borderless
+      getKey={poi => poi.path}
+    />
   )
 }
 

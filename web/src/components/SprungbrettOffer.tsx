@@ -29,7 +29,14 @@ const SprungbrettOffer = ({ sprungbrettOffer }: SprungbrettOfferPageProps): Reac
     <SprungbrettListItem key={job.id} job={job} />
   )
 
-  return <List noItemsMessage={t('noOffersAvailable')} renderItem={renderSprungbrettListItem} items={data} />
+  return (
+    <List
+      noItemsMessage={t('noOffersAvailable')}
+      renderItem={renderSprungbrettListItem}
+      items={data}
+      getKey={job => job.id}
+    />
+  )
 }
 
 export default SprungbrettOffer
