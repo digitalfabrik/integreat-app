@@ -56,9 +56,8 @@ const PoiListItem = ({ poi, distance, selectPoi }: PoiListItemProps): ReactEleme
           primary={title}
           secondary={
             <>
-              {' '}
-              {distance !== null && <p>{t('distanceKilometre', { distance: distance.toFixed(1) })}</p>}{' '}
-              <p>{category.name}</p>{' '}
+              {distance !== null && <p>{t('distanceKilometre', { distance: distance.toFixed(1) })}</p>}
+              <p>{category.name}</p>
             </>
           }
         />

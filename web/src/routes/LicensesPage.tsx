@@ -35,12 +35,7 @@ const LicensesPage = ({ languageCode }: LicensesPageProps): ReactElement => {
   return (
     <Layout header={<GeneralHeader languageCode={languageCode} />} footer={<GeneralFooter language={languageCode} />}>
       <Caption title={t('settings:openSourceLicenses')} />
-      <List
-        items={licenses ?? []}
-        renderItem={renderItem}
-        noItemsMessage={t('licenses:noLicensesMessage')}
-        getKey={item => item.name}
-      />
+      <List items={licenses ?? []} renderItem={renderItem} noItemsMessage={t('licenses:noLicensesMessage')} />
     </Layout>
   )
 }

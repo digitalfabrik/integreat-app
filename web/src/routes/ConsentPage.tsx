@@ -49,7 +49,6 @@ const ConsentPage = ({ languageCode }: ConsentPageProps): ReactElement => {
         items={buildConfig().supportedIframeSources}
         renderItem={renderConsentItem}
         noItemsMessage={t('noSources')}
-        getKey={item => item}
       />
     </Layout>
   )
