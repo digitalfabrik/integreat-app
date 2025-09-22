@@ -17,15 +17,10 @@ const timeFormat: DateTimeFormatOptions = { hour: 'numeric', minute: '2-digit' }
 const dateFormatWithoutWeekday: DateTimeFormatOptions = { day: 'numeric', month: 'long', year: 'numeric' }
 const dateFormatWithWeekday: DateTimeFormatOptions = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }
 
-export const getWeekdaysFromIndices = (indices: number[], locale: string): string => {
-  // TODO: Info isn't available on native.
-  const weekdays = Info.weekdays('long', { locale })
-  console.log('indices', indices)
-  console.log(weekdays)
-  return indices
-    .filter(index => !!index)
-    .map(index => weekdays[index])
-    .join(', ')
+export const getWeekdayFromIndex = (index: number, locale: string): string => {
+  const randomMonday = DateTime.fromObject({ day: 22, month: 9, year: 2025 })
+  const offsetDateOfThatWeek = randomMonday.plus({ days: index })
+  return offsetDateOfThatWeek.toLocaleString({ weekday: 'long' }, { locale })
 }
 
 export const formatDateInterval = (locale: string, startDate: DateTime, endDate?: DateTime | null): string => {
@@ -48,12 +43,6 @@ export const formatTime = (
     .set({ hour: date.endDate.hour, minute: date.endDate.minute })
     .toLocaleString(timeFormat, { locale })
   return date.allDay ? t('pois:allDay') : t('timeRange', { startTime, endTime })
-}
-
-export const translateMondayToFriday = (locale: string): string => {
-  // TODO: Info isn't available on native
-  const weekdays = Info.weekdays('long', { locale })
-  return `${weekdays[0]} - ${weekdays[4]}`
 }
 
 class DateModel {
@@ -191,7 +180,7 @@ class DateModel {
         date: date.startDate.toLocaleString(dateFormatWithoutWeekday),
       })
     }
-    const weekday = getWeekdaysFromIndices(recurrenceObject.byweekday, locale)
+    const weekday = recurrenceObject.byweekday.map(index => getWeekdayFromIndex(index, locale)).join(', ')
     const time = formatTime(locale, date, t)
 
     return {
@@ -214,7 +203,8 @@ class DateModel {
       // long-term event
       formattedDate = formatDateInterval(locale, this.startDate, this.endDate)
       if (this.onlyWeekdays) {
-        weekday = translateMondayToFriday(locale)
+        // eslint-disable-next-line no-magic-numbers
+        weekday = `${getWeekdayFromIndex(0, locale)} - ${getWeekdayFromIndex(4, locale)}`
       }
     }
 

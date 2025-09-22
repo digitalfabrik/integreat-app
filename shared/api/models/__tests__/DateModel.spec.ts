@@ -1,12 +1,7 @@
 import { DateTime } from 'luxon'
 import { rrulestr } from 'rrule'
 
-import DateModel, {
-  formatDateInterval,
-  formatTime,
-  getWeekdaysFromIndices,
-  translateMondayToFriday,
-} from '../DateModel'
+import DateModel, { formatDateInterval, formatTime, getWeekdayFromIndex } from '../DateModel'
 
 jest.useFakeTimers({ now: new Date('2023-10-09T15:23:57.443+02:00') })
 const locales = ['de', 'en', 'fr', 'ar', 'fa', 'ru']
@@ -1129,17 +1124,38 @@ describe('DateModel', () => {
   })
 })
 
-describe('getWeekdaysFromIndices', () => {
-  it('should return the correct weekdays in German', () => {
-    expect(getWeekdaysFromIndices([0, 2, 4], 'de')).toBe('Montag, Mittwoch, Freitag')
-    expect(getWeekdaysFromIndices([1, 3, 5], 'de')).toBe('Dienstag, Donnerstag, Samstag')
-    expect(getWeekdaysFromIndices([6], 'de')).toBe('Sonntag')
+describe.only('getWeekdayFromIndex', () => {
+  it('should return the correct weekday in German', () => {
+    const locale = 'de'
+    expect(getWeekdayFromIndex(0, locale)).toBe('Montag')
+    expect(getWeekdayFromIndex(1, locale)).toBe('Dienstag')
+    expect(getWeekdayFromIndex(2, locale)).toBe('Mittwoch')
+    expect(getWeekdayFromIndex(3, locale)).toBe('Donnerstag')
+    expect(getWeekdayFromIndex(4, locale)).toBe('Freitag')
+    expect(getWeekdayFromIndex(5, locale)).toBe('Samstag')
+    expect(getWeekdayFromIndex(6, locale)).toBe('Sonntag')
   })
 
-  it('should return the correct weekdays in English', () => {
-    expect(getWeekdaysFromIndices([0, 2, 4], 'en')).toBe('Monday, Wednesday, Friday')
-    expect(getWeekdaysFromIndices([1, 3, 5], 'en')).toBe('Tuesday, Thursday, Saturday')
-    expect(getWeekdaysFromIndices([6], 'en')).toBe('Sunday')
+  it('should return the correct weekday in English', () => {
+    const locale = 'en'
+    expect(getWeekdayFromIndex(0, locale)).toBe('Monday')
+    expect(getWeekdayFromIndex(1, locale)).toBe('Tuesday')
+    expect(getWeekdayFromIndex(2, locale)).toBe('Wednesday')
+    expect(getWeekdayFromIndex(3, locale)).toBe('Thursday')
+    expect(getWeekdayFromIndex(4, locale)).toBe('Friday')
+    expect(getWeekdayFromIndex(5, locale)).toBe('Saturday')
+    expect(getWeekdayFromIndex(6, locale)).toBe('Sunday')
+  })
+
+  it('should return the correct weekday in Arabic', () => {
+    const locale = 'ar'
+    expect(getWeekdayFromIndex(0, locale)).toBe('الاثنين')
+    expect(getWeekdayFromIndex(1, locale)).toBe('الثلاثاء')
+    expect(getWeekdayFromIndex(2, locale)).toBe('الأربعاء')
+    expect(getWeekdayFromIndex(3, locale)).toBe('الخميس')
+    expect(getWeekdayFromIndex(4, locale)).toBe('الجمعة')
+    expect(getWeekdayFromIndex(5, locale)).toBe('السبت')
+    expect(getWeekdayFromIndex(6, locale)).toBe('الأحد')
   })
 })
 
@@ -1248,15 +1264,5 @@ describe('formatTime', () => {
       onlyWeekdays: false,
     })
     expect(formatTime(locale, date, t)).toBe('pois:allDay')
-  })
-})
-
-describe('translateMondayToFriday', () => {
-  it('should return the correct translation in German', () => {
-    expect(translateMondayToFriday('de')).toBe('Montag - Freitag')
-  })
-
-  it('should return the correct translation in English', () => {
-    expect(translateMondayToFriday('en')).toBe('Monday - Friday')
   })
 })
