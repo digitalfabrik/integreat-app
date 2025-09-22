@@ -12,11 +12,12 @@ type ListProps<T> = {
   noItemsMessage: string
   renderItem: (item: T, index: number) => ReactNode
   borderless?: boolean
+  getKey: (item: T) => string | number
 }
 
 class List<T> extends React.PureComponent<ListProps<T>> {
   render(): ReactNode {
-    const { items, renderItem, noItemsMessage, borderless = false } = this.props
+    const { items, renderItem, noItemsMessage, borderless = false, getKey } = this.props
     if (items.length === 0) {
       return <NoItemsMessage>{noItemsMessage}</NoItemsMessage>
     }
@@ -24,7 +25,12 @@ class List<T> extends React.PureComponent<ListProps<T>> {
     return (
       <div>
         {!borderless && <Divider />}
-        {items.map(renderItem)}
+        {items.map((item, index) => (
+          <React.Fragment key={getKey(item)}>
+            {renderItem(item, index)}
+            {index < items.length - 1 && <Divider />}
+          </React.Fragment>
+        ))}
       </div>
     )
   }
