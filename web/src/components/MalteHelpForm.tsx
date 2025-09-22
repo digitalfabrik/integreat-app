@@ -138,7 +138,6 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
           value={name}
           onChange={event => setName(event.target.value)}
           error={submitted && !name}
-          helperText={submitted && !name ? `${t('name')} ${t('common:required')}` : undefined}
         />
         <TextField
           id='roomNumber'

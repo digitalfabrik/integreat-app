@@ -1,12 +1,10 @@
 import FormControl from '@mui/material/FormControl'
 import FormControlLabel from '@mui/material/FormControlLabel'
-import FormHelperText from '@mui/material/FormHelperText'
 import FormLabel from '@mui/material/FormLabel'
 import Radio from '@mui/material/Radio'
 import MuiRadioGroup from '@mui/material/RadioGroup'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
-import { useTranslation } from 'react-i18next'
 
 import Input, { InputProps } from './Input'
 
@@ -39,7 +37,6 @@ export const RadioGroup = <T extends string>({
   onChange,
   required = false,
 }: RadioGroupProps<T>): ReactElement => {
-  const { t } = useTranslation('common')
   const selectedOptionInput = values.find(v => v.key === selectedValue)?.inputProps
   const hasInputError = submitted && selectedOptionInput?.required && !selectedOptionInput.value
 
@@ -55,19 +52,14 @@ export const RadioGroup = <T extends string>({
           <React.Fragment key={key}>
             <FormControlLabel control={<Radio />} value={key} label={label} />
             {selectedValue === key && inputProps && (
-              <>
-                <Input
-                  id={`${key}-input`}
-                  label={inputProps.label ?? label}
-                  required={inputProps.required ?? true}
-                  value={inputProps.value}
-                  onChange={inputProps.onChange}
-                  submitted={submitted}
-                />
-                {hasInputError && (
-                  <FormHelperText>{`${inputProps.label ?? label} ${t('common:required')}`}</FormHelperText>
-                )}
-              </>
+              <Input
+                id={`${key}-input`}
+                label={inputProps.label ?? label}
+                required={inputProps.required ?? true}
+                value={inputProps.value}
+                onChange={inputProps.onChange}
+                submitted={submitted}
+              />
             )}
           </React.Fragment>
         ))}

@@ -21,7 +21,7 @@ const PrivacyCheckbox = ({ language, checked, setChecked, url }: PrivacyCheckbox
       checked={checked}
       setChecked={setChecked}
       label={
-        <Typography variant='body2' component='p'>
+        <Typography variant='body2'>
           <Trans i18nKey='common:privacyPolicy'>
             This gets replaced
             <Link to={privacyUrl} highlighted>
