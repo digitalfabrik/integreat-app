@@ -5,6 +5,7 @@ import Button from '@mui/material/Button'
 import FormControl from '@mui/material/FormControl'
 import FormHelperText from '@mui/material/FormHelperText'
 import TextField from '@mui/material/TextField'
+import Typography, { TypographyProps } from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -42,15 +43,9 @@ const Wrapper = styled('div')`
   gap: 12px;
 `
 
-const SubmitErrorHeading = styled('h5')`
-  margin: 0;
-  font-size: ${props => props.theme.legacy.fonts.subTitleFontSize};
-`
-
-const ErrorSendingStatus = styled('div')`
-  background-color: ${props => props.theme.legacy.colors.invalidInput}35;
+const ErrorSendingStatus = styled(Typography)<TypographyProps>`
+  background-color: ${props => props.theme.palette.error.main};
   padding: 20px 10px;
-  margin: 10px 0;
 `
 
 type SendingStatusType = 'idle' | 'sending' | 'invalidEmail' | 'failed' | 'successful'
@@ -198,9 +193,13 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
           {submitted && !privacyPolicyAccepted && <FormHelperText>{t('common:notePrivacyPolicy')}</FormHelperText>}
         </FormControl>
         {(sendingStatus === 'failed' || sendingStatus === 'invalidEmail') && (
-          <ErrorSendingStatus role='alert'>
-            <SubmitErrorHeading>{t('submitFailed')}</SubmitErrorHeading>
-            {sendingStatus === 'invalidEmail' ? t('invalidEmailAddress') : t('submitFailedReasoning')}
+          <ErrorSendingStatus role='alert' component='div' variant='body1'>
+            <p>{t('submitFailed')}</p>
+            {sendingStatus === 'invalidEmail' ? (
+              <p> {t('invalidEmailAddress')} </p>
+            ) : (
+              <p>{t('submitFailedReasoning')}</p>
+            )}
           </ErrorSendingStatus>
         )}
         <Spacing />

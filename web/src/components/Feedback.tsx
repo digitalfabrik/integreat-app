@@ -118,9 +118,7 @@ const Feedback = ({
           <FeedbackButtons rating={rating} setRating={setRating} />
           {showErrors && rating === null && (
             <FormHelperText>
-              <Typography component='span' variant='body2'>
-                {t('noteFillFeedback')}
-              </Typography>
+              <Typography variant='body2'>{t('noteFillFeedback')}</Typography>
             </FormHelperText>
           )}
         </FormControl>

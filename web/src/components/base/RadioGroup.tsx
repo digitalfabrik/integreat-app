@@ -3,14 +3,20 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 import FormLabel from '@mui/material/FormLabel'
 import Radio from '@mui/material/Radio'
 import MuiRadioGroup from '@mui/material/RadioGroup'
+import TextField from '@mui/material/TextField'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
-
-import Input, { InputProps } from './Input'
 
 const StyledFormControl = styled(FormControl)`
   margin-top: 20px;
 `
+export type InputProps = {
+  id: string
+  value: string
+  onChange: (input: string) => void
+  required?: boolean
+  label?: string
+}
 
 type RadioGroupProps<T extends string> = {
   caption: string
@@ -52,13 +58,15 @@ export const RadioGroup = <T extends string>({
           <React.Fragment key={key}>
             <FormControlLabel control={<Radio />} value={key} label={label} />
             {selectedValue === key && inputProps && (
-              <Input
+              <TextField
                 id={`${key}-input`}
                 label={inputProps.label ?? label}
                 required={inputProps.required ?? true}
                 value={inputProps.value}
-                onChange={inputProps.onChange}
-                submitted={submitted}
+                onChange={event => inputProps.onChange(event.target.value)}
+                error={submitted && inputProps.required && !inputProps.value}
+                size='small'
+                variant='outlined'
               />
             )}
           </React.Fragment>
