@@ -14,6 +14,11 @@ const ButtonContainer = styled('div')`
   gap: 16px;
 `
 
+const StyledButton = styled(Button)({
+  marginBlock: 16,
+  width: 'max-content',
+})
+
 type ExportEventButtonProps = {
   event: EventModel
 }
@@ -66,11 +71,11 @@ const ExportEventButton = ({ event }: ExportEventButtonProps): ReactElement => {
       </ButtonContainer>
     </>
   ) : (
-    <Button
+    <StyledButton
       onClick={() => (isRecurring ? setIsExporting(true) : downloadEventAsIcsFile(event, false))}
       startIcon={<DownloadIcon />}>
       {t('export')}
-    </Button>
+    </StyledButton>
   )
 }
 
