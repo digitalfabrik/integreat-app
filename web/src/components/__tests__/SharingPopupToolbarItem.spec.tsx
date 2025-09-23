@@ -2,7 +2,7 @@ import { fireEvent } from '@testing-library/react'
 import React, { ReactElement } from 'react'
 
 import { renderWithTheme } from '../../testing/render'
-import SharingPopup from '../SharingPopup'
+import SharingPopupToolbarItem from '../SharingPopupToolbarItem'
 
 jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
@@ -13,17 +13,22 @@ jest.mock('@mui/material/Tooltip', () => ({ title, children }: { title: string; 
   </>
 ))
 
-describe('SharingPopup', () => {
+describe('SharingPopupToolbarItem', () => {
   const shareMessage = 'socialMedia:layout:shareMessage'
+  const originalWindow = window
 
-  const SharingPopupComponent = (
-    <SharingPopup
-      title='Aktuelle Themen und Informationen'
-      flow='horizontal'
-      shareUrl='https://integreat.app/augsburg/de/aktuelle-themen-und-informationen'
-      portalNeeded={false}
-    />
-  )
+  Object.defineProperty(globalThis, 'window', {
+    value: {
+      ...originalWindow,
+      location: {
+        ...originalWindow.location,
+        href: 'https://integreat.app/augsburg/de/aktuelle-themen-und-informationen',
+      },
+    },
+    writable: true,
+  })
+
+  const SharingPopupComponent = <SharingPopupToolbarItem title='Aktuelle Themen und Informationen' flow='horizontal' />
 
   it('should render correct share link for facebook', () => {
     const facebookShareLink = `https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fintegreat.app%2Faugsburg%2Fde%2Faktuelle-themen-und-informationen&t${shareMessage}`

@@ -25,6 +25,9 @@ const StyledDrawer = styled(Drawer)`
 const Header = styled(Paper)`
   position: fixed;
   width: inherit;
+
+  /* Position header above sidebar content */
+  z-index: 1;
 `
 
 type SidebarProps = {
@@ -66,7 +69,7 @@ const Sidebar = ({ children, open, setOpen, Footer, OpenButton }: SidebarProps):
             </IconButton>
           </Stack>
         </Header>
-        <Stack marginTop={`${headerHeight}px`} padding={2}>
+        <Stack marginTop={`${headerHeight}px`} padding={2} height='100%'>
           {children}
         </Stack>
         {Footer}
