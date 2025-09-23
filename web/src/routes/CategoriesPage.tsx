@@ -3,7 +3,7 @@ import React, { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, Navigate, useParams } from 'react-router'
 
-import { CATEGORIES_ROUTE, cityContentPath } from 'shared'
+import { cityContentPath } from 'shared'
 import {
   CategoriesMapModel,
   CategoryModel,
