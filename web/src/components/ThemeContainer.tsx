@@ -51,9 +51,19 @@ const createTheme = (
     typography: buildConfig().typography,
     palette: theme.palette,
     components: {
+      MuiTypography: {
+        defaultProps: {
+          dir: 'auto',
+        },
+      },
       MuiTooltip: {
         defaultProps: {
           arrow: true,
+          slotProps: {
+            tooltip: {
+              dir: 'auto',
+            },
+          },
         },
         styleOverrides: {
           popper: {
