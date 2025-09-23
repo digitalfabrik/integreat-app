@@ -24,7 +24,6 @@ type CityContentToolbarProps = {
   category?: CategoryModel
   direction?: 'row' | 'column'
   pageTitle: string
-  maxItems?: number
 }
 
 const CityContentToolbar = (props: CityContentToolbarProps): ReactElement => {
@@ -33,7 +32,7 @@ const CityContentToolbar = (props: CityContentToolbarProps): ReactElement => {
   const { toggleTheme } = useTheme()
   const { t } = useTranslation('layout')
 
-  const { slug, category, direction = 'column', pageTitle, maxItems } = props
+  const { slug, category, direction = 'column', pageTitle } = props
 
   const items = [
     route === CATEGORIES_ROUTE && (
@@ -57,9 +56,7 @@ const CityContentToolbar = (props: CityContentToolbarProps): ReactElement => {
       />
     ),
     <ToolbarItem key='theme' icon={<ContrastIcon />} text={t('contrastTheme')} onClick={toggleTheme} />,
-  ]
-    .filter(Boolean)
-    .slice(0, maxItems)
+  ].filter(Boolean)
 
   return (
     <Stack id={TOOLBAR_ELEMENT_ID} direction={direction} width={direction === 'row' ? '100%' : undefined}>
