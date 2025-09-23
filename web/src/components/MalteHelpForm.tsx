@@ -103,7 +103,7 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
 
   if (sendingStatus === 'successful') {
     return (
-      <Alert severity='success' action={<Link to={dashboardRoute}>{t('error:goTo.categories')}</Link>}>
+      <Alert severity='success' role='alert' action={<Link to={dashboardRoute}>{t('error:goTo.categories')}</Link>}>
         {t('submitSuccessful')}
       </Alert>
     )
@@ -127,7 +127,7 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
           fullWidth
           value={name}
           onChange={event => setName(event.target.value)}
-          error={submitted && !name.trim()}
+          error={submitted && !name.length}
         />
         <TextField
           id='roomNumber'

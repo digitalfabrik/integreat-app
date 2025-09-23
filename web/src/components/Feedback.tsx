@@ -54,7 +54,6 @@ type FeedbackProps = {
   sendingStatus: SendingStatusType
   searchTerm: string | undefined
   setSearchTerm: (newTerm: string) => void
-  closeFeedback: (() => void) | undefined
 }
 
 const Feedback = ({
@@ -69,7 +68,6 @@ const Feedback = ({
   setRating,
   searchTerm,
   setSearchTerm,
-  closeFeedback,
 }: FeedbackProps): ReactElement => {
   const { t } = useTranslation('feedback')
 
@@ -90,9 +88,7 @@ const Feedback = ({
   if (sendingStatus === 'successful') {
     return (
       <Container>
-        <Alert
-          severity='success'
-          action={!!closeFeedback && !isSearchFeedback && <Button onClick={closeFeedback}>{t('common:close')}</Button>}>
+        <Alert role='alert' severity='success'>
           {t('thanksMessage')}
         </Alert>
       </Container>
@@ -139,9 +135,7 @@ const Feedback = ({
       />
       <PrivacyFormControl error={showErrors && !privacyPolicyAccepted} required>
         <PrivacyCheckbox language={language} checked={privacyPolicyAccepted} setChecked={setPrivacyPolicyAccepted} />
-        {showErrors && !privacyPolicyAccepted && (
-          <FormHelperText component='span'>{t('common:notePrivacyPolicy')}</FormHelperText>
-        )}
+        {showErrors && !privacyPolicyAccepted && <FormHelperText>{t('common:notePrivacyPolicy')}</FormHelperText>}
       </PrivacyFormControl>
       {sendingStatus === 'failed' && <Alert severity='error'>{t('failedSendingFeedback')}</Alert>}
       <Button onClick={handleSubmit} variant='contained' startIcon={<SendIcon />}>
