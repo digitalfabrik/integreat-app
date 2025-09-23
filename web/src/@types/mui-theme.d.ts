@@ -50,10 +50,12 @@ declare module '@mui/material/styles' {
 
   interface Palette {
     tertiary: PaletteColor
+    surface: PaletteColor
   }
 
   interface PaletteOptions {
     tertiary: PaletteColor
+    surface: PaletteColor
   }
 }
 

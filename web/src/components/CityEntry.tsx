@@ -1,7 +1,6 @@
 import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
-import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
 import { cityContentPath, normalizeString } from 'shared'
@@ -11,10 +10,6 @@ import Highlighter from './Highlighter'
 import Link from './base/Link'
 
 const MAX_NUMBER_OF_ALIASES = 3
-
-const StyledListItem = styled(ListItem)({
-  paddingBlock: 4,
-})
 
 type CityEntryProps = {
   language: string
@@ -31,7 +26,7 @@ const CityEntry = ({ filterText, city, language }: CityEntryProps): ReactElement
   const aliasesText = aliases.slice(0, MAX_NUMBER_OF_ALIASES).join(', ')
 
   return (
-    <StyledListItem alignItems='flex-start'>
+    <ListItem alignItems='flex-start' disablePadding>
       <ListItemButton component={Link} to={cityContentPath({ cityCode: city.code, languageCode: language })}>
         <ListItemText
           primary={<Highlighter search={filterText} text={city.name} />}
@@ -48,7 +43,7 @@ const CityEntry = ({ filterText, city, language }: CityEntryProps): ReactElement
           }}
         />
       </ListItemButton>
-    </StyledListItem>
+    </ListItem>
   )
 }
 
