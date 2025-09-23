@@ -142,10 +142,10 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
   return (
     <DetailsContainer>
       <HeadingSection>
-        <Thumbnail alt='' src={thumbnail} />
         <Heading>{poi.title}</Heading>
         {distance !== null && <Distance>{t('distanceKilometre', { distance: distance.toFixed(1) })}</Distance>}
         <PoiChips poi={poi} />
+        <Thumbnail alt='' src={thumbnail} />
       </HeadingSection>
       <StyledDivider />
       {desktop && <Subheading>{t('detailsAddress')}</Subheading>}
