@@ -1,13 +1,12 @@
-import { styled } from '@mui/material/styles'
+import ListItem from '@mui/material/ListItem'
+import ListItemButton from '@mui/material/ListItemButton'
+import ListItemText from '@mui/material/ListItemText'
+import Typography from '@mui/material/Typography'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import ListItem from '../components/ListItem'
-
-const LicenseContainer = styled('div')`
-  padding: 5px 10px;
-  line-height: 120%;
-`
+import { StyledText } from './PoiListItem'
+import Link from './base/Link'
 
 type LicenseItemProps = {
   name: string
@@ -19,15 +18,27 @@ type LicenseItemProps = {
 const LicenseItem = ({ license, name, licenseUrl, version }: LicenseItemProps): ReactElement => {
   const { t } = useTranslation('licenses')
   return (
-    <ListItem path={licenseUrl} title={name}>
-      <LicenseContainer>
-        <div>
-          {t('version')} {version}
-        </div>
-        <div>
-          {t('license')} {license}
-        </div>
-      </LicenseContainer>
+    <ListItem disablePadding>
+      <ListItemButton aria-label={name} to={licenseUrl} component={Link}>
+        <ListItemText
+          slotProps={{ secondary: { component: 'div' } }}
+          primary={
+            <Typography variant='title2' component='h2'>
+              {name}
+            </Typography>
+          }
+          secondary={
+            <>
+              <StyledText>
+                {t('version')} {version}
+              </StyledText>
+              <StyledText>
+                {t('license')} {license}
+              </StyledText>
+            </>
+          }
+        />
+      </ListItemButton>
     </ListItem>
   )
 }
