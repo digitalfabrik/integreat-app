@@ -26,7 +26,7 @@ const CityContentSidebar = (): ReactElement => {
       open={open}
       Footer={<CityContentFooter city={cityCode} language={languageCode} mode='sidebar' />}>
       <List
-        Items={[
+        items={[
           <SidebarActionItem
             key='changeLocation'
             text={t('changeLocation')}
