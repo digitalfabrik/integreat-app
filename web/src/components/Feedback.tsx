@@ -1,9 +1,9 @@
 import SendIcon from '@mui/icons-material/Send'
+import Alert from '@mui/material/Alert'
 import Button from '@mui/material/Button'
 import FormControl from '@mui/material/FormControl'
 import FormHelperText from '@mui/material/FormHelperText'
 import TextField from '@mui/material/TextField'
-import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -40,10 +40,6 @@ const OptionalHint = styled('p')`
 
 const PrivacyFormControl = styled(FormControl)`
   margin: 8px 0;
-`
-
-const ErrorSendingStatus = styled('div')`
-  font-weight: bold;
 `
 
 type FeedbackProps = {
@@ -94,8 +90,11 @@ const Feedback = ({
   if (sendingStatus === 'successful') {
     return (
       <Container>
-        <div>{t('thanksMessage')}</div>
-        {!!closeFeedback && !isSearchFeedback && <Button onClick={closeFeedback}>{t('common:close')}</Button>}
+        <Alert
+          severity='success'
+          action={!!closeFeedback && !isSearchFeedback && <Button onClick={closeFeedback}>{t('common:close')}</Button>}>
+          {t('thanksMessage')}
+        </Alert>
       </Container>
     )
   }
@@ -116,11 +115,7 @@ const Feedback = ({
       ) : (
         <FormControl error={showErrors && rating === null}>
           <FeedbackButtons rating={rating} setRating={setRating} />
-          {showErrors && rating === null && (
-            <FormHelperText>
-              <Typography variant='body2'>{t('noteFillFeedback')}</Typography>
-            </FormHelperText>
-          )}
+          {showErrors && rating === null && <FormHelperText>{t('noteFillFeedback')}</FormHelperText>}
         </FormControl>
       )}
       <OptionalHint>({t('common:optional')})</OptionalHint>
@@ -145,12 +140,10 @@ const Feedback = ({
       <PrivacyFormControl error={showErrors && !privacyPolicyAccepted} required>
         <PrivacyCheckbox language={language} checked={privacyPolicyAccepted} setChecked={setPrivacyPolicyAccepted} />
         {showErrors && !privacyPolicyAccepted && (
-          <FormHelperText component='span'>
-            <Typography variant='body2'>{t('common:notePrivacyPolicy')}</Typography>
-          </FormHelperText>
+          <FormHelperText component='span'>{t('common:notePrivacyPolicy')}</FormHelperText>
         )}
       </PrivacyFormControl>
-      {sendingStatus === 'failed' && <ErrorSendingStatus role='alert'>{t('failedSendingFeedback')}</ErrorSendingStatus>}
+      {sendingStatus === 'failed' && <Alert severity='error'>{t('failedSendingFeedback')}</Alert>}
       <Button onClick={handleSubmit} variant='contained' startIcon={<SendIcon />}>
         {t('send')}
       </Button>

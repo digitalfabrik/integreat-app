@@ -1,11 +1,12 @@
 import HealthAndSafetyOutlinedIcon from '@mui/icons-material/HealthAndSafetyOutlined'
 import PeopleOutlineOutlinedIcon from '@mui/icons-material/PeopleOutlineOutlined'
 import SendIcon from '@mui/icons-material/Send'
+import Alert from '@mui/material/Alert'
+import AlertTitle from '@mui/material/AlertTitle'
 import Button from '@mui/material/Button'
 import FormControl from '@mui/material/FormControl'
 import FormHelperText from '@mui/material/FormHelperText'
 import TextField from '@mui/material/TextField'
-import Typography, { TypographyProps } from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -22,7 +23,6 @@ import {
 } from 'shared/api'
 
 import Icon from '../components/base/Icon'
-import { Container } from './Feedback'
 import PrivacyCheckbox from './PrivacyCheckbox'
 import RadioGroup from './base/RadioGroup'
 import Spacing from './base/Spacing'
@@ -37,15 +37,10 @@ const StyledIcon = styled(Icon)`
   flex-shrink: 0;
 `
 
-const Wrapper = styled('div')`
+const Form = styled('form')`
   display: flex;
   flex-direction: column;
   gap: 12px;
-`
-
-const ErrorSendingStatus = styled(Typography)<TypographyProps>`
-  background-color: ${props => props.theme.palette.error.main};
-  padding: 20px 10px;
 `
 
 type SendingStatusType = 'idle' | 'sending' | 'invalidEmail' | 'failed' | 'successful'
@@ -70,12 +65,13 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
   const [comment, setComment] = useState('')
   const dashboardRoute = cityContentPath({ languageCode, cityCode })
 
-  const submitHandler = async () => {
+  const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
     setSubmitted(true)
     if (
-      !name.trim() ||
-      (contactChannel === 'email' && !email.trim()) ||
-      (contactChannel === 'telephone' && !telephone.trim())
+      !name.length ||
+      (contactChannel === 'email' && !email.length) ||
+      (contactChannel === 'telephone' && !telephone.length)
     ) {
       return
     }
@@ -107,10 +103,9 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
 
   if (sendingStatus === 'successful') {
     return (
-      <Container>
-        <div>{t('submitSuccessful')}</div>
-        <Link to={dashboardRoute}>{t('error:goTo.categories')}</Link>
-      </Container>
+      <Alert severity='success' action={<Link to={dashboardRoute}>{t('error:goTo.categories')}</Link>}>
+        {t('submitSuccessful')}
+      </Alert>
     )
   }
 
@@ -124,7 +119,7 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
         <StyledIcon src={HealthAndSafetyOutlinedIcon} />
         {t('securityNote')}
       </Note>
-      <Wrapper>
+      <Form onSubmit={submitHandler} noValidate>
         <TextField
           id='name'
           label={t('name')}
@@ -132,7 +127,7 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
           fullWidth
           value={name}
           onChange={event => setName(event.target.value)}
-          error={submitted && !name}
+          error={submitted && !name.trim()}
         />
         <TextField
           id='roomNumber'
@@ -193,20 +188,16 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
           {submitted && !privacyPolicyAccepted && <FormHelperText>{t('common:notePrivacyPolicy')}</FormHelperText>}
         </FormControl>
         {(sendingStatus === 'failed' || sendingStatus === 'invalidEmail') && (
-          <ErrorSendingStatus role='alert' component='div' variant='body1'>
-            <p>{t('submitFailed')}</p>
-            {sendingStatus === 'invalidEmail' ? (
-              <p> {t('invalidEmailAddress')} </p>
-            ) : (
-              <p>{t('submitFailedReasoning')}</p>
-            )}
-          </ErrorSendingStatus>
+          <Alert severity='error' role='alert'>
+            <AlertTitle>{t('submitFailed')}</AlertTitle>
+            {t(sendingStatus === 'invalidEmail' ? 'invalidEmailAddress' : 'submitFailedReasoning')}
+          </Alert>
         )}
         <Spacing />
-        <Button onClick={submitHandler} startIcon={<SendIcon />} variant='contained'>
+        <Button type='submit' startIcon={<SendIcon />} variant='contained'>
           {t('submit')}
         </Button>
-      </Wrapper>
+      </Form>
     </>
   )
 }
