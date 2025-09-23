@@ -54,7 +54,7 @@ describe('PoisDesktop', () => {
     expect(queryByText('pois:distanceKilometre')).toBeTruthy()
     expect(queryByText(singlePoi.location.address!)).toBeTruthy()
     expect(queryByText(singlePoi.content)).toBeTruthy()
-    expect(queryByText('pois:detailsHeader')).toBeTruthy()
+    expect(queryByLabelText('pois:detailsHeader')).toBeTruthy()
     expect(queryByText('pois:listTitle')).toBeNull()
     expect(queryByLabelText('Toolbar')).toBeNull()
     expect(queryByLabelText('pois:previousPoi')).toBeTruthy()
@@ -62,9 +62,9 @@ describe('PoisDesktop', () => {
   })
 
   it('should show back button and hide list title for selected mapFeature', () => {
-    const { queryByText } = renderPoisDesktop(undefined, prepareMapFeature(pois, 0, [0, 0]))
+    const { queryByText, queryByLabelText } = renderPoisDesktop(undefined, prepareMapFeature(pois, 0, [0, 0]))
 
-    expect(queryByText('pois:detailsHeader')).toBeTruthy()
+    expect(queryByLabelText('pois:detailsHeader')).toBeTruthy()
     expect(queryByText('pois:listTitle')).toBeFalsy()
 
     pois.forEach(poi => {
@@ -74,9 +74,9 @@ describe('PoisDesktop', () => {
 
   it('should render poiList & toolbar components if no poi is provided', () => {
     mocked(useSearchParams).mockReturnValue([new URLSearchParams([]), jest.fn()])
-    const { queryByText } = renderPoisDesktop()
+    const { queryByLabelText, queryByText } = renderPoisDesktop()
 
-    expect(queryByText('pois:detailsHeader')).toBeFalsy()
+    expect(queryByLabelText('pois:detailsHeader')).toBeFalsy()
     expect(queryByText('pois:listTitle')).toBeTruthy()
     pois.forEach(poi => {
       expect(queryByText(poi.title)).toBeTruthy()

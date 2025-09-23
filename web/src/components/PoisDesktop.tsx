@@ -1,14 +1,13 @@
 import { styled, useTheme } from '@mui/material/styles'
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { GeolocateControl, NavigationControl } from 'react-map-gl'
 
 import { LocationType, MapViewViewport, MapFeature, PreparePoisReturn } from 'shared'
 import { CityModel, PoiModel } from 'shared/api'
 
 import CityContentFooter from './CityContentFooter'
-import GoBack from './GoBack'
 import MapView from './MapView'
+import PoiPanelHeader from './PoiPanelHeader'
 import PoiPanelNavigation from './PoiPanelNavigation'
 import PoiSharedChildren from './PoiSharedChildren'
 
@@ -33,17 +32,6 @@ const ToolbarContainer = styled('div')`
   justify-content: center;
   background-color: ${props => props.theme.legacy.colors.backgroundColor};
   box-shadow: 1px 0 4px 0 rgb(0 0 0 / 20%);
-`
-
-const ListHeader = styled('div')`
-  padding-top: clamp(16px, 1.4vh, 32px);
-  padding-bottom: clamp(10px, 1vh, 20px);
-  text-align: center;
-  font-size: ${props => props.theme.legacy.fonts.subTitleFontSize};
-  font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
-  line-height: ${props => props.theme.legacy.fonts.decorativeLineHeight};
-  font-weight: 600;
-  margin-bottom: clamp(10px, 1vh, 20px);
 `
 
 const FooterContainer = styled('div')`
@@ -92,7 +80,6 @@ const PoisDesktop = ({
   MapOverlay,
   PanelContent: PanelContentProp,
 }: PoisDesktopProps): ReactElement => {
-  const { t } = useTranslation('pois')
   const [scrollOffset, setScrollOffset] = useState<number>(0)
   const listRef = useRef<HTMLDivElement>(null)
   const { pois, poi, mapFeatures, mapFeature } = data
@@ -122,12 +109,7 @@ const PoisDesktop = ({
   const PanelContent = (
     <>
       <ListViewWrapper ref={listRef}>
-        {canDeselect ? (
-          <GoBack goBack={deselect} text={t('detailsHeader')} />
-        ) : (
-          <ListHeader>{t('listTitle')}</ListHeader>
-        )}
-
+        <PoiPanelHeader goBack={canDeselect ? deselect : null} />
         <PoiSharedChildren pois={pois} poi={poi} selectPoi={handleSelectPoi} userLocation={userLocation} slug={slug} />
       </ListViewWrapper>
       {poi && pois.length > 0 ? (
