@@ -29,11 +29,11 @@ const StyledListItemText = styled(ListItemText)`
   min-width: 1px;
   word-break: break-word;
   hyphens: auto;
-
-  p {
-    margin: 0;
-  }
 `
+
+const StyledText = styled('p')({
+  margin: 0,
+})
 
 type PoiListItemProps = {
   poi: PoiModel
@@ -56,8 +56,10 @@ const PoiListItem = ({ poi, distance, selectPoi }: PoiListItemProps): ReactEleme
           primary={title}
           secondary={
             <>
-              {distance !== null && <p>{t('distanceKilometre', { distance: distance.toFixed(1) })}</p>}
-              <p>{category.name}</p>
+              {distance !== null && (
+                <StyledText>{t('distanceKilometre', { distance: distance.toFixed(1) })}</StyledText>
+              )}
+              <StyledText>{category.name}</StyledText>
             </>
           }
         />
