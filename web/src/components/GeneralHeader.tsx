@@ -5,9 +5,9 @@ import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router-dom'
 
 import { LANDING_ROUTE, pathnameFromRouteInformation } from 'shared'
-import { createCitiesEndpoint, LanguageModel, useLoadFromEndpoint } from 'shared/api'
+import { LanguageModel } from 'shared/api'
 
-import { cmsApiBaseUrl } from '../constants/urls'
+import useAllLanguages from '../hooks/useAllLanguages'
 import Header from './Header'
 import HeaderLanguageSelectorItem from './HeaderLanguageSelectorItem'
 import Sidebar from './Sidebar'
@@ -19,24 +19,14 @@ type GeneralHeaderProps = {
 }
 
 const GeneralHeader = ({ languageCode, cityLanguages }: GeneralHeaderProps): ReactElement => {
-  const { data: cities } = useLoadFromEndpoint(createCitiesEndpoint, cmsApiBaseUrl, undefined)
+  const languages = useAllLanguages()
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const { toggleTheme } = useTheme()
   const { t } = useTranslation('layout')
   const slug = useLocation().pathname.split('/')[1]
 
   const landingPath = pathnameFromRouteInformation({ route: LANDING_ROUTE, languageCode })
-  const languages =
-    cityLanguages ??
-    [
-      ...new Map(
-        cities
-          ?.filter(city => city.live)
-          .flatMap(city => city.languages)
-          .map(item => [item.code, item]),
-      ).values(),
-    ].sort((a, b) => a.code.localeCompare(b.code))
-  const languageChangePaths = languages.map(language => ({
+  const languageChangePaths = (cityLanguages ?? languages).map(language => ({
     code: language.code,
     name: language.name,
     path: `/${slug}/${language.code}`,
