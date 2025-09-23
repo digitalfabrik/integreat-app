@@ -25,6 +25,9 @@ const StyledDrawer = styled(Drawer)`
 const Header = styled(Paper)`
   position: fixed;
   width: inherit;
+
+  /* Position header above sidebar content */
+  z-index: 1;
 `
 
 type SidebarProps = {
