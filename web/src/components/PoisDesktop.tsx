@@ -1,3 +1,4 @@
+import Stack from '@mui/material/Stack'
 import { styled, useTheme } from '@mui/material/styles'
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { GeolocateControl, NavigationControl } from 'react-map-gl'
@@ -27,20 +28,12 @@ const ListViewWrapper = styled('div')`
   overflow: auto;
 `
 
-const ToolbarContainer = styled('div')`
-  display: flex;
-  justify-content: center;
-  background-color: ${props => props.theme.legacy.colors.backgroundColor};
-  box-shadow: 1px 0 4px 0 rgb(0 0 0 / 20%);
-`
-
 const FooterContainer = styled('div')`
   position: absolute;
   bottom: 0;
 `
 
 type PoisDesktopProps = {
-  toolbar: ReactElement
   cityModel: CityModel
   data: PreparePoisReturn
   selectMapFeature: (mapFeature: MapFeature | null) => void
@@ -66,7 +59,6 @@ const nextPoiIndex = (step: 1 | -1, arrayLength: number, currentIndex: number): 
 }
 
 const PoisDesktop = ({
-  toolbar,
   data,
   userLocation,
   selectMapFeature,
@@ -107,20 +99,13 @@ const PoisDesktop = ({
   }, [mapFeature, scrollOffset])
 
   const PanelContent = (
-    <>
+    <Stack justifyContent='space-between' height='100%'>
       <ListViewWrapper ref={listRef}>
         <PoiPanelHeader goBack={canDeselect ? deselect : null} />
         <PoiSharedChildren pois={pois} poi={poi} selectPoi={handleSelectPoi} userLocation={userLocation} slug={slug} />
       </ListViewWrapper>
-      {poi && pois.length > 0 ? (
-        <>
-          <ToolbarContainer>{toolbar}</ToolbarContainer>
-          <PoiPanelNavigation switchPoi={switchPoi} />
-        </>
-      ) : (
-        <ToolbarContainer>{toolbar}</ToolbarContainer>
-      )}
-    </>
+      {poi && pois.length > 0 && <PoiPanelNavigation switchPoi={switchPoi} />}
+    </Stack>
   )
 
   return (
