@@ -61,7 +61,7 @@ const CityContentToolbar = (props: CityContentToolbarProps): ReactElement => {
     .slice(0, maxItems)
 
   return (
-    <Stack direction={direction} width={direction === 'column' ? dimensions.toolbarWidth : '100%'} overflow='hidden'>
+    <Stack direction={direction} width={direction === 'column' ? dimensions.toolbarWidth : '100%'}>
       {items}
     </Stack>
   )

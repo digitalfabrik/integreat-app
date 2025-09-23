@@ -26,9 +26,11 @@ const TooltipContainer = styled('div')<{
   width: max-content;
   position: absolute;
   display: flex;
-  z-index: 10;
   opacity: 0;
   font-size: 1rem;
+
+  /* Position sharing popup above toolbar */
+  z-index: 10;
 
   ${props =>
     props.tooltipFlow === 'vertical'
@@ -56,7 +58,6 @@ const TooltipContainer = styled('div')<{
   /* White center of the arrow */
 
   &::before {
-    z-index: 2000;
     border-bottom: 10px solid ${props => props.theme.legacy.colors.backgroundColor};
     border-inline-start: 10px solid transparent;
     border-inline-end: 10px solid transparent;
@@ -84,7 +85,6 @@ const TooltipContainer = styled('div')<{
   /* Border of the arrow */
 
   &::after {
-    z-index: 1000;
     border-bottom: 11px solid ${props => props.theme.legacy.colors.textDecorationColor};
     border-inline-start: 11px solid transparent;
     border-inline-end: 11px solid transparent;
@@ -127,7 +127,6 @@ const BackdropContainer = styled(Button)`
   top: 0;
   inset-inline-start: 0;
   position: fixed;
-  z-index: 1;
 `
 
 const SharingPopupContainer = styled('div')`
