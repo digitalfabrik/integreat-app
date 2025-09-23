@@ -6,9 +6,9 @@ import { LocationType, sortPois } from 'shared'
 import { PoiModel } from 'shared/api'
 
 import Failure from './Failure'
-import List from './List'
 import PoiDetails from './PoiDetails'
 import PoiListItem from './PoiListItem'
+import List from './base/List'
 
 const StyledFailure = styled(Failure)`
   padding: 0;
@@ -49,9 +49,7 @@ const PoiSharedChildren = ({
       distance={userLocation ? poi.distance(userLocation) : null}
     />
   )
-  return (
-    <List noItemsMessage={t('noPois')} items={sortPois(pois, userLocation)} renderItem={renderPoiListItem} borderless />
-  )
+  return <List NoItemsMessage={t('noPois')} items={sortPois(pois, userLocation).map(renderPoiListItem)} />
 }
 
 export default PoiSharedChildren

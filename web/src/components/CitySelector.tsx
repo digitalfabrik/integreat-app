@@ -51,7 +51,7 @@ const CitySelector = ({ cities, language }: CitySelectorProps): ReactElement => 
         <Typography variant='label1' aria-live={resultCities.length === 0 ? 'assertive' : 'polite'}>
           {t('search:searchResultsCount', { count: resultCities.length })}
         </Typography>
-        <List Items={groups} NoItemsMessage='search:nothingFound' />
+        <List items={groups} NoItemsMessage='search:nothingFound' />
       </ScrollingSearchBox>
     </Stack>
   )
