@@ -1,3 +1,4 @@
+import Stack from '@mui/material/Stack'
 import { styled } from '@mui/material/styles'
 import { DateTime } from 'luxon'
 import React, { ReactElement, ReactNode, useContext } from 'react'
@@ -48,7 +49,7 @@ const Page = ({
   const { visible: ttsPlayerVisible } = useContext(TtsContext)
 
   return (
-    <>
+    <Stack direction='column'>
       {!!thumbnailSrcSet && <Thumbnail alt='' srcSet={thumbnailSrcSet} />}
       <Caption title={title} />
       {BeforeContent}
@@ -59,7 +60,7 @@ const Page = ({
       )}
       {Footer}
       <SpaceForTts ttsPlayerVisible={ttsPlayerVisible} />
-    </>
+    </Stack>
   )
 }
 

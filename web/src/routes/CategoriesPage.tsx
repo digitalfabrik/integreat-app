@@ -3,7 +3,7 @@ import React, { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, Navigate, useParams } from 'react-router-dom'
 
-import { cityContentPath } from 'shared'
+import { CATEGORIES_ROUTE, cityContentPath } from 'shared'
 import {
   CategoriesMapModel,
   CategoryModel,
@@ -18,8 +18,8 @@ import {
 import { CityRouteProps } from '../CityContentSwitcher'
 import Breadcrumbs from '../components/Breadcrumbs'
 import CategoriesContent from '../components/CategoriesContent'
-import CategoriesToolbar from '../components/CategoriesToolbar'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
+import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
 import LoadingSpinner from '../components/LoadingSpinner'
@@ -127,8 +127,13 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
     city,
     languageChangePaths,
     languageCode,
+    category,
     Toolbar: (
-      <CategoriesToolbar category={category} cityCode={cityCode} languageCode={languageCode} pageTitle={pageTitle} />
+      <CityContentToolbar
+        slug={category && !category.isRoot() ? category.slug : undefined}
+        pageTitle={pageTitle}
+        category={category}
+      />
     ),
   }
 
