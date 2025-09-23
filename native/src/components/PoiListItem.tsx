@@ -1,5 +1,6 @@
 import React, { memo } from 'react'
 import { useTranslation } from 'react-i18next'
+import { withKeyboardFocus } from 'react-native-external-keyboard'
 import styled from 'styled-components/native'
 
 import { PoiModel } from 'shared/api'
@@ -34,6 +35,8 @@ const StyledPressable = styled(Pressable)<{ language: string }>`
   background-color: ${props => props.theme.colors.backgroundColor};
 `
 
+const KeyboardPressable = withKeyboardFocus(StyledPressable)
+
 const Description = styled.View`
   flex: 1;
   flex-direction: column;
@@ -54,19 +57,21 @@ type PoiListItemProps = {
   language: string
   navigateToPoi: () => void
   distance: number | null
+  onFocus: () => void
 }
 
-const PoiListItem = ({ poi, language, navigateToPoi, distance }: PoiListItemProps) => {
+const PoiListItem = ({ poi, language, navigateToPoi, distance, onFocus }: PoiListItemProps) => {
   const { t } = useTranslation('pois')
+
   return (
-    <StyledPressable onPress={navigateToPoi} language={language} role='link'>
+    <KeyboardPressable onPress={navigateToPoi} language={language} role='link' onFocus={onFocus} focusable>
       <Thumbnail source={poi.thumbnail ?? PoiThumbnailPlaceholder} resizeMode='cover' />
       <Description>
         <Title>{poi.title}</Title>
         {distance !== null && <Distance>{t('distanceKilometre', { distance: distance.toFixed(1) })}</Distance>}
         <Category>{poi.category.name}</Category>
       </Description>
-    </StyledPressable>
+    </KeyboardPressable>
   )
 }
 

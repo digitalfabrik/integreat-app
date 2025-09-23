@@ -5873,7 +5873,7 @@
       "checkQuery": "Vérifie tes critères de recherche ou change la langue définie pour l’appli {{appName}}.",
       "informationMissing": "Il manque des informations ?",
       "noResultsInUserLanguage": "Désolé, aucun résultat correspondant à ta langue n’a été trouvé.",
-      "noResultsInUserAndSourceLanguage": "Désolé, aucun résultat correspondant n’a été trouvé dans ta langue ou en français."
+      "noResultsInUserAndSourceLanguage": "Désolé, aucun résultat correspondant n’a été trouvé dans ta langue ou en allemand."
     },
     "hi": {
       "send": "भेजें",
