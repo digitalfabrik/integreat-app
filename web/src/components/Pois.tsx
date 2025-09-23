@@ -15,7 +15,6 @@ import {
 } from 'shared'
 import { PoiCategoryModel, PoiModel, CityModel } from 'shared/api'
 
-import CityContentToolbar from '../components/CityContentToolbar'
 import PoiFilters from '../components/PoiFilters'
 import PoisDesktop from '../components/PoisDesktop'
 import PoisMobile from '../components/PoisMobile'
@@ -33,10 +32,9 @@ type PoiProps = {
   userLocation: LocationType | null
   city: CityModel
   languageCode: string
-  pageTitle: string
 }
 
-const Pois = ({ pois: allPois, userLocation, city, languageCode, pageTitle }: PoiProps): ReactElement | null => {
+const Pois = ({ pois: allPois, userLocation, city, languageCode }: PoiProps): ReactElement | null => {
   const [currentlyOpenFilter, setCurrentlyOpenFilter] = useState(false)
   const [showFilterSelection, setShowFilterSelection] = useState(false)
   const [queryParams, setQueryParams] = useSearchParams()
@@ -52,10 +50,7 @@ const Pois = ({ pois: allPois, userLocation, city, languageCode, pageTitle }: Po
     pois: allPois,
     params: { slug, multipoi, poiCategoryId, currentlyOpen: currentlyOpenFilter },
   })
-  const { pois, poi, poiCategories, poiCategory } = preparedData
-  const minToolbarItems = 3
-  const toolbarItemsWithTts = 4
-  const desktopMaxToolbarItems = poi ? toolbarItemsWithTts : minToolbarItems
+  const { pois, poiCategories, poiCategory } = preparedData
 
   const deselectAll = () => navigate(`.?${toQueryParams({ poiCategoryId })}`)
 
@@ -97,10 +92,6 @@ const Pois = ({ pois: allPois, userLocation, city, languageCode, pageTitle }: Po
       deselectAll()
     }
   }
-
-  const toolbar = (
-    <CityContentToolbar slug={poi?.slug} direction='row' pageTitle={pageTitle} maxItems={desktopMaxToolbarItems} />
-  )
 
   const FiltersModal = (
     <PoiFilters
@@ -146,7 +137,6 @@ const Pois = ({ pois: allPois, userLocation, city, languageCode, pageTitle }: Po
       ) : (
         <PoisDesktop
           {...sharedPoiProps}
-          toolbar={toolbar}
           cityModel={city}
           PanelContent={showFilterSelection ? FiltersModal : undefined}
         />
