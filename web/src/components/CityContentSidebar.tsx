@@ -83,7 +83,7 @@ const CityContentSidebar = ({ slug, category }: CityContentSidebarProps): ReactE
       open={open}
       Footer={<CityContentFooter city={cityCode} language={languageCode} mode='sidebar' />}>
       <Stack justifyContent='space-between' height='100%'>
-        <List Items={Items} />
+        <List items={Items} />
         {FeedbackCard}
       </Stack>
     </Sidebar>

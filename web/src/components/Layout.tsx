@@ -70,10 +70,6 @@ const Main = styled('main')<{ fullWidth: boolean }>`
   text-align: start;
   word-wrap: break-word;
 
-  & p {
-    margin: ${props => props.theme.legacy.fonts.standardParagraphMargin} 0;
-  }
-
   ${props => props.theme.breakpoints.down('md')} {
     position: static;
     width: 100%;
