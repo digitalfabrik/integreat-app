@@ -1,4 +1,4 @@
-import { DateTime, DateTimeFormatOptions, Duration, Info } from 'luxon'
+import { DateTime, DateTimeFormatOptions, Duration } from 'luxon'
 import { RRule as RRuleType, rrulestr } from 'rrule'
 
 import { formatDateICal } from '../../utils'
