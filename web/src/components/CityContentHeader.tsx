@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { cityContentPath, pathnameFromRouteInformation, SEARCH_ROUTE } from 'shared'
 import { CategoryModel, CityModel } from 'shared/api'
 
-import useWindowDimensions from '../hooks/useWindowDimensions'
+import useDimensions from '../hooks/useDimensions'
 import CityContentSidebar from './CityContentSidebar'
 import Header from './Header'
 import HeaderActionItem from './HeaderActionItem'
@@ -30,7 +30,7 @@ const CityContentHeader = ({
   const params = { cityCode: cityModel.code, languageCode }
   const categoriesPath = cityContentPath(params)
   const searchPath = pathnameFromRouteInformation({ route: SEARCH_ROUTE, ...params })
-  const { viewportSmall } = useWindowDimensions()
+  const { desktop, mobile } = useDimensions()
 
   const actionItems = [
     <HeaderActionItem key='search' to={searchPath} text={t('search')} icon={<SearchOutlinedIcon />} />,
@@ -39,7 +39,7 @@ const CityContentHeader = ({
       languageChangePaths={languageChangePaths}
       languageCode={languageCode}
     />,
-    viewportSmall ? <CityContentSidebar key='sidebar' category={category} /> : null,
+    mobile ? <CityContentSidebar key='sidebar' category={category} /> : null,
   ]
 
   return (
@@ -48,7 +48,7 @@ const CityContentHeader = ({
       actionItems={actionItems}
       cityName={cityModel.name}
       language={languageCode}
-      TabBar={!viewportSmall && <NavigationTabs cityModel={cityModel} languageCode={languageCode} />}
+      TabBar={desktop && <NavigationTabs cityModel={cityModel} languageCode={languageCode} />}
     />
   )
 }

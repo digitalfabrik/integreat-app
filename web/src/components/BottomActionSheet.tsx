@@ -4,8 +4,7 @@ import { BottomSheet, BottomSheetRef } from 'react-spring-bottom-sheet'
 import 'react-spring-bottom-sheet/dist/style.css'
 import { SpringEvent } from 'react-spring-bottom-sheet/dist/types'
 
-import useWindowDimensions from '../hooks/useWindowDimensions'
-import { getSnapPoints } from '../utils/getSnapPoints'
+import useDimensions from '../hooks/useDimensions'
 import { RichLayout } from './Layout'
 
 const Title = styled('h1')`
@@ -13,22 +12,22 @@ const Title = styled('h1')`
   font-family: ${props => props.theme.legacy.fonts.web.contentFont};
 `
 
-const StyledBottomSheet = styled(BottomSheet)<{ bottomOffset: number }>`
+const StyledBottomSheet = styled(BottomSheet)`
   direction: ${props => props.theme.contentDirection};
 
   /* Position bottom sheet above content */
   z-index: 2;
 
   [data-rsbs-scroll] {
-    margin-bottom: ${props => props.bottomOffset}px;
+    margin-bottom: ${props => props.theme.dimensions.bottomNavigationHeight ?? 0}px;
   }
 `
 
-const StyledLayout = styled(RichLayout)<{ bottomOffset: number }>`
+const StyledLayout = styled(RichLayout)`
   justify-content: flex-start;
   width: 100%;
   min-height: unset;
-  padding-bottom: ${props => props.bottomOffset}px;
+  padding-bottom: ${props => props.theme.dimensions.ttsPlayerHeight}px;
 `
 
 export type ScrollableBottomSheetRef = {
@@ -52,7 +51,7 @@ const BottomActionSheet = ({
   ref,
 }: BottomActionSheetProps): ReactElement => {
   const [scrollElement, setScrollElement] = useState<HTMLElement | null>(null)
-  const dimensions = useWindowDimensions()
+  const dimensions = useDimensions()
   const bottomSheetRef = useRef<BottomSheetRef>(null)
   useImperativeHandle(
     ref,
@@ -79,12 +78,9 @@ const BottomActionSheet = ({
       onSpringStart={initializeScrollElement}
       onSpringEnd={() => setBottomActionSheetHeight(bottomSheetRef.current?.height ?? 0)}
       header={title ? <Title>{title}</Title> : null}
-      snapPoints={() => getSnapPoints(dimensions)}
-      // snapPoints have been supplied in the previous line
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      defaultSnap={({ snapPoints }) => snapPoints[1]!}
-      bottomOffset={dimensions.bottomNavigationHeight ?? 0}>
-      <StyledLayout bottomOffset={dimensions.ttsPlayerHeight}>{children}</StyledLayout>
+      snapPoints={() => dimensions.bottomSheet.snapPoints.all}
+      defaultSnap={() => dimensions.bottomSheet.snapPoints.medium}>
+      <StyledLayout>{children}</StyledLayout>
     </StyledBottomSheet>
   )
 }

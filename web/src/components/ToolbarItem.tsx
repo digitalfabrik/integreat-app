@@ -6,14 +6,13 @@ import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
-import dimensions from '../constants/dimensions'
-import useWindowDimensions from '../hooks/useWindowDimensions'
+import useDimensions from '../hooks/useDimensions'
 import Link from './base/Link'
 
 const StyledButton = styled(ListItemButton)({
   flexDirection: 'column',
   padding: 8,
-  width: dimensions.toolbarWidth,
+  width: 120,
 }) as typeof ListItemButton
 
 export type ToolbarItemProps = {
@@ -24,8 +23,8 @@ export type ToolbarItemProps = {
 } & ({ to: string; onClick?: never } | { to?: never; onClick: () => void })
 
 const ToolbarItem = ({ to, text, icon, disabled = false, tooltip, onClick }: ToolbarItemProps): ReactElement => {
-  const { viewportSmall } = useWindowDimensions()
-  const tooltipPlacement = viewportSmall ? 'top' : 'right'
+  const { mobile } = useDimensions()
+  const tooltipPlacement = mobile ? 'top' : 'right'
 
   return (
     <Tooltip title={tooltip} placement={tooltipPlacement}>

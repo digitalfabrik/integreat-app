@@ -3,8 +3,7 @@ import Stack from '@mui/material/Stack'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode } from 'react'
 
-import dimensions from '../constants/dimensions'
-import useWindowDimensions from '../hooks/useWindowDimensions'
+import useDimensions from '../hooks/useDimensions'
 import { MobileBanner } from './MobileBanner'
 
 export const LAYOUT_ELEMENT_ID = 'layout'
@@ -62,12 +61,11 @@ const Body = styled('div')<{ fitScreen: boolean }>`
 
 const Main = styled('main')<{ fitScreen: boolean }>`
   display: inline-block;
-  width: ${props =>
-    props.fitScreen ? '100%' : `${props.theme.breakpoints.values.lg - 2 * dimensions.toolbarWidth}px`};
-  max-width: ${props => (props.fitScreen ? '100%' : `calc(100% - 2 * ${dimensions.toolbarWidth}px)`)};
+  width: ${props => (props.fitScreen ? '100%' : `calc(${props.theme.breakpoints.values.lg}px - 240px)`)};
+  max-width: ${props => (props.fitScreen ? '100%' : `calc(100% - 240px)`)};
   box-sizing: border-box;
   margin: 0 auto;
-  padding: ${props => (props.fitScreen ? '0' : `0 ${dimensions.mainContainerHorizontalPadding}px 32px`)};
+  padding: ${props => (props.fitScreen ? '0' : `0 16px 32px`)};
   text-align: start;
   word-wrap: break-word;
 
@@ -106,9 +104,9 @@ type LayoutProps = {
 }
 
 const Layout = ({ footer, header, toolbar, children, fitScreen = false }: LayoutProps): ReactElement => {
-  const { ttsPlayerHeight, bottomNavigationHeight } = useWindowDimensions()
-  const chatButtonSpace = 16
-  const extraBottomSpace = ttsPlayerHeight + (bottomNavigationHeight ?? 0) + chatButtonSpace
+  const { ttsPlayerHeight, bottomNavigationHeight } = useDimensions()
+  const extraChatButtonPadding = 16
+  const extraBottomSpace = ttsPlayerHeight + (bottomNavigationHeight ?? 0) + extraChatButtonPadding
 
   return (
     <RichLayout id={LAYOUT_ELEMENT_ID}>

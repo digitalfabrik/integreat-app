@@ -24,9 +24,8 @@ import {
 } from 'shared'
 
 import { clusterCountLayer, clusterLayer, clusterProperties, markerLayer } from '../constants/layers'
-import useWindowDimensions from '../hooks/useWindowDimensions'
+import useDimensions from '../hooks/useDimensions'
 import '../styles/MapView.css'
-import { getSnapPoints } from '../utils/getSnapPoints'
 import { reportError } from '../utils/sentry'
 import MapAttribution from './MapAttribution'
 
@@ -51,7 +50,7 @@ type MapViewProps = {
   features: MapFeature[]
   currentFeature: MapFeature | null
   selectFeature: (feature: MapFeature | null, restoreScrollPosition: boolean) => void
-  changeSnapPoint?: (snapPoint: number) => void
+  snapBottomSheetTo?: (height: number) => void
   children?: ReactNode
   viewport?: MapViewViewport
   setViewport: (mapViewport: MapViewViewport) => void
@@ -68,7 +67,7 @@ export type MapViewRef = {
 const MapView = ({
   features,
   selectFeature,
-  changeSnapPoint,
+  snapBottomSheetTo,
   currentFeature,
   viewport,
   setViewport,
@@ -80,7 +79,7 @@ const MapView = ({
   const [mapRef, setMapRef] = useState<maplibregl.Map | null>(null)
   const theme = useTheme()
 
-  const dimensions = useWindowDimensions()
+  const dimensions = useDimensions()
 
   useEffect(() => {
     if (maplibregl.getRTLTextPluginStatus() === 'unavailable') {
@@ -168,7 +167,12 @@ const MapView = ({
       mapRef.flyTo({
         center: [longitude, latitude],
         zoom: closerDetailZoom,
-        padding: { bottom: dimensions.viewportSmall ? getSnapPoints(dimensions)[1] : 0, top: 0, left: 0, right: 0 },
+        padding: {
+          bottom: dimensions.mobile ? dimensions.bottomSheet.snapPoints.medium : 0,
+          top: 0,
+          left: 0,
+          right: 0,
+        },
       })
     }
   }, [currentFeature?.geometry.coordinates, dimensions, mapRef])
@@ -194,7 +198,7 @@ const MapView = ({
         maxZoom={viewport?.maxZoom}
         mapStyle={mapConfig.styleJSON}
         onClick={onSelectFeature}
-        onTouchMove={() => (changeSnapPoint ? changeSnapPoint(0) : null)}
+        onTouchMove={() => (snapBottomSheetTo ? snapBottomSheetTo(dimensions.bottomSheet.snapPoints.min) : null)}
         attributionControl={false}>
         <OverlayContainer>{Overlay}</OverlayContainer>
         {children}
@@ -209,7 +213,7 @@ const MapView = ({
           <Layer {...clusterCountLayer} />
           <Layer {...markerLayer(currentFeature)} />
         </Source>
-        <MapAttribution initialExpanded={!dimensions.viewportSmall} />
+        <MapAttribution initialExpanded={dimensions.desktop} />
       </Map>
     </MapContainer>
   )

@@ -5,7 +5,7 @@ import { CategoryModel, CityModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
 import useCityContentParams from '../hooks/useCityContentParams'
-import useWindowDimensions from '../hooks/useWindowDimensions'
+import useDimensions from '../hooks/useDimensions'
 import BottomNavigation from './BottomNavigation'
 import ChatContainer from './ChatContainer'
 import CityContentFooter from './CityContentFooter'
@@ -35,9 +35,9 @@ const CityContentLayout = ({
 }: CityContentLayoutProps): ReactElement => {
   const { route } = useCityContentParams()
   const [layoutReady, setLayoutReady] = useState(!isLoading)
-  const { viewportSmall } = useWindowDimensions()
+  const { desktop, mobile } = useDimensions()
   const isChatEnabled = buildConfig().featureFlags.chat && route !== POIS_ROUTE && city.chatEnabled
-  const footerVisible = !isLoading && !viewportSmall && !fitScreen
+  const footerVisible = !isLoading && desktop && !fitScreen
   const chatVisible = isChatEnabled && layoutReady
 
   // Avoid flickering due to content (chat) being pushed up by the footer
@@ -58,10 +58,10 @@ const CityContentLayout = ({
         <>
           {footerVisible && <CityContentFooter city={city.code} language={languageCode} />}
           {chatVisible && <ChatContainer city={city} language={languageCode} />}
-          {viewportSmall && <BottomNavigation cityModel={city} languageCode={languageCode} />}
+          {mobile && <BottomNavigation cityModel={city} languageCode={languageCode} />}
         </>
       }
-      toolbar={viewportSmall ? null : Toolbar}>
+      toolbar={desktop ? Toolbar : null}>
       {children}
     </Layout>
   )

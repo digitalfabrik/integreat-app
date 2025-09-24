@@ -3,9 +3,9 @@ import FocusTrap from 'focus-trap-react'
 import React, { CSSProperties, ReactElement, ReactNode, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import useDimensions from '../hooks/useDimensions'
 import useLockedBody from '../hooks/useLockedBody'
 import useScrollToTop from '../hooks/useScrollToTop'
-import useWindowDimensions from '../hooks/useWindowDimensions'
 import { LAYOUT_ELEMENT_ID, RichLayout } from './Layout'
 import ModalContent from './ModalContent'
 import Portal from './Portal'
@@ -54,7 +54,7 @@ type ModalProps = {
 }
 
 const Modal = ({ title, icon, contentStyle, closeModal, children, wrapInPortal = false }: ModalProps): ReactElement => {
-  const { viewportSmall } = useWindowDimensions()
+  const { mobile } = useDimensions()
   const { t } = useTranslation('common')
   useScrollToTop()
   useLockedBody(true)
@@ -76,7 +76,7 @@ const Modal = ({ title, icon, contentStyle, closeModal, children, wrapInPortal =
           <div />
         </Overlay>
         <ModalContentContainer>
-          <ModalContent title={title} style={contentStyle} icon={icon} closeModal={closeModal} small={viewportSmall}>
+          <ModalContent title={title} style={contentStyle} icon={icon} closeModal={closeModal} small={mobile}>
             {children}
           </ModalContent>
         </ModalContentContainer>
