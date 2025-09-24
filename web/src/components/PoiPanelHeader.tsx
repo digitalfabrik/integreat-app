@@ -12,16 +12,16 @@ type PoiPanelHeaderProps = {
 }
 
 const PoiPanelHeader = ({ goBack }: PoiPanelHeaderProps): ReactElement => {
-  const { t } = useTranslation('pois')
+  const { t } = useTranslation('common')
   return (
     <Stack direction='row' justifyContent='space-between'>
       {goBack ? (
-        <IconButton onClick={goBack} tabIndex={0} aria-label={t('detailsHeader')}>
+        <IconButton onClick={goBack} tabIndex={0} aria-label={t('backToOverview')}>
           <ArrowBackIcon />
         </IconButton>
       ) : (
         <Typography component='h1' variant='title2' alignContent='center'>
-          {t('listTitle')}
+          {t('nearby')}
         </Typography>
       )}
       <CityContentSidebar />

@@ -1275,7 +1275,8 @@
       "accessible": "Barrierefrei",
       "notAccessible": "Nicht barrierefrei",
       "clearInput": "Eingabe löschen",
-      "more": "Mehr"
+      "more": "Mehr",
+      "nearby": "In deiner Nähe"
     },
     "am": {
       "copied": "ተቀድቷል",
@@ -1291,7 +1292,8 @@
       "back": "ወደኋላ ተመለስ",
       "ok": "እሺ",
       "minimize": "ማሳነስ",
-      "privacyPolicy": "<1>የግላዊነት ፖሊሲ</1>ን አንብቤያለሁ እና ውሂቤን ለማስኬድ እና ለማከማቸት ተስማምቻለሁ።"
+      "privacyPolicy": "<1>የግላዊነት ፖሊሲ</1>ን አንብቤያለሁ እና ውሂቤን ለማስኬድ እና ለማከማቸት ተስማምቻለሁ።",
+      "nearby": "በኣጠገብህ"
     },
     "ar": {
       "copied": "تم النسخ",
@@ -1307,7 +1309,8 @@
       "back": "تراجع",
       "ok": "موافق",
       "minimize": "تصغير",
-      "privacyPolicy": "لقد قرأت <1>سياسة الخصوصية</1> وأوافق على معالجة بياناتي وتخزينها."
+      "privacyPolicy": "لقد قرأت <1>سياسة الخصوصية</1> وأوافق على معالجة بياناتي وتخزينها.",
+      "nearby": "في منطقتك"
     },
     "bg": {
       "copied": "Копиран",
@@ -1323,7 +1326,8 @@
       "back": "Обратно",
       "ok": "Добре",
       "minimize": "Минимизиране",
-      "privacyPolicy": "Прочетох <1>политиката за поверителност</1> и се съгласявам с обработката и съхранението на моите данни."
+      "privacyPolicy": "Прочетох <1>политиката за поверителност</1> и се съгласявам с обработката и съхранението на моите данни.",
+      "nearby": "В близост до теб"
     },
     "ckb": {
       "copied": "کۆپی کرا",
@@ -1339,7 +1343,8 @@
       "back": "گەڕانەوە",
       "ok": "پەسەندکردن",
       "minimize": "بچووککردنەوە",
-      "privacyPolicy": "من <1> بەیاننامەی نهێنی پارێزی</1>م خوێندووەتەوە و ڕازیم بە پرۆسەکردن و خەزنکردنی زانیارییەکانم."
+      "privacyPolicy": "من <1> بەیاننامەی نهێنی پارێزی</1>م خوێندووەتەوە و ڕازیم بە پرۆسەکردن و خەزنکردنی زانیارییەکانم.",
+      "nearby": "لە نزیک تۆ"
     },
     "cs": {
       "copied": "Kopírovat",
@@ -1355,7 +1360,8 @@
       "back": "Zpět",
       "ok": "OK",
       "minimize": "Minimalizovat",
-      "privacyPolicy": "Přečetl/a jsem si <1>zásady ochrany osobních údajů</1> a souhlasím se zpracováním a uchováváním svých údajů."
+      "privacyPolicy": "Přečetl/a jsem si <1>zásady ochrany osobních údajů</1> a souhlasím se zpracováním a uchováváním svých údajů.",
+      "nearby": "Ve vašem okolí"
     },
     "da": {
       "copied": "Kopieret",
@@ -1371,7 +1377,8 @@
       "back": "Tilbage",
       "ok": "Ok",
       "minimize": "Minimer",
-      "privacyPolicy": "Jeg har læst <1>Privatlivspolitikken</1> og giver samtykke til behandling og opbevaring af mine data."
+      "privacyPolicy": "Jeg har læst <1>Privatlivspolitikken</1> og giver samtykke til behandling og opbevaring af mine data.",
+      "nearby": "I dit nabolag"
     },
     "el": {
       "copied": "Αντιγράφηκε",
@@ -1387,7 +1394,8 @@
       "back": "Πίσω",
       "ok": "Εντάξει",
       "minimize": "Ελαχιστοποίηση",
-      "privacyPolicy": "Έχω διαβάσει την <1>Πολιτική απορρήτου</1> και συναινώ στην επεξεργασία και αποθήκευση των δεδομένων μου."
+      "privacyPolicy": "Έχω διαβάσει την <1>Πολιτική απορρήτου</1> και συναινώ στην επεξεργασία και αποθήκευση των δεδομένων μου.",
+      "nearby": "Κοντά σε εσάς"
     },
     "en": {
       "copied": "Copied",
@@ -1408,7 +1416,8 @@
       "accessible": "Accessible",
       "notAccessible": "Not accessible",
       "clearInput": "Clear input",
-      "more": "More"
+      "more": "More",
+      "nearby": "Near you"
     },
     "es": {
       "copied": "Copiado",
@@ -1424,7 +1433,8 @@
       "back": "Atrás",
       "ok": "OK",
       "minimize": "Minimizar",
-      "privacyPolicy": "He leído la <1>Política de privacidad</1> y consiento el tratamiento y almacenamiento de mis datos."
+      "privacyPolicy": "He leído la <1>Política de privacidad</1> y consiento el tratamiento y almacenamiento de mis datos.",
+      "nearby": "En tu proximidad"
     },
     "fi": {
       "copied": "Kopioitu",
@@ -1440,7 +1450,8 @@
       "back": "Takaisin",
       "ok": "OK",
       "minimize": "Pienennä",
-      "privacyPolicy": "Olen lukenut <1>tietosuojakäytännön</1> ja annan suostumukseni tietojeni käsittelyyn ja säilytykseen."
+      "privacyPolicy": "Olen lukenut <1>tietosuojakäytännön</1> ja annan suostumukseni tietojeni käsittelyyn ja säilytykseen.",
+      "nearby": "Lähellä"
     },
     "fr": {
       "copied": "Copié",
@@ -1456,7 +1467,8 @@
       "back": "Retour",
       "ok": "Ok",
       "minimize": "Réduire",
-      "privacyPolicy": "J’ai lu la <1>Politique de confidentialité</1> et j’accepte le traitement et le stockage de mes données."
+      "privacyPolicy": "J’ai lu la <1>Politique de confidentialité</1> et j’accepte le traitement et le stockage de mes données.",
+      "nearby": "Près de chez toi"
     },
     "hi": {
       "copied": "कॉपी किया गया",
@@ -1472,7 +1484,8 @@
       "back": "वापस",
       "ok": "ठीक",
       "minimize": "मिनीमाइज़",
-      "privacyPolicy": "मैंने <1>गोपनीयता नीति</1> पढ़ ली है, और मैं अपनी जानकारी की प्रोसेसिंग और स्टोरेज के लिए सहमत हूँ।"
+      "privacyPolicy": "मैंने <1>गोपनीयता नीति</1> पढ़ ली है, और मैं अपनी जानकारी की प्रोसेसिंग और स्टोरेज के लिए सहमत हूँ।",
+      "nearby": "आपके आस-पास"
     },
     "hr": {
       "copied": "kopirano",
@@ -1488,7 +1501,8 @@
       "back": "Natrag",
       "ok": "U redu",
       "minimize": "Minimiziraj",
-      "privacyPolicy": "Pročitao/la sam <1>Izjavu o zaštiti podataka</1> i saglasan/na sam sa obradom i pohranom mojih podataka."
+      "privacyPolicy": "Pročitao/la sam <1>Izjavu o zaštiti podataka</1> i saglasan/na sam sa obradom i pohranom mojih podataka.",
+      "nearby": "Blizu tebe"
     },
     "hu": {
       "copied": "Bemásolva",
@@ -1504,7 +1518,8 @@
       "back": "Vissza",
       "ok": "Rendben",
       "minimize": "Minimalizál",
-      "privacyPolicy": "Elolvastam a <1>adatvédelmi szabályzatot</1> és hozzájárulok az adataim feldolgozásához és tárolásához."
+      "privacyPolicy": "Elolvastam a <1>adatvédelmi szabályzatot</1> és hozzájárulok az adataim feldolgozásához és tárolásához.",
+      "nearby": "A közelben"
     },
     "id": {
       "copied": "Disalin",
@@ -1523,7 +1538,8 @@
       "privacyPolicy": "Saya telah membaca <1>kebijakan privasi</1> dan setuju untuk memproses dan menyimpan data saya.",
       "accessible": "Dapat diakses",
       "notAccessible": "Tidak dapat diakses",
-      "clearInput": "Hapus input"
+      "clearInput": "Hapus input",
+      "nearby": "Di dekat Anda"
     },
     "it": {
       "copied": "Copiato",
@@ -1539,7 +1555,8 @@
       "back": "Indietro",
       "ok": "OK",
       "minimize": "Ridurre al minimo",
-      "privacyPolicy": "Ho letto l'<1>informativa sulla privacy</1> e acconsento al trattamento e alla conservazione dei miei dati."
+      "privacyPolicy": "Ho letto l'<1>informativa sulla privacy</1> e acconsento al trattamento e alla conservazione dei miei dati.",
+      "nearby": "Nelle vicinanze"
     },
     "ka": {
       "copied": "დაკოპირებულია",
@@ -1555,7 +1572,8 @@
       "back": "უკან",
       "ok": "კარგი",
       "minimize": "ჩაკეცვა",
-      "privacyPolicy": "წავიკითხე <1>კონფიდენციალურობის პოლიტიკა</1> და თანხმობას ვაცხადებ ჩემი მონაცემების დამუშავებასა და შენახვაზე."
+      "privacyPolicy": "წავიკითხე <1>კონფიდენციალურობის პოლიტიკა</1> და თანხმობას ვაცხადებ ჩემი მონაცემების დამუშავებასა და შენახვაზე.",
+      "nearby": "შენს სიახლოვეს"
     },
     "kmr": {
       "copied": "Kopî bû",
@@ -1571,7 +1589,8 @@
       "back": "Vegeriyan",
       "ok": "Piştrastkirin",
       "minimize": "Kêmînekirin",
-      "privacyPolicy": "Min <1>Daxuyaniya parastina daneyan</1> xwend û pêvajokirin û hilgirtina daneyên xwe dipejirînim."
+      "privacyPolicy": "Min <1>Daxuyaniya parastina daneyan</1> xwend û pêvajokirin û hilgirtina daneyên xwe dipejirînim.",
+      "nearby": "Li nêzikî te"
     },
     "mk": {
       "copied": "Копирано",
@@ -1587,7 +1606,8 @@
       "back": "Назад",
       "ok": "Во ред",
       "minimize": "Минимизирај",
-      "privacyPolicy": "Ја прочитав <1>Политиката за приватност</1> и се согласувам со обработката и складирањето на моите податоци."
+      "privacyPolicy": "Ја прочитав <1>Политиката за приватност</1> и се согласувам со обработката и складирањето на моите податоци.",
+      "nearby": "Во твоја близина"
     },
     "nl": {
       "copied": "Gekopieerd",
@@ -1603,7 +1623,8 @@
       "back": "Terug",
       "ok": "OK",
       "minimize": "Minimaliseren",
-      "privacyPolicy": "Ik heb het <1>privacybeleid</1> gelezen en ga akkoord met de verwerking en opslag van mijn gegevens."
+      "privacyPolicy": "Ik heb het <1>privacybeleid</1> gelezen en ga akkoord met de verwerking en opslag van mijn gegevens.",
+      "nearby": "Vlakbij jou"
     },
     "orm": {
       "copied": "Koppii taeera",
@@ -1619,7 +1640,8 @@
       "back": "Duubatti",
       "ok": "Tole",
       "minimize": "Xiqqeessi",
-      "privacyPolicy": "<1>privacy policy</1> dubbisee odeeffannoon kiyya akka xinxaalamuufi olkaa’amuuf itti walii galeera."
+      "privacyPolicy": "<1>privacy policy</1> dubbisee odeeffannoon kiyya akka xinxaalamuufi olkaa’amuuf itti walii galeera.",
+      "nearby": "Kan sitti dhihoo"
     },
     "pes": {
       "copied": "کپی شد",
@@ -1635,7 +1657,8 @@
       "back": "بازگشت",
       "ok": "اوکی",
       "minimize": "کوچک کردن",
-      "privacyPolicy": "اینجانب <1>بیانیه حفظ حریم خصوصی</1> را خوانده‌ام و با پردازش و ذخیره داده‌های خود موافق هستم."
+      "privacyPolicy": "اینجانب <1>بیانیه حفظ حریم خصوصی</1> را خوانده‌ام و با پردازش و ذخیره داده‌های خود موافق هستم.",
+      "nearby": "در نزدیکی تو"
     },
     "pl": {
       "copied": "Skopiowano",
@@ -1651,7 +1674,8 @@
       "back": "Powrót",
       "ok": "Ok",
       "minimize": "Zminimalizuj",
-      "privacyPolicy": "Potwierdzam zapoznanie się z <1>polityką prywatności</1> i wyrażam zgodę na przetwarzanie i przechowywanie moich danych."
+      "privacyPolicy": "Potwierdzam zapoznanie się z <1>polityką prywatności</1> i wyrażam zgodę na przetwarzanie i przechowywanie moich danych.",
+      "nearby": "W pobliżu"
     },
     "prs": {
       "copied": "کپی شد",
@@ -1667,7 +1691,8 @@
       "back": "بازگشت",
       "ok": "درست است",
       "minimize": "به حداقل رساندن",
-      "privacyPolicy": "اينجانب <1>پالیسی حفظ حریم خصوصی</1> را خوانده ام و با پروسس و ذخیره معلوماتم موافق هستم."
+      "privacyPolicy": "اينجانب <1>پالیسی حفظ حریم خصوصی</1> را خوانده ام و با پروسس و ذخیره معلوماتم موافق هستم.",
+      "nearby": "در نزدیکی تو"
     },
     "ps": {
       "copied": "کاپی شولو",
@@ -1683,7 +1708,8 @@
       "back": "بيرته ګرځېدل",
       "ok": "سمه ده",
       "minimize": "راکموي",
-      "privacyPolicy": "ما د <1>محرمیت تګلاره</1> لوستلې ده او د خپلو معلوماتو پروسس او ذخیره کولو سره موافقه کوم."
+      "privacyPolicy": "ما د <1>محرمیت تګلاره</1> لوستلې ده او د خپلو معلوماتو پروسس او ذخیره کولو سره موافقه کوم.",
+      "nearby": "تا ته نیږدی"
     },
     "pt": {
       "copied": "Copiado",
@@ -1699,7 +1725,8 @@
       "back": "Voltar",
       "ok": "Está bem",
       "minimize": "Minimizar",
-      "privacyPolicy": "Li a <1>política de privacidade</1> e concordo com o processamento e armazenamento dos meus dados."
+      "privacyPolicy": "Li a <1>política de privacidade</1> e concordo com o processamento e armazenamento dos meus dados.",
+      "nearby": "Nas tuas imediações"
     },
     "ro": {
       "copied": "Copiat",
@@ -1715,7 +1742,8 @@
       "back": "Înapoi",
       "ok": "Bine",
       "minimize": "Minimizare",
-      "privacyPolicy": "Am citit <1>Politica de confidențialitate</1> și sunt de acord cu prelucrarea și stocarea datelor mele."
+      "privacyPolicy": "Am citit <1>Politica de confidențialitate</1> și sunt de acord cu prelucrarea și stocarea datelor mele.",
+      "nearby": "În apropierea ta"
     },
     "rom": {
       "copied": "Kopirimo",
@@ -1731,7 +1759,8 @@
       "back": "Palal",
       "ok": "Ok",
       "minimize": "Tiknjarel",
-      "privacyPolicy": "Me <1>Datenschutzerklärung</1> drabargjum thaj soglasinava man e procesiribaja thaj o khedibe mire podatkongoro."
+      "privacyPolicy": "Me <1>Datenschutzerklärung</1> drabargjum thaj soglasinava man e procesiribaja thaj o khedibe mire podatkongoro.",
+      "nearby": "Paše tute"
     },
     "ru": {
       "copied": "Скопировано",
@@ -1748,7 +1777,8 @@
       "ok": "Ок",
       "minimize": "Минимизировать",
       "privacyPolicy": "Я прочитал(-а) <1>Политику конфиденциальности</1> и даю согласие на обработку и хранение моих данных.",
-      "notePrivacyPolicy": "Пожалуйста, согласитесь с политикой конфиденциальности, чтобы отправить форму."
+      "notePrivacyPolicy": "Пожалуйста, согласитесь с политикой конфиденциальности, чтобы отправить форму.",
+      "nearby": "Рядом с тобой"
     },
     "sk": {
       "copied": "Skopírované",
@@ -1764,7 +1794,8 @@
       "back": "Späť",
       "ok": "Ok",
       "minimize": "Minimalizovať",
-      "privacyPolicy": "Prečítal/a som si <1>Vyhlásenie o ochrane osobných údajov</1> a súhlasím so spracovaním a ukladaním mojich údajov."
+      "privacyPolicy": "Prečítal/a som si <1>Vyhlásenie o ochrane osobných údajov</1> a súhlasím so spracovaním a ukladaním mojich údajov.",
+      "nearby": "Vo vašej blízkosti"
     },
     "so": {
       "copied": "la koobiyeeyay",
@@ -1780,7 +1811,8 @@
       "back": "Dib u noqo",
       "ok": "Haye",
       "minimize": "Yareyn",
-      "privacyPolicy": "Waxaan akhriyay <1>Bayaanka Qarsoodiga Xogta</1> waxaana oggolahay in xogtayda la farsameeyo oo la kaydiyo."
+      "privacyPolicy": "Waxaan akhriyay <1>Bayaanka Qarsoodiga Xogta</1> waxaana oggolahay in xogtayda la farsameeyo oo la kaydiyo.",
+      "nearby": "Kugu dhow"
     },
     "sq": {
       "copied": "e kopjuar",
@@ -1796,7 +1828,8 @@
       "back": "Kthehu",
       "ok": "Në rregull",
       "minimize": "Minimizo",
-      "privacyPolicy": "E kam lexuar <1>deklaratën e mbrojtjes së të dhënave</1> dhe jam dakord me përpunimin dhe ruajtjen e të dhënave të mia."
+      "privacyPolicy": "E kam lexuar <1>deklaratën e mbrojtjes së të dhënave</1> dhe jam dakord me përpunimin dhe ruajtjen e të dhënave të mia.",
+      "nearby": "Në afërsin tuaj"
     },
     "sr-Cyrl": {
       "copied": "копирано",
@@ -1812,7 +1845,8 @@
       "back": "Назад",
       "ok": "У реду",
       "minimize": "Минимизуј",
-      "privacyPolicy": "Прочитао/ла сам <1>Изјаву о заштити података</1> и сагласан/на сам са обрадом и чувањем мојих података."
+      "privacyPolicy": "Прочитао/ла сам <1>Изјаву о заштити података</1> и сагласан/на сам са обрадом и чувањем мојих података.",
+      "nearby": "У вашој близини"
     },
     "sr-Latn": {
       "copied": "kopirano",
@@ -1828,7 +1862,8 @@
       "back": "Nazad",
       "ok": "U redu",
       "minimize": "Minimizuj",
-      "privacyPolicy": "Pročitao/la sam <1>Izjavu o zaštiti podataka</1> i saglasan/na sam sa obradom i čuvanjem mojih podataka."
+      "privacyPolicy": "Pročitao/la sam <1>Izjavu o zaštiti podataka</1> i saglasan/na sam sa obradom i čuvanjem mojih podataka.",
+      "nearby": "U vašoj blizini"
     },
     "sw": {
       "copied": "Yamenakiliwa",
@@ -1844,7 +1879,8 @@
       "back": "Nyuma",
       "ok": "Sawa",
       "minimize": "Punguza",
-      "privacyPolicy": "Nimesoma <1>sera ya faragha</1> na ninakubali kutumiwa na kuhifadhiwa kwa data yangu."
+      "privacyPolicy": "Nimesoma <1>sera ya faragha</1> na ninakubali kutumiwa na kuhifadhiwa kwa data yangu.",
+      "nearby": "Karibu nawe"
     },
     "th": {
       "copied": "คัดลอกแล้ว",
@@ -1860,7 +1896,8 @@
       "back": "ย้อนกลับ",
       "ok": "ตกลง",
       "minimize": "ย่อขนาด",
-      "privacyPolicy": "ฉันได้อ่าน<1>นโยบายความเป็นส่วนตัว</1>แล้วและยอมรับการประมวลผลและจัดเก็บข้อมูลของฉัน"
+      "privacyPolicy": "ฉันได้อ่าน<1>นโยบายความเป็นส่วนตัว</1>แล้วและยอมรับการประมวลผลและจัดเก็บข้อมูลของฉัน",
+      "nearby": "ใกล้ตัวคุณ"
     },
     "ti": {
       "copied": "ተቐዲሑ",
@@ -1876,7 +1913,8 @@
       "back": "ዝባን",
       "ok": "እሺ",
       "minimize": "ምጉዳል",
-      "privacyPolicy": "<1>ናይ ውልቀ ፖሊሲ</1> ኣንቢበ ኣብ መስርሕን ምኽዛንን ሓበሬታይ ተሰማሚዐ ኣለኹ።"
+      "privacyPolicy": "<1>ናይ ውልቀ ፖሊሲ</1> ኣንቢበ ኣብ መስርሕን ምኽዛንን ሓበሬታይ ተሰማሚዐ ኣለኹ።",
+      "nearby": "ኣብ ጥቓኻ"
     },
     "tr": {
       "copied": "kopyalandı",
@@ -1892,7 +1930,8 @@
       "back": "Geri",
       "ok": "Tamam",
       "minimize": "Simge durumuna küçült",
-      "privacyPolicy": "<1>Gizlilik Politikasını</1> okudum, verilerimin işlenmesini ve saklanmasını onaylıyorum."
+      "privacyPolicy": "<1>Gizlilik Politikasını</1> okudum, verilerimin işlenmesini ve saklanmasını onaylıyorum.",
+      "nearby": "Yakınında"
     },
     "uk": {
       "copied": "Копіювати",
@@ -1908,7 +1947,8 @@
       "back": "Назад",
       "ok": "Гаразд",
       "minimize": "Звести до мінімуму",
-      "privacyPolicy": "Я прочитав(-ла) <1>Політику конфіденційності</1> і даю згоду на обробку та зберігання моїх даних."
+      "privacyPolicy": "Я прочитав(-ла) <1>Політику конфіденційності</1> і даю згоду на обробку та зберігання моїх даних.",
+      "nearby": "З вами поблизу"
     },
     "ur": {
       "copied": "کاپی کیا گیا",
@@ -1924,7 +1964,8 @@
       "back": "واپسی",
       "ok": "ٹھیک ہے",
       "minimize": "کم سے کم کرنا",
-      "privacyPolicy": "میں نے <1>رازداری کی پالیسی</1> کو پڑھ لیا/پڑی ہے اور اپنے ڈیٹا کی پروسیسنگ اور اسٹوریج سے اتفاق کرتا/کرتی ہوں۔"
+      "privacyPolicy": "میں نے <1>رازداری کی پالیسی</1> کو پڑھ لیا/پڑی ہے اور اپنے ڈیٹا کی پروسیسنگ اور اسٹوریج سے اتفاق کرتا/کرتی ہوں۔",
+      "nearby": "آپ کے قریب"
     },
     "vi": {
       "copied": "Đã sao chép",
@@ -1940,7 +1981,8 @@
       "back": "Quay lại",
       "ok": "Ok",
       "minimize": "Thu nhỏ",
-      "privacyPolicy": "Tôi đã đọc <1>chính sách quyền riêng tư</1> và đồng ý với việc xử lý và lưu trữ dữ liệu của tôi."
+      "privacyPolicy": "Tôi đã đọc <1>chính sách quyền riêng tư</1> và đồng ý với việc xử lý và lưu trữ dữ liệu của tôi.",
+      "nearby": "Gần bạn"
     },
     "zh-CN": {
       "copied": "已复制",
@@ -1956,7 +1998,8 @@
       "back": "返回",
       "ok": "确认",
       "minimize": "最小化",
-      "privacyPolicy": "我已阅读<1>隐私政策</1>，并同意处理和存储我的数据。"
+      "privacyPolicy": "我已阅读<1>隐私政策</1>，并同意处理和存储我的数据。",
+      "nearby": "在你附近"
     }
   },
   "consent": {
@@ -11696,8 +11739,7 @@
       "phoneCopied": "Telefonnummer in Zwischenablage kopiert",
       "eMailCopied": "E-Mail-Adresse in Zwischenablage kopiert",
       "websiteCopied": "Webseite in Zwischenablage kopiert",
-      "listTitle": "In deiner Nähe",
-      "detailsHeader": "zurück zur Übersicht",
+      "backToOverview": "zurück zur Übersicht",
       "detailsAddress": "Wegbeschreibung",
       "detailsMapLink": "In Google Maps öffnen",
       "detailsInformation": "Informationen",
@@ -11767,8 +11809,7 @@
       "phoneCopied": "የተሌፎን ቁጥር በማቆያ ማሕደር ተቀድቷል",
       "eMailCopied": "ኢ-ሜይል ኣድራሻ በማቆያ ማሕደር ተቀድቷል",
       "websiteCopied": "የድረ ገጽ ጣቢያ በማቆያ ማሕደር ተቀድቷል",
-      "listTitle": "በኣጠገብህ",
-      "detailsHeader": "ወደ መጀመሪያ ገጽ ይመለስ",
+      "backToOverview": "ወደ መጀመሪያ ገጽ ይመለስ",
       "detailsAddress": "መንገድ መምራት",
       "detailsMapLink": "በጉግል ማፕ መክፈት",
       "detailsInformation": "መረጃዎች",
@@ -11838,8 +11879,7 @@
       "phoneCopied": "تم نسخ رقم الهاتف",
       "eMailCopied": "تم نسخ البريد الإليكتروني",
       "websiteCopied": "تم نسخ الموقع الإليكتروني",
-      "listTitle": "في منطقتك",
-      "detailsHeader": "العودة إلى النظرة العامة",
+      "backToOverview": "العودة إلى النظرة العامة",
       "detailsAddress": "خريطة الاتجاهات",
       "detailsMapLink": "فتح من خلال خرائط جوجل",
       "detailsInformation": "معلومات محلية",
@@ -11909,8 +11949,7 @@
       "phoneCopied": "Телефонният номер е копиран в клипборда",
       "eMailCopied": "Имейл адресът е копиран в клипборда",
       "websiteCopied": "Уебсайтът е копиран в клипборда",
-      "listTitle": "В близост до теб",
-      "detailsHeader": "обратно към прегледа",
+      "backToOverview": "обратно към прегледа",
       "detailsAddress": "Упътвания",
       "detailsMapLink": "Отваряне в Google Maps",
       "detailsInformation": "Информация",
@@ -11980,8 +12019,7 @@
       "phoneCopied": "ژمارە تەلەفۆن کۆپی کرایە نێو کلیپبۆرد",
       "eMailCopied": "ناونیشانی ئیمەیل کۆپی کرایە نێو کلیپبۆرد",
       "websiteCopied": "ماڵپەڕ کۆپی کرایە نێو کلیپبۆرد",
-      "listTitle": "لە نزیک تۆ",
-      "detailsHeader": "گەڕانەوە بۆ دیمەنی گشتی",
+      "backToOverview": "گەڕانەوە بۆ دیمەنی گشتی",
       "detailsAddress": "ئاراستەکان",
       "detailsMapLink": "کردنەوە لە Google Maps",
       "detailsInformation": "زانیارییەکان",
@@ -12051,8 +12089,7 @@
       "phoneCopied": "Telefonní číslo bylo zkopírované do schránky",
       "eMailCopied": "E-mailová adresa byla zkopírovaná do schránky",
       "websiteCopied": "Webová stránka byla zkopírovaná do schránky",
-      "listTitle": "Ve vašem okolí",
-      "detailsHeader": "Zpět na přehled",
+      "backToOverview": "Zpět na přehled",
       "detailsAddress": "Popis trasy",
       "detailsMapLink": "Otevřít v Google Maps",
       "detailsInformation": "Informace",
@@ -12122,8 +12159,7 @@
       "phoneCopied": "Telefonnummer kopieret til udklipsholder",
       "eMailCopied": "E-mailadresse kopieret til udklipsholder",
       "websiteCopied": "Hjemmeside kopieret til udklipsholder",
-      "listTitle": "I dit nabolag",
-      "detailsHeader": "Tilbage til oversigt",
+      "backToOverview": "Tilbage til oversigt",
       "detailsAddress": "Rutevejledning",
       "detailsMapLink": "Åbn i Google Maps",
       "detailsInformation": "Oplysninger",
@@ -12193,8 +12229,7 @@
       "phoneCopied": "Ο αριθμός τηλεφώνου αντιγράφηκε στο πρόχειρο",
       "eMailCopied": "Η διεύθυνση e-mail αντιγράφηκε στο πρόχειρο",
       "websiteCopied": "Η ιστοσελίδα αντιγράφηκε στο πρόχειρο",
-      "listTitle": "Κοντά σε εσάς",
-      "detailsHeader": "επιστροφή στην επισκόπηση",
+      "backToOverview": "επιστροφή στην επισκόπηση",
       "detailsAddress": "Οδηγίες",
       "detailsMapLink": "Άνοιγμα στους Χάρτες Google",
       "detailsInformation": "Πληροφορίες",
@@ -12264,8 +12299,7 @@
       "phoneCopied": "Telephone number copied to clipboard",
       "eMailCopied": "E-mail address copied to clipboard",
       "websiteCopied": "Website copied to clipboard",
-      "listTitle": "Near you",
-      "detailsHeader": "Back",
+      "backToOverview": "Back",
       "detailsAddress": "Directions",
       "detailsMapLink": "Open in Google Maps",
       "detailsInformation": "Info",
@@ -12335,8 +12369,7 @@
       "phoneCopied": "Número de teléfono copiado en el portapapeles",
       "eMailCopied": "Dirección de correo electrónico copiada en el portapapeles",
       "websiteCopied": "Página web copiada en el portapapeles",
-      "listTitle": "En tu proximidad",
-      "detailsHeader": "volver a la vista general",
+      "backToOverview": "volver a la vista general",
       "detailsAddress": "Descripción de la ruta",
       "detailsMapLink": "Abrir en Google Maps",
       "detailsInformation": "Informaciones",
@@ -12406,8 +12439,7 @@
       "phoneCopied": "Puhelinnumero kopioitu välimuistiin",
       "eMailCopied": "Sähköpostiosoite kopioitu välimuistiin",
       "websiteCopied": "Verkkosivu kopioitu välimuistiin",
-      "listTitle": "Lähellä",
-      "detailsHeader": "takaisin näkymään",
+      "backToOverview": "takaisin näkymään",
       "detailsAddress": "Reittikuvaus",
       "detailsMapLink": "Avaa Google Mapsissa",
       "detailsInformation": "Tiedot",
@@ -12477,8 +12509,7 @@
       "phoneCopied": "Numéro de téléphone copié dans le presse-papiers",
       "eMailCopied": "Adresse électronique copiée dans le presse-papiers",
       "websiteCopied": "Site web copié dans le presse-papiers",
-      "listTitle": "Près de chez toi",
-      "detailsHeader": "Retour à l’aperçu",
+      "backToOverview": "Retour à l’aperçu",
       "detailsAddress": "Itinéraire",
       "detailsMapLink": "Ouvrir dans Google Maps",
       "detailsInformation": "Informations",
@@ -12548,8 +12579,7 @@
       "phoneCopied": "टेलीफ़ोन नंबर क्लिपबोर्ड पर कॉपी किया गया",
       "eMailCopied": "ई-मेल पता क्लिपबोर्ड पर कॉपी किया गया",
       "websiteCopied": "वेबसाइट क्लिपबोर्ड पर कॉपी की गई",
-      "listTitle": "आपके आस-पास",
-      "detailsHeader": "वापस",
+      "backToOverview": "वापस",
       "detailsAddress": "दिशानिर्देश",
       "detailsMapLink": "Google Maps में खोलें",
       "detailsInformation": "जानकारी",
@@ -12619,8 +12649,7 @@
       "phoneCopied": "Broj telefona kopiran u međuspremnik",
       "eMailCopied": "Adresa e-pošte kopirana u međuspremnik",
       "websiteCopied": "Web-mjesto kopirano u međuspremnik",
-      "listTitle": "Blizu tebe",
-      "detailsHeader": "natrag na pregled",
+      "backToOverview": "natrag na pregled",
       "detailsAddress": "Upute za vožnju",
       "detailsMapLink": "Otvoriti u Google kartama",
       "detailsInformation": "Informacije",
@@ -12690,8 +12719,7 @@
       "phoneCopied": "Telefonszám vágólapra másolása befejezve",
       "eMailCopied": "E-mail cím vágólapra másolása befejezve",
       "websiteCopied": "Weboldal vágólapra másolása befejezve",
-      "listTitle": "A közelben",
-      "detailsHeader": "Vissza az áttekintéshez",
+      "backToOverview": "Vissza az áttekintéshez",
       "detailsAddress": "Útvonalterv",
       "detailsMapLink": "Megnyitás Google Mapsben",
       "detailsInformation": "Információk",
@@ -12761,8 +12789,7 @@
       "phoneCopied": "Nomor telepon disalin ke papan klip",
       "eMailCopied": "Alamat sur-el disalin ke papan klip",
       "websiteCopied": "Situs web disalin ke papan klip",
-      "listTitle": "Di dekat Anda",
-      "detailsHeader": "Kembali",
+      "backToOverview": "Kembali",
       "detailsAddress": "Arah",
       "detailsMapLink": "Buka di Google Maps",
       "detailsInformation": "Info",
@@ -12832,8 +12859,7 @@
       "phoneCopied": "Numero telefonico copiato negli appunti",
       "eMailCopied": "Indirizzo email copiato negli appunti",
       "websiteCopied": "Pagina Web copiata negli appunti",
-      "listTitle": "Nelle vicinanze",
-      "detailsHeader": "torna alla panoramica",
+      "backToOverview": "torna alla panoramica",
       "detailsAddress": "Descrizione del percorso",
       "detailsMapLink": "Apri su Google Maps",
       "detailsInformation": "Informazioni",
@@ -12903,8 +12929,7 @@
       "phoneCopied": "ტელეფონის ნომერი კოპირებულია შუალედურ ჩანართში",
       "eMailCopied": "ელფოსტა კოპირებულია შუალედურ ჩანართში",
       "websiteCopied": "ვებგვერდი კოპირებულია შუალედურ ჩანართში",
-      "listTitle": "შენს სიახლოვეს",
-      "detailsHeader": "მიმოხილვაზე დაბრუნება",
+      "backToOverview": "მიმოხილვაზე დაბრუნება",
       "detailsAddress": "გზის აღწერილობა",
       "detailsMapLink": "Google Map-ში გახსნა",
       "detailsInformation": "ინფორმაციები",
@@ -12974,8 +12999,7 @@
       "phoneCopied": "Hejmara telefonê nava klîpboardê kopî bû",
       "eMailCopied": "Navnîşana e-nameyê nava klîpboardê kopî bû",
       "websiteCopied": "Malper nava klîpboardê kopî bû",
-      "listTitle": "Li nêzikî te",
-      "detailsHeader": "Vegeriyan bo nimaya giştî",
+      "backToOverview": "Vegeriyan bo nimaya giştî",
       "detailsAddress": "Alî",
       "detailsMapLink": "Vekirin li Google Maps'ê",
       "detailsInformation": "Zanyarî",
@@ -13045,8 +13069,7 @@
       "phoneCopied": "Телефонскиот број е копиран во меѓуархивата",
       "eMailCopied": "Адресата на е-пошта е копирана во меѓуархивата",
       "websiteCopied": "Веб-страницата е копирана во меѓуархивата",
-      "listTitle": "Во твоја близина",
-      "detailsHeader": "назад кон преглед",
+      "backToOverview": "назад кон преглед",
       "detailsAddress": "опис на пат",
       "detailsMapLink": "отвори во Google Maps",
       "detailsInformation": "Информации",
@@ -13116,8 +13139,7 @@
       "phoneCopied": "Het telefoonnummer is gekopieerd naar het klembord",
       "eMailCopied": "Het emailadres is gekopieerd naar het klembord",
       "websiteCopied": "De website is gekopieerd naar het klembord",
-      "listTitle": "Vlakbij jou",
-      "detailsHeader": "Terug naar het overzicht",
+      "backToOverview": "Terug naar het overzicht",
       "detailsAddress": "Routebeschrijving",
       "detailsMapLink": "Open in Google Maps",
       "detailsInformation": "Informatie",
@@ -13187,8 +13209,7 @@
       "phoneCopied": "Lakkoofsa bilbilaa gara gabateetti koppii ta’e",
       "eMailCopied": "Bakka Imeliigara gabateetti koppii ta’e",
       "websiteCopied": "Marsariitii gara gabateetti koppii ta’e",
-      "listTitle": "Kan sitti dhihoo",
-      "detailsHeader": "Duubatti",
+      "backToOverview": "Duubatti",
       "detailsAddress": "Kallattii",
       "detailsMapLink": "Kaartaa googilii irraa bani",
       "detailsInformation": "Odeeffannoo",
@@ -13258,8 +13279,7 @@
       "phoneCopied": "شماره تلفن در کلیپ‌برد کپی شد",
       "eMailCopied": "نشانی ایمیل در کلیپ‌برد کپی شد",
       "websiteCopied": "وبسایت در کلیپ‌برد کپی شد",
-      "listTitle": "در نزدیکی تو",
-      "detailsHeader": "بازگشت به خلاصه",
+      "backToOverview": "بازگشت به خلاصه",
       "detailsAddress": "مسیریابی",
       "detailsMapLink": "باز کردن در Google Maps",
       "detailsInformation": "اطلاعات",
@@ -13329,8 +13349,7 @@
       "phoneCopied": "Numer telefonu skopiowany do schowka",
       "eMailCopied": "Adres mailowy skopiowany do schowka",
       "websiteCopied": "Strona www skopiowana do schowka",
-      "listTitle": "W pobliżu",
-      "detailsHeader": "powrót do widoku",
+      "backToOverview": "powrót do widoku",
       "detailsAddress": "Opis drogi",
       "detailsMapLink": "Otwórz w Google Maps",
       "detailsInformation": "Informacje",
@@ -13400,8 +13419,7 @@
       "phoneCopied": "شماره تلفن در کلیپ‌بورد کپی شد",
       "eMailCopied": "آدرس ایمیل در کلیپ‌بورد کپی شد",
       "websiteCopied": "وبسایت در کلیپ‌بورد کپی شد",
-      "listTitle": "در نزدیکی تو",
-      "detailsHeader": "بازگشت به خلاصه",
+      "backToOverview": "بازگشت به خلاصه",
       "detailsAddress": "مسیریابی",
       "detailsMapLink": "باز کردن در Google Maps",
       "detailsInformation": "معلومات",
@@ -13471,8 +13489,7 @@
       "phoneCopied": "تیلیفون رقم کلپ بورډ تہ کاپی شوی",
       "eMailCopied": "ای میل ایدریس کلپ بورډ تہ کاپی شوی",
       "websiteCopied": "ویب پانہ کلپ بورډ تہ کاپی شوی",
-      "listTitle": "تا ته نیږدی",
-      "detailsHeader": "بیرته کتنې ته",
+      "backToOverview": "بیرته کتنې ته",
       "detailsAddress": "لارښوونې",
       "detailsMapLink": "په ګوګل نقشه کې خلاص کړئ",
       "detailsInformation": "معلومات",
@@ -13542,8 +13559,7 @@
       "phoneCopied": "Número de telefone copiado para a área de transferência",
       "eMailCopied": "Endereço de correio eletrónico copiado para a área de transferência",
       "websiteCopied": "Sítio Web copiado para a área de transferência",
-      "listTitle": "Nas tuas imediações",
-      "detailsHeader": "voltar à vista geral",
+      "backToOverview": "voltar à vista geral",
       "detailsAddress": "Como chegar",
       "detailsMapLink": "Abrir no Google Maps",
       "detailsInformation": "Informações",
@@ -13613,8 +13629,7 @@
       "phoneCopied": "Numărul de telefon copiat în clipboard",
       "eMailCopied": "Adresa de e-mail copiată în clipboard",
       "websiteCopied": "Pagina de internet copiată în clipboard",
-      "listTitle": "În apropierea ta",
-      "detailsHeader": "înapoi la Sumar",
+      "backToOverview": "înapoi la Sumar",
       "detailsAddress": "Descriere traseu",
       "detailsMapLink": "Deschide în Google Maps",
       "detailsInformation": "Informații",
@@ -13684,8 +13699,7 @@
       "phoneCopied": "E telefoneskoro numero si kopirimo ko than",
       "eMailCopied": "I-mejl adresa si kopirimi ko than",
       "websiteCopied": "Vebstrana si kopirimi ko than",
-      "listTitle": "Paše tute",
-      "detailsHeader": "Palal",
+      "backToOverview": "Palal",
       "detailsAddress": "Legariba",
       "detailsMapLink": "Phrav ko Google Maps",
       "detailsInformation": "Info",
@@ -13755,8 +13769,7 @@
       "phoneCopied": "Телефон скопирован в буфер обмена",
       "eMailCopied": "Адрес эл. почты скопирован в буфер обмена",
       "websiteCopied": "Ссылка на сайт скопирована в буфер обмена",
-      "listTitle": "Рядом с тобой",
-      "detailsHeader": "возврат на страницу обзора",
+      "backToOverview": "возврат на страницу обзора",
       "detailsAddress": "Описание направления",
       "detailsMapLink": "открыть в Google Maps",
       "detailsInformation": "Информация",
@@ -13826,8 +13839,7 @@
       "phoneCopied": "Telefónne číslo skopírované do medzipamäte",
       "eMailCopied": "E-mailová adresa skopírovaná do medzipamäte",
       "websiteCopied": "Webová stránka skopírovaná do medzipamäte",
-      "listTitle": "Vo vašej blízkosti",
-      "detailsHeader": "späť na prehľad",
+      "backToOverview": "späť na prehľad",
       "detailsAddress": "Opis cesty",
       "detailsMapLink": "Otvoriť v Google Maps",
       "detailsInformation": "Informácie",
@@ -13897,8 +13909,7 @@
       "phoneCopied": "Lambarka taleefanka waa la koobiyeeyay",
       "eMailCopied": "Ciwaanka iimaylka waa la koobiyeeyay",
       "websiteCopied": "Bogga websaydhka waa la koobiyeeyay",
-      "listTitle": "Kugu dhow",
-      "detailsHeader": "U laabo guudmarka",
+      "backToOverview": "U laabo guudmarka",
       "detailsAddress": "Tilmaamaha",
       "detailsMapLink": "Ku fur Khariidadaha Google-ka (Google Maps)",
       "detailsInformation": "macluumaad",
@@ -13968,8 +13979,7 @@
       "phoneCopied": "Numri i telefonit u kopjua ndërmjet rendit",
       "eMailCopied": "E-mail adresa u kopjua ndërmjet rendit",
       "websiteCopied": "Faqja e internetit u kopjua ndërmjet rendit",
-      "listTitle": "Në afërsin tuaj",
-      "detailsHeader": "kthehu te përmbledhja",
+      "backToOverview": "kthehu te përmbledhja",
       "detailsAddress": "Përshkrimi i rrugës",
       "detailsMapLink": "Hape të Google Map",
       "detailsInformation": "Informata",
@@ -14039,8 +14049,7 @@
       "phoneCopied": "Број телефона је копиран на клипборду",
       "eMailCopied": "Адреса е-поште је копирана на клипборду",
       "websiteCopied": "Веб страна је копирана на клипборду",
-      "listTitle": "У вашој близини",
-      "detailsHeader": "Назад у преглед",
+      "backToOverview": "Назад у преглед",
       "detailsAddress": "Опис пута",
       "detailsMapLink": "Отвори у Гоогле мапама",
       "detailsInformation": "Информације",
@@ -14110,8 +14119,7 @@
       "phoneCopied": "Broj telefona je kopiran na klipbordu",
       "eMailCopied": "Adresa e-pošte je kopirana na klipbordu",
       "websiteCopied": "Veb strana je kopirana na klipbordu",
-      "listTitle": "U vašoj blizini",
-      "detailsHeader": " Nazad u pregled",
+      "backToOverview": " Nazad u pregled",
       "detailsAddress": "Opis puta",
       "detailsMapLink": "Otvori u Google mapama",
       "detailsInformation": "Informacije",
@@ -14181,8 +14189,7 @@
       "phoneCopied": "Namba ya simu imenakiliwa kwenye ubao wa kunakili",
       "eMailCopied": "Anwani ya barua pepe imenakiliwa kwenye ubao wa kunakili",
       "websiteCopied": "Tovuti imenakiliwa kwenye ubao wa kunakili",
-      "listTitle": "Karibu nawe",
-      "detailsHeader": "Nyuma",
+      "backToOverview": "Nyuma",
       "detailsAddress": "Maelekezo",
       "detailsMapLink": "Fungua katika Ramani za Google",
       "detailsInformation": "Maelezo",
@@ -14252,8 +14259,7 @@
       "phoneCopied": "คัดลอกหมายเลขโทรศัพท์ไปยังคลิปบอร์ดแล้ว",
       "eMailCopied": "คัดลอกที่อยู่อีเมลไปยังคลิปบอร์ดแล้ว",
       "websiteCopied": "เว็บไซต์คัดลอกไปยังคลิปบอร์ดแล้ว",
-      "listTitle": "ใกล้ตัวคุณ",
-      "detailsHeader": "กลับไปที่ภาพรวม",
+      "backToOverview": "กลับไปที่ภาพรวม",
       "detailsAddress": "ทิศทาง",
       "detailsMapLink": "เปิดใน Google Maps",
       "detailsInformation": "ข้อมูล",
@@ -14323,8 +14329,7 @@
       "phoneCopied": "ቁጽሪ ተሌፎን ኣብ መጽንሒ ማሕደር ተቐዲሑ",
       "eMailCopied": "ኢ-ሜይል ኣድራሻ ኣብ መጽንሒ ማሕደር ተቐዲሑ",
       "websiteCopied": "መርበብ ሓበሬታ ኣብ መጽንሒ ማሕደር ተቐዲሑ",
-      "listTitle": "ኣብ ጥቓኻ",
-      "detailsHeader": "ናብ መርኣዪ ትሕዝቶ ይመለስ",
+      "backToOverview": "ናብ መርኣዪ ትሕዝቶ ይመለስ",
       "detailsAddress": "መገዲ ምሕባር",
       "detailsMapLink": "ኣብ ጉግል ማፕ ክፈት",
       "detailsInformation": "ሓበሬታት",
@@ -14394,8 +14399,7 @@
       "phoneCopied": "Telelfon numarası panoya kopyalandı",
       "eMailCopied": "E-posta adresi panoya kopyalandı",
       "websiteCopied": "İnternet sitesi panoya kopyalandı",
-      "listTitle": "Yakınında",
-      "detailsHeader": "Genel bakışa geri git",
+      "backToOverview": "Genel bakışa geri git",
       "detailsAddress": "Yol açıklaması",
       "detailsMapLink": "Google Haritaları aç",
       "detailsInformation": "Bilgiler",
@@ -14465,8 +14469,7 @@
       "phoneCopied": "Номер телефону скопійовано в буфер обміну",
       "eMailCopied": "Адреса електронної пошти скопійована в буфер обміну",
       "websiteCopied": "Сайт скопійований у буфер обміну",
-      "listTitle": "З вами поблизу",
-      "detailsHeader": "назад до огляду",
+      "backToOverview": "назад до огляду",
       "detailsAddress": "Опис маршруту",
       "detailsMapLink": "Відкрити в Карти Google",
       "detailsInformation": "Інформація",
@@ -14536,8 +14539,7 @@
       "phoneCopied": "ٹیلی فون نمبر کلپ بورڈ میں کاپی کیا گیا",
       "eMailCopied": "ای میل ایڈریس کلپ بورڈ میں کاپی کیا گیا",
       "websiteCopied": "ویب سائٹ کلپ بورڈ میں کاپی کیا گیا",
-      "listTitle": "آپ کے قریب",
-      "detailsHeader": "جائزہ پر واپس جائیں۔",
+      "backToOverview": "جائزہ پر واپس جائیں۔",
       "detailsAddress": "ہدایات",
       "detailsMapLink": "گوگل میپس میں کھولیں۔",
       "detailsInformation": "معلومات",
@@ -14607,8 +14609,7 @@
       "phoneCopied": "Số điện thoại đã được sao chép vào bảng tạm",
       "eMailCopied": "Địa chỉ email đã được sao chép vào bảng tạm",
       "websiteCopied": "Trang web đã được sao chép vào bảng tạm",
-      "listTitle": "Gần bạn",
-      "detailsHeader": "Quay lại",
+      "backToOverview": "Quay lại",
       "detailsAddress": "Chỉ đường",
       "detailsMapLink": "Mở trong Google Maps",
       "detailsInformation": "Thông tin",
@@ -14678,8 +14679,7 @@
       "phoneCopied": "电话号码已复制到剪贴板",
       "eMailCopied": "电子邮件地址已复制到剪贴板",
       "websiteCopied": "网址已复制到剪贴板",
-      "listTitle": "在你附近",
-      "detailsHeader": "返回概览",
+      "backToOverview": "返回概览",
       "detailsAddress": "路线描述",
       "detailsMapLink": "在谷歌地图中打开",
       "detailsInformation": "信息",

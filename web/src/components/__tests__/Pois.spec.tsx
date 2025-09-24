@@ -54,7 +54,7 @@ describe('Pois', () => {
     expect(queryByText(poi1.title)).toBeFalsy()
     expect(queryByText(poi2.title)).toBeFalsy()
 
-    fireEvent.click(getByText('error:pois:detailsHeader'))
+    fireEvent.click(getByText('error:pois:backToOverview'))
 
     expect(getByText(poi0.title)).toBeTruthy()
 
