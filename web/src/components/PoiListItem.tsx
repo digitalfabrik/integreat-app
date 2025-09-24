@@ -31,7 +31,7 @@ const StyledListItemText = styled(ListItemText)`
   hyphens: auto;
 `
 
-export const StyledText = styled('p')({
+const StyledText = styled('p')({
   margin: 0,
 })
 

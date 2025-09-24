@@ -22,7 +22,7 @@ const LicensesPage = ({ languageCode }: LicensesPageProps): ReactElement => {
       .catch(error => reportError(`error while importing licenses ${error}`))
   }, [])
 
-  const renderItem = (licenses ?? []).map(license => (
+  const items = (licenses ?? []).map(license => (
     <LicenseItem
       key={license.name}
       name={license.name}
@@ -35,7 +35,7 @@ const LicensesPage = ({ languageCode }: LicensesPageProps): ReactElement => {
   return (
     <Layout header={<GeneralHeader languageCode={languageCode} />} footer={<GeneralFooter language={languageCode} />}>
       <Caption title={t('settings:openSourceLicenses')} />
-      <List items={renderItem} NoItemsMessage={t('licenses:noLicensesMessage')} />
+      <List items={items} NoItemsMessage={t('licenses:noLicensesMessage')} />
     </Layout>
   )
 }

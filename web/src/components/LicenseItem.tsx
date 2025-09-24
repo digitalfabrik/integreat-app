@@ -1,12 +1,15 @@
 import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
-import Typography from '@mui/material/Typography'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { StyledText } from './PoiListItem'
 import Link from './base/Link'
+
+const StyledParagraph = styled('p')`
+  margin: 0;
+`
 
 type LicenseItemProps = {
   name: string
@@ -19,22 +22,18 @@ const LicenseItem = ({ license, name, licenseUrl, version }: LicenseItemProps): 
   const { t } = useTranslation('licenses')
   return (
     <ListItem disablePadding>
-      <ListItemButton aria-label={name} to={licenseUrl} component={Link}>
+      <ListItemButton to={licenseUrl} component={Link}>
         <ListItemText
-          slotProps={{ secondary: { component: 'div' } }}
-          primary={
-            <Typography variant='title2' component='h2'>
-              {name}
-            </Typography>
-          }
+          slotProps={{ primary: { component: 'h2' }, secondary: { component: 'div' } }}
+          primary={name}
           secondary={
             <>
-              <StyledText>
+              <StyledParagraph>
                 {t('version')} {version}
-              </StyledText>
-              <StyledText>
+              </StyledParagraph>
+              <StyledParagraph>
                 {t('license')} {license}
-              </StyledText>
+              </StyledParagraph>
             </>
           }
         />
