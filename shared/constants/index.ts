@@ -1,7 +1,7 @@
 export const MAX_DATE_RECURRENCES = 3
 export const MAX_SEARCH_RESULTS = 75
 export const TTS_MAX_TITLE_DISPLAY_CHARS = 20
-export const DEFAULT_ROWS_NUMBER = 7
+export const DEFAULT_ROWS_NUMBER = 4
 
 export const SPRUNGBRETT_OFFER_ALIAS = 'sprungbrett'
 export const MALTE_HELP_FORM_OFFER_ALIAS = 'help'

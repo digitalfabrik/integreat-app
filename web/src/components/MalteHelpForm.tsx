@@ -1,27 +1,30 @@
 import HealthAndSafetyOutlinedIcon from '@mui/icons-material/HealthAndSafetyOutlined'
 import PeopleOutlineOutlinedIcon from '@mui/icons-material/PeopleOutlineOutlined'
 import SendIcon from '@mui/icons-material/Send'
+import Alert from '@mui/material/Alert'
+import AlertTitle from '@mui/material/AlertTitle'
 import Button from '@mui/material/Button'
+import FormControl from '@mui/material/FormControl'
+import FormHelperText from '@mui/material/FormHelperText'
+import TextField from '@mui/material/TextField'
 import { styled } from '@mui/material/styles'
-import React, { ReactElement, SyntheticEvent, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router'
 
 import { cityContentPath, DEFAULT_ROWS_NUMBER } from 'shared'
 import {
   OfferModel,
-  InvalidEmailError,
   ContactChannel,
   ContactGender,
   submitMalteHelpForm,
   MALTE_HELP_FORM_MAX_COMMENT_LENGTH,
+  InvalidEmailError,
 } from 'shared/api'
 
 import Icon from '../components/base/Icon'
-import { Container } from './Feedback'
+import { reportError } from '../utils/sentry'
 import PrivacyCheckbox from './PrivacyCheckbox'
-import Input from './base/Input'
-import InputSection from './base/InputSection'
 import RadioGroup from './base/RadioGroup'
 import Spacing from './base/Spacing'
 
@@ -41,28 +44,12 @@ const Form = styled('form')`
   gap: 12px;
 `
 
-const SubmitErrorHeading = styled('h5')`
-  margin: 0;
-  font-size: ${props => props.theme.legacy.fonts.subTitleFontSize};
-`
-
-const ErrorSendingStatus = styled('div')`
-  background-color: ${props => props.theme.legacy.colors.invalidInput}35;
-  padding: 20px 10px;
-  margin: 10px 0;
-`
-
 type SendingStatusType = 'idle' | 'sending' | 'invalidEmail' | 'failed' | 'successful'
 type MalteHelpFormProps = {
   pageTitle: string
   cityCode: string
   languageCode: string
   malteHelpFormOffer: OfferModel
-}
-
-const scrollToFirstError = (form: HTMLFormElement) => {
-  const invalidInput = form.querySelector(':invalid:not(fieldset)')
-  invalidInput?.scrollIntoView({ behavior: 'smooth' })
 }
 
 const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }: MalteHelpFormProps): ReactElement => {
@@ -77,57 +64,49 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
   const [roomNumber, setRoomNumber] = useState('')
   const [contactGender, setContactGender] = useState<ContactGender>('any')
   const [comment, setComment] = useState('')
-  const missingData =
-    !name.length ||
-    (!email.length && contactChannel === 'email') ||
-    (!telephone.length && contactChannel === 'telephone')
   const dashboardRoute = cityContentPath({ languageCode, cityCode })
 
-  const submitHandler = async (event: SyntheticEvent<HTMLFormElement>) => {
-    const form = event.currentTarget
-    if (!form.checkValidity()) {
-      event.stopPropagation()
-      scrollToFirstError(form)
-      setSendingStatus('idle')
-    } else {
-      event.preventDefault()
-      setSendingStatus('sending')
-      try {
-        await submitMalteHelpForm({
-          url: window.location.href,
-          pageTitle,
-          cityCode,
-          malteHelpFormOffer,
-          name,
-          email,
-          telephone,
-          roomNumber,
-          contactChannel,
-          contactGender,
-          comment,
-        })
-        setSendingStatus('successful')
-      } catch (error) {
-        if (error instanceof InvalidEmailError) {
-          setSendingStatus('invalidEmail')
-          const emailInput = form.querySelector<HTMLInputElement>('#email-input')
-          emailInput?.setCustomValidity(t('invalidEmailAddress'))
-          emailInput?.reportValidity()
-          scrollToFirstError(form)
-        } else {
-          reportError(error)
-          setSendingStatus('failed')
-        }
+  const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    setSubmitted(true)
+    if (
+      !name.length ||
+      (contactChannel === 'email' && !email.length) ||
+      (contactChannel === 'telephone' && !telephone.length)
+    ) {
+      return
+    }
+    setSendingStatus('sending')
+    try {
+      await submitMalteHelpForm({
+        url: window.location.href,
+        pageTitle,
+        cityCode,
+        malteHelpFormOffer,
+        name,
+        email,
+        telephone,
+        roomNumber,
+        contactChannel,
+        contactGender,
+        comment,
+      })
+      setSendingStatus('successful')
+    } catch (error) {
+      if (error instanceof InvalidEmailError) {
+        setSendingStatus('invalidEmail')
+      } else {
+        await reportError(error)
+        setSendingStatus('failed')
       }
     }
   }
 
   if (sendingStatus === 'successful') {
     return (
-      <Container>
-        <div>{t('submitSuccessful')}</div>
-        <Link to={dashboardRoute}>{t('error:goTo.categories')}</Link>
-      </Container>
+      <Alert severity='success' role='alert' action={<Link to={dashboardRoute}>{t('error:goTo.categories')}</Link>}>
+        {t('submitSuccessful')}
+      </Alert>
     )
   }
 
@@ -141,46 +120,45 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
         <StyledIcon src={HealthAndSafetyOutlinedIcon} />
         {t('securityNote')}
       </Note>
-      <Form onSubmit={submitHandler}>
-        <Input id='name' label={t('name')} required value={name} onChange={setName} submitted={submitted} />
-        <Input
+      <Form onSubmit={submitHandler} noValidate>
+        <TextField
+          id='name'
+          label={t('name')}
+          required
+          fullWidth
+          value={name}
+          onChange={event => setName(event.target.value)}
+          error={submitted && !name.length}
+        />
+        <TextField
           id='roomNumber'
           label={`${t('roomNumber')} (${t('common:optional')})`}
+          fullWidth
           value={roomNumber}
-          onChange={setRoomNumber}
-          submitted={submitted}
+          onChange={event => setRoomNumber(event.target.value)}
         />
         <RadioGroup
           caption={t('howToBeContacted')}
           groupId='contactChannel'
-          submitted={submitted}
           selectedValue={contactChannel}
+          submitted={submitted}
           onChange={setContactChannel}
+          required
           values={[
             {
               key: 'email',
               label: t('eMail'),
-              inputProps: {
-                value: email,
-                onChange: setEmail,
-              },
+              inputProps: { value: email, onChange: setEmail, required: true },
             },
             {
               key: 'telephone',
               label: t('telephone'),
-              inputProps: {
-                value: telephone,
-                onChange: setTelephone,
-              },
+              inputProps: { value: telephone, onChange: setTelephone, required: true },
             },
-            {
-              key: 'personally',
-              label: t('personally'),
-            },
+            { key: 'personally', label: t('personally') },
           ]}
         />
         <RadioGroup
-          submitted={submitted}
           caption={t('contactPerson')}
           groupId='contactPerson'
           selectedValue={contactGender}
@@ -191,36 +169,33 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
             { key: 'male', label: t('contactPersonGenderMale') },
           ]}
         />
-        <InputSection id='comment' title={t('contactReason')}>
-          <Input
-            id='comment'
-            label={t('maxCharacters', { numberOfCharacters: MALTE_HELP_FORM_MAX_COMMENT_LENGTH })}
-            rows={DEFAULT_ROWS_NUMBER}
-            value={comment}
-            onChange={setComment}
-            maxLength={MALTE_HELP_FORM_MAX_COMMENT_LENGTH}
-            submitted={submitted}
-          />
-        </InputSection>
-        <p>{t('responseDisclaimer')}</p>
-        <PrivacyCheckbox
-          language={languageCode}
-          checked={privacyPolicyAccepted}
-          setChecked={setPrivacyPolicyAccepted}
+        <TextField
+          id='comment'
+          label={t('contactReason')}
+          fullWidth
+          multiline
+          rows={DEFAULT_ROWS_NUMBER}
+          value={comment}
+          onChange={event => setComment(event.target.value)}
+          helperText={t('maxCharacters', { numberOfCharacters: MALTE_HELP_FORM_MAX_COMMENT_LENGTH })}
         />
+        <p>{t('responseDisclaimer')}</p>
+        <FormControl required error={submitted && !privacyPolicyAccepted}>
+          <PrivacyCheckbox
+            language={languageCode}
+            checked={privacyPolicyAccepted}
+            setChecked={setPrivacyPolicyAccepted}
+          />
+          {submitted && !privacyPolicyAccepted && <FormHelperText>{t('common:notePrivacyPolicy')}</FormHelperText>}
+        </FormControl>
         {(sendingStatus === 'failed' || sendingStatus === 'invalidEmail') && (
-          <ErrorSendingStatus role='alert'>
-            <SubmitErrorHeading>{t('submitFailed')}</SubmitErrorHeading>
-            {sendingStatus !== 'invalidEmail' && t('submitFailedReasoning')}
-          </ErrorSendingStatus>
+          <Alert severity='error' role='alert'>
+            <AlertTitle>{t('submitFailed')}</AlertTitle>
+            {t(sendingStatus === 'invalidEmail' ? 'invalidEmailAddress' : 'submitFailedReasoning')}
+          </Alert>
         )}
         <Spacing />
-        <Button
-          onClick={() => setSubmitted(true)}
-          startIcon={<SendIcon />}
-          disabled={sendingStatus === 'sending' || missingData || !privacyPolicyAccepted}
-          type='submit'
-          variant='contained'>
+        <Button type='submit' startIcon={<SendIcon />} variant='contained'>
           {t('submit')}
         </Button>
       </Form>
