@@ -8,13 +8,9 @@ import { useTranslation } from 'react-i18next'
 
 import Link from './base/Link'
 
-const StyledListItem = styled(ListItem)`
-  width: fit-content;
-
-  ${props => props.theme.breakpoints.down('md')} {
-    width: 100%;
-  }
-`
+const StyledListItem = styled(ListItem)<{ vertical: boolean }>(({ theme, vertical }) => ({
+  width: vertical || theme.dimensions.mobile ? '100%' : 'fit-content',
+}))
 
 export type FooterLinkProps = {
   to: string
@@ -26,7 +22,7 @@ const FooterLink = ({ to, text, mode = 'normal' }: FooterLinkProps): ReactElemen
   const { t } = useTranslation(['layout', 'settings'])
 
   return (
-    <StyledListItem key={to} disablePadding>
+    <StyledListItem key={to} disablePadding vertical={mode === 'sidebar'}>
       <ListItemButton component={Link} to={to}>
         <ListItemText
           primary={
