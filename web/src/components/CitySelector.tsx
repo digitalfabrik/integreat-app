@@ -8,7 +8,6 @@ import { CityModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
 import CityListGroup from './CityListGroup'
-import CrashTestingIcon from './CrashTestingIcon'
 import NearbyCities from './NearbyCities'
 import SearchInput from './SearchInput'
 import List from './base/List'
@@ -40,8 +39,11 @@ const CitySelector = ({ cities, language, stickyTop }: CitySelectorProps): React
   ]
 
   return (
-    <Stack paddingTop={4}>
-      <CrashTestingIcon />
+    <Stack paddingTop={4} gap={2}>
+      <Typography variant='display3' component='h1'>
+        {t('welcome', { appName: buildConfig().appName })}
+      </Typography>
+      <Typography variant='body1'>{t('welcomeInformation')}</Typography>
       <SearchInput
         filterText={filterText}
         placeholderText={t('searchCity')}
@@ -49,10 +51,12 @@ const CitySelector = ({ cities, language, stickyTop }: CitySelectorProps): React
         spaceSearch={false}
         description={t('searchCityDescription')}
       />
-      <Typography variant='label1' aria-live={resultCities.length === 0 ? 'assertive' : 'polite'}>
-        {t('search:searchResultsCount', { count: resultCities.length })}
-      </Typography>
-      <List items={groups} NoItemsMessage='search:nothingFound' />
+      <Stack>
+        <Typography variant='label1' aria-live={resultCities.length === 0 ? 'assertive' : 'polite'}>
+          {t('search:searchResultsCount', { count: resultCities.length })}
+        </Typography>
+        <List items={groups} NoItemsMessage='search:nothingFound' />
+      </Stack>
     </Stack>
   )
 }

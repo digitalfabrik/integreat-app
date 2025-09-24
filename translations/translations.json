@@ -7096,6 +7096,8 @@
   },
   "landing": {
     "de": {
+      "welcome": "Willkommen bei {{appName}}.",
+      "welcomeInformation": "Dein digitaler Guide für alle Informationen, die du brauchst. Bitte wähle deine Region aus.",
       "searchCity": "Suche",
       "noCitiesFound": "Keine Ergebnisse",
       "nearbyCities": "In der Nähe",
@@ -7239,6 +7241,8 @@
       "searchCityDescription": "Επιλέξτε την περιοχή σας ή την αμέσως μεγαλύτερη πόλη, π.χ. την περιφέρεια του Μονάχου"
     },
     "en": {
+      "welcome": "Welcome to {{appName}}.",
+      "welcomeInformation": "Your digital guide for all the information you need. Please select your region.",
       "searchCity": "Search",
       "noCitiesFound": "No results",
       "nearbyCities": "In the vicinity",
