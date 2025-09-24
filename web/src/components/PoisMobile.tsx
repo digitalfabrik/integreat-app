@@ -106,7 +106,7 @@ const PoisMobile = ({
         Overlay={
           <>
             {canDeselect && (
-              <IconButton onClick={deselect} tabIndex={0} aria-label={t('detailsHeader')}>
+              <IconButton onClick={deselect} tabIndex={0} aria-label={t('backToOverview')}>
                 <ArrowBackIcon
                   sx={{
                     transform: theme.direction === 'rtl' ? 'scaleX(-1)' : 'none',
@@ -120,7 +120,7 @@ const PoisMobile = ({
       />
       <BottomActionSheet ref={sheetRef} sibling={<GeocontrolContainer ref={geocontrolPosition} />}>
         <ListContainer>
-          {!canDeselect && <ListTitle>{t('listTitle')}</ListTitle>}
+          {!canDeselect && <ListTitle>{t('nearby')}</ListTitle>}
           <PoiSharedChildren
             pois={pois}
             poi={poi}

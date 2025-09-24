@@ -38,7 +38,7 @@ const PoiSharedChildren = ({
   }
 
   if (slug) {
-    return <StyledFailure errorMessage='notFound.poi' goToMessage='pois:detailsHeader' goToPath='.' />
+    return <StyledFailure errorMessage='notFound.poi' goToMessage='pois:backToOverview' goToPath='.' />
   }
 
   const renderPoiListItem = (poi: PoiModel) => (
