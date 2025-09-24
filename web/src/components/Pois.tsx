@@ -25,9 +25,9 @@ import useWindowDimensions from '../hooks/useWindowDimensions'
 import moveViewportToCity from '../utils/moveViewportToCity'
 import PoiFiltersOverlayButtons from './PoiFiltersOverlayButtons'
 
-const Container = styled('div')<{ headerHeight: number }>`
+const Container = styled('div')<{ offset: number }>`
   display: flex;
-  ${({ headerHeight }) => `height: calc(100vh - ${headerHeight}px);`};
+  ${({ offset }) => `height: calc(100vh - ${offset}px);`};
 `
 
 type PoiProps = {
@@ -121,7 +121,6 @@ const Pois = ({ pois: allPois, userLocation, city, languageCode, pageTitle }: Po
   }
 
   const sharedPoiProps = {
-    toolbar,
     data: preparedData,
     selectMapFeature,
     selectPoi,
@@ -144,12 +143,13 @@ const Pois = ({ pois: allPois, userLocation, city, languageCode, pageTitle }: Po
   }
 
   return (
-    <Container headerHeight={headerHeight}>
+    <Container offset={headerHeight}>
       {viewportSmall ? (
         <PoisMobile {...sharedPoiProps} />
       ) : (
         <PoisDesktop
           {...sharedPoiProps}
+          toolbar={toolbar}
           cityModel={city}
           PanelContent={showFilterSelection ? FiltersModal : undefined}
         />

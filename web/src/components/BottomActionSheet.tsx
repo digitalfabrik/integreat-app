@@ -1,4 +1,3 @@
-import Divider from '@mui/material/Divider'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode, RefObject, useImperativeHandle, useRef, useState } from 'react'
 import { BottomSheet, BottomSheetRef } from 'react-spring-bottom-sheet'
@@ -14,26 +13,22 @@ const Title = styled('h1')`
   font-family: ${props => props.theme.legacy.fonts.web.contentFont};
 `
 
-const ToolbarContainer = styled('div')`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  margin-top: 16px;
-`
-
-const StyledSpacer = styled(Divider)`
-  margin: 12px 30px;
-`
-
-const StyledBottomSheet = styled(BottomSheet)`
+const StyledBottomSheet = styled(BottomSheet)<{ bottomOffset: number }>`
   direction: ${props => props.theme.contentDirection};
+
+  /* Position bottom sheet above content */
   z-index: 2;
+
+  [data-rsbs-scroll] {
+    margin-bottom: ${props => props.bottomOffset}px;
+  }
 `
 
-const StyledLayout = styled(RichLayout)`
+const StyledLayout = styled(RichLayout)<{ bottomOffset: number }>`
+  justify-content: flex-start;
   width: 100%;
   min-height: unset;
+  padding-bottom: ${props => props.bottomOffset}px;
 `
 
 export type ScrollableBottomSheetRef = {
@@ -44,7 +39,6 @@ export type ScrollableBottomSheetRef = {
 type BottomActionSheetProps = {
   title?: string
   children: ReactNode
-  toolbar: ReactNode
   sibling: ReactNode
   setBottomActionSheetHeight: (height: number) => void
   ref: RefObject<ScrollableBottomSheetRef | null>
@@ -53,7 +47,6 @@ type BottomActionSheetProps = {
 const BottomActionSheet = ({
   title,
   children,
-  toolbar,
   sibling,
   setBottomActionSheetHeight,
   ref,
@@ -69,8 +62,8 @@ const BottomActionSheet = ({
     }),
     [bottomSheetRef, scrollElement],
   )
-  const initializeScrollElement = (e: SpringEvent) => {
-    if (e.type === 'OPEN' && !scrollElement) {
+  const initializeScrollElement = (event: SpringEvent) => {
+    if (event.type === 'OPEN' && !scrollElement) {
       const scrollElement = document.querySelector('[data-rsbs-scroll]') as HTMLElement | null
       setScrollElement(scrollElement)
     }
@@ -89,14 +82,9 @@ const BottomActionSheet = ({
       snapPoints={() => getSnapPoints(dimensions)}
       // snapPoints have been supplied in the previous line
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      defaultSnap={({ snapPoints }) => snapPoints[1]!}>
-      <StyledLayout>
-        {children}
-        <ToolbarContainer>
-          <StyledSpacer />
-          {toolbar}
-        </ToolbarContainer>
-      </StyledLayout>
+      defaultSnap={({ snapPoints }) => snapPoints[1]!}
+      bottomOffset={dimensions.bottomNavigationHeight ?? 0}>
+      <StyledLayout bottomOffset={dimensions.ttsPlayerHeight}>{children}</StyledLayout>
     </StyledBottomSheet>
   )
 }
