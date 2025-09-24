@@ -10,6 +10,7 @@ import { NavigationProps, RouteProps, RoutesType } from '../constants/Navigation
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import useSnackbar from '../hooks/useSnackbar'
+import openExternalUrl from '../utils/openExternalUrl'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 import { reportError } from '../utils/sentry'
 import CustomHeaderButtons from './CustomHeaderButtons'
@@ -37,6 +38,7 @@ const TransparentHeader = ({ navigation, route }: TransparentHeaderProps): React
   const showSnackbar = useSnackbar()
 
   const shareUrl = (route.params as { shareUrl: string } | undefined)?.shareUrl
+  const isPdfUrl = shareUrl?.toLowerCase().includes('.pdf')
 
   const onShare = useCallback(async (): Promise<void> => {
     if (!shareUrl) {
@@ -68,8 +70,20 @@ const TransparentHeader = ({ navigation, route }: TransparentHeaderProps): React
     }
   }, [showSnackbar, shareUrl, t])
 
+  const onOpenPdf = useCallback(async (): Promise<void> => {
+    if (!shareUrl) {
+      return
+    }
+    await openExternalUrl(shareUrl, showSnackbar)
+  }, [showSnackbar, shareUrl])
+
   const overflowItems = shareUrl
-    ? [<HiddenItem key='share' title={t('share')} onPress={onShare} accessibilityLabel={t('share')} />]
+    ? [
+        <HiddenItem key='share' title={t('share')} onPress={onShare} accessibilityLabel={t('share')} />,
+        ...(isPdfUrl
+          ? [<HiddenItem key='openPdf' title={t('openPdf')} onPress={onOpenPdf} accessibilityLabel={t('openPdf')} />]
+          : []),
+      ]
     : []
 
   if (!navigation.canGoBack()) {
