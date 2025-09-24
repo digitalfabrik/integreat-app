@@ -16,9 +16,10 @@ import SidebarActionItem from './SidebarActionItem'
 type GeneralHeaderProps = {
   languageCode: string
   cityLanguages?: LanguageModel[]
+  onStickyTopChanged?: (stickyTop: number) => void
 }
 
-const GeneralHeader = ({ languageCode, cityLanguages }: GeneralHeaderProps): ReactElement => {
+const GeneralHeader = ({ languageCode, cityLanguages, onStickyTopChanged }: GeneralHeaderProps): ReactElement => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const { toggleTheme } = useTheme()
   const { t } = useTranslation('layout')
@@ -45,7 +46,14 @@ const GeneralHeader = ({ languageCode, cityLanguages }: GeneralHeaderProps): Rea
     </Sidebar>,
   ]
 
-  return <Header logoHref={landingPath} actionItems={actionItems} language={languageCode} />
+  return (
+    <Header
+      logoHref={landingPath}
+      actionItems={actionItems}
+      language={languageCode}
+      onStickyTopChanged={onStickyTopChanged}
+    />
+  )
 }
 
 export default GeneralHeader

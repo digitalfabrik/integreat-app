@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { createCitiesEndpoint, useLoadFromEndpoint } from 'shared/api'
@@ -20,6 +20,7 @@ type LandingPageProps = {
 
 const LandingPage = ({ languageCode }: LandingPageProps): ReactElement => {
   const { data: cities, loading, error } = useLoadFromEndpoint(createCitiesEndpoint, cmsApiBaseUrl, undefined)
+  const [stickyTop, setStickyTop] = useState<number>(0)
   const { t } = useTranslation('landing')
 
   const pageTitle = t('pageTitle')
@@ -43,7 +44,7 @@ const LandingPage = ({ languageCode }: LandingPageProps): ReactElement => {
 
   return (
     <Layout
-      header={<GeneralHeader languageCode={languageCode} />}
+      header={<GeneralHeader languageCode={languageCode} onStickyTopChanged={setStickyTop} />}
       footer={
         <>
           {buildConfig().featureFlags.cityNotCooperating && <CityNotCooperatingFooter languageCode={languageCode} />}
@@ -51,7 +52,7 @@ const LandingPage = ({ languageCode }: LandingPageProps): ReactElement => {
         </>
       }>
       <Helmet pageTitle={pageTitle} metaDescription={metaDescription} rootPage />
-      <CitySelector cities={cities} language={languageCode} />
+      <CitySelector cities={cities} language={languageCode} stickyTop={stickyTop} />
     </Layout>
   )
 }
