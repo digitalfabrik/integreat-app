@@ -1,12 +1,12 @@
 import Divider from '@mui/material/Divider'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
-import { Link } from 'react-router'
 
 import { getExcerpt } from 'shared'
 
 import { EXCERPT_MAX_CHARS } from '../constants'
 import Highlighter from './Highlighter'
+import Link from './base/Link'
 
 const Row = styled('li')`
   width: 100%;

@@ -1,3 +1,5 @@
+import List from '@mui/material/List'
+import Stack from '@mui/material/Stack'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -23,21 +25,11 @@ import LoadingSpinner from '../components/LoadingSpinner'
 import SearchFeedback from '../components/SearchFeedback'
 import SearchInput from '../components/SearchInput'
 import SearchListItem from '../components/SearchListItem'
-import { helpers } from '../constants/theme'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useLoadSearchDocuments from '../hooks/useLoadSearchDocuments'
 import useReportError from '../hooks/useReportError'
 
-const List = styled('ul')`
-  list-style-type: none;
-
-  & a {
-    ${helpers.removeLinkHighlighting}
-  }
-`
-
 const SearchCounter = styled('p')`
-  padding: 0 5px;
   color: ${props => props.theme.legacy.colors.textSecondaryColor};
 `
 
@@ -146,13 +138,10 @@ const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
         languageChangePaths={languageChangePaths}
         cityModel={city}
       />
-      <SearchInput
-        filterText={query}
-        placeholderText={t('searchPlaceholder')}
-        onFilterTextChange={setQuery}
-        spaceSearch
-      />
-      {getPageContent()}
+      <Stack paddingTop={4}>
+        <SearchInput filterText={query} placeholderText={t('searchPlaceholder')} onFilterTextChange={setQuery} />
+        {getPageContent()}
+      </Stack>
     </CityContentLayout>
   )
 }
