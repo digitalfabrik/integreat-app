@@ -2,7 +2,7 @@ import MuiBottomNavigation from '@mui/material/BottomNavigation'
 import BottomNavigationAction from '@mui/material/BottomNavigationAction'
 import Paper from '@mui/material/Paper'
 import { styled } from '@mui/material/styles'
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { CATEGORIES_ROUTE, EVENTS_ROUTE, NEWS_ROUTE, POIS_ROUTE } from 'shared'
@@ -35,6 +35,10 @@ const BottomNavigation = ({ cityModel, languageCode }: BottomNavigationProps): R
   const navigationItems = getNavigationItems({ cityModel, languageCode })
   const validTabValues: string[] = [CATEGORIES_ROUTE, POIS_ROUTE, NEWS_ROUTE, EVENTS_ROUTE]
   const value = validTabValues.includes(route) ? route : false
+
+  useEffect(() => {
+    window.dispatchEvent(new Event('resize'))
+  }, [])
 
   if (!navigationItems) {
     return null
