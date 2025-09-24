@@ -75,10 +75,6 @@ const PoisMobile = ({
   const { t } = useTranslation('pois')
 
   const isBottomActionSheetFullScreen = bottomActionSheetHeight >= dimensions.window.height
-  const changeSnapPoint = (snapPoint: number) => {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    sheetRef.current?.sheet?.snapTo(() => dimensions.bottomSheet.snapPoints.all[snapPoint]!)
-  }
 
   const handleSelectPoi = (poi: PoiModel) => {
     if (sheetRef.current?.scrollElement) {
@@ -89,7 +85,7 @@ const PoisMobile = ({
 
   const handleSelectMapFeature = (feature: MapFeature | null) => {
     if (feature && sheetRef.current?.scrollElement) {
-      changeSnapPoint(1)
+      sheetRef.current.sheet?.snapTo(dimensions.bottomSheet.snapPoints.medium)
       setScrollOffset(sheetRef.current.scrollElement.scrollTop)
     }
     selectMapFeature(feature)
@@ -117,7 +113,7 @@ const PoisMobile = ({
         viewport={mapViewport}
         setViewport={setMapViewport}
         selectFeature={handleSelectMapFeature}
-        changeSnapPoint={changeSnapPoint}
+        snapBottomSheetTo={sheetRef.current?.sheet?.snapTo}
         features={mapFeatures}
         currentFeature={mapFeature ?? null}
         Overlay={
