@@ -1,18 +1,19 @@
 import SendIcon from '@mui/icons-material/Send'
+import Alert from '@mui/material/Alert'
 import Button from '@mui/material/Button'
+import FormControl from '@mui/material/FormControl'
+import FormHelperText from '@mui/material/FormHelperText'
+import TextField from '@mui/material/TextField'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Rating, DEFAULT_ROWS_NUMBER } from 'shared'
+import { DEFAULT_ROWS_NUMBER, Rating } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
 import FeedbackButtons from './FeedbackButtons'
 import { SendingStatusType } from './FeedbackContainer'
-import Note from './Note'
 import PrivacyCheckbox from './PrivacyCheckbox'
-import Input from './base/Input'
-import InputSection from './base/InputSection'
 
 export const Container = styled('div')<{ fullWidth?: boolean }>`
   display: flex;
@@ -27,15 +28,18 @@ export const Container = styled('div')<{ fullWidth?: boolean }>`
   font-size: ${props => props.theme.legacy.fonts.contentFontSize};
   overflow: auto;
   align-self: center;
-  gap: 16px;
 
   ${props => props.theme.breakpoints.up('md')} {
     width: ${props => (props.fullWidth ? 'auto' : '400px')};
   }
 `
 
-const ErrorSendingStatus = styled('div')`
-  font-weight: bold;
+const OptionalHint = styled('p')`
+  text-align: end;
+`
+
+const PrivacyFormControl = styled(FormControl)`
+  margin: 8px 0;
 `
 
 type FeedbackProps = {
@@ -45,12 +49,11 @@ type FeedbackProps = {
   contactMail: string
   onCommentChanged: (comment: string) => void
   onContactMailChanged: (contactMail: string) => void
-  setRating?: (rating: Rating | null) => void
+  setRating: (rating: Rating | null) => void
   onSubmit: () => void
   sendingStatus: SendingStatusType
   searchTerm: string | undefined
   setSearchTerm: (newTerm: string) => void
-  closeFeedback: (() => void) | undefined
 }
 
 const Feedback = ({
@@ -65,7 +68,6 @@ const Feedback = ({
   setRating,
   searchTerm,
   setSearchTerm,
-  closeFeedback,
 }: FeedbackProps): ReactElement => {
   const { t } = useTranslation('feedback')
 
@@ -74,12 +76,21 @@ const Feedback = ({
   const [privacyPolicyAccepted, setPrivacyPolicyAccepted] = useState(false)
   const feedbackFilled = rating === null && comment.trim().length === 0 && !searchTerm
   const submitFeedbackDisabled = feedbackFilled || !privacyPolicyAccepted
+  const [showErrors, setShowErrors] = useState(false)
+
+  const handleSubmit = () => {
+    setShowErrors(true)
+    if (!submitFeedbackDisabled) {
+      onSubmit()
+    }
+  }
 
   if (sendingStatus === 'successful') {
     return (
       <Container>
-        <div>{t('thanksMessage')}</div>
-        {!!closeFeedback && !isSearchFeedback && <Button onClick={closeFeedback}>{t('common:close')}</Button>}
+        <Alert role='alert' severity='success'>
+          {t('thanksMessage')}
+        </Alert>
       </Container>
     )
   }
@@ -87,28 +98,47 @@ const Feedback = ({
   return (
     <Container fullWidth={isSearchFeedback}>
       {isSearchFeedback ? (
-        <InputSection id='searchTerm' title={t('searchTermDescription')}>
-          <Input id='searchTerm' value={searchTerm} onChange={setSearchTerm} />
-        </InputSection>
+        <TextField
+          id='searchTerm'
+          value={searchTerm}
+          onChange={event => setSearchTerm(event.target.value)}
+          label={t('searchTermDescription')}
+          required
+          fullWidth
+          error={showErrors && !searchTerm}
+          helperText={showErrors && !searchTerm ? t('noteFillFeedback') : undefined}
+        />
       ) : (
-        setRating && <FeedbackButtons rating={rating} setRating={setRating} />
+        <FormControl error={showErrors && rating === null}>
+          <FeedbackButtons rating={rating} setRating={setRating} />
+          {showErrors && rating === null && <FormHelperText>{t('noteFillFeedback')}</FormHelperText>}
+        </FormControl>
       )}
-
-      <InputSection
+      <OptionalHint>({t('common:optional')})</OptionalHint>
+      <TextField
         id='comment'
-        title={t(commentTitle)}
-        description={t('commentDescription', { appName: buildConfig().appName })}
-        showOptional>
-        <Input id='comment' value={comment} onChange={onCommentChanged} rows={DEFAULT_ROWS_NUMBER} />
-      </InputSection>
-
-      <InputSection id='email' title={t('contactMailAddress')} showOptional>
-        <Input id='email' value={contactMail} onChange={onContactMailChanged} />
-      </InputSection>
-      <PrivacyCheckbox language={language} checked={privacyPolicyAccepted} setChecked={setPrivacyPolicyAccepted} />
-      {submitFeedbackDisabled && <Note text={t(feedbackFilled ? 'noteFillFeedback' : 'notePrivacyPolicy')} />}
-      {sendingStatus === 'failed' && <ErrorSendingStatus role='alert'>{t('failedSendingFeedback')}</ErrorSendingStatus>}
-      <Button onClick={onSubmit} variant='contained' startIcon={<SendIcon />} disabled={submitFeedbackDisabled}>
+        value={comment}
+        onChange={event => onCommentChanged(event.target.value)}
+        label={t(commentTitle)}
+        variant='outlined'
+        multiline
+        rows={DEFAULT_ROWS_NUMBER}
+        helperText={t('commentDescription', { appName: buildConfig().appName })}
+      />
+      <OptionalHint>({t('common:optional')})</OptionalHint>
+      <TextField
+        id='email'
+        value={contactMail}
+        onChange={event => onContactMailChanged(event.target.value)}
+        label={t('contactMailAddress')}
+        variant='outlined'
+      />
+      <PrivacyFormControl error={showErrors && !privacyPolicyAccepted} required>
+        <PrivacyCheckbox language={language} checked={privacyPolicyAccepted} setChecked={setPrivacyPolicyAccepted} />
+        {showErrors && !privacyPolicyAccepted && <FormHelperText>{t('common:notePrivacyPolicy')}</FormHelperText>}
+      </PrivacyFormControl>
+      {sendingStatus === 'failed' && <Alert severity='error'>{t('failedSendingFeedback')}</Alert>}
+      <Button onClick={handleSubmit} variant='contained' startIcon={<SendIcon />}>
         {t('send')}
       </Button>
     </Container>
