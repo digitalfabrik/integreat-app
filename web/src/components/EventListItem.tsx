@@ -102,7 +102,6 @@ const EventListItem = ({
   return (
     <StyledListItem
       dir='auto'
-      divider
       disablePadding
       secondaryAction={dateIcon && <Tooltip title={t(dateIcon.tooltip)}>{dateIcon.Icon}</Tooltip>}>
       <StyledListItemButton component={Link} to={event.path} dir='auto'>
