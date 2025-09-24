@@ -30,7 +30,6 @@ const FeedbackToolbarItem = ({ route, slug, rating }: FeedbackToolbarItemProps):
       {isFeedbackOpen && (
         <Modal title={title} closeModal={() => setIsFeedbackOpen(false)} wrapInPortal>
           <FeedbackContainer
-            onClose={() => setIsFeedbackOpen(false)}
             onSubmit={() => setIsSubmitted(true)}
             routeType={route as FeedbackRouteType}
             cityCode={cityCode}
