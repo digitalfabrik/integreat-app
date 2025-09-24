@@ -28,7 +28,7 @@ const HeaderTitle = ({ title, landingPath }: HeaderTitleProps): ReactElement => 
     )
   }
   return (
-    <Tooltip title={t('changeLocation')}>
+    <Tooltip title={t('changeLocation')} leaveTouchDelay={0}>
       <Button component={Link} to={landingPath} endIcon={<KeyboardArrowDownIcon />} color='inherit'>
         <Typography variant={variant}>{title}</Typography>
       </Button>
