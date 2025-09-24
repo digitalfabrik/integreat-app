@@ -48,7 +48,6 @@ const CitySelector = ({ cities, language, stickyTop }: CitySelectorProps): React
         filterText={filterText}
         placeholderText={t('searchCity')}
         onFilterTextChange={setFilterText}
-        spaceSearch={false}
         description={t('searchCityDescription')}
       />
       <Stack>
