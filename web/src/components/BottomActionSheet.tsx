@@ -39,17 +39,10 @@ type BottomActionSheetProps = {
   title?: string
   children: ReactNode
   sibling: ReactNode
-  setBottomActionSheetHeight: (height: number) => void
   ref: RefObject<ScrollableBottomSheetRef | null>
 }
 
-const BottomActionSheet = ({
-  title,
-  children,
-  sibling,
-  setBottomActionSheetHeight,
-  ref,
-}: BottomActionSheetProps): ReactElement => {
+const BottomActionSheet = ({ title, children, sibling, ref }: BottomActionSheetProps): ReactElement => {
   const [scrollElement, setScrollElement] = useState<HTMLElement | null>(null)
   const dimensions = useDimensions()
   const bottomSheetRef = useRef<BottomSheetRef>(null)
@@ -76,7 +69,6 @@ const BottomActionSheet = ({
       scrollLocking={false}
       blocking={false}
       onSpringStart={initializeScrollElement}
-      onSpringEnd={() => setBottomActionSheetHeight(bottomSheetRef.current?.height ?? 0)}
       header={title ? <Title>{title}</Title> : null}
       snapPoints={() => dimensions.bottomSheet.snapPoints.all}
       defaultSnap={() => dimensions.bottomSheet.snapPoints.medium}>
