@@ -9,11 +9,11 @@ const StyledIcon = styled(SVG, { shouldForwardProp })<{ directionDependent: bool
     (props.reverse === true) !== (props.directionDependent && props.theme.contentDirection === 'rtl')
       ? 'scaleX(-1)'
       : ''};
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: 'inherit';
   width: 24px;
   height: 24px;
 
-  --theme-color: ${props => props.theme.legacy.colors.themeColor};
+  --theme-color: ${props => props.theme.palette.secondary.main};
 `
 
 type IconProps = {

@@ -9,7 +9,6 @@ import {
   MapFeature,
   MapViewViewport,
   normalizePath,
-  POIS_ROUTE,
   preparePois,
   safeParseInt,
   toQueryParams,
@@ -20,14 +19,13 @@ import CityContentToolbar from '../components/CityContentToolbar'
 import PoiFilters from '../components/PoiFilters'
 import PoisDesktop from '../components/PoisDesktop'
 import PoisMobile from '../components/PoisMobile'
-import dimensions from '../constants/dimensions'
-import useWindowDimensions from '../hooks/useWindowDimensions'
+import useDimensions from '../hooks/useDimensions'
 import moveViewportToCity from '../utils/moveViewportToCity'
 import PoiFiltersOverlayButtons from './PoiFiltersOverlayButtons'
 
-const Container = styled('div')<{ headerHeight: number }>`
+const Container = styled('div')`
   display: flex;
-  ${({ headerHeight }) => `height: calc(100vh - ${headerHeight}px);`};
+  height: calc(100vh - ${props => props.theme.dimensions.headerHeight}px);
 `
 
 type PoiProps = {
@@ -46,7 +44,7 @@ const Pois = ({ pois: allPois, userLocation, city, languageCode, pageTitle }: Po
   const [mapViewport, setMapViewport] = useState<MapViewViewport>(moveViewportToCity(city, zoom))
   const params = useParams()
   const navigate = useNavigate()
-  const { viewportSmall, width, headerHeight } = useWindowDimensions()
+  const { mobile } = useDimensions()
 
   const slug = params.slug ? normalizePath(params.slug) : undefined
 
@@ -101,15 +99,7 @@ const Pois = ({ pois: allPois, userLocation, city, languageCode, pageTitle }: Po
   }
 
   const toolbar = (
-    <CityContentToolbar
-      feedbackTarget={poi?.slug}
-      route={POIS_ROUTE}
-      iconDirection='row'
-      hideDivider
-      pageTitle={pageTitle}
-      isInBottomActionSheet={viewportSmall}
-      maxItems={viewportSmall ? undefined : desktopMaxToolbarItems}
-    />
+    <CityContentToolbar slug={poi?.slug} direction='row' pageTitle={pageTitle} maxItems={desktopMaxToolbarItems} />
   )
 
   const FiltersModal = (
@@ -120,16 +110,14 @@ const Pois = ({ pois: allPois, userLocation, city, languageCode, pageTitle }: Po
       setSelectedPoiCategory={updatePoiCategoryFilter}
       currentlyOpenFilter={currentlyOpenFilter}
       setCurrentlyOpenFilter={updatePoiCurrentlyOpenFilter}
-      panelWidth={viewportSmall ? width : dimensions.poiDesktopPanelWidth}
       poisCount={pois.length}
     />
   )
-  if (showFilterSelection && viewportSmall) {
+  if (showFilterSelection && mobile) {
     return FiltersModal
   }
 
   const sharedPoiProps = {
-    toolbar,
     data: preparedData,
     selectMapFeature,
     selectPoi,
@@ -152,12 +140,13 @@ const Pois = ({ pois: allPois, userLocation, city, languageCode, pageTitle }: Po
   }
 
   return (
-    <Container headerHeight={headerHeight}>
-      {viewportSmall ? (
+    <Container>
+      {mobile ? (
         <PoisMobile {...sharedPoiProps} />
       ) : (
         <PoisDesktop
           {...sharedPoiProps}
+          toolbar={toolbar}
           cityModel={city}
           PanelContent={showFilterSelection ? FiltersModal : undefined}
         />

@@ -1274,7 +1274,8 @@
       "notePrivacyPolicy": "Bitte stimme der Datenschutzerklärung zu, um das Formular abschicken zu können.",
       "accessible": "Barrierefrei",
       "notAccessible": "Nicht barrierefrei",
-      "clearInput": "Eingabe löschen"
+      "clearInput": "Eingabe löschen",
+      "more": "Mehr"
     },
     "am": {
       "copied": "ተቀድቷል",
@@ -1406,7 +1407,8 @@
       "notePrivacyPolicy": "Please agree to the privacy policy in order to submit the form.",
       "accessible": "Accessible",
       "notAccessible": "Not accessible",
-      "clearInput": "Clear input"
+      "clearInput": "Clear input",
+      "more": "More"
     },
     "es": {
       "copied": "Copiado",
@@ -2387,266 +2389,6 @@
       "knownResourceContentMessage": "该元素包含该外部来源的数据。您可以在设置中阻止嵌入此类内容。",
       "knownResourceBlocked": "该来源的外部内容已被阻止。您可以在设置中允许使用此来源。",
       "noSources": "无外部来源。"
-    }
-  },
-  "dashboard": {
-    "de": {
-      "localInformation": "Lokale Informationen",
-      "events": "Veranstaltungen",
-      "news": "Nachrichten",
-      "pois": "Karte"
-    },
-    "am": {
-      "localInformation": "አካባቢያዊ መረጃ",
-      "events": "ዝግጅቶች",
-      "news": "ዜናዎች",
-      "pois": "ካርታ"
-    },
-    "ar": {
-      "localInformation": "معلومات محلية",
-      "events": "الفعاليات",
-      "news": "الأخبار",
-      "pois": "الخريطة"
-    },
-    "bg": {
-      "localInformation": "Местна информация",
-      "events": "Събития",
-      "news": "Новини",
-      "pois": "Карта"
-    },
-    "ckb": {
-      "localInformation": "زانیارییە خۆجییەکان",
-      "events": "ڕووداوەکان",
-      "news": "هەواڵ",
-      "pois": "نەخشە"
-    },
-    "cs": {
-      "localInformation": "Místní informace",
-      "events": "Akce",
-      "news": "Zprávy",
-      "pois": "Mapa"
-    },
-    "da": {
-      "localInformation": "Lokale oplysninger",
-      "events": "Begivenheder",
-      "news": "Nyheder",
-      "pois": "Kort"
-    },
-    "el": {
-      "localInformation": "Τοπικές πληροφορίες",
-      "events": "Εκδηλώσεις",
-      "news": "Ειδήσεις",
-      "pois": "Χάρτης"
-    },
-    "en": {
-      "localInformation": "Local information",
-      "events": "Events",
-      "news": "News",
-      "pois": "Map"
-    },
-    "es": {
-      "localInformation": "Información local",
-      "events": "Actividades",
-      "news": "Noticias",
-      "pois": "Mapa"
-    },
-    "fi": {
-      "localInformation": "Paikalliset tiedot",
-      "events": "Tapahtumat",
-      "news": "Viestit",
-      "pois": "Kartta"
-    },
-    "fr": {
-      "localInformation": "Informations locales",
-      "events": "Événements",
-      "news": "Nouvelles",
-      "pois": "Carte"
-    },
-    "hi": {
-      "localInformation": "स्थानीय जानकारी",
-      "events": "ईवेंट",
-      "news": "समाचार",
-      "pois": "मैप"
-    },
-    "hr": {
-      "localInformation": "Lokalne informacije",
-      "events": "Događanja",
-      "news": "Vijesti",
-      "pois": "Karta"
-    },
-    "hu": {
-      "localInformation": "Helyi információk",
-      "events": "Események",
-      "news": "Hírek",
-      "pois": "Térkép"
-    },
-    "id": {
-      "localInformation": "Informasi lokal",
-      "events": "Acara",
-      "news": "Berita",
-      "pois": "Peta"
-    },
-    "it": {
-      "localInformation": "Informazioni locali",
-      "events": "Eventi",
-      "news": "Messaggi",
-      "pois": "Mappa"
-    },
-    "ka": {
-      "localInformation": "ადგილობრივი ინფორმაციები",
-      "events": "ღონისძიებები",
-      "news": "ინფორმაციები",
-      "pois": "რუქა"
-    },
-    "kmr": {
-      "localInformation": "Zanyariyên xwecihî",
-      "events": "Rûdan",
-      "news": "Nûçe",
-      "pois": "Nexşe"
-    },
-    "mk": {
-      "localInformation": "Локални информации",
-      "events": "Настани",
-      "news": "Вести",
-      "pois": "Мапа"
-    },
-    "nl": {
-      "localInformation": "Lokale informatie",
-      "events": "Evenementen",
-      "news": "Nieuws",
-      "pois": "Kaart"
-    },
-    "orm": {
-      "localInformation": "Odeeffannoo naannoo",
-      "events": "Sagantaalee",
-      "news": "Oduu",
-      "pois": "Kaartaa"
-    },
-    "pes": {
-      "localInformation": "اطلاعات محلی",
-      "events": "رویدادها",
-      "news": "اخبار",
-      "pois": "نقشه"
-    },
-    "pl": {
-      "localInformation": "Informacje lokalne",
-      "events": "Wydarzenia",
-      "news": "Wiadomości",
-      "pois": "Mapa"
-    },
-    "prs": {
-      "localInformation": "اطلاعات تماس",
-      "events": "بازگشت به خلاصه",
-      "news": "مسیریابی",
-      "pois": "باز کردن در Google Maps"
-    },
-    "ps": {
-      "localInformation": "سیمه ییز معلومات",
-      "events": "غونډې",
-      "news": "خبرونه",
-      "pois": "کارت"
-    },
-    "pt": {
-      "localInformation": "Informações locais",
-      "events": "Eventos",
-      "news": "Notícias",
-      "pois": "Mapa"
-    },
-    "ro": {
-      "localInformation": "Informații locale",
-      "events": "Evenimente",
-      "news": "Știri",
-      "pois": "Hartă"
-    },
-    "rom": {
-      "localInformation": "Lokalnikane informacie",
-      "events": "Čipote",
-      "news": "Haberia",
-      "pois": "Mapa"
-    },
-    "ru": {
-      "localInformation": "Местная информация",
-      "events": "Мероприятия",
-      "news": "Новости",
-      "pois": "Карта"
-    },
-    "sk": {
-      "localInformation": "Lokálne informácie",
-      "events": "Podujatia",
-      "news": "Správy",
-      "pois": "Mapa"
-    },
-    "so": {
-      "localInformation": "Macluumaadka deegaanka",
-      "events": "Dhacdooyinka",
-      "news": "war",
-      "pois": "khariidad"
-    },
-    "sq": {
-      "localInformation": "Informata lokale",
-      "events": "Evenimentet",
-      "news": "Lajme",
-      "pois": "Harta"
-    },
-    "sr-Cyrl": {
-      "localInformation": "Локалне информације",
-      "events": "Догађаји",
-      "news": "Вести",
-      "pois": "Карта"
-    },
-    "sr-Latn": {
-      "localInformation": "Lokalne informacije",
-      "events": "Događaji",
-      "news": "Vesti",
-      "pois": "Karta"
-    },
-    "sw": {
-      "localInformation": "Habari za nchini",
-      "events": "Matukio",
-      "news": "Habari",
-      "pois": "Ramani"
-    },
-    "th": {
-      "localInformation": "ข้อมูลท้องถิ่น",
-      "events": "กิจกรรม",
-      "news": "ข่าว",
-      "pois": "แผนที่"
-    },
-    "ti": {
-      "localInformation": "ከባብያዊ ሓበሬታ",
-      "events": "ኣጋጣሚታት",
-      "news": "ዜና",
-      "pois": "ካርታ"
-    },
-    "tr": {
-      "localInformation": "Yerel bilgiler",
-      "events": "Etkinlikler",
-      "news": "Mesajlar",
-      "pois": "Harita"
-    },
-    "uk": {
-      "localInformation": "Місцева інформація",
-      "events": "Події",
-      "news": "Новини",
-      "pois": "Мапа"
-    },
-    "ur": {
-      "localInformation": "مقامی معلومات",
-      "events": "واقعات",
-      "news": "خبریں",
-      "pois": "نقشہ"
-    },
-    "vi": {
-      "localInformation": "Thông tin về địa phương",
-      "events": "Sự kiện",
-      "news": "Tin tức",
-      "pois": "Bản đồ"
-    },
-    "zh-CN": {
-      "localInformation": "本地信息",
-      "events": "活动",
-      "news": "新闻",
-      "pois": "地图"
     }
   },
   "disclaimer": {
@@ -8470,8 +8212,8 @@
       "imprint": "Impressum",
       "privacy": "Datenschutz",
       "localInformation": "Lokale Informationen",
+      "localInformationLabel": "Informationen",
       "events": "Veranstaltungen",
-      "noEvents": "Keine Veranstaltungen",
       "news": "Nachrichten",
       "noLanguages": "Nicht verfügbar in anderen Sprachen",
       "noTranslation": "Keine Übersetzung verfügbar",
@@ -8512,7 +8254,6 @@
       "privacy": "የግላዊነት ፖሊሲ",
       "localInformation": "አካባቢያዊ መረጃ",
       "events": "ዝግጅቶች",
-      "noEvents": "ምንም ዝግጅቶች የሉም",
       "news": "ዜናዎች",
       "noLanguages": "በሌሎች ቋንቋዎች አይገኝም",
       "noTranslation": "ትርጉም አይቀርብም",
@@ -8552,7 +8293,6 @@
       "privacy": "حماية البيانات",
       "localInformation": "معلومات محلية",
       "events": "الفعاليات",
-      "noEvents": "لا توجد فعاليات",
       "news": "الأخبار",
       "noLanguages": "غير متوفر بلغات أخرى",
       "noTranslation": "لا توجد ترجمة متاحة",
@@ -8592,7 +8332,6 @@
       "privacy": "Защита на личните данни",
       "localInformation": "Местна информация",
       "events": "Събития",
-      "noEvents": "Няма събития",
       "news": "Новини",
       "noLanguages": "Не се предлага на други езици",
       "noTranslation": "Няма превод",
@@ -8632,7 +8371,6 @@
       "privacy": "پاراستنی دێیتاکان",
       "localInformation": "زانیارییە خۆجییەکان",
       "events": "ڕووداوەکان",
-      "noEvents": "هیچ ڕووداوێکی تێدا نییە",
       "news": "هەواڵ",
       "noLanguages": "بە زمانەکانی دیکەی تێدا نییە",
       "noTranslation": "وەرگێرانەکەی تێدا نییە",
@@ -8672,7 +8410,6 @@
       "privacy": "Ochrana údajů",
       "localInformation": "Lokální informace",
       "events": "Akce",
-      "noEvents": "Žádné akce",
       "news": "Zprávy",
       "noLanguages": "Není k dispozici v jiných jazycích",
       "noTranslation": "Žádný překlad není k dispozici",
@@ -8712,7 +8449,6 @@
       "privacy": "Beskyttelse af data",
       "localInformation": "Lokale oplysninger",
       "events": "Begivenheder",
-      "noEvents": "Ingen begivenheder",
       "news": "Nyheder",
       "noLanguages": "Ikke tilgængelig på andre sprog",
       "noTranslation": "Ingen oversættelse tilgængelig",
@@ -8752,7 +8488,6 @@
       "privacy": "Προστασία δεδομένων ",
       "localInformation": "Τοπικές πληροφορίες",
       "events": "Εκδηλώσεις",
-      "noEvents": "Δεν υπάρχουν εκδηλώσεις",
       "news": "Ειδήσεις",
       "noLanguages": "Δεν διατίθεται σε άλλες γλώσσες",
       "noTranslation": "Δεν υπάρχει διαθέσιμη μετάφραση",
@@ -8791,8 +8526,8 @@
       "imprint": "Imprint",
       "privacy": "Data protection",
       "localInformation": "Local information",
+      "localInformationLabel": "Information",
       "events": "Events",
-      "noEvents": "No events",
       "news": "News",
       "noLanguages": "Not available in other languages",
       "noTranslation": "No translation available",
@@ -8833,7 +8568,6 @@
       "privacy": "Privacidad",
       "localInformation": "Información local",
       "events": "Actividades",
-      "noEvents": "No hay actividades",
       "news": "Noticias",
       "noLanguages": "No disponible en otros idiomas",
       "noTranslation": "No hay traducción disponible",
@@ -8873,7 +8607,6 @@
       "privacy": "Tietosuoja",
       "localInformation": "Paikalliset tiedot",
       "events": "Tapahtumat",
-      "noEvents": "Ei tapahtumia",
       "news": "Viestit",
       "noLanguages": "Ei saatavilla muilla kielillä",
       "noTranslation": "Käännöksiä ei saatavilla",
@@ -8913,7 +8646,6 @@
       "privacy": "Protection des données",
       "localInformation": "Informations locales",
       "events": "Événements",
-      "noEvents": "Aucun événement",
       "news": "Nouvelles",
       "noLanguages": "Non disponible dans d'autres langues",
       "noTranslation": "Aucune traduction disponible",
@@ -8953,7 +8685,6 @@
       "privacy": "डेटा संरक्षण",
       "localInformation": "स्थानीय जानकारी",
       "events": "ईवेंट",
-      "noEvents": "कोई ईवेंट नहीं",
       "news": "समाचार",
       "noLanguages": "अन्य भाषाओं में उपलब्ध नहीं है",
       "noTranslation": "कोई अनुवाद उपलब्ध नहीं है",
@@ -8993,7 +8724,6 @@
       "privacy": "Zaštita podataka",
       "localInformation": "Lokalne informacije",
       "events": "Događanja",
-      "noEvents": "Nema događanja",
       "news": "Vijesti",
       "noLanguages": "Nije dostupno na drugim jezicima",
       "noTranslation": "Prijevod nije dostupan",
@@ -9033,7 +8763,6 @@
       "privacy": "Adatvédelem",
       "localInformation": "Helyi információk",
       "events": "Események",
-      "noEvents": "Nincs esemény",
       "news": "Hírek",
       "noLanguages": "Más nyelveken nem elérhető",
       "noTranslation": "Nincs fordítás",
@@ -9073,7 +8802,6 @@
       "privacy": "Proteksi data",
       "localInformation": "Informasi lokal",
       "events": "Acara",
-      "noEvents": "Tidak ada acara",
       "news": "Berita",
       "noLanguages": "Tidak tersedia dalam bahasa lain",
       "noTranslation": "Terjemahan tidak tersedia",
@@ -9114,7 +8842,6 @@
       "privacy": "Protezione dei dati",
       "localInformation": "Informazioni locali",
       "events": "Eventi",
-      "noEvents": "Nessun evento",
       "news": "Messaggi",
       "noLanguages": "Non disponibile in altre lingue",
       "noTranslation": "Nessuna traduzione disponibile",
@@ -9154,7 +8881,6 @@
       "privacy": "მონაცემთა დაცვა",
       "localInformation": "ადგილობრივი ინფორმაციები",
       "events": "ღონისძიებები",
-      "noEvents": "არანაირი ღონისძიებები",
       "news": "ინფორმაციები",
       "noLanguages": "არ არსებობს სხვა ენებზე",
       "noTranslation": "თარგმანი არ არსებობს",
@@ -9194,7 +8920,6 @@
       "privacy": "Parastina daneyan",
       "localInformation": "Zanyariyên xwecihî",
       "events": "Rûdan",
-      "noEvents": "Tu rûdanek tuneye",
       "news": "Nûçe",
       "noLanguages": "Bi zimanên din tuneye",
       "noTranslation": "Werger tuneye",
@@ -9234,7 +8959,6 @@
       "privacy": "Заштита на лични податоци",
       "localInformation": "Локални информации",
       "events": "Настани",
-      "noEvents": "Нема настани",
       "news": "Вести",
       "noLanguages": "Не се достапни на други јазици",
       "noTranslation": "Не е достапен превод",
@@ -9274,7 +8998,6 @@
       "privacy": "Gegevensbescherming",
       "localInformation": "Lokale informatie",
       "events": "Evenementen",
-      "noEvents": "Geen evenementen",
       "news": "Nieuws",
       "noLanguages": "Niet beschikbaar in andere talen",
       "noTranslation": "Geen vertaling beschikbaar",
@@ -9314,7 +9037,6 @@
       "privacy": "Eegumsa daataa",
       "localInformation": "Odeeffannoo naannoo",
       "events": "Sagantaalee",
-      "noEvents": "Sagantaan hin jiru",
       "news": "Oduu",
       "noLanguages": "Afaan biraatiin hin jiru",
       "noTranslation": "Hiikkaan hin jiru",
@@ -9354,7 +9076,6 @@
       "privacy": "حفاظت از داده ها",
       "localInformation": "اطلاعات محلی",
       "events": "رویدادها",
-      "noEvents": "رویدادی وجود ندارد",
       "news": "اخبار",
       "noLanguages": "به زبان های دیگر موجود نیست",
       "noTranslation": "ترجمه موجود نیست",
@@ -9394,7 +9115,6 @@
       "privacy": "Ochrona danych",
       "localInformation": "Informacje lokalne",
       "events": "Wydarzenia",
-      "noEvents": "Brak wydarzeń",
       "news": "Wiadomości",
       "noLanguages": "Niedostępne w innych językach",
       "noTranslation": "Brak dostępnego tłumaczenia",
@@ -9434,7 +9154,6 @@
       "privacy": "حفاظت از داده ها",
       "localInformation": "معلومات محلی",
       "events": "رویدادها",
-      "noEvents": "هیچ رویدادی وجود ندارد",
       "news": "اخبار",
       "noLanguages": "به لسان های دیگر موجود نیست",
       "noTranslation": "ترجمه موجود نیست",
@@ -9474,7 +9193,6 @@
       "privacy": "د ډاټا حفاظت",
       "localInformation": "سیمه ییز معلومات",
       "events": "غونډې",
-      "noEvents": "غونډې نشته",
       "news": "خبرونه",
       "noLanguages": "په نورو ژبو کې موجود ندی",
       "noTranslation": "ترجمه موجود نده",
@@ -9514,7 +9232,6 @@
       "privacy": "Proteção de dados",
       "localInformation": "Informações locais",
       "events": "Eventos",
-      "noEvents": "Não existem eventos",
       "news": "Notícias",
       "noLanguages": "Não disponível noutros idiomas",
       "noTranslation": "Nenhuma tradução disponível",
@@ -9554,7 +9271,6 @@
       "privacy": "Confidențialitate",
       "localInformation": "Informații locale",
       "events": "Evenimente",
-      "noEvents": "Nici un fel de evenimente",
       "news": "Știri",
       "noLanguages": "Indisponibil în alte limbi",
       "noTranslation": "Nicio traducere disponibilă",
@@ -9594,7 +9310,6 @@
       "privacy": "Arakhiba podatke",
       "localInformation": "Lokalnikane informacie",
       "events": "Čipote",
-      "noEvents": "Nane čipote",
       "news": "Haberia",
       "noLanguages": "Nane ko avera čhiba",
       "noTranslation": "Nane prevod",
@@ -9634,7 +9349,6 @@
       "privacy": "Защита данных",
       "localInformation": "Местная информация",
       "events": "Мероприятия",
-      "noEvents": "Мероприятия отсутствуют",
       "news": "Новости",
       "noLanguages": "Недоступно на других языках",
       "noTranslation": "Перевод недоступен",
@@ -9675,7 +9389,6 @@
       "privacy": "Ochrana osobných údajov",
       "localInformation": "Lokálne informácie",
       "events": "Podujatia",
-      "noEvents": "Žiadne podujatia",
       "news": "Správy",
       "noLanguages": "Nie je k dispozícii v iných jazykoch",
       "noTranslation": "Nie je k dispozícii žiadny preklad",
@@ -9715,7 +9428,6 @@
       "privacy": "Asturnaanta",
       "localInformation": "Macluumaadka deegaanka",
       "events": "Dhacdooyinka",
-      "noEvents": "Ma jiraan dhacdooyin",
       "news": "war",
       "noLanguages": "Luuqad kale laguma heli karo",
       "noTranslation": "Turjumaad lama heli karo",
@@ -9755,7 +9467,6 @@
       "privacy": "Mbrojtja e të dhënave",
       "localInformation": "Informata lokale",
       "events": "Evenimentet",
-      "noEvents": "Nuk ka evenimente",
       "news": "Lajme",
       "noLanguages": "Nuk është në dispozicion në gjuhë të tjera",
       "noTranslation": "Nuk ka përkthim të disponueshëm",
@@ -9795,7 +9506,6 @@
       "privacy": "Заштита података",
       "localInformation": "Локалне информације",
       "events": "Догађаји",
-      "noEvents": "Нема догађаја",
       "news": "Вести",
       "noLanguages": "Није доступно на другим језицима",
       "noTranslation": "Није доступан превод",
@@ -9835,7 +9545,6 @@
       "privacy": "Zaštita podataka",
       "localInformation": "Lokalne informacije",
       "events": "Događaji",
-      "noEvents": "Nema događaja",
       "news": "Vesti",
       "noLanguages": "Nije dostupno na drugim jezicima",
       "noTranslation": "Nije dostupan prevod",
@@ -9875,7 +9584,6 @@
       "privacy": "Ulinzi wa data",
       "localInformation": "Habari za nchini",
       "events": "Matukio",
-      "noEvents": "Hakuna matukio",
       "news": "Habari",
       "noLanguages": "Haipatikani katika lugha zingine",
       "noTranslation": "Hakuna tafsiri inayopatikana",
@@ -9915,7 +9623,6 @@
       "privacy": "การคุ้มครองข้อมูล",
       "localInformation": "ข้อมูลท้องถิ่น",
       "events": "กิจกรรม",
-      "noEvents": "ไม่มีกิจกรรม",
       "news": "ข่าว",
       "noLanguages": "ไม่สามารถใช้งานได้ในภาษาอื่น",
       "noTranslation": "ไม่มีคำแปล",
@@ -9955,7 +9662,6 @@
       "privacy": "ምስጢርነት",
       "localInformation": "ከባብያዊ ሓበሬታ",
       "events": "ኣጋጣሚታት",
-      "noEvents": "ኣጋጣሚታት የለዉን",
       "news": "ዜና",
       "noLanguages": "ብኻልእ ቋንቋታት የለን",
       "noTranslation": "ትርጉም የለን",
@@ -9995,7 +9701,6 @@
       "privacy": "Kişisel verilerin korunması",
       "localInformation": "Yerel bilgiler",
       "events": "Etkinlikler",
-      "noEvents": "Etkinlik yok",
       "news": "Bildirimler",
       "noLanguages": "Diğer dillerde mevcut değil",
       "noTranslation": "Çeviri yok",
@@ -10035,7 +9740,6 @@
       "privacy": "Захист даних",
       "localInformation": "Місцева інформація",
       "events": "Події",
-      "noEvents": "Немає подій",
       "news": "Новини",
       "noLanguages": "Недоступно іншими мовами",
       "noTranslation": "Переклад відсутній",
@@ -10075,7 +9779,6 @@
       "privacy": "ڈیٹا کا تحفظ",
       "localInformation": "مقامی معلومات",
       "events": "ایونٹس",
-      "noEvents": "کوئی ایونٹس نہیں ہیں",
       "news": "خبریں",
       "noLanguages": "دیگر زبانوں میں دستیاب نہیں",
       "noTranslation": "ترجمہ دستیاب نہیں",
@@ -10115,7 +9818,6 @@
       "privacy": "Bảo vệ dữ liệu",
       "localInformation": "Thông tin về địa phương",
       "events": "Sự kiện",
-      "noEvents": "Không có sự kiện nào",
       "news": "Tin tức",
       "noLanguages": "Không có sẵn bằng ngôn ngữ khác",
       "noTranslation": "Không có bản dịch nào",
@@ -10155,7 +9857,6 @@
       "privacy": "数据保护",
       "localInformation": "本地信息",
       "events": "活动",
-      "noEvents": "没有活动",
       "news": "新闻",
       "noLanguages": "没有其他语言版本",
       "noTranslation": "没有翻译",
@@ -11841,7 +11542,6 @@
         "pageTitle": "Lokale Nachrichten"
       },
       "local": "Lokal",
-      "readMore": "Weiterlesen",
       "currentlyNoNews": "Aktuell gibt es keine Nachrichten."
     },
     "am": {
@@ -11851,7 +11551,6 @@
         "pageTitle": "አካባቢያዊ ዜናዎች"
       },
       "local": "አካባቢያዊ",
-      "readMore": "ተጨማሪ ያንብቡ",
       "currentlyNoNews": "በአሁኑ ሰዐት ምንም ዜናዎች የሉም።"
     },
     "ar": {
@@ -11861,7 +11560,6 @@
         "pageTitle": "الأخبار المحلية"
       },
       "local": "محلي",
-      "readMore": "متابعة القراءة",
       "currentlyNoNews": "لا تُوجد أخبار حاليًا."
     },
     "bg": {
@@ -11871,7 +11569,6 @@
         "pageTitle": "Местни новини"
       },
       "local": "Локално",
-      "readMore": "Продължи с четенето",
       "currentlyNoNews": "В момента няма новини."
     },
     "ckb": {
@@ -11881,7 +11578,6 @@
         "pageTitle": "هەواڵی خۆجێی"
       },
       "local": "خۆجێی",
-      "readMore": "درێژەی خوێندنەوە",
       "currentlyNoNews": "لەئێستادا هیچ هەواڵێکی تێدا نییە."
     },
     "cs": {
@@ -11891,7 +11587,6 @@
         "pageTitle": "Lokální zprávy"
       },
       "local": "Lokální",
-      "readMore": "Přečtěte si více",
       "currentlyNoNews": "V tuto chvíli nejsou žádné novinky."
     },
     "da": {
@@ -11901,7 +11596,6 @@
         "pageTitle": "Lokale nyheder"
       },
       "local": "Lokal",
-      "readMore": "Læs mere om det",
       "currentlyNoNews": "Der er i øjeblikket ingen nyheder."
     },
     "el": {
@@ -11911,7 +11605,6 @@
         "pageTitle": "Τοπικά νέα"
       },
       "local": "Τοπικά",
-      "readMore": "Διαβάστε παρακάτω",
       "currentlyNoNews": "Προς το παρόν δεν υπάρχουν ειδήσεις."
     },
     "en": {
@@ -11921,7 +11614,6 @@
         "pageTitle": "Local news"
       },
       "local": "Local",
-      "readMore": "Continue",
       "currentlyNoNews": "There is no news at the moment."
     },
     "es": {
@@ -11931,7 +11623,6 @@
         "pageTitle": "Noticias locales"
       },
       "local": "Local",
-      "readMore": "Seguir leyendo",
       "currentlyNoNews": "En la actualidad no hay noticias"
     },
     "fi": {
@@ -11941,7 +11632,6 @@
         "pageTitle": "Paikalliset uutiset"
       },
       "local": "Paikallinen",
-      "readMore": "Lue lisää",
       "currentlyNoNews": "Tällä hetkellä ei ole uutisia."
     },
     "fr": {
@@ -11951,7 +11641,6 @@
         "pageTitle": "Nouvelles locales"
       },
       "local": "Localement",
-      "readMore": "Poursuivre la lecture",
       "currentlyNoNews": "Aucune nouvelle pour l'instant"
     },
     "hi": {
@@ -11961,7 +11650,6 @@
         "pageTitle": "स्थानीय समाचार"
       },
       "local": "स्थानीय",
-      "readMore": "जारी रखें",
       "currentlyNoNews": "फ़िलहाल कोई समाचार नहीं है."
     },
     "hr": {
@@ -11971,7 +11659,6 @@
         "pageTitle": "Lokalne vijesti"
       },
       "local": "Lokalno",
-      "readMore": "Nastavi čitati",
       "currentlyNoNews": "Trenutačno nema nikakvih vijesti."
     },
     "hu": {
@@ -11981,7 +11668,6 @@
         "pageTitle": "Helyi hírek"
       },
       "local": "Helyi",
-      "readMore": "Továbbolvasás",
       "currentlyNoNews": "Jelenleg nincsenek hírek."
     },
     "id": {
@@ -11991,7 +11677,6 @@
         "pageTitle": "Berita lokal"
       },
       "local": "Lokal",
-      "readMore": "Lanjutkan",
       "currentlyNoNews": "Tidak ada berita saat ini."
     },
     "it": {
@@ -12001,7 +11686,6 @@
         "pageTitle": "Notizie locali"
       },
       "local": "Locale",
-      "readMore": "Continua",
       "currentlyNoNews": "Attualmente non ci sono notizie."
     },
     "ka": {
@@ -12011,7 +11695,6 @@
         "pageTitle": "ადგილობრივი ამბები"
       },
       "local": "ადგილობრივი",
-      "readMore": "გააგრძელე კითხვა",
       "currentlyNoNews": "ამჟამად არ არსებობს არანაირი ინფორმაციები."
     },
     "kmr": {
@@ -12021,7 +11704,6 @@
         "pageTitle": "Nûçeyên herêmî"
       },
       "local": "Herêmî",
-      "readMore": "Xwendina xwe bidomîne",
       "currentlyNoNews": "Niha nûçe tune."
     },
     "mk": {
@@ -12031,7 +11713,6 @@
         "pageTitle": "Локални вести"
       },
       "local": "Локално",
-      "readMore": "Продолжи со читање",
       "currentlyNoNews": "Моментално нема вести."
     },
     "nl": {
@@ -12041,7 +11722,6 @@
         "pageTitle": "Lokaal nieuws"
       },
       "local": "Lokaal",
-      "readMore": "Ga door",
       "currentlyNoNews": "Op dit moment is er geen nieuws."
     },
     "orm": {
@@ -12051,7 +11731,6 @@
         "pageTitle": "Oduu naannoo"
       },
       "local": "Naannoo",
-      "readMore": "Itti fufi",
       "currentlyNoNews": "Yeroo ammaa oduun hin jiru"
     },
     "pes": {
@@ -12061,7 +11740,6 @@
         "pageTitle": "اخبار محلی"
       },
       "local": "محل",
-      "readMore": "ادامه",
       "currentlyNoNews": "در حال حاضر هیچ اخباری وجود ندارد."
     },
     "pl": {
@@ -12071,7 +11749,6 @@
         "pageTitle": "Wiadomości lokalne"
       },
       "local": "Lokalnie",
-      "readMore": "Czytaj dalej",
       "currentlyNoNews": "Obecnie nie ma żadnej wiadomości."
     },
     "prs": {
@@ -12081,7 +11758,6 @@
         "pageTitle": "اخبار محلی"
       },
       "local": "محلی",
-      "readMore": "ادامه خواندن",
       "currentlyNoNews": "در حال حاضر هیچ خبری وجود ندارد‎."
     },
     "ps": {
@@ -12091,7 +11767,6 @@
         "pageTitle": "سیمه ییز خبرونه"
       },
       "local": "سیمه ییز",
-      "readMore": "مخته لوستل",
       "currentlyNoNews": "دا مهال کوم خبرونه نشته."
     },
     "pt": {
@@ -12101,7 +11776,6 @@
         "pageTitle": "Notícias locais"
       },
       "local": "A nível local",
-      "readMore": "Continuar a ler",
       "currentlyNoNews": "Não existe atualmente nenhuma notícia."
     },
     "ro": {
@@ -12111,7 +11785,6 @@
         "pageTitle": "Știri locale"
       },
       "local": "Local",
-      "readMore": "Citire mai departe",
       "currentlyNoNews": "În prezent nu există nicio știre."
     },
     "rom": {
@@ -12121,7 +11794,6 @@
         "pageTitle": "Lokalnikane haberia"
       },
       "local": "Lokalnikano",
-      "readMore": "Produžun",
       "currentlyNoNews": "Nane haberia ko akava vakti."
     },
     "ru": {
@@ -12131,7 +11803,6 @@
         "pageTitle": "Местные новости"
       },
       "local": "Местная информация",
-      "readMore": "Подробнее",
       "currentlyNoNews": "В настоящий момент новости отсутствуют."
     },
     "sk": {
@@ -12141,7 +11812,6 @@
         "pageTitle": "Lokálne správy"
       },
       "local": "Lokálne",
-      "readMore": "Čítať ďalej",
       "currentlyNoNews": "Aktuálne nie sú k dispozícii žiadne správy."
     },
     "so": {
@@ -12151,7 +11821,6 @@
         "pageTitle": "Wararka deegaanka"
       },
       "local": "Deegaanka",
-      "readMore": "Sii wad akhriska",
       "currentlyNoNews": "Hada wax war ah ma jiraan."
     },
     "sq": {
@@ -12161,7 +11830,6 @@
         "pageTitle": "Lajme lokale"
       },
       "local": "Vendas",
-      "readMore": "Lexo më tej",
       "currentlyNoNews": "Aktualisht nuk ka asnjë lajm."
     },
     "sr-Cyrl": {
@@ -12171,7 +11839,6 @@
         "pageTitle": "Локалне вести"
       },
       "local": "Локално",
-      "readMore": "Настави са читањем",
       "currentlyNoNews": "Тренутно нема вести."
     },
     "sr-Latn": {
@@ -12181,7 +11848,6 @@
         "pageTitle": "Lokalne vesti"
       },
       "local": "Lokalno",
-      "readMore": "Nastavi sa čitanjem",
       "currentlyNoNews": "Trenutno nema vesti."
     },
     "sw": {
@@ -12191,7 +11857,6 @@
         "pageTitle": "Habari za nchini"
       },
       "local": "Nchini",
-      "readMore": "Endelea",
       "currentlyNoNews": "Hakuna habari kwa sasa."
     },
     "th": {
@@ -12201,7 +11866,6 @@
         "pageTitle": "ข่าวท้องถิ่น"
       },
       "local": "ท้องถิ่น",
-      "readMore": "อ่านเพิ่มเติม",
       "currentlyNoNews": "ยังไม่มีข่าวสารใดๆในขณะนี้"
     },
     "ti": {
@@ -12211,7 +11875,6 @@
         "pageTitle": "ዜና ውሽጢ  ዓዲ"
       },
       "local": "ውሽጢ ዓዲ",
-      "readMore": "ምንባብ ቀጽል",
       "currentlyNoNews": "ኣብዚ እዋን’ዚ ዜና የለን።"
     },
     "tr": {
@@ -12221,7 +11884,6 @@
         "pageTitle": "yerel bildirimler"
       },
       "local": "Yerel",
-      "readMore": "Okumaya devam edin",
       "currentlyNoNews": "Şu an bildirim bulunmamaktadır."
     },
     "uk": {
@@ -12231,7 +11893,6 @@
         "pageTitle": "Місцеві новини"
       },
       "local": "Місцевий",
-      "readMore": "Читати далі",
       "currentlyNoNews": "Наразі новин немає."
     },
     "ur": {
@@ -12241,7 +11902,6 @@
         "pageTitle": "مقامی خبریں"
       },
       "local": "مقامی",
-      "readMore": "مطالعہ جاری رکھیں",
       "currentlyNoNews": "فی الحال کوئی خبریں نہیں ہیں۔"
     },
     "vi": {
@@ -12251,7 +11911,6 @@
         "pageTitle": "Tin tức về địa phương"
       },
       "local": "Địa phương",
-      "readMore": "Tiếp tục",
       "currentlyNoNews": "Hiện không có tin tức nào."
     },
     "zh-CN": {
@@ -12261,7 +11920,6 @@
         "pageTitle": "本地新闻"
       },
       "local": "本地",
-      "readMore": "继续阅读",
       "currentlyNoNews": "目前没有新闻。"
     }
   },
@@ -15887,7 +15545,7 @@
       "sentryDescription": "Durch das automatische Senden von Absturzberichten die {{appName}}-App verbessern",
       "pushNewsTitle": "Push-Benachrichtigungen",
       "pushNewsDescription": "Push-Benachrichtigungen für die neuesten lokalen Nachrichten erhalten",
-      "about": "Über {{appName}}",
+      "aboutUs": "Über uns",
       "privacyPolicy": "Datenschutzerklärung",
       "version": "Version: {{version}}",
       "openSourceLicenses": "Open-Source-Lizenzen",
@@ -15909,7 +15567,6 @@
       "sentryDescription": "{{appName}} መተግበሪያን የመስበሪያ ሪፖርቶችን በፍጥነት በመላክ ያሻሽሉ።",
       "pushNewsTitle": "የመግፊያ ማሳወቂያዎች",
       "pushNewsDescription": "ለቅርብ አካባቢያዊ ዜናዎች የመግፊያ ማሳወቂያዎች ይቀበሉ።",
-      "about": "ስለ {{appName}}",
       "privacyPolicy": "የግላዊነት ፖሊሲ",
       "version": "ቅጂ: {{version}}",
       "openSourceLicenses": "የምንጭ ፍቃዶችን ይክፈቱ",
@@ -15931,7 +15588,7 @@
       "sentryDescription": "تحسين تطبيق {{appName}} من خلال الإرسال التلقائي لتقارير الأعطال",
       "pushNewsTitle": "الإخطارات اللحظية",
       "pushNewsDescription": "تلقي الإخطارات اللحظية لأحدث الأخبار المحلية",
-      "about": "حول تطبيق {{appName}}",
+      "aboutUs": "من نحن",
       "privacyPolicy": "بيان الخصوصية",
       "version": "الإصدار: {{version}}",
       "openSourceLicenses": "تراخيص مفتوحة المصدر",
@@ -15953,7 +15610,6 @@
       "sentryDescription": "Подобрете приложението {{appName}}, като автоматично изпращате отчети за сривове",
       "pushNewsTitle": "Изскачащи известия",
       "pushNewsDescription": "Получавайте изскачащи известия за последните местни новини",
-      "about": "За {{appName}}",
       "privacyPolicy": "Декларация за поверителност",
       "version": "Версия: {{version}}",
       "openSourceLicenses": "Лицензи с отворен код",
@@ -15975,7 +15631,6 @@
       "sentryDescription": "لەڕیگەی ناردنی ئۆتۆماتیکی ڕاپۆڕتەکانی خراپیی ئەپڵیکەیشن {{appName}} باشتر بکە",
       "pushNewsTitle": "ڕاگەیاندنەکان",
       "pushNewsDescription": "ڕاگەیاندنەکان بۆ نوێترین هەواڵی خۆجێی وەربگرە",
-      "about": "لەبارەی {{appName}}",
       "privacyPolicy": "ڕاگەیاندنی پاراستنی دێیتاکان",
       "version": "ڤێرژنی {{version}}",
       "openSourceLicenses": "مۆڵەتەکانی سەرچاوەی ئازاد",
@@ -15997,7 +15652,6 @@
       "sentryDescription": "Vylepšení aplikace {{appName}} automatickým odesíláním kolapsu aplikace",
       "pushNewsTitle": "Oznámení Push",
       "pushNewsDescription": "Získejte push oznámení o nejnovějších místních zprávách",
-      "about": "O {{appName}}",
       "privacyPolicy": "Prohlášení o ochraně osobních údajů",
       "version": "Verze: {{version}}",
       "openSourceLicenses": "Licence open-source",
@@ -16019,7 +15673,6 @@
       "sentryDescription": "Forbedr appen {{appName}} ved automatisk at sende nedbrudsrapporter",
       "pushNewsTitle": "Push-meddelelser",
       "pushNewsDescription": "Modtag push-meddelelser om de seneste lokale nyheder",
-      "about": "Om {{appName}}",
       "privacyPolicy": "Fortrolighedspolitik",
       "version": "Version: {{version}}",
       "openSourceLicenses": "Open source-licenser",
@@ -16041,7 +15694,6 @@
       "sentryDescription": "Αυτόματη αποστολή αναφορών σφαλμάτων για βελτίωση του {{appName}}",
       "pushNewsTitle": "Ειδοποιήσεις",
       "pushNewsDescription": "Ειδοποιήσεις για τα τελευταία τοπικά νέα",
-      "about": "Πληροφορίες για το {{appName}}",
       "privacyPolicy": "Προστασία δεδομένων",
       "version": "Έκδοση: {{version}}",
       "openSourceLicenses": "Άδειες",
@@ -16063,7 +15715,7 @@
       "sentryDescription": "Improve the {{appName}} app by automatically sending crash reports",
       "pushNewsTitle": "Push notifications",
       "pushNewsDescription": "Receive push notifications for the latest local news",
-      "about": "About {{appName}}",
+      "aboutUs": "About Us",
       "privacyPolicy": "Data protection policy",
       "version": "Version: {{version}}",
       "openSourceLicenses": "Open source licences",
@@ -16085,7 +15737,6 @@
       "sentryDescription": "Mejorar la app {{appName}} mediante el envío automático de informes de interrupciones del servicio",
       "pushNewsTitle": "Notificaciones push",
       "pushNewsDescription": "Recibir notificaciones push con las últimas noticias locales",
-      "about": "Acerca de {{appName}}",
       "privacyPolicy": "Declaración de privacidad",
       "version": "Versión: {{version}}",
       "openSourceLicenses": "Licencias de fuente abierta",
@@ -16107,7 +15758,6 @@
       "sentryDescription": "Paranna {{appName}}-sovellusta lähettämällä häiriöraportit automaattisesti",
       "pushNewsTitle": "Puskuviestit",
       "pushNewsDescription": "Vastaanota puskuviestejä uusimmista paikallisista uutisista",
-      "about": "{{appName}}-sovelluksesta",
       "privacyPolicy": "Tietosuojaseloste",
       "version": "Versio: {{version}}",
       "openSourceLicenses": "Avoimen lähdekoodin lisenssit",
@@ -16129,7 +15779,6 @@
       "sentryDescription": "Améliorer l'application {{appName}} grâce à l'envoi automatique de rapports d'erreur",
       "pushNewsTitle": "Notifications push",
       "pushNewsDescription": "Recevoir des notifications push sur l'actualité locale",
-      "about": "À propos d'{{appName}}",
       "privacyPolicy": "Déclaration de confidentialité",
       "version": "Version : {{version}}",
       "openSourceLicenses": "Licences en open source",
@@ -16151,7 +15800,6 @@
       "sentryDescription": "स्वचालित रूप से क्रैश रिपोर्ट भेजकर {{appName}} ऐप को बेहतर बनाएँ",
       "pushNewsTitle": "पुश सूचनाएँ",
       "pushNewsDescription": "नवीनतम स्थानीय समाचारों के लिए पुश सूचनाएँ प्राप्त करें",
-      "about": "{{appName}} के बारे में",
       "privacyPolicy": "डेटा सुरक्षा नीति",
       "version": "संस्करण: {{version}}",
       "openSourceLicenses": "ओपन सोर्स लाइसेंस",
@@ -16173,7 +15821,6 @@
       "sentryDescription": "Automatskim slanjem izvještaja o padu sustava aplikacija {{appName}} se poboljšava",
       "pushNewsTitle": "Automatske obavijesti",
       "pushNewsDescription": "Primaj automatske obavijesti s najnovijim lokalnim vijestima",
-      "about": "O aplikaciji {{appName}}",
       "privacyPolicy": "Izjava o zaštiti podataka",
       "version": "Verzija: {{version}}",
       "openSourceLicenses": "Licencije otvorenog koda",
@@ -16195,7 +15842,6 @@
       "sentryDescription": "A(z) {{appName}}-App javítása hibajelentések automatikus küldésével",
       "pushNewsTitle": "Push értesítések",
       "pushNewsDescription": "A legújabb helyi hírekkel kapcsolatos Push értesítések küldése",
-      "about": "A(z) {{appName}} alkalmazásról",
       "privacyPolicy": "Adatvédelmi nyilatkozat",
       "version": "Verzió: {{version}}",
       "openSourceLicenses": "Open-Source-licencek",
@@ -16217,7 +15863,6 @@
       "sentryDescription": "Kembangkan aplikasi {{appName}} dengan mengirim laporan kegagalan secara otomatis",
       "pushNewsTitle": "Notifikasi otomatis",
       "pushNewsDescription": "Terima notifikasi otomatis untuk berita lokal terbaru",
-      "about": "Tentang {{appName}}",
       "privacyPolicy": "Kebijakan proteksi data",
       "version": "Versi: {{version}}",
       "openSourceLicenses": "Buka lisensi sumber",
@@ -16239,7 +15884,6 @@
       "sentryDescription": "Migliora l’app {{appName}} inviando automaticamente rapporti sugli arresti anomali",
       "pushNewsTitle": "Notifiche push",
       "pushNewsDescription": "Ricevi notifiche push per le ultime notizie locali",
-      "about": "Info su {{appName}}",
       "privacyPolicy": "Informativa sulla privacy",
       "version": "Versione: {{version}}",
       "openSourceLicenses": "Licenze open source",
@@ -16261,7 +15905,6 @@
       "sentryDescription": "სისტემის გაჭედვის  მოხსენებათა ავტომატური გადამისამართებით {{appName}} აპპს გაუმჯობესება",
       "pushNewsTitle": "ინფორმაციის მაუწყებელი",
       "pushNewsDescription": "ინფორმაციის მაუწყებლი უახლესი ადგილობრივი ამბებისათვის",
-      "about": "შესახებ {{appName}}",
       "privacyPolicy": "მონაცემთა დაცვის შესახებ ახსნა-განმარტება",
       "version": "ვერსია: {{version}}",
       "openSourceLicenses": "ლიცენზია ღია ინტერნეტ რესურსებზე",
@@ -16283,7 +15926,6 @@
       "sentryDescription": "Bi şandina xwebixwe ya raporên xerabûnê, Appa '{{appName}}'ê baştir bike",
       "pushNewsTitle": "Peyamên bilez",
       "pushNewsDescription": "Wergirtina peyamên bilez sa dawîn nûçeyên xwecihî yên nû",
-      "about": "Bi rêya {{appName}}",
       "privacyPolicy": "Daxuyaniya Parastina Daneyan",
       "version": "Versiyon: {{version}}",
       "openSourceLicenses": "Lîsansa Çavkanî-Vekirî",
@@ -16305,7 +15947,6 @@
       "sentryDescription": "Подобрете ја апликацијата {{appName}} со автоматско испраќање на извештаи за паѓање",
       "pushNewsTitle": "Push известувања",
       "pushNewsDescription": "Добивајте Push известувања за најновите локални вести",
-      "about": "За {{appName}}",
       "privacyPolicy": "Изјава за заштита на лични податоци",
       "version": "Верзија: {{version}}",
       "openSourceLicenses": "Лиценца за отворени содржини",
@@ -16327,7 +15968,6 @@
       "sentryDescription": "Verbeter de {{appName}} app door automatisch foutmeldingen te versturen.",
       "pushNewsTitle": "Pushmeldingen",
       "pushNewsDescription": "Ontvang pushmedlingen voor het laatste lokale nieuws",
-      "about": "Over {{appName}}",
       "privacyPolicy": "Gegevensbeschermingsbeleid",
       "version": "Versie: {{version}}",
       "openSourceLicenses": "Open bron licenties",
@@ -16349,7 +15989,6 @@
       "sentryDescription": "Gabaasa kufaatii hatattamaan ofii isaa erguu appii {{appName}} fooyyessi",
       "pushNewsTitle": "Yaadachiisa dhiibbaa",
       "pushNewsDescription": "Oduu biyya keessaa isa haaraa argachuuf yaadachiisa dhiibbaa argachuu",
-      "about": "Waa’ee {{appName}}",
       "privacyPolicy": "Imaammata eegumsa daataa",
       "version": "Gosa: {{version}} kan jedhu.",
       "openSourceLicenses": "Hayyama madda banaa",
@@ -16371,7 +16010,6 @@
       "sentryDescription": "با ارسال خودکار گزارش‌های خرابی، اپلیکیشن {{appName}} را بهبود بخشید",
       "pushNewsTitle": "پیام های فوری",
       "pushNewsDescription": "دریافت پیام های فوری برای آخرین اخبار محلی جدید",
-      "about": "راجع به {{appName}}",
       "privacyPolicy": "بیانیه حفاظت از داده ها",
       "version": "نسخه: {{version}}",
       "openSourceLicenses": "لیسانس منبع باز",
@@ -16393,7 +16031,6 @@
       "sentryDescription": "Ulepszanie aplikacji {{appName}} przez automatycznie wysyłanie raportów o awariach",
       "pushNewsTitle": "Powiadomienia typu push",
       "pushNewsDescription": "Otrzymywanie powiadomień typu push o aktualnościach lokalnych",
-      "about": "O {{appName}}",
       "privacyPolicy": "Oświadczenie o ochronie danych",
       "version": "Wersja: {{version}}",
       "openSourceLicenses": "Licencje open source",
@@ -16415,7 +16052,6 @@
       "sentryDescription": "از طریق ارسال اتومات راپور های خرابی اپلیکیشن {{appName}} را بهبود بخشید",
       "pushNewsTitle": "اعلان ها",
       "pushNewsDescription": "اعلان ها را برای جدیدترین اخبار محلی دریافت نمایید",
-      "about": "راجع به {{appName}}",
       "privacyPolicy": "بیانیه حفاظت از داده ها",
       "version": "نسخه {{version}}",
       "openSourceLicenses": "جوازهای منبع آزاد",
@@ -16437,7 +16073,6 @@
       "sentryDescription": "په اتومات ډول د خرابي د پېغامونو په لېږلو سره د {{appName}}--ایپ بهترول",
       "pushNewsTitle": "فشاري خبرتیاوې",
       "pushNewsDescription": "د تازه سیمه ییزو خبرونو لپاره فشاري خبرتیاوې ترلاسه کول",
-      "about": "د {{appName}} په اړه",
       "privacyPolicy": "د ډاټا د حفاظت بیانیه",
       "version": "بڼه: {{version}}",
       "openSourceLicenses": "د آزادې-سرچینې لیسنس",
@@ -16459,7 +16094,6 @@
       "sentryDescription": "Melhorar a aplicação {{appName}} através do envio automático de relatórios de erro",
       "pushNewsTitle": "Notificações push",
       "pushNewsDescription": "Receber notificações push das últimas notícias locais",
-      "about": "Acerca da {{appName}}",
       "privacyPolicy": "Política de privacidade",
       "version": "Versão: {{version}}",
       "openSourceLicenses": "Licenças de código aberto",
@@ -16481,7 +16115,6 @@
       "sentryDescription": "Îmbunătățiți {{appName}}-App prin trimiterea automată a rapoartelor de blocare",
       "pushNewsTitle": "Notificări push",
       "pushNewsDescription": "Primiți notificări push pentru cele mai recente noutăți locale",
-      "about": "Prin intermediul {{appName}}",
       "privacyPolicy": "Declarație privind confidențialitatea",
       "version": "Versiune: {{version}}",
       "openSourceLicenses": "Licențe open source",
@@ -16503,7 +16136,6 @@
       "sentryDescription": "Ker lačheder i {{appName}} app prekal avtomatikane bičhaliba bangeskere reportoja",
       "pushNewsTitle": "Mečin notifikacie",
       "pushNewsDescription": "Dobin mečibaskere notifikacie baši o palune lokalnikane haberia",
-      "about": "Baši {{appName}}",
       "privacyPolicy": "Arakhibe podatkongjiri polisa",
       "version": "Verzia: {{version}}",
       "openSourceLicenses": "Phrav haingaskiri licenca",
@@ -16525,7 +16157,6 @@
       "sentryDescription": "Повышение стабильности работы приложения {{appName}} путем автоматической отправки сообщений о сбоях",
       "pushNewsTitle": "Push-уведомления",
       "pushNewsDescription": "Push-уведомления необходимы для получения самых актуальных местных новостей",
-      "about": "Информация о приложении {{appName}}",
       "privacyPolicy": "Политика конфиденциальности",
       "version": "Версия: {{version}}",
       "openSourceLicenses": "Лицензии на ПО с открытым исходным кодом",
@@ -16547,7 +16178,6 @@
       "sentryDescription": "Vylepšiť automatické posielanie správ o zlyhaní aplikácie {{appName}}",
       "pushNewsTitle": "Oznámenia Push",
       "pushNewsDescription": "Obdržať Oznámenia Push pre najnovšie lokálne správy",
-      "about": "O {{appName}}",
       "privacyPolicy": "Vyhlásenie o ochrane osobných údajov",
       "version": "Verzia: {{version}}",
       "openSourceLicenses": "Licencie Open-Source",
@@ -16569,7 +16199,6 @@
       "sentryDescription": "Hagaaji {{appName}} adigoo si otomatigga ah u diraya warbixinnada ciladaha",
       "pushNewsTitle": "Ogaysiisyada",
       "pushNewsDescription": "Hel ogeysiisyada ku saabsan warbixinada deegaanka ee ugu dambeeyey",
-      "about": "Ku saabsan {{appName}}",
       "privacyPolicy": "Ilaalinta xogta",
       "version": "Nooca: {{version}}",
       "openSourceLicenses": "Ruqsadaha-il-furan",
@@ -16591,7 +16220,6 @@
       "sentryDescription": "Përmirësoni aplikacionin {{appName}} duke dërguar automatikisht raporte të ndërprerjeve aksidentale",
       "pushNewsTitle": "Push-njoftimet",
       "pushNewsDescription": "Pranoni push-njoftime për lajmet e fundit lokale",
-      "about": "Rreth {{appName}}",
       "privacyPolicy": "Politika e privatësisë",
       "version": "Versioni: {{version}}",
       "openSourceLicenses": "Licencat me burim të hapur",
@@ -16613,7 +16241,6 @@
       "sentryDescription": "Побољшање {{appName}} апликације аутоматским слањем извештаја о прекиду рада",
       "pushNewsTitle": "Искачућа обавештења",
       "pushNewsDescription": "Искачућа обавештења за пријем најновијих локалних вести",
-      "about": "О {{appName}}",
       "privacyPolicy": "Изјава о заштити података",
       "version": "Верзија: {{version}}",
       "openSourceLicenses": "Лиценце отвореног кода",
@@ -16635,7 +16262,6 @@
       "sentryDescription": "Poboljšanje {{appName}} aplikacije automatskim slanjem izveštaja o prekidu rada",
       "pushNewsTitle": "Iskačuća obaveštenja",
       "pushNewsDescription": "Iskačuća obaveštenja za prijem najnovijih lokalnih vesti",
-      "about": "O {{appName}}",
       "privacyPolicy": "Izjava o zaštiti podataka",
       "version": "Verzija: {{version}}",
       "openSourceLicenses": "Licence otvorenog koda",
@@ -16657,7 +16283,6 @@
       "sentryDescription": "Boresha {{appName}} kwa kutuma kiotomatiki ripoti za matukio ya kuacha kufanya kazi",
       "pushNewsTitle": "Arifa za programu",
       "pushNewsDescription": "Pokea arifa za programu za habari mpya kabisa za nchini",
-      "about": "Kuhusu {{appName}}",
       "privacyPolicy": "Sera ya ulinzi wa data",
       "version": "Toleo: {{version}}",
       "openSourceLicenses": "Leseni huria",
@@ -16679,7 +16304,6 @@
       "sentryDescription": "ปรับปรุงแอป {{appName}} โดยส่งรายงานความผิดพลาดโดยอัตโนมัติ",
       "pushNewsTitle": "การแจ้งเตือนแบบพุช",
       "pushNewsDescription": "รับการแจ้งเตือนแบบพุชสำหรับข่าวท้องถิ่นล่าสุด",
-      "about": "เกี่ยวกับ {{appName}}",
       "privacyPolicy": "นโยบายความเป็นส่วนตัว",
       "version": "เวอร์ชัน: {{version}}",
       "openSourceLicenses": "ใบอนุญาตโอเพนซอร์ส",
@@ -16701,7 +16325,6 @@
       "sentryDescription": "ናይ ብልሽት/ውድቀት ጸብጻባት ብኣውቶማቲካዊ መንገዲ ብምስዳድ ንኣፕ {{appName}} ኣመሓይሾ",
       "pushNewsTitle": "ምልክታታት መልእኽቲ",
       "pushNewsDescription": "ነቲ ሓድሽ ከባብያዊ ዜና ዝኾኑ ምልክታታት መልእኽቲ ተቐበል",
-      "about": "ብዛዕባ {{appName}}",
       "privacyPolicy": "ሓለዋ ዳታ/ሓበሬታ",
       "version": "ዓይነት፥ {{version}}",
       "openSourceLicenses": "ናጻ-ዝምንጮም ፍቓዳት ስራሕ",
@@ -16723,7 +16346,6 @@
       "sentryDescription": "Hata raporlarını otomatik olarak göndererek {{appName}} uygulamasını geliştirin",
       "pushNewsTitle": "Push bildirimleri",
       "pushNewsDescription": "En son yerel haberler için Push bildirimleri alın",
-      "about": "{{appName}} hakkında",
       "privacyPolicy": "Gizlilik politikası",
       "version": "Versiyon: {{version}}",
       "openSourceLicenses": "Açık kaynak lisansları",
@@ -16745,7 +16367,6 @@
       "sentryDescription": "Поліпшіть роботу {{appName}}, автоматично надсилаючи звіти про помилки.",
       "pushNewsTitle": "Push-сповіщення",
       "pushNewsDescription": "Отримуйте push-сповіщення про останні місцеві новини",
-      "about": "Про {{appName}}",
       "privacyPolicy": "Політика конфіденційності",
       "version": "Версія: {{version}}",
       "openSourceLicenses": "Ліцензії на відкритий вихідний код",
@@ -16767,7 +16388,6 @@
       "sentryDescription": "خودبخودایپ بند ہونے کی رپورٹس بھیج کر ‎{{appName}}‎ کو بہتر بنائیں",
       "pushNewsTitle": "پش نوٹیفیکیشنز",
       "pushNewsDescription": "تازہ مقامی خبروں کے لئے پش نوٹیفیکیشنز وصول کریں",
-      "about": "‎{{appName}}‎ کے متعلق",
       "privacyPolicy": "رازاداری کی پالیسی",
       "version": "ورژن: {{version}}",
       "openSourceLicenses": "اوپن سورس لائسنس",
@@ -16789,7 +16409,6 @@
       "sentryDescription": "Cải thiện ứng dụng {{appName}} bằng cách tự động gửi báo cáo lỗi",
       "pushNewsTitle": "Thông báo đẩy",
       "pushNewsDescription": "Nhận thông báo đẩy cho biết tin tức mới nhất về địa phương",
-      "about": "Giới thiệu về {{appName}}",
       "privacyPolicy": "Chính sách bảo vệ dữ liệu",
       "version": "Phiên bản: {{version}}",
       "openSourceLicenses": "Giấy phép nguồn mở",
@@ -16811,7 +16430,6 @@
       "sentryDescription": "通过自动发送崩溃报告来改进{{appName}}应用程序",
       "pushNewsTitle": "推送通知",
       "pushNewsDescription": "获取有关最新本地新闻的推送通知",
-      "about": "关于{{appName}}",
       "privacyPolicy": "数据保护政策",
       "version": "版本：{{version}}",
       "openSourceLicenses": "开源许可证",

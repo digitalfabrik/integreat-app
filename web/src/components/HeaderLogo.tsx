@@ -4,7 +4,7 @@ import React, { ReactElement } from 'react'
 import SVG from 'react-inlinesvg'
 
 import buildConfig from '../constants/buildConfig'
-import useWindowDimensions from '../hooks/useWindowDimensions'
+import useDimensions from '../hooks/useDimensions'
 import Link from './base/Link'
 
 type HeaderLogoProps = {
@@ -38,11 +38,11 @@ export const HeaderLogo = ({ link }: HeaderLogoProps): ReactElement => {
     campaign && currentDate > DateTime.fromISO(campaign.startDate) && currentDate < DateTime.fromISO(campaign.endDate)
   const src = showCampaignLogo ? campaign.campaignAppLogo : icons.appLogo
   const srcMobile = showCampaignLogo ? campaign.campaignAppLogoMobile : icons.appLogoMobile
-  const { viewportSmall } = useWindowDimensions()
+  const { mobile } = useDimensions()
 
   return (
     <StyledLink to={link}>
-      <StyledLogo src={viewportSmall ? srcMobile : src} title={appName} />
+      <StyledLogo src={mobile ? srcMobile : src} title={appName} />
     </StyledLink>
   )
 }

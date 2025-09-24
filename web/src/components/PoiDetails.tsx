@@ -10,7 +10,7 @@ import { PoiModel } from 'shared/api'
 
 import { PoiThumbnailPlaceholderLarge } from '../assets'
 import { helpers } from '../constants/theme'
-import useWindowDimensions from '../hooks/useWindowDimensions'
+import useDimensions from '../hooks/useDimensions'
 import Collapsible from './Collapsible'
 import Contact from './Contact'
 import OpeningHours from './OpeningHours'
@@ -131,7 +131,7 @@ type PoiDetailsProps = {
 }
 
 const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement => {
-  const { viewportSmall } = useWindowDimensions()
+  const { desktop } = useDimensions()
   const { t } = useTranslation('pois')
   const { content, location, contacts, isCurrentlyOpen, openingHours, temporarilyClosed, appointmentUrl } = poi
 
@@ -148,10 +148,10 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
         <PoiChips poi={poi} />
       </HeadingSection>
       <StyledDivider />
-      {!viewportSmall && <Subheading>{t('detailsAddress')}</Subheading>}
+      {desktop && <Subheading>{t('detailsAddress')}</Subheading>}
       <DetailSection>
         <AddressContentWrapper>
-          {!viewportSmall && <StyledIcon src={LocationOnOutlinedIcon} />}
+          {desktop && <StyledIcon src={LocationOnOutlinedIcon} />}
           <AddressContent>
             <span>{location.address}</span>
             <span>
@@ -160,7 +160,7 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
           </AddressContent>
         </AddressContentWrapper>
         <StyledLink to={externalMapsLink}>
-          {!viewportSmall && <LinkLabel>{t('detailsMapLink')}</LinkLabel>}
+          {desktop && <LinkLabel>{t('detailsMapLink')}</LinkLabel>}
           <StyledExternalLinkIcon src={OpenInNewIcon} directionDependent />
         </StyledLink>
       </DetailSection>
