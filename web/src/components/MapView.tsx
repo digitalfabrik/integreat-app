@@ -50,7 +50,7 @@ type MapViewProps = {
   features: MapFeature[]
   currentFeature: MapFeature | null
   selectFeature: (feature: MapFeature | null, restoreScrollPosition: boolean) => void
-  changeSnapPoint?: (snapPoint: number) => void
+  snapBottomSheetTo?: (height: number) => void
   children?: ReactNode
   viewport?: MapViewViewport
   setViewport: (mapViewport: MapViewViewport) => void
@@ -67,7 +67,7 @@ export type MapViewRef = {
 const MapView = ({
   features,
   selectFeature,
-  changeSnapPoint,
+  snapBottomSheetTo,
   currentFeature,
   viewport,
   setViewport,
@@ -198,7 +198,7 @@ const MapView = ({
         maxZoom={viewport?.maxZoom}
         mapStyle={mapConfig.styleJSON}
         onClick={onSelectFeature}
-        onTouchMove={() => (changeSnapPoint ? changeSnapPoint(0) : null)}
+        onTouchMove={() => (snapBottomSheetTo ? snapBottomSheetTo(dimensions.bottomSheet.snapPoints.min) : null)}
         attributionControl={false}>
         <OverlayContainer>{Overlay}</OverlayContainer>
         {children}
@@ -213,7 +213,7 @@ const MapView = ({
           <Layer {...clusterCountLayer} />
           <Layer {...markerLayer(currentFeature)} />
         </Source>
-        <MapAttribution initialExpanded={!dimensions.mobile} />
+        <MapAttribution initialExpanded={dimensions.desktop} />
       </Map>
     </MapContainer>
   )

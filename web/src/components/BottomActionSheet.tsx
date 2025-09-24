@@ -79,9 +79,7 @@ const BottomActionSheet = ({
       onSpringEnd={() => setBottomActionSheetHeight(bottomSheetRef.current?.height ?? 0)}
       header={title ? <Title>{title}</Title> : null}
       snapPoints={() => dimensions.bottomSheet.snapPoints.all}
-      // snapPoints have been supplied in the previous line
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      defaultSnap={({ snapPoints }) => snapPoints[1]!}>
+      defaultSnap={() => dimensions.bottomSheet.snapPoints.medium}>
       <StyledLayout>{children}</StyledLayout>
     </StyledBottomSheet>
   )
