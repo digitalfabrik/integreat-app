@@ -43,13 +43,13 @@ describe('PoisMobile', () => {
     expect(queryByText('pois:distanceKilometre')).toBeTruthy()
     expect(queryByText(singlePoi.location.address!)).toBeTruthy()
     expect(queryByText(singlePoi.content)).toBeTruthy()
-    expect(queryByText('listTitle')).toBeNull()
+    expect(queryByText('nearby')).toBeNull()
   })
 
   it('should render poiList & toolbar components no poi is provided', () => {
     const { queryByText } = renderPoisDesktop()
 
-    expect(queryByText('pois:listTitle')).toBeTruthy()
+    expect(queryByText('pois:nearby')).toBeTruthy()
     pois.forEach(poi => {
       expect(queryByText(poi.title)).toBeTruthy()
     })
