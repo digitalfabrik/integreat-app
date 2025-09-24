@@ -51,7 +51,7 @@ export const RadioGroup = <T extends string>({
       <FormLabel id={groupId}>{caption}</FormLabel>
       <MuiRadioGroup
         aria-labelledby={groupId}
-        defaultValue={selectedValue}
+        value={selectedValue}
         name={groupId}
         onChange={event => onChange(event.target.value as T)}>
         {values.map(({ key, label, inputProps }) => (

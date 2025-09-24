@@ -23,6 +23,7 @@ import {
 } from 'shared/api'
 
 import Icon from '../components/base/Icon'
+import { reportError } from '../utils/sentry'
 import PrivacyCheckbox from './PrivacyCheckbox'
 import RadioGroup from './base/RadioGroup'
 import Spacing from './base/Spacing'
@@ -95,7 +96,7 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
       if (error instanceof InvalidEmailError) {
         setSendingStatus('invalidEmail')
       } else {
-        reportError(error)
+        await reportError(error)
         setSendingStatus('failed')
       }
     }
