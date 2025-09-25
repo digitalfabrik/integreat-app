@@ -29,6 +29,12 @@ const Container = styled.div`
   }
 `
 
+const CommaContainer = styled.span`
+  @media ${dimensions.smallViewport} {
+    display: none;
+  }
+`
+
 const Content = styled.div`
   overflow-wrap: anywhere;
 `
@@ -89,8 +95,18 @@ const EventListItem = ({
       Icon={DateIcon}>
       <Container>
         <Content dir='auto'>{dateToDisplay.formatEventDateInOneLine(languageCode, t)}</Content>
-        {!!event.location && <Content dir='auto'>{event.location.name}</Content>}
-        {!!event.meetingUrl && <Content dir='auto'>{t('onlineEvent')}</Content>}
+        {!!event.location && (
+          <Content dir='auto'>
+            <CommaContainer>, </CommaContainer>
+            {event.location.name}
+          </Content>
+        )}
+        {!!event.meetingUrl && (
+          <Content dir='auto'>
+            <CommaContainer>, </CommaContainer>
+            {t('onlineEvent')}
+          </Content>
+        )}
       </Container>
       <Content dir='auto'>{getExcerpt(event.excerpt, { maxChars: EXCERPT_MAX_CHARS })}</Content>
     </ListItem>
