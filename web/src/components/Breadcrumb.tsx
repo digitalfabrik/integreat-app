@@ -1,23 +1,34 @@
 import shouldForwardProp from '@emotion/is-prop-valid'
-import { styled } from '@mui/material/styles'
+import { styled, css } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
 import Link from './base/Link'
 
 const SHRINK_FACTOR = 0.1
-const StyledLink = styled(Link, { shouldForwardProp })<{ shrinkFactor: number; isCurrent?: boolean }>`
+
+const breadcrumbStyles = css`
   display: list-item;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  flex-shrink: ${props => props.shrinkFactor};
 
   &:not(:last-of-type) {
     flex-shrink: 1;
   }
 
-  color: ${props => (props.isCurrent ? props.theme.palette.primary.main : props.theme.palette.text.secondary)};
   margin: 0 2px;
+`
+
+const StyledLink = styled(Link, { shouldForwardProp })<{ shrinkFactor: number }>`
+  ${breadcrumbStyles}
+  flex-shrink: ${props => props.shrinkFactor};
+  color: ${props => props.theme.palette.text.secondary};
+`
+
+const StyledCurrentBreadcrumb = styled('span')<{ shrinkFactor: number }>`
+  ${breadcrumbStyles}
+  flex-shrink: ${props => props.shrinkFactor};
+  color: ${props => props.theme.palette.primary.main};
 `
 
 type BreadcrumbProps = {
@@ -30,10 +41,22 @@ type BreadcrumbProps = {
 /**
  * Displays breadcrumbs (Links) for lower category levels
  */
-const Breadcrumb = ({ title, to, shrink, isCurrent }: BreadcrumbProps): ReactElement => (
-  <StyledLink to={to} shrinkFactor={shrink ? SHRINK_FACTOR : 0} isCurrent={isCurrent}>
-    {title}
-  </StyledLink>
-)
+const Breadcrumb = ({ title, to, shrink, isCurrent }: BreadcrumbProps): ReactElement => {
+  const shrinkFactor = shrink ? SHRINK_FACTOR : 0
+
+  if (isCurrent) {
+    return (
+      <StyledCurrentBreadcrumb shrinkFactor={shrinkFactor} aria-current='page'>
+        {title}
+      </StyledCurrentBreadcrumb>
+    )
+  }
+
+  return (
+    <StyledLink to={to} shrinkFactor={shrinkFactor}>
+      {title}
+    </StyledLink>
+  )
+}
 
 export default Breadcrumb

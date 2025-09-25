@@ -134,7 +134,7 @@ const Breadcrumbs = ({ ancestorBreadcrumbs, currentBreadcrumb }: BreadcrumbsProp
       <JsonLdBreadcrumbs breadcrumbs={jsonLdBreadcrumbs} />
       <StyledMuiBreadcrumbs
         length={ancestorBreadcrumbs.length}
-        aria-label='breadcrumb'
+        aria-label='Breadcrumb'
         separator={<Separator />}
         maxItems={isDesktop ? MAX_BREADCRUMBS : undefined}
         itemsBeforeCollapse={isDesktop ? 1 : undefined}
