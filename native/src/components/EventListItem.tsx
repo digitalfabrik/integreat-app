@@ -21,10 +21,11 @@ import { contentAlignment } from '../constants/contentDirection'
 import ListItem from './ListItem'
 import Icon from './base/Icon'
 
-const Description = styled.Text<{ language: string }>`
+const Description = styled.Text<{ language: string; withMargin?: boolean }>`
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.contentFontRegular};
   text-align: ${props => contentAlignment(props.language)};
+  margin-top: ${props => (props.withMargin ? '4px' : 0)};
 `
 
 const placeholderThumbnails = [EventThumbnailPlaceholder1, EventThumbnailPlaceholder2, EventThumbnailPlaceholder3]
@@ -64,7 +65,9 @@ const EventListItem = ({
     event.thumbnail || placeholderThumbnails[event.path.length % placeholderThumbnails.length]!
   const content = parseHTML(event.content).trim()
   const icon = getDateIcon(event.date)
-  const { t } = useTranslation('events')
+
+  // Pass in the content language as opposed to the phone language
+  const { t } = useTranslation('events', { lng: language })
   const dateToDisplay = getDisplayDate(event, filterStartDate, filterEndDate)
 
   const DateIcon = icon ? <Icon Icon={icon.icon} label={t(icon.label)} /> : null
@@ -76,8 +79,10 @@ const EventListItem = ({
       language={language}
       navigateTo={navigateToEvent}
       Icon={DateIcon}>
-      <Description language={language}>{dateToDisplay.toFormattedString(language, true)}</Description>
-      <Description numberOfLines={EXCERPT_MAX_LINES} language={language}>
+      <Description language={language}>{dateToDisplay.formatEventDateInOneLine(language, t)}</Description>
+      {!!event.location && <Description language={language}>{event.location.name}</Description>}
+      {!!event.meetingUrl && <Description language={language}>{t('onlineEvent')}</Description>}
+      <Description numberOfLines={EXCERPT_MAX_LINES} language={language} withMargin>
         {content}
       </Description>
     </ListItem>

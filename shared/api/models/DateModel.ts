@@ -23,15 +23,6 @@ export const getWeekdayFromIndex = (index: number, locale: string): string => {
   return offsetDateOfThatWeek.toLocaleString({ weekday: 'long' }, { locale })
 }
 
-export const formatDateInterval = (locale: string, startDate: DateTime, endDate?: DateTime | null): string => {
-  const formattedStartDate = startDate.toLocaleString(dateFormatWithoutWeekday, { locale })
-  if (!endDate || startDate.hasSame(endDate, 'day')) {
-    return formattedStartDate
-  }
-  const formattedEndDate = endDate.toLocaleString(dateFormatWithoutWeekday, { locale })
-  return `${formattedStartDate} - ${formattedEndDate}`
-}
-
 export const formatTime = (
   locale: string,
   date: DateModel,
@@ -143,6 +134,10 @@ class DateModel {
     return this.recurrences(count + 1).length === count + 1
   }
 
+  isSingleOneDayEvent(): boolean {
+    return this.startDate.hasSame(this.endDate, 'day') && !this.recurrenceRule
+  }
+
   isMonthlyOrYearlyRecurrence(): boolean {
     if (!this.recurrenceRule) {
       return false
@@ -162,34 +157,6 @@ class DateModel {
     }
   }
 
-  private formatRecurringDate(
-    locale: string,
-    date: DateModel,
-    t: (key: string, options?: Record<string, unknown>) => string,
-  ): FormattedEventDate {
-    if (!date.recurrenceRule) {
-      throw new Error('DateModel has no recurrence rule')
-    }
-    let formattedDate = ''
-    const recurrenceObject = date.recurrenceRule.options
-    if (recurrenceObject.until) {
-      const finalDate = this.getFinalDate(date)
-      formattedDate = formatDateInterval(locale, date.startDate, finalDate)
-    } else {
-      formattedDate = t('startingFrom', {
-        date: date.startDate.toLocaleString(dateFormatWithoutWeekday),
-      })
-    }
-    const weekday = recurrenceObject.byweekday.map(index => getWeekdayFromIndex(index, locale)).join(', ')
-    const time = formatTime(locale, date, t)
-
-    return {
-      date: formattedDate,
-      weekday,
-      time,
-    }
-  }
-
   formatEventDate(locale: string, t: (key: string, options?: Record<string, unknown>) => string): FormattedEventDate {
     let formattedDate = ''
     let weekday: string | undefined
@@ -197,11 +164,11 @@ class DateModel {
     if (this.recurrenceRule) {
       return this.formatRecurringDate(locale, this, t)
     }
-    if (this.startDate.hasSame(this.endDate, 'day')) {
+    if (this.isSingleOneDayEvent()) {
       formattedDate = this.startDate.toLocaleString(dateFormatWithoutWeekday)
     } else {
       // long-term event
-      formattedDate = formatDateInterval(locale, this.startDate, this.endDate)
+      formattedDate = this.formatDateInterval(locale, this.endDate)
       if (this.onlyWeekdays) {
         // eslint-disable-next-line no-magic-numbers
         weekday = `${getWeekdayFromIndex(0, locale)} - ${getWeekdayFromIndex(4, locale)}`
@@ -217,21 +184,30 @@ class DateModel {
     }
   }
 
-  toFormattedString(locale: string, short = false): string {
-    const dayFormat = short ? 'D' : 'DDD'
-    const format = this.allDay ? dayFormat : `${dayFormat} t`
-    const localizedStartDate = this.startDate.setLocale(locale).toFormat(format)
-    const localizedEndDate = this.endDate.setLocale(locale)
-
-    if (this.startDate.equals(this.endDate)) {
-      return localizedStartDate
+  formatEventDateInOneLine(locale: string, t: (key: string, options?: Record<string, unknown>) => string): string {
+    const format: DateTimeFormatOptions = {
+      day: 'numeric',
+      month: 'long',
     }
-
-    if (this.startDate.hasSame(this.endDate, 'day')) {
-      return this.allDay ? localizedStartDate : `${localizedStartDate} - ${localizedEndDate.toFormat('t')}`
+    const now = DateTime.now()
+    const showYear =
+      !now.hasSame(this.startDate, 'year') || !now.hasSame(this.getFinalDate(this) || this.endDate, 'year')
+    if (showYear) {
+      format.year = 'numeric'
     }
-
-    return `${localizedStartDate} - ${localizedEndDate.toFormat(format)}`
+    if (this.isSingleOneDayEvent()) {
+      return `${this.startDate.toLocaleString(format, { locale })}, ${formatTime(locale, this, t)}`
+    }
+    if (this.recurrenceRule && !this.recurrenceRule.options.until) {
+      return t('startingFrom', {
+        date: this.startDate.toLocaleString(format, { locale }),
+      })
+    }
+    const finalDate = this.getFinalDate(this)
+    if (finalDate) {
+      return `${this.startDate.toLocaleString(format, { locale })} - ${finalDate.toLocaleString(format, { locale })}`
+    }
+    return `${this.startDate.toLocaleString(format, { locale })} - ${this.endDate.toLocaleString(format, { locale })}`
   }
 
   getDateIcon(): { icon: DateIcon; label: string } | null {
@@ -274,6 +250,43 @@ class DateModel {
     const finalJsDate = localRecurrenceRule.before(localRecurrenceRule.options.until!, true)
     finalJsDate?.setHours(date.endDate.hour, date.endDate.minute)
     return finalJsDate ? DateTime.fromJSDate(finalJsDate) : null
+  }
+
+  private formatDateInterval(locale: string, finalDate: DateTime | null): string {
+    const formattedStartDate = this.startDate.toLocaleString(dateFormatWithoutWeekday, { locale })
+    if (!finalDate || this.startDate.hasSame(finalDate, 'day')) {
+      return formattedStartDate
+    }
+    const formattedEndDate = finalDate.toLocaleString(dateFormatWithoutWeekday, { locale })
+    return `${formattedStartDate} - ${formattedEndDate}`
+  }
+
+  private formatRecurringDate(
+    locale: string,
+    date: DateModel,
+    t: (key: string, options?: Record<string, unknown>) => string,
+  ): FormattedEventDate {
+    if (!date.recurrenceRule) {
+      throw new Error('DateModel has no recurrence rule')
+    }
+    let formattedDate = ''
+    const recurrenceObject = date.recurrenceRule.options
+    if (recurrenceObject.until) {
+      const finalDate = this.getFinalDate(date)
+      formattedDate = this.formatDateInterval(locale, finalDate)
+    } else {
+      formattedDate = t('startingFrom', {
+        date: date.startDate.toLocaleString(dateFormatWithoutWeekday),
+      })
+    }
+    const weekday = recurrenceObject.byweekday.map(index => getWeekdayFromIndex(index, locale)).join(', ')
+    const time = formatTime(locale, date, t)
+
+    return {
+      date: formattedDate,
+      weekday,
+      time,
+    }
   }
 }
 

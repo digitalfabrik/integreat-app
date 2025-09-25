@@ -20,7 +20,7 @@ describe('EventListItem', () => {
     const { getByText } = render(<EventListItem event={event} language={language} navigateToEvent={navigateToEvent} />)
 
     expect(getByText(event.title)).toBeTruthy()
-    expect(getByText(event.date.toFormattedString(language, true))).toBeTruthy()
+    expect(getByText(event.date.formatEventDateInOneLine(language, jest.fn()))).toBeTruthy()
   })
 
   describe('date icon', () => {

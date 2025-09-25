@@ -16,10 +16,18 @@ import {
   EventThumbnailPlaceholder3,
 } from '../assets'
 import { EXCERPT_MAX_CHARS } from '../constants'
-import useWindowDimensions from '../hooks/useWindowDimensions'
+import dimensions from '../constants/dimensions'
 import ListItem from './ListItem'
 import Icon from './base/Icon'
 import Tooltip from './base/Tooltip'
+
+const Container = styled.div`
+  display: flex;
+
+  @media ${dimensions.smallViewport} {
+    flex-direction: column;
+  }
+`
 
 const Content = styled.div`
   overflow-wrap: anywhere;
@@ -63,7 +71,6 @@ const EventListItem = ({
   filterEndDate = null,
 }: EventListItemProps): ReactElement => {
   const dateIcon = getDateIcon(event.date)
-  const { viewportSmall } = useWindowDimensions()
   const { t } = useTranslation('events')
   const dateToDisplay = getDisplayDate(event, filterStartDate, filterEndDate)
 
@@ -80,10 +87,11 @@ const EventListItem = ({
       title={event.title}
       path={event.path}
       Icon={DateIcon}>
-      <Content>
-        <Content dir='auto'>{dateToDisplay.toFormattedString(languageCode, viewportSmall)}</Content>
-        {event.location && <Content dir='auto'>{event.location.fullAddress}</Content>}
-      </Content>
+      <Container>
+        <Content dir='auto'>{dateToDisplay.formatEventDateInOneLine(languageCode, t)}</Content>
+        {!!event.location && <Content dir='auto'>{event.location.name}</Content>}
+        {!!event.meetingUrl && <Content dir='auto'>{t('onlineEvent')}</Content>}
+      </Container>
       <Content dir='auto'>{getExcerpt(event.excerpt, { maxChars: EXCERPT_MAX_CHARS })}</Content>
     </ListItem>
   )

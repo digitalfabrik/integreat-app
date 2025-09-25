@@ -24,6 +24,13 @@ afterEach(() => {
   jest.clearAllMocks()
 })
 
+const t = (key: string, options?: Record<string, unknown>) =>
+  options
+    ? `${key}, ${Object.entries(options)
+        .map(option => `${option[0]}: ${option[1]}`)
+        .join(', ')}`
+    : key
+
 describe('DatabaseConnector', () => {
   const city = 'augsburg'
   const language = 'de'
@@ -270,14 +277,20 @@ describe('DatabaseConnector', () => {
         meetingUrl: 'https://meet.jit.si/test',
       })
 
-      expect(event.date.toFormattedString('de', false)).toBe('7. Mai 2024 10:00 - 12:00')
-      expect(event.date.recurrences(1)[0]!.toFormattedString('de', false)).toBe('7. Mai 2024 10:00 - 12:00')
+      const expectedDate = {
+        date: 'startingFrom, date: May 7, 2024',
+        time: 'timeRange, startTime: 10:00, endTime: 12:00',
+        weekday: 'Dienstag',
+      }
+
+      expect(event.date.formatEventDate('de', t)).toStrictEqual(expectedDate)
+      expect(event.date.recurrences(1)[0]!.formatEventDate('de', t)).toStrictEqual(expectedDate)
 
       await databaseConnector.storeEvents([event], context)
       const loadedEvent = (await databaseConnector.loadEvents(context))[0]!
 
-      expect(loadedEvent.date.toFormattedString('de', false)).toBe('7. Mai 2024 10:00 - 12:00')
-      expect(loadedEvent.date.recurrences(1)[0]!.toFormattedString('de', false)).toBe('7. Mai 2024 10:00 - 12:00')
+      expect(loadedEvent.date.formatEventDate('de', t)).toStrictEqual(expectedDate)
+      expect(loadedEvent.date.recurrences(1)[0]!.formatEventDate('de', t)).toStrictEqual(expectedDate)
     })
   })
 
