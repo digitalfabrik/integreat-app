@@ -70,9 +70,7 @@ const DatesPageDetail = ({ date, languageCode }: DatesPageDetailProps): ReactEle
   return (
     <View>
       <PageDetail Icon={CalendarTodayIcon} information={formattedDate.date} language={languageCode} />
-      {formattedDate.weekday !== undefined && (
-        <PageDetail information={formattedDate.weekday} language={languageCode} />
-      )}
+      {!!formattedDate.weekday && <PageDetail information={formattedDate.weekday} language={languageCode} />}
       <PageDetail Icon={ClockIcon} information={formattedDate.time} language={languageCode} />
     </View>
   )

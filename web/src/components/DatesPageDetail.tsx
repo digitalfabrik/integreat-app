@@ -85,7 +85,7 @@ const DatesPageDetail = ({ date, language }: DatesPageDetailProps): ReactElement
   return (
     <ContainerForThreeElements>
       <PageDetail icon={CalendarTodayIcon} information={formattedDate.date} />
-      {formattedDate.weekday !== undefined && <PageDetail information={formattedDate.weekday} />}
+      {!!formattedDate.weekday && <PageDetail information={formattedDate.weekday} />}
       <PageDetail icon={ClockIcon} information={formattedDate.time} />
     </ContainerForThreeElements>
   )

@@ -29,6 +29,8 @@ const EventModalDummyData = {
 jest.useFakeTimers({ now: new Date('2024-11-07T00:00:00.000') })
 
 describe('isEventWithinRange', () => {
+  const now = DateTime.local()
+
   const createEvent = (
     id: number,
     startDate: DateTime,
@@ -51,8 +53,6 @@ describe('isEventWithinRange', () => {
       meetingUrl: null,
     })
   }
-
-  const now = DateTime.local()
 
   it('should return true when event is within the date range', () => {
     const event = createEvent(1, now.minus({ days: 1 }), now.plus({ days: 1 }))

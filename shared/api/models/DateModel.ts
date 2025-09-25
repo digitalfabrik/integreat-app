@@ -119,7 +119,7 @@ class DateModel {
     return localRecurrenceRule
       .between(minDate, maxDate, true, (_, index) => index < count)
       .map(offsetDate => {
-        const actualDate = DateTime.fromJSDate(offsetDate).toUTC().setLocale(this.startDate.locale)
+        const actualDate = DateTime.fromJSDate(offsetDate).toUTC()
         return new DateModel({
           allDay: this.allDay,
           startDate: actualDate,
