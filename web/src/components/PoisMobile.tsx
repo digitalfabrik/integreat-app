@@ -13,6 +13,10 @@ import BottomActionSheet, { ScrollableBottomSheetRef } from './BottomActionSheet
 import MapView, { MapViewRef } from './MapView'
 import PoiSharedChildren from './PoiSharedChildren'
 
+const StyledIconButton = styled(IconButton)(({ theme }) => ({
+  backgroundColor: theme.palette.surface.light,
+}))
+
 const ListContainer = styled('div')`
   padding: 0 30px;
 `
@@ -106,13 +110,13 @@ const PoisMobile = ({
         Overlay={
           <>
             {canDeselect && (
-              <IconButton onClick={deselect} tabIndex={0} aria-label={t('backToOverview')}>
+              <StyledIconButton onClick={deselect} tabIndex={0} aria-label={t('common:backToOverview')}>
                 <ArrowBackIcon
                   sx={{
                     transform: theme.direction === 'rtl' ? 'scaleX(-1)' : 'none',
                   }}
                 />
-              </IconButton>
+              </StyledIconButton>
             )}
             {MapOverlay}
           </>
@@ -120,7 +124,7 @@ const PoisMobile = ({
       />
       <BottomActionSheet ref={sheetRef} sibling={<GeocontrolContainer ref={geocontrolPosition} />}>
         <ListContainer>
-          {!canDeselect && <ListTitle>{t('nearby')}</ListTitle>}
+          {!canDeselect && <ListTitle>{t('common:nearby')}</ListTitle>}
           <PoiSharedChildren
             pois={pois}
             poi={poi}
