@@ -2,6 +2,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -9,6 +10,12 @@ import buildConfig from '../constants/buildConfig'
 import Link from './base/Link'
 
 const LONG_TITLE_LENGTH = 25
+
+const StyledTitle = styled(Typography)(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    width: 'min-content',
+  },
+}))
 
 type HeaderTitleProps = {
   title: string
@@ -22,15 +29,15 @@ const HeaderTitle = ({ title, landingPath }: HeaderTitleProps): ReactElement => 
 
   if (featureFlags.fixedCity) {
     return (
-      <Typography variant={variant} alignContent='center'>
+      <StyledTitle variant={variant} alignContent='center'>
         {title}
-      </Typography>
+      </StyledTitle>
     )
   }
   return (
     <Tooltip title={t('changeLocation')} leaveTouchDelay={0}>
       <Button component={Link} to={landingPath} endIcon={<KeyboardArrowDownIcon />} color='inherit'>
-        <Typography variant={variant}>{title}</Typography>
+        <StyledTitle variant={variant}>{title}</StyledTitle>
       </Button>
     </Tooltip>
   )
