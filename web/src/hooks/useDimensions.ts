@@ -39,6 +39,7 @@ export type Dimensions = {
 
   mobile: boolean
   desktop: boolean
+  xsmall: boolean
   small: boolean
   medium: boolean
   large: boolean
@@ -80,10 +81,11 @@ const getDimensions = (): Dimensions => {
 
     mobile: width <= BREAKPOINTS.md,
     desktop: width > BREAKPOINTS.md,
-    small: width <= BREAKPOINTS.sm,
-    medium: width > BREAKPOINTS.sm && width <= BREAKPOINTS.md,
-    large: width > BREAKPOINTS.md && width <= BREAKPOINTS.xl,
-    xlarge: width > BREAKPOINTS.xl,
+    xsmall: width < BREAKPOINTS.sm,
+    small: width >= BREAKPOINTS.sm && width < BREAKPOINTS.md,
+    medium: width >= BREAKPOINTS.md && width < BREAKPOINTS.lg,
+    large: width >= BREAKPOINTS.lg && width < BREAKPOINTS.xl,
+    xlarge: width >= BREAKPOINTS.xl,
   }
 }
 
