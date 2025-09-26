@@ -14,7 +14,7 @@ import PoiSharedChildren from './PoiSharedChildren'
 import { DirectionDependentBackIcon } from './base/Dialog'
 
 const StyledIconButton = styled(IconButton)(({ theme }) => ({
-  backgroundColor: theme.palette.surface.light,
+  backgroundColor: theme.palette.surface.main,
 }))
 
 const ListContainer = styled('div')`

@@ -56,6 +56,13 @@ const createTheme = (
           dir: 'auto',
         },
       },
+      MuiChip: {
+        styleOverrides: {
+          filled: {
+            backgroundColor: theme.palette.surface.main,
+          },
+        },
+      },
       MuiTooltip: {
         defaultProps: {
           arrow: true,
