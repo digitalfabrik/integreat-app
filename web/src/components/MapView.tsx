@@ -44,6 +44,7 @@ const OverlayContainer = styled('div')`
   position: absolute;
   top: 0;
   gap: 8px;
+  align-items: center;
 `
 
 type MapViewProps = {
