@@ -25,7 +25,8 @@ const ModalContent = styled(Container)`
 const StyledWarningText = styled('div')`
   font-family: ${props => props.theme.legacy.fonts.web.contentFont};
   font-size: 16px;
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.palette.text.primary};
+  margin-bottom: 16px;
 `
 
 const StyledWarningIcon = styled(Icon)`
@@ -36,7 +37,7 @@ const StyledList = styled('div')`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.palette.text.primary};
 `
 
 const StyledExternalIcon = styled(Icon)`
@@ -46,7 +47,7 @@ const StyledExternalIcon = styled(Icon)`
 `
 
 const StyledBookIcon = styled(Icon)`
-  color: black;
+  color: ${props => props.theme.palette.text.primary};
 `
 
 const helpItemsData = [

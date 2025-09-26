@@ -1,14 +1,21 @@
+import Backdrop from '@mui/material/Backdrop'
+import { styled } from '@mui/material/styles'
 import EasySpeech from 'easy-speech'
 import React, { createContext, ReactElement, useCallback, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import buildConfig from '../constants/buildConfig'
 import { getTtsVoice, isTtsCancelError, ttsInitialized } from '../utils/tts'
+import LoadingSpinner from './LoadingSpinner'
 import TtsHelpModal from './TtsHelpModal'
 import TtsPlayer from './TtsPlayer'
 
-const TTS_TIMEOUT = 5000
+const TTS_TIMEOUT = 2000
 const TTS_RETRY_INTERVAL = 250
+
+const StyledBackdrop = styled(Backdrop)`
+  z-index: 100;
+`
 
 export type TtsContextType = {
   enabled?: boolean
@@ -41,15 +48,23 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
   const [sentences, setSentences] = useState<string[]>([])
   const [sentenceIndex, setSentenceIndex] = useState(0)
   const [showHelpModal, setShowHelpModal] = useState(false)
+  const [isInitializing, setIsInitializing] = useState(false)
   const title = sentences[0] || t('nothingToRead')
   const enabled = buildConfig().featureFlags.tts
   const canRead = enabled && sentences.length > 1
 
   const initializeTts = useCallback(() => {
     if (buildConfig().featureFlags.tts) {
+      setIsInitializing(true)
       EasySpeech.init({ maxTimeout: TTS_TIMEOUT, interval: TTS_RETRY_INTERVAL })
-        .then(() => setVisible(true))
-        .catch(() => setShowHelpModal(true))
+        .then(() => {
+          setIsInitializing(false)
+          setVisible(true)
+        })
+        .catch(() => {
+          setIsInitializing(false)
+          setShowHelpModal(true)
+        })
     }
   }, [])
 
@@ -162,6 +177,9 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
   return (
     <TtsContext.Provider value={ttsContextValue}>
       {children}
+      <StyledBackdrop open={isInitializing}>
+        <LoadingSpinner />
+      </StyledBackdrop>
       {showHelpModal && <TtsHelpModal closeModal={close} />}
       {visible && (
         <TtsPlayer
