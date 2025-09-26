@@ -9,7 +9,10 @@ import Link from './base/Link'
 
 const StyledLink = styled(Link)(({ theme }) => ({
   order: 1,
-  height: 48,
+
+  [theme.breakpoints.up('md')]: {
+    height: 48,
+  },
 
   [theme.breakpoints.down('md')]: {
     width: 48,
