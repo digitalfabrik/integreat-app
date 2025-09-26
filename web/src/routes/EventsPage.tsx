@@ -49,7 +49,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
 
   // Support legacy slugs of old recurring events with one event per recurrence
   const pathnameWithoutDate = pathname.split('$')[0]
-  const event = eventId ? events?.find(it => it.path === pathnameWithoutDate) : null // TODO chatgpt -> shortIF
+  const event = eventId ? events?.find(it => it.path === pathnameWithoutDate) : null
   useTtsPlayer(event, languageCode)
 
   if (!city) {
@@ -115,7 +115,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
   }
 
   if (event) {
-    const { featuredImage, lastUpdate, content, title, location, date } = event
+    const { featuredImage, lastUpdate, content, title, location, meetingUrl, date } = event
 
     return (
       <CityContentLayout isLoading={false} {...locationLayoutParams}>
@@ -132,6 +132,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
               {location && (
                 <PageDetail identifier={t('address')} information={location.fullAddress} path={event.poiPath} />
               )}
+              {meetingUrl && <PageDetail identifier={t('address')} information={meetingUrl} path={meetingUrl} />}
             </Spacing>
           }
           Footer={<ExportEventButton event={event} />}

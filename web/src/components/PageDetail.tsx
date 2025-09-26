@@ -17,15 +17,9 @@ const PageDetail = ({ identifier, information, path }: PageDetailProps): ReactEl
   <div>
     <Identifier>{identifier}: </Identifier>
     {path ? (
-      <>
-        <Link to={path} highlighted>
-          {information}
-        </Link>
-        <span> - </span>
-        <Link to={path} highlighted>
-          {information}
-        </Link>
-      </>
+      <Link to={path} highlighted>
+        {information}
+      </Link>
     ) : (
       <span>{information}</span>
     )}
