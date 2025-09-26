@@ -4373,6 +4373,7 @@
   "events": {
     "de": {
       "address": "Adresse",
+      "meetingUrl": "Online-Meeting",
       "date_one": "Datum",
       "date_other": "Termine",
       "nextDate_one": "Nächster Termin",
@@ -4621,6 +4622,7 @@
     },
     "en": {
       "address": "Address",
+      "meetingUrl": "Online-Meeting",
       "date_one": "Date",
       "date_other": "Dates",
       "nextDate_one": "Next date",

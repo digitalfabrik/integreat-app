@@ -132,7 +132,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
               {location && (
                 <PageDetail identifier={t('address')} information={location.fullAddress} path={event.poiPath} />
               )}
-              {meetingUrl && <PageDetail identifier={t('address')} information={meetingUrl} path={meetingUrl} />}
+              {meetingUrl && <PageDetail identifier={t('meetingUrl')} information={meetingUrl} path={meetingUrl} />}
             </Spacing>
           }
           Footer={<ExportEventButton event={event} />}
