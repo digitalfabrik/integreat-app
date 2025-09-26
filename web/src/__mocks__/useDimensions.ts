@@ -25,8 +25,9 @@ export const mockDimensions: Dimensions = {
 
   mobile: true,
   desktop: false,
+  xsmall: true,
   small: false,
-  medium: true,
+  medium: false,
   large: false,
   xlarge: false,
 }
