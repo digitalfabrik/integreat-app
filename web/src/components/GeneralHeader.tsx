@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router-dom'
 
 import { LANDING_ROUTE, pathnameFromRouteInformation } from 'shared'
+import { LanguageModel } from 'shared/api'
 
 import { supportedLanguages } from '../utils'
 import Header from './Header'
@@ -14,16 +15,17 @@ import SidebarActionItem from './SidebarActionItem'
 
 type GeneralHeaderProps = {
   languageCode: string
+  cityLanguages?: LanguageModel[]
 }
 
-const GeneralHeader = ({ languageCode }: GeneralHeaderProps): ReactElement => {
+const GeneralHeader = ({ languageCode, cityLanguages }: GeneralHeaderProps): ReactElement => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const { toggleTheme } = useTheme()
   const { t } = useTranslation('layout')
   const slug = useLocation().pathname.split('/')[1]
 
   const landingPath = pathnameFromRouteInformation({ route: LANDING_ROUTE, languageCode })
-  const languageChangePaths = supportedLanguages.map(language => ({
+  const languageChangePaths = (cityLanguages ?? supportedLanguages).map(language => ({
     code: language.code,
     name: language.name,
     path: `/${slug}/${language.code}`,
