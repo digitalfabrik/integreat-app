@@ -10,9 +10,12 @@ import { PoiModel } from 'shared/api'
 
 import useDimensions from '../hooks/useDimensions'
 import BottomActionSheet, { ScrollableBottomSheetRef } from './BottomActionSheet'
-import GoBack from './GoBack'
 import MapView, { MapViewRef } from './MapView'
 import PoiSharedChildren from './PoiSharedChildren'
+
+const StyledIconButton = styled(IconButton)(({ theme }) => ({
+  backgroundColor: theme.palette.surface.light,
+}))
 
 const ListContainer = styled('div')`
   padding: 0 30px;
@@ -21,15 +24,6 @@ const ListContainer = styled('div')`
 const ListTitle = styled('div')`
   margin: 12px 0;
   font-weight: 700;
-`
-
-const GoBackContainer = styled('div')`
-  display: flex;
-  flex-direction: column;
-  max-height: 10vh;
-  overflow: hidden;
-  transition: all 1s;
-  padding: 0 30px;
 `
 
 const GeocontrolContainer = styled('div')`
@@ -63,7 +57,6 @@ const PoisMobile = ({
   deselect,
   MapOverlay,
 }: PoisMobileProps): ReactElement => {
-  const [bottomActionSheetHeight, setBottomActionSheetHeight] = useState(0)
   const [scrollOffset, setScrollOffset] = useState<number>(0)
   const sheetRef = useRef<ScrollableBottomSheetRef>(null)
   const geocontrolPosition = useRef<HTMLDivElement>(null)
@@ -73,8 +66,6 @@ const PoisMobile = ({
   const theme = useTheme()
   const canDeselect = !!mapFeature || !!slug
   const { t } = useTranslation('pois')
-
-  const isBottomActionSheetFullScreen = bottomActionSheetHeight >= dimensions.window.height
 
   const handleSelectPoi = (poi: PoiModel) => {
     if (sheetRef.current?.scrollElement) {
@@ -119,29 +110,21 @@ const PoisMobile = ({
         Overlay={
           <>
             {canDeselect && (
-              <IconButton onClick={deselect} tabIndex={0} aria-label={t('detailsHeader')}>
+              <StyledIconButton onClick={deselect} tabIndex={0} aria-label={t('common:backToOverview')}>
                 <ArrowBackIcon
                   sx={{
                     transform: theme.direction === 'rtl' ? 'scaleX(-1)' : 'none',
                   }}
                 />
-              </IconButton>
+              </StyledIconButton>
             )}
             {MapOverlay}
           </>
         }
       />
-      <BottomActionSheet
-        ref={sheetRef}
-        setBottomActionSheetHeight={setBottomActionSheetHeight}
-        sibling={<GeocontrolContainer ref={geocontrolPosition} />}>
-        {canDeselect && isBottomActionSheetFullScreen && (
-          <GoBackContainer>
-            <GoBack goBack={deselect} text={t('detailsHeader')} />
-          </GoBackContainer>
-        )}
+      <BottomActionSheet ref={sheetRef} sibling={<GeocontrolContainer ref={geocontrolPosition} />}>
         <ListContainer>
-          {!canDeselect && <ListTitle>{t('listTitle')}</ListTitle>}
+          {!canDeselect && <ListTitle>{t('common:nearby')}</ListTitle>}
           <PoiSharedChildren
             pois={pois}
             poi={poi}
