@@ -34,7 +34,6 @@ const Row = styled('div')`
   flex-wrap: wrap;
   overflow-x: auto;
   padding: 0 16px;
-  gap: 8px;
 
   ${props => props.theme.breakpoints.down('md')} {
     padding: 0 8px;
@@ -71,7 +70,7 @@ export const Header = ({ actionItems = [], logoHref, cityName, language, TabBar 
       <Paper>
         <HeaderContainer ref={ref}>
           <Row>
-            <Stack direction='row-reverse' gap={1}>
+            <Stack direction='row-reverse'>
               <HeaderLogo link={logoHref} />
               {!!cityName && <HeaderTitle title={cityName} landingPath={landingPath} />}
             </Stack>
