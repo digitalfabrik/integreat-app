@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { ExternalSourcePermissions } from 'shared'
 
 import Caption from '../components/Caption'
-import ConsentSection from '../components/ConsentSection'
+import ConsentListItem from '../components/ConsentListItem'
 import GeneralFooter from '../components/GeneralFooter'
 import GeneralHeader from '../components/GeneralHeader'
 import Layout from '../components/Layout'
@@ -33,7 +33,7 @@ const ConsentPage = ({ languageCode }: ConsentPageProps): ReactElement => {
     })
 
   const items = buildConfig().supportedIframeSources.map(item => (
-    <ConsentSection
+    <ConsentListItem
       key={item}
       description={t('consentDescription', { source: item })}
       allowed={externalSourcePermissions[item] ?? false}

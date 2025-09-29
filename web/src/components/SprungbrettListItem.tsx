@@ -15,7 +15,7 @@ type SprungbrettListItemProps = {
 }
 
 const SprungbrettListItem = ({ job }: SprungbrettListItemProps): ReactElement => (
-  <ListItem>
+  <ListItem disablePadding>
     <ListItemButton component={Link} to={job.url}>
       <ListItemAvatar>
         <Avatar src={SprungbrettIcon} alt='' variant='square' />
