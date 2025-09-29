@@ -24,7 +24,6 @@ import List from '../components/base/List'
 import { cmsApiBaseUrl } from '../constants/urls'
 import usePreviousProp from '../hooks/usePreviousProp'
 import useTtsPlayer from '../hooks/useTtsPlayer'
-import { LOCAL_NEWS_ROUTE } from './index'
 
 const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps): ReactElement | null => {
   const previousPathname = usePreviousProp({ prop: pathname })
@@ -67,14 +66,7 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
     city,
     languageChangePaths,
     languageCode,
-    Toolbar: (
-      <CityContentToolbar
-        route={LOCAL_NEWS_ROUTE}
-        hasFeedbackOption={false}
-        hideDivider={localNews?.length !== 0 && !newsId}
-        pageTitle={pageTitle}
-      />
-    ),
+    Toolbar: <CityContentToolbar pageTitle={pageTitle} />,
   }
 
   if (loading || previousPathname !== pathname) {
@@ -147,7 +139,7 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
         localNewsEnabled={city.localNewsEnabled}
         language={languageCode}
       />
-      <List Items={NewsListItems} NoItemsMessage='news:currentlyNoNews' />
+      <List items={NewsListItems} NoItemsMessage='news:currentlyNoNews' />
     </CityContentLayout>
   )
 }

@@ -3,14 +3,14 @@ import React from 'react'
 
 import { CityModelBuilder } from 'shared/api'
 
-import useWindowDimensions from '../../hooks/useWindowDimensions'
+import { mockDimensions } from '../../__mocks__/useDimensions'
+import useDimensions from '../../hooks/useDimensions'
 import { renderWithRouterAndTheme } from '../../testing/render'
-import { mockWindowDimensions } from '../../testing/utils'
 import CityContentHeader from '../CityContentHeader'
 
 jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
-jest.mock('../../hooks/useWindowDimensions')
+jest.mock('../../hooks/useDimensions', () => jest.fn(() => mockDimensions))
 
 describe('CityContentHeader', () => {
   const cityModel = new CityModelBuilder(1).build()[0]!
@@ -23,11 +23,16 @@ describe('CityContentHeader', () => {
 
   const renderCityContentHeader = () =>
     renderWithRouterAndTheme(
-      <CityContentHeader cityModel={cityModel} languageCode={languageCode} languageChangePaths={languageChangePaths} />,
+      <CityContentHeader
+        cityModel={cityModel}
+        languageCode={languageCode}
+        languageChangePaths={languageChangePaths}
+        category={undefined}
+      />,
     )
 
   it('should render correctly', () => {
-    mocked(useWindowDimensions).mockImplementation(() => ({ ...mockWindowDimensions, viewportSmall: false }))
+    mocked(useDimensions).mockImplementation(() => ({ ...mockDimensions, desktop: true, mobile: false }))
     const { getAllByText, getByText, queryByLabelText } = renderCityContentHeader()
     expect(getByText(cityModel.name)).toBeTruthy()
     expect(getAllByText('Deutsch')).toBeTruthy()
@@ -35,11 +40,12 @@ describe('CityContentHeader', () => {
     expect(queryByLabelText('layout:sideBarOpenAriaLabel')).toBeFalsy()
   })
 
-  it('should show sidebar on small viewports', () => {
-    mocked(useWindowDimensions).mockImplementation(() => ({ ...mockWindowDimensions, viewportSmall: true }))
-    const { getByText, getByLabelText } = renderCityContentHeader()
+  it('should show sidebar and hide navigation tabs on mobile', () => {
+    mocked(useDimensions).mockImplementation(() => ({ ...mockDimensions, mobile: true }))
+    const { getByText, getByLabelText, queryByText } = renderCityContentHeader()
     expect(getByText(cityModel.name)).toBeTruthy()
     expect(getByLabelText('layout:changeLanguage')).toBeTruthy()
     expect(getByLabelText('layout:sideBarOpenAriaLabel')).toBeTruthy()
+    expect(queryByText('layout:events')).toBeFalsy()
   })
 })

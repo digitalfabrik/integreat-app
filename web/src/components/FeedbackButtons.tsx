@@ -1,5 +1,7 @@
 import SentimentDissatisfiedOutlinedIcon from '@mui/icons-material/SentimentDissatisfiedOutlined'
 import SentimentSatisfiedOutlinedIcon from '@mui/icons-material/SentimentSatisfiedOutlined'
+import Stack from '@mui/material/Stack'
+import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -26,13 +28,13 @@ const FeedbackButtons = ({ rating, setRating }: FeedbackButtonsProps): ReactElem
   const handleChange = (_: React.MouseEvent<HTMLElement>, newValue: Rating | null) => setRating(newValue)
 
   return (
-    <>
-      <div>{t('description')}</div>
+    <Stack gap={2}>
+      <Typography variant='body2'>{t('description')}</Typography>
       <StyledToggleButtonGroup exclusive value={rating} onChange={handleChange}>
         <ToggleButton value={RATING_POSITIVE} icon={SentimentSatisfiedOutlinedIcon} text={t('useful')} />
         <ToggleButton value={RATING_NEGATIVE} icon={SentimentDissatisfiedOutlinedIcon} text={t('notUseful')} />
       </StyledToggleButtonGroup>
-    </>
+    </Stack>
   )
 }
 

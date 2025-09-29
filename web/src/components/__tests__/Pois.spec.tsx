@@ -38,15 +38,12 @@ describe('Pois', () => {
     }
     const pathname = pathnameFromRouteInformation(routeInformation)
     const query = queryStringFromRouteInformation(routeInformation)
-    return renderRoute(
-      <Pois pois={pois} userLocation={null} city={city} languageCode='de' pageTitle='My page title' />,
-      {
-        routePattern: `/:cityCode/:languageCode/${RoutePatterns[POIS_ROUTE]}`,
-        childPattern: ':slug',
-        pathname,
-        searchParams: query,
-      },
-    )
+    return renderRoute(<Pois pois={pois} userLocation={null} city={city} languageCode='de' />, {
+      routePattern: `/:cityCode/:languageCode/${RoutePatterns[POIS_ROUTE]}`,
+      childPattern: ':slug',
+      pathname,
+      searchParams: query,
+    })
   }
 
   it('should show failure if poi is not found', async () => {
@@ -57,7 +54,7 @@ describe('Pois', () => {
     expect(queryByText(poi1.title)).toBeFalsy()
     expect(queryByText(poi2.title)).toBeFalsy()
 
-    fireEvent.click(getByText('error:pois:detailsHeader'))
+    fireEvent.click(getByText('error:pois:backToOverview'))
 
     expect(getByText(poi0.title)).toBeTruthy()
 

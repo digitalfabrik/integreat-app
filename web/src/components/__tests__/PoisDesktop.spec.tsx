@@ -30,7 +30,6 @@ describe('PoisDesktop', () => {
   const renderPoisDesktop = (poi?: PoiModel, mapFeature?: MapFeature) =>
     renderWithRouterAndTheme(
       <PoisDesktop
-        toolbar={<div>Toolbar</div>}
         data={{ pois, mapFeatures, poi, mapFeature, poiCategories }}
         selectMapFeature={selectMapFeature}
         selectPoi={selectPoi}
@@ -54,18 +53,18 @@ describe('PoisDesktop', () => {
     expect(queryByText('pois:distanceKilometre')).toBeTruthy()
     expect(queryByText(singlePoi.location.address!)).toBeTruthy()
     expect(queryByText(singlePoi.content)).toBeTruthy()
-    expect(queryByText('pois:detailsHeader')).toBeTruthy()
-    expect(queryByText('pois:listTitle')).toBeNull()
+    expect(queryByLabelText('common:backToOverview')).toBeTruthy()
+    expect(queryByText('common:nearby')).toBeNull()
     expect(queryByLabelText('Toolbar')).toBeNull()
     expect(queryByLabelText('pois:previousPoi')).toBeTruthy()
     expect(queryByLabelText('pois:nextPoi')).toBeTruthy()
   })
 
   it('should show back button and hide list title for selected mapFeature', () => {
-    const { queryByText } = renderPoisDesktop(undefined, prepareMapFeature(pois, 0, [0, 0]))
+    const { queryByText, queryByLabelText } = renderPoisDesktop(undefined, prepareMapFeature(pois, 0, [0, 0]))
 
-    expect(queryByText('pois:detailsHeader')).toBeTruthy()
-    expect(queryByText('pois:listTitle')).toBeFalsy()
+    expect(queryByLabelText('common:backToOverview')).toBeTruthy()
+    expect(queryByText('common:nearby')).toBeFalsy()
 
     pois.forEach(poi => {
       expect(queryByText(poi.title)).toBeTruthy()
@@ -74,10 +73,10 @@ describe('PoisDesktop', () => {
 
   it('should render poiList & toolbar components if no poi is provided', () => {
     mocked(useSearchParams).mockReturnValue([new URLSearchParams([]), jest.fn()])
-    const { queryByText } = renderPoisDesktop()
+    const { queryByLabelText, queryByText } = renderPoisDesktop()
 
-    expect(queryByText('pois:detailsHeader')).toBeFalsy()
-    expect(queryByText('pois:listTitle')).toBeTruthy()
+    expect(queryByLabelText('common:backToOverview')).toBeFalsy()
+    expect(queryByText('common:nearby')).toBeTruthy()
     pois.forEach(poi => {
       expect(queryByText(poi.title)).toBeTruthy()
     })

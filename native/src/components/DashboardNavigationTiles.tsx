@@ -32,7 +32,7 @@ const DashboardNavigationTiles = ({
   languageCode,
   navigateTo,
 }: DashboardNavigationTilesProps): ReactElement => {
-  const { t } = useTranslation('dashboard')
+  const { t } = useTranslation('layout')
 
   const { featureFlags } = buildConfig()
   const { tunewsEnabled, localNewsEnabled, code: cityCode } = cityModel

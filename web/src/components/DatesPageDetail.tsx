@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { MAX_DATE_RECURRENCES, MAX_DATE_RECURRENCES_COLLAPSED } from 'shared'
 import { DateModel } from 'shared/api'
 
-import useWindowDimensions from '../hooks/useWindowDimensions'
+import useDimensions from '../hooks/useDimensions'
 import Collapsible from './Collapsible'
 import PageDetail from './PageDetail'
 
@@ -19,9 +19,9 @@ type DatesPageDetailProps = {
 }
 
 const DatesPageDetail = ({ date, languageCode }: DatesPageDetailProps): ReactElement | null => {
-  const { viewportSmall } = useWindowDimensions()
-  const dates = date.recurrences(MAX_DATE_RECURRENCES).map(it => it.toFormattedString(languageCode, viewportSmall))
-  const nextDate = dates[0] ?? date.toFormattedString(languageCode, viewportSmall)
+  const { mobile } = useDimensions()
+  const dates = date.recurrences(MAX_DATE_RECURRENCES).map(it => it.toFormattedString(languageCode, mobile))
+  const nextDate = dates[0] ?? date.toFormattedString(languageCode, mobile)
   const hasMoreDates = date.hasMoreRecurrencesThan(MAX_DATE_RECURRENCES)
   const { t } = useTranslation('events')
 

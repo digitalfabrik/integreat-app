@@ -20,15 +20,16 @@ export const LOCAL_NEWS_ROUTE = LOCAL_NEWS_TYPE
 export const TU_NEWS_ROUTE = TU_NEWS_TYPE
 export const TU_NEWS_DETAIL_ROUTE = `${TU_NEWS_ROUTE}-detail` as const
 
-export const cityContentPattern = `/:cityCode/:languageCode/*`
+const languageCodePattern = ':languageCode'
+export const cityContentPattern = `/:cityCode/${languageCodePattern}/*`
 export const RoutePatterns = {
-  [LANDING_ROUTE]: `/${LANDING_ROUTE}/:languageCode`,
-  [CITY_NOT_COOPERATING_ROUTE]: `/${CITY_NOT_COOPERATING_ROUTE}/:languageCode`,
-  [MAIN_DISCLAIMER_ROUTE]: `/${MAIN_DISCLAIMER_ROUTE}`,
-  [JPAL_TRACKING_ROUTE]: `/${JPAL_TRACKING_ROUTE}`,
-  [NOT_FOUND_ROUTE]: `/${NOT_FOUND_ROUTE}`,
-  [LICENSES_ROUTE]: `/${LICENSES_ROUTE}`,
-  [CONSENT_ROUTE]: `/${CONSENT_ROUTE}`,
+  [LANDING_ROUTE]: `/${LANDING_ROUTE}/${languageCodePattern}`,
+  [CITY_NOT_COOPERATING_ROUTE]: `/${CITY_NOT_COOPERATING_ROUTE}/${languageCodePattern}`,
+  [MAIN_DISCLAIMER_ROUTE]: `/${MAIN_DISCLAIMER_ROUTE}/${languageCodePattern}`,
+  [JPAL_TRACKING_ROUTE]: `/${JPAL_TRACKING_ROUTE}/${languageCodePattern}`,
+  [NOT_FOUND_ROUTE]: `/${NOT_FOUND_ROUTE}/${languageCodePattern}`,
+  [LICENSES_ROUTE]: `/${LICENSES_ROUTE}/${languageCodePattern}`,
+  [CONSENT_ROUTE]: `/${CONSENT_ROUTE}/${languageCodePattern}`,
 
   // City content routes, relative to /:cityCode/:languageCode
   [EVENTS_ROUTE]: EVENTS_ROUTE,

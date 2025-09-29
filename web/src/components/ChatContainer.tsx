@@ -8,21 +8,18 @@ import { getChatName, CHAT_QUERY_KEY, parseQueryParams } from 'shared'
 import { CityModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
-import dimensions from '../constants/dimensions'
+import useDimensions from '../hooks/useDimensions'
 import useLockedBody from '../hooks/useLockedBody'
-import useWindowDimensions from '../hooks/useWindowDimensions'
 import ChatController from './ChatController'
 import ChatModal from './ChatModal'
 import { TtsContext } from './TtsContainer'
 import Icon from './base/Icon'
 
-const CHAT_BUTTON_SIZE = 48
-
-const ChatButtonContainer = styled('div')<{ bottom: number }>`
+const ChatButtonContainer = styled('div')`
   position: fixed;
-  bottom: ${props => props.bottom}px;
+  bottom: ${props => props.theme.dimensions.bottomNavigationHeight ?? props.theme.dimensions.visibleFooterHeight}px;
   inset-inline-end: 16px;
-  margin-bottom: 8px;
+  margin-bottom: 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -55,19 +52,16 @@ type ChatContainerProps = {
   language: string
 }
 
-const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement => {
+const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement | null => {
   const [queryParams, setQueryParams] = useSearchParams()
   const initialChatVisibility = parseQueryParams(queryParams).chat ?? false
   const [chatVisible, setChatVisible] = useState(initialChatVisibility)
-  const { viewportSmall, visibleFooterHeight, width } = useWindowDimensions()
+  const { desktop, small } = useDimensions()
   const { visible: ttsPlayerVisible } = useContext(TtsContext)
   const chatName = getChatName(buildConfig().appName)
   useLockedBody(chatVisible)
 
-  const bottom =
-    ttsPlayerVisible && width <= dimensions.maxTtsPlayerWidth
-      ? visibleFooterHeight + dimensions.ttsPlayerHeight + CHAT_BUTTON_SIZE
-      : visibleFooterHeight
+  const hideChatButton = small && ttsPlayerVisible
 
   useEffect(() => {
     if (queryParams.has(CHAT_QUERY_KEY)) {
@@ -76,6 +70,10 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement => 
       setQueryParams(newQueryParams, { replace: true })
     }
   }, [queryParams, setQueryParams])
+
+  if (hideChatButton) {
+    return null
+  }
 
   if (chatVisible) {
     return (
@@ -86,11 +84,11 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement => 
   }
 
   return (
-    <ChatButtonContainer bottom={bottom}>
+    <ChatButtonContainer>
       <ChatActionButton onClick={() => setChatVisible(true)} color='primary'>
         <StyledIcon src={QuestionAnswerOutlinedIcon} title={chatName} />
       </ChatActionButton>
-      {!viewportSmall && <ChatTitle>{chatName}</ChatTitle>}
+      {desktop && <ChatTitle>{chatName}</ChatTitle>}
     </ChatButtonContainer>
   )
 }
