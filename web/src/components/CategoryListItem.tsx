@@ -28,15 +28,12 @@ const SubCategoryListItem = styled(ListItem)`
 
 const StyledSubCategoryListItemButton = styled(ListItemButton)`
   padding-left: 72px;
+  min-height: 56px;
 ` as typeof ListItemButton
 
 const StyledTypography = styled(Typography)`
   word-wrap: break-word;
   font-weight: 700;
-`
-
-const StyledListItemText = styled(ListItemText)`
-  padding: 12px 0;
 `
 
 type CategoryListItemProps = {
@@ -69,10 +66,14 @@ const CategoryListItem = ({ category, subCategories }: CategoryListItemProps): R
             <Avatar src={category.thumbnail} variant='square' />
           </ListItemAvatar>
         )}
-        <StyledListItemText primary={<StyledTypography variant='title2'>{category.title}</StyledTypography>} />
+        <ListItemText primary={<StyledTypography variant='title2'>{category.title}</StyledTypography>} />
       </ListItemButton>
-      <Divider />
-      <StyledList isInset items={SubCategories} />
+      {SubCategories.length > 0 && (
+        <>
+          <Divider />
+          <StyledList isInset items={SubCategories} />
+        </>
+      )}
     </StyledListItem>
   )
 }
