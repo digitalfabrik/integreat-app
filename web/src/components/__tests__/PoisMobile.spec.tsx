@@ -19,7 +19,7 @@ describe('PoisMobile', () => {
   const selectPoi = jest.fn()
   const deselect = jest.fn()
 
-  const renderPoisDesktop = (poi?: PoiModel) =>
+  const renderPoisMobile = (poi?: PoiModel) =>
     renderWithRouterAndTheme(
       <PoisMobile
         data={{ pois, mapFeatures, poi, poiCategories }}
@@ -37,19 +37,19 @@ describe('PoisMobile', () => {
   it('should list detail information about the current feature and the poi if feature and poi provided', async () => {
     const singlePoi = pois[1]!
 
-    const { queryByText } = renderPoisDesktop(singlePoi)
+    const { queryByText } = renderPoisMobile(singlePoi)
     expect(queryByText(singlePoi.title)).toBeTruthy()
     expect(queryByText(singlePoi.category.name)).toBeTruthy()
     expect(queryByText('pois:distanceKilometre')).toBeTruthy()
     expect(queryByText(singlePoi.location.address!)).toBeTruthy()
     expect(queryByText(singlePoi.content)).toBeTruthy()
-    expect(queryByText('listTitle')).toBeNull()
+    expect(queryByText('nearby')).toBeNull()
   })
 
   it('should render poiList & toolbar components no poi is provided', () => {
-    const { queryByText } = renderPoisDesktop()
+    const { queryByText } = renderPoisMobile()
 
-    expect(queryByText('pois:listTitle')).toBeTruthy()
+    expect(queryByText('pois:common:nearby')).toBeTruthy()
     pois.forEach(poi => {
       expect(queryByText(poi.title)).toBeTruthy()
     })

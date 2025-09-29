@@ -52,7 +52,7 @@ describe('PoisBottomSheet', () => {
     expect(queryByText(poi1.title)).toBeFalsy()
     expect(queryByText(poi2.title)).toBeFalsy()
 
-    fireEvent.press(getByText('detailsHeader'))
+    fireEvent.press(getByText('backToOverview'))
 
     expect(deselectAll).toHaveBeenCalledTimes(1)
   })

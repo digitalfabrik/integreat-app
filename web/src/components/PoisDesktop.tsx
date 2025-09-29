@@ -1,14 +1,14 @@
+import Stack from '@mui/material/Stack'
 import { styled, useTheme } from '@mui/material/styles'
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { GeolocateControl, NavigationControl } from 'react-map-gl'
 
 import { LocationType, MapViewViewport, MapFeature, PreparePoisReturn } from 'shared'
 import { CityModel, PoiModel } from 'shared/api'
 
 import CityContentFooter from './CityContentFooter'
-import GoBack from './GoBack'
 import MapView from './MapView'
+import PoiPanelHeader from './PoiPanelHeader'
 import PoiPanelNavigation from './PoiPanelNavigation'
 import PoiSharedChildren from './PoiSharedChildren'
 
@@ -28,31 +28,12 @@ const ListViewWrapper = styled('div')`
   overflow: auto;
 `
 
-const ToolbarContainer = styled('div')`
-  display: flex;
-  justify-content: center;
-  background-color: ${props => props.theme.legacy.colors.backgroundColor};
-  box-shadow: 1px 0 4px 0 rgb(0 0 0 / 20%);
-`
-
-const ListHeader = styled('div')`
-  padding-top: clamp(16px, 1.4vh, 32px);
-  padding-bottom: clamp(10px, 1vh, 20px);
-  text-align: center;
-  font-size: ${props => props.theme.legacy.fonts.subTitleFontSize};
-  font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
-  line-height: ${props => props.theme.legacy.fonts.decorativeLineHeight};
-  font-weight: 600;
-  margin-bottom: clamp(10px, 1vh, 20px);
-`
-
 const FooterContainer = styled('div')`
   position: absolute;
   bottom: 0;
 `
 
 type PoisDesktopProps = {
-  toolbar: ReactElement
   cityModel: CityModel
   data: PreparePoisReturn
   selectMapFeature: (mapFeature: MapFeature | null) => void
@@ -78,7 +59,6 @@ const nextPoiIndex = (step: 1 | -1, arrayLength: number, currentIndex: number): 
 }
 
 const PoisDesktop = ({
-  toolbar,
   data,
   userLocation,
   selectMapFeature,
@@ -92,7 +72,6 @@ const PoisDesktop = ({
   MapOverlay,
   PanelContent: PanelContentProp,
 }: PoisDesktopProps): ReactElement => {
-  const { t } = useTranslation('pois')
   const [scrollOffset, setScrollOffset] = useState<number>(0)
   const listRef = useRef<HTMLDivElement>(null)
   const { pois, poi, mapFeatures, mapFeature } = data
@@ -120,25 +99,13 @@ const PoisDesktop = ({
   }, [mapFeature, scrollOffset])
 
   const PanelContent = (
-    <>
+    <Stack justifyContent='space-between' height='100%'>
       <ListViewWrapper ref={listRef}>
-        {canDeselect ? (
-          <GoBack goBack={deselect} text={t('detailsHeader')} />
-        ) : (
-          <ListHeader>{t('listTitle')}</ListHeader>
-        )}
-
+        <PoiPanelHeader goBack={canDeselect ? deselect : null} />
         <PoiSharedChildren pois={pois} poi={poi} selectPoi={handleSelectPoi} userLocation={userLocation} slug={slug} />
       </ListViewWrapper>
-      {poi && pois.length > 0 ? (
-        <>
-          <ToolbarContainer>{toolbar}</ToolbarContainer>
-          <PoiPanelNavigation switchPoi={switchPoi} />
-        </>
-      ) : (
-        <ToolbarContainer>{toolbar}</ToolbarContainer>
-      )}
-    </>
+      {poi && pois.length > 0 && <PoiPanelNavigation switchPoi={switchPoi} />}
+    </Stack>
   )
 
   return (

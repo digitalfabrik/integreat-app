@@ -11,11 +11,13 @@ import Sidebar from './Sidebar'
 type HeaderLanguageSelectorItemProps = {
   languageChangePaths: { code: string; path: string | null; name: string }[] | null
   languageCode: string
+  forceText?: boolean
 }
 
 const HeaderLanguageSelectorItem = ({
   languageChangePaths,
   languageCode,
+  forceText = false,
 }: HeaderLanguageSelectorItemProps): ReactElement => {
   const [open, setOpen] = useState(false)
   const { mobile, desktop } = useDimensions()
@@ -29,7 +31,7 @@ const HeaderLanguageSelectorItem = ({
       onClick={() => setOpen(open => !open)}
       text={t('changeLanguage')}
       icon={<TranslateOutlinedIcon />}
-      innerText={desktop ? currentLanguageName : undefined}
+      innerText={forceText || desktop ? currentLanguageName : undefined}
     />
   )
 
