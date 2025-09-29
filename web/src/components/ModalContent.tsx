@@ -2,6 +2,7 @@ import { css } from '@emotion/react'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import CloseIcon from '@mui/icons-material/Close'
 import IconButton from '@mui/material/IconButton'
+import Typography from '@mui/material/Typography'
 import { styled, useTheme } from '@mui/material/styles'
 import React, { CSSProperties, ReactElement, ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -57,7 +58,7 @@ const ModalContent = ({ title, icon, style, closeModal, children, small }: Modal
       <Header small={small}>
         <TitleContainer>
           {icon}
-          <span>{title}</span>
+          <Typography variant='title2'>{title}</Typography>
         </TitleContainer>
         <IconButton aria-label={t('close')} onClick={closeModal}>
           {small ? (

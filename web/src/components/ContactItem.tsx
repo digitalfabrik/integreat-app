@@ -1,8 +1,8 @@
 import { SvgIconProps } from '@mui/material/SvgIcon'
+import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ElementType, ReactElement } from 'react'
 
-import { helpers } from '../constants/theme'
 import Icon from './base/Icon'
 import Link from './base/Link'
 
@@ -19,13 +19,13 @@ const StyledLink = styled(Link)`
   padding-top: 4px;
   gap: 8px;
   overflow-wrap: anywhere;
-  color: ${props => props.theme.legacy.colors.linkColor};
-  ${helpers.adaptiveFontSize};
+  color: ${props => props.theme.palette.primary.main};
 `
 
 const StyledSecondIcon = styled(Icon)`
   width: 14px;
   height: 14px;
+  color: ${props => props.theme.palette.primary.main};
 `
 
 type ContactItemProps = {
@@ -39,7 +39,7 @@ type ContactItemProps = {
 const ContactItem = ({ iconSource, iconAlt, link, content, sourceIconEnd }: ContactItemProps): ReactElement => (
   <StyledLink to={link}>
     <Marker src={iconSource} title={iconAlt} />
-    {content}
+    <Typography variant='label1'>{content}</Typography>
     {sourceIconEnd !== undefined && <StyledSecondIcon src={sourceIconEnd} title='' directionDependent />}
   </StyledLink>
 )

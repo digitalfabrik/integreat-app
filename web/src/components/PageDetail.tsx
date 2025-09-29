@@ -1,10 +1,11 @@
+import Typography, { TypographyProps } from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
 import Link from './base/Link'
 
-const Identifier = styled('span')`
-  font-weight: 700;
+const StyledTypography = styled(Typography)<TypographyProps>`
+  color: ${props => props.theme.palette.text.secondary};
 `
 
 type PageDetailProps = {
@@ -15,13 +16,17 @@ type PageDetailProps = {
 
 const PageDetail = ({ identifier, information, path }: PageDetailProps): ReactElement => (
   <div>
-    <Identifier>{identifier}: </Identifier>
+    <StyledTypography variant='label1' component='span'>
+      {identifier}:{' '}
+    </StyledTypography>
     {path ? (
       <Link to={path} highlighted>
         {information}
       </Link>
     ) : (
-      <span>{information}</span>
+      <StyledTypography variant='label1' component='span'>
+        {information}
+      </StyledTypography>
     )}
   </div>
 )

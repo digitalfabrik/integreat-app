@@ -1,5 +1,6 @@
 import AccessibleIcon from '@mui/icons-material/Accessible'
 import NotAccessibleIcon from '@mui/icons-material/NotAccessible'
+import Typography, { TypographyProps } from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -18,16 +19,18 @@ const ChipsContainer = styled('div')`
   justify-content: flex-start;
 `
 
-const Chip = styled('div')`
-  color: ${props => props.theme.legacy.colors.textSecondaryColor};
+const Chip = styled(Typography)<TypographyProps>`
+  color: ${props => props.theme.palette.text.secondary};
   display: flex;
   padding-inline: 12px;
   align-items: center;
   gap: 6px;
   border-radius: 12px;
-  border: 1px solid ${props => props.theme.legacy.colors.textSecondaryColor};
+  border: 1px solid ${props => props.theme.palette.text.secondary};
   height: 24px;
-  font-size: 12px;
+  ${props => props.theme.breakpoints.down('md')} {
+    margin-bottom: 6px;
+  }
 `
 
 const ChipIcon = styled(Icon)`
@@ -54,12 +57,20 @@ const PoiChips = ({ poi }: { poi: PoiModel }): ReactElement => {
 
   return (
     <ChipsContainer>
-      <Chip>
+      <Chip variant='label2' component='div'>
         <ChipIcon src={category.icon} />
         {category.name}
       </Chip>
-      {poi.organization !== null && <Chip>{poi.organization.name}</Chip>}
-      {poi.barrierFree !== null && <Chip>{barrierFreeChip}</Chip>}
+      {poi.organization !== null && (
+        <Chip variant='label2' component='div'>
+          {poi.organization.name}
+        </Chip>
+      )}
+      {poi.barrierFree !== null && (
+        <Chip variant='label2' component='div'>
+          {barrierFreeChip}
+        </Chip>
+      )}
     </ChipsContainer>
   )
 }

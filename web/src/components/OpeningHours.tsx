@@ -1,4 +1,5 @@
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
+import Typography, { TypographyProps } from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
@@ -13,9 +14,8 @@ import OpeningEntry from './OpeningEntry'
 import Icon from './base/Icon'
 import Link from './base/Link'
 
-const OpeningLabel = styled('span')<{ isOpen: boolean }>`
-  color: ${props =>
-    props.isOpen ? props.theme.legacy.colors.positiveHighlight : props.theme.legacy.colors.negativeHighlight};
+const OpeningLabel = styled(Typography)<{ isOpen: boolean }>`
+  color: ${props => (props.isOpen ? props.theme.palette.success.main : props.theme.palette.error.main)};
   padding-inline-end: 12px;
 `
 
@@ -34,6 +34,10 @@ const TitleContainer = styled('div')`
   ${helpers.adaptiveFontSize};
 `
 
+const StyledTypography = styled(Typography)<TypographyProps>`
+  color: ${props => props.theme.palette.text.neutral};
+`
+
 const OpeningContainer = styled('div')`
   display: flex;
   align-items: center;
@@ -46,9 +50,8 @@ const StyledLink = styled(Link)`
   gap: 8px;
 `
 
-const LinkLabel = styled('span')`
-  color: ${props => props.theme.legacy.colors.linkColor};
-  ${helpers.adaptiveFontSize};
+const LinkLabel = styled(Typography)<TypographyProps>`
+  color: ${props => props.theme.palette.primary.main};
   align-self: flex-end;
 `
 
@@ -58,7 +61,7 @@ const StyledExternalLinkIcon = styled(Icon)`
   align-self: center;
   width: 16px;
   height: 16px;
-  color: ${props => props.theme.legacy.colors.linkColor};
+  color: ${props => props.theme.palette.primary.main};
 `
 
 type OpeningHoursTitleProps = {
@@ -70,9 +73,13 @@ const OpeningHoursTitle = ({ isCurrentlyOpen, label }: OpeningHoursTitleProps) =
   const { t } = useTranslation('pois')
   return (
     <TitleContainer>
-      <span>{t('openingHours')}</span>
+      <StyledTypography variant='label1' component='h2'>
+        {t('openingHours')}
+      </StyledTypography>
       <OpeningContainer>
-        <OpeningLabel isOpen={isCurrentlyOpen}>{t(label ?? (isCurrentlyOpen ? 'opened' : 'closed'))}</OpeningLabel>
+        <OpeningLabel isOpen={isCurrentlyOpen} variant='label1'>
+          {t(label ?? (isCurrentlyOpen ? 'opened' : 'closed'))}
+        </OpeningLabel>
       </OpeningContainer>
     </TitleContainer>
   )
@@ -96,7 +103,9 @@ const OpeningHours = ({
 
   const AppointmentLink = appointmentUrl ? (
     <StyledLink to={appointmentUrl}>
-      <LinkLabel>{t('makeAppointment')}</LinkLabel>
+      <LinkLabel variant='label1' component='span'>
+        {t('makeAppointment')}
+      </LinkLabel>
       <StyledExternalLinkIcon src={OpenInNewIcon} directionDependent />
     </StyledLink>
   ) : null

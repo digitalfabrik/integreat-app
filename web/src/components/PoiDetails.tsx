@@ -1,6 +1,9 @@
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
+import Box from '@mui/material/Box'
 import Divider from '@mui/material/Divider'
+import Stack from '@mui/material/Stack'
+import Typography, { TypographyProps } from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { Fragment, ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -10,7 +13,7 @@ import { PoiModel } from 'shared/api'
 
 import { PoiThumbnailPlaceholderLarge } from '../assets'
 import { helpers } from '../constants/theme'
-import useWindowDimensions from '../hooks/useWindowDimensions'
+import useDimensions from '../hooks/useDimensions'
 import Collapsible from './Collapsible'
 import Contact from './Contact'
 import OpeningHours from './OpeningHours'
@@ -23,10 +26,6 @@ const StyledDivider = styled(Divider)`
   margin: 12px 0;
 `
 
-const DetailsContainer = styled('div')`
-  font-family: ${props => props.theme.legacy.fonts.web.contentFont};
-`
-
 const StyledIcon = styled(Icon)`
   flex-shrink: 0;
   object-fit: contain;
@@ -36,7 +35,7 @@ const StyledIcon = styled(Icon)`
 const StyledExternalLinkIcon = styled(StyledIcon)`
   width: 16px;
   height: 16px;
-  color: ${props => props.theme.legacy.colors.linkColor};
+  color: ${props => props.theme.palette.primary.main};
 `
 
 const Thumbnail = styled('img')`
@@ -53,8 +52,8 @@ const Thumbnail = styled('img')`
   }
 `
 
-const Distance = styled('div')`
-  ${helpers.adaptiveFontSize};
+export const StyledTypography = styled(Typography)<TypographyProps>`
+  color: ${props => props.theme.palette.text.neutral};
 `
 
 const AddressContentWrapper = styled('div')`
@@ -63,25 +62,13 @@ const AddressContentWrapper = styled('div')`
   gap: 8px;
 `
 
-const AddressContent = styled('div')`
+const AddressContent = styled(StyledTypography)`
   display: flex;
   flex-direction: column;
-  ${helpers.adaptiveFontSize};
 
   ${props => props.theme.breakpoints.down('md')} {
     align-self: center;
   }
-`
-
-const Heading = styled('div')`
-  margin: 12px 0;
-  font-weight: 700;
-`
-
-const Subheading = styled('div')`
-  margin: 12px 0;
-  font-weight: 700;
-  ${helpers.adaptiveFontSize};
 `
 
 const StyledLink = styled(Link)`
@@ -90,21 +77,12 @@ const StyledLink = styled(Link)`
   gap: 8px;
 `
 
-const LinkLabel = styled('span')`
-  color: ${props => props.theme.legacy.colors.linkColor};
-  ${helpers.adaptiveFontSize};
+const LinkLabel = styled(Typography)<TypographyProps>`
+  color: ${props => props.theme.palette.primary.main};
   align-self: flex-end;
 `
 
-const HeadingSection = styled('div')`
-  display: flex;
-  flex-direction: column;
-`
-
-const DetailSection = styled('div')`
-  display: flex;
-  flex-direction: column;
-
+const StyledStack = styled(Stack)`
   ${props => props.theme.breakpoints.down('md')} {
     flex-direction: row;
     justify-content: space-between;
@@ -131,7 +109,7 @@ type PoiDetailsProps = {
 }
 
 const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement => {
-  const { viewportSmall } = useWindowDimensions()
+  const { desktop } = useDimensions()
   const { t } = useTranslation('pois')
   const { content, location, contacts, isCurrentlyOpen, openingHours, temporarilyClosed, appointmentUrl } = poi
 
@@ -140,19 +118,30 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
   const externalMapsLink = getExternalMapsLink(location, isAndroid ? 'android' : 'web')
 
   return (
-    <DetailsContainer>
-      <HeadingSection>
+    <Box>
+      <Stack direction='column' spacing={1}>
         <Thumbnail alt='' src={thumbnail} />
-        <Heading>{poi.title}</Heading>
-        {distance !== null && <Distance>{t('distanceKilometre', { distance: distance.toFixed(1) })}</Distance>}
+        <Typography variant='title2' component='h1'>
+          {poi.title}
+        </Typography>
+        {distance !== null && (
+          <StyledTypography variant='label1' component='p'>
+            {t('distanceKilometre', { distance: distance.toFixed(1) })}
+          </StyledTypography>
+        )}
         <PoiChips poi={poi} />
-      </HeadingSection>
+        <Thumbnail alt='' src={thumbnail} />
+      </Stack>
       <StyledDivider />
-      {!viewportSmall && <Subheading>{t('detailsAddress')}</Subheading>}
-      <DetailSection>
+      {desktop && (
+        <StyledTypography variant='label1' component='h2'>
+          {t('detailsAddress')}
+        </StyledTypography>
+      )}
+      <StyledStack direction='column' spacing={1}>
         <AddressContentWrapper>
-          {!viewportSmall && <StyledIcon src={LocationOnOutlinedIcon} />}
-          <AddressContent>
+          {desktop && <StyledIcon src={LocationOnOutlinedIcon} />}
+          <AddressContent variant='body2' component='div'>
             <span>{location.address}</span>
             <span>
               {location.postcode} {location.town}
@@ -160,10 +149,14 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
           </AddressContent>
         </AddressContentWrapper>
         <StyledLink to={externalMapsLink}>
-          {!viewportSmall && <LinkLabel>{t('detailsMapLink')}</LinkLabel>}
+          {desktop && (
+            <LinkLabel variant='title3' component='span'>
+              {t('detailsMapLink')}
+            </LinkLabel>
+          )}
           <StyledExternalLinkIcon src={OpenInNewIcon} directionDependent />
         </StyledLink>
-      </DetailSection>
+      </StyledStack>
       {contacts.length > 0 && (
         <>
           <StyledDivider />
@@ -204,7 +197,7 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
           <ToolbarWrapper>{toolbar}</ToolbarWrapper>
         </>
       )}
-    </DetailsContainer>
+    </Box>
   )
 }
 

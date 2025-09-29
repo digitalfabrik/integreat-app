@@ -1,6 +1,7 @@
 import CopyIcon from '@mui/icons-material/ContentCopy'
 import DoneIcon from '@mui/icons-material/Done'
 import Button from '@mui/material/Button'
+import Typography, { TypographyProps } from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -16,18 +17,10 @@ const Container = styled('div')`
   flex-direction: column;
 `
 
-const Heading = styled('p')`
-  font-weight: 600;
+const StyledTypography = styled(Typography)<TypographyProps>`
   text-align: center;
-  font-size: 1.4rem;
-  font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
   padding: 20px;
   white-space: pre-line;
-`
-
-const Text = styled('p')`
-  font-size: ${props => props.theme.legacy.fonts.contentFontSize};
-  font-family: ${props => props.theme.legacy.fonts.web.contentFont};
 `
 
 const Icon = styled('img')`
@@ -37,14 +30,14 @@ const Icon = styled('img')`
   align-self: center;
 `
 
-const ListHeading = styled(Heading)`
+const ListHeading = styled(StyledTypography)`
   padding: 0;
-  font-size: ${props => props.theme.legacy.fonts.decorativeFontSize};
 `
 
 const ListItem = styled('div')`
   display: flex;
   align-items: center;
+  gap: ${props => props.theme.spacing(2)};
 `
 
 const StepNumber = styled('div')`
@@ -55,10 +48,7 @@ const StepNumber = styled('div')`
   text-align: center;
   background-color: ${props => props.theme.legacy.colors.themeColor};
   ${helpers.adaptiveThemeTextColor}
-`
-
-const StepExplanation = styled(Text)`
-  padding: 0 10px;
+  margin-bottom: 6px;
 `
 
 const StyledButton = styled(Button)`
@@ -67,7 +57,7 @@ const StyledButton = styled(Button)`
   margin-top: 40px;
 `
 
-const TemplateText = styled(Text)`
+const TemplateText = styled(Typography)`
   position: relative;
   direction: ltr;
   top: -30px;
@@ -103,22 +93,28 @@ const CityNotCooperatingPage = ({ languageCode }: CityNotCooperatingPageProps): 
   return (
     <Layout footer={<GeneralFooter language={languageCode} />}>
       <Container>
-        <Heading>{t('callToAction')}</Heading>
-        <Text>{t('explanation')}</Text>
+        <StyledTypography variant='h1'>{t('callToAction')}</StyledTypography>
+        <Typography variant='body1'>{t('explanation')}</Typography>
         <Icon alt='' src={cityNotCooperatingIcon} />
-        <ListHeading>{t('whatToDo')}</ListHeading>
+        <ListHeading variant='title2' component='h2'>
+          {t('whatToDo')}
+        </ListHeading>
         <ListItem>
           <StepNumber>1</StepNumber>
-          <StepExplanation>{t('findOutMail')}</StepExplanation>
+          <Typography variant='body1' component='h3'>
+            {t('findOutMail')}
+          </Typography>
         </ListItem>
         <ListItem>
           <StepNumber>2</StepNumber>
-          <StepExplanation>{t('sendText')}</StepExplanation>
+          <Typography variant='body1' component='h3'>
+            {t('sendText')}
+          </Typography>
         </ListItem>
         <StyledButton onClick={copyToClipboard} startIcon={isCopied ? <DoneIcon /> : <CopyIcon />} variant='contained'>
           {isCopied ? t('common:copied') : t('copyText')}
         </StyledButton>
-        <TemplateText>{template}</TemplateText>
+        <TemplateText variant='body1'>{template}</TemplateText>
       </Container>
     </Layout>
   )

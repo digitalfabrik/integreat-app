@@ -3,6 +3,7 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined'
 import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'
 import Divider from '@mui/material/Divider'
+import Typography, { TypographyProps } from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -15,6 +16,9 @@ import ContactItem from './ContactItem'
 const StyledContactHeader = styled('div')`
   margin-bottom: 6px;
   ${helpers.adaptiveFontSize};
+`
+const StyledTypography = styled(Typography)<TypographyProps>`
+  color: ${props => props.theme.palette.text.neutral};
 `
 
 const StyledDivider = styled(Divider)`
@@ -32,11 +36,17 @@ const Contact = ({
 
   return (
     <>
-      <StyledContactHeader>{headline ?? t('contactInformation')}</StyledContactHeader>
+      <StyledContactHeader>
+        {headline ?? (
+          <StyledTypography variant='label1' component='h2'>
+            {t('contactInformation')}
+          </StyledTypography>
+        )}
+      </StyledContactHeader>
       {!!website && (
         <ContactItem
           iconSource={PublicOutlinedIcon}
-          iconAlt={t('website')}
+          iconAlt=''
           link={website}
           content={t('website')}
           sourceIconEnd={OpenInNewIcon}

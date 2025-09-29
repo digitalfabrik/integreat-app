@@ -1,5 +1,6 @@
 import { SvgIconProps } from '@mui/material/SvgIcon'
 import MuiToggleButton from '@mui/material/ToggleButton'
+import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ElementType, ReactElement } from 'react'
 
@@ -22,10 +23,7 @@ const StyledButton = styled(MuiToggleButton)`
   text-align: center;
 `
 
-const StyledLabel = styled('span')`
-  line-height: 1;
-  font-size: 12px;
-  font-weight: 400;
+const StyledLabel = styled(Typography)`
   margin-bottom: 0;
   margin-top: 8px;
   word-break: break-word;
@@ -43,7 +41,7 @@ type ToggleButtonProps = {
 const ToggleButton = ({ text, onClick, className, value, ...props }: ToggleButtonProps): ReactElement => (
   <StyledButton color='primary' value={value} selected={props.active} onChange={onClick} className={className}>
     <StyledIcon src={props.icon} />
-    <StyledLabel>{text}</StyledLabel>
+    <StyledLabel variant='label2'>{text}</StyledLabel>
   </StyledButton>
 )
 

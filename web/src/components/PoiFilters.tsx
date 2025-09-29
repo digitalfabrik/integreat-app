@@ -1,5 +1,6 @@
 import AccessTimeIcon from '@mui/icons-material/AccessTime'
 import Button from '@mui/material/Button'
+import Typography, { TypographyProps } from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -12,8 +13,6 @@ import Checkbox from './base/Checkbox'
 import Icon from './base/Icon'
 import ToggleButton, { toggleButtonWidth } from './base/ToggleButton'
 
-const tileColumnGap = 16
-
 const Container = styled('div')`
   display: flex;
   flex-direction: column;
@@ -22,11 +21,8 @@ const Container = styled('div')`
   gap: 24px;
 `
 
-const SubTitle = styled('div')`
-  font-size: 0.875rem;
-  color: ${props => props.theme.legacy.colors.textColor};
-  font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
-  font-weight: bold;
+const SubTitle = styled(Typography)<TypographyProps>`
+  color: ${props => props.theme.palette.text.neutral};
 `
 
 const Section = styled('div')`
@@ -42,19 +38,11 @@ const Row = styled('div')`
   align-items: center;
 `
 
-const SortingHint = styled('div')`
-  align-self: flex-end;
-  font-size: 0.75rem;
-  color: ${props => props.theme.legacy.colors.textColor};
-  font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
-  padding: 0 4px;
-`
-
-const TileRow = styled(SpacedToggleButtonGroup)<{ itemCount: number }>`
+const TileRow = styled(SpacedToggleButtonGroup)`
   display: grid;
-  gap: 24px ${tileColumnGap}px;
+  gap: 24px 16px;
   justify-content: center;
-  grid-template-columns: repeat(${props => props.itemCount}, ${toggleButtonWidth}px);
+  grid-template-columns: repeat(auto-fit, minmax(${toggleButtonWidth}px, 1fr));
 `
 
 const StyledButton = styled(Button)`
@@ -73,7 +61,6 @@ type PoiFiltersProps = {
   setSelectedPoiCategory: (poiCategory: PoiCategoryModel | null) => void
   currentlyOpenFilter: boolean
   setCurrentlyOpenFilter: (currentlyOpen: boolean) => void
-  panelWidth: number
   poisCount: number
 }
 
@@ -84,7 +71,6 @@ const PoiFilters = ({
   setSelectedPoiCategory,
   currentlyOpenFilter,
   setCurrentlyOpenFilter,
-  panelWidth,
   poisCount,
 }: PoiFiltersProps): ReactElement => {
   const { t } = useTranslation('pois')
@@ -98,7 +84,7 @@ const PoiFilters = ({
     <ModalContent title={t('adjustFilters')} closeModal={closeModal} small>
       <Container>
         <Section>
-          <SubTitle>{t('openingHours')}</SubTitle>
+          <SubTitle variant='label1'>{t('openingHours')}</SubTitle>
           <Row>
             <StyledIcon src={AccessTimeIcon} />
             <Checkbox
@@ -110,14 +96,10 @@ const PoiFilters = ({
         </Section>
         <Section>
           <Row>
-            <SubTitle>{t('poiCategories')}</SubTitle>
-            <SortingHint>{t('alphabetLetters')}</SortingHint>
+            <SubTitle variant='label1'>{t('poiCategories')}</SubTitle>
+            <Typography variant='label3'>{t('alphabetLetters')}</Typography>
           </Row>
-          <TileRow
-            itemCount={Math.floor(panelWidth / (toggleButtonWidth + tileColumnGap))}
-            exclusive
-            value={selectedPoiCategory?.id}
-            onChange={handleFilterChange}>
+          <TileRow exclusive value={selectedPoiCategory?.id} onChange={handleFilterChange}>
             {poiCategories.map(it => (
               <ToggleButton key={it.id} value={it.id} text={it.name} icon={it.icon} />
             ))}

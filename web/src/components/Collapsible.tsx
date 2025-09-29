@@ -1,5 +1,6 @@
 import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import Typography, { TypographyProps } from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -20,11 +21,10 @@ const CollapsibleHeader = styled(Button)`
   color: ${props => props.theme.legacy.colors.textColor};
 `
 
-const Title = styled('div')`
+const Title = styled(Typography)<TypographyProps>`
   display: flex;
   flex: 1;
-  font-weight: 700;
-  justify-content: space-between;
+  color: ${props => props.theme.palette.text.neutral};
   ${helpers.adaptiveFontSize}
   align-items: center;
 `
@@ -59,7 +59,13 @@ const Collapsible = ({
         onClick={() => setCollapsed(!collapsed)}
         aria-expanded={!collapsed}
         tabIndex={0}>
-        {typeof title === 'string' ? <Title>{title}</Title> : title}
+        {typeof title === 'string' ? (
+          <Title component='span' variant='label1'>
+            {title}
+          </Title>
+        ) : (
+          title
+        )}
         <CollapseIcon
           src={collapsed ? ExpandMoreIcon : ExpandLessIcon}
           title={t(collapsed ? 'showMore' : 'showLess')}

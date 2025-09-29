@@ -1,5 +1,6 @@
 import CloseIcon from '@mui/icons-material/Close'
 import { SvgIconProps } from '@mui/material/SvgIcon'
+import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ElementType, ReactElement } from 'react'
 
@@ -38,7 +39,7 @@ type ChipButtonProps = {
 const ChipButton = ({ text, onClick, label, className, ...props }: ChipButtonProps): ReactElement => (
   <StyledButton label={label ?? text} onClick={onClick} className={className}>
     <StyledIcon src={props.icon} />
-    <div>{text}</div>
+    <Typography variant='label2'>{text}</Typography>
     {props.closeButton && <StyledIcon src={CloseIcon} />}
   </StyledButton>
 )
