@@ -9,6 +9,7 @@ import { CATEGORIES_ROUTE, EVENTS_ROUTE, NEWS_ROUTE, POIS_ROUTE } from 'shared'
 import { CityModel } from 'shared/api'
 
 import useCityContentParams from '../hooks/useCityContentParams'
+import useDimensions from '../hooks/useDimensions'
 import getNavigationItems from '../utils/navigationItems'
 import Link from './base/Link'
 
@@ -31,6 +32,7 @@ type BottomNavigationProps = {
 const BottomNavigation = ({ cityModel, languageCode }: BottomNavigationProps): ReactElement | null => {
   const { route } = useCityContentParams()
   const { t } = useTranslation('layout')
+  const { xsmall } = useDimensions()
 
   const navigationItems = getNavigationItems({ cityModel, languageCode })
   const validTabValues: string[] = [CATEGORIES_ROUTE, POIS_ROUTE, NEWS_ROUTE, EVENTS_ROUTE]
@@ -53,7 +55,8 @@ const BottomNavigation = ({ cityModel, languageCode }: BottomNavigationProps): R
             component={Link}
             to={item.to}
             value={item.value}
-            label={t(item.label)}
+            label={xsmall ? undefined : t(item.label)}
+            aria-label={xsmall ? t(item.label) : undefined}
             icon={<item.Icon />}
           />
         ))}
