@@ -120,7 +120,6 @@ class EventModelBuilder {
             thumbnail,
             featuredImage: null,
             poiPath: '/testumgebung/de/locations/testort/',
-            meetingUrl: 'https://meet.jit.si/test',
           }),
           resources: {
             [resourceUrl1]: this.createResource(resourceUrl1, index, lastUpdate),

@@ -36,7 +36,6 @@ describe('EventModel', () => {
     lastUpdate: DateTime.fromISO('2022-06-05T17:50:00+02:00'),
     featuredImage: null,
     poiPath: '/testumgebung/de/locations/testort/',
-    meetingUrl: 'https://meet.jit.si/test',
   }
   const event = new EventModel(params)
   const baseUrl = 'https://example.com'

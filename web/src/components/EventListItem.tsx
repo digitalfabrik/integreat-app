@@ -101,12 +101,6 @@ const EventListItem = ({
             {event.location.name}
           </Content>
         )}
-        {!!event.meetingUrl && (
-          <Content dir='auto'>
-            <CommaContainer>, </CommaContainer>
-            {t('onlineEvent')}
-          </Content>
-        )}
       </Container>
       <Content dir='auto'>{getExcerpt(event.excerpt, { maxChars: EXCERPT_MAX_CHARS })}</Content>
     </ListItem>

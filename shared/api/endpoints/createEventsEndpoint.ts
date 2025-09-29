@@ -87,7 +87,6 @@ export default (baseUrl: string): Endpoint<ParamsType, EventModel[]> =>
                 })
               : null,
             poiPath: event.location_path,
-            meetingUrl: event.meeting_url,
           })
         })
         .sort(eventCompare),

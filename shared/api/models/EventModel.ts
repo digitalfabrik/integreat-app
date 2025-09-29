@@ -14,7 +14,6 @@ class EventModel extends ExtendedPageModel {
   _excerpt: string
   _featuredImage: FeaturedImageModel | null
   _poiPath: string | null
-  _meetingUrl: string | null
 
   constructor(params: {
     path: string
@@ -28,9 +27,8 @@ class EventModel extends ExtendedPageModel {
     lastUpdate: DateTime
     featuredImage: FeaturedImageModel | null
     poiPath: string | null
-    meetingUrl: string | null
   }) {
-    const { date, location, excerpt, featuredImage, poiPath, meetingUrl, ...other } = params
+    const { date, location, excerpt, featuredImage, poiPath, ...other } = params
     super(other)
     this._date = date
     this._location = location
@@ -38,7 +36,6 @@ class EventModel extends ExtendedPageModel {
     this._excerpt = decodeHTML(excerpt).replace(/\r/g, '').trim()
     this._featuredImage = featuredImage
     this._poiPath = poiPath
-    this._meetingUrl = meetingUrl
   }
 
   get date(): DateModel {
@@ -59,10 +56,6 @@ class EventModel extends ExtendedPageModel {
 
   get poiPath(): string | null {
     return this._poiPath
-  }
-
-  get meetingUrl(): string | null {
-    return this._meetingUrl
   }
 
   toICal(baseUrl: string, appName: string, recurring: boolean): string {

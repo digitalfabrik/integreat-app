@@ -83,9 +83,6 @@ const EventListItem = ({
         {dateToDisplay.formatEventDateInOneLine(language, translateIntoContentLanguage)}
       </Description>
       {!!event.location && <Description language={language}>{event.location.name}</Description>}
-      {!!event.meetingUrl && (
-        <Description language={language}>{translateIntoContentLanguage('onlineEvent')}</Description>
-      )}
       <Description numberOfLines={EXCERPT_MAX_LINES} language={language} withMargin>
         {content}
       </Description>
