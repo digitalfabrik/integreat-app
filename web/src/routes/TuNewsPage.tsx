@@ -1,5 +1,4 @@
 import React, { ReactElement, useCallback } from 'react'
-import { useTranslation } from 'react-i18next'
 
 import { NEWS_ROUTE, pathnameFromRouteInformation, TU_NEWS_TYPE, tunewsLabel } from 'shared'
 import { createTunewsEndpoint, createTunewsLanguagesEndpoint, TunewsModel, useLoadFromEndpoint } from 'shared/api'
@@ -15,16 +14,11 @@ import LoadingSpinner from '../components/LoadingSpinner'
 import NewsListItem from '../components/NewsListItem'
 import NewsTabs from '../components/NewsTabs'
 import { tunewsApiBaseUrl } from '../constants/urls'
-import useWindowDimensions from '../hooks/useWindowDimensions'
-import { TU_NEWS_ROUTE } from './index'
 
 const DEFAULT_PAGE = 1
 const DEFAULT_COUNT = 10
 
 const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElement | null => {
-  const { t } = useTranslation('news')
-  const { viewportSmall } = useWindowDimensions()
-
   const { data: tuNewsLanguages, error } = useLoadFromEndpoint(
     createTunewsLanguagesEndpoint,
     tunewsApiBaseUrl,
@@ -55,15 +49,13 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
         content={content}
         timestamp={date}
         key={id}
-        link={pathnameFromRouteInformation({
+        to={pathnameFromRouteInformation({
           route: NEWS_ROUTE,
           newsType: TU_NEWS_TYPE,
           cityCode,
           languageCode,
           newsId: id,
         })}
-        t={t}
-        type={TU_NEWS_TYPE}
       />
     )
   }
@@ -83,11 +75,8 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
   const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
     city,
     languageChangePaths,
-    route: TU_NEWS_ROUTE,
     languageCode,
-    Toolbar: viewportSmall ? null : (
-      <CityContentToolbar route={TU_NEWS_ROUTE} hasFeedbackOption={false} hideDivider pageTitle={pageTitle} />
-    ),
+    Toolbar: <CityContentToolbar pageTitle={pageTitle} />,
   }
 
   if (error) {
@@ -106,10 +95,9 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
           city={cityCode}
           tunewsEnabled={city.tunewsEnabled}
           localNewsEnabled={city.localNewsEnabled}
-          t={t}
-          language={languageCode}>
-          <LoadingSpinner />
-        </NewsTabs>
+          language={languageCode}
+        />
+        <LoadingSpinner />
       </CityContentLayout>
     )
   }
@@ -122,10 +110,9 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
           city={cityCode}
           tunewsEnabled={city.tunewsEnabled}
           localNewsEnabled={city.localNewsEnabled}
-          t={t}
-          language={languageCode}>
-          <LanguageFailure cityModel={city} languageCode={languageCode} languageChangePaths={languageChangePaths} />
-        </NewsTabs>
+          language={languageCode}
+        />
+        <LanguageFailure cityModel={city} languageCode={languageCode} languageChangePaths={languageChangePaths} />
       </CityContentLayout>
     )
   }
@@ -138,16 +125,15 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
         city={cityCode}
         tunewsEnabled={city.tunewsEnabled}
         localNewsEnabled={city.localNewsEnabled}
-        t={t}
-        language={languageCode}>
-        <InfiniteScrollList
-          loadPage={loadTuNews}
-          renderItem={renderTuNewsListItem}
-          noItemsMessage={t('currentlyNoNews')}
-          defaultPage={DEFAULT_PAGE}
-          itemsPerPage={DEFAULT_COUNT}
-        />
-      </NewsTabs>
+        language={languageCode}
+      />
+      <InfiniteScrollList
+        loadPage={loadTuNews}
+        renderItem={renderTuNewsListItem}
+        noItemsMessage='news:currentlyNoNews'
+        defaultPage={DEFAULT_PAGE}
+        itemsPerPage={DEFAULT_COUNT}
+      />
     </CityContentLayout>
   )
 }

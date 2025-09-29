@@ -77,16 +77,8 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
   const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
     city,
     languageChangePaths,
-    route: EVENTS_ROUTE,
     languageCode,
-    Toolbar: (
-      <CityContentToolbar
-        feedbackTarget={event?.slug}
-        route={EVENTS_ROUTE}
-        hideDivider={!event}
-        pageTitle={pageTitle}
-      />
-    ),
+    Toolbar: <CityContentToolbar slug={event?.slug} pageTitle={pageTitle} />,
   }
 
   if (loading || pathname !== previousPathname) {

@@ -14,6 +14,7 @@ jest.mock('react-router-dom', () => ({
 }))
 
 jest.mock('../../utils/safeLocalStorage', () => ({
+  getItem: jest.fn(),
   setItem: jest.fn(),
   removeItem: jest.fn(),
   JPAL_TRACKING_CODE_KEY: 'jpalTrackingCode',

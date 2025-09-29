@@ -1,33 +1,51 @@
-import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined'
-import React, { ReactElement } from 'react'
+import ContrastIcon from '@mui/icons-material/Contrast'
+import { useTheme } from '@mui/material/styles'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useLocation } from 'react-router-dom'
 
 import { LANDING_ROUTE, pathnameFromRouteInformation } from 'shared'
+import { LanguageModel } from 'shared/api'
 
-import buildConfig from '../constants/buildConfig'
+import { supportedLanguages } from '../utils'
 import Header from './Header'
-import HeaderActionItem from './HeaderActionItem'
+import HeaderLanguageSelectorItem from './HeaderLanguageSelectorItem'
+import Sidebar from './Sidebar'
+import SidebarActionItem from './SidebarActionItem'
 
 type GeneralHeaderProps = {
   languageCode: string
+  cityLanguages?: LanguageModel[]
 }
 
-const GeneralHeader = ({ languageCode }: GeneralHeaderProps): ReactElement => {
+const GeneralHeader = ({ languageCode, cityLanguages }: GeneralHeaderProps): ReactElement => {
+  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const { toggleTheme } = useTheme()
   const { t } = useTranslation('layout')
-  const landingPath = pathnameFromRouteInformation({ route: LANDING_ROUTE, languageCode })
-  const actionItems = buildConfig().featureFlags.fixedCity
-    ? []
-    : [<HeaderActionItem key='landing' to={landingPath} icon={<LocationOnOutlinedIcon />} text={t('changeLocation')} />]
+  const slug = useLocation().pathname.split('/')[1]
 
-  return (
-    <Header
-      logoHref={landingPath}
-      actionItems={actionItems}
-      navigationItems={[]}
-      sidebarItems={[]}
-      language={languageCode}
-    />
-  )
+  const landingPath = pathnameFromRouteInformation({ route: LANDING_ROUTE, languageCode })
+  const languageChangePaths = (cityLanguages ?? supportedLanguages).map(language => ({
+    code: language.code,
+    name: language.name,
+    path: `/${slug}/${language.code}`,
+  }))
+
+  const actionItems = [
+    languageChangePaths.length > 0 ? (
+      <HeaderLanguageSelectorItem
+        key='languageChange'
+        languageChangePaths={languageChangePaths}
+        languageCode={languageCode}
+        forceText
+      />
+    ) : null,
+    <Sidebar key='sidebar' setOpen={setSidebarOpen} open={sidebarOpen}>
+      <SidebarActionItem key='theme' text={t('contrastTheme')} icon={<ContrastIcon />} onClick={toggleTheme} />
+    </Sidebar>,
+  ]
+
+  return <Header logoHref={landingPath} actionItems={actionItems} language={languageCode} />
 }
 
 export default GeneralHeader

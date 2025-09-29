@@ -4,43 +4,32 @@ import React, { ReactElement } from 'react'
 import SVG from 'react-inlinesvg'
 
 import buildConfig from '../constants/buildConfig'
-import useWindowDimensions from '../hooks/useWindowDimensions'
+import useDimensions from '../hooks/useDimensions'
 import Link from './base/Link'
+
+const StyledLink = styled(Link)(({ theme }) => ({
+  order: 1,
+  height: 48,
+
+  [theme.breakpoints.down('md')]: {
+    width: 48,
+  },
+}))
+
+const StyledLogo = styled(SVG)(({ theme }) => ({
+  color: theme.palette.text.primary,
+  height: '100%',
+  width: 'fit-content',
+
+  [theme.breakpoints.down('md')]: {
+    width: '100%',
+  },
+}))
 
 type HeaderLogoProps = {
   link: string
 }
 
-const LogoContainer = styled('div')`
-  box-sizing: border-box;
-  padding: 0 10px;
-  flex: initial;
-  order: 1;
-
-  & a {
-    display: block;
-    width: 100%;
-    height: 48px;
-
-    ${props => props.theme.breakpoints.down('md')} {
-      width: 32px;
-    }
-  }
-`
-
-const StyledLogo = styled(SVG)`
-  color: ${props => props.theme.legacy.colors.textColor};
-  height: 100%;
-  width: fit-content;
-
-  ${props => props.theme.breakpoints.down('md')} {
-    width: 100%;
-  }
-`
-
-/**
- * A logo component designed for the Header.
- */
 export const HeaderLogo = ({ link }: HeaderLogoProps): ReactElement => {
   const { campaign, appName, icons } = buildConfig()
 
@@ -49,14 +38,12 @@ export const HeaderLogo = ({ link }: HeaderLogoProps): ReactElement => {
     campaign && currentDate > DateTime.fromISO(campaign.startDate) && currentDate < DateTime.fromISO(campaign.endDate)
   const src = showCampaignLogo ? campaign.campaignAppLogo : icons.appLogo
   const srcMobile = showCampaignLogo ? campaign.campaignAppLogoMobile : icons.appLogoMobile
-  const { viewportSmall } = useWindowDimensions()
+  const { mobile } = useDimensions()
 
   return (
-    <LogoContainer>
-      <Link to={link}>
-        <StyledLogo src={viewportSmall ? srcMobile : src} title={appName} />
-      </Link>
-    </LogoContainer>
+    <StyledLink to={link}>
+      <StyledLogo src={mobile ? srcMobile : src} title={appName} />
+    </StyledLink>
   )
 }
 

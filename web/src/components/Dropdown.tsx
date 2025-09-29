@@ -1,17 +1,16 @@
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, useRef } from 'react'
 
-import dimensions from '../constants/dimensions'
 import useOnClickOutside from '../hooks/useOnClickOutside'
 
 const DropdownContainer = styled('div')<{ open: boolean }>`
   position: absolute;
-  top: ${dimensions.headerHeightLarge}px;
+  top: ${props => props.theme.dimensions.headerHeight}px;
   inset-inline-end: 0;
   width: 100%;
   box-sizing: border-box;
   opacity: ${props => (props.open ? '1' : '0')};
-  z-index: 1; /* this is only necessary for IE11 to have the DropDown above NavigationItems */
+  z-index: 1;
   transform: scale(${props => (props.open ? '1' : '0.9')});
   transform-origin: center top;
   justify-content: center;
@@ -24,8 +23,8 @@ const DropdownContainer = styled('div')<{ open: boolean }>`
   visibility: ${props => (props.open ? 'visible' : 'hidden')};
 
   ${props => props.theme.breakpoints.down('md')} {
-    top: ${dimensions.headerHeightSmall}px;
-    height: calc(100% - ${dimensions.headerHeightSmall}px);
+    top: ${props => props.theme.dimensions.headerHeight}px;
+    height: calc(100% - ${props => props.theme.dimensions.headerHeight}px);
     overflow: hidden auto;
   }
 

@@ -1,37 +1,36 @@
-import { SvgIconProps } from '@mui/material/SvgIcon'
+import Avatar from '@mui/material/Avatar'
+import ListItem from '@mui/material/ListItem'
+import ListItemAvatar from '@mui/material/ListItemAvatar'
+import ListItemButton from '@mui/material/ListItemButton'
+import ListItemText from '@mui/material/ListItemText'
+import Tooltip from '@mui/material/Tooltip'
 import { styled } from '@mui/material/styles'
-import React, { ElementType, ReactElement } from 'react'
+import React, { ReactElement } from 'react'
 
-import Icon from './base/Icon'
+import Link from './base/Link'
 
-const Container = styled('span')`
-  display: flex;
-  flex: 1;
-  text-decoration: none;
-  padding: 24px 0;
-
-  & > span {
-    padding: 0 28px;
-    align-self: center;
-    color: ${props => props.theme.legacy.colors.textColor};
-  }
-`
-
-const StyledIcon = styled(Icon)`
-  width: 24px;
-  height: 24px;
-`
+const StyledAvatar = styled(Avatar)({
+  color: 'inherit',
+})
 
 type SidebarActionItemProps = {
   text: string
-  iconSrc: string | ElementType<SvgIconProps>
-}
+  icon: ReactElement
+  disabled?: boolean
+  tooltip?: string | null
+} & ({ to: string; onClick?: never } | { to?: never; onClick: () => void })
 
-const SidebarActionItem = ({ text, iconSrc }: SidebarActionItemProps): ReactElement => (
-  <Container aria-label={text} dir='auto'>
-    <StyledIcon src={iconSrc} />
-    <span>{text}</span>
-  </Container>
+const SidebarActionItem = ({ text, icon, to, onClick, disabled, tooltip }: SidebarActionItemProps): ReactElement => (
+  <Tooltip title={tooltip} placement='top'>
+    <ListItem disablePadding>
+      <ListItemButton component={to ? Link : ListItemButton} to={to} onClick={onClick} disabled={disabled}>
+        <ListItemAvatar>
+          <StyledAvatar>{icon}</StyledAvatar>
+        </ListItemAvatar>
+        <ListItemText primary={text} />
+      </ListItemButton>
+    </ListItem>
+  </Tooltip>
 )
 
 export default SidebarActionItem
