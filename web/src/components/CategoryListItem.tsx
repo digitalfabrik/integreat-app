@@ -72,7 +72,7 @@ const CategoryListItem = ({ category, subCategories }: CategoryListItemProps): R
         <StyledListItemText primary={<StyledTypography variant='title2'>{category.title}</StyledTypography>} />
       </ListItemButton>
       <Divider />
-      <StyledList isInset Items={SubCategories} />
+      <StyledList isInset items={SubCategories} />
     </StyledListItem>
   )
 }
