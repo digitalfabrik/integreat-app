@@ -32,6 +32,23 @@ const StyledIcon = styled(Icon)`
   height: 16px;
 `
 
+type EventRecurrencesListType = { date: DateModel; tapsOnShowMore: number; languageCode: string }
+
+const EventRecurrencesList = ({ date, tapsOnShowMore, languageCode }: EventRecurrencesListType): ReactElement[] => {
+  // Use the content language to match the surrounding translations
+  const { t: translateIntoContentLanguage } = useTranslation('events', { lng: languageCode })
+
+  return date
+    .recurrences(MAX_DATE_RECURRENCES * (tapsOnShowMore + 1))
+    .map(recurrence => recurrence.formatMonthlyOrYearlyRecurrence(languageCode, translateIntoContentLanguage))
+    .map(formattedDate => (
+      <SingleDateContainer key={formattedDate.date}>
+        <PageDetail Icon={CalendarTodayIcon} information={formattedDate.date} language={languageCode} />
+        <PageDetail Icon={ClockIcon} information={formattedDate.time} language={languageCode} />
+      </SingleDateContainer>
+    ))
+}
+
 type DatesPageDetailProps = {
   date: DateModel
   languageCode: string
@@ -40,32 +57,24 @@ type DatesPageDetailProps = {
 const DatesPageDetail = ({ date, languageCode }: DatesPageDetailProps): ReactElement | null => {
   const [tapsOnShowMore, setTapsOnShowMore] = useState(0)
 
-  // Pass in the content language as opposed to the phone language
-  const { t } = useTranslation('events', { lng: languageCode })
+  // Use the content language to match the surrounding translations
+  const { t: translateIntoContentLanguage } = useTranslation('events', { lng: languageCode })
 
   if (date.isMonthlyOrYearlyRecurrence()) {
     return (
       <View>
-        {date
-          .recurrences(MAX_DATE_RECURRENCES * (tapsOnShowMore + 1))
-          .map(recurrence => recurrence.formatMonthlyOrYearlyRecurrence(languageCode, t))
-          .map(formattedDate => (
-            <SingleDateContainer key={formattedDate.date}>
-              <PageDetail Icon={CalendarTodayIcon} information={formattedDate.date} language={languageCode} />
-              <PageDetail Icon={ClockIcon} information={formattedDate.time} language={languageCode} />
-            </SingleDateContainer>
-          ))}
+        <EventRecurrencesList date={date} tapsOnShowMore={tapsOnShowMore} languageCode={languageCode} />
         {date.hasMoreRecurrencesThan(MAX_DATE_RECURRENCES * (tapsOnShowMore + 1)) && (
           <StyledPressable role='button' onPress={() => setTapsOnShowMore(tapsOnShowMore + 1)}>
             <StyledIcon Icon={ExpandIcon} />
-            <Text>{t('common:showMore')}</Text>
+            <Text>{translateIntoContentLanguage('common:showMore')}</Text>
           </StyledPressable>
         )}
       </View>
     )
   }
 
-  const formattedDate = date.formatEventDate(languageCode, t)
+  const formattedDate = date.formatEventDate(languageCode, translateIntoContentLanguage)
 
   return (
     <View>

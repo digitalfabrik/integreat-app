@@ -18,8 +18,9 @@ const dateFormatWithoutWeekday: DateTimeFormatOptions = { day: 'numeric', month:
 const dateFormatWithWeekday: DateTimeFormatOptions = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }
 
 export const getWeekdayFromIndex = (index: number, locale: string): string => {
-  const randomMonday = DateTime.fromObject({ day: 22, month: 9, year: 2025 })
-  const offsetDateOfThatWeek = randomMonday.plus({ days: index })
+  // Use a day that we know to be a Monday, add ${index} days to it, then return that day's weekday translation
+  const baseMonday = DateTime.fromObject({ day: 22, month: 9, year: 2025 })
+  const offsetDateOfThatWeek = baseMonday.plus({ days: index })
   return offsetDateOfThatWeek.toLocaleString({ weekday: 'long' }, { locale })
 }
 

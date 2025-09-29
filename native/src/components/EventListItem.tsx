@@ -66,11 +66,11 @@ const EventListItem = ({
   const content = parseHTML(event.content).trim()
   const icon = getDateIcon(event.date)
 
-  // Pass in the content language as opposed to the phone language
-  const { t } = useTranslation('events', { lng: language })
+  // Use the content language to match the surrounding translations
+  const { t: translateIntoContentLanguage } = useTranslation('events', { lng: language })
   const dateToDisplay = getDisplayDate(event, filterStartDate, filterEndDate)
 
-  const DateIcon = icon ? <Icon Icon={icon.icon} label={t(icon.label)} /> : null
+  const DateIcon = icon ? <Icon Icon={icon.icon} label={translateIntoContentLanguage(icon.label)} /> : null
 
   return (
     <ListItem
@@ -79,9 +79,13 @@ const EventListItem = ({
       language={language}
       navigateTo={navigateToEvent}
       Icon={DateIcon}>
-      <Description language={language}>{dateToDisplay.formatEventDateInOneLine(language, t)}</Description>
+      <Description language={language}>
+        {dateToDisplay.formatEventDateInOneLine(language, translateIntoContentLanguage)}
+      </Description>
       {!!event.location && <Description language={language}>{event.location.name}</Description>}
-      {!!event.meetingUrl && <Description language={language}>{t('onlineEvent')}</Description>}
+      {!!event.meetingUrl && (
+        <Description language={language}>{translateIntoContentLanguage('onlineEvent')}</Description>
+      )}
       <Description numberOfLines={EXCERPT_MAX_LINES} language={language} withMargin>
         {content}
       </Description>
