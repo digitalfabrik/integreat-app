@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router'
 
 import { EVENTS_ROUTE, pathnameFromRouteInformation, useDateFilter } from 'shared'
-import { createEventsEndpoint, EventModel, NotFoundError, useLoadFromEndpoint } from 'shared/api'
+import { createEventsEndpoint, NotFoundError, useLoadFromEndpoint } from 'shared/api'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import Caption from '../components/Caption'
@@ -19,10 +19,10 @@ import ExportEventButton from '../components/ExportEventButton'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
 import JsonLdEvent from '../components/JsonLdEvent'
-import List from '../components/List'
 import LoadingSpinner from '../components/LoadingSpinner'
 import Page, { THUMBNAIL_WIDTH } from '../components/Page'
 import PageDetail from '../components/PageDetail'
+import List from '../components/base/List'
 import { cmsApiBaseUrl } from '../constants/urls'
 import usePreviousProp from '../hooks/usePreviousProp'
 import useTtsPlayer from '../hooks/useTtsPlayer'
@@ -133,7 +133,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     )
   }
 
-  const renderEventListItem = (event: EventModel) => (
+  const items = (filteredEvents ?? []).map(event => (
     <EventListItem
       event={event}
       languageCode={languageCode}
@@ -141,7 +141,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
       filterStartDate={startDate}
       filterEndDate={endDate}
     />
-  )
+  ))
 
   return (
     <CityContentLayout isLoading={false} {...locationLayoutParams}>
@@ -154,7 +154,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
         setEndDate={setEndDate}
         startDateError={startDateError}
       />
-      <List noItemsMessage={t('currentlyNoEvents')} items={filteredEvents ?? []} renderItem={renderEventListItem} />
+      <List items={items} NoItemsMessage={t('currentlyNoEvents')} />
     </CityContentLayout>
   )
 }
