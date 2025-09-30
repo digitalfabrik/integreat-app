@@ -31,6 +31,7 @@ type SearchInputProps = {
   onFilterTextChange: (filterText: string) => void
   onClickInput?: () => void
   description?: string
+  autoFocus?: boolean
 }
 
 const SearchInput = ({
@@ -39,6 +40,7 @@ const SearchInput = ({
   onClickInput,
   onFilterTextChange,
   description,
+  autoFocus,
 }: SearchInputProps): ReactElement => {
   const { t } = useTranslation('common')
   return (
@@ -49,7 +51,7 @@ const SearchInput = ({
       helperText={description}
       onChange={event => onFilterTextChange(event.target.value)}
       onClick={onClickInput}
-      autoFocus
+      autoFocus={autoFocus}
       slotProps={{
         input: {
           endAdornment: filterText ? (
