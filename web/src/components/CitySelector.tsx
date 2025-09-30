@@ -12,6 +12,8 @@ import NearbyCities from './NearbyCities'
 import SearchInput from './SearchInput'
 import List from './base/List'
 
+export const CITY_SEARCH_PLACEHOLDER = 'Landkreis München'
+
 type CitySelectorProps = {
   cities: CityModel[]
   language: string
@@ -46,7 +48,7 @@ const CitySelector = ({ cities, language, stickyTop }: CitySelectorProps): React
       <Typography variant='body1'>{t('welcomeInformation')}</Typography>
       <SearchInput
         filterText={filterText}
-        placeholderText={t('searchCity')}
+        placeholderText={CITY_SEARCH_PLACEHOLDER}
         onFilterTextChange={setFilterText}
         description={t('searchCityDescription')}
       />
