@@ -93,21 +93,6 @@ const Pois = ({ pois: allPois, userLocation, city, languageCode }: PoiProps): Re
     }
   }
 
-  const FiltersModal = (
-    <PoiFilters
-      closeModal={() => setShowFilterSelection(false)}
-      poiCategories={poiCategories}
-      selectedPoiCategory={poiCategory}
-      setSelectedPoiCategory={updatePoiCategoryFilter}
-      currentlyOpenFilter={currentlyOpenFilter}
-      setCurrentlyOpenFilter={updatePoiCurrentlyOpenFilter}
-      poisCount={pois.length}
-    />
-  )
-  if (showFilterSelection && mobile) {
-    return FiltersModal
-  }
-
   const sharedPoiProps = {
     data: preparedData,
     selectMapFeature,
@@ -120,7 +105,6 @@ const Pois = ({ pois: allPois, userLocation, city, languageCode }: PoiProps): Re
     setMapViewport,
     MapOverlay: (
       <PoiFiltersOverlayButtons
-        poiFiltersShown={showFilterSelection}
         currentlyOpenFilter={currentlyOpenFilter}
         setCurrentlyOpenFilter={setCurrentlyOpenFilter}
         poiCategory={poiCategory}
@@ -132,13 +116,16 @@ const Pois = ({ pois: allPois, userLocation, city, languageCode }: PoiProps): Re
 
   return (
     <Container>
-      {mobile ? (
-        <PoisMobile {...sharedPoiProps} />
-      ) : (
-        <PoisDesktop
-          {...sharedPoiProps}
-          cityModel={city}
-          PanelContent={showFilterSelection ? FiltersModal : undefined}
+      {mobile ? <PoisMobile {...sharedPoiProps} /> : <PoisDesktop {...sharedPoiProps} cityModel={city} />}
+      {showFilterSelection && (
+        <PoiFilters
+          closeModal={() => setShowFilterSelection(false)}
+          poiCategories={poiCategories}
+          selectedPoiCategory={poiCategory}
+          setSelectedPoiCategory={updatePoiCategoryFilter}
+          currentlyOpenFilter={currentlyOpenFilter}
+          setCurrentlyOpenFilter={updatePoiCurrentlyOpenFilter}
+          poisCount={pois.length}
         />
       )}
     </Container>

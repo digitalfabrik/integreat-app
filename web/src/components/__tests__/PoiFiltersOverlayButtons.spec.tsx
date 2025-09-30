@@ -17,7 +17,6 @@ describe('PoiFiltersOverlayButtons', () => {
   const renderPoiFiltersOverlayButtons = (poiCategory: PoiCategoryModel | undefined, currentlyOpen: boolean) =>
     renderWithTheme(
       <PoiFiltersOverlayButtons
-        poiFiltersShown={false}
         currentlyOpenFilter={currentlyOpen}
         poiCategory={poiCategory}
         setShowFilterSelection={setShowFilterSelection}
