@@ -5,11 +5,11 @@ import { useTranslation } from 'react-i18next'
 import { ExternalSourcePermissions } from 'shared'
 
 import Caption from '../components/Caption'
-import ConsentSection from '../components/ConsentSection'
+import ConsentListItem from '../components/ConsentListItem'
 import GeneralFooter from '../components/GeneralFooter'
 import GeneralHeader from '../components/GeneralHeader'
 import Layout from '../components/Layout'
-import List from '../components/List'
+import List from '../components/base/List'
 import buildConfig from '../constants/buildConfig'
 import useLocalStorage from '../hooks/useLocalStorage'
 import { LOCAL_STORAGE_ITEM_EXTERNAL_SOURCES } from '../utils/iframes'
@@ -32,24 +32,20 @@ const ConsentPage = ({ languageCode }: ConsentPageProps): ReactElement => {
       [source]: permissionGiven,
     })
 
-  const renderConsentItem = (item: string): ReactElement => (
-    <ConsentSection
+  const items = buildConfig().supportedIframeSources.map(item => (
+    <ConsentListItem
       key={item}
       description={t('consentDescription', { source: item })}
       allowed={externalSourcePermissions[item] ?? false}
       onPress={permissionGiven => updateSourcePermission(item, permissionGiven)}
     />
-  )
+  ))
 
   return (
     <Layout header={<GeneralHeader languageCode={languageCode} />} footer={<GeneralFooter language={languageCode} />}>
       <Caption title={t('title')} />
       <Description>{t('description')}</Description>
-      <List
-        items={buildConfig().supportedIframeSources}
-        renderItem={renderConsentItem}
-        noItemsMessage={t('noSources')}
-      />
+      <List items={items} NoItemsMessage={t('noSources')} />
     </Layout>
   )
 }
