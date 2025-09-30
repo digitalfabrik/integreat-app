@@ -94,11 +94,17 @@ describe('ChatConversation', () => {
     expect(getByText('chat:conversationText')).toBeTruthy()
   })
 
-  it('should display messages if conversation has started and the initial message', () => {
-    const { getByText, getByTestId } = render(testMessages, false, false)
+  it('should display messages and initial message if no answer received yet', () => {
+    const { getByText, getByTestId } = render(testMessages.slice(0, 1), false, false)
     expect(getByText('chat:initialMessage')).toBeTruthy()
     expect(getByTestId(testMessages[0]!.id)).toBeTruthy()
-    expect(getByTestId(testMessages[2]!.id)).toBeTruthy()
+  })
+
+  it('should not display help message message if answer received', () => {
+    const { getByTestId, queryByText } = render(testMessages.slice(0, 2), false, false)
+    expect(queryByText('chat:initialMessage')).toBeFalsy()
+    expect(getByTestId(testMessages[0]!.id)).toBeTruthy()
+    expect(getByTestId(testMessages[1]!.id)).toBeTruthy()
   })
 
   it('should display typing indicator', () => {
