@@ -139,7 +139,12 @@ const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
         cityModel={city}
       />
       <Stack paddingTop={4}>
-        <SearchInput filterText={query} placeholderText={t('searchPlaceholder')} onFilterTextChange={setQuery} />
+        <SearchInput
+          filterText={query}
+          placeholderText={t('searchPlaceholder')}
+          onFilterTextChange={setQuery}
+          autoFocus
+        />
         {getPageContent()}
       </Stack>
     </CityContentLayout>
