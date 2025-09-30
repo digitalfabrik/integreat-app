@@ -39,7 +39,7 @@ const CitySelector = ({ cities, language, stickyTop }: CitySelectorProps): React
   ]
 
   return (
-    <Stack width={640} paddingTop={4} gap={2}>
+    <Stack maxWidth={640} paddingTop={4} gap={2}>
       <Typography variant='display3' component='h1'>
         {t('welcome', { appName: buildConfig().appName })}
       </Typography>
