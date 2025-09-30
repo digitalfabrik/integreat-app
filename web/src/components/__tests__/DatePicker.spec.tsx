@@ -52,9 +52,8 @@ describe('DatePicker', () => {
   })
 
   it('handles date change correctly', () => {
-    const currentDate = DateTime.local()
-    const newValue = DateTime.now().plus({ days: 1 }).setLocale('de')
-    const placeholderDate = DateTime.now()
+    const currentDate = DateTime.local(2025, 9, 15)
+    const newValue = DateTime.local(2025, 9, 20).setLocale('de')
     const ariaLabel = `Datum auswählen, gewähltes Datum ist ${currentDate.toLocaleString({ day: 'numeric', month: 'short', year: 'numeric' }, { locale: 'de' })}`
 
     const { getByLabelText, getByText } = renderCustomDatePicker({
@@ -62,7 +61,7 @@ describe('DatePicker', () => {
       date: currentDate,
       setDate,
       error: '',
-      placeholderDate,
+      placeholderDate: currentDate,
       calendarLabel: 'calendar',
     })
     fireEvent.click(getByLabelText(ariaLabel))
