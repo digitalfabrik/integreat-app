@@ -44,6 +44,7 @@ const ChatConversation = ({ messages, hasError, className, isTyping }: ChatConve
   const { t } = useTranslation('chat')
   const [messagesCount, setMessagesCount] = useState(0)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const waitingForAnswer = messages.every(message => message.userIsAuthor)
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -64,9 +65,9 @@ const ChatConversation = ({ messages, hasError, className, isTyping }: ChatConve
 
   return (
     <Container className={className}>
+      {waitingForAnswer && !hasError && <InitialMessage>{t('initialMessage')}</InitialMessage>}
       {messages.length > 0 ? (
         <>
-          {!hasError && <InitialMessage>{t('initialMessage')}</InitialMessage>}
           {messages.map((message, index) => (
             <ChatMessage message={message} key={message.id} previousMessage={messages[index - 1]} />
           ))}
