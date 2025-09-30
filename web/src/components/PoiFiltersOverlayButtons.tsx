@@ -8,7 +8,6 @@ import { PoiCategoryModel } from 'shared/api'
 import ChipButton from './base/ChipButton'
 
 type PoiFiltersOverlayButtonsProps = {
-  poiFiltersShown: boolean
   currentlyOpenFilter: boolean
   poiCategory: PoiCategoryModel | undefined
   setShowFilterSelection: (show: boolean) => void
@@ -17,7 +16,6 @@ type PoiFiltersOverlayButtonsProps = {
 }
 
 const PoiFiltersOverlayButtons = ({
-  poiFiltersShown,
   currentlyOpenFilter,
   poiCategory,
   setCurrentlyOpenFilter,
@@ -30,7 +28,7 @@ const PoiFiltersOverlayButtons = ({
       <ChipButton
         text={t('adjustFilters')}
         icon={EditLocationOutlinedIcon}
-        onClick={() => setShowFilterSelection(!poiFiltersShown)}
+        onClick={() => setShowFilterSelection(true)}
       />
       {currentlyOpenFilter && (
         <ChipButton
