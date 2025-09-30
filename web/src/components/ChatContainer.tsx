@@ -56,12 +56,12 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement | n
   const [queryParams, setQueryParams] = useSearchParams()
   const initialChatVisibility = parseQueryParams(queryParams).chat ?? false
   const [chatVisible, setChatVisible] = useState(initialChatVisibility)
-  const { desktop, small } = useDimensions()
+  const { desktop, xsmall } = useDimensions()
   const { visible: ttsPlayerVisible } = useContext(TtsContext)
   const chatName = getChatName(buildConfig().appName)
   useLockedBody(chatVisible)
 
-  const hideChatButton = small && ttsPlayerVisible
+  const hideChatButton = xsmall && ttsPlayerVisible
 
   useEffect(() => {
     if (queryParams.has(CHAT_QUERY_KEY)) {
