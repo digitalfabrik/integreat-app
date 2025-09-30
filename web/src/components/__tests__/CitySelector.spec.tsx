@@ -39,7 +39,7 @@ describe('CitySelector', () => {
   }
 
   it('should show only live cities', () => {
-    const { queryByLabelText } = renderWithRouterAndTheme(<CitySelector language='de' cities={cities} />)
+    const { queryByLabelText } = renderWithRouterAndTheme(<CitySelector language='de' cities={cities} stickyTop={0} />)
 
     cities.filter(city => !city.live).forEach(city => expect(queryByLabelText(city.name)).toBeFalsy())
     cities.filter(city => city.live).forEach(city => expect(queryByLabelText(city.name)).toBeTruthy())
@@ -47,7 +47,7 @@ describe('CitySelector', () => {
 
   it('should show live cities matching filter text', () => {
     const { queryByLabelText, getByPlaceholderText } = renderWithRouterAndTheme(
-      <CitySelector language='de' cities={cities} />,
+      <CitySelector language='de' cities={cities} stickyTop={0} />,
     )
 
     changeFilterText(getByPlaceholderText, city.name.slice(5, 9))
@@ -58,7 +58,7 @@ describe('CitySelector', () => {
 
   it('should not show any city if filter text does not match', () => {
     const { queryByLabelText, getByPlaceholderText } = renderWithRouterAndTheme(
-      <CitySelector language='de' cities={cities} />,
+      <CitySelector language='de' cities={cities} stickyTop={0} />,
     )
 
     changeFilterText(getByPlaceholderText, 'Does not exist')
@@ -69,7 +69,7 @@ describe('CitySelector', () => {
 
   it('should not show any city if filter text does not match a live city', () => {
     const { queryByLabelText, getByPlaceholderText } = renderWithRouterAndTheme(
-      <CitySelector language='de' cities={cities} />,
+      <CitySelector language='de' cities={cities} stickyTop={0} />,
     )
 
     changeFilterText(getByPlaceholderText, 'oldtown')
@@ -79,7 +79,7 @@ describe('CitySelector', () => {
 
   it('should show all non-live cities if filter text is "wirschaffendas"', () => {
     const { queryByLabelText, getByPlaceholderText } = renderWithRouterAndTheme(
-      <CitySelector language='de' cities={cities} />,
+      <CitySelector language='de' cities={cities} stickyTop={0} />,
     )
 
     changeFilterText(getByPlaceholderText, 'wirschaffendas')
