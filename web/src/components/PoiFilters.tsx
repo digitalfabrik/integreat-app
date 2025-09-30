@@ -1,24 +1,17 @@
 import AccessTimeIcon from '@mui/icons-material/AccessTime'
 import Button from '@mui/material/Button'
+import Stack from '@mui/material/Stack'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { PoiCategoryModel } from 'shared/api'
 
-import ModalContent from './ModalContent'
 import SpacedToggleButtonGroup from './SpacedToggleButtonGroup'
 import Checkbox from './base/Checkbox'
+import Dialog from './base/Dialog'
 import Icon from './base/Icon'
 import ToggleButton, { toggleButtonWidth } from './base/ToggleButton'
-
-const Container = styled('div')`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0 16px 16px;
-  gap: 24px;
-`
 
 const SubTitle = styled('div')`
   font-size: 0.875rem;
@@ -91,8 +84,8 @@ const PoiFilters = ({
   }
 
   return (
-    <ModalContent title={t('adjustFilters')} closeModal={closeModal} small>
-      <Container>
+    <Dialog title={t('adjustFilters')} closeModal={closeModal}>
+      <Stack gap={3}>
         <Section>
           <SubTitle>{t('openingHours')}</SubTitle>
           <Row>
@@ -118,8 +111,8 @@ const PoiFilters = ({
         <StyledButton onClick={closeModal} variant='contained' disabled={poisCount === 0}>
           {t('showPois', { count: poisCount })}
         </StyledButton>
-      </Container>
-    </ModalContent>
+      </Stack>
+    </Dialog>
   )
 }
 
