@@ -9,8 +9,8 @@ import { FeedbackRouteType } from 'shared/api'
 import useCityContentParams from '../hooks/useCityContentParams'
 import { RouteType } from '../routes'
 import FeedbackContainer from './FeedbackContainer'
-import Modal from './Modal'
 import ToolbarItem from './ToolbarItem'
+import Dialog from './base/Dialog'
 
 type FeedbackToolbarItemProps = {
   route: RouteType
@@ -28,7 +28,7 @@ const FeedbackToolbarItem = ({ route, slug, rating }: FeedbackToolbarItemProps):
   return (
     <>
       {isFeedbackOpen && (
-        <Modal title={title} closeModal={() => setIsFeedbackOpen(false)} wrapInPortal>
+        <Dialog title={title} closeModal={() => setIsFeedbackOpen(false)}>
           <FeedbackContainer
             onSubmit={() => setIsSubmitted(true)}
             routeType={route as FeedbackRouteType}
@@ -37,7 +37,7 @@ const FeedbackToolbarItem = ({ route, slug, rating }: FeedbackToolbarItemProps):
             slug={slug}
             initialRating={rating}
           />
-        </Modal>
+        </Dialog>
       )}
       <ToolbarItem
         icon={rating === RATING_POSITIVE ? <SentimentSatisfiedOutlinedIcon /> : <SentimentDissatisfiedOutlinedIcon />}
