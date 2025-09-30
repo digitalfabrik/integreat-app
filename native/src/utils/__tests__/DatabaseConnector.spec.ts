@@ -345,7 +345,7 @@ describe('DatabaseConnector', () => {
       await databaseConnector.storeLastUsage(context)
       expect(JSON.parse(await BlobUtil.fs.readFile(databaseConnector.getMetaCitiesPath(), ''))).toEqual({
         augsburg: {
-          last_usage: now.toISO(),
+          lastUsage: now.toISO(),
           languages: {},
         },
       })
@@ -362,15 +362,15 @@ describe('DatabaseConnector', () => {
         JSON.stringify({
           muenchen: {
             languages: {},
-            last_usage: '2010-05-04T00:00:00.000',
+            lastUsage: '2010-05-04T00:00:00.000',
           },
           dortmund: {
             languages: {},
-            last_usage: '2011-05-04T00:00:00.000',
+            lastUsage: '2011-05-04T00:00:00.000',
           },
           ansbach: {
             languages: {},
-            last_usage: '2012-05-04T00:00:00.000',
+            lastUsage: '2012-05-04T00:00:00.000',
           },
         }),
         '',
@@ -383,15 +383,15 @@ describe('DatabaseConnector', () => {
       expect(JSON.parse(await BlobUtil.fs.readFile(databaseConnector.getMetaCitiesPath(), ''))).toEqual({
         ansbach: {
           languages: {},
-          last_usage: '2012-05-04T00:00:00.000+02:00',
+          lastUsage: '2012-05-04T00:00:00.000+02:00',
         },
         dortmund: {
           languages: {},
-          last_usage: '2011-05-04T00:00:00.000+02:00',
+          lastUsage: '2011-05-04T00:00:00.000+02:00',
         },
         regensburg: {
           languages: {},
-          last_usage: '2024-05-02T11:45:43.443+02:00',
+          lastUsage: '2024-05-02T11:45:43.443+02:00',
         },
       })
     })
@@ -404,7 +404,7 @@ describe('DatabaseConnector', () => {
       expect(JSON.parse(await BlobUtil.fs.readFile(path, 'utf8'))).toEqual({
         tcc: {
           languages: {},
-          last_usage: '2024-05-02T11:45:43.443+02:00',
+          lastUsage: '2024-05-02T11:45:43.443+02:00',
         },
       })
     })
@@ -417,23 +417,23 @@ describe('DatabaseConnector', () => {
         JSON.stringify({
           muenchen: {
             languages: {},
-            last_usage: '2010-05-04T00:00:00.000',
+            lastUsage: '2010-05-04T00:00:00.000',
           },
           dortmund: {
             languages: {},
-            last_usage: '2011-05-04T00:00:00.000',
+            lastUsage: '2011-05-04T00:00:00.000',
           },
           ansbach: {
             languages: {},
-            last_usage: '2012-05-04T00:00:00.000',
+            lastUsage: '2012-05-04T00:00:00.000',
           },
           augsburg: {
             languages: {},
-            last_usage: '2014-05-04T00:00:00.000',
+            lastUsage: '2014-05-04T00:00:00.000',
           },
           regensburg: {
             languages: {},
-            last_usage: '2013-05-04T00:00:00.000',
+            lastUsage: '2013-05-04T00:00:00.000',
           },
         }),
         '',
@@ -482,23 +482,23 @@ describe('DatabaseConnector', () => {
         JSON.stringify({
           muenchen: {
             languages: {},
-            last_usage: '2010-05-04T00:00:00.000',
+            lastUsage: '2010-05-04T00:00:00.000',
           },
           dortmund: {
             languages: {},
-            last_usage: '2011-05-04T00:00:00.000',
+            lastUsage: '2011-05-04T00:00:00.000',
           },
           ansbach: {
             languages: {},
-            last_usage: '2012-05-04T00:00:00.000',
+            lastUsage: '2012-05-04T00:00:00.000',
           },
           augsburg: {
             languages: {},
-            last_usage: '2014-05-04T00:00:00.000',
+            lastUsage: '2014-05-04T00:00:00.000',
           },
           regensburg: {
             languages: {},
-            last_usage: '2013-05-04T00:00:00.000',
+            lastUsage: '2013-05-04T00:00:00.000',
           },
         }),
         '',
@@ -512,15 +512,15 @@ describe('DatabaseConnector', () => {
       expect(JSON.parse(await BlobUtil.fs.readFile(databaseConnector.getMetaCitiesPath(), ''))).toEqual({
         ansbach: {
           languages: {},
-          last_usage: '2012-05-04T00:00:00.000+02:00',
+          lastUsage: '2012-05-04T00:00:00.000+02:00',
         },
         augsburg: {
           languages: {},
-          last_usage: '2014-05-04T00:00:00.000+02:00',
+          lastUsage: '2014-05-04T00:00:00.000+02:00',
         },
         regensburg: {
           languages: {},
-          last_usage: '2013-05-04T00:00:00.000+02:00',
+          lastUsage: '2013-05-04T00:00:00.000+02:00',
         },
       })
     })
@@ -536,19 +536,19 @@ describe('DatabaseConnector', () => {
         JSON.stringify({
           augsburg: {
             languages: {},
-            last_usage: '2010-05-04T00:00:00.000',
+            lastUsage: '2010-05-04T00:00:00.000',
           },
           dortmund: {
             languages: {},
-            last_usage: '2011-05-04T00:00:00.000',
+            lastUsage: '2011-05-04T00:00:00.000',
           },
           ansbach: {
             languages: {},
-            last_usage: '2012-05-04T00:00:00.000',
+            lastUsage: '2012-05-04T00:00:00.000',
           },
           regensburg: {
             languages: {},
-            last_usage: '2013-05-04T00:00:00.000',
+            lastUsage: '2013-05-04T00:00:00.000',
           },
         }),
         '',
@@ -561,15 +561,15 @@ describe('DatabaseConnector', () => {
       expect(JSON.parse(await BlobUtil.fs.readFile(databaseConnector.getMetaCitiesPath(), ''))).toEqual({
         ansbach: {
           languages: {},
-          last_usage: '2012-05-04T00:00:00.000+02:00',
+          lastUsage: '2012-05-04T00:00:00.000+02:00',
         },
         augsburg: {
           languages: {},
-          last_usage: '2010-05-04T00:00:00.000+02:00',
+          lastUsage: '2010-05-04T00:00:00.000+02:00',
         },
         regensburg: {
           languages: {},
-          last_usage: '2013-05-04T00:00:00.000+02:00',
+          lastUsage: '2013-05-04T00:00:00.000+02:00',
         },
       })
     })
