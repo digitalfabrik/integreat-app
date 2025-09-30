@@ -32,7 +32,7 @@ import {
 import { deleteIfExists } from './helpers'
 import { log, reportError } from './sentry'
 
-export const CONTENT_VERSION = 'v10'
+export const CONTENT_VERSION = 'v11'
 export const RESOURCE_CACHE_VERSION = 'v1'
 
 // Our pdf view can only load from DocumentDir. Therefore we need to use that
@@ -108,10 +108,11 @@ type ContentEventJsonType = {
   availableLanguages: Record<string, string>
   excerpt: string
   date: {
-    startDate: string
-    endDate: string
+    start: string
+    end: string
     allDay: boolean
     recurrenceRule: string | null
+    onlyWeekdays: boolean
   }
   location: LocationJsonType<number | null> | null
   featuredImage: FeaturedImageJsonType | null | undefined
@@ -694,10 +695,11 @@ class DatabaseConnector {
         availableLanguages: event.availableLanguages,
         excerpt: event.excerpt,
         date: {
-          startDate: event.date.startDate.toISO(),
-          endDate: event.date.endDate.toISO(),
+          start: event.date.startDate.toISO(),
+          end: event.date.endDate.toISO(),
           allDay: event.date.allDay,
           recurrenceRule: event.date.recurrenceRule?.toString() ?? null,
+          onlyWeekdays: event.date.onlyWeekdays,
         },
         location: event.location
           ? {
@@ -749,10 +751,11 @@ class DatabaseConnector {
           lastUpdate: DateTime.fromISO(jsonObject.lastUpdate),
           excerpt: jsonObject.excerpt,
           date: new DateModel({
-            startDate: DateTime.fromISO(jsonDate.startDate),
-            endDate: DateTime.fromISO(jsonDate.endDate),
+            startDate: DateTime.fromISO(jsonDate.start),
+            endDate: DateTime.fromISO(jsonDate.end),
             allDay: jsonDate.allDay,
             recurrenceRule: jsonDate.recurrenceRule ? rrulestr(jsonDate.recurrenceRule) : null,
+            onlyWeekdays: jsonDate.onlyWeekdays,
           }),
           location: jsonObject.location
             ? new LocationModel({

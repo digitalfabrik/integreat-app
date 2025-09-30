@@ -59,6 +59,7 @@ export default (baseUrl: string): Endpoint<ParamsType, EventModel[]> =>
               endDate: DateTime.fromISO(eventData.end),
               allDay,
               recurrenceRule: event.recurrence_rule ? rrulestr(event.recurrence_rule) : null,
+              onlyWeekdays: eventData.only_weekdays,
             }),
             location:
               event.location.id !== null

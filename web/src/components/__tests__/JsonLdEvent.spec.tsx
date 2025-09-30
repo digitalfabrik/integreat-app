@@ -11,6 +11,7 @@ describe('JsonLdEvent', () => {
       endDate: DateTime.fromISO('2017-11-19T09:30:00.000Z'),
       allDay: false,
       recurrenceRule: null,
+      onlyWeekdays: false,
     })
     const locationModel = new LocationModel({
       id: 1,

@@ -26,8 +26,10 @@ describe('EventListItem', () => {
     )
 
     expect(getByText(event.title)).toBeTruthy()
-    expect(getByText(event.date.toFormattedString(language), { collapseWhitespace: false })).toBeTruthy()
-    expect(getByText(event.location!.fullAddress)).toBeTruthy()
+    expect(
+      getByText(event.date.formatEventDateInOneLine(language, jest.fn()), { collapseWhitespace: false }),
+    ).toBeTruthy()
+    expect(getByText(event.location!.name)).toBeTruthy()
     expect(getByRole('presentation')).toHaveProperty('src', event.thumbnail)
     expect(getByText(excerpt)).toBeTruthy()
   })
@@ -40,7 +42,9 @@ describe('EventListItem', () => {
     )
 
     expect(getByText(event.title)).toBeTruthy()
-    expect(getByText(event.date.toFormattedString(language), { collapseWhitespace: false })).toBeTruthy()
+    expect(
+      getByText(event.date.formatEventDateInOneLine(language, jest.fn()), { collapseWhitespace: false }),
+    ).toBeTruthy()
     const src = (getByRole('presentation') as HTMLMediaElement).src
     expect(
       [EventThumbnailPlaceholder1, EventThumbnailPlaceholder2, EventThumbnailPlaceholder3].some(img =>
@@ -58,6 +62,7 @@ describe('EventListItem', () => {
           endDate: DateTime.fromISO('2023-10-10T09:00:00.000+02:00'),
           allDay: false,
           recurrenceRule: rrule ? rrulestr(rrule) : null,
+          onlyWeekdays: false,
         }),
       })
 
