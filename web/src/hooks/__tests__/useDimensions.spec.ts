@@ -26,9 +26,10 @@ describe('useDimensions', () => {
     expect(current.window.height).toBe(800)
     expect(current.desktop).toBe(true)
     expect(current.mobile).toBe(false)
+    expect(current.xsmall).toBe(false)
     expect(current.small).toBe(false)
-    expect(current.medium).toBe(false)
-    expect(current.large).toBe(true)
+    expect(current.medium).toBe(true)
+    expect(current.large).toBe(false)
     expect(current.xlarge).toBe(false)
 
     const newWidth = 768
@@ -44,13 +45,14 @@ describe('useDimensions', () => {
     waitFor(() => expect(current.window.height).toBe(600))
     waitFor(() => expect(current.desktop).toBe(false))
     waitFor(() => expect(current.mobile).toBe(true))
-    waitFor(() => expect(current.small).toBe(false))
-    waitFor(() => expect(current.medium).toBe(true))
+    waitFor(() => expect(current.xsmall).toBe(false))
+    waitFor(() => expect(current.small).toBe(true))
+    waitFor(() => expect(current.medium).toBe(false))
     waitFor(() => expect(current.large).toBe(false))
-    waitFor(() => expect(current.xlarge).toBe(false))
+    expect(current.xlarge).toBe(false)
   })
 
-  it('should correctly set values for small screens', () => {
+  it('should correctly set values for xsmall screens', () => {
     const width = 450
     const height = 800
     Object.defineProperty(window, 'innerWidth', { value: width })
@@ -64,6 +66,28 @@ describe('useDimensions', () => {
     expect(current.window.height).toBe(800)
     expect(current.desktop).toBe(false)
     expect(current.mobile).toBe(true)
+    expect(current.xsmall).toBe(true)
+    expect(current.small).toBe(false)
+    expect(current.medium).toBe(false)
+    expect(current.large).toBe(false)
+    expect(current.xlarge).toBe(false)
+  })
+
+  it('should correctly set values for small screens', () => {
+    const width = 601
+    const height = 800
+    Object.defineProperty(window, 'innerWidth', { value: width })
+    Object.defineProperty(window, 'innerHeight', { value: height })
+
+    const {
+      result: { current },
+    } = renderHook(useDimensions)
+
+    expect(current.window.width).toBe(601)
+    expect(current.window.height).toBe(800)
+    expect(current.desktop).toBe(false)
+    expect(current.mobile).toBe(true)
+    expect(current.xsmall).toBe(false)
     expect(current.small).toBe(true)
     expect(current.medium).toBe(false)
     expect(current.large).toBe(false)
@@ -84,6 +108,7 @@ describe('useDimensions', () => {
     expect(current.window.height).toBe(800)
     expect(current.desktop).toBe(true)
     expect(current.mobile).toBe(false)
+    expect(current.xsmall).toBe(false)
     expect(current.small).toBe(false)
     expect(current.medium).toBe(false)
     expect(current.large).toBe(false)
