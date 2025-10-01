@@ -180,11 +180,11 @@ describe('Pois', () => {
     // Open poi filters
     fireEvent.click(getByText('pois:adjustFilters'))
 
-    expect(getByText('Gastronomie')).toBeTruthy()
-    expect(getByText('Dienstleistung')).toBeTruthy()
+    expect(getAllByText('Gastronomie')).toHaveLength(3)
+    expect(getAllByText('Dienstleistung')).toHaveLength(2)
 
     // Select Dienstleistung filter and close filter modal
-    fireEvent.click(getByText('Dienstleistung'))
+    fireEvent.click(getAllByText('Dienstleistung')[1]!)
     fireEvent.click(getByText('pois:showPois'))
 
     // Chip button + one poi with category Dienstleistung

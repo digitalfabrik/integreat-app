@@ -1,6 +1,5 @@
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import IconButton from '@mui/material/IconButton'
-import { styled, useTheme } from '@mui/material/styles'
+import { styled } from '@mui/material/styles'
 import { GeolocateControl } from 'maplibre-gl'
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -12,6 +11,7 @@ import useDimensions from '../hooks/useDimensions'
 import BottomActionSheet, { ScrollableBottomSheetRef } from './BottomActionSheet'
 import MapView, { MapViewRef } from './MapView'
 import PoiSharedChildren from './PoiSharedChildren'
+import { DirectionDependentBackIcon } from './base/Dialog'
 
 const StyledIconButton = styled(IconButton)(({ theme }) => ({
   backgroundColor: theme.palette.surface.light,
@@ -63,7 +63,6 @@ const PoisMobile = ({
   const [mapViewRef, setMapViewRef] = useState<MapViewRef | null>(null)
   const { pois, poi, mapFeatures, mapFeature } = data
   const dimensions = useDimensions()
-  const theme = useTheme()
   const canDeselect = !!mapFeature || !!slug
   const { t } = useTranslation('pois')
 
@@ -111,11 +110,7 @@ const PoisMobile = ({
           <>
             {canDeselect && (
               <StyledIconButton onClick={deselect} tabIndex={0} aria-label={t('common:backToOverview')}>
-                <ArrowBackIcon
-                  sx={{
-                    transform: theme.direction === 'rtl' ? 'scaleX(-1)' : 'none',
-                  }}
-                />
+                <DirectionDependentBackIcon />
               </StyledIconButton>
             )}
             {MapOverlay}

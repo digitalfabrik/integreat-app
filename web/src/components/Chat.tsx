@@ -25,7 +25,6 @@ const Container = styled('div')`
 
   ${props => props.theme.breakpoints.up('md')} {
     height: 600px;
-    min-width: 300px;
   }
 `
 
