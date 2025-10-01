@@ -45,7 +45,6 @@ type PoisDesktopProps = {
   mapViewport?: MapViewViewport
   setMapViewport: (mapViewport: MapViewViewport) => void
   MapOverlay: ReactElement
-  PanelContent?: ReactElement
 }
 
 const nextPoiIndex = (step: 1 | -1, arrayLength: number, currentIndex: number): number => {
@@ -70,7 +69,6 @@ const PoisDesktop = ({
   mapViewport,
   setMapViewport,
   MapOverlay,
-  PanelContent: PanelContentProp,
 }: PoisDesktopProps): ReactElement => {
   const [scrollOffset, setScrollOffset] = useState<number>(0)
   const listRef = useRef<HTMLDivElement>(null)
@@ -110,7 +108,7 @@ const PoisDesktop = ({
 
   return (
     <>
-      <PanelContainer>{PanelContentProp ?? PanelContent}</PanelContainer>
+      <PanelContainer>{PanelContent}</PanelContainer>
       <MapView
         viewport={mapViewport}
         setViewport={setMapViewport}

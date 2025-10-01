@@ -1,5 +1,5 @@
 import { fireEvent } from '@testing-library/react'
-import React, { ReactElement } from 'react'
+import React from 'react'
 
 import { CATEGORIES_ROUTE, RATING_POSITIVE } from 'shared'
 
@@ -19,7 +19,6 @@ jest.mock('shared/api', () => ({
     request: () => undefined,
   }),
 }))
-jest.mock('focus-trap-react', () => ({ children }: { children: ReactElement }) => <div>{children}</div>)
 
 describe('FeedbackToolbarItem', () => {
   it('should open and update title on submit feedback', async () => {
