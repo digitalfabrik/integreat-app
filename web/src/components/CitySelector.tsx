@@ -12,7 +12,7 @@ import NearbyCities from './NearbyCities'
 import SearchInput from './SearchInput'
 import List from './base/List'
 
-export const CITY_SEARCH_PLACEHOLDER = 'Landkreis München'
+export const CITY_SEARCH_PLACEHOLDER = 'München'
 
 type CitySelectorProps = {
   cities: CityModel[]
