@@ -81,7 +81,14 @@ const TransparentHeader = ({ navigation, route }: TransparentHeaderProps): React
     ? [
         <HiddenItem key='share' title={t('share')} onPress={onShare} accessibilityLabel={t('share')} />,
         ...(isPdfUrl
-          ? [<HiddenItem key='openPdf' title={t('openPdf')} onPress={onOpenPdf} accessibilityLabel={t('openPdf')} />]
+          ? [
+              <HiddenItem
+                key='downloadPdf'
+                title={t('downloadPdf')}
+                onPress={onOpenPdf}
+                accessibilityLabel={t('downloadPdf')}
+              />,
+            ]
           : []),
       ]
     : []
