@@ -1,34 +1,30 @@
 import shouldForwardProp from '@emotion/is-prop-valid'
-import { styled, css } from '@mui/material/styles'
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
 import Link from './base/Link'
 
 const SHRINK_FACTOR = 0.1
 
-const breadcrumbStyles = css`
+const StyledButton = styled(Button)`
+  display: list-item;
+  overflow: hidden;
+  white-space: nowrap;
+  text-transform: none;
+  justify-self: normal !important;
+  margin: 0 !important;
+  padding: 0;
+` as typeof Button
+
+const StyledTypography = styled(Typography, { shouldForwardProp })<{ shrinkFactor: number; isCurrent?: boolean }>`
   display: list-item;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-
-  &:not(:last-of-type) {
-    flex-shrink: 1;
-  }
-
-  margin: 0 2px;
-`
-
-const StyledLink = styled(Link, { shouldForwardProp })<{ shrinkFactor: number }>`
-  ${breadcrumbStyles}
   flex-shrink: ${props => props.shrinkFactor};
-  color: ${props => props.theme.palette.text.secondary};
-`
-
-const StyledCurrentBreadcrumb = styled('span')<{ shrinkFactor: number }>`
-  ${breadcrumbStyles}
-  flex-shrink: ${props => props.shrinkFactor};
-  color: ${props => props.theme.palette.primary.main};
+  color: ${props => (props.isCurrent ? props.theme.palette.primary.main : props.theme.palette.text.secondary)};
 `
 
 type BreadcrumbProps = {
@@ -46,16 +42,16 @@ const Breadcrumb = ({ title, to, shrink, isCurrent }: BreadcrumbProps): ReactEle
 
   if (isCurrent) {
     return (
-      <StyledCurrentBreadcrumb shrinkFactor={shrinkFactor} aria-current='page'>
+      <StyledTypography isCurrent shrinkFactor={shrinkFactor} aria-current='page'>
         {title}
-      </StyledCurrentBreadcrumb>
+      </StyledTypography>
     )
   }
 
   return (
-    <StyledLink to={to} shrinkFactor={shrinkFactor}>
-      {title}
-    </StyledLink>
+    <StyledButton component={Link} to={to}>
+      <StyledTypography shrinkFactor={shrinkFactor}>{title} </StyledTypography>
+    </StyledButton>
   )
 }
 

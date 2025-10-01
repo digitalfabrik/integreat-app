@@ -1,9 +1,12 @@
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import Box from '@mui/material/Box'
 import MuiBreadcrumbs from '@mui/material/Breadcrumbs'
-import { styled, useTheme } from '@mui/material/styles'
-import useMediaQuery from '@mui/material/useMediaQuery'
-import React, { ReactElement } from 'react'
+import IconButton from '@mui/material/IconButton'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+import { styled } from '@mui/material/styles'
+import React, { ReactElement, useState } from 'react'
 
 import BreadcrumbModel from '../models/BreadcrumbModel'
 import Breadcrumb from './Breadcrumb'
@@ -56,6 +59,12 @@ const StyledMuiBreadcrumbs = styled(MuiBreadcrumbs)<{ length: number }>`
   & li:has([data-ellipsis]) {
     overflow: visible;
   }
+
+  /* stylelint-disable-next-line selector-class-pattern */
+  & li:has(.MuiIconButton-root) {
+    overflow: visible;
+    margin-top: 0;
+  }
 `
 
 const StyledIcon = styled(Icon)`
@@ -77,8 +86,12 @@ const Separator = styled('div')`
   }
 `
 
-const StyledEllipsis = styled(Link)`
+const StyledIconButton = styled(IconButton)`
   white-space: nowrap;
+  flex-shrink: 0;
+  min-width: auto;
+  margin-top: 0 !important;
+  color: ${props => props.theme.palette.text.secondary};
 `
 
 type BreadcrumbsProps = {
@@ -89,35 +102,32 @@ type BreadcrumbsProps = {
 const getBreadcrumbs = (
   ancestorBreadcrumbs: BreadcrumbModel[],
   currentBreadcrumb: BreadcrumbModel,
-  returnAllBreadcrumbs: boolean,
-): BreadcrumbModel[] => {
+): { breadcrumbs: BreadcrumbModel[]; collapsedBreadcrumbs: BreadcrumbModel[] } => {
   const allBreadcrumbs = [...ancestorBreadcrumbs, currentBreadcrumb]
   const breadCrumbsLimit = 3 // with home included
   const lastTwoCrumbs = -2
 
   if (ancestorBreadcrumbs.length === 0) {
-    return []
+    return { breadcrumbs: [], collapsedBreadcrumbs: [] }
   }
 
   if (allBreadcrumbs.length <= breadCrumbsLimit) {
-    return allBreadcrumbs
+    return { breadcrumbs: allBreadcrumbs, collapsedBreadcrumbs: [] }
   }
 
   const home = allBreadcrumbs[0] as BreadcrumbModel
   const rest = allBreadcrumbs.slice(1)
-  const ellipsisPathname = returnAllBreadcrumbs ? '' : (rest[0]?.pathname ?? '/')
 
   const ellipsis = new BreadcrumbModel({
     title: '...',
-    pathname: ellipsisPathname,
+    pathname: '',
     node: null,
   })
 
-  if (returnAllBreadcrumbs) {
-    return [home, ...rest]
+  return {
+    breadcrumbs: [home, ellipsis, ...rest.slice(lastTwoCrumbs)],
+    collapsedBreadcrumbs: rest.slice(0, lastTwoCrumbs),
   }
-
-  return [home, ellipsis, ...rest.slice(lastTwoCrumbs)]
 }
 
 const Breadcrumbs = ({ ancestorBreadcrumbs, currentBreadcrumb }: BreadcrumbsProps): ReactElement => {
@@ -125,21 +135,25 @@ const Breadcrumbs = ({ ancestorBreadcrumbs, currentBreadcrumb }: BreadcrumbsProp
   const jsonLdBreadcrumbs = [...ancestorBreadcrumbs, currentBreadcrumb]
   // Min text length after which the last breadcrumb item should shrink
   const MIN_SHRINK_CHARS = 20
-  const MAX_BREADCRUMBS = 3
 
-  const theme = useTheme()
-  const isDesktop = useMediaQuery(theme.breakpoints.up('md'))
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
+  const open = Boolean(anchorEl)
+
+  const handleMenuOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget)
+  }
+
+  const handleMenuClose = () => {
+    setAnchorEl(null)
+  }
+
+  const breadcrumbData = getBreadcrumbs(ancestorBreadcrumbs, currentBreadcrumb)
+
   return (
     <StyledBox>
       <JsonLdBreadcrumbs breadcrumbs={jsonLdBreadcrumbs} />
-      <StyledMuiBreadcrumbs
-        length={ancestorBreadcrumbs.length}
-        aria-label='Breadcrumb'
-        separator={<Separator />}
-        maxItems={isDesktop ? MAX_BREADCRUMBS : undefined}
-        itemsBeforeCollapse={isDesktop ? 1 : undefined}
-        itemsAfterCollapse={isDesktop ? 2 : undefined}>
-        {getBreadcrumbs(ancestorBreadcrumbs, currentBreadcrumb, isDesktop).map((breadcrumb, index, array) => {
+      <StyledMuiBreadcrumbs length={ancestorBreadcrumbs.length} aria-label='Breadcrumb' separator={<Separator />}>
+        {breadcrumbData.breadcrumbs.map((breadcrumb, index, array) => {
           const isHome = array.length > 1 && index === 0
           const isLast = index === array.length - 1
 
@@ -153,9 +167,13 @@ const Breadcrumbs = ({ ancestorBreadcrumbs, currentBreadcrumb }: BreadcrumbsProp
 
           if (breadcrumb.title === '...') {
             return (
-              <StyledEllipsis to={breadcrumb.pathname} key='ellipsis' data-ellipsis>
-                ...
-              </StyledEllipsis>
+              <StyledIconButton
+                key='menu'
+                size='small'
+                onClick={handleMenuOpen}
+                aria-label='Show collapsed breadcrumbs'>
+                <MoreHorizIcon />
+              </StyledIconButton>
             )
           }
 
@@ -170,6 +188,13 @@ const Breadcrumbs = ({ ancestorBreadcrumbs, currentBreadcrumb }: BreadcrumbsProp
           )
         })}
       </StyledMuiBreadcrumbs>
+      <Menu anchorEl={anchorEl} open={open} onClose={handleMenuClose}>
+        {breadcrumbData.collapsedBreadcrumbs.map(item => (
+          <MenuItem key={item.pathname} onClick={handleMenuClose}>
+            <Link to={item.pathname}>{item.title}</Link>
+          </MenuItem>
+        ))}
+      </Menu>
     </StyledBox>
   )
 }

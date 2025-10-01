@@ -63,11 +63,11 @@ describe('Breadcrumbs', () => {
     expect(queryByText(breadcrumb2.title)).toBeTruthy()
   })
 
-  it('should show ellipsis when there are more than 3 breadcrumbs', () => {
+  it('should show menu button when there are more than 3 breadcrumbs', () => {
     const ancestors = [homeBreadcrumb, breadcrumb0, breadcrumb1]
-    const { getByText } = render(ancestors, breadcrumb2)
+    const { getByRole } = render(ancestors, breadcrumb2)
 
-    expect(getByText('...')).toBeTruthy()
+    expect(getByRole('button', { name: 'Show collapsed breadcrumbs' })).toBeTruthy()
   })
 
   it('should show home icon for first breadcrumb when multiple exist', () => {
