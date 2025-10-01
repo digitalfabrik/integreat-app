@@ -110,14 +110,13 @@ const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
           <SearchCounter aria-live={results.length === 0 ? 'assertive' : 'polite'}>
             {t('searchResultsCount', { count: results.length })}
           </SearchCounter>
-          {results.map(({ title, content, path, thumbnail }) => (
+          {results.map(({ title, content, path }) => (
             <SearchListItem
               title={title}
               contentWithoutHtml={parseHTML(content)}
               key={path}
               query={debouncedQuery}
               path={path}
-              thumbnail={thumbnail}
             />
           ))}
         </List>
