@@ -5,7 +5,7 @@ import { CityModelBuilder } from 'shared/api'
 
 import buildConfig from '../../constants/buildConfig'
 import { renderWithRouterAndTheme } from '../../testing/render'
-import CitySelector from '../CitySelector'
+import CitySelector, { CITY_SEARCH_PLACEHOLDER } from '../CitySelector'
 
 jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
@@ -31,7 +31,7 @@ describe('CitySelector', () => {
   const city = cities[0]!
 
   const changeFilterText = (getByPlaceholderText: (id: Matcher) => HTMLElement, filterText: string) => {
-    fireEvent.change(getByPlaceholderText('landing:searchCity'), {
+    fireEvent.change(getByPlaceholderText(CITY_SEARCH_PLACEHOLDER), {
       target: {
         value: filterText,
       },
@@ -64,7 +64,7 @@ describe('CitySelector', () => {
     changeFilterText(getByPlaceholderText, 'Does not exist')
 
     cities.forEach(city => expect(queryByLabelText(city.name)).toBeFalsy())
-    expect(getByPlaceholderText('landing:searchCity')).toBeTruthy()
+    expect(getByPlaceholderText(CITY_SEARCH_PLACEHOLDER)).toBeTruthy()
   })
 
   it('should not show any city if filter text does not match a live city', () => {
