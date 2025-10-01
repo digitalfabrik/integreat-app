@@ -8,7 +8,6 @@ import { useTranslation } from 'react-i18next'
 import { getExternalMapsLink } from 'shared'
 import { PoiModel } from 'shared/api'
 
-import { PoiThumbnailPlaceholderLarge } from '../assets'
 import { helpers } from '../constants/theme'
 import useDimensions from '../hooks/useDimensions'
 import Collapsible from './Collapsible'
@@ -135,7 +134,6 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
   const { t } = useTranslation('pois')
   const { content, location, contacts, isCurrentlyOpen, openingHours, temporarilyClosed, appointmentUrl } = poi
 
-  const thumbnail = poi.thumbnail ?? PoiThumbnailPlaceholderLarge
   const isAndroid = /Android/i.test(navigator.userAgent)
   const externalMapsLink = getExternalMapsLink(location, isAndroid ? 'android' : 'web')
 
@@ -145,7 +143,7 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
         <Heading>{poi.title}</Heading>
         {distance !== null && <Distance>{t('distanceKilometre', { distance: distance.toFixed(1) })}</Distance>}
         <PoiChips poi={poi} />
-        <Thumbnail alt='' src={thumbnail} />
+        {!!poi.thumbnail && <Thumbnail alt='' src={poi.thumbnail} />}
       </HeadingSection>
       <StyledDivider />
       {desktop && <Subheading>{t('detailsAddress')}</Subheading>}

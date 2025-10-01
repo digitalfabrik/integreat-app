@@ -109,7 +109,7 @@ const PoisBottomSheet = ({
             renderItem={renderPoiListItem}
             onMomentumScrollBegin={event => setScrollPosition(event.nativeEvent.contentOffset.y)}
             showsVerticalScrollIndicator={false}
-            ListHeaderComponent={<Title>{t('nearby')}</Title>}
+            ListHeaderComponent={<Title>{t('common:nearby')}</Title>}
             ListEmptyComponent={<NoItemsMessage>{t('noPois')}</NoItemsMessage>}
           />
         )}
