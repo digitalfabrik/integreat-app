@@ -16,15 +16,6 @@ export const DirectionDependentBackIcon = styled(ArrowBackIcon)(({ theme }) => (
   transform: theme.direction === 'rtl' ? 'scaleX(-1)' : 'none',
 }))
 
-const StyledIconButton = styled(IconButton)(({ theme }) => ({
-  [theme.breakpoints.down('md')]: {
-    marginInlineStart: theme.spacing(1),
-  },
-  [theme.breakpoints.up('md')]: {
-    marginInlineEnd: theme.spacing(1),
-  },
-}))
-
 const StyledMuiDialog = styled(MuiDialog)(({ theme }) => ({
   [`.${dialogClasses.paper}`]: {
     [theme.breakpoints.up('md')]: {
@@ -52,10 +43,11 @@ const Dialog = ({ title, closeModal, children, className }: DialogProps): ReactE
       <Stack
         direction={desktop ? 'row-reverse' : 'row'}
         alignItems='center'
-        justifyContent={desktop ? 'space-between' : undefined}>
-        <StyledIconButton aria-label={t('close')} onClick={closeModal}>
+        justifyContent={desktop ? 'space-between' : undefined}
+        marginInline={1}>
+        <IconButton aria-label={t('close')} onClick={closeModal}>
           {desktop ? <CloseIcon /> : <DirectionDependentBackIcon />}
-        </StyledIconButton>
+        </IconButton>
         <DialogTitle>{title}</DialogTitle>
       </Stack>
       <DialogContent>{children}</DialogContent>
