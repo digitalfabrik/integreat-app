@@ -12,7 +12,6 @@ import buildConfig from '../constants/buildConfig'
 import useDimensions from '../hooks/useDimensions'
 import useLocalStorage from '../hooks/useLocalStorage'
 import globalStyle from '../styles/global/GlobalStyle'
-import { muiShadowCreator } from '../utils/muiShadowCreator'
 
 const ltrCache = createCache({
   key: 'mui-ltr-cache',
@@ -47,7 +46,6 @@ const createTheme = (
       values: BREAKPOINTS,
     },
     direction: contentDirection,
-    shadows: muiShadowCreator(themeType),
     typography: buildConfig().typography,
     palette: theme.palette,
     components: {

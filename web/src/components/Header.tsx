@@ -75,7 +75,7 @@ export const Header = ({
 
   return (
     <Headroom scrollHeight={HEADER_HEIGHT} height={height} zIndex={2} onStickyTopChanged={onStickyTopChanged}>
-      <Paper>
+      <Paper elevation={4}>
         <HeaderContainer ref={ref}>
           <Row>
             <Stack direction='row-reverse'>
