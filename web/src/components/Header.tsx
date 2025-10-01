@@ -58,15 +58,23 @@ type HeaderProps = {
   cityName?: string
   language: string
   TabBar?: ReactNode
+  onStickyTopChanged?: (stickyTop: number) => void
 }
 
-export const Header = ({ actionItems = [], logoHref, cityName, language, TabBar }: HeaderProps): ReactElement => {
+export const Header = ({
+  actionItems = [],
+  logoHref,
+  cityName,
+  language,
+  TabBar,
+  onStickyTopChanged,
+}: HeaderProps): ReactElement => {
   const { rect: headerRect, ref } = useElementRect()
   const height = headerRect?.height ?? 0
   const landingPath = pathnameFromRouteInformation({ route: LANDING_ROUTE, languageCode: language })
 
   return (
-    <Headroom scrollHeight={HEADER_HEIGHT} height={height} zIndex={2}>
+    <Headroom scrollHeight={HEADER_HEIGHT} height={height} zIndex={2} onStickyTopChanged={onStickyTopChanged}>
       <Paper>
         <HeaderContainer ref={ref}>
           <Row>

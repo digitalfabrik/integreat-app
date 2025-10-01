@@ -11,8 +11,8 @@ import buildConfig from '../constants/buildConfig'
 import useDimensions from '../hooks/useDimensions'
 import useLockedBody from '../hooks/useLockedBody'
 import ChatController from './ChatController'
-import ChatModal from './ChatModal'
 import { TtsContext } from './TtsContainer'
+import Dialog from './base/Dialog'
 import Icon from './base/Icon'
 
 const ChatButtonContainer = styled('div')`
@@ -77,9 +77,9 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement | n
 
   if (chatVisible) {
     return (
-      <ChatModal title={chatName} closeModal={() => setChatVisible(false)}>
+      <Dialog title={chatName} closeModal={() => setChatVisible(false)}>
         <ChatController city={city} language={language} />
-      </ChatModal>
+      </Dialog>
     )
   }
 

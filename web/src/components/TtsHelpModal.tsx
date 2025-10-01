@@ -1,54 +1,19 @@
+import MenuBookIcon from '@mui/icons-material/MenuBook'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
-import WarningAmberOutlinedIcon from '@mui/icons-material/WarningAmberOutlined'
-import { styled, useTheme } from '@mui/material/styles'
+import Alert from '@mui/material/Alert'
+import Avatar from '@mui/material/Avatar'
+import DialogContentText from '@mui/material/DialogContentText'
+import IconButton from '@mui/material/IconButton'
+import MuiList from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
+import ListItemAvatar from '@mui/material/ListItemAvatar'
+import ListItemButton from '@mui/material/ListItemButton'
+import ListItemText from '@mui/material/ListItemText'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { BookIcon } from '../assets'
-import { Container } from './Feedback'
-import Modal from './Modal'
-import Icon from './base/Icon'
+import Dialog from './base/Dialog'
 import Link from './base/Link'
-
-const StyledLink = styled(Link)`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 8px;
-  font-weight: bold;
-`
-
-const ModalContent = styled(Container)`
-  padding: 0 16px 16px;
-`
-
-const StyledWarningText = styled('div')`
-  font-family: ${props => props.theme.legacy.fonts.web.contentFont};
-  font-size: 16px;
-  color: ${props => props.theme.palette.text.primary};
-  margin-bottom: 16px;
-`
-
-const StyledWarningIcon = styled(Icon)`
-  color: ${props => props.theme.legacy.colors.ttsPlayerWarningColor};
-`
-
-const StyledList = styled('div')`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  color: ${props => props.theme.palette.text.primary};
-`
-
-const StyledExternalIcon = styled(Icon)`
-  height: 12px;
-  width: 12px;
-  color: ${props => props.theme.legacy.colors.linkColor};
-`
-
-const StyledBookIcon = styled(Icon)`
-  color: ${props => props.theme.palette.text.primary};
-`
 
 const helpItemsData = [
   {
@@ -74,38 +39,35 @@ const helpItemsData = [
 ]
 
 const HelpModalItem = ({ title, path }: { title: string; path: string }) => (
-  <div>
-    <StyledLink to={path}>
-      <StyledBookIcon src={BookIcon} />
-      {title}
-      <StyledExternalIcon src={OpenInNewIcon} />
-    </StyledLink>
-  </div>
+  <ListItem disablePadding>
+    <ListItemButton component={Link} to={path}>
+      <ListItemAvatar>
+        <Avatar>
+          <MenuBookIcon />
+        </Avatar>
+      </ListItemAvatar>
+      <ListItemText primary={title} />
+      <IconButton color='primary' disableRipple>
+        <OpenInNewIcon />
+      </IconButton>
+    </ListItemButton>
+  </ListItem>
 )
 
 const TtsHelpModal = ({ closeModal }: { closeModal: () => void }): ReactElement => {
-  const theme = useTheme()
   const { t } = useTranslation('layout')
+
   return (
-    <Modal
-      contentStyle={{
-        borderRadius: 5,
-        backgroundColor: theme.isContrastTheme
-          ? theme.legacy.colors.backgroundColor
-          : theme.legacy.colors.ttsPlayerWarningBackground,
-      }}
-      title={t('voiceUnavailable')}
-      icon={<StyledWarningIcon src={WarningAmberOutlinedIcon} />}
-      closeModal={closeModal}>
-      <ModalContent>
-        <StyledWarningText>{t('voiceUnavailableMessage')}</StyledWarningText>
-        <StyledList>
-          {helpItemsData.map(item => (
-            <HelpModalItem key={item.title} title={item.title} path={item.path} />
-          ))}
-        </StyledList>
-      </ModalContent>
-    </Modal>
+    <Dialog title={t('voiceUnavailable')} closeModal={closeModal}>
+      <DialogContentText>
+        <Alert severity='warning'>{t('voiceUnavailableMessage')}</Alert>
+      </DialogContentText>
+      <MuiList>
+        {helpItemsData.map(item => (
+          <HelpModalItem key={item.title} title={item.title} path={item.path} />
+        ))}
+      </MuiList>
+    </Dialog>
   )
 }
 

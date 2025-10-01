@@ -2,7 +2,7 @@ import { fireEvent, waitFor } from '@testing-library/react'
 import EasySpeech from 'easy-speech'
 import { mocked } from 'jest-mock'
 import { DateTime } from 'luxon'
-import React, { ReactElement } from 'react'
+import React from 'react'
 import { MemoryRouter } from 'react-router-dom'
 
 import { PageModel } from 'shared/api'
@@ -13,7 +13,6 @@ import TtsContainer from '../TtsContainer'
 
 jest.mock('react-i18next')
 jest.mock('easy-speech')
-jest.mock('focus-trap-react', () => ({ children }: { children: ReactElement }) => <div>{children}</div>)
 
 describe('TtsContainer', () => {
   // Mock call of end event after cancelling utterance
