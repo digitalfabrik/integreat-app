@@ -7,6 +7,7 @@ import { SEARCH_ROUTE } from 'shared'
 import { config } from 'translations'
 
 import buildConfig from '../constants/buildConfig'
+import useCityContentParams from '../hooks/useCityContentParams'
 import FeedbackContainer from './FeedbackContainer'
 
 const Container = styled('div')`
@@ -28,14 +29,13 @@ const Hint = styled('p')`
 `
 
 type SearchFeedbackProps = {
-  cityCode: string
-  languageCode: string
   query: string
   noResults: boolean
 }
 
-const SearchFeedback = ({ cityCode, languageCode, query, noResults }: SearchFeedbackProps): ReactElement => {
+const SearchFeedback = ({ query, noResults }: SearchFeedbackProps): ReactElement => {
   const [showFeedback, setShowFeedback] = useState<boolean>(false)
+  const { cityCode, languageCode } = useCityContentParams()
   const { t } = useTranslation('feedback')
 
   useEffect(() => setShowFeedback(false), [query])
