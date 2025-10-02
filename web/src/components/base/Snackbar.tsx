@@ -1,5 +1,5 @@
 import CloseIcon from '@mui/icons-material/Close'
-import Alert from '@mui/material/Alert'
+import Alert, { alertClasses } from '@mui/material/Alert'
 import AlertTitle from '@mui/material/AlertTitle'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
@@ -11,11 +11,12 @@ import { Link } from 'react-router-dom'
 
 import { ExtendedSendingStatusType, SNACKBAR_AUTO_HIDE_DURATION } from 'shared'
 
-import useDimensions from '../../hooks/useDimensions'
-
 const StyledMuiSnackbar = styled(MUISnackbar)(({ theme }) => ({
-  [theme.breakpoints.down('lg')]: {
-    marginBottom: 50,
+  [theme.breakpoints.down('md')]: {
+    marginBottom: 40,
+  },
+  [theme.breakpoints.up('md')]: {
+    marginBottom: 46,
   },
 }))
 
@@ -23,10 +24,8 @@ const StyledAlert = styled(Alert)`
   display: flex;
   align-items: center;
 
-  '& .muialert-action': {
-    margin: 0;
-    padding: 0;
-    align-self: center;
+  .${alertClasses.action} {
+    padding: 0 8px;
   }
 `
 
@@ -66,14 +65,12 @@ const Snackbar = ({
   errorTitle,
 }: SnackbarProps): ReactElement => {
   const { t } = useTranslation('malteHelpForm')
-  const { mobile } = useDimensions()
 
   return (
     <StyledMuiSnackbar
       open={open}
       onClose={onClose}
-      autoHideDuration={autoHideOnSuccess && sendingStatus === 'successful' ? SNACKBAR_AUTO_HIDE_DURATION : null}
-      anchorOrigin={mobile ? { vertical: 'bottom', horizontal: 'center' } : { vertical: 'bottom', horizontal: 'left' }}>
+      autoHideDuration={autoHideOnSuccess && sendingStatus === 'successful' ? SNACKBAR_AUTO_HIDE_DURATION : null}>
       {sendingStatus === 'failed' || sendingStatus === 'invalidEmail' ? (
         <Alert severity='error' role='alert' onClose={onClose} variant='filled'>
           <AlertTitle>{errorTitle ?? t('submitFailed')}</AlertTitle>
@@ -91,7 +88,7 @@ const Snackbar = ({
                   {t('error:goTo.categories')}
                 </Button>
               ) : (
-                <IconButton aria-label={t('layout:close')} color='inherit' size='small' onClick={onClose}>
+                <IconButton aria-label={t('common:close')} color='inherit' size='small' onClick={onClose}>
                   <CloseIcon fontSize='inherit' />
                 </IconButton>
               )}
