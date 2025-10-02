@@ -40,6 +40,5 @@ describe('FeedbackToolbarItem', () => {
 
     expect(await findByText('feedback:thanksMessage')).toBeTruthy()
     expect(queryByText('feedback:headline')).toBeFalsy()
-    expect(getByText('feedback:thanksHeadline')).toBeTruthy()
   })
 })

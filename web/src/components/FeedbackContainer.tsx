@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 
-import { Rating } from 'shared'
+import { Rating, SendingStatusType } from 'shared'
 import { createFeedbackEndpoint, FeedbackRouteType } from 'shared/api'
 
 import { cmsApiBaseUrl } from '../constants/urls'
@@ -15,10 +15,9 @@ type FeedbackContainerProps = {
   noResults?: boolean
   slug?: string
   onSubmit?: () => void
+  onError?: () => void
   initialRating: Rating | null
 }
-
-export type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
 
 export const FeedbackContainer = ({
   query,
@@ -28,6 +27,7 @@ export const FeedbackContainer = ({
   cityCode,
   slug,
   onSubmit,
+  onError,
   initialRating,
 }: FeedbackContainerProps): ReactElement => {
   const [rating, setRating] = useState<Rating | null>(initialRating)
@@ -58,15 +58,13 @@ export const FeedbackContainer = ({
       })
 
       setSendingStatus('successful')
-
-      if (onSubmit) {
-        onSubmit()
-      }
+      onSubmit?.()
     }
 
     request().catch(err => {
       reportError(err)
       setSendingStatus('failed')
+      onError?.()
     })
   }
 
