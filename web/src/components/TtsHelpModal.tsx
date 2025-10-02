@@ -57,7 +57,7 @@ const TtsHelpModal = ({ closeModal }: { closeModal: () => void }): ReactElement 
   const { t } = useTranslation('layout')
 
   return (
-    <Dialog title={t('voiceUnavailable')} closeModal={closeModal}>
+    <Dialog title={t('voiceUnavailable')} close={closeModal}>
       <Alert severity='warning'>{t('voiceUnavailableMessage')}</Alert>
       <MuiList>
         {helpItemsData.map(item => (
