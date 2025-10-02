@@ -30,6 +30,7 @@ const Title = styled.Text`
   font-size: 16px;
   font-weight: bold;
   color: ${props => props.theme.colors.textColor};
+  padding-bottom: 4px;
 `
 
 const StyledDistance = styled.Text`
