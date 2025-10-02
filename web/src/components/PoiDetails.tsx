@@ -1,6 +1,7 @@
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import Divider from '@mui/material/Divider'
+import Stack from '@mui/material/Stack'
 import { styled } from '@mui/material/styles'
 import React, { Fragment, ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -95,11 +96,6 @@ const LinkLabel = styled('span')`
   align-self: flex-end;
 `
 
-const HeadingSection = styled('div')`
-  display: flex;
-  flex-direction: column;
-`
-
 const DetailSection = styled('div')`
   display: flex;
   flex-direction: column;
@@ -139,12 +135,12 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
 
   return (
     <DetailsContainer>
-      <HeadingSection>
+      <Stack gap={1}>
         <Heading>{poi.title}</Heading>
         {distance !== null && <Distance>{t('distanceKilometre', { distance: distance.toFixed(1) })}</Distance>}
         <PoiChips poi={poi} />
         {!!poi.thumbnail && <Thumbnail alt='' src={poi.thumbnail} />}
-      </HeadingSection>
+      </Stack>
       <StyledDivider />
       {desktop && <Subheading>{t('detailsAddress')}</Subheading>}
       <DetailSection>
