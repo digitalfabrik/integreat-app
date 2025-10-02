@@ -57,21 +57,17 @@ const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps): ReactElement | null => 
   const hiddenBreadcrumbs = rest.slice(0, -maxVisible)
   const visibleBreadcrumbs = rest.slice(-maxVisible)
 
-  if (!home) {
-    return null
+  if (breadcrumbs.length < 2 || !home) {
+    return <JsonLdBreadcrumbs breadcrumbs={breadcrumbs} />
   }
 
   return (
     <Stack paddingBlock={1} overflow='hidden'>
       <JsonLdBreadcrumbs breadcrumbs={breadcrumbs} />
       <StyledMuiBreadcrumbs aria-label='Breadcrumb' separator='>'>
-        {breadcrumbs.length > 1 ? (
-          <IconButton key='home' component={Link} to={home.pathname} aria-label={home.title}>
-            <HomeOutlinedIcon />
-          </IconButton>
-        ) : (
-          <Breadcrumb key='home' title={home.title} to={home.pathname} />
-        )}
+        <IconButton key='home' component={Link} to={home.pathname} aria-label={home.title}>
+          <HomeOutlinedIcon />
+        </IconButton>
         {hiddenBreadcrumbs.length > 0 && (
           <IconButton key='menu' onClick={openMenu} aria-label={t('showMore')}>
             <MoreHorizIcon />
