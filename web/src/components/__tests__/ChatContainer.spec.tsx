@@ -31,7 +31,7 @@ describe('ChatContainer', () => {
   const city = new CityModelBuilder(1).build()[0]!
   const pathname = `/${city.code}/de`
 
-  it('should open chat modal and show content on chat button click', () => {
+  it('should open chat dialog and show content on chat button click', () => {
     const { getByText, getAllByText } = renderRoute(<ChatContainer city={city} language='de' />, {
       pathname,
       routePattern,
