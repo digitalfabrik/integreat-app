@@ -11,6 +11,7 @@ import { RouteType } from '../routes'
 import FeedbackContainer from './FeedbackContainer'
 import ToolbarItem from './ToolbarItem'
 import Dialog from './base/Dialog'
+import Snackbar, { handleClose } from './base/Snackbar'
 
 type FeedbackToolbarItemProps = {
   route: RouteType
@@ -18,19 +19,36 @@ type FeedbackToolbarItemProps = {
   rating: Rating | null
 }
 
+export type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
 const FeedbackToolbarItem = ({ route, slug, rating }: FeedbackToolbarItemProps): ReactElement => {
   const { cityCode, languageCode } = useCityContentParams()
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [snackbarOpen, setSnackbarOpen] = useState(false)
   const { t } = useTranslation('feedback')
   const title = isSubmitted ? t('thanksHeadline') : t('headline')
+  const [snackbarStatus, setSnackbarStatus] = useState<SendingStatusType>('idle')
+
+  const handleFeedbackSuccess = () => {
+    setIsFeedbackOpen(false)
+    setSnackbarStatus('successful')
+    setIsSubmitted(true)
+    setSnackbarOpen(true)
+  }
+
+  const handleFeedbackError = () => {
+    setIsFeedbackOpen(true)
+    setSnackbarStatus('failed')
+    setSnackbarOpen(true)
+  }
 
   return (
     <>
       {isFeedbackOpen && (
         <Dialog title={title} closeModal={() => setIsFeedbackOpen(false)}>
           <FeedbackContainer
-            onSubmit={() => setIsSubmitted(true)}
+            onSubmit={handleFeedbackSuccess}
+            onError={handleFeedbackError}
             routeType={route as FeedbackRouteType}
             cityCode={cityCode}
             language={languageCode}
@@ -43,6 +61,13 @@ const FeedbackToolbarItem = ({ route, slug, rating }: FeedbackToolbarItemProps):
         icon={rating === RATING_POSITIVE ? <SentimentSatisfiedOutlinedIcon /> : <SentimentDissatisfiedOutlinedIcon />}
         text={t(rating === RATING_POSITIVE ? 'useful' : 'notUseful')}
         onClick={() => setIsFeedbackOpen(true)}
+      />
+      <Snackbar
+        open={snackbarOpen}
+        onClose={handleClose(setSnackbarOpen)}
+        sendingStatus={snackbarStatus}
+        successMessage={t('thanksMessage')}
+        autoHideOnSuccess
       />
     </>
   )
