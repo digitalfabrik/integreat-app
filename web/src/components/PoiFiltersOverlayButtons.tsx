@@ -1,11 +1,12 @@
 import AccessTimeIcon from '@mui/icons-material/AccessTime'
 import EditLocationOutlinedIcon from '@mui/icons-material/EditLocationOutlined'
+import Chip from '@mui/material/Chip'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { PoiCategoryModel } from 'shared/api'
 
-import ChipButton from './base/ChipButton'
+import Icon from './base/Icon'
 
 type PoiFiltersOverlayButtonsProps = {
   currentlyOpenFilter: boolean
@@ -25,27 +26,28 @@ const PoiFiltersOverlayButtons = ({
   const { t } = useTranslation('pois')
   return (
     <>
-      <ChipButton
-        text={t('adjustFilters')}
-        icon={EditLocationOutlinedIcon}
+      <Chip
+        label={t('adjustFilters')}
+        icon={<EditLocationOutlinedIcon />}
         onClick={() => setShowFilterSelection(true)}
+        clickable
       />
       {currentlyOpenFilter && (
-        <ChipButton
-          text={t('opened')}
-          label={t('clearFilter', { filter: t('opened') })}
-          icon={AccessTimeIcon}
+        <Chip
+          label={t('opened')}
+          icon={<AccessTimeIcon />}
+          onDelete={() => setCurrentlyOpenFilter(false)}
           onClick={() => setCurrentlyOpenFilter(false)}
-          closeButton
+          clickable
         />
       )}
       {!!poiCategory && (
-        <ChipButton
-          text={poiCategory.name}
-          label={t('clearFilter', { filter: poiCategory.name })}
-          icon={poiCategory.icon}
+        <Chip
+          label={poiCategory.name}
+          icon={<Icon src={poiCategory.icon} />}
           onClick={() => setPoiCategoryFilter(null)}
-          closeButton
+          onDelete={() => setPoiCategoryFilter(null)}
+          clickable
         />
       )}
     </>
