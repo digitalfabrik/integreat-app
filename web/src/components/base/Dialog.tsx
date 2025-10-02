@@ -45,7 +45,7 @@ const Dialog = ({ title, closeModal, children, className }: DialogProps): ReactE
         alignItems='center'
         justifyContent={desktop ? 'space-between' : undefined}
         marginInline={1}>
-        <IconButton aria-label={t('close')} onClick={closeModal}>
+        <IconButton aria-label={t('common:close')} onClick={closeModal}>
           {desktop ? <CloseIcon /> : <DirectionDependentBackIcon />}
         </IconButton>
         <DialogTitle>{title}</DialogTitle>
