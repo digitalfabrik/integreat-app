@@ -84,7 +84,7 @@ const PoiFilters = ({
   }
 
   return (
-    <Dialog title={t('adjustFilters')} closeModal={closeModal}>
+    <Dialog title={t('adjustFilters')} close={closeModal}>
       <Stack gap={3}>
         <Section>
           <SubTitle>{t('openingHours')}</SubTitle>

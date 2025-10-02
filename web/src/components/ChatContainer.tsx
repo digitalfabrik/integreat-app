@@ -77,7 +77,7 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement | n
 
   if (chatVisible) {
     return (
-      <Dialog title={chatName} closeModal={() => setChatVisible(false)}>
+      <Dialog title={chatName} close={() => setChatVisible(false)}>
         <ChatController city={city} language={language} />
       </Dialog>
     )
