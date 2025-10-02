@@ -1,18 +1,15 @@
 import HealthAndSafetyOutlinedIcon from '@mui/icons-material/HealthAndSafetyOutlined'
 import PeopleOutlineOutlinedIcon from '@mui/icons-material/PeopleOutlineOutlined'
 import SendIcon from '@mui/icons-material/Send'
-import Alert from '@mui/material/Alert'
-import AlertTitle from '@mui/material/AlertTitle'
 import Button from '@mui/material/Button'
 import FormControl from '@mui/material/FormControl'
 import FormHelperText from '@mui/material/FormHelperText'
-import Snackbar from '@mui/material/Snackbar'
 import TextField from '@mui/material/TextField'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { cityContentPath, DEFAULT_ROWS_NUMBER } from 'shared'
+import { cityContentPath, DEFAULT_ROWS_NUMBER, ExtendedSendingStatusType } from 'shared'
 import {
   OfferModel,
   ContactChannel,
@@ -23,10 +20,10 @@ import {
 } from 'shared/api'
 
 import Icon from '../components/base/Icon'
-import Link from '../components/base/Link'
 import { reportError } from '../utils/sentry'
 import PrivacyCheckbox from './PrivacyCheckbox'
 import RadioGroup from './base/RadioGroup'
+import Snackbar, { handleClose } from './base/Snackbar'
 import Spacing from './base/Spacing'
 
 const Note = styled('div')`
@@ -45,12 +42,6 @@ const Form = styled('form')`
   gap: 12px;
 `
 
-const StyledAlert = styled(Alert)`
-  display: flex;
-  align-items: center;
-`
-
-type SendingStatusType = 'idle' | 'sending' | 'invalidEmail' | 'failed' | 'successful'
 type MalteHelpFormProps = {
   pageTitle: string
   cityCode: string
@@ -60,7 +51,7 @@ type MalteHelpFormProps = {
 
 const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }: MalteHelpFormProps): ReactElement => {
   const { t } = useTranslation('malteHelpForm')
-  const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
+  const [sendingStatus, setSendingStatus] = useState<ExtendedSendingStatusType>('idle')
   const [privacyPolicyAccepted, setPrivacyPolicyAccepted] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [contactChannel, setContactChannel] = useState<ContactChannel>('email')
@@ -114,13 +105,6 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
       setSnackbarOpen(true)
     }
   }, [sendingStatus])
-
-  const handleClose = (event?: React.SyntheticEvent | Event, reason?: 'timeout' | 'clickaway' | 'escapeKeyDown') => {
-    if (reason === 'clickaway') {
-      return
-    }
-    setSnackbarOpen(false)
-  }
 
   return (
     <>
@@ -205,25 +189,13 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
           {t('submit')}
         </Button>
       </Form>
-      <Snackbar open={snackbarOpen} onClose={handleClose} autoHideDuration={5000}>
-        {sendingStatus === 'failed' || sendingStatus === 'invalidEmail' ? (
-          <Alert severity='error' role='alert' onClose={handleClose} variant='filled'>
-            <AlertTitle>{t('submitFailed')}</AlertTitle>
-            {t(sendingStatus === 'invalidEmail' ? 'invalidEmailAddress' : 'submitFailedReasoning')}
-          </Alert>
-        ) : (
-          <StyledAlert
-            severity='success'
-            role='alert'
-            action={
-              <Button component={Link} to={dashboardRoute} size='small'>
-                {t('error:goTo.categories')}
-              </Button>
-            }>
-            {t('submitSuccessful')}
-          </StyledAlert>
-        )}
-      </Snackbar>
+      <Snackbar
+        open={snackbarOpen}
+        onClose={handleClose(setSnackbarOpen)}
+        sendingStatus={sendingStatus}
+        dashboardRoute={dashboardRoute}
+        errorMessage={t(sendingStatus === 'invalidEmail' ? 'invalidEmailAddress' : 'submitFailedReasoning')}
+      />
     </>
   )
 }

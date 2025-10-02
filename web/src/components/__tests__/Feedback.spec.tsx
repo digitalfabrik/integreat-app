@@ -1,11 +1,10 @@
 import { fireEvent } from '@testing-library/react'
 import React from 'react'
 
-import { Rating } from 'shared'
+import { Rating, SendingStatusType } from 'shared'
 
 import { renderWithTheme } from '../../testing/render'
 import Feedback from '../Feedback'
-import { SendingStatusType } from '../FeedbackContainer'
 
 jest.mock('react-inlinesvg')
 jest.mock('react-i18next', () => ({
@@ -107,11 +106,18 @@ describe('Feedback', () => {
     expect(getByLabelText('feedback:wantedInformation')).toBeTruthy()
   })
 
-  it('should display error', () => {
+  it('should display snackbar error', () => {
     const { getByText } = renderWithTheme(
       <Feedback {...buildProps({ rating: 'negative', comment: 'comment', sendingStatus: 'failed' })} />,
     )
     expect(getByText('feedback:failedSendingFeedback')).toBeTruthy()
+  })
+
+  it('should display successful snackbar', () => {
+    const { getByText } = renderWithTheme(
+      <Feedback {...buildProps({ rating: 'negative', comment: 'comment', sendingStatus: 'successful' })} />,
+    )
+    expect(getByText('feedback:thanksMessage')).toBeTruthy()
   })
 
   it('onSubmit should be called on button press', async () => {

@@ -1,5 +1,6 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 
+import { SendingStatusType } from 'shared'
 import {
   CityModel,
   createChatMessagesEndpoint,
@@ -12,7 +13,6 @@ import { cmsApiBaseUrl } from '../constants/urls'
 import useIsTabActive from '../hooks/useIsTabActive'
 import useLocalStorage from '../hooks/useLocalStorage'
 import Chat from './Chat'
-import { SendingStatusType } from './FeedbackContainer'
 
 type ChatControllerProps = {
   city: CityModel
