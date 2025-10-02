@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next'
 import buildConfig from '../constants/buildConfig'
 import { getTtsVoice, isTtsCancelError, ttsInitialized } from '../utils/tts'
 import LoadingSpinner from './LoadingSpinner'
-import TtsHelpModal from './TtsHelpModal'
+import TtsHelp from './TtsHelp'
 import TtsPlayer from './TtsPlayer'
 
 const TTS_TIMEOUT = 2000
@@ -47,7 +47,7 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
   const [visible, setVisible] = useState(false)
   const [sentences, setSentences] = useState<string[]>([])
   const [sentenceIndex, setSentenceIndex] = useState(0)
-  const [showHelpModal, setShowHelpModal] = useState(false)
+  const [showHelp, setShowHelp] = useState(false)
   const [isInitializing, setIsInitializing] = useState(false)
   const title = sentences[0] || t('nothingToRead')
   const enabled = buildConfig().featureFlags.tts
@@ -63,7 +63,7 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
         })
         .catch(() => {
           setIsInitializing(false)
-          setShowHelpModal(true)
+          setShowHelp(true)
         })
     }
   }, [])
@@ -93,7 +93,7 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
     async (index = sentenceIndex) => {
       const voice = getTtsVoice(languageCode)
       if (!voice) {
-        setShowHelpModal(true)
+        setShowHelp(true)
         return
       }
 
@@ -147,7 +147,7 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
 
   const close = () => {
     setVisible(false)
-    setShowHelpModal(false)
+    setShowHelp(false)
     stop()
   }
 
@@ -180,7 +180,7 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
       <StyledBackdrop open={isInitializing}>
         <LoadingSpinner />
       </StyledBackdrop>
-      {showHelpModal && <TtsHelpModal closeModal={close} />}
+      {showHelp && <TtsHelp close={close} />}
       {visible && (
         <TtsPlayer
           disabled={sentences.length === 0}

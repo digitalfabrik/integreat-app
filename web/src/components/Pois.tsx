@@ -119,7 +119,7 @@ const Pois = ({ pois: allPois, userLocation, city, languageCode }: PoiProps): Re
       {mobile ? <PoisMobile {...sharedPoiProps} /> : <PoisDesktop {...sharedPoiProps} cityModel={city} />}
       {showFilterSelection && (
         <PoiFilters
-          closeModal={() => setShowFilterSelection(false)}
+          close={() => setShowFilterSelection(false)}
           poiCategories={poiCategories}
           selectedPoiCategory={poiCategory}
           setSelectedPoiCategory={updatePoiCategoryFilter}
