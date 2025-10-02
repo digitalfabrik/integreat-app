@@ -37,7 +37,7 @@ const helpItemsData = [
   },
 ]
 
-const HelpModalItem = ({ title, path }: { title: string; path: string }) => (
+const TtsHelpItem = ({ title, path }: { title: string; path: string }) => (
   <ListItem disablePadding>
     <ListItemButton component={Link} to={path}>
       <ListItemAvatar>
@@ -53,19 +53,23 @@ const HelpModalItem = ({ title, path }: { title: string; path: string }) => (
   </ListItem>
 )
 
-const TtsHelpModal = ({ closeModal }: { closeModal: () => void }): ReactElement => {
+type TtsHelpProps = {
+  close: () => void
+}
+
+const TtsHelp = ({ close }: TtsHelpProps): ReactElement => {
   const { t } = useTranslation('layout')
 
   return (
-    <Dialog title={t('voiceUnavailable')} close={closeModal}>
+    <Dialog title={t('voiceUnavailable')} close={close}>
       <Alert severity='warning'>{t('voiceUnavailableMessage')}</Alert>
       <MuiList>
         {helpItemsData.map(item => (
-          <HelpModalItem key={item.title} title={item.title} path={item.path} />
+          <TtsHelpItem key={item.title} title={item.title} path={item.path} />
         ))}
       </MuiList>
     </Dialog>
   )
 }
 
-export default TtsHelpModal
+export default TtsHelp
