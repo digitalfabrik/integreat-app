@@ -1,8 +1,7 @@
-import Avatar from '@mui/material/Avatar'
 import Divider from '@mui/material/Divider'
 import ListItem from '@mui/material/ListItem'
-import ListItemAvatar from '@mui/material/ListItemAvatar'
 import ListItemButton from '@mui/material/ListItemButton'
+import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
@@ -19,9 +18,10 @@ const StyledListItem = styled(ListItem)`
   align-items: stretch;
 `
 
-const StyledSubCategoryListItemButton = styled(ListItemButton)`
-  min-height: 56px;
-` as typeof ListItemButton
+const StyledImage = styled('img')`
+  width: 40px;
+  height: 40px;
+`
 
 type CategoryListItemProps = {
   category: CategoryModel
@@ -33,9 +33,9 @@ const CategoryListItem = ({ category, subCategories }: CategoryListItemProps): R
     const { path, title } = subCategory
     return (
       <ListItem disablePadding key={path}>
-        <StyledSubCategoryListItemButton component={Link} to={path}>
+        <ListItemButton component={Link} to={path}>
           <ListItemText primary={<Typography variant='body1'>{title}</Typography>} />
-        </StyledSubCategoryListItemButton>
+        </ListItemButton>
       </ListItem>
     )
   })
@@ -44,9 +44,9 @@ const CategoryListItem = ({ category, subCategories }: CategoryListItemProps): R
     <StyledListItem disablePadding>
       <ListItemButton component={Link} to={category.path}>
         {!!category.thumbnail && (
-          <ListItemAvatar>
-            <Avatar src={category.thumbnail} variant='square' />
-          </ListItemAvatar>
+          <ListItemIcon>
+            <StyledImage src={category.thumbnail} alt={category.title} />
+          </ListItemIcon>
         )}
         <ListItemText
           primary={
@@ -60,7 +60,7 @@ const CategoryListItem = ({ category, subCategories }: CategoryListItemProps): R
         <>
           <Divider />
           <Stack paddingInlineStart={7}>
-            <List items={SubCategories} />
+            <List items={SubCategories} disablePadding />
           </Stack>
         </>
       )}

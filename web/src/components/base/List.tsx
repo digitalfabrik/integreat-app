@@ -8,14 +8,18 @@ type ListProps = {
   items: ReactElement[]
   NoItemsMessage?: string | ReactElement
   className?: string
-  isInset?: boolean
+  disablePadding?: boolean
 }
 
-const List = ({ items, NoItemsMessage, className, isInset = false }: ListProps): ReactElement | null => {
+const List = ({ items, NoItemsMessage, className, disablePadding = false }: ListProps): ReactElement | null => {
   if (items.length === 0) {
     return typeof NoItemsMessage === 'string' ? <Failure errorMessage={NoItemsMessage} /> : (NoItemsMessage ?? null)
   }
-  return <MuiList className={className}>{withDividers(items, isInset)}</MuiList>
+  return (
+    <MuiList className={className} disablePadding={disablePadding}>
+      {withDividers(items)}
+    </MuiList>
+  )
 }
 
 export default List
