@@ -2,7 +2,6 @@ import MenuBookIcon from '@mui/icons-material/MenuBook'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import Alert from '@mui/material/Alert'
 import Avatar from '@mui/material/Avatar'
-import DialogContentText from '@mui/material/DialogContentText'
 import IconButton from '@mui/material/IconButton'
 import MuiList from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
@@ -59,9 +58,7 @@ const TtsHelpModal = ({ closeModal }: { closeModal: () => void }): ReactElement 
 
   return (
     <Dialog title={t('voiceUnavailable')} closeModal={closeModal}>
-      <DialogContentText>
-        <Alert severity='warning'>{t('voiceUnavailableMessage')}</Alert>
-      </DialogContentText>
+      <Alert severity='warning'>{t('voiceUnavailableMessage')}</Alert>
       <MuiList>
         {helpItemsData.map(item => (
           <HelpModalItem key={item.title} title={item.title} path={item.path} />
