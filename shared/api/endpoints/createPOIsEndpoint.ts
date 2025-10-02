@@ -42,7 +42,7 @@ export default (baseUrl: string): Endpoint<ParamsType, PoiModel[]> =>
                   email: contact.email,
                   phoneNumber: contact.phone_number,
                   website: contact.website,
-                  mobilePhoneNumber: contact.mobile_phone_number,
+                  mobileNumber: contact.mobile_number,
                 }),
             ),
             temporarilyClosed: poi.temporarily_closed,
