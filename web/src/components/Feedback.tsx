@@ -1,21 +1,19 @@
 import SendIcon from '@mui/icons-material/Send'
-import Alert from '@mui/material/Alert'
 import Button from '@mui/material/Button'
 import FormControl from '@mui/material/FormControl'
 import FormHelperText from '@mui/material/FormHelperText'
-import Snackbar from '@mui/material/Snackbar'
 import Stack from '@mui/material/Stack'
 import TextField from '@mui/material/TextField'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { DEFAULT_ROWS_NUMBER, Rating } from 'shared'
+import { DEFAULT_ROWS_NUMBER, Rating, SendingStatusType } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
 import FeedbackButtons from './FeedbackButtons'
-import { SendingStatusType } from './FeedbackContainer'
 import PrivacyCheckbox from './PrivacyCheckbox'
+import Snackbar, { handleClose } from './base/Snackbar'
 
 const OptionalHint = styled('p')`
   text-align: end;
@@ -75,13 +73,6 @@ const Feedback = ({
     }
   }, [sendingStatus])
 
-  const handleClose = (event?: React.SyntheticEvent | Event, reason?: 'timeout' | 'clickaway' | 'escapeKeyDown') => {
-    if (reason === 'clickaway') {
-      return
-    }
-    setSnackbarOpen(false)
-  }
-
   return (
     <>
       <Stack>
@@ -125,16 +116,18 @@ const Feedback = ({
           <PrivacyCheckbox language={language} checked={privacyPolicyAccepted} setChecked={setPrivacyPolicyAccepted} />
           {showErrors && !privacyPolicyAccepted && <FormHelperText>{t('common:notePrivacyPolicy')}</FormHelperText>}
         </PrivacyFormControl>
-        {sendingStatus === 'failed' && <Alert severity='error'>{t('failedSendingFeedback')}</Alert>}
         <Button onClick={handleSubmit} variant='contained' startIcon={<SendIcon />}>
           {t('send')}
         </Button>
       </Stack>
-      <Snackbar open={snackbarOpen} onClose={handleClose}>
-        <Alert onClose={handleClose} severity={sendingStatus === 'failed' ? 'error' : 'success'} variant='filled'>
-          {sendingStatus === 'failed' ? t('failedSendingFeedback') : t('thanksMessage')}
-        </Alert>
-      </Snackbar>
+      <Snackbar
+        open={snackbarOpen}
+        onClose={handleClose(setSnackbarOpen)}
+        sendingStatus={sendingStatus}
+        autoHideOnSuccess
+        successMessage={t('thanksMessage')}
+        errorMessage={t('failedSendingFeedback')}
+      />
     </>
   )
 }
