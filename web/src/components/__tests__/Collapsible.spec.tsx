@@ -18,7 +18,7 @@ describe('Collapsible', () => {
 
   it('shows no content if initialCollapse is set to true', () => {
     const { queryByText } = renderWithTheme(
-      <Collapsible initialCollapsed title={title}>
+      <Collapsible defaultExpanded title={title}>
         {content}
       </Collapsible>,
     )
@@ -34,7 +34,7 @@ describe('Collapsible', () => {
 
   it('shows content by clicking on the header if initialCollapse is set to true', () => {
     const { getByText, queryByText } = renderWithTheme(
-      <Collapsible initialCollapsed title={title}>
+      <Collapsible defaultExpanded title={title}>
         {content}
       </Collapsible>,
     )
