@@ -1,4 +1,3 @@
-import { css } from '@emotion/react'
 import List from '@mui/material/List'
 import ListItem, { listItemClasses } from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
@@ -10,10 +9,10 @@ import React, { ReactElement } from 'react'
 import SelectorItemModel from '../models/SelectorItemModel'
 import Link from './base/Link'
 
-const selectorItemStyle = () => css`
+const SelectorItemButton = styled(ListItemButton)<{ selected?: boolean; disabled?: boolean }>`
   height: 48px;
-  min-width: 112px;
-  padding: 0 5px;
+  min-width: 104px;
+  padding: 0 20px;
   font-size: 1.2em;
   line-height: 64px;
   white-space: nowrap;
@@ -25,10 +24,6 @@ const selectorItemStyle = () => css`
   display: flex;
   justify-content: center;
   margin: 5px;
-`
-
-const SelectorItemButton = styled(ListItemButton)<{ selected?: boolean; disabled?: boolean }>`
-  ${selectorItemStyle};
   ${props => props.disabled && `color: ${props.theme.legacy.colors.textDisabledColor};`}
 ` as typeof ListItemButton
 
