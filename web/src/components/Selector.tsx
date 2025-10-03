@@ -1,62 +1,45 @@
-import { css } from '@emotion/react'
+import List from '@mui/material/List'
+import ListItem, { listItemClasses } from '@mui/material/ListItem'
+import ListItemButton from '@mui/material/ListItemButton'
 import Tooltip from '@mui/material/Tooltip'
-import { styled, Theme } from '@mui/material/styles'
+import Typography from '@mui/material/Typography'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
 import SelectorItemModel from '../models/SelectorItemModel'
 import Link from './base/Link'
 
-const selectorItemStyle = ({ theme }: { theme: Theme }) => css`
-  height: 64px;
-  min-width: 90px;
-  padding: 0 5px;
+const SelectorItemButton = styled(ListItemButton)<{ selected?: boolean; disabled?: boolean }>`
+  height: 48px;
+  min-width: 104px;
+  padding: 0 20px;
   font-size: 1.2em;
   line-height: 64px;
-  text-align: center;
   white-space: nowrap;
   border-radius: 30px;
   transition:
     background-color 0.2s,
     border-radius 0.2s;
   user-select: none;
+  display: flex;
+  justify-content: center;
+  margin: 5px;
+  ${props => props.disabled && `color: ${props.theme.legacy.colors.textDisabledColor};`}
+` as typeof ListItemButton
 
-  ${theme.breakpoints.down('md')} {
-    width: 100%;
-    flex: 1 1 auto;
-    font-size: 1em;
-  }
-`
-
-const SelectorItem = styled(Link)<{ selected: boolean }>`
-  ${selectorItemStyle};
-  color: ${props => props.theme.legacy.colors.textColor};
-  ${props =>
-    props.selected
-      ? 'font-weight: 700;'
-      : `&:hover {
-          font-weight: 700;
-          border-radius: 0;
-        }`}
-`
-
-const DisabledSelectorItem = styled('div')`
-  ${selectorItemStyle};
-  color: ${props => props.theme.legacy.colors.textDisabledColor};
-`
-
-const BoldSpacer = styled('div')`
-  font-weight: 700;
-  height: 0;
-  overflow: hidden;
-  visibility: hidden;
-`
-
-const Wrapper = styled('div')<{ vertical: boolean }>`
+const StyledList = styled(List)<{ vertical: boolean }>`
   display: flex;
   width: 100%;
   flex-flow: ${props => (props.vertical ? 'column' : 'row wrap')};
   justify-content: space-evenly;
   color: ${props => props.theme.legacy.colors.textColor};
+  padding: 0;
+
+  & .${listItemClasses.root} {
+    width: auto;
+    flex: ${props => (props.vertical ? '1 1 auto' : '0 0 auto')};
+    ${props => !props.vertical && 'display: inline-flex;'}
+  }
 `
 
 type SelectorProps = {
@@ -74,28 +57,28 @@ const Selector = ({
   close,
   disabledItemTooltip,
 }: SelectorProps): ReactElement => (
-  <Wrapper vertical={verticalLayout}>
+  <StyledList vertical={verticalLayout}>
     {items.map(item =>
       item.href ? (
-        <SelectorItem
-          key={item.code}
-          to={item.href}
-          aria-selected={item.code === activeItemCode}
-          onClick={close ?? (() => undefined)}
-          selected={item.code === activeItemCode}>
-          <BoldSpacer>{item.name}</BoldSpacer>
-          {item.name}
-        </SelectorItem>
+        <ListItem key={item.code} disablePadding>
+          <SelectorItemButton
+            component={Link}
+            to={item.href}
+            aria-selected={item.code === activeItemCode}
+            onClick={close ?? (() => undefined)}
+            selected={item.code === activeItemCode}>
+            <Typography variant={item.code === activeItemCode ? 'title2' : 'body1'}>{item.name}</Typography>
+          </SelectorItemButton>
+        </ListItem>
       ) : (
         <Tooltip key={item.code} title={disabledItemTooltip}>
-          <DisabledSelectorItem>
-            <BoldSpacer>{item.name}</BoldSpacer>
-            {item.name}
-          </DisabledSelectorItem>
+          <ListItem disablePadding>
+            <SelectorItemButton disabled>{item.name}</SelectorItemButton>
+          </ListItem>
         </Tooltip>
       ),
     )}
-  </Wrapper>
+  </StyledList>
 )
 
 export default Selector

@@ -74,9 +74,9 @@ describe('PoisPage', () => {
     mockUseLoadFromEndpointWithData(pois)
     const { getAllByText, getByRole } = renderPois()
     fireEvent.click(getByRole('link', { name: poi0.title }))
-    expect(getAllByText('English')[0]).toHaveAttribute('href', poi0.availableLanguages.en)
-    expect(getAllByText('Deutsch')[0]).toHaveAttribute('href', poi0.availableLanguages.de)
+    expect(getAllByText('English')[0]?.closest('a')).toHaveAttribute('href', poi0.availableLanguages.en)
+    expect(getAllByText('Deutsch')[0]?.closest('a')).toHaveAttribute('href', poi0.availableLanguages.de)
     // Pathname is not correctly updated, therefore the pathname does not include the slug
-    expect(getAllByText('اَللُّغَةُ اَلْعَرَبِيَّة')[1]).toHaveAttribute('href', '/augsburg/ar/locations')
+    expect(getAllByText('اَللُّغَةُ اَلْعَرَبِيَّة')[1]?.closest('a')).toHaveAttribute('href', '/augsburg/ar/locations')
   })
 })
