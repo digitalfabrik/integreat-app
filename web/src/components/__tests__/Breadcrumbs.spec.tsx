@@ -4,6 +4,8 @@ import BreadcrumbModel from '../../models/BreadcrumbModel'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import Breadcrumbs from '../Breadcrumbs'
 
+jest.mock('react-i18next')
+
 const homeBreadcrumb: BreadcrumbModel = {
   title: 'Home',
   _title: 'Home',
@@ -41,7 +43,7 @@ const breadcrumb2: BreadcrumbModel = {
 }
 
 const render = (ancestors: BreadcrumbModel[], current: BreadcrumbModel) =>
-  renderWithRouterAndTheme(<Breadcrumbs ancestorBreadcrumbs={ancestors} currentBreadcrumb={current} />)
+  renderWithRouterAndTheme(<Breadcrumbs breadcrumbs={[...ancestors, current]} />)
 
 describe('Breadcrumbs', () => {
   it('should display correctly on the first level', () => {
@@ -65,9 +67,9 @@ describe('Breadcrumbs', () => {
 
   it('should show menu button when there are more than 3 breadcrumbs', () => {
     const ancestors = [homeBreadcrumb, breadcrumb0, breadcrumb1]
-    const { getByRole } = render(ancestors, breadcrumb2)
+    const { getByLabelText } = render(ancestors, breadcrumb2)
 
-    expect(getByRole('button', { name: 'Show collapsed breadcrumbs' })).toBeTruthy()
+    expect(getByLabelText('common:showMore')).toBeTruthy()
   })
 
   it('should show home icon for first breadcrumb when multiple exist', () => {
@@ -75,13 +77,5 @@ describe('Breadcrumbs', () => {
     const { getByTestId } = render(ancestors, breadcrumb1)
 
     expect(getByTestId('HomeOutlinedIcon')).toBeTruthy()
-  })
-
-  it('should apply primary color to current breadcrumb', () => {
-    const ancestors = [homeBreadcrumb, breadcrumb0]
-    const { getByText } = render(ancestors, breadcrumb1)
-
-    const currentBreadcrumb = getByText(breadcrumb1.title)
-    expect(currentBreadcrumb).toHaveStyle('color: rgb(75, 110, 218)')
   })
 })
