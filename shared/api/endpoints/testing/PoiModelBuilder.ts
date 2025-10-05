@@ -54,7 +54,7 @@ const pois = [
         website: 'https://example.com',
         phoneNumber: '012345',
         email: 'test@example.com',
-        mobilePhoneNumber: '017012345678',
+        mobileNumber: '017012345678',
       }),
     ],
     organization: new OrganizationModel({
