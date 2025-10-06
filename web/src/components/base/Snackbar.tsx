@@ -11,14 +11,13 @@ import { Link } from 'react-router-dom'
 
 import { ExtendedSendingStatusType, SNACKBAR_AUTO_HIDE_DURATION } from 'shared'
 
-const StyledMuiSnackbar = styled(MUISnackbar)(({ theme }) => ({
-  [theme.breakpoints.down('md')]: {
-    marginBottom: 40,
-  },
-  [theme.breakpoints.up('md')]: {
-    marginBottom: 46,
-  },
-}))
+const StyledMuiSnackbar = styled(MUISnackbar)`
+  position: fixed;
+  bottom: ${props =>
+    props.theme.dimensions.bottomNavigationHeight ?? props.theme.dimensions.visibleFooterHeight}px !important;
+  inset-inline-end: 16px;
+  margin-bottom: 16px;
+`
 
 const StyledAlert = styled(Alert)`
   display: flex;
