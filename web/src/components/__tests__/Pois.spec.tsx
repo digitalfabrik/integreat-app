@@ -38,7 +38,7 @@ describe('Pois', () => {
     }
     const pathname = pathnameFromRouteInformation(routeInformation)
     const query = queryStringFromRouteInformation(routeInformation)
-    return renderRoute(<Pois pois={pois} userLocation={null} city={city} languageCode='de' />, {
+    return renderRoute(<Pois pois={pois} userLocation={null} city={city} />, {
       routePattern: `/:cityCode/:languageCode/${RoutePatterns[POIS_ROUTE]}`,
       childPattern: ':slug',
       pathname,

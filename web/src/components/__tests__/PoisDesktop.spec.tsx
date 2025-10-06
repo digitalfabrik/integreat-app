@@ -3,7 +3,7 @@ import React from 'react'
 import { useSearchParams } from 'react-router'
 
 import { LocationType, MapFeature, MapViewViewport, prepareMapFeature, prepareMapFeatures } from 'shared'
-import { CityModelBuilder, PoiModel, PoiModelBuilder } from 'shared/api'
+import { PoiModel, PoiModelBuilder } from 'shared/api'
 
 import { renderWithRouterAndTheme } from '../../testing/render'
 import PoisDesktop from '../PoisDesktop'
@@ -18,7 +18,6 @@ jest.mock('react-router', () => ({
 }))
 
 describe('PoisDesktop', () => {
-  const cityModel = new CityModelBuilder(1).build()[0]!
   const pois = new PoiModelBuilder(3).build()
   const poiCategories = pois.map(it => it.category)
   const userLocation: LocationType = [10.994217, 48.415402]
@@ -35,8 +34,6 @@ describe('PoisDesktop', () => {
         selectPoi={selectPoi}
         deselect={deselect}
         userLocation={userLocation}
-        cityModel={cityModel}
-        languageCode='de'
         slug={poi?.slug}
         mapViewport={{} as MapViewViewport}
         setMapViewport={jest.fn()}
