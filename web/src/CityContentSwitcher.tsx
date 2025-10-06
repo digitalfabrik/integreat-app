@@ -15,7 +15,7 @@ import { CityModel, NotFoundError, useLoadFromEndpoint, createCityEndpoint } fro
 
 import CityContentLayout from './components/CityContentLayout'
 import FailureSwitcher from './components/FailureSwitcher'
-import GeneralFooter from './components/GeneralFooter'
+import Footer from './components/Footer'
 import GeneralHeader from './components/GeneralHeader'
 import LanguageFailure from './components/LanguageFailure'
 import Layout from './components/Layout'
@@ -56,7 +56,7 @@ const CityContentSwitcher = ({ languageCode }: CityContentSwitcherProps): ReactE
     const notFoundError = new NotFoundError({ type: 'city', id: cityCode, city: cityCode, language: languageCode })
 
     return (
-      <Layout header={<GeneralHeader languageCode={languageCode} />} footer={<GeneralFooter language={languageCode} />}>
+      <Layout header={<GeneralHeader languageCode={languageCode} />} footer={<Footer />}>
         <FailureSwitcher error={error ?? notFoundError} />
       </Layout>
     )
@@ -65,9 +65,7 @@ const CityContentSwitcher = ({ languageCode }: CityContentSwitcherProps): ReactE
   const language = city?.languages.find(it => it.code === languageCode) ?? null
   if (city && !language) {
     return (
-      <Layout
-        header={<GeneralHeader languageCode={languageCode} cityLanguages={city.languages} />}
-        footer={<GeneralFooter language={languageCode} />}>
+      <Layout header={<GeneralHeader languageCode={languageCode} cityLanguages={city.languages} />} footer={<Footer />}>
         <LanguageFailure
           cityModel={city}
           languageCode={languageCode}

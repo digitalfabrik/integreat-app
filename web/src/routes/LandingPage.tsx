@@ -6,7 +6,7 @@ import { createCitiesEndpoint, useLoadFromEndpoint } from 'shared/api'
 import CityNotCooperatingFooter from '../components/CityNotCooperatingFooter'
 import CitySelector from '../components/CitySelector'
 import FailureSwitcher from '../components/FailureSwitcher'
-import GeneralFooter from '../components/GeneralFooter'
+import Footer from '../components/Footer'
 import GeneralHeader from '../components/GeneralHeader'
 import Helmet from '../components/Helmet'
 import Layout from '../components/Layout'
@@ -36,7 +36,7 @@ const LandingPage = ({ languageCode }: LandingPageProps): ReactElement => {
 
   if (error || !cities) {
     return (
-      <Layout header={<GeneralHeader languageCode={languageCode} />} footer={<GeneralFooter language={languageCode} />}>
+      <Layout header={<GeneralHeader languageCode={languageCode} />} footer={<Footer />}>
         <FailureSwitcher error={error ?? new Error('Uknown error')} />
       </Layout>
     )
@@ -48,7 +48,7 @@ const LandingPage = ({ languageCode }: LandingPageProps): ReactElement => {
       footer={
         <>
           {buildConfig().featureFlags.cityNotCooperating && <CityNotCooperatingFooter languageCode={languageCode} />}
-          <GeneralFooter language={languageCode} />
+          <Footer />
         </>
       }>
       <Helmet pageTitle={pageTitle} metaDescription={metaDescription} rootPage />
