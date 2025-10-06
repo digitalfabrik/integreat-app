@@ -1,3 +1,6 @@
+import ListItem from '@mui/material/ListItem'
+import Stack from '@mui/material/Stack'
+import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -6,33 +9,9 @@ import { OpeningHoursModel } from 'shared/api'
 
 import AppointmentOnlyIcon from './AppointmentOnlyIcon'
 
-const fontBold = 600
-const fontStandard = 400
-
-const EntryContainer = styled('div')<{ isCurrentDay: boolean }>`
-  display: flex;
-  justify-content: space-between;
-  padding: 4px 0;
-  font-weight: ${props => (props.isCurrentDay ? fontBold : fontStandard)};
-  position: relative;
-`
-
-const Timeslot = styled('div')`
-  display: flex;
-  flex-direction: column;
-`
-
-const OpeningContainer = styled('div')`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-`
-
-const TimeSlotEntry = styled('span')`
-  &:not(:first-of-type) {
-    margin-top: 8px;
-  }
-`
+const StyledListItem = styled(ListItem)({
+  justifyContent: 'space-between',
+})
 
 type OpeningEntryProps = {
   openingHours: OpeningHoursModel
@@ -43,25 +22,26 @@ type OpeningEntryProps = {
 
 const OpeningEntry = ({ openingHours, weekday, isCurrentDay, appointmentUrl }: OpeningEntryProps): ReactElement => {
   const { t } = useTranslation('pois')
+  const fontWeight = isCurrentDay ? 'bold' : 'normal'
 
   return (
-    <EntryContainer isCurrentDay={isCurrentDay} id={`openingEntryContainer-${weekday}`}>
-      <span>{weekday}</span>
-      <OpeningContainer>
-        {openingHours.allDay && <span>{t('allDay')}</span>}
-        {openingHours.closed && <span>{t('closed')}</span>}
+    <StyledListItem disablePadding>
+      <Typography fontWeight={fontWeight}>{weekday}</Typography>
+      <Stack direction='row' alignItems='center' gap={1}>
+        {openingHours.allDay && <Typography fontWeight={fontWeight}>{t('allDay')}</Typography>}
+        {openingHours.closed && <Typography fontWeight={fontWeight}>{t('closed')}</Typography>}
         {!openingHours.allDay && !openingHours.closed && openingHours.timeSlots.length > 0 && (
-          <Timeslot>
+          <Stack>
             {openingHours.timeSlots.map(timeSlot => (
-              <TimeSlotEntry key={`${weekday}-${timeSlot.start}`}>
+              <Typography fontWeight={fontWeight} key={`${weekday}-${timeSlot.start}`}>
                 {timeSlot.start}-{timeSlot.end}
-              </TimeSlotEntry>
+              </Typography>
             ))}
-          </Timeslot>
+          </Stack>
         )}
         {openingHours.appointmentOnly && <AppointmentOnlyIcon appointmentUrl={appointmentUrl} />}
-      </OpeningContainer>
-    </EntryContainer>
+      </Stack>
+    </StyledListItem>
   )
 }
 

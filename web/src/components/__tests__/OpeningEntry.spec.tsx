@@ -48,9 +48,9 @@ describe('OpeningEntry', () => {
 
   it('should highlight the timeslot of the current weekday bold', () => {
     const { getByText } = renderOpeningEntries(false, false, true, false)
-    const currentDayContainer = document.getElementById(`openingEntryContainer-${currentWeekday}`)
+    const currentDayContainer = getByText(currentWeekday)
     const containerStyle = window.getComputedStyle(currentDayContainer!)
     expect(getByText(`${timeSlots[0]!.start}-${timeSlots[0]!.end}`)).toBeTruthy()
-    expect(containerStyle.fontWeight).toBe('600')
+    expect(containerStyle.fontWeight).toBe('700')
   })
 })
