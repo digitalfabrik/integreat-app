@@ -27,7 +27,7 @@ const Breadcrumb = ({ title, to }: BreadcrumbProps): ReactElement => {
   const current = to === normalizePath(useLocation().pathname)
 
   if (current) {
-    return <StyledTypography>{title} </StyledTypography>
+    return <StyledTypography aria-current='page'>{title} </StyledTypography>
   }
 
   return (
