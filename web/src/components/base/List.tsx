@@ -7,11 +7,11 @@ import Failure from '../Failure'
 type ListProps = {
   items: ReactElement[]
   NoItemsMessage?: string | ReactElement
-  className?: string
   disablePadding?: boolean
+  className?: string
 }
 
-const List = ({ items, NoItemsMessage, className, disablePadding = false }: ListProps): ReactElement | null => {
+const List = ({ items, NoItemsMessage, disablePadding, className }: ListProps): ReactElement | null => {
   if (items.length === 0) {
     return typeof NoItemsMessage === 'string' ? <Failure errorMessage={NoItemsMessage} /> : (NoItemsMessage ?? null)
   }
