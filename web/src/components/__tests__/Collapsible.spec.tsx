@@ -1,4 +1,4 @@
-import { fireEvent } from '@testing-library/react'
+import { fireEvent, waitFor } from '@testing-library/react'
 import React from 'react'
 
 import { renderWithTheme } from '../../testing/render'
@@ -16,30 +16,30 @@ describe('Collapsible', () => {
     expect(getByText(content)).toBeTruthy()
   })
 
-  it('shows no content if initialCollapse is set to true', () => {
-    const { queryByText } = renderWithTheme(
-      <Collapsible initialCollapsed title={title}>
+  it('shows no content if default collapse is set to true', () => {
+    const { getByText } = renderWithTheme(
+      <Collapsible title={title} defaultCollapsed>
         {content}
       </Collapsible>,
     )
-    expect(queryByText(content)).toBeNull()
+    expect(getByText(content)).not.toBeVisible()
   })
 
-  it('hides content by clicking on the header', () => {
-    const { getByText, queryByText } = renderWithTheme(<Collapsible title={title}>{content}</Collapsible>)
-    expect(getByText(content)).toBeTruthy()
+  it('hides content by clicking on the header', async () => {
+    const { getByText } = renderWithTheme(<Collapsible title={title}>{content}</Collapsible>)
+    expect(getByText(content)).toBeVisible()
     fireEvent.click(getByText(title))
-    expect(queryByText(content)).toBeNull()
+    await waitFor(() => expect(getByText(content)).not.toBeVisible())
   })
 
-  it('shows content by clicking on the header if initialCollapse is set to true', () => {
-    const { getByText, queryByText } = renderWithTheme(
-      <Collapsible initialCollapsed title={title}>
+  it('shows content by clicking on the header if initialCollapse is set to true', async () => {
+    const { getByText } = renderWithTheme(
+      <Collapsible defaultCollapsed title={title}>
         {content}
       </Collapsible>,
     )
-    expect(queryByText(content)).toBeNull()
+    expect(getByText(content)).not.toBeVisible()
     fireEvent.click(getByText(title))
-    expect(getByText(content)).toBeTruthy()
+    await waitFor(() => expect(getByText(content)).toBeVisible())
   })
 })

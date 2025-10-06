@@ -43,7 +43,7 @@ const DatesPageDetail = ({ date, languageCode }: DatesPageDetailProps): ReactEle
   }
 
   return (
-    <Collapsible title={Title} Description={AlwaysShownDates} initialCollapsed>
+    <Collapsible title={Title} description={AlwaysShownDates} defaultCollapsed>
       <>
         {Dates.slice(MAX_DATE_RECURRENCES_COLLAPSED)}
         {hasMoreDates && '...'}
