@@ -1,32 +1,32 @@
 import { fireEvent, waitFor } from '@testing-library/react'
 import React from 'react'
 
-import { renderWithTheme } from '../../testing/render'
-import Collapsible from '../Collapsible'
+import { renderWithTheme } from '../../../testing/render'
+import Accordion from '../Accordion'
 
 jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
 
-describe('Collapsible', () => {
+describe('Accordion', () => {
   const content = 'Some Content'
   const title = 'TestTitle'
 
   it('shows content by default', () => {
-    const { getByText } = renderWithTheme(<Collapsible title={title}>{content}</Collapsible>)
+    const { getByText } = renderWithTheme(<Accordion title={title}>{content}</Accordion>)
     expect(getByText(content)).toBeTruthy()
   })
 
   it('shows no content if default collapse is set to true', () => {
     const { getByText } = renderWithTheme(
-      <Collapsible title={title} defaultCollapsed>
+      <Accordion title={title} defaultCollapsed>
         {content}
-      </Collapsible>,
+      </Accordion>,
     )
     expect(getByText(content)).not.toBeVisible()
   })
 
   it('hides content by clicking on the header', async () => {
-    const { getByText } = renderWithTheme(<Collapsible title={title}>{content}</Collapsible>)
+    const { getByText } = renderWithTheme(<Accordion title={title}>{content}</Accordion>)
     expect(getByText(content)).toBeVisible()
     fireEvent.click(getByText(title))
     await waitFor(() => expect(getByText(content)).not.toBeVisible())
@@ -34,9 +34,9 @@ describe('Collapsible', () => {
 
   it('shows content by clicking on the header if initialCollapse is set to true', async () => {
     const { getByText } = renderWithTheme(
-      <Collapsible defaultCollapsed title={title}>
+      <Accordion defaultCollapsed title={title}>
         {content}
-      </Collapsible>,
+      </Accordion>,
     )
     expect(getByText(content)).not.toBeVisible()
     fireEvent.click(getByText(title))
