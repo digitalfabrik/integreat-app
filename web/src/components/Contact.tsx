@@ -2,67 +2,38 @@ import MailOutlinedIcon from '@mui/icons-material/MailOutlined'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined'
 import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'
-import Divider from '@mui/material/Divider'
-import { styled } from '@mui/material/styles'
+import ListItem from '@mui/material/ListItem'
+import Stack from '@mui/material/Stack'
+import Typography from '@mui/material/Typography'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ContactModel } from 'shared/api'
 
-import { helpers } from '../constants/theme'
 import ContactItem from './ContactItem'
 
-const StyledContactHeader = styled('div')`
-  margin-bottom: 6px;
-  ${helpers.adaptiveFontSize};
-`
-
-const StyledDivider = styled(Divider)`
-  margin: 12px 0;
-`
-
-const Contact = ({
-  contact: { headline, website, phoneNumber, email, mobilePhoneNumber },
-  isLastContact,
-}: {
+type ContactProps = {
   contact: ContactModel
-  isLastContact?: boolean
-}): ReactElement => {
+}
+
+const Contact = ({ contact }: ContactProps): ReactElement => {
+  const { headline, website, phoneNumber, email, mobilePhoneNumber } = contact
   const { t } = useTranslation('pois')
 
   return (
-    <>
-      <StyledContactHeader>{headline ?? t('contactInformation')}</StyledContactHeader>
-      {!!website && (
-        <ContactItem
-          iconSource={PublicOutlinedIcon}
-          iconAlt={t('website')}
-          link={website}
-          content={t('website')}
-          sourceIconEnd={OpenInNewIcon}
-        />
-      )}
-      {!!phoneNumber && (
-        <ContactItem
-          iconSource={PhoneOutlinedIcon}
-          iconAlt={t('phone')}
-          link={`tel:${phoneNumber}`}
-          content={phoneNumber}
-        />
-      )}
-      {!!mobilePhoneNumber && (
-        <ContactItem
-          iconSource={PhoneOutlinedIcon}
-          iconAlt={t('mobilePhone')}
-          link={`tel:${mobilePhoneNumber}`}
-          content={mobilePhoneNumber}
-        />
-      )}
-      {!!email && (
-        <ContactItem iconSource={MailOutlinedIcon} iconAlt={t('eMail')} link={`mailto:${email}`} content={email} />
-      )}
-      {!isLastContact && <StyledDivider />}
-    </>
+    <ListItem disablePadding>
+      <Stack gap={1}>
+        <Typography variant='title3'>{headline ?? t('contactInformation')}</Typography>
+        {!!website && (
+          <ContactItem Icon={PublicOutlinedIcon} link={website} content={t('website')} IconEnd={OpenInNewIcon} />
+        )}
+        {!!phoneNumber && <ContactItem Icon={PhoneOutlinedIcon} link={`tel:${phoneNumber}`} content={phoneNumber} />}
+        {!!mobilePhoneNumber && (
+          <ContactItem Icon={PhoneOutlinedIcon} link={`tel:${mobilePhoneNumber}`} content={mobilePhoneNumber} />
+        )}
+        {!!email && <ContactItem Icon={MailOutlinedIcon} link={`mailto:${email}`} content={email} />}
+      </Stack>
+    </ListItem>
   )
 }
 
