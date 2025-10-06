@@ -1,5 +1,6 @@
 import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined'
 import Tooltip from '@mui/material/Tooltip'
+import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
@@ -33,17 +34,8 @@ const TooltipContent = styled('span')`
   }
 `
 
-const TooltipTitle = styled('div')`
-  font-weight: 700;
-  margin-bottom: 8px;
-
-  ${props => props.theme.breakpoints.down('md')} {
-    font-size: 14px;
-  }
-`
-
 const StyledLink = styled(Link)`
-  color: ${props => props.theme.palette.text.primary};
+  color: ${props => props.theme.palette.primary.main};
 `
 
 type AppointmentOnlyIconProps = {
@@ -58,7 +50,9 @@ const AppointmentOnlyIcon = ({ appointmentUrl }: AppointmentOnlyIconProps): Reac
       <Tooltip
         title={
           <>
-            <TooltipTitle>{t('appointmentNecessary')}</TooltipTitle>
+            <Typography variant='label1' component='div'>
+              {t('appointmentNecessary')}
+            </Typography>
             <TooltipContent>
               <Trans i18nKey='pois:makeAppointmentTooltipWithLink'>
                 This gets replaced

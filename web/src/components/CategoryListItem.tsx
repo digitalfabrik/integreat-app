@@ -1,4 +1,5 @@
 import Divider from '@mui/material/Divider'
+import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
@@ -27,14 +28,10 @@ const CategoryThumbnail = styled('img')`
   filter: ${props => (props.theme.isContrastTheme ? 'invert(1)' : 'none')};
 `
 
-const CategoryItemCaption = styled('span')`
+const CategoryItemCaption = styled(Typography)`
   align-items: center;
   padding: 15px 5px;
-  color: inherit;
-  font-size: ${props => props.theme.legacy.fonts.contentFontSize};
-  font-weight: bold;
-  text-decoration: inherit;
-  height: 100%;
+  font-size: 0.95rem;
   min-width: 1px; /* needed to enable line breaks for too long words, exact value doesn't matter */
   flex-grow: 1;
   word-wrap: break-word;
@@ -69,7 +66,7 @@ const CategoryListItem = ({ category, subCategories }: CategoryListItemProps): R
     <SubCategory key={subCategory.path} dir='auto'>
       <StyledLink to={subCategory.path}>
         {!!subCategory.thumbnail && <CategoryThumbnail alt='' src={subCategory.thumbnail} />}
-        <SubCategoryCaption>{subCategory.title}</SubCategoryCaption>
+        <SubCategoryCaption variant='h3'>{subCategory.title}</SubCategoryCaption>
       </StyledLink>
       <Divider />
     </SubCategory>
@@ -79,7 +76,7 @@ const CategoryListItem = ({ category, subCategories }: CategoryListItemProps): R
     <Row>
       <StyledLink dir='auto' to={category.path}>
         {!!category.thumbnail && <CategoryThumbnail alt='' src={category.thumbnail} />}
-        <CategoryItemCaption>{category.title}</CategoryItemCaption>
+        <CategoryItemCaption variant='h2'>{category.title}</CategoryItemCaption>
       </StyledLink>
       <Divider />
       <SubCategoriesContainer>{SubCategories}</SubCategoriesContainer>

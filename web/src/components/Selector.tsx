@@ -1,5 +1,6 @@
 import { css } from '@emotion/react'
 import Tooltip from '@mui/material/Tooltip'
+import Typography, { TypographyProps } from '@mui/material/Typography'
 import { styled, Theme } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
@@ -29,7 +30,7 @@ const selectorItemStyle = ({ theme }: { theme: Theme }) => css`
 
 const SelectorItem = styled(Link)<{ selected: boolean }>`
   ${selectorItemStyle};
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.palette.text.primary};
   ${props =>
     props.selected
       ? 'font-weight: 700;'
@@ -41,7 +42,7 @@ const SelectorItem = styled(Link)<{ selected: boolean }>`
 
 const DisabledSelectorItem = styled('div')`
   ${selectorItemStyle};
-  color: ${props => props.theme.legacy.colors.textDisabledColor};
+  color: ${props => props.theme.palette.text.disabled};
 `
 
 const BoldSpacer = styled('div')`
@@ -51,12 +52,12 @@ const BoldSpacer = styled('div')`
   visibility: hidden;
 `
 
-const Wrapper = styled('div')<{ vertical: boolean }>`
+const Wrapper = styled(Typography)<TypographyProps & { vertical: boolean }>`
   display: flex;
   width: 100%;
   flex-flow: ${props => (props.vertical ? 'column' : 'row wrap')};
   justify-content: space-evenly;
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.palette.text.primary};
 `
 
 type SelectorProps = {
@@ -74,7 +75,7 @@ const Selector = ({
   close,
   disabledItemTooltip,
 }: SelectorProps): ReactElement => (
-  <Wrapper vertical={verticalLayout}>
+  <Wrapper vertical={verticalLayout} component='div' variant='title2'>
     {items.map(item =>
       item.href ? (
         <SelectorItem

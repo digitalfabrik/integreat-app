@@ -1,3 +1,4 @@
+import Typography, { TypographyProps } from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -9,8 +10,8 @@ import useDimensions from '../hooks/useDimensions'
 import Collapsible from './Collapsible'
 import PageDetail from './PageDetail'
 
-const Identifier = styled('span')`
-  font-weight: bold;
+const StyledTypography = styled(Typography)<TypographyProps>`
+  color: ${props => props.theme.palette.text.secondary};
 `
 
 type DatesPageDetailProps = {
@@ -29,8 +30,16 @@ const DatesPageDetail = ({ date, languageCode }: DatesPageDetailProps): ReactEle
     return <PageDetail identifier={t('date_one')} information={nextDate} />
   }
 
-  const Title = <Identifier>{t(hasMoreDates ? 'nextDate_other' : 'date_other')}: </Identifier>
-  const Dates = dates.map(it => <div key={it}>{it}</div>)
+  const Title = (
+    <StyledTypography component='span' variant='label1'>
+      {t(hasMoreDates ? 'nextDate_other' : 'date_other')}:{' '}
+    </StyledTypography>
+  )
+  const Dates = dates.map(it => (
+    <StyledTypography variant='label1' component='div' key={it}>
+      {it}
+    </StyledTypography>
+  ))
   const AlwaysShownDates = <>{Dates.slice(0, MAX_DATE_RECURRENCES_COLLAPSED)}</>
 
   if (dates.length <= MAX_DATE_RECURRENCES_COLLAPSED) {
