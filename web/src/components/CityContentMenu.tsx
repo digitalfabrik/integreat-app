@@ -40,7 +40,7 @@ const CityContentMenu = ({ slug, category, pageTitle }: CityContentMenuProps): R
   const [feedbackSubmitted, setFeedbackSubmitted] = useState(false)
 
   const items = [
-    route === CATEGORIES_ROUTE && (
+    route === CATEGORIES_ROUTE ? (
       <PdfMenuItem
         key='pdf'
         category={category}
@@ -48,8 +48,8 @@ const CityContentMenu = ({ slug, category, pageTitle }: CityContentMenuProps): R
         languageCode={languageCode}
         closeMenu={ref.current?.closeMenu}
       />
-    ),
-    dimensions.mobile && route !== NEWS_ROUTE && (
+    ) : null,
+    dimensions.mobile && route !== NEWS_ROUTE ? (
       <MenuItem
         key='feedback'
         text={t('feedback')}
@@ -57,9 +57,9 @@ const CityContentMenu = ({ slug, category, pageTitle }: CityContentMenuProps): R
         onClick={() => setFeedbackOpen(true)}
         closeMenu={ref.current?.closeMenu}
       />
-    ),
+    ) : null,
     <MenuItem key='theme' text={t('contrastTheme')} icon={<ContrastIcon fontSize='small' />} onClick={toggleTheme} />,
-    ttsEnabled && (
+    ttsEnabled ? (
       <MenuItem
         key='tts'
         icon={<StyledLegacyIcon src={ReadAloudIcon} />}
@@ -69,8 +69,8 @@ const CityContentMenu = ({ slug, category, pageTitle }: CityContentMenuProps): R
         onClick={showTtsPlayer}
         closeMenu={ref.current?.closeMenu}
       />
-    ),
-  ].filter((it): it is ReactElement => Boolean(it))
+    ) : null,
+  ]
 
   return (
     <>
