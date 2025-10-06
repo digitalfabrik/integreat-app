@@ -55,7 +55,6 @@ describe('PoisDesktop', () => {
     expect(queryByText(singlePoi.content)).toBeTruthy()
     expect(queryByLabelText('common:backToOverview')).toBeTruthy()
     expect(queryByText('common:nearby')).toBeNull()
-    expect(queryByLabelText('Toolbar')).toBeNull()
     expect(queryByLabelText('pois:previousPoi')).toBeTruthy()
     expect(queryByLabelText('pois:nextPoi')).toBeTruthy()
   })
@@ -71,7 +70,7 @@ describe('PoisDesktop', () => {
     })
   })
 
-  it('should render poiList & toolbar components if no poi is provided', () => {
+  it('should render poi list if no poi is provided', () => {
     mocked(useSearchParams).mockReturnValue([new URLSearchParams([]), jest.fn()])
     const { queryByLabelText, queryByText } = renderPoisDesktop()
 
