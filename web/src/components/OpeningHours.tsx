@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next'
 import { weekdays } from 'shared'
 import { OpeningHoursModel } from 'shared/api'
 
-import OpeningEntry from './OpeningEntry'
+import OpeningHoursListItem from './OpeningHoursListItem'
 import Accordion from './base/Accordion'
 import Link from './base/Link'
 
@@ -79,7 +79,7 @@ const OpeningHours = ({
       <Accordion title={<OpeningHoursTitle isCurrentlyOpen={isCurrentlyOpen} />} defaultCollapsed={!isCurrentlyOpen}>
         <StyledList disablePadding>
           {openingHours.map((openingHours, index) => (
-            <OpeningEntry
+            <OpeningHoursListItem
               key={weekdays[index]}
               // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
               weekday={t(weekdays[index]!.toLowerCase())}

@@ -13,14 +13,19 @@ const StyledListItem = styled(ListItem)({
   justifyContent: 'space-between',
 })
 
-type OpeningEntryProps = {
+type OpeningHoursListItemProps = {
   openingHours: OpeningHoursModel
   weekday: string
   isCurrentDay: boolean
   appointmentUrl: string | null
 }
 
-const OpeningEntry = ({ openingHours, weekday, isCurrentDay, appointmentUrl }: OpeningEntryProps): ReactElement => {
+const OpeningHoursListItem = ({
+  openingHours,
+  weekday,
+  isCurrentDay,
+  appointmentUrl,
+}: OpeningHoursListItemProps): ReactElement => {
   const { t } = useTranslation('pois')
   const fontWeight = isCurrentDay ? 'bold' : 'normal'
 
@@ -45,4 +50,4 @@ const OpeningEntry = ({ openingHours, weekday, isCurrentDay, appointmentUrl }: O
   )
 }
 
-export default OpeningEntry
+export default OpeningHoursListItem
