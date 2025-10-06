@@ -37,11 +37,15 @@ const StyledAccordionDetails = styled(AccordionDetails)({
 type MenuAccordionProps = {
   title: string
   items: ReactElement[]
+  expanded: boolean
+  setExpanded: (expanded: boolean) => void
   icon?: ReactElement
 }
 
-const MenuAccordion = ({ title, items, icon }: MenuAccordionProps): ReactElement => (
+const MenuAccordion = ({ title, items, setExpanded, expanded, icon }: MenuAccordionProps): ReactElement => (
   <StyledAccordion
+    onChange={(_, isExpanded) => setExpanded(isExpanded)}
+    expanded={expanded}
     elevation={0}
     defaultExpanded={false}
     disableGutters

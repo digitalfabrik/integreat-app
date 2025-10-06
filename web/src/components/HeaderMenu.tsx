@@ -38,6 +38,7 @@ type HeaderMenuProps = {
 
 const HeaderMenu = ({ children, pageTitle, ref }: HeaderMenuProps): ReactElement => {
   const [menuAnchorElement, setMenuAnchorElement] = React.useState<HTMLElement | null>(null)
+  const [expandedAccordion, setExpandedAccordion] = React.useState<'share' | 'legal' | null>(null)
   const { cityCode, languageCode } = useRouteParams()
   const { mobile } = useDimensions()
   const { t } = useTranslation('layout')
@@ -97,8 +98,21 @@ const HeaderMenu = ({ children, pageTitle, ref }: HeaderMenuProps): ReactElement
       <StyledMenu anchorEl={menuAnchorElement} open={open} onClose={closeMenu}>
         {withDividers([
           ...items,
-          <MenuAccordion key='share' title={t('share')} items={sharingItems} icon={<ShareIcon fontSize='small' />} />,
-          <MenuAccordion key='legal' title={t('legal')} items={legalItems} />,
+          <MenuAccordion
+            key='share'
+            title={t('share')}
+            items={sharingItems}
+            icon={<ShareIcon fontSize='small' />}
+            expanded={expandedAccordion === 'share'}
+            setExpanded={expanded => setExpandedAccordion(expanded ? 'share' : null)}
+          />,
+          <MenuAccordion
+            key='legal'
+            title={t('legal')}
+            items={legalItems}
+            expanded={expandedAccordion === 'legal'}
+            setExpanded={expanded => setExpandedAccordion(expanded ? 'legal' : null)}
+          />,
         ])}
       </StyledMenu>
     </>
