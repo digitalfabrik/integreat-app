@@ -1,3 +1,4 @@
+import Typography, { TypographyProps } from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -9,10 +10,11 @@ import AppointmentOnlyIcon from './AppointmentOnlyIcon'
 const fontBold = 600
 const fontStandard = 400
 
-const EntryContainer = styled('div')<{ isCurrentDay: boolean }>`
+const EntryContainer = styled(Typography)<TypographyProps & { isCurrentDay: boolean }>`
   display: flex;
   justify-content: space-between;
   padding: 4px 0;
+  color: ${props => props.theme.palette.text.neutral};
   font-weight: ${props => (props.isCurrentDay ? fontBold : fontStandard)};
   position: relative;
 `
@@ -45,7 +47,7 @@ const OpeningEntry = ({ openingHours, weekday, isCurrentDay, appointmentUrl }: O
   const { t } = useTranslation('pois')
 
   return (
-    <EntryContainer isCurrentDay={isCurrentDay} id={`openingEntryContainer-${weekday}`}>
+    <EntryContainer component='div' variant='body2' isCurrentDay={isCurrentDay} id={`openingEntryContainer-${weekday}`}>
       <span>{weekday}</span>
       <OpeningContainer>
         {openingHours.allDay && <span>{t('allDay')}</span>}

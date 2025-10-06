@@ -55,6 +55,9 @@ declare module '@mui/material/styles' {
   interface PaletteOptions {
     tertiary: PaletteColor
   }
+  interface TypeText {
+    neutral: string
+  }
 }
 
 declare module '@mui/material/Button' {

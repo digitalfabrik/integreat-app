@@ -1,4 +1,5 @@
 import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -19,17 +20,7 @@ const CenteredContainer = styled('div')`
   text-align: center;
 `
 
-const SmallTitle = styled('p')`
-  font-weight: 600;
-`
-
-const Hint = styled('p')`
-  padding-bottom: 16px;
-`
-
 type SearchFeedbackProps = {
-  cityCode: string
-  languageCode: string
   query: string
   noResults: boolean
 }
@@ -60,11 +51,13 @@ const SearchFeedback = ({ cityCode, languageCode, query, noResults }: SearchFeed
 
     return (
       <CenteredContainer>
-        <SmallTitle>
+        <Typography variant='title2'>
           {languageCode === fallbackLanguage ? t('noResultsInUserLanguage') : t('noResultsInUserAndSourceLanguage')}
-        </SmallTitle>
-        <Hint>{t('checkQuery', { appName: buildConfig().appName })}</Hint>
-        <SmallTitle>{t('informationMissing')}</SmallTitle>
+        </Typography>
+        <Typography variant='body1'>{t('checkQuery', { appName: buildConfig().appName })}</Typography>
+        <Typography variant='title2' component='p'>
+          {t('informationMissing')}
+        </Typography>
         <Button onClick={() => setShowFeedback(true)} variant='outlined'>
           {t('giveFeedback')}
         </Button>
