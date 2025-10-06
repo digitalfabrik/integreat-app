@@ -3,6 +3,7 @@ import Alert from '@mui/material/Alert'
 import Button from '@mui/material/Button'
 import FormControl from '@mui/material/FormControl'
 import FormHelperText from '@mui/material/FormHelperText'
+import Stack from '@mui/material/Stack'
 import TextField from '@mui/material/TextField'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
@@ -14,25 +15,6 @@ import buildConfig from '../constants/buildConfig'
 import FeedbackButtons from './FeedbackButtons'
 import { SendingStatusType } from './FeedbackContainer'
 import PrivacyCheckbox from './PrivacyCheckbox'
-
-export const Container = styled('div')<{ fullWidth?: boolean }>`
-  display: flex;
-  flex: 1;
-  max-height: 80vh;
-  box-sizing: border-box;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 16px;
-  border-radius: 10px;
-  border-color: ${props => props.theme.legacy.colors.textSecondaryColor};
-  font-size: ${props => props.theme.legacy.fonts.contentFontSize};
-  overflow: auto;
-  align-self: center;
-
-  ${props => props.theme.breakpoints.up('md')} {
-    width: ${props => (props.fullWidth ? 'auto' : '400px')};
-  }
-`
 
 const OptionalHint = styled('p')`
   text-align: end;
@@ -87,16 +69,16 @@ const Feedback = ({
 
   if (sendingStatus === 'successful') {
     return (
-      <Container>
+      <Stack>
         <Alert role='alert' severity='success'>
           {t('thanksMessage')}
         </Alert>
-      </Container>
+      </Stack>
     )
   }
 
   return (
-    <Container fullWidth={isSearchFeedback}>
+    <Stack>
       {isSearchFeedback ? (
         <TextField
           id='searchTerm'
@@ -141,7 +123,7 @@ const Feedback = ({
       <Button onClick={handleSubmit} variant='contained' startIcon={<SendIcon />}>
         {t('send')}
       </Button>
-    </Container>
+    </Stack>
   )
 }
 

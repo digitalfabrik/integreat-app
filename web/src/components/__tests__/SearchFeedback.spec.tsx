@@ -15,13 +15,8 @@ jest.mock('react-i18next', () => ({
 }))
 
 describe('SearchFeedback', () => {
-  const cityCode = 'augsburg'
-  const languageCode = 'de'
-
   it('should open FeedbackSection on button click', () => {
-    const { getByText, getByLabelText, queryByText } = renderWithTheme(
-      <SearchFeedback cityCode={cityCode} languageCode={languageCode} query='ab' noResults={false} />,
-    )
+    const { getByText, getByLabelText, queryByText } = renderWithTheme(<SearchFeedback query='ab' noResults={false} />)
     expect(queryByText('feedback:wantedInformation')).toBeNull()
 
     fireEvent.click(getByText('feedback:informationNotFound'))
@@ -31,7 +26,7 @@ describe('SearchFeedback', () => {
 
   it('should stop showing feedback if query changes', () => {
     const { getByLabelText, getByText, queryByText, rerender } = renderWithTheme(
-      <SearchFeedback cityCode={cityCode} languageCode={languageCode} query='ab' noResults={false} />,
+      <SearchFeedback query='ab' noResults={false} />,
     )
     expect(queryByText('feedback:wantedInformation')).toBeNull()
     fireEvent.click(getByText('feedback:informationNotFound'))
@@ -39,7 +34,7 @@ describe('SearchFeedback', () => {
 
     rerender(
       <ThemeContainer contentDirection='ltr'>
-        <SearchFeedback cityCode={cityCode} languageCode={languageCode} query='a' noResults={false} />
+        <SearchFeedback query='a' noResults={false} />
       </ThemeContainer>,
     )
 
@@ -47,16 +42,12 @@ describe('SearchFeedback', () => {
   })
 
   it('should show feedback button if no results found', () => {
-    const { getByText } = renderWithTheme(
-      <SearchFeedback cityCode={cityCode} languageCode={languageCode} query='ab' noResults />,
-    )
+    const { getByText } = renderWithTheme(<SearchFeedback query='ab' noResults />)
     expect(getByText('feedback:giveFeedback')).toBeTruthy()
   })
 
   it('should not allow sending search feedback if query term is removed', async () => {
-    const { getByText, rerender } = renderWithTheme(
-      <SearchFeedback cityCode={cityCode} languageCode={languageCode} query='ab' noResults />,
-    )
+    const { getByText, rerender } = renderWithTheme(<SearchFeedback query='ab' noResults />)
     fireEvent.click(getByText('feedback:giveFeedback'))
     getByText('common:privacyPolicy').click()
     expect(getByText('feedback:send')).toBeEnabled()
@@ -64,7 +55,7 @@ describe('SearchFeedback', () => {
     // the query is controlled in the parent of SearchFeedback, so we need to update the props
     rerender(
       <ThemeContainer contentDirection='ltr'>
-        <SearchFeedback cityCode={cityCode} languageCode={languageCode} query='' noResults />
+        <SearchFeedback query='' noResults />
       </ThemeContainer>,
     )
     fireEvent.click(getByText('feedback:giveFeedback'))

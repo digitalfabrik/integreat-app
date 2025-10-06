@@ -1,6 +1,7 @@
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import Divider from '@mui/material/Divider'
+import Stack from '@mui/material/Stack'
 import { styled } from '@mui/material/styles'
 import React, { Fragment, ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -8,7 +9,6 @@ import { useTranslation } from 'react-i18next'
 import { getExternalMapsLink } from 'shared'
 import { PoiModel } from 'shared/api'
 
-import { PoiThumbnailPlaceholderLarge } from '../assets'
 import { helpers } from '../constants/theme'
 import useDimensions from '../hooks/useDimensions'
 import Collapsible from './Collapsible'
@@ -96,11 +96,6 @@ const LinkLabel = styled('span')`
   align-self: flex-end;
 `
 
-const HeadingSection = styled('div')`
-  display: flex;
-  flex-direction: column;
-`
-
 const DetailSection = styled('div')`
   display: flex;
   flex-direction: column;
@@ -135,18 +130,17 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
   const { t } = useTranslation('pois')
   const { content, location, contacts, isCurrentlyOpen, openingHours, temporarilyClosed, appointmentUrl } = poi
 
-  const thumbnail = poi.thumbnail ?? PoiThumbnailPlaceholderLarge
   const isAndroid = /Android/i.test(navigator.userAgent)
   const externalMapsLink = getExternalMapsLink(location, isAndroid ? 'android' : 'web')
 
   return (
     <DetailsContainer>
-      <HeadingSection>
+      <Stack gap={1}>
         <Heading>{poi.title}</Heading>
         {distance !== null && <Distance>{t('distanceKilometre', { distance: distance.toFixed(1) })}</Distance>}
         <PoiChips poi={poi} />
-        <Thumbnail alt='' src={thumbnail} />
-      </HeadingSection>
+        {!!poi.thumbnail && <Thumbnail alt='' src={poi.thumbnail} />}
+      </Stack>
       <StyledDivider />
       {desktop && <Subheading>{t('detailsAddress')}</Subheading>}
       <DetailSection>

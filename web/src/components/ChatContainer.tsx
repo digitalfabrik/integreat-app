@@ -11,8 +11,8 @@ import buildConfig from '../constants/buildConfig'
 import useDimensions from '../hooks/useDimensions'
 import useLockedBody from '../hooks/useLockedBody'
 import ChatController from './ChatController'
-import ChatModal from './ChatModal'
 import { TtsContext } from './TtsContainer'
+import Dialog from './base/Dialog'
 import Icon from './base/Icon'
 
 const ChatButtonContainer = styled('div')`
@@ -56,12 +56,12 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement | n
   const [queryParams, setQueryParams] = useSearchParams()
   const initialChatVisibility = parseQueryParams(queryParams).chat ?? false
   const [chatVisible, setChatVisible] = useState(initialChatVisibility)
-  const { desktop, small } = useDimensions()
+  const { desktop, xsmall } = useDimensions()
   const { visible: ttsPlayerVisible } = useContext(TtsContext)
   const chatName = getChatName(buildConfig().appName)
   useLockedBody(chatVisible)
 
-  const hideChatButton = small && ttsPlayerVisible
+  const hideChatButton = xsmall && ttsPlayerVisible
 
   useEffect(() => {
     if (queryParams.has(CHAT_QUERY_KEY)) {
@@ -77,9 +77,9 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement | n
 
   if (chatVisible) {
     return (
-      <ChatModal title={chatName} closeModal={() => setChatVisible(false)}>
+      <Dialog title={chatName} close={() => setChatVisible(false)}>
         <ChatController city={city} language={language} />
-      </ChatModal>
+      </Dialog>
     )
   }
 
