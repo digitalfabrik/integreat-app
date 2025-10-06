@@ -1,4 +1,6 @@
+import CheckIcon from '@mui/icons-material/Check'
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined'
+import LinkIcon from '@mui/icons-material/Link'
 import MailOutlinedIcon from '@mui/icons-material/MailOutlined'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import ShareIcon from '@mui/icons-material/ShareOutlined'
@@ -17,6 +19,8 @@ import { withDividers } from '../utils'
 import getFooterLinks from '../utils/getFooterLinks'
 import MenuAccordion from './MenuAccordion'
 import MenuItem from './MenuItem'
+
+const COPY_TIMEOUT = 3000
 
 const StyledMenu = styled(MuiMenu)({
   marginTop: 8,
@@ -39,6 +43,7 @@ type HeaderMenuProps = {
 const HeaderMenu = ({ children, pageTitle, ref }: HeaderMenuProps): ReactElement => {
   const [menuAnchorElement, setMenuAnchorElement] = React.useState<HTMLElement | null>(null)
   const [expandedAccordion, setExpandedAccordion] = React.useState<'share' | 'legal' | null>(null)
+  const [urlCopied, setUrlCopied] = React.useState<boolean>(false)
   const { cityCode, languageCode } = useRouteParams()
   const { mobile } = useDimensions()
   const { t } = useTranslation('layout')
@@ -59,6 +64,12 @@ const HeaderMenu = ({ children, pageTitle, ref }: HeaderMenuProps): ReactElement
   const whatsappUrl = `https://api.whatsapp.com/send?text=${shareMessage}%0a${encodedShareUrl}`
   const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedShareUrl}&t${shareMessage}`
   const mailUrl = `mailto:?subject=${encodedTitle}&body=${shareMessage}&t${encodedShareUrl}`
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(shareUrl).catch(reportError)
+    setUrlCopied(true)
+    setTimeout(() => setUrlCopied(false), COPY_TIMEOUT)
+  }
 
   const sharingItems = [
     <MenuItem
@@ -98,6 +109,12 @@ const HeaderMenu = ({ children, pageTitle, ref }: HeaderMenuProps): ReactElement
       <StyledMenu anchorEl={menuAnchorElement} open={open} onClose={closeMenu}>
         {withDividers([
           ...items,
+          <MenuItem
+            key='copy'
+            text={t(urlCopied ? 'common:copied' : 'layout:copyUrl')}
+            onClick={copyToClipboard}
+            icon={urlCopied ? <CheckIcon fontSize='small' /> : <LinkIcon fontSize='small' />}
+          />,
           <MenuAccordion
             key='share'
             title={t('share')}
