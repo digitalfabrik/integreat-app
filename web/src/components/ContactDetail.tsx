@@ -12,14 +12,14 @@ const StyledLink = styled(Link)({
   overflowWrap: 'anywhere',
 })
 
-type ContactItemProps = {
+type ContactDetailProps = {
   Icon: ElementType<SvgIconProps>
   link: string
   content: string
   IconEnd?: ElementType<SvgIconProps>
 }
 
-const ContactItem = ({ Icon, link, content, IconEnd }: ContactItemProps): ReactElement => (
+const ContactDetail = ({ Icon, link, content, IconEnd }: ContactDetailProps): ReactElement => (
   <StyledLink to={link}>
     <Icon />
     <Typography variant='body2' color='primary'>
@@ -29,4 +29,4 @@ const ContactItem = ({ Icon, link, content, IconEnd }: ContactItemProps): ReactE
   </StyledLink>
 )
 
-export default ContactItem
+export default ContactDetail

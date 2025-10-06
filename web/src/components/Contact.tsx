@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next'
 
 import { ContactModel } from 'shared/api'
 
-import ContactItem from './ContactItem'
+import ContactDetail from './ContactDetail'
 
 type ContactProps = {
   contact: ContactModel
@@ -25,13 +25,13 @@ const Contact = ({ contact }: ContactProps): ReactElement => {
       <Stack gap={1}>
         <Typography variant='title3'>{headline ?? t('contactInformation')}</Typography>
         {!!website && (
-          <ContactItem Icon={PublicOutlinedIcon} link={website} content={t('website')} IconEnd={OpenInNewIcon} />
+          <ContactDetail Icon={PublicOutlinedIcon} link={website} content={t('website')} IconEnd={OpenInNewIcon} />
         )}
-        {!!phoneNumber && <ContactItem Icon={PhoneOutlinedIcon} link={`tel:${phoneNumber}`} content={phoneNumber} />}
+        {!!phoneNumber && <ContactDetail Icon={PhoneOutlinedIcon} link={`tel:${phoneNumber}`} content={phoneNumber} />}
         {!!mobilePhoneNumber && (
-          <ContactItem Icon={PhoneOutlinedIcon} link={`tel:${mobilePhoneNumber}`} content={mobilePhoneNumber} />
+          <ContactDetail Icon={PhoneOutlinedIcon} link={`tel:${mobilePhoneNumber}`} content={mobilePhoneNumber} />
         )}
-        {!!email && <ContactItem Icon={MailOutlinedIcon} link={`mailto:${email}`} content={email} />}
+        {!!email && <ContactDetail Icon={MailOutlinedIcon} link={`mailto:${email}`} content={email} />}
       </Stack>
     </ListItem>
   )
