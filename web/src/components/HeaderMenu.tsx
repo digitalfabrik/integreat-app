@@ -35,7 +35,7 @@ export type MenuRef = {
 }
 
 type HeaderMenuProps = {
-  children: ReactElement[] | ReactElement
+  children: (ReactElement | null)[] | ReactElement
   pageTitle: string | null
   ref?: RefObject<MenuRef | null>
 }
@@ -95,11 +95,9 @@ const HeaderMenu = ({ children, pageTitle, ref }: HeaderMenuProps): ReactElement
     />,
   ]
 
-  const legalItems = mobile
-    ? getFooterLinks({ languageCode, cityCode }).map(({ text, to }) => (
-        <MenuItem key={text} text={t(text)} to={to} closeMenu={closeMenu} />
-      ))
-    : []
+  const legalItems = getFooterLinks({ languageCode, cityCode }).map(({ text, to }) => (
+    <MenuItem key={text} text={t(text)} to={to} closeMenu={closeMenu} />
+  ))
 
   return (
     <>
@@ -123,13 +121,15 @@ const HeaderMenu = ({ children, pageTitle, ref }: HeaderMenuProps): ReactElement
             expanded={expandedAccordion === 'share'}
             setExpanded={expanded => setExpandedAccordion(expanded ? 'share' : null)}
           />,
-          <MenuAccordion
-            key='legal'
-            title={t('legal')}
-            items={legalItems}
-            expanded={expandedAccordion === 'legal'}
-            setExpanded={expanded => setExpandedAccordion(expanded ? 'legal' : null)}
-          />,
+          mobile ? (
+            <MenuAccordion
+              key='legal'
+              title={t('legal')}
+              items={legalItems}
+              expanded={expandedAccordion === 'legal'}
+              setExpanded={expanded => setExpandedAccordion(expanded ? 'legal' : null)}
+            />
+          ) : null,
         ])}
       </StyledMenu>
     </>
