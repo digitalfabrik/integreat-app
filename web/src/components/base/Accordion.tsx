@@ -1,5 +1,5 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import Accordion from '@mui/material/Accordion'
+import MuiAccordion from '@mui/material/Accordion'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import Typography from '@mui/material/Typography'
@@ -7,7 +7,7 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-const StyledAccordion = styled(Accordion)({
+const StyledAccordion = styled(MuiAccordion)({
   '&:before': {
     display: 'none',
   },
@@ -17,14 +17,14 @@ const StyledAccordionSummary = styled(AccordionSummary)({
   padding: 0,
 })
 
-type CollapsibleProps = {
+type AccordionProps = {
   children: ReactNode
   title: string | ReactElement
   description?: ReactElement
   defaultCollapsed?: boolean
 }
 
-const Collapsible = ({ children, title, description, defaultCollapsed = false }: CollapsibleProps): ReactElement => {
+const Accordion = ({ children, title, description, defaultCollapsed = false }: AccordionProps): ReactElement => {
   const [expanded, setExpanded] = useState(!defaultCollapsed)
   const { t } = useTranslation('common')
 
@@ -52,4 +52,4 @@ const Collapsible = ({ children, title, description, defaultCollapsed = false }:
   )
 }
 
-export default Collapsible
+export default Accordion

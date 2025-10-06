@@ -11,8 +11,8 @@ import { useTranslation } from 'react-i18next'
 import { weekdays } from 'shared'
 import { OpeningHoursModel } from 'shared/api'
 
-import Collapsible from './Collapsible'
 import OpeningEntry from './OpeningEntry'
+import Accordion from './base/Accordion'
 import Link from './base/Link'
 
 const StyledList = styled(List)({
@@ -76,7 +76,7 @@ const OpeningHours = ({
 
   return (
     <>
-      <Collapsible title={<OpeningHoursTitle isCurrentlyOpen={isCurrentlyOpen} />} defaultCollapsed={!isCurrentlyOpen}>
+      <Accordion title={<OpeningHoursTitle isCurrentlyOpen={isCurrentlyOpen} />} defaultCollapsed={!isCurrentlyOpen}>
         <StyledList disablePadding>
           {openingHours.map((openingHours, index) => (
             <OpeningEntry
@@ -89,7 +89,7 @@ const OpeningHours = ({
             />
           ))}
         </StyledList>
-      </Collapsible>
+      </Accordion>
       {AppointmentLink}
     </>
   )
