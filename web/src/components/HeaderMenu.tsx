@@ -10,13 +10,14 @@ import { useRouteParams } from '../hooks/useCityContentParams'
 import useDimensions from '../hooks/useDimensions'
 import { withDividers } from '../utils'
 import getFooterLinks from '../utils/getFooterLinks'
+import MenuAccordion from './MenuAccordion'
 import MenuItem from './MenuItem'
 
 const StyledMenu = styled(MuiMenu)({
   marginTop: 8,
 
   [`& .${dividerClasses.root}`]: {
-    margin: '0 8px !important',
+    margin: '0 !important',
   },
 })
 
@@ -45,8 +46,8 @@ const HeaderMenu = ({ children }: HeaderMenuProps): ReactElement => {
       <IconButton onClick={openMenu} aria-label={t('sideBarOpenAriaLabel')} aria-expanded={open}>
         <MoreVertIcon />
       </IconButton>
-      <StyledMenu anchorEl={menuAnchorElement} open={open} onClose={closeMenu} onClick={closeMenu}>
-        {withDividers([...items, ...legalItems])}
+      <StyledMenu anchorEl={menuAnchorElement} open={open} onClose={closeMenu}>
+        {withDividers([...items, <MenuAccordion key='legal' title={t('legal')} items={legalItems} />])}
       </StyledMenu>
     </>
   )

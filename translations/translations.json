@@ -8086,6 +8086,7 @@
   },
   "layout": {
     "de": {
+      "legal": "Recthliches",
       "imprint": "Impressum",
       "privacy": "Datenschutz",
       "localInformation": "Lokale Informationen",
@@ -8400,6 +8401,7 @@
       "voiceUnavailableMessage": "Δεν βρέθηκε φωνή. Για να χρησιμοποιήσετε τη λειτουργία ανάγνωσης πρέπει να εγκαταστήσετε μια φωνή. Λάβετε υπόψη τις ακόλουθες οδηγίες για το λειτουργικό σας σύστημα."
     },
     "en": {
+      "legal": "Legal",
       "imprint": "Imprint",
       "privacy": "Data protection",
       "localInformation": "Local information",

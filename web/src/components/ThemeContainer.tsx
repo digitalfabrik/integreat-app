@@ -56,6 +56,11 @@ const createTheme = (
           dir: 'auto',
         },
       },
+      MuiAccordionSummary: {
+        defaultProps: {
+          disableRipple: false,
+        },
+      },
       MuiChip: {
         styleOverrides: {
           filled: {
