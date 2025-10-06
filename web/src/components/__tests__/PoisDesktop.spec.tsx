@@ -55,8 +55,8 @@ describe('PoisDesktop', () => {
     expect(queryByText(singlePoi.content)).toBeTruthy()
     expect(queryByLabelText('common:backToOverview')).toBeTruthy()
     expect(queryByText('common:nearby')).toBeNull()
-    expect(queryByLabelText('pois:previousPoi')).toBeTruthy()
-    expect(queryByLabelText('pois:nextPoi')).toBeTruthy()
+    expect(queryByText('pois:detailsPreviousPoi')).toBeTruthy()
+    expect(queryByText('pois:detailsNextPoi')).toBeTruthy()
   })
 
   it('should show back button and hide list title for selected mapFeature', () => {
