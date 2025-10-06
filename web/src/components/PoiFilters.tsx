@@ -58,7 +58,7 @@ const StyledIcon = styled(Icon)`
 `
 
 type PoiFiltersProps = {
-  closeModal: () => void
+  close: () => void
   poiCategories: PoiCategoryModel[]
   selectedPoiCategory: PoiCategoryModel | undefined
   setSelectedPoiCategory: (poiCategory: PoiCategoryModel | null) => void
@@ -68,7 +68,7 @@ type PoiFiltersProps = {
 }
 
 const PoiFilters = ({
-  closeModal,
+  close,
   poiCategories,
   selectedPoiCategory,
   setSelectedPoiCategory,
@@ -84,7 +84,7 @@ const PoiFilters = ({
   }
 
   return (
-    <Dialog title={t('adjustFilters')} closeModal={closeModal}>
+    <Dialog title={t('adjustFilters')} close={close}>
       <Stack gap={3}>
         <Section>
           <SubTitle>{t('openingHours')}</SubTitle>
@@ -108,7 +108,7 @@ const PoiFilters = ({
             ))}
           </TileRow>
         </Section>
-        <StyledButton onClick={closeModal} variant='contained' disabled={poisCount === 0}>
+        <StyledButton onClick={close} variant='contained' disabled={poisCount === 0}>
           {t('showPois', { count: poisCount })}
         </StyledButton>
       </Stack>

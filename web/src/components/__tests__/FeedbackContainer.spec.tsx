@@ -41,7 +41,7 @@ describe('FeedbackContainer', () => {
     initialRating: null,
   })
 
-  it('should display thanks message for modal', async () => {
+  it('should display thanks message', async () => {
     const { getByRole, findByText, getByText } = renderWithTheme(
       <FeedbackContainer {...buildDefaultProps(CATEGORIES_ROUTE)} initialRating={RATING_POSITIVE} />,
     )

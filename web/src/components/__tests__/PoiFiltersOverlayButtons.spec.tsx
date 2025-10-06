@@ -41,7 +41,7 @@ describe('PoiFiltersOverlayButtons', () => {
     expect(setPoiCategoryFilter).toHaveBeenCalledWith(null)
   })
 
-  it('should only show open filter modal button', () => {
+  it('should only show open poi filter button', () => {
     const { getByText, queryByText } = renderPoiFiltersOverlayButtons(undefined, false)
 
     expect(getByText('pois:adjustFilters')).toBeTruthy()
