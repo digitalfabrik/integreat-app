@@ -121,7 +121,7 @@ const OpeningHours = ({
 
   return (
     <>
-      <Collapsible title={<OpeningHoursTitle isCurrentlyOpen={isCurrentlyOpen} />} initialCollapsed={!isCurrentlyOpen}>
+      <Collapsible title={<OpeningHoursTitle isCurrentlyOpen={isCurrentlyOpen} />} defaultCollapsed={!isCurrentlyOpen}>
         <Content>
           {openingHours.map((openingHours, index) => (
             <OpeningEntry
