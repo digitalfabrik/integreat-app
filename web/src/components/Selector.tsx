@@ -1,5 +1,5 @@
 import List from '@mui/material/List'
-import ListItem, { listItemClasses } from '@mui/material/ListItem'
+import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
@@ -9,36 +9,32 @@ import React, { ReactElement } from 'react'
 import SelectorItemModel from '../models/SelectorItemModel'
 import Link from './base/Link'
 
-const SelectorItemButton = styled(ListItemButton)<{ selected?: boolean; disabled?: boolean }>`
+const SelectorItemButton = styled(ListItemButton)<{ disabled?: boolean }>`
   height: 48px;
   min-width: 104px;
   padding: 0 20px;
-  font-size: 1.2em;
-  line-height: 64px;
-  white-space: nowrap;
   border-radius: 30px;
-  transition:
-    background-color 0.2s,
-    border-radius 0.2s;
-  user-select: none;
   display: flex;
   justify-content: center;
-  margin: 5px;
-  ${props => props.disabled && `color: ${props.theme.legacy.colors.textDisabledColor};`}
+  margin: 4px;
+  ${props => props.disabled && `color: ${props.theme.palette.text.disabled};`}
+
+  ${props => props.theme.breakpoints.down('lg')} {
+    padding: 0 16px;
+    min-width: 96px;
+    height: 40px;
+  }
 ` as typeof ListItemButton
 
 const StyledList = styled(List)<{ vertical: boolean }>`
   display: flex;
-  width: 100%;
   flex-flow: ${props => (props.vertical ? 'column' : 'row wrap')};
   justify-content: space-evenly;
-  color: ${props => props.theme.legacy.colors.textColor};
-  padding: 0;
+  color: ${props => props.theme.palette.text.primary};
 
-  & .${listItemClasses.root} {
+  & li {
     width: auto;
-    flex: ${props => (props.vertical ? '1 1 auto' : '0 0 auto')};
-    ${props => !props.vertical && 'display: inline-flex;'}
+    ${props => (props.vertical ? 'flex: 1 1 auto;' : 'flex: 0 0 auto;')}
   }
 `
 
@@ -57,7 +53,7 @@ const Selector = ({
   close,
   disabledItemTooltip,
 }: SelectorProps): ReactElement => (
-  <StyledList vertical={verticalLayout}>
+  <StyledList disablePadding vertical={verticalLayout}>
     {items.map(item =>
       item.href ? (
         <ListItem key={item.code} disablePadding>
