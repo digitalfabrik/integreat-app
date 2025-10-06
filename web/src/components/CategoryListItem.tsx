@@ -63,7 +63,7 @@ const CategoryListItem = ({ category, subCategories }: CategoryListItemProps): R
         <>
           <Divider />
           <Stack paddingInlineStart={7}>
-            <List items={SubCategories} />
+            <List items={SubCategories} disablePadding />
           </Stack>
         </>
       )}
