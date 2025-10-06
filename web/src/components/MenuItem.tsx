@@ -1,6 +1,7 @@
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import MuiMenuItem from '@mui/material/MenuItem'
+import Tooltip from '@mui/material/Tooltip'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
@@ -44,9 +45,13 @@ const MenuItem = ({
   )
 
   return (
-    <MuiMenuItem onClick={handleClick} disabled={disabled} sx={to ? { padding: 0 } : {}}>
-      {to ? <StyledLink to={to}>{Content}</StyledLink> : Content}
-    </MuiMenuItem>
+    <Tooltip title={tooltip}>
+      <div>
+        <MuiMenuItem onClick={handleClick} disabled={disabled} sx={to ? { padding: 0 } : {}}>
+          {to ? <StyledLink to={to}>{Content}</StyledLink> : Content}
+        </MuiMenuItem>
+      </div>
+    </Tooltip>
   )
 }
 
