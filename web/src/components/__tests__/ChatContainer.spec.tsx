@@ -1,5 +1,5 @@
 import { fireEvent } from '@testing-library/react'
-import React, { ReactElement } from 'react'
+import React from 'react'
 
 import { getChatName } from 'shared'
 import { CityModelBuilder } from 'shared/api'
@@ -15,7 +15,6 @@ jest.mock('react-i18next', () => ({
   }),
   Trans: ({ i18nKey }: { i18nKey: string }) => i18nKey,
 }))
-jest.mock('focus-trap-react', () => ({ children }: { children: ReactElement }) => <div>{children}</div>)
 
 jest.mock('shared/api', () => ({
   ...jest.requireActual('shared/api'),
@@ -45,14 +44,14 @@ describe('ChatContainer', () => {
   })
 
   it('should close chat if close button was clicked', () => {
-    const { getAllByLabelText, queryByText, getAllByText } = renderRoute(<ChatContainer city={city} language='de' />, {
+    const { getByLabelText, queryByText, getAllByText } = renderRoute(<ChatContainer city={city} language='de' />, {
       pathname,
       routePattern,
     })
     const chatButtonContainer = getAllByText(getChatName('IntegreatTestCms'))[0]!
     expect(chatButtonContainer).toBeTruthy()
     fireEvent.click(chatButtonContainer!)
-    const closeButton = getAllByLabelText('common:minimize')[0]!
+    const closeButton = getByLabelText('layout:close')
     fireEvent.click(closeButton)
     expect(queryByText('chat:conversationTitle')).toBeFalsy()
     expect(queryByText('chat:conversationText')).toBeFalsy()

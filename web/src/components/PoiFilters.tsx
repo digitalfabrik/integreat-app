@@ -1,26 +1,17 @@
 import AccessTimeIcon from '@mui/icons-material/AccessTime'
 import Button from '@mui/material/Button'
+import Stack from '@mui/material/Stack'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { PoiCategoryModel } from 'shared/api'
 
-import ModalContent from './ModalContent'
 import SpacedToggleButtonGroup from './SpacedToggleButtonGroup'
 import Checkbox from './base/Checkbox'
+import Dialog from './base/Dialog'
 import Icon from './base/Icon'
 import ToggleButton, { toggleButtonWidth } from './base/ToggleButton'
-
-const tileColumnGap = 16
-
-const Container = styled('div')`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0 16px 16px;
-  gap: 24px;
-`
 
 const SubTitle = styled('div')`
   font-size: 0.875rem;
@@ -50,11 +41,11 @@ const SortingHint = styled('div')`
   padding: 0 4px;
 `
 
-const TileRow = styled(SpacedToggleButtonGroup)<{ itemCount: number }>`
+const TileRow = styled(SpacedToggleButtonGroup)`
   display: grid;
-  gap: 24px ${tileColumnGap}px;
+  gap: 24px 16px;
   justify-content: center;
-  grid-template-columns: repeat(${props => props.itemCount}, ${toggleButtonWidth}px);
+  grid-template-columns: repeat(auto-fit, minmax(${toggleButtonWidth}px, 1fr));
 `
 
 const StyledButton = styled(Button)`
@@ -73,7 +64,6 @@ type PoiFiltersProps = {
   setSelectedPoiCategory: (poiCategory: PoiCategoryModel | null) => void
   currentlyOpenFilter: boolean
   setCurrentlyOpenFilter: (currentlyOpen: boolean) => void
-  panelWidth: number
   poisCount: number
 }
 
@@ -84,7 +74,6 @@ const PoiFilters = ({
   setSelectedPoiCategory,
   currentlyOpenFilter,
   setCurrentlyOpenFilter,
-  panelWidth,
   poisCount,
 }: PoiFiltersProps): ReactElement => {
   const { t } = useTranslation('pois')
@@ -95,8 +84,8 @@ const PoiFilters = ({
   }
 
   return (
-    <ModalContent title={t('adjustFilters')} closeModal={closeModal} small>
-      <Container>
+    <Dialog title={t('adjustFilters')} closeModal={closeModal}>
+      <Stack gap={3}>
         <Section>
           <SubTitle>{t('openingHours')}</SubTitle>
           <Row>
@@ -113,11 +102,7 @@ const PoiFilters = ({
             <SubTitle>{t('poiCategories')}</SubTitle>
             <SortingHint>{t('alphabetLetters')}</SortingHint>
           </Row>
-          <TileRow
-            itemCount={Math.floor(panelWidth / (toggleButtonWidth + tileColumnGap))}
-            exclusive
-            value={selectedPoiCategory?.id}
-            onChange={handleFilterChange}>
+          <TileRow exclusive value={selectedPoiCategory?.id} onChange={handleFilterChange}>
             {poiCategories.map(it => (
               <ToggleButton key={it.id} value={it.id} text={it.name} icon={it.icon} />
             ))}
@@ -126,8 +111,8 @@ const PoiFilters = ({
         <StyledButton onClick={closeModal} variant='contained' disabled={poisCount === 0}>
           {t('showPois', { count: poisCount })}
         </StyledButton>
-      </Container>
-    </ModalContent>
+      </Stack>
+    </Dialog>
   )
 }
 

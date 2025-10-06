@@ -59,49 +59,41 @@ describe('Feedback', () => {
     noResults,
   })
 
-  it('button should be disabled for no rating and no input', () => {
-    const { getByText } = renderWithTheme(<Feedback {...buildProps({})} />)
-    expect(getByText('feedback:send')).toBeDisabled()
-  })
+  it('should show error when submitting without rating and input', () => {
+    const { getByText, queryByText } = renderWithTheme(<Feedback {...buildProps({})} />)
 
-  it('note should be shown for no rating and no input', () => {
-    const { getByText } = renderWithTheme(<Feedback {...buildProps({ language: 'en' })} />)
+    const button = getByText('feedback:send')
+    expect(button).toBeEnabled()
+    expect(queryByText('feedback:noteFillFeedback')).toBeNull()
+    fireEvent.click(button)
     expect(getByText('feedback:noteFillFeedback')).toBeTruthy()
   })
 
-  it('button should not be enabled if privacy policy not accepted', () => {
+  it('should show error for missing rating and input when submitted', () => {
+    const { getByText } = renderWithTheme(<Feedback {...buildProps({ language: 'en' })} />)
+    fireEvent.click(getByText('feedback:send'))
+    expect(getByText('feedback:noteFillFeedback')).toBeTruthy()
+  })
+
+  it('should show error if privacy policy is not accepted', () => {
     const { getByText } = renderWithTheme(<Feedback {...buildProps({ rating: 'positive' })} />)
-    expect(getByText('feedback:send')).toBeDisabled()
-  })
 
-  it('button should be enabled for positive Feedback and no input', () => {
-    const { getByText } = renderWithTheme(<Feedback {...buildProps({ language: 'en', rating: 'positive' })} />)
-    getByText('common:privacyPolicy').click()
-    expect(getByText('feedback:send')).toBeEnabled()
-  })
-
-  it('button should be enabled for negative Feedback and no input', () => {
-    const { getByText } = renderWithTheme(<Feedback {...buildProps({ rating: 'negative' })} />)
-    getByText('common:privacyPolicy').click()
-    expect(getByText('feedback:send')).toBeEnabled()
-  })
-
-  it('button should be enabled for no rating and input', () => {
-    const { getByText } = renderWithTheme(<Feedback {...buildProps({ comment: 'comment' })} />)
-    getByText('common:privacyPolicy').click()
-    expect(getByText('feedback:send')).toBeEnabled()
+    const button = getByText('feedback:send')
+    expect(button).toBeEnabled()
+    fireEvent.click(button)
+    expect(getByText('feedback:common:notePrivacyPolicy')).toBeTruthy()
   })
 
   it('should display correct description for search', () => {
-    const { getByText, queryByText } = renderWithTheme(
+    const { getByLabelText, queryByText } = renderWithTheme(
       <Feedback {...buildProps({ rating: 'negative', comment: 'comment', searchTerm: 'query' })} />,
     )
-    expect(getByText('feedback:wantedInformation')).toBeTruthy()
+    expect(getByLabelText('feedback:wantedInformation')).toBeInTheDocument()
     expect(queryByText('error:search:nothingFound')).toBeFalsy()
   })
 
   it('should show not found error', () => {
-    const { getByText } = renderWithTheme(
+    const { getByLabelText } = renderWithTheme(
       <Feedback
         {...buildProps({
           language: 'en',
@@ -112,7 +104,7 @@ describe('Feedback', () => {
         })}
       />,
     )
-    expect(getByText('feedback:wantedInformation')).toBeTruthy()
+    expect(getByLabelText('feedback:wantedInformation')).toBeTruthy()
   })
 
   it('should display error', () => {

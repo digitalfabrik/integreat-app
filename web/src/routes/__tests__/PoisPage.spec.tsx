@@ -63,8 +63,8 @@ describe('PoisPage', () => {
 
   it('should render poi details page when list item was clicked', () => {
     mockUseLoadFromEndpointWithData(pois)
-    const { getByText, getByLabelText } = renderPois()
-    fireEvent.click(getByLabelText(poi0.title))
+    const { getByText, getByRole } = renderPois()
+    fireEvent.click(getByRole('link', { name: poi0.title }))
     expect(getByText(poi0.title)).toBeTruthy()
     expect(getByText(poi0.location.address!)).toBeTruthy()
     expect(getByText(poi0.content)).toBeTruthy()
@@ -72,8 +72,8 @@ describe('PoisPage', () => {
 
   it('should calculate correct language change paths', () => {
     mockUseLoadFromEndpointWithData(pois)
-    const { getAllByText, getByLabelText } = renderPois()
-    fireEvent.click(getByLabelText(poi0.title))
+    const { getAllByText, getByRole } = renderPois()
+    fireEvent.click(getByRole('link', { name: poi0.title }))
     expect(getAllByText('English')[0]).toHaveAttribute('href', poi0.availableLanguages.en)
     expect(getAllByText('Deutsch')[0]).toHaveAttribute('href', poi0.availableLanguages.de)
     // Pathname is not correctly updated, therefore the pathname does not include the slug

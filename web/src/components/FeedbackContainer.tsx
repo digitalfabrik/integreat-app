@@ -11,7 +11,6 @@ type FeedbackContainerProps = {
   cityCode: string
   language: string
   routeType: FeedbackRouteType
-  onClose?: () => void
   query?: string
   noResults?: boolean
   slug?: string
@@ -28,7 +27,6 @@ export const FeedbackContainer = ({
   routeType,
   cityCode,
   slug,
-  onClose,
   onSubmit,
   initialRating,
 }: FeedbackContainerProps): ReactElement => {
@@ -85,7 +83,6 @@ export const FeedbackContainer = ({
       contactMail={contactMail}
       searchTerm={searchTerm}
       setSearchTerm={setSearchTerm}
-      closeFeedback={onClose}
     />
   )
 }

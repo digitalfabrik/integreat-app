@@ -32,7 +32,7 @@ const DashboardNavigationTiles = ({
   languageCode,
   navigateTo,
 }: DashboardNavigationTilesProps): ReactElement => {
-  const { t } = useTranslation('dashboard')
+  const { t } = useTranslation('layout')
 
   const { featureFlags } = buildConfig()
   const { tunewsEnabled, localNewsEnabled, code: cityCode } = cityModel
@@ -42,7 +42,7 @@ const DashboardNavigationTiles = ({
   if (cityModel.poisEnabled && featureFlags.pois) {
     tiles.push(
       new TileModel({
-        title: t('pois'),
+        title: t('locations'),
         path: 'pois',
         thumbnail: POIsIcon,
         isExternalUrl: false,

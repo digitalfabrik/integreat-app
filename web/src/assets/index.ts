@@ -10,8 +10,6 @@ import ReadAloudIcon from '../../../assets/icons/readAloud.svg'
 import SprungbrettIcon from '../../../assets/icons/sprungbrett.svg'
 import TuNewsActiveIcon from '../../../assets/icons/tu-news-active.svg'
 import TuNewsInactiveIcon from '../../../assets/icons/tu-news-inactive.svg'
-import PoiThumbnailPlaceholderLarge from '../../../assets/poi-thumbnail-placeholder-large.jpg'
-import PoiThumbnailPlaceholder from '../../../assets/poi-thumbnail-placeholder.jpg'
 
 export {
   BookIcon,
@@ -20,8 +18,6 @@ export {
   EventThumbnailPlaceholder2,
   EventThumbnailPlaceholder3,
   ExternalLinkIcon,
-  PoiThumbnailPlaceholder,
-  PoiThumbnailPlaceholderLarge,
   PersonIcon,
   ReadAloudIcon,
   SprungbrettIcon,

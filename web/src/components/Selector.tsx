@@ -4,16 +4,15 @@ import Typography, { TypographyProps } from '@mui/material/Typography'
 import { styled, Theme } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
-import dimensions from '../constants/dimensions'
 import SelectorItemModel from '../models/SelectorItemModel'
 import Link from './base/Link'
 
 const selectorItemStyle = ({ theme }: { theme: Theme }) => css`
-  height: ${dimensions.headerHeightLarge}px;
+  height: 64px;
   min-width: 90px;
   padding: 0 5px;
   font-size: 1.2em;
-  line-height: ${dimensions.headerHeightLarge}px;
+  line-height: 64px;
   text-align: center;
   white-space: nowrap;
   border-radius: 30px;
@@ -23,11 +22,9 @@ const selectorItemStyle = ({ theme }: { theme: Theme }) => css`
   user-select: none;
 
   ${theme.breakpoints.down('md')} {
-    height: ${dimensions.headerHeightSmall}px;
     width: 100%;
     flex: 1 1 auto;
     font-size: 1em;
-    line-height: ${dimensions.headerHeightSmall}px;
   }
 `
 
@@ -65,7 +62,7 @@ const Wrapper = styled(Typography)<TypographyProps & { vertical: boolean }>`
 
 type SelectorProps = {
   verticalLayout: boolean
-  closeDropDown?: () => void
+  close?: () => void
   items: SelectorItemModel[]
   activeItemCode?: string
   disabledItemTooltip: string
@@ -75,7 +72,7 @@ const Selector = ({
   items,
   activeItemCode,
   verticalLayout,
-  closeDropDown,
+  close,
   disabledItemTooltip,
 }: SelectorProps): ReactElement => (
   <Wrapper vertical={verticalLayout} component='div' variant='title2'>
@@ -85,7 +82,7 @@ const Selector = ({
           key={item.code}
           to={item.href}
           aria-selected={item.code === activeItemCode}
-          onClick={closeDropDown ?? (() => undefined)}
+          onClick={close ?? (() => undefined)}
           selected={item.code === activeItemCode}>
           <BoldSpacer>{item.name}</BoldSpacer>
           {item.name}

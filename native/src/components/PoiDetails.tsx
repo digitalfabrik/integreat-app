@@ -4,7 +4,6 @@ import styled from 'styled-components/native'
 
 import { PoiModel } from 'shared/api'
 
-import { PoiThumbnailPlaceholderLarge } from '../assets'
 import AddressInfo from './AddressInfo'
 import Collapsible from './Collapsible'
 import Contact from './Contact'
@@ -19,7 +18,7 @@ const Thumbnail = styled(SimpleImage)`
   height: 180px;
   width: 100%;
   border-radius: 8px;
-  margin: 12px 0;
+  margin-bottom: 12px;
 `
 
 const PoiDetailsContainer = styled.View`
@@ -31,11 +30,13 @@ const Title = styled.Text`
   font-size: 16px;
   font-weight: bold;
   color: ${props => props.theme.colors.textColor};
+  padding-bottom: 4px;
 `
 
 const StyledDistance = styled.Text`
   font-size: 12px;
   margin-top: 8px;
+  padding-bottom: 6px;
   color: ${props => props.theme.colors.textColor};
 `
 
@@ -51,7 +52,6 @@ type PoiDetailsProps = {
 
 const PoiDetails = ({ poi, language, distance }: PoiDetailsProps): ReactElement => {
   const { t } = useTranslation('pois')
-  const thumbnail = poi.thumbnail ?? PoiThumbnailPlaceholderLarge
   const { title, content, contacts, openingHours, temporarilyClosed, isCurrentlyOpen, category, appointmentUrl } = poi
 
   return (
@@ -60,7 +60,7 @@ const PoiDetails = ({ poi, language, distance }: PoiDetailsProps): ReactElement 
       {distance !== null && (
         <StyledDistance>{t('distanceKilometre', { distance: distance.toFixed(1) })}</StyledDistance>
       )}
-      <Thumbnail source={thumbnail} resizeMode='cover' />
+      {!!poi.thumbnail && <Thumbnail source={poi.thumbnail} resizeMode='cover' />}
       <PoiChips poi={poi} />
       <HorizontalLine />
       <AddressInfo location={poi.location} language={language} />

@@ -1,6 +1,5 @@
-import Divider from '@mui/material/Divider'
+import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
-import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -8,73 +7,58 @@ import { filterSortCities } from 'shared'
 import { CityModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
-import CityEntry from './CityEntry'
-import CrashTestingIcon from './CrashTestingIcon'
-import Failure from './Failure'
+import CityListGroup from './CityListGroup'
 import NearbyCities from './NearbyCities'
-import ScrollingSearchBox from './ScrollingSearchBox'
+import SearchInput from './SearchInput'
+import List from './base/List'
 
-const Container = styled('div')`
-  padding-top: 22px;
-`
-
-export const CityListParent = styled(Typography)<{ stickyTop: number }>`
-  position: sticky;
-  top: ${props => props.stickyTop}px;
-  height: 30px;
-  margin-top: 10px;
-  line-height: 30px;
-  transition: top 0.2s ease-out;
-  background-color: ${props => props.theme.legacy.colors.backgroundColor};
-`
-
-const SearchCounter = styled('p')`
-  color: ${props => props.theme.legacy.colors.textSecondaryColor};
-`
+export const CITY_SEARCH_PLACEHOLDER = 'München'
 
 type CitySelectorProps = {
   cities: CityModel[]
   language: string
+  stickyTop: number
 }
 
-const CitySelector = ({ cities, language }: CitySelectorProps): ReactElement => {
+const CitySelector = ({ cities, language, stickyTop }: CitySelectorProps): ReactElement => {
   const [filterText, setFilterText] = useState<string>('')
-  const [stickyTop, setStickyTop] = useState<number>(0)
   const { t } = useTranslation('landing')
 
   const resultCities = filterSortCities(cities, filterText, buildConfig().featureFlags.developerFriendly)
-
-  const groups = [...new Set(resultCities.map(it => it.sortCategory))].map(group => (
-    <div key={group}>
-      <CityListParent stickyTop={stickyTop}>{group}</CityListParent>
-      {resultCities
-        .filter(it => it.sortCategory === group)
-        .map(city => (
-          <React.Fragment key={city.code}>
-            <Divider />
-            <CityEntry city={city} language={language} filterText={filterText} />
-          </React.Fragment>
-        ))}
-    </div>
+  const firstLetterGroups = [...new Set(resultCities.map(it => it.sortCategory))].map(group => (
+    <CityListGroup
+      key={group}
+      cities={resultCities.filter(it => it.sortCategory === group)}
+      title={group}
+      stickyTop={stickyTop}
+      languageCode={language}
+      filterText={filterText}
+    />
   ))
+  const groups = [
+    <NearbyCities key='nearby' stickyTop={stickyTop} cities={cities} language={language} filterText={filterText} />,
+    ...firstLetterGroups,
+  ]
 
   return (
-    <Container>
-      <CrashTestingIcon />
-      <ScrollingSearchBox
+    <Stack maxWidth={640} paddingTop={4} gap={2}>
+      <Typography variant='display3' component='h1'>
+        {t('welcome', { appName: buildConfig().appName })}
+      </Typography>
+      <Typography variant='body1'>{t('welcomeInformation')}</Typography>
+      <SearchInput
         filterText={filterText}
+        placeholderText={CITY_SEARCH_PLACEHOLDER}
         onFilterTextChange={setFilterText}
-        placeholderText={t('searchCity')}
-        spaceSearch={false}
-        onStickyTopChanged={setStickyTop}>
-        <SearchCounter aria-live={resultCities.length === 0 ? 'assertive' : 'polite'}>
+        description={t('searchCityDescription')}
+      />
+      <Stack>
+        <Typography variant='label1' aria-live={resultCities.length === 0 ? 'assertive' : 'polite'}>
           {t('search:searchResultsCount', { count: resultCities.length })}
-        </SearchCounter>
-        <NearbyCities stickyTop={stickyTop} cities={cities} language={language} filterText={filterText} />
-        <Divider />
-        {resultCities.length === 0 ? <Failure errorMessage='search:nothingFound' /> : groups}
-      </ScrollingSearchBox>
-    </Container>
+        </Typography>
+        <List items={groups} NoItemsMessage='search:nothingFound' />
+      </Stack>
+    </Stack>
   )
 }
 

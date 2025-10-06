@@ -29,7 +29,6 @@ describe('FeedbackContainer', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
-  const closeModal = jest.fn()
 
   const buildDefaultProps = (
     routeType: FeedbackRouteType,
@@ -38,7 +37,6 @@ describe('FeedbackContainer', () => {
     routeType,
     cityCode,
     language,
-    onClose: closeModal,
     query,
     initialRating: null,
   })
@@ -61,7 +59,6 @@ describe('FeedbackContainer', () => {
     fireEvent.click(button)
 
     expect(await findByText('feedback:thanksMessage')).toBeTruthy()
-    expect(getByRole('button', { name: 'feedback:common:close' })).toBeTruthy()
   })
 
   it('should display thanks message for search', async () => {

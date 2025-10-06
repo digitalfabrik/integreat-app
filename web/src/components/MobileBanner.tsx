@@ -55,10 +55,10 @@ const StyledAppName = styled('span')`
 
 const smallScreenSize = 400
 
-const StyledDescription = styled('span')<{ screenSize: number }>`
+const StyledDescription = styled('span')`
   color: ${props => props.theme.legacy.colors.themeContrast};
   white-space: nowrap;
-  font-size: ${props => (props.screenSize <= smallScreenSize ? '10px' : '12px')};
+  font-size: ${props => (props.theme.dimensions.window.width <= smallScreenSize ? '10px' : '12px')};
 `
 
 const StyledButton = styled('button')<{ isInstalled: boolean }>`
@@ -121,15 +121,13 @@ export const MobileBanner = (): ReactElement | null => {
       <StyledBanner isInstalled={isInstalled}>
         <StyledDiv>
           <StyledCloseButton label='closeButton' onClick={toggleBanner}>
-            {isInstalled === false && <Icon src={CloseIcon} />}
+            {!isInstalled && <Icon src={CloseIcon} />}
           </StyledCloseButton>
           <StyledBannerIcon isInstalled={isInstalled} src={icons.appLogoMobile} />
           <StyledDivText>
             <StyledAppName>{appName}</StyledAppName>
-            {isInstalled === false && (
-              <StyledDescription screenSize={window.innerWidth}>Tür an Tür - Digitalfabrik gGmbH</StyledDescription>
-            )}
-            <StyledDescription screenSize={window.innerWidth}>
+            {!isInstalled && <StyledDescription>Tür an Tür - Digitalfabrik gGmbH</StyledDescription>}
+            <StyledDescription>
               {isInstalled ? t('openInApp', { appName: buildConfig().appName }) : t('getOnPlayStore')}
             </StyledDescription>
           </StyledDivText>

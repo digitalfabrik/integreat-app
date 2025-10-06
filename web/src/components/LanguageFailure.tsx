@@ -23,12 +23,8 @@ const LanguageFailure = ({ cityModel, languageCode, languageChangePaths }: Langu
   return (
     <>
       <Caption title={cityModel.name} />
-      <ChooseLanguage>{`${t('notFound.language')} ${t('chooseALanguage')}`}</ChooseLanguage>
-      <LanguageSelector
-        isHeaderActionItem={false}
-        languageCode={languageCode}
-        languageChangePaths={languageChangePaths}
-      />
+      <ChooseLanguage>{t('notFound.language')}</ChooseLanguage>
+      <LanguageSelector languageCode={languageCode} languageChangePaths={languageChangePaths} vertical availableOnly />
     </>
   )
 }

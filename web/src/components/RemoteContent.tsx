@@ -1,14 +1,14 @@
 import { useTheme } from '@mui/material/styles'
 import Dompurify from 'dompurify'
-import React, { ReactElement, useCallback, useEffect, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
 import { ExternalSourcePermissions } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
+import useDimensions from '../hooks/useDimensions'
 import useLocalStorage from '../hooks/useLocalStorage'
-import useWindowDimensions from '../hooks/useWindowDimensions'
 import {
   LOCAL_STORAGE_ITEM_EXTERNAL_SOURCES,
   handleAllowedIframeSources,
@@ -40,7 +40,7 @@ const RemoteContent = ({ html, centered = false, smallText = false }: RemoteCont
   })
 
   const [contentIframeSources, setContentIframeSources] = useState<IframeSources>({})
-  const { viewportSmall, width: deviceWidth } = useWindowDimensions()
+  const { mobile, window } = useDimensions()
   const { t } = useTranslation()
   const { isContrastTheme } = useTheme()
 
@@ -98,8 +98,8 @@ const RemoteContent = ({ html, centered = false, smallText = false }: RemoteCont
           onUpdateLocalStorage,
           index,
           supportedSource,
-          viewportSmall,
-          deviceWidth,
+          mobile,
+          window.width,
         )
       }
     })
@@ -111,17 +111,20 @@ const RemoteContent = ({ html, centered = false, smallText = false }: RemoteCont
     externalSourcePermissions,
     contentIframeSources,
     onUpdateLocalStorage,
-    viewportSmall,
-    deviceWidth,
+    mobile,
+    window.width,
     isContrastTheme,
   ])
 
-  const dangerouslySetInnerHTML = {
-    __html: Dompurify.sanitize(html, {
-      ADD_TAGS: [DOMPURIFY_TAG_IFRAME],
-      ADD_ATTR: [DOMPURIFY_ATTRIBUTE_FULLSCREEN, DOMPURIFY_ATTRIBUTE_TARGET],
+  const dangerouslySetInnerHTML = useMemo(
+    () => ({
+      __html: Dompurify.sanitize(html, {
+        ADD_TAGS: [DOMPURIFY_TAG_IFRAME],
+        ADD_ATTR: [DOMPURIFY_ATTRIBUTE_FULLSCREEN, DOMPURIFY_ATTRIBUTE_TARGET],
+      }),
     }),
-  }
+    [html],
+  )
 
   return (
     <RemoteContentSandBox

@@ -10,9 +10,9 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import useWindowDimensions from '../hooks/useWindowDimensions'
+export const TTS_PLAYER_ELEMENT_ID = 'tts-player'
 
-const StyledTtsPlayer = styled('dialog')<{ footerHeight: number }>`
+const StyledTtsPlayer = styled('dialog')`
   background-color: ${props =>
     props.theme.isContrastTheme
       ? props.theme.legacy.colors.backgroundAccentColor
@@ -27,14 +27,12 @@ const StyledTtsPlayer = styled('dialog')<{ footerHeight: number }>`
   padding: 32px 24px 24px;
   position: fixed;
   margin-bottom: 12px;
-  bottom: ${props => props.footerHeight}px;
+  bottom: ${props => props.theme.dimensions.bottomNavigationHeight ?? props.theme.dimensions.visibleFooterHeight}px;
   gap: 16px;
   border-color: transparent;
 
-  ${props => props.theme.breakpoints.down('md')} {
-    width: auto;
-    margin: 12px;
-  }
+  /* Position tts player above bottom sheet */
+  z-index: 10;
 `
 
 const StyledPanel = styled('div')`
@@ -99,10 +97,10 @@ const TtsPlayer = ({
   pause,
   disabled,
 }: TtsPlayerProps): ReactElement => {
-  const { visibleFooterHeight } = useWindowDimensions()
   const { t } = useTranslation('layout')
+
   return (
-    <StyledTtsPlayer footerHeight={visibleFooterHeight}>
+    <StyledTtsPlayer id={TTS_PLAYER_ELEMENT_ID}>
       <CloseIconButton onClick={close} aria-label={t('common:close')}>
         <CloseIcon />
       </CloseIconButton>

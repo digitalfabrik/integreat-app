@@ -7,8 +7,11 @@ import { renderRoute } from '../testing/render'
 const renderSuccessful = 'route'
 
 jest.mock('react-i18next')
-
 jest.mock('../CityContentSwitcher', () => () => <div>{renderSuccessful}</div>)
+jest.mock('shared/api', () => ({
+  ...jest.requireActual('shared/api'),
+  useLoadFromEndpoint: jest.fn(() => ({ data: null, error: null, loading: false, refresh: jest.fn() })),
+}))
 
 describe('FixedCityContentSwitcher', () => {
   const languageCode = 'de'

@@ -1,10 +1,10 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { SprungbrettJobModel, OfferModel, useLoadFromEndpoint, createSprungbrettJobsEndpoint } from 'shared/api'
+import { OfferModel, useLoadFromEndpoint, createSprungbrettJobsEndpoint } from 'shared/api'
 
+import List from '../components/base/List'
 import FailureSwitcher from './FailureSwitcher'
-import List from './List'
 import LoadingSpinner from './LoadingSpinner'
 import SprungbrettListItem from './SprungbrettListItem'
 
@@ -25,11 +25,9 @@ const SprungbrettOffer = ({ sprungbrettOffer }: SprungbrettOfferPageProps): Reac
     return <FailureSwitcher error={error ?? new Error('Data missing')} />
   }
 
-  const renderSprungbrettListItem = (job: SprungbrettJobModel): React.ReactNode => (
-    <SprungbrettListItem key={job.id} job={job} />
-  )
+  const items = data.map(job => <SprungbrettListItem key={job.id} job={job} />)
 
-  return <List noItemsMessage={t('noOffersAvailable')} renderItem={renderSprungbrettListItem} items={data} />
+  return <List items={items} NoItemsMessage={t('noOffersAvailable')} />
 }
 
 export default SprungbrettOffer

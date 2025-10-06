@@ -30,6 +30,11 @@ const EmbeddedOffer = ({ category, ...props }: EmbeddedOffersProps): ReactElemen
 
 const EmbeddedOffers = (embeddedOfferProps: EmbeddedOffersProps): ReactElement | null => {
   const { category } = embeddedOfferProps
+  const offer = category.embeddedOffers[0]
+  if (!offer) {
+    return null
+  }
+
   return (
     <Container withMargin={!!category.content}>
       <EmbeddedOffer {...embeddedOfferProps} />

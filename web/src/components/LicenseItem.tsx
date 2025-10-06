@@ -1,12 +1,14 @@
+import ListItem from '@mui/material/ListItem'
+import ListItemButton from '@mui/material/ListItemButton'
+import ListItemText from '@mui/material/ListItemText'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import ListItem from '../components/ListItem'
+import Link from './base/Link'
 
-const LicenseContainer = styled('div')`
-  padding: 5px 10px;
-  line-height: 120%;
+const StyledParagraph = styled('p')`
+  margin: 0;
 `
 
 type LicenseItemProps = {
@@ -19,15 +21,23 @@ type LicenseItemProps = {
 const LicenseItem = ({ license, name, licenseUrl, version }: LicenseItemProps): ReactElement => {
   const { t } = useTranslation('licenses')
   return (
-    <ListItem path={licenseUrl} title={name}>
-      <LicenseContainer>
-        <div>
-          {t('version')} {version}
-        </div>
-        <div>
-          {t('license')} {license}
-        </div>
-      </LicenseContainer>
+    <ListItem disablePadding>
+      <ListItemButton to={licenseUrl} component={Link}>
+        <ListItemText
+          slotProps={{ primary: { component: 'h2' }, secondary: { component: 'div' } }}
+          primary={name}
+          secondary={
+            <>
+              <StyledParagraph>
+                {t('version')} {version}
+              </StyledParagraph>
+              <StyledParagraph>
+                {t('license')} {license}
+              </StyledParagraph>
+            </>
+          }
+        />
+      </ListItemButton>
     </ListItem>
   )
 }
