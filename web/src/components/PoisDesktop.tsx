@@ -4,9 +4,8 @@ import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { GeolocateControl, NavigationControl } from 'react-map-gl'
 
 import { LocationType, MapViewViewport, MapFeature, PreparePoisReturn } from 'shared'
-import { CityModel, PoiModel } from 'shared/api'
+import { PoiModel } from 'shared/api'
 
-import CityContentFooter from './CityContentFooter'
 import MapView from './MapView'
 import PoiPanelHeader from './PoiPanelHeader'
 import PoiPanelNavigation from './PoiPanelNavigation'
@@ -28,19 +27,12 @@ const ListViewWrapper = styled('div')`
   overflow: auto;
 `
 
-const FooterContainer = styled('div')`
-  position: absolute;
-  bottom: 0;
-`
-
 type PoisDesktopProps = {
-  cityModel: CityModel
   data: PreparePoisReturn
   selectMapFeature: (mapFeature: MapFeature | null) => void
   selectPoi: (poi: PoiModel) => void
   deselect: () => void
   userLocation: LocationType | null
-  languageCode: string
   slug: string | undefined
   mapViewport?: MapViewViewport
   setMapViewport: (mapViewport: MapViewViewport) => void
@@ -63,8 +55,6 @@ const PoisDesktop = ({
   selectMapFeature,
   selectPoi,
   deselect,
-  cityModel,
-  languageCode,
   slug,
   mapViewport,
   setMapViewport,
@@ -122,9 +112,6 @@ const PoisDesktop = ({
           trackUserLocation
           position={contentDirection === 'rtl' ? 'bottom-left' : 'bottom-right'}
         />
-        <FooterContainer>
-          <CityContentFooter city={cityModel.code} language={languageCode} mode='overlay' />
-        </FooterContainer>
       </MapView>
     </>
   )
