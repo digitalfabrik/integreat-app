@@ -1,74 +1,54 @@
-import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import Accordion from '@mui/material/Accordion'
+import AccordionDetails from '@mui/material/AccordionDetails'
+import AccordionSummary from '@mui/material/AccordionSummary'
+import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, ReactNode, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { helpers } from '../constants/theme'
-import Button from './base/Button'
-import Icon from './base/Icon'
+const StyledAccordion = styled(Accordion)({
+  '&:before': {
+    display: 'none',
+  },
+})
 
-const Container = styled('div')`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-`
-
-const CollapsibleHeader = styled(Button)`
-  display: flex;
-  justify-content: space-between;
-  color: ${props => props.theme.legacy.colors.textColor};
-`
-
-const Title = styled('div')`
-  display: flex;
-  flex: 1;
-  font-weight: 700;
-  justify-content: space-between;
-  ${helpers.adaptiveFontSize}
-  align-items: center;
-`
-
-const CollapseIcon = styled(Icon)`
-  width: 24px;
-  height: 24px;
-`
+const StyledAccordionSummary = styled(AccordionSummary)({
+  padding: 0,
+})
 
 type CollapsibleProps = {
-  children: ReactElement | string | number
+  children: ReactNode
   title: string | ReactElement
-  Description?: ReactElement
-  initialCollapsed?: boolean
-  className?: string
+  description?: ReactElement
+  defaultCollapsed?: boolean
 }
 
-const Collapsible = ({
-  children,
-  title,
-  Description,
-  initialCollapsed = false,
-  className,
-}: CollapsibleProps): ReactElement => {
-  const [collapsed, setCollapsed] = useState<boolean>(initialCollapsed)
+const Collapsible = ({ children, title, description, defaultCollapsed = false }: CollapsibleProps): ReactElement => {
+  const [expanded, setExpanded] = useState(!defaultCollapsed)
   const { t } = useTranslation('common')
 
   return (
-    <Container className={className}>
-      <CollapsibleHeader
-        label={t(collapsed ? 'showMore' : 'showLess')}
-        onClick={() => setCollapsed(!collapsed)}
-        aria-expanded={!collapsed}
+    <StyledAccordion
+      disableGutters
+      elevation={0}
+      expanded={expanded}
+      onChange={(_, isExpanded) => setExpanded(isExpanded)}>
+      <StyledAccordionSummary
+        aria-label={t(expanded ? 'showLess' : 'showMore')}
+        expandIcon={<ExpandMoreIcon />}
         tabIndex={0}>
-        {typeof title === 'string' ? <Title>{title}</Title> : title}
-        <CollapseIcon
-          src={collapsed ? ExpandMoreIcon : ExpandLessIcon}
-          title={t(collapsed ? 'showMore' : 'showLess')}
-          directionDependent
-        />
-      </CollapsibleHeader>
-      {Description}
-      {!collapsed && children}
-    </Container>
+        {typeof title === 'string' ? (
+          <Typography component='span' variant='title3'>
+            {title}
+          </Typography>
+        ) : (
+          title
+        )}
+        {description}
+      </StyledAccordionSummary>
+      <AccordionDetails>{children}</AccordionDetails>
+    </StyledAccordion>
   )
 }
 
