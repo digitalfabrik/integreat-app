@@ -6,7 +6,7 @@ import { ExternalSourcePermissions } from 'shared'
 
 import Caption from '../components/Caption'
 import ConsentListItem from '../components/ConsentListItem'
-import GeneralFooter from '../components/GeneralFooter'
+import Footer from '../components/Footer'
 import GeneralHeader from '../components/GeneralHeader'
 import Layout from '../components/Layout'
 import List from '../components/base/List'
@@ -42,7 +42,7 @@ const ConsentPage = ({ languageCode }: ConsentPageProps): ReactElement => {
   ))
 
   return (
-    <Layout header={<GeneralHeader languageCode={languageCode} />} footer={<GeneralFooter language={languageCode} />}>
+    <Layout header={<GeneralHeader languageCode={languageCode} />} footer={<Footer />}>
       <Caption title={t('title')} />
       <Description>{t('description')}</Description>
       <List items={items} NoItemsMessage={t('noSources')} />

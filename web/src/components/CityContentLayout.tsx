@@ -8,8 +8,8 @@ import useCityContentParams from '../hooks/useCityContentParams'
 import useDimensions from '../hooks/useDimensions'
 import BottomNavigation from './BottomNavigation'
 import ChatContainer from './ChatContainer'
-import CityContentFooter from './CityContentFooter'
 import CityContentHeader from './CityContentHeader'
+import Footer from './Footer'
 import Layout from './Layout'
 
 export type CityContentLayoutProps = {
@@ -55,11 +55,12 @@ const CityContentLayout = ({
           languageChangePaths={languageChangePaths}
           languageCode={languageCode}
           pageTitle={pageTitle}
+          fitScreen={fitScreen}
         />
       }
       footer={
         <>
-          {footerVisible && <CityContentFooter city={city.code} language={languageCode} />}
+          {footerVisible && <Footer />}
           {chatVisible && <ChatContainer city={city} language={languageCode} />}
           {mobile && <BottomNavigation cityModel={city} languageCode={languageCode} />}
         </>

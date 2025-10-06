@@ -1,12 +1,13 @@
 import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
-import React, { ReactElement, ReactNode } from 'react'
+import React, { ReactElement } from 'react'
 
 import buildConfig from '../constants/buildConfig'
-
-type FooterProps = {
-  children: ReactNode[] | ReactNode
-}
+import { useRouteParams } from '../hooks/useCityContentParams'
+import useDimensions from '../hooks/useDimensions'
+import getFooterLinks from '../utils/getFooterLinks'
+import FooterLink from './FooterLink'
+import List from './base/List'
 
 const FooterContainer = styled('footer')`
   display: flex;
@@ -16,29 +17,37 @@ const FooterContainer = styled('footer')`
   gap: ${props => props.theme.spacing(2)};
   background-color: ${props =>
     props.theme.isContrastTheme ? props.theme.palette.tertiary.dark : props.theme.palette.tertiary.light};
-  padding-bottom: ${props => props.theme.spacing(2)};
-  color: ${props => props.theme.palette.text.primary};
-
-  ${props => props.theme.breakpoints.up('md')} {
-    padding: 8px;
-    color: inherit;
-  }
+  padding: 8px;
 `
 
-/**
- * The standard footer which can supplied to a Layout. Displays a list of links from the props and adds the version
- * number if it's a dev build.
- */
+const StyledList = styled(List)({
+  display: 'flex',
+  justifyContent: 'center',
+  flexDirection: 'row',
+})
 
-const Footer = ({ children }: FooterProps): ReactElement => (
-  <FooterContainer>
-    {children}
-    {buildConfig().featureFlags.developerFriendly && (
-      <Typography variant='body2'>
-        {__VERSION_NAME__}+{__COMMIT_SHA__}
-      </Typography>
-    )}
-  </FooterContainer>
-)
+const Footer = (): ReactElement | null => {
+  const linkItems = getFooterLinks(useRouteParams())
+  const { mobile } = useDimensions()
+
+  if (mobile) {
+    return null
+  }
+
+  return (
+    <FooterContainer>
+      <StyledList
+        items={linkItems.map(item => (
+          <FooterLink key={item.to} to={item.to} text={item.text} />
+        ))}
+      />
+      {buildConfig().featureFlags.developerFriendly && (
+        <Typography variant='body2'>
+          {__VERSION_NAME__}+{__COMMIT_SHA__}
+        </Typography>
+      )}
+    </FooterContainer>
+  )
+}
 
 export default Footer
