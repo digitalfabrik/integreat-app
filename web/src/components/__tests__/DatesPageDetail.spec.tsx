@@ -43,7 +43,7 @@ describe('DatesPageDetail', () => {
     expect(queryByRole('button')).toBeFalsy()
   })
 
-  it('should render next dates and show collapsible if up to MAX_DATE_RECURRENCES events and expand on click', () => {
+  it('should render next dates and accordion if up to MAX_DATE_RECURRENCES events and expand on click', () => {
     const { getByText, queryByText, getByRole } = renderDatesPageDetail(
       date('DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO;UNTIL=20231213T050000'),
     )
@@ -64,7 +64,7 @@ describe('DatesPageDetail', () => {
     expect(queryByText('18. Dezember 2023 07:00 - 19. Dezember 2023 09:00')).toBeFalsy()
   })
 
-  it('should render next dates and show collapsible if more than MAX_DATE_RECURRENCES events and expand on click', () => {
+  it('should render next dates and show accordion if more than MAX_DATE_RECURRENCES events and expand on click', () => {
     const { getByText, queryByText, getByRole } = renderDatesPageDetail(
       date('DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO;UNTIL=20241213T050000'),
     )

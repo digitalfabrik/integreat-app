@@ -11,11 +11,11 @@ import { useTranslation } from 'react-i18next'
 import { getExternalMapsLink } from 'shared'
 import { PoiModel } from 'shared/api'
 
-import Collapsible from './Collapsible'
 import Contact from './Contact'
 import OpeningHours from './OpeningHours'
 import PoiChips from './PoiChips'
 import RemoteContent from './RemoteContent'
+import Accordion from './base/Accordion'
 import Link from './base/Link'
 import List from './base/List'
 
@@ -72,14 +72,14 @@ const PoiDetails = ({ poi, distance }: PoiDetailsProps): ReactElement => {
   const contactsSection = contacts.length > 0 && (
     <>
       <Divider />
-      <Collapsible title={t('contacts')}>
+      <Accordion title={t('contacts')}>
         <StyledContactsList
           items={contacts.map(contact => (
             <Contact key={contact.headline} contact={contact} />
           ))}
           disablePadding
         />
-      </Collapsible>
+      </Accordion>
     </>
   )
 
@@ -114,9 +114,9 @@ const PoiDetails = ({ poi, distance }: PoiDetailsProps): ReactElement => {
       {content.length > 0 && (
         <>
           <Divider />
-          <Collapsible title={t('detailsInformation')}>
+          <Accordion title={t('detailsInformation')}>
             <RemoteContent html={content} smallText />
-          </Collapsible>
+          </Accordion>
         </>
       )}
     </Stack>
