@@ -22,6 +22,9 @@ const StyledImage = styled('img')`
   width: 40px;
   height: 40px;
 `
+const StyledListItemButton = styled(ListItemButton)`
+  min-height: 56px;
+` as typeof ListItemButton
 
 type CategoryListItemProps = {
   category: CategoryModel
@@ -33,9 +36,9 @@ const CategoryListItem = ({ category, subCategories }: CategoryListItemProps): R
     const { path, title } = subCategory
     return (
       <ListItem disablePadding key={path}>
-        <ListItemButton component={Link} to={path}>
+        <StyledListItemButton component={Link} to={path}>
           <ListItemText primary={<Typography variant='body1'>{title}</Typography>} />
-        </ListItemButton>
+        </StyledListItemButton>
       </ListItem>
     )
   })
@@ -60,7 +63,7 @@ const CategoryListItem = ({ category, subCategories }: CategoryListItemProps): R
         <>
           <Divider />
           <Stack paddingInlineStart={7}>
-            <List items={SubCategories} disablePadding />
+            <List items={SubCategories} />
           </Stack>
         </>
       )}
