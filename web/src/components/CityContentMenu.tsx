@@ -27,9 +27,10 @@ type CityContentMenuProps = {
   slug?: string
   category?: CategoryModel
   pageTitle: string | null
+  fitScreen?: boolean
 }
 
-const CityContentMenu = ({ slug, category, pageTitle }: CityContentMenuProps): ReactElement => {
+const CityContentMenu = ({ slug, category, pageTitle, fitScreen }: CityContentMenuProps): ReactElement => {
   const { route, cityCode, languageCode } = useCityContentParams()
   const { enabled: ttsEnabled, showTtsPlayer, canRead } = useContext(TtsContext)
   const { toggleTheme, dimensions } = useTheme()
@@ -74,7 +75,7 @@ const CityContentMenu = ({ slug, category, pageTitle }: CityContentMenuProps): R
 
   return (
     <>
-      <HeaderMenu pageTitle={pageTitle} ref={ref}>
+      <HeaderMenu pageTitle={pageTitle} fitScreen={fitScreen} ref={ref}>
         {items}
       </HeaderMenu>
       {feedbackOpen && (

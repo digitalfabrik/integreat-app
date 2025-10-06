@@ -17,11 +17,9 @@ describe('CityNotCooperatingPage', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
-  const languageCode = 'de'
   const template = buildConfig().featureFlags.cityNotCooperatingTemplate
 
-  const renderPage = (): RenderResult =>
-    renderWithRouterAndTheme(<CityNotCooperatingPage languageCode={languageCode} />)
+  const renderPage = (): RenderResult => renderWithRouterAndTheme(<CityNotCooperatingPage />)
 
   it('should render texts', () => {
     const { getByText } = renderPage()
