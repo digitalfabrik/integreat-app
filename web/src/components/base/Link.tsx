@@ -8,12 +8,12 @@ import { UiDirectionType } from 'translations'
 import { isInternalLink, NEW_TAB, NEW_TAB_FEATURES } from '../../utils/openLink'
 
 const InternalLink = styled(RouterLink, { shouldForwardProp })<{ highlightedLink: boolean }>`
-  color: ${props => (props.highlightedLink ? props.theme.legacy.colors.linkColor : 'inherit')};
+  color: ${props => (props.highlightedLink ? props.theme.palette.primary.main : 'inherit')};
   text-decoration: ${props => (props.highlightedLink ? 'underline' : 'none')};
 `
 
 const ExternalLink = styled('a')<{ highlightedLink: boolean }>`
-  color: ${props => (props.highlightedLink ? props.theme.legacy.colors.linkColor : 'inherit')};
+  color: ${props => (props.highlightedLink ? props.theme.palette.primary.main : 'inherit')};
   text-decoration: ${props => (props.highlightedLink ? 'underline' : 'none')};
 `
 

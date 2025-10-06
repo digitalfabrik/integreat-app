@@ -68,6 +68,9 @@ declare module '@mui/material/styles' {
       main: string
     }
   }
+  interface TypeText {
+    neutral: string
+  }
 }
 
 declare module '@mui/material/Button' {

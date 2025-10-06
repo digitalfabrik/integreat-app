@@ -1,8 +1,13 @@
+import Typography, { TypographyProps } from '@mui/material/Typography'
+import { styled } from '@mui/material/styles'
 import Stack from '@mui/material/Stack'
-import Typography from '@mui/material/Typography'
 import React, { ReactElement } from 'react'
 
 import Link from './base/Link'
+
+const StyledTypography = styled(Typography)<TypographyProps>`
+  color: ${props => props.theme.palette.text.secondary};
+`
 
 type PageDetailProps = {
   identifier?: string
@@ -14,7 +19,7 @@ type PageDetailProps = {
 
 const PageDetail = ({ identifier, information, secondaryInformation, path, icon }: PageDetailProps): ReactElement => (
   <Stack direction='row' marginLeft={!icon && !identifier ? 4 : 0} gap={1}>
-    {!!identifier && <Typography variant='label2'>{identifier}: </Typography>}
+    {!!identifier && <StyledTypography variant='label2'>{identifier}: </StyledTypography>}
     {icon}
     <Stack direction='row' flexWrap='wrap' gap={1}>
       {path ? (
@@ -22,9 +27,9 @@ const PageDetail = ({ identifier, information, secondaryInformation, path, icon 
           <Typography>{information}</Typography>
         </Link>
       ) : (
-        <Typography>{information}</Typography>
+        <StyledTypography>{information}</StyledTypography>
       )}
-      <Typography>{secondaryInformation}</Typography>
+      <StyledTypography>{secondaryInformation}</StyledTypography>
     </Stack>
   </Stack>
 )

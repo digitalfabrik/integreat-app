@@ -5,13 +5,18 @@ import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'
 import SmartphoneOutlinedIcon from '@mui/icons-material/SmartphoneOutlined'
 import ListItem from '@mui/material/ListItem'
 import Stack from '@mui/material/Stack'
-import Typography from '@mui/material/Typography'
+import Typography, { TypographyProps } from '@mui/material/Typography'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ContactModel } from 'shared/api'
 
 import ContactDetail from './ContactDetail'
+
+const StyledTypography = styled(Typography)<TypographyProps>`
+  color: ${props => props.theme.palette.text.neutral};
+`
 
 type ContactProps = {
   contact: ContactModel
@@ -24,7 +29,7 @@ const Contact = ({ contact }: ContactProps): ReactElement => {
   return (
     <ListItem disablePadding>
       <Stack gap={1}>
-        <Typography variant='title3'>{headline ?? t('contactInformation')}</Typography>
+        <StyledTypography variant='title3'>{headline ?? t('contactInformation')}</StyledTypography>
         {!!website && (
           <ContactDetail Icon={PublicOutlinedIcon} link={website} content={t('website')} IconEnd={OpenInNewIcon} />
         )}

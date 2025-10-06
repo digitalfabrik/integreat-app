@@ -3,7 +3,7 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import Stack from '@mui/material/Stack'
-import Typography from '@mui/material/Typography'
+import Typography, { TypographyProps } from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -39,6 +39,10 @@ const Thumbnail = styled('img')`
   }
 `
 
+const StyledTypography = styled(Typography)<TypographyProps>`
+  color: ${props => props.theme.palette.text.neutral};
+`
+
 type PoiDetailsProps = {
   poi: PoiModel
   distance: number | null
@@ -54,14 +58,14 @@ const PoiDetails = ({ poi, distance }: PoiDetailsProps): ReactElement => {
 
   const addressSection = (
     <Stack paddingBlock={1} gap={1}>
-      <Typography variant='title3'>{t('detailsAddress')}</Typography>
+      <StyledTypography variant='title3'>{t('detailsAddress')}</StyledTypography>
       <Button component={Link} to={externalMapsLink} color='inherit' startIcon={<LocationOnOutlinedIcon />} fullWidth>
         <Stack direction='row' width='100%' justifyContent='space-between' alignItems='center'>
           <Stack>
-            <Typography variant='body2'>{location.address}</Typography>
-            <Typography variant='body2'>
+            <StyledTypography variant='body2'>{location.address}</StyledTypography>
+            <StyledTypography variant='body2'>
               {location.postcode} {location.town}
-            </Typography>
+            </StyledTypography>
           </Stack>
           <OpenInNewIcon color='primary' />
         </Stack>
@@ -102,7 +106,7 @@ const PoiDetails = ({ poi, distance }: PoiDetailsProps): ReactElement => {
           {poi.title}
         </Typography>
         {distance !== null && (
-          <Typography variant='body2'>{t('distanceKilometre', { distance: distance.toFixed(1) })}</Typography>
+          <StyledTypography variant='body2'>{t('distanceKilometre', { distance: distance.toFixed(1) })}</StyledTypography>
         )}
         <PoiChips poi={poi} />
         {!!poi.thumbnail && <Thumbnail alt='' src={poi.thumbnail} />}

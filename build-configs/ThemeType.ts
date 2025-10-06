@@ -36,6 +36,7 @@ export type TypeText = {
   primary: string
   secondary: string
   disabled: string
+  neutral: string
 }
 
 export type CommonColorPalette = CommonColors & {

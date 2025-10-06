@@ -51,6 +51,7 @@ export const commonLightColors: CommonColorPalette = {
     // TODO
     secondary: '#585858',
     disabled: '#858585',
+    neutral: '#212121',
   },
   action: {
     disabledBackground: '#FFFFFF',
@@ -79,6 +80,7 @@ export const commonDarkColors: CommonColorPalette = {
     // TODO
     secondary: '#E6E0E9',
     disabled: '#858585',
+    neutral: '#E6E0E9',
   },
   action: {
     disabledBackground: '#000000',

@@ -1,4 +1,5 @@
 import IconButton from '@mui/material/IconButton'
+import Typography, { TypographyProps } from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import { GeolocateControl } from 'maplibre-gl'
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
@@ -22,7 +23,7 @@ const ListContainer = styled('div')`
   padding: 0 30px;
 `
 
-const ListTitle = styled('div')`
+const ListTitle = styled(Typography)<TypographyProps>`
   margin: 12px 0;
   font-weight: 700;
 `
@@ -132,7 +133,7 @@ const PoisMobile = ({
           </>
         }>
         <ListContainer>
-          {!canDeselect && <ListTitle>{t('common:nearby')}</ListTitle>}
+          {!canDeselect && <ListTitle component='h1' variant='title1'>{t('common:nearby')}</ListTitle>}
           <PoiSharedChildren
             pois={pois}
             poi={poi}

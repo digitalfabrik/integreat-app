@@ -9,7 +9,7 @@ import { Trans, useTranslation } from 'react-i18next'
 import Link from './base/Link'
 
 const StyledLink = styled(Link)`
-  color: ${props => props.theme.palette.text.primary};
+  color: ${props => props.theme.palette.primary.main};
 `
 
 type AppointmentOnlyIconProps = {

@@ -2,7 +2,7 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import Button from '@mui/material/Button'
 import List from '@mui/material/List'
 import Stack from '@mui/material/Stack'
-import Typography from '@mui/material/Typography'
+import Typography, { TypographyProps } from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
@@ -14,6 +14,10 @@ import { OpeningHoursModel } from 'shared/api'
 import OpeningHoursListItem from './OpeningHoursListItem'
 import Accordion from './base/Accordion'
 import Link from './base/Link'
+
+const StyledTypography = styled(Typography)<TypographyProps>`
+  color: ${props => props.theme.palette.text.neutral};
+`
 
 const StyledList = styled(List)({
   display: 'flex',
@@ -30,7 +34,7 @@ const OpeningHoursTitle = ({ isCurrentlyOpen, label }: OpeningHoursTitleProps) =
   const { t } = useTranslation('pois')
   return (
     <Stack direction='row' justifyContent='space-between' alignItems='center' width='100%' gap={1} paddingInlineEnd={1}>
-      <Typography variant='title3'>{t('openingHours')}</Typography>
+      <StyledTypography variant='title3'>{t('openingHours')}</StyledTypography>
       <Typography variant='label1' color={isCurrentlyOpen ? 'success' : 'error'}>
         {t(label ?? (isCurrentlyOpen ? 'opened' : 'closed'))}
       </Typography>

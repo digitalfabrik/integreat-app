@@ -1,5 +1,4 @@
 import React, { ReactElement } from 'react'
-import { useTranslation } from 'react-i18next'
 
 import { getCategoryTiles } from 'shared'
 import { CategoriesMapModel, CategoryModel } from 'shared/api'
@@ -26,7 +25,6 @@ const CategoriesContent = ({
   languageCode,
 }: CategoriesContentProps): ReactElement => {
   const children = categories.getChildren(categoryModel)
-  const { t } = useTranslation('layout')
 
   if (categories.isLeaf(categoryModel)) {
     return (
@@ -51,7 +49,7 @@ const CategoriesContent = ({
   }
 
   if (categoryModel.isRoot()) {
-    return <Tiles tiles={getCategoryTiles({ categories: children, cityCode })} title={t('localInformation')} />
+    return <Tiles tiles={getCategoryTiles({ categories: children, cityCode })} title={null} />
   }
 
   return (
