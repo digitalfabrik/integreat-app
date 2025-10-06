@@ -114,18 +114,12 @@ const StyledContactsContainer = styled('div')`
   margin-top: 12px;
 `
 
-const ToolbarWrapper = styled('div')`
-  display: flex;
-  justify-content: center;
-`
-
 type PoiDetailsProps = {
   poi: PoiModel
   distance: number | null
-  toolbar?: ReactElement
 }
 
-const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement => {
+const PoiDetails = ({ poi, distance }: PoiDetailsProps): ReactElement => {
   const { desktop } = useDimensions()
   const { t } = useTranslation('pois')
   const { content, location, contacts, isCurrentlyOpen, openingHours, temporarilyClosed, appointmentUrl } = poi
@@ -190,12 +184,6 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
           <Collapsible title={t('detailsInformation')}>
             <RemoteContent html={content} smallText />
           </Collapsible>
-        </>
-      )}
-      {toolbar && (
-        <>
-          <StyledDivider />
-          <ToolbarWrapper>{toolbar}</ToolbarWrapper>
         </>
       )}
     </DetailsContainer>
