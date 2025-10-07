@@ -197,7 +197,7 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
       <Snackbar
         open={snackbarOpen}
         onClose={() => setSnackbarOpen(false)}
-        sendingStatus={sendingStatus}
+        severity={sendingStatus === 'successful' ? 'success' : 'error'}
         dashboardRoute={dashboardRoute}
         title={t('submitFailed')}
         message={sendingStatus === 'successful' ? t('submitSuccessful') : t('submitFailedReasoning')}
