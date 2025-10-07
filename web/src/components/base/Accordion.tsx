@@ -8,6 +8,8 @@ import React, { ReactElement, ReactNode, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 const StyledAccordion = styled(MuiAccordion)({
+  background: 'transparent',
+
   '&:before': {
     display: 'none',
   },
@@ -15,6 +17,10 @@ const StyledAccordion = styled(MuiAccordion)({
 
 const StyledAccordionSummary = styled(AccordionSummary)({
   padding: 0,
+})
+
+const StyledAccordionDetails = styled(AccordionDetails)({
+  overflowWrap: 'break-word',
 })
 
 type AccordionProps = {
@@ -47,7 +53,7 @@ const Accordion = ({ children, title, description, defaultCollapsed = false }: A
         )}
         {description}
       </StyledAccordionSummary>
-      <AccordionDetails>{children}</AccordionDetails>
+      <StyledAccordionDetails>{children}</StyledAccordionDetails>
     </StyledAccordion>
   )
 }
