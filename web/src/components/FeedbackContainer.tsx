@@ -1,4 +1,5 @@
 import React, { ReactElement, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { Rating, SendingStatusType } from 'shared'
 import { createFeedbackEndpoint, FeedbackRouteType } from 'shared/api'
@@ -7,6 +8,7 @@ import { cmsApiBaseUrl } from '../constants/urls'
 import useCityContentParams from '../hooks/useCityContentParams'
 import { reportError } from '../utils/sentry'
 import Feedback from './Feedback'
+import Snackbar from './base/Snackbar'
 
 type FeedbackContainerProps = {
   query?: string
@@ -25,10 +27,12 @@ export const FeedbackContainer = ({
   onError,
   initialRating,
 }: FeedbackContainerProps): ReactElement => {
+  const { t } = useTranslation('feedback')
   const [rating, setRating] = useState<Rating | null>(initialRating)
   const [comment, setComment] = useState<string>('')
   const [contactMail, setContactMail] = useState<string>('')
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
+  const [snackbarOpen, setSnackbarOpen] = useState(false)
   const [searchTerm, setSearchTerm] = useState<string | undefined>(query)
   const { route, cityCode, languageCode } = useCityContentParams()
 
@@ -54,23 +58,25 @@ export const FeedbackContainer = ({
       })
 
       setSendingStatus('successful')
+      setSnackbarOpen(true)
       onSubmit?.()
     }
 
     request().catch(err => {
       reportError(err)
       setSendingStatus('failed')
+      setSnackbarOpen(true)
       onError?.()
     })
   }
 
   return (
+    <>
     <Feedback
       language={languageCode}
       onCommentChanged={setComment}
       onContactMailChanged={setContactMail}
       onSubmit={handleSubmit}
-      sendingStatus={sendingStatus}
       rating={rating}
       comment={comment}
       setRating={setRating}
@@ -78,6 +84,13 @@ export const FeedbackContainer = ({
       searchTerm={searchTerm}
       setSearchTerm={setSearchTerm}
     />
+      <Snackbar
+        open={snackbarOpen}
+        sendingStatus={sendingStatus}
+        onClose={() => setSnackbarOpen(false)}
+        message={sendingStatus === 'successful' ? t('thanksMessage') : t('failedSendingFeedback')}
+      />
+    </>
   )
 }
 
