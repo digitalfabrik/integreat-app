@@ -168,6 +168,7 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
   const ancestorBreadcrumbs = parents
     .sort((a, b) => a.parentPath.length - b.parentPath.length)
     .map((categoryModel: CategoryModel) => getBreadcrumb(categoryModel, city.name))
+  const breadcrumbs = [...ancestorBreadcrumbs, getBreadcrumb(category, city.name)]
 
   const metaDescription = t('categories:metaDescription', { appName: buildConfig().appName })
 
@@ -179,7 +180,7 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
         languageChangePaths={languageChangePaths}
         cityModel={city}
       />
-      <Breadcrumbs ancestorBreadcrumbs={ancestorBreadcrumbs} currentBreadcrumb={getBreadcrumb(category, city.name)} />
+      <Breadcrumbs breadcrumbs={breadcrumbs} />
       <CategoriesContent
         city={city}
         cityCode={cityCode}
