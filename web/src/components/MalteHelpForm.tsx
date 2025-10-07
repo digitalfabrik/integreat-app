@@ -6,6 +6,7 @@ import AlertTitle from '@mui/material/AlertTitle'
 import Button from '@mui/material/Button'
 import FormControl from '@mui/material/FormControl'
 import FormHelperText from '@mui/material/FormHelperText'
+import Stack from '@mui/material/Stack'
 import TextField from '@mui/material/TextField'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
@@ -26,7 +27,6 @@ import Icon from '../components/base/Icon'
 import { reportError } from '../utils/sentry'
 import PrivacyCheckbox from './PrivacyCheckbox'
 import RadioGroup from './base/RadioGroup'
-import Spacing from './base/Spacing'
 
 const Note = styled('div')`
   display: flex;
@@ -194,7 +194,7 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
             {t(sendingStatus === 'invalidEmail' ? 'invalidEmailAddress' : 'submitFailedReasoning')}
           </Alert>
         )}
-        <Spacing />
+        <Stack height={1} />
         <Button type='submit' startIcon={<SendIcon />} variant='contained'>
           {t('submit')}
         </Button>
