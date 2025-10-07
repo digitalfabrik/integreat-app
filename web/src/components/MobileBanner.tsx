@@ -5,7 +5,7 @@ import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import { DateTime } from 'luxon'
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import SVG from 'react-inlinesvg'
 
@@ -30,7 +30,6 @@ const Logo = styled(SVG)({
 const MobileBanner = (): ReactElement | null => {
   const { value, updateLocalStorageItem } = useLocalStorage<string | null>({ key: 'showBanner', initialValue: null })
   const isVisible = !value || DateTime.fromISO(value).plus({ months: 3 }) < DateTime.now()
-  const [isInstalled] = useState<boolean>(false) // This is always false because we can't know if app is installed or not before running the deep-link
   const { icons, appName, apps, hostName } = buildConfig()
   const appStoreUrl = `https://play.google.com/store/apps/details?id=${apps?.android.applicationId}`
   const userAgent = navigator.userAgent
@@ -71,22 +70,18 @@ const MobileBanner = (): ReactElement | null => {
     return (
       <StyledBanner>
         <Stack direction='row' alignItems='center' gap={1}>
-          {!isInstalled && (
-            <IconButton onClick={closeBanner} aria-label={t('common:close')}>
-              <CloseIcon />
-            </IconButton>
-          )}
+          <IconButton onClick={closeBanner} aria-label={t('common:close')}>
+            <CloseIcon />
+          </IconButton>
           <Logo src={icons.appLogoMobile} />
           <Stack>
             <Typography variant='title3'>{appName}</Typography>
-            {!isInstalled && <Typography variant='body3'>Tür an Tür - Digitalfabrik gGmbH</Typography>}
-            <Typography variant='body3'>
-              {isInstalled ? t('openInApp', { appName: buildConfig().appName }) : t('getOnPlayStore')}
-            </Typography>
+            <Typography variant='body3'>Tür an Tür - Digitalfabrik gGmbH</Typography>
+            <Typography variant='body3'>{t('getOnPlayStore')}</Typography>
           </Stack>
         </Stack>
         <Button onClick={checkIfAppIsInstalled} color='inherit'>
-          {t(isInstalled ? 'open' : 'view')}
+          {t('view')}
         </Button>
       </StyledBanner>
     )
