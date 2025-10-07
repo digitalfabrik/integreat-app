@@ -16,15 +16,6 @@ describe('Accordion', () => {
     expect(getByText(content)).toBeTruthy()
   })
 
-  it('shows no content if default collapse is set to true', () => {
-    const { getByText } = renderWithTheme(
-      <Accordion title={title} defaultCollapsed>
-        {content}
-      </Accordion>,
-    )
-    expect(getByText(content)).not.toBeVisible()
-  })
-
   it('hides content by clicking on the header', async () => {
     const { getByText } = renderWithTheme(<Accordion title={title}>{content}</Accordion>)
     expect(getByText(content)).toBeVisible()
@@ -32,9 +23,9 @@ describe('Accordion', () => {
     await waitFor(() => expect(getByText(content)).not.toBeVisible())
   })
 
-  it('shows content by clicking on the header if initialCollapse is set to true', async () => {
+  it('shows content by clicking on the header if default collapsed is set to true', async () => {
     const { getByText } = renderWithTheme(
-      <Accordion defaultCollapsed title={title}>
+      <Accordion title={title} defaultCollapsed>
         {content}
       </Accordion>,
     )
