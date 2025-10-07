@@ -8,8 +8,6 @@ import React, { ReactElement, ReactNode, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 const StyledAccordion = styled(MuiAccordion)({
-  background: 'transparent',
-
   '&:before': {
     display: 'none',
   },
