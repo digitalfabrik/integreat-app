@@ -11,15 +11,14 @@ jest.mock('react-inlinesvg')
 window.HTMLElement.prototype.scrollIntoView = jest.fn()
 jest.useFakeTimers()
 
-const render = (messages: ChatMessageModel[], hasError: boolean, isTyping: boolean) =>
-  renderWithRouterAndTheme(<ChatConversation messages={messages} hasError={hasError} isTyping={isTyping} />)
+const render = (messages: ChatMessageModel[], isTyping: boolean) =>
+  renderWithRouterAndTheme(<ChatConversation messages={messages} isTyping={isTyping} />)
 
 describe('ChatConversation', () => {
   const testMessages: ChatMessageModel[] = [
     new ChatMessageModel({
       id: 1,
-      content:
-        '<b>Meine Frage lautet</b>, warum bei Integreat eigentlich alles gelb ist. <a rel="noopener" class="link-external" target="_blank" href="https://www.google.com" >Weitere Infos</a>',
+      content: 'Informationen zu Ihrer Frage finden Sie auf folgenden Seiten:',
       userIsAuthor: true,
       automaticAnswer: false,
     }),
@@ -32,7 +31,8 @@ describe('ChatConversation', () => {
     }),
     new ChatMessageModel({
       id: 3,
-      content: 'Informationen zu Ihrer Frage finden Sie auf folgenden Seiten:',
+      content:
+        '<b>Meine Frage lautet</b>, warum bei Integreat eigentlich alles gelb ist. <a rel="noopener" class="link-external" target="_blank" href="https://www.google.com" >Weitere Infos</a>',
       userIsAuthor: false,
       automaticAnswer: false,
     }),
@@ -89,29 +89,29 @@ describe('ChatConversation', () => {
   ]
 
   it('should display welcome text if conversation has not started', () => {
-    const { getByText } = render([], false, false)
+    const { getByText } = render([], false)
     expect(getByText('chat:conversationTitle')).toBeTruthy()
     expect(getByText('chat:conversationText')).toBeTruthy()
   })
 
   it('should display messages and initial message if no answer received yet', () => {
-    const { getByText, getByTestId } = render(testMessages.slice(0, 1), false, false)
+    const { getByText } = render(testMessages.slice(0, 1), false)
     expect(getByText('chat:initialMessage')).toBeTruthy()
-    expect(getByTestId(testMessages[0]!.id)).toBeTruthy()
+    expect(getByText(testMessages[0]!.content)).toBeTruthy()
   })
 
   it('should not display help message message if answer received', () => {
-    const { getByTestId, queryByText } = render(testMessages.slice(0, 2), false, false)
+    const { getByText, queryByText } = render(testMessages.slice(0, 2), false)
     expect(queryByText('chat:initialMessage')).toBeFalsy()
-    expect(getByTestId(testMessages[0]!.id)).toBeTruthy()
-    expect(getByTestId(testMessages[1]!.id)).toBeTruthy()
+    expect(getByText(testMessages[0]!.content)).toBeTruthy()
+    expect(getByText(testMessages[1]!.content)).toBeTruthy()
   })
 
   it('should display typing indicator', () => {
-    const { getByText, getByTestId } = render(testMessages, false, true)
-    expect(getByTestId(testMessages[0]!.id)).toBeTruthy()
-    expect(getByTestId(testMessages[1]!.id)).toBeTruthy()
-    expect(getByText('chat:human')).toBeTruthy()
+    const { getByText, getByLabelText } = render(testMessages, true)
+    expect(getByText(testMessages[0]!.content)).toBeTruthy()
+    expect(getByText(testMessages[1]!.content)).toBeTruthy()
+    expect(getByLabelText('chat:human')).toBeTruthy()
     expect(getByText('...')).toBeTruthy()
   })
 
@@ -122,40 +122,36 @@ describe('ChatConversation', () => {
       userIsAuthor: false,
       automaticAnswer: true,
     })
-    const { queryByText, rerender } = render(testMessages, false, true)
+    const { queryByText, rerender } = render(testMessages, true)
     expect(queryByText('...')).toBeTruthy()
-    rerender(<ChatConversation messages={[...testMessages, botMessage]} hasError={false} isTyping={false} />)
+    rerender(<ChatConversation messages={[...testMessages, botMessage]} isTyping={false} />)
     expect(queryByText('...')).toBeNull()
-  })
-
-  it('should display error messages if error occurs', () => {
-    const { getByText } = render([], true, false)
-    expect(getByText('chat:errorMessage')).toBeTruthy()
   })
 
   it('should display icon after automaticAnswer or author changes', () => {
     const expectedResults = [
-      { icon: 'human', text: 'Human Message 1', opacity: '1' },
-      { icon: 'bot', text: 'Bot Message 1', opacity: '1' },
-      { icon: 'human', text: 'Human Message 2', opacity: '1' },
-      { icon: 'human', text: 'Human Message 3', opacity: '0' },
-      { icon: 'bot', text: 'Bot Message 2', opacity: '1' },
-      { icon: 'bot', text: 'Bot Message 3', opacity: '0' },
+      { label: 'chat:human', text: 'Human Message 1', opacity: '1' },
+      { label: 'chat:bot', text: 'Bot Message 1', opacity: '1' },
+      { label: 'chat:user', text: 'User Message 1', opacity: '1' },
+      { label: 'chat:human', text: 'Human Message 2', opacity: '1' },
+      { label: 'chat:human', text: 'Human Message 3', opacity: '0' },
+      { label: 'chat:bot', text: 'Bot Message 2', opacity: '1' },
+      { label: 'chat:bot', text: 'Bot Message 3', opacity: '0' },
     ]
 
-    const { getAllByRole } = render(testMessages2, false, false)
-    const icons = getAllByRole('img')
+    const { getAllByLabelText } = render(testMessages2, false)
+    const avatars = getAllByLabelText(/chat:.*/)
 
-    expect(icons).toHaveLength(6)
+    expect(avatars).toHaveLength(7)
 
-    icons.forEach((icon, index) => {
+    avatars.forEach((avatar, index) => {
       const expected = expectedResults[index]!
-      const parent = icon.parentElement
+      const parent = avatar.parentElement
       const grandparent = parent?.parentElement
 
-      expect(icon.textContent).toMatch(expected.icon)
+      expect(avatar).toHaveAttribute('aria-label', expected.label)
+      expect(avatar).toHaveStyle(`opacity: ${expected.opacity}`)
       expect(grandparent?.textContent).toMatch(expected.text)
-      expect(parent).toHaveStyle(`opacity: ${expected.opacity}`)
     })
   })
 })

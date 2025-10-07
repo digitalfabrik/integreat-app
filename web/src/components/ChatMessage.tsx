@@ -1,92 +1,75 @@
+import shouldForwardProp from '@emotion/is-prop-valid'
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined'
 import SmartToyOutlinedIcon from '@mui/icons-material/SmartToyOutlined'
+import Avatar from '@mui/material/Avatar'
+import Stack from '@mui/material/Stack'
+import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
-import { TFunction } from 'i18next'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ChatMessageModel } from 'shared/api'
 
 import RemoteContent from './RemoteContent'
-import Icon from './base/Icon'
 
-export const Message = styled('div')`
-  color: ${props => props.theme.legacy.colors.textColor};
-  border-radius: 5px;
-  padding: 8px;
-  border: 1px solid ${props => props.theme.legacy.colors.textDecorationColor};
-  max-width: 70%;
-  width: max-content;
+export const Message = styled('div')(({ theme }) => ({
+  maxWidth: '70%',
+  width: 'max-content',
+  padding: 8,
+  border: `1px solid ${theme.palette.divider}`,
+  borderRadius: 8,
+  wordBreak: 'break-word',
+}))
 
-  & > div > a {
-    line-break: anywhere;
-  }
-`
-const StyledChatIcon = styled(Icon)`
-  background-color: ${props => props.theme.legacy.colors.themeColor};
-  color: black;
-  border-radius: 4px;
-`
+const StyledAvatar = styled(Avatar, { shouldForwardProp })<{ visible: boolean }>(({ visible }) => ({
+  opacity: visible ? 1 : 0,
+}))
 
-const Container = styled('div')<{ isAuthor: boolean }>`
-  display: flex;
-  flex-direction: ${props => (props.isAuthor ? 'row-reverse' : 'row')};
-  margin-bottom: 12px;
-  gap: 8px;
-`
+type MessageAvatarProps = {
+  userIsAuthor: boolean
+  isAutomaticAnswer: boolean
+  visible: boolean
+}
 
-const IconContainer = styled('div')<{ visible: boolean }>`
-  opacity: ${props => (props.visible ? 1 : 0)};
-`
-
-const Circle = styled('div')`
-  display: flex;
-  background-color: ${props => props.theme.legacy.colors.textColor};
-  border-radius: 50%;
-  height: 18px;
-  width: 18px;
-  color: ${props => props.theme.legacy.colors.backgroundColor};
-  justify-content: center;
-  align-items: center;
-  padding: 4px;
-  font-size: ${props => props.theme.legacy.fonts.decorativeFontSizeSmall};
-`
-
-const getIcon = (userIsAuthor: boolean, isAutomaticAnswer: boolean, t: TFunction<'chat'>): ReactElement => {
+const MessageAvatar = ({ userIsAuthor, isAutomaticAnswer, visible }: MessageAvatarProps): ReactElement => {
+  const { t } = useTranslation('chat')
   if (userIsAuthor) {
-    return <Circle>{t('user')}</Circle>
+    return <StyledAvatar visible={visible} aria-label={t('user')} />
   }
-  const icon = isAutomaticAnswer ? SmartToyOutlinedIcon : PersonOutlinedIcon
-  return <StyledChatIcon src={icon} title={isAutomaticAnswer ? t('bot') : t('human')} />
+  return (
+    <StyledAvatar visible={visible} aria-label={t(isAutomaticAnswer ? 'bot' : 'human')}>
+      {isAutomaticAnswer ? <SmartToyOutlinedIcon /> : <PersonOutlinedIcon />}
+    </StyledAvatar>
+  )
 }
 
 type InnerChatMessageProps = {
   userIsAuthor: boolean
-  showIcon: boolean
+  showAvatar: boolean
   isAutomaticAnswer: boolean
   content: string
-  messageId: number
 }
 
 export const InnerChatMessage = ({
   userIsAuthor,
-  showIcon,
+  showAvatar,
   isAutomaticAnswer,
   content,
-  messageId,
-}: InnerChatMessageProps): ReactElement => {
-  const { t } = useTranslation('chat')
-  return (
-    <Container isAuthor={userIsAuthor}>
-      <IconContainer visible={showIcon}>{getIcon(userIsAuthor, isAutomaticAnswer, t)}</IconContainer>
-      <Message data-testid={messageId}>
+}: InnerChatMessageProps): ReactElement => (
+  <Stack direction={userIsAuthor ? 'row-reverse' : 'row'} gap={1}>
+    <MessageAvatar userIsAuthor={userIsAuthor} isAutomaticAnswer={isAutomaticAnswer} visible={showAvatar} />
+    <Message>
+      <Typography variant='body2' component='div'>
         <RemoteContent html={content} smallText />
-      </Message>
-    </Container>
-  )
-}
+      </Typography>
+    </Message>
+  </Stack>
+)
 
-type ChatMessageProps = { message: ChatMessageModel; previousMessage: ChatMessageModel | undefined }
+type ChatMessageProps = {
+  message: ChatMessageModel
+  previousMessage: ChatMessageModel | undefined
+}
 
 const ChatMessage = ({ message, previousMessage }: ChatMessageProps): ReactElement => {
   const { content, userIsAuthor, isAutomaticAnswer } = message
@@ -97,10 +80,9 @@ const ChatMessage = ({ message, previousMessage }: ChatMessageProps): ReactEleme
   return (
     <InnerChatMessage
       userIsAuthor={userIsAuthor}
-      showIcon={showIcon}
+      showAvatar={showIcon}
       isAutomaticAnswer={isAutomaticAnswer}
       content={content}
-      messageId={message.id}
     />
   )
 }
