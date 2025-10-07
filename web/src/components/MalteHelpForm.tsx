@@ -4,6 +4,7 @@ import SendIcon from '@mui/icons-material/Send'
 import Button from '@mui/material/Button'
 import FormControl from '@mui/material/FormControl'
 import FormHelperText from '@mui/material/FormHelperText'
+import Stack from '@mui/material/Stack'
 import TextField from '@mui/material/TextField'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
@@ -24,7 +25,6 @@ import PrivacyCheckbox from './PrivacyCheckbox'
 import Link from './base/Link'
 import RadioGroup from './base/RadioGroup'
 import Snackbar from './base/Snackbar'
-import Spacing from './base/Spacing'
 
 const Note = styled('div')`
   display: flex;
@@ -184,7 +184,7 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
           />
           {submitted && !privacyPolicyAccepted && <FormHelperText>{t('common:notePrivacyPolicy')}</FormHelperText>}
         </FormControl>
-        <Spacing />
+        <Stack height={1} />
         <Button type='submit' startIcon={<SendIcon />} variant='contained'>
           {t('submit')}
         </Button>
