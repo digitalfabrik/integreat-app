@@ -4,7 +4,6 @@ import Typography from '@mui/material/Typography'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import CityContentSidebar from './CityContentSidebar'
 import { DirectionDependentBackIcon } from './base/Dialog'
 
 type PoiPanelHeaderProps = {
@@ -24,7 +23,6 @@ const PoiPanelHeader = ({ goBack }: PoiPanelHeaderProps): ReactElement => {
           {t('common:nearby')}
         </Typography>
       )}
-      <CityContentSidebar />
     </Stack>
   )
 }

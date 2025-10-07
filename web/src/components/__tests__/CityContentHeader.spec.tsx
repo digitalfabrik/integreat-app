@@ -33,14 +33,14 @@ describe('CityContentHeader', () => {
 
   it('should render correctly', () => {
     mocked(useDimensions).mockImplementation(() => ({ ...mockDimensions, desktop: true, mobile: false }))
-    const { getAllByText, getByText, queryByLabelText } = renderCityContentHeader()
+    const { getAllByText, getByText, getByLabelText } = renderCityContentHeader()
     expect(getByText(cityModel.name)).toBeTruthy()
     expect(getAllByText('Deutsch')).toBeTruthy()
     expect(getByText('layout:events')).toBeTruthy()
-    expect(queryByLabelText('layout:sideBarOpenAriaLabel')).toBeFalsy()
+    expect(getByLabelText('layout:sideBarOpenAriaLabel')).toBeTruthy()
   })
 
-  it('should show sidebar and hide navigation tabs on mobile', () => {
+  it('should hide navigation tabs on mobile', () => {
     mocked(useDimensions).mockImplementation(() => ({ ...mockDimensions, mobile: true }))
     const { getByText, getByLabelText, queryByText } = renderCityContentHeader()
     expect(getByText(cityModel.name)).toBeTruthy()

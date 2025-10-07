@@ -63,6 +63,13 @@ const createTheme = (
           },
         },
       },
+      MuiMenu: {
+        styleOverrides: {
+          paper: {
+            borderRadius: 16,
+          },
+        },
+      },
       MuiTooltip: {
         defaultProps: {
           arrow: true,
