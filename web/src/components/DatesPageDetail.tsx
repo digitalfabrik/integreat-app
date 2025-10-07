@@ -1,7 +1,8 @@
-import { styled } from '@mui/material/styles'
 import AccessTimeIcon from '@mui/icons-material/AccessTime'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import TodayIcon from '@mui/icons-material/TodayOutlined'
+import Button from '@mui/material/Button'
+import Stack from '@mui/material/Stack'
 import React, { Fragment, ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -9,39 +10,6 @@ import { MAX_DATE_RECURRENCES } from 'shared'
 import { DateModel } from 'shared/api'
 
 import PageDetail from './PageDetail'
-import Button from './base/Button'
-
-const Container = styled('div')`
-  display: grid;
-  width: fit-content;
-  gap: 8px 16px;
-
-  ${props => props.theme.breakpoints.up('md')} {
-    grid-template-columns: auto auto;
-  }
-`
-
-const ContainerForThreeElements = styled(Container)`
-  ${props => props.theme.breakpoints.up('md')} {
-    & > :nth-of-type(3) {
-      grid-column: 1 / 3;
-    }
-  }
-`
-
-const StyledButton = styled(Button)`
-  justify-self: start;
-  border-color: ${props => props.theme.palette.secondary.main};
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 4px;
-  padding: 4px 8px;
-  display: flex;
-
-  ${props => props.theme.breakpoints.up('md')} {
-    grid-column: 1 / 3;
-  }
-`
 
 type DatesPageDetailProps = {
   date: DateModel
@@ -65,26 +33,24 @@ const DatesPageDetail = ({ date, language }: DatesPageDetailProps): ReactElement
 
   if (date.isMonthlyOrYearlyRecurrence()) {
     return (
-      <Container>
+      <Stack gap={1}>
         {recurrences}
         {date.hasMoreRecurrencesThan(visibleRecurrences) && (
-          <StyledButton type='button' onClick={() => setClicksOnShowMore(clicksOnShowMore + 1)}>
-            <ExpandMoreIcon />
+          <Button onClick={() => setClicksOnShowMore(clicksOnShowMore + 1)} startIcon={<ExpandMoreIcon />}>
             {t('common:showMore')}
-          </StyledButton>
+          </Button>
         )}
-      </Container>
+      </Stack>
     )
   }
 
   const formattedDate = date.formatEventDate(language, t)
 
   return (
-    <ContainerForThreeElements>
-      <PageDetail icon={<TodayIcon />} information={formattedDate.date} />
-      {!!formattedDate.weekday && <PageDetail information={formattedDate.weekday} />}
+    <Stack gap={1}>
+      <PageDetail icon={<TodayIcon />} information={formattedDate.date} secondaryInformation={formattedDate.weekday} />
       <PageDetail icon={<AccessTimeIcon />} information={formattedDate.time} />
-    </ContainerForThreeElements>
+    </Stack>
   )
 }
 

@@ -1,3 +1,4 @@
+import Button from '@mui/material/Button'
 import { fireEvent, waitFor } from '@testing-library/react'
 import EasySpeech from 'easy-speech'
 import { mocked } from 'jest-mock'
@@ -45,12 +46,8 @@ describe('TtsContainer', () => {
 
     return (
       <>
-        <button type='button' onClick={() => setSentences(sentences)}>
-          set sentences
-        </button>
-        <button type='button' onClick={showTtsPlayer}>
-          show
-        </button>
+        <Button onClick={() => setSentences(sentences)}>set sentences</Button>
+        <Button onClick={showTtsPlayer}>show</Button>
         {visible && <span>visible</span>}
       </>
     )
