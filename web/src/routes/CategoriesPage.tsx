@@ -126,6 +126,7 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
     languageChangePaths,
     languageCode,
     category,
+    pageTitle,
     Toolbar: <CityContentToolbar slug={category && !category.isRoot() ? category.slug : undefined} />,
   }
 

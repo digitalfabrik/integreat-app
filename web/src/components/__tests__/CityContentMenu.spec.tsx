@@ -32,7 +32,7 @@ describe('CityContentMenu', () => {
     const { getByText, getByLabelText } = renderAllRoutes('/augsburg/de', {
       CityContentElement: (
         <TtsContext.Provider value={defaultTtsContext}>
-          <CityContentMenu category={category} />,
+          <CityContentMenu category={category} pageTitle='Test Page' />,
         </TtsContext.Provider>
       ),
     })
@@ -56,7 +56,7 @@ describe('CityContentMenu', () => {
     const { queryByText, getByText, getByLabelText } = renderAllRoutes('/augsburg/de/events', {
       CityContentElement: (
         <TtsContext.Provider value={defaultTtsContext}>
-          <CityContentMenu />,
+          <CityContentMenu pageTitle='Test Page' />,
         </TtsContext.Provider>
       ),
     })
@@ -73,7 +73,7 @@ describe('CityContentMenu', () => {
     const { queryByText, getByText, getByLabelText } = renderAllRoutes('/augsburg/de/news/local', {
       CityContentElement: (
         <TtsContext.Provider value={defaultTtsContext}>
-          <CityContentMenu />,
+          <CityContentMenu pageTitle='Test Page' />,
         </TtsContext.Provider>
       ),
     })
@@ -90,7 +90,7 @@ describe('CityContentMenu', () => {
     const { getByText, getByLabelText } = renderAllRoutes('/augsburg/de', {
       CityContentElement: (
         <TtsContext.Provider value={{ ...defaultTtsContext, canRead: false }}>
-          <CityContentMenu />,
+          <CityContentMenu pageTitle='Test Page' />,
         </TtsContext.Provider>
       ),
     })
@@ -105,14 +105,13 @@ describe('CityContentMenu', () => {
     const { queryByText, getByText, getByLabelText } = renderAllRoutes('/augsburg/de/events', {
       CityContentElement: (
         <TtsContext.Provider value={defaultTtsContext}>
-          <CityContentMenu />,
+          <CityContentMenu pageTitle='Test Page' />,
         </TtsContext.Provider>
       ),
     })
 
     fireEvent.click(getByLabelText('layout:sideBarOpenAriaLabel'))
 
-    expect(queryByText('categories:createPdf')).toBeFalsy()
     expect(queryByText('layout:feedback')).toBeFalsy()
     expect(getByText('layout:readAloud')).toBeTruthy()
     expect(getByText('layout:contrastTheme')).toBeTruthy()

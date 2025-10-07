@@ -33,6 +33,7 @@ describe('CityContentLayout', () => {
           city={cityModel}
           languageCode={language}
           languageChangePaths={languageChangePaths}
+          pageTitle='Test Page'
           isLoading={isLoading}>
           <MockNode />
         </CityContentLayout>

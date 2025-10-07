@@ -76,6 +76,7 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
     city,
     languageChangePaths,
     languageCode,
+    pageTitle,
     Toolbar: <CityContentToolbar />,
   }
 

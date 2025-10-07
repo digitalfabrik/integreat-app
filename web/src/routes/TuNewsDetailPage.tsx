@@ -78,6 +78,7 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
     city,
     languageChangePaths,
     languageCode,
+    pageTitle,
     Toolbar: <CityContentToolbar />,
   }
 
