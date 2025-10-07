@@ -56,6 +56,13 @@ const createTheme = (
           dir: 'auto',
         },
       },
+      MuiAccordion: {
+        styleOverrides: {
+          root: {
+            background: 'transparent',
+          },
+        },
+      },
       MuiAccordionSummary: {
         defaultProps: {
           disableRipple: false,

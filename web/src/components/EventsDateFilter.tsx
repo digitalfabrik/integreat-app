@@ -1,54 +1,17 @@
+import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
+import FilterListIcon from '@mui/icons-material/FilterList'
 import Accordion from '@mui/material/Accordion'
 import AccordionDetails from '@mui/material/AccordionDetails'
-import { styled } from '@mui/material/styles'
+import AccordionSummary from '@mui/material/AccordionSummary'
+import Button from '@mui/material/Button'
+import Stack from '@mui/material/Stack'
 import { DateTime } from 'luxon'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import useDimensions from '../hooks/useDimensions'
 import CustomDatePicker from './DatePicker'
-import FilterToggle from './FilterToggle'
-import Button from './base/Button'
-import Icon from './base/Icon'
-
-const DateSection = styled('div')`
-  display: flex;
-  gap: 10px;
-  justify-content: space-evenly;
-
-  ${props => props.theme.breakpoints.down('md')} {
-    flex-direction: column;
-    align-items: center;
-  }
-`
-
-const Text = styled('span')`
-  color: ${props => props.theme.legacy.colors.textColor};
-`
-
-const StyledButton = styled(Button)`
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  white-space: nowrap;
-  font-weight: bold;
-  padding: 5px;
-`
-
-const StyledAccordion = styled(Accordion)`
-  background-color: transparent;
-`
-
-type ResetFilterTextProps = {
-  startDate: DateTime | null
-  endDate: DateTime | null
-}
-
-const ResetFilterText = ({ startDate, endDate }: ResetFilterTextProps) => {
-  const { t } = useTranslation('events')
-  const text = `${t('resetFilter')} ${startDate ? startDate.toFormat('dd.MM.yyyy') : '∞'} - ${endDate ? endDate.toFormat('dd.MM.yyyy') : '∞'}`
-  return <Text>{text}</Text>
-}
 
 type EventsDateFilterProps = {
   startDate: DateTime | null
@@ -66,17 +29,24 @@ const EventsDateFilter = ({
   setEndDate,
 }: EventsDateFilterProps): ReactElement => {
   const [showDateFilter, setShowDateFilter] = useState(false)
+  const { mobile } = useDimensions()
   const { t } = useTranslation('events')
 
   const today = DateTime.now()
   const inAWeek = DateTime.now().plus({ week: 1 })
+  const formattedStartDate = startDate?.toFormat('dd.MM.yyyy') ?? '∞'
+  const formattedEndDate = endDate?.toFormat('dd.MM.yyyy') ?? '∞'
 
   return (
     <>
-      <StyledAccordion disableGutters expanded={showDateFilter} elevation={0}>
-        <FilterToggle isDateFilterActive={showDateFilter} setToggleDateFilter={setShowDateFilter} />
+      <Accordion disableGutters expanded={showDateFilter} elevation={0}>
+        <AccordionSummary onClick={() => setShowDateFilter(!showDateFilter)} disableRipple>
+          <Button component='div' startIcon={showDateFilter ? <CloseFullscreenIcon /> : <FilterListIcon />}>
+            {t(showDateFilter ? 'hideFilters' : 'showFilters')}
+          </Button>
+        </AccordionSummary>
         <AccordionDetails>
-          <DateSection>
+          <Stack direction={mobile ? 'column' : 'row'} justifyContent='space-evenly' alignItems='center' gap={2}>
             <CustomDatePicker
               title={t('from')}
               date={startDate}
@@ -92,19 +62,19 @@ const EventsDateFilter = ({
               placeholderDate={inAWeek}
               calendarLabel={t('selectEndDateCalendar')}
             />
-          </DateSection>
+          </Stack>
         </AccordionDetails>
-      </StyledAccordion>
+      </Accordion>
       {(startDate || endDate) && (
-        <StyledButton
-          label='resetDate'
+        <Button
           onClick={() => {
             setStartDate(null)
             setEndDate(null)
-          }}>
-          <Icon src={CloseOutlinedIcon} />
-          <ResetFilterText startDate={startDate} endDate={endDate} />
-        </StyledButton>
+          }}
+          color='inherit'
+          startIcon={<CloseOutlinedIcon />}>
+          {`${t('resetFilter')} ${formattedStartDate} - ${formattedEndDate}`}
+        </Button>
       )}
     </>
   )
