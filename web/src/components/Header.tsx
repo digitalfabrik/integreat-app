@@ -31,7 +31,6 @@ const Row = styled('div')`
   align-items: center;
   min-height: ${HEADER_HEIGHT}px;
   justify-content: space-between;
-  flex-wrap: wrap;
   overflow-x: auto;
   padding: 0 16px;
 
