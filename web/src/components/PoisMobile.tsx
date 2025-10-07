@@ -109,7 +109,7 @@ const PoisMobile = ({
         Overlay={
           <>
             {canDeselect && (
-              <StyledIconButton onClick={deselect} tabIndex={0} aria-label={t('common:backToOverview')}>
+              <StyledIconButton onClick={deselect} tabIndex={0} aria-label={t('backToOverview')}>
                 <DirectionDependentBackIcon />
               </StyledIconButton>
             )}
