@@ -2,7 +2,7 @@ import ContrastIcon from '@mui/icons-material/Contrast'
 import { useTheme } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router'
 
 import { LANDING_ROUTE, pathnameFromRouteInformation } from 'shared'
 import { LanguageModel } from 'shared/api'
