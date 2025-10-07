@@ -9,15 +9,16 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-import { ExtendedSendingStatusType, SNACKBAR_AUTO_HIDE_DURATION } from 'shared'
+import { SendingStatusType, SNACKBAR_AUTO_HIDE_DURATION } from 'shared'
 
-const StyledMuiSnackbar = styled(MUISnackbar)`
-  position: fixed;
-  bottom: ${props =>
-    props.theme.dimensions.bottomNavigationHeight ?? props.theme.dimensions.visibleFooterHeight}px !important;
-  inset-inline-end: 16px;
-  margin-bottom: 16px;
-`
+const StyledMuiSnackbar = styled(MUISnackbar)(({ theme }) => ({
+  [theme.breakpoints.down('md')]: {
+    marginBottom: 40,
+  },
+  [theme.breakpoints.up('md')]: {
+    marginBottom: 46,
+  },
+}))
 
 const StyledAlert = styled(Alert)`
   display: flex;
@@ -45,57 +46,46 @@ export const handleClose =
 export type SnackbarProps = {
   open: boolean
   onClose: SnackbarCloseHandler
-  sendingStatus: ExtendedSendingStatusType
   dashboardRoute?: string
-  successMessage?: string
-  errorMessage?: string
-  errorTitle?: string
-  autoHideOnSuccess?: boolean
+  sendingStatus?: SendingStatusType
+  title?: string
+  message: string
 }
 
-const Snackbar = ({
-  open,
-  onClose,
-  sendingStatus,
-  dashboardRoute,
-  autoHideOnSuccess = false,
-  successMessage,
-  errorMessage,
-  errorTitle,
-}: SnackbarProps): ReactElement => {
-  const { t } = useTranslation('malteHelpForm')
+const Snackbar = ({ open, onClose, sendingStatus, dashboardRoute, title, message }: SnackbarProps): ReactElement => {
+  const { t } = useTranslation('common')
+  const autoHideDuration = sendingStatus === 'successful' ? SNACKBAR_AUTO_HIDE_DURATION : null
+  const severity = sendingStatus === 'failed' ? 'error' : 'success'
 
   return (
     <StyledMuiSnackbar
       open={open}
       onClose={onClose}
-      autoHideDuration={autoHideOnSuccess && sendingStatus === 'successful' ? SNACKBAR_AUTO_HIDE_DURATION : null}>
-      {sendingStatus === 'failed' || sendingStatus === 'invalidEmail' ? (
-        <Alert severity='error' role='alert' onClose={onClose} variant='filled'>
-          <AlertTitle>{errorTitle ?? t('submitFailed')}</AlertTitle>
-          {errorMessage}
-        </Alert>
-      ) : (
-        <StyledAlert
-          severity='success'
-          role='alert'
-          onClose={onClose}
-          action={
+      anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+      autoHideDuration={autoHideDuration}>
+      <StyledAlert
+        severity={severity}
+        role='alert'
+        onClose={onClose}
+        variant={sendingStatus === 'failed' ? 'filled' : 'standard'}
+        action={
+          sendingStatus === 'successful' && (
             <>
               {dashboardRoute ? (
                 <Button component={Link} to={dashboardRoute} size='small'>
                   {t('error:goTo.categories')}
                 </Button>
               ) : (
-                <IconButton aria-label={t('common:close')} color='inherit' size='small' onClick={onClose}>
+                <IconButton aria-label={t('close')} color='inherit' size='small' onClick={onClose}>
                   <CloseIcon fontSize='inherit' />
                 </IconButton>
               )}
             </>
-          }>
-          {successMessage ?? t('submitSuccessful')}
-        </StyledAlert>
-      )}
+          )
+        }>
+        {sendingStatus === 'failed' && <AlertTitle>{title}</AlertTitle>}
+        {message}
+      </StyledAlert>
     </StyledMuiSnackbar>
   )
 }

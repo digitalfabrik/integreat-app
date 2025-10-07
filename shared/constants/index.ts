@@ -14,6 +14,6 @@ export const getChatName = (appName: string): string => `Frag${appName} (beta)`
 export type Rating = 'positive' | 'negative'
 
 export type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
-export type ExtendedSendingStatusType = SendingStatusType | 'invalidEmail'
+
 export const RATING_POSITIVE: Rating = 'positive'
 export const RATING_NEGATIVE: Rating = 'negative'

@@ -32,7 +32,7 @@ describe('FeedbackContainer', () => {
       CityContentElement: <FeedbackContainer query={query} initialRating={initialRating ?? null} />,
     })
 
-  it('should display thanks message', async () => {
+  it('should display thanks message snackbar', async () => {
     const { findByText, getByText } = renderFeedbackContainer('/augsburg/de', {
       initialRating: RATING_POSITIVE,
     })
@@ -46,7 +46,7 @@ describe('FeedbackContainer', () => {
     expect(await findByText('feedback:thanksMessage')).toBeTruthy()
   })
 
-  it('should display thanks message for search', async () => {
+  it('should display thanks message snackbar for search', async () => {
     const { findByText, getByText, queryByText } = renderFeedbackContainer('/augsburg/de/search', { query: 'test' })
 
     getByText('common:privacyPolicy').click()
@@ -57,7 +57,7 @@ describe('FeedbackContainer', () => {
     expect(queryByText('feedback:close')).toBeNull()
   })
 
-  it('should display error for search', async () => {
+  it('should display error message snackbar for search', async () => {
     mockRequest.mockImplementationOnce(() => {
       throw new Error()
     })

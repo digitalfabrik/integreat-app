@@ -106,20 +106,6 @@ describe('Feedback', () => {
     expect(getByLabelText('feedback:wantedInformation')).toBeTruthy()
   })
 
-  it('should display snackbar error', () => {
-    const { getByText } = renderWithTheme(
-      <Feedback {...buildProps({ rating: 'negative', comment: 'comment', sendingStatus: 'failed' })} />,
-    )
-    expect(getByText('feedback:failedSendingFeedback')).toBeTruthy()
-  })
-
-  it('should display successful snackbar', () => {
-    const { getByText } = renderWithTheme(
-      <Feedback {...buildProps({ rating: 'negative', comment: 'comment', sendingStatus: 'successful' })} />,
-    )
-    expect(getByText('feedback:thanksMessage')).toBeTruthy()
-  })
-
   it('onSubmit should be called on button press', async () => {
     const { getByText } = renderWithTheme(<Feedback {...buildProps({ rating: 'negative', comment: 'comment' })} />)
     const button = getByText('feedback:send')

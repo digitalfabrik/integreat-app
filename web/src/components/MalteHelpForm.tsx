@@ -1,15 +1,17 @@
 import HealthAndSafetyOutlinedIcon from '@mui/icons-material/HealthAndSafetyOutlined'
 import PeopleOutlineOutlinedIcon from '@mui/icons-material/PeopleOutlineOutlined'
 import SendIcon from '@mui/icons-material/Send'
+import Alert from '@mui/material/Alert'
+import AlertTitle from '@mui/material/AlertTitle'
 import Button from '@mui/material/Button'
 import FormControl from '@mui/material/FormControl'
 import FormHelperText from '@mui/material/FormHelperText'
 import TextField from '@mui/material/TextField'
 import { styled } from '@mui/material/styles'
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { cityContentPath, DEFAULT_ROWS_NUMBER, ExtendedSendingStatusType } from 'shared'
+import { cityContentPath, DEFAULT_ROWS_NUMBER, SendingStatusType } from 'shared'
 import {
   OfferModel,
   ContactChannel,
@@ -23,7 +25,7 @@ import Icon from '../components/base/Icon'
 import { reportError } from '../utils/sentry'
 import PrivacyCheckbox from './PrivacyCheckbox'
 import RadioGroup from './base/RadioGroup'
-import Snackbar, { handleClose } from './base/Snackbar'
+import Snackbar from './base/Snackbar'
 import Spacing from './base/Spacing'
 
 const Note = styled('div')`
@@ -51,7 +53,7 @@ type MalteHelpFormProps = {
 
 const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }: MalteHelpFormProps): ReactElement => {
   const { t } = useTranslation('malteHelpForm')
-  const [sendingStatus, setSendingStatus] = useState<ExtendedSendingStatusType>('idle')
+  const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
   const [privacyPolicyAccepted, setPrivacyPolicyAccepted] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [contactChannel, setContactChannel] = useState<ContactChannel>('email')
@@ -62,6 +64,7 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
   const [contactGender, setContactGender] = useState<ContactGender>('any')
   const [comment, setComment] = useState('')
   const [snackbarOpen, setSnackbarOpen] = useState(false)
+  const [invalidEmail, setInvalidEmail] = useState(false)
   const dashboardRoute = cityContentPath({ languageCode, cityCode })
 
   const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -90,21 +93,17 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
         comment,
       })
       setSendingStatus('successful')
+      setSnackbarOpen(true)
     } catch (error) {
       if (error instanceof InvalidEmailError) {
-        setSendingStatus('invalidEmail')
+        setInvalidEmail(true)
       } else {
         await reportError(error)
         setSendingStatus('failed')
+        setSnackbarOpen(true)
       }
     }
   }
-
-  useEffect(() => {
-    if (sendingStatus === 'successful' || sendingStatus === 'failed' || sendingStatus === 'invalidEmail') {
-      setSnackbarOpen(true)
-    }
-  }, [sendingStatus])
 
   return (
     <>
@@ -184,6 +183,12 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
           />
           {submitted && !privacyPolicyAccepted && <FormHelperText>{t('common:notePrivacyPolicy')}</FormHelperText>}
         </FormControl>
+        {invalidEmail && (
+          <Alert severity='error' role='alert'>
+            <AlertTitle>{t('submitFailed')}</AlertTitle>
+            {t('invalidEmailAddress')}
+          </Alert>
+        )}
         <Spacing />
         <Button type='submit' startIcon={<SendIcon />} variant='contained'>
           {t('submit')}
@@ -191,10 +196,11 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
       </Form>
       <Snackbar
         open={snackbarOpen}
-        onClose={handleClose(setSnackbarOpen)}
+        onClose={() => setSnackbarOpen(false)}
         sendingStatus={sendingStatus}
         dashboardRoute={dashboardRoute}
-        errorMessage={t(sendingStatus === 'invalidEmail' ? 'invalidEmailAddress' : 'submitFailedReasoning')}
+        title={t('submitFailed')}
+        message={sendingStatus === 'successful' ? t('submitSuccessful') : t('submitFailedReasoning')}
       />
     </>
   )

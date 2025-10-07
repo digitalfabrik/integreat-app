@@ -3,46 +3,43 @@ import SentimentSatisfiedOutlinedIcon from '@mui/icons-material/SentimentSatisfi
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Rating, RATING_POSITIVE } from 'shared'
+import { Rating, RATING_POSITIVE, SendingStatusType } from 'shared'
 
 import FeedbackContainer from './FeedbackContainer'
 import ToolbarItem from './ToolbarItem'
 import Dialog from './base/Dialog'
-import Snackbar, { handleClose } from './base/Snackbar'
+import Snackbar from './base/Snackbar'
 
 type FeedbackToolbarItemProps = {
   slug?: string
   rating: Rating | null
 }
 
-export type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
 const FeedbackToolbarItem = ({ slug, rating }: FeedbackToolbarItemProps): ReactElement => {
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
-  const [snackbarOpen, setSnackbarOpen] = useState(false)
   const { t } = useTranslation('feedback')
-  const title = isSubmitted ? t('thanksHeadline') : t('headline')
-  const [snackbarStatus, setSnackbarStatus] = useState<SendingStatusType>('idle')
+  const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
 
   const handleFeedbackSuccess = () => {
     setIsFeedbackOpen(false)
-    setSnackbarStatus('successful')
-    setIsSubmitted(true)
-    setSnackbarOpen(true)
+    setSendingStatus('successful')
   }
 
   const handleFeedbackError = () => {
     setIsFeedbackOpen(true)
-    setSnackbarStatus('failed')
-    setSnackbarOpen(true)
+    setSendingStatus('failed')
   }
 
   return (
     <>
       {isFeedbackOpen && (
-        <Dialog title={title} close={() => setIsFeedbackOpen(false)}>
-          <FeedbackContainer onSubmit={handleFeedbackSuccess}
-            onError={handleFeedbackError} slug={slug} initialRating={rating} />
+        <Dialog title={t('headline')} close={() => setIsFeedbackOpen(false)}>
+          <FeedbackContainer
+            onSubmit={handleFeedbackSuccess}
+            onError={handleFeedbackError}
+            slug={slug}
+            initialRating={rating}
+          />
         </Dialog>
       )}
       <ToolbarItem
@@ -51,11 +48,10 @@ const FeedbackToolbarItem = ({ slug, rating }: FeedbackToolbarItemProps): ReactE
         onClick={() => setIsFeedbackOpen(true)}
       />
       <Snackbar
-        open={snackbarOpen}
-        onClose={handleClose(setSnackbarOpen)}
-        sendingStatus={snackbarStatus}
-        successMessage={t('thanksMessage')}
-        autoHideOnSuccess
+        open={sendingStatus === 'successful' || sendingStatus === 'failed'}
+        sendingStatus={sendingStatus}
+        onClose={() => setSendingStatus('idle')}
+        message={sendingStatus === 'successful' ? t('thanksMessage') : t('failedSendingFeedback')}
       />
     </>
   )
