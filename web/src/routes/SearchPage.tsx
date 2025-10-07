@@ -115,6 +115,7 @@ const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
     city,
     languageChangePaths,
     languageCode,
+    pageTitle: null,
   }
 
   if (error) {

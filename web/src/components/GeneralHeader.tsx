@@ -40,7 +40,7 @@ const GeneralHeader = ({ languageCode, cityLanguages, onStickyTopChanged }: Gene
         forceText
       />
     ) : null,
-    <HeaderMenu key='menu'>
+    <HeaderMenu key='menu' pageTitle={null}>
       <MenuItem key='theme' text={t('contrastTheme')} icon={<ContrastIcon fontSize='small' />} onClick={toggleTheme} />
     </HeaderMenu>,
   ]

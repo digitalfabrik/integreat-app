@@ -21,6 +21,7 @@ export type CityContentLayoutProps = {
   languageCode: string
   fitScreen?: boolean
   category?: CategoryModel
+  pageTitle: string | null
 }
 
 const CityContentLayout = ({
@@ -32,6 +33,7 @@ const CityContentLayout = ({
   isLoading,
   Toolbar,
   fitScreen = false,
+  pageTitle,
 }: CityContentLayoutProps): ReactElement => {
   const { route } = useCityContentParams()
   const [layoutReady, setLayoutReady] = useState(!isLoading)
@@ -52,6 +54,7 @@ const CityContentLayout = ({
           cityModel={city}
           languageChangePaths={languageChangePaths}
           languageCode={languageCode}
+          pageTitle={pageTitle}
         />
       }
       footer={

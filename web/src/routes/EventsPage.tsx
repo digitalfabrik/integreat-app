@@ -79,6 +79,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     city,
     languageChangePaths,
     languageCode,
+    pageTitle,
     Toolbar: <CityContentToolbar slug={event?.slug} />,
   }
 
