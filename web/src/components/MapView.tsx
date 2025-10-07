@@ -26,7 +26,6 @@ import {
 import { clusterCountLayer, clusterLayer, clusterProperties, markerLayer } from '../constants/layers'
 import useDimensions from '../hooks/useDimensions'
 import { reportError } from '../utils/sentry'
-import MapAttribution from './MapAttribution'
 
 const MapContainer = styled('div')`
   height: 100%;
@@ -38,6 +37,7 @@ const MapContainer = styled('div')`
 
 const OverlayContainer = styled('div')`
   display: flex;
+  flex-wrap: wrap;
   padding: 12px 8px;
   flex: 1;
   position: absolute;
@@ -218,7 +218,6 @@ const MapView = ({
             <Layer {...markerLayer(currentFeature)} id='current' />
           </Source>
         )}
-        <MapAttribution initialExpanded={dimensions.desktop} />
       </Map>
     </MapContainer>
   )
