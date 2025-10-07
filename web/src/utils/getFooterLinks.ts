@@ -8,25 +8,25 @@ type FooterLinkItem = {
 }
 
 type GetFooterLinksProps = {
-  language: string
-  city?: string
+  languageCode: string
+  cityCode?: string
 }
 
-const getFooterLinks = ({ language, city }: GetFooterLinksProps): FooterLinkItem[] => {
+const getFooterLinks = ({ languageCode, cityCode }: GetFooterLinksProps): FooterLinkItem[] => {
   const { aboutUrls, privacyUrls, accessibilityUrls } = buildConfig()
-  const aboutUrl = aboutUrls[language] || aboutUrls.default
-  const privacyUrl = privacyUrls[language] || privacyUrls.default
-  const accessibilityUrl = accessibilityUrls?.[language] ?? accessibilityUrls?.default
+  const aboutUrl = aboutUrls[languageCode] || aboutUrls.default
+  const privacyUrl = privacyUrls[languageCode] || privacyUrls.default
+  const accessibilityUrl = accessibilityUrls?.[languageCode] ?? accessibilityUrls?.default
 
-  const disclaimerPath = city
+  const disclaimerPath = cityCode
     ? pathnameFromRouteInformation({
         route: DISCLAIMER_ROUTE,
-        cityCode: city,
-        languageCode: language,
+        cityCode,
+        languageCode,
       })
-    : `/${MAIN_DISCLAIMER_ROUTE}/${language}`
+    : `/${MAIN_DISCLAIMER_ROUTE}/${languageCode}`
 
-  const licensesPath = `/${LICENSES_ROUTE}/${language}`
+  const licensesPath = `/${LICENSES_ROUTE}/${languageCode}`
 
   return [
     { to: disclaimerPath, text: 'disclaimer' },

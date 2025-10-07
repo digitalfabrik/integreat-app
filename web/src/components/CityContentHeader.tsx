@@ -6,7 +6,7 @@ import { cityContentPath, pathnameFromRouteInformation, SEARCH_ROUTE } from 'sha
 import { CategoryModel, CityModel } from 'shared/api'
 
 import useDimensions from '../hooks/useDimensions'
-import CityContentSidebar from './CityContentSidebar'
+import CityContentMenu from './CityContentMenu'
 import Header from './Header'
 import HeaderActionItem from './HeaderActionItem'
 import HeaderLanguageSelectorItem from './HeaderLanguageSelectorItem'
@@ -30,7 +30,7 @@ const CityContentHeader = ({
   const params = { cityCode: cityModel.code, languageCode }
   const categoriesPath = cityContentPath(params)
   const searchPath = pathnameFromRouteInformation({ route: SEARCH_ROUTE, ...params })
-  const { desktop, mobile } = useDimensions()
+  const { desktop } = useDimensions()
 
   const actionItems = [
     <HeaderActionItem key='search' to={searchPath} text={t('search')} icon={<SearchOutlinedIcon />} />,
@@ -39,7 +39,7 @@ const CityContentHeader = ({
       languageChangePaths={languageChangePaths}
       languageCode={languageCode}
     />,
-    mobile ? <CityContentSidebar key='sidebar' category={category} /> : null,
+    <CityContentMenu key='sidebar' category={category} />,
   ]
 
   return (

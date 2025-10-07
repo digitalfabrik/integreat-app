@@ -1,26 +1,20 @@
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined'
-import React, { FunctionComponent, ReactElement } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { CategoryModel } from 'shared/api'
 import config from 'translations/src/config'
 
 import { cmsApiBaseUrl } from '../constants/urls'
-import ToolbarItem, { ToolbarItemProps } from './ToolbarItem'
+import MenuItem from './MenuItem'
 
-type CreatePdfToolbarItemProps = {
+type PdfMenuItemProps = {
   category?: CategoryModel
   cityCode: string
   languageCode: string
-  Component?: FunctionComponent<ToolbarItemProps>
 }
 
-const PdfToolbarItem = ({
-  category,
-  cityCode,
-  languageCode,
-  Component = ToolbarItem,
-}: CreatePdfToolbarItemProps): ReactElement => {
+const PdfMenuItem = ({ category, cityCode, languageCode }: PdfMenuItemProps): ReactElement => {
   const { t } = useTranslation('categories')
   const pdfDisabled = config.hasRTLScript(languageCode)
 
@@ -30,8 +24,8 @@ const PdfToolbarItem = ({
       : `${cmsApiBaseUrl}/${cityCode}/${languageCode}/wp-json/ig-mpdf/v1/pdf?url=${encodeURIComponent(category.path)}`
 
   return (
-    <Component
-      icon={<DescriptionOutlinedIcon />}
+    <MenuItem
+      icon={<DescriptionOutlinedIcon fontSize='small' />}
       text={t('createPdf')}
       to={pdfUrl}
       disabled={pdfDisabled}
@@ -40,4 +34,4 @@ const PdfToolbarItem = ({
   )
 }
 
-export default PdfToolbarItem
+export default PdfMenuItem
