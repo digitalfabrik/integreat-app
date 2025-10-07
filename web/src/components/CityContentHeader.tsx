@@ -17,6 +17,7 @@ type CityContentHeaderProps = {
   languageCode: string
   languageChangePaths: { code: string; path: string | null; name: string }[] | null
   category?: CategoryModel
+  pageTitle: string | null
 }
 
 const CityContentHeader = ({
@@ -24,6 +25,7 @@ const CityContentHeader = ({
   languageCode,
   languageChangePaths,
   category,
+  pageTitle,
 }: CityContentHeaderProps): ReactElement => {
   const { t } = useTranslation('layout')
 
@@ -39,7 +41,7 @@ const CityContentHeader = ({
       languageChangePaths={languageChangePaths}
       languageCode={languageCode}
     />,
-    <CityContentMenu key='sidebar' category={category} />,
+    <CityContentMenu key='sidebar' category={category} pageTitle={pageTitle} />,
   ]
 
   return (

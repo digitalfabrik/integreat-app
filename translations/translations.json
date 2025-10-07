@@ -1274,7 +1274,8 @@
       "notAccessible": "Nicht barrierefrei",
       "clearInput": "Eingabe löschen",
       "more": "Mehr",
-      "nearby": "In deiner Nähe"
+      "nearby": "In deiner Nähe",
+      "email": "E-Mail"
     },
     "am": {
       "copied": "ተቀድቷል",
@@ -1399,7 +1400,8 @@
       "notAccessible": "Not accessible",
       "clearInput": "Clear input",
       "more": "More",
-      "nearby": "Near you"
+      "nearby": "Near you",
+      "email": "Email"
     },
     "es": {
       "copied": "Copiado",

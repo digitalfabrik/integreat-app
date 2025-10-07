@@ -26,9 +26,10 @@ const StyledLegacyIcon = styled(Icon)({
 type CityContentMenuProps = {
   slug?: string
   category?: CategoryModel
+  pageTitle: string | null
 }
 
-const CityContentMenu = ({ slug, category }: CityContentMenuProps): ReactElement => {
+const CityContentMenu = ({ slug, category, pageTitle }: CityContentMenuProps): ReactElement => {
   const { route, cityCode, languageCode } = useCityContentParams()
   const { enabled: ttsEnabled, showTtsPlayer, canRead } = useContext(TtsContext)
   const { toggleTheme, dimensions } = useTheme()
@@ -37,7 +38,7 @@ const CityContentMenu = ({ slug, category }: CityContentMenuProps): ReactElement
   const [feedbackOpen, setFeedbackOpen] = useState(false)
   const [feedbackSubmitted, setFeedbackSubmitted] = useState(false)
 
-  const Items = [
+  const items = [
     route === CATEGORIES_ROUTE && (
       <PdfMenuItem key='pdf' category={category} cityCode={cityCode} languageCode={languageCode} />
     ),
@@ -64,7 +65,7 @@ const CityContentMenu = ({ slug, category }: CityContentMenuProps): ReactElement
 
   return (
     <>
-      <HeaderMenu>{Items}</HeaderMenu>
+      <HeaderMenu pageTitle={pageTitle}>{items}</HeaderMenu>
       {feedbackOpen && (
         <Dialog
           title={feedbackSubmitted ? t('feedback:thanksHeadline') : t('feedback:headline')}

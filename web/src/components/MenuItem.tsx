@@ -10,6 +10,8 @@ const StyledLink = styled(Link)({
   display: 'flex',
   flexDirection: 'row',
   width: '100%',
+  padding: '6px 16px',
+  alignItems: 'center',
 })
 
 type MenuListItemProps = {
@@ -26,8 +28,9 @@ const MenuItem = ({ to, text, icon, disabled = false, tooltip, onClick }: MenuLi
       <ListItemText>{text}</ListItemText>
     </>
   )
+
   return (
-    <MuiMenuItem onClick={onClick} disabled={disabled}>
+    <MuiMenuItem onClick={onClick} disabled={disabled} sx={to ? { padding: 0 } : {}}>
       {to ? <StyledLink to={to}>{Content}</StyledLink> : Content}
     </MuiMenuItem>
   )

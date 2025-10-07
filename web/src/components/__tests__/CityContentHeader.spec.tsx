@@ -28,6 +28,7 @@ describe('CityContentHeader', () => {
         languageCode={languageCode}
         languageChangePaths={languageChangePaths}
         category={undefined}
+        pageTitle='Test Page'
       />,
     )
 

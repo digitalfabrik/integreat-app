@@ -3,6 +3,7 @@ import Accordion from '@mui/material/Accordion'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import AccordionSummary, { accordionSummaryClasses } from '@mui/material/AccordionSummary'
 import Divider from '@mui/material/Divider'
+import ListItemIcon from '@mui/material/ListItemIcon'
 import MuiMenuItem from '@mui/material/MenuItem'
 import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
@@ -25,6 +26,7 @@ const StyledAccordionSummary = styled(AccordionSummary)({
 
   [`.${accordionSummaryClasses.content}`]: {
     margin: 0,
+    alignItems: 'center',
   },
 }) as typeof AccordionSummary
 
@@ -35,9 +37,10 @@ const StyledAccordionDetails = styled(AccordionDetails)({
 type MenuAccordionProps = {
   title: string
   items: ReactElement[]
+  icon?: ReactElement
 }
 
-const MenuAccordion = ({ title, items }: MenuAccordionProps): ReactElement => (
+const MenuAccordion = ({ title, items, icon }: MenuAccordionProps): ReactElement => (
   <StyledAccordion
     elevation={0}
     defaultExpanded={false}
@@ -48,6 +51,7 @@ const MenuAccordion = ({ title, items }: MenuAccordionProps): ReactElement => (
       },
     }}>
     <StyledAccordionSummary component={MuiMenuItem} expandIcon={<ExpandMoreIcon />}>
+      {icon && <ListItemIcon>{icon}</ListItemIcon>}
       <Typography variant='body1'>{title}</Typography>
     </StyledAccordionSummary>
     <Divider />
