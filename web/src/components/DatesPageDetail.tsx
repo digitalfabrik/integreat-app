@@ -6,8 +6,8 @@ import { MAX_DATE_RECURRENCES, MAX_DATE_RECURRENCES_COLLAPSED } from 'shared'
 import { DateModel } from 'shared/api'
 
 import useDimensions from '../hooks/useDimensions'
-import Collapsible from './Collapsible'
 import PageDetail from './PageDetail'
+import Accordion from './base/Accordion'
 
 const Identifier = styled('span')`
   font-weight: bold;
@@ -43,12 +43,12 @@ const DatesPageDetail = ({ date, languageCode }: DatesPageDetailProps): ReactEle
   }
 
   return (
-    <Collapsible title={Title} Description={AlwaysShownDates} initialCollapsed>
+    <Accordion title={Title} description={AlwaysShownDates} defaultCollapsed>
       <>
         {Dates.slice(MAX_DATE_RECURRENCES_COLLAPSED)}
         {hasMoreDates && '...'}
       </>
-    </Collapsible>
+    </Accordion>
   )
 }
 

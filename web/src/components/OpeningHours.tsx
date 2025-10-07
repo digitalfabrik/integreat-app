@@ -1,4 +1,8 @@
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
+import Button from '@mui/material/Button'
+import List from '@mui/material/List'
+import Stack from '@mui/material/Stack'
+import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
@@ -7,59 +11,15 @@ import { useTranslation } from 'react-i18next'
 import { weekdays } from 'shared'
 import { OpeningHoursModel } from 'shared/api'
 
-import { helpers } from '../constants/theme'
-import Collapsible from './Collapsible'
-import OpeningEntry from './OpeningEntry'
-import Icon from './base/Icon'
+import OpeningHoursListItem from './OpeningHoursListItem'
+import Accordion from './base/Accordion'
 import Link from './base/Link'
 
-const OpeningLabel = styled('span')<{ isOpen: boolean }>`
-  color: ${props =>
-    props.isOpen ? props.theme.legacy.colors.positiveHighlight : props.theme.legacy.colors.negativeHighlight};
-  padding-inline-end: 12px;
-`
-
-const Content = styled('div')`
-  padding-inline-end: 26px;
-  ${helpers.adaptiveFontSize};
-`
-
-const TitleContainer = styled('div')`
-  display: flex;
-  flex: 1;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
-  font-weight: 700;
-  ${helpers.adaptiveFontSize};
-`
-
-const OpeningContainer = styled('div')`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-`
-
-const StyledLink = styled(Link)`
-  display: flex;
-  margin-top: 8px;
-  gap: 8px;
-`
-
-const LinkLabel = styled('span')`
-  color: ${props => props.theme.legacy.colors.linkColor};
-  ${helpers.adaptiveFontSize};
-  align-self: flex-end;
-`
-
-const StyledExternalLinkIcon = styled(Icon)`
-  flex-shrink: 0;
-  object-fit: contain;
-  align-self: center;
-  width: 16px;
-  height: 16px;
-  color: ${props => props.theme.legacy.colors.linkColor};
-`
+const StyledList = styled(List)({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 8,
+})
 
 type OpeningHoursTitleProps = {
   isCurrentlyOpen: boolean
@@ -69,12 +29,12 @@ type OpeningHoursTitleProps = {
 const OpeningHoursTitle = ({ isCurrentlyOpen, label }: OpeningHoursTitleProps) => {
   const { t } = useTranslation('pois')
   return (
-    <TitleContainer>
-      <span>{t('openingHours')}</span>
-      <OpeningContainer>
-        <OpeningLabel isOpen={isCurrentlyOpen}>{t(label ?? (isCurrentlyOpen ? 'opened' : 'closed'))}</OpeningLabel>
-      </OpeningContainer>
-    </TitleContainer>
+    <Stack direction='row' justifyContent='space-between' alignItems='center' width='100%' gap={1} paddingInlineEnd={1}>
+      <Typography variant='title3'>{t('openingHours')}</Typography>
+      <Typography variant='label1' color={isCurrentlyOpen ? 'success' : 'error'}>
+        {t(label ?? (isCurrentlyOpen ? 'opened' : 'closed'))}
+      </Typography>
+    </Stack>
   )
 }
 
@@ -95,21 +55,16 @@ const OpeningHours = ({
   const appointmentOnly = !openingHours && !!appointmentUrl
 
   const AppointmentLink = appointmentUrl ? (
-    <StyledLink to={appointmentUrl}>
-      <LinkLabel>{t('makeAppointment')}</LinkLabel>
-      <StyledExternalLinkIcon src={OpenInNewIcon} directionDependent />
-    </StyledLink>
+    <Button component={Link} to={appointmentUrl} endIcon={<OpenInNewIcon />}>
+      {t('makeAppointment')}
+    </Button>
   ) : null
 
   if (isTemporarilyClosed || appointmentOnly) {
+    const label = isTemporarilyClosed ? 'temporarilyClosed' : 'onlyWithAppointment'
     return (
       <>
-        <TitleContainer>
-          <OpeningHoursTitle
-            isCurrentlyOpen={isCurrentlyOpen}
-            label={isTemporarilyClosed ? 'temporarilyClosed' : 'onlyWithAppointment'}
-          />
-        </TitleContainer>
+        <OpeningHoursTitle isCurrentlyOpen={isCurrentlyOpen} label={label} />
         {AppointmentLink}
       </>
     )
@@ -121,10 +76,10 @@ const OpeningHours = ({
 
   return (
     <>
-      <Collapsible title={<OpeningHoursTitle isCurrentlyOpen={isCurrentlyOpen} />} initialCollapsed={!isCurrentlyOpen}>
-        <Content>
+      <Accordion title={<OpeningHoursTitle isCurrentlyOpen={isCurrentlyOpen} />} defaultCollapsed={!isCurrentlyOpen}>
+        <StyledList disablePadding>
           {openingHours.map((openingHours, index) => (
-            <OpeningEntry
+            <OpeningHoursListItem
               key={weekdays[index]}
               // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
               weekday={t(weekdays[index]!.toLowerCase())}
@@ -133,8 +88,8 @@ const OpeningHours = ({
               appointmentUrl={appointmentUrl}
             />
           ))}
-        </Content>
-      </Collapsible>
+        </StyledList>
+      </Accordion>
       {AppointmentLink}
     </>
   )

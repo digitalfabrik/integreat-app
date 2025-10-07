@@ -24,8 +24,8 @@ describe('DatesPageDetail', () => {
   it('should render next date if no recurrences', () => {
     const { getByText, queryByText, queryByRole } = renderDatesPageDetail(date())
 
-    expect(getByText('events:date_one', { exact: false })).toBeTruthy()
-    expect(getByText('9. Oktober 2023 07:00 - 10. Oktober 2023 09:00')).toBeTruthy()
+    expect(getByText('events:date_one', { exact: false })).toBeVisible()
+    expect(getByText('9. Oktober 2023 07:00 - 10. Oktober 2023 09:00')).toBeVisible()
     expect(queryByText('...')).toBeFalsy()
     expect(queryByRole('button')).toBeFalsy()
   })
@@ -35,54 +35,54 @@ describe('DatesPageDetail', () => {
       date('DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO;UNTIL=20231029T050000'),
     )
 
-    expect(getByText('events:date_other', { exact: false })).toBeTruthy()
-    expect(getByText('9. Oktober 2023 07:00 - 10. Oktober 2023 09:00')).toBeTruthy()
-    expect(getByText('16. Oktober 2023 07:00 - 17. Oktober 2023 09:00')).toBeTruthy()
-    expect(getByText('23. Oktober 2023 07:00 - 24. Oktober 2023 09:00')).toBeTruthy()
+    expect(getByText('events:date_other', { exact: false })).toBeVisible()
+    expect(getByText('9. Oktober 2023 07:00 - 10. Oktober 2023 09:00')).toBeVisible()
+    expect(getByText('16. Oktober 2023 07:00 - 17. Oktober 2023 09:00')).toBeVisible()
+    expect(getByText('23. Oktober 2023 07:00 - 24. Oktober 2023 09:00')).toBeVisible()
     expect(queryByText('...')).toBeFalsy()
     expect(queryByRole('button')).toBeFalsy()
   })
 
-  it('should render next dates and show collapsible if up to MAX_DATE_RECURRENCES events and expand on click', () => {
+  it('should render next dates and accordion if up to MAX_DATE_RECURRENCES events and expand on click', () => {
     const { getByText, queryByText, getByRole } = renderDatesPageDetail(
       date('DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO;UNTIL=20231213T050000'),
     )
 
-    expect(getByText('events:date_other', { exact: false })).toBeTruthy()
-    expect(getByText('9. Oktober 2023 07:00 - 10. Oktober 2023 09:00')).toBeTruthy()
-    expect(getByText('16. Oktober 2023 07:00 - 17. Oktober 2023 09:00')).toBeTruthy()
-    expect(getByText('23. Oktober 2023 07:00 - 24. Oktober 2023 09:00')).toBeTruthy()
-    expect(queryByText('30. Oktober 2023 07:00 - 01. November 2023 09:00')).toBeFalsy()
-    expect(queryByText('11. Dezember 2023 07:00 - 12. Dezember 2023 09:00')).toBeFalsy()
+    expect(getByText('events:date_other', { exact: false })).toBeVisible()
+    expect(getByText('9. Oktober 2023 07:00 - 10. Oktober 2023 09:00')).toBeVisible()
+    expect(getByText('16. Oktober 2023 07:00 - 17. Oktober 2023 09:00')).toBeVisible()
+    expect(getByText('23. Oktober 2023 07:00 - 24. Oktober 2023 09:00')).toBeVisible()
+    expect(getByText('30. Oktober 2023 07:00 - 31. Oktober 2023 09:00')).not.toBeVisible()
+    expect(getByText('11. Dezember 2023 07:00 - 12. Dezember 2023 09:00')).not.toBeVisible()
 
-    expect(getByRole('button')).toBeTruthy()
+    expect(getByRole('button')).toBeVisible()
     fireEvent.click(getByRole('button'))
 
-    expect(getByText('30. Oktober 2023 07:00 - 31. Oktober 2023 09:00')).toBeTruthy()
-    expect(getByText('11. Dezember 2023 07:00 - 12. Dezember 2023 09:00')).toBeTruthy()
+    expect(getByText('30. Oktober 2023 07:00 - 31. Oktober 2023 09:00')).toBeVisible()
+    expect(getByText('11. Dezember 2023 07:00 - 12. Dezember 2023 09:00')).toBeVisible()
     expect(queryByText('...')).toBeFalsy()
     expect(queryByText('18. Dezember 2023 07:00 - 19. Dezember 2023 09:00')).toBeFalsy()
   })
 
-  it('should render next dates and show collapsible if more than MAX_DATE_RECURRENCES events and expand on click', () => {
+  it('should render next dates and show accordion if more than MAX_DATE_RECURRENCES events and expand on click', () => {
     const { getByText, queryByText, getByRole } = renderDatesPageDetail(
       date('DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO;UNTIL=20241213T050000'),
     )
 
-    expect(getByText('events:nextDate_other', { exact: false })).toBeTruthy()
-    expect(getByText('9. Oktober 2023 07:00 - 10. Oktober 2023 09:00')).toBeTruthy()
-    expect(getByText('16. Oktober 2023 07:00 - 17. Oktober 2023 09:00')).toBeTruthy()
-    expect(getByText('23. Oktober 2023 07:00 - 24. Oktober 2023 09:00')).toBeTruthy()
-    expect(queryByText('30. Oktober 2023 07:00 - 01. November 2023 09:00')).toBeFalsy()
-    expect(queryByText('11. Dezember 2023 07:00 - 12. Dezember 2023 09:00')).toBeFalsy()
-    expect(queryByText('...')).toBeFalsy()
+    expect(getByText('events:nextDate_other', { exact: false })).toBeVisible()
+    expect(getByText('9. Oktober 2023 07:00 - 10. Oktober 2023 09:00')).toBeVisible()
+    expect(getByText('16. Oktober 2023 07:00 - 17. Oktober 2023 09:00')).toBeVisible()
+    expect(getByText('23. Oktober 2023 07:00 - 24. Oktober 2023 09:00')).toBeVisible()
+    expect(getByText('30. Oktober 2023 07:00 - 31. Oktober 2023 09:00')).not.toBeVisible()
+    expect(getByText('11. Dezember 2023 07:00 - 12. Dezember 2023 09:00')).not.toBeVisible()
+    expect(getByText('...')).not.toBeVisible()
 
-    expect(getByRole('button')).toBeTruthy()
+    expect(getByRole('button')).toBeVisible()
     fireEvent.click(getByRole('button'))
 
-    expect(getByText('30. Oktober 2023 07:00 - 31. Oktober 2023 09:00')).toBeTruthy()
-    expect(getByText('11. Dezember 2023 07:00 - 12. Dezember 2023 09:00')).toBeTruthy()
-    expect(getByText('...')).toBeTruthy()
+    expect(getByText('30. Oktober 2023 07:00 - 31. Oktober 2023 09:00')).toBeVisible()
+    expect(getByText('11. Dezember 2023 07:00 - 12. Dezember 2023 09:00')).toBeVisible()
+    expect(getByText('...')).toBeVisible()
 
     expect(queryByText('18. Dezember 2023 07:00 - 19. Dezember 2023 09:00')).toBeFalsy()
   })
