@@ -23,7 +23,7 @@ type GeneralFooterProps = {
 }
 
 const GeneralFooter = ({ language }: GeneralFooterProps): ReactElement => {
-  const linkItems = getFooterLinks({ language })
+  const linkItems = getFooterLinks({ languageCode: language })
 
   return (
     <Footer>
