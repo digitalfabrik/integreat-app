@@ -19,15 +19,18 @@ const FeedbackToolbarItem = ({ slug, rating }: FeedbackToolbarItemProps): ReactE
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false)
   const { t } = useTranslation('feedback')
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
+  const [snackbarOpen, setSnackbarOpen] = useState(false)
 
   const handleFeedbackSuccess = () => {
     setIsFeedbackOpen(false)
     setSendingStatus('successful')
+    setSnackbarOpen(true)
   }
 
   const handleFeedbackError = () => {
     setIsFeedbackOpen(true)
     setSendingStatus('failed')
+    setSnackbarOpen(true)
   }
 
   return (
@@ -48,9 +51,9 @@ const FeedbackToolbarItem = ({ slug, rating }: FeedbackToolbarItemProps): ReactE
         onClick={() => setIsFeedbackOpen(true)}
       />
       <Snackbar
-        open={sendingStatus === 'successful' || sendingStatus === 'failed'}
-        sendingStatus={sendingStatus}
-        onClose={() => setSendingStatus('idle')}
+        open={snackbarOpen}
+        severity={sendingStatus === 'successful' ? 'success' : 'error'}
+        onClose={() => setSnackbarOpen(false)}
         message={sendingStatus === 'successful' ? t('thanksMessage') : t('failedSendingFeedback')}
       />
     </>

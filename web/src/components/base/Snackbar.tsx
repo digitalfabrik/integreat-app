@@ -9,7 +9,7 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-import { SendingStatusType, SNACKBAR_AUTO_HIDE_DURATION } from 'shared'
+import { SNACKBAR_AUTO_HIDE_DURATION } from 'shared'
 
 const StyledMuiSnackbar = styled(MUISnackbar)(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
@@ -47,43 +47,38 @@ export type SnackbarProps = {
   open: boolean
   onClose: SnackbarCloseHandler
   dashboardRoute?: string
-  sendingStatus?: SendingStatusType
+  severity: 'success' | 'error' | 'info' | 'warning'
   title?: string
   message: string
 }
 
-const Snackbar = ({ open, onClose, sendingStatus, dashboardRoute, title, message }: SnackbarProps): ReactElement => {
+const Snackbar = ({ open, onClose, severity, message, title, dashboardRoute }: SnackbarProps): ReactElement => {
   const { t } = useTranslation('common')
-  const autoHideDuration = sendingStatus === 'successful' ? SNACKBAR_AUTO_HIDE_DURATION : null
-  const severity = sendingStatus === 'failed' ? 'error' : 'success'
 
   return (
     <StyledMuiSnackbar
       open={open}
       onClose={onClose}
       anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-      autoHideDuration={autoHideDuration}>
+      autoHideDuration={severity === 'success' ? SNACKBAR_AUTO_HIDE_DURATION : null}>
       <StyledAlert
         severity={severity}
         role='alert'
         onClose={onClose}
-        variant={sendingStatus === 'failed' ? 'filled' : 'standard'}
+        variant={severity === 'error' ? 'filled' : 'standard'}
         action={
-          sendingStatus === 'successful' && (
-            <>
-              {dashboardRoute ? (
-                <Button component={Link} to={dashboardRoute} size='small'>
-                  {t('error:goTo.categories')}
-                </Button>
-              ) : (
-                <IconButton aria-label={t('close')} color='inherit' size='small' onClick={onClose}>
-                  <CloseIcon fontSize='inherit' />
-                </IconButton>
-              )}
-            </>
-          )
+          // eslint-disable-next-line no-nested-ternary
+          severity === 'success' && dashboardRoute ? (
+            <Button component={Link} to={dashboardRoute} size='small'>
+              {t('error:goTo.categories')}
+            </Button>
+          ) : severity === 'success' ? (
+            <IconButton aria-label={t('close')} color='inherit' size='small' onClick={onClose}>
+              <CloseIcon fontSize='inherit' />
+            </IconButton>
+          ) : null
         }>
-        {sendingStatus === 'failed' && <AlertTitle>{title}</AlertTitle>}
+        {severity === 'error' && !!title && <AlertTitle>{title}</AlertTitle>}
         {message}
       </StyledAlert>
     </StyledMuiSnackbar>

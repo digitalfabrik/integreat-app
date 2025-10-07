@@ -86,7 +86,7 @@ export const FeedbackContainer = ({
     />
       <Snackbar
         open={snackbarOpen}
-        sendingStatus={sendingStatus}
+        severity={sendingStatus === 'successful' ? 'success' : 'error'}
         onClose={() => setSnackbarOpen(false)}
         message={sendingStatus === 'successful' ? t('thanksMessage') : t('failedSendingFeedback')}
       />
