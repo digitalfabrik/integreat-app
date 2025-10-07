@@ -49,8 +49,6 @@ import IntroOfflineIcon from '../../../assets/intro/offline.svg'
 import IntroPoisIcon from '../../../assets/intro/pois.svg'
 import IntroSearchIcon from '../../../assets/intro/search.svg'
 import IntroWelcomeIcon from '../../../assets/intro/welcome.svg'
-import PoiThumbnailPlaceholderLarge from '../../../assets/poi-thumbnail-placeholder-large.jpg'
-import PoiThumbnailPlaceholder from '../../../assets/poi-thumbnail-placeholder.jpg'
 
 export {
   AccessibleIcon,
@@ -92,8 +90,6 @@ export {
   POIsIcon,
   PauseIcon,
   PlayIcon,
-  PoiThumbnailPlaceholder,
-  PoiThumbnailPlaceholderLarge,
   RefreshIcon,
   SadSmileyIcon,
   SearchIcon,

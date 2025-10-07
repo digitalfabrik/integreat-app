@@ -2,7 +2,6 @@ import MenuBookIcon from '@mui/icons-material/MenuBook'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import Alert from '@mui/material/Alert'
 import Avatar from '@mui/material/Avatar'
-import DialogContentText from '@mui/material/DialogContentText'
 import IconButton from '@mui/material/IconButton'
 import MuiList from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
@@ -38,7 +37,7 @@ const helpItemsData = [
   },
 ]
 
-const HelpModalItem = ({ title, path }: { title: string; path: string }) => (
+const TtsHelpItem = ({ title, path }: { title: string; path: string }) => (
   <ListItem disablePadding>
     <ListItemButton component={Link} to={path}>
       <ListItemAvatar>
@@ -54,21 +53,23 @@ const HelpModalItem = ({ title, path }: { title: string; path: string }) => (
   </ListItem>
 )
 
-const TtsHelpModal = ({ closeModal }: { closeModal: () => void }): ReactElement => {
+type TtsHelpProps = {
+  close: () => void
+}
+
+const TtsHelp = ({ close }: TtsHelpProps): ReactElement => {
   const { t } = useTranslation('layout')
 
   return (
-    <Dialog title={t('voiceUnavailable')} closeModal={closeModal}>
-      <DialogContentText>
-        <Alert severity='warning'>{t('voiceUnavailableMessage')}</Alert>
-      </DialogContentText>
+    <Dialog title={t('voiceUnavailable')} close={close}>
+      <Alert severity='warning'>{t('voiceUnavailableMessage')}</Alert>
       <MuiList>
         {helpItemsData.map(item => (
-          <HelpModalItem key={item.title} title={item.title} path={item.path} />
+          <TtsHelpItem key={item.title} title={item.title} path={item.path} />
         ))}
       </MuiList>
     </Dialog>
   )
 }
 
-export default TtsHelpModal
+export default TtsHelp

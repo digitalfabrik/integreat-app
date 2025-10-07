@@ -28,7 +28,7 @@ const FeedbackToolbarItem = ({ route, slug, rating }: FeedbackToolbarItemProps):
   return (
     <>
       {isFeedbackOpen && (
-        <Dialog title={title} closeModal={() => setIsFeedbackOpen(false)}>
+        <Dialog title={title} close={() => setIsFeedbackOpen(false)}>
           <FeedbackContainer
             onSubmit={() => setIsSubmitted(true)}
             routeType={route as FeedbackRouteType}
