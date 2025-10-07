@@ -9,6 +9,7 @@ import { PoiModel } from 'shared/api'
 
 import useDimensions from '../hooks/useDimensions'
 import BottomActionSheet, { ScrollableBottomSheetRef } from './BottomActionSheet'
+import MapAttribution from './MapAttribution'
 import MapView, { MapViewRef } from './MapView'
 import PoiSharedChildren from './PoiSharedChildren'
 import { DirectionDependentBackIcon } from './base/Dialog'
@@ -26,12 +27,15 @@ const ListTitle = styled('div')`
   font-weight: 700;
 `
 
-const GeocontrolContainer = styled('div')`
+const AttributionContainer = styled('div')`
   position: fixed;
-  inset-inline-end: 16px;
-  bottom: calc(
-    min(var(--rsbs-overlay-h, 0), ${props => props.theme.dimensions.bottomSheet.snapPoints.medium}px) + 16px
-  );
+  right: 0;
+  bottom: calc(min(var(--rsbs-overlay-h, 0), ${props => props.theme.dimensions.bottomSheet.snapPoints.medium}px));
+`
+
+const GeocontrolContainer = styled(AttributionContainer)`
+  right: 16px;
+  margin-bottom: 24px;
 `
 
 type PoisMobileProps = {
@@ -117,7 +121,16 @@ const PoisMobile = ({
           </>
         }
       />
-      <BottomActionSheet ref={sheetRef} sibling={<GeocontrolContainer ref={geocontrolPosition} />}>
+      <BottomActionSheet
+        ref={sheetRef}
+        sibling={
+          <>
+            <GeocontrolContainer ref={geocontrolPosition} />
+            <AttributionContainer>
+              <MapAttribution />
+            </AttributionContainer>
+          </>
+        }>
         <ListContainer>
           {!canDeselect && <ListTitle>{t('common:nearby')}</ListTitle>}
           <PoiSharedChildren

@@ -6,6 +6,7 @@ import { GeolocateControl, NavigationControl } from 'react-map-gl'
 import { LocationType, MapViewViewport, MapFeature, PreparePoisReturn } from 'shared'
 import { PoiModel } from 'shared/api'
 
+import MapAttribution from './MapAttribution'
 import MapView from './MapView'
 import PoiPanelHeader from './PoiPanelHeader'
 import PoiPanelNavigation from './PoiPanelNavigation'
@@ -26,6 +27,12 @@ const ListViewWrapper = styled('div')`
   padding: 16px;
   overflow: auto;
 `
+
+const StyledMapAttribution = styled(MapAttribution)({
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+})
 
 type PoisDesktopProps = {
   data: PreparePoisReturn
@@ -112,6 +119,7 @@ const PoisDesktop = ({
           trackUserLocation
           position={contentDirection === 'rtl' ? 'bottom-left' : 'bottom-right'}
         />
+        <StyledMapAttribution />
       </MapView>
     </>
   )
