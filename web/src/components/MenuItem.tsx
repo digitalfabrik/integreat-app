@@ -7,6 +7,10 @@ import React, { ReactElement } from 'react'
 
 import Link from './base/Link'
 
+const StyledMenuItem = styled(MuiMenuItem)({
+  minHeight: 0,
+})
+
 const StyledLink = styled(Link)({
   display: 'flex',
   flexDirection: 'row',
@@ -47,9 +51,9 @@ const MenuItem = ({
   return (
     <Tooltip title={tooltip}>
       <div>
-        <MuiMenuItem onClick={handleClick} disabled={disabled} sx={to ? { padding: 0 } : {}}>
+        <StyledMenuItem onClick={handleClick} disabled={disabled} sx={to ? { padding: 0 } : {}}>
           {to ? <StyledLink to={to}>{Content}</StyledLink> : Content}
-        </MuiMenuItem>
+        </StyledMenuItem>
       </div>
     </Tooltip>
   )
