@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 import { rrulestr } from 'rrule'
 
-import DateModel, { formatTime, getWeekdayFromIndex } from '../DateModel'
+import DateModel from '../DateModel'
 
 jest.useFakeTimers({ now: new Date('2023-10-09T15:23:57.443+02:00') })
 
@@ -22,6 +22,41 @@ const t = (key: string, options?: Record<string, unknown>) =>
     : key
 
 describe('DateModel', () => {
+  describe('isSingleOneDayEvent()', () => {
+    it('should return true for a one-day non-recurring event', () => {
+      const date = new DateModel({
+        startDate: DateTime.fromISO('2023-10-15T08:00:00+02:00'),
+        endDate: DateTime.fromISO('2023-10-15T10:00:00+02:00'),
+        allDay: false,
+        recurrenceRule: null,
+        onlyWeekdays: false,
+      })
+      expect(date.isSingleOneDayEvent()).toBe(true)
+    })
+
+    it('should return false for a long-term event', () => {
+      const date = new DateModel({
+        startDate: DateTime.fromISO('2023-10-15T08:00:00+02:00'),
+        endDate: DateTime.fromISO('2023-11-15T10:00:00+02:00'),
+        allDay: false,
+        recurrenceRule: null,
+        onlyWeekdays: false,
+      })
+      expect(date.isSingleOneDayEvent()).toBe(false)
+    })
+
+    it('should return false for a recurring event', () => {
+      const date = new DateModel({
+        startDate: DateTime.fromISO('2023-10-15T08:00:00+02:00'),
+        endDate: DateTime.fromISO('2023-10-15T10:00:00+02:00'),
+        allDay: false,
+        recurrenceRule: rrulestr('DTSTART:20231015T080000\nRRULE:FREQ=WEEKLY;UNTIL=20231101T235959;BYDAY=WE,FR'),
+        onlyWeekdays: false,
+      })
+      expect(date.isSingleOneDayEvent()).toBe(false)
+    })
+  })
+
   describe('formatEventDateInOneLine()', () => {
     it('should show the time for a single-day non-recurring event', () => {
       const locale = 'de'
@@ -1064,40 +1099,5 @@ describe('DateModel', () => {
         time: 'timeRange, startTime: 1:00 PM, endTime: 3:00 PM',
       })
     })
-  })
-})
-
-describe('getWeekdayFromIndex', () => {
-  it('should return the correct weekday', () => {
-    expect(getWeekdayFromIndex(0, 'de')).toBe('Montag')
-    expect(getWeekdayFromIndex(3, 'de')).toBe('Donnerstag')
-    expect(getWeekdayFromIndex(2, 'en')).toBe('Wednesday')
-    expect(getWeekdayFromIndex(5, 'en')).toBe('Saturday')
-  })
-})
-
-describe('formatTime', () => {
-  it('should format a time interval correctly', () => {
-    const locale = 'de'
-    const date = new DateModel({
-      startDate: DateTime.fromISO('2025-08-20T11:00:00+02:00', { locale }),
-      endDate: DateTime.fromISO('2025-08-20T13:00:00+02:00', { locale }),
-      allDay: false,
-      recurrenceRule: null,
-      onlyWeekdays: false,
-    })
-    expect(formatTime(locale, date, t)).toBe('timeRange, startTime: 11:00, endTime: 13:00')
-  })
-
-  it('should format an all-day event correctly', () => {
-    const locale = 'de'
-    const date = new DateModel({
-      startDate: DateTime.fromISO('2025-08-20T00:00:00+02:00', { locale }),
-      endDate: DateTime.fromISO('2025-08-20T23:59:00+02:00', { locale }),
-      allDay: true,
-      recurrenceRule: null,
-      onlyWeekdays: false,
-    })
-    expect(formatTime(locale, date, t)).toBe('pois:allDay')
   })
 })

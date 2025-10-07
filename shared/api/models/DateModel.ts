@@ -2,10 +2,13 @@ import { DateTime, DateTimeFormatOptions, Duration } from 'luxon'
 import { RRule as RRuleType, rrulestr } from 'rrule'
 
 import { formatDateICal } from '../../utils'
+import { formatTime, getWeekdayFromIndex } from '../../utils/date'
 
 const MAX_RECURRENCE_YEARS = 6
 
 export type DateIcon = 'CalendarTodayRecurringIcon' | 'CalendarRecurringIcon' | 'CalendarTodayIcon'
+
+type TranslateFunction = (key: string, options?: Record<string, unknown>) => string
 
 type FormattedEventDate = {
   date: string
@@ -13,29 +16,8 @@ type FormattedEventDate = {
   time: string
 }
 
-const timeFormat: DateTimeFormatOptions = { hour: 'numeric', minute: '2-digit' }
 const dateFormatWithoutWeekday: DateTimeFormatOptions = { day: 'numeric', month: 'long', year: 'numeric' }
 const dateFormatWithWeekday: DateTimeFormatOptions = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }
-
-export const getWeekdayFromIndex = (index: number, locale: string): string => {
-  // Use a day that we know to be a Monday, add ${index} days to it, then return that day's weekday translation
-  const baseMonday = DateTime.fromObject({ day: 22, month: 9, year: 2025 })
-  const offsetDateOfThatWeek = baseMonday.plus({ days: index })
-  return offsetDateOfThatWeek.toLocaleString({ weekday: 'long' }, { locale })
-}
-
-export const formatTime = (
-  locale: string,
-  date: DateModel,
-  t: (key: string, options?: Record<string, unknown>) => string,
-): string => {
-  const startTime = date.startDate.toLocaleString(timeFormat, { locale })
-  // For long-term events, the endDate is on the last day, but we need the end time on the first day
-  const endTime = date.startDate
-    .set({ hour: date.endDate.hour, minute: date.endDate.minute })
-    .toLocaleString(timeFormat, { locale })
-  return date.allDay ? t('pois:allDay') : t('timeRange', { startTime, endTime })
-}
 
 class DateModel {
   _startDate: DateTime
@@ -147,10 +129,7 @@ class DateModel {
     return frequency === RRuleType.MONTHLY || frequency === RRuleType.YEARLY
   }
 
-  formatMonthlyOrYearlyRecurrence(
-    locale: string,
-    t: (key: string, options?: Record<string, unknown>) => string,
-  ): FormattedEventDate {
+  formatMonthlyOrYearlyRecurrence(locale: string, t: TranslateFunction): FormattedEventDate {
     return {
       date: this.startDate.toLocaleString(dateFormatWithWeekday, { locale }),
       weekday: undefined,
@@ -158,7 +137,7 @@ class DateModel {
     }
   }
 
-  formatEventDate(locale: string, t: (key: string, options?: Record<string, unknown>) => string): FormattedEventDate {
+  formatEventDate(locale: string, t: TranslateFunction): FormattedEventDate {
     let formattedDate = ''
     let weekday: string | undefined
 
@@ -185,7 +164,7 @@ class DateModel {
     }
   }
 
-  formatEventDateInOneLine(locale: string, t: (key: string, options?: Record<string, unknown>) => string): string {
+  formatEventDateInOneLine(locale: string, t: TranslateFunction): string {
     const format: DateTimeFormatOptions = {
       day: 'numeric',
       month: 'long',
@@ -262,11 +241,7 @@ class DateModel {
     return `${formattedStartDate} - ${formattedEndDate}`
   }
 
-  private formatRecurringDate(
-    locale: string,
-    date: DateModel,
-    t: (key: string, options?: Record<string, unknown>) => string,
-  ): FormattedEventDate {
+  private formatRecurringDate(locale: string, date: DateModel, t: TranslateFunction): FormattedEventDate {
     if (!date.recurrenceRule) {
       throw new Error('DateModel has no recurrence rule')
     }
