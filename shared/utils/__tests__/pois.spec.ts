@@ -8,6 +8,16 @@ const poi1 = pois[0]!
 const poi2 = pois[1]!
 const poi3 = pois[2]!
 
+beforeEach(() => {
+  jest.spyOn(poi1, 'isCurrentlyOpen', 'get').mockReturnValue(true)
+  jest.spyOn(poi2, 'isCurrentlyOpen', 'get').mockReturnValue(true)
+  jest.spyOn(poi3, 'isCurrentlyOpen', 'get').mockReturnValue(false)
+})
+
+afterEach(() => {
+  jest.restoreAllMocks()
+})
+
 jest.useFakeTimers({ now: new Date('2023-10-02T15:23:57.443+02:00') })
 
 describe('sortPois', () => {
