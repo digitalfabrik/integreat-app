@@ -48,7 +48,7 @@ const CategoryListItem = ({ category, subCategories }: CategoryListItemProps): R
       <ListItemButton component={Link} to={category.path}>
         {!!category.thumbnail && (
           <ListItemIcon>
-            <StyledImage src={category.thumbnail} alt={category.title} />
+            <StyledImage src={category.thumbnail} alt='' />
           </ListItemIcon>
         )}
         <ListItemText
