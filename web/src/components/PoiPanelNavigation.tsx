@@ -28,7 +28,7 @@ const PoiPanelNavigation = ({ switchPoi }: PoiPanelNavigationProps): ReactElemen
         startIcon={<DirectionDependentBackIcon />}
         tabIndex={0}
         color='inherit'
-        aria-label={t('previous')}>
+        aria-label={t('previousPoi')}>
         {t('detailsPreviousPoi')}
       </StyledButton>
       <StyledButton
