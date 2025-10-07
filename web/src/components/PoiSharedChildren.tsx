@@ -20,21 +20,13 @@ type PoiSharedChildrenProps = {
   slug: string | undefined
   selectPoi: (poi: PoiModel) => void
   userLocation: LocationType | null
-  toolbar?: ReactElement
 }
 
-const PoiSharedChildren = ({
-  pois,
-  poi,
-  slug,
-  selectPoi,
-  userLocation,
-  toolbar,
-}: PoiSharedChildrenProps): ReactElement => {
+const PoiSharedChildren = ({ pois, poi, slug, selectPoi, userLocation }: PoiSharedChildrenProps): ReactElement => {
   const { t } = useTranslation('pois')
 
   if (poi) {
-    return <PoiDetails poi={poi} distance={userLocation && poi.distance(userLocation)} toolbar={toolbar} />
+    return <PoiDetails poi={poi} distance={userLocation && poi.distance(userLocation)} />
   }
 
   if (slug) {
