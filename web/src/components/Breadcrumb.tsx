@@ -26,12 +26,8 @@ type BreadcrumbProps = {
 const Breadcrumb = ({ title, to }: BreadcrumbProps): ReactElement => {
   const current = to === normalizePath(useLocation().pathname)
 
-  if (current) {
-    return <StyledTypography aria-current='page'>{title} </StyledTypography>
-  }
-
   return (
-    <StyledButton component={Link} to={to} variant='text' color='inherit'>
+    <StyledButton component={Link} to={to} variant='text' color='inherit' aria-current={current ? 'page' : undefined}>
       <StyledTypography>{title} </StyledTypography>
     </StyledButton>
   )
