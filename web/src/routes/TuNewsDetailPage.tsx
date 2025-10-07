@@ -1,3 +1,4 @@
+import Stack from '@mui/material/Stack'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useParams } from 'react-router'
@@ -17,34 +18,19 @@ import Svg from '../components/base/Svg'
 import { tunewsApiBaseUrl } from '../constants/urls'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 
-const StyledContainer = styled('div')`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-`
+const TuNewsBanner = styled('div')(({ theme }) => ({
+  overflow: 'hidden',
+  marginBlock: 24,
+  backgroundColor: theme.palette.tunews.light,
+  borderRadius: 12,
+  height: 60,
+  alignItems: 'start',
+}))
 
-const StyledBanner = styled('div')`
-  position: relative;
-  display: flex;
-  height: 60px;
-  overflow: hidden;
-  align-items: center;
-  margin: 25px 0;
-  background-color: ${props => props.theme.legacy.colors.tunewsThemeColorLight};
-  border-radius: 11px;
-`
-
-const StyledTitle = styled('div')`
-  display: flex;
-  width: 185px;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-  background-color: ${props => props.theme.legacy.colors.tunewsThemeColor};
-  color: ${props => props.theme.legacy.colors.backgroundColor};
-  font-size: 20px;
-  font-weight: 700;
-`
+const IconContainer = styled(Stack)(({ theme }) => ({
+  backgroundColor: theme.palette.tunews.main,
+  shapeRendering: 'crispEdges',
+}))
 
 const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteProps): ReactElement | null => {
   // This component is only opened when there is a news ID in the route
@@ -104,21 +90,17 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
   return (
     <CityContentLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
-      <StyledContainer>
-        <>
-          <StyledBanner>
-            <StyledTitle>
-              <Svg src={TuNewsActiveIcon} width={180} height='100%' />
-            </StyledTitle>
-          </StyledBanner>
-          <Page
-            title={newsModel.title}
-            content={newsModel.content}
-            lastUpdate={newsModel.date}
-            showLastUpdateText={false}
-          />
-        </>
-      </StyledContainer>
+      <TuNewsBanner>
+        <IconContainer width={180} height='100%'>
+          <Svg src={TuNewsActiveIcon} width='100%' height='100%' />
+        </IconContainer>
+      </TuNewsBanner>
+      <Page
+        title={newsModel.title}
+        content={newsModel.content}
+        lastUpdate={newsModel.date}
+        showLastUpdateText={false}
+      />
     </CityContentLayout>
   )
 }
