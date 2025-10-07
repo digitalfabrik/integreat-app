@@ -1,7 +1,7 @@
+import Button from '@mui/material/Button'
 import { fireEvent, render } from '@testing-library/react'
 import React from 'react'
 
-import Button from '../../components/base/Button'
 import useLocalStorage from '../useLocalStorage'
 
 describe('useLocalStorage', () => {
@@ -11,9 +11,7 @@ describe('useLocalStorage', () => {
     return (
       <div>
         {value}
-        <Button label='increment' onClick={() => updateLocalStorageItem(value + 1)}>
-          Increment
-        </Button>
+        <Button onClick={() => updateLocalStorageItem(value + 1)}>Increment</Button>
       </div>
     )
   }
