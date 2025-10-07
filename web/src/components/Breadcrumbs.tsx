@@ -46,13 +46,13 @@ type BreadcrumbsProps = {
 
 const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps): ReactElement | null => {
   const [menuAnchorElement, setMenuAnchorElement] = useState<HTMLButtonElement | null>(null)
-  const { small } = useDimensions()
+  const { xsmall } = useDimensions()
   const { t } = useTranslation('common')
 
   const openMenu = (event: React.MouseEvent<HTMLButtonElement>) => setMenuAnchorElement(event.currentTarget)
   const closeMenu = () => setMenuAnchorElement(null)
 
-  const maxVisible = small ? 1 : 2
+  const maxVisible = xsmall ? 1 : 2
   const [home, ...rest] = breadcrumbs
   const hiddenBreadcrumbs = rest.slice(0, -maxVisible)
   const visibleBreadcrumbs = rest.slice(-maxVisible)
