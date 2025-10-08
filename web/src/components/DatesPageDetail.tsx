@@ -23,7 +23,7 @@ const Container = styled.div`
 
 const ContainerForThreeElements = styled(Container)`
   @media ${dimensions.mediumLargeViewport} {
-    & > :nth-child(3) {
+    & > :nth-of-type(3) {
       grid-column: 1 / 3;
     }
   }
