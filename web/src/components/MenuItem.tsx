@@ -6,24 +6,13 @@ import Tooltip from '@mui/material/Tooltip'
 import { styled, useTheme } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
-import Link from './base/Link'
-
 const StyledMenuItem = styled(MuiMenuItem)({
   minHeight: 0,
-})
+}) as typeof MuiMenuItem
 
 const TooltipContent = styled(Stack)({
   pointerEvents: 'auto',
 })
-
-const StyledLink = styled(Link)({
-  display: 'flex',
-  flexDirection: 'row',
-  width: '100%',
-  padding: '6px 16px',
-  alignItems: 'center',
-})
-
 type MenuListItemProps = {
   icon?: ReactElement
   iconEnd?: ReactElement
@@ -63,12 +52,17 @@ const MenuItem = ({
 
   return (
     <StyledMenuItem
+      // Use an <a> tag instead of the <Link> component to avoid the app crashing with error:
+      // can't access property "tagName", button is null
+      // Also, this breaks html semantics but there is currently no better workaround to achieve keyboard a11y
+      // https://github.com/mui/material-ui/issues/33268
+      component={to ? 'a' : MuiMenuItem}
+      href={to}
       onClick={handleClick}
       disabled={disabled}
-      sx={to ? { padding: 0 } : {}}
       dir={contentDirection}
       {...otherProps}>
-      {to ? <StyledLink to={to}>{Content}</StyledLink> : Content}
+      {Content}
     </StyledMenuItem>
   )
 }
