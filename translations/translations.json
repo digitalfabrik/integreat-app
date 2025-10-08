@@ -1274,7 +1274,8 @@
       "notAccessible": "Nicht barrierefrei",
       "clearInput": "Eingabe löschen",
       "more": "Mehr",
-      "nearby": "In deiner Nähe"
+      "nearby": "In deiner Nähe",
+      "email": "E-Mail"
     },
     "am": {
       "copied": "ተቀድቷል",
@@ -1399,7 +1400,8 @@
       "notAccessible": "Not accessible",
       "clearInput": "Clear input",
       "more": "More",
-      "nearby": "Near you"
+      "nearby": "Near you",
+      "email": "Email"
     },
     "es": {
       "copied": "Copiado",
@@ -8086,6 +8088,7 @@
   },
   "layout": {
     "de": {
+      "legal": "Recthliches",
       "imprint": "Impressum",
       "privacy": "Datenschutz",
       "localInformation": "Lokale Informationen",
@@ -8400,6 +8403,7 @@
       "voiceUnavailableMessage": "Δεν βρέθηκε φωνή. Για να χρησιμοποιήσετε τη λειτουργία ανάγνωσης πρέπει να εγκαταστήσετε μια φωνή. Λάβετε υπόψη τις ακόλουθες οδηγίες για το λειτουργικό σας σύστημα."
     },
     "en": {
+      "legal": "Legal",
       "imprint": "Imprint",
       "privacy": "Data protection",
       "localInformation": "Local information",

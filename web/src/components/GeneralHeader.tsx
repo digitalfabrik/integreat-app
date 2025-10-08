@@ -1,6 +1,6 @@
 import ContrastIcon from '@mui/icons-material/Contrast'
 import { useTheme } from '@mui/material/styles'
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router-dom'
 
@@ -10,8 +10,8 @@ import { LanguageModel } from 'shared/api'
 import { supportedLanguages } from '../utils'
 import Header from './Header'
 import HeaderLanguageSelectorItem from './HeaderLanguageSelectorItem'
-import Sidebar from './Sidebar'
-import SidebarActionItem from './SidebarActionItem'
+import HeaderMenu from './HeaderMenu'
+import MenuItem from './MenuItem'
 
 type GeneralHeaderProps = {
   languageCode: string
@@ -20,10 +20,9 @@ type GeneralHeaderProps = {
 }
 
 const GeneralHeader = ({ languageCode, cityLanguages, onStickyTopChanged }: GeneralHeaderProps): ReactElement => {
-  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const slug = useLocation().pathname.split('/')[1]
   const { toggleTheme } = useTheme()
   const { t } = useTranslation('layout')
-  const slug = useLocation().pathname.split('/')[1]
 
   const landingPath = pathnameFromRouteInformation({ route: LANDING_ROUTE, languageCode })
   const languageChangePaths = (cityLanguages ?? supportedLanguages).map(language => ({
@@ -41,9 +40,9 @@ const GeneralHeader = ({ languageCode, cityLanguages, onStickyTopChanged }: Gene
         forceText
       />
     ) : null,
-    <Sidebar key='sidebar' setOpen={setSidebarOpen} open={sidebarOpen}>
-      <SidebarActionItem key='theme' text={t('contrastTheme')} icon={<ContrastIcon />} onClick={toggleTheme} />
-    </Sidebar>,
+    <HeaderMenu key='menu' pageTitle={null}>
+      <MenuItem key='theme' text={t('contrastTheme')} icon={<ContrastIcon fontSize='small' />} onClick={toggleTheme} />
+    </HeaderMenu>,
   ]
 
   return (

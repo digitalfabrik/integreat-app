@@ -1,15 +1,19 @@
 import { fireEvent } from '@testing-library/dom'
+import { mocked } from 'jest-mock'
 import React from 'react'
 
 import { CategoriesMapModelBuilder } from 'shared/api'
 
+import { mockDimensions } from '../../__mocks__/useDimensions'
+import useDimensions from '../../hooks/useDimensions'
 import { renderAllRoutes } from '../../testing/render'
-import CityContentSidebar from '../CityContentSidebar'
+import CityContentMenu from '../CityContentMenu'
 import { TtsContext } from '../TtsContainer'
 
 jest.mock('react-i18next')
+jest.mock('../../hooks/useDimensions')
 
-describe('CityContentSidebar', () => {
+describe('CityContentMenu', () => {
   const category = new CategoriesMapModelBuilder('augsburg', 'de').build().toArray()[3]!
   const showTtsPlayer = jest.fn()
   const defaultTtsContext = {
@@ -23,11 +27,12 @@ describe('CityContentSidebar', () => {
 
   beforeEach(jest.clearAllMocks)
 
-  it('should show all toolbar items for categories route', () => {
+  it('should show all menu items for categories route', () => {
+    mocked(useDimensions).mockImplementation(() => ({ ...mockDimensions, mobile: true }))
     const { getByText, getByLabelText } = renderAllRoutes('/augsburg/de', {
       CityContentElement: (
         <TtsContext.Provider value={defaultTtsContext}>
-          <CityContentSidebar category={category} />,
+          <CityContentMenu category={category} pageTitle='Test Page' />,
         </TtsContext.Provider>
       ),
     })
@@ -38,8 +43,7 @@ describe('CityContentSidebar', () => {
       'href',
       'https://cms-test.integreat-app.de/augsburg/de/wp-json/ig-mpdf/v1/pdf?url=%2Faugsburg%2Fde%2Fcategory_0%2Fcategory_1',
     )
-    expect(getByText('feedback:useful')).toBeTruthy()
-    expect(getByText('feedback:notUseful')).toBeTruthy()
+    expect(getByText('layout:feedback')).toBeTruthy()
     expect(getByText('layout:readAloud')).toBeTruthy()
     expect(getByText('layout:contrastTheme')).toBeTruthy()
 
@@ -52,7 +56,7 @@ describe('CityContentSidebar', () => {
     const { queryByText, getByText, getByLabelText } = renderAllRoutes('/augsburg/de/events', {
       CityContentElement: (
         <TtsContext.Provider value={defaultTtsContext}>
-          <CityContentSidebar />,
+          <CityContentMenu pageTitle='Test Page' />,
         </TtsContext.Provider>
       ),
     })
@@ -60,8 +64,7 @@ describe('CityContentSidebar', () => {
     fireEvent.click(getByLabelText('layout:sideBarOpenAriaLabel'))
 
     expect(queryByText('categories:createPdf')).toBeFalsy()
-    expect(getByText('feedback:useful')).toBeTruthy()
-    expect(getByText('feedback:notUseful')).toBeTruthy()
+    expect(getByText('layout:feedback')).toBeTruthy()
     expect(getByText('layout:readAloud')).toBeTruthy()
     expect(getByText('layout:contrastTheme')).toBeTruthy()
   })
@@ -70,7 +73,7 @@ describe('CityContentSidebar', () => {
     const { queryByText, getByText, getByLabelText } = renderAllRoutes('/augsburg/de/news/local', {
       CityContentElement: (
         <TtsContext.Provider value={defaultTtsContext}>
-          <CityContentSidebar />,
+          <CityContentMenu pageTitle='Test Page' />,
         </TtsContext.Provider>
       ),
     })
@@ -78,8 +81,7 @@ describe('CityContentSidebar', () => {
     fireEvent.click(getByLabelText('layout:sideBarOpenAriaLabel'))
 
     expect(queryByText('categories:createPdf')).toBeFalsy()
-    expect(queryByText('feedback:useful')).toBeFalsy()
-    expect(queryByText('feedback:notUseful')).toBeFalsy()
+    expect(queryByText('layout:feedback')).toBeFalsy()
     expect(getByText('layout:readAloud')).toBeTruthy()
     expect(getByText('layout:contrastTheme')).toBeTruthy()
   })
@@ -88,13 +90,30 @@ describe('CityContentSidebar', () => {
     const { getByText, getByLabelText } = renderAllRoutes('/augsburg/de', {
       CityContentElement: (
         <TtsContext.Provider value={{ ...defaultTtsContext, canRead: false }}>
-          <CityContentSidebar />,
+          <CityContentMenu pageTitle='Test Page' />,
         </TtsContext.Provider>
       ),
     })
 
     fireEvent.click(getByLabelText('layout:sideBarOpenAriaLabel'))
 
-    expect(getByText('layout:readAloud').parentElement?.parentElement).toHaveClass('Mui-disabled')
+    expect(getByText('layout:readAloud').closest('li')).toHaveClass('Mui-disabled')
+  })
+
+  it('should hide feedback on desktop', () => {
+    mocked(useDimensions).mockImplementation(() => ({ ...mockDimensions, desktop: true, mobile: false }))
+    const { queryByText, getByText, getByLabelText } = renderAllRoutes('/augsburg/de/events', {
+      CityContentElement: (
+        <TtsContext.Provider value={defaultTtsContext}>
+          <CityContentMenu pageTitle='Test Page' />,
+        </TtsContext.Provider>
+      ),
+    })
+
+    fireEvent.click(getByLabelText('layout:sideBarOpenAriaLabel'))
+
+    expect(queryByText('layout:feedback')).toBeFalsy()
+    expect(getByText('layout:readAloud')).toBeTruthy()
+    expect(getByText('layout:contrastTheme')).toBeTruthy()
   })
 })

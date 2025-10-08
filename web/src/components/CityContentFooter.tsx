@@ -22,7 +22,7 @@ type CityContentFooterProps = {
 }
 
 const CityContentFooter = ({ city, language, mode = 'normal' }: CityContentFooterProps): ReactElement => {
-  const linkItems = getFooterLinks({ city, language })
+  const linkItems = getFooterLinks({ cityCode: city, languageCode: language })
   const FooterContent = (
     <StyledList
       items={linkItems.map(item => (

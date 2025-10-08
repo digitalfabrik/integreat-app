@@ -52,6 +52,7 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
     city,
     languageChangePaths,
     languageCode,
+    pageTitle: null,
     fitScreen: true,
   }
 
@@ -74,7 +75,7 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
   const pageTitle = `${poi?.title ?? t('pageTitle')} - ${city.name}`
 
   return (
-    <CityContentLayout isLoading={false} {...locationLayoutParams}>
+    <CityContentLayout isLoading={false} {...locationLayoutParams} pageTitle={pageTitle}>
       <Helmet
         pageTitle={pageTitle}
         metaDescription={poi?.metaDescription}
