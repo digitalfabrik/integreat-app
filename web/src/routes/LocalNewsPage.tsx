@@ -66,7 +66,7 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
     city,
     languageChangePaths,
     languageCode,
-    Toolbar: <CityContentToolbar pageTitle={pageTitle} />,
+    Toolbar: <CityContentToolbar />,
   }
 
   if (loading || previousPathname !== pathname) {
