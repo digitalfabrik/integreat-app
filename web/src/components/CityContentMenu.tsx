@@ -39,6 +39,7 @@ const CityContentMenu = ({ slug, category, pageTitle, fitScreen }: CityContentMe
 
   const [feedbackOpen, setFeedbackOpen] = useState(false)
   const [feedbackSubmitted, setFeedbackSubmitted] = useState(false)
+  const showFeedback = fitScreen || (dimensions.mobile && route !== NEWS_ROUTE)
 
   const items = [
     route === CATEGORIES_ROUTE ? (
@@ -50,7 +51,7 @@ const CityContentMenu = ({ slug, category, pageTitle, fitScreen }: CityContentMe
         closeMenu={ref.current?.closeMenu}
       />
     ) : null,
-    dimensions.mobile && route !== NEWS_ROUTE ? (
+    showFeedback ? (
       <MenuItem
         key='feedback'
         text={t('feedback')}
