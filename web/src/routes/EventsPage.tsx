@@ -79,7 +79,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     city,
     languageChangePaths,
     languageCode,
-    Toolbar: <CityContentToolbar slug={event?.slug} pageTitle={pageTitle} />,
+    Toolbar: <CityContentToolbar slug={event?.slug} />,
   }
 
   if (loading || pathname !== previousPathname) {
