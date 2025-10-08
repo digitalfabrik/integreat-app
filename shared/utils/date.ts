@@ -5,8 +5,8 @@ import { DateModel } from '../api'
 export const getWeekdayFromIndex = (index: number, locale: string): string => {
   // Use a day that we know to be a Monday, add ${index} days to it, then return that day's weekday translation
   const baseMonday = DateTime.fromObject({ day: 22, month: 9, year: 2025 })
-  const offsetDateOfThatWeek = baseMonday.plus({ days: index })
-  return offsetDateOfThatWeek.toLocaleString({ weekday: 'long' }, { locale })
+  const weekday = baseMonday.plus({ days: index })
+  return weekday.toLocaleString({ weekday: 'long' }, { locale })
 }
 
 const timeFormat: DateTimeFormatOptions = { hour: 'numeric', minute: '2-digit' }

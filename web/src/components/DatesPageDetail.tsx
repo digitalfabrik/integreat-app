@@ -49,11 +49,17 @@ const StyledIcon = styled(Icon)`
   margin-inline-end: 8px;
 `
 
-type EventRecurrencesListType = { date: DateModel; clicksOnShowMore: number; language: string }
+type DatesPageDetailProps = {
+  date: DateModel
+  language: string
+}
 
-const EventRecurrencesList = ({ date, clicksOnShowMore, language }: EventRecurrencesListType): ReactElement[] => {
+const DatesPageDetail = ({ date, language }: DatesPageDetailProps): ReactElement | null => {
+  const [clicksOnShowMore, setClicksOnShowMore] = useState(0)
+  const visibleRecurrences = MAX_DATE_RECURRENCES * (clicksOnShowMore + 1)
   const { t } = useTranslation('events')
-  return date
+
+  const recurrences = date
     .recurrences(MAX_DATE_RECURRENCES * (clicksOnShowMore + 1))
     .map(recurrence => recurrence.formatMonthlyOrYearlyRecurrence(language, t))
     .map(formattedDate => (
@@ -62,22 +68,12 @@ const EventRecurrencesList = ({ date, clicksOnShowMore, language }: EventRecurre
         <PageDetail icon={ClockIcon} information={formattedDate.time} />
       </Fragment>
     ))
-}
-
-type DatesPageDetailProps = {
-  date: DateModel
-  language: string
-}
-
-const DatesPageDetail = ({ date, language }: DatesPageDetailProps): ReactElement | null => {
-  const [clicksOnShowMore, setClicksOnShowMore] = useState(0)
-  const { t } = useTranslation('events')
 
   if (date.isMonthlyOrYearlyRecurrence()) {
     return (
       <Container>
-        <EventRecurrencesList date={date} clicksOnShowMore={clicksOnShowMore} language={language} />
-        {date.hasMoreRecurrencesThan(MAX_DATE_RECURRENCES * (clicksOnShowMore + 1)) && (
+        {recurrences}
+        {date.hasMoreRecurrencesThan(visibleRecurrences) && (
           <StyledButton type='button' onClick={() => setClicksOnShowMore(clicksOnShowMore + 1)}>
             <StyledIcon src={ExpandIcon} title='' />
             {t('common:showMore')}

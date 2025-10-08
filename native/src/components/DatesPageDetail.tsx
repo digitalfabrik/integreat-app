@@ -32,13 +32,19 @@ const StyledIcon = styled(Icon)`
   height: 16px;
 `
 
-type EventRecurrencesListType = { date: DateModel; tapsOnShowMore: number; languageCode: string }
+type DatesPageDetailProps = {
+  date: DateModel
+  languageCode: string
+}
 
-const EventRecurrencesList = ({ date, tapsOnShowMore, languageCode }: EventRecurrencesListType): ReactElement[] => {
+const DatesPageDetail = ({ date, languageCode }: DatesPageDetailProps): ReactElement | null => {
+  const [tapsOnShowMore, setTapsOnShowMore] = useState(0)
+  const visibleRecurrences = MAX_DATE_RECURRENCES * (tapsOnShowMore + 1)
+
   // Use the content language to match the surrounding translations
   const { t: translateIntoContentLanguage } = useTranslation('events', { lng: languageCode })
 
-  return date
+  const recurrences = date
     .recurrences(MAX_DATE_RECURRENCES * (tapsOnShowMore + 1))
     .map(recurrence => recurrence.formatMonthlyOrYearlyRecurrence(languageCode, translateIntoContentLanguage))
     .map(formattedDate => (
@@ -47,24 +53,12 @@ const EventRecurrencesList = ({ date, tapsOnShowMore, languageCode }: EventRecur
         <PageDetail Icon={ClockIcon} information={formattedDate.time} language={languageCode} />
       </SingleDateContainer>
     ))
-}
-
-type DatesPageDetailProps = {
-  date: DateModel
-  languageCode: string
-}
-
-const DatesPageDetail = ({ date, languageCode }: DatesPageDetailProps): ReactElement | null => {
-  const [tapsOnShowMore, setTapsOnShowMore] = useState(0)
-
-  // Use the content language to match the surrounding translations
-  const { t: translateIntoContentLanguage } = useTranslation('events', { lng: languageCode })
 
   if (date.isMonthlyOrYearlyRecurrence()) {
     return (
       <View>
-        <EventRecurrencesList date={date} tapsOnShowMore={tapsOnShowMore} languageCode={languageCode} />
-        {date.hasMoreRecurrencesThan(MAX_DATE_RECURRENCES * (tapsOnShowMore + 1)) && (
+        {recurrences}
+        {date.hasMoreRecurrencesThan(visibleRecurrences) && (
           <StyledPressable role='button' onPress={() => setTapsOnShowMore(tapsOnShowMore + 1)}>
             <StyledIcon Icon={ExpandIcon} />
             <Text>{translateIntoContentLanguage('common:showMore')}</Text>

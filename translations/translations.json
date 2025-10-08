@@ -4398,8 +4398,7 @@
       "selectRange": "Zeitraum auswählen",
       "outOfRangeError": "Datum außerhalb des Bereichs",
       "startingFrom": "ab {{date}}",
-      "timeRange": "{{startTime}} - {{endTime}} Uhr",
-      "onlineEvent": "Online-Veranstaltung"
+      "timeRange": "{{startTime}} - {{endTime}} Uhr"
     },
     "am": {
       "address": "ኣድራሻ",
@@ -4430,7 +4429,6 @@
     },
     "ar": {
       "address": "العنوان",
-
       "events": "الفعاليات",
       "export": "تصدير",
       "addToCalendar": "إضافة إلى التقويم",
@@ -4618,8 +4616,7 @@
       "selectRange": "Select Range",
       "outOfRangeError": "Date out of range",
       "startingFrom": "from {{date}}",
-      "timeRange": "{{startTime}} - {{endTime}}",
-      "onlineEvent": "Online event"
+      "timeRange": "{{startTime}} - {{endTime}}"
     },
     "es": {
       "address": "Dirección",
