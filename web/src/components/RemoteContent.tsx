@@ -143,7 +143,7 @@ const RemoteContent = ({
         ADD_ATTR: [DOMPURIFY_ATTRIBUTE_FULLSCREEN, DOMPURIFY_ATTRIBUTE_TARGET],
       }),
     }),
-    [html],
+    [highlightedHtml],
   )
 
   return (
