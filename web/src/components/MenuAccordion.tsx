@@ -6,7 +6,7 @@ import Divider from '@mui/material/Divider'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import MuiMenuItem from '@mui/material/MenuItem'
 import Typography from '@mui/material/Typography'
-import { styled } from '@mui/material/styles'
+import { styled, useTheme } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
 import { withDividers } from '../utils'
@@ -42,25 +42,29 @@ type MenuAccordionProps = {
   icon?: ReactElement
 }
 
-const MenuAccordion = ({ title, items, setExpanded, expanded, icon }: MenuAccordionProps): ReactElement => (
-  <StyledAccordion
-    onChange={(_, isExpanded) => setExpanded(isExpanded)}
-    expanded={expanded}
-    elevation={0}
-    defaultExpanded={false}
-    disableGutters
-    slotProps={{
-      heading: {
-        component: 'div',
-      },
-    }}>
-    <StyledAccordionSummary component={MuiMenuItem} expandIcon={<ExpandMoreIcon />}>
-      {icon && <ListItemIcon>{icon}</ListItemIcon>}
-      <Typography variant='body1'>{title}</Typography>
-    </StyledAccordionSummary>
-    <Divider />
-    <StyledAccordionDetails>{withDividers(items)}</StyledAccordionDetails>
-  </StyledAccordion>
-)
+const MenuAccordion = ({ title, items, setExpanded, expanded, icon }: MenuAccordionProps): ReactElement => {
+  const { contentDirection } = useTheme()
+  return (
+    <StyledAccordion
+      onChange={(_, isExpanded) => setExpanded(isExpanded)}
+      expanded={expanded}
+      elevation={0}
+      defaultExpanded={false}
+      disableGutters
+      slotProps={{
+        heading: {
+          component: 'div',
+        },
+      }}
+      dir={contentDirection}>
+      <StyledAccordionSummary component={MuiMenuItem} expandIcon={<ExpandMoreIcon />}>
+        {icon && <ListItemIcon>{icon}</ListItemIcon>}
+        <Typography variant='body1'>{title}</Typography>
+      </StyledAccordionSummary>
+      <Divider />
+      <StyledAccordionDetails>{withDividers(items)}</StyledAccordionDetails>
+    </StyledAccordion>
+  )
+}
 
 export default MenuAccordion
