@@ -97,7 +97,7 @@ describe('CityContentMenu', () => {
 
     fireEvent.click(getByLabelText('layout:sideBarOpenAriaLabel'))
 
-    expect(getByText('layout:readAloud').parentElement?.parentElement).toHaveClass('Mui-disabled')
+    expect(getByText('layout:readAloud').closest('li')).toHaveClass('Mui-disabled')
   })
 
   it('should hide feedback on desktop', () => {
