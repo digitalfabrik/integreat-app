@@ -72,7 +72,7 @@ const PoiDetails = ({ poi, distance }: PoiDetailsProps): ReactElement => {
   const contactsSection = contacts.length > 0 && (
     <>
       <Divider />
-      <Accordion title={t('contacts')}>
+      <Accordion id='contacts' title={t('contacts')}>
         <StyledContactsList
           items={contacts.map(contact => (
             <Contact key={contact.headline} contact={contact} />
@@ -114,7 +114,7 @@ const PoiDetails = ({ poi, distance }: PoiDetailsProps): ReactElement => {
       {content.length > 0 && (
         <>
           <Divider />
-          <Accordion title={t('detailsInformation')}>
+          <Accordion id='content' title={t('detailsInformation')}>
             <RemoteContent html={content} smallText />
           </Accordion>
         </>

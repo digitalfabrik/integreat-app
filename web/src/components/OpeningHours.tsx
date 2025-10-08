@@ -76,7 +76,10 @@ const OpeningHours = ({
 
   return (
     <>
-      <Accordion title={<OpeningHoursTitle isCurrentlyOpen={isCurrentlyOpen} />} defaultCollapsed={!isCurrentlyOpen}>
+      <Accordion
+        id='hours'
+        title={<OpeningHoursTitle isCurrentlyOpen={isCurrentlyOpen} />}
+        defaultCollapsed={!isCurrentlyOpen}>
         <StyledList disablePadding>
           {openingHours.map((openingHours, index) => (
             <OpeningHoursListItem

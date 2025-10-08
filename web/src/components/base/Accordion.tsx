@@ -22,13 +22,14 @@ const StyledAccordionDetails = styled(AccordionDetails)({
 })
 
 type AccordionProps = {
+  id: string
   children: ReactNode
   title: string | ReactElement
   description?: ReactElement
   defaultCollapsed?: boolean
 }
 
-const Accordion = ({ children, title, description, defaultCollapsed = false }: AccordionProps): ReactElement => {
+const Accordion = ({ children, title, description, id, defaultCollapsed = false }: AccordionProps): ReactElement => {
   const [expanded, setExpanded] = useState(!defaultCollapsed)
   const { t } = useTranslation('common')
 
@@ -37,8 +38,11 @@ const Accordion = ({ children, title, description, defaultCollapsed = false }: A
       disableGutters
       elevation={0}
       expanded={expanded}
-      onChange={(_, isExpanded) => setExpanded(isExpanded)}>
+      onChange={(_, isExpanded) => setExpanded(isExpanded)}
+      slotProps={{ heading: { component: 'h2' } }}>
       <StyledAccordionSummary
+        id={`${id}-header`}
+        aria-controls={`${id}-content`}
         aria-label={t(expanded ? 'showLess' : 'showMore')}
         expandIcon={<ExpandMoreIcon />}
         tabIndex={0}>
