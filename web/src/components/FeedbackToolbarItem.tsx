@@ -4,22 +4,17 @@ import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Rating, RATING_POSITIVE } from 'shared'
-import { FeedbackRouteType } from 'shared/api'
 
-import useCityContentParams from '../hooks/useCityContentParams'
-import { RouteType } from '../routes'
 import FeedbackContainer from './FeedbackContainer'
 import ToolbarItem from './ToolbarItem'
 import Dialog from './base/Dialog'
 
 type FeedbackToolbarItemProps = {
-  route: RouteType
   slug?: string
   rating: Rating | null
 }
 
-const FeedbackToolbarItem = ({ route, slug, rating }: FeedbackToolbarItemProps): ReactElement => {
-  const { cityCode, languageCode } = useCityContentParams()
+const FeedbackToolbarItem = ({ slug, rating }: FeedbackToolbarItemProps): ReactElement => {
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const { t } = useTranslation('feedback')
@@ -29,14 +24,7 @@ const FeedbackToolbarItem = ({ route, slug, rating }: FeedbackToolbarItemProps):
     <>
       {isFeedbackOpen && (
         <Dialog title={title} close={() => setIsFeedbackOpen(false)}>
-          <FeedbackContainer
-            onSubmit={() => setIsSubmitted(true)}
-            routeType={route as FeedbackRouteType}
-            cityCode={cityCode}
-            language={languageCode}
-            slug={slug}
-            initialRating={rating}
-          />
+          <FeedbackContainer onSubmit={() => setIsSubmitted(true)} slug={slug} initialRating={rating} />
         </Dialog>
       )}
       <ToolbarItem
