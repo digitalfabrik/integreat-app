@@ -124,17 +124,15 @@ const RemoteContent = ({
   ])
 
   // TODO Highlight sentence with a-tags correctly
-  const replaceSentence = (decodedHTML: string, highlightedSentence: string, sentenceIndices: number[]) =>
-    decodedHTML.replace(new RegExp(`(${highlightedSentence})(?!(?:[^<]+>|[^>]*</(img|a)>))`, 'g'), () =>
-      sentenceIndices.length > 0
-        ? `<mark class="highlight-sentence">${highlightedSentence}</mark>`
-        : highlightedSentence,
+  const escapeSpecialChars = (str: string) => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  const replaceSentence = (decodedHTML: string, highlightedSentence: string) =>
+    decodedHTML.replace(
+      new RegExp(`(${escapeSpecialChars(highlightedSentence)})(?![^<]+>|[^>]*</(img)>)`, 'g'),
+      `<mark class="highlight-sentence">${highlightedSentence}</mark>`,
     )
 
   const decodedHTML = decode(html)
-  const highlightedHtml = highlightedSentence
-    ? replaceSentence(decodedHTML, highlightedSentence, Array.from(Array(highlightedSentence.length).keys()))
-    : decodedHTML
+  const highlightedHtml = highlightedSentence ? replaceSentence(decodedHTML, highlightedSentence) : decodedHTML
 
   const dangerouslySetInnerHTML = useMemo(
     () => ({
