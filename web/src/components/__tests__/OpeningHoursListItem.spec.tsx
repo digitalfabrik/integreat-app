@@ -3,11 +3,11 @@ import React from 'react'
 import { OpeningHoursModel } from 'shared/api'
 
 import { renderWithTheme } from '../../testing/render'
-import OpeningEntry from '../OpeningEntry'
+import OpeningHoursListItem from '../OpeningHoursListItem'
 
 jest.mock('react-i18next')
 
-describe('OpeningEntry', () => {
+describe('OpeningHoursListItem', () => {
   const timeSlots = [
     { end: '18:00', start: '13:00' },
     { end: '12:00', start: '08:00' },
@@ -15,7 +15,7 @@ describe('OpeningEntry', () => {
   const currentWeekday = 'Monday'
   const renderOpeningEntries = (allDay: boolean, closed: boolean, isCurrentDay: boolean, appointmentOnly: boolean) =>
     renderWithTheme(
-      <OpeningEntry
+      <OpeningHoursListItem
         weekday={currentWeekday}
         isCurrentDay={isCurrentDay}
         appointmentUrl={null}
@@ -48,9 +48,9 @@ describe('OpeningEntry', () => {
 
   it('should highlight the timeslot of the current weekday bold', () => {
     const { getByText } = renderOpeningEntries(false, false, true, false)
-    const currentDayContainer = document.getElementById(`openingEntryContainer-${currentWeekday}`)
+    const currentDayContainer = getByText(currentWeekday)
     const containerStyle = window.getComputedStyle(currentDayContainer!)
     expect(getByText(`${timeSlots[0]!.start}-${timeSlots[0]!.end}`)).toBeTruthy()
-    expect(containerStyle.fontWeight).toBe('600')
+    expect(containerStyle.fontWeight).toBe('700')
   })
 })

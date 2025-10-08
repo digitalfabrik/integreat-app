@@ -1,3 +1,4 @@
+import Stack from '@mui/material/Stack'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
@@ -21,14 +22,14 @@ type TilesProps = {
 }
 
 const Tiles = ({ title, tiles }: TilesProps): ReactElement => (
-  <div>
+  <Stack paddingTop={2}>
     {!!title && <Caption title={title} />}
     <TilesRow>
       {tiles.map(tile => (
         <Tile key={tile.path} tile={tile} />
       ))}
     </TilesRow>
-  </div>
+  </Stack>
 )
 
 export default Tiles
