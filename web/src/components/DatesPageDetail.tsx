@@ -43,7 +43,7 @@ const DatesPageDetail = ({ date, languageCode }: DatesPageDetailProps): ReactEle
   }
 
   return (
-    <Accordion title={Title} description={AlwaysShownDates} defaultCollapsed>
+    <Accordion id='dates' title={Title} description={AlwaysShownDates} defaultCollapsed>
       <>
         {Dates.slice(MAX_DATE_RECURRENCES_COLLAPSED)}
         {hasMoreDates && '...'}
