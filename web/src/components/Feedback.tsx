@@ -56,8 +56,8 @@ const Feedback = ({
   const isSearchFeedback = searchTerm !== undefined
   const commentTitle = isSearchFeedback ? 'wantedInformation' : 'commentHeadline'
   const [privacyPolicyAccepted, setPrivacyPolicyAccepted] = useState(false)
-  const feedbackFilled = rating === null && comment.trim().length === 0 && !searchTerm
-  const submitFeedbackDisabled = feedbackFilled || !privacyPolicyAccepted
+  const feedbackMissing = rating === null && comment.trim().length === 0 && !searchTerm
+  const submitFeedbackDisabled = feedbackMissing || !privacyPolicyAccepted
   const [showErrors, setShowErrors] = useState(false)
 
   const handleSubmit = () => {
