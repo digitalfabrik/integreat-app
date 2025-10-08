@@ -40,6 +40,7 @@ const Footer = (): ReactElement | null => {
         items={linkItems.map(item => (
           <FooterLink key={item.to} to={item.to} text={item.text} />
         ))}
+        disablePadding
       />
       {buildConfig().featureFlags.developerFriendly && (
         <Typography variant='body2'>
