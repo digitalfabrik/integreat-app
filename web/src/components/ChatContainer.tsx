@@ -15,9 +15,9 @@ import { TtsContext } from './TtsContainer'
 import Dialog from './base/Dialog'
 import Icon from './base/Icon'
 
-const ChatButtonContainer = styled('div')`
+const ChatButtonContainer = styled('div')<{ bottom: number }>`
   position: fixed;
-  bottom: ${props => props.theme.dimensions.bottomNavigationHeight ?? props.theme.dimensions.visibleFooterHeight}px;
+  bottom: ${props => props.bottom}px;
   inset-inline-end: 16px;
   margin-bottom: 16px;
   display: flex;
@@ -56,7 +56,7 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement | n
   const [queryParams, setQueryParams] = useSearchParams()
   const initialChatVisibility = parseQueryParams(queryParams).chat ?? false
   const [chatVisible, setChatVisible] = useState(initialChatVisibility)
-  const { desktop, xsmall } = useDimensions()
+  const { desktop, xsmall, visibleFooterHeight, bottomNavigationHeight } = useDimensions()
   const { visible: ttsPlayerVisible } = useContext(TtsContext)
   const chatName = getChatName(buildConfig().appName)
   useLockedBody(chatVisible)
@@ -84,7 +84,7 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement | n
   }
 
   return (
-    <ChatButtonContainer>
+    <ChatButtonContainer bottom={bottomNavigationHeight ?? visibleFooterHeight}>
       <ChatActionButton onClick={() => setChatVisible(true)} color='primary'>
         <StyledIcon src={QuestionAnswerOutlinedIcon} title={chatName} />
       </ChatActionButton>
