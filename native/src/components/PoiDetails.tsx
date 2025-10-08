@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
+import { withKeyboardFocus } from 'react-native-external-keyboard'
 import styled from 'styled-components/native'
 
 import { PoiModel } from 'shared/api'
@@ -19,13 +20,15 @@ const Thumbnail = styled(SimpleImage)`
   height: 180px;
   width: 100%;
   border-radius: 8px;
-  margin-top: 12px;
+  margin: 12px 0;
 `
 
 const PoiDetailsContainer = styled.View`
   flex: 1;
   background-color: ${props => props.theme.colors.backgroundColor};
 `
+
+const KeyboardFocusableContainer = withKeyboardFocus(PoiDetailsContainer)
 
 const Title = styled.Text`
   font-size: 16px;
@@ -47,23 +50,21 @@ type PoiDetailsProps = {
   poi: PoiModel
   language: string
   distance: number | null
+  onFocus: () => void
 }
 
-const PoiDetails = ({ poi, language, distance }: PoiDetailsProps): ReactElement => {
+const PoiDetails = ({ poi, language, distance, onFocus }: PoiDetailsProps): ReactElement => {
   const { t } = useTranslation('pois')
   const thumbnail = poi.thumbnail ?? PoiThumbnailPlaceholderLarge
   const { title, content, contacts, openingHours, temporarilyClosed, isCurrentlyOpen, category, appointmentUrl } = poi
-  const appointmentOverlayUrl =
-    appointmentUrl ?? poi.contacts.find(contact => contact.website !== null)?.website ?? null
 
   return (
-    <PoiDetailsContainer accessibilityLabel={`${title} - ${category.name}`}>
+    <KeyboardFocusableContainer accessibilityLabel={`${title} - ${category.name}`} onFocus={onFocus} focusable>
       <Title>{title}</Title>
       {distance !== null && (
         <StyledDistance>{t('distanceKilometre', { distance: distance.toFixed(1) })}</StyledDistance>
       )}
       <Thumbnail source={thumbnail} resizeMode='cover' />
-      <HorizontalLine />
       <PoiChips poi={poi} />
       <HorizontalLine />
       <AddressInfo location={poi.location} language={language} />
@@ -74,7 +75,9 @@ const PoiDetails = ({ poi, language, distance }: PoiDetailsProps): ReactElement 
             <StyledContactsContainer>
               {contacts.map((contact, index) => (
                 <Contact
-                  key={contact.headline ?? contact.website ?? contact.name ?? contact.phoneNumber}
+                  key={
+                    contact.headline ?? contact.website ?? contact.name ?? contact.phoneNumber ?? contact.mobileNumber
+                  }
                   contact={contact}
                   isLastContact={contacts.length - 1 === index}
                 />
@@ -91,17 +94,16 @@ const PoiDetails = ({ poi, language, distance }: PoiDetailsProps): ReactElement 
         isCurrentlyOpen={isCurrentlyOpen}
         isTemporarilyClosed={temporarilyClosed}
         appointmentUrl={appointmentUrl}
-        appointmentOverlayLink={appointmentOverlayUrl}
       />
       {content.length > 0 && (
         <>
           <Collapsible headerContent={t('description')} language={language}>
-            <Page content={content} language={language} path={poi.path} padding={false} />
+            <Page content={content} language={language} path={poi.path} padding={false} accessible />
           </Collapsible>
           <HorizontalLine />
         </>
       )}
-    </PoiDetailsContainer>
+    </KeyboardFocusableContainer>
   )
 }
 

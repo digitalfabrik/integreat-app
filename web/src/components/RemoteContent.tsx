@@ -1,7 +1,7 @@
 import { useTheme } from '@emotion/react'
 import Dompurify from 'dompurify'
 import { decode } from 'html-entities'
-import React, { ReactElement, useCallback, useEffect, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
@@ -136,12 +136,15 @@ const RemoteContent = ({
     ? replaceSentence(decodedHTML, highlightedSentence, Array.from(Array(highlightedSentence.length).keys()))
     : decodedHTML
 
-  const dangerouslySetInnerHTML = {
-    __html: Dompurify.sanitize(highlightedHtml, {
-      ADD_TAGS: [DOMPURIFY_TAG_IFRAME],
-      ADD_ATTR: [DOMPURIFY_ATTRIBUTE_FULLSCREEN, DOMPURIFY_ATTRIBUTE_TARGET],
+  const dangerouslySetInnerHTML = useMemo(
+    () => ({
+      __html: Dompurify.sanitize(highlightedHtml, {
+        ADD_TAGS: [DOMPURIFY_TAG_IFRAME],
+        ADD_ATTR: [DOMPURIFY_ATTRIBUTE_FULLSCREEN, DOMPURIFY_ATTRIBUTE_TARGET],
+      }),
     }),
-  }
+    [html],
+  )
 
   return (
     <RemoteContentSandBox

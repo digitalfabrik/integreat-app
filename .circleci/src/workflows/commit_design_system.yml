@@ -5,17 +5,11 @@ when:
 jobs:
   - bump_version:
       prepare_delivery: false
-      context:
-        - mattermost
   - build_web:
       build_config_name: integreat-test-cms
-      context:
-        - mattermost
       requires:
         - bump_version
   - deliver_web:
       delivery: future
-      context:
-        - mattermost
       requires:
         - build_web

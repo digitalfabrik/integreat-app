@@ -239,19 +239,6 @@ jobs:
                     sudo apt-get update && sudo apt-get install -y ninja-build
                 name: Install Ninja
             - run:
-                command: |
-                    wget https://github.com/Kitware/CMake/releases/download/v3.22.1/cmake-3.22.1-Linux-x86_64.tar.gz
-                    tar -xzvf cmake-3.22.1-Linux-x86_64.tar.gz -C $HOME
-                    export PATH=$HOME/ninja:$HOME/cmake-3.22.1-Linux-x86_64/bin:$PATH
-                name: Install CMake
-            - run:
-                command: |
-                    export PATH=$HOME/ninja:$HOME/cmake-3.22.1-Linux-x86_64/bin:$PATH
-                name: Set CMake and Ninja Paths
-            - run:
-                command: yes | sdkmanager --licenses || if [ $? -ne '141' ]; then exit $?; fi;
-                name: Accept Android SDK Licenses
-            - run:
                 command: bundle exec fastlane android keystore
                 name: '[FL] Prepare Android Keystore'
                 working_directory: native/android
@@ -313,7 +300,7 @@ jobs:
             FL_OUTPUT_DIR: output
             TOTAL_CPUS: 4
         macos:
-            xcode: 16.2.0
+            xcode: 16.3.0
         parameters:
             build_config_name:
                 default: integreat
@@ -337,6 +324,9 @@ jobs:
             - restore_ruby_cache:
                 directory: native/ios
             - restore_cocoa_pods_cache
+            - run:
+                command: brew install cmake
+                name: Install CMake
             - run:
                 command: bundle exec fastlane ios build build_config_name:<< parameters.build_config_name >> version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
                 name: '[FL] << parameters.build_config_name >> iOS Build'
@@ -525,23 +515,29 @@ jobs:
             - restore_ruby_cache:
                 directory: native/android
             - run:
-                command: yarn app-toolbelt v0 release-notes prepare-metadata << parameters.build_config_name >> playstore
+                command: yarn app-toolbelt v0 release-notes prepare-metadata << parameters.build_config_name >> playstore ../native/android/fastlane/<< parameters.build_config_name >>/metadata
                 name: Prepare Play Store metadata
-                working_directory: native
-            - run:
-                command: bundle exec fastlane browserstack_upload path:attached_workspace/<< parameters.build_config_name >>.apk
-                name: '[FL] Browserstack Upload Live'
                 working_directory: native
             - run:
                 command: bundle exec fastlane android playstore_upload build_config_name:<< parameters.build_config_name >> aab_path:attached_workspace/<< parameters.build_config_name >>.aab production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
                 name: '[FL] Google PlayStore Upload'
                 working_directory: native/android
+            - run:
+                command: bundle exec fastlane browserstack_upload path:attached_workspace/<< parameters.build_config_name >>.apk
+                name: '[FL] Browserstack Upload Live'
+                working_directory: native
+            - run:
+                command: |
+                    tools/sentry-release tuerantuer.app.integreat "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/integreat --version-code "${NEW_VERSION_CODE}"
+                    tools/sentry-release de.malteapp "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/malte --version-code "${NEW_VERSION_CODE}"
+                    tools/sentry-release app.aschaffenburg "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/aschaffenburg --version-code "${NEW_VERSION_CODE}"
+                name: Upload Source Maps to Sentry
             - notify
     deliver_ios:
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         macos:
-            xcode: 16.2.0
+            xcode: 16.3.0
         parameters:
             build_config_name:
                 default: integreat
@@ -564,12 +560,8 @@ jobs:
             - restore_ruby_cache:
                 directory: native/ios
             - run:
-                command: yarn app-toolbelt v0 release-notes prepare-metadata << parameters.build_config_name >> appstore
+                command: yarn app-toolbelt v0 release-notes prepare-metadata << parameters.build_config_name >> appstore ../native/ios/fastlane/<< parameters.build_config_name >>/metadata
                 name: Prepare App Store metadata
-                working_directory: native
-            - run:
-                command: bundle exec fastlane browserstack_upload path:attached_workspace/<< parameters.build_config_name >>.ipa
-                name: '[FL] Browserstack Upload Live'
                 working_directory: native
             - when:
                 condition: << parameters.production_delivery >>
@@ -585,6 +577,16 @@ jobs:
                         command: bundle exec fastlane ios testflight_upload build_config_name:<< parameters.build_config_name >> ipa_path:attached_workspace/<< parameters.build_config_name >>.ipa
                         name: '[FL] Apple TestFlight Upload'
                         working_directory: native/ios
+            - run:
+                command: bundle exec fastlane browserstack_upload path:attached_workspace/<< parameters.build_config_name >>.ipa
+                name: '[FL] Browserstack Upload Live'
+                working_directory: native
+            - run:
+                command: |
+                    tools/sentry-release de.integreat-app "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/integreat --version-code "${NEW_VERSION_CODE}"
+                    tools/sentry-release de.malteapp "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/malte --version-code "${NEW_VERSION_CODE}"
+                    tools/sentry-release app.aschaffenburg "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/aschaffenburg --version-code "${NEW_VERSION_CODE}"
+                name: Upload Source Maps to Sentry
             - notify
     deliver_web:
         docker:
@@ -673,6 +675,23 @@ jobs:
                     - run:
                         command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/integreat-test-cms/ web@web.integreat-app.de:/var/www/future.integreat.app
                         name: Integreat future delivery
+            - when:
+                condition:
+                    or:
+                        - equal:
+                            - production
+                            - << parameters.delivery >>
+                        - equal:
+                            - beta
+                            - << parameters.delivery >>
+                steps:
+                    - run:
+                        command: |
+                            tools/sentry-release web-integreat "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat
+                            tools/sentry-release web-malte "${NEW_VERSION_NAME}" ~/attached_workspace/dist/malte
+                            tools/sentry-release web-aschaffenburg "${NEW_VERSION_NAME}" ~/attached_workspace/dist/aschaffenburg
+                            tools/sentry-release web-obdach "${NEW_VERSION_NAME}" ~/attached_workspace/dist/obdach
+                        name: Upload Source Maps to Sentry
             - notify
     e2e_android:
         docker:
@@ -836,7 +855,7 @@ jobs:
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         macos:
-            xcode: 16.2.0
+            xcode: 16.3.0
         parameters:
             build_config_name:
                 default: integreat
@@ -880,66 +899,6 @@ jobs:
                 command: ssh -o StrictHostKeyChecking=no web@web.integreat-app.de "rsync -arv --delete /var/www/beta.netzwerkobdachwohnen.de/ /var/www/netzwerkobdachwohnen.de"
                 name: Obdach production promotion
             - notify
-    sentry_android:
-        docker:
-            - image: cimg/node:20.17.0
-        resource_class: small
-        shell: /bin/bash -eo pipefail
-        steps:
-            - checkout
-            - prepare_workspace
-            - restore_environment_variables
-            - run:
-                command: tools/sentry-release tuerantuer.app.integreat "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/integreat --version-code "${NEW_VERSION_CODE}"
-                name: 'Sentry Upload: integreat'
-            - run:
-                command: tools/sentry-release de.malteapp "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/malte --version-code "${NEW_VERSION_CODE}"
-                name: 'Sentry Upload: malte'
-            - run:
-                command: tools/sentry-release app.aschaffenburg "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/aschaffenburg --version-code "${NEW_VERSION_CODE}"
-                name: 'Sentry Upload: aschaffenburg'
-            - notify
-    sentry_ios:
-        docker:
-            - image: cimg/node:20.17.0
-        resource_class: small
-        shell: /bin/bash -eo pipefail
-        steps:
-            - checkout
-            - prepare_workspace
-            - restore_environment_variables
-            - run:
-                command: tools/sentry-release de.integreat-app "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/integreat --version-code "${NEW_VERSION_CODE}"
-                name: 'Sentry Upload: integreat'
-            - run:
-                command: tools/sentry-release de.malteapp "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/malte --version-code "${NEW_VERSION_CODE}"
-                name: 'Sentry Upload: malte'
-            - run:
-                command: tools/sentry-release app.aschaffenburg "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/aschaffenburg --version-code "${NEW_VERSION_CODE}"
-                name: 'Sentry Upload: aschaffenburg'
-            - notify
-    sentry_web:
-        docker:
-            - image: cimg/node:20.17.0
-        resource_class: small
-        shell: /bin/bash -eo pipefail
-        steps:
-            - checkout
-            - prepare_workspace
-            - restore_environment_variables
-            - run:
-                command: tools/sentry-release web-integreat "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat
-                name: 'Sentry Upload: integreat'
-            - run:
-                command: tools/sentry-release web-malte "${NEW_VERSION_NAME}" ~/attached_workspace/dist/malte
-                name: 'Sentry Upload: malte'
-            - run:
-                command: tools/sentry-release web-aschaffenburg "${NEW_VERSION_NAME}" ~/attached_workspace/dist/aschaffenburg
-                name: 'Sentry Upload: aschaffenburg'
-            - run:
-                command: tools/sentry-release web-obdach "${NEW_VERSION_NAME}" ~/attached_workspace/dist/obdach
-                name: 'Sentry Upload: obdach'
-            - notify
 parameters:
     api_triggered:
         default: false
@@ -962,9 +921,7 @@ version: 2.1
 workflows:
     commit:
         jobs:
-            - check:
-                context:
-                    - mattermost
+            - check
         unless:
             or:
                 - equal:
@@ -974,18 +931,12 @@ workflows:
     commit_design_system:
         jobs:
             - bump_version:
-                context:
-                    - mattermost
                 prepare_delivery: false
             - build_web:
                 build_config_name: integreat-test-cms
-                context:
-                    - mattermost
                 requires:
                     - bump_version
             - deliver_web:
-                context:
-                    - mattermost
                 delivery: future
                 requires:
                     - build_web
@@ -998,12 +949,8 @@ workflows:
     commit_main:
         jobs:
             - bump_version:
-                context:
-                    - mattermost
                 prepare_delivery: false
             - build_web:
-                context:
-                    - mattermost
                 matrix:
                     parameters:
                         build_config_name:
@@ -1014,8 +961,6 @@ workflows:
                 requires:
                     - bump_version
             - deliver_web:
-                context:
-                    - mattermost
                 delivery: webnext
                 requires:
                     - build_web
@@ -1029,20 +974,13 @@ workflows:
         jobs:
             - bump_version:
                 context:
-                    - mattermost
                     - deliverino
                 prepare_delivery: true
-            - check:
-                context:
-                    - mattermost
+            - check
             - e2e_web:
-                context:
-                    - mattermost
                 requires:
                     - bump_version
             - build_web:
-                context:
-                    - mattermost
                 matrix:
                     parameters:
                         build_config_name:
@@ -1054,21 +992,14 @@ workflows:
                     - bump_version
             - deliver_web:
                 context:
-                    - mattermost
+                    - sentry
                 delivery: beta
                 requires:
                     - check
                     - e2e_web
                     - build_web
-            - sentry_web:
-                context:
-                    - mattermost
-                    - sentry
-                requires:
-                    - build_web
             - build_android:
                 context:
-                    - mattermost
                     - credentials-repo
                     - credentials-integreat
                 matrix:
@@ -1082,15 +1013,14 @@ workflows:
                     - bump_version
             - e2e_android:
                 context:
-                    - mattermost
                     - browserstack
                 requires:
                     - build_android-integreat-e2e
             - deliver_android:
                 context:
-                    - mattermost
-                    - browserstack
                     - tuerantuer-google-play
+                    - sentry
+                    - browserstack
                 matrix:
                     parameters:
                         build_config_name:
@@ -1102,15 +1032,8 @@ workflows:
                     - check
                     - e2e_android
                     - build_android-<< matrix.build_config_name >>
-            - sentry_android:
-                context:
-                    - mattermost
-                    - sentry
-                requires:
-                    - build_android
             - build_ios:
                 context:
-                    - mattermost
                     - tuerantuer-apple
                     - fastlane-match
                 matrix:
@@ -1124,15 +1047,14 @@ workflows:
                     - bump_version
             - e2e_ios:
                 context:
-                    - mattermost
                     - browserstack
                 requires:
                     - build_ios-integreat-e2e
             - deliver_ios:
                 context:
-                    - mattermost
-                    - browserstack
                     - tuerantuer-apple
+                    - sentry
+                    - browserstack
                 matrix:
                     parameters:
                         build_config_name:
@@ -1144,15 +1066,8 @@ workflows:
                     - check
                     - e2e_ios
                     - build_ios-<< matrix.build_config_name >>
-            - sentry_ios:
-                context:
-                    - mattermost
-                    - sentry
-                requires:
-                    - build_ios
             - notify_release:
                 context:
-                    - mattermost
                     - deliverino
                 production_delivery: false
                 requires:
@@ -1169,16 +1084,12 @@ workflows:
         jobs:
             - bump_version:
                 context:
-                    - mattermost
                     - deliverino
                 platform: native
                 prepare_delivery: true
-            - check:
-                context:
-                    - mattermost
+            - check
             - build_android:
                 context:
-                    - mattermost
                     - credentials-repo
                     - credentials-integreat
                 matrix:
@@ -1192,15 +1103,14 @@ workflows:
                     - bump_version
             - e2e_android:
                 context:
-                    - mattermost
                     - browserstack
                 requires:
                     - build_android-integreat-e2e
             - deliver_android:
                 context:
-                    - mattermost
-                    - browserstack
                     - tuerantuer-google-play
+                    - sentry
+                    - browserstack
                 matrix:
                     parameters:
                         build_config_name:
@@ -1212,15 +1122,8 @@ workflows:
                     - check
                     - e2e_android
                     - build_android-<< matrix.build_config_name >>
-            - sentry_android:
-                context:
-                    - mattermost
-                    - sentry
-                requires:
-                    - build_android
             - build_ios:
                 context:
-                    - mattermost
                     - tuerantuer-apple
                     - fastlane-match
                 matrix:
@@ -1234,15 +1137,14 @@ workflows:
                     - bump_version
             - e2e_ios:
                 context:
-                    - mattermost
                     - browserstack
                 requires:
                     - build_ios-integreat-e2e
             - deliver_ios:
                 context:
-                    - mattermost
-                    - browserstack
                     - tuerantuer-apple
+                    - sentry
+                    - browserstack
                 matrix:
                     parameters:
                         build_config_name:
@@ -1254,15 +1156,8 @@ workflows:
                     - check
                     - e2e_ios
                     - build_ios-<< matrix.build_config_name >>
-            - sentry_ios:
-                context:
-                    - mattermost
-                    - sentry
-                requires:
-                    - build_ios
             - notify_release:
                 context:
-                    - mattermost
                     - deliverino
                 platform: native
                 production_delivery: false
@@ -1279,16 +1174,12 @@ workflows:
         jobs:
             - bump_version:
                 context:
-                    - mattermost
                     - deliverino
                 platform: native
                 prepare_delivery: true
-            - check:
-                context:
-                    - mattermost
+            - check
             - build_android:
                 context:
-                    - mattermost
                     - credentials-repo
                     - credentials-integreat
                 matrix:
@@ -1302,15 +1193,14 @@ workflows:
                     - bump_version
             - e2e_android:
                 context:
-                    - mattermost
                     - browserstack
                 requires:
                     - build_android-integreat-e2e
             - deliver_android:
                 context:
-                    - mattermost
-                    - browserstack
                     - tuerantuer-google-play
+                    - sentry
+                    - browserstack
                 matrix:
                     parameters:
                         build_config_name:
@@ -1322,15 +1212,8 @@ workflows:
                     - check
                     - e2e_android
                     - build_android-<< matrix.build_config_name >>
-            - sentry_android:
-                context:
-                    - mattermost
-                    - sentry
-                requires:
-                    - build_android
             - build_ios:
                 context:
-                    - mattermost
                     - tuerantuer-apple
                     - fastlane-match
                 matrix:
@@ -1344,15 +1227,14 @@ workflows:
                     - bump_version
             - e2e_ios:
                 context:
-                    - mattermost
                     - browserstack
                 requires:
                     - build_ios-integreat-e2e
             - deliver_ios:
                 context:
-                    - mattermost
-                    - browserstack
                     - tuerantuer-apple
+                    - sentry
+                    - browserstack
                 matrix:
                     parameters:
                         build_config_name:
@@ -1364,15 +1246,8 @@ workflows:
                     - check
                     - e2e_ios
                     - build_ios-<< matrix.build_config_name >>
-            - sentry_ios:
-                context:
-                    - mattermost
-                    - sentry
-                requires:
-                    - build_ios
             - notify_release:
                 context:
-                    - mattermost
                     - deliverino
                 platform: native
                 production_delivery: true
@@ -1389,7 +1264,6 @@ workflows:
         jobs:
             - promote_android:
                 context:
-                    - mattermost
                     - tuerantuer-google-play
                     - deliverino
                 matrix:
@@ -1400,7 +1274,6 @@ workflows:
                             - aschaffenburg
             - promote_ios:
                 context:
-                    - mattermost
                     - tuerantuer-apple
                     - deliverino
                 matrix:
@@ -1411,7 +1284,6 @@ workflows:
                             - aschaffenburg
             - notify_promotion:
                 context:
-                    - mattermost
                     - deliverino
                 platform: native
                 requires:
@@ -1427,11 +1299,9 @@ workflows:
         jobs:
             - promote_web:
                 context:
-                    - mattermost
                     - deliverino
             - promote_android:
                 context:
-                    - mattermost
                     - tuerantuer-google-play
                     - deliverino
                 matrix:
@@ -1442,7 +1312,6 @@ workflows:
                             - aschaffenburg
             - promote_ios:
                 context:
-                    - mattermost
                     - tuerantuer-apple
                     - deliverino
                 matrix:
@@ -1453,7 +1322,6 @@ workflows:
                             - aschaffenburg
             - notify_promotion:
                 context:
-                    - mattermost
                     - deliverino
                 requires:
                     - promote_android
@@ -1469,21 +1337,14 @@ workflows:
         jobs:
             - bump_version:
                 context:
-                    - mattermost
                     - deliverino
                 platform: web
                 prepare_delivery: true
-            - check:
-                context:
-                    - mattermost
+            - check
             - e2e_web:
-                context:
-                    - mattermost
                 requires:
                     - bump_version
             - build_web:
-                context:
-                    - mattermost
                 matrix:
                     parameters:
                         build_config_name:
@@ -1495,21 +1356,14 @@ workflows:
                     - bump_version
             - deliver_web:
                 context:
-                    - mattermost
+                    - sentry
                 delivery: beta
                 requires:
                     - check
                     - e2e_web
                     - build_web
-            - sentry_web:
-                context:
-                    - mattermost
-                    - sentry
-                requires:
-                    - build_web
             - notify_release:
                 context:
-                    - mattermost
                     - deliverino
                 platform: web
                 production_delivery: false
@@ -1525,21 +1379,14 @@ workflows:
         jobs:
             - bump_version:
                 context:
-                    - mattermost
                     - deliverino
                 platform: web
                 prepare_delivery: true
-            - check:
-                context:
-                    - mattermost
+            - check
             - e2e_web:
-                context:
-                    - mattermost
                 requires:
                     - bump_version
             - build_web:
-                context:
-                    - mattermost
                 matrix:
                     parameters:
                         build_config_name:
@@ -1551,21 +1398,14 @@ workflows:
                     - bump_version
             - deliver_web:
                 context:
-                    - mattermost
+                    - sentry
                 delivery: production
                 requires:
                     - check
                     - e2e_web
                     - build_web
-            - sentry_web:
-                context:
-                    - mattermost
-                    - sentry
-                requires:
-                    - build_web
             - notify_release:
                 context:
-                    - mattermost
                     - deliverino
                 platform: web
                 production_delivery: true
@@ -1581,11 +1421,9 @@ workflows:
         jobs:
             - promote_web:
                 context:
-                    - mattermost
                     - deliverino
             - notify_promotion:
                 context:
-                    - mattermost
                     - deliverino
                 platform: web
                 requires:

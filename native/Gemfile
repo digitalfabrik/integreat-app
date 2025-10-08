@@ -2,12 +2,18 @@
 
 source "https://rubygems.org"
 
-# Needed for CirleCI macos images
-# https://github.com/fastlane/fastlane/issues/21794#issuecomment-2021331335
-gem "rb-readline"
-
 gem "fastlane", ">= 2.220.0"
 gem "octokit", ">= 8.1.0"
 
 plugins_path = File.join(File.dirname(__FILE__), 'fastlane', 'Pluginfile')
 eval_gemfile(plugins_path) if File.exist?(plugins_path)
+
+# Needed for CirleCI macos images
+# https://github.com/fastlane/fastlane/issues/21794#issuecomment-2021331335
+gem "rb-readline"
+
+# Add missing gems in ruby 3.4 until fastlane includes them
+# https://github.com/fastlane/fastlane/issues/29183#issuecomment-2567093826
+gem "abbrev"
+gem "mutex_m"
+gem "ostruct"

@@ -85,7 +85,7 @@ const SettingItem = ({
   role,
   hasBadge = false,
 }: SettingItemProps): ReactElement => (
-  <Pressable onPress={onPress} role={role ?? 'none'} accessible={false}>
+  <Pressable onPress={onPress} role={role ?? 'none'} accessible>
     <PadView>
       <ContentContainer>
         <View>

@@ -153,9 +153,11 @@ class Config {
     th: {
       rtl: false,
     },
+    id: {
+      rtl: false,
+    },
   }
 
-  // Fallbacks for unnormalized language codes from our backend
   fallbacks: FallbacksType = {
     ku: ['kmr'],
     fa: ['pes'],
@@ -165,13 +167,22 @@ class Config {
     sr: ['sr-Cyrl'],
     'pt-br': ['pt'],
     'zh-hans': ['zh-CN'],
+    zh: ['zh-CN'],
     // Slugs from the CMS are (and have to be) lowercase
     'sr-cyrl': ['sr-Cyrl'],
     'sr-latn': ['sr-Latn'],
     'zh-cn': ['zh-CN'],
   }
 
-  defaultFallback = 'de' // If the language code is not found in our translations then use this
+  // If the language code is not found in our translations then use this
+  defaultFallback = 'de'
+
+  // Fallbacks for unnormalized language codes from our backend
+  getTranslationFallbacks(): FallbacksType {
+    return Object.fromEntries(
+      Object.entries(this.fallbacks).map(([key, value]) => [key, [...value, this.defaultFallback]]),
+    )
+  }
 
   constructor() {
     this.checkConsistency()

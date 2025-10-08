@@ -82,7 +82,12 @@ const Feedback = ({
     <KeyboardAwareScrollView>
       <Wrapper>
         {isSearchFeedback ? (
-          <InputSection title={t('searchTermDescription')} value={searchTerm} onChange={setSearchTerm} />
+          <InputSection
+            title={t('searchTermDescription')}
+            value={searchTerm}
+            onChange={setSearchTerm}
+            accessibilityRole='search'
+          />
         ) : (
           <>
             <Caption title={t('headline')} />
@@ -96,6 +101,7 @@ const Feedback = ({
           onChange={onCommentChanged}
           multiline
           showOptional
+          accessibilityRole='text'
         />
         <InputSection
           title={t('contactMailAddress')}
@@ -103,6 +109,7 @@ const Feedback = ({
           onChange={onFeedbackContactMailChanged}
           keyboardType='email-address'
           showOptional
+          accessibilityRole='text'
         />
         {sendingStatus === 'failed' && <Description>{t('failedSendingFeedback')}</Description>}
         <PrivacyCheckbox language={language} checked={privacyPolicyAccepted} setChecked={setPrivacyPolicyAccepted} />

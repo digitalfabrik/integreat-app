@@ -20,7 +20,7 @@ const config: JestConfigWithTsJest = {
   maxWorkers: '50%',
   workerIdleMemoryLimit: process.env.CI ? '500MB' : undefined,
   transform: {
-    '^.+\\.(j|t)sx?$': ['ts-jest', { isolatedModules: true }],
+    '^.+\\.(j|t)sx?$': ['ts-jest', {}],
   },
   testEnvironment: 'jsdom',
   globals: {

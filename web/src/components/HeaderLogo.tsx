@@ -1,9 +1,11 @@
 import styled from '@emotion/styled'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
+import SVG from 'react-inlinesvg'
 
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
+import useWindowDimensions from '../hooks/useWindowDimensions'
 import Link from './base/Link'
 
 type HeaderLogoProps = {
@@ -19,26 +21,20 @@ const LogoContainer = styled.div`
   & a {
     display: block;
     width: 100%;
-    height: 60%;
+    height: 48px;
 
     @media ${dimensions.smallViewport} {
-      height: 42px;
-      width: 42px;
+      width: 48px;
     }
   }
 `
 
-const StyledLogo = styled.img<{ $small: boolean }>`
+const StyledLogo = styled(SVG)`
   color: ${props => props.theme.colors.textColor};
   height: 100%;
   width: 200px;
 
-  @media ${dimensions.mediumLargeViewport} {
-    ${props => (props.$small ? 'display: none;' : '')}
-  }
-
   @media ${dimensions.smallViewport} {
-    ${props => (!props.$small ? 'display: none;' : '')}
     width: 100%;
   }
 `
@@ -54,13 +50,12 @@ export const HeaderLogo = ({ link }: HeaderLogoProps): ReactElement => {
     campaign && currentDate > DateTime.fromISO(campaign.startDate) && currentDate < DateTime.fromISO(campaign.endDate)
   const src = showCampaignLogo ? campaign.campaignAppLogo : icons.appLogo
   const srcMobile = showCampaignLogo ? campaign.campaignAppLogoMobile : icons.appLogoMobile
+  const { viewportSmall } = useWindowDimensions()
 
   return (
     <LogoContainer>
       <Link to={link}>
-        {/* Using `loading="lazy"` makes the browser only fetch the image that is actually visible */}
-        <StyledLogo $small src={srcMobile} alt={appName} loading='lazy' />
-        <StyledLogo $small={false} src={src} alt={appName} loading='lazy' />
+        <StyledLogo src={viewportSmall ? srcMobile : src} title={appName} />
       </Link>
     </LogoContainer>
   )

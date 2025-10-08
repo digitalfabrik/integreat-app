@@ -135,7 +135,7 @@ const Chat = ({
             multiline
             onKeyDown={submitOnEnter}
             numberOfLines={2}
-            placeholder={t('inputPlaceholder')}
+            placeholder={t('chatInputHelperText')}
           />
         </InputSection>
         <SubmitContainer>

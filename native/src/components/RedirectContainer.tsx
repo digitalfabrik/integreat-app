@@ -8,7 +8,7 @@ import useNavigateToDeepLink from '../hooks/useNavigateToDeepLink'
 import Layout from './Layout'
 
 const TIMEOUT = 10
-const INTERVAL_TIMEOUT = 500
+const INTERVAL_TIMEOUT = 1000
 
 type RedirectContainerProps = {
   route: RouteProps<RedirectRouteType>
@@ -16,7 +16,7 @@ type RedirectContainerProps = {
 }
 
 const RedirectContainer = ({ route, navigation }: RedirectContainerProps): ReactElement => {
-  const navigateToDeepLink = useNavigateToDeepLink()
+  const navigateToDeepLink = useNavigateToDeepLink({ redirect: true })
   const { url } = route.params
 
   useEffect(() => {

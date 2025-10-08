@@ -71,6 +71,7 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
             title={event.title}
             lastUpdate={event.lastUpdate}
             language={language}
+            accessible
             path={event.path}
             BeforeContent={
               <PageDetailsContainer>

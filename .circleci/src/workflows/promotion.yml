@@ -5,14 +5,12 @@ when:
 jobs:
   - promote_web:
       context:
-        - mattermost
         - deliverino
   - promote_android:
       matrix:
         parameters:
           build_config_name: [integreat, malte, aschaffenburg]
       context:
-        - mattermost
         - tuerantuer-google-play
         - deliverino
   - promote_ios:
@@ -20,12 +18,10 @@ jobs:
         parameters:
           build_config_name: [integreat, malte, aschaffenburg]
       context:
-        - mattermost
         - tuerantuer-apple
         - deliverino
   - notify_promotion:
       context:
-        - mattermost
         - deliverino
       requires:
         - promote_android

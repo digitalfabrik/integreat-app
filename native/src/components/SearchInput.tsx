@@ -1,18 +1,23 @@
 import React, { ReactElement } from 'react'
-import { Text, View } from 'react-native'
+import { Text, View, Keyboard } from 'react-native'
+import { KeyboardExtendedInput } from 'react-native-external-keyboard'
 import styled, { useTheme } from 'styled-components/native'
 
 import { SearchIcon } from '../assets'
 import testID from '../testing/testID'
 import Icon from './base/Icon'
 
-const Input = styled.TextInput`
+const InputWrapper = styled.View`
   margin: 0 4px;
   flex-grow: 1;
   border-bottom-width: 1px;
   border-bottom-color: ${props => props.theme.colors.textSecondaryColor};
+`
+
+const StyledInput = styled(KeyboardExtendedInput)`
   color: ${props => props.theme.colors.textColor};
 `
+
 const Wrapper = styled.View<{ space: boolean }>`
   flex-direction: row;
   ${props => (props.space ? 'margin: 50px 0;' : '')}
@@ -50,16 +55,21 @@ const SearchInput = ({
     <View>
       <Wrapper space={spaceSearch}>
         <Icon Icon={SearchIcon} />
-        <Input
-          {...testID('Search-Input')}
-          multiline={false}
-          placeholderTextColor={theme.colors.textSecondaryColor}
-          placeholder={placeholderText}
-          aria-label={placeholderText}
-          defaultValue={filterText}
-          onChangeText={onFilterTextChange}
-          role='searchbox'
-        />
+        <InputWrapper>
+          <StyledInput
+            {...testID('Search-Input')}
+            tintType='none'
+            multiline={false}
+            autoFocus
+            onBlur={Keyboard.dismiss}
+            placeholderTextColor={theme.colors.textSecondaryColor}
+            placeholder={placeholderText}
+            aria-label={placeholderText}
+            value={filterText}
+            onChangeText={onFilterTextChange}
+            role='searchbox'
+          />
+        </InputWrapper>
       </Wrapper>
       {!!description && <Description>{description}</Description>}
     </View>

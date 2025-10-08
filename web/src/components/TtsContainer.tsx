@@ -10,6 +10,9 @@ import { getTtsVoice, isTtsCancelError, ttsInitialized } from '../utils/tts'
 import TtsHelpModal from './TtsHelpModal'
 import TtsPlayer from './TtsPlayer'
 
+const TTS_TIMEOUT = 5000
+const TTS_RETRY_INTERVAL = 250
+
 export type TtsContextType = {
   enabled?: boolean
   canRead: boolean
@@ -52,7 +55,7 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
 
   const initializeTts = useCallback(() => {
     if (buildConfig().featureFlags.tts) {
-      EasySpeech.init({ maxTimeout: 500, interval: 250 })
+      EasySpeech.init({ maxTimeout: TTS_TIMEOUT, interval: TTS_RETRY_INTERVAL })
         .then(() => setVisible(true))
         .catch(() => setShowHelpModal(true))
     }

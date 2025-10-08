@@ -18,6 +18,7 @@
 		2E0440FC26C133EE00183828 /* NotoSans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2E0440FB26C133EE00183828 /* NotoSans.ttf */; };
 		616E1B072370E00100136B38 /* ConstantsModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616E1B062370E00100136B38 /* ConstantsModule.swift */; };
 		616E1B092370E07D00136B38 /* ConstantsModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 616E1B082370E07D00136B38 /* ConstantsModule.m */; };
+		702D81262E5DC945009DC7D7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 702D81252E5DC945009DC7D7 /* GoogleService-Info.plist */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		7B4C27552274D7B7000FA969 /* FetchResultCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4C27542274D7B7000FA969 /* FetchResultCollector.swift */; };
 		7B4C277C2274DE2B000FA969 /* FetchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4C277B2274DE2B000FA969 /* FetchResult.swift */; };
@@ -49,6 +50,7 @@
 		5B4DB0B1C0BDD064AA8277EB /* Pods-Integreat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Integreat.debug.xcconfig"; path = "Target Support Files/Pods-Integreat/Pods-Integreat.debug.xcconfig"; sourceTree = "<group>"; };
 		616E1B062370E00100136B38 /* ConstantsModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ConstantsModule.swift; path = Integreat/constants/ConstantsModule.swift; sourceTree = "<group>"; };
 		616E1B082370E07D00136B38 /* ConstantsModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ConstantsModule.m; path = Integreat/constants/ConstantsModule.m; sourceTree = "<group>"; };
+		702D81252E5DC945009DC7D7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Integreat/AppDelegate.swift; sourceTree = "<group>"; };
 		7B0E54CE2369C1480016A7C1 /* de */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7B4C27542274D7B7000FA969 /* FetchResultCollector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchResultCollector.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				702D81252E5DC945009DC7D7 /* GoogleService-Info.plist */,
 				1F18CA8D2BD6BA7D002F319B /* PrivacyInfo.xcprivacy */,
 				B8F3AC7E24ADE7E10010125F /* buildConfig.xcconfig */,
 				7B7EDC2C2428EE0900E64563 /* fastlane */,
@@ -326,6 +329,7 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				7B9749D322DC7A940078B456 /* InfoPlist.strings in Resources */,
 				17287B1F24FFCD9800CA52F4 /* LaunchScreenDefault.storyboard in Resources */,
+				702D81262E5DC945009DC7D7 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,7 +365,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
-			shellScript = "# Workaround for Mapbox ios certificates issue - https://stackoverflow.com/questions/77397157\n  if [ \"$XCODE_VERSION_MAJOR\" -ge \"1500\" ]; then\n    echo \"Remove signature files (Xcode 15 workaround)\"\n\n    rm \"$BUILD_DIR/Release-iphoneos/Mapbox.xcframework-ios.signature\"\n  fi\n";
+			shellScript = "# Workaround for Mapbox ios certificates issue\n# https://github.com/CocoaPods/CocoaPods/issues/12022\n# https://stackoverflow.com/questions/77397157\n  if [ \"$XCODE_VERSION_MAJOR\" -ge \"1600\" ]; then\n    echo \"Remove signature files (Xcode 16 workaround)\"\n\n    rm \"$BUILD_DIR/Release-iphoneos/MapLibre.xcframework-ios.signature\"\n  fi\n";
 		};
 		2E9D39FF8FCBC7D755021350 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -515,7 +519,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5B4DB0B1C0BDD064AA8277EB /* Pods-Integreat.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "$BUILD_CONFIG_APP_ICON";
+				ASSETCATALOG_COMPILER_APPICON_NAME = $BUILD_CONFIG_APP_ICON;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Integreat/Integreat.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -650,7 +654,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 523A28C9133D7F29AB5C3E51 /* Pods-Integreat.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "$BUILD_CONFIG_APP_ICON";
+				ASSETCATALOG_COMPILER_APPICON_NAME = $BUILD_CONFIG_APP_ICON;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -787,10 +791,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_CPLUSPLUSFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";

@@ -127,6 +127,15 @@
   resolved "https://registry.yarnpkg.com/@esbuild/win32-x64/-/win32-x64-0.25.5.tgz#7fc114af5f6563f19f73324b5d5ff36ece0803d1"
   integrity sha512-TXv6YnJ8ZMVdX+SXWVBo/0p8LTcrUYngpWjvm91TMjjBQii7Oz11Lw5lbDV5Y0TzuhSJHwiH4hEtC1I42mMS0g==
 
+"@expo/plist@^0.3.5":
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/@expo/plist/-/plist-0.3.5.tgz#11913c64951936101529cb26d7260ef16970fc31"
+  integrity sha512-9RYVU1iGyCJ7vWfg3e7c/NVyMFs8wbl+dMWZphtFtsqyN9zppGREU3ctlD3i8KUE0sCUTVnLjCWr+VeUIDep2g==
+  dependencies:
+    "@xmldom/xmldom" "^0.8.8"
+    base64-js "^1.2.3"
+    xmlbuilder "^15.1.1"
+
 "@octokit/auth-app@^7.1.5":
   version "7.2.1"
   resolved "https://registry.yarnpkg.com/@octokit/auth-app/-/auth-app-7.2.1.tgz#ed3d3ae487c5b42db88b10e95175d1a8a8965cbf"
@@ -371,6 +380,11 @@
   dependencies:
     undici-types "~6.21.0"
 
+"@xmldom/xmldom@^0.8.8":
+  version "0.8.11"
+  resolved "https://registry.yarnpkg.com/@xmldom/xmldom/-/xmldom-0.8.11.tgz#b79de2d67389734c57c52595f7a7305e30c2d608"
+  integrity sha512-cQzWCtO6C8TQiYl1ruKNn2U6Ao4o4WBBcbL61yJl84x+j5sOWWFU9X7DpND8XZG3daDppSsigMdfAIl2upQBRw==
+
 agent-base@6:
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/agent-base/-/agent-base-6.0.2.tgz#49fff58577cfee3f37176feab4c22e00f86d7f77"
@@ -378,10 +392,11 @@ agent-base@6:
   dependencies:
     debug "4"
 
-"app-toolbelt@github:digitalfabrik/app-toolbelt#semver:0.5.6":
-  version "0.5.6"
-  resolved "https://codeload.github.com/digitalfabrik/app-toolbelt/tar.gz/69d2a7a2a571cd6f15a0bf9eba31615419f736aa"
+"app-toolbelt@github:digitalfabrik/app-toolbelt#semver:0.6.0":
+  version "0.6.0"
+  resolved "https://codeload.github.com/digitalfabrik/app-toolbelt/tar.gz/85554c3b2ad1646013d598f7f0935c8330f7bf2b"
   dependencies:
+    "@expo/plist" "^0.3.5"
     "@octokit/auth-app" "^7.1.5"
     "@octokit/rest" "^21.1.1"
     "@sentry/cli" "^2.42.2"
@@ -401,6 +416,11 @@ argparse@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/argparse/-/argparse-2.0.1.tgz#246f50f3ca78a3240f6c997e8a9bd1eac49e4b38"
   integrity sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==
+
+base64-js@^1.2.3:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/base64-js/-/base64-js-1.5.1.tgz#1b1b440160a5bf7ad40b650f095963481903930a"
+  integrity sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==
 
 before-after-hook@^3.0.2:
   version "3.0.2"
@@ -627,3 +647,8 @@ which@^2.0.2:
   integrity sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==
   dependencies:
     isexe "^2.0.0"
+
+xmlbuilder@^15.1.1:
+  version "15.1.1"
+  resolved "https://registry.yarnpkg.com/xmlbuilder/-/xmlbuilder-15.1.1.tgz#9dcdce49eea66d8d10b42cae94a79c3c8d0c2ec5"
+  integrity sha512-yMqGBqtXyeN1e3TGYvgNgDVZ3j84W4cwkOXQswghol6APgZWaff9lnbvN7MHYJOiXsvGPXtjTYJEiC9J2wv9Eg==

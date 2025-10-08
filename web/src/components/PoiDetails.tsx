@@ -134,8 +134,6 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
   const thumbnail = poi.thumbnail ?? PoiThumbnailPlaceholderLarge
   const isAndroid = /Android/i.test(navigator.userAgent)
   const externalMapsLink = getExternalMapsLink(location, isAndroid ? 'android' : 'web')
-  const appointmentOverlayUrl = appointmentUrl ?? poi.contacts.find(contact => contact.website !== null)?.website ?? ''
-  const isOnlyWithAppointment = !openingHours && !!appointmentOverlayUrl
 
   return (
     <DetailsContainer>
@@ -168,7 +166,10 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
           <StyledCollapsible title={t('contacts')}>
             <StyledContactsContainer>
               {contacts.map((contact, index) => (
-                <Fragment key={contact.headline ?? contact.website ?? contact.name ?? contact.phoneNumber}>
+                <Fragment
+                  key={
+                    contact.headline ?? contact.website ?? contact.name ?? contact.phoneNumber ?? contact.mobileNumber
+                  }>
                   <Contact isLastContact={contacts.length - 1 === index} contact={contact} />
                 </Fragment>
               ))}
@@ -176,16 +177,17 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
           </StyledCollapsible>
         </>
       )}
-      {((openingHours && openingHours.length > 0) || temporarilyClosed || isOnlyWithAppointment) && (
-        <Spacer borderColor={theme.colors.borderColor} />
+      {((openingHours && openingHours.length > 0) || temporarilyClosed || !!appointmentUrl) && (
+        <>
+          <Spacer borderColor={theme.colors.borderColor} />
+          <OpeningHours
+            openingHours={openingHours}
+            isCurrentlyOpen={isCurrentlyOpen}
+            isTemporarilyClosed={temporarilyClosed}
+            appointmentUrl={appointmentUrl}
+          />
+        </>
       )}
-      <OpeningHours
-        openingHours={openingHours}
-        isCurrentlyOpen={isCurrentlyOpen}
-        isTemporarilyClosed={temporarilyClosed}
-        appointmentUrl={appointmentUrl}
-        appointmentOverlayLink={appointmentOverlayUrl}
-      />
 
       {content.length > 0 && (
         <>

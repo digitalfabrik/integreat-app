@@ -2,7 +2,7 @@ import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
-import { TimeSlot } from 'shared/api/types'
+import { OpeningHoursModel } from 'shared/api'
 
 import { NoteIcon } from '../assets'
 import { contentDirection, isContentDirectionReversalRequired } from '../constants/contentDirection'
@@ -51,25 +51,19 @@ const StyledIcon = styled(Icon)`
 `
 
 type OpeningEntryProps = {
-  allDay: boolean
-  closed: boolean
-  timeSlots: TimeSlot[]
+  openingHours: OpeningHoursModel
   weekday: string
   isCurrentDay: boolean
   language: string
-  appointmentOnly: boolean
-  appointmentOverlayLink: string | null
+  appointmentUrl: string | null
 }
 
 const OpeningEntry = ({
-  allDay,
-  closed,
-  timeSlots,
+  openingHours,
   weekday,
   isCurrentDay,
   language,
-  appointmentOnly,
-  appointmentOverlayLink,
+  appointmentUrl,
 }: OpeningEntryProps): ReactElement => {
   const { t } = useTranslation('pois')
 
@@ -78,27 +72,24 @@ const OpeningEntry = ({
   return (
     <EntryContainer language={language}>
       <TimeSlotLabel isCurrentDay={isCurrentDay}>{weekday}</TimeSlotLabel>
-      {allDay && <TimeSlotEntry isCurrentDay={isCurrentDay}>{t('allDay')}</TimeSlotEntry>}
-      {closed && <TimeSlotEntry isCurrentDay={isCurrentDay}>{t('closed')}</TimeSlotEntry>}
-      {!allDay && !closed && timeSlots.length > 0 && (
+      {openingHours.allDay && <TimeSlotEntry isCurrentDay={isCurrentDay}>{t('allDay')}</TimeSlotEntry>}
+      {openingHours.closed && <TimeSlotEntry isCurrentDay={isCurrentDay}>{t('closed')}</TimeSlotEntry>}
+      {!openingHours.allDay && !openingHours.closed && openingHours.timeSlots.length > 0 && (
         <Timeslot>
-          {timeSlots.map((timeSlot, index) => (
+          {openingHours.timeSlots.map((timeSlot, index) => (
             <TimeSlotEntry key={`${weekday}-${timeSlot.start}`} isCurrentDay={isCurrentDay} notFirstChild={index !== 0}>
               {timeSlot.start}-{timeSlot.end}
             </TimeSlotEntry>
           ))}
         </Timeslot>
       )}
-      {appointmentOnly && (
+      {openingHours.appointmentOnly && (
         <AppointmentOnlyContainer language={language}>
           <StyledPressable role='button' onPress={() => setOverlayOpen(true)}>
             <StyledIcon Icon={NoteIcon} label={t('appointmentNecessary')} />
           </StyledPressable>
           {overlayOpen && (
-            <AppointmentOnlyOverlay
-              closeOverlay={() => setOverlayOpen(false)}
-              appointmentUrl={appointmentOverlayLink}
-            />
+            <AppointmentOnlyOverlay closeOverlay={() => setOverlayOpen(false)} appointmentUrl={appointmentUrl} />
           )}
         </AppointmentOnlyContainer>
       )}

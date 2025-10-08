@@ -24,7 +24,7 @@ const I18nProvider = ({ children }: I18nProviderProps): ReactElement | null => {
       const i18nextInstance = i18next.createInstance().use(NativeLanguageDetector)
       await i18nextInstance.init({
         resources,
-        fallbackLng: { ...config.fallbacks, default: [config.defaultFallback] },
+        fallbackLng: { ...config.getTranslationFallbacks(), default: [config.defaultFallback] },
 
         /* Only allow supported languages (languages which can appear  in content of cms */
         supportedLngs: [...config.getSupportedLanguageTags(), ...config.getFallbackLanguageTags()],

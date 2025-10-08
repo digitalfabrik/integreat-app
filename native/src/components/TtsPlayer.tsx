@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import styled, { css } from 'styled-components/native'
 
 import { CloseIcon, PauseIcon, PlaybackIcon, PlayIcon } from '../assets'
@@ -16,7 +17,8 @@ const elevatedStyle = css`
   elevation: 5;
 `
 
-const StyledTtsPlayer = styled.View<{ $isPlaying: boolean }>`
+const extraBottomMargin = 8
+const StyledTtsPlayer = styled.View<{ $isPlaying: boolean; bottom: number }>`
   background-color: ${props => props.theme.colors.ttsPlayerBackground};
   border-radius: 28px;
   width: ${props => (props.$isPlaying ? '90%' : '80%')};
@@ -26,9 +28,10 @@ const StyledTtsPlayer = styled.View<{ $isPlaying: boolean }>`
   align-items: center;
   align-self: center;
   position: absolute;
-  bottom: 5px;
-  min-height: 93px;
+  bottom: ${props => props.bottom + extraBottomMargin}px;
+  min-height: 112px;
   gap: ${props => (props.$isPlaying ? '0px;' : '20px')};
+  padding: 8px;
   ${elevatedStyle}
 `
 
@@ -118,9 +121,10 @@ const TtsPlayer = ({
   title,
   disabled,
 }: TtsPlayerProps): ReactElement => {
+  const { bottom } = useSafeAreaInsets()
   const { t } = useTranslation('layout')
   return (
-    <StyledTtsPlayer $isPlaying={isPlaying}>
+    <StyledTtsPlayer $isPlaying={isPlaying} bottom={bottom}>
       <StyledPanel $isPlaying={isPlaying}>
         {isPlaying && (
           <StyledBackForthButton role='button' accessibilityLabel={t('previous')} onPress={playPrevious}>

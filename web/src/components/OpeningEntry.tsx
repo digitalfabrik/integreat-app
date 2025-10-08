@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { TimeSlot } from 'shared/api/types'
+import { OpeningHoursModel } from 'shared/api'
 
 import AppointmentOnlyIcon from './AppointmentOnlyIcon'
 
@@ -35,42 +35,31 @@ const TimeSlotEntry = styled.span`
 `
 
 type OpeningEntryProps = {
-  allDay: boolean
-  closed: boolean
-  timeSlots: TimeSlot[]
+  openingHours: OpeningHoursModel
   weekday: string
   isCurrentDay: boolean
-  appointmentOnly: boolean
-  appointmentOverlayLink: string | null
+  appointmentUrl: string | null
 }
 
-const OpeningEntry = ({
-  allDay,
-  closed,
-  timeSlots,
-  weekday,
-  isCurrentDay,
-  appointmentOnly,
-  appointmentOverlayLink,
-}: OpeningEntryProps): ReactElement => {
+const OpeningEntry = ({ openingHours, weekday, isCurrentDay, appointmentUrl }: OpeningEntryProps): ReactElement => {
   const { t } = useTranslation('pois')
 
   return (
     <EntryContainer isCurrentDay={isCurrentDay} id={`openingEntryContainer-${weekday}`}>
       <span>{weekday}</span>
       <OpeningContainer>
-        {allDay && <span>{t('allDay')}</span>}
-        {closed && <span>{t('closed')}</span>}
-        {!allDay && !closed && timeSlots.length > 0 && (
+        {openingHours.allDay && <span>{t('allDay')}</span>}
+        {openingHours.closed && <span>{t('closed')}</span>}
+        {!openingHours.allDay && !openingHours.closed && openingHours.timeSlots.length > 0 && (
           <Timeslot>
-            {timeSlots.map(timeSlot => (
+            {openingHours.timeSlots.map(timeSlot => (
               <TimeSlotEntry key={`${weekday}-${timeSlot.start}`}>
                 {timeSlot.start}-{timeSlot.end}
               </TimeSlotEntry>
             ))}
           </Timeslot>
         )}
-        {appointmentOnly && <AppointmentOnlyIcon appointmentUrl={appointmentOverlayLink} />}
+        {openingHours.appointmentOnly && <AppointmentOnlyIcon appointmentUrl={appointmentUrl} />}
       </OpeningContainer>
     </EntryContainer>
   )

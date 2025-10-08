@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { OpeningHoursModel } from 'shared/api'
+
 import { renderWithTheme } from '../../testing/render'
 import OpeningEntry from '../OpeningEntry'
 
@@ -15,28 +17,33 @@ describe('OpeningEntry', () => {
     renderWithTheme(
       <OpeningEntry
         weekday={currentWeekday}
-        allDay={allDay}
-        closed={closed}
-        timeSlots={timeSlots}
         isCurrentDay={isCurrentDay}
-        appointmentOnly={appointmentOnly}
-        appointmentOverlayLink={null}
+        appointmentUrl={null}
+        openingHours={new OpeningHoursModel({ allDay, closed, timeSlots, appointmentOnly })}
       />,
     )
   it('should display the timeslots of a weekday', () => {
-    const { getByText } = renderOpeningEntries(false, false, false, false)
+    const { getByText, queryByText } = renderOpeningEntries(false, false, false, false)
     expect(getByText(`${timeSlots[0]!.start}-${timeSlots[0]!.end}`)).toBeTruthy()
     expect(getByText(`${timeSlots[1]!.start}-${timeSlots[1]!.end}`)).toBeTruthy()
+    expect(queryByText('pois:allDay')).toBeFalsy()
+    expect(queryByText('pois:closed')).toBeFalsy()
   })
 
   it('should display all day opened for the weekday if allDay flag is true', () => {
-    const { getByText } = renderOpeningEntries(true, false, false, false)
+    const { getByText, queryByText } = renderOpeningEntries(true, false, false, false)
     expect(getByText('pois:allDay')).toBeTruthy()
+    expect(queryByText(`${timeSlots[0]!.start}-${timeSlots[0]!.end}`)).toBeFalsy()
+    expect(queryByText(`${timeSlots[1]!.start}-${timeSlots[1]!.end}`)).toBeFalsy()
+    expect(queryByText('pois:closed')).toBeFalsy()
   })
 
   it('should display closed for the weekday if closed flag is true', () => {
-    const { getByText } = renderOpeningEntries(false, true, false, false)
+    const { getByText, queryByText } = renderOpeningEntries(false, true, false, false)
     expect(getByText('pois:closed')).toBeTruthy()
+    expect(queryByText(`${timeSlots[0]!.start}-${timeSlots[0]!.end}`)).toBeFalsy()
+    expect(queryByText(`${timeSlots[1]!.start}-${timeSlots[1]!.end}`)).toBeFalsy()
+    expect(queryByText('pois:allDay')).toBeFalsy()
   })
 
   it('should highlight the timeslot of the current weekday bold', () => {

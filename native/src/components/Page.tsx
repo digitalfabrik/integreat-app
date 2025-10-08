@@ -46,6 +46,7 @@ type PageProps = {
   lastUpdate?: DateTime
   path?: string
   padding?: boolean
+  accessible?: boolean
 }
 
 const Page = ({
@@ -58,6 +59,7 @@ const Page = ({
   lastUpdate,
   path,
   padding = true,
+  accessible,
 }: PageProps): ReactElement => {
   const { cityCode, languageCode } = useCityAppContext()
   const resourceCache = useResourceCache({ cityCode, languageCode })
@@ -80,7 +82,7 @@ const Page = ({
   const onLoad = useCallback(() => setLoading(false), [setLoading])
 
   return (
-    <Container $padding={padding}>
+    <Container $padding={padding} accessible={accessible}>
       {!loading && title ? <Caption title={title} language={language} /> : null}
       {!loading && BeforeContent}
       <RemoteContent

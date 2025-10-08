@@ -55,8 +55,6 @@ export const iosIntegreatTestCmsBuildConfig: iOSBuildConfigType = {
   bundleIdentifier: 'app.integreat.test',
   provisioningProfileSpecifier: 'match Development app.integreat.test',
   googleServices: {
-    clientId: '164298278764-e01c3b8l21nn6uot31vh82oohlf3672f.apps.googleusercontent.com',
-    reversedClientId: 'com.googleusercontent.apps.164298278764-e01c3b8l21nn6uot31vh82oohlf3672f',
     apiKey: 'AIzaSyBSnGYrUWfIAPcEsFya1OYvTMbjvfUyOEU',
     gcmSenderId: '164298278764',
     plistVersion: '1',
@@ -69,7 +67,6 @@ export const iosIntegreatTestCmsBuildConfig: iOSBuildConfigType = {
     isGCMEnabled: true,
     isSigninEnabled: true,
     googleAppId: '1:164298278764:ios:4e68482844682abb6fd549',
-    databaseUrl: 'https://integreat-2020.firebaseio.com',
   },
 }
 const platformBuildConfigs = {

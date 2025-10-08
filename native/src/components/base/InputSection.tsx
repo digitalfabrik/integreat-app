@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { KeyboardTypeOptions } from 'react-native'
+import { AccessibilityRole, KeyboardTypeOptions } from 'react-native'
+import { KeyboardExtendedInput } from 'react-native-external-keyboard'
 import styled, { css } from 'styled-components/native'
 
 import Text from './Text'
@@ -30,7 +31,7 @@ const Title = styled(ThemedText)`
   text-align: left;
 `
 
-const Input = styled.TextInput<{ numberOfLines: number; invalid: boolean }>`
+const Input = styled(KeyboardExtendedInput)<{ numberOfLines: number; invalid: boolean }>`
   border-width: 1px;
   border-color: ${props => (props.invalid ? props.theme.colors.invalidInput : props.theme.colors.textDecorationColor)};
   color: ${props => props.theme.colors.textColor};
@@ -56,6 +57,7 @@ type InputSectionProps = {
   maxLength?: number
   showOptional?: boolean
   invalid?: boolean
+  accessibilityRole?: AccessibilityRole
 }
 
 const InputSection = ({
@@ -71,10 +73,11 @@ const InputSection = ({
   showOptional = false,
   invalid = false,
   hint,
+  accessibilityRole,
 }: InputSectionProps): ReactElement => {
   const { t } = useTranslation('common')
   return (
-    <Container>
+    <Container accessible>
       {title || showOptional || hint ? (
         <TitleContainer>
           {title ? <Title>{title}</Title> : null}
@@ -82,9 +85,10 @@ const InputSection = ({
           {showOptional && <Text>({t('optional')})</Text>}
         </TitleContainer>
       ) : null}
-      {description ? <Text>{description}</Text> : null}
+      {description ? <Text nativeID={description}>{description}</Text> : null}
       <Input
         onChangeText={onChange}
+        focusable
         onBlur={onBlur}
         value={value}
         multiline={multiline}
@@ -94,8 +98,9 @@ const InputSection = ({
         invalid={invalid}
         returnKeyType='done'
         blurOnSubmit
+        accessibilityRole={accessibilityRole ?? 'search'}
         accessibilityLabel={title}
-        role='searchbox'
+        accessibilityLabelledBy={description}
         testID={title ?? value}
       />
     </Container>

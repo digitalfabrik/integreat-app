@@ -63,10 +63,9 @@ const AppointmentOnlyIcon = ({ appointmentUrl }: AppointmentOnlyIconProps): Reac
           <>
             <TooltipTitle>{t('appointmentNecessary')}</TooltipTitle>
             <TooltipContent>
-              {/* More information: https://react.i18next.com/latest/trans-component */}
               <Trans i18nKey='pois:makeAppointmentTooltipWithLink'>
-                This gets replaced by react-i18next.
-                {appointmentUrl ? <Link to={appointmentUrl}>{t('theWebsite')}</Link> : <span>{t('theWebsite')}</span>}
+                This gets replaced
+                {appointmentUrl ? <Link to={appointmentUrl}>by react-i18next</Link> : <span>by react-i18next</span>}
               </Trans>
             </TooltipContent>
           </>

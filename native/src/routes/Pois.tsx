@@ -24,6 +24,10 @@ const StyledIcon = styled(Icon)`
   height: 16px;
 `
 
+const StyledSvgUri = styled(SvgUri)`
+  color: ${props => props.theme.colors.textSecondaryColor};
+`
+
 const Container = styled.View`
   flex: 1;
 `
@@ -124,7 +128,7 @@ const Pois = ({ pois: allPois, cityModel, route, navigation }: PoisProps): React
       {!!poiCategory && (
         <ChipButton
           text={poiCategory.name}
-          Icon={<SvgUri uri={poiCategory.icon} height={16} width={16} />}
+          Icon={<StyledSvgUri uri={poiCategory.icon} height={16} width={16} />}
           onPress={() => navigation.setParams({ poiCategoryId: undefined })}
           closeButton
         />

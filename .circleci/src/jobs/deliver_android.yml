@@ -24,14 +24,20 @@ steps:
       directory: native/android
   - run:
       name: Prepare Play Store metadata
-      command: yarn app-toolbelt v0 release-notes prepare-metadata << parameters.build_config_name >> playstore
-      working_directory: native
-  - run:
-      name: '[FL] Browserstack Upload Live'
-      command: bundle exec fastlane browserstack_upload path:attached_workspace/<< parameters.build_config_name >>.apk
+      command: yarn app-toolbelt v0 release-notes prepare-metadata << parameters.build_config_name >> playstore ../native/android/fastlane/<< parameters.build_config_name >>/metadata
       working_directory: native
   - run:
       name: '[FL] Google PlayStore Upload'
       command: bundle exec fastlane android playstore_upload build_config_name:<< parameters.build_config_name >> aab_path:attached_workspace/<< parameters.build_config_name >>.aab production_delivery:"<< parameters.production_delivery >>" version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
       working_directory: native/android
+  - run:
+      name: '[FL] Browserstack Upload Live'
+      command: bundle exec fastlane browserstack_upload path:attached_workspace/<< parameters.build_config_name >>.apk
+      working_directory: native
+  - run:
+      name: Upload Source Maps to Sentry
+      command: |
+        tools/sentry-release tuerantuer.app.integreat "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/integreat --version-code "${NEW_VERSION_CODE}"
+        tools/sentry-release de.malteapp "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/malte --version-code "${NEW_VERSION_CODE}"
+        tools/sentry-release app.aschaffenburg "${NEW_VERSION_NAME}" ~/attached_workspace/sourcemaps/aschaffenburg --version-code "${NEW_VERSION_CODE}"
   - notify

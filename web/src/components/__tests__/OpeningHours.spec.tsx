@@ -22,7 +22,6 @@ describe('OpeningHours', () => {
         isTemporarilyClosed={isTemporarilyClosed}
         openingHours={openingHours}
         appointmentUrl={appointmentUrl}
-        appointmentOverlayLink={appointmentUrl}
       />,
     )
 
@@ -40,13 +39,21 @@ describe('OpeningHours', () => {
   const appointmentUrl = 'https://make.an/appointment'
 
   it('should display that the location is temporarily closed', () => {
-    const { getByText } = renderOpeningHours(false, true, null)
+    const { getByText, queryByText } = renderOpeningHours(false, true, null)
     expect(getByText('pois:temporarilyClosed')).toBeTruthy()
+    expect(queryByText('pois:opened')).toBeFalsy()
+    expect(queryByText('pois:onlyWithAppointment')).toBeFalsy()
+    expect(queryByText('pois:makeAppointment')).toBeFalsy()
   })
 
   it('should display that the location is open', () => {
-    const { getByText } = renderOpeningHours(true, false, openingHours)
+    const { getByText, queryByText, getAllByText } = renderOpeningHours(true, false, openingHours)
     expect(getByText('pois:opened')).toBeTruthy()
+    expect(getAllByText(openingHours[0]!.timeSlots[0]!.start, { exact: false })).toHaveLength(7)
+    expect(getAllByText(openingHours[0]!.timeSlots[0]!.end, { exact: false })).toHaveLength(7)
+    expect(queryByText('pois:temporarilyClosed')).toBeFalsy()
+    expect(queryByText('pois:onlyWithAppointment')).toBeFalsy()
+    expect(queryByText('pois:makeAppointment')).toBeFalsy()
   })
 
   it('should display the link to make an appointment', () => {
@@ -55,13 +62,23 @@ describe('OpeningHours', () => {
   })
 
   it('should display the link to make an appointment without openingHours', () => {
-    const { getByText } = renderOpeningHours(true, false, null, appointmentUrl)
+    const { getByText, queryByText } = renderOpeningHours(true, false, null, appointmentUrl)
     expect(getByText('pois:onlyWithAppointment')).toBeTruthy()
     expect(getByText('pois:makeAppointment')).toBeTruthy()
+    expect(queryByText('pois:opened')).toBeFalsy()
+    expect(queryByText('pois:closed')).toBeFalsy()
   })
 
   it('should display the link to make an appointment if temporarily closed', () => {
     const { getByText } = renderOpeningHours(false, true, openingHours, appointmentUrl)
     expect(getByText('pois:makeAppointment')).toBeTruthy()
+  })
+
+  it('should not display anything', () => {
+    const { queryByText } = renderOpeningHours(false, false, null)
+    expect(queryByText('pois:onlyWithAppointment')).toBeFalsy()
+    expect(queryByText('pois:makeAppointment')).toBeFalsy()
+    expect(queryByText('pois:opened')).toBeFalsy()
+    expect(queryByText('pois:closed')).toBeFalsy()
   })
 })

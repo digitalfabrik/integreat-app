@@ -105,6 +105,13 @@
       "organizationMoreInformation": "További <1>{{organization}}</1>-információkat <3>{{domain}}</3> oldalon találhat.",
       "disabledPdf": "PDF-export ezen a nyelven jelenleg nem lehetséges."
     },
+    "id": {
+      "createPdf": "Buat fail PDF",
+      "metaDescription": "{{appName}} adalah panduan digital untuk kehidupan di Jerman. Temukan informasi lokal, acara dan saran. Selalu diperbarui dan tersedia dalam bahasa Anda sendiri.",
+      "organizationContent": "Konten dalam halaman ini adalah dari {{organization}}.",
+      "organizationMoreInformation": "Anda dapat memperoleh informasi tentang <1>{{organization}}</1> di <3>{{domain}}</3>.",
+      "disabledPdf": "Saat ini, ekspor PDF tidak dapat dilakukan dalam bahasa ini."
+    },
     "it": {
       "createPdf": "Crea PDF",
       "metaDescription": "{{appName}} è la tua guida digitale in Germania. Trova informazioni, eventi e consigli locali. Sempre aggiornata e nella tua lingua.",
@@ -305,7 +312,7 @@
       "human": "Berater*in",
       "initialMessage": "Deine Anfrage wurde gesendet. Die Berater*in beantwortet deine Nachricht so schnell wie möglich.",
       "inputLabel": "Meine Frage:",
-      "inputPlaceholder": "Ich möchte wissen...",
+      "chatInputHelperText": "Ich möchte wissen...",
       "loadingText": "Einen Moment bitte, der Chat wird gestartet...",
       "sendButton": "Senden",
       "user": "Du",
@@ -320,7 +327,7 @@
       "human": "አማካሪ",
       "initialMessage": "የውይይት ጥያቄህ ተልኳል። አማካሪው በተቻለ ፍጥነት መልእክትዎን ይመልሳል።",
       "inputLabel": "የኔ ጥያቄ፡-",
-      "inputPlaceholder": "ማወቅ እፈልጋለሁ...",
+      "chatInputHelperText": "ማወቅ እፈልጋለሁ...",
       "loadingText": "እባካችሁ አንድ አፍታ ውይይቱ እየተጀመረ ነው...",
       "sendButton": "ለክ",
       "user": "እርስዎ"
@@ -334,7 +341,7 @@
       "human": "مستشار*ة",
       "initialMessage": "تم إرسال طلب الدردشة الخاص بك. سيقوم المستشار بالرد على رسالتك في أسرع وقت ممكن.",
       "inputLabel": "سؤالي:",
-      "inputPlaceholder": "أريد أن أعرف...",
+      "chatInputHelperText": "أريد أن أعرف...",
       "loadingText": "لحظة واحدة من فضلك، يتم بدء المحادثة...",
       "sendButton": "إرسال",
       "user": "أنت"
@@ -348,7 +355,7 @@
       "human": "Консултант",
       "initialMessage": "Вашата заявка за чат е изпратена. Консултантът ще отговори на съобщението ви възможно най-скоро.",
       "inputLabel": "Моят въпрос:",
-      "inputPlaceholder": "Искам да знам...",
+      "chatInputHelperText": "Искам да знам...",
       "loadingText": "Един момент, моля, чатът започва...",
       "sendButton": "Изпрати",
       "user": "Вие"
@@ -362,7 +369,7 @@
       "human": "ڕاوێژکار",
       "initialMessage": "داواکاری چاتەکەت نێردرا. ڕاوێژکار بە زووترین کات وەڵامی پەیامەکەت دەداتەوە.",
       "inputLabel": "پرسیارەکەم:",
-      "inputPlaceholder": "دەمەوێت بزانم...",
+      "chatInputHelperText": "دەمەوێت بزانم...",
       "loadingText": "تکایە ساتێک چاوەڕێ بکە، چاتەکە خەریکە دەست پێدەکات...",
       "sendButton": "ناردن",
       "user": "تۆ"
@@ -376,7 +383,7 @@
       "human": "Konzultant",
       "initialMessage": "Váš požadavek na chat byl odeslán. Poradce/poradkyně* na vaši zprávu odpoví podle možností co nejdříve.",
       "inputLabel": "Moje otázka:",
-      "inputPlaceholder": "Rád bych věděl/a...",
+      "chatInputHelperText": "Rád bych věděl/a...",
       "loadingText": "Moment, prosím, spouští se chat...",
       "sendButton": "Odeslat",
       "user": "Vy"
@@ -390,7 +397,7 @@
       "human": "Konsulent",
       "initialMessage": "Din chatanmodning er blevet sendt. Rådgiveren* vil svare på din besked så hurtigt som muligt.",
       "inputLabel": "Mit spørgsmål:",
-      "inputPlaceholder": "Jeg kunne godt tænke mig at vide...",
+      "chatInputHelperText": "Jeg kunne godt tænke mig at vide...",
       "loadingText": "Et øjeblik, chatten starter...",
       "sendButton": "Send",
       "user": "Du"
@@ -404,7 +411,7 @@
       "human": "Σύμβουλος",
       "initialMessage": "Το αίτημα συνομιλίας σας έχει σταλεί. Ο/Η σύμβουλος θα απαντήσει στο μήνυμά σας το συντομότερο δυνατό.",
       "inputLabel": "Η ερώτησή μου:",
-      "inputPlaceholder": "Θα ήθελα να ξέρω...",
+      "chatInputHelperText": "Θα ήθελα να ξέρω...",
       "loadingText": "Μια στιγμή παρακαλώ, η συνομιλία ξεκινά...",
       "sendButton": "Αποστολή",
       "user": "Εσείς"
@@ -418,7 +425,7 @@
       "human": "Advisor",
       "initialMessage": "Your chat request has been sent. The advisor will answer your message as soon as possible.",
       "inputLabel": "My question:",
-      "inputPlaceholder": "I would like to know...",
+      "chatInputHelperText": "I would like to know...",
       "loadingText": "One moment please, the chat is being started...",
       "sendButton": "Send",
       "user": "You",
@@ -433,7 +440,7 @@
       "human": "Consultor/a",
       "initialMessage": "Tu solicitud de chat se ha enviado. Tu asesor/a responderá a tu mensaje lo antes posible.",
       "inputLabel": "Mi pregunta:",
-      "inputPlaceholder": "Me gustaría saber...",
+      "chatInputHelperText": "Me gustaría saber...",
       "loadingText": "Un momento por favor, el chat se está iniciando...",
       "sendButton": "Enviar",
       "user": "Tú"
@@ -447,7 +454,7 @@
       "human": "Neuvoja",
       "initialMessage": "Chattipyyntösi on lähetetty. Neuvoja vastaa viestiisi mahdollisimman pian.",
       "inputLabel": "Kysymykseni:",
-      "inputPlaceholder": "Haluaisin tietää...",
+      "chatInputHelperText": "Haluaisin tietää...",
       "loadingText": "Pikku hetki. Chatti käynnistyy...",
       "sendButton": "Lähetä",
       "user": "Sinä"
@@ -461,7 +468,7 @@
       "human": "Conseiller(e)",
       "initialMessage": "Ta demande de chat a été envoyée. Le conseiller/la conseillère répond à ton message le plus rapidement possible.",
       "inputLabel": "Ma question :",
-      "inputPlaceholder": "Je veux savoir...",
+      "chatInputHelperText": "Je veux savoir...",
       "loadingText": "Un instant s’il te plaît, le chat va commencer...",
       "sendButton": "Envoyer",
       "user": "Toi"
@@ -475,7 +482,7 @@
       "human": "सलाहकार",
       "initialMessage": "आपका चैट अनुरोध भेज दिया गया है। सलाहकार यथाशीघ्र आपके संदेश का उत्तर देंगे।",
       "inputLabel": "मेरा प्रश्न:",
-      "inputPlaceholder": "मेरी जानने की इच्छा है...",
+      "chatInputHelperText": "मेरी जानने की इच्छा है...",
       "loadingText": "कृपया एक पल रुकें, चैट शुरू हो रही है...",
       "sendButton": "भेजें",
       "user": "आप"
@@ -489,7 +496,7 @@
       "human": "Savjetnik/ica",
       "initialMessage": "Tvoj upit za chat je poslat. Savjetnik/ca će prvom prilikom odgovoriti na tvoju poruku.",
       "inputLabel": "Moje pitanje:",
-      "inputPlaceholder": "Želim znati...",
+      "chatInputHelperText": "Želim znati...",
       "loadingText": "Sačekajte trenutak, chat se pokreće...",
       "sendButton": "Pošalji",
       "user": "Ti"
@@ -503,10 +510,25 @@
       "human": "Tanácsadó",
       "initialMessage": "Elküldtük a csevegő iránti kérését. A tanácsadó a lehető leghamarabb válaszol az üzenetére.",
       "inputLabel": "A kérdésem:",
-      "inputPlaceholder": "Szeretném tudni, hogy...",
+      "chatInputHelperText": "Szeretném tudni, hogy...",
       "loadingText": "Kérem, várjon egy pillanatot, amíg a csevegő elindul...",
       "sendButton": "Küldés",
       "user": "Te"
+    },
+    "id": {
+      "bot": "Chatbot",
+      "conversationTitle": "Masukkan pertanyaan Anda di kolom teks.",
+      "conversationText": "Anda dapat menanyakan apa saja dari mulai informasi lokal hingga permintaan khusus tentang situasi Anda.",
+      "dataSecurity": "Proteksi data dan keamanan: Privasi Anda sangat penting bagi kami. Semua percakapan diperlakukan secara rahasia dan data Anda diproses dengan aman. Anda dapat menemukan lebih banyak informasi tentang proteksi data di kebijakan privasi kami.",
+      "errorMessage": "Telah terjadi galat selama komunikasi.",
+      "human": "Penasihat",
+      "initialMessage": "Permintaan obrolan Anda telah dikirim. Penasihat akan menjawab pesan Anda sesegera mungkin.",
+      "inputLabel": "Pertanyaan saya:",
+      "chatInputHelperText": "Saya ingin tahu...",
+      "loadingText": "Sebentar, obrolan sedang dimulai...",
+      "sendButton": "Kirim",
+      "user": "Anda",
+      "privacyPolicyInformation": "Konten obrolan akan dikirim ke para pegawai di {{appName}} ({{city}}). Terimalah kebijakan privasi agar dapat menggunakan obrolan."
     },
     "it": {
       "bot": "Chatbot",
@@ -517,7 +539,7 @@
       "human": "Consulente",
       "initialMessage": "La tua richiesta di chat è stata inviata. Il consulente risponderà al tuo messaggio quanto prima.",
       "inputLabel": "La mia domanda:",
-      "inputPlaceholder": "Vorrei sapere...",
+      "chatInputHelperText": "Vorrei sapere...",
       "loadingText": "Un momento per favore, avvio chat in corso...",
       "sendButton": "Invia",
       "user": "Tu"
@@ -531,7 +553,7 @@
       "human": "კონსულტანტი",
       "initialMessage": "ჩატის მოთხოვნა გაიგზავნა. კონსულტანტი მაქსიმალურად სწრაფად უპასუხებს შენს შეტყობინებას.",
       "inputLabel": "ჩემი შეკითხვა:",
-      "inputPlaceholder": "მსურს, ვიცოდე...",
+      "chatInputHelperText": "მსურს, ვიცოდე...",
       "loadingText": "ერთი წუთით, თუ შეიძლება, ჩატი დაიწყება...",
       "sendButton": "გაგზავნა",
       "user": "შენ"
@@ -545,7 +567,7 @@
       "human": "Rawêjkar",
       "initialMessage": "Daxwaza te ya chatê hat şandin. Şêwirmend dê di dema herî lez da bersiva peyama te bide.",
       "inputLabel": "Pirsa min:",
-      "inputPlaceholder": "Ez dixwazim bizanim...",
+      "chatInputHelperText": "Ez dixwazim bizanim...",
       "loadingText": "Ji kerema xwe kêliyekê li bendê bimîne, chat tê destpêkirin...",
       "sendButton": "Şandin",
       "user": "Tu"
@@ -559,7 +581,7 @@
       "human": "Консултант",
       "initialMessage": "Вашето барање за разговор е испратено. Советувачот ќе одговори на вашата порака што е можно побрзо.",
       "inputLabel": "Моето прашање:",
-      "inputPlaceholder": "Сакам да знам...",
+      "chatInputHelperText": "Сакам да знам...",
       "loadingText": "Почекајте момент, разговорот започнува...",
       "sendButton": "Испраќање",
       "user": "Ти"
@@ -573,7 +595,7 @@
       "human": "Consultant",
       "initialMessage": "Je chatverzoek is verzonden. De counsellor zal je bericht zo snel mogelijk beantwoorden.",
       "inputLabel": "Mijn vraag:",
-      "inputPlaceholder": "Ik zou graag willen weten...",
+      "chatInputHelperText": "Ik zou graag willen weten...",
       "loadingText": "Een moment alstublieft, de chat begint...",
       "sendButton": "Verzenden",
       "user": "Jij"
@@ -587,7 +609,7 @@
       "human": "Gorsaa",
       "initialMessage": "Gaaffiin chaatii keessanii ergamee jira. Hanga dandaametti gorsaan hatattamaan deebii isiniif kenna.",
       "inputLabel": "Gaaffii koo:",
-      "inputPlaceholder": "Wanti ani baruu barbaade….",
+      "chatInputHelperText": "Wanti ani baruu barbaade….",
       "loadingText": "Maaloo yeroo tokko, chaatiin jalqabeera….",
       "sendButton": "Erguu",
       "user": "Sii"
@@ -601,7 +623,7 @@
       "human": "مشاور",
       "initialMessage": "درخواست چت شما ارسال شد. مشاور در اسرع وقت به پیام شما پاسخ خواهد داد.",
       "inputLabel": "سوال من:",
-      "inputPlaceholder": "من می‌خواهم بدانم...",
+      "chatInputHelperText": "من می‌خواهم بدانم...",
       "loadingText": "لطفاً یک لحظه صبر کنید، چت در حال شروع است...",
       "sendButton": "ارسال",
       "user": "شما"
@@ -615,7 +637,7 @@
       "human": "Konsultant",
       "initialMessage": "Twoja prośba o czat została wysłana. Doradca odpowie na Twoją wiadomość tak szybko, jak to możliwe.",
       "inputLabel": "Moje pytanie:",
-      "inputPlaceholder": "Chcę wiedzieć...",
+      "chatInputHelperText": "Chcę wiedzieć...",
       "loadingText": "Chwileczkę, czat się zaczyna...",
       "sendButton": "Wyślij",
       "user": "Ty"
@@ -629,7 +651,7 @@
       "human": "مشاور",
       "initialMessage": "درخواست چت شما ارسال شد. مشاور در اسرع وقت به پیام شما پاسخ خواهد داد.",
       "inputLabel": "سوال من:",
-      "inputPlaceholder": "من میخواهم بدانم...",
+      "chatInputHelperText": "من میخواهم بدانم...",
       "loadingText": "لطفاً یک لحظه صبر کنید، چت در حال شروع شدن است...",
       "sendButton": "ارسال",
       "user": "شما"
@@ -643,7 +665,7 @@
       "human": "مشوره ورکوونکی",
       "initialMessage": "ستاسو د چټ غوښتنه واستول شوه. مشاور به ستاسو پيغام ته ژر تر ژره ځواب ووايي.",
       "inputLabel": "زما پوښتنه:",
-      "inputPlaceholder": "زه غواړم په دې پوه شم چې...",
+      "chatInputHelperText": "زه غواړم په دې پوه شم چې...",
       "loadingText": "د مهربانۍ له مخې يوه شېبه انتظار وکړئ، چټ د پيلېدو په حال کې دی...",
       "sendButton": "لېږل",
       "user": "تاسو"
@@ -657,7 +679,7 @@
       "human": "Consultor(a)",
       "initialMessage": "O teu pedido de conversa foi enviado. O consultor responderá à tua mensagem o mais rapidamente possível.",
       "inputLabel": "A minha pergunta:",
-      "inputPlaceholder": "Gostaria de saber...",
+      "chatInputHelperText": "Gostaria de saber...",
       "loadingText": "Um momento, por favor, a conversa está a começar...",
       "sendButton": "Enviar",
       "user": "Tu"
@@ -671,7 +693,7 @@
       "human": "Consultant(ă)",
       "initialMessage": "Cererea dvs. de chat a fost trimisă. Consilierul va răspunde la mesajul dvs. cât mai curând posibil.",
       "inputLabel": "Întrebarea mea:",
-      "inputPlaceholder": "Aș dori să știu...",
+      "chatInputHelperText": "Aș dori să știu...",
       "loadingText": "Vă rugăm să așteptați un moment; începe chat-ul...",
       "sendButton": "Trimitere",
       "user": "Tu"
@@ -685,7 +707,7 @@
       "human": "Sovetniko",
       "initialMessage": "To keribaskoro lafi rodibe si bičhaldo. O  godjarno ka iranel ko tiro mesaži so šaj sigjeder.",
       "inputLabel": "Mo pučiba:",
-      "inputPlaceholder": "Bi mangav te džanav...",
+      "chatInputHelperText": "Bi mangav te džanav...",
       "loadingText": "Adžikeren harica, o lafi keribe ka širdinel...",
       "sendButton": "Bičhal",
       "user": "Tu"
@@ -699,7 +721,7 @@
       "human": "Консультант/консультантка",
       "initialMessage": "Твой запрос в чат отправлен. Консультант ответит на твое сообщение в самое ближайшее время.",
       "inputLabel": "Мой вопрос:",
-      "inputPlaceholder": "Я бы хотел/а знать...",
+      "chatInputHelperText": "Я бы хотел/а знать...",
       "loadingText": "Подождите, чат запускается...",
       "sendButton": "Отправить",
       "user": "Ты"
@@ -713,7 +735,7 @@
       "human": "Poradca/kyňa",
       "initialMessage": "Vaša žiadosť o chat bola odoslaná. Poradca/kyňa odpovie na vašu správu podľa možnosti čo najskôr.",
       "inputLabel": "Moja otázka:",
-      "inputPlaceholder": "Chcel/a by som vedieť...",
+      "chatInputHelperText": "Chcel/a by som vedieť...",
       "loadingText": "Moment, prosím, spúšťa sa chat...",
       "sendButton": "Odoslať",
       "user": "Vy"
@@ -727,7 +749,7 @@
       "human": "La-taliye",
       "initialMessage": "Codsigaaga wada sheekaysiga waa la diray. La-taliyaha ayaa fariintaada sida ugu dhakhsaha badan uga jawaabi doona.",
       "inputLabel": "Su'aashayda:",
-      "inputPlaceholder": "Waxaan doonayaa inaan ogaado...",
+      "chatInputHelperText": "Waxaan doonayaa inaan ogaado...",
       "loadingText": "Hal daqiiqo, wada sheekaysiga wuu bilaabanayaa...",
       "sendButton": "Dir",
       "user": "Adiga"
@@ -741,7 +763,7 @@
       "human": "Këshilltari",
       "initialMessage": "Kërkesa jote për bisedë është dërguar. Këshilluesi do t'i përgjigjet mesazhit tënd sa më shpejt të jetë e mundur.",
       "inputLabel": "Pyetja ime:",
-      "inputPlaceholder": "Dua të di...",
+      "chatInputHelperText": "Dua të di...",
       "loadingText": "Një moment të lutem, biseda po fillon...",
       "sendButton": "Dërgo",
       "user": "Ti"
@@ -755,7 +777,7 @@
       "human": "Саветник/ица",
       "initialMessage": "Твој упит за ћаскање је послат. Саветник/ца ће првом приликом одговорити на твоју поруку.",
       "inputLabel": "Моје питање:",
-      "inputPlaceholder": "Желим да знам...",
+      "chatInputHelperText": "Желим да знам...",
       "loadingText": "Само секунд, ћаскање се покреће...",
       "sendButton": "Пошаљи",
       "user": "Ти"
@@ -769,7 +791,7 @@
       "human": "Savetnik/ica",
       "initialMessage": "Tvoj upit za ćaskanje je poslat. Savetnik/ca će prvom prilikom odgovoriti na tvoju poruku.",
       "inputLabel": "Moje pitanje:",
-      "inputPlaceholder": "Želim da znam...",
+      "chatInputHelperText": "Želim da znam...",
       "loadingText": "Samo sekund, ćaskanje se pokreće...",
       "sendButton": "Pošalji",
       "user": "Ti"
@@ -783,7 +805,7 @@
       "human": "Mshauri",
       "initialMessage": "Ombi lako la mazungumzo limetumwa. Mshauri atajibu ujumbe wako haraka iwezekanavyo.",
       "inputLabel": "Swali langu:",
-      "inputPlaceholder": "Ningependa kujua...",
+      "chatInputHelperText": "Ningependa kujua...",
       "loadingText": "Tafadhali subiri kidogo, mazungumzo yanaanzishwa...",
       "sendButton": "Tuma",
       "user": "Wewe"
@@ -811,7 +833,7 @@
       "human": "ኣማኻሪ",
       "initialMessage": "ናትካ ሓበሬታ በታ ምርእካ ተሰድደትን ኣብ ሓግ ኣብኩ. በረድ ንሕኡርክትኻ ሰልኣካ ብትኽክልነት እንድውል ይሕብርር ነራን.",
       "inputLabel": "ሕቶይ፡",
-      "inputPlaceholder": "እንተዘሎ…",
+      "chatInputHelperText": "እንተዘሎ…",
       "loadingText": "ቅንይልካ ሓዱሽ በርዕት ትምህሩና እናሓልፎም…",
       "sendButton": "ምርኣይ",
       "user": "ንስኻ"
@@ -825,7 +847,7 @@
       "human": "Danışman",
       "initialMessage": "Sohbet isteğin gönderildi. Danışmanlar mesajına mümkün olan en kısa sürede yanıt verecektir.",
       "inputLabel": "Benim sorum:",
-      "inputPlaceholder": "Öğrenmek istediğim...",
+      "chatInputHelperText": "Öğrenmek istediğim...",
       "loadingText": "Lütfen kısaca bekle, sohbet başlatılıyor...",
       "sendButton": "Gönder",
       "user": "Sen"
@@ -839,7 +861,7 @@
       "human": "Консультант/консультантка",
       "initialMessage": "Ваш запит на початок чату відправлено. Консультант якнайшвидше відповість на ваше повідомлення.",
       "inputLabel": "Моє запитання:",
-      "inputPlaceholder": "Мені хотілося б дізнатися...",
+      "chatInputHelperText": "Мені хотілося б дізнатися...",
       "loadingText": "Зачекайте хвилинку, чат починається...",
       "sendButton": "Надіслати",
       "user": "Ви"
@@ -853,7 +875,7 @@
       "human": "کنسلٹنٹ",
       "initialMessage": "آپ کی چیٹ کی درخواست بھیج دی گئی ہے۔ مشیر جلد از جلد آپ کے پیغام کا جواب دے گا۔",
       "inputLabel": "میرا سوال:",
-      "inputPlaceholder": "میں جاننا چاہتا ہوں...",
+      "chatInputHelperText": "میں جاننا چاہتا ہوں...",
       "loadingText": "براه کرم تھوڑی دیر انتظار کریں، چیٹ شروع ہو رہی ہے...",
       "sendButton": "بھیجیں",
       "user": "آپ"
@@ -867,7 +889,7 @@
       "human": "Cố vấn",
       "initialMessage": "Yêu cầu trò chuyện của bạn đã được gửi. Cố vấn sẽ trả lời tin nhắn trong thời gian sớm nhất có thể.",
       "inputLabel": "Câu hỏi của tôi:",
-      "inputPlaceholder": "Tôi muốn biết...",
+      "chatInputHelperText": "Tôi muốn biết...",
       "loadingText": "Vui lòng chờ một chút, cuộc trò chuyện đang được khởi tạo...",
       "sendButton": "Gửi",
       "user": "Bạn"
@@ -881,7 +903,7 @@
       "human": "顾问",
       "initialMessage": "您的聊天请求已发送。咨询师会尽快回复您的信息。",
       "inputLabel": "我的问题是：",
-      "inputPlaceholder": "我想知道...",
+      "chatInputHelperText": "我想知道...",
       "loadingText": "请稍等，聊天即将开始...",
       "sendButton": "发送",
       "user": "您"
@@ -1007,6 +1029,14 @@
       "findOutMail": "Érdeklődd meg régiód e-mail címét",
       "sendText": "Másold be ezt a szöveget, [ ]-töltsd ki a tartalmat az adataiddal és küldd el",
       "copyText": "Szöveg bemásolása"
+    },
+    "id": {
+      "callToAction": "Sarankan wilayah Anda ke Integreat!",
+      "explanation": "Konsep bersifat amal dari aplikasi Integreat ini telah meyakinkan Anda dan Anda menganggap bahwa kota Anda,\ndaerah Anda atau komunitas Anda juga bisa mendapatkan manfaat dari solusi digital ini? Dalam hal ini, Anda dapat menjadi aktif di sini sekarang.",
+      "whatToDo": "Inilah yang dapat Anda lakukan:",
+      "findOutMail": "Dapatkan alamat sur-el wilayah Anda",
+      "sendText": "Salin teks ini, lengkapi konten-[ ] dengan detail Anda dan kirimkan",
+      "copyText": "Salin teks"
     },
     "it": {
       "callToAction": "Suggerisci Integreat nella tua regione!",
@@ -1242,7 +1272,8 @@
       "minimize": "Minimieren",
       "privacyPolicy": "Ich habe die <1>Datenschutzerklärung</1> gelesen und stimme der Verarbeitung und Speicherung meiner Daten zu.",
       "accessible": "Barrierefrei",
-      "notAccessible": "Nicht barrierefrei"
+      "notAccessible": "Nicht barrierefrei",
+      "clearInput": "Eingabe löschen"
     },
     "am": {
       "copied": "ተቀድቷል",
@@ -1258,8 +1289,7 @@
       "back": "ወደኋላ ተመለስ",
       "ok": "እሺ",
       "minimize": "ማሳነስ",
-      "privacyPolicy": "<1>የግላዊነት ፖሊሲ</1>ን አንብቤያለሁ እና ውሂቤን ለማስኬድ እና ለማከማቸት ተስማምቻለሁ።",
-      "privacyPolicyLink": "የግላዊነት ፖሊሲ"
+      "privacyPolicy": "<1>የግላዊነት ፖሊሲ</1>ን አንብቤያለሁ እና ውሂቤን ለማስኬድ እና ለማከማቸት ተስማምቻለሁ።"
     },
     "ar": {
       "copied": "تم النسخ",
@@ -1275,8 +1305,7 @@
       "back": "تراجع",
       "ok": "موافق",
       "minimize": "تصغير",
-      "privacyPolicy": "لقد قرأت <1>سياسة الخصوصية</1> وأوافق على معالجة بياناتي وتخزينها.",
-      "privacyPolicyLink": "سياسة الخصوصية"
+      "privacyPolicy": "لقد قرأت <1>سياسة الخصوصية</1> وأوافق على معالجة بياناتي وتخزينها."
     },
     "bg": {
       "copied": "Копиран",
@@ -1292,8 +1321,7 @@
       "back": "Обратно",
       "ok": "Добре",
       "minimize": "Минимизиране",
-      "privacyPolicy": "Прочетох <1>политиката за поверителност</1> и се съгласявам с обработката и съхранението на моите данни.",
-      "privacyPolicyLink": "Политика за поверителност"
+      "privacyPolicy": "Прочетох <1>политиката за поверителност</1> и се съгласявам с обработката и съхранението на моите данни."
     },
     "ckb": {
       "copied": "کۆپی کرا",
@@ -1309,8 +1337,7 @@
       "back": "گەڕانەوە",
       "ok": "پەسەندکردن",
       "minimize": "بچووککردنەوە",
-      "privacyPolicy": "من <1> بەیاننامەی نهێنی پارێزی</1>م خوێندووەتەوە و ڕازیم بە پرۆسەکردن و خەزنکردنی زانیارییەکانم.",
-      "privacyPolicyLink": "بەیاننامەی نهێنی پارێزی"
+      "privacyPolicy": "من <1> بەیاننامەی نهێنی پارێزی</1>م خوێندووەتەوە و ڕازیم بە پرۆسەکردن و خەزنکردنی زانیارییەکانم."
     },
     "cs": {
       "copied": "Kopírovat",
@@ -1326,8 +1353,7 @@
       "back": "Zpět",
       "ok": "OK",
       "minimize": "Minimalizovat",
-      "privacyPolicy": "Přečetl/a jsem si <1>zásady ochrany osobních údajů</1> a souhlasím se zpracováním a uchováváním svých údajů.",
-      "privacyPolicyLink": "Zásady ochrany osobních údajů"
+      "privacyPolicy": "Přečetl/a jsem si <1>zásady ochrany osobních údajů</1> a souhlasím se zpracováním a uchováváním svých údajů."
     },
     "da": {
       "copied": "Kopieret",
@@ -1343,8 +1369,7 @@
       "back": "Tilbage",
       "ok": "Ok",
       "minimize": "Minimer",
-      "privacyPolicy": "Jeg har læst <1>Privatlivspolitikken</1> og giver samtykke til behandling og opbevaring af mine data.",
-      "privacyPolicyLink": "Privatlivspolitik"
+      "privacyPolicy": "Jeg har læst <1>Privatlivspolitikken</1> og giver samtykke til behandling og opbevaring af mine data."
     },
     "el": {
       "copied": "Αντιγράφηκε",
@@ -1360,8 +1385,7 @@
       "back": "Πίσω",
       "ok": "Εντάξει",
       "minimize": "Ελαχιστοποίηση",
-      "privacyPolicy": "Έχω διαβάσει την <1>Πολιτική απορρήτου</1> και συναινώ στην επεξεργασία και αποθήκευση των δεδομένων μου.",
-      "privacyPolicyLink": "Πολιτική απορρήτου"
+      "privacyPolicy": "Έχω διαβάσει την <1>Πολιτική απορρήτου</1> και συναινώ στην επεξεργασία και αποθήκευση των δεδομένων μου."
     },
     "en": {
       "copied": "Copied",
@@ -1377,7 +1401,10 @@
       "back": "Back",
       "ok": "Ok",
       "minimize": "Minimize",
-      "privacyPolicy": "I have read the <1>privacy policy</1> and agree to the processing and storage of my data."
+      "privacyPolicy": "I have read the <1>privacy policy</1> and agree to the processing and storage of my data.",
+      "accessible": "Accessible",
+      "notAccessible": "Not accessible",
+      "clearInput": "Clear input"
     },
     "es": {
       "copied": "Copiado",
@@ -1393,8 +1420,7 @@
       "back": "Atrás",
       "ok": "OK",
       "minimize": "Minimizar",
-      "privacyPolicy": "He leído la <1>Política de privacidad</1> y consiento el tratamiento y almacenamiento de mis datos.",
-      "privacyPolicyLink": "Política de privacidad"
+      "privacyPolicy": "He leído la <1>Política de privacidad</1> y consiento el tratamiento y almacenamiento de mis datos."
     },
     "fi": {
       "copied": "Kopioitu",
@@ -1410,8 +1436,7 @@
       "back": "Takaisin",
       "ok": "OK",
       "minimize": "Pienennä",
-      "privacyPolicy": "Olen lukenut <1>tietosuojakäytännön</1> ja annan suostumukseni tietojeni käsittelyyn ja säilytykseen.",
-      "privacyPolicyLink": "Tietosuojakäytäntö"
+      "privacyPolicy": "Olen lukenut <1>tietosuojakäytännön</1> ja annan suostumukseni tietojeni käsittelyyn ja säilytykseen."
     },
     "fr": {
       "copied": "Copié",
@@ -1427,8 +1452,7 @@
       "back": "Retour",
       "ok": "Ok",
       "minimize": "Réduire",
-      "privacyPolicy": "J’ai lu la <1>Politique de confidentialité</1> et j’accepte le traitement et le stockage de mes données.",
-      "privacyPolicyLink": "Politique de confidentialité"
+      "privacyPolicy": "J’ai lu la <1>Politique de confidentialité</1> et j’accepte le traitement et le stockage de mes données."
     },
     "hi": {
       "copied": "कॉपी किया गया",
@@ -1444,8 +1468,7 @@
       "back": "वापस",
       "ok": "ठीक",
       "minimize": "मिनीमाइज़",
-      "privacyPolicy": "मैंने <1>गोपनीयता नीति</1> पढ़ ली है, और मैं अपनी जानकारी की प्रोसेसिंग और स्टोरेज के लिए सहमत हूँ।",
-      "privacyPolicyLink": "गोपनीयता नीति"
+      "privacyPolicy": "मैंने <1>गोपनीयता नीति</1> पढ़ ली है, और मैं अपनी जानकारी की प्रोसेसिंग और स्टोरेज के लिए सहमत हूँ।"
     },
     "hr": {
       "copied": "kopirano",
@@ -1461,8 +1484,7 @@
       "back": "Natrag",
       "ok": "U redu",
       "minimize": "Minimiziraj",
-      "privacyPolicy": "Pročitao/la sam <1>Izjavu o zaštiti podataka</1> i saglasan/na sam sa obradom i pohranom mojih podataka.",
-      "privacyPolicyLink": "Izjava o zaštiti podataka"
+      "privacyPolicy": "Pročitao/la sam <1>Izjavu o zaštiti podataka</1> i saglasan/na sam sa obradom i pohranom mojih podataka."
     },
     "hu": {
       "copied": "Bemásolva",
@@ -1478,8 +1500,26 @@
       "back": "Vissza",
       "ok": "Rendben",
       "minimize": "Minimalizál",
-      "privacyPolicy": "Elolvastam a <1>adatvédelmi szabályzatot</1> és hozzájárulok az adataim feldolgozásához és tárolásához.",
-      "privacyPolicyLink": "Adatvédelmi szabályzat"
+      "privacyPolicy": "Elolvastam a <1>adatvédelmi szabályzatot</1> és hozzájárulok az adataim feldolgozásához és tárolásához."
+    },
+    "id": {
+      "copied": "Disalin",
+      "moreOptions": "Opsi lainnya",
+      "languageNotAvailable": "Maaf, bahasa Anda tidak tersedia di sini.",
+      "chooseALanguage": "Pilih bahasa.",
+      "lastUpdate": "Pembaruan terakhir:",
+      "loading": "Memuat...",
+      "close": "Tutup",
+      "showMore": "Tampilkan lebih banyak",
+      "showLess": "Tunjukkan lebih sedikit",
+      "optional": "opsional",
+      "back": "Kembali",
+      "ok": "Oke",
+      "minimize": "Minimalkan",
+      "privacyPolicy": "Saya telah membaca <1>kebijakan privasi</1> dan setuju untuk memproses dan menyimpan data saya.",
+      "accessible": "Dapat diakses",
+      "notAccessible": "Tidak dapat diakses",
+      "clearInput": "Hapus input"
     },
     "it": {
       "copied": "Copiato",
@@ -1495,8 +1535,7 @@
       "back": "Indietro",
       "ok": "OK",
       "minimize": "Ridurre al minimo",
-      "privacyPolicy": "Ho letto l'<1>informativa sulla privacy</1> e acconsento al trattamento e alla conservazione dei miei dati.",
-      "privacyPolicyLink": "Informativa sulla privacy"
+      "privacyPolicy": "Ho letto l'<1>informativa sulla privacy</1> e acconsento al trattamento e alla conservazione dei miei dati."
     },
     "ka": {
       "copied": "დაკოპირებულია",
@@ -1512,8 +1551,7 @@
       "back": "უკან",
       "ok": "კარგი",
       "minimize": "ჩაკეცვა",
-      "privacyPolicy": "წავიკითხე <1>კონფიდენციალურობის პოლიტიკა</1> და თანხმობას ვაცხადებ ჩემი მონაცემების დამუშავებასა და შენახვაზე.",
-      "privacyPolicyLink": "კონფიდენციალურობის პოლიტიკა"
+      "privacyPolicy": "წავიკითხე <1>კონფიდენციალურობის პოლიტიკა</1> და თანხმობას ვაცხადებ ჩემი მონაცემების დამუშავებასა და შენახვაზე."
     },
     "kmr": {
       "copied": "Kopî bû",
@@ -1529,8 +1567,7 @@
       "back": "Vegeriyan",
       "ok": "Piştrastkirin",
       "minimize": "Kêmînekirin",
-      "privacyPolicy": "Min <1>Daxuyaniya parastina daneyan</1> xwend û pêvajokirin û hilgirtina daneyên xwe dipejirînim.",
-      "privacyPolicyLink": "Daxuyaniya parastina daneyan"
+      "privacyPolicy": "Min <1>Daxuyaniya parastina daneyan</1> xwend û pêvajokirin û hilgirtina daneyên xwe dipejirînim."
     },
     "mk": {
       "copied": "Копирано",
@@ -1546,8 +1583,7 @@
       "back": "Назад",
       "ok": "Во ред",
       "minimize": "Минимизирај",
-      "privacyPolicy": "Ја прочитав <1>Политиката за приватност</1> и се согласувам со обработката и складирањето на моите податоци.",
-      "privacyPolicyLink": "Политика за приватност"
+      "privacyPolicy": "Ја прочитав <1>Политиката за приватност</1> и се согласувам со обработката и складирањето на моите податоци."
     },
     "nl": {
       "copied": "Gekopieerd",
@@ -1563,8 +1599,7 @@
       "back": "Terug",
       "ok": "OK",
       "minimize": "Minimaliseren",
-      "privacyPolicy": "Ik heb het <1>privacybeleid</1> gelezen en ga akkoord met de verwerking en opslag van mijn gegevens.",
-      "privacyPolicyLink": "Privacybeleid"
+      "privacyPolicy": "Ik heb het <1>privacybeleid</1> gelezen en ga akkoord met de verwerking en opslag van mijn gegevens."
     },
     "orm": {
       "copied": "Koppii taeera",
@@ -1580,8 +1615,7 @@
       "back": "Duubatti",
       "ok": "Tole",
       "minimize": "Xiqqeessi",
-      "privacyPolicy": "<1>privacy policy</1> dubbisee odeeffannoon kiyya akka xinxaalamuufi olkaa’amuuf itti walii galeera.",
-      "privacyPolicyLink": "imaammata icciitii"
+      "privacyPolicy": "<1>privacy policy</1> dubbisee odeeffannoon kiyya akka xinxaalamuufi olkaa’amuuf itti walii galeera."
     },
     "pes": {
       "copied": "کپی شد",
@@ -1597,8 +1631,7 @@
       "back": "بازگشت",
       "ok": "اوکی",
       "minimize": "کوچک کردن",
-      "privacyPolicy": "اینجانب <1>بیانیه حفظ حریم خصوصی</1> را خوانده‌ام و با پردازش و ذخیره داده‌های خود موافق هستم.",
-      "privacyPolicyLink": "بیانیه حفظ حریم خصوصی"
+      "privacyPolicy": "اینجانب <1>بیانیه حفظ حریم خصوصی</1> را خوانده‌ام و با پردازش و ذخیره داده‌های خود موافق هستم."
     },
     "pl": {
       "copied": "Skopiowano",
@@ -1614,8 +1647,7 @@
       "back": "Powrót",
       "ok": "Ok",
       "minimize": "Zminimalizuj",
-      "privacyPolicy": "Potwierdzam zapoznanie się z <1>polityką prywatności</1> i wyrażam zgodę na przetwarzanie i przechowywanie moich danych.",
-      "privacyPolicyLink": "Polityka prywatności"
+      "privacyPolicy": "Potwierdzam zapoznanie się z <1>polityką prywatności</1> i wyrażam zgodę na przetwarzanie i przechowywanie moich danych."
     },
     "prs": {
       "copied": "کپی شد",
@@ -1631,8 +1663,7 @@
       "back": "بازگشت",
       "ok": "درست است",
       "minimize": "به حداقل رساندن",
-      "privacyPolicy": "اينجانب <1>پالیسی حفظ حریم خصوصی</1> را خوانده ام و با پروسس و ذخیره معلوماتم موافق هستم.",
-      "privacyPolicyLink": "پالیسی حفظ حریم خصوصی"
+      "privacyPolicy": "اينجانب <1>پالیسی حفظ حریم خصوصی</1> را خوانده ام و با پروسس و ذخیره معلوماتم موافق هستم."
     },
     "ps": {
       "copied": "کاپی شولو",
@@ -1648,8 +1679,7 @@
       "back": "بيرته ګرځېدل",
       "ok": "سمه ده",
       "minimize": "راکموي",
-      "privacyPolicy": "ما د <1>محرمیت تګلاره</1> لوستلې ده او د خپلو معلوماتو پروسس او ذخیره کولو سره موافقه کوم.",
-      "privacyPolicyLink": "د محرميت تګلاره"
+      "privacyPolicy": "ما د <1>محرمیت تګلاره</1> لوستلې ده او د خپلو معلوماتو پروسس او ذخیره کولو سره موافقه کوم."
     },
     "pt": {
       "copied": "Copiado",
@@ -1665,8 +1695,7 @@
       "back": "Voltar",
       "ok": "Está bem",
       "minimize": "Minimizar",
-      "privacyPolicy": "Li a <1>política de privacidade</1> e concordo com o processamento e armazenamento dos meus dados.",
-      "privacyPolicyLink": "Política de privacidade"
+      "privacyPolicy": "Li a <1>política de privacidade</1> e concordo com o processamento e armazenamento dos meus dados."
     },
     "ro": {
       "copied": "Copiat",
@@ -1682,8 +1711,7 @@
       "back": "Înapoi",
       "ok": "Bine",
       "minimize": "Minimizare",
-      "privacyPolicy": "Am citit <1>Politica de confidențialitate</1> și sunt de acord cu prelucrarea și stocarea datelor mele.",
-      "privacyPolicyLink": "Politica de confidențialitate"
+      "privacyPolicy": "Am citit <1>Politica de confidențialitate</1> și sunt de acord cu prelucrarea și stocarea datelor mele."
     },
     "rom": {
       "copied": "Kopirimo",
@@ -1699,8 +1727,7 @@
       "back": "Palal",
       "ok": "Ok",
       "minimize": "Tiknjarel",
-      "privacyPolicy": "Me <1>Datenschutzerklärung</1> drabargjum thaj soglasinava man e procesiribaja thaj o khedibe mire podatkongoro.",
-      "privacyPolicyLink": "Privatnikane bukja"
+      "privacyPolicy": "Me <1>Datenschutzerklärung</1> drabargjum thaj soglasinava man e procesiribaja thaj o khedibe mire podatkongoro."
     },
     "ru": {
       "copied": "Скопировано",
@@ -1716,8 +1743,7 @@
       "back": "Назад",
       "ok": "Ок",
       "minimize": "Минимизировать",
-      "privacyPolicy": "Я прочитал(-а) <1>Политику конфиденциальности</1> и даю согласие на обработку и хранение моих данных.",
-      "privacyPolicyLink": "Политика конфиденциальности"
+      "privacyPolicy": "Я прочитал(-а) <1>Политику конфиденциальности</1> и даю согласие на обработку и хранение моих данных."
     },
     "sk": {
       "copied": "Skopírované",
@@ -1733,8 +1759,7 @@
       "back": "Späť",
       "ok": "Ok",
       "minimize": "Minimalizovať",
-      "privacyPolicy": "Prečítal/a som si <1>Vyhlásenie o ochrane osobných údajov</1> a súhlasím so spracovaním a ukladaním mojich údajov.",
-      "privacyPolicyLink": "Vyhlásenie o ochrane osobných údajov"
+      "privacyPolicy": "Prečítal/a som si <1>Vyhlásenie o ochrane osobných údajov</1> a súhlasím so spracovaním a ukladaním mojich údajov."
     },
     "so": {
       "copied": "la koobiyeeyay",
@@ -1750,8 +1775,7 @@
       "back": "Dib u noqo",
       "ok": "Haye",
       "minimize": "Yareyn",
-      "privacyPolicy": "Waxaan akhriyay <1>Bayaanka Qarsoodiga Xogta</1> waxaana oggolahay in xogtayda la farsameeyo oo la kaydiyo.",
-      "privacyPolicyLink": "Bayaanka Qarsoodiga Xogta"
+      "privacyPolicy": "Waxaan akhriyay <1>Bayaanka Qarsoodiga Xogta</1> waxaana oggolahay in xogtayda la farsameeyo oo la kaydiyo."
     },
     "sq": {
       "copied": "e kopjuar",
@@ -1767,8 +1791,7 @@
       "back": "Kthehu",
       "ok": "Në rregull",
       "minimize": "Minimizo",
-      "privacyPolicy": "E kam lexuar <1>deklaratën e mbrojtjes së të dhënave</1> dhe jam dakord me përpunimin dhe ruajtjen e të dhënave të mia.",
-      "privacyPolicyLink": "Deklarata e mbrojtjes së të dhënave"
+      "privacyPolicy": "E kam lexuar <1>deklaratën e mbrojtjes së të dhënave</1> dhe jam dakord me përpunimin dhe ruajtjen e të dhënave të mia."
     },
     "sr-Cyrl": {
       "copied": "копирано",
@@ -1784,8 +1807,7 @@
       "back": "Назад",
       "ok": "У реду",
       "minimize": "Минимизуј",
-      "privacyPolicy": "Прочитао/ла сам <1>Изјаву о заштити података</1> и сагласан/на сам са обрадом и чувањем мојих података.",
-      "privacyPolicyLink": "Изјава о заштити података о личности"
+      "privacyPolicy": "Прочитао/ла сам <1>Изјаву о заштити података</1> и сагласан/на сам са обрадом и чувањем мојих података."
     },
     "sr-Latn": {
       "copied": "kopirano",
@@ -1801,8 +1823,7 @@
       "back": "Nazad",
       "ok": "U redu",
       "minimize": "Minimizuj",
-      "privacyPolicy": "Pročitao/la sam <1>Izjavu o zaštiti podataka</1> i saglasan/na sam sa obradom i čuvanjem mojih podataka.",
-      "privacyPolicyLink": "Izjava o zaštiti podataka o ličnosti"
+      "privacyPolicy": "Pročitao/la sam <1>Izjavu o zaštiti podataka</1> i saglasan/na sam sa obradom i čuvanjem mojih podataka."
     },
     "sw": {
       "copied": "Yamenakiliwa",
@@ -1818,8 +1839,7 @@
       "back": "Nyuma",
       "ok": "Sawa",
       "minimize": "Punguza",
-      "privacyPolicy": "Nimesoma <1>sera ya faragha</1> na ninakubali kutumiwa na kuhifadhiwa kwa data yangu.",
-      "privacyPolicyLink": "sera ya faragha"
+      "privacyPolicy": "Nimesoma <1>sera ya faragha</1> na ninakubali kutumiwa na kuhifadhiwa kwa data yangu."
     },
     "th": {
       "copied": "คัดลอกแล้ว",
@@ -1835,8 +1855,7 @@
       "back": "ย้อนกลับ",
       "ok": "ตกลง",
       "minimize": "ย่อขนาด",
-      "privacyPolicy": "ฉันได้อ่าน<1>นโยบายความเป็นส่วนตัว</1>แล้วและยอมรับการประมวลผลและจัดเก็บข้อมูลของฉัน",
-      "privacyPolicyLink": "นโยบายความเป็นส่วนตัว"
+      "privacyPolicy": "ฉันได้อ่าน<1>นโยบายความเป็นส่วนตัว</1>แล้วและยอมรับการประมวลผลและจัดเก็บข้อมูลของฉัน"
     },
     "ti": {
       "copied": "ተቐዲሑ",
@@ -1852,8 +1871,7 @@
       "back": "ዝባን",
       "ok": "እሺ",
       "minimize": "ምጉዳል",
-      "privacyPolicy": "<1>ናይ ውልቀ ፖሊሲ</1> ኣንቢበ ኣብ መስርሕን ምኽዛንን ሓበሬታይ ተሰማሚዐ ኣለኹ።",
-      "privacyPolicyLink": "ናይ ውልቀ ፖሊሲ ግላዊነት"
+      "privacyPolicy": "<1>ናይ ውልቀ ፖሊሲ</1> ኣንቢበ ኣብ መስርሕን ምኽዛንን ሓበሬታይ ተሰማሚዐ ኣለኹ።"
     },
     "tr": {
       "copied": "kopyalandı",
@@ -1869,8 +1887,7 @@
       "back": "Geri",
       "ok": "Tamam",
       "minimize": "Simge durumuna küçült",
-      "privacyPolicy": "<1>Gizlilik Politikasını</1> okudum, verilerimin işlenmesini ve saklanmasını onaylıyorum.",
-      "privacyPolicyLink": "Gizlilik Politikası"
+      "privacyPolicy": "<1>Gizlilik Politikasını</1> okudum, verilerimin işlenmesini ve saklanmasını onaylıyorum."
     },
     "uk": {
       "copied": "Копіювати",
@@ -1886,8 +1903,7 @@
       "back": "Назад",
       "ok": "Гаразд",
       "minimize": "Звести до мінімуму",
-      "privacyPolicy": "Я прочитав(-ла) <1>Політику конфіденційності</1> і даю згоду на обробку та зберігання моїх даних.",
-      "privacyPolicyLink": "Політика конфіденційності"
+      "privacyPolicy": "Я прочитав(-ла) <1>Політику конфіденційності</1> і даю згоду на обробку та зберігання моїх даних."
     },
     "ur": {
       "copied": "کاپی کیا گیا",
@@ -1903,8 +1919,7 @@
       "back": "واپسی",
       "ok": "ٹھیک ہے",
       "minimize": "کم سے کم کرنا",
-      "privacyPolicy": "میں نے <1>رازداری کی پالیسی</1> کو پڑھ لیا/پڑی ہے اور اپنے ڈیٹا کی پروسیسنگ اور اسٹوریج سے اتفاق کرتا/کرتی ہوں۔",
-      "privacyPolicyLink": "رازداری کی پالیسی"
+      "privacyPolicy": "میں نے <1>رازداری کی پالیسی</1> کو پڑھ لیا/پڑی ہے اور اپنے ڈیٹا کی پروسیسنگ اور اسٹوریج سے اتفاق کرتا/کرتی ہوں۔"
     },
     "vi": {
       "copied": "Đã sao chép",
@@ -1920,8 +1935,7 @@
       "back": "Quay lại",
       "ok": "Ok",
       "minimize": "Thu nhỏ",
-      "privacyPolicy": "Tôi đã đọc <1>chính sách quyền riêng tư</1> và đồng ý với việc xử lý và lưu trữ dữ liệu của tôi.",
-      "privacyPolicyLink": "chính sách quyền riêng tư"
+      "privacyPolicy": "Tôi đã đọc <1>chính sách quyền riêng tư</1> và đồng ý với việc xử lý và lưu trữ dữ liệu của tôi."
     },
     "zh-CN": {
       "copied": "已复制",
@@ -1937,8 +1951,7 @@
       "back": "返回",
       "ok": "确认",
       "minimize": "最小化",
-      "privacyPolicy": "我已阅读<1>隐私政策</1>，并同意处理和存储我的数据。",
-      "privacyPolicyLink": "隐私政策"
+      "privacyPolicy": "我已阅读<1>隐私政策</1>，并同意处理和存储我的数据。"
     }
   },
   "consent": {
@@ -2091,6 +2104,16 @@
       "knownResourceContentMessage": "Ez az elem külső forrásból származó adatokat tartalmaz. Az ilyen tartalmak beágyazását a beállítások között letilthatja",
       "knownResourceBlocked": "Letiltotta ebből a forrásból származó külső tartalmakat. Ezt a forrást a beállításokban engedélyezheti.",
       "noSources": "Külső források nem állnak rendelkezésre."
+    },
+    "id": {
+      "title": "Sumber Eksternal",
+      "description": "Anda dapat menyetujui secara permanen untuk menampilkan konten yang tertanam dari penyedia pihak ketiga. Pilihan ini akan disimpan secara permanen di peramban internet Anda. Anda dapat mencabut izin Anda kapan pun di sini.",
+      "descriptionNative": "Anda dapat menyetujui secara permanen untuk menampilkan konten yang tertanam dari penyedia pihak ketiga. Pilihan ini akan disimpan secara permanen di perangkat lokal Anda. Anda dapat mencabut izin Anda kapan pun di sini.",
+      "consentDescription": "Izinkan konten dari {{source}}",
+      "knownResourceOptIn": "Saya menyetujui bahwa konten dari sumber eksternal ini boleh ditampilkan kepada saya.",
+      "knownResourceContentMessage": "Elemen ini berisi data dari sumber eksternal. Anda dapat memblokir penanaman konten seperti itu di pengaturan.",
+      "knownResourceBlocked": "Konten eksternal dari sumber ini telah diblokir. Anda dapat mengizinkan sumber ini di pengaturan.",
+      "noSources": "Tidak ada sumber eksternal yang tersedia."
     },
     "it": {
       "title": "Fonti esterne",
@@ -2454,6 +2477,12 @@
       "news": "Hírek",
       "pois": "Térkép"
     },
+    "id": {
+      "localInformation": "Informasi lokal",
+      "events": "Acara",
+      "news": "Berita",
+      "pois": "Peta"
+    },
     "it": {
       "localInformation": "Informazioni locali",
       "events": "Eventi",
@@ -2619,130 +2648,133 @@
   },
   "disclaimer": {
     "de": {
-      "pageTitle": "Impressum und Kontakt"
+      "pageTitle": "Impressum"
     },
     "am": {
-      "pageTitle": "ዕትም እና የግንኙነት መረጃ"
+      "pageTitle": "ዕትም"
     },
     "ar": {
-      "pageTitle": "هيئة التحرير وجهة الاتصال"
+      "pageTitle": "هيئة التحرير"
     },
     "bg": {
-      "pageTitle": "Импресум и контакт"
+      "pageTitle": "Импресум"
     },
     "ckb": {
-      "pageTitle": "زانیارییەکانی ناوەندی بڵاوکەرەوە و زانیارییەکانی پەیوەندی"
+      "pageTitle": "زانیارییەکانی ناوەندی بڵاوکەرەوە"
     },
     "cs": {
-      "pageTitle": "Impresum a kontakt"
+      "pageTitle": "Impresum"
     },
     "da": {
-      "pageTitle": "Kolofon og kontakt"
+      "pageTitle": "Kolofon"
     },
     "el": {
-      "pageTitle": "Στοιχεία έκδοσης και επικοινωνία"
+      "pageTitle": "Στοιχεία έκδοσης"
     },
     "en": {
-      "pageTitle": "Imprint and contacts"
+      "pageTitle": "Imprint"
     },
     "es": {
-      "pageTitle": "Aviso legal y contacto"
+      "pageTitle": "Aviso legal"
     },
     "fi": {
-      "pageTitle": "Julkaisu- ja yhteystiedot"
+      "pageTitle": "Julkaisutiedot"
     },
     "fr": {
-      "pageTitle": "Mentions légales et contact"
+      "pageTitle": "Mentions légales"
     },
     "hi": {
-      "pageTitle": "छाप और संपर्क"
+      "pageTitle": "छाप"
     },
     "hr": {
-      "pageTitle": "Impresum i kontakt"
+      "pageTitle": "Impresum"
     },
     "hu": {
-      "pageTitle": "Impresszum és elérhetőség"
+      "pageTitle": "Impresszum"
+    },
+    "id": {
+      "pageTitle": "Cetak"
     },
     "it": {
-      "pageTitle": "Impressum e contatti"
+      "pageTitle": "Impressum"
     },
     "ka": {
-      "pageTitle": "მისამართი და საკონტაქტო ინფორმაცია"
+      "pageTitle": "მისამართი"
     },
     "kmr": {
-      "pageTitle": "Lêzanînên Weşîner û Têkillî"
+      "pageTitle": "Lêzanînên Weşîner"
     },
     "mk": {
-      "pageTitle": "Импресум и контакт"
+      "pageTitle": "Импресум"
     },
     "nl": {
-      "pageTitle": "Impressum en contactgegevens"
+      "pageTitle": "Impressum"
     },
     "orm": {
-      "pageTitle": "Ashaaraa fi quunnamtii"
+      "pageTitle": "Ashaaraa"
     },
     "pes": {
-      "pageTitle": "اطلاعات ناشر و تماس"
+      "pageTitle": "اطلاعات ناشر"
     },
     "pl": {
-      "pageTitle": "Nota prawna i kontakt"
+      "pageTitle": "Nota prawna"
     },
     "prs": {
-      "pageTitle": "معلومات ناشر و تماس"
+      "pageTitle": "معلومات ناشر"
     },
     "ps": {
-      "pageTitle": "چاپ او اړیکه"
+      "pageTitle": "چاپ کوونکی"
     },
     "pt": {
-      "pageTitle": "Pé de imprensa e contactos"
+      "pageTitle": "Pé de imprensa"
     },
     "ro": {
-      "pageTitle": "Caseta tehnică și contact"
+      "pageTitle": "Caseta tehnică"
     },
     "rom": {
-      "pageTitle": "Otpečatkoja thaj kontaktia"
+      "pageTitle": "Otpečatkoja"
     },
     "ru": {
-      "pageTitle": "Выходные данные и контактная информация"
+      "pageTitle": "Выходные данные"
     },
     "sk": {
-      "pageTitle": "Tiráž a kontakt"
+      "pageTitle": "Tiráž"
     },
     "so": {
-      "pageTitle": "Faahfaahinta qoraaga iyo macaluumaadkiisa xiriirka"
+      "pageTitle": "Faahfaahinta qoraaga"
     },
     "sq": {
-      "pageTitle": "Botuesi dhe kontakti"
+      "pageTitle": "Botuesi"
     },
     "sr-Cyrl": {
-      "pageTitle": "Импресум и контакт"
+      "pageTitle": "Импресум"
     },
     "sr-Latn": {
-      "pageTitle": "Impresum i kontakt"
+      "pageTitle": "Impresum"
     },
     "sw": {
-      "pageTitle": "Chapa na anwani"
+      "pageTitle": "Chapa"
     },
     "th": {
-      "pageTitle": "ข้อมูลการพิมพ์และการติดต่อ"
+      "pageTitle": "ข้อมูลการพิมพ์"
     },
     "ti": {
-      "pageTitle": "ናይ ደራሲ ዝርዝራት ሓበሬታን ናይ ርክብን"
+      "pageTitle": "ናይ ደራሲ ዝርዝራት"
     },
     "tr": {
-      "pageTitle": "Künye ve iletişim"
+      "pageTitle": "Künye"
     },
     "uk": {
-      "pageTitle": "Імпресум та контакт"
+      "pageTitle": "Імпресум"
     },
     "ur": {
-      "pageTitle": "چھاپ اور رابطہ"
+      "pageTitle": "چھاپ"
     },
     "vi": {
-      "pageTitle": "Thông tin xuất bản và liên hệ"
+      "pageTitle": "Thông tin xuất bản"
     },
     "zh-CN": {
-      "pageTitle": "版本说明和联系方式"
+      "pageTitle": "版本说明"
     }
   },
   "error": {
@@ -3300,6 +3332,43 @@
       "noCalendarPermission": "A hozzáférés a naptárhoz nem engedélyezett.",
       "noCalendarFound": "Nem találtunk megfelelő naptárat.",
       "settingsError": "Hiba a beállítások alkalmazásakor"
+    },
+    "id": {
+      "notFound": {
+        "language": "Maaf, bahasa ini tidak tersedia di sini.",
+        "city": "Maaf, wilayah ini tidak ditemukan.",
+        "category": "Maaf, halaman yang diminta tidak ditemukan.",
+        "event": "Maaf, acara ini tidak ditemukan.",
+        "poi": "Maaf, tempat ini tidak ditemukan.",
+        "news": "Maaf, pesan ini tidak ditemukan.",
+        "pageTitle": "Halaman tidak ditemukan"
+      },
+      "pageNotFound": "Maaf, halaman yang diminta tidak ditemukan.",
+      "noSuitableAppInstalled": "Tidak ada aplikasi terinstal yang sesuai.",
+      "networkConnectionFailed": "Koneksi ke server gagal.",
+      "networkRequestFailed": "Permintaan tidak dapat diproses.",
+      "responseMappingFailed": "Terjadi galat selama memproses respons server.",
+      "unknownError": "Terjadi galat yang tidak dikenal.",
+      "tryAgain": "Coba lagi",
+      "loadingFailed": "Maaf, halaman yang diminta tidak dapat dimuat.",
+      "chooseALanguage": "Pilih bahasa:",
+      "goTo": {
+        "start": "Pergi ke halaman utama",
+        "categories": "Pergi ke kategori",
+        "events": "Pergi ke acara",
+        "pois": "Pergi ke peta",
+        "news": "Pergi ke berita",
+        "pageNumber": "Pergi ke halaman {{number}}"
+      },
+      "pageTitle": "Galat",
+      "generalError": "Terjadi galat",
+      "notSupportedByDevice": "Fungsi ini tidak didukung pada perangkat ini.",
+      "languageSwitchFailedTitle": "Sayangnya, pengubahan bahasa gagal.",
+      "languageSwitchFailedMessage": "Bahasa yang dipilih tidak tersedia jika Anda luring. Diperlukan koneksi internet yang aktif.",
+      "permissionRequired": "Diperlukan izin",
+      "noCalendarPermission": "Akses ke kalender tidak diizinkan.",
+      "noCalendarFound": "Tidak ditemukan kalender yang sesuai.",
+      "settingsError": "Gagal menerapkan pengaturan"
     },
     "it": {
       "notFound": {
@@ -4767,6 +4836,37 @@
       "selectRange": "Időszak kiválasztása",
       "outOfRangeError": "Dátum a tartományon kívül"
     },
+    "id": {
+      "address": "Alamat",
+      "date_one": "Tanggal",
+      "date_other": "Tanggal",
+      "nextDate_one": "Tanggal berikutnya",
+      "nextDate_other": "Tanggal berikutnya",
+      "events": "Acara",
+      "export": "Mengekspor",
+      "addToCalendar": "Tambah ke kalender",
+      "currentlyNoEvents": "Tidak ada acara yang tersedia saat ini.",
+      "pageTitle": "Acara",
+      "chooseCalendar": "Pilihan kalender",
+      "added": "Ditambahkan",
+      "goToCalendar": "Pergi ke kalender",
+      "recurring": "berulang",
+      "today": "hari ini",
+      "todayRecurring": "hari ini, berulang",
+      "onlyThisEvent": "Hanya acara ini",
+      "thisAndAllFutureEvents": "Acara ini dan acara berikutnya",
+      "from": "dari",
+      "to": "ke",
+      "resetFilter": "reset filter:",
+      "invalidDate": "Tanggal tidak benar",
+      "shouldBeEarlier": "Tanggal mulai seharusnya sebelum tanggal selesai.",
+      "selectStartDateCalendar": "Pilih tanggal mulai di kalender",
+      "selectEndDateCalendar": "Pilih tanggal selesai di kalender",
+      "hideFilters": "Sembunyikan filter",
+      "showFilters": "Tampilkan filter",
+      "selectRange": "Pilih Rentang",
+      "outOfRangeError": "Tanggal diluar rentang"
+    },
     "it": {
       "address": "Indirizzo",
       "date_one": "Data",
@@ -5607,7 +5707,6 @@
   },
   "feedback": {
     "de": {
-      "disclaimer": "Kontakt und Impressum",
       "send": "Abschicken",
       "failedSendingFeedback": "Beim Senden des Feedbacks ist ein Fehler aufgetreten.",
       "feedback": "Feedback",
@@ -5636,7 +5735,6 @@
       "noResultsInUserAndSourceLanguage": "Es wurden leider keine passenden Ergebnisse in Deiner Sprache oder auf Deutsch gefunden."
     },
     "am": {
-      "disclaimer": "የግንኙነት መረጃና ዕትም",
       "send": "ይላኩ",
       "failedSendingFeedback": "ግብረ መልሱ በሚላክበት ወቅት ስህተት ተፈጥሯል።",
       "feedback": "ግብረ መልስ",
@@ -5665,7 +5763,6 @@
       "noResultsInUserAndSourceLanguage": "በሚያሳዝን ሁኔታ በቋንቋዎም ሆነ በጀርመንኛ ምንም የሚዛመዱ ውጤቶች አልተገኙም።"
     },
     "ar": {
-      "disclaimer": "جهة الاتصال وهيئة التحرير",
       "send": "إرسال",
       "failedSendingFeedback": "حدث خطأ ما عند إرسال الملاحظة.",
       "feedback": "ملاحظة",
@@ -5694,7 +5791,6 @@
       "noResultsInUserAndSourceLanguage": "للأسف لم يتم العثور على نتائج مطابقة بلغتك أو باللغة الألمانية."
     },
     "bg": {
-      "disclaimer": "Контакт и импресум",
       "send": "Изпращане",
       "failedSendingFeedback": "Възникна грешка при изпращане на Вашите отзиви.",
       "feedback": "Обратна връзка",
@@ -5723,7 +5819,6 @@
       "noResultsInUserAndSourceLanguage": "Съжаляваме, но не бяха намерени подходящи резултати на Вашия език или на немски език."
     },
     "ckb": {
-      "disclaimer": "زانیارییەکانی پەیوەندی و ناوەندی بڵاوکەرەوە",
       "send": "ناردن",
       "failedSendingFeedback": "کاتی ناردن بۆچوونی هەڵە ڕووی داوە.",
       "feedback": "بۆچوون",
@@ -5752,7 +5847,6 @@
       "noResultsInUserAndSourceLanguage": "بەداخەوە هیچ ئەنجامێکی گونجاو لەگەڵ زمانەکەت و زمانی ئەڵمانی نەدۆزراوەتەوە."
     },
     "cs": {
-      "disclaimer": "Kontakt a impresum",
       "send": "Odeslat",
       "failedSendingFeedback": "Při odesílání zpětné vazby došlo k chybě.",
       "feedback": "Zpětná vazba",
@@ -5781,7 +5875,6 @@
       "noResultsInUserAndSourceLanguage": "Je nám líto, ale ve vašem jazyce ani v němčině nebyly nalezeny žádné odpovídající výsledky."
     },
     "da": {
-      "disclaimer": "Kontakt og kolofon",
       "send": "Send",
       "failedSendingFeedback": "Der opstod en fejl under afsendelsen af feedbacken.",
       "feedback": "Feedback",
@@ -5810,7 +5903,6 @@
       "noResultsInUserAndSourceLanguage": "Beklager, der blev ikke fundet nogen matchende resultater på dit sprog eller på tysk."
     },
     "el": {
-      "disclaimer": "Στοιχεία έκδοσης και επικοινωνία",
       "send": "Αποστολή",
       "failedSendingFeedback": "Παρουσιάστηκε σφάλμα κατά την αποστολή σχολίων.",
       "feedback": "Σχόλια",
@@ -5839,7 +5931,6 @@
       "noResultsInUserAndSourceLanguage": "Δυστυχώς δεν βρέθηκαν αποτελέσματα που να ταιριάζουν στη γλώσσα σας ή στα γερμανικά."
     },
     "en": {
-      "disclaimer": "Contacts and imprint",
       "send": "Send",
       "failedSendingFeedback": "An error occurred while sending the feedback.",
       "feedback": "Feedback",
@@ -5868,7 +5959,6 @@
       "noResultsInUserAndSourceLanguage": "Sorry, we could not find any matching results in your language or in German."
     },
     "es": {
-      "disclaimer": "Contacto y aviso legal",
       "send": "Enviar",
       "failedSendingFeedback": "Se ha producido un error al enviar los comentarios.",
       "feedback": "Comentarios",
@@ -5897,7 +5987,6 @@
       "noResultsInUserAndSourceLanguage": "Lo sentimos, pero no se han encontrado resultados coincidentes en tu idioma ni en alemán."
     },
     "fi": {
-      "disclaimer": "Yhteys- ja julkaisutiedot",
       "send": "Lähetä",
       "failedSendingFeedback": "Palautteen lähettämisessä on tapahtunut virhe.",
       "feedback": "Palaute",
@@ -5926,7 +6015,6 @@
       "noResultsInUserAndSourceLanguage": "Hakua vastaavia tuloksia ei löytynyt kielelläsi tai saksaksi."
     },
     "fr": {
-      "disclaimer": "Contact et mentions légales",
       "send": "Envoyer",
       "failedSendingFeedback": "Une erreur s'est produite lors de l'envoi de l'avis.",
       "feedback": "Avis",
@@ -5952,10 +6040,9 @@
       "checkQuery": "Vérifie tes critères de recherche ou change la langue définie pour l’appli {{appName}}.",
       "informationMissing": "Il manque des informations ?",
       "noResultsInUserLanguage": "Désolé, aucun résultat correspondant à ta langue n’a été trouvé.",
-      "noResultsInUserAndSourceLanguage": "Désolé, aucun résultat correspondant n’a été trouvé dans ta langue ou en français."
+      "noResultsInUserAndSourceLanguage": "Désolé, aucun résultat correspondant n’a été trouvé dans ta langue ou en allemand."
     },
     "hi": {
-      "disclaimer": "संपर्क और छाप",
       "send": "भेजें",
       "failedSendingFeedback": "फ़ीडबैक भेजते समय एक त्रुटि उत्पन्न हुई।",
       "feedback": "फ़ीडबैक",
@@ -5984,7 +6071,6 @@
       "noResultsInUserAndSourceLanguage": "माफ करें, आपकी भाषा या जर्मन में मेल खाता हमें कोई परिणाम नहीं मिला।"
     },
     "hr": {
-      "disclaimer": "Kontakt i impresum",
       "send": "Pošalji",
       "failedSendingFeedback": "Pri slanju povratne informacije došlo je do pogreške.",
       "feedback": "Povratna informacija",
@@ -6013,7 +6099,6 @@
       "noResultsInUserAndSourceLanguage": "Nažalost nisu pronađeni odgovarajući rezultati na tvom jeziku ili na njemačkom."
     },
     "hu": {
-      "disclaimer": "Elérhetőség és impresszum",
       "send": "Küldés",
       "failedSendingFeedback": "A visszajelzés elküldésekor hiba lépett fel.",
       "feedback": "Visszajelzés",
@@ -6041,8 +6126,35 @@
       "noResultsInUserLanguage": "Sajnos az Ön nyelvén nincs találat.",
       "noResultsInUserAndSourceLanguage": "Sajnos az Ön nyelvén vagy németül nincs találat."
     },
+    "id": {
+      "send": "Kirim",
+      "failedSendingFeedback": "Terjadi galat saat mengirim umpan balik.",
+      "feedback": "Umpan balik",
+      "headline": "Apa pendapat Anda tentang halaman ini?",
+      "description": "Pilih reaksi dan/atau tulis komentar.",
+      "commentHeadline": "Komentar",
+      "commentDescription": "Bagikan umpan balik Anda dengan kami! Kami menyambut setiap umpan balik baik positif maupun negatif, karena itu membantu kami mengembangkan {{appName}}.",
+      "isThisSiteUseful": "Apakah situs ini berguna?",
+      "useful": "Berguna",
+      "notUseful": "Tidak berguna",
+      "informationNotFound": "Tidak menemukan apa yang Anda cari?",
+      "wantedInformation": "Informasi apa yang tidak ada?",
+      "feedbackSent": "Umpan balik terkirim",
+      "thanksHeadline": "Terima kasih atas umpan balik Anda.",
+      "thanksMessage": "Umpan balik telah berhasil dikirim.",
+      "negativeRating": "Situs ini tidak berguna",
+      "positiveRating": "Situs ini berguna",
+      "searchTermDescription": "Tidak ada hasil yang ditemukan untuk istilah berikut ini:",
+      "contactMailAddress": "Kirim sur-el untuk pertanyaan lainnya",
+      "noteFillFeedback": "Pilih reaksi atau tulis komentar untuk mengirim umpan balik.",
+      "notePrivacyPolicy": "Setujui kebijakan privasi agar dapat mengirim umpan balik.",
+      "giveFeedback": "Beri umpan balik",
+      "checkQuery": "Periksa istilah pencarian Anda atau pilih bahasa lain di aplikasi {{appName}}.",
+      "informationMissing": "Apakah ada Informasi yang tidak ada?",
+      "noResultsInUserLanguage": "Maaf, kami tidak dapat menemukan hasil yang cocok dalam bahasa Anda.",
+      "noResultsInUserAndSourceLanguage": "Maaf, kami tidak dapat menemukan hasil yang cocok dalam bahasa Anda atau bahasa Jerman."
+    },
     "it": {
-      "disclaimer": "Contatti e impressum",
       "send": "Invia",
       "failedSendingFeedback": "Si è verificato un errore nell’invio del feedback.",
       "feedback": "Feedback",
@@ -6071,7 +6183,6 @@
       "noResultsInUserAndSourceLanguage": "Siamo spiacenti, non sono stati trovati risultati corrispondenti nella tua lingua o in tedesco."
     },
     "ka": {
-      "disclaimer": "საკონტაქტო ინფორმაცია და მისამართი",
       "send": "გაგზავნა",
       "failedSendingFeedback": "შეფასების გაგზავნის დროს მოხდა შეცდომა.",
       "feedback": "შეფასება",
@@ -6100,7 +6211,6 @@
       "noResultsInUserAndSourceLanguage": "სამწუხაროდ, თქვენს ენაზე და გერმანულ ენაზე შესაფერისი შედეგები არ მოიძებნა."
     },
     "kmr": {
-      "disclaimer": "Lêzanînên Weşîner û Têkillî",
       "send": "Şandin",
       "failedSendingFeedback": "Dema şandina fîdbekekê Şaşitiyek qewimî.",
       "feedback": "Fîdbek",
@@ -6129,7 +6239,6 @@
       "noResultsInUserAndSourceLanguage": "Mixabin ti encameke guncan di zimanê te de yan jî bi Zimanê Almanî nehat dîtin."
     },
     "mk": {
-      "disclaimer": "Контакт и импресум",
       "send": "Испрати",
       "failedSendingFeedback": "При праќање на повратната информација се појави грешка.",
       "feedback": "Повратна информација",
@@ -6158,7 +6267,6 @@
       "noResultsInUserAndSourceLanguage": "За жал, не се најдени соодветни резултати на вашиот јазик или на германски јазик."
     },
     "nl": {
-      "disclaimer": "Contactgegevens en impressum",
       "send": "Versturen",
       "failedSendingFeedback": "Er is een fout opgetreden bij het versturen van de feedback.",
       "feedback": "Feedback",
@@ -6187,7 +6295,6 @@
       "noResultsInUserAndSourceLanguage": "Sorry, er zijn geen overeenkomende resultaten gevonden in jouw taal of in het Duits."
     },
     "orm": {
-      "disclaimer": "Quunnamtii fi ashaaraa",
       "send": "Erguu",
       "failedSendingFeedback": "Yeroo duub deebii erguu dogongorri uumamee jira.",
       "feedback": "Duub deebii",
@@ -6216,7 +6323,6 @@
       "noResultsInUserAndSourceLanguage": "Dhiifama, afaan keetiin ykn agaan Jarmaniinwaan barbaaddu kan madaalu argachuu hin dandeenye."
     },
     "pes": {
-      "disclaimer": "اطلاعات ناشر و تماس",
       "send": "ارسال",
       "failedSendingFeedback": "هنگام ارسال بازخورد خطایی روی داد.",
       "feedback": "بازخورد",
@@ -6245,7 +6351,6 @@
       "noResultsInUserAndSourceLanguage": "متأسفانه، هیچ نتیجه منطبقی به زبان شما یا به زبان آلمانی یافت نشد."
     },
     "pl": {
-      "disclaimer": "Kontakt i nota prawna",
       "send": "Wyślij",
       "failedSendingFeedback": "Wystąpił błąd podczas wysyłania opinii.",
       "feedback": "Opinia",
@@ -6274,7 +6379,6 @@
       "noResultsInUserAndSourceLanguage": "Przepraszamy, nie znaleziono pasujących wyników w Twoim języku lub w języku niemieckim."
     },
     "prs": {
-      "disclaimer": "تماس و چاپ",
       "send": "ارسال",
       "failedSendingFeedback": "در زمان ارسال فیدبک خطایی رخ داد‎.",
       "feedback": "فیدبک",
@@ -6303,7 +6407,6 @@
       "noResultsInUserAndSourceLanguage": "متأسفانه، هیچ نتیجه مشابه به زبان شما یا به زبان آلمانی یافت نشد."
     },
     "ps": {
-      "disclaimer": "د لټون",
       "send": "لېږل",
       "failedSendingFeedback": "د تبصرې په لېږلو کې یوه اشتباه رامینځته شوه.",
       "feedback": "تبصره",
@@ -6332,7 +6435,6 @@
       "noResultsInUserAndSourceLanguage": "له بده مرغه، ستاسو په ژبه يا آلماني ژبه کې هیڅ ورته پایلې ونه موندل شوې."
     },
     "pt": {
-      "disclaimer": "Contactos e pé de imprensa",
       "send": "Enviar",
       "failedSendingFeedback": "Ocorreu um erro ao enviar o comentário.",
       "feedback": "Feedback",
@@ -6361,7 +6463,6 @@
       "noResultsInUserAndSourceLanguage": "Lamento, mas não foram encontrados resultados correspondentes na tua língua ou em alemão."
     },
     "ro": {
-      "disclaimer": "Contact și caseta tehnică",
       "send": "Trimiteți",
       "failedSendingFeedback": "La expedierea feedback-ului a apărut o greșeală.",
       "feedback": "Feedback",
@@ -6390,7 +6491,6 @@
       "noResultsInUserAndSourceLanguage": "Din păcate nu au fost găsite rezultate corespunzătoare în limba dvs. sau în germană."
     },
     "rom": {
-      "disclaimer": "Kontaktia thaj otpečatokoja",
       "send": "Bičhal",
       "failedSendingFeedback": "Bangin uli ko bičhalibe o dževapi.",
       "feedback": "Dževapi",
@@ -6419,7 +6519,6 @@
       "noResultsInUserAndSourceLanguage": "Afi ker, našti te arakha nisave pasujbaskere rezultatoja ki tiri čhib jali germanikani."
     },
     "ru": {
-      "disclaimer": "Контактная информация и выходные данные",
       "send": "Отправить",
       "failedSendingFeedback": "При отправке отзыва произошла ошибка.",
       "feedback": "Отзыв",
@@ -6448,7 +6547,6 @@
       "noResultsInUserAndSourceLanguage": "К сожалению, не найдено ни одного подходящего результата на вашем языке или на немецком языке."
     },
     "sk": {
-      "disclaimer": "Kontakt a tiráž",
       "send": "Odoslať",
       "failedSendingFeedback": "Pri posielaní spätnej väzby sa vyskytla chyba.",
       "feedback": "Spätná väzba",
@@ -6477,7 +6575,6 @@
       "noResultsInUserAndSourceLanguage": "Žiaľ vo vašom jazyku ani v nemčine neboli nájdené žiadne vhodné výsledky."
     },
     "so": {
-      "disclaimer": "Macluumaadka xiriirka iyo faahfaahinta qoraaga",
       "send": "Dir",
       "failedSendingFeedback": "Cillad ayaa ka jirtay soo diritaanka jawaab celinta.",
       "feedback": "Jawaab celin",
@@ -6506,7 +6603,6 @@
       "noResultsInUserAndSourceLanguage": "Nasiib darro, wax natiijo ku habboon luqaddaada ama Jarmalka laguma helin."
     },
     "sq": {
-      "disclaimer": "Kontakti dhe botuesi",
       "send": "Dërgo",
       "failedSendingFeedback": "Pati një gabim gjatë dërgimit të komenteve.",
       "feedback": "Komenti",
@@ -6535,7 +6631,6 @@
       "noResultsInUserAndSourceLanguage": "Fatkeqësisht, nuk u gjetën rezultate që përputhen në gjuhën tënde ose në gjermanisht."
     },
     "sr-Cyrl": {
-      "disclaimer": "Контакт и импресум",
       "send": "Слање",
       "failedSendingFeedback": "Дошло је до грешке приликом слања повратне информације.",
       "feedback": "Повратна информација",
@@ -6564,7 +6659,6 @@
       "noResultsInUserAndSourceLanguage": "Нажалост нису пронађени одговарајући резултати на твом језику или на немачком."
     },
     "sr-Latn": {
-      "disclaimer": "Kontakt i impresum",
       "send": "Pošaljite",
       "failedSendingFeedback": "Prilikom slanja povratnih informacija pojavila se greška.",
       "feedback": "Povratne informacije",
@@ -6593,7 +6687,6 @@
       "noResultsInUserAndSourceLanguage": "Nažalost nisu pronađeni odgovarajući rezultati na tvom jeziku ili na nemačkom."
     },
     "sw": {
-      "disclaimer": "Anwani na chapa",
       "send": "Tuma",
       "failedSendingFeedback": "Hitilafu fulani imetokea wakati wa kutuma maoni.",
       "feedback": "Maoni",
@@ -6622,7 +6715,6 @@
       "noResultsInUserAndSourceLanguage": "Samahani, hatujapata matokeo yoyote yanayolingana katika lugha yako au katika Kijerumani."
     },
     "th": {
-      "disclaimer": "การติดต่อและข้อมูลการพิมพ์",
       "send": "ส่ง",
       "failedSendingFeedback": "เกิดข้อผิดพลาดขณะส่งคำติชม",
       "feedback": "ข้อเสนอแนะ",
@@ -6651,7 +6743,6 @@
       "noResultsInUserAndSourceLanguage": "ขออภัย ไม่พบผลลัพธ์ที่ตรงกันในภาษาของคุณหรือภาษาเยอรมัน"
     },
     "ti": {
-      "disclaimer": "ናይ ርክብ ሓበሬታን ናይ ደራሲ ዝርዝራት ሓበሬታን",
       "send": "ስደድ",
       "failedSendingFeedback": "መልሰ-ሓበሬታ ኣብ ምስዳድ ጌጋ ነይሩ።",
       "feedback": "መልሰ-ሓበሬታ",
@@ -6680,7 +6771,6 @@
       "noResultsInUserAndSourceLanguage": "እቲ ዘሕዝን ግን ብቋንቋኹም ይኹን ብቋንቋ ጀርመን ዝኾነ ኣገዳሲ ውጽኢት ኣይተረኽበን።"
     },
     "tr": {
-      "disclaimer": "İletişim ve künye",
       "send": "Gönder",
       "failedSendingFeedback": "Geri bildirim gönderilirken bir hata oluştu.",
       "feedback": "Geri bildirim",
@@ -6709,7 +6799,6 @@
       "noResultsInUserAndSourceLanguage": "Senin dilin veya Almanca için maalesef eşleşen sonuçlar bulunamadı."
     },
     "uk": {
-      "disclaimer": "Контакт та імпресум",
       "send": "Відправити",
       "failedSendingFeedback": "При надсиланні відгуку сталася помилка.",
       "feedback": "Зворотній зв'язок",
@@ -6738,7 +6827,6 @@
       "noResultsInUserAndSourceLanguage": "Вибачте, на вашій мові або німецькою мовою не знайдено жодного відповідника."
     },
     "ur": {
-      "disclaimer": "رابطہ اور چھاپ",
       "send": "بھیجیں",
       "failedSendingFeedback": "رائے بھیجنے میں ایک خرابی پیش آئی۔",
       "feedback": "رائے",
@@ -6767,7 +6855,6 @@
       "noResultsInUserAndSourceLanguage": "بدقسمتی سے، آپ کی زبان یا جرمن میں کوئی مماثل نتائج نہیں ملے۔"
     },
     "vi": {
-      "disclaimer": "Liên hệ và thông tin xuất bản",
       "send": "Gửi",
       "failedSendingFeedback": "Đã xảy ra lỗi khi gửi ý kiến góp ý.",
       "feedback": "Góp ý",
@@ -6796,7 +6883,6 @@
       "noResultsInUserAndSourceLanguage": "Rất tiếc, chúng tôi không tìm thấy kết quả phù hợp bằng ngôn ngữ của bạn hoặc bằng tiếng Đức."
     },
     "zh-CN": {
-      "disclaimer": "版本说明和联系方式",
       "send": "发送",
       "failedSendingFeedback": "发送反馈时出错。",
       "feedback": "反馈",
@@ -7095,6 +7181,24 @@
       "newsDescription": "Mi újság a környéken? A(z) {{appName}} segít.",
       "skip": "Átugrás",
       "next": "Tovább"
+    },
+    "id": {
+      "welcome": "Selamat datang di {{appName}}",
+      "welcomeDescription": "Di {{appName}}, Anda dapat menemukan jawaban dan tip dalam bahasa Anda. Misalnya: Di mana saya menemukan bantuan? Kapan saya boleh bekerja?",
+      "search": "Pencarian Sederhana",
+      "searchDescription": "Anda dapat dengan cepat menemukan informasi yang benar melalui pencarian di kanan atas pada menu.",
+      "languageChange": "Ubah bahasa",
+      "languageChangeDescription": "Anda dapat mengubah bahasa {{appName}} di menu atas.",
+      "events": "Acara",
+      "eventsDescription": "Acara dan tanggal saat ini di area tersebut",
+      "pois": "Tawaran di Dekat Anda",
+      "poisDescription": "Di peta, Anda dapat mencari tempat-tempat di dekat Anda, misalnya tempat untuk kursus bahasa.",
+      "offline": "Berfungsi Saat Luring",
+      "offlineDescription": "Tidak selalu punya internet? Tidak masalah. Anda dapat menggunakan {{appName}} walaupun tanpa internet.",
+      "news": "Berita Terkini",
+      "newsDescription": "Apa hal baru di area Anda? Cari tahu di {{appName}}.",
+      "skip": "Lewati",
+      "next": "Lanjutkan"
     },
     "it": {
       "welcome": "Benvenuti a {{appName}}",
@@ -7853,6 +7957,24 @@
       "suggestToRegion": "{{appName}} javaslata a régiójában",
       "searchCityDescription": "Válaszd ki a lakhelyedet vagy a legközelebbi nagyvárost, pl. München járást"
     },
+    "id": {
+      "searchCity": "Cari",
+      "noCitiesFound": "Tidak ada hasil",
+      "nearbyCities": "Di sekitarnya",
+      "noNearbyCities": "Tidak ada wilayah yang ditemukan di sekitarnya.",
+      "alert": "Catatan",
+      "locationError": "Untuk menampilkan wilayah di sekitarnya, layanan pelacakan harus diaktifkan.",
+      "noPermission": "Akses lokasi diperlukan",
+      "loading": "Menentukan lokasi...",
+      "notAvailable": "Penentuan lokasi dinonaktifkan",
+      "timeout": "Penentuan lokasi gagal",
+      "refresh": "Perbarui daftar wilayah terdekat",
+      "pageTitle": "Informasi Lokal Bagi Anda",
+      "metaDescription": "{{appName}} adalah panduan digital untuk kehidupan di Jerman. Temukan informasi lokal, acara dan saran. Selalu diperbarui dan tersedia dalam bahasa Anda sendiri.",
+      "cityNotFound": "Wilayah Anda tidak ditemukan? Ambil tindakan sekarang.",
+      "suggestToRegion": "Sarankan {{appName}} di wilayah Anda",
+      "searchCityDescription": "Pilih wilayah Anda atau kota terbesar berikutnya, misalnya Landkreis München"
+    },
     "it": {
       "searchCity": "Ricerca",
       "noCitiesFound": "Nessun risultato",
@@ -8342,7 +8464,7 @@
   },
   "layout": {
     "de": {
-      "imprintAndContact": "Impressum und Kontakt",
+      "disclaimer": "Impressum",
       "privacy": "Datenschutz",
       "localInformation": "Lokale Informationen",
       "events": "Veranstaltungen",
@@ -8363,7 +8485,6 @@
       "cancel": "Abbrechen",
       "shareMessage": "Gerade gefunden: {{message}}",
       "shareFailDefaultMessage": "Das Teilen des Inhalts ist leider fehlgeschlagen.",
-      "disclaimer": "Impressum",
       "sideBarOpenAriaLabel": "Seitenleiste öffnen",
       "sideBarCloseAriaLabel": "Seitenleiste schließen",
       "openInApp": "In der {{appName}} App öffnen",
@@ -8383,7 +8504,7 @@
       "voiceUnavailableMessage": "Es wurde keine Stimme gefunden. Um die Vorlesefunktion nutzen zu können, muss eine Stimme installiert sein. Bitte beachten Sie die folgenden Anweisungen für Ihr Betriebssystem."
     },
     "am": {
-      "imprintAndContact": "ዕትም እና የግንኙነት መረጃ",
+      "disclaimer": "ዕትም",
       "privacy": "የግላዊነት ፖሊሲ",
       "localInformation": "አካባቢያዊ መረጃ",
       "events": "ዝግጅቶች",
@@ -8403,7 +8524,6 @@
       "cancel": "ሰርዝ",
       "shareMessage": "አሁን ተገኝቷል: {{message}}",
       "shareFailDefaultMessage": "ይቅርታ፣ ይዘቱን ማጋራቱ አልተሳካም።",
-      "disclaimer": "ዕትም",
       "sideBarOpenAriaLabel": "የጎን አሞሌን ክፈት",
       "sideBarCloseAriaLabel": "የጎን አሞሌን ዝጋ",
       "openInApp": " በ {{appName}} መተግበሪያ ውስጥ ይክፈቱ",
@@ -8423,7 +8543,7 @@
       "voiceUnavailableMessage": "ምንም ድምፅ አልተገኘም። የማንበብ ተግባሩን ለመጠቀም ድምፅ መጫን አለበት። ለእርስዎ ሥርዓተ ክወና እባክዎ የሚከተሉትን መመሪያዎች ይከተሉ።"
     },
     "ar": {
-      "imprintAndContact": "هيئة التحرير وجهة الاتصال",
+      "disclaimer": "هيئة التحرير",
       "privacy": "حماية البيانات",
       "localInformation": "معلومات محلية",
       "events": "الفعاليات",
@@ -8443,7 +8563,6 @@
       "cancel": "إلغاء",
       "shareMessage": "تم حالاً العثور على: {{message}}",
       "shareFailDefaultMessage": "للأسف، فشل في مشاركة المحتوى.",
-      "disclaimer": "هيئة التحرير",
       "sideBarOpenAriaLabel": "فتح الشريط الجانبي",
       "sideBarCloseAriaLabel": "غلق الشريط الجانبي",
       "openInApp": "افتح في تطبيق {{appName}}",
@@ -8463,7 +8582,7 @@
       "voiceUnavailableMessage": "لم يتم العثور على صوت. لاستخدام خاصية القراءة بصوت عالٍ، يجب تثبيت صوت. الرجاء الرجوع إلى التعليمات الخاصة بنظام التشغيل أدناه."
     },
     "bg": {
-      "imprintAndContact": "Импресум и контакт",
+      "disclaimer": "Импресум",
       "privacy": "Защита на личните данни",
       "localInformation": "Местна информация",
       "events": "Събития",
@@ -8483,7 +8602,6 @@
       "cancel": "Отказ",
       "shareMessage": "Току що намерено: {{message}}",
       "shareFailDefaultMessage": "За съжаление споделянето на съдържанието не бе успешно.",
-      "disclaimer": "Импресум",
       "sideBarOpenAriaLabel": "Отваряне на страничната лента",
       "sideBarCloseAriaLabel": "Затваряне на страничната лента",
       "openInApp": "Отваряне на приложение в {{appName}}",
@@ -8503,7 +8621,7 @@
       "voiceUnavailableMessage": "Не беше намерен глас. За да се използва функцията за четене на глас, трябва да има инсталиран глас. Моля, обърнете внимание на следните инструкции за Вашата операционна система."
     },
     "ckb": {
-      "imprintAndContact": "زانیارییەکانی ناوەندی بڵاوکەرەوە و زانیارییەکانی پەیوەندی",
+      "disclaimer": "زانیارییەکانی ناوەندی بڵاوکەرەوە",
       "privacy": "پاراستنی دێیتاکان",
       "localInformation": "زانیارییە خۆجییەکان",
       "events": "ڕووداوەکان",
@@ -8523,7 +8641,6 @@
       "cancel": "پچراندن",
       "shareMessage": "ئێستا نەدۆزراوە: {{message}}",
       "shareFailDefaultMessage": "بەداخەوە هاوبەشکردنی انوەرۆک ئەنجام نەدرا.",
-      "disclaimer": "زانیارییەکانی ناوەندی بڵاوکەرەوە",
       "sideBarOpenAriaLabel": "کردنەوەی سایدبار",
       "sideBarCloseAriaLabel": "داخستنی سایدبار",
       "openInApp": "لە ئەپی {{appName}} بیکەوە",
@@ -8543,7 +8660,7 @@
       "voiceUnavailableMessage": "هیچ دەنگێک نەدۆزراوەتەوە. بۆ بەکارهێنانی توانای خوێندنەوە دەبێت دەنگێک دابنرێت. تکایە ڕێنماییەکانی خوارەوە بۆ سیستەمی کارپێکردنەکەت پەیڕەو بکە."
     },
     "cs": {
-      "imprintAndContact": "Impresum a kontakt",
+      "disclaimer": "Impresum",
       "privacy": "Ochrana údajů",
       "localInformation": "Lokální informace",
       "events": "Akce",
@@ -8563,7 +8680,6 @@
       "cancel": "Zrušit",
       "shareMessage": "Právě nalezeno: {{message}}",
       "shareFailDefaultMessage": "Je nám líto, sdílení obsahu se nezdařilo.",
-      "disclaimer": "Impresum",
       "sideBarOpenAriaLabel": "Otevřít postranní panel",
       "sideBarCloseAriaLabel": "Zavřít postranní panel",
       "openInApp": "V {{appName}} otevřít aplikaci",
@@ -8583,7 +8699,7 @@
       "voiceUnavailableMessage": "Žádný hlas nebyl nalezen. Pro použití funkce hlasitého čtení musí být nainstalován hlas. Vezměte prosím na vědomí následující pokyny pro váš operační systém."
     },
     "da": {
-      "imprintAndContact": "Kolofon og kontakt",
+      "disclaimer": "Kolofon",
       "privacy": "Beskyttelse af data",
       "localInformation": "Lokale oplysninger",
       "events": "Begivenheder",
@@ -8603,7 +8719,6 @@
       "cancel": "Annuller",
       "shareMessage": "Lige fundet: {{message}}",
       "shareFailDefaultMessage": "Det er desværre ikke lykkedes at dele indholdet.",
-      "disclaimer": "Kolofon",
       "sideBarOpenAriaLabel": "Åbn sidepanelet",
       "sideBarCloseAriaLabel": "Luk sidepanelet",
       "openInApp": "Åbn i {{appName}}-appen",
@@ -8623,7 +8738,7 @@
       "voiceUnavailableMessage": "Der blev ikke fundet nogen stemme. Der skal være installeret en stemme for at kunne bruge højtlæsningsfunktionen. Vær opmærksom på følgende anvisninger for dit operativsystem."
     },
     "el": {
-      "imprintAndContact": "Στοιχεία έκδοσης και επικοινωνία",
+      "disclaimer": "Στοιχεία έκδοσης",
       "privacy": "Προστασία δεδομένων ",
       "localInformation": "Τοπικές πληροφορίες",
       "events": "Εκδηλώσεις",
@@ -8643,7 +8758,6 @@
       "cancel": "Διακοπή",
       "shareMessage": "Μόλις βρέθηκε: {{message}}",
       "shareFailDefaultMessage": "Δυστυχώς, η κοινοποίηση του περιεχομένου απέτυχε.",
-      "disclaimer": "Στοιχεία έκδοσης",
       "sideBarOpenAriaLabel": "Ανοίξτε την πλευρική μπάρα",
       "sideBarCloseAriaLabel": "Κλείστε την πλευρική μπάρα",
       "openInApp": "Άνοιγμα στο {{appName}}",
@@ -8663,7 +8777,7 @@
       "voiceUnavailableMessage": "Δεν βρέθηκε φωνή. Για να χρησιμοποιήσετε τη λειτουργία ανάγνωσης πρέπει να εγκαταστήσετε μια φωνή. Λάβετε υπόψη τις ακόλουθες οδηγίες για το λειτουργικό σας σύστημα."
     },
     "en": {
-      "imprintAndContact": "Imprint and contacts",
+      "disclaimer": "Imprint",
       "privacy": "Data protection",
       "localInformation": "Local information",
       "events": "Events",
@@ -8684,7 +8798,6 @@
       "cancel": "Cancel",
       "shareMessage": "Just found: {{message}}",
       "shareFailDefaultMessage": "Unfortunately an error occurred when sharing the content.",
-      "disclaimer": "Imprint",
       "sideBarOpenAriaLabel": "Open sidebar",
       "sideBarCloseAriaLabel": "Close sidebar",
       "openInApp": "Open in the {{appName}} app",
@@ -8704,7 +8817,7 @@
       "voiceUnavailableMessage": "No voice found. In order to use the read aloud functionality, a voice has to be installed. Please refer to the instructions for your operating system below."
     },
     "es": {
-      "imprintAndContact": "Aviso legal y contacto",
+      "disclaimer": "Aviso legal",
       "privacy": "Privacidad",
       "localInformation": "Información local",
       "events": "Actividades",
@@ -8724,7 +8837,6 @@
       "cancel": "Cancelar",
       "shareMessage": "Acabamos de encontrar: {{message}}",
       "shareFailDefaultMessage": "No se ha podido compartir el contenido.",
-      "disclaimer": "Aviso legal",
       "sideBarOpenAriaLabel": "Abrir barra lateral",
       "sideBarCloseAriaLabel": "Cerrar barra lateral",
       "openInApp": "Abrir en la aplicación {{appName}}",
@@ -8744,7 +8856,7 @@
       "voiceUnavailableMessage": "No se encontró ninguna voz. Para utilizar la función de lectura en voz alta, es necesario tener instalada una voz. Ten en cuenta las siguientes instrucciones para tu sistema operativo."
     },
     "fi": {
-      "imprintAndContact": "Julkaisu- ja yhteystiedot",
+      "disclaimer": "Julkaisutiedot",
       "privacy": "Tietosuoja",
       "localInformation": "Paikalliset tiedot",
       "events": "Tapahtumat",
@@ -8764,7 +8876,6 @@
       "cancel": "Keskeytä",
       "shareMessage": "Juuri löydetty: {{message}}",
       "shareFailDefaultMessage": "Sisällön jakaminen epäonnistui.",
-      "disclaimer": "Julkaisutiedot",
       "sideBarOpenAriaLabel": "Avaa sivupalkki",
       "sideBarCloseAriaLabel": "Sulje sivupalkki",
       "openInApp": "Avaa sovelluksessa {{appName}}",
@@ -8784,7 +8895,7 @@
       "voiceUnavailableMessage": "Ääntä ei löytynyt. Äänen on oltava asennettuna, jotta voit käyttää ääneenlukutoimintoa. Ota huomioon seuraavat käyttöjärjestelmää koskevat ohjeet."
     },
     "fr": {
-      "imprintAndContact": "Mentions légales et contact",
+      "disclaimer": "Mentions légales",
       "privacy": "Protection des données",
       "localInformation": "Informations locales",
       "events": "Événements",
@@ -8804,7 +8915,6 @@
       "cancel": "Annuler",
       "shareMessage": "Tout juste trouvé : {{message}}",
       "shareFailDefaultMessage": "Le partage du contenu a malheureusement échoué.",
-      "disclaimer": "Mentions légales",
       "sideBarOpenAriaLabel": "Ouvrir la barre latérale",
       "sideBarCloseAriaLabel": "Fermer la barre latérale",
       "openInApp": "Dans l’application {{appName}} Ouvrir l’appli",
@@ -8824,7 +8934,7 @@
       "voiceUnavailableMessage": "Aucune voix n’a été trouvée. Pour pouvoir utiliser la fonction de lecture, une voix doit être installée. Veuillez suivre les instructions suivantes pour votre système d’exploitation."
     },
     "hi": {
-      "imprintAndContact": "छाप और संपर्क",
+      "disclaimer": "छाप",
       "privacy": "डेटा संरक्षण",
       "localInformation": "स्थानीय जानकारी",
       "events": "ईवेंट",
@@ -8844,7 +8954,6 @@
       "cancel": "रद्द करें",
       "shareMessage": "अभी मिला: {{message}}",
       "shareFailDefaultMessage": "दुर्भाग्यवश सामग्री शेयर करते समय एक त्रुटि हुई।",
-      "disclaimer": "छाप",
       "sideBarOpenAriaLabel": "साइडबार खोलें",
       "sideBarCloseAriaLabel": "साइडबार बंद करें",
       "openInApp": "{{appName}} ऐप में खोलें",
@@ -8864,7 +8973,7 @@
       "voiceUnavailableMessage": "कोई वॉइस नहीं मिली रीड अलाउड के फ़ंक्शन का उपयोग करने के लिए, वॉइस इंस्टॉल किया जाना जरूरी है। अपने ऑपरेटिंग सिस्टम के लिए नीचे दिए गए निर्देश देखें।"
     },
     "hr": {
-      "imprintAndContact": "Impresum i kontakt",
+      "disclaimer": "Impresum",
       "privacy": "Zaštita podataka",
       "localInformation": "Lokalne informacije",
       "events": "Događanja",
@@ -8884,7 +8993,6 @@
       "cancel": "Prekid",
       "shareMessage": "Upravo pronađeno: {{message}}",
       "shareFailDefaultMessage": "Dijeljenje sadržaja nažalost nije uspjelo.",
-      "disclaimer": "Impresum",
       "sideBarOpenAriaLabel": "Otvori bočnu traku",
       "sideBarCloseAriaLabel": "Zatvori bočnu traku",
       "openInApp": "Otvori u aplikaciji {{appName}}",
@@ -8904,7 +9012,7 @@
       "voiceUnavailableMessage": "Nije pronađen glas. Kako biste koristili funkciju čitanja, neophodno je da postoji instaliran glas. Obratite pažnju na sljedeće instrukcije za vaš operativni sustav."
     },
     "hu": {
-      "imprintAndContact": "Impresszum és elérhetőség",
+      "disclaimer": "Impresszum",
       "privacy": "Adatvédelem",
       "localInformation": "Helyi információk",
       "events": "Események",
@@ -8924,7 +9032,6 @@
       "cancel": "Megszakítás",
       "shareMessage": "Ezt találtuk éppen: {{message}}",
       "shareFailDefaultMessage": "Sikertelen tartalom megosztás.",
-      "disclaimer": "Impresszum",
       "sideBarOpenAriaLabel": "Oldalsáv megnyitása",
       "sideBarCloseAriaLabel": "Oldalsáv bezárása",
       "openInApp": "{{appName}} alkalmazás megnyitása",
@@ -8943,8 +9050,48 @@
       "voiceUnavailable": "Nem telepített hangot",
       "voiceUnavailableMessage": "Nem található hang. A felolvasás funkciónak telepített hangra van szüksége. Tartsa be az operációs rendszerére vonatkozó utasításokat."
     },
+    "id": {
+      "disclaimer": "Cetak",
+      "privacy": "Proteksi data",
+      "localInformation": "Informasi lokal",
+      "events": "Acara",
+      "noEvents": "Tidak ada acara",
+      "news": "Berita",
+      "noLanguages": "Tidak tersedia dalam bahasa lain",
+      "noTranslation": "Terjemahan tidak tersedia",
+      "search": "Cari",
+      "locations": "Peta",
+      "changeLocation": "Ubah lokasi",
+      "changeLanguage": "Ubah bahasa",
+      "settings": "Pengaturan",
+      "copyUrl": "Salin tautan",
+      "contrastTheme": "Kontras Tinggi (beta)",
+      "contrastThemeDescription": "Mode kontras mengembangkan tingkat keterbacaan",
+      "feedback": "Umpan balik",
+      "share": "Bagikan",
+      "cancel": "Batalkan",
+      "shareMessage": "Baru ditemukan: {{message}}",
+      "shareFailDefaultMessage": "Sayangnya, terjadi galat saat berbagi konten.",
+      "sideBarOpenAriaLabel": "Buka bilah samping",
+      "sideBarCloseAriaLabel": "Tutup bilah samping",
+      "openInApp": "Buka di aplikasi {{appName}}",
+      "open": "Buka",
+      "view": "Lihat",
+      "getOnPlayStore": "DAPATKAN — Di Google Play Store",
+      "accessibility": "Aksesibilitas",
+      "readAloud": "Baca keras-keras",
+      "nothingToRead": "Tidak ada yang bisa dibaca",
+      "nothingToReadFullMessage": "Tidak ada bahan untuk dibaca di halaman ini.",
+      "languageNotSupported": "Bahasa tidak didukung.",
+      "previous": "Sebelumnya",
+      "next": "Berikutnya",
+      "play": "Putar",
+      "pause": "Jeda",
+      "voiceUnavailable": "Suara tidak terinstal",
+      "voiceUnavailableMessage": "Suara tidak ditemukan. Agar dapat menggunakan fungsi baca keras-keras, harus ada suara yang diinstal. Mengaculah ke buku panduan sistem operasi Anda di bawah ini."
+    },
     "it": {
-      "imprintAndContact": "Impressum e contatti",
+      "disclaimer": "Impressum",
       "privacy": "Protezione dei dati",
       "localInformation": "Informazioni locali",
       "events": "Eventi",
@@ -8964,7 +9111,6 @@
       "cancel": "Annulla",
       "shareMessage": "Appena trovato: {{message}}",
       "shareFailDefaultMessage": "Purtroppo la condivisione del contenuto non è riuscita.",
-      "disclaimer": "Impressum",
       "sideBarOpenAriaLabel": "Apri la barra laterale",
       "sideBarCloseAriaLabel": "Chiudi la barra laterale",
       "openInApp": "Apri un’applicazione in {{appName}}",
@@ -8984,7 +9130,7 @@
       "voiceUnavailableMessage": "Non è stata trovata alcuna voce. Per utilizzare la funzione di lettura ad alta voce è necessario installare una voce. Tieni presente le seguenti istruzioni relative al tuo sistema operativo."
     },
     "ka": {
-      "imprintAndContact": "მისამართი და საკონტაქტო ინფორმაცია",
+      "disclaimer": "მისამართი",
       "privacy": "მონაცემთა დაცვა",
       "localInformation": "ადგილობრივი ინფორმაციები",
       "events": "ღონისძიებები",
@@ -9004,7 +9150,6 @@
       "cancel": "გაწყვეტა",
       "shareMessage": "ეხლა ნაპოვნი: {{appName}}",
       "shareFailDefaultMessage": "შინაარსის გაზიარება ჩაიშალა",
-      "disclaimer": "მისამართი",
       "sideBarOpenAriaLabel": "გვერდის ბმულის გახსნა",
       "sideBarCloseAriaLabel": "გვერდის ბმულის დახურვა",
       "openInApp": "{{appName}} აპში გახსნა",
@@ -9024,7 +9169,7 @@
       "voiceUnavailableMessage": "ხმა არ მოიძებნა. ხმამაღლა წაკითხვის ფუნქციის გამოსაყენებლად ხმა უნდა იყოს დაყენებული. ყურადღება მიაქციეთ შემდეგ მითითებებს თქვენს ოპერაციულ სისტემასთან დაკავშირებით."
     },
     "kmr": {
-      "imprintAndContact": "Lêzanînên Weşîner û Têkillî",
+      "disclaimer": "Lêzanînên Weşîner",
       "privacy": "Parastina daneyan",
       "localInformation": "Zanyariyên xwecihî",
       "events": "Rûdan",
@@ -9044,7 +9189,6 @@
       "cancel": "Qutbûn",
       "shareMessage": "Niha hat dîtin: {{message}}",
       "shareFailDefaultMessage": "Mixabin parvekirina babetên pêk nehat.",
-      "disclaimer": "Lêzanînên Weşîner",
       "sideBarOpenAriaLabel": "Zîvala kêlekê veke",
       "sideBarCloseAriaLabel": "Zîvala kêlekê girêde",
       "openInApp": "Sepana {{appName}} veke",
@@ -9064,7 +9208,7 @@
       "voiceUnavailableMessage": "Ti dengek nehat dîtin Ji bo ku bikarî funksyona xwendinê bi kar bînî, divê deng were sazkirin. Ji kerema xwe destûrkarên xwarê ji bo pergala cihêner a xwe binivîsîne."
     },
     "mk": {
-      "imprintAndContact": "Импресум и контакт",
+      "disclaimer": "Импресум",
       "privacy": "Заштита на лични податоци",
       "localInformation": "Локални информации",
       "events": "Настани",
@@ -9084,7 +9228,6 @@
       "cancel": "Поништи",
       "shareMessage": "Само што е пронајдено: {{message}}",
       "shareFailDefaultMessage": "Деловите од содржината за жал не се вчитани.",
-      "disclaimer": "Импресум",
       "sideBarOpenAriaLabel": "Отвори ја страничната лента",
       "sideBarCloseAriaLabel": "Затвори ја страничната лента",
       "openInApp": "Отвори во апликацијата {{appName}}",
@@ -9104,7 +9247,7 @@
       "voiceUnavailableMessage": "Не е најден глас. За да ја користите функцијата за читање, мора да се инсталира глас. Следете ги упатствата подолу за вашиот оперативен систем."
     },
     "nl": {
-      "imprintAndContact": "Impressum en contactgegevens",
+      "disclaimer": "Impressum",
       "privacy": "Gegevensbescherming",
       "localInformation": "Lokale informatie",
       "events": "Evenementen",
@@ -9124,7 +9267,6 @@
       "cancel": "Annuleer",
       "shareMessage": "Zojuist gevonden: {{message}}",
       "shareFailDefaultMessage": "Helaas is er een fout opgetreden bij het delen van de content",
-      "disclaimer": "Impressum",
       "sideBarOpenAriaLabel": "Zijbalk openen",
       "sideBarCloseAriaLabel": "Zijbalk sluiten",
       "openInApp": "Openen in de {{appName}}-app",
@@ -9144,7 +9286,7 @@
       "voiceUnavailableMessage": "Er werd geen stem gevonden. Er moet een stem geïnstalleerd zijn om de voorleesfunctie te kunnen gebruiken. Neem de volgende instructies voor jouw besturingssysteem in acht."
     },
     "orm": {
-      "imprintAndContact": "Ashaaraa fi quunnamtii",
+      "disclaimer": "Ashaaraa",
       "privacy": "Eegumsa daataa",
       "localInformation": "Odeeffannoo naannoo",
       "events": "Sagantaalee",
@@ -9164,7 +9306,6 @@
       "cancel": "Kuffiisi",
       "shareMessage": "Reefu argame: {{message}}",
       "shareFailDefaultMessage": "Amma yeroo qabiyyeen qoodamu dogongorri uumame.",
-      "disclaimer": "Ashaaraa",
       "sideBarOpenAriaLabel": "Barruu cinaa banaa",
       "sideBarCloseAriaLabel": "Barruu cinaa cufaa",
       "openInApp": "Appii {{appName}} irratti bani",
@@ -9184,7 +9325,7 @@
       "voiceUnavailableMessage": "Sagaleen hin jiru.s Sagalee olguddisuu fayyadamuuf, sagaleen inistool ta’uu qaba. Qajeelfama ittiin hojjatan kan gajjalaa jiru ilaali."
     },
     "pes": {
-      "imprintAndContact": "اطلاعات ناشر و تماس",
+      "disclaimer": "اطلاعات ناشر",
       "privacy": "حفاظت از داده ها",
       "localInformation": "اطلاعات محلی",
       "events": "رویدادها",
@@ -9204,7 +9345,6 @@
       "cancel": "قطع",
       "shareMessage": "اکنون یافت شد: {{message}}",
       "shareFailDefaultMessage": "متأسفانه به اشتراک گذاشتن محتوا انجام نشد.",
-      "disclaimer": "اطلاعات ناشر",
       "sideBarOpenAriaLabel": "باز کردن نوار کناری",
       "sideBarCloseAriaLabel": "بستن نوار کناری",
       "openInApp": "در برنامه {{appName}} باز کنید",
@@ -9224,7 +9364,7 @@
       "voiceUnavailableMessage": "صدایی یافت نشد. برای استفاده از قابلیت خواندن، باید یک صدا نصب شود. لطفاً دستورالعمل‌های زیر را برای سیستم عامل خود دنبال کنید."
     },
     "pl": {
-      "imprintAndContact": "Nota prawna i kontakt",
+      "disclaimer": "Nota prawna",
       "privacy": "Ochrona danych",
       "localInformation": "Informacje lokalne",
       "events": "Wydarzenia",
@@ -9244,7 +9384,6 @@
       "cancel": "Przerwij",
       "shareMessage": "Właśnie znaleziono: {{message}}",
       "shareFailDefaultMessage": "Niestety udostępnianie treści nie powiodło się.",
-      "disclaimer": "Nota prawna",
       "sideBarOpenAriaLabel": "Otwórz pasek boczny",
       "sideBarCloseAriaLabel": "Zamknij pasek boczny",
       "openInApp": "Otwórz aplikację w {{appName}}",
@@ -9264,7 +9403,7 @@
       "voiceUnavailableMessage": "Nie znaleziono żadnego głosu. Aby korzystać z funkcji lektora, należy zainstalować głos. Zwróć uwagę na poniższe instrukcje dla Twojego systemu operacyjnego."
     },
     "prs": {
-      "imprintAndContact": "معلومات ناشر و تماس",
+      "disclaimer": "معلومات ناشر",
       "privacy": "حفاظت از داده ها",
       "localInformation": "معلومات محلی",
       "events": "رویدادها",
@@ -9284,7 +9423,6 @@
       "cancel": "قطع نمودن",
       "shareMessage": "اکنون پیدا شد: {{message}}",
       "shareFailDefaultMessage": "متاسفانه اشتراک گذاری محتوا صورت نگرفت.",
-      "disclaimer": "معلومات ناشر",
       "sideBarOpenAriaLabel": "باز کردن نوار کناری",
       "sideBarCloseAriaLabel": "بستن نوار کناری",
       "openInApp": "در اپليکيشن {{appName}} باز کنید",
@@ -9304,7 +9442,7 @@
       "voiceUnavailableMessage": "صدایی پیدا نشد. برای استفاده از قابلیت خواندن، باید یک صدا نصب شود. لطفا هدایاتی ذیل را برای سیستم عامل خود دنبال کنید."
     },
     "ps": {
-      "imprintAndContact": "چاپ او اړیکه",
+      "disclaimer": "چاپ کوونکی",
       "privacy": "د ډاټا حفاظت",
       "localInformation": "سیمه ییز معلومات",
       "events": "غونډې",
@@ -9324,7 +9462,6 @@
       "cancel": "ختمول",
       "shareMessage": "همدا اوس پیدا شو: {{message}}",
       "shareFailDefaultMessage": "د منځپانګو شریکول له بده مرغه ناکام شول.",
-      "disclaimer": "چاپ کؤنکی",
       "sideBarOpenAriaLabel": "د سايډبار پرانيستل",
       "sideBarCloseAriaLabel": "د سايډبار بندول",
       "openInApp": "په {{appName}} اپلیکیشن کې يې پرانیزئ",
@@ -9344,7 +9481,7 @@
       "voiceUnavailableMessage": "هیڅ غږ ونه موندل شو. د لوستلو ځانګړنې کارولو لپاره، یو غږ باید نصب شي. د مهربانۍ له مخې د خپل عملیاتي سیسټم لپاره لاندې لارښوونې تعقیب کړئ."
     },
     "pt": {
-      "imprintAndContact": "Pé de imprensa e contactos",
+      "disclaimer": "Pé de imprensa",
       "privacy": "Proteção de dados",
       "localInformation": "Informações locais",
       "events": "Eventos",
@@ -9364,7 +9501,6 @@
       "cancel": "Cancelar",
       "shareMessage": "Encontrado agora: {{message}}",
       "shareFailDefaultMessage": "Lamentamos, mas a partilha do conteúdo falhou.",
-      "disclaimer": "Pé de imprensa",
       "sideBarOpenAriaLabel": "Abrir a barra lateral",
       "sideBarCloseAriaLabel": "Fechar a barra lateral",
       "openInApp": "Na {{appName}} abre a aplicação",
@@ -9384,7 +9520,7 @@
       "voiceUnavailableMessage": "Não encontraste nenhuma voz. Para utilizares a função de leitura em voz alta, tens de ter uma voz instalada. Tem em atenção as seguintes instruções para o teu sistema operativo."
     },
     "ro": {
-      "imprintAndContact": "Caseta tehnică și contact",
+      "disclaimer": "Caseta tehnică",
       "privacy": "Confidențialitate",
       "localInformation": "Informații locale",
       "events": "Evenimente",
@@ -9404,7 +9540,6 @@
       "cancel": "Întrerupeți",
       "shareMessage": "Tocmai s-a găsit: {{message}}",
       "shareFailDefaultMessage": "Distribuirea conținutului a eșuat.",
-      "disclaimer": "Caseta tehnică",
       "sideBarOpenAriaLabel": "Deschideți bara laterală",
       "sideBarCloseAriaLabel": "Închideți bara laterală",
       "openInApp": "Deschidere în aplicația {{appName}}",
@@ -9424,7 +9559,7 @@
       "voiceUnavailableMessage": "Nu a fost găsită nicio voce. Pentru a utiliza funcția de citire cu voce tare, trebuie instalată o voce. Vă rugăm să țineți cont de următoarele instrucțiuni pentru sistemul dvs. de operare."
     },
     "rom": {
-      "imprintAndContact": "Otpečatkoja thaj kontaktia",
+      "disclaimer": "Otpečatkoja",
       "privacy": "Arakhiba podatke",
       "localInformation": "Lokalnikane informacie",
       "events": "Čipote",
@@ -9444,7 +9579,6 @@
       "cancel": "Čhinav",
       "shareMessage": "Arakhlilo: {{message}}",
       "shareFailDefaultMessage": "Jasineste bangin uli ko ulavibe o kotor.",
-      "disclaimer": "Otpečatkoja",
       "sideBarOpenAriaLabel": "Phrav rigakorothan",
       "sideBarCloseAriaLabel": "Phan rigakorothan",
       "openInApp": "Phrav ki {{appName}} app",
@@ -9464,7 +9598,7 @@
       "voiceUnavailableMessage": "Nane arakhlo avazi. Baši te labare o drabaripe ko glaso, valjani te čhive avazi. Molinaja tu te dikhe o instrukcie baši to sistemo tele."
     },
     "ru": {
-      "imprintAndContact": "Выходные данные и контактная информация",
+      "disclaimer": "Выходные данные",
       "privacy": "Защита данных",
       "localInformation": "Местная информация",
       "events": "Мероприятия",
@@ -9485,7 +9619,6 @@
       "cancel": "Отменить",
       "shareMessage": "Найдено: {{message}}",
       "shareFailDefaultMessage": "К сожалению, не удалось поделиться содержимым.",
-      "disclaimer": "Выходные данные",
       "sideBarOpenAriaLabel": "Открыть боковую панель",
       "sideBarCloseAriaLabel": "Закрыть боковую панель",
       "openInApp": "Открыть в приложении {{appName}}",
@@ -9505,7 +9638,7 @@
       "voiceUnavailableMessage": "Голос не был обнаружен. Для использования функции чтения вслух необходимо установить голос. Обратите внимание на следующие инструкции для вашей операционной системы."
     },
     "sk": {
-      "imprintAndContact": "Tiráž a kontakt",
+      "disclaimer": "Tiráž",
       "privacy": "Ochrana osobných údajov",
       "localInformation": "Lokálne informácie",
       "events": "Podujatia",
@@ -9525,7 +9658,6 @@
       "cancel": "Zrušiť",
       "shareMessage": "Práve nájdené: {{message}}",
       "shareFailDefaultMessage": "Zdieľanie obsahu sa žiaľ nepodarilo.",
-      "disclaimer": "Tiráž",
       "sideBarOpenAriaLabel": "Otvoriť bočnú lištu",
       "sideBarCloseAriaLabel": "Zatvoriť bočnú lištu",
       "openInApp": "V {{appName}} Otvoriť aplikáciu",
@@ -9545,7 +9677,7 @@
       "voiceUnavailableMessage": "Žiadny hlas nebol nájdený. Ak chcete používať funkciu prečítania, musí byť nainštalovaný hlas. Zohľadnite, prosím, nasledujúce pokyny pre váš operačný systém."
     },
     "so": {
-      "imprintAndContact": "Faahfaahinta qoraaga iyo macaluumaadkiisa xiriirka",
+      "disclaimer": "Faahfaahinta qoraaga",
       "privacy": "Asturnaanta",
       "localInformation": "Macluumaadka deegaanka",
       "events": "Dhacdooyinka",
@@ -9565,7 +9697,6 @@
       "cancel": "Jooji",
       "shareMessage": "Hada la helay: {{message}}",
       "shareFailDefaultMessage": "Nasiib darro, wadaagista tusmada ayaa lagu guuldaraystay.",
-      "disclaimer": "Qoraa",
       "sideBarOpenAriaLabel": "Fur qaybta dhinaca",
       "sideBarCloseAriaLabel": "Xidh qaybta dhinaca",
       "openInApp": "Ku fur barnaamijka {{appName}}.",
@@ -9585,7 +9716,7 @@
       "voiceUnavailableMessage": "Cod lama helin. Si aad u isticmaasho hawsha akhriska codka, cod waa in la rakibaa. Fadlan raac tilmaamaha soo socda ee nidaamkaaga hawlgalka."
     },
     "sq": {
-      "imprintAndContact": "Botuesi dhe kontakti",
+      "disclaimer": "Botuesi",
       "privacy": "Mbrojtja e të dhënave",
       "localInformation": "Informata lokale",
       "events": "Evenimentet",
@@ -9605,7 +9736,6 @@
       "cancel": "Anulo",
       "shareMessage": "Sapo u gjet: {{message}}",
       "shareFailDefaultMessage": "Fatkeqësisht, ndarja e përmbajtjes dështoi.",
-      "disclaimer": "Botuesi",
       "sideBarOpenAriaLabel": "Hap shiritin anësor",
       "sideBarCloseAriaLabel": "Mbyll shiritin anësor",
       "openInApp": "Hape në aplikacionin {{appName}}",
@@ -9625,7 +9755,7 @@
       "voiceUnavailableMessage": "Nuk u gjet asnjë tingull. Për të përdorur funksionin e leximit duhet të instalohen tinguj. Ndiq udhëzimet e mëposhtme për sistemin tënd operativ."
     },
     "sr-Cyrl": {
-      "imprintAndContact": "Импресум и контакт",
+      "disclaimer": "Импресум",
       "privacy": "Заштита података",
       "localInformation": "Локалне информације",
       "events": "Догађаји",
@@ -9645,7 +9775,6 @@
       "cancel": "Прекид",
       "shareMessage": "Управо пронађено: {{message}}",
       "shareFailDefaultMessage": "Нажалост, није било могуће дељење садржаја.",
-      "disclaimer": "Импресум",
       "sideBarOpenAriaLabel": "Отвори бочну траку",
       "sideBarCloseAriaLabel": "Затвори бочну траку",
       "openInApp": "Отвори у апликацији {{appName}}",
@@ -9665,7 +9794,7 @@
       "voiceUnavailableMessage": "Није пронађен глас Да бисте користили функцију читања, неопходно је да постоји инсталиран глас. Обратите пажњу на следеће инструкције за ваш оперативни систем."
     },
     "sr-Latn": {
-      "imprintAndContact": "Impresum i kontakt",
+      "disclaimer": "Impresum",
       "privacy": "Zaštita podataka",
       "localInformation": "Lokalne informacije",
       "events": "Događaji",
@@ -9685,7 +9814,6 @@
       "cancel": "Prekid",
       "shareMessage": "Upravo pronađeno: {{message}}",
       "shareFailDefaultMessage": "Nažalost, nije bilo moguće deljenje sadržaja.",
-      "disclaimer": "Impresum",
       "sideBarOpenAriaLabel": "Otvori bočnu traku",
       "sideBarCloseAriaLabel": "Zatvori bočnu traku",
       "openInApp": "Otvori u aplikaciji {{appName}}",
@@ -9705,7 +9833,7 @@
       "voiceUnavailableMessage": "Nije pronađen glas. Da biste koristili funkciju čitanja, neophodno je da postoji instaliran glas. Obratite pažnju na sledeće instrukcije za vaš operativni sistem."
     },
     "sw": {
-      "imprintAndContact": "Chapa na anwani",
+      "disclaimer": "Chapa",
       "privacy": "Ulinzi wa data",
       "localInformation": "Habari za nchini",
       "events": "Matukio",
@@ -9725,7 +9853,6 @@
       "cancel": "Acha",
       "shareMessage": "Uliopatikana hivi sasa: {{message}}",
       "shareFailDefaultMessage": "Samahani, hitilafu fulani imetokea wakati wa kutuma maudhui.",
-      "disclaimer": "Chapa",
       "sideBarOpenAriaLabel": "Fungua utepe",
       "sideBarCloseAriaLabel": "Fungua utepe",
       "openInApp": "Fungua katika programu ya {{appName}}",
@@ -9745,7 +9872,7 @@
       "voiceUnavailableMessage": "Hakuna sauti iliyopatikana. Ili utumie kipengele cha kusoma kwa sauti, ni lazima uweke sauti. Tafadhali soma maagizo ya mfumo wako wa uendeshaji hapa chini."
     },
     "th": {
-      "imprintAndContact": "ข้อมูลการพิมพ์และการติดต่อ",
+      "disclaimer": "ข้อมูลการพิมพ์",
       "privacy": "การคุ้มครองข้อมูล",
       "localInformation": "ข้อมูลท้องถิ่น",
       "events": "กิจกรรม",
@@ -9765,7 +9892,6 @@
       "cancel": "ยกเลิก",
       "shareMessage": "เพิ่งพบ: {{message}}",
       "shareFailDefaultMessage": "ขออภัย การแบ่งปันเนื้อหาล้มเหลว",
-      "disclaimer": "ข้อมูลการพิมพ์",
       "sideBarOpenAriaLabel": "เปิดแถบด้านข้าง",
       "sideBarCloseAriaLabel": "ปิดแถบด้านข้าง",
       "openInApp": "เปิดในแอป {{appName}}",
@@ -9785,7 +9911,7 @@
       "voiceUnavailableMessage": "ไม่พบเสียงใดๆ เพื่อใช้ฟังก์ชันการอ่านจะต้องติดตั้งเสียง โปรดปฏิบัติตามคำแนะนำด้านล่างนี้สำหรับระบบปฏิบัติการของคุณ"
     },
     "ti": {
-      "imprintAndContact": "ናይ ደራሲ ዝርዝራት ሓበሬታን ናይ ርክብን",
+      "disclaimer": "ናይ ደራሲ ዝርዝራት",
       "privacy": "ምስጢርነት",
       "localInformation": "ከባብያዊ ሓበሬታ",
       "events": "ኣጋጣሚታት",
@@ -9805,7 +9931,6 @@
       "cancel": "ደው ኣብል",
       "shareMessage": "ተረኺቡ ኣሎ፥ {{message}}",
       "shareFailDefaultMessage": "ሕማቕ ኣጋጣሚ ኾይኑ፡ ምክፋል እቲ ትሕዝቶ ኣይተዓወተን።",
-      "disclaimer": "ደራሲ",
       "sideBarOpenAriaLabel": "ክፉት ጎናዊ መስመር",
       "sideBarCloseAriaLabel": "ጎናዊ መስመር ዕጸዎ",
       "openInApp": "ኣብ {{appName}} መተግበሪ ክፉቱ",
@@ -9825,7 +9950,7 @@
       "voiceUnavailableMessage": "ዝኾነ ድምጺ ኣይተረኽበን። ነቲ ዓው ኢልካ ምንባብ ዝብል ተግባር ንምጥቃም፣ ድምጺ ክጸዓን ኣለዎ። በጃኹም ነቲ መምርሒታት ስርዓተ ምምሕዳርኩም ተኸተሉ።"
     },
     "tr": {
-      "imprintAndContact": "Künye ve iletişim",
+      "disclaimer": "Künye",
       "privacy": "Kişisel verilerin korunması",
       "localInformation": "Yerel bilgiler",
       "events": "Etkinlikler",
@@ -9845,7 +9970,6 @@
       "cancel": "İptal",
       "shareMessage": "Şimdi bulundu: {{message}}",
       "shareFailDefaultMessage": "İçeriğin paylaşılması maalesef başarısız.",
-      "disclaimer": "Künye",
       "sideBarOpenAriaLabel": "Kenar çubuğunu aç",
       "sideBarCloseAriaLabel": "Kenar çubuğunu kapat",
       "openInApp": "{{appName}} uygulamasında aç",
@@ -9865,7 +9989,7 @@
       "voiceUnavailableMessage": "Ses bulunamadı. Sesli okuma işlevini kullanabilmek için bir sesin yüklenmiş olması gerekir. Lütfen işletim sisteminiz için aşağıdaki talimatları dikkate alın."
     },
     "uk": {
-      "imprintAndContact": "Імпресум та контакт",
+      "disclaimer": "Імпресум",
       "privacy": "Захист даних",
       "localInformation": "Місцева інформація",
       "events": "Події",
@@ -9885,7 +10009,6 @@
       "cancel": "Cкасування",
       "shareMessage": "Щойно знайдено: {{message}}",
       "shareFailDefaultMessage": "Вибачте, поділитися вмістом не вдалося.",
-      "disclaimer": "Імпресум",
       "sideBarOpenAriaLabel": "Відкрити бічну панель",
       "sideBarCloseAriaLabel": "Закрити бічну панель",
       "openInApp": "Відкрити в додатку {{appName}}",
@@ -9905,7 +10028,7 @@
       "voiceUnavailableMessage": "Голос не знайдено. Для використання функції читання вголос необхідно інсталювати голос. Зверніть увагу на наступні інструкції для вашої операційної системи."
     },
     "ur": {
-      "imprintAndContact": "چھاپ اور رابطہ",
+      "disclaimer": "چھاپ",
       "privacy": "ڈیٹا کا تحفظ",
       "localInformation": "مقامی معلومات",
       "events": "ایونٹس",
@@ -9925,7 +10048,6 @@
       "cancel": "منسوخ کریں",
       "shareMessage": "ابھی ملا: {{message}}",
       "shareFailDefaultMessage": "بدقسمتی سے مواد شیئر کرنے میں ناکام رہے۔",
-      "disclaimer": "چھاپ",
       "sideBarOpenAriaLabel": "سائڈبار کھولیں",
       "sideBarCloseAriaLabel": "سائڈبار بند کریں",
       "openInApp": "{{appName}} ایپ میں کھولیں",
@@ -9945,7 +10067,7 @@
       "voiceUnavailableMessage": "کوئی آواز نہیں ملی۔ پڑھنے کے فنکشن کو استعمال کرنے کے لیے، آواز کو انسٹال کرنا ضروری ہے۔ براہ کرم اپنے آپریٹنگ سسٹم کے لیے نیچے دی گئی ہدایات پر عمل کریں۔"
     },
     "vi": {
-      "imprintAndContact": "Thông tin xuất bản và liên hệ",
+      "disclaimer": "Thông tin xuất bản",
       "privacy": "Bảo vệ dữ liệu",
       "localInformation": "Thông tin về địa phương",
       "events": "Sự kiện",
@@ -9965,7 +10087,6 @@
       "cancel": "Hủy",
       "shareMessage": "Vừa tìm thấy: {{message}}",
       "shareFailDefaultMessage": "Rất tiếc, đã xảy ra lỗi khi chia sẻ nội dung.",
-      "disclaimer": "Thông tin xuất bản",
       "sideBarOpenAriaLabel": "Mở thanh bên",
       "sideBarCloseAriaLabel": "Đóng thanh bên",
       "openInApp": "Mở trong ứng dụng {{appName}}",
@@ -9985,7 +10106,7 @@
       "voiceUnavailableMessage": "Không tìm thấy giọng nói. Bạn cần cài đặt giọng nói để sử dụng chức năng đọc to. Vui lòng tham khảo hướng dẫn cho hệ điều hành của bạn bên dưới."
     },
     "zh-CN": {
-      "imprintAndContact": "版本说明和联系方式",
+      "disclaimer": "版本说明",
       "privacy": "数据保护",
       "localInformation": "本地信息",
       "events": "活动",
@@ -10005,7 +10126,6 @@
       "cancel": "取消",
       "shareMessage": "刚找到：{{message}}",
       "shareFailDefaultMessage": "很抱歉，共享内容时出错。",
-      "disclaimer": "版本说明",
       "sideBarOpenAriaLabel": "开启侧边栏",
       "sideBarCloseAriaLabel": "关闭侧边栏",
       "openInApp": "在 {{appName}} 应用中打开",
@@ -10100,6 +10220,11 @@
       "version": "Verzió:",
       "license": "Licenc:",
       "noLicensesMessage": "Nem áll rendelkezésre licencre vonatkozó információ"
+    },
+    "id": {
+      "version": "Versi:",
+      "license": "Lisensi:",
+      "noLicensesMessage": "Informasi lisensi tidak tersedia"
     },
     "it": {
       "version": "Versione:",
@@ -10239,130 +10364,133 @@
   },
   "mainDisclaimer": {
     "de": {
-      "pageTitle": "Impressum und Kontakt - {{appName}}"
+      "pageTitle": "Impressum - {{appName}}"
     },
     "am": {
-      "pageTitle": "ዕትም እና የግንኙነት መረጃ - {{appName}}"
+      "pageTitle": "ዕትም - {{appName}}"
     },
     "ar": {
-      "pageTitle": "هيئة التحرير وجهة الاتصال - {{appName}}"
+      "pageTitle": "هيئة التحرير - {{appName}}"
     },
     "bg": {
-      "pageTitle": "Импресум и контакт - {{appName}}"
+      "pageTitle": "Импресум - {{appName}}"
     },
     "ckb": {
-      "pageTitle": "زانیارییەکانی ناوەندی بڵاوکەرەوە و زانیارییەکانی پەیوەندی - {{appName}}"
+      "pageTitle": "زانیارییەکانی ناوەندی بڵاوکەرەوە - {{appName}}"
     },
     "cs": {
-      "pageTitle": "Impresum a kontakt - {{appName}}"
+      "pageTitle": "Impresum - {{appName}}"
     },
     "da": {
-      "pageTitle": "Kolofon og kontakt - {{appName}}"
+      "pageTitle": "Kolofon - {{appName}}"
     },
     "el": {
-      "pageTitle": "Στοιχεία έκδοσης και επικοινωνία"
+      "pageTitle": "Στοιχεία έκδοσης - {{appName}}"
     },
     "en": {
-      "pageTitle": "Imprint and contacts - {{appName}}"
+      "pageTitle": "Imprint - {{appName}}"
     },
     "es": {
-      "pageTitle": "Aviso legal y contacto - {{appName}}"
+      "pageTitle": "Aviso legal - {{appName}}"
     },
     "fi": {
-      "pageTitle": "Julkaisu- ja yhteystiedot – {{appName}}"
+      "pageTitle": "Julkaisutiedot – {{appName}}"
     },
     "fr": {
-      "pageTitle": "Mentions légales et contact - {{appName}}"
+      "pageTitle": "Mentions légales - {{appName}}"
     },
     "hi": {
-      "pageTitle": "छाप और संपर्क - {{appName}}"
+      "pageTitle": "छाप - {{appName}}"
     },
     "hr": {
-      "pageTitle": "Impresum i kontakt - {{appName}}"
+      "pageTitle": "Impresum - {{appName}}"
     },
     "hu": {
-      "pageTitle": "Impresszum és elérhetőség- {{appName}}"
+      "pageTitle": "Impresszum - {{appName}}"
+    },
+    "id": {
+      "pageTitle": "Cetak - {{appName}}"
     },
     "it": {
-      "pageTitle": "Impressum e contatti - {{appName}}"
+      "pageTitle": "Impressum - {{appName}}"
     },
     "ka": {
-      "pageTitle": "მისამართი და საკონტაქტო ინფორმაცია {{appName}}"
+      "pageTitle": "მისამართი - {{appName}}"
     },
     "kmr": {
-      "pageTitle": "Lêzanînên Weşanîner û Têkillî – '{{appName}}'"
+      "pageTitle": "Lêzanînên Weşanîner - {{appName}}"
     },
     "mk": {
-      "pageTitle": "Импресум и контакт - {{appName}}"
+      "pageTitle": "Импресум - {{appName}}"
     },
     "nl": {
-      "pageTitle": "Impressum en contactgegevens - {{appName}}"
+      "pageTitle": "Impressum - {{appName}}"
     },
     "orm": {
-      "pageTitle": "Ashaaraa fi qunnamtii - {{appName}}"
+      "pageTitle": "Ashaaraa - {{appName}}"
     },
     "pes": {
-      "pageTitle": "اطلاعات ناشر و تماس - {{appName}}"
+      "pageTitle": "اطلاعات ناشر - {{appName}}"
     },
     "pl": {
-      "pageTitle": "Nota prawna i kontakt - {{appName}}"
+      "pageTitle": "Nota prawna - {{appName}}"
     },
     "prs": {
-      "pageTitle": "معلومات ناشر و تماس - {{appName}}"
+      "pageTitle": "معلومات ناشر - {{appName}}"
     },
     "ps": {
-      "pageTitle": "چاپ کؤونکی او ا ړیکہ - {{appName}}"
+      "pageTitle": "چاپ کوونکی - {{appName}}"
     },
     "pt": {
-      "pageTitle": "Pé de imprensa e contactos — {{appName}}"
+      "pageTitle": "Pé de imprensa - {{appName}}"
     },
     "ro": {
-      "pageTitle": "Caseta tehnică și contact - {{appName}}"
+      "pageTitle": "Caseta tehnică - {{appName}}"
     },
     "rom": {
-      "pageTitle": "Otpečatkoja thaj kontaktia - {{appName}}"
+      "pageTitle": "Otpečatkoja - {{appName}}"
     },
     "ru": {
-      "pageTitle": "Выходные данные и контактная информация – {{appName}}"
+      "pageTitle": "Выходные данные - {{appName}}"
     },
     "sk": {
-      "pageTitle": "Tiráž a kontakt – {{appName}}"
+      "pageTitle": "Tiráž - {{appName}}"
     },
     "so": {
-      "pageTitle": "Faahfaahinta qoraaga iyo macaluumaadkiisa xiriirka - {{appName}}"
+      "pageTitle": "Faahfaahinta qoraaga - {{appName}}"
     },
     "sq": {
-      "pageTitle": "Botuesi dhe kontakti - {{appName}}"
+      "pageTitle": "Botuesi - {{appName}}"
     },
     "sr-Cyrl": {
-      "pageTitle": "Импресум и контакт - {{appName}}"
+      "pageTitle": "Импресум - {{appName}}"
     },
     "sr-Latn": {
-      "pageTitle": "Impresum i kontakt - {{appName}}"
+      "pageTitle": "Impresum - {{appName}}"
     },
     "sw": {
-      "pageTitle": "Chapa na anwani - {{appName}}"
+      "pageTitle": "Chapa - {{appName}}"
     },
     "th": {
-      "pageTitle": "ข้อมูลการพิมพ์และการติดต่อ - {{appName}}"
+      "pageTitle": "ข้อมูลการพิมพ์ - {{appName}}"
     },
     "ti": {
-      "pageTitle": "ናይ ደራሲ ዝርዝራት ሓበሬታን ናይ ርክብን - {{appName}}"
+      "pageTitle": "ናይ ደራሲ ዝርዝራት - {{appName}}"
     },
     "tr": {
-      "pageTitle": "Künye ve iletişim - {{appName}}"
+      "pageTitle": "Künye - {{appName}}"
     },
     "uk": {
-      "pageTitle": "Імпресум та контакт - {{appName}}"
+      "pageTitle": "Імпресум - {{appName}}"
     },
     "ur": {
-      "pageTitle": "چھاپ اور رابطہ - {{appName}}"
+      "pageTitle": "چھاپ - {{appName}}"
     },
     "vi": {
-      "pageTitle": "Thông tin xuất bản và liên hệ - {{appName}}"
+      "pageTitle": "Thông tin xuất bản - {{appName}}"
     },
     "zh-CN": {
-      "pageTitle": "版本说明和联系方式- {{appName}}"
+      "pageTitle": "版本说明 - {{appName}}"
     }
   },
   "malteHelpForm": {
@@ -10710,6 +10838,29 @@
       "submitFailed": "Az űrlapot elküldése nem sikerült",
       "submitFailedReasoning": "Biztosítson stabil internetkapcsolatot, és próbálja újra.",
       "invalidEmailAddress": "A megadott e-mail-cím érvénytelen."
+    },
+    "id": {
+      "supportNote": "Kami ingin Anda merasa aman dan didukung setiap kali Anda mengalami kesulitan atau ada pertanyaan. Formulir kontak berikut ini memberi Anda kesempatan untuk tetap berkomunikasi dengan narahubung. Anda dapat menentukan jenis permintaan Anda dan memilih dari berbagai opsi kontak.",
+      "securityNote": "Keamanan Anda prioritas utama kami. Data Anda diperlakukan dengan kerahasiaan sehingga privasi Anda terlindungi setiap saat.",
+      "name": "Nama belakang, nama depan",
+      "roomNumber": "Nomor ruang",
+      "howToBeContacted": "Begini cara untuk menghubungi saya:",
+      "eMail": "via sur-el",
+      "telephone": "via telepon",
+      "telephoneNumber": "Nomor telepon",
+      "personally": "Secara pribadi",
+      "contactPerson": "Narahubung:",
+      "contactPersonAnyGender": "Jenis kelamin narahubung tidak relevan",
+      "contactPersonGenderFemale": "Saya lebih suka dihubungi oleh perempuan",
+      "contactPersonGenderMale": "Saya lebih suka dihubungi oleh pria",
+      "contactReason": "Permintaan Anda:",
+      "maxCharacters": "maksimum {{numberOfCharacters}} karakter",
+      "responseDisclaimer": "Mungkin perlu beberapa hari kerja sebelum Anda menerima respons. Kami berusaha sebaik mungkin untuk memproses permintaan Anda secepatnya.",
+      "submit": "Serahkan formulir",
+      "submitSuccessful": "Formulir berhasil diserahkan",
+      "submitFailed": "Formulir tidak dapat diserahkan",
+      "submitFailedReasoning": "Pastikan koneksi internet stabil, lalu coba lagi.",
+      "invalidEmailAddress": "Alamat sur-el yang Anda masukkan salah."
     },
     "it": {
       "supportNote": "Vogliamo che vi sentiate sicuri/e e supportati/e in caso di problemi o domande. Potete utilizzare il seguente modulo per mettervi in contatto con i vostri referenti. È possibile specificare la natura della richiesta e scegliere tra diverse opzioni di contatto.",
@@ -11439,6 +11590,13 @@
       "NSCalendarsUsageDescription": "{{appName}} szeretne hozzáférni a naptárához egy esemény hozzáadásához.",
       "NSCalendarsFullAccessUsageDescription": "{{appName}} szeretne hozzáférni a naptárához egy esemény hozzáadásához."
     },
+    "id": {
+      "NSPhotoLibraryAddUsageDescription": "{{appName}} ingin menyimpan foto-foto ke perpustakaan Anda.",
+      "NSLocationWhenInUseUsageDescription": "{{appName}} ingin menggunakan lokasi Anda untuk menemukan kota-kota terdekat.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "{{appName}} ingin menggunakan lokasi Anda untuk menemukan kota-kota terdekat.",
+      "NSCalendarsUsageDescription": "{{appName}} ingin mengakses kalender untuk menambahkan acara.",
+      "NSCalendarsFullAccessUsageDescription": "{{appName}} ingin mengakses kalender untuk menambahkan acara."
+    },
     "it": {
       "NSPhotoLibraryAddUsageDescription": "Per salvare le immagini, {{appName}} deve poter accedere alla galleria.",
       "NSLocationWhenInUseUsageDescription": "Per trovare luoghi nelle vicinanze, {{appName}} deve poter accedere alla posizione.",
@@ -11780,6 +11938,16 @@
       "readMore": "Továbbolvasás",
       "currentlyNoNews": "Jelenleg nincsenek hírek."
     },
+    "id": {
+      "news": "Berita",
+      "localNews": {
+        "localNews": "Berita lokal",
+        "pageTitle": "Berita lokal"
+      },
+      "local": "Lokal",
+      "readMore": "Lanjutkan",
+      "currentlyNoNews": "Tidak ada berita saat ini."
+    },
     "it": {
       "news": "Messaggi",
       "localNews": {
@@ -12115,7 +12283,6 @@
       "onlyWithAppointment": "Nur nach Terminvereinbarung",
       "appointmentNecessary": "Termin erforderlich",
       "makeAppointmentTooltipWithLink": "Vereinbare an diesem Tag einen Termin über <1>die Webseite</1> oder telefonisch.",
-      "theWebsite": "die Webseite",
       "poisCount_zero": "0 Orte",
       "poisCount_one": "1 Ort",
       "poisCount_two": "{{count}} Orte",
@@ -12187,7 +12354,6 @@
       "onlyWithAppointment": "በቀጠሮ ብቻ",
       "appointmentNecessary": "ቀጠሮ ያስፈልጋል",
       "makeAppointmentTooltipWithLink": "በእለቱ በ<1>ድር ጣቢያው</1> ወይም በስልክ ቀጠሮ ይያዙ።",
-      "theWebsite": "ድር /ገዕ/ጣቢያውን",
       "poisCount_zero": "0 ቦታዎች",
       "poisCount_one": "1 ቦታ",
       "poisCount_two": "{{count}} ቦታዎች",
@@ -12259,7 +12425,6 @@
       "onlyWithAppointment": "فقط بعد الاتفاق على موعد",
       "appointmentNecessary": "الموعد ضروري",
       "makeAppointmentTooltipWithLink": "حدد موعدًا في ذلك اليوم عبر <1>die Webseite</1> أو عبر الهاتف.",
-      "theWebsite": "موقع الويب",
       "poisCount_zero": "0 أماكن",
       "poisCount_one": "1 أماكن",
       "poisCount_two": "{{count}} أماكن",
@@ -12331,7 +12496,6 @@
       "onlyWithAppointment": "Само по предварителна уговорка",
       "appointmentNecessary": "Необходима е среща",
       "makeAppointmentTooltipWithLink": "Запишете се за среща в този ден чрез <1>уеб сайта</1> или по телефона.",
-      "theWebsite": "уеб сайтът",
       "poisCount_zero": "0 места",
       "poisCount_one": "1 място",
       "poisCount_two": "{{count}} места",
@@ -12403,7 +12567,6 @@
       "onlyWithAppointment": "تەنها بە دیاریکردنی کات",
       "appointmentNecessary": "دیاریکردنی کاتێک بۆ دیدار و چاوپێکەوتن پێویستە",
       "makeAppointmentTooltipWithLink": "لە ڕێگەی <1>ماڵپەڕ</1> یان لە ڕێگەی تەلەفۆنەوە کاتێک بۆ دیدار و چاوپێکەوتن بۆ ئەم ڕۆژە دیاری بکە.",
-      "theWebsite": "ماڵپەڕی...",
       "poisCount_zero": " 0 شوێن",
       "poisCount_one": "1  شوێن",
       "poisCount_two": "{{count}}  شوێن",
@@ -12475,7 +12638,6 @@
       "onlyWithAppointment": "Pouze po předchozí domluvě",
       "appointmentNecessary": "Potřebná schůzka",
       "makeAppointmentTooltipWithLink": "Sjednejte si na tento den schůzku prostřednictvím <1>webové stránky<1> nebo telefonicky.",
-      "theWebsite": "webová stránka",
       "poisCount_zero": "0 míst",
       "poisCount_one": "1 místo",
       "poisCount_two": "{{count}} míst",
@@ -12547,7 +12709,6 @@
       "onlyWithAppointment": "Kun efter aftale",
       "appointmentNecessary": "Aftale påkrævet",
       "makeAppointmentTooltipWithLink": "Lav en aftale på denne dag via <1>hjemmesiden</1> eller pr. telefon.",
-      "theWebsite": "hjemmesiden",
       "poisCount_zero": "0 steder",
       "poisCount_one": "1 sted",
       "poisCount_two": "{{count}} steder",
@@ -12619,7 +12780,6 @@
       "onlyWithAppointment": "Μόνο κατόπιν ραντεβού",
       "appointmentNecessary": "Απαιτείται ραντεβού",
       "makeAppointmentTooltipWithLink": "Κλείστε ραντεβού την ημέρα αυτή μέσω <1>της ιστοσελίδας</1> ή τηλεφωνικά.",
-      "theWebsite": "η ιστοσελίδα",
       "poisCount_zero": "0 τοποθεσίες",
       "poisCount_one": "1 τοποθεσία",
       "poisCount_two": "{{count}} τοποθεσίες",
@@ -12691,7 +12851,6 @@
       "onlyWithAppointment": "Only with appointment",
       "appointmentNecessary": "Appointment necessary",
       "makeAppointmentTooltipWithLink": "Make an appointment on this day via <1>the website</1> or by phone.",
-      "theWebsite": "the website",
       "poisCount_zero": "0 locations",
       "poisCount_one": "1 location",
       "poisCount_two": "{{count}} locations",
@@ -12763,7 +12922,6 @@
       "onlyWithAppointment": "Solo con cita previa",
       "appointmentNecessary": "Se requiere cita previa",
       "makeAppointmentTooltipWithLink": "Solicita una cita para ese día a través de <1>el sitio web</1> o por teléfono.",
-      "theWebsite": "el sitio web",
       "poisCount_zero": "0 lugares",
       "poisCount_one": "1 lugar",
       "poisCount_two": "{{count}} lugares",
@@ -12835,7 +12993,6 @@
       "onlyWithAppointment": "Vain ajanvarauksella",
       "appointmentNecessary": "Ajanvaraus on pakollinen",
       "makeAppointmentTooltipWithLink": "Varaa aika tälle päivälle <1>verkkosivulta</1> tai puhelimitse.",
-      "theWebsite": "verkkosivu",
       "poisCount_zero": "0 paikkaa",
       "poisCount_one": "1 paikka",
       "poisCount_two": "{{count}} paikkaa",
@@ -12907,7 +13064,6 @@
       "onlyWithAppointment": "Uniquement sur rendez-vous",
       "appointmentNecessary": "Rendez-vous nécessaire",
       "makeAppointmentTooltipWithLink": "Prends rendez-vous ce jour-là via <1>le site web</1> ou par téléphone.",
-      "theWebsite": "le site web",
       "poisCount_zero": "0 lieu",
       "poisCount_one": "1 lieu",
       "poisCount_two": "{{count}} lieux",
@@ -12979,7 +13135,6 @@
       "onlyWithAppointment": "सिर्फ अपॉइंटमेंट के साथ",
       "appointmentNecessary": "अपॉइंटमेंट आवश्यक है",
       "makeAppointmentTooltipWithLink": "इस दिन <1>वेबसाइट</1> या फ़ोन के माध्यम से अपॉइंटमेंट लें।",
-      "theWebsite": "वेबसाइट",
       "poisCount_zero": "0 लोकेशन",
       "poisCount_one": "1 लोकेशन",
       "poisCount_two": "{{count}} लोकेशन",
@@ -13051,7 +13206,6 @@
       "onlyWithAppointment": "Samo uz zakazan termin",
       "appointmentNecessary": "Potreban je termin",
       "makeAppointmentTooltipWithLink": "Zagovori termin na ovaj dan putem <1>internetske stranice</1> ili telefona.",
-      "theWebsite": "internet stranica",
       "poisCount_zero": "0 mjesta",
       "poisCount_one": "1 mjesto",
       "poisCount_two": "{{count}} mjesta",
@@ -13123,7 +13277,6 @@
       "onlyWithAppointment": "Csak időponttal",
       "appointmentNecessary": "Időpont szükséges",
       "makeAppointmentTooltipWithLink": "Foglalj időpontot erre a napra a <1>weboldalon</1> vagy telefonon keresztül,",
-      "theWebsite": "a weboldal",
       "poisCount_zero": "0 hely",
       "poisCount_one": "1 hely",
       "poisCount_two": "{{count}} hely",
@@ -13131,6 +13284,77 @@
       "poisCount_many": "{{count}} hely",
       "poisCount_other": "{{count}} hely",
       "contacts": "Kapcsolat"
+    },
+    "id": {
+      "pageTitle": "Peta",
+      "poi": "Tempat",
+      "pois": "Tempat",
+      "map": "Peta",
+      "showOnMap": "Tampilkan pada peta",
+      "noPois": "Tempat tidak ditemukan.",
+      "unitKilometre": "km",
+      "unitMetre": "m",
+      "distanceKilometre": "{{distance}} km jauhnya",
+      "distanceKilometreAlternative": "{{distance}} km",
+      "distanceMetre": "{{distance}} m jauhnya ",
+      "distanceMetreAlternative": "{{distance}} m",
+      "contactInformation": "Perincian kontak",
+      "address": "Alamat",
+      "copyAddress": "Salin alamat",
+      "phone": "Nomor telepon",
+      "mobilePhone": "Nomor telepon genggam",
+      "eMail": "Alamat sur-el",
+      "website": "Situs web",
+      "openingHours": "Jam buka",
+      "description": "Deskripsi",
+      "addressCopied": "Alamat disalin ke papan klip",
+      "phoneCopied": "Nomor telepon disalin ke papan klip",
+      "eMailCopied": "Alamat sur-el disalin ke papan klip",
+      "websiteCopied": "Situs web disalin ke papan klip",
+      "listTitle": "Di dekat Anda",
+      "detailsHeader": "Kembali",
+      "detailsAddress": "Arah",
+      "detailsMapLink": "Buka di Google Maps",
+      "detailsInformation": "Info",
+      "detailsNextPoi": "Berikutnya",
+      "detailsPreviousPoi": "Sebelumnya",
+      "previousPoi": "Tempat sebelumnya",
+      "nextPoi": "Tempat berikutnya",
+      "openExternalMaps": "Buka di aplikasi peta",
+      "allDay": "sepanjang hari",
+      "opened": "buka",
+      "closed": "tutup",
+      "temporarilyClosed": "tutup sementara",
+      "montag": "Senin",
+      "dienstag": "Selasa",
+      "mittwoch": "Rabu",
+      "donnerstag": "Kamis",
+      "freitag": "Jumat",
+      "samstag": "Sabtu",
+      "sonntag": "Minggu",
+      "adjustFilters": "Filter lokasi",
+      "onlyCurrentlyOpen": "hanya tampilkan lokasi-lokasi yang saat ini terbuka",
+      "poiCategories": "Kategori",
+      "showPois_zero": "Tampilkan 0 tempat",
+      "showPois_one": "Tampilkan 1 tempat",
+      "showPois_two": "Tampilkan {{count}} tempat",
+      "showPois_few": "Tampilkan {{count}} tempat",
+      "showPois_many": "Tampilkan {{count}} tempat",
+      "showPois_other": "Tampilkan {{count}} tempat",
+      "alphabetLetters": "A-Z",
+      "clearFilter": "Hapus filter {{filter}}",
+      "showOwnLocation": "Tampilkan lokasi Anda",
+      "makeAppointment": "Buat janji",
+      "onlyWithAppointment": "Hanya dengan janji",
+      "appointmentNecessary": "Perlu membuat janji",
+      "makeAppointmentTooltipWithLink": "Buat janji pada hari ini via <1>situs web</1> atau melalui telepon.",
+      "poisCount_zero": "0 lokasi",
+      "poisCount_one": "1 lokasi",
+      "poisCount_two": "{{count}} lokasi",
+      "poisCount_few": "{{count}} lokasi",
+      "poisCount_many": "{{count}} lokasi",
+      "poisCount_other": "{{count}} lokasi",
+      "contacts": "Kontak"
     },
     "it": {
       "pageTitle": "Mappa",
@@ -13195,7 +13419,6 @@
       "onlyWithAppointment": "Solo su appuntamento",
       "appointmentNecessary": "È necessario un appuntamento",
       "makeAppointmentTooltipWithLink": "Fissa un appuntamento in questo giorno <1>sul sito</1> o per telefono.",
-      "theWebsite": "il sito",
       "poisCount_zero": "0 luoghi",
       "poisCount_one": "1 luogo",
       "poisCount_two": "{{count}} luoghi",
@@ -13267,7 +13490,6 @@
       "onlyWithAppointment": "მხოლოდ წინასწარი ჩაწერით",
       "appointmentNecessary": "აუცილებელია შეხვედრის დანიშვნა",
       "makeAppointmentTooltipWithLink": "დანიშნე შეხვედრა ამ დღეს <1>ვებსაიტით</1> ან ტელეფონით.",
-      "theWebsite": "ვებსაიტი",
       "poisCount_zero": "0 ადგილი",
       "poisCount_one": "1 ადგილი",
       "poisCount_two": "{{count}} ადგილი",
@@ -13339,7 +13561,6 @@
       "onlyWithAppointment": "Tenê bi hevdîtinê",
       "appointmentNecessary": "Dema hevdîtinê pêwîst e",
       "makeAppointmentTooltipWithLink": "Bi rêya <1>malperê</1> yan bi rêya telefonê ji bo vê rojê demeke hevdîtinê veqetîne.",
-      "theWebsite": "Malper",
       "poisCount_zero": "0 Cih",
       "poisCount_one": "1 Cih",
       "poisCount_two": "{{count}} Cih",
@@ -13411,7 +13632,6 @@
       "onlyWithAppointment": "Само со закажување",
       "appointmentNecessary": "Потребно е закажување",
       "makeAppointmentTooltipWithLink": "Закажете состанок тој ден преку <1>веб-сајтот</1> или по телефон.",
-      "theWebsite": "веб-сајтот",
       "poisCount_zero": "0 места",
       "poisCount_one": "1 место",
       "poisCount_two": "{{count}} места",
@@ -13483,7 +13703,6 @@
       "onlyWithAppointment": "Alleen op afspraak",
       "appointmentNecessary": "Afspraak vereist",
       "makeAppointmentTooltipWithLink": "Maak op deze dag een afspraak via <1>de website</1> of telefonisch.",
-      "theWebsite": "de website",
       "poisCount_zero": "0 locaties",
       "poisCount_one": "1 locatie",
       "poisCount_two": "{{count}} locaties",
@@ -13555,7 +13774,6 @@
       "onlyWithAppointment": "Beellamaan qofa",
       "appointmentNecessary": "Beellamni barbaachisaadha",
       "makeAppointmentTooltipWithLink": "Guyyaa kana karaa <1>marsariitii</1> ykn bilbilaan beellama qabadhaa.",
-      "theWebsite": "marsariitii",
       "poisCount_zero": "0 iddoo",
       "poisCount_one": "1 iddoo",
       "poisCount_two": "{{count}} iddoowwan",
@@ -13627,7 +13845,6 @@
       "onlyWithAppointment": "فقط با تعیین وقت قبلی",
       "appointmentNecessary": "وقت ملاقات ضروری است",
       "makeAppointmentTooltipWithLink": "از طریق <1>وب‌سایت</1> یا به صورت تلفنی برای این روز یک وقت ملاقات تعیین کنید.",
-      "theWebsite": "وب‌سایت",
       "poisCount_zero": "0 مکان",
       "poisCount_one": "1 مکان",
       "poisCount_two": "{{count}} مکان",
@@ -13699,7 +13916,6 @@
       "onlyWithAppointment": "Tylko po wcześniejszym umówieniu",
       "appointmentNecessary": "Konieczne jest umówienie się na spotkanie",
       "makeAppointmentTooltipWithLink": "Umów się na spotkanie w tym dniu za pośrednictwem <1>strony internetowej</1> lub telefonicznie.",
-      "theWebsite": "strona internetowa",
       "poisCount_zero": "0 miejsc",
       "poisCount_one": "1 miejsce",
       "poisCount_two": "{{count}} miejsc",
@@ -13771,7 +13987,6 @@
       "onlyWithAppointment": "فقط با تعیین وقت ملاقات",
       "appointmentNecessary": "وقت ملاقات ضروری است",
       "makeAppointmentTooltipWithLink": "از طریق <1>وبسایت</1> یا به صورت تلیفونی برای این روز یک وقت ملاقات تعیین کنید.",
-      "theWebsite": "وبسایت",
       "poisCount_zero": "0 مکان",
       "poisCount_one": "1 مکان",
       "poisCount_two": "{{count}} مکان",
@@ -13843,7 +14058,6 @@
       "onlyWithAppointment": "يوازې د ليدژمنې (اپاينټمنټ) له لارې",
       "appointmentNecessary": "د ليدنې وخت ټاکل اړين دي",
       "makeAppointmentTooltipWithLink": "هغه ورځ د <1>ويب سايټ</1> يا د ټليفون له لارې د ليدنې وخت وټاکئ.",
-      "theWebsite": "ويب سايټ",
       "poisCount_zero": "0 ځای",
       "poisCount_one": "1 ځای",
       "poisCount_two": "{{count}} ځایونه",
@@ -13915,7 +14129,6 @@
       "onlyWithAppointment": "Só por marcação",
       "appointmentNecessary": "Marcação obrigatória",
       "makeAppointmentTooltipWithLink": " Efetuar marcação neste dia através <1>do sítio Web<1> ou por telefone.",
-      "theWebsite": "o sítio Web",
       "poisCount_zero": "0 Locais",
       "poisCount_one": "1 Local",
       "poisCount_two": "{{count}} locais",
@@ -13987,7 +14200,6 @@
       "onlyWithAppointment": "Numai pe bază de programare",
       "appointmentNecessary": "Programare necesară",
       "makeAppointmentTooltipWithLink": "Realizează o programare în această zi prin <1>pagina de Internet</1> sau telefonic.",
-      "theWebsite": "pagina de Internet",
       "poisCount_zero": "0 locații",
       "poisCount_one": "1 locație",
       "poisCount_two": "{{count}} locații",
@@ -14059,7 +14271,6 @@
       "onlyWithAppointment": "Salde termineja",
       "appointmentNecessary": "Valjani zakažiba",
       "makeAppointmentTooltipWithLink": "Ker zakažibe ko akava dive prekal <1>the website</1> jali katar telefoni.",
-      "theWebsite": "i vebstrana",
       "poisCount_zero": "0 thana",
       "poisCount_one": "1 thana",
       "poisCount_two": "{{count}} than",
@@ -14131,7 +14342,6 @@
       "onlyWithAppointment": "Только по предварительной записи",
       "appointmentNecessary": "Требуется предварительная запись",
       "makeAppointmentTooltipWithLink": "Запишись на прием в этот день через <1>сайт</1> или по телефону.",
-      "theWebsite": "сайт",
       "poisCount_zero": "0 мест",
       "poisCount_one": "1 место",
       "poisCount_two": "{{count}} мест",
@@ -14203,7 +14413,6 @@
       "onlyWithAppointment": "Len po dohode termínu",
       "appointmentNecessary": "Potrebný termín",
       "makeAppointmentTooltipWithLink": "Dohodnite si v tento deň termín cez <1>webovú stránku</1> alebo telefonicky.",
-      "theWebsite": "Webová stránka",
       "poisCount_zero": "0 miest",
       "poisCount_one": "1 miesto",
       "poisCount_two": "{{count}} Miesta",
@@ -14275,7 +14484,6 @@
       "onlyWithAppointment": "Kaliya marka ballan la sameeyo",
       "appointmentNecessary": "Ballan loo baahan yahay",
       "makeAppointmentTooltipWithLink": "Samee ballan maalintan adoo maraya <1>bogga internetka</1> ama telefoonka.",
-      "theWebsite": "bogga internetka",
       "poisCount_zero": "Meelo 0 ah",
       "poisCount_one": "Hal meel",
       "poisCount_two": "{{count}} meelood",
@@ -14347,7 +14555,6 @@
       "onlyWithAppointment": "Vetëm me takim",
       "appointmentNecessary": "Duhet takim",
       "makeAppointmentTooltipWithLink": "Cakto një takim në këtë ditë nëpërmjet <1>faqes së internetit</1> ose me telefon.",
-      "theWebsite": "faqja e internetit",
       "poisCount_zero": "0 vende",
       "poisCount_one": "1 vend",
       "poisCount_two": "{{count}} vende",
@@ -14419,7 +14626,6 @@
       "onlyWithAppointment": "Само уз заказан термин",
       "appointmentNecessary": "Потребан је термин",
       "makeAppointmentTooltipWithLink": "Заговори термин на овај дан путем <1>интернет странице</1> или телефона.",
-      "theWebsite": "интернет страница",
       "poisCount_zero": "0 места",
       "poisCount_one": "1 место",
       "poisCount_two": "{{count}} места",
@@ -14491,7 +14697,6 @@
       "onlyWithAppointment": "Samo uz zakazan termin",
       "appointmentNecessary": "Potreban je termin",
       "makeAppointmentTooltipWithLink": "Zagovori termin na ovaj dan putem <1>internet stranice</1> ili telefona.",
-      "theWebsite": "internet stranica",
       "poisCount_zero": "0 mesta",
       "poisCount_one": "1 mesto",
       "poisCount_two": "{{count}} mesta",
@@ -14563,7 +14768,6 @@
       "onlyWithAppointment": "Kwa kuweka miadi tu",
       "appointmentNecessary": "Unahitaji kuweka miadi",
       "makeAppointmentTooltipWithLink": "Weka miadi siku hii kupitia <1>tovuti</1> au kwa simu.",
-      "theWebsite": "tovuti",
       "poisCount_zero": "Maeneo 0",
       "poisCount_one": "Eneo 1",
       "poisCount_two": "Maeneo {{count}}",
@@ -14635,7 +14839,6 @@
       "onlyWithAppointment": "โดยการนัดหมายเท่านั้น",
       "appointmentNecessary": "จำเป็นต้องนัดหมาย",
       "makeAppointmentTooltipWithLink": "นัดหมายได้ในวันดังกล่าวผ่านทาง<1>เว็บไซต์</1>หรือทางโทรศัพท์",
-      "theWebsite": "เว็บไซต์",
       "poisCount_zero": "0 สถานที่",
       "poisCount_one": "1 สถานที่",
       "poisCount_two": "{{count}} แห่ง",
@@ -14707,7 +14910,6 @@
       "onlyWithAppointment": "ብቆጸራ ጥራይ",
       "appointmentNecessary": "ቆጸራ የድሊ",
       "makeAppointmentTooltipWithLink": "ኣብታ መዓልቲ እቲኣ ብመንገዲ <1>ዌብሳይት</1> ወይ ብተሌፎን ቆጸራ ውሰድ.",
-      "theWebsite": "እቲ መርበብ ሓበሬታ",
       "poisCount_zero": "0 ቦታታት",
       "poisCount_one": "1 ቦታ",
       "poisCount_two": "{{count}} ቦታታት",
@@ -14779,7 +14981,6 @@
       "onlyWithAppointment": "Sadece randevu ile",
       "appointmentNecessary": "Randevu gerekli",
       "makeAppointmentTooltipWithLink": "O gün için <1>web sitesi</1> üzerinden ya da telefon aracılığıyla randevu kararlaştır.",
-      "theWebsite": "Web sitesi",
       "poisCount_zero": "0 yer",
       "poisCount_one": "1 yer",
       "poisCount_two": "{{count}} yer",
@@ -14851,7 +15052,6 @@
       "onlyWithAppointment": "Тільки за попереднім записом",
       "appointmentNecessary": "Необхідний попередній запис",
       "makeAppointmentTooltipWithLink": "Запишіться на цей день через <1>вебсайт</1> або за телефоном.",
-      "theWebsite": "вебсайт",
       "poisCount_zero": "0 місць",
       "poisCount_one": "1 місце",
       "poisCount_two": "{{count}} місць",
@@ -14923,7 +15123,6 @@
       "onlyWithAppointment": "صرف اپوائنٹمنٹ کے ذریعے",
       "appointmentNecessary": "ملاقات کا وقت لینا درکار ہے",
       "makeAppointmentTooltipWithLink": "اس دن <1>ویب سائٹ</1> کے ذریعے یا فون کے ذریعے ملاقات کا وقت بنائیں۔",
-      "theWebsite": "ویب سائٹ",
       "poisCount_zero": "0 مقامات",
       "poisCount_one": "1 مقام",
       "poisCount_two": "{{count}} مقامات",
@@ -14995,7 +15194,6 @@
       "onlyWithAppointment": "Chỉ khi có lịch hẹn",
       "appointmentNecessary": "Cần đặt lịch hẹn",
       "makeAppointmentTooltipWithLink": "Đặt lịch hẹn vào ngày này qua <1>trang web</1> hoặc qua điện thoại.",
-      "theWebsite": "trang web",
       "poisCount_zero": "0 vị trí",
       "poisCount_one": "1 vị trí",
       "poisCount_two": "{{count}} vị trí",
@@ -15067,7 +15265,6 @@
       "onlyWithAppointment": "仅限预约",
       "appointmentNecessary": "需要预约",
       "makeAppointmentTooltipWithLink": "在这一天通过<1>网站</1>或电话进行预约。",
-      "theWebsite": "网站",
       "poisCount_zero": "0 个地点",
       "poisCount_one": "1 个地点",
       "poisCount_two": "{{count}} 个地点",
@@ -15272,6 +15469,19 @@
       "searchResultsCount_other": "{{count}} találat",
       "pageTitle": "Keresés",
       "delete": "bevitt adat törlése"
+    },
+    "id": {
+      "nothingFound": "Maaf, kami tidak dapat menemukan hasil yang cocok.",
+      "searchPlaceholder": "Cari",
+      "itemHint": "Lihat hasil pencarian",
+      "searchResultsCount_zero": "0 hasil pencarian",
+      "searchResultsCount_one": "1 hasil pencarian",
+      "searchResultsCount_two": "2 hasil pencarian",
+      "searchResultsCount_few": "{{count}} hasil pencarian",
+      "searchResultsCount_many": "{{count}} hasil pencarian",
+      "searchResultsCount_other": "{{count}} hasil pencarian",
+      "pageTitle": "Cari",
+      "delete": "Hapus input"
     },
     "it": {
       "nothingFound": "Purtroppo non sono stati trovati risultati corrispondenti.",
@@ -15955,6 +16165,28 @@
       "decline": "Elutasítás",
       "externalResourcesTitle": "Külső források",
       "externalResourcesDescription": "Adja meg, hogy mely külső forrásokat engedélyezi."
+    },
+    "id": {
+      "sentryTitle": "Stabilitas aplikasi",
+      "sentryDescription": "Kembangkan aplikasi {{appName}} dengan mengirim laporan kegagalan secara otomatis",
+      "pushNewsTitle": "Notifikasi otomatis",
+      "pushNewsDescription": "Terima notifikasi otomatis untuk berita lokal terbaru",
+      "about": "Tentang {{appName}}",
+      "privacyPolicy": "Kebijakan proteksi data",
+      "version": "Versi: {{version}}",
+      "openSourceLicenses": "Buka lisensi sumber",
+      "tracking": "Evaluasi J-PAL",
+      "allowTracking": "Izinkan pelacakan",
+      "trackingShortDescription": "Ambil bagian dalam studi evaluasi J-PAL untuk mengembangkan {{appName}}.",
+      "trackingMoreInformation": "Informasi lebih lanjut tentang evaluasi J-Pal dan tujuan penelitiannya",
+      "trackingDescription": "{{appName}} meminta izin untuk melacak penggunaan Anda dalam aplikasi. Data Anda dianonimkan dan akan digunakan untuk tujuan penelitian serta mengembangkan aplikasi. Data pelacakan tidak akan dibagikan atau diproses untuk tujuan iklan atau komersial lain.",
+      "trackingLeaveTitle": "Izinkan pelacakan?",
+      "trackingLeaveDescription": "Anda telah menonaktifkan pelacakan. Pelacakan membantu kami mengembangkan aplikasi {{appName}} dan memberikan informasi yang lebih baik bagi para imigran. Apakah Anda yakin ingin meninggalkan layar tanpa mengaktifkan pelacakan?",
+      "enabled": "diaktifkan",
+      "disabled": "dinonaktifkan",
+      "decline": "Tolak",
+      "externalResourcesTitle": "Sumber Eksternal",
+      "externalResourcesDescription": "Tentukan sumber eksternal mana yang diizinkan."
     },
     "it": {
       "sentryTitle": "Stabilità dell’app",
@@ -16642,6 +16874,12 @@
       "whatsappTooltip": "megosztás a WhatsAppban",
       "closeTooltip": "bezár"
     },
+    "id": {
+      "facebookTooltip": "bagikan di Facebook",
+      "mailTooltip": "rekomendasikan via sur-el",
+      "whatsappTooltip": "bagikan di WhatsApp",
+      "closeTooltip": "Tutup"
+    },
     "it": {
       "facebookTooltip": "condividi su Facebook",
       "mailTooltip": "consiglia via e-mail",
@@ -16850,6 +17088,9 @@
     },
     "hu": {
       "noOffersAvailable": "Nincsenek ajánlatok"
+    },
+    "id": {
+      "noOffersAvailable": "Tidak ada tawaran yang tersedia"
     },
     "it": {
       "noOffersAvailable": "Non sono disponibili offerte"

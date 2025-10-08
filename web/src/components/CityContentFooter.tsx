@@ -50,7 +50,7 @@ const CityContentFooter = ({ city, language, mode = 'normal' }: CityContentFoote
 
   const Links = (
     <>
-      <Link to={disclaimerPath}>{t('imprintAndContact')}</Link>
+      <Link to={disclaimerPath}>{t('disclaimer')}</Link>
       <Link to={aboutUrl}>{t('settings:about', { appName: buildConfig().appName })}</Link>
       <Link to={privacyUrl}>{t('privacy')}</Link>
       <Link to={licensesPath}>{t('settings:openSourceLicenses')}</Link>
