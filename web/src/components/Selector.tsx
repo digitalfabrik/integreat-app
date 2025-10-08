@@ -11,30 +11,22 @@ import Link from './base/Link'
 
 const SelectorItemButton = styled(ListItemButton)<{ disabled?: boolean }>`
   height: 48px;
-  min-width: 104px;
+  min-width: 112px;
   padding: 0 20px;
   border-radius: 30px;
   display: flex;
   justify-content: center;
   margin: 4px;
   ${props => props.disabled && `color: ${props.theme.palette.text.disabled};`}
-
-  ${props => props.theme.breakpoints.down('lg')} {
-    padding: 0 16px;
-    min-width: 96px;
-    height: 40px;
-  }
 ` as typeof ListItemButton
 
 const StyledList = styled(List)<{ vertical: boolean }>`
   display: flex;
   flex-flow: ${props => (props.vertical ? 'column' : 'row wrap')};
   justify-content: space-evenly;
-  color: ${props => props.theme.palette.text.primary};
 
   & li {
     width: auto;
-    ${props => (props.vertical ? 'flex: 1 1 auto;' : 'flex: 0 0 auto;')}
   }
 `
 
@@ -61,9 +53,11 @@ const Selector = ({
             component={Link}
             to={item.href}
             aria-selected={item.code === activeItemCode}
-            onClick={close ?? (() => undefined)}
+            onClick={close}
             selected={item.code === activeItemCode}>
-            <Typography variant={item.code === activeItemCode ? 'title2' : 'body1'}>{item.name}</Typography>
+            <Typography variant='body1' fontWeight={item.code === activeItemCode ? 'bold' : 'normal'}>
+              {item.name}
+            </Typography>
           </SelectorItemButton>
         </ListItem>
       ) : (
