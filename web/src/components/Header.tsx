@@ -6,13 +6,11 @@ import React, { ReactElement, ReactNode } from 'react'
 
 import { LANDING_ROUTE, pathnameFromRouteInformation } from 'shared'
 
-import useDimensions from '../hooks/useDimensions'
 import useElementRect from '../hooks/useElementRect'
 import HeaderLogo from './HeaderLogo'
 import HeaderTitle from './HeaderTitle'
 
 const HEADER_HEIGHT = 80
-const Z_INDEX_ABOVE_SIDEBAR = 11
 
 const HeaderContainer = styled('header')`
   user-select: none;
@@ -74,14 +72,9 @@ export const Header = ({
   const { rect: headerRect, ref } = useElementRect()
   const height = headerRect?.height ?? 0
   const landingPath = pathnameFromRouteInformation({ route: LANDING_ROUTE, languageCode: language })
-  const { xsmall, small } = useDimensions()
 
   return (
-    <Headroom
-      scrollHeight={HEADER_HEIGHT}
-      height={height}
-      zIndex={xsmall || small ? 2 : Z_INDEX_ABOVE_SIDEBAR} // 2 for mobile bottom sheet
-      onStickyTopChanged={onStickyTopChanged}>
+    <Headroom scrollHeight={HEADER_HEIGHT} height={height} zIndex={2} onStickyTopChanged={onStickyTopChanged}>
       <Paper>
         <HeaderContainer ref={ref}>
           <Row>

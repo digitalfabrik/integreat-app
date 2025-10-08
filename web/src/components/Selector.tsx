@@ -9,25 +9,24 @@ import React, { ReactElement } from 'react'
 import SelectorItemModel from '../models/SelectorItemModel'
 import Link from './base/Link'
 
-const SelectorItemButton = styled(ListItemButton)<{ disabled?: boolean }>`
+const SelectorItemButton = styled(ListItemButton)`
   height: 48px;
   min-width: 112px;
-  padding: 0 20px;
   border-radius: 30px;
   display: flex;
   justify-content: center;
-  margin: 4px;
-  ${props => props.disabled && `color: ${props.theme.palette.text.disabled};`}
 ` as typeof ListItemButton
 
 const StyledList = styled(List)<{ vertical: boolean }>`
   display: flex;
   flex-flow: ${props => (props.vertical ? 'column' : 'row wrap')};
   justify-content: space-evenly;
+  gap: 4px;
+  padding: 8px 0;
+`
 
-  & li {
-    width: auto;
-  }
+const StyledListItem = styled(ListItem)`
+  width: auto;
 `
 
 type SelectorProps = {
@@ -48,7 +47,7 @@ const Selector = ({
   <StyledList disablePadding vertical={verticalLayout}>
     {items.map(item =>
       item.href ? (
-        <ListItem key={item.code} disablePadding>
+        <StyledListItem key={item.code} disablePadding>
           <SelectorItemButton
             component={Link}
             to={item.href}
@@ -59,12 +58,12 @@ const Selector = ({
               {item.name}
             </Typography>
           </SelectorItemButton>
-        </ListItem>
+        </StyledListItem>
       ) : (
         <Tooltip key={item.code} title={disabledItemTooltip}>
-          <ListItem disablePadding>
+          <StyledListItem disablePadding>
             <SelectorItemButton disabled>{item.name}</SelectorItemButton>
-          </ListItem>
+          </StyledListItem>
         </Tooltip>
       ),
     )}
