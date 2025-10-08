@@ -19,9 +19,23 @@ type MenuListItemProps = {
   text: string
   disabled?: boolean
   tooltip?: string | null
+  closeMenu?: () => void
 } & ({ to: string; onClick?: never } | { to?: never; onClick: () => void })
 
-const MenuItem = ({ to, text, icon, disabled = false, tooltip, onClick }: MenuListItemProps): ReactElement => {
+const MenuItem = ({
+  to,
+  text,
+  icon,
+  disabled = false,
+  tooltip,
+  onClick,
+  closeMenu,
+}: MenuListItemProps): ReactElement => {
+  const handleClick = () => {
+    closeMenu?.()
+    onClick?.()
+  }
+
   const Content = (
     <>
       {icon && <ListItemIcon>{icon}</ListItemIcon>}
@@ -30,7 +44,7 @@ const MenuItem = ({ to, text, icon, disabled = false, tooltip, onClick }: MenuLi
   )
 
   return (
-    <MuiMenuItem onClick={onClick} disabled={disabled} sx={to ? { padding: 0 } : {}}>
+    <MuiMenuItem onClick={handleClick} disabled={disabled} sx={to ? { padding: 0 } : {}}>
       {to ? <StyledLink to={to}>{Content}</StyledLink> : Content}
     </MuiMenuItem>
   )

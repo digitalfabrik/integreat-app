@@ -7,7 +7,7 @@ import { dividerClasses } from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
 import MuiMenu from '@mui/material/Menu'
 import { styled } from '@mui/material/styles'
-import React, { ReactElement } from 'react'
+import React, { ReactElement, RefObject, useImperativeHandle } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import buildConfig from '../constants/buildConfig'
@@ -26,16 +26,23 @@ const StyledMenu = styled(MuiMenu)({
   },
 })
 
+export type MenuRef = {
+  closeMenu: () => void
+}
+
 type HeaderMenuProps = {
   children: ReactElement[] | ReactElement
   pageTitle: string | null
+  ref?: RefObject<MenuRef | null>
 }
 
-const HeaderMenu = ({ children, pageTitle }: HeaderMenuProps): ReactElement => {
+const HeaderMenu = ({ children, pageTitle, ref }: HeaderMenuProps): ReactElement => {
   const [menuAnchorElement, setMenuAnchorElement] = React.useState<HTMLElement | null>(null)
   const { cityCode, languageCode } = useRouteParams()
   const { mobile } = useDimensions()
   const { t } = useTranslation('layout')
+
+  useImperativeHandle(ref, () => ({ closeMenu: () => setMenuAnchorElement(null) }))
 
   const openMenu = (event: React.MouseEvent<HTMLElement>) => setMenuAnchorElement(event.currentTarget)
   const closeMenu = () => setMenuAnchorElement(null)
@@ -53,13 +60,33 @@ const HeaderMenu = ({ children, pageTitle }: HeaderMenuProps): ReactElement => {
   const mailUrl = `mailto:?subject=${encodedTitle}&body=${shareMessage}&t${encodedShareUrl}`
 
   const sharingItems = [
-    <MenuItem key='whatsapp' to={whatsappUrl} text='WhatsApp' icon={<WhatsAppIcon fontSize='small' />} />,
-    <MenuItem key='facebook' to={facebookUrl} text='Facebook' icon={<FacebookOutlinedIcon fontSize='small' />} />,
-    <MenuItem key='email' to={mailUrl} text={t('common:email')} icon={<MailOutlinedIcon fontSize='small' />} />,
+    <MenuItem
+      key='whatsapp'
+      to={whatsappUrl}
+      text='WhatsApp'
+      icon={<WhatsAppIcon fontSize='small' />}
+      closeMenu={closeMenu}
+    />,
+    <MenuItem
+      key='facebook'
+      to={facebookUrl}
+      text='Facebook'
+      icon={<FacebookOutlinedIcon fontSize='small' />}
+      closeMenu={closeMenu}
+    />,
+    <MenuItem
+      key='email'
+      to={mailUrl}
+      text={t('common:email')}
+      icon={<MailOutlinedIcon fontSize='small' />}
+      closeMenu={closeMenu}
+    />,
   ]
 
   const legalItems = mobile
-    ? getFooterLinks({ languageCode, cityCode }).map(({ text, to }) => <MenuItem key={text} text={t(text)} to={to} />)
+    ? getFooterLinks({ languageCode, cityCode }).map(({ text, to }) => (
+        <MenuItem key={text} text={t(text)} to={to} closeMenu={closeMenu} />
+      ))
     : []
 
   return (
