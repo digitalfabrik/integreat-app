@@ -38,7 +38,7 @@ describe('Pois', () => {
     }
     const pathname = pathnameFromRouteInformation(routeInformation)
     const query = queryStringFromRouteInformation(routeInformation)
-    return renderRoute(<Pois pois={pois} userLocation={null} city={city} languageCode='de' />, {
+    return renderRoute(<Pois pois={pois} userLocation={null} city={city} />, {
       routePattern: `/:cityCode/:languageCode/${RoutePatterns[POIS_ROUTE]}`,
       childPattern: ':slug',
       pathname,
@@ -183,7 +183,7 @@ describe('Pois', () => {
     expect(getAllByText('Gastronomie')).toHaveLength(3)
     expect(getAllByText('Dienstleistung')).toHaveLength(2)
 
-    // Select Dienstleistung filter and close filter modal
+    // Select Dienstleistung filter and close filters
     fireEvent.click(getAllByText('Dienstleistung')[1]!)
     fireEvent.click(getByText('pois:showPois'))
 

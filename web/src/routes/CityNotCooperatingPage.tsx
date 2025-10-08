@@ -5,7 +5,7 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import GeneralFooter from '../components/GeneralFooter'
+import Footer from '../components/Footer'
 import Layout from '../components/Layout'
 import buildConfig from '../constants/buildConfig'
 import { helpers } from '../constants/theme'
@@ -76,11 +76,7 @@ const TemplateText = styled(Text)`
   white-space: pre-line;
 `
 
-type CityNotCooperatingPageProps = {
-  languageCode: string
-}
-
-const CityNotCooperatingPage = ({ languageCode }: CityNotCooperatingPageProps): ReactElement | null => {
+const CityNotCooperatingPage = (): ReactElement | null => {
   const { t } = useTranslation('cityNotCooperating')
   const [isCopied, setIsCopied] = useState<boolean>(false)
   const template = buildConfig().featureFlags.cityNotCooperatingTemplate
@@ -101,7 +97,7 @@ const CityNotCooperatingPage = ({ languageCode }: CityNotCooperatingPageProps): 
   }
 
   return (
-    <Layout footer={<GeneralFooter language={languageCode} />}>
+    <Layout footer={<Footer />}>
       <Container>
         <Heading>{t('callToAction')}</Heading>
         <Text>{t('explanation')}</Text>

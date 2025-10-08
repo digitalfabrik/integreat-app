@@ -31,7 +31,7 @@ describe('ChatContainer', () => {
   const city = new CityModelBuilder(1).build()[0]!
   const pathname = `/${city.code}/de`
 
-  it('should open chat modal and show content on chat button click', () => {
+  it('should open chat dialog and show content on chat button click', () => {
     const { getByText, getAllByText } = renderRoute(<ChatContainer city={city} language='de' />, {
       pathname,
       routePattern,
@@ -51,7 +51,7 @@ describe('ChatContainer', () => {
     const chatButtonContainer = getAllByText(getChatName('IntegreatTestCms'))[0]!
     expect(chatButtonContainer).toBeTruthy()
     fireEvent.click(chatButtonContainer!)
-    const closeButton = getByLabelText('layout:close')
+    const closeButton = getByLabelText('layout:common:close')
     fireEvent.click(closeButton)
     expect(queryByText('chat:conversationTitle')).toBeFalsy()
     expect(queryByText('chat:conversationText')).toBeFalsy()

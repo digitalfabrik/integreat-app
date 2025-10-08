@@ -31,10 +31,9 @@ type PoiProps = {
   pois: PoiModel[]
   userLocation: LocationType | null
   city: CityModel
-  languageCode: string
 }
 
-const Pois = ({ pois: allPois, userLocation, city, languageCode }: PoiProps): ReactElement | null => {
+const Pois = ({ pois: allPois, userLocation, city }: PoiProps): ReactElement | null => {
   const [currentlyOpenFilter, setCurrentlyOpenFilter] = useState(false)
   const [showFilterSelection, setShowFilterSelection] = useState(false)
   const [queryParams, setQueryParams] = useSearchParams()
@@ -99,7 +98,6 @@ const Pois = ({ pois: allPois, userLocation, city, languageCode }: PoiProps): Re
     selectPoi,
     deselect,
     userLocation,
-    languageCode,
     slug,
     mapViewport,
     setMapViewport,
@@ -116,10 +114,10 @@ const Pois = ({ pois: allPois, userLocation, city, languageCode }: PoiProps): Re
 
   return (
     <Container>
-      {mobile ? <PoisMobile {...sharedPoiProps} /> : <PoisDesktop {...sharedPoiProps} cityModel={city} />}
+      {mobile ? <PoisMobile {...sharedPoiProps} /> : <PoisDesktop {...sharedPoiProps} />}
       {showFilterSelection && (
         <PoiFilters
-          closeModal={() => setShowFilterSelection(false)}
+          close={() => setShowFilterSelection(false)}
           poiCategories={poiCategories}
           selectedPoiCategory={poiCategory}
           setSelectedPoiCategory={updatePoiCategoryFilter}

@@ -3,7 +3,7 @@ import React from 'react'
 import { useSearchParams } from 'react-router-dom'
 
 import { LocationType, MapFeature, MapViewViewport, prepareMapFeature, prepareMapFeatures } from 'shared'
-import { CityModelBuilder, PoiModel, PoiModelBuilder } from 'shared/api'
+import { PoiModel, PoiModelBuilder } from 'shared/api'
 
 import { renderWithRouterAndTheme } from '../../testing/render'
 import PoisDesktop from '../PoisDesktop'
@@ -18,7 +18,6 @@ jest.mock('react-router-dom', () => ({
 }))
 
 describe('PoisDesktop', () => {
-  const cityModel = new CityModelBuilder(1).build()[0]!
   const pois = new PoiModelBuilder(3).build()
   const poiCategories = pois.map(it => it.category)
   const userLocation: LocationType = [10.994217, 48.415402]
@@ -35,8 +34,6 @@ describe('PoisDesktop', () => {
         selectPoi={selectPoi}
         deselect={deselect}
         userLocation={userLocation}
-        cityModel={cityModel}
-        languageCode='de'
         slug={poi?.slug}
         mapViewport={{} as MapViewViewport}
         setMapViewport={jest.fn()}
@@ -53,30 +50,29 @@ describe('PoisDesktop', () => {
     expect(queryByText('pois:distanceKilometre')).toBeTruthy()
     expect(queryByText(singlePoi.location.address!)).toBeTruthy()
     expect(queryByText(singlePoi.content)).toBeTruthy()
-    expect(queryByLabelText('common:backToOverview')).toBeTruthy()
-    expect(queryByText('common:nearby')).toBeNull()
-    expect(queryByLabelText('Toolbar')).toBeNull()
-    expect(queryByLabelText('pois:previousPoi')).toBeTruthy()
-    expect(queryByLabelText('pois:nextPoi')).toBeTruthy()
+    expect(queryByLabelText('pois:backToOverview')).toBeTruthy()
+    expect(queryByText('pois:common:nearby')).toBeNull()
+    expect(queryByText('pois:detailsPreviousPoi')).toBeTruthy()
+    expect(queryByText('pois:detailsNextPoi')).toBeTruthy()
   })
 
   it('should show back button and hide list title for selected mapFeature', () => {
     const { queryByText, queryByLabelText } = renderPoisDesktop(undefined, prepareMapFeature(pois, 0, [0, 0]))
 
-    expect(queryByLabelText('common:backToOverview')).toBeTruthy()
-    expect(queryByText('common:nearby')).toBeFalsy()
+    expect(queryByLabelText('pois:backToOverview')).toBeTruthy()
+    expect(queryByText('pois:common:nearby')).toBeFalsy()
 
     pois.forEach(poi => {
       expect(queryByText(poi.title)).toBeTruthy()
     })
   })
 
-  it('should render poiList & toolbar components if no poi is provided', () => {
+  it('should render poi list if no poi is provided', () => {
     mocked(useSearchParams).mockReturnValue([new URLSearchParams([]), jest.fn()])
     const { queryByLabelText, queryByText } = renderPoisDesktop()
 
-    expect(queryByLabelText('common:backToOverview')).toBeFalsy()
-    expect(queryByText('common:nearby')).toBeTruthy()
+    expect(queryByLabelText('pois:backToOverview')).toBeFalsy()
+    expect(queryByText('pois:common:nearby')).toBeTruthy()
     pois.forEach(poi => {
       expect(queryByText(poi.title)).toBeTruthy()
     })

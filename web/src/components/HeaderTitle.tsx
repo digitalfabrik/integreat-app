@@ -13,7 +13,8 @@ const LONG_TITLE_LENGTH = 25
 
 const StyledTitle = styled(Typography)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
-    width: 'min-content',
+    wordWrap: 'break-word',
+    hyphens: 'auto',
   },
 }))
 

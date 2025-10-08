@@ -26,12 +26,12 @@ const StyledMuiDialog = styled(MuiDialog)(({ theme }) => ({
 
 type DialogProps = {
   title: string
-  closeModal: () => void
+  close: () => void
   children: ReactElement | ReactElement[]
   className?: string
 }
 
-const Dialog = ({ title, closeModal, children, className }: DialogProps): ReactElement => {
+const Dialog = ({ title, close, children, className }: DialogProps): ReactElement => {
   const { mobile, desktop } = useDimensions()
   const { t } = useTranslation('layout')
 
@@ -39,13 +39,13 @@ const Dialog = ({ title, closeModal, children, className }: DialogProps): ReactE
   const dialogContainer = document.getElementById(LAYOUT_ELEMENT_ID)
 
   return (
-    <StyledMuiDialog onClose={closeModal} container={dialogContainer} fullScreen={mobile} className={className} open>
+    <StyledMuiDialog onClose={close} container={dialogContainer} fullScreen={mobile} className={className} open>
       <Stack
         direction={desktop ? 'row-reverse' : 'row'}
         alignItems='center'
         justifyContent={desktop ? 'space-between' : undefined}
         marginInline={1}>
-        <IconButton aria-label={t('close')} onClick={closeModal}>
+        <IconButton aria-label={t('common:close')} onClick={close}>
           {desktop ? <CloseIcon /> : <DirectionDependentBackIcon />}
         </IconButton>
         <DialogTitle>{title}</DialogTitle>
