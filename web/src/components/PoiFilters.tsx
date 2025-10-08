@@ -1,6 +1,7 @@
 import AccessTimeIcon from '@mui/icons-material/AccessTime'
 import Button from '@mui/material/Button'
 import Stack from '@mui/material/Stack'
+import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -12,44 +13,12 @@ import Checkbox from './base/Checkbox'
 import Dialog from './base/Dialog'
 import ToggleButton, { toggleButtonWidth } from './base/ToggleButton'
 
-const SubTitle = styled('div')`
-  font-size: 0.875rem;
-  color: ${props => props.theme.legacy.colors.textColor};
-  font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
-  font-weight: bold;
-`
-
-const Section = styled('div')`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  gap: 24px;
-`
-
-const Row = styled('div')`
-  display: flex;
-  gap: 8px;
-  align-items: center;
-`
-
-const SortingHint = styled('div')`
-  align-self: flex-end;
-  font-size: 0.75rem;
-  color: ${props => props.theme.legacy.colors.textColor};
-  font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
-  padding: 0 4px;
-`
-
-const TileRow = styled(SpacedToggleButtonGroup)`
-  display: grid;
-  gap: 24px 16px;
-  justify-content: center;
-  grid-template-columns: repeat(auto-fit, minmax(${toggleButtonWidth}px, 1fr));
-`
-
-const StyledButton = styled(Button)`
-  width: 100%;
-`
+const TileRow = styled(SpacedToggleButtonGroup)({
+  display: 'grid',
+  gap: '16px',
+  justifyContent: 'center',
+  gridTemplateColumns: `repeat(auto-fit, minmax(${toggleButtonWidth}px, 1fr))`,
+})
 
 type PoiFiltersProps = {
   close: () => void
@@ -80,31 +49,35 @@ const PoiFilters = ({
   return (
     <Dialog title={t('adjustFilters')} close={close}>
       <Stack gap={3}>
-        <Section>
-          <SubTitle>{t('openingHours')}</SubTitle>
-          <Row>
+        <Stack width='100%' gap={1}>
+          <Typography component='h3' variant='title3'>
+            {t('openingHours')}
+          </Typography>
+          <Stack direction='row' alignItems='center' gap={1}>
             <AccessTimeIcon />
             <Checkbox
               checked={currentlyOpenFilter}
               setChecked={setCurrentlyOpenFilter}
               label={t('onlyCurrentlyOpen')}
             />
-          </Row>
-        </Section>
-        <Section>
-          <Row>
-            <SubTitle>{t('poiCategories')}</SubTitle>
-            <SortingHint>{t('alphabetLetters')}</SortingHint>
-          </Row>
+          </Stack>
+        </Stack>
+        <Stack width='100%' gap={2}>
+          <Stack direction='row' alignItems='center' gap={1}>
+            <Typography component='h3' variant='title3'>
+              {t('poiCategories')}
+            </Typography>
+            <Typography variant='label3'>{t('alphabetLetters')}</Typography>
+          </Stack>
           <TileRow exclusive value={selectedPoiCategory?.id} onChange={handleFilterChange}>
             {poiCategories.map(it => (
               <ToggleButton key={it.id} value={it.id} text={it.name} icon={it.icon} />
             ))}
           </TileRow>
-        </Section>
-        <StyledButton onClick={close} variant='contained' disabled={poisCount === 0}>
+        </Stack>
+        <Button onClick={close} variant='contained' disabled={poisCount === 0} fullWidth>
           {t('showPois', { count: poisCount })}
-        </StyledButton>
+        </Button>
       </Stack>
     </Dialog>
   )
