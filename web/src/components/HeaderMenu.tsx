@@ -30,6 +30,10 @@ const StyledMenu = styled(MuiMenu)({
   },
 })
 
+const NestedMenuItem = styled(MenuItem)({
+  paddingInline: 8,
+})
+
 export type MenuRef = {
   closeMenu: () => void
 }
@@ -72,21 +76,21 @@ const HeaderMenu = ({ children, pageTitle, ref }: HeaderMenuProps): ReactElement
   }
 
   const sharingItems = [
-    <MenuItem
+    <NestedMenuItem
       key='whatsapp'
       to={whatsappUrl}
       text='WhatsApp'
       icon={<WhatsAppIcon fontSize='small' />}
       closeMenu={closeMenu}
     />,
-    <MenuItem
+    <NestedMenuItem
       key='facebook'
       to={facebookUrl}
       text='Facebook'
       icon={<FacebookOutlinedIcon fontSize='small' />}
       closeMenu={closeMenu}
     />,
-    <MenuItem
+    <NestedMenuItem
       key='email'
       to={mailUrl}
       text={t('common:email')}
@@ -96,7 +100,7 @@ const HeaderMenu = ({ children, pageTitle, ref }: HeaderMenuProps): ReactElement
   ]
 
   const legalItems = getFooterLinks({ languageCode, cityCode }).map(({ text, to }) => (
-    <MenuItem key={text} text={t(text)} to={to} closeMenu={closeMenu} />
+    <NestedMenuItem key={text} text={t(text)} to={to} closeMenu={closeMenu} />
   ))
 
   return (
