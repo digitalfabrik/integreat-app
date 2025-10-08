@@ -35,7 +35,7 @@ type SearchFeedbackProps = {
 
 const SearchFeedback = ({ query, noResults }: SearchFeedbackProps): ReactElement => {
   const [showFeedback, setShowFeedback] = useState<boolean>(false)
-  const { cityCode, languageCode } = useCityContentParams()
+  const { languageCode } = useCityContentParams()
   const { t } = useTranslation('feedback')
 
   useEffect(() => setShowFeedback(false), [query])
@@ -43,14 +43,7 @@ const SearchFeedback = ({ query, noResults }: SearchFeedbackProps): ReactElement
   if (showFeedback) {
     return (
       <Container>
-        <FeedbackContainer
-          cityCode={cityCode}
-          language={languageCode}
-          routeType={SEARCH_ROUTE}
-          query={query}
-          initialRating={null}
-          noResults={noResults}
-        />
+        <FeedbackContainer query={query} initialRating={null} noResults={noResults} />
       </Container>
     )
   }
