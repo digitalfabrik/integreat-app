@@ -123,11 +123,17 @@ const RemoteContent = ({
     isContrastTheme,
   ])
 
+  // TODO Highlight sentence with a-tags correctly
+  const replaceSentence = (decodedHTML: string, highlightedSentence: string, sentenceIndices: number[]) =>
+    decodedHTML.replace(new RegExp(`(${highlightedSentence})(?!(?:[^<]+>|[^>]*</(img|a)>))`, 'g'), () =>
+      sentenceIndices.length > 0
+        ? `<mark class="highlight-sentence">${highlightedSentence}</mark>`
+        : highlightedSentence,
+    )
+
   const decodedHTML = decode(html)
-  // http://localhost:9000/augsburg/de/news/tu-news/1925
-  // TODO Highlight texts with HTML tags, check html links only. Avoid jump back to already read sentence if sentences are duplicated.
   const highlightedHtml = highlightedSentence
-    ? decodedHTML.replace(highlightedSentence, `<mark class="highlight-sentence">${highlightedSentence}</mark>`)
+    ? replaceSentence(decodedHTML, highlightedSentence, Array.from(Array(highlightedSentence.length).keys()))
     : decodedHTML
 
   const dangerouslySetInnerHTML = {
