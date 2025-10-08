@@ -15,7 +15,7 @@ const PoiChips = ({ poi }: { poi: PoiModel }): ReactElement => {
   const { category } = poi
 
   return (
-    <Stack flexDirection='row' gap={1}>
+    <Stack flexDirection='row' flexWrap='wrap' gap={1}>
       <Chip icon={<Icon src={category.icon} />} label={category.name} variant='outlined' />
       {poi.organization !== null && (
         <Chip component={Link} to={poi.organization.url} label={poi.organization.name} variant='outlined' clickable />
