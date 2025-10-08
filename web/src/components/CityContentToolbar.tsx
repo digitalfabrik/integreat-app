@@ -4,7 +4,6 @@ import React, { ReactElement } from 'react'
 import { NEWS_ROUTE, RATING_NEGATIVE, RATING_POSITIVE } from 'shared'
 
 import useCityContentParams from '../hooks/useCityContentParams'
-import { RouteType } from '../routes'
 import FeedbackToolbarItem from './FeedbackToolbarItem'
 
 export const TOOLBAR_ELEMENT_ID = 'toolbar'
@@ -23,8 +22,8 @@ const CityContentToolbar = ({ slug }: CityContentToolbarProps): ReactElement | n
 
   return (
     <Stack id={TOOLBAR_ELEMENT_ID}>
-      <FeedbackToolbarItem key='positive' route={route as RouteType} slug={slug} rating={RATING_POSITIVE} />
-      <FeedbackToolbarItem key='negative' route={route as RouteType} slug={slug} rating={RATING_NEGATIVE} />
+      <FeedbackToolbarItem key='positive' slug={slug} rating={RATING_POSITIVE} />
+      <FeedbackToolbarItem key='negative' slug={slug} rating={RATING_NEGATIVE} />
     </Stack>
   )
 }

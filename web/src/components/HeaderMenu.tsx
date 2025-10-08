@@ -37,10 +37,11 @@ export type MenuRef = {
 type HeaderMenuProps = {
   children: (ReactElement | null)[] | ReactElement
   pageTitle: string | null
+  fitScreen?: boolean
   ref?: RefObject<MenuRef | null>
 }
 
-const HeaderMenu = ({ children, pageTitle, ref }: HeaderMenuProps): ReactElement => {
+const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): ReactElement => {
   const [menuAnchorElement, setMenuAnchorElement] = React.useState<HTMLElement | null>(null)
   const [expandedAccordion, setExpandedAccordion] = React.useState<'share' | 'legal' | null>(null)
   const [urlCopied, setUrlCopied] = React.useState<boolean>(false)
@@ -121,7 +122,7 @@ const HeaderMenu = ({ children, pageTitle, ref }: HeaderMenuProps): ReactElement
             expanded={expandedAccordion === 'share'}
             setExpanded={expanded => setExpandedAccordion(expanded ? 'share' : null)}
           />,
-          mobile ? (
+          mobile || fitScreen ? (
             <MenuAccordion
               key='legal'
               title={t('legal')}
