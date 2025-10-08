@@ -12,9 +12,10 @@ type PdfMenuItemProps = {
   category?: CategoryModel
   cityCode: string
   languageCode: string
+  closeMenu?: () => void
 }
 
-const PdfMenuItem = ({ category, cityCode, languageCode }: PdfMenuItemProps): ReactElement => {
+const PdfMenuItem = ({ category, cityCode, languageCode, closeMenu }: PdfMenuItemProps): ReactElement => {
   const { t } = useTranslation('categories')
   const pdfDisabled = config.hasRTLScript(languageCode)
 
@@ -30,6 +31,7 @@ const PdfMenuItem = ({ category, cityCode, languageCode }: PdfMenuItemProps): Re
       to={pdfUrl}
       disabled={pdfDisabled}
       tooltip={pdfDisabled ? t('disabledPdf') : null}
+      closeMenu={closeMenu}
     />
   )
 }
