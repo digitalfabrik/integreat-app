@@ -6,11 +6,6 @@ import { SpringEvent } from 'react-spring-bottom-sheet/dist/types'
 
 import { RichLayout } from './Layout'
 
-const Title = styled('h1')`
-  font-size: 1.25rem;
-  font-family: ${props => props.theme.legacy.fonts.web.contentFont};
-`
-
 const StyledBottomSheet = styled(BottomSheet)`
   direction: ${props => props.theme.contentDirection};
 
@@ -35,13 +30,12 @@ export type ScrollableBottomSheetRef = {
 }
 
 type BottomActionSheetProps = {
-  title?: string
   children: ReactNode
   sibling: ReactNode
   ref: RefObject<ScrollableBottomSheetRef | null>
 }
 
-const BottomActionSheet = ({ title, children, sibling, ref }: BottomActionSheetProps): ReactElement => {
+const BottomActionSheet = ({ children, sibling, ref }: BottomActionSheetProps): ReactElement => {
   const [scrollElement, setScrollElement] = useState<HTMLElement | null>(null)
   const bottomSheetRef = useRef<BottomSheetRef>(null)
   const { dimensions, contentDirection } = useTheme()
@@ -70,7 +64,6 @@ const BottomActionSheet = ({ title, children, sibling, ref }: BottomActionSheetP
       scrollLocking={false}
       blocking={false}
       onSpringStart={initializeScrollElement}
-      header={title ? <Title>{title}</Title> : null}
       snapPoints={() => dimensions.bottomSheet.snapPoints.all}
       defaultSnap={() => dimensions.bottomSheet.snapPoints.medium}>
       <StyledLayout dir={contentDirection}>{children}</StyledLayout>
