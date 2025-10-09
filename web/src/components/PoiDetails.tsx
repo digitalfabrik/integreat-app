@@ -166,7 +166,10 @@ const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement =
           <StyledCollapsible title={t('contacts')}>
             <StyledContactsContainer>
               {contacts.map((contact, index) => (
-                <Fragment key={contact.headline ?? contact.website ?? contact.name ?? contact.phoneNumber}>
+                <Fragment
+                  key={
+                    contact.headline ?? contact.website ?? contact.name ?? contact.phoneNumber ?? contact.mobileNumber
+                  }>
                   <Contact isLastContact={contacts.length - 1 === index} contact={contact} />
                 </Fragment>
               ))}

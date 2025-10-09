@@ -2,6 +2,7 @@
 import EventThumbnailPlaceholder1 from '../../../assets/event-thumbnail-placeholder-1.jpg'
 import EventThumbnailPlaceholder2 from '../../../assets/event-thumbnail-placeholder-2.jpg'
 import EventThumbnailPlaceholder3 from '../../../assets/event-thumbnail-placeholder-3.jpg'
+import MobilePhoneIcon from '../../../assets/icons/MobileIcon.svg'
 import AccessibleIcon from '../../../assets/icons/accessible.svg'
 import ArrowBackIcon from '../../../assets/icons/arrow-back.svg'
 import CalendarRecurringIcon from '../../../assets/icons/calendar-recurring.svg'
@@ -83,6 +84,7 @@ export {
   LocationOffIcon,
   MailIcon,
   MenuIcon,
+  MobilePhoneIcon,
   NewsIcon,
   NoInternetIcon,
   NotAccessibleIcon,
