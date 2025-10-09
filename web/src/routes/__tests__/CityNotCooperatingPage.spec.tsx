@@ -19,7 +19,7 @@ describe('CityNotCooperatingPage', () => {
   })
   const template = buildConfig().featureFlags.cityNotCooperatingTemplate
 
-  const renderPage = (): RenderResult => renderWithRouterAndTheme(<CityNotCooperatingPage />)
+  const renderPage = (): RenderResult => renderWithRouterAndTheme(<CityNotCooperatingPage languageCode='de' />)
 
   it('should render texts', () => {
     const { getByText } = renderPage()
