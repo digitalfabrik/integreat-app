@@ -8,7 +8,7 @@ const MAX_RECURRENCE_YEARS = 6
 
 export type DateIcon = 'CalendarTodayRecurringIcon' | 'CalendarRecurringIcon' | 'CalendarTodayIcon'
 
-type TranslateFunction = (key: string, options?: Record<string, unknown>) => string
+export type TranslateFunction = (key: string, options?: Record<string, unknown>) => string
 
 type FormattedEventDate = {
   date: string
@@ -139,9 +139,9 @@ class DateModel {
 
   formatEventDate(locale: string, t: TranslateFunction): FormattedEventDate {
     const time = formatTime(locale, this, t)
-    const weekday = this.onlyWeekdays
-      ? `${getWeekdayFromIndex(0, locale)} - ${getWeekdayFromIndex(4, locale)}`
-      : undefined
+    const mondayTranslation = getWeekdayFromIndex(0, locale)
+    const fridayTranslation = getWeekdayFromIndex(4, locale)
+    const weekday = this.onlyWeekdays ? `${mondayTranslation} - ${fridayTranslation}` : undefined
 
     if (this.recurrenceRule) {
       return this.formatRecurringDate(locale, this, t)
@@ -176,11 +176,11 @@ class DateModel {
       return `${this.startDate.toLocaleString(format, { locale })}, ${formatTime(locale, this, t)}`
     }
     if (!this.recurrenceRule) {
-      return this.formatDateInterval(locale, this.endDate, !showYear)
+      return this.formatDateInterval(locale, this.endDate, { showYear })
     }
     const finalDate = this.getFinalDate(this)
     if (finalDate) {
-      return this.formatDateInterval(locale, finalDate, !showYear)
+      return this.formatDateInterval(locale, finalDate, { showYear })
     }
     return t('startingFrom', {
       date: this.startDate.toLocaleString(format, { locale }),
@@ -229,8 +229,8 @@ class DateModel {
     return finalJsDate ? DateTime.fromJSDate(finalJsDate) : null
   }
 
-  private formatDateInterval(locale: string, finalDate: DateTime | null, hideYear?: boolean): string {
-    const format: DateTimeFormatOptions = hideYear ? { day: 'numeric', month: 'long' } : dateFormatWithoutWeekday
+  private formatDateInterval(locale: string, finalDate: DateTime | null, { showYear } = { showYear: true }): string {
+    const format: DateTimeFormatOptions = showYear ? dateFormatWithoutWeekday : { day: 'numeric', month: 'long' }
     const formattedStartDate = this.startDate.toLocaleString(format, { locale })
     if (!finalDate || this.startDate.hasSame(finalDate, 'day')) {
       return formattedStartDate

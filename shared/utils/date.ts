@@ -1,6 +1,7 @@
 import { DateTime, DateTimeFormatOptions } from 'luxon'
 
 import { DateModel } from '../api'
+import { TranslateFunction } from '../api/models/DateModel'
 
 export const getWeekdayFromIndex = (index: number, locale: string): string => {
   // Use a day that we know to be a Monday, add ${index} days to it, then return that day's weekday translation
@@ -11,11 +12,7 @@ export const getWeekdayFromIndex = (index: number, locale: string): string => {
 
 const timeFormat: DateTimeFormatOptions = { hour: 'numeric', minute: '2-digit' }
 
-export const formatTime = (
-  locale: string,
-  date: DateModel,
-  t: (key: string, options?: Record<string, unknown>) => string,
-): string => {
+export const formatTime = (locale: string, date: DateModel, t: TranslateFunction): string => {
   const startTime = date.startDate.toLocaleString(timeFormat, { locale })
   // For long-term events, we need the end date's time but on the start date
   const endTime = date.startDate

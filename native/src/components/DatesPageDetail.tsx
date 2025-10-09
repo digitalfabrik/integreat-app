@@ -45,7 +45,7 @@ const DatesPageDetail = ({ date, languageCode }: DatesPageDetailProps): ReactEle
   const { t: translateIntoContentLanguage } = useTranslation('events', { lng: languageCode })
 
   const recurrences = date
-    .recurrences(MAX_DATE_RECURRENCES * (tapsOnShowMore + 1))
+    .recurrences(visibleRecurrences)
     .map(recurrence => recurrence.formatMonthlyOrYearlyRecurrence(languageCode, translateIntoContentLanguage))
     .map(formattedDate => (
       <SingleDateContainer key={formattedDate.date}>

@@ -60,7 +60,7 @@ const DatesPageDetail = ({ date, language }: DatesPageDetailProps): ReactElement
   const { t } = useTranslation('events')
 
   const recurrences = date
-    .recurrences(MAX_DATE_RECURRENCES * (clicksOnShowMore + 1))
+    .recurrences(visibleRecurrences)
     .map(recurrence => recurrence.formatMonthlyOrYearlyRecurrence(language, t))
     .map(formattedDate => (
       <Fragment key={formattedDate.date}>
