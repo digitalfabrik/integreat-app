@@ -4,7 +4,7 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode } from 'react'
 
 import useDimensions from '../hooks/useDimensions'
-import { MobileBanner } from './MobileBanner'
+import MobileBanner from './MobileBanner'
 
 export const LAYOUT_ELEMENT_ID = 'layout'
 
@@ -107,7 +107,7 @@ const Layout = ({ footer, header, toolbar, children, fitScreen = false }: Layout
 
   return (
     <RichLayout id={LAYOUT_ELEMENT_ID}>
-      <MobileBanner />
+      {!fitScreen && <MobileBanner />}
       {header}
       <Body fitScreen={fitScreen}>
         {toolbar && <Aside>{toolbar}</Aside>}
