@@ -7,8 +7,8 @@ import { useTranslation } from 'react-i18next'
 import { CITY_NOT_COOPERATING_ROUTE, pathnameFromRouteInformation } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
-import Icon from './base/Icon'
 import Link from './base/Link'
+import Svg from './base/Svg'
 
 const FooterContainer = styled('div')`
   background-color: ${props => props.theme.legacy.colors.backgroundAccentColor};
@@ -16,12 +16,6 @@ const FooterContainer = styled('div')`
   flex-direction: column;
   align-items: center;
   padding: 20px;
-`
-
-const StyledIcon = styled(Icon)`
-  width: calc(30px + 8vw);
-  height: calc(30px + 8vw);
-  flex-shrink: 0;
 `
 
 const Question = styled('p')`
@@ -43,7 +37,7 @@ const CityNotCooperatingFooter = ({ languageCode }: CityNotCooperatingFooterProp
 
   return (
     <FooterContainer>
-      <StyledIcon src={CityNotCooperatingIcon} />
+      <Svg src={CityNotCooperatingIcon} width={160} height={160} />
       <Question>{t('cityNotFound')}</Question>
       <Button variant='outlined'>
         <Link to={pathnameFromRouteInformation({ route: CITY_NOT_COOPERATING_ROUTE, ...{ languageCode } })}>

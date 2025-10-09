@@ -1,6 +1,6 @@
 import CommentIcon from '@mui/icons-material/CommentOutlined'
 import ContrastIcon from '@mui/icons-material/Contrast'
-import { styled, useTheme } from '@mui/material/styles'
+import { useTheme } from '@mui/material/styles'
 import React, { ReactElement, useContext, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -15,13 +15,7 @@ import MenuItem from './MenuItem'
 import PdfMenuItem from './PdfMenuItem'
 import { TtsContext } from './TtsContainer'
 import Dialog from './base/Dialog'
-import Icon from './base/Icon'
-
-const StyledLegacyIcon = styled(Icon)({
-  color: 'inherit',
-  width: 20,
-  height: 20,
-})
+import Svg from './base/Svg'
 
 type CityContentMenuProps = {
   slug?: string
@@ -65,7 +59,7 @@ const CityContentMenu = ({ slug, category, pageTitle, fitScreen }: CityContentMe
     ttsEnabled ? (
       <MenuItem
         key='tts'
-        icon={<StyledLegacyIcon src={ReadAloudIcon} />}
+        icon={<Svg src={ReadAloudIcon} width={20} height={20} />}
         disabled={!canRead}
         text={t('readAloud')}
         tooltip={canRead ? null : t('nothingToReadFullMessage')}
