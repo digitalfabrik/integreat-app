@@ -7,45 +7,6 @@ const GlobalStyle = ({ theme }: { theme: Theme }): SerializedStyles => css`
 
     /* stylelint-disable selector-class-pattern */
 
-    /* react-datepicker */
-
-    .react-datepicker__header {
-      background-color: ${theme.legacy.colors.backgroundAccentColor};
-    }
-
-    .react-datepicker__month,
-    .react-datepicker__month-container,
-    .react-datepicker__day {
-      background-color: ${theme.legacy.colors.backgroundColor};
-    }
-
-    .react-datepicker__current-month,
-    .react-datepicker__day-names,
-    .react-datepicker__day-name,
-    .react-datepicker__week,
-    .react-datepicker__day {
-      color: ${theme.legacy.colors.textColor};
-    }
-
-    .react-datepicker__day--today {
-      border: 1px solid ${theme.legacy.colors.linkColor};
-      background-color: transparent !important;
-      border-radius: 50% !important;
-    }
-
-    .react-datepicker__day--selected {
-      background-color: ${theme.legacy.colors.linkColor} !important;
-    }
-
-    .react-datepicker__day--selected:not([aria-disabled='true']):hover,
-    .react-datepicker__day--in-selecting-range:not([aria-disabled='true']):hover,
-    .react-datepicker__day--in-range:not([aria-disabled='true']):hover,
-    .react-datepicker__day:not([aria-disabled='true']):hover {
-      background-color: ${theme.legacy.colors.linkColor} !important;
-    }
-
-    /* stylelint-enable selector-class-pattern */
-
     /* react-spring-bottom-sheet */
 
     [data-rsbs-header] {
