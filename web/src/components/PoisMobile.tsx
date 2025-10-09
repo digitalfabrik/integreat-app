@@ -1,4 +1,6 @@
 import IconButton from '@mui/material/IconButton'
+import Stack from '@mui/material/Stack'
+import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import { GeolocateControl } from 'maplibre-gl'
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
@@ -17,15 +19,6 @@ import { DirectionDependentBackIcon } from './base/Dialog'
 const StyledIconButton = styled(IconButton)(({ theme }) => ({
   backgroundColor: theme.palette.surface.main,
 }))
-
-const ListContainer = styled('div')`
-  padding: 0 30px;
-`
-
-const ListTitle = styled('div')`
-  margin: 12px 0;
-  font-weight: 700;
-`
 
 const AttributionContainer = styled('div')`
   position: fixed;
@@ -131,8 +124,12 @@ const PoisMobile = ({
             </AttributionContainer>
           </>
         }>
-        <ListContainer>
-          {!canDeselect && <ListTitle>{t('common:nearby')}</ListTitle>}
+        <Stack padding={2} gap={1}>
+          {!canDeselect && (
+            <Typography component='h1' variant='title1' alignContent='center'>
+              {t('common:nearby')}
+            </Typography>
+          )}
           <PoiSharedChildren
             pois={pois}
             poi={poi}
@@ -140,7 +137,7 @@ const PoisMobile = ({
             userLocation={userLocation}
             slug={slug}
           />
-        </ListContainer>
+        </Stack>
       </BottomActionSheet>
     </>
   )
