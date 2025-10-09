@@ -1,10 +1,9 @@
 import CloseIcon from '@mui/icons-material/Close'
-import Alert from '@mui/material/Alert'
 import IconButton from '@mui/material/IconButton'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Rating, SendingStatusType, SNACKBAR_AUTO_HIDE_DURATION } from 'shared'
+import { Rating, SendingStatusType } from 'shared'
 import { createFeedbackEndpoint, FeedbackRouteType } from 'shared/api'
 
 import { cmsApiBaseUrl } from '../constants/urls'
@@ -90,17 +89,18 @@ export const FeedbackContainer = ({
       <Snackbar
         open={snackbarOpen}
         onClose={() => setSnackbarOpen(false)}
-        autoHideDuration={SNACKBAR_AUTO_HIDE_DURATION}>
-        <Alert
-          severity={sendingStatus === 'successful' ? 'success' : 'error'}
-          action={
-            <IconButton aria-label={t('close')} color='inherit' size='small' onClick={() => setSnackbarOpen(false)}>
-              <CloseIcon fontSize='inherit' />
-            </IconButton>
-          }>
-          {sendingStatus === 'successful' ? t('thanksMessage') : t('failedSendingFeedback')}
-        </Alert>
-      </Snackbar>
+        severity={sendingStatus === 'successful' ? 'success' : 'error'}
+        message={sendingStatus === 'successful' ? t('thanksMessage') : t('failedSendingFeedback')}
+        action={
+          <IconButton
+            aria-label={t('common:close')}
+            color='inherit'
+            size='small'
+            onClick={() => setSnackbarOpen(false)}>
+            <CloseIcon fontSize='inherit' />
+          </IconButton>
+        }
+      />
     </>
   )
 }

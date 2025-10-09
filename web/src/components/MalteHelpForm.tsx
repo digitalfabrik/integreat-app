@@ -1,8 +1,6 @@
 import HealthAndSafetyOutlinedIcon from '@mui/icons-material/HealthAndSafetyOutlined'
 import PeopleOutlineOutlinedIcon from '@mui/icons-material/PeopleOutlineOutlined'
 import SendIcon from '@mui/icons-material/Send'
-import Alert, { alertClasses } from '@mui/material/Alert'
-import AlertTitle from '@mui/material/AlertTitle'
 import Button from '@mui/material/Button'
 import FormControl from '@mui/material/FormControl'
 import FormHelperText from '@mui/material/FormHelperText'
@@ -43,15 +41,6 @@ const Form = styled('form')`
   display: flex;
   flex-direction: column;
   gap: 12px;
-`
-
-const StyledAlert = styled(Alert)`
-  display: flex;
-  align-items: center;
-
-  .${alertClasses.action} {
-    padding: 0 8px;
-  }
 `
 
 type MalteHelpFormProps = {
@@ -204,18 +193,18 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
           {t('submit')}
         </Button>
       </Form>
-      <Snackbar open={snackbarOpen} onClose={() => setSnackbarOpen(false)}>
-        <StyledAlert
-          severity={sendingStatus === 'successful' ? 'success' : 'error'}
-          action={
-            <Button component={Link} to={dashboardRoute} size='small'>
-              {t('error:goTo.categories')}
-            </Button>
-          }>
-          {sendingStatus === 'failed' && <AlertTitle>{t('submitFailed')}</AlertTitle>}
-          {sendingStatus === 'failed' ? t('submitFailedReasoning') : t('submitSuccessful')}
-        </StyledAlert>
-      </Snackbar>
+      <Snackbar
+        open={snackbarOpen}
+        severity={sendingStatus === 'successful' ? 'success' : 'error'}
+        onClose={() => setSnackbarOpen(false)}
+        title={sendingStatus === 'failed' ? t('submitFailed') : undefined}
+        message={sendingStatus === 'failed' ? t('submitFailedReasoning') : t('submitSuccessful')}
+        action={
+          <Button component={Link} to={dashboardRoute} size='small'>
+            {t('error:goTo.categories')}
+          </Button>
+        }
+      />
     </>
   )
 }
