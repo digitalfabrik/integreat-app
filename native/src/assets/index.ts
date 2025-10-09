@@ -17,6 +17,7 @@ import ExpandIcon from '../../../assets/icons/expand.svg'
 import ExternalLinkIcon from '../../../assets/icons/external-link.svg'
 import HappySmileyIcon from '../../../assets/icons/happy-smiley.svg'
 import LanguageIcon from '../../../assets/icons/language.svg'
+import LinkIcon from '../../../assets/icons/link.svg'
 import LocationFixedIcon from '../../../assets/icons/location-fixed.svg'
 import LocationMarkerIcon from '../../../assets/icons/location-marker.svg'
 import LocationNotFixedIcon from '../../../assets/icons/location-not-fixed.svg'
@@ -76,6 +77,7 @@ export {
   IntroSearchIcon,
   IntroWelcomeIcon,
   LanguageIcon,
+  LinkIcon,
   LocationFixedIcon,
   LocationMarkerIcon,
   LocationNotFixedIcon,

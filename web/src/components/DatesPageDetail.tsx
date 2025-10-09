@@ -1,54 +1,96 @@
 import styled from '@emotion/styled'
-import React, { ReactElement } from 'react'
+import React, { Fragment, ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { MAX_DATE_RECURRENCES, MAX_DATE_RECURRENCES_COLLAPSED } from 'shared'
+import { MAX_DATE_RECURRENCES } from 'shared'
 import { DateModel } from 'shared/api'
 
-import useWindowDimensions from '../hooks/useWindowDimensions'
-import Collapsible from './Collapsible'
+import { CalendarTodayIcon, ClockIcon, ExpandIcon } from '../assets'
+import dimensions from '../constants/dimensions'
 import PageDetail from './PageDetail'
+import Button from './base/Button'
+import Icon from './base/Icon'
 
-const Identifier = styled.span`
-  font-weight: bold;
+const Container = styled.div`
+  display: grid;
+  width: fit-content;
+  gap: 8px 16px;
+
+  @media ${dimensions.mediumLargeViewport} {
+    grid-template-columns: auto auto;
+  }
+`
+
+const ContainerForThreeElements = styled(Container)`
+  @media ${dimensions.mediumLargeViewport} {
+    & > :nth-of-type(3) {
+      grid-column: 1 / 3;
+    }
+  }
+`
+
+const StyledButton = styled(Button)`
+  justify-self: start;
+  border-color: ${props => props.theme.colors.themeColor};
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 4px;
+  padding: 4px 8px;
+  display: flex;
+
+  @media ${dimensions.mediumLargeViewport} {
+    grid-column: 1 / 3;
+  }
+`
+
+const StyledIcon = styled(Icon)`
+  width: 16px;
+  height: 16px;
+  margin-inline-end: 8px;
 `
 
 type DatesPageDetailProps = {
   date: DateModel
-  languageCode: string
+  language: string
 }
 
-const DatesPageDetail = ({ date, languageCode }: DatesPageDetailProps): ReactElement | null => {
-  const { viewportSmall } = useWindowDimensions()
-  const dates = date.recurrences(MAX_DATE_RECURRENCES).map(it => it.toFormattedString(languageCode, viewportSmall))
-  const nextDate = dates[0] ?? date.toFormattedString(languageCode, viewportSmall)
-  const hasMoreDates = date.hasMoreRecurrencesThan(MAX_DATE_RECURRENCES)
+const DatesPageDetail = ({ date, language }: DatesPageDetailProps): ReactElement | null => {
+  const [clicksOnShowMore, setClicksOnShowMore] = useState(0)
+  const visibleRecurrences = MAX_DATE_RECURRENCES * (clicksOnShowMore + 1)
   const { t } = useTranslation('events')
 
-  if (dates.length === 1) {
-    return <PageDetail identifier={t('date_one')} information={nextDate} />
-  }
+  const recurrences = date
+    .recurrences(visibleRecurrences)
+    .map(recurrence => recurrence.formatMonthlyOrYearlyRecurrence(language, t))
+    .map(formattedDate => (
+      <Fragment key={formattedDate.date}>
+        <PageDetail icon={CalendarTodayIcon} information={formattedDate.date} />
+        <PageDetail icon={ClockIcon} information={formattedDate.time} />
+      </Fragment>
+    ))
 
-  const Title = <Identifier>{t(hasMoreDates ? 'nextDate_other' : 'date_other')}: </Identifier>
-  const Dates = dates.map(it => <div key={it}>{it}</div>)
-  const AlwaysShownDates = <>{Dates.slice(0, MAX_DATE_RECURRENCES_COLLAPSED)}</>
-
-  if (dates.length <= MAX_DATE_RECURRENCES_COLLAPSED) {
+  if (date.isMonthlyOrYearlyRecurrence()) {
     return (
-      <div>
-        {Title}
-        {AlwaysShownDates}
-      </div>
+      <Container>
+        {recurrences}
+        {date.hasMoreRecurrencesThan(visibleRecurrences) && (
+          <StyledButton type='button' onClick={() => setClicksOnShowMore(clicksOnShowMore + 1)}>
+            <StyledIcon src={ExpandIcon} title='' />
+            {t('common:showMore')}
+          </StyledButton>
+        )}
+      </Container>
     )
   }
 
+  const formattedDate = date.formatEventDate(language, t)
+
   return (
-    <Collapsible title={Title} Description={AlwaysShownDates} initialCollapsed>
-      <>
-        {Dates.slice(MAX_DATE_RECURRENCES_COLLAPSED)}
-        {hasMoreDates && '...'}
-      </>
-    </Collapsible>
+    <ContainerForThreeElements>
+      <PageDetail icon={CalendarTodayIcon} information={formattedDate.date} />
+      {!!formattedDate.weekday && <PageDetail information={formattedDate.weekday} />}
+      <PageDetail icon={ClockIcon} information={formattedDate.time} />
+    </ContainerForThreeElements>
   )
 }
 

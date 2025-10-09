@@ -19,6 +19,7 @@ describe('EventModel', () => {
       endDate: DateTime.fromISO('2020-03-20T17:50:00+02:00'),
       allDay: false,
       recurrenceRule: rrulestr('FREQ=WEEKLY;INTERVAL=3;UNTIL=20200703T235959Z;BYDAY=-1FR'),
+      onlyWeekdays: false,
     }),
     location: new LocationModel({
       id: 1,

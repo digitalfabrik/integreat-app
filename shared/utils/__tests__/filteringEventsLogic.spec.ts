@@ -25,7 +25,7 @@ const EventModalDummyData = {
   poiPath: '/test/location/path',
 }
 
-jest.useFakeTimers({ now: new Date('2024-11-07T00:00:00.000') }) // 2024-11-07
+jest.useFakeTimers({ now: new Date('2024-11-07T00:00:00.000') })
 describe('filteringEventsLogic', () => {
   const createEvent = (id: number, startDate: DateTime, endDate: DateTime): EventModel => {
     const dateModel = new DateModel({
@@ -33,6 +33,7 @@ describe('filteringEventsLogic', () => {
       endDate,
       allDay: false,
       recurrenceRule: null,
+      onlyWeekdays: false,
     })
 
     return new EventModel({
@@ -43,7 +44,7 @@ describe('filteringEventsLogic', () => {
     })
   }
 
-  const now = DateTime.local() // 2024-11-07
+  const now = DateTime.local()
 
   const events = [
     createEvent(1, now.minus({ days: 5 }), now.minus({ days: 5 }).plus({ hours: 2 })), // start: 2024-11-02, end: start + plus 2H
@@ -58,15 +59,15 @@ describe('filteringEventsLogic', () => {
   })
 
   it('returns null when startDate is after endDate', () => {
-    const startDate = now.plus({ days: 2 }) // 2024-11-09
-    const endDate = now // 2024-11-07
+    const startDate = now.plus({ days: 2 })
+    const endDate = now
     const result = filteringEventsLogic(events, startDate, endDate)
     expect(result).toBeNull()
   })
 
   it('filters events within the given date range', () => {
-    const startDate = now.minus({ days: 3 }) // 2024-11-04
-    const endDate = now.plus({ days: 2 }) // 2024-11-09
+    const startDate = now.minus({ days: 3 })
+    const endDate = now.plus({ days: 2 })
 
     const result = filteringEventsLogic(events, startDate, endDate)
 
@@ -76,8 +77,8 @@ describe('filteringEventsLogic', () => {
   })
 
   it('excludes events outside the given date range', () => {
-    const startDate = now.plus({ days: 5 }) // 2024-11-12
-    const endDate = now.plus({ days: 10 }) // 2024-11-17
+    const startDate = now.plus({ days: 5 })
+    const endDate = now.plus({ days: 10 })
 
     const result = filteringEventsLogic(events, startDate, endDate)
 
@@ -86,7 +87,7 @@ describe('filteringEventsLogic', () => {
 
   it('includes events before the endDate when startDate is null', () => {
     const startDate = null
-    const endDate = now.plus({ days: 0 }) // 2024-11-07
+    const endDate = now
 
     const result = filteringEventsLogic(events, startDate, endDate)
 
@@ -96,7 +97,7 @@ describe('filteringEventsLogic', () => {
   })
 
   it('includes events after the startDate when endDate is null', () => {
-    const startDate = now.plus({ days: 2 }) // 2024-11-09
+    const startDate = now.plus({ days: 2 })
     const endDate = null
 
     const result = filteringEventsLogic(events, startDate, endDate)
