@@ -1,9 +1,12 @@
+import CloseIcon from '@mui/icons-material/Close'
 import SentimentDissatisfiedOutlinedIcon from '@mui/icons-material/SentimentDissatisfiedOutlined'
 import SentimentSatisfiedOutlinedIcon from '@mui/icons-material/SentimentSatisfiedOutlined'
+import Alert from '@mui/material/Alert'
+import IconButton from '@mui/material/IconButton'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Rating, RATING_POSITIVE, SendingStatusType } from 'shared'
+import { Rating, RATING_POSITIVE, SendingStatusType, SNACKBAR_AUTO_HIDE_DURATION } from 'shared'
 
 import FeedbackContainer from './FeedbackContainer'
 import ToolbarItem from './ToolbarItem'
@@ -52,10 +55,18 @@ const FeedbackToolbarItem = ({ slug, rating }: FeedbackToolbarItemProps): ReactE
       />
       <Snackbar
         open={snackbarOpen}
-        severity={sendingStatus === 'successful' ? 'success' : 'error'}
         onClose={() => setSnackbarOpen(false)}
-        message={sendingStatus === 'successful' ? t('thanksMessage') : t('failedSendingFeedback')}
-      />
+        autoHideDuration={SNACKBAR_AUTO_HIDE_DURATION}>
+        <Alert
+          severity={sendingStatus === 'successful' ? 'success' : 'error'}
+          action={
+            <IconButton aria-label={t('close')} color='inherit' size='small' onClick={() => setSnackbarOpen(false)}>
+              <CloseIcon fontSize='inherit' />
+            </IconButton>
+          }>
+          {sendingStatus === 'successful' ? t('thanksMessage') : t('failedSendingFeedback')}
+        </Alert>
+      </Snackbar>
     </>
   )
 }
