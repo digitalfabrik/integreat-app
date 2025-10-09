@@ -1,9 +1,8 @@
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
-import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
-import { TU_NEWS_TYPE } from 'shared'
+import { TU_NEWS_TYPE, tunewsLabel } from 'shared'
 import { createTunewsElementEndpoint, NotFoundError, useLoadFromEndpoint } from 'shared/api'
 
 import { CityRouteProps } from '../CityContentSwitcher'
@@ -56,7 +55,6 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
   // This component is only opened when there is a news ID in the route
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const newsId = useParams().newsId!
-  const { t } = useTranslation('news')
 
   const {
     data: newsModel,
@@ -70,7 +68,7 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
     return null
   }
 
-  const pageTitle = `${newsModel?.title ?? t('pageTitle')} - ${city.name}`
+  const pageTitle = `${newsModel?.title ?? tunewsLabel} - ${city.name}`
 
   // Language change is not possible between tuNews detail views because we don't know the id of other languages
   const languageChangePaths = city.languages.map(({ code, name }) => ({ path: null, name, code }))
@@ -78,7 +76,8 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
     city,
     languageChangePaths,
     languageCode,
-    Toolbar: <CityContentToolbar pageTitle={pageTitle} />,
+    pageTitle,
+    Toolbar: <CityContentToolbar />,
   }
 
   if (loading) {

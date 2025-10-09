@@ -21,6 +21,7 @@ jest.mock('../../utils/safeLocalStorage', () => ({
 }))
 
 jest.mock('shared/api', () => ({
+  ...jest.requireActual('shared/api'),
   setJpalTrackingCode: jest.fn(),
 }))
 

@@ -23,7 +23,7 @@ jest.mock('shared/api', () => ({
 describe('FeedbackToolbarItem', () => {
   it('should open and update title on submit feedback', async () => {
     const { queryByText, findByText, getByText } = renderWithRouterAndTheme(
-      <FeedbackToolbarItem route={CATEGORIES_ROUTE} slug='my-slug' rating={RATING_POSITIVE} />,
+      <FeedbackToolbarItem slug='my-slug' rating={RATING_POSITIVE} />,
     )
 
     expect(queryByText('feedback:headline')).toBeFalsy()

@@ -10,7 +10,7 @@ import { renderAllRoutes } from '../../testing/render'
 import CityContentLayout from '../CityContentLayout'
 
 jest.mock('../../hooks/useDimensions')
-jest.mock('../CityContentFooter', () => () => <div>CityContentFooter</div>)
+jest.mock('../Footer', () => () => <div>Footer</div>)
 jest.mock('../CityContentHeader', () => () => <div>CityContentHeader</div>)
 jest.mock('react-i18next')
 
@@ -33,6 +33,7 @@ describe('CityContentLayout', () => {
           city={cityModel}
           languageCode={language}
           languageChangePaths={languageChangePaths}
+          pageTitle='Test Page'
           isLoading={isLoading}>
           <MockNode />
         </CityContentLayout>
@@ -51,24 +52,24 @@ describe('CityContentLayout', () => {
     expect(queryByText('Toolbar')).toBeFalsy()
   })
 
-  it('should show CityContentHeader and CityContentFooter if not loading and on a big screen', () => {
+  it('should show header and footer if not loading and on a big screen', () => {
     mocked(useDimensions).mockImplementation(() => ({ ...mockDimensions, mobile: false, desktop: true }))
     const { getByText } = renderCityContentLayout(false)
     expect(getByText('CityContentHeader')).toBeTruthy()
-    expect(getByText('CityContentFooter')).toBeTruthy()
+    expect(getByText('Footer')).toBeTruthy()
   })
 
-  it('should show CityContentHeader and not CityContentFooter if not loading and on a small screen', () => {
+  it('should not show footer if not loading and on a small screen', () => {
     mocked(useDimensions).mockImplementation(() => ({ ...mockDimensions, mobile: true }))
     const { getByText } = renderCityContentLayout(false)
     expect(getByText('CityContentHeader')).toBeTruthy()
-    expect(() => getByText('CityContentFooter')).toThrow()
+    expect(() => getByText('Footer')).toThrow()
   })
 
-  it('should not render CityContentFooter if loading', () => {
+  it('should not show footer if loading', () => {
     mocked(useDimensions).mockImplementation(() => ({ ...mockDimensions, mobile: true }))
     const { getByText } = renderCityContentLayout(true)
     expect(getByText('CityContentHeader')).toBeTruthy()
-    expect(() => getByText('CityContentFooter')).toThrow()
+    expect(() => getByText('Footer')).toThrow()
   })
 })

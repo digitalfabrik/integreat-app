@@ -4,13 +4,11 @@ import { Rating } from 'shared'
 import { createFeedbackEndpoint, FeedbackRouteType } from 'shared/api'
 
 import { cmsApiBaseUrl } from '../constants/urls'
+import useCityContentParams from '../hooks/useCityContentParams'
 import { reportError } from '../utils/sentry'
 import Feedback from './Feedback'
 
 type FeedbackContainerProps = {
-  cityCode: string
-  language: string
-  routeType: FeedbackRouteType
   query?: string
   noResults?: boolean
   slug?: string
@@ -23,9 +21,6 @@ export type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
 export const FeedbackContainer = ({
   query,
   noResults,
-  language,
-  routeType,
-  cityCode,
   slug,
   onSubmit,
   initialRating,
@@ -35,6 +30,7 @@ export const FeedbackContainer = ({
   const [contactMail, setContactMail] = useState<string>('')
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
   const [searchTerm, setSearchTerm] = useState<string | undefined>(query)
+  const { route, cityCode, languageCode } = useCityContentParams()
 
   useEffect(() => {
     setSearchTerm(query)
@@ -46,9 +42,9 @@ export const FeedbackContainer = ({
     const request = async () => {
       const feedbackEndpoint = createFeedbackEndpoint(cmsApiBaseUrl)
       await feedbackEndpoint.request({
-        routeType,
+        routeType: route as FeedbackRouteType,
         city: cityCode,
-        language,
+        language: languageCode,
         comment,
         contactMail,
         query,
@@ -72,7 +68,7 @@ export const FeedbackContainer = ({
 
   return (
     <Feedback
-      language={language}
+      language={languageCode}
       onCommentChanged={setComment}
       onContactMailChanged={setContactMail}
       onSubmit={handleSubmit}

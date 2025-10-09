@@ -25,7 +25,6 @@ import {
 
 import { clusterCountLayer, clusterLayer, clusterProperties, markerLayer } from '../constants/layers'
 import useDimensions from '../hooks/useDimensions'
-import '../styles/MapView.css'
 import { reportError } from '../utils/sentry'
 import MapAttribution from './MapAttribution'
 
