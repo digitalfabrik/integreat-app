@@ -36,7 +36,7 @@ const App = (): ReactElement => {
       <I18nProvider contentLanguage={contentLanguage}>
         <>
           <Helmet pageTitle={t('pageTitle')} rootPage />
-          <Router>
+          <Router future={{ v7_relativeSplatPath: true, v7_startTransition: true }}>
             <TtsContainer languageCode={contentLanguage}>
               <RootSwitcher setContentLanguage={setContentLanguage} />
             </TtsContainer>
