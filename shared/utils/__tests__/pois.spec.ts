@@ -9,9 +9,7 @@ const poi2 = pois[1]!
 const poi3 = pois[2]!
 
 beforeEach(() => {
-  jest.spyOn(poi1, 'isCurrentlyOpen', 'get').mockReturnValue(true)
   jest.spyOn(poi2, 'isCurrentlyOpen', 'get').mockReturnValue(true)
-  jest.spyOn(poi3, 'isCurrentlyOpen', 'get').mockReturnValue(false)
 })
 
 afterEach(() => {
