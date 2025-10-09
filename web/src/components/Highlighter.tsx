@@ -22,9 +22,9 @@ const Highlighter = ({ search, text, className, dir }: HighlighterProps): ReactE
       sanitize={normalizeString}
       findChunks={findNormalizedMatches}
       highlightStyle={{
-        backgroundColor: theme.legacy.colors.backgroundColor,
+        backgroundColor: theme.palette.surface.main,
         fontWeight: 'bold',
-        color: theme.isContrastTheme ? theme.legacy.colors.themeColor : theme.legacy.colors.textColor,
+        color: theme.palette.text.primary,
       }}
       aria-label={text}
       autoEscape
