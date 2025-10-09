@@ -22,7 +22,6 @@ import {
   InvalidEmailError,
 } from 'shared/api'
 
-import Icon from '../components/base/Icon'
 import { reportError } from '../utils/sentry'
 import PrivacyCheckbox from './PrivacyCheckbox'
 import RadioGroup from './base/RadioGroup'
@@ -32,10 +31,6 @@ const Note = styled('div')`
   display: flex;
   padding-bottom: 10px;
   gap: 20px;
-`
-
-const StyledIcon = styled(Icon)`
-  flex-shrink: 0;
 `
 
 const Form = styled('form')`
@@ -113,11 +108,11 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
   return (
     <>
       <Note>
-        <StyledIcon src={PeopleOutlineOutlinedIcon} />
+        <PeopleOutlineOutlinedIcon />
         {t('supportNote')}
       </Note>
       <Note>
-        <StyledIcon src={HealthAndSafetyOutlinedIcon} />
+        <HealthAndSafetyOutlinedIcon />
         {t('securityNote')}
       </Note>
       <Form onSubmit={submitHandler} noValidate>

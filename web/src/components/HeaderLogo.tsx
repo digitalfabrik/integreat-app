@@ -1,11 +1,11 @@
 import { styled } from '@mui/material/styles'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
-import SVG from 'react-inlinesvg'
 
 import buildConfig from '../constants/buildConfig'
 import useDimensions from '../hooks/useDimensions'
 import Link from './base/Link'
+import Svg from './base/Svg'
 
 const StyledLink = styled(Link)(({ theme }) => ({
   order: 1,
@@ -13,16 +13,6 @@ const StyledLink = styled(Link)(({ theme }) => ({
 
   [theme.breakpoints.down('md')]: {
     width: 48,
-  },
-}))
-
-const StyledLogo = styled(SVG)(({ theme }) => ({
-  color: theme.palette.text.primary,
-  height: '100%',
-  width: 'fit-content',
-
-  [theme.breakpoints.down('md')]: {
-    width: '100%',
   },
 }))
 
@@ -41,8 +31,8 @@ export const HeaderLogo = ({ link }: HeaderLogoProps): ReactElement => {
   const { mobile } = useDimensions()
 
   return (
-    <StyledLink to={link}>
-      <StyledLogo src={mobile ? srcMobile : src} title={appName} />
+    <StyledLink to={link} ariaLabel={appName}>
+      <Svg src={mobile ? srcMobile : src} width='100%' height='100%' />
     </StyledLink>
   )
 }
