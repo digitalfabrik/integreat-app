@@ -1,121 +1,94 @@
 import CopyIcon from '@mui/icons-material/ContentCopy'
 import DoneIcon from '@mui/icons-material/Done'
 import Button from '@mui/material/Button'
+import Stack from '@mui/material/Stack'
+import Step from '@mui/material/Step'
+import StepLabel from '@mui/material/StepLabel'
+import Stepper from '@mui/material/Stepper'
+import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import Footer from '../components/Footer'
+import GeneralHeader from '../components/GeneralHeader'
 import Layout from '../components/Layout'
+import Svg from '../components/base/Svg'
 import buildConfig from '../constants/buildConfig'
-import { helpers } from '../constants/theme'
 import useScrollToTopOnMount from '../hooks/useScrollToTopOnMount'
+import { reportError } from '../utils/sentry'
 
-const Container = styled('div')`
-  display: flex;
-  flex-direction: column;
-`
+const StyledSvg = styled(Svg)({
+  alignSelf: 'center',
+})
 
-const Heading = styled('p')`
-  font-weight: 600;
-  text-align: center;
-  font-size: 1.4rem;
-  font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
-  padding: 20px;
-  white-space: pre-line;
-`
+const StyledButton = styled(Button)({
+  alignSelf: 'center',
+  zIndex: 1,
+})
 
-const Text = styled('p')`
-  font-size: ${props => props.theme.legacy.fonts.contentFontSize};
-  font-family: ${props => props.theme.legacy.fonts.web.contentFont};
-`
+const TemplateText = styled(Typography)(({ theme }) => ({
+  position: 'relative',
+  top: -24,
+  border: `1px solid ${theme.palette.primary.main}`,
+  padding: 32,
+  paddingTop: 48,
+  whiteSpace: 'pre-line',
+}))
 
-const Icon = styled('img')`
-  width: calc(40px + 10vw);
-  height: calc(40px + 10vw);
-  flex-shrink: 0;
-  align-self: center;
-`
+type CityNotCooperatingPageProps = {
+  languageCode: string
+}
 
-const ListHeading = styled(Heading)`
-  padding: 0;
-  font-size: ${props => props.theme.legacy.fonts.decorativeFontSize};
-`
-
-const ListItem = styled('div')`
-  display: flex;
-  align-items: center;
-`
-
-const StepNumber = styled('div')`
-  border-radius: 50%;
-  line-height: 2rem;
-  min-width: 2rem;
-  height: 2rem;
-  text-align: center;
-  background-color: ${props => props.theme.legacy.colors.themeColor};
-  ${helpers.adaptiveThemeTextColor}
-`
-
-const StepExplanation = styled(Text)`
-  padding: 0 10px;
-`
-
-const StyledButton = styled(Button)`
-  align-self: center;
-  z-index: 10;
-  margin-top: 40px;
-`
-
-const TemplateText = styled(Text)`
-  position: relative;
-  direction: ltr;
-  top: -30px;
-  border: 1px solid ${props => props.theme.legacy.colors.themeColor};
-  padding: 50px 30px 30px;
-  white-space: pre-line;
-`
-
-const CityNotCooperatingPage = (): ReactElement | null => {
+const CityNotCooperatingPage = ({ languageCode }: CityNotCooperatingPageProps): ReactElement | null => {
   const { t } = useTranslation('cityNotCooperating')
-  const [isCopied, setIsCopied] = useState<boolean>(false)
+  const [isCopied, setIsCopied] = useState(false)
   const template = buildConfig().featureFlags.cityNotCooperatingTemplate
   const cityNotCooperatingIcon = buildConfig().icons.cityNotCooperating
   useScrollToTopOnMount()
 
-  if (!template) {
+  if (!template || !cityNotCooperatingIcon) {
     return null
   }
 
   const copyToClipboard = () => {
-    navigator.clipboard
-      .writeText(template)
-      .then(() => {
-        setIsCopied(true)
-      })
-      .catch(() => setIsCopied(false))
+    navigator.clipboard.writeText(template).catch(reportError)
+    setIsCopied(true)
   }
 
   return (
-    <Layout footer={<Footer />}>
-      <Container>
-        <Heading>{t('callToAction')}</Heading>
-        <Text>{t('explanation')}</Text>
-        <Icon alt='' src={cityNotCooperatingIcon} />
-        <ListHeading>{t('whatToDo')}</ListHeading>
-        <ListItem>
-          <StepNumber>1</StepNumber>
-          <StepExplanation>{t('findOutMail')}</StepExplanation>
-        </ListItem>
-        <ListItem>
-          <StepNumber>2</StepNumber>
-          <StepExplanation>{t('sendText')}</StepExplanation>
-        </ListItem>
-        <StyledButton onClick={copyToClipboard} startIcon={isCopied ? <DoneIcon /> : <CopyIcon />} variant='contained'>
-          {isCopied ? t('common:copied') : t('copyText')}
-        </StyledButton>
-        <TemplateText>{template}</TemplateText>
-      </Container>
+    <Layout header={<GeneralHeader languageCode={languageCode} />} footer={<Footer />}>
+      <Stack paddingBlock={4} gap={2}>
+        <Typography component='h1' variant='title1' textAlign='center'>
+          {t('callToAction')}
+        </Typography>
+        <Typography variant='body1'>{t('explanation')}</Typography>
+        <StyledSvg src={cityNotCooperatingIcon} width={160} height={160} />
+        <Typography component='h2' variant='title2'>
+          {t('whatToDo')}
+        </Typography>
+        <Stepper orientation='vertical'>
+          <Step active>
+            <StepLabel>
+              <Typography>{t('findOutMail')}</Typography>
+            </StepLabel>
+          </Step>
+          <Step active>
+            <StepLabel>
+              <Typography>{t('sendText')}</Typography>
+            </StepLabel>
+          </Step>
+        </Stepper>
+        <Stack>
+          <StyledButton
+            onClick={copyToClipboard}
+            startIcon={isCopied ? <DoneIcon /> : <CopyIcon />}
+            variant='contained'>
+            {isCopied ? t('common:copied') : t('copyText')}
+          </StyledButton>
+          <TemplateText dir='ltr'>{template}</TemplateText>
+        </Stack>
+      </Stack>
     </Layout>
   )
 }
