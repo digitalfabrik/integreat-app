@@ -1,7 +1,7 @@
 import HealthAndSafetyOutlinedIcon from '@mui/icons-material/HealthAndSafetyOutlined'
 import PeopleOutlineOutlinedIcon from '@mui/icons-material/PeopleOutlineOutlined'
 import SendIcon from '@mui/icons-material/Send'
-import Alert from '@mui/material/Alert'
+import Alert, { alertClasses } from '@mui/material/Alert'
 import AlertTitle from '@mui/material/AlertTitle'
 import Button from '@mui/material/Button'
 import FormControl from '@mui/material/FormControl'
@@ -24,6 +24,7 @@ import {
 import Icon from '../components/base/Icon'
 import { reportError } from '../utils/sentry'
 import PrivacyCheckbox from './PrivacyCheckbox'
+import Link from './base/Link'
 import RadioGroup from './base/RadioGroup'
 import Snackbar from './base/Snackbar'
 import Spacing from './base/Spacing'
@@ -42,6 +43,15 @@ const Form = styled('form')`
   display: flex;
   flex-direction: column;
   gap: 12px;
+`
+
+const StyledAlert = styled(Alert)`
+  display: flex;
+  align-items: center;
+
+  .${alertClasses.action} {
+    padding: 0 8px;
+  }
 `
 
 type MalteHelpFormProps = {
@@ -143,7 +153,13 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
             {
               key: 'email',
               label: t('eMail'),
-              inputProps: { value: email, onChange: setEmail, required: true },
+              inputProps: {
+                value: email,
+                onChange: setEmail,
+                required: true,
+                error: invalidEmail,
+                helperText: invalidEmail ? t('invalidEmailAddress') : undefined,
+              },
             },
             {
               key: 'telephone',
@@ -183,25 +199,23 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
           />
           {submitted && !privacyPolicyAccepted && <FormHelperText>{t('common:notePrivacyPolicy')}</FormHelperText>}
         </FormControl>
-        {invalidEmail && (
-          <Alert severity='error' role='alert'>
-            <AlertTitle>{t('submitFailed')}</AlertTitle>
-            {t('invalidEmailAddress')}
-          </Alert>
-        )}
         <Spacing />
         <Button type='submit' startIcon={<SendIcon />} variant='contained'>
           {t('submit')}
         </Button>
       </Form>
-      <Snackbar
-        open={snackbarOpen}
-        onClose={() => setSnackbarOpen(false)}
-        severity={sendingStatus === 'successful' ? 'success' : 'error'}
-        dashboardRoute={dashboardRoute}
-        title={t('submitFailed')}
-        message={sendingStatus === 'successful' ? t('submitSuccessful') : t('submitFailedReasoning')}
-      />
+      <Snackbar open={snackbarOpen} onClose={() => setSnackbarOpen(false)}>
+        <StyledAlert
+          severity={sendingStatus === 'successful' ? 'success' : 'error'}
+          action={
+            <Button component={Link} to={dashboardRoute} size='small'>
+              {t('error:goTo.categories')}
+            </Button>
+          }>
+          {sendingStatus === 'failed' && <AlertTitle>{t('submitFailed')}</AlertTitle>}
+          {sendingStatus === 'failed' ? t('submitFailedReasoning') : t('submitSuccessful')}
+        </StyledAlert>
+      </Snackbar>
     </>
   )
 }

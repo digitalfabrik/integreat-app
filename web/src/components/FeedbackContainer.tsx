@@ -1,7 +1,10 @@
+import CloseIcon from '@mui/icons-material/Close'
+import Alert from '@mui/material/Alert'
+import IconButton from '@mui/material/IconButton'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Rating, SendingStatusType } from 'shared'
+import { Rating, SendingStatusType, SNACKBAR_AUTO_HIDE_DURATION } from 'shared'
 import { createFeedbackEndpoint, FeedbackRouteType } from 'shared/api'
 
 import { cmsApiBaseUrl } from '../constants/urls'
@@ -72,24 +75,32 @@ export const FeedbackContainer = ({
 
   return (
     <>
-    <Feedback
-      language={languageCode}
-      onCommentChanged={setComment}
-      onContactMailChanged={setContactMail}
-      onSubmit={handleSubmit}
-      rating={rating}
-      comment={comment}
-      setRating={setRating}
-      contactMail={contactMail}
-      searchTerm={searchTerm}
-      setSearchTerm={setSearchTerm}
-    />
+      <Feedback
+        language={languageCode}
+        onCommentChanged={setComment}
+        onContactMailChanged={setContactMail}
+        onSubmit={handleSubmit}
+        rating={rating}
+        comment={comment}
+        setRating={setRating}
+        contactMail={contactMail}
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+      />
       <Snackbar
         open={snackbarOpen}
-        severity={sendingStatus === 'successful' ? 'success' : 'error'}
         onClose={() => setSnackbarOpen(false)}
-        message={sendingStatus === 'successful' ? t('thanksMessage') : t('failedSendingFeedback')}
-      />
+        autoHideDuration={SNACKBAR_AUTO_HIDE_DURATION}>
+        <Alert
+          severity={sendingStatus === 'successful' ? 'success' : 'error'}
+          action={
+            <IconButton aria-label={t('close')} color='inherit' size='small' onClick={() => setSnackbarOpen(false)}>
+              <CloseIcon fontSize='inherit' />
+            </IconButton>
+          }>
+          {sendingStatus === 'successful' ? t('thanksMessage') : t('failedSendingFeedback')}
+        </Alert>
+      </Snackbar>
     </>
   )
 }
