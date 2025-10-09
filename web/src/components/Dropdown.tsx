@@ -1,9 +1,10 @@
+import Paper from '@mui/material/Paper'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, useRef } from 'react'
 
 import useOnClickOutside from '../hooks/useOnClickOutside'
 
-const DropdownContainer = styled('div')<{ open: boolean }>`
+const DropdownContainer = styled(Paper)<{ open: boolean }>`
   position: absolute;
   top: ${props => props.theme.dimensions.headerHeight}px;
   inset-inline-end: 0;
@@ -19,14 +20,7 @@ const DropdownContainer = styled('div')<{ open: boolean }>`
     transform 0.2s,
     opacity 0.2s,
     visibility 0s ${props => (props.open ? '0s' : '0.2s')};
-  background-color: ${props => props.theme.legacy.colors.backgroundColor};
   visibility: ${props => (props.open ? 'visible' : 'hidden')};
-
-  ${props => props.theme.breakpoints.down('md')} {
-    top: ${props => props.theme.dimensions.headerHeight}px;
-    height: calc(100% - ${props => props.theme.dimensions.headerHeight}px);
-    overflow: hidden auto;
-  }
 
   ${props => props.theme.breakpoints.up('lg')} {
     padding-inline: calc((100vw - ${props => props.theme.breakpoints.values.lg}px) / 2)

@@ -10,15 +10,15 @@ const GlobalStyle = ({ theme }: { theme: Theme }): SerializedStyles => css`
     /* react-spring-bottom-sheet */
 
     [data-rsbs-header] {
-      background-color: ${theme.legacy.colors.backgroundAccentColor};
+      background-color: ${theme.palette.surface.light};
       box-shadow: none;
       padding-top: calc(24px + env(safe-area-inset-top));
     }
 
     [data-rsbs-header]::before {
-      background-color: ${theme.legacy.colors.textColor};
+      background-color: ${theme.palette.text.primary};
       width: 28px;
-      height: 3px;
+      height: 4px;
       top: calc(18px + env(safe-area-inset-top));
     }
 
@@ -36,7 +36,7 @@ const GlobalStyle = ({ theme }: { theme: Theme }): SerializedStyles => css`
     }
 
     [data-rsbs-scroll='true'] {
-      background-color: ${theme.legacy.colors.backgroundColor};
+      background-color: ${theme.palette.surface.light};
     }
   }
 `

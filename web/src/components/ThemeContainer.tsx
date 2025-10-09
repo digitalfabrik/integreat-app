@@ -128,7 +128,7 @@ const ThemeContainer = ({ children, contentDirection }: ThemeContainerProps): Re
     }
 
     const theme = createTheme(themeType, contentDirection)
-    document.body.style.backgroundColor = theme.legacy.colors.backgroundAccentColor
+    document.body.style.backgroundColor = theme.palette.surface.main
     return { ...theme, toggleTheme }
   }, [themeType, setThemeType, contentDirection])
 

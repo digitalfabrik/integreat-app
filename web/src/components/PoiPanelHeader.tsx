@@ -19,7 +19,7 @@ const PoiPanelHeader = ({ goBack }: PoiPanelHeaderProps): ReactElement => {
           <DirectionDependentBackIcon />
         </IconButton>
       ) : (
-        <Typography component='h1' variant='title2' alignContent='center'>
+        <Typography component='h1' variant='title1' alignContent='center'>
           {t('common:nearby')}
         </Typography>
       )}
