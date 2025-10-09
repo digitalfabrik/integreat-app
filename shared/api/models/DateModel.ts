@@ -149,7 +149,7 @@ class DateModel {
 
     if (this.isSingleOneDayEvent()) {
       return {
-        date: this.startDate.toLocaleString(dateFormatWithoutWeekday),
+        date: this.startDate.toLocaleString(dateFormatWithoutWeekday, { locale }),
         weekday,
         time,
       }
@@ -259,7 +259,7 @@ class DateModel {
 
     return {
       date: t('startingFrom', {
-        date: date.startDate.toLocaleString(dateFormatWithoutWeekday),
+        date: date.startDate.toLocaleString(dateFormatWithoutWeekday, { locale }),
       }),
       weekday,
       time,
