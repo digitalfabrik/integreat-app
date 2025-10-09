@@ -83,9 +83,6 @@ const Aside = styled('aside')`
   width: 100px;
   left: 0;
 
-  /* Position toolbar above content */
-  z-index: 10;
-
   ${props => props.theme.breakpoints.up('lg')} {
     inset-inline-start: 8px;
   }
