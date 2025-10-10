@@ -56,6 +56,13 @@ const createTheme = (
           dir: 'auto',
         },
       },
+      MuiListSubheader: {
+        styleOverrides: {
+          root: {
+            background: 'transparent',
+          },
+        },
+      },
       MuiAccordion: {
         styleOverrides: {
           root: {
