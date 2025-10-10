@@ -1,5 +1,7 @@
 import QuestionAnswerOutlinedIcon from '@mui/icons-material/QuestionAnswerOutlined'
+import { dialogContentClasses } from '@mui/material/DialogContent'
 import Fab from '@mui/material/Fab'
+import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
@@ -13,7 +15,6 @@ import useLockedBody from '../hooks/useLockedBody'
 import ChatController from './ChatController'
 import { TtsContext } from './TtsContainer'
 import Dialog from './base/Dialog'
-import Icon from './base/Icon'
 
 const ChatButtonContainer = styled('div')`
   position: fixed;
@@ -24,26 +25,18 @@ const ChatButtonContainer = styled('div')`
   flex-direction: column;
   align-items: center;
   width: min-content;
+  gap: 8px;
 `
 
-const StyledIcon = styled(Icon)`
-  display: flex;
-  width: 40px;
-  height: 40px;
-  align-self: center;
-  justify-content: center;
-  color: ${props => props.theme.legacy.colors.backgroundColor};
-`
-
-const ChatTitle = styled('span')`
-  text-align: center;
-  margin-top: 8px;
-  color: ${props => props.theme.legacy.colors.textColor};
-`
+const StyledDialog = styled(Dialog)({
+  [`.${dialogContentClasses.root}`]: {
+    paddingTop: 0,
+  },
+})
 
 const ChatActionButton = styled(Fab)`
   &:hover {
-    background-color: ${props => props.theme.legacy.colors.themeColor};
+    background-color: ${props => props.theme.palette.secondary.main};
   }
 `
 
@@ -77,18 +70,22 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement | n
 
   if (chatVisible) {
     return (
-      <Dialog title={chatName} close={() => setChatVisible(false)}>
+      <StyledDialog title={chatName} close={() => setChatVisible(false)}>
         <ChatController city={city} language={language} />
-      </Dialog>
+      </StyledDialog>
     )
   }
 
   return (
     <ChatButtonContainer>
-      <ChatActionButton onClick={() => setChatVisible(true)} color='primary'>
-        <StyledIcon src={QuestionAnswerOutlinedIcon} title={chatName} />
+      <ChatActionButton onClick={() => setChatVisible(true)} color='primary' aria-label={chatName}>
+        <QuestionAnswerOutlinedIcon fontSize='large' />
       </ChatActionButton>
-      {desktop && <ChatTitle>{chatName}</ChatTitle>}
+      {desktop && (
+        <Typography textAlign='center' aria-hidden>
+          {chatName}
+        </Typography>
+      )}
     </ChatButtonContainer>
   )
 }
