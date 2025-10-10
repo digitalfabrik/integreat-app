@@ -17,9 +17,11 @@ const SelectorItemButton = styled(ListItemButton)`
   justify-content: center;
 ` as typeof ListItemButton
 
-const StyledList = styled(List)<{ vertical: boolean }>`
+const StyledList = styled(List, {
+  shouldForwardProp: prop => prop !== '$vertical',
+})<{ $vertical: boolean }>`
   display: flex;
-  flex-flow: ${props => (props.vertical ? 'column' : 'row wrap')};
+  flex-flow: ${props => (props.$vertical ? 'column' : 'row wrap')};
   justify-content: space-evenly;
   gap: 4px;
   padding: 8px 0;
@@ -44,7 +46,7 @@ const Selector = ({
   close,
   disabledItemTooltip,
 }: SelectorProps): ReactElement => (
-  <StyledList disablePadding vertical={verticalLayout}>
+  <StyledList disablePadding $vertical={verticalLayout}>
     {items.map(item =>
       item.href ? (
         <StyledListItem key={item.code} disablePadding>
