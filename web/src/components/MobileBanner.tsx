@@ -20,6 +20,7 @@ const StyledBanner = styled('div')(({ theme }) => ({
   height: 80,
   transition: 'all 2s ease-out',
   backgroundColor: theme.palette.secondary.main,
+  color: theme.palette.secondary.contrastText,
 }))
 
 const Logo = styled(SVG)({
@@ -70,7 +71,7 @@ const MobileBanner = (): ReactElement | null => {
     return (
       <StyledBanner>
         <Stack direction='row' alignItems='center' gap={1}>
-          <IconButton onClick={closeBanner} aria-label={t('common:close')}>
+          <IconButton onClick={closeBanner} aria-label={t('common:close')} color='inherit'>
             <CloseIcon />
           </IconButton>
           <Logo src={icons.appLogoMobile} />
