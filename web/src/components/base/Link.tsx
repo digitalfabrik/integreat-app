@@ -1,5 +1,5 @@
 import shouldForwardProp from '@emotion/is-prop-valid'
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 
@@ -8,12 +8,12 @@ import { UiDirectionType } from 'translations'
 import { isInternalLink, NEW_TAB, NEW_TAB_FEATURES } from '../../utils/openLink'
 
 const InternalLink = styled(RouterLink, { shouldForwardProp })<{ highlightedLink: boolean }>`
-  color: ${props => (props.highlightedLink ? props.theme.colors.linkColor : 'inherit')};
+  color: ${props => (props.highlightedLink ? props.theme.legacy.colors.linkColor : 'inherit')};
   text-decoration: ${props => (props.highlightedLink ? 'underline' : 'none')};
 `
 
-const ExternalLink = styled.a<{ highlightedLink: boolean }>`
-  color: ${props => (props.highlightedLink ? props.theme.colors.linkColor : 'inherit')};
+const ExternalLink = styled('a')<{ highlightedLink: boolean }>`
+  color: ${props => (props.highlightedLink ? props.theme.legacy.colors.linkColor : 'inherit')};
   text-decoration: ${props => (props.highlightedLink ? 'underline' : 'none')};
 `
 
@@ -37,6 +37,7 @@ const Link = ({
   id,
   highlighted = false,
   onClick,
+  ...props
 }: LinkProps): ReactElement => {
   const commonProps = {
     'aria-label': ariaLabel,
@@ -45,6 +46,7 @@ const Link = ({
     highlightedLink: highlighted,
     id,
     onClick,
+    ...props,
   }
   if (isInternalLink(to)) {
     return (

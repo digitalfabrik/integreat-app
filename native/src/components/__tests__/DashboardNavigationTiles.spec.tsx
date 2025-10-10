@@ -68,7 +68,7 @@ describe('DashboardNavigationTiles', () => {
   it('should not show navigation tiles if there are no features enabled', () => {
     const cityModel = createCityModel(false, false, false, false)
     const { queryByText } = renderDashboardNavigationTiles(cityModel)
-    expect(queryByText('pois')).toBeNull()
+    expect(queryByText('locations')).toBeNull()
     expect(queryByText('news')).toBeNull()
     expect(queryByText('events')).toBeNull()
   })
@@ -85,7 +85,7 @@ describe('DashboardNavigationTiles', () => {
     const cityModel = createCityModel(true, true, true, true)
     const { getByText } = renderDashboardNavigationTiles(cityModel)
 
-    expect(getByText('pois')).toBeTruthy()
+    expect(getByText('locations')).toBeTruthy()
     expect(getByText('news')).toBeTruthy()
     expect(getByText('events')).toBeTruthy()
   })
@@ -96,7 +96,7 @@ describe('DashboardNavigationTiles', () => {
     const { queryByText } = renderDashboardNavigationTiles(cityModel)
 
     expect(queryByText('events')).toBeTruthy()
-    expect(queryByText('pois')).toBeFalsy()
+    expect(queryByText('locations')).toBeFalsy()
     expect(queryByText('news')).toBeFalsy()
   })
 })

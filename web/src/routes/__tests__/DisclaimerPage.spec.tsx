@@ -16,7 +16,6 @@ jest.mock('shared/api', () => ({
 
 jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
-jest.mock('react-tooltip')
 
 describe('DisclaimerPage', () => {
   beforeEach(() => {

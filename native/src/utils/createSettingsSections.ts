@@ -118,9 +118,7 @@ const createSettingsSections = ({
   },
   {
     role: 'link',
-    title: t('about', {
-      appName: buildConfig().appName,
-    }),
+    title: t('aboutUs'),
     onPress: async () => {
       const { aboutUrls } = buildConfig()
       const aboutUrl = aboutUrls[languageCode] || aboutUrls.default

@@ -17,7 +17,6 @@ describe('PoiFiltersOverlayButtons', () => {
   const renderPoiFiltersOverlayButtons = (poiCategory: PoiCategoryModel | undefined, currentlyOpen: boolean) =>
     renderWithTheme(
       <PoiFiltersOverlayButtons
-        poiFiltersShown={false}
         currentlyOpenFilter={currentlyOpen}
         poiCategory={poiCategory}
         setShowFilterSelection={setShowFilterSelection}
@@ -42,7 +41,7 @@ describe('PoiFiltersOverlayButtons', () => {
     expect(setPoiCategoryFilter).toHaveBeenCalledWith(null)
   })
 
-  it('should only show open filter modal button', () => {
+  it('should only show open poi filter button', () => {
     const { getByText, queryByText } = renderPoiFiltersOverlayButtons(undefined, false)
 
     expect(getByText('pois:adjustFilters')).toBeTruthy()

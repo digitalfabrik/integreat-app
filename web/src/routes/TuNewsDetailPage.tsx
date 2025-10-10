@@ -1,9 +1,8 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
-import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
-import { TU_NEWS_TYPE } from 'shared'
+import { TU_NEWS_TYPE, tunewsLabel } from 'shared'
 import { createTunewsElementEndpoint, NotFoundError, useLoadFromEndpoint } from 'shared/api'
 
 import { CityRouteProps } from '../CityContentSwitcher'
@@ -17,22 +16,21 @@ import Page from '../components/Page'
 import Icon from '../components/base/Icon'
 import { tunewsApiBaseUrl } from '../constants/urls'
 import useTtsPlayer from '../hooks/useTtsPlayer'
-import { TU_NEWS_DETAIL_ROUTE } from './index'
 
-const StyledContainer = styled.div`
+const StyledContainer = styled('div')`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 `
 
-const StyledBanner = styled.div`
+const StyledBanner = styled('div')`
   position: relative;
   display: flex;
   height: 60px;
   overflow: hidden;
   align-items: center;
   margin: 25px 0;
-  background-color: ${props => props.theme.colors.tunewsThemeColorLight};
+  background-color: ${props => props.theme.legacy.colors.tunewsThemeColorLight};
   border-radius: 11px;
 `
 
@@ -41,14 +39,14 @@ const StyledIcon = styled(Icon)`
   height: 100%;
 `
 
-const StyledTitle = styled.div`
+const StyledTitle = styled('div')`
   display: flex;
   width: 185px;
   height: 100%;
   align-items: center;
   justify-content: center;
-  background-color: ${props => props.theme.colors.tunewsThemeColor};
-  color: ${props => props.theme.colors.backgroundColor};
+  background-color: ${props => props.theme.legacy.colors.tunewsThemeColor};
+  color: ${props => props.theme.legacy.colors.backgroundColor};
   font-size: 20px;
   font-weight: 700;
 `
@@ -57,7 +55,6 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
   // This component is only opened when there is a news ID in the route
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const newsId = useParams().newsId!
-  const { t } = useTranslation('news')
 
   const {
     data: newsModel,
@@ -71,16 +68,16 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
     return null
   }
 
-  const pageTitle = `${newsModel?.title ?? t('pageTitle')} - ${city.name}`
+  const pageTitle = `${newsModel?.title ?? tunewsLabel} - ${city.name}`
 
   // Language change is not possible between tuNews detail views because we don't know the id of other languages
   const languageChangePaths = city.languages.map(({ code, name }) => ({ path: null, name, code }))
   const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
     city,
     languageChangePaths,
-    route: TU_NEWS_DETAIL_ROUTE,
     languageCode,
-    Toolbar: <CityContentToolbar hasFeedbackOption={false} route={TU_NEWS_DETAIL_ROUTE} pageTitle={pageTitle} />,
+    pageTitle,
+    Toolbar: <CityContentToolbar />,
   }
 
   if (loading) {

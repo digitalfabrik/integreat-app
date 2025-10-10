@@ -1,11 +1,10 @@
 import shouldForwardProp from '@emotion/is-prop-valid'
-import styled from '@emotion/styled'
-import { TFunction } from 'i18next'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-import { NewsType, TU_NEWS_TYPE } from 'shared'
-import { tunewsLabel } from 'shared/constants/news'
+import { NewsType, TU_NEWS_TYPE, tunewsLabel } from 'shared'
 
 import { TuNewsActiveIcon, TuNewsInactiveIcon } from '../assets'
 
@@ -19,24 +18,20 @@ const StyledTab = styled(Link, { shouldForwardProp })<{ tabSelected: boolean }>`
   justify-content: center;
   cursor: pointer;
   padding: 13px 15px;
-  color: ${({ theme }) => theme.colors.backgroundColor};
+  color: ${({ theme }) => theme.legacy.colors.backgroundColor};
   object-fit: contain;
   background-color: ${({ tabSelected, theme }) =>
-    tabSelected ? theme.colors.themeColor : theme.colors.textDisabledColor};
+    tabSelected ? theme.legacy.colors.themeColor : theme.legacy.colors.textDisabledColor};
   border-radius: 11px;
-  font-size: ${props => props.theme.fonts.subTitleFontSize};
+  font-size: ${props => props.theme.legacy.fonts.subTitleFontSize};
   font-weight: 700;
   text-decoration: none;
-
-  &:not(:last-child) {
-    margin-inline-end: 30px;
-  }
 `
 
 const TuStyledTab = styled(StyledTab)`
   background-image: ${({ tabSelected }) => (tabSelected ? `url(${TuNewsActiveIcon})` : `url(${TuNewsInactiveIcon})`)};
   background-color: ${({ tabSelected, theme }) =>
-    tabSelected ? theme.colors.tunewsThemeColor : theme.colors.textDisabledColor};
+    tabSelected ? theme.legacy.colors.tunewsThemeColor : theme.legacy.colors.textDisabledColor};
   background-size: cover;
   background-position: center center;
 `
@@ -45,10 +40,10 @@ type NewsTabProps = {
   type: NewsType
   active: boolean
   destination: string
-  t: TFunction<'news'>
 }
 
-const NewsTab = ({ type, active, destination, t }: NewsTabProps): ReactElement => {
+const NewsTab = ({ type, active, destination }: NewsTabProps): ReactElement => {
+  const { t } = useTranslation('news')
   if (type === TU_NEWS_TYPE) {
     return <TuStyledTab tabSelected={active} to={destination} aria-label={tunewsLabel} />
   }

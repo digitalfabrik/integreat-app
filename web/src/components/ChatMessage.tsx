@@ -1,19 +1,20 @@
-import styled from '@emotion/styled'
+import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined'
+import SmartToyOutlinedIcon from '@mui/icons-material/SmartToyOutlined'
+import { styled } from '@mui/material/styles'
 import { TFunction } from 'i18next'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import ChatMessageModel from 'shared/api/models/ChatMessageModel'
+import { ChatMessageModel } from 'shared/api'
 
-import { ChatBot, ChatPerson } from '../assets'
 import RemoteContent from './RemoteContent'
 import Icon from './base/Icon'
 
-export const Message = styled.div`
-  color: ${props => props.theme.colors.textColor};
+export const Message = styled('div')`
+  color: ${props => props.theme.legacy.colors.textColor};
   border-radius: 5px;
   padding: 8px;
-  border: 1px solid ${props => props.theme.colors.textDecorationColor};
+  border: 1px solid ${props => props.theme.legacy.colors.textDecorationColor};
   max-width: 70%;
   width: max-content;
 
@@ -21,37 +22,42 @@ export const Message = styled.div`
     line-break: anywhere;
   }
 `
+const StyledChatIcon = styled(Icon)`
+  background-color: ${props => props.theme.legacy.colors.themeColor};
+  color: black;
+  border-radius: 4px;
+`
 
-const Container = styled.div<{ isAuthor: boolean }>`
+const Container = styled('div')<{ isAuthor: boolean }>`
   display: flex;
   flex-direction: ${props => (props.isAuthor ? 'row-reverse' : 'row')};
   margin-bottom: 12px;
   gap: 8px;
 `
 
-const IconContainer = styled.div<{ visible: boolean }>`
+const IconContainer = styled('div')<{ visible: boolean }>`
   opacity: ${props => (props.visible ? 1 : 0)};
 `
 
-const Circle = styled.div`
+const Circle = styled('div')`
   display: flex;
-  background-color: ${props => props.theme.colors.textColor};
+  background-color: ${props => props.theme.legacy.colors.textColor};
   border-radius: 50%;
   height: 18px;
   width: 18px;
-  color: ${props => props.theme.colors.backgroundColor};
+  color: ${props => props.theme.legacy.colors.backgroundColor};
   justify-content: center;
   align-items: center;
   padding: 4px;
-  font-size: ${props => props.theme.fonts.decorativeFontSizeSmall};
+  font-size: ${props => props.theme.legacy.fonts.decorativeFontSizeSmall};
 `
 
 const getIcon = (userIsAuthor: boolean, isAutomaticAnswer: boolean, t: TFunction<'chat'>): ReactElement => {
   if (userIsAuthor) {
     return <Circle>{t('user')}</Circle>
   }
-  const icon = isAutomaticAnswer ? ChatBot : ChatPerson
-  return <Icon src={icon} title={isAutomaticAnswer ? t('bot') : t('human')} />
+  const icon = isAutomaticAnswer ? SmartToyOutlinedIcon : PersonOutlinedIcon
+  return <StyledChatIcon src={icon} title={isAutomaticAnswer ? t('bot') : t('human')} />
 }
 
 type InnerChatMessageProps = {

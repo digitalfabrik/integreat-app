@@ -1,76 +1,30 @@
-import React, { memo, ReactNode, useContext } from 'react'
-import { useTranslation } from 'react-i18next'
+import Stack from '@mui/material/Stack'
+import React, { ReactElement } from 'react'
 
-import { ReadAloudIcon } from '../assets'
-import useWindowDimensions from '../hooks/useWindowDimensions'
-import { RouteType } from '../routes'
-import ContrastThemeToggle from './ContrastThemeToggle'
+import { NEWS_ROUTE, RATING_NEGATIVE, RATING_POSITIVE } from 'shared'
+
+import useCityContentParams from '../hooks/useCityContentParams'
 import FeedbackToolbarItem from './FeedbackToolbarItem'
-import SharingPopup from './SharingPopup'
-import Toolbar from './Toolbar'
-import ToolbarItem from './ToolbarItem'
-import { TtsContext } from './TtsContainer'
+
+export const TOOLBAR_ELEMENT_ID = 'toolbar'
 
 type CityContentToolbarProps = {
-  feedbackTarget?: string
-  children?: ReactNode
-  iconDirection?: 'row' | 'column'
-  hasFeedbackOption?: boolean
-  hideDivider?: boolean
-  pageTitle: string
-  route: RouteType
-  isInBottomActionSheet?: boolean
-  maxItems?: number
+  slug?: string
 }
 
-const CityContentToolbar = (props: CityContentToolbarProps) => {
-  const { enabled: ttsEnabled, showTtsPlayer, canRead } = useContext(TtsContext)
-  const { viewportSmall } = useWindowDimensions()
-  const { t } = useTranslation('layout')
+const CityContentToolbar = ({ slug }: CityContentToolbarProps): ReactElement | null => {
+  const { route } = useCityContentParams()
 
-  const {
-    feedbackTarget,
-    children,
-    iconDirection = viewportSmall ? 'row' : 'column',
-    hasFeedbackOption = true,
-    hideDivider,
-    route,
-    pageTitle,
-    isInBottomActionSheet = false,
-    maxItems,
-  } = props
-
-  const items = [
-    children,
-    hasFeedbackOption && <FeedbackToolbarItem key='positive' route={route} slug={feedbackTarget} positive />,
-    hasFeedbackOption && <FeedbackToolbarItem key='negative' route={route} slug={feedbackTarget} positive={false} />,
-    <SharingPopup
-      key='share'
-      shareUrl={window.location.href}
-      flow={iconDirection === 'row' ? 'vertical' : 'horizontal'}
-      title={pageTitle}
-      portalNeeded={isInBottomActionSheet}
-    />,
-    ttsEnabled && (
-      <ToolbarItem
-        key='tts'
-        icon={ReadAloudIcon}
-        isDisabled={!canRead}
-        text={t('readAloud')}
-        tooltip={canRead ? null : t('nothingToReadFullMessage')}
-        onClick={showTtsPlayer}
-        id='read-aloud-icon'
-      />
-    ),
-    !viewportSmall && <ContrastThemeToggle key='theme' />,
-  ]
-    .filter(Boolean)
-    .slice(0, maxItems)
+  if (route === NEWS_ROUTE) {
+    // Feedback is currently not supported for the news route
+    return null
+  }
 
   return (
-    <Toolbar iconDirection={iconDirection} hideDivider={hideDivider}>
-      {items}
-    </Toolbar>
+    <Stack id={TOOLBAR_ELEMENT_ID}>
+      <FeedbackToolbarItem key='positive' slug={slug} rating={RATING_POSITIVE} />
+      <FeedbackToolbarItem key='negative' slug={slug} rating={RATING_NEGATIVE} />
+    </Stack>
   )
 }
-export default memo(CityContentToolbar)
+export default CityContentToolbar

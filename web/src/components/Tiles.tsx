@@ -1,24 +1,19 @@
-import styled from '@emotion/styled'
+import Stack from '@mui/material/Stack'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
 import { TileModel } from 'shared'
 
-import dimensions from '../constants/dimensions'
 import Caption from './Caption'
 import Tile from './Tile'
 
-const TilesRow = styled.div`
+const TilesRow = styled('div')`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+
+  /* https://css-tricks.com/intrinsically-responsive-css-grid-with-minmax-and-min/ */
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
   padding: 10px 0;
-
-  @media ${dimensions.mediumViewport} {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  @media ${dimensions.smallViewport} {
-    grid-template-columns: repeat(2, 1fr);
-  }
 `
 
 type TilesProps = {
@@ -27,14 +22,14 @@ type TilesProps = {
 }
 
 const Tiles = ({ title, tiles }: TilesProps): ReactElement => (
-  <div>
+  <Stack paddingTop={2}>
     {!!title && <Caption title={title} />}
     <TilesRow>
       {tiles.map(tile => (
         <Tile key={tile.path} tile={tile} />
       ))}
     </TilesRow>
-  </div>
+  </Stack>
 )
 
 export default Tiles
