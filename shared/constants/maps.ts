@@ -92,7 +92,7 @@ export const defaultMercatorViewportConfig: MapViewMercatorViewport = {
 }
 
 export const clusterClickZoomFactor = 2
-export const normalDetailZoom = 15
+export const normalDetailZoom = 17
 export const closerDetailZoom = 18
 export const maxMapZoom = 21
 export const clusterRadius = 50
