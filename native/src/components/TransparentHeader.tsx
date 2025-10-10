@@ -2,7 +2,7 @@ import React, { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Share } from 'react-native'
 import { HiddenItem } from 'react-navigation-header-buttons'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
 import { SHARE_SIGNAL_NAME } from 'shared'
 
@@ -36,6 +36,7 @@ type TransparentHeaderProps = {
 const TransparentHeader = ({ navigation, route }: TransparentHeaderProps): ReactElement | null => {
   const { t } = useTranslation('layout')
   const showSnackbar = useSnackbar()
+  const theme = useTheme()
 
   const shareUrl = (route.params as { shareUrl: string } | undefined)?.shareUrl
   const isPdfUrl = shareUrl?.toLowerCase().includes('.pdf')
@@ -79,7 +80,14 @@ const TransparentHeader = ({ navigation, route }: TransparentHeaderProps): React
 
   const overflowItems = shareUrl
     ? [
-        <HiddenItem key='share' title={t('share')} onPress={onShare} accessibilityLabel={t('share')} />,
+        <HiddenItem
+          key='share'
+          title={t('share')}
+          onPress={onShare}
+          accessibilityLabel={t('share')}
+          titleStyle={{ color: theme.colors.textColor }}
+          style={{ backgroundColor: theme.colors.backgroundAccentColor }}
+        />,
         ...(isPdfUrl
           ? [
               <HiddenItem
@@ -87,6 +95,8 @@ const TransparentHeader = ({ navigation, route }: TransparentHeaderProps): React
                 title={t('downloadPdf')}
                 onPress={onOpenPdf}
                 accessibilityLabel={t('downloadPdf')}
+                titleStyle={{ color: theme.colors.textColor }}
+                style={{ backgroundColor: theme.colors.backgroundAccentColor }}
               />,
             ]
           : []),

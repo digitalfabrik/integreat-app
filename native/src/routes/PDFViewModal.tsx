@@ -12,6 +12,7 @@ import LoadingSpinner from '../components/LoadingSpinner'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useResourceCache from '../hooks/useResourceCache'
+import { reportError } from '../utils/sentry'
 
 const LoadingSpinnerContainer = styled(View)`
   flex: 1;
@@ -35,18 +36,28 @@ const PDFViewModal = ({ route, navigation: _navigation }: PDFViewModalProps): Re
   const [localPath, setLocalPath] = useState<string>('')
   const { url } = route.params
   const { cityCode, languageCode } = useCityAppContext()
-  const resourceCache = useResourceCache({ cityCode, languageCode })
+  const { data: resourceCache, refresh } = useResourceCache({ cityCode, languageCode })
 
   useEffect(() => {
     const loadPdf = async () => {
-      const fileHash = url.substring(url.lastIndexOf('/') + 1).split('.')[0]
-      const cachedFile = Object.values(resourceCache)
-        .flatMap(pageCache => Object.values(pageCache))
-        .find(resourceEntry => resourceEntry.hash === fileHash)
+      try {
+        const fileHash = url.substring(url.lastIndexOf('/') + 1).split('.')[0]
+        const cachedFile = Object.values(resourceCache)
+          .flatMap(pageCache => Object.values(pageCache))
+          .find(resourceEntry => resourceEntry.hash === fileHash)
 
-      const exists = await ReactNativeBlobUtil.fs.exists(cachedFile?.filePath ?? '')
-      if (exists) {
-        setLocalPath(`file://${cachedFile?.filePath}`)
+        const exists = await ReactNativeBlobUtil.fs.exists(cachedFile?.filePath ?? '')
+        if (exists) {
+          setLocalPath(`file://${cachedFile?.filePath}`)
+          setLoading(false)
+          setError(false)
+        } else {
+          setError(true)
+          setLoading(false)
+        }
+      } catch (e) {
+        reportError(`Error loading PDF: ${e}`)
+        setError(true)
         setLoading(false)
       }
     }
@@ -55,7 +66,14 @@ const PDFViewModal = ({ route, navigation: _navigation }: PDFViewModalProps): Re
   }, [resourceCache, url])
 
   if (error) {
-    return <Failure code={ErrorCode.UnknownError} />
+    return (
+      <Failure
+        buttonAction={() => {
+          refresh()
+        }}
+        code={ErrorCode.UnknownError}
+      />
+    )
   }
 
   if (loading || !localPath) {

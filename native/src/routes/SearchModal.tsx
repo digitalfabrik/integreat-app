@@ -58,7 +58,7 @@ const SearchModal = ({
   initialSearchText,
 }: SearchModalProps): ReactElement | null => {
   const [query, setQuery] = useState<string>(initialSearchText)
-  const resourceCache = useResourceCache({ cityCode, languageCode })
+  const { data: resourceCache } = useResourceCache({ cityCode, languageCode })
   const { t } = useTranslation('search')
 
   const debouncedQuery = useDebounce(query)

@@ -10,8 +10,18 @@ type UseResourceCacheProps = {
   languageCode: string
 }
 
-const useResourceCache = ({ cityCode, languageCode }: UseResourceCacheProps): LanguageResourceCacheStateType =>
-  useLoadAsync(useCallback(() => dataContainer.getResourceCache(cityCode, languageCode), [cityCode, languageCode]))
-    .data ?? {}
+const useResourceCache = ({
+  cityCode,
+  languageCode,
+}: UseResourceCacheProps): { data: LanguageResourceCacheStateType; refresh: () => void } => {
+  const result = useLoadAsync(
+    useCallback(() => dataContainer.getResourceCache(cityCode, languageCode), [cityCode, languageCode]),
+  )
+
+  return {
+    data: result.data ?? {},
+    refresh: result.refresh,
+  }
+}
 
 export default useResourceCache

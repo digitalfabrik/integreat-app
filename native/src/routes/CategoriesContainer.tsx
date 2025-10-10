@@ -27,7 +27,7 @@ type CategoriesContainerProps = {
 const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): ReactElement => {
   const { cityCode, languageCode } = useCityAppContext()
   const deviceWidth = useWindowDimensions().width
-  const resourceCache = useResourceCache({ cityCode, languageCode })
+  const { data: resourceCache } = useResourceCache({ cityCode, languageCode })
   const { navigateTo } = useNavigate()
 
   const { data, ...response } = useLoadCityContent({ cityCode, languageCode })
