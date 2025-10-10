@@ -62,7 +62,7 @@ const Page = ({
   accessible,
 }: PageProps): ReactElement => {
   const { cityCode, languageCode } = useCityAppContext()
-  const resourceCache = useResourceCache({ cityCode, languageCode })
+  const { data: resourceCache } = useResourceCache({ cityCode, languageCode })
   const resourceCacheUrl = useContext(StaticServerContext)
   const [loading, setLoading] = useState(true)
   const navigateToLink = useNavigateToLink()

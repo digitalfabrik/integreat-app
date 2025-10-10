@@ -2,7 +2,7 @@ import React, { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Share } from 'react-native'
 import { HiddenItem } from 'react-navigation-header-buttons'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
 import { SHARE_SIGNAL_NAME } from 'shared'
 
@@ -10,6 +10,7 @@ import { NavigationProps, RouteProps, RoutesType } from '../constants/Navigation
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import useSnackbar from '../hooks/useSnackbar'
+import openExternalUrl from '../utils/openExternalUrl'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 import { reportError } from '../utils/sentry'
 import CustomHeaderButtons from './CustomHeaderButtons'
@@ -35,8 +36,10 @@ type TransparentHeaderProps = {
 const TransparentHeader = ({ navigation, route }: TransparentHeaderProps): ReactElement | null => {
   const { t } = useTranslation('layout')
   const showSnackbar = useSnackbar()
+  const theme = useTheme()
 
   const shareUrl = (route.params as { shareUrl: string } | undefined)?.shareUrl
+  const isPdfUrl = shareUrl?.toLowerCase().includes('.pdf')
 
   const onShare = useCallback(async (): Promise<void> => {
     if (!shareUrl) {
@@ -68,8 +71,36 @@ const TransparentHeader = ({ navigation, route }: TransparentHeaderProps): React
     }
   }, [showSnackbar, shareUrl, t])
 
+  const onOpenPdf = useCallback(async (): Promise<void> => {
+    if (!shareUrl) {
+      return
+    }
+    await openExternalUrl(shareUrl, showSnackbar)
+  }, [showSnackbar, shareUrl])
+
   const overflowItems = shareUrl
-    ? [<HiddenItem key='share' title={t('share')} onPress={onShare} accessibilityLabel={t('share')} />]
+    ? [
+        <HiddenItem
+          key='share'
+          title={t('share')}
+          onPress={onShare}
+          accessibilityLabel={t('share')}
+          titleStyle={{ color: theme.colors.textColor }}
+          style={{ backgroundColor: theme.colors.backgroundAccentColor }}
+        />,
+        ...(isPdfUrl
+          ? [
+              <HiddenItem
+                key='downloadPdf'
+                title={t('downloadPdf')}
+                onPress={onOpenPdf}
+                accessibilityLabel={t('downloadPdf')}
+                titleStyle={{ color: theme.colors.textColor }}
+                style={{ backgroundColor: theme.colors.backgroundAccentColor }}
+              />,
+            ]
+          : []),
+      ]
     : []
 
   if (!navigation.canGoBack()) {

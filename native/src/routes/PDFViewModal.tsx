@@ -1,7 +1,8 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useState, useEffect } from 'react'
 import { View } from 'react-native'
-import Pdf from 'react-native-pdf'
-import { useTheme } from 'styled-components/native'
+import ReactNativeBlobUtil from 'react-native-blob-util'
+import PdfRendererView from 'react-native-pdf-renderer'
+import styled from 'styled-components/native'
 
 import { PdfViewModalRouteType } from 'shared'
 import { ErrorCode } from 'shared/api'
@@ -9,8 +10,20 @@ import { ErrorCode } from 'shared/api'
 import Failure from '../components/Failure'
 import LoadingSpinner from '../components/LoadingSpinner'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
-import useSnackbar from '../hooks/useSnackbar'
-import openExternalUrl from '../utils/openExternalUrl'
+import useCityAppContext from '../hooks/useCityAppContext'
+import useResourceCache from '../hooks/useResourceCache'
+import { reportError } from '../utils/sentry'
+
+const LoadingSpinnerContainer = styled(View)`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`
+
+const StyledPdfRendererView = styled(PdfRendererView)`
+  flex: 1;
+  background-color: ${props => props.theme.colors.backgroundAccentColor};
+`
 
 type PDFViewModalProps = {
   route: RouteProps<PdfViewModalRouteType>
@@ -19,34 +32,58 @@ type PDFViewModalProps = {
 
 const PDFViewModal = ({ route, navigation: _navigation }: PDFViewModalProps): ReactElement => {
   const [error, setError] = useState<boolean>(false)
-  const showSnackbar = useSnackbar()
+  const [loading, setLoading] = useState<boolean>(true)
+  const [localPath, setLocalPath] = useState<string>('')
   const { url } = route.params
-  const theme = useTheme()
+  const { cityCode, languageCode } = useCityAppContext()
+  const { data: resourceCache, refresh } = useResourceCache({ cityCode, languageCode })
+
+  useEffect(() => {
+    const loadPdf = async () => {
+      try {
+        const fileHash = url.substring(url.lastIndexOf('/') + 1).split('.')[0]
+        const cachedFile = Object.values(resourceCache)
+          .flatMap(pageCache => Object.values(pageCache))
+          .find(resourceEntry => resourceEntry.hash === fileHash)
+
+        const exists = await ReactNativeBlobUtil.fs.exists(cachedFile?.filePath ?? '')
+        if (exists) {
+          setLocalPath(`file://${cachedFile?.filePath}`)
+          setLoading(false)
+          setError(false)
+        } else {
+          setError(true)
+          setLoading(false)
+        }
+      } catch (e) {
+        reportError(`Error loading PDF: ${e}`)
+        setError(true)
+        setLoading(false)
+      }
+    }
+
+    loadPdf()
+  }, [resourceCache, url])
 
   if (error) {
-    return <Failure code={ErrorCode.UnknownError} />
+    return (
+      <Failure
+        buttonAction={() => {
+          refresh()
+        }}
+        code={ErrorCode.UnknownError}
+      />
+    )
   }
 
-  return (
-    <View
-      style={{
-        flex: 1,
-      }}>
-      <Pdf
-        singlePage={false}
-        style={{
-          flex: 1,
-          backgroundColor: theme.colors.backgroundAccentColor,
-        }}
-        renderActivityIndicator={() => <LoadingSpinner />}
-        source={{
-          uri: url,
-        }}
-        trustAllCerts={false}
-        onError={() => setError(true)}
-        onPressLink={url => openExternalUrl(url, showSnackbar)}
-      />
-    </View>
-  )
+  if (loading || !localPath) {
+    return (
+      <LoadingSpinnerContainer>
+        <LoadingSpinner />
+      </LoadingSpinnerContainer>
+    )
+  }
+
+  return <StyledPdfRendererView source={localPath} distanceBetweenPages={8} onError={() => setError(true)} />
 }
 export default PDFViewModal

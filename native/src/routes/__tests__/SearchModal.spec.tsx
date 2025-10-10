@@ -15,7 +15,7 @@ import sendTrackingSignal from '../../utils/sendTrackingSignal'
 import SearchModal, { SearchModalProps } from '../SearchModal'
 
 jest.mock('../../utils/sendTrackingSignal')
-jest.mock('../../hooks/useResourceCache', () => () => ({}))
+jest.mock('../../hooks/useResourceCache', () => () => ({ data: {}, refresh: jest.fn() }))
 jest.mock('react-i18next')
 jest.mock('@dr.pogodin/react-native-webview', () => ({
   default: jest.fn,
