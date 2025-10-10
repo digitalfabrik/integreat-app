@@ -7,13 +7,17 @@ import { TileModel } from 'shared'
 import Caption from './Caption'
 import Tile from './Tile'
 
-const TilesRow = styled('div')`
+const Grid = styled('div')`
   display: grid;
 
   /* https://css-tricks.com/intrinsically-responsive-css-grid-with-minmax-and-min/ */
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 16px;
-  padding: 10px 0;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 32px 24px;
+  justify-items: center;
+
+  ${props => props.theme.breakpoints.down('md')} {
+    gap: 8px;
+  }
 `
 
 type TilesProps = {
@@ -22,13 +26,13 @@ type TilesProps = {
 }
 
 const Tiles = ({ title, tiles }: TilesProps): ReactElement => (
-  <Stack paddingTop={2}>
+  <Stack paddingTop={2} alignContent='center'>
     {!!title && <Caption title={title} />}
-    <TilesRow>
+    <Grid>
       {tiles.map(tile => (
         <Tile key={tile.path} tile={tile} />
       ))}
-    </TilesRow>
+    </Grid>
   </Stack>
 )
 
