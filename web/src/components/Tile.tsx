@@ -1,9 +1,10 @@
 import { styled } from '@mui/material/styles'
-import React, { ReactElement, ReactNode, useRef } from 'react'
+import React, { ReactElement, useCallback } from 'react'
 
 import { TileModel } from 'shared'
-import { request } from 'shared/api'
+import { useLoadAsync } from 'shared/api'
 
+import { fetchObjectCached } from '../utils'
 import Link from './base/Link'
 
 const Thumbnail = styled('div')`
@@ -75,37 +76,18 @@ type TileProps = {
 }
 
 const Tile = ({ tile }: TileProps): ReactElement => {
-  const imageRef = useRef<HTMLImageElement>(null)
-
-  const fetchImageWithCaching = (): void => {
-    if (tile.thumbnail) {
-      request(tile.thumbnail, {})
-        .then(res => res.blob())
-        .then(blob => {
-          if (imageRef.current) {
-            imageRef.current.src = URL.createObjectURL(blob)
-          }
-        })
-    }
-  }
-
-  const getTileContent = (): ReactNode => {
-    fetchImageWithCaching()
-    return (
-      <>
-        <ThumbnailSizer>
-          <Thumbnail>
-            <img alt='' ref={imageRef} />
-          </Thumbnail>
-        </ThumbnailSizer>
-        <TileTitle>{tile.title}</TileTitle>
-      </>
-    )
-  }
+  const { data } = useLoadAsync(useCallback(() => fetchObjectCached(tile.thumbnail), [tile.thumbnail]))
 
   return (
     <TileContainer>
-      <Link to={tile.path}>{getTileContent()}</Link>
+      <Link to={tile.path}>
+        <ThumbnailSizer>
+          <Thumbnail>
+            <img alt='' src={data?.objectUrl} />
+          </Thumbnail>
+        </ThumbnailSizer>
+        <TileTitle>{tile.title}</TileTitle>
+      </Link>
     </TileContainer>
   )
 }

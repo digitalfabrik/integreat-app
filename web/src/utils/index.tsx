@@ -1,7 +1,7 @@
 import Divider from '@mui/material/Divider'
 import React, { ReactElement } from 'react'
 
-import { LanguageModel } from 'shared/api'
+import { LanguageModel, request } from 'shared/api'
 import { config } from 'translations'
 
 export const join = <T, U>(items: T[], separator: (index: number) => U): (T | U)[] =>
@@ -16,3 +16,12 @@ export const withDividers = (items: (ReactElement | null)[]): ReactElement[] =>
 export const supportedLanguages: LanguageModel[] = Object.entries(config.supportedLanguages)
   .map(([code, language]) => new LanguageModel(code, language.name))
   .sort((a, b) => a.code.localeCompare(b.code))
+
+export const fetchObjectCached = async (url: string | null): Promise<{ objectUrl: string } | null> => {
+  if (!url) {
+    return null
+  }
+  const response = await request(url, {})
+  const blob = await response.blob()
+  return { objectUrl: URL.createObjectURL(blob) }
+}
