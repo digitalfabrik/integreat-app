@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 
 import { PoiCategoryModel } from 'shared/api'
 
-import Icon from './base/Icon'
+import Svg from './base/Svg'
 
 type PoiFiltersOverlayButtonsProps = {
   currentlyOpenFilter: boolean
@@ -44,7 +44,7 @@ const PoiFiltersOverlayButtons = ({
       {!!poiCategory && (
         <Chip
           label={poiCategory.name}
-          icon={<Icon src={poiCategory.icon} />}
+          icon={<Svg src={poiCategory.icon} />}
           onClick={() => setPoiCategoryFilter(null)}
           onDelete={() => setPoiCategoryFilter(null)}
           clickable

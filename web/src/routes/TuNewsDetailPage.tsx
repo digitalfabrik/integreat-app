@@ -13,7 +13,7 @@ import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
 import LoadingSpinner from '../components/LoadingSpinner'
 import Page from '../components/Page'
-import Icon from '../components/base/Icon'
+import Svg from '../components/base/Svg'
 import { tunewsApiBaseUrl } from '../constants/urls'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 
@@ -32,11 +32,6 @@ const StyledBanner = styled('div')`
   margin: 25px 0;
   background-color: ${props => props.theme.legacy.colors.tunewsThemeColorLight};
   border-radius: 11px;
-`
-
-const StyledIcon = styled(Icon)`
-  width: 100%;
-  height: 100%;
 `
 
 const StyledTitle = styled('div')`
@@ -113,7 +108,7 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
         <>
           <StyledBanner>
             <StyledTitle>
-              <StyledIcon src={TuNewsActiveIcon} />
+              <Svg src={TuNewsActiveIcon} width={180} height='100%' />
             </StyledTitle>
           </StyledBanner>
           <Page
