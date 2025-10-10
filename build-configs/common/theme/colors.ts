@@ -131,12 +131,13 @@ export const legacyCommonLightColors = {
   ttsPlayerWarningBackground: '#fffde6',
   ttsPlayerWarningColor: '#f97c00',
   ttsPlayerBackground: '#dedede',
-  ttsPlayerPlayIconColor: '#232323',
+  ttsPlayerPlayIconColor: '#007aa8',
 }
 export const legacyCommonContrastColors = {
   ...legacyCommonLightColors,
   backgroundAccentColor: '#20293A',
   textColor: '#FFFFFF',
+  textDisabledColor: '#4C5F73',
   textSecondaryColor: '#FFFFFF',
   backgroundColor: '#101217',
   borderColor: '#FFFFFF',
@@ -144,4 +145,5 @@ export const legacyCommonContrastColors = {
   negativeHighlight: '#FF3636',
   invalidInput: '#FF3636',
   linkColor: '#3B82F6',
+  ttsPlayerBackground: '#29354B',
 }
