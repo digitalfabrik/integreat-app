@@ -54,11 +54,19 @@ declare module '@mui/material/styles' {
   interface Palette {
     tertiary: PaletteColor
     surface: PaletteColor
+    tunews: {
+      light: string
+      main: string
+    }
   }
 
   interface PaletteOptions {
     tertiary: PaletteColor
     surface: PaletteColor
+    tunews: {
+      light: string
+      main: string
+    }
   }
 }
 
