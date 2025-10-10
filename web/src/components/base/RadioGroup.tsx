@@ -16,6 +16,8 @@ export type InputProps = {
   onChange: (input: string) => void
   required?: boolean
   label?: string
+  helperText?: string
+  error?: boolean
 }
 
 type RadioGroupProps<T extends string> = {
@@ -44,7 +46,8 @@ export const RadioGroup = <T extends string>({
   required = false,
 }: RadioGroupProps<T>): ReactElement => {
   const selectedOptionInput = values.find(v => v.key === selectedValue)?.inputProps
-  const hasInputError = submitted && selectedOptionInput?.required && !selectedOptionInput.value
+  const hasInputError =
+    submitted && (selectedOptionInput?.error || (selectedOptionInput?.required && !selectedOptionInput.value))
 
   return (
     <StyledFormControl required={required} error={hasInputError}>
@@ -64,7 +67,8 @@ export const RadioGroup = <T extends string>({
                 required={inputProps.required ?? true}
                 value={inputProps.value}
                 onChange={event => inputProps.onChange(event.target.value)}
-                error={submitted && inputProps.required && !inputProps.value}
+                error={submitted && (inputProps.error || (inputProps.required && !inputProps.value))}
+                helperText={submitted ? inputProps.helperText : undefined}
                 size='small'
                 variant='outlined'
               />
