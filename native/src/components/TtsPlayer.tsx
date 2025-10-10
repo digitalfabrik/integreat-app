@@ -4,6 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import styled, { css } from 'styled-components/native'
 
 import { CloseIcon, PauseIcon, PlayIcon, FastRewindIcon, FastForwardIcon } from '../assets'
+import { isRTL } from '../constants/contentDirection'
 import Icon from './base/Icon'
 import IconButton from './base/IconButton'
 import Pressable from './base/Pressable'
@@ -17,89 +18,70 @@ const elevatedStyle = css`
   elevation: 5;
 `
 
-const extraBottomMargin = 8
-const StyledTtsPlayer = styled.View<{ $isPlaying: boolean; bottom: number }>`
+const StyledTtsPlayer = styled.View<{ insetBottom: number }>`
   background-color: ${props => props.theme.colors.ttsPlayerBackground};
-  border-radius: 28px;
-  width: ${props => (props.$isPlaying ? '90%' : '80%')};
+  border-radius: 8px;
+  width: 90%;
   display: flex;
-  flex-direction: ${props => (props.$isPlaying ? 'column' : 'row')};
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   align-self: center;
   position: absolute;
-  bottom: ${props => props.bottom + extraBottomMargin}px;
-  min-height: 112px;
-  gap: ${props => (props.$isPlaying ? '0px;' : '20px')};
-  padding: 8px;
+  margin: 8px;
+  bottom: ${props => props.insetBottom}px;
+  padding: 24px;
+  gap: 12px;
   ${elevatedStyle}
 `
 
-const verticalMargin = 11
-
-const StyledPanel = styled.View<{ $isPlaying?: boolean }>`
+const StyledPanel = styled.View`
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 20px;
-  margin: ${props => (props.$isPlaying ? verticalMargin : 0)}px 0;
 `
 
-const StyledPlayIcon = styled(IconButton)<{ disabled: boolean }>`
-  background-color: ${props =>
-    props.disabled ? props.theme.colors.textDisabledColor : props.theme.colors.ttsPlayerPlayIconColor};
-  width: 50px;
+const StyledButton = styled(Pressable)<{ disabled: boolean }>`
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  border-radius: 25px;
+  align-items: center;
+`
+
+const StyledIcon = styled(Icon)<{ disabled?: boolean }>`
+  color: ${props => (props.disabled ? props.theme.colors.textDisabledColor : props.theme.colors.textColor)};
+  width: 28px;
+  height: 28px;
+`
+
+const StyledPlayIconButton = styled(IconButton)<{ disabled: boolean }>`
+  background-color: ${props => props.theme.colors.ttsPlayerBackground};
+  width: 70px;
   height: 50px;
   border-radius: 50px;
   ${elevatedStyle}
 `
 
-const StyledBackForthButton = styled(Pressable)`
-  display: flex;
-  flex-direction: row;
-  gap: 5px;
-  align-items: center;
-`
-
-const PlayButtonIcon = styled(Icon)`
-  color: ${props => props.theme.colors.ttsPlayerBackground};
-`
-
-const StyledText = styled(Text)`
-  font-weight: bold;
-  color: ${props => (props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.textColor)};
+const PlayButtonIcon = styled(Icon)<{ disabled: boolean }>`
+  color: ${props => props.theme.colors.ttsPlayerPlayIconColor};
 `
 
 const StyledPlayerHeaderText = styled(Text)`
   font-weight: 600;
   align-self: center;
-  font-size: 18px;
-  color: ${props => (props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.textColor)};
+  font-size: 22px;
+  color: ${props => props.theme.colors.textColor};
 `
 
-const StyledIcon = styled(Icon)`
-  color: ${props => (props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.textColor)};
-  width: 28px;
-  height: 28px;
-`
-
-const CloseButton = styled(Pressable)`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  border-radius: 7px;
-  background-color: ${props => props.theme.colors.themeColor};
-  padding: 5px;
-  gap: 5px;
-  width: 176px;
+const CloseButton = styled(Pressable)<{ isRTL: boolean }>`
+  position: absolute;
+  ${props => (props.isRTL ? `left: 0` : `right: 0`)};
+  top: 0;
+  padding: 12px;
+  background-color: transparent;
   ${elevatedStyle}
-`
-
-const CloseView = styled.View<{ $isPlaying?: boolean }>`
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: ${props => (props.$isPlaying ? verticalMargin : 0)}px;
 `
 
 type TtsPlayerProps = {
@@ -125,35 +107,28 @@ const TtsPlayer = ({
 }: TtsPlayerProps): ReactElement => {
   const { bottom } = useSafeAreaInsets()
   const { t } = useTranslation('layout')
+
   return (
-    <StyledTtsPlayer $isPlaying={isPlaying} bottom={bottom}>
-      <StyledPanel $isPlaying={isPlaying}>
-        {isPlaying && (
-          <StyledBackForthButton role='button' accessibilityLabel={t('previous')} onPress={playPrevious}>
-            <StyledText>{t('previous')}</StyledText>
-            <StyledIcon Icon={FastRewindIcon} />
-          </StyledBackForthButton>
-        )}
-        <StyledPlayIcon
+    <StyledTtsPlayer insetBottom={bottom}>
+      <CloseButton role='button' accessibilityLabel='Close player' onPress={close} isRTL={isRTL()}>
+        <StyledIcon Icon={CloseIcon} />
+      </CloseButton>
+      <StyledPlayerHeaderText>{title}</StyledPlayerHeaderText>
+
+      <StyledPanel>
+        <StyledButton role='button' accessibilityLabel={t('previous')} onPress={playPrevious} disabled={!isPlaying}>
+          <StyledIcon Icon={FastRewindIcon} disabled={!isPlaying} />
+        </StyledButton>
+        <StyledPlayIconButton
           disabled={disabled}
           accessibilityLabel={t(isPlaying ? 'pause' : 'play')}
           onPress={() => (isPlaying ? pause() : play())}
-          icon={<PlayButtonIcon Icon={isPlaying ? PauseIcon : PlayIcon} />}
+          icon={<PlayButtonIcon Icon={isPlaying ? PauseIcon : PlayIcon} disabled={disabled} />}
         />
-        {isPlaying && (
-          <StyledBackForthButton role='button' accessibilityLabel={t('next')} onPress={playNext}>
-            <StyledIcon Icon={FastForwardIcon} />
-            <StyledText>{t('next')}</StyledText>
-          </StyledBackForthButton>
-        )}
+        <StyledButton role='button' accessibilityLabel={t('next')} onPress={playNext} disabled={!isPlaying}>
+          <StyledIcon Icon={FastForwardIcon} disabled={!isPlaying} />
+        </StyledButton>
       </StyledPanel>
-      <CloseView $isPlaying={isPlaying}>
-        {!isPlaying && <StyledPlayerHeaderText>{title}</StyledPlayerHeaderText>}
-        <CloseButton role='button' accessibilityLabel='Close player' onPress={close}>
-          <StyledIcon Icon={CloseIcon} />
-          <StyledText>{t('common:close')}</StyledText>
-        </CloseButton>
-      </CloseView>
     </StyledTtsPlayer>
   )
 }
