@@ -78,6 +78,7 @@ const GlobalStyle = ({ theme }: { theme: Theme }): SerializedStyles => css`
       background-color: ${theme.legacy.colors.backgroundColor};
     }
   }
+
   fieldset legend {
     letter-spacing: 0 !important;
   }
