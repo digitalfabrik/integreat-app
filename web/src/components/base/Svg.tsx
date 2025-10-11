@@ -1,4 +1,3 @@
-import { useTheme } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import SVG from 'react-inlinesvg'
 
@@ -16,9 +15,8 @@ const Svg = ({
   width = DEFAULT_ICON_SIZE,
   height = DEFAULT_ICON_SIZE,
   className,
-}: CustomIconProps): ReactElement => {
-  const theme = useTheme()
-  return <SVG src={src} width={width} height={height} color={theme.palette.text.primary} className={className} />
-}
+}: CustomIconProps): ReactElement => (
+  <SVG src={src} width={width} height={height} color='inherit' className={className} />
+)
 
 export default Svg

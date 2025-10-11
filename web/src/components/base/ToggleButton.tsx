@@ -8,15 +8,26 @@ import Svg from './Svg'
 
 export const toggleButtonWidth = 100
 
-const StyledButton = styled(MuiToggleButton)`
-  display: flex;
-  flex-direction: column;
-  width: ${toggleButtonWidth}px;
-  height: 100px;
-  padding: 8px;
-  text-align: center;
-  gap: 8px;
-`
+const StyledButton = styled(MuiToggleButton)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  width: toggleButtonWidth,
+  height: 100,
+  textAlign: 'center',
+  gap: 8,
+  wordBreak: 'break-word',
+  hyphens: 'auto',
+
+  ...(theme.isContrastTheme && {
+    '&.Mui-selected': {
+      color: theme.palette.text.primary,
+      backgroundColor: theme.palette.primary.main,
+      '&:hover': {
+        backgroundColor: theme.palette.primary.dark,
+      },
+    },
+  }),
+}))
 
 type ToggleButtonProps = {
   text: string
