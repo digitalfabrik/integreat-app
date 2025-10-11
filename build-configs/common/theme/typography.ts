@@ -90,7 +90,7 @@ export const commonTypography = (fonts: FontsType): TypographyType => ({
   body1: {
     fontSize: 16,
     lineHeight: '24px',
-    letterSpacing: 0,
+    letterSpacing: 0.5,
     fontWeight: 400,
     fontFamily: fonts.web.contentFont,
   },
