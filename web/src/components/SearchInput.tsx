@@ -23,6 +23,10 @@ const StyledTextField = styled(TextField)`
   .${formHelperTextClasses.root} {
     margin-inline-start: 24px;
   }
+
+  & legend {
+    letter-spacing: 0;
+  }
 `
 
 type SearchInputProps = {
