@@ -17,7 +17,9 @@ const SelectorItemButton = styled(ListItemButton)`
   justify-content: center;
 ` as typeof ListItemButton
 
-const StyledList = styled(List)<{ vertical: boolean }>`
+const StyledList = styled(List, {
+  shouldForwardProp: prop => prop !== 'vertical',
+})<{ vertical: boolean }>`
   display: flex;
   flex-flow: ${props => (props.vertical ? 'column' : 'row wrap')};
   justify-content: space-evenly;
