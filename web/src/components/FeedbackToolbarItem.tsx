@@ -63,7 +63,7 @@ const FeedbackToolbarItem = ({ slug, rating }: FeedbackToolbarItemProps): ReactE
             color='inherit'
             size='small'
             onClick={() => setSnackbarOpen(false)}>
-            <CloseIcon fontSize='inherit' />
+            <CloseIcon />
           </IconButton>
         }
       />

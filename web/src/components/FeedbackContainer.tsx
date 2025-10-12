@@ -97,7 +97,7 @@ export const FeedbackContainer = ({
             color='inherit'
             size='small'
             onClick={() => setSnackbarOpen(false)}>
-            <CloseIcon fontSize='inherit' />
+            <CloseIcon />
           </IconButton>
         }
       />
