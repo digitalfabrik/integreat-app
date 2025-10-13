@@ -10,7 +10,6 @@ import { PoiCategoryModel } from 'shared/api'
 import SpacedToggleButtonGroup from './SpacedToggleButtonGroup'
 import Checkbox from './base/Checkbox'
 import Dialog from './base/Dialog'
-import Icon from './base/Icon'
 import ToggleButton, { toggleButtonWidth } from './base/ToggleButton'
 
 const SubTitle = styled('div')`
@@ -52,11 +51,6 @@ const StyledButton = styled(Button)`
   width: 100%;
 `
 
-const StyledIcon = styled(Icon)`
-  width: 24px;
-  height: 24px;
-`
-
 type PoiFiltersProps = {
   close: () => void
   poiCategories: PoiCategoryModel[]
@@ -89,7 +83,7 @@ const PoiFilters = ({
         <Section>
           <SubTitle>{t('openingHours')}</SubTitle>
           <Row>
-            <StyledIcon src={AccessTimeIcon} />
+            <AccessTimeIcon />
             <Checkbox
               checked={currentlyOpenFilter}
               setChecked={setCurrentlyOpenFilter}

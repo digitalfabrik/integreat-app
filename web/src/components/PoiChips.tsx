@@ -7,8 +7,8 @@ import { useTranslation } from 'react-i18next'
 
 import { PoiModel } from 'shared/api'
 
-import Icon from './base/Icon'
 import Link from './base/Link'
+import Svg from './base/Svg'
 
 const PoiChips = ({ poi }: { poi: PoiModel }): ReactElement => {
   const { t } = useTranslation()
@@ -16,7 +16,7 @@ const PoiChips = ({ poi }: { poi: PoiModel }): ReactElement => {
 
   return (
     <Stack flexDirection='row' flexWrap='wrap' gap={1}>
-      <Chip icon={<Icon src={category.icon} />} label={category.name} variant='outlined' />
+      <Chip icon={<Svg src={category.icon} />} label={category.name} variant='outlined' />
       {poi.organization !== null && (
         <Chip component={Link} to={poi.organization.url} label={poi.organization.name} variant='outlined' clickable />
       )}

@@ -1,35 +1,33 @@
 import { SvgIconProps } from '@mui/material/SvgIcon'
 import MuiToggleButton from '@mui/material/ToggleButton'
+import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ElementType, ReactElement } from 'react'
 
-import Icon from './Icon'
+import Svg from './Svg'
 
 export const toggleButtonWidth = 100
 
-const StyledIcon = styled(Icon)`
-  width: 40px;
-  height: 40px;
-  color: inherit;
-`
+const StyledButton = styled(MuiToggleButton)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  width: toggleButtonWidth,
+  height: 100,
+  textAlign: 'center',
+  gap: 8,
+  wordBreak: 'break-word',
+  hyphens: 'auto',
 
-const StyledButton = styled(MuiToggleButton)`
-  display: flex;
-  flex-direction: column;
-  width: ${toggleButtonWidth}px;
-  height: 100px;
-  padding: 8px;
-  text-align: center;
-`
-
-const StyledLabel = styled('span')`
-  line-height: 1;
-  font-size: 12px;
-  font-weight: 400;
-  margin-bottom: 0;
-  margin-top: 8px;
-  word-break: break-word;
-`
+  ...(theme.isContrastTheme && {
+    '&.Mui-selected': {
+      color: theme.palette.text.primary,
+      backgroundColor: theme.palette.primary.main,
+      '&:hover': {
+        backgroundColor: theme.palette.primary.dark,
+      },
+    },
+  }),
+}))
 
 type ToggleButtonProps = {
   text: string
@@ -40,10 +38,10 @@ type ToggleButtonProps = {
   className?: string
 }
 
-const ToggleButton = ({ text, onClick, className, value, ...props }: ToggleButtonProps): ReactElement => (
-  <StyledButton color='primary' value={value} selected={props.active} onChange={onClick} className={className}>
-    <StyledIcon src={props.icon} />
-    <StyledLabel>{text}</StyledLabel>
+const ToggleButton = ({ text, onClick, className, value, icon: Icon, active }: ToggleButtonProps): ReactElement => (
+  <StyledButton color='primary' value={value} selected={active} onChange={onClick} className={className}>
+    {typeof Icon === 'string' ? <Svg src={Icon} width={40} height={40} /> : <Icon fontSize='large' />}
+    <Typography variant='label2'>{text}</Typography>
   </StyledButton>
 )
 

@@ -1,33 +1,14 @@
 import Button from '@mui/material/Button'
-import Divider from '@mui/material/Divider'
-import { styled } from '@mui/material/styles'
+import Stack from '@mui/material/Stack'
+import Typography from '@mui/material/Typography'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { CITY_NOT_COOPERATING_ROUTE, pathnameFromRouteInformation } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
-import Icon from './base/Icon'
 import Link from './base/Link'
-
-const FooterContainer = styled('div')`
-  background-color: ${props => props.theme.legacy.colors.backgroundAccentColor};
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-`
-
-const StyledIcon = styled(Icon)`
-  width: calc(30px + 8vw);
-  height: calc(30px + 8vw);
-  flex-shrink: 0;
-`
-
-const Question = styled('p')`
-  font: ${props => props.theme.legacy.fonts.web.decorativeFont};
-  font-weight: 400;
-`
+import Svg from './base/Svg'
 
 type CityNotCooperatingFooterProps = {
   languageCode: string
@@ -42,16 +23,16 @@ const CityNotCooperatingFooter = ({ languageCode }: CityNotCooperatingFooterProp
   }
 
   return (
-    <FooterContainer>
-      <StyledIcon src={CityNotCooperatingIcon} />
-      <Question>{t('cityNotFound')}</Question>
-      <Button variant='outlined'>
-        <Link to={pathnameFromRouteInformation({ route: CITY_NOT_COOPERATING_ROUTE, ...{ languageCode } })}>
-          {t('suggestToRegion', { appName: buildConfig().appName })}
-        </Link>
+    <Stack alignItems='center' padding={2} gap={2}>
+      <Svg src={CityNotCooperatingIcon} width={160} height={160} />
+      <Typography variant='body1'>{t('cityNotFound')}</Typography>
+      <Button
+        component={Link}
+        to={pathnameFromRouteInformation({ route: CITY_NOT_COOPERATING_ROUTE, ...{ languageCode } })}
+        variant='outlined'>
+        {t('suggestToRegion', { appName: buildConfig().appName })}
       </Button>
-      <Divider />
-    </FooterContainer>
+    </Stack>
   )
 }
 

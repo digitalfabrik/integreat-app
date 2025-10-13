@@ -32,27 +32,33 @@ describe('ChatContainer', () => {
   const pathname = `/${city.code}/de`
 
   it('should open chat dialog and show content on chat button click', () => {
-    const { getByText, getAllByText } = renderRoute(<ChatContainer city={city} language='de' />, {
+    const { getByText, getByLabelText } = renderRoute(<ChatContainer city={city} language='de' />, {
       pathname,
       routePattern,
     })
-    const chatButtonContainer = getAllByText(getChatName('IntegreatTestCms'))[0]!
+    const chatButtonContainer = getByLabelText(getChatName('IntegreatTestCms'))
     expect(chatButtonContainer).toBeTruthy()
+
     fireEvent.click(chatButtonContainer)
+
     expect(getByText('chat:conversationTitle')).toBeTruthy()
     expect(getByText('chat:conversationText')).toBeTruthy()
   })
 
   it('should close chat if close button was clicked', () => {
-    const { getByLabelText, queryByText, getAllByText } = renderRoute(<ChatContainer city={city} language='de' />, {
+    const { getByLabelText, queryByText } = renderRoute(<ChatContainer city={city} language='de' />, {
       pathname,
       routePattern,
     })
-    const chatButtonContainer = getAllByText(getChatName('IntegreatTestCms'))[0]!
+    const chatButtonContainer = getByLabelText(getChatName('IntegreatTestCms'))
     expect(chatButtonContainer).toBeTruthy()
+
     fireEvent.click(chatButtonContainer!)
+
     const closeButton = getByLabelText('layout:common:close')
+
     fireEvent.click(closeButton)
+
     expect(queryByText('chat:conversationTitle')).toBeFalsy()
     expect(queryByText('chat:conversationText')).toBeFalsy()
   })
@@ -74,7 +80,7 @@ describe('ChatContainer', () => {
       routePattern,
       searchParams: '?',
     })
-    expect(getAllByText(getChatName('IntegreatTestCms'))).toHaveLength(2)
+    expect(getAllByText(getChatName('IntegreatTestCms'))).toHaveLength(1)
     expect(router.state.location.search).toBe('?')
   })
 })
