@@ -13,11 +13,8 @@ import { useTranslation } from 'react-i18next'
 export const TTS_PLAYER_ELEMENT_ID = 'tts-player'
 
 const StyledTtsPlayer = styled('dialog')`
-  background-color: ${props =>
-    props.theme.isContrastTheme
-      ? props.theme.legacy.colors.backgroundAccentColor
-      : props.theme.legacy.colors.ttsPlayerBackground};
-  color: ${props => props.theme.legacy.colors.textColor};
+  background-color: ${props => props.theme.palette.surface.main};
+  color: ${props => props.theme.palette.text.primary};
   border-radius: 8px;
   width: 300px;
   display: flex;
@@ -59,14 +56,12 @@ const StyledIconButton = styled(IconButton)`
   align-items: center;
 `
 
-const HeaderText = styled('div')`
+const HeaderText = styled(Typography)`
   display: inline-block;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  font-weight: 600;
   align-self: center;
-  font-size: 16px;
   max-width: 100%;
 `
 
@@ -104,9 +99,7 @@ const TtsPlayer = ({
       <CloseIconButton onClick={close} aria-label={t('common:close')}>
         <CloseIcon />
       </CloseIconButton>
-      <HeaderText>
-        <Typography variant='title1'>{title}</Typography>
-      </HeaderText>
+      <HeaderText variant='title1'>{title}</HeaderText>
       {/* Sound player panel shouldn't be rotated in rtl */}
       <StyledPanel dir='ltr'>
         <StyledIconButton aria-label={t('previous')} onClick={playPrevious} size='small'>
