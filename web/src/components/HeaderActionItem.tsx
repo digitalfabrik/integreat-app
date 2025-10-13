@@ -35,7 +35,7 @@ const HeaderActionItem = ({ to, text, icon, onClick, innerText }: HeaderActionIt
   return (
     <Tooltip title={text}>
       {to ? (
-        <Link to={to} ariaLabel={text}>
+        <Link to={to} aria-label={text}>
           {Button}
         </Link>
       ) : (
