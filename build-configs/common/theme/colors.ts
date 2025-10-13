@@ -40,11 +40,10 @@ export const commonLightColors: CommonColorPalette = {
     dark: '#242D3B',
     contrastText: '#E6E0E9',
   },
-  surface: {
-    light: '#FFFFFF',
-    main: '#EAEEF9',
-    dark: '#CCD6E4',
-    contrastText: '#1D1B20',
+  background: {
+    default: '#FFFFFF',
+    paper: '#FFFFFF',
+    accent: '#EAEEF9',
   },
   text: {
     primary: '#1D1B20',
@@ -68,11 +67,10 @@ export const commonDarkColors: CommonColorPalette = {
     dark: '#364153',
     contrastText: '#E6E0E9',
   },
-  surface: {
-    light: '#333D51',
-    main: '#20293A',
-    dark: '#020202',
-    contrastText: '#E6E0E9',
+  background: {
+    default: '#333D51',
+    paper: '#333D51',
+    accent: '#20293A',
   },
   text: {
     primary: '#E6E0E9',

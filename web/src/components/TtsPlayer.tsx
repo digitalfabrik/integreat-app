@@ -15,7 +15,7 @@ import useDimensions from '../hooks/useDimensions'
 export const TTS_PLAYER_ELEMENT_ID = 'tts-player'
 
 const StyledTtsPlayer = styled('dialog')<{ bottom: number }>`
-  background-color: ${props => props.theme.palette.surface.main};
+  background-color: ${props => props.theme.palette.background.accent};
   color: ${props => props.theme.palette.text.primary};
   border-radius: 8px;
   width: 300px;

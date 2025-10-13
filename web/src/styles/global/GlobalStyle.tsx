@@ -10,7 +10,7 @@ const GlobalStyle = ({ theme }: { theme: Theme }): SerializedStyles => css`
     /* react-spring-bottom-sheet */
 
     [data-rsbs-header] {
-      background-color: ${theme.palette.surface.light};
+      background-color: ${theme.palette.background.default};
       box-shadow: none;
       padding-top: calc(24px + env(safe-area-inset-top));
     }
@@ -36,7 +36,7 @@ const GlobalStyle = ({ theme }: { theme: Theme }): SerializedStyles => css`
     }
 
     [data-rsbs-scroll='true'] {
-      background-color: ${theme.palette.surface.light};
+      background-color: ${theme.palette.background.default};
     }
   }
 `

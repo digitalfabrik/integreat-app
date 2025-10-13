@@ -1,5 +1,6 @@
 import createCache from '@emotion/cache'
 import { CacheProvider, Global } from '@emotion/react'
+import { chipClasses } from '@mui/material/Chip'
 import { createTheme as createMuiTheme, Theme, ThemeProvider } from '@mui/material/styles'
 import rtlPlugin from '@mui/stylis-plugin-rtl'
 import React, { ReactElement, ReactNode, useMemo } from 'react'
@@ -78,7 +79,13 @@ const createTheme = (
       MuiChip: {
         styleOverrides: {
           filled: {
-            backgroundColor: theme.palette.surface.main,
+            backgroundColor: theme.palette.background.accent,
+
+            [`&.${chipClasses.clickable}`]: {
+              ':hover': {
+                backgroundColor: theme.palette.background.default,
+              },
+            },
           },
         },
       },
@@ -135,7 +142,7 @@ const ThemeContainer = ({ children, contentDirection }: ThemeContainerProps): Re
     }
 
     const theme = createTheme(themeType, contentDirection)
-    document.body.style.backgroundColor = theme.palette.surface.main
+    document.body.style.backgroundColor = theme.palette.background.accent
     return { ...theme, toggleTheme }
   }, [themeType, setThemeType, contentDirection])
 
