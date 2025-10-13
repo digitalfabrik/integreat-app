@@ -1,64 +1,38 @@
-import shouldForwardProp from '@emotion/is-prop-valid'
-import { styled } from '@mui/material/styles'
+import MuiLink, { LinkProps as MuiLinkProps } from '@mui/material/Link'
+import { useTheme } from '@mui/material/styles'
 import React, { ReactElement, ReactNode } from 'react'
 import { Link as RouterLink } from 'react-router'
 
-import { UiDirectionType } from 'translations'
-
 import { isInternalLink, NEW_TAB, NEW_TAB_FEATURES } from '../../utils/openLink'
 
-const InternalLink = styled(RouterLink, { shouldForwardProp })<{ highlightedLink: boolean }>`
-  color: ${props => (props.highlightedLink ? props.theme.legacy.colors.linkColor : 'inherit')};
-  text-decoration: ${props => (props.highlightedLink ? 'underline' : 'none')};
-`
-
-const ExternalLink = styled('a')<{ highlightedLink: boolean }>`
-  color: ${props => (props.highlightedLink ? props.theme.legacy.colors.linkColor : 'inherit')};
-  text-decoration: ${props => (props.highlightedLink ? 'underline' : 'none')};
-`
-
-type LinkProps = {
+type LinkProps = Omit<MuiLinkProps, 'href'> & {
   to: string
-  children: ReactNode
-  ariaLabel?: string
+  children?: ReactNode
   className?: string
-  dir?: UiDirectionType | 'auto'
-  id?: string
   highlighted?: boolean
-  onClick?: () => void
 }
 
-const Link = ({
-  to,
-  children,
-  ariaLabel,
-  className,
-  dir,
-  id,
-  highlighted = false,
-  onClick,
-  ...props
-}: LinkProps): ReactElement => {
-  const commonProps = {
-    'aria-label': ariaLabel,
+const Link = ({ to, children, className, highlighted = false, ...props }: LinkProps): ReactElement => {
+  const { contentDirection } = useTheme()
+  const commonProps: MuiLinkProps = {
     className,
-    dir,
-    highlightedLink: highlighted,
-    id,
-    onClick,
+    underline: highlighted ? 'always' : 'none',
+    color: highlighted ? 'primary' : 'inherit',
     ...props,
+    dir: contentDirection,
   }
+
   if (isInternalLink(to)) {
     return (
-      <InternalLink to={to} {...commonProps}>
+      <MuiLink component={RouterLink} to={to} {...commonProps}>
         {children}
-      </InternalLink>
+      </MuiLink>
     )
   }
   return (
-    <ExternalLink href={to} target={NEW_TAB} rel={NEW_TAB_FEATURES} {...commonProps}>
+    <MuiLink href={to} target={NEW_TAB} rel={NEW_TAB_FEATURES} {...commonProps}>
       {children}
-    </ExternalLink>
+    </MuiLink>
   )
 }
 

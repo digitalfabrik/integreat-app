@@ -3,11 +3,11 @@ import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router'
 
 import { NewsType, TU_NEWS_TYPE, tunewsLabel } from 'shared'
 
 import { TuNewsActiveIcon, TuNewsInactiveIcon } from '../assets'
+import Link from './base/Link'
 
 const StyledTab = styled(Link, { shouldForwardProp })<{ tabSelected: boolean }>`
   display: flex;
@@ -29,8 +29,6 @@ const StyledTab = styled(Link, { shouldForwardProp })<{ tabSelected: boolean }>`
 
 const TuStyledTab = styled(StyledTab)`
   background-image: ${props => (props.tabSelected ? `url(${TuNewsActiveIcon})` : `url(${TuNewsInactiveIcon})`)};
-  background-color: ${props =>
-    props.tabSelected ? props.theme.palette.tunews.main : props.theme.palette.text.disabled};
   background-size: cover;
   background-position: center center;
 `
