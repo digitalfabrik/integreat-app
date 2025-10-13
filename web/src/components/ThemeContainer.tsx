@@ -1,7 +1,7 @@
 import createCache from '@emotion/cache'
 import { CacheProvider, Global } from '@emotion/react'
 import { chipClasses } from '@mui/material/Chip'
-import { createTheme as createMuiTheme, Theme, ThemeProvider } from '@mui/material/styles'
+import { createTheme as createMuiTheme, responsiveFontSizes, Theme, ThemeProvider } from '@mui/material/styles'
 import rtlPlugin from '@mui/stylis-plugin-rtl'
 import React, { ReactElement, ReactNode, useMemo } from 'react'
 import { prefixer } from 'stylis'
@@ -40,87 +40,90 @@ const createTheme = (
   const isContrast = themeType === 'contrast'
   const theme = isContrast ? buildConfig().darkTheme : buildConfig().lightTheme
 
-  return createMuiTheme({
-    legacy: isContrast ? buildConfig().legacyContrastTheme : buildConfig().legacyLightTheme,
-    contentDirection,
-    isContrastTheme: isContrast,
-    breakpoints: {
-      values: BREAKPOINTS,
-    },
-    direction: contentDirection,
-    shadows: muiShadowCreator(themeType),
-    typography: buildConfig().typography,
-    palette: theme.palette,
-    components: {
-      MuiTypography: {
-        defaultProps: {
-          dir: 'auto',
-        },
+  return responsiveFontSizes(
+    createMuiTheme({
+      legacy: isContrast ? buildConfig().legacyContrastTheme : buildConfig().legacyLightTheme,
+      contentDirection,
+      isContrastTheme: isContrast,
+      breakpoints: {
+        values: BREAKPOINTS,
       },
-      MuiListSubheader: {
-        styleOverrides: {
-          root: {
-            background: 'transparent',
+      direction: contentDirection,
+      shadows: muiShadowCreator(themeType),
+      typography: buildConfig().typography,
+      palette: theme.palette,
+      components: {
+        MuiTypography: {
+          defaultProps: {
+            dir: 'auto',
           },
         },
-      },
-      MuiAccordion: {
-        styleOverrides: {
-          root: {
-            background: 'transparent',
+        MuiListSubheader: {
+          styleOverrides: {
+            root: {
+              background: 'transparent',
+            },
           },
         },
-      },
-      MuiAccordionSummary: {
-        defaultProps: {
-          disableRipple: false,
+        MuiAccordion: {
+          styleOverrides: {
+            root: {
+              background: 'transparent',
+            },
+          },
         },
-      },
-      MuiChip: {
-        styleOverrides: {
-          filled: {
-            backgroundColor: theme.palette.background.accent,
+        MuiAccordionSummary: {
+          defaultProps: {
+            disableRipple: false,
+          },
+        },
+        MuiChip: {
+          styleOverrides: {
+            filled: {
+              backgroundColor: theme.palette.background.accent,
 
-            [`&.${chipClasses.clickable}`]: {
-              ':hover': {
-                backgroundColor: theme.palette.background.default,
+              [`&.${chipClasses.clickable}`]: {
+                ':hover': {
+                  backgroundColor: theme.palette.background.default,
+                },
               },
             },
           },
         },
-      },
-      MuiMenu: {
-        styleOverrides: {
-          paper: {
-            borderRadius: 16,
-          },
-        },
-      },
-      MuiTooltip: {
-        defaultProps: {
-          arrow: true,
-          slotProps: {
-            tooltip: {
-              dir: 'auto',
+        MuiMenu: {
+          styleOverrides: {
+            paper: {
+              borderRadius: 16,
             },
           },
         },
-        styleOverrides: {
-          popper: {
-            padding: '8px',
+        MuiTooltip: {
+          defaultProps: {
+            arrow: true,
+            slotProps: {
+              tooltip: {
+                dir: 'auto',
+              },
+            },
           },
-          arrow: {
-            color: theme.palette.primary.main,
-          },
-          tooltip: {
-            backgroundColor: theme.palette.primary.main,
-            fontSize: buildConfig().typography.label1?.fontSize,
-            padding: '8px 16px',
+          styleOverrides: {
+            popper: {
+              padding: '8px',
+            },
+            arrow: {
+              color: theme.palette.primary.main,
+            },
+            tooltip: {
+              backgroundColor: theme.palette.primary.main,
+              fontSize: buildConfig().typography.label1?.fontSize,
+              padding: '8px 16px',
+            },
           },
         },
       },
-    },
-  })
+    }),
+    { disableAlign: true },
+  )
 }
 
 type ThemeContainerProps = {
