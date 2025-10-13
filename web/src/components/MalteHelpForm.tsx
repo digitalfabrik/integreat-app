@@ -1,8 +1,6 @@
 import HealthAndSafetyOutlinedIcon from '@mui/icons-material/HealthAndSafetyOutlined'
 import PeopleOutlineOutlinedIcon from '@mui/icons-material/PeopleOutlineOutlined'
 import SendIcon from '@mui/icons-material/Send'
-import Alert from '@mui/material/Alert'
-import AlertTitle from '@mui/material/AlertTitle'
 import Button from '@mui/material/Button'
 import FormControl from '@mui/material/FormControl'
 import FormHelperText from '@mui/material/FormHelperText'
@@ -10,9 +8,8 @@ import TextField from '@mui/material/TextField'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router'
 
-import { cityContentPath, DEFAULT_ROWS_NUMBER } from 'shared'
+import { cityContentPath, DEFAULT_ROWS_NUMBER, SendingStatusType } from 'shared'
 import {
   OfferModel,
   ContactChannel,
@@ -24,7 +21,9 @@ import {
 
 import { reportError } from '../utils/sentry'
 import PrivacyCheckbox from './PrivacyCheckbox'
+import Link from './base/Link'
 import RadioGroup from './base/RadioGroup'
+import Snackbar from './base/Snackbar'
 import Spacing from './base/Spacing'
 
 const Note = styled('div')`
@@ -39,7 +38,6 @@ const Form = styled('form')`
   gap: 12px;
 `
 
-type SendingStatusType = 'idle' | 'sending' | 'invalidEmail' | 'failed' | 'successful'
 type MalteHelpFormProps = {
   pageTitle: string
   cityCode: string
@@ -59,6 +57,8 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
   const [roomNumber, setRoomNumber] = useState('')
   const [contactGender, setContactGender] = useState<ContactGender>('any')
   const [comment, setComment] = useState('')
+  const [snackbarOpen, setSnackbarOpen] = useState(false)
+  const [invalidEmail, setInvalidEmail] = useState(false)
   const dashboardRoute = cityContentPath({ languageCode, cityCode })
 
   const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -87,22 +87,16 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
         comment,
       })
       setSendingStatus('successful')
+      setSnackbarOpen(true)
     } catch (error) {
       if (error instanceof InvalidEmailError) {
-        setSendingStatus('invalidEmail')
+        setInvalidEmail(true)
       } else {
         await reportError(error)
         setSendingStatus('failed')
+        setSnackbarOpen(true)
       }
     }
-  }
-
-  if (sendingStatus === 'successful') {
-    return (
-      <Alert severity='success' role='alert' action={<Link to={dashboardRoute}>{t('error:goTo.categories')}</Link>}>
-        {t('submitSuccessful')}
-      </Alert>
-    )
   }
 
   return (
@@ -143,7 +137,13 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
             {
               key: 'email',
               label: t('eMail'),
-              inputProps: { value: email, onChange: setEmail, required: true },
+              inputProps: {
+                value: email,
+                onChange: setEmail,
+                required: true,
+                error: invalidEmail,
+                helperText: invalidEmail ? t('invalidEmailAddress') : undefined,
+              },
             },
             {
               key: 'telephone',
@@ -183,17 +183,23 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
           />
           {submitted && !privacyPolicyAccepted && <FormHelperText>{t('common:notePrivacyPolicy')}</FormHelperText>}
         </FormControl>
-        {(sendingStatus === 'failed' || sendingStatus === 'invalidEmail') && (
-          <Alert severity='error' role='alert'>
-            <AlertTitle>{t('submitFailed')}</AlertTitle>
-            {t(sendingStatus === 'invalidEmail' ? 'invalidEmailAddress' : 'submitFailedReasoning')}
-          </Alert>
-        )}
         <Spacing />
         <Button type='submit' startIcon={<SendIcon />} variant='contained'>
           {t('submit')}
         </Button>
       </Form>
+      <Snackbar
+        open={snackbarOpen}
+        severity={sendingStatus === 'successful' ? 'success' : 'error'}
+        onClose={() => setSnackbarOpen(false)}
+        title={sendingStatus === 'failed' ? t('submitFailed') : undefined}
+        message={sendingStatus === 'failed' ? t('submitFailedReasoning') : t('submitSuccessful')}
+        action={
+          <Button component={Link} to={dashboardRoute} size='small'>
+            {t('error:goTo.categories')}
+          </Button>
+        }
+      />
     </>
   )
 }
