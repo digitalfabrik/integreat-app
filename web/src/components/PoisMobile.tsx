@@ -17,7 +17,11 @@ import PoiSharedChildren from './PoiSharedChildren'
 import { DirectionDependentBackIcon } from './base/Dialog'
 
 const StyledIconButton = styled(IconButton)(({ theme }) => ({
-  backgroundColor: theme.palette.surface.main,
+  backgroundColor: theme.palette.background.accent,
+
+  ':hover': {
+    backgroundColor: theme.palette.background.default,
+  },
 }))
 
 const AttributionContainer = styled('div')`

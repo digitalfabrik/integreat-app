@@ -18,7 +18,7 @@ describe('SearchListItem', () => {
     values: {
       'background-color': 'rgb(234, 238, 249)',
       'font-weight': 'bold',
-      color: 'rgb(29, 27, 32)',
+      color: 'black',
     },
   }
 

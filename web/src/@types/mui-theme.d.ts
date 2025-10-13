@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
-import { TypographyPropsVariantOverrides } from '@mui/material/Typography'
-import { PaletteColor, Palette, PaletteOptions } from '@mui/material/styles'
+import { PaletteColor, Palette, PaletteOptions, TypeBackground } from '@mui/material/styles'
 
 import { LegacyThemeType } from 'build-configs'
 
@@ -51,9 +50,12 @@ declare module '@mui/material/styles' {
     isContrastTheme: boolean
   }
 
+  interface TypeBackground {
+    accent: string
+  }
+
   interface Palette {
     tertiary: PaletteColor
-    surface: PaletteColor
     tunews: {
       light: string
       main: string
@@ -62,7 +64,6 @@ declare module '@mui/material/styles' {
 
   interface PaletteOptions {
     tertiary: PaletteColor
-    surface: PaletteColor
     tunews: {
       light: string
       main: string
