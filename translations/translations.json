@@ -1259,8 +1259,6 @@
     "de": {
       "copied": "Kopiert",
       "moreOptions": "Mehr Optionen",
-      "languageNotAvailable": "Deine Sprache ist hier leider nicht verfügbar.",
-      "chooseALanguage": "Wähle eine Sprache.",
       "lastUpdate": "Letzte Aktualisierung:",
       "loading": "Lade ...",
       "close": "Schließen",
@@ -1271,15 +1269,17 @@
       "ok": "Ok",
       "minimize": "Minimieren",
       "privacyPolicy": "Ich habe die <1>Datenschutzerklärung</1> gelesen und stimme der Verarbeitung und Speicherung meiner Daten zu.",
+      "notePrivacyPolicy": "Bitte stimme der Datenschutzerklärung zu, um das Formular abschicken zu können.",
       "accessible": "Barrierefrei",
       "notAccessible": "Nicht barrierefrei",
-      "clearInput": "Eingabe löschen"
+      "clearInput": "Eingabe löschen",
+      "more": "Mehr",
+      "nearby": "In deiner Nähe",
+      "email": "E-Mail"
     },
     "am": {
       "copied": "ተቀድቷል",
       "moreOptions": "የበዛ ኣማራጭ",
-      "languageNotAvailable": "ይቅርታ፣ ቋንቋዎ እዚህ ላይ የለም።",
-      "chooseALanguage": "ቋንቋ ይምረጡ።",
       "lastUpdate": "መጨረሻ የተሻሻለበት ጊዜ:",
       "loading": "እየጫነ ነው ...",
       "close": "ይዝጉ",
@@ -1289,13 +1289,12 @@
       "back": "ወደኋላ ተመለስ",
       "ok": "እሺ",
       "minimize": "ማሳነስ",
-      "privacyPolicy": "<1>የግላዊነት ፖሊሲ</1>ን አንብቤያለሁ እና ውሂቤን ለማስኬድ እና ለማከማቸት ተስማምቻለሁ።"
+      "privacyPolicy": "<1>የግላዊነት ፖሊሲ</1>ን አንብቤያለሁ እና ውሂቤን ለማስኬድ እና ለማከማቸት ተስማምቻለሁ።",
+      "nearby": "በኣጠገብህ"
     },
     "ar": {
       "copied": "تم النسخ",
       "moreOptions": "مزيد من الخيارات",
-      "languageNotAvailable": "للأسف، لغتك ليست متاحة.",
-      "chooseALanguage": "اختر لغة.",
       "lastUpdate": "التحديث الأخير:",
       "loading": "حمّل...",
       "close": "إغلاق",
@@ -1305,13 +1304,12 @@
       "back": "تراجع",
       "ok": "موافق",
       "minimize": "تصغير",
-      "privacyPolicy": "لقد قرأت <1>سياسة الخصوصية</1> وأوافق على معالجة بياناتي وتخزينها."
+      "privacyPolicy": "لقد قرأت <1>سياسة الخصوصية</1> وأوافق على معالجة بياناتي وتخزينها.",
+      "nearby": "في منطقتك"
     },
     "bg": {
       "copied": "Копиран",
       "moreOptions": "Още опции",
-      "languageNotAvailable": "За съжаление, езикът Ви не е наличен тук.",
-      "chooseALanguage": "Изберете език.",
       "lastUpdate": "Последна актуализация:",
       "loading": "Зареждане...",
       "close": "Затваряне",
@@ -1321,13 +1319,12 @@
       "back": "Обратно",
       "ok": "Добре",
       "minimize": "Минимизиране",
-      "privacyPolicy": "Прочетох <1>политиката за поверителност</1> и се съгласявам с обработката и съхранението на моите данни."
+      "privacyPolicy": "Прочетох <1>политиката за поверителност</1> и се съгласявам с обработката и съхранението на моите данни.",
+      "nearby": "В близост до теб"
     },
     "ckb": {
       "copied": "کۆپی کرا",
       "moreOptions": "بژاردەی زیاتر",
-      "languageNotAvailable": "بەداخەوە زمانەکەتی تێدا نییە.",
-      "chooseALanguage": "زمانێک هەڵبژێرە.",
       "lastUpdate": "دوایین بەڕۆژکردنەوە:",
       "loading": "خەریکی بارکردنە...",
       "close": "داخستن",
@@ -1337,13 +1334,12 @@
       "back": "گەڕانەوە",
       "ok": "پەسەندکردن",
       "minimize": "بچووککردنەوە",
-      "privacyPolicy": "من <1> بەیاننامەی نهێنی پارێزی</1>م خوێندووەتەوە و ڕازیم بە پرۆسەکردن و خەزنکردنی زانیارییەکانم."
+      "privacyPolicy": "من <1> بەیاننامەی نهێنی پارێزی</1>م خوێندووەتەوە و ڕازیم بە پرۆسەکردن و خەزنکردنی زانیارییەکانم.",
+      "nearby": "لە نزیک تۆ"
     },
     "cs": {
       "copied": "Kopírovat",
       "moreOptions": "Další možnosti",
-      "languageNotAvailable": "Váš jazyk zde není k dispozici.",
-      "chooseALanguage": "Vyberte si jazyk.",
       "lastUpdate": "Poslední aktualizace:",
       "loading": "Načítání ...",
       "close": "Zavřít",
@@ -1353,13 +1349,12 @@
       "back": "Zpět",
       "ok": "OK",
       "minimize": "Minimalizovat",
-      "privacyPolicy": "Přečetl/a jsem si <1>zásady ochrany osobních údajů</1> a souhlasím se zpracováním a uchováváním svých údajů."
+      "privacyPolicy": "Přečetl/a jsem si <1>zásady ochrany osobních údajů</1> a souhlasím se zpracováním a uchováváním svých údajů.",
+      "nearby": "Ve vašem okolí"
     },
     "da": {
       "copied": "Kopieret",
       "moreOptions": "Flere muligheder",
-      "languageNotAvailable": "Dit sprog er desværre ikke tilgængeligt her.",
-      "chooseALanguage": "Vælg et sprog.",
       "lastUpdate": "Sidst opdateret:",
       "loading": "Indlæs ...",
       "close": "Luk",
@@ -1369,13 +1364,12 @@
       "back": "Tilbage",
       "ok": "Ok",
       "minimize": "Minimer",
-      "privacyPolicy": "Jeg har læst <1>Privatlivspolitikken</1> og giver samtykke til behandling og opbevaring af mine data."
+      "privacyPolicy": "Jeg har læst <1>Privatlivspolitikken</1> og giver samtykke til behandling og opbevaring af mine data.",
+      "nearby": "I dit nabolag"
     },
     "el": {
       "copied": "Αντιγράφηκε",
       "moreOptions": "Περισσότερες επιλογές",
-      "languageNotAvailable": "Δυστυχώς, η γλώσσα σας δεν είναι διαθέσιμη εδώ.",
-      "chooseALanguage": "Επιλέξτε μια γλώσσα.",
       "lastUpdate": "Τελευταία ενημέρωση:",
       "loading": "Φόρτωση ...",
       "close": "Κλείσιμο",
@@ -1385,13 +1379,12 @@
       "back": "Πίσω",
       "ok": "Εντάξει",
       "minimize": "Ελαχιστοποίηση",
-      "privacyPolicy": "Έχω διαβάσει την <1>Πολιτική απορρήτου</1> και συναινώ στην επεξεργασία και αποθήκευση των δεδομένων μου."
+      "privacyPolicy": "Έχω διαβάσει την <1>Πολιτική απορρήτου</1> και συναινώ στην επεξεργασία και αποθήκευση των δεδομένων μου.",
+      "nearby": "Κοντά σε εσάς"
     },
     "en": {
       "copied": "Copied",
       "moreOptions": "More options",
-      "languageNotAvailable": "Sorry, but your language is not available here.",
-      "chooseALanguage": "Choose a language.",
       "lastUpdate": "Last update:",
       "loading": "Loading ...",
       "close": "Close",
@@ -1402,15 +1395,17 @@
       "ok": "Ok",
       "minimize": "Minimize",
       "privacyPolicy": "I have read the <1>privacy policy</1> and agree to the processing and storage of my data.",
+      "notePrivacyPolicy": "Please agree to the privacy policy in order to submit the form.",
       "accessible": "Accessible",
       "notAccessible": "Not accessible",
-      "clearInput": "Clear input"
+      "clearInput": "Clear input",
+      "more": "More",
+      "nearby": "Near you",
+      "email": "Email"
     },
     "es": {
       "copied": "Copiado",
       "moreOptions": "Más opciones",
-      "languageNotAvailable": "Tu idioma no está disponible aquí.",
-      "chooseALanguage": "Selecciona un idioma.",
       "lastUpdate": "Última actualización:",
       "loading": "Cargando...",
       "close": "Cerrar",
@@ -1420,13 +1415,12 @@
       "back": "Atrás",
       "ok": "OK",
       "minimize": "Minimizar",
-      "privacyPolicy": "He leído la <1>Política de privacidad</1> y consiento el tratamiento y almacenamiento de mis datos."
+      "privacyPolicy": "He leído la <1>Política de privacidad</1> y consiento el tratamiento y almacenamiento de mis datos.",
+      "nearby": "En tu proximidad"
     },
     "fi": {
       "copied": "Kopioitu",
       "moreOptions": "Lisää vaihtoehtoja",
-      "languageNotAvailable": "Kielesi ei ole saatavilla.",
-      "chooseALanguage": "Valitse kieli.",
       "lastUpdate": "Viimeisin päivitys:",
       "loading": "Lataa...",
       "close": "Sulje",
@@ -1436,13 +1430,12 @@
       "back": "Takaisin",
       "ok": "OK",
       "minimize": "Pienennä",
-      "privacyPolicy": "Olen lukenut <1>tietosuojakäytännön</1> ja annan suostumukseni tietojeni käsittelyyn ja säilytykseen."
+      "privacyPolicy": "Olen lukenut <1>tietosuojakäytännön</1> ja annan suostumukseni tietojeni käsittelyyn ja säilytykseen.",
+      "nearby": "Lähellä"
     },
     "fr": {
       "copied": "Copié",
       "moreOptions": "Plus d’options",
-      "languageNotAvailable": "Malheureusement, ta langue n'est pas disponible ici.",
-      "chooseALanguage": "Choisis une langue.",
       "lastUpdate": "Dernière actualisation :",
       "loading": "Chargement ...",
       "close": "Fermer",
@@ -1452,13 +1445,12 @@
       "back": "Retour",
       "ok": "Ok",
       "minimize": "Réduire",
-      "privacyPolicy": "J’ai lu la <1>Politique de confidentialité</1> et j’accepte le traitement et le stockage de mes données."
+      "privacyPolicy": "J’ai lu la <1>Politique de confidentialité</1> et j’accepte le traitement et le stockage de mes données.",
+      "nearby": "Près de chez toi"
     },
     "hi": {
       "copied": "कॉपी किया गया",
       "moreOptions": "और विकल्प",
-      "languageNotAvailable": "क्षमा करें, लेकिन आपकी भाषा यहाँ उपलब्ध नहीं है।",
-      "chooseALanguage": "एक भाषा चुनें।",
       "lastUpdate": "अंतिम अपडेट:",
       "loading": "लोड हो रहा है...",
       "close": "बंद करें",
@@ -1468,13 +1460,12 @@
       "back": "वापस",
       "ok": "ठीक",
       "minimize": "मिनीमाइज़",
-      "privacyPolicy": "मैंने <1>गोपनीयता नीति</1> पढ़ ली है, और मैं अपनी जानकारी की प्रोसेसिंग और स्टोरेज के लिए सहमत हूँ।"
+      "privacyPolicy": "मैंने <1>गोपनीयता नीति</1> पढ़ ली है, और मैं अपनी जानकारी की प्रोसेसिंग और स्टोरेज के लिए सहमत हूँ।",
+      "nearby": "आपके आस-पास"
     },
     "hr": {
       "copied": "kopirano",
       "moreOptions": "Više opcija",
-      "languageNotAvailable": "Tvoj jezik ovdje nažalost nije dostupan.",
-      "chooseALanguage": "Odaberi jezik.",
       "lastUpdate": "Zadnje ažuriranje:",
       "loading": "Učitava se...",
       "close": "Zatvori",
@@ -1484,13 +1475,12 @@
       "back": "Natrag",
       "ok": "U redu",
       "minimize": "Minimiziraj",
-      "privacyPolicy": "Pročitao/la sam <1>Izjavu o zaštiti podataka</1> i saglasan/na sam sa obradom i pohranom mojih podataka."
+      "privacyPolicy": "Pročitao/la sam <1>Izjavu o zaštiti podataka</1> i saglasan/na sam sa obradom i pohranom mojih podataka.",
+      "nearby": "Blizu tebe"
     },
     "hu": {
       "copied": "Bemásolva",
       "moreOptions": "További lehetőségek",
-      "languageNotAvailable": "A nyelved sajnos nem elérhető.",
-      "chooseALanguage": "Válassz ki egy nyelvet.",
       "lastUpdate": "Utolsó aktualizálás:",
       "loading": "Betöltés...",
       "close": "Bezárás",
@@ -1500,13 +1490,12 @@
       "back": "Vissza",
       "ok": "Rendben",
       "minimize": "Minimalizál",
-      "privacyPolicy": "Elolvastam a <1>adatvédelmi szabályzatot</1> és hozzájárulok az adataim feldolgozásához és tárolásához."
+      "privacyPolicy": "Elolvastam a <1>adatvédelmi szabályzatot</1> és hozzájárulok az adataim feldolgozásához és tárolásához.",
+      "nearby": "A közelben"
     },
     "id": {
       "copied": "Disalin",
       "moreOptions": "Opsi lainnya",
-      "languageNotAvailable": "Maaf, bahasa Anda tidak tersedia di sini.",
-      "chooseALanguage": "Pilih bahasa.",
       "lastUpdate": "Pembaruan terakhir:",
       "loading": "Memuat...",
       "close": "Tutup",
@@ -1519,13 +1508,12 @@
       "privacyPolicy": "Saya telah membaca <1>kebijakan privasi</1> dan setuju untuk memproses dan menyimpan data saya.",
       "accessible": "Dapat diakses",
       "notAccessible": "Tidak dapat diakses",
-      "clearInput": "Hapus input"
+      "clearInput": "Hapus input",
+      "nearby": "Di dekat Anda"
     },
     "it": {
       "copied": "Copiato",
       "moreOptions": "Più opzioni",
-      "languageNotAvailable": "Purtroppo la tua lingua non è disponibile qui.",
-      "chooseALanguage": "Scegli una lingua.",
       "lastUpdate": "Ultimo aggiornamento:",
       "loading": "Caricamento...",
       "close": "Chiudi",
@@ -1535,13 +1523,12 @@
       "back": "Indietro",
       "ok": "OK",
       "minimize": "Ridurre al minimo",
-      "privacyPolicy": "Ho letto l'<1>informativa sulla privacy</1> e acconsento al trattamento e alla conservazione dei miei dati."
+      "privacyPolicy": "Ho letto l'<1>informativa sulla privacy</1> e acconsento al trattamento e alla conservazione dei miei dati.",
+      "nearby": "Nelle vicinanze"
     },
     "ka": {
       "copied": "დაკოპირებულია",
       "moreOptions": "მეტი ვარიანტი",
-      "languageNotAvailable": "შენი ენა აქ არ მოიხმარება",
-      "chooseALanguage": "აირჩიე ენა.",
       "lastUpdate": "ბოლო აქტუალიზირება:",
       "loading": "ატვირთე…",
       "close": "დახურვა",
@@ -1551,13 +1538,12 @@
       "back": "უკან",
       "ok": "კარგი",
       "minimize": "ჩაკეცვა",
-      "privacyPolicy": "წავიკითხე <1>კონფიდენციალურობის პოლიტიკა</1> და თანხმობას ვაცხადებ ჩემი მონაცემების დამუშავებასა და შენახვაზე."
+      "privacyPolicy": "წავიკითხე <1>კონფიდენციალურობის პოლიტიკა</1> და თანხმობას ვაცხადებ ჩემი მონაცემების დამუშავებასა და შენახვაზე.",
+      "nearby": "შენს სიახლოვეს"
     },
     "kmr": {
       "copied": "Kopî bû",
       "moreOptions": "Bijardeyên zêdetir",
-      "languageNotAvailable": "Mixabin zimanê te li vir li ber dest nîne.",
-      "chooseALanguage": "Zimanekî bibijêre.",
       "lastUpdate": "Birojkirina herî dawî:",
       "loading": "Di halê birojkirinê da...",
       "close": "Girêdan",
@@ -1567,13 +1553,12 @@
       "back": "Vegeriyan",
       "ok": "Piştrastkirin",
       "minimize": "Kêmînekirin",
-      "privacyPolicy": "Min <1>Daxuyaniya parastina daneyan</1> xwend û pêvajokirin û hilgirtina daneyên xwe dipejirînim."
+      "privacyPolicy": "Min <1>Daxuyaniya parastina daneyan</1> xwend û pêvajokirin û hilgirtina daneyên xwe dipejirînim.",
+      "nearby": "Li nêzikî te"
     },
     "mk": {
       "copied": "Копирано",
       "moreOptions": "Повеќе опции",
-      "languageNotAvailable": "За жал твојот јазик не е достапен.",
-      "chooseALanguage": "Избери јазик.",
       "lastUpdate": "Последно ажурирање:",
       "loading": "Вчитај...",
       "close": "Затвори",
@@ -1583,13 +1568,12 @@
       "back": "Назад",
       "ok": "Во ред",
       "minimize": "Минимизирај",
-      "privacyPolicy": "Ја прочитав <1>Политиката за приватност</1> и се согласувам со обработката и складирањето на моите податоци."
+      "privacyPolicy": "Ја прочитав <1>Политиката за приватност</1> и се согласувам со обработката и складирањето на моите податоци.",
+      "nearby": "Во твоја близина"
     },
     "nl": {
       "copied": "Gekopieerd",
       "moreOptions": "Meer opties",
-      "languageNotAvailable": "Sorry, jouw taal is hier niet beschikbaar",
-      "chooseALanguage": "Kies een taal",
       "lastUpdate": "Laatste update:",
       "loading": "Aan het laden…",
       "close": "sluit af",
@@ -1599,13 +1583,12 @@
       "back": "Terug",
       "ok": "OK",
       "minimize": "Minimaliseren",
-      "privacyPolicy": "Ik heb het <1>privacybeleid</1> gelezen en ga akkoord met de verwerking en opslag van mijn gegevens."
+      "privacyPolicy": "Ik heb het <1>privacybeleid</1> gelezen en ga akkoord met de verwerking en opslag van mijn gegevens.",
+      "nearby": "Vlakbij jou"
     },
     "orm": {
       "copied": "Koppii taeera",
       "moreOptions": "Filannoo dabalataa",
-      "languageNotAvailable": "Dhiifama, garuu afaanni keessan as keessa hin jiru.",
-      "chooseALanguage": "Afaan filadhaa!",
       "lastUpdate": "Yeroo dhumaaf kan fooyyae:",
       "loading": "Barbaadaa jira…",
       "close": "Cufi",
@@ -1615,13 +1598,12 @@
       "back": "Duubatti",
       "ok": "Tole",
       "minimize": "Xiqqeessi",
-      "privacyPolicy": "<1>privacy policy</1> dubbisee odeeffannoon kiyya akka xinxaalamuufi olkaa’amuuf itti walii galeera."
+      "privacyPolicy": "<1>privacy policy</1> dubbisee odeeffannoon kiyya akka xinxaalamuufi olkaa’amuuf itti walii galeera.",
+      "nearby": "Kan sitti dhihoo"
     },
     "pes": {
       "copied": "کپی شد",
       "moreOptions": "گزینه‌های بیشتر",
-      "languageNotAvailable": "متاسفانه زبان شما در اینجا در دسترس نیست.",
-      "chooseALanguage": "یک زبان را انتخاب کنید.",
       "lastUpdate": "آخرین تغییرات:",
       "loading": "در حال بارگیری ...",
       "close": "بستن",
@@ -1631,13 +1613,12 @@
       "back": "بازگشت",
       "ok": "اوکی",
       "minimize": "کوچک کردن",
-      "privacyPolicy": "اینجانب <1>بیانیه حفظ حریم خصوصی</1> را خوانده‌ام و با پردازش و ذخیره داده‌های خود موافق هستم."
+      "privacyPolicy": "اینجانب <1>بیانیه حفظ حریم خصوصی</1> را خوانده‌ام و با پردازش و ذخیره داده‌های خود موافق هستم.",
+      "nearby": "در نزدیکی تو"
     },
     "pl": {
       "copied": "Skopiowano",
       "moreOptions": "Więcej opcji",
-      "languageNotAvailable": "Niestety Twój język nie jest tutaj dostępny.",
-      "chooseALanguage": "Wybierz język.",
       "lastUpdate": "Ostatnia aktualizacja",
       "loading": "Załaduj...",
       "close": "Zamknij",
@@ -1647,13 +1628,12 @@
       "back": "Powrót",
       "ok": "Ok",
       "minimize": "Zminimalizuj",
-      "privacyPolicy": "Potwierdzam zapoznanie się z <1>polityką prywatności</1> i wyrażam zgodę na przetwarzanie i przechowywanie moich danych."
+      "privacyPolicy": "Potwierdzam zapoznanie się z <1>polityką prywatności</1> i wyrażam zgodę na przetwarzanie i przechowywanie moich danych.",
+      "nearby": "W pobliżu"
     },
     "prs": {
       "copied": "کپی شد",
       "moreOptions": "انتخاب‌‌های بیشتر",
-      "languageNotAvailable": "متاسفانه لسان شما در اینجا موجود نیست‎.",
-      "chooseALanguage": "یک لسان انتخاب کنید.",
       "lastUpdate": "آخرین به‎​روز رسانی:",
       "loading": "در حال دانلود ...",
       "close": "بستن",
@@ -1663,13 +1643,12 @@
       "back": "بازگشت",
       "ok": "درست است",
       "minimize": "به حداقل رساندن",
-      "privacyPolicy": "اينجانب <1>پالیسی حفظ حریم خصوصی</1> را خوانده ام و با پروسس و ذخیره معلوماتم موافق هستم."
+      "privacyPolicy": "اينجانب <1>پالیسی حفظ حریم خصوصی</1> را خوانده ام و با پروسس و ذخیره معلوماتم موافق هستم.",
+      "nearby": "در نزدیکی تو"
     },
     "ps": {
       "copied": "کاپی شولو",
       "moreOptions": "نور اختیارونه",
-      "languageNotAvailable": "له بده مرغه ستا ژبه دلته موجوده نده.",
-      "chooseALanguage": "یوه ژبه انتخاب کړه.",
       "lastUpdate": "آخري تغیر شوے:",
       "loading": "بارولے کیږی ۔۔۔",
       "close": "پای ته رسول",
@@ -1679,13 +1658,12 @@
       "back": "بيرته ګرځېدل",
       "ok": "سمه ده",
       "minimize": "راکموي",
-      "privacyPolicy": "ما د <1>محرمیت تګلاره</1> لوستلې ده او د خپلو معلوماتو پروسس او ذخیره کولو سره موافقه کوم."
+      "privacyPolicy": "ما د <1>محرمیت تګلاره</1> لوستلې ده او د خپلو معلوماتو پروسس او ذخیره کولو سره موافقه کوم.",
+      "nearby": "تا ته نیږدی"
     },
     "pt": {
       "copied": "Copiado",
       "moreOptions": "Mais opções",
-      "languageNotAvailable": "Lamentamos, mas o teu idioma não está disponível.",
-      "chooseALanguage": "Escolhe um idioma.",
       "lastUpdate": "Última atualização:",
       "loading": "A carregar ...",
       "close": "Fechar",
@@ -1695,13 +1673,12 @@
       "back": "Voltar",
       "ok": "Está bem",
       "minimize": "Minimizar",
-      "privacyPolicy": "Li a <1>política de privacidade</1> e concordo com o processamento e armazenamento dos meus dados."
+      "privacyPolicy": "Li a <1>política de privacidade</1> e concordo com o processamento e armazenamento dos meus dados.",
+      "nearby": "Nas tuas imediações"
     },
     "ro": {
       "copied": "Copiat",
       "moreOptions": "Mai multe opțiuni",
-      "languageNotAvailable": "Din păcate, aici nu este disponibilă limba ta.",
-      "chooseALanguage": "Alege o limbă.",
       "lastUpdate": "Ultima actualizare:",
       "loading": "Se încarcă ...",
       "close": "Închideți",
@@ -1711,13 +1688,12 @@
       "back": "Înapoi",
       "ok": "Bine",
       "minimize": "Minimizare",
-      "privacyPolicy": "Am citit <1>Politica de confidențialitate</1> și sunt de acord cu prelucrarea și stocarea datelor mele."
+      "privacyPolicy": "Am citit <1>Politica de confidențialitate</1> și sunt de acord cu prelucrarea și stocarea datelor mele.",
+      "nearby": "În apropierea ta"
     },
     "rom": {
       "copied": "Kopirimo",
       "moreOptions": "Buteder opcie",
-      "languageNotAvailable": "Afi ker, numa tiri čhib nane akate.",
-      "chooseALanguage": "Birin čhib.",
       "lastUpdate": "Paluno ikeribe ko tek:",
       "loading": "Avela ...",
       "close": "Phande",
@@ -1727,13 +1703,12 @@
       "back": "Palal",
       "ok": "Ok",
       "minimize": "Tiknjarel",
-      "privacyPolicy": "Me <1>Datenschutzerklärung</1> drabargjum thaj soglasinava man e procesiribaja thaj o khedibe mire podatkongoro."
+      "privacyPolicy": "Me <1>Datenschutzerklärung</1> drabargjum thaj soglasinava man e procesiribaja thaj o khedibe mire podatkongoro.",
+      "nearby": "Paše tute"
     },
     "ru": {
       "copied": "Скопировано",
       "moreOptions": "дополнительные опции",
-      "languageNotAvailable": "К сожалению, ваш язык здесь не используется.",
-      "chooseALanguage": "Выбор языка.",
       "lastUpdate": "Последнее обновление:",
       "loading": "Загрузка...",
       "close": "Закрыть",
@@ -1743,13 +1718,13 @@
       "back": "Назад",
       "ok": "Ок",
       "minimize": "Минимизировать",
-      "privacyPolicy": "Я прочитал(-а) <1>Политику конфиденциальности</1> и даю согласие на обработку и хранение моих данных."
+      "privacyPolicy": "Я прочитал(-а) <1>Политику конфиденциальности</1> и даю согласие на обработку и хранение моих данных.",
+      "notePrivacyPolicy": "Пожалуйста, согласитесь с политикой конфиденциальности, чтобы отправить форму.",
+      "nearby": "Рядом с тобой"
     },
     "sk": {
       "copied": "Skopírované",
       "moreOptions": "Viac možností",
-      "languageNotAvailable": "Váš jazyk tu žiaľ nie je k dispozícii.",
-      "chooseALanguage": "Vyberte si jazyk.",
       "lastUpdate": "Posledná aktualizácia:",
       "loading": "Načítajte ...",
       "close": "Zatvoriť",
@@ -1759,13 +1734,12 @@
       "back": "Späť",
       "ok": "Ok",
       "minimize": "Minimalizovať",
-      "privacyPolicy": "Prečítal/a som si <1>Vyhlásenie o ochrane osobných údajov</1> a súhlasím so spracovaním a ukladaním mojich údajov."
+      "privacyPolicy": "Prečítal/a som si <1>Vyhlásenie o ochrane osobných údajov</1> a súhlasím so spracovaním a ukladaním mojich údajov.",
+      "nearby": "Vo vašej blízkosti"
     },
     "so": {
       "copied": "la koobiyeeyay",
       "moreOptions": "Xulashooyin dheeraad ah",
-      "languageNotAvailable": "Nasiib darro, luqaddaada halkan lagama heli karo.",
-      "chooseALanguage": "Dooro luuqad.",
       "lastUpdate": "Cusbooneysiinta ugu dambeyso:",
       "loading": "Xareysmeyso ...",
       "close": "Xidh",
@@ -1775,13 +1749,12 @@
       "back": "Dib u noqo",
       "ok": "Haye",
       "minimize": "Yareyn",
-      "privacyPolicy": "Waxaan akhriyay <1>Bayaanka Qarsoodiga Xogta</1> waxaana oggolahay in xogtayda la farsameeyo oo la kaydiyo."
+      "privacyPolicy": "Waxaan akhriyay <1>Bayaanka Qarsoodiga Xogta</1> waxaana oggolahay in xogtayda la farsameeyo oo la kaydiyo.",
+      "nearby": "Kugu dhow"
     },
     "sq": {
       "copied": "e kopjuar",
       "moreOptions": "Me shumë opsione",
-      "languageNotAvailable": "Fatkeqësisht, gjuha juaj nuk është në dispozicion këtu.",
-      "chooseALanguage": "Zgjidh një gjuhë.",
       "lastUpdate": "Përditësimi i fundit:",
       "loading": "Ngarko ...",
       "close": "Mbyll",
@@ -1791,13 +1764,12 @@
       "back": "Kthehu",
       "ok": "Në rregull",
       "minimize": "Minimizo",
-      "privacyPolicy": "E kam lexuar <1>deklaratën e mbrojtjes së të dhënave</1> dhe jam dakord me përpunimin dhe ruajtjen e të dhënave të mia."
+      "privacyPolicy": "E kam lexuar <1>deklaratën e mbrojtjes së të dhënave</1> dhe jam dakord me përpunimin dhe ruajtjen e të dhënave të mia.",
+      "nearby": "Në afërsin tuaj"
     },
     "sr-Cyrl": {
       "copied": "копирано",
       "moreOptions": "Више опција",
-      "languageNotAvailable": "Нажалост, твој језик овде није доступан.",
-      "chooseALanguage": "Изабери језик.",
       "lastUpdate": "Последње ажурирање:",
       "loading": "Учитава се ...",
       "close": "Затвори",
@@ -1807,13 +1779,12 @@
       "back": "Назад",
       "ok": "У реду",
       "minimize": "Минимизуј",
-      "privacyPolicy": "Прочитао/ла сам <1>Изјаву о заштити података</1> и сагласан/на сам са обрадом и чувањем мојих података."
+      "privacyPolicy": "Прочитао/ла сам <1>Изјаву о заштити података</1> и сагласан/на сам са обрадом и чувањем мојих података.",
+      "nearby": "У вашој близини"
     },
     "sr-Latn": {
       "copied": "kopirano",
       "moreOptions": "Više opcija",
-      "languageNotAvailable": "Nažalost, tvoj jezik ovde nije dostupan.",
-      "chooseALanguage": "Izaberi jezik.",
       "lastUpdate": "Poslednje ažuriranje:",
       "loading": "Učitava se ...",
       "close": "Zatvorite",
@@ -1823,13 +1794,12 @@
       "back": "Nazad",
       "ok": "U redu",
       "minimize": "Minimizuj",
-      "privacyPolicy": "Pročitao/la sam <1>Izjavu o zaštiti podataka</1> i saglasan/na sam sa obradom i čuvanjem mojih podataka."
+      "privacyPolicy": "Pročitao/la sam <1>Izjavu o zaštiti podataka</1> i saglasan/na sam sa obradom i čuvanjem mojih podataka.",
+      "nearby": "U vašoj blizini"
     },
     "sw": {
       "copied": "Yamenakiliwa",
       "moreOptions": "Chaguo zaidi",
-      "languageNotAvailable": "Samahani, lugha yako haipatikani hapa.",
-      "chooseALanguage": "Chagua lugha.",
       "lastUpdate": "Ilisasishwa mara ya mwisho:",
       "loading": "Inapakia...",
       "close": "Funga",
@@ -1839,13 +1809,12 @@
       "back": "Nyuma",
       "ok": "Sawa",
       "minimize": "Punguza",
-      "privacyPolicy": "Nimesoma <1>sera ya faragha</1> na ninakubali kutumiwa na kuhifadhiwa kwa data yangu."
+      "privacyPolicy": "Nimesoma <1>sera ya faragha</1> na ninakubali kutumiwa na kuhifadhiwa kwa data yangu.",
+      "nearby": "Karibu nawe"
     },
     "th": {
       "copied": "คัดลอกแล้ว",
       "moreOptions": "ตัวเลือกเพิ่มเติม",
-      "languageNotAvailable": "ขออภัย ภาษาของคุณไม่สามารถใช้งานได้ที่นี่",
-      "chooseALanguage": "เลือกภาษา",
       "lastUpdate": "ปรับปรุงล่าสุด:",
       "loading": "กำลังโหลด...",
       "close": "ปิด",
@@ -1855,13 +1824,12 @@
       "back": "ย้อนกลับ",
       "ok": "ตกลง",
       "minimize": "ย่อขนาด",
-      "privacyPolicy": "ฉันได้อ่าน<1>นโยบายความเป็นส่วนตัว</1>แล้วและยอมรับการประมวลผลและจัดเก็บข้อมูลของฉัน"
+      "privacyPolicy": "ฉันได้อ่าน<1>นโยบายความเป็นส่วนตัว</1>แล้วและยอมรับการประมวลผลและจัดเก็บข้อมูลของฉัน",
+      "nearby": "ใกล้ตัวคุณ"
     },
     "ti": {
       "copied": "ተቐዲሑ",
       "moreOptions": "ዝበዝሐ ኣማራጺ",
-      "languageNotAvailable": "ሕማቕ ኣጋጣሚ ኮይኑ፡ ቋንቋኻ ኣብዚ የለን።",
-      "chooseALanguage": "ቋንቋ ምረጽ።",
       "lastUpdate": "መወዳእታ ዝተሓደሰ",
       "loading": "ይጽዓን ኣሎ ...",
       "close": "ዕጾ",
@@ -1871,13 +1839,12 @@
       "back": "ዝባን",
       "ok": "እሺ",
       "minimize": "ምጉዳል",
-      "privacyPolicy": "<1>ናይ ውልቀ ፖሊሲ</1> ኣንቢበ ኣብ መስርሕን ምኽዛንን ሓበሬታይ ተሰማሚዐ ኣለኹ።"
+      "privacyPolicy": "<1>ናይ ውልቀ ፖሊሲ</1> ኣንቢበ ኣብ መስርሕን ምኽዛንን ሓበሬታይ ተሰማሚዐ ኣለኹ።",
+      "nearby": "ኣብ ጥቓኻ"
     },
     "tr": {
       "copied": "kopyalandı",
       "moreOptions": "Daha fazla seçenek",
-      "languageNotAvailable": "Senin dilin burada maalesef yok.",
-      "chooseALanguage": "Bir dil seçin.",
       "lastUpdate": "Son güncelleme:",
       "loading": "Yükleniyor ...",
       "close": "Kapat",
@@ -1887,13 +1854,12 @@
       "back": "Geri",
       "ok": "Tamam",
       "minimize": "Simge durumuna küçült",
-      "privacyPolicy": "<1>Gizlilik Politikasını</1> okudum, verilerimin işlenmesini ve saklanmasını onaylıyorum."
+      "privacyPolicy": "<1>Gizlilik Politikasını</1> okudum, verilerimin işlenmesini ve saklanmasını onaylıyorum.",
+      "nearby": "Yakınında"
     },
     "uk": {
       "copied": "Копіювати",
       "moreOptions": "Більше опцій",
-      "languageNotAvailable": "Ваша мова тут недоступна.",
-      "chooseALanguage": "Виберіть мову.",
       "lastUpdate": "Останнє оновлення:",
       "loading": "Завантаження ...",
       "close": "Закрити",
@@ -1903,13 +1869,12 @@
       "back": "Назад",
       "ok": "Гаразд",
       "minimize": "Звести до мінімуму",
-      "privacyPolicy": "Я прочитав(-ла) <1>Політику конфіденційності</1> і даю згоду на обробку та зберігання моїх даних."
+      "privacyPolicy": "Я прочитав(-ла) <1>Політику конфіденційності</1> і даю згоду на обробку та зберігання моїх даних.",
+      "nearby": "З вами поблизу"
     },
     "ur": {
       "copied": "کاپی کیا گیا",
       "moreOptions": "نسخہ:",
-      "languageNotAvailable": "معذرت، آپ کی زبان یہاں دستیاب نہیں۔",
-      "chooseALanguage": "زبان منتخب کریں۔",
       "lastUpdate": "آخری ترمیم:",
       "loading": "لوڈ ہو رہا ہے ‎…",
       "close": "بند کریں",
@@ -1919,13 +1884,12 @@
       "back": "واپسی",
       "ok": "ٹھیک ہے",
       "minimize": "کم سے کم کرنا",
-      "privacyPolicy": "میں نے <1>رازداری کی پالیسی</1> کو پڑھ لیا/پڑی ہے اور اپنے ڈیٹا کی پروسیسنگ اور اسٹوریج سے اتفاق کرتا/کرتی ہوں۔"
+      "privacyPolicy": "میں نے <1>رازداری کی پالیسی</1> کو پڑھ لیا/پڑی ہے اور اپنے ڈیٹا کی پروسیسنگ اور اسٹوریج سے اتفاق کرتا/کرتی ہوں۔",
+      "nearby": "آپ کے قریب"
     },
     "vi": {
       "copied": "Đã sao chép",
       "moreOptions": "Thêm tùy chọn",
-      "languageNotAvailable": "Rất tiếc, nhưng ngôn ngữ bạn sử dụng không có sẵn tại đây.",
-      "chooseALanguage": "Chọn ngôn ngữ.",
       "lastUpdate": "Cập nhật gần nhất:",
       "loading": "Đang tải...",
       "close": "Đóng",
@@ -1935,13 +1899,12 @@
       "back": "Quay lại",
       "ok": "Ok",
       "minimize": "Thu nhỏ",
-      "privacyPolicy": "Tôi đã đọc <1>chính sách quyền riêng tư</1> và đồng ý với việc xử lý và lưu trữ dữ liệu của tôi."
+      "privacyPolicy": "Tôi đã đọc <1>chính sách quyền riêng tư</1> và đồng ý với việc xử lý và lưu trữ dữ liệu của tôi.",
+      "nearby": "Gần bạn"
     },
     "zh-CN": {
       "copied": "已复制",
       "moreOptions": "更多选项",
-      "languageNotAvailable": "很抱歉，这里没有提供您的语言。",
-      "chooseALanguage": "请选择一种语言。",
       "lastUpdate": "上次更新：",
       "loading": "加载中。。。",
       "close": "关闭",
@@ -1951,7 +1914,8 @@
       "back": "返回",
       "ok": "确认",
       "minimize": "最小化",
-      "privacyPolicy": "我已阅读<1>隐私政策</1>，并同意处理和存储我的数据。"
+      "privacyPolicy": "我已阅读<1>隐私政策</1>，并同意处理和存储我的数据。",
+      "nearby": "在你附近"
     }
   },
   "consent": {
@@ -2386,266 +2350,6 @@
       "noSources": "无外部来源。"
     }
   },
-  "dashboard": {
-    "de": {
-      "localInformation": "Lokale Informationen",
-      "events": "Veranstaltungen",
-      "news": "Nachrichten",
-      "pois": "Karte"
-    },
-    "am": {
-      "localInformation": "አካባቢያዊ መረጃ",
-      "events": "ዝግጅቶች",
-      "news": "ዜናዎች",
-      "pois": "ካርታ"
-    },
-    "ar": {
-      "localInformation": "معلومات محلية",
-      "events": "الفعاليات",
-      "news": "الأخبار",
-      "pois": "الخريطة"
-    },
-    "bg": {
-      "localInformation": "Местна информация",
-      "events": "Събития",
-      "news": "Новини",
-      "pois": "Карта"
-    },
-    "ckb": {
-      "localInformation": "زانیارییە خۆجییەکان",
-      "events": "ڕووداوەکان",
-      "news": "هەواڵ",
-      "pois": "نەخشە"
-    },
-    "cs": {
-      "localInformation": "Místní informace",
-      "events": "Akce",
-      "news": "Zprávy",
-      "pois": "Mapa"
-    },
-    "da": {
-      "localInformation": "Lokale oplysninger",
-      "events": "Begivenheder",
-      "news": "Nyheder",
-      "pois": "Kort"
-    },
-    "el": {
-      "localInformation": "Τοπικές πληροφορίες",
-      "events": "Εκδηλώσεις",
-      "news": "Ειδήσεις",
-      "pois": "Χάρτης"
-    },
-    "en": {
-      "localInformation": "Local information",
-      "events": "Events",
-      "news": "News",
-      "pois": "Map"
-    },
-    "es": {
-      "localInformation": "Información local",
-      "events": "Actividades",
-      "news": "Noticias",
-      "pois": "Mapa"
-    },
-    "fi": {
-      "localInformation": "Paikalliset tiedot",
-      "events": "Tapahtumat",
-      "news": "Viestit",
-      "pois": "Kartta"
-    },
-    "fr": {
-      "localInformation": "Informations locales",
-      "events": "Événements",
-      "news": "Nouvelles",
-      "pois": "Carte"
-    },
-    "hi": {
-      "localInformation": "स्थानीय जानकारी",
-      "events": "ईवेंट",
-      "news": "समाचार",
-      "pois": "मैप"
-    },
-    "hr": {
-      "localInformation": "Lokalne informacije",
-      "events": "Događanja",
-      "news": "Vijesti",
-      "pois": "Karta"
-    },
-    "hu": {
-      "localInformation": "Helyi információk",
-      "events": "Események",
-      "news": "Hírek",
-      "pois": "Térkép"
-    },
-    "id": {
-      "localInformation": "Informasi lokal",
-      "events": "Acara",
-      "news": "Berita",
-      "pois": "Peta"
-    },
-    "it": {
-      "localInformation": "Informazioni locali",
-      "events": "Eventi",
-      "news": "Messaggi",
-      "pois": "Mappa"
-    },
-    "ka": {
-      "localInformation": "ადგილობრივი ინფორმაციები",
-      "events": "ღონისძიებები",
-      "news": "ინფორმაციები",
-      "pois": "რუქა"
-    },
-    "kmr": {
-      "localInformation": "Zanyariyên xwecihî",
-      "events": "Rûdan",
-      "news": "Nûçe",
-      "pois": "Nexşe"
-    },
-    "mk": {
-      "localInformation": "Локални информации",
-      "events": "Настани",
-      "news": "Вести",
-      "pois": "Мапа"
-    },
-    "nl": {
-      "localInformation": "Lokale informatie",
-      "events": "Evenementen",
-      "news": "Nieuws",
-      "pois": "Kaart"
-    },
-    "orm": {
-      "localInformation": "Odeeffannoo naannoo",
-      "events": "Sagantaalee",
-      "news": "Oduu",
-      "pois": "Kaartaa"
-    },
-    "pes": {
-      "localInformation": "اطلاعات محلی",
-      "events": "رویدادها",
-      "news": "اخبار",
-      "pois": "نقشه"
-    },
-    "pl": {
-      "localInformation": "Informacje lokalne",
-      "events": "Wydarzenia",
-      "news": "Wiadomości",
-      "pois": "Mapa"
-    },
-    "prs": {
-      "localInformation": "اطلاعات تماس",
-      "events": "بازگشت به خلاصه",
-      "news": "مسیریابی",
-      "pois": "باز کردن در Google Maps"
-    },
-    "ps": {
-      "localInformation": "سیمه ییز معلومات",
-      "events": "غونډې",
-      "news": "خبرونه",
-      "pois": "کارت"
-    },
-    "pt": {
-      "localInformation": "Informações locais",
-      "events": "Eventos",
-      "news": "Notícias",
-      "pois": "Mapa"
-    },
-    "ro": {
-      "localInformation": "Informații locale",
-      "events": "Evenimente",
-      "news": "Știri",
-      "pois": "Hartă"
-    },
-    "rom": {
-      "localInformation": "Lokalnikane informacie",
-      "events": "Čipote",
-      "news": "Haberia",
-      "pois": "Mapa"
-    },
-    "ru": {
-      "localInformation": "Местная информация",
-      "events": "Мероприятия",
-      "news": "Новости",
-      "pois": "Карта"
-    },
-    "sk": {
-      "localInformation": "Lokálne informácie",
-      "events": "Podujatia",
-      "news": "Správy",
-      "pois": "Mapa"
-    },
-    "so": {
-      "localInformation": "Macluumaadka deegaanka",
-      "events": "Dhacdooyinka",
-      "news": "war",
-      "pois": "khariidad"
-    },
-    "sq": {
-      "localInformation": "Informata lokale",
-      "events": "Evenimentet",
-      "news": "Lajme",
-      "pois": "Harta"
-    },
-    "sr-Cyrl": {
-      "localInformation": "Локалне информације",
-      "events": "Догађаји",
-      "news": "Вести",
-      "pois": "Карта"
-    },
-    "sr-Latn": {
-      "localInformation": "Lokalne informacije",
-      "events": "Događaji",
-      "news": "Vesti",
-      "pois": "Karta"
-    },
-    "sw": {
-      "localInformation": "Habari za nchini",
-      "events": "Matukio",
-      "news": "Habari",
-      "pois": "Ramani"
-    },
-    "th": {
-      "localInformation": "ข้อมูลท้องถิ่น",
-      "events": "กิจกรรม",
-      "news": "ข่าว",
-      "pois": "แผนที่"
-    },
-    "ti": {
-      "localInformation": "ከባብያዊ ሓበሬታ",
-      "events": "ኣጋጣሚታት",
-      "news": "ዜና",
-      "pois": "ካርታ"
-    },
-    "tr": {
-      "localInformation": "Yerel bilgiler",
-      "events": "Etkinlikler",
-      "news": "Mesajlar",
-      "pois": "Harita"
-    },
-    "uk": {
-      "localInformation": "Місцева інформація",
-      "events": "Події",
-      "news": "Новини",
-      "pois": "Мапа"
-    },
-    "ur": {
-      "localInformation": "مقامی معلومات",
-      "events": "واقعات",
-      "news": "خبریں",
-      "pois": "نقشہ"
-    },
-    "vi": {
-      "localInformation": "Thông tin về địa phương",
-      "events": "Sự kiện",
-      "news": "Tin tức",
-      "pois": "Bản đồ"
-    },
-    "zh-CN": {
-      "localInformation": "本地信息",
-      "events": "活动",
-      "news": "新闻",
-      "pois": "地图"
-    }
-  },
   "disclaimer": {
     "de": {
       "pageTitle": "Impressum"
@@ -2780,7 +2484,7 @@
   "error": {
     "de": {
       "notFound": {
-        "language": "Diese Sprache ist hier leider nicht verfügbar.",
+        "language": "Die aktuell ausgewählte Sprache ist in dieser Region nicht verfügbar. Bitte wählen Sie eine andere Sprache aus:",
         "city": "Diese Region wurde leider nicht gefunden.",
         "category": "Diese Seite wurde leider nicht gefunden.",
         "event": "Dieses Event wurde leider nicht gefunden.",
@@ -2796,7 +2500,6 @@
       "unknownError": "Ein unbekannter Fehler ist aufgetreten.",
       "tryAgain": "Erneut versuchen",
       "loadingFailed": "Die Seite konnte leider nicht geladen werden.",
-      "chooseALanguage": "Wähle eine Sprache:",
       "goTo": {
         "start": "Zur Startseite",
         "categories": "Zu den Kategorien",
@@ -2817,7 +2520,6 @@
     },
     "am": {
       "notFound": {
-        "language": "ይቅርታ፣ ይህ ቋንቋ እዚህ ላይ የለም።",
         "city": "ይህ ወረዳ ሊገኝ ኣልቻለም።",
         "category": "ይቅርታ፣ ይህ ገጽ አልተገኘም።",
         "event": "ይቅርታ፣ ይህ ጽግጅት አልተገኘም።",
@@ -2833,7 +2535,6 @@
       "unknownError": "ያልታወቀ ስህተት ተፈጥሯል።",
       "tryAgain": "ድጋሚ ይሞክሩ",
       "loadingFailed": "ይቅርታ፣ ገጹን መጫን አልተቻለም።",
-      "chooseALanguage": "ቋንቋ ይምረጡ:",
       "goTo": {
         "start": "ወደ ሆም ገጽ",
         "categories": "ወደ ምድቦች",
@@ -2854,7 +2555,6 @@
     },
     "ar": {
       "notFound": {
-        "language": "للأسف، هذه اللغة ليست متاحة.",
         "city": "للأسف لم يتم العثور على هذه المنطقة.",
         "category": "للأسف، تعذر العثور على هذه الصفحة.",
         "event": "للأسف، تعذر العثور على هذا الحدث.",
@@ -2870,7 +2570,6 @@
       "unknownError": "حدث خطأ غير معروف.",
       "tryAgain": "إعادة المحاولة",
       "loadingFailed": "للأسف، لا يُمكن تحميل الصفحة.",
-      "chooseALanguage": "اختر لغة:",
       "goTo": {
         "start": "إلى الصفحة الرئيسية",
         "categories": "إلى الفئات",
@@ -2891,7 +2590,6 @@
     },
     "bg": {
       "notFound": {
-        "language": "За съжаление този език не е наличен тук.",
         "city": "За съжаление този регион не беше намерен.",
         "category": "За съжаление тази страница не беше намерена.",
         "event": "За съжаление това събитие не беше намерено.",
@@ -2907,7 +2605,6 @@
       "unknownError": "Възникна непозната грешка.",
       "tryAgain": "Опитайте отново",
       "loadingFailed": "За съжаление страницата не можа да бъде заредена.",
-      "chooseALanguage": "Избери език:",
       "goTo": {
         "start": "Към началната страница",
         "categories": "Към категориите",
@@ -2928,7 +2625,6 @@
     },
     "ckb": {
       "notFound": {
-        "language": "بەداخەوە ئەم زمانەی تێدا نییە.",
         "city": "بەداخەوە، ئەم ناوچەیە نەدۆزرایەوە.",
         "category": "بەداخەوە ئەم لاپەڕەیە نەدۆزرایەوە.",
         "event": "بەداخەوە ئەم ڕووداوە نەدۆزرایەوە.",
@@ -2944,7 +2640,6 @@
       "unknownError": "هەڵەیەکی نەناسراو ڕووی دا.",
       "tryAgain": "دووبارە تاقی بکەوە",
       "loadingFailed": "بەداخەوە لاپەڕەکە بار نەکرا.",
-      "chooseALanguage": "زمانێک هەڵبژێرە:",
       "goTo": {
         "start": "بۆ لاپەڕەی سەرەکی",
         "categories": "بۆ کۆمەڵەکان",
@@ -2965,7 +2660,6 @@
     },
     "cs": {
       "notFound": {
-        "language": "Je nám líto, tento jazyk zde není k dispozici.",
         "city": "Je nám líto, tato oblast nebyla nalezena.",
         "category": "Je nám líto, tato stránka nebyla nalezena.",
         "event": "Je nám líto, tato akce nebyla nalezena.",
@@ -2981,7 +2675,6 @@
       "unknownError": "Došlo k neznámé chybě.",
       "tryAgain": "Zkuste to znovu",
       "loadingFailed": "Je nám líto, stránku se nepodařilo načíst.",
-      "chooseALanguage": "Vyberte si jazyk:",
       "goTo": {
         "start": "Na domovskou stránku",
         "categories": "Ke kategoriím",
@@ -3002,7 +2695,6 @@
     },
     "da": {
       "notFound": {
-        "language": "Dette sprog er desværre ikke tilgængeligt her.",
         "city": "Beklager, denne region blev ikke fundet.",
         "category": "Beklager, denne side blev ikke fundet.",
         "event": "Beklager, denne begivenhed blev ikke fundet.",
@@ -3018,7 +2710,6 @@
       "unknownError": "Der er opstået en ukendt fejl.",
       "tryAgain": "Prøv igen",
       "loadingFailed": "Beklager, siden kunne ikke indlæses.",
-      "chooseALanguage": "Vælg et sprog:",
       "goTo": {
         "start": "Til startsiden",
         "categories": "Til kategorierne",
@@ -3039,7 +2730,6 @@
     },
     "el": {
       "notFound": {
-        "language": "Δυστυχώς, αυτή η γλώσσα δεν είναι διαθέσιμη εδώ.",
         "city": "Δυστυχώς δεν βρέθηκε αυτή η περιοχή.",
         "category": "Δυστυχώς, αυτή η σελίδα δεν βρέθηκε.",
         "event": "Δυστυχώς, αυτή η εκδήλωση δεν βρέθηκε.",
@@ -3055,7 +2745,6 @@
       "unknownError": "Προέκυψε ένα άγνωστο σφάλμα.",
       "tryAgain": "Προσπαθήστε ξανά",
       "loadingFailed": "Δυστυχώς δεν ήταν δυνατή η φόρτωση της σελίδας.",
-      "chooseALanguage": "Επιλέξτε μια γλώσσα:",
       "goTo": {
         "start": "Προς αρχική σελίδα",
         "categories": "Προς κατηγορίες",
@@ -3076,7 +2765,7 @@
     },
     "en": {
       "notFound": {
-        "language": "Sorry, but this language is not available here.",
+        "language": "The currently selected language is not available in this region. Please select another language:",
         "city": "Sorry this region was not found.",
         "category": "Sorry, but the requested page could not be found.",
         "event": "Sorry, but this event could not be found.",
@@ -3092,7 +2781,6 @@
       "unknownError": "An unknown error occurred.",
       "tryAgain": "Try again",
       "loadingFailed": "Sorry, but the requested page could not be loaded.",
-      "chooseALanguage": "Choose a language:",
       "goTo": {
         "start": "Go to the homepage",
         "categories": "Go to categories",
@@ -3113,7 +2801,6 @@
     },
     "es": {
       "notFound": {
-        "language": "Tu idioma no está disponible aquí.",
         "city": "No se ha encontrado esta región.",
         "category": "No se ha encontrado esta página.",
         "event": "No se ha encontrado este evento.",
@@ -3129,7 +2816,6 @@
       "unknownError": "Se ha producido un error desconocido.",
       "tryAgain": "Intentar de nuevo",
       "loadingFailed": "No se ha podido cagar la página.",
-      "chooseALanguage": "Selecciona un idioma:",
       "goTo": {
         "start": "Ir a la página de inicio",
         "categories": "Ir a las categorías",
@@ -3150,7 +2836,6 @@
     },
     "fi": {
       "notFound": {
-        "language": "Tämä kieli ei ole saatavilla.",
         "city": "Aluetta ei löydetty.",
         "category": "Sivua ei löydetty.",
         "event": "Tapahtumaa ei löydetty.",
@@ -3166,7 +2851,6 @@
       "unknownError": "Ilmeni tuntematon virhe.",
       "tryAgain": "Yritä uudelleen",
       "loadingFailed": "Sivua ei voitu ladata.",
-      "chooseALanguage": "Valitse kieli:",
       "goTo": {
         "start": "Siirry kotisivulle",
         "categories": "Siirry kategorioihin",
@@ -3187,7 +2871,6 @@
     },
     "fr": {
       "notFound": {
-        "language": "Malheureusement, cette langue n'est pas disponible ici.",
         "city": "Cette région n’a malheureusement pas été trouvée.",
         "category": "Malheureusement, cette page est introuvable.",
         "event": "Malheureusement, cet événement est introuvable.",
@@ -3203,7 +2886,6 @@
       "unknownError": "Une erreur inconnue s'est produite.",
       "tryAgain": "Essayer à nouveau",
       "loadingFailed": "Malheureusement, la page n'a pas pu être chargée.",
-      "chooseALanguage": "Choisis une langue :",
       "goTo": {
         "start": "Vers la page de démarrage",
         "categories": "Vers les catégories",
@@ -3224,7 +2906,6 @@
     },
     "hi": {
       "notFound": {
-        "language": "क्षमा करें, लेकिन यह भाषा यहाँ उपलब्ध नहीं है।",
         "city": "क्षमा करें, यह क्षेत्र नहीं मिला।",
         "category": "क्षमा करें, लेकिन अनुरोधित पेज नहीं मिल सका।",
         "event": "क्षमा करें, लेकिन यह ईवेंट नहीं मिल सका.",
@@ -3240,7 +2921,6 @@
       "unknownError": "एक अज्ञात त्रुटि हुई।",
       "tryAgain": "दोबारा प्रयास करें",
       "loadingFailed": "क्षमा करें, लेकिन अनुरोधित पेज लोड नहीं किया जा सका।",
-      "chooseALanguage": "एक भाषा चुनें:",
       "goTo": {
         "start": "होमपेज पर जाएँ",
         "categories": "श्रेणियाँ पर जाएँ",
@@ -3261,7 +2941,6 @@
     },
     "hr": {
       "notFound": {
-        "language": "Tvoj jezik ovdje nažalost nije dostupan.",
         "city": "Ta regija nažalost nije pronađena.",
         "category": "Ova stranica nažalost nije pronađena.",
         "event": "Ovo događanje nažalost nije pronađeno.",
@@ -3277,7 +2956,6 @@
       "unknownError": "Došlo je do nepoznate pogreške.",
       "tryAgain": "Pokušaj ponovo",
       "loadingFailed": "Stranica se nažalost nije mogla učitati.",
-      "chooseALanguage": "Odaberi jezik:",
       "goTo": {
         "start": "Na početnu stranicu",
         "categories": "Na kategorije",
@@ -3298,7 +2976,6 @@
     },
     "hu": {
       "notFound": {
-        "language": "A nyelved itt sajnos nem elérhető.",
         "city": "Ez a régió nem található.",
         "category": "Ez az oldal sajnos nem található.",
         "event": "Ez az esemény sajnos nem található.",
@@ -3314,7 +2991,6 @@
       "unknownError": "Ismeretlen hiba lépett fel.",
       "tryAgain": "Próbáld meg újra",
       "loadingFailed": "Az oldal betöltése sikertelen.",
-      "chooseALanguage": "Válassz ki egy nyelvet:",
       "goTo": {
         "start": "A Kezdőoldalra",
         "categories": "A Kategóriákhoz",
@@ -3335,7 +3011,6 @@
     },
     "id": {
       "notFound": {
-        "language": "Maaf, bahasa ini tidak tersedia di sini.",
         "city": "Maaf, wilayah ini tidak ditemukan.",
         "category": "Maaf, halaman yang diminta tidak ditemukan.",
         "event": "Maaf, acara ini tidak ditemukan.",
@@ -3351,7 +3026,6 @@
       "unknownError": "Terjadi galat yang tidak dikenal.",
       "tryAgain": "Coba lagi",
       "loadingFailed": "Maaf, halaman yang diminta tidak dapat dimuat.",
-      "chooseALanguage": "Pilih bahasa:",
       "goTo": {
         "start": "Pergi ke halaman utama",
         "categories": "Pergi ke kategori",
@@ -3372,7 +3046,6 @@
     },
     "it": {
       "notFound": {
-        "language": "Purtroppo questa lingua non è disponibile qui.",
         "city": "Purtroppo questa regione non è stata trovata.",
         "category": "Purtroppo questa pagina non è stata trovata.",
         "event": "Purtroppo questo evento non è stato trovato.",
@@ -3388,7 +3061,6 @@
       "unknownError": "Si è verificato un errore sconosciuto.",
       "tryAgain": "Riprova",
       "loadingFailed": "Purtroppo non è stato possibile trovare la pagina richiesta.",
-      "chooseALanguage": "Scegli una lingua:",
       "goTo": {
         "start": "Vai alla home page",
         "categories": "Vai su Categorie",
@@ -3409,7 +3081,6 @@
     },
     "ka": {
       "notFound": {
-        "language": "სამწუხაროდ ეს ენა აქ არ გამოიყენება.",
         "city": "ეს რეგიონი სამწუხაროდ ვერ მოიძებნა.",
         "category": "სამწუხაროდ ეს გვერდი ვერ მოიძებნა.",
         "event": "სამწუხაროდ ეს ღონისძიება ვერ მოიძებნა.",
@@ -3425,7 +3096,6 @@
       "unknownError": "გამოვლინდა უცნობი შეცდომა.",
       "tryAgain": "კიდევ სცადეთ",
       "loadingFailed": "სამწუხაროდ გვერდი არ იტვირთება.",
-      "chooseALanguage": "აირჩიე ენა:",
       "goTo": {
         "start": "სასტარტო გვერდისაკენ",
         "categories": "კატეგორიებისაკენ",
@@ -3446,7 +3116,6 @@
     },
     "kmr": {
       "notFound": {
-        "language": "Mixabin zimanê te li vir li ber dest nîne.",
         "city": "Mixabin, ev navçe peyda nebû.",
         "category": "Mixabin ev rûpel peyde nebû.",
         "event": "Mixabin ev rûdan peyde nebû.",
@@ -3462,7 +3131,6 @@
       "unknownError": "Şaşitiyeka (Eror) nenas qewimiye.",
       "tryAgain": "Ji nû va hewil bide",
       "loadingFailed": "Mixabin rûpel nayê barkirin.",
-      "chooseALanguage": "Zimanekî bibijêre:",
       "goTo": {
         "start": "Ber bi Rûpela Sereke va",
         "categories": "Ber bi destebendiyan va",
@@ -3483,7 +3151,6 @@
     },
     "mk": {
       "notFound": {
-        "language": "За жал твојот јазик не е достапен.",
         "city": "За жал, овој регион не беше пронајден.",
         "category": "За жал оваа страница не е пронајдена.",
         "event": "За жал овој настан не е пронајден.",
@@ -3499,7 +3166,6 @@
       "unknownError": "Настапи непозната грешка.",
       "tryAgain": "Обиди се повторно",
       "loadingFailed": "За жал страницата не може да се вчита.",
-      "chooseALanguage": "Избери јазик:",
       "goTo": {
         "start": "Кон почетната страна",
         "categories": "Кон категориите",
@@ -3520,7 +3186,6 @@
     },
     "nl": {
       "notFound": {
-        "language": "Sorry, deze taal is hier niet beschikbaar.",
         "city": "Sorry, deze regio is niet gevonden.",
         "category": "Sorry, de gevraagde pagina kan niet worden gevonden.",
         "event": "Sorry, dit evenement kan niet worden gevonden.",
@@ -3536,7 +3201,6 @@
       "unknownError": "Er is een onbekende fout opgetreden.",
       "tryAgain": "Probeer opnieuw",
       "loadingFailed": "Sorry, de gevraagde pagina kan niet worden geladen.",
-      "chooseALanguage": "Kies een taal:",
       "goTo": {
         "start": "Ga naar de beginpagina",
         "categories": "Ga naar categorieën",
@@ -3557,7 +3221,6 @@
     },
     "orm": {
       "notFound": {
-        "language": "Dhiifama, garuu afaan kun as keessa hin jiru.",
         "city": "Dhiifama naannoon kun as keessa him jiru.",
         "category": "Dhiifama, garuu bakki isin gaafattan hin jiru.",
         "event": "Dhiifama, garuu sagantaan kun hin jiru.",
@@ -3573,7 +3236,6 @@
       "unknownError": "Dogoggorri hin beekamne uumameera.",
       "tryAgain": "Irra deebiin yaali",
       "loadingFailed": "Dhiifama, garuu fuulli gaafatame hin barbaadamne.",
-      "chooseALanguage": "Afaan filadhu:",
       "goTo": {
         "start": "Gara fuula jalqabaa deemi",
         "categories": "Gara qabiyyee deemi",
@@ -3594,7 +3256,6 @@
     },
     "pes": {
       "notFound": {
-        "language": "متاسفانه زبان شما در اینجا در دسترس نیست.",
         "city": "متاسفانه این منطقه پیدا نشد.",
         "category": "متاسفانه این صفحه یافت نشد.",
         "event": "متأسفانه این رویداد یافت نشد.",
@@ -3610,7 +3271,6 @@
       "unknownError": "خطای ناشناخته رخ داده است.",
       "tryAgain": "مجددا سعی کنید",
       "loadingFailed": "متاسفانه صفحه بارگیری نمی شود.",
-      "chooseALanguage": "یک زبان را انتخاب کنید:",
       "goTo": {
         "start": "به سوی صفحه اصلی",
         "categories": "به سوی دسته بندی ها",
@@ -3631,7 +3291,6 @@
     },
     "pl": {
       "notFound": {
-        "language": "Niestety ten język nie jest tutaj dostępny.",
         "city": "Niestety ten region nie został znaleziony.",
         "category": "Niestety nie znaleziono tej strony.",
         "event": "Niestety nie znaleziono tego wydarzenia.",
@@ -3647,7 +3306,6 @@
       "unknownError": "Wystąpił nieznany błąd.",
       "tryAgain": "Spróbuj ponownie",
       "loadingFailed": "Niestety nie udało się załadować strony.",
-      "chooseALanguage": "Wybierz język:",
       "goTo": {
         "start": "Do strony startowej",
         "categories": "Do kategorii",
@@ -3668,7 +3326,6 @@
     },
     "prs": {
       "notFound": {
-        "language": "متاسفانه این لسان در اینجا موجود نیست‎.",
         "city": "متاسفانه این منطقه پیدا نشد.",
         "category": "متاسفانه این صفحه پیدا نشد.",
         "event": "متاسفانه این رویداد پیدا نشد‎.",
@@ -3684,7 +3341,6 @@
       "unknownError": "یک خطای ناشناخته رخ داده است‎.",
       "tryAgain": "دوباره امتحان کنید",
       "loadingFailed": "متاسفانه صفحه دانلود نشد‎.",
-      "chooseALanguage": "یک لسان انتخاب نمایید‎:",
       "goTo": {
         "start": "به صفحه اصلی",
         "categories": "به دسته ها",
@@ -3705,7 +3361,6 @@
     },
     "ps": {
       "notFound": {
-        "language": "دا ژبه له بده مرغه دلته موجوده نده.",
         "city": "له بده مرغه، دا سیمه ونه موندل شوه.",
         "category": "دا پاڼه له بده مرغه پیدا نشوه.",
         "event": "دا غونډه له بده مرغه پیدا نشوه.",
@@ -3721,7 +3376,6 @@
       "unknownError": "یوه نامعلومه اشتباه رامینځته شوه.",
       "tryAgain": "یو ځل بیا کوښښ اوکئ",
       "loadingFailed": "له بده مرغه پاڼه ډاونلوډ نکړی شوه.",
-      "chooseALanguage": "یوه ژبه انتخاب کړه:",
       "goTo": {
         "start": "مخپاڼې ته تلل",
         "categories": "کټګوریو یعنی انواعو  ته تلل",
@@ -3742,7 +3396,6 @@
     },
     "pt": {
       "notFound": {
-        "language": "Lamentamos, mas este idioma não está disponível.",
         "city": "Lamentamos, mas esta região não foi encontrada.",
         "category": "Lamentamos, mas esta página não foi encontrada.",
         "event": "Lamentamos, mas este evento não foi encontrado.",
@@ -3758,7 +3411,6 @@
       "unknownError": "Ocorreu um erro desconhecido.",
       "tryAgain": "Tente novamente",
       "loadingFailed": "Lamentamos, mas não foi possível carregar a página.",
-      "chooseALanguage": "Escolhe um idioma:",
       "goTo": {
         "start": "Ir para a página inicial",
         "categories": "Ir para as categorias",
@@ -3779,7 +3431,6 @@
     },
     "ro": {
       "notFound": {
-        "language": "Aici nu este disponibilă această limbă, din păcate.",
         "city": "Ne pare rău, această regiune nu a fost găsită.",
         "category": "Această pagină nu a fost găsită, din păcate.",
         "event": "Acest eveniment nu a fost găsit, din păcate.",
@@ -3795,7 +3446,6 @@
       "unknownError": "A apărut o eroare necunoscută.",
       "tryAgain": "Încercați din nou",
       "loadingFailed": "Pagina nu a putut fi încărcată, din păcate.",
-      "chooseALanguage": "Alege o limbă:",
       "goTo": {
         "start": "Spre pagina de start",
         "categories": "Spre categorii",
@@ -3816,7 +3466,6 @@
     },
     "rom": {
       "notFound": {
-        "language": "Afi ker, numa akaja čhib nane akate.",
         "city": "Afi ker akaja regia na sine arakhli.",
         "category": "Afi ker, numa i rodimi strana našti te ovel arakhli.",
         "event": "Afi ker, numa akaja čipota naši te ovel arakhli.",
@@ -3832,7 +3481,6 @@
       "unknownError": "Bipendžardi bangin uli.",
       "tryAgain": "Panda jekh far probin.",
       "loadingFailed": "Afi ker, numa i rodimi strana našti te avel.",
-      "chooseALanguage": "Birin čhib:",
       "goTo": {
         "start": "Dža ki kherutni strana",
         "categories": "Dža ko kategorie",
@@ -3853,7 +3501,6 @@
     },
     "ru": {
       "notFound": {
-        "language": "К сожалению, этот язык не поддерживается.",
         "city": "К сожалению, этот регион не найден.",
         "category": "К сожалению, эта страница не найдена.",
         "event": "К сожалению, это событие не найдено.",
@@ -3869,7 +3516,6 @@
       "unknownError": "Произошла неизвестная ошибка.",
       "tryAgain": "Повторить попытку",
       "loadingFailed": "К сожалению, не удалось загрузить страницу.",
-      "chooseALanguage": "Выбор языка:",
       "goTo": {
         "start": "К начальной странице",
         "categories": "К категориям",
@@ -3890,7 +3536,6 @@
     },
     "sk": {
       "notFound": {
-        "language": "Tento jazyk tu žiaľ nie je k dispozícii.",
         "city": "Tento región žiaľ nebol nájdený.",
         "category": "Táto stránka žiaľ nebola nájdená.",
         "event": "Táto udalosť žiaľ nebola nájdená.",
@@ -3906,7 +3551,6 @@
       "unknownError": "Vyskytla sa neznáma chyba.",
       "tryAgain": "Pokúste sa znova",
       "loadingFailed": "Stránku žiaľ nebolo možné načítať.",
-      "chooseALanguage": "Vyberte si jazyk:",
       "goTo": {
         "start": "Na úvodnú stránku",
         "categories": "Ku kategóriám",
@@ -3927,7 +3571,6 @@
     },
     "so": {
       "notFound": {
-        "language": "Nasiib darro, luuqadan halkan lagama heli karo.",
         "city": "Nasiib darro, gobolkan lama helin.",
         "category": "Nasiib darro, boggan lama helin.",
         "event": "Nasiib darro, dhacdadan lama helin.",
@@ -3943,7 +3586,6 @@
       "unknownError": "Khalad aan la aqoon ayaa dhacay.",
       "tryAgain": "Mar kale isku day",
       "loadingFailed": "Boggu waa la soo kicin kari waayey.",
-      "chooseALanguage": "Dooro luqad:",
       "goTo": {
         "start": "Aad bogga koowaad",
         "categories": "Aad Qaybaha",
@@ -3964,7 +3606,6 @@
     },
     "sq": {
       "notFound": {
-        "language": "Fatkeqësisht, kjo gjuhë nuk është në dispozicion këtu.",
         "city": "Fatkeqësisht, ky rajon nuk u gjet.",
         "category": "Kjo faqe për fat të keq nuk u gjet.",
         "event": "Ky eveniment për fat të keq nuk u gjet.",
@@ -3980,7 +3621,6 @@
       "unknownError": "Një gabim i panjohur ka ndodhur.",
       "tryAgain": "Provo përsëri",
       "loadingFailed": "Fatkeqësisht faqja nuk mund të ngarkohej.",
-      "chooseALanguage": "Zgjidh një gjuhë:",
       "goTo": {
         "start": "Në faqen kryesore",
         "categories": "Tek kategoritë",
@@ -4001,7 +3641,6 @@
     },
     "sr-Cyrl": {
       "notFound": {
-        "language": "Нажалост, овај језик овде није доступан.",
         "city": "Нажалост, овај регион није пронађен.",
         "category": "Нажалост, ова страница није пронађена.",
         "event": "Нажалост, овај догађај није пронађен.",
@@ -4017,7 +3656,6 @@
       "unknownError": "Дошло је до непознате грешке.",
       "tryAgain": "Покушај поново",
       "loadingFailed": "Нажалост, није било могуће учитавање ове странице.",
-      "chooseALanguage": "Изабери језик:",
       "goTo": {
         "start": "Ка почетној страници",
         "categories": "Ка категоријама",
@@ -4038,7 +3676,6 @@
     },
     "sr-Latn": {
       "notFound": {
-        "language": "Nažalost, ovaj jezik ovde nije dostupan.",
         "city": "Nažalost, ovaj region nije pronađen.",
         "category": "Nažalost, ova stranica nije pronađena.",
         "event": "Nažalost, ovaj događaj nije pronađen.",
@@ -4054,7 +3691,6 @@
       "unknownError": "Došlo je do nepoznate greške.",
       "tryAgain": "Pokušaj ponovo",
       "loadingFailed": "Nažalost, nije bilo moguće učitavanje ove stranice.",
-      "chooseALanguage": "Izaberi jezik:",
       "goTo": {
         "start": "Ka početnoj stranici",
         "categories": "Ka kategorijama",
@@ -4075,7 +3711,6 @@
     },
     "sw": {
       "notFound": {
-        "language": "Samahani, lugha hii haipatikani hapa.",
         "city": "Samahani, eneo hili halijapatikani.",
         "category": "Samahani, ukurasa ulioomba haujapatikana.",
         "event": "Samahani, tukio hili halijapatikana.",
@@ -4091,7 +3726,6 @@
       "unknownError": "Hitilafu isiyojulikana imetokea.",
       "tryAgain": "Jaribu tena",
       "loadingFailed": "Samahani, ukurasa ulioomba umeshindwa kupakiwa.",
-      "chooseALanguage": "Chagua lugha:",
       "goTo": {
         "start": "Nenda kwenye ukurasa wa kwanza",
         "categories": "Nenda kwenye aina",
@@ -4112,7 +3746,6 @@
     },
     "th": {
       "notFound": {
-        "language": "ขออภัย ภาษาที่ใช้ไม่พร้อมใช้งานที่นี่",
         "city": "น่าเสียดายที่ไม่พบภูมิภาคนี้",
         "category": "ขออภัยไม่พบหน้านี้",
         "event": "ขออภัยไม่พบกิจกรรมนี้",
@@ -4128,7 +3761,6 @@
       "unknownError": "เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ",
       "tryAgain": "ลองใหม่อีกครั้ง",
       "loadingFailed": "ขออภัย ไม่สามารถโหลดหน้าได้",
-      "chooseALanguage": "เลือกภาษา:",
       "goTo": {
         "start": "ไปหน้าเริ่มต้น",
         "categories": "ไปยังประเภทต่างๆ",
@@ -4149,7 +3781,6 @@
     },
     "ti": {
       "notFound": {
-        "language": "ሕማቕ ኣጋጣሚ ኮይኑ፡ እዚ ቋንቋ’ዚ ኣብዚ የለን።",
         "city": "እዚ ከባቢ ክርከብ ኣይተኸኣለን።",
         "category": "ሕማቕ ኣጋጣሚ ኮይኑ፡ እዚ ገጽ’ዚ ኣይተረኽበን።",
         "event": "ሕማቕ ኣጋጣሚ ኮይኑ፡ እዚ ኣጋጣሚ እዚ ኣይተረኽበን።",
@@ -4165,7 +3796,6 @@
       "unknownError": "ሓደ ዝተይተፈልጠ ጌጋ ተኸሲቱ ኣሎ።",
       "tryAgain": "ደጊምካ ፈትን",
       "loadingFailed": "እቲ ገጽ ክጽዓን ኣይክኣለን።",
-      "chooseALanguage": "ቋንቋ ምረጽ፥",
       "goTo": {
         "start": "ናብ ቀዳማይ ገጽ",
         "categories": "ናብቶም ምድባት",
@@ -4186,7 +3816,6 @@
     },
     "tr": {
       "notFound": {
-        "language": "Bu dil burada maalesef mevcut değil.",
         "city": "Maalesef, bu bölge bulunamadı.",
         "category": "Bu sayfa maalesef bulunamadı.",
         "event": "Bu etkinlik maalesef bulunamadı.",
@@ -4202,7 +3831,6 @@
       "unknownError": "Bilinmeyen bir hata oluştu.",
       "tryAgain": "Yeniden deneyin",
       "loadingFailed": "Sayfa maalesef yüklenemedi.",
-      "chooseALanguage": "Bir dil seçin:",
       "goTo": {
         "start": "Ana sayfaya git",
         "categories": "Kategorilere git",
@@ -4223,7 +3851,6 @@
     },
     "uk": {
       "notFound": {
-        "language": "Вибачте, ця мова тут недоступна.",
         "city": "Вибачте, цей регіон не знайдено.",
         "category": "Вибачте, ця сторінка не знайдено.",
         "event": "Вибачте, це не знайдено.",
@@ -4239,7 +3866,6 @@
       "unknownError": "Сталася невідома помилка.",
       "tryAgain": "спробуйте ще раз",
       "loadingFailed": "Вибачте, сторінка не може бути завантажена.",
-      "chooseALanguage": "Виберіть мову:",
       "goTo": {
         "start": "На головну сторінку",
         "categories": "До категорій",
@@ -4260,7 +3886,6 @@
     },
     "ur": {
       "notFound": {
-        "language": "معذرت، یہ زبان یہاں دستیاب نہیں۔",
         "city": "معذرت، یہ علاقہ یہاں دستیاب نہیں۔",
         "category": "معذرت، یہ صفحہ نہیں ملا۔",
         "event": "معذرت، یہ ایونٹ نہیں ملا۔",
@@ -4276,7 +3901,6 @@
       "unknownError": "نامعلوم خرابی پیش آئی ہے۔",
       "tryAgain": "دوبارہ کوشش کریں",
       "loadingFailed": "معذرت، یہ صفجہ لوڈ نہیں ہو سکا۔",
-      "chooseALanguage": "زبان منتخب کریں:",
       "goTo": {
         "start": "صفحہ اول پر",
         "categories": "زمروں پر",
@@ -4297,7 +3921,6 @@
     },
     "vi": {
       "notFound": {
-        "language": "Rất tiếc, ngôn ngữ này không có sẵn tại đây.",
         "city": "Rất tiếc, không tìm thấy khu vực này.",
         "category": "Rất tiếc, không tìm thấy trang được yêu cầu.",
         "event": "Rất tiếc, không tìm thấy sự kiện này.",
@@ -4313,7 +3936,6 @@
       "unknownError": "Đã xảy ra lỗi không xác định.",
       "tryAgain": "Thử lại",
       "loadingFailed": "Rất tiếc, không thể tải trang được yêu cầu.",
-      "chooseALanguage": "Chọn ngôn ngữ:",
       "goTo": {
         "start": "Đi đến trang chủ",
         "categories": "Đi đến danh mục",
@@ -4334,7 +3956,6 @@
     },
     "zh-CN": {
       "notFound": {
-        "language": "很抱歉，这里没有提供该语言。",
         "city": "很遗憾，未找到此地区。",
         "category": "很抱歉，找不到此页面。",
         "event": "很抱歉，找不到此活动。",
@@ -4350,7 +3971,6 @@
       "unknownError": "发生未知的错误。",
       "tryAgain": "请重试",
       "loadingFailed": "很抱歉，此页面无法加载。",
-      "chooseALanguage": "请选择一种语言：",
       "goTo": {
         "start": "前往主页",
         "categories": "前往类别",
@@ -5559,7 +5179,6 @@
       "searchTermDescription": "Für den folgenden Begriff konnte kein Ergebnis gefunden werden:",
       "contactMailAddress": "E-Mail für Rückfragen",
       "noteFillFeedback": "Bitte wähle eine Reaktion oder schreibe einen Kommentar, um das Feedback abschicken zu können.",
-      "notePrivacyPolicy": "Bitte stimme der Datenschutzerklärung zu, um das Feedback abschicken zu können.",
       "giveFeedback": "Feedback geben",
       "checkQuery": "Überprüfen Sie Ihren Suchbegriff oder ändern Sie die eingestellte Sprache der {{appName}}-App.",
       "informationMissing": "Hier fehlen Informationen?",
@@ -5587,7 +5206,6 @@
       "searchTermDescription": "ለሚከተለው ቃል ምንም ውጤት ሊገኝ አልቻለም፡",
       "contactMailAddress": "ለጥያቄዎች ኢሜይል",
       "noteFillFeedback": "ግብረመልስ ለመላክ፣ እባክዎ ምላሽ ይምረጡ ወይም አስተያየት ይጻፉ።",
-      "notePrivacyPolicy": "ግብረመልስ ለማስገባት እባክዎ በግላዊነት ፖሊሲው ላይ ይስማሙ",
       "giveFeedback": "ግብረ መልስ ይስጡ",
       "checkQuery": "እባክዎ የፍለጋ ቃልዎን ይፈትሹ ወይም የ{{appName}} መተግበሪያ ቋንቋን ይቀይሩ",
       "informationMissing": "እዚህ ላይ የጎደለ መረጃ ይኖር ይሆን?",
@@ -5615,7 +5233,6 @@
       "searchTermDescription": "لم يتم العثور على أي نتيجة للمصطلح التالي:",
       "contactMailAddress": "البريد الإلكتروني للاستفسارات",
       "noteFillFeedback": "الرجاء اختيار رد فعل أو كتابة تعليق، كي يمكنك إرسال الرأي.",
-      "notePrivacyPolicy": "يُرجى الموافقة على سياسة الخصوصية كي يمكنك إرسال ملاحظة تقييمية.",
       "giveFeedback": "تقديم ملاحظة تقييمية",
       "checkQuery": "تحقق من مصطلح البحث الخاص بك أو قم بتغيير إعدادات اللغة لتطبيق {{appName}}.",
       "informationMissing": "هل تنقصك معلومات هنا؟",
@@ -5643,7 +5260,6 @@
       "searchTermDescription": "За следващия термин не беше намерен резултат:",
       "contactMailAddress": "Имейл за запитвания",
       "noteFillFeedback": "Моля, избери реакция или напиши коментар, за да можеш да изпратиш обратна връзка.",
-      "notePrivacyPolicy": "Моля, съгласете се с политиката за поверителност, за да можете да изпратите обратна връзка.",
       "giveFeedback": "Дайте обратна връзка",
       "checkQuery": "Проверете термина си за търсене или променете зададения език на приложението {{appName}}.",
       "informationMissing": "Тук липсва информация?",
@@ -5671,7 +5287,6 @@
       "searchTermDescription": "بۆ ئەم دەستەواژەیەی خوارەوە هیچ دەرئەنجامێک نەدۆزراوە.",
       "contactMailAddress": "ئیمەیل بۆ پرسیارەکان",
       "noteFillFeedback": "تکایە کارانەوەیەک هەڵبژێرە یان بۆ ناردنی کاردانەوە کۆمێنت دابنێ.",
-      "notePrivacyPolicy": "تکایە بۆ ناردنی «فیدباک»، ڕازی بە «بەیاننامەی نهێنی​پارێزی»",
       "giveFeedback": "فیدباک پێشکەش بکە",
       "checkQuery": "پیاچوونەوە بە دەستەواژە/زاراوەی گەڕانەکەتدا بکە یان ڕێکخستنەکانی زمانی ئەپی {{appName}} بگۆڕە.",
       "informationMissing": "ئایا زانیارییەکانی ئەم بەشە ناتەواون؟",
@@ -5699,7 +5314,6 @@
       "searchTermDescription": "Pro následující termín se nepodařilo najít žádný výsledek:",
       "contactMailAddress": "E-mail pro dotazy",
       "noteFillFeedback": "Vyberte reakci nebo napište komentář, abyste mohli odeslat zpětnou vazbu.",
-      "notePrivacyPolicy": "Pro zaslání zpětné vazby prosím souhlaste se zásadami ochrany osobních údajů.",
       "giveFeedback": "Poskytnout zpětnou vazbu",
       "checkQuery": "Zkontrolujte hledaný výraz nebo změňte nastavený jazyk aplikace {{appName}}.",
       "informationMissing": "Chybí zde informace?",
@@ -5727,7 +5341,6 @@
       "searchTermDescription": "Der blev ikke fundet noget resultat for det følgende udtryk:",
       "contactMailAddress": "E-mail til forespørgsler",
       "noteFillFeedback": "Vælg en reaktion eller skriv en kommentar for at kunne sende feedback.",
-      "notePrivacyPolicy": "Accepter venligst privatlivspolitikken for at kunne sende feedback.",
       "giveFeedback": "Giv feedback",
       "checkQuery": "Kontrollér dit søgeord, eller skift det indstillede sprog i {{appName}}-appen.",
       "informationMissing": "Mangler der oplysninger her?",
@@ -5755,7 +5368,6 @@
       "searchTermDescription": "Δεν βρέθηκε αποτέλεσμα για τον ακόλουθο όρο:",
       "contactMailAddress": "E-mail για ερωτήσεις",
       "noteFillFeedback": "Παρακαλούμε επιλέξτε μια αντίδραση ή γράψτε ένα σχόλιο για να μπορέσετε να στείλετε το σχόλιο.",
-      "notePrivacyPolicy": "Συμφωνήστε με την πολιτική απορρήτου για να μπορείτε να υποβάλλετε τα σχόλιά σας.",
       "giveFeedback": "Υποβολή σχολίων",
       "checkQuery": "Επαληθεύστε τον όρο αναζήτησης ή αλλάξτε την καθορισμένη γλώσσα της εφαρμογής {{appName}}.",
       "informationMissing": "Λείπουν πληροφορίες;",
@@ -5783,7 +5395,6 @@
       "searchTermDescription": "No result could be found for the following term:",
       "contactMailAddress": "E-Mail for further questions",
       "noteFillFeedback": "Please select a reaction or write a comment in order to send feedback.",
-      "notePrivacyPolicy": "Please agree to the privacy policy in order to send feedback.",
       "giveFeedback": "Give feedback",
       "checkQuery": "Check your search term or select a different language in the {{appName}} app.",
       "informationMissing": "Is information missing?",
@@ -5811,7 +5422,6 @@
       "searchTermDescription": "No se ha encontrado ningún resultado para el siguiente término:",
       "contactMailAddress": "Correo electrónico para consultas",
       "noteFillFeedback": "Selecciona una reacción o escribe un comentario para poder enviar la opinión.",
-      "notePrivacyPolicy": "Acepta la Política de privacidad para poder enviar tus comentarios.",
       "giveFeedback": "Enviar comentarios",
       "checkQuery": "Comprueba el término que buscaste o cambia el idioma establecido de la aplicación {{appName}}.",
       "informationMissing": "¿Falta información aquí?",
@@ -5839,7 +5449,6 @@
       "searchTermDescription": "Seuraavalle käsitteelle ei löytynyt tulosta:",
       "contactMailAddress": "Sähköpostiosoite tiedusteluita varten",
       "noteFillFeedback": "Valitse reaktio tai kirjoita kommentti, jotta voit lähettää palautteen.",
-      "notePrivacyPolicy": "Hyväksy tietosuojakäytäntö, jotta voit lähettää palautteen.",
       "giveFeedback": "Anna palautetta",
       "checkQuery": "Tarkista hakusana tai vaihda sovelluksen {{appName}} kieli.",
       "informationMissing": "Tästä puuttuu tietoja.",
@@ -5867,7 +5476,6 @@
       "searchTermDescription": "Aucun résultat n’a été trouvé pour le terme suivant :",
       "contactMailAddress": "E-mail en cas de question",
       "noteFillFeedback": "Choisis une réaction ou écris un commentaire pour pouvoir envoyer le commentaire.",
-      "notePrivacyPolicy": "Merci d’accepter la politique de confidentialité pour pouvoir envoyer l’avis.",
       "giveFeedback": "Donner un avis",
       "checkQuery": "Vérifie tes critères de recherche ou change la langue définie pour l’appli {{appName}}.",
       "informationMissing": "Il manque des informations ?",
@@ -5895,7 +5503,6 @@
       "searchTermDescription": "निम्नलिखित शब्द के लिए कोई परिणाम नहीं मिल सका:",
       "contactMailAddress": "आगे के प्रश्नों के लिए ई-मेल करें",
       "noteFillFeedback": "कृपया फीडबैक भेजने के लिए प्रतिक्रिया चुनें या कमेंट लिखें।",
-      "notePrivacyPolicy": "कृपया फीडबैक भेजने के लिए पहले गोपनीयता नीति के लिए सहमति दें।",
       "giveFeedback": "फीडबैक दें",
       "checkQuery": "{{appName}} ऐप में सर्च टर्म देखें या अलग भाषा चुनें।",
       "informationMissing": "कोई जानकारी नहीं है?",
@@ -5923,7 +5530,6 @@
       "searchTermDescription": "Za sljedeći pojam nije bilo moguće pronaći rezultat:",
       "contactMailAddress": "E-pošta za povratna pitanja",
       "noteFillFeedback": "Izaberi reakciju ili napiši komentar za slanje povratnih informacija.",
-      "notePrivacyPolicy": "Molimo da daš saglasnost izjavi o zaštiti podataka kako bi mogao/la poslati feedback.",
       "giveFeedback": "Pruži feedback",
       "checkQuery": "Provjerite svoj pojam za pretragu ili promijenite postavljeni jezik aplikacije {{appName}}.",
       "informationMissing": "Ovdje nedostaju informacije?",
@@ -5951,7 +5557,6 @@
       "searchTermDescription": "A következő kifejezésre nem talált eredményt:",
       "contactMailAddress": "E-mail visszajelzések számára",
       "noteFillFeedback": "Válasszon ki egy reakciót vagy írjon egy megjegyzést, hogy elküldhesse a visszajelzést.",
-      "notePrivacyPolicy": "Visszajelzés elküldéséhez fogadja el az adatvédelmi szabályzatot.",
       "giveFeedback": "Visszajelzés küldése",
       "checkQuery": "Ellenőrizze a keresett kifejezést, vagy módosítsa az {{appName}} alkalmazás nyelvét.",
       "informationMissing": "Itt nincs elég információ?",
@@ -5979,7 +5584,6 @@
       "searchTermDescription": "Tidak ada hasil yang ditemukan untuk istilah berikut ini:",
       "contactMailAddress": "Kirim sur-el untuk pertanyaan lainnya",
       "noteFillFeedback": "Pilih reaksi atau tulis komentar untuk mengirim umpan balik.",
-      "notePrivacyPolicy": "Setujui kebijakan privasi agar dapat mengirim umpan balik.",
       "giveFeedback": "Beri umpan balik",
       "checkQuery": "Periksa istilah pencarian Anda atau pilih bahasa lain di aplikasi {{appName}}.",
       "informationMissing": "Apakah ada Informasi yang tidak ada?",
@@ -6007,7 +5611,6 @@
       "searchTermDescription": "Non è stato possibile trovare alcun risultato per il termine seguente:",
       "contactMailAddress": "E-mail per chiarimenti",
       "noteFillFeedback": "Seleziona una reazione o scrivi un commento per poter inviare il feedback.",
-      "notePrivacyPolicy": "Per poter inviare il feedback è necessario accettare l'informativa sulla privacy.",
       "giveFeedback": "Fornisci un feedback",
       "checkQuery": "Controlla i termini di ricerca o cambia la lingua impostata dell'applicazione {{appName}}.",
       "informationMissing": "Mancano informazioni qui?",
@@ -6035,7 +5638,6 @@
       "searchTermDescription": "შემდეგი ცნებისთვის ვერ მოიძებნა შედეგები:",
       "contactMailAddress": "ელექტრონული ფოსტა შეკითხვებისათვის",
       "noteFillFeedback": "გთხოვ აირჩიე რეაქცია ან დაწერე კომენტარი, რათა შენი უკუკავშირის გაგზავნა შეძლო.",
-      "notePrivacyPolicy": "გთხოვთ, დაეთანხმოთ კონფიდენციალურობის პოლიტიკას, რომ შეძლოთ უკუკავშირის გაგზავნა.",
       "giveFeedback": "უკუკავშირის მიცემა",
       "checkQuery": "შეამოწმეთ საძიებო ფრაზა ან შეცვალეთ {{appName}} აპისთვის დაყენებული ენა.",
       "informationMissing": "აქ ინფორმაცია აკლია?",
@@ -6063,7 +5665,6 @@
       "searchTermDescription": "Ji bo bêjeya xwarê ti encamek nehat dîtin:",
       "contactMailAddress": "Email jibo pirsan",
       "noteFillFeedback": "Ji kerema xwe fîdbekekê bibijêre an ji bo şandina fîdbekê nêrînekê binivîse.",
-      "notePrivacyPolicy": "Ji kerema xwe Daxuyaniya parastina daneyan bipejirîne da ku bikarî berteka xwe bişînî.",
       "giveFeedback": "Bertekdan",
       "checkQuery": "Biwêja lêgerîna xwe seh bike yan jî zimanê eyarkirî yê Sepana {{appName}}biguherîne.",
       "informationMissing": "Daxuyanî li vir ji dest çûye?",
@@ -6091,7 +5692,6 @@
       "searchTermDescription": "Не може да се најде резултат за следниот термин:",
       "contactMailAddress": "Е-адреса за прашања",
       "noteFillFeedback": "Изберете реакција или напишете коментар за да испратите мислење.",
-      "notePrivacyPolicy": "Согласете се со политиката за приватност за да испратите повратно мислење.",
       "giveFeedback": "Дајте повратно мислење",
       "checkQuery": "Проверете го терминот за пребарување или променете ја поставката за јазик на апликацијата {{appName}}.",
       "informationMissing": "Дали недостасуваат информации овде?",
@@ -6119,7 +5719,6 @@
       "searchTermDescription": "Voor de volgende term kon geen resultaat worden gevonden:",
       "contactMailAddress": "Stuur een email voor overige vragen.",
       "noteFillFeedback": "Selecteer een reactie of schrijf een opmerking om de feedback te kunnen versturen.",
-      "notePrivacyPolicy": "Ga akkoord met het privacybeleid om feedback te kunnen sturen.",
       "giveFeedback": "Feedback geven",
       "checkQuery": "Controleer je zoekterm of wijzig de ingestelde taal van de {{appName}}-app.",
       "informationMissing": "Ontbreekt hier informatie?",
@@ -6147,7 +5746,6 @@
       "searchTermDescription": "Kanneen armaan gadiitiif deebiin hin jiru:",
       "contactMailAddress": "Gaaffii dabalataaf Imelii godhaa",
       "noteFillFeedback": "Duub deebii erguuf jecha deebii filadhaa ykn yaada barreessaa.",
-      "notePrivacyPolicy": "Yaada erguudhaaf maaloo imaammata icciitiitti walii gali",
       "giveFeedback": "Yaada kenni",
       "checkQuery": "Jecha barbaaddu ilaali ykn appii {{appName}} keessaa afaan biraa filadhu.",
       "informationMissing": "Odeeffannoon hafe jiraa?",
@@ -6175,7 +5773,6 @@
       "searchTermDescription": "هیچ نتیجه‌ای برای عبارت زیر یافت نشد:",
       "contactMailAddress": "ایمیل برای سئوالات",
       "noteFillFeedback": "لطفاً یک واکنش را انتخاب کنید یا برای ارسال بازخورد نظری بنویسید.",
-      "notePrivacyPolicy": "لطفاً برای ارسال بازخورد، با بیانیه حفظ حریم خصوصی موافقت کنید.",
       "giveFeedback": "ارائه بازخورد",
       "checkQuery": "عبارت جستجوی خود را بررسی کنید یا تنظیمات زبان برنامه {{appName}} را تغییر دهید.",
       "informationMissing": "اطلاعات این بخش ناقص است؟",
@@ -6203,7 +5800,6 @@
       "searchTermDescription": "Brak wyników wyszukiwania dla następującego słowa:",
       "contactMailAddress": "E-mail do zapytań",
       "noteFillFeedback": "Wybierz reakcję lub napisz komentarz, aby móc wysłać opinię.",
-      "notePrivacyPolicy": "Aby wysłać opinię, zaakceptuj politykę prywatności.",
       "giveFeedback": "Wystaw opinię",
       "checkQuery": "Sprawdź wyszukiwane hasło lub zmień ustawiony język aplikacji {{appName}}.",
       "informationMissing": "Brakuje tutaj informacji?",
@@ -6231,7 +5827,6 @@
       "searchTermDescription": "هیچ نتیجه ای برای عبارت ذيل یافت نشد:",
       "contactMailAddress": "ایمیل برای سوالات",
       "noteFillFeedback": "لطفاً برای ارسال نظر، یک واکنش را انتخاب کرده یا یک نظر بنویسید.",
-      "notePrivacyPolicy": "لطفا برای ارسال نظرتان، با پالیسی حفظ حریم خصوصی موافقت نمائید.",
       "giveFeedback": "نظرتان بدهید",
       "checkQuery": "عبارت جستجوی تان را بررسی کنید یا تنظیمات زبان اپليکيشن {{appName}} را تغییر دهید.",
       "informationMissing": "معلومات این بخش ناقص است؟",
@@ -6259,7 +5854,6 @@
       "searchTermDescription": "د لاندې اصطلاح لپاره کومه پايله ونه موندل شوه:",
       "contactMailAddress": "د پوښتنو لپاره بریښنالیک",
       "noteFillFeedback": "د نظر د استولو لپاره، د مهربانۍ له مخې يو عکس العمل غوره يا يو نظر وليکئ.",
-      "notePrivacyPolicy": "د مهربانۍ له مخې د نظرونو د سپارلو لپاره د محرمیت پالیسۍ سره موافقه وکړئ.",
       "giveFeedback": "نظر ورکړئ",
       "checkQuery": "خپله د لټون اصطلاح وګورئ يا د {{appName}} اپليکيشن د ژبې تنظيمات بدل کړئ.",
       "informationMissing": "آيا دلته ځينې معلومات شتون نلري؟",
@@ -6287,7 +5881,6 @@
       "searchTermDescription": "Não foi possível encontrar qualquer resultado para o termo seguinte:",
       "contactMailAddress": "Endereço de correio eletrónico para pedidos de informação",
       "noteFillFeedback": "Seleccione uma reação ou escreva um comentário para poder enviar o feedback.",
-      "notePrivacyPolicy": "Aceita a política de privacidade para enviar os teus comentários.",
       "giveFeedback": "Faz comentários",
       "checkQuery": "Verifica o teu termo de pesquisa ou altera o idioma definido da aplicação {{appName}}.",
       "informationMissing": "Falta aqui alguma informação?",
@@ -6315,7 +5908,6 @@
       "searchTermDescription": "Nu s-a putut găsi niciun rezultat pentru termenul următor:",
       "contactMailAddress": "E-mail pentru întrebări ulterioare",
       "noteFillFeedback": "Vă rugăm să selectați o reacție sau să scrieți un comentariu pentru a putea trimite feedback-ul.",
-      "notePrivacyPolicy": "Vă rugăm să confirmați politica de confidențialitate pentru a putea trimite feedback-ul.",
       "giveFeedback": "Trimitere feedback",
       "checkQuery": "Verificați termenul de căutare sau schimbați limba setată a aplicației {{appName}}.",
       "informationMissing": "Lipsesc informații aici?",
@@ -6343,7 +5935,6 @@
       "searchTermDescription": "Našti te ovel arakhlo rezultato akale lafea:",
       "contactMailAddress": "I-Mejl bašo avera pučiba",
       "noteFillFeedback": "Molinaja tumen te birinen reakcija jali te hramonen komentari baši te bičhalen haberi.",
-      "notePrivacyPolicy": "Molinaja tumen te soglasinen tumen baši o privatnikane bukja baši te bičhalen haberi.",
       "giveFeedback": "De haberi",
       "checkQuery": "Proverin te rodipaskoro lafi jali birin aver čhib ki {{appName}}-App.",
       "informationMissing": "Falinela li disavi informacia?",
@@ -6371,7 +5962,6 @@
       "searchTermDescription": "Не удалось найти результаты для следующего термина:",
       "contactMailAddress": "Эл. почта для встречных вопросов",
       "noteFillFeedback": "Чтобы отправить отзыв, пожалуйста, выбери реакцию или напиши комментарий.",
-      "notePrivacyPolicy": "Перед отправкой отзыва необходимо согласиться с Политикой конфиденциальности.",
       "giveFeedback": "Оставьте отзыв",
       "checkQuery": "Проверьте поисковый запрос или измените язык приложения {{appName}}.",
       "informationMissing": "Здесь не хватает информации?",
@@ -6399,7 +5989,6 @@
       "searchTermDescription": "Pre nasledujúci pojem nebolo možné nájsť žiadny výsledok:",
       "contactMailAddress": "E-mail pre spätné otázky",
       "noteFillFeedback": "Vyberte reakciu alebo napíšte komentár, aby ste mohli odoslať spätnú väzbu.",
-      "notePrivacyPolicy": "Aby bolo možné odoslať spätnú väzbu, vyjadrite, prosím, súhlas s Vyhlásením o ochrane osobných údajov.",
       "giveFeedback": "Poskytnúť spätnú väzbu",
       "checkQuery": "Skontrolujte svoj vyhľadávaný pojem alebo zmeňte nastavený jazyk aplikácie {{appName}}.",
       "informationMissing": "Chýbajú tu informácie?",
@@ -6427,7 +6016,6 @@
       "searchTermDescription": "Wax natiijo ah oo quseyso eraygan soo socda lama heli karo:",
       "contactMailAddress": "I-meelka weydiimaha",
       "noteFillFeedback": "Fadlan door falcelin ama faallo qor si aad u gudbiso jawaab celinta.",
-      "notePrivacyPolicy": "Fadlan oggolow Bayaanka Qarsoodiga Xogta si aad jawaabta u soo dirto.",
       "giveFeedback": "Ra’yi bixinta",
       "checkQuery": "Fadlan hubi ereyga aad raadinayso ama beddel luqadda la dejiyey ee barnaamijka {{appName}}.",
       "informationMissing": "Macluumaad ma ka maqan yahay halkan?",
@@ -6455,7 +6043,6 @@
       "searchTermDescription": "Nuk u gjet asnjë rezultat për këtë term:",
       "contactMailAddress": "E-mail për pyetje",
       "noteFillFeedback": "Zgjidh një reagim ose shkruaj një koment që të mund të dërgosh përshtypjet.",
-      "notePrivacyPolicy": "Prano deklaratën e mbrojtjes së të dhënave në mënyrë që të dërgosh përshtypjet.",
       "giveFeedback": "Jep përshtypje",
       "checkQuery": "Kontrollo termin e kërkimit ose ndrysho cilësimet e gjuhës të aplikacionit {{appName}}.",
       "informationMissing": "Mungon informacioni këtu?",
@@ -6483,7 +6070,6 @@
       "searchTermDescription": "За следећи појам није било могуће пронаћи резултат:",
       "contactMailAddress": "Е-пошта за питања",
       "noteFillFeedback": "Изабери реакцију или напиши коментар за слање повратних информација.",
-      "notePrivacyPolicy": "Молимо да даш сагласност изјави о заштити података како би могао/ла послати повратне информације.",
       "giveFeedback": "Пружи повратне информације",
       "checkQuery": "Проверите свој појам за претрагу или промените подешени језик апликације {{appName}}.",
       "informationMissing": "Овде недостају информације?",
@@ -6511,7 +6097,6 @@
       "searchTermDescription": "Za sledeći pojam nije bilo moguće pronaći rezultat:",
       "contactMailAddress": "E-pošta za pitanja",
       "noteFillFeedback": "Izaberi reakciju ili napiši komentar za slanje povratnih informacija.",
-      "notePrivacyPolicy": "Molimo da daš saglasnost izjavi o zaštiti podataka kako bi mogao/la poslati povratne informacije.",
       "giveFeedback": "Pruži povratne informacije",
       "checkQuery": "Proverite svoj pojam za pretragu ili promenite podešeni jezik aplikacije {{appName}}.",
       "informationMissing": "Ovde nedostaju informacije?",
@@ -6539,7 +6124,6 @@
       "searchTermDescription": "Hakuna matokeo yaliyopatikana ya hoja ifuatayo:",
       "contactMailAddress": "Anwani ya Barua Pepe ya kuuliza maswali zaidi",
       "noteFillFeedback": "Tafadhali chagua emoji au andika maoni ili utume maoni.",
-      "notePrivacyPolicy": "Tafadhali kubali sera ya faragha ili utume maoni.",
       "giveFeedback": "Toa maoni",
       "checkQuery": "Angalia hoja yako ya utafutaji au chagua lugha tofauti kwenye programu ya {{appName}}.",
       "informationMissing": "Maelezo hayapo?",
@@ -6567,7 +6151,6 @@
       "searchTermDescription": "ไม่พบผลลัพธ์สำหรับคำต่อไปนี้:",
       "contactMailAddress": "อีเมล์สำหรับการสอบถาม",
       "noteFillFeedback": "โปรดเลือกปฏิกิริยาหรือเขียนความคิดเห็นเพื่อส่งคำติชมของคุณ",
-      "notePrivacyPolicy": "โปรดยอมรับนโยบายความเป็นส่วนตัวเพื่อส่งคำติชม",
       "giveFeedback": "ให้ข้อเสนอแนะ",
       "checkQuery": "ตรวจสอบคำค้นหาของคุณหรือเปลี่ยนการตั้งค่าภาษาของแอป {{appName}}",
       "informationMissing": "ข้อมูลที่นี่ขาดหายไปใช่ไหม?",
@@ -6595,7 +6178,6 @@
       "searchTermDescription": "ነዚ ዝስዕብ ቃል ዝኾነ ውጽኢት ኣይተረኽበን፤",
       "contactMailAddress": "ኢመይል ንሕቶታት",
       "noteFillFeedback": "ርእይቶኹም ንምቕራብ ግብረ መልሲ ምረጹ ወይ ርእይቶ ጽሓፉ።",
-      "notePrivacyPolicy": "ርእይቶ ንምቕራብ በጃኹም ነቲ ፖሊሲ ውልቃዊ ሓበሬታ ተሰማምዑ።",
       "giveFeedback": "ርእይቶ ምሃብ",
       "checkQuery": "ነቲ ትደልይዎ ቃል መርምሩ ወይ ነቲ ዝተመርጸ ናይ {{appName}} ቋንቋ መተግበሪ ምረጹ።",
       "informationMissing": "ዝጎደሎ ሓበሬታ ኣሎ ዶ?",
@@ -6623,7 +6205,6 @@
       "searchTermDescription": "Bu kavram için hiçbir sonuç bulunamadı:",
       "contactMailAddress": "Sorularınız için e-posta",
       "noteFillFeedback": "Geri bildirimi gönderebilmek için lütfen bir tepki seç veya bir yorum yaz.",
-      "notePrivacyPolicy": "Geri bildirimi gönderebilmek için lütfen gizlilik politikasını onayla.",
       "giveFeedback": "Geri bildirim gönder",
       "checkQuery": "Arama kavramınızı kontrol edin veya {{appName}} uygulamasının ayarlı dilini değiştirin.",
       "informationMissing": "Burada bilgiler eksik mi?",
@@ -6651,7 +6232,6 @@
       "searchTermDescription": "Для наступного терміну не вдалося знайти жодного результату:",
       "contactMailAddress": "Електронна пошта для запитів",
       "noteFillFeedback": "Виберіть реакцію або напишіть коментар, щоб мати можливість надіслати відгук.",
-      "notePrivacyPolicy": "Перед відправленням відгуку необхідно погодитися з Політикою конфіденційності.",
       "giveFeedback": "Залиште відгук",
       "checkQuery": "Перевірте пошуковий запит або змініть мову програми {{appName}}.",
       "informationMissing": "Тут не вистачає інформації?",
@@ -6679,7 +6259,6 @@
       "searchTermDescription": "مندرجہ ذیل اصطلاح کے لیے کوئی نتیجہ نہیں مل سکا:",
       "contactMailAddress": "سوالات کے لئے ای میل",
       "noteFillFeedback": "رائے بھیجنے کے لیے براہ کرم کوئی ردعمل منتخب کریں یا تبصرہ لکھیں۔",
-      "notePrivacyPolicy": "رائے دینے کے لیے براہ کرم رازداری کی پالیسی سے اتفاق کریں۔",
       "giveFeedback": "رائے دیں",
       "checkQuery": "اپنی تلاش کی اصطلاح چیک کریں یا {{appName}} ایپ کی زبان کی ترتیب کو تبدیل کریں۔",
       "informationMissing": "یہاں معلومات موجود نہیں ہیں؟",
@@ -6707,7 +6286,6 @@
       "searchTermDescription": "Không tìm thấy kết quả nào cho cụm từ sau:",
       "contactMailAddress": "Gửi email để đặt thêm câu hỏi",
       "noteFillFeedback": "Vui lòng chọn phản ứng hoặc viết bình luận để gửi ý kiến góp ý.",
-      "notePrivacyPolicy": "Vui lòng đồng ý với chính sách quyền riêng tư để gửi ý kiến góp ý.",
       "giveFeedback": "Gửi ý kiến góp ý",
       "checkQuery": "Kiểm tra từ khóa tìm kiếm hoặc chọn ngôn ngữ khác trong ứng dụng {{appName}}.",
       "informationMissing": "Thông tin có bị thiếu không?",
@@ -6735,7 +6313,6 @@
       "searchTermDescription": "未找到与以下词语相关的结果：",
       "contactMailAddress": "反问的电子邮件",
       "noteFillFeedback": "请选择一个回应或给出评论，以提交您的反馈意见。",
-      "notePrivacyPolicy": "请同意隐私政策，以便发送反馈。",
       "giveFeedback": "提供反馈",
       "checkQuery": "检查搜索条件或更改 {{appName}} 应用程序的设置语言。",
       "informationMissing": "这里缺少信息吗？",
@@ -7521,6 +7098,8 @@
   },
   "landing": {
     "de": {
+      "welcome": "Willkommen bei {{appName}}.",
+      "welcomeInformation": "Dein digitaler Guide für alle Informationen, die du brauchst. Bitte wähle deine Region aus.",
       "searchCity": "Suche",
       "noCitiesFound": "Keine Ergebnisse",
       "nearbyCities": "In der Nähe",
@@ -7664,6 +7243,8 @@
       "searchCityDescription": "Επιλέξτε την περιοχή σας ή την αμέσως μεγαλύτερη πόλη, π.χ. την περιφέρεια του Μονάχου"
     },
     "en": {
+      "welcome": "Welcome to {{appName}}.",
+      "welcomeInformation": "Your digital guide for all the information you need. Please select your region.",
       "searchCity": "Search",
       "noCitiesFound": "No results",
       "nearbyCities": "In the vicinity",
@@ -8296,11 +7877,12 @@
   },
   "layout": {
     "de": {
+      "legal": "Rechtliches",
       "disclaimer": "Impressum",
       "privacy": "Datenschutz",
       "localInformation": "Lokale Informationen",
+      "localInformationLabel": "Informationen",
       "events": "Veranstaltungen",
-      "noEvents": "Keine Veranstaltungen",
       "news": "Nachrichten",
       "noLanguages": "Nicht verfügbar in anderen Sprachen",
       "noTranslation": "Keine Übersetzung verfügbar",
@@ -8340,7 +7922,6 @@
       "privacy": "የግላዊነት ፖሊሲ",
       "localInformation": "አካባቢያዊ መረጃ",
       "events": "ዝግጅቶች",
-      "noEvents": "ምንም ዝግጅቶች የሉም",
       "news": "ዜናዎች",
       "noLanguages": "በሌሎች ቋንቋዎች አይገኝም",
       "noTranslation": "ትርጉም አይቀርብም",
@@ -8379,7 +7960,6 @@
       "privacy": "حماية البيانات",
       "localInformation": "معلومات محلية",
       "events": "الفعاليات",
-      "noEvents": "لا توجد فعاليات",
       "news": "الأخبار",
       "noLanguages": "غير متوفر بلغات أخرى",
       "noTranslation": "لا توجد ترجمة متاحة",
@@ -8418,7 +7998,6 @@
       "privacy": "Защита на личните данни",
       "localInformation": "Местна информация",
       "events": "Събития",
-      "noEvents": "Няма събития",
       "news": "Новини",
       "noLanguages": "Не се предлага на други езици",
       "noTranslation": "Няма превод",
@@ -8457,7 +8036,6 @@
       "privacy": "پاراستنی دێیتاکان",
       "localInformation": "زانیارییە خۆجییەکان",
       "events": "ڕووداوەکان",
-      "noEvents": "هیچ ڕووداوێکی تێدا نییە",
       "news": "هەواڵ",
       "noLanguages": "بە زمانەکانی دیکەی تێدا نییە",
       "noTranslation": "وەرگێرانەکەی تێدا نییە",
@@ -8496,7 +8074,6 @@
       "privacy": "Ochrana údajů",
       "localInformation": "Lokální informace",
       "events": "Akce",
-      "noEvents": "Žádné akce",
       "news": "Zprávy",
       "noLanguages": "Není k dispozici v jiných jazycích",
       "noTranslation": "Žádný překlad není k dispozici",
@@ -8535,7 +8112,6 @@
       "privacy": "Beskyttelse af data",
       "localInformation": "Lokale oplysninger",
       "events": "Begivenheder",
-      "noEvents": "Ingen begivenheder",
       "news": "Nyheder",
       "noLanguages": "Ikke tilgængelig på andre sprog",
       "noTranslation": "Ingen oversættelse tilgængelig",
@@ -8574,7 +8150,6 @@
       "privacy": "Προστασία δεδομένων ",
       "localInformation": "Τοπικές πληροφορίες",
       "events": "Εκδηλώσεις",
-      "noEvents": "Δεν υπάρχουν εκδηλώσεις",
       "news": "Ειδήσεις",
       "noLanguages": "Δεν διατίθεται σε άλλες γλώσσες",
       "noTranslation": "Δεν υπάρχει διαθέσιμη μετάφραση",
@@ -8609,11 +8184,12 @@
       "voiceUnavailableMessage": "Δεν βρέθηκε φωνή. Για να χρησιμοποιήσετε τη λειτουργία ανάγνωσης πρέπει να εγκαταστήσετε μια φωνή. Λάβετε υπόψη τις ακόλουθες οδηγίες για το λειτουργικό σας σύστημα."
     },
     "en": {
+      "legal": "Legal",
       "disclaimer": "Imprint",
       "privacy": "Data protection",
       "localInformation": "Local information",
+      "localInformationLabel": "Information",
       "events": "Events",
-      "noEvents": "No events",
       "news": "News",
       "noLanguages": "Not available in other languages",
       "noTranslation": "No translation available",
@@ -8653,7 +8229,6 @@
       "privacy": "Privacidad",
       "localInformation": "Información local",
       "events": "Actividades",
-      "noEvents": "No hay actividades",
       "news": "Noticias",
       "noLanguages": "No disponible en otros idiomas",
       "noTranslation": "No hay traducción disponible",
@@ -8692,7 +8267,6 @@
       "privacy": "Tietosuoja",
       "localInformation": "Paikalliset tiedot",
       "events": "Tapahtumat",
-      "noEvents": "Ei tapahtumia",
       "news": "Viestit",
       "noLanguages": "Ei saatavilla muilla kielillä",
       "noTranslation": "Käännöksiä ei saatavilla",
@@ -8731,7 +8305,6 @@
       "privacy": "Protection des données",
       "localInformation": "Informations locales",
       "events": "Événements",
-      "noEvents": "Aucun événement",
       "news": "Nouvelles",
       "noLanguages": "Non disponible dans d'autres langues",
       "noTranslation": "Aucune traduction disponible",
@@ -8770,7 +8343,6 @@
       "privacy": "डेटा संरक्षण",
       "localInformation": "स्थानीय जानकारी",
       "events": "ईवेंट",
-      "noEvents": "कोई ईवेंट नहीं",
       "news": "समाचार",
       "noLanguages": "अन्य भाषाओं में उपलब्ध नहीं है",
       "noTranslation": "कोई अनुवाद उपलब्ध नहीं है",
@@ -8809,7 +8381,6 @@
       "privacy": "Zaštita podataka",
       "localInformation": "Lokalne informacije",
       "events": "Događanja",
-      "noEvents": "Nema događanja",
       "news": "Vijesti",
       "noLanguages": "Nije dostupno na drugim jezicima",
       "noTranslation": "Prijevod nije dostupan",
@@ -8848,7 +8419,6 @@
       "privacy": "Adatvédelem",
       "localInformation": "Helyi információk",
       "events": "Események",
-      "noEvents": "Nincs esemény",
       "news": "Hírek",
       "noLanguages": "Más nyelveken nem elérhető",
       "noTranslation": "Nincs fordítás",
@@ -8887,7 +8457,6 @@
       "privacy": "Proteksi data",
       "localInformation": "Informasi lokal",
       "events": "Acara",
-      "noEvents": "Tidak ada acara",
       "news": "Berita",
       "noLanguages": "Tidak tersedia dalam bahasa lain",
       "noTranslation": "Terjemahan tidak tersedia",
@@ -8927,7 +8496,6 @@
       "privacy": "Protezione dei dati",
       "localInformation": "Informazioni locali",
       "events": "Eventi",
-      "noEvents": "Nessun evento",
       "news": "Messaggi",
       "noLanguages": "Non disponibile in altre lingue",
       "noTranslation": "Nessuna traduzione disponibile",
@@ -8966,7 +8534,6 @@
       "privacy": "მონაცემთა დაცვა",
       "localInformation": "ადგილობრივი ინფორმაციები",
       "events": "ღონისძიებები",
-      "noEvents": "არანაირი ღონისძიებები",
       "news": "ინფორმაციები",
       "noLanguages": "არ არსებობს სხვა ენებზე",
       "noTranslation": "თარგმანი არ არსებობს",
@@ -9005,7 +8572,6 @@
       "privacy": "Parastina daneyan",
       "localInformation": "Zanyariyên xwecihî",
       "events": "Rûdan",
-      "noEvents": "Tu rûdanek tuneye",
       "news": "Nûçe",
       "noLanguages": "Bi zimanên din tuneye",
       "noTranslation": "Werger tuneye",
@@ -9044,7 +8610,6 @@
       "privacy": "Заштита на лични податоци",
       "localInformation": "Локални информации",
       "events": "Настани",
-      "noEvents": "Нема настани",
       "news": "Вести",
       "noLanguages": "Не се достапни на други јазици",
       "noTranslation": "Не е достапен превод",
@@ -9083,7 +8648,6 @@
       "privacy": "Gegevensbescherming",
       "localInformation": "Lokale informatie",
       "events": "Evenementen",
-      "noEvents": "Geen evenementen",
       "news": "Nieuws",
       "noLanguages": "Niet beschikbaar in andere talen",
       "noTranslation": "Geen vertaling beschikbaar",
@@ -9122,7 +8686,6 @@
       "privacy": "Eegumsa daataa",
       "localInformation": "Odeeffannoo naannoo",
       "events": "Sagantaalee",
-      "noEvents": "Sagantaan hin jiru",
       "news": "Oduu",
       "noLanguages": "Afaan biraatiin hin jiru",
       "noTranslation": "Hiikkaan hin jiru",
@@ -9161,7 +8724,6 @@
       "privacy": "حفاظت از داده ها",
       "localInformation": "اطلاعات محلی",
       "events": "رویدادها",
-      "noEvents": "رویدادی وجود ندارد",
       "news": "اخبار",
       "noLanguages": "به زبان های دیگر موجود نیست",
       "noTranslation": "ترجمه موجود نیست",
@@ -9200,7 +8762,6 @@
       "privacy": "Ochrona danych",
       "localInformation": "Informacje lokalne",
       "events": "Wydarzenia",
-      "noEvents": "Brak wydarzeń",
       "news": "Wiadomości",
       "noLanguages": "Niedostępne w innych językach",
       "noTranslation": "Brak dostępnego tłumaczenia",
@@ -9239,7 +8800,6 @@
       "privacy": "حفاظت از داده ها",
       "localInformation": "معلومات محلی",
       "events": "رویدادها",
-      "noEvents": "هیچ رویدادی وجود ندارد",
       "news": "اخبار",
       "noLanguages": "به لسان های دیگر موجود نیست",
       "noTranslation": "ترجمه موجود نیست",
@@ -9278,7 +8838,6 @@
       "privacy": "د ډاټا حفاظت",
       "localInformation": "سیمه ییز معلومات",
       "events": "غونډې",
-      "noEvents": "غونډې نشته",
       "news": "خبرونه",
       "noLanguages": "په نورو ژبو کې موجود ندی",
       "noTranslation": "ترجمه موجود نده",
@@ -9317,7 +8876,6 @@
       "privacy": "Proteção de dados",
       "localInformation": "Informações locais",
       "events": "Eventos",
-      "noEvents": "Não existem eventos",
       "news": "Notícias",
       "noLanguages": "Não disponível noutros idiomas",
       "noTranslation": "Nenhuma tradução disponível",
@@ -9356,7 +8914,6 @@
       "privacy": "Confidențialitate",
       "localInformation": "Informații locale",
       "events": "Evenimente",
-      "noEvents": "Nici un fel de evenimente",
       "news": "Știri",
       "noLanguages": "Indisponibil în alte limbi",
       "noTranslation": "Nicio traducere disponibilă",
@@ -9395,7 +8952,6 @@
       "privacy": "Arakhiba podatke",
       "localInformation": "Lokalnikane informacie",
       "events": "Čipote",
-      "noEvents": "Nane čipote",
       "news": "Haberia",
       "noLanguages": "Nane ko avera čhiba",
       "noTranslation": "Nane prevod",
@@ -9434,7 +8990,6 @@
       "privacy": "Защита данных",
       "localInformation": "Местная информация",
       "events": "Мероприятия",
-      "noEvents": "Мероприятия отсутствуют",
       "news": "Новости",
       "noLanguages": "Недоступно на других языках",
       "noTranslation": "Перевод недоступен",
@@ -9474,7 +9029,6 @@
       "privacy": "Ochrana osobných údajov",
       "localInformation": "Lokálne informácie",
       "events": "Podujatia",
-      "noEvents": "Žiadne podujatia",
       "news": "Správy",
       "noLanguages": "Nie je k dispozícii v iných jazykoch",
       "noTranslation": "Nie je k dispozícii žiadny preklad",
@@ -9513,7 +9067,6 @@
       "privacy": "Asturnaanta",
       "localInformation": "Macluumaadka deegaanka",
       "events": "Dhacdooyinka",
-      "noEvents": "Ma jiraan dhacdooyin",
       "news": "war",
       "noLanguages": "Luuqad kale laguma heli karo",
       "noTranslation": "Turjumaad lama heli karo",
@@ -9552,7 +9105,6 @@
       "privacy": "Mbrojtja e të dhënave",
       "localInformation": "Informata lokale",
       "events": "Evenimentet",
-      "noEvents": "Nuk ka evenimente",
       "news": "Lajme",
       "noLanguages": "Nuk është në dispozicion në gjuhë të tjera",
       "noTranslation": "Nuk ka përkthim të disponueshëm",
@@ -9591,7 +9143,6 @@
       "privacy": "Заштита података",
       "localInformation": "Локалне информације",
       "events": "Догађаји",
-      "noEvents": "Нема догађаја",
       "news": "Вести",
       "noLanguages": "Није доступно на другим језицима",
       "noTranslation": "Није доступан превод",
@@ -9630,7 +9181,6 @@
       "privacy": "Zaštita podataka",
       "localInformation": "Lokalne informacije",
       "events": "Događaji",
-      "noEvents": "Nema događaja",
       "news": "Vesti",
       "noLanguages": "Nije dostupno na drugim jezicima",
       "noTranslation": "Nije dostupan prevod",
@@ -9669,7 +9219,6 @@
       "privacy": "Ulinzi wa data",
       "localInformation": "Habari za nchini",
       "events": "Matukio",
-      "noEvents": "Hakuna matukio",
       "news": "Habari",
       "noLanguages": "Haipatikani katika lugha zingine",
       "noTranslation": "Hakuna tafsiri inayopatikana",
@@ -9708,7 +9257,6 @@
       "privacy": "การคุ้มครองข้อมูล",
       "localInformation": "ข้อมูลท้องถิ่น",
       "events": "กิจกรรม",
-      "noEvents": "ไม่มีกิจกรรม",
       "news": "ข่าว",
       "noLanguages": "ไม่สามารถใช้งานได้ในภาษาอื่น",
       "noTranslation": "ไม่มีคำแปล",
@@ -9747,7 +9295,6 @@
       "privacy": "ምስጢርነት",
       "localInformation": "ከባብያዊ ሓበሬታ",
       "events": "ኣጋጣሚታት",
-      "noEvents": "ኣጋጣሚታት የለዉን",
       "news": "ዜና",
       "noLanguages": "ብኻልእ ቋንቋታት የለን",
       "noTranslation": "ትርጉም የለን",
@@ -9786,7 +9333,6 @@
       "privacy": "Kişisel verilerin korunması",
       "localInformation": "Yerel bilgiler",
       "events": "Etkinlikler",
-      "noEvents": "Etkinlik yok",
       "news": "Bildirimler",
       "noLanguages": "Diğer dillerde mevcut değil",
       "noTranslation": "Çeviri yok",
@@ -9825,7 +9371,6 @@
       "privacy": "Захист даних",
       "localInformation": "Місцева інформація",
       "events": "Події",
-      "noEvents": "Немає подій",
       "news": "Новини",
       "noLanguages": "Недоступно іншими мовами",
       "noTranslation": "Переклад відсутній",
@@ -9864,7 +9409,6 @@
       "privacy": "ڈیٹا کا تحفظ",
       "localInformation": "مقامی معلومات",
       "events": "ایونٹس",
-      "noEvents": "کوئی ایونٹس نہیں ہیں",
       "news": "خبریں",
       "noLanguages": "دیگر زبانوں میں دستیاب نہیں",
       "noTranslation": "ترجمہ دستیاب نہیں",
@@ -9903,7 +9447,6 @@
       "privacy": "Bảo vệ dữ liệu",
       "localInformation": "Thông tin về địa phương",
       "events": "Sự kiện",
-      "noEvents": "Không có sự kiện nào",
       "news": "Tin tức",
       "noLanguages": "Không có sẵn bằng ngôn ngữ khác",
       "noTranslation": "Không có bản dịch nào",
@@ -9942,7 +9485,6 @@
       "privacy": "数据保护",
       "localInformation": "本地信息",
       "events": "活动",
-      "noEvents": "没有活动",
       "news": "新闻",
       "noLanguages": "没有其他语言版本",
       "noTranslation": "没有翻译",
@@ -11627,7 +11169,6 @@
         "pageTitle": "Lokale Nachrichten"
       },
       "local": "Lokal",
-      "readMore": "Weiterlesen",
       "currentlyNoNews": "Aktuell gibt es keine Nachrichten."
     },
     "am": {
@@ -11637,7 +11178,6 @@
         "pageTitle": "አካባቢያዊ ዜናዎች"
       },
       "local": "አካባቢያዊ",
-      "readMore": "ተጨማሪ ያንብቡ",
       "currentlyNoNews": "በአሁኑ ሰዐት ምንም ዜናዎች የሉም።"
     },
     "ar": {
@@ -11647,7 +11187,6 @@
         "pageTitle": "الأخبار المحلية"
       },
       "local": "محلي",
-      "readMore": "متابعة القراءة",
       "currentlyNoNews": "لا تُوجد أخبار حاليًا."
     },
     "bg": {
@@ -11657,7 +11196,6 @@
         "pageTitle": "Местни новини"
       },
       "local": "Локално",
-      "readMore": "Продължи с четенето",
       "currentlyNoNews": "В момента няма новини."
     },
     "ckb": {
@@ -11667,7 +11205,6 @@
         "pageTitle": "هەواڵی خۆجێی"
       },
       "local": "خۆجێی",
-      "readMore": "درێژەی خوێندنەوە",
       "currentlyNoNews": "لەئێستادا هیچ هەواڵێکی تێدا نییە."
     },
     "cs": {
@@ -11677,7 +11214,6 @@
         "pageTitle": "Lokální zprávy"
       },
       "local": "Lokální",
-      "readMore": "Přečtěte si více",
       "currentlyNoNews": "V tuto chvíli nejsou žádné novinky."
     },
     "da": {
@@ -11687,7 +11223,6 @@
         "pageTitle": "Lokale nyheder"
       },
       "local": "Lokal",
-      "readMore": "Læs mere om det",
       "currentlyNoNews": "Der er i øjeblikket ingen nyheder."
     },
     "el": {
@@ -11697,7 +11232,6 @@
         "pageTitle": "Τοπικά νέα"
       },
       "local": "Τοπικά",
-      "readMore": "Διαβάστε παρακάτω",
       "currentlyNoNews": "Προς το παρόν δεν υπάρχουν ειδήσεις."
     },
     "en": {
@@ -11707,7 +11241,6 @@
         "pageTitle": "Local news"
       },
       "local": "Local",
-      "readMore": "Continue",
       "currentlyNoNews": "There is no news at the moment."
     },
     "es": {
@@ -11717,7 +11250,6 @@
         "pageTitle": "Noticias locales"
       },
       "local": "Local",
-      "readMore": "Seguir leyendo",
       "currentlyNoNews": "En la actualidad no hay noticias"
     },
     "fi": {
@@ -11727,7 +11259,6 @@
         "pageTitle": "Paikalliset uutiset"
       },
       "local": "Paikallinen",
-      "readMore": "Lue lisää",
       "currentlyNoNews": "Tällä hetkellä ei ole uutisia."
     },
     "fr": {
@@ -11737,7 +11268,6 @@
         "pageTitle": "Nouvelles locales"
       },
       "local": "Localement",
-      "readMore": "Poursuivre la lecture",
       "currentlyNoNews": "Aucune nouvelle pour l'instant"
     },
     "hi": {
@@ -11747,7 +11277,6 @@
         "pageTitle": "स्थानीय समाचार"
       },
       "local": "स्थानीय",
-      "readMore": "जारी रखें",
       "currentlyNoNews": "फ़िलहाल कोई समाचार नहीं है."
     },
     "hr": {
@@ -11757,7 +11286,6 @@
         "pageTitle": "Lokalne vijesti"
       },
       "local": "Lokalno",
-      "readMore": "Nastavi čitati",
       "currentlyNoNews": "Trenutačno nema nikakvih vijesti."
     },
     "hu": {
@@ -11767,7 +11295,6 @@
         "pageTitle": "Helyi hírek"
       },
       "local": "Helyi",
-      "readMore": "Továbbolvasás",
       "currentlyNoNews": "Jelenleg nincsenek hírek."
     },
     "id": {
@@ -11777,7 +11304,6 @@
         "pageTitle": "Berita lokal"
       },
       "local": "Lokal",
-      "readMore": "Lanjutkan",
       "currentlyNoNews": "Tidak ada berita saat ini."
     },
     "it": {
@@ -11787,7 +11313,6 @@
         "pageTitle": "Notizie locali"
       },
       "local": "Locale",
-      "readMore": "Continua",
       "currentlyNoNews": "Attualmente non ci sono notizie."
     },
     "ka": {
@@ -11797,7 +11322,6 @@
         "pageTitle": "ადგილობრივი ამბები"
       },
       "local": "ადგილობრივი",
-      "readMore": "გააგრძელე კითხვა",
       "currentlyNoNews": "ამჟამად არ არსებობს არანაირი ინფორმაციები."
     },
     "kmr": {
@@ -11807,7 +11331,6 @@
         "pageTitle": "Nûçeyên herêmî"
       },
       "local": "Herêmî",
-      "readMore": "Xwendina xwe bidomîne",
       "currentlyNoNews": "Niha nûçe tune."
     },
     "mk": {
@@ -11817,7 +11340,6 @@
         "pageTitle": "Локални вести"
       },
       "local": "Локално",
-      "readMore": "Продолжи со читање",
       "currentlyNoNews": "Моментално нема вести."
     },
     "nl": {
@@ -11827,7 +11349,6 @@
         "pageTitle": "Lokaal nieuws"
       },
       "local": "Lokaal",
-      "readMore": "Ga door",
       "currentlyNoNews": "Op dit moment is er geen nieuws."
     },
     "orm": {
@@ -11837,7 +11358,6 @@
         "pageTitle": "Oduu naannoo"
       },
       "local": "Naannoo",
-      "readMore": "Itti fufi",
       "currentlyNoNews": "Yeroo ammaa oduun hin jiru"
     },
     "pes": {
@@ -11847,7 +11367,6 @@
         "pageTitle": "اخبار محلی"
       },
       "local": "محل",
-      "readMore": "ادامه",
       "currentlyNoNews": "در حال حاضر هیچ اخباری وجود ندارد."
     },
     "pl": {
@@ -11857,7 +11376,6 @@
         "pageTitle": "Wiadomości lokalne"
       },
       "local": "Lokalnie",
-      "readMore": "Czytaj dalej",
       "currentlyNoNews": "Obecnie nie ma żadnej wiadomości."
     },
     "prs": {
@@ -11867,7 +11385,6 @@
         "pageTitle": "اخبار محلی"
       },
       "local": "محلی",
-      "readMore": "ادامه خواندن",
       "currentlyNoNews": "در حال حاضر هیچ خبری وجود ندارد‎."
     },
     "ps": {
@@ -11877,7 +11394,6 @@
         "pageTitle": "سیمه ییز خبرونه"
       },
       "local": "سیمه ییز",
-      "readMore": "مخته لوستل",
       "currentlyNoNews": "دا مهال کوم خبرونه نشته."
     },
     "pt": {
@@ -11887,7 +11403,6 @@
         "pageTitle": "Notícias locais"
       },
       "local": "A nível local",
-      "readMore": "Continuar a ler",
       "currentlyNoNews": "Não existe atualmente nenhuma notícia."
     },
     "ro": {
@@ -11897,7 +11412,6 @@
         "pageTitle": "Știri locale"
       },
       "local": "Local",
-      "readMore": "Citire mai departe",
       "currentlyNoNews": "În prezent nu există nicio știre."
     },
     "rom": {
@@ -11907,7 +11421,6 @@
         "pageTitle": "Lokalnikane haberia"
       },
       "local": "Lokalnikano",
-      "readMore": "Produžun",
       "currentlyNoNews": "Nane haberia ko akava vakti."
     },
     "ru": {
@@ -11917,7 +11430,6 @@
         "pageTitle": "Местные новости"
       },
       "local": "Местная информация",
-      "readMore": "Подробнее",
       "currentlyNoNews": "В настоящий момент новости отсутствуют."
     },
     "sk": {
@@ -11927,7 +11439,6 @@
         "pageTitle": "Lokálne správy"
       },
       "local": "Lokálne",
-      "readMore": "Čítať ďalej",
       "currentlyNoNews": "Aktuálne nie sú k dispozícii žiadne správy."
     },
     "so": {
@@ -11937,7 +11448,6 @@
         "pageTitle": "Wararka deegaanka"
       },
       "local": "Deegaanka",
-      "readMore": "Sii wad akhriska",
       "currentlyNoNews": "Hada wax war ah ma jiraan."
     },
     "sq": {
@@ -11947,7 +11457,6 @@
         "pageTitle": "Lajme lokale"
       },
       "local": "Vendas",
-      "readMore": "Lexo më tej",
       "currentlyNoNews": "Aktualisht nuk ka asnjë lajm."
     },
     "sr-Cyrl": {
@@ -11957,7 +11466,6 @@
         "pageTitle": "Локалне вести"
       },
       "local": "Локално",
-      "readMore": "Настави са читањем",
       "currentlyNoNews": "Тренутно нема вести."
     },
     "sr-Latn": {
@@ -11967,7 +11475,6 @@
         "pageTitle": "Lokalne vesti"
       },
       "local": "Lokalno",
-      "readMore": "Nastavi sa čitanjem",
       "currentlyNoNews": "Trenutno nema vesti."
     },
     "sw": {
@@ -11977,7 +11484,6 @@
         "pageTitle": "Habari za nchini"
       },
       "local": "Nchini",
-      "readMore": "Endelea",
       "currentlyNoNews": "Hakuna habari kwa sasa."
     },
     "th": {
@@ -11987,7 +11493,6 @@
         "pageTitle": "ข่าวท้องถิ่น"
       },
       "local": "ท้องถิ่น",
-      "readMore": "อ่านเพิ่มเติม",
       "currentlyNoNews": "ยังไม่มีข่าวสารใดๆในขณะนี้"
     },
     "ti": {
@@ -11997,7 +11502,6 @@
         "pageTitle": "ዜና ውሽጢ  ዓዲ"
       },
       "local": "ውሽጢ ዓዲ",
-      "readMore": "ምንባብ ቀጽል",
       "currentlyNoNews": "ኣብዚ እዋን’ዚ ዜና የለን።"
     },
     "tr": {
@@ -12007,7 +11511,6 @@
         "pageTitle": "yerel bildirimler"
       },
       "local": "Yerel",
-      "readMore": "Okumaya devam edin",
       "currentlyNoNews": "Şu an bildirim bulunmamaktadır."
     },
     "uk": {
@@ -12017,7 +11520,6 @@
         "pageTitle": "Місцеві новини"
       },
       "local": "Місцевий",
-      "readMore": "Читати далі",
       "currentlyNoNews": "Наразі новин немає."
     },
     "ur": {
@@ -12027,7 +11529,6 @@
         "pageTitle": "مقامی خبریں"
       },
       "local": "مقامی",
-      "readMore": "مطالعہ جاری رکھیں",
       "currentlyNoNews": "فی الحال کوئی خبریں نہیں ہیں۔"
     },
     "vi": {
@@ -12037,7 +11538,6 @@
         "pageTitle": "Tin tức về địa phương"
       },
       "local": "Địa phương",
-      "readMore": "Tiếp tục",
       "currentlyNoNews": "Hiện không có tin tức nào."
     },
     "zh-CN": {
@@ -12047,7 +11547,6 @@
         "pageTitle": "本地新闻"
       },
       "local": "本地",
-      "readMore": "继续阅读",
       "currentlyNoNews": "目前没有新闻。"
     }
   },
@@ -12078,8 +11577,7 @@
       "phoneCopied": "Telefonnummer in Zwischenablage kopiert",
       "eMailCopied": "E-Mail-Adresse in Zwischenablage kopiert",
       "websiteCopied": "Webseite in Zwischenablage kopiert",
-      "listTitle": "In deiner Nähe",
-      "detailsHeader": "zurück zur Übersicht",
+      "backToOverview": "zurück zur Übersicht",
       "detailsAddress": "Wegbeschreibung",
       "detailsMapLink": "In Google Maps öffnen",
       "detailsInformation": "Informationen",
@@ -12149,8 +11647,7 @@
       "phoneCopied": "የተሌፎን ቁጥር በማቆያ ማሕደር ተቀድቷል",
       "eMailCopied": "ኢ-ሜይል ኣድራሻ በማቆያ ማሕደር ተቀድቷል",
       "websiteCopied": "የድረ ገጽ ጣቢያ በማቆያ ማሕደር ተቀድቷል",
-      "listTitle": "በኣጠገብህ",
-      "detailsHeader": "ወደ መጀመሪያ ገጽ ይመለስ",
+      "backToOverview": "ወደ መጀመሪያ ገጽ ይመለስ",
       "detailsAddress": "መንገድ መምራት",
       "detailsMapLink": "በጉግል ማፕ መክፈት",
       "detailsInformation": "መረጃዎች",
@@ -12220,8 +11717,7 @@
       "phoneCopied": "تم نسخ رقم الهاتف",
       "eMailCopied": "تم نسخ البريد الإليكتروني",
       "websiteCopied": "تم نسخ الموقع الإليكتروني",
-      "listTitle": "في منطقتك",
-      "detailsHeader": "العودة إلى النظرة العامة",
+      "backToOverview": "العودة إلى النظرة العامة",
       "detailsAddress": "خريطة الاتجاهات",
       "detailsMapLink": "فتح من خلال خرائط جوجل",
       "detailsInformation": "معلومات محلية",
@@ -12291,8 +11787,7 @@
       "phoneCopied": "Телефонният номер е копиран в клипборда",
       "eMailCopied": "Имейл адресът е копиран в клипборда",
       "websiteCopied": "Уебсайтът е копиран в клипборда",
-      "listTitle": "В близост до теб",
-      "detailsHeader": "обратно към прегледа",
+      "backToOverview": "обратно към прегледа",
       "detailsAddress": "Упътвания",
       "detailsMapLink": "Отваряне в Google Maps",
       "detailsInformation": "Информация",
@@ -12362,8 +11857,7 @@
       "phoneCopied": "ژمارە تەلەفۆن کۆپی کرایە نێو کلیپبۆرد",
       "eMailCopied": "ناونیشانی ئیمەیل کۆپی کرایە نێو کلیپبۆرد",
       "websiteCopied": "ماڵپەڕ کۆپی کرایە نێو کلیپبۆرد",
-      "listTitle": "لە نزیک تۆ",
-      "detailsHeader": "گەڕانەوە بۆ دیمەنی گشتی",
+      "backToOverview": "گەڕانەوە بۆ دیمەنی گشتی",
       "detailsAddress": "ئاراستەکان",
       "detailsMapLink": "کردنەوە لە Google Maps",
       "detailsInformation": "زانیارییەکان",
@@ -12433,8 +11927,7 @@
       "phoneCopied": "Telefonní číslo bylo zkopírované do schránky",
       "eMailCopied": "E-mailová adresa byla zkopírovaná do schránky",
       "websiteCopied": "Webová stránka byla zkopírovaná do schránky",
-      "listTitle": "Ve vašem okolí",
-      "detailsHeader": "Zpět na přehled",
+      "backToOverview": "Zpět na přehled",
       "detailsAddress": "Popis trasy",
       "detailsMapLink": "Otevřít v Google Maps",
       "detailsInformation": "Informace",
@@ -12504,8 +11997,7 @@
       "phoneCopied": "Telefonnummer kopieret til udklipsholder",
       "eMailCopied": "E-mailadresse kopieret til udklipsholder",
       "websiteCopied": "Hjemmeside kopieret til udklipsholder",
-      "listTitle": "I dit nabolag",
-      "detailsHeader": "Tilbage til oversigt",
+      "backToOverview": "Tilbage til oversigt",
       "detailsAddress": "Rutevejledning",
       "detailsMapLink": "Åbn i Google Maps",
       "detailsInformation": "Oplysninger",
@@ -12575,8 +12067,7 @@
       "phoneCopied": "Ο αριθμός τηλεφώνου αντιγράφηκε στο πρόχειρο",
       "eMailCopied": "Η διεύθυνση e-mail αντιγράφηκε στο πρόχειρο",
       "websiteCopied": "Η ιστοσελίδα αντιγράφηκε στο πρόχειρο",
-      "listTitle": "Κοντά σε εσάς",
-      "detailsHeader": "επιστροφή στην επισκόπηση",
+      "backToOverview": "επιστροφή στην επισκόπηση",
       "detailsAddress": "Οδηγίες",
       "detailsMapLink": "Άνοιγμα στους Χάρτες Google",
       "detailsInformation": "Πληροφορίες",
@@ -12646,8 +12137,7 @@
       "phoneCopied": "Telephone number copied to clipboard",
       "eMailCopied": "E-mail address copied to clipboard",
       "websiteCopied": "Website copied to clipboard",
-      "listTitle": "Near you",
-      "detailsHeader": "Back",
+      "backToOverview": "Back",
       "detailsAddress": "Directions",
       "detailsMapLink": "Open in Google Maps",
       "detailsInformation": "Info",
@@ -12717,8 +12207,7 @@
       "phoneCopied": "Número de teléfono copiado en el portapapeles",
       "eMailCopied": "Dirección de correo electrónico copiada en el portapapeles",
       "websiteCopied": "Página web copiada en el portapapeles",
-      "listTitle": "En tu proximidad",
-      "detailsHeader": "volver a la vista general",
+      "backToOverview": "volver a la vista general",
       "detailsAddress": "Descripción de la ruta",
       "detailsMapLink": "Abrir en Google Maps",
       "detailsInformation": "Informaciones",
@@ -12788,8 +12277,7 @@
       "phoneCopied": "Puhelinnumero kopioitu välimuistiin",
       "eMailCopied": "Sähköpostiosoite kopioitu välimuistiin",
       "websiteCopied": "Verkkosivu kopioitu välimuistiin",
-      "listTitle": "Lähellä",
-      "detailsHeader": "takaisin näkymään",
+      "backToOverview": "takaisin näkymään",
       "detailsAddress": "Reittikuvaus",
       "detailsMapLink": "Avaa Google Mapsissa",
       "detailsInformation": "Tiedot",
@@ -12859,8 +12347,7 @@
       "phoneCopied": "Numéro de téléphone copié dans le presse-papiers",
       "eMailCopied": "Adresse électronique copiée dans le presse-papiers",
       "websiteCopied": "Site web copié dans le presse-papiers",
-      "listTitle": "Près de chez toi",
-      "detailsHeader": "Retour à l’aperçu",
+      "backToOverview": "Retour à l’aperçu",
       "detailsAddress": "Itinéraire",
       "detailsMapLink": "Ouvrir dans Google Maps",
       "detailsInformation": "Informations",
@@ -12930,8 +12417,7 @@
       "phoneCopied": "टेलीफ़ोन नंबर क्लिपबोर्ड पर कॉपी किया गया",
       "eMailCopied": "ई-मेल पता क्लिपबोर्ड पर कॉपी किया गया",
       "websiteCopied": "वेबसाइट क्लिपबोर्ड पर कॉपी की गई",
-      "listTitle": "आपके आस-पास",
-      "detailsHeader": "वापस",
+      "backToOverview": "वापस",
       "detailsAddress": "दिशानिर्देश",
       "detailsMapLink": "Google Maps में खोलें",
       "detailsInformation": "जानकारी",
@@ -13001,8 +12487,7 @@
       "phoneCopied": "Broj telefona kopiran u međuspremnik",
       "eMailCopied": "Adresa e-pošte kopirana u međuspremnik",
       "websiteCopied": "Web-mjesto kopirano u međuspremnik",
-      "listTitle": "Blizu tebe",
-      "detailsHeader": "natrag na pregled",
+      "backToOverview": "natrag na pregled",
       "detailsAddress": "Upute za vožnju",
       "detailsMapLink": "Otvoriti u Google kartama",
       "detailsInformation": "Informacije",
@@ -13072,8 +12557,7 @@
       "phoneCopied": "Telefonszám vágólapra másolása befejezve",
       "eMailCopied": "E-mail cím vágólapra másolása befejezve",
       "websiteCopied": "Weboldal vágólapra másolása befejezve",
-      "listTitle": "A közelben",
-      "detailsHeader": "Vissza az áttekintéshez",
+      "backToOverview": "Vissza az áttekintéshez",
       "detailsAddress": "Útvonalterv",
       "detailsMapLink": "Megnyitás Google Mapsben",
       "detailsInformation": "Információk",
@@ -13143,8 +12627,7 @@
       "phoneCopied": "Nomor telepon disalin ke papan klip",
       "eMailCopied": "Alamat sur-el disalin ke papan klip",
       "websiteCopied": "Situs web disalin ke papan klip",
-      "listTitle": "Di dekat Anda",
-      "detailsHeader": "Kembali",
+      "backToOverview": "Kembali",
       "detailsAddress": "Arah",
       "detailsMapLink": "Buka di Google Maps",
       "detailsInformation": "Info",
@@ -13214,8 +12697,7 @@
       "phoneCopied": "Numero telefonico copiato negli appunti",
       "eMailCopied": "Indirizzo email copiato negli appunti",
       "websiteCopied": "Pagina Web copiata negli appunti",
-      "listTitle": "Nelle vicinanze",
-      "detailsHeader": "torna alla panoramica",
+      "backToOverview": "torna alla panoramica",
       "detailsAddress": "Descrizione del percorso",
       "detailsMapLink": "Apri su Google Maps",
       "detailsInformation": "Informazioni",
@@ -13285,8 +12767,7 @@
       "phoneCopied": "ტელეფონის ნომერი კოპირებულია შუალედურ ჩანართში",
       "eMailCopied": "ელფოსტა კოპირებულია შუალედურ ჩანართში",
       "websiteCopied": "ვებგვერდი კოპირებულია შუალედურ ჩანართში",
-      "listTitle": "შენს სიახლოვეს",
-      "detailsHeader": "მიმოხილვაზე დაბრუნება",
+      "backToOverview": "მიმოხილვაზე დაბრუნება",
       "detailsAddress": "გზის აღწერილობა",
       "detailsMapLink": "Google Map-ში გახსნა",
       "detailsInformation": "ინფორმაციები",
@@ -13356,8 +12837,7 @@
       "phoneCopied": "Hejmara telefonê nava klîpboardê kopî bû",
       "eMailCopied": "Navnîşana e-nameyê nava klîpboardê kopî bû",
       "websiteCopied": "Malper nava klîpboardê kopî bû",
-      "listTitle": "Li nêzikî te",
-      "detailsHeader": "Vegeriyan bo nimaya giştî",
+      "backToOverview": "Vegeriyan bo nimaya giştî",
       "detailsAddress": "Alî",
       "detailsMapLink": "Vekirin li Google Maps'ê",
       "detailsInformation": "Zanyarî",
@@ -13427,8 +12907,7 @@
       "phoneCopied": "Телефонскиот број е копиран во меѓуархивата",
       "eMailCopied": "Адресата на е-пошта е копирана во меѓуархивата",
       "websiteCopied": "Веб-страницата е копирана во меѓуархивата",
-      "listTitle": "Во твоја близина",
-      "detailsHeader": "назад кон преглед",
+      "backToOverview": "назад кон преглед",
       "detailsAddress": "опис на пат",
       "detailsMapLink": "отвори во Google Maps",
       "detailsInformation": "Информации",
@@ -13498,8 +12977,7 @@
       "phoneCopied": "Het telefoonnummer is gekopieerd naar het klembord",
       "eMailCopied": "Het emailadres is gekopieerd naar het klembord",
       "websiteCopied": "De website is gekopieerd naar het klembord",
-      "listTitle": "Vlakbij jou",
-      "detailsHeader": "Terug naar het overzicht",
+      "backToOverview": "Terug naar het overzicht",
       "detailsAddress": "Routebeschrijving",
       "detailsMapLink": "Open in Google Maps",
       "detailsInformation": "Informatie",
@@ -13569,8 +13047,7 @@
       "phoneCopied": "Lakkoofsa bilbilaa gara gabateetti koppii ta’e",
       "eMailCopied": "Bakka Imeliigara gabateetti koppii ta’e",
       "websiteCopied": "Marsariitii gara gabateetti koppii ta’e",
-      "listTitle": "Kan sitti dhihoo",
-      "detailsHeader": "Duubatti",
+      "backToOverview": "Duubatti",
       "detailsAddress": "Kallattii",
       "detailsMapLink": "Kaartaa googilii irraa bani",
       "detailsInformation": "Odeeffannoo",
@@ -13640,8 +13117,7 @@
       "phoneCopied": "شماره تلفن در کلیپ‌برد کپی شد",
       "eMailCopied": "نشانی ایمیل در کلیپ‌برد کپی شد",
       "websiteCopied": "وبسایت در کلیپ‌برد کپی شد",
-      "listTitle": "در نزدیکی تو",
-      "detailsHeader": "بازگشت به خلاصه",
+      "backToOverview": "بازگشت به خلاصه",
       "detailsAddress": "مسیریابی",
       "detailsMapLink": "باز کردن در Google Maps",
       "detailsInformation": "اطلاعات",
@@ -13711,8 +13187,7 @@
       "phoneCopied": "Numer telefonu skopiowany do schowka",
       "eMailCopied": "Adres mailowy skopiowany do schowka",
       "websiteCopied": "Strona www skopiowana do schowka",
-      "listTitle": "W pobliżu",
-      "detailsHeader": "powrót do widoku",
+      "backToOverview": "powrót do widoku",
       "detailsAddress": "Opis drogi",
       "detailsMapLink": "Otwórz w Google Maps",
       "detailsInformation": "Informacje",
@@ -13782,8 +13257,7 @@
       "phoneCopied": "شماره تلفن در کلیپ‌بورد کپی شد",
       "eMailCopied": "آدرس ایمیل در کلیپ‌بورد کپی شد",
       "websiteCopied": "وبسایت در کلیپ‌بورد کپی شد",
-      "listTitle": "در نزدیکی تو",
-      "detailsHeader": "بازگشت به خلاصه",
+      "backToOverview": "بازگشت به خلاصه",
       "detailsAddress": "مسیریابی",
       "detailsMapLink": "باز کردن در Google Maps",
       "detailsInformation": "معلومات",
@@ -13853,8 +13327,7 @@
       "phoneCopied": "تیلیفون رقم کلپ بورډ تہ کاپی شوی",
       "eMailCopied": "ای میل ایدریس کلپ بورډ تہ کاپی شوی",
       "websiteCopied": "ویب پانہ کلپ بورډ تہ کاپی شوی",
-      "listTitle": "تا ته نیږدی",
-      "detailsHeader": "بیرته کتنې ته",
+      "backToOverview": "بیرته کتنې ته",
       "detailsAddress": "لارښوونې",
       "detailsMapLink": "په ګوګل نقشه کې خلاص کړئ",
       "detailsInformation": "معلومات",
@@ -13924,8 +13397,7 @@
       "phoneCopied": "Número de telefone copiado para a área de transferência",
       "eMailCopied": "Endereço de correio eletrónico copiado para a área de transferência",
       "websiteCopied": "Sítio Web copiado para a área de transferência",
-      "listTitle": "Nas tuas imediações",
-      "detailsHeader": "voltar à vista geral",
+      "backToOverview": "voltar à vista geral",
       "detailsAddress": "Como chegar",
       "detailsMapLink": "Abrir no Google Maps",
       "detailsInformation": "Informações",
@@ -13995,8 +13467,7 @@
       "phoneCopied": "Numărul de telefon copiat în clipboard",
       "eMailCopied": "Adresa de e-mail copiată în clipboard",
       "websiteCopied": "Pagina de internet copiată în clipboard",
-      "listTitle": "În apropierea ta",
-      "detailsHeader": "înapoi la Sumar",
+      "backToOverview": "înapoi la Sumar",
       "detailsAddress": "Descriere traseu",
       "detailsMapLink": "Deschide în Google Maps",
       "detailsInformation": "Informații",
@@ -14066,8 +13537,7 @@
       "phoneCopied": "E telefoneskoro numero si kopirimo ko than",
       "eMailCopied": "I-mejl adresa si kopirimi ko than",
       "websiteCopied": "Vebstrana si kopirimi ko than",
-      "listTitle": "Paše tute",
-      "detailsHeader": "Palal",
+      "backToOverview": "Palal",
       "detailsAddress": "Legariba",
       "detailsMapLink": "Phrav ko Google Maps",
       "detailsInformation": "Info",
@@ -14137,8 +13607,7 @@
       "phoneCopied": "Телефон скопирован в буфер обмена",
       "eMailCopied": "Адрес эл. почты скопирован в буфер обмена",
       "websiteCopied": "Ссылка на сайт скопирована в буфер обмена",
-      "listTitle": "Рядом с тобой",
-      "detailsHeader": "возврат на страницу обзора",
+      "backToOverview": "возврат на страницу обзора",
       "detailsAddress": "Описание направления",
       "detailsMapLink": "открыть в Google Maps",
       "detailsInformation": "Информация",
@@ -14208,8 +13677,7 @@
       "phoneCopied": "Telefónne číslo skopírované do medzipamäte",
       "eMailCopied": "E-mailová adresa skopírovaná do medzipamäte",
       "websiteCopied": "Webová stránka skopírovaná do medzipamäte",
-      "listTitle": "Vo vašej blízkosti",
-      "detailsHeader": "späť na prehľad",
+      "backToOverview": "späť na prehľad",
       "detailsAddress": "Opis cesty",
       "detailsMapLink": "Otvoriť v Google Maps",
       "detailsInformation": "Informácie",
@@ -14279,8 +13747,7 @@
       "phoneCopied": "Lambarka taleefanka waa la koobiyeeyay",
       "eMailCopied": "Ciwaanka iimaylka waa la koobiyeeyay",
       "websiteCopied": "Bogga websaydhka waa la koobiyeeyay",
-      "listTitle": "Kugu dhow",
-      "detailsHeader": "U laabo guudmarka",
+      "backToOverview": "U laabo guudmarka",
       "detailsAddress": "Tilmaamaha",
       "detailsMapLink": "Ku fur Khariidadaha Google-ka (Google Maps)",
       "detailsInformation": "macluumaad",
@@ -14350,8 +13817,7 @@
       "phoneCopied": "Numri i telefonit u kopjua ndërmjet rendit",
       "eMailCopied": "E-mail adresa u kopjua ndërmjet rendit",
       "websiteCopied": "Faqja e internetit u kopjua ndërmjet rendit",
-      "listTitle": "Në afërsin tuaj",
-      "detailsHeader": "kthehu te përmbledhja",
+      "backToOverview": "kthehu te përmbledhja",
       "detailsAddress": "Përshkrimi i rrugës",
       "detailsMapLink": "Hape të Google Map",
       "detailsInformation": "Informata",
@@ -14421,8 +13887,7 @@
       "phoneCopied": "Број телефона је копиран на клипборду",
       "eMailCopied": "Адреса е-поште је копирана на клипборду",
       "websiteCopied": "Веб страна је копирана на клипборду",
-      "listTitle": "У вашој близини",
-      "detailsHeader": "Назад у преглед",
+      "backToOverview": "Назад у преглед",
       "detailsAddress": "Опис пута",
       "detailsMapLink": "Отвори у Гоогле мапама",
       "detailsInformation": "Информације",
@@ -14492,8 +13957,7 @@
       "phoneCopied": "Broj telefona je kopiran na klipbordu",
       "eMailCopied": "Adresa e-pošte je kopirana na klipbordu",
       "websiteCopied": "Veb strana je kopirana na klipbordu",
-      "listTitle": "U vašoj blizini",
-      "detailsHeader": " Nazad u pregled",
+      "backToOverview": " Nazad u pregled",
       "detailsAddress": "Opis puta",
       "detailsMapLink": "Otvori u Google mapama",
       "detailsInformation": "Informacije",
@@ -14563,8 +14027,7 @@
       "phoneCopied": "Namba ya simu imenakiliwa kwenye ubao wa kunakili",
       "eMailCopied": "Anwani ya barua pepe imenakiliwa kwenye ubao wa kunakili",
       "websiteCopied": "Tovuti imenakiliwa kwenye ubao wa kunakili",
-      "listTitle": "Karibu nawe",
-      "detailsHeader": "Nyuma",
+      "backToOverview": "Nyuma",
       "detailsAddress": "Maelekezo",
       "detailsMapLink": "Fungua katika Ramani za Google",
       "detailsInformation": "Maelezo",
@@ -14634,8 +14097,7 @@
       "phoneCopied": "คัดลอกหมายเลขโทรศัพท์ไปยังคลิปบอร์ดแล้ว",
       "eMailCopied": "คัดลอกที่อยู่อีเมลไปยังคลิปบอร์ดแล้ว",
       "websiteCopied": "เว็บไซต์คัดลอกไปยังคลิปบอร์ดแล้ว",
-      "listTitle": "ใกล้ตัวคุณ",
-      "detailsHeader": "กลับไปที่ภาพรวม",
+      "backToOverview": "กลับไปที่ภาพรวม",
       "detailsAddress": "ทิศทาง",
       "detailsMapLink": "เปิดใน Google Maps",
       "detailsInformation": "ข้อมูล",
@@ -14705,8 +14167,7 @@
       "phoneCopied": "ቁጽሪ ተሌፎን ኣብ መጽንሒ ማሕደር ተቐዲሑ",
       "eMailCopied": "ኢ-ሜይል ኣድራሻ ኣብ መጽንሒ ማሕደር ተቐዲሑ",
       "websiteCopied": "መርበብ ሓበሬታ ኣብ መጽንሒ ማሕደር ተቐዲሑ",
-      "listTitle": "ኣብ ጥቓኻ",
-      "detailsHeader": "ናብ መርኣዪ ትሕዝቶ ይመለስ",
+      "backToOverview": "ናብ መርኣዪ ትሕዝቶ ይመለስ",
       "detailsAddress": "መገዲ ምሕባር",
       "detailsMapLink": "ኣብ ጉግል ማፕ ክፈት",
       "detailsInformation": "ሓበሬታት",
@@ -14776,8 +14237,7 @@
       "phoneCopied": "Telelfon numarası panoya kopyalandı",
       "eMailCopied": "E-posta adresi panoya kopyalandı",
       "websiteCopied": "İnternet sitesi panoya kopyalandı",
-      "listTitle": "Yakınında",
-      "detailsHeader": "Genel bakışa geri git",
+      "backToOverview": "Genel bakışa geri git",
       "detailsAddress": "Yol açıklaması",
       "detailsMapLink": "Google Haritaları aç",
       "detailsInformation": "Bilgiler",
@@ -14847,8 +14307,7 @@
       "phoneCopied": "Номер телефону скопійовано в буфер обміну",
       "eMailCopied": "Адреса електронної пошти скопійована в буфер обміну",
       "websiteCopied": "Сайт скопійований у буфер обміну",
-      "listTitle": "З вами поблизу",
-      "detailsHeader": "назад до огляду",
+      "backToOverview": "назад до огляду",
       "detailsAddress": "Опис маршруту",
       "detailsMapLink": "Відкрити в Карти Google",
       "detailsInformation": "Інформація",
@@ -14918,8 +14377,7 @@
       "phoneCopied": "ٹیلی فون نمبر کلپ بورڈ میں کاپی کیا گیا",
       "eMailCopied": "ای میل ایڈریس کلپ بورڈ میں کاپی کیا گیا",
       "websiteCopied": "ویب سائٹ کلپ بورڈ میں کاپی کیا گیا",
-      "listTitle": "آپ کے قریب",
-      "detailsHeader": "جائزہ پر واپس جائیں۔",
+      "backToOverview": "جائزہ پر واپس جائیں۔",
       "detailsAddress": "ہدایات",
       "detailsMapLink": "گوگل میپس میں کھولیں۔",
       "detailsInformation": "معلومات",
@@ -14989,8 +14447,7 @@
       "phoneCopied": "Số điện thoại đã được sao chép vào bảng tạm",
       "eMailCopied": "Địa chỉ email đã được sao chép vào bảng tạm",
       "websiteCopied": "Trang web đã được sao chép vào bảng tạm",
-      "listTitle": "Gần bạn",
-      "detailsHeader": "Quay lại",
+      "backToOverview": "Quay lại",
       "detailsAddress": "Chỉ đường",
       "detailsMapLink": "Mở trong Google Maps",
       "detailsInformation": "Thông tin",
@@ -15060,8 +14517,7 @@
       "phoneCopied": "电话号码已复制到剪贴板",
       "eMailCopied": "电子邮件地址已复制到剪贴板",
       "websiteCopied": "网址已复制到剪贴板",
-      "listTitle": "在你附近",
-      "detailsHeader": "返回概览",
+      "backToOverview": "返回概览",
       "detailsAddress": "路线描述",
       "detailsMapLink": "在谷歌地图中打开",
       "detailsInformation": "信息",
@@ -15673,7 +15129,7 @@
       "sentryDescription": "Durch das automatische Senden von Absturzberichten die {{appName}}-App verbessern",
       "pushNewsTitle": "Push-Benachrichtigungen",
       "pushNewsDescription": "Push-Benachrichtigungen für die neuesten lokalen Nachrichten erhalten",
-      "about": "Über {{appName}}",
+      "aboutUs": "Über uns",
       "privacyPolicy": "Datenschutzerklärung",
       "version": "Version: {{version}}",
       "openSourceLicenses": "Open-Source-Lizenzen",
@@ -15695,7 +15151,6 @@
       "sentryDescription": "{{appName}} መተግበሪያን የመስበሪያ ሪፖርቶችን በፍጥነት በመላክ ያሻሽሉ።",
       "pushNewsTitle": "የመግፊያ ማሳወቂያዎች",
       "pushNewsDescription": "ለቅርብ አካባቢያዊ ዜናዎች የመግፊያ ማሳወቂያዎች ይቀበሉ።",
-      "about": "ስለ {{appName}}",
       "privacyPolicy": "የግላዊነት ፖሊሲ",
       "version": "ቅጂ: {{version}}",
       "openSourceLicenses": "የምንጭ ፍቃዶችን ይክፈቱ",
@@ -15717,7 +15172,7 @@
       "sentryDescription": "تحسين تطبيق {{appName}} من خلال الإرسال التلقائي لتقارير الأعطال",
       "pushNewsTitle": "الإخطارات اللحظية",
       "pushNewsDescription": "تلقي الإخطارات اللحظية لأحدث الأخبار المحلية",
-      "about": "حول تطبيق {{appName}}",
+      "aboutUs": "من نحن",
       "privacyPolicy": "بيان الخصوصية",
       "version": "الإصدار: {{version}}",
       "openSourceLicenses": "تراخيص مفتوحة المصدر",
@@ -15739,7 +15194,6 @@
       "sentryDescription": "Подобрете приложението {{appName}}, като автоматично изпращате отчети за сривове",
       "pushNewsTitle": "Изскачащи известия",
       "pushNewsDescription": "Получавайте изскачащи известия за последните местни новини",
-      "about": "За {{appName}}",
       "privacyPolicy": "Декларация за поверителност",
       "version": "Версия: {{version}}",
       "openSourceLicenses": "Лицензи с отворен код",
@@ -15761,7 +15215,6 @@
       "sentryDescription": "لەڕیگەی ناردنی ئۆتۆماتیکی ڕاپۆڕتەکانی خراپیی ئەپڵیکەیشن {{appName}} باشتر بکە",
       "pushNewsTitle": "ڕاگەیاندنەکان",
       "pushNewsDescription": "ڕاگەیاندنەکان بۆ نوێترین هەواڵی خۆجێی وەربگرە",
-      "about": "لەبارەی {{appName}}",
       "privacyPolicy": "ڕاگەیاندنی پاراستنی دێیتاکان",
       "version": "ڤێرژنی {{version}}",
       "openSourceLicenses": "مۆڵەتەکانی سەرچاوەی ئازاد",
@@ -15783,7 +15236,6 @@
       "sentryDescription": "Vylepšení aplikace {{appName}} automatickým odesíláním kolapsu aplikace",
       "pushNewsTitle": "Oznámení Push",
       "pushNewsDescription": "Získejte push oznámení o nejnovějších místních zprávách",
-      "about": "O {{appName}}",
       "privacyPolicy": "Prohlášení o ochraně osobních údajů",
       "version": "Verze: {{version}}",
       "openSourceLicenses": "Licence open-source",
@@ -15805,7 +15257,6 @@
       "sentryDescription": "Forbedr appen {{appName}} ved automatisk at sende nedbrudsrapporter",
       "pushNewsTitle": "Push-meddelelser",
       "pushNewsDescription": "Modtag push-meddelelser om de seneste lokale nyheder",
-      "about": "Om {{appName}}",
       "privacyPolicy": "Fortrolighedspolitik",
       "version": "Version: {{version}}",
       "openSourceLicenses": "Open source-licenser",
@@ -15827,7 +15278,6 @@
       "sentryDescription": "Αυτόματη αποστολή αναφορών σφαλμάτων για βελτίωση του {{appName}}",
       "pushNewsTitle": "Ειδοποιήσεις",
       "pushNewsDescription": "Ειδοποιήσεις για τα τελευταία τοπικά νέα",
-      "about": "Πληροφορίες για το {{appName}}",
       "privacyPolicy": "Προστασία δεδομένων",
       "version": "Έκδοση: {{version}}",
       "openSourceLicenses": "Άδειες",
@@ -15849,7 +15299,7 @@
       "sentryDescription": "Improve the {{appName}} app by automatically sending crash reports",
       "pushNewsTitle": "Push notifications",
       "pushNewsDescription": "Receive push notifications for the latest local news",
-      "about": "About {{appName}}",
+      "aboutUs": "About Us",
       "privacyPolicy": "Data protection policy",
       "version": "Version: {{version}}",
       "openSourceLicenses": "Open source licences",
@@ -15871,7 +15321,6 @@
       "sentryDescription": "Mejorar la app {{appName}} mediante el envío automático de informes de interrupciones del servicio",
       "pushNewsTitle": "Notificaciones push",
       "pushNewsDescription": "Recibir notificaciones push con las últimas noticias locales",
-      "about": "Acerca de {{appName}}",
       "privacyPolicy": "Declaración de privacidad",
       "version": "Versión: {{version}}",
       "openSourceLicenses": "Licencias de fuente abierta",
@@ -15893,7 +15342,6 @@
       "sentryDescription": "Paranna {{appName}}-sovellusta lähettämällä häiriöraportit automaattisesti",
       "pushNewsTitle": "Puskuviestit",
       "pushNewsDescription": "Vastaanota puskuviestejä uusimmista paikallisista uutisista",
-      "about": "{{appName}}-sovelluksesta",
       "privacyPolicy": "Tietosuojaseloste",
       "version": "Versio: {{version}}",
       "openSourceLicenses": "Avoimen lähdekoodin lisenssit",
@@ -15915,7 +15363,6 @@
       "sentryDescription": "Améliorer l'application {{appName}} grâce à l'envoi automatique de rapports d'erreur",
       "pushNewsTitle": "Notifications push",
       "pushNewsDescription": "Recevoir des notifications push sur l'actualité locale",
-      "about": "À propos d'{{appName}}",
       "privacyPolicy": "Déclaration de confidentialité",
       "version": "Version : {{version}}",
       "openSourceLicenses": "Licences en open source",
@@ -15937,7 +15384,6 @@
       "sentryDescription": "स्वचालित रूप से क्रैश रिपोर्ट भेजकर {{appName}} ऐप को बेहतर बनाएँ",
       "pushNewsTitle": "पुश सूचनाएँ",
       "pushNewsDescription": "नवीनतम स्थानीय समाचारों के लिए पुश सूचनाएँ प्राप्त करें",
-      "about": "{{appName}} के बारे में",
       "privacyPolicy": "डेटा सुरक्षा नीति",
       "version": "संस्करण: {{version}}",
       "openSourceLicenses": "ओपन सोर्स लाइसेंस",
@@ -15959,7 +15405,6 @@
       "sentryDescription": "Automatskim slanjem izvještaja o padu sustava aplikacija {{appName}} se poboljšava",
       "pushNewsTitle": "Automatske obavijesti",
       "pushNewsDescription": "Primaj automatske obavijesti s najnovijim lokalnim vijestima",
-      "about": "O aplikaciji {{appName}}",
       "privacyPolicy": "Izjava o zaštiti podataka",
       "version": "Verzija: {{version}}",
       "openSourceLicenses": "Licencije otvorenog koda",
@@ -15981,7 +15426,6 @@
       "sentryDescription": "A(z) {{appName}}-App javítása hibajelentések automatikus küldésével",
       "pushNewsTitle": "Push értesítések",
       "pushNewsDescription": "A legújabb helyi hírekkel kapcsolatos Push értesítések küldése",
-      "about": "A(z) {{appName}} alkalmazásról",
       "privacyPolicy": "Adatvédelmi nyilatkozat",
       "version": "Verzió: {{version}}",
       "openSourceLicenses": "Open-Source-licencek",
@@ -16003,7 +15447,6 @@
       "sentryDescription": "Kembangkan aplikasi {{appName}} dengan mengirim laporan kegagalan secara otomatis",
       "pushNewsTitle": "Notifikasi otomatis",
       "pushNewsDescription": "Terima notifikasi otomatis untuk berita lokal terbaru",
-      "about": "Tentang {{appName}}",
       "privacyPolicy": "Kebijakan proteksi data",
       "version": "Versi: {{version}}",
       "openSourceLicenses": "Buka lisensi sumber",
@@ -16025,7 +15468,6 @@
       "sentryDescription": "Migliora l’app {{appName}} inviando automaticamente rapporti sugli arresti anomali",
       "pushNewsTitle": "Notifiche push",
       "pushNewsDescription": "Ricevi notifiche push per le ultime notizie locali",
-      "about": "Info su {{appName}}",
       "privacyPolicy": "Informativa sulla privacy",
       "version": "Versione: {{version}}",
       "openSourceLicenses": "Licenze open source",
@@ -16047,7 +15489,6 @@
       "sentryDescription": "სისტემის გაჭედვის  მოხსენებათა ავტომატური გადამისამართებით {{appName}} აპპს გაუმჯობესება",
       "pushNewsTitle": "ინფორმაციის მაუწყებელი",
       "pushNewsDescription": "ინფორმაციის მაუწყებლი უახლესი ადგილობრივი ამბებისათვის",
-      "about": "შესახებ {{appName}}",
       "privacyPolicy": "მონაცემთა დაცვის შესახებ ახსნა-განმარტება",
       "version": "ვერსია: {{version}}",
       "openSourceLicenses": "ლიცენზია ღია ინტერნეტ რესურსებზე",
@@ -16069,7 +15510,6 @@
       "sentryDescription": "Bi şandina xwebixwe ya raporên xerabûnê, Appa '{{appName}}'ê baştir bike",
       "pushNewsTitle": "Peyamên bilez",
       "pushNewsDescription": "Wergirtina peyamên bilez sa dawîn nûçeyên xwecihî yên nû",
-      "about": "Bi rêya {{appName}}",
       "privacyPolicy": "Daxuyaniya Parastina Daneyan",
       "version": "Versiyon: {{version}}",
       "openSourceLicenses": "Lîsansa Çavkanî-Vekirî",
@@ -16091,7 +15531,6 @@
       "sentryDescription": "Подобрете ја апликацијата {{appName}} со автоматско испраќање на извештаи за паѓање",
       "pushNewsTitle": "Push известувања",
       "pushNewsDescription": "Добивајте Push известувања за најновите локални вести",
-      "about": "За {{appName}}",
       "privacyPolicy": "Изјава за заштита на лични податоци",
       "version": "Верзија: {{version}}",
       "openSourceLicenses": "Лиценца за отворени содржини",
@@ -16113,7 +15552,6 @@
       "sentryDescription": "Verbeter de {{appName}} app door automatisch foutmeldingen te versturen.",
       "pushNewsTitle": "Pushmeldingen",
       "pushNewsDescription": "Ontvang pushmedlingen voor het laatste lokale nieuws",
-      "about": "Over {{appName}}",
       "privacyPolicy": "Gegevensbeschermingsbeleid",
       "version": "Versie: {{version}}",
       "openSourceLicenses": "Open bron licenties",
@@ -16135,7 +15573,6 @@
       "sentryDescription": "Gabaasa kufaatii hatattamaan ofii isaa erguu appii {{appName}} fooyyessi",
       "pushNewsTitle": "Yaadachiisa dhiibbaa",
       "pushNewsDescription": "Oduu biyya keessaa isa haaraa argachuuf yaadachiisa dhiibbaa argachuu",
-      "about": "Waa’ee {{appName}}",
       "privacyPolicy": "Imaammata eegumsa daataa",
       "version": "Gosa: {{version}} kan jedhu.",
       "openSourceLicenses": "Hayyama madda banaa",
@@ -16157,7 +15594,6 @@
       "sentryDescription": "با ارسال خودکار گزارش‌های خرابی، اپلیکیشن {{appName}} را بهبود بخشید",
       "pushNewsTitle": "پیام های فوری",
       "pushNewsDescription": "دریافت پیام های فوری برای آخرین اخبار محلی جدید",
-      "about": "راجع به {{appName}}",
       "privacyPolicy": "بیانیه حفاظت از داده ها",
       "version": "نسخه: {{version}}",
       "openSourceLicenses": "لیسانس منبع باز",
@@ -16179,7 +15615,6 @@
       "sentryDescription": "Ulepszanie aplikacji {{appName}} przez automatycznie wysyłanie raportów o awariach",
       "pushNewsTitle": "Powiadomienia typu push",
       "pushNewsDescription": "Otrzymywanie powiadomień typu push o aktualnościach lokalnych",
-      "about": "O {{appName}}",
       "privacyPolicy": "Oświadczenie o ochronie danych",
       "version": "Wersja: {{version}}",
       "openSourceLicenses": "Licencje open source",
@@ -16201,7 +15636,6 @@
       "sentryDescription": "از طریق ارسال اتومات راپور های خرابی اپلیکیشن {{appName}} را بهبود بخشید",
       "pushNewsTitle": "اعلان ها",
       "pushNewsDescription": "اعلان ها را برای جدیدترین اخبار محلی دریافت نمایید",
-      "about": "راجع به {{appName}}",
       "privacyPolicy": "بیانیه حفاظت از داده ها",
       "version": "نسخه {{version}}",
       "openSourceLicenses": "جوازهای منبع آزاد",
@@ -16223,7 +15657,6 @@
       "sentryDescription": "په اتومات ډول د خرابي د پېغامونو په لېږلو سره د {{appName}}--ایپ بهترول",
       "pushNewsTitle": "فشاري خبرتیاوې",
       "pushNewsDescription": "د تازه سیمه ییزو خبرونو لپاره فشاري خبرتیاوې ترلاسه کول",
-      "about": "د {{appName}} په اړه",
       "privacyPolicy": "د ډاټا د حفاظت بیانیه",
       "version": "بڼه: {{version}}",
       "openSourceLicenses": "د آزادې-سرچینې لیسنس",
@@ -16245,7 +15678,6 @@
       "sentryDescription": "Melhorar a aplicação {{appName}} através do envio automático de relatórios de erro",
       "pushNewsTitle": "Notificações push",
       "pushNewsDescription": "Receber notificações push das últimas notícias locais",
-      "about": "Acerca da {{appName}}",
       "privacyPolicy": "Política de privacidade",
       "version": "Versão: {{version}}",
       "openSourceLicenses": "Licenças de código aberto",
@@ -16267,7 +15699,6 @@
       "sentryDescription": "Îmbunătățiți {{appName}}-App prin trimiterea automată a rapoartelor de blocare",
       "pushNewsTitle": "Notificări push",
       "pushNewsDescription": "Primiți notificări push pentru cele mai recente noutăți locale",
-      "about": "Prin intermediul {{appName}}",
       "privacyPolicy": "Declarație privind confidențialitatea",
       "version": "Versiune: {{version}}",
       "openSourceLicenses": "Licențe open source",
@@ -16289,7 +15720,6 @@
       "sentryDescription": "Ker lačheder i {{appName}} app prekal avtomatikane bičhaliba bangeskere reportoja",
       "pushNewsTitle": "Mečin notifikacie",
       "pushNewsDescription": "Dobin mečibaskere notifikacie baši o palune lokalnikane haberia",
-      "about": "Baši {{appName}}",
       "privacyPolicy": "Arakhibe podatkongjiri polisa",
       "version": "Verzia: {{version}}",
       "openSourceLicenses": "Phrav haingaskiri licenca",
@@ -16311,7 +15741,6 @@
       "sentryDescription": "Повышение стабильности работы приложения {{appName}} путем автоматической отправки сообщений о сбоях",
       "pushNewsTitle": "Push-уведомления",
       "pushNewsDescription": "Push-уведомления необходимы для получения самых актуальных местных новостей",
-      "about": "Информация о приложении {{appName}}",
       "privacyPolicy": "Политика конфиденциальности",
       "version": "Версия: {{version}}",
       "openSourceLicenses": "Лицензии на ПО с открытым исходным кодом",
@@ -16333,7 +15762,6 @@
       "sentryDescription": "Vylepšiť automatické posielanie správ o zlyhaní aplikácie {{appName}}",
       "pushNewsTitle": "Oznámenia Push",
       "pushNewsDescription": "Obdržať Oznámenia Push pre najnovšie lokálne správy",
-      "about": "O {{appName}}",
       "privacyPolicy": "Vyhlásenie o ochrane osobných údajov",
       "version": "Verzia: {{version}}",
       "openSourceLicenses": "Licencie Open-Source",
@@ -16355,7 +15783,6 @@
       "sentryDescription": "Hagaaji {{appName}} adigoo si otomatigga ah u diraya warbixinnada ciladaha",
       "pushNewsTitle": "Ogaysiisyada",
       "pushNewsDescription": "Hel ogeysiisyada ku saabsan warbixinada deegaanka ee ugu dambeeyey",
-      "about": "Ku saabsan {{appName}}",
       "privacyPolicy": "Ilaalinta xogta",
       "version": "Nooca: {{version}}",
       "openSourceLicenses": "Ruqsadaha-il-furan",
@@ -16377,7 +15804,6 @@
       "sentryDescription": "Përmirësoni aplikacionin {{appName}} duke dërguar automatikisht raporte të ndërprerjeve aksidentale",
       "pushNewsTitle": "Push-njoftimet",
       "pushNewsDescription": "Pranoni push-njoftime për lajmet e fundit lokale",
-      "about": "Rreth {{appName}}",
       "privacyPolicy": "Politika e privatësisë",
       "version": "Versioni: {{version}}",
       "openSourceLicenses": "Licencat me burim të hapur",
@@ -16399,7 +15825,6 @@
       "sentryDescription": "Побољшање {{appName}} апликације аутоматским слањем извештаја о прекиду рада",
       "pushNewsTitle": "Искачућа обавештења",
       "pushNewsDescription": "Искачућа обавештења за пријем најновијих локалних вести",
-      "about": "О {{appName}}",
       "privacyPolicy": "Изјава о заштити података",
       "version": "Верзија: {{version}}",
       "openSourceLicenses": "Лиценце отвореног кода",
@@ -16421,7 +15846,6 @@
       "sentryDescription": "Poboljšanje {{appName}} aplikacije automatskim slanjem izveštaja o prekidu rada",
       "pushNewsTitle": "Iskačuća obaveštenja",
       "pushNewsDescription": "Iskačuća obaveštenja za prijem najnovijih lokalnih vesti",
-      "about": "O {{appName}}",
       "privacyPolicy": "Izjava o zaštiti podataka",
       "version": "Verzija: {{version}}",
       "openSourceLicenses": "Licence otvorenog koda",
@@ -16443,7 +15867,6 @@
       "sentryDescription": "Boresha {{appName}} kwa kutuma kiotomatiki ripoti za matukio ya kuacha kufanya kazi",
       "pushNewsTitle": "Arifa za programu",
       "pushNewsDescription": "Pokea arifa za programu za habari mpya kabisa za nchini",
-      "about": "Kuhusu {{appName}}",
       "privacyPolicy": "Sera ya ulinzi wa data",
       "version": "Toleo: {{version}}",
       "openSourceLicenses": "Leseni huria",
@@ -16465,7 +15888,6 @@
       "sentryDescription": "ปรับปรุงแอป {{appName}} โดยส่งรายงานความผิดพลาดโดยอัตโนมัติ",
       "pushNewsTitle": "การแจ้งเตือนแบบพุช",
       "pushNewsDescription": "รับการแจ้งเตือนแบบพุชสำหรับข่าวท้องถิ่นล่าสุด",
-      "about": "เกี่ยวกับ {{appName}}",
       "privacyPolicy": "นโยบายความเป็นส่วนตัว",
       "version": "เวอร์ชัน: {{version}}",
       "openSourceLicenses": "ใบอนุญาตโอเพนซอร์ส",
@@ -16487,7 +15909,6 @@
       "sentryDescription": "ናይ ብልሽት/ውድቀት ጸብጻባት ብኣውቶማቲካዊ መንገዲ ብምስዳድ ንኣፕ {{appName}} ኣመሓይሾ",
       "pushNewsTitle": "ምልክታታት መልእኽቲ",
       "pushNewsDescription": "ነቲ ሓድሽ ከባብያዊ ዜና ዝኾኑ ምልክታታት መልእኽቲ ተቐበል",
-      "about": "ብዛዕባ {{appName}}",
       "privacyPolicy": "ሓለዋ ዳታ/ሓበሬታ",
       "version": "ዓይነት፥ {{version}}",
       "openSourceLicenses": "ናጻ-ዝምንጮም ፍቓዳት ስራሕ",
@@ -16509,7 +15930,6 @@
       "sentryDescription": "Hata raporlarını otomatik olarak göndererek {{appName}} uygulamasını geliştirin",
       "pushNewsTitle": "Push bildirimleri",
       "pushNewsDescription": "En son yerel haberler için Push bildirimleri alın",
-      "about": "{{appName}} hakkında",
       "privacyPolicy": "Gizlilik politikası",
       "version": "Versiyon: {{version}}",
       "openSourceLicenses": "Açık kaynak lisansları",
@@ -16531,7 +15951,6 @@
       "sentryDescription": "Поліпшіть роботу {{appName}}, автоматично надсилаючи звіти про помилки.",
       "pushNewsTitle": "Push-сповіщення",
       "pushNewsDescription": "Отримуйте push-сповіщення про останні місцеві новини",
-      "about": "Про {{appName}}",
       "privacyPolicy": "Політика конфіденційності",
       "version": "Версія: {{version}}",
       "openSourceLicenses": "Ліцензії на відкритий вихідний код",
@@ -16553,7 +15972,6 @@
       "sentryDescription": "خودبخودایپ بند ہونے کی رپورٹس بھیج کر ‎{{appName}}‎ کو بہتر بنائیں",
       "pushNewsTitle": "پش نوٹیفیکیشنز",
       "pushNewsDescription": "تازہ مقامی خبروں کے لئے پش نوٹیفیکیشنز وصول کریں",
-      "about": "‎{{appName}}‎ کے متعلق",
       "privacyPolicy": "رازاداری کی پالیسی",
       "version": "ورژن: {{version}}",
       "openSourceLicenses": "اوپن سورس لائسنس",
@@ -16575,7 +15993,6 @@
       "sentryDescription": "Cải thiện ứng dụng {{appName}} bằng cách tự động gửi báo cáo lỗi",
       "pushNewsTitle": "Thông báo đẩy",
       "pushNewsDescription": "Nhận thông báo đẩy cho biết tin tức mới nhất về địa phương",
-      "about": "Giới thiệu về {{appName}}",
       "privacyPolicy": "Chính sách bảo vệ dữ liệu",
       "version": "Phiên bản: {{version}}",
       "openSourceLicenses": "Giấy phép nguồn mở",
@@ -16597,7 +16014,6 @@
       "sentryDescription": "通过自动发送崩溃报告来改进{{appName}}应用程序",
       "pushNewsTitle": "推送通知",
       "pushNewsDescription": "获取有关最新本地新闻的推送通知",
-      "about": "关于{{appName}}",
       "privacyPolicy": "数据保护政策",
       "version": "版本：{{version}}",
       "openSourceLicenses": "开源许可证",

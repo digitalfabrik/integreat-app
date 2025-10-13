@@ -1,7 +1,7 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 
-const HighlightBox = styled.div`
-  background-color: ${props => props.theme.colors.backgroundAccentColor};
+const HighlightBox = styled('div')`
+  background-color: ${props => props.theme.legacy.colors.backgroundAccentColor};
   border-radius: 4px;
   padding: 20px;
   box-shadow:

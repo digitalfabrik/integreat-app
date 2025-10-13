@@ -1,23 +1,20 @@
+import SentimentDissatisfiedOutlinedIcon from '@mui/icons-material/SentimentDissatisfiedOutlined'
+import SentimentSatisfiedOutlinedIcon from '@mui/icons-material/SentimentSatisfiedOutlined'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { FeedbackRouteType } from 'shared/api'
+import { Rating, RATING_POSITIVE } from 'shared'
 
-import { HappySmileyIcon, SadSmileyIcon } from '../assets'
-import useCityContentParams from '../hooks/useCityContentParams'
-import { RouteType } from '../routes'
 import FeedbackContainer from './FeedbackContainer'
-import Modal from './Modal'
 import ToolbarItem from './ToolbarItem'
+import Dialog from './base/Dialog'
 
 type FeedbackToolbarItemProps = {
-  route: RouteType
   slug?: string
-  positive: boolean
+  rating: Rating | null
 }
 
-const FeedbackToolbarItem = ({ route, slug, positive }: FeedbackToolbarItemProps): ReactElement => {
-  const { cityCode, languageCode } = useCityContentParams()
+const FeedbackToolbarItem = ({ slug, rating }: FeedbackToolbarItemProps): ReactElement => {
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const { t } = useTranslation('feedback')
@@ -26,21 +23,13 @@ const FeedbackToolbarItem = ({ route, slug, positive }: FeedbackToolbarItemProps
   return (
     <>
       {isFeedbackOpen && (
-        <Modal title={title} closeModal={() => setIsFeedbackOpen(false)} wrapInPortal>
-          <FeedbackContainer
-            onClose={() => setIsFeedbackOpen(false)}
-            onSubmit={() => setIsSubmitted(true)}
-            routeType={route as FeedbackRouteType}
-            cityCode={cityCode}
-            language={languageCode}
-            slug={slug}
-            initialRating={positive}
-          />
-        </Modal>
+        <Dialog title={title} close={() => setIsFeedbackOpen(false)}>
+          <FeedbackContainer onSubmit={() => setIsSubmitted(true)} slug={slug} initialRating={rating} />
+        </Dialog>
       )}
       <ToolbarItem
-        icon={positive ? HappySmileyIcon : SadSmileyIcon}
-        text={t(positive ? 'useful' : 'notUseful')}
+        icon={rating === RATING_POSITIVE ? <SentimentSatisfiedOutlinedIcon /> : <SentimentDissatisfiedOutlinedIcon />}
+        text={t(rating === RATING_POSITIVE ? 'useful' : 'notUseful')}
         onClick={() => setIsFeedbackOpen(true)}
       />
     </>

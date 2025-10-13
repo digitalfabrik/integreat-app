@@ -72,10 +72,7 @@ const RootSwitcher = ({ setContentLanguage }: RootSwitcherProps): ReactElement =
         />
 
         {cityNotCooperating && (
-          <Route
-            path={RoutePatterns[CITY_NOT_COOPERATING_ROUTE]}
-            element={<CityNotCooperatingPage languageCode={language} />}
-          />
+          <Route path={RoutePatterns[CITY_NOT_COOPERATING_ROUTE]} element={<CityNotCooperatingPage />} />
         )}
         {jpalTracking && (
           <Route path={RoutePatterns[JPAL_TRACKING_ROUTE]} element={<JpalTrackingPage />}>

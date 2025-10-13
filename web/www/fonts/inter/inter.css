@@ -1,0 +1,33 @@
+@font-face {
+  font-family: 'Inter';
+  font-weight: 400;
+  font-style: normal;
+  src: local('Inter Regular'), local('Inter-Regular'),
+    /* Super Modern Browsers */ url('Inter-Regular.woff2') format('woff2'),
+    /* Modern Browsers */ url('Inter-Regular.woff') format('woff'),
+    /* Safari, Android, iOS */ url('Inter-Regular.ttf') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-weight: 500;
+  font-style: normal;
+  src: local('Inter Medium'), local('Inter-Medium'),
+    /* Super Modern Browsers */ url('Inter-Medium.woff2') format('woff2'),
+    /* Modern Browsers */ url('Inter-Medium.woff') format('woff'),
+    /* Safari, Android, iOS */ url('Inter-Medium.ttf') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-weight: bold;
+  font-style: normal;
+  src: local('Inter Bold'), local('Inter-Bold'),
+    /* Super Modern Browsers */ url('Inter-Bold.woff2') format('woff2'),
+    /* Modern Browsers */ url('Inter-Bold.woff') format('woff'),
+    /* Safari, Android, iOS */ url('Inter-Bold.ttf') format('truetype');
+  font-display: swap;
+}
+

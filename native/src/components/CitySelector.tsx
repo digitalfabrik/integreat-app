@@ -75,7 +75,7 @@ const CitySelector = ({ cities, navigateToDashboard }: CitySelectorProps): React
       </SearchBar>
       <View>
         <CityGroupContainer>
-          <CityGroup>{t('nearbyCities')}</CityGroup>
+          <CityGroup>{t('common:nearby')}</CityGroup>
           <NearbyCities cities={cities} navigateToDashboard={navigateToDashboard} filterText={filterText} />
         </CityGroupContainer>
         <SearchCounter accessibilityLiveRegion={resultCities.length === 0 ? 'assertive' : 'polite'}>

@@ -1,21 +1,19 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 
+import { Rating } from 'shared'
 import { createFeedbackEndpoint, FeedbackRouteType } from 'shared/api'
 
 import { cmsApiBaseUrl } from '../constants/urls'
+import useCityContentParams from '../hooks/useCityContentParams'
 import { reportError } from '../utils/sentry'
 import Feedback from './Feedback'
 
 type FeedbackContainerProps = {
-  cityCode: string
-  language: string
-  routeType: FeedbackRouteType
-  onClose?: () => void
   query?: string
   noResults?: boolean
   slug?: string
   onSubmit?: () => void
-  initialRating: boolean | null
+  initialRating: Rating | null
 }
 
 export type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
@@ -23,19 +21,16 @@ export type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
 export const FeedbackContainer = ({
   query,
   noResults,
-  language,
-  routeType,
-  cityCode,
   slug,
-  onClose,
   onSubmit,
   initialRating,
 }: FeedbackContainerProps): ReactElement => {
-  const [isPositiveRating, setIsPositiveRating] = useState<boolean | null>(initialRating)
+  const [rating, setRating] = useState<Rating | null>(initialRating)
   const [comment, setComment] = useState<string>('')
   const [contactMail, setContactMail] = useState<string>('')
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
   const [searchTerm, setSearchTerm] = useState<string | undefined>(query)
+  const { route, cityCode, languageCode } = useCityContentParams()
 
   useEffect(() => {
     setSearchTerm(query)
@@ -47,15 +42,15 @@ export const FeedbackContainer = ({
     const request = async () => {
       const feedbackEndpoint = createFeedbackEndpoint(cmsApiBaseUrl)
       await feedbackEndpoint.request({
-        routeType,
+        routeType: route as FeedbackRouteType,
         city: cityCode,
-        language,
+        language: languageCode,
         comment,
         contactMail,
         query,
         slug,
         searchTerm,
-        isPositiveRating: !noResults && isPositiveRating,
+        isPositiveRating: !noResults && rating === 'positive',
       })
 
       setSendingStatus('successful')
@@ -73,18 +68,17 @@ export const FeedbackContainer = ({
 
   return (
     <Feedback
-      language={language}
+      language={languageCode}
       onCommentChanged={setComment}
       onContactMailChanged={setContactMail}
       onSubmit={handleSubmit}
       sendingStatus={sendingStatus}
-      isPositiveFeedback={isPositiveRating}
+      rating={rating}
       comment={comment}
-      onFeedbackChanged={setIsPositiveRating}
+      setRating={setRating}
       contactMail={contactMail}
       searchTerm={searchTerm}
       setSearchTerm={setSearchTerm}
-      closeFeedback={onClose}
     />
   )
 }

@@ -90,7 +90,7 @@ const PoisBottomSheet = ({
       distance={userLocation && poi.distance(userLocation)}
     />
   ) : (
-    <Failure code={ErrorCode.PageNotFound} buttonAction={deselectAll} buttonLabel={t('detailsHeader')} />
+    <Failure code={ErrorCode.PageNotFound} buttonAction={deselectAll} buttonLabel={t('backToOverview')} />
   )
 
   const renderPoiListItem = ({ item: poi }: { item: PoiModel }): ReactElement => (
@@ -129,7 +129,7 @@ const PoisBottomSheet = ({
             renderItem={renderPoiListItem}
             onMomentumScrollBegin={event => setScrollPosition(event.nativeEvent.contentOffset.y)}
             showsVerticalScrollIndicator={false}
-            ListHeaderComponent={<Title>{t('listTitle')}</Title>}
+            ListHeaderComponent={<Title>{t('common:nearby')}</Title>}
             ListEmptyComponent={<NoItemsMessage>{t('noPois')}</NoItemsMessage>}
           />
         )}
