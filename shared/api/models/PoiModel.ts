@@ -128,12 +128,8 @@ class PoiModel extends ExtendedPageModel {
       }
 
       return currentDay.timeSlots.some(timeslot => {
-        // converts time string into numeric hours and minutes
-        const [startHour, startMinute] = timeslot.start.split(':').map(Number)
-        const [endHour, endMinute] = timeslot.end.split(':').map(Number)
-
-        const startTime = now.set({ hour: startHour, minute: startMinute, second: 0, millisecond: 0 })
-        const endTime = now.set({ hour: endHour, minute: endMinute, second: 0, millisecond: 0 })
+        const startTime = DateTime.fromFormat(timeslot.start, 'HH:mm')
+        const endTime = DateTime.fromFormat(timeslot.end, 'HH:mm')
         return Interval.fromDateTimes(startTime, endTime).contains(now)
       })
     }
