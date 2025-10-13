@@ -1,5 +1,4 @@
 import SendIcon from '@mui/icons-material/Send'
-import Alert from '@mui/material/Alert'
 import Button from '@mui/material/Button'
 import FormControl from '@mui/material/FormControl'
 import FormHelperText from '@mui/material/FormHelperText'
@@ -13,7 +12,6 @@ import { DEFAULT_ROWS_NUMBER, Rating } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
 import FeedbackButtons from './FeedbackButtons'
-import { SendingStatusType } from './FeedbackContainer'
 import PrivacyCheckbox from './PrivacyCheckbox'
 
 const OptionalHint = styled('p')`
@@ -33,7 +31,6 @@ type FeedbackProps = {
   onContactMailChanged: (contactMail: string) => void
   setRating: (rating: Rating | null) => void
   onSubmit: () => void
-  sendingStatus: SendingStatusType
   searchTerm: string | undefined
   setSearchTerm: (newTerm: string) => void
 }
@@ -43,7 +40,6 @@ const Feedback = ({
   rating,
   comment,
   contactMail,
-  sendingStatus,
   onSubmit,
   onCommentChanged,
   onContactMailChanged,
@@ -65,16 +61,6 @@ const Feedback = ({
     if (!submitFeedbackDisabled) {
       onSubmit()
     }
-  }
-
-  if (sendingStatus === 'successful') {
-    return (
-      <Stack>
-        <Alert role='alert' severity='success'>
-          {t('thanksMessage')}
-        </Alert>
-      </Stack>
-    )
   }
 
   return (
@@ -119,7 +105,6 @@ const Feedback = ({
         <PrivacyCheckbox language={language} checked={privacyPolicyAccepted} setChecked={setPrivacyPolicyAccepted} />
         {showErrors && !privacyPolicyAccepted && <FormHelperText>{t('common:notePrivacyPolicy')}</FormHelperText>}
       </PrivacyFormControl>
-      {sendingStatus === 'failed' && <Alert severity='error'>{t('failedSendingFeedback')}</Alert>}
       <Button onClick={handleSubmit} variant='contained' startIcon={<SendIcon />}>
         {t('send')}
       </Button>

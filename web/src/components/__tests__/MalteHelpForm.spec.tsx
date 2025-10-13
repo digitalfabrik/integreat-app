@@ -262,7 +262,7 @@ describe('MalteHelpForm', () => {
     expect(submitMalteHelpForm).not.toHaveBeenCalled()
   })
 
-  it('should show an error if Zammad says the email address is invalid', async () => {
+  it('should show an error helper text if Zammad says the email address is invalid', async () => {
     jest.mocked(submitMalteHelpForm).mockImplementation(() => {
       throw new InvalidEmailError()
     })
@@ -296,7 +296,7 @@ describe('MalteHelpForm', () => {
       }),
     )
 
-    await waitFor(() => expect(getByText('malteHelpForm:submitFailed')).toBeInTheDocument())
+    await waitFor(() => expect(getByText('malteHelpForm:invalidEmailAddress')).toBeInTheDocument())
   })
 
   it('should show an error if there is another error while sending to Zammad', async () => {
