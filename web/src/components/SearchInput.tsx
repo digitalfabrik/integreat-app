@@ -9,8 +9,6 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import Icon from './base/Icon'
-
 const StyledTextField = styled(TextField)`
   width: 100%;
 
@@ -61,12 +59,12 @@ const SearchInput = ({
           endAdornment: filterText ? (
             <InputAdornment position='start'>
               <IconButton onClick={() => onFilterTextChange('')} edge='end' size='small' aria-label={t('clearInput')}>
-                <Icon src={ClearIcon} />
+                <ClearIcon />
               </IconButton>
             </InputAdornment>
           ) : (
             <InputAdornment position='start'>
-              <Icon src={SearchOutlinedIcon} />
+              <SearchOutlinedIcon />
             </InputAdornment>
           ),
         },

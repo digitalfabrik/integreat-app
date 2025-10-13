@@ -7,10 +7,10 @@ import { styled } from '@mui/material/styles'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import SVG from 'react-inlinesvg'
 
 import buildConfig from '../constants/buildConfig'
 import useLocalStorage from '../hooks/useLocalStorage'
+import Svg from './base/Svg'
 
 const StyledBanner = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -22,11 +22,6 @@ const StyledBanner = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.secondary.main,
   color: theme.palette.secondary.contrastText,
 }))
-
-const Logo = styled(SVG)({
-  height: 48,
-  width: 48,
-})
 
 const MobileBanner = (): ReactElement | null => {
   const { value, updateLocalStorageItem } = useLocalStorage<string | null>({ key: 'showBanner', initialValue: null })
@@ -74,7 +69,7 @@ const MobileBanner = (): ReactElement | null => {
           <IconButton onClick={closeBanner} aria-label={t('common:close')} color='inherit'>
             <CloseIcon />
           </IconButton>
-          <Logo src={icons.appLogoMobile} />
+          <Svg src={icons.appLogoMobile} width={48} height={48} />
           <Stack>
             <Typography variant='title3'>{appName}</Typography>
             <Typography variant='body3'>Tür an Tür - Digitalfabrik gGmbH</Typography>
