@@ -24,7 +24,6 @@ import Page, { THUMBNAIL_WIDTH } from '../components/Page'
 import PageDetail from '../components/PageDetail'
 import List from '../components/base/List'
 import { cmsApiBaseUrl } from '../constants/urls'
-import usePreviousProp from '../hooks/usePreviousProp'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 import featuredImageToSrcSet from '../utils/featuredImageToSrcSet'
 
@@ -37,7 +36,6 @@ const Spacing = styled('div')<{ content: string; lastUpdate?: DateTime }>`
 `
 
 const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps): ReactElement | null => {
-  const previousPathname = usePreviousProp({ prop: pathname })
   const { eventId } = useParams()
   const { t } = useTranslation('events')
 
