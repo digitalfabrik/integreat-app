@@ -9,7 +9,6 @@ import { EVENTS_ROUTE, pathnameFromRouteInformation, useDateFilter } from 'share
 import { createEventsEndpoint, NotFoundError, useLoadFromEndpoint } from 'shared/api'
 
 import { CityRouteProps } from '../CityContentSwitcher'
-import Caption from '../components/Caption'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
 import DatesPageDetail from '../components/DatesPageDetail'
@@ -22,6 +21,7 @@ import JsonLdEvent from '../components/JsonLdEvent'
 import LoadingSpinner from '../components/LoadingSpinner'
 import Page, { THUMBNAIL_WIDTH } from '../components/Page'
 import PageDetail from '../components/PageDetail'
+import H1 from '../components/base/H1'
 import List from '../components/base/List'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useTtsPlayer from '../hooks/useTtsPlayer'
@@ -145,7 +145,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
   return (
     <CityContentLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
-      <Caption title={t('events')} />
+      <H1>{t('events')}</H1>
       <EventsDateFilter
         startDate={startDate}
         setStartDate={setStartDate}

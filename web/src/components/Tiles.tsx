@@ -4,8 +4,8 @@ import React, { ReactElement } from 'react'
 
 import { TileModel } from 'shared'
 
-import Caption from './Caption'
 import Tile from './Tile'
+import H1 from './base/H1'
 
 const Grid = styled('div')`
   display: grid;
@@ -21,13 +21,13 @@ const Grid = styled('div')`
 `
 
 type TilesProps = {
-  title: string | null
+  title: string
   tiles: TileModel[]
 }
 
 const Tiles = ({ title, tiles }: TilesProps): ReactElement => (
   <Stack paddingTop={2} alignContent='center'>
-    {!!title && <Caption title={title} />}
+    <H1>{title}</H1>
     <Grid>
       {tiles.map(tile => (
         <Tile key={tile.path} tile={tile} />
