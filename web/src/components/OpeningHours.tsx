@@ -30,8 +30,10 @@ const OpeningHoursTitle = ({ isCurrentlyOpen, label }: OpeningHoursTitleProps) =
   const { t } = useTranslation('pois')
   return (
     <Stack direction='row' justifyContent='space-between' alignItems='center' width='100%' gap={1} paddingInlineEnd={1}>
-      <Typography variant='title3'>{t('openingHours')}</Typography>
-      <Typography variant='label1' color={isCurrentlyOpen ? 'success' : 'error'}>
+      <Typography component='h2' variant='subtitle1'>
+        {t('openingHours')}
+      </Typography>
+      <Typography variant='subtitle1' color={isCurrentlyOpen ? 'success' : 'error'}>
         {t(label ?? (isCurrentlyOpen ? 'opened' : 'closed'))}
       </Typography>
     </Stack>

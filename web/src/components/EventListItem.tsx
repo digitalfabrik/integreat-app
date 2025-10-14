@@ -108,7 +108,7 @@ const EventListItem = ({
         </ListItemAvatar>
         <ListItemText
           disableTypography
-          primary={<Typography variant='title2'>{event.title}</Typography>}
+          primary={<Typography variant='subtitle1'>{event.title}</Typography>}
           secondary={
             <StyledTypography variant='body1' flexDirection='column' component='div'>
               <p>{dateToDisplay.formatEventDateInOneLine(languageCode, t)}</p>

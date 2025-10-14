@@ -26,7 +26,7 @@ type HeaderTitleProps = {
 const HeaderTitle = ({ title, landingPath }: HeaderTitleProps): ReactElement => {
   const { t } = useTranslation('layout')
   const { featureFlags } = buildConfig()
-  const variant = title.length >= LONG_TITLE_LENGTH ? 'title3' : 'title2'
+  const variant = title.length >= LONG_TITLE_LENGTH ? 'subtitle2' : 'subtitle1'
   const [tooltipOpen, setTooltipOpen] = useState(false)
 
   if (featureFlags.fixedCity !== null) {

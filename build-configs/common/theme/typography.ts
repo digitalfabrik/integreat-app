@@ -4,28 +4,6 @@ import { FontsType } from './fonts'
 export const commonTypography = (fonts: FontsType): TypographyType => ({
   fontFamily: fonts.web.contentFont,
   decorativeFontFamily: fonts.web.decorativeFont,
-  fontSize: 16,
-  display1: {
-    fontSize: 57,
-    lineHeight: '64px',
-    letterSpacing: -0.25,
-    fontWeight: 500,
-    fontFamily: fonts.web.decorativeFont,
-  },
-  display2: {
-    fontSize: 45,
-    lineHeight: '52px',
-    letterSpacing: 0,
-    fontWeight: 500,
-    fontFamily: fonts.web.decorativeFont,
-  },
-  display3: {
-    fontSize: 32,
-    lineHeight: '44px',
-    letterSpacing: 0,
-    fontWeight: 500,
-    fontFamily: fonts.web.decorativeFont,
-  },
   h1: {
     fontSize: 32,
     lineHeight: '40px',
@@ -47,47 +25,40 @@ export const commonTypography = (fonts: FontsType): TypographyType => ({
     fontWeight: 600,
     fontFamily: fonts.web.decorativeFont,
   },
-  title1: {
+  h4: {
     fontSize: 22,
     lineHeight: '28px',
     letterSpacing: 0,
-    fontWeight: 400,
-    fontFamily: fonts.web.contentFont,
+    fontWeight: 500,
+    fontFamily: fonts.web.decorativeFont,
   },
-  title2: {
+  h5: {
     fontSize: 16,
     lineHeight: '24px',
     letterSpacing: 0.15,
     fontWeight: 500,
-    fontFamily: fonts.web.contentFont,
+    fontFamily: fonts.web.decorativeFont,
   },
-  title3: {
+  h6: {
     fontSize: 14,
     lineHeight: '20px',
     letterSpacing: 0.1,
     fontWeight: 500,
-    fontFamily: fonts.web.contentFont,
+    fontFamily: fonts.web.decorativeFont,
   },
-  label1: {
+  subtitle1: {
+    fontSize: 16,
+    lineHeight: '24px',
+    letterSpacing: 0.15,
+    fontWeight: 500,
+    fontFamily: fonts.web.decorativeFont,
+  },
+  subtitle2: {
     fontSize: 14,
     lineHeight: '20px',
     letterSpacing: 0.1,
     fontWeight: 500,
-    fontFamily: fonts.web.contentFont,
-  },
-  label2: {
-    fontSize: 12,
-    lineHeight: '16px',
-    letterSpacing: 0.5,
-    fontWeight: 500,
-    fontFamily: fonts.web.contentFont,
-  },
-  label3: {
-    fontSize: 11,
-    lineHeight: '16px',
-    letterSpacing: 0.5,
-    fontWeight: 500,
-    fontFamily: fonts.web.contentFont,
+    fontFamily: fonts.web.decorativeFont,
   },
   body1: {
     fontSize: 16,
@@ -110,27 +81,6 @@ export const commonTypography = (fonts: FontsType): TypographyType => ({
     fontWeight: 400,
     fontFamily: fonts.web.contentFont,
   },
-  chip1: {
-    fontSize: 14,
-    lineHeight: '20px',
-    letterSpacing: 0,
-    fontWeight: 400,
-    fontFamily: fonts.web.contentFont,
-  },
-  chip2: {
-    fontSize: 12,
-    lineHeight: '20px',
-    letterSpacing: 0,
-    fontWeight: 400,
-    fontFamily: fonts.web.contentFont,
-  },
-  chip3: {
-    fontSize: 10,
-    lineHeight: '20px',
-    letterSpacing: 0,
-    fontWeight: 400,
-    fontFamily: fonts.web.contentFont,
-  },
   button: {
     fontSize: 14,
     lineHeight: '36px',
@@ -139,11 +89,10 @@ export const commonTypography = (fonts: FontsType): TypographyType => ({
     textTransform: 'capitalize',
     fontFamily: fonts.web.contentFont,
   },
-  textLink: {
-    fontSize: 12,
-    lineHeight: '16px',
-    letterSpacing: 0,
-    fontWeight: 400,
+  caption: {
+    fontFamily: fonts.web.contentFont,
+  },
+  overline: {
     fontFamily: fonts.web.contentFont,
   },
 })

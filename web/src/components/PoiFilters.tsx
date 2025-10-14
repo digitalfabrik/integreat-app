@@ -50,9 +50,7 @@ const PoiFilters = ({
     <Dialog title={t('adjustFilters')} close={close}>
       <Stack gap={3}>
         <Stack width='100%' gap={1}>
-          <Typography component='h3' variant='title3'>
-            {t('openingHours')}
-          </Typography>
+          <Typography variant='h5'>{t('openingHours')}</Typography>
           <Stack direction='row' alignItems='center' gap={1}>
             <AccessTimeIcon />
             <Checkbox
@@ -64,10 +62,8 @@ const PoiFilters = ({
         </Stack>
         <Stack width='100%' gap={2}>
           <Stack direction='row' alignItems='center' gap={1}>
-            <Typography component='h3' variant='title3'>
-              {t('poiCategories')}
-            </Typography>
-            <Typography variant='label3'>{t('alphabetLetters')}</Typography>
+            <Typography variant='h5'>{t('poiCategories')}</Typography>
+            <Typography variant='subtitle2'>{t('alphabetLetters')}</Typography>
           </Stack>
           <TileRow exclusive value={selectedPoiCategory?.id} onChange={handleFilterChange}>
             {poiCategories.map(it => (

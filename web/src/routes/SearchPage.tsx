@@ -53,7 +53,7 @@ const SearchResults = ({ query, loading, results }: SearchProps): ReactElement |
 
   return (
     <>
-      <Typography variant='label1' aria-live={results.length === 0 ? 'assertive' : 'polite'}>
+      <Typography variant='subtitle2' aria-live={results.length === 0 ? 'assertive' : 'polite'}>
         {t('searchResultsCount', { count: results.length })}
       </Typography>
       <List items={items} />
