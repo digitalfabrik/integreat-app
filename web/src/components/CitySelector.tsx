@@ -42,9 +42,7 @@ const CitySelector = ({ cities, language, stickyTop }: CitySelectorProps): React
 
   return (
     <Stack maxWidth={640} paddingTop={4} gap={2}>
-      <Typography variant='display3' component='h1'>
-        {t('welcome', { appName: buildConfig().appName })}
-      </Typography>
+      <Typography variant='h1'>{t('welcome', { appName: buildConfig().appName })}</Typography>
       <Typography variant='body1'>{t('welcomeInformation')}</Typography>
       <SearchInput
         filterText={filterText}
@@ -53,7 +51,7 @@ const CitySelector = ({ cities, language, stickyTop }: CitySelectorProps): React
         description={t('searchCityDescription')}
       />
       <Stack>
-        <Typography variant='label1' aria-live={resultCities.length === 0 ? 'assertive' : 'polite'}>
+        <Typography variant='subtitle1' aria-live={resultCities.length === 0 ? 'assertive' : 'polite'}>
           {t('search:searchResultsCount', { count: resultCities.length })}
         </Typography>
         <List items={groups} NoItemsMessage='search:nothingFound' />

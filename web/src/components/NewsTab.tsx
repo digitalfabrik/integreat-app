@@ -47,7 +47,7 @@ const NewsTab = ({ type, active, destination }: NewsTabProps): ReactElement => {
 
   return (
     <StyledTab tabSelected={active} to={destination} aria-label={t('local')}>
-      <Typography variant='title2'>{t('local').toUpperCase()}</Typography>
+      <Typography variant='subtitle1'>{t('local').toUpperCase()}</Typography>
     </StyledTab>
   )
 }

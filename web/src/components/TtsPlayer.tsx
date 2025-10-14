@@ -65,7 +65,7 @@ const HeaderText = styled(Typography)`
   overflow: hidden;
   align-self: center;
   max-width: 100%;
-`
+` as typeof Typography
 
 const CloseIconButton = styled(IconButton)`
   top: 0;
@@ -102,7 +102,9 @@ const TtsPlayer = ({
       <CloseIconButton onClick={close} aria-label={t('common:close')}>
         <CloseIcon />
       </CloseIconButton>
-      <HeaderText variant='title1'>{title}</HeaderText>
+      <HeaderText component='span' variant='h4'>
+        {title}
+      </HeaderText>
       {/* Sound player panel shouldn't be rotated in rtl */}
       <StyledPanel dir='ltr'>
         <StyledIconButton aria-label={t('previous')} onClick={playPrevious} size='small'>

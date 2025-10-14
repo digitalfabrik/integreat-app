@@ -52,13 +52,7 @@ const CategoryListItem = ({ category, subCategories }: CategoryListItemProps): R
             <StyledImage src={category.thumbnail} alt='' />
           </ListItemIcon>
         )}
-        <ListItemText
-          primary={
-            <Typography fontWeight='bold' variant='title2'>
-              {category.title}
-            </Typography>
-          }
-        />
+        <ListItemText primary={<Typography variant='subtitle1'>{category.title}</Typography>} />
       </ListItemButton>
       {SubCategories.length > 0 && (
         <>

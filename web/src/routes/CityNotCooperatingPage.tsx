@@ -59,14 +59,12 @@ const CityNotCooperatingPage = ({ languageCode }: CityNotCooperatingPageProps): 
   return (
     <Layout header={<GeneralHeader languageCode={languageCode} />} footer={<Footer />}>
       <Stack paddingBlock={4} gap={2}>
-        <Typography component='h1' variant='title1' textAlign='center'>
+        <Typography variant='h1' textAlign='center'>
           {t('callToAction')}
         </Typography>
         <Typography variant='body1'>{t('explanation')}</Typography>
         <StyledSvg src={cityNotCooperatingIcon} width={160} height={160} />
-        <Typography component='h2' variant='title2'>
-          {t('whatToDo')}
-        </Typography>
+        <Typography variant='subtitle1'>{t('whatToDo')}</Typography>
         <Stepper orientation='vertical'>
           <Step active>
             <StepLabel>

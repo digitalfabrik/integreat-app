@@ -9,27 +9,7 @@ import { Dimensions } from '../hooks/useDimensions'
 // docs: https://mui.com/material-ui/customization/typography/#adding-amp-disabling-variants
 declare module '@mui/material/Typography' {
   interface TypographyPropsVariantOverrides {
-    display1: true
-    display2: true
-    display3: true
-    title1: true
-    title2: true
-    title3: true
     body3: true
-    label1: true
-    label2: true
-    label3: true
-    chip1: true
-    chip2: true
-    chip3: true
-    textLink: true
-    h4: false
-    h5: false
-    h6: false
-    subtitle1: false
-    subtitle2: false
-    caption: false
-    overline: false
   }
 }
 
