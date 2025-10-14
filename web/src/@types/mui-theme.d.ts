@@ -3,8 +3,6 @@
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
 import { PaletteColor, Palette, PaletteOptions, TypeBackground } from '@mui/material/styles'
 
-import { LegacyThemeType } from 'build-configs'
-
 import { Dimensions } from '../hooks/useDimensions'
 
 // Enable and disable typography variants according to our design system
@@ -37,7 +35,6 @@ declare module '@mui/material/Typography' {
 
 declare module '@mui/material/styles' {
   interface Theme {
-    legacy: LegacyThemeType
     contentDirection: UiDirectionType
     isContrastTheme: boolean
     toggleTheme: () => void
@@ -45,7 +42,6 @@ declare module '@mui/material/styles' {
   }
 
   interface ThemeOptions {
-    legacy: LegacyThemeType
     contentDirection: UiDirectionType
     isContrastTheme: boolean
   }
