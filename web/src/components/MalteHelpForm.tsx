@@ -67,7 +67,8 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
     if (
       !name.length ||
       (contactChannel === 'email' && !email.length) ||
-      (contactChannel === 'telephone' && !telephone.length)
+      (contactChannel === 'telephone' && !telephone.length) ||
+      !privacyPolicyAccepted
     ) {
       return
     }
