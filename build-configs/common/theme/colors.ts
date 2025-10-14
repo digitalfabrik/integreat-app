@@ -14,15 +14,11 @@ const commonColors: CommonColors = {
     contrastText: '#E6E0E9',
   },
   warning: {
-    // TODO
     main: '#FFA726',
   },
   success: {
-    // TODO
     main: '#188038',
   },
-  // TODO
-  // info: {},
   tunews: {
     main: '#0079A6',
     light: '#99CADC',
@@ -47,7 +43,6 @@ export const commonLightColors: CommonColorPalette = {
   },
   text: {
     primary: '#1D1B20',
-    // TODO
     secondary: '#585858',
     disabled: '#858585',
   },
@@ -68,13 +63,12 @@ export const commonDarkColors: CommonColorPalette = {
     contrastText: '#E6E0E9',
   },
   background: {
-    default: '#333D51',
-    paper: '#333D51',
-    accent: '#20293A',
+    default: '#20293A',
+    paper: '#020202',
+    accent: '#333D51',
   },
   text: {
     primary: '#E6E0E9',
-    // TODO
     secondary: '#E6E0E9',
     disabled: '#858585',
   },
