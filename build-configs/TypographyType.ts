@@ -28,6 +28,7 @@ type TypographyVariant =
   | 'overline'
 type FontStyle = {
   fontFamily: React.CSSProperties['fontFamily']
+  decorativeFontFamily: React.CSSProperties['fontFamily']
   fontSize: number
   fontWeightLight: React.CSSProperties['fontWeight']
   fontWeightRegular: React.CSSProperties['fontWeight']

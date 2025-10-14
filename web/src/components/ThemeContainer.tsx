@@ -42,7 +42,6 @@ const createTheme = (
 
   return responsiveFontSizes(
     createMuiTheme({
-      legacy: isContrast ? buildConfig().legacyContrastTheme : buildConfig().legacyLightTheme,
       contentDirection,
       isContrastTheme: isContrast,
       breakpoints: {
