@@ -63,9 +63,9 @@ export const commonDarkColors: CommonColorPalette = {
     contrastText: '#E6E0E9',
   },
   background: {
-    default: '#20293A',
+    default: '#020202',
     paper: '#020202',
-    accent: '#333D51',
+    accent: '#20293A',
   },
   text: {
     primary: '#E6E0E9',
