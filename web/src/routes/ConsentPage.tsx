@@ -4,11 +4,11 @@ import { useTranslation } from 'react-i18next'
 
 import { ExternalSourcePermissions } from 'shared'
 
-import Caption from '../components/Caption'
 import ConsentListItem from '../components/ConsentListItem'
 import Footer from '../components/Footer'
 import GeneralHeader from '../components/GeneralHeader'
 import Layout from '../components/Layout'
+import H1 from '../components/base/H1'
 import List from '../components/base/List'
 import buildConfig from '../constants/buildConfig'
 import useLocalStorage from '../hooks/useLocalStorage'
@@ -43,8 +43,7 @@ const ConsentPage = ({ languageCode }: ConsentPageProps): ReactElement => {
 
   return (
     <Layout header={<GeneralHeader languageCode={languageCode} />} footer={<Footer />}>
-      <Caption title={t('title')} />
-      <Description>{t('description')}</Description>
+      <H1>{t('title')}</H1>&<Description>{t('description')}</Description>
       <List items={items} NoItemsMessage={t('noSources')} />
     </Layout>
   )

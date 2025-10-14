@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next'
 import Footer from '../components/Footer'
 import GeneralHeader from '../components/GeneralHeader'
 import Layout from '../components/Layout'
+import H1 from '../components/base/H1'
 import Svg from '../components/base/Svg'
 import buildConfig from '../constants/buildConfig'
 import useScrollToTopOnMount from '../hooks/useScrollToTopOnMount'
@@ -59,9 +60,7 @@ const CityNotCooperatingPage = ({ languageCode }: CityNotCooperatingPageProps): 
   return (
     <Layout header={<GeneralHeader languageCode={languageCode} />} footer={<Footer />}>
       <Stack paddingBlock={4} gap={2}>
-        <Typography variant='h1' textAlign='center'>
-          {t('callToAction')}
-        </Typography>
+        <H1>{t('callToAction')}</H1>
         <Typography variant='body1'>{t('explanation')}</Typography>
         <StyledSvg src={cityNotCooperatingIcon} width={160} height={160} />
         <Typography variant='subtitle1'>{t('whatToDo')}</Typography>

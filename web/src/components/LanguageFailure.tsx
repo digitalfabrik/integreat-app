@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next'
 
 import { CityModel } from 'shared/api'
 
-import Caption from './Caption'
 import LanguageSelector from './LanguageSelector'
+import H1 from './base/H1'
 
 const ChooseLanguage = styled('p')`
   margin: 25px 0;
@@ -22,7 +22,7 @@ const LanguageFailure = ({ cityModel, languageCode, languageChangePaths }: Langu
   const { t } = useTranslation('error')
   return (
     <>
-      <Caption title={cityModel.name} />
+      <H1>{cityModel.name}</H1>
       <ChooseLanguage>{t('notFound.language')}</ChooseLanguage>
       <LanguageSelector languageCode={languageCode} languageChangePaths={languageChangePaths} vertical availableOnly />
     </>

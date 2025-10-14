@@ -10,6 +10,7 @@ import buildConfig from '../constants/buildConfig'
 import CityListGroup from './CityListGroup'
 import NearbyCities from './NearbyCities'
 import SearchInput from './SearchInput'
+import H1 from './base/H1'
 import List from './base/List'
 
 export const CITY_SEARCH_PLACEHOLDER = 'München'
@@ -42,7 +43,7 @@ const CitySelector = ({ cities, language, stickyTop }: CitySelectorProps): React
 
   return (
     <Stack maxWidth={640} paddingTop={4} gap={2}>
-      <Typography variant='h1'>{t('welcome', { appName: buildConfig().appName })}</Typography>
+      <H1>{t('welcome', { appName: buildConfig().appName })}</H1>
       <Typography variant='body1'>{t('welcomeInformation')}</Typography>
       <SearchInput
         filterText={filterText}
