@@ -83,7 +83,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     Toolbar: <CityContentToolbar slug={event?.slug} />,
   }
 
-  if (loading || pathname !== previousPathname) {
+  if (!events && loading) {
     return (
       <CityContentLayout isLoading {...locationLayoutParams}>
         <LoadingSpinner />
