@@ -337,4 +337,28 @@ describe('MalteHelpForm', () => {
 
     await waitFor(() => expect(getByText('malteHelpForm:submitFailedReasoning')).toBeInTheDocument())
   })
+
+  it('should show an error if privacy policy is not accepted and prevent submission', async () => {
+    const { getByLabelText, getByText, queryByText, getAllByLabelText } = renderWithRouterAndTheme(
+      <MalteHelpForm {...props} />,
+    )
+
+    const submitButton = getByText(submitButtonLabel)
+
+    const nameInput = getByLabelText(nameInputLabel, { exact: false })
+    fireEvent.change(nameInput, { target: { value: name } })
+
+    const emailInput = getAllByLabelText(emailInputLabel, { exact: false })[1]!
+    fireEvent.change(emailInput, { target: { value: email } })
+
+    const messageInput = getByLabelText(messageInputLabel, { exact: false })
+    fireEvent.change(messageInput, { target: { value: message } })
+
+    fireEvent.click(submitButton)
+    await waitFor(() => {
+      expect(queryByText('malteHelpForm:common:notePrivacyPolicy')).toBeInTheDocument()
+    })
+
+    expect(submitMalteHelpForm).not.toHaveBeenCalled()
+  })
 })
