@@ -59,7 +59,7 @@ describe('TtsContainer', () => {
 
   const renderTtsPlayer = (languageCode = 'en') =>
     renderWithTheme(
-      <MemoryRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+      <MemoryRouter>
         <TtsContainer languageCode={languageCode}>
           <TestChild />
         </TtsContainer>

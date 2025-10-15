@@ -2,7 +2,7 @@ import 'core-js/actual/array/at'
 import { Settings as LuxonSettings } from 'luxon'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { BrowserRouter as Router } from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router'
 
 import { setJpalTrackingCode } from 'shared/api'
 import { UiDirectionType, config } from 'translations'
@@ -36,7 +36,7 @@ const App = (): ReactElement => {
       <I18nProvider contentLanguage={contentLanguage}>
         <>
           <Helmet pageTitle={t('pageTitle')} rootPage />
-          <Router future={{ v7_relativeSplatPath: true, v7_startTransition: true }}>
+          <Router>
             <TtsContainer languageCode={contentLanguage}>
               <RootSwitcher setContentLanguage={setContentLanguage} />
             </TtsContainer>
