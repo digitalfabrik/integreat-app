@@ -1,6 +1,6 @@
 import { styled } from '@mui/material/styles'
 
-import { ExternalLinkIcon, PersonIcon } from '../assets'
+import { ExternalLinkIcon, PersonIcon, PersonLightIcon } from '../assets'
 
 const RemoteContentSandBox = styled('div')<{ centered: boolean; smallText: boolean }>`
   font-family: ${props => props.theme.typography.fontFamily};
@@ -148,7 +148,8 @@ const RemoteContentSandBox = styled('div')<{ centered: boolean; smallText: boole
     background-color: ${props =>
       props.theme.isContrastTheme ? `${props.theme.palette.text.primary}10` : 'rgb(127 127 127 / 15%)'};
     background-image:
-      linear-gradient(to right, ${props => props.theme.palette.background.default}F0 0 100%), url(${PersonIcon});
+      linear-gradient(to right, ${props => props.theme.palette.background.default}F0 0 100%),
+      url(${props => (props.theme.isContrastTheme ? PersonLightIcon : PersonIcon)});
     background-blend-mode: difference;
     background-position:
       calc(100% + 32px) 100%,
@@ -170,6 +171,7 @@ const RemoteContentSandBox = styled('div')<{ centered: boolean; smallText: boole
     img {
       color: ${props => props.theme.palette.text.primary};
       margin-inline-end: 8px;
+      filter: none;
     }
 
     ${props => props.theme.breakpoints.down('md')} {

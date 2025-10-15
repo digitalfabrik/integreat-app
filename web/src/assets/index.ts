@@ -5,6 +5,7 @@ import EventThumbnailPlaceholder3 from '../../../assets/event-thumbnail-placehol
 import BookIcon from '../../../assets/icons/book.svg'
 import CalendarTodayRecurringIcon from '../../../assets/icons/calendar-today-recurring.svg'
 import ExternalLinkIcon from '../../../assets/icons/external-link.svg'
+import PersonLightIcon from '../../../assets/icons/person-light.svg'
 import PersonIcon from '../../../assets/icons/person.svg'
 import ReadAloudIcon from '../../../assets/icons/readAloud.svg'
 import SprungbrettIcon from '../../../assets/icons/sprungbrett.svg'
@@ -19,6 +20,7 @@ export {
   EventThumbnailPlaceholder3,
   ExternalLinkIcon,
   PersonIcon,
+  PersonLightIcon,
   ReadAloudIcon,
   SprungbrettIcon,
   TuNewsActiveIcon,
