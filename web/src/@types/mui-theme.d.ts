@@ -74,6 +74,10 @@ declare module '@mui/material/Button' {
   interface ButtonPropsColorOverrides {
     tertiary: true
   }
+
+  interface ButtonOwnProps {
+    onMouseDown?: (event: React.MouseEvent<HTMLElement>) => void
+  }
 }
 
 declare module '@mui/material/ToggleButton' {
