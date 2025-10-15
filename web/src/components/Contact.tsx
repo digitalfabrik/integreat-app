@@ -24,7 +24,9 @@ const Contact = ({ contact }: ContactProps): ReactElement => {
   return (
     <ListItem disablePadding>
       <Stack gap={1}>
-        <Typography variant='h6'>{headline ?? t('contactInformation')}</Typography>
+        <Typography component='h3' variant='subtitle2'>
+          {headline ?? t('contactInformation')}
+        </Typography>
         {!!website && (
           <ContactDetail Icon={PublicOutlinedIcon} link={website} content={t('website')} IconEnd={OpenInNewIcon} />
         )}
