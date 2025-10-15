@@ -22,11 +22,9 @@ import NewsTabs from '../components/NewsTabs'
 import Page from '../components/Page'
 import List from '../components/base/List'
 import { cmsApiBaseUrl } from '../constants/urls'
-import usePreviousProp from '../hooks/usePreviousProp'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 
 const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps): ReactElement | null => {
-  const previousPathname = usePreviousProp({ prop: pathname })
   const { newsId } = useParams()
   const { t } = useTranslation('news')
 
@@ -70,7 +68,7 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
     Toolbar: <CityContentToolbar />,
   }
 
-  if (loading || previousPathname !== pathname) {
+  if (!localNews && loading) {
     return (
       <CityContentLayout isLoading {...locationLayoutParams}>
         <NewsTabs
