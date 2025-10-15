@@ -14,19 +14,17 @@ export const RichLayout = styled('div')`
   min-height: 100vh;
   flex-direction: column;
   justify-content: space-between;
-  color: ${props => props.theme.legacy.colors.textColor};
-  font-family: ${props => props.theme.legacy.fonts.web.decorativeFont};
-  font-size-adjust: ${props => props.theme.legacy.fonts.fontSizeAdjust};
-  background-color: ${props => props.theme.legacy.colors.backgroundColor};
-  line-height: ${props => props.theme.legacy.fonts.decorativeLineHeight};
+  color: ${props => props.theme.palette.text.primary};
+  background-color: ${props => props.theme.palette.background.default};
+  font-family: ${props => props.theme.typography.fontFamily};
 
   & a,
   button {
-    &:focus-visible {
-      outline: 2px solid ${props => props.theme.legacy.colors.textSecondaryColor};
-    }
-
     cursor: pointer;
+
+    &:focus-visible {
+      outline: 2px solid ${props => props.theme.palette.text.primary};
+    }
   }
 `
 
@@ -35,7 +33,7 @@ const Body = styled('div')<{ fitScreen: boolean }>`
   box-sizing: border-box;
   margin: 0 auto;
   flex-grow: 1;
-  background-color: ${props => props.theme.legacy.colors.backgroundColor};
+  background-color: ${props => props.theme.palette.background.default};
   word-wrap: break-word;
   min-height: 100%;
   display: flex;

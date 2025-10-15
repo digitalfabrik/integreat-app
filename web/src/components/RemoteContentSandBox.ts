@@ -1,12 +1,10 @@
 import { styled } from '@mui/material/styles'
 
-import { ExternalLinkIcon, PersonIcon } from '../assets'
-import { helpers } from '../constants/theme'
+import { ExternalLinkIcon, PersonIcon, PersonLightIcon } from '../assets'
 
 const RemoteContentSandBox = styled('div')<{ centered: boolean; smallText: boolean }>`
-  font-family: ${props => props.theme.legacy.fonts.web.contentFont};
-  font-size: ${props => (props.smallText ? helpers.adaptiveFontSize : props.theme.legacy.fonts.contentFontSize)};
-  line-height: ${props => props.theme.legacy.fonts.contentLineHeight};
+  font-family: ${props => props.theme.typography.fontFamily};
+  font-size: ${props => props.theme.typography.fontSize}px;
   display: flow-root; /* clearfix for the img floats */
 
   ${props => (props.centered ? 'text-align: center;' : '')}
@@ -41,7 +39,6 @@ const RemoteContentSandBox = styled('div')<{ centered: boolean; smallText: boole
   }
 
   figcaption {
-    font-size: ${props => props.theme.legacy.fonts.hintFontSize};
     font-style: italic;
     padding: 0 15px;
   }
@@ -65,12 +62,12 @@ const RemoteContentSandBox = styled('div')<{ centered: boolean; smallText: boole
   thead,
   th,
   td {
-    border: 1px solid ${props => props.theme.legacy.colors.backgroundAccentColor};
+    border: 1px solid ${props => props.theme.palette.background.accent};
   }
 
   a {
     overflow-wrap: break-word;
-    color: ${props => props.theme.legacy.colors.linkColor};
+    color: ${props => props.theme.palette.primary.main};
   }
 
   details > * {
@@ -93,11 +90,9 @@ const RemoteContentSandBox = styled('div')<{ centered: boolean; smallText: boole
     content: '';
     display: inline-block;
     background-image: url('${ExternalLinkIcon}');
-    width: ${props => props.theme.legacy.fonts.contentFontSize};
-    height: ${props => props.theme.legacy.fonts.contentFontSize};
-    ${props => props.smallText && helpers.adaptiveHeight}
-    ${props => props.smallText && helpers.adaptiveWidth}
-    color: ${props => props.theme.legacy.colors.linkColor};
+    width: 16px;
+    height: 16px;
+    color: ${props => props.theme.palette.primary.main};
     background-size: contain;
     background-repeat: no-repeat;
     vertical-align: middle;
@@ -106,7 +101,7 @@ const RemoteContentSandBox = styled('div')<{ centered: boolean; smallText: boole
 
   iframe {
     border: none;
-    border-bottom: 1px solid ${props => props.theme.legacy.colors.borderColor};
+    border-bottom: 1px solid ${props => props.theme.palette.divider};
 
     ${props => props.theme.breakpoints.down('md')} {
       max-width: 100%;
@@ -117,7 +112,7 @@ const RemoteContentSandBox = styled('div')<{ centered: boolean; smallText: boole
     display: flex;
     padding: 4px;
     flex-direction: column;
-    border: 1px solid ${props => props.theme.legacy.colors.borderColor};
+    border: 1px solid ${props => props.theme.palette.divider};
     border-radius: 4px;
     box-shadow:
       0 1px 3px rgb(0 0 0 / 10%),
@@ -128,7 +123,6 @@ const RemoteContentSandBox = styled('div')<{ centered: boolean; smallText: boole
     display: flex;
     padding: 12px;
     justify-content: space-between;
-    font-size: ${props => props.theme.legacy.fonts.decorativeFontSizeSmall};
   }
 
   .iframe-info-text > input {
@@ -152,9 +146,10 @@ const RemoteContentSandBox = styled('div')<{ centered: boolean; smallText: boole
     border-radius: 4px;
     background-repeat: no-repeat;
     background-color: ${props =>
-      props.theme.isContrastTheme ? `${props.theme.legacy.colors.textColor}10` : 'rgb(127 127 127 / 15%)'};
+      props.theme.isContrastTheme ? `${props.theme.palette.text.primary}10` : 'rgb(127 127 127 / 15%)'};
     background-image:
-      linear-gradient(to right, ${props => props.theme.legacy.colors.backgroundColor}F0 0 100%), url(${PersonIcon});
+      linear-gradient(to right, ${props => props.theme.palette.background.default}F0 0 100%),
+      url(${props => (props.theme.isContrastTheme ? PersonLightIcon : PersonIcon)});
     background-blend-mode: difference;
     background-position:
       calc(100% + 32px) 100%,
@@ -174,8 +169,9 @@ const RemoteContentSandBox = styled('div')<{ centered: boolean; smallText: boole
     }
 
     img {
-      color: ${props => props.theme.legacy.colors.textColor};
+      color: ${props => props.theme.palette.text.primary};
       margin-inline-end: 8px;
+      filter: none;
     }
 
     ${props => props.theme.breakpoints.down('md')} {

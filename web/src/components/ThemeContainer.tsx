@@ -1,6 +1,7 @@
 import createCache from '@emotion/cache'
 import { CacheProvider, Global } from '@emotion/react'
-import { createTheme as createMuiTheme, Theme, ThemeProvider } from '@mui/material/styles'
+import { chipClasses } from '@mui/material/Chip'
+import { createTheme as createMuiTheme, responsiveFontSizes, Theme, ThemeProvider } from '@mui/material/styles'
 import rtlPlugin from '@mui/stylis-plugin-rtl'
 import React, { ReactElement, ReactNode, useMemo } from 'react'
 import { prefixer } from 'stylis'
@@ -39,74 +40,89 @@ const createTheme = (
   const isContrast = themeType === 'contrast'
   const theme = isContrast ? buildConfig().darkTheme : buildConfig().lightTheme
 
-  return createMuiTheme({
-    legacy: isContrast ? buildConfig().legacyContrastTheme : buildConfig().legacyLightTheme,
-    contentDirection,
-    isContrastTheme: isContrast,
-    breakpoints: {
-      values: BREAKPOINTS,
-    },
-    direction: contentDirection,
-    shadows: muiShadowCreator(themeType),
-    typography: buildConfig().typography,
-    palette: theme.palette,
-    components: {
-      MuiTypography: {
-        defaultProps: {
-          dir: 'auto',
-        },
+  return responsiveFontSizes(
+    createMuiTheme({
+      contentDirection,
+      isContrastTheme: isContrast,
+      breakpoints: {
+        values: BREAKPOINTS,
       },
-      MuiAccordion: {
-        styleOverrides: {
-          root: {
-            background: 'transparent',
+      direction: contentDirection,
+      shadows: muiShadowCreator(themeType),
+      typography: buildConfig().typography,
+      palette: theme.palette,
+      components: {
+        MuiTypography: {
+          defaultProps: {
+            dir: 'auto',
           },
         },
-      },
-      MuiAccordionSummary: {
-        defaultProps: {
-          disableRipple: false,
-        },
-      },
-      MuiChip: {
-        styleOverrides: {
-          filled: {
-            backgroundColor: theme.palette.surface.main,
-          },
-        },
-      },
-      MuiMenu: {
-        styleOverrides: {
-          paper: {
-            borderRadius: 16,
-          },
-        },
-      },
-      MuiTooltip: {
-        defaultProps: {
-          arrow: true,
-          slotProps: {
-            tooltip: {
-              dir: 'auto',
+        MuiListSubheader: {
+          styleOverrides: {
+            root: {
+              background: 'transparent',
             },
           },
         },
-        styleOverrides: {
-          popper: {
-            padding: '8px',
+        MuiAccordion: {
+          styleOverrides: {
+            root: {
+              background: 'transparent',
+            },
           },
-          arrow: {
-            color: theme.palette.primary.main,
+        },
+        MuiAccordionSummary: {
+          defaultProps: {
+            disableRipple: false,
           },
-          tooltip: {
-            backgroundColor: theme.palette.primary.main,
-            fontSize: buildConfig().typography.label1?.fontSize,
-            padding: '8px 16px',
+        },
+        MuiChip: {
+          styleOverrides: {
+            filled: {
+              backgroundColor: theme.palette.background.accent,
+
+              [`&.${chipClasses.clickable}`]: {
+                ':hover': {
+                  backgroundColor: theme.palette.background.default,
+                },
+              },
+            },
+          },
+        },
+        MuiMenu: {
+          styleOverrides: {
+            paper: {
+              borderRadius: 16,
+            },
+          },
+        },
+        MuiTooltip: {
+          defaultProps: {
+            arrow: true,
+            slotProps: {
+              tooltip: {
+                dir: 'auto',
+              },
+            },
+          },
+          styleOverrides: {
+            popper: {
+              padding: '8px',
+            },
+            arrow: {
+              color: theme.palette.primary.main,
+            },
+            tooltip: {
+              backgroundColor: theme.palette.primary.main,
+              fontSize: buildConfig().typography.label1?.fontSize,
+              padding: '8px 16px',
+            },
           },
         },
       },
-    },
-  })
+    }),
+    { disableAlign: true },
+  )
 }
 
 type ThemeContainerProps = {
@@ -128,7 +144,7 @@ const ThemeContainer = ({ children, contentDirection }: ThemeContainerProps): Re
     }
 
     const theme = createTheme(themeType, contentDirection)
-    document.body.style.backgroundColor = theme.legacy.colors.backgroundAccentColor
+    document.body.style.backgroundColor = theme.palette.background.accent
     return { ...theme, toggleTheme }
   }, [themeType, setThemeType, contentDirection])
 

@@ -15,8 +15,7 @@ const FooterContainer = styled('footer')`
   justify-content: center;
   align-items: center;
   gap: ${props => props.theme.spacing(2)};
-  background-color: ${props =>
-    props.theme.isContrastTheme ? props.theme.palette.tertiary.dark : props.theme.palette.tertiary.light};
+  background-color: ${props => props.theme.palette.background.accent};
   padding: 8px;
 `
 
@@ -40,6 +39,7 @@ const Footer = (): ReactElement | null => {
         items={linkItems.map(item => (
           <FooterLink key={item.to} to={item.to} text={item.text} />
         ))}
+        disablePadding
       />
       {buildConfig().featureFlags.developerFriendly && (
         <Typography variant='body2'>

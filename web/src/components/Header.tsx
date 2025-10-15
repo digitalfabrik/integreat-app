@@ -12,6 +12,10 @@ import HeaderTitle from './HeaderTitle'
 
 const HEADER_HEIGHT = 80
 
+const StyledPaper = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.isContrastTheme ? theme.palette.background.accent : undefined,
+}))
+
 const HeaderContainer = styled('header')`
   user-select: none;
   flex-direction: column;
@@ -74,7 +78,7 @@ export const Header = ({
 
   return (
     <Headroom scrollHeight={HEADER_HEIGHT} height={height} zIndex={2} onStickyTopChanged={onStickyTopChanged}>
-      <Paper>
+      <StyledPaper>
         <HeaderContainer ref={ref}>
           <Row>
             <Stack direction='row-reverse'>
@@ -85,7 +89,7 @@ export const Header = ({
           </Row>
           {TabBar}
         </HeaderContainer>
-      </Paper>
+      </StyledPaper>
     </Headroom>
   )
 }

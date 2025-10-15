@@ -36,10 +36,10 @@
 
     <meta name="mobile-web-app-capable" content="yes">
 
-    <meta name="theme-color" content="<%= config.legacyLightTheme.colors.themeColor %>">
-    <meta name="msapplication-navbutton-color" content="<%= config.legacyLightTheme.colors.themeColor %>">
+    <meta name="theme-color" content="<%= config.lightTheme.palette.secondary.main %>">
+    <meta name="msapplication-navbutton-color" content="<%= config.lightTheme.palette.secondary.main %>">
     <meta name="msapplication-starturl" content="/">
-    <meta name="msapplication-TileColor" content="<%= config.legacyLightTheme.colors.themeColor %>">
+    <meta name="msapplication-TileColor" content="<%= config.lightTheme.palette.secondary.main %>">
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -86,7 +86,7 @@
           crossorigin />
     <link href='/fonts/inter/inter.css' rel='stylesheet' />
 
-    <% if (config.legacyLightTheme.fonts.web.decorativeFont.includes('Raleway')) { %>
+    <% if (config.typography.decorativeFontFamily.includes('Raleway')) { %>
         <!-- Raleway -->
         <link rel="preload" href="/fonts/raleway/raleway-v12-latin_latin-ext-700.woff2" as="font" type="font/woff2"
               crossorigin />
@@ -95,7 +95,7 @@
         <link href='/fonts/raleway/raleway.css' rel='stylesheet' />
     <% } %>
 
-    <% if (config.legacyLightTheme.fonts.web.decorativeFont.includes('Varela Round')) { %>
+    <% if (config.typography.decorativeFontFamily.includes('Varela Round')) { %>
         <!-- Varela Round -->
         <link rel="preload" href="/fonts/varela-round/varela-round.woff2" as="font" type="font/woff2"
               crossorigin />
@@ -113,7 +113,7 @@
     <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="<%= config.icons.appleTouchIcon %>">
     <link rel="shortcut icon" href="<%= config.icons.favicons %>favicon.ico">
 
-    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="<%= config.legacyLightTheme.colors.themeColor %>">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="<%= config.lightTheme.palette.secondary.main %>">
 
     <style><% if (config.splashScreen) { %>
         @keyframes show {
