@@ -52,7 +52,12 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
   const pageTitle = `${newsModel?.title ?? tunewsLabel} - ${city.name}`
 
   // Language change is not possible between tuNews detail views because we don't know the id of other languages
-  const languageChangePaths = city.languages.map(({ code, name }) => ({ path: null, name, code }))
+  const languageChangePaths = city.languages.map(({ code, name }) => ({
+    path: code === languageCode ? pathname : null,
+    name,
+    code,
+  }))
+
   const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
     city,
     languageChangePaths,
