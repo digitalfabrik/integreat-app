@@ -21,7 +21,7 @@ type ContactDetailProps = {
 
 const ContactDetail = ({ Icon, link, content, IconEnd }: ContactDetailProps): ReactElement => (
   <StyledLink to={link}>
-    <Icon />
+    <Icon fontSize='small' />
     <Typography variant='body2' color='primary'>
       {content}
     </Typography>
