@@ -63,7 +63,9 @@ const CityNotCooperatingPage = ({ languageCode }: CityNotCooperatingPageProps): 
         <H1>{t('callToAction')}</H1>
         <Typography variant='body1'>{t('explanation')}</Typography>
         <StyledSvg src={cityNotCooperatingIcon} width={160} height={160} />
-        <Typography variant='subtitle1'>{t('whatToDo')}</Typography>
+        <Typography component='h2' variant='subtitle1'>
+          {t('whatToDo')}
+        </Typography>
         <Stepper orientation='vertical'>
           <Step active>
             <StepLabel>
