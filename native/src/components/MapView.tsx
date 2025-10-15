@@ -164,6 +164,7 @@ const MapView = ({
     ]
     const featureCollection = await mapRef.current.queryRenderedFeaturesAtPoint(pressedCoordinates, undefined, [
       featureLayerId,
+      'selected-marker',
     ])
 
     const feature = featureCollection.features.find((it): it is MapFeature => it.geometry.type === 'Point')
@@ -193,11 +194,20 @@ const MapView = ({
         attributionEnabled={false}
         logoEnabled={false}>
         <UserLocation visible={!!userLocation} onUpdate={updateUserLocation} />
-        <ShapeSource id='location-pois' shape={embedInCollection(features)} cluster clusterRadius={clusterRadius}>
+        <ShapeSource
+          id='location-pois'
+          shape={embedInCollection(features.filter(feature => feature !== selectedFeature))}
+          cluster
+          clusterRadius={clusterRadius}>
           <CircleLayer {...clusterLayer(theme)} />
           <SymbolLayer {...clusterCountLayer} />
-          <SymbolLayer {...markerLayer(selectedFeature)} />
+          <SymbolLayer {...markerLayer(null)} />
         </ShapeSource>
+        {selectedFeature && (
+          <ShapeSource id='selected-feature' shape={embedInCollection([selectedFeature])}>
+            <SymbolLayer {...markerLayer(selectedFeature)} id='selected-marker' />
+          </ShapeSource>
+        )}
         <Camera
           {...cameraSettings}
           followUserMode={UserTrackingMode.Follow}
