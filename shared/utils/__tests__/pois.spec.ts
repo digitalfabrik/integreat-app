@@ -1,3 +1,5 @@
+import { Settings } from 'luxon'
+
 import PoiModelBuilder from '../../api/endpoints/testing/PoiModelBuilder'
 import { LocationType } from '../../constants/maps'
 import { prepareMapFeatures } from '../geoJson'
@@ -21,6 +23,35 @@ describe('sortPois', () => {
 
   it('should sort features by name ascending', () => {
     expect(sortPois([poi2, poi1, poi3], null)).toEqual([poi3, poi1, poi2])
+  })
+})
+
+describe('isCurrentlyOpen', () => {
+  beforeAll(() => {
+    jest.useFakeTimers({ now: new Date('2025-10-13T13:00:00.443+02:00') })
+  })
+  afterEach(() => {
+    Settings.defaultZone = 'system'
+  })
+
+  it('should return true when currently open in Berlin at 13:00 and it is not all day', () => {
+    Settings.defaultZone = 'Europe/Berlin'
+    expect(poi2.isCurrentlyOpen).toBe(true)
+  })
+
+  it('should return true when currently open in New York at 07:00 and it is not all day', () => {
+    Settings.defaultZone = 'America/New_York'
+    expect(poi2.isCurrentlyOpen).toBe(false)
+  })
+
+  it('should return false when closed in Tokyo at 20:00 and it is not all day', () => {
+    Settings.defaultZone = 'Asia/Tokyo'
+    expect(poi2.isCurrentlyOpen).toBe(false)
+  })
+
+  it('should return true when it is all day despite New York time at 07:00', () => {
+    Settings.defaultZone = 'America/New_York'
+    expect(poi1.isCurrentlyOpen).toBe(true)
   })
 })
 

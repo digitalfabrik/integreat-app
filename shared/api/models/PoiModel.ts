@@ -116,22 +116,22 @@ class PoiModel extends ExtendedPageModel {
     if (!this.openingHours) {
       return false
     }
+
+    const now = DateTime.now()
     // isoWeekday return 1-7 for the weekdays
-    const currentWeekday = DateTime.now().weekday - 1
+    const currentWeekday = now.weekday - 1
     const currentDay = this.openingHours[currentWeekday]
 
     if (currentDay) {
       if (currentDay.allDay) {
         return true
       }
-      const dateFormat = 't'
-      const currentTime = DateTime.now().toFormat(dateFormat, { locale: 'de' })
-      return currentDay.timeSlots.some(timeslot =>
-        Interval.fromDateTimes(
-          DateTime.fromFormat(timeslot.start, dateFormat, { locale: 'de' }),
-          DateTime.fromFormat(timeslot.end, dateFormat, { locale: 'de' }),
-        ).contains(DateTime.fromFormat(currentTime, dateFormat, { locale: 'de' })),
-      )
+
+      return currentDay.timeSlots.some(timeslot => {
+        const startTime = DateTime.fromFormat(timeslot.start, 'HH:mm')
+        const endTime = DateTime.fromFormat(timeslot.end, 'HH:mm')
+        return Interval.fromDateTimes(startTime, endTime).contains(now)
+      })
     }
     return false
   }
