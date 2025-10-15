@@ -1,6 +1,7 @@
 import MuiBottomNavigation from '@mui/material/BottomNavigation'
-import BottomNavigationAction from '@mui/material/BottomNavigationAction'
+import BottomNavigationAction, { bottomNavigationActionClasses } from '@mui/material/BottomNavigationAction'
 import Paper from '@mui/material/Paper'
+import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -23,6 +24,18 @@ const Container = styled(Paper)({
   // Positon bottom navigation above bottom sheet
   zIndex: 10,
 })
+
+const StyledBottomNavigationAction = styled(BottomNavigationAction)(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    flex: '1 1 auto',
+    minWidth: 'unset',
+    overflow: 'hidden',
+
+    [`.${bottomNavigationActionClasses.label}`]: {
+      maxWidth: '100%',
+    },
+  },
+})) as typeof BottomNavigationAction
 
 type BottomNavigationProps = {
   cityModel: CityModel
@@ -50,13 +63,20 @@ const BottomNavigation = ({ cityModel, languageCode }: BottomNavigationProps): R
     <Container elevation={4}>
       <MuiBottomNavigation id={BOTTOM_NAVIGATION_ELEMENT_ID} showLabels value={value} component='nav'>
         {navigationItems.map(item => (
-          <BottomNavigationAction
+          <StyledBottomNavigationAction
             key={item.value}
             component={Link}
             to={item.to}
             value={item.value}
-            label={xsmall ? undefined : t(item.label)}
-            aria-label={xsmall ? t(item.label) : undefined}
+            label={
+              xsmall ? (
+                <Typography component='div' variant='body3' overflow='hidden' textOverflow='ellipsis'>
+                  {t(item.label)}
+                </Typography>
+              ) : (
+                t(item.label)
+              )
+            }
             icon={<item.Icon />}
           />
         ))}
