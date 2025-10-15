@@ -14,15 +14,11 @@ const commonColors: CommonColors = {
     contrastText: '#E6E0E9',
   },
   warning: {
-    // TODO
     main: '#FFA726',
   },
   success: {
-    // TODO
     main: '#188038',
   },
-  // TODO
-  // info: {},
   tunews: {
     main: '#0079A6',
     light: '#99CADC',
@@ -40,15 +36,13 @@ export const commonLightColors: CommonColorPalette = {
     dark: '#242D3B',
     contrastText: '#E6E0E9',
   },
-  surface: {
-    light: '#FFFFFF',
-    main: '#EAEEF9',
-    dark: '#CCD6E4',
-    contrastText: '#1D1B20',
+  background: {
+    default: '#FFFFFF',
+    paper: '#FFFFFF',
+    accent: '#EAEEF9',
   },
   text: {
     primary: '#1D1B20',
-    // TODO
     secondary: '#585858',
     disabled: '#858585',
   },
@@ -68,15 +62,13 @@ export const commonDarkColors: CommonColorPalette = {
     dark: '#364153',
     contrastText: '#E6E0E9',
   },
-  surface: {
-    light: '#333D51',
-    main: '#20293A',
-    dark: '#020202',
-    contrastText: '#E6E0E9',
+  background: {
+    default: '#020202',
+    paper: '#020202',
+    accent: '#20293A',
   },
   text: {
     primary: '#E6E0E9',
-    // TODO
     secondary: '#E6E0E9',
     disabled: '#858585',
   },

@@ -31,7 +31,7 @@ export const HeaderLogo = ({ link }: HeaderLogoProps): ReactElement => {
   const { mobile } = useDimensions()
 
   return (
-    <StyledLink to={link} ariaLabel={appName}>
+    <StyledLink to={link} aria-label={appName}>
       <Svg src={mobile ? srcMobile : src} width='100%' height='100%' />
     </StyledLink>
   )

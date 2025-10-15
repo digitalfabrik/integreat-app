@@ -17,7 +17,7 @@ const TileRow = styled(SpacedToggleButtonGroup)({
   display: 'grid',
   gap: '16px',
   justifyContent: 'center',
-  gridTemplateColumns: `repeat(auto-fit, minmax(${toggleButtonWidth}px, 1fr))`,
+  gridTemplateColumns: `repeat(auto-fit, ${toggleButtonWidth}px)`,
 })
 
 type PoiFiltersProps = {

@@ -16,9 +16,9 @@ const differenCategoryName = 'Willkommen'
 describe('SearchListItem', () => {
   const highlightStyle = {
     values: {
-      'background-color': 'rgb(255, 255, 255)',
+      'background-color': 'rgb(234, 238, 249)',
       'font-weight': 'bold',
-      color: 'rgb(0, 0, 0)',
+      color: 'black',
     },
   }
 

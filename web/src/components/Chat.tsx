@@ -117,7 +117,7 @@ const Chat = ({
           <IconButton
             component={Link}
             to={city.chatPrivacyPolicyUrl ?? buildConfig().privacyUrls.default}
-            ariaLabel={t('layout:privacy')}>
+            aria-label={t('layout:privacy')}>
             <MailLock />
           </IconButton>
         </Stack>

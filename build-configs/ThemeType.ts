@@ -38,10 +38,16 @@ export type TypeText = {
   disabled: string
 }
 
+export type TypeBackground = {
+  default: string
+  paper: string
+  accent: string
+}
+
 export type CommonColorPalette = CommonColors & {
   mode: PaletteMode
   tertiary: PaletteColor
-  surface: PaletteColor
+  background: TypeBackground
   text: TypeText
   action: ActionColor
 }

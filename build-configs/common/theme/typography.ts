@@ -3,6 +3,8 @@ import { FontsType } from './fonts'
 
 export const commonTypography = (fonts: FontsType): TypographyType => ({
   fontFamily: fonts.web.contentFont,
+  decorativeFontFamily: fonts.web.decorativeFont,
+  fontSize: 16,
   display1: {
     fontSize: 57,
     lineHeight: '64px',
