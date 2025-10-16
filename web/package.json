@@ -41,6 +41,7 @@
     "dompurify": "^3.2.4",
     "easy-speech": "^2.4.0",
     "focus-trap-react": "^10.2.3",
+    "html-entities": "^2.6.0",
     "i18next": "^25.0.1",
     "luxon": "^3.4.2",
     "mapbox-gl": "npm:empty-npm-package@1.0.0",
