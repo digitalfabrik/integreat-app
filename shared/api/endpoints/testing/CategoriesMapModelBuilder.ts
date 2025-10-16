@@ -8,12 +8,11 @@ import CategoryModel from '../../models/CategoryModel'
 import OfferModel from '../../models/OfferModel'
 import OrganizationModel from '../../models/OrganizationModel'
 
-type PageResourceCacheEntryStateType = {
+type ResourceCacheEntryStateType = {
   readonly filePath: string
-  readonly lastUpdate: DateTime
   readonly hash: string
 }
-type PageResourceCacheStateType = Record<string, PageResourceCacheEntryStateType>
+type ResourceCacheStateType = Record<string, ResourceCacheEntryStateType>
 const DEFAULT_ARITY = 3
 const DEFAULT_DEPTH = 2
 const MAX_PREDICTABLE_VALUE = 6
@@ -28,7 +27,7 @@ class CategoriesMapModelBuilder {
   _city: string
   _language: string
   _categories: CategoryModel[] = []
-  _resourceCache: Record<string, PageResourceCacheStateType> = {}
+  _resourceCache: ResourceCacheStateType = {}
   _id = 0
 
   constructor(city: string, language: string, arity: number = DEFAULT_ARITY, depth: number = DEFAULT_DEPTH) {
@@ -44,11 +43,10 @@ class CategoriesMapModelBuilder {
     return seedrandom(`${index}-seed`)() * max
   }
 
-  createResource(url: string, index: number, lastUpdate: DateTime): PageResourceCacheEntryStateType {
+  createResource(url: string): ResourceCacheEntryStateType {
     const hash = md5(url)
     return {
       filePath: `path/to/documentDir/resource-cache/v1/${this._city}/files/${hash}.png`,
-      lastUpdate: lastUpdate.plus({ days: this._predictableNumber(index) }),
       hash,
     }
   }
@@ -57,7 +55,7 @@ class CategoriesMapModelBuilder {
     this._categories.push(category)
 
     if (depth === 0) {
-      this._resourceCache[category.path] = {}
+      this._resourceCache = {}
     }
 
     if (depth === this._depth) {
@@ -108,17 +106,17 @@ class CategoriesMapModelBuilder {
               ]
             : [],
       })
-      this._resourceCache[path] = {
-        [resourceUrl1]: this.createResource(resourceUrl1, id, lastUpdate),
-        [resourceUrl2]: this.createResource(resourceUrl2, id, lastUpdate),
-        [thumbnail]: this.createResource(thumbnail, id, lastUpdate),
+      this._resourceCache = {
+        [resourceUrl1]: this.createResource(resourceUrl1),
+        [resourceUrl2]: this.createResource(resourceUrl2),
+        [thumbnail]: this.createResource(thumbnail),
       }
 
       this._addChildren(newChild, depth + 1)
     }
   }
 
-  buildResources(): Record<string, PageResourceCacheStateType> {
+  buildResources(): ResourceCacheStateType {
     return this.buildAll().resourceCache
   }
 
@@ -128,7 +126,7 @@ class CategoriesMapModelBuilder {
 
   buildAll(): {
     categories: CategoriesMapModel
-    resourceCache: Record<string, PageResourceCacheStateType>
+    resourceCache: ResourceCacheStateType
   } {
     this._resourceCache = {}
     this._categories = []

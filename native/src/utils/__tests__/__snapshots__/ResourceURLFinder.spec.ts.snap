@@ -1,77 +1,41 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ResourceURLFinder should build a correct fetch map if two pages are using the same resource 1`] = `
-{
-  "/path1": [
-    {
-      "filePath": "buildFilePath('https://ex.am/pl1.png', 'c0ae5631859192e60552f726dbff7451')",
-      "url": "https://ex.am/pl1.png",
-      "urlHash": "c0ae5631859192e60552f726dbff7451",
-    },
-    {
-      "filePath": "buildFilePath('https://ex.am/thumb.png', 'ca774e6debbeeafff1b6d4fe23c3079d')",
-      "url": "https://ex.am/thumb.png",
-      "urlHash": "ca774e6debbeeafff1b6d4fe23c3079d",
-    },
-  ],
-  "/path2": [
-    {
-      "filePath": "buildFilePath('https://ex.am/pl1.png', 'c0ae5631859192e60552f726dbff7451')",
-      "url": "https://ex.am/pl1.png",
-      "urlHash": "c0ae5631859192e60552f726dbff7451",
-    },
-    {
-      "filePath": "buildFilePath('https://ex.am/thumb.png', 'ca774e6debbeeafff1b6d4fe23c3079d')",
-      "url": "https://ex.am/thumb.png",
-      "urlHash": "ca774e6debbeeafff1b6d4fe23c3079d",
-    },
-  ],
-}
-`;
-
 exports[`ResourceURLFinder should build a correct fetch map using previously cached files 1`] = `
-{
-  "/path1": [
-    {
-      "filePath": "buildFilePath('https://ex.am/pl1.png', 'c0ae5631859192e60552f726dbff7451')",
-      "url": "https://ex.am/pl1.png",
-      "urlHash": "c0ae5631859192e60552f726dbff7451",
-    },
-    {
-      "filePath": "buildFilePath('https://ex.am/pl3.jpg', '6ba91558f5aef480b713db809868a070')",
-      "url": "https://ex.am/pl3.jpg",
-      "urlHash": "6ba91558f5aef480b713db809868a070",
-    },
-    {
-      "filePath": "buildFilePath('https://ex.am/thumb.png', 'ca774e6debbeeafff1b6d4fe23c3079d')",
-      "url": "https://ex.am/thumb.png",
-      "urlHash": "ca774e6debbeeafff1b6d4fe23c3079d",
-    },
-  ],
-  "/path2": [],
-}
+[
+  {
+    "filePath": "buildFilePath('https://ex.am/pl1.png', 'c0ae5631859192e60552f726dbff7451')",
+    "url": "https://ex.am/pl1.png",
+    "urlHash": "c0ae5631859192e60552f726dbff7451",
+  },
+  {
+    "filePath": "buildFilePath('https://ex.am/pl3.jpg', '6ba91558f5aef480b713db809868a070')",
+    "url": "https://ex.am/pl3.jpg",
+    "urlHash": "6ba91558f5aef480b713db809868a070",
+  },
+  {
+    "filePath": "buildFilePath('https://ex.am/thumb.png', 'ca774e6debbeeafff1b6d4fe23c3079d')",
+    "url": "https://ex.am/thumb.png",
+    "urlHash": "ca774e6debbeeafff1b6d4fe23c3079d",
+  },
+]
 `;
 
 exports[`ResourceURLFinder should build a fetchMap including thumbnails if supplied 1`] = `
-{
-  "/path1": [
-    {
-      "filePath": "buildFilePath('https://ex.am/pl1.png', 'c0ae5631859192e60552f726dbff7451')",
-      "url": "https://ex.am/pl1.png",
-      "urlHash": "c0ae5631859192e60552f726dbff7451",
-    },
-    {
-      "filePath": "buildFilePath('https://ex.am/thumb.png', 'ca774e6debbeeafff1b6d4fe23c3079d')",
-      "url": "https://ex.am/thumb.png",
-      "urlHash": "ca774e6debbeeafff1b6d4fe23c3079d",
-    },
-  ],
-  "/path2": [
-    {
-      "filePath": "buildFilePath('https://ex.am/pl2.png', '2961bd9c8033abba619971942578d4e2')",
-      "url": "https://ex.am/pl2.png",
-      "urlHash": "2961bd9c8033abba619971942578d4e2",
-    },
-  ],
-}
+[
+  {
+    "filePath": "buildFilePath('https://ex.am/pl1.png', 'c0ae5631859192e60552f726dbff7451')",
+    "url": "https://ex.am/pl1.png",
+    "urlHash": "c0ae5631859192e60552f726dbff7451",
+  },
+  {
+    "filePath": "buildFilePath('https://ex.am/thumb.png', 'ca774e6debbeeafff1b6d4fe23c3079d')",
+    "url": "https://ex.am/thumb.png",
+    "urlHash": "ca774e6debbeeafff1b6d4fe23c3079d",
+  },
+  {
+    "filePath": "buildFilePath('https://ex.am/pl2.png', '2961bd9c8033abba619971942578d4e2')",
+    "url": "https://ex.am/pl2.png",
+    "urlHash": "2961bd9c8033abba619971942578d4e2",
+  },
+]
 `;

@@ -4,7 +4,7 @@ import styled from 'styled-components/native'
 import { TileModel } from 'shared'
 
 import useSnackbar from '../hooks/useSnackbar'
-import { PageResourceCacheStateType } from '../utils/DataContainer'
+import { LanguageResourceCacheStateType } from '../utils/DataContainer'
 import openExternalUrl from '../utils/openExternalUrl'
 import { reportError } from '../utils/sentry'
 import SimpleImage from './SimpleImage'
@@ -31,7 +31,7 @@ const TileContainer = styled(Pressable)`
 type TileProps = {
   tile: TileModel
   onTilePress: (tile: TileModel) => void
-  resourceCache: PageResourceCacheStateType | undefined
+  resourceCache: LanguageResourceCacheStateType | undefined
   language: string
 }
 

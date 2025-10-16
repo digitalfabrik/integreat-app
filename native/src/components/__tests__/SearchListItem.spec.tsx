@@ -14,9 +14,6 @@ import SearchListItem from '../SearchListItem'
 
 jest.mock('react-i18next')
 jest.mock('styled-components')
-jest.mock('@dr.pogodin/react-native-webview', () => ({
-  default: () => jest.fn(),
-}))
 jest.mock('../../utils/sendTrackingSignal')
 
 jest.mock('../CategoryListItem', () => ({
@@ -55,7 +52,7 @@ describe('SearchListItem', () => {
         title={category.title}
         path={category.path}
         thumbnail={thumbnail}
-        resourceCache={resourceCache[category.path]!}
+        resourceCache={resourceCache}
       />,
     )
 

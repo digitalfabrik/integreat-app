@@ -39,17 +39,13 @@ describe('DatabaseConnector', () => {
   const testEvents = new EventModelBuilder('testSeed', 2, city, language).build()
   const testResources = {
     de: {
-      '/path/to/page': {
-        'https://test.de/path/to/resource/test.png': {
-          filePath: '/local/path/to/resource/b4b5dca65e423.png',
-          hash: 'testHash',
-        },
+      'https://test.de/path/to/resource/test.png': {
+        filePath: '/local/path/to/resource/b4b5dca65e423.png',
+        hash: 'testHash',
       },
-      '/path/to/page/child': {
-        'https://test.de/path/to/resource/test2.jpg': {
-          filePath: '/local/path/to/resource/970c65c41eac0.jpg',
-          hash: 'testHash',
-        },
+      'https://test.de/path/to/resource/test2.jpg': {
+        filePath: '/local/path/to/resource/970c65c41eac0.jpg',
+        hash: 'testHash',
       },
     },
   }

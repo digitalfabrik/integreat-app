@@ -8,7 +8,7 @@ describe('buildResourceFilePath', () => {
     const city = 'augsburg'
     const hash = md5(urlString)
     expect(buildResourceFilePath(urlString, city, hash)).toBe(
-      'path/to/documentDir/resource-cache/v1/augsburg/files/81a74f17bb169f4dad2f59bb2e4670f9.png',
+      'path/to/documentDir/resource-cache/v2/augsburg/files/81a74f17bb169f4dad2f59bb2e4670f9.png',
     )
   })
   it('should ignore invalid extension', () => {
@@ -16,7 +16,7 @@ describe('buildResourceFilePath', () => {
     const city = 'augsburg'
     const hash = md5(urlString)
     expect(buildResourceFilePath(urlString, city, hash)).toBe(
-      'path/to/documentDir/resource-cache/v1/augsburg/files/ca7e91ecc6bcae6a2559357ba66cfc34',
+      'path/to/documentDir/resource-cache/v2/augsburg/files/ca7e91ecc6bcae6a2559357ba66cfc34',
     )
   })
   it('should throw if url is invalid', () => {

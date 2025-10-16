@@ -18,10 +18,11 @@ import {
 } from '../constants/webview'
 import { useAppContext } from '../hooks/useCityAppContext'
 import useNavigate from '../hooks/useNavigate'
+import { LanguageResourceCacheStateType } from '../utils/DataContainer'
+import { getStaticServerFileUrl } from '../utils/helpers'
 import renderHtml from '../utils/renderHtml'
 import { log, reportError } from '../utils/sentry'
 import Failure from './Failure'
-import { ParsedCacheDictionaryType } from './Page'
 
 // Fixes crashing in Android
 // https://github.com/react-native-webview/react-native-webview/issues/811
@@ -42,9 +43,9 @@ export const renderWebviewError = (
 
 type RemoteContentProps = {
   content: string
-  cacheDictionary: ParsedCacheDictionaryType
+  resourceCache: LanguageResourceCacheStateType
   language: string
-  resourceCacheUrl: string
+  staticServerUrl: string
   onLinkPress: (url: string) => void
   onLoad: () => void
   loading: boolean
@@ -54,8 +55,8 @@ type RemoteContentProps = {
 const RemoteContent = ({
   onLoad,
   content,
-  cacheDictionary,
-  resourceCacheUrl,
+  resourceCache,
+  staticServerUrl,
   language,
   onLinkPress,
   loading,
@@ -72,6 +73,14 @@ const RemoteContent = ({
   const theme = useTheme()
   const { t } = useTranslation()
   const { width: deviceWidth } = useWindowDimensions()
+
+  const resourceMap: { [url: string]: string } = Object.entries(resourceCache).reduce(
+    (previous, [url, { filePath }]) => ({
+      ...previous,
+      [url]: getStaticServerFileUrl(filePath, staticServerUrl),
+    }),
+    {},
+  )
 
   useEffect(() => {
     // If it takes too long returning false in onShouldStartLoadWithRequest the webview loads the pressed url anyway on android.
@@ -126,7 +135,7 @@ const RemoteContent = ({
       if (buildConfig().supportedIframeSources.some(source => event.url.includes(source))) {
         return true
       }
-      if (event.url === new URL(resourceCacheUrl).href) {
+      if (event.url === new URL(staticServerUrl).href) {
         // Needed on iOS for the initial load
         return true
       }
@@ -139,7 +148,7 @@ const RemoteContent = ({
       setPressedUrl(event.url)
       return false
     },
-    [resourceCacheUrl],
+    [staticServerUrl],
   )
 
   if (content.length === 0) {
@@ -152,10 +161,10 @@ const RemoteContent = ({
   return (
     <WebView
       source={{
-        baseUrl: resourceCacheUrl,
+        baseUrl: staticServerUrl,
         html: renderHtml(
           content,
-          cacheDictionary,
+          resourceMap,
           buildConfig().supportedIframeSources,
           theme,
           language,

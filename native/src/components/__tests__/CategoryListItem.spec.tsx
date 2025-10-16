@@ -6,9 +6,6 @@ import render from '../../testing/render'
 import CategoryListItem from '../CategoryListItem'
 
 jest.mock('styled-components')
-jest.mock('@dr.pogodin/react-native-webview', () => ({
-  default: () => jest.fn(),
-}))
 
 describe('CategoryListItem', () => {
   const cityModel = new CityModelBuilder(1).build()[0]!
