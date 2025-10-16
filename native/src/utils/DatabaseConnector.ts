@@ -26,14 +26,13 @@ import DatabaseContext from '../models/DatabaseContext'
 import {
   CityResourceCacheStateType,
   LanguageResourceCacheStateType,
-  PageResourceCacheEntryStateType,
-  PageResourceCacheStateType,
+  ResourceCacheEntryStateType,
 } from './DataContainer'
 import { deleteIfExists } from './helpers'
 import { log, reportError } from './sentry'
 
 export const CONTENT_VERSION = 'v11'
-export const RESOURCE_CACHE_VERSION = 'v1'
+export const RESOURCE_CACHE_VERSION = 'v2'
 
 // Our pdf view can only load from DocumentDir. Therefore we need to use that
 export const CACHE_DIR_PATH = BlobUtil.fs.dirs.DocumentDir
@@ -214,14 +213,12 @@ type CityLastUsageType = {
 
 type MetaCitiesType = Record<CityCodeType, MetaCitiesEntryType>
 
-type PageResourceCacheEntryJsonType = {
+type ResourceCacheEntryJsonType = {
   filePath: string
   hash: string
 }
 
-type PageResourceCacheJsonType = Record<string, PageResourceCacheEntryJsonType>
-
-type LanguageResourceCacheJsonType = Record<string, PageResourceCacheJsonType>
+type LanguageResourceCacheJsonType = Record<string, ResourceCacheEntryJsonType>
 
 type CityResourceCacheJsonType = Record<LanguageCodeType, LanguageResourceCacheJsonType>
 
@@ -786,15 +783,10 @@ class DatabaseConnector {
 
     const mapResourceCacheJson = (json: CityResourceCacheJsonType) =>
       mapValues(json, languageResourceCache =>
-        mapValues(languageResourceCache, (fileResourceCache: PageResourceCacheJsonType) =>
-          mapValues(
-            fileResourceCache,
-            (entry: PageResourceCacheEntryJsonType): PageResourceCacheEntryStateType => ({
-              filePath: entry.filePath,
-              hash: entry.hash,
-            }),
-          ),
-        ),
+        mapValues(languageResourceCache, (entry: ResourceCacheEntryJsonType) => ({
+          filePath: entry.filePath,
+          hash: entry.hash,
+        })),
       )
     return this.readFile(path, mapResourceCacheJson)
   }
@@ -804,15 +796,10 @@ class DatabaseConnector {
     const json: CityResourceCacheJsonType = mapValues(
       resourceCache,
       (languageResourceCache: LanguageResourceCacheStateType) =>
-        mapValues(languageResourceCache, (fileResourceCache: PageResourceCacheStateType) =>
-          mapValues(
-            fileResourceCache,
-            (entry: PageResourceCacheEntryStateType): PageResourceCacheEntryJsonType => ({
-              filePath: entry.filePath,
-              hash: entry.hash,
-            }),
-          ),
-        ),
+        mapValues(languageResourceCache, (entry: ResourceCacheEntryStateType) => ({
+          filePath: entry.filePath,
+          hash: entry.hash,
+        })),
     )
     await this.writeFile(path, JSON.stringify(json))
   }

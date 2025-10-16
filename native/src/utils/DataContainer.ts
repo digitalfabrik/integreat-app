@@ -2,12 +2,11 @@ import { DateTime } from 'luxon'
 
 import { CategoriesMapModel, CityModel, EventModel, LocalNewsModel, PoiModel } from 'shared/api'
 
-export type PageResourceCacheEntryStateType = {
+export type ResourceCacheEntryStateType = {
   filePath: string
   hash: string
 }
-export type PageResourceCacheStateType = Record<string, PageResourceCacheEntryStateType>
-export type LanguageResourceCacheStateType = Record<string, PageResourceCacheStateType>
+export type LanguageResourceCacheStateType = Record<string, ResourceCacheEntryStateType>
 export type CityResourceCacheStateType = Record<string, LanguageResourceCacheStateType>
 
 export type DataContainer = {

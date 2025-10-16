@@ -89,7 +89,7 @@ const SearchModal = ({
     <SearchListItem
       key={item.path}
       title={item.title}
-      resourceCache={resourceCache[item.path] ?? {}}
+      resourceCache={resourceCache}
       contentWithoutHtml={parseHTML(item.content)}
       language={languageCode}
       query={debouncedQuery}

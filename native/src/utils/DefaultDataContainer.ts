@@ -1,4 +1,4 @@
-import { difference, flatMap, isEmpty, map, omitBy } from 'lodash'
+import { difference, flatMap, isEmpty, omitBy } from 'lodash'
 import { DateTime } from 'luxon'
 import BlobUtil from 'react-native-blob-util'
 
@@ -6,12 +6,7 @@ import { CategoriesMapModel, CityModel, EventModel, LocalNewsModel, PoiModel } f
 
 import Cache from '../models/Cache'
 import DatabaseContext from '../models/DatabaseContext'
-import {
-  CityResourceCacheStateType,
-  DataContainer,
-  LanguageResourceCacheStateType,
-  PageResourceCacheStateType,
-} from './DataContainer'
+import { CityResourceCacheStateType, DataContainer, LanguageResourceCacheStateType } from './DataContainer'
 import DatabaseConnector from './DatabaseConnector'
 import { log } from './sentry'
 
@@ -137,10 +132,7 @@ class DefaultDataContainer implements DataContainer {
   }
 
   getFilePathsFromLanguageResourceCache(languageResourceCache: LanguageResourceCacheStateType): string[] {
-    const pageResourceCaches: PageResourceCacheStateType[] = Object.values(languageResourceCache)
-    return flatMap(pageResourceCaches, (file: PageResourceCacheStateType): string[] =>
-      map(file, ({ filePath }) => filePath),
-    )
+    return Object.values(languageResourceCache).map(entry => entry.filePath)
   }
 
   setResourceCache = async (
@@ -153,7 +145,6 @@ class DefaultDataContainer implements DataContainer {
 
     const newResourceCache = { ...(previousResourceCache ?? {}), [language]: resourceCache }
     await this.caches.resourceCache.cache(newResourceCache, context)
-    console.log('cache set', resourceCache, newResourceCache)
 
     const previousLanguageResourceCache = previousResourceCache?.[language]
     if (previousLanguageResourceCache) {

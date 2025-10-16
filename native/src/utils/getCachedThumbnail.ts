@@ -1,9 +1,9 @@
 import { Platform } from 'react-native'
 
 import { URL_PREFIX } from '../constants/webview'
-import { PageResourceCacheStateType } from './DataContainer'
+import { LanguageResourceCacheStateType } from './DataContainer'
 
-const getCachedThumbnail = (thumbnail: string, resourceCache: PageResourceCacheStateType | undefined): string => {
+const getCachedThumbnail = (thumbnail: string, resourceCache: LanguageResourceCacheStateType | undefined): string => {
   const cachedThumbnail = resourceCache?.[thumbnail]?.filePath
   if (!cachedThumbnail) {
     return thumbnail

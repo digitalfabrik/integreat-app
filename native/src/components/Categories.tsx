@@ -52,7 +52,7 @@ const Categories = ({
           tiles={getCategoryTiles({ categories: children, cityCode })}
           language={language}
           onTilePress={navigateToCategory}
-          resourceCache={resourceCache[category.path]}
+          resourceCache={resourceCache}
         />
       </View>
     )
@@ -63,7 +63,6 @@ const Categories = ({
       content={category.content}
       lastUpdate={category.lastUpdate}
       language={language}
-      path={category.path}
       accessible={children.length === 0}
       AfterContent={category.organization && <OrganizationContentInfo organization={category.organization} />}
       Footer={

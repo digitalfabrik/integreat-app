@@ -1,18 +1,14 @@
 import { Parser } from 'htmlparser2'
-import { reduce } from 'lodash'
 import md5 from 'md5'
 import Url from 'url-parse'
+
+import { ExtendedPageModel } from 'shared/api'
 
 import { getExtension } from './helpers'
 import { FetchMapType } from './loadResourceCache'
 
 const RESOURCE_EXTENSIONS = ['png', 'jpg', 'jpeg', 'pdf', 'svg']
 
-type InputEntryType = {
-  path: string
-  content: string
-  thumbnail: string | null
-}
 /**
  * A ResourceURLFinder allows to find resource urls in html source code.
  * It only searches for urls ending on png,jpg,jpeg,pdf in src and href attribute tags of any html element.
@@ -74,36 +70,29 @@ export default class ResourceURLFinder {
   }
 
   buildFetchMap(
-    inputs: InputEntryType[],
+    pages: ExtendedPageModel[],
     buildFilePath: (url: string, urlHash: string) => string,
     currentlyCachedFiles: string[],
   ): FetchMapType {
-    return reduce<InputEntryType, FetchMapType>(
-      inputs,
-      (fetchMap, input: InputEntryType) => {
-        const { path } = input
-        this.findResourceUrls(input.content)
-        const urlSet = this._foundUrls
+    return pages.flatMap(page => {
+      this.findResourceUrls(page.content)
+      const urlSet = this._foundUrls
 
-        if (input.thumbnail) {
-          urlSet.add(input.thumbnail)
-        }
+      if (page.thumbnail) {
+        urlSet.add(page.thumbnail)
+      }
 
-        const newFetchMap = fetchMap
-        newFetchMap[path] = Array.from(urlSet)
-          .filter(url => !currentlyCachedFiles.includes(url))
-          .map(url => {
-            const urlHash = md5(url)
-            const filePath = buildFilePath(url, urlHash)
-            return {
-              url,
-              urlHash,
-              filePath,
-            }
-          })
-        return newFetchMap
-      },
-      {},
-    )
+      return Array.from(urlSet)
+        .filter(url => !currentlyCachedFiles.includes(url))
+        .map(url => {
+          const urlHash = md5(url)
+          const filePath = buildFilePath(url, urlHash)
+          return {
+            url,
+            urlHash,
+            filePath,
+          }
+        })
+    })
   }
 }

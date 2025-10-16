@@ -74,11 +74,7 @@ const CategoryListItem = ({
         <CategoryEntryContainer>
           <TitleDirectionContainer language={language}>
             {!!category.thumbnail && (
-              <CategoryThumbnail
-                language={language}
-                source={category.thumbnail}
-                resourceCache={resourceCache[category.path]}
-              />
+              <CategoryThumbnail language={language} source={category.thumbnail} resourceCache={resourceCache} />
             )}
             <CategoryTitle language={language}>{category.title}</CategoryTitle>
           </TitleDirectionContainer>
@@ -91,7 +87,7 @@ const CategoryListItem = ({
         <SubCategoryListItem
           key={subCategory.path}
           subCategory={subCategory}
-          resourceCache={resourceCache[subCategory.path] ?? {}}
+          resourceCache={resourceCache}
           onItemPress={onItemPress}
           language={language}
         />

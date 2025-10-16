@@ -1,6 +1,5 @@
-import { mapValues } from 'lodash'
 import { DateTime } from 'luxon'
-import React, { ReactElement, ReactNode, useCallback, useContext, useMemo, useState } from 'react'
+import React, { ReactElement, ReactNode, useCallback, useContext, useState } from 'react'
 import styled from 'styled-components/native'
 
 import dimensions from '../constants/dimensions'
@@ -8,8 +7,6 @@ import useCityAppContext from '../hooks/useCityAppContext'
 import useNavigateToLink from '../hooks/useNavigateToLink'
 import useResourceCache from '../hooks/useResourceCache'
 import useTtsPlayer from '../hooks/useTtsPlayer'
-import { LanguageResourceCacheStateType, PageResourceCacheEntryStateType } from '../utils/DataContainer'
-import { RESOURCE_CACHE_DIR_PATH } from '../utils/DatabaseConnector'
 import Caption from './Caption'
 import RemoteContent from './RemoteContent'
 import { StaticServerContext } from './StaticServerProvider'
@@ -21,20 +18,6 @@ const Container = styled.View<{ $padding: boolean }>`
 const SpaceForTts = styled.View<{ $ttsPlayerVisible: boolean }>`
   height: ${props => (props.$ttsPlayerVisible ? dimensions.ttsPlayerHeight : 0)}px;
 `
-export type ParsedCacheDictionaryType = Record<string, string>
-
-const createCacheDictionary = (
-  resourceCache: LanguageResourceCacheStateType,
-  resourceCacheUrl: string,
-  pagePath?: string,
-): ParsedCacheDictionaryType =>
-  pagePath
-    ? mapValues(resourceCache[pagePath] || {}, (file: PageResourceCacheEntryStateType) =>
-        file.filePath.startsWith(RESOURCE_CACHE_DIR_PATH)
-          ? file.filePath.replace(RESOURCE_CACHE_DIR_PATH, resourceCacheUrl)
-          : file.filePath,
-      )
-    : {}
 
 type PageProps = {
   title?: string
@@ -44,7 +27,6 @@ type PageProps = {
   Footer?: ReactNode
   language: string
   lastUpdate?: DateTime
-  path?: string
   padding?: boolean
   accessible?: boolean
 }
@@ -57,7 +39,6 @@ const Page = ({
   Footer,
   language,
   lastUpdate,
-  path,
   padding = true,
   accessible,
 }: PageProps): ReactElement => {
@@ -68,17 +49,6 @@ const Page = ({
   const navigateToLink = useNavigateToLink()
   const { visible: ttsPlayerVisible } = useTtsPlayer()
 
-  const cacheDictionary = useMemo(
-    () => createCacheDictionary(resourceCache, resourceCacheUrl, path),
-    [resourceCache, resourceCacheUrl, path],
-  )
-  const onLinkPress = useCallback(
-    (url: string) => {
-      const shareUrl = Object.keys(cacheDictionary).find(remoteUrl => cacheDictionary[remoteUrl] === url)
-      navigateToLink(url, shareUrl || url)
-    },
-    [cacheDictionary, navigateToLink],
-  )
   const onLoad = useCallback(() => setLoading(false), [setLoading])
 
   return (
@@ -87,12 +57,12 @@ const Page = ({
       {!loading && BeforeContent}
       <RemoteContent
         content={content}
-        cacheDictionary={cacheDictionary}
-        onLinkPress={onLinkPress}
+        resourceCache={resourceCache}
+        onLinkPress={navigateToLink}
         onLoad={onLoad}
         loading={loading}
         language={language}
-        resourceCacheUrl={resourceCacheUrl}
+        staticServerUrl={resourceCacheUrl}
       />
       {!loading && AfterContent}
       {!loading && !!content && lastUpdate && <TimeStamp lastUpdate={lastUpdate} />}

@@ -4,7 +4,7 @@ import styled from 'styled-components/native'
 import { CategoryModel } from 'shared/api'
 
 import { contentDirection } from '../constants/contentDirection'
-import { PageResourceCacheStateType } from '../utils/DataContainer'
+import { LanguageResourceCacheStateType } from '../utils/DataContainer'
 import { CategoryThumbnail } from './CategoryListItem'
 import Pressable from './base/Pressable'
 
@@ -31,7 +31,7 @@ const SubCategoryTitle = styled.Text`
 
 type SubCategoryListItemProps = {
   subCategory: CategoryModel
-  resourceCache: PageResourceCacheStateType
+  resourceCache: LanguageResourceCacheStateType
   onItemPress: (item: CategoryModel) => void
   language: string
 }

@@ -4,7 +4,7 @@ import { SvgProps } from 'react-native-svg'
 import { SvgCssUri } from 'react-native-svg/css'
 import styled from 'styled-components/native'
 
-import { PageResourceCacheStateType } from '../utils/DataContainer'
+import { LanguageResourceCacheStateType } from '../utils/DataContainer'
 import getCachedThumbnail from '../utils/getCachedThumbnail'
 import Icon from './base/Icon'
 
@@ -46,7 +46,7 @@ type SimpleImageProps = {
   resizeMode?: ImageResizeMode
   // In order to be able to align an image, its width or aspect ratio has to be set
   specifyAspectRatio?: boolean
-  resourceCache?: PageResourceCacheStateType
+  resourceCache?: LanguageResourceCacheStateType
 }
 
 const SimpleImage = ({
