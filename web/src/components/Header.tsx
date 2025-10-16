@@ -18,7 +18,6 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 
 const HeaderContainer = styled('header')`
   user-select: none;
-  flex-direction: column;
 
   ${props => props.theme.breakpoints.up('lg')} {
     padding-inline: calc((100vw - ${props => props.theme.breakpoints.values.lg}px) / 2)
@@ -37,6 +36,7 @@ const Row = styled('div')`
   justify-content: space-between;
   overflow-x: auto;
   padding: 0 16px;
+  gap: 8px;
 
   ${props => props.theme.breakpoints.down('md')} {
     padding: 0 8px;
@@ -81,7 +81,7 @@ export const Header = ({
       <StyledPaper>
         <HeaderContainer ref={ref}>
           <Row>
-            <Stack direction='row-reverse'>
+            <Stack direction='row-reverse' alignItems='center'>
               <HeaderLogo link={logoHref} />
               {!!cityName && <HeaderTitle title={cityName} landingPath={landingPath} />}
             </Stack>
