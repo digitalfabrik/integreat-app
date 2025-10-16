@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router'
 
 const useCityContentParams = (): { cityCode: string; languageCode: string } => {
   const params = useParams()

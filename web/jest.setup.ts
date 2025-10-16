@@ -1,6 +1,7 @@
 import '@testing-library/jest-dom'
 import '@testing-library/jest-dom/jest-globals'
 import * as fs from 'fs'
+import { TextEncoder } from 'node:util'
 import * as path from 'path'
 import 'raf/polyfill'
 
@@ -70,3 +71,6 @@ Object.defineProperty(URL, 'createObjectURL', {
 
 Element.prototype.scroll = () => undefined
 Element.prototype.scrollTo = () => undefined
+
+// https://github.com/remix-run/react-router/issues/12363
+globalThis.TextEncoder = TextEncoder

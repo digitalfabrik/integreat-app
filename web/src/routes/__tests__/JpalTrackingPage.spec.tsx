@@ -1,6 +1,6 @@
 import { mocked } from 'jest-mock'
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 
 import { setJpalTrackingCode } from 'shared/api'
 
@@ -8,8 +8,8 @@ import { renderRoute } from '../../testing/render'
 import safeLocalStorage, { JPAL_TRACKING_CODE_KEY } from '../../utils/safeLocalStorage'
 import JpalTrackingPage from '../JpalTrackingPage'
 
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
+jest.mock('react-router', () => ({
+  ...jest.requireActual('react-router'),
   useNavigate: jest.fn(),
 }))
 

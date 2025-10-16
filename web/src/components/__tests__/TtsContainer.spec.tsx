@@ -3,7 +3,7 @@ import EasySpeech from 'easy-speech'
 import { mocked } from 'jest-mock'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
-import { MemoryRouter } from 'react-router-dom'
+import { MemoryRouter } from 'react-router'
 
 import { PageModel } from 'shared/api'
 

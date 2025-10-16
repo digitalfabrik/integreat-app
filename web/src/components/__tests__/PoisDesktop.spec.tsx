@@ -1,6 +1,6 @@
 import { mocked } from 'jest-mock'
 import React from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router'
 
 import { LocationType, MapFeature, MapViewViewport, prepareMapFeature, prepareMapFeatures } from 'shared'
 import { CityModelBuilder, PoiModel, PoiModelBuilder } from 'shared/api'
@@ -12,8 +12,8 @@ jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
 jest.mock('../MapView', () => () => <div>MapView</div>)
 
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
+jest.mock('react-router', () => ({
+  ...jest.requireActual('react-router'),
   useSearchParams: jest.fn(),
 }))
 

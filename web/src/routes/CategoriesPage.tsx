@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 import React, { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link, Navigate, useParams } from 'react-router-dom'
+import { Link, Navigate, useParams } from 'react-router'
 
 import { CATEGORIES_ROUTE, cityContentPath } from 'shared'
 import {

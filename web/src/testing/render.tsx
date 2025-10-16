@@ -1,8 +1,7 @@
 import { ThemeProvider } from '@emotion/react'
-import type { Router } from '@remix-run/router'
 import { render, RenderResult } from '@testing-library/react'
 import React, { ReactElement, ReactNode } from 'react'
-import { createMemoryRouter, MemoryRouter, RouterProvider } from 'react-router-dom'
+import { createMemoryRouter, MemoryRouter, RouterProvider } from 'react-router'
 
 import { UiDirectionType } from 'translations'
 
@@ -36,7 +35,7 @@ export const renderWithRouter = (ui: ReactElement): RenderResult =>
   })
 
 type ExtendedRenderResult = RenderResult & {
-  router: Router
+  router: ReturnType<typeof createMemoryRouter>
 }
 
 export const renderRoute = (ui: ReactElement, options: RenderRouteOptions): ExtendedRenderResult => {
