@@ -94,6 +94,11 @@ const createTheme = (
             },
           },
         },
+        MuiBreadcrumbs: {
+          defaultProps: {
+            dir: theme.palette.mode,
+          },
+        },
         MuiTooltip: {
           defaultProps: {
             arrow: true,
