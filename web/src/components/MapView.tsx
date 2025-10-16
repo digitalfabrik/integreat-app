@@ -183,7 +183,7 @@ const MapView = ({
         cursor={cursor}
         initialViewState={viewport ?? undefined}
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        interactiveLayerIds={[markerLayer(currentFeature).id!, clusterLayer(theme).id!]}
+        interactiveLayerIds={[markerLayer(currentFeature).id!, clusterLayer(theme).id!, 'current']}
         style={{
           height: '100%',
           width: '100%',
@@ -202,14 +202,19 @@ const MapView = ({
         <Source
           id='location-pois'
           type='geojson'
-          data={embedInCollection(features)}
+          data={embedInCollection(features.filter(feature => feature !== currentFeature))}
           cluster
           clusterRadius={clusterRadius}
           clusterProperties={clusterProperties}>
           <Layer {...clusterLayer(theme)} />
           <Layer {...clusterCountLayer} />
-          <Layer {...markerLayer(currentFeature)} />
+          <Layer {...markerLayer(null)} />
         </Source>
+        {currentFeature && (
+          <Source id='current-feature' type='geojson' data={embedInCollection([currentFeature])}>
+            <Layer {...markerLayer(currentFeature)} id='current' />
+          </Source>
+        )}
         <MapAttribution initialExpanded={!viewportSmall} />
       </Map>
     </MapContainer>
