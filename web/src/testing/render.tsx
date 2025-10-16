@@ -1,8 +1,7 @@
 import { ThemeProvider } from '@emotion/react'
-import type { Router } from '@remix-run/router'
 import { render, RenderResult } from '@testing-library/react'
 import React, { ReactElement, ReactNode } from 'react'
-import { createMemoryRouter, MemoryRouter, RouterProvider } from 'react-router-dom'
+import { createMemoryRouter, MemoryRouter, RouterProvider } from 'react-router'
 
 import { UiDirectionType } from 'translations'
 
@@ -19,9 +18,7 @@ type RenderRouteOptions = {
 const theme = { ...buildConfig().legacyLightTheme, contentDirection: 'ltr' as UiDirectionType }
 
 const AllTheProviders = ({ children, options }: { children: ReactNode; options?: { pathname: string } }) => (
-  <MemoryRouter
-    initialEntries={options ? [options.pathname] : ['/']}
-    future={{ v7_relativeSplatPath: true, v7_startTransition: true }}>
+  <MemoryRouter initialEntries={options ? [options.pathname] : ['/']}>
     <ThemeProvider theme={theme}>{children}</ThemeProvider>
   </MemoryRouter>
 )
@@ -34,13 +31,11 @@ export const renderWithTheme = (ui: ReactElement): RenderResult =>
 
 export const renderWithRouter = (ui: ReactElement): RenderResult =>
   render(ui, {
-    wrapper: (props: { children: ReactNode }) => (
-      <MemoryRouter future={{ v7_relativeSplatPath: true, v7_startTransition: true }}>{props.children}</MemoryRouter>
-    ),
+    wrapper: (props: { children: ReactNode }) => <MemoryRouter>{props.children}</MemoryRouter>,
   })
 
 type ExtendedRenderResult = RenderResult & {
-  router: Router
+  router: ReturnType<typeof createMemoryRouter>
 }
 
 export const renderRoute = (ui: ReactElement, options: RenderRouteOptions): ExtendedRenderResult => {
@@ -62,7 +57,7 @@ export const renderRoute = (ui: ReactElement, options: RenderRouteOptions): Exte
     initialEntries: [...(options.previousRoutes ?? []), { pathname: options.pathname, search: options.searchParams }],
   })
   return {
-    ...renderWithTheme(<RouterProvider router={router} future={{ v7_startTransition: true }} />),
+    ...renderWithTheme(<RouterProvider router={router} />),
     router,
   }
 }

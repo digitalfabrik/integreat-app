@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router'
 
 import { EVENTS_ROUTE, pathnameFromRouteInformation, useDateFilter } from 'shared'
 import { createEventsEndpoint, EventModel, NotFoundError, useLoadFromEndpoint } from 'shared/api'

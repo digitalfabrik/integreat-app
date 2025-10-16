@@ -1,5 +1,5 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router'
 
 import { DISCLAIMER_ROUTE, NEWS_ROUTE, normalizePath, POIS_ROUTE, SEARCH_ROUTE } from 'shared'
 import { CityModel, CityModelBuilder } from 'shared/api'

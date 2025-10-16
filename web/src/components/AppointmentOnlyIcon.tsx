@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import React, { ReactElement } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 
 import { NoteIcon } from '../assets'
 import dimensions from '../constants/dimensions'

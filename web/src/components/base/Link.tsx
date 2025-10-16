@@ -1,7 +1,7 @@
 import shouldForwardProp from '@emotion/is-prop-valid'
 import styled from '@emotion/styled'
 import React, { ReactElement, ReactNode } from 'react'
-import { Link as RouterLink } from 'react-router-dom'
+import { Link as RouterLink } from 'react-router'
 
 import { UiDirectionType } from 'translations'
 

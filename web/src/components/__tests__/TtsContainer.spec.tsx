@@ -3,7 +3,7 @@ import EasySpeech from 'easy-speech'
 import { mocked } from 'jest-mock'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
-import { MemoryRouter } from 'react-router-dom'
+import { MemoryRouter } from 'react-router'
 
 import { PageModel } from 'shared/api'
 
@@ -59,7 +59,7 @@ describe('TtsContainer', () => {
 
   const renderTtsPlayer = (languageCode = 'en') =>
     renderWithTheme(
-      <MemoryRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+      <MemoryRouter>
         <TtsContainer languageCode={languageCode}>
           <TestChild />
         </TtsContainer>

@@ -1,6 +1,6 @@
 import { fireEvent } from '@testing-library/react'
 import React from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router'
 
 import { cityContentPath, POIS_ROUTE } from 'shared'
 import { CityModelBuilder, PoiModelBuilder } from 'shared/api'

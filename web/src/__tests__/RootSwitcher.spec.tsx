@@ -1,6 +1,6 @@
 import { waitFor } from '@testing-library/react'
 import React from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router'
 
 import { normalizePath } from 'shared'
 import { CityModelBuilder } from 'shared/api'

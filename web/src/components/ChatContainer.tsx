@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router'
 
 import { getChatName, CHAT_QUERY_KEY, parseQueryParams } from 'shared'
 import { CityModel } from 'shared/api'

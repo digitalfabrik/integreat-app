@@ -6,8 +6,8 @@ import RemoteContent from '../RemoteContent'
 
 const navigate = jest.fn()
 
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
+jest.mock('react-router', () => ({
+  ...jest.requireActual('react-router'),
   useNavigate: () => navigate,
 }))
 jest.mock('react-i18next')
