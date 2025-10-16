@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { CityModel } from 'shared/api'
 
 import Caption from './Caption'
-import LanguageSelector from './LanguageSelector'
+import LanguageSelector, { LanguageChangePath } from './LanguageSelector'
 
 const ChooseLanguage = styled('p')`
   margin: 25px 0;
@@ -15,7 +15,7 @@ const ChooseLanguage = styled('p')`
 type LanguageFailureProps = {
   cityModel: CityModel
   languageCode: string
-  languageChangePaths: { code: string; path: string | null; name: string }[]
+  languageChangePaths: LanguageChangePath[]
 }
 
 const LanguageFailure = ({ cityModel, languageCode, languageChangePaths }: LanguageFailureProps): ReactElement => {
@@ -24,7 +24,7 @@ const LanguageFailure = ({ cityModel, languageCode, languageChangePaths }: Langu
     <>
       <Caption title={cityModel.name} />
       <ChooseLanguage>{t('notFound.language')}</ChooseLanguage>
-      <LanguageSelector languageCode={languageCode} languageChangePaths={languageChangePaths} vertical availableOnly />
+      <LanguageSelector languageCode={languageCode} languageChangePaths={languageChangePaths} availableOnly />
     </>
   )
 }
