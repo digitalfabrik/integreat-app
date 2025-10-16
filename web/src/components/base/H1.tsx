@@ -1,16 +1,12 @@
-import Typography from '@mui/material/Typography'
+import Typography, { TypographyProps } from '@mui/material/Typography'
 import React, { ReactElement } from 'react'
 
 import useDimensions from '../../hooks/useDimensions'
 
-type H1Props = {
-  children: string
-}
-
-const H1 = ({ children }: H1Props): ReactElement => {
+const H1 = ({ children, ...props }: TypographyProps): ReactElement => {
   const { mobile } = useDimensions()
   return (
-    <Typography variant='h1' marginBlock={mobile ? 1 : 3}>
+    <Typography variant='h1' marginBlock={mobile ? 1 : 3} {...props}>
       {children}
     </Typography>
   )

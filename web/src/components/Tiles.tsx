@@ -27,7 +27,7 @@ type TilesProps = {
 
 const Tiles = ({ title, tiles }: TilesProps): ReactElement => (
   <Stack paddingTop={2} alignContent='center'>
-    <H1>{title}</H1>
+    <H1 textAlign='center'>{title}</H1>
     <Grid>
       {tiles.map(tile => (
         <Tile key={tile.path} tile={tile} />
