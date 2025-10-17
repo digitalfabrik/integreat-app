@@ -69,7 +69,7 @@ export const commonDarkColors: CommonColorPalette = {
   },
   text: {
     primary: '#E6E0E9',
-    secondary: '#E6E0E9',
+    secondary: '#919EB4',
     disabled: '#858585',
   },
   action: {
