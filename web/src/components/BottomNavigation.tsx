@@ -30,6 +30,12 @@ const StyledBottomNavigation = styled(MuiBottomNavigation)(({ theme }) => ({
 })) as typeof MuiBottomNavigation
 
 const StyledBottomNavigationAction = styled(BottomNavigationAction)(({ theme }) => ({
+  color: theme.palette.text.secondary,
+
+  [`&.${bottomNavigationActionClasses.selected}`]: {
+    color: theme.palette.text.primary,
+  },
+
   [theme.breakpoints.down('sm')]: {
     flex: '1 1 auto',
     minWidth: 'unset',
