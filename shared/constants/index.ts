@@ -1,6 +1,5 @@
 export const MAX_DATE_RECURRENCES = 3
 export const MAX_SEARCH_RESULTS = 75
-export const TTS_MAX_TITLE_DISPLAY_CHARS = 20
 export const DEFAULT_ROWS_NUMBER = 4
 export const SNACKBAR_AUTO_HIDE_DURATION = 5000
 export const SPRUNGBRETT_OFFER_ALIAS = 'sprungbrett'
