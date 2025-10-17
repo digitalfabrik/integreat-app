@@ -1,5 +1,4 @@
 import React, { ReactElement, useState } from 'react'
-import { View } from 'react-native'
 import PdfRendererView from 'react-native-pdf-renderer'
 import styled from 'styled-components/native'
 
@@ -7,19 +6,12 @@ import { PdfViewModalRouteType } from 'shared'
 import { ErrorCode } from 'shared/api'
 
 import Failure from '../components/Failure'
-import LoadingSpinner from '../components/LoadingSpinner'
+import Layout from '../components/Layout'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useResourceCache from '../hooks/useResourceCache'
 
-const LoadingSpinnerContainer = styled(View)`
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-`
-
 const StyledPdfRendererView = styled(PdfRendererView)`
-  flex: 1;
-  background-color: ${props => props.theme.colors.backgroundAccentColor};
+  background-color: ${props => props.theme.colors.backgroundColor};
 `
 
 type PDFViewModalProps = {
@@ -34,18 +26,21 @@ const PDFViewModal = ({ route, navigation: _navigation }: PDFViewModalProps): Re
   const filePath = resourceCache[url]
 
   if (loading) {
+    return <Layout />
+  }
+
+  if (!filePath || error) {
     return (
-      <LoadingSpinnerContainer>
-        <LoadingSpinner />
-      </LoadingSpinnerContainer>
+      <Layout>
+        <Failure code={ErrorCode.UnknownError} buttonAction={refresh} />
+      </Layout>
     )
   }
-
-  if (error || !filePath) {
-    return <Failure code={ErrorCode.UnknownError} buttonAction={refresh} />
-  }
-
   const source = `file://${filePath}`
-  return <StyledPdfRendererView source={source} distanceBetweenPages={8} onError={() => setError(true)} />
+  return (
+    <Layout>
+      <StyledPdfRendererView source={source} distanceBetweenPages={8} onError={() => setError(true)} />
+    </Layout>
+  )
 }
 export default PDFViewModal
