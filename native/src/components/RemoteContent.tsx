@@ -61,11 +61,11 @@ const RemoteContent = ({
 }: RemoteContentProps): ReactElement | null => {
   const [error, setError] = useState<string | null>(null)
   const [pressedUrl, setPressedUrl] = useState<string | null>(null)
-  const resourceCache = useResourceCache()
-  const staticServerUrl = useContext(StaticServerContext)
+  const { data: resourceCache } = useResourceCache()
   const { settings, updateSettings } = useAppContext()
   const { navigateTo } = useNavigate()
   const { externalSourcePermissions } = settings
+  const staticServerUrl = useContext(StaticServerContext)
 
   // https://github.com/react-native-webview/react-native-webview/issues/1069#issuecomment-651699461
   const defaultWebviewHeight = 1

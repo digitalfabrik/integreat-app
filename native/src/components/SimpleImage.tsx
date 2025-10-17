@@ -54,7 +54,7 @@ const SimpleImage = ({
   resizeMode = 'contain',
   specifyAspectRatio = false,
 }: SimpleImageProps): ReactElement => {
-  const resourceCache = useResourceCache()
+  const { data: resourceCache } = useResourceCache()
 
   if (source === null) {
     return <View style={style} />

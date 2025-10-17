@@ -19,7 +19,7 @@ const ImageViewModal = ({ route }: ImageViewModalProps): ReactElement => {
   const [isError, setError] = useState(false)
   const { url } = route.params
   const theme = useTheme()
-  const resourceCache = useResourceCache()
+  const { data: resourceCache } = useResourceCache()
   const cachedImage = getCachedResource(url, { resourceCache })
 
   if (isError) {
