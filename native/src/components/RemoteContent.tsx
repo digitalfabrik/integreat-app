@@ -1,5 +1,5 @@
 import WebView, { WebViewMessageEvent, WebViewNavigation } from '@dr.pogodin/react-native-webview'
-import React, { ReactElement, useCallback, useEffect, useState } from 'react'
+import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text, Platform, useWindowDimensions } from 'react-native'
 import { useTheme } from 'styled-components/native'
@@ -18,11 +18,12 @@ import {
 } from '../constants/webview'
 import { useAppContext } from '../hooks/useCityAppContext'
 import useNavigate from '../hooks/useNavigate'
-import { LanguageResourceCacheStateType } from '../utils/DataContainer'
+import useResourceCache from '../hooks/useResourceCache'
 import { getStaticServerFileUrl } from '../utils/helpers'
 import renderHtml from '../utils/renderHtml'
 import { log, reportError } from '../utils/sentry'
 import Failure from './Failure'
+import { StaticServerContext } from './StaticServerProvider'
 
 // Fixes crashing in Android
 // https://github.com/react-native-webview/react-native-webview/issues/811
@@ -43,9 +44,7 @@ export const renderWebviewError = (
 
 type RemoteContentProps = {
   content: string
-  resourceCache: LanguageResourceCacheStateType
   language: string
-  staticServerUrl: string
   onLinkPress: (url: string) => void
   onLoad: () => void
   loading: boolean
@@ -55,14 +54,14 @@ type RemoteContentProps = {
 const RemoteContent = ({
   onLoad,
   content,
-  resourceCache,
-  staticServerUrl,
   language,
   onLinkPress,
   loading,
 }: RemoteContentProps): ReactElement | null => {
   const [error, setError] = useState<string | null>(null)
   const [pressedUrl, setPressedUrl] = useState<string | null>(null)
+  const resourceCache = useResourceCache()
+  const staticServerUrl = useContext(StaticServerContext)
   const { settings, updateSettings } = useAppContext()
   const { navigateTo } = useNavigate()
   const { externalSourcePermissions } = settings

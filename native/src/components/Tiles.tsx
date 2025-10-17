@@ -4,7 +4,6 @@ import styled from 'styled-components/native'
 import { TileModel } from 'shared'
 
 import { contentDirection } from '../constants/contentDirection'
-import { LanguageResourceCacheStateType } from '../utils/DataContainer'
 import Caption from './Caption'
 import Tile from './Tile'
 
@@ -21,15 +20,14 @@ type TilesProps = {
   tiles: TileModel[]
   onTilePress: (tile: TileModel) => void
   language: string
-  resourceCache: LanguageResourceCacheStateType | undefined
 }
 
-const Tiles = ({ title, language, tiles, onTilePress, resourceCache }: TilesProps): ReactElement => (
+const Tiles = ({ title, language, tiles, onTilePress }: TilesProps): ReactElement => (
   <>
     {!!title && <Caption title={title} />}
     <TilesRow language={language}>
       {tiles.map(tile => (
-        <Tile key={tile.path} tile={tile} onTilePress={onTilePress} resourceCache={resourceCache} language={language} />
+        <Tile key={tile.path} tile={tile} onTilePress={onTilePress} language={language} />
       ))}
     </TilesRow>
   </>

@@ -1,15 +1,12 @@
 import { DateTime } from 'luxon'
-import React, { ReactElement, ReactNode, useCallback, useContext, useState } from 'react'
+import React, { ReactElement, ReactNode, useCallback, useState } from 'react'
 import styled from 'styled-components/native'
 
 import dimensions from '../constants/dimensions'
-import useCityAppContext from '../hooks/useCityAppContext'
 import useNavigateToLink from '../hooks/useNavigateToLink'
-import useResourceCache from '../hooks/useResourceCache'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 import Caption from './Caption'
 import RemoteContent from './RemoteContent'
-import { StaticServerContext } from './StaticServerProvider'
 import TimeStamp from './TimeStamp'
 
 const Container = styled.View<{ $padding: boolean }>`
@@ -42,9 +39,6 @@ const Page = ({
   padding = true,
   accessible,
 }: PageProps): ReactElement => {
-  const { cityCode, languageCode } = useCityAppContext()
-  const resourceCache = useResourceCache({ cityCode, languageCode })
-  const resourceCacheUrl = useContext(StaticServerContext)
   const [loading, setLoading] = useState(true)
   const navigateToLink = useNavigateToLink()
   const { visible: ttsPlayerVisible } = useTtsPlayer()
@@ -57,12 +51,10 @@ const Page = ({
       {!loading && BeforeContent}
       <RemoteContent
         content={content}
-        resourceCache={resourceCache}
         onLinkPress={navigateToLink}
         onLoad={onLoad}
         loading={loading}
         language={language}
-        staticServerUrl={resourceCacheUrl}
       />
       {!loading && AfterContent}
       {!loading && !!content && lastUpdate && <TimeStamp lastUpdate={lastUpdate} />}
