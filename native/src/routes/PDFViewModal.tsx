@@ -1,6 +1,5 @@
-import React, { ReactElement, useState, useEffect } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { View } from 'react-native'
-import ReactNativeBlobUtil from 'react-native-blob-util'
 import PdfRendererView from 'react-native-pdf-renderer'
 import styled from 'styled-components/native'
 
@@ -29,32 +28,12 @@ type PDFViewModalProps = {
 }
 
 const PDFViewModal = ({ route, navigation: _navigation }: PDFViewModalProps): ReactElement => {
-  const [error, setError] = useState<boolean>(false)
-  const [loading, setLoading] = useState<boolean>(true)
-  const [localPath, setLocalPath] = useState<string>('')
+  const [error, setError] = useState(false)
   const { url } = route.params
-  const { data: resourceCache } = useResourceCache()
+  const { data: resourceCache, refresh, loading } = useResourceCache()
+  const filePath = resourceCache[url]
 
-  useEffect(() => {
-    const loadPdf = async () => {
-      const fileHash = url.substring(url.lastIndexOf('/') + 1).split('.')[0]
-      const cachedFile = Object.values(resourceCache).find(resourceEntry => resourceEntry.hash === fileHash)
-
-      const exists = await ReactNativeBlobUtil.fs.exists(cachedFile?.filePath ?? '')
-      if (exists) {
-        setLocalPath(`file://${cachedFile?.filePath}`)
-        setLoading(false)
-      }
-    }
-
-    loadPdf()
-  }, [resourceCache, url])
-
-  if (error) {
-    return <Failure code={ErrorCode.UnknownError} />
-  }
-
-  if (loading || !localPath) {
+  if (loading) {
     return (
       <LoadingSpinnerContainer>
         <LoadingSpinner />
@@ -62,6 +41,11 @@ const PDFViewModal = ({ route, navigation: _navigation }: PDFViewModalProps): Re
     )
   }
 
-  return <StyledPdfRendererView source={localPath} distanceBetweenPages={8} onError={() => setError(true)} />
+  if (error || !filePath) {
+    return <Failure code={ErrorCode.UnknownError} buttonAction={refresh} />
+  }
+
+  const source = `file://${filePath}`
+  return <StyledPdfRendererView source={source} distanceBetweenPages={8} onError={() => setError(true)} />
 }
 export default PDFViewModal
