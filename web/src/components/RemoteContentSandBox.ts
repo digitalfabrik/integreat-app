@@ -172,7 +172,6 @@ const RemoteContentSandBox = styled('div')<{ centered: boolean; smallText: boole
     img {
       color: ${props => props.theme.palette.text.primary};
       margin-inline-end: 8px;
-      filter: none;
     }
 
     ${props => props.theme.breakpoints.down('md')} {

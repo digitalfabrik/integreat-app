@@ -69,8 +69,12 @@ const RemoteContent = ({ html, centered = false, smallText = false }: RemoteCont
       if (element instanceof HTMLElement && element.style.color === 'rgb(0, 0, 0)') {
         element.style.removeProperty('color')
       }
-      if (element instanceof HTMLImageElement && element.src.endsWith('.svg') && isContrastTheme) {
-        element.style.setProperty('filter', 'invert(1)')
+      if (element instanceof HTMLImageElement && element.src.endsWith('.svg')) {
+        if (isContrastTheme) {
+          element.style.setProperty('filter', 'invert(1)')
+        } else {
+          element.style.removeProperty('filter')
+        }
       }
     })
 
