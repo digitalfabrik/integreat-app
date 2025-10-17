@@ -98,7 +98,7 @@ const createTheme = (
         },
         MuiBreadcrumbs: {
           defaultProps: {
-            dir: theme.palette.mode,
+            dir: contentDirection,
           },
         },
         MuiTooltip: {
