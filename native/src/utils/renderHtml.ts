@@ -101,8 +101,12 @@ const renderJS = (
         element.style.removeProperty('color');
       }
       
-      if (element instanceof HTMLImageElement && element.src.endsWith('.svg') && ${theme.isContrastTheme}) {
-        element.style.setProperty('filter', 'invert(1)');
+      if (element instanceof HTMLImageElement && element.src.endsWith('.svg')) {
+        if (${theme.isContrastTheme}) {
+          element.style.setProperty('filter', 'invert(1)')
+        } else {
+          element.style.removeProperty('filter')
+        }
       }
     });
   })();
