@@ -25,6 +25,10 @@ const Container = styled(Paper)({
   zIndex: 10,
 })
 
+const StyledBottomNavigation = styled(MuiBottomNavigation)(({ theme }) => ({
+  backgroundColor: theme.palette.background.accent,
+})) as typeof MuiBottomNavigation
+
 const StyledBottomNavigationAction = styled(BottomNavigationAction)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     flex: '1 1 auto',
@@ -61,7 +65,7 @@ const BottomNavigation = ({ cityModel, languageCode }: BottomNavigationProps): R
 
   return (
     <Container elevation={4}>
-      <MuiBottomNavigation id={BOTTOM_NAVIGATION_ELEMENT_ID} showLabels value={value} component='nav'>
+      <StyledBottomNavigation id={BOTTOM_NAVIGATION_ELEMENT_ID} showLabels value={value} component='nav'>
         {navigationItems.map(item => (
           <StyledBottomNavigationAction
             key={item.value}
@@ -80,7 +84,7 @@ const BottomNavigation = ({ cityModel, languageCode }: BottomNavigationProps): R
             icon={<item.Icon />}
           />
         ))}
-      </MuiBottomNavigation>
+      </StyledBottomNavigation>
     </Container>
   )
 }
