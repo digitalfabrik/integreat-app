@@ -3,11 +3,11 @@ import { useTranslation } from 'react-i18next'
 
 import { License, parseLicenses } from 'shared'
 
-import Caption from '../components/Caption'
 import Footer from '../components/Footer'
 import GeneralHeader from '../components/GeneralHeader'
 import Layout from '../components/Layout'
 import LicenseItem from '../components/LicenseItem'
+import H1 from '../components/base/H1'
 import List from '../components/base/List'
 import { reportError } from '../utils/sentry'
 
@@ -34,7 +34,7 @@ const LicensesPage = ({ languageCode }: LicensesPageProps): ReactElement => {
 
   return (
     <Layout header={<GeneralHeader languageCode={languageCode} />} footer={<Footer />}>
-      <Caption title={t('settings:openSourceLicenses')} />
+      <H1>{t('settings:openSourceLicenses')}</H1>
       <List items={items} NoItemsMessage={t('licenses:noLicensesMessage')} />
     </Layout>
   )

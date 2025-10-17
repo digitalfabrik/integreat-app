@@ -53,7 +53,7 @@ const ChatConversation = ({ messages, isTyping }: ChatConversationProps): ReactE
   if (messages.length === 0) {
     return (
       <Stack gap={1}>
-        <Typography variant='title2'>{t('conversationTitle')}</Typography>
+        <Typography variant='subtitle1'>{t('conversationTitle')}</Typography>
         <Typography variant='body2'>{t('conversationText')}</Typography>
       </Stack>
     )

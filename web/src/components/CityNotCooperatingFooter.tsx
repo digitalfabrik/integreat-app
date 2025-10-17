@@ -29,7 +29,8 @@ const CityNotCooperatingFooter = ({ languageCode }: CityNotCooperatingFooterProp
       <Button
         component={Link}
         to={pathnameFromRouteInformation({ route: CITY_NOT_COOPERATING_ROUTE, ...{ languageCode } })}
-        variant='outlined'>
+        variant='outlined'
+        textAlign='center'>
         {t('suggestToRegion', { appName: buildConfig().appName })}
       </Button>
     </Stack>

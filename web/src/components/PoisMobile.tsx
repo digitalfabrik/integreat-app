@@ -130,7 +130,7 @@ const PoisMobile = ({
         }>
         <Stack padding={2} gap={1}>
           {!canDeselect && (
-            <Typography component='h1' variant='title1' alignContent='center'>
+            <Typography component='h1' variant='h3' alignContent='center'>
               {t('common:nearby')}
             </Typography>
           )}

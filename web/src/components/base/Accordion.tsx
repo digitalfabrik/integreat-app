@@ -46,13 +46,7 @@ const Accordion = ({ children, title, description, id, defaultCollapsed = false 
         aria-label={t(expanded ? 'showLess' : 'showMore')}
         expandIcon={<ExpandMoreIcon />}
         tabIndex={0}>
-        {typeof title === 'string' ? (
-          <Typography component='span' variant='title3'>
-            {title}
-          </Typography>
-        ) : (
-          title
-        )}
+        {typeof title === 'string' ? <Typography variant='subtitle1'>{title}</Typography> : title}
         {description}
       </StyledAccordionSummary>
       <StyledAccordionDetails>{children}</StyledAccordionDetails>

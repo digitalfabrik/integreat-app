@@ -54,7 +54,9 @@ const PoiDetails = ({ poi, distance }: PoiDetailsProps): ReactElement => {
 
   const addressSection = (
     <Stack paddingBlock={1} gap={1}>
-      <Typography variant='title3'>{t('detailsAddress')}</Typography>
+      <Typography component='h2' variant='subtitle1'>
+        {t('detailsAddress')}
+      </Typography>
       <Button component={Link} to={externalMapsLink} color='inherit' startIcon={<LocationOnOutlinedIcon />} fullWidth>
         <Stack direction='row' width='100%' justifyContent='space-between' alignItems='center'>
           <Stack>
@@ -98,7 +100,7 @@ const PoiDetails = ({ poi, distance }: PoiDetailsProps): ReactElement => {
   return (
     <Stack>
       <Stack paddingBlock={1} gap={1}>
-        <Typography variant='title1' component='h1'>
+        <Typography component='h1' variant='h3'>
           {poi.title}
         </Typography>
         {distance !== null && (

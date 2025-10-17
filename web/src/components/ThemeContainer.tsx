@@ -55,19 +55,17 @@ const createTheme = (
         MuiTypography: {
           defaultProps: {
             dir: 'auto',
-          },
-        },
-        MuiListSubheader: {
-          styleOverrides: {
-            root: {
-              background: 'transparent',
-            },
-          },
-        },
-        MuiAccordion: {
-          styleOverrides: {
-            root: {
-              background: 'transparent',
+            variantMapping: {
+              h1: 'h1',
+              h2: 'h2',
+              h3: 'h3',
+              h4: 'h4',
+              h5: 'h5',
+              h6: 'h6',
+              subtitle1: 'span',
+              subtitle2: 'span',
+              body1: 'span',
+              body2: 'span',
             },
           },
         },
@@ -119,7 +117,7 @@ const createTheme = (
             },
             tooltip: {
               backgroundColor: theme.palette.primary.main,
-              fontSize: buildConfig().typography.label1?.fontSize,
+              fontSize: buildConfig().typography.body2?.fontSize,
               padding: '8px 16px',
             },
           },

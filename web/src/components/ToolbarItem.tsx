@@ -24,7 +24,7 @@ const ToolbarItem = ({ text, icon, onClick }: ToolbarItemProps): ReactElement =>
       <ListItemText
         disableTypography
         primary={
-          <Typography component='div' variant='label2' textAlign='center'>
+          <Typography component='div' variant='body2' textAlign='center'>
             {text}
           </Typography>
         }

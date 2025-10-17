@@ -48,7 +48,9 @@ const Dialog = ({ title, close, children, className }: DialogProps): ReactElemen
         <IconButton aria-label={t('common:close')} onClick={close}>
           {desktop ? <CloseIcon /> : <DirectionDependentBackIcon />}
         </IconButton>
-        <DialogTitle>{title}</DialogTitle>
+        <DialogTitle component='h2' variant='h4'>
+          {title}
+        </DialogTitle>
       </Stack>
       <DialogContent>{children}</DialogContent>
     </StyledMuiDialog>

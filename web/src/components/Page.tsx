@@ -3,9 +3,9 @@ import { styled } from '@mui/material/styles'
 import { DateTime } from 'luxon'
 import React, { ReactElement, ReactNode } from 'react'
 
-import Caption from './Caption'
 import LastUpdateInfo from './LastUpdateInfo'
 import RemoteContent from './RemoteContent'
+import H1 from './base/H1'
 
 export const THUMBNAIL_WIDTH = 300
 
@@ -41,7 +41,7 @@ const Page = ({
 }: PageProps): ReactElement => (
   <Stack direction='column'>
     {!!thumbnailSrcSet && <Thumbnail alt='' srcSet={thumbnailSrcSet} />}
-    <Caption title={title} />
+    <H1>{title}</H1>
     {BeforeContent}
     <RemoteContent html={content} />
     {AfterContent}

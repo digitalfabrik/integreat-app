@@ -18,7 +18,7 @@ export const LastUpdateInfo = ({
 }: LastUpdateInfoProps): ReactElement => {
   const { i18n, t } = useTranslation('common')
   return (
-    <Typography variant='label3' className={className}>
+    <Typography variant='caption' className={className}>
       {withText && t('lastUpdate')} {lastUpdate.setLocale(i18n.language).toFormat(format)}
     </Typography>
   )

@@ -10,6 +10,7 @@ import buildConfig from '../constants/buildConfig'
 import CityListGroup from './CityListGroup'
 import NearbyCities from './NearbyCities'
 import SearchInput from './SearchInput'
+import H1 from './base/H1'
 import List from './base/List'
 
 export const CITY_SEARCH_PLACEHOLDER = 'München'
@@ -42,9 +43,7 @@ const CitySelector = ({ cities, language, stickyTop }: CitySelectorProps): React
 
   return (
     <Stack maxWidth={640} paddingTop={4} gap={2}>
-      <Typography variant='display3' component='h1'>
-        {t('welcome', { appName: buildConfig().appName })}
-      </Typography>
+      <H1>{t('welcome', { appName: buildConfig().appName })}</H1>
       <Typography variant='body1'>{t('welcomeInformation')}</Typography>
       <SearchInput
         filterText={filterText}
@@ -53,7 +52,7 @@ const CitySelector = ({ cities, language, stickyTop }: CitySelectorProps): React
         description={t('searchCityDescription')}
       />
       <Stack>
-        <Typography variant='label1' aria-live={resultCities.length === 0 ? 'assertive' : 'polite'}>
+        <Typography variant='subtitle1' aria-live={resultCities.length === 0 ? 'assertive' : 'polite'}>
           {t('search:searchResultsCount', { count: resultCities.length })}
         </Typography>
         <List items={groups} NoItemsMessage='search:nothingFound' />

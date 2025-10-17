@@ -71,7 +71,7 @@ const MobileBanner = (): ReactElement | null => {
           </IconButton>
           <Svg src={icons.appLogoMobile} width={48} height={48} />
           <Stack>
-            <Typography variant='title3'>{appName}</Typography>
+            <Typography variant='subtitle1'>{appName}</Typography>
             <Typography variant='body3'>Tür an Tür - Digitalfabrik gGmbH</Typography>
             <Typography variant='body3'>{t('getOnPlayStore')}</Typography>
           </Stack>

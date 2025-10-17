@@ -23,7 +23,7 @@ const AppointmentOnlyIcon = ({ appointmentUrl }: AppointmentOnlyIconProps): Reac
     <Tooltip
       title={
         <Stack>
-          <Typography variant='title2'>{t('appointmentNecessary')}</Typography>
+          <Typography variant='subtitle1'>{t('appointmentNecessary')}</Typography>
           <Typography variant='body2'>
             <Trans i18nKey='pois:makeAppointmentTooltipWithLink'>
               This gets replaced

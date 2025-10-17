@@ -36,7 +36,7 @@ const OrganizationContentInfo = ({ organization }: OrganizationContentInfoProps)
           <StyledImage alt='' src={organization.logo} />
         </Stack>
         <Stack>
-          <Typography variant='title2'>{t('organizationContent', { organization: organization.name })}</Typography>
+          <Typography variant='subtitle1'>{t('organizationContent', { organization: organization.name })}</Typography>
           <Typography variant='body2'>
             <Trans i18nKey='categories:organizationMoreInformation' domain={new URL(organization.url).hostname}>
               This gets{{ organization: organization.name }}replaced
