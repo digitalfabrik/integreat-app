@@ -4,11 +4,12 @@ import { Helmet as ReactHelmet } from 'react-helmet'
 import { CityModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
+import { LanguageChangePath } from './LanguageSelector'
 
 type HelmetProps = {
   pageTitle: string
   metaDescription?: string | null
-  languageChangePaths?: { code: string; path: string | null; name: string }[]
+  languageChangePaths?: LanguageChangePath[]
   rootPage?: boolean
   cityModel?: CityModel
 }
