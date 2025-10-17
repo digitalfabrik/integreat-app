@@ -51,11 +51,11 @@ const LoadingErrorHandler = ({
     if (scrollView) {
       return (
         <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={!!children} />}>
-          {children ?? <ProgressSpinner progress={0} />}
+          {children ?? <ProgressSpinner />}
         </LayoutedScrollView>
       )
     }
-    return <Layout>{children ?? <ProgressSpinner progress={0} />}</Layout>
+    return <Layout>{children ?? <ProgressSpinner />}</Layout>
   }
 
   if (error === ErrorCode.LanguageUnavailable) {
