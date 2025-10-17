@@ -25,7 +25,17 @@ const Container = styled(Paper)({
   zIndex: 10,
 })
 
+const StyledBottomNavigation = styled(MuiBottomNavigation)(({ theme }) => ({
+  backgroundColor: theme.palette.background.accent,
+})) as typeof MuiBottomNavigation
+
 const StyledBottomNavigationAction = styled(BottomNavigationAction)(({ theme }) => ({
+  color: theme.palette.text.secondary,
+
+  [`&.${bottomNavigationActionClasses.selected}`]: {
+    color: theme.palette.text.primary,
+  },
+
   [theme.breakpoints.down('sm')]: {
     flex: '1 1 auto',
     minWidth: 'unset',
@@ -61,7 +71,7 @@ const BottomNavigation = ({ cityModel, languageCode }: BottomNavigationProps): R
 
   return (
     <Container elevation={4}>
-      <MuiBottomNavigation id={BOTTOM_NAVIGATION_ELEMENT_ID} showLabels value={value} component='nav'>
+      <StyledBottomNavigation id={BOTTOM_NAVIGATION_ELEMENT_ID} showLabels value={value} component='nav'>
         {navigationItems.map(item => (
           <StyledBottomNavigationAction
             key={item.value}
@@ -70,7 +80,12 @@ const BottomNavigation = ({ cityModel, languageCode }: BottomNavigationProps): R
             value={item.value}
             label={
               xsmall ? (
-                <Typography component='div' variant='body3' overflow='hidden' textOverflow='ellipsis'>
+                <Typography
+                  component='div'
+                  variant='body3'
+                  fontWeight={value === item.value ? 'bold' : 'normal'}
+                  overflow='hidden'
+                  textOverflow='ellipsis'>
                   {t(item.label)}
                 </Typography>
               ) : (
@@ -80,7 +95,7 @@ const BottomNavigation = ({ cityModel, languageCode }: BottomNavigationProps): R
             icon={<item.Icon />}
           />
         ))}
-      </MuiBottomNavigation>
+      </StyledBottomNavigation>
     </Container>
   )
 }
