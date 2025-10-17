@@ -6,17 +6,11 @@ import render from '../../testing/render'
 import CategoryListItem from '../CategoryListItem'
 
 jest.mock('styled-components')
-jest.mock('@dr.pogodin/react-native-webview', () => ({
-  default: () => jest.fn(),
-}))
 
 describe('CategoryListItem', () => {
   const cityModel = new CityModelBuilder(1).build()[0]!
   const language = new LanguageModelBuilder(1).build()[0]!
-  const { categories: categoriesMapModel, resourceCache } = new CategoriesMapModelBuilder(
-    cityModel.code,
-    language.code,
-  ).buildAll()
+  const { categories: categoriesMapModel } = new CategoriesMapModelBuilder(cityModel.code, language.code).buildAll()
   const categories = categoriesMapModel.toArray()
   const category = categories[0]!
   const subCategories = categories.filter(otherCategory => otherCategory.parentPath === category.path)
@@ -33,7 +27,6 @@ describe('CategoryListItem', () => {
         category={category}
         subCategories={subCategories}
         onItemPress={onItemPress}
-        resourceCache={resourceCache}
         language={language.code}
       />,
     )

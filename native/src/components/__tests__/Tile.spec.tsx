@@ -23,7 +23,7 @@ describe('Tile', () => {
       thumbnail: null,
       isExternalUrl: false,
     })
-    const { getByText } = render(<Tile tile={tile} onTilePress={onTilePress} resourceCache={{}} language='' />)
+    const { getByText } = render(<Tile tile={tile} onTilePress={onTilePress} language='' />)
     fireEvent.press(getByText(tile.title))
 
     expect(onTilePress).toHaveBeenCalledTimes(1)
@@ -38,7 +38,7 @@ describe('Tile', () => {
       thumbnail: null,
       isExternalUrl: true,
     })
-    const { getByText } = render(<Tile tile={tile} onTilePress={onTilePress} resourceCache={{}} language='' />)
+    const { getByText } = render(<Tile tile={tile} onTilePress={onTilePress} language='' />)
     fireEvent.press(getByText(tile.title))
 
     expect(openExternalUrl).toHaveBeenCalledTimes(1)

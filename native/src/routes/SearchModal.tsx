@@ -21,7 +21,6 @@ import SearchHeader from '../components/SearchHeader'
 import SearchListItem from '../components/SearchListItem'
 import useAnnounceSearchResultsIOS from '../hooks/useAnnounceSearchResultsIOS'
 import useReportError from '../hooks/useReportError'
-import useResourceCache from '../hooks/useResourceCache'
 import testID from '../testing/testID'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 
@@ -58,7 +57,6 @@ const SearchModal = ({
   initialSearchText,
 }: SearchModalProps): ReactElement | null => {
   const [query, setQuery] = useState<string>(initialSearchText)
-  const resourceCache = useResourceCache({ cityCode, languageCode })
   const { t } = useTranslation('search')
 
   const debouncedQuery = useDebounce(query)
@@ -89,7 +87,6 @@ const SearchModal = ({
     <SearchListItem
       key={item.path}
       title={item.title}
-      resourceCache={resourceCache[item.path] ?? {}}
       contentWithoutHtml={parseHTML(item.content)}
       language={languageCode}
       query={debouncedQuery}

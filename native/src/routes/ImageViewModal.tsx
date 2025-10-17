@@ -8,6 +8,8 @@ import { ErrorCode } from 'shared/api'
 import Failure from '../components/Failure'
 import PinchPanImage from '../components/PinchPanImage'
 import { RouteProps } from '../constants/NavigationTypes'
+import useResourceCache from '../hooks/useResourceCache'
+import { getCachedResource } from '../utils/helpers'
 
 type ImageViewModalProps = {
   route: RouteProps<ImageViewModalRouteType>
@@ -15,7 +17,10 @@ type ImageViewModalProps = {
 
 const ImageViewModal = ({ route }: ImageViewModalProps): ReactElement => {
   const [isError, setError] = useState(false)
+  const { url } = route.params
   const theme = useTheme()
+  const resourceCache = useResourceCache()
+  const cachedImage = getCachedResource(url, { resourceCache })
 
   if (isError) {
     return <Failure code={ErrorCode.UnknownError} />
@@ -28,7 +33,7 @@ const ImageViewModal = ({ route }: ImageViewModalProps): ReactElement => {
         justifyContent: 'center',
         backgroundColor: theme.colors.backgroundAccentColor,
       }}>
-      <PinchPanImage uri={route.params.url} onError={() => setError(true)} />
+      <PinchPanImage uri={cachedImage} onError={() => setError(true)} />
     </View>
   )
 }
