@@ -9,6 +9,7 @@ import Failure from '../components/Failure'
 import Layout from '../components/Layout'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useResourceCache from '../hooks/useResourceCache'
+import { getLocalFilePath } from '../utils/helpers'
 
 const StyledPdfRendererView = styled(PdfRendererView)`
   background-color: ${props => props.theme.colors.backgroundColor};
@@ -32,14 +33,24 @@ const PDFViewModal = ({ route, navigation: _navigation }: PDFViewModalProps): Re
   if (!filePath || error) {
     return (
       <Layout>
-        <Failure code={ErrorCode.UnknownError} buttonAction={refresh} />
+        <Failure
+          code={ErrorCode.UnknownError}
+          buttonAction={() => {
+            refresh()
+            setError(false)
+          }}
+        />
       </Layout>
     )
   }
-  const source = `file://${filePath}`
+
   return (
     <Layout>
-      <StyledPdfRendererView source={source} distanceBetweenPages={8} onError={() => setError(true)} />
+      <StyledPdfRendererView
+        source={getLocalFilePath(filePath)}
+        distanceBetweenPages={8}
+        onError={() => setError(true)}
+      />
     </Layout>
   )
 }
