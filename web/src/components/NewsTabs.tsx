@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next'
 
 import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NewsType, pathnameFromRouteInformation, TU_NEWS_TYPE } from 'shared'
 
-import Caption from './Caption'
 import NewsTab from './NewsTab'
+import H1 from './base/H1'
 
 type NewsTabsProps = {
   type: NewsType
@@ -23,7 +23,7 @@ const NewsTabs = ({ language, city, localNewsEnabled, tunewsEnabled, type }: New
 
   return (
     <>
-      <Caption title={t('news')} />
+      <H1>{t('news')}</H1>
       {localNewsEnabled && tunewsEnabled && (
         <Stack paddingBottom={4} flexDirection='row' justifyContent='center' gap={4}>
           <NewsTab active={type === LOCAL_NEWS_TYPE} type={LOCAL_NEWS_TYPE} destination={localNewsPath} />

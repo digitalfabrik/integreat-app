@@ -7,6 +7,7 @@ import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import buildConfig from '../constants/buildConfig'
+import useDimensions from '../hooks/useDimensions'
 import Link from './base/Link'
 
 const LONG_TITLE_LENGTH = 25
@@ -24,9 +25,10 @@ type HeaderTitleProps = {
 }
 
 const HeaderTitle = ({ title, landingPath }: HeaderTitleProps): ReactElement => {
+  const { xsmall } = useDimensions()
   const { t } = useTranslation('layout')
   const { featureFlags } = buildConfig()
-  const variant = title.length >= LONG_TITLE_LENGTH ? 'title3' : 'title2'
+  const variant = title.length >= LONG_TITLE_LENGTH && xsmall ? 'subtitle2' : 'subtitle1'
   const [tooltipOpen, setTooltipOpen] = useState(false)
 
   if (featureFlags.fixedCity !== null) {

@@ -12,10 +12,10 @@ import { useTranslation } from 'react-i18next'
 import { ChatMessageModel, CityModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
-import Caption from './Caption'
 import ChatConversation from './ChatConversation'
 import LoadingSpinner from './LoadingSpinner'
 import PrivacyCheckbox from './PrivacyCheckbox'
+import H1 from './base/H1'
 import Link from './base/Link'
 
 const Container = styled(Stack)(({ theme }) => ({
@@ -82,7 +82,7 @@ const Chat = ({
     return (
       <Container>
         <Stack gap={1}>
-          <Caption title={t('settings:privacyPolicy')} />
+          <H1>{t('settings:privacyPolicy')}</H1>
           {t('privacyPolicyInformation', { city: city.name, appName: buildConfig().appName })}
           <PrivacyCheckbox
             language={languageCode}
