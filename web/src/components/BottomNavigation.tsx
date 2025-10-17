@@ -74,7 +74,12 @@ const BottomNavigation = ({ cityModel, languageCode }: BottomNavigationProps): R
             value={item.value}
             label={
               xsmall ? (
-                <Typography component='div' variant='body3' overflow='hidden' textOverflow='ellipsis'>
+                <Typography
+                  component='div'
+                  variant='body3'
+                  fontWeight={value === item.value ? 'bold' : 'normal'}
+                  overflow='hidden'
+                  textOverflow='ellipsis'>
                   {t(item.label)}
                 </Typography>
               ) : (
