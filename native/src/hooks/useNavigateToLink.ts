@@ -1,4 +1,4 @@
-import { useCallback, useContext } from 'react'
+import { useCallback } from 'react'
 
 import {
   IMAGE_VIEW_MODAL_ROUTE,
@@ -10,15 +10,12 @@ import {
 } from 'shared'
 
 import { SnackbarType } from '../components/SnackbarContainer'
-import { StaticServerContext } from '../components/StaticServerProvider'
 import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
-import { getStaticServerFileUrl } from '../utils/helpers'
 import openExternalUrl from '../utils/openExternalUrl'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
-import useCityAppContext from './useCityAppContext'
+import { useAppContext } from './useCityAppContext'
 import useNavigate from './useNavigate'
-import useResourceCache from './useResourceCache'
 import useSnackbar from './useSnackbar'
 
 const SUPPORTED_IMAGE_FILE_TYPES = ['.jpg', '.jpeg', '.png']
@@ -30,12 +27,11 @@ type NavigateToLinkParams<T extends RoutesType> = {
   languageCode: string
   navigateTo: (routeInformation: RouteInformationType) => void
   showSnackbar: (snackbar: SnackbarType) => void
-  localUrl: string | null
 }
 
 const navigateToLink = <T extends RoutesType>(
   url: string,
-  { navigation, languageCode, navigateTo, showSnackbar, localUrl }: NavigateToLinkParams<T>,
+  { navigation, languageCode, navigateTo, showSnackbar }: NavigateToLinkParams<T>,
 ): void => {
   if (url.includes('.pdf')) {
     sendTrackingSignal({
@@ -53,10 +49,7 @@ const navigateToLink = <T extends RoutesType>(
       },
     })
 
-    navigation.navigate(IMAGE_VIEW_MODAL_ROUTE, {
-      url: localUrl ?? url,
-      shareUrl: url,
-    })
+    navigation.navigate(IMAGE_VIEW_MODAL_ROUTE, { url, shareUrl: url })
   } else if (internalUrlRegex.test(url)) {
     sendTrackingSignal({
       signal: {
@@ -74,26 +67,20 @@ const navigateToLink = <T extends RoutesType>(
 
 const useNavigateToLink = (): ((url: string) => void) => {
   const { navigateTo, navigation } = useNavigate()
-  const { cityCode, languageCode } = useCityAppContext()
+  const { languageCode } = useAppContext()
   const showSnackbar = useSnackbar()
-  const resourceCache = useResourceCache({ cityCode, languageCode })
-  const resourceCacheUrl = useContext(StaticServerContext)
 
   return useCallback(
     (url: string) => {
-      const localFilePath = resourceCache[url]?.filePath
-      const localUrl = localFilePath ? getStaticServerFileUrl(localFilePath, resourceCacheUrl) : null
-
       navigateToLink(url, {
         navigation,
         languageCode,
         navigateTo,
         showSnackbar,
-        localUrl,
       })
     },
 
-    [navigation, navigateTo, languageCode, showSnackbar, resourceCache, resourceCacheUrl],
+    [navigation, navigateTo, languageCode, showSnackbar],
   )
 }
 

@@ -22,11 +22,6 @@ jest.mock('../../utils/sendTrackingSignal')
 jest.mock('../../utils/openExternalUrl')
 jest.mock('../useNavigate')
 jest.mock('../useSnackbar')
-jest.mock('../useResourceCache', () => () => ({
-  'https://example.com/my.png': {
-    filePath: '/path/to/resource/cache/my.png',
-  },
-}))
 
 describe('useNavigateToLink', () => {
   const showSnackbar = jest.fn()
@@ -116,25 +111,6 @@ describe('useNavigateToLink', () => {
     expect(navigation.navigate).toHaveBeenCalledTimes(1)
     expect(navigation.navigate).toHaveBeenCalledWith(IMAGE_VIEW_MODAL_ROUTE, {
       url,
-      shareUrl: url,
-    })
-    expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
-    expect(sendTrackingSignal).toHaveBeenCalledWith({
-      signal: {
-        name: OPEN_MEDIA_SIGNAL_NAME,
-        url,
-      },
-    })
-    expect(navigateTo).not.toHaveBeenCalled()
-    expect(openExternalUrl).not.toHaveBeenCalled()
-  })
-
-  it('should use resource cache', () => {
-    const url = 'https://example.com/my.png'
-    renderMockComponent(url)
-    expect(navigation.navigate).toHaveBeenCalledTimes(1)
-    expect(navigation.navigate).toHaveBeenCalledWith(IMAGE_VIEW_MODAL_ROUTE, {
-      url: '/path/to/resource/cache/my.png',
       shareUrl: url,
     })
     expect(sendTrackingSignal).toHaveBeenCalledTimes(1)

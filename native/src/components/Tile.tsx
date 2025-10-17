@@ -4,7 +4,6 @@ import styled from 'styled-components/native'
 import { TileModel } from 'shared'
 
 import useSnackbar from '../hooks/useSnackbar'
-import { LanguageResourceCacheStateType } from '../utils/DataContainer'
 import openExternalUrl from '../utils/openExternalUrl'
 import { reportError } from '../utils/sentry'
 import SimpleImage from './SimpleImage'
@@ -31,18 +30,17 @@ const TileContainer = styled(Pressable)`
 type TileProps = {
   tile: TileModel
   onTilePress: (tile: TileModel) => void
-  resourceCache: LanguageResourceCacheStateType | undefined
   language: string
 }
 
-const Tile = ({ onTilePress, tile, resourceCache, language }: TileProps): ReactElement => {
+const Tile = ({ onTilePress, tile, language }: TileProps): ReactElement => {
   const showSnackbar = useSnackbar()
   const openTile = () =>
     tile.isExternalUrl ? openExternalUrl(tile.path, showSnackbar).catch(reportError) : onTilePress(tile)
 
   return (
     <TileContainer onPress={openTile} role='link' accessibilityLanguage={language}>
-      <Thumbnail source={tile.thumbnail} resourceCache={resourceCache} />
+      <Thumbnail source={tile.thumbnail} />
       <TileTitle android_hyphenationFrequency='full'>{tile.title}</TileTitle>
     </TileContainer>
   )
