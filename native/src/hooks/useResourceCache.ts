@@ -1,12 +1,12 @@
 import { useCallback } from 'react'
 
-import { useLoadAsync } from 'shared/api'
+import { useLoadAsync, ReturnType } from 'shared/api'
 
 import { LanguageResourceCacheStateType } from '../utils/DataContainer'
 import dataContainer from '../utils/DefaultDataContainer'
 import { useAppContext } from './useCityAppContext'
 
-const useResourceCache = (): LanguageResourceCacheStateType => {
+const useResourceCache = (): ReturnType<LanguageResourceCacheStateType> & { data: LanguageResourceCacheStateType } => {
   const { cityCode, languageCode } = useAppContext()
   const response = useLoadAsync(
     useCallback(
@@ -14,7 +14,7 @@ const useResourceCache = (): LanguageResourceCacheStateType => {
       [cityCode, languageCode],
     ),
   )
-  return response.data ?? {}
+  return { ...response, data: response.data ?? {} }
 }
 
 export default useResourceCache

@@ -10,7 +10,6 @@ import { ErrorCode } from 'shared/api'
 import Failure from '../components/Failure'
 import LoadingSpinner from '../components/LoadingSpinner'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
-import useCityAppContext from '../hooks/useCityAppContext'
 import useResourceCache from '../hooks/useResourceCache'
 
 const LoadingSpinnerContainer = styled(View)`
@@ -34,15 +33,12 @@ const PDFViewModal = ({ route, navigation: _navigation }: PDFViewModalProps): Re
   const [loading, setLoading] = useState<boolean>(true)
   const [localPath, setLocalPath] = useState<string>('')
   const { url } = route.params
-  const { cityCode, languageCode } = useCityAppContext()
-  const resourceCache = useResourceCache({ cityCode, languageCode })
+  const { data: resourceCache } = useResourceCache()
 
   useEffect(() => {
     const loadPdf = async () => {
       const fileHash = url.substring(url.lastIndexOf('/') + 1).split('.')[0]
-      const cachedFile = Object.values(resourceCache)
-        .flatMap(pageCache => Object.values(pageCache))
-        .find(resourceEntry => resourceEntry.hash === fileHash)
+      const cachedFile = Object.values(resourceCache).find(resourceEntry => resourceEntry.hash === fileHash)
 
       const exists = await ReactNativeBlobUtil.fs.exists(cachedFile?.filePath ?? '')
       if (exists) {
