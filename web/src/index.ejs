@@ -13,6 +13,9 @@
     <meta name="twitter:title" content="<%= config.appName %>">
 <!--# endif -->
 
+    <!-- https://mui.com/material-ui/getting-started/usage/#responsive-meta-tag -->
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
@@ -33,10 +36,10 @@
 
     <meta name="mobile-web-app-capable" content="yes">
 
-    <meta name="theme-color" content="<%= config.legacyLightTheme.colors.themeColor %>">
-    <meta name="msapplication-navbutton-color" content="<%= config.legacyLightTheme.colors.themeColor %>">
+    <meta name="theme-color" content="<%= config.lightTheme.palette.secondary.main %>">
+    <meta name="msapplication-navbutton-color" content="<%= config.lightTheme.palette.secondary.main %>">
     <meta name="msapplication-starturl" content="/">
-    <meta name="msapplication-TileColor" content="<%= config.legacyLightTheme.colors.themeColor %>">
+    <meta name="msapplication-TileColor" content="<%= config.lightTheme.palette.secondary.main %>">
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -66,10 +69,24 @@
           href="/fonts/noto-sans/noto-sans-v14-vietnamese_latin-ext_latin_greek-ext_greek_devanagari_cyrillic-ext_cyrillic-700.woff2"
           as="font" type="font/woff2"
           crossorigin />
-
     <link href='/fonts/noto-sans/noto-sans.css' rel='stylesheet' />
 
-    <% if (config.legacyLightTheme.fonts.web.decorativeFont.includes('Raleway')) { %>
+    <!-- Inter -->
+    <link rel="preload"
+          href="/fonts/inter/Inter-Regular.woff2"
+          as="font" type="font/woff2"
+          crossorigin />
+    <link rel="preload"
+          href="/fonts/inter/Inter-Bold.woff2"
+          as="font" type="font/woff2"
+          crossorigin />
+    <link rel="preload"
+          href="/fonts/inter/Inter-Medium.woff2"
+          as="font" type="font/woff2"
+          crossorigin />
+    <link href='/fonts/inter/inter.css' rel='stylesheet' />
+
+    <% if (config.typography.decorativeFontFamily.includes('Raleway')) { %>
         <!-- Raleway -->
         <link rel="preload" href="/fonts/raleway/raleway-v12-latin_latin-ext-700.woff2" as="font" type="font/woff2"
               crossorigin />
@@ -78,7 +95,7 @@
         <link href='/fonts/raleway/raleway.css' rel='stylesheet' />
     <% } %>
 
-    <% if (config.legacyLightTheme.fonts.web.decorativeFont.includes('Varela Round')) { %>
+    <% if (config.typography.decorativeFontFamily.includes('Varela Round')) { %>
         <!-- Varela Round -->
         <link rel="preload" href="/fonts/varela-round/varela-round.woff2" as="font" type="font/woff2"
               crossorigin />
@@ -96,7 +113,7 @@
     <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="<%= config.icons.appleTouchIcon %>">
     <link rel="shortcut icon" href="<%= config.icons.favicons %>favicon.ico">
 
-    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="<%= config.legacyLightTheme.colors.themeColor %>">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="<%= config.lightTheme.palette.secondary.main %>">
 
     <style><% if (config.splashScreen) { %>
         @keyframes show {

@@ -1,112 +1,66 @@
-import styled from '@emotion/styled'
-import React, { ReactElement, ReactNode, useRef } from 'react'
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
+import { styled } from '@mui/material/styles'
+import React, { ReactElement, useCallback } from 'react'
 
 import { TileModel } from 'shared'
-import { request } from 'shared/api'
+import { useLoadAsync } from 'shared/api'
 
+import { fetchObjectCached } from '../utils'
 import Link from './base/Link'
 
-const Thumbnail = styled.div`
-  position: relative;
-  display: block;
-  width: 100%;
-  margin: 0 auto;
-  padding-top: 100%;
+const StyledButton = styled(Button)({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  alignSelf: 'flex-start',
+  width: 'min(160px, 36vw)',
+  gap: 8,
+}) as typeof Button
 
-  & img {
-    position: absolute;
-    top: 0;
-    inset-inline: 0;
-    width: 100%;
-    height: 100%;
-    transition: transform 0.2s;
-    object-fit: contain;
-  }
-`
+const Outline = styled('div')(({ theme }) => ({
+  width: 'min(140px, 32vw)',
+  height: 'min(140px, 32vw)',
 
-const ThumbnailSizer = styled.div`
-  width: 150px;
-  max-width: 33.3vw;
-  margin: 0 auto;
+  ...(theme.isContrastTheme && {
+    ':hover': {
+      outline: `8px solid ${theme.palette.secondary.main}`,
+      borderRadius: 24,
+    },
+  }),
+}))
 
-  & div:hover {
-    ${props =>
-      props.theme.isContrastTheme &&
-      `
-        outline: 8px solid ${props.theme.colors.themeColor};
-        border-radius: 24px;
-      `}
-  }
-`
+const StyledImage = styled('img')(({ theme }) => ({
+  width: '100%',
+  height: '100%',
+  transition: 'transform 0.2s',
+  objectFit: 'contain',
 
-const TileTitle = styled.div`
-  margin: 5px 0;
-  color: ${props => props.theme.colors.textColor};
-  text-align: center;
-`
+  ':hover': {
+    transform: 'scale(1.01)',
+  },
 
-const TileContainer = styled.div`
-  margin-bottom: 20px;
-
-  & > a,
-  & button {
-    display: block;
-    max-width: 160px;
-    margin: 0 auto;
-    padding: 0;
-    background-color: ${props => props.theme.colors.backgroundColor};
-    border: none;
-    box-shadow: none;
-    cursor: pointer;
-  }
-
-  & img {
-    filter: ${props => (props.theme.isContrastTheme ? 'invert(1) saturate(0) brightness(7)' : 'none')};
-  }
-
-  & > a:hover img,
-  & button:hover img {
-    transform: scale(1.01);
-  }
-`
+  ...(theme.isContrastTheme && {
+    filter: 'invert(1) saturate(0) brightness(7)',
+  }),
+}))
 
 type TileProps = {
   tile: TileModel
 }
 
 const Tile = ({ tile }: TileProps): ReactElement => {
-  const imageRef = useRef<HTMLImageElement>(null)
-
-  const fetchImageWithCaching = (): void => {
-    if (tile.thumbnail) {
-      request(tile.thumbnail, {})
-        .then(res => res.blob())
-        .then(blob => {
-          if (imageRef.current) {
-            imageRef.current.src = URL.createObjectURL(blob)
-          }
-        })
-    }
-  }
-
-  const getTileContent = (): ReactNode => {
-    fetchImageWithCaching()
-    return (
-      <>
-        <ThumbnailSizer>
-          <Thumbnail>
-            <img alt='' ref={imageRef} />
-          </Thumbnail>
-        </ThumbnailSizer>
-        <TileTitle>{tile.title}</TileTitle>
-      </>
-    )
-  }
+  const { data } = useLoadAsync(useCallback(() => fetchObjectCached(tile.thumbnail), [tile.thumbnail]))
 
   return (
-    <TileContainer>
-      <Link to={tile.path}>{getTileContent()}</Link>
-    </TileContainer>
+    <StyledButton component={Link} to={tile.path} color='inherit' disableFocusRipple>
+      <Outline>
+        <StyledImage alt='' src={data?.objectUrl} />
+      </Outline>
+      <Typography variant='body1' textAlign='center'>
+        {tile.title}
+      </Typography>
+    </StyledButton>
   )
 }
 

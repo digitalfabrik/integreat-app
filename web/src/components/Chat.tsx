@@ -1,60 +1,31 @@
-import styled from '@emotion/styled'
+import MailLock from '@mui/icons-material/MailLock'
+import SendIcon from '@mui/icons-material/Send'
+import Alert from '@mui/material/Alert'
+import Button from '@mui/material/Button'
+import IconButton from '@mui/material/IconButton'
+import Stack from '@mui/material/Stack'
+import TextField from '@mui/material/TextField'
+import { styled } from '@mui/material/styles'
 import React, { KeyboardEvent, ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CityModel } from 'shared/api'
-import ChatMessageModel from 'shared/api/models/ChatMessageModel'
+import { ChatMessageModel, CityModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
-import dimensions from '../constants/dimensions'
-import { helpers } from '../constants/theme'
-import Caption from './Caption'
 import ChatConversation from './ChatConversation'
-import ChatPrivacyInformation from './ChatPrivacyInformation'
 import LoadingSpinner from './LoadingSpinner'
 import PrivacyCheckbox from './PrivacyCheckbox'
-import Input from './base/Input'
-import InputSection from './base/InputSection'
-import TextButton from './base/TextButton'
+import H1 from './base/H1'
+import Link from './base/Link'
 
-const Container = styled.div`
-  height: 100%;
-  padding-top: 8px;
-  gap: 8px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+const Container = styled(Stack)(({ theme }) => ({
+  height: '100%',
+  gap: 8,
 
-  @media ${dimensions.mediumLargeViewport} {
-    height: 600px;
-    min-width: 300px;
-  }
-`
-
-const LoadingContainer = styled(Container)`
-  justify-content: center;
-`
-
-const SubmitContainer = styled.div`
-  display: flex;
-`
-
-const SubmitButton = styled(TextButton)`
-  flex: 1;
-  ${helpers.adaptiveThemeTextColor}
-`
-
-const LoadingText = styled.div`
-  text-align: center;
-`
-
-const StyledLoadingSpinner = styled(LoadingSpinner)`
-  margin-top: 0;
-`
-
-const InputWrapper = styled.div`
-  padding: 0 12px;
-`
+  [theme.breakpoints.up('md')]: {
+    height: 600,
+  },
+})) as typeof Stack
 
 type ChatProps = {
   city: CityModel
@@ -89,27 +60,29 @@ const Chat = ({
 
   const submitDisabled = textInput.trim().length === 0 || hasError || isLoading
   const submitOnEnter = (event: KeyboardEvent) => {
-    const isEnterAllowed = event.key === 'Enter' && !event.shiftKey && !submitDisabled
-    if (isEnterAllowed) {
-      event.preventDefault()
+    if (event.key !== 'Enter' || event.shiftKey) {
+      return
+    }
+    event.preventDefault()
+    if (!submitDisabled) {
       onSubmit()
     }
   }
 
   if (isLoading && !hasError) {
     return (
-      <LoadingContainer>
-        <StyledLoadingSpinner />
-        <LoadingText>{t('loadingText')}</LoadingText>
-      </LoadingContainer>
+      <Container>
+        <LoadingSpinner />
+        <Stack textAlign='center'>{t('loadingText')}</Stack>
+      </Container>
     )
   }
 
   if (!privacyPolicyAccepted) {
     return (
       <Container>
-        <InputWrapper>
-          <Caption title={t('settings:privacyPolicy')} />
+        <Stack gap={1}>
+          <H1>{t('settings:privacyPolicy')}</H1>
           {t('privacyPolicyInformation', { city: city.name, appName: buildConfig().appName })}
           <PrivacyCheckbox
             language={languageCode}
@@ -117,32 +90,38 @@ const Chat = ({
             setChecked={acceptPrivacyPolicy}
             url={city.chatPrivacyPolicyUrl}
           />
-        </InputWrapper>
+        </Stack>
       </Container>
     )
   }
 
   return (
-    <Container>
-      <ChatConversation messages={messages} hasError={hasError} isTyping={isTyping} />
-
-      <InputWrapper>
-        <InputSection id='chat' title={messages.length > 0 ? '' : t('inputLabel')}>
-          <Input
-            id='chat'
-            value={textInput}
-            onChange={setTextInput}
-            multiline
-            onKeyDown={submitOnEnter}
-            numberOfLines={2}
-            placeholder={t('chatInputHelperText')}
-          />
-        </InputSection>
-        <SubmitContainer>
-          <SubmitButton disabled={submitDisabled} onClick={onSubmit} text={t('sendButton')} />
-          <ChatPrivacyInformation customPrivacyUrl={city.chatPrivacyPolicyUrl} />
-        </SubmitContainer>
-      </InputWrapper>
+    <Container justifyContent='space-between'>
+      <ChatConversation messages={messages} isTyping={isTyping} />
+      <Stack paddingInline={2} gap={1}>
+        {hasError && <Alert severity='error'>{t('errorMessage')}</Alert>}
+        <TextField
+          id='chat-input'
+          label={t('inputLabel')}
+          value={textInput}
+          onChange={event => setTextInput(event.target.value)}
+          onKeyDown={submitOnEnter}
+          multiline
+          rows={2}
+          placeholder={t('chatInputHelperText')}
+        />
+        <Stack direction='row' alignItems='center' gap={1}>
+          <Button onClick={onSubmit} startIcon={<SendIcon />} variant='contained' disabled={submitDisabled} fullWidth>
+            {t('sendButton')}
+          </Button>
+          <IconButton
+            component={Link}
+            to={city.chatPrivacyPolicyUrl ?? buildConfig().privacyUrls.default}
+            aria-label={t('layout:privacy')}>
+            <MailLock />
+          </IconButton>
+        </Stack>
+      </Stack>
     </Container>
   )
 }

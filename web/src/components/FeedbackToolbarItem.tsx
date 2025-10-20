@@ -1,47 +1,71 @@
+import CloseIcon from '@mui/icons-material/Close'
+import SentimentDissatisfiedOutlinedIcon from '@mui/icons-material/SentimentDissatisfiedOutlined'
+import SentimentSatisfiedOutlinedIcon from '@mui/icons-material/SentimentSatisfiedOutlined'
+import IconButton from '@mui/material/IconButton'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { FeedbackRouteType } from 'shared/api'
+import { Rating, RATING_POSITIVE, SendingStatusType } from 'shared'
 
-import { HappySmileyIcon, SadSmileyIcon } from '../assets'
-import useCityContentParams from '../hooks/useCityContentParams'
-import { RouteType } from '../routes'
 import FeedbackContainer from './FeedbackContainer'
-import Modal from './Modal'
 import ToolbarItem from './ToolbarItem'
+import Dialog from './base/Dialog'
+import Snackbar from './base/Snackbar'
 
 type FeedbackToolbarItemProps = {
-  route: RouteType
   slug?: string
-  positive: boolean
+  rating: Rating | null
 }
 
-const FeedbackToolbarItem = ({ route, slug, positive }: FeedbackToolbarItemProps): ReactElement => {
-  const { cityCode, languageCode } = useCityContentParams()
+const FeedbackToolbarItem = ({ slug, rating }: FeedbackToolbarItemProps): ReactElement => {
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
   const { t } = useTranslation('feedback')
-  const title = isSubmitted ? t('thanksHeadline') : t('headline')
+  const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
+  const [snackbarOpen, setSnackbarOpen] = useState(false)
+
+  const handleFeedbackSuccess = () => {
+    setIsFeedbackOpen(false)
+    setSendingStatus('successful')
+    setSnackbarOpen(true)
+  }
+
+  const handleFeedbackError = () => {
+    setIsFeedbackOpen(true)
+    setSendingStatus('failed')
+    setSnackbarOpen(true)
+  }
 
   return (
     <>
       {isFeedbackOpen && (
-        <Modal title={title} closeModal={() => setIsFeedbackOpen(false)} wrapInPortal>
+        <Dialog title={t('headline')} close={() => setIsFeedbackOpen(false)}>
           <FeedbackContainer
-            onClose={() => setIsFeedbackOpen(false)}
-            onSubmit={() => setIsSubmitted(true)}
-            routeType={route as FeedbackRouteType}
-            cityCode={cityCode}
-            language={languageCode}
+            onSubmit={handleFeedbackSuccess}
+            onError={handleFeedbackError}
             slug={slug}
-            initialRating={positive}
+            initialRating={rating}
           />
-        </Modal>
+        </Dialog>
       )}
       <ToolbarItem
-        icon={positive ? HappySmileyIcon : SadSmileyIcon}
-        text={t(positive ? 'useful' : 'notUseful')}
+        icon={rating === RATING_POSITIVE ? <SentimentSatisfiedOutlinedIcon /> : <SentimentDissatisfiedOutlinedIcon />}
+        text={t(rating === RATING_POSITIVE ? 'useful' : 'notUseful')}
         onClick={() => setIsFeedbackOpen(true)}
+      />
+      <Snackbar
+        open={snackbarOpen}
+        severity={sendingStatus === 'successful' ? 'success' : 'error'}
+        onClose={() => setSnackbarOpen(false)}
+        message={sendingStatus === 'successful' ? t('thanksMessage') : t('failedSendingFeedback')}
+        action={
+          <IconButton
+            aria-label={t('common:close')}
+            color='inherit'
+            size='small'
+            onClick={() => setSnackbarOpen(false)}>
+            <CloseIcon />
+          </IconButton>
+        }
       />
     </>
   )

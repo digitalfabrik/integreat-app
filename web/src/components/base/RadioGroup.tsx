@@ -1,39 +1,24 @@
-import styled from '@emotion/styled'
+import FormControl from '@mui/material/FormControl'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import FormLabel from '@mui/material/FormLabel'
+import Radio from '@mui/material/Radio'
+import MuiRadioGroup from '@mui/material/RadioGroup'
+import TextField from '@mui/material/TextField'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
-import Input, { InputProps } from './Input'
-
-const RadioGroupContainer = styled.fieldset`
-  border: none;
-  box-sizing: border-box;
-  margin: 20px 0;
-  padding: 0;
-  width: 100%;
+const StyledFormControl = styled(FormControl)`
+  margin-top: 20px;
 `
-
-const RadioGroupCaption = styled.legend`
-  font-weight: bold;
-  padding-bottom: 10px;
-`
-
-const Radio = styled.input`
-  width: 1.3em;
-  height: 1.3em;
-  align-self: center;
-  accent-color: ${props =>
-    props.theme.isContrastTheme ? props.theme.colors.themeColor : props.theme.colors.textSecondaryColor};
-  flex-shrink: 0;
-`
-
-const RadioLabel = styled.label`
-  display: flex;
-  gap: 20px;
-`
-
-const RadioElementContainer = styled.div`
-  width: 100%;
-  padding: 12px 0;
-`
+export type InputProps = {
+  id: string
+  value: string
+  onChange: (input: string) => void
+  required?: boolean
+  label?: string
+  helperText?: string
+  error?: boolean
+}
 
 type RadioGroupProps<T extends string> = {
   caption: string
@@ -42,6 +27,7 @@ type RadioGroupProps<T extends string> = {
   submitted?: boolean
   onChange: (value: T) => void
   values: RadioButtonValue<T>[]
+  required?: boolean
 }
 
 type RadioButtonValue<T extends string> = {
@@ -57,36 +43,41 @@ export const RadioGroup = <T extends string>({
   values,
   submitted,
   onChange,
-}: RadioGroupProps<T>): ReactElement => (
-  <RadioGroupContainer role='radiogroup'>
-    <RadioGroupCaption>{caption}</RadioGroupCaption>
-    {values.map(({ label, key, inputProps }) => (
-      <RadioElementContainer key={key}>
-        <RadioLabel htmlFor={key}>
-          <Radio
-            id={key}
-            name={groupId}
-            type='radio'
-            value={key}
-            checked={selectedValue === key}
-            onChange={event => onChange(event.target.value as T)}
-          />
-          {label}
-        </RadioLabel>
-        {selectedValue === key && inputProps && (
-          <Input
-            id={`${key}-input`}
-            hint={inputProps.hint ?? label}
-            hintIsLabel={inputProps.hintIsLabel ?? true}
-            required={inputProps.required ?? true}
-            value={inputProps.value}
-            onChange={inputProps.onChange}
-            submitted={submitted}
-          />
-        )}
-      </RadioElementContainer>
-    ))}
-  </RadioGroupContainer>
-)
+  required = false,
+}: RadioGroupProps<T>): ReactElement => {
+  const selectedOptionInput = values.find(v => v.key === selectedValue)?.inputProps
+  const hasInputError =
+    submitted && (selectedOptionInput?.error || (selectedOptionInput?.required && !selectedOptionInput.value))
+
+  return (
+    <StyledFormControl required={required} error={hasInputError}>
+      <FormLabel id={groupId}>{caption}</FormLabel>
+      <MuiRadioGroup
+        aria-labelledby={groupId}
+        value={selectedValue}
+        name={groupId}
+        onChange={event => onChange(event.target.value as T)}>
+        {values.map(({ key, label, inputProps }) => (
+          <React.Fragment key={key}>
+            <FormControlLabel control={<Radio />} value={key} label={label} />
+            {selectedValue === key && inputProps && (
+              <TextField
+                id={`${key}-input`}
+                label={inputProps.label ?? label}
+                required={inputProps.required ?? true}
+                value={inputProps.value}
+                onChange={event => inputProps.onChange(event.target.value)}
+                error={submitted && (inputProps.error || (inputProps.required && !inputProps.value))}
+                helperText={submitted ? inputProps.helperText : undefined}
+                size='small'
+                variant='outlined'
+              />
+            )}
+          </React.Fragment>
+        ))}
+      </MuiRadioGroup>
+    </StyledFormControl>
+  )
+}
 
 export default RadioGroup

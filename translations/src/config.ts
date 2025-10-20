@@ -7,6 +7,7 @@ type FontType =
   | 'noto-sans-arabic'
 export type UiDirectionType = 'rtl' | 'ltr'
 type LanguageType = {
+  name: string
   rtl: boolean
   additionalFont?: FontType
 }
@@ -19,142 +20,184 @@ class Config {
   // The languages into which we translate from 'sourceLanguage' including the sourceLanguage
   // See https://wiki.tuerantuer.org/integreat-languages and https://iso639-3.sil.org/code_tables/639/data
   supportedLanguages: SupportedLanguagesType = {
-    de: {
+    am: {
+      name: 'ኣማርኛ',
       rtl: false,
     },
     ar: {
-      // Lateef for arabic ui and content, Open Sans for latin text in arabic text, Raleway for latin ui
+      name: 'العربية',
       rtl: true,
       additionalFont: 'noto-sans-arabic',
     },
-    en: {
-      rtl: false,
-    },
-    pes: {
-      rtl: true,
-      additionalFont: 'noto-sans-arabic',
-    },
-    fr: {
-      rtl: false,
-    },
-    ro: {
-      rtl: false,
-    },
-    tr: {
-      rtl: false,
-    },
-    pl: {
-      rtl: false,
-    },
-    ti: {
+    bg: {
+      name: 'Български',
       rtl: false,
     },
     ckb: {
+      name: 'سۆرانی',
       rtl: true,
       additionalFont: 'noto-sans-arabic',
-    },
-    ru: {
-      rtl: false,
-    },
-    so: {
-      rtl: false,
-    },
-    hr: {
-      rtl: false,
-    },
-    es: {
-      rtl: false,
-    },
-    'sr-Latn': {
-      rtl: false,
-    },
-    'sr-Cyrl': {
-      rtl: false,
-    },
-    ps: {
-      rtl: true,
-    },
-    kmr: {
-      rtl: false,
-    },
-    am: {
-      rtl: false,
-    },
-    bg: {
-      rtl: false,
-    },
-    el: {
-      rtl: false,
-    },
-    it: {
-      rtl: false,
-    },
-    'zh-CN': {
-      rtl: false,
-      additionalFont: 'noto-sans-sc',
-    },
-    mk: {
-      rtl: false,
-    },
-    sq: {
-      rtl: false,
-    },
-    ka: {
-      rtl: false,
-      additionalFont: 'noto-sans-georgian',
-    },
-    prs: {
-      rtl: true,
-      additionalFont: 'noto-sans-arabic',
-    },
-    hu: {
-      rtl: false,
-    },
-    ur: {
-      rtl: true,
-      additionalFont: 'noto-sans-arabic',
-    },
-    uk: {
-      rtl: false,
-    },
-    fi: {
-      rtl: false,
-    },
-    nl: {
-      rtl: false,
-    },
-    pt: {
-      rtl: false,
     },
     cs: {
-      rtl: false,
-    },
-    sk: {
-      rtl: false,
-    },
-    orm: {
+      name: 'čeština',
       rtl: false,
     },
     da: {
+      name: 'Dansk',
       rtl: false,
     },
-    rom: {
+    de: {
+      name: 'Deutsch',
+      rtl: false,
+    },
+    el: {
+      name: 'Ελληνικα',
+      rtl: false,
+    },
+    en: {
+      name: 'English',
+      rtl: false,
+    },
+    es: {
+      name: 'Español',
+      rtl: false,
+    },
+    fi: {
+      name: 'suomi',
+      rtl: false,
+    },
+    fr: {
+      name: 'Français',
       rtl: false,
     },
     hi: {
+      name: '(हिन्दी)',
       rtl: false,
     },
-    sw: {
+    hr: {
+      name: 'Hrvatski',
       rtl: false,
     },
-    vi: {
-      rtl: false,
-    },
-    th: {
+    hu: {
+      name: 'Magyar',
       rtl: false,
     },
     id: {
+      name: 'Bahasa Indonesia',
       rtl: false,
+    },
+    it: {
+      name: 'Italiano',
+      rtl: false,
+    },
+    ka: {
+      name: 'ქართული ენა',
+      rtl: false,
+      additionalFont: 'noto-sans-georgian',
+    },
+    kmr: {
+      name: 'Kurmancî',
+      rtl: false,
+    },
+    mk: {
+      name: 'македонски',
+      rtl: false,
+    },
+    nl: {
+      name: 'Nederlands',
+      rtl: false,
+    },
+    om: {
+      name: 'Afaan Oromoo',
+      rtl: false,
+    },
+    pes: {
+      name: 'فارسی',
+      rtl: true,
+      additionalFont: 'noto-sans-arabic',
+    },
+    pl: {
+      name: 'Polski',
+      rtl: false,
+    },
+    prs: {
+      name: 'دری',
+      rtl: true,
+      additionalFont: 'noto-sans-arabic',
+    },
+    ps: {
+      name: 'پښتو',
+      rtl: true,
+    },
+    pt: {
+      name: 'Português',
+      rtl: false,
+    },
+    ro: {
+      name: 'Română',
+      rtl: false,
+    },
+    rom: {
+      name: 'Romani čhib',
+      rtl: false,
+    },
+    ru: {
+      name: 'Русский',
+      rtl: false,
+    },
+    sk: {
+      name: 'Slovenčina',
+      rtl: false,
+    },
+    so: {
+      name: 'Af Soomaali',
+      rtl: false,
+    },
+    sq: {
+      name: 'Shqip',
+      rtl: false,
+    },
+    'sr-Cyrl': {
+      name: 'српски',
+      rtl: false,
+    },
+    'sr-Latn': {
+      name: 'Srpski',
+      rtl: false,
+    },
+    sw: {
+      name: 'Kiswahili',
+      rtl: false,
+    },
+    th: {
+      name: 'ภาษาไทย',
+      rtl: false,
+    },
+    ti: {
+      name: 'ትግርኛ',
+      rtl: false,
+    },
+    tr: {
+      name: 'Türkçe',
+      rtl: false,
+    },
+    uk: {
+      name: 'Українська',
+      rtl: false,
+    },
+    ur: {
+      name: 'اردو',
+      rtl: true,
+      additionalFont: 'noto-sans-arabic',
+    },
+    vi: {
+      name: 'tiếng Việt',
+      rtl: false,
+    },
+    'zh-CN': {
+      name: '简体中文',
+      rtl: false,
+      additionalFont: 'noto-sans-sc',
     },
   }
 

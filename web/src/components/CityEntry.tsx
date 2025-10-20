@@ -1,37 +1,15 @@
-import styled from '@emotion/styled'
+import ListItem from '@mui/material/ListItem'
+import ListItemButton from '@mui/material/ListItemButton'
+import ListItemText from '@mui/material/ListItemText'
 import React, { ReactElement } from 'react'
-import { Link } from 'react-router'
 
 import { cityContentPath, normalizeString } from 'shared'
 import { CityModel } from 'shared/api'
 
 import Highlighter from './Highlighter'
+import Link from './base/Link'
 
 const MAX_NUMBER_OF_ALIASES = 3
-
-const CityListItem = styled(Link)`
-  display: flex;
-  flex-direction: column;
-  padding: 7px;
-  color: inherit;
-  text-decoration: inherit;
-
-  &:hover {
-    color: inherit;
-    text-decoration: inherit;
-    transition: background-color 0.5s ease;
-    background-color: ${props => props.theme.colors.backgroundAccentColor};
-  }
-`
-
-const AliasContainer = styled.div`
-  margin: 0 4px;
-  font-size: 12px;
-`
-
-const StyledHighlighter = styled(Highlighter)`
-  display: inline-block;
-`
 
 type CityEntryProps = {
   language: string
@@ -45,20 +23,27 @@ const CityEntry = ({ filterText, city, language }: CityEntryProps): ReactElement
     city.aliases && normalizedFilter.length >= 1
       ? Object.keys(city.aliases).filter(alias => normalizeString(alias).includes(normalizedFilter))
       : []
+  const aliasesText = aliases.slice(0, MAX_NUMBER_OF_ALIASES).join(', ')
 
   return (
-    <CityListItem to={cityContentPath({ cityCode: city.code, languageCode: language })}>
-      <Highlighter search={filterText} text={city.name} />
-      <AliasContainer>
-        {aliases.slice(0, MAX_NUMBER_OF_ALIASES).map((alias, index) => (
-          <span key={alias}>
-            <StyledHighlighter search={filterText} text={alias} />
-            {index !== aliases.length - 1 && <span>, </span>}
-          </span>
-        ))}
-        {aliases.length > MAX_NUMBER_OF_ALIASES && <span> ... </span>}
-      </AliasContainer>
-    </CityListItem>
+    <ListItem alignItems='flex-start' disablePadding>
+      <ListItemButton component={Link} to={cityContentPath({ cityCode: city.code, languageCode: language })}>
+        <ListItemText
+          primary={<Highlighter search={filterText} text={city.name} />}
+          secondary={
+            <>
+              <Highlighter search={filterText} text={aliasesText} />
+              {aliases.length > MAX_NUMBER_OF_ALIASES && <span> ... </span>}
+            </>
+          }
+          slotProps={{
+            secondary: {
+              component: 'div',
+            },
+          }}
+        />
+      </ListItemButton>
+    </ListItem>
   )
 }
 

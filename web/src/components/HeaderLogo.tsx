@@ -1,47 +1,25 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
-import SVG from 'react-inlinesvg'
 
 import buildConfig from '../constants/buildConfig'
-import dimensions from '../constants/dimensions'
-import useWindowDimensions from '../hooks/useWindowDimensions'
+import useDimensions from '../hooks/useDimensions'
 import Link from './base/Link'
+import Svg from './base/Svg'
+
+const StyledLink = styled(Link)(({ theme }) => ({
+  order: 1,
+  height: 48,
+
+  [theme.breakpoints.down('md')]: {
+    width: 48,
+  },
+}))
 
 type HeaderLogoProps = {
   link: string
 }
 
-const LogoContainer = styled.div`
-  box-sizing: border-box;
-  padding: 0 10px;
-  flex: initial;
-  order: 1;
-
-  & a {
-    display: block;
-    width: 100%;
-    height: 48px;
-
-    @media ${dimensions.smallViewport} {
-      width: 48px;
-    }
-  }
-`
-
-const StyledLogo = styled(SVG)`
-  color: ${props => props.theme.colors.textColor};
-  height: 100%;
-  width: 200px;
-
-  @media ${dimensions.smallViewport} {
-    width: 100%;
-  }
-`
-
-/**
- * A logo component designed for the Header.
- */
 export const HeaderLogo = ({ link }: HeaderLogoProps): ReactElement => {
   const { campaign, appName, icons } = buildConfig()
 
@@ -50,14 +28,12 @@ export const HeaderLogo = ({ link }: HeaderLogoProps): ReactElement => {
     campaign && currentDate > DateTime.fromISO(campaign.startDate) && currentDate < DateTime.fromISO(campaign.endDate)
   const src = showCampaignLogo ? campaign.campaignAppLogo : icons.appLogo
   const srcMobile = showCampaignLogo ? campaign.campaignAppLogoMobile : icons.appLogoMobile
-  const { viewportSmall } = useWindowDimensions()
+  const { mobile } = useDimensions()
 
   return (
-    <LogoContainer>
-      <Link to={link}>
-        <StyledLogo src={viewportSmall ? srcMobile : src} title={appName} />
-      </Link>
-    </LogoContainer>
+    <StyledLink to={link} aria-label={appName}>
+      <Svg src={mobile ? srcMobile : src} width='100%' height='100%' />
+    </StyledLink>
   )
 }
 

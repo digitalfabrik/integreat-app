@@ -1,6 +1,7 @@
 import { INTEGREAT_ASSETS } from 'build-configs/AssetsType'
 import { CommonBuildConfigType } from 'build-configs/BuildConfigType'
-import { legacyLightTheme, legacyContrastTheme } from 'build-configs/integreat/theme'
+import { legacyLightTheme, legacyContrastTheme, lightTheme, darkTheme } from 'build-configs/integreat/theme'
+import { typography } from 'build-configs/integreat/theme/typography'
 
 export const buildConfigIconSet = (): {
   appLogo: string
@@ -15,8 +16,11 @@ const buildConfig = jest.fn<CommonBuildConfigType, []>(
     appName: 'Integreat',
     appIcon: 'app_icon_integreat',
     notificationIcon: 'notification_icon_integreat',
+    lightTheme,
+    darkTheme,
     legacyLightTheme,
     legacyContrastTheme,
+    typography,
     assets: INTEGREAT_ASSETS,
     cmsUrl: 'https://cms.integreat-app.de',
     switchCmsUrl: 'https://cms-test.integreat-app.de',

@@ -3,7 +3,7 @@ import React, { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, Navigate, useParams } from 'react-router'
 
-import { CATEGORIES_ROUTE, cityContentPath } from 'shared'
+import { cityContentPath } from 'shared'
 import {
   CategoriesMapModel,
   CategoryModel,
@@ -18,8 +18,8 @@ import {
 import { CityRouteProps } from '../CityContentSwitcher'
 import Breadcrumbs from '../components/Breadcrumbs'
 import CategoriesContent from '../components/CategoriesContent'
-import CategoriesToolbar from '../components/CategoriesToolbar'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
+import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
 import LoadingSpinner from '../components/LoadingSpinner'
@@ -120,17 +120,14 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
     }
   })
 
-  const pageTitle = `${category && !category.isRoot() ? category.title : t('dashboard:localInformation')} - ${
-    city.name
-  }`
+  const pageTitle = `${category && !category.isRoot() ? category.title : t('localInformation')} - ${city.name}`
   const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
     city,
     languageChangePaths,
-    route: CATEGORIES_ROUTE,
     languageCode,
-    Toolbar: (
-      <CategoriesToolbar category={category} cityCode={cityCode} languageCode={languageCode} pageTitle={pageTitle} />
-    ),
+    category,
+    pageTitle,
+    Toolbar: <CityContentToolbar slug={category && !category.isRoot() ? category.slug : undefined} />,
   }
 
   if (categoriesLoading || parentsLoading || pathname !== previousPathname) {
@@ -166,6 +163,7 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
   const ancestorBreadcrumbs = parents
     .sort((a, b) => a.parentPath.length - b.parentPath.length)
     .map((categoryModel: CategoryModel) => getBreadcrumb(categoryModel, city.name))
+  const breadcrumbs = [...ancestorBreadcrumbs, getBreadcrumb(category, city.name)]
 
   const metaDescription = t('categories:metaDescription', { appName: buildConfig().appName })
 
@@ -177,7 +175,7 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
         languageChangePaths={languageChangePaths}
         cityModel={city}
       />
-      <Breadcrumbs ancestorBreadcrumbs={ancestorBreadcrumbs} currentBreadcrumb={getBreadcrumb(category, city.name)} />
+      <Breadcrumbs breadcrumbs={breadcrumbs} />
       <CategoriesContent
         city={city}
         cityCode={cityCode}

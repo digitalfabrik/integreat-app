@@ -16,7 +16,6 @@ import { RoutePatterns } from '../index'
 jest.mock('maplibre-gl')
 jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
-jest.mock('react-tooltip')
 
 jest.mock('shared/api', () => ({
   ...jest.requireActual('shared/api'),
@@ -64,8 +63,8 @@ describe('PoisPage', () => {
 
   it('should render poi details page when list item was clicked', () => {
     mockUseLoadFromEndpointWithData(pois)
-    const { getByText, getByLabelText } = renderPois()
-    fireEvent.click(getByLabelText(poi0.title))
+    const { getByText, getByRole } = renderPois()
+    fireEvent.click(getByRole('link', { name: poi0.title }))
     expect(getByText(poi0.title)).toBeTruthy()
     expect(getByText(poi0.location.address!)).toBeTruthy()
     expect(getByText(poi0.content)).toBeTruthy()
@@ -73,11 +72,11 @@ describe('PoisPage', () => {
 
   it('should calculate correct language change paths', () => {
     mockUseLoadFromEndpointWithData(pois)
-    const { getAllByText, getByLabelText } = renderPois()
-    fireEvent.click(getByLabelText(poi0.title))
-    expect(getAllByText('English')[0]).toHaveAttribute('href', poi0.availableLanguages.en)
-    expect(getAllByText('Deutsch')[0]).toHaveAttribute('href', poi0.availableLanguages.de)
+    const { getAllByText, getByRole } = renderPois()
+    fireEvent.click(getByRole('link', { name: poi0.title }))
+    expect(getAllByText('English')[0]?.closest('a')).toHaveAttribute('href', poi0.availableLanguages.en)
+    expect(getAllByText('Deutsch')[0]?.closest('a')).toHaveAttribute('href', poi0.availableLanguages.de)
     // Pathname is not correctly updated, therefore the pathname does not include the slug
-    expect(getAllByText('اَللُّغَةُ اَلْعَرَبِيَّة')[1]).toHaveAttribute('href', '/augsburg/ar/locations')
+    expect(getAllByText('اَللُّغَةُ اَلْعَرَبِيَّة')[1]?.closest('a')).toHaveAttribute('href', '/augsburg/ar/locations')
   })
 })

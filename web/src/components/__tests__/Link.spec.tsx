@@ -7,7 +7,7 @@ import Link from '../base/Link'
 describe('Link component', () => {
   it('renders an external link', () => {
     const { getByLabelText } = render(
-      <Link to='https://example.com' ariaLabel='external link'>
+      <Link to='https://example.com' aria-label='external link'>
         External Link
       </Link>,
     )
@@ -20,7 +20,7 @@ describe('Link component', () => {
 
   it('renders an internal link', () => {
     const { getByLabelText } = renderWithRouter(
-      <Link to='internalRoute/test' ariaLabel='internal link'>
+      <Link to='internalRoute/test' aria-label='internal link'>
         Internal Link
       </Link>,
     )
@@ -31,7 +31,7 @@ describe('Link component', () => {
 
   it('opens link in a new tab', () => {
     const { getByLabelText } = renderWithRouter(
-      <Link to='https://example.com' ariaLabel='external link'>
+      <Link to='https://example.com' aria-label='external link'>
         New Tab Link
       </Link>,
     )

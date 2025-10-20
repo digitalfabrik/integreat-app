@@ -14,12 +14,14 @@ jest.mock('react-router', () => ({
 }))
 
 jest.mock('../../utils/safeLocalStorage', () => ({
+  getItem: jest.fn(),
   setItem: jest.fn(),
   removeItem: jest.fn(),
   JPAL_TRACKING_CODE_KEY: 'jpalTrackingCode',
 }))
 
 jest.mock('shared/api', () => ({
+  ...jest.requireActual('shared/api'),
   setJpalTrackingCode: jest.fn(),
 }))
 

@@ -1,42 +1,34 @@
 import shouldForwardProp from '@emotion/is-prop-valid'
-import styled from '@emotion/styled'
-import { TFunction } from 'i18next'
+import Typography from '@mui/material/Typography'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
-import { Link } from 'react-router'
+import { useTranslation } from 'react-i18next'
 
-import { NewsType, TU_NEWS_TYPE } from 'shared'
-import { tunewsLabel } from 'shared/constants/news'
+import { NewsType, TU_NEWS_TYPE, tunewsLabel } from 'shared'
 
 import { TuNewsActiveIcon, TuNewsInactiveIcon } from '../assets'
+import Link from './base/Link'
 
 const StyledTab = styled(Link, { shouldForwardProp })<{ tabSelected: boolean }>`
   display: flex;
   width: 160px;
-  height: 50px;
+  height: 48px;
   box-sizing: border-box;
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  padding: 13px 15px;
-  color: ${({ theme }) => theme.colors.backgroundColor};
+  padding: 8px;
+  color: ${props => props.theme.palette.secondary.contrastText};
   object-fit: contain;
-  background-color: ${({ tabSelected, theme }) =>
-    tabSelected ? theme.colors.themeColor : theme.colors.textDisabledColor};
-  border-radius: 11px;
-  font-size: ${props => props.theme.fonts.subTitleFontSize};
-  font-weight: 700;
+  background-color: ${props =>
+    props.tabSelected ? props.theme.palette.secondary.main : props.theme.palette.text.disabled};
+  border-radius: 12px;
   text-decoration: none;
-
-  &:not(:last-child) {
-    margin-inline-end: 30px;
-  }
 `
 
 const TuStyledTab = styled(StyledTab)`
-  background-image: ${({ tabSelected }) => (tabSelected ? `url(${TuNewsActiveIcon})` : `url(${TuNewsInactiveIcon})`)};
-  background-color: ${({ tabSelected, theme }) =>
-    tabSelected ? theme.colors.tunewsThemeColor : theme.colors.textDisabledColor};
+  background-image: ${props => (props.tabSelected ? `url(${TuNewsActiveIcon})` : `url(${TuNewsInactiveIcon})`)};
   background-size: cover;
   background-position: center center;
 `
@@ -45,17 +37,17 @@ type NewsTabProps = {
   type: NewsType
   active: boolean
   destination: string
-  t: TFunction<'news'>
 }
 
-const NewsTab = ({ type, active, destination, t }: NewsTabProps): ReactElement => {
+const NewsTab = ({ type, active, destination }: NewsTabProps): ReactElement => {
+  const { t } = useTranslation('news')
   if (type === TU_NEWS_TYPE) {
     return <TuStyledTab tabSelected={active} to={destination} aria-label={tunewsLabel} />
   }
 
   return (
     <StyledTab tabSelected={active} to={destination} aria-label={t('local')}>
-      {t('local').toUpperCase()}
+      <Typography variant='subtitle1'>{t('local').toUpperCase()}</Typography>
     </StyledTab>
   )
 }

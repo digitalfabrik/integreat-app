@@ -1,51 +1,35 @@
-import styled from '@emotion/styled'
-import { TFunction } from 'i18next'
-import React, { ReactNode, ReactElement } from 'react'
+import Stack from '@mui/material/Stack'
+import React, { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NewsType, pathnameFromRouteInformation, TU_NEWS_TYPE } from 'shared'
 
-import Caption from './Caption'
 import NewsTab from './NewsTab'
-
-const StyledTabs = styled.div`
-  display: flex;
-  padding-bottom: 40px;
-  justify-content: center;
-`
+import H1 from './base/H1'
 
 type NewsTabsProps = {
   type: NewsType
-  children: ReactNode
   city: string
   localNewsEnabled: boolean
   tunewsEnabled: boolean
   language: string
-  t: TFunction<'news'>
 }
 
-const NewsTabs = ({
-  children,
-  language,
-  city,
-  localNewsEnabled,
-  tunewsEnabled,
-  t,
-  type,
-}: NewsTabsProps): ReactElement => {
+const NewsTabs = ({ language, city, localNewsEnabled, tunewsEnabled, type }: NewsTabsProps): ReactElement => {
+  const { t } = useTranslation('news')
   const params = { route: NEWS_ROUTE, cityCode: city, languageCode: language }
   const localNewsPath = pathnameFromRouteInformation({ ...params, newsType: LOCAL_NEWS_TYPE })
   const tunewsPath = pathnameFromRouteInformation({ ...params, newsType: TU_NEWS_TYPE })
 
   return (
     <>
-      <Caption title={t('news')} />
+      <H1>{t('news')}</H1>
       {localNewsEnabled && tunewsEnabled && (
-        <StyledTabs>
-          <NewsTab active={type === LOCAL_NEWS_TYPE} type={LOCAL_NEWS_TYPE} destination={localNewsPath} t={t} />
-          <NewsTab active={type === TU_NEWS_TYPE} type={TU_NEWS_TYPE} destination={tunewsPath} t={t} />
-        </StyledTabs>
+        <Stack paddingBottom={4} flexDirection='row' justifyContent='center' gap={4}>
+          <NewsTab active={type === LOCAL_NEWS_TYPE} type={LOCAL_NEWS_TYPE} destination={localNewsPath} />
+          <NewsTab active={type === TU_NEWS_TYPE} type={TU_NEWS_TYPE} destination={tunewsPath} />
+        </Stack>
       )}
-      {children}
     </>
   )
 }

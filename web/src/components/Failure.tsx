@@ -1,24 +1,9 @@
-import styled from '@emotion/styled'
+import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied'
+import Stack from '@mui/material/Stack'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router'
 
-import { SadSmileyIcon } from '../assets'
-import Icon from './base/Icon'
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  text-align: center;
-  padding: 16px 0;
-`
-
-const StyledIcon = styled(Icon)`
-  align-self: center;
-  width: 64px;
-  height: 64px;
-`
+import Link from './base/Link'
 
 type FailureProps = {
   errorMessage: string
@@ -30,11 +15,15 @@ type FailureProps = {
 const Failure = ({ errorMessage, goToPath, goToMessage = 'goTo.start', className }: FailureProps): ReactElement => {
   const { t } = useTranslation('error')
   return (
-    <Container className={className}>
-      <StyledIcon src={SadSmileyIcon} />
+    <Stack alignItems='center' textAlign='center' paddingTop={8} paddingInline={2} gap={3} className={className}>
+      <SentimentVeryDissatisfiedIcon fontSize='large' />
       <div role='alert'>{t(errorMessage)} </div>
-      {!!goToPath && <Link to={goToPath}>{goToMessage ? t(goToMessage) : goToPath}</Link>}
-    </Container>
+      {!!goToPath && (
+        <Link to={goToPath} highlighted>
+          {goToMessage ? t(goToMessage) : goToPath}
+        </Link>
+      )}
+    </Stack>
   )
 }
 

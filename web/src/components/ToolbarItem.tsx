@@ -1,118 +1,36 @@
-import { css, SerializedStyles, Theme, useTheme } from '@emotion/react'
-import styled from '@emotion/styled'
+import ListItem from '@mui/material/ListItem'
+import ListItemButton from '@mui/material/ListItemButton'
+import ListItemText from '@mui/material/ListItemText'
+import Typography from '@mui/material/Typography'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
-import { PlacesType } from 'react-tooltip'
 
-import dimensions from '../constants/dimensions'
-import useWindowDimensions from '../hooks/useWindowDimensions'
-import { spacesToDashes } from '../utils/stringUtils'
-import StyledSmallViewTip from './StyledSmallViewTip'
-import Button from './base/Button'
-import Icon from './base/Icon'
-import Link from './base/Link'
-import Tooltip from './base/Tooltip'
+const StyledButton = styled(ListItemButton)({
+  flexDirection: 'column',
+  padding: 8,
+  width: 120,
+}) as typeof ListItemButton
 
-const toolbarItemStyle = ({ theme }: { theme: Theme }): SerializedStyles => css`
-  display: inline-block;
-  padding: 8px;
-  border: none;
-  color: ${theme.colors.textColor};
-  background-color: transparent;
-  text-align: center;
-
-  @media ${dimensions.smallViewport} {
-    line-height: 1.15;
-  }
-`
-
-const ToolbarItemLink = styled(Link)`
-  ${toolbarItemStyle}
-`
-const ToolbarItemButton = styled(Button)`
-  ${toolbarItemStyle}
-`
-const DisabledToolbarItem = styled('div')`
-  ${toolbarItemStyle};
-  color: ${props => props.theme.colors.textDisabledColor};
-  cursor: default;
-`
-
-const StyledIcon = styled(Icon)<{ disabled?: boolean }>`
-  color: ${props => (props.disabled ? props.theme.colors.textDisabledColor : props.theme.colors.textSecondaryColor)};
-`
-
-const StyledTooltip = styled(Tooltip)`
-  max-width: 250px;
-`
-
-type AdditionalTooltipProps = {
-  isOpen: boolean
-  openOnClick: boolean
-}
-
-type ItemProps =
-  | {
-      onClick: () => void
-      to?: undefined
-    }
-  | {
-      onClick?: undefined
-      to: string
-    }
-
-type ToolbarItemProps = {
-  icon: string
+export type ToolbarItemProps = {
+  icon: ReactElement
   text: string
-  id?: string
-  isDisabled?: boolean
-  tooltip?: string | null
-  additionalTooltipProps?: AdditionalTooltipProps
-} & ItemProps
-
-const ToolbarItem = ({
-  to,
-  text,
-  icon,
-  isDisabled = false,
-  tooltip,
-  additionalTooltipProps,
-  onClick,
-  id,
-}: ToolbarItemProps): ReactElement => {
-  const theme = useTheme()
-  const { viewportSmall } = useWindowDimensions()
-  const tooltipDirectionForDesktop: PlacesType = theme.contentDirection === 'ltr' ? 'right' : 'left'
-  const tooltipDirection: PlacesType = viewportSmall ? 'top' : tooltipDirectionForDesktop
-  const tooltipId = id ?? spacesToDashes(text)
-
-  const Content = (
-    <>
-      <StyledIcon src={icon} disabled={isDisabled} />
-      <StyledSmallViewTip>{text}</StyledSmallViewTip>
-    </>
-  )
-
-  if (isDisabled) {
-    return (
-      <StyledTooltip id={tooltipId} tooltipContent={tooltip} place={tooltipDirection} {...additionalTooltipProps}>
-        <DisabledToolbarItem aria-label={text}>{Content}</DisabledToolbarItem>
-      </StyledTooltip>
-    )
-  }
-
-  return (
-    <StyledTooltip id={tooltipId} tooltipContent={tooltip} place={tooltipDirection} {...additionalTooltipProps}>
-      {onClick ? (
-        <ToolbarItemButton onClick={onClick} label={text}>
-          {Content}
-        </ToolbarItemButton>
-      ) : (
-        <ToolbarItemLink to={to} aria-label={text}>
-          {Content}
-        </ToolbarItemLink>
-      )}
-    </StyledTooltip>
-  )
+  onClick: () => void
 }
+
+const ToolbarItem = ({ text, icon, onClick }: ToolbarItemProps): ReactElement => (
+  <ListItem disablePadding>
+    <StyledButton onClick={onClick}>
+      {icon}
+      <ListItemText
+        disableTypography
+        primary={
+          <Typography component='div' variant='body2' textAlign='center'>
+            {text}
+          </Typography>
+        }
+      />
+    </StyledButton>
+  </ListItem>
+)
 
 export default ToolbarItem

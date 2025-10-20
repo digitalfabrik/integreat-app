@@ -1,52 +1,53 @@
-import styled from '@emotion/styled'
-import React, { ReactElement, ReactNode } from 'react'
+import Typography from '@mui/material/Typography'
+import { styled } from '@mui/material/styles'
+import React, { ReactElement } from 'react'
 
 import buildConfig from '../constants/buildConfig'
+import { useRouteParams } from '../hooks/useCityContentParams'
+import useDimensions from '../hooks/useDimensions'
+import getFooterLinks from '../utils/getFooterLinks'
+import FooterLink from './FooterLink'
+import List from './base/List'
 
-type FooterProps = {
-  children: ReactNode[] | ReactNode
-  overlay?: boolean
-}
-
-const FooterContainer = styled.footer<{ overlay: boolean }>`
+const FooterContainer = styled('footer')`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding: ${props => (props.overlay ? '0 10px' : '15px 5px')};
-  margin-top: auto;
-  background-color: ${props => (props.overlay ? `rgba(255, 255, 255, 0.5)` : props.theme.colors.backgroundAccentColor)};
-  box-shadow: 0 2px 3px 3px rgb(0 0 0 / 10%);
-
-  ${props => (props.overlay ? 'color: rgba(0, 0, 0, 0.75);' : '')}
-  & > * {
-    margin: ${props => (props.overlay ? 0 : '5px')};
-    color: ${props => props.theme.isContrastTheme && !props.overlay && props.theme.colors.textColor};
-  }
-
-  & > *::after {
-    padding-inline-end: 10px;
-    content: '';
-  }
-
-  & > *:last-child::after {
-    content: '';
-  }
+  align-items: center;
+  gap: ${props => props.theme.spacing(2)};
+  background-color: ${props => props.theme.palette.background.accent};
+  padding: 8px;
 `
 
-/**
- * The standard footer which can supplied to a Layout. Displays a list of links from the props and adds the version
- * number if it's a dev build.
- */
+const StyledList = styled(List)({
+  display: 'flex',
+  justifyContent: 'center',
+  flexDirection: 'row',
+})
 
-const Footer = ({ children, overlay = false }: FooterProps): ReactElement => (
-  <FooterContainer overlay={overlay}>
-    {children}
-    {buildConfig().featureFlags.developerFriendly && (
-      <span>
-        {__VERSION_NAME__}+{__COMMIT_SHA__}
-      </span>
-    )}
-  </FooterContainer>
-)
+const Footer = (): ReactElement | null => {
+  const linkItems = getFooterLinks(useRouteParams())
+  const { mobile } = useDimensions()
+
+  if (mobile) {
+    return null
+  }
+
+  return (
+    <FooterContainer>
+      <StyledList
+        items={linkItems.map(item => (
+          <FooterLink key={item.to} to={item.to} text={item.text} />
+        ))}
+        disablePadding
+      />
+      {buildConfig().featureFlags.developerFriendly && (
+        <Typography variant='body2'>
+          {__VERSION_NAME__}+{__COMMIT_SHA__}
+        </Typography>
+      )}
+    </FooterContainer>
+  )
+}
 
 export default Footer

@@ -3,7 +3,7 @@
 exports[`loadTranslations should correctly merge and transform translations 1`] = `
 {
   "ar": {
-    "dashboard": {
+    "layout": {
       "events": "الفعاليات",
       "localInformation": "معلومات محلية",
     },
@@ -18,9 +18,13 @@ exports[`loadTranslations should correctly merge and transform translations 1`] 
       },
     },
     "dashboard": {
-      "events": "Veranstaltungen",
       "localInformation": "Malte Informationen",
       "news": "Malte Nachrichten",
+    },
+    "layout": {
+      "events": "Veranstaltungen",
+      "localInformation": "Lokale Informationen",
+      "news": "Nachrichten",
       "newsAlternative": "Neuigkeiten",
     },
   },
@@ -31,12 +35,12 @@ exports[`loadTranslations should correctly merge and transform translations 1`] 
     },
   },
   "kmr": {
-    "dashboard": {
+    "layout": {
       "localInformation": "Zanyariyên xwecihî",
     },
   },
   "zh-CN": {
-    "dashboard": {
+    "layout": {
       "localInformation": "本地信息",
     },
   },
@@ -46,7 +50,7 @@ exports[`loadTranslations should correctly merge and transform translations 1`] 
 exports[`loadTranslations should correctly transform translations 1`] = `
 {
   "ar": {
-    "dashboard": {
+    "layout": {
       "events": "الفعاليات",
       "localInformation": "معلومات محلية",
     },
@@ -60,7 +64,7 @@ exports[`loadTranslations should correctly transform translations 1`] = `
         "tunews": "tünews",
       },
     },
-    "dashboard": {
+    "layout": {
       "events": "Veranstaltungen",
       "localInformation": "Lokale Informationen",
       "news": "Nachrichten",
@@ -68,12 +72,12 @@ exports[`loadTranslations should correctly transform translations 1`] = `
     },
   },
   "kmr": {
-    "dashboard": {
+    "layout": {
       "localInformation": "Zanyariyên xwecihî",
     },
   },
   "zh-CN": {
-    "dashboard": {
+    "layout": {
       "localInformation": "本地信息",
     },
   },

@@ -1,5 +1,4 @@
-import { useTheme } from '@emotion/react'
-import styled from '@emotion/styled'
+import { styled, useTheme } from '@mui/material/styles'
 import maplibregl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import React, {
@@ -25,13 +24,10 @@ import {
 } from 'shared'
 
 import { clusterCountLayer, clusterLayer, clusterProperties, markerLayer } from '../constants/layers'
-import useWindowDimensions from '../hooks/useWindowDimensions'
-import '../styles/MapView.css'
-import { midSnapPercentage } from '../utils/getSnapPoints'
+import useDimensions from '../hooks/useDimensions'
 import { reportError } from '../utils/sentry'
-import MapAttribution from './MapAttribution'
 
-const MapContainer = styled.div`
+const MapContainer = styled('div')`
   height: 100%;
   width: 100%;
   display: flex;
@@ -39,20 +35,22 @@ const MapContainer = styled.div`
   position: relative;
 `
 
-const OverlayContainer = styled.div`
+const OverlayContainer = styled('div')`
   display: flex;
+  flex-wrap: wrap;
   padding: 12px 8px;
   flex: 1;
   position: absolute;
   top: 0;
   gap: 8px;
+  align-items: center;
 `
 
 type MapViewProps = {
   features: MapFeature[]
   currentFeature: MapFeature | null
   selectFeature: (feature: MapFeature | null, restoreScrollPosition: boolean) => void
-  changeSnapPoint?: (snapPoint: number) => void
+  snapBottomSheetTo?: (height: number) => void
   children?: ReactNode
   viewport?: MapViewViewport
   setViewport: (mapViewport: MapViewViewport) => void
@@ -69,7 +67,7 @@ export type MapViewRef = {
 const MapView = ({
   features,
   selectFeature,
-  changeSnapPoint,
+  snapBottomSheetTo,
   currentFeature,
   viewport,
   setViewport,
@@ -81,7 +79,7 @@ const MapView = ({
   const [mapRef, setMapRef] = useState<maplibregl.Map | null>(null)
   const theme = useTheme()
 
-  const { viewportSmall, height } = useWindowDimensions()
+  const dimensions = useDimensions()
 
   useEffect(() => {
     if (maplibregl.getRTLTextPluginStatus() === 'unavailable') {
@@ -169,10 +167,15 @@ const MapView = ({
       mapRef.flyTo({
         center: [longitude, latitude],
         zoom: closerDetailZoom,
-        padding: { bottom: viewportSmall ? height * midSnapPercentage : 0, top: 0, left: 0, right: 0 },
+        padding: {
+          bottom: dimensions.mobile ? dimensions.bottomSheet.snapPoints.medium : 0,
+          top: 0,
+          left: 0,
+          right: 0,
+        },
       })
     }
-  }, [currentFeature?.geometry.coordinates, height, mapRef, viewportSmall])
+  }, [currentFeature?.geometry.coordinates, dimensions, mapRef])
 
   return (
     <MapContainer>
@@ -195,7 +198,7 @@ const MapView = ({
         maxZoom={viewport?.maxZoom}
         mapStyle={mapConfig.styleJSON}
         onClick={onSelectFeature}
-        onTouchMove={() => (changeSnapPoint ? changeSnapPoint(0) : null)}
+        onTouchMove={() => (snapBottomSheetTo ? snapBottomSheetTo(dimensions.bottomSheet.snapPoints.min) : null)}
         attributionControl={false}>
         <OverlayContainer>{Overlay}</OverlayContainer>
         {children}
@@ -215,7 +218,6 @@ const MapView = ({
             <Layer {...markerLayer(currentFeature)} id='current' />
           </Source>
         )}
-        <MapAttribution initialExpanded={!viewportSmall} />
       </Map>
     </MapContainer>
   )

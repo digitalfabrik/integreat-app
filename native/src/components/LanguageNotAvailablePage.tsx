@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { RefreshControl, Text } from 'react-native'
+import { RefreshControl } from 'react-native'
 import styled from 'styled-components/native'
 
 import { fromError, LanguageModel } from 'shared/api'
@@ -26,7 +26,7 @@ const LanguageNotAvailablePage = ({ availableLanguages, refresh }: LanguageNotAv
   const { cityCode, changeLanguageCode } = useCityAppContext()
   const { data: cities, error, refresh: refreshCities, loading } = useLoadCities()
   const languages = cities?.find(it => it.code === cityCode)?.languages
-  const { t } = useTranslation('common')
+  const { t } = useTranslation('error')
 
   const items = (availableLanguages ?? languages)?.map(
     ({ code, name }: LanguageModel) =>
@@ -44,8 +44,7 @@ const LanguageNotAvailablePage = ({ availableLanguages, refresh }: LanguageNotAv
     <LayoutedScrollView refreshControl={<RefreshControl refreshing={loading} onRefresh={refresh ?? refreshCities} />}>
       {items ? (
         <Wrapper contentContainerStyle={{ alignItems: 'center' }}>
-          <Caption title={t('languageNotAvailable')} />
-          <Text>{t('chooseALanguage')}</Text>
+          <Caption title={t('notFound.language')} />
           <Selector items={items} selectedItemCode={null} />
         </Wrapper>
       ) : (

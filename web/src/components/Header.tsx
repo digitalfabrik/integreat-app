@@ -1,143 +1,95 @@
-import styled from '@emotion/styled'
 import Headroom from '@integreat-app/react-sticky-headroom'
+import Paper from '@mui/material/Paper'
+import Stack from '@mui/material/Stack'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode } from 'react'
 
-import dimensions from '../constants/dimensions'
-import useWindowDimensions from '../hooks/useWindowDimensions'
-import CityContentFooter from './CityContentFooter'
+import { LANDING_ROUTE, pathnameFromRouteInformation } from 'shared'
+
+import useElementRect from '../hooks/useElementRect'
 import HeaderLogo from './HeaderLogo'
-import { HeaderNavigationItemProps } from './HeaderNavigationItem'
 import HeaderTitle from './HeaderTitle'
-import KebabMenu from './KebabMenu'
-import NavigationBarScrollContainer from './NavigationBarScrollContainer'
 
-type HeaderProps = {
-  navigationItems: ReactElement<HeaderNavigationItemProps>[]
-  actionItems: ReactNode[]
-  kebabItems: ReactNode[]
-  logoHref: string
-  cityName?: string
-  cityCode?: string
-  isSidebarOpen?: boolean
-  setIsSidebarOpen?: (show: boolean) => void
-  language: string
-}
+const HEADER_HEIGHT = 80
 
-const HeaderContainer = styled.header`
-  display: flex;
-  width: 100%;
-  box-sizing: border-box;
-  background-color: ${props => props.theme.colors.backgroundAccentColor};
+const StyledPaper = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.isContrastTheme ? theme.palette.background.accent : undefined,
+}))
+
+const HeaderContainer = styled('header')`
   user-select: none;
-  flex-direction: column;
-  overflow: visible;
-  box-shadow: 0 2px 5px -3px rgb(0 0 0 / 20%);
 
-  @media ${dimensions.minMaxWidth} {
-    padding-inline: calc((100vw - ${dimensions.maxWidth}px) / 2) calc((200% - 100vw - ${dimensions.maxWidth}px) / 2);
+  ${props => props.theme.breakpoints.up('lg')} {
+    padding-inline: calc((100vw - ${props => props.theme.breakpoints.values.lg}px) / 2)
+      calc((200% - 100vw - ${props => props.theme.breakpoints.values.lg}px) / 2);
+  }
+
+  ${props => props.theme.breakpoints.up('md')} {
+    margin-inline-start: 80px;
   }
 `
 
-const Row = styled.div`
+const Row = styled('div')`
   display: flex;
-  flex: 1;
-  max-width: 100%;
   align-items: center;
-  min-height: ${dimensions.headerHeightLarge}px;
-  flex-direction: row;
+  min-height: ${HEADER_HEIGHT}px;
   justify-content: space-between;
+  overflow-x: auto;
+  padding: 0 16px;
+  gap: 8px;
 
-  @media ${dimensions.smallViewport} {
-    background-color: ${props => props.theme.colors.backgroundAccentColor};
-    justify-content: space-between;
-    flex-wrap: wrap;
-    min-height: ${dimensions.headerHeightSmall}px;
-    overflow-x: auto;
+  ${props => props.theme.breakpoints.down('md')} {
+    padding: 0 8px;
   }
 `
 
-const HeaderSeparator = styled.div`
-  align-self: center;
-  height: ${dimensions.headerHeightLarge / 2}px;
-  width: 2px;
-  margin: 0 5px;
-  background-color: ${props => props.theme.colors.textDecorationColor};
-  order: 2;
-
-  @media ${dimensions.smallViewport} {
-    display: none;
-  }
-`
-
-const ActionBar = styled.nav`
+const ActionBar = styled('nav')`
   order: 3;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 12px;
-  padding: 0 16px;
+  gap: 8px;
 
-  @media ${dimensions.smallViewport} {
+  ${props => props.theme.breakpoints.down('md')} {
     order: 2;
   }
 `
 
-const NavigationBar = styled.nav`
-  display: flex;
-  flex: 1 1 0;
-  align-items: stretch;
-  justify-content: center;
-  gap: 24px;
-
-  @media ${dimensions.mediumLargeViewport} {
-    padding: 0 10px;
-  }
-`
+type HeaderProps = {
+  actionItems: ReactNode[]
+  logoHref: string
+  cityName?: string
+  language: string
+  TabBar?: ReactNode
+  onStickyTopChanged?: (stickyTop: number) => void
+}
 
 export const Header = ({
   actionItems = [],
-  kebabItems = [],
   logoHref,
-  navigationItems = [],
   cityName,
-  cityCode,
-  isSidebarOpen = false,
-  setIsSidebarOpen,
   language,
+  TabBar,
+  onStickyTopChanged,
 }: HeaderProps): ReactElement => {
-  const { viewportSmall } = useWindowDimensions()
-  const { headerHeightSmall, headerHeightLarge } = dimensions
-  const hasNavigationBar = navigationItems.length > 0
-  const height = viewportSmall
-    ? (1 + (hasNavigationBar ? 1 : 0)) * headerHeightSmall
-    : (1 + (hasNavigationBar ? 1 : 0)) * headerHeightLarge
-  const scrollHeight = viewportSmall ? headerHeightSmall : headerHeightLarge
+  const { rect: headerRect, ref } = useElementRect()
+  const height = headerRect?.height ?? 0
+  const landingPath = pathnameFromRouteInformation({ route: LANDING_ROUTE, languageCode: language })
 
   return (
-    <Headroom scrollHeight={scrollHeight} height={height}>
-      <HeaderContainer>
-        <Row>
-          <HeaderLogo link={logoHref} />
-          {!viewportSmall && !!cityName && <HeaderSeparator />}
-          {!!cityName && <HeaderTitle title={cityName} />}
-          <ActionBar>
-            {actionItems}
-            {viewportSmall && setIsSidebarOpen && !!cityCode && (
-              <KebabMenu
-                setShow={setIsSidebarOpen}
-                show={isSidebarOpen}
-                items={kebabItems}
-                Footer={<CityContentFooter city={cityCode} language={language} mode='sidebar' />}
-              />
-            )}
-          </ActionBar>
-        </Row>
-        {hasNavigationBar && (
-          <NavigationBarScrollContainer activeIndex={navigationItems.findIndex(el => el.props.active)}>
-            <NavigationBar id='navigation-bar'>{navigationItems}</NavigationBar>
-          </NavigationBarScrollContainer>
-        )}
-      </HeaderContainer>
+    <Headroom scrollHeight={HEADER_HEIGHT} height={height} zIndex={2} onStickyTopChanged={onStickyTopChanged}>
+      <StyledPaper>
+        <HeaderContainer ref={ref}>
+          <Row>
+            <Stack direction='row-reverse' alignItems='center'>
+              <HeaderLogo link={logoHref} />
+              {!!cityName && <HeaderTitle title={cityName} landingPath={landingPath} />}
+            </Stack>
+            <ActionBar>{actionItems}</ActionBar>
+          </Row>
+          {TabBar}
+        </HeaderContainer>
+      </StyledPaper>
     </Headroom>
   )
 }

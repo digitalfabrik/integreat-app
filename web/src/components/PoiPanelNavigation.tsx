@@ -1,36 +1,19 @@
-import styled from '@emotion/styled'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import Button from '@mui/material/Button'
+import Stack from '@mui/material/Stack'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ArrowBackIcon } from '../assets'
-import { helpers } from '../constants/theme'
-import Button from './base/Button'
-import Icon from './base/Icon'
+import { DirectionDependentBackIcon } from './base/Dialog'
 
-const NavigationContainer = styled.div`
-  display: flex;
-  padding: 12px;
-  justify-content: space-between;
-`
+const DirectionDependentNextIcon = styled(ArrowBackIcon)(({ theme }) => ({
+  transform: theme.direction === 'ltr' ? 'scaleX(-1)' : 'none',
+}))
 
-const StyledButton = styled(Button)`
-  display: flex;
-  color: ${props => props.theme.colors.textColor};
-`
-
-const Label = styled.span`
-  align-self: center;
-  ${helpers.adaptiveFontSize};
-`
-
-const StyledIcon = styled(Icon)`
-  width: 16px;
-  height: 16px;
-  flex-shrink: 0;
-  padding: 0 8px;
-  object-fit: contain;
-  align-self: center;
-`
+const StyledButton = styled(Button)({
+  textTransform: 'none',
+})
 
 type PoiPanelNavigationProps = {
   switchPoi: (step: 1 | -1) => void
@@ -39,16 +22,24 @@ type PoiPanelNavigationProps = {
 const PoiPanelNavigation = ({ switchPoi }: PoiPanelNavigationProps): ReactElement => {
   const { t } = useTranslation('pois')
   return (
-    <NavigationContainer>
-      <StyledButton onClick={() => switchPoi(-1)} tabIndex={0} label={t('previousPoi')}>
-        <StyledIcon src={ArrowBackIcon} directionDependent />
-        <Label>{t('detailsPreviousPoi')}</Label>
+    <Stack direction='row' justifyContent='space-between' padding={1}>
+      <StyledButton
+        onClick={() => switchPoi(-1)}
+        startIcon={<DirectionDependentBackIcon />}
+        tabIndex={0}
+        color='inherit'
+        aria-label={t('previousPoi')}>
+        {t('detailsPreviousPoi')}
       </StyledButton>
-      <StyledButton onClick={() => switchPoi(1)} tabIndex={0} label={t('nextPoi')}>
-        <Label>{t('detailsNextPoi')}</Label>
-        <StyledIcon src={ArrowBackIcon} directionDependent reverse />
+      <StyledButton
+        onClick={() => switchPoi(1)}
+        endIcon={<DirectionDependentNextIcon />}
+        tabIndex={0}
+        color='inherit'
+        aria-label={t('nextPoi')}>
+        {t('detailsNextPoi')}
       </StyledButton>
-    </NavigationContainer>
+    </Stack>
   )
 }
 

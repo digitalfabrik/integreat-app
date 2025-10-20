@@ -1,17 +1,21 @@
+import Backdrop from '@mui/material/Backdrop'
+import { styled } from '@mui/material/styles'
 import EasySpeech from 'easy-speech'
 import React, { createContext, ReactElement, useCallback, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { TTS_MAX_TITLE_DISPLAY_CHARS } from 'shared'
-import { truncate } from 'shared/utils/getExcerpt'
-
 import buildConfig from '../constants/buildConfig'
 import { getTtsVoice, isTtsCancelError, ttsInitialized } from '../utils/tts'
-import TtsHelpModal from './TtsHelpModal'
+import LoadingSpinner from './LoadingSpinner'
+import TtsHelp from './TtsHelp'
 import TtsPlayer from './TtsPlayer'
 
-const TTS_TIMEOUT = 5000
+const TTS_TIMEOUT = 2000
 const TTS_RETRY_INTERVAL = 250
+
+const StyledBackdrop = styled(Backdrop)`
+  z-index: 100;
+`
 
 export type TtsContextType = {
   enabled?: boolean
@@ -43,17 +47,24 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
   const [visible, setVisible] = useState(false)
   const [sentences, setSentences] = useState<string[]>([])
   const [sentenceIndex, setSentenceIndex] = useState(0)
-  const [showHelpModal, setShowHelpModal] = useState(false)
+  const [showHelp, setShowHelp] = useState(false)
+  const [isInitializing, setIsInitializing] = useState(false)
   const title = sentences[0] || t('nothingToRead')
-  const shortTitle = truncate(title, { maxChars: TTS_MAX_TITLE_DISPLAY_CHARS })
   const enabled = buildConfig().featureFlags.tts
   const canRead = enabled && sentences.length > 1
 
   const initializeTts = useCallback(() => {
     if (buildConfig().featureFlags.tts) {
+      setIsInitializing(true)
       EasySpeech.init({ maxTimeout: TTS_TIMEOUT, interval: TTS_RETRY_INTERVAL })
-        .then(() => setVisible(true))
-        .catch(() => setShowHelpModal(true))
+        .then(() => {
+          setIsInitializing(false)
+          setVisible(true)
+        })
+        .catch(() => {
+          setIsInitializing(false)
+          setShowHelp(true)
+        })
     }
   }, [])
 
@@ -82,7 +93,7 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
     async (index = sentenceIndex) => {
       const voice = getTtsVoice(languageCode)
       if (!voice) {
-        setShowHelpModal(true)
+        setShowHelp(true)
         return
       }
 
@@ -136,12 +147,12 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
 
   const close = () => {
     setVisible(false)
-    setShowHelpModal(false)
+    setShowHelp(false)
     stop()
   }
 
-  const playPrevious = () => stopPlayer(() => play(sentenceIndex - 1))
-  const playNext = () => stopPlayer(() => play(sentenceIndex + 1))
+  const playPrevious = () => (isPlaying ? stopPlayer(() => play(sentenceIndex - 1)) : play(sentenceIndex - 1))
+  const playNext = () => (isPlaying ? stopPlayer(() => play(sentenceIndex + 1)) : play(sentenceIndex + 1))
 
   const updateSentences = useCallback(
     (newSentences: string[]) => {
@@ -166,7 +177,10 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
   return (
     <TtsContext.Provider value={ttsContextValue}>
       {children}
-      {showHelpModal && <TtsHelpModal closeModal={close} />}
+      <StyledBackdrop open={isInitializing}>
+        <LoadingSpinner />
+      </StyledBackdrop>
+      {showHelp && <TtsHelp close={close} />}
       {visible && (
         <TtsPlayer
           disabled={sentences.length === 0}
@@ -176,7 +190,7 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
           isPlaying={isPlaying}
           pause={pause}
           play={startPlaying}
-          title={shortTitle}
+          title={title}
         />
       )}
     </TtsContext.Provider>

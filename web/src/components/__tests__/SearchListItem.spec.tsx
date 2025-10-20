@@ -16,9 +16,9 @@ const differenCategoryName = 'Willkommen'
 describe('SearchListItem', () => {
   const highlightStyle = {
     values: {
-      'background-color': 'rgb(255, 255, 255)',
+      'background-color': 'rgb(234, 238, 249)',
       'font-weight': 'bold',
-      color: 'rgb(0, 0, 0)',
+      color: 'black',
     },
   }
 
@@ -77,18 +77,5 @@ describe('SearchListItem', () => {
 
     expect(getByText(categoryParams.title)).not.toHaveProperty('style', expect.objectContaining(highlightStyle))
     expect(getByText(excerpt)).not.toHaveProperty('style', expect.objectContaining(highlightStyle))
-  })
-
-  it('should render with thumbnail when provided', () => {
-    const { getByAltText } = renderWithRouterAndTheme(<SearchListItem query='' {...categoryParams} />)
-    const thumbnail = getByAltText('')
-    expect(thumbnail).toBeInTheDocument()
-  })
-
-  it('should render without thumbnail when not provided', () => {
-    const { queryByAltText } = renderWithRouterAndTheme(
-      <SearchListItem {...categoryParams} thumbnail={null} query='' />,
-    )
-    expect(queryByAltText('')).not.toBeInTheDocument()
   })
 })

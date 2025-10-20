@@ -1,86 +1,90 @@
-import styled from '@emotion/styled'
-import React, { ReactElement } from 'react'
-import { Link } from 'react-router'
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
+import MuiBreadcrumbs, { breadcrumbsClasses } from '@mui/material/Breadcrumbs'
+import IconButton, { iconButtonClasses } from '@mui/material/IconButton'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+import Stack from '@mui/material/Stack'
+import { styled } from '@mui/material/styles'
+import React, { ReactElement, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
-import { UiDirectionType } from 'translations'
-
-import { HouseIcon } from '../assets'
+import useDimensions from '../hooks/useDimensions'
 import BreadcrumbModel from '../models/BreadcrumbModel'
 import Breadcrumb from './Breadcrumb'
 import JsonLdBreadcrumbs from './JsonLdBreadcrumbs'
-import Icon from './base/Icon'
+import Link from './base/Link'
 
-const opposite = (direction: UiDirectionType) => (direction === 'ltr' ? 'rtl' : 'ltr')
+const StyledMuiBreadcrumbs = styled(MuiBreadcrumbs)`
+  .${breadcrumbsClasses.ol} {
+    flex-wrap: nowrap;
+    overflow: hidden;
+  }
 
-const Wrapper = styled.nav`
-  margin: 10px 0;
-  text-align: start;
-  white-space: nowrap;
-  overflow: hidden;
-  width: 100%;
-  direction: ${props => opposite(props.theme.contentDirection)};
-`
+  .${breadcrumbsClasses.li} {
+    overflow: hidden;
 
-const OrderedList = styled.ol`
-  direction: ${props => props.theme.contentDirection};
-  display: flex;
-  white-space: nowrap;
-  overflow: hidden;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+    &:first-of-type {
+      overflow: visible;
+    }
 
-  /* avoid changing height when switching between pages (show one line even if there are no breadcrumbs) */
+    ${props => props.theme.breakpoints.between('sm', 'md')} {
+      &:last-of-type {
+        max-width: 50%;
+      }
+    }
+  }
 
-  &:empty::after {
-    padding-inline-start: 1px;
-    content: '';
+  & li:has(.${iconButtonClasses.root}) {
+    overflow: visible;
   }
 `
 
-const StyledIcon = styled(Icon)`
-  width: 24px;
-  height: 24px;
-`
-
-const StyledLink = styled(Link)`
-  margin-inline-end: 4px;
-`
-
 type BreadcrumbsProps = {
-  ancestorBreadcrumbs: BreadcrumbModel[]
-  currentBreadcrumb: BreadcrumbModel
+  breadcrumbs: BreadcrumbModel[]
 }
 
-const Breadcrumbs = ({ ancestorBreadcrumbs, currentBreadcrumb }: BreadcrumbsProps): ReactElement => {
-  // The current page should not be listed in the UI, but should be within the JsonLd.
-  const jsonLdBreadcrumbs = [...ancestorBreadcrumbs, currentBreadcrumb]
-  // Min text length after which the last breadcrumb item should shrink
-  const MIN_SHRINK_CHARS = 20
+const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps): ReactElement | null => {
+  const [menuAnchorElement, setMenuAnchorElement] = useState<HTMLButtonElement | null>(null)
+  const { xsmall } = useDimensions()
+  const { t } = useTranslation('common')
 
-  /* We do some funky stuff with directions here. See this link for more information about the idea:
-   https://css-tricks.com/position-vertical-scrollbars-on-opposite-side-with-css/
-   Basically, we are inverting the direction on the wrapper and then making sure that the direction of the content
-   has the opposite direction of the wrapper. */
+  const openMenu = (event: React.MouseEvent<HTMLButtonElement>) => setMenuAnchorElement(event.currentTarget)
+  const closeMenu = () => setMenuAnchorElement(null)
+
+  const maxVisible = xsmall ? 1 : 2
+  const [home, ...rest] = breadcrumbs
+  const hiddenBreadcrumbs = rest.slice(0, -maxVisible)
+  const visibleBreadcrumbs = rest.slice(-maxVisible)
+
+  if (breadcrumbs.length < 2 || !home) {
+    return <JsonLdBreadcrumbs breadcrumbs={breadcrumbs} />
+  }
+
   return (
-    <Wrapper>
-      <JsonLdBreadcrumbs breadcrumbs={jsonLdBreadcrumbs} />
-      <OrderedList>
-        {ancestorBreadcrumbs.map((breadcrumb, index) =>
-          ancestorBreadcrumbs.length > 1 && index === 0 ? (
-            <li key={breadcrumb.pathname}>
-              <StyledLink to={breadcrumb.pathname}>
-                <StyledIcon src={HouseIcon} title={breadcrumb.title} />
-              </StyledLink>
-            </li>
-          ) : (
-            <Breadcrumb key={breadcrumb.title} shrink={breadcrumb.title.length >= MIN_SHRINK_CHARS}>
-              {breadcrumb.node}
-            </Breadcrumb>
-          ),
+    <Stack paddingBlock={1} overflow='hidden'>
+      <JsonLdBreadcrumbs breadcrumbs={breadcrumbs} />
+      <StyledMuiBreadcrumbs aria-label='Breadcrumb' separator='>'>
+        <IconButton key='home' component={Link} to={home.pathname} aria-label={home.title}>
+          <HomeOutlinedIcon />
+        </IconButton>
+        {hiddenBreadcrumbs.length > 0 && (
+          <IconButton key='menu' onClick={openMenu} aria-label={t('showMore')}>
+            <MoreHorizIcon />
+          </IconButton>
         )}
-      </OrderedList>
-    </Wrapper>
+        {visibleBreadcrumbs.map(breadcrumb => (
+          <Breadcrumb key={breadcrumb.title} title={breadcrumb.title} to={breadcrumb.pathname} />
+        ))}
+      </StyledMuiBreadcrumbs>
+      <Menu anchorEl={menuAnchorElement} open={!!menuAnchorElement} onClose={closeMenu}>
+        {hiddenBreadcrumbs.map(item => (
+          <MenuItem key={item.pathname} component={Link} to={item.pathname}>
+            {item.title}
+          </MenuItem>
+        ))}
+      </Menu>
+    </Stack>
   )
 }
 
