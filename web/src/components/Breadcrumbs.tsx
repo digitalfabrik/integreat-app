@@ -64,11 +64,11 @@ const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps): ReactElement | null => 
     <Stack paddingBlock={1} overflow='hidden'>
       <JsonLdBreadcrumbs breadcrumbs={breadcrumbs} />
       <StyledMuiBreadcrumbs aria-label='Breadcrumb' separator='>'>
-        <IconButton key='home' component={Link} to={home.to} aria-label={home.title}>
+        <IconButton key='home' component={Link} to={home.to} aria-label={home.title} color='inherit'>
           <HomeOutlinedIcon />
         </IconButton>
         {hiddenBreadcrumbs.length > 0 && (
-          <IconButton key='menu' onClick={openMenu} aria-label={t('showMore')}>
+          <IconButton key='menu' onClick={openMenu} aria-label={t('showMore')} color='inherit'>
             <MoreHorizIcon />
           </IconButton>
         )}
