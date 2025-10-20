@@ -35,15 +35,15 @@ const PDFViewModal = ({ route, navigation: _navigation }: PDFViewModalProps): Re
     if (!loading && !filePath) {
       openExternalUrl(url, showSnackbar)
         .catch(() => setError(true))
-        .finally(() => navigation.goBack())
+        .finally(navigation.goBack)
     }
   }, [loading, filePath, url, navigation, showSnackbar])
 
-  if (loading) {
+  if (loading || !filePath) {
     return <Layout />
   }
 
-  if (!filePath || error) {
+  if (error) {
     return (
       <Layout>
         <Failure

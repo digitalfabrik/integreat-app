@@ -7916,7 +7916,7 @@
       "pause": "Pause",
       "voiceUnavailable": "Keine Stimme installiert",
       "voiceUnavailableMessage": "Es wurde keine Stimme gefunden. Um die Vorlesefunktion nutzen zu können, muss eine Stimme installiert sein. Bitte beachten Sie die folgenden Anweisungen für Ihr Betriebssystem.",
-      "downloadPdf": "PDF herunterladen"
+      "openExternal": "Extern öffnen"
     },
     "am": {
       "disclaimer": "ዕትም",
@@ -7992,8 +7992,7 @@
       "play": "تشغيل",
       "pause": "إيقاف",
       "voiceUnavailable": "الصوت غير مثبت",
-      "voiceUnavailableMessage": "لم يتم العثور على صوت. لاستخدام خاصية القراءة بصوت عالٍ، يجب تثبيت صوت. الرجاء الرجوع إلى التعليمات الخاصة بنظام التشغيل أدناه.",
-      "downloadPdf": "تحميل ملف PDF"
+      "voiceUnavailableMessage": "لم يتم العثور على صوت. لاستخدام خاصية القراءة بصوت عالٍ، يجب تثبيت صوت. الرجاء الرجوع إلى التعليمات الخاصة بنظام التشغيل أدناه."
     },
     "bg": {
       "disclaimer": "Импресум",
@@ -8225,7 +8224,7 @@
       "pause": "Pause",
       "voiceUnavailable": "No voice installed",
       "voiceUnavailableMessage": "No voice found. In order to use the read aloud functionality, a voice has to be installed. Please refer to the instructions for your operating system below.",
-      "downloadPdf": "Download PDF"
+      "openExternal": "Open externally"
     },
     "es": {
       "disclaimer": "Aviso legal",
