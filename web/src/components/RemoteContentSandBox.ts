@@ -151,9 +151,10 @@ const RemoteContentSandBox = styled('div')<{ centered: boolean; smallText: boole
       linear-gradient(to right, ${props => props.theme.palette.background.default}F0 0 100%),
       url(${props => (props.theme.isContrastTheme ? PersonLightIcon : PersonIcon)});
     background-blend-mode: difference;
-    background-position:
-      calc(100% + 32px) 100%,
-      calc(100% + 24px) calc(100% + 24px);
+    background-position: ${props =>
+      props.theme.contentDirection === 'ltr'
+        ? 'calc(100% + 32px) 100%, calc(100% + 24px) calc(100% + 24px)'
+        : '0 100%, 0 calc(100% + 24px)'};
     background-size: 104px;
     box-shadow: 0 1px 1px rgb(0 0 0 / 40%);
     min-width: 72%;
@@ -171,7 +172,6 @@ const RemoteContentSandBox = styled('div')<{ centered: boolean; smallText: boole
     img {
       color: ${props => props.theme.palette.text.primary};
       margin-inline-end: 8px;
-      filter: none;
     }
 
     ${props => props.theme.breakpoints.down('md')} {
