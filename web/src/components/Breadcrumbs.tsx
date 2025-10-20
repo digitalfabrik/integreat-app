@@ -10,8 +10,7 @@ import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import useDimensions from '../hooks/useDimensions'
-import BreadcrumbModel from '../models/BreadcrumbModel'
-import Breadcrumb from './Breadcrumb'
+import Breadcrumb, { BreadcrumbProps } from './Breadcrumb'
 import JsonLdBreadcrumbs from './JsonLdBreadcrumbs'
 import Link from './base/Link'
 
@@ -41,7 +40,7 @@ const StyledMuiBreadcrumbs = styled(MuiBreadcrumbs)`
 `
 
 type BreadcrumbsProps = {
-  breadcrumbs: BreadcrumbModel[]
+  breadcrumbs: BreadcrumbProps[]
 }
 
 const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps): ReactElement | null => {
@@ -65,7 +64,7 @@ const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps): ReactElement | null => 
     <Stack paddingBlock={1} overflow='hidden'>
       <JsonLdBreadcrumbs breadcrumbs={breadcrumbs} />
       <StyledMuiBreadcrumbs aria-label='Breadcrumb' separator='>'>
-        <IconButton key='home' component={Link} to={home.pathname} aria-label={home.title}>
+        <IconButton key='home' component={Link} to={home.to} aria-label={home.title}>
           <HomeOutlinedIcon />
         </IconButton>
         {hiddenBreadcrumbs.length > 0 && (
@@ -74,12 +73,12 @@ const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps): ReactElement | null => 
           </IconButton>
         )}
         {visibleBreadcrumbs.map(breadcrumb => (
-          <Breadcrumb key={breadcrumb.title} title={breadcrumb.title} to={breadcrumb.pathname} />
+          <Breadcrumb key={breadcrumb.title} title={breadcrumb.title} to={breadcrumb.to} />
         ))}
       </StyledMuiBreadcrumbs>
       <Menu anchorEl={menuAnchorElement} open={!!menuAnchorElement} onClose={closeMenu}>
         {hiddenBreadcrumbs.map(item => (
-          <MenuItem key={item.pathname} component={Link} to={item.pathname}>
+          <MenuItem key={item.to} component={Link} to={item.to}>
             {item.title}
           </MenuItem>
         ))}

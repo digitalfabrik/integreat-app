@@ -18,7 +18,7 @@ const StyledTypography = styled(Typography)({
   textOverflow: 'ellipsis',
 })
 
-type BreadcrumbProps = {
+export type BreadcrumbProps = {
   title: string
   to: string
 }

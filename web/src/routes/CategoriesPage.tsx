@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 import React, { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link, Navigate, useParams } from 'react-router'
+import { Navigate, useParams } from 'react-router'
 
 import { cityContentPath } from 'shared'
 import {
@@ -16,6 +16,7 @@ import {
 } from 'shared/api'
 
 import { CityRouteProps } from '../CityContentSwitcher'
+import { BreadcrumbProps } from '../components/Breadcrumb'
 import Breadcrumbs from '../components/Breadcrumbs'
 import CategoriesContent from '../components/CategoriesContent'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
@@ -27,22 +28,13 @@ import buildConfig from '../constants/buildConfig'
 import { cmsApiBaseUrl } from '../constants/urls'
 import usePreviousProp from '../hooks/usePreviousProp'
 import useTtsPlayer from '../hooks/useTtsPlayer'
-import BreadcrumbModel from '../models/BreadcrumbModel'
 
 const CATEGORY_NOT_FOUND_STATUS_CODE = 400
 
-const getBreadcrumb = (category: CategoryModel, cityName: string) => {
-  const title = category.isRoot() ? cityName : category.title
-  return new BreadcrumbModel({
-    title,
-    pathname: category.path,
-    node: (
-      <Link to={category.path} key={category.path}>
-        {title}
-      </Link>
-    ),
-  })
-}
+const getBreadcrumb = (category: CategoryModel, cityName: string): BreadcrumbProps => ({
+  title: category.isRoot() ? cityName : category.title,
+  to: category.path,
+})
 
 const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRouteProps): ReactElement | null => {
   const previousPathname = usePreviousProp({ prop: pathname })

@@ -1,27 +1,21 @@
-import React from 'react'
-
-import BreadcrumbModel from '../../models/BreadcrumbModel'
 import { createJsonLd } from '../JsonLdBreadcrumbs'
 
 describe('BreadcrumbsJsonLd', () => {
   const location = window.location
   it('should create correct json-ld', () => {
     const jsonLd = createJsonLd([
-      new BreadcrumbModel({
+      {
         title: 'Home',
-        pathname: '/',
-        node: <a href='/'>Home</a>,
-      }),
-      new BreadcrumbModel({
+        to: '/',
+      },
+      {
         title: 'Subcategory',
-        pathname: '/sub',
-        node: <a href='/sub'>Subcategory</a>,
-      }),
-      new BreadcrumbModel({
+        to: '/sub',
+      },
+      {
         title: 'ThisSite',
-        pathname: '/sub/current',
-        node: <a href='/sub/current'>ThisSite</a>,
-      }),
+        to: '/sub/current',
+      },
     ])
 
     expect(jsonLd).toEqual({
