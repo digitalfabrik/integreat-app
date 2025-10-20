@@ -94,9 +94,7 @@ export const getStaticServerFileUrl = (filePath: string, staticServerUrl: string
 
 export const getLocalFilePath = (filePath: string): string => {
   if (Platform.OS === 'ios') {
-    // For ios you should not use the absolute path, since it can change with a future build version, therefore we use home directory
-    // https://github.com/facebook/react-native/commit/23909cd6f62056de0cd0f7c06e3997dd967c139a
-    return `~${filePath.substring(filePath.indexOf('/Documents'))}`
+    return filePath
   }
   return `${ANDROID_FILE_PREFIX}${filePath}`
 }
