@@ -20,7 +20,6 @@ export type ActionColor = {
 }
 
 export type CommonColors = {
-  primary: PaletteColor
   error: PaletteColor
   warning: SimplePaletteColor
   success: SimplePaletteColor
@@ -46,6 +45,7 @@ export type TypeBackground = {
 
 export type CommonColorPalette = CommonColors & {
   mode: PaletteMode
+  primary: PaletteColor
   tertiary: PaletteColor
   background: TypeBackground
   text: TypeText

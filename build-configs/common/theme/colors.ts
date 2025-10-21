@@ -1,12 +1,6 @@
 import { CommonColorPalette, CommonColors } from '../../ThemeType'
 
 const commonColors: CommonColors = {
-  primary: {
-    light: '#C0DCFF',
-    main: '#4B6EDA',
-    dark: '#475CC7',
-    contrastText: '#E6E0E9',
-  },
   error: {
     light: '#FFCCCF',
     main: '#DF1D1D',
@@ -30,6 +24,12 @@ const commonColors: CommonColors = {
 export const commonLightColors: CommonColorPalette = {
   ...commonColors,
   mode: 'light',
+  primary: {
+    light: '#C0DCFF',
+    main: '#4B6EDA',
+    dark: '#475CC7',
+    contrastText: '#E6E0E9',
+  },
   tertiary: {
     light: '#EAEEF9',
     main: '#364153',
@@ -56,6 +56,12 @@ export const commonLightColors: CommonColorPalette = {
 export const commonDarkColors: CommonColorPalette = {
   ...commonColors,
   mode: 'dark',
+  primary: {
+    light: '#98C7FF',
+    main: '#4F8FFD',
+    dark: '#475CC7',
+    contrastText: '#E6E0E9',
+  },
   tertiary: {
     light: '#E9EDFB',
     main: '#AFBACC',
