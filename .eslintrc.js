@@ -230,6 +230,10 @@ module.exports = {
         '@typescript-eslint/await-thenable': 'off',
       },
     },
+    {
+      files: ['web/**'],
+      extends: ['plugin:jsx-a11y/strict'],
+    },
   ],
   reportUnusedDisableDirectives: true,
   settings: {

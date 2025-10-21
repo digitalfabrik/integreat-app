@@ -61,10 +61,16 @@ declare module '@mui/material/ToggleButton' {
   interface ToggleButtonPropsColorOverrides {
     tertiary: true
   }
+  interface ToggleButtonOwnProps {
+    'aria-label': string
+  }
 }
 
 declare module '@mui/material/IconButton' {
   interface IconButtonPropsColorOverrides {
     tertiary: true
+  }
+  interface IconButtonOwnProps {
+    'aria-label': string
   }
 }
