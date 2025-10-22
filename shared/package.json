@@ -19,14 +19,14 @@
     "@turf/distance": "^7.2.0",
     "deepmerge-ts": "^7.1.5",
     "entities": "^6.0.0",
-    "htmlparser2": "^10.0.0",
     "highlight-words-core": "^1.2.3",
-    "luxon": "^3.6.1",
+    "htmlparser2": "^10.0.0",
+    "luxon": "^3.7.2",
     "minisearch": "^7.1.2",
     "normalize-path": "^3.0.0",
     "rrule": "2.8.1",
-    "uuid": "^11.0.0",
-    "sentencex": "^0.4.2"
+    "sentencex": "^0.4.2",
+    "uuid": "^11.0.0"
   },
   "devDependencies": {
     "@testing-library/dom": "^10.4.0",
