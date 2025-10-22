@@ -6,6 +6,8 @@ import Tooltip from '@mui/material/Tooltip'
 import { styled, useTheme } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
+import { NEW_TAB, NEW_TAB_FEATURES } from '../utils/openLink'
+
 const StyledMenuItem = styled(MuiMenuItem)({
   minHeight: 0,
 }) as typeof MuiMenuItem
@@ -56,9 +58,11 @@ const MenuItem = ({
       // can't access property "tagName", button is null
       // Also, this breaks html semantics but there is currently no better workaround to achieve keyboard a11y
       // https://github.com/mui/material-ui/issues/33268
-      component={to ? 'a' : MuiMenuItem}
+      component={onClick || disabled ? MuiMenuItem : 'a'}
+      target={NEW_TAB}
+      rel={NEW_TAB_FEATURES}
       href={to}
-      onClick={handleClick}
+      onClick={disabled ? undefined : handleClick}
       disabled={disabled}
       dir={contentDirection}
       {...otherProps}>
