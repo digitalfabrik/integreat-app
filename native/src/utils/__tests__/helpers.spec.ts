@@ -80,10 +80,7 @@ describe('getCachedResource', () => {
   it('should return cached local file for android', () => {
     Platform.OS = 'android'
     const resourceCache = {
-      [url]: {
-        filePath: cachedFileAndroid,
-        hash: 'thumbnail-hash',
-      },
+      [url]: cachedFileAndroid,
     }
     expect(getCachedResource(url, { resourceCache })).toBe(expectedCachedFileAndroid)
   })
@@ -91,10 +88,7 @@ describe('getCachedResource', () => {
   it('should return cached local file for ios', () => {
     Platform.OS = 'ios'
     const resourceCache = {
-      [url]: {
-        filePath: cachedFileIos,
-        hash: 'thumbnail-hash',
-      },
+      [url]: cachedFileIos,
     }
     expect(getCachedResource(url, { resourceCache })).toBe(expectedCachedFileIos)
   })

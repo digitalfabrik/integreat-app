@@ -106,6 +106,6 @@ type GetCachedResourceParams = {
 }
 
 export const getCachedResource = (resourceUrl: string, { resourceCache }: GetCachedResourceParams): string => {
-  const cachedFilePath = resourceCache[resourceUrl]?.filePath
+  const cachedFilePath = resourceCache[resourceUrl]
   return cachedFilePath ? getLocalFilePath(cachedFilePath) : resourceUrl
 }

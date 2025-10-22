@@ -1,4 +1,5 @@
 import WebView, { WebViewMessageEvent, WebViewNavigation } from '@dr.pogodin/react-native-webview'
+import { mapValues } from 'lodash'
 import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text, Platform, useWindowDimensions } from 'react-native'
@@ -73,13 +74,7 @@ const RemoteContent = ({
   const { t } = useTranslation()
   const { width: deviceWidth } = useWindowDimensions()
 
-  const resourceMap: { [url: string]: string } = Object.entries(resourceCache).reduce(
-    (previous, [url, { filePath }]) => ({
-      ...previous,
-      [url]: getStaticServerFileUrl(filePath, staticServerUrl),
-    }),
-    {},
-  )
+  const resourceMap = mapValues(resourceCache, filePath => getStaticServerFileUrl(filePath, staticServerUrl))
 
   useEffect(() => {
     // If it takes too long returning false in onShouldStartLoadWithRequest the webview loads the pressed url anyway on android.

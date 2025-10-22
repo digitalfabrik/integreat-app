@@ -1,4 +1,4 @@
-import { difference, flatMap, isEmpty, omitBy } from 'lodash'
+import { difference, omitBy } from 'lodash'
 import { DateTime } from 'luxon'
 import BlobUtil from 'react-native-blob-util'
 
@@ -131,10 +131,6 @@ class DefaultDataContainer implements DataContainer {
     await this.caches.events.cache(events, new DatabaseContext(city, language))
   }
 
-  getFilePathsFromLanguageResourceCache(languageResourceCache: LanguageResourceCacheStateType): string[] {
-    return Object.values(languageResourceCache).map(entry => entry.filePath)
-  }
-
   setResourceCache = async (
     city: string,
     language: string,
@@ -149,19 +145,16 @@ class DefaultDataContainer implements DataContainer {
     const previousLanguageResourceCache = previousResourceCache?.[language]
     if (previousLanguageResourceCache) {
       // Cleanup old resources
-      const oldPaths = this.getFilePathsFromLanguageResourceCache(previousLanguageResourceCache)
-      const newPaths = this.getFilePathsFromLanguageResourceCache(resourceCache)
+      const oldPaths = Object.values(previousLanguageResourceCache)
+      const newPaths = Object.values(resourceCache)
       const removedPaths = difference(oldPaths, newPaths)
 
-      if (!isEmpty(removedPaths)) {
+      if (removedPaths.length > 0) {
         const otherLanguagesCollection: CityResourceCacheStateType = omitBy(
           previousResourceCache,
           (_val, key: string) => key === language,
         )
-        const pathsOfOtherLanguages = flatMap(
-          otherLanguagesCollection,
-          (languageCache: LanguageResourceCacheStateType) => this.getFilePathsFromLanguageResourceCache(languageCache),
-        )
+        const pathsOfOtherLanguages: string[] = Object.values(otherLanguagesCollection).flatMap(Object.values)
         const pathsToClean = difference(removedPaths, pathsOfOtherLanguages)
         log('Cleaning up the following resources:')
         log(pathsToClean.join(', '))

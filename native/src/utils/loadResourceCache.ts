@@ -4,7 +4,7 @@ import { flatten, pickBy, reduce, values } from 'lodash'
 import { CategoriesMapModel, EventModel, ExtendedPageModel, PoiModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
-import { ResourceCacheEntryStateType } from './DataContainer'
+import { LanguageResourceCacheStateType } from './DataContainer'
 import dataContainer from './DefaultDataContainer'
 import FetcherModule, { TargetFilePathsType } from './FetcherModule'
 import ResourceURLFinder from './ResourceURLFinder'
@@ -71,15 +71,12 @@ const loadResourceCache = async ({
 
   const resourceCache = reduce(
     fetchMap,
-    (acc: Record<string, ResourceCacheEntryStateType>, fetchMapTarget: FetchMapTargetType) => {
+    (acc: LanguageResourceCacheStateType, fetchMapTarget: FetchMapTargetType) => {
       const { filePath } = fetchMapTarget
       const downloadResult = successResults[filePath]
 
       if (downloadResult) {
-        acc[downloadResult.url] = {
-          filePath,
-          hash: fetchMapTarget.urlHash,
-        }
+        acc[downloadResult.url] = filePath
       }
 
       return acc

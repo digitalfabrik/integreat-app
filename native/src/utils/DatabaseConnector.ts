@@ -23,11 +23,7 @@ import {
 } from 'shared/api'
 
 import DatabaseContext from '../models/DatabaseContext'
-import {
-  CityResourceCacheStateType,
-  LanguageResourceCacheStateType,
-  ResourceCacheEntryStateType,
-} from './DataContainer'
+import { CityResourceCacheStateType } from './DataContainer'
 import { deleteIfExists } from './helpers'
 import { log, reportError } from './sentry'
 
@@ -212,15 +208,6 @@ type CityLastUsageType = {
 }
 
 type MetaCitiesType = Record<CityCodeType, MetaCitiesEntryType>
-
-type ResourceCacheEntryJsonType = {
-  filePath: string
-  hash: string
-}
-
-type LanguageResourceCacheJsonType = Record<string, ResourceCacheEntryJsonType>
-
-type CityResourceCacheJsonType = Record<LanguageCodeType, LanguageResourceCacheJsonType>
 
 class DatabaseConnector {
   constructor() {
@@ -781,27 +768,13 @@ class DatabaseConnector {
       return {}
     }
 
-    const mapResourceCacheJson = (json: CityResourceCacheJsonType) =>
-      mapValues(json, languageResourceCache =>
-        mapValues(languageResourceCache, (entry: ResourceCacheEntryJsonType) => ({
-          filePath: entry.filePath,
-          hash: entry.hash,
-        })),
-      )
+    const mapResourceCacheJson = (json: CityResourceCacheStateType) => json
     return this.readFile(path, mapResourceCacheJson)
   }
 
   async storeResourceCache(resourceCache: CityResourceCacheStateType, context: DatabaseContext): Promise<void> {
     const path = this.getResourceCachePath(context)
-    const json: CityResourceCacheJsonType = mapValues(
-      resourceCache,
-      (languageResourceCache: LanguageResourceCacheStateType) =>
-        mapValues(languageResourceCache, (entry: ResourceCacheEntryStateType) => ({
-          filePath: entry.filePath,
-          hash: entry.hash,
-        })),
-    )
-    await this.writeFile(path, JSON.stringify(json))
+    await this.writeFile(path, JSON.stringify(resourceCache))
   }
 
   /**

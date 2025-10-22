@@ -11,22 +11,13 @@ import DatabaseConnector from '../DatabaseConnector'
 import defaultDataContainer from '../DefaultDataContainer'
 
 const testResources = {
-  'https://test.de/path/to/resource/test.png': {
-    filePath: '/local/path/to/resource2/b4b5dca65e423.png',
-    hash: 'testHash',
-  },
+  'https://test.de/path/to/resource/test.png': '/local/path/to/resource2/b4b5dca65e423.png',
 }
 const previousResources = {
-  'https://test.de/path/to/resource/test.png': {
-    filePath: '/local/path/to/resource/b4b5dca65e423.png',
-    hash: 'testHash',
-  },
+  'https://test.de/path/to/resource/test.png': '/local/path/to/resource/b4b5dca65e423.png',
 }
 const anotherTestResources = {
-  'https://test.de/path/to/anotherResource/test.png': {
-    filePath: '/local/path/to/resource3/b4b5dca65e424.png',
-    hash: 'testHash',
-  },
+  'https://test.de/path/to/anotherResource/test.png': '/local/path/to/resource3/b4b5dca65e424.png',
 }
 
 describe('DefaultDataContainer', () => {
