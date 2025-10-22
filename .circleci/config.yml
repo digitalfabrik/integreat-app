@@ -366,7 +366,7 @@ jobs:
             - notify
     build_web:
         docker:
-            - image: cimg/node:20.17.0
+            - image: cimg/node:20.18.1
         environment:
             TOTAL_CPUS: 2
         parameters:
@@ -409,7 +409,7 @@ jobs:
             - notify
     bump_version:
         docker:
-            - image: cimg/node:20.17.0
+            - image: cimg/node:20.18.1
         parameters:
             platform:
                 default: all
@@ -457,7 +457,7 @@ jobs:
             - notify
     check:
         docker:
-            - image: cimg/node:20.17.0
+            - image: cimg/node:20.18.1
         environment:
             TOTAL_CPUS: 1
             TZ: Europe/Berlin
@@ -731,7 +731,7 @@ jobs:
             - notify
     e2e_web:
         docker:
-            - image: cimg/node:20.17.0-browsers
+            - image: cimg/node:20.18.1-browsers
             - image: selenium/standalone-chrome
         resource_class: medium
         shell: /bin/bash -eo pipefail
@@ -877,7 +877,7 @@ jobs:
             - notify
     promote_web:
         docker:
-            - image: cimg/node:20.17.0
+            - image: cimg/node:20.18.1
         resource_class: small
         shell: /bin/bash -eo pipefail
         steps:

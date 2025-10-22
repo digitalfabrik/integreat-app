@@ -19,5 +19,6 @@ describe('navigate to leaf category', () => {
 
     const leafCategoryContent = $(new Selector().ByContainedText('you will learn German').build())
     await leafCategoryContent.waitForDisplayed({ timeout: 20000 })
+    expect(await leafCategoryContent.isDisplayed()).toBeTruthy()
   })
 })
