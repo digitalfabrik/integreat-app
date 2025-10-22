@@ -58,11 +58,11 @@ const MenuItem = ({
       // can't access property "tagName", button is null
       // Also, this breaks html semantics but there is currently no better workaround to achieve keyboard a11y
       // https://github.com/mui/material-ui/issues/33268
-      component={to ? 'a' : MuiMenuItem}
+      component={onClick || disabled ? MuiMenuItem : 'a'}
       target={NEW_TAB}
       rel={NEW_TAB_FEATURES}
       href={to}
-      onClick={handleClick}
+      onClick={disabled ? undefined : handleClick}
       disabled={disabled}
       dir={contentDirection}
       {...otherProps}>
