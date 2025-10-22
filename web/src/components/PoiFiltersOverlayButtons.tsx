@@ -30,6 +30,7 @@ const PoiFiltersOverlayButtons = ({
         label={t('adjustFilters')}
         icon={<EditLocationOutlinedIcon />}
         onClick={() => setShowFilterSelection(true)}
+        variant='outlined'
         clickable
       />
       {currentlyOpenFilter && (
@@ -38,6 +39,7 @@ const PoiFiltersOverlayButtons = ({
           icon={<AccessTimeIcon />}
           onDelete={() => setCurrentlyOpenFilter(false)}
           onClick={() => setCurrentlyOpenFilter(false)}
+          variant='outlined'
           clickable
         />
       )}
@@ -47,6 +49,7 @@ const PoiFiltersOverlayButtons = ({
           icon={<Svg src={poiCategory.icon} />}
           onClick={() => setPoiCategoryFilter(null)}
           onDelete={() => setPoiCategoryFilter(null)}
+          variant='outlined'
           clickable
         />
       )}

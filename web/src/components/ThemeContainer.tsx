@@ -76,7 +76,10 @@ const createTheme = (
         },
         MuiChip: {
           styleOverrides: {
-            filled: {
+            deleteIcon: {
+              color: isContrast ? 'inherit' : theme.palette.text.disabled,
+            },
+            outlined: {
               backgroundColor: theme.palette.background.accent,
 
               [`&.${chipClasses.clickable}`]: {

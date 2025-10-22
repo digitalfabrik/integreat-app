@@ -75,6 +75,6 @@ describe('PdfMenuItem', () => {
     const { getByText } = renderWithRouterAndTheme(
       <PdfMenuItem category={rootCategory} cityCode={cityCode} languageCode={languageCode} />,
     )
-    expect(getByText('categories:createPdf').closest('a')).toHaveClass('Mui-disabled')
+    expect(getByText('categories:createPdf').closest('li')).toHaveClass('Mui-disabled')
   })
 })

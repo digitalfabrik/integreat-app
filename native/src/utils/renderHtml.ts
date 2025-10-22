@@ -419,6 +419,7 @@ const renderHtml = (
 
       .contact-card {
         display: inline-block;
+        text-align: start;
         box-sizing: border-box;
         padding: 16px;
         border-radius: 4px;
