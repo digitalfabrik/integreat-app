@@ -9701,10 +9701,10 @@ hyperdyperid@^1.2.0:
   resolved "https://registry.yarnpkg.com/hyperdyperid/-/hyperdyperid-1.2.0.tgz#59668d323ada92228d2a869d3e474d5a33b69e6b"
   integrity sha512-Y93lCzHYgGWdrJ66yIktxiaGULYc6oGiABxhcO5AufBeOyoIdZF7bIfLaOrbM0iGIOXQQgxxRrFEnb+Y6w1n4A==
 
-i18next@^25.0.1:
-  version "25.3.0"
-  resolved "https://registry.yarnpkg.com/i18next/-/i18next-25.3.0.tgz#514b3231575d507ea4e84f09152dcc27ca9e0bf9"
-  integrity sha512-ZSQIiNGfqSG6yoLHaCvrkPp16UejHI8PCDxFYaNG/1qxtmqNmqEg4JlWKlxkrUmrin2sEjsy+Mjy1TRozBhOgw==
+i18next@^25.6.0:
+  version "25.6.0"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-25.6.0.tgz#d1ed719b35af9db619738e9ce7408b75d6b7957f"
+  integrity sha512-tTn8fLrwBYtnclpL5aPXK/tAYBLWVvoHM1zdfXoRNLcI+RvtMsoZRV98ePlaW3khHYKuNh/Q65W/+NVFUeIwVw==
   dependencies:
     "@babel/runtime" "^7.27.6"
 
@@ -13273,10 +13273,10 @@ react-hook-form@^7.55.0:
   resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.59.0.tgz#69e7ebc4db933f7aa0ef0973ec8e09f299e5f24e"
   integrity sha512-kmkek2/8grqarTJExFNjy+RXDIP8yM+QTl3QL6m6Q8b2bih4ltmiXxH7T9n+yXNK477xPh5yZT/6vD8sYGzJTA==
 
-react-i18next@^15.5.1:
-  version "15.5.3"
-  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-15.5.3.tgz#63cae235d540d1b6bde5495b5ebe0c1d5c76de0f"
-  integrity sha512-ypYmOKOnjqPEJZO4m1BI0kS8kWqkBNsKYyhVUfij0gvjy9xJNoG/VcGkxq5dRlVwzmrmY1BQMAmpbbUBLwC4Kw==
+react-i18next@^16.1.5:
+  version "16.1.5"
+  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-16.1.5.tgz#6d9c114d9fb2e1ed14cebb96ddb33ea67e339691"
+  integrity sha512-+0dHUH7zQOXPhS3jt60Dq9nWIg+7xmN9ZrzN2YrBc1MN6kZl9u81qbN5JCkV/F5nsOu0udMbK7n7DiFMCs0PWg==
   dependencies:
     "@babel/runtime" "^7.27.6"
     html-parse-stringify "^3.0.1"
