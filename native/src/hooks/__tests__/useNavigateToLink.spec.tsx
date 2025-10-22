@@ -31,22 +31,21 @@ describe('useNavigateToLink', () => {
   mocked(useNavigate).mockImplementation(() => ({ navigateTo, navigation }))
   const languageCode = 'de'
 
-  const MockComponent = ({ url, shareUrl }: { url: string; shareUrl: string }) => {
+  const MockComponent = ({ url }: { url: string }) => {
     const navigateToLink = useNavigateToLink()
     useEffect(() => {
-      navigateToLink(url, shareUrl)
-    }, [navigateToLink, url, shareUrl])
+      navigateToLink(url)
+    }, [navigateToLink, url])
 
     return null
   }
 
-  const renderMockComponent = (url: string, shareUrl: string) =>
+  const renderMockComponent = (url: string) =>
     render(
       <TestingAppContext>
-        <MockComponent url={url} shareUrl={shareUrl} />
+        <MockComponent url={url} />
       </TestingAppContext>,
     )
-  const shareUrl = 'https://example.com/my/share/url'
 
   beforeEach(() => {
     jest.clearAllMocks()
@@ -54,12 +53,9 @@ describe('useNavigateToLink', () => {
 
   it('should navigate to pdf modal route', () => {
     const url = 'https://example.com/my.pdf'
-    renderMockComponent(url, shareUrl)
+    renderMockComponent(url)
     expect(navigation.navigate).toHaveBeenCalledTimes(1)
-    expect(navigation.navigate).toHaveBeenCalledWith(PDF_VIEW_MODAL_ROUTE, {
-      url,
-      shareUrl,
-    })
+    expect(navigation.navigate).toHaveBeenCalledWith(PDF_VIEW_MODAL_ROUTE, { url, shareUrl: url })
     expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
     expect(sendTrackingSignal).toHaveBeenCalledWith({
       signal: {
@@ -73,11 +69,11 @@ describe('useNavigateToLink', () => {
 
   it('should navigate to image modal route for jpgs', () => {
     const url = 'https://example.com/my.jpg'
-    renderMockComponent(url, shareUrl)
+    renderMockComponent(url)
     expect(navigation.navigate).toHaveBeenCalledTimes(1)
     expect(navigation.navigate).toHaveBeenCalledWith(IMAGE_VIEW_MODAL_ROUTE, {
       url,
-      shareUrl,
+      shareUrl: url,
     })
     expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
     expect(sendTrackingSignal).toHaveBeenCalledWith({
@@ -92,11 +88,11 @@ describe('useNavigateToLink', () => {
 
   it('should navigate to image modal route for jpegs', () => {
     const url = 'https://example.com/my.jpeg'
-    renderMockComponent(url, shareUrl)
+    renderMockComponent(url)
     expect(navigation.navigate).toHaveBeenCalledTimes(1)
     expect(navigation.navigate).toHaveBeenCalledWith(IMAGE_VIEW_MODAL_ROUTE, {
       url,
-      shareUrl,
+      shareUrl: url,
     })
     expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
     expect(sendTrackingSignal).toHaveBeenCalledWith({
@@ -110,12 +106,12 @@ describe('useNavigateToLink', () => {
   })
 
   it('should navigate to image modal route for pngs', () => {
-    const url = 'https://example.com/my.png'
-    renderMockComponent(url, shareUrl)
+    const url = 'https://example.com/my.png1'
+    renderMockComponent(url)
     expect(navigation.navigate).toHaveBeenCalledTimes(1)
     expect(navigation.navigate).toHaveBeenCalledWith(IMAGE_VIEW_MODAL_ROUTE, {
       url,
-      shareUrl,
+      shareUrl: url,
     })
     expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
     expect(sendTrackingSignal).toHaveBeenCalledWith({
@@ -130,7 +126,7 @@ describe('useNavigateToLink', () => {
 
   it('should call navigateTo for internal links', () => {
     const url = 'https://integreat.app'
-    renderMockComponent(url, shareUrl)
+    renderMockComponent(url)
     expect(navigateTo).toHaveBeenCalledTimes(1)
     expect(navigateTo).toHaveBeenCalledWith({
       route: LANDING_ROUTE,
@@ -149,7 +145,7 @@ describe('useNavigateToLink', () => {
 
   it('should call openExternalUrl for external links', () => {
     const url = 'https://example.com'
-    renderMockComponent(url, shareUrl)
+    renderMockComponent(url)
     expect(openExternalUrl).toHaveBeenCalledTimes(1)
     expect(openExternalUrl).toHaveBeenCalledWith(url, expect.any(Function))
     expect(sendTrackingSignal).not.toHaveBeenCalled()

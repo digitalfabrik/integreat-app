@@ -14,9 +14,6 @@ import SearchListItem from '../SearchListItem'
 
 jest.mock('react-i18next')
 jest.mock('styled-components')
-jest.mock('@dr.pogodin/react-native-webview', () => ({
-  default: () => jest.fn(),
-}))
 jest.mock('../../utils/sendTrackingSignal')
 
 jest.mock('../CategoryListItem', () => ({
@@ -27,10 +24,7 @@ jest.mock('../../hooks/useNavigate')
 describe('SearchListItem', () => {
   const cityModel = new CityModelBuilder(1).build()[0]!
   const language = new LanguageModelBuilder(1).build()[0]!
-  const { categories: categoriesMapModel, resourceCache } = new CategoriesMapModelBuilder(
-    cityModel.code,
-    language.code,
-  ).buildAll()
+  const { categories: categoriesMapModel } = new CategoriesMapModelBuilder(cityModel.code, language.code).buildAll()
   const categories = categoriesMapModel.toArray()
   const category = categories[1]!
   const contentWithoutHtml = parseHTML(category.content)
@@ -55,7 +49,6 @@ describe('SearchListItem', () => {
         title={category.title}
         path={category.path}
         thumbnail={thumbnail}
-        resourceCache={resourceCache[category.path]!}
       />,
     )
 

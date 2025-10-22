@@ -3,7 +3,6 @@ import { DefaultTheme } from 'styled-components/native'
 
 import { ExternalSourcePermissions } from 'shared'
 
-import { ParsedCacheDictionaryType } from '../components/Page'
 import {
   ALLOW_EXTERNAL_SOURCE_MESSAGE_TYPE,
   ERROR_MESSAGE_TYPE,
@@ -17,7 +16,7 @@ import {
 // const cacheDictionary = ${JSON.stringify(cacheDictionary)}
 // language=JavaScript
 const renderJS = (
-  cacheDictionary: ParsedCacheDictionaryType,
+  resourceMap: { [url: string]: string },
   supportedIframeSources: string[],
   externalSourcePermissions: ExternalSourcePermissions,
   t: TFunction,
@@ -59,24 +58,8 @@ const renderJS = (
   })();
 
   (function replaceResourcesWithCached() {
-    const hrefs = document.querySelectorAll('[href]')
     const srcs = document.querySelectorAll('[src]')
-    const cacheDictionary = ${JSON.stringify(cacheDictionary)}
-
-    for (let i = 0; i < hrefs.length; i++) {
-      const item = hrefs[i]
-      try {
-        const newResource = cacheDictionary[decodeURI(item.href)]
-        if (newResource) {
-          item.href = newResource
-        }
-      } catch (e) {
-        reportError(
-          e.message + 'occurred while decoding and looking for ' + item.href + ' in the dictionary',
-          '${WARNING_MESSAGE_TYPE}',
-        )
-      }
-    }
+    const cacheDictionary = ${JSON.stringify(resourceMap)}
 
     for (let i = 0; i < srcs.length; i++) {
       const item = srcs[i]
@@ -250,7 +233,7 @@ const renderJS = (
 // language=HTML
 const renderHtml = (
   html: string,
-  cacheDictionary: ParsedCacheDictionaryType,
+  resourceMap: { [url: string]: string },
   supportedIframeSources: string[],
   theme: DefaultTheme,
   language: string,
@@ -468,7 +451,7 @@ const renderHtml = (
   <body dir='auto'>
   <div id='measure-container'>${html}</div>
   <script>${renderJS(
-    cacheDictionary,
+    resourceMap,
     supportedIframeSources,
     externalSourcePermissions,
     t,

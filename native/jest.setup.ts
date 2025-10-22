@@ -9,6 +9,21 @@ console.error = () => undefined
 
 jest.mock('@react-native-async-storage/async-storage', () => mockAsyncStorage)
 jest.mock('react-native-permissions', () => require('react-native-permissions/mock'))
+jest.mock('@dr.pogodin/react-native-webview', () => ({
+  default: jest.fn,
+}))
+jest.mock('@dr.pogodin/react-native-static-server', () =>
+  jest.fn().mockImplementation(() => ({
+    start: jest.fn(() => Promise.resolve('http://localhost:8080')),
+    stop: jest.fn(() => Promise.resolve(true)),
+  })),
+)
+
+jest.mock('shared/api', () => ({
+  ...jest.requireActual('shared/api'),
+  useLoadFromEndpoint: jest.fn(),
+  useLoadAsync: jest.fn(() => ({ data: null, error: null })),
+}))
 
 // react-navigation jest setup
 // https://reactnavigation.org/docs/testing#mocking-native-modules

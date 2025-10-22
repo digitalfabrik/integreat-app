@@ -1,10 +1,15 @@
 import { last } from 'lodash'
+import { Platform } from 'react-native'
 import BlobUtil from 'react-native-blob-util'
 import Url from 'url-parse'
 
 import buildConfig from '../constants/buildConfig'
 import appSettings from './AppSettings'
+import { LanguageResourceCacheStateType } from './DataContainer'
+import { RESOURCE_CACHE_DIR_PATH } from './DatabaseConnector'
 import { log } from './sentry'
+
+export const ANDROID_FILE_PREFIX = 'file://'
 
 // Android throws an error if attempting to delete non existing directories/files
 // https://github.com/joltup/rn-fetch-blob/issues/333
@@ -83,3 +88,24 @@ export const getExtension = (urlString: string): string => {
 
 export const getErrorMessage = (error: unknown): string =>
   error instanceof Error ? error.message : 'No error message available'
+
+export const getStaticServerFileUrl = (filePath: string, staticServerUrl: string): string =>
+  filePath.replace(RESOURCE_CACHE_DIR_PATH, staticServerUrl)
+
+export const getLocalFilePath = (filePath: string): string => {
+  if (Platform.OS === 'ios') {
+    // For ios you should not use the absolute path, since it can change with a future build version, therefore we use home directory
+    // https://github.com/facebook/react-native/commit/23909cd6f62056de0cd0f7c06e3997dd967c139a
+    return `~${filePath.substring(filePath.indexOf('/Documents'))}`
+  }
+  return `${ANDROID_FILE_PREFIX}${filePath}`
+}
+
+type GetCachedResourceParams = {
+  resourceCache: LanguageResourceCacheStateType
+}
+
+export const getCachedResource = (resourceUrl: string, { resourceCache }: GetCachedResourceParams): string => {
+  const cachedFilePath = resourceCache[resourceUrl]
+  return cachedFilePath ? getLocalFilePath(cachedFilePath) : resourceUrl
+}

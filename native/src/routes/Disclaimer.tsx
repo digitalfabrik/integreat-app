@@ -10,8 +10,8 @@ type DisclaimerProps = {
 }
 
 const Disclaimer = ({ disclaimer, language }: DisclaimerProps): ReactElement => {
-  const { title, content, lastUpdate, path } = disclaimer
-  return <Page title={title} content={content} language={language} lastUpdate={lastUpdate} path={path} />
+  const { title, content, lastUpdate } = disclaimer
+  return <Page title={title} content={content} language={language} lastUpdate={lastUpdate} />
 }
 
 export default Disclaimer
