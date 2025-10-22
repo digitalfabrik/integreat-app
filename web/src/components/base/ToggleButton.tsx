@@ -39,13 +39,7 @@ type ToggleButtonProps = {
 }
 
 const ToggleButton = ({ text, onClick, className, value, icon: Icon, active }: ToggleButtonProps): ReactElement => (
-  <StyledButton
-    aria-label={text}
-    color='primary'
-    value={value}
-    selected={active}
-    onChange={onClick}
-    className={className}>
+  <StyledButton color='primary' value={value} selected={active} onChange={onClick} className={className}>
     {typeof Icon === 'string' ? <Svg src={Icon} width={40} height={40} /> : <Icon fontSize='large' />}
     <Typography variant='body3'>{text}</Typography>
   </StyledButton>
