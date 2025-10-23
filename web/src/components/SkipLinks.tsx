@@ -54,8 +54,6 @@ const SkipLinks = (): ReactElement => {
   const { mobile } = useDimensions()
   const { route } = useCityContentParams()
   const [backdropOpen, setBackdropOpen] = useState(false)
-  const handleFocus = () => setBackdropOpen(true)
-  const handleBlur = () => setBackdropOpen(false)
 
   const showFooterSkip = mobile || route !== POIS_ROUTE
 
@@ -72,7 +70,11 @@ const SkipLinks = (): ReactElement => {
       <Backdrop open={backdropOpen} style={{ zIndex: 9999 }} />
       <div aria-label='Skip links'>
         {skipLinks.map(link => (
-          <SkipLink key={link.href} href={link.href} onFocus={handleFocus} onBlur={handleBlur}>
+          <SkipLink
+            key={link.href}
+            href={link.href}
+            onFocus={() => setBackdropOpen(true)}
+            onBlur={() => setBackdropOpen(false)}>
             {link.title}
             <EnterBadge variant='body3'>
               <KeyboardReturnIcon fontSize='inherit' />
