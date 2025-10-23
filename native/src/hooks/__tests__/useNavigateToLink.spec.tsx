@@ -106,7 +106,7 @@ describe('useNavigateToLink', () => {
   })
 
   it('should navigate to image modal route for pngs', () => {
-    const url = 'https://example.com/my.png1'
+    const url = 'https://example.com/my.png'
     renderMockComponent(url)
     expect(navigation.navigate).toHaveBeenCalledTimes(1)
     expect(navigation.navigate).toHaveBeenCalledWith(IMAGE_VIEW_MODAL_ROUTE, {

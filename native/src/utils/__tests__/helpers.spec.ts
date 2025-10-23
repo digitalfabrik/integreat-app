@@ -90,4 +90,13 @@ describe('getCachedResource', () => {
     }
     expect(getCachedResource(url, { resourceCache })).toBe(cachedFileIos)
   })
+
+  it('should return url if not found in the resource cache', () => {
+    Platform.OS = 'android'
+    const resourceCache = {
+      [url]: cachedFileAndroid,
+    }
+    const missingUrl = 'https://example.com/pdf'
+    expect(getCachedResource(missingUrl, { resourceCache })).toBe(missingUrl)
+  })
 })
