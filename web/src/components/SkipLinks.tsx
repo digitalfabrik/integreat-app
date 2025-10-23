@@ -6,7 +6,7 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { POIS_ROUTE } from 'shared'
+import { CATEGORIES_ROUTE, POIS_ROUTE } from 'shared'
 
 import useCityContentParams from '../hooks/useCityContentParams'
 import useDimensions from '../hooks/useDimensions'
@@ -55,12 +55,13 @@ const SkipLinks = (): ReactElement => {
   const { route } = useCityContentParams()
   const [backdropOpen, setBackdropOpen] = useState(false)
 
-  const showFooterSkip = mobile || route !== POIS_ROUTE
+  const showSkipToFooter = mobile || route !== POIS_ROUTE
+  const hrefTargetForContent = route === CATEGORIES_ROUTE ? '#content' : '#main'
 
   const skipLinks = [
-    { title: t('skipToContent'), href: '#main' },
+    { title: t('skipToContent'), href: hrefTargetForContent },
     { title: t('skipToMenu'), href: '#city-content-menu' },
-    ...(showFooterSkip
+    ...(showSkipToFooter
       ? [{ title: mobile ? t('skipToBottomNav') : t('skipToFooter'), href: mobile ? '#bottom-navigation' : '#footer' }]
       : []),
   ]

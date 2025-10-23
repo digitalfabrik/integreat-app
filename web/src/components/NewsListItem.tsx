@@ -64,7 +64,9 @@ const NewsListItem = ({ title, content, timestamp, to }: NewsListItemProps): Rea
           <StyledListItemText slotProps={{ primary: { component: 'h2' } }} primary={title} secondary={excerpt} />
           <LastUpdateInfo lastUpdate={timestamp} withText={false} />
         </StyledStack>
-        <StyledButton disableRipple>{t('common:more')}</StyledButton>
+        <StyledButton tabIndex={-1} disableRipple>
+          {t('common:more')}
+        </StyledButton>
       </StyledListItemButton>
     </ListItem>
   )
