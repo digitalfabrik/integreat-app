@@ -31,9 +31,9 @@ const NavigationTabs = ({ cityModel, languageCode }: NavigationTabsProps): React
   }
 
   return (
-    <Tabs value={currentTabValue} component='nav' textColor={color} indicatorColor={color}>
+    <Tabs value={currentTabValue} component='nav' role='navigation' textColor={color} indicatorColor={color}>
       {navigationItems.map(item => (
-        <Tab key={item.value} component={Link} to={item.to} value={item.value} label={t(item.label)} />
+        <Tab key={item.value} component={Link} to={item.to} value={item.value} label={t(item.label)} tabIndex={0} />
       ))}
     </Tabs>
   )

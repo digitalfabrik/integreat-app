@@ -5,6 +5,7 @@ import React, { ReactElement, ReactNode } from 'react'
 
 import useDimensions from '../hooks/useDimensions'
 import MobileBanner from './MobileBanner'
+import SkipLinks from './SkipLinks'
 
 export const LAYOUT_ELEMENT_ID = 'layout'
 
@@ -105,11 +106,12 @@ const Layout = ({ footer, header, toolbar, children, fitScreen = false }: Layout
 
   return (
     <RichLayout id={LAYOUT_ELEMENT_ID}>
+      <SkipLinks />
       {!fitScreen && <MobileBanner />}
       {header}
       <Body fitScreen={fitScreen}>
         {toolbar && <Aside>{toolbar}</Aside>}
-        <Main fitScreen={fitScreen}>
+        <Main id='main' role='main' fitScreen={fitScreen}>
           {children}
           {!fitScreen && <Spacer height={extraBottomSpace} />}
         </Main>
