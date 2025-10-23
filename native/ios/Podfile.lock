@@ -23,27 +23,6 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - dr-pogodin-react-native-static-server (0.20.1):
-    - DoubleConversion
-    - glog
-    - hermes-engine
-    - RCT-Folly (= 2024.11.18.00)
-    - RCTRequired
-    - RCTTypeSafety
-    - React-Core
-    - React-debug
-    - React-Fabric
-    - React-featureflags
-    - React-graphics
-    - React-ImageManager
-    - React-NativeModulesApple
-    - React-RCTFabric
-    - React-rendererdebug
-    - React-utils
-    - ReactCodegen
-    - ReactCommon/turbomodule/bridging
-    - ReactCommon/turbomodule/core
-    - Yoga
   - fast_float (6.1.4)
   - FBLazyVector (0.78.2)
   - Firebase/CoreOnly (11.15.0):
@@ -1415,27 +1394,6 @@ PODS:
     - React-Core
   - react-native-netinfo (11.4.1):
     - React-Core
-  - react-native-pdf (6.7.7):
-    - DoubleConversion
-    - glog
-    - hermes-engine
-    - RCT-Folly (= 2024.11.18.00)
-    - RCTRequired
-    - RCTTypeSafety
-    - React-Core
-    - React-debug
-    - React-Fabric
-    - React-featureflags
-    - React-graphics
-    - React-ImageManager
-    - React-NativeModulesApple
-    - React-RCTFabric
-    - React-rendererdebug
-    - React-utils
-    - ReactCodegen
-    - ReactCommon/turbomodule/bridging
-    - ReactCommon/turbomodule/core
-    - Yoga
   - react-native-safe-area-context (5.5.1):
     - DoubleConversion
     - glog
@@ -1810,6 +1768,48 @@ PODS:
     - React-logger (= 0.78.2)
     - React-perflogger (= 0.78.2)
     - React-utils (= 0.78.2)
+  - ReactNativePdfRenderer (2.3.0):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.11.18.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
+  - ReactNativeStaticServer (0.24.2):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.11.18.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
   - RNCalendarEvents (2.2.0):
     - React
   - RNCAsyncStorage (2.2.0):
@@ -2055,7 +2055,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNScreens (4.11.1):
+  - RNScreens (4.16.0):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -2076,9 +2076,9 @@ PODS:
     - ReactCodegen
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
-    - RNScreens/common (= 4.11.1)
+    - RNScreens/common (= 4.16.0)
     - Yoga
-  - RNScreens/common (4.11.1):
+  - RNScreens/common (4.16.0):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -2176,7 +2176,6 @@ DEPENDENCIES:
   - boost (from `../node_modules/react-native/third-party-podspecs/boost.podspec`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - "dr-pogodin-react-native-fs (from `../node_modules/@dr.pogodin/react-native-fs`)"
-  - "dr-pogodin-react-native-static-server (from `../node_modules/@dr.pogodin/react-native-static-server`)"
   - fast_float (from `../node_modules/react-native/third-party-podspecs/fast_float.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - fmt (from `../node_modules/react-native/third-party-podspecs/fmt.podspec`)
@@ -2220,7 +2219,6 @@ DEPENDENCIES:
   - "react-native-geolocation (from `../node_modules/@react-native-community/geolocation`)"
   - react-native-get-random-values (from `../node_modules/react-native-get-random-values`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
-  - react-native-pdf (from `../node_modules/react-native-pdf`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - "react-native-webview (from `../node_modules/@dr.pogodin/react-native-webview`)"
   - React-NativeModulesApple (from `../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
@@ -2251,6 +2249,8 @@ DEPENDENCIES:
   - ReactAppDependencyProvider (from `build/generated/ios`)
   - ReactCodegen (from `build/generated/ios`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - ReactNativePdfRenderer (from `../node_modules/react-native-pdf-renderer`)
+  - "ReactNativeStaticServer (from `../node_modules/@dr.pogodin/react-native-static-server`)"
   - RNCalendarEvents (from `../node_modules/react-native-calendar-events`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - "RNCCheckbox (from `../node_modules/@react-native-community/checkbox`)"
@@ -2292,8 +2292,6 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
   dr-pogodin-react-native-fs:
     :path: "../node_modules/@dr.pogodin/react-native-fs"
-  dr-pogodin-react-native-static-server:
-    :path: "../node_modules/@dr.pogodin/react-native-static-server"
   fast_float:
     :podspec: "../node_modules/react-native/third-party-podspecs/fast_float.podspec"
   FBLazyVector:
@@ -2377,8 +2375,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-get-random-values"
   react-native-netinfo:
     :path: "../node_modules/@react-native-community/netinfo"
-  react-native-pdf:
-    :path: "../node_modules/react-native-pdf"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-webview:
@@ -2439,6 +2435,10 @@ EXTERNAL SOURCES:
     :path: build/generated/ios
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  ReactNativePdfRenderer:
+    :path: "../node_modules/react-native-pdf-renderer"
+  ReactNativeStaticServer:
+    :path: "../node_modules/@dr.pogodin/react-native-static-server"
   RNCalendarEvents:
     :path: "../node_modules/react-native-calendar-events"
   RNCAsyncStorage:
@@ -2479,7 +2479,6 @@ SPEC CHECKSUMS:
   boost: 7e761d76ca2ce687f7cc98e698152abd03a18f90
   DoubleConversion: 76ab83afb40bddeeee456813d9c04f67f78771b5
   dr-pogodin-react-native-fs: 9b94c84ef3fb7d507f646ebb64144d7ba49d7b08
-  dr-pogodin-react-native-static-server: ec4441ec53a6fdd516f18290529bfff40299da09
   fast_float: 06eeec4fe712a76acc9376682e4808b05ce978b6
   FBLazyVector: e32d34492c519a2194ec9d7f5e7a79d11b73f91c
   Firebase: d99ac19b909cd2c548339c2241ecd0d1599ab02e
@@ -2531,7 +2530,6 @@ SPEC CHECKSUMS:
   react-native-geolocation: 57a4a35c149d8613f81b89ff155e6ae28e76aea0
   react-native-get-random-values: d16467cf726c618e9c7a8c3c39c31faa2244bbba
   react-native-netinfo: cec9c4e86083cb5b6aba0e0711f563e2fbbff187
-  react-native-pdf: 735ad8762c0631325147539df7e5d4d7087d8b53
   react-native-safe-area-context: c4a660f9f6e460b19c87c2145e95335d59d578e1
   react-native-webview: facb1b21feb3494ffef077b6339419f531c6af9a
   React-NativeModulesApple: 5c61cef9e7f0e1d6216ff0af41a3b882806a5cec
@@ -2562,6 +2560,8 @@ SPEC CHECKSUMS:
   ReactAppDependencyProvider: 4893bde33952f997a323eb1a1ee87a72764018ff
   ReactCodegen: 31f8d982d351eb4dbf3af220f363c7398ae667c8
   ReactCommon: 0adf8f24a3415b6815613bad362d390726b33fc7
+  ReactNativePdfRenderer: eb182a55b03b480fa85d61d9f48dd5aa7f0c3416
+  ReactNativeStaticServer: 27b9de7e65f2a449a4a46d7dc26b451afb47eb8e
   RNCalendarEvents: f90f73666b6bcbb3cc8a491ffbb5e48c0db3de37
   RNCAsyncStorage: 6a8127b6987dc9fbce778669b252b14c8355c7ce
   RNCCheckbox: 33b44487ca8008394ce658cc32b26eab04f426ef
@@ -2574,7 +2574,7 @@ SPEC CHECKSUMS:
   RNNotifee: 5e3b271e8ea7456a36eec994085543c9adca9168
   RNPermissions: 2a8369e94aff9530afb1ee096bb0b95d80aea4e4
   RNReanimated: a509af3946c3f6964bf9a2e3cee5bb5732b36b8b
-  RNScreens: 12b6d4363803cd49fa651c081d9910d300d8474d
+  RNScreens: 150e342212af4d9dd7ba8a2d786a32dbe15cca04
   RNSentry: c216a93c2e5bc7cfdd5649fdcb38eb1849cdf43b
   RNSVG: 8d7f4c865bb5eba4fbd097249b227b315b3d81f5
   Sentry: 1e4e974d45f09d153af4b30b42acfb1c79e957d3
