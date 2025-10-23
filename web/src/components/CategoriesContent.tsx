@@ -30,51 +30,43 @@ const CategoriesContent = ({
 
   if (categories.isLeaf(categoryModel)) {
     return (
-      <div id='content'>
-        <Page
-          title={categoryModel.title}
-          content={categoryModel.content}
-          lastUpdate={categoryModel.lastUpdate}
-          AfterContent={
-            categoryModel.organization && <OrganizationContentInfo organization={categoryModel.organization} />
-          }
-          Footer={
-            <EmbeddedOffers
-              category={categoryModel}
-              city={city}
-              pathname={pathname}
-              cityCode={cityCode}
-              languageCode={languageCode}
-            />
-          }
-        />
-      </div>
-    )
-  }
-
-  if (categoryModel.isRoot()) {
-    return (
-      <div id='content' tabIndex={-1}>
-        <Tiles tiles={getCategoryTiles({ categories: children, cityCode })} title={t('localInformation')} />
-      </div>
-    )
-  }
-
-  return (
-    <div id='content' tabIndex={-1}>
       <Page
         title={categoryModel.title}
         content={categoryModel.content}
         lastUpdate={categoryModel.lastUpdate}
+        AfterContent={
+          categoryModel.organization && <OrganizationContentInfo organization={categoryModel.organization} />
+        }
         Footer={
-          <List
-            items={children.map(it => (
-              <CategoryListItem key={it.path} category={it} subCategories={categories.getChildren(it)} />
-            ))}
+          <EmbeddedOffers
+            category={categoryModel}
+            city={city}
+            pathname={pathname}
+            cityCode={cityCode}
+            languageCode={languageCode}
           />
         }
       />
-    </div>
+    )
+  }
+
+  if (categoryModel.isRoot()) {
+    return <Tiles tiles={getCategoryTiles({ categories: children, cityCode })} title={t('localInformation')} />
+  }
+
+  return (
+    <Page
+      title={categoryModel.title}
+      content={categoryModel.content}
+      lastUpdate={categoryModel.lastUpdate}
+      Footer={
+        <List
+          items={children.map(it => (
+            <CategoryListItem key={it.path} category={it} subCategories={categories.getChildren(it)} />
+          ))}
+        />
+      }
+    />
   )
 }
 
