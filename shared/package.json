@@ -36,14 +36,11 @@
     "@types/luxon": "^3.6.2",
     "@types/md5": "^2.3.5",
     "@types/normalize-path": "^3.0.2",
-    "@types/react": "19.0.0",
-    "@types/react-dom": "^19.0.0",
     "@types/seedrandom": "^3.0.8",
     "@types/uuid": "^10.0.0",
     "jest-environment-jsdom": "29.7.0",
     "md5": "^2.3.0",
     "react": "19.0.0",
-    "react-dom": "19.0.0",
     "seedrandom": "^3.0.5"
   }
 }
