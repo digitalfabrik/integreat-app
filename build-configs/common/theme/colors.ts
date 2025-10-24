@@ -119,7 +119,7 @@ export const legacyCommonLightColors = {
   footerLineColor: '#b1b1b1',
   backgroundColor: '#ffffff',
   tunewsThemeColor: '#007aa8',
-  tunewsThemeColorLight: 'rgba(0, 122, 168, 0.4)',
+  tunewsThemeColorLight: 'rgb(0, 122, 168, 0.4)',
   borderColor: '#F1F1F1',
   positiveHighlight: '#188038',
   negativeHighlight: '#8b0000',

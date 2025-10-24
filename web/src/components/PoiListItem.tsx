@@ -18,7 +18,7 @@ const StyledListItemButton = styled(ListItemButton)`
 
 const StyledListItemText = styled(ListItemText)`
   min-width: 1px;
-  word-break: break-word;
+  overflow-wrap: break-word;
   hyphens: auto;
 `
 

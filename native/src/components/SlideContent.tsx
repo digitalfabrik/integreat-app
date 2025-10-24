@@ -14,7 +14,6 @@ const TextContainer = styled.View`
   padding: 0 24px;
   gap: 10px;
   min-height: 150px;
-  justify-content: baseline;
 `
 
 const Heading = styled.Text`

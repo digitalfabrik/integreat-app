@@ -17,7 +17,7 @@ import LoadingErrorHandler from './LoadingErrorHandler'
 const HeaderImageWrapper = styled.View`
   margin: 20px 16px 0;
   border-radius: 8px;
-  background-color: rgba(2, 121, 166, 0.4);
+  background-color: rgb(2, 121, 166, 0.4);
 `
 const StyledIcon = styled(Icon)`
   height: 34px;

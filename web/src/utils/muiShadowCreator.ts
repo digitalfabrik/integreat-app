@@ -13,7 +13,7 @@ export const muiShadowCreator = (themeType: 'light' | 'contrast'): Shadows => {
       if (index === 0) {
         return 'none'
       }
-      const color = `rgba(${shadowRGBColor}, ${shadowRGBColor}, ${shadowRGBColor}, ${index / (MUI_SHADOW_ARRAY_LENGTH - 1)})`
+      const color = `rgb(${shadowRGBColor}, ${shadowRGBColor}, ${shadowRGBColor}, ${index / (MUI_SHADOW_ARRAY_LENGTH - 1)})`
       return `0px 3px 3px -2px ${color}, 0px 3px 4px 0px ${color}, 0px 1px 8px 0px ${color}`
     }) as Shadows
 }
