@@ -37,7 +37,7 @@
     "lint": "yarn stylelint && eslint --cache --cache-location ../.eslintcache .",
     "stylelint": "stylelint --config stylelint.config.js \"src/**/*.{ts,tsx,css}\"",
     "license-crawler": "npm-license-crawler -onlyDirectDependencies -json ./src/assets/licenses.json",
-    "postinstall": "patch-package && yarn license-crawler",
+    "postinstall": "yarn license-crawler",
     "ts:check": "tsc --build",
     "prettier:check": "yarn prettier --ignore-path  ../.prettierignore --check .",
     "prettier:write": "yarn prettier --ignore-path  ../.prettierignore --write .",
@@ -120,7 +120,6 @@
     "commander": "^13.1.0",
     "cross-env": "^7.0.3",
     "npm-license-crawler": "^0.2.1",
-    "patch-package": "^8.0.0",
     "postinstall-postinstall": "^2.1.0",
     "react-native-svg-transformer": "^1.5.0",
     "react-test-renderer": "19.0.0"
