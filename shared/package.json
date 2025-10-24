@@ -33,7 +33,6 @@
     "@testing-library/jest-dom": "6.5.0",
     "@testing-library/react": "^16.0.1",
     "@types/geojson": "^7946.0.16",
-    "@types/luxon": "^3.6.2",
     "@types/md5": "^2.3.5",
     "@types/normalize-path": "^3.0.2",
     "@types/seedrandom": "^3.0.8",
