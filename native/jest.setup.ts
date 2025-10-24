@@ -3,8 +3,6 @@ import fs from 'fs'
 import path from 'path'
 import { ReactNode } from 'react'
 
-import { I18nManager } from './src/testing/I18nManagerMock'
-
 console.error = () => undefined
 
 jest.mock('@react-native-async-storage/async-storage', () => mockAsyncStorage)
@@ -69,7 +67,6 @@ walkDir(mocksPath, name => {
     }
   })
 })
-jest.doMock('react-native/Libraries/ReactNative/I18nManager', () => I18nManager)
 jest.doMock(`${rootPath}/constants/NativeConstants`)
 jest.doMock('build-config-name')
 jest.doMock(`${rootPath}/constants/buildConfig`)
