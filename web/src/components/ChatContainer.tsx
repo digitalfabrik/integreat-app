@@ -34,12 +34,6 @@ const StyledDialog = styled(Dialog)({
   },
 })
 
-const ChatActionButton = styled(Fab)`
-  &:hover {
-    background-color: ${props => props.theme.palette.secondary.main};
-  }
-`
-
 type ChatContainerProps = {
   city: CityModel
   language: string
@@ -78,9 +72,9 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement | n
 
   return (
     <ChatButtonContainer bottom={bottomNavigationHeight ?? visibleFooterHeight}>
-      <ChatActionButton onClick={() => setChatVisible(true)} color='primary' aria-label={chatName}>
+      <Fab onClick={() => setChatVisible(true)} color='primary' aria-label={chatName}>
         <QuestionAnswerOutlinedIcon fontSize='large' />
-      </ChatActionButton>
+      </Fab>
       {desktop && (
         <Typography textAlign='center' aria-hidden>
           {chatName}
