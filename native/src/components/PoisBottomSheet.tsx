@@ -5,7 +5,7 @@ import BottomSheet, {
 } from '@gorhom/bottom-sheet'
 import React, { memo, ReactElement, Ref, useCallback, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Platform } from 'react-native'
+import { NativeScrollEvent, NativeSyntheticEvent, Platform } from 'react-native'
 import styled, { useTheme } from 'styled-components/native'
 
 import { LocationType } from 'shared'
@@ -127,7 +127,9 @@ const PoisBottomSheet = ({
             role='list'
             accessibilityLabel={t('poisCount', { count: pois.length })}
             renderItem={renderPoiListItem}
-            onMomentumScrollBegin={event => setScrollPosition(event.nativeEvent.contentOffset.y)}
+            onMomentumScrollBegin={(event: NativeSyntheticEvent<NativeScrollEvent>) =>
+              setScrollPosition(event.nativeEvent.contentOffset.y)
+            }
             showsVerticalScrollIndicator={false}
             ListHeaderComponent={<Title>{t('common:nearby')}</Title>}
             ListEmptyComponent={<NoItemsMessage>{t('noPois')}</NoItemsMessage>}
