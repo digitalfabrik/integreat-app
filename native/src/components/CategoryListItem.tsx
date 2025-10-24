@@ -5,7 +5,6 @@ import { CategoryModel } from 'shared/api'
 
 import { contentDirection, isContentDirectionReversalRequired } from '../constants/contentDirection'
 import dimensions from '../constants/dimensions'
-import { LanguageResourceCacheStateType } from '../utils/DataContainer'
 import List from './List'
 import SimpleImage from './SimpleImage'
 import SubCategoryListItem from './SubCategoryListItem'
@@ -56,30 +55,17 @@ export const CategoryThumbnail = styled(SimpleImage)<{ language: string }>`
 type CategoryListItemProps = {
   category: CategoryModel
   subCategories: CategoryModel[]
-  resourceCache: LanguageResourceCacheStateType
   onItemPress: (item: { path: string }) => void
   language: string
 }
 
-const CategoryListItem = ({
-  language,
-  category,
-  subCategories,
-  resourceCache,
-  onItemPress,
-}: CategoryListItemProps): ReactElement => (
+const CategoryListItem = ({ language, category, subCategories, onItemPress }: CategoryListItemProps): ReactElement => (
   <>
     <FlexStyledLink role='link' onPress={() => onItemPress({ path: category.path })} accessibilityLanguage={language}>
       <DirectionContainer language={language}>
         <CategoryEntryContainer>
           <TitleDirectionContainer language={language}>
-            {!!category.thumbnail && (
-              <CategoryThumbnail
-                language={language}
-                source={category.thumbnail}
-                resourceCache={resourceCache[category.path]}
-              />
-            )}
+            {!!category.thumbnail && <CategoryThumbnail language={language} source={category.thumbnail} />}
             <CategoryTitle language={language}>{category.title}</CategoryTitle>
           </TitleDirectionContainer>
         </CategoryEntryContainer>
@@ -91,7 +77,6 @@ const CategoryListItem = ({
         <SubCategoryListItem
           key={subCategory.path}
           subCategory={subCategory}
-          resourceCache={resourceCache[subCategory.path] ?? {}}
           onItemPress={onItemPress}
           language={language}
         />
