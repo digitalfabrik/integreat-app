@@ -39,11 +39,11 @@
     "react": "19.0.0"
   },
   "devDependencies": {
-    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+    "@trivago/prettier-plugin-sort-imports": "^5.2.2",
     "@types/eslint": "^8.56.10",
     "@types/jest": "^30.0.0",
     "@types/luxon": "^3.7.1",
-    "@types/node": "^22.5.3",
+    "@types/node": "^24.9.1",
     "@types/react": "19.0.0",
     "@typescript-eslint/eslint-plugin": "^7.7.0",
     "@typescript-eslint/parser": "^7.7.0",
@@ -73,7 +73,7 @@
     "stylelint-react-native": "^2.7.0",
     "stylelint-use-logical": "^2.1.2",
     "ts-jest": "^29.4.5",
-    "tsx": "^4.8.2",
-    "typescript": "^5.7.3"
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
   }
 }
