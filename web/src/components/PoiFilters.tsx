@@ -69,7 +69,11 @@ const PoiFilters = ({
             </Typography>
             <Typography variant='subtitle2'>{t('alphabetLetters')}</Typography>
           </Stack>
-          <TileRow exclusive value={selectedPoiCategory?.id} onChange={handleFilterChange}>
+          <TileRow
+            exclusive
+            value={selectedPoiCategory?.id}
+            onChange={handleFilterChange}
+            aria-label={t('poiCategories')}>
             {poiCategories.map(it => (
               <ToggleButton key={it.id} value={it.id} text={it.name} icon={it.icon} />
             ))}

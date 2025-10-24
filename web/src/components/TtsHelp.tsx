@@ -2,7 +2,6 @@ import MenuBookIcon from '@mui/icons-material/MenuBook'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import Alert from '@mui/material/Alert'
 import Avatar from '@mui/material/Avatar'
-import IconButton from '@mui/material/IconButton'
 import MuiList from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemAvatar from '@mui/material/ListItemAvatar'
@@ -46,9 +45,7 @@ const TtsHelpItem = ({ title, path }: { title: string; path: string }) => (
         </Avatar>
       </ListItemAvatar>
       <ListItemText primary={title} />
-      <IconButton color='primary' disableRipple>
-        <OpenInNewIcon />
-      </IconButton>
+      <OpenInNewIcon color='primary' />
     </ListItemButton>
   </ListItem>
 )
