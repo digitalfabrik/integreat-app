@@ -2,7 +2,7 @@
 
 We are using Jest and Appium to run the tests.
 The file `e2e-tests/native/capabilities.ts` contains the capability definitions. A set of capabilities is like a
-requirement of devices you want to test against (e.g. Android 9/iOS 11).
+requirement of devices you want to test against (e.g. Android 11 (which is the oldest still supported version) /iOS 11).
 [Here](https://www.browserstack.com/app-automate/capabilities) is a good definition of capabilities and which
 properties you can set.
 

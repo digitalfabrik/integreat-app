@@ -17,9 +17,11 @@ describe('Categories', () => {
     expect(await getPathname()).toBe(`/${Routes.dashboard}/welcome`)
 
     const subCategoryEl = await $(`*=${subCategory}`)
+    await subCategoryEl.waitForDisplayed()
     expect(await subCategoryEl.isDisplayed()).toBeTruthy()
 
     const leaf = await $(`*=${leafCategory}`)
+    await leaf.waitForDisplayed()
     expect(await leaf.isDisplayed()).toBeTruthy()
   })
 
@@ -27,6 +29,7 @@ describe('Categories', () => {
     await categoriesPage.openCategory(subCategory)
 
     const headline = await $(`h1=${subCategory}`)
+    await headline.waitForDisplayed()
     expect(await headline.isDisplayed()).toBeTruthy()
   })
 
@@ -34,6 +37,7 @@ describe('Categories', () => {
     await categoriesPage.openCategory(leafCategory)
 
     const headline = await $(`h1=${leafCategory}`)
+    await headline.waitForDisplayed()
     expect(await headline.isDisplayed()).toBeTruthy()
   })
 
@@ -42,9 +46,11 @@ describe('Categories', () => {
     await categoriesPage.openCategory(leafCategory)
 
     const headline = await $(`h1=${leafCategory}`)
+    await headline.waitForDisplayed()
     expect(await headline.isDisplayed()).toBeTruthy()
 
     const contentExcerpt = await $('li*=Everyone is allowed to have their own opinion.')
+    await contentExcerpt.waitForDisplayed()
     expect(await contentExcerpt.isDisplayed()).toBeTruthy()
   })
 })

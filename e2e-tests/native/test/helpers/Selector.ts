@@ -12,7 +12,7 @@ export class Selector {
 
   public ByBeginsWith(text: string): Selector {
     if (driver.isAndroid) {
-      this.queries.push(`.text("${text}")`)
+      this.queries.push(`.textStartsWith("${text}")`)
     } else {
       this.queries.push(`label BEGINSWITH '${text}'`)
     }

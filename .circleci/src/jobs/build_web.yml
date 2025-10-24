@@ -4,7 +4,7 @@ parameters:
     enum: [integreat, malte, integreat-test-cms, malte-test-cms, aschaffenburg, obdach]
     default: integreat
 docker:
-  - image: cimg/node:20.17.0
+  - image: cimg/node:20.18.1
 resource_class: medium
 environment:
   TOTAL_CPUS: 2 # For resource_class medium

@@ -7,13 +7,15 @@ import { navigateToDashboard } from '../utils/navigationUtils.js'
 describe('navigate to search result', () => {
   it('should open and search content', async () => {
     await navigateToDashboard()
+    await DashboardPage.searchIcon.waitForDisplayed({ timeout: 20000 })
     await DashboardPage.searchIcon.click()
     await SearchPage.get()
 
     const searchBar = await SearchPage.search
     await searchBar.addValue(contentSearch)
 
-    const searchResult = await $(new Selector().ByBeginsWith('Language').build())
+    const searchResult = $(new Selector().ByBeginsWith('Language').build())
+    await searchResult.waitForDisplayed({ timeout: 20000 })
     await searchResult.click()
 
     await $(new Selector().ByText('Language courses').build()).waitForDisplayed()
