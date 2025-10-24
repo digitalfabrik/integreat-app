@@ -34,7 +34,7 @@ const Footer = (): ReactElement | null => {
   }
 
   return (
-    <FooterContainer>
+    <FooterContainer id='footer' role='contentinfo'>
       <StyledList
         items={linkItems.map(item => (
           <FooterLink key={item.to} to={item.to} text={item.text} />

@@ -71,7 +71,12 @@ const BottomNavigation = ({ cityModel, languageCode }: BottomNavigationProps): R
 
   return (
     <Container elevation={4}>
-      <StyledBottomNavigation id={BOTTOM_NAVIGATION_ELEMENT_ID} showLabels value={value} component='nav'>
+      <StyledBottomNavigation
+        id={BOTTOM_NAVIGATION_ELEMENT_ID}
+        showLabels
+        value={value}
+        component='nav'
+        role='navigation'>
         {navigationItems.map(item => (
           <StyledBottomNavigationAction
             key={item.value}
