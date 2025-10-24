@@ -1,7 +1,7 @@
 import Stack from '@mui/material/Stack'
 import { styled, useTheme } from '@mui/material/styles'
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
-import { GeolocateControl, NavigationControl } from 'react-map-gl'
+import { GeolocateControl, NavigationControl } from 'react-map-gl/maplibre'
 
 import { LocationType, MapViewViewport, MapFeature, PreparePoisReturn } from 'shared'
 import { PoiModel } from 'shared/api'
