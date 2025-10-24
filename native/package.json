@@ -113,7 +113,6 @@
     "@testing-library/react-native": "^13.2.0",
     "@types/geojson": "^7946.0.16",
     "@types/lodash": "^4.17.16",
-    "@types/luxon": "^3.6.2",
     "@types/md5": "^2.3.5",
     "@types/react-test-renderer": "19.0.0",
     "@types/url-parse": "^1.4.11",
