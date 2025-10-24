@@ -73,7 +73,6 @@
     "@types/assets-webpack-plugin": "^7.1.5",
     "@types/dompurify": "^3.0.5",
     "@types/luxon": "^3.4.2",
-    "@types/react": "19.0.0",
     "@types/react-dom": "19.0.0",
     "@types/react-helmet": "^6.1.11",
     "@types/react-highlight-words": "^0.20.0",
