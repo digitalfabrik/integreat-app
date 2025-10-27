@@ -17,7 +17,7 @@ export type FooterLinkProps = {
   text: string
 }
 
-const FooterLink = ({ to, text }: FooterLinkProps): ReactElement => {
+const FooterListItem = ({ to, text }: FooterLinkProps): ReactElement => {
   const { t } = useTranslation(['layout', 'settings'])
 
   return (
@@ -35,4 +35,4 @@ const FooterLink = ({ to, text }: FooterLinkProps): ReactElement => {
   )
 }
 
-export default FooterLink
+export default FooterListItem

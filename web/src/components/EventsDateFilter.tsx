@@ -11,7 +11,7 @@ import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import useDimensions from '../hooks/useDimensions'
-import CustomDatePicker from './DatePicker'
+import DatePicker from './DatePicker'
 
 type EventsDateFilterProps = {
   startDate: DateTime | null
@@ -47,7 +47,7 @@ const EventsDateFilter = ({
         </AccordionSummary>
         <AccordionDetails>
           <Stack direction={mobile ? 'column' : 'row'} justifyContent='space-evenly' alignItems='center' gap={2}>
-            <CustomDatePicker
+            <DatePicker
               title={t('from')}
               date={startDate}
               setDate={setStartDate}
@@ -55,7 +55,7 @@ const EventsDateFilter = ({
               placeholderDate={today}
               calendarLabel={t('selectStartDateCalendar')}
             />
-            <CustomDatePicker
+            <DatePicker
               title={t('to')}
               date={endDate}
               setDate={setEndDate}
