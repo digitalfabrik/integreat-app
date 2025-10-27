@@ -1,10 +1,14 @@
 import MailLock from '@mui/icons-material/MailLock'
 import SendIcon from '@mui/icons-material/Send'
 import Alert from '@mui/material/Alert'
+import Avatar from '@mui/material/Avatar'
+import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
+import Skeleton from '@mui/material/Skeleton'
 import Stack from '@mui/material/Stack'
 import TextField from '@mui/material/TextField'
+import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { KeyboardEvent, ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -13,7 +17,6 @@ import { ChatMessageModel, CityModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
 import ChatConversation from './ChatConversation'
-import LoadingSpinner from './LoadingSpinner'
 import PrivacyCheckbox from './PrivacyCheckbox'
 import H1 from './base/H1'
 import Link from './base/Link'
@@ -26,6 +29,20 @@ const Container = styled(Stack)(({ theme }) => ({
     height: 600,
   },
 })) as typeof Stack
+
+const StyledRight = styled(Box)`
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+  width: 100%;
+`
+
+const StyledLeft = styled(Box)`
+  display: flex;
+  justify-content: flex-start;
+  gap: 6px;
+  width: 100%;
+`
 
 type ChatProps = {
   city: CityModel
@@ -72,8 +89,22 @@ const Chat = ({
   if (isLoading && !hasError) {
     return (
       <Container>
-        <LoadingSpinner />
-        <Stack textAlign='center'>{t('loadingText')}</Stack>
+        {privacyPolicyAccepted && (
+          <>
+            <StyledRight>
+              <Skeleton variant='text' width='90%' />
+              <Skeleton variant='circular'>
+                <Avatar />
+              </Skeleton>
+            </StyledRight>
+            <StyledLeft>
+              <Skeleton variant='circular'>
+                <Avatar />
+              </Skeleton>
+              <Skeleton variant='text' width='70%' />
+            </StyledLeft>
+          </>
+        )}
       </Container>
     )
   }
@@ -82,14 +113,24 @@ const Chat = ({
     return (
       <Container>
         <Stack gap={1}>
-          <H1>{t('settings:privacyPolicy')}</H1>
-          {t('privacyPolicyInformation', { city: city.name, appName: buildConfig().appName })}
-          <PrivacyCheckbox
-            language={languageCode}
-            checked={false}
-            setChecked={acceptPrivacyPolicy}
-            url={city.chatPrivacyPolicyUrl}
-          />
+          <H1>{isLoading && !hasError ? <Skeleton variant='rectangular' /> : t('settings:privacyPolicy')}</H1>
+          <Typography variant='body1'>
+            {isLoading && !hasError ? (
+              <Skeleton variant='rectangular' />
+            ) : (
+              t('privacyPolicyInformation', { city: city.name, appName: buildConfig().appName })
+            )}
+          </Typography>
+          {isLoading && !hasError ? (
+            <Skeleton variant='rectangular' />
+          ) : (
+            <PrivacyCheckbox
+              language={languageCode}
+              checked={false}
+              setChecked={acceptPrivacyPolicy}
+              url={city.chatPrivacyPolicyUrl}
+            />
+          )}
         </Stack>
       </Container>
     )
@@ -97,7 +138,7 @@ const Chat = ({
 
   return (
     <Container justifyContent='space-between'>
-      <ChatConversation messages={messages} isTyping={isTyping} />
+      <ChatConversation messages={messages} isTyping={isTyping} loading={isLoading} />
       <Stack paddingInline={2} gap={1}>
         {hasError && <Alert severity='error'>{t('errorMessage')}</Alert>}
         <TextField

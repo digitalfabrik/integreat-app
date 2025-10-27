@@ -1,3 +1,5 @@
+import Box from '@mui/material/Box'
+import Skeleton from '@mui/material/Skeleton'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -10,7 +12,8 @@ import Footer from '../components/Footer'
 import GeneralHeader from '../components/GeneralHeader'
 import Helmet from '../components/Helmet'
 import Layout from '../components/Layout'
-import LoadingSpinner from '../components/LoadingSpinner'
+import SkeletonHeader from '../components/SkeletonHeader'
+import SkeletonList from '../components/SkeletonList'
 import buildConfig from '../constants/buildConfig'
 import { cmsApiBaseUrl } from '../constants/urls'
 
@@ -28,8 +31,13 @@ const LandingPage = ({ languageCode }: LandingPageProps): ReactElement => {
 
   if (loading) {
     return (
-      <Layout>
-        <LoadingSpinner />
+      <Layout header={<GeneralHeader languageCode={languageCode} onStickyTopChanged={setStickyTop} />}>
+        <Box maxWidth={640}>
+          <SkeletonHeader width='80%' />
+          <Skeleton variant='text' width='100%' sx={{ fontSize: '2rem' }} />
+          <Skeleton variant='rectangular' width='100%' height={40} />
+          <SkeletonList showItemIcon={false} />
+        </Box>
       </Layout>
     )
   }

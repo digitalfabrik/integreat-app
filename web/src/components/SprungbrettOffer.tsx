@@ -5,7 +5,7 @@ import { OfferModel, useLoadFromEndpoint, createSprungbrettJobsEndpoint } from '
 
 import List from '../components/base/List'
 import FailureSwitcher from './FailureSwitcher'
-import LoadingSpinner from './LoadingSpinner'
+import SkeletonList from './SkeletonList'
 import SprungbrettListItem from './SprungbrettListItem'
 
 type SprungbrettOfferPageProps = {
@@ -18,7 +18,7 @@ const SprungbrettOffer = ({ sprungbrettOffer }: SprungbrettOfferPageProps): Reac
   const { data, error, loading } = useLoadFromEndpoint(createSprungbrettJobsEndpoint, sprungbrettOffer.path, undefined)
 
   if (loading) {
-    return <LoadingSpinner />
+    return <SkeletonList />
   }
 
   if (!data) {

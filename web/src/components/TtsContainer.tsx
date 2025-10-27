@@ -1,4 +1,5 @@
 import Backdrop from '@mui/material/Backdrop'
+import CircularProgress from '@mui/material/CircularProgress'
 import { styled } from '@mui/material/styles'
 import EasySpeech from 'easy-speech'
 import React, { createContext, ReactElement, useCallback, useMemo, useRef, useState } from 'react'
@@ -6,7 +7,6 @@ import { useTranslation } from 'react-i18next'
 
 import buildConfig from '../constants/buildConfig'
 import { getTtsVoice, isTtsCancelError, ttsInitialized } from '../utils/tts'
-import LoadingSpinner from './LoadingSpinner'
 import TtsHelp from './TtsHelp'
 import TtsPlayer from './TtsPlayer'
 
@@ -178,7 +178,7 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
     <TtsContext.Provider value={ttsContextValue}>
       {children}
       <StyledBackdrop open={isInitializing}>
-        <LoadingSpinner />
+        <CircularProgress />
       </StyledBackdrop>
       {showHelp && <TtsHelp close={close} />}
       {visible && (

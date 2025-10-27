@@ -1,5 +1,10 @@
+import Card from '@mui/material/Card'
+import Box from '@mui/material/Grid'
+import Skeleton from '@mui/material/Skeleton'
+import Stack from '@mui/material/Stack'
+import { styled } from '@mui/material/styles'
 import { DateTime } from 'luxon'
-import React, { ReactElement, useCallback } from 'react'
+import React, { ReactElement, useCallback, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Navigate, useParams } from 'react-router'
 
@@ -23,18 +28,46 @@ import CityContentLayout, { CityContentLayoutProps } from '../components/CityCon
 import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
-import LoadingSpinner from '../components/LoadingSpinner'
+import PageSkeleton from '../components/PageSkeleton'
+import SkeletonHeader from '../components/SkeletonHeader'
+import SkeletonList from '../components/SkeletonList'
 import buildConfig from '../constants/buildConfig'
 import { cmsApiBaseUrl } from '../constants/urls'
 import usePreviousProp from '../hooks/usePreviousProp'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 
 const CATEGORY_NOT_FOUND_STATUS_CODE = 400
+const NUM_CARD_SKELETONS = 16
 
 const getBreadcrumb = (category: CategoryModel, cityName: string): BreadcrumbProps => ({
   title: category.isRoot() ? cityName : category.title,
   to: category.path,
 })
+
+const StyledBox = styled(Box)`
+  display: grid;
+  gap: 32px 24px;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  justify-content: center;
+  width: 100%;
+`
+
+const StyledCard = styled(Card)`
+  width: 160px;
+`
+
+const RootCategorySkeleton = (): ReactElement => (
+  <Stack paddingTop={2} alignItems='center'>
+    <SkeletonHeader />
+    <StyledBox>
+      {[...Array(NUM_CARD_SKELETONS).keys()].map(index => (
+        <StyledCard key={index}>
+          <Skeleton variant='rectangular' height={140} />
+        </StyledCard>
+      ))}
+    </StyledBox>
+  </Stack>
+)
 
 const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRouteProps): ReactElement | null => {
   const previousPathname = usePreviousProp({ prop: pathname })
@@ -74,6 +107,17 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
     return data
   }, [cityCode, languageCode, pathname, categoryId])
   const { data: parents, loading: parentsLoading, error: parentsError } = useLoadAsync(requestParents)
+
+  const isLeafPage = useMemo(() => {
+    if (!categories || !currentCategory) {
+      return null
+    }
+    try {
+      return new CategoriesMapModel(categories).isLeaf(currentCategory)
+    } catch {
+      return null
+    }
+  }, [categories, currentCategory])
 
   if (!city) {
     return null
@@ -122,15 +166,22 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
     Toolbar: <CityContentToolbar slug={category && !category.isRoot() ? category.slug : undefined} />,
   }
 
-  if (categoriesLoading || parentsLoading || pathname !== previousPathname) {
+  const loadSkeleton = () => {
+    if (!categoryId && !currentCategory) {
+      return <RootCategorySkeleton />
+    }
+    if (isLeafPage === null) {
+      return null
+    }
     return (
-      <CityContentLayout isLoading {...locationLayoutParams}>
-        <LoadingSpinner />
-      </CityContentLayout>
+      <>
+        <SkeletonHeader />
+        {isLeafPage ? <PageSkeleton /> : <SkeletonList />}
+      </>
     )
   }
 
-  if (!category || !parents || !categories) {
+  if (categoriesError || parentsError) {
     // This adds support for the old paths of categories by redirecting to the new path
     // The children endpoint always returns the category with the new path at the first position in the response
     const newSlugCategory = categories?.[0]
@@ -152,6 +203,15 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
     )
   }
 
+  if (!categories || !parents || !category) {
+    // If data is not yet available, show skeleton
+    return (
+      <CityContentLayout isLoading={false} {...locationLayoutParams}>
+        {loadSkeleton()}
+      </CityContentLayout>
+    )
+  }
+
   const ancestorBreadcrumbs = parents
     .sort((a, b) => a.parentPath.length - b.parentPath.length)
     .map((categoryModel: CategoryModel) => getBreadcrumb(categoryModel, city.name))
@@ -168,14 +228,18 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
         cityModel={city}
       />
       <Breadcrumbs breadcrumbs={breadcrumbs} />
-      <CategoriesContent
-        city={city}
-        cityCode={cityCode}
-        pathname={pathname}
-        languageCode={languageCode}
-        categories={new CategoriesMapModel(categories)}
-        categoryModel={category}
-      />
+      {categoriesLoading || parentsLoading || pathname !== previousPathname ? (
+        loadSkeleton()
+      ) : (
+        <CategoriesContent
+          city={city}
+          cityCode={cityCode}
+          pathname={pathname}
+          languageCode={languageCode}
+          categories={new CategoriesMapModel(categories)}
+          categoryModel={category}
+        />
+      )}
     </CityContentLayout>
   )
 }

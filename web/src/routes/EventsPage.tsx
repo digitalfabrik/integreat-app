@@ -1,5 +1,7 @@
 import LinkIcon from '@mui/icons-material/Link'
 import LocationIcon from '@mui/icons-material/LocationOnOutlined'
+import Skeleton from '@mui/material/Skeleton'
+import Stack from '@mui/material/Stack'
 import { styled } from '@mui/material/styles'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
@@ -19,9 +21,11 @@ import ExportEventButton from '../components/ExportEventButton'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
 import JsonLdEvent from '../components/JsonLdEvent'
-import LoadingSpinner from '../components/LoadingSpinner'
 import Page, { THUMBNAIL_WIDTH } from '../components/Page'
 import PageDetail from '../components/PageDetail'
+import PageSkeleton from '../components/PageSkeleton'
+import SkeletonHeader from '../components/SkeletonHeader'
+import SkeletonList from '../components/SkeletonList'
 import H1 from '../components/base/H1'
 import List from '../components/base/List'
 import { cmsApiBaseUrl } from '../constants/urls'
@@ -82,10 +86,21 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     Toolbar: <CityContentToolbar slug={event?.slug} />,
   }
 
-  if (!events && loading) {
+  if (loading) {
     return (
       <CityContentLayout isLoading {...locationLayoutParams}>
-        <LoadingSpinner />
+        {eventId ? (
+          <>
+            <SkeletonHeader />
+            <PageSkeleton />
+          </>
+        ) : (
+          <Stack>
+            <SkeletonHeader />
+            <Skeleton variant='rectangular' width={200} height={30} />
+            <SkeletonList listItemHeight={160} iconHeight={96} iconWidth={96} />
+          </Stack>
+        )}
       </CityContentLayout>
     )
   }
