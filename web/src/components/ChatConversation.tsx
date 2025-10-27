@@ -1,4 +1,5 @@
 import List from '@mui/material/List'
+import Skeleton from '@mui/material/Skeleton'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
@@ -25,9 +26,10 @@ const TypingIndicator = ({ isVisible }: TypingIndicatorProps): ReactElement | nu
 type ChatConversationProps = {
   messages: ChatMessageModel[]
   isTyping: boolean
+  loading?: boolean
 }
 
-const ChatConversation = ({ messages, isTyping }: ChatConversationProps): ReactElement => {
+const ChatConversation = ({ messages, isTyping, loading }: ChatConversationProps): ReactElement => {
   const { t } = useTranslation('chat')
   const [messagesCount, setMessagesCount] = useState(0)
   const messagesEndRef = useRef<HTMLDivElement>(null)
@@ -53,8 +55,8 @@ const ChatConversation = ({ messages, isTyping }: ChatConversationProps): ReactE
   if (messages.length === 0) {
     return (
       <Stack gap={1}>
-        <Typography variant='subtitle1'>{t('conversationTitle')}</Typography>
-        <Typography variant='body2'>{t('conversationText')}</Typography>
+        <Typography variant='subtitle1'>{loading ? <Skeleton /> : t('conversationTitle')}</Typography>
+        <Typography variant='body2'>{loading ? <Skeleton /> : t('conversationText')}</Typography>
       </Stack>
     )
   }

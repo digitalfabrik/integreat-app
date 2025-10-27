@@ -9,8 +9,9 @@ import CityContentLayout, { CityContentLayoutProps } from '../components/CityCon
 import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
-import LoadingSpinner from '../components/LoadingSpinner'
 import Page from '../components/Page'
+import PageSkeleton from '../components/PageSkeleton'
+import SkeletonHeader from '../components/SkeletonHeader'
 import { cmsApiBaseUrl } from '../constants/urls'
 
 const DisclaimerPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElement | null => {
@@ -46,7 +47,8 @@ const DisclaimerPage = ({ cityCode, languageCode, city }: CityRouteProps): React
   if (loading) {
     return (
       <CityContentLayout isLoading {...locationLayoutParams}>
-        <LoadingSpinner />
+        <SkeletonHeader />
+        <PageSkeleton />
       </CityContentLayout>
     )
   }

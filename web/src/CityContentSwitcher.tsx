@@ -19,7 +19,6 @@ import Footer from './components/Footer'
 import GeneralHeader from './components/GeneralHeader'
 import LanguageFailure from './components/LanguageFailure'
 import Layout from './components/Layout'
-import LoadingSpinner from './components/LoadingSpinner'
 import buildConfig from './constants/buildConfig'
 import { cmsApiBaseUrl } from './constants/urls'
 import { LOCAL_NEWS_ROUTE, RoutePatterns, RouteType, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from './routes'
@@ -108,9 +107,8 @@ const CityContentSwitcher = ({ languageCode }: CityContentSwitcherProps): ReactE
                 languageCode={languageCode}
                 isLoading
                 city={city}
-                pageTitle={null}>
-                <LoadingSpinner />
-              </CityContentLayout>
+                pageTitle={null}
+              />
             ) : (
               <Layout />
             )

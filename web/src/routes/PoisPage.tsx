@@ -1,3 +1,7 @@
+import Grid from '@mui/material/Grid'
+import Skeleton from '@mui/material/Skeleton'
+import Stack from '@mui/material/Stack'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router'
@@ -9,11 +13,41 @@ import { CityRouteProps } from '../CityContentSwitcher'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
-import LoadingSpinner from '../components/LoadingSpinner'
 import Pois from '../components/Pois'
+import SkeletonHeader from '../components/SkeletonHeader'
+import SkeletonList from '../components/SkeletonList'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 import useUserLocation from '../hooks/useUserLocation'
+
+const RootGrid = styled(Grid)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'row',
+  height: '100vh',
+  [theme.breakpoints.down('md')]: {
+    flexDirection: 'column-reverse',
+  },
+}))
+
+const SkeletonListContainer = styled(Grid)(({ theme }) => ({
+  width: '20%',
+  minWidth: 360,
+
+  [theme.breakpoints.down('md')]: {
+    width: '100%',
+    height: '50%',
+  },
+}))
+
+const MapSkeleton = styled(Grid)(({ theme }) => ({
+  flexGrow: 1,
+  width: 'auto',
+  height: '100%',
+  [theme.breakpoints.down('md')]: {
+    height: '50%',
+    width: '100%',
+  },
+}))
 
 const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): ReactElement | null => {
   const params = useParams()
@@ -59,7 +93,17 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
   if (loading) {
     return (
       <CityContentLayout isLoading {...locationLayoutParams}>
-        <LoadingSpinner />
+        <RootGrid container>
+          <SkeletonListContainer container paddingX={2}>
+            <Stack width='100%'>
+              <SkeletonHeader width='90%' />
+              <SkeletonList showItemIcon={false} />
+            </Stack>
+          </SkeletonListContainer>
+          <MapSkeleton container>
+            <Skeleton variant='rectangular' width='100%' height='100%' />
+          </MapSkeleton>
+        </RootGrid>
       </CityContentLayout>
     )
   }

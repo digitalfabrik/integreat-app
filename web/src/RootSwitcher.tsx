@@ -1,3 +1,4 @@
+import CircularProgress from '@mui/material/CircularProgress'
 import React, { ReactElement, Suspense, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Navigate, Route, Routes, useMatch } from 'react-router'
@@ -17,7 +18,6 @@ import {
 
 import CityContentSwitcher from './CityContentSwitcher'
 import FixedCityContentSwitcher from './FixedCityContentSwitcher'
-import LoadingSpinner from './components/LoadingSpinner'
 import buildConfig from './constants/buildConfig'
 import useScrollToTop from './hooks/useScrollToTop'
 import { cityContentPattern, RoutePatterns } from './routes'
@@ -53,7 +53,7 @@ const RootSwitcher = ({ setContentLanguage }: RootSwitcherProps): ReactElement =
   const landingPath = pathnameFromRouteInformation({ route: LANDING_ROUTE, languageCode: language })
   const fixedCityPath = fixedCity ? cityContentPath({ cityCode: fixedCity, languageCode: language }) : null
   return (
-    <Suspense fallback={<LoadingSpinner />}>
+    <Suspense fallback={<CircularProgress />}>
       <Routes>
         {!fixedCity && <Route path={RoutePatterns[LANDING_ROUTE]} element={<LandingPage languageCode={language} />} />}
         <Route path={RoutePatterns[MAIN_DISCLAIMER_ROUTE]} element={<MainDisclaimerPage languageCode={language} />} />

@@ -12,8 +12,8 @@ import CityContentLayout, { CityContentLayoutProps } from '../components/CityCon
 import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
-import LoadingSpinner from '../components/LoadingSpinner'
 import Page from '../components/Page'
+import PageSkeleton from '../components/PageSkeleton'
 import Svg from '../components/base/Svg'
 import { tunewsApiBaseUrl } from '../constants/urls'
 import useTtsPlayer from '../hooks/useTtsPlayer'
@@ -69,7 +69,7 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
   if (loading) {
     return (
       <CityContentLayout isLoading {...locationLayoutParams}>
-        <LoadingSpinner />
+        <PageSkeleton />
       </CityContentLayout>
     )
   }
