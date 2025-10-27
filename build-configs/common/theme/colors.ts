@@ -28,7 +28,7 @@ export const commonLightColors: CommonColorPalette = {
     light: '#C0DCFF',
     main: '#4B6EDA',
     dark: '#475CC7',
-    contrastText: '#E6E0E9',
+    contrastText: '#FFFFFF',
   },
   tertiary: {
     light: '#EAEEF9',
@@ -60,7 +60,7 @@ export const commonDarkColors: CommonColorPalette = {
     light: '#98C7FF',
     main: '#4F8FFD',
     dark: '#475CC7',
-    contrastText: '#E6E0E9',
+    contrastText: '#FFFFFF',
   },
   tertiary: {
     light: '#E9EDFB',

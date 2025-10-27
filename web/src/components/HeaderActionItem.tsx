@@ -6,14 +6,14 @@ import React, { ReactElement } from 'react'
 
 import Link from './base/Link'
 
-const StyledButton = styled(MuiButton)(({ theme }) => ({
-  backgroundColor: theme.palette.tertiary.light,
-  padding: '2px 12px',
-})) as typeof MuiButton
+const StyledButton = styled(MuiButton)`
+  padding: 2px 12px;
+  border: 1px solid;
+` as typeof MuiButton
 
-const StyledIconButton = styled(IconButton)(({ theme }) => ({
-  backgroundColor: theme.palette.tertiary.light,
-})) as typeof IconButton
+const StyledIconButton = styled(IconButton)`
+  border: 1px solid;
+` as typeof IconButton
 
 type HeaderActionItemLinkProps = {
   text: string
@@ -25,7 +25,13 @@ const HeaderActionItem = ({ to, text, icon, onClick, innerText }: HeaderActionIt
   if (innerText) {
     return (
       <Tooltip title={text}>
-        <StyledButton component={to ? Link : MuiButton} to={to} onClick={onClick} startIcon={icon} aria-label={text}>
+        <StyledButton
+          variant='outlined'
+          component={to ? Link : MuiButton}
+          to={to}
+          onClick={onClick}
+          startIcon={icon}
+          aria-label={text}>
           {innerText}
         </StyledButton>
       </Tooltip>
