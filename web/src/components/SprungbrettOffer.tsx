@@ -25,7 +25,7 @@ const SprungbrettOffer = ({ sprungbrettOffer }: SprungbrettOfferPageProps): Reac
     return <FailureSwitcher error={error ?? new Error('Data missing')} />
   }
 
-  const items = data.map(job => <SprungbrettListItem key={job.id} job={job} />)
+  const items = data.map(job => <SprungbrettListItem key={job.url} job={job} />)
 
   return <List items={items} NoItemsMessage={t('noOffersAvailable')} />
 }
