@@ -73,13 +73,6 @@ jest.doMock(`${rootPath}/constants/buildConfig`)
 jest.doMock('react-native-blob-util')
 jest.doMock('path', () => path.posix)
 
-// See https://github.com/callstack/react-native-testing-library/issues/329#issuecomment-737307473
-jest.mock('react-native/Libraries/Components/Switch/Switch', () => {
-  const mockComponent = require('react-native/jest/mockComponent')
-
-  return mockComponent('react-native/Libraries/Components/Switch/Switch')
-})
-
 // @ts-expect-error https://github.com/software-mansion/react-native-reanimated/issues/1380#issuecomment-865143328
 global.__reanimatedWorkletInit = jest.fn()
 

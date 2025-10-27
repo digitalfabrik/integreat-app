@@ -238,7 +238,7 @@ module.exports = {
   reportUnusedDisableDirectives: true,
   settings: {
     react: {
-      version: '19.1.0',
+      version: '19.1.1',
     },
   },
 }

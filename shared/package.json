@@ -13,7 +13,7 @@
     "ts:check": "tsc --build"
   },
   "peerDependencies": {
-    "react": "19.1.0"
+    "react": "19.1.1"
   },
   "dependencies": {
     "@turf/distance": "^7.2.0",
@@ -39,7 +39,7 @@
     "@types/uuid": "^10.0.0",
     "jest-environment-jsdom": "^30.2.0",
     "md5": "^2.3.0",
-    "react": "19.1.0",
+    "react": "19.1.1",
     "seedrandom": "^3.0.5"
   }
 }
