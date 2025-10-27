@@ -9,6 +9,7 @@ describe('navigate to other location', () => {
     const dashboardPath = Routes.dashboard
     await LandingPage.open()
     const search = LandingPage.search
+    await search.waitForExist({ timeout: 2000 })
     await search.click()
     await browser.keys(filter)
 
@@ -34,7 +35,7 @@ describe('navigate to other location', () => {
     expect(parsedLandingUrl.pathname).toContain(landingPath)
 
     const filteredCity = LandingPage.city('Stadt Augsburg')
-    await filteredCity.waitForExist()
+    await filteredCity.waitForExist({ timeout: 2000 })
     await expect(filteredCity).toBeExisting()
     await filteredCity.click()
 
