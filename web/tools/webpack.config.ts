@@ -238,8 +238,8 @@ const createConfig = (
       }),
       new CopyPlugin({
         patterns: [
-          { from: wwwDirectory, to: distDirectory },
-          { from: configAssets, to: distDirectory },
+          { context: wwwDirectory, from: '**/*', to: distDirectory },
+          { context: configAssets, from: '**/*', to: distDirectory },
           {
             from: manifestPreset,
             to: distDirectory,
