@@ -39,9 +39,7 @@
     "react": "19.0.0",
     "@types/react": "19.0.0",
     "webpack-dev-middleware": "7.2.1",
-    "webpack-dev-server": "5.0.4",
-    "wrap-ansi": "8.0.1",
-    "string-width": "^4.2.3"
+    "webpack-dev-server": "5.0.4"
   },
   "devDependencies": {
     "@jest/types": "^29.6.3",
