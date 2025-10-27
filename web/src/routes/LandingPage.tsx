@@ -10,7 +10,7 @@ import Footer from '../components/Footer'
 import GeneralHeader from '../components/GeneralHeader'
 import Helmet from '../components/Helmet'
 import Layout from '../components/Layout'
-import LoadingSpinner from '../components/LoadingSpinner'
+import ListSkeleton from '../components/ListSkeleton'
 import buildConfig from '../constants/buildConfig'
 import { cmsApiBaseUrl } from '../constants/urls'
 
@@ -28,8 +28,14 @@ const LandingPage = ({ languageCode }: LandingPageProps): ReactElement => {
 
   if (loading) {
     return (
-      <Layout>
-        <LoadingSpinner />
+      <Layout header={<GeneralHeader languageCode={languageCode} onStickyTopChanged={setStickyTop} />}>
+        <ListSkeleton
+          showBreadcrumbSkeleton={false}
+          showItemIcon={false}
+          listItemTextHeight={60}
+          showSkeletonAdditionalText
+          showSkeletonSearch
+        />
       </Layout>
     )
   }

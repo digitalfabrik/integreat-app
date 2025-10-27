@@ -1,5 +1,10 @@
+import Card from '@mui/material/Card'
+import Box from '@mui/material/Grid'
+import Skeleton from '@mui/material/Skeleton'
+import Stack from '@mui/material/Stack'
+import { styled } from '@mui/material/styles'
 import { DateTime } from 'luxon'
-import React, { ReactElement, useCallback } from 'react'
+import React, { ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Navigate, useParams } from 'react-router'
 
@@ -23,22 +28,49 @@ import CityContentLayout, { CityContentLayoutProps } from '../components/CityCon
 import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
-import LoadingSpinner from '../components/LoadingSpinner'
+import ListSkeleton from '../components/ListSkeleton'
+import PageSkeleton from '../components/PageSkeleton'
 import buildConfig from '../constants/buildConfig'
 import { cmsApiBaseUrl } from '../constants/urls'
-import usePreviousProp from '../hooks/usePreviousProp'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 
 const CATEGORY_NOT_FOUND_STATUS_CODE = 400
+const TIMER_FOR_LOADING_STATE = 1000
 
 const getBreadcrumb = (category: CategoryModel, cityName: string): BreadcrumbProps => ({
   title: category.isRoot() ? cityName : category.title,
   to: category.path,
 })
 
+const StyledBox = styled(Box)`
+  display: grid;
+  gap: 32px 24px;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  justify-content: center;
+  width: 100%;
+`
+
+const StyledCard = styled(Card)`
+  width: 160px;
+`
+
+const RootCategorySkeleton = (): ReactElement => (
+  <Stack paddingTop={2} alignItems='center'>
+    <Skeleton variant='text' width='60%' height={60} sx={{ my: 2 }} />
+    <StyledBox>
+      {Array.from({ length: 16 }).map((_, index) => (
+        // eslint-disable-next-line react/no-array-index-key
+        <StyledCard key={index}>
+          <Skeleton variant='rectangular' height={140} />
+        </StyledCard>
+      ))}
+    </StyledBox>
+  </Stack>
+)
+
 const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRouteProps): ReactElement | null => {
-  const previousPathname = usePreviousProp({ prop: pathname })
   const categoryId = useParams()['*']
+  const [simulateLoading, setSimulateLoading] = useState(false)
   const { t } = useTranslation('layout')
 
   const {
@@ -74,6 +106,26 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
     return data
   }, [cityCode, languageCode, pathname, categoryId])
   const { data: parents, loading: parentsLoading, error: parentsError } = useLoadAsync(requestParents)
+
+  useEffect(() => {
+    setSimulateLoading(true)
+    const simulateTimer = setTimeout(() => setSimulateLoading(false), TIMER_FOR_LOADING_STATE)
+    return () => clearTimeout(simulateTimer)
+  }, [pathname])
+
+  const isLeafCategory = useMemo(() => {
+    if (!categories || !currentCategory) {
+      return false
+    }
+    try {
+      const mapModel = new CategoriesMapModel(categories)
+      return mapModel.getChildren(currentCategory).length === 0
+    } catch {
+      return false
+    }
+  }, [categories, currentCategory])
+
+  const isActuallyLoading = categoriesLoading || parentsLoading || simulateLoading
 
   if (!city) {
     return null
@@ -122,10 +174,11 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
     Toolbar: <CityContentToolbar slug={category && !category.isRoot() ? category.slug : undefined} />,
   }
 
-  if (categoriesLoading || parentsLoading || pathname !== previousPathname) {
+  if (isActuallyLoading) {
     return (
       <CityContentLayout isLoading {...locationLayoutParams}>
-        <LoadingSpinner />
+        {!currentCategory && !categoryId && <RootCategorySkeleton />}
+        {!isLeafCategory ? <ListSkeleton listItemTextWidth='90%' /> : <PageSkeleton />}
       </CityContentLayout>
     )
   }

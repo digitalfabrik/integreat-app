@@ -10,7 +10,7 @@ import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
 import InfiniteScrollList from '../components/InfiniteScrollList'
 import LanguageFailure from '../components/LanguageFailure'
-import LoadingSpinner from '../components/LoadingSpinner'
+import ListSkeleton from '../components/ListSkeleton'
 import NewsListItem from '../components/NewsListItem'
 import NewsTabs from '../components/NewsTabs'
 import { tunewsApiBaseUrl } from '../constants/urls'
@@ -98,7 +98,13 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
           localNewsEnabled={city.localNewsEnabled}
           language={languageCode}
         />
-        <LoadingSpinner />
+        <ListSkeleton
+          showBreadcrumbSkeleton={false}
+          showHeaderSkeleton={false}
+          showItemIcon={false}
+          listItemTextHeight={60}
+          listItemTextWidth='100%'
+        />
       </CityContentLayout>
     )
   }

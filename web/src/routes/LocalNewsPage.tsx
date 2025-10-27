@@ -16,7 +16,7 @@ import CityContentLayout, { CityContentLayoutProps } from '../components/CityCon
 import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
-import LoadingSpinner from '../components/LoadingSpinner'
+import ListSkeleton from '../components/ListSkeleton'
 import NewsListItem from '../components/NewsListItem'
 import NewsTabs from '../components/NewsTabs'
 import Page from '../components/Page'
@@ -78,7 +78,13 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
           localNewsEnabled={city.localNewsEnabled}
           language={languageCode}
         />
-        <LoadingSpinner />
+        <ListSkeleton
+          showBreadcrumbSkeleton={false}
+          showHeaderSkeleton={false}
+          showItemIcon={false}
+          listItemTextHeight={100}
+          listItemTextWidth='100%'
+        />
       </CityContentLayout>
     )
   }

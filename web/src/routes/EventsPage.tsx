@@ -18,7 +18,7 @@ import ExportEventButton from '../components/ExportEventButton'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
 import JsonLdEvent from '../components/JsonLdEvent'
-import LoadingSpinner from '../components/LoadingSpinner'
+import ListSkeleton from '../components/ListSkeleton'
 import Page, { THUMBNAIL_WIDTH } from '../components/Page'
 import PageDetail from '../components/PageDetail'
 import H1 from '../components/base/H1'
@@ -84,7 +84,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
   if (!events && loading) {
     return (
       <CityContentLayout isLoading {...locationLayoutParams}>
-        <LoadingSpinner />
+        <ListSkeleton showBreadcrumbSkeleton={false} showHeaderSkeleton showSkeletonAdditionalText headerSize='4rem' />
       </CityContentLayout>
     )
   }
