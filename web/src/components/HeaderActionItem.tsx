@@ -7,12 +7,12 @@ import React, { ReactElement } from 'react'
 import Link from './base/Link'
 
 const StyledButton = styled(MuiButton)(({ theme }) => ({
-  backgroundColor: theme.palette.tertiary.light,
+  border: `1px solid ${theme.palette.primary.main}`,
   padding: '2px 12px',
 })) as typeof MuiButton
 
 const StyledIconButton = styled(IconButton)(({ theme }) => ({
-  backgroundColor: theme.palette.tertiary.light,
+  border: `1px solid ${theme.palette.primary.main}`,
 })) as typeof IconButton
 
 type HeaderActionItemLinkProps = {

@@ -23,10 +23,11 @@ const StyledSvg = styled(Svg)({
   alignSelf: 'center',
 })
 
-const StyledButton = styled(Button)({
+const StyledButton = styled(Button)(({ theme }) => ({
   alignSelf: 'center',
   zIndex: 1,
-})
+  color: theme.palette.background.default,
+}))
 
 const TemplateText = styled(Typography)(({ theme }) => ({
   position: 'relative',

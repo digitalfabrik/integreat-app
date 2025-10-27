@@ -38,6 +38,10 @@ const Form = styled('form')`
   gap: 12px;
 `
 
+const StyledButton = styled(Button)(({ theme }) => ({
+  color: theme.palette.background.default,
+}))
+
 type MalteHelpFormProps = {
   pageTitle: string
   cityCode: string
@@ -185,9 +189,9 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
           {submitted && !privacyPolicyAccepted && <FormHelperText>{t('common:notePrivacyPolicy')}</FormHelperText>}
         </FormControl>
         <Stack height={1} />
-        <Button type='submit' startIcon={<SendIcon />} variant='contained'>
+        <StyledButton type='submit' startIcon={<SendIcon />} variant='contained'>
           {t('submit')}
-        </Button>
+        </StyledButton>
       </Form>
       <Snackbar
         open={snackbarOpen}

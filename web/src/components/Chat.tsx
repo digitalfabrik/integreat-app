@@ -27,6 +27,10 @@ const Container = styled(Stack)(({ theme }) => ({
   },
 })) as typeof Stack
 
+const StyledButton = styled(Button)(({ theme }) => ({
+  color: theme.palette.background.default,
+}))
+
 type ChatProps = {
   city: CityModel
   submitMessage: (text: string) => void
@@ -111,9 +115,14 @@ const Chat = ({
           placeholder={t('chatInputHelperText')}
         />
         <Stack direction='row' alignItems='center' gap={1}>
-          <Button onClick={onSubmit} startIcon={<SendIcon />} variant='contained' disabled={submitDisabled} fullWidth>
+          <StyledButton
+            onClick={onSubmit}
+            startIcon={<SendIcon />}
+            variant='contained'
+            disabled={submitDisabled}
+            fullWidth>
             {t('sendButton')}
-          </Button>
+          </StyledButton>
           <IconButton
             component={Link}
             to={city.chatPrivacyPolicyUrl ?? buildConfig().privacyUrls.default}

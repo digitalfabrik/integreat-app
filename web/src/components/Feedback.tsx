@@ -22,6 +22,10 @@ const PrivacyFormControl = styled(FormControl)`
   margin: 8px 0;
 `
 
+const StyledButton = styled(Button)(({ theme }) => ({
+  color: theme.palette.background.default,
+}))
+
 type FeedbackProps = {
   language: string
   rating: Rating | null
@@ -105,9 +109,9 @@ const Feedback = ({
         <PrivacyCheckbox language={language} checked={privacyPolicyAccepted} setChecked={setPrivacyPolicyAccepted} />
         {showErrors && !privacyPolicyAccepted && <FormHelperText>{t('common:notePrivacyPolicy')}</FormHelperText>}
       </PrivacyFormControl>
-      <Button onClick={handleSubmit} variant='contained' startIcon={<SendIcon />}>
+      <StyledButton onClick={handleSubmit} variant='contained' startIcon={<SendIcon />}>
         {t('send')}
-      </Button>
+      </StyledButton>
     </Stack>
   )
 }
