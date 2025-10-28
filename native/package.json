@@ -47,7 +47,7 @@
     "@dr.pogodin/react-native-fs": "^2.36.0",
     "@dr.pogodin/react-native-static-server": "^0.25.0",
     "@dr.pogodin/react-native-webview": "^13.15.8",
-    "@gorhom/bottom-sheet": "^5.1.2",
+    "@gorhom/bottom-sheet": "^5.2.6",
     "@maplibre/maplibre-react-native": "^10.4.0",
     "@notifee/react-native": "^9.1.8",
     "@react-native-async-storage/async-storage": "^2.1.2",
