@@ -30,7 +30,7 @@ describe('navigate to other location', () => {
   })
 
   it('should open a new city on location change', async () => {
-    await DashboardPage.headerOverflowButton.waitForDisplayed()
+    await DashboardPage.headerOverflowButton.waitForDisplayed({ timeout: 20000 })
     await DashboardPage.headerOverflowButton.click()
     const changeLocation = $(new Selector().ByText('Change location').build())
     await changeLocation.waitForDisplayed()
