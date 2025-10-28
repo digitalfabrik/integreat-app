@@ -1,14 +1,13 @@
 import { DateTime } from 'luxon'
-import React, { ReactElement, RefObject } from 'react'
-import { NativeSyntheticEvent, StyleProp, TextInput, TextInputKeyPressEventData, ViewStyle } from 'react-native'
-import { KeyboardExtendedInput } from 'react-native-external-keyboard'
+import React, { ReactElement } from 'react'
+import { StyleProp, ViewStyle } from 'react-native'
 import styled, { useTheme } from 'styled-components/native'
 
 import { zeroPad } from 'shared'
 
-const Input = styled(KeyboardExtendedInput)`
+const Input = styled.TextInput`
   text-align: center;
-  min-width: 40%;
+  min-width: 25%;
   color: ${props => props.theme.colors.textColor};
 `
 
@@ -47,66 +46,33 @@ const validate = (
   }
 }
 
-const handleInputChangeAndFocusNext = (
-  text: string,
-  setInputValue: (newValue: string | undefined) => void,
-  ref?: RefObject<TextInput | null>,
-) => {
-  setInputValue(text)
-  if (ref && text.length === 2) {
-    ref.current?.focus()
-  }
-}
-
-const handleKeyPress = (key: string, currentInput: string | undefined, refPrev?: RefObject<TextInput | null>) => {
-  if (key === 'Backspace') {
-    if (currentInput?.length === 0 && refPrev) {
-      refPrev.current?.focus()
-    }
-  }
-}
-
 type DatePickerInputProps = {
-  nextTargetRef?: RefObject<TextInput | null>
-  prevTargetRef?: RefObject<TextInput | null>
   placeholder: string
   type: 'day' | 'month' | 'year'
   inputValue: string | undefined
   setInputValue: (newValue: string | undefined) => void
   style?: StyleProp<ViewStyle>
-  ref?: RefObject<TextInput | null>
 }
 
 const DatePickerInput = ({
-  nextTargetRef,
-  prevTargetRef,
   placeholder,
   type,
   inputValue,
   setInputValue,
   style,
-  ref,
 }: DatePickerInputProps): ReactElement => {
   const theme = useTheme()
   return (
     <Input
       style={style}
-      focusType='default'
-      blurType='auto'
-      ref={ref}
       placeholder={placeholder}
       placeholderTextColor={theme.isContrastTheme ? theme.colors.textColor : theme.colors.textSecondaryColor}
       keyboardType='numeric'
       maxLength={type === 'year' ? yearLength : 2}
       onBlur={() => validate(inputValue, setInputValue, type)}
-      onChangeText={text => {
-        handleInputChangeAndFocusNext(text, setInputValue, nextTargetRef)
-      }}
+      onChangeText={setInputValue}
       selectTextOnFocus
       value={inputValue}
-      onKeyPress={({ nativeEvent }: NativeSyntheticEvent<TextInputKeyPressEventData>) => {
-        handleKeyPress(nativeEvent.key, inputValue, prevTargetRef)
-      }}
     />
   )
 }

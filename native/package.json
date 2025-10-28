@@ -77,7 +77,6 @@
     "react-native-blob-util": "^0.22.2",
     "react-native-calendar-events": "^2.2.0",
     "react-native-calendars": "^1.1310.0",
-    "react-native-external-keyboard": "^0.6.7",
     "react-native-gesture-handler": "^2.29.0",
     "react-native-get-random-values": "^2.0.0",
     "react-native-inappbrowser-reborn": "^3.7.0",

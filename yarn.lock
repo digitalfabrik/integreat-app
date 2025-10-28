@@ -13844,11 +13844,6 @@ react-native-calendars@^1.1310.0:
   optionalDependencies:
     moment "^2.29.4"
 
-react-native-external-keyboard@^0.6.7:
-  version "0.6.7"
-  resolved "https://registry.yarnpkg.com/react-native-external-keyboard/-/react-native-external-keyboard-0.6.7.tgz#73b44ab0cb1b4e384209542f1b3c1ba38c8b28c0"
-  integrity sha512-VYC1u7eZOlkp4cKVTC+Pq1agFrMQBm5Vnhip53IzoQ3+X2cAmPYX84QS4cDM13TJZB29I9U+wExC5xx6NkC/tA==
-
 react-native-gesture-handler@^2.29.0:
   version "2.29.0"
   resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-2.29.0.tgz#be9065d1f25e9bdf76340fa63825f15fb50b6e50"

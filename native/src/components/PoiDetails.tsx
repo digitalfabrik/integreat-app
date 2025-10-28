@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { withKeyboardFocus } from 'react-native-external-keyboard'
 import styled from 'styled-components/native'
 
 import { PoiModel } from 'shared/api'
@@ -26,8 +25,6 @@ const PoiDetailsContainer = styled.View`
   flex: 1;
   background-color: ${props => props.theme.colors.backgroundColor};
 `
-
-const KeyboardFocusableContainer = withKeyboardFocus(PoiDetailsContainer)
 
 const Title = styled.Text`
   font-size: 16px;
@@ -59,7 +56,7 @@ const PoiDetails = ({ poi, language, distance, onFocus }: PoiDetailsProps): Reac
   const { title, content, contacts, openingHours, temporarilyClosed, isCurrentlyOpen, category, appointmentUrl } = poi
 
   return (
-    <KeyboardFocusableContainer accessibilityLabel={`${title} - ${category.name}`} onFocus={onFocus} focusable>
+    <PoiDetailsContainer accessibilityLabel={`${title} - ${category.name}`} onFocus={onFocus} focusable>
       <Title>{title}</Title>
       {distance !== null && (
         <StyledDistance>{t('distanceKilometre', { distance: distance.toFixed(1) })}</StyledDistance>
@@ -103,7 +100,7 @@ const PoiDetails = ({ poi, language, distance, onFocus }: PoiDetailsProps): Reac
           <HorizontalLine />
         </>
       )}
-    </KeyboardFocusableContainer>
+    </PoiDetailsContainer>
   )
 }
 
