@@ -113,7 +113,7 @@ const Feedback = ({
         />
         {sendingStatus === 'failed' && <Description>{t('failedSendingFeedback')}</Description>}
         <PrivacyCheckbox language={language} checked={privacyPolicyAccepted} setChecked={setPrivacyPolicyAccepted} />
-        {submitFeedbackDisabled && <Note text={t(feedbackFilled ? 'noteFillFeedback' : 'notePrivacyPolicy')} />}
+        {submitFeedbackDisabled && <Note text={t(feedbackFilled ? 'noteFillFeedback' : 'common:notePrivacyPolicy')} />}
         <StyledButton disabled={submitFeedbackDisabled} onPress={onSubmit} text={t('send')} />
       </Wrapper>
     </KeyboardAwareScrollView>
