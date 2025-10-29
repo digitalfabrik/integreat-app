@@ -98,13 +98,7 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
           localNewsEnabled={city.localNewsEnabled}
           language={languageCode}
         />
-        <ListSkeleton
-          showBreadcrumbSkeleton={false}
-          showHeaderSkeleton={false}
-          showItemIcon={false}
-          listItemTextHeight={60}
-          listItemTextWidth='100%'
-        />
+        <ListSkeleton showBreadcrumbSkeleton={false} showHeaderSkeleton={false} showItemIcon={false} />
       </CityContentLayout>
     )
   }

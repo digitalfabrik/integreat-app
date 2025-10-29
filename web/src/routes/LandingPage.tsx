@@ -1,3 +1,4 @@
+import Box from '@mui/material/Box'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -29,13 +30,14 @@ const LandingPage = ({ languageCode }: LandingPageProps): ReactElement => {
   if (loading) {
     return (
       <Layout header={<GeneralHeader languageCode={languageCode} onStickyTopChanged={setStickyTop} />}>
-        <ListSkeleton
-          showBreadcrumbSkeleton={false}
-          showItemIcon={false}
-          listItemTextHeight={60}
-          showSkeletonAdditionalText
-          showSkeletonSearch
-        />
+        <Box maxWidth={640}>
+          <ListSkeleton
+            showBreadcrumbSkeleton={false}
+            showItemIcon={false}
+            showSkeletonAdditionalText
+            showSkeletonSearch
+          />
+        </Box>
       </Layout>
     )
   }

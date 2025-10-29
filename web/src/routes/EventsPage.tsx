@@ -21,6 +21,7 @@ import JsonLdEvent from '../components/JsonLdEvent'
 import ListSkeleton from '../components/ListSkeleton'
 import Page, { THUMBNAIL_WIDTH } from '../components/Page'
 import PageDetail from '../components/PageDetail'
+import PageSkeleton from '../components/PageSkeleton'
 import H1 from '../components/base/H1'
 import List from '../components/base/List'
 import { cmsApiBaseUrl } from '../constants/urls'
@@ -81,10 +82,19 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     Toolbar: <CityContentToolbar slug={event?.slug} />,
   }
 
-  if (!events && loading) {
+  if (loading) {
     return (
       <CityContentLayout isLoading {...locationLayoutParams}>
-        <ListSkeleton showBreadcrumbSkeleton={false} showHeaderSkeleton showSkeletonAdditionalText headerSize='4rem' />
+        {!event && !eventId ? (
+          <ListSkeleton
+            showBreadcrumbSkeleton={false}
+            showHeaderSkeleton
+            showSkeletonAdditionalText
+            headerSize='4rem'
+          />
+        ) : (
+          <PageSkeleton />
+        )}
       </CityContentLayout>
     )
   }

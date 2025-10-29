@@ -78,13 +78,7 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
           localNewsEnabled={city.localNewsEnabled}
           language={languageCode}
         />
-        <ListSkeleton
-          showBreadcrumbSkeleton={false}
-          showHeaderSkeleton={false}
-          showItemIcon={false}
-          listItemTextHeight={100}
-          listItemTextWidth='100%'
-        />
+        <ListSkeleton showBreadcrumbSkeleton={false} showHeaderSkeleton={false} showItemIcon={false} />
       </CityContentLayout>
     )
   }

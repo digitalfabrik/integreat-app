@@ -21,7 +21,7 @@ import { CityRouteProps } from '../CityContentSwitcher'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
-import LoadingSpinner from '../components/LoadingSpinner'
+import ListSkeleton from '../components/ListSkeleton'
 import SearchFeedback from '../components/SearchFeedback'
 import SearchInput from '../components/SearchInput'
 import SearchListItem from '../components/SearchListItem'
@@ -44,7 +44,7 @@ const SearchResults = ({ query, loading, results }: SearchProps): ReactElement |
   }
 
   if (loading) {
-    return <LoadingSpinner />
+    return <ListSkeleton showBreadcrumbSkeleton showHeaderSkeleton={false} showItemIcon={false} />
   }
 
   const items = results.map(({ title, content, path }) => (

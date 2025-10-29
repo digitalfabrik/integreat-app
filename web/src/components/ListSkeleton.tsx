@@ -6,7 +6,7 @@ import Skeleton, { SkeletonProps } from '@mui/material/Skeleton'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
-const DEFAULT_LIST_ITEM_HEIGHT = 64
+const DEFAULT_HEADER_WIDTH = 300
 
 const StyledSkeletonBreadcrumb = styled(Skeleton)<SkeletonProps>`
   margin-top: 16px;
@@ -32,6 +32,7 @@ type ListSkeletonProps = {
   headerSize?: string
   showSkeletonAdditionalText?: boolean
   showSkeletonSearch?: boolean
+  skeletonHeaderWidth?: number
 }
 
 const ListSkeleton = ({
@@ -41,24 +42,30 @@ const ListSkeleton = ({
   headerSize = '3rem',
   showSkeletonAdditionalText = false,
   showSkeletonSearch = false,
+  skeletonHeaderWidth = DEFAULT_HEADER_WIDTH,
 }: ListSkeletonProps): ReactElement => (
   <>
     {showBreadcrumbSkeleton && <StyledSkeletonBreadcrumb variant='text' component='span' width={180} height={30} />}
     {showHeaderSkeleton && (
-      <StyledSkeletonHeader variant='text' component='h1' sx={{ fontSize: `${headerSize}` }} width={360} />
+      <StyledSkeletonHeader
+        variant='text'
+        component='h1'
+        sx={{ fontSize: `${headerSize}` }}
+        width={skeletonHeaderWidth}
+      />
     )}
     {showSkeletonAdditionalText && <SkeletonText variant='text' width={260} sx={{ fontSize: '3rem' }} />}
     {showSkeletonSearch && <Skeleton variant='rectangular' width='80%' height={42} />}
     <StyledList>
       {Array.from({ length: 8 }).map((_, index) => (
         // eslint-disable-next-line react/no-array-index-key
-        <ListItem key={index} disablePadding>
+        <ListItem key={index} disablePadding divider>
           {showItemIcon && (
             <ListItemIcon>
               <Skeleton variant='rectangular' width={42} height={42} />
             </ListItemIcon>
           )}
-          <ListItemText primary={<SkeletonText variant='text' width='80%' height={64} />} />
+          <ListItemText primary={<SkeletonText variant='text' width='100%' height={64} />} />
         </ListItem>
       ))}
     </StyledList>

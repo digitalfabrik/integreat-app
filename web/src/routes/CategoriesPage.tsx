@@ -175,10 +175,19 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
   }
 
   if (isActuallyLoading) {
+    let skeleton = null
+
+    if (!currentCategory && !categoryId) {
+      skeleton = <RootCategorySkeleton />
+    } else if (!isLeafCategory) {
+      skeleton = <ListSkeleton />
+    } else {
+      skeleton = <PageSkeleton />
+    }
+
     return (
       <CityContentLayout isLoading {...locationLayoutParams}>
-        {!currentCategory && !categoryId && <RootCategorySkeleton />}
-        {!isLeafCategory ? <ListSkeleton listItemTextWidth='90%' /> : <PageSkeleton />}
+        {skeleton}
       </CityContentLayout>
     )
   }

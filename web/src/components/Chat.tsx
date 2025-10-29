@@ -1,8 +1,10 @@
 import MailLock from '@mui/icons-material/MailLock'
 import SendIcon from '@mui/icons-material/Send'
 import Alert from '@mui/material/Alert'
+import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
+import Skeleton from '@mui/material/Skeleton'
 import Stack from '@mui/material/Stack'
 import TextField from '@mui/material/TextField'
 import { styled } from '@mui/material/styles'
@@ -13,7 +15,6 @@ import { ChatMessageModel, CityModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
 import ChatConversation from './ChatConversation'
-import LoadingSpinner from './LoadingSpinner'
 import PrivacyCheckbox from './PrivacyCheckbox'
 import H1 from './base/H1'
 import Link from './base/Link'
@@ -26,6 +27,20 @@ const Container = styled(Stack)(({ theme }) => ({
     height: 600,
   },
 })) as typeof Stack
+
+const StyledLeft = styled(Box)`
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+  width: 100%;
+`
+
+const StyledRight = styled(Box)`
+  display: flex;
+  justify-content: flex-start;
+  gap: 6px;
+  width: 100%;
+`
 
 type ChatProps = {
   city: CityModel
@@ -72,8 +87,24 @@ const Chat = ({
   if (isLoading && !hasError) {
     return (
       <Container>
-        <LoadingSpinner />
-        <Stack textAlign='center'>{t('loadingText')}</Stack>
+        {!privacyPolicyAccepted ? (
+          <>
+            <Skeleton variant='text' height={40} />
+            <Skeleton variant='text' height={30} />
+            <Skeleton variant='text' height={20} />
+          </>
+        ) : (
+          <>
+            <StyledLeft>
+              <Skeleton variant='text' width='90%' />
+              <Skeleton variant='circular' width={40} height={40} />
+            </StyledLeft>
+            <StyledRight>
+              <Skeleton variant='circular' width={40} height={40} />
+              <Skeleton variant='rectangular' width='70%' height={86} />
+            </StyledRight>
+          </>
+        )}
       </Container>
     )
   }
@@ -97,7 +128,7 @@ const Chat = ({
 
   return (
     <Container justifyContent='space-between'>
-      <ChatConversation messages={messages} isTyping={isTyping} />
+      <ChatConversation messages={messages} isTyping={isTyping} loading={isLoading} />
       <Stack paddingInline={2} gap={1}>
         {hasError && <Alert severity='error'>{t('errorMessage')}</Alert>}
         <TextField
