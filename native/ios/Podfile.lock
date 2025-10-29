@@ -1850,7 +1850,7 @@ PODS:
     - React-RCTFBReactNativeSpec
     - ReactCommon/turbomodule/core
     - SocketRocket
-  - react-native-blob-util (0.22.2):
+  - react-native-blob-util (0.23.1):
     - boost
     - DoubleConversion
     - fast_float
@@ -1936,7 +1936,7 @@ PODS:
     - Yoga
   - react-native-netinfo (11.4.1):
     - React-Core
-  - react-native-safe-area-context (5.6.1):
+  - react-native-safe-area-context (5.6.2):
     - boost
     - DoubleConversion
     - fast_float
@@ -1954,8 +1954,8 @@ PODS:
     - React-graphics
     - React-ImageManager
     - React-jsi
-    - react-native-safe-area-context/common (= 5.6.1)
-    - react-native-safe-area-context/fabric (= 5.6.1)
+    - react-native-safe-area-context/common (= 5.6.2)
+    - react-native-safe-area-context/fabric (= 5.6.2)
     - React-NativeModulesApple
     - React-RCTFabric
     - React-renderercss
@@ -1966,7 +1966,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
-  - react-native-safe-area-context/common (5.6.1):
+  - react-native-safe-area-context/common (5.6.2):
     - boost
     - DoubleConversion
     - fast_float
@@ -1994,7 +1994,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
-  - react-native-safe-area-context/fabric (5.6.1):
+  - react-native-safe-area-context/fabric (5.6.2):
     - boost
     - DoubleConversion
     - fast_float
@@ -2590,7 +2590,7 @@ PODS:
     - React-perflogger (= 0.82.1)
     - React-utils (= 0.82.1)
     - SocketRocket
-  - ReactNativeFs (2.36.0):
+  - ReactNativeFs (2.36.1):
     - boost
     - DoubleConversion
     - fast_float
@@ -2774,7 +2774,7 @@ PODS:
     - Yoga
   - RNInAppBrowser (3.7.0):
     - React-Core
-  - RNLocalize (3.5.4):
+  - RNLocalize (3.6.0):
     - boost
     - DoubleConversion
     - fast_float
@@ -2807,7 +2807,7 @@ PODS:
     - RNNotifee/NotifeeCore (= 9.1.8)
   - RNNotifee/NotifeeCore (9.1.8):
     - React-Core
-  - RNPermissions (5.4.2):
+  - RNPermissions (5.4.3):
     - boost
     - DoubleConversion
     - fast_float
@@ -3544,11 +3544,11 @@ SPEC CHECKSUMS:
   React-logger: 500f2fa5697d224e63c33d913c8a4765319e19bf
   React-Mapbuffer: 4c50cf6af44286015a20a5995d5321f625c93459
   React-microtasksnativemodule: a84b9331106616ab1fa36de9ae555718d4bbdcf5
-  react-native-blob-util: 7f71e0af02279ef38a2ba43e8c2fcb79cf927732
+  react-native-blob-util: d3e85fa5be9c2e55883462fb20238b7509858b7e
   react-native-geolocation: 49d39b53dfeb6c22ff1ad69e71ac9c7981affdaa
   react-native-get-random-values: 5c2e7ce0c1eedefde8e97fe60152601887fcfa08
   react-native-netinfo: cec9c4e86083cb5b6aba0e0711f563e2fbbff187
-  react-native-safe-area-context: ee1e8e2a7abf737a8d4d9d1a5686a7f2e7466236
+  react-native-safe-area-context: 0a3b034bb63a5b684dd2f5fffd3c90ef6ed41ee8
   react-native-webview: 2ccd0bc9a9f518d48e2ef7c4a122afbe44c55b43
   React-NativeModulesApple: efd0906463c79d9b86197dbcf0d58358dff8c5ed
   React-oscompat: 95875e81f5d4b3c7b2c888d5bd2c9d83450d8bdb
@@ -3582,7 +3582,7 @@ SPEC CHECKSUMS:
   ReactAppDependencyProvider: a45ef34bb22dc1c9b2ac1f74167d9a28af961176
   ReactCodegen: 0bce2d209e2e802589f4c5ff76d21618200e74cb
   ReactCommon: 801eff8cb9c940c04d3a89ce399c343ee3eff654
-  ReactNativeFs: 70ff2d31487aa2dbe1518c9d480f9ece37942ad2
+  ReactNativeFs: 5a434035a6290b212fe23bdeb2eed70709df129d
   ReactNativePdfRenderer: c3fa8975039ffce9712c939fb78bfda8b090f975
   ReactNativeStaticServer: 60bd4e5ab76307abd9c1fb5e752333c356aa5db6
   RNCalendarEvents: f90f73666b6bcbb3cc8a491ffbb5e48c0db3de37
@@ -3593,9 +3593,9 @@ SPEC CHECKSUMS:
   RNFBMessaging: 81842deb236bfd87d8e49f22ce7acf05d1eea04b
   RNGestureHandler: 332c71177cd5c856673c7e7875fa3f92ba5a5cc2
   RNInAppBrowser: 6d3eb68d471b9834335c664704719b8be1bfdb20
-  RNLocalize: 05e367a873223683f0e268d0af9a8a8e6aed3b26
+  RNLocalize: a0bf70cf27f116db4e32be09a6f549715db0686d
   RNNotifee: 5e3b271e8ea7456a36eec994085543c9adca9168
-  RNPermissions: 8f03c50935dbba10a32d2aa0121fc18287b4e681
+  RNPermissions: 16943d186dfdcf00a86899b64bbd21419421638d
   RNReanimated: 8f0185df21f0dea34ee8c9611ba88c17a290ed9a
   RNScreens: 98771ad898d1c0528fc8139606bbacf5a2e9d237
   RNSentry: e26e131780fc2a8b31b8fb030b7882af615d05ac

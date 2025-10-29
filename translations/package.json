@@ -22,7 +22,7 @@
   "devDependencies": {
     "@types/flat": "^5.0.5",
     "@types/lodash": "^4.17.0",
-    "commander": "^14.0.1",
+    "commander": "^14.0.2",
     "csv-parse": "^6.1.0",
     "csv-stringify": "^6.6.0",
     "flat": "^5.0.2",
