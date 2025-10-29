@@ -32,8 +32,6 @@ const EventsDateFilter = ({
   const { mobile } = useDimensions()
   const { t } = useTranslation('events')
 
-  const today = DateTime.now()
-  const inAWeek = DateTime.now().plus({ week: 1 })
   const formattedStartDate = startDate?.toFormat('dd.MM.yyyy') ?? '∞'
   const formattedEndDate = endDate?.toFormat('dd.MM.yyyy') ?? '∞'
 
@@ -52,14 +50,12 @@ const EventsDateFilter = ({
               date={startDate}
               setDate={setStartDate}
               error={startDateError ? t(startDateError) : undefined}
-              placeholderDate={today}
               calendarLabel={t('selectStartDateCalendar')}
             />
             <DatePicker
               title={t('to')}
               date={endDate}
               setDate={setEndDate}
-              placeholderDate={inAWeek}
               calendarLabel={t('selectEndDateCalendar')}
             />
           </Stack>

@@ -30,18 +30,10 @@ export type CustomDatePickerProps = {
   date?: DateTime | null
   setDate: (date: DateTime | null) => void
   error?: string
-  placeholderDate: DateTime
   calendarLabel: string
 }
 
-const DatePicker = ({
-  title,
-  date,
-  setDate,
-  error,
-  placeholderDate,
-  calendarLabel,
-}: CustomDatePickerProps): ReactElement => {
+const DatePicker = ({ title, date, setDate, error, calendarLabel }: CustomDatePickerProps): ReactElement => {
   const { t } = useTranslation('events')
   const [validationError, setValidationError] = useState<DateValidationError | null>(null)
   const { languageCode } = useCityContentParams()
@@ -61,9 +53,6 @@ const DatePicker = ({
           slotProps={{
             textField: {
               InputLabelProps: { shrink: true },
-              placeholder: placeholderDate
-                .setLocale(languageCode)
-                .toLocaleString({ month: '2-digit', day: '2-digit', year: 'numeric' }),
               helperText: errorMessage ? <StyledError>{errorMessage}</StyledError> : null,
             },
             openPickerButton: {
