@@ -11,6 +11,7 @@ describe('change language', () => {
   })
 
   it('should open language selector', async () => {
+    await browser.setWindowSize(1440, 900)
     await dashboardPage.languageIcon.waitForClickable({ timeout: 2000 })
     await dashboardPage.languageIcon.click()
 
