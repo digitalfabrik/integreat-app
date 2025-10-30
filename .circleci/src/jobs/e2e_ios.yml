@@ -1,7 +1,7 @@
 docker:
   # Ruby and bundler are necessary to run e2e tests
   # Using cimg/ruby leads to the following error: /usr/bin/env: ‘ruby3.0’: No such file or directory
-  - image: cimg/android:2024.08.1-node
+  - image: cimg/android:2025.10.1-node
 resource_class: small
 shell: /bin/bash -eo pipefail
 environment:

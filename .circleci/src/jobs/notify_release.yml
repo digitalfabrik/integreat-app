@@ -7,7 +7,7 @@ parameters:
     enum: [all, web, native]
     default: all
 docker:
-  - image: cimg/node:20.17.0
+  - image: cimg/node:22.21.1
 resource_class: small
 steps:
   - checkout
