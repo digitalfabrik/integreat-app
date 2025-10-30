@@ -459,9 +459,9 @@ jobs:
         docker:
             - image: cimg/node:22.21.1
         environment:
-            TOTAL_CPUS: 1
+            TOTAL_CPUS: 2
             TZ: Europe/Berlin
-        resource_class: small
+        resource_class: medium
         shell: /bin/bash -eo pipefail
         steps:
             - checkout
