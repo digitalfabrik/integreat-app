@@ -24,6 +24,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     window = UIWindow(frame: UIScreen.main.bounds)
 
+    // https://github.com/invertase/react-native-firebase/issues/8461#issuecomment-2832480840
+    FirebaseApp.configure()
+
     factory.startReactNative(
       withModuleName: "Integreat",
       in: window,
@@ -31,6 +34,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     )
 
     return true
+  }
+
+  func application(
+    _ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]
+  ) -> Bool {
+    return RCTLinkingManager.application(app, open: url, options: options)
   }
 }
 
@@ -45,11 +54,5 @@ class ReactNativeDelegate: RCTDefaultReactNativeFactoryDelegate {
     #else
       Bundle.main.url(forResource: "main", withExtension: "jsbundle")
     #endif
-  }
-
-  override func application(
-    _ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]
-  ) -> Bool {
-    return RCTLinkingManager.application(app, open: url, options: options)
   }
 }

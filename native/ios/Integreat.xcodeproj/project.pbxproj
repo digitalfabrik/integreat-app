@@ -248,6 +248,7 @@
 			name = Integreat;
 			packageProductDependencies = (
 				6AB802EC1F82A845C8AC9C0F /* MapLibre */,
+				60E0246ACF0E731DAC0ACF98 /* MapLibre */,
 			);
 			productName = "Hello World";
 			productReference = 13B07F961A680F5B00A75B9A /* Integreat.app */;
@@ -300,7 +301,7 @@
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			packageReferences = (
-				35AFF70EFA189FFDF69E42B6 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */,
+				BC29407CEDF2D138793BEAE8 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */,
 			);
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
@@ -831,20 +832,24 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		35AFF70EFA189FFDF69E42B6 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */ = {
+		BC29407CEDF2D138793BEAE8 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/maplibre/maplibre-gl-native-distribution";
 			requirement = {
 				kind = exactVersion;
-				version = 6.11.0;
+				version = 6.17.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		60E0246ACF0E731DAC0ACF98 /* MapLibre */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BC29407CEDF2D138793BEAE8 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */;
+			productName = MapLibre;
+		};
 		6AB802EC1F82A845C8AC9C0F /* MapLibre */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 35AFF70EFA189FFDF69E42B6 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */;
 			productName = MapLibre;
 		};
 /* End XCSwiftPackageProductDependency section */
