@@ -37,6 +37,12 @@ Pull requests should belong to one of our [issues](https://github.com/digitalfab
 If you are looking for issues to work on, a good place to start are
 our [good first issues](https://github.com/orgs/digitalfabrik/projects/2/views/5).
 
+PR labels:
+We use auto-generated release notes and format them based on PR labels.
+
+- Add `native`/`web` labels for native/web **only** PRs (do not add labels to PRs affecting both native and web)
+- Add `maintenance` for PRs without user-facing changes
+
 To merge a pull request, it has to match our Definition of Done. It includes among others:
 
 - All checks (formatting, linting and unit tests) have to pass.
