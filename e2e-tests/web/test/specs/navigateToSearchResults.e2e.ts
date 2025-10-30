@@ -20,7 +20,6 @@ describe('navigateToSearchResult', () => {
     await browser.waitUntil(async () => results[1]?.isDisplayed())
     const target = results[1]!
     await target.waitForDisplayed()
-    await target.waitForEnabled()
 
     try {
       await target.click()
