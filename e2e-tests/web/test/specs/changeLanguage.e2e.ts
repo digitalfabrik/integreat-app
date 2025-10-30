@@ -11,11 +11,15 @@ describe('change language', () => {
   })
 
   it('should open language selector', async () => {
+    await dashboardPage.languageIcon.waitForClickable({ timeout: 2000 })
     await dashboardPage.languageIcon.click()
 
     const languageSelector = await $("*[data-testid='headerActionItemDropDown']")
-    await browser.waitUntil(async () => languageSelector.isDisplayed())
+    await browser.waitUntil(async () => (await languageSelector.getCSSProperty('visibility')).value === 'visible', {
+      timeout: 2000,
+    })
 
+    expect((await languageSelector.getCSSProperty('visibility')).value).toBe('visible')
     expect(await languageSelector.isDisplayed()).toBeTruthy()
   })
 
