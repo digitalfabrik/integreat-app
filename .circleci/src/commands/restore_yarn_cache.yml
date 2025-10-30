@@ -3,14 +3,14 @@ steps:
   - restore_cache:
       name: Restore Yarn Package Cache
       keys:
-        - 8-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
-        - 8-yarn-{{ arch }}-
+        - 9-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
+        - 9-yarn-{{ arch }}-
   - run:
       name: Yarn
       command: yarn --frozen-lockfile --cache-folder ~/.cache/yarn
   - save_cache:
       name: Save Yarn Package Cache
-      key: 8-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
+      key: 9-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
       paths:
         - ~/.cache/yarn
         - node_modules

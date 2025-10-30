@@ -12,7 +12,7 @@ export class Selector {
 
   public ByBeginsWith(text: string): Selector {
     if (driver.isAndroid) {
-      this.queries.push(`.text("${text}")`)
+      this.queries.push(`.textStartsWith("${text}")`)
     } else {
       this.queries.push(`label BEGINSWITH '${text}'`)
     }
@@ -23,7 +23,7 @@ export class Selector {
     if (driver.isAndroid) {
       this.queries.push(`.textContains("${text}")`)
     } else {
-      this.queries.push(`label CONTAINS '${text}'`)
+      this.queries.push(`(name CONTAINS '${text}' OR label CONTAINS '${text}' OR value CONTAINS '${text}`)
     }
     return this
   }
