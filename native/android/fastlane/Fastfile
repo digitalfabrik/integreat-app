@@ -22,7 +22,7 @@ platform :android do
 
     puts("Cloning repository with keystore")
 
-    unless File.exists? File.expand_path(CREDENTIALS_DIRECTORY_PATH)
+    unless File.exist? File.expand_path(CREDENTIALS_DIRECTORY_PATH)
       sh("git clone #{CREDENTIALS_GIT_REPOSITORY_URL} #{CREDENTIALS_DIRECTORY_PATH}")
     end
 
