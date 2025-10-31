@@ -15,7 +15,11 @@ const timeFormat: DateTimeFormatOptions = { hour: 'numeric', minute: '2-digit' }
 export const formatTime = (locale: string, date: DateModel, t: TranslateFunction): string => {
   const startTime = date.startDate.toLocaleString(timeFormat, { locale })
 
-  if (date.startDate.hasSame(date.endDate, 'hour') && date.startDate.hasSame(date.endDate, 'minute')) {
+  const startIsSameAsEnd =
+    date.endDate !== null &&
+    date.startDate.hasSame(date.endDate, 'hour') &&
+    date.startDate.hasSame(date.endDate, 'minute')
+  if (!date.endDate || startIsSameAsEnd) {
     return t('time', { startTime })
   }
 

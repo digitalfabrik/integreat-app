@@ -10,7 +10,7 @@ const toUTCSpans = (dates: DateModel[]) =>
     allDay: date.allDay,
     recurrenceRule: date.recurrenceRule ?? null,
     startDate: date.startDate.toUTC().toISO(),
-    endDate: date.endDate.toUTC().toISO(),
+    endDate: date.endDate?.toUTC().toISO(),
     onlyWeekdays: date.onlyWeekdays,
   }))
 
