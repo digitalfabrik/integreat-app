@@ -20,7 +20,7 @@ export const formatTime = (locale: string, date: DateModel, t: TranslateFunction
     date.startDate.hasSame(date.endDate, 'hour') &&
     date.startDate.hasSame(date.endDate, 'minute')
   if (!date.endDate || startIsSameAsEnd) {
-    return t('time', { startTime })
+    return startTime
   }
 
   // For long-term events, we need the end date's time but on the start date
