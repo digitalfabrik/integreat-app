@@ -17,6 +17,7 @@ const StyledCard = styled(Card)({
 
 const StyledImage = styled('img')({
   width: 'auto',
+  maxWidth: 320,
   height: '100%',
   objectFit: 'contain',
 })
@@ -32,7 +33,7 @@ const OrganizationContentInfo = ({ organization }: OrganizationContentInfoProps)
   return (
     <StyledCard elevation={2}>
       <Stack direction={mobile ? 'column' : 'row'} padding={2} gap={2}>
-        <Stack maxWidth={160} height={80} alignItems='flex-start'>
+        <Stack height={80} alignItems='flex-start'>
           <StyledImage alt='' src={organization.logo} />
         </Stack>
         <Stack>
