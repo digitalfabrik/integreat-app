@@ -33,7 +33,7 @@ const HeaderTitle = ({ title, landingPath }: HeaderTitleProps): ReactElement => 
 
   if (featureFlags.fixedCity) {
     return (
-      <StyledTitle variant={variant} alignContent='center' paddingInline={1}>
+      <StyledTitle variant={variant} alignContent='center'>
         {title}
       </StyledTitle>
     )
