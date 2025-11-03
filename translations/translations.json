@@ -7918,9 +7918,8 @@
       "voiceUnavailableMessage": "Es wurde keine Stimme gefunden. Um die Vorlesefunktion nutzen zu können, muss eine Stimme installiert sein. Bitte beachten Sie die folgenden Anweisungen für Ihr Betriebssystem.",
       "openExternal": "Extern öffnen",
       "skipToContent": "Zum Inhalt springen",
-      "skipToMenu": "Zum Menü springen",
       "skipToFooter": "Zum Fußbereich springen",
-      "skipToBottomNav": "Zur unteren Navigation springen"
+      "skipToNavigation": "Zur Navigation springen"
     },
     "am": {
       "disclaimer": "ዕትም",
@@ -8230,9 +8229,8 @@
       "voiceUnavailableMessage": "No voice found. In order to use the read aloud functionality, a voice has to be installed. Please refer to the instructions for your operating system below.",
       "openExternal": "Open externally",
       "skipToContent": "Skip to content",
-      "skipToMenu": "Skip to menu",
       "skipToFooter": "Skip to footer",
-      "skipToBottomNav": "Skip to bottom navigation"
+      "skipToNavigation": "Skip to navigation"
     },
     "es": {
       "disclaimer": "Aviso legal",

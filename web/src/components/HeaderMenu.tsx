@@ -102,7 +102,7 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
 
   return (
     <>
-      <IconButton id='city-content-menu' onClick={openMenu} aria-label={t('sideBarOpenAriaLabel')} aria-expanded={open}>
+      <IconButton onClick={openMenu} aria-label={t('sideBarOpenAriaLabel')} aria-expanded={open}>
         <MoreVertIcon />
       </IconButton>
       <StyledMenu anchorEl={menuAnchorElement} open={open} onClose={closeMenu}>

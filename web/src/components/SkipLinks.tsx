@@ -1,69 +1,54 @@
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn'
 import Backdrop from '@mui/material/Backdrop'
-import Link from '@mui/material/Link'
-import Typography from '@mui/material/Typography'
+import Button from '@mui/material/Button'
+import Chip from '@mui/material/Chip'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CATEGORIES_ROUTE, POIS_ROUTE } from 'shared'
+import { POIS_ROUTE } from 'shared'
 
+import {
+  BOTTOM_NAVIGATION_ELEMENT_ID,
+  FOOTER_ELEMENT_ID,
+  MAIN_ELEMENT_ID,
+  NAVIGATION_TABS_ELEMENT_ID,
+} from '../constants'
 import useCityContentParams from '../hooks/useCityContentParams'
 import useDimensions from '../hooks/useDimensions'
 
-const SkipLink = styled(Link)`
+const SkipLink = styled(Button)`
   position: fixed;
   display: flex;
   left: 20px;
   top: 50px;
-  padding: 8px 16px;
   gap: 8px;
-  border-radius: 48px;
-  color: ${props => props.theme.palette.text.primary};
   background-color: ${props => props.theme.palette.background.paper};
-  border: 4px solid ${props => props.theme.palette.primary.main};
-  box-shadow: ${props => props.theme.shadows[4]};
   opacity: 0;
   z-index: -1;
-  pointer-events: none;
   transition:
-    top 0.2s ease,
-    opacity 0.2s ease;
-  text-decoration: none;
-  align-items: center;
+    top 0.2s,
+    opacity 0.2s;
 
   &:focus {
     top: 20px;
     opacity: 1;
     z-index: 10000;
-    outline: none !important;
   }
 `
 
-const EnterBadge = styled(Typography)`
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 4px 8px;
-  border-radius: 48px;
-  background-color: ${props => props.theme.palette.primary.main};
-  color: ${props => props.theme.palette.primary.contrastText};
-`
 const SkipLinks = (): ReactElement => {
   const { t } = useTranslation('layout')
-  const { mobile } = useDimensions()
+  const { desktop } = useDimensions()
   const { route } = useCityContentParams()
   const [backdropOpen, setBackdropOpen] = useState(false)
 
-  const showSkipToFooter = mobile || route !== POIS_ROUTE
-  const hrefTargetForContent = route === CATEGORIES_ROUTE ? '#content' : '#main'
+  const showSkipToFooter = desktop && route !== POIS_ROUTE
 
   const skipLinks = [
-    { title: t('skipToContent'), href: hrefTargetForContent },
-    { title: t('skipToMenu'), href: '#city-content-menu' },
-    ...(showSkipToFooter
-      ? [{ title: mobile ? t('skipToBottomNav') : t('skipToFooter'), href: mobile ? '#bottom-navigation' : '#footer' }]
-      : []),
+    { title: t('skipToContent'), href: `#${MAIN_ELEMENT_ID}` },
+    { title: t('skipToNavigation'), href: `#${desktop ? NAVIGATION_TABS_ELEMENT_ID : BOTTOM_NAVIGATION_ELEMENT_ID}` },
+    ...(showSkipToFooter ? [{ title: t('skipToFooter'), href: `#${FOOTER_ELEMENT_ID}` }] : []),
   ]
 
   return (
@@ -72,15 +57,13 @@ const SkipLinks = (): ReactElement => {
       <div aria-label='Skip links'>
         {skipLinks.map(link => (
           <SkipLink
+            disableFocusRipple
             key={link.href}
             href={link.href}
             onFocus={() => setBackdropOpen(true)}
             onBlur={() => setBackdropOpen(false)}>
             {link.title}
-            <EnterBadge variant='body3'>
-              <KeyboardReturnIcon fontSize='inherit' />
-              ENTER
-            </EnterBadge>
+            <Chip label='ENTER' color='primary' icon={<KeyboardReturnIcon />} size='small' />
           </SkipLink>
         ))}
       </div>

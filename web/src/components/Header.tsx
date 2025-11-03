@@ -79,7 +79,7 @@ export const Header = ({
   return (
     <Headroom scrollHeight={HEADER_HEIGHT} height={height} zIndex={2} onStickyTopChanged={onStickyTopChanged}>
       <StyledPaper>
-        <HeaderContainer ref={ref} role='banner'>
+        <HeaderContainer ref={ref}>
           <Row>
             <Stack direction='row-reverse' alignItems='center'>
               <HeaderLogo link={logoHref} />

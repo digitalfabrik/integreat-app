@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next'
 import { CATEGORIES_ROUTE, EVENTS_ROUTE, NEWS_ROUTE, POIS_ROUTE } from 'shared'
 import { CityModel } from 'shared/api'
 
+import { NAVIGATION_TABS_ELEMENT_ID } from '../constants'
 import useCityContentParams from '../hooks/useCityContentParams'
 import getNavigationItems from '../utils/navigationItems'
 import Link from './base/Link'
@@ -31,9 +32,14 @@ const NavigationTabs = ({ cityModel, languageCode }: NavigationTabsProps): React
   }
 
   return (
-    <Tabs value={currentTabValue} component='nav' role='navigation' textColor={color} indicatorColor={color}>
+    <Tabs
+      id={NAVIGATION_TABS_ELEMENT_ID}
+      value={currentTabValue}
+      component='nav'
+      textColor={color}
+      indicatorColor={color}>
       {navigationItems.map(item => (
-        <Tab key={item.value} component={Link} to={item.to} value={item.value} label={t(item.label)} tabIndex={0} />
+        <Tab key={item.value} component={Link} to={item.to} value={item.value} label={t(item.label)} />
       ))}
     </Tabs>
   )

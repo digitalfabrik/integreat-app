@@ -2,6 +2,7 @@ import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
+import { FOOTER_ELEMENT_ID } from '../constants'
 import buildConfig from '../constants/buildConfig'
 import { useRouteParams } from '../hooks/useCityContentParams'
 import useDimensions from '../hooks/useDimensions'
@@ -34,7 +35,7 @@ const Footer = (): ReactElement | null => {
   }
 
   return (
-    <FooterContainer id='footer' role='contentinfo'>
+    <FooterContainer id={FOOTER_ELEMENT_ID}>
       <StyledList
         items={linkItems.map(item => (
           <FooterLink key={item.to} to={item.to} text={item.text} />

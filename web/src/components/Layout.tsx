@@ -3,6 +3,7 @@ import Stack from '@mui/material/Stack'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode } from 'react'
 
+import { MAIN_ELEMENT_ID } from '../constants'
 import useDimensions from '../hooks/useDimensions'
 import MobileBanner from './MobileBanner'
 import SkipLinks from './SkipLinks'
@@ -111,7 +112,7 @@ const Layout = ({ footer, header, toolbar, children, fitScreen = false }: Layout
       {header}
       <Body fitScreen={fitScreen}>
         {toolbar && <Aside>{toolbar}</Aside>}
-        <Main id='main' role='main' fitScreen={fitScreen}>
+        <Main id={MAIN_ELEMENT_ID} fitScreen={fitScreen}>
           {children}
           {!fitScreen && <Spacer height={extraBottomSpace} />}
         </Main>

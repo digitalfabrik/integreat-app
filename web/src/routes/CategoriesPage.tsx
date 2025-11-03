@@ -168,16 +168,14 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
         cityModel={city}
       />
       <Breadcrumbs breadcrumbs={breadcrumbs} />
-      <div id='content'>
-        <CategoriesContent
-          city={city}
-          cityCode={cityCode}
-          pathname={pathname}
-          languageCode={languageCode}
-          categories={new CategoriesMapModel(categories)}
-          categoryModel={category}
-        />
-      </div>
+      <CategoriesContent
+        city={city}
+        cityCode={cityCode}
+        pathname={pathname}
+        languageCode={languageCode}
+        categories={new CategoriesMapModel(categories)}
+        categoryModel={category}
+      />
     </CityContentLayout>
   )
 }
