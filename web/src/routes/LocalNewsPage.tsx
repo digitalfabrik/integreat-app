@@ -16,10 +16,10 @@ import CityContentLayout, { CityContentLayoutProps } from '../components/CityCon
 import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
-import ListSkeleton from '../components/ListSkeleton'
 import NewsListItem from '../components/NewsListItem'
 import NewsTabs from '../components/NewsTabs'
 import Page from '../components/Page'
+import SkeletonList from '../components/SkeletonList'
 import List from '../components/base/List'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useTtsPlayer from '../hooks/useTtsPlayer'
@@ -78,7 +78,7 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
           localNewsEnabled={city.localNewsEnabled}
           language={languageCode}
         />
-        <ListSkeleton showBreadcrumbSkeleton={false} showHeaderSkeleton={false} showItemIcon={false} />
+        <SkeletonList showItemIcon={false} />
       </CityContentLayout>
     )
   }

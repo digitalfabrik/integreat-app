@@ -55,17 +55,8 @@ const ChatConversation = ({ messages, isTyping, loading }: ChatConversationProps
   if (messages.length === 0) {
     return (
       <Stack gap={1}>
-        {loading ? (
-          <>
-            <Skeleton variant='text' width='70%' height={30} />
-            <Skeleton variant='text' width='80%' height={50} />
-          </>
-        ) : (
-          <>
-            <Typography variant='subtitle1'>{t('conversationTitle')}</Typography>
-            <Typography variant='body2'>{t('conversationText')}</Typography>
-          </>
-        )}
+        <Typography variant='subtitle1'>{loading ? <Skeleton /> : t('conversationTitle')}</Typography>
+        <Typography variant='body2'>{loading ? <Skeleton /> : t('conversationText')}</Typography>
       </Stack>
     )
   }

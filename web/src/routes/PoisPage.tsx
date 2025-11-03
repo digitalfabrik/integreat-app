@@ -1,8 +1,6 @@
 import Grid from '@mui/material/Grid'
-import List from '@mui/material/List'
-import ListItem from '@mui/material/ListItem'
-import ListItemText from '@mui/material/ListItemText'
 import Skeleton from '@mui/material/Skeleton'
+import Stack from '@mui/material/Stack'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -16,6 +14,8 @@ import CityContentLayout, { CityContentLayoutProps } from '../components/CityCon
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
 import Pois from '../components/Pois'
+import SkeletonHeader from '../components/SkeletonHeader'
+import SkeletonList from '../components/SkeletonList'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 import useUserLocation from '../hooks/useUserLocation'
@@ -39,17 +39,6 @@ const SkeletonListContainer = styled(Grid)(({ theme }) => ({
   },
 }))
 
-const SkeletonList = styled(List)(({ theme }) => ({
-  width: '100%',
-  marginTop: theme.spacing(2),
-}))
-
-const SkeletonListItem = styled(ListItem)(({ theme }) => ({
-  width: '100%',
-  paddingLeft: theme.spacing(4),
-  paddingRight: theme.spacing(4),
-}))
-
 const MapSkeleton = styled(Grid)(({ theme }) => ({
   flexGrow: 1,
   width: 'auto',
@@ -58,13 +47,6 @@ const MapSkeleton = styled(Grid)(({ theme }) => ({
     height: '50%',
     width: '100%',
   },
-}))
-
-const HeaderSkeleton = styled(Skeleton)(({ theme }) => ({
-  width: '70%',
-  height: 40,
-  marginLeft: theme.spacing(2),
-  marginTop: theme.spacing(2),
 }))
 
 const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): ReactElement | null => {
@@ -112,21 +94,11 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
     return (
       <CityContentLayout isLoading {...locationLayoutParams}>
         <RootGrid container>
-          <SkeletonListContainer container>
-            <SkeletonList>
-              <HeaderSkeleton variant='text' />
-              {[...Array(3)].map((_, index) => (
-                <SkeletonListItem
-                  /* eslint-disable-next-line react/no-array-index-key */
-                  key={index}
-                  divider>
-                  <ListItemText
-                    primary={<Skeleton variant='text' width='100%' height={40} />}
-                    secondary={<Skeleton variant='text' width='100%' height={30} />}
-                  />
-                </SkeletonListItem>
-              ))}
-            </SkeletonList>
+          <SkeletonListContainer container paddingX={2}>
+            <Stack width='100%'>
+              <SkeletonHeader width='90%' />
+              <SkeletonList showItemIcon={false} />
+            </Stack>
           </SkeletonListContainer>
           <MapSkeleton container>
             <Skeleton variant='rectangular' width='100%' height='100%' />

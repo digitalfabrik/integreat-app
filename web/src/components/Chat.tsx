@@ -1,12 +1,14 @@
 import MailLock from '@mui/icons-material/MailLock'
 import SendIcon from '@mui/icons-material/Send'
 import Alert from '@mui/material/Alert'
+import Avatar from '@mui/material/Avatar'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import Skeleton from '@mui/material/Skeleton'
 import Stack from '@mui/material/Stack'
 import TextField from '@mui/material/TextField'
+import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { KeyboardEvent, ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -28,14 +30,14 @@ const Container = styled(Stack)(({ theme }) => ({
   },
 })) as typeof Stack
 
-const StyledLeft = styled(Box)`
+const StyledRight = styled(Box)`
   display: flex;
   justify-content: flex-end;
   gap: 6px;
   width: 100%;
 `
 
-const StyledRight = styled(Box)`
+const StyledLeft = styled(Box)`
   display: flex;
   justify-content: flex-start;
   gap: 6px;
@@ -87,22 +89,20 @@ const Chat = ({
   if (isLoading && !hasError) {
     return (
       <Container>
-        {!privacyPolicyAccepted ? (
+        {privacyPolicyAccepted && (
           <>
-            <Skeleton variant='text' height={40} />
-            <Skeleton variant='text' height={30} />
-            <Skeleton variant='text' height={20} />
-          </>
-        ) : (
-          <>
-            <StyledLeft>
-              <Skeleton variant='text' width='90%' />
-              <Skeleton variant='circular' width={40} height={40} />
-            </StyledLeft>
             <StyledRight>
-              <Skeleton variant='circular' width={40} height={40} />
-              <Skeleton variant='rectangular' width='70%' height={86} />
+              <Skeleton variant='text' width='90%' />
+              <Skeleton variant='circular'>
+                <Avatar />
+              </Skeleton>
             </StyledRight>
+            <StyledLeft>
+              <Skeleton variant='circular'>
+                <Avatar />
+              </Skeleton>
+              <Skeleton variant='text' width='70%' />
+            </StyledLeft>
           </>
         )}
       </Container>
@@ -113,14 +113,24 @@ const Chat = ({
     return (
       <Container>
         <Stack gap={1}>
-          <H1>{t('settings:privacyPolicy')}</H1>
-          {t('privacyPolicyInformation', { city: city.name, appName: buildConfig().appName })}
-          <PrivacyCheckbox
-            language={languageCode}
-            checked={false}
-            setChecked={acceptPrivacyPolicy}
-            url={city.chatPrivacyPolicyUrl}
-          />
+          <H1>{isLoading && !hasError ? <Skeleton variant='rectangular' /> : t('settings:privacyPolicy')}</H1>
+          <Typography variant='body1'>
+            {isLoading && !hasError ? (
+              <Skeleton variant='rectangular' />
+            ) : (
+              t('privacyPolicyInformation', { city: city.name, appName: buildConfig().appName })
+            )}
+          </Typography>
+          {isLoading && !hasError ? (
+            <Skeleton variant='rectangular' />
+          ) : (
+            <PrivacyCheckbox
+              language={languageCode}
+              checked={false}
+              setChecked={acceptPrivacyPolicy}
+              url={city.chatPrivacyPolicyUrl}
+            />
+          )}
         </Stack>
       </Container>
     )

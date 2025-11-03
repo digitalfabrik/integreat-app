@@ -10,7 +10,8 @@ import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
 import Page from '../components/Page'
-import Skeleton from '../components/PageSkeleton'
+import PageSkeleton from '../components/PageSkeleton'
+import SkeletonHeader from '../components/SkeletonHeader'
 import { cmsApiBaseUrl } from '../constants/urls'
 
 const DisclaimerPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElement | null => {
@@ -46,7 +47,8 @@ const DisclaimerPage = ({ cityCode, languageCode, city }: CityRouteProps): React
   if (loading) {
     return (
       <CityContentLayout isLoading {...locationLayoutParams}>
-        <Skeleton />
+        <SkeletonHeader />
+        <PageSkeleton />
       </CityContentLayout>
     )
   }
