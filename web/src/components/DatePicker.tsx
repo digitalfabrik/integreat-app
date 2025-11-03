@@ -1,6 +1,6 @@
 import { formHelperTextClasses } from '@mui/material/FormHelperText'
 import { ThemeProvider, useTheme, styled } from '@mui/material/styles'
-import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+import { DatePicker as MuiDatePicker } from '@mui/x-date-pickers/DatePicker'
 import { DateValidationError } from '@mui/x-date-pickers/models'
 import { DateTime } from 'luxon'
 import React, { ReactElement, useState } from 'react'
@@ -18,7 +18,7 @@ const StyledError = styled('span')`
   color: ${props => props.theme.palette.error.main};
 `
 
-const StyledDatePicker = styled(DatePicker)`
+const StyledDatePicker = styled(MuiDatePicker)`
   margin-bottom: 8px;
   .${formHelperTextClasses.root} {
     margin-top: 0;
@@ -34,7 +34,7 @@ export type CustomDatePickerProps = {
   calendarLabel: string
 }
 
-const CustomDatePicker = ({
+const DatePicker = ({
   title,
   date,
   setDate,
@@ -77,4 +77,4 @@ const CustomDatePicker = ({
   )
 }
 
-export default CustomDatePicker
+export default DatePicker

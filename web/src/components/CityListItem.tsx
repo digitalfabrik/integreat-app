@@ -17,7 +17,7 @@ type CityEntryProps = {
   filterText: string
 }
 
-const CityEntry = ({ filterText, city, language }: CityEntryProps): ReactElement => {
+const CityListItem = ({ filterText, city, language }: CityEntryProps): ReactElement => {
   const normalizedFilter = normalizeString(filterText)
   const aliases =
     city.aliases && normalizedFilter.length >= 1
@@ -47,4 +47,4 @@ const CityEntry = ({ filterText, city, language }: CityEntryProps): ReactElement
   )
 }
 
-export default CityEntry
+export default CityListItem

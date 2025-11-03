@@ -6,7 +6,7 @@ import buildConfig from '../constants/buildConfig'
 import { useRouteParams } from '../hooks/useCityContentParams'
 import useDimensions from '../hooks/useDimensions'
 import getFooterLinks from '../utils/getFooterLinks'
-import FooterLink from './FooterLink'
+import FooterListItem from './FooterListItem'
 import List from './base/List'
 
 const FooterContainer = styled('footer')`
@@ -37,7 +37,7 @@ const Footer = (): ReactElement | null => {
     <FooterContainer>
       <StyledList
         items={linkItems.map(item => (
-          <FooterLink key={item.to} to={item.to} text={item.text} />
+          <FooterListItem key={item.to} to={item.to} text={item.text} />
         ))}
         disablePadding
       />

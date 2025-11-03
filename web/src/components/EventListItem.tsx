@@ -1,9 +1,8 @@
 import EventRepeatOutlinedIcon from '@mui/icons-material/EventRepeatOutlined'
 import TodayOutlinedIcon from '@mui/icons-material/TodayOutlined'
-import Avatar from '@mui/material/Avatar'
 import ListItem from '@mui/material/ListItem'
-import ListItemAvatar from '@mui/material/ListItemAvatar'
 import ListItemButton from '@mui/material/ListItemButton'
+import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import Tooltip from '@mui/material/Tooltip'
 import Typography, { TypographyProps } from '@mui/material/Typography'
@@ -36,7 +35,7 @@ const StyledListItemButton = styled(ListItemButton)`
   gap: ${props => props.theme.spacing(2)};
 ` as typeof ListItemButton
 
-const StyledAvatar = styled(Avatar)(({ theme }) => ({
+const Icon = styled('img')(({ theme }) => ({
   marginTop: 8,
   width: 96,
   height: 96,
@@ -103,9 +102,9 @@ const EventListItem = ({
       disablePadding
       secondaryAction={dateIcon && <Tooltip title={t(dateIcon.tooltip)}>{dateIcon.Icon}</Tooltip>}>
       <StyledListItemButton component={Link} to={event.path}>
-        <ListItemAvatar>
-          <StyledAvatar src={thumbnailSrc} alt='' variant='square' />
-        </ListItemAvatar>
+        <ListItemIcon>
+          <Icon src={thumbnailSrc} alt='' />
+        </ListItemIcon>
         <ListItemText
           disableTypography
           primary={

@@ -67,4 +67,7 @@ declare module '@mui/material/IconButton' {
   interface IconButtonPropsColorOverrides {
     tertiary: true
   }
+  interface IconButtonOwnProps {
+    'aria-label': string
+  }
 }

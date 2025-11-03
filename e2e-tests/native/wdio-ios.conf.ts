@@ -3,8 +3,8 @@ import { config as defaultConfig } from './wdio.conf.js'
 const iosCapabilities: WebdriverIO.Capabilities = {
   platformName: 'iOS',
   // http://appium.io/docs/en/2.1/guides/caps/
-  'appium:deviceName': 'iPhone 14',
-  'appium:platformVersion': '16.4',
+  'appium:deviceName': 'iPhone 16e',
+  'appium:platformVersion': '18.5',
   'appium:orientation': 'PORTRAIT',
   'appium:automationName': 'XCUITest',
   'appium:language': 'EN',
