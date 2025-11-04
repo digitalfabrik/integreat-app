@@ -21,10 +21,10 @@ const dateFormatWithWeekday: DateTimeFormatOptions = { weekday: 'long', day: 'nu
 
 class DateModel {
   _startDate: DateTime
-  _endDate: DateTime
+  _endDate: DateTime | null
   _allDay: boolean
   _recurrenceRule: RRuleType | null
-  _duration: Duration
+  _duration: Duration | undefined
   _onlyWeekdays: boolean
 
   constructor({
@@ -35,7 +35,7 @@ class DateModel {
     onlyWeekdays,
   }: {
     startDate: DateTime
-    endDate: DateTime
+    endDate: DateTime | null
     allDay: boolean
     recurrenceRule: RRuleType | null
     offset?: number
@@ -43,7 +43,7 @@ class DateModel {
   }) {
     this._recurrenceRule = recurrenceRule
     this._allDay = allDay
-    this._duration = endDate.diff(startDate)
+    this._duration = endDate?.diff(startDate)
     this._startDate = startDate
     this._endDate = endDate
     this._onlyWeekdays = onlyWeekdays
@@ -56,7 +56,7 @@ class DateModel {
 
   // This should only be called on recurrences as end dates are not updated in the CMS
   // E.g. date.recurrences(1)[0]?.endDate
-  get endDate(): DateTime {
+  get endDate(): DateTime | null {
     return this._endDate
   }
 
@@ -76,8 +76,8 @@ class DateModel {
     const now = DateTime.now()
     return (
       this.startDate.hasSame(now, 'day') ||
-      this.endDate.hasSame(now, 'day') ||
-      (this.startDate <= now && this.endDate >= now)
+      this.endDate?.hasSame(now, 'day') ||
+      (this.startDate <= now && this.endDate !== null && this.endDate >= now)
     )
   }
 
@@ -87,9 +87,14 @@ class DateModel {
     }
 
     const now = DateTime.now()
-    const duration = this._endDate.diff(this._startDate)
+    const duration = this._endDate?.diff(this._startDate)
     const startDate = filterStartDate && filterStartDate > now ? filterStartDate : now
-    const minDate = startDate.minus(duration).minus({ minutes: startDate.offset }).toJSDate() // to also include events that are happening right now
+
+    // to also include events that are happening right now
+    const minDate = startDate
+      .minus(duration ?? 0)
+      .minus({ minutes: startDate.offset })
+      .toJSDate()
     const maxDate = (filterEndDate ?? now.plus({ years: MAX_RECURRENCE_YEARS })).toJSDate()
 
     // The rrule package considers all times to be in UTC time zones and ignores time zone offsets
@@ -106,7 +111,7 @@ class DateModel {
         return new DateModel({
           allDay: this.allDay,
           startDate: actualDate,
-          endDate: actualDate.plus(duration),
+          endDate: actualDate.plus(duration ?? 0),
           recurrenceRule: this.recurrenceRule,
           onlyWeekdays: this.onlyWeekdays,
         })
@@ -118,7 +123,7 @@ class DateModel {
   }
 
   isSingleOneDayEvent(): boolean {
-    return this.startDate.hasSame(this.endDate, 'day') && !this.recurrenceRule
+    return (!this.endDate || this.startDate.hasSame(this.endDate, 'day')) && !this.recurrenceRule
   }
 
   isMonthlyOrYearlyRecurrence(): boolean {
@@ -166,7 +171,8 @@ class DateModel {
   formatEventDateInOneLine(locale: string, t: TranslateFunction): string {
     const now = DateTime.now()
     const showYear =
-      !now.hasSame(this.startDate, 'year') || !now.hasSame(this.getFinalDate(this) || this.endDate, 'year')
+      !now.hasSame(this.startDate, 'year') ||
+      (this.endDate !== null && !now.hasSame(this.getFinalDate(this) || this.endDate, 'year'))
     const format: DateTimeFormatOptions = {
       day: 'numeric',
       month: 'long',
@@ -215,7 +221,11 @@ class DateModel {
   }
 
   isEqual(other: DateModel): boolean {
-    return this.startDate.equals(other.startDate) && this.endDate.equals(other.endDate) && this.allDay === other.allDay
+    return (
+      this.startDate.toISO() === other.startDate.toISO() &&
+      this.endDate?.toISO() === other.endDate?.toISO() &&
+      this.allDay === other.allDay
+    )
   }
 
   private getFinalDate(date: DateModel): DateTime | null {
@@ -225,7 +235,9 @@ class DateModel {
     const localRecurrenceRule = date.getRecurrenceRuleInLocalTime(date.recurrenceRule)
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const finalJsDate = localRecurrenceRule.before(localRecurrenceRule.options.until!, true)
-    finalJsDate?.setHours(date.endDate.hour, date.endDate.minute)
+    if (finalJsDate && date.endDate) {
+      finalJsDate.setHours(date.endDate.hour, date.endDate.minute)
+    }
     return finalJsDate ? DateTime.fromJSDate(finalJsDate) : null
   }
 
