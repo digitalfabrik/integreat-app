@@ -10,13 +10,14 @@ import buildConfig from '../constants/buildConfig'
 import CityListGroup from './CityListGroup'
 import NearbyCities from './NearbyCities'
 import SearchInput from './SearchInput'
+import SkeletonList from './SkeletonList'
 import H1 from './base/H1'
 import List from './base/List'
 
 export const CITY_SEARCH_PLACEHOLDER = 'München'
 
 type CitySelectorProps = {
-  cities: CityModel[]
+  cities: CityModel[] | null
   language: string
   stickyTop: number
 }
@@ -25,7 +26,7 @@ const CitySelector = ({ cities, language, stickyTop }: CitySelectorProps): React
   const [filterText, setFilterText] = useState<string>('')
   const { t } = useTranslation('landing')
 
-  const resultCities = filterSortCities(cities, filterText, buildConfig().featureFlags.developerFriendly)
+  const resultCities = filterSortCities(cities ?? [], filterText, buildConfig().featureFlags.developerFriendly)
   const firstLetterGroups = [...new Set(resultCities.map(it => it.sortCategory))].map(group => (
     <CityListGroup
       key={group}
@@ -37,7 +38,13 @@ const CitySelector = ({ cities, language, stickyTop }: CitySelectorProps): React
     />
   ))
   const groups = [
-    <NearbyCities key='nearby' stickyTop={stickyTop} cities={cities} language={language} filterText={filterText} />,
+    <NearbyCities
+      key='nearby'
+      stickyTop={stickyTop}
+      cities={cities ?? []}
+      language={language}
+      filterText={filterText}
+    />,
     ...firstLetterGroups,
   ]
 
@@ -51,12 +58,16 @@ const CitySelector = ({ cities, language, stickyTop }: CitySelectorProps): React
         onFilterTextChange={setFilterText}
         description={t('searchCityDescription')}
       />
-      <Stack>
-        <Typography variant='subtitle1' aria-live={resultCities.length === 0 ? 'assertive' : 'polite'}>
-          {t('search:searchResultsCount', { count: resultCities.length })}
-        </Typography>
-        <List items={groups} NoItemsMessage='search:nothingFound' />
-      </Stack>
+      {cities ? (
+        <Stack>
+          <Typography variant='subtitle1' aria-live={resultCities.length === 0 ? 'assertive' : 'polite'}>
+            {t('search:searchResultsCount', { count: resultCities.length })}
+          </Typography>
+          <List items={groups} NoItemsMessage='search:nothingFound' />
+        </Stack>
+      ) : (
+        <SkeletonList showItemIcon={false} />
+      )}
     </Stack>
   )
 }
