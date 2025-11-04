@@ -31,21 +31,17 @@ type ListSkeletonProps = {
   showItemIcon?: boolean
   iconWidth?: number
   iconHeight?: number
+  listItemIcon?: ReactElement
   listItemHeight?: number
 }
 
-const SkeletonList = ({
-  showItemIcon = true,
-  iconWidth = ICON_WIDTH,
-  iconHeight = ICON_HEIGHT,
-  listItemHeight = LIST_ITEM_HEIGHT,
-}: ListSkeletonProps): ReactElement => (
+const SkeletonList = ({ listItemIcon, listItemHeight = LIST_ITEM_HEIGHT }: ListSkeletonProps): ReactElement => (
   <StyledList disablePadding>
     {[...Array(NUM_SKELETONS).keys()].map(index => (
       <StyledListItem key={index} disablePadding divider>
-        {showItemIcon && (
+        {listItemIcon && (
           <ListItemIcon>
-            <Skeleton variant='rectangular' width={iconWidth} height={iconHeight} />
+            <Skeleton variant='rectangular'>{listItemIcon}</Skeleton>
           </ListItemIcon>
         )}
         <ListItemText primary={<SkeletonText variant='text' width='100%' height={listItemHeight} />} />

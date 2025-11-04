@@ -12,7 +12,7 @@ import { CityRouteProps } from '../CityContentSwitcher'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
 import DatesPageDetail from '../components/DatesPageDetail'
-import EventListItem from '../components/EventListItem'
+import EventListItem, { Icon } from '../components/EventListItem'
 import EventsDateFilter from '../components/EventsDateFilter'
 import ExportEventButton from '../components/ExportEventButton'
 import FailureSwitcher from '../components/FailureSwitcher'
@@ -157,7 +157,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
       {events ? (
         <List items={items} NoItemsMessage='events:currentlyNoEvents' />
       ) : (
-        <SkeletonList listItemHeight={160} iconHeight={96} iconWidth={96} />
+        <SkeletonList listItemHeight={160} listItemIcon={<Icon />} />
       )}
     </CityContentLayout>
   )
