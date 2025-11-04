@@ -11,10 +11,11 @@ describe('navigate to other location', () => {
     const landingPage = LandingPage
     await landingPage.get()
 
-    const cities = await LandingPage.cities
-    const search = await LandingPage.search
+    const cities = LandingPage.cities
+    const search = LandingPage.search
 
-    expect(cities.length).toBeGreaterThan(0)
+    expect(await cities.length).toBeGreaterThan(0)
+    await search.waitForDisplayed()
     await search.click()
     await search.addValue(filter)
 
@@ -22,18 +23,27 @@ describe('navigate to other location', () => {
     const filteredCity = await LandingPage.city(defaultCity)
 
     // navigate to dashboard
+    await filteredCity.waitForDisplayed({ timeout: 20000 })
     await filteredCity.click()
 
     await DashboardPage.get()
   })
 
   it('should open a new city on location change', async () => {
+    await DashboardPage.headerOverflowButton.waitForDisplayed({ timeout: 20000 })
     await DashboardPage.headerOverflowButton.click()
-    await $(new Selector().ByText('Change location').build()).click()
+    const changeLocation = $(new Selector().ByText('Change location').build())
+    await changeLocation.waitForDisplayed()
+    await changeLocation.click()
+
     await LandingPage.get()
 
+    await Keyboard.hide()
     const newCity = await LandingPage.city(augsburgCity)
+    await newCity.waitForDisplayed()
     await newCity.click()
+
+    await browser.waitUntil(async () => $(`~Dashboard-Page`).isDisplayed(), { timeout: 20000 })
     await DashboardPage.get()
 
     await $(new Selector().ByText('Augsburg (Stadt)').build()).waitForDisplayed()
