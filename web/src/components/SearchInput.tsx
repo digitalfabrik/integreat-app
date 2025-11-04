@@ -47,6 +47,7 @@ const SearchInput = ({
   const { t } = useTranslation('common')
   return (
     <StyledTextField
+      id='search'
       placeholder={placeholderText}
       aria-label={placeholderText}
       value={filterText}
