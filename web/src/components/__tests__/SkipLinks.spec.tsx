@@ -10,6 +10,5 @@ describe('SkipLinks', () => {
     const { getByText } = renderWithTheme(<SkipLinks />)
 
     expect(getByText('layout:skipToContent')).toBeTruthy()
-    expect(getByText('layout:skipToNavigation')).toBeTruthy()
   })
 })
