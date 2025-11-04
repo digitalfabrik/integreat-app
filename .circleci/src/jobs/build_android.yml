@@ -4,7 +4,7 @@ parameters:
     enum: [integreat, malte, integreat-e2e, integreat-test-cms, aschaffenburg]
     default: integreat
 docker:
-  - image: cimg/android:2024.08.1-node
+  - image: cimg/android:2025.10.1-node
 resource_class: xlarge
 environment:
   TOTAL_CPUS: 4 # For resource_class large, used in metro.config.ci.js. For memory estimations see IGAPP-557
