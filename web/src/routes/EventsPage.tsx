@@ -1,6 +1,4 @@
 import LocationIcon from '@mui/icons-material/LocationOnOutlined'
-import Skeleton from '@mui/material/Skeleton'
-import Stack from '@mui/material/Stack'
 import { styled } from '@mui/material/styles'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
@@ -43,11 +41,10 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
   const { eventId } = useParams()
   const { t } = useTranslation('events')
 
-  const {
-    data: events,
-    loading,
-    error: eventsError,
-  } = useLoadFromEndpoint(createEventsEndpoint, cmsApiBaseUrl, { city: cityCode, language: languageCode })
+  const { data: events, error } = useLoadFromEndpoint(createEventsEndpoint, cmsApiBaseUrl, {
+    city: cityCode,
+    language: languageCode,
+  })
   const { startDate, setStartDate, endDate, setEndDate, filteredEvents, startDateError } = useDateFilter(events)
 
   // Support legacy slugs of old recurring events with one event per recurrence
@@ -85,35 +82,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     Toolbar: <CityContentToolbar slug={event?.slug} />,
   }
 
-  if (loading) {
-    return (
-      <CityContentLayout isLoading {...locationLayoutParams}>
-        {eventId ? (
-          <>
-            <SkeletonHeader />
-            <PageSkeleton />
-          </>
-        ) : (
-          <Stack>
-            <SkeletonHeader />
-            <Skeleton variant='rectangular' width={200} height={30} />
-            <SkeletonList listItemHeight={160} iconHeight={96} iconWidth={96} />
-          </Stack>
-        )}
-      </CityContentLayout>
-    )
-  }
-
-  if (!events || (eventId && !event)) {
-    const error =
-      eventsError ||
-      new NotFoundError({
-        type: 'event',
-        id: pathname,
-        city: cityCode,
-        language: languageCode,
-      })
-
+  if (error) {
     return (
       <CityContentLayout isLoading={false} {...locationLayoutParams}>
         <FailureSwitcher error={error} />
@@ -121,7 +90,24 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     )
   }
 
-  if (event) {
+  if (eventId) {
+    if (!events) {
+      return (
+        <CityContentLayout isLoading {...locationLayoutParams}>
+          <SkeletonHeader />
+          <PageSkeleton />
+        </CityContentLayout>
+      )
+    }
+
+    if (!event) {
+      const error = new NotFoundError({ type: 'event', id: pathname, city: cityCode, language: languageCode })
+      return (
+        <CityContentLayout isLoading={false} {...locationLayoutParams}>
+          <FailureSwitcher error={error} />
+        </CityContentLayout>
+      )
+    }
     const { featuredImage, lastUpdate, content, title, location, date } = event
 
     return (
@@ -168,7 +154,11 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
         setEndDate={setEndDate}
         startDateError={startDateError}
       />
-      <List items={items} NoItemsMessage='events:currentlyNoEvents' />
+      {events ? (
+        <List items={items} NoItemsMessage='events:currentlyNoEvents' />
+      ) : (
+        <SkeletonList listItemHeight={160} iconHeight={96} iconWidth={96} />
+      )}
     </CityContentLayout>
   )
 }
