@@ -19,7 +19,7 @@ const SingleDateContainer = styled.View`
 const StyledPressable = styled(Pressable)`
   flex-direction: row;
   gap: 8px;
-  border-color: ${props => props.theme.colors.themeColor};
+  border-color: ${props => props.theme.legacy.colors.themeColor};
   border-width: 1px;
   border-style: solid;
   border-radius: 4px;

@@ -23,15 +23,19 @@ const Timeslot = styled.View`
 
 const TimeSlotEntry = styled.Text<{ isCurrentDay: boolean; notFirstChild?: boolean }>`
   font-family: ${props =>
-    props.isCurrentDay ? props.theme.fonts.native.contentFontBold : props.theme.fonts.native.contentFontRegular};
+    props.isCurrentDay
+      ? props.theme.legacy.fonts.native.contentFontBold
+      : props.theme.legacy.fonts.native.contentFontRegular};
   ${props => props.notFirstChild && 'margin-top: 8px'};
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
 `
 
 const TimeSlotLabel = styled.Text<{ isCurrentDay: boolean }>`
   font-family: ${props =>
-    props.isCurrentDay ? props.theme.fonts.native.contentFontBold : props.theme.fonts.native.contentFontRegular};
-  color: ${props => props.theme.colors.textColor};
+    props.isCurrentDay
+      ? props.theme.legacy.fonts.native.contentFontBold
+      : props.theme.legacy.fonts.native.contentFontRegular};
+  color: ${props => props.theme.legacy.colors.textColor};
 `
 
 const AppointmentOnlyContainer = styled.View<{ language: string }>`

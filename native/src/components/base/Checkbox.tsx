@@ -13,7 +13,7 @@ type CheckboxProps = {
 }
 
 const Checkbox = ({ checked, setChecked }: CheckboxProps): ReactElement => {
-  const { themeColor } = useTheme().colors
+  const { themeColor } = useTheme().legacy.colors
   return (
     <StyledCheckbox
       value={checked}

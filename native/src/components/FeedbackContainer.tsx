@@ -16,24 +16,24 @@ import TextButton from './base/TextButton'
 
 const Container = styled.View`
   flex: 1;
-  background-color: ${props => props.theme.colors.backgroundColor};
+  background-color: ${props => props.theme.legacy.colors.backgroundColor};
   padding: 8px 20px;
   gap: 8px;
 `
 
 const Title = styled(Text)`
   font-weight: 600;
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
 `
 
 const StyledText = styled(Text)`
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
 `
 
 const Hint = styled(Title)`
   margin-top: 8px;
   text-align: center;
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
 `
 
 export type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'

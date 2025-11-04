@@ -15,7 +15,8 @@ const ButtonContainer = styled.View`
 const StyledButton = styled(TextButton)<{ $opacity?: boolean; $enableShadow?: boolean }>`
   padding: 10px 32px;
   opacity: ${props => (props.$opacity === false ? 0 : 1)};
-  shadow-color: ${props => (props.$enableShadow ? props.theme.colors.textColor : props.theme.colors.backgroundColor)};
+  shadow-color: ${props =>
+    props.$enableShadow ? props.theme.legacy.colors.textColor : props.theme.legacy.colors.backgroundColor};
   shadow-offset: 0 1px;
   shadow-opacity: 0.2;
   shadow-radius: 1.4px;
@@ -46,7 +47,7 @@ const SlideFooter = ({ onDone, slideCount, goToSlide, currentSlide, t }: SlideFo
         <StyledButton
           type='clear'
           text={t('skip')}
-          textStyle={{ fontFamily: theme.fonts.native.contentFontBold, fontSize: 14 }}
+          textStyle={{ fontFamily: theme.legacy.fonts.native.contentFontBold, fontSize: 14 }}
           onPress={onDone}
           $opacity={!isLastSlide}
           disabled={isLastSlide}
@@ -55,7 +56,7 @@ const SlideFooter = ({ onDone, slideCount, goToSlide, currentSlide, t }: SlideFo
         <StyledButton
           type='primary'
           text={t('next')}
-          textStyle={{ fontFamily: theme.fonts.native.contentFontBold, fontSize: 14 }}
+          textStyle={{ fontFamily: theme.legacy.fonts.native.contentFontBold, fontSize: 14 }}
           onPress={isLastSlide ? onDone : goToNextSlide}
           $enableShadow
         />

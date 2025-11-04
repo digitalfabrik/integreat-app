@@ -1,10 +1,10 @@
 import React, { ReactElement } from 'react'
 import { ThemeProvider } from 'styled-components/native'
 
-import buildConfig from '../constants/buildConfig'
+import { theme } from '../components/ThemeContext'
 
 const wrapWithTheme = ({ children }: { children: ReactElement }): ReactElement => (
-  <ThemeProvider theme={buildConfig().legacyLightTheme}>{children}</ThemeProvider>
+  <ThemeProvider theme={theme('light')}>{children}</ThemeProvider>
 )
 
 export default wrapWithTheme

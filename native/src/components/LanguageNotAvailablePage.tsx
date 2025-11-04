@@ -14,7 +14,7 @@ import LayoutedScrollView from './LayoutedScrollView'
 import Selector from './Selector'
 
 const Wrapper = styled.ScrollView`
-  background-color: ${props => props.theme.colors.backgroundColor};
+  background-color: ${props => props.theme.legacy.colors.backgroundColor};
 `
 
 type LanguageNotAvailablePageProps = {

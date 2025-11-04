@@ -9,7 +9,7 @@ import Icon from './base/Icon'
 import IconButton from './base/IconButton'
 
 const StyledBackground = styled(View)`
-  background-color: ${props => props.theme.colors.backgroundColor};
+  background-color: ${props => props.theme.legacy.colors.backgroundColor};
   flex: 1;
   height: 48px;
   margin: 4px;
@@ -20,14 +20,14 @@ const StyledBackground = styled(View)`
 `
 
 const StyledIcon = styled(Icon)`
-  color: ${props => props.theme.colors.textSecondaryColor};
+  color: ${props => props.theme.legacy.colors.textSecondaryColor};
   height: 20px;
 `
 
 const StyledInput = styled(TextInput)`
   padding: 4px;
   flex: 1;
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
   font-size: 18px;
 `
 
@@ -50,7 +50,9 @@ const ThemedSearchBar = ({ onChangeText, value, autofocus }: ThemedSearchBarProp
         value={value}
         autoFocus={autofocus}
         placeholder={t('searchPlaceholder')}
-        placeholderTextColor={theme.isContrastTheme ? theme.colors.textColor : theme.colors.textSecondaryColor}
+        placeholderTextColor={
+          theme.legacy.isContrastTheme ? theme.legacy.colors.textColor : theme.legacy.colors.textSecondaryColor
+        }
       />
       {!!value && (
         <IconButton

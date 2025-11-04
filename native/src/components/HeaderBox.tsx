@@ -12,14 +12,14 @@ const HorizontalLeft = styled.View`
   flex: 1;
   flex-direction: row;
   align-items: center;
-  background-color: ${props => props.theme.colors.backgroundAccentColor};
+  background-color: ${props => props.theme.legacy.colors.backgroundAccentColor};
 `
 
 const HeaderText = styled.Text<{ fontSize: number }>`
   flex: 1;
   font-size: ${props => Math.min(props.fontSize, dimensions.headerTextSize)}px;
-  color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.native.decorativeFontBold};
+  color: ${props => props.theme.legacy.colors.textColor};
+  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontBold};
 `
 
 const StyledIcon = styled(Icon)`
@@ -45,7 +45,7 @@ const HeaderBox = ({ goBack, canGoBack = true, text, language }: HeaderBoxProps)
       onPress={goBack}
       accessibilityLabel={t('back')}
       displayMode='minimal'
-      tintColor={theme.colors.textColor}
+      tintColor={theme.legacy.colors.textColor}
     />
   ) : (
     <StyledIcon Icon={AppIcon} />

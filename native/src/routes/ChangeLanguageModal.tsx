@@ -9,7 +9,7 @@ import { AppContext } from '../contexts/AppContextProvider'
 import SelectorItemModel from '../models/SelectorItemModel'
 
 const Wrapper = styled.ScrollView`
-  background-color: ${props => props.theme.colors.backgroundColor};
+  background-color: ${props => props.theme.legacy.colors.backgroundColor};
 `
 
 type ChangeLanguageModalProps = {

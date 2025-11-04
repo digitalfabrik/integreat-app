@@ -27,7 +27,7 @@ const IconContainer = styled(Pressable)`
 `
 
 const StyledText = styled(Text)`
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
 `
 
 type AddressInfoProps = {

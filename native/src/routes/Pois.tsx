@@ -19,13 +19,13 @@ import dimensions from '../constants/dimensions'
 import useOnBackNavigation from '../hooks/useOnBackNavigation'
 
 const StyledIcon = styled(Icon)`
-  color: ${props => props.theme.colors.textSecondaryColor};
+  color: ${props => props.theme.legacy.colors.textSecondaryColor};
   width: 16px;
   height: 16px;
 `
 
 const StyledSvgUri = styled(SvgUri)`
-  color: ${props => props.theme.colors.textSecondaryColor};
+  color: ${props => props.theme.legacy.colors.textSecondaryColor};
 `
 
 const Container = styled.View`

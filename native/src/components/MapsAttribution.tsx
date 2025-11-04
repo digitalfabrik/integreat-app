@@ -19,14 +19,14 @@ const AttributionContainer = styled(Pressable)<{ expanded: boolean }>`
   right: 0;
   justify-content: flex-end;
   color: rgb(0, 0, 0, 0.75);
-  font-family: ${props => props.theme.fonts.native.contentFontRegular};
+  font-family: ${props => props.theme.legacy.fonts.native.contentFontRegular};
   ${props => props.expanded && `background-color: rgb(255, 255, 255, 0.75);`}
 `
 
 const OpenStreetMapsLink = styled(Link)`
   padding: 4px 0;
-  color: ${props => props.theme.colors.tunewsThemeColor};
-  text-decoration: underline solid ${props => props.theme.colors.tunewsThemeColor};
+  color: ${props => props.theme.legacy.colors.tunewsThemeColor};
+  text-decoration: underline solid ${props => props.theme.legacy.colors.tunewsThemeColor};
   align-self: center;
 `
 

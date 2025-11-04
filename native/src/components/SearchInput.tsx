@@ -10,11 +10,11 @@ const InputWrapper = styled.View`
   margin: 0 4px;
   flex-grow: 1;
   border-bottom-width: 1px;
-  border-bottom-color: ${props => props.theme.colors.textSecondaryColor};
+  border-bottom-color: ${props => props.theme.legacy.colors.textSecondaryColor};
 `
 
 const StyledInput = styled.TextInput`
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
 `
 
 const Wrapper = styled.View<{ space: boolean }>`
@@ -23,13 +23,13 @@ const Wrapper = styled.View<{ space: boolean }>`
   justify-content: center;
   align-items: center;
   padding: 10px 0;
-  background-color: ${props => props.theme.colors.backgroundColor};
+  background-color: ${props => props.theme.legacy.colors.backgroundColor};
 `
 
 const Description = styled(Text)`
   padding-left: 28px;
-  color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
+  color: ${props => props.theme.legacy.colors.textColor};
+  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
 `
 
 type SearchInputProps = {
@@ -59,7 +59,7 @@ const SearchInput = ({
             multiline={false}
             autoFocus
             onBlur={Keyboard.dismiss}
-            placeholderTextColor={theme.colors.textSecondaryColor}
+            placeholderTextColor={theme.legacy.colors.textSecondaryColor}
             placeholder={placeholderText}
             aria-label={placeholderText}
             value={filterText}

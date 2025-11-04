@@ -22,7 +22,7 @@ const Wrapper = styled.View`
 const Description = styled(Text)`
   font-weight: bold;
   text-align: left;
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
 `
 
 const StyledButton = styled(TextButton)`

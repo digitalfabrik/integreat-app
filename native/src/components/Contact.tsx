@@ -11,7 +11,7 @@ import Text from './base/Text'
 
 const StyledContactHeader = styled(Text)`
   margin-bottom: 6px;
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
 `
 
 type ContactProps = {
