@@ -27,5 +27,5 @@ export const formatTime = (locale: string, date: DateModel, t: TranslateFunction
   const endTime = date.startDate
     .set({ hour: date.endDate.hour, minute: date.endDate.minute })
     .toLocaleString(timeFormat, { locale })
-  return date.allDay ? t('pois:allDay') : t('timeRange', { startTime, endTime })
+  return date.allDay ? t('pois:allDay') : `${startTime} - ${endTime}`
 }
