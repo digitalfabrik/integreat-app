@@ -49,7 +49,7 @@ export const theme = (themeType: 'light' | 'contrast'): DefaultTheme => {
   }
 }
 
-export const ThemeContainer = ({ children }: ThemeContainerProps): ReactElement => {
+const ThemeContainer = ({ children }: ThemeContainerProps): ReactElement => {
   const { settings } = useAppContext()
   const themeType = settings.selectedTheme
 
@@ -57,3 +57,5 @@ export const ThemeContainer = ({ children }: ThemeContainerProps): ReactElement 
 
   return <ThemeProvider theme={contextValue}>{children}</ThemeProvider>
 }
+
+export default ThemeContainer
