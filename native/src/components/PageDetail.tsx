@@ -39,6 +39,7 @@ const ButtonText = styled.Text`
 
 const StyledText = styled.Text`
   font-family: ${props => props.theme.fonts.native.contentFontRegular};
+  color: ${props => props.theme.colors.textSecondaryColor};
   flex-shrink: 1;
 `
 

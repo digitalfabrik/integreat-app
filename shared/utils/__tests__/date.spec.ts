@@ -31,7 +31,7 @@ describe('formatTime', () => {
       recurrenceRule: null,
       onlyWeekdays: false,
     })
-    expect(formatTime(locale, date, t)).toBe('timeRange, startTime: 11:00, endTime: 13:00')
+    expect(formatTime(locale, date, t)).toBe('11:00 - 13:00')
   })
 
   it('should format an all-day event correctly', () => {

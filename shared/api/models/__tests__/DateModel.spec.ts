@@ -10,7 +10,7 @@ const toUTCSpans = (dates: DateModel[]) =>
     allDay: date.allDay,
     recurrenceRule: date.recurrenceRule ?? null,
     startDate: date.startDate.toUTC().toISO(),
-    endDate: date.endDate.toUTC().toISO(),
+    endDate: date.endDate?.toUTC().toISO(),
     onlyWeekdays: date.onlyWeekdays,
   }))
 
@@ -69,7 +69,7 @@ describe('DateModel', () => {
         recurrenceRule: null,
         onlyWeekdays: false,
       })
-      expect(date.formatEventDateInOneLine(locale, t)).toBe('15. Oktober, timeRange, startTime: 8:00, endTime: 10:00')
+      expect(date.formatEventDateInOneLine(locale, t)).toBe('15. Oktober, 8:00 - 10:00')
     })
 
     it('should show the dates for a long-term event', () => {
@@ -258,7 +258,7 @@ describe('DateModel', () => {
 
       expect(recurrence.formatEventDate('de', t)).toStrictEqual({
         date: 'startingFrom, date: 7. Mai 2024',
-        time: 'timeRange, startTime: 10:00, endTime: 12:00',
+        time: '10:00 - 12:00',
         weekday: 'Dienstag',
       })
     })
@@ -855,7 +855,7 @@ describe('DateModel', () => {
       expect(date.formatEventDate(locale, t)).toStrictEqual({
         date: '29. August 2025',
         weekday: undefined,
-        time: 'timeRange, startTime: 11:00, endTime: 13:00',
+        time: '11:00 - 13:00',
       })
     })
 
@@ -871,7 +871,7 @@ describe('DateModel', () => {
       expect(date.formatEventDate(locale, t)).toStrictEqual({
         date: 'August 29, 2025',
         weekday: undefined,
-        time: 'timeRange, startTime: 11:00 AM, endTime: 1:00 PM',
+        time: '11:00 AM - 1:00 PM',
       })
     })
 
@@ -903,7 +903,7 @@ describe('DateModel', () => {
       expect(date.formatEventDate(locale, t)).toStrictEqual({
         date: '20. August 2025 - 30. Oktober 2026',
         weekday: 'Mittwoch, Freitag',
-        time: 'timeRange, startTime: 9:00, endTime: 9:30',
+        time: '9:00 - 9:30',
       })
     })
 
@@ -919,7 +919,7 @@ describe('DateModel', () => {
       expect(date.formatEventDate(locale, t)).toStrictEqual({
         date: 'startingFrom, date: 18. August 2025',
         weekday: 'Montag',
-        time: 'timeRange, startTime: 18:00, endTime: 19:00',
+        time: '18:00 - 19:00',
       })
     })
 
@@ -935,7 +935,7 @@ describe('DateModel', () => {
       expect(date.formatEventDate(locale, t)).toStrictEqual({
         date: 'startingFrom, date: August 18, 2025',
         weekday: 'Monday',
-        time: 'timeRange, startTime: 6:00 PM, endTime: 7:00 PM',
+        time: '6:00 PM - 7:00 PM',
       })
     })
 
@@ -967,7 +967,7 @@ describe('DateModel', () => {
       expect(date.formatEventDate(locale, t)).toStrictEqual({
         date: '18. August 2025 - 29. August 2025',
         weekday: 'Montag - Freitag',
-        time: 'timeRange, startTime: 10:00, endTime: 15:00',
+        time: '10:00 - 15:00',
       })
     })
 
@@ -983,7 +983,7 @@ describe('DateModel', () => {
       expect(date.formatEventDate(locale, t)).toStrictEqual({
         date: 'August 18, 2025 - August 29, 2025',
         weekday: 'Monday - Friday',
-        time: 'timeRange, startTime: 10:00 AM, endTime: 3:00 PM',
+        time: '10:00 AM - 3:00 PM',
       })
     })
 
@@ -999,7 +999,7 @@ describe('DateModel', () => {
       expect(date.formatEventDate(locale, t)).toStrictEqual({
         date: '18. August 2025 - 19. September 2025',
         weekday: undefined,
-        time: 'timeRange, startTime: 11:00, endTime: 12:00',
+        time: '11:00 - 12:00',
       })
     })
 
@@ -1015,7 +1015,7 @@ describe('DateModel', () => {
       expect(date.formatEventDate(locale, t)).toStrictEqual({
         date: 'August 18, 2025 - September 19, 2025',
         weekday: undefined,
-        time: 'timeRange, startTime: 11:00 AM, endTime: 12:00 PM',
+        time: '11:00 AM - 12:00 PM',
       })
     })
   })
@@ -1080,7 +1080,7 @@ describe('DateModel', () => {
       expect(date.formatMonthlyOrYearlyRecurrence(locale, t)).toStrictEqual({
         date: 'Mittwoch, 20. August 2025',
         weekday: undefined,
-        time: 'timeRange, startTime: 13:00, endTime: 15:00',
+        time: '13:00 - 15:00',
       })
     })
 
@@ -1096,7 +1096,7 @@ describe('DateModel', () => {
       expect(date.formatMonthlyOrYearlyRecurrence(locale, t)).toStrictEqual({
         date: 'Wednesday, August 20, 2025',
         weekday: undefined,
-        time: 'timeRange, startTime: 1:00 PM, endTime: 3:00 PM',
+        time: '1:00 PM - 3:00 PM',
       })
     })
   })

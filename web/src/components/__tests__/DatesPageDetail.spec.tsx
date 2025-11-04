@@ -37,7 +37,7 @@ describe('DatesPageDetail', () => {
 
     expect(getByText('9. Oktober 2023 - 10. Oktober 2023')).toBeTruthy()
     expect(queryByText('Montag, Dienstag')).toBeFalsy()
-    expect(getByText('timeRange, startTime: 7:00, endTime: 9:00')).toBeTruthy()
+    expect(getByText('7:00 - 9:00')).toBeTruthy()
     expect(queryByRole('button')).toBeFalsy()
   })
 
@@ -48,7 +48,7 @@ describe('DatesPageDetail', () => {
 
     expect(getByText('9. Oktober 2023 - 23. Oktober 2023')).toBeTruthy()
     expect(getByText('Montag')).toBeTruthy()
-    expect(getByText('timeRange, startTime: 7:00, endTime: 9:00')).toBeTruthy()
+    expect(getByText('7:00 - 9:00')).toBeTruthy()
     expect(queryByRole('button')).toBeFalsy()
   })
 
@@ -58,13 +58,13 @@ describe('DatesPageDetail', () => {
     )
 
     expect(getByText('Montag, 9. Oktober 2023')).toBeTruthy()
-    expect(getAllByText('timeRange, startTime: 7:00, endTime: 9:00')).toHaveLength(MAX_DATE_RECURRENCES)
+    expect(getAllByText('7:00 - 9:00')).toHaveLength(MAX_DATE_RECURRENCES)
     expect(queryByText('Montag, 12. Februar 2024')).toBeFalsy()
 
     expect(getByRole('button')).toBeVisible()
     fireEvent.click(getByRole('button'))
 
-    expect(getAllByText('timeRange, startTime: 7:00, endTime: 9:00')).toHaveLength(2 * MAX_DATE_RECURRENCES)
+    expect(getAllByText('7:00 - 9:00')).toHaveLength(2 * MAX_DATE_RECURRENCES)
     expect(getByText('Montag, 12. Februar 2024')).toBeTruthy()
   })
 })
