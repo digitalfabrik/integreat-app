@@ -30,6 +30,31 @@ commands:
             - run:
                 command: circleci config validate
                 name: Validate circle config
+    generate_sbom:
+        description: Generate SPDX SBOM using Syft
+        steps:
+            - run:
+                command: |
+                    echo "Installing Syft..."
+                    curl -sSfL https://get.anchore.io/syft | sudo sh -s -- -b /usr/local/bin
+                    export SYFT_SOURCE_NAME="integreat-app"
+                    export SYFT_FORMAT_SPDX_JSON_PRETTY=true
+                    syft version
+                name: Install Syft
+            - run:
+                command: |
+                    export SYFT_FORMAT_SPDX_JSON_PRETTY=true
+                    echo "Generating unified SBOM for repo root..."
+                    syft dir:. -o spdx-json=_manifest/spdx_2.2/manifest.spdx.json
+                    echo "SBOM generated at _manifest/spdx_2.2/manifest.spdx.json"
+                name: Generate SPDX SBOM
+            - persist_to_workspace:
+                paths:
+                    - _manifest/spdx_2.2/manifest.spdx.json
+                root: .
+            - store_artifacts:
+                destination: sbom
+                path: _manifest/spdx_2.2/manifest.spdx.json
     notify:
         description: Send a notification (to Mattermost) at the end of a job, based on success or failure. Must be the last step in a job.
         parameters:
@@ -733,6 +758,31 @@ jobs:
                 command: yarn workspace e2e test:web
                 name: Web E2E Tests
             - notify
+    generate_sbom:
+        description: Generate SPDX SBOM using Syft
+        docker:
+            - image: cimg/node:22.21.1
+        steps:
+            - checkout
+            - run:
+                command: |
+                    echo "Installing Syft..."
+                    curl -sSfL https://get.anchore.io/syft | sh -s -- -b /usr/local/bin
+                    syft version
+                name: Install Syft
+            - run:
+                command: |
+                    export SYFT_FORMAT_SPDX_JSON_PRETTY=true
+                    syft dir:. -o spdx-json=_manifest/spdx_2.2/manifest.spdx.json
+                    echo "SBOM generated at _manifest/spdx_2.2/manifest.spdx.json"
+                name: Generate SPDX SBOM
+            - persist_to_workspace:
+                paths:
+                    - _manifest/spdx_2.2/manifest.spdx.json
+                root: .
+            - store_artifacts:
+                destination: sbom
+                path: _manifest/spdx_2.2/manifest.spdx.json
     notify_promotion:
         docker:
             - image: cimg/node:22.21.1
@@ -1187,6 +1237,9 @@ workflows:
                             - aschaffenburg
                 requires:
                     - bump_version
+            - generate_sbom:
+                requires:
+                    - build_android
             - e2e_android:
                 context:
                     - browserstack
@@ -1208,6 +1261,7 @@ workflows:
                     - check
                     - e2e_android
                     - build_android-<< matrix.build_config_name >>
+                    - generate_sbom
             - build_ios:
                 context:
                     - tuerantuer-apple
@@ -1221,6 +1275,9 @@ workflows:
                             - aschaffenburg
                 requires:
                     - bump_version
+            - generate_sbom:
+                requires:
+                    - build_ios
             - e2e_ios:
                 context:
                     - browserstack
@@ -1242,6 +1299,7 @@ workflows:
                     - check
                     - e2e_ios
                     - build_ios-<< matrix.build_config_name >>
+                    - generate_sbom
             - notify_release:
                 context:
                     - deliverino
@@ -1382,6 +1440,9 @@ workflows:
                             - obdach
                 requires:
                     - bump_version
+            - generate_sbom:
+                requires:
+                    - build_web
             - deliver_web:
                 context:
                     - sentry
@@ -1390,6 +1451,7 @@ workflows:
                     - check
                     - e2e_web
                     - build_web
+                    - generate_sbom
             - notify_release:
                 context:
                     - deliverino
