@@ -1,4 +1,4 @@
-import Button from '@mui/material/Button'
+import MuiButton from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import { styled } from '@mui/material/styles'
@@ -6,14 +6,14 @@ import React, { ReactElement } from 'react'
 
 import Link from './base/Link'
 
-const StyledButton = styled(Button)`
-  background-color: ${props => props.theme.palette.tertiary.light};
+const StyledButton = styled(MuiButton)`
   padding: 2px 12px;
-`
+  border: 1px solid;
+` as typeof MuiButton
 
 const StyledIconButton = styled(IconButton)`
-  background-color: ${props => props.theme.palette.tertiary.light};
-`
+  border: 1px solid;
+` as typeof IconButton
 
 type HeaderActionItemLinkProps = {
   text: string
@@ -22,25 +22,27 @@ type HeaderActionItemLinkProps = {
 } & ({ to: string; onClick?: never } | { to?: never; onClick: () => void })
 
 const HeaderActionItem = ({ to, text, icon, onClick, innerText }: HeaderActionItemLinkProps): ReactElement => {
-  const Button = innerText ? (
-    <StyledButton onClick={onClick} startIcon={icon} aria-label={text}>
-      {innerText}
-    </StyledButton>
-  ) : (
-    <StyledIconButton onClick={onClick} color='primary' aria-label={text}>
-      {icon}
-    </StyledIconButton>
-  )
+  if (innerText) {
+    return (
+      <Tooltip title={text}>
+        <StyledButton
+          variant='outlined'
+          component={to ? Link : MuiButton}
+          to={to}
+          onClick={onClick}
+          startIcon={icon}
+          aria-label={text}>
+          {innerText}
+        </StyledButton>
+      </Tooltip>
+    )
+  }
 
   return (
     <Tooltip title={text}>
-      {to ? (
-        <Link to={to} aria-label={text}>
-          {Button}
-        </Link>
-      ) : (
-        Button
-      )}
+      <StyledIconButton component={to ? Link : IconButton} to={to} onClick={onClick} color='primary' aria-label={text}>
+        {icon}
+      </StyledIconButton>
     </Tooltip>
   )
 }

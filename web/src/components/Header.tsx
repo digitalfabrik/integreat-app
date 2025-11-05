@@ -81,7 +81,7 @@ export const Header = ({
       <StyledPaper>
         <HeaderContainer ref={ref}>
           <Row>
-            <Stack direction='row-reverse' alignItems='center'>
+            <Stack direction='row-reverse' alignItems='center' gap={1}>
               <HeaderLogo link={logoHref} />
               {!!cityName && <HeaderTitle title={cityName} landingPath={landingPath} />}
             </Stack>

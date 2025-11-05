@@ -268,7 +268,7 @@ describe('DatabaseConnector', () => {
 
       const expectedDate = {
         date: 'startingFrom, date: 7. Mai 2024',
-        time: 'timeRange, startTime: 10:00, endTime: 12:00',
+        time: '10:00 - 12:00',
         weekday: 'Dienstag',
       }
 

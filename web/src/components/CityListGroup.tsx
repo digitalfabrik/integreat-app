@@ -6,7 +6,7 @@ import React, { ReactElement } from 'react'
 
 import { CityModel } from 'shared/api'
 
-import CityEntry from './CityEntry'
+import CityListItem from './CityListItem'
 
 export const CityGroupHeader = styled(ListSubheader, { shouldForwardProp })<{
   stickyTop: number
@@ -27,7 +27,7 @@ const CityListGroup = ({ title, cities, stickyTop, filterText, languageCode }: C
   <Stack paddingBlock={1}>
     <CityGroupHeader stickyTop={stickyTop}>{title}</CityGroupHeader>
     {cities.map(city => (
-      <CityEntry key={city.code} city={city} language={languageCode} filterText={filterText} />
+      <CityListItem key={city.code} city={city} language={languageCode} filterText={filterText} />
     ))}
   </Stack>
 )

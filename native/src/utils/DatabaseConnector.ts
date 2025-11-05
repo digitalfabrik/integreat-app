@@ -104,7 +104,7 @@ type ContentEventJsonType = {
   excerpt: string
   date: {
     start: string
-    end: string
+    end: string | null
     allDay: boolean
     recurrenceRule: string | null
     onlyWeekdays: boolean
@@ -680,7 +680,7 @@ class DatabaseConnector {
         excerpt: event.excerpt,
         date: {
           start: event.date.startDate.toISO(),
-          end: event.date.endDate.toISO(),
+          end: event.date.endDate ? event.date.endDate.toISO() : null,
           allDay: event.date.allDay,
           recurrenceRule: event.date.recurrenceRule?.toString() ?? null,
           onlyWeekdays: event.date.onlyWeekdays,
@@ -736,7 +736,7 @@ class DatabaseConnector {
           excerpt: jsonObject.excerpt,
           date: new DateModel({
             startDate: DateTime.fromISO(jsonDate.start),
-            endDate: DateTime.fromISO(jsonDate.end),
+            endDate: jsonDate.end ? DateTime.fromISO(jsonDate.end) : null,
             allDay: jsonDate.allDay,
             recurrenceRule: jsonDate.recurrenceRule ? rrulestr(jsonDate.recurrenceRule) : null,
             onlyWeekdays: jsonDate.onlyWeekdays,

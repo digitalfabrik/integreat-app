@@ -9,13 +9,13 @@ export const createJsonLd = (event: EventModel): WithContext<Event> | null => {
     return null
   }
   const date = event.date
+
   // https://developers.google.com/search/docs/data-types/event
   const jsonLd: WithContext<Event> = {
     '@context': 'https://schema.org',
     '@type': 'Event',
     name: event.title,
     startDate: date.allDay ? date.startDate.toISODate() : date.startDate.toISO(),
-    endDate: date.allDay ? date.endDate.toISODate() : date.endDate.toISO(),
     eventStatus: 'https://schema.org/EventScheduled',
     description: event.excerpt,
     location: {
@@ -29,6 +29,10 @@ export const createJsonLd = (event: EventModel): WithContext<Event> | null => {
         addressCountry: event.location.country,
       },
     },
+  }
+
+  if (date.endDate) {
+    jsonLd.endDate = date.allDay ? date.endDate.toISODate() : date.endDate.toISO()
   }
 
   if (event.featuredImage) {

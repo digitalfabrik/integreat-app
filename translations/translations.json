@@ -4017,8 +4017,7 @@
       "showFilters": "Filter anzeigen",
       "selectRange": "Zeitraum auswählen",
       "outOfRangeError": "Datum außerhalb des Bereichs",
-      "startingFrom": "ab {{date}}",
-      "timeRange": "{{startTime}} - {{endTime}} Uhr"
+      "startingFrom": "ab {{date}}"
     },
     "am": {
       "address": "ኣድራሻ",
@@ -4235,8 +4234,7 @@
       "showFilters": "Show filters",
       "selectRange": "Select Range",
       "outOfRangeError": "Date out of range",
-      "startingFrom": "from {{date}}",
-      "timeRange": "{{startTime}} - {{endTime}}"
+      "startingFrom": "from {{date}}"
     },
     "es": {
       "address": "Dirección",
@@ -7115,7 +7113,7 @@
       "metaDescription": "{{appName}} ist Dein digitaler Guide für Deutschland. Finde lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Deiner Sprache.",
       "cityNotFound": "Deine Region nicht gefunden? Werde jetzt aktiv!",
       "suggestToRegion": "{{appName}} in Deiner Region vorschlagen",
-      "searchCityDescription": "Wähle deine Region oder die nächstgrößere Stadt, z. B. Landkreis München"
+      "searchCityDescription": "Wähle deine Region oder die nächstgrößere Stadt, z. B. {{exampleCity}}"
     },
     "am": {
       "searchCity": "መፈለግ",
@@ -7132,8 +7130,7 @@
       "pageTitle": "ለእርስዎ አካባቢያዊ መረጃ",
       "metaDescription": "{{appName}} በጀርመን ላለው ህይወት የእርስዎ ዲጂታል መመሪያ ነው። አካባቢያዊ መረጃን፣ ክንዉኖችን እና ምክርን ያግኙ። በእርስዎ ቋንቋ ሁልጊዜ የቅርብ ጊዜ የሆነ እና የሚገኝ ነው።",
       "cityNotFound": "ክልልህ አልተገኘም? አሁን እርምጃ ይውሰዱ!",
-      "suggestToRegion": "{{appName}} በክልልዎ ውስጥ ይጠቁሙ",
-      "searchCityDescription": "የእርስዎ ክልል ወይም በአቅራቢያዎ ያለውን ዋና ከተማ ይምረጡ፣ ለምሳሌ፣ ሙኒክ አውራጃ"
+      "suggestToRegion": "{{appName}} በክልልዎ ውስጥ ይጠቁሙ"
     },
     "ar": {
       "searchCity": "بحث",
@@ -7167,8 +7164,7 @@
       "pageTitle": "Местна информация за теб",
       "metaDescription": "{{appName}} е твоят цифров пътеводител за Германия. Намери местна информация, събития и съвети. Винаги актуални и на твоя език.",
       "cityNotFound": "Не сте открили своя регион? Станете активни сега!",
-      "suggestToRegion": "Предложете {{appName}} във вашия регион",
-      "searchCityDescription": "Изберете Вашия регион или следващия по големина град, напр. област Мюнхен"
+      "suggestToRegion": "Предложете {{appName}} във вашия регион"
     },
     "ckb": {
       "searchCity": "گەڕان",
@@ -7185,8 +7181,7 @@
       "pageTitle": "زانیاری خۆجێی بۆ تۆ",
       "metaDescription": " {{appName}} ڕێنمای دیجیتاڵی تۆ بە زمانی ئەڵمانی. تۆ دەتوانی زانیاری و ڕووداو و ئامۆژگارییە خۆجێیەکان لێرەدا بدۆزێوە. هەردەم نوێ و بە زمانی تۆ.",
       "cityNotFound": "ناوچەکەت نەدۆزییەوە؟ هەر ئێستا چالاک بە!",
-      "suggestToRegion": "پێشنیاری {{appName}} لە ناوچەکەتدا",
-      "searchCityDescription": "هەرێمەکەت یان گەورەترین شاری نزیک هەڵبژێرە، بۆ نموونە «میونشن»"
+      "suggestToRegion": "پێشنیاری {{appName}} لە ناوچەکەتدا"
     },
     "cs": {
       "searchCity": "Vyhledávání",
@@ -7203,8 +7198,7 @@
       "pageTitle": "Místní informace pro vás",
       "metaDescription": "{{appName}} je váš digitální průvodce po Německu. Nacházejte místní informace, události a tipy. Vždy aktuální a ve vašem jazyce.",
       "cityNotFound": "Nenašli jste svůj region? Buďte aktivní hned teď!",
-      "suggestToRegion": "Navrhnout {{appName}} ve vašem regionu",
-      "searchCityDescription": "Vyberte svůj region nebo nejbližší největší město, např. okres Mnichov"
+      "suggestToRegion": "Navrhnout {{appName}} ve vašem regionu"
     },
     "da": {
       "searchCity": "Søg efter",
@@ -7222,7 +7216,7 @@
       "metaDescription": "{{appName}} er din digitale guide til Tyskland. Find lokale oplysninger, arrangementer og rådgivning. Altid opdateret og på dit sprog.",
       "cityNotFound": "Har du ikke fundet din region? Bliv aktiv nu!",
       "suggestToRegion": "Foreslå {{appName}} i din region",
-      "searchCityDescription": "Vælg din region eller den næststørste by, f.eks. München"
+      "searchCityDescription": "Vælg din region eller den næststørste by, f.eks. {{exampleCity}}"
     },
     "el": {
       "searchCity": "Αναζήτηση",
@@ -7239,8 +7233,7 @@
       "pageTitle": "Τοπικές πληροφορίες για εσάς",
       "metaDescription": "Η εφαρμογή {{appName}} είναι ο ψηφιακός σας οδηγός για τη Γερμανία. Βρείτε τοπικές πληροφορίες, εκδηλώσεις και συμβουλές. Πάντα ενημερωμένες και στη γλώσσα σας.",
       "cityNotFound": "Δεν βρήκατε την περιοχή σας; Δραστηριοποιηθείτε τώρα!",
-      "suggestToRegion": "Προτείνετε {{appName}} στην περιοχή σας",
-      "searchCityDescription": "Επιλέξτε την περιοχή σας ή την αμέσως μεγαλύτερη πόλη, π.χ. την περιφέρεια του Μονάχου"
+      "suggestToRegion": "Προτείνετε {{appName}} στην περιοχή σας"
     },
     "en": {
       "welcome": "Welcome to {{appName}}.",
@@ -7260,7 +7253,7 @@
       "metaDescription": "{{appName}} is your digital guide to life in Germany. Discover local information, events and advice. Always up to date and available in your own language.",
       "cityNotFound": "Your region not found? Take action now.",
       "suggestToRegion": "Suggest {{appName}} to your region",
-      "searchCityDescription": "Choose your region or the next largest city, e.g. Landkreis München"
+      "searchCityDescription": "Choose your region or the next largest city, e.g. {{exampleCity}}"
     },
     "es": {
       "searchCity": "Búsqueda",
@@ -7277,8 +7270,7 @@
       "pageTitle": "Información local para ti",
       "metaDescription": "{{appName}} es tu guía digital de Alemania. Encuentra información local, eventos y consejos. Siempre al día y en tu idioma.",
       "cityNotFound": "¿No has encontrado tu región? ¡Actívate ya!",
-      "suggestToRegion": "Propón {{appName}} para tu región",
-      "searchCityDescription": "Selecciona tu región o la siguiente ciudad más grande, por ejemplo, el distrito de Múnich"
+      "suggestToRegion": "Propón {{appName}} para tu región"
     },
     "fi": {
       "searchCity": "Haku",
@@ -7295,8 +7287,7 @@
       "pageTitle": "Paikallisia tietoja sinulle",
       "metaDescription": "{{appName}} on digitaalinen Saksa-oppaasi. Löydä paikallisia tietoja, tapahtumia ja neuvoja. Aina ajan tasalla ja omalla äidinkielelläsi.",
       "cityNotFound": "Etkö löytänyt aluettasi? Aktivoidu nyt!",
-      "suggestToRegion": "Ehdota sovellusta {{appName}} alueellasi",
-      "searchCityDescription": "Valitse alueesi tai seuraavaksi suurin kaupunki, kuten Münchenin piirikunta"
+      "suggestToRegion": "Ehdota sovellusta {{appName}} alueellasi"
     },
     "fr": {
       "searchCity": "Recherche",
@@ -7313,8 +7304,7 @@
       "pageTitle": "Informations locales pour toi",
       "metaDescription": "{{appName}} est ton guide numérique pour l’Allemagne. Trouve des conseils, des informations locales, des événements près de chez toi. Toujours à jour et dans ta langue.",
       "cityNotFound": "Tu n’as pas trouvé ta région ? Active-la dès maintenant !",
-      "suggestToRegion": "Proposer {{appName}} dans ta région",
-      "searchCityDescription": "Choisis ta région ou la ville la plus proche, par ex. la région de Munich"
+      "suggestToRegion": "Proposer {{appName}} dans ta région"
     },
     "hi": {
       "searchCity": "खोजें",
@@ -7331,8 +7321,7 @@
       "pageTitle": "आपके लिए स्थानीय जानकारी",
       "metaDescription": "{{appName}} जर्मनी में जीवन के लिए आपकी डिजिटल मार्गदर्शिका है। स्थानीय जानकारी, ईवेंट और सलाह की खोज करें। हमेशा अद्यतन और आपकी अपनी भाषा में उपलब्ध है।",
       "cityNotFound": "आपका क्षेत्र नहीं मिला? अभी कार्रवाई करें।",
-      "suggestToRegion": "अपने क्षेत्र के लिए {{appName}} का सुझाव दें",
-      "searchCityDescription": "अपना क्षेत्र या उससे बड़ा कोई शहर चुनें, जैसे - Landkreis"
+      "suggestToRegion": "अपने क्षेत्र के लिए {{appName}} का सुझाव दें"
     },
     "hr": {
       "searchCity": "Pretraživanje",
@@ -7349,8 +7338,7 @@
       "pageTitle": "Lokalne informacije za tebe",
       "metaDescription": "{{appName}} je tvoj digitalni vodič za Njemačku. Nađi lokalne informacije, manifestacije i savjetovališta. Uvijek aktualno i na tvom jeziku.",
       "cityNotFound": "Tvoja regija nije pronađena? Aktiviraj se!",
-      "suggestToRegion": "Predloži {{appName}} u svojoj regiji",
-      "searchCityDescription": "Odaberi svoju regiju ili najbliži grad, npr. okrug Münchena"
+      "suggestToRegion": "Predloži {{appName}} u svojoj regiji"
     },
     "hu": {
       "searchCity": "Keresés",
@@ -7367,8 +7355,7 @@
       "pageTitle": "Lokale Informationen für Dich",
       "metaDescription": "{{appName}} a digitális útikalauza Németországba. Itt talál helyi információkat, eseményeket és tippeket. Mindig naprakész és magyarul beszél.",
       "cityNotFound": "Nem találja a régióját? Legyél most aktív!",
-      "suggestToRegion": "{{appName}} javaslata a régiójában",
-      "searchCityDescription": "Válaszd ki a lakhelyedet vagy a legközelebbi nagyvárost, pl. München járást"
+      "suggestToRegion": "{{appName}} javaslata a régiójában"
     },
     "id": {
       "searchCity": "Cari",
@@ -7386,7 +7373,7 @@
       "metaDescription": "{{appName}} adalah panduan digital untuk kehidupan di Jerman. Temukan informasi lokal, acara dan saran. Selalu diperbarui dan tersedia dalam bahasa Anda sendiri.",
       "cityNotFound": "Wilayah Anda tidak ditemukan? Ambil tindakan sekarang.",
       "suggestToRegion": "Sarankan {{appName}} di wilayah Anda",
-      "searchCityDescription": "Pilih wilayah Anda atau kota terbesar berikutnya, misalnya Landkreis München"
+      "searchCityDescription": "Pilih wilayah Anda atau kota terbesar berikutnya, misalnya {{exampleCity}}"
     },
     "it": {
       "searchCity": "Ricerca",
@@ -7403,8 +7390,7 @@
       "pageTitle": "Informazioni locali per te",
       "metaDescription": "{{appName}} è la tua guida digitale in Germania. Trova informazioni, eventi e consigli locali. Sempre aggiornata e nella tua lingua.",
       "cityNotFound": "Non hai trovato la tua regione? Attivati subito!",
-      "suggestToRegion": "Suggerisci {{appName}} nella tua regione",
-      "searchCityDescription": "Seleziona la tua regione o la città capoluogo, ad esempio hinterland di Milano"
+      "suggestToRegion": "Suggerisci {{appName}} nella tua regione"
     },
     "ka": {
       "searchCity": "ძებნა",
@@ -7421,8 +7407,7 @@
       "pageTitle": "ადგილობრივი ინფორმაციები შენთვის",
       "metaDescription": "{{appName}} შენი ციფრული გზამკვლევია გერმანიისთვის. მოიძიე ადგილობრივი ინფორმაციები, ღონისძიებები და კონსულტაციები. ყოველთვის აქტუალური და შენს ენაზე.",
       "cityNotFound": "ვერ იპოვე შენი რეგიონი? გახდი აქტიური!",
-      "suggestToRegion": "აპისთვის {{appName}} რეკომენდაციის გაწევა შენს რეგიონში",
-      "searchCityDescription": "აირჩიეთ თქვენი რეგიონი ან ყველაზე დიდი ახლომდებარე ქალაქი, მაგალითად, მიუნხენის რაიონი."
+      "suggestToRegion": "აპისთვის {{appName}} რეკომენდაციის გაწევა შენს რეგიონში"
     },
     "kmr": {
       "searchCity": "Lêgerîn",
@@ -7440,7 +7425,7 @@
       "metaDescription": "{{appName}} Rêbernameya te ya dîjîtal ji bo Almanyayê ye. Zanyarî, rûdan û pêşniyazên xwecihî bibîne, Hertim birojkirî û bi zimanê te yê sereke.",
       "cityNotFound": "Te navçeya xwe peyda nekir? Aniha çalak bibe!",
       "suggestToRegion": "{{appName}} Pêşniyaz li navçeya te bixwe",
-      "searchCityDescription": "Navçeya xwe yan bajarê herî mezin ê din bibijêre, wek mînak B. Landkreis München"
+      "searchCityDescription": "Navçeya xwe yan bajarê herî mezin ê din bibijêre, wek mînak B. {{exampleCity}}"
     },
     "mk": {
       "searchCity": "Барај",
@@ -7457,8 +7442,7 @@
       "pageTitle": "Локални информации за вас",
       "metaDescription": "{{appName}} е вашиот дигитален водич за Германија. Најдете локални информации, настани и совети. Секогаш актуелни и на вашиот јазик.",
       "cityNotFound": "Не го најдовте вашиот регион? Активирајте се сега!",
-      "suggestToRegion": "Предложете {{appName}} во вашиот регион",
-      "searchCityDescription": "Изберете го вашиот регион или најблискиот поголем град, на пр., општината Минхен"
+      "suggestToRegion": "Предложете {{appName}} во вашиот регион"
     },
     "nl": {
       "searchCity": "Zoek",
@@ -7475,8 +7459,7 @@
       "pageTitle": "Lokale informatie voor jou",
       "metaDescription": "{{appName}} is jouw digitale gids voor Duitsland. Vind lokale informatie, evenementen en advies. Altijd up-to-date en in jouw taal.",
       "cityNotFound": "Jouw regio niet gevonden? Word nu actief!",
-      "suggestToRegion": "{{appName}} in jouw regio voorstellen",
-      "searchCityDescription": "Selecteer je regio of de eerstvolgende grootste stad, bijvoorbeeld het district München"
+      "suggestToRegion": "{{appName}} in jouw regio voorstellen"
     },
     "orm": {
       "searchCity": "Barbaadi",
@@ -7494,7 +7477,7 @@
       "metaDescription": "{{appName}} kun qajeelfama dijitaalaa jireenya keessan Jarman keessaadha. Odeeffannoo naannoo, sagantaalee fi gorsa argadhu. Yeroo hunda yeroo ammaa fi afaan keessaniin kan argamu.",
       "cityNotFound": "Naannoon keessan hin jiruu? Amma tarkaanfii fudhadhuu.",
       "suggestToRegion": "Naannoo keetiif {{appName}} kenni",
-      "searchCityDescription": "Naannoo ykn magaalaa guddaa ittaanu filadhu, fkn Landkreis München"
+      "searchCityDescription": "Naannoo ykn magaalaa guddaa ittaanu filadhu, fkn {{exampleCity}}"
     },
     "pes": {
       "searchCity": "جستجو",
@@ -7511,8 +7494,7 @@
       "pageTitle": "اطلاعات محلی برای شما",
       "metaDescription": "{{appName}} راهنمای دیجیتال شما برای کشور آلمان است. شما می‌توانید اطلاعات محلی، رویدادها و خدمات مشاوره را در آن بیابید. همواره به روز و به زبان خودتان.",
       "cityNotFound": "منطقه خود را پیدا نکردید؟ هم اکنون فعال شوید!",
-      "suggestToRegion": "{{appName}} پیشنهاد در منطقه خودتان",
-      "searchCityDescription": "منطقه خود یا بزرگترین شهر نزدیک، به عنوان مثال منطقه مونیخ را انتخاب کنید"
+      "suggestToRegion": "{{appName}} پیشنهاد در منطقه خودتان"
     },
     "pl": {
       "searchCity": "Wyszukaj",
@@ -7529,8 +7511,7 @@
       "pageTitle": "Lokale Informationen für Dich",
       "metaDescription": "{{appName}} to Twój cyfrowy przewodnik po Niemczech. Znajdź lokalne informacje, wydarzenia i porady. Zawsze aktualne i w Twoim języku.",
       "cityNotFound": "Nie udało Ci się znaleźć Twojego regionu? Zacznij działać już teraz!",
-      "suggestToRegion": "Zaproponuj {{appName}} w Twoim regionie",
-      "searchCityDescription": "Wybierz swój region lub najbliższe duże miasto, np. powiat Monachium"
+      "suggestToRegion": "Zaproponuj {{appName}} w Twoim regionie"
     },
     "prs": {
       "searchCity": "جستجو",
@@ -7547,8 +7528,7 @@
       "pageTitle": "معلومات محلی برای شما",
       "metaDescription": "{{appName}} رهنمای دیجیتال شما برای کشور آلمان است. شما می توانید معلومات محلی، رویدادها و خدمات مشوره دهی را در آن بیابید. همیشه تازه و به زبان خودتان.",
       "cityNotFound": "منطقه خود را پیدا نکردید؟ هم اکنون فعال شوید!",
-      "suggestToRegion": "پیشنهاد {{appName}} در منطقه خودتان",
-      "searchCityDescription": "منطقه خود یا نزدیکترین شهر بزرگتر را انتخاب نمایید، مثلاً منطقه مونیخ"
+      "suggestToRegion": "پیشنهاد {{appName}} در منطقه خودتان"
     },
     "ps": {
       "searchCity": "لټون",
@@ -7565,8 +7545,7 @@
       "pageTitle": "ستاسو لپاره ځايي معلومات",
       "metaDescription": "{{appName}} د جرمني لپاره ستاسو ډيجټلي لارښود دی. ځايي معلومات، مراسم او سپارښتنې په هغې کې ومومئ. تل تازه او ستاسو په ژبه.",
       "cityNotFound": "خپله منطقه مو پيدا نکړه؟ همدا اوس فعال شئ!",
-      "suggestToRegion": "ستاسو په منطقه کې د {{appName}} وړانديز وکړئ",
-      "searchCityDescription": "خپله سیمه یا نږدې نسبتاً لوی ښار غوره کړئ، د بیلګې په توګه، د میونيخ منطقه"
+      "suggestToRegion": "ستاسو په منطقه کې د {{appName}} وړانديز وکړئ"
     },
     "pt": {
       "searchCity": "Procura",
@@ -7583,8 +7562,7 @@
       "pageTitle": "Regiões",
       "metaDescription": "A {{appName}} é o seu guia digital da Alemanha. Consulte informações, eventos e conselhos a nível local. Sempre atualizada e disponível no seu idioma.",
       "cityNotFound": "Não encontraste a tua região? Torna-te ativo agora!",
-      "suggestToRegion": "sugerir {{appName}} na tua região",
-      "searchCityDescription": "Seleciona a tua região ou a cidade mais importante seguinte, por exemplo, o distrito de Munique"
+      "suggestToRegion": "sugerir {{appName}} na tua região"
     },
     "ro": {
       "searchCity": "Căutare",
@@ -7601,8 +7579,7 @@
       "pageTitle": "Informații locale pentru dumneavoastră",
       "metaDescription": "{{appName}} este ghidul tău digital pentru Germania. Găsiți informații, evenimente și sfaturi locale. Întotdeauna actualizate și în limba dumneavoastră.",
       "cityNotFound": "Nu v-ați găsit regiunea? Fii activ acum!",
-      "suggestToRegion": "{{appName}} sugerat în regiunea dvs.",
-      "searchCityDescription": "Selectați regiunea dumneavoastră sau următorul oraș ca mărime, de exemplu districtul München"
+      "suggestToRegion": "{{appName}} sugerat în regiunea dvs."
     },
     "rom": {
       "searchCity": "Rode",
@@ -7620,7 +7597,7 @@
       "metaDescription": "{{appName}} tano to digitalno legarutno e dživdipaskoro ki Germania. Pučar lokalnikane informacie, čipote thaj dejbe godi. Sakana ov haberi kerdo thaj šajdin ki tiri čhib.",
       "cityNotFound": "To regioni na sine arakhlo? Ker akcia akana.",
       "suggestToRegion": "Preporučin {{appName}} ki ti regia",
-      "searchCityDescription": "Birin ti regia jali aver majbari diz, sar so si o Landkreis München"
+      "searchCityDescription": "Birin ti regia jali aver majbari diz, sar so si o {{exampleCity}}"
     },
     "ru": {
       "searchCity": "Поиск",
@@ -7637,8 +7614,7 @@
       "pageTitle": "Местная информация для тебя",
       "metaDescription": "{{appName}} – это твой цифровой путеводитель по Германии. Узнавай местные новости, находи информацию о мероприятиях и консультациях. Всегда актуально и на твоем языке.",
       "cityNotFound": "Не удалось найти свой регион? Бери инициативу в свои руки!",
-      "suggestToRegion": "Предложить {{appName}} в своем регионе",
-      "searchCityDescription": "Выберите свой регион или следующий по величине город, например, район Мюнхена"
+      "suggestToRegion": "Предложить {{appName}} в своем регионе"
     },
     "sk": {
       "searchCity": "Vyhľadávanie",
@@ -7655,8 +7631,7 @@
       "pageTitle": "Lokálne informácie pre vás",
       "metaDescription": "{{appName}} je váš digitálny sprievodca po Nemecku. Nájdite miestne informácie, podujatia a poradenstvo. Vždy aktuálne a vo vašom jazyku.",
       "cityNotFound": "Nenašli ste svoj región? Buďte aktívni teraz!",
-      "suggestToRegion": "navrhnúť {{appName}} vo vašom regióne",
-      "searchCityDescription": "Vyberte svoj región alebo najbližšie najväčšie mesto, napr. okres Mníchov"
+      "suggestToRegion": "navrhnúť {{appName}} vo vašom regióne"
     },
     "so": {
       "searchCity": "Raadi",
@@ -7673,8 +7648,7 @@
       "pageTitle": "Macluumaadkan gudaha ee laguugu talogalay adiga",
       "metaDescription": "{{appName}} waa hage-haaga dhijitaalka ah ee Jarmalka. ka raadi macluumaadka gudaha, dhacdooyinka, iyo tallooyinka. Had iyo jeer la soco ka cusaybka iyo luqadaada.",
       "cityNotFound": "Ma heli kartaa gobolkaaga? Hadda hel!",
-      "suggestToRegion": "Soo jeedi {{appName}} gobolkaaga",
-      "searchCityDescription": "Dooro deegaankaaga ama magaalada ugu weyn ee kugu dhow, tusaale ahaan Degmada München."
+      "suggestToRegion": "Soo jeedi {{appName}} gobolkaaga"
     },
     "sq": {
       "searchCity": "Kërko",
@@ -7691,8 +7665,7 @@
       "pageTitle": "Informacione vendase për ty",
       "metaDescription": "{{appName}} është udhëzuesi yt digjital për Gjermaninë. Gjej informacione, evenimente dhe këshillime vendase. Gjithmonë aktuale dhe në gjuhën tënde.",
       "cityNotFound": "Nuk e gjete rajonin tënd? Vepro tani!",
-      "suggestToRegion": "Sugjero {{appName}} në rajonin tënd",
-      "searchCityDescription": "Zgjidh rajonin tënd ose qytetin më të madh afër, p.sh. rrethi i Mynihut"
+      "suggestToRegion": "Sugjero {{appName}} në rajonin tënd"
     },
     "sr-Cyrl": {
       "searchCity": "Претраживање",
@@ -7709,8 +7682,7 @@
       "pageTitle": "Локалне информације за тебе",
       "metaDescription": "{{appName}} је твој дигитални водич за Немачку. Нађи локалне информације, манифестације и саветовалишта. Увек актуелно и на твом језику.",
       "cityNotFound": "Твоја регија није пронађена? Активирај се!",
-      "suggestToRegion": "Предложи {{appName}} у својој регији",
-      "searchCityDescription": "Изабери своју регију или најближи град, нпр. округ Минхена"
+      "suggestToRegion": "Предложи {{appName}} у својој регији"
     },
     "sr-Latn": {
       "searchCity": "Pretraživanje",
@@ -7727,8 +7699,7 @@
       "pageTitle": "Lokalne informacije za tebe",
       "metaDescription": "{{appName}} je tvoj digitalni vodič za Nemačku. Nađi lokalne informacije, manifestacije i savetovališta. Uvek aktuelno i na tvom jeziku.",
       "cityNotFound": "Tvoja regija nije pronađena? Aktiviraj se!",
-      "suggestToRegion": "Predloži {{appName}} u svojoj regiji",
-      "searchCityDescription": "Izaberi svoju regiju ili najbliži grad, npr. okrug Minhena"
+      "suggestToRegion": "Predloži {{appName}} u svojoj regiji"
     },
     "sw": {
       "searchCity": "Tafuta",
@@ -7746,7 +7717,7 @@
       "metaDescription": "{{appName}} ni mwongozo wako wa mtandaoni wa maisha nchini Ujerumani. Pata habari za nchini, matukio na ushauri. Ni sahihi kila wakati na zinapatikana kwa lugha yako.",
       "cityNotFound": "Eneo lako halijapatikana? Chukua hatua sasa.",
       "suggestToRegion": "Pendekeza {{appName}} kwa eneo lako",
-      "searchCityDescription": "Chagua eneo lako au jiji kubwa linalofuata, k.m. Landkreis München"
+      "searchCityDescription": "Chagua eneo lako au jiji kubwa linalofuata, k.m. {{exampleCity}}"
     },
     "th": {
       "searchCity": "ค้นหา",
@@ -7763,8 +7734,7 @@
       "pageTitle": "ข้อมูลท้องถิ่นสำหรับคุณ",
       "metaDescription": "{{appName}} คือคู่มือดิจิทัลของคุณสำหรับประเทศเยอรมนี ค้นหาข้อมูล กิจกรรม และคำแนะนำในพื้นที่ท้องถิ่น อัปเดตอยู่เสมอและเป็นภาษาของคุณ",
       "cityNotFound": "ไม่พบภูมิภาคของคุณใช่ไหม? ดำเนินการทันที!",
-      "suggestToRegion": "แนะนำ {{appName}} ในภูมิภาคของคุณ",
-      "searchCityDescription": "เลือกภูมิภาคของคุณหรือเมืองใหญ่ที่ใกล้ที่สุด เช่น เขตมิวนิก"
+      "suggestToRegion": "แนะนำ {{appName}} ในภูมิภาคของคุณ"
     },
     "ti": {
       "searchCity": "ምድላይ",
@@ -7781,8 +7751,7 @@
       "pageTitle": "ንዓኻ ዝኸውን ናይ ከባቢ ሓበሬታ",
       "metaDescription": "{{appName}} ንጀርመን ዝኸውን ዲጂታላዊ መምርሒኹም እዩ። ኣብቲ ከባቢ ዝርከብ ሓበሬታ፡ ፍጻመታትን ምኽርን ድለ። ኩሉ ግዜ እዋናዊን ብቋንቋኻን።",
       "cityNotFound": "ዞባኻ ኣይረኸብካን? ሕጂ ንጡፋት ኩኑ!",
-      "suggestToRegion": "ኣብ ዞባኹም {{appName}} ሓሳብ ሃቡ.",
-      "searchCityDescription": "ዞባኹም ወይ እታ ዝቐረበት ዓባይ ከተማ ምረጹ፣ ንኣብነት፣ ኣውራጃ ሙኒክ"
+      "suggestToRegion": "ኣብ ዞባኹም {{appName}} ሓሳብ ሃቡ."
     },
     "tr": {
       "searchCity": "Arama",
@@ -7799,8 +7768,7 @@
       "pageTitle": "Senin için yerel bilgiler",
       "metaDescription": "{{appName}} Almanya için senin dijital rehberin. Yerel bilgiler, etkinlikler ve öneriler bul. Her zaman güncel ve senin dilinde.",
       "cityNotFound": "Bölgeni bulamadın mı? Şimdi aktif ol!",
-      "suggestToRegion": "Bölgende {{appName}} uygulamasını öner",
-      "searchCityDescription": "Bölgeni veya sana en yakın büyük şehri (örn. Münih Bölgesi) seç."
+      "suggestToRegion": "Bölgende {{appName}} uygulamasını öner"
     },
     "uk": {
       "searchCity": "Пошук",
@@ -7817,8 +7785,7 @@
       "pageTitle": "Місцева інформація для вас",
       "metaDescription": "{{appName}} — ваш цифровий путівник Німеччиною. Знаходьте місцеву інформацію, події та консультації. Завжди актуальні відомості вашою мовою.",
       "cityNotFound": "Не знайшли свій регіон? Проявіть активність!",
-      "suggestToRegion": "Розкажіть про {{appName}} у своєму регіоні",
-      "searchCityDescription": "Виберіть свій регіон або найближче найбільше місто, наприклад, район Мюнхена"
+      "suggestToRegion": "Розкажіть про {{appName}} у своєму регіоні"
     },
     "ur": {
       "searchCity": "تلاش کریں",
@@ -7835,8 +7802,7 @@
       "pageTitle": "آپ کے لیے مقامی معلومات",
       "metaDescription": "{{appName}} جرمنی میں زندگی کے لیے آپ کا ڈیجیٹل گائیڈ ہے۔ مقامی معلومات، واقعات اور مشورے دریافت کریں۔ ہمیشہ تازہ ترین اور آپ کی اپنی زبان میں دستیاب۔",
       "cityNotFound": "آپ کا علاقہ نہیں ملا؟ ابھی فعال ہو جاؤ!",
-      "suggestToRegion": "اپنے علاقے میں {{appName}} تجویز کریں",
-      "searchCityDescription": "اپنا علاقہ یا قریب ترین بڑا شہر منتخب کریں، جیسے میونخ ضلع"
+      "suggestToRegion": "اپنے علاقے میں {{appName}} تجویز کریں"
     },
     "vi": {
       "searchCity": "Tìm kiếm",
@@ -7854,7 +7820,7 @@
       "metaDescription": "{{appName}} là cẩm nang kỹ thuật số giúp bạn thích nghi với cuộc sống tại Đức. Khám phá thông tin, sự kiện và lời khuyên về địa phương. Luôn được cập nhật và có sẵn bằng tiếng mẹ đẻ của bạn.",
       "cityNotFound": "Không tìm thấy khu vực của bạn? Hành động ngay.",
       "suggestToRegion": "Đề xuất {{appName}} cho khu vực của bạn",
-      "searchCityDescription": "Chọn khu vực của bạn hoặc thành phố lớn nhất gần đó, ví dụ: Landkreis München"
+      "searchCityDescription": "Chọn khu vực của bạn hoặc thành phố lớn nhất gần đó, ví dụ: {{exampleCity}}"
     },
     "zh-CN": {
       "searchCity": "搜索",
@@ -7871,8 +7837,7 @@
       "pageTitle": "为您提供本地信息",
       "metaDescription": "{{appName}} 是您的德国数字指南。查找当地信息、活动和信息咨询。始终以您的语言提供最新资讯。",
       "cityNotFound": "没有找到您所在的地区？现在就行动起来！",
-      "suggestToRegion": "向您所在的地区推荐 {{appName}}",
-      "searchCityDescription": "选择您的地区或最近的大城市，如慕尼黑地区。"
+      "suggestToRegion": "向您所在的地区推荐 {{appName}}"
     }
   },
   "layout": {
