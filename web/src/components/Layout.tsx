@@ -3,12 +3,12 @@ import Stack from '@mui/material/Stack'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode } from 'react'
 
-import { MAIN_ELEMENT_ID } from '../constants'
 import useDimensions from '../hooks/useDimensions'
 import MobileBanner from './MobileBanner'
-import SkipLinks from './SkipLinks'
+import SkipToContent from './SkipToContent'
 
 export const LAYOUT_ELEMENT_ID = 'layout'
+export const MAIN_ELEMENT_ID = 'main'
 
 export const RichLayout = styled('div')`
   position: relative;
@@ -107,7 +107,7 @@ const Layout = ({ footer, header, toolbar, children, fitScreen = false }: Layout
 
   return (
     <RichLayout id={LAYOUT_ELEMENT_ID}>
-      <SkipLinks />
+      <SkipToContent />
       {!fitScreen && <MobileBanner />}
       {header}
       <Body fitScreen={fitScreen}>

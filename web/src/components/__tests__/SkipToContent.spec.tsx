@@ -1,13 +1,13 @@
 import React from 'react'
 
 import { renderWithTheme } from '../../testing/render'
-import SkipLinks from '../SkipLinks'
+import SkipToContent from '../SkipToContent'
 
 jest.mock('react-i18next')
 
-describe('SkipLinks', () => {
+describe('SkipToContent', () => {
   it('should render skip links', () => {
-    const { getByText } = renderWithTheme(<SkipLinks />)
+    const { getByText } = renderWithTheme(<SkipToContent />)
 
     expect(getByText('layout:skipToContent')).toBeTruthy()
   })

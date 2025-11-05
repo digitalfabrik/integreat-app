@@ -6,22 +6,20 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { MAIN_ELEMENT_ID } from '../constants'
+import { MAIN_ELEMENT_ID } from './Layout'
 
 const SkipLink = styled(Button)`
   position: fixed;
-  display: flex;
-  left: 20px;
-  top: 50px;
+  left: 16px;
+  top: 48px;
   gap: 8px;
   background-color: ${props => props.theme.palette.background.paper};
-  opacity: 0;
   z-index: -1;
   transition:
     top 0.2s,
     opacity 0.2s;
 
-  &:focus {
+  :focus {
     top: 20px;
     opacity: 1;
     z-index: 10000;
@@ -29,25 +27,23 @@ const SkipLink = styled(Button)`
   }
 `
 
-const SkipLinks = (): ReactElement => {
+const SkipToContent = (): ReactElement => {
   const { t } = useTranslation('layout')
   const [backdropOpen, setBackdropOpen] = useState(false)
 
   return (
     <>
       <Backdrop open={backdropOpen} style={{ zIndex: 9999 }} />
-      <div aria-label='Skip links'>
-        <SkipLink
-          disableFocusRipple
-          href={`#${MAIN_ELEMENT_ID}`}
-          onFocus={() => setBackdropOpen(true)}
-          onBlur={() => setBackdropOpen(false)}>
-          {t('skipToContent')}
-          <Chip label='ENTER' color='primary' icon={<KeyboardReturnIcon />} size='small' />
-        </SkipLink>
-      </div>
+      <SkipLink
+        disableFocusRipple
+        href={`#${MAIN_ELEMENT_ID}`}
+        onFocus={() => setBackdropOpen(true)}
+        onBlur={() => setBackdropOpen(false)}>
+        {t('skipToContent')}
+        <Chip label='ENTER' color='primary' icon={<KeyboardReturnIcon />} size='small' />
+      </SkipLink>
     </>
   )
 }
 
-export default SkipLinks
+export default SkipToContent
