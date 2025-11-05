@@ -44,7 +44,7 @@ const SearchResults = ({ query, loading, results }: SearchProps): ReactElement |
   }
 
   if (loading) {
-    return <SkeletonList showItemIcon={false} listItemHeight={86} />
+    return <SkeletonList listItemHeight={86} />
   }
 
   const items = results.map(({ title, content, path }) => (

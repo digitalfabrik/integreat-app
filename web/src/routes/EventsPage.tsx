@@ -20,9 +20,8 @@ import Helmet from '../components/Helmet'
 import JsonLdEvent from '../components/JsonLdEvent'
 import Page, { THUMBNAIL_WIDTH } from '../components/Page'
 import PageDetail from '../components/PageDetail'
-import PageSkeleton from '../components/PageSkeleton'
-import SkeletonHeader from '../components/SkeletonHeader'
 import SkeletonList from '../components/SkeletonList'
+import SkeletonPage from '../components/SkeletonPage'
 import H1 from '../components/base/H1'
 import List from '../components/base/List'
 import { cmsApiBaseUrl } from '../constants/urls'
@@ -94,8 +93,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     if (!events) {
       return (
         <CityContentLayout isLoading {...locationLayoutParams}>
-          <SkeletonHeader />
-          <PageSkeleton />
+          <SkeletonPage />
         </CityContentLayout>
       )
     }
@@ -157,7 +155,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
       {events ? (
         <List items={items} NoItemsMessage='events:currentlyNoEvents' />
       ) : (
-        <SkeletonList listItemHeight={160} listItemIcon={<Icon />} />
+        <SkeletonList listItemHeight={80} listItemIcon={<Icon />} />
       )}
     </CityContentLayout>
   )

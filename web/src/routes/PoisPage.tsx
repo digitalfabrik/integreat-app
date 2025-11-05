@@ -97,7 +97,7 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
           <SkeletonListContainer container paddingX={2}>
             <Stack width='100%'>
               <SkeletonHeader width='90%' />
-              <SkeletonList showItemIcon={false} />
+              <SkeletonList />
             </Stack>
           </SkeletonListContainer>
           <MapSkeleton container>

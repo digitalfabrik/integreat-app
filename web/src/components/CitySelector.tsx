@@ -66,7 +66,7 @@ const CitySelector = ({ cities, language, stickyTop }: CitySelectorProps): React
           <List items={groups} NoItemsMessage='search:nothingFound' />
         </Stack>
       ) : (
-        <SkeletonList showItemIcon={false} />
+        <SkeletonList listItemHeight={40} />
       )}
     </Stack>
   )
