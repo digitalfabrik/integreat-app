@@ -4,6 +4,7 @@ import React, { ReactElement } from 'react'
 import { NEWS_ROUTE, RATING_NEGATIVE, RATING_POSITIVE } from 'shared'
 
 import useCityContentParams from '../hooks/useCityContentParams'
+import useUpdateDimensions from '../hooks/useUpdateDimensions'
 import FeedbackToolbarItem from './FeedbackToolbarItem'
 
 export const TOOLBAR_ELEMENT_ID = 'toolbar'
@@ -14,6 +15,7 @@ type CityContentToolbarProps = {
 
 const CityContentToolbar = ({ slug }: CityContentToolbarProps): ReactElement | null => {
   const { route } = useCityContentParams()
+  useUpdateDimensions()
 
   if (route === NEWS_ROUTE) {
     // Feedback is currently not supported for the news route
