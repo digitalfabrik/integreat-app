@@ -15,9 +15,6 @@ jobs:
           build_config_name: [integreat, malte, aschaffenburg, obdach]
       requires:
         - bump_version
-  - generate_sbom:
-      requires:
-        - build_web
   - deliver_web:
       delivery: production
       context:
@@ -26,7 +23,6 @@ jobs:
         - check
         - e2e_web
         - build_web
-        - generate_sbom
   - notify_release:
       production_delivery: true
       platform: web
