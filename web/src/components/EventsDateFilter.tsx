@@ -10,7 +10,6 @@ import { DateTime } from 'luxon'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import useDimensions from '../hooks/useDimensions'
 import DatePicker from './DatePicker'
 
 type EventsDateFilterProps = {
@@ -29,7 +28,6 @@ const EventsDateFilter = ({
   setEndDate,
 }: EventsDateFilterProps): ReactElement => {
   const [showDateFilter, setShowDateFilter] = useState(false)
-  const { mobile } = useDimensions()
   const { t } = useTranslation('events')
 
   const formattedStartDate = startDate?.toFormat('dd.MM.yyyy') ?? '∞'
@@ -44,7 +42,7 @@ const EventsDateFilter = ({
           </Button>
         </AccordionSummary>
         <AccordionDetails>
-          <Stack direction={mobile ? 'column' : 'row'} justifyContent='space-evenly' alignItems='center' gap={2}>
+          <Stack direction='row' justifyContent='space-evenly' alignItems='start' flexWrap='wrap' gap={2}>
             <DatePicker
               title={t('from')}
               date={startDate}
