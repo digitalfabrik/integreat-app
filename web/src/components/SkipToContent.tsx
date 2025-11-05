@@ -8,20 +8,17 @@ import { useTranslation } from 'react-i18next'
 
 import { MAIN_ELEMENT_ID } from './Layout'
 
-const SkipLink = styled(Button)`
+const StyledButton = styled(Button)`
   position: fixed;
   left: 16px;
   top: 48px;
   gap: 8px;
   background-color: ${props => props.theme.palette.background.paper};
   z-index: -1;
-  transition:
-    top 0.2s,
-    opacity 0.2s;
+  transition: top 0.2s;
 
   :focus {
     top: 20px;
-    opacity: 1;
     z-index: 10000;
     outline: 2px solid ${props => props.theme.palette.primary.main} !important;
   }
@@ -34,14 +31,14 @@ const SkipToContent = (): ReactElement => {
   return (
     <>
       <Backdrop open={backdropOpen} style={{ zIndex: 9999 }} />
-      <SkipLink
+      <StyledButton
         disableFocusRipple
         href={`#${MAIN_ELEMENT_ID}`}
         onFocus={() => setBackdropOpen(true)}
         onBlur={() => setBackdropOpen(false)}>
         {t('skipToContent')}
         <Chip label='ENTER' color='primary' icon={<KeyboardReturnIcon />} size='small' />
-      </SkipLink>
+      </StyledButton>
     </>
   )
 }
