@@ -16,9 +16,6 @@ jobs:
         - credentials-integreat
       requires:
         - bump_version
-  - generate_sbom:
-      requires:
-        - build_android
   - e2e_android:
       context:
         - browserstack
@@ -37,7 +34,6 @@ jobs:
         - check
         - e2e_android
         - build_android-<< matrix.build_config_name >>
-        - generate_sbom
   - build_ios:
       matrix:
         parameters:
@@ -47,9 +43,6 @@ jobs:
         - fastlane-match
       requires:
         - bump_version
-  - generate_sbom:
-      requires:
-        - build_ios
   - e2e_ios:
       context:
         - browserstack
@@ -68,7 +61,6 @@ jobs:
         - check
         - e2e_ios
         - build_ios-<< matrix.build_config_name >>
-        - generate_sbom
   - notify_release:
       production_delivery: true
       platform: native
