@@ -27,7 +27,6 @@ const Wrapper = styled.View<{ space: boolean }>`
 `
 
 const Description = styled(Text)`
-  width: fit-content;
   padding-left: 28px;
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
