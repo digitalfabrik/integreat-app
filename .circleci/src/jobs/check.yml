@@ -4,7 +4,6 @@ docker:
 resource_class: medium
 environment:
   TOTAL_CPUS: 2 # For resource_class medium
-  TZ: 'Europe/Berlin' # Should be removed in IGAPP-39
 shell: /bin/bash -eo pipefail
 steps:
   - checkout
