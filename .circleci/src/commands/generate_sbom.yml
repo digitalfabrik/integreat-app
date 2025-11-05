@@ -1,5 +1,4 @@
-description: Generate SPDX SBOM using Syft
-
+description: Generate SPDX SBoM using Syft
 steps:
   - run:
       name: Install Syft
@@ -9,20 +8,19 @@ steps:
         export SYFT_SOURCE_NAME="integreat-app"
         export SYFT_FORMAT_SPDX_JSON_PRETTY=true
         syft version
-
   - run:
-      name: Generate SPDX SBOM
+      name: Generate SPDX SBoM
       command: |
-        export SYFT_FORMAT_SPDX_JSON_PRETTY=true
-        echo "Generating unified SBOM for repo root..."
-        syft dir:. -o spdx-json=_manifest/spdx_2.2/manifest.spdx.json
-        echo "SBOM generated at _manifest/spdx_2.2/manifest.spdx.json"
-
+        echo "Generating unified SBoM for repo root..."
+        syft dir:. -o spdx-json=sbom.json
+        echo "SBoM generated at sbom.json"
   - persist_to_workspace:
       root: .
       paths:
-        - _manifest/spdx_2.2/manifest.spdx.json
-
+        - sbom.json
   - store_artifacts:
-      path: _manifest/spdx_2.2/manifest.spdx.json
-      destination: sbom
+      path: sbom.json
+  - persist_to_workspace:
+      root: .
+      paths:
+        - sbom.json
