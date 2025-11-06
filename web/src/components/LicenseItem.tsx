@@ -15,14 +15,14 @@ type LicenseItemProps = {
   name: string
   version: string | undefined
   license: string
-  licenseUrl: string
+  url: string
 }
 
-const LicenseItem = ({ license, name, licenseUrl, version }: LicenseItemProps): ReactElement => {
+const LicenseItem = ({ license, name, url, version }: LicenseItemProps): ReactElement => {
   const { t } = useTranslation('licenses')
   return (
     <ListItem disablePadding>
-      <ListItemButton to={licenseUrl} component={Link}>
+      <ListItemButton to={url} component={Link}>
         <ListItemText
           slotProps={{ primary: { component: 'h2' }, secondary: { component: 'div' } }}
           primary={name}
