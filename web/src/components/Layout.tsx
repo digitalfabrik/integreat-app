@@ -20,10 +20,8 @@ export const RichLayout = styled('div')`
   background-color: ${props => props.theme.palette.background.default};
   font-family: ${props => props.theme.typography.fontFamily};
 
-  & a,
+  a,
   button {
-    cursor: pointer;
-
     &:focus-visible {
       outline: 2px solid ${props => props.theme.palette.text.primary};
     }
@@ -36,7 +34,7 @@ const Body = styled('div')<{ fitScreen: boolean }>`
   margin: 0 auto;
   flex-grow: 1;
   background-color: ${props => props.theme.palette.background.default};
-  word-wrap: break-word;
+  overflow-wrap: break-word;
   min-height: 100%;
   display: flex;
 
@@ -67,7 +65,7 @@ const Main = styled('main')<{ fitScreen: boolean }>`
   margin: 0 auto;
   padding: ${props => (props.fitScreen ? '0' : `0 16px 32px`)};
   text-align: start;
-  word-wrap: break-word;
+  overflow-wrap: break-word;
 
   ${props => props.theme.breakpoints.down('md')} {
     position: static;

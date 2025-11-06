@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { AccessibilityRole, KeyboardTypeOptions } from 'react-native'
-import { KeyboardExtendedInput } from 'react-native-external-keyboard'
 import styled, { css } from 'styled-components/native'
 
 import Text from './Text'
@@ -31,7 +30,7 @@ const Title = styled(ThemedText)`
   text-align: left;
 `
 
-const Input = styled(KeyboardExtendedInput)<{ numberOfLines: number; invalid: boolean }>`
+const Input = styled.TextInput<{ numberOfLines: number; invalid: boolean }>`
   border-width: 1px;
   border-color: ${props => (props.invalid ? props.theme.colors.invalidInput : props.theme.colors.textDecorationColor)};
   color: ${props => props.theme.colors.textColor};
@@ -97,7 +96,6 @@ const InputSection = ({
         keyboardType={keyboardType}
         invalid={invalid}
         returnKeyType='done'
-        blurOnSubmit
         accessibilityRole={accessibilityRole ?? 'search'}
         accessibilityLabel={title}
         accessibilityLabelledBy={description}

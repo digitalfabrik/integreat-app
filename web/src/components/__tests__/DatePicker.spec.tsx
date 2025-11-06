@@ -17,17 +17,10 @@ describe('DatePicker', () => {
   const routePattern = `/:cityCode/:languageCode/${RoutePatterns[EVENTS_ROUTE]}`
   const pathname = '/augsburg/de/events'
 
-  const renderCustomDatePicker = ({ setDate, title, date, error, placeholderDate }: CustomDatePickerProps) =>
+  const renderCustomDatePicker = ({ setDate, title, date, error }: CustomDatePickerProps) =>
     renderRoute(
       <LocalizationProvider dateAdapter={CustomAdapterLuxon} adapterLocale='de'>
-        <DatePicker
-          setDate={setDate}
-          title={title}
-          date={date}
-          error={error}
-          placeholderDate={placeholderDate}
-          calendarLabel='calendar'
-        />
+        <DatePicker setDate={setDate} title={title} date={date} error={error} calendarLabel='calendar' />
       </LocalizationProvider>,
       { pathname, routePattern },
     )
@@ -36,35 +29,29 @@ describe('DatePicker', () => {
     const title = 'From Date'
     const date = DateTime.now()
 
-    const placeholderDate = DateTime.fromISO('2025-04-08')
-
-    const { getByLabelText, getByPlaceholderText } = renderCustomDatePicker({
+    const { getAllByLabelText } = renderCustomDatePicker({
       title,
       date,
       setDate,
       error: '',
-      placeholderDate,
       calendarLabel: 'calendar',
     })
 
-    expect(getByLabelText(title)).toBeInTheDocument()
-    expect(getByPlaceholderText('08.04.2025')).toBeInTheDocument()
+    expect(getAllByLabelText(title)).toHaveLength(2)
   })
 
   it('handles date change correctly', () => {
     const currentDate = DateTime.local(2025, 9, 15)
     const newValue = DateTime.local(2025, 9, 20).setLocale('de')
-    const ariaLabel = `Datum auswählen, gewähltes Datum ist ${currentDate.toLocaleString({ day: 'numeric', month: 'short', year: 'numeric' }, { locale: 'de' })}`
 
     const { getByLabelText, getByText } = renderCustomDatePicker({
       title: 'From Date',
       date: currentDate,
       setDate,
       error: '',
-      placeholderDate: currentDate,
       calendarLabel: 'calendar',
     })
-    fireEvent.click(getByLabelText(ariaLabel))
+    fireEvent.click(getByLabelText('calendar'))
     fireEvent.click(getByText(newValue.day))
 
     expect(setDate).toHaveBeenCalledWith(newValue, { validationError: null })
@@ -72,14 +59,12 @@ describe('DatePicker', () => {
 
   it('displays an error message when error prop is provided', () => {
     const error = 'Invalid date'
-    const placeholderDate = DateTime.now()
 
     const { getByText } = renderCustomDatePicker({
       title: 'From Date',
       date: DateTime.local(),
       setDate,
       error,
-      placeholderDate,
       calendarLabel: 'calendar',
     })
 

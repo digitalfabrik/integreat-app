@@ -10,7 +10,6 @@ import { DateTime } from 'luxon'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import useDimensions from '../hooks/useDimensions'
 import DatePicker from './DatePicker'
 
 type EventsDateFilterProps = {
@@ -29,11 +28,8 @@ const EventsDateFilter = ({
   setEndDate,
 }: EventsDateFilterProps): ReactElement => {
   const [showDateFilter, setShowDateFilter] = useState(false)
-  const { mobile } = useDimensions()
   const { t } = useTranslation('events')
 
-  const today = DateTime.now()
-  const inAWeek = DateTime.now().plus({ week: 1 })
   const formattedStartDate = startDate?.toFormat('dd.MM.yyyy') ?? '∞'
   const formattedEndDate = endDate?.toFormat('dd.MM.yyyy') ?? '∞'
 
@@ -49,20 +45,18 @@ const EventsDateFilter = ({
           </Button>
         </AccordionSummary>
         <AccordionDetails>
-          <Stack direction={mobile ? 'column' : 'row'} justifyContent='space-evenly' alignItems='center' gap={2}>
+          <Stack direction='row' justifyContent='space-evenly' alignItems='start' flexWrap='wrap' gap={2}>
             <DatePicker
               title={t('from')}
               date={startDate}
               setDate={setStartDate}
               error={startDateError ? t(startDateError) : undefined}
-              placeholderDate={today}
               calendarLabel={t('selectStartDateCalendar')}
             />
             <DatePicker
               title={t('to')}
               date={endDate}
               setDate={setEndDate}
-              placeholderDate={inAWeek}
               calendarLabel={t('selectEndDateCalendar')}
             />
           </Stack>
