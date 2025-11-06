@@ -6,6 +6,7 @@ import styled from 'styled-components/native'
 import { EVENTS_ROUTE, RouteInformationType, useDateFilter } from 'shared'
 import { fromError, NotFoundError, CityModel, EventModel } from 'shared/api'
 
+import { LinkIcon } from '../assets'
 import Caption from '../components/Caption'
 import DatesPageDetail from '../components/DatesPageDetail'
 import EventListItem from '../components/EventListItem'
@@ -81,6 +82,16 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
                     information={event.location.fullAddress}
                     language={language}
                     path={event.poiPath}
+                  />
+                )}
+                {event.meetingUrl !== null && (
+                  <PageDetail
+                    Icon={LinkIcon}
+                    isExternalUrl
+                    information={event.meetingUrl}
+                    language={language}
+                    path={event.meetingUrl}
+                    identifier={t('meetingUrl')}
                   />
                 )}
               </PageDetailsContainer>

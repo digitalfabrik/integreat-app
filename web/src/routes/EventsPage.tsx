@@ -1,3 +1,4 @@
+import LinkIcon from '@mui/icons-material/Link'
 import LocationIcon from '@mui/icons-material/LocationOnOutlined'
 import { styled } from '@mui/material/styles'
 import { DateTime } from 'luxon'
@@ -124,7 +125,14 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
               {location && (
                 <PageDetail icon={<LocationIcon />} information={location.fullAddress} path={event.poiPath} />
               )}
-              {meetingUrl && <PageDetail identifier={t('meetingUrl')} information={meetingUrl} path={meetingUrl} />}
+              {!!meetingUrl && (
+                <PageDetail
+                  icon={<LinkIcon />}
+                  secondaryInformation={t('meetingUrl')}
+                  information={meetingUrl}
+                  path={meetingUrl}
+                />
+              )}
             </Spacing>
           }
           Footer={<ExportEventButton event={event} />}
