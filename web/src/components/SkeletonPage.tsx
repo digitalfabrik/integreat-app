@@ -2,12 +2,15 @@ import Skeleton from '@mui/material/Skeleton'
 import Stack from '@mui/material/Stack'
 import React, { ReactElement } from 'react'
 
+import SkeletonHeader from './SkeletonHeader'
+
 const NUM_SKELETONS = 12
 const MIN_WIDTH = 60
 const MAX_WIDTH = 90
 
-const PageSkeleton = (): ReactElement => (
-  <Stack direction='column' width='100%' marginTop={4}>
+const SkeletonPage = (): ReactElement => (
+  <Stack direction='column' width='100%'>
+    <SkeletonHeader />
     {[...Array(NUM_SKELETONS).keys()].map(index => {
       const width = `${MIN_WIDTH + Math.random() * (MAX_WIDTH - MIN_WIDTH)}%`
       return <Skeleton key={index} variant='text' width={width} height={30} />
@@ -16,4 +19,4 @@ const PageSkeleton = (): ReactElement => (
   </Stack>
 )
 
-export default PageSkeleton
+export default SkeletonPage

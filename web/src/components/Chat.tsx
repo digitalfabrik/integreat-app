@@ -8,7 +8,6 @@ import IconButton from '@mui/material/IconButton'
 import Skeleton from '@mui/material/Skeleton'
 import Stack from '@mui/material/Stack'
 import TextField from '@mui/material/TextField'
-import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { KeyboardEvent, ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -86,51 +85,35 @@ const Chat = ({
     }
   }
 
-  if (isLoading && !hasError) {
-    return (
-      <Container>
-        {privacyPolicyAccepted && (
-          <>
-            <StyledRight>
-              <Skeleton variant='text' width='90%' />
-              <Skeleton variant='circular'>
-                <Avatar />
-              </Skeleton>
-            </StyledRight>
-            <StyledLeft>
-              <Skeleton variant='circular'>
-                <Avatar />
-              </Skeleton>
-              <Skeleton variant='text' width='70%' />
-            </StyledLeft>
-          </>
-        )}
-      </Container>
-    )
-  }
+  const renderChatConversationSkeleton = () => (
+    <Stack>
+      <StyledRight>
+        <Skeleton variant='text' width='90%' />
+        <Skeleton variant='circular'>
+          <Avatar />
+        </Skeleton>
+      </StyledRight>
+      <StyledLeft>
+        <Skeleton variant='circular'>
+          <Avatar />
+        </Skeleton>
+        <Skeleton variant='text' width='70%' />
+      </StyledLeft>
+    </Stack>
+  )
 
   if (!privacyPolicyAccepted) {
     return (
       <Container>
         <Stack gap={1}>
-          <H1>{isLoading && !hasError ? <Skeleton variant='rectangular' /> : t('settings:privacyPolicy')}</H1>
-          <Typography variant='body1'>
-            {isLoading && !hasError ? (
-              <Skeleton variant='rectangular' />
-            ) : (
-              t('privacyPolicyInformation', { city: city.name, appName: buildConfig().appName })
-            )}
-          </Typography>
-          {isLoading && !hasError ? (
-            <Skeleton variant='rectangular' />
-          ) : (
-            <PrivacyCheckbox
-              language={languageCode}
-              checked={false}
-              setChecked={acceptPrivacyPolicy}
-              url={city.chatPrivacyPolicyUrl}
-            />
-          )}
+          <H1>{t('settings:privacyPolicy')}</H1>
+          {t('privacyPolicyInformation', { city: city.name, appName: buildConfig().appName })}
+          <PrivacyCheckbox
+            language={languageCode}
+            checked={false}
+            setChecked={acceptPrivacyPolicy}
+            url={city.chatPrivacyPolicyUrl}
+          />
         </Stack>
       </Container>
     )
@@ -138,7 +121,11 @@ const Chat = ({
 
   return (
     <Container justifyContent='space-between'>
-      <ChatConversation messages={messages} isTyping={isTyping} loading={isLoading} />
+      {isLoading ? (
+        renderChatConversationSkeleton()
+      ) : (
+        <ChatConversation messages={messages} isTyping={isTyping} loading={isLoading} />
+      )}
       <Stack paddingInline={2} gap={1}>
         {hasError && <Alert severity='error'>{t('errorMessage')}</Alert>}
         <TextField
