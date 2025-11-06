@@ -15,8 +15,8 @@ const PageContainer = styled.View`
 const CollapseHeaderText = styled.Text`
   font-size: 14px;
   align-self: center;
-  font-family: ${props => props.theme.fonts.native.decorativeFontBold};
-  color: ${props => props.theme.colors.textColor};
+  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontBold};
+  color: ${props => props.theme.legacy.colors.textColor};
 `
 
 const CollapseHeaderWrapper = styled.View<{ language: string }>`
@@ -24,11 +24,11 @@ const CollapseHeaderWrapper = styled.View<{ language: string }>`
   justify-content: space-between;
   width: 100%;
   align-self: center;
-  font-family: ${props => props.theme.fonts.native.decorativeFontBold};
+  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontBold};
 `
 
 const StyledIcon = styled(Icon)<{ collapsed: boolean }>`
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
   transform: rotate(90deg) ${props => (props.collapsed ? 'scale(-1)' : '')};
   margin: 0 4px;
   align-self: center;

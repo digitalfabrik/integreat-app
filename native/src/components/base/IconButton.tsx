@@ -11,7 +11,7 @@ const StyledPressable = styled(Pressable)<{ disabled?: boolean }>`
   justify-content: center;
   border-radius: 20px;
   background-color: ${props =>
-    props.disabled ? props.theme.colors.textDisabledColor : props.theme.colors.backgroundColor};
+    props.disabled ? props.theme.legacy.colors.textDisabledColor : props.theme.legacy.colors.backgroundColor};
 `
 
 type IconButtonProps = {

@@ -9,10 +9,10 @@ import RadioButton from './base/RadioButton'
 import TextButton from './base/TextButton'
 
 const Heading = styled.Text`
-  font-family: ${props => props.theme.fonts.native.decorativeFontBold};
+  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontBold};
   font-size: 16px;
   margin: 16px 0;
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
 `
 
 // styled-components doesn't have the right types for FlatList
@@ -21,24 +21,24 @@ const StyledList = styled(FlatList as typeof FlatList<Calendar>)`
 `
 
 const ButtonTitle = styled.Text`
-  font-family: ${props => props.theme.fonts.native.decorativeFontBold};
-  color: ${props => props.theme.colors.textColor};
+  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontBold};
+  color: ${props => props.theme.legacy.colors.textColor};
 `
 
 const ButtonDescription = styled.Text`
-  font-family: ${props => props.theme.fonts.native.contentFontRegular};
-  color: ${props => props.theme.colors.textSecondaryColor};
+  font-family: ${props => props.theme.legacy.fonts.native.contentFontRegular};
+  color: ${props => props.theme.legacy.colors.textSecondaryColor};
 `
 
 const Divider = styled.View`
-  background-color: ${props => props.theme.colors.textDecorationColor};
+  background-color: ${props => props.theme.legacy.colors.textDecorationColor};
   height: 1px;
   margin: 8px 0;
 `
 
 const StyledText = styled.Text`
-  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
-  color: ${props => props.theme.colors.textColor};
+  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
+  color: ${props => props.theme.legacy.colors.textColor};
 `
 
 type CalendarChoiceProps = {

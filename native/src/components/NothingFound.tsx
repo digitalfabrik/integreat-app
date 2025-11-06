@@ -10,8 +10,8 @@ const Container = styled.View<{ paddingTop: boolean }>`
 `
 
 const Description = styled.Text`
-  color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
+  color: ${props => props.theme.legacy.colors.textColor};
+  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
   font-size: 16px;
   text-align: center;
   padding: 10px 30px;

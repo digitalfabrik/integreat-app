@@ -18,8 +18,8 @@ const TextContainer = styled.View`
 
 const Heading = styled.Text`
   font-size: 19px;
-  color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.native.contentFontBold};
+  color: ${props => props.theme.legacy.colors.textColor};
+  font-family: ${props => props.theme.legacy.fonts.native.contentFontBold};
   margin-top: 10px;
 `
 
@@ -29,8 +29,8 @@ const ContentContainer = styled.View<{ description: boolean }>`
 
 const Description = styled.Text`
   font-size: 16px;
-  color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.native.contentFontRegular};
+  color: ${props => props.theme.legacy.colors.textColor};
+  font-family: ${props => props.theme.legacy.fonts.native.contentFontRegular};
 `
 
 export type SlideContentType = {

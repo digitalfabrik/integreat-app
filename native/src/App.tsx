@@ -24,7 +24,7 @@ import I18nProvider from './components/I18nProvider'
 import SnackbarContainer from './components/SnackbarContainer'
 import StaticServerProvider from './components/StaticServerProvider'
 import StatusBar from './components/StatusBar'
-import { ThemeContainer } from './components/ThemeContext'
+import ThemeContainer from './components/ThemeContainer'
 import TtsContainer from './components/TtsContainer'
 import { RoutesParamsType } from './constants/NavigationTypes'
 import { userAgent } from './constants/endpoint'
@@ -72,12 +72,12 @@ export const NavigationContainerWithTheme = ({ onStateChange }: NavigationContai
     ...DefaultTheme,
     colors: {
       ...DefaultTheme.colors,
-      card: theme.colors.backgroundColor,
+      card: theme.legacy.colors.backgroundColor,
     },
   }
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.backgroundColor }} edges={['bottom']}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: theme.legacy.colors.backgroundColor }} edges={['bottom']}>
       <StatusBar />
       <NavigationContainer onStateChange={onStateChange} theme={navigationTheme} linking={linking}>
         <HeaderButtonsProvider stackType='native'>

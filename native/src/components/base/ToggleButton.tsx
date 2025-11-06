@@ -6,14 +6,15 @@ import Pressable from './Pressable'
 import Text from './Text'
 
 const StyledPressable = styled(Pressable)<{ active: boolean }>`
-  background-color: ${props => (props.active ? props.theme.colors.themeColor : props.theme.colors.backgroundColor)};
+  background-color: ${props =>
+    props.active ? props.theme.legacy.colors.themeColor : props.theme.legacy.colors.backgroundColor};
   padding: 8px;
   align-items: center;
   width: 100px;
   height: 80px;
   border-radius: 18px;
   elevation: 5;
-  shadow-color: ${props => props.theme.colors.textColor};
+  shadow-color: ${props => props.theme.legacy.colors.textColor};
   shadow-offset: 0 1px;
   shadow-opacity: 0.2;
   shadow-radius: 1px;
@@ -23,10 +24,10 @@ const StyledPressable = styled(Pressable)<{ active: boolean }>`
 const StyledText = styled(Text)<{ active: boolean }>`
   font-size: 12px;
   color: ${props =>
-    props.active && props.theme.isContrastTheme
-      ? props.theme.colors.backgroundColor
-      : props.theme.colors.textSecondaryColor};
-  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
+    props.active && props.theme.legacy.isContrastTheme
+      ? props.theme.legacy.colors.backgroundColor
+      : props.theme.legacy.colors.textSecondaryColor};
+  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
   text-align: center;
   width: 84px;
 `

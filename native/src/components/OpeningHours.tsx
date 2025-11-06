@@ -17,14 +17,15 @@ import OpeningEntry from './OpeningEntry'
 import Icon from './base/Icon'
 
 const OpeningLabel = styled.Text<{ isOpened: boolean; $direction: string }>`
-  color: ${props => (props.isOpened ? props.theme.colors.positiveHighlight : props.theme.colors.negativeHighlight)};
+  color: ${props =>
+    props.isOpened ? props.theme.legacy.colors.positiveHighlight : props.theme.legacy.colors.negativeHighlight};
   ${props => (props.$direction === 'rtl' ? `padding-left: 12px;` : `padding-right: 12px;`)}
   font-weight: bold;
   align-self: center;
 `
 
 const StyledText = styled(Text)`
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
   font-weight: bold;
   align-self: center;
 `
@@ -52,7 +53,7 @@ const LinkContainer = styled.Pressable`
 
 const Link = styled.Text`
   font-size: 16px;
-  color: ${props => props.theme.colors.linkColor};
+  color: ${props => props.theme.legacy.colors.linkColor};
   text-decoration: underline;
 `
 

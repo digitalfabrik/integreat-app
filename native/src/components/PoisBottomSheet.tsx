@@ -19,7 +19,7 @@ import PoiDetails from './PoiDetails'
 import PoiListItem from './PoiListItem'
 
 const StyledBottomSheet = styled(BottomSheet)<{ isFullscreen: boolean }>`
-  ${props => props.isFullscreen && `background-color: ${props.theme.colors.backgroundColor};`}
+  ${props => props.isFullscreen && `background-color: ${props.theme.legacy.colors.backgroundColor};`}
 `
 
 const BottomSheetContent = styled.View`
@@ -28,8 +28,8 @@ const BottomSheetContent = styled.View`
 `
 
 const Title = styled.Text`
-  color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.native.decorativeFontBold};
+  color: ${props => props.theme.legacy.colors.textColor};
+  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontBold};
   font-size: 18px;
   font-weight: bold;
 `
@@ -114,7 +114,7 @@ const PoisBottomSheet = ({
       enableContentPanningGesture={enableContentPanningGesture}
       enableDynamicSizing={false}
       animateOnMount
-      backgroundStyle={{ backgroundColor: theme.colors.backgroundColor }}
+      backgroundStyle={{ backgroundColor: theme.legacy.colors.backgroundColor }}
       handleComponent={BottomSheetHandle}
       onChange={setSnapPointIndex}>
       <BottomSheetContent>

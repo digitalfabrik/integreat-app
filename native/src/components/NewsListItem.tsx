@@ -29,9 +29,9 @@ const ReadMoreWrapper = styled.View<{ language: string }>`
 const StyledIcon = styled(Icon)<{ isTunews: boolean }>`
   margin: 6px 4px 0;
   color: ${props =>
-    props.isTunews && !props.theme.isContrastTheme
-      ? props.theme.colors.tunewsThemeColor
-      : props.theme.colors.themeColor};
+    props.isTunews && !props.theme.legacy.isContrastTheme
+      ? props.theme.legacy.colors.tunewsThemeColor
+      : props.theme.legacy.colors.themeColor};
   width: 14px;
   height: 14px;
 `
@@ -44,7 +44,7 @@ const StyledPressable = styled(Pressable)`
 
 const Divider = styled.View<{ firstItem: boolean }>`
   border-top-width: 0.5px;
-  border-top-color: ${props => props.theme.colors.textSecondaryColor};
+  border-top-color: ${props => props.theme.legacy.colors.textSecondaryColor};
   width: 80%;
   margin-top: ${props => (props.firstItem ? '0px' : '12px')};
   margin-bottom: 12px;
@@ -52,37 +52,37 @@ const Divider = styled.View<{ firstItem: boolean }>`
 `
 export const Description = styled.View`
   flex-direction: column;
-  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
+  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
 `
 export const Title = styled(Text)`
   font-weight: 700;
-  font-family: ${props => props.theme.fonts.native.decorativeFontBold};
-  color: ${props => props.theme.colors.textColor};
+  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontBold};
+  color: ${props => props.theme.legacy.colors.textColor};
   font-size: 16px;
   margin-bottom: 8px;
   margin-top: 8px;
 `
 export const Content = styled(Text)`
-  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
+  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
   font-size: 14px;
   letter-spacing: 0.5px;
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
 `
 const TimeStampContent = styled(Text)`
-  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
+  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
   font-size: 14px;
   padding: 10px 0;
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
 `
 export const ReadMore = styled(Text)<{ isTunews: boolean }>`
-  font-family: ${props => props.theme.fonts.native.decorativeFontBold};
+  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontBold};
   font-size: 12px;
   letter-spacing: 0.5px;
   margin-top: 5px;
   color: ${props =>
-    props.isTunews && !props.theme.isContrastTheme
-      ? props.theme.colors.tunewsThemeColor
-      : props.theme.colors.themeColor};
+    props.isTunews && !props.theme.legacy.isContrastTheme
+      ? props.theme.legacy.colors.tunewsThemeColor
+      : props.theme.legacy.colors.themeColor};
 `
 
 const NewsListItem = ({ index, newsItem, navigateToNews, isTunews }: NewsListItemProps): ReactElement => {

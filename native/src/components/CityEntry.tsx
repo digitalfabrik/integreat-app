@@ -20,18 +20,18 @@ const CityListItem = styled(Pressable)`
   align-items: flex-start;
 `
 const Label = styled(Highlighter)`
-  color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
+  color: ${props => props.theme.legacy.colors.textColor};
+  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
 `
 const AliasLabel = styled(Highlighter)`
   font-size: 11px;
-  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
-  color: ${props => props.theme.colors.textSecondaryColor};
+  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
+  color: ${props => props.theme.legacy.colors.textSecondaryColor};
 `
 const Separator = styled(Text)`
   font-size: 11px;
-  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
-  color: ${props => props.theme.colors.textSecondaryColor};
+  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
+  color: ${props => props.theme.legacy.colors.textSecondaryColor};
 `
 const AliasesWrapper = styled.View`
   flex: 1;

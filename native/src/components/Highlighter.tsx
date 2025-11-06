@@ -5,12 +5,12 @@ import styled from 'styled-components/native'
 import { findAllMatches, findNormalizedMatches, normalizeString } from 'shared'
 
 const StyledText = styled(Text)`
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
 `
 
 const HighlightedText = styled(Text)`
   font-weight: bold;
-  color: ${props => props.theme.isContrastTheme && props.theme.colors.themeColor};
+  color: ${props => props.theme.legacy.isContrastTheme && props.theme.legacy.colors.themeColor};
 `
 
 type HighlighterProps = {

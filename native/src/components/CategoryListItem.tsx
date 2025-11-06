@@ -25,19 +25,19 @@ const CategoryEntryContainer = styled.View`
   align-self: center;
   padding: 15px 0;
   border-bottom-width: 1px;
-  border-bottom-color: ${props => props.theme.colors.themeColor};
+  border-bottom-color: ${props => props.theme.legacy.colors.themeColor};
 `
 
 const TitleDirectionContainer = styled.View<{ language: string }>`
   align-items: center;
   flex-direction: ${props => contentDirection(props.language)};
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
 `
 
 const CategoryTitle = styled.Text<{ language: string }>`
   flex-direction: ${props => contentDirection(props.language)};
-  font-family: ${props => props.theme.fonts.native.decorativeFontBold};
-  color: ${props => props.theme.colors.textColor};
+  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontBold};
+  color: ${props => props.theme.legacy.colors.textColor};
   flex-shrink: 1;
 `
 

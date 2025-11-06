@@ -17,9 +17,9 @@ const Thumbnail = styled(SimpleImage)`
 
 const TileTitle = styled.Text`
   margin: 5px;
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
   text-align: center;
-  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
+  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
 `
 
 const TileContainer = styled(Pressable)`

@@ -85,7 +85,7 @@ const renderJS = (
       }
       
       if (element instanceof HTMLImageElement && element.src.endsWith('.svg')) {
-        if (${theme.isContrastTheme}) {
+        if (${theme.legacy.isContrastTheme}) {
           element.style.setProperty('filter', 'invert(1)')
         } else {
           element.style.removeProperty('filter')
@@ -298,20 +298,20 @@ const renderHtml = (
         margin: 0;
         padding: 0;
 
-        font-family: ${theme.fonts.native.webviewFont};
-        line-height: ${theme.fonts.contentLineHeight};
-        font-size-adjust: ${theme.fonts.fontSizeAdjust};
-        background-color: ${theme.colors.backgroundColor};
-        color: ${theme.colors.textColor}
+        font-family: ${theme.legacy.fonts.native.webviewFont};
+        line-height: ${theme.legacy.fonts.contentLineHeight};
+        font-size-adjust: ${theme.legacy.fonts.fontSizeAdjust};
+        background-color: ${theme.legacy.colors.backgroundColor};
+        color: ${theme.legacy.colors.textColor}
       }
 
       body {
-        font-size: ${theme.fonts.contentFontSize};
+        font-size: ${theme.legacy.fonts.contentFontSize};
         overflow-wrap: break-word;
       }
 
       p {
-        margin: ${theme.fonts.standardParagraphMargin} 0;
+        margin: ${theme.legacy.fonts.standardParagraphMargin} 0;
         overflow: auto;
       }
 
@@ -340,7 +340,7 @@ const renderHtml = (
       thead,
       th,
       td {
-        border: 1px solid ${theme.colors.backgroundAccentColor};
+        border: 1px solid ${theme.legacy.colors.backgroundAccentColor};
       }
 
       details > * {
@@ -356,15 +356,15 @@ const renderHtml = (
       }
       
       a {
-        color: ${theme.colors.linkColor};
+        color: ${theme.legacy.colors.linkColor};
       }
 
       .link-external::after {
         /* ExternalIcon, WebView can't handle imported svg as background */
         content: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'><path d='M16 15.9996l-14 0l0 -14l7 0l0 -2l-7 0a2 2 0 0 0 -2 2l0 14a2 2 0 0 0 2 2l14 0c1.1 0 2 -0.9 2 -2l0 -7l-2 0l0 7zm-5 -16l0 2l3.59 0l-9.83 9.83 1.41 1.41 9.83 -9.83l0 3.59l2 0l0 -7l-7 0z' fill='rgb(11, 87, 208)'/></svg>");
         display: inline-block;
-        width: ${theme.fonts.contentFontSize};
-        height: ${theme.fonts.contentFontSize};
+        width: ${theme.legacy.fonts.contentFontSize};
+        height: ${theme.legacy.fonts.contentFontSize};
         background-size: contain;
         background-repeat: no-repeat;
         vertical-align: -2px;
@@ -373,7 +373,7 @@ const renderHtml = (
 
       iframe {
         border: none;
-        border-bottom: 1px solid ${theme.colors.borderColor};
+        border-bottom: 1px solid ${theme.legacy.colors.borderColor};
         max-width: 100%;
       }
 
@@ -381,7 +381,7 @@ const renderHtml = (
         display: flex;
         padding: 4px;
         flex-direction: column;
-        border: 1px solid ${theme.colors.borderColor};
+        border: 1px solid ${theme.legacy.colors.borderColor};
         border-radius: 4px;
         box-shadow: 0 1px 3px rgb(0 0 0 / 10%),
         0 1px 2px rgb(0 0 0 / 15%);
@@ -390,7 +390,7 @@ const renderHtml = (
       .iframe-info-text {
         display: flex;
         flex-direction: row;
-        font-size: ${theme.fonts.decorativeFontSizeSmall};
+        font-size: ${theme.legacy.fonts.decorativeFontSizeSmall};
         padding: 12px;
         justify-content: space-between;
       }
@@ -408,7 +408,7 @@ const renderHtml = (
         border-radius: 4px;
         background-repeat: no-repeat;
         background-color: rgb(127 127 127 / 15%);
-        background-image: linear-gradient(to right, ${theme.isContrastTheme ? 'rgb(127 127 127 / 0)' : 'rgb(255 255 255 / 90%)'} 0 100%),
+        background-image: linear-gradient(to right, ${theme.legacy.isContrastTheme ? 'rgb(127 127 127 / 0)' : 'rgb(255 255 255 / 90%)'} 0 100%),
           url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTMuMDE4IDEyLjQ4aC0yLjAzNkE5LjA5IDkuMDkgMCAwIDAgMS45MiAyMS42YS40OC40OCAwIDAgMCAuNDguNDhoMTkuMmEuNTMuNTMgMCAwIDAgLjQ4LS41MzggOS4wOCA5LjA4IDAgMCAwLTkuMDYyLTkuMDYyTTE2LjggNi43MmE0LjggNC44IDAgMCAxLTQuOCA0LjggNC44IDQuOCAwIDAgMS00LjgtNC44IDQuOCA0LjggMCAwIDEgNC44LTQuOCA0LjggNC44IDAgMCAxIDQuOCA0LjgiLz48L3N2Zz4=');
         background-blend-mode: difference;
         background-position: calc(100% + 32px) 100%, calc(100% + 24px) calc(100% + 24px);
@@ -437,7 +437,7 @@ const renderHtml = (
         margin-left: 12px;
         padding: 0;
         overflow-wrap: normal;
-        color: ${theme.colors.tunewsThemeColor};
+        color: ${theme.legacy.colors.tunewsThemeColor};
       }
 
       #opt-in-checkbox {
