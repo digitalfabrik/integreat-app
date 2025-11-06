@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
-import React, { ReactElement, useEffect, useRef, useState } from 'react'
-import { TextInput, View } from 'react-native'
+import React, { ReactElement, useEffect, useState } from 'react'
+import { View } from 'react-native'
 import styled from 'styled-components/native'
 
 import { CalendarTodayIcon } from '../assets'
@@ -90,9 +90,6 @@ const DatePicker = ({
   const [inputMonth, setInputMonth] = useState(date?.toFormat('MM'))
   const [inputYear, setInputYear] = useState(date?.toFormat('yyyy'))
   const [datePickerError, setDatePickerError] = useState('')
-  const dayRef = useRef<TextInput>(null)
-  const monthRef = useRef<TextInput>(null)
-  const yearRef = useRef<TextInput>(null)
   const placeholderDay = placeholderDate.toFormat('dd')
   const placeholderMonth = placeholderDate.toFormat('MM')
   const placeholderYear = placeholderDate.toFormat('yyyy')
@@ -126,20 +123,10 @@ const DatePicker = ({
       <StyledTitle>{title}</StyledTitle>
       <StyledInputWrapper>
         <Wrapper>
-          <DatePickerInput
-            ref={dayRef}
-            placeholder={placeholderDay}
-            nextTargetRef={monthRef}
-            inputValue={inputDay}
-            setInputValue={setInputDay}
-            type='day'
-          />
+          <DatePickerInput placeholder={placeholderDay} inputValue={inputDay} setInputValue={setInputDay} type='day' />
           <StyledText>.</StyledText>
           <DatePickerInput
-            ref={monthRef}
             placeholder={placeholderMonth}
-            nextTargetRef={yearRef}
-            prevTargetRef={dayRef}
             inputValue={inputMonth}
             setInputValue={setInputMonth}
             type='month'
@@ -147,8 +134,6 @@ const DatePicker = ({
           <StyledText>.</StyledText>
           <DatePickerInput
             style={{ marginLeft: 6 }}
-            ref={yearRef}
-            prevTargetRef={monthRef}
             placeholder={placeholderYear}
             inputValue={inputYear}
             setInputValue={setInputYear}

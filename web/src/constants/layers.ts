@@ -1,5 +1,4 @@
 import { Theme } from '@mui/material/styles'
-import { Expression } from 'mapbox-gl'
 import { LayerProps } from 'react-map-gl/maplibre'
 
 import {
@@ -67,7 +66,7 @@ export const markerLayer = (currentFeature: MapFeature | null): LayerProps => ({
   paint: {},
 })
 
-export const clusterProperties: { [key: string]: Expression } = {
+export const clusterProperties: { [key: string]: unknown } = {
   sum: ['+', ['length', ['get', 'pois']]],
 }
 

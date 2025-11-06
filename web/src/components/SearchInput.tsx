@@ -22,7 +22,7 @@ const StyledTextField = styled(TextField)`
     margin-inline-start: 24px;
   }
 
-  & legend {
+  legend {
     letter-spacing: 0;
   }
 `
@@ -49,7 +49,7 @@ const SearchInput = ({
     <StyledTextField
       id='search'
       placeholder={placeholderText}
-      aria-label={placeholderText}
+      aria-label={description ? undefined : placeholderText}
       value={filterText}
       helperText={description}
       onChange={event => onFilterTextChange(event.target.value)}

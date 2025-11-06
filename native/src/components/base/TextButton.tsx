@@ -1,14 +1,11 @@
 import React, { ReactElement } from 'react'
 import { StyleProp, TextStyle, ViewStyle } from 'react-native'
-import { withKeyboardFocus } from 'react-native-external-keyboard'
 import styled from 'styled-components/native'
 
 import Pressable from './Pressable'
 import Text from './Text'
 
-const KeyboardPressable = withKeyboardFocus(Pressable)
-
-const StyledPressable = styled(KeyboardPressable)<{ primary: boolean; disabled: boolean }>`
+const StyledPressable = styled(Pressable)<{ primary: boolean; disabled: boolean }>`
   padding: 8px;
   border-radius: 8px;
   background-color: ${props => {
