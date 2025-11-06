@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 import styled from 'styled-components/native'
 
-import { filterSortCities } from 'shared'
+import { CITY_SEARCH_EXAMPLE, filterSortCities } from 'shared'
 import { CityModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
@@ -44,6 +44,8 @@ const CitySelector = ({ cities, navigateToDashboard }: CitySelectorProps): React
   const resultCities = filterSortCities(cities, filterText, buildConfig().featureFlags.developerFriendly)
   useAnnounceSearchResultsIOS(resultCities)
 
+  const exampleCity = cities.find(city => city.name === CITY_SEARCH_EXAMPLE) ?? cities[0]
+
   const renderCity = (city: CityModel) => (
     <CityEntry key={city.code} city={city} query={filterText} navigateToDashboard={navigateToDashboard} />
   )
@@ -70,7 +72,7 @@ const CitySelector = ({ cities, navigateToDashboard }: CitySelectorProps): React
           onFilterTextChange={setFilterText}
           placeholderText={t('searchCity')}
           spaceSearch={false}
-          description={t('searchCityDescription')}
+          description={t('searchCityDescription', { exampleCity: exampleCity?.name ?? CITY_SEARCH_EXAMPLE })}
         />
       </SearchBar>
       <View>

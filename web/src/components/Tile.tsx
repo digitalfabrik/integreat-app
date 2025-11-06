@@ -45,6 +45,11 @@ const StyledImage = styled('img')(({ theme }) => ({
   }),
 }))
 
+const StyledTitle = styled(Typography)({
+  wordBreak: 'break-word',
+  hyphens: 'auto',
+})
+
 type TileProps = {
   tile: TileModel
 }
@@ -57,9 +62,9 @@ const Tile = ({ tile }: TileProps): ReactElement => {
       <Outline>
         <StyledImage alt='' src={data?.objectUrl} />
       </Outline>
-      <Typography variant='body1' textAlign='center' textTransform='none'>
+      <StyledTitle variant='body1' textAlign='center' textTransform='none'>
         {tile.title}
-      </Typography>
+      </StyledTitle>
     </StyledButton>
   )
 }

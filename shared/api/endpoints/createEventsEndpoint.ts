@@ -27,6 +27,10 @@ const eventCompare = (event1: EventModel, event2: EventModel): number => {
     return 1
   }
 
+  if (!event1.date.endDate || !event2.date.endDate) {
+    return event1.title.localeCompare(event2.title)
+  }
+
   if (event1.date.endDate < event2.date.endDate) {
     return -1
   }

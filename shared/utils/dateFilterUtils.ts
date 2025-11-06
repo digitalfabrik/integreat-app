@@ -7,10 +7,13 @@ const isWithinDateRange = (
   startDate: DateTime | null,
   endDate: DateTime | null,
   eventStartDate: DateTime,
-  eventEndDate: DateTime,
+  eventEndDate: DateTime | null,
 ): boolean => {
   const endDateTime = endDate?.endOf('day')
-  return (!endDateTime || eventStartDate <= endDateTime) && (!startDate || eventEndDate >= startDate)
+  return (
+    (!endDateTime || eventStartDate <= endDateTime) &&
+    (!startDate || (eventEndDate !== null && eventEndDate >= startDate))
+  )
 }
 
 export const isEventWithinRange = (

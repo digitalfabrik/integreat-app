@@ -10,6 +10,7 @@ import Svg from './base/Svg'
 const StyledLink = styled(Link)(({ theme }) => ({
   order: 1,
   height: 48,
+  minHeight: 'max-content',
 
   [theme.breakpoints.down('md')]: {
     width: 48,
