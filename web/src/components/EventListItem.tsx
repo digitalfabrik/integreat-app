@@ -35,7 +35,7 @@ const StyledListItemButton = styled(ListItemButton)`
   gap: ${props => props.theme.spacing(2)};
 ` as typeof ListItemButton
 
-const Icon = styled('img')(({ theme }) => ({
+export const Icon = styled('img')(({ theme }) => ({
   marginTop: 8,
   width: 96,
   height: 96,

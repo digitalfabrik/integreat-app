@@ -1,5 +1,4 @@
-import CircularProgress from '@mui/material/CircularProgress'
-import React, { ReactElement, Suspense, useEffect } from 'react'
+import React, { ReactElement, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Navigate, Route, Routes, useMatch } from 'react-router'
 
@@ -53,54 +52,52 @@ const RootSwitcher = ({ setContentLanguage }: RootSwitcherProps): ReactElement =
   const landingPath = pathnameFromRouteInformation({ route: LANDING_ROUTE, languageCode: language })
   const fixedCityPath = fixedCity ? cityContentPath({ cityCode: fixedCity, languageCode: language }) : null
   return (
-    <Suspense fallback={<CircularProgress />}>
-      <Routes>
-        {!fixedCity && <Route path={RoutePatterns[LANDING_ROUTE]} element={<LandingPage languageCode={language} />} />}
-        <Route path={RoutePatterns[MAIN_DISCLAIMER_ROUTE]} element={<MainDisclaimerPage languageCode={language} />} />
-        <Route path={RoutePatterns[NOT_FOUND_ROUTE]} element={<NotFoundPage />} />
-        <Route path={RoutePatterns[CONSENT_ROUTE]} element={<ConsentPage languageCode={language} />} />
-        <Route path={RoutePatterns[LICENSES_ROUTE]} element={<LicensesPage languageCode={language} />} />
+    <Routes>
+      {!fixedCity && <Route path={RoutePatterns[LANDING_ROUTE]} element={<LandingPage languageCode={language} />} />}
+      <Route path={RoutePatterns[MAIN_DISCLAIMER_ROUTE]} element={<MainDisclaimerPage languageCode={language} />} />
+      <Route path={RoutePatterns[NOT_FOUND_ROUTE]} element={<NotFoundPage />} />
+      <Route path={RoutePatterns[CONSENT_ROUTE]} element={<ConsentPage languageCode={language} />} />
+      <Route path={RoutePatterns[LICENSES_ROUTE]} element={<LicensesPage languageCode={language} />} />
+      <Route
+        path={cityContentPattern}
+        element={
+          fixedCity ? (
+            <FixedCityContentSwitcher languageCode={language} fixedCity={fixedCity} />
+          ) : (
+            <CityContentSwitcher languageCode={language} />
+          )
+        }
+      />
+
+      {cityNotCooperating && (
         <Route
-          path={cityContentPattern}
-          element={
-            fixedCity ? (
-              <FixedCityContentSwitcher languageCode={language} fixedCity={fixedCity} />
-            ) : (
-              <CityContentSwitcher languageCode={language} />
-            )
-          }
+          path={RoutePatterns[CITY_NOT_COOPERATING_ROUTE]}
+          element={<CityNotCooperatingPage languageCode={language} />}
         />
+      )}
+      {jpalTracking && (
+        <Route path={RoutePatterns[JPAL_TRACKING_ROUTE]} element={<JpalTrackingPage />}>
+          <Route path=':trackingCode' element={null} />
+        </Route>
+      )}
 
-        {cityNotCooperating && (
-          <Route
-            path={RoutePatterns[CITY_NOT_COOPERATING_ROUTE]}
-            element={<CityNotCooperatingPage languageCode={language} />}
-          />
-        )}
-        {jpalTracking && (
-          <Route path={RoutePatterns[JPAL_TRACKING_ROUTE]} element={<JpalTrackingPage />}>
-            <Route path=':trackingCode' element={null} />
-          </Route>
-        )}
+      {/* Redirects */}
+      <Route path='/' element={<Navigate to={fixedCityPath ?? landingPath} replace />} />
+      {!!fixedCityPath && (
+        <Route path={RoutePatterns[LANDING_ROUTE]} element={<Navigate to={fixedCityPath} replace />} />
+      )}
+      {/* also handles redirects from /landing to /landing/de */}
+      <Route path='/:cityCode' element={<Navigate to={fixedCityPath ?? language} replace />} />
 
-        {/* Redirects */}
-        <Route path='/' element={<Navigate to={fixedCityPath ?? landingPath} replace />} />
-        {!!fixedCityPath && (
-          <Route path={RoutePatterns[LANDING_ROUTE]} element={<Navigate to={fixedCityPath} replace />} />
-        )}
-        {/* also handles redirects from /landing to /landing/de */}
-        <Route path='/:cityCode' element={<Navigate to={fixedCityPath ?? language} replace />} />
-
-        {/* Language independent urls */}
-        {RESERVED_CITY_CONTENT_SLUGS.map(slug => (
-          <Route
-            key={slug}
-            path={`/:cityCode/${slug}/*`}
-            element={<Navigate to={`/${routeParam0}/${detectedLanguageCode}/${slug}/${splat ?? ''}`} replace />}
-          />
-        ))}
-      </Routes>
-    </Suspense>
+      {/* Language independent urls */}
+      {RESERVED_CITY_CONTENT_SLUGS.map(slug => (
+        <Route
+          key={slug}
+          path={`/:cityCode/${slug}/*`}
+          element={<Navigate to={`/${routeParam0}/${detectedLanguageCode}/${slug}/${splat ?? ''}`} replace />}
+        />
+      ))}
+    </Routes>
   )
 }
 

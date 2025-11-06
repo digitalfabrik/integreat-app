@@ -13,7 +13,7 @@ import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
 import Page from '../components/Page'
-import PageSkeleton from '../components/PageSkeleton'
+import SkeletonPage from '../components/SkeletonPage'
 import Svg from '../components/base/Svg'
 import { tunewsApiBaseUrl } from '../constants/urls'
 import useTtsPlayer from '../hooks/useTtsPlayer'
@@ -69,7 +69,12 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
   if (loading) {
     return (
       <CityContentLayout isLoading {...locationLayoutParams}>
-        <PageSkeleton />
+        <TuNewsBanner>
+          <IconContainer width={180} height='100%'>
+            <Svg src={TuNewsActiveIcon} width='100%' height='100%' />
+          </IconContainer>
+        </TuNewsBanner>
+        <SkeletonPage />
       </CityContentLayout>
     )
   }

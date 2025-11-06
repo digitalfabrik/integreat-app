@@ -1,8 +1,3 @@
-import Card from '@mui/material/Card'
-import Box from '@mui/material/Grid'
-import Skeleton from '@mui/material/Skeleton'
-import Stack from '@mui/material/Stack'
-import { styled } from '@mui/material/styles'
 import { DateTime } from 'luxon'
 import React, { ReactElement, useCallback, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -28,46 +23,21 @@ import CityContentLayout, { CityContentLayoutProps } from '../components/CityCon
 import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
-import PageSkeleton from '../components/PageSkeleton'
 import SkeletonHeader from '../components/SkeletonHeader'
 import SkeletonList from '../components/SkeletonList'
+import SkeletonPage from '../components/SkeletonPage'
+import SkeletonTiles from '../components/SkeletonTiles'
 import buildConfig from '../constants/buildConfig'
 import { cmsApiBaseUrl } from '../constants/urls'
 import usePreviousProp from '../hooks/usePreviousProp'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 
 const CATEGORY_NOT_FOUND_STATUS_CODE = 400
-const NUM_CARD_SKELETONS = 16
 
 const getBreadcrumb = (category: CategoryModel, cityName: string): BreadcrumbProps => ({
   title: category.isRoot() ? cityName : category.title,
   to: category.path,
 })
-
-const StyledBox = styled(Box)`
-  display: grid;
-  gap: 32px 24px;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  justify-content: center;
-  width: 100%;
-`
-
-const StyledCard = styled(Card)`
-  width: 160px;
-`
-
-const RootCategorySkeleton = (): ReactElement => (
-  <Stack paddingTop={2} alignItems='center'>
-    <SkeletonHeader />
-    <StyledBox>
-      {[...Array(NUM_CARD_SKELETONS).keys()].map(index => (
-        <StyledCard key={index}>
-          <Skeleton variant='rectangular' height={140} />
-        </StyledCard>
-      ))}
-    </StyledBox>
-  </Stack>
-)
 
 const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRouteProps): ReactElement | null => {
   const previousPathname = usePreviousProp({ prop: pathname })
@@ -167,16 +137,22 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
   }
 
   const loadSkeleton = () => {
-    if (!categoryId && !currentCategory) {
-      return <RootCategorySkeleton />
+    if (!categoryId) {
+      return <SkeletonTiles />
     }
     if (isLeafPage === null) {
       return null
     }
     return (
       <>
-        <SkeletonHeader />
-        {isLeafPage ? <PageSkeleton /> : <SkeletonList />}
+        {isLeafPage ? (
+          <SkeletonPage />
+        ) : (
+          <>
+            <SkeletonHeader />
+            <SkeletonList />
+          </>
+        )}
       </>
     )
   }
@@ -206,7 +182,7 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
   if (!categories || !parents || !category) {
     // If data is not yet available, show skeleton
     return (
-      <CityContentLayout isLoading={false} {...locationLayoutParams}>
+      <CityContentLayout isLoading {...locationLayoutParams}>
         {loadSkeleton()}
       </CityContentLayout>
     )

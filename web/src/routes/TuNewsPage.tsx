@@ -98,7 +98,7 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
           localNewsEnabled={city.localNewsEnabled}
           language={languageCode}
         />
-        <SkeletonList showItemIcon={false} />
+        <SkeletonList />
       </CityContentLayout>
     )
   }

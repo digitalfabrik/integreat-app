@@ -10,6 +10,7 @@ import buildConfig from '../constants/buildConfig'
 import CityListGroup from './CityListGroup'
 import NearbyCities from './NearbyCities'
 import SearchInput from './SearchInput'
+import SkeletonList from './SkeletonList'
 import H1 from './base/H1'
 import List from './base/List'
 
@@ -17,9 +18,10 @@ type CitySelectorProps = {
   cities: CityModel[]
   language: string
   stickyTop: number
+  loading: boolean
 }
 
-const CitySelector = ({ cities, language, stickyTop }: CitySelectorProps): ReactElement => {
+const CitySelector = ({ cities, language, stickyTop, loading }: CitySelectorProps): ReactElement => {
   const [filterText, setFilterText] = useState<string>('')
   const { t } = useTranslation('landing')
 
@@ -51,12 +53,16 @@ const CitySelector = ({ cities, language, stickyTop }: CitySelectorProps): React
         onFilterTextChange={setFilterText}
         description={t('searchCityDescription', { exampleCity: exampleCity?.name ?? CITY_SEARCH_EXAMPLE })}
       />
-      <Stack>
-        <Typography variant='subtitle1' aria-live={resultCities.length === 0 ? 'assertive' : 'polite'}>
-          {t('search:searchResultsCount', { count: resultCities.length })}
-        </Typography>
-        <List items={groups} NoItemsMessage='search:nothingFound' />
-      </Stack>
+      {loading ? (
+        <SkeletonList listItemHeight={40} />
+      ) : (
+        <Stack>
+          <Typography variant='subtitle1' aria-live={resultCities.length === 0 ? 'assertive' : 'polite'}>
+            {t('search:searchResultsCount', { count: resultCities.length })}
+          </Typography>
+          <List items={groups} NoItemsMessage='search:nothingFound' />
+        </Stack>
+      )}
     </Stack>
   )
 }

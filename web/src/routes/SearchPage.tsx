@@ -30,6 +30,8 @@ import { cmsApiBaseUrl } from '../constants/urls'
 import useLoadSearchDocuments from '../hooks/useLoadSearchDocuments'
 import useReportError from '../hooks/useReportError'
 
+const LOAD_SKELETON_TIMEOUT = 250
+
 type SearchProps = {
   query: string
   loading: boolean
@@ -38,26 +40,36 @@ type SearchProps = {
 
 const SearchResults = ({ query, loading, results }: SearchProps): ReactElement | null => {
   const { t } = useTranslation('search')
+  const hasResults = results.length > 0
 
   if (query.length === 0) {
     return null
   }
 
   if (loading) {
-    return <SkeletonList showItemIcon={false} listItemHeight={86} />
+    return <SkeletonList listItemHeight={64} />
   }
 
-  const items = results.map(({ title, content, path }) => (
-    <SearchListItem title={title} contentWithoutHtml={parseHTML(content)} key={path} query={query} path={path} />
-  ))
+  if (!hasResults) {
+    return <SearchFeedback noResults query={query} />
+  }
 
   return (
     <>
       <Typography variant='subtitle2' aria-live={results.length === 0 ? 'assertive' : 'polite'}>
         {t('searchResultsCount', { count: results.length })}
       </Typography>
-      <List items={items} />
-      <SearchFeedback noResults={results.length === 0} query={query} />
+      <List
+        items={results.map(result => (
+          <SearchListItem
+            key={result.path}
+            title={result.title}
+            contentWithoutHtml={parseHTML(result.content)}
+            query={query}
+            path={result.path}
+          />
+        ))}
+      />
     </>
   )
 }
@@ -65,6 +77,7 @@ const SearchResults = ({ query, loading, results }: SearchProps): ReactElement |
 const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElement | null => {
   const [queryParams, setQueryParams] = useSearchParams()
   const [query, setQuery] = useState(queryParams.get(SEARCH_QUERY_KEY) ?? '')
+  const [showSkeleton, setShowSkeleton] = useState(false)
   const { t } = useTranslation('search')
   const fallbackLanguage = config.sourceLanguage
   const debouncedQuery = useDebounce(query)
@@ -84,6 +97,17 @@ const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
     languageCode: fallbackLanguage,
     cmsApiBaseUrl,
   })
+
+  // for smooth loading transition to avoid flickering
+  useEffect(() => {
+    let timeout: number | undefined
+    if (loading) {
+      setShowSkeleton(true)
+    } else {
+      timeout = window.setTimeout(() => setShowSkeleton(false), LOAD_SKELETON_TIMEOUT)
+    }
+    return () => clearTimeout(timeout)
+  }, [loading])
 
   const contentLanguageReturn = useSearch(contentLanguageDocuments, debouncedQuery)
   const fallbackLanguageDocuments = languageCode !== fallbackLanguage ? fallbackData : []
@@ -140,7 +164,7 @@ const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
           onFilterTextChange={setQuery}
           autoFocus
         />
-        <SearchResults results={results} query={debouncedQuery} loading={loading} />
+        <SearchResults results={results} query={debouncedQuery} loading={showSkeleton} />
       </Stack>
     </CityContentLayout>
   )

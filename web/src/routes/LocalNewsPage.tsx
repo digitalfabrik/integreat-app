@@ -20,6 +20,7 @@ import NewsListItem from '../components/NewsListItem'
 import NewsTabs from '../components/NewsTabs'
 import Page from '../components/Page'
 import SkeletonList from '../components/SkeletonList'
+import SkeletonPage from '../components/SkeletonPage'
 import List from '../components/base/List'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useTtsPlayer from '../hooks/useTtsPlayer'
@@ -71,14 +72,20 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
   if (!localNews && loading) {
     return (
       <CityContentLayout isLoading {...locationLayoutParams}>
-        <NewsTabs
-          type={LOCAL_NEWS_TYPE}
-          city={cityCode}
-          tunewsEnabled={city.tunewsEnabled}
-          localNewsEnabled={city.localNewsEnabled}
-          language={languageCode}
-        />
-        <SkeletonList showItemIcon={false} />
+        {newsId ? (
+          <SkeletonPage />
+        ) : (
+          <>
+            <NewsTabs
+              type={LOCAL_NEWS_TYPE}
+              city={cityCode}
+              tunewsEnabled={city.tunewsEnabled}
+              localNewsEnabled={city.localNewsEnabled}
+              language={languageCode}
+            />
+            <SkeletonList />
+          </>
+        )}
       </CityContentLayout>
     )
   }
