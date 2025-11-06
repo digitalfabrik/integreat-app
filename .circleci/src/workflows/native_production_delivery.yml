@@ -34,6 +34,7 @@ jobs:
         - check
         - e2e_android
         - build_android-<< matrix.build_config_name >>
+
   - build_ios:
       matrix:
         parameters:
@@ -61,6 +62,7 @@ jobs:
         - check
         - e2e_ios
         - build_ios-<< matrix.build_config_name >>
+
   - notify_release:
       production_delivery: true
       platform: native

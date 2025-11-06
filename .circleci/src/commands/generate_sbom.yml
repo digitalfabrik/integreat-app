@@ -1,4 +1,4 @@
-description: Generate SPDX SBoM using Syft
+description: Generate SPDX SBoM
 steps:
   - run:
       name: Install Syft
@@ -10,10 +10,7 @@ steps:
         syft version
   - run:
       name: Generate SPDX SBoM
-      command: |
-        echo "Generating unified SBoM for repo root..."
-        syft dir:. -o spdx-json=sbom.json
-        echo "SBoM generated at sbom.json"
+      command: syft dir:. -o spdx-json=sbom.json
   - persist_to_workspace:
       root: .
       paths:

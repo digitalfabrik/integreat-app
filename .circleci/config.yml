@@ -31,7 +31,7 @@ commands:
                 command: circleci config validate
                 name: Validate circle config
     generate_sbom:
-        description: Generate SPDX SBoM using Syft
+        description: Generate SPDX SBoM
         steps:
             - run:
                 command: |
@@ -42,10 +42,7 @@ commands:
                     syft version
                 name: Install Syft
             - run:
-                command: |
-                    echo "Generating unified SBoM for repo root..."
-                    syft dir:. -o spdx-json=sbom.json
-                    echo "SBoM generated at sbom.json"
+                command: syft dir:. -o spdx-json=sbom.json
                 name: Generate SPDX SBoM
             - persist_to_workspace:
                 paths:
