@@ -73,11 +73,10 @@ const PoisDesktop = ({
   const canDeselect = !!mapFeature || !!slug
   const { contentDirection } = useTheme()
 
-  const handleSelectPoi = (poi: PoiModel) => {
+  const handleSelectPoi = () => {
     if (listRef.current) {
       setScrollOffset(listRef.current.scrollTop)
     }
-    selectPoi(poi)
   }
 
   const switchPoi = (step: 1 | -1) => {

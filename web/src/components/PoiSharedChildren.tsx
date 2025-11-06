@@ -18,7 +18,7 @@ type PoiSharedChildrenProps = {
   pois: PoiModel[]
   poi: PoiModel | undefined
   slug: string | undefined
-  selectPoi: (poi: PoiModel) => void
+  selectPoi: () => void
   userLocation: LocationType | null
 }
 
@@ -37,7 +37,7 @@ const PoiSharedChildren = ({ pois, poi, slug, selectPoi, userLocation }: PoiShar
     <PoiListItem
       key={poi.path}
       poi={poi}
-      selectPoi={() => selectPoi(poi)}
+      onClick={selectPoi}
       distance={userLocation ? poi.distance(userLocation) : null}
     />
   )

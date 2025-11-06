@@ -29,11 +29,11 @@ const StyledText = styled('p')({
 
 type PoiListItemProps = {
   poi: PoiModel
-  selectPoi: () => void
+  onClick?: () => void
   distance: number | null
 }
 
-const PoiListItem = ({ poi, distance, selectPoi }: PoiListItemProps): ReactElement => {
+const PoiListItem = ({ poi, distance, onClick }: PoiListItemProps): ReactElement => {
   const { t } = useTranslation('pois')
   const [queryParams] = useSearchParams()
   const { title, category, slug } = poi
@@ -41,7 +41,8 @@ const PoiListItem = ({ poi, distance, selectPoi }: PoiListItemProps): ReactEleme
 
   return (
     <ListItem disablePadding>
-      <StyledListItemButton onClick={selectPoi} id={slug} to={slugWithQuery} component={Link} aria-label={title}>
+      {/* onClick here is just to preserve scroll position */}
+      <StyledListItemButton onClick={onClick} id={slug} to={slugWithQuery} component={Link} aria-label={title}>
         <StyledListItemText
           slotProps={{ primary: { component: 'h2' }, secondary: { component: 'div' } }}
           primary={title}

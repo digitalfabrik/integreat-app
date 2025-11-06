@@ -7,7 +7,6 @@ import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { LocationType, MapViewViewport, MapFeature, PreparePoisReturn } from 'shared'
-import { PoiModel } from 'shared/api'
 
 import useDimensions from '../hooks/useDimensions'
 import BottomActionSheet, { ScrollableBottomSheetRef } from './BottomActionSheet'
@@ -42,7 +41,6 @@ type PoisMobileProps = {
   mapViewport?: MapViewViewport
   setMapViewport: (mapViewport: MapViewViewport) => void
   selectMapFeature: (mapFeature: MapFeature | null) => void
-  selectPoi: (poi: PoiModel) => void
   deselect: () => void
   MapOverlay: ReactElement
 }
@@ -54,7 +52,6 @@ const PoisMobile = ({
   mapViewport,
   setMapViewport,
   selectMapFeature,
-  selectPoi,
   deselect,
   MapOverlay,
 }: PoisMobileProps): ReactElement => {
@@ -67,11 +64,10 @@ const PoisMobile = ({
   const canDeselect = !!mapFeature || !!slug
   const { t } = useTranslation('pois')
 
-  const handleSelectPoi = (poi: PoiModel) => {
+  const handleSelectPoi = () => {
     if (sheetRef.current?.scrollElement) {
       setScrollOffset(sheetRef.current.scrollElement.scrollTop)
     }
-    selectPoi(poi)
   }
 
   const handleSelectMapFeature = (feature: MapFeature | null) => {
