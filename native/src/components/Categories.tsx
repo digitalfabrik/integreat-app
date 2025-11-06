@@ -6,7 +6,6 @@ import { CategoriesMapModel, CategoryModel, CityModel } from 'shared/api'
 
 import useTtsPlayer from '../hooks/useTtsPlayer'
 import testID from '../testing/testID'
-import { LanguageResourceCacheStateType } from '../utils/DataContainer'
 import CategoryListItem from './CategoryListItem'
 import EmbeddedOffers from './EmbeddedOffers'
 import List from './List'
@@ -20,7 +19,6 @@ export type CategoriesProps = {
   categories: CategoriesMapModel
   category: CategoryModel
   navigateTo: (routeInformation: RouteInformationType) => void
-  resourceCache: LanguageResourceCacheStateType
   goBack: () => void
 }
 
@@ -30,7 +28,6 @@ const Categories = ({
   navigateTo,
   categories,
   category,
-  resourceCache,
   goBack,
 }: CategoriesProps): ReactElement => {
   const children = categories.getChildren(category)
@@ -52,7 +49,6 @@ const Categories = ({
           tiles={getCategoryTiles({ categories: children, cityCode })}
           language={language}
           onTilePress={navigateToCategory}
-          resourceCache={resourceCache[category.path]}
         />
       </View>
     )
@@ -63,7 +59,6 @@ const Categories = ({
       content={category.content}
       lastUpdate={category.lastUpdate}
       language={language}
-      path={category.path}
       accessible={children.length === 0}
       AfterContent={category.organization && <OrganizationContentInfo organization={category.organization} />}
       Footer={
@@ -75,7 +70,6 @@ const Categories = ({
                 key={it.path}
                 category={it}
                 subCategories={categories.getChildren(it)}
-                resourceCache={resourceCache}
                 language={language}
                 onItemPress={navigateToCategory}
               />

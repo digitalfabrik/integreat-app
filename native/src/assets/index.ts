@@ -2,6 +2,7 @@
 import EventThumbnailPlaceholder1 from '../../../assets/event-thumbnail-placeholder-1.jpg'
 import EventThumbnailPlaceholder2 from '../../../assets/event-thumbnail-placeholder-2.jpg'
 import EventThumbnailPlaceholder3 from '../../../assets/event-thumbnail-placeholder-3.jpg'
+import MobilePhoneIcon from '../../../assets/icons/MobileIcon.svg'
 import AccessibleIcon from '../../../assets/icons/accessible.svg'
 import ArrowBackIcon from '../../../assets/icons/arrow-back.svg'
 import CalendarRecurringIcon from '../../../assets/icons/calendar-recurring.svg'
@@ -14,8 +15,11 @@ import CloseIcon from '../../../assets/icons/close.svg'
 import EditLocationIcon from '../../../assets/icons/edit-location.svg'
 import ExpandIcon from '../../../assets/icons/expand.svg'
 import ExternalLinkIcon from '../../../assets/icons/external-link.svg'
+import FastForwardIcon from '../../../assets/icons/fastForward.svg'
+import FastRewindIcon from '../../../assets/icons/fastRewind.svg'
 import HappySmileyIcon from '../../../assets/icons/happy-smiley.svg'
 import LanguageIcon from '../../../assets/icons/language.svg'
+import LinkIcon from '../../../assets/icons/link.svg'
 import LocationFixedIcon from '../../../assets/icons/location-fixed.svg'
 import LocationMarkerIcon from '../../../assets/icons/location-marker.svg'
 import LocationNotFixedIcon from '../../../assets/icons/location-not-fixed.svg'
@@ -29,7 +33,6 @@ import NoteIcon from '../../../assets/icons/note.svg'
 import PauseIcon from '../../../assets/icons/pause.svg'
 import PhoneIcon from '../../../assets/icons/phone.svg'
 import PlayIcon from '../../../assets/icons/play.svg'
-import PlaybackIcon from '../../../assets/icons/playback.svg'
 import POIsIcon from '../../../assets/icons/pois.svg'
 import RefreshIcon from '../../../assets/icons/refresh.svg'
 import SadSmileyIcon from '../../../assets/icons/sad-smiley.svg'
@@ -48,8 +51,6 @@ import IntroOfflineIcon from '../../../assets/intro/offline.svg'
 import IntroPoisIcon from '../../../assets/intro/pois.svg'
 import IntroSearchIcon from '../../../assets/intro/search.svg'
 import IntroWelcomeIcon from '../../../assets/intro/welcome.svg'
-import PoiThumbnailPlaceholderLarge from '../../../assets/poi-thumbnail-placeholder-large.jpg'
-import PoiThumbnailPlaceholder from '../../../assets/poi-thumbnail-placeholder.jpg'
 
 export {
   AccessibleIcon,
@@ -67,6 +68,8 @@ export {
   EventThumbnailPlaceholder3,
   ExpandIcon,
   ExternalLinkIcon,
+  FastRewindIcon,
+  FastForwardIcon,
   HappySmileyIcon,
   IntroLanguageIcon,
   IntroNewsIcon,
@@ -75,12 +78,14 @@ export {
   IntroSearchIcon,
   IntroWelcomeIcon,
   LanguageIcon,
+  LinkIcon,
   LocationFixedIcon,
   LocationMarkerIcon,
   LocationNotFixedIcon,
   LocationOffIcon,
   MailIcon,
   MenuIcon,
+  MobilePhoneIcon,
   NewsIcon,
   NoInternetIcon,
   NotAccessibleIcon,
@@ -88,10 +93,7 @@ export {
   PhoneIcon,
   POIsIcon,
   PauseIcon,
-  PlaybackIcon,
   PlayIcon,
-  PoiThumbnailPlaceholder,
-  PoiThumbnailPlaceholderLarge,
   RefreshIcon,
   SadSmileyIcon,
   SearchIcon,

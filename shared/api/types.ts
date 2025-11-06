@@ -52,7 +52,7 @@ type JsonEventInfoType = {
   start: string
   end: string
   all_day: boolean
-  recurrence_id: string | null | undefined
+  only_weekdays: boolean
 }
 
 export type OrganizationType = {
@@ -101,7 +101,7 @@ type JsonContactType = {
   email: string | null
   phone_number: string | null
   website: string | null
-  mobile_phone_number: string | null
+  mobile_number: string | null
 }
 
 export type JsonPoiType = {

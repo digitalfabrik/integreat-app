@@ -4,8 +4,8 @@ import { SvgProps } from 'react-native-svg'
 import { SvgCssUri } from 'react-native-svg/css'
 import styled from 'styled-components/native'
 
-import { PageResourceCacheStateType } from '../utils/DataContainer'
-import getCachedThumbnail from '../utils/getCachedThumbnail'
+import useResourceCache from '../hooks/useResourceCache'
+import { getCachedResource } from '../utils/helpers'
 import Icon from './base/Icon'
 
 const StyledImage = styled.Image<{ aspectRatio?: number }>`
@@ -46,7 +46,6 @@ type SimpleImageProps = {
   resizeMode?: ImageResizeMode
   // In order to be able to align an image, its width or aspect ratio has to be set
   specifyAspectRatio?: boolean
-  resourceCache?: PageResourceCacheStateType
 }
 
 const SimpleImage = ({
@@ -54,8 +53,9 @@ const SimpleImage = ({
   style,
   resizeMode = 'contain',
   specifyAspectRatio = false,
-  resourceCache,
 }: SimpleImageProps): ReactElement => {
+  const { data: resourceCache } = useResourceCache()
+
   if (source === null) {
     return <View style={style} />
   }
@@ -70,7 +70,7 @@ const SimpleImage = ({
     return <Icon Icon={source} style={style} />
   }
 
-  const cachedSource = getCachedThumbnail(source, resourceCache)
+  const cachedSource = getCachedResource(source, { resourceCache })
 
   if (cachedSource.endsWith('.svg')) {
     // SvgCssUri doesn't use the width and height in the style prop

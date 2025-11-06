@@ -1,6 +1,6 @@
 import { waitFor } from '@testing-library/react'
 import React from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router'
 
 import { normalizePath } from 'shared'
 import { CityModelBuilder } from 'shared/api'
@@ -13,19 +13,21 @@ import RootSwitcher from '../RootSwitcher'
 import buildConfig from '../constants/buildConfig'
 import { renderWithRouterAndTheme } from '../testing/render'
 
+jest.mock('i18next', () => ({
+  ...jest.requireActual('i18next'),
+  createInstance: () => ({ language: 'de' }),
+}))
+jest.mock('react-inlinesvg')
+jest.mock('react-i18next')
+jest.mock('stylis')
+
 jest.mock('shared/api', () => ({
   ...jest.requireActual('shared/api'),
   useLoadFromEndpoint: jest.fn(),
   useLoadAsync: jest.fn(() => ({ data: null, error: null })),
 }))
-jest.mock('../CityContentSwitcher')
 
-jest.mock('react-inlinesvg')
-jest.mock('i18next', () => ({
-  ...jest.requireActual('i18next'),
-  createInstance: () => ({ language: 'de' }),
-}))
-jest.mock('react-i18next')
+jest.mock('../CityContentSwitcher')
 
 const MockComponent = () => {
   const pathname = normalizePath(useLocation().pathname)

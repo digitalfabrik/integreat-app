@@ -10,7 +10,6 @@ import buildConfig from '../constants/buildConfig'
 import { contentDirection } from '../constants/contentDirection'
 import useNavigate from '../hooks/useNavigate'
 import urlFromRouteInformation from '../navigation/url'
-import { PageResourceCacheStateType } from '../utils/DataContainer'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 import { CategoryThumbnail } from './CategoryListItem'
 import Highlighter from './Highlighter'
@@ -53,7 +52,6 @@ const HighlighterCategoryTitle = styled(Highlighter)<{ language: string }>`
 type SearchListItemProps = {
   title: string
   contentWithoutHtml: string
-  resourceCache: PageResourceCacheStateType
   language: string
   query: string
   path: string
@@ -63,7 +61,6 @@ type SearchListItemProps = {
 const SearchListItem = ({
   language,
   title,
-  resourceCache,
   contentWithoutHtml,
   query,
   path,
@@ -98,7 +95,7 @@ const SearchListItem = ({
       <DirectionContainer language={language}>
         <SearchEntryContainer>
           <TitleDirectionContainer language={language}>
-            {!!thumbnail && <CategoryThumbnail language={language} source={thumbnail} resourceCache={resourceCache} />}
+            {!!thumbnail && <CategoryThumbnail language={language} source={thumbnail} />}
             <HighlighterCategoryTitle language={language} text={title} search={query} />
           </TitleDirectionContainer>
           {excerpt.length > 0 && <Highlighter search={query} text={excerpt} />}

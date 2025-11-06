@@ -23,17 +23,12 @@ import {
 } from 'shared/api'
 
 import DatabaseContext from '../models/DatabaseContext'
-import {
-  CityResourceCacheStateType,
-  LanguageResourceCacheStateType,
-  PageResourceCacheEntryStateType,
-  PageResourceCacheStateType,
-} from './DataContainer'
+import { CityResourceCacheStateType } from './DataContainer'
 import { deleteIfExists } from './helpers'
 import { log, reportError } from './sentry'
 
-export const CONTENT_VERSION = 'v9'
-export const RESOURCE_CACHE_VERSION = 'v1'
+export const CONTENT_VERSION = 'v11'
+export const RESOURCE_CACHE_VERSION = 'v2'
 
 // Our pdf view can only load from DocumentDir. Therefore we need to use that
 export const CACHE_DIR_PATH = BlobUtil.fs.dirs.DocumentDir
@@ -57,14 +52,14 @@ type ContentCategoryJsonType = {
   path: string
   title: string
   content: string
-  last_update: string
+  lastUpdate: string
   thumbnail: string | null
-  available_languages: Record<string, string>
-  parent_path: string
+  availableLanguages: Record<string, string>
+  parentPath: string
   children: string[]
   order: number
   organization: OrganizationJsonType | null
-  embedded_offers: OfferJsonType[]
+  embeddedOffers: OfferJsonType[]
 }
 
 type OfferJsonType = {
@@ -103,19 +98,20 @@ type ContentEventJsonType = {
   path: string
   title: string
   content: string
-  last_update: string
+  lastUpdate: string
   thumbnail: string | null
-  available_languages: Record<string, string>
+  availableLanguages: Record<string, string>
   excerpt: string
   date: {
-    start_date: string
-    end_date: string
-    all_day: boolean
-    recurrence_rule: string | null
+    start: string
+    end: string | null
+    allDay: boolean
+    recurrenceRule: string | null
+    onlyWeekdays: boolean
   }
   location: LocationJsonType<number | null> | null
-  featured_image: FeaturedImageJsonType | null | undefined
-  poi_path: string | null
+  featuredImage: FeaturedImageJsonType | null | undefined
+  poiPath: string | null
 }
 
 type ContentLanguageJsonType = {
@@ -129,26 +125,26 @@ type ContentCityJsonType = {
   code: string
   languages: ContentLanguageJsonType[]
   prefix: string | null
-  events_enabled: boolean
-  chat_enabled: boolean
-  chat_privacy_policy_url: string | null
-  pois_enabled: boolean
-  sorting_name: string
+  eventsEnabled: boolean
+  chatEnabled: boolean
+  chatPrivacyPolicyUrl: string | null
+  poisEnabled: boolean
+  sortingName: string
   longitude: number
   latitude: number
   aliases: Record<string, { longitude: number; latitude: number }> | null
   pushNotificationsEnabled: boolean
   tunewsEnabled: boolean
-  bounding_box: BBox
+  boundingBox: BBox
 }
 
 type ContactJsonType = {
   name: string | null
-  area_of_responsibility: string | null
+  areaOfResponsibility: string | null
   email: string | null
-  phone_number: string | null
+  phoneNumber: string | null
   website: string | null
-  mobile_phone_number: string | null
+  mobileNumber: string | null
 }
 
 type ContentPoiJsonType = {
@@ -176,7 +172,7 @@ type ContentLocalNewsJsonType = {
   timestamp: string
   title: string
   content: string
-  available_languages: Record<string, number> | undefined
+  availableLanguages: Record<string, number> | undefined
 }
 
 type CityCodeType = string
@@ -199,10 +195,10 @@ type MetaCitiesJsonType = Record<
     languages: Record<
       LanguageCodeType,
       {
-        last_update: string
+        lastUpdate: string
       }
     >
-    last_usage: string
+    lastUsage: string
   }
 >
 
@@ -212,17 +208,6 @@ type CityLastUsageType = {
 }
 
 type MetaCitiesType = Record<CityCodeType, MetaCitiesEntryType>
-
-type PageResourceCacheEntryJsonType = {
-  file_path: string
-  hash: string
-}
-
-type PageResourceCacheJsonType = Record<string, PageResourceCacheEntryJsonType>
-
-type LanguageResourceCacheJsonType = Record<string, PageResourceCacheJsonType>
-
-type CityResourceCacheJsonType = Record<LanguageCodeType, LanguageResourceCacheJsonType>
 
 class DatabaseConnector {
   constructor() {
@@ -342,14 +327,14 @@ class DatabaseConnector {
         languages: mapValues(
           cityMeta.languages,
           ({
-            last_update: jsonLastUpdate,
+            lastUpdate: jsonLastUpdate,
           }): {
             lastUpdate: DateTime
           } => ({
             lastUpdate: DateTime.fromISO(jsonLastUpdate),
           }),
         ),
-        lastUsage: DateTime.fromISO(cityMeta.last_usage),
+        lastUsage: DateTime.fromISO(cityMeta.lastUsage),
       }))
     return this.readFile(path, mapCitiesMetaJson)
   }
@@ -362,12 +347,12 @@ class DatabaseConnector {
         ({
           lastUpdate,
         }): {
-          last_update: string
+          lastUpdate: string
         } => ({
-          last_update: lastUpdate.toISO(),
+          lastUpdate: lastUpdate.toISO(),
         }),
       ),
-      last_usage: cityMeta.lastUsage.toISO(),
+      lastUsage: cityMeta.lastUsage.toISO(),
     }))
     await this.writeFile(path, JSON.stringify(citiesMetaJson))
   }
@@ -404,10 +389,10 @@ class DatabaseConnector {
         path: category.path,
         title: category.title,
         content: category.content,
-        last_update: category.lastUpdate.toISO(),
+        lastUpdate: category.lastUpdate.toISO(),
         thumbnail: category.thumbnail,
-        available_languages: category.availableLanguages,
-        parent_path: category.parentPath,
+        availableLanguages: category.availableLanguages,
+        parentPath: category.parentPath,
         children: categoriesMap.getChildren(category).map(category => category.path),
         order: category.order,
         organization: category.organization
@@ -417,7 +402,7 @@ class DatabaseConnector {
               url: category.organization.url,
             }
           : null,
-        embedded_offers: category.embeddedOffers.map(offer => ({
+        embeddedOffers: category.embeddedOffers.map(offer => ({
           title: offer.title,
           alias: offer.alias,
           thumbnail: offer.thumbnail,
@@ -440,10 +425,10 @@ class DatabaseConnector {
               title: jsonObject.title,
               content: jsonObject.content,
               thumbnail: jsonObject.thumbnail,
-              parentPath: jsonObject.parent_path,
+              parentPath: jsonObject.parentPath,
               order: jsonObject.order,
-              availableLanguages: jsonObject.available_languages,
-              lastUpdate: DateTime.fromISO(jsonObject.last_update),
+              availableLanguages: jsonObject.availableLanguages,
+              lastUpdate: DateTime.fromISO(jsonObject.lastUpdate),
               organization:
                 jsonObject.organization !== null
                   ? new OrganizationModel({
@@ -452,7 +437,7 @@ class DatabaseConnector {
                       url: jsonObject.organization.url,
                     })
                   : null,
-              embeddedOffers: jsonObject.embedded_offers.map(
+              embeddedOffers: jsonObject.embeddedOffers.map(
                 jsonOffer =>
                   new OfferModel({
                     title: jsonOffer.title,
@@ -479,11 +464,11 @@ class DatabaseConnector {
         excerpt: poi.excerpt,
         contacts: poi.contacts.map(contact => ({
           name: contact.name,
-          area_of_responsibility: contact.areaOfResponsibility,
+          areaOfResponsibility: contact.areaOfResponsibility,
           email: contact.email,
-          phone_number: contact.phoneNumber,
+          phoneNumber: contact.phoneNumber,
           website: contact.website,
-          mobile_phone_number: contact.mobilePhoneNumber,
+          mobileNumber: contact.mobileNumber,
         })),
         location: {
           id: poi.location.id,
@@ -546,11 +531,11 @@ class DatabaseConnector {
             contact =>
               new ContactModel({
                 name: contact.name,
-                areaOfResponsibility: contact.area_of_responsibility,
+                areaOfResponsibility: contact.areaOfResponsibility,
                 email: contact.email,
-                phoneNumber: contact.phone_number,
+                phoneNumber: contact.phoneNumber,
                 website: contact.website,
-                mobilePhoneNumber: contact.mobile_phone_number,
+                mobileNumber: contact.mobileNumber,
               }),
           ),
           location: new LocationModel({
@@ -608,7 +593,7 @@ class DatabaseConnector {
         timestamp: it.timestamp.toISO(),
         title: it.title,
         content: it.content,
-        available_languages: it.availableLanguages,
+        availableLanguages: it.availableLanguages,
       }),
     )
     await this.writeFile(this.getContentPath('localNews', context), JSON.stringify(jsonModels))
@@ -624,7 +609,7 @@ class DatabaseConnector {
             timestamp: DateTime.fromISO(jsonObject.timestamp),
             title: jsonObject.title,
             content: jsonObject.content,
-            availableLanguages: jsonObject.available_languages ?? {},
+            availableLanguages: jsonObject.availableLanguages ?? {},
           }),
       )
 
@@ -639,17 +624,17 @@ class DatabaseConnector {
         code: city.code,
         languages: city.languages.map(it => ({ code: it.code, name: it.name })),
         prefix: city.prefix,
-        events_enabled: city.eventsEnabled,
-        chat_enabled: city.chatEnabled,
-        chat_privacy_policy_url: city.chatPrivacyPolicyUrl,
-        pois_enabled: city.poisEnabled,
+        eventsEnabled: city.eventsEnabled,
+        chatEnabled: city.chatEnabled,
+        chatPrivacyPolicyUrl: city.chatPrivacyPolicyUrl,
+        poisEnabled: city.poisEnabled,
         pushNotificationsEnabled: city.localNewsEnabled,
         tunewsEnabled: city.tunewsEnabled,
-        sorting_name: city.sortingName,
+        sortingName: city.sortingName,
         longitude: city.longitude,
         latitude: city.latitude,
         aliases: city.aliases,
-        bounding_box: city.boundingBox,
+        boundingBox: city.boundingBox,
       }),
     )
     await this.writeFile(this.getCitiesPath(), JSON.stringify(jsonModels))
@@ -665,18 +650,18 @@ class DatabaseConnector {
             code: jsonObject.code,
             live: jsonObject.live,
             languages: jsonObject.languages.map(it => new LanguageModel(it.code, it.name)),
-            eventsEnabled: jsonObject.events_enabled,
+            eventsEnabled: jsonObject.eventsEnabled,
             localNewsEnabled: jsonObject.pushNotificationsEnabled,
             tunewsEnabled: jsonObject.tunewsEnabled,
-            poisEnabled: jsonObject.pois_enabled,
-            sortingName: jsonObject.sorting_name,
+            poisEnabled: jsonObject.poisEnabled,
+            sortingName: jsonObject.sortingName,
             prefix: jsonObject.prefix,
             longitude: jsonObject.longitude,
             latitude: jsonObject.latitude,
             aliases: jsonObject.aliases,
-            boundingBox: jsonObject.bounding_box,
-            chatEnabled: jsonObject.chat_enabled,
-            chatPrivacyPolicyUrl: jsonObject.chat_privacy_policy_url,
+            boundingBox: jsonObject.boundingBox,
+            chatEnabled: jsonObject.chatEnabled,
+            chatPrivacyPolicyUrl: jsonObject.chatPrivacyPolicyUrl,
           }),
       )
 
@@ -689,15 +674,16 @@ class DatabaseConnector {
         path: event.path,
         title: event.title,
         content: event.content,
-        last_update: event.lastUpdate.toISO(),
+        lastUpdate: event.lastUpdate.toISO(),
         thumbnail: event.thumbnail,
-        available_languages: event.availableLanguages,
+        availableLanguages: event.availableLanguages,
         excerpt: event.excerpt,
         date: {
-          start_date: event.date.startDate.toISO(),
-          end_date: event.date.endDate.toISO(),
-          all_day: event.date.allDay,
-          recurrence_rule: event.date.recurrenceRule?.toString() ?? null,
+          start: event.date.startDate.toISO(),
+          end: event.date.endDate ? event.date.endDate.toISO() : null,
+          allDay: event.date.allDay,
+          recurrenceRule: event.date.recurrenceRule?.toString() ?? null,
+          onlyWeekdays: event.date.onlyWeekdays,
         },
         location: event.location
           ? {
@@ -711,7 +697,7 @@ class DatabaseConnector {
               name: event.location.name,
             }
           : null,
-        featured_image: event.featuredImage
+        featuredImage: event.featuredImage
           ? {
               description: event.featuredImage.description,
               thumbnail: event.featuredImage.thumbnail,
@@ -720,7 +706,7 @@ class DatabaseConnector {
               full: event.featuredImage.full,
             }
           : null,
-        poi_path: event.poiPath,
+        poiPath: event.poiPath,
       }),
     )
     await this.writeFile(this.getContentPath('events', context), JSON.stringify(jsonModels))
@@ -736,23 +722,24 @@ class DatabaseConnector {
           title: jsonObject.title,
           content: jsonObject.content,
           thumbnail: jsonObject.thumbnail,
-          featuredImage: jsonObject.featured_image
+          featuredImage: jsonObject.featuredImage
             ? new FeaturedImageModel({
-                description: jsonObject.featured_image.description,
-                thumbnail: jsonObject.featured_image.thumbnail,
-                medium: jsonObject.featured_image.medium,
-                large: jsonObject.featured_image.large,
-                full: jsonObject.featured_image.full,
+                description: jsonObject.featuredImage.description,
+                thumbnail: jsonObject.featuredImage.thumbnail,
+                medium: jsonObject.featuredImage.medium,
+                large: jsonObject.featuredImage.large,
+                full: jsonObject.featuredImage.full,
               })
             : null,
-          availableLanguages: jsonObject.available_languages,
-          lastUpdate: DateTime.fromISO(jsonObject.last_update),
+          availableLanguages: jsonObject.availableLanguages,
+          lastUpdate: DateTime.fromISO(jsonObject.lastUpdate),
           excerpt: jsonObject.excerpt,
           date: new DateModel({
-            startDate: DateTime.fromISO(jsonDate.start_date),
-            endDate: DateTime.fromISO(jsonDate.end_date),
-            allDay: jsonDate.all_day,
-            recurrenceRule: jsonDate.recurrence_rule ? rrulestr(jsonDate.recurrence_rule) : null,
+            startDate: DateTime.fromISO(jsonDate.start),
+            endDate: jsonDate.end ? DateTime.fromISO(jsonDate.end) : null,
+            allDay: jsonDate.allDay,
+            recurrenceRule: jsonDate.recurrenceRule ? rrulestr(jsonDate.recurrenceRule) : null,
+            onlyWeekdays: jsonDate.onlyWeekdays,
           }),
           location: jsonObject.location
             ? new LocationModel({
@@ -766,7 +753,7 @@ class DatabaseConnector {
                 town: jsonObject.location.town,
               })
             : null,
-          poiPath: jsonObject.poi_path,
+          poiPath: jsonObject.poiPath,
         })
       })
 
@@ -781,37 +768,13 @@ class DatabaseConnector {
       return {}
     }
 
-    const mapResourceCacheJson = (json: CityResourceCacheJsonType) =>
-      mapValues(json, languageResourceCache =>
-        mapValues(languageResourceCache, (fileResourceCache: PageResourceCacheJsonType) =>
-          mapValues(
-            fileResourceCache,
-            (entry: PageResourceCacheEntryJsonType): PageResourceCacheEntryStateType => ({
-              filePath: entry.file_path,
-              hash: entry.hash,
-            }),
-          ),
-        ),
-      )
+    const mapResourceCacheJson = (json: CityResourceCacheStateType) => json
     return this.readFile(path, mapResourceCacheJson)
   }
 
   async storeResourceCache(resourceCache: CityResourceCacheStateType, context: DatabaseContext): Promise<void> {
     const path = this.getResourceCachePath(context)
-    const json: CityResourceCacheJsonType = mapValues(
-      resourceCache,
-      (languageResourceCache: LanguageResourceCacheStateType) =>
-        mapValues(languageResourceCache, (fileResourceCache: PageResourceCacheStateType) =>
-          mapValues(
-            fileResourceCache,
-            (entry: PageResourceCacheEntryStateType): PageResourceCacheEntryJsonType => ({
-              file_path: entry.filePath,
-              hash: entry.hash,
-            }),
-          ),
-        ),
-    )
-    await this.writeFile(path, JSON.stringify(json))
+    await this.writeFile(path, JSON.stringify(resourceCache))
   }
 
   /**

@@ -1,44 +1,59 @@
-import styled from '@emotion/styled'
-import React, { ReactElement } from 'react'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+import Button from '@mui/material/Button'
+import Tooltip from '@mui/material/Tooltip'
+import Typography from '@mui/material/Typography'
+import { styled } from '@mui/material/styles'
+import React, { ReactElement, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
-import dimensions from '../constants/dimensions'
+import buildConfig from '../constants/buildConfig'
+import useDimensions from '../hooks/useDimensions'
+import Link from './base/Link'
 
 const LONG_TITLE_LENGTH = 25
-export const HEADER_TITLE_HEIGHT = 50
 
-const HeaderTitleContainer = styled.div<{ long: boolean }>`
-  display: flex;
-  align-items: center;
-  font-size: ${props => (props.long ? '1.3rem' : '1.8rem')};
-  max-height: ${dimensions.headerHeightLarge};
-  font-weight: 800;
-  flex: 1;
-  order: 2;
-  padding: 0 10px;
-  box-sizing: border-box;
-
-  @media ${dimensions.minMaxWidth} {
-    font-size: ${props => (props.long ? '1.5rem' : '1.8rem')};
-  }
-
-  @media ${dimensions.smallViewport} {
-    font-family: ${props => props.theme.fonts.web.decorativeFont};
-    font-size: ${props => props.theme.fonts.decorativeFontSize};
-    height: ${HEADER_TITLE_HEIGHT}px;
-    justify-content: start;
-    padding: 0 10px;
-    text-align: start;
-    align-self: center;
-    font-weight: 400;
-  }
-`
+const StyledTitle = styled(Typography)(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    wordWrap: 'break-word',
+    hyphens: 'auto',
+  },
+}))
 
 type HeaderTitleProps = {
   title: string
+  landingPath: string
 }
 
-const HeaderTitle = ({ title }: HeaderTitleProps): ReactElement => (
-  <HeaderTitleContainer long={title.length >= LONG_TITLE_LENGTH}>{title}</HeaderTitleContainer>
-)
+const HeaderTitle = ({ title, landingPath }: HeaderTitleProps): ReactElement => {
+  const { xsmall } = useDimensions()
+  const { t } = useTranslation('layout')
+  const { featureFlags } = buildConfig()
+  const variant = title.length >= LONG_TITLE_LENGTH && xsmall ? 'subtitle2' : 'subtitle1'
+  const [tooltipOpen, setTooltipOpen] = useState(false)
+
+  if (featureFlags.fixedCity) {
+    return (
+      <StyledTitle variant={variant} alignContent='center'>
+        {title}
+      </StyledTitle>
+    )
+  }
+  return (
+    <Tooltip
+      title={t('changeLocation')}
+      open={tooltipOpen}
+      onOpen={() => setTooltipOpen(true)}
+      onClose={() => setTooltipOpen(false)}>
+      <Button
+        component={Link}
+        to={landingPath}
+        endIcon={<KeyboardArrowDownIcon />}
+        color='inherit'
+        onMouseDown={() => setTooltipOpen(false)}>
+        <StyledTitle variant={variant}>{title}</StyledTitle>
+      </Button>
+    </Tooltip>
+  )
+}
 
 export default HeaderTitle

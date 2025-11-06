@@ -1,9 +1,9 @@
-import styled from '@emotion/styled'
+import Stack from '@mui/material/Stack'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
-import { useTranslation } from 'react-i18next'
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router'
 
-import { TU_NEWS_TYPE } from 'shared'
+import { TU_NEWS_TYPE, tunewsLabel } from 'shared'
 import { createTunewsElementEndpoint, NotFoundError, useLoadFromEndpoint } from 'shared/api'
 
 import { CityRouteProps } from '../CityContentSwitcher'
@@ -14,50 +14,28 @@ import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
 import LoadingSpinner from '../components/LoadingSpinner'
 import Page from '../components/Page'
-import Icon from '../components/base/Icon'
+import Svg from '../components/base/Svg'
 import { tunewsApiBaseUrl } from '../constants/urls'
 import useTtsPlayer from '../hooks/useTtsPlayer'
-import { TU_NEWS_DETAIL_ROUTE } from './index'
 
-const StyledContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-`
+const TuNewsBanner = styled('div')(({ theme }) => ({
+  overflow: 'hidden',
+  marginBlock: 24,
+  backgroundColor: theme.palette.tunews.light,
+  borderRadius: 12,
+  height: 60,
+  alignItems: 'start',
+}))
 
-const StyledBanner = styled.div`
-  position: relative;
-  display: flex;
-  height: 60px;
-  overflow: hidden;
-  align-items: center;
-  margin: 25px 0;
-  background-color: ${props => props.theme.colors.tunewsThemeColorLight};
-  border-radius: 11px;
-`
-
-const StyledIcon = styled(Icon)`
-  width: 100%;
-  height: 100%;
-`
-
-const StyledTitle = styled.div`
-  display: flex;
-  width: 185px;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-  background-color: ${props => props.theme.colors.tunewsThemeColor};
-  color: ${props => props.theme.colors.backgroundColor};
-  font-size: 20px;
-  font-weight: 700;
-`
+const IconContainer = styled(Stack)(({ theme }) => ({
+  backgroundColor: theme.palette.tunews.main,
+  shapeRendering: 'crispEdges',
+}))
 
 const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteProps): ReactElement | null => {
   // This component is only opened when there is a news ID in the route
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const newsId = useParams().newsId!
-  const { t } = useTranslation('news')
 
   const {
     data: newsModel,
@@ -71,16 +49,21 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
     return null
   }
 
-  const pageTitle = `${newsModel?.title ?? t('pageTitle')} - ${city.name}`
+  const pageTitle = `${newsModel?.title ?? tunewsLabel} - ${city.name}`
 
   // Language change is not possible between tuNews detail views because we don't know the id of other languages
-  const languageChangePaths = city.languages.map(({ code, name }) => ({ path: null, name, code }))
+  const languageChangePaths = city.languages.map(({ code, name }) => ({
+    path: code === languageCode ? pathname : null,
+    name,
+    code,
+  }))
+
   const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
     city,
     languageChangePaths,
-    route: TU_NEWS_DETAIL_ROUTE,
     languageCode,
-    Toolbar: <CityContentToolbar hasFeedbackOption={false} route={TU_NEWS_DETAIL_ROUTE} pageTitle={pageTitle} />,
+    pageTitle,
+    Toolbar: <CityContentToolbar />,
   }
 
   if (loading) {
@@ -112,21 +95,17 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
   return (
     <CityContentLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
-      <StyledContainer>
-        <>
-          <StyledBanner>
-            <StyledTitle>
-              <StyledIcon src={TuNewsActiveIcon} />
-            </StyledTitle>
-          </StyledBanner>
-          <Page
-            title={newsModel.title}
-            content={newsModel.content}
-            lastUpdate={newsModel.date}
-            showLastUpdateText={false}
-          />
-        </>
-      </StyledContainer>
+      <TuNewsBanner>
+        <IconContainer width={180} height='100%'>
+          <Svg src={TuNewsActiveIcon} width='100%' height='100%' />
+        </IconContainer>
+      </TuNewsBanner>
+      <Page
+        title={newsModel.title}
+        content={newsModel.content}
+        lastUpdate={newsModel.date}
+        showLastUpdateText={false}
+      />
     </CityContentLayout>
   )
 }

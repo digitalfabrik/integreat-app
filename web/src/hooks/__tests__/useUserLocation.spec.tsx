@@ -1,3 +1,4 @@
+import Button from '@mui/material/Button'
 import { render, waitFor, screen, fireEvent } from '@testing-library/react'
 import { mocked } from 'jest-mock'
 import React from 'react'
@@ -20,9 +21,7 @@ const MockComponent = () => {
   return (
     <div>
       <div data-testid='coords'>{data ? data.join(',') : 'no coords'}</div>
-      <button type='button' onClick={refresh}>
-        refresh
-      </button>
+      <Button onClick={refresh}>refresh</Button>
     </div>
   )
 }

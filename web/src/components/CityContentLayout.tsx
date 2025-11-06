@@ -1,67 +1,71 @@
 import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
 
-import { CityModel } from 'shared/api'
-import { POIS_ROUTE } from 'shared/routes'
+import { POIS_ROUTE } from 'shared'
+import { CategoryModel, CityModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
-import useWindowDimensions from '../hooks/useWindowDimensions'
-import { RouteType } from '../routes'
+import useCityContentParams from '../hooks/useCityContentParams'
+import useDimensions from '../hooks/useDimensions'
+import BottomNavigation from './BottomNavigation'
 import ChatContainer from './ChatContainer'
-import CityContentFooter from './CityContentFooter'
 import CityContentHeader from './CityContentHeader'
+import Footer from './Footer'
 import Layout from './Layout'
 
 export type CityContentLayoutProps = {
   Toolbar?: ReactElement | null
   children?: ReactNode
-  route: RouteType
   languageChangePaths: { code: string; path: string | null; name: string }[] | null
   isLoading: boolean
   city: CityModel
   languageCode: string
-  fullWidth?: boolean
-  disableScrollingSafari?: boolean
-  showFooter?: boolean
+  fitScreen?: boolean
+  category?: CategoryModel
+  pageTitle: string | null
 }
 
 const CityContentLayout = ({
   children,
+  category,
   city,
   languageCode,
   languageChangePaths,
   isLoading,
-  route,
   Toolbar,
-  fullWidth = false,
-  disableScrollingSafari = false,
-  showFooter = true,
+  fitScreen = false,
+  pageTitle,
 }: CityContentLayoutProps): ReactElement => {
+  const { route } = useCityContentParams()
   const [layoutReady, setLayoutReady] = useState(!isLoading)
-  const { viewportSmall } = useWindowDimensions()
+  const { desktop, mobile } = useDimensions()
   const isChatEnabled = buildConfig().featureFlags.chat && route !== POIS_ROUTE && city.chatEnabled
-
-  const Footer = viewportSmall ? Toolbar : showFooter && <CityContentFooter city={city.code} language={languageCode} />
+  const footerVisible = !isLoading && desktop && !fitScreen
+  const chatVisible = isChatEnabled && layoutReady
 
   // Avoid flickering due to content (chat) being pushed up by the footer
-  useEffect(() => {
-    setLayoutReady(!isLoading)
-  }, [isLoading])
+  useEffect(() => setLayoutReady(!isLoading), [isLoading])
 
   return (
     <Layout
-      disableScrollingSafari={disableScrollingSafari}
-      fullWidth={fullWidth}
+      fitScreen={fitScreen}
       header={
         <CityContentHeader
+          category={category}
           cityModel={city}
           languageChangePaths={languageChangePaths}
           languageCode={languageCode}
-          route={route}
+          pageTitle={pageTitle}
+          fitScreen={fitScreen}
         />
       }
-      footer={!isLoading && Footer}
-      chat={isChatEnabled && layoutReady ? <ChatContainer city={city} language={languageCode} /> : undefined}
-      toolbar={viewportSmall ? null : Toolbar}>
+      footer={
+        <>
+          {footerVisible && <Footer />}
+          {chatVisible && <ChatContainer city={city} language={languageCode} />}
+          {mobile && <BottomNavigation cityModel={city} languageCode={languageCode} />}
+        </>
+      }
+      toolbar={desktop ? Toolbar : null}>
       {children}
     </Layout>
   )

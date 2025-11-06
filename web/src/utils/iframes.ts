@@ -3,7 +3,6 @@ import { TFunction } from 'i18next'
 import { CONSENT_ROUTE, ExternalSourcePermissions } from 'shared'
 
 import { IFRAME_BLANK_SOURCE, IframeSources } from '../components/RemoteContent'
-import dimensions from '../constants/dimensions'
 
 export const LOCAL_STORAGE_ITEM_EXTERNAL_SOURCES = 'Opt-In-External-Sources'
 export const addDoNotTrackParameter = (iframe: HTMLIFrameElement): void => {
@@ -48,7 +47,7 @@ const getContainer = (element: HTMLElement, className: string, id: string): HTML
 
 const getIframeContainer = (
   id: string,
-  viewportSmall: boolean,
+  mobile: boolean,
   iframe: HTMLIFrameElement,
   deviceWidth: number,
 ): HTMLDivElement => {
@@ -61,10 +60,10 @@ const getIframeContainer = (
   iframeContainer.id = id
   iframe.parentNode?.appendChild(iframeContainer)
   iframeContainer.appendChild(iframe)
-  if (viewportSmall) {
+  if (mobile) {
     // Scale the height depending on device width minus padding
-    const scaledHeight =
-      (deviceWidth / Number(iframe.width)) * Number(iframe.height) - dimensions.mainContainerHorizontalPadding
+    const padding = 16
+    const scaledHeight = (deviceWidth / Number(iframe.width)) * Number(iframe.height) - padding
     iframe.setAttribute('height', `${scaledHeight}`)
   } else {
     // Set the container width according to the iframe width
@@ -163,12 +162,12 @@ export const handleAllowedIframeSources = (
   onUpdateLocalStorage: (source: string) => void,
   iframeIndex: number,
   supportedSource: string,
-  viewportSmall: boolean,
+  mobile: boolean,
   deviceWidth: number,
 ): void => {
   const permission = supportedSource ? externalSourcePermissions[supportedSource] : undefined
   const iframeContainerId = `iframe-container${supportedSource}${iframeIndex}`
-  const iframeContainer = getIframeContainer(iframeContainerId, viewportSmall, iframe, deviceWidth)
+  const iframeContainer = getIframeContainer(iframeContainerId, mobile, iframe, deviceWidth)
 
   if (permission === undefined) {
     const message = t('consent:knownResourceOptIn')

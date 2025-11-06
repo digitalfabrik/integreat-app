@@ -1,5 +1,5 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router'
 
 import { DISCLAIMER_ROUTE, NEWS_ROUTE, normalizePath, POIS_ROUTE, SEARCH_ROUTE } from 'shared'
 import { CityModel, CityModelBuilder } from 'shared/api'
@@ -19,7 +19,6 @@ jest.mock('shared/api', () => ({
 jest.mock('../components/CityContentHeader')
 jest.mock('../components/CityContentLayout')
 jest.mock('react-i18next')
-jest.mock('react-tooltip')
 
 jest.mock('../routes/SearchPage', () => () => <div>{SEARCH_ROUTE}</div>)
 jest.mock('../routes/DisclaimerPage', () => () => <div>{DISCLAIMER_ROUTE}</div>)

@@ -25,7 +25,7 @@ describe('events', () => {
       all_day: allDay,
       start,
       end,
-      recurrence_id: null,
+      only_weekdays: false,
     },
     location: {
       id: 1234,
@@ -88,6 +88,7 @@ describe('events', () => {
         startDate,
         endDate,
         recurrenceRule: rrule ? rrulestr(rrule) : null,
+        onlyWeekdays: false,
       }),
       location: new LocationModel({
         id: 1234,

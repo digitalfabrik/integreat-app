@@ -1,29 +1,30 @@
-import styled from '@emotion/styled'
+import Stack from '@mui/material/Stack'
+import Typography from '@mui/material/Typography'
 import React, { ReactElement } from 'react'
 
 import Link from './base/Link'
 
-const Identifier = styled.span`
-  font-weight: 700;
-`
-
 type PageDetailProps = {
-  identifier: string
+  icon: ReactElement
   information: string
+  secondaryInformation?: string
   path?: string | null
 }
 
-const PageDetail = ({ identifier, information, path }: PageDetailProps): ReactElement => (
-  <div>
-    <Identifier>{identifier}: </Identifier>
-    {path ? (
-      <Link to={path} highlighted>
-        {information}
-      </Link>
-    ) : (
-      <span>{information}</span>
-    )}
-  </div>
+const PageDetail = ({ information, secondaryInformation, path, icon }: PageDetailProps): ReactElement => (
+  <Stack direction='row' gap={1}>
+    {icon}
+    <Stack direction='row' flexWrap='wrap' gap={1}>
+      {path ? (
+        <Link to={path} highlighted>
+          <Typography>{information}</Typography>
+        </Link>
+      ) : (
+        <Typography>{information}</Typography>
+      )}
+      <Typography>{secondaryInformation}</Typography>
+    </Stack>
+  </Stack>
 )
 
 export default PageDetail

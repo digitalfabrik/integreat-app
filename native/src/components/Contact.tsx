@@ -4,7 +4,7 @@ import styled from 'styled-components/native'
 
 import { ContactModel } from 'shared/api'
 
-import { ExternalLinkIcon, MailIcon, PhoneIcon, WebsiteIcon } from '../assets'
+import { ExternalLinkIcon, MailIcon, PhoneIcon, WebsiteIcon, MobilePhoneIcon } from '../assets'
 import HorizontalLine from './HorizontalLine'
 import PoiDetailRow from './PoiDetailRow'
 import Text from './base/Text'
@@ -20,7 +20,7 @@ type ContactProps = {
 }
 
 const Contact = ({
-  contact: { headline, website, phoneNumber, email, mobilePhoneNumber },
+  contact: { headline, website, phoneNumber, email, mobileNumber },
   isLastContact,
 }: ContactProps): ReactElement => {
   const { t } = useTranslation('pois')
@@ -45,12 +45,12 @@ const Contact = ({
           Icon={PhoneIcon}
         />
       )}
-      {!!mobilePhoneNumber && (
+      {!!mobileNumber && (
         <PoiDetailRow
-          externalUrl={`tel:${mobilePhoneNumber}`}
+          externalUrl={`tel:${mobileNumber}`}
           accessibilityLabel={t('mobilePhone')}
-          text={mobilePhoneNumber}
-          Icon={PhoneIcon}
+          text={mobileNumber}
+          Icon={MobilePhoneIcon}
         />
       )}
       {!!email && (

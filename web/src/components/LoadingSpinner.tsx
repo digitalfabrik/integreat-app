@@ -1,5 +1,5 @@
 import { keyframes } from '@emotion/react'
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
 /** From https://github.com/ConnorAtherton/loaders.css/blob/master/loaders.css */
@@ -17,13 +17,13 @@ const lineScaleParty = keyframes`
   }
 `
 
-const Spinner = styled.div`
+const Spinner = styled('div')`
   margin-top: 50px;
   text-align: center;
   animation-name: ${lineScaleParty};
 
   > div {
-    background-color: ${props => props.theme.colors.textSecondaryColor};
+    background-color: ${props => props.theme.palette.text.secondary};
     width: 4px;
     height: 35px;
     border-radius: 2px;

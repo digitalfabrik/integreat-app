@@ -1,9 +1,9 @@
 import { DateTime } from 'luxon'
 import React, { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link, Navigate, useParams } from 'react-router-dom'
+import { Navigate, useParams } from 'react-router'
 
-import { CATEGORIES_ROUTE, cityContentPath } from 'shared'
+import { cityContentPath } from 'shared'
 import {
   CategoriesMapModel,
   CategoryModel,
@@ -16,10 +16,11 @@ import {
 } from 'shared/api'
 
 import { CityRouteProps } from '../CityContentSwitcher'
+import { BreadcrumbProps } from '../components/Breadcrumb'
 import Breadcrumbs from '../components/Breadcrumbs'
 import CategoriesContent from '../components/CategoriesContent'
-import CategoriesToolbar from '../components/CategoriesToolbar'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
+import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
 import LoadingSpinner from '../components/LoadingSpinner'
@@ -27,22 +28,13 @@ import buildConfig from '../constants/buildConfig'
 import { cmsApiBaseUrl } from '../constants/urls'
 import usePreviousProp from '../hooks/usePreviousProp'
 import useTtsPlayer from '../hooks/useTtsPlayer'
-import BreadcrumbModel from '../models/BreadcrumbModel'
 
 const CATEGORY_NOT_FOUND_STATUS_CODE = 400
 
-const getBreadcrumb = (category: CategoryModel, cityName: string) => {
-  const title = category.isRoot() ? cityName : category.title
-  return new BreadcrumbModel({
-    title,
-    pathname: category.path,
-    node: (
-      <Link to={category.path} key={category.path}>
-        {title}
-      </Link>
-    ),
-  })
-}
+const getBreadcrumb = (category: CategoryModel, cityName: string): BreadcrumbProps => ({
+  title: category.isRoot() ? cityName : category.title,
+  to: category.path,
+})
 
 const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRouteProps): ReactElement | null => {
   const previousPathname = usePreviousProp({ prop: pathname })
@@ -120,17 +112,14 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
     }
   })
 
-  const pageTitle = `${category && !category.isRoot() ? category.title : t('dashboard:localInformation')} - ${
-    city.name
-  }`
+  const pageTitle = `${category && !category.isRoot() ? category.title : t('localInformation')} - ${city.name}`
   const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
     city,
     languageChangePaths,
-    route: CATEGORIES_ROUTE,
     languageCode,
-    Toolbar: (
-      <CategoriesToolbar category={category} cityCode={cityCode} languageCode={languageCode} pageTitle={pageTitle} />
-    ),
+    category,
+    pageTitle,
+    Toolbar: <CityContentToolbar slug={category && !category.isRoot() ? category.slug : undefined} />,
   }
 
   if (categoriesLoading || parentsLoading || pathname !== previousPathname) {
@@ -166,6 +155,7 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
   const ancestorBreadcrumbs = parents
     .sort((a, b) => a.parentPath.length - b.parentPath.length)
     .map((categoryModel: CategoryModel) => getBreadcrumb(categoryModel, city.name))
+  const breadcrumbs = [...ancestorBreadcrumbs, getBreadcrumb(category, city.name)]
 
   const metaDescription = t('categories:metaDescription', { appName: buildConfig().appName })
 
@@ -177,7 +167,7 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
         languageChangePaths={languageChangePaths}
         cityModel={city}
       />
-      <Breadcrumbs ancestorBreadcrumbs={ancestorBreadcrumbs} currentBreadcrumb={getBreadcrumb(category, city.name)} />
+      <Breadcrumbs breadcrumbs={breadcrumbs} />
       <CategoriesContent
         city={city}
         cityCode={cityCode}

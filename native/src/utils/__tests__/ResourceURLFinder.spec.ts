@@ -1,3 +1,7 @@
+import { DateTime } from 'luxon'
+
+import { ExtendedPageModel } from 'shared/api'
+
 import ResourceURLFinder from '../ResourceURLFinder'
 
 jest.mock('react-i18next')
@@ -41,42 +45,27 @@ describe('ResourceURLFinder', () => {
     const finder = new ResourceURLFinder(['ex.am'])
     finder.init()
     const input = [
-      {
+      new ExtendedPageModel({
         path: '/path1',
         thumbnail: 'https://ex.am/thumb.png',
         content: `<img src="https://ex.am/pl1.png" alt="Crazy" />
                   <img src="https://ex.am/noextension" alt="Nöp!" />
                   <img src="invalid-url" alt="Näp!" />`,
-      },
-      {
+        availableLanguages: {},
+        title: 'test',
+        lastUpdate: DateTime.now(),
+      }),
+      new ExtendedPageModel({
         path: '/path2',
         thumbnail: '',
         content: '<img src="https://ex.am/pl2.png" alt="Crazy" />',
-      },
+        availableLanguages: {},
+        title: 'test',
+        lastUpdate: DateTime.now(),
+      }),
     ]
     const fetchMap = finder.buildFetchMap(input, (url, urlHash) => `buildFilePath('${url}', '${urlHash}')`, [])
     finder.finalize()
-    expect(fetchMap).toMatchSnapshot()
-  })
-
-  it('should build a correct fetch map if two pages are using the same resource', () => {
-    const finder = new ResourceURLFinder(['ex.am'])
-    finder.init()
-    const input = [
-      {
-        path: '/path1',
-        thumbnail: 'https://ex.am/thumb.png',
-        content: '<img src="https://ex.am/pl1.png" alt="Crazy" />',
-      },
-      {
-        path: '/path2',
-        thumbnail: 'https://ex.am/thumb.png',
-        content: '<img src="https://ex.am/pl1.png" alt="Crazy" />',
-      },
-    ]
-    const fetchMap = finder.buildFetchMap(input, (url, urlHash) => `buildFilePath('${url}', '${urlHash}')`, [])
-    finder.finalize()
-    expect(fetchMap['/path1']).toEqual(fetchMap['/path2'])
     expect(fetchMap).toMatchSnapshot()
   })
 
@@ -84,18 +73,24 @@ describe('ResourceURLFinder', () => {
     const finder = new ResourceURLFinder(['ex.am'])
     finder.init()
     const input = [
-      {
+      new ExtendedPageModel({
         path: '/path1',
         thumbnail: 'https://ex.am/thumb.png',
         content: `<img src="https://ex.am/pl1.png" alt="First Pic" />
                   <img src="https://ex.am/pl2.png" alt="Second Pic" />
                   <img src="https://ex.am/pl3.jpg" alt="Third Pic" />`,
-      },
-      {
+        availableLanguages: {},
+        title: 'test',
+        lastUpdate: DateTime.now(),
+      }),
+      new ExtendedPageModel({
         path: '/path2',
         thumbnail: '',
         content: '<img src="https://ex.am/pl4.pdf" alt="And an entire PDF" />',
-      },
+        availableLanguages: {},
+        title: 'test',
+        lastUpdate: DateTime.now(),
+      }),
     ]
     const fetchMap = finder.buildFetchMap(input, (url, urlHash) => `buildFilePath('${url}', '${urlHash}')`, [
       'https://ex.am/pl2.png',

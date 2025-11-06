@@ -1,129 +1,89 @@
-import styled from '@emotion/styled'
+import AccessTimeIcon from '@mui/icons-material/AccessTime'
+import Button from '@mui/material/Button'
+import Stack from '@mui/material/Stack'
+import Typography from '@mui/material/Typography'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { PoiCategoryModel } from 'shared/api'
 
-import { ClockIcon } from '../assets'
-import ModalContent from './ModalContent'
+import SpacedToggleButtonGroup from './SpacedToggleButtonGroup'
 import Checkbox from './base/Checkbox'
-import Icon from './base/Icon'
-import TextButton from './base/TextButton'
+import Dialog from './base/Dialog'
 import ToggleButton, { toggleButtonWidth } from './base/ToggleButton'
 
-const tileColumnGap = 16
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0 16px 16px;
-  gap: 24px;
-`
-
-const SubTitle = styled.div`
-  font-size: 0.875rem;
-  color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.web.decorativeFont};
-  font-weight: bold;
-`
-
-const Section = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  gap: 24px;
-`
-
-const Row = styled.div`
-  display: flex;
-  gap: 8px;
-  align-items: center;
-`
-
-const SortingHint = styled.div`
-  align-self: flex-end;
-  font-size: 0.75rem;
-  color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.web.decorativeFont};
-  padding: 0 4px;
-`
-
-const TileRow = styled.div<{ itemCount: number }>`
-  display: grid;
-  gap: 24px ${tileColumnGap}px;
-  justify-content: center;
-  grid-template-columns: repeat(${props => props.itemCount}, ${toggleButtonWidth}px);
-`
-
-const StyledButton = styled(TextButton)`
-  width: 100%;
-  margin: 0;
-`
-
-const StyledIcon = styled(Icon)`
-  width: 24px;
-  height: 24px;
-`
+const TileRow = styled(SpacedToggleButtonGroup)({
+  display: 'grid',
+  gap: '16px',
+  justifyContent: 'center',
+  gridTemplateColumns: `repeat(auto-fit, ${toggleButtonWidth}px)`,
+})
 
 type PoiFiltersProps = {
-  closeModal: () => void
+  close: () => void
   poiCategories: PoiCategoryModel[]
   selectedPoiCategory: PoiCategoryModel | undefined
   setSelectedPoiCategory: (poiCategory: PoiCategoryModel | null) => void
   currentlyOpenFilter: boolean
   setCurrentlyOpenFilter: (currentlyOpen: boolean) => void
-  panelWidth: number
   poisCount: number
 }
 
 const PoiFilters = ({
-  closeModal,
+  close,
   poiCategories,
   selectedPoiCategory,
   setSelectedPoiCategory,
   currentlyOpenFilter,
   setCurrentlyOpenFilter,
-  panelWidth,
   poisCount,
 }: PoiFiltersProps): ReactElement => {
   const { t } = useTranslation('pois')
 
+  const handleFilterChange = (_: React.MouseEvent<HTMLElement>, newValue: number | null) => {
+    const category = poiCategories.find(category => category.id === newValue)
+    setSelectedPoiCategory(category ?? null)
+  }
+
   return (
-    <ModalContent title={t('adjustFilters')} closeModal={closeModal} small>
-      <Container>
-        <Section>
-          <SubTitle>{t('openingHours')}</SubTitle>
-          <Row>
-            <StyledIcon src={ClockIcon} />
+    <Dialog title={t('adjustFilters')} close={close}>
+      <Stack gap={3}>
+        <Stack width='100%' gap={1}>
+          <Typography component='h3' variant='subtitle1'>
+            {t('openingHours')}
+          </Typography>
+          <Stack direction='row' alignItems='center' gap={1}>
+            <AccessTimeIcon />
             <Checkbox
-              id='poi-filters-currently-opened'
               checked={currentlyOpenFilter}
               setChecked={setCurrentlyOpenFilter}
               label={t('onlyCurrentlyOpen')}
             />
-          </Row>
-        </Section>
-        <Section>
-          <Row>
-            <SubTitle>{t('poiCategories')}</SubTitle>
-            <SortingHint>{t('alphabetLetters')}</SortingHint>
-          </Row>
-          <TileRow itemCount={Math.floor(panelWidth / (toggleButtonWidth + tileColumnGap))}>
+          </Stack>
+        </Stack>
+        <Stack width='100%' gap={2}>
+          <Stack direction='row' alignItems='center' gap={1}>
+            <Typography component='h3' variant='subtitle1'>
+              {t('poiCategories')}
+            </Typography>
+            <Typography variant='subtitle2'>{t('alphabetLetters')}</Typography>
+          </Stack>
+          <TileRow
+            exclusive
+            value={selectedPoiCategory?.id}
+            onChange={handleFilterChange}
+            aria-label={t('poiCategories')}>
             {poiCategories.map(it => (
-              <ToggleButton
-                key={it.id}
-                text={it.name}
-                active={it.id === selectedPoiCategory?.id}
-                onClick={() => setSelectedPoiCategory(it.id === selectedPoiCategory?.id ? null : it)}
-                icon={it.icon}
-              />
+              <ToggleButton key={it.id} value={it.id} text={it.name} icon={it.icon} />
             ))}
           </TileRow>
-        </Section>
-        <StyledButton onClick={closeModal} text={t('showPois', { count: poisCount })} disabled={poisCount === 0} />
-      </Container>
-    </ModalContent>
+        </Stack>
+        <Button onClick={close} variant='contained' disabled={poisCount === 0} fullWidth>
+          {t('showPois', { count: poisCount })}
+        </Button>
+      </Stack>
+    </Dialog>
   )
 }
 

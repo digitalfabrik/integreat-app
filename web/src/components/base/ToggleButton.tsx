@@ -1,45 +1,47 @@
-import styled from '@emotion/styled'
-import React, { ReactElement } from 'react'
+import { SvgIconProps } from '@mui/material/SvgIcon'
+import MuiToggleButton from '@mui/material/ToggleButton'
+import Typography from '@mui/material/Typography'
+import { styled } from '@mui/material/styles'
+import React, { ElementType, ReactElement } from 'react'
 
-import StyledSmallViewTip from '../StyledSmallViewTip'
-import Button from './Button'
+import Svg from './Svg'
 
 export const toggleButtonWidth = 100
 
-const StyledButton = styled(Button)<{ active: boolean | null }>`
-  box-shadow:
-    0 1px 2px rgb(0 0 0 / 25%),
-    0 1px 4px 1px rgb(0 0 0 / 15%);
-  border-radius: 18px;
-  width: ${toggleButtonWidth}px;
-  height: 100px;
-  background-color: ${props => {
-    if (props.active) {
-      return props.theme.colors.themeColor
-    }
-    if (props.theme.isContrastTheme) {
-      return props.theme.colors.textColor
-    }
-    return props.theme.colors.backgroundColor
-  }};
-  color: ${props =>
-    props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.textSecondaryColor};
-  padding: 8px;
-  text-align: center;
-`
+const StyledButton = styled(MuiToggleButton)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  width: toggleButtonWidth,
+  height: 100,
+  textAlign: 'center',
+  gap: 8,
+  wordBreak: 'break-word',
+  hyphens: 'auto',
 
-type TextButtonProps = {
+  ...(theme.isContrastTheme && {
+    '&.Mui-selected': {
+      color: theme.palette.text.primary,
+      backgroundColor: theme.palette.primary.main,
+      '&:hover': {
+        backgroundColor: theme.palette.primary.dark,
+      },
+    },
+  }),
+}))
+
+type ToggleButtonProps = {
   text: string
-  onClick: () => void
-  icon: string
+  value: string | number
+  onClick?: () => void
+  icon: string | ElementType<SvgIconProps>
   active?: boolean
   className?: string
 }
 
-const ToggleButton = ({ text, onClick, className, ...props }: TextButtonProps): ReactElement => (
-  <StyledButton onClick={onClick} active={!!props.active} label='' className={className}>
-    <img src={props.icon} alt='' />
-    <StyledSmallViewTip as='span'>{text}</StyledSmallViewTip>
+const ToggleButton = ({ text, onClick, className, value, icon: Icon, active }: ToggleButtonProps): ReactElement => (
+  <StyledButton color='primary' value={value} selected={active} onChange={onClick} className={className}>
+    {typeof Icon === 'string' ? <Svg src={Icon} width={40} height={40} /> : <Icon fontSize='large' />}
+    <Typography variant='body3'>{text}</Typography>
   </StyledButton>
 )
 

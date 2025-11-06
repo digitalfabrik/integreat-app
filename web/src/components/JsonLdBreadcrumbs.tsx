@@ -2,10 +2,10 @@ import React, { ReactElement } from 'react'
 import { Helmet } from 'react-helmet'
 import { BreadcrumbList, WithContext } from 'schema-dts'
 
-import BreadcrumbModel from '../models/BreadcrumbModel'
 import { urlFromPath } from '../utils/stringUtils'
+import { BreadcrumbProps } from './Breadcrumb'
 
-export const createJsonLd = (breadcrumbs: BreadcrumbModel[]): WithContext<BreadcrumbList> =>
+export const createJsonLd = (breadcrumbs: BreadcrumbProps[]): WithContext<BreadcrumbList> =>
   // https://developers.google.com/search/docs/data-types/breadcrumb
   ({
     '@context': 'https://schema.org',
@@ -14,12 +14,12 @@ export const createJsonLd = (breadcrumbs: BreadcrumbModel[]): WithContext<Breadc
       '@type': 'ListItem',
       position: index + 1,
       name: breadcrumb.title,
-      item: urlFromPath(breadcrumb.pathname),
+      item: urlFromPath(breadcrumb.to),
     })),
   })
 
 type JsonLdBreadcrumbsProps = {
-  breadcrumbs: BreadcrumbModel[]
+  breadcrumbs: BreadcrumbProps[]
 }
 
 const JsonLdBreadcrumbs = ({ breadcrumbs }: JsonLdBreadcrumbsProps): ReactElement => (

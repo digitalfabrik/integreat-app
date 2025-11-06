@@ -1,21 +1,35 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 import styled from 'styled-components/native'
 
-import { MAX_DATE_RECURRENCES, MAX_DATE_RECURRENCES_COLLAPSED } from 'shared'
+import { MAX_DATE_RECURRENCES } from 'shared'
 import { DateModel } from 'shared/api'
 
-import Collapsible from './Collapsible'
+import { CalendarTodayIcon, ClockIcon, ExpandIcon } from '../assets'
 import PageDetail from './PageDetail'
+import Icon from './base/Icon'
+import Pressable from './base/Pressable'
 import Text from './base/Text'
 
-const Identifier = styled(Text)`
-  font-weight: bold;
-  color: ${props => props.theme.colors.textColor};
+const SingleDateContainer = styled.View`
+  margin-bottom: 8px;
 `
-const StyledText = styled(Text)`
-  color: ${props => props.theme.colors.textColor};
+
+const StyledPressable = styled(Pressable)`
+  flex-direction: row;
+  gap: 8px;
+  border-color: ${props => props.theme.colors.themeColor};
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 4px;
+  align-self: flex-start;
+  padding: 4px 8px;
+`
+
+const StyledIcon = styled(Icon)`
+  width: 16px;
+  height: 16px;
 `
 
 type DatesPageDetailProps = {
@@ -24,35 +38,44 @@ type DatesPageDetailProps = {
 }
 
 const DatesPageDetail = ({ date, languageCode }: DatesPageDetailProps): ReactElement | null => {
-  const dates = date.recurrences(MAX_DATE_RECURRENCES).map(it => it.toFormattedString(languageCode, true))
-  const nextDate = dates[0] ?? date.toFormattedString(languageCode, true)
-  const hasMoreDates = date.hasMoreRecurrencesThan(MAX_DATE_RECURRENCES)
-  const { t } = useTranslation('events')
+  const [tapsOnShowMore, setTapsOnShowMore] = useState(0)
+  const visibleRecurrences = MAX_DATE_RECURRENCES * (tapsOnShowMore + 1)
 
-  if (dates.length === 1) {
-    return <PageDetail identifier={t('date_one')} information={nextDate} language={languageCode} />
-  }
+  // Use the content language to match the surrounding translations
+  const { t: translateIntoContentLanguage } = useTranslation('events', { lng: languageCode })
 
-  const Title = <Identifier>{t(hasMoreDates ? 'nextDate_other' : 'date_other')}: </Identifier>
-  const Dates = dates.map(it => <StyledText key={it}>{it}</StyledText>)
-  const AlwaysShownDates = <>{Dates.slice(0, MAX_DATE_RECURRENCES_COLLAPSED)}</>
+  const recurrences = date
+    .recurrences(visibleRecurrences)
+    .map(recurrence => recurrence.formatMonthlyOrYearlyRecurrence(languageCode, translateIntoContentLanguage))
+    .map(formattedDate => (
+      <SingleDateContainer key={formattedDate.date}>
+        <PageDetail Icon={CalendarTodayIcon} information={formattedDate.date} language={languageCode} />
+        <PageDetail Icon={ClockIcon} information={formattedDate.time} language={languageCode} />
+      </SingleDateContainer>
+    ))
 
-  if (dates.length <= MAX_DATE_RECURRENCES_COLLAPSED) {
+  if (date.isMonthlyOrYearlyRecurrence()) {
     return (
       <View>
-        {Title}
-        {AlwaysShownDates}
+        {recurrences}
+        {date.hasMoreRecurrencesThan(visibleRecurrences) && (
+          <StyledPressable role='button' onPress={() => setTapsOnShowMore(tapsOnShowMore + 1)}>
+            <StyledIcon Icon={ExpandIcon} />
+            <Text>{translateIntoContentLanguage('common:showMore')}</Text>
+          </StyledPressable>
+        )}
       </View>
     )
   }
 
+  const formattedDate = date.formatEventDate(languageCode, translateIntoContentLanguage)
+
   return (
-    <Collapsible headerContent={Title} Description={AlwaysShownDates} language={languageCode} initialCollapsed>
-      <>
-        {Dates.slice(MAX_DATE_RECURRENCES_COLLAPSED)}
-        {hasMoreDates && <Text>...</Text>}
-      </>
-    </Collapsible>
+    <View>
+      <PageDetail Icon={CalendarTodayIcon} information={formattedDate.date} language={languageCode} />
+      {!!formattedDate.weekday && <PageDetail information={formattedDate.weekday} language={languageCode} />}
+      <PageDetail Icon={ClockIcon} information={formattedDate.time} language={languageCode} />
+    </View>
   )
 }
 

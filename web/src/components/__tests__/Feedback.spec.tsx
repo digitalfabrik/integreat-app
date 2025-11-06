@@ -1,9 +1,10 @@
 import { fireEvent } from '@testing-library/react'
 import React from 'react'
 
+import { Rating, SendingStatusType } from 'shared'
+
 import { renderWithTheme } from '../../testing/render'
 import Feedback from '../Feedback'
-import { SendingStatusType } from '../FeedbackContainer'
 
 jest.mock('react-inlinesvg')
 jest.mock('react-i18next', () => ({
@@ -20,14 +21,14 @@ describe('Feedback', () => {
   })
 
   const onCommentChanged = jest.fn()
-  const onFeedbackChanged = jest.fn()
+  const setRating = jest.fn()
   const onContactMailChangedDummy = jest.fn()
   const onSubmit = jest.fn()
   const closeFeedback = jest.fn()
   const setSearchTerm = jest.fn()
 
   const buildProps = ({
-    isPositiveFeedback = null,
+    rating = null,
     comment = '',
     searchTerm,
     sendingStatus = 'idle',
@@ -35,7 +36,7 @@ describe('Feedback', () => {
     noResults = false,
   }: {
     language?: string
-    isPositiveFeedback?: boolean | null
+    rating?: Rating | null
     comment?: string
     searchTerm?: string
     sendingStatus?: SendingStatusType
@@ -44,12 +45,12 @@ describe('Feedback', () => {
   }) => ({
     comment,
     language: 'en',
-    isPositiveFeedback,
+    rating,
     contactMail: 'test@example.com',
     sendingStatus,
     searchTerm,
     onCommentChanged,
-    onFeedbackChanged,
+    setRating,
     onContactMailChanged,
     onSubmit,
     closeFeedback,
@@ -57,73 +58,56 @@ describe('Feedback', () => {
     noResults,
   })
 
-  it('button should be disabled for no rating and no input', () => {
-    const { getByText } = renderWithTheme(<Feedback {...buildProps({})} />)
-    expect(getByText('feedback:send')).toBeDisabled()
-  })
+  it('should show error when submitting without rating and input', () => {
+    const { getByText, queryByText } = renderWithTheme(<Feedback {...buildProps({})} />)
 
-  it('note should be shown for no rating and no input', () => {
-    const { getByText } = renderWithTheme(<Feedback {...buildProps({ language: 'en' })} />)
+    const button = getByText('feedback:send')
+    expect(button).toBeEnabled()
+    expect(queryByText('feedback:noteFillFeedback')).toBeNull()
+    fireEvent.click(button)
     expect(getByText('feedback:noteFillFeedback')).toBeTruthy()
   })
 
-  it('button should not be enabled if privacy policy not accepted', () => {
-    const { getByText } = renderWithTheme(<Feedback {...buildProps({ isPositiveFeedback: true })} />)
-    expect(getByText('feedback:send')).toBeDisabled()
+  it('should show error for missing rating and input when submitted', () => {
+    const { getByText } = renderWithTheme(<Feedback {...buildProps({ language: 'en' })} />)
+    fireEvent.click(getByText('feedback:send'))
+    expect(getByText('feedback:noteFillFeedback')).toBeTruthy()
   })
 
-  it('button should be enabled for positive Feedback and no input', () => {
-    const { getByText } = renderWithTheme(<Feedback {...buildProps({ language: 'en', isPositiveFeedback: true })} />)
-    getByText('common:privacyPolicy').click()
-    expect(getByText('feedback:send')).toBeEnabled()
-  })
+  it('should show error if privacy policy is not accepted', () => {
+    const { getByText } = renderWithTheme(<Feedback {...buildProps({ rating: 'positive' })} />)
 
-  it('button should be enabled for negative Feedback and no input', () => {
-    const { getByText } = renderWithTheme(<Feedback {...buildProps({ isPositiveFeedback: false })} />)
-    getByText('common:privacyPolicy').click()
-    expect(getByText('feedback:send')).toBeEnabled()
-  })
-
-  it('button should be enabled for no rating and input', () => {
-    const { getByText } = renderWithTheme(<Feedback {...buildProps({ comment: 'comment' })} />)
-    getByText('common:privacyPolicy').click()
-    expect(getByText('feedback:send')).toBeEnabled()
+    const button = getByText('feedback:send')
+    expect(button).toBeEnabled()
+    fireEvent.click(button)
+    expect(getByText('feedback:common:notePrivacyPolicy')).toBeTruthy()
   })
 
   it('should display correct description for search', () => {
-    const { getByText, queryByText } = renderWithTheme(
-      <Feedback {...buildProps({ isPositiveFeedback: false, comment: 'comment', searchTerm: 'query' })} />,
+    const { getByLabelText, queryByText } = renderWithTheme(
+      <Feedback {...buildProps({ rating: 'negative', comment: 'comment', searchTerm: 'query' })} />,
     )
-    expect(getByText('feedback:wantedInformation')).toBeTruthy()
+    expect(getByLabelText('feedback:wantedInformation')).toBeInTheDocument()
     expect(queryByText('error:search:nothingFound')).toBeFalsy()
   })
 
   it('should show not found error', () => {
-    const { getByText } = renderWithTheme(
+    const { getByLabelText } = renderWithTheme(
       <Feedback
         {...buildProps({
           language: 'en',
-          isPositiveFeedback: false,
+          rating: 'negative',
           comment: 'comment',
           searchTerm: 'query',
           noResults: true,
         })}
       />,
     )
-    expect(getByText('feedback:wantedInformation')).toBeTruthy()
-  })
-
-  it('should display error', () => {
-    const { getByText } = renderWithTheme(
-      <Feedback {...buildProps({ isPositiveFeedback: false, comment: 'comment', sendingStatus: 'failed' })} />,
-    )
-    expect(getByText('feedback:failedSendingFeedback')).toBeTruthy()
+    expect(getByLabelText('feedback:wantedInformation')).toBeTruthy()
   })
 
   it('onSubmit should be called on button press', async () => {
-    const { getByText } = renderWithTheme(
-      <Feedback {...buildProps({ isPositiveFeedback: false, comment: 'comment' })} />,
-    )
+    const { getByText } = renderWithTheme(<Feedback {...buildProps({ rating: 'negative', comment: 'comment' })} />)
     const button = getByText('feedback:send')
     getByText('common:privacyPolicy').click()
     fireEvent.click(button)
@@ -133,7 +117,7 @@ describe('Feedback', () => {
   it('should call callback on contact mail changed', () => {
     const onContactMailChanged = jest.fn()
     const { getByDisplayValue, queryByDisplayValue } = renderWithTheme(
-      <Feedback {...buildProps({ isPositiveFeedback: false, comment: 'my comment', onContactMailChanged })} />,
+      <Feedback {...buildProps({ rating: 'negative', comment: 'my comment', onContactMailChanged })} />,
     )
     expect(getByDisplayValue('test@example.com')).toBeTruthy()
     expect(queryByDisplayValue('new@example.com')).toBeFalsy()
@@ -149,7 +133,7 @@ describe('Feedback', () => {
 
   it('should call callback on comment changed', () => {
     const { getByDisplayValue, queryByDisplayValue } = renderWithTheme(
-      <Feedback {...buildProps({ isPositiveFeedback: false, comment: 'my comment' })} />,
+      <Feedback {...buildProps({ rating: 'negative', comment: 'my comment' })} />,
     )
     expect(getByDisplayValue('my comment')).toBeTruthy()
     expect(queryByDisplayValue('new comment')).toBeFalsy()

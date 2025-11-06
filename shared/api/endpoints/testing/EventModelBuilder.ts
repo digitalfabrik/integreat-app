@@ -99,6 +99,7 @@ class EventModelBuilder {
               endDate,
               allDay: false,
               recurrenceRule: recurrence,
+              onlyWeekdays: false,
             }),
             location: new LocationModel({
               id: 1,

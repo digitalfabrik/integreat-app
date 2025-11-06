@@ -1,6 +1,6 @@
-import styled from '@emotion/styled'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
+import { useNavigate, useParams, useSearchParams } from 'react-router'
 
 import {
   parseQueryParams,
@@ -9,36 +9,31 @@ import {
   MapFeature,
   MapViewViewport,
   normalizePath,
-  POIS_ROUTE,
   preparePois,
   safeParseInt,
   toQueryParams,
 } from 'shared'
 import { PoiCategoryModel, PoiModel, CityModel } from 'shared/api'
 
-import CityContentToolbar from '../components/CityContentToolbar'
 import PoiFilters from '../components/PoiFilters'
 import PoisDesktop from '../components/PoisDesktop'
 import PoisMobile from '../components/PoisMobile'
-import dimensions from '../constants/dimensions'
-import useWindowDimensions from '../hooks/useWindowDimensions'
+import useDimensions from '../hooks/useDimensions'
 import moveViewportToCity from '../utils/moveViewportToCity'
 import PoiFiltersOverlayButtons from './PoiFiltersOverlayButtons'
 
-const Container = styled.div<{ panelHeights: number }>`
+const Container = styled('div')`
   display: flex;
-  ${({ panelHeights }) => `height: calc(100vh - ${panelHeights}px);`};
+  height: calc(100vh - ${props => props.theme.dimensions.headerHeight}px);
 `
 
 type PoiProps = {
   pois: PoiModel[]
   userLocation: LocationType | null
   city: CityModel
-  languageCode: string
-  pageTitle: string
 }
 
-const Pois = ({ pois: allPois, userLocation, city, languageCode, pageTitle }: PoiProps): ReactElement | null => {
+const Pois = ({ pois: allPois, userLocation, city }: PoiProps): ReactElement | null => {
   const [currentlyOpenFilter, setCurrentlyOpenFilter] = useState(false)
   const [showFilterSelection, setShowFilterSelection] = useState(false)
   const [queryParams, setQueryParams] = useSearchParams()
@@ -46,7 +41,7 @@ const Pois = ({ pois: allPois, userLocation, city, languageCode, pageTitle }: Po
   const [mapViewport, setMapViewport] = useState<MapViewViewport>(moveViewportToCity(city, zoom))
   const params = useParams()
   const navigate = useNavigate()
-  const { viewportSmall, width } = useWindowDimensions()
+  const { mobile } = useDimensions()
 
   const slug = params.slug ? normalizePath(params.slug) : undefined
 
@@ -54,10 +49,7 @@ const Pois = ({ pois: allPois, userLocation, city, languageCode, pageTitle }: Po
     pois: allPois,
     params: { slug, multipoi, poiCategoryId, currentlyOpen: currentlyOpenFilter },
   })
-  const { pois, poi, poiCategories, poiCategory } = preparedData
-  const minToolbarItems = 3
-  const toolbarItemsWithTts = 4
-  const desktopMaxToolbarItems = poi ? toolbarItemsWithTts : minToolbarItems
+  const { pois, poiCategories, poiCategory } = preparedData
 
   const deselectAll = () => navigate(`.?${toQueryParams({ poiCategoryId })}`)
 
@@ -100,48 +92,17 @@ const Pois = ({ pois: allPois, userLocation, city, languageCode, pageTitle }: Po
     }
   }
 
-  const toolbar = (
-    <CityContentToolbar
-      feedbackTarget={poi?.slug}
-      route={POIS_ROUTE}
-      iconDirection='row'
-      hideDivider
-      pageTitle={pageTitle}
-      isInBottomActionSheet={viewportSmall}
-      maxItems={viewportSmall ? undefined : desktopMaxToolbarItems}
-    />
-  )
-
-  const FiltersModal = (
-    <PoiFilters
-      closeModal={() => setShowFilterSelection(false)}
-      poiCategories={poiCategories}
-      selectedPoiCategory={poiCategory}
-      setSelectedPoiCategory={updatePoiCategoryFilter}
-      currentlyOpenFilter={currentlyOpenFilter}
-      setCurrentlyOpenFilter={updatePoiCurrentlyOpenFilter}
-      panelWidth={viewportSmall ? width : dimensions.poiDesktopPanelWidth}
-      poisCount={pois.length}
-    />
-  )
-  if (showFilterSelection && viewportSmall) {
-    return FiltersModal
-  }
-
   const sharedPoiProps = {
-    toolbar,
     data: preparedData,
     selectMapFeature,
     selectPoi,
     deselect,
     userLocation,
-    languageCode,
     slug,
     mapViewport,
     setMapViewport,
     MapOverlay: (
       <PoiFiltersOverlayButtons
-        poiFiltersShown={showFilterSelection}
         currentlyOpenFilter={currentlyOpenFilter}
         setCurrentlyOpenFilter={setCurrentlyOpenFilter}
         poiCategory={poiCategory}
@@ -151,18 +112,18 @@ const Pois = ({ pois: allPois, userLocation, city, languageCode, pageTitle }: Po
     ),
   }
 
-  const panelHeights = dimensions.headerHeightLarge + dimensions.navigationMenuHeight
-
   return (
-    <Container panelHeights={panelHeights}>
-      {viewportSmall ? (
-        <PoisMobile {...sharedPoiProps} />
-      ) : (
-        <PoisDesktop
-          {...sharedPoiProps}
-          panelHeights={panelHeights}
-          cityModel={city}
-          PanelContent={showFilterSelection ? FiltersModal : undefined}
+    <Container>
+      {mobile ? <PoisMobile {...sharedPoiProps} /> : <PoisDesktop {...sharedPoiProps} />}
+      {showFilterSelection && (
+        <PoiFilters
+          close={() => setShowFilterSelection(false)}
+          poiCategories={poiCategories}
+          selectedPoiCategory={poiCategory}
+          setSelectedPoiCategory={updatePoiCategoryFilter}
+          currentlyOpenFilter={currentlyOpenFilter}
+          setCurrentlyOpenFilter={updatePoiCurrentlyOpenFilter}
+          poisCount={pois.length}
         />
       )}
     </Container>

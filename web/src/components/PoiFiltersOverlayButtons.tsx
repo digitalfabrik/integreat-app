@@ -1,13 +1,14 @@
+import AccessTimeIcon from '@mui/icons-material/AccessTime'
+import EditLocationOutlinedIcon from '@mui/icons-material/EditLocationOutlined'
+import Chip from '@mui/material/Chip'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { PoiCategoryModel } from 'shared/api'
 
-import { ClockIcon, EditLocationIcon } from '../assets'
-import ChipButton from './base/ChipButton'
+import Svg from './base/Svg'
 
 type PoiFiltersOverlayButtonsProps = {
-  poiFiltersShown: boolean
   currentlyOpenFilter: boolean
   poiCategory: PoiCategoryModel | undefined
   setShowFilterSelection: (show: boolean) => void
@@ -16,7 +17,6 @@ type PoiFiltersOverlayButtonsProps = {
 }
 
 const PoiFiltersOverlayButtons = ({
-  poiFiltersShown,
   currentlyOpenFilter,
   poiCategory,
   setCurrentlyOpenFilter,
@@ -26,27 +26,31 @@ const PoiFiltersOverlayButtons = ({
   const { t } = useTranslation('pois')
   return (
     <>
-      <ChipButton
-        text={t('adjustFilters')}
-        icon={EditLocationIcon}
-        onClick={() => setShowFilterSelection(!poiFiltersShown)}
+      <Chip
+        label={t('adjustFilters')}
+        icon={<EditLocationOutlinedIcon />}
+        onClick={() => setShowFilterSelection(true)}
+        variant='outlined'
+        clickable
       />
       {currentlyOpenFilter && (
-        <ChipButton
-          text={t('opened')}
-          label={t('clearFilter', { filter: t('opened') })}
-          icon={ClockIcon}
+        <Chip
+          label={t('opened')}
+          icon={<AccessTimeIcon />}
+          onDelete={() => setCurrentlyOpenFilter(false)}
           onClick={() => setCurrentlyOpenFilter(false)}
-          closeButton
+          variant='outlined'
+          clickable
         />
       )}
       {!!poiCategory && (
-        <ChipButton
-          text={poiCategory.name}
-          label={t('clearFilter', { filter: poiCategory.name })}
-          icon={poiCategory.icon}
+        <Chip
+          label={poiCategory.name}
+          icon={<Svg src={poiCategory.icon} />}
           onClick={() => setPoiCategoryFilter(null)}
-          closeButton
+          onDelete={() => setPoiCategoryFilter(null)}
+          variant='outlined'
+          clickable
         />
       )}
     </>

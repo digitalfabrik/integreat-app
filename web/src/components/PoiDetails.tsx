@@ -1,40 +1,31 @@
-import { useTheme } from '@emotion/react'
-import styled from '@emotion/styled'
-import React, { Fragment, ReactElement } from 'react'
+import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined'
+import OpenInNewIcon from '@mui/icons-material/OpenInNew'
+import Button from '@mui/material/Button'
+import Divider from '@mui/material/Divider'
+import Stack from '@mui/material/Stack'
+import Typography from '@mui/material/Typography'
+import { styled } from '@mui/material/styles'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { getExternalMapsLink } from 'shared'
 import { PoiModel } from 'shared/api'
 
-import { ExternalLinkIcon, LocationIcon, PoiThumbnailPlaceholderLarge } from '../assets'
-import dimensions from '../constants/dimensions'
-import { helpers } from '../constants/theme'
-import useWindowDimensions from '../hooks/useWindowDimensions'
-import Collapsible from './Collapsible'
 import Contact from './Contact'
 import OpeningHours from './OpeningHours'
 import PoiChips from './PoiChips'
 import RemoteContent from './RemoteContent'
-import Spacer from './Spacer'
-import Icon from './base/Icon'
+import Accordion from './base/Accordion'
 import Link from './base/Link'
+import List from './base/List'
 
-const DetailsContainer = styled.div`
-  font-family: ${props => props.theme.fonts.web.contentFont};
-`
+const StyledContactsList = styled(List)({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 16,
+})
 
-const StyledIcon = styled(Icon)`
-  flex-shrink: 0;
-  object-fit: contain;
-  align-self: center;
-`
-
-const StyledExternalLinkIcon = styled(StyledIcon)`
-  width: 16px;
-  height: 16px;
-`
-
-const Thumbnail = styled.img`
+const Thumbnail = styled('img')`
   height: clamp(120px, 14vh, 160px);
   width: 100%;
   flex-shrink: 0;
@@ -42,165 +33,95 @@ const Thumbnail = styled.img`
   object-fit: cover;
   border-radius: 10px;
 
-  @media screen and (${dimensions.smallViewport}) {
+  ${props => props.theme.breakpoints.down('md')} {
     order: 1;
     margin-top: 12px;
   }
 `
 
-const Distance = styled.div`
-  ${helpers.adaptiveFontSize};
-`
-
-const AddressContentWrapper = styled.div`
-  display: flex;
-  ${helpers.adaptiveFontSize};
-  gap: 8px;
-`
-
-const AddressContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  ${helpers.adaptiveFontSize};
-
-  @media ${dimensions.smallViewport} {
-    align-self: center;
-  }
-`
-
-const Heading = styled.div`
-  margin: 12px 0;
-  font-weight: 700;
-`
-
-const Subheading = styled.div`
-  margin: 12px 0;
-  font-weight: 700;
-  ${helpers.adaptiveFontSize};
-`
-
-const StyledLink = styled(Link)`
-  display: flex;
-  margin-top: 8px;
-  gap: 8px;
-`
-
-const LinkLabel = styled.span`
-  color: ${props => props.theme.colors.linkColor};
-  ${helpers.adaptiveFontSize};
-  align-self: flex-end;
-`
-
-const HeadingSection = styled.div`
-  display: flex;
-  flex-direction: column;
-`
-
-const DetailSection = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  @media screen and (${dimensions.smallViewport}) {
-    flex-direction: row;
-    justify-content: space-between;
-  }
-`
-
-const StyledCollapsible = styled(Collapsible)`
-  gap: 0;
-`
-
-const StyledContactsContainer = styled.div`
-  margin-top: 12px;
-`
-
-const ToolbarWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-`
-
 type PoiDetailsProps = {
   poi: PoiModel
   distance: number | null
-  toolbar?: ReactElement
 }
 
-const PoiDetails = ({ poi, distance, toolbar }: PoiDetailsProps): ReactElement => {
-  const { viewportSmall } = useWindowDimensions()
-  const theme = useTheme()
+const PoiDetails = ({ poi, distance }: PoiDetailsProps): ReactElement => {
   const { t } = useTranslation('pois')
   const { content, location, contacts, isCurrentlyOpen, openingHours, temporarilyClosed, appointmentUrl } = poi
 
-  const thumbnail = poi.thumbnail ?? PoiThumbnailPlaceholderLarge
   const isAndroid = /Android/i.test(navigator.userAgent)
   const externalMapsLink = getExternalMapsLink(location, isAndroid ? 'android' : 'web')
+  const showOpeningHours = (openingHours && openingHours.length > 0) || temporarilyClosed || !!appointmentUrl
+
+  const addressSection = (
+    <Stack paddingBlock={1} gap={1}>
+      <Typography component='h2' variant='subtitle1'>
+        {t('detailsAddress')}
+      </Typography>
+      <Button component={Link} to={externalMapsLink} color='inherit' startIcon={<LocationOnOutlinedIcon />} fullWidth>
+        <Stack direction='row' width='100%' justifyContent='space-between' alignItems='center'>
+          <Stack>
+            <Typography variant='body2'>{location.address}</Typography>
+            <Typography variant='body2'>
+              {location.postcode} {location.town}
+            </Typography>
+          </Stack>
+          <OpenInNewIcon color='primary' />
+        </Stack>
+      </Button>
+    </Stack>
+  )
+
+  const contactsSection = contacts.length > 0 && (
+    <>
+      <Divider />
+      <Accordion id='contacts' title={t('contacts')}>
+        <StyledContactsList
+          items={contacts.map(contact => (
+            <Contact key={contact.headline} contact={contact} />
+          ))}
+          disablePadding
+        />
+      </Accordion>
+    </>
+  )
+
+  const openingHoursSection = showOpeningHours && (
+    <>
+      <Divider />
+      <OpeningHours
+        openingHours={openingHours}
+        isCurrentlyOpen={isCurrentlyOpen}
+        isTemporarilyClosed={temporarilyClosed}
+        appointmentUrl={appointmentUrl}
+      />
+    </>
+  )
 
   return (
-    <DetailsContainer>
-      <HeadingSection>
-        <Thumbnail alt='' src={thumbnail} />
-        <Heading>{poi.title}</Heading>
-        {distance !== null && <Distance>{t('distanceKilometre', { distance: distance.toFixed(1) })}</Distance>}
+    <Stack>
+      <Stack paddingBlock={1} gap={1}>
+        <Typography component='h1' variant='h3'>
+          {poi.title}
+        </Typography>
+        {distance !== null && (
+          <Typography variant='body2'>{t('distanceKilometre', { distance: distance.toFixed(1) })}</Typography>
+        )}
         <PoiChips poi={poi} />
-      </HeadingSection>
-      <Spacer borderColor={theme.colors.borderColor} />
-      {!viewportSmall && <Subheading>{t('detailsAddress')}</Subheading>}
-      <DetailSection>
-        <AddressContentWrapper>
-          {!viewportSmall && <StyledIcon src={LocationIcon} />}
-          <AddressContent>
-            <span>{location.address}</span>
-            <span>
-              {location.postcode} {location.town}
-            </span>
-          </AddressContent>
-        </AddressContentWrapper>
-        <StyledLink to={externalMapsLink}>
-          {!viewportSmall && <LinkLabel>{t('detailsMapLink')}</LinkLabel>}
-          <StyledExternalLinkIcon src={ExternalLinkIcon} directionDependent />
-        </StyledLink>
-      </DetailSection>
-      {contacts.length > 0 && (
-        <>
-          <Spacer borderColor={theme.colors.borderColor} />
-          <StyledCollapsible title={t('contacts')}>
-            <StyledContactsContainer>
-              {contacts.map((contact, index) => (
-                <Fragment key={contact.headline ?? contact.website ?? contact.name ?? contact.phoneNumber}>
-                  <Contact isLastContact={contacts.length - 1 === index} contact={contact} />
-                </Fragment>
-              ))}
-            </StyledContactsContainer>
-          </StyledCollapsible>
-        </>
-      )}
-      {((openingHours && openingHours.length > 0) || temporarilyClosed || !!appointmentUrl) && (
-        <>
-          <Spacer borderColor={theme.colors.borderColor} />
-          <OpeningHours
-            openingHours={openingHours}
-            isCurrentlyOpen={isCurrentlyOpen}
-            isTemporarilyClosed={temporarilyClosed}
-            appointmentUrl={appointmentUrl}
-          />
-        </>
-      )}
-
+        {!!poi.thumbnail && <Thumbnail alt='' src={poi.thumbnail} />}
+      </Stack>
+      <Divider />
+      {addressSection}
+      {contactsSection}
+      {openingHoursSection}
       {content.length > 0 && (
         <>
-          <Spacer borderColor={theme.colors.borderColor} />
-          <Collapsible title={t('detailsInformation')}>
+          <Divider />
+          <Accordion id='content' title={t('detailsInformation')}>
             <RemoteContent html={content} smallText />
-          </Collapsible>
+          </Accordion>
         </>
       )}
-      {toolbar && (
-        <>
-          <Spacer borderColor={theme.colors.borderColor} />
-          <ToolbarWrapper>{toolbar}</ToolbarWrapper>
-        </>
-      )}
-    </DetailsContainer>
+    </Stack>
   )
 }
 

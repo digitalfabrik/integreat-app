@@ -1,7 +1,8 @@
-import styled from '@emotion/styled'
+import Stack from '@mui/material/Stack'
+import Typography from '@mui/material/Typography'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router'
 
 import {
   parseHTML,
@@ -13,6 +14,7 @@ import {
   MAX_SEARCH_RESULTS,
   filterRedundantFallbackLanguageResults,
 } from 'shared'
+import { ExtendedPageModel } from 'shared/api'
 import { config } from 'translations'
 
 import { CityRouteProps } from '../CityContentSwitcher'
@@ -23,23 +25,42 @@ import LoadingSpinner from '../components/LoadingSpinner'
 import SearchFeedback from '../components/SearchFeedback'
 import SearchInput from '../components/SearchInput'
 import SearchListItem from '../components/SearchListItem'
-import { helpers } from '../constants/theme'
+import List from '../components/base/List'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useLoadSearchDocuments from '../hooks/useLoadSearchDocuments'
 import useReportError from '../hooks/useReportError'
 
-const List = styled.ul`
-  list-style-type: none;
+type SearchProps = {
+  query: string
+  loading: boolean
+  results: ExtendedPageModel[]
+}
 
-  & a {
-    ${helpers.removeLinkHighlighting}
+const SearchResults = ({ query, loading, results }: SearchProps): ReactElement | null => {
+  const { t } = useTranslation('search')
+
+  if (query.length === 0) {
+    return null
   }
-`
 
-const SearchCounter = styled.p`
-  padding: 0 5px;
-  color: ${props => props.theme.colors.textSecondaryColor};
-`
+  if (loading) {
+    return <LoadingSpinner />
+  }
+
+  const items = results.map(({ title, content, path }) => (
+    <SearchListItem title={title} contentWithoutHtml={parseHTML(content)} key={path} query={query} path={path} />
+  ))
+
+  return (
+    <>
+      <Typography variant='subtitle2' aria-live={results.length === 0 ? 'assertive' : 'polite'}>
+        {t('searchResultsCount', { count: results.length })}
+      </Typography>
+      <List items={items} />
+      <SearchFeedback noResults={results.length === 0} query={query} />
+    </>
+  )
+}
 
 const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElement | null => {
   const [queryParams, setQueryParams] = useSearchParams()
@@ -93,8 +114,8 @@ const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
   const layoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
     city,
     languageChangePaths,
-    route: SEARCH_ROUTE,
     languageCode,
+    pageTitle: null,
   }
 
   if (error) {
@@ -105,41 +126,6 @@ const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
     )
   }
 
-  const getPageContent = () => {
-    if (query.length === 0) {
-      return null
-    }
-    if (loading) {
-      return <LoadingSpinner />
-    }
-
-    return (
-      <>
-        <List>
-          <SearchCounter aria-live={results.length === 0 ? 'assertive' : 'polite'}>
-            {t('searchResultsCount', { count: results.length })}
-          </SearchCounter>
-          {results.map(({ title, content, path, thumbnail }) => (
-            <SearchListItem
-              title={title}
-              contentWithoutHtml={parseHTML(content)}
-              key={path}
-              query={debouncedQuery}
-              path={path}
-              thumbnail={thumbnail}
-            />
-          ))}
-        </List>
-        <SearchFeedback
-          cityCode={cityCode}
-          languageCode={languageCode}
-          noResults={results.length === 0}
-          query={debouncedQuery}
-        />
-      </>
-    )
-  }
-
   return (
     <CityContentLayout isLoading={false} {...layoutParams}>
       <Helmet
@@ -147,13 +133,15 @@ const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
         languageChangePaths={languageChangePaths}
         cityModel={city}
       />
-      <SearchInput
-        filterText={query}
-        placeholderText={t('searchPlaceholder')}
-        onFilterTextChange={setQuery}
-        spaceSearch
-      />
-      {getPageContent()}
+      <Stack paddingTop={4} gap={2}>
+        <SearchInput
+          filterText={query}
+          placeholderText={t('searchPlaceholder')}
+          onFilterTextChange={setQuery}
+          autoFocus
+        />
+        <SearchResults results={results} query={debouncedQuery} loading={loading} />
+      </Stack>
     </CityContentLayout>
   )
 }

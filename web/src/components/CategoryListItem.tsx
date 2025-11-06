@@ -1,63 +1,31 @@
-import styled from '@emotion/styled'
+import Divider from '@mui/material/Divider'
+import ListItem from '@mui/material/ListItem'
+import ListItemButton from '@mui/material/ListItemButton'
+import ListItemIcon from '@mui/material/ListItemIcon'
+import ListItemText from '@mui/material/ListItemText'
+import Stack from '@mui/material/Stack'
+import Typography from '@mui/material/Typography'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
-import { Link } from 'react-router-dom'
 
 import { CategoryModel } from 'shared/api'
 
-const Row = styled.li`
-  width: 100%;
+import Link from './base/Link'
+import List from './base/List'
+
+const StyledListItem = styled(ListItem)`
+  flex-direction: column;
+  align-items: stretch;
 `
 
-const SubCategoriesContainer = styled.ul`
-  list-style-type: none;
-`
-
-const SubCategory = styled.li`
-  text-align: start;
-  width: 100%;
-`
-
-const CategoryThumbnail = styled.img`
-  width: 30px;
-  height: 30px;
-  padding: 0 5px;
-  flex-shrink: 0;
-  object-fit: contain;
+const StyledImage = styled('img')`
+  width: 40px;
+  height: 40px;
   filter: ${props => (props.theme.isContrastTheme ? 'invert(1)' : 'none')};
 `
-
-const CategoryItemCaption = styled.span`
-  align-items: center;
-  padding: 15px 5px;
-  color: inherit;
-  font-size: ${props => props.theme.fonts.contentFontSize};
-  font-weight: bold;
-  text-decoration: inherit;
-  height: 100%;
-  min-width: 1px; /* needed to enable line breaks for too long words, exact value doesn't matter */
-  flex-grow: 1;
-  word-wrap: break-word;
-`
-
-const SubCategoryCaption = styled(CategoryItemCaption)`
-  padding: 10px 5px;
-  font-weight: 400;
-`
-
-const StyledLink = styled(Link)`
-  display: inline-flex;
-  align-items: center;
-  margin: 0 auto;
-  width: inherit;
-  border-bottom: 1px solid ${props => props.theme.colors.themeColor};
-
-  &:hover {
-    color: inherit;
-    text-decoration: inherit;
-    transition: background-color 0.5s ease;
-    background-color: ${props => props.theme.colors.backgroundAccentColor};
-  }
-`
+const StyledListItemButton = styled(ListItemButton)`
+  min-height: 56px;
+` as typeof ListItemButton
 
 type CategoryListItemProps = {
   category: CategoryModel
@@ -65,23 +33,36 @@ type CategoryListItemProps = {
 }
 
 const CategoryListItem = ({ category, subCategories }: CategoryListItemProps): ReactElement => {
-  const SubCategories = subCategories.map(subCategory => (
-    <SubCategory key={subCategory.path} dir='auto'>
-      <StyledLink to={subCategory.path}>
-        {!!subCategory.thumbnail && <CategoryThumbnail alt='' src={subCategory.thumbnail} />}
-        <SubCategoryCaption>{subCategory.title}</SubCategoryCaption>
-      </StyledLink>
-    </SubCategory>
-  ))
+  const SubCategories = subCategories.map(subCategory => {
+    const { path, title } = subCategory
+    return (
+      <ListItem disablePadding key={path}>
+        <StyledListItemButton component={Link} to={path}>
+          <ListItemText primary={<Typography variant='body1'>{title}</Typography>} />
+        </StyledListItemButton>
+      </ListItem>
+    )
+  })
 
   return (
-    <Row>
-      <StyledLink dir='auto' to={category.path}>
-        {!!category.thumbnail && <CategoryThumbnail alt='' src={category.thumbnail} />}
-        <CategoryItemCaption>{category.title}</CategoryItemCaption>
-      </StyledLink>
-      <SubCategoriesContainer>{SubCategories}</SubCategoriesContainer>
-    </Row>
+    <StyledListItem disablePadding>
+      <ListItemButton component={Link} to={category.path}>
+        {!!category.thumbnail && (
+          <ListItemIcon>
+            <StyledImage src={category.thumbnail} alt='' />
+          </ListItemIcon>
+        )}
+        <ListItemText primary={<Typography variant='subtitle1'>{category.title}</Typography>} />
+      </ListItemButton>
+      {SubCategories.length > 0 && (
+        <>
+          <Divider />
+          <Stack paddingInlineStart={7}>
+            <List items={SubCategories} disablePadding />
+          </Stack>
+        </>
+      )}
+    </StyledListItem>
   )
 }
 

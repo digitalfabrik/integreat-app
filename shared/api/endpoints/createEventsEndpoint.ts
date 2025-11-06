@@ -27,6 +27,10 @@ const eventCompare = (event1: EventModel, event2: EventModel): number => {
     return 1
   }
 
+  if (!event1.date.endDate || !event2.date.endDate) {
+    return event1.title.localeCompare(event2.title)
+  }
+
   if (event1.date.endDate < event2.date.endDate) {
     return -1
   }
@@ -59,6 +63,7 @@ export default (baseUrl: string): Endpoint<ParamsType, EventModel[]> =>
               endDate: DateTime.fromISO(eventData.end),
               allDay,
               recurrenceRule: event.recurrence_rule ? rrulestr(event.recurrence_rule) : null,
+              onlyWeekdays: eventData.only_weekdays,
             }),
             location:
               event.location.id !== null

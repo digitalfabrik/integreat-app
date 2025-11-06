@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router'
 
 import { normalizePath, pathnameFromRouteInformation, POIS_ROUTE } from 'shared'
 import { useLoadFromEndpoint, createPOIsEndpoint } from 'shared/api'
@@ -51,10 +51,9 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
   const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
     city,
     languageChangePaths,
-    route: POIS_ROUTE,
     languageCode,
-    disableScrollingSafari: true,
-    showFooter: false,
+    pageTitle: null,
+    fitScreen: true,
   }
 
   if (loading) {
@@ -76,16 +75,14 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
   const pageTitle = `${poi?.title ?? t('pageTitle')} - ${city.name}`
 
   return (
-    <CityContentLayout isLoading={false} {...locationLayoutParams} fullWidth>
+    <CityContentLayout isLoading={false} {...locationLayoutParams} pageTitle={pageTitle}>
       <Helmet
         pageTitle={pageTitle}
         metaDescription={poi?.metaDescription}
         languageChangePaths={languageChangePaths}
         cityModel={city}
       />
-      {data && (
-        <Pois pois={data} userLocation={userLocation} city={city} languageCode={languageCode} pageTitle={pageTitle} />
-      )}
+      {data && <Pois pois={data} userLocation={userLocation} city={city} />}
     </CityContentLayout>
   )
 }

@@ -1,5 +1,6 @@
 import WebView, { WebViewMessageEvent, WebViewNavigation } from '@dr.pogodin/react-native-webview'
-import React, { ReactElement, useCallback, useEffect, useState } from 'react'
+import { mapValues } from 'lodash'
+import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text, Platform, useWindowDimensions } from 'react-native'
 import { useTheme } from 'styled-components/native'
@@ -18,10 +19,12 @@ import {
 } from '../constants/webview'
 import { useAppContext } from '../hooks/useCityAppContext'
 import useNavigate from '../hooks/useNavigate'
+import useResourceCache from '../hooks/useResourceCache'
+import { getStaticServerFileUrl } from '../utils/helpers'
 import renderHtml from '../utils/renderHtml'
 import { log, reportError } from '../utils/sentry'
 import Failure from './Failure'
-import { ParsedCacheDictionaryType } from './Page'
+import { StaticServerContext } from './StaticServerProvider'
 
 // Fixes crashing in Android
 // https://github.com/react-native-webview/react-native-webview/issues/811
@@ -42,9 +45,7 @@ export const renderWebviewError = (
 
 type RemoteContentProps = {
   content: string
-  cacheDictionary: ParsedCacheDictionaryType
   language: string
-  resourceCacheUrl: string
   onLinkPress: (url: string) => void
   onLoad: () => void
   loading: boolean
@@ -54,17 +55,17 @@ type RemoteContentProps = {
 const RemoteContent = ({
   onLoad,
   content,
-  cacheDictionary,
-  resourceCacheUrl,
   language,
   onLinkPress,
   loading,
 }: RemoteContentProps): ReactElement | null => {
   const [error, setError] = useState<string | null>(null)
   const [pressedUrl, setPressedUrl] = useState<string | null>(null)
+  const { data: resourceCache } = useResourceCache()
   const { settings, updateSettings } = useAppContext()
   const { navigateTo } = useNavigate()
   const { externalSourcePermissions } = settings
+  const staticServerUrl = useContext(StaticServerContext)
 
   // https://github.com/react-native-webview/react-native-webview/issues/1069#issuecomment-651699461
   const defaultWebviewHeight = 1
@@ -72,6 +73,8 @@ const RemoteContent = ({
   const theme = useTheme()
   const { t } = useTranslation()
   const { width: deviceWidth } = useWindowDimensions()
+
+  const resourceMap = mapValues(resourceCache, filePath => getStaticServerFileUrl(filePath, staticServerUrl))
 
   useEffect(() => {
     // If it takes too long returning false in onShouldStartLoadWithRequest the webview loads the pressed url anyway on android.
@@ -126,7 +129,7 @@ const RemoteContent = ({
       if (buildConfig().supportedIframeSources.some(source => event.url.includes(source))) {
         return true
       }
-      if (event.url === new URL(resourceCacheUrl).href) {
+      if (event.url === new URL(staticServerUrl).href) {
         // Needed on iOS for the initial load
         return true
       }
@@ -139,7 +142,7 @@ const RemoteContent = ({
       setPressedUrl(event.url)
       return false
     },
-    [resourceCacheUrl],
+    [staticServerUrl],
   )
 
   if (content.length === 0) {
@@ -152,10 +155,10 @@ const RemoteContent = ({
   return (
     <WebView
       source={{
-        baseUrl: resourceCacheUrl,
+        baseUrl: staticServerUrl,
         html: renderHtml(
           content,
-          cacheDictionary,
+          resourceMap,
           buildConfig().supportedIframeSources,
           theme,
           language,

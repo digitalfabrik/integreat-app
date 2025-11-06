@@ -1,56 +1,42 @@
-import { useTheme } from '@emotion/react'
-import styled from '@emotion/styled'
+import MailOutlinedIcon from '@mui/icons-material/MailOutlined'
+import OpenInNewIcon from '@mui/icons-material/OpenInNew'
+import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined'
+import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'
+import SmartphoneOutlinedIcon from '@mui/icons-material/SmartphoneOutlined'
+import ListItem from '@mui/material/ListItem'
+import Stack from '@mui/material/Stack'
+import Typography from '@mui/material/Typography'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ContactModel } from 'shared/api'
 
-import { ExternalLinkIcon, MailIcon, PhoneIcon, WebsiteIcon } from '../assets'
-import { helpers } from '../constants/theme'
-import ContactItem from './ContactItem'
-import Spacer from './Spacer'
+import ContactDetail from './ContactDetail'
 
-const StyledContactHeader = styled.div`
-  margin-bottom: 6px;
-  ${helpers.adaptiveFontSize};
-`
-
-const Contact = ({
-  contact: { headline, website, phoneNumber, email, mobilePhoneNumber },
-  isLastContact,
-}: {
+type ContactProps = {
   contact: ContactModel
-  isLastContact?: boolean
-}): ReactElement => {
+}
+
+const Contact = ({ contact }: ContactProps): ReactElement => {
+  const { headline, website, phoneNumber, email, mobileNumber } = contact
   const { t } = useTranslation('pois')
-  const theme = useTheme()
 
   return (
-    <>
-      <StyledContactHeader>{headline ?? t('contactInformation')}</StyledContactHeader>
-      {!!website && (
-        <ContactItem
-          iconSource={WebsiteIcon}
-          iconAlt={t('website')}
-          link={website}
-          content={t('website')}
-          sourceIconEnd={ExternalLinkIcon}
-        />
-      )}
-      {!!phoneNumber && (
-        <ContactItem iconSource={PhoneIcon} iconAlt={t('phone')} link={`tel:${phoneNumber}`} content={phoneNumber} />
-      )}
-      {!!mobilePhoneNumber && (
-        <ContactItem
-          iconSource={PhoneIcon}
-          iconAlt={t('mobilePhone')}
-          link={`tel:${mobilePhoneNumber}`}
-          content={mobilePhoneNumber}
-        />
-      )}
-      {!!email && <ContactItem iconSource={MailIcon} iconAlt={t('eMail')} link={`mailto:${email}`} content={email} />}
-      {!isLastContact && <Spacer borderColor={theme.colors.borderColor} />}
-    </>
+    <ListItem disablePadding>
+      <Stack gap={1}>
+        <Typography component='h3' variant='subtitle2'>
+          {headline ?? t('contactInformation')}
+        </Typography>
+        {!!website && (
+          <ContactDetail Icon={PublicOutlinedIcon} link={website} content={t('website')} IconEnd={OpenInNewIcon} />
+        )}
+        {!!phoneNumber && <ContactDetail Icon={PhoneOutlinedIcon} link={`tel:${phoneNumber}`} content={phoneNumber} />}
+        {!!mobileNumber && (
+          <ContactDetail Icon={SmartphoneOutlinedIcon} link={`tel:${mobileNumber}`} content={mobileNumber} />
+        )}
+        {!!email && <ContactDetail Icon={MailOutlinedIcon} link={`mailto:${email}`} content={email} />}
+      </Stack>
+    </ListItem>
   )
 }
 

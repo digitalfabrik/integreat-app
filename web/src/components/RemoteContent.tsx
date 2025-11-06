@@ -1,14 +1,14 @@
-import { useTheme } from '@emotion/react'
+import { useTheme } from '@mui/material/styles'
 import Dompurify from 'dompurify'
 import React, { ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 
 import { ExternalSourcePermissions } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
+import useDimensions from '../hooks/useDimensions'
 import useLocalStorage from '../hooks/useLocalStorage'
-import useWindowDimensions from '../hooks/useWindowDimensions'
 import {
   LOCAL_STORAGE_ITEM_EXTERNAL_SOURCES,
   handleAllowedIframeSources,
@@ -40,7 +40,7 @@ const RemoteContent = ({ html, centered = false, smallText = false }: RemoteCont
   })
 
   const [contentIframeSources, setContentIframeSources] = useState<IframeSources>({})
-  const { viewportSmall, width: deviceWidth } = useWindowDimensions()
+  const { mobile, window } = useDimensions()
   const { t } = useTranslation()
   const { isContrastTheme } = useTheme()
 
@@ -69,8 +69,12 @@ const RemoteContent = ({ html, centered = false, smallText = false }: RemoteCont
       if (element instanceof HTMLElement && element.style.color === 'rgb(0, 0, 0)') {
         element.style.removeProperty('color')
       }
-      if (element instanceof HTMLImageElement && element.src.endsWith('.svg') && isContrastTheme) {
-        element.style.setProperty('filter', 'invert(1)')
+      if (element instanceof HTMLImageElement && element.src.endsWith('.svg')) {
+        if (isContrastTheme) {
+          element.style.setProperty('filter', 'invert(1)')
+        } else {
+          element.style.removeProperty('filter')
+        }
       }
     })
 
@@ -98,8 +102,8 @@ const RemoteContent = ({ html, centered = false, smallText = false }: RemoteCont
           onUpdateLocalStorage,
           index,
           supportedSource,
-          viewportSmall,
-          deviceWidth,
+          mobile,
+          window.width,
         )
       }
     })
@@ -111,8 +115,8 @@ const RemoteContent = ({ html, centered = false, smallText = false }: RemoteCont
     externalSourcePermissions,
     contentIframeSources,
     onUpdateLocalStorage,
-    viewportSmall,
-    deviceWidth,
+    mobile,
+    window.width,
     isContrastTheme,
   ])
 

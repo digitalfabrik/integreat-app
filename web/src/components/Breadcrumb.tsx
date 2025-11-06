@@ -1,48 +1,36 @@
-import styled from '@emotion/styled'
-import React, { ReactElement, ReactNode } from 'react'
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
+import { styled } from '@mui/material/styles'
+import React, { ReactElement } from 'react'
+import { useLocation } from 'react-router'
 
-import { helpers } from '../constants/theme'
+import { normalizePath } from 'shared'
 
-const SHRINK_FACTOR = 0.1
-const ListItem = styled.li<{ shrink: boolean }>`
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  flex-shrink: ${props => (props.shrink ? SHRINK_FACTOR : 0)};
+import Link from './base/Link'
 
-  &:not(:last-of-type) {
-    flex-shrink: 1;
-  }
+const StyledButton = styled(Button)({
+  width: '100%',
+}) as typeof Button
 
-  & * {
-    ${helpers.removeLinkHighlighting}
-    color: ${props => props.theme.colors.textColor};
-    font-size: 16px;
-    margin: 0 2px;
-  }
-`
+const StyledTypography = styled(Typography)({
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+  textOverflow: 'ellipsis',
+})
 
-const Separator = styled.span`
-  &::before {
-    color: ${props => props.theme.colors.textColor};
-    font-size: 19px;
-    content: ' > ';
-  }
-`
-
-type BreadcrumbProps = {
-  children: ReactNode
-  shrink: boolean
+export type BreadcrumbProps = {
+  title: string
+  to: string
 }
 
-/**
- * Displays breadcrumbs (Links) for lower category levels
- */
-const Breadcrumb = ({ children, shrink }: BreadcrumbProps): ReactElement => (
-  <ListItem shrink={shrink}>
-    <Separator aria-hidden />
-    {children}
-  </ListItem>
-)
+const Breadcrumb = ({ title, to }: BreadcrumbProps): ReactElement => {
+  const current = to === normalizePath(useLocation().pathname)
+
+  return (
+    <StyledButton component={Link} to={to} variant='text' color='inherit' aria-current={current ? 'page' : undefined}>
+      <StyledTypography>{title} </StyledTypography>
+    </StyledButton>
+  )
+}
 
 export default Breadcrumb

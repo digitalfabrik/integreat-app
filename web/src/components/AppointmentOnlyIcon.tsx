@@ -1,50 +1,15 @@
-import styled from '@emotion/styled'
+import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined'
+import Stack from '@mui/material/Stack'
+import Tooltip from '@mui/material/Tooltip'
+import Typography from '@mui/material/Typography'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
 
-import { NoteIcon } from '../assets'
-import dimensions from '../constants/dimensions'
-import Icon from './base/Icon'
-import Tooltip from './base/Tooltip'
+import Link from './base/Link'
 
-const Container = styled.div`
-  position: absolute;
-  inset-inline-end: -27px;
-  top: 4px;
-`
-
-const StyledTooltip = styled(Tooltip)`
-  max-width: 250px;
-`
-
-const IconContainer = styled.button`
-  padding: 0;
-  border: none;
-  background-color: transparent;
-  width: 18px;
-  height: 18px;
-`
-
-const StyledIcon = styled(Icon)`
-  width: 18px;
-  height: 18px;
-  align-self: center;
-`
-
-const TooltipContent = styled.span`
-  @media ${dimensions.smallViewport} {
-    font-size: 14px;
-  }
-`
-
-const TooltipTitle = styled.div`
-  font-weight: 700;
-  margin-bottom: 8px;
-
-  @media ${dimensions.smallViewport} {
-    font-size: 14px;
-  }
+const StyledLink = styled(Link)`
+  color: ${props => props.theme.palette.text.primary};
 `
 
 type AppointmentOnlyIconProps = {
@@ -55,26 +20,26 @@ const AppointmentOnlyIcon = ({ appointmentUrl }: AppointmentOnlyIconProps): Reac
   const { t } = useTranslation('pois')
 
   return (
-    <Container>
-      <StyledTooltip
-        id='appointment'
-        clickable
-        tooltipContent={
-          <>
-            <TooltipTitle>{t('appointmentNecessary')}</TooltipTitle>
-            <TooltipContent>
-              <Trans i18nKey='pois:makeAppointmentTooltipWithLink'>
-                This gets replaced
-                {appointmentUrl ? <Link to={appointmentUrl}>by react-i18next</Link> : <span>by react-i18next</span>}
-              </Trans>
-            </TooltipContent>
-          </>
-        }>
-        <IconContainer title={t('appointmentNecessary')}>
-          <StyledIcon src={NoteIcon} />
-        </IconContainer>
-      </StyledTooltip>
-    </Container>
+    <Tooltip
+      title={
+        <Stack>
+          <Typography variant='subtitle1'>{t('appointmentNecessary')}</Typography>
+          <Typography variant='body2'>
+            <Trans i18nKey='pois:makeAppointmentTooltipWithLink'>
+              This gets replaced
+              {appointmentUrl ? (
+                <StyledLink to={appointmentUrl} highlighted>
+                  by react-i18next
+                </StyledLink>
+              ) : (
+                <span>by react-i18next</span>
+              )}
+            </Trans>
+          </Typography>
+        </Stack>
+      }>
+      <ErrorOutlineOutlinedIcon fontSize='small' />
+    </Tooltip>
   )
 }
 

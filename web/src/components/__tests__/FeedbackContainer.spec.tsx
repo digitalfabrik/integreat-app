@@ -1,10 +1,9 @@
 import { fireEvent } from '@testing-library/react'
-import React, { ComponentProps } from 'react'
+import React from 'react'
 
-import { CATEGORIES_ROUTE, SEARCH_ROUTE } from 'shared'
-import { FeedbackRouteType } from 'shared/api'
+import { Rating, RATING_POSITIVE, SEARCH_ROUTE } from 'shared'
 
-import { renderWithTheme } from '../../testing/render'
+import { renderAllRoutes } from '../../testing/render'
 import FeedbackContainer from '../FeedbackContainer'
 
 const mockRequest = jest.fn()
@@ -23,91 +22,61 @@ jest.mock('shared/api', () => ({
 }))
 
 describe('FeedbackContainer', () => {
-  const cityCode = 'augsburg'
-  const language = 'de'
+  beforeEach(jest.clearAllMocks)
 
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
-  const closeModal = jest.fn()
-
-  const buildDefaultProps = (
-    routeType: FeedbackRouteType,
-    query?: string,
-  ): ComponentProps<typeof FeedbackContainer> => ({
-    routeType,
-    cityCode,
-    language,
-    onClose: closeModal,
-    query,
-    initialRating: null,
-  })
-
-  it('should display thanks message for modal', async () => {
-    const { getByRole, findByText, getByText } = renderWithTheme(
-      <FeedbackContainer {...buildDefaultProps(CATEGORIES_ROUTE)} initialRating />,
-    )
-    const buttonRating = getByRole('button', {
-      name: 'feedback:useful',
+  const renderFeedbackContainer = (
+    path: string,
+    { query, initialRating }: { query?: string; initialRating?: Rating } = {},
+  ) =>
+    renderAllRoutes(path, {
+      CityContentElement: <FeedbackContainer query={query} initialRating={initialRating ?? null} />,
     })
-    fireEvent.click(buttonRating)
+
+  it('should display thanks message snackbar', async () => {
+    const { findByText, getByText } = renderFeedbackContainer('/augsburg/de', {
+      initialRating: RATING_POSITIVE,
+    })
+    fireEvent.click(getByText('feedback:useful'))
 
     getByText('feedback:useful').click()
     getByText('common:privacyPolicy').click()
 
-    const button = getByRole('button', {
-      name: 'feedback:send',
-    })
-    fireEvent.click(button)
+    fireEvent.click(getByText('feedback:send'))
 
     expect(await findByText('feedback:thanksMessage')).toBeTruthy()
-    expect(getByRole('button', { name: 'feedback:common:close' })).toBeTruthy()
   })
 
-  it('should display thanks message for search', async () => {
-    const { getByRole, findByText, queryByRole, getByText } = renderWithTheme(
-      <FeedbackContainer {...buildDefaultProps(CATEGORIES_ROUTE, 'test')} />,
-    )
+  it('should display thanks message snackbar for search', async () => {
+    const { findByText, getByText, queryByText } = renderFeedbackContainer('/augsburg/de/search', { query: 'test' })
 
     getByText('common:privacyPolicy').click()
 
-    const button = getByRole('button', {
-      name: 'feedback:send',
-    })
-    fireEvent.click(button)
+    fireEvent.click(getByText('feedback:send'))
 
     expect(await findByText('feedback:thanksMessage')).toBeTruthy()
-    expect(queryByRole('button', { name: 'feedback:close' })).toBeNull()
+    expect(queryByText('feedback:close')).toBeNull()
   })
 
-  it('should display error for search', async () => {
+  it('should display error message snackbar for search', async () => {
     mockRequest.mockImplementationOnce(() => {
       throw new Error()
     })
-    const { getByRole, findByText, getByText } = renderWithTheme(
-      <FeedbackContainer {...buildDefaultProps(SEARCH_ROUTE, 'test')} />,
-    )
+    const { findByText, getByText } = renderFeedbackContainer('/augsburg/de/search', { query: 'test' })
 
     getByText('common:privacyPolicy').click()
 
-    const button = getByRole('button', {
-      name: 'feedback:send',
-    })
-    fireEvent.click(button)
+    fireEvent.click(getByText('feedback:send'))
 
     expect(await findByText('feedback:failedSendingFeedback')).toBeTruthy()
   })
 
   it('should send query for search', async () => {
     const query = 'zeugnis'
-    const { getByRole, getByText } = renderWithTheme(<FeedbackContainer {...buildDefaultProps(SEARCH_ROUTE, query)} />)
+    const { getByText } = renderFeedbackContainer('/augsburg/de/search', { query })
 
     getByText('common:privacyPolicy').click()
 
-    const button = getByRole('button', {
-      name: 'feedback:send',
-    })
-    fireEvent.click(button)
+    fireEvent.click(getByText('feedback:send'))
     expect(mockRequest).toHaveBeenCalledTimes(1)
     expect(mockRequest).toHaveBeenCalledWith({
       routeType: SEARCH_ROUTE,
@@ -115,7 +84,7 @@ describe('FeedbackContainer', () => {
       language: 'de',
       comment: '',
       contactMail: '',
-      isPositiveRating: null,
+      isPositiveRating: false,
       query,
       searchTerm: 'zeugnis',
       slug: undefined,
@@ -125,18 +94,13 @@ describe('FeedbackContainer', () => {
   it('should send original search term if updated', () => {
     const query = 'Zeugnis'
     const fullSearchTerm = 'Zeugnisübergabe'
-    const { getByDisplayValue, getByRole, getByText } = renderWithTheme(
-      <FeedbackContainer {...buildDefaultProps(SEARCH_ROUTE, query)} />,
-    )
+    const { getByDisplayValue, getByText } = renderFeedbackContainer('/augsburg/de/search', { query })
     const input = getByDisplayValue(query)
     fireEvent.change(input, { target: { value: fullSearchTerm } })
 
     getByText('common:privacyPolicy').click()
 
-    const button = getByRole('button', {
-      name: 'feedback:send',
-    })
-    fireEvent.click(button)
+    fireEvent.click(getByText('feedback:send'))
     expect(mockRequest).toHaveBeenCalledTimes(1)
     expect(mockRequest).toHaveBeenCalledWith({
       routeType: SEARCH_ROUTE,
@@ -144,7 +108,7 @@ describe('FeedbackContainer', () => {
       language: 'de',
       comment: '',
       contactMail: '',
-      isPositiveRating: null,
+      isPositiveRating: false,
       query,
       searchTerm: fullSearchTerm,
       slug: undefined,

@@ -1,5 +1,5 @@
 import { fireEvent } from '@testing-library/react'
-import React, { ReactElement } from 'react'
+import React from 'react'
 
 import { getChatName } from 'shared'
 import { CityModelBuilder } from 'shared/api'
@@ -15,7 +15,6 @@ jest.mock('react-i18next', () => ({
   }),
   Trans: ({ i18nKey }: { i18nKey: string }) => i18nKey,
 }))
-jest.mock('focus-trap-react', () => ({ children }: { children: ReactElement }) => <div>{children}</div>)
 
 jest.mock('shared/api', () => ({
   ...jest.requireActual('shared/api'),
@@ -32,25 +31,34 @@ describe('ChatContainer', () => {
   const city = new CityModelBuilder(1).build()[0]!
   const pathname = `/${city.code}/de`
 
-  it('should open chat modal and show content on chat button click', () => {
-    const { getByText } = renderRoute(<ChatContainer city={city} language='de' />, { pathname, routePattern })
-    const chatButtonContainer = getByText(getChatName('IntegreatTestCms'))
+  it('should open chat dialog and show content on chat button click', () => {
+    const { getByText, getByLabelText } = renderRoute(<ChatContainer city={city} language='de' />, {
+      pathname,
+      routePattern,
+    })
+    const chatButtonContainer = getByLabelText(getChatName('IntegreatTestCms'))
     expect(chatButtonContainer).toBeTruthy()
+
     fireEvent.click(chatButtonContainer)
+
     expect(getByText('chat:conversationTitle')).toBeTruthy()
     expect(getByText('chat:conversationText')).toBeTruthy()
   })
 
   it('should close chat if close button was clicked', () => {
-    const { getAllByLabelText, queryByText, getByText } = renderRoute(<ChatContainer city={city} language='de' />, {
+    const { getByLabelText, queryByText } = renderRoute(<ChatContainer city={city} language='de' />, {
       pathname,
       routePattern,
     })
-    const chatButtonContainer = getByText(getChatName('IntegreatTestCms'))
+    const chatButtonContainer = getByLabelText(getChatName('IntegreatTestCms'))
     expect(chatButtonContainer).toBeTruthy()
-    fireEvent.click(chatButtonContainer)
-    const closeButton = getAllByLabelText('common:minimize')[0]!
+
+    fireEvent.click(chatButtonContainer!)
+
+    const closeButton = getByLabelText('layout:common:close')
+
     fireEvent.click(closeButton)
+
     expect(queryByText('chat:conversationTitle')).toBeFalsy()
     expect(queryByText('chat:conversationText')).toBeFalsy()
   })
@@ -67,12 +75,12 @@ describe('ChatContainer', () => {
   })
 
   it('should only update query params if open chat query param is set', () => {
-    const { getByText, router } = renderRoute(<ChatContainer city={city} language='de' />, {
+    const { getAllByText, router } = renderRoute(<ChatContainer city={city} language='de' />, {
       pathname,
       routePattern,
       searchParams: '?',
     })
-    expect(getByText(getChatName('IntegreatTestCms'))).toBeTruthy()
+    expect(getAllByText(getChatName('IntegreatTestCms'))).toHaveLength(1)
     expect(router.state.location.search).toBe('?')
   })
 })

@@ -3,12 +3,12 @@ import { useTranslation } from 'react-i18next'
 
 import { License, parseLicenses } from 'shared'
 
-import Caption from '../components/Caption'
-import GeneralFooter from '../components/GeneralFooter'
+import Footer from '../components/Footer'
 import GeneralHeader from '../components/GeneralHeader'
 import Layout from '../components/Layout'
 import LicenseItem from '../components/LicenseItem'
-import List from '../components/List'
+import H1 from '../components/base/H1'
+import List from '../components/base/List'
 import { reportError } from '../utils/sentry'
 
 type LicensesPageProps = { languageCode: string }
@@ -22,20 +22,20 @@ const LicensesPage = ({ languageCode }: LicensesPageProps): ReactElement => {
       .catch(error => reportError(`error while importing licenses ${error}`))
   }, [])
 
-  const renderItem = (item: License) => (
+  const items = (licenses ?? []).map(license => (
     <LicenseItem
-      key={item.name}
-      name={item.name}
-      license={item.licenses}
-      version={item.version}
-      licenseUrl={item.licenseUrl}
+      key={license.name}
+      name={license.name}
+      license={license.licenses}
+      version={license.version}
+      licenseUrl={license.licenseUrl}
     />
-  )
+  ))
 
   return (
-    <Layout header={<GeneralHeader languageCode={languageCode} />} footer={<GeneralFooter language={languageCode} />}>
-      <Caption title={t('settings:openSourceLicenses')} />
-      <List items={licenses ?? []} renderItem={renderItem} noItemsMessage={t('licenses:noLicensesMessage')} />
+    <Layout header={<GeneralHeader languageCode={languageCode} />} footer={<Footer />}>
+      <H1>{t('settings:openSourceLicenses')}</H1>
+      <List items={items} NoItemsMessage={t('licenses:noLicensesMessage')} />
     </Layout>
   )
 }

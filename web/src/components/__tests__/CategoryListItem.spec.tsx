@@ -35,7 +35,7 @@ const childCategory = new CategoryModel({
 
 describe('CategoryListItem', () => {
   it('should render a list item with a subcategory', () => {
-    const { getByText, getByRole } = renderWithRouterAndTheme(
+    const { getByText } = renderWithRouterAndTheme(
       <CategoryListItem category={category} subCategories={[childCategory]} />,
     )
 
@@ -44,6 +44,5 @@ describe('CategoryListItem', () => {
 
     expect(getByText(childCategory.title)).toBeTruthy()
     expect(getByText(childCategory.title).closest('a')).toHaveProperty('href', `http://localhost${childCategory.path}`)
-    expect(getByRole('presentation')).toHaveProperty('src', childCategory.thumbnail)
   })
 })

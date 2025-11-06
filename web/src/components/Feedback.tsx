@@ -1,117 +1,114 @@
-import styled from '@emotion/styled'
+import SendIcon from '@mui/icons-material/Send'
+import Button from '@mui/material/Button'
+import FormControl from '@mui/material/FormControl'
+import FormHelperText from '@mui/material/FormHelperText'
+import Stack from '@mui/material/Stack'
+import TextField from '@mui/material/TextField'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { DEFAULT_ROWS_NUMBER, Rating } from 'shared'
+
 import buildConfig from '../constants/buildConfig'
-import dimensions from '../constants/dimensions'
 import FeedbackButtons from './FeedbackButtons'
-import { SendingStatusType } from './FeedbackContainer'
-import Note from './Note'
 import PrivacyCheckbox from './PrivacyCheckbox'
-import Input from './base/Input'
-import InputSection from './base/InputSection'
-import TextButton from './base/TextButton'
 
-export const Container = styled.div<{ fullWidth?: boolean }>`
-  display: flex;
-  flex: 1;
-  max-height: 80vh;
-  box-sizing: border-box;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 16px;
-  border-radius: 10px;
-  border-color: ${props => props.theme.colors.textSecondaryColor};
-  font-size: ${props => props.theme.fonts.contentFontSize};
-  overflow: auto;
-  align-self: center;
-  gap: 16px;
-
-  @media ${dimensions.mediumLargeViewport} {
-    width: ${props => (props.fullWidth ? 'auto' : '400px')};
-  }
+const OptionalHint = styled('p')`
+  text-align: end;
 `
 
-const ErrorSendingStatus = styled.div`
-  font-weight: bold;
-`
-
-const StyledTextButton = styled(TextButton)`
-  margin: 0;
+const PrivacyFormControl = styled(FormControl)`
+  margin: 8px 0;
 `
 
 type FeedbackProps = {
   language: string
-  isPositiveFeedback: boolean | null
+  rating: Rating | null
   comment: string
   contactMail: string
   onCommentChanged: (comment: string) => void
   onContactMailChanged: (contactMail: string) => void
-  onFeedbackChanged?: (isPositiveFeedback: boolean | null) => void
+  setRating: (rating: Rating | null) => void
   onSubmit: () => void
-  sendingStatus: SendingStatusType
   searchTerm: string | undefined
   setSearchTerm: (newTerm: string) => void
-  closeFeedback: (() => void) | undefined
 }
 
 const Feedback = ({
   language,
-  isPositiveFeedback,
+  rating,
   comment,
   contactMail,
-  sendingStatus,
   onSubmit,
   onCommentChanged,
   onContactMailChanged,
-  onFeedbackChanged,
+  setRating,
   searchTerm,
   setSearchTerm,
-  closeFeedback,
 }: FeedbackProps): ReactElement => {
   const { t } = useTranslation('feedback')
 
   const isSearchFeedback = searchTerm !== undefined
   const commentTitle = isSearchFeedback ? 'wantedInformation' : 'commentHeadline'
   const [privacyPolicyAccepted, setPrivacyPolicyAccepted] = useState(false)
-  const feedbackFilled = isPositiveFeedback === null && comment.trim().length === 0 && !searchTerm
-  const submitFeedbackDisabled = feedbackFilled || !privacyPolicyAccepted
+  const feedbackMissing = rating === null && comment.trim().length === 0 && !searchTerm
+  const submitFeedbackDisabled = feedbackMissing || !privacyPolicyAccepted
+  const [showErrors, setShowErrors] = useState(false)
 
-  if (sendingStatus === 'successful') {
-    return (
-      <Container>
-        <div>{t('thanksMessage')}</div>
-        {!!closeFeedback && !isSearchFeedback && <TextButton onClick={closeFeedback} text={t('common:close')} />}
-      </Container>
-    )
+  const handleSubmit = () => {
+    setShowErrors(true)
+    if (!submitFeedbackDisabled) {
+      onSubmit()
+    }
   }
 
   return (
-    <Container fullWidth={isSearchFeedback}>
+    <Stack>
       {isSearchFeedback ? (
-        <InputSection id='searchTerm' title={t('searchTermDescription')}>
-          <Input id='searchTerm' value={searchTerm} onChange={setSearchTerm} />
-        </InputSection>
+        <TextField
+          id='searchTerm'
+          value={searchTerm}
+          onChange={event => setSearchTerm(event.target.value)}
+          label={t('searchTermDescription')}
+          required
+          fullWidth
+          error={showErrors && !searchTerm}
+          helperText={showErrors && !searchTerm ? t('noteFillFeedback') : undefined}
+        />
       ) : (
-        onFeedbackChanged && <FeedbackButtons isPositive={isPositiveFeedback} onRatingChange={onFeedbackChanged} />
+        <FormControl error={showErrors && rating === null}>
+          <FeedbackButtons rating={rating} setRating={setRating} />
+          {showErrors && rating === null && <FormHelperText>{t('noteFillFeedback')}</FormHelperText>}
+        </FormControl>
       )}
-
-      <InputSection
+      <OptionalHint>({t('common:optional')})</OptionalHint>
+      <TextField
         id='comment'
-        title={t(commentTitle)}
-        description={t('commentDescription', { appName: buildConfig().appName })}
-        showOptional>
-        <Input id='comment' value={comment} onChange={onCommentChanged} multiline />
-      </InputSection>
-
-      <InputSection id='email' title={t('contactMailAddress')} showOptional>
-        <Input id='email' value={contactMail} onChange={onContactMailChanged} />
-      </InputSection>
-      <PrivacyCheckbox language={language} checked={privacyPolicyAccepted} setChecked={setPrivacyPolicyAccepted} />
-      {submitFeedbackDisabled && <Note text={t(feedbackFilled ? 'noteFillFeedback' : 'notePrivacyPolicy')} />}
-      {sendingStatus === 'failed' && <ErrorSendingStatus role='alert'>{t('failedSendingFeedback')}</ErrorSendingStatus>}
-      <StyledTextButton disabled={submitFeedbackDisabled} onClick={onSubmit} text={t('send')} />
-    </Container>
+        value={comment}
+        onChange={event => onCommentChanged(event.target.value)}
+        label={t(commentTitle)}
+        variant='outlined'
+        multiline
+        rows={DEFAULT_ROWS_NUMBER}
+        helperText={t('commentDescription', { appName: buildConfig().appName })}
+      />
+      <OptionalHint>({t('common:optional')})</OptionalHint>
+      <TextField
+        id='email'
+        value={contactMail}
+        onChange={event => onContactMailChanged(event.target.value)}
+        label={t('contactMailAddress')}
+        variant='outlined'
+      />
+      <PrivacyFormControl error={showErrors && !privacyPolicyAccepted} required>
+        <PrivacyCheckbox language={language} checked={privacyPolicyAccepted} setChecked={setPrivacyPolicyAccepted} />
+        {showErrors && !privacyPolicyAccepted && <FormHelperText>{t('common:notePrivacyPolicy')}</FormHelperText>}
+      </PrivacyFormControl>
+      <Button onClick={handleSubmit} variant='contained' startIcon={<SendIcon />}>
+        {t('send')}
+      </Button>
+    </Stack>
   )
 }
 

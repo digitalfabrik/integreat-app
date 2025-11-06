@@ -76,7 +76,9 @@ class EventModel extends ExtendedPageModel {
     body.push(`UID:${uid}`)
     body.push(`SUMMARY:${title}`)
     body.push(`DTSTART;TZID=${timezone}:${formatDateICal(date.startDate)}`)
-    body.push(`DTEND;TZID=${timezone}:${formatDateICal(date.endDate)}`)
+    if (date.endDate) {
+      body.push(`DTEND;TZID=${timezone}:${formatDateICal(date.endDate)}`)
+    }
     // For iCal newlines have to be escaped as each line is treated as separate property, see #2690
     body.push(`DESCRIPTION:${excerpt}\n\n${url}`.replace(/\n/g, '\\n'))
 

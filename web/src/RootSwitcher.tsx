@@ -1,6 +1,6 @@
 import React, { ReactElement, Suspense, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Navigate, Route, Routes, useMatch } from 'react-router-dom'
+import { Navigate, Route, Routes, useMatch } from 'react-router'
 
 import {
   CITY_NOT_COOPERATING_ROUTE,

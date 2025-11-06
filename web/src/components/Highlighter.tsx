@@ -1,4 +1,4 @@
-import { useTheme } from '@emotion/react'
+import { useTheme } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import ReactHighlighter from 'react-highlight-words'
 
@@ -22,9 +22,9 @@ const Highlighter = ({ search, text, className, dir }: HighlighterProps): ReactE
       sanitize={normalizeString}
       findChunks={findNormalizedMatches}
       highlightStyle={{
-        backgroundColor: theme.colors.backgroundColor,
+        backgroundColor: theme.palette.tertiary.light,
         fontWeight: 'bold',
-        color: theme.isContrastTheme ? theme.colors.themeColor : theme.colors.textColor,
+        color: 'black',
       }}
       aria-label={text}
       autoEscape

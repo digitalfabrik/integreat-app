@@ -1,11 +1,11 @@
 import React, { ReactElement } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router'
 
 import { CityModel, NotFoundError } from 'shared/api'
 
 import CityContentSwitcher from './CityContentSwitcher'
 import FailureSwitcher from './components/FailureSwitcher'
-import GeneralFooter from './components/GeneralFooter'
+import Footer from './components/Footer'
 import GeneralHeader from './components/GeneralHeader'
 import Layout from './components/Layout'
 
@@ -27,7 +27,7 @@ const FixedCityContentSwitcher = ({ languageCode, fixedCity }: FixedCityContentS
     const notFoundError = new NotFoundError({ type: 'route', id: fixedCity, city: fixedCity, language: languageCode })
 
     return (
-      <Layout header={<GeneralHeader languageCode={languageCode} />} footer={<GeneralFooter language={languageCode} />}>
+      <Layout header={<GeneralHeader languageCode={languageCode} />} footer={<Footer />}>
         <FailureSwitcher error={notFoundError} />
       </Layout>
     )

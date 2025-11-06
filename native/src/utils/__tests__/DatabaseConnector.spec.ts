@@ -24,6 +24,13 @@ afterEach(() => {
   jest.clearAllMocks()
 })
 
+const t = (key: string, options?: Record<string, unknown>) =>
+  options
+    ? `${key}, ${Object.entries(options)
+        .map(option => `${option[0]}: ${option[1]}`)
+        .join(', ')}`
+    : key
+
 describe('DatabaseConnector', () => {
   const city = 'augsburg'
   const language = 'de'
@@ -32,18 +39,8 @@ describe('DatabaseConnector', () => {
   const testEvents = new EventModelBuilder('testSeed', 2, city, language).build()
   const testResources = {
     de: {
-      '/path/to/page': {
-        'https://test.de/path/to/resource/test.png': {
-          filePath: '/local/path/to/resource/b4b5dca65e423.png',
-          hash: 'testHash',
-        },
-      },
-      '/path/to/page/child': {
-        'https://test.de/path/to/resource/test2.jpg': {
-          filePath: '/local/path/to/resource/970c65c41eac0.jpg',
-          hash: 'testHash',
-        },
-      },
+      'https://test.de/path/to/resource/test.png': '/local/path/to/resource/b4b5dca65e423.png',
+      'https://test.de/path/to/resource/test2.jpg': '/local/path/to/resource/970c65c41eac0.jpg',
     },
   }
 
@@ -253,6 +250,7 @@ describe('DatabaseConnector', () => {
         endDate: DateTime.fromISO('2024-01-16T12:00:00+01:00'),
         allDay: false,
         recurrenceRule,
+        onlyWeekdays: false,
       })
       const event = new EventModel({
         path: '/augsburg/de/events/asylpolitischer_fruehschoppen',
@@ -268,14 +266,20 @@ describe('DatabaseConnector', () => {
         poiPath: '/testumgebung/de/locations/testort/',
       })
 
-      expect(event.date.toFormattedString('de', false)).toBe('7. Mai 2024 10:00 - 12:00')
-      expect(event.date.recurrences(1)[0]!.toFormattedString('de', false)).toBe('7. Mai 2024 10:00 - 12:00')
+      const expectedDate = {
+        date: 'startingFrom, date: 7. Mai 2024',
+        time: '10:00 - 12:00',
+        weekday: 'Dienstag',
+      }
+
+      expect(event.date.formatEventDate('de', t)).toStrictEqual(expectedDate)
+      expect(event.date.recurrences(1)[0]!.formatEventDate('de', t)).toStrictEqual(expectedDate)
 
       await databaseConnector.storeEvents([event], context)
       const loadedEvent = (await databaseConnector.loadEvents(context))[0]!
 
-      expect(loadedEvent.date.toFormattedString('de', false)).toBe('7. Mai 2024 10:00 - 12:00')
-      expect(loadedEvent.date.recurrences(1)[0]!.toFormattedString('de', false)).toBe('7. Mai 2024 10:00 - 12:00')
+      expect(loadedEvent.date.formatEventDate('de', t)).toStrictEqual(expectedDate)
+      expect(loadedEvent.date.recurrences(1)[0]!.formatEventDate('de', t)).toStrictEqual(expectedDate)
     })
   })
 
@@ -331,7 +335,7 @@ describe('DatabaseConnector', () => {
       await databaseConnector.storeLastUsage(context)
       expect(JSON.parse(await BlobUtil.fs.readFile(databaseConnector.getMetaCitiesPath(), ''))).toEqual({
         augsburg: {
-          last_usage: now.toISO(),
+          lastUsage: now.toISO(),
           languages: {},
         },
       })
@@ -348,15 +352,15 @@ describe('DatabaseConnector', () => {
         JSON.stringify({
           muenchen: {
             languages: {},
-            last_usage: '2010-05-04T00:00:00.000',
+            lastUsage: '2010-05-04T00:00:00.000',
           },
           dortmund: {
             languages: {},
-            last_usage: '2011-05-04T00:00:00.000',
+            lastUsage: '2011-05-04T00:00:00.000',
           },
           ansbach: {
             languages: {},
-            last_usage: '2012-05-04T00:00:00.000',
+            lastUsage: '2012-05-04T00:00:00.000',
           },
         }),
         '',
@@ -369,15 +373,15 @@ describe('DatabaseConnector', () => {
       expect(JSON.parse(await BlobUtil.fs.readFile(databaseConnector.getMetaCitiesPath(), ''))).toEqual({
         ansbach: {
           languages: {},
-          last_usage: '2012-05-04T00:00:00.000+02:00',
+          lastUsage: '2012-05-04T00:00:00.000+02:00',
         },
         dortmund: {
           languages: {},
-          last_usage: '2011-05-04T00:00:00.000+02:00',
+          lastUsage: '2011-05-04T00:00:00.000+02:00',
         },
         regensburg: {
           languages: {},
-          last_usage: '2024-05-02T11:45:43.443+02:00',
+          lastUsage: '2024-05-02T11:45:43.443+02:00',
         },
       })
     })
@@ -390,7 +394,7 @@ describe('DatabaseConnector', () => {
       expect(JSON.parse(await BlobUtil.fs.readFile(path, 'utf8'))).toEqual({
         tcc: {
           languages: {},
-          last_usage: '2024-05-02T11:45:43.443+02:00',
+          lastUsage: '2024-05-02T11:45:43.443+02:00',
         },
       })
     })
@@ -403,23 +407,23 @@ describe('DatabaseConnector', () => {
         JSON.stringify({
           muenchen: {
             languages: {},
-            last_usage: '2010-05-04T00:00:00.000',
+            lastUsage: '2010-05-04T00:00:00.000',
           },
           dortmund: {
             languages: {},
-            last_usage: '2011-05-04T00:00:00.000',
+            lastUsage: '2011-05-04T00:00:00.000',
           },
           ansbach: {
             languages: {},
-            last_usage: '2012-05-04T00:00:00.000',
+            lastUsage: '2012-05-04T00:00:00.000',
           },
           augsburg: {
             languages: {},
-            last_usage: '2014-05-04T00:00:00.000',
+            lastUsage: '2014-05-04T00:00:00.000',
           },
           regensburg: {
             languages: {},
-            last_usage: '2013-05-04T00:00:00.000',
+            lastUsage: '2013-05-04T00:00:00.000',
           },
         }),
         '',
@@ -468,23 +472,23 @@ describe('DatabaseConnector', () => {
         JSON.stringify({
           muenchen: {
             languages: {},
-            last_usage: '2010-05-04T00:00:00.000',
+            lastUsage: '2010-05-04T00:00:00.000',
           },
           dortmund: {
             languages: {},
-            last_usage: '2011-05-04T00:00:00.000',
+            lastUsage: '2011-05-04T00:00:00.000',
           },
           ansbach: {
             languages: {},
-            last_usage: '2012-05-04T00:00:00.000',
+            lastUsage: '2012-05-04T00:00:00.000',
           },
           augsburg: {
             languages: {},
-            last_usage: '2014-05-04T00:00:00.000',
+            lastUsage: '2014-05-04T00:00:00.000',
           },
           regensburg: {
             languages: {},
-            last_usage: '2013-05-04T00:00:00.000',
+            lastUsage: '2013-05-04T00:00:00.000',
           },
         }),
         '',
@@ -498,15 +502,15 @@ describe('DatabaseConnector', () => {
       expect(JSON.parse(await BlobUtil.fs.readFile(databaseConnector.getMetaCitiesPath(), ''))).toEqual({
         ansbach: {
           languages: {},
-          last_usage: '2012-05-04T00:00:00.000+02:00',
+          lastUsage: '2012-05-04T00:00:00.000+02:00',
         },
         augsburg: {
           languages: {},
-          last_usage: '2014-05-04T00:00:00.000+02:00',
+          lastUsage: '2014-05-04T00:00:00.000+02:00',
         },
         regensburg: {
           languages: {},
-          last_usage: '2013-05-04T00:00:00.000+02:00',
+          lastUsage: '2013-05-04T00:00:00.000+02:00',
         },
       })
     })
@@ -522,19 +526,19 @@ describe('DatabaseConnector', () => {
         JSON.stringify({
           augsburg: {
             languages: {},
-            last_usage: '2010-05-04T00:00:00.000',
+            lastUsage: '2010-05-04T00:00:00.000',
           },
           dortmund: {
             languages: {},
-            last_usage: '2011-05-04T00:00:00.000',
+            lastUsage: '2011-05-04T00:00:00.000',
           },
           ansbach: {
             languages: {},
-            last_usage: '2012-05-04T00:00:00.000',
+            lastUsage: '2012-05-04T00:00:00.000',
           },
           regensburg: {
             languages: {},
-            last_usage: '2013-05-04T00:00:00.000',
+            lastUsage: '2013-05-04T00:00:00.000',
           },
         }),
         '',
@@ -547,15 +551,15 @@ describe('DatabaseConnector', () => {
       expect(JSON.parse(await BlobUtil.fs.readFile(databaseConnector.getMetaCitiesPath(), ''))).toEqual({
         ansbach: {
           languages: {},
-          last_usage: '2012-05-04T00:00:00.000+02:00',
+          lastUsage: '2012-05-04T00:00:00.000+02:00',
         },
         augsburg: {
           languages: {},
-          last_usage: '2010-05-04T00:00:00.000+02:00',
+          lastUsage: '2010-05-04T00:00:00.000+02:00',
         },
         regensburg: {
           languages: {},
-          last_usage: '2013-05-04T00:00:00.000+02:00',
+          lastUsage: '2013-05-04T00:00:00.000+02:00',
         },
       })
     })

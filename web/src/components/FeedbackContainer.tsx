@@ -1,41 +1,42 @@
+import CloseIcon from '@mui/icons-material/Close'
+import IconButton from '@mui/material/IconButton'
 import React, { ReactElement, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
+import { Rating, SendingStatusType } from 'shared'
 import { createFeedbackEndpoint, FeedbackRouteType } from 'shared/api'
 
 import { cmsApiBaseUrl } from '../constants/urls'
+import useCityContentParams from '../hooks/useCityContentParams'
 import { reportError } from '../utils/sentry'
 import Feedback from './Feedback'
+import Snackbar from './base/Snackbar'
 
 type FeedbackContainerProps = {
-  cityCode: string
-  language: string
-  routeType: FeedbackRouteType
-  onClose?: () => void
   query?: string
   noResults?: boolean
   slug?: string
   onSubmit?: () => void
-  initialRating: boolean | null
+  onError?: () => void
+  initialRating: Rating | null
 }
-
-export type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
 
 export const FeedbackContainer = ({
   query,
   noResults,
-  language,
-  routeType,
-  cityCode,
   slug,
-  onClose,
   onSubmit,
+  onError,
   initialRating,
 }: FeedbackContainerProps): ReactElement => {
-  const [isPositiveRating, setIsPositiveRating] = useState<boolean | null>(initialRating)
+  const { t } = useTranslation('feedback')
+  const [rating, setRating] = useState<Rating | null>(initialRating)
   const [comment, setComment] = useState<string>('')
   const [contactMail, setContactMail] = useState<string>('')
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
+  const [snackbarOpen, setSnackbarOpen] = useState(false)
   const [searchTerm, setSearchTerm] = useState<string | undefined>(query)
+  const { route, cityCode, languageCode } = useCityContentParams()
 
   useEffect(() => {
     setSearchTerm(query)
@@ -47,45 +48,60 @@ export const FeedbackContainer = ({
     const request = async () => {
       const feedbackEndpoint = createFeedbackEndpoint(cmsApiBaseUrl)
       await feedbackEndpoint.request({
-        routeType,
+        routeType: route as FeedbackRouteType,
         city: cityCode,
-        language,
+        language: languageCode,
         comment,
         contactMail,
         query,
         slug,
         searchTerm,
-        isPositiveRating: !noResults && isPositiveRating,
+        isPositiveRating: !noResults && rating === 'positive',
       })
 
       setSendingStatus('successful')
-
-      if (onSubmit) {
-        onSubmit()
-      }
+      setSnackbarOpen(true)
+      onSubmit?.()
     }
 
     request().catch(err => {
       reportError(err)
       setSendingStatus('failed')
+      setSnackbarOpen(true)
+      onError?.()
     })
   }
 
   return (
-    <Feedback
-      language={language}
-      onCommentChanged={setComment}
-      onContactMailChanged={setContactMail}
-      onSubmit={handleSubmit}
-      sendingStatus={sendingStatus}
-      isPositiveFeedback={isPositiveRating}
-      comment={comment}
-      onFeedbackChanged={setIsPositiveRating}
-      contactMail={contactMail}
-      searchTerm={searchTerm}
-      setSearchTerm={setSearchTerm}
-      closeFeedback={onClose}
-    />
+    <>
+      <Feedback
+        language={languageCode}
+        onCommentChanged={setComment}
+        onContactMailChanged={setContactMail}
+        onSubmit={handleSubmit}
+        rating={rating}
+        comment={comment}
+        setRating={setRating}
+        contactMail={contactMail}
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+      />
+      <Snackbar
+        open={snackbarOpen}
+        onClose={() => setSnackbarOpen(false)}
+        severity={sendingStatus === 'successful' ? 'success' : 'error'}
+        message={sendingStatus === 'successful' ? t('thanksMessage') : t('failedSendingFeedback')}
+        action={
+          <IconButton
+            aria-label={t('common:close')}
+            color='inherit'
+            size='small'
+            onClick={() => setSnackbarOpen(false)}>
+            <CloseIcon />
+          </IconButton>
+        }
+      />
+    </>
   )
 }
 

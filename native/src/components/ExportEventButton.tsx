@@ -35,13 +35,13 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
   const exportEventToCalendar = async (calendarId: string, exportAll: boolean): Promise<void> => {
     // Luxon ISO dates have the time zone offset but Android calendar needs them in UTC
     let startDate = event.date.startDate.toUTC().toISO()
-    let endDate = event.date.endDate.toUTC().toISO()
+    let endDate = event.date.endDate?.toUTC().toISO()
     const allDay = event.date.allDay
     if (Platform.OS === 'android' && allDay) {
       // If allDay is set to true, Android demands that the time has a midnight boundary.
       // The endDate we receive from the CMS for allDay events is always at 23:59:00.
       startDate = event.date.startDate.toFormat("yyyy-LL-dd'T'00:00:00.000'Z'")
-      endDate = event.date.endDate.plus({ minutes: 1 }).toFormat("yyyy-LL-dd'T'00:00:00.000'Z'")
+      endDate = event.date.endDate?.plus({ minutes: 1 }).toFormat("yyyy-LL-dd'T'00:00:00.000'Z'")
     }
 
     const eventOptions: CalendarEventWritable = {

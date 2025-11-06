@@ -4,7 +4,6 @@ import styled from 'styled-components/native'
 import { CategoryModel } from 'shared/api'
 
 import { contentDirection } from '../constants/contentDirection'
-import { PageResourceCacheStateType } from '../utils/DataContainer'
 import { CategoryThumbnail } from './CategoryListItem'
 import Pressable from './base/Pressable'
 
@@ -31,26 +30,18 @@ const SubCategoryTitle = styled.Text`
 
 type SubCategoryListItemProps = {
   subCategory: CategoryModel
-  resourceCache: PageResourceCacheStateType
   onItemPress: (item: CategoryModel) => void
   language: string
 }
 
-const SubCategoryListItem = ({
-  subCategory,
-  resourceCache,
-  onItemPress,
-  language,
-}: SubCategoryListItemProps): ReactElement => (
+const SubCategoryListItem = ({ subCategory, onItemPress, language }: SubCategoryListItemProps): ReactElement => (
   <FlexStyledLink
     onPress={() => onItemPress(subCategory)}
     language={language}
     role='link'
     accessibilityLanguage={language}>
     <SubCategoryTitleContainer language={language}>
-      {!!subCategory.thumbnail && (
-        <CategoryThumbnail language={language} source={subCategory.thumbnail} resourceCache={resourceCache} />
-      )}
+      {!!subCategory.thumbnail && <CategoryThumbnail language={language} source={subCategory.thumbnail} />}
       <SubCategoryTitle>{subCategory.title}</SubCategoryTitle>
     </SubCategoryTitleContainer>
   </FlexStyledLink>

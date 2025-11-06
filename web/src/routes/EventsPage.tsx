@@ -1,14 +1,14 @@
-import styled from '@emotion/styled'
+import LocationIcon from '@mui/icons-material/LocationOnOutlined'
+import { styled } from '@mui/material/styles'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router'
 
 import { EVENTS_ROUTE, pathnameFromRouteInformation, useDateFilter } from 'shared'
-import { createEventsEndpoint, EventModel, NotFoundError, useLoadFromEndpoint } from 'shared/api'
+import { createEventsEndpoint, NotFoundError, useLoadFromEndpoint } from 'shared/api'
 
 import { CityRouteProps } from '../CityContentSwitcher'
-import Caption from '../components/Caption'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
 import DatesPageDetail from '../components/DatesPageDetail'
@@ -18,16 +18,16 @@ import ExportEventButton from '../components/ExportEventButton'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
 import JsonLdEvent from '../components/JsonLdEvent'
-import List from '../components/List'
 import LoadingSpinner from '../components/LoadingSpinner'
 import Page, { THUMBNAIL_WIDTH } from '../components/Page'
 import PageDetail from '../components/PageDetail'
+import H1 from '../components/base/H1'
+import List from '../components/base/List'
 import { cmsApiBaseUrl } from '../constants/urls'
-import usePreviousProp from '../hooks/usePreviousProp'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 import featuredImageToSrcSet from '../utils/featuredImageToSrcSet'
 
-const Spacing = styled.div<{ content: string; lastUpdate?: DateTime }>`
+const Spacing = styled('div')<{ content: string; lastUpdate?: DateTime }>`
   display: flex;
   flex-direction: column;
   padding-top: 12px;
@@ -36,7 +36,6 @@ const Spacing = styled.div<{ content: string; lastUpdate?: DateTime }>`
 `
 
 const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps): ReactElement | null => {
-  const previousPathname = usePreviousProp({ prop: pathname })
   const { eventId } = useParams()
   const { t } = useTranslation('events')
 
@@ -77,19 +76,12 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
   const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
     city,
     languageChangePaths,
-    route: EVENTS_ROUTE,
     languageCode,
-    Toolbar: (
-      <CityContentToolbar
-        feedbackTarget={event?.slug}
-        route={EVENTS_ROUTE}
-        hideDivider={!event}
-        pageTitle={pageTitle}
-      />
-    ),
+    pageTitle,
+    Toolbar: <CityContentToolbar slug={event?.slug} />,
   }
 
-  if (loading || pathname !== previousPathname) {
+  if (!events && loading) {
     return (
       <CityContentLayout isLoading {...locationLayoutParams}>
         <LoadingSpinner />
@@ -128,9 +120,9 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
           title={title}
           BeforeContent={
             <Spacing content={content} lastUpdate={lastUpdate}>
-              <DatesPageDetail date={date} languageCode={languageCode} />
+              <DatesPageDetail date={date} language={languageCode} />
               {location && (
-                <PageDetail identifier={t('address')} information={location.fullAddress} path={event.poiPath} />
+                <PageDetail icon={<LocationIcon />} information={location.fullAddress} path={event.poiPath} />
               )}
               {meetingUrl && <PageDetail identifier={t('meetingUrl')} information={meetingUrl} path={meetingUrl} />}
             </Spacing>
@@ -141,21 +133,20 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     )
   }
 
-  const renderEventListItem = (event: EventModel, index: number) => (
+  const items = (filteredEvents ?? []).map(event => (
     <EventListItem
       event={event}
       languageCode={languageCode}
       key={event.path}
-      index={index}
       filterStartDate={startDate}
       filterEndDate={endDate}
     />
-  )
+  ))
 
   return (
     <CityContentLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
-      <Caption title={t('events')} />
+      <H1>{t('events')}</H1>
       <EventsDateFilter
         startDate={startDate}
         setStartDate={setStartDate}
@@ -163,7 +154,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
         setEndDate={setEndDate}
         startDateError={startDateError}
       />
-      <List noItemsMessage={t('currentlyNoEvents')} items={filteredEvents ?? []} renderItem={renderEventListItem} />
+      <List items={items} NoItemsMessage='events:currentlyNoEvents' />
     </CityContentLayout>
   )
 }
