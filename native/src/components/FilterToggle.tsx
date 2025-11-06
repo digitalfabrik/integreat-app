@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { withKeyboardFocus } from 'react-native-external-keyboard'
 import styled from 'styled-components/native'
 
 import { ExpandIcon, ShrinkIcon } from '../assets'
@@ -20,8 +19,6 @@ const StyledButton = styled.TouchableOpacity`
   gap: 5px;
 `
 
-const KeyboardedTouchable = withKeyboardFocus(StyledButton)
-
 type DateFilterToggleProps = {
   isDateFilterActive: boolean
   setToggleDateFilter: (isEnabled: boolean) => void
@@ -30,10 +27,10 @@ type DateFilterToggleProps = {
 const FilterToggle = ({ isDateFilterActive, setToggleDateFilter }: DateFilterToggleProps): ReactElement => {
   const { t } = useTranslation('events')
   return (
-    <KeyboardedTouchable onPress={() => setToggleDateFilter(!isDateFilterActive)} focusable autoFocus>
+    <StyledButton onPress={() => setToggleDateFilter(!isDateFilterActive)} focusable>
       <Icon Icon={isDateFilterActive ? ShrinkIcon : ExpandIcon} />
       <StyledText>{t(isDateFilterActive ? 'hideFilters' : 'showFilters')}</StyledText>
-    </KeyboardedTouchable>
+    </StyledButton>
   )
 }
 

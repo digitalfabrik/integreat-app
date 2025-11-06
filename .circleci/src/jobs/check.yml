@@ -1,10 +1,9 @@
 # Run checks and tests.
 docker:
   - image: cimg/node:22.21.1
-resource_class: small
+resource_class: medium
 environment:
-  TOTAL_CPUS: 1 # For resource_class small
-  TZ: 'Europe/Berlin' # Should be removed in IGAPP-39
+  TOTAL_CPUS: 2 # For resource_class medium
 shell: /bin/bash -eo pipefail
 steps:
   - checkout

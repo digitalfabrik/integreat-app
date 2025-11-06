@@ -21,6 +21,8 @@
       <excludeFolder url="file://$MODULE_DIR$/native/vendor" />
       <excludeFolder url="file://$MODULE_DIR$/native/ios/Pods" />
       <excludeFolder url="file://$MODULE_DIR$/native/ios/DerivedData" />
+      <excludeFolder url="file://$MODULE_DIR$/native/android/app/.cxx" />
+      <excludeFolder url="file://$MODULE_DIR$/native/ios/build" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

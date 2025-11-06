@@ -1,0 +1,19 @@
+diff --git a/node_modules/react-native/Libraries/Animated/nodes/AnimatedNode.js b/node_modules/react-native/Libraries/Animated/nodes/AnimatedNode.js
+index 29ca679..aa5781d 100644
+--- a/node_modules/react-native/Libraries/Animated/nodes/AnimatedNode.js
++++ b/node_modules/react-native/Libraries/Animated/nodes/AnimatedNode.js
+@@ -122,9 +122,11 @@ export default class AnimatedNode {
+ 
+   __callListeners(value: number): void {
+     const event = {value};
+-    this._listeners.forEach(listener => {
+-      listener(event);
+-    });
++    if (Array.isArray(this._listeners)) {
++      this._listeners.forEach(listener => {
++        listener(event);
++      });
++    }
+   }
+ 
+   __getNativeTag(): number {

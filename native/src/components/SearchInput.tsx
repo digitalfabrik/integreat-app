@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react'
 import { Text, View, Keyboard } from 'react-native'
-import { KeyboardExtendedInput } from 'react-native-external-keyboard'
 import styled, { useTheme } from 'styled-components/native'
 
 import { SearchIcon } from '../assets'
@@ -14,7 +13,7 @@ const InputWrapper = styled.View`
   border-bottom-color: ${props => props.theme.colors.textSecondaryColor};
 `
 
-const StyledInput = styled(KeyboardExtendedInput)`
+const StyledInput = styled.TextInput`
   color: ${props => props.theme.colors.textColor};
 `
 
@@ -28,7 +27,6 @@ const Wrapper = styled.View<{ space: boolean }>`
 `
 
 const Description = styled(Text)`
-  width: fit-content;
   padding-left: 28px;
   color: ${props => props.theme.colors.textColor};
   font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
@@ -58,7 +56,6 @@ const SearchInput = ({
         <InputWrapper>
           <StyledInput
             {...testID('Search-Input')}
-            tintType='none'
             multiline={false}
             autoFocus
             onBlur={Keyboard.dismiss}

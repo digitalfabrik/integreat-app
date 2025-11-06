@@ -22,7 +22,7 @@ const StyledTextField = styled(TextField)`
     margin-inline-start: 24px;
   }
 
-  & legend {
+  legend {
     letter-spacing: 0;
   }
 `
