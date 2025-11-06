@@ -64,7 +64,7 @@ const PoisMobile = ({
   const canDeselect = !!mapFeature || !!slug
   const { t } = useTranslation('pois')
 
-  const handleSelectPoi = () => {
+  const scrollToTop = () => {
     if (sheetRef.current?.scrollElement) {
       setScrollOffset(sheetRef.current.scrollElement.scrollTop)
     }
@@ -130,13 +130,7 @@ const PoisMobile = ({
               {t('common:nearby')}
             </Typography>
           )}
-          <PoiSharedChildren
-            pois={pois}
-            poi={poi}
-            selectPoi={handleSelectPoi}
-            userLocation={userLocation}
-            slug={slug}
-          />
+          <PoiSharedChildren pois={pois} poi={poi} scrollToTop={scrollToTop} userLocation={userLocation} slug={slug} />
         </Stack>
       </BottomActionSheet>
     </>
