@@ -91,7 +91,7 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
                     information={event.meetingUrl}
                     language={language}
                     path={event.meetingUrl}
-                    identifier={t('meetingUrl')}
+                    accessibilityLabel={t('meetingUrl')}
                   />
                 )}
               </PageDetailsContainer>

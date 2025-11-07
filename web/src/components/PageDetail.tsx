@@ -1,4 +1,5 @@
 import Stack from '@mui/material/Stack'
+import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import React, { ReactElement } from 'react'
 
@@ -9,21 +10,24 @@ type PageDetailProps = {
   information: string
   secondaryInformation?: string
   path?: string | null
+  tooltip?: string | null
 }
 
-const PageDetail = ({ information, secondaryInformation, path, icon }: PageDetailProps): ReactElement => (
+const PageDetail = ({ information, secondaryInformation, path, icon, tooltip }: PageDetailProps): ReactElement => (
   <Stack direction='row' gap={1}>
     {icon}
-    <Stack direction='row' flexWrap='wrap' gap={1}>
-      {path ? (
-        <Link to={path} highlighted>
+    <Tooltip title={tooltip}>
+      <Stack direction='row' flexWrap='wrap' gap={1}>
+        {path ? (
+          <Link to={path} highlighted>
+            <Typography>{information}</Typography>
+          </Link>
+        ) : (
           <Typography>{information}</Typography>
-        </Link>
-      ) : (
-        <Typography>{information}</Typography>
-      )}
-      <Typography>{secondaryInformation}</Typography>
-    </Stack>
+        )}
+        <Typography>{secondaryInformation}</Typography>
+      </Stack>
+    </Tooltip>
   </Stack>
 )
 

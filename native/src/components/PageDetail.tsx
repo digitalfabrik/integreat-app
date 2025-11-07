@@ -52,6 +52,7 @@ type PageDetailProps = {
   language: string
   path?: string | null
   isExternalUrl?: boolean
+  accessibilityLabel?: string | undefined
 }
 
 const PageDetail = ({
@@ -61,6 +62,7 @@ const PageDetail = ({
   language,
   path,
   isExternalUrl,
+  accessibilityLabel,
 }: PageDetailProps): ReactElement => {
   const { navigateTo } = useNavigate()
   const showSnackbar = useSnackbar()
@@ -79,7 +81,7 @@ const PageDetail = ({
       {!!identifier && <Identifier>{identifier}: </Identifier>}
       {!!Icon && <StyledIcon Icon={Icon} />}
       {route ? (
-        <StyledButton onPress={handlePress}>
+        <StyledButton accessibilityLabel={accessibilityLabel} onPress={handlePress}>
           <ButtonText>{information}</ButtonText>
         </StyledButton>
       ) : (
