@@ -16,7 +16,6 @@ describe('PoisMobile', () => {
   const userLocation = [10.994217, 48.415402] as LocationType
   const mapFeatures = prepareMapFeatures(pois)
   const selectMapFeature = jest.fn()
-  const selectPoi = jest.fn()
   const deselect = jest.fn()
 
   const renderPoisMobile = (poi?: PoiModel) =>
@@ -29,7 +28,6 @@ describe('PoisMobile', () => {
         setMapViewport={jest.fn()}
         MapOverlay={<div />}
         selectMapFeature={selectMapFeature}
-        selectPoi={selectPoi}
         deselect={deselect}
       />,
     )

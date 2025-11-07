@@ -21,8 +21,8 @@ const Container = styled.View`
 
 const SubTitle = styled(Text)`
   font-size: 14px;
-  color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.native.decorativeFontBold};
+  color: ${props => props.theme.legacy.colors.textColor};
+  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontBold};
 `
 
 const Section = styled.View`
@@ -41,8 +41,8 @@ const StyledRow = styled(Row)`
 
 const StyledText = styled.Text`
   font-size: 14px;
-  color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
+  color: ${props => props.theme.legacy.colors.textColor};
+  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
   padding: 4px;
   flex-shrink: 1;
 `
@@ -50,8 +50,8 @@ const StyledText = styled.Text`
 const SortingHint = styled.Text`
   align-self: flex-end;
   font-size: 12px;
-  color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
+  color: ${props => props.theme.legacy.colors.textColor};
+  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
   padding: 0 4px;
 `
 
@@ -76,9 +76,9 @@ const StyledTextButton = styled(TextButton)`
 
 const StyledSvgUri = styled(SvgUri)<{ active: boolean }>`
   color: ${props =>
-    props.active && props.theme.isContrastTheme
-      ? props.theme.colors.backgroundColor
-      : props.theme.colors.textSecondaryColor};
+    props.active && props.theme.legacy.isContrastTheme
+      ? props.theme.legacy.colors.backgroundColor
+      : props.theme.legacy.colors.textSecondaryColor};
 `
 
 type PoiFiltersModalProps = {

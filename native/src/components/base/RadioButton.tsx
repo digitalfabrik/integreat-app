@@ -17,9 +17,11 @@ const Ring = styled.View<{ selected: boolean }>`
   border-width: 2px;
   border-color: ${props => {
     if (!props.selected) {
-      return props.theme.colors.textSecondaryColor
+      return props.theme.legacy.colors.textSecondaryColor
     }
-    return props.theme.isContrastTheme ? props.theme.colors.themeColor : props.theme.colors.textColor
+    return props.theme.legacy.isContrastTheme
+      ? props.theme.legacy.colors.themeColor
+      : props.theme.legacy.colors.textColor
   }};
   align-items: center;
   justify-content: center;
@@ -30,7 +32,7 @@ const Marker = styled.View`
   width: 14px;
   border-radius: 7px;
   background-color: ${props =>
-    props.theme.isContrastTheme ? props.theme.colors.themeColor : props.theme.colors.textColor};
+    props.theme.legacy.isContrastTheme ? props.theme.legacy.colors.themeColor : props.theme.legacy.colors.textColor};
 `
 
 type RadioButtonProps = {

@@ -33,7 +33,7 @@ const StyledPressable = styled(Pressable)`
 `
 
 const StyledIcon = styled(Icon)`
-  color: ${props => props.theme.colors.themeColor};
+  color: ${props => props.theme.legacy.colors.themeColor};
   height: 64px;
   width: 96px;
 `

@@ -3,7 +3,7 @@ import { Animated } from 'react-native'
 import styled from 'styled-components/native'
 
 const Container = styled(Animated.View)<{ row: boolean }>`
-  background-color: ${props => props.theme.colors.textSecondaryColor};
+  background-color: ${props => props.theme.legacy.colors.textSecondaryColor};
   flex-direction: ${props => (props.row ? 'row' : 'column')};
   align-items: center;
   justify-content: space-between;
@@ -12,7 +12,7 @@ const Container = styled(Animated.View)<{ row: boolean }>`
 `
 const Message = styled.Text<{ hasActions: boolean }>`
   padding: 0 10px;
-  color: ${props => props.theme.colors.backgroundColor};
+  color: ${props => props.theme.legacy.colors.backgroundColor};
   font-size: 18px;
   text-align: ${props => (props.hasActions ? 'auto' : 'center')};
   flex-shrink: 1;
@@ -23,7 +23,7 @@ const ActionContainer = styled.View<{ row: boolean }>`
   align-items: center;
 `
 const Action = styled.Text`
-  color: ${props => props.theme.colors.themeColor};
+  color: ${props => props.theme.legacy.colors.themeColor};
   font-size: 18px;
   justify-content: center;
   text-align: center;

@@ -26,7 +26,7 @@ const ListContainer = styled(Layout)`
 
 const Separator = styled.View`
   border-top-width: 2px;
-  border-top-color: ${props => props.theme.colors.themeColor};
+  border-top-color: ${props => props.theme.legacy.colors.themeColor};
 `
 
 const PageDetailsContainer = styled.View`

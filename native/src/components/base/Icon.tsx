@@ -40,7 +40,7 @@ const Icon = ({
       ]}
       width={style?.width ?? DEFAULT_ICON_SIZE}
       height={style?.height ?? DEFAULT_ICON_SIZE}
-      color={color ?? style?.color ?? theme.colors.textColor}
+      color={color ?? style?.color ?? theme.legacy.colors.textColor}
       accessibilityLabel={label}
     />
   )

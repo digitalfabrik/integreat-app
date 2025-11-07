@@ -6,8 +6,8 @@ import styled from 'styled-components/native'
 import { contentDirection } from '../constants/contentDirection'
 
 const TimeStampText = styled.Text`
-  color: ${props => props.theme.colors.textSecondaryColor};
-  font-family: ${props => props.theme.fonts.native.contentFontRegular};
+  color: ${props => props.theme.legacy.colors.textSecondaryColor};
+  font-family: ${props => props.theme.legacy.fonts.native.contentFontRegular};
 `
 const DirectionContainer = styled.View<{ language: string }>`
   display: flex;

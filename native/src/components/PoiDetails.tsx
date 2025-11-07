@@ -23,13 +23,13 @@ const Thumbnail = styled(SimpleImage)`
 
 const PoiDetailsContainer = styled.View`
   flex: 1;
-  background-color: ${props => props.theme.colors.backgroundColor};
+  background-color: ${props => props.theme.legacy.colors.backgroundColor};
 `
 
 const Title = styled.Text`
   font-size: 16px;
   font-weight: bold;
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
   padding-bottom: 4px;
 `
 
@@ -37,7 +37,7 @@ const StyledDistance = styled.Text`
   font-size: 12px;
   margin-top: 8px;
   padding-bottom: 6px;
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
 `
 
 const StyledContactsContainer = styled.View`

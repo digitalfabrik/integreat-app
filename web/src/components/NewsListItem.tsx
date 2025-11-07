@@ -1,8 +1,8 @@
-import Button from '@mui/material/Button'
 import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 import Stack from '@mui/material/Stack'
+import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
@@ -24,15 +24,6 @@ const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
     gap: 8,
   },
 })) as typeof ListItemButton
-
-const StyledButton = styled(Button)(({ theme }) => ({
-  backgroundColor: 'transparent',
-
-  [theme.breakpoints.down('sm')]: {
-    padding: 0,
-    width: 'fit-content',
-  },
-}))
 
 const StyledListItemText = styled(ListItemText)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
@@ -64,7 +55,9 @@ const NewsListItem = ({ title, content, timestamp, to }: NewsListItemProps): Rea
           <StyledListItemText slotProps={{ primary: { component: 'h2' } }} primary={title} secondary={excerpt} />
           <LastUpdateInfo lastUpdate={timestamp} withText={false} />
         </StyledStack>
-        <StyledButton disableRipple>{t('common:more')}</StyledButton>
+        <Typography color='primary' variant='button'>
+          {t('common:more')}
+        </Typography>
       </StyledListItemButton>
     </ListItem>
   )

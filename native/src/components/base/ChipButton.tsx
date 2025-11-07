@@ -15,7 +15,7 @@ const StyledPressable = styled(Pressable)`
   align-items: center;
   margin: 0 4px;
   border-radius: 20px;
-  background-color: ${props => props.theme.colors.backgroundColor};
+  background-color: ${props => props.theme.legacy.colors.backgroundColor};
 `
 
 const IconContainer = styled.View`
@@ -24,8 +24,8 @@ const IconContainer = styled.View`
 `
 
 const StyledText = styled(Text)`
-  color: ${props => props.theme.colors.textSecondaryColor};
-  font-family: ${props => props.theme.fonts.native.decorativeFontBold};
+  color: ${props => props.theme.legacy.colors.textSecondaryColor};
+  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontBold};
 `
 
 const Spacer = styled.View`
@@ -33,7 +33,7 @@ const Spacer = styled.View`
 `
 
 const StyledIcon = styled(Icon)`
-  color: ${props => props.theme.colors.textSecondaryColor};
+  color: ${props => props.theme.legacy.colors.textSecondaryColor};
   width: 16px;
   height: 16px;
 `

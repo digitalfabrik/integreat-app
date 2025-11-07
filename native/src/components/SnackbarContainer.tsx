@@ -7,7 +7,7 @@ import styled from 'styled-components/native'
 import Snackbar, { SnackbarActionType } from '../components/Snackbar'
 
 const Container = styled(SafeAreaView)`
-  background-color: ${props => props.theme.colors.textSecondaryColor};
+  background-color: ${props => props.theme.legacy.colors.textSecondaryColor};
   position: absolute;
   bottom: 0;
   left: 0;

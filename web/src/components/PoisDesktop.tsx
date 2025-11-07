@@ -73,11 +73,10 @@ const PoisDesktop = ({
   const canDeselect = !!mapFeature || !!slug
   const { contentDirection } = useTheme()
 
-  const handleSelectPoi = (poi: PoiModel) => {
+  const scrollToTop = () => {
     if (listRef.current) {
       setScrollOffset(listRef.current.scrollTop)
     }
-    selectPoi(poi)
   }
 
   const switchPoi = (step: 1 | -1) => {
@@ -97,7 +96,7 @@ const PoisDesktop = ({
     <Stack justifyContent='space-between' height='100%'>
       <ListViewWrapper ref={listRef}>
         <PoiPanelHeader goBack={canDeselect ? deselect : null} />
-        <PoiSharedChildren pois={pois} poi={poi} selectPoi={handleSelectPoi} userLocation={userLocation} slug={slug} />
+        <PoiSharedChildren pois={pois} poi={poi} scrollToTop={scrollToTop} userLocation={userLocation} slug={slug} />
       </ListViewWrapper>
       {poi && pois.length > 0 && <PoiPanelNavigation switchPoi={switchPoi} />}
     </Stack>

@@ -12,19 +12,19 @@ import Icon from './base/Icon'
 
 const DetailContainer = styled.View<{ widthPadding?: boolean }>`
   flex-direction: row;
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
   align-items: center;
   padding-inline-start: ${props => (props.widthPadding ? '32px' : '0')};
 `
 
 const Identifier = styled.Text`
-  font-family: ${props => props.theme.fonts.native.contentFontBold};
-  color: ${props => props.theme.colors.textColor};
+  font-family: ${props => props.theme.legacy.fonts.native.contentFontBold};
+  color: ${props => props.theme.legacy.colors.textColor};
   align-self: flex-start;
 `
 
 const StyledIcon = styled(Icon)`
-  color: ${props => props.theme.colors.textSecondaryColor};
+  color: ${props => props.theme.legacy.colors.textSecondaryColor};
   margin-inline-end: 8px;
 `
 
@@ -33,15 +33,15 @@ const StyledButton = styled.Pressable`
 `
 
 const ButtonText = styled.Text`
-  font-family: ${props => props.theme.fonts.native.contentFontRegular};
-  color: ${props => props.theme.colors.linkColor};
+  font-family: ${props => props.theme.legacy.fonts.native.contentFontRegular};
+  color: ${props => props.theme.legacy.colors.linkColor};
   text-decoration: underline;
-  text-decoration-color: ${props => props.theme.colors.linkColor};
+  text-decoration-color: ${props => props.theme.legacy.colors.linkColor};
 `
 
 const StyledText = styled.Text`
-  font-family: ${props => props.theme.fonts.native.contentFontRegular};
-  color: ${props => props.theme.colors.textSecondaryColor};
+  font-family: ${props => props.theme.legacy.fonts.native.contentFontRegular};
+  color: ${props => props.theme.legacy.colors.textSecondaryColor};
   flex-shrink: 1;
 `
 

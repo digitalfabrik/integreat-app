@@ -37,7 +37,10 @@ const EventsDateFilter = ({
     <>
       <Accordion disableGutters expanded={showDateFilter} elevation={0} slotProps={{ heading: { component: 'h2' } }}>
         <AccordionSummary onClick={() => setShowDateFilter(!showDateFilter)} disableRipple>
-          <Button component='div' startIcon={showDateFilter ? <CloseFullscreenIcon /> : <FilterListIcon />}>
+          <Button
+            tabIndex={-1}
+            component='div'
+            startIcon={showDateFilter ? <CloseFullscreenIcon /> : <FilterListIcon />}>
             {t(showDateFilter ? 'hideFilters' : 'showFilters')}
           </Button>
         </AccordionSummary>

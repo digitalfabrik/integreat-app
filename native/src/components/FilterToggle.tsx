@@ -9,7 +9,7 @@ import Text from './base/Text'
 const StyledText = styled(Text)`
   font-weight: bold;
   padding: 5px;
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
 `
 
 const StyledButton = styled.TouchableOpacity`

@@ -11,10 +11,10 @@ const SettingsSwitch = ({ value, onPress }: SettingsSwitchProps): ReactElement =
   const theme = useTheme()
   return (
     <Switch
-      thumbColor={theme.colors.themeColor}
+      thumbColor={theme.legacy.colors.themeColor}
       trackColor={{
-        true: theme.colors.themeColor,
-        false: theme.colors.textSecondaryColor,
+        true: theme.legacy.colors.themeColor,
+        false: theme.legacy.colors.textSecondaryColor,
       }}
       value={value}
       onValueChange={onPress}

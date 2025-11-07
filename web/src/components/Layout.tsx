@@ -5,8 +5,10 @@ import React, { ReactElement, ReactNode } from 'react'
 
 import useDimensions from '../hooks/useDimensions'
 import MobileBanner from './MobileBanner'
+import SkipToContent from './SkipToContent'
 
 export const LAYOUT_ELEMENT_ID = 'layout'
+export const MAIN_ELEMENT_ID = 'main'
 
 export const RichLayout = styled('div')`
   position: relative;
@@ -103,11 +105,12 @@ const Layout = ({ footer, header, toolbar, children, fitScreen = false }: Layout
 
   return (
     <RichLayout id={LAYOUT_ELEMENT_ID}>
+      <SkipToContent />
       {!fitScreen && <MobileBanner />}
       {header}
       <Body fitScreen={fitScreen}>
         {toolbar && <Aside>{toolbar}</Aside>}
-        <Main fitScreen={fitScreen}>
+        <Main id={MAIN_ELEMENT_ID} fitScreen={fitScreen}>
           {children}
           {!fitScreen && <Spacer height={extraBottomSpace} />}
         </Main>
