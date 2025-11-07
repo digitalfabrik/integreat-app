@@ -15,7 +15,7 @@ const ListItemView = styled.View<{ language: string }>`
 
 const StyledPressable = styled(Pressable)`
   border-bottom-width: 2px;
-  border-bottom-color: ${props => props.theme.colors.themeColor};
+  border-bottom-color: ${props => props.theme.legacy.colors.themeColor};
 `
 
 const Thumbnail = styled(SimpleImage)`
@@ -27,7 +27,7 @@ const Thumbnail = styled(SimpleImage)`
 const Description = styled.View`
   height: 100%;
   flex: 1;
-  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
+  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
 `
 
 const TitleRow = styled.View`
@@ -39,8 +39,8 @@ const TitleRow = styled.View`
 const Title = styled(Text)`
   flex: 1;
   font-weight: 700;
-  font-family: ${props => props.theme.fonts.native.decorativeFontBold};
-  color: ${props => props.theme.colors.textColor};
+  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontBold};
+  color: ${props => props.theme.legacy.colors.textColor};
   flex-wrap: wrap;
 `
 

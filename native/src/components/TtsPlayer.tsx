@@ -11,7 +11,7 @@ import Pressable from './base/Pressable'
 import Text from './base/Text'
 
 const elevatedStyle = css`
-  shadow-color: ${props => props.theme.colors.textColor};
+  shadow-color: ${props => props.theme.legacy.colors.textColor};
   shadow-offset: 0 2px;
   shadow-opacity: 0.2;
   shadow-radius: 3px;
@@ -19,7 +19,7 @@ const elevatedStyle = css`
 `
 
 const StyledTtsPlayer = styled.View<{ insetBottom: number }>`
-  background-color: ${props => props.theme.colors.ttsPlayerBackground};
+  background-color: ${props => props.theme.legacy.colors.ttsPlayerBackground};
   border-radius: 8px;
   width: 90%;
   display: flex;
@@ -51,14 +51,15 @@ const StyledButton = styled(Pressable)`
 `
 
 const StyledIcon = styled(Icon)<{ disabled?: boolean }>`
-  color: ${props => (props.disabled ? props.theme.colors.textDisabledColor : props.theme.colors.textColor)};
+  color: ${props =>
+    props.disabled ? props.theme.legacy.colors.textDisabledColor : props.theme.legacy.colors.textColor};
   width: 28px;
   height: 28px;
 `
 
 const StyledPlayIconButton = styled(IconButton)<{ disabled?: boolean }>`
   background-color: ${props =>
-    props.disabled ? props.theme.colors.textDisabledColor : props.theme.colors.ttsPlayerBackground};
+    props.disabled ? props.theme.legacy.colors.textDisabledColor : props.theme.legacy.colors.ttsPlayerBackground};
   width: 70px;
   height: 50px;
   border-radius: 50px;
@@ -66,14 +67,14 @@ const StyledPlayIconButton = styled(IconButton)<{ disabled?: boolean }>`
 `
 
 const PlayButtonIcon = styled(Icon)`
-  color: ${props => props.theme.colors.ttsPlayerPlayIconColor};
+  color: ${props => props.theme.legacy.colors.ttsPlayerPlayIconColor};
 `
 
 const StyledPlayerHeaderText = styled(Text)`
   font-weight: 600;
   align-self: center;
   font-size: 22px;
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
 `
 
 const CloseButton = styled(Pressable)`

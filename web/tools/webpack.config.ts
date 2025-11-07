@@ -220,6 +220,7 @@ const createConfig = (
     },
     // The list of plugins for Webpack compiler
     plugins: [
+      // @ts-expect-error invalid type
       new BundleAnalyzerPlugin({
         analyzerMode: !bundleAnalyer ? 'disabled' : 'static',
         generateStatsFile: !devServer,
@@ -237,8 +238,8 @@ const createConfig = (
       }),
       new CopyPlugin({
         patterns: [
-          { from: wwwDirectory, to: distDirectory },
-          { from: configAssets, to: distDirectory },
+          { context: wwwDirectory, from: '**/*', to: distDirectory },
+          { context: configAssets, from: '**/*', to: distDirectory },
           {
             from: manifestPreset,
             to: distDirectory,
@@ -269,6 +270,7 @@ const createConfig = (
       }),
       // Emit a JSON file with assets paths
       // https://github.com/sporto/assets-webpack-plugin#options
+      // @ts-expect-error invalid type
       new AssetsPlugin({
         path: distDirectory,
         filename: 'assets.json',

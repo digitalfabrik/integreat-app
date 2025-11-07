@@ -15,14 +15,14 @@ const Thumbnail = styled(SimpleImage)`
 `
 
 const Box = styled(HighlightBox)`
-  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
+  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
   margin-bottom: 16px;
   padding: 20px;
   border-radius: 4px;
 `
 
 const OrganizationContent = styled(Text)`
-  font-family: ${props => props.theme.fonts.native.decorativeFontBold};
+  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontBold};
   padding: 16px 0 8px;
 `
 

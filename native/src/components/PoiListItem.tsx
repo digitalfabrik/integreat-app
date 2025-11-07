@@ -1,6 +1,5 @@
 import React, { memo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { withKeyboardFocus } from 'react-native-external-keyboard'
 import styled from 'styled-components/native'
 
 import { PoiModel } from 'shared/api'
@@ -9,39 +8,37 @@ import { contentDirection } from '../constants/contentDirection'
 import Pressable from './base/Pressable'
 
 const Distance = styled.Text`
-  color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.native.contentFontRegular};
+  color: ${props => props.theme.legacy.colors.textColor};
+  font-family: ${props => props.theme.legacy.fonts.native.contentFontRegular};
   margin-top: 4px;
 `
 const Category = styled.Text`
-  color: ${props => props.theme.colors.textSecondaryColor};
-  font-family: ${props => props.theme.fonts.native.contentFontRegular};
+  color: ${props => props.theme.legacy.colors.textSecondaryColor};
+  font-family: ${props => props.theme.legacy.fonts.native.contentFontRegular};
   margin-top: 4px;
 `
 
 const StyledPressable = styled(Pressable)<{ language: string }>`
   border-bottom-width: 1px;
-  border-bottom-color: ${props => props.theme.colors.textDisabledColor};
+  border-bottom-color: ${props => props.theme.legacy.colors.textDisabledColor};
   flex-direction: ${props => contentDirection(props.language)};
   padding: 16px 0;
-  background-color: ${props => props.theme.colors.backgroundColor};
+  background-color: ${props => props.theme.legacy.colors.backgroundColor};
 `
-
-const KeyboardPressable = withKeyboardFocus(StyledPressable)
 
 const Description = styled.View`
   flex: 1;
   flex-direction: column;
-  color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
+  color: ${props => props.theme.legacy.colors.textColor};
+  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
   padding: 0 8px;
   justify-content: center;
 `
 
 const Title = styled.Text`
   font-weight: 700;
-  font-family: ${props => props.theme.fonts.native.decorativeFontBold};
-  color: ${props => props.theme.colors.textColor};
+  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontBold};
+  color: ${props => props.theme.legacy.colors.textColor};
 `
 
 type PoiListItemProps = {
@@ -56,13 +53,13 @@ const PoiListItem = ({ poi, language, navigateToPoi, distance, onFocus }: PoiLis
   const { t } = useTranslation('pois')
 
   return (
-    <KeyboardPressable onPress={navigateToPoi} language={language} role='link' onFocus={onFocus} focusable>
+    <StyledPressable onPress={navigateToPoi} language={language} role='link' onFocus={onFocus} focusable>
       <Description>
         <Title>{poi.title}</Title>
         {distance !== null && <Distance>{t('distanceKilometre', { distance: distance.toFixed(1) })}</Distance>}
         <Category>{poi.category.name}</Category>
       </Description>
-    </KeyboardPressable>
+    </StyledPressable>
   )
 }
 

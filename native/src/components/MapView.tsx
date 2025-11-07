@@ -52,7 +52,7 @@ const StyledIcon = styled(IconButton)<{ position: number | string }>`
   position: absolute;
   right: 0;
   bottom: ${props => props.position}${props => (typeof props.position === 'number' ? 'px' : '')};
-  background-color: ${props => props.theme.colors.themeColor};
+  background-color: ${props => props.theme.legacy.colors.themeColor};
   margin: 16px;
   width: 50px;
   height: 50px;
@@ -199,7 +199,7 @@ const MapView = ({
           shape={embedInCollection(features.filter(feature => feature !== selectedFeature))}
           cluster
           clusterRadius={clusterRadius}>
-          <CircleLayer {...clusterLayer(theme)} />
+          <CircleLayer {...clusterLayer(theme.legacy)} />
           <SymbolLayer {...clusterCountLayer} />
           <SymbolLayer {...markerLayer(null)} />
         </ShapeSource>
@@ -223,7 +223,11 @@ const MapView = ({
           <StyledIcon
             icon={
               <Icon
-                style={{ color: theme.isContrastTheme ? theme.colors.backgroundColor : theme.colors.textColor }}
+                style={{
+                  color: theme.legacy.isContrastTheme
+                    ? theme.legacy.colors.backgroundColor
+                    : theme.legacy.colors.textColor,
+                }}
                 Icon={locationPermissionIcon}
               />
             }

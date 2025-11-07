@@ -31,7 +31,8 @@ const StyledPressable = styled(Pressable)`
 `
 
 const StyledIcon = styled(Icon)<{ disabled: boolean }>`
-  color: ${props => (props.disabled ? props.theme.colors.textDecorationColor : props.theme.colors.textColor)};
+  color: ${props =>
+    props.disabled ? props.theme.legacy.colors.textDecorationColor : props.theme.legacy.colors.textColor};
 `
 
 type NavigationTilesProps = {

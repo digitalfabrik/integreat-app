@@ -3,8 +3,8 @@ import { FlatList, RefreshControl, ViewStyle } from 'react-native'
 import styled from 'styled-components/native'
 
 export const NoItemsMessage = styled.Text`
-  color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.native.contentFontRegular};
+  color: ${props => props.theme.legacy.colors.textColor};
+  font-family: ${props => props.theme.legacy.fonts.native.contentFontRegular};
   align-self: center;
   margin-top: 20px;
 `

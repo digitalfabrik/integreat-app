@@ -21,8 +21,8 @@ import ListItem from './ListItem'
 import Icon from './base/Icon'
 
 const Description = styled.Text<{ language: string; withMargin?: boolean }>`
-  color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.native.contentFontRegular};
+  color: ${props => props.theme.legacy.colors.textColor};
+  font-family: ${props => props.theme.legacy.fonts.native.contentFontRegular};
   text-align: ${props => contentAlignment(props.language)};
   margin-top: ${props => (props.withMargin ? '4px' : 0)};
 `

@@ -18,7 +18,7 @@ describe('muiShadowCreator', () => {
     const result = muiShadowCreator(themeType)
     for (let index = 1; index < MUI_SHADOW_ARRAY_LENGTH; index += 1) {
       expect(result[index]).toBe(
-        `0px 3px 3px -2px rgba(0, 0, 0, ${index / (MUI_SHADOW_ARRAY_LENGTH - 1)}), 0px 3px 4px 0px rgba(0, 0, 0, ${index / (MUI_SHADOW_ARRAY_LENGTH - 1)}), 0px 1px 8px 0px rgba(0, 0, 0, ${index / (MUI_SHADOW_ARRAY_LENGTH - 1)})`,
+        `0px 3px 3px -2px rgb(0, 0, 0, ${index / (MUI_SHADOW_ARRAY_LENGTH - 1)}), 0px 3px 4px 0px rgb(0, 0, 0, ${index / (MUI_SHADOW_ARRAY_LENGTH - 1)}), 0px 1px 8px 0px rgb(0, 0, 0, ${index / (MUI_SHADOW_ARRAY_LENGTH - 1)})`,
       )
     }
   })
@@ -28,7 +28,7 @@ describe('muiShadowCreator', () => {
     const result = muiShadowCreator(themeType)
     for (let index = 1; index < MUI_SHADOW_ARRAY_LENGTH; index += 1) {
       expect(result[index]).toBe(
-        `0px 3px 3px -2px rgba(255, 255, 255, ${index / (MUI_SHADOW_ARRAY_LENGTH - 1)}), 0px 3px 4px 0px rgba(255, 255, 255, ${index / (MUI_SHADOW_ARRAY_LENGTH - 1)}), 0px 1px 8px 0px rgba(255, 255, 255, ${index / (MUI_SHADOW_ARRAY_LENGTH - 1)})`,
+        `0px 3px 3px -2px rgb(255, 255, 255, ${index / (MUI_SHADOW_ARRAY_LENGTH - 1)}), 0px 3px 4px 0px rgb(255, 255, 255, ${index / (MUI_SHADOW_ARRAY_LENGTH - 1)}), 0px 1px 8px 0px rgb(255, 255, 255, ${index / (MUI_SHADOW_ARRAY_LENGTH - 1)})`,
       )
     }
   })

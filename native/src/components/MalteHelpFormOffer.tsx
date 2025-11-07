@@ -38,7 +38,7 @@ const InformationRow = styled.View`
 `
 
 const InformationText = styled(Text)`
-  font-family: ${props => props.theme.fonts.native.contentFontRegular};
+  font-family: ${props => props.theme.legacy.fonts.native.contentFontRegular};
   font-size: 14px;
   flex: 1;
 `

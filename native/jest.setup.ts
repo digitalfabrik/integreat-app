@@ -3,8 +3,6 @@ import fs from 'fs'
 import path from 'path'
 import { ReactNode } from 'react'
 
-import { I18nManager } from './src/testing/I18nManagerMock'
-
 console.error = () => undefined
 
 jest.mock('@react-native-async-storage/async-storage', () => mockAsyncStorage)
@@ -69,19 +67,11 @@ walkDir(mocksPath, name => {
     }
   })
 })
-jest.doMock('react-native/Libraries/ReactNative/I18nManager', () => I18nManager)
 jest.doMock(`${rootPath}/constants/NativeConstants`)
 jest.doMock('build-config-name')
 jest.doMock(`${rootPath}/constants/buildConfig`)
 jest.doMock('react-native-blob-util')
 jest.doMock('path', () => path.posix)
-
-// See https://github.com/callstack/react-native-testing-library/issues/329#issuecomment-737307473
-jest.mock('react-native/Libraries/Components/Switch/Switch', () => {
-  const mockComponent = require('react-native/jest/mockComponent')
-
-  return mockComponent('react-native/Libraries/Components/Switch/Switch')
-})
 
 // @ts-expect-error https://github.com/software-mansion/react-native-reanimated/issues/1380#issuecomment-865143328
 global.__reanimatedWorkletInit = jest.fn()

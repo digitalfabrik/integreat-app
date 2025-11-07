@@ -15,7 +15,7 @@ const ChipsContainer = styled.View`
 
 const Chip = styled.View`
   border-radius: 32px;
-  border: 1px solid ${props => props.theme.colors.textSecondaryColor};
+  border: 1px solid ${props => props.theme.legacy.colors.textSecondaryColor};
   flex-direction: row;
   align-items: center;
   gap: 6px;
@@ -23,7 +23,7 @@ const Chip = styled.View`
 `
 
 const ChipIcon = styled(SimpleImage)`
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
   width: 24px;
   height: 24px;
 `

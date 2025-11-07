@@ -21,13 +21,13 @@ const RetryButtonContainer = styled.View`
   height: 46px;
 `
 const NearbyMessage = styled.Text`
-  color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.native.decorativeFontRegular};
+  color: ${props => props.theme.legacy.colors.textColor};
+  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
   padding-top: 15px;
 `
 
 const StyledIcon = styled(Icon)`
-  color: ${props => props.theme.colors.textSecondaryColor};
+  color: ${props => props.theme.legacy.colors.textSecondaryColor};
 `
 
 type NearbyCitiesProps = {

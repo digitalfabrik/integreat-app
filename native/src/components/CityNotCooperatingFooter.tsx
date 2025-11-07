@@ -7,18 +7,18 @@ import Icon from './base/Icon'
 import TextButton from './base/TextButton'
 
 const FooterContainer = styled.View`
-  background-color: ${props => props.theme.colors.backgroundAccentColor};
+  background-color: ${props => props.theme.legacy.colors.backgroundAccentColor};
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-bottom: 2px solid ${props => props.theme.colors.textColor};
+  border-bottom: 2px solid ${props => props.theme.legacy.colors.textColor};
   padding-top: 5%;
 `
 
 const Question = styled.Text`
-  color: ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.legacy.colors.textColor};
   margin-top: 5%;
-  font-family: ${props => props.theme.fonts.native.decorativeFontBold};
+  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontBold};
   font-size: 16px;
 `
 

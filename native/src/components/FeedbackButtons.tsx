@@ -19,9 +19,9 @@ const Spacing = styled.View`
 
 const StyledIcon = styled(Icon)<{ active: boolean }>`
   color: ${props =>
-    props.active && props.theme.isContrastTheme
-      ? props.theme.colors.backgroundColor
-      : props.theme.colors.textSecondaryColor};
+    props.active && props.theme.legacy.isContrastTheme
+      ? props.theme.legacy.colors.backgroundColor
+      : props.theme.legacy.colors.textSecondaryColor};
   width: 32px;
   height: 32px;
 `

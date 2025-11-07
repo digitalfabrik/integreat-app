@@ -7,7 +7,7 @@ import Link from './Link'
 
 const BackgroundForClosing = styled.Pressable`
   flex: 1;
-  background-color: ${props => props.theme.colors.textDecorationColor};
+  background-color: ${props => props.theme.legacy.colors.textDecorationColor};
   opacity: 0.25;
 `
 
@@ -41,7 +41,9 @@ const CloseButton = styled.Pressable`
 const CloseButtonText = styled.Text`
   font-weight: 700;
   color: ${props =>
-    props.theme.isContrastTheme ? props.theme.colors.backgroundColor : props.theme.colors.textSecondaryColor};
+    props.theme.legacy.isContrastTheme
+      ? props.theme.legacy.colors.backgroundColor
+      : props.theme.legacy.colors.textSecondaryColor};
 `
 
 type AppointmentOnlyOverlayProps = {

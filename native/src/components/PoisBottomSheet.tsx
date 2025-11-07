@@ -5,7 +5,7 @@ import BottomSheet, {
 } from '@gorhom/bottom-sheet'
 import React, { memo, ReactElement, Ref, useCallback, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Platform } from 'react-native'
+import { NativeScrollEvent, NativeSyntheticEvent, Platform } from 'react-native'
 import styled, { useTheme } from 'styled-components/native'
 
 import { LocationType } from 'shared'
@@ -19,7 +19,7 @@ import PoiDetails from './PoiDetails'
 import PoiListItem from './PoiListItem'
 
 const StyledBottomSheet = styled(BottomSheet)<{ isFullscreen: boolean }>`
-  ${props => props.isFullscreen && `background-color: ${props.theme.colors.backgroundColor};`}
+  ${props => props.isFullscreen && `background-color: ${props.theme.legacy.colors.backgroundColor};`}
 `
 
 const BottomSheetContent = styled.View`
@@ -28,8 +28,8 @@ const BottomSheetContent = styled.View`
 `
 
 const Title = styled.Text`
-  color: ${props => props.theme.colors.textColor};
-  font-family: ${props => props.theme.fonts.native.decorativeFontBold};
+  color: ${props => props.theme.legacy.colors.textColor};
+  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontBold};
   font-size: 18px;
   font-weight: bold;
 `
@@ -114,7 +114,7 @@ const PoisBottomSheet = ({
       enableContentPanningGesture={enableContentPanningGesture}
       enableDynamicSizing={false}
       animateOnMount
-      backgroundStyle={{ backgroundColor: theme.colors.backgroundColor }}
+      backgroundStyle={{ backgroundColor: theme.legacy.colors.backgroundColor }}
       handleComponent={BottomSheetHandle}
       onChange={setSnapPointIndex}>
       <BottomSheetContent>
@@ -127,7 +127,9 @@ const PoisBottomSheet = ({
             role='list'
             accessibilityLabel={t('poisCount', { count: pois.length })}
             renderItem={renderPoiListItem}
-            onMomentumScrollBegin={event => setScrollPosition(event.nativeEvent.contentOffset.y)}
+            onMomentumScrollBegin={(event: NativeSyntheticEvent<NativeScrollEvent>) =>
+              setScrollPosition(event.nativeEvent.contentOffset.y)
+            }
             showsVerticalScrollIndicator={false}
             ListHeaderComponent={<Title>{t('common:nearby')}</Title>}
             ListEmptyComponent={<NoItemsMessage>{t('noPois')}</NoItemsMessage>}

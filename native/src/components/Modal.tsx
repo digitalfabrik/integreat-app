@@ -1,14 +1,15 @@
 import React, { ReactElement, ReactNode } from 'react'
 import { Modal as RNModal, View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import styled from 'styled-components/native'
 
 import dimensions from '../constants/dimensions'
 import Caption from './Caption'
 import HeaderBox from './HeaderBox'
 
-const Container = styled.SafeAreaView`
+const Container = styled(SafeAreaView)`
   flex: 1;
-  background-color: ${props => props.theme.colors.backgroundColor};
+  background-color: ${props => props.theme.legacy.colors.backgroundColor};
 `
 
 const Header = styled.View`
