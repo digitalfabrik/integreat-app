@@ -1,6 +1,4 @@
-import { mocked } from 'jest-mock'
 import React from 'react'
-import { useSearchParams } from 'react-router'
 
 import { LocationType, MapFeature, MapViewViewport, prepareMapFeature, prepareMapFeatures } from 'shared'
 import { PoiModel, PoiModelBuilder } from 'shared/api'
@@ -11,11 +9,6 @@ import PoisDesktop from '../PoisDesktop'
 jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
 jest.mock('../MapView', () => () => <div>MapView</div>)
-
-jest.mock('react-router', () => ({
-  ...jest.requireActual('react-router'),
-  useSearchParams: jest.fn(),
-}))
 
 describe('PoisDesktop', () => {
   const pois = new PoiModelBuilder(3).build()
@@ -68,7 +61,6 @@ describe('PoisDesktop', () => {
   })
 
   it('should render poi list if no poi is provided', () => {
-    mocked(useSearchParams).mockReturnValue([new URLSearchParams([]), jest.fn()])
     const { queryByLabelText, queryByText } = renderPoisDesktop()
 
     expect(queryByLabelText('pois:backToOverview')).toBeFalsy()

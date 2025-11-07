@@ -18,11 +18,11 @@ type PoiSharedChildrenProps = {
   pois: PoiModel[]
   poi: PoiModel | undefined
   slug: string | undefined
-  selectPoi: (poi: PoiModel) => void
+  scrollToTop: () => void
   userLocation: LocationType | null
 }
 
-const PoiSharedChildren = ({ pois, poi, slug, selectPoi, userLocation }: PoiSharedChildrenProps): ReactElement => {
+const PoiSharedChildren = ({ pois, poi, slug, scrollToTop, userLocation }: PoiSharedChildrenProps): ReactElement => {
   const { t } = useTranslation('pois')
 
   if (poi) {
@@ -37,7 +37,7 @@ const PoiSharedChildren = ({ pois, poi, slug, selectPoi, userLocation }: PoiShar
     <PoiListItem
       key={poi.path}
       poi={poi}
-      selectPoi={() => selectPoi(poi)}
+      onClick={scrollToTop}
       distance={userLocation ? poi.distance(userLocation) : null}
     />
   )
