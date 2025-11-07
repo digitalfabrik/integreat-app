@@ -123,7 +123,12 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
             <Spacing content={content} lastUpdate={lastUpdate}>
               <DatesPageDetail date={date} language={languageCode} />
               {location && (
-                <PageDetail icon={<LocationIcon />} information={location.fullAddress} path={event.poiPath} />
+                <PageDetail
+                  tooltip={t('address')}
+                  icon={<LocationIcon />}
+                  information={location.fullAddress}
+                  path={event.poiPath}
+                />
               )}
               {!!meetingUrl && (
                 <PageDetail tooltip={t('meetingUrl')} icon={<LinkIcon />} information={meetingUrl} path={meetingUrl} />
