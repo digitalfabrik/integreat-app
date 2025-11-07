@@ -41,7 +41,6 @@ const PoiListItem = ({ poi, distance, onClick }: PoiListItemProps): ReactElement
 
   return (
     <ListItem disablePadding>
-      {/* onClick here is just to preserve scroll position */}
       <StyledListItemButton onClick={onClick} id={slug} to={slugWithQuery} component={Link} aria-label={title}>
         <StyledListItemText
           slotProps={{ primary: { component: 'h2' }, secondary: { component: 'div' } }}
