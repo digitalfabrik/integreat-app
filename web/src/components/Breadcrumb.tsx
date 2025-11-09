@@ -22,14 +22,21 @@ const StyledTypography = styled(Typography)({
 export type BreadcrumbProps = {
   title: string
   to: string
+  startIcon?: ReactElement
 }
 
-const Breadcrumb = ({ title, to }: BreadcrumbProps): ReactElement => {
+const Breadcrumb = ({ title, to, startIcon }: BreadcrumbProps): ReactElement => {
   const current = to === normalizePath(useLocation().pathname)
 
   return (
-    <StyledButton component={Link} to={to} variant='text' color='inherit' aria-current={current ? 'page' : undefined}>
-      <StyledTypography>{title} </StyledTypography>
+    <StyledButton
+      component={Link}
+      to={to}
+      variant='text'
+      color='inherit'
+      aria-current={current ? 'page' : undefined}
+      startIcon={startIcon}>
+      <StyledTypography>{title}</StyledTypography>
     </StyledButton>
   )
 }
