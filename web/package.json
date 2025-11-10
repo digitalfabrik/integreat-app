@@ -26,7 +26,7 @@
     "prettier:check": "yarn prettier --ignore-path  ../.prettierignore --check .",
     "prettier:write": "yarn prettier --ignore-path  ../.prettierignore --write .",
     "circleci:update-config": "yarn --cwd .. circleci:update-config",
-    "license-crawler": "license-checker-rseidelsohn --depth 0 --excludePrivatePackages --production --json --out src/assets/licenses.json",
+    "license-crawler": "license-checker-rseidelsohn --excludePrivatePackages --production --json --out src/assets/licenses.json",
     "postinstall": "yarn license-crawler"
   },
   "dependencies": {
