@@ -2,6 +2,7 @@ import { NavigationAction } from '@react-navigation/native'
 import React, { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert, Text } from 'react-native'
+import { Switch } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 import { JpalTrackingRouteType } from 'shared'
@@ -10,7 +11,6 @@ import Caption from '../components/Caption'
 import Layout from '../components/Layout'
 import Link from '../components/Link'
 import Pressable from '../components/base/Pressable'
-import SettingsSwitch from '../components/base/SettingsSwitch'
 import { NavigationProps } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import { useAppContext } from '../hooks/useCityAppContext'
@@ -81,7 +81,7 @@ const JpalTracking = ({ navigation }: JpalTrackingProps): ReactElement => {
 
         <DescriptionContainer role='button' onPress={toggleTrackingEnabled}>
           <ThemedText>{t('allowTracking')}</ThemedText>
-          <SettingsSwitch value={!!trackingEnabled} onPress={toggleTrackingEnabled} />
+          <Switch value={!!trackingEnabled} onValueChange={toggleTrackingEnabled} />
         </DescriptionContainer>
 
         <Link url={moreInformationUrl}>{t('trackingMoreInformation')}</Link>
