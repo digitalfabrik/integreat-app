@@ -11,6 +11,7 @@ import LocationModel from './LocationModel'
 class EventModel extends ExtendedPageModel {
   _date: DateModel
   _location: LocationModel<number | null> | null
+  _meetingUrl: string | null
   _excerpt: string
   _featuredImage: FeaturedImageModel | null
   _poiPath: string | null
@@ -22,16 +23,18 @@ class EventModel extends ExtendedPageModel {
     thumbnail: string | null
     date: DateModel
     location: LocationModel<number | null> | null
+    meetingUrl: string | null
     excerpt: string
     availableLanguages: Record<string, string>
     lastUpdate: DateTime
     featuredImage: FeaturedImageModel | null
     poiPath: string | null
   }) {
-    const { date, location, excerpt, featuredImage, poiPath, ...other } = params
+    const { date, location, meetingUrl, excerpt, featuredImage, poiPath, ...other } = params
     super(other)
     this._date = date
     this._location = location
+    this._meetingUrl = meetingUrl
     // Remove carriage returns that break e.g. ical
     this._excerpt = decodeHTML(excerpt).replace(/\r/g, '').trim()
     this._featuredImage = featuredImage
@@ -44,6 +47,10 @@ class EventModel extends ExtendedPageModel {
 
   get location(): LocationModel<number | null> | null {
     return this._location
+  }
+
+  get meetingUrl(): string | null {
+    return this._meetingUrl
   }
 
   get excerpt(): string {

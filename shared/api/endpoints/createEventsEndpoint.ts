@@ -78,6 +78,7 @@ export default (baseUrl: string): Endpoint<ParamsType, EventModel[]> =>
                     longitude: event.location.longitude,
                   })
                 : null,
+            meetingUrl: event.meeting_url,
             excerpt: decodeHTML(event.excerpt),
             availableLanguages: mapAvailableLanguages(event.available_languages),
             lastUpdate: DateTime.fromISO(event.last_updated),

@@ -111,6 +111,7 @@ class EventModelBuilder {
               latitude: null,
               longitude: null,
             }),
+            meetingUrl: 'meeting-url',
             excerpt: 'excerpt',
             lastUpdate,
             content: `<h1>This is a sample event</h1>

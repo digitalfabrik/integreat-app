@@ -30,6 +30,7 @@ describe('JsonLdEvent', () => {
       thumbnail: '/img/thm.jpg',
       date: dateModel,
       location: locationModel,
+      meetingUrl: 'meeting-url',
       excerpt: 'This is a sample event. Have fun sampling.',
       availableLanguages: {},
       lastUpdate: DateTime.fromISO('2017-11-18T09:30:00.000Z'),

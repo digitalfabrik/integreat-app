@@ -6,6 +6,8 @@ import { InternalPathnameParser } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
 import useNavigate from '../hooks/useNavigate'
+import useSnackbar from '../hooks/useSnackbar'
+import openExternalUrl from '../utils/openExternalUrl'
 import Icon from './base/Icon'
 
 const DetailContainer = styled.View<{ widthPadding?: boolean }>`
@@ -49,18 +51,37 @@ type PageDetailProps = {
   information: string
   language: string
   path?: string | null
+  isExternalUrl?: boolean
+  accessibilityLabel?: string | undefined
 }
 
-const PageDetail = ({ identifier, Icon, information, language, path }: PageDetailProps): ReactElement => {
+const PageDetail = ({
+  identifier,
+  Icon,
+  information,
+  language,
+  path,
+  isExternalUrl,
+  accessibilityLabel,
+}: PageDetailProps): ReactElement => {
   const { navigateTo } = useNavigate()
+  const showSnackbar = useSnackbar()
   const route = path ? new InternalPathnameParser(path, language, buildConfig().featureFlags.fixedCity).route() : null
+
+  const handlePress = () => {
+    if (isExternalUrl && path) {
+      openExternalUrl(path, showSnackbar)
+    } else {
+      navigateTo(route)
+    }
+  }
 
   return (
     <DetailContainer widthPadding={!Icon && !identifier}>
       {!!identifier && <Identifier>{identifier}: </Identifier>}
       {!!Icon && <StyledIcon Icon={Icon} />}
       {route ? (
-        <StyledButton onPress={() => navigateTo(route)}>
+        <StyledButton accessibilityLabel={accessibilityLabel} onPress={handlePress}>
           <ButtonText>{information}</ButtonText>
         </StyledButton>
       ) : (

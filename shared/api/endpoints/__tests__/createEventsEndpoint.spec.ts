@@ -37,6 +37,7 @@ describe('events', () => {
       latitude: null,
       longitude: null,
     },
+    meeting_url: 'meeting-url',
     last_updated: '2022-06-29T09:19:57.443+02:00',
     featured_image: {
       description: 'I am an image showing beer',
@@ -99,6 +100,7 @@ describe('events', () => {
         longitude: null,
         latitude: null,
       }),
+      meetingUrl: 'meeting-url',
       lastUpdate: DateTime.fromISO('2022-06-29T09:19:57.443+02:00'),
       featuredImage: new FeaturedImageModel({
         description: 'I am an image showing beer',

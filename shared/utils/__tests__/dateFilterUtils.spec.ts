@@ -19,6 +19,7 @@ const EventModalDummyData = {
     latitude: null,
     longitude: null,
   }),
+  meetingUrl: 'meeting-url',
   excerpt: 'This is a test event.',
   availableLanguages: {},
   lastUpdate: DateTime.fromISO('2024-11-07T00:00:00.000'),

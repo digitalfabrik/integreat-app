@@ -3993,6 +3993,7 @@
   "events": {
     "de": {
       "address": "Adresse",
+      "meetingUrl": "Online-Meeting",
       "events": "Veranstaltungen",
       "export": "Exportieren",
       "addToCalendar": "Zum Kalender hinzufügen",
@@ -4210,6 +4211,7 @@
     },
     "en": {
       "address": "Address",
+      "meetingUrl": "Online meeting",
       "events": "Events",
       "export": "Exportieren",
       "addToCalendar": "Add to calendar",
