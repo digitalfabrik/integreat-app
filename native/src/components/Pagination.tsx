@@ -6,7 +6,6 @@ import styled from 'styled-components/native'
 import Pressable from './base/Pressable'
 
 const DotsContainer = styled.View`
-  flex: 1;
   height: 12px;
   padding: 10px 10px 20px;
   flex-direction: row;
