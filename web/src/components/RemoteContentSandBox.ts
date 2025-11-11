@@ -5,6 +5,7 @@ import { ExternalLinkIcon, PersonIcon, PersonLightIcon } from '../assets'
 const RemoteContentSandBox = styled('div')<{ centered: boolean; smallText: boolean }>`
   font-family: ${props => props.theme.typography.fontFamily};
   font-size: ${props => props.theme.typography.body1.fontSize}px;
+  line-height: ${props => props.theme.typography.body1.lineHeight};
   display: flow-root; /* clearfix for the img floats */
 
   ${props => (props.centered ? 'text-align: center;' : '')}
