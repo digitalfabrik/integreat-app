@@ -18,7 +18,7 @@ type LandingPageProps = {
 }
 
 const LandingPage = ({ languageCode }: LandingPageProps): ReactElement => {
-  const { data: cities, error } = useLoadFromEndpoint(createCitiesEndpoint, cmsApiBaseUrl, undefined)
+  const { data: cities, loading, error } = useLoadFromEndpoint(createCitiesEndpoint, cmsApiBaseUrl, undefined)
   const [stickyTop, setStickyTop] = useState<number>(0)
   const { t } = useTranslation('landing')
 

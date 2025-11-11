@@ -34,16 +34,7 @@ import useTtsPlayer from '../hooks/useTtsPlayer'
 
 const CATEGORY_NOT_FOUND_STATUS_CODE = 400
 
-const getBreadcrumb = (category: CategoryModel, cityName: string): BreadcrumbProps => ({
-  title: category.isRoot() ? cityName : category.title,
-  to: category.path,
-})
-
-const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRouteProps): ReactElement | null => {
-  const previousPathname = usePreviousProp({ prop: pathname })
-  const categoryId = useParams()['*']
-  const { t } = useTranslation('layout')
-
+const useCategoryData = (cityCode: string, languageCode: string, pathname: string, categoryId: string | undefined) => {
   const {
     data: categories,
     loading: categoriesLoading,
@@ -55,9 +46,6 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
     depth: categoryId ? 2 : 1,
     cityContentPath: pathname,
   })
-
-  const currentCategory = categories?.find(it => it.path === pathname)
-  useTtsPlayer(currentCategory, languageCode)
 
   const requestParents = useCallback(async () => {
     if (!categoryId) {
@@ -76,7 +64,38 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
 
     return data
   }, [cityCode, languageCode, pathname, categoryId])
+
   const { data: parents, loading: parentsLoading, error: parentsError } = useLoadAsync(requestParents)
+
+  return {
+    categories,
+    categoriesLoading,
+    categoriesError,
+    parents,
+    parentsLoading,
+    parentsError,
+  }
+}
+
+const getBreadcrumb = (category: CategoryModel, cityName: string): BreadcrumbProps => ({
+  title: category.isRoot() ? cityName : category.title,
+  to: category.path,
+})
+
+const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRouteProps): ReactElement | null => {
+  const previousPathname = usePreviousProp({ prop: pathname })
+  const categoryId = useParams()['*']
+  const { t } = useTranslation('layout')
+
+  const { categories, categoriesLoading, categoriesError, parents, parentsLoading, parentsError } = useCategoryData(
+    cityCode,
+    languageCode,
+    pathname,
+    categoryId,
+  )
+
+  const currentCategory = categories?.find(it => it.path === pathname)
+  useTtsPlayer(currentCategory, languageCode)
 
   const isLeafPage = useMemo(() => {
     if (!categories || !currentCategory) {
@@ -135,6 +154,8 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
     pageTitle,
     Toolbar: <CityContentToolbar slug={category && !category.isRoot() ? category.slug : undefined} />,
   }
+  const isDataAvailable = !categories || !parents || !category
+  const isLoadingData = categoriesLoading || parentsLoading || pathname !== previousPathname
 
   const loadSkeleton = () => {
     if (!categoryId) {
@@ -157,7 +178,14 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
     )
   }
 
-  if (categoriesError || parentsError) {
+  if (isDataAvailable) {
+    if (isLoadingData) {
+      return (
+        <CityContentLayout isLoading {...locationLayoutParams}>
+          {loadSkeleton()}
+        </CityContentLayout>
+      )
+    }
     // This adds support for the old paths of categories by redirecting to the new path
     // The children endpoint always returns the category with the new path at the first position in the response
     const newSlugCategory = categories?.[0]
@@ -179,15 +207,6 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
     )
   }
 
-  if (!categories || !parents || !category) {
-    // If data is not yet available, show skeleton
-    return (
-      <CityContentLayout isLoading {...locationLayoutParams}>
-        {loadSkeleton()}
-      </CityContentLayout>
-    )
-  }
-
   const ancestorBreadcrumbs = parents
     .sort((a, b) => a.parentPath.length - b.parentPath.length)
     .map((categoryModel: CategoryModel) => getBreadcrumb(categoryModel, city.name))
@@ -204,7 +223,7 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
         cityModel={city}
       />
       <Breadcrumbs breadcrumbs={breadcrumbs} />
-      {categoriesLoading || parentsLoading || pathname !== previousPathname ? (
+      {isLoadingData ? (
         loadSkeleton()
       ) : (
         <CategoriesContent
