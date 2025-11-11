@@ -13,6 +13,9 @@ import Link from './base/Link'
 const LONG_TITLE_LENGTH = 25
 
 const StyledTitle = styled(Typography)(({ theme }) => ({
+  fontFamily: theme.typography.fontFamily,
+  fontWeight: 'normal',
+
   [theme.breakpoints.down('sm')]: {
     wordWrap: 'break-word',
     hyphens: 'auto',
