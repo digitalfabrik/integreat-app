@@ -23,7 +23,8 @@ import useUserLocation from '../hooks/useUserLocation'
 const RootGrid = styled(Grid)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
-  height: '100vh',
+  height: '100%',
+  overflow: 'hidden',
   [theme.breakpoints.down('md')]: {
     flexDirection: 'column-reverse',
   },
