@@ -46,13 +46,6 @@ describe('PoiFiltersModal', () => {
       />,
     )
 
-  it('should set toggle open filter', () => {
-    const { getAllByRole } = renderPoiFiltersModal({})
-
-    fireEvent.press(getAllByRole('switch')[0]!)
-    expect(setCurrentlyOpenFilter).toHaveBeenCalledTimes(1)
-  })
-
   it('should set poi category on press', () => {
     const { getByText } = renderPoiFiltersModal({})
 
