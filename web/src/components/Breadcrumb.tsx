@@ -10,6 +10,7 @@ import Link from './base/Link'
 
 const StyledButton = styled(Button)({
   width: '100%',
+  textTransform: 'none',
 }) as typeof Button
 
 const StyledTypography = styled(Typography)({
