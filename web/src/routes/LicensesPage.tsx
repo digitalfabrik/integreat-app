@@ -26,9 +26,10 @@ const LicensesPage = ({ languageCode }: LicensesPageProps): ReactElement => {
     <LicenseItem
       key={license.name}
       name={license.name}
+      publisher={license.publisher}
       license={license.licenses}
       version={license.version}
-      licenseUrl={license.licenseUrl}
+      url={license.repository}
     />
   ))
 

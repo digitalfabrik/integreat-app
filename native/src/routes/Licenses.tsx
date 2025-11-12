@@ -30,18 +30,20 @@ const Description = styled.Text`
 
 type LicenseItemProps = {
   name: string
-  version: string
+  version: string | undefined
+  publisher: string | undefined
   license: string
   onPress: () => void
 }
 
 const LicenseItem = (props: LicenseItemProps): ReactElement => {
-  const { name, version, license, onPress } = props
+  const { name, version, license, publisher, onPress } = props
   const { t } = useTranslation('licenses')
   return (
     <LicenseItemContainer onPress={onPress} role='link'>
       <View>
         <Name>{name}</Name>
+        <Description>{publisher}</Description>
         <Description>
           {t('version')} {version}
         </Description>
@@ -65,9 +67,18 @@ const Licenses = (): ReactElement => {
 
   const { t } = useTranslation('settings')
   const renderItem = ({ item }: { item: License }) => {
-    const { licenses, name, licenseUrl, version } = item
-    const openLink = () => openExternalUrl(licenseUrl, showSnackbar)
-    return <LicenseItem key={name} name={name} version={version ?? ''} license={licenses} onPress={openLink} />
+    const { licenses, name, repository, version, publisher } = item
+    const openLink = () => (repository ? openExternalUrl(repository, showSnackbar) : undefined)
+    return (
+      <LicenseItem
+        key={name}
+        name={name}
+        publisher={publisher}
+        version={version}
+        license={licenses}
+        onPress={openLink}
+      />
+    )
   }
 
   return (

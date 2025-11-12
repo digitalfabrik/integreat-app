@@ -14,30 +14,39 @@ const StyledParagraph = styled('p')`
 type LicenseItemProps = {
   name: string
   version: string | undefined
+  publisher: string | undefined
   license: string
-  licenseUrl: string
+  url: string | undefined
 }
 
-const LicenseItem = ({ license, name, licenseUrl, version }: LicenseItemProps): ReactElement => {
+const LicenseItem = ({ license, name, url, version, publisher }: LicenseItemProps): ReactElement => {
   const { t } = useTranslation('licenses')
+  const Content = (
+    <ListItemText
+      slotProps={{ primary: { component: 'h2' }, secondary: { component: 'div' } }}
+      primary={name}
+      secondary={
+        <>
+          <StyledParagraph>{publisher}</StyledParagraph>
+          <StyledParagraph>
+            {t('version')} {version}
+          </StyledParagraph>
+          <StyledParagraph>
+            {t('license')} {license}
+          </StyledParagraph>
+        </>
+      }
+    />
+  )
   return (
     <ListItem disablePadding>
-      <ListItemButton to={licenseUrl} component={Link}>
-        <ListItemText
-          slotProps={{ primary: { component: 'h2' }, secondary: { component: 'div' } }}
-          primary={name}
-          secondary={
-            <>
-              <StyledParagraph>
-                {t('version')} {version}
-              </StyledParagraph>
-              <StyledParagraph>
-                {t('license')} {license}
-              </StyledParagraph>
-            </>
-          }
-        />
-      </ListItemButton>
+      {url ? (
+        <ListItemButton to={url} component={Link}>
+          {Content}
+        </ListItemButton>
+      ) : (
+        Content
+      )}
     </ListItem>
   )
 }
