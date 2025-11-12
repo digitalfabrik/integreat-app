@@ -75,7 +75,7 @@ const PoiDetails = ({ poi, language, distance, onFocus }: PoiDetailsProps): Reac
       )}
       {!!poi.thumbnail && (
         <ThumbnailWrapper>
-          {isNotPng && <ThumbnailBackground source={poi.thumbnail} resizeMode='cover' blurRadius={10} />}
+          {isNotPng && <ThumbnailBackground source={poi.thumbnail} resizeMode='cover' blurRadius={3} />}
           <Thumbnail source={poi.thumbnail} resizeMode='contain' />
         </ThumbnailWrapper>
       )}
