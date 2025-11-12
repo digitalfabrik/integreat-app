@@ -1,15 +1,20 @@
 import TranslateOutlinedIcon from '@mui/icons-material/TranslateOutlined'
-import React, { ReactElement, useState } from 'react'
+import { styled } from '@mui/material/styles'
+import React, { ReactElement, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import useDimensions from '../hooks/useDimensions'
-import Dropdown from './Dropdown'
+import useOnClickOutside from '../hooks/useOnClickOutside'
 import HeaderActionItem from './HeaderActionItem'
-import LanguageSelector from './LanguageSelector'
+import LanguageSelector, { LanguageChangePath } from './LanguageSelector'
 import Sidebar from './Sidebar'
 
+const Wrapper = styled('div')`
+  display: contents;
+`
+
 type HeaderLanguageSelectorItemProps = {
-  languageChangePaths: { code: string; path: string | null; name: string }[] | null
+  languageChangePaths: LanguageChangePath[]
   languageCode: string
   forceText?: boolean
 }
@@ -22,14 +27,16 @@ const HeaderLanguageSelectorItem = ({
   const [open, setOpen] = useState(false)
   const { mobile, desktop } = useDimensions()
   const { t } = useTranslation('layout')
+  const wrapperRef = useRef<HTMLDivElement | null>(null)
+  useOnClickOutside(wrapperRef, () => setOpen(false))
 
-  const currentLanguageName = languageChangePaths?.find(item => item.code === languageCode)?.name
+  const currentLanguageName = languageChangePaths.find(item => item.code === languageCode)?.name
 
   const ChangeLanguageButton = (
     <HeaderActionItem
       key='languageChange'
       onClick={() => setOpen(open => !open)}
-      text={t('changeLanguage')}
+      text={open ? '' : t('changeLanguage') /* to not cover the dropdown with the tooltip */}
       icon={<TranslateOutlinedIcon />}
       innerText={forceText || desktop ? currentLanguageName : undefined}
     />
@@ -42,21 +49,22 @@ const HeaderLanguageSelectorItem = ({
           languageChangePaths={languageChangePaths}
           languageCode={languageCode}
           close={() => setOpen(false)}
-          vertical
         />
       </Sidebar>
     )
   }
 
   return (
-    <Dropdown ToggleButton={ChangeLanguageButton} setOpen={setOpen} open={open}>
-      <LanguageSelector
-        languageChangePaths={languageChangePaths}
-        languageCode={languageCode}
-        vertical={false}
-        close={() => setOpen(false)}
-      />
-    </Dropdown>
+    <Wrapper ref={wrapperRef}>
+      {ChangeLanguageButton}
+      {open && (
+        <LanguageSelector
+          languageChangePaths={languageChangePaths}
+          languageCode={languageCode}
+          close={() => setOpen(false)}
+        />
+      )}
+    </Wrapper>
   )
 }
 
