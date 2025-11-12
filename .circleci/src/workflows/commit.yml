@@ -3,4 +3,13 @@ unless:
     - equal: [main, << pipeline.git.branch >>]
     - << pipeline.parameters.api_triggered >>
 jobs:
-  - check
+  - bump_version:
+      prepare_delivery: true
+      context:
+        - deliverino
+  - notify_release:
+      production_delivery: false
+      context:
+        - deliverino
+      requires:
+        - bump_version
