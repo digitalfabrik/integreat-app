@@ -942,7 +942,16 @@ version: 2.1
 workflows:
     commit:
         jobs:
-            - check
+            - bump_version:
+                context:
+                    - deliverino
+                prepare_delivery: true
+            - notify_release:
+                context:
+                    - deliverino
+                production_delivery: false
+                requires:
+                    - bump_version
         unless:
             or:
                 - equal:
