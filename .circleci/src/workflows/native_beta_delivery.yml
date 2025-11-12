@@ -5,7 +5,6 @@ when:
 jobs:
   - bump_version:
       prepare_delivery: true
-      platform: native
       context:
         - deliverino
   - check

@@ -411,13 +411,6 @@ jobs:
         docker:
             - image: cimg/node:22.21.1
         parameters:
-            platform:
-                default: all
-                enum:
-                    - all
-                    - web
-                    - native
-                type: enum
             prepare_delivery:
                 default: false
                 description: Whether to prepare for a delivery. If true, the version bump is committed.
@@ -438,7 +431,7 @@ jobs:
                 condition: << parameters.prepare_delivery >>
                 steps:
                     - run:
-                        command: yarn app-toolbelt v0 release bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH} --platforms << parameters.platform >>
+                        command: yarn app-toolbelt v0 release bump-to ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
                         name: Bump git version
                         working_directory: tools
             - when:
@@ -927,24 +920,6 @@ workflows:
                     - main
                     - << pipeline.git.branch >>
                 - << pipeline.parameters.api_triggered >>
-    commit_design_system:
-        jobs:
-            - bump_version:
-                prepare_delivery: false
-            - build_web:
-                build_config_name: integreat-test-cms
-                requires:
-                    - bump_version
-            - deliver_web:
-                delivery: future
-                requires:
-                    - build_web
-        when:
-            and:
-                - equal:
-                    - 3231-design-system-web
-                    - << pipeline.git.branch >>
-                - not: << pipeline.parameters.api_triggered >>
     commit_main:
         jobs:
             - bump_version:
@@ -1084,7 +1059,6 @@ workflows:
             - bump_version:
                 context:
                     - deliverino
-                platform: native
                 prepare_delivery: true
             - check
             - build_android:
@@ -1174,7 +1148,6 @@ workflows:
             - bump_version:
                 context:
                     - deliverino
-                platform: native
                 prepare_delivery: true
             - check
             - build_android:
@@ -1337,7 +1310,6 @@ workflows:
             - bump_version:
                 context:
                     - deliverino
-                platform: web
                 prepare_delivery: true
             - check
             - e2e_web:
@@ -1379,7 +1351,6 @@ workflows:
             - bump_version:
                 context:
                     - deliverino
-                platform: web
                 prepare_delivery: true
             - check
             - e2e_web:
