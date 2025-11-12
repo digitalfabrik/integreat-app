@@ -13,12 +13,23 @@ import Page from './Page'
 import PoiChips from './PoiChips'
 import SimpleImage from './SimpleImage'
 
-const Thumbnail = styled(SimpleImage)`
-  flex: 1;
+const ThumbnailWrapper = styled.View`
+  position: relative;
   height: 180px;
   width: 100%;
   border-radius: 8px;
   margin-bottom: 12px;
+  overflow: hidden;
+`
+
+const ThumbnailBackground = styled(SimpleImage)`
+  position: absolute;
+  height: 100%;
+  width: 100%;
+`
+
+const Thumbnail = styled(ThumbnailBackground)`
+  position: relative;
 `
 
 const PoiDetailsContainer = styled.View`
@@ -54,6 +65,7 @@ type PoiDetailsProps = {
 const PoiDetails = ({ poi, language, distance, onFocus }: PoiDetailsProps): ReactElement => {
   const { t } = useTranslation('pois')
   const { title, content, contacts, openingHours, temporarilyClosed, isCurrentlyOpen, category, appointmentUrl } = poi
+  const isNotPng = !poi.thumbnail?.toLowerCase().includes('.png')
 
   return (
     <PoiDetailsContainer accessibilityLabel={`${title} - ${category.name}`} onFocus={onFocus} focusable>
@@ -61,7 +73,12 @@ const PoiDetails = ({ poi, language, distance, onFocus }: PoiDetailsProps): Reac
       {distance !== null && (
         <StyledDistance>{t('distanceKilometre', { distance: distance.toFixed(1) })}</StyledDistance>
       )}
-      {!!poi.thumbnail && <Thumbnail source={poi.thumbnail} resizeMode='cover' />}
+      {!!poi.thumbnail && (
+        <ThumbnailWrapper>
+          {isNotPng && <ThumbnailBackground source={poi.thumbnail} resizeMode='cover' blurRadius={10} />}
+          <Thumbnail source={poi.thumbnail} resizeMode='contain' />
+        </ThumbnailWrapper>
+      )}
       <PoiChips poi={poi} />
       <HorizontalLine />
       <AddressInfo location={poi.location} language={language} />
