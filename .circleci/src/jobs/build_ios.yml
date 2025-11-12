@@ -13,7 +13,7 @@ environment:
 shell: /bin/bash --login -o pipefail
 steps:
   - checkout
-  - add_ssh_keys: # Needed for credentials repo
+  - add_ssh_keys: # Needed for signing repo
       fingerprints:
         - 24:1d:3b:b7:b3:49:69:d7:54:c3:93:a5:a2:d1:71:db
   - prepare_workspace
