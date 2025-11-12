@@ -10,6 +10,6 @@ steps:
         syft version
   - run:
       name: Generate SPDX SBoM
-      command: syft dir:. -o spdx-json=sbom.json
+      command: syft dir:. -o spdx-json=~/sbom.json
   - store_artifacts:
-      path: sbom.json
+      path: ~/sbom.json

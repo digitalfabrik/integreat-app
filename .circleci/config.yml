@@ -42,10 +42,10 @@ commands:
                     syft version
                 name: Install Syft
             - run:
-                command: syft dir:. -o spdx-json=sbom.json
+                command: syft dir:. -o spdx-json=~/sbom.json
                 name: Generate SPDX SBoM
             - store_artifacts:
-                path: sbom.json
+                path: ~/sbom.json
     notify:
         description: Send a notification (to Mattermost) at the end of a job, based on success or failure. Must be the last step in a job.
         parameters:
@@ -814,7 +814,7 @@ jobs:
                 name: Create github release
                 working_directory: tools
             - run:
-                command: yarn app-toolbelt v0 release upload --releaseId ${RELEASE_ID} --files sbom.json --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME}
+                command: yarn app-toolbelt v0 release upload --releaseId ${RELEASE_ID} --files ~/sbom.json --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME}
                 name: Upload SBoM to github release
                 working_directory: tools
             - unless:
