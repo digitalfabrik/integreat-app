@@ -16,7 +16,10 @@ steps:
   - restore_yarn_tools_cache
   - run:
       name: Create github release
-      command: echo "export RELEASE_ID='$(yarn --silent app-toolbelt v0 release create << parameters.platform >> ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} <<# parameters.production_delivery >>--production-release<</ parameters.production_delivery >>)'" >> ${BASH_ENV}
+      command: |
+        RELEASE=$(yarn --silent app-toolbelt v0 release create << parameters.platform >> ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} <<# parameters.production_delivery >>--production-release<</ parameters.production_delivery >>)
+        echo "export RELEASE_ID=$(echo ${RELEASE} | jq .id)" >> ${BASH_ENV}
+        echo "export RELEASE_NOTES=$(echo ${RELEASE} | jq .releaseNotes)" >> ${BASH_ENV}
       working_directory: tools
   - unless:
       condition:
@@ -45,6 +48,6 @@ steps:
             command: yarn app-toolbelt v0 release-notes move-to ${NEW_VERSION_NAME} --private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} --branch ${CIRCLE_BRANCH}
             working_directory: tools
   - notify:
-      success_message: <<^ parameters.production_delivery >>[Beta] <</ parameters.production_delivery >>Integreat, Malte, Aschaffenburg and Obdach ${NEW_VERSION_NAME} (<< parameters.platform >>) have been released successfully!\n[Release notes](https://github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/releases/tag/${NEW_VERSION_NAME})\n${ANDROID_ARTIFACT_URLS} ${IOS_ARTIFACT_URLS}
+      success_message: "##### <<^ parameters.production_delivery >>[Beta] <</ parameters.production_delivery >>[<< parameters.platform >>] Integreat App version [${NEW_VERSION_NAME}](https://github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/releases/tag/${NEW_VERSION_NAME}) has been released successfully :tada:\n${RELEASE_NOTES}\n${ANDROID_ARTIFACT_URLS} ${IOS_ARTIFACT_URLS}"
       channel: releases
       only_for_branch: ${CIRCLE_BRANCH}
