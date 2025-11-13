@@ -811,7 +811,7 @@ jobs:
             - notify:
                 channel: releases
                 only_for_branch: ${CIRCLE_BRANCH}
-                success_message: <<^ parameters.production_delivery >>[Beta] <</ parameters.production_delivery >>Integreat, Malte, Aschaffenburg and Obdach ${NEW_VERSION_NAME} (<< parameters.platform >>) have been released successfully!\n[Release notes](https://github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/releases/tag/${NEW_VERSION_NAME}-<< parameters.platform >>)\n${ANDROID_ARTIFACT_URLS}${IOS_ARTIFACT_URLS}
+                success_message: <<^ parameters.production_delivery >>[Beta] <</ parameters.production_delivery >>Integreat, Malte, Aschaffenburg and Obdach ${NEW_VERSION_NAME} (<< parameters.platform >>) have been released successfully!\n[Release notes](https://github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/releases/tag/${NEW_VERSION_NAME})\n${ANDROID_ARTIFACT_URLS} ${IOS_ARTIFACT_URLS}
     promote_android:
         docker:
             - image: cimg/android:2025.10.1-node
