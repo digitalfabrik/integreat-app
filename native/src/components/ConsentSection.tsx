@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
+import { Switch } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 import ItemSeparator from './base/ItemSeparator'
-import SettingsSwitch from './base/SettingsSwitch'
 import Text from './base/Text'
 
 const Container = styled(View)`
@@ -33,7 +33,7 @@ const ConsentSection = ({ title, description, allowed, onPress }: ConsentSection
         <Text>{title}</Text>
         <Description>{description}</Description>
       </TextContainer>
-      <SettingsSwitch onPress={onPress} value={allowed} />
+      <Switch onValueChange={onPress} value={allowed} />
     </Container>
     <ItemSeparator />
   </>

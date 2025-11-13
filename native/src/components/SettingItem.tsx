@@ -1,10 +1,10 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text, View, Role } from 'react-native'
+import { Switch } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 import Pressable from './base/Pressable'
-import SettingsSwitch from './base/SettingsSwitch'
 
 const PadView = styled.View`
   padding: 16px;
@@ -63,7 +63,7 @@ const SettingsItemValue = ({ value, hasBadge, onPress }: SettingItemValueProps):
       </BadgeContainer>
     )
   }
-  return <SettingsSwitch value={value} onPress={onPress} />
+  return <Switch onValueChange={onPress} value={value} />
 }
 
 type SettingItemProps = {

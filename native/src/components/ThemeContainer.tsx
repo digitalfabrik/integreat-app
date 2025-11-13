@@ -1,4 +1,5 @@
 import React, { ReactElement, useMemo } from 'react'
+import { PaperProvider } from 'react-native-paper'
 import { DefaultTheme, ThemeProvider } from 'styled-components/native'
 
 import buildConfig from '../constants/buildConfig'
@@ -55,7 +56,11 @@ const ThemeContainer = ({ children }: ThemeContainerProps): ReactElement => {
 
   const contextValue = useMemo(() => theme(themeType), [themeType])
 
-  return <ThemeProvider theme={contextValue}>{children}</ThemeProvider>
+  return (
+    <PaperProvider theme={contextValue}>
+      <ThemeProvider theme={contextValue}>{children}</ThemeProvider>
+    </PaperProvider>
+  )
 }
 
 export default ThemeContainer

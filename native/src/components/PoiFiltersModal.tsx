@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Switch } from 'react-native-paper'
 import { SvgUri } from 'react-native-svg'
 import styled from 'styled-components/native'
 
@@ -8,7 +9,6 @@ import { PoiCategoryModel } from 'shared/api'
 import { ClockIcon } from '../assets'
 import Modal from './Modal'
 import Icon from './base/Icon'
-import SettingsSwitch from './base/SettingsSwitch'
 import Text from './base/Text'
 import TextButton from './base/TextButton'
 import ToggleButton from './base/ToggleButton'
@@ -115,7 +115,7 @@ const PoiFiltersModal = ({
             <Icon Icon={ClockIcon} />
             <StyledText>{t('onlyCurrentlyOpen')}</StyledText>
             <FlexEnd>
-              <SettingsSwitch onPress={setCurrentlyOpenFilter} value={currentlyOpenFilter} />
+              <Switch onValueChange={setCurrentlyOpenFilter} value={currentlyOpenFilter} />
             </FlexEnd>
           </StyledRow>
         </Section>
