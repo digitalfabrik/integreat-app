@@ -125,6 +125,10 @@ commands:
     restore_gradle_cache:
         description: Restores and saves the gradle cache.
         steps:
+            - run:
+                command: ./gradlew clean
+                name: clean Gradle
+                working_directory: native/android
             - restore_cache:
                 keys:
                     - 1-gradle-{{ checksum "native/android/build.gradle" }}-{{ checksum "native/android/app/build.gradle" }}-{{ checksum "native/android/settings.gradle" }}
