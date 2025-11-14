@@ -22,6 +22,7 @@ const Thumbnail = styled('img')<{ isPng?: boolean }>`
   object-fit: contain;
   ${props =>
     props.isPng &&
+    props.theme.isContrastTheme &&
     `
    filter: drop-shadow(0 0 5px ${props.theme.palette.text.primary}) drop-shadow(0 0 5px ${props.theme.palette.text.primary});
   `}
