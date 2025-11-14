@@ -21,14 +21,16 @@ import { CityRouteProps } from '../CityContentSwitcher'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
-import LoadingSpinner from '../components/LoadingSpinner'
 import SearchFeedback from '../components/SearchFeedback'
 import SearchInput from '../components/SearchInput'
 import SearchListItem from '../components/SearchListItem'
+import SkeletonList from '../components/SkeletonList'
 import List from '../components/base/List'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useLoadSearchDocuments from '../hooks/useLoadSearchDocuments'
 import useReportError from '../hooks/useReportError'
+
+const LOAD_SKELETON_TIMEOUT = 250
 
 type SearchProps = {
   query: string
@@ -38,26 +40,36 @@ type SearchProps = {
 
 const SearchResults = ({ query, loading, results }: SearchProps): ReactElement | null => {
   const { t } = useTranslation('search')
+  const hasResults = results.length > 0
 
   if (query.length === 0) {
     return null
   }
 
   if (loading) {
-    return <LoadingSpinner />
+    return <SkeletonList listItemHeight={64} />
   }
 
-  const items = results.map(({ title, content, path }) => (
-    <SearchListItem title={title} contentWithoutHtml={parseHTML(content)} key={path} query={query} path={path} />
-  ))
+  if (!hasResults) {
+    return <SearchFeedback noResults query={query} />
+  }
 
   return (
     <>
       <Typography variant='subtitle2' aria-live={results.length === 0 ? 'assertive' : 'polite'}>
         {t('searchResultsCount', { count: results.length })}
       </Typography>
-      <List items={items} />
-      <SearchFeedback noResults={results.length === 0} query={query} />
+      <List
+        items={results.map(result => (
+          <SearchListItem
+            key={result.path}
+            title={result.title}
+            contentWithoutHtml={parseHTML(result.content)}
+            query={query}
+            path={result.path}
+          />
+        ))}
+      />
     </>
   )
 }
@@ -140,7 +152,7 @@ const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
           onFilterTextChange={setQuery}
           autoFocus
         />
-        <SearchResults results={results} query={debouncedQuery} loading={loading} />
+        <SearchResults results={results} query={debouncedQuery} loading={loading || contentLanguageReturn.loading} />
       </Stack>
     </CityContentLayout>
   )

@@ -12,8 +12,8 @@ import CityContentLayout, { CityContentLayoutProps } from '../components/CityCon
 import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
-import LoadingSpinner from '../components/LoadingSpinner'
 import Page from '../components/Page'
+import SkeletonPage from '../components/SkeletonPage'
 import Svg from '../components/base/Svg'
 import { tunewsApiBaseUrl } from '../constants/urls'
 import useTtsPlayer from '../hooks/useTtsPlayer'
@@ -66,15 +66,7 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
     Toolbar: <CityContentToolbar />,
   }
 
-  if (loading) {
-    return (
-      <CityContentLayout isLoading {...locationLayoutParams}>
-        <LoadingSpinner />
-      </CityContentLayout>
-    )
-  }
-
-  if (!newsModel) {
+  if (!loading && !newsModel) {
     const error =
       !newsError || newsError instanceof NotFoundError
         ? new NotFoundError({
@@ -100,12 +92,18 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
           <Svg src={TuNewsActiveIcon} width='100%' height='100%' />
         </IconContainer>
       </TuNewsBanner>
-      <Page
-        title={newsModel.title}
-        content={newsModel.content}
-        lastUpdate={newsModel.date}
-        showLastUpdateText={false}
-      />
+      {loading ? (
+        <SkeletonPage />
+      ) : (
+        newsModel && (
+          <Page
+            title={newsModel.title}
+            content={newsModel.content}
+            lastUpdate={newsModel.date}
+            showLastUpdateText={false}
+          />
+        )
+      )}
     </CityContentLayout>
   )
 }
