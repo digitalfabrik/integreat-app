@@ -10,24 +10,24 @@ changelog:
         labels:
           - not-testable
           - maintenance
-          - web
-          - native
+          - Web
+          - Native
     - title: '[web] Features, fixes, enhancements 🎉'
       labels:
-        - web
+        - Web
       exclude:
         labels:
           - not-testable
           - maintenance
-          - native
+          - Native
     - title: '[native] Features, fixes, enhancements 🎉'
       labels:
-        - native
+        - Native
       exclude:
         labels:
           - not-testable
           - maintenance
-          - web
+          - Web
     - title: Maintenance 🛠
       labels:
         - not-testable
