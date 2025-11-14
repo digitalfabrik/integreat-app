@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import React, { ReactElement, useCallback, useMemo } from 'react'
+import React, { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Navigate, useParams } from 'react-router'
 
@@ -97,16 +97,7 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
   const currentCategory = categories?.find(it => it.path === pathname)
   useTtsPlayer(currentCategory, languageCode)
 
-  const isLeafPage = useMemo(() => {
-    if (!categories || !currentCategory) {
-      return null
-    }
-    try {
-      return new CategoriesMapModel(categories).isLeaf(currentCategory)
-    } catch {
-      return null
-    }
-  }, [categories, currentCategory])
+  const isLeafPage = categories && currentCategory ? new CategoriesMapModel(categories).isLeaf(currentCategory) : null
 
   if (!city) {
     return null

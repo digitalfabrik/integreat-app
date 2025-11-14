@@ -77,7 +77,6 @@ const SearchResults = ({ query, loading, results }: SearchProps): ReactElement |
 const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElement | null => {
   const [queryParams, setQueryParams] = useSearchParams()
   const [query, setQuery] = useState(queryParams.get(SEARCH_QUERY_KEY) ?? '')
-  const [showSkeleton, setShowSkeleton] = useState(false)
   const { t } = useTranslation('search')
   const fallbackLanguage = config.sourceLanguage
   const debouncedQuery = useDebounce(query)
@@ -97,17 +96,6 @@ const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
     languageCode: fallbackLanguage,
     cmsApiBaseUrl,
   })
-
-  // for smooth loading transition to avoid flickering
-  useEffect(() => {
-    let timeout: number | undefined
-    if (loading) {
-      setShowSkeleton(true)
-    } else {
-      timeout = window.setTimeout(() => setShowSkeleton(false), LOAD_SKELETON_TIMEOUT)
-    }
-    return () => clearTimeout(timeout)
-  }, [loading])
 
   const contentLanguageReturn = useSearch(contentLanguageDocuments, debouncedQuery)
   const fallbackLanguageDocuments = languageCode !== fallbackLanguage ? fallbackData : []
@@ -164,7 +152,7 @@ const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
           onFilterTextChange={setQuery}
           autoFocus
         />
-        <SearchResults results={results} query={debouncedQuery} loading={showSkeleton} />
+        <SearchResults results={results} query={debouncedQuery} loading={loading || contentLanguageReturn.loading} />
       </Stack>
     </CityContentLayout>
   )

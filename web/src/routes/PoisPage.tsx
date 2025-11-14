@@ -20,7 +20,7 @@ import { cmsApiBaseUrl } from '../constants/urls'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 import useUserLocation from '../hooks/useUserLocation'
 
-const RootGrid = styled(Grid)(({ theme }) => ({
+const SkeletonRootGrid = styled(Grid)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   height: '100%',
@@ -36,7 +36,7 @@ const SkeletonListContainer = styled(Grid)(({ theme }) => ({
 
   [theme.breakpoints.down('md')]: {
     width: '100%',
-    height: '50%',
+    height: '40%',
   },
 }))
 
@@ -45,7 +45,7 @@ const MapSkeleton = styled(Grid)(({ theme }) => ({
   width: 'auto',
   height: '100%',
   [theme.breakpoints.down('md')]: {
-    height: '50%',
+    height: '60%',
     width: '100%',
   },
 }))
@@ -94,7 +94,7 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
   if (loading) {
     return (
       <CityContentLayout isLoading {...locationLayoutParams}>
-        <RootGrid container>
+        <SkeletonRootGrid container>
           <SkeletonListContainer container paddingX={2}>
             <Stack width='100%'>
               <SkeletonHeader width='90%' />
@@ -104,7 +104,7 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
           <MapSkeleton container>
             <Skeleton variant='rectangular' width='100%' height='100%' />
           </MapSkeleton>
-        </RootGrid>
+        </SkeletonRootGrid>
       </CityContentLayout>
     )
   }
