@@ -7,19 +7,11 @@ import { PoiModel } from 'shared/api'
 import AddressInfo from './AddressInfo'
 import Collapsible from './Collapsible'
 import Contact from './Contact'
+import CustomThumbnail from './CustomThumbnail'
 import HorizontalLine from './HorizontalLine'
 import OpeningHours from './OpeningHours'
 import Page from './Page'
 import PoiChips from './PoiChips'
-import SimpleImage from './SimpleImage'
-
-const Thumbnail = styled(SimpleImage)`
-  flex: 1;
-  height: 180px;
-  width: 100%;
-  border-radius: 8px;
-  margin-bottom: 12px;
-`
 
 const PoiDetailsContainer = styled.View`
   flex: 1;
@@ -61,7 +53,7 @@ const PoiDetails = ({ poi, language, distance, onFocus }: PoiDetailsProps): Reac
       {distance !== null && (
         <StyledDistance>{t('distanceKilometre', { distance: distance.toFixed(1) })}</StyledDistance>
       )}
-      {!!poi.thumbnail && <Thumbnail source={poi.thumbnail} resizeMode='cover' />}
+      {!!poi.thumbnail && <CustomThumbnail src={poi.thumbnail} />}
       <PoiChips poi={poi} />
       <HorizontalLine />
       <AddressInfo location={poi.location} language={language} />

@@ -17,9 +17,10 @@ type AspectRatioImageProps = {
   resizeMode: ImageResizeMode
   specifyAspectRatio: boolean
   style?: StyleProp<ImageStyle>
+  blurRadius?: number | undefined
 }
 
-const AspectRatioImage = ({ source, style, resizeMode, specifyAspectRatio }: AspectRatioImageProps) => {
+const AspectRatioImage = ({ source, style, resizeMode, specifyAspectRatio, blurRadius }: AspectRatioImageProps) => {
   const aspectRatio = useMemo(() => {
     let value: undefined | number
     Image.getSize(source, (width, height) => {
@@ -35,6 +36,7 @@ const AspectRatioImage = ({ source, style, resizeMode, specifyAspectRatio }: Asp
       resizeMode={resizeMode}
       style={style}
       role='img'
+      blurRadius={blurRadius}
     />
   )
 }
@@ -44,6 +46,7 @@ type SimpleImageProps = {
   source: ImageSourceType
   style?: StyleProp<ImageStyle>
   resizeMode?: ImageResizeMode
+  blurRadius?: number | undefined
   // In order to be able to align an image, its width or aspect ratio has to be set
   specifyAspectRatio?: boolean
 }
@@ -53,6 +56,7 @@ const SimpleImage = ({
   style,
   resizeMode = 'contain',
   specifyAspectRatio = false,
+  blurRadius = undefined,
 }: SimpleImageProps): ReactElement => {
   const { data: resourceCache } = useResourceCache()
 
@@ -61,7 +65,16 @@ const SimpleImage = ({
   }
 
   if (typeof source === 'number') {
-    return <Image source={source} resizeMode={resizeMode} style={style} accessibilityIgnoresInvertColors role='img' />
+    return (
+      <Image
+        blurRadius={blurRadius}
+        source={source}
+        resizeMode={resizeMode}
+        style={style}
+        accessibilityIgnoresInvertColors
+        role='img'
+      />
+    )
   }
 
   const isSvgIcon = typeof source === 'function'
@@ -87,6 +100,7 @@ const SimpleImage = ({
       resizeMode={resizeMode}
       style={style}
       specifyAspectRatio={specifyAspectRatio}
+      blurRadius={blurRadius}
     />
   )
 }
