@@ -12,6 +12,7 @@ import { getExternalMapsLink } from 'shared'
 import { PoiModel } from 'shared/api'
 
 import Contact from './Contact'
+import CustomThumbnail from './CustomThumbnail'
 import OpeningHours from './OpeningHours'
 import PoiChips from './PoiChips'
 import RemoteContent from './RemoteContent'
@@ -25,32 +26,6 @@ const StyledContactsList = styled(List)({
   gap: 16,
 })
 
-const ThumbnailWrapper = styled('div')`
-  position: relative;
-  height: clamp(120px, 14vh, 160px);
-  width: 100%;
-  flex-shrink: 0;
-  border-radius: 8px;
-  overflow: hidden;
-
-  ${props => props.theme.breakpoints.down('md')} {
-    order: 1;
-    margin-top: 12px;
-  }
-`
-
-const Thumbnail = styled('img')`
-  position: relative;
-  height: 100%;
-  width: 100%;
-  object-fit: contain;
-`
-const ThumbnailBackground = styled(Thumbnail)`
-  position: absolute;
-  object-fit: cover;
-  filter: blur(10px);
-`
-
 type PoiDetailsProps = {
   poi: PoiModel
   distance: number | null
@@ -63,7 +38,6 @@ const PoiDetails = ({ poi, distance }: PoiDetailsProps): ReactElement => {
   const isAndroid = /Android/i.test(navigator.userAgent)
   const externalMapsLink = getExternalMapsLink(location, isAndroid ? 'android' : 'web')
   const showOpeningHours = (openingHours && openingHours.length > 0) || temporarilyClosed || !!appointmentUrl
-  const isNotPng = !poi.thumbnail?.toLowerCase().includes('.png')
 
   const addressSection = (
     <Stack paddingBlock={1} gap={1}>
@@ -120,12 +94,7 @@ const PoiDetails = ({ poi, distance }: PoiDetailsProps): ReactElement => {
           <Typography variant='body2'>{t('distanceKilometre', { distance: distance.toFixed(1) })}</Typography>
         )}
         <PoiChips poi={poi} />
-        {!!poi.thumbnail && (
-          <ThumbnailWrapper>
-            {isNotPng && <ThumbnailBackground alt='' src={poi.thumbnail} />}
-            <Thumbnail alt='' src={poi.thumbnail} />
-          </ThumbnailWrapper>
-        )}
+        {!!poi.thumbnail && <CustomThumbnail src={poi.thumbnail} />}
       </Stack>
       <Divider />
       {addressSection}

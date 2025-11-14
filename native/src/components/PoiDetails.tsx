@@ -7,30 +7,11 @@ import { PoiModel } from 'shared/api'
 import AddressInfo from './AddressInfo'
 import Collapsible from './Collapsible'
 import Contact from './Contact'
+import CustomThumbnail from './CustomThumbnail'
 import HorizontalLine from './HorizontalLine'
 import OpeningHours from './OpeningHours'
 import Page from './Page'
 import PoiChips from './PoiChips'
-import SimpleImage from './SimpleImage'
-
-const ThumbnailWrapper = styled.View`
-  position: relative;
-  height: 180px;
-  width: 100%;
-  border-radius: 8px;
-  margin-bottom: 12px;
-  overflow: hidden;
-`
-
-const ThumbnailBackground = styled(SimpleImage)`
-  position: absolute;
-  height: 100%;
-  width: 100%;
-`
-
-const Thumbnail = styled(ThumbnailBackground)`
-  position: relative;
-`
 
 const PoiDetailsContainer = styled.View`
   flex: 1;
@@ -65,7 +46,6 @@ type PoiDetailsProps = {
 const PoiDetails = ({ poi, language, distance, onFocus }: PoiDetailsProps): ReactElement => {
   const { t } = useTranslation('pois')
   const { title, content, contacts, openingHours, temporarilyClosed, isCurrentlyOpen, category, appointmentUrl } = poi
-  const isNotPng = !poi.thumbnail?.toLowerCase().includes('.png')
 
   return (
     <PoiDetailsContainer accessibilityLabel={`${title} - ${category.name}`} onFocus={onFocus} focusable>
@@ -73,12 +53,7 @@ const PoiDetails = ({ poi, language, distance, onFocus }: PoiDetailsProps): Reac
       {distance !== null && (
         <StyledDistance>{t('distanceKilometre', { distance: distance.toFixed(1) })}</StyledDistance>
       )}
-      {!!poi.thumbnail && (
-        <ThumbnailWrapper>
-          {isNotPng && <ThumbnailBackground source={poi.thumbnail} resizeMode='cover' blurRadius={3} />}
-          <Thumbnail source={poi.thumbnail} />
-        </ThumbnailWrapper>
-      )}
+      {!!poi.thumbnail && <CustomThumbnail src={poi.thumbnail} />}
       <PoiChips poi={poi} />
       <HorizontalLine />
       <AddressInfo location={poi.location} language={language} />
