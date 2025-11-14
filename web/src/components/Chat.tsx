@@ -1,11 +1,8 @@
 import MailLock from '@mui/icons-material/MailLock'
 import SendIcon from '@mui/icons-material/Send'
 import Alert from '@mui/material/Alert'
-import Avatar from '@mui/material/Avatar'
-import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
-import Skeleton from '@mui/material/Skeleton'
 import Stack from '@mui/material/Stack'
 import TextField from '@mui/material/TextField'
 import { styled } from '@mui/material/styles'
@@ -28,20 +25,6 @@ const Container = styled(Stack)(({ theme }) => ({
     height: 600,
   },
 })) as typeof Stack
-
-const StyledRight = styled(Box)`
-  display: flex;
-  justify-content: flex-end;
-  gap: 6px;
-  width: 100%;
-`
-
-const StyledLeft = styled(Box)`
-  display: flex;
-  justify-content: flex-start;
-  gap: 6px;
-  width: 100%;
-`
 
 type ChatProps = {
   city: CityModel
@@ -85,23 +68,6 @@ const Chat = ({
     }
   }
 
-  const renderChatConversationSkeleton = () => (
-    <Stack>
-      <StyledRight>
-        <Skeleton variant='text' width='90%' />
-        <Skeleton variant='circular'>
-          <Avatar />
-        </Skeleton>
-      </StyledRight>
-      <StyledLeft>
-        <Skeleton variant='circular'>
-          <Avatar />
-        </Skeleton>
-        <Skeleton variant='text' width='70%' />
-      </StyledLeft>
-    </Stack>
-  )
-
   if (!privacyPolicyAccepted) {
     return (
       <Container>
@@ -121,11 +87,7 @@ const Chat = ({
 
   return (
     <Container justifyContent='space-between'>
-      {isLoading ? (
-        renderChatConversationSkeleton()
-      ) : (
-        <ChatConversation messages={messages} isTyping={isTyping} loading={isLoading} />
-      )}
+      <ChatConversation messages={messages} isTyping={isTyping} loading={isLoading} />
       <Stack paddingInline={2} gap={1}>
         {hasError && <Alert severity='error'>{t('errorMessage')}</Alert>}
         <TextField

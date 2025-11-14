@@ -1,5 +1,4 @@
 import List from '@mui/material/List'
-import Skeleton from '@mui/material/Skeleton'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
@@ -9,6 +8,7 @@ import { useTranslation } from 'react-i18next'
 import { ChatMessageModel } from 'shared/api'
 
 import ChatMessage, { InnerChatMessage } from './ChatMessage'
+import SkeletonChatConversation from './SkeletonChatConversation'
 
 const StyledList = styled(List)({
   display: 'flex',
@@ -55,22 +55,28 @@ const ChatConversation = ({ messages, isTyping, loading }: ChatConversationProps
   if (messages.length === 0) {
     return (
       <Stack gap={1}>
-        <Typography variant='subtitle1'>{loading ? <Skeleton /> : t('conversationTitle')}</Typography>
-        <Typography variant='body2'>{loading ? <Skeleton /> : t('conversationText')}</Typography>
+        <Typography variant='subtitle1'>{t('conversationTitle')}</Typography>
+        <Typography variant='body2'>{t('conversationText')}</Typography>
       </Stack>
     )
   }
 
   return (
     <Stack padding={2} gap={2} overflow='auto'>
-      {waitingForAnswer && <Typography variant='body2'>{t('initialMessage')}</Typography>}
-      <StyledList disablePadding>
-        {messages.map((message, index) => (
-          <ChatMessage message={message} key={message.id} previousMessage={messages[index - 1]} />
-        ))}
-      </StyledList>
-      <TypingIndicator isVisible={isTyping} />
-      <div ref={messagesEndRef} />
+      {loading ? (
+        <SkeletonChatConversation />
+      ) : (
+        <>
+          {waitingForAnswer && <Typography variant='body2'>{t('initialMessage')}</Typography>}
+          <StyledList disablePadding>
+            {messages.map((message, index) => (
+              <ChatMessage message={message} key={message.id} previousMessage={messages[index - 1]} />
+            ))}
+          </StyledList>
+          <TypingIndicator isVisible={isTyping} />
+          <div ref={messagesEndRef} />
+        </>
+      )}
     </Stack>
   )
 }
