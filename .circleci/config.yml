@@ -125,20 +125,16 @@ commands:
     restore_gradle_cache:
         description: Restores and saves the gradle cache.
         steps:
-            - run:
-                command: ./gradlew clean
-                name: clean Gradle
-                working_directory: native/android
             - restore_cache:
                 keys:
-                    - 1-gradle-{{ checksum "native/android/build.gradle" }}-{{ checksum "native/android/app/build.gradle" }}-{{ checksum "native/android/settings.gradle" }}
-                    - 1-gradle-
+                    - 2-gradle-{{ checksum "native/android/build.gradle" }}-{{ checksum "native/android/app/build.gradle" }}-{{ checksum "native/android/settings.gradle" }}
+                    - 2-gradle-
             - run:
                 command: bundle exec fastlane android dependencies
                 name: '[FL] Download Dependencies'
                 working_directory: native/android
             - save_cache:
-                key: 1-gradle-{{ checksum "native/android/build.gradle" }}-{{ checksum "native/android/app/build.gradle" }}-{{ checksum "native/android/settings.gradle" }}
+                key: 2-gradle-{{ checksum "native/android/build.gradle" }}-{{ checksum "native/android/app/build.gradle" }}-{{ checksum "native/android/settings.gradle" }}
                 paths:
                     - ~/.gradle
     restore_ruby_cache:
