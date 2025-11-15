@@ -11,6 +11,7 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import useDimensions from '../hooks/useDimensions'
+import useUpdateDimensions from '../hooks/useUpdateDimensions'
 
 export const TTS_PLAYER_ELEMENT_ID = 'tts-player'
 
@@ -96,6 +97,7 @@ const TtsPlayer = ({
 }: TtsPlayerProps): ReactElement => {
   const { visibleFooterHeight, bottomNavigationHeight } = useDimensions()
   const { t } = useTranslation('layout')
+  useUpdateDimensions()
 
   return (
     <StyledTtsPlayer id={TTS_PLAYER_ELEMENT_ID} bottom={bottomNavigationHeight ?? visibleFooterHeight}>
