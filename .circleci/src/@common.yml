@@ -13,6 +13,7 @@ parameters:
         web_beta_delivery,
         web_production_delivery,
         web_promotion,
+        e2e_tests,
         none,
       ]
     default: none

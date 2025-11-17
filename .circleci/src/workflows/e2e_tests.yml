@@ -1,0 +1,35 @@
+when:
+  equal: [<< pipeline.parameters.workflow_type >>, e2e_tests]
+jobs:
+  - bump_version:
+      prepare_delivery: false
+
+  - e2e_web:
+      requires:
+        - bump_version
+
+  - build_android:
+      build_config_name: integreat-e2e
+      context:
+        - credentials-repo
+        - credentials-integreat
+      requires:
+        - bump_version
+  - e2e_android:
+      context:
+        - browserstack
+      requires:
+        - build_android-integreat-e2e
+
+  - build_ios:
+      build_config_name: integreat-e2e
+      context:
+        - tuerantuer-apple
+        - fastlane-match
+      requires:
+        - bump_version
+  - e2e_ios:
+      context:
+        - browserstack
+      requires:
+        - build_ios-integreat-e2e
