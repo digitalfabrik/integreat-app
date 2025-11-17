@@ -32,13 +32,7 @@ const PrivacyCheckbox = ({ language, checked, setChecked }: PrivacyCheckboxProps
   const privacyUrl = privacyUrls[language] || privacyUrls.default
   return (
     <StyledPressable onPress={() => setChecked(!checked)} role='checkbox'>
-      <Checkbox
-        status={checked ? 'checked' : 'unchecked'}
-        onPress={() => {
-          setChecked(!checked)
-        }}
-      />
-
+      <Checkbox.Android status={checked ? 'checked' : 'unchecked'} onPress={() => setChecked(!checked)} />
       <StyledLabel>
         <Trans i18nKey='common:privacyPolicy'>
           This gets replaced
