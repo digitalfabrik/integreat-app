@@ -1,7 +1,5 @@
 when:
-  and:
-    - equal: [main, << pipeline.git.branch >>]
-    - not: << pipeline.parameters.api_triggered >>
+  equal: [main, << pipeline.git.branch >>]
 jobs:
   - bump_version:
       prepare_delivery: false
