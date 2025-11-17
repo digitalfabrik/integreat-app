@@ -1,11 +1,11 @@
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { FlatList, View } from 'react-native'
+import { FlatList } from 'react-native'
 import { Calendar } from 'react-native-calendar-events'
+import { RadioButton } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 import Modal from './Modal'
-import RadioButton from './base/RadioButton'
 import TextButton from './base/TextButton'
 
 const Heading = styled.Text`
@@ -20,26 +20,13 @@ const StyledList = styled(FlatList as typeof FlatList<Calendar>)`
   flex-grow: 0;
 `
 
-const ButtonTitle = styled.Text`
-  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontBold};
-  color: ${props => props.theme.legacy.colors.textColor};
-`
-
-const ButtonDescription = styled.Text`
-  font-family: ${props => props.theme.legacy.fonts.native.contentFontRegular};
-  color: ${props => props.theme.legacy.colors.textSecondaryColor};
-`
-
 const Divider = styled.View`
   background-color: ${props => props.theme.legacy.colors.textDecorationColor};
   height: 1px;
   margin: 8px 0;
 `
 
-const StyledText = styled.Text`
-  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
-  color: ${props => props.theme.legacy.colors.textColor};
-`
+type ExportType = 'only-this-event' | 'all-future-events'
 
 type CalendarChoiceProps = {
   calendars: Calendar[]
@@ -60,39 +47,37 @@ const CalendarChoiceModal = ({
 }: CalendarChoiceProps): ReactElement => {
   const { t } = useTranslation('events')
   const [selectedCalendarId, setSelectedCalendarId] = useState<string | undefined>(calendars[0]?.id ?? undefined)
-  const [exportAllEvents, setExportAllEvents] = useState<boolean>(false)
+  const [exportMode, setExportMode] = useState<ExportType>('only-this-event')
   const calendarCount = calendars.length
 
   return (
     <Modal modalVisible={modalVisible} closeModal={closeModal} headerTitle={eventTitle} scrollView={false}>
       <Heading>{t('chooseCalendar')}</Heading>
-      <StyledList
-        role='list'
-        data={calendars}
-        renderItem={({ item, index }) => (
-          <>
-            <RadioButton selected={selectedCalendarId === item.id} select={() => setSelectedCalendarId(item.id)}>
-              <View>
-                <ButtonTitle>{item.title}</ButtonTitle>
-                <ButtonDescription>{item.source}</ButtonDescription>
-              </View>
-            </RadioButton>
-            {index < calendarCount - 1 && <Divider />}
-          </>
-        )}
-      />
+      <RadioButton.Group onValueChange={setSelectedCalendarId} value={selectedCalendarId ?? ''}>
+        <StyledList
+          role='list'
+          data={calendars}
+          renderItem={({ item, index }) => (
+            <>
+              <RadioButton.Item label={`${item.title} - ${item.source}`} value={item.id} mode='android' />
+              {index < calendarCount - 1 && <Divider />}
+            </>
+          )}
+        />
+      </RadioButton.Group>
       {recurring && (
         <>
           <Heading>{t('addToCalendar')}</Heading>
-          <RadioButton selected={!exportAllEvents} select={() => setExportAllEvents(false)}>
-            <StyledText>{t('onlyThisEvent')}</StyledText>
-          </RadioButton>
-          <RadioButton selected={exportAllEvents} select={() => setExportAllEvents(true)}>
-            <StyledText>{t('thisAndAllFutureEvents')}</StyledText>
-          </RadioButton>
+          <RadioButton.Group onValueChange={value => setExportMode(value as ExportType)} value={exportMode}>
+            <RadioButton.Item mode='android' label={t('onlyThisEvent')} value='only-this-event' />
+            <RadioButton.Item mode='android' label={t('thisAndAllFutureEvents')} value='all-future-events' />
+          </RadioButton.Group>
         </>
       )}
-      <TextButton onPress={() => chooseCalendar(selectedCalendarId, exportAllEvents)} text={t('addToCalendar')} />
+      <TextButton
+        onPress={() => chooseCalendar(selectedCalendarId, exportMode === 'all-future-events')}
+        text={t('addToCalendar')}
+      />
     </Modal>
   )
 }

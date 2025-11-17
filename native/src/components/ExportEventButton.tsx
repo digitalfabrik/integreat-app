@@ -127,7 +127,7 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
 
   return (
     <>
-      {calendars && (
+      {calendars && calendars.length > 1 && (
         <CalendarChoice
           closeModal={() => setShowCalendarChoiceModal(false)}
           modalVisible={showCalendarChoiceModal}
