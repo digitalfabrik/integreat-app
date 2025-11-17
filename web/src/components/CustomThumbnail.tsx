@@ -15,17 +15,11 @@ const ThumbnailWrapper = styled('div')`
   }
 `
 
-const Thumbnail = styled('img')<{ isPng?: boolean }>`
+const Thumbnail = styled('img')`
   position: relative;
   height: 100%;
   width: 100%;
   object-fit: contain;
-  ${props =>
-    props.isPng &&
-    props.theme.isContrastTheme &&
-    `
-   filter: drop-shadow(0 0 5px ${props.theme.palette.text.primary}) drop-shadow(0 0 5px ${props.theme.palette.text.primary});
-  `}
 `
 const ThumbnailBackground = styled(Thumbnail)`
   position: absolute;
@@ -33,16 +27,23 @@ const ThumbnailBackground = styled(Thumbnail)`
   filter: blur(10px);
 `
 
+const WhiteBackground = styled('div')`
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: #fff;
+`
+
 type CustomThumbnailProps = {
   src: string
 }
 
 const CustomThumbnail = ({ src }: CustomThumbnailProps): ReactElement => {
-  const isNonTransparent = !src.toLowerCase().includes('.png') && !src.toLowerCase().includes('.svg')
+  const opaque = ['.jpg', '.jpeg'].some(extension => src.toLowerCase().includes(extension))
   return (
     <ThumbnailWrapper>
-      {isNonTransparent && <ThumbnailBackground alt='' src={src} />}
-      <Thumbnail isPng={!isNonTransparent} alt='' src={src} />
+      {opaque ? <ThumbnailBackground alt='' src={src} /> : <WhiteBackground />}
+      <Thumbnail alt='' src={src} />
     </ThumbnailWrapper>
   )
 }

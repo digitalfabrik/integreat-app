@@ -16,24 +16,18 @@ import PoiChips from './PoiChips'
 const PoiDetailsContainer = styled.View`
   flex: 1;
   background-color: ${props => props.theme.legacy.colors.backgroundColor};
+  gap: 16px;
 `
 
 const Title = styled.Text`
   font-size: 16px;
   font-weight: bold;
   color: ${props => props.theme.legacy.colors.textColor};
-  padding-bottom: 4px;
 `
 
 const StyledDistance = styled.Text`
   font-size: 12px;
-  margin-top: 8px;
-  padding-bottom: 6px;
   color: ${props => props.theme.legacy.colors.textColor};
-`
-
-const StyledContactsContainer = styled.View`
-  margin-top: 12px;
 `
 
 type PoiDetailsProps = {
@@ -61,17 +55,13 @@ const PoiDetails = ({ poi, language, distance, onFocus }: PoiDetailsProps): Reac
       {contacts.length > 0 && (
         <>
           <Collapsible headerContent={t('contacts')} language={language}>
-            <StyledContactsContainer>
-              {contacts.map((contact, index) => (
-                <Contact
-                  key={
-                    contact.headline ?? contact.website ?? contact.name ?? contact.phoneNumber ?? contact.mobileNumber
-                  }
-                  contact={contact}
-                  isLastContact={contacts.length - 1 === index}
-                />
-              ))}
-            </StyledContactsContainer>
+            {contacts.map((contact, index) => (
+              <Contact
+                key={contact.headline ?? contact.website ?? contact.name ?? contact.phoneNumber ?? contact.mobileNumber}
+                contact={contact}
+                isLastContact={contacts.length - 1 === index}
+              />
+            ))}
           </Collapsible>
 
           <HorizontalLine />

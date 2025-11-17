@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import styled, { useTheme } from 'styled-components/native'
+import styled from 'styled-components/native'
 
 import SimpleImage from './SimpleImage'
 
@@ -8,7 +8,6 @@ const ThumbnailWrapper = styled.View`
   height: 180px;
   width: 100%;
   border-radius: 8px;
-  margin-bottom: 12px;
   overflow: hidden;
 `
 
@@ -16,6 +15,12 @@ const ThumbnailBackground = styled(SimpleImage)`
   position: absolute;
   height: 100%;
   width: 100%;
+`
+const WhiteBackground = styled.View`
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: #fff;
 `
 
 const Thumbnail = styled(ThumbnailBackground)`
@@ -27,15 +32,10 @@ type CustomThumbnailProps = {
 }
 
 const CustomThumbnail = ({ src }: CustomThumbnailProps): ReactElement => {
-  const theme = useTheme()
-  const isNonTransparent = !src.toLowerCase().includes('.png') && !src.toLowerCase().includes('.svg')
+  const opaque = ['.jpg', '.jpeg'].some(extension => src.toLowerCase().includes(extension))
   return (
     <ThumbnailWrapper>
-      {isNonTransparent ? (
-        <ThumbnailBackground source={src} resizeMode='cover' blurRadius={3} />
-      ) : (
-        <ThumbnailBackground style={{ tintColor: theme.colors.outline, transform: [{ scale: 1.04 }] }} source={src} />
-      )}
+      {opaque ? <ThumbnailBackground source={src} resizeMode='cover' blurRadius={3} /> : <WhiteBackground />}
       <Thumbnail source={src} />
     </ThumbnailWrapper>
   )
