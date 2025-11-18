@@ -26,8 +26,6 @@ const Divider = styled.View`
   margin: 8px 0;
 `
 
-type ExportType = 'only-this-event' | 'all-future-events'
-
 type CalendarChoiceProps = {
   calendars: Calendar[]
   chooseCalendar: (id: string | undefined, recurring: boolean) => Promise<void>
@@ -47,7 +45,7 @@ const CalendarChoiceModal = ({
 }: CalendarChoiceProps): ReactElement => {
   const { t } = useTranslation('events')
   const [selectedCalendarId, setSelectedCalendarId] = useState<string | undefined>(calendars[0]?.id ?? undefined)
-  const [exportMode, setExportMode] = useState<ExportType>('only-this-event')
+  const [exportAllEvents, setExportAllEvents] = useState<boolean>(false)
   const calendarCount = calendars.length
 
   return (
@@ -68,16 +66,15 @@ const CalendarChoiceModal = ({
       {recurring && (
         <>
           <Heading>{t('addToCalendar')}</Heading>
-          <RadioButton.Group onValueChange={value => setExportMode(value as ExportType)} value={exportMode}>
-            <RadioButton.Item mode='android' label={t('onlyThisEvent')} value='only-this-event' />
-            <RadioButton.Item mode='android' label={t('thisAndAllFutureEvents')} value='all-future-events' />
+          <RadioButton.Group
+            onValueChange={value => setExportAllEvents(value === 'true')}
+            value={exportAllEvents.toString()}>
+            <RadioButton.Item mode='android' label={t('onlyThisEvent')} value='false' />
+            <RadioButton.Item mode='android' label={t('thisAndAllFutureEvents')} value='true' />
           </RadioButton.Group>
         </>
       )}
-      <TextButton
-        onPress={() => chooseCalendar(selectedCalendarId, exportMode === 'all-future-events')}
-        text={t('addToCalendar')}
-      />
+      <TextButton onPress={() => chooseCalendar(selectedCalendarId, exportAllEvents)} text={t('addToCalendar')} />
     </Modal>
   )
 }
