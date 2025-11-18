@@ -1,7 +1,5 @@
 when:
-  and:
-    - << pipeline.parameters.api_triggered >>
-    - equal: [<< pipeline.parameters.workflow_type >>, web_production_delivery]
+  equal: [<< pipeline.parameters.workflow_type >>, web_production_delivery]
 jobs:
   - bump_version:
       prepare_delivery: true

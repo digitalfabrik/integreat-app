@@ -5,6 +5,7 @@ import React, { ReactElement } from 'react'
 import buildConfig from '../constants/buildConfig'
 import { useRouteParams } from '../hooks/useCityContentParams'
 import useDimensions from '../hooks/useDimensions'
+import useUpdateDimensions from '../hooks/useUpdateDimensions'
 import getFooterLinks from '../utils/getFooterLinks'
 import FooterListItem from './FooterListItem'
 import List from './base/List'
@@ -28,6 +29,7 @@ const StyledList = styled(List)({
 const Footer = (): ReactElement | null => {
   const linkItems = getFooterLinks(useRouteParams())
   const { mobile } = useDimensions()
+  useUpdateDimensions()
 
   if (mobile) {
     return null
