@@ -1,7 +1,7 @@
 ### Short Description
 
 <!-- Describe this PR in one or two sentences. -->
-<!-- Make sure to correctly set PR labels if necessary: `native`/`web` for native/web only PRs and `maintenance` for non-user-facing changes. -->
+<!-- Make sure to correctly set PR labels if necessary: `Native`/`Web` for native/web only PRs and `maintenance` for non-user-facing changes. -->
 
 ### Proposed Changes
 
