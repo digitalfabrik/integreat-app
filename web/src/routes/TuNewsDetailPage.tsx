@@ -66,9 +66,9 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
     Toolbar: <CityContentToolbar />,
   }
 
-  if (!loading && !newsModel) {
+  if (newsError) {
     const error =
-      !newsError || newsError instanceof NotFoundError
+      newsError instanceof NotFoundError
         ? new NotFoundError({
             type: TU_NEWS_TYPE,
             id: pathname,

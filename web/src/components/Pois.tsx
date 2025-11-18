@@ -31,9 +31,10 @@ type PoiProps = {
   pois: PoiModel[]
   userLocation: LocationType | null
   city: CityModel
+  loading: boolean
 }
 
-const Pois = ({ pois: allPois, userLocation, city }: PoiProps): ReactElement | null => {
+const Pois = ({ pois: allPois, userLocation, city, loading }: PoiProps): ReactElement | null => {
   const [currentlyOpenFilter, setCurrentlyOpenFilter] = useState(false)
   const [showFilterSelection, setShowFilterSelection] = useState(false)
   const [queryParams, setQueryParams] = useSearchParams()
@@ -101,6 +102,7 @@ const Pois = ({ pois: allPois, userLocation, city }: PoiProps): ReactElement | n
     slug,
     mapViewport,
     setMapViewport,
+    loading,
     MapOverlay: (
       <PoiFiltersOverlayButtons
         currentlyOpenFilter={currentlyOpenFilter}

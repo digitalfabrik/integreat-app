@@ -13,6 +13,8 @@ import BottomActionSheet, { ScrollableBottomSheetRef } from './BottomActionSheet
 import MapAttribution from './MapAttribution'
 import MapView, { MapViewRef } from './MapView'
 import PoiSharedChildren from './PoiSharedChildren'
+import SkeletonHeader from './SkeletonHeader'
+import SkeletonList from './SkeletonList'
 import { DirectionDependentBackIcon } from './base/Dialog'
 
 const StyledIconButton = styled(IconButton)(({ theme }) => ({
@@ -43,6 +45,7 @@ type PoisMobileProps = {
   selectMapFeature: (mapFeature: MapFeature | null) => void
   deselect: () => void
   MapOverlay: ReactElement
+  loading: boolean
 }
 
 const PoisMobile = ({
@@ -54,6 +57,7 @@ const PoisMobile = ({
   selectMapFeature,
   deselect,
   MapOverlay,
+  loading,
 }: PoisMobileProps): ReactElement => {
   const [scrollOffset, setScrollOffset] = useState<number>(0)
   const sheetRef = useRef<ScrollableBottomSheetRef>(null)
@@ -124,14 +128,27 @@ const PoisMobile = ({
             </AttributionContainer>
           </>
         }>
-        <Stack padding={2} gap={1}>
-          {!canDeselect && (
-            <Typography component='h1' variant='h3' alignContent='center'>
-              {t('common:nearby')}
-            </Typography>
-          )}
-          <PoiSharedChildren pois={pois} poi={poi} scrollToTop={scrollToTop} userLocation={userLocation} slug={slug} />
-        </Stack>
+        {loading ? (
+          <Stack paddingX={2}>
+            <SkeletonHeader width='40%' />
+            <SkeletonList />
+          </Stack>
+        ) : (
+          <Stack padding={2} gap={1}>
+            {!canDeselect && (
+              <Typography component='h1' variant='h3' alignContent='center'>
+                {t('common:nearby')}
+              </Typography>
+            )}
+            <PoiSharedChildren
+              pois={pois}
+              poi={poi}
+              scrollToTop={scrollToTop}
+              userLocation={userLocation}
+              slug={slug}
+            />
+          </Stack>
+        )}
       </BottomActionSheet>
     </>
   )

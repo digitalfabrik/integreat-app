@@ -11,6 +11,8 @@ import MapView from './MapView'
 import PoiPanelHeader from './PoiPanelHeader'
 import PoiPanelNavigation from './PoiPanelNavigation'
 import PoiSharedChildren from './PoiSharedChildren'
+import SkeletonHeader from './SkeletonHeader'
+import SkeletonList from './SkeletonList'
 
 const PanelContainer = styled('article')`
   overflow: auto;
@@ -44,6 +46,7 @@ type PoisDesktopProps = {
   mapViewport?: MapViewViewport
   setMapViewport: (mapViewport: MapViewViewport) => void
   MapOverlay: ReactElement
+  loading: boolean
 }
 
 const nextPoiIndex = (step: 1 | -1, arrayLength: number, currentIndex: number): number => {
@@ -66,6 +69,7 @@ const PoisDesktop = ({
   mapViewport,
   setMapViewport,
   MapOverlay,
+  loading,
 }: PoisDesktopProps): ReactElement => {
   const [scrollOffset, setScrollOffset] = useState<number>(0)
   const listRef = useRef<HTMLDivElement>(null)
@@ -104,7 +108,16 @@ const PoisDesktop = ({
 
   return (
     <>
-      <PanelContainer>{PanelContent}</PanelContainer>
+      <PanelContainer>
+        {loading ? (
+          <Stack paddingX={2}>
+            <SkeletonHeader width='60%' />
+            <SkeletonList />
+          </Stack>
+        ) : (
+          PanelContent
+        )}
+      </PanelContainer>
       <MapView
         viewport={mapViewport}
         setViewport={setMapViewport}

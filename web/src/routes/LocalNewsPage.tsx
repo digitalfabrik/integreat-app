@@ -69,7 +69,7 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
     Toolbar: <CityContentToolbar />,
   }
 
-  if (!localNews && loading) {
+  if (loading) {
     return (
       <CityContentLayout isLoading {...locationLayoutParams}>
         {newsId ? (
@@ -90,19 +90,13 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
     )
   }
 
-  const missingList = localNews == null
-  const missingDetailPage = newsId != null && newsModel == null
-  const hasDataError = !loading && (missingList || missingDetailPage)
-
-  if (hasDataError) {
-    const error =
-      newsError ||
-      new NotFoundError({
-        type: LOCAL_NEWS_TYPE,
-        id: pathname,
-        city: cityCode,
-        language: languageCode,
-      })
+  if (newsError) {
+    const error = new NotFoundError({
+      type: LOCAL_NEWS_TYPE,
+      id: pathname,
+      city: cityCode,
+      language: languageCode,
+    })
 
     return (
       <CityContentLayout isLoading={false} {...locationLayoutParams}>
@@ -116,16 +110,12 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
     return (
       <CityContentLayout isLoading={false} {...locationLayoutParams}>
         <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
-        {loading ? (
-          <SkeletonPage />
-        ) : (
-          <Page
-            title={newsModel.title}
-            content={linkedContent}
-            lastUpdate={newsModel.timestamp}
-            showLastUpdateText={false}
-          />
-        )}
+        <Page
+          title={newsModel.title}
+          content={linkedContent}
+          lastUpdate={newsModel.timestamp}
+          showLastUpdateText={false}
+        />
       </CityContentLayout>
     )
   }
@@ -153,7 +143,7 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
         localNewsEnabled={city.localNewsEnabled}
         language={languageCode}
       />
-      {loading ? <SkeletonList /> : <List items={NewsListItems ?? []} NoItemsMessage='news:currentlyNoNews' />}
+      <List items={NewsListItems ?? []} NoItemsMessage='news:currentlyNoNews' />
     </CityContentLayout>
   )
 }

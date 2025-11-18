@@ -30,8 +30,6 @@ import { cmsApiBaseUrl } from '../constants/urls'
 import useLoadSearchDocuments from '../hooks/useLoadSearchDocuments'
 import useReportError from '../hooks/useReportError'
 
-const LOAD_SKELETON_TIMEOUT = 250
-
 type SearchProps = {
   query: string
   loading: boolean
@@ -40,7 +38,6 @@ type SearchProps = {
 
 const SearchResults = ({ query, loading, results }: SearchProps): ReactElement | null => {
   const { t } = useTranslation('search')
-  const hasResults = results.length > 0
 
   if (query.length === 0) {
     return null
@@ -50,26 +47,17 @@ const SearchResults = ({ query, loading, results }: SearchProps): ReactElement |
     return <SkeletonList listItemHeight={64} />
   }
 
-  if (!hasResults) {
-    return <SearchFeedback noResults query={query} />
-  }
+  const items = results.map(({ title, content, path }) => (
+    <SearchListItem title={title} contentWithoutHtml={parseHTML(content)} key={path} query={query} path={path} />
+  ))
 
   return (
     <>
       <Typography variant='subtitle2' aria-live={results.length === 0 ? 'assertive' : 'polite'}>
         {t('searchResultsCount', { count: results.length })}
       </Typography>
-      <List
-        items={results.map(result => (
-          <SearchListItem
-            key={result.path}
-            title={result.title}
-            contentWithoutHtml={parseHTML(result.content)}
-            query={query}
-            path={result.path}
-          />
-        ))}
-      />
+      <List items={items} />
+      <SearchFeedback noResults={results.length === 0} query={query} />
     </>
   )
 }
