@@ -32,6 +32,7 @@ steps:
       name: '[FL] << parameters.build_config_name >> Android Build'
       command: bundle exec fastlane android build build_config_name:<< parameters.build_config_name >> version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
       working_directory: native/android
+      no_output_timeout: 30m
   - run:
       name: Prepare Sourcemaps
       command: |
