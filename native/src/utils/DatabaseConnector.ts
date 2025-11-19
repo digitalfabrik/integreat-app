@@ -160,7 +160,7 @@ type ContentPoiJsonType = {
   lastUpdate: string
   category: { id: number; name: string; color: string; icon: string; iconName: string }
   openingHours:
-    | { allDay: boolean; closed: boolean; timeSlots: { start: string; end: string }[]; appointmentOnly: boolean }[]
+    | { allDay: boolean; closed: boolean; timeSlots: { start: string; end: string; timezone: string }[]; appointmentOnly: boolean }[]
     | null
   temporarilyClosed: boolean
   appointmentUrl: string | null
@@ -496,6 +496,7 @@ class DatabaseConnector {
             timeSlots: hours.timeSlots.map(timeslot => ({
               start: timeslot.start,
               end: timeslot.end,
+              timezone: timeslot.timezone,
             })),
             appointmentOnly: hours.appointmentOnly,
           })) ?? null,
@@ -566,6 +567,7 @@ class DatabaseConnector {
                   timeSlots: hours.timeSlots.map(timeslot => ({
                     start: timeslot.start,
                     end: timeslot.end,
+                     timezone: timeslot.timezone,
                   })),
                   appointmentOnly: hours.appointmentOnly,
                 }),
