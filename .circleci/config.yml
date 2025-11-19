@@ -750,14 +750,14 @@ jobs:
             - restore_yarn_tools_cache
             - run:
                 command: |
-                    PROMOTION_MESSAGE=$(yarn --silent app-toolbelt v0 release promote --platform << parameters.platform >> --private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME})
-                    echo "export PROMOTION_MESSAGE='${PROMOTION_MESSAGE}'" >> $BASH_ENV
+                    RELEASE=$(yarn --silent app-toolbelt v0 release promote --platform << parameters.platform >> --private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME})
+                    echo "export RELEASE='${RELEASE}'" >> $BASH_ENV
                 name: Remove prerelease flag from github release
                 working_directory: tools
             - notify:
                 channel: releases
                 only_for_branch: ${CIRCLE_BRANCH}
-                success_message: ${PROMOTION_MESSAGE}
+                success_message: '##### Integreat App release ${RELEASE} has been promoted successfully to production :tada:'
     notify_release:
         docker:
             - image: cimg/node:22.21.1
@@ -779,7 +779,10 @@ jobs:
             - restore_environment_variables
             - restore_yarn_tools_cache
             - run:
-                command: echo "export RELEASE_ID='$(yarn --silent app-toolbelt v0 release create << parameters.platform >> ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} <<# parameters.production_delivery >>--production-release<</ parameters.production_delivery >>)'" >> ${BASH_ENV}
+                command: |
+                    RELEASE=$(yarn --silent app-toolbelt v0 release create << parameters.platform >> ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} <<# parameters.production_delivery >>--production-release<</ parameters.production_delivery >>)
+                    echo "export RELEASE_ID=$(echo ${RELEASE} | jq .id)" >> ${BASH_ENV}
+                    echo "export RELEASE_NOTES=$(echo ${RELEASE} | jq .releaseNotes)" >> ${BASH_ENV}
                 name: Create github release
                 working_directory: tools
             - unless:
@@ -811,7 +814,10 @@ jobs:
             - notify:
                 channel: releases
                 only_for_branch: ${CIRCLE_BRANCH}
-                success_message: <<^ parameters.production_delivery >>[Beta] <</ parameters.production_delivery >>Integreat, Malte, Aschaffenburg and Obdach ${NEW_VERSION_NAME} (<< parameters.platform >>) have been released successfully!\n[Release notes](https://github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/releases/tag/${NEW_VERSION_NAME}-<< parameters.platform >>)\n${ANDROID_ARTIFACT_URLS}${IOS_ARTIFACT_URLS}
+                success_message: |-
+                    ##### <<^ parameters.production_delivery >>[Beta] <</ parameters.production_delivery >>[<< parameters.platform >>] Integreat App version [${NEW_VERSION_NAME}](https://github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/releases/tag/${NEW_VERSION_NAME}) has been released successfully :tada:
+                    ${RELEASE_NOTES}
+                    ${ANDROID_ARTIFACT_URLS} ${IOS_ARTIFACT_URLS}
     promote_android:
         docker:
             - image: cimg/android:2025.10.1-node
@@ -1057,7 +1063,7 @@ workflows:
                 context:
                     - browserstack
                 requires:
-                    - build_android-integreat-e2e
+                    - build_android
             - build_ios:
                 build_config_name: integreat-e2e
                 context:
@@ -1069,7 +1075,7 @@ workflows:
                 context:
                     - browserstack
                 requires:
-                    - build_ios-integreat-e2e
+                    - build_ios
         when:
             equal:
                 - << pipeline.parameters.workflow_type >>
