@@ -278,6 +278,3 @@ vendor/
 
 # JUnit output
 reports/
-
-# IntelliJ / JetBrains IDE project files
-.idea/
