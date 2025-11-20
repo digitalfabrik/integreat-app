@@ -225,9 +225,6 @@ jobs:
         shell: /bin/bash -eo pipefail
         steps:
             - checkout
-            - add_ssh_keys:
-                fingerprints:
-                    - 24:1d:3b:b7:b3:49:69:d7:54:c3:93:a5:a2:d1:71:db
             - prepare_workspace
             - restore_environment_variables
             - restore_yarn_cache
@@ -315,9 +312,6 @@ jobs:
         shell: /bin/bash --login -o pipefail
         steps:
             - checkout
-            - add_ssh_keys:
-                fingerprints:
-                    - 24:1d:3b:b7:b3:49:69:d7:54:c3:93:a5:a2:d1:71:db
             - prepare_workspace
             - restore_environment_variables
             - restore_yarn_cache
@@ -756,14 +750,14 @@ jobs:
             - restore_yarn_tools_cache
             - run:
                 command: |
-                    PROMOTION_MESSAGE=$(yarn --silent app-toolbelt v0 release promote --platform << parameters.platform >> --private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME})
-                    echo "export PROMOTION_MESSAGE='${PROMOTION_MESSAGE}'" >> $BASH_ENV
+                    RELEASE=$(yarn --silent app-toolbelt v0 release promote --platform << parameters.platform >> --private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME})
+                    echo "export RELEASE='${RELEASE}'" >> $BASH_ENV
                 name: Remove prerelease flag from github release
                 working_directory: tools
             - notify:
                 channel: releases
                 only_for_branch: ${CIRCLE_BRANCH}
-                success_message: ${PROMOTION_MESSAGE}
+                success_message: '##### Integreat App release ${RELEASE} has been promoted successfully to production :tada:'
     notify_release:
         docker:
             - image: cimg/node:22.21.1
@@ -785,7 +779,10 @@ jobs:
             - restore_environment_variables
             - restore_yarn_tools_cache
             - run:
-                command: echo "export RELEASE_ID='$(yarn --silent app-toolbelt v0 release create << parameters.platform >> ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} <<# parameters.production_delivery >>--production-release<</ parameters.production_delivery >>)'" >> ${BASH_ENV}
+                command: |
+                    RELEASE=$(yarn --silent app-toolbelt v0 release create << parameters.platform >> ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} <<# parameters.production_delivery >>--production-release<</ parameters.production_delivery >>)
+                    echo "export RELEASE_ID=$(echo ${RELEASE} | jq .id)" >> ${BASH_ENV}
+                    echo "export RELEASE_NOTES=$(echo ${RELEASE} | jq .releaseNotes)" >> ${BASH_ENV}
                 name: Create github release
                 working_directory: tools
             - unless:
@@ -817,7 +814,10 @@ jobs:
             - notify:
                 channel: releases
                 only_for_branch: ${CIRCLE_BRANCH}
-                success_message: <<^ parameters.production_delivery >>[Beta] <</ parameters.production_delivery >>Integreat, Malte, Aschaffenburg and Obdach ${NEW_VERSION_NAME} (<< parameters.platform >>) have been released successfully!\n[Release notes](https://github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/releases/tag/${NEW_VERSION_NAME}-<< parameters.platform >>)\n${ANDROID_ARTIFACT_URLS}${IOS_ARTIFACT_URLS}
+                success_message: |-
+                    ##### <<^ parameters.production_delivery >>[Beta] <</ parameters.production_delivery >>[<< parameters.platform >>] Integreat App version [${NEW_VERSION_NAME}](https://github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/releases/tag/${NEW_VERSION_NAME}) has been released successfully :tada:
+                    ${RELEASE_NOTES}
+                    ${ANDROID_ARTIFACT_URLS} ${IOS_ARTIFACT_URLS}
     promote_android:
         docker:
             - image: cimg/android:2025.10.1-node
@@ -892,10 +892,6 @@ jobs:
                 name: Obdach production promotion
             - notify
 parameters:
-    api_triggered:
-        default: false
-        description: Whether the pipeline was triggered through the CircleCi API (https://circleci.com/docs/api/v2/?shell#trigger-a-new-pipeline).
-        type: boolean
     workflow_type:
         default: none
         enum:
@@ -907,6 +903,7 @@ parameters:
             - web_beta_delivery
             - web_production_delivery
             - web_promotion
+            - e2e_tests
             - none
         type: enum
 version: 2.1
@@ -915,11 +912,9 @@ workflows:
         jobs:
             - check
         unless:
-            or:
-                - equal:
-                    - main
-                    - << pipeline.git.branch >>
-                - << pipeline.parameters.api_triggered >>
+            equal:
+                - main
+                - << pipeline.git.branch >>
     commit_main:
         jobs:
             - bump_version:
@@ -939,11 +934,9 @@ workflows:
                 requires:
                     - build_web
         when:
-            and:
-                - equal:
-                    - main
-                    - << pipeline.git.branch >>
-                - not: << pipeline.parameters.api_triggered >>
+            equal:
+                - main
+                - << pipeline.git.branch >>
     delivery:
         jobs:
             - bump_version:
@@ -1049,11 +1042,44 @@ workflows:
                     - deliver_ios
                     - deliver_web
         when:
-            and:
-                - << pipeline.parameters.api_triggered >>
-                - equal:
-                    - << pipeline.parameters.workflow_type >>
-                    - delivery
+            equal:
+                - << pipeline.parameters.workflow_type >>
+                - delivery
+    e2e_tests:
+        jobs:
+            - bump_version:
+                prepare_delivery: false
+            - e2e_web:
+                requires:
+                    - bump_version
+            - build_android:
+                build_config_name: integreat-e2e
+                context:
+                    - credentials-repo
+                    - credentials-integreat
+                requires:
+                    - bump_version
+            - e2e_android:
+                context:
+                    - browserstack
+                requires:
+                    - build_android
+            - build_ios:
+                build_config_name: integreat-e2e
+                context:
+                    - tuerantuer-apple
+                    - fastlane-match
+                requires:
+                    - bump_version
+            - e2e_ios:
+                context:
+                    - browserstack
+                requires:
+                    - build_ios
+        when:
+            equal:
+                - << pipeline.parameters.workflow_type >>
+                - e2e_tests
     native_beta_delivery:
         jobs:
             - bump_version:
@@ -1138,11 +1164,9 @@ workflows:
                     - deliver_android
                     - deliver_ios
         when:
-            and:
-                - << pipeline.parameters.api_triggered >>
-                - equal:
-                    - << pipeline.parameters.workflow_type >>
-                    - native_beta_delivery
+            equal:
+                - << pipeline.parameters.workflow_type >>
+                - native_beta_delivery
     native_production_delivery:
         jobs:
             - bump_version:
@@ -1227,11 +1251,9 @@ workflows:
                     - deliver_android
                     - deliver_ios
         when:
-            and:
-                - << pipeline.parameters.api_triggered >>
-                - equal:
-                    - << pipeline.parameters.workflow_type >>
-                    - native_production_delivery
+            equal:
+                - << pipeline.parameters.workflow_type >>
+                - native_production_delivery
     native_promotion:
         jobs:
             - promote_android:
@@ -1262,11 +1284,9 @@ workflows:
                     - promote_android
                     - promote_ios
         when:
-            and:
-                - << pipeline.parameters.api_triggered >>
-                - equal:
-                    - << pipeline.parameters.workflow_type >>
-                    - native_promotion
+            equal:
+                - << pipeline.parameters.workflow_type >>
+                - native_promotion
     promotion:
         jobs:
             - promote_web:
@@ -1300,11 +1320,9 @@ workflows:
                     - promote_ios
                     - promote_web
         when:
-            and:
-                - << pipeline.parameters.api_triggered >>
-                - equal:
-                    - << pipeline.parameters.workflow_type >>
-                    - promotion
+            equal:
+                - << pipeline.parameters.workflow_type >>
+                - promotion
     web_beta_delivery:
         jobs:
             - bump_version:
@@ -1341,11 +1359,9 @@ workflows:
                 requires:
                     - deliver_web
         when:
-            and:
-                - << pipeline.parameters.api_triggered >>
-                - equal:
-                    - << pipeline.parameters.workflow_type >>
-                    - web_beta_delivery
+            equal:
+                - << pipeline.parameters.workflow_type >>
+                - web_beta_delivery
     web_production_delivery:
         jobs:
             - bump_version:
@@ -1382,11 +1398,9 @@ workflows:
                 requires:
                     - deliver_web
         when:
-            and:
-                - << pipeline.parameters.api_triggered >>
-                - equal:
-                    - << pipeline.parameters.workflow_type >>
-                    - web_production_delivery
+            equal:
+                - << pipeline.parameters.workflow_type >>
+                - web_production_delivery
     web_promotion:
         jobs:
             - promote_web:
@@ -1399,9 +1413,7 @@ workflows:
                 requires:
                     - promote_web
         when:
-            and:
-                - << pipeline.parameters.api_triggered >>
-                - equal:
-                    - << pipeline.parameters.workflow_type >>
-                    - web_promotion
+            equal:
+                - << pipeline.parameters.workflow_type >>
+                - web_promotion
 
