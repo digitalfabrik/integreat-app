@@ -11590,7 +11590,9 @@
       "poisCount_few": "{{count}} Orte",
       "poisCount_many": "{{count}} Orte",
       "poisCount_other": "{{count}} Orte",
-      "contacts": "Kontakte"
+      "contacts": "Kontakte",
+      "showHours": "Zeiten anzeigen",
+      "showLessHours": "Weniger Zeiten anzeigen"
     },
     "am": {
       "pageTitle": "ካርታ",
@@ -12150,7 +12152,9 @@
       "poisCount_few": "{{count}} locations",
       "poisCount_many": "{{count}} locations",
       "poisCount_other": "{{count}} locations",
-      "contacts": "Contacts"
+      "contacts": "Contacts",
+      "showHours": "Show hours",
+      "showLessHours": "Show less hours"
     },
     "es": {
       "pageTitle": "Mapa",

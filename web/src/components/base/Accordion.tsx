@@ -13,9 +13,12 @@ const StyledAccordion = styled(MuiAccordion)({
   },
 })
 
-const StyledAccordionSummary = styled(AccordionSummary)({
+const StyledAccordionSummary = styled(AccordionSummary)<{ iconColor?: string }>(({ iconColor }) => ({
   padding: 0,
-})
+  '.MuiSvgIcon-root': {
+    color: iconColor,
+  },
+}))
 
 const StyledAccordionDetails = styled(AccordionDetails)({
   overflowWrap: 'break-word',
@@ -25,13 +28,25 @@ type AccordionProps = {
   id: string
   children: ReactNode
   title: string | ReactElement
+  titleOnExpand?: string | ReactElement
   description?: ReactElement
   defaultCollapsed?: boolean
+  iconColor?: string
 }
 
-const Accordion = ({ children, title, description, id, defaultCollapsed = false }: AccordionProps): ReactElement => {
+const Accordion = ({
+  children,
+  title,
+  titleOnExpand,
+  description,
+  id,
+  defaultCollapsed = false,
+  iconColor,
+}: AccordionProps): ReactElement => {
   const [expanded, setExpanded] = useState(!defaultCollapsed)
   const { t } = useTranslation('common')
+
+  const displayTitle = expanded && titleOnExpand !== undefined ? titleOnExpand : title
 
   return (
     <StyledAccordion
@@ -45,8 +60,9 @@ const Accordion = ({ children, title, description, id, defaultCollapsed = false 
         aria-controls={`${id}-content`}
         aria-label={t(expanded ? 'showLess' : 'showMore')}
         expandIcon={<ExpandMoreIcon />}
+        iconColor={iconColor}
         tabIndex={0}>
-        {typeof title === 'string' ? <Typography variant='subtitle1'>{title}</Typography> : title}
+        {typeof displayTitle === 'string' ? <Typography variant='subtitle1'>{displayTitle}</Typography> : displayTitle}
         {description}
       </StyledAccordionSummary>
       <StyledAccordionDetails>{children}</StyledAccordionDetails>

@@ -146,6 +146,9 @@ type ContactJsonType = {
   phoneNumber: string | null
   website: string | null
   mobileNumber: string | null
+  officeHours:
+    | { allDay: boolean; closed: boolean; timeSlots: { start: string; end: string }[]; appointmentOnly: boolean }[]
+    | null
 }
 
 type ContentPoiJsonType = {
@@ -470,6 +473,16 @@ class DatabaseConnector {
           phoneNumber: contact.phoneNumber,
           website: contact.website,
           mobileNumber: contact.mobileNumber,
+          officeHours:
+            contact.officeHours?.map(hours => ({
+              allDay: hours.allDay,
+              closed: hours.closed,
+              timeSlots: hours.timeSlots.map(timeslot => ({
+                start: timeslot.start,
+                end: timeslot.end,
+              })),
+              appointmentOnly: hours.appointmentOnly,
+            })) ?? null,
         })),
         location: {
           id: poi.location.id,
@@ -537,6 +550,19 @@ class DatabaseConnector {
                 phoneNumber: contact.phoneNumber,
                 website: contact.website,
                 mobileNumber: contact.mobileNumber,
+                officeHours:
+                  contact.officeHours?.map(
+                    hours =>
+                      new OpeningHoursModel({
+                        allDay: hours.allDay,
+                        closed: hours.closed,
+                        timeSlots: hours.timeSlots.map(timeslot => ({
+                          start: timeslot.start,
+                          end: timeslot.end,
+                        })),
+                        appointmentOnly: hours.appointmentOnly,
+                      }),
+                  ) ?? null,
               }),
           ),
           location: new LocationModel({

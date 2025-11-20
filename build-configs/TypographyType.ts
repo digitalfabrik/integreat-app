@@ -1,7 +1,7 @@
 import * as CSS from 'csstype'
 import React from 'react'
 
-type TypographyVariant =
+export type TypographyVariant =
   | 'h1'
   | 'h2'
   | 'h3'

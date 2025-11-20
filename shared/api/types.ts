@@ -102,6 +102,7 @@ type JsonContactType = {
   phone_number: string | null
   website: string | null
   mobile_number: string | null
+  opening_hours?: JsonOpeningHoursType[] | null
 }
 
 export type JsonPoiType = {

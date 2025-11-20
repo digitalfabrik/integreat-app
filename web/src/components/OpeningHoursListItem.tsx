@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next'
 
 import { OpeningHoursModel } from 'shared/api'
 
+import { TypographyVariant } from '../../../build-configs/TypographyType'
 import AppointmentOnlyIcon from './AppointmentOnlyIcon'
 
 const StyledListItem = styled(ListItem)({
@@ -18,6 +19,7 @@ type OpeningHoursListItemProps = {
   weekday: string
   isCurrentDay: boolean
   appointmentUrl: string | null
+  variant?: TypographyVariant | undefined
 }
 
 const OpeningHoursListItem = ({
@@ -25,20 +27,31 @@ const OpeningHoursListItem = ({
   weekday,
   isCurrentDay,
   appointmentUrl,
+  variant,
 }: OpeningHoursListItemProps): ReactElement => {
   const { t } = useTranslation('pois')
   const fontWeight = isCurrentDay ? 'bold' : 'normal'
 
   return (
     <StyledListItem disablePadding>
-      <Typography fontWeight={fontWeight}>{weekday}</Typography>
+      <Typography variant={variant} fontWeight={fontWeight}>
+        {weekday}
+      </Typography>
       <Stack direction='row' alignItems='center' gap={1}>
-        {openingHours.allDay && <Typography fontWeight={fontWeight}>{t('allDay')}</Typography>}
-        {openingHours.closed && <Typography fontWeight={fontWeight}>{t('closed')}</Typography>}
+        {openingHours.allDay && (
+          <Typography variant={variant} fontWeight={fontWeight}>
+            {t('allDay')}
+          </Typography>
+        )}
+        {openingHours.closed && (
+          <Typography variant={variant} fontWeight={fontWeight}>
+            {t('closed')}
+          </Typography>
+        )}
         {!openingHours.allDay && !openingHours.closed && openingHours.timeSlots.length > 0 && (
           <Stack>
             {openingHours.timeSlots.map(timeSlot => (
-              <Typography fontWeight={fontWeight} key={`${weekday}-${timeSlot.start}`}>
+              <Typography variant={variant} fontWeight={fontWeight} key={`${weekday}-${timeSlot.start}`}>
                 {timeSlot.start}-{timeSlot.end}
               </Typography>
             ))}
