@@ -37,11 +37,9 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const newsId = useParams().newsId!
 
-  const {
-    data: newsModel,
-    loading,
-    error: newsError,
-  } = useLoadFromEndpoint(createTunewsElementEndpoint, tunewsApiBaseUrl, { id: parseInt(newsId, 10) })
+  const { data: newsModel, error: newsError } = useLoadFromEndpoint(createTunewsElementEndpoint, tunewsApiBaseUrl, {
+    id: parseInt(newsId, 10),
+  })
 
   useTtsPlayer(newsModel, languageCode)
 
@@ -92,17 +90,15 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
           <Svg src={TuNewsActiveIcon} width='100%' height='100%' />
         </IconContainer>
       </TuNewsBanner>
-      {loading ? (
+      {!newsModel ? (
         <SkeletonPage />
       ) : (
-        newsModel && (
-          <Page
-            title={newsModel.title}
-            content={newsModel.content}
-            lastUpdate={newsModel.date}
-            showLastUpdateText={false}
-          />
-        )
+        <Page
+          title={newsModel.title}
+          content={newsModel.content}
+          lastUpdate={newsModel.date}
+          showLastUpdateText={false}
+        />
       )}
     </CityContentLayout>
   )

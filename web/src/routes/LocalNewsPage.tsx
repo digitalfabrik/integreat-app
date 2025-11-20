@@ -69,27 +69,6 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
     Toolbar: <CityContentToolbar />,
   }
 
-  if (loading) {
-    return (
-      <CityContentLayout isLoading {...locationLayoutParams}>
-        {newsId ? (
-          <SkeletonPage />
-        ) : (
-          <>
-            <NewsTabs
-              type={LOCAL_NEWS_TYPE}
-              city={cityCode}
-              tunewsEnabled={city.tunewsEnabled}
-              localNewsEnabled={city.localNewsEnabled}
-              language={languageCode}
-            />
-            <SkeletonList />
-          </>
-        )}
-      </CityContentLayout>
-    )
-  }
-
   if (newsError) {
     const error = new NotFoundError({
       type: LOCAL_NEWS_TYPE,
@@ -105,7 +84,14 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
     )
   }
 
-  if (newsModel) {
+  if (newsId) {
+    if (!newsModel) {
+      return (
+        <CityContentLayout isLoading={false} {...locationLayoutParams}>
+          <SkeletonPage />
+        </CityContentLayout>
+      )
+    }
     const linkedContent = replaceLinks(newsModel.content)
     return (
       <CityContentLayout isLoading={false} {...locationLayoutParams}>
@@ -143,7 +129,7 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
         localNewsEnabled={city.localNewsEnabled}
         language={languageCode}
       />
-      <List items={NewsListItems ?? []} NoItemsMessage='news:currentlyNoNews' />
+      {loading ? <SkeletonList /> : <List items={NewsListItems ?? []} NoItemsMessage='news:currentlyNoNews' />}
     </CityContentLayout>
   )
 }
