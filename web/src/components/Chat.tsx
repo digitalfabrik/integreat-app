@@ -115,7 +115,7 @@ const Chat = ({
           <Button onClick={onSubmit} startIcon={<SendIcon />} variant='contained' disabled={submitDisabled} fullWidth>
             {t('sendButton')}
           </Button>
-          <Tooltip title={t('layout:tooltip_privacy_policy')}>
+          <Tooltip title={t('settings:privacyPolicy')}>
             <IconButton
               component={Link}
               to={city.chatPrivacyPolicyUrl ?? buildConfig().privacyUrls.default}
