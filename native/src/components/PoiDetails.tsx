@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Divider } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 import { PoiModel } from 'shared/api'
@@ -23,11 +24,22 @@ const Title = styled.Text`
   font-size: 16px;
   font-weight: bold;
   color: ${props => props.theme.legacy.colors.textColor};
+  padding-bottom: 4px;
 `
 
 const StyledDistance = styled.Text`
   font-size: 12px;
+  margin-top: 8px;
+  padding-bottom: 6px;
   color: ${props => props.theme.legacy.colors.textColor};
+`
+
+const StyledContactsContainer = styled.View`
+  margin-top: 12px;
+`
+
+const StyledDivider = styled(Divider)`
+  margin: 20px 0;
 `
 
 type PoiDetailsProps = {
@@ -49,12 +61,13 @@ const PoiDetails = ({ poi, language, distance, onFocus }: PoiDetailsProps): Reac
       )}
       {!!poi.thumbnail && <CustomThumbnail src={poi.thumbnail} />}
       <PoiChips poi={poi} />
-      <HorizontalLine />
+      <StyledDivider />
       <AddressInfo location={poi.location} language={language} />
-      <HorizontalLine />
+      <StyledDivider />
       {contacts.length > 0 && (
         <>
           <Collapsible headerContent={t('contacts')} language={language}>
+            <StyledContactsContainer>
             {contacts.map((contact, index) => (
               <Contact
                 key={contact.headline ?? contact.website ?? contact.name ?? contact.phoneNumber ?? contact.mobileNumber}
@@ -63,9 +76,10 @@ const PoiDetails = ({ poi, language, distance, onFocus }: PoiDetailsProps): Reac
                 language={language}
               />
             ))}
+            </StyledContactsContainer>
           </Collapsible>
 
-          <HorizontalLine />
+          <StyledDivider />
         </>
       )}
       <OpeningHours
@@ -80,7 +94,7 @@ const PoiDetails = ({ poi, language, distance, onFocus }: PoiDetailsProps): Reac
           <Collapsible headerContent={t('description')} language={language}>
             <Page content={content} language={language} padding={false} accessible />
           </Collapsible>
-          <HorizontalLine />
+          <StyledDivider />
         </>
       )}
     </PoiDetailsContainer>

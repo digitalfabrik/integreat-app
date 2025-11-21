@@ -1,11 +1,11 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Divider } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 import { ContactModel } from 'shared/api'
 
 import { ExternalLinkIcon, MailIcon, PhoneIcon, WebsiteIcon, MobilePhoneIcon } from '../assets'
-import HorizontalLine from './HorizontalLine'
 import OfficeHours from './OfficeHours'
 import PoiDetailRow from './PoiDetailRow'
 import Text from './base/Text'
@@ -13,6 +13,10 @@ import Text from './base/Text'
 const StyledContactHeader = styled(Text)`
   margin-bottom: 6px;
   color: ${props => props.theme.legacy.colors.textColor};
+`
+
+const StyledDivider = styled(Divider)`
+  margin: 20px 0;
 `
 
 type ContactProps = {
@@ -60,7 +64,7 @@ const Contact = ({
         <PoiDetailRow externalUrl={`mailto:${email}`} accessibilityLabel={t('eMail')} text={email} Icon={MailIcon} />
       )}
       {officeHours !== null && <OfficeHours officeHours={officeHours} language={language} />}
-      {!isLastContact && <HorizontalLine />}
+      {!isLastContact && <StyledDivider />}
     </>
   )
 }
