@@ -1,10 +1,10 @@
 import React, { ReactElement } from 'react'
 import { Trans } from 'react-i18next'
+import { Checkbox } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 import buildConfig from '../constants/buildConfig'
 import Link from './Link'
-import Checkbox from './base/Checkbox'
 import Pressable from './base/Pressable'
 import Text from './base/Text'
 
@@ -32,7 +32,7 @@ const PrivacyCheckbox = ({ language, checked, setChecked }: PrivacyCheckboxProps
   const privacyUrl = privacyUrls[language] || privacyUrls.default
   return (
     <StyledPressable onPress={() => setChecked(!checked)} role='checkbox'>
-      <Checkbox checked={checked} setChecked={setChecked} />
+      <Checkbox.Android status={checked ? 'checked' : 'unchecked'} onPress={() => setChecked(!checked)} />
       <StyledLabel>
         <Trans i18nKey='common:privacyPolicy'>
           This gets replaced
