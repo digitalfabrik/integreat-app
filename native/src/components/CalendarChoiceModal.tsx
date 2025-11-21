@@ -2,6 +2,7 @@ import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, View } from 'react-native'
 import { Calendar } from 'react-native-calendar-events'
+import { Divider } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 import Modal from './Modal'
@@ -28,12 +29,6 @@ const ButtonTitle = styled.Text`
 const ButtonDescription = styled.Text`
   font-family: ${props => props.theme.legacy.fonts.native.contentFontRegular};
   color: ${props => props.theme.legacy.colors.textSecondaryColor};
-`
-
-const Divider = styled.View`
-  background-color: ${props => props.theme.legacy.colors.textDecorationColor};
-  height: 1px;
-  margin: 8px 0;
 `
 
 const StyledText = styled.Text`

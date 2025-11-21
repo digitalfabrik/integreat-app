@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Divider } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 import { PoiModel } from 'shared/api'
@@ -7,7 +8,6 @@ import { PoiModel } from 'shared/api'
 import AddressInfo from './AddressInfo'
 import Collapsible from './Collapsible'
 import Contact from './Contact'
-import HorizontalLine from './HorizontalLine'
 import OpeningHours from './OpeningHours'
 import Page from './Page'
 import PoiChips from './PoiChips'
@@ -44,6 +44,10 @@ const StyledContactsContainer = styled.View`
   margin-top: 12px;
 `
 
+const StyledDivider = styled(Divider)`
+  margin: 20px 0;
+`
+
 type PoiDetailsProps = {
   poi: PoiModel
   language: string
@@ -63,9 +67,9 @@ const PoiDetails = ({ poi, language, distance, onFocus }: PoiDetailsProps): Reac
       )}
       {!!poi.thumbnail && <Thumbnail source={poi.thumbnail} resizeMode='cover' />}
       <PoiChips poi={poi} />
-      <HorizontalLine />
+      <StyledDivider />
       <AddressInfo location={poi.location} language={language} />
-      <HorizontalLine />
+      <StyledDivider />
       {contacts.length > 0 && (
         <>
           <Collapsible headerContent={t('contacts')} language={language}>
@@ -82,7 +86,7 @@ const PoiDetails = ({ poi, language, distance, onFocus }: PoiDetailsProps): Reac
             </StyledContactsContainer>
           </Collapsible>
 
-          <HorizontalLine />
+          <StyledDivider />
         </>
       )}
       <OpeningHours
@@ -97,7 +101,7 @@ const PoiDetails = ({ poi, language, distance, onFocus }: PoiDetailsProps): Reac
           <Collapsible headerContent={t('description')} language={language}>
             <Page content={content} language={language} padding={false} accessible />
           </Collapsible>
-          <HorizontalLine />
+          <StyledDivider />
         </>
       )}
     </PoiDetailsContainer>

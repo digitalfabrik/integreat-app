@@ -1,12 +1,12 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Divider } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 import Caption from '../components/Caption'
 import ConsentSection from '../components/ConsentSection'
 import Layout from '../components/Layout'
 import List from '../components/List'
-import ItemSeparator from '../components/base/ItemSeparator'
 import Text from '../components/base/Text'
 import buildConfig from '../constants/buildConfig'
 import { useAppContext } from '../hooks/useCityAppContext'
@@ -44,7 +44,7 @@ const Consent = (): ReactElement | null => {
           <>
             <Caption title={t('title')} />
             <Description>{t('descriptionNative')}</Description>
-            <ItemSeparator />
+            <Divider />
           </>
         }
         noItemsMessage={t('noSources')}
