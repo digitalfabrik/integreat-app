@@ -77,6 +77,7 @@ const PoiDetails = ({ poi, language, distance, onFocus }: PoiDetailsProps): Reac
                   }
                   contact={contact}
                   isLastContact={contacts.length - 1 === index}
+                  language={language}
                 />
               ))}
             </StyledContactsContainer>
