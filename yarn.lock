@@ -3831,11 +3831,6 @@
   resolved "https://registry.yarnpkg.com/@react-native-clipboard/clipboard/-/clipboard-1.16.3.tgz#7807a90fd9984bf4d3a96faf2eee20457984a9bd"
   integrity sha512-cMIcvoZKIrShzJHEaHbTAp458R9WOv0fB6UyC7Ek4Qk561Ow/DrzmmJmH/rAZg21Z6ixJ4YSdFDC14crqIBmCQ==
 
-"@react-native-community/checkbox@^0.5.17":
-  version "0.5.20"
-  resolved "https://registry.yarnpkg.com/@react-native-community/checkbox/-/checkbox-0.5.20.tgz#7b8004a80a90988d5dff208693524f069270b849"
-  integrity sha512-NuTAOFmttPEX7cwDbVr5Rf0HR86zCzX2FllebMayxca//dFH6X5DLySftra/PC2K9kt42yashWK7T2Tucm5JTQ==
-
 "@react-native-community/cli-clean@20.0.2":
   version "20.0.2"
   resolved "https://registry.yarnpkg.com/@react-native-community/cli-clean/-/cli-clean-20.0.2.tgz#a7ea5a26285b0b3a7b8cf77263b21153cb3ad271"

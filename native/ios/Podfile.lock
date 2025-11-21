@@ -1,5 +1,4 @@
 PODS:
-  - BEMCheckBox (1.4.1)
   - boost (1.84.0)
   - DoubleConversion (1.1.6)
   - fast_float (8.0.0)
@@ -2705,9 +2704,6 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
-  - RNCCheckbox (0.5.20):
-    - BEMCheckBox (~> 1.4)
-    - React-Core
   - RNCClipboard (1.16.3):
     - boost
     - DoubleConversion
@@ -3282,7 +3278,6 @@ DEPENDENCIES:
   - "ReactNativeStaticServer (from `../node_modules/@dr.pogodin/react-native-static-server`)"
   - RNCalendarEvents (from `../node_modules/react-native-calendar-events`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
-  - "RNCCheckbox (from `../node_modules/@react-native-community/checkbox`)"
   - "RNCClipboard (from `../node_modules/@react-native-clipboard/clipboard`)"
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
   - "RNFBMessaging (from `../node_modules/@react-native-firebase/messaging`)"
@@ -3302,7 +3297,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - BEMCheckBox
     - Firebase
     - FirebaseCore
     - FirebaseCoreExtension
@@ -3488,8 +3482,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-calendar-events"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
-  RNCCheckbox:
-    :path: "../node_modules/@react-native-community/checkbox"
   RNCClipboard:
     :path: "../node_modules/@react-native-clipboard/clipboard"
   RNFBApp:
@@ -3522,7 +3514,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  BEMCheckBox: 5ba6e37ade3d3657b36caecc35c8b75c6c2b1a4e
   boost: 7e761d76ca2ce687f7cc98e698152abd03a18f90
   DoubleConversion: cb417026b2400c8f53ae97020b2be961b59470cb
   fast_float: b32c788ed9c6a8c584d114d0047beda9664e7cc6
@@ -3618,7 +3609,6 @@ SPEC CHECKSUMS:
   ReactNativeStaticServer: 489bc2a59c566d6eddf28def18a2e4a807949608
   RNCalendarEvents: f90f73666b6bcbb3cc8a491ffbb5e48c0db3de37
   RNCAsyncStorage: fd44f4b03e007e642e98df6726737bc66e9ba609
-  RNCCheckbox: 33b44487ca8008394ce658cc32b26eab04f426ef
   RNCClipboard: e560338bf6cc4656a09ff90610b62ddc0dbdad65
   RNFBApp: 255fa19a91d6c1309e021ee75d5d209754e5961b
   RNFBMessaging: c304c1d8949f996d3eed1cf4eeba33148d13b4ea
