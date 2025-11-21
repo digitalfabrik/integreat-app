@@ -36,6 +36,45 @@ const StyledMapAttribution = styled(MapAttribution)({
   left: 0,
 })
 
+const SkeletonPanelContent = () => (
+  <Stack paddingX={2}>
+    <SkeletonHeader width='60%' />
+    <SkeletonList />
+  </Stack>
+)
+
+type PanelContentProps = {
+  listRef: React.RefObject<HTMLDivElement | null>
+  canDeselect: boolean
+  deselect: () => void
+  pois: PoiModel[]
+  poi: PoiModel | undefined
+  scrollToTop: () => void
+  userLocation: LocationType | null
+  slug: string | undefined
+  switchPoi: (step: 1 | -1) => void
+}
+
+const PanelContent = ({
+  listRef,
+  canDeselect,
+  deselect,
+  pois,
+  poi,
+  scrollToTop,
+  userLocation,
+  slug,
+  switchPoi,
+}: PanelContentProps): ReactElement => (
+  <Stack justifyContent='space-between' height='100%'>
+    <ListViewWrapper ref={listRef}>
+      <PoiPanelHeader goBack={canDeselect ? deselect : null} />
+      <PoiSharedChildren pois={pois} poi={poi} scrollToTop={scrollToTop} userLocation={userLocation} slug={slug} />
+    </ListViewWrapper>
+    {poi && pois.length > 0 && <PoiPanelNavigation switchPoi={switchPoi} />}
+  </Stack>
+)
+
 type PoisDesktopProps = {
   data: PreparePoisReturn
   selectMapFeature: (mapFeature: MapFeature | null) => void
@@ -96,26 +135,23 @@ const PoisDesktop = ({
     listRef.current?.scrollTo({ top: mapFeature ? 0 : scrollOffset })
   }, [mapFeature, scrollOffset])
 
-  const PanelContent = (
-    <Stack justifyContent='space-between' height='100%'>
-      <ListViewWrapper ref={listRef}>
-        <PoiPanelHeader goBack={canDeselect ? deselect : null} />
-        <PoiSharedChildren pois={pois} poi={poi} scrollToTop={scrollToTop} userLocation={userLocation} slug={slug} />
-      </ListViewWrapper>
-      {poi && pois.length > 0 && <PoiPanelNavigation switchPoi={switchPoi} />}
-    </Stack>
-  )
-
   return (
     <>
       <PanelContainer>
         {loading ? (
-          <Stack paddingX={2}>
-            <SkeletonHeader width='60%' />
-            <SkeletonList />
-          </Stack>
+          <SkeletonPanelContent />
         ) : (
-          PanelContent
+          <PanelContent
+            listRef={listRef}
+            canDeselect={canDeselect}
+            deselect={deselect}
+            pois={pois}
+            poi={poi}
+            scrollToTop={scrollToTop}
+            userLocation={userLocation}
+            slug={slug}
+            switchPoi={switchPoi}
+          />
         )}
       </PanelContainer>
       <MapView
