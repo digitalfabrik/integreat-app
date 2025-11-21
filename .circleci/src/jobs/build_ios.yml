@@ -55,5 +55,4 @@ steps:
             root: ./
             paths:
               - << parameters.build_config_name >>-ipa-url
-  - generate_sbom
   - notify

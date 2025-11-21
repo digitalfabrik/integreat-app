@@ -17,6 +17,7 @@ const getFooterLinks = ({ languageCode, cityCode }: GetFooterLinksProps): Footer
   const aboutUrl = aboutUrls[languageCode] || aboutUrls.default
   const privacyUrl = privacyUrls[languageCode] || privacyUrls.default
   const accessibilityUrl = accessibilityUrls?.[languageCode] ?? accessibilityUrls?.default
+  const linkToSbom = `https://github.com/digitalfabrik/integreat-app/releases/tag/${__VERSION_NAME__}`
 
   const disclaimerPath = cityCode
     ? pathnameFromRouteInformation({
@@ -33,6 +34,7 @@ const getFooterLinks = ({ languageCode, cityCode }: GetFooterLinksProps): Footer
     { to: aboutUrl, text: 'settings:aboutUs' },
     { to: privacyUrl, text: 'privacy' },
     { to: licensesPath, text: 'settings:openSourceLicenses' },
+    { to: linkToSbom, text: 'SBoM' },
     ...(accessibilityUrl ? [{ to: accessibilityUrl, text: 'accessibility' }] : []),
   ]
 }
