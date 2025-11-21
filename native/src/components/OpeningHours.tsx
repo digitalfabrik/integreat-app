@@ -2,6 +2,7 @@ import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text } from 'react-native'
+import { Divider } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 import { weekdays } from 'shared'
@@ -12,7 +13,6 @@ import { contentDirection } from '../constants/contentDirection'
 import useSnackbar from '../hooks/useSnackbar'
 import openExternalUrl from '../utils/openExternalUrl'
 import Collapsible from './Collapsible'
-import HorizontalLine from './HorizontalLine'
 import OpeningEntry from './OpeningEntry'
 import Icon from './base/Icon'
 
@@ -60,6 +60,10 @@ const Link = styled.Text`
 const StyledIcon = styled(Icon)`
   width: 16px;
   height: 16px;
+`
+
+const StyledDivider = styled(Divider)`
+  margin: 20px 0;
 `
 
 type OpeningHoursTitleProps = {
@@ -115,7 +119,7 @@ const OpeningHours = ({
           language={language}
         />
         {AppointmentLink}
-        <HorizontalLine />
+        <StyledDivider />
       </>
     )
   }
@@ -145,7 +149,7 @@ const OpeningHours = ({
         </Content>
       </Collapsible>
       {AppointmentLink}
-      <HorizontalLine />
+      <StyledDivider />
     </>
   )
 }

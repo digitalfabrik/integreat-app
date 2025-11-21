@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Divider } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 import { LocalNewsModel, TunewsModel } from 'shared/api'
@@ -42,13 +43,9 @@ const StyledPressable = styled(Pressable)`
   flex-direction: column;
 `
 
-const Divider = styled.View<{ firstItem: boolean }>`
-  border-top-width: 0.5px;
-  border-top-color: ${props => props.theme.legacy.colors.textSecondaryColor};
-  width: 80%;
+const StyledDivider = styled(Divider)<{ firstItem: boolean }>`
   margin-top: ${props => (props.firstItem ? '0px' : '12px')};
   margin-bottom: 12px;
-  align-self: center;
 `
 export const Description = styled.View`
   flex-direction: column;
@@ -92,7 +89,7 @@ const NewsListItem = ({ index, newsItem, navigateToNews, isTunews }: NewsListIte
 
   return (
     <>
-      <Divider firstItem={index === 0} />
+      <StyledDivider horizontalInset firstItem={index === 0} />
       <ListItemWrapper>
         <StyledPressable onPress={navigateToNews} accessibilityLanguage={languageCode} role='link'>
           <Description>
