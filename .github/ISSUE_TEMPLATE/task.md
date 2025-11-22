@@ -1,7 +1,7 @@
 ---
 name: "Task \U0001F527"
 about: Suggest an idea or enhancement for this project
-labels: Task
+type: Task
 ---
 
 ### Describe the Problem
