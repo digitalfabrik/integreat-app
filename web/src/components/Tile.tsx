@@ -9,7 +9,7 @@ import { useLoadAsync } from 'shared/api'
 import { fetchObjectCached } from '../utils'
 import Link from './base/Link'
 
-const StyledButton = styled(Button)({
+export const StyledButton = styled(Button)({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',

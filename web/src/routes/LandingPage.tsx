@@ -10,7 +10,6 @@ import Footer from '../components/Footer'
 import GeneralHeader from '../components/GeneralHeader'
 import Helmet from '../components/Helmet'
 import Layout from '../components/Layout'
-import LoadingSpinner from '../components/LoadingSpinner'
 import buildConfig from '../constants/buildConfig'
 import { cmsApiBaseUrl } from '../constants/urls'
 
@@ -26,18 +25,10 @@ const LandingPage = ({ languageCode }: LandingPageProps): ReactElement => {
   const pageTitle = t('pageTitle')
   const metaDescription = t('metaDescription', { appName: buildConfig().appName })
 
-  if (loading) {
-    return (
-      <Layout>
-        <LoadingSpinner />
-      </Layout>
-    )
-  }
-
-  if (error || !cities) {
+  if (error) {
     return (
       <Layout header={<GeneralHeader languageCode={languageCode} />} footer={<Footer />}>
-        <FailureSwitcher error={error ?? new Error('Uknown error')} />
+        <FailureSwitcher error={error} />
       </Layout>
     )
   }
@@ -52,7 +43,7 @@ const LandingPage = ({ languageCode }: LandingPageProps): ReactElement => {
         </>
       }>
       <Helmet pageTitle={pageTitle} metaDescription={metaDescription} rootPage />
-      <CitySelector cities={cities} language={languageCode} stickyTop={stickyTop} />
+      <CitySelector cities={cities ?? []} language={languageCode} stickyTop={stickyTop} loading={loading} />
     </Layout>
   )
 }
