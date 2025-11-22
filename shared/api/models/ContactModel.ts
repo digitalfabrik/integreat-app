@@ -1,3 +1,5 @@
+import OpeningHoursModel from './OpeningHoursModel'
+
 class ContactModel {
   _name: string | null
   _areaOfResponsibility: string | null
@@ -5,6 +7,7 @@ class ContactModel {
   _phoneNumber: string | null
   _website: string | null
   _mobileNumber: string | null
+  _officeHours: OpeningHoursModel[] | null
 
   constructor({
     name,
@@ -13,6 +16,7 @@ class ContactModel {
     phoneNumber,
     website,
     mobileNumber,
+    officeHours,
   }: {
     name: string | null
     areaOfResponsibility: string | null
@@ -20,6 +24,7 @@ class ContactModel {
     phoneNumber: string | null
     website: string | null
     mobileNumber: string | null
+    officeHours?: OpeningHoursModel[] | null
   }) {
     this._name = name
     this._areaOfResponsibility = areaOfResponsibility
@@ -27,6 +32,7 @@ class ContactModel {
     this._phoneNumber = phoneNumber
     this._website = website
     this._mobileNumber = mobileNumber
+    this._officeHours = officeHours ?? null
   }
 
   get name(): string | null {
@@ -51,6 +57,10 @@ class ContactModel {
 
   get mobileNumber(): string | null {
     return this._mobileNumber
+  }
+
+  get officeHours(): OpeningHoursModel[] | null {
+    return this._officeHours
   }
 
   get headline(): string | null {

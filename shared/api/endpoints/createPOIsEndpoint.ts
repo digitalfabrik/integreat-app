@@ -43,6 +43,7 @@ export default (baseUrl: string): Endpoint<ParamsType, PoiModel[]> =>
                   phoneNumber: contact.phone_number,
                   website: contact.website,
                   mobileNumber: contact.mobile_number,
+                  officeHours: contact.opening_hours?.map(openingHour => new OpeningHoursModel(openingHour)) ?? null,
                 }),
             ),
             temporarilyClosed: poi.temporarily_closed,

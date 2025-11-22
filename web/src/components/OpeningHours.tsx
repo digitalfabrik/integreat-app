@@ -1,25 +1,16 @@
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import Button from '@mui/material/Button'
-import List from '@mui/material/List'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
-import { styled } from '@mui/material/styles'
-import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { weekdays } from 'shared'
 import { OpeningHoursModel } from 'shared/api'
 
-import OpeningHoursListItem from './OpeningHoursListItem'
+import HoursList from './HoursList'
 import Accordion from './base/Accordion'
 import Link from './base/Link'
-
-const StyledList = styled(List)({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 8,
-})
 
 type OpeningHoursTitleProps = {
   isCurrentlyOpen: boolean
@@ -82,18 +73,7 @@ const OpeningHours = ({
         id='hours'
         title={<OpeningHoursTitle isCurrentlyOpen={isCurrentlyOpen} />}
         defaultCollapsed={!isCurrentlyOpen}>
-        <StyledList disablePadding>
-          {openingHours.map((openingHours, index) => (
-            <OpeningHoursListItem
-              key={weekdays[index]}
-              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-              weekday={t(weekdays[index]!.toLowerCase())}
-              openingHours={openingHours}
-              isCurrentDay={index === DateTime.now().weekday - 1}
-              appointmentUrl={appointmentUrl}
-            />
-          ))}
-        </StyledList>
+        <HoursList hours={openingHours} appointmentUrl={appointmentUrl} />
       </Accordion>
       {AppointmentLink}
     </>
