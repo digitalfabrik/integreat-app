@@ -1,3 +1,4 @@
+
 import distance from '@turf/distance'
 import { DateTime, Interval } from 'luxon'
 
@@ -112,29 +113,25 @@ class PoiModel extends ExtendedPageModel {
     return this._category
   }
 
-  get isCurrentlyOpen(): boolean {
-    if (!this.openingHours) {
-      return false
-    }
 
-    const now = DateTime.now()
-    // isoWeekday return 1-7 for the weekdays
-    const currentWeekday = now.weekday - 1
-    const currentDay = this.openingHours[currentWeekday]
+get isCurrentlyOpen(): boolean {
+  if (!this.openingHours) return false
 
-    if (currentDay) {
-      if (currentDay.allDay) {
-        return true
-      }
+  const now = DateTime.now()
+  const weekdayIndex = now.weekday - 1
+  const today = this.openingHours[weekdayIndex]
 
-      return currentDay.timeSlots.some(timeslot => {
-        const startTime = DateTime.fromFormat(timeslot.start, 'HH:mm')
-        const endTime = DateTime.fromFormat(timeslot.end, 'HH:mm')
-        return Interval.fromDateTimes(startTime, endTime).contains(now)
-      })
-    }
-    return false
-  }
+  if (!today) return false
+  if (today.allDay) return true
+
+  return today.timeSlots.some(timeslot => {
+    const zone = timeslot.timezone ?? 'UTC'
+    const start = DateTime.fromFormat(timeslot.start, 'HH:mm', { zone })
+    const end = DateTime.fromFormat(timeslot.end, 'HH:mm', { zone })
+
+    return Interval.fromDateTimes(start, end).contains(now.setZone(zone))
+  })
+}
 
   isEqual(other: PageModel): boolean {
     return (
