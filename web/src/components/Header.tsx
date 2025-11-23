@@ -7,6 +7,7 @@ import React, { ReactElement, ReactNode } from 'react'
 import { LANDING_ROUTE, pathnameFromRouteInformation } from 'shared'
 
 import useElementRect from '../hooks/useElementRect'
+import useUpdateDimensions from '../hooks/useUpdateDimensions'
 import HeaderLogo from './HeaderLogo'
 import HeaderTitle from './HeaderTitle'
 
@@ -73,6 +74,8 @@ export const Header = ({
   onStickyTopChanged,
 }: HeaderProps): ReactElement => {
   const { rect: headerRect, ref } = useElementRect()
+  useUpdateDimensions()
+
   const height = headerRect?.height ?? 0
   const landingPath = pathnameFromRouteInformation({ route: LANDING_ROUTE, languageCode: language })
 
