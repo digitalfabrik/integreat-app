@@ -396,7 +396,7 @@ class DatabaseConnector {
         parentPath: category.parentPath,
         children: categoriesMap.getChildren(category).map(category => category.path),
         order: category.order,
-        organization: category.organization
+        organization: category.organization !== null
           ? {
               name: category.organization.name,
               logo: category.organization.logo,
@@ -683,12 +683,12 @@ class DatabaseConnector {
         excerpt: event.excerpt,
         date: {
           start: event.date.startDate.toISO(),
-          end: event.date.endDate ? event.date.endDate.toISO() : null,
+          end: event.date.endDate !== null ? event.date.endDate.toISO() : null,
           allDay: event.date.allDay,
           recurrenceRule: event.date.recurrenceRule?.toString() ?? null,
           onlyWeekdays: event.date.onlyWeekdays,
         },
-        location: event.location
+        location: event.location !== null
           ? {
               id: event.location.id,
               address: event.location.address,
@@ -700,7 +700,7 @@ class DatabaseConnector {
               name: event.location.name,
             }
           : null,
-        featuredImage: event.featuredImage
+        featuredImage: event.featuredImage !==null
           ? {
               description: event.featuredImage.description,
               thumbnail: event.featuredImage.thumbnail,
