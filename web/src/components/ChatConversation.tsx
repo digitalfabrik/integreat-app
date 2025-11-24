@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next'
 import { ChatMessageModel } from 'shared/api'
 
 import ChatMessage, { InnerChatMessage } from './ChatMessage'
+import SkeletonChatConversation from './SkeletonChatConversation'
 
 const StyledList = styled(List)({
   display: 'flex',
@@ -25,9 +26,10 @@ const TypingIndicator = ({ isVisible }: TypingIndicatorProps): ReactElement | nu
 type ChatConversationProps = {
   messages: ChatMessageModel[]
   isTyping: boolean
+  loading?: boolean
 }
 
-const ChatConversation = ({ messages, isTyping }: ChatConversationProps): ReactElement => {
+const ChatConversation = ({ messages, isTyping, loading }: ChatConversationProps): ReactElement => {
   const { t } = useTranslation('chat')
   const [messagesCount, setMessagesCount] = useState(0)
   const messagesEndRef = useRef<HTMLDivElement>(null)
@@ -61,14 +63,20 @@ const ChatConversation = ({ messages, isTyping }: ChatConversationProps): ReactE
 
   return (
     <Stack padding={2} gap={2} overflow='auto'>
-      {waitingForAnswer && <Typography variant='body2'>{t('initialMessage')}</Typography>}
-      <StyledList disablePadding>
-        {messages.map((message, index) => (
-          <ChatMessage message={message} key={message.id} previousMessage={messages[index - 1]} />
-        ))}
-      </StyledList>
-      <TypingIndicator isVisible={isTyping} />
-      <div ref={messagesEndRef} />
+      {loading ? (
+        <SkeletonChatConversation />
+      ) : (
+        <>
+          {waitingForAnswer && <Typography variant='body2'>{t('initialMessage')}</Typography>}
+          <StyledList disablePadding>
+            {messages.map((message, index) => (
+              <ChatMessage message={message} key={message.id} previousMessage={messages[index - 1]} />
+            ))}
+          </StyledList>
+          <TypingIndicator isVisible={isTyping} />
+          <div ref={messagesEndRef} />
+        </>
+      )}
     </Stack>
   )
 }

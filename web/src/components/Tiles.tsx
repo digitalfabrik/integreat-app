@@ -7,7 +7,7 @@ import { TileModel } from 'shared'
 import Tile from './Tile'
 import H1 from './base/H1'
 
-const Grid = styled('div')`
+export const Grid = styled('div')`
   display: grid;
 
   /* https://css-tricks.com/intrinsically-responsive-css-grid-with-minmax-and-min/ */

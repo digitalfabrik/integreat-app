@@ -7,12 +7,15 @@ import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { LocationType, MapViewViewport, MapFeature, PreparePoisReturn } from 'shared'
+import { PoiModel } from 'shared/api'
 
 import useDimensions from '../hooks/useDimensions'
 import BottomActionSheet, { ScrollableBottomSheetRef } from './BottomActionSheet'
 import MapAttribution from './MapAttribution'
 import MapView, { MapViewRef } from './MapView'
 import PoiSharedChildren from './PoiSharedChildren'
+import SkeletonHeader from './SkeletonHeader'
+import SkeletonList from './SkeletonList'
 import { DirectionDependentBackIcon } from './base/Dialog'
 
 const StyledIconButton = styled(IconButton)(({ theme }) => ({
@@ -34,6 +37,34 @@ const GeocontrolContainer = styled(AttributionContainer)`
   margin-bottom: 24px;
 `
 
+const SkeletonPoiContent = () => (
+  <Stack paddingX={2}>
+    <SkeletonHeader width='40%' />
+    <SkeletonList />
+  </Stack>
+)
+
+type PoiContentProps = {
+  canDeselect: boolean
+  pois: PoiModel[]
+  poi: PoiModel | undefined
+  scrollToTop: () => void
+  userLocation: LocationType | null
+  slug: string | undefined
+  t: (key: string) => string
+}
+
+const PoiContent = ({ canDeselect, pois, poi, scrollToTop, userLocation, slug, t }: PoiContentProps): ReactElement => (
+  <Stack padding={2} gap={1}>
+    {!canDeselect && (
+      <Typography component='h1' variant='h3' alignContent='center'>
+        {t('common:nearby')}
+      </Typography>
+    )}
+    <PoiSharedChildren pois={pois} poi={poi} scrollToTop={scrollToTop} userLocation={userLocation} slug={slug} />
+  </Stack>
+)
+
 type PoisMobileProps = {
   data: PreparePoisReturn
   userLocation: LocationType | null
@@ -43,6 +74,7 @@ type PoisMobileProps = {
   selectMapFeature: (mapFeature: MapFeature | null) => void
   deselect: () => void
   MapOverlay: ReactElement
+  loading: boolean
 }
 
 const PoisMobile = ({
@@ -54,6 +86,7 @@ const PoisMobile = ({
   selectMapFeature,
   deselect,
   MapOverlay,
+  loading,
 }: PoisMobileProps): ReactElement => {
   const [scrollOffset, setScrollOffset] = useState<number>(0)
   const sheetRef = useRef<ScrollableBottomSheetRef>(null)
@@ -124,14 +157,19 @@ const PoisMobile = ({
             </AttributionContainer>
           </>
         }>
-        <Stack padding={2} gap={1}>
-          {!canDeselect && (
-            <Typography component='h1' variant='h3' alignContent='center'>
-              {t('common:nearby')}
-            </Typography>
-          )}
-          <PoiSharedChildren pois={pois} poi={poi} scrollToTop={scrollToTop} userLocation={userLocation} slug={slug} />
-        </Stack>
+        {loading ? (
+          <SkeletonPoiContent />
+        ) : (
+          <PoiContent
+            canDeselect={canDeselect}
+            pois={pois}
+            poi={poi}
+            scrollToTop={scrollToTop}
+            userLocation={userLocation}
+            slug={slug}
+            t={t}
+          />
+        )}
       </BottomActionSheet>
     </>
   )
