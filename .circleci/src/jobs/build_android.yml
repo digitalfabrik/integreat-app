@@ -75,5 +75,4 @@ steps:
             root: ./
             paths:
               - << parameters.build_config_name >>-apk-url
-  - generate_sbom
   - notify
