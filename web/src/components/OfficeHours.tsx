@@ -1,7 +1,6 @@
 import AccessTimeIcon from '@mui/icons-material/AccessTime'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
-import { useTheme } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -17,7 +16,6 @@ type OfficeHoursProps = {
 
 const OfficeHours = ({ officeHours }: OfficeHoursProps): ReactElement | null => {
   const { t } = useTranslation('pois')
-  const theme = useTheme()
 
   if (!officeHours || officeHours.length !== weekdays.length) {
     return null
@@ -46,28 +44,19 @@ const OfficeHours = ({ officeHours }: OfficeHoursProps): ReactElement | null => 
   }
 
   return (
-    <>
-      <Stack direction='row' alignItems='center' gap={1}>
-        <AccessTimeIcon fontSize='small' />
-        <Typography variant='body2'>{t(currentlyOpen === true ? 'opened' : 'closed')}</Typography>
-      </Stack>
-      <Accordion
-        id='office-hours'
-        iconColor={theme.palette.primary.main}
-        title={
+    <Accordion
+      id='office-hours'
+      title={
+        <Stack direction='row' alignItems='center' gap={1}>
+          <AccessTimeIcon fontSize='small' />
           <Typography color='primary' variant='body2'>
-            {t('showHours')}
+            {t(currentlyOpen === true ? 'opened' : 'closed')}
           </Typography>
-        }
-        titleOnExpand={
-          <Typography color='primary' variant='body2'>
-            {t('showLessHours')}
-          </Typography>
-        }
-        defaultCollapsed>
-        <HoursList variant='body3' hours={officeHours} />
-      </Accordion>
-    </>
+        </Stack>
+      }
+      defaultCollapsed>
+      <HoursList variant='body3' hours={officeHours} />
+    </Accordion>
   )
 }
 

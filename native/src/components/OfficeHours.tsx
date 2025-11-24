@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled, { useTheme } from 'styled-components/native'
+import styled from 'styled-components/native'
 
 import { isCurrentlyOpen, weekdays } from 'shared'
 import { OpeningHoursModel } from 'shared/api'
@@ -10,10 +10,6 @@ import Collapsible from './Collapsible'
 import HoursList from './HoursList'
 import Icon from './base/Icon'
 import Text from './base/Text'
-
-const Container = styled.View`
-  gap: 8px;
-`
 
 const StyledView = styled.View`
   flex-direction: row;
@@ -32,7 +28,6 @@ type OfficeHoursProps = {
 
 const OfficeHours = ({ officeHours, language }: OfficeHoursProps): ReactElement | null => {
   const { t } = useTranslation('pois')
-  const theme = useTheme()
 
   if (!officeHours || officeHours.length !== weekdays.length) {
     return null
@@ -61,20 +56,17 @@ const OfficeHours = ({ officeHours, language }: OfficeHoursProps): ReactElement 
   }
 
   return (
-    <Container>
-      <StyledView>
-        <Icon Icon={ClockIcon} />
-        <Text>{t(currentlyOpen === true ? 'opened' : 'closed')}</Text>
-      </StyledView>
-      <Collapsible
-        language={language}
-        headerContent={<StyledTitle>{t('showHours')}</StyledTitle>}
-        headerContentExpanded={<StyledTitle>{t('showLessHours')}</StyledTitle>}
-        iconColor={theme.colors.primary}
-        initialCollapsed>
-        <HoursList hours={officeHours} appointmentUrl={null} language={language} />
-      </Collapsible>
-    </Container>
+    <Collapsible
+      language={language}
+      headerContent={
+        <StyledView>
+          <Icon Icon={ClockIcon} />
+          <StyledTitle>{t(currentlyOpen === true ? 'opened' : 'closed')}</StyledTitle>
+        </StyledView>
+      }
+      initialCollapsed>
+      <HoursList hours={officeHours} appointmentUrl={null} language={language} />
+    </Collapsible>
   )
 }
 

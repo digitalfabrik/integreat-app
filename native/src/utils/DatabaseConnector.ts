@@ -213,6 +213,34 @@ type CityLastUsageType = {
 
 type MetaCitiesType = Record<CityCodeType, MetaCitiesEntryType>
 
+const mapOpeningHoursToJson = (
+  hours: OpeningHoursModel,
+): { allDay: boolean; closed: boolean; timeSlots: { start: string; end: string }[]; appointmentOnly: boolean } => ({
+  allDay: hours.allDay,
+  closed: hours.closed,
+  timeSlots: hours.timeSlots.map(timeslot => ({
+    start: timeslot.start,
+    end: timeslot.end,
+  })),
+  appointmentOnly: hours.appointmentOnly,
+})
+
+const mapJsonToOpeningHours = (hours: {
+  allDay: boolean
+  closed: boolean
+  timeSlots: { start: string; end: string }[]
+  appointmentOnly: boolean
+}): OpeningHoursModel =>
+  new OpeningHoursModel({
+    allDay: hours.allDay,
+    closed: hours.closed,
+    timeSlots: hours.timeSlots.map(timeslot => ({
+      start: timeslot.start,
+      end: timeslot.end,
+    })),
+    appointmentOnly: hours.appointmentOnly,
+  })
+
 class DatabaseConnector {
   constructor() {
     this.migrationRoutine().catch(reportError)
@@ -473,16 +501,7 @@ class DatabaseConnector {
           phoneNumber: contact.phoneNumber,
           website: contact.website,
           mobileNumber: contact.mobileNumber,
-          officeHours:
-            contact.officeHours?.map(hours => ({
-              allDay: hours.allDay,
-              closed: hours.closed,
-              timeSlots: hours.timeSlots.map(timeslot => ({
-                start: timeslot.start,
-                end: timeslot.end,
-              })),
-              appointmentOnly: hours.appointmentOnly,
-            })) ?? null,
+          officeHours: contact.officeHours?.map(mapOpeningHoursToJson) ?? null,
         })),
         location: {
           id: poi.location.id,
@@ -502,16 +521,7 @@ class DatabaseConnector {
           iconName: poi.category.iconName,
           color: poi.category.color,
         },
-        openingHours:
-          poi.openingHours?.map(hours => ({
-            allDay: hours.allDay,
-            closed: hours.closed,
-            timeSlots: hours.timeSlots.map(timeslot => ({
-              start: timeslot.start,
-              end: timeslot.end,
-            })),
-            appointmentOnly: hours.appointmentOnly,
-          })) ?? null,
+        openingHours: poi.openingHours?.map(mapOpeningHoursToJson) ?? null,
         temporarilyClosed: poi.temporarilyClosed,
         appointmentUrl: poi.appointmentUrl,
         organization:
@@ -550,19 +560,7 @@ class DatabaseConnector {
                 phoneNumber: contact.phoneNumber,
                 website: contact.website,
                 mobileNumber: contact.mobileNumber,
-                officeHours:
-                  contact.officeHours?.map(
-                    hours =>
-                      new OpeningHoursModel({
-                        allDay: hours.allDay,
-                        closed: hours.closed,
-                        timeSlots: hours.timeSlots.map(timeslot => ({
-                          start: timeslot.start,
-                          end: timeslot.end,
-                        })),
-                        appointmentOnly: hours.appointmentOnly,
-                      }),
-                  ) ?? null,
+                officeHours: contact.officeHours?.map(mapJsonToOpeningHours) ?? null,
               }),
           ),
           location: new LocationModel({
@@ -583,19 +581,7 @@ class DatabaseConnector {
             icon: jsonObject.category.icon,
             iconName: jsonObject.category.iconName,
           }),
-          openingHours:
-            jsonObject.openingHours?.map(
-              hours =>
-                new OpeningHoursModel({
-                  allDay: hours.allDay,
-                  closed: hours.closed,
-                  timeSlots: hours.timeSlots.map(timeslot => ({
-                    start: timeslot.start,
-                    end: timeslot.end,
-                  })),
-                  appointmentOnly: hours.appointmentOnly,
-                }),
-            ) ?? null,
+          openingHours: jsonObject.openingHours?.map(mapJsonToOpeningHours) ?? null,
           temporarilyClosed: jsonObject.temporarilyClosed,
           appointmentUrl: jsonObject.appointmentUrl,
           organization:

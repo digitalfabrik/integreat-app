@@ -28,6 +28,7 @@ const CollapseHeaderWrapper = styled.View<{ language: string }>`
 `
 
 const StyledIcon = styled(Icon)<{ collapsed: boolean }>`
+  color: ${props => props.theme.legacy.colors.textColor};
   transform: rotate(90deg) ${props => (props.collapsed ? 'scale(-1)' : '')};
   margin: 0 4px;
   align-self: center;
@@ -37,27 +38,21 @@ const StyledIcon = styled(Icon)<{ collapsed: boolean }>`
 
 type CollapsibleProps = {
   headerContent: string | ReactElement
-  headerContentExpanded?: string | ReactElement
   children: ReactNode
   Description?: ReactElement
   language: string
   initialCollapsed?: boolean
-  iconColor?: string
 }
 
 const Collapsible = ({
   children,
   headerContent,
-  headerContentExpanded,
   Description,
   language,
   initialCollapsed = false,
-  iconColor,
 }: CollapsibleProps): ReactElement => {
   const [collapsed, setCollapsed] = useState<boolean>(initialCollapsed)
   const { t } = useTranslation()
-
-  const displayHeader = collapsed ? headerContent : (headerContentExpanded ?? headerContent)
 
   return (
     <PageContainer>
@@ -67,17 +62,12 @@ const Collapsible = ({
         touchableOpacityProps={{ activeOpacity: 1 }}>
         <CollapseHeader style={{ flexDirection: 'column' }}>
           <CollapseHeaderWrapper language={language}>
-            {typeof displayHeader === 'string' ? (
-              <CollapseHeaderText>{displayHeader}</CollapseHeaderText>
+            {typeof headerContent === 'string' ? (
+              <CollapseHeaderText>{headerContent}</CollapseHeaderText>
             ) : (
-              displayHeader
+              headerContent
             )}
-            <StyledIcon
-              color={iconColor}
-              Icon={ArrowBackIcon}
-              collapsed={collapsed}
-              label={t(collapsed ? 'showMore' : 'showLess')}
-            />
+            <StyledIcon Icon={ArrowBackIcon} collapsed={collapsed} label={t(collapsed ? 'showMore' : 'showLess')} />
           </CollapseHeaderWrapper>
           {Description}
         </CollapseHeader>

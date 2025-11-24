@@ -28,25 +28,13 @@ type AccordionProps = {
   id: string
   children: ReactNode
   title: string | ReactElement
-  titleOnExpand?: string | ReactElement
   description?: ReactElement
   defaultCollapsed?: boolean
-  iconColor?: string
 }
 
-const Accordion = ({
-  children,
-  title,
-  titleOnExpand,
-  description,
-  id,
-  defaultCollapsed = false,
-  iconColor,
-}: AccordionProps): ReactElement => {
+const Accordion = ({ children, title, description, id, defaultCollapsed = false }: AccordionProps): ReactElement => {
   const [expanded, setExpanded] = useState(!defaultCollapsed)
   const { t } = useTranslation('common')
-
-  const displayTitle = expanded && titleOnExpand !== undefined ? titleOnExpand : title
 
   return (
     <StyledAccordion
@@ -60,9 +48,8 @@ const Accordion = ({
         aria-controls={`${id}-content`}
         aria-label={t(expanded ? 'showLess' : 'showMore')}
         expandIcon={<ExpandMoreIcon />}
-        iconColor={iconColor}
         tabIndex={0}>
-        {typeof displayTitle === 'string' ? <Typography variant='subtitle1'>{displayTitle}</Typography> : displayTitle}
+        {typeof title === 'string' ? <Typography variant='subtitle1'>{title}</Typography> : title}
         {description}
       </StyledAccordionSummary>
       <StyledAccordionDetails>{children}</StyledAccordionDetails>
