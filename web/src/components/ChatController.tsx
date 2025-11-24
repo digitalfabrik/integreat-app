@@ -21,11 +21,14 @@ type ChatControllerProps = {
 
 const LOCAL_STORAGE_ITEM_CHAT_MESSAGES = 'Chat-Device-Id'
 const LOCAL_STORAGE_ITEM_CHAT_PRIVACY_POLICIES = 'Chat-Privacy-Policies'
-const POLLING_INTERVAL = 8000
+const DEFAULT_POLLING_INTERVAL = 15000
+const TYPING_POLLING_INTERVAL = 3000
 
 const ChatController = ({ city, language }: ChatControllerProps): ReactElement => {
   const cityCode = city.code
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
+  const isBrowserTabActive = useIsTabActive()
+
   const { value: deviceId } = useLocalStorage({
     key: `${LOCAL_STORAGE_ITEM_CHAT_MESSAGES}-${cityCode}`,
     initialValue: window.crypto.randomUUID(),
@@ -37,7 +40,8 @@ const ChatController = ({ city, language }: ChatControllerProps): ReactElement =
     loading,
     setData,
   } = useLoadFromEndpoint(createChatMessagesEndpoint, cmsApiBaseUrl, { cityCode, language, deviceId })
-  const isBrowserTabActive = useIsTabActive()
+  const typing = chatMessagesReturn?.typing ?? false
+  const messageCount = chatMessagesReturn?.messages.length ?? 0
 
   const { value, updateLocalStorageItem } = useLocalStorage<Record<string, boolean>>({
     key: LOCAL_STORAGE_ITEM_CHAT_PRIVACY_POLICIES,
@@ -47,13 +51,12 @@ const ChatController = ({ city, language }: ChatControllerProps): ReactElement =
   const acceptCustomPrivacyPolicy = () => updateLocalStorageItem({ ...value, [city.code]: true })
 
   useEffect(() => {
-    const messageCount = chatMessagesReturn?.messages.length ?? 0
     if (!isBrowserTabActive || messageCount === 0) {
       return undefined
     }
-    const interval = setInterval(refreshMessages, POLLING_INTERVAL)
+    const interval = setInterval(refreshMessages, typing ? TYPING_POLLING_INTERVAL : DEFAULT_POLLING_INTERVAL)
     return () => clearInterval(interval)
-  }, [refreshMessages, isBrowserTabActive, chatMessagesReturn?.messages.length])
+  }, [refreshMessages, isBrowserTabActive, messageCount, typing])
 
   const submitMessage = async (message: string) => {
     setSendingStatus('sending')
@@ -82,7 +85,7 @@ const ChatController = ({ city, language }: ChatControllerProps): ReactElement =
       // If no message has been sent yet, fetching the messages yields a 404 not found error
       hasError={error !== null && !(error instanceof NotFoundError)}
       isLoading={chatMessagesReturn === null && (loading || sendingStatus === 'sending')}
-      isTyping={chatMessagesReturn?.typing ?? false}
+      isTyping={typing}
       privacyPolicyAccepted={privacyPolicyAccepted}
       acceptPrivacyPolicy={acceptCustomPrivacyPolicy}
       languageCode={language}
