@@ -3,7 +3,6 @@ import React from 'react'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import MainDisclaimerPage from '../MainDisclaimerPage'
 
-jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
 jest.mock('shared/api', () => ({
   ...jest.requireActual('shared/api'),

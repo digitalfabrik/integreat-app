@@ -7,7 +7,6 @@ import { cmsApiBaseUrl } from '../../constants/urls'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import PdfMenuItem from '../PdfMenuItem'
 
-jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
 jest.mock('shared/api', () => ({
   ...jest.requireActual('shared/api'),
