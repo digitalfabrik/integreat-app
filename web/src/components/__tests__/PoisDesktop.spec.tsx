@@ -19,7 +19,7 @@ describe('PoisDesktop', () => {
   const selectPoi = jest.fn()
   const deselect = jest.fn()
 
-  const renderPoisDesktop = (poi?: PoiModel, mapFeature?: MapFeature) =>
+  const renderPoisDesktop = (poi?: PoiModel, mapFeature?: MapFeature, loading = false) =>
     renderWithRouterAndTheme(
       <PoisDesktop
         data={{ pois, mapFeatures, poi, mapFeature, poiCategories }}
@@ -31,8 +31,20 @@ describe('PoisDesktop', () => {
         mapViewport={{} as MapViewViewport}
         setMapViewport={jest.fn()}
         MapOverlay={<div />}
+        loading={loading}
       />,
     )
+
+  it('should show loading skeleton on loading', () => {
+    const { queryByText, getByRole } = renderPoisDesktop(undefined, undefined, true)
+    expect(getByRole('list')).toBeTruthy()
+
+    pois.forEach(poi => {
+      expect(queryByText(poi.title)).toBeFalsy()
+    })
+    expect(queryByText('pois:common:nearby')).toBeFalsy()
+    expect(queryByText('pois:distanceKilometre')).toBeFalsy()
+  })
 
   it('should list detail information about the current feature and the poi if feature and poi provided', async () => {
     const singlePoi = pois[1]!

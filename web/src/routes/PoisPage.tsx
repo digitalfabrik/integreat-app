@@ -9,7 +9,6 @@ import { CityRouteProps } from '../CityContentSwitcher'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
-import LoadingSpinner from '../components/LoadingSpinner'
 import Pois from '../components/Pois'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useTtsPlayer from '../hooks/useTtsPlayer'
@@ -56,14 +55,6 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
     fitScreen: true,
   }
 
-  if (loading) {
-    return (
-      <CityContentLayout isLoading {...locationLayoutParams}>
-        <LoadingSpinner />
-      </CityContentLayout>
-    )
-  }
-
   if (error) {
     return (
       <CityContentLayout isLoading={false} {...locationLayoutParams}>
@@ -82,7 +73,7 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
         languageChangePaths={languageChangePaths}
         cityModel={city}
       />
-      {data && <Pois pois={data} userLocation={userLocation} city={city} />}
+      <Pois loading={loading} pois={data ?? []} userLocation={userLocation} city={city} />
     </CityContentLayout>
   )
 }

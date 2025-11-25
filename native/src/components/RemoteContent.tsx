@@ -33,6 +33,9 @@ const DEFAULT_OPACITY = 0.99
 // Fix title being displayed only after content is visible
 const LOADING_OPACITY = 0
 
+const DATA_DETECTOR_TYPES = ['none'] as const
+const ORIGIN_WHITELIST = ['*'] as const
+
 export const renderWebviewError = (
   errorDomain: string | null | undefined,
   errorCode: number,
@@ -168,9 +171,9 @@ const RemoteContent = ({
           dimensions.pageContainerPaddingHorizontal,
         ),
       }}
-      originWhitelist={['*']} // Needed by iOS to load the initial html
+      originWhitelist={ORIGIN_WHITELIST} // Needed by iOS to load the initial html
       javaScriptEnabled
-      dataDetectorTypes={['none']}
+      dataDetectorTypes={DATA_DETECTOR_TYPES}
       userAgent={userAgent}
       domStorageEnabled={false}
       allowsFullscreenVideo

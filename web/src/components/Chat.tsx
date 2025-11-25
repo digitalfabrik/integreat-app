@@ -14,7 +14,6 @@ import { ChatMessageModel, CityModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
 import ChatConversation from './ChatConversation'
-import LoadingSpinner from './LoadingSpinner'
 import PrivacyCheckbox from './PrivacyCheckbox'
 import H1 from './base/H1'
 import Link from './base/Link'
@@ -70,15 +69,6 @@ const Chat = ({
     }
   }
 
-  if (isLoading && !hasError) {
-    return (
-      <Container>
-        <LoadingSpinner />
-        <Stack textAlign='center'>{t('loadingText')}</Stack>
-      </Container>
-    )
-  }
-
   if (!privacyPolicyAccepted) {
     return (
       <Container>
@@ -98,7 +88,7 @@ const Chat = ({
 
   return (
     <Container justifyContent='space-between'>
-      <ChatConversation messages={messages} isTyping={isTyping} />
+      <ChatConversation messages={messages} isTyping={isTyping} loading={isLoading} />
       <Stack paddingInline={2} gap={1}>
         {hasError && <Alert severity='error'>{t('errorMessage')}</Alert>}
         <TextField
