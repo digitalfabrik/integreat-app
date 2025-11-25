@@ -13,7 +13,7 @@ const EntryContainer = styled.View<{ language: string }>`
   display: flex;
   flex-direction: ${props => contentDirection(props.language)};
   justify-content: space-between;
-  padding: 4px 26px;
+  padding: ${props => (isContentDirectionReversalRequired(props.language) ? '4px 26px 4px 0' : '4px 36px 4px 0')};
 `
 
 const Timeslot = styled.View`
