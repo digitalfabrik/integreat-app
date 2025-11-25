@@ -1,3 +1,4 @@
+
 import distance from '@turf/distance'
 import { DateTime, Interval } from 'luxon'
 
@@ -112,7 +113,7 @@ class PoiModel extends ExtendedPageModel {
     return this._category
   }
 
-  get isCurrentlyOpen(): boolean {
+get isCurrentlyOpen(): boolean {
     if (!this.openingHours) {
       return false
     }
