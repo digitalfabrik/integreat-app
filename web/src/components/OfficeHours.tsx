@@ -23,7 +23,7 @@ const OfficeHours = ({ officeHours }: OfficeHoursProps): ReactElement | null => 
 
   const allDayOpen = officeHours.every(hours => hours.allDay)
   const allDayClosed = officeHours.every(hours => hours.closed)
-  const currentlyOpen = isCurrentlyOpen(officeHours)
+  const currentlyOpen: boolean = isCurrentlyOpen(officeHours)
 
   if (allDayOpen) {
     return (
@@ -49,9 +49,7 @@ const OfficeHours = ({ officeHours }: OfficeHoursProps): ReactElement | null => 
       title={
         <Stack direction='row' alignItems='center' gap={1}>
           <AccessTimeIcon fontSize='small' />
-          <Typography color='primary' variant='body2'>
-            {t(currentlyOpen === true ? 'opened' : 'closed')}
-          </Typography>
+          <Typography variant='body2'>{t(currentlyOpen ? 'opened' : 'closed')}</Typography>
         </Stack>
       }
       defaultCollapsed>

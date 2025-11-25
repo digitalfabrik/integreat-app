@@ -13,12 +13,9 @@ const StyledAccordion = styled(MuiAccordion)({
   },
 })
 
-const StyledAccordionSummary = styled(AccordionSummary)<{ iconColor?: string }>(({ iconColor }) => ({
+const StyledAccordionSummary = styled(AccordionSummary)({
   padding: 0,
-  '.MuiSvgIcon-root': {
-    color: iconColor,
-  },
-}))
+})
 
 const StyledAccordionDetails = styled(AccordionDetails)({
   overflowWrap: 'break-word',
