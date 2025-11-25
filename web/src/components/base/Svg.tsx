@@ -18,13 +18,11 @@ const Svg = ({
 }: CustomIconProps): ReactElement => (
   <ReactSVG
     src={src}
+    className={className}
     beforeInjection={svg => {
       svg.setAttribute('width', String(width))
       svg.setAttribute('height', String(height))
       svg.setAttribute('style', 'color: inherit')
-      if (className) {
-        svg.classList.add(className)
-      }
     }}
     wrapper='span'
   />
