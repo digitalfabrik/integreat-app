@@ -26,14 +26,11 @@ type CustomThumbnailProps = {
   src: string
 }
 
-const CustomThumbnail = ({ src }: CustomThumbnailProps): ReactElement => {
-  const opaque = ['.jpg', '.jpeg'].some(extension => src.toLowerCase().includes(extension))
-  return (
-    <ThumbnailWrapper>
-      {opaque ? <Thumbnail source={src} resizeMode='cover' blurRadius={3} /> : <WhiteBackground />}
-      <Thumbnail source={src} />
-    </ThumbnailWrapper>
-  )
-}
+const CustomThumbnail = ({ src }: CustomThumbnailProps): ReactElement => (
+  <ThumbnailWrapper>
+    <WhiteBackground />
+    <Thumbnail source={src} />
+  </ThumbnailWrapper>
+)
 
 export default CustomThumbnail

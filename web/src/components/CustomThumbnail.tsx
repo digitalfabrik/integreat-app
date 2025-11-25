@@ -21,11 +21,6 @@ const Thumbnail = styled('img')`
   width: 100%;
   object-fit: contain;
 `
-const ThumbnailBackground = styled(Thumbnail)`
-  position: absolute;
-  object-fit: cover;
-  filter: blur(10px);
-`
 
 const WhiteBackground = styled('div')`
   position: absolute;
@@ -38,14 +33,11 @@ type CustomThumbnailProps = {
   src: string
 }
 
-const CustomThumbnail = ({ src }: CustomThumbnailProps): ReactElement => {
-  const opaque = ['.jpg', '.jpeg'].some(extension => src.toLowerCase().includes(extension))
-  return (
-    <ThumbnailWrapper>
-      {opaque ? <ThumbnailBackground alt='' src={src} /> : <WhiteBackground />}
-      <Thumbnail alt='' src={src} />
-    </ThumbnailWrapper>
-  )
-}
+const CustomThumbnail = ({ src }: CustomThumbnailProps): ReactElement => (
+  <ThumbnailWrapper>
+    <WhiteBackground />
+    <Thumbnail alt='' src={src} />
+  </ThumbnailWrapper>
+)
 
 export default CustomThumbnail
