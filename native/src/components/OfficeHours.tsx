@@ -17,10 +17,6 @@ const StyledView = styled.View`
   gap: 8px;
 `
 
-const StyledTitle = styled(Text)`
-  color: ${props => props.theme.colors.primary};
-`
-
 type OfficeHoursProps = {
   officeHours: OpeningHoursModel[] | null
   language: string
@@ -61,7 +57,7 @@ const OfficeHours = ({ officeHours, language }: OfficeHoursProps): ReactElement 
       headerContent={
         <StyledView>
           <Icon Icon={ClockIcon} />
-          <StyledTitle>{t(currentlyOpen ? 'opened' : 'closed')}</StyledTitle>
+          <Text>{t(currentlyOpen ? 'opened' : 'closed')}</Text>
         </StyledView>
       }
       initialCollapsed>
