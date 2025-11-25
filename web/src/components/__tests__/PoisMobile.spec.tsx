@@ -18,7 +18,7 @@ describe('PoisMobile', () => {
   const selectMapFeature = jest.fn()
   const deselect = jest.fn()
 
-  const renderPoisMobile = (poi?: PoiModel) =>
+  const renderPoisMobile = (poi?: PoiModel, loading = false) =>
     renderWithRouterAndTheme(
       <PoisMobile
         data={{ pois, mapFeatures, poi, poiCategories }}
@@ -29,8 +29,19 @@ describe('PoisMobile', () => {
         MapOverlay={<div />}
         selectMapFeature={selectMapFeature}
         deselect={deselect}
+        loading={loading}
       />,
     )
+
+  it('should show loading skeleton on loading', () => {
+    const { queryByText, getByRole } = renderPoisMobile(undefined, true)
+    expect(getByRole('list')).toBeTruthy()
+
+    pois.forEach(poi => {
+      expect(queryByText(poi.title)).toBeFalsy()
+    })
+    expect(queryByText('pois:common:nearby')).toBeFalsy()
+  })
 
   it('should list detail information about the current feature and the poi if feature and poi provided', async () => {
     const singlePoi = pois[1]!

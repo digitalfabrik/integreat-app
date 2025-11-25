@@ -23,10 +23,12 @@ describe('Pois', () => {
     slug = undefined,
     multipoi = undefined,
     poiCategoryId = undefined,
+    loading = false,
   }: {
     slug?: string
     multipoi?: number
     poiCategoryId?: number
+    loading?: boolean
   }) => {
     const routeInformation = {
       cityCode: city.code,
@@ -38,7 +40,7 @@ describe('Pois', () => {
     }
     const pathname = pathnameFromRouteInformation(routeInformation)
     const query = queryStringFromRouteInformation(routeInformation)
-    return renderRoute(<Pois pois={pois} userLocation={null} city={city} />, {
+    return renderRoute(<Pois pois={pois} userLocation={null} city={city} loading={loading} />, {
       routePattern: `/:cityCode/:languageCode/${RoutePatterns[POIS_ROUTE]}`,
       childPattern: ':slug',
       pathname,

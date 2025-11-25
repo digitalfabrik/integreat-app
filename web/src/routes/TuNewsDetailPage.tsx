@@ -12,8 +12,8 @@ import CityContentLayout, { CityContentLayoutProps } from '../components/CityCon
 import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
-import LoadingSpinner from '../components/LoadingSpinner'
 import Page from '../components/Page'
+import SkeletonPage from '../components/SkeletonPage'
 import Svg from '../components/base/Svg'
 import { tunewsApiBaseUrl } from '../constants/urls'
 import useTtsPlayer from '../hooks/useTtsPlayer'
@@ -37,11 +37,9 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const newsId = useParams().newsId!
 
-  const {
-    data: newsModel,
-    loading,
-    error: newsError,
-  } = useLoadFromEndpoint(createTunewsElementEndpoint, tunewsApiBaseUrl, { id: parseInt(newsId, 10) })
+  const { data: newsModel, error: newsError } = useLoadFromEndpoint(createTunewsElementEndpoint, tunewsApiBaseUrl, {
+    id: parseInt(newsId, 10),
+  })
 
   useTtsPlayer(newsModel, languageCode)
 
@@ -66,17 +64,9 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
     Toolbar: <CityContentToolbar />,
   }
 
-  if (loading) {
-    return (
-      <CityContentLayout isLoading {...locationLayoutParams}>
-        <LoadingSpinner />
-      </CityContentLayout>
-    )
-  }
-
-  if (!newsModel) {
+  if (newsError) {
     const error =
-      !newsError || newsError instanceof NotFoundError
+      newsError instanceof NotFoundError
         ? new NotFoundError({
             type: TU_NEWS_TYPE,
             id: pathname,
@@ -100,12 +90,16 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
           <Svg src={TuNewsActiveIcon} width='100%' height='100%' />
         </IconContainer>
       </TuNewsBanner>
-      <Page
-        title={newsModel.title}
-        content={newsModel.content}
-        lastUpdate={newsModel.date}
-        showLastUpdateText={false}
-      />
+      {!newsModel ? (
+        <SkeletonPage />
+      ) : (
+        <Page
+          title={newsModel.title}
+          content={newsModel.content}
+          lastUpdate={newsModel.date}
+          showLastUpdateText={false}
+        />
+      )}
     </CityContentLayout>
   )
 }

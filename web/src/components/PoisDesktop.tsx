@@ -11,6 +11,8 @@ import MapView from './MapView'
 import PoiPanelHeader from './PoiPanelHeader'
 import PoiPanelNavigation from './PoiPanelNavigation'
 import PoiSharedChildren from './PoiSharedChildren'
+import SkeletonHeader from './SkeletonHeader'
+import SkeletonList from './SkeletonList'
 
 const PanelContainer = styled('article')`
   overflow: auto;
@@ -34,6 +36,45 @@ const StyledMapAttribution = styled(MapAttribution)({
   left: 0,
 })
 
+const SkeletonPanelContent = () => (
+  <Stack paddingX={2}>
+    <SkeletonHeader width='60%' />
+    <SkeletonList />
+  </Stack>
+)
+
+type PanelContentProps = {
+  listRef: React.RefObject<HTMLDivElement | null>
+  canDeselect: boolean
+  deselect: () => void
+  pois: PoiModel[]
+  poi: PoiModel | undefined
+  scrollToTop: () => void
+  userLocation: LocationType | null
+  slug: string | undefined
+  switchPoi: (step: 1 | -1) => void
+}
+
+const PanelContent = ({
+  listRef,
+  canDeselect,
+  deselect,
+  pois,
+  poi,
+  scrollToTop,
+  userLocation,
+  slug,
+  switchPoi,
+}: PanelContentProps): ReactElement => (
+  <Stack justifyContent='space-between' height='100%'>
+    <ListViewWrapper ref={listRef}>
+      <PoiPanelHeader goBack={canDeselect ? deselect : null} />
+      <PoiSharedChildren pois={pois} poi={poi} scrollToTop={scrollToTop} userLocation={userLocation} slug={slug} />
+    </ListViewWrapper>
+    {poi && pois.length > 0 && <PoiPanelNavigation switchPoi={switchPoi} />}
+  </Stack>
+)
+
 type PoisDesktopProps = {
   data: PreparePoisReturn
   selectMapFeature: (mapFeature: MapFeature | null) => void
@@ -44,6 +85,7 @@ type PoisDesktopProps = {
   mapViewport?: MapViewViewport
   setMapViewport: (mapViewport: MapViewViewport) => void
   MapOverlay: ReactElement
+  loading: boolean
 }
 
 const nextPoiIndex = (step: 1 | -1, arrayLength: number, currentIndex: number): number => {
@@ -66,6 +108,7 @@ const PoisDesktop = ({
   mapViewport,
   setMapViewport,
   MapOverlay,
+  loading,
 }: PoisDesktopProps): ReactElement => {
   const [scrollOffset, setScrollOffset] = useState<number>(0)
   const listRef = useRef<HTMLDivElement>(null)
@@ -92,19 +135,25 @@ const PoisDesktop = ({
     listRef.current?.scrollTo({ top: mapFeature ? 0 : scrollOffset })
   }, [mapFeature, scrollOffset])
 
-  const PanelContent = (
-    <Stack justifyContent='space-between' height='100%'>
-      <ListViewWrapper ref={listRef}>
-        <PoiPanelHeader goBack={canDeselect ? deselect : null} />
-        <PoiSharedChildren pois={pois} poi={poi} scrollToTop={scrollToTop} userLocation={userLocation} slug={slug} />
-      </ListViewWrapper>
-      {poi && pois.length > 0 && <PoiPanelNavigation switchPoi={switchPoi} />}
-    </Stack>
-  )
-
   return (
     <>
-      <PanelContainer>{PanelContent}</PanelContainer>
+      <PanelContainer>
+        {loading ? (
+          <SkeletonPanelContent />
+        ) : (
+          <PanelContent
+            listRef={listRef}
+            canDeselect={canDeselect}
+            deselect={deselect}
+            pois={pois}
+            poi={poi}
+            scrollToTop={scrollToTop}
+            userLocation={userLocation}
+            slug={slug}
+            switchPoi={switchPoi}
+          />
+        )}
+      </PanelContainer>
       <MapView
         viewport={mapViewport}
         setViewport={setMapViewport}
