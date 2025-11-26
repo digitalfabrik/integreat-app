@@ -52,7 +52,7 @@ const ChatConversation = ({ messages, isTyping, loading }: ChatConversationProps
     }
   }, [isTyping])
 
-  if (messages.length === 0) {
+  if (messages.length === 0 && !loading) {
     return (
       <Stack paddingInline={3} gap={1}>
         <Typography variant='subtitle1'>{t('conversationTitle')}</Typography>
