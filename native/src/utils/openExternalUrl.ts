@@ -11,7 +11,7 @@ import { reportError } from './sentry'
 
 const WAIT_UNTIL_IN_APP_BROWSER_CLOSED = 100
 const openExternalUrl = async (rawUrl: string, showSnackbar: (snackbar: SnackbarType) => void): Promise<void> => {
-  const encodedUrl = encodeURI(rawUrl)
+  const encodedUrl = encodeURI(decodeURIComponent(rawUrl))
   const { protocol } = new URL(encodedUrl)
   const internalLinkRegexp = new RegExp(buildConfig().internalUrlPattern)
 
