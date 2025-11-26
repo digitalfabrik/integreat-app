@@ -4,7 +4,6 @@ import styled from 'styled-components/native'
 
 import { ErrorCode } from 'shared/api'
 
-import { NoInternetIcon, SadSmileyIcon, WarningIcon } from '../assets'
 import Icon from './base/Icon'
 import TextButton from './base/TextButton'
 
@@ -34,21 +33,21 @@ const Failure = ({ code, buttonAction, buttonLabel }: FailureProps): ReactElemen
   let ErrorIcon
   switch (code) {
     case ErrorCode.NetworkConnectionFailed: {
-      ErrorIcon = NoInternetIcon
+      ErrorIcon = 'wifi-off'
       break
     }
     case ErrorCode.UnknownError: {
-      ErrorIcon = WarningIcon
+      ErrorIcon = 'alert-outline'
       break
     }
     default: {
-      ErrorIcon = SadSmileyIcon
+      ErrorIcon = 'emoticon-sad-outline'
       break
     }
   }
   return (
     <ViewContainer>
-      <StyledIcon Icon={ErrorIcon} />
+      <StyledIcon source={ErrorIcon} />
       <Message>{t(code === ErrorCode.CityUnavailable ? 'notFound.city' : code)}</Message>
       {buttonAction && <TextButton onPress={buttonAction} text={t(buttonLabel ?? 'tryAgain')} />}
     </ViewContainer>

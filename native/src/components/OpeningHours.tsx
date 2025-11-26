@@ -3,12 +3,11 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text } from 'react-native'
 import { Divider } from 'react-native-paper'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
 import { weekdays } from 'shared'
 import { OpeningHoursModel } from 'shared/api'
 
-import { ExternalLinkIcon } from '../assets'
 import { contentDirection } from '../constants/contentDirection'
 import useSnackbar from '../hooks/useSnackbar'
 import openExternalUrl from '../utils/openExternalUrl'
@@ -101,12 +100,13 @@ const OpeningHours = ({
 }: OpeningHoursProps): ReactElement | null => {
   const { t } = useTranslation('pois')
   const showSnackbar = useSnackbar()
+  const theme = useTheme()
   const appointmentOnly = !openingHours && !!appointmentUrl
 
   const AppointmentLink = appointmentUrl ? (
     <LinkContainer onPress={() => openExternalUrl(appointmentUrl, showSnackbar)} role='link'>
       <Link>{t('makeAppointment')}</Link>
-      <StyledIcon Icon={ExternalLinkIcon} />
+      <StyledIcon color={theme.colors.primary} source='open-in-new' />
     </LinkContainer>
   ) : null
 

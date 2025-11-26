@@ -3,7 +3,6 @@ import React, { ReactElement, ReactNode, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
-import { ArrowBackIcon } from '../assets'
 import { contentDirection } from '../constants/contentDirection'
 import Icon from './base/Icon'
 
@@ -28,12 +27,9 @@ const CollapseHeaderWrapper = styled.View<{ language: string }>`
 `
 
 const StyledIcon = styled(Icon)<{ collapsed: boolean }>`
-  color: ${props => props.theme.legacy.colors.textColor};
-  transform: rotate(90deg) ${props => (props.collapsed ? 'scale(-1)' : '')};
+  transform: ${props => (props.collapsed ? 'scale(-1)' : '')};
   margin: 0 4px;
   align-self: center;
-  width: 16px;
-  height: 16px;
 `
 
 type CollapsibleProps = {
@@ -67,7 +63,12 @@ const Collapsible = ({
             ) : (
               headerContent
             )}
-            <StyledIcon Icon={ArrowBackIcon} collapsed={collapsed} label={t(collapsed ? 'showMore' : 'showLess')} />
+            <StyledIcon
+              source='chevron-up'
+              size={16}
+              collapsed={collapsed}
+              label={t(collapsed ? 'showMore' : 'showLess')}
+            />
           </CollapseHeaderWrapper>
           {Description}
         </CollapseHeader>

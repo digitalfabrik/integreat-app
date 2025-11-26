@@ -1,8 +1,7 @@
 import { DateTime } from 'luxon'
 import React, { ReactElement, useState } from 'react'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
-import { LocationMarkerIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'
 import { useAppContext } from '../hooks/useCityAppContext'
 import { log } from '../utils/sentry'
@@ -46,6 +45,7 @@ const SwitchCmsUrlIcon = ({ clearResourcesAndCache }: LandingIconProps): ReactEl
   const [clickCount, setClickCount] = useState(0)
   const [clickStart, setClickStart] = useState<null | DateTime>(null)
   const { settings, updateSettings } = useAppContext()
+  const theme = useTheme()
   const { cmsUrl, switchCmsUrl } = buildConfig()
   const { apiUrlOverride } = settings
 
@@ -85,7 +85,7 @@ const SwitchCmsUrlIcon = ({ clearResourcesAndCache }: LandingIconProps): ReactEl
         importantForAccessibility='no'
         accessibilityElementsHidden
         accessible={false}>
-        <StyledIcon Icon={LocationMarkerIcon} />
+        <StyledIcon size={72} color={theme.legacy.colors.themeColor} source='map-marker' />
       </StyledPressable>
       {apiUrlOverride && apiUrlOverride !== buildConfig().cmsUrl ? (
         <>

@@ -11,7 +11,6 @@ import {
 } from 'react-navigation-header-buttons'
 import styled from 'styled-components/native'
 
-import { LanguageIcon, MenuIcon, SearchIcon } from '../assets'
 import Icon from './base/Icon'
 
 const StyledHeaderContainer = styled.View`
@@ -28,7 +27,7 @@ const HeaderIcon = ({ name, ...props }: HeaderIconProps): ReactElement => {
   if (!['language', 'search'].includes(name)) {
     throw new Error('Invalid icon name!')
   }
-  return <Icon Icon={name === 'search' ? SearchIcon : LanguageIcon} {...props} />
+  return <Icon source={name === 'search' ? 'magnify' : 'translate'} {...props} />
 }
 
 const CustomHeaderButton = (props: HeaderButtonProps) => (
@@ -56,7 +55,7 @@ const CustomHeaderButtons = (props: {
         <OverflowMenu
           onPress={onOverflowMenuPress(cancelLabel)}
           accessibilityLabel={t('moreOptions')}
-          OverflowIcon={<Icon Icon={MenuIcon} />}>
+          OverflowIcon={<Icon source='dots-vertical' />}>
           {overflowItems}
         </OverflowMenu>
       </HeaderButtons>

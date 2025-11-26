@@ -2,7 +2,6 @@ import React, { ReactElement } from 'react'
 import { Text, View, Keyboard } from 'react-native'
 import styled, { useTheme } from 'styled-components/native'
 
-import { SearchIcon } from '../assets'
 import testID from '../testing/testID'
 import Icon from './base/Icon'
 
@@ -52,7 +51,7 @@ const SearchInput = ({
   return (
     <View>
       <Wrapper space={spaceSearch}>
-        <Icon Icon={SearchIcon} />
+        <Icon source='magnify' />
         <InputWrapper>
           <StyledInput
             {...testID('Search-Input')}

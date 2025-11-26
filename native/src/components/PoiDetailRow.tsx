@@ -1,5 +1,4 @@
 import React, { ReactElement } from 'react'
-import { SvgProps } from 'react-native-svg'
 import styled from 'styled-components/native'
 
 import useSnackbar from '../hooks/useSnackbar'
@@ -29,26 +28,20 @@ type PoiDetailRowProps = {
   externalUrl: string
   accessibilityLabel: string
   text: string
-  Icon: React.JSXElementConstructor<SvgProps>
-  IconEnd?: React.JSXElementConstructor<SvgProps>
+  icon: string
+  iconEnd?: string
 }
 
-const PoiDetailRow = ({
-  externalUrl,
-  text,
-  accessibilityLabel,
-  Icon: IconProp,
-  IconEnd,
-}: PoiDetailRowProps): ReactElement => {
+const PoiDetailRow = ({ externalUrl, text, accessibilityLabel, icon, iconEnd }: PoiDetailRowProps): ReactElement => {
   const showSnackbar = useSnackbar()
   return (
     <Container
       onPress={() => openExternalUrl(externalUrl, showSnackbar)}
       role='link'
       accessibilityLabel={accessibilityLabel}>
-      <Icon Icon={IconProp} />
+      <Icon source={icon} />
       <StyledText>{text}</StyledText>
-      {IconEnd && <StyledSecondIcon Icon={IconEnd} />}
+      {!!iconEnd && <StyledSecondIcon source={iconEnd} />}
     </Container>
   )
 }

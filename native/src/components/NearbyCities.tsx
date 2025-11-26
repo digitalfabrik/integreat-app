@@ -5,7 +5,6 @@ import styled from 'styled-components/native'
 import { getNearbyCities } from 'shared'
 import { CityModel } from 'shared/api'
 
-import { RefreshIcon } from '../assets'
 import useUserLocation from '../hooks/useUserLocation'
 import CityEntry from './CityEntry'
 import Icon from './base/Icon'
@@ -49,7 +48,7 @@ const NearbyCities = ({ cities, navigateToDashboard, filterText }: NearbyCitiesP
         <RetryButtonContainer>
           {status !== 'loading' && (
             <IconButton
-              icon={<StyledIcon Icon={RefreshIcon} />}
+              icon={<StyledIcon source='refresh' />}
               onPress={refreshPermissionAndLocation}
               accessibilityLabel={t('refresh')}
             />

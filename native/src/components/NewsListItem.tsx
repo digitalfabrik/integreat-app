@@ -5,7 +5,6 @@ import styled from 'styled-components/native'
 
 import { LocalNewsModel, TunewsModel } from 'shared/api'
 
-import { ArrowBackIcon } from '../assets'
 import { EXCERPT_MAX_LINES } from '../constants'
 import { contentDirection } from '../constants/contentDirection'
 import { useAppContext } from '../hooks/useCityAppContext'
@@ -107,7 +106,7 @@ const NewsListItem = ({ index, newsItem, navigateToNews, isTunews }: NewsListIte
             <ReadMore isTunews={isTunews} onPress={navigateToNews}>
               {t('common:more')}
             </ReadMore>
-            <StyledIcon Icon={ArrowBackIcon} directionDependent reverse isTunews={isTunews} />
+            <StyledIcon source='chevron-left' directionDependent reverse isTunews={isTunews} />
           </ReadMoreWrapper>
         </Pressable>
       </ListItemWrapper>

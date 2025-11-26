@@ -2,7 +2,6 @@ import React, { ReactElement } from 'react'
 import { StyleProp, ViewStyle } from 'react-native'
 import styled from 'styled-components/native'
 
-import { CloseIcon } from '../../assets'
 import Icon from './Icon'
 import Pressable from './Pressable'
 import Text from './Text'
@@ -53,7 +52,7 @@ const ChipButton = ({ text, onPress, Icon: IconProp, closeButton, style }: TextB
     <StyledText>{text}</StyledText>
     {closeButton && (
       <IconContainer>
-        <StyledIcon Icon={CloseIcon} />
+        <StyledIcon source='close' />
       </IconContainer>
     )}
   </StyledPressable>

@@ -4,7 +4,6 @@ import styled from 'styled-components/native'
 
 import { OpeningHoursModel } from 'shared/api'
 
-import { NoteIcon } from '../assets'
 import { contentDirection, isContentDirectionReversalRequired } from '../constants/contentDirection'
 import AppointmentOnlyOverlay from './AppointmentOnlyOverlay'
 import Icon from './base/Icon'
@@ -90,7 +89,7 @@ const OpeningEntry = ({
       {openingHours.appointmentOnly && (
         <AppointmentOnlyContainer language={language}>
           <StyledPressable role='button' onPress={() => setOverlayOpen(true)}>
-            <StyledIcon Icon={NoteIcon} label={t('appointmentNecessary')} />
+            <StyledIcon source='alert-circle-outline' label={t('appointmentNecessary')} />
           </StyledPressable>
           {overlayOpen && (
             <AppointmentOnlyOverlay closeOverlay={() => setOverlayOpen(false)} appointmentUrl={appointmentUrl} />

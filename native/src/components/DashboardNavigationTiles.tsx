@@ -13,7 +13,6 @@ import {
 } from 'shared'
 import { CityModel } from 'shared/api'
 
-import { CalendarIcon, NewsIcon, POIsIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'
 import NavigationTiles from './NavigationTiles'
 
@@ -44,7 +43,7 @@ const DashboardNavigationTiles = ({
       new TileModel({
         title: t('locations'),
         path: 'pois',
-        thumbnail: POIsIcon,
+        thumbnail: 'map-outline',
         isExternalUrl: false,
         onTilePress: () =>
           navigateTo({
@@ -61,7 +60,7 @@ const DashboardNavigationTiles = ({
       new TileModel({
         title: t('news'),
         path: 'news',
-        thumbnail: NewsIcon,
+        thumbnail: 'newspaper',
         isExternalUrl: false,
         onTilePress: () =>
           navigateTo({
@@ -79,7 +78,7 @@ const DashboardNavigationTiles = ({
       new TileModel({
         title: t('events'),
         path: 'events',
-        thumbnail: CalendarIcon,
+        thumbnail: 'calendar-blank-outline',
         isExternalUrl: false,
         onTilePress: () =>
           navigateTo({
