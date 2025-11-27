@@ -25,7 +25,7 @@ const FormRadioButtons = <T extends FieldValues>({ name, control, values }: Form
       <RadioButton.Group onValueChange={onChange} value={value}>
         {values.map(({ key, label, inputName }) => (
           <View key={key}>
-            <RadioButton.Item labelVariant='bodySmall' label={label} value={key} />
+            <RadioButton.Item mode='android' labelVariant='bodySmall' label={label} value={key} />
             {inputName !== undefined && value === key && (
               <FormInput rules={{ required: true }} name={inputName} control={control} title={inputName} />
             )}
