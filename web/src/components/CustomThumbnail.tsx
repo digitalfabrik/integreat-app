@@ -4,7 +4,7 @@ import React, { ReactElement } from 'react'
 const ThumbnailWrapper = styled('div')`
   position: relative;
   height: clamp(120px, 14vh, 160px);
-  width: 100%;
+  width: fit-content;
   flex-shrink: 0;
   border-radius: 8px;
   overflow: hidden;
