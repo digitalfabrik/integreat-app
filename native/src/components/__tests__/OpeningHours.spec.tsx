@@ -26,8 +26,8 @@ describe('OpeningHours', () => {
     { length: 7 },
     () =>
       new OpeningHoursModel({
-        allDay: false,
-        closed: false,
+        openAllDay: false,
+        closedAllDay: false,
         timeSlots: [{ end: '18:00', start: '08:00' }],
         appointmentOnly: false,
       }),

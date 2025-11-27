@@ -28,6 +28,7 @@ export { default as parseHTML } from './utils/parseHTML'
 export { embedInCollection } from './utils/geoJson'
 export { prepareMapFeatures, prepareMapFeature, MIN_DISTANCE_THRESHOLD } from './utils/geoJson'
 export { default as getExcerpt } from './utils/getExcerpt'
+export { default as isCurrentlyOpen } from './utils/isCurrentlyOpen'
 export * from './constants'
 export { default as TileModel } from './models/TileModel'
 export type ExternalSourcePermissions = Record<string, boolean>
