@@ -147,7 +147,12 @@ type ContactJsonType = {
   website: string | null
   mobileNumber: string | null
   officeHours:
-    | { allDay: boolean; closed: boolean; timeSlots: { start: string; end: string }[]; appointmentOnly: boolean }[]
+    | {
+        openAllDay: boolean
+        closedAllDay: boolean
+        timeSlots: { start: string; end: string }[]
+        appointmentOnly: boolean
+      }[]
     | null
 }
 
@@ -163,7 +168,12 @@ type ContentPoiJsonType = {
   lastUpdate: string
   category: { id: number; name: string; color: string; icon: string; iconName: string }
   openingHours:
-    | { allDay: boolean; closed: boolean; timeSlots: { start: string; end: string }[]; appointmentOnly: boolean }[]
+    | {
+        openAllDay: boolean
+        closedAllDay: boolean
+        timeSlots: { start: string; end: string }[]
+        appointmentOnly: boolean
+      }[]
     | null
   temporarilyClosed: boolean
   appointmentUrl: string | null
@@ -215,9 +225,14 @@ type MetaCitiesType = Record<CityCodeType, MetaCitiesEntryType>
 
 const mapOpeningHoursToJson = (
   hours: OpeningHoursModel,
-): { allDay: boolean; closed: boolean; timeSlots: { start: string; end: string }[]; appointmentOnly: boolean } => ({
-  allDay: hours.allDay,
-  closed: hours.closed,
+): {
+  openAllDay: boolean
+  closedAllDay: boolean
+  timeSlots: { start: string; end: string }[]
+  appointmentOnly: boolean
+} => ({
+  openAllDay: hours.openAllDay,
+  closedAllDay: hours.closedAllDay,
   timeSlots: hours.timeSlots.map(timeslot => ({
     start: timeslot.start,
     end: timeslot.end,
@@ -226,14 +241,14 @@ const mapOpeningHoursToJson = (
 })
 
 const mapJsonToOpeningHours = (hours: {
-  allDay: boolean
-  closed: boolean
+  openAllDay: boolean
+  closedAllDay: boolean
   timeSlots: { start: string; end: string }[]
   appointmentOnly: boolean
 }): OpeningHoursModel =>
   new OpeningHoursModel({
-    allDay: hours.allDay,
-    closed: hours.closed,
+    openAllDay: hours.openAllDay,
+    closedAllDay: hours.closedAllDay,
     timeSlots: hours.timeSlots.map(timeslot => ({
       start: timeslot.start,
       end: timeslot.end,

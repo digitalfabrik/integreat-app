@@ -10,13 +10,25 @@ import OpeningHoursModel from '../models/OpeningHoursModel'
 import OrganizationModel from '../models/OrganizationModel'
 import PoiCategoryModel from '../models/PoiCategoryModel'
 import PoiModel from '../models/PoiModel'
-import { JsonPoiType } from '../types'
+import { JsonOpeningHoursType, JsonPoiType } from '../types'
 
 export const POIS_ENDPOINT_NAME = 'pois'
 type ParamsType = {
   city: string
   language: string
 }
+
+const mapOpeningHours = (openingHours: JsonOpeningHoursType[] | null | undefined) =>
+  openingHours?.map(
+    openingHour =>
+      new OpeningHoursModel({
+        openAllDay: openingHour.allDay,
+        closedAllDay: openingHour.closed,
+        timeSlots: openingHour.timeSlots,
+        appointmentOnly: openingHour.appointmentOnly,
+      }),
+  ) ?? null
+
 export default (baseUrl: string): Endpoint<ParamsType, PoiModel[]> =>
   new EndpointBuilder<ParamsType, PoiModel[]>(POIS_ENDPOINT_NAME)
     .withParamsToUrlMapper(
@@ -43,11 +55,11 @@ export default (baseUrl: string): Endpoint<ParamsType, PoiModel[]> =>
                   phoneNumber: contact.phone_number,
                   website: contact.website,
                   mobileNumber: contact.mobile_number,
-                  officeHours: contact.opening_hours?.map(openingHour => new OpeningHoursModel(openingHour)) ?? null,
+                  officeHours: mapOpeningHours(contact.opening_hours),
                 }),
             ),
             temporarilyClosed: poi.temporarily_closed,
-            openingHours: poi.opening_hours?.map(openingHour => new OpeningHoursModel(openingHour)) ?? null,
+            openingHours: mapOpeningHours(poi.opening_hours),
             appointmentUrl: poi.appointment_url,
             category: new PoiCategoryModel({
               id: poi.category.id,

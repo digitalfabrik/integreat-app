@@ -38,17 +38,17 @@ const OpeningHoursListItem = ({
         {weekday}
       </Typography>
       <Stack direction='row' alignItems='center' gap={1}>
-        {openingHours.allDay && (
+        {openingHours.openAllDay && (
           <Typography variant={variant} fontWeight={fontWeight}>
             {t('allDay')}
           </Typography>
         )}
-        {openingHours.closed && (
+        {openingHours.closedAllDay && (
           <Typography variant={variant} fontWeight={fontWeight}>
             {t('closed')}
           </Typography>
         )}
-        {!openingHours.allDay && !openingHours.closed && openingHours.timeSlots.length > 0 && (
+        {!openingHours.openAllDay && !openingHours.closedAllDay && openingHours.timeSlots.length > 0 && (
           <Stack>
             {openingHours.timeSlots.map(timeSlot => (
               <Typography variant={variant} fontWeight={fontWeight} key={`${weekday}-${timeSlot.start}`}>

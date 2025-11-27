@@ -21,8 +21,8 @@ const OfficeHours = ({ officeHours }: OfficeHoursProps): ReactElement | null => 
     return null
   }
 
-  const allDayOpen = officeHours.every(hours => hours.allDay)
-  const allDayClosed = officeHours.every(hours => hours.closed)
+  const allDayOpen = officeHours.every(hours => hours.openAllDay)
+  const allDayClosed = officeHours.every(hours => hours.closedAllDay)
   const currentlyOpen: boolean = isCurrentlyOpen(officeHours)
 
   if (allDayOpen) {

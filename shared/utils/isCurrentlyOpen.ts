@@ -13,7 +13,7 @@ const isCurrentlyOpen = (openingHours: OpeningHoursModel[] | null): boolean => {
   const currentDay = openingHours[currentWeekday]
 
   if (currentDay) {
-    if (currentDay.allDay) {
+    if (currentDay.openAllDay) {
       return true
     }
 
