@@ -2,7 +2,7 @@ import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList } from 'react-native'
 import { Calendar } from 'react-native-calendar-events'
-import { RadioButton } from 'react-native-paper'
+import { Divider, RadioButton } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 import Modal from './Modal'
@@ -18,12 +18,6 @@ const Heading = styled.Text`
 // styled-components doesn't have the right types for FlatList
 const StyledList = styled(FlatList as typeof FlatList<Calendar>)`
   flex-grow: 0;
-`
-
-const Divider = styled.View`
-  background-color: ${props => props.theme.legacy.colors.textDecorationColor};
-  height: 1px;
-  margin: 8px 0;
 `
 
 type CalendarChoiceProps = {
