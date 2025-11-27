@@ -6,8 +6,11 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { config } from 'translations'
+
 import useDimensions from '../hooks/useDimensions'
 import LanguageSelectorItem from './LanguageSelectorItem'
+import SearchInput from './SearchInput'
 
 const MobileContainer = styled('div')`
   display: flex;
@@ -51,6 +54,22 @@ type LanguageSelectorProps = {
   availableOnly?: boolean
 }
 
+export const filterLanguageChangePath = (
+  languageChangePath: LanguageChangePath,
+  query: string,
+  languageNamesInCurrentLanguage: Intl.DisplayNames,
+  languageNamesInFallbackLanguage: Intl.DisplayNames,
+): boolean => {
+  if (query === '') {
+    return true
+  }
+  return (
+    languageChangePath.name.toLowerCase().includes(query.toLowerCase()) ||
+    !!languageNamesInCurrentLanguage.of(languageChangePath.code)?.toLowerCase().includes(query.toLowerCase()) ||
+    !!languageNamesInFallbackLanguage.of(languageChangePath.code)?.toLowerCase().includes(query.toLowerCase())
+  )
+}
+
 const LanguageSelector = ({
   languageChangePaths,
   languageCode,
@@ -68,20 +87,18 @@ const LanguageSelector = ({
 
   const currentLanguage = allOptions.find(item => item.code === languageCode)
 
-  if (mobile) {
-    const filteredLanguageChangePaths = languageChangePaths.filter(item =>
-      query === '' ? true : item.name.toLowerCase().includes(query.toLowerCase()),
+  const filteredLanguageChangePaths = useMemo(() => {
+    const languageNamesInCurrentLanguage = new Intl.DisplayNames([languageCode], { type: 'language' })
+    const languageNamesInFallbackLanguage = new Intl.DisplayNames([config.sourceLanguage], { type: 'language' })
+    return languageChangePaths.filter(item =>
+      filterLanguageChangePath(item, query, languageNamesInCurrentLanguage, languageNamesInFallbackLanguage),
     )
+  }, [languageChangePaths, query, languageCode])
 
+  if (mobile) {
     return (
       <MobileContainer>
-        <StyledTextField
-          value={query}
-          onChange={event => setQuery(event.target.value)}
-          placeholder={currentLanguage?.name}
-          size='small'
-          variant='outlined'
-        />
+        <SearchInput placeholderText={currentLanguage?.name ?? ''} filterText={query} onFilterTextChange={setQuery} />
 
         <>
           {filteredLanguageChangePaths.length === 0 ? (
@@ -108,10 +125,14 @@ const LanguageSelector = ({
   return (
     <StyledAutocomplete
       open
-      options={allOptions}
+      filterOptions={options => options} // disable built-in filtering to use custom filter
+      options={filteredLanguageChangePaths}
       renderInput={props => (
         <StyledTextField {...props} placeholder={currentLanguage?.name} size='small' variant='outlined' />
       )}
+      inputValue={query}
+      onInputChange={(_, value) => setQuery(value)}
+      forcePopupIcon={false}
       getOptionLabel={(option: LanguageChangePath) => option.name}
       renderOption={(_, language) => (
         <LanguageSelectorItem
