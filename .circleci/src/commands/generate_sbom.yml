@@ -1,0 +1,15 @@
+description: Generate SPDX SBoM
+steps:
+  - run:
+      name: Install Syft
+      command: |
+        echo "Installing Syft..."
+        curl -sSfL https://get.anchore.io/syft | sudo sh -s -- -b /usr/local/bin
+        export SYFT_SOURCE_NAME="integreat-app"
+        export SYFT_FORMAT_SPDX_JSON_PRETTY=true
+        syft version
+  - run:
+      name: Generate SPDX SBoM
+      command: syft dir:. -o spdx-json=~/sbom.json
+  - store_artifacts:
+      path: ~/sbom.json
