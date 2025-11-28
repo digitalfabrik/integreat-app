@@ -10,7 +10,7 @@ import CityContentMenu from './CityContentMenu'
 import Header from './Header'
 import HeaderActionItem from './HeaderActionItem'
 import HeaderLanguageSelectorItem from './HeaderLanguageSelectorItem'
-import { LanguageChangePath } from './LanguageSelector'
+import { LanguageChangePath } from './LanguageList'
 import NavigationTabs from './NavigationTabs'
 
 type CityContentHeaderProps = {

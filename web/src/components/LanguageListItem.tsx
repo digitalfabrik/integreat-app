@@ -25,7 +25,7 @@ type SelectorProps = {
   selectedLanguageCode?: string
 }
 
-const LanguageSelectorItem = ({ code, path, name, close, selectedLanguageCode }: SelectorProps): ReactElement => {
+const LanguageListItem = ({ code, path, name, close, selectedLanguageCode }: SelectorProps): ReactElement => {
   const { t } = useTranslation('layout')
   const { contentDirection } = useTheme()
 
@@ -51,4 +51,4 @@ const LanguageSelectorItem = ({ code, path, name, close, selectedLanguageCode }:
   )
 }
 
-export default LanguageSelectorItem
+export default LanguageListItem

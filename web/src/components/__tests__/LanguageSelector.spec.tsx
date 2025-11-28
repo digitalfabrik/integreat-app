@@ -1,4 +1,4 @@
-import { filterLanguageChangePath } from '../LanguageSelector'
+import { filterLanguageChangePath } from '../LanguageList'
 
 describe('filterLanguageChangePath', () => {
   const languageChangePath = { code: 'en', path: '/augsburg/en/', name: 'English' }

@@ -4,7 +4,7 @@ import { Helmet as ReactHelmet } from 'react-helmet'
 import { CityModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
-import { LanguageChangePath } from './LanguageSelector'
+import { LanguageChangePath } from './LanguageList'
 
 type HelmetProps = {
   pageTitle: string

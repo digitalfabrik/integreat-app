@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 import useDimensions from '../hooks/useDimensions'
 import useOnClickOutside from '../hooks/useOnClickOutside'
 import HeaderActionItem from './HeaderActionItem'
-import LanguageSelector, { LanguageChangePath } from './LanguageSelector'
+import LanguageList, { LanguageChangePath } from './LanguageList'
 import Sidebar from './Sidebar'
 
 const Wrapper = styled('div')`
@@ -45,7 +45,7 @@ const HeaderLanguageSelectorItem = ({
   if (mobile) {
     return (
       <Sidebar OpenButton={ChangeLanguageButton} setOpen={setOpen} open={open}>
-        <LanguageSelector
+        <LanguageList
           languageChangePaths={languageChangePaths}
           languageCode={languageCode}
           close={() => setOpen(false)}
@@ -58,7 +58,7 @@ const HeaderLanguageSelectorItem = ({
     <Wrapper ref={wrapperRef}>
       {ChangeLanguageButton}
       {open && (
-        <LanguageSelector
+        <LanguageList
           languageChangePaths={languageChangePaths}
           languageCode={languageCode}
           close={() => setOpen(false)}

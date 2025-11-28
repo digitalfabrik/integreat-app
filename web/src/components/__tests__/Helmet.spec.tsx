@@ -5,7 +5,7 @@ import { CityModel, CityModelBuilder } from 'shared/api'
 
 import buildConfig from '../../constants/buildConfig'
 import Helmet from '../Helmet'
-import { LanguageChangePath } from '../LanguageSelector'
+import { LanguageChangePath } from '../LanguageList'
 
 describe('Helmet', () => {
   const config = buildConfig()

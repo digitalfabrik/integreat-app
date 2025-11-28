@@ -2,7 +2,7 @@ import { fireEvent } from '@testing-library/react'
 import React from 'react'
 
 import { renderWithRouterAndTheme } from '../../testing/render'
-import LanguageSelectorItem from '../LanguageSelectorItem'
+import LanguageListItem from '../LanguageListItem'
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({
@@ -18,7 +18,7 @@ describe('LanguageSelectorItem', () => {
 
   it('should render a link correctly', () => {
     const { getByRole } = renderWithRouterAndTheme(
-      <LanguageSelectorItem
+      <LanguageListItem
         code='en'
         path='/augsburg/en/'
         name='English'
@@ -33,7 +33,7 @@ describe('LanguageSelectorItem', () => {
 
   it('should render a selected link correctly', () => {
     const { getByRole } = renderWithRouterAndTheme(
-      <LanguageSelectorItem
+      <LanguageListItem
         code='en'
         path='/augsburg/en/'
         name='English'
@@ -47,7 +47,7 @@ describe('LanguageSelectorItem', () => {
 
   it('should render a tooltip correctly', () => {
     const { getByText, debug } = renderWithRouterAndTheme(
-      <LanguageSelectorItem code='fr' path={null} name='Français' close={closeDropDown} />,
+      <LanguageListItem code='fr' path={null} name='Français' close={closeDropDown} />,
     )
     debug()
     const item = getByText('Français')
@@ -56,7 +56,7 @@ describe('LanguageSelectorItem', () => {
 
   it('should close dropdown when clicking an item', () => {
     const { getByRole } = renderWithRouterAndTheme(
-      <LanguageSelectorItem code='en' path='/augsburg/en/' name='English' close={closeDropDown} />,
+      <LanguageListItem code='en' path='/augsburg/en/' name='English' close={closeDropDown} />,
     )
     fireEvent.click(getByRole('link'))
     expect(closeDropDown).toHaveBeenCalledTimes(1)

@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next'
 import { config } from 'translations'
 
 import useDimensions from '../hooks/useDimensions'
-import LanguageSelectorItem from './LanguageSelectorItem'
+import LanguageListItem from './LanguageListItem'
 import SearchInput from './SearchInput'
 
 const MobileContainer = styled('div')`
@@ -30,13 +30,7 @@ const StyledAutocomplete = styled(Autocomplete)`
 ` as typeof Autocomplete
 
 const StyledTextField = styled(TextField)`
-  width: 100%;
-
-  ${props => props.theme.breakpoints.up('md')} {
-    width: 200px;
-  }
-
-  & legend {
+  legend {
     letter-spacing: 0;
   }
 ` as typeof TextField
@@ -47,7 +41,7 @@ export type LanguageChangePath = {
   name: string
 }
 
-type LanguageSelectorProps = {
+type LanguageListProps = {
   languageChangePaths: LanguageChangePath[]
   languageCode: string
   close?: () => void
@@ -70,12 +64,12 @@ export const filterLanguageChangePath = (
   )
 }
 
-const LanguageSelector = ({
+const LanguageList = ({
   languageChangePaths,
   languageCode,
   close,
   availableOnly = false,
-}: LanguageSelectorProps): ReactElement => {
+}: LanguageListProps): ReactElement => {
   const { t } = useTranslation('layout')
   const { mobile } = useDimensions()
   const [query, setQuery] = useState('')
@@ -106,7 +100,7 @@ const LanguageSelector = ({
           ) : (
             <List disablePadding>
               {filteredLanguageChangePaths.map(language => (
-                <LanguageSelectorItem
+                <LanguageListItem
                   key={language.code}
                   code={language.code}
                   path={language.path}
@@ -135,7 +129,7 @@ const LanguageSelector = ({
       forcePopupIcon={false}
       getOptionLabel={(option: LanguageChangePath) => option.name}
       renderOption={(_, language) => (
-        <LanguageSelectorItem
+        <LanguageListItem
           code={language.code}
           path={language.path}
           name={language.name}
@@ -160,4 +154,4 @@ const LanguageSelector = ({
     />
   )
 }
-export default LanguageSelector
+export default LanguageList
