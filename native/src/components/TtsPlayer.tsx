@@ -1,9 +1,8 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import styled, { css } from 'styled-components/native'
+import styled, { css, useTheme } from 'styled-components/native'
 
-import { CloseIcon, PauseIcon, PlayIcon, FastRewindIcon, FastForwardIcon } from '../assets'
 import { isRTL } from '../constants/contentDirection'
 import Icon from './base/Icon'
 import IconButton from './base/IconButton'
@@ -50,13 +49,6 @@ const StyledButton = styled(Pressable)`
   align-items: center;
 `
 
-const StyledIcon = styled(Icon)<{ disabled?: boolean }>`
-  color: ${props =>
-    props.disabled ? props.theme.legacy.colors.textDisabledColor : props.theme.legacy.colors.textColor};
-  width: 28px;
-  height: 28px;
-`
-
 const StyledPlayIconButton = styled(IconButton)<{ disabled?: boolean }>`
   background-color: ${props =>
     props.disabled ? props.theme.legacy.colors.textDisabledColor : props.theme.legacy.colors.ttsPlayerBackground};
@@ -64,10 +56,6 @@ const StyledPlayIconButton = styled(IconButton)<{ disabled?: boolean }>`
   height: 50px;
   border-radius: 50px;
   ${elevatedStyle}
-`
-
-const PlayButtonIcon = styled(Icon)`
-  color: ${props => props.theme.legacy.colors.ttsPlayerPlayIconColor};
 `
 
 const StyledPlayerHeaderText = styled(Text)`
@@ -105,27 +93,28 @@ const TtsPlayer = ({
   title,
   disabled,
 }: TtsPlayerProps): ReactElement => {
+  const theme = useTheme()
   const { bottom } = useSafeAreaInsets()
   const { t } = useTranslation('layout')
 
   return (
     <StyledTtsPlayer insetBottom={bottom}>
       <CloseButton role='button' accessibilityLabel={t('common:close')} onPress={close}>
-        <StyledIcon Icon={CloseIcon} />
+        <Icon source='close' />
       </CloseButton>
       <StyledPlayerHeaderText numberOfLines={1}>{title}</StyledPlayerHeaderText>
       <StyledPanel>
         <StyledButton role='button' accessibilityLabel={t('previous')} onPress={playPrevious}>
-          <StyledIcon Icon={FastRewindIcon} />
+          <Icon size={28} source='rewind' />
         </StyledButton>
         <StyledPlayIconButton
           disabled={disabled}
           accessibilityLabel={t(isPlaying ? 'pause' : 'play')}
           onPress={() => (isPlaying ? pause() : play())}
-          icon={<PlayButtonIcon Icon={isPlaying ? PauseIcon : PlayIcon} />}
+          icon={<Icon color={theme.legacy.colors.ttsPlayerPlayIconColor} source={isPlaying ? 'pause' : 'play'} />}
         />
         <StyledButton role='button' accessibilityLabel={t('next')} onPress={playNext}>
-          <StyledIcon Icon={FastForwardIcon} />
+          <Icon size={28} source='fast-forward' />
         </StyledButton>
       </StyledPanel>
     </StyledTtsPlayer>

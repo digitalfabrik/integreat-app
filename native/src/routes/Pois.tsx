@@ -8,7 +8,7 @@ import styled from 'styled-components/native'
 import { PoisRouteType, isMultipoi, LocationType, MapFeature, preparePois, safeParseInt, sortPois } from 'shared'
 import { PoiCategoryModel, CityModel, PoiModel } from 'shared/api'
 
-import { ClockIcon, EditLocationIcon } from '../assets'
+import { EditLocationIcon } from '../assets'
 import MapView from '../components/MapView'
 import PoiFiltersModal from '../components/PoiFiltersModal'
 import PoisBottomSheet from '../components/PoisBottomSheet'
@@ -120,7 +120,7 @@ const Pois = ({ pois: allPois, cityModel, route, navigation }: PoisProps): React
       {poiCurrentlyOpenFilter && (
         <ChipButton
           text={t('opened')}
-          Icon={<StyledIcon Icon={ClockIcon} />}
+          Icon={<StyledIcon source='clock-outline' />}
           onPress={() => setPoiCurrentlyOpenFilter(false)}
           closeButton
         />

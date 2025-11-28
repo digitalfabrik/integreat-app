@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
-import { NoteIcon } from '../assets'
 import Icon from './base/Icon'
 
 const NoteBox = styled.View`
@@ -21,18 +20,23 @@ const NoteText = styled.Text`
 const StyledIcon = styled(Icon)`
   align-self: center;
   margin-right: 12px;
-  ${props => props.theme.legacy.isContrastTheme && `color: ${props.theme.legacy.colors.backgroundColor};`}
 `
 
 type NoteProps = {
   text: string
 }
 
-const Note = ({ text }: NoteProps): ReactElement => (
-  <NoteBox>
-    <StyledIcon Icon={NoteIcon} />
-    <NoteText>{text}</NoteText>
-  </NoteBox>
-)
+const Note = ({ text }: NoteProps): ReactElement => {
+  const theme = useTheme()
+  return (
+    <NoteBox>
+      <StyledIcon
+        color={theme.legacy.isContrastTheme ? theme.legacy.colors.backgroundColor : theme.legacy.colors.textColor}
+        source='alert-circle-outline'
+      />
+      <NoteText>{text}</NoteText>
+    </NoteBox>
+  )
+}
 
 export default Note

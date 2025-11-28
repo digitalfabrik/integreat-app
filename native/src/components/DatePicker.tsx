@@ -3,7 +3,6 @@ import React, { ReactElement, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import styled from 'styled-components/native'
 
-import { CalendarTodayIcon } from '../assets'
 import DatePickerInput from './DatePickerInput'
 import Icon from './base/Icon'
 import IconButton from './base/IconButton'
@@ -147,7 +146,7 @@ const DatePicker = ({
         </Wrapper>
         <StyledIconButton
           $isModalOpen={modalOpen}
-          icon={<StyledCalendarIcon Icon={CalendarTodayIcon} />}
+          icon={<StyledCalendarIcon source='calendar' />}
           accessibilityLabel={calendarLabel}
           onPress={() => setModalOpen(true)}
         />

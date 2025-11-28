@@ -4,8 +4,9 @@ import styled from 'styled-components/native'
 
 import { PoiModel } from 'shared/api'
 
-import { AccessibleIcon, NotAccessibleIcon } from '../assets'
+import { NotAccessibleIcon } from '../assets'
 import SimpleImage from './SimpleImage'
+import Icon from './base/Icon'
 import Text from './base/Text'
 
 const ChipsContainer = styled.View`
@@ -22,7 +23,7 @@ const Chip = styled.View`
   padding: 6px 12px;
 `
 
-const ChipIcon = styled(SimpleImage)`
+const ChipCategoryIcon = styled(SimpleImage)`
   color: ${props => props.theme.legacy.colors.textColor};
   width: 24px;
   height: 24px;
@@ -34,12 +35,12 @@ const PoiChips = ({ poi }: { poi: PoiModel }): ReactElement => {
   const barrierFreeChip =
     poi.barrierFree === true ? (
       <>
-        <ChipIcon source={AccessibleIcon} />
+        <Icon source='wheelchair-accessibility' />
         <Text>{t('common:accessible')}</Text>
       </>
     ) : (
       <>
-        <ChipIcon source={NotAccessibleIcon} />
+        <Icon Icon={NotAccessibleIcon} />
         <Text>{t('common:notAccessible')}</Text>
       </>
     )
@@ -47,7 +48,7 @@ const PoiChips = ({ poi }: { poi: PoiModel }): ReactElement => {
   return (
     <ChipsContainer>
       <Chip>
-        <ChipIcon source={poi.category.icon} />
+        <ChipCategoryIcon source={poi.category.icon} />
         <Text>{poi.category.name}</Text>
       </Chip>
       {poi.organization !== null && (

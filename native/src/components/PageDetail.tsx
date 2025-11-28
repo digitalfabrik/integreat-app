@@ -1,5 +1,4 @@
 import React, { ReactElement } from 'react'
-import { SvgProps } from 'react-native-svg'
 import styled from 'styled-components/native'
 
 import { InternalPathnameParser } from 'shared'
@@ -47,7 +46,7 @@ const StyledText = styled.Text`
 
 type PageDetailProps = {
   identifier?: string
-  Icon?: React.JSXElementConstructor<SvgProps>
+  icon?: string
   information: string
   language: string
   path?: string | null
@@ -57,7 +56,7 @@ type PageDetailProps = {
 
 const PageDetail = ({
   identifier,
-  Icon,
+  icon,
   information,
   language,
   path,
@@ -77,9 +76,9 @@ const PageDetail = ({
   }
 
   return (
-    <DetailContainer widthPadding={!Icon && !identifier}>
+    <DetailContainer widthPadding={!icon && !identifier}>
       {!!identifier && <Identifier>{identifier}: </Identifier>}
-      {!!Icon && <StyledIcon Icon={Icon} />}
+      {!!icon && <StyledIcon source={icon} />}
       {route ? (
         <StyledButton accessibilityLabel={accessibilityLabel} onPress={handlePress}>
           <ButtonText>{information}</ButtonText>
