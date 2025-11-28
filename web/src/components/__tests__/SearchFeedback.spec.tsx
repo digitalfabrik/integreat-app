@@ -5,7 +5,6 @@ import { renderWithTheme } from '../../testing/render'
 import SearchFeedback from '../SearchFeedback'
 import ThemeContainer from '../ThemeContainer'
 
-jest.mock('react-inlinesvg')
 jest.mock('react-i18next', () => ({
   ...jest.requireActual('react-i18next'),
   useTranslation: (namespace?: string) => ({

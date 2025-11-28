@@ -8,7 +8,6 @@ import { reportError } from '../../utils/sentry'
 import FailureSwitcher from '../FailureSwitcher'
 
 jest.mock('react-i18next')
-jest.mock('react-inlinesvg')
 jest.mock('../../utils/sentry', () => ({
   reportError: jest.fn(async () => undefined),
 }))

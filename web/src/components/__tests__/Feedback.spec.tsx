@@ -6,7 +6,6 @@ import { Rating, SendingStatusType } from 'shared'
 import { renderWithTheme } from '../../testing/render'
 import Feedback from '../Feedback'
 
-jest.mock('react-inlinesvg')
 jest.mock('react-i18next', () => ({
   ...jest.requireActual('react-i18next'),
   useTranslation: (namespace?: string) => ({

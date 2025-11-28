@@ -6,7 +6,6 @@ import { PoiModel, PoiModelBuilder } from 'shared/api'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import PoisMobile from '../PoisMobile'
 
-jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
 jest.mock('../MapView', () => () => <div>MapView</div>)
 
