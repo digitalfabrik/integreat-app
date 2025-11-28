@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Divider } from 'react-native-paper'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
 import { LocalNewsModel, TunewsModel } from 'shared/api'
 
@@ -26,14 +26,8 @@ const ReadMoreWrapper = styled.View<{ language: string }>`
   width: 100%;
   align-self: center;
 `
-const StyledIcon = styled(Icon)<{ isTunews: boolean }>`
+const StyledIcon = styled(Icon)`
   margin: 6px 4px 0;
-  color: ${props =>
-    props.isTunews && !props.theme.legacy.isContrastTheme
-      ? props.theme.legacy.colors.tunewsThemeColor
-      : props.theme.legacy.colors.themeColor};
-  width: 14px;
-  height: 14px;
 `
 const ListItemWrapper = styled.View`
   padding: 0 5%;
@@ -85,6 +79,7 @@ const NewsListItem = ({ index, newsItem, navigateToNews, isTunews }: NewsListIte
   const { t, i18n } = useTranslation('news')
   const timestamp = newsItem instanceof LocalNewsModel ? newsItem.timestamp : null
   const { languageCode } = useAppContext()
+  const theme = useTheme()
 
   return (
     <>
@@ -106,7 +101,16 @@ const NewsListItem = ({ index, newsItem, navigateToNews, isTunews }: NewsListIte
             <ReadMore isTunews={isTunews} onPress={navigateToNews}>
               {t('common:more')}
             </ReadMore>
-            <StyledIcon source='chevron-left' directionDependent reverse isTunews={isTunews} />
+            <StyledIcon
+              source='chevron-right'
+              directionDependent
+              size={14}
+              color={
+                isTunews && !theme.legacy.isContrastTheme
+                  ? theme.legacy.colors.tunewsThemeColor
+                  : theme.legacy.colors.themeColor
+              }
+            />
           </ReadMoreWrapper>
         </Pressable>
       </ListItemWrapper>

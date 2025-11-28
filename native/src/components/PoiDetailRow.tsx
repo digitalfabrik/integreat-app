@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
 import useSnackbar from '../hooks/useSnackbar'
 import openExternalUrl from '../utils/openExternalUrl'
@@ -19,8 +19,6 @@ const StyledText = styled(Text)`
 `
 
 const StyledSecondIcon = styled(Icon)`
-  width: 16px;
-  height: 16px;
   align-self: center;
 `
 
@@ -34,6 +32,7 @@ type PoiDetailRowProps = {
 
 const PoiDetailRow = ({ externalUrl, text, accessibilityLabel, icon, iconEnd }: PoiDetailRowProps): ReactElement => {
   const showSnackbar = useSnackbar()
+  const theme = useTheme()
   return (
     <Container
       onPress={() => openExternalUrl(externalUrl, showSnackbar)}
@@ -41,7 +40,7 @@ const PoiDetailRow = ({ externalUrl, text, accessibilityLabel, icon, iconEnd }: 
       accessibilityLabel={accessibilityLabel}>
       <Icon source={icon} />
       <StyledText>{text}</StyledText>
-      {!!iconEnd && <StyledSecondIcon source={iconEnd} />}
+      {!!iconEnd && <StyledSecondIcon size={16} color={theme.colors.primary} source={iconEnd} />}
     </Container>
   )
 }

@@ -17,6 +17,10 @@ const StyledHeaderContainer = styled.View`
   margin: 0 10px;
 `
 
+const CustomIcon = styled(Icon)<{ isHidden: boolean }>`
+  display: ${props => (props.isHidden ? 'none' : 'flex')};
+`
+
 type HeaderIconProps = {
   name: 'search' | 'language'
   size?: number
@@ -27,7 +31,13 @@ const HeaderIcon = ({ name, ...props }: HeaderIconProps): ReactElement => {
   if (!['language', 'search'].includes(name)) {
     throw new Error('Invalid icon name!')
   }
-  return <Icon source={name === 'search' ? 'magnify' : 'translate'} {...props} />
+  return (
+    <CustomIcon
+      isHidden={props.color === 'transparent'}
+      source={name === 'search' ? 'magnify' : 'translate'}
+      {...props}
+    />
+  )
 }
 
 const CustomHeaderButton = (props: HeaderButtonProps) => (

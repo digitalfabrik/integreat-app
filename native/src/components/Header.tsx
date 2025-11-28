@@ -189,16 +189,14 @@ const Header = ({
     }
   }
 
-  const items = showItems
-    ? [
-        renderItem(HeaderButtonTitle.Search, 'search', showItems, () =>
-          navigation.navigate(SEARCH_ROUTE, {
-            searchText: null,
-          }),
-        ),
-        renderItem(HeaderButtonTitle.Language, 'language', showItems, goToLanguageChange),
-      ]
-    : []
+  const items = [
+    renderItem(HeaderButtonTitle.Search, 'search', showItems, () =>
+      navigation.navigate(SEARCH_ROUTE, {
+        searchText: null,
+      }),
+    ),
+    renderItem(HeaderButtonTitle.Language, 'language', showItems, goToLanguageChange),
+  ]
 
   const overflowItems = showOverflowItems
     ? [

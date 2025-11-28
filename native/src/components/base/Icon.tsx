@@ -13,26 +13,16 @@ type IconProps = {
   source?: string
   label?: string
   directionDependent?: boolean
-  reverse?: boolean
   style?: { width?: number; height?: number; color?: ColorValue }
   color?: ColorValue
   size?: number
 }
-
-const getTransformStyle = (reverse: boolean, directionDependent: boolean) => ({
-  transform: [
-    {
-      scaleX: reverse !== (directionDependent && isRTL()) ? -1 : 1,
-    },
-  ],
-})
 
 const Icon = ({
   Icon: IconProp,
   source,
   label,
   directionDependent = false,
-  reverse = false,
   style,
   color,
   size,
@@ -42,8 +32,10 @@ const Icon = ({
 
   if (source) {
     return (
-      // The style here only for margin/padding or inverting the icon
-      <View style={[getTransformStyle(reverse, directionDependent), style]} accessibilityLabel={label}>
+      // The style here only for margin/padding that works with styled components
+      <View
+        style={[{ transform: [{ scaleX: directionDependent && isRTL() ? -1 : 1 }] }, style]}
+        accessibilityLabel={label}>
         <PaperIcon source={source} size={size ?? DEFAULT_ICON_SIZE} color={(color ?? defaultColor) as string} />
       </View>
     )
@@ -52,7 +44,7 @@ const Icon = ({
   if (IconProp) {
     return (
       <IconProp
-        style={[getTransformStyle(reverse, directionDependent), style]}
+        style={[{ transform: [{ scaleX: directionDependent && isRTL() ? -1 : 1 }] }, style]}
         width={style?.width ?? DEFAULT_ICON_SIZE}
         height={style?.height ?? DEFAULT_ICON_SIZE}
         color={color ?? style?.color ?? defaultColor}

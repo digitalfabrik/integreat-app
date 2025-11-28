@@ -56,11 +56,6 @@ const Link = styled.Text`
   text-decoration: underline;
 `
 
-const StyledIcon = styled(Icon)`
-  width: 16px;
-  height: 16px;
-`
-
 const StyledDivider = styled(Divider)`
   margin: 20px 0;
 `
@@ -106,7 +101,7 @@ const OpeningHours = ({
   const AppointmentLink = appointmentUrl ? (
     <LinkContainer onPress={() => openExternalUrl(appointmentUrl, showSnackbar)} role='link'>
       <Link>{t('makeAppointment')}</Link>
-      <StyledIcon color={theme.colors.primary} source='open-in-new' />
+      <Icon color={theme.colors.primary} size={16} source='open-in-new' />
     </LinkContainer>
   ) : null
 

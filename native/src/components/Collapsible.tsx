@@ -26,8 +26,7 @@ const CollapseHeaderWrapper = styled.View<{ language: string }>`
   font-family: ${props => props.theme.legacy.fonts.native.decorativeFontBold};
 `
 
-const StyledIcon = styled(Icon)<{ collapsed: boolean }>`
-  transform: ${props => (props.collapsed ? 'scale(-1)' : '')};
+const StyledIcon = styled(Icon)`
   margin: 0 4px;
   align-self: center;
 `
@@ -64,9 +63,7 @@ const Collapsible = ({
               headerContent
             )}
             <StyledIcon
-              source='chevron-up'
-              size={16}
-              collapsed={collapsed}
+              source={collapsed ? 'chevron-up' : 'chevron-down'}
               label={t(collapsed ? 'showMore' : 'showLess')}
             />
           </CollapseHeaderWrapper>
