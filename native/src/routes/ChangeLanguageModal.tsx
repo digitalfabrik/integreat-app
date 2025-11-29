@@ -22,18 +22,10 @@ const loadPolyfillIfNeeded = async (locale: string): Promise<void> => {
   }
   await import('@formatjs/intl-displaynames/polyfill-force')
   await importDisplayNamesPackage(locale)
+  await importDisplayNamesPackage(config.sourceLanguage)
 }
 
-const Wrapper = styled.ScrollView`
-  background-color: ${props => props.theme.legacy.colors.backgroundColor};
-`
-
-type ChangeLanguageModalProps = {
-  route: RouteProps<ChangeLanguageModalRouteType>
-  navigation: NavigationProps<ChangeLanguageModalRouteType>
-}
-
-const filterLanguageChangePath = (
+const filterLanguages = (
   languageList: LanguageModel,
   query: string,
   languageNamesInCurrentLanguage: Intl.DisplayNames,
@@ -49,6 +41,15 @@ const filterLanguageChangePath = (
   )
 }
 
+const Wrapper = styled.ScrollView`
+  background-color: ${props => props.theme.legacy.colors.backgroundColor};
+`
+
+type ChangeLanguageModalProps = {
+  route: RouteProps<ChangeLanguageModalRouteType>
+  navigation: NavigationProps<ChangeLanguageModalRouteType>
+}
+
 const ChangeLanguageModal = ({ navigation, route }: ChangeLanguageModalProps): ReactElement => {
   const { languages, availableLanguages } = route.params
   const { languageCode, changeLanguageCode } = useContext(AppContext)
@@ -62,15 +63,15 @@ const ChangeLanguageModal = ({ navigation, route }: ChangeLanguageModalProps): R
     })()
   }, [languageCode])
 
-  const filteredLanguageChangePaths = useMemo(() => {
+  const filteredLanguages = useMemo(() => {
     const languageNamesInCurrentLanguage = new Intl.DisplayNames([languageCode], { type: 'language' })
     const languageNamesInFallbackLanguage = new Intl.DisplayNames([config.sourceLanguage], { type: 'language' })
     return languages.filter(item =>
-      filterLanguageChangePath(item, query, languageNamesInCurrentLanguage, languageNamesInFallbackLanguage),
+      filterLanguages(item, query, languageNamesInCurrentLanguage, languageNamesInFallbackLanguage),
     )
   }, [languages, query, languageCode])
 
-  const selectorItems = filteredLanguageChangePaths.map(({ code, name }) => {
+  const selectorItems = filteredLanguages.map(({ code, name }) => {
     const isLanguageAvailable = availableLanguages.includes(code)
     return new SelectorItemModel({
       code,
@@ -87,7 +88,7 @@ const ChangeLanguageModal = ({ navigation, route }: ChangeLanguageModalProps): R
 
   return (
     <Wrapper contentContainerStyle={{ flexGrow: 1, justifyContent: 'flex-start' }}>
-      <Searchbar placeholder='Search' onChangeText={setQuery} value={query} mode='bar' />
+      <Searchbar placeholder='Search' onChangeText={setQuery} value={query} />
       <Selector selectedItemCode={languageCode} items={selectorItems} />
     </Wrapper>
   )
