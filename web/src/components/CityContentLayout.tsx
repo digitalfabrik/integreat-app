@@ -10,12 +10,13 @@ import BottomNavigation from './BottomNavigation'
 import ChatContainer from './ChatContainer'
 import CityContentHeader from './CityContentHeader'
 import Footer from './Footer'
+import { LanguageChangePath } from './LanguageList'
 import Layout from './Layout'
 
 export type CityContentLayoutProps = {
   Toolbar?: ReactElement | null
   children?: ReactNode
-  languageChangePaths: { code: string; path: string | null; name: string }[] | null
+  languageChangePaths: LanguageChangePath[] | null
   isLoading: boolean
   city: CityModel
   languageCode: string
