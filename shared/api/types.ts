@@ -17,7 +17,7 @@ export type JsonLocationType<T> = {
   longitude: T
 }
 
-type JsonOpeningHoursType = {
+export type JsonOpeningHoursType = {
   allDay: boolean
   closed: boolean
   timeSlots: TimeSlot[]
@@ -102,6 +102,7 @@ type JsonContactType = {
   phone_number: string | null
   website: string | null
   mobile_number: string | null
+  opening_hours?: JsonOpeningHoursType[] | null
 }
 
 export type JsonPoiType = {

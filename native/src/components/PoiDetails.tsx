@@ -60,6 +60,7 @@ const PoiDetails = ({ poi, language, distance, onFocus }: PoiDetailsProps): Reac
                 key={contact.headline ?? contact.website ?? contact.name ?? contact.phoneNumber ?? contact.mobileNumber}
                 contact={contact}
                 isLastContact={contacts.length - 1 === index}
+                language={language}
               />
             ))}
           </Collapsible>

@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text } from 'react-native'
@@ -13,7 +12,7 @@ import useSnackbar from '../hooks/useSnackbar'
 import openExternalUrl from '../utils/openExternalUrl'
 import Collapsible from './Collapsible'
 import HorizontalLine from './HorizontalLine'
-import OpeningEntry from './OpeningEntry'
+import HoursList from './HoursList'
 import Icon from './base/Icon'
 
 const OpeningLabel = styled.Text<{ isOpened: boolean; $direction: string }>`
@@ -28,10 +27,6 @@ const StyledText = styled(Text)`
   color: ${props => props.theme.legacy.colors.textColor};
   font-weight: bold;
   align-self: center;
-`
-
-const Content = styled.View`
-  font-size: 12px;
 `
 
 const TitleContainer = styled.View<{ language: string }>`
@@ -130,19 +125,7 @@ const OpeningHours = ({
         headerContent={<OpeningHoursTitle isCurrentlyOpen={isCurrentlyOpen} language={language} />}
         language={language}
         initialCollapsed={!isCurrentlyOpen}>
-        <Content>
-          {openingHours.map((openingHours, index) => (
-            <OpeningEntry
-              key={weekdays[index]}
-              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-              weekday={t(weekdays[index]!)}
-              isCurrentDay={index === DateTime.now().weekday - 1}
-              language={language}
-              appointmentUrl={appointmentUrl}
-              openingHours={openingHours}
-            />
-          ))}
-        </Content>
+        <HoursList hours={openingHours} appointmentUrl={appointmentUrl} language={language} />
       </Collapsible>
       {AppointmentLink}
       <HorizontalLine />
