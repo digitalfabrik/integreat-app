@@ -1,12 +1,12 @@
 import { DateTime } from 'luxon'
 import React, { ReactElement, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { List, useTheme } from 'react-native-paper'
 import styled from 'styled-components/native'
 
-import Accordion from './Accordion'
+import { CloseIcon, ExpandIcon, ShrinkIcon } from '../assets'
 import CalendarRangeModal from './CalendarRangeModal'
 import DatePicker from './DatePicker'
-import FilterToggle from './FilterToggle'
 import Icon from './base/Icon'
 import Text from './base/Text'
 
@@ -64,6 +64,7 @@ const EventsDateFilter = ({
   const [showDateFilter, setShowDateFilter] = useState(false)
   const { t } = useTranslation('events')
   const currentInput = useRef<string>('from')
+  const theme = useTheme()
 
   const today = DateTime.now()
   const inAWeek = DateTime.now().plus({ week: 1 })
@@ -76,6 +77,8 @@ const EventsDateFilter = ({
     currentInput.current = 'to'
     setModalOpen(openModal)
   }
+
+  const getCurrentIcon = () => (showDateFilter ? <Icon Icon={ShrinkIcon} /> : <Icon Icon={ExpandIcon} />)
 
   return (
     <>
@@ -90,34 +93,37 @@ const EventsDateFilter = ({
           currentInput={currentInput.current}
         />
       )}
-      <FilterToggle isDateFilterActive={showDateFilter} setToggleDateFilter={setShowDateFilter} />
-      <Accordion isOpen={showDateFilter} viewKey='Accordion'>
-        {showDateFilter ? (
-          <DateSection>
-            <>
-              <DatePicker
-                modalOpen={modalOpen}
-                setModalOpen={setModalOpenAndCurrentInputFrom}
-                setDate={setStartDate}
-                title={t('from')}
-                error={startDateError ? t(startDateError) : ''}
-                date={startDate}
-                placeholderDate={today}
-                calendarLabel={t('selectStartDateCalendar')}
-              />
-              <DatePicker
-                modalOpen={modalOpen}
-                setModalOpen={setModalOpenAndCurrentInputTo}
-                setDate={setEndDate}
-                title={t('to')}
-                date={endDate}
-                placeholderDate={inAWeek}
-                calendarLabel={t('selectEndDateCalendar')}
-              />
-            </>
-          </DateSection>
-        ) : null}
-      </Accordion>
+      <List.Accordion
+        title={t(showDateFilter ? 'hideFilters' : 'showFilters')}
+        right={getCurrentIcon}
+        expanded={showDateFilter}
+        titleStyle={{ fontWeight: 'bold', color: theme.colors.onBackground }}
+        rippleColor='transparent'
+        onPress={() => setShowDateFilter(!showDateFilter)}>
+        <DateSection>
+          <>
+            <DatePicker
+              modalOpen={modalOpen}
+              setModalOpen={setModalOpenAndCurrentInputFrom}
+              setDate={setStartDate}
+              title={t('from')}
+              error={startDateError ? t(startDateError) : ''}
+              date={startDate}
+              placeholderDate={today}
+              calendarLabel={t('selectStartDateCalendar')}
+            />
+            <DatePicker
+              modalOpen={modalOpen}
+              setModalOpen={setModalOpenAndCurrentInputTo}
+              setDate={setEndDate}
+              title={t('to')}
+              date={endDate}
+              placeholderDate={inAWeek}
+              calendarLabel={t('selectEndDateCalendar')}
+            />
+          </>
+        </DateSection>
+      </List.Accordion>
       <>
         {(startDate || endDate) && (
           <StyledButton
