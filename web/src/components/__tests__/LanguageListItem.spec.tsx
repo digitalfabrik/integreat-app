@@ -10,7 +10,7 @@ jest.mock('react-i18next', () => ({
   }),
 }))
 
-describe('LanguageSelectorItem', () => {
+describe('LanguageListItem', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
@@ -46,10 +46,9 @@ describe('LanguageSelectorItem', () => {
   })
 
   it('should render a tooltip correctly', () => {
-    const { getByText, debug } = renderWithRouterAndTheme(
+    const { getByText } = renderWithRouterAndTheme(
       <LanguageListItem code='fr' path={null} name='Français' close={closeDropDown} />,
     )
-    debug()
     const item = getByText('Français')
     expect(item).toHaveAttribute('aria-disabled', 'true')
   })

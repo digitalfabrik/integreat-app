@@ -6,6 +6,7 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { normalizeString } from 'shared'
 import { config } from 'translations'
 
 import useDimensions from '../hooks/useDimensions'
@@ -26,6 +27,7 @@ const StyledAutocomplete = styled(Autocomplete)`
     position: absolute;
     top: 72px;
     z-index: 10;
+    background-color: ${props => props.theme.palette.background.paper};
   }
 ` as typeof Autocomplete
 
@@ -57,10 +59,11 @@ export const filterLanguageChangePath = (
   if (query === '') {
     return true
   }
+  const normalizedQuery = normalizeString(query)
   return (
-    languageChangePath.name.toLowerCase().includes(query.toLowerCase()) ||
-    !!languageNamesInCurrentLanguage.of(languageChangePath.code)?.toLowerCase().includes(query.toLowerCase()) ||
-    !!languageNamesInFallbackLanguage.of(languageChangePath.code)?.toLowerCase().includes(query.toLowerCase())
+    normalizeString(languageChangePath.name).includes(normalizedQuery) ||
+    normalizeString(languageNamesInCurrentLanguage.of(languageChangePath.code) || '').includes(normalizedQuery) ||
+    normalizeString(languageNamesInFallbackLanguage.of(languageChangePath.code) || '').includes(normalizedQuery)
   )
 }
 
