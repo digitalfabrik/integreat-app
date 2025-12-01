@@ -149,6 +149,14 @@ const createSettingsSections = ({
     title: t('openSourceLicenses'),
     onPress: () => navigation.navigate(LICENSES_ROUTE),
   },
+  {
+    role: 'link',
+    title: t('SBoM'),
+    onPress: async () => {
+      const linkToSBoM = `https://github.com/digitalfabrik/integreat-app/releases/tag/${NativeConstants.appVersion}`
+      await openExternalUrl(linkToSBoM, showSnackbar)
+    },
+  },
   buildConfig().featureFlags.jpalTracking && settings.jpalTrackingCode
     ? {
         title: t('tracking'),
