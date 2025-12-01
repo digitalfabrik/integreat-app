@@ -30,16 +30,10 @@ const filterLanguages = (
   query: string,
   languageNamesInCurrentLanguage: Intl.DisplayNames,
   languageNamesInFallbackLanguage: Intl.DisplayNames,
-): boolean => {
-  if (query === '') {
-    return true
-  }
-  return (
-    languageList.name.toLowerCase().includes(query.toLowerCase()) ||
-    !!languageNamesInCurrentLanguage.of(languageList.code)?.toLowerCase().includes(query.toLowerCase()) ||
-    !!languageNamesInFallbackLanguage.of(languageList.code)?.toLowerCase().includes(query.toLowerCase())
-  )
-}
+): boolean =>
+  languageList.name.toLowerCase().includes(query.toLowerCase()) ||
+  !!languageNamesInCurrentLanguage.of(languageList.code)?.toLowerCase().includes(query.toLowerCase()) ||
+  !!languageNamesInFallbackLanguage.of(languageList.code)?.toLowerCase().includes(query.toLowerCase())
 
 const Wrapper = styled.ScrollView`
   background-color: ${props => props.theme.legacy.colors.backgroundColor};
@@ -64,6 +58,9 @@ const ChangeLanguageModal = ({ navigation, route }: ChangeLanguageModalProps): R
   }, [languageCode])
 
   const filteredLanguages = useMemo(() => {
+    if (query === '') {
+      return languages
+    }
     const languageNamesInCurrentLanguage = new Intl.DisplayNames([languageCode], { type: 'language' })
     const languageNamesInFallbackLanguage = new Intl.DisplayNames([config.sourceLanguage], { type: 'language' })
     return languages.filter(item =>
@@ -87,7 +84,7 @@ const ChangeLanguageModal = ({ navigation, route }: ChangeLanguageModalProps): R
   })
 
   return (
-    <Wrapper contentContainerStyle={{ flexGrow: 1, justifyContent: 'flex-start' }}>
+    <Wrapper contentContainerStyle={{ flexGrow: 1, justifyContent: 'flex-start', gap: 4 }}>
       <Searchbar placeholder='Search' onChangeText={setQuery} value={query} />
       <Selector selectedItemCode={languageCode} items={selectorItems} />
     </Wrapper>
