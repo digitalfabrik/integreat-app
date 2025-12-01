@@ -4,7 +4,7 @@ import React, { ReactElement, useContext, useEffect, useMemo, useRef, useState }
 import { Searchbar } from 'react-native-paper'
 import styled from 'styled-components/native'
 
-import { ChangeLanguageModalRouteType } from 'shared'
+import { ChangeLanguageModalRouteType, normalizeString } from 'shared'
 import { LanguageModel } from 'shared/api'
 import { config } from 'translations'
 
@@ -30,11 +30,14 @@ const filterLanguages = (
   query: string,
   languageNamesInCurrentLanguage: Intl.DisplayNames,
   languageNamesInFallbackLanguage: Intl.DisplayNames,
-): boolean =>
-  languageList.name.toLowerCase().includes(query.toLowerCase()) ||
-  !!languageNamesInCurrentLanguage.of(languageList.code)?.toLowerCase().includes(query.toLowerCase()) ||
-  !!languageNamesInFallbackLanguage.of(languageList.code)?.toLowerCase().includes(query.toLowerCase())
-
+): boolean => {
+  const normalizedQuery = normalizeString(query)
+  return (
+    normalizeString(languageList.name).includes(normalizedQuery) ||
+    normalizeString(languageNamesInCurrentLanguage.of(languageList.code) || '').includes(normalizedQuery) ||
+    normalizeString(languageNamesInFallbackLanguage.of(languageList.code) || '').includes(normalizedQuery)
+  )
+}
 const Wrapper = styled.ScrollView`
   background-color: ${props => props.theme.legacy.colors.backgroundColor};
 `
