@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { List } from 'react-native-paper'
+import { DefaultTheme, List } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 import dimensions from '../constants/dimensions'
@@ -10,9 +10,22 @@ export const TouchTarget = styled(Pressable)`
   width: 100%;
 `
 
+const getBackgroundColor = (selected: boolean, theme: typeof DefaultTheme): string => {
+  if (!selected && !theme.dark) {
+    return ''
+  }
+  if (selected && !theme.dark) {
+    return theme.colors.tertiaryContainer
+  }
+  if (selected && theme.dark) {
+    return theme.colors.surfaceVariant
+  }
+  return theme.colors.surface
+}
+
 const StyledListItem = styled(List.Item)<{ selected: boolean }>`
   height: ${dimensions.headerHeight}px;
-  background-color: ${props => (props.selected ? props.theme.colors.tertiaryContainer : '')};
+  background-color: ${props => getBackgroundColor(props.selected, props.theme as typeof DefaultTheme)};
 `
 
 const Element = styled.Text<{ selected: boolean; enabled?: boolean }>`
