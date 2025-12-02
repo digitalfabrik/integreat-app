@@ -46,6 +46,14 @@ export const theme = (themeType: 'light' | 'contrast'): DefaultTheme => {
       onBackground: palette.text.primary,
       outline: palette.text.primary,
       outlineVariant: palette.text.secondary,
+      elevation: {
+        level0: palette.tertiary.light,
+        level1: palette.tertiary.light,
+        level2: palette.tertiary.light,
+        level3: palette.tertiary.light,
+        level4: palette.tertiary.light,
+        level5: palette.tertiary.light,
+      },
     },
   }
 }
