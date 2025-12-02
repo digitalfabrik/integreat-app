@@ -15,7 +15,6 @@ import {
   MALTE_HELP_FORM_MAX_COMMENT_LENGTH,
 } from 'shared/api'
 
-import { SecurityIcon, SupportIcon } from '../assets'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useKeyboardHeight from '../hooks/useKeyboardHeight'
 import useSnackbar from '../hooks/useSnackbar'
@@ -125,11 +124,11 @@ const MalteHelpFormOffer = ({
     <KeyboardAwareScrollView extraHeight={keyboardHeight - useSafeAreaInsets().bottom}>
       <Container>
         <InformationRow>
-          <Icon Icon={SupportIcon} />
+          <Icon source='account-multiple-outline' />
           <InformationText>{t('supportNote')}</InformationText>
         </InformationRow>
         <InformationRow>
-          <Icon Icon={SecurityIcon} />
+          <Icon source='shield-plus-outline' />
           <InformationText>{t('securityNote')}</InformationText>
         </InformationRow>
 

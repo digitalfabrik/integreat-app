@@ -2,7 +2,6 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
-import { SadSmileyIcon } from '../assets'
 import Icon from './base/Icon'
 
 const Container = styled.View<{ paddingTop: boolean }>`
@@ -19,8 +18,6 @@ const Description = styled.Text`
 
 const StyledIcon = styled(Icon)`
   margin: 10px auto;
-  width: 60px;
-  height: 60px;
 `
 
 type NothingFoundProps = {
@@ -31,7 +28,7 @@ const NothingFound = ({ paddingTop = false }: NothingFoundProps): ReactElement =
   const { t } = useTranslation('search')
   return (
     <Container paddingTop={paddingTop}>
-      <StyledIcon Icon={SadSmileyIcon} />
+      <StyledIcon size={60} source='emoticon-sad-outline' />
       <Description role='alert'>{t('search:nothingFound')}</Description>
     </Container>
   )

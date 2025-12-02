@@ -6,7 +6,6 @@ import styled from 'styled-components/native'
 import { MAX_DATE_RECURRENCES } from 'shared'
 import { DateModel } from 'shared/api'
 
-import { CalendarTodayIcon, ClockIcon, ExpandIcon } from '../assets'
 import PageDetail from './PageDetail'
 import Icon from './base/Icon'
 import Pressable from './base/Pressable'
@@ -27,11 +26,6 @@ const StyledPressable = styled(Pressable)`
   padding: 4px 8px;
 `
 
-const StyledIcon = styled(Icon)`
-  width: 16px;
-  height: 16px;
-`
-
 type DatesPageDetailProps = {
   date: DateModel
   languageCode: string
@@ -49,8 +43,8 @@ const DatesPageDetail = ({ date, languageCode }: DatesPageDetailProps): ReactEle
     .map(recurrence => recurrence.formatMonthlyOrYearlyRecurrence(languageCode, translateIntoContentLanguage))
     .map(formattedDate => (
       <SingleDateContainer key={formattedDate.date}>
-        <PageDetail Icon={CalendarTodayIcon} information={formattedDate.date} language={languageCode} />
-        <PageDetail Icon={ClockIcon} information={formattedDate.time} language={languageCode} />
+        <PageDetail icon='calendar' information={formattedDate.date} language={languageCode} />
+        <PageDetail icon='clock-outline' information={formattedDate.time} language={languageCode} />
       </SingleDateContainer>
     ))
 
@@ -60,7 +54,7 @@ const DatesPageDetail = ({ date, languageCode }: DatesPageDetailProps): ReactEle
         {recurrences}
         {date.hasMoreRecurrencesThan(visibleRecurrences) && (
           <StyledPressable role='button' onPress={() => setTapsOnShowMore(tapsOnShowMore + 1)}>
-            <StyledIcon Icon={ExpandIcon} />
+            <Icon size={16} source='filter-variant' />
             <Text>{translateIntoContentLanguage('common:showMore')}</Text>
           </StyledPressable>
         )}
@@ -72,9 +66,9 @@ const DatesPageDetail = ({ date, languageCode }: DatesPageDetailProps): ReactEle
 
   return (
     <View>
-      <PageDetail Icon={CalendarTodayIcon} information={formattedDate.date} language={languageCode} />
+      <PageDetail icon='calendar' information={formattedDate.date} language={languageCode} />
       {!!formattedDate.weekday && <PageDetail information={formattedDate.weekday} language={languageCode} />}
-      <PageDetail Icon={ClockIcon} information={formattedDate.time} language={languageCode} />
+      <PageDetail icon='clock-outline' information={formattedDate.time} language={languageCode} />
     </View>
   )
 }

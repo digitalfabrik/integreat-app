@@ -8,8 +8,6 @@ import { parseHTML, getDisplayDate } from 'shared'
 import { DateModel, DateIcon, EventModel } from 'shared/api'
 
 import {
-  CalendarRecurringIcon,
-  CalendarTodayIcon,
   CalendarTodayRecurringIcon,
   EventThumbnailPlaceholder1,
   EventThumbnailPlaceholder2,
@@ -29,11 +27,11 @@ const Description = styled.Text<{ language: string; withMargin?: boolean }>`
 
 const placeholderThumbnails = [EventThumbnailPlaceholder1, EventThumbnailPlaceholder2, EventThumbnailPlaceholder3]
 
-const getDateIcon = (date: DateModel): { icon: JSXElementConstructor<SvgProps>; label: string } | null => {
-  const icons: { [key in DateIcon]: JSXElementConstructor<SvgProps> } = {
+const getDateIcon = (date: DateModel): { icon: string | JSXElementConstructor<SvgProps>; label: string } | null => {
+  const icons: { [key in DateIcon]: string | JSXElementConstructor<SvgProps> } = {
     CalendarTodayRecurringIcon,
-    CalendarRecurringIcon,
-    CalendarTodayIcon,
+    CalendarRecurringIcon: 'calendar-refresh-outline',
+    CalendarTodayIcon: 'calendar',
   }
   const iconToUse = date.getDateIcon()
   return iconToUse
@@ -69,7 +67,12 @@ const EventListItem = ({
   const { t: translateIntoContentLanguage } = useTranslation('events', { lng: language })
   const dateToDisplay = getDisplayDate(event, filterStartDate, filterEndDate)
 
-  const DateIcon = icon ? <Icon Icon={icon.icon} label={translateIntoContentLanguage(icon.label)} /> : null
+  const DateIcon = icon ? (
+    <Icon
+      {...(typeof icon.icon === 'string' ? { source: icon.icon } : { Icon: icon.icon })}
+      label={translateIntoContentLanguage(icon.label)}
+    />
+  ) : null
 
   return (
     <ListItem
