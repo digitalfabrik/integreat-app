@@ -1,7 +1,7 @@
 import { shouldPolyfill } from '@formatjs/intl-displaynames/should-polyfill'
 import '@formatjs/intl-locale/polyfill'
-import React, { ReactElement, useContext, useEffect, useMemo, useRef, useState } from 'react'
-import { Searchbar } from 'react-native-paper'
+import React, { ReactElement, useContext, useEffect, useMemo, useState } from 'react'
+import { Searchbar, useTheme } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 import { ChangeLanguageModalRouteType, normalizeString } from 'shared'
@@ -38,6 +38,7 @@ const filterLanguages = (
     normalizeString(languageNamesInFallbackLanguage.of(languageList.code) || '').includes(normalizedQuery)
   )
 }
+
 const Wrapper = styled.ScrollView`
   background-color: ${props => props.theme.legacy.colors.backgroundColor};
 `
@@ -50,14 +51,13 @@ type ChangeLanguageModalProps = {
 const ChangeLanguageModal = ({ navigation, route }: ChangeLanguageModalProps): ReactElement => {
   const { languages, availableLanguages } = route.params
   const { languageCode, changeLanguageCode } = useContext(AppContext)
-  const translationsRef = useRef<InstanceType<typeof Intl.DisplayNames> | undefined>(undefined)
   const [query, setQuery] = useState('')
+  const theme = useTheme()
+
+  const currentLanguageName = languages.find(lang => lang.code === languageCode)?.name
 
   useEffect(() => {
-    ;(async () => {
-      await loadPolyfillIfNeeded(languageCode)
-      translationsRef.current = new Intl.DisplayNames([languageCode], { type: 'language' })
-    })()
+    loadPolyfillIfNeeded(languageCode)
   }, [languageCode])
 
   const filteredLanguages = useMemo(() => {
@@ -88,7 +88,23 @@ const ChangeLanguageModal = ({ navigation, route }: ChangeLanguageModalProps): R
 
   return (
     <Wrapper contentContainerStyle={{ flexGrow: 1, justifyContent: 'flex-start', gap: 4 }}>
-      <Searchbar placeholder='Search' onChangeText={setQuery} value={query} />
+      <Searchbar
+        placeholder={currentLanguageName}
+        onChangeText={setQuery}
+        value={query}
+        right={() => undefined}
+        style={
+          theme.dark
+            ? {
+                backgroundColor: theme.colors.tertiary,
+                color: theme.colors.onTertiary,
+              }
+            : {
+                backgroundColor: theme.colors.surfaceVariant,
+                color: theme.colors.onSurfaceVariant,
+              }
+        }
+      />
       <Selector selectedItemCode={languageCode} items={selectorItems} />
     </Wrapper>
   )
