@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { StyleProp, ViewStyle } from 'react-native'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
 import Icon from './Icon'
 import Pressable from './Pressable'
@@ -31,12 +31,6 @@ const Spacer = styled.View`
   width: 4px;
 `
 
-const StyledIcon = styled(Icon)`
-  color: ${props => props.theme.legacy.colors.textSecondaryColor};
-  width: 16px;
-  height: 16px;
-`
-
 type TextButtonProps = {
   text: string
   onPress: () => Promise<void> | void
@@ -45,17 +39,20 @@ type TextButtonProps = {
   style?: StyleProp<ViewStyle>
 }
 
-const ChipButton = ({ text, onPress, Icon: IconProp, closeButton, style }: TextButtonProps): ReactElement => (
-  <StyledPressable role='button' onPress={onPress} style={style}>
-    <IconContainer>{IconProp}</IconContainer>
-    <Spacer />
-    <StyledText>{text}</StyledText>
-    {closeButton && (
-      <IconContainer>
-        <StyledIcon source='close' />
-      </IconContainer>
-    )}
-  </StyledPressable>
-)
+const ChipButton = ({ text, onPress, Icon: IconProp, closeButton, style }: TextButtonProps): ReactElement => {
+  const theme = useTheme()
+  return (
+    <StyledPressable role='button' onPress={onPress} style={style}>
+      <IconContainer>{IconProp}</IconContainer>
+      <Spacer />
+      <StyledText>{text}</StyledText>
+      {closeButton && (
+        <IconContainer>
+          <Icon source='close' size={16} color={theme.legacy.colors.textSecondaryColor} />
+        </IconContainer>
+      )}
+    </StyledPressable>
+  )
+}
 
 export default ChipButton

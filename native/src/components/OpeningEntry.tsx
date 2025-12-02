@@ -48,11 +48,6 @@ const StyledPressable = styled.Pressable`
   height: 24px;
 `
 
-const StyledIcon = styled(Icon)`
-  height: 18px;
-  width: 18px;
-`
-
 type OpeningEntryProps = {
   openingHours: OpeningHoursModel
   weekday: string
@@ -89,7 +84,7 @@ const OpeningEntry = ({
       {openingHours.appointmentOnly && (
         <AppointmentOnlyContainer language={language}>
           <StyledPressable role='button' onPress={() => setOverlayOpen(true)}>
-            <StyledIcon source='alert-circle-outline' label={t('appointmentNecessary')} />
+            <Icon size={18} source='alert-circle-outline' label={t('appointmentNecessary')} />
           </StyledPressable>
           {overlayOpen && (
             <AppointmentOnlyOverlay closeOverlay={() => setOverlayOpen(false)} appointmentUrl={appointmentUrl} />

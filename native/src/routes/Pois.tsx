@@ -3,7 +3,7 @@ import React, { ReactElement, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useWindowDimensions } from 'react-native'
 import { SvgUri } from 'react-native-svg'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
 import { PoisRouteType, isMultipoi, LocationType, MapFeature, preparePois, safeParseInt, sortPois } from 'shared'
 import { PoiCategoryModel, CityModel, PoiModel } from 'shared/api'
@@ -52,6 +52,7 @@ const Pois = ({ pois: allPois, cityModel, route, navigation }: PoisProps): React
   const poiListRef = useRef<BottomSheetFlatListMethods>(null)
   const { t } = useTranslation('pois')
   const { height } = useWindowDimensions()
+  const theme = useTheme()
   const bottomSheetSnapPoints = [dimensions.bottomSheetHandle.height, SNAP_POINT_MID_PERCENTAGE * height, height]
   const bottomSheetFullscreen = bottomSheetSnapPointIndex === bottomSheetSnapPoints.length - 1
   const bottomSheetHeight = bottomSheetSnapPoints[bottomSheetSnapPointIndex] ?? 0
@@ -120,7 +121,7 @@ const Pois = ({ pois: allPois, cityModel, route, navigation }: PoisProps): React
       {poiCurrentlyOpenFilter && (
         <ChipButton
           text={t('opened')}
-          Icon={<StyledIcon source='clock-outline' />}
+          Icon={<Icon size={16} color={theme.legacy.colors.textSecondaryColor} source='clock-outline' />}
           onPress={() => setPoiCurrentlyOpenFilter(false)}
           closeButton
         />

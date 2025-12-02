@@ -18,11 +18,6 @@ const StyledBackground = styled(View)`
   gap: 8px;
 `
 
-const StyledIcon = styled(Icon)`
-  color: ${props => props.theme.legacy.colors.textSecondaryColor};
-  height: 20px;
-`
-
 const StyledInput = styled(TextInput)`
   padding: 4px;
   flex: 1;
@@ -41,7 +36,7 @@ const ThemedSearchBar = ({ onChangeText, value, autofocus }: ThemedSearchBarProp
   const theme = useTheme()
   return (
     <StyledBackground>
-      <StyledIcon source='magnify' />
+      <Icon size={20} color={theme.legacy.colors.textSecondaryColor} source='magnify' />
       <StyledInput
         {...testID('Content-Search-Input')}
         role='searchbox'
@@ -55,7 +50,7 @@ const ThemedSearchBar = ({ onChangeText, value, autofocus }: ThemedSearchBarProp
       />
       {!!value && (
         <IconButton
-          icon={<StyledIcon source='close' />}
+          icon={<Icon size={20} color={theme.legacy.colors.textSecondaryColor} source='close' />}
           onPress={() => onChangeText('')}
           accessibilityLabel={t('delete')}
         />

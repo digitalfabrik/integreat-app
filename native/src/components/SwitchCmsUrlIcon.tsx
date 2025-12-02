@@ -31,12 +31,6 @@ const StyledPressable = styled(Pressable)`
   opacity: 1;
 `
 
-const StyledIcon = styled(Icon)`
-  color: ${props => props.theme.legacy.colors.themeColor};
-  height: 64px;
-  width: 96px;
-`
-
 type LandingIconProps = {
   clearResourcesAndCache: () => void
 }
@@ -85,7 +79,7 @@ const SwitchCmsUrlIcon = ({ clearResourcesAndCache }: LandingIconProps): ReactEl
         importantForAccessibility='no'
         accessibilityElementsHidden
         accessible={false}>
-        <StyledIcon size={72} color={theme.legacy.colors.themeColor} source='map-marker' />
+        <Icon size={72} color={theme.legacy.colors.themeColor} source='map-marker' />
       </StyledPressable>
       {apiUrlOverride && apiUrlOverride !== buildConfig().cmsUrl ? (
         <>

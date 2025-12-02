@@ -26,11 +26,6 @@ const StyledPressable = styled(Pressable)`
   padding: 4px 8px;
 `
 
-const StyledIcon = styled(Icon)`
-  width: 16px;
-  height: 16px;
-`
-
 type DatesPageDetailProps = {
   date: DateModel
   languageCode: string
@@ -59,7 +54,7 @@ const DatesPageDetail = ({ date, languageCode }: DatesPageDetailProps): ReactEle
         {recurrences}
         {date.hasMoreRecurrencesThan(visibleRecurrences) && (
           <StyledPressable role='button' onPress={() => setTapsOnShowMore(tapsOnShowMore + 1)}>
-            <StyledIcon source='filter-variant' />
+            <Icon size={16} source='filter-variant' />
             <Text>{translateIntoContentLanguage('common:showMore')}</Text>
           </StyledPressable>
         )}

@@ -18,8 +18,6 @@ const Description = styled.Text`
 
 const StyledIcon = styled(Icon)`
   margin: 10px auto;
-  width: 60px;
-  height: 60px;
 `
 
 type NothingFoundProps = {
@@ -30,7 +28,7 @@ const NothingFound = ({ paddingTop = false }: NothingFoundProps): ReactElement =
   const { t } = useTranslation('search')
   return (
     <Container paddingTop={paddingTop}>
-      <StyledIcon source='emoticon-sad-outline' />
+      <StyledIcon size={60} source='emoticon-sad-outline' />
       <Description role='alert'>{t('search:nothingFound')}</Description>
     </Container>
   )
