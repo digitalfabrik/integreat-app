@@ -10,7 +10,7 @@ import { OpeningHoursModel } from 'shared/api'
 import { contentDirection } from '../constants/contentDirection'
 import useSnackbar from '../hooks/useSnackbar'
 import openExternalUrl from '../utils/openExternalUrl'
-import Collapsible from './Collapsible'
+import Accordion from './Accordion'
 import OpeningEntry from './OpeningEntry'
 import HoursList from './HoursList'
 import Icon from './base/Icon'
@@ -124,12 +124,11 @@ const OpeningHours = ({
 
   return (
     <>
-      <Collapsible
+      <Accordion
         headerContent={<OpeningHoursTitle isCurrentlyOpen={isCurrentlyOpen} language={language} />}
-        language={language}
         initialCollapsed={!isCurrentlyOpen}>
         <HoursList hours={openingHours} appointmentUrl={appointmentUrl} language={language} />
-      </Collapsible>
+      </Accordion>
       {AppointmentLink}
       <StyledDivider />
     </>
