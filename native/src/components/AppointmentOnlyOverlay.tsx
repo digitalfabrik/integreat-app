@@ -41,9 +41,7 @@ const CloseButton = styled.Pressable`
 const CloseButtonText = styled.Text`
   font-weight: 700;
   color: ${props =>
-    props.theme.legacy.isContrastTheme
-      ? props.theme.legacy.colors.backgroundColor
-      : props.theme.legacy.colors.textSecondaryColor};
+    props.theme.legacy.isContrastTheme ? props.theme.colors.background : props.theme.colors.onSurfaceVariant};
 `
 
 type AppointmentOnlyOverlayProps = {

@@ -14,8 +14,8 @@ export const getMarkedDates = (
   currentInput: string,
 ): Record<string, MarkedDateType> => {
   const markedDateStyling = {
-    color: theme.legacy.isContrastTheme === true ? theme.legacy.colors.linkColor : theme.legacy.colors.themeColor,
-    textColor: theme.legacy.colors.textColor,
+    color: theme.legacy.isContrastTheme === true ? theme.colors.primary : theme.colors.secondary,
+    textColor: theme.colors.onSurface,
   }
 
   const markedDates: Record<string, MarkedDateType> = {}

@@ -10,10 +10,7 @@ import Caption from './Caption'
 import TextButton from './base/TextButton'
 
 const DatePickerWrapper = styled.View`
-  background-color: ${props =>
-    props.theme.legacy.isContrastTheme
-      ? props.theme.legacy.colors.backgroundAccentColor
-      : props.theme.legacy.colors.textDecorationColor};
+  background-color: ${props => props.theme.colors.surfaceVariant};
   border-radius: 20px;
   position: absolute;
   width: 90%;
@@ -31,7 +28,7 @@ const StyledView = styled.View`
 const DISABLED_OPACITY = 0.5
 
 const StyledTextButton = styled(TextButton).attrs(props => ({
-  textStyle: { color: props.theme.legacy.isContrastTheme ? props.theme.legacy.colors.textColor : undefined },
+  textStyle: { color: props.theme.legacy.isContrastTheme ? props.theme.colors.onSurface : undefined },
 }))`
   background-color: transparent;
   opacity: ${props => (props.disabled ? DISABLED_OPACITY : 1)};
@@ -113,16 +110,14 @@ const CalendarRangeModal = ({
             onDayPress={handleDayPress}
             theme={{
               calendarBackground: theme.legacy.isContrastTheme
-                ? theme.legacy.colors.backgroundColor
+                ? theme.colors.background
                 : theme.legacy.colors.textDecorationColor,
-              dayTextColor: theme.legacy.colors.textColor,
-              monthTextColor: theme.legacy.colors.textColor,
-              textDisabledColor: theme.legacy.colors.textSecondaryColor,
-              todayTextColor: theme.legacy.isContrastTheme
-                ? theme.legacy.colors.linkColor
-                : theme.legacy.colors.backgroundColor,
-              textSectionTitleColor: theme.legacy.colors.textColor,
-              arrowColor: theme.legacy.colors.textColor,
+              dayTextColor: theme.colors.onSurface,
+              monthTextColor: theme.colors.onSurface,
+              textDisabledColor: theme.colors.onSurfaceVariant,
+              todayTextColor: theme.legacy.isContrastTheme ? theme.colors.primary : theme.colors.background,
+              textSectionTitleColor: theme.colors.onSurface,
+              arrowColor: theme.colors.onSurface,
             }}
           />
           <StyledView>

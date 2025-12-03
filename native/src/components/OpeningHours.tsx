@@ -24,7 +24,7 @@ const OpeningLabel = styled.Text<{ isOpened: boolean; $direction: string }>`
 `
 
 const StyledText = styled(Text)`
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.colors.onSurface};
   font-weight: bold;
   align-self: center;
 `
@@ -52,7 +52,7 @@ const LinkContainer = styled.Pressable`
 
 const Link = styled.Text`
   font-size: 16px;
-  color: ${props => props.theme.legacy.colors.linkColor};
+  color: ${props => props.theme.colors.primary};
   text-decoration: underline;
 `
 

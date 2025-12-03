@@ -31,7 +31,7 @@ const Note = ({ text }: NoteProps): ReactElement => {
   return (
     <NoteBox>
       <StyledIcon
-        color={theme.legacy.isContrastTheme ? theme.legacy.colors.backgroundColor : theme.legacy.colors.textColor}
+        color={theme.legacy.isContrastTheme ? theme.colors.background : theme.colors.onSurface}
         source='alert-circle-outline'
       />
       <NoteText>{text}</NoteText>

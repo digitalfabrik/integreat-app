@@ -10,7 +10,7 @@ import Pressable from './base/Pressable'
 import Text from './base/Text'
 
 const elevatedStyle = css`
-  shadow-color: ${props => props.theme.legacy.colors.textColor};
+  shadow-color: ${props => props.theme.colors.onSurface};
   shadow-offset: 0 2px;
   shadow-opacity: 0.2;
   shadow-radius: 3px;
@@ -51,7 +51,7 @@ const StyledButton = styled(Pressable)`
 
 const StyledPlayIconButton = styled(IconButton)<{ disabled?: boolean }>`
   background-color: ${props =>
-    props.disabled ? props.theme.legacy.colors.textDisabledColor : props.theme.legacy.colors.ttsPlayerBackground};
+    props.disabled ? props.theme.colors.onSurfaceDisabled : props.theme.legacy.colors.ttsPlayerBackground};
   width: 70px;
   height: 50px;
   border-radius: 50px;
@@ -62,7 +62,7 @@ const StyledPlayerHeaderText = styled(Text)`
   font-weight: 600;
   align-self: center;
   font-size: 22px;
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.colors.onSurface};
 `
 
 const CloseButton = styled(Pressable)`

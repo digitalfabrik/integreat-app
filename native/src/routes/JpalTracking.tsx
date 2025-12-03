@@ -21,7 +21,7 @@ const moreInformationUrl = 'https://integrationevaluation.wordpress.com'
 const ThemedText = styled.Text`
   display: flex;
   text-align: left;
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.colors.onSurface};
   font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
   padding: 10px 0;
 `

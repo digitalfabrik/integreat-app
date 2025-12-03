@@ -14,7 +14,7 @@ const StyledPressable = styled(Pressable)`
   align-items: center;
   margin: 0 4px;
   border-radius: 20px;
-  background-color: ${props => props.theme.legacy.colors.backgroundColor};
+  background-color: ${props => props.theme.colors.background};
 `
 
 const IconContainer = styled.View`
@@ -23,7 +23,6 @@ const IconContainer = styled.View`
 `
 
 const StyledText = styled(Text)`
-  color: ${props => props.theme.legacy.colors.textSecondaryColor};
   font-family: ${props => props.theme.legacy.fonts.native.decorativeFontBold};
 `
 
@@ -48,7 +47,7 @@ const ChipButton = ({ text, onPress, Icon: IconProp, closeButton, style }: TextB
       <StyledText>{text}</StyledText>
       {closeButton && (
         <IconContainer>
-          <Icon source='close' size={16} color={theme.legacy.colors.textSecondaryColor} />
+          <Icon source='close' size={16} color={theme.colors.onSurfaceVariant} />
         </IconContainer>
       )}
     </StyledPressable>

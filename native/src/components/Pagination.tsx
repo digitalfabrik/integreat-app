@@ -11,7 +11,7 @@ const DotsContainer = styled.View`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: ${props => props.theme.legacy.colors.backgroundColor};
+  background-color: ${props => props.theme.colors.background};
 `
 
 const Dot = styled.View<{ isActive: boolean }>`
@@ -19,7 +19,7 @@ const Dot = styled.View<{ isActive: boolean }>`
   height: 12px;
   border-radius: 6px;
   background-color: ${props =>
-    props.isActive ? props.theme.legacy.colors.textColor : props.theme.legacy.colors.textDecorationColor};
+    props.isActive ? props.theme.colors.onSurface : props.theme.legacy.colors.textDecorationColor};
 `
 
 const DotPressableArea = styled(Pressable)`

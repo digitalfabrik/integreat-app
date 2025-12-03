@@ -8,28 +8,28 @@ import { contentDirection } from '../constants/contentDirection'
 import Pressable from './base/Pressable'
 
 const Distance = styled.Text`
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.colors.onSurface};
   font-family: ${props => props.theme.legacy.fonts.native.contentFontRegular};
   margin-top: 4px;
 `
 const Category = styled.Text`
-  color: ${props => props.theme.legacy.colors.textSecondaryColor};
+  color: ${props => props.theme.colors.onSurfaceVariant};
   font-family: ${props => props.theme.legacy.fonts.native.contentFontRegular};
   margin-top: 4px;
 `
 
 const StyledPressable = styled(Pressable)<{ language: string }>`
   border-bottom-width: 1px;
-  border-bottom-color: ${props => props.theme.legacy.colors.textDisabledColor};
+  border-bottom-color: ${props => props.theme.colors.onSurfaceDisabled};
   flex-direction: ${props => contentDirection(props.language)};
   padding: 16px 0;
-  background-color: ${props => props.theme.legacy.colors.backgroundColor};
+  background-color: ${props => props.theme.colors.background};
 `
 
 const Description = styled.View`
   flex: 1;
   flex-direction: column;
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.colors.onSurface};
   font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
   padding: 0 8px;
   justify-content: center;
@@ -38,7 +38,7 @@ const Description = styled.View`
 const Title = styled.Text`
   font-weight: 700;
   font-family: ${props => props.theme.legacy.fonts.native.decorativeFontBold};
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.colors.onSurface};
 `
 
 type PoiListItemProps = {

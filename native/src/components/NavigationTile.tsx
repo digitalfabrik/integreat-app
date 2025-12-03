@@ -15,7 +15,7 @@ const Circle = styled(View)`
   border-radius: ${ICON_SIZE}px;
   height: ${ICON_SIZE}px;
   width: ${ICON_SIZE}px;
-  background-color: ${props => props.theme.legacy.colors.backgroundColor};
+  background-color: ${props => props.theme.colors.surfaceVariant};
   align-items: center;
   justify-content: center;
   elevation: 2;
@@ -26,7 +26,7 @@ const Circle = styled(View)`
 `
 
 const TileTitle = styled.Text`
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.colors.onSurface};
   text-align: center;
   font-size: 11px;
   margin-bottom: 5px;

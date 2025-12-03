@@ -301,8 +301,8 @@ const renderHtml = (
         font-family: ${theme.legacy.fonts.native.webviewFont};
         line-height: ${theme.legacy.fonts.contentLineHeight};
         font-size-adjust: ${theme.legacy.fonts.fontSizeAdjust};
-        background-color: ${theme.legacy.colors.backgroundColor};
-        color: ${theme.legacy.colors.textColor}
+        background-color: ${theme.colors.background};
+        color: ${theme.colors.onSurface}
       }
 
       body {
@@ -340,7 +340,7 @@ const renderHtml = (
       thead,
       th,
       td {
-        border: 1px solid ${theme.legacy.colors.backgroundAccentColor};
+        border: 1px solid ${theme.colors.surfaceVariant};
       }
 
       details > * {
@@ -356,7 +356,7 @@ const renderHtml = (
       }
       
       a {
-        color: ${theme.legacy.colors.linkColor};
+        color: ${theme.colors.primary};
       }
 
       .link-external::after {
@@ -373,7 +373,7 @@ const renderHtml = (
 
       iframe {
         border: none;
-        border-bottom: 1px solid ${theme.legacy.colors.borderColor};
+        border-bottom: 1px solid ${theme.colors.outlineVariant};
         max-width: 100%;
       }
 
@@ -381,7 +381,7 @@ const renderHtml = (
         display: flex;
         padding: 4px;
         flex-direction: column;
-        border: 1px solid ${theme.legacy.colors.borderColor};
+        border: 1px solid ${theme.colors.outlineVariant};
         border-radius: 4px;
         box-shadow: 0 1px 3px rgb(0 0 0 / 10%),
         0 1px 2px rgb(0 0 0 / 15%);
