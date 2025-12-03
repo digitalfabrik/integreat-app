@@ -148,7 +148,7 @@ export type JsonTunewsType = {
   id: number
   title: string
   tags: string[]
-  date: string
+  display_date: string
   content: string
   enewsno: string
 }
