@@ -12,7 +12,7 @@ import { ExternalLinkIcon } from '../assets'
 import { contentDirection } from '../constants/contentDirection'
 import useSnackbar from '../hooks/useSnackbar'
 import openExternalUrl from '../utils/openExternalUrl'
-import Collapsible from './Collapsible'
+import Accordion from './Accordion'
 import OpeningEntry from './OpeningEntry'
 import Icon from './base/Icon'
 
@@ -130,9 +130,8 @@ const OpeningHours = ({
 
   return (
     <>
-      <Collapsible
+      <Accordion
         headerContent={<OpeningHoursTitle isCurrentlyOpen={isCurrentlyOpen} language={language} />}
-        language={language}
         initialCollapsed={!isCurrentlyOpen}>
         <Content>
           {openingHours.map((openingHours, index) => (
@@ -147,7 +146,7 @@ const OpeningHours = ({
             />
           ))}
         </Content>
-      </Collapsible>
+      </Accordion>
       {AppointmentLink}
       <StyledDivider />
     </>
