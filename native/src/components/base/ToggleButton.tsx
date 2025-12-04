@@ -6,7 +6,7 @@ import Pressable from './Pressable'
 import Text from './Text'
 
 const StyledPressable = styled(Pressable)<{ active: boolean }>`
-  background-color: ${props => (props.active ? props.theme.colors.secondary : props.theme.colors.background)};
+  background-color: ${props => (props.active ? props.theme.colors.primary : props.theme.colors.background)};
   padding: 8px;
   align-items: center;
   width: 100px;
