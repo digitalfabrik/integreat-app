@@ -1,11 +1,5 @@
 import React, { ReactElement, ReactNode, useState } from 'react'
 import { List, useTheme } from 'react-native-paper'
-import styled from 'styled-components/native'
-
-const HeaderText = styled.Text`
-  font-weight: bold;
-  color: ${props => props.theme.colors.onBackground};
-`
 
 type AccordionProps = {
   headerContent: string | ReactElement
@@ -25,7 +19,7 @@ const Accordion = ({
 
   return (
     <List.Accordion
-      title={typeof headerContent === 'string' ? <HeaderText>{headerContent}</HeaderText> : headerContent}
+      title={headerContent}
       titleStyle={{ fontWeight: 'bold', color: theme.colors.onBackground }}
       expanded={!collapsed}
       onPress={() => setCollapsed(!collapsed)}
