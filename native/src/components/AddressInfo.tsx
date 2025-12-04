@@ -59,7 +59,7 @@ const AddressInfo = ({ location, language }: AddressInfoProps): ReactElement => 
         </StyledText>
       </Pressable>
       <IconContainer role='link' onPress={openExternalMaps} accessibilityLabel={t('openExternalMaps')}>
-        <Icon color={theme.colors.primary} source='open-in-new' />
+        <Icon color={theme.colors.link} source='open-in-new' />
       </IconContainer>
     </Container>
   )

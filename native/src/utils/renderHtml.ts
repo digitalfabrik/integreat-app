@@ -356,7 +356,7 @@ const renderHtml = (
       }
       
       a {
-        color: ${theme.colors.primary};
+        color: ${theme.colors.link};
       }
 
       .link-external::after {

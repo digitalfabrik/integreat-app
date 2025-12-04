@@ -33,9 +33,9 @@ const StyledButton = styled.Pressable`
 
 const ButtonText = styled.Text`
   font-family: ${props => props.theme.legacy.fonts.native.contentFontRegular};
-  color: ${props => props.theme.colors.primary};
+  color: ${props => props.theme.colors.link};
   text-decoration: underline;
-  text-decoration-color: ${props => props.theme.colors.primary};
+  text-decoration-color: ${props => props.theme.colors.link};
 `
 
 const StyledText = styled.Text`

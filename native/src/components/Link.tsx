@@ -9,7 +9,7 @@ const LinkText = styled.Text`
   padding: 30px 0;
   align-self: center;
   text-decoration: underline;
-  color: ${props => props.theme.colors.primary};
+  color: ${props => props.theme.colors.link};
 `
 
 type LinkProps = {

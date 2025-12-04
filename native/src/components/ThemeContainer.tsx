@@ -51,6 +51,7 @@ export const theme = (themeType: 'light' | 'contrast'): DefaultTheme => {
         main: palette.tunews.main,
         light: palette.tunews.light,
       },
+      link: palette.link,
       ttsPlayer: {
         background: palette.ttsPlayer.background,
         playIconColor: palette.ttsPlayer.playIconColor,
