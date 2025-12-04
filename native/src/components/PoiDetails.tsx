@@ -5,8 +5,8 @@ import styled from 'styled-components/native'
 
 import { PoiModel } from 'shared/api'
 
+import Accordion from './Accordion'
 import AddressInfo from './AddressInfo'
-import Collapsible from './Collapsible'
 import Contact from './Contact'
 import OpeningHours from './OpeningHours'
 import Page from './Page'
@@ -72,7 +72,7 @@ const PoiDetails = ({ poi, language, distance, onFocus }: PoiDetailsProps): Reac
       <StyledDivider />
       {contacts.length > 0 && (
         <>
-          <Collapsible headerContent={t('contacts')} language={language}>
+          <Accordion headerContent={t('contacts')}>
             <StyledContactsContainer>
               {contacts.map((contact, index) => (
                 <Contact
@@ -84,7 +84,7 @@ const PoiDetails = ({ poi, language, distance, onFocus }: PoiDetailsProps): Reac
                 />
               ))}
             </StyledContactsContainer>
-          </Collapsible>
+          </Accordion>
 
           <StyledDivider />
         </>
@@ -98,9 +98,9 @@ const PoiDetails = ({ poi, language, distance, onFocus }: PoiDetailsProps): Reac
       />
       {content.length > 0 && (
         <>
-          <Collapsible headerContent={t('description')} language={language}>
+          <Accordion headerContent={t('description')}>
             <Page content={content} language={language} padding={false} accessible />
-          </Collapsible>
+          </Accordion>
           <StyledDivider />
         </>
       )}
