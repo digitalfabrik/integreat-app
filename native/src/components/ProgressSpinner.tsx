@@ -18,7 +18,7 @@ const Text = styled.Text`
   padding-top: 25px;
   font-size: 20px;
   font-weight: 700;
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.colors.onSurface};
 `
 
 const LoadingImage = styled(buildConfigAssets().LoadingImage)`
@@ -55,7 +55,7 @@ const ProgressSpinner = ({ progress = 0 }: ProgressSpinnerProps): ReactElement =
         </G>
         <Circle
           fill='none'
-          stroke={theme.legacy.colors.themeColor}
+          stroke={theme.colors.secondary}
           strokeDasharray={circumference}
           strokeDashoffset={circumference - progress * circumference}
           strokeWidth={svgSize * STROKE_WIDTH_FRACTION}

@@ -17,7 +17,7 @@ import { reportError } from '../utils/sentry'
 import LoadingErrorHandler from './LoadingErrorHandler'
 
 const Wrapper = styled(View)`
-  background-color: ${props => props.theme.legacy.colors.backgroundColor};
+  background-color: ${props => props.theme.colors.background};
   padding: 20px;
   align-items: center;
   flex-grow: 1;

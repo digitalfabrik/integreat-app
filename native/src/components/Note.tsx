@@ -4,7 +4,6 @@ import styled, { useTheme } from 'styled-components/native'
 import Icon from './base/Icon'
 
 const NoteBox = styled.View`
-  background-color: ${props => props.theme.legacy.colors.warningColor};
   margin-top: 12px;
   padding: 12px;
   flex-direction: row;
@@ -12,6 +11,7 @@ const NoteBox = styled.View`
 
 const NoteText = styled.Text`
   font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
+  color: ${props => props.theme.colors.error};
   font-size: 12px;
   flex: 1;
   flex-wrap: wrap;
@@ -30,10 +30,7 @@ const Note = ({ text }: NoteProps): ReactElement => {
   const theme = useTheme()
   return (
     <NoteBox>
-      <StyledIcon
-        color={theme.legacy.isContrastTheme ? theme.legacy.colors.backgroundColor : theme.legacy.colors.textColor}
-        source='alert-circle-outline'
-      />
+      <StyledIcon color={theme.colors.error} source='alert-circle-outline' />
       <NoteText>{text}</NoteText>
     </NoteBox>
   )

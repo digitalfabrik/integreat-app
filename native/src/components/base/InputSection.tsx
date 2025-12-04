@@ -21,7 +21,7 @@ const TitleContainer = styled.View`
 const ThemedText = styled(Text)`
   display: flex;
   text-align: center;
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.colors.onSurface};
   font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
 `
 
@@ -32,9 +32,8 @@ const Title = styled(ThemedText)`
 
 const Input = styled.TextInput<{ numberOfLines: number; invalid: boolean }>`
   border-width: 1px;
-  border-color: ${props =>
-    props.invalid ? props.theme.legacy.colors.invalidInput : props.theme.legacy.colors.textDecorationColor};
-  color: ${props => props.theme.legacy.colors.textColor};
+  border-color: ${props => (props.invalid ? props.theme.colors.error : props.theme.colors.action.disabled)};
+  color: ${props => props.theme.colors.onSurface};
   padding: 8px;
   ${props =>
     props.numberOfLines > 1 &&

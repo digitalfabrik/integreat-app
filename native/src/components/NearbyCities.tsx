@@ -20,7 +20,7 @@ const RetryButtonContainer = styled.View`
   height: 46px;
 `
 const NearbyMessage = styled.Text`
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.colors.onSurface};
   font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
   padding-top: 15px;
 `
@@ -45,7 +45,7 @@ const NearbyCities = ({ cities, navigateToDashboard, filterText }: NearbyCitiesP
         <RetryButtonContainer>
           {status !== 'loading' && (
             <IconButton
-              icon={<Icon color={theme.legacy.colors.textSecondaryColor} source='refresh' />}
+              icon={<Icon color={theme.colors.onSurfaceVariant} source='refresh' />}
               onPress={refreshPermissionAndLocation}
               accessibilityLabel={t('refresh')}
             />

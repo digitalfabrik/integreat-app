@@ -28,7 +28,7 @@ const Icon = ({
   size,
 }: IconProps): ReactElement | null => {
   const theme = useTheme()
-  const defaultColor = theme.legacy.colors.textColor
+  const defaultColor = theme.colors.onSurface
 
   if (source) {
     return (

@@ -79,7 +79,7 @@ const SwitchCmsUrlIcon = ({ clearResourcesAndCache }: LandingIconProps): ReactEl
         importantForAccessibility='no'
         accessibilityElementsHidden
         accessible={false}>
-        <Icon size={72} color={theme.legacy.colors.themeColor} source='map-marker' />
+        <Icon size={72} color={theme.colors.secondary} source='map-marker' />
       </StyledPressable>
       {apiUrlOverride && apiUrlOverride !== buildConfig().cmsUrl ? (
         <>

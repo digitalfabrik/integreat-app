@@ -16,15 +16,14 @@ import OpeningEntry from './OpeningEntry'
 import Icon from './base/Icon'
 
 const OpeningLabel = styled.Text<{ isOpened: boolean; $direction: string }>`
-  color: ${props =>
-    props.isOpened ? props.theme.legacy.colors.positiveHighlight : props.theme.legacy.colors.negativeHighlight};
+  color: ${props => (props.isOpened ? props.theme.colors.success : props.theme.colors.error)};
   ${props => (props.$direction === 'rtl' ? `padding-left: 12px;` : `padding-right: 12px;`)}
   font-weight: bold;
   align-self: center;
 `
 
 const StyledText = styled(Text)`
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.colors.onSurface};
   font-weight: bold;
   align-self: center;
 `
@@ -52,7 +51,7 @@ const LinkContainer = styled.Pressable`
 
 const Link = styled.Text`
   font-size: 16px;
-  color: ${props => props.theme.legacy.colors.linkColor};
+  color: ${props => props.theme.colors.link};
   text-decoration: underline;
 `
 
@@ -101,7 +100,7 @@ const OpeningHours = ({
   const AppointmentLink = appointmentUrl ? (
     <LinkContainer onPress={() => openExternalUrl(appointmentUrl, showSnackbar)} role='link'>
       <Link>{t('makeAppointment')}</Link>
-      <Icon color={theme.colors.primary} size={16} source='open-in-new' />
+      <Icon color={theme.colors.link} size={16} source='open-in-new' />
     </LinkContainer>
   ) : null
 

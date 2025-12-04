@@ -51,7 +51,7 @@ const StyledIcon = styled(IconButton)<{ position: number | string }>`
   position: absolute;
   right: 0;
   bottom: ${props => props.position}${props => (typeof props.position === 'number' ? 'px' : '')};
-  background-color: ${props => props.theme.legacy.colors.themeColor};
+  background-color: ${props => props.theme.colors.secondary};
   margin: 16px;
   width: 50px;
   height: 50px;
@@ -222,9 +222,7 @@ const MapView = ({
           <StyledIcon
             icon={
               <Icon
-                color={
-                  theme.legacy.isContrastTheme ? theme.legacy.colors.backgroundColor : theme.legacy.colors.textColor
-                }
+                color={theme.dark ? theme.colors.background : theme.colors.onSurface}
                 source={locationPermissionIcon}
               />
             }

@@ -22,13 +22,13 @@ const LocalTabWrapper = styled.View<{ isSelected: boolean }>`
   align-items: center;
   justify-content: center;
   background-color: ${props =>
-    props.isSelected ? props.theme.legacy.colors.themeColor : props.theme.legacy.colors.textDisabledColor};
+    props.isSelected ? props.theme.colors.secondary : props.theme.colors.onSurfaceDisabled};
 `
 const LocalText = styled.Text`
   font-size: 18px;
   font-family: ${props => props.theme.legacy.fonts.native.decorativeFontBold};
   text-transform: uppercase;
-  color: ${props => props.theme.legacy.colors.backgroundColor};
+  color: ${props => props.theme.colors.background};
 `
 const HeaderContainer = styled.View`
   flex-direction: row;

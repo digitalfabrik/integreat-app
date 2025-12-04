@@ -19,7 +19,7 @@ const FlexStyledLink = styled(Pressable)`
   display: flex;
   flex-direction: column;
   margin: 0 20px;
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.colors.onSurface};
 `
 
 const DirectionContainer = styled.View<{ language: string }>`
@@ -33,7 +33,7 @@ const SearchEntryContainer = styled.View`
   align-self: center;
   padding: 15px 0;
   border-bottom-width: 1px;
-  border-bottom-color: ${props => props.theme.legacy.colors.themeColor};
+  border-bottom-color: ${props => props.theme.colors.secondary};
 `
 
 const TitleDirectionContainer = styled.View<{ language: string }>`
@@ -44,7 +44,7 @@ const TitleDirectionContainer = styled.View<{ language: string }>`
 const HighlighterCategoryTitle = styled(Highlighter)<{ language: string }>`
   flex-direction: ${props => contentDirection(props.language)};
   font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.colors.onSurface};
   font-weight: bold;
   flex-shrink: 1;
 `

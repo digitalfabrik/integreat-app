@@ -9,7 +9,7 @@ const Container = styled.View<{ paddingTop: boolean }>`
 `
 
 const Description = styled.Text`
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.colors.onSurface};
   font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
   font-size: 16px;
   text-align: center;

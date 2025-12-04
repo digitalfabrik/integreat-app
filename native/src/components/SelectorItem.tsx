@@ -12,16 +12,15 @@ export const TouchTarget = styled(Pressable)`
 const ItemWrapper = styled.View<{ selected: boolean }>`
   justify-content: center;
   align-items: center;
-  background-color: ${props => props.theme.legacy.colors.backgroundColor};
-  ${props => (props.selected ? `background-color: ${props.theme.legacy.colors.backgroundAccentColor}` : '')};
+  background-color: ${props => props.theme.colors.background};
+  ${props => (props.selected ? `background-color: ${props.theme.colors.surfaceVariant}` : '')};
   height: ${dimensions.headerHeight}px;
 `
 
 const Element = styled.Text<{ enabled: boolean }>`
   font-size: 20px;
   ${props => (props.enabled ? 'font-weight: 700' : '')};
-  color: ${props =>
-    props.enabled ? props.theme.legacy.colors.textColor : props.theme.legacy.colors.textSecondaryColor};
+  color: ${props => (props.enabled ? props.theme.colors.onSurface : props.theme.colors.onSurfaceVariant)};
 `
 
 type SelectorItemProps = {

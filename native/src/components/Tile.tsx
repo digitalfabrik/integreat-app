@@ -17,7 +17,7 @@ const Thumbnail = styled(SimpleImage)`
 
 const TileTitle = styled.Text`
   margin: 5px;
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.colors.onSurface};
   text-align: center;
   font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
 `

@@ -16,7 +16,7 @@ const StyledPressable = styled(Pressable)`
 `
 
 const StyledLabel = styled(Text)`
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.colors.onSurface};
   font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
   flex: 1;
 `
