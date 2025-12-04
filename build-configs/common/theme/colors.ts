@@ -51,6 +51,10 @@ export const commonLightColors: CommonColorPalette = {
     disabled: '#C9C9C9',
     active: '#000000',
   },
+  ttsPlayer: {
+    background: '#dedede',
+    playIconColor: '#007aa8',
+  },
 }
 
 export const commonDarkColors: CommonColorPalette = {
@@ -82,6 +86,10 @@ export const commonDarkColors: CommonColorPalette = {
     disabledBackground: '#000000',
     disabled: '#364153',
     active: '#FFFFFF',
+  },
+  ttsPlayer: {
+    background: '#29354B',
+    playIconColor: '#007aa8',
   },
 }
 

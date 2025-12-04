@@ -17,8 +17,8 @@ const StyledInputWrapper = styled.View`
   height: 56px;
   padding: 0 16px;
   border-radius: 8px;
-  border-color: ${props => props.theme.colors.outlineVariant};
-  border-width: 3px;
+  border-color: ${props => props.theme.colors.action.disabled};
+  border-width: 1px;
   border-style: solid;
   flex-direction: row;
   justify-content: space-between;
@@ -32,15 +32,12 @@ const Wrapper = styled.View`
 `
 
 const StyledText = styled.Text`
-  color: ${props =>
-    props.theme.legacy.isContrastTheme ? props.theme.colors.onSurface : props.theme.colors.onSurfaceVariant};
+  color: ${props => (props.theme.dark ? props.theme.colors.onSurface : props.theme.colors.onSurfaceVariant)};
 `
 
 const StyledIconButton = styled(IconButton)<{ $isModalOpen: boolean }>`
   width: 40px;
   height: 40px;
-  background-color: ${props =>
-    props.$isModalOpen ? props.theme.colors.secondaryContainer : props.theme.colors.onSurfaceDisabled};
 `
 
 const StyledTitle = styled.Text`
@@ -138,12 +135,7 @@ const DatePicker = ({
         </Wrapper>
         <StyledIconButton
           $isModalOpen={modalOpen}
-          icon={
-            <Icon
-              color={theme.legacy.isContrastTheme ? theme.colors.background : theme.colors.onSurface}
-              source='calendar'
-            />
-          }
+          icon={<Icon color={theme.colors.onSurface} source='calendar' />}
           accessibilityLabel={calendarLabel}
           onPress={() => setModalOpen(true)}
         />

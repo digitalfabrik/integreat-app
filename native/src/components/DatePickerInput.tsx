@@ -66,7 +66,7 @@ const DatePickerInput = ({
     <Input
       style={style}
       placeholder={placeholder}
-      placeholderTextColor={theme.legacy.isContrastTheme ? theme.colors.onSurface : theme.colors.onSurfaceVariant}
+      placeholderTextColor={theme.dark ? theme.colors.onSurface : theme.colors.onSurfaceVariant}
       keyboardType='numeric'
       maxLength={type === 'year' ? yearLength : 2}
       onBlur={() => validate(inputValue, setInputValue, type)}

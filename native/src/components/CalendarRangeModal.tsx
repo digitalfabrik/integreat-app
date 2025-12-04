@@ -28,7 +28,7 @@ const StyledView = styled.View`
 const DISABLED_OPACITY = 0.5
 
 const StyledTextButton = styled(TextButton).attrs(props => ({
-  textStyle: { color: props.theme.legacy.isContrastTheme ? props.theme.colors.onSurface : undefined },
+  textStyle: { color: props.theme.dark ? props.theme.colors.onSurface : undefined },
 }))`
   background-color: transparent;
   opacity: ${props => (props.disabled ? DISABLED_OPACITY : 1)};
@@ -109,13 +109,11 @@ const CalendarRangeModal = ({
             markedDates={getMarkedDates(tempStartDate, tempEndDate, theme, currentInput ?? '')}
             onDayPress={handleDayPress}
             theme={{
-              calendarBackground: theme.legacy.isContrastTheme
-                ? theme.colors.background
-                : theme.legacy.colors.textDecorationColor,
+              calendarBackground: theme.dark ? theme.colors.background : theme.colors.action.disabled,
               dayTextColor: theme.colors.onSurface,
               monthTextColor: theme.colors.onSurface,
               textDisabledColor: theme.colors.onSurfaceVariant,
-              todayTextColor: theme.legacy.isContrastTheme ? theme.colors.primary : theme.colors.background,
+              todayTextColor: theme.dark ? theme.colors.primary : theme.colors.background,
               textSectionTitleColor: theme.colors.onSurface,
               arrowColor: theme.colors.onSurface,
             }}

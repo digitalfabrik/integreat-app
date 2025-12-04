@@ -25,9 +25,7 @@ const FeedbackButtons = ({ isPositiveFeedback, setIsPositiveFeedback }: Feedback
   const { t } = useTranslation('feedback')
   const theme = useTheme()
   const iconColor = (value: boolean) =>
-    isPositiveFeedback === value && theme.legacy.isContrastTheme
-      ? theme.colors.background
-      : theme.colors.onSurfaceVariant
+    isPositiveFeedback === value && theme.dark ? theme.colors.background : theme.colors.onSurfaceVariant
 
   return (
     <Container>

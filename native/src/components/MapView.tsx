@@ -222,7 +222,7 @@ const MapView = ({
           <StyledIcon
             icon={
               <Icon
-                color={theme.legacy.isContrastTheme ? theme.colors.background : theme.colors.onSurface}
+                color={theme.dark ? theme.colors.background : theme.colors.onSurface}
                 source={locationPermissionIcon}
               />
             }

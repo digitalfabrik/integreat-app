@@ -70,9 +70,7 @@ export const ReadMore = styled(Text)<{ isTunews: boolean }>`
   letter-spacing: 0.5px;
   margin-top: 5px;
   color: ${props =>
-    props.isTunews && !props.theme.legacy.isContrastTheme
-      ? props.theme.legacy.colors.tunewsThemeColor
-      : props.theme.colors.secondary};
+    props.isTunews && !props.theme.dark ? props.theme.colors.tunews.main : props.theme.colors.secondary};
 `
 
 const NewsListItem = ({ index, newsItem, navigateToNews, isTunews }: NewsListItemProps): ReactElement => {
@@ -105,11 +103,7 @@ const NewsListItem = ({ index, newsItem, navigateToNews, isTunews }: NewsListIte
               source='chevron-right'
               directionDependent
               size={14}
-              color={
-                isTunews && !theme.legacy.isContrastTheme
-                  ? theme.legacy.colors.tunewsThemeColor
-                  : theme.colors.secondary
-              }
+              color={isTunews && !theme.dark ? theme.colors.tunews.main : theme.colors.secondary}
             />
           </ReadMoreWrapper>
         </Pressable>

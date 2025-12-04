@@ -75,9 +75,7 @@ const StyledTextButton = styled(TextButton)`
 
 const StyledSvgUri = styled(SvgUri)<{ active: boolean }>`
   color: ${props =>
-    props.active && props.theme.legacy.isContrastTheme
-      ? props.theme.colors.background
-      : props.theme.colors.onSurfaceVariant};
+    props.active && props.theme.dark ? props.theme.colors.background : props.theme.colors.onSurfaceVariant};
 `
 
 type PoiFiltersModalProps = {

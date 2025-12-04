@@ -13,10 +13,7 @@ const StatusBar = (): ReactElement => {
 
   return (
     <StatusBarContainer style={{ height: insets.top }}>
-      <ReactNativeStatusBar
-        backgroundColor={theme.colors.surface}
-        barStyle={theme.legacy.isContrastTheme ? 'default' : 'dark-content'}
-      />
+      <ReactNativeStatusBar backgroundColor={theme.colors.surface} barStyle={theme.dark ? 'default' : 'dark-content'} />
     </StatusBarContainer>
   )
 }

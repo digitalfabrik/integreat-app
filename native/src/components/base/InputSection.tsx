@@ -32,7 +32,7 @@ const Title = styled(ThemedText)`
 
 const Input = styled.TextInput<{ numberOfLines: number; invalid: boolean }>`
   border-width: 1px;
-  border-color: ${props => (props.invalid ? props.theme.colors.error : props.theme.legacy.colors.textDecorationColor)};
+  border-color: ${props => (props.invalid ? props.theme.colors.error : props.theme.colors.action.disabled)};
   color: ${props => props.theme.colors.onSurface};
   padding: 8px;
   ${props =>

@@ -18,7 +18,7 @@ const elevatedStyle = css`
 `
 
 const StyledTtsPlayer = styled.View<{ insetBottom: number }>`
-  background-color: ${props => props.theme.legacy.colors.ttsPlayerBackground};
+  background-color: ${props => props.theme.colors.ttsPlayer.background};
   border-radius: 8px;
   width: 90%;
   display: flex;
@@ -51,7 +51,7 @@ const StyledButton = styled(Pressable)`
 
 const StyledPlayIconButton = styled(IconButton)<{ disabled?: boolean }>`
   background-color: ${props =>
-    props.disabled ? props.theme.colors.onSurfaceDisabled : props.theme.legacy.colors.ttsPlayerBackground};
+    props.disabled ? props.theme.colors.onSurfaceDisabled : props.theme.colors.ttsPlayer.background};
   width: 70px;
   height: 50px;
   border-radius: 50px;
@@ -111,7 +111,7 @@ const TtsPlayer = ({
           disabled={disabled}
           accessibilityLabel={t(isPlaying ? 'pause' : 'play')}
           onPress={() => (isPlaying ? pause() : play())}
-          icon={<Icon color={theme.legacy.colors.ttsPlayerPlayIconColor} source={isPlaying ? 'pause' : 'play'} />}
+          icon={<Icon color={theme.colors.ttsPlayer.playIconColor} source={isPlaying ? 'pause' : 'play'} />}
         />
         <StyledButton role='button' accessibilityLabel={t('next')} onPress={playNext}>
           <Icon size={28} source='fast-forward' />

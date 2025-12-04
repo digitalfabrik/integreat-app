@@ -85,7 +85,7 @@ const renderJS = (
       }
       
       if (element instanceof HTMLImageElement && element.src.endsWith('.svg')) {
-        if (${theme.legacy.isContrastTheme}) {
+        if (${theme.dark}) {
           element.style.setProperty('filter', 'invert(1)')
         } else {
           element.style.removeProperty('filter')
@@ -408,7 +408,7 @@ const renderHtml = (
         border-radius: 4px;
         background-repeat: no-repeat;
         background-color: rgb(127 127 127 / 15%);
-        background-image: linear-gradient(to right, ${theme.legacy.isContrastTheme ? 'rgb(127 127 127 / 0)' : 'rgb(255 255 255 / 90%)'} 0 100%),
+        background-image: linear-gradient(to right, ${theme.dark ? 'rgb(127 127 127 / 0)' : 'rgb(255 255 255 / 90%)'} 0 100%),
           url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTMuMDE4IDEyLjQ4aC0yLjAzNkE5LjA5IDkuMDkgMCAwIDAgMS45MiAyMS42YS40OC40OCAwIDAgMCAuNDguNDhoMTkuMmEuNTMuNTMgMCAwIDAgLjQ4LS41MzggOS4wOCA5LjA4IDAgMCAwLTkuMDYyLTkuMDYyTTE2LjggNi43MmE0LjggNC44IDAgMCAxLTQuOCA0LjggNC44IDQuOCAwIDAgMS00LjgtNC44IDQuOCA0LjggMCAwIDEgNC44LTQuOCA0LjggNC44IDAgMCAxIDQuOCA0LjgiLz48L3N2Zz4=');
         background-blend-mode: difference;
         background-position: calc(100% + 32px) 100%, calc(100% + 24px) calc(100% + 24px);
@@ -437,7 +437,7 @@ const renderHtml = (
         margin-left: 12px;
         padding: 0;
         overflow-wrap: normal;
-        color: ${theme.legacy.colors.tunewsThemeColor};
+        color: ${theme.colors.tunews.main};
       }
 
       #opt-in-checkbox {

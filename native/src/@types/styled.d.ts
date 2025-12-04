@@ -33,6 +33,18 @@ type MD3Theme = {
     onBackground: string
     outline: string
     outlineVariant: string
+    success: string
+    tunews: {
+      main: string
+      light: string
+    }
+    ttsPlayer: {
+      background: string
+      playIconColor: string
+    }
+    action: {
+      disabled: string
+    }
   }
 }
 

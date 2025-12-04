@@ -44,7 +44,7 @@ const ThemedSearchBar = ({ onChangeText, value, autofocus }: ThemedSearchBarProp
         value={value}
         autoFocus={autofocus}
         placeholder={t('searchPlaceholder')}
-        placeholderTextColor={theme.legacy.isContrastTheme ? theme.colors.onSurface : theme.colors.onSurfaceVariant}
+        placeholderTextColor={theme.dark ? theme.colors.onSurface : theme.colors.onSurfaceVariant}
       />
       {!!value && (
         <IconButton

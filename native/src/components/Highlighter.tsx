@@ -10,7 +10,7 @@ const StyledText = styled(Text)`
 
 const HighlightedText = styled(Text)`
   font-weight: bold;
-  color: ${props => props.theme.legacy.isContrastTheme && props.theme.colors.secondary};
+  color: ${props => props.theme.dark && props.theme.colors.secondary};
 `
 
 type HighlighterProps = {

@@ -23,9 +23,7 @@ const StyledPressable = styled(Pressable)<{ active: boolean }>`
 const StyledText = styled(Text)<{ active: boolean }>`
   font-size: 12px;
   color: ${props =>
-    props.active && props.theme.legacy.isContrastTheme
-      ? props.theme.colors.background
-      : props.theme.colors.onSurfaceVariant};
+    props.active && props.theme.dark ? props.theme.colors.background : props.theme.colors.onSurfaceVariant};
   font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
   text-align: center;
   width: 84px;

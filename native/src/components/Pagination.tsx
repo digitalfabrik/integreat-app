@@ -18,8 +18,7 @@ const Dot = styled.View<{ isActive: boolean }>`
   width: 12px;
   height: 12px;
   border-radius: 6px;
-  background-color: ${props =>
-    props.isActive ? props.theme.colors.onSurface : props.theme.legacy.colors.textDecorationColor};
+  background-color: ${props => (props.isActive ? props.theme.colors.onSurface : props.theme.colors.action.disabled)};
 `
 
 const DotPressableArea = styled(Pressable)`

@@ -10,13 +10,12 @@ const StyledPressable = styled(Pressable)<{ primary: boolean; disabled: boolean 
   border-radius: 8px;
   background-color: ${props => {
     const buttonColor = props.primary ? props.theme.colors.secondary : props.theme.colors.background
-    return props.disabled ? props.theme.legacy.colors.textDecorationColor : buttonColor
+    return props.disabled ? props.theme.colors.action.disabled : buttonColor
   }};
 `
 
 const StyledText = styled(Text)`
-  color: ${props =>
-    props.theme.legacy.isContrastTheme ? props.theme.colors.background : props.theme.colors.onSurface};
+  color: ${props => (props.theme.dark ? props.theme.colors.background : props.theme.colors.onSurface)};
   font-weight: 500;
   font-size: 18px;
   text-align: center;
