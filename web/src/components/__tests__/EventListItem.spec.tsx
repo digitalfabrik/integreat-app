@@ -83,8 +83,7 @@ describe('EventListItem', () => {
     it('should show icon if recurring and today', () => {
       const event = createEvent('DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO;UNTIL=20231029T050000')
 
-      const { queryByText, debug } = renderWithRouterAndTheme(<EventListItem event={event} languageCode={language} />)
-      debug()
+      const { queryByText } = renderWithRouterAndTheme(<EventListItem event={event} languageCode={language} />)
 
       expect(queryByText('events:todayRecurring')).toBeTruthy()
       expect(queryByText('events:recurring')).toBeFalsy()
