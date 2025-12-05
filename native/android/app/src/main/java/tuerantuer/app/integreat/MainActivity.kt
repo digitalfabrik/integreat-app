@@ -6,6 +6,7 @@ import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.fabricEnabled
 import com.facebook.react.defaults.DefaultReactActivityDelegate
+import com.facebook.react.modules.i18nmanager.I18nUtil
 
 import java.util.Locale
 
@@ -17,6 +18,7 @@ class MainActivity : ReactActivity() {
     // https://github.com/software-mansion/react-native-screens#android
     // https://reactnavigation.org/docs/getting-started/#installing-dependencies-into-a-bare-react-native-project
     super.onCreate(null)
+    I18nUtil.getInstance().allowRTL(applicationContext, true)
     currentLocale = getResources().configuration.locale
   }
 
