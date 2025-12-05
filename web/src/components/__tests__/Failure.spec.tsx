@@ -4,7 +4,6 @@ import { renderWithRouterAndTheme } from '../../testing/render'
 import Failure from '../Failure'
 
 jest.mock('react-i18next')
-jest.mock('react-inlinesvg')
 
 describe('Failure', () => {
   it('should render a simple failure and match snapshot', () => {

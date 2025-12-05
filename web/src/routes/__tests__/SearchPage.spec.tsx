@@ -16,7 +16,6 @@ import { renderRoute } from '../../testing/render'
 import SearchPage from '../SearchPage'
 import { RoutePatterns } from '../index'
 
-jest.mock('react-inlinesvg')
 jest.mock('react-i18next', () => ({
   ...jest.requireActual('react-i18next'),
   useTranslation: (namespace?: string) => ({

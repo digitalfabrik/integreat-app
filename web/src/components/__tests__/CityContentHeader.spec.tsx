@@ -8,7 +8,6 @@ import useDimensions from '../../hooks/useDimensions'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import CityContentHeader from '../CityContentHeader'
 
-jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
 jest.mock('../../hooks/useDimensions', () => jest.fn(() => mockDimensions))
 
