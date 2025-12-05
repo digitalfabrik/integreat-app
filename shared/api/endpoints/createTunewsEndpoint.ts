@@ -24,7 +24,7 @@ export default (baseUrl: string): Endpoint<ParamsType, TunewsModel[]> =>
             id: tunews.id,
             title: tunews.title,
             tags: tunews.tags,
-            date: DateTime.fromJSDate(new Date(tunews.date)),
+            date: DateTime.fromISO(tunews.display_date),
             content: parseHTML(tunews.content),
             eNewsNo: tunews.enewsno,
           }),
