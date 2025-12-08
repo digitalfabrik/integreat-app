@@ -16,8 +16,6 @@ import SearchInput from './SearchInput'
 const MobileContainer = styled('div')`
   display: flex;
   flex-direction: column;
-  height: 100%;
-  width: 100%;
   gap: ${props => props.theme.spacing(2)};
 `
 
@@ -96,7 +94,6 @@ const LanguageList = ({
     return (
       <MobileContainer>
         <SearchInput placeholderText={currentLanguage?.name ?? ''} filterText={query} onFilterTextChange={setQuery} />
-
         <>
           {filteredLanguageChangePaths.length === 0 ? (
             <Box sx={{ p: 2 }}>{t('noLanguageFound')}</Box>

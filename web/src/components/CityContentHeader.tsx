@@ -47,7 +47,7 @@ const CityContentHeader = ({
       />
     ) : null,
     <CityContentMenu key='sidebar' category={category} pageTitle={pageTitle} fitScreen={fitScreen} />,
-  ].filter(item => item !== null)
+  ].filter(Boolean)
 
   return (
     <Header
