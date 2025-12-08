@@ -33,13 +33,8 @@ const Content = styled.View`
 `
 
 const TitleContainer = styled.View<{ language: string }>`
-  display: flex;
-  flex: 1;
-  font-weight: 700;
-  font-size: 12px;
-  justify-content: space-between;
   flex-direction: ${props => contentDirection(props.language)};
-  width: 100%;
+  gap: 80px;
 `
 
 const LinkContainer = styled.Pressable`
