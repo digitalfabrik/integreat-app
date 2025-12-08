@@ -20,10 +20,9 @@ const TTS_OPTIONS: Options = {
     KEY_PARAM_VOLUME: 0.6,
     KEY_PARAM_STREAM: 'STREAM_MUSIC',
   },
-  iosVoiceId: '',
   // This must not be 1 on iOS
   rate: 0.5,
-}
+} as Options
 
 export type TtsContextType = {
   enabled: boolean
