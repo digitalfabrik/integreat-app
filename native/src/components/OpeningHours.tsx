@@ -12,7 +12,7 @@ import { ExternalLinkIcon } from '../assets'
 import { contentDirection } from '../constants/contentDirection'
 import useSnackbar from '../hooks/useSnackbar'
 import openExternalUrl from '../utils/openExternalUrl'
-import Collapsible from './Collapsible'
+import Accordion from './Accordion'
 import OpeningEntry from './OpeningEntry'
 import Icon from './base/Icon'
 
@@ -35,12 +35,8 @@ const Content = styled.View`
 `
 
 const TitleContainer = styled.View<{ language: string }>`
-  display: flex;
-  flex: 1;
-  font-weight: 700;
-  font-size: 12px;
-  justify-content: space-between;
   flex-direction: ${props => contentDirection(props.language)};
+  gap: 80px;
 `
 
 const LinkContainer = styled.Pressable`
@@ -130,9 +126,8 @@ const OpeningHours = ({
 
   return (
     <>
-      <Collapsible
+      <Accordion
         headerContent={<OpeningHoursTitle isCurrentlyOpen={isCurrentlyOpen} language={language} />}
-        language={language}
         initialCollapsed={!isCurrentlyOpen}>
         <Content>
           {openingHours.map((openingHours, index) => (
@@ -147,7 +142,7 @@ const OpeningHours = ({
             />
           ))}
         </Content>
-      </Collapsible>
+      </Accordion>
       {AppointmentLink}
       <StyledDivider />
     </>
