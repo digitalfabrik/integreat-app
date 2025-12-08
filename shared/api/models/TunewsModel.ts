@@ -5,16 +5,23 @@ class TunewsModel {
   _id: number
   _title: string
   _tags: string[]
-  _date: DateTime
+  _lastUpdate: DateTime
   _content: string
   _eNewsNo: string
 
-  constructor(params: { id: number; title: string; date: DateTime; tags: string[]; content: string; eNewsNo: string }) {
-    const { id, date, title, tags, content, eNewsNo } = params
+  constructor(params: {
+    id: number
+    title: string
+    lastUpdate: DateTime
+    tags: string[]
+    content: string
+    eNewsNo: string
+  }) {
+    const { id, lastUpdate, title, tags, content, eNewsNo } = params
     this._id = id
     this._title = decodeHTML(title)
     this._tags = tags
-    this._date = date
+    this._lastUpdate = lastUpdate
     this._content = content
     this._eNewsNo = eNewsNo
   }
@@ -27,8 +34,8 @@ class TunewsModel {
     return this._title
   }
 
-  get date(): DateTime {
-    return this._date
+  get lastUpdate(): DateTime {
+    return this._lastUpdate
   }
 
   get tags(): string[] {

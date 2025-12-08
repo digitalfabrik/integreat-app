@@ -53,7 +53,13 @@ const TuNewsDetail = ({ route, navigation, data, newsId }: TuNewsProps): ReactEl
           <HeaderImageWrapper>
             <StyledIcon Icon={TuNewsActiveIcon} />
           </HeaderImageWrapper>
-          <Page title={tuNews.title} content={tuNews.content} language={languageCode} accessible />
+          <Page
+            title={tuNews.title}
+            content={tuNews.content}
+            lastUpdate={tuNews.lastUpdate}
+            language={languageCode}
+            accessible
+          />
         </>
       )}
     </LoadingErrorHandler>

@@ -96,7 +96,7 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
         <Page
           title={newsModel.title}
           content={newsModel.content}
-          lastUpdate={newsModel.date}
+          lastUpdate={newsModel.lastUpdate}
           showLastUpdateText={false}
         />
       )}
