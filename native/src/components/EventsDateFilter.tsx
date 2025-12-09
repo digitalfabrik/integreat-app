@@ -3,7 +3,6 @@ import React, { ReactElement, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
-import { CloseIcon } from '../assets'
 import Accordion from './Accordion'
 import CalendarRangeModal from './CalendarRangeModal'
 import DatePicker from './DatePicker'
@@ -126,7 +125,7 @@ const EventsDateFilter = ({
               setStartDate(null)
               setEndDate(null)
             }}>
-            <Icon Icon={CloseIcon} />
+            <Icon source='close' />
             <ResetFilterText startDate={startDate} endDate={endDate} />
           </StyledButton>
         )}

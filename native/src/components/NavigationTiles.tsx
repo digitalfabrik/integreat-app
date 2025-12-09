@@ -1,12 +1,10 @@
-import React, { JSXElementConstructor, ReactElement, useRef, useState } from 'react'
+import React, { ReactElement, useRef, useState } from 'react'
 import { Dimensions, NativeScrollEvent, NativeSyntheticEvent, ScrollView } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { SvgProps } from 'react-native-svg'
 import styled from 'styled-components/native'
 
 import { TileModel } from 'shared'
 
-import { ArrowBackIcon } from '../assets'
 import HighlightBox from './HighlightBox'
 import NavigationTile from './NavigationTile'
 import Icon from './base/Icon'
@@ -36,7 +34,7 @@ const StyledIcon = styled(Icon)<{ disabled: boolean }>`
 `
 
 type NavigationTilesProps = {
-  tiles: TileModel<JSXElementConstructor<SvgProps>>[]
+  tiles: TileModel<string>[]
 }
 
 const NavigationTiles = ({ tiles }: NavigationTilesProps): ReactElement => {
@@ -69,7 +67,7 @@ const NavigationTiles = ({ tiles }: NavigationTilesProps): ReactElement => {
     <TilesRow>
       {isScrollable && (
         <StyledPressable role='button' onPress={scrollToStart} aria-hidden>
-          <StyledIcon Icon={ArrowBackIcon} disabled={scrolledToStart} directionDependent />
+          <StyledIcon source='chevron-left' disabled={scrolledToStart} directionDependent />
         </StyledPressable>
       )}
       <ScrollView
@@ -96,7 +94,7 @@ const NavigationTiles = ({ tiles }: NavigationTilesProps): ReactElement => {
       </ScrollView>
       {isScrollable && (
         <StyledPressable role='button' onPress={scrollToEnd} aria-hidden>
-          <StyledIcon Icon={ArrowBackIcon} disabled={scrolledToEnd} directionDependent reverse />
+          <StyledIcon source='chevron-right' disabled={scrolledToEnd} directionDependent />
         </StyledPressable>
       )}
     </TilesRow>

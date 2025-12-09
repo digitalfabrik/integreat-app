@@ -2,12 +2,11 @@ import Clipboard from '@react-native-clipboard/clipboard'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Platform } from 'react-native'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
 import { getExternalMapsLink } from 'shared'
 import { LocationModel } from 'shared/api'
 
-import { ExternalLinkIcon } from '../assets'
 import { contentDirection } from '../constants/contentDirection'
 import useSnackbar from '../hooks/useSnackbar'
 import openExternalUrl from '../utils/openExternalUrl'
@@ -38,6 +37,7 @@ type AddressInfoProps = {
 const AddressInfo = ({ location, language }: AddressInfoProps): ReactElement => {
   const { address, postcode, town } = location
   const showSnackbar = useSnackbar()
+  const theme = useTheme()
   const { t } = useTranslation('pois')
 
   const copyLocationToClipboard = (): void => {
@@ -59,7 +59,7 @@ const AddressInfo = ({ location, language }: AddressInfoProps): ReactElement => 
         </StyledText>
       </Pressable>
       <IconContainer role='link' onPress={openExternalMaps} accessibilityLabel={t('openExternalMaps')}>
-        <Icon Icon={ExternalLinkIcon} />
+        <Icon color={theme.colors.primary} source='open-in-new' />
       </IconContainer>
     </Container>
   )

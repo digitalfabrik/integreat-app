@@ -1,11 +1,10 @@
-import React, { JSXElementConstructor, ReactElement } from 'react'
+import React, { ReactElement } from 'react'
 import { View } from 'react-native'
-import { SvgProps } from 'react-native-svg'
 import styled from 'styled-components/native'
 
 import { TileModel } from 'shared'
 
-import SimpleImage from './SimpleImage'
+import Icon from './base/Icon'
 import Pressable from './base/Pressable'
 
 const ICON_SIZE = 50
@@ -39,20 +38,15 @@ const StyledPressable = styled(Pressable)<{ width: number }>`
   align-items: center;
 `
 
-const StyledIcon = styled(SimpleImage)`
-  width: ${ICON_SIZE / Math.sqrt(2)}px;
-  height: ${ICON_SIZE / Math.sqrt(2)}px;
-`
-
 type NavigationTileProps = {
-  tile: TileModel<JSXElementConstructor<SvgProps>>
+  tile: TileModel<string>
   width: number
 }
 
 const NavigationTile = ({ tile, width }: NavigationTileProps): ReactElement => (
   <StyledPressable role='link' onPress={tile.onTilePress} width={width}>
     <Circle>
-      <StyledIcon source={tile.thumbnail} />
+      <Icon source={tile.thumbnail} size={ICON_SIZE / Math.sqrt(2)} />
     </Circle>
     <TileTitle>{tile.title}</TileTitle>
   </StyledPressable>

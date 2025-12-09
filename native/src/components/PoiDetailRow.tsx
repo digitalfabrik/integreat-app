@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react'
-import { SvgProps } from 'react-native-svg'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
 import useSnackbar from '../hooks/useSnackbar'
 import openExternalUrl from '../utils/openExternalUrl'
@@ -20,8 +19,6 @@ const StyledText = styled(Text)`
 `
 
 const StyledSecondIcon = styled(Icon)`
-  width: 16px;
-  height: 16px;
   align-self: center;
 `
 
@@ -29,26 +26,21 @@ type PoiDetailRowProps = {
   externalUrl: string
   accessibilityLabel: string
   text: string
-  Icon: React.JSXElementConstructor<SvgProps>
-  IconEnd?: React.JSXElementConstructor<SvgProps>
+  icon: string
+  iconEnd?: string
 }
 
-const PoiDetailRow = ({
-  externalUrl,
-  text,
-  accessibilityLabel,
-  Icon: IconProp,
-  IconEnd,
-}: PoiDetailRowProps): ReactElement => {
+const PoiDetailRow = ({ externalUrl, text, accessibilityLabel, icon, iconEnd }: PoiDetailRowProps): ReactElement => {
   const showSnackbar = useSnackbar()
+  const theme = useTheme()
   return (
     <Container
       onPress={() => openExternalUrl(externalUrl, showSnackbar)}
       role='link'
       accessibilityLabel={accessibilityLabel}>
-      <Icon Icon={IconProp} />
+      <Icon source={icon} />
       <StyledText>{text}</StyledText>
-      {IconEnd && <StyledSecondIcon Icon={IconEnd} />}
+      {!!iconEnd && <StyledSecondIcon size={16} color={theme.colors.primary} source={iconEnd} />}
     </Container>
   )
 }

@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 import { TextInput, View } from 'react-native'
 import styled, { useTheme } from 'styled-components/native'
 
-import { CloseIcon, SearchIcon } from '../assets'
 import testID from '../testing/testID'
 import Icon from './base/Icon'
 import IconButton from './base/IconButton'
@@ -17,11 +16,6 @@ const StyledBackground = styled(View)`
   align-items: center;
   padding: 8px;
   gap: 8px;
-`
-
-const StyledIcon = styled(Icon)`
-  color: ${props => props.theme.legacy.colors.textSecondaryColor};
-  height: 20px;
 `
 
 const StyledInput = styled(TextInput)`
@@ -42,7 +36,7 @@ const ThemedSearchBar = ({ onChangeText, value, autofocus }: ThemedSearchBarProp
   const theme = useTheme()
   return (
     <StyledBackground>
-      <StyledIcon Icon={SearchIcon} />
+      <Icon size={20} color={theme.legacy.colors.textSecondaryColor} source='magnify' />
       <StyledInput
         {...testID('Content-Search-Input')}
         role='searchbox'
@@ -56,7 +50,7 @@ const ThemedSearchBar = ({ onChangeText, value, autofocus }: ThemedSearchBarProp
       />
       {!!value && (
         <IconButton
-          icon={<StyledIcon Icon={CloseIcon} />}
+          icon={<Icon size={20} color={theme.legacy.colors.textSecondaryColor} source='close' />}
           onPress={() => onChangeText('')}
           accessibilityLabel={t('delete')}
         />

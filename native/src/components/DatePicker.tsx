@@ -1,9 +1,8 @@
 import { DateTime } from 'luxon'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { View } from 'react-native'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
-import { CalendarTodayIcon } from '../assets'
 import DatePickerInput from './DatePickerInput'
 import Icon from './base/Icon'
 import IconButton from './base/IconButton'
@@ -63,13 +62,6 @@ const StyledError = styled.Text`
   color: ${props => props.theme.legacy.colors.invalidInput};
 `
 
-const StyledCalendarIcon = styled(Icon)`
-  color: ${props =>
-    props.theme.legacy.isContrastTheme
-      ? props.theme.legacy.colors.backgroundColor
-      : props.theme.legacy.colors.textColor};
-`
-
 export type DatePickerProps = {
   title: string
   date: DateTime | null
@@ -98,6 +90,7 @@ const DatePicker = ({
   const placeholderDay = placeholderDate.toFormat('dd')
   const placeholderMonth = placeholderDate.toFormat('MM')
   const placeholderYear = placeholderDate.toFormat('yyyy')
+  const theme = useTheme()
 
   useEffect(() => {
     try {
@@ -147,7 +140,12 @@ const DatePicker = ({
         </Wrapper>
         <StyledIconButton
           $isModalOpen={modalOpen}
-          icon={<StyledCalendarIcon Icon={CalendarTodayIcon} />}
+          icon={
+            <Icon
+              color={theme.legacy.isContrastTheme ? theme.legacy.colors.backgroundColor : theme.legacy.colors.textColor}
+              source='calendar'
+            />
+          }
           accessibilityLabel={calendarLabel}
           onPress={() => setModalOpen(true)}
         />

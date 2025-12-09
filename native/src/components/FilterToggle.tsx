@@ -2,7 +2,6 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
-import { ExpandIcon, ShrinkIcon } from '../assets'
 import Icon from './base/Icon'
 import Text from './base/Text'
 
@@ -28,7 +27,7 @@ const FilterToggle = ({ isDateFilterActive, setToggleDateFilter }: DateFilterTog
   const { t } = useTranslation('events')
   return (
     <StyledButton onPress={() => setToggleDateFilter(!isDateFilterActive)} focusable>
-      <Icon Icon={isDateFilterActive ? ShrinkIcon : ExpandIcon} />
+      <Icon source={isDateFilterActive ? 'arrow-collapse' : 'filter-variant'} />
       <StyledText>{t(isDateFilterActive ? 'hideFilters' : 'showFilters')}</StyledText>
     </StyledButton>
   )
