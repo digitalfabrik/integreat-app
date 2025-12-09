@@ -40,8 +40,8 @@ const Contact = ({
           externalUrl={website}
           accessibilityLabel={t('website')}
           text={t('website')}
-          Icon={WebsiteIcon}
-          IconEnd={ExternalLinkIcon}
+          icon='earth'
+          iconEnd='open-in-new'
         />
       )}
       {!!phoneNumber && (
@@ -49,7 +49,7 @@ const Contact = ({
           externalUrl={`tel:${phoneNumber}`}
           accessibilityLabel={t('phone')}
           text={phoneNumber}
-          Icon={PhoneIcon}
+          icon='phone-outline'
         />
       )}
       {!!mobileNumber && (
@@ -57,11 +57,16 @@ const Contact = ({
           externalUrl={`tel:${mobileNumber}`}
           accessibilityLabel={t('mobilePhone')}
           text={mobileNumber}
-          Icon={MobilePhoneIcon}
+          icon='cellphone'
         />
       )}
       {!!email && (
-        <PoiDetailRow externalUrl={`mailto:${email}`} accessibilityLabel={t('eMail')} text={email} Icon={MailIcon} />
+        <PoiDetailRow
+          externalUrl={`mailto:${email}`}
+          accessibilityLabel={t('eMail')}
+          text={email}
+          icon='email-outline'
+        />
       )}
       {officeHours !== null && <OfficeHours officeHours={officeHours} language={language} />}
       {!isLastContact && <StyledDivider />}

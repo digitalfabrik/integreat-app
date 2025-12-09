@@ -1,11 +1,10 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
 import { getNearbyCities } from 'shared'
 import { CityModel } from 'shared/api'
 
-import { RefreshIcon } from '../assets'
 import useUserLocation from '../hooks/useUserLocation'
 import CityEntry from './CityEntry'
 import Icon from './base/Icon'
@@ -26,10 +25,6 @@ const NearbyMessage = styled.Text`
   padding-top: 15px;
 `
 
-const StyledIcon = styled(Icon)`
-  color: ${props => props.theme.legacy.colors.textSecondaryColor};
-`
-
 type NearbyCitiesProps = {
   cities: CityModel[]
   navigateToDashboard: (city: CityModel) => void
@@ -41,6 +36,7 @@ const NearbyCities = ({ cities, navigateToDashboard, filterText }: NearbyCitiesP
     requestPermissionInitially: false,
   })
   const { t } = useTranslation('landing')
+  const theme = useTheme()
 
   if (!coordinates) {
     return (
@@ -49,7 +45,7 @@ const NearbyCities = ({ cities, navigateToDashboard, filterText }: NearbyCitiesP
         <RetryButtonContainer>
           {status !== 'loading' && (
             <IconButton
-              icon={<StyledIcon Icon={RefreshIcon} />}
+              icon={<Icon color={theme.legacy.colors.textSecondaryColor} source='refresh' />}
               onPress={refreshPermissionAndLocation}
               accessibilityLabel={t('refresh')}
             />

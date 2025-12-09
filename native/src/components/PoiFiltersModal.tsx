@@ -6,7 +6,6 @@ import styled from 'styled-components/native'
 
 import { PoiCategoryModel } from 'shared/api'
 
-import { ClockIcon } from '../assets'
 import Modal from './Modal'
 import Icon from './base/Icon'
 import Text from './base/Text'
@@ -112,7 +111,7 @@ const PoiFiltersModal = ({
             <SubTitle>{t('openingHours')}</SubTitle>
           </Row>
           <StyledRow>
-            <Icon Icon={ClockIcon} />
+            <Icon source='clock-outline' />
             <StyledText>{t('onlyCurrentlyOpen')}</StyledText>
             <FlexEnd>
               <Switch onValueChange={setCurrentlyOpenFilter} value={currentlyOpenFilter} />

@@ -31,7 +31,6 @@ import {
   normalDetailZoom,
 } from 'shared'
 
-import { LocationFixedIcon, LocationNotFixedIcon, LocationOffIcon } from '../assets'
 import { clusterCountLayer, clusterLayer, markerLayer } from '../constants/layers'
 import useUserLocation from '../hooks/useUserLocation'
 import MapAttribution from './MapsAttribution'
@@ -181,8 +180,8 @@ const MapView = ({
     }
   }
 
-  const locationPermissionGrantedIcon = followUserLocation ? LocationFixedIcon : LocationNotFixedIcon
-  const locationPermissionIcon = userLocation ? locationPermissionGrantedIcon : LocationOffIcon
+  const locationPermissionGrantedIcon = followUserLocation ? 'crosshairs-gps' : 'crosshairs'
+  const locationPermissionIcon = userLocation ? locationPermissionGrantedIcon : 'crosshairs-off'
 
   return (
     <MapContainer importantForAccessibility='no' accessibilityElementsHidden>
@@ -223,12 +222,10 @@ const MapView = ({
           <StyledIcon
             icon={
               <Icon
-                style={{
-                  color: theme.legacy.isContrastTheme
-                    ? theme.legacy.colors.backgroundColor
-                    : theme.legacy.colors.textColor,
-                }}
-                Icon={locationPermissionIcon}
+                color={
+                  theme.legacy.isContrastTheme ? theme.legacy.colors.backgroundColor : theme.legacy.colors.textColor
+                }
+                source={locationPermissionIcon}
               />
             }
             onPress={onRequestLocation}

@@ -6,6 +6,7 @@ import render from '../../testing/render'
 import Contact from '../Contact'
 
 jest.mock('react-i18next')
+jest.mock('../base/Icon')
 
 describe('Contact', () => {
   const contactBuilder = new ContactModelBuilder()
