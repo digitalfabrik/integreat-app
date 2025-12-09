@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react'
+import { DefaultTheme, List } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 import dimensions from '../constants/dimensions'
@@ -9,19 +10,24 @@ export const TouchTarget = styled(Pressable)`
   width: 100%;
 `
 
-const ItemWrapper = styled.View<{ selected: boolean }>`
-  justify-content: center;
-  align-items: center;
-  background-color: ${props => props.theme.legacy.colors.backgroundColor};
-  ${props => (props.selected ? `background-color: ${props.theme.legacy.colors.backgroundAccentColor}` : '')};
+const getBackgroundColor = (selected: boolean, theme: typeof DefaultTheme): string => {
+  if (selected) {
+    return theme.dark ? theme.colors.surfaceVariant : theme.colors.tertiaryContainer
+  }
+  return theme.dark ? theme.colors.surface : ''
+}
+
+const StyledListItem = styled(List.Item)<{ selected: boolean }>`
   height: ${dimensions.headerHeight}px;
+  background-color: ${props => getBackgroundColor(props.selected, props.theme as typeof DefaultTheme)};
 `
 
-const Element = styled.Text<{ enabled: boolean }>`
+const Element = styled.Text<{ selected: boolean; enabled?: boolean }>`
   font-size: 20px;
-  ${props => (props.enabled ? 'font-weight: 700' : '')};
+  font-weight: ${props => (props.selected ? '700' : '400')};
   color: ${props =>
-    props.enabled ? props.theme.legacy.colors.textColor : props.theme.legacy.colors.textSecondaryColor};
+    props.enabled || props.selected ? props.theme.colors.onSurface : props.theme.colors.onSurfaceDisabled};
+  text-align: center;
 `
 
 type SelectorItemProps = {
@@ -30,21 +36,26 @@ type SelectorItemProps = {
 }
 
 const SelectorItem = ({ model: { name, code, enabled, onPress }, selected }: SelectorItemProps): ReactElement => {
+  const item = (
+    <StyledListItem
+      title={
+        <Element selected={selected} enabled={enabled}>
+          {name}
+        </Element>
+      }
+      selected={selected}
+    />
+  )
+
   if (enabled || selected) {
     return (
       <TouchTarget key={code} onPress={onPress} role='button'>
-        <ItemWrapper selected={selected}>
-          <Element enabled>{name}</Element>
-        </ItemWrapper>
+        {item}
       </TouchTarget>
     )
   }
 
-  return (
-    <ItemWrapper key={code} selected={selected}>
-      <Element enabled={false}>{name}</Element>
-    </ItemWrapper>
-  )
+  return item
 }
 
 export default SelectorItem
