@@ -42,12 +42,12 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
   }
 
   const renderTuNewsListItem = (tuNewsModel: TunewsModel) => {
-    const { id, title, content, date } = tuNewsModel
+    const { id, title, content, lastUpdate } = tuNewsModel
     return (
       <NewsListItem
         title={title}
         content={content}
-        timestamp={date}
+        timestamp={lastUpdate}
         key={id}
         to={pathnameFromRouteInformation({
           route: NEWS_ROUTE,
