@@ -11,16 +11,10 @@ export const TouchTarget = styled(Pressable)`
 `
 
 const getBackgroundColor = (selected: boolean, theme: typeof DefaultTheme): string => {
-  if (!selected && !theme.dark) {
-    return ''
+  if (selected) {
+    return theme.dark ? theme.colors.surfaceVariant : theme.colors.tertiaryContainer
   }
-  if (selected && !theme.dark) {
-    return theme.colors.tertiaryContainer
-  }
-  if (selected && theme.dark) {
-    return theme.colors.surfaceVariant
-  }
-  return theme.colors.surface
+  return theme.dark ? theme.colors.surface : ''
 }
 
 const StyledListItem = styled(List.Item)<{ selected: boolean }>`

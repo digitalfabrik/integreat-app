@@ -93,17 +93,10 @@ const ChangeLanguageModal = ({ navigation, route }: ChangeLanguageModalProps): R
         onChangeText={setQuery}
         value={query}
         right={() => undefined}
-        style={
-          theme.dark
-            ? {
-                backgroundColor: theme.colors.tertiary,
-                color: theme.colors.onTertiary,
-              }
-            : {
-                backgroundColor: theme.colors.surfaceVariant,
-                color: theme.colors.onSurfaceVariant,
-              }
-        }
+        inputStyle={{ color: theme.dark ? theme.colors.background : theme.colors.onBackground }}
+        style={{
+          backgroundColor: theme.dark ? theme.colors.tertiary : theme.colors.surfaceVariant,
+        }}
       />
       <Selector selectedItemCode={languageCode} items={selectorItems} />
     </Wrapper>
