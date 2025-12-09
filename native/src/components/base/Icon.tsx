@@ -32,7 +32,7 @@ const Icon = ({
 
   if (source) {
     return (
-      // The style here only for margin/padding that works with styled components
+      // Used style here to enable styling margin and padding via styled-components
       <View
         style={[{ transform: [{ scaleX: directionDependent && isRTL() ? -1 : 1 }] }, style]}
         accessibilityLabel={label}>
