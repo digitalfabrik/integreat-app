@@ -51,7 +51,7 @@ const LinkContainer = styled.Pressable`
 
 const Link = styled.Text`
   font-size: 16px;
-  color: ${props => props.theme.colors.link};
+  color: ${props => props.theme.colors.primary};
   text-decoration: underline;
 `
 
@@ -100,7 +100,7 @@ const OpeningHours = ({
   const AppointmentLink = appointmentUrl ? (
     <LinkContainer onPress={() => openExternalUrl(appointmentUrl, showSnackbar)} role='link'>
       <Link>{t('makeAppointment')}</Link>
-      <Icon color={theme.colors.link} size={16} source='open-in-new' />
+      <Icon color={theme.colors.primary} size={16} source='open-in-new' />
     </LinkContainer>
   ) : null
 

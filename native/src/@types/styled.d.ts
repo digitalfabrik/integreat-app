@@ -38,7 +38,6 @@ type MD3Theme = {
       main: string
       light: string
     }
-    link: string
     ttsPlayer: {
       background: string
       playIconColor: string
