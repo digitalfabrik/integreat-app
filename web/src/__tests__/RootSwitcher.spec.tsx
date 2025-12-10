@@ -17,7 +17,6 @@ jest.mock('i18next', () => ({
   ...jest.requireActual('i18next'),
   createInstance: () => ({ language: 'de' }),
 }))
-jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
 jest.mock('stylis')
 

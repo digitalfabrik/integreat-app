@@ -4,7 +4,6 @@ import React from 'react'
 import { renderWithTheme } from '../../../testing/render'
 import Accordion from '../Accordion'
 
-jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
 
 describe('Accordion', () => {
