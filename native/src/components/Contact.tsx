@@ -6,6 +6,7 @@ import { ContactModel } from 'shared/api'
 
 import { ExternalLinkIcon, MailIcon, PhoneIcon, WebsiteIcon, MobilePhoneIcon } from '../assets'
 import HorizontalLine from './HorizontalLine'
+import OfficeHours from './OfficeHours'
 import PoiDetailRow from './PoiDetailRow'
 import Text from './base/Text'
 
@@ -17,11 +18,13 @@ const StyledContactHeader = styled(Text)`
 type ContactProps = {
   contact: ContactModel
   isLastContact?: boolean
+  language: string
 }
 
 const Contact = ({
-  contact: { headline, website, phoneNumber, email, mobileNumber },
+  contact: { headline, website, phoneNumber, email, mobileNumber, officeHours },
   isLastContact,
+  language,
 }: ContactProps): ReactElement => {
   const { t } = useTranslation('pois')
 
@@ -56,6 +59,7 @@ const Contact = ({
       {!!email && (
         <PoiDetailRow externalUrl={`mailto:${email}`} accessibilityLabel={t('eMail')} text={email} Icon={MailIcon} />
       )}
+      {officeHours !== null && <OfficeHours officeHours={officeHours} language={language} />}
       {!isLastContact && <HorizontalLine />}
     </>
   )

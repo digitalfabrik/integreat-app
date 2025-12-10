@@ -1,24 +1,24 @@
 import { TimeSlot } from '../types'
 
 class OpeningHoursModel {
-  _allDay: boolean
-  _closed: boolean
+  _openAllDay: boolean
+  _closedAllDay: boolean
   _timeSlots: TimeSlot[]
   _appointmentOnly: boolean
 
   constructor({
-    allDay,
-    closed,
+    openAllDay,
+    closedAllDay,
     timeSlots,
     appointmentOnly,
   }: {
-    allDay: boolean
-    closed: boolean
+    openAllDay: boolean
+    closedAllDay: boolean
     timeSlots: TimeSlot[]
     appointmentOnly: boolean
   }) {
-    this._allDay = allDay
-    this._closed = closed
+    this._openAllDay = openAllDay
+    this._closedAllDay = closedAllDay
     this._timeSlots = timeSlots
     this._appointmentOnly = appointmentOnly
   }
@@ -27,12 +27,12 @@ class OpeningHoursModel {
     return this._timeSlots
   }
 
-  get closed(): boolean {
-    return this._closed
+  get closedAllDay(): boolean {
+    return this._closedAllDay
   }
 
-  get allDay(): boolean {
-    return this._allDay
+  get openAllDay(): boolean {
+    return this._openAllDay
   }
 
   get appointmentOnly(): boolean {

@@ -13,13 +13,18 @@ describe('OpeningHoursListItem', () => {
     { end: '12:00', start: '08:00' },
   ]
   const currentWeekday = 'Monday'
-  const renderOpeningEntries = (allDay: boolean, closed: boolean, isCurrentDay: boolean, appointmentOnly: boolean) =>
+  const renderOpeningEntries = (
+    openAllDay: boolean,
+    closedAllDay: boolean,
+    isCurrentDay: boolean,
+    appointmentOnly: boolean,
+  ) =>
     renderWithTheme(
       <OpeningHoursListItem
         weekday={currentWeekday}
         isCurrentDay={isCurrentDay}
         appointmentUrl={null}
-        openingHours={new OpeningHoursModel({ allDay, closed, timeSlots, appointmentOnly })}
+        openingHours={new OpeningHoursModel({ openAllDay, closedAllDay, timeSlots, appointmentOnly })}
       />,
     )
   it('should display the timeslots of a weekday', () => {

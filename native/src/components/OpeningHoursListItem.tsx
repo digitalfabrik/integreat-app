@@ -76,9 +76,9 @@ const OpeningEntry = ({
   return (
     <EntryContainer language={language}>
       <TimeSlotLabel isCurrentDay={isCurrentDay}>{weekday}</TimeSlotLabel>
-      {openingHours.allDay && <TimeSlotEntry isCurrentDay={isCurrentDay}>{t('allDay')}</TimeSlotEntry>}
-      {openingHours.closed && <TimeSlotEntry isCurrentDay={isCurrentDay}>{t('closed')}</TimeSlotEntry>}
-      {!openingHours.allDay && !openingHours.closed && openingHours.timeSlots.length > 0 && (
+      {openingHours.openAllDay && <TimeSlotEntry isCurrentDay={isCurrentDay}>{t('allDay')}</TimeSlotEntry>}
+      {openingHours.closedAllDay && <TimeSlotEntry isCurrentDay={isCurrentDay}>{t('closed')}</TimeSlotEntry>}
+      {!openingHours.openAllDay && !openingHours.closedAllDay && openingHours.timeSlots.length > 0 && (
         <Timeslot>
           {openingHours.timeSlots.map((timeSlot, index) => (
             <TimeSlotEntry key={`${weekday}-${timeSlot.start}`} isCurrentDay={isCurrentDay} notFirstChild={index !== 0}>

@@ -12,6 +12,7 @@ import { getExternalMapsLink } from 'shared'
 import { PoiModel } from 'shared/api'
 
 import Contact from './Contact'
+import CustomThumbnail from './CustomThumbnail'
 import OpeningHours from './OpeningHours'
 import PoiChips from './PoiChips'
 import RemoteContent from './RemoteContent'
@@ -24,20 +25,6 @@ const StyledContactsList = styled(List)({
   flexDirection: 'column',
   gap: 16,
 })
-
-const Thumbnail = styled('img')`
-  height: clamp(120px, 14vh, 160px);
-  width: 100%;
-  flex-shrink: 0;
-  border: 1px solid transparent;
-  object-fit: cover;
-  border-radius: 10px;
-
-  ${props => props.theme.breakpoints.down('md')} {
-    order: 1;
-    margin-top: 12px;
-  }
-`
 
 type PoiDetailsProps = {
   poi: PoiModel
@@ -107,7 +94,7 @@ const PoiDetails = ({ poi, distance }: PoiDetailsProps): ReactElement => {
           <Typography variant='body2'>{t('distanceKilometre', { distance: distance.toFixed(1) })}</Typography>
         )}
         <PoiChips poi={poi} />
-        {!!poi.thumbnail && <Thumbnail alt='' src={poi.thumbnail} />}
+        {!!poi.thumbnail && <CustomThumbnail src={poi.thumbnail} />}
       </Stack>
       <Divider />
       {addressSection}

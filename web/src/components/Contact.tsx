@@ -12,13 +12,14 @@ import { useTranslation } from 'react-i18next'
 import { ContactModel } from 'shared/api'
 
 import ContactDetail from './ContactDetail'
+import OfficeHours from './OfficeHours'
 
 type ContactProps = {
   contact: ContactModel
 }
 
 const Contact = ({ contact }: ContactProps): ReactElement => {
-  const { headline, website, phoneNumber, email, mobileNumber } = contact
+  const { headline, website, phoneNumber, email, mobileNumber, officeHours } = contact
   const { t } = useTranslation('pois')
 
   return (
@@ -35,6 +36,7 @@ const Contact = ({ contact }: ContactProps): ReactElement => {
           <ContactDetail Icon={SmartphoneOutlinedIcon} link={`tel:${mobileNumber}`} content={mobileNumber} />
         )}
         {!!email && <ContactDetail Icon={MailOutlinedIcon} link={`mailto:${email}`} content={email} />}
+        {officeHours !== null && <OfficeHours officeHours={officeHours} />}
       </Stack>
     </ListItem>
   )
