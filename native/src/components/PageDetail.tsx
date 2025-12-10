@@ -11,19 +11,19 @@ import Icon from './base/Icon'
 
 const DetailContainer = styled.View<{ widthPadding?: boolean }>`
   flex-direction: row;
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.colors.onSurface};
   align-items: center;
   padding-inline-start: ${props => (props.widthPadding ? '32px' : '0')};
 `
 
 const Identifier = styled.Text`
   font-family: ${props => props.theme.legacy.fonts.native.contentFontBold};
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.colors.onSurface};
   align-self: flex-start;
 `
 
 const StyledIcon = styled(Icon)`
-  color: ${props => props.theme.legacy.colors.textSecondaryColor};
+  color: ${props => props.theme.colors.onSurfaceVariant};
   margin-inline-end: 8px;
 `
 
@@ -33,14 +33,14 @@ const StyledButton = styled.Pressable`
 
 const ButtonText = styled.Text`
   font-family: ${props => props.theme.legacy.fonts.native.contentFontRegular};
-  color: ${props => props.theme.legacy.colors.linkColor};
+  color: ${props => props.theme.colors.primary};
   text-decoration: underline;
-  text-decoration-color: ${props => props.theme.legacy.colors.linkColor};
+  text-decoration-color: ${props => props.theme.colors.primary};
 `
 
 const StyledText = styled.Text`
   font-family: ${props => props.theme.legacy.fonts.native.contentFontRegular};
-  color: ${props => props.theme.legacy.colors.textSecondaryColor};
+  color: ${props => props.theme.colors.onSurfaceVariant};
   flex-shrink: 1;
 `
 

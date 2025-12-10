@@ -10,7 +10,7 @@ import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 const Container = styled.ScrollView`
   flex: 1;
   padding: 30px;
-  background-color: ${props => props.theme.legacy.colors.backgroundColor};
+  background-color: ${props => props.theme.colors.background};
 `
 
 const Heading = styled.Text`
@@ -18,12 +18,12 @@ const Heading = styled.Text`
   font-size: 18px;
   padding: 20px 20px 40px;
   text-align: center;
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.colors.onSurface};
 `
 
 const Description = styled.Text`
   font-family: ${props => props.theme.legacy.fonts.native.contentFontRegular};
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.colors.onSurface};
 `
 
 const ListHeading = styled(Heading)`
@@ -39,7 +39,7 @@ const ListItem = styled.View`
 `
 
 const StepNumber = styled.Text`
-  background-color: ${props => props.theme.legacy.colors.themeColor};
+  background-color: ${props => props.theme.colors.secondary};
   font-size: 15px;
   line-height: 28px;
   text-align: center;
@@ -53,7 +53,7 @@ const StepExplanation = styled.Text`
   align-self: center;
   flex-shrink: 1;
   padding-bottom: 4px;
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.colors.onSurface};
 `
 
 const StyledButton = styled(TextButton)`
@@ -64,10 +64,10 @@ const StyledButton = styled(TextButton)`
 
 const TemplateText = styled.Text`
   margin-top: -20px;
-  border: 1px solid ${props => props.theme.legacy.colors.themeColor};
+  border: 1px solid ${props => props.theme.colors.secondary};
   padding: 30px 20px 20px;
   margin-bottom: 250px;
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.colors.onSurface};
 `
 
 const StyledIcon = styled(Icon)`

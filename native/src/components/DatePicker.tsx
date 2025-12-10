@@ -17,8 +17,8 @@ const StyledInputWrapper = styled.View`
   height: 56px;
   padding: 0 16px;
   border-radius: 8px;
-  border-color: ${props => props.theme.legacy.colors.themeColorLight};
-  border-width: 3px;
+  border-color: ${props => props.theme.colors.action.disabled};
+  border-width: 1px;
   border-style: solid;
   flex-direction: row;
   justify-content: space-between;
@@ -32,26 +32,21 @@ const Wrapper = styled.View`
 `
 
 const StyledText = styled.Text`
-  color: ${props =>
-    props.theme.legacy.isContrastTheme
-      ? props.theme.legacy.colors.textColor
-      : props.theme.legacy.colors.textSecondaryColor};
+  color: ${props => (props.theme.dark ? props.theme.colors.onSurface : props.theme.colors.onSurfaceVariant)};
 `
 
 const StyledIconButton = styled(IconButton)<{ $isModalOpen: boolean }>`
   width: 40px;
   height: 40px;
-  background-color: ${props =>
-    props.$isModalOpen ? props.theme.legacy.colors.themeColorLight : props.theme.legacy.colors.textDisabledColor};
 `
 
 const StyledTitle = styled.Text`
-  background-color: ${props => props.theme.legacy.colors.backgroundColor};
+  background-color: ${props => props.theme.colors.background};
   position: absolute;
   top: -12px;
   left: 12px;
   padding: 2px 5px;
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.colors.onSurface};
   font-size: 12px;
   z-index: 1;
 `
@@ -59,7 +54,7 @@ const StyledTitle = styled.Text`
 const StyledError = styled.Text`
   font-size: 12px;
   font-weight: bold;
-  color: ${props => props.theme.legacy.colors.invalidInput};
+  color: ${props => props.theme.colors.error};
 `
 
 export type DatePickerProps = {
@@ -140,12 +135,7 @@ const DatePicker = ({
         </Wrapper>
         <StyledIconButton
           $isModalOpen={modalOpen}
-          icon={
-            <Icon
-              color={theme.legacy.isContrastTheme ? theme.legacy.colors.backgroundColor : theme.legacy.colors.textColor}
-              source='calendar'
-            />
-          }
+          icon={<Icon color={theme.colors.onSurface} source='calendar' />}
           accessibilityLabel={calendarLabel}
           onPress={() => setModalOpen(true)}
         />

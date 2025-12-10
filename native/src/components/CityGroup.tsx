@@ -5,12 +5,12 @@ const GroupText = styled.Text`
   margin-top: 5px;
   padding: 10px 0;
   font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.colors.onSurface};
 `
 // Wrapper is necessary, because iOS doesn't display border for Text components.
 const BorderWrapper = styled.View`
   border-bottom-width: 1px;
-  border-bottom-color: ${props => props.theme.legacy.colors.themeColor};
+  border-bottom-color: ${props => props.theme.colors.secondary};
   flex-flow: column wrap;
   align-items: flex-start;
 `

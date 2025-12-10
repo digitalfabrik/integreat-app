@@ -28,11 +28,11 @@ const Icon = ({
   size,
 }: IconProps): ReactElement | null => {
   const theme = useTheme()
-  const defaultColor = theme.legacy.colors.textColor
+  const defaultColor = theme.colors.onSurface
 
   if (source) {
     return (
-      // Used style here to enable styling margin and padding via styled-components
+      // The style here only for margin/padding that works with styled components
       <View
         style={[{ transform: [{ scaleX: directionDependent && isRTL() ? -1 : 1 }] }, style]}
         accessibilityLabel={label}>

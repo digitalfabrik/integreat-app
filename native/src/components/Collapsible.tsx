@@ -15,7 +15,7 @@ const CollapseHeaderText = styled.Text`
   font-size: 14px;
   align-self: center;
   font-family: ${props => props.theme.legacy.fonts.native.decorativeFontBold};
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.colors.onSurface};
 `
 
 const CollapseHeaderWrapper = styled.View<{ language: string }>`

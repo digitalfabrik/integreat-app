@@ -9,11 +9,11 @@ const InputWrapper = styled.View`
   margin: 0 4px;
   flex-grow: 1;
   border-bottom-width: 1px;
-  border-bottom-color: ${props => props.theme.legacy.colors.textSecondaryColor};
+  border-bottom-color: ${props => props.theme.colors.onSurfaceVariant};
 `
 
 const StyledInput = styled.TextInput`
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.colors.onSurface};
 `
 
 const Wrapper = styled.View<{ space: boolean }>`
@@ -22,12 +22,12 @@ const Wrapper = styled.View<{ space: boolean }>`
   justify-content: center;
   align-items: center;
   padding: 10px 0;
-  background-color: ${props => props.theme.legacy.colors.backgroundColor};
+  background-color: ${props => props.theme.colors.background};
 `
 
 const Description = styled(Text)`
   padding-left: 28px;
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.colors.onSurface};
   font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
 `
 
@@ -58,7 +58,7 @@ const SearchInput = ({
             multiline={false}
             autoFocus
             onBlur={Keyboard.dismiss}
-            placeholderTextColor={theme.legacy.colors.textSecondaryColor}
+            placeholderTextColor={theme.colors.onSurfaceVariant}
             placeholder={placeholderText}
             aria-label={placeholderText}
             value={filterText}

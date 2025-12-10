@@ -30,7 +30,7 @@ const SearchHeader = ({ query, closeSearchBar, onSearchChanged }: SearchHeaderPr
         <HeaderBackButton
           onPress={() => closeSearchBar(query)}
           displayMode='minimal'
-          tintColor={theme.legacy.colors.textColor}
+          tintColor={theme.colors.onSurface}
         />
         <ThemedSearchBar onChangeText={onSearchChanged} value={query} autofocus />
       </Horizontal>

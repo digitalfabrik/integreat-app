@@ -10,7 +10,7 @@ const PadView = styled.View`
   padding: 16px;
   flex-direction: row;
   align-items: center;
-  background-color: ${props => props.theme.legacy.colors.backgroundColor};
+  background-color: ${props => props.theme.colors.background};
 `
 
 const ContentContainer = styled.View`
@@ -20,12 +20,12 @@ const ContentContainer = styled.View`
 `
 
 const Title = styled.Text<{ bigTitle: boolean }>`
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.colors.onSurface};
   ${props => (props.bigTitle ? 'font-size: 18px;' : '')}
 `
 
 const Description = styled.Text`
-  color: ${props => props.theme.legacy.colors.textSecondaryColor};
+  color: ${props => props.theme.colors.onSurfaceVariant};
 `
 
 const FlexEndContainer = styled.View`

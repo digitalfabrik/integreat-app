@@ -40,7 +40,7 @@ const filterLanguages = (
 }
 
 const Wrapper = styled.ScrollView`
-  background-color: ${props => props.theme.legacy.colors.backgroundColor};
+  background-color: ${props => props.theme.colors.background};
 `
 
 type ChangeLanguageModalProps = {

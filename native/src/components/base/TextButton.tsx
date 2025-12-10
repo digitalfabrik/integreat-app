@@ -9,16 +9,13 @@ const StyledPressable = styled(Pressable)<{ primary: boolean; disabled: boolean 
   padding: 8px;
   border-radius: 8px;
   background-color: ${props => {
-    const buttonColor = props.primary ? props.theme.legacy.colors.themeColor : props.theme.legacy.colors.backgroundColor
-    return props.disabled ? props.theme.legacy.colors.textDecorationColor : buttonColor
+    const buttonColor = props.primary ? props.theme.colors.secondary : props.theme.colors.background
+    return props.disabled ? props.theme.colors.action.disabled : buttonColor
   }};
 `
 
 const StyledText = styled(Text)`
-  color: ${props =>
-    props.theme.legacy.isContrastTheme
-      ? props.theme.legacy.colors.backgroundColor
-      : props.theme.legacy.colors.textColor};
+  color: ${props => (props.theme.dark ? props.theme.colors.background : props.theme.colors.onSurface)};
   font-weight: 500;
   font-size: 18px;
   text-align: center;

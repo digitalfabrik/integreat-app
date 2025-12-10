@@ -19,13 +19,13 @@ import dimensions from '../constants/dimensions'
 import useOnBackNavigation from '../hooks/useOnBackNavigation'
 
 const StyledIcon = styled(Icon)`
-  color: ${props => props.theme.legacy.colors.textSecondaryColor};
+  color: ${props => props.theme.colors.onSurfaceVariant};
   width: 16px;
   height: 16px;
 `
 
 const StyledSvgUri = styled(SvgUri)`
-  color: ${props => props.theme.legacy.colors.textSecondaryColor};
+  color: ${props => props.theme.colors.onSurfaceVariant};
 `
 
 const Container = styled.View`
@@ -121,7 +121,7 @@ const Pois = ({ pois: allPois, cityModel, route, navigation }: PoisProps): React
       {poiCurrentlyOpenFilter && (
         <ChipButton
           text={t('opened')}
-          Icon={<Icon size={16} color={theme.legacy.colors.textSecondaryColor} source='clock-outline' />}
+          Icon={<Icon size={16} color={theme.colors.onSurfaceVariant} source='clock-outline' />}
           onPress={() => setPoiCurrentlyOpenFilter(false)}
           closeButton
         />

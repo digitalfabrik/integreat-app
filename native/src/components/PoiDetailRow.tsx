@@ -15,7 +15,7 @@ const Container = styled(Pressable)`
 const StyledText = styled(Text)`
   align-self: center;
   padding: 0 8px;
-  color: ${props => props.theme.legacy.colors.linkColor};
+  color: ${props => props.theme.colors.primary};
 `
 
 const StyledSecondIcon = styled(Icon)`

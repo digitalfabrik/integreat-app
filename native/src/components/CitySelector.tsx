@@ -28,7 +28,7 @@ const SearchBar = styled.View`
 
 const SearchCounter = styled.Text`
   margin: 15px 0 10px;
-  color: ${props => props.theme.legacy.colors.textSecondaryColor};
+  color: ${props => props.theme.colors.onSurfaceVariant};
   font-weight: 500;
 `
 

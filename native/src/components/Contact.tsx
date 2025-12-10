@@ -10,7 +10,7 @@ import Text from './base/Text'
 
 const StyledContactHeader = styled(Text)`
   margin-bottom: 6px;
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.colors.onSurface};
 `
 
 const StyledDivider = styled(Divider)`

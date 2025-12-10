@@ -43,6 +43,11 @@ export type TypeBackground = {
   accent: string
 }
 
+export type TypeTtsPlayer = {
+  background: string
+  playIconColor: string
+}
+
 export type CommonColorPalette = CommonColors & {
   mode: PaletteMode
   primary: PaletteColor
@@ -50,6 +55,7 @@ export type CommonColorPalette = CommonColors & {
   background: TypeBackground
   text: TypeText
   action: ActionColor
+  ttsPlayer: TypeTtsPlayer
 }
 
 export type ThemeColorPalette = CommonColorPalette & {
