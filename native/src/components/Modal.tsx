@@ -1,5 +1,5 @@
 import React, { ReactElement, ReactNode } from 'react'
-import { Modal as RNModal, View } from 'react-native'
+import { Platform, Modal as RNModal, View } from 'react-native'
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import styled from 'styled-components/native'
 
@@ -52,7 +52,7 @@ const Modal = ({
         onRequestClose={closeModal}
         animationType='fade'
         supportedOrientations={['portrait', 'landscape']}>
-        <Container paddingTop={insets.top} edges={['right', 'bottom', 'left']}>
+        <Container paddingTop={Platform.OS === 'ios' ? insets.top : 0} edges={['right', 'bottom', 'left']}>
           <Header>
             <HeaderBox goBack={closeModal} text={headerTitle} />
           </Header>
