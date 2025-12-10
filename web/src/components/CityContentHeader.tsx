@@ -10,12 +10,13 @@ import CityContentMenu from './CityContentMenu'
 import Header from './Header'
 import HeaderActionItem from './HeaderActionItem'
 import HeaderLanguageSelectorItem from './HeaderLanguageSelectorItem'
+import { LanguageChangePath } from './LanguageList'
 import NavigationTabs from './NavigationTabs'
 
 type CityContentHeaderProps = {
   cityModel: CityModel
   languageCode: string
-  languageChangePaths: { code: string; path: string | null; name: string }[] | null
+  languageChangePaths: LanguageChangePath[] | null
   category?: CategoryModel
   pageTitle: string | null
   fitScreen?: boolean
@@ -38,13 +39,15 @@ const CityContentHeader = ({
 
   const actionItems = [
     <HeaderActionItem key='search' to={searchPath} text={t('search')} icon={<SearchOutlinedIcon />} />,
-    <HeaderLanguageSelectorItem
-      key='languageChange'
-      languageChangePaths={languageChangePaths}
-      languageCode={languageCode}
-    />,
+    languageChangePaths ? (
+      <HeaderLanguageSelectorItem
+        key='languageChange'
+        languageChangePaths={languageChangePaths}
+        languageCode={languageCode}
+      />
+    ) : null,
     <CityContentMenu key='sidebar' category={category} pageTitle={pageTitle} fitScreen={fitScreen} />,
-  ]
+  ].filter(Boolean)
 
   return (
     <Header
