@@ -58,6 +58,14 @@ export const theme = (themeType: 'light' | 'contrast'): DefaultTheme => {
       action: {
         disabled: palette.action.disabled,
       },
+      elevation: {
+        level0: palette.tertiary.light,
+        level1: palette.tertiary.light,
+        level2: palette.tertiary.light,
+        level3: palette.tertiary.light,
+        level4: palette.tertiary.light,
+        level5: palette.tertiary.light,
+      },
     },
   }
 }
