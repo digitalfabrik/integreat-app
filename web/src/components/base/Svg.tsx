@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import SVG from 'react-inlinesvg'
+import { ReactSVG } from 'react-svg'
 
 const DEFAULT_ICON_SIZE = 24
 
@@ -16,7 +16,16 @@ const Svg = ({
   height = DEFAULT_ICON_SIZE,
   className,
 }: CustomIconProps): ReactElement => (
-  <SVG src={src} width={width} height={height} color='inherit' className={className} />
+  <ReactSVG
+    src={src}
+    className={className}
+    beforeInjection={svg => {
+      svg.setAttribute('width', String(width))
+      svg.setAttribute('height', String(height))
+      svg.setAttribute('style', 'color: inherit')
+    }}
+    wrapper='span'
+  />
 )
 
 export default Svg

@@ -5,7 +5,6 @@ import { OpeningHoursModel } from 'shared/api'
 import { renderWithTheme } from '../../testing/render'
 import OpeningHours from '../OpeningHours'
 
-jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
 
 describe('OpeningHours', () => {

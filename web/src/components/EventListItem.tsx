@@ -10,7 +10,6 @@ import { styled } from '@mui/material/styles'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import SVG from 'react-inlinesvg'
 
 import { getDisplayDate, getExcerpt } from 'shared'
 import { DateIcon, DateModel, EventModel } from 'shared/api'
@@ -23,6 +22,7 @@ import {
 } from '../assets'
 import { EXCERPT_MAX_CHARS } from '../constants'
 import Link from './base/Link'
+import Svg from './base/Svg'
 
 const StyledListItem = styled(ListItem)`
   [class*='MuiListItemSecondaryAction-root'] {
@@ -72,7 +72,7 @@ const getEventPlaceholder = (path: string): string => {
 
 export const getDateIcon = (date: DateModel): { Icon: ReactElement; tooltip: string } | null => {
   const icons: { [key in DateIcon]: ReactElement } = {
-    CalendarTodayRecurringIcon: <SVG src={CalendarTodayRecurringIcon} />,
+    CalendarTodayRecurringIcon: <Svg src={CalendarTodayRecurringIcon} />,
     CalendarRecurringIcon: <EventRepeatOutlinedIcon />,
     CalendarTodayIcon: <TodayOutlinedIcon />,
   }

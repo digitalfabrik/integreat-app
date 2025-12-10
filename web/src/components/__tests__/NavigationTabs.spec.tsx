@@ -6,7 +6,6 @@ import { CityModel, LanguageModelBuilder } from 'shared/api'
 import { renderAllRoutes, renderWithRouterAndTheme } from '../../testing/render'
 import NavigationTabs from '../NavigationTabs'
 
-jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
 
 describe('NavigationTabs', () => {
