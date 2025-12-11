@@ -28,8 +28,7 @@ You can contribute by:
 - [Creating pull requests](docs/contributing.md#pull-requests)
 - [Reviewing pull requests](docs/contributing.md#reviews)
 
-If you want to know more about Integreat or if you want to join us, contact [Leandra](mailto:leandra.hahn@tuerantuer.org),
-[Steffen](mailto:steffen.kleinle@tuerantuer.org) or [our info mail](mailto:info@integreat-app.de) and visit our [website](https://integreat-app.de).
+If you want to know more about Integreat or if you want to join us, contact [Steffen](mailto:steffen.kleinle@tuerantuer.org) or [our info mail](mailto:info@integreat-app.de) and visit our [website](https://integreat-app.de).
 
 ## Project Structure
 
