@@ -2,28 +2,28 @@ when:
   equal: [<< pipeline.parameters.workflow_type >>, delivery]
 jobs:
   - bump_version:
-      prepare_delivery: true
+      prepare_delivery: false
       context:
         - deliverino
   - check
 
-  - e2e_web:
-      requires:
-        - bump_version
-  - build_web:
-      matrix:
-        parameters:
-          build_config_name: [integreat, malte, aschaffenburg, obdach]
-      requires:
-        - bump_version
-  - deliver_web:
-      delivery: beta
-      context:
-        - sentry
-      requires:
-        - check
-        - e2e_web
-        - build_web
+  #  - e2e_web:
+  #      requires:
+  #        - bump_version
+  #  - build_web:
+  #      matrix:
+  #        parameters:
+  #          build_config_name: [integreat, malte, aschaffenburg, obdach]
+  #      requires:
+  #        - bump_version
+  #  - deliver_web:
+  #      delivery: beta
+  #      context:
+  #        - sentry
+  #      requires:
+  #        - check
+  #        - e2e_web
+  #        - build_web
 
   - build_android:
       matrix:
@@ -39,53 +39,53 @@ jobs:
         - browserstack
       requires:
         - build_android-integreat-e2e
-  - deliver_android:
-      production_delivery: false
-      matrix:
-        parameters:
-          build_config_name: [integreat, malte, aschaffenburg]
-      context:
-        - tuerantuer-google-play
-        - sentry
-        - browserstack
-      requires:
-        - check
-        - e2e_android
-        - build_android-<< matrix.build_config_name >>
+#  - deliver_android:
+#      production_delivery: false
+#      matrix:
+#        parameters:
+#          build_config_name: [integreat, malte, aschaffenburg]
+#      context:
+#        - tuerantuer-google-play
+#        - sentry
+#        - browserstack
+#      requires:
+#        - check
+#        - e2e_android
+#        - build_android-<< matrix.build_config_name >>
 
-  - build_ios:
-      matrix:
-        parameters:
-          build_config_name: [integreat-e2e, integreat, malte, aschaffenburg]
-      context:
-        - tuerantuer-apple
-        - fastlane-match
-      requires:
-        - bump_version
-  - e2e_ios:
-      context:
-        - browserstack
-      requires:
-        - build_ios-integreat-e2e
-  - deliver_ios:
-      production_delivery: false
-      matrix:
-        parameters:
-          build_config_name: [integreat, malte, aschaffenburg]
-      context:
-        - tuerantuer-apple
-        - sentry
-        - browserstack
-      requires:
-        - check
-        - e2e_ios
-        - build_ios-<< matrix.build_config_name >>
-
-  - notify_release:
-      production_delivery: false
-      context:
-        - deliverino
-      requires:
-        - deliver_android
-        - deliver_ios
-        - deliver_web
+#  - build_ios:
+#      matrix:
+#        parameters:
+#          build_config_name: [integreat-e2e, integreat, malte, aschaffenburg]
+#      context:
+#        - tuerantuer-apple
+#        - fastlane-match
+#      requires:
+#        - bump_version
+#  - e2e_ios:
+#      context:
+#        - browserstack
+#      requires:
+#        - build_ios-integreat-e2e
+#  - deliver_ios:
+#      production_delivery: false
+#      matrix:
+#        parameters:
+#          build_config_name: [integreat, malte, aschaffenburg]
+#      context:
+#        - tuerantuer-apple
+#        - sentry
+#        - browserstack
+#      requires:
+#        - check
+#        - e2e_ios
+#        - build_ios-<< matrix.build_config_name >>
+#
+#  - notify_release:
+#      production_delivery: false
+#      context:
+#        - deliverino
+#      requires:
+#        - deliver_android
+#        - deliver_ios
+#        - deliver_web

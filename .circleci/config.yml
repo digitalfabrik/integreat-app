@@ -226,6 +226,7 @@ jobs:
             - image: cimg/android:2025.10.1-node
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
+            GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx2048m" -Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2
             TOTAL_CPUS: 4
         parameters:
             build_config_name:
@@ -963,29 +964,8 @@ workflows:
             - bump_version:
                 context:
                     - deliverino
-                prepare_delivery: true
+                prepare_delivery: false
             - check
-            - e2e_web:
-                requires:
-                    - bump_version
-            - build_web:
-                matrix:
-                    parameters:
-                        build_config_name:
-                            - integreat
-                            - malte
-                            - aschaffenburg
-                            - obdach
-                requires:
-                    - bump_version
-            - deliver_web:
-                context:
-                    - sentry
-                delivery: beta
-                requires:
-                    - check
-                    - e2e_web
-                    - build_web
             - build_android:
                 context:
                     - credentials-repo
@@ -1004,64 +984,6 @@ workflows:
                     - browserstack
                 requires:
                     - build_android-integreat-e2e
-            - deliver_android:
-                context:
-                    - tuerantuer-google-play
-                    - sentry
-                    - browserstack
-                matrix:
-                    parameters:
-                        build_config_name:
-                            - integreat
-                            - malte
-                            - aschaffenburg
-                production_delivery: false
-                requires:
-                    - check
-                    - e2e_android
-                    - build_android-<< matrix.build_config_name >>
-            - build_ios:
-                context:
-                    - tuerantuer-apple
-                    - fastlane-match
-                matrix:
-                    parameters:
-                        build_config_name:
-                            - integreat-e2e
-                            - integreat
-                            - malte
-                            - aschaffenburg
-                requires:
-                    - bump_version
-            - e2e_ios:
-                context:
-                    - browserstack
-                requires:
-                    - build_ios-integreat-e2e
-            - deliver_ios:
-                context:
-                    - tuerantuer-apple
-                    - sentry
-                    - browserstack
-                matrix:
-                    parameters:
-                        build_config_name:
-                            - integreat
-                            - malte
-                            - aschaffenburg
-                production_delivery: false
-                requires:
-                    - check
-                    - e2e_ios
-                    - build_ios-<< matrix.build_config_name >>
-            - notify_release:
-                context:
-                    - deliverino
-                production_delivery: false
-                requires:
-                    - deliver_android
-                    - deliver_ios
-                    - deliver_web
         when:
             equal:
                 - << pipeline.parameters.workflow_type >>
