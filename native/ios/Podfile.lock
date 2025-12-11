@@ -3016,6 +3016,34 @@ PODS:
     - Sentry/HybridSDK (= 8.57.0)
     - SocketRocket
     - Yoga
+  - RNSpeech (1.3.1):
+    - boost
+    - DoubleConversion
+    - fast_float
+    - fmt
+    - glog
+    - hermes-engine
+    - RCT-Folly
+    - RCT-Folly/Fabric
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-renderercss
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - SocketRocket
+    - Yoga
   - RNSVG (15.14.0):
     - boost
     - DoubleConversion
@@ -3164,8 +3192,6 @@ PODS:
     - Yoga
   - Sentry/HybridSDK (8.57.0)
   - SocketRocket (0.7.1)
-  - TextToSpeech (4.1.1):
-    - React-Core
   - Yoga (0.0.0)
 
 DEPENDENCIES:
@@ -3266,10 +3292,10 @@ DEPENDENCIES:
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - "RNSentry (from `../node_modules/@sentry/react-native`)"
+  - "RNSpeech (from `../node_modules/@mhpdev/react-native-speech`)"
   - RNSVG (from `../node_modules/react-native-svg`)
   - RNWorklets (from `../node_modules/react-native-worklets`)
   - SocketRocket (~> 0.7.1)
-  - TextToSpeech (from `../node_modules/react-native-tts`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -3482,12 +3508,12 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-screens"
   RNSentry:
     :path: "../node_modules/@sentry/react-native"
+  RNSpeech:
+    :path: "../node_modules/@mhpdev/react-native-speech"
   RNSVG:
     :path: "../node_modules/react-native-svg"
   RNWorklets:
     :path: "../node_modules/react-native-worklets"
-  TextToSpeech:
-    :path: "../node_modules/react-native-tts"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -3599,13 +3625,13 @@ SPEC CHECKSUMS:
   RNReanimated: 8f0185df21f0dea34ee8c9611ba88c17a290ed9a
   RNScreens: 98771ad898d1c0528fc8139606bbacf5a2e9d237
   RNSentry: e26e131780fc2a8b31b8fb030b7882af615d05ac
+  RNSpeech: ef00dff43fc992ae3c03f2c42dc3a85e348d7e0f
   RNSVG: 82979f324e1cbf99f558a04e66f574a568ed54c0
   RNWorklets: ab618bf7d1c7fd2cb793b9f0f39c3e29274b3ebf
   Sentry: e1b49e5f49367ff211b25c431a60e2bd83b792aa
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
-  TextToSpeech: 89b239221ec378d213af422d14789a729705360b
   Yoga: 526f25666395d30c297d53154398ffd249eaf9e1
 
 PODFILE CHECKSUM: 41273ba4d2f195644fd5a1b020bb9fdc64bbdc2c
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.16.2

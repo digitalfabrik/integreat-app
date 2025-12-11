@@ -27,7 +27,20 @@ jest.mock('shared/api', () => ({
 // https://reactnavigation.org/docs/testing#mocking-native-modules
 require('react-native-gesture-handler/jestSetup')
 
-jest.mock('react-native-tts')
+jest.mock('@mhpdev/react-native-speech', () => ({
+  getAvailableVoices: jest.fn(() => Promise.resolve([])),
+  initialize: jest.fn(),
+  speak: jest.fn(() => Promise.resolve()),
+  speakWithOptions: jest.fn(() => Promise.resolve()),
+  stop: jest.fn(() => Promise.resolve()),
+  pause: jest.fn(() => Promise.resolve(true)),
+  resume: jest.fn(() => Promise.resolve(true)),
+  onFinish: jest.fn(() => ({ remove: jest.fn() })),
+  onError: jest.fn(() => ({ remove: jest.fn() })),
+  onStart: jest.fn(() => ({ remove: jest.fn() })),
+  onPause: jest.fn(() => ({ remove: jest.fn() })),
+  onResume: jest.fn(() => ({ remove: jest.fn() })),
+}))
 
 jest.mock('@sentry/react-native', () => ({
   init: jest.fn(),
