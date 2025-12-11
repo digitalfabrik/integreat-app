@@ -5,7 +5,6 @@ import { LOCAL_NEWS_TYPE, TU_NEWS_TYPE } from 'shared'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import NewsTab from '../NewsTab'
 
-jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
 
 describe('NewsTab', () => {

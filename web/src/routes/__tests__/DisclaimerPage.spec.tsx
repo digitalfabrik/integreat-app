@@ -14,7 +14,6 @@ jest.mock('shared/api', () => ({
   useLoadFromEndpoint: jest.fn(),
 }))
 
-jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
 
 describe('DisclaimerPage', () => {

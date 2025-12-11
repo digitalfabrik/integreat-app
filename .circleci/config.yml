@@ -226,6 +226,7 @@ jobs:
             - image: cimg/android:2025.10.1-node
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
+            GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx2048m" -Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2
             TOTAL_CPUS: 4
         parameters:
             build_config_name:

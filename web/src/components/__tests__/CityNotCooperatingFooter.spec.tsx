@@ -4,7 +4,6 @@ import { renderWithRouterAndTheme } from '../../testing/render'
 import CityNotCooperatingFooter from '../CityNotCooperatingFooter'
 
 jest.mock('react-i18next')
-jest.mock('react-inlinesvg')
 
 describe('CityNotCooperatingFooter', () => {
   beforeEach(jest.clearAllMocks)

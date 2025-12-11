@@ -1,15 +1,16 @@
 import React, { ReactElement, ReactNode } from 'react'
-import { Modal as RNModal, View } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { Platform, Modal as RNModal, View } from 'react-native'
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import styled from 'styled-components/native'
 
 import dimensions from '../constants/dimensions'
 import Caption from './Caption'
 import HeaderBox from './HeaderBox'
 
-const Container = styled(SafeAreaView)`
+const Container = styled(SafeAreaView)<{ paddingTop: number }>`
   flex: 1;
   background-color: ${props => props.theme.legacy.colors.backgroundColor};
+  padding-top: ${props => props.paddingTop}px;
 `
 
 const Header = styled.View`
@@ -41,32 +42,35 @@ const Modal = ({
   title,
   children,
   scrollView = true,
-}: ModalProps): ReactElement => (
-  // View needs to stay until https://github.com/digitalfabrik/integreat-app/issues/3331 is done
-  <View>
-    <RNModal
-      visible={modalVisible}
-      onRequestClose={closeModal}
-      animationType='fade'
-      supportedOrientations={['portrait', 'landscape']}>
-      <Container>
-        <Header>
-          <HeaderBox goBack={closeModal} text={headerTitle} />
-        </Header>
-        {scrollView ? (
-          <ScrollContent contentContainerStyle={{ flexGrow: 1 }}>
-            {!!title && <Caption title={title} />}
-            {children}
-          </ScrollContent>
-        ) : (
-          <Content>
-            {!!title && <Caption title={title} />}
-            {children}
-          </Content>
-        )}
-      </Container>
-    </RNModal>
-  </View>
-)
+}: ModalProps): ReactElement => {
+  const insets = useSafeAreaInsets()
+  return (
+    // View needs to stay until https://github.com/digitalfabrik/integreat-app/issues/3331 is done
+    <View>
+      <RNModal
+        visible={modalVisible}
+        onRequestClose={closeModal}
+        animationType='fade'
+        supportedOrientations={['portrait', 'landscape']}>
+        <Container paddingTop={Platform.OS === 'ios' ? insets.top : 0} edges={['right', 'bottom', 'left']}>
+          <Header>
+            <HeaderBox goBack={closeModal} text={headerTitle} />
+          </Header>
+          {scrollView ? (
+            <ScrollContent contentContainerStyle={{ flexGrow: 1 }}>
+              {!!title && <Caption title={title} />}
+              {children}
+            </ScrollContent>
+          ) : (
+            <Content>
+              {!!title && <Caption title={title} />}
+              {children}
+            </Content>
+          )}
+        </Container>
+      </RNModal>
+    </View>
+  )
+}
 
 export default Modal
