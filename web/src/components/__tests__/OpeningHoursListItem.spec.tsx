@@ -9,8 +9,8 @@ jest.mock('react-i18next')
 
 describe('OpeningHoursListItem', () => {
   const timeSlots = [
-    { end: '18:00', start: '13:00' },
-    { end: '12:00', start: '08:00' },
+    { end: '18:00', start: '13:00', timezone: 'Europe/Berlin' },
+    { end: '12:00', start: '08:00', timezone: 'Europe/Berlin' },
   ]
   const currentWeekday = 'Monday'
   const renderOpeningEntries = (allDay: boolean, closed: boolean, isCurrentDay: boolean, appointmentOnly: boolean) =>

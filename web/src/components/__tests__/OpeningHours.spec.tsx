@@ -30,7 +30,7 @@ describe('OpeningHours', () => {
       new OpeningHoursModel({
         allDay: false,
         closed: false,
-        timeSlots: [{ end: '18:00', start: '08:00' }],
+        timeSlots: [{ end: '18:00', start: '08:00', timezone: 'Europe/Berlin' }],
         appointmentOnly: false,
       }),
   )

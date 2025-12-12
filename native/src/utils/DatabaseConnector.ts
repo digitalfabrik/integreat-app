@@ -160,7 +160,12 @@ type ContentPoiJsonType = {
   lastUpdate: string
   category: { id: number; name: string; color: string; icon: string; iconName: string }
   openingHours:
-    | { allDay: boolean; closed: boolean; timeSlots: { start: string; end: string; timezone: string }[]; appointmentOnly: boolean }[]
+    | {
+        allDay: boolean
+        closed: boolean
+        timeSlots: { start: string; end: string; timezone: string }[]
+        appointmentOnly: boolean
+      }[]
     | null
   temporarilyClosed: boolean
   appointmentUrl: string | null
@@ -396,7 +401,7 @@ class DatabaseConnector {
         parentPath: category.parentPath,
         children: categoriesMap.getChildren(category).map(category => category.path),
         order: category.order,
-        organization: category.organization !== null
+        organization: category.organization
           ? {
               name: category.organization.name,
               logo: category.organization.logo,
@@ -567,7 +572,7 @@ class DatabaseConnector {
                   timeSlots: hours.timeSlots.map(timeslot => ({
                     start: timeslot.start,
                     end: timeslot.end,
-                     timezone: timeslot.timezone,
+                    timezone: timeslot.timezone,
                   })),
                   appointmentOnly: hours.appointmentOnly,
                 }),
@@ -683,12 +688,12 @@ class DatabaseConnector {
         excerpt: event.excerpt,
         date: {
           start: event.date.startDate.toISO(),
-          end: event.date.endDate !== null ? event.date.endDate.toISO() : null,
+          end: event.date.endDate ? event.date.endDate.toISO() : null,
           allDay: event.date.allDay,
           recurrenceRule: event.date.recurrenceRule?.toString() ?? null,
           onlyWeekdays: event.date.onlyWeekdays,
         },
-        location: event.location !== null
+        location: event.location
           ? {
               id: event.location.id,
               address: event.location.address,
@@ -700,7 +705,7 @@ class DatabaseConnector {
               name: event.location.name,
             }
           : null,
-        featuredImage: event.featuredImage !==null
+        featuredImage: event.featuredImage
           ? {
               description: event.featuredImage.description,
               thumbnail: event.featuredImage.thumbnail,

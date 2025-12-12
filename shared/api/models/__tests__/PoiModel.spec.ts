@@ -12,7 +12,7 @@ describe('PoiModel', () => {
 
   const expectedOpeningHoursJson = [
     {
-      _timeSlots: [{ end: '18:00', start: '08:00' }],
+      _timeSlots: [{ end: '18:00', start: '08:00', timezone: 'Europe/Berlin' }],
       _allDay: true,
       _closed: false,
       _appointmentOnly: false,

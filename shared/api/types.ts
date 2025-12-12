@@ -213,4 +213,5 @@ export type JsonCityType = {
 export type TimeSlot = {
   end: string
   start: string
+  timezone: string
 }

@@ -1,4 +1,3 @@
-
 import distance from '@turf/distance'
 import { DateTime, Interval } from 'luxon'
 
@@ -66,7 +65,6 @@ class PoiModel extends ExtendedPageModel {
     this._organization = organization
     this._barrierFree = barrierFree
   }
-
   get location(): LocationModel<number> {
     return this._location
   }
@@ -113,7 +111,7 @@ class PoiModel extends ExtendedPageModel {
     return this._category
   }
 
-get isCurrentlyOpen(): boolean {
+  get isCurrentlyOpen(): boolean {
     if (!this.openingHours) {
       return false
     }
@@ -129,8 +127,8 @@ get isCurrentlyOpen(): boolean {
       }
 
       return currentDay.timeSlots.some(timeslot => {
-        const startTime = DateTime.fromFormat(timeslot.start, 'HH:mm')
-        const endTime = DateTime.fromFormat(timeslot.end, 'HH:mm')
+        const startTime = DateTime.fromFormat(timeslot.start, 'HH:mm', { zone: timeslot.timezone })
+        const endTime = DateTime.fromFormat(timeslot.end, 'HH:mm', { zone: timeslot.timezone })
         return Interval.fromDateTimes(startTime, endTime).contains(now)
       })
     }
