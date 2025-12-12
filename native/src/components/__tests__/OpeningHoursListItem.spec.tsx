@@ -12,8 +12,8 @@ jest.useFakeTimers() // fixes a console warning because userEvents can take a lo
 
 describe('OpeningEntry', () => {
   const timeSlots = [
-    { end: '18:00', start: '13:00' },
-    { end: '12:00', start: '08:00' },
+    { end: '18:00', start: '13:00', timezone: 'Europe/Berlin' },
+    { end: '12:00', start: '08:00', timezone: 'Europe/Berlin' },
   ]
   const currentWeekday = 'Monday'
   const renderOpeningEntries = (
