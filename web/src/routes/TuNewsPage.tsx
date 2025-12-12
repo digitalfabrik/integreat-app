@@ -10,9 +10,9 @@ import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
 import InfiniteScrollList from '../components/InfiniteScrollList'
 import LanguageFailure from '../components/LanguageFailure'
-import LoadingSpinner from '../components/LoadingSpinner'
 import NewsListItem from '../components/NewsListItem'
 import NewsTabs from '../components/NewsTabs'
+import SkeletonList from '../components/SkeletonList'
 import { tunewsApiBaseUrl } from '../constants/urls'
 
 const DEFAULT_PAGE = 1
@@ -42,12 +42,12 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
   }
 
   const renderTuNewsListItem = (tuNewsModel: TunewsModel) => {
-    const { id, title, content, date } = tuNewsModel
+    const { id, title, content, lastUpdate } = tuNewsModel
     return (
       <NewsListItem
         title={title}
         content={content}
-        timestamp={date}
+        timestamp={lastUpdate}
         key={id}
         to={pathnameFromRouteInformation({
           route: NEWS_ROUTE,
@@ -98,7 +98,7 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
           localNewsEnabled={city.localNewsEnabled}
           language={languageCode}
         />
-        <LoadingSpinner />
+        <SkeletonList />
       </CityContentLayout>
     )
   }

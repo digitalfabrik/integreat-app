@@ -16,10 +16,11 @@ import CityContentLayout, { CityContentLayoutProps } from '../components/CityCon
 import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcher from '../components/FailureSwitcher'
 import Helmet from '../components/Helmet'
-import LoadingSpinner from '../components/LoadingSpinner'
 import NewsListItem from '../components/NewsListItem'
 import NewsTabs from '../components/NewsTabs'
 import Page from '../components/Page'
+import SkeletonList from '../components/SkeletonList'
+import SkeletonPage from '../components/SkeletonPage'
 import List from '../components/base/List'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useTtsPlayer from '../hooks/useTtsPlayer'
@@ -68,30 +69,13 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
     Toolbar: <CityContentToolbar />,
   }
 
-  if (!localNews && loading) {
-    return (
-      <CityContentLayout isLoading {...locationLayoutParams}>
-        <NewsTabs
-          type={LOCAL_NEWS_TYPE}
-          city={cityCode}
-          tunewsEnabled={city.tunewsEnabled}
-          localNewsEnabled={city.localNewsEnabled}
-          language={languageCode}
-        />
-        <LoadingSpinner />
-      </CityContentLayout>
-    )
-  }
-
-  if (!localNews || (newsId && !newsModel)) {
-    const error =
-      newsError ||
-      new NotFoundError({
-        type: LOCAL_NEWS_TYPE,
-        id: pathname,
-        city: cityCode,
-        language: languageCode,
-      })
+  if (newsError) {
+    const error = new NotFoundError({
+      type: LOCAL_NEWS_TYPE,
+      id: pathname,
+      city: cityCode,
+      language: languageCode,
+    })
 
     return (
       <CityContentLayout isLoading={false} {...locationLayoutParams}>
@@ -100,7 +84,14 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
     )
   }
 
-  if (newsModel) {
+  if (newsId) {
+    if (!newsModel) {
+      return (
+        <CityContentLayout isLoading={false} {...locationLayoutParams}>
+          <SkeletonPage />
+        </CityContentLayout>
+      )
+    }
     const linkedContent = replaceLinks(newsModel.content)
     return (
       <CityContentLayout isLoading={false} {...locationLayoutParams}>
@@ -115,7 +106,7 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
     )
   }
 
-  const NewsListItems = localNews.map(localNewsItem => {
+  const NewsListItems = localNews?.map(localNewsItem => {
     const { id, title, content, timestamp } = localNewsItem
     return (
       <NewsListItem
@@ -138,7 +129,7 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
         localNewsEnabled={city.localNewsEnabled}
         language={languageCode}
       />
-      <List items={NewsListItems} NoItemsMessage='news:currentlyNoNews' />
+      {loading ? <SkeletonList /> : <List items={NewsListItems ?? []} NoItemsMessage='news:currentlyNoNews' />}
     </CityContentLayout>
   )
 }

@@ -5,6 +5,7 @@ import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import Stack from '@mui/material/Stack'
 import TextField from '@mui/material/TextField'
+import Tooltip from '@mui/material/Tooltip'
 import { styled } from '@mui/material/styles'
 import React, { KeyboardEvent, ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -13,7 +14,6 @@ import { ChatMessageModel, CityModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
 import ChatConversation from './ChatConversation'
-import LoadingSpinner from './LoadingSpinner'
 import PrivacyCheckbox from './PrivacyCheckbox'
 import H1 from './base/H1'
 import Link from './base/Link'
@@ -69,19 +69,10 @@ const Chat = ({
     }
   }
 
-  if (isLoading && !hasError) {
-    return (
-      <Container>
-        <LoadingSpinner />
-        <Stack textAlign='center'>{t('loadingText')}</Stack>
-      </Container>
-    )
-  }
-
   if (!privacyPolicyAccepted) {
     return (
       <Container>
-        <Stack gap={1}>
+        <Stack paddingInline={3} gap={1}>
           <H1>{t('settings:privacyPolicy')}</H1>
           {t('privacyPolicyInformation', { city: city.name, appName: buildConfig().appName })}
           <PrivacyCheckbox
@@ -97,7 +88,7 @@ const Chat = ({
 
   return (
     <Container justifyContent='space-between'>
-      <ChatConversation messages={messages} isTyping={isTyping} />
+      <ChatConversation messages={messages} isTyping={isTyping} loading={isLoading} />
       <Stack paddingInline={2} gap={1}>
         {hasError && <Alert severity='error'>{t('errorMessage')}</Alert>}
         <TextField
@@ -114,12 +105,14 @@ const Chat = ({
           <Button onClick={onSubmit} startIcon={<SendIcon />} variant='contained' disabled={submitDisabled} fullWidth>
             {t('sendButton')}
           </Button>
-          <IconButton
-            component={Link}
-            to={city.chatPrivacyPolicyUrl ?? buildConfig().privacyUrls.default}
-            aria-label={t('layout:privacy')}>
-            <MailLock />
-          </IconButton>
+          <Tooltip title={t('settings:privacyPolicy')}>
+            <IconButton
+              component={Link}
+              to={city.chatPrivacyPolicyUrl ?? buildConfig().privacyUrls.default}
+              aria-label={t('layout:privacy')}>
+              <MailLock />
+            </IconButton>
+          </Tooltip>
         </Stack>
       </Stack>
     </Container>

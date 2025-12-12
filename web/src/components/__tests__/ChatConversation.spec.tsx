@@ -6,7 +6,6 @@ import { renderWithRouterAndTheme } from '../../testing/render'
 import ChatConversation from '../ChatConversation'
 
 jest.mock('react-i18next')
-jest.mock('react-inlinesvg')
 
 window.HTMLElement.prototype.scrollIntoView = jest.fn()
 jest.useFakeTimers()

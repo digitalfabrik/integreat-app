@@ -19,7 +19,7 @@ jobs:
       context:
         - browserstack
       requires:
-        - build_android-integreat-e2e
+        - build_android
 
   - build_ios:
       build_config_name: integreat-e2e
@@ -32,4 +32,4 @@ jobs:
       context:
         - browserstack
       requires:
-        - build_ios-integreat-e2e
+        - build_ios

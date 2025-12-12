@@ -2,12 +2,12 @@ import ChatMessageModel from '../models/ChatMessageModel'
 import { JsonChatMessagesType } from '../types'
 
 export type ChatMessagesReturn = {
-  typing: boolean
+  botTyping: boolean
   messages: ChatMessageModel[]
 }
 
 export const mapChatMessages = (json: JsonChatMessagesType): ChatMessagesReturn => ({
-  typing: json.chatbot_typing,
+  botTyping: json.chatbot_typing,
   messages: json.messages.map(
     chatMessage =>
       new ChatMessageModel({

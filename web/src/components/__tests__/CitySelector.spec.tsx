@@ -7,7 +7,6 @@ import buildConfig from '../../constants/buildConfig'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import CitySelector from '../CitySelector'
 
-jest.mock('react-inlinesvg')
 jest.mock('react-i18next')
 jest.mock('stylis')
 jest.mock('shared/api', () => ({
@@ -38,8 +37,19 @@ describe('CitySelector', () => {
     })
   }
 
+  it('should render skeleton list while loading', () => {
+    const { queryByLabelText, getByRole } = renderWithRouterAndTheme(
+      <CitySelector language='de' cities={cities} stickyTop={0} loading />,
+    )
+
+    expect(getByRole('list')).toBeTruthy()
+    cities.filter(city => !city.live).forEach(city => expect(queryByLabelText(city.name)).toBeFalsy())
+  })
+
   it('should show only live cities', () => {
-    const { queryByLabelText } = renderWithRouterAndTheme(<CitySelector language='de' cities={cities} stickyTop={0} />)
+    const { queryByLabelText } = renderWithRouterAndTheme(
+      <CitySelector language='de' cities={cities} stickyTop={0} loading={false} />,
+    )
 
     cities.filter(city => !city.live).forEach(city => expect(queryByLabelText(city.name)).toBeFalsy())
     cities.filter(city => city.live).forEach(city => expect(queryByLabelText(city.name)).toBeTruthy())
@@ -47,7 +57,7 @@ describe('CitySelector', () => {
 
   it('should show live cities matching filter text', () => {
     const { queryByLabelText, getByPlaceholderText } = renderWithRouterAndTheme(
-      <CitySelector language='de' cities={cities} stickyTop={0} />,
+      <CitySelector language='de' cities={cities} stickyTop={0} loading={false} />,
     )
 
     changeFilterText(getByPlaceholderText, city.name.slice(5, 9))
@@ -58,7 +68,7 @@ describe('CitySelector', () => {
 
   it('should not show any city if filter text does not match', () => {
     const { queryByLabelText, getByPlaceholderText } = renderWithRouterAndTheme(
-      <CitySelector language='de' cities={cities} stickyTop={0} />,
+      <CitySelector language='de' cities={cities} stickyTop={0} loading={false} />,
     )
 
     changeFilterText(getByPlaceholderText, 'Does not exist')
@@ -69,7 +79,7 @@ describe('CitySelector', () => {
 
   it('should not show any city if filter text does not match a live city', () => {
     const { queryByLabelText, getByPlaceholderText } = renderWithRouterAndTheme(
-      <CitySelector language='de' cities={cities} stickyTop={0} />,
+      <CitySelector language='de' cities={cities} stickyTop={0} loading={false} />,
     )
 
     changeFilterText(getByPlaceholderText, 'oldtown')
@@ -79,7 +89,7 @@ describe('CitySelector', () => {
 
   it('should show all non-live cities if filter text is "wirschaffendas"', () => {
     const { queryByLabelText, getByPlaceholderText } = renderWithRouterAndTheme(
-      <CitySelector language='de' cities={cities} stickyTop={0} />,
+      <CitySelector language='de' cities={cities} stickyTop={0} loading={false} />,
     )
 
     changeFilterText(getByPlaceholderText, 'wirschaffendas')

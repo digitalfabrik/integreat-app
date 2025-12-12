@@ -30,7 +30,7 @@ const ChatButtonContainer = styled('div')<{ bottom: number }>`
 
 const StyledDialog = styled(Dialog)({
   [`.${dialogContentClasses.root}`]: {
-    paddingTop: 0,
+    padding: '0 0 16px',
   },
 })
 

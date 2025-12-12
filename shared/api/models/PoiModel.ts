@@ -1,7 +1,8 @@
 import distance from '@turf/distance'
-import { DateTime, Interval } from 'luxon'
+import { DateTime } from 'luxon'
 
 import { GeoJsonPoi, LocationType } from '../../constants/maps'
+import isCurrentlyOpen from '../../utils/isCurrentlyOpen'
 import ContactModel from './ContactModel'
 import ExtendedPageModel from './ExtendedPageModel'
 import LocationModel from './LocationModel'
@@ -112,27 +113,7 @@ class PoiModel extends ExtendedPageModel {
   }
 
   get isCurrentlyOpen(): boolean {
-    if (!this.openingHours) {
-      return false
-    }
-
-    const now = DateTime.now()
-    // isoWeekday return 1-7 for the weekdays
-    const currentWeekday = now.weekday - 1
-    const currentDay = this.openingHours[currentWeekday]
-
-    if (currentDay) {
-      if (currentDay.allDay) {
-        return true
-      }
-
-      return currentDay.timeSlots.some(timeslot => {
-        const startTime = DateTime.fromFormat(timeslot.start, 'HH:mm', { zone: timeslot.timezone })
-        const endTime = DateTime.fromFormat(timeslot.end, 'HH:mm', { zone: timeslot.timezone })
-        return Interval.fromDateTimes(startTime, endTime).contains(now)
-      })
-    }
-    return false
+    return isCurrentlyOpen(this.openingHours)
   }
 
   isEqual(other: PageModel): boolean {

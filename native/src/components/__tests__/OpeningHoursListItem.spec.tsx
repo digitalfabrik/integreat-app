@@ -4,7 +4,7 @@ import React from 'react'
 import { OpeningHoursModel } from 'shared/api'
 
 import renderWithTheme from '../../testing/render'
-import OpeningEntry from '../OpeningEntry'
+import OpeningHoursListItem from '../OpeningHoursListItem'
 
 jest.mock('react-i18next')
 
@@ -16,14 +16,19 @@ describe('OpeningEntry', () => {
     { end: '12:00', start: '08:00', timezone: 'Europe/Berlin' },
   ]
   const currentWeekday = 'Monday'
-  const renderOpeningEntries = (allDay: boolean, closed: boolean, isCurrentDay: boolean, appointmentOnly: boolean) =>
+  const renderOpeningEntries = (
+    openAllDay: boolean,
+    closedAllDay: boolean,
+    isCurrentDay: boolean,
+    appointmentOnly: boolean,
+  ) =>
     renderWithTheme(
-      <OpeningEntry
+      <OpeningHoursListItem
         weekday={currentWeekday}
         isCurrentDay={isCurrentDay}
         language='de'
         appointmentUrl={null}
-        openingHours={new OpeningHoursModel({ allDay, closed, timeSlots, appointmentOnly })}
+        openingHours={new OpeningHoursModel({ openAllDay, closedAllDay, timeSlots, appointmentOnly })}
       />,
     )
   it('should display the timeslots of a weekday', () => {

@@ -92,6 +92,18 @@ describe('openExternalUrl', () => {
     expect(showSnackbar).not.toHaveBeenCalled()
   })
 
+  it('should not encode already encoded urls', async () => {
+    const url =
+      'https://example.com/Dienstleistungen/index.php?ModID=10&object=tx%2C3406.2.1&La=1&NavID=3406.2.1&ort=&FID=3406.175.1'
+    mocked(InAppBrowser.isAvailable).mockImplementation(async () => false)
+    await openExternalUrl(url, showSnackbar)
+    expect(InAppBrowser.open).not.toHaveBeenCalled()
+    expect(showSnackbar).not.toHaveBeenCalled()
+    expect(Linking.openURL).toHaveBeenLastCalledWith(
+      'https://example.com/Dienstleistungen/index.php?ModID=10&object=tx,3406.2.1&La=1&NavID=3406.2.1&ort=&FID=3406.175.1',
+    )
+  })
+
   it('should show snackbar for internal urls if inapp browser is not available', async () => {
     const url = 'https://integreat.app'
     mocked(InAppBrowser.isAvailable).mockImplementation(async () => false)

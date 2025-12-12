@@ -30,6 +30,22 @@ commands:
             - run:
                 command: circleci config validate
                 name: Validate circle config
+    generate_sbom:
+        description: Generate SPDX SBoM
+        steps:
+            - run:
+                command: |
+                    echo "Installing Syft..."
+                    curl -sSfL https://get.anchore.io/syft | sudo sh -s -- -b /usr/local/bin
+                    export SYFT_SOURCE_NAME="integreat-app"
+                    export SYFT_FORMAT_SPDX_JSON_PRETTY=true
+                    syft version
+                name: Install Syft
+            - run:
+                command: syft dir:. -o spdx-json=~/sbom.json
+                name: Generate SPDX SBoM
+            - store_artifacts:
+                path: ~/sbom.json
     notify:
         description: Send a notification (to Mattermost) at the end of a job, based on success or failure. Must be the last step in a job.
         parameters:
@@ -37,7 +53,7 @@ commands:
                 default: integreat-app-notifications
                 type: string
             failure_mentions:
-                default: '@steffen.kleinle @bahaa.tuffaha @andreas.fischer @leandra.hahn @aizhan.alekbarova'
+                default: '@steffen.kleinle @bahaa.tuffaha @andreas.fischer @aizhan.alekbarova'
                 type: string
             only_for_branch:
                 default: main
@@ -127,14 +143,14 @@ commands:
         steps:
             - restore_cache:
                 keys:
-                    - 1-gradle-{{ checksum "native/android/build.gradle" }}-{{ checksum "native/android/app/build.gradle" }}-{{ checksum "native/android/settings.gradle" }}
-                    - 1-gradle-
+                    - 2-gradle-{{ checksum "native/android/build.gradle" }}-{{ checksum "native/android/app/build.gradle" }}-{{ checksum "native/android/settings.gradle" }}
+                    - 2-gradle-
             - run:
                 command: bundle exec fastlane android dependencies
                 name: '[FL] Download Dependencies'
                 working_directory: native/android
             - save_cache:
-                key: 1-gradle-{{ checksum "native/android/build.gradle" }}-{{ checksum "native/android/app/build.gradle" }}-{{ checksum "native/android/settings.gradle" }}
+                key: 2-gradle-{{ checksum "native/android/build.gradle" }}-{{ checksum "native/android/app/build.gradle" }}-{{ checksum "native/android/settings.gradle" }}
                 paths:
                     - ~/.gradle
     restore_ruby_cache:
@@ -210,6 +226,7 @@ jobs:
             - image: cimg/android:2025.10.1-node
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
+            GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx2048m" -Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2
             TOTAL_CPUS: 4
         parameters:
             build_config_name:
@@ -750,14 +767,14 @@ jobs:
             - restore_yarn_tools_cache
             - run:
                 command: |
-                    PROMOTION_MESSAGE=$(yarn --silent app-toolbelt v0 release promote --platform << parameters.platform >> --private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME})
-                    echo "export PROMOTION_MESSAGE='${PROMOTION_MESSAGE}'" >> $BASH_ENV
+                    RELEASE=$(yarn --silent app-toolbelt v0 release promote --platform << parameters.platform >> --private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME})
+                    echo "export RELEASE='${RELEASE}'" >> $BASH_ENV
                 name: Remove prerelease flag from github release
                 working_directory: tools
             - notify:
                 channel: releases
                 only_for_branch: ${CIRCLE_BRANCH}
-                success_message: ${PROMOTION_MESSAGE}
+                success_message: '##### Integreat App release ${RELEASE} has been promoted successfully to production :tada:'
     notify_release:
         docker:
             - image: cimg/node:22.21.1
@@ -778,9 +795,17 @@ jobs:
             - prepare_workspace
             - restore_environment_variables
             - restore_yarn_tools_cache
+            - generate_sbom
             - run:
-                command: echo "export RELEASE_ID='$(yarn --silent app-toolbelt v0 release create << parameters.platform >> ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} <<# parameters.production_delivery >>--production-release<</ parameters.production_delivery >>)'" >> ${BASH_ENV}
+                command: |
+                    RELEASE=$(yarn --silent app-toolbelt v0 release create << parameters.platform >> ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} <<# parameters.production_delivery >>--production-release<</ parameters.production_delivery >>)
+                    echo "export RELEASE_ID=$(echo ${RELEASE} | jq .id)" >> ${BASH_ENV}
+                    echo "export RELEASE_NOTES=$(echo ${RELEASE} | jq .releaseNotes)" >> ${BASH_ENV}
                 name: Create github release
+                working_directory: tools
+            - run:
+                command: yarn app-toolbelt v0 release upload --releaseId ${RELEASE_ID} --files ~/sbom.json --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME}
+                name: Upload SBoM to github release
                 working_directory: tools
             - unless:
                 condition:
@@ -811,7 +836,10 @@ jobs:
             - notify:
                 channel: releases
                 only_for_branch: ${CIRCLE_BRANCH}
-                success_message: <<^ parameters.production_delivery >>[Beta] <</ parameters.production_delivery >>Integreat, Malte, Aschaffenburg and Obdach ${NEW_VERSION_NAME} (<< parameters.platform >>) have been released successfully!\n[Release notes](https://github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/releases/tag/${NEW_VERSION_NAME}-<< parameters.platform >>)\n${ANDROID_ARTIFACT_URLS}${IOS_ARTIFACT_URLS}
+                success_message: |-
+                    ##### <<^ parameters.production_delivery >>[Beta] <</ parameters.production_delivery >>[<< parameters.platform >>] Integreat App version [${NEW_VERSION_NAME}](https://github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/releases/tag/${NEW_VERSION_NAME}) has been released successfully :tada:
+                    ${RELEASE_NOTES}
+                    ${ANDROID_ARTIFACT_URLS} ${IOS_ARTIFACT_URLS}
     promote_android:
         docker:
             - image: cimg/android:2025.10.1-node
@@ -1057,7 +1085,7 @@ workflows:
                 context:
                     - browserstack
                 requires:
-                    - build_android-integreat-e2e
+                    - build_android
             - build_ios:
                 build_config_name: integreat-e2e
                 context:
@@ -1069,7 +1097,7 @@ workflows:
                 context:
                     - browserstack
                 requires:
-                    - build_ios-integreat-e2e
+                    - build_ios
         when:
             equal:
                 - << pipeline.parameters.workflow_type >>

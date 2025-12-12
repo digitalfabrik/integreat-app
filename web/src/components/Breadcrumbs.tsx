@@ -1,7 +1,7 @@
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import MuiBreadcrumbs, { breadcrumbsClasses } from '@mui/material/Breadcrumbs'
-import IconButton, { iconButtonClasses } from '@mui/material/IconButton'
+import IconButton from '@mui/material/IconButton'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import Stack from '@mui/material/Stack'
@@ -20,22 +20,19 @@ const StyledMuiBreadcrumbs = styled(MuiBreadcrumbs)`
     overflow: hidden;
   }
 
-  .${breadcrumbsClasses.li} {
-    overflow: hidden;
-
-    &:first-of-type {
-      overflow: visible;
-    }
-
-    ${props => props.theme.breakpoints.between('sm', 'md')} {
-      &:last-of-type {
-        max-width: 50%;
-      }
-    }
+  .${breadcrumbsClasses.separator} {
+    margin: 0 4px;
   }
 
-  & li:has(.${iconButtonClasses.root}) {
-    overflow: visible;
+  .${breadcrumbsClasses.li} {
+    overflow: hidden;
+    flex: 1;
+    max-width: max-content;
+    transition: flex 0.4s linear;
+
+    &:hover {
+      flex: 3;
+    }
   }
 `
 
@@ -51,32 +48,52 @@ const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps): ReactElement | null => 
   const openMenu = (event: React.MouseEvent<HTMLButtonElement>) => setMenuAnchorElement(event.currentTarget)
   const closeMenu = () => setMenuAnchorElement(null)
 
-  const maxVisible = xsmall ? 1 : 2
-  const [home, ...rest] = breadcrumbs
-  const hiddenBreadcrumbs = rest.slice(0, -maxVisible)
-  const visibleBreadcrumbs = rest.slice(-maxVisible)
-
-  if (breadcrumbs.length < 2 || !home) {
+  const home = breadcrumbs[0]
+  if (breadcrumbs.length <= 1 || !home) {
     return <JsonLdBreadcrumbs breadcrumbs={breadcrumbs} />
   }
+
+  const breadcrumbsWithoutHomeAndCurrent = breadcrumbs.slice(1, -1)
+
+  const maxVisible = xsmall ? 1 : 2
+  const hiddenBreadcrumbs = breadcrumbsWithoutHomeAndCurrent.slice(0, -maxVisible)
+  const visibleBreadcrumbs = breadcrumbsWithoutHomeAndCurrent.slice(-maxVisible)
+  const collapseHomeButton = hiddenBreadcrumbs.length > 0 && xsmall
+
+  const homeButton =
+    breadcrumbsWithoutHomeAndCurrent.length > 0 ? (
+      <IconButton key='home' component={Link} to={home.to} aria-label={home.title} color='inherit'>
+        <HomeOutlinedIcon />
+      </IconButton>
+    ) : (
+      <Breadcrumb title={home.title} to={home.to} startIcon={<HomeOutlinedIcon />} />
+    )
 
   return (
     <Stack paddingBlock={1} overflow='hidden'>
       <JsonLdBreadcrumbs breadcrumbs={breadcrumbs} />
       <StyledMuiBreadcrumbs aria-label='Breadcrumb' separator='>'>
-        <IconButton key='home' component={Link} to={home.to} aria-label={home.title} color='inherit'>
-          <HomeOutlinedIcon />
-        </IconButton>
+        {collapseHomeButton ? null : homeButton}
         {hiddenBreadcrumbs.length > 0 && (
           <IconButton key='menu' onClick={openMenu} aria-label={t('showMore')} color='inherit'>
             <MoreHorizIcon />
           </IconButton>
         )}
         {visibleBreadcrumbs.map(breadcrumb => (
-          <Breadcrumb key={breadcrumb.title} title={breadcrumb.title} to={breadcrumb.to} />
+          <Breadcrumb key={breadcrumb.to} title={breadcrumb.title} to={breadcrumb.to} />
         ))}
+        {/* The following `span` ensures that a separator is shown after the last element.
+            This emphasizes that the last element is the parent of the current page. 
+            Since we show the current page's title directly below the breadcrumb, we
+            do not need to repeat it here. */}
+        <span />
       </StyledMuiBreadcrumbs>
       <Menu anchorEl={menuAnchorElement} open={!!menuAnchorElement} onClose={closeMenu}>
+        {collapseHomeButton ? (
+          <MenuItem key={home.to} component={Link} to={home.to}>
+            {home.title}
+          </MenuItem>
+        ) : null}
         {hiddenBreadcrumbs.map(item => (
           <MenuItem key={item.to} component={Link} to={item.to}>
             {item.title}

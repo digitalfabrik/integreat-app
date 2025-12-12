@@ -146,6 +146,14 @@ type ContactJsonType = {
   phoneNumber: string | null
   website: string | null
   mobileNumber: string | null
+  officeHours:
+    | {
+        openAllDay: boolean
+        closedAllDay: boolean
+        timeSlots: { start: string; end: string }[]
+        appointmentOnly: boolean
+      }[]
+    | null
 }
 
 type ContentPoiJsonType = {
@@ -161,9 +169,9 @@ type ContentPoiJsonType = {
   category: { id: number; name: string; color: string; icon: string; iconName: string }
   openingHours:
     | {
-        allDay: boolean
-        closed: boolean
-        timeSlots: { start: string; end: string; timezone: string }[]
+        openAllDay: boolean
+        closedAllDay: boolean
+        timeSlots: { start: string; end: string; timezone: string | undefined }[]
         appointmentOnly: boolean
       }[]
     | null
@@ -214,6 +222,41 @@ type CityLastUsageType = {
 }
 
 type MetaCitiesType = Record<CityCodeType, MetaCitiesEntryType>
+
+const mapOpeningHoursToJson = (
+  hours: OpeningHoursModel,
+): {
+  openAllDay: boolean
+  closedAllDay: boolean
+  timeSlots: { start: string; end: string; timezone: string | undefined }[]
+  appointmentOnly: boolean
+} => ({
+  openAllDay: hours.openAllDay,
+  closedAllDay: hours.closedAllDay,
+  timeSlots: hours.timeSlots.map(timeslot => ({
+    start: timeslot.start,
+    end: timeslot.end,
+    timezone: timeslot.timezone ?? undefined,
+  })),
+  appointmentOnly: hours.appointmentOnly,
+})
+
+const mapJsonToOpeningHours = (hours: {
+  openAllDay: boolean
+  closedAllDay: boolean
+  timeSlots: { start: string; end: string }[] | { start: string; end: string; timezone: string }[]
+  appointmentOnly: boolean
+}): OpeningHoursModel =>
+  new OpeningHoursModel({
+    openAllDay: hours.openAllDay,
+    closedAllDay: hours.closedAllDay,
+    timeSlots: hours.timeSlots.map(timeslot => ({
+      start: timeslot.start,
+      end: timeslot.end,
+      timezone: (timeslot as { timezone: string }).timezone ? (timeslot as { timezone: string }).timezone : undefined,
+    })),
+    appointmentOnly: hours.appointmentOnly,
+  })
 
 class DatabaseConnector {
   constructor() {
@@ -475,6 +518,7 @@ class DatabaseConnector {
           phoneNumber: contact.phoneNumber,
           website: contact.website,
           mobileNumber: contact.mobileNumber,
+          officeHours: contact.officeHours?.map(mapOpeningHoursToJson) ?? null,
         })),
         location: {
           id: poi.location.id,
@@ -494,17 +538,7 @@ class DatabaseConnector {
           iconName: poi.category.iconName,
           color: poi.category.color,
         },
-        openingHours:
-          poi.openingHours?.map(hours => ({
-            allDay: hours.allDay,
-            closed: hours.closed,
-            timeSlots: hours.timeSlots.map(timeslot => ({
-              start: timeslot.start,
-              end: timeslot.end,
-              timezone: timeslot.timezone,
-            })),
-            appointmentOnly: hours.appointmentOnly,
-          })) ?? null,
+        openingHours: poi.openingHours?.map(mapOpeningHoursToJson) ?? null,
         temporarilyClosed: poi.temporarilyClosed,
         appointmentUrl: poi.appointmentUrl,
         organization:
@@ -543,6 +577,7 @@ class DatabaseConnector {
                 phoneNumber: contact.phoneNumber,
                 website: contact.website,
                 mobileNumber: contact.mobileNumber,
+                officeHours: contact.officeHours?.map(mapJsonToOpeningHours) ?? null,
               }),
           ),
           location: new LocationModel({
@@ -563,20 +598,7 @@ class DatabaseConnector {
             icon: jsonObject.category.icon,
             iconName: jsonObject.category.iconName,
           }),
-          openingHours:
-            jsonObject.openingHours?.map(
-              hours =>
-                new OpeningHoursModel({
-                  allDay: hours.allDay,
-                  closed: hours.closed,
-                  timeSlots: hours.timeSlots.map(timeslot => ({
-                    start: timeslot.start,
-                    end: timeslot.end,
-                    timezone: timeslot.timezone,
-                  })),
-                  appointmentOnly: hours.appointmentOnly,
-                }),
-            ) ?? null,
+          openingHours: jsonObject.openingHours?.map(mapJsonToOpeningHours) ?? null,
           temporarilyClosed: jsonObject.temporarilyClosed,
           appointmentUrl: jsonObject.appointmentUrl,
           organization:
