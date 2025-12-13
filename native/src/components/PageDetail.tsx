@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
-import styled from 'styled-components/native'
+import { StyleSheet } from 'react-native'
+import styled, { useTheme } from 'styled-components/native'
 
 import { InternalPathnameParser } from 'shared'
 
@@ -8,6 +9,7 @@ import useNavigate from '../hooks/useNavigate'
 import useSnackbar from '../hooks/useSnackbar'
 import openExternalUrl from '../utils/openExternalUrl'
 import Icon from './base/Icon'
+import Text from './base/Text'
 
 const DetailContainer = styled.View<{ widthPadding?: boolean }>`
   flex-direction: row;
@@ -16,31 +18,12 @@ const DetailContainer = styled.View<{ widthPadding?: boolean }>`
   padding-inline-start: ${props => (props.widthPadding ? '32px' : '0')};
 `
 
-const Identifier = styled.Text`
-  font-family: ${props => props.theme.legacy.fonts.native.contentFontBold};
-  color: ${props => props.theme.colors.onSurface};
-  align-self: flex-start;
-`
-
 const StyledIcon = styled(Icon)`
   color: ${props => props.theme.colors.onSurfaceVariant};
   margin-inline-end: 8px;
 `
 
 const StyledButton = styled.Pressable`
-  flex-shrink: 1;
-`
-
-const ButtonText = styled.Text`
-  font-family: ${props => props.theme.legacy.fonts.native.contentFontRegular};
-  color: ${props => props.theme.colors.primary};
-  text-decoration: underline;
-  text-decoration-color: ${props => props.theme.colors.primary};
-`
-
-const StyledText = styled.Text`
-  font-family: ${props => props.theme.legacy.fonts.native.contentFontRegular};
-  color: ${props => props.theme.colors.onSurfaceVariant};
   flex-shrink: 1;
 `
 
@@ -65,7 +48,23 @@ const PageDetail = ({
 }: PageDetailProps): ReactElement => {
   const { navigateTo } = useNavigate()
   const showSnackbar = useSnackbar()
+  const theme = useTheme()
   const route = path ? new InternalPathnameParser(path, language, buildConfig().featureFlags.fixedCity).route() : null
+
+  const styles = StyleSheet.create({
+    identifier: {
+      alignSelf: 'flex-start',
+    },
+    buttonText: {
+      color: theme.colors.primary,
+      textDecorationLine: 'underline',
+      textDecorationColor: theme.colors.primary,
+    },
+    styledText: {
+      color: theme.colors.onSurfaceVariant,
+      flexShrink: 1,
+    },
+  })
 
   const handlePress = () => {
     if (isExternalUrl && path) {
@@ -77,14 +76,22 @@ const PageDetail = ({
 
   return (
     <DetailContainer widthPadding={!icon && !identifier}>
-      {!!identifier && <Identifier>{identifier}: </Identifier>}
+      {!!identifier && (
+        <Text variant='h6' style={styles.identifier}>
+          {identifier}:
+        </Text>
+      )}
       {!!icon && <StyledIcon source={icon} />}
       {route ? (
         <StyledButton accessibilityLabel={accessibilityLabel} onPress={handlePress}>
-          <ButtonText>{information}</ButtonText>
+          <Text variant='body2' style={styles.buttonText}>
+            {information}
+          </Text>
         </StyledButton>
       ) : (
-        <StyledText>{information}</StyledText>
+        <Text variant='body2' style={styles.styledText}>
+          {information}
+        </Text>
       )}
     </DetailContainer>
   )

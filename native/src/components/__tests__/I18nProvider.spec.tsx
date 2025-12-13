@@ -1,12 +1,13 @@
-import { render, waitFor } from '@testing-library/react-native'
+import { waitFor } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import React from 'react'
 import { Translation } from 'react-i18next'
-import { Text } from 'react-native'
 
+import render from '../../testing/render'
 import NativeLanguageDetector from '../../utils/NativeLanguageDetector'
 import { setSystemLanguage } from '../../utils/sendTrackingSignal'
 import I18nProvider from '../I18nProvider'
+import Text from '../base/Text'
 
 jest.mock('../../utils/NativeLanguageDetector')
 jest.mock('translations/src/loadTranslations')

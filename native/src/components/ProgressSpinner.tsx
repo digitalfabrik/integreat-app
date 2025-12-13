@@ -5,6 +5,7 @@ import Svg, { Circle, G } from 'react-native-svg'
 import styled, { useTheme } from 'styled-components/native'
 
 import { buildConfigAssets } from '../constants/buildConfig'
+import Text from './base/Text'
 
 const Container = styled.View`
   width: 100%;
@@ -13,12 +14,6 @@ const Container = styled.View`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`
-const Text = styled.Text`
-  padding-top: 25px;
-  font-size: 20px;
-  font-weight: 700;
-  color: ${props => props.theme.colors.onSurface};
 `
 
 const LoadingImage = styled(buildConfigAssets().LoadingImage)`
@@ -64,7 +59,14 @@ const ProgressSpinner = ({ progress = 0 }: ProgressSpinnerProps): ReactElement =
           r={radius}
         />
       </Svg>
-      <Text>{t('loading')}</Text>
+      <Text
+        variant='h4'
+        style={{
+          paddingTop: 25,
+          color: theme.colors.onSurface,
+        }}>
+        {t('loading')}
+      </Text>
     </Container>
   )
 }

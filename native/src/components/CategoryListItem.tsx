@@ -1,5 +1,6 @@
 import React, { memo, ReactElement } from 'react'
-import styled from 'styled-components/native'
+import { StyleSheet } from 'react-native'
+import styled, { useTheme } from 'styled-components/native'
 
 import { CategoryModel } from 'shared/api'
 
@@ -9,6 +10,7 @@ import List from './List'
 import SimpleImage from './SimpleImage'
 import SubCategoryListItem from './SubCategoryListItem'
 import Pressable from './base/Pressable'
+import Text from './base/Text'
 
 const FlexStyledLink = styled(Pressable)`
   display: flex;
@@ -34,13 +36,6 @@ const TitleDirectionContainer = styled.View<{ language: string }>`
   color: ${props => props.theme.colors.onSurface};
 `
 
-const CategoryTitle = styled.Text<{ language: string }>`
-  flex-direction: ${props => contentDirection(props.language)};
-  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontBold};
-  color: ${props => props.theme.colors.onSurface};
-  flex-shrink: 1;
-`
-
 export const CategoryThumbnail = styled(SimpleImage)<{ language: string }>`
   align-self: center;
   flex-shrink: 0;
@@ -59,31 +54,43 @@ type CategoryListItemProps = {
   language: string
 }
 
-const CategoryListItem = ({ language, category, subCategories, onItemPress }: CategoryListItemProps): ReactElement => (
-  <>
-    <FlexStyledLink role='link' onPress={() => onItemPress({ path: category.path })} accessibilityLanguage={language}>
-      <DirectionContainer language={language}>
-        <CategoryEntryContainer>
-          <TitleDirectionContainer language={language}>
-            {!!category.thumbnail && <CategoryThumbnail language={language} source={category.thumbnail} />}
-            <CategoryTitle language={language}>{category.title}</CategoryTitle>
-          </TitleDirectionContainer>
-        </CategoryEntryContainer>
-      </DirectionContainer>
-    </FlexStyledLink>
-    <List
-      items={subCategories}
-      renderItem={({ item: subCategory }) => (
-        <SubCategoryListItem
-          key={subCategory.path}
-          subCategory={subCategory}
-          onItemPress={onItemPress}
-          language={language}
-        />
-      )}
-      scrollEnabled={false}
-    />
-  </>
-)
+const CategoryListItem = ({ language, category, subCategories, onItemPress }: CategoryListItemProps): ReactElement => {
+  const theme = useTheme()
+  const styles = StyleSheet.create({
+    categoryTitle: {
+      flexDirection: contentDirection(language),
+      color: theme.colors.onSurface,
+      flexShrink: 1,
+    },
+  })
 
+  return (
+    <>
+      <FlexStyledLink role='link' onPress={() => onItemPress({ path: category.path })} accessibilityLanguage={language}>
+        <DirectionContainer language={language}>
+          <CategoryEntryContainer>
+            <TitleDirectionContainer language={language}>
+              {!!category.thumbnail && <CategoryThumbnail language={language} source={category.thumbnail} />}
+              <Text variant='h6' style={styles.categoryTitle}>
+                {category.title}
+              </Text>
+            </TitleDirectionContainer>
+          </CategoryEntryContainer>
+        </DirectionContainer>
+      </FlexStyledLink>
+      <List
+        items={subCategories}
+        renderItem={({ item: subCategory }) => (
+          <SubCategoryListItem
+            key={subCategory.path}
+            subCategory={subCategory}
+            onItemPress={onItemPress}
+            language={language}
+          />
+        )}
+        scrollEnabled={false}
+      />
+    </>
+  )
+}
 export default memo(CategoryListItem)

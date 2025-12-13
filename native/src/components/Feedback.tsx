@@ -1,6 +1,5 @@
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Text } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import styled from 'styled-components/native'
 
@@ -13,6 +12,7 @@ import LoadingSpinner from './LoadingSpinner'
 import Note from './Note'
 import PrivacyCheckbox from './PrivacyCheckbox'
 import InputSection from './base/InputSection'
+import Text from './base/Text'
 import TextButton from './base/TextButton'
 
 const Wrapper = styled.View`

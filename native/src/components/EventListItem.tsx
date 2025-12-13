@@ -2,7 +2,6 @@ import { DateTime } from 'luxon'
 import React, { JSXElementConstructor, memo, ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SvgProps } from 'react-native-svg'
-import styled from 'styled-components/native'
 
 import { parseHTML, getDisplayDate } from 'shared'
 import { DateModel, DateIcon, EventModel } from 'shared/api'
@@ -17,13 +16,7 @@ import { EXCERPT_MAX_LINES } from '../constants'
 import { contentAlignment } from '../constants/contentDirection'
 import ListItem from './ListItem'
 import Icon from './base/Icon'
-
-const Description = styled.Text<{ language: string; withMargin?: boolean }>`
-  color: ${props => props.theme.colors.onSurface};
-  font-family: ${props => props.theme.legacy.fonts.native.contentFontRegular};
-  text-align: ${props => contentAlignment(props.language)};
-  margin-top: ${props => (props.withMargin ? '4px' : 0)};
-`
+import Text from './base/Text'
 
 const placeholderThumbnails = [EventThumbnailPlaceholder1, EventThumbnailPlaceholder2, EventThumbnailPlaceholder3]
 
@@ -81,13 +74,20 @@ const EventListItem = ({
       language={language}
       navigateTo={navigateToEvent}
       Icon={DateIcon}>
-      <Description language={language}>
+      <Text variant='body3' style={{ textAlign: contentAlignment(language) }}>
         {dateToDisplay.formatEventDateInOneLine(language, translateIntoContentLanguage)}
-      </Description>
-      {!!event.location && <Description language={language}>{event.location.name}</Description>}
-      <Description numberOfLines={EXCERPT_MAX_LINES} language={language} withMargin>
+      </Text>
+      {!!event.location && (
+        <Text variant='body3' style={{ textAlign: contentAlignment(language) }}>
+          {event.location.name}
+        </Text>
+      )}
+      <Text
+        variant='body3'
+        numberOfLines={EXCERPT_MAX_LINES}
+        style={{ textAlign: contentAlignment(language), marginTop: 4 }}>
         {content}
-      </Description>
+      </Text>
     </ListItem>
   )
 }

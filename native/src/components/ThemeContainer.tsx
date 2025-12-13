@@ -1,6 +1,8 @@
 import React, { ReactElement, useMemo } from 'react'
-import { PaperProvider } from 'react-native-paper'
+import { PaperProvider, configureFonts } from 'react-native-paper'
 import { DefaultTheme, ThemeProvider } from 'styled-components/native'
+
+import { commonNativeTypography } from 'build-configs/common/theme/typography'
 
 import buildConfig from '../constants/buildConfig'
 import { useAppContext } from '../hooks/useCityAppContext'
@@ -16,9 +18,12 @@ export const theme = (themeType: 'light' | 'contrast'): DefaultTheme => {
       : { ...buildConfig().legacyLightTheme, isContrastTheme: false }
 
   const palette = themeType === 'contrast' ? buildConfig().darkTheme.palette : buildConfig().lightTheme.palette
+  const fonts = configureFonts({ config: commonNativeTypography(legacyTheme.fonts) })
   return {
     dark: themeType === 'contrast',
     legacy: legacyTheme,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    fonts: fonts as any,
     colors: {
       primary: palette.primary.main,
       primaryContainer: palette.primary.light,
@@ -77,7 +82,8 @@ const ThemeContainer = ({ children }: ThemeContainerProps): ReactElement => {
   const contextValue = useMemo(() => theme(themeType), [themeType])
 
   return (
-    <PaperProvider theme={contextValue}>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    <PaperProvider theme={contextValue as any}>
       <ThemeProvider theme={contextValue}>{children}</ThemeProvider>
     </PaperProvider>
   )

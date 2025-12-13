@@ -5,12 +5,6 @@ import styled from 'styled-components/native'
 import Icon from './base/Icon'
 import Text from './base/Text'
 
-const StyledText = styled(Text)`
-  font-weight: bold;
-  padding: 5px;
-  color: ${props => props.theme.colors.onSurface};
-`
-
 const StyledButton = styled.TouchableOpacity`
   display: flex;
   flex-direction: row;
@@ -28,7 +22,9 @@ const FilterToggle = ({ isDateFilterActive, setToggleDateFilter }: DateFilterTog
   return (
     <StyledButton onPress={() => setToggleDateFilter(!isDateFilterActive)} focusable>
       <Icon source={isDateFilterActive ? 'arrow-collapse' : 'filter-variant'} />
-      <StyledText>{t(isDateFilterActive ? 'hideFilters' : 'showFilters')}</StyledText>
+      <Text variant='h6' style={{ padding: 5 }}>
+        {t(isDateFilterActive ? 'hideFilters' : 'showFilters')}
+      </Text>
     </StyledButton>
   )
 }

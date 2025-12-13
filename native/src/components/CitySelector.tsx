@@ -2,7 +2,7 @@ import { groupBy, transform } from 'lodash'
 import React, { ReactElement, ReactNode, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
 import { CITY_SEARCH_EXAMPLE, filterSortCities } from 'shared'
 import { CityModel } from 'shared/api'
@@ -14,6 +14,7 @@ import CityGroup from './CityGroup'
 import NearbyCities from './NearbyCities'
 import NothingFound from './NothingFound'
 import SearchInput from './SearchInput'
+import Text from './base/Text'
 
 const CityGroupContainer = styled.View`
   flex: 0;
@@ -26,12 +27,6 @@ const SearchBar = styled.View`
   justify-content: center;
 `
 
-const SearchCounter = styled.Text`
-  margin: 15px 0 10px;
-  color: ${props => props.theme.colors.onSurfaceVariant};
-  font-weight: 500;
-`
-
 type CitySelectorProps = {
   cities: CityModel[]
   navigateToDashboard: (city: CityModel) => void
@@ -40,6 +35,7 @@ type CitySelectorProps = {
 const CitySelector = ({ cities, navigateToDashboard }: CitySelectorProps): ReactElement => {
   const [filterText, setFilterText] = useState<string>('')
   const { t } = useTranslation('landing')
+  const theme = useTheme()
 
   const resultCities = filterSortCities(cities, filterText, buildConfig().featureFlags.developerFriendly)
   useAnnounceSearchResultsIOS(resultCities)
@@ -80,9 +76,17 @@ const CitySelector = ({ cities, navigateToDashboard }: CitySelectorProps): React
           <CityGroup>{t('common:nearby')}</CityGroup>
           <NearbyCities cities={cities} navigateToDashboard={navigateToDashboard} filterText={filterText} />
         </CityGroupContainer>
-        <SearchCounter accessibilityLiveRegion={resultCities.length === 0 ? 'assertive' : 'polite'}>
+        <Text
+          variant='body2'
+          style={{
+            margin: 15,
+            marginHorizontal: 0,
+            marginBottom: 10,
+            color: theme.colors.onSurfaceVariant,
+          }}
+          accessibilityLiveRegion={resultCities.length === 0 ? 'assertive' : 'polite'}>
           {t('search:searchResultsCount', { count: resultCities.length })}
-        </SearchCounter>
+        </Text>
         {resultCities.length === 0 ? <NothingFound paddingTop /> : cityEntries}
       </View>
     </View>

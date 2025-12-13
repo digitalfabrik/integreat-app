@@ -1,21 +1,15 @@
 import { Collapse, CollapseBody, CollapseHeader } from 'accordion-collapse-react-native'
 import React, { ReactElement, ReactNode, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
 import { contentDirection } from '../constants/contentDirection'
 import Icon from './base/Icon'
+import Text from './base/Text'
 
 const PageContainer = styled.View`
   align-self: center;
   width: 100%;
-`
-
-const CollapseHeaderText = styled.Text`
-  font-size: 14px;
-  align-self: center;
-  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontBold};
-  color: ${props => props.theme.colors.onSurface};
 `
 
 const CollapseHeaderWrapper = styled.View<{ language: string }>`
@@ -48,6 +42,7 @@ const Collapsible = ({
 }: CollapsibleProps): ReactElement => {
   const [collapsed, setCollapsed] = useState<boolean>(initialCollapsed)
   const { t } = useTranslation()
+  const theme = useTheme()
 
   return (
     <PageContainer>
@@ -58,7 +53,15 @@ const Collapsible = ({
         <CollapseHeader style={{ flexDirection: 'column' }}>
           <CollapseHeaderWrapper language={language}>
             {typeof headerContent === 'string' ? (
-              <CollapseHeaderText>{headerContent}</CollapseHeaderText>
+              <Text
+                variant='body2'
+                style={{
+                  fontSize: 14,
+                  alignSelf: 'center',
+                  fontFamily: theme.legacy.fonts.native.decorativeFontBold,
+                }}>
+                {headerContent}
+              </Text>
             ) : (
               headerContent
             )}

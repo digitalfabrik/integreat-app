@@ -1,7 +1,7 @@
 import { fireEvent, waitFor } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import React, { ReactElement } from 'react'
-import { Share, Text, View } from 'react-native'
+import { Share, View } from 'react-native'
 
 import {
   CATEGORIES_ROUTE,
@@ -25,6 +25,7 @@ import render from '../../testing/render'
 import cityShareName from '../../utils/cityShareName'
 import sendTrackingSignal from '../../utils/sendTrackingSignal'
 import Header from '../Header'
+import Text from '../base/Text'
 
 jest.mock('../../hooks/useSnackbar')
 jest.mock('../../utils/sendTrackingSignal')

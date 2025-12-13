@@ -1,22 +1,21 @@
 import React, { ReactElement } from 'react'
-import { TextProps, Text as RNText } from 'react-native'
+import { customText } from 'react-native-paper'
 import styled from 'styled-components/native'
 
-import { contentAlignmentRTLText } from '../../constants/contentDirection'
+import { TypographyVariant } from 'build-configs/TypographyType'
 
-const StyledText = styled(RNText)<{ alignment: 'left' | 'right' }>`
-  text-align: ${props => props.alignment};
+const PaperText = customText<TypographyVariant>()
+
+const StyledText = styled(PaperText)`
   color: ${props => props.theme.colors.onSurface};
 `
-/** Direction aware text component */
+
+type TextProps = React.ComponentProps<typeof PaperText>
+
 const Text = (props: TextProps): ReactElement => {
   const { children, style } = props
   return (
-    <StyledText
-      alignment={contentAlignmentRTLText(typeof children === 'string' ? children : '')}
-      style={style}
-      android_hyphenationFrequency='full'
-      {...props}>
+    <StyledText style={style} android_hyphenationFrequency='full' {...props}>
       {children}
     </StyledText>
   )

@@ -1,9 +1,10 @@
 import React, { ReactElement } from 'react'
-import { Text, View, Keyboard } from 'react-native'
+import { View, Keyboard } from 'react-native'
 import styled, { useTheme } from 'styled-components/native'
 
 import testID from '../testing/testID'
 import Icon from './base/Icon'
+import Text from './base/Text'
 
 const InputWrapper = styled.View`
   margin: 0 4px;
@@ -23,12 +24,6 @@ const Wrapper = styled.View<{ space: boolean }>`
   align-items: center;
   padding: 10px 0;
   background-color: ${props => props.theme.colors.background};
-`
-
-const Description = styled(Text)`
-  padding-left: 28px;
-  color: ${props => props.theme.colors.onSurface};
-  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
 `
 
 type SearchInputProps = {
@@ -67,7 +62,11 @@ const SearchInput = ({
           />
         </InputWrapper>
       </Wrapper>
-      {!!description && <Description>{description}</Description>}
+      {!!description && (
+        <Text variant='body2' style={{ paddingLeft: 28 }}>
+          {description}
+        </Text>
+      )}
     </View>
   )
 }

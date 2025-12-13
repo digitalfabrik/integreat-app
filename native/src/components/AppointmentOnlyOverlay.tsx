@@ -1,9 +1,10 @@
 import React, { ReactElement } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
-import { Modal as RNModal, Text } from 'react-native'
-import styled from 'styled-components/native'
+import { Modal as RNModal } from 'react-native'
+import styled, { useTheme } from 'styled-components/native'
 
 import Link from './Link'
+import Text from './base/Text'
 
 const BackgroundForClosing = styled.Pressable`
   flex: 1;
@@ -22,25 +23,15 @@ const OverlayCenterer = styled.View`
 `
 
 const OverlayContainer = styled.View`
-  background-color: white;
+  background-color: ${props => props.theme.colors.background};
   margin: 32px;
   padding: 24px;
   border-radius: 28px;
 `
 
-const OverlayTitle = styled.Text`
-  font-weight: 700;
-  margin-bottom: 16px;
-`
-
 const CloseButton = styled.Pressable`
   padding: 12px;
   align-self: flex-end;
-`
-
-const CloseButtonText = styled.Text`
-  font-weight: 700;
-  color: ${props => (props.theme.dark ? props.theme.colors.background : props.theme.colors.onSurfaceVariant)};
 `
 
 type AppointmentOnlyOverlayProps = {
@@ -50,12 +41,15 @@ type AppointmentOnlyOverlayProps = {
 
 const AppointmentOnlyOverlay = ({ appointmentUrl, closeOverlay }: AppointmentOnlyOverlayProps): ReactElement => {
   const { t } = useTranslation('pois')
+  const theme = useTheme()
   return (
     <RNModal onRequestClose={closeOverlay} animationType='fade' transparent>
       <BackgroundForClosing onPress={closeOverlay} />
       <OverlayCenterer>
         <OverlayContainer>
-          <OverlayTitle>{t('appointmentNecessary')}</OverlayTitle>
+          <Text style={{ color: theme.colors.onSurface, marginBottom: 16 }} variant='subtitle2'>
+            {t('appointmentNecessary')}
+          </Text>
           <Text>
             <Trans i18nKey='pois:makeAppointmentTooltipWithLink'>
               This gets replaced
@@ -63,7 +57,9 @@ const AppointmentOnlyOverlay = ({ appointmentUrl, closeOverlay }: AppointmentOnl
             </Trans>
           </Text>
           <CloseButton onPress={closeOverlay} role='button'>
-            <CloseButtonText>{t('common:close')}</CloseButtonText>
+            <Text variant='button' style={{ color: theme.colors.onSurfaceVariant }}>
+              {t('common:close')}
+            </Text>
           </CloseButton>
         </OverlayContainer>
       </OverlayCenterer>

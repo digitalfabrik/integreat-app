@@ -7,6 +7,9 @@ import { OpeningHoursModel } from 'shared/api'
 import { contentDirection, isContentDirectionReversalRequired } from '../constants/contentDirection'
 import AppointmentOnlyOverlay from './AppointmentOnlyOverlay'
 import Icon from './base/Icon'
+import Text from './base/Text'
+
+const MARGIN_TOP = 8
 
 const EntryContainer = styled.View<{ language: string }>`
   display: flex;
@@ -18,23 +21,6 @@ const EntryContainer = styled.View<{ language: string }>`
 const Timeslot = styled.View`
   display: flex;
   flex-direction: column;
-`
-
-const TimeSlotEntry = styled.Text<{ isCurrentDay: boolean; notFirstChild?: boolean }>`
-  font-family: ${props =>
-    props.isCurrentDay
-      ? props.theme.legacy.fonts.native.contentFontBold
-      : props.theme.legacy.fonts.native.contentFontRegular};
-  ${props => props.notFirstChild && 'margin-top: 8px'};
-  color: ${props => props.theme.colors.onSurface};
-`
-
-const TimeSlotLabel = styled.Text<{ isCurrentDay: boolean }>`
-  font-family: ${props =>
-    props.isCurrentDay
-      ? props.theme.legacy.fonts.native.contentFontBold
-      : props.theme.legacy.fonts.native.contentFontRegular};
-  color: ${props => props.theme.colors.onSurface};
 `
 
 const AppointmentOnlyContainer = styled.View<{ language: string }>`
@@ -69,15 +55,18 @@ const OpeningEntry = ({
 
   return (
     <EntryContainer language={language}>
-      <TimeSlotLabel isCurrentDay={isCurrentDay}>{weekday}</TimeSlotLabel>
-      {openingHours.allDay && <TimeSlotEntry isCurrentDay={isCurrentDay}>{t('allDay')}</TimeSlotEntry>}
-      {openingHours.closed && <TimeSlotEntry isCurrentDay={isCurrentDay}>{t('closed')}</TimeSlotEntry>}
-      {!openingHours.allDay && !openingHours.closed && openingHours.timeSlots.length > 0 && (
+      <Text variant={isCurrentDay ? 'h6' : 'body2'}>{weekday}</Text>
+      {(openingHours.allDay as boolean) && <Text variant={isCurrentDay ? 'h6' : 'body2'}>{t('allDay')}</Text>}
+      {(openingHours.closed as boolean) && <Text variant={isCurrentDay ? 'h6' : 'body2'}>{t('closed')}</Text>}
+      {!(openingHours.allDay as boolean) && !(openingHours.closed as boolean) && openingHours.timeSlots.length > 0 && (
         <Timeslot>
           {openingHours.timeSlots.map((timeSlot, index) => (
-            <TimeSlotEntry key={`${weekday}-${timeSlot.start}`} isCurrentDay={isCurrentDay} notFirstChild={index !== 0}>
+            <Text
+              key={`${weekday}-${timeSlot.start}`}
+              variant={isCurrentDay ? 'h6' : 'body2'}
+              style={{ marginTop: index !== 0 ? MARGIN_TOP : 0 }}>
               {timeSlot.start}-{timeSlot.end}
-            </TimeSlotEntry>
+            </Text>
           ))}
         </Timeslot>
       )}

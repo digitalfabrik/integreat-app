@@ -7,19 +7,13 @@ import styled, { useTheme } from 'styled-components/native'
 import { buildConfigAssets } from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import Icon from './base/Icon'
+import Text from './base/Text'
 
 const HorizontalLeft = styled.View`
   flex: 1;
   flex-direction: row;
   align-items: center;
   background-color: ${props => props.theme.colors.surface};
-`
-
-const HeaderText = styled.Text<{ fontSize: number }>`
-  flex: 1;
-  font-size: ${props => Math.min(props.fontSize, dimensions.headerTextSize)}px;
-  color: ${props => props.theme.colors.onSurface};
-  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontBold};
 `
 
 const StyledIcon = styled(Icon)`
@@ -54,12 +48,17 @@ const HeaderBox = ({ goBack, canGoBack = true, text, language }: HeaderBoxProps)
   return (
     <HorizontalLeft>
       {HeaderIcon}
-      <HeaderText
+      <Text
+        variant='h4'
         allowFontScaling={false}
-        fontSize={deviceWidth * dimensions.fontScaling}
+        style={{
+          flex: 1,
+          fontSize: Math.min(deviceWidth * dimensions.fontScaling, dimensions.headerTextSize),
+          fontFamily: theme.legacy.fonts.native.decorativeFontBold,
+        }}
         accessibilityLanguage={language}>
         {text}
-      </HeaderText>
+      </Text>
     </HorizontalLeft>
   )
 }

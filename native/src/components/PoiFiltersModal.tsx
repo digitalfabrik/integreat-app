@@ -18,12 +18,6 @@ const Container = styled.View`
   align-items: flex-start;
 `
 
-const SubTitle = styled(Text)`
-  font-size: 14px;
-  color: ${props => props.theme.colors.onSurface};
-  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontBold};
-`
-
 const Section = styled.View`
   padding-top: 16px;
   width: 100%;
@@ -36,22 +30,6 @@ const Row = styled.View`
 const StyledRow = styled(Row)`
   align-items: center;
   justify-content: center;
-`
-
-const StyledText = styled.Text`
-  font-size: 14px;
-  color: ${props => props.theme.colors.onSurface};
-  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
-  padding: 4px;
-  flex-shrink: 1;
-`
-
-const SortingHint = styled.Text`
-  align-self: flex-end;
-  font-size: 12px;
-  color: ${props => props.theme.colors.onSurface};
-  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
-  padding: 0 4px;
 `
 
 const FlexEnd = styled.View`
@@ -74,8 +52,12 @@ const StyledTextButton = styled(TextButton)`
 `
 
 const StyledSvgUri = styled(SvgUri)<{ active: boolean }>`
-  color: ${props =>
-    props.active && props.theme.dark ? props.theme.colors.background : props.theme.colors.onSurfaceVariant};
+  color: ${props => {
+    if (props.theme.dark) {
+      return props.theme.colors.onPrimary
+    }
+    return props.active ? props.theme.colors.primary : props.theme.colors.onSurface
+  }};
 `
 
 type PoiFiltersModalProps = {
@@ -100,17 +82,23 @@ const PoiFiltersModal = ({
   poisCount,
 }: PoiFiltersModalProps): ReactElement => {
   const { t } = useTranslation('pois')
-
   return (
     <Modal modalVisible={modalVisible} closeModal={closeModal} headerTitle='' title={t('adjustFilters')}>
       <Container>
         <Section>
           <Row>
-            <SubTitle>{t('openingHours')}</SubTitle>
+            <Text variant='h6'>{t('openingHours')}</Text>
           </Row>
           <StyledRow>
             <Icon source='clock-outline' />
-            <StyledText>{t('onlyCurrentlyOpen')}</StyledText>
+            <Text
+              variant='body2'
+              style={{
+                padding: 4,
+                flexShrink: 1,
+              }}>
+              {t('onlyCurrentlyOpen')}
+            </Text>
             <FlexEnd>
               <Switch onValueChange={setCurrentlyOpenFilter} value={currentlyOpenFilter} />
             </FlexEnd>
@@ -118,8 +106,15 @@ const PoiFiltersModal = ({
         </Section>
         <Section>
           <Row>
-            <SubTitle>{t('poiCategories')}</SubTitle>
-            <SortingHint>{t('alphabetLetters')}</SortingHint>
+            <Text variant='h6'>{t('poiCategories')}</Text>
+            <Text
+              variant='body3'
+              style={{
+                alignSelf: 'flex-end',
+                padding: 4,
+              }}>
+              {t('alphabetLetters')}
+            </Text>
           </Row>
           <TileRow>
             {poiCategories.map(it => (

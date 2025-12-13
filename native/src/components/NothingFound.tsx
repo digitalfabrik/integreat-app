@@ -3,17 +3,10 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
 import Icon from './base/Icon'
+import Text from './base/Text'
 
 const Container = styled.View<{ paddingTop: boolean }>`
   padding-top: ${props => (props.paddingTop ? '20px' : 0)};
-`
-
-const Description = styled.Text`
-  color: ${props => props.theme.colors.onSurface};
-  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
-  font-size: 16px;
-  text-align: center;
-  padding: 10px 30px;
 `
 
 const StyledIcon = styled(Icon)`
@@ -29,7 +22,16 @@ const NothingFound = ({ paddingTop = false }: NothingFoundProps): ReactElement =
   return (
     <Container paddingTop={paddingTop}>
       <StyledIcon size={60} source='emoticon-sad-outline' />
-      <Description role='alert'>{t('search:nothingFound')}</Description>
+      <Text
+        variant='body1'
+        role='alert'
+        style={{
+          textAlign: 'center',
+          padding: 10,
+          paddingHorizontal: 30,
+        }}>
+        {t('search:nothingFound')}
+      </Text>
     </Container>
   )
 }

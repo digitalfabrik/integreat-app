@@ -25,10 +25,6 @@ const IconContainer = styled(Pressable)`
   padding: 0 8px;
 `
 
-const StyledText = styled(Text)`
-  color: ${props => props.theme.colors.onSurface};
-`
-
 type AddressInfoProps = {
   location: LocationModel<number>
   language: string
@@ -53,10 +49,10 @@ const AddressInfo = ({ location, language }: AddressInfoProps): ReactElement => 
   return (
     <Container language={language}>
       <Pressable accessibilityLabel={t('copyAddress')} role='button' onPress={copyLocationToClipboard}>
-        <StyledText>{address}</StyledText>
-        <StyledText>
+        <Text>{address}</Text>
+        <Text>
           {postcode} {town}
-        </StyledText>
+        </Text>
       </Pressable>
       <IconContainer role='link' onPress={openExternalMaps} accessibilityLabel={t('openExternalMaps')}>
         <Icon color={theme.colors.primary} source='open-in-new' />

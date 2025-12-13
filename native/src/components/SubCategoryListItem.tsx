@@ -6,6 +6,7 @@ import { CategoryModel } from 'shared/api'
 import { contentDirection } from '../constants/contentDirection'
 import { CategoryThumbnail } from './CategoryListItem'
 import Pressable from './base/Pressable'
+import Text from './base/Text'
 
 const SubCategoryTitleContainer = styled.View<{ language: string }>`
   flex: 1;
@@ -22,12 +23,6 @@ const FlexStyledLink = styled(Pressable)<{ language: string }>`
   border-bottom-color: ${props => props.theme.colors.secondary};
 `
 
-const SubCategoryTitle = styled.Text`
-  color: ${props => props.theme.colors.onSurface};
-  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
-  flex-shrink: 1;
-`
-
 type SubCategoryListItemProps = {
   subCategory: CategoryModel
   onItemPress: (item: CategoryModel) => void
@@ -42,7 +37,9 @@ const SubCategoryListItem = ({ subCategory, onItemPress, language }: SubCategory
     accessibilityLanguage={language}>
     <SubCategoryTitleContainer language={language}>
       {!!subCategory.thumbnail && <CategoryThumbnail language={language} source={subCategory.thumbnail} />}
-      <SubCategoryTitle>{subCategory.title}</SubCategoryTitle>
+      <Text variant='caption' style={{ flexShrink: 1 }}>
+        {subCategory.title}
+      </Text>
     </SubCategoryTitleContainer>
   </FlexStyledLink>
 )

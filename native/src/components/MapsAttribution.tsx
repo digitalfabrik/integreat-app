@@ -5,6 +5,10 @@ import { openStreeMapCopyright } from 'shared'
 
 import Link from './Link'
 import Pressable from './base/Pressable'
+import Text from './base/Text'
+
+const EXPANDED_FONT_SIZE = 14
+const COLLAPSED_FONT_SIZE = 20
 
 const Attribution = styled.View`
   flex-direction: row;
@@ -30,28 +34,28 @@ const OpenStreetMapsLink = styled(Link)`
   align-self: center;
 `
 
-const Label = styled.Text`
-  padding: 4px;
-`
-
-const Copyright = styled.Text<{ expanded: boolean }>`
-  padding-right: 4px;
-  color: rgb(0, 0, 0, 0.75);
-  font-size: ${props => (props.expanded ? '14px' : '20px')};
-  align-self: center;
-`
-
 const MapAttribution = (): ReactElement => {
   const { url, label, linkText, icon } = openStreeMapCopyright
   const [expanded, setExpanded] = useState<boolean>(false)
   return (
     <AttributionContainer onPress={() => setExpanded(!expanded)} role='button' expanded={expanded}>
       <Attribution>
-        <Copyright expanded={expanded}>{icon}</Copyright>
+        <Text
+          variant='body2'
+          style={{
+            paddingRight: 4,
+            color: 'rgb(0, 0, 0, 0.75)',
+            fontSize: expanded ? EXPANDED_FONT_SIZE : COLLAPSED_FONT_SIZE,
+            alignSelf: 'center',
+          }}>
+          {icon}
+        </Text>
         {expanded && (
           <>
             <OpenStreetMapsLink url={url}>{linkText}</OpenStreetMapsLink>
-            <Label>{label}</Label>
+            <Text variant='body2' style={{ padding: 4 }}>
+              {label}
+            </Text>
           </>
         )}
       </Attribution>
