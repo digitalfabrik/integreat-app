@@ -1,6 +1,6 @@
 import React, { Fragment, memo, ReactElement, useContext } from 'react'
-import { Text } from 'react-native'
-import styled from 'styled-components/native'
+import { StyleSheet } from 'react-native'
+import styled, { useTheme } from 'styled-components/native'
 
 import { normalizeString } from 'shared'
 import { CityModel } from 'shared/api'
@@ -9,6 +9,7 @@ import { AppContext } from '../contexts/AppContextProvider'
 import testID from '../testing/testID'
 import Highlighter from './Highlighter'
 import Pressable from './base/Pressable'
+import Text from './base/Text'
 
 const MAX_NUMBER_OF_ALIASES_SHOWN = 3
 
@@ -28,11 +29,6 @@ const AliasLabel = styled(Highlighter)`
   font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
   color: ${props => props.theme.colors.onSurfaceVariant};
 `
-const Separator = styled(Text)`
-  font-size: 11px;
-  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
-  color: ${props => props.theme.colors.onSurfaceVariant};
-`
 const AliasesWrapper = styled.View`
   flex: 1;
   flex-flow: row wrap;
@@ -47,6 +43,12 @@ type CityEntryProps = {
 }
 
 const CityEntry = ({ city, query, navigateToDashboard }: CityEntryProps): ReactElement => {
+  const theme = useTheme()
+  const styles = StyleSheet.create({
+    separator: {
+      color: theme.colors.onSurfaceVariant,
+    },
+  })
   const normalizedQuery = normalizeString(query)
   const matchingAliases =
     city.aliases && normalizedQuery.length >= 1
@@ -63,17 +65,27 @@ const CityEntry = ({ city, query, navigateToDashboard }: CityEntryProps): ReactE
             <AliasLabel search={normalizedQuery} text={it} />
             {index !== aliases.length - 1 && (
               <>
-                <Separator>,</Separator>
-                <Separator> </Separator>
+                <Text variant='body3' style={styles.separator}>
+                  ,
+                </Text>
+                <Text variant='body3' style={styles.separator}>
+                  {' '}
+                </Text>
               </>
             )}
           </Fragment>
         ))}
         {matchingAliases.length > MAX_NUMBER_OF_ALIASES_SHOWN && (
           <>
-            <Separator>,</Separator>
-            <Separator> </Separator>
-            <Separator>...</Separator>
+            <Text variant='body3' style={styles.separator}>
+              ,
+            </Text>
+            <Text variant='body3' style={styles.separator}>
+              {' '}
+            </Text>
+            <Text variant='body3' style={styles.separator}>
+              ...
+            </Text>
           </>
         )}
       </AliasesWrapper>

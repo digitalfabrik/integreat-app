@@ -36,16 +36,6 @@ const InformationRow = styled.View`
   gap: 8px;
 `
 
-const InformationText = styled(Text)`
-  font-family: ${props => props.theme.legacy.fonts.native.contentFontRegular};
-  font-size: 14px;
-  flex: 1;
-`
-
-const InputTitle = styled(Text)`
-  font-weight: bold;
-`
-
 type FormInput = {
   name: string
   roomNumber: string
@@ -125,18 +115,22 @@ const MalteHelpFormOffer = ({
       <Container>
         <InformationRow>
           <Icon source='account-multiple-outline' />
-          <InformationText>{t('supportNote')}</InformationText>
+          <Text variant='body2' style={{ flex: 1 }}>
+            {t('supportNote')}
+          </Text>
         </InformationRow>
         <InformationRow>
           <Icon source='shield-plus-outline' />
-          <InformationText>{t('securityNote')}</InformationText>
+          <Text variant='body2' style={{ flex: 1 }}>
+            {t('securityNote')}
+          </Text>
         </InformationRow>
 
         <FormInput name='name' title={t('name')} control={control} rules={{ required: true }} />
         <FormInput name='roomNumber' title={t('roomNumber')} control={control} showOptional />
 
         <View>
-          <InputTitle>{t('howToBeContacted')}</InputTitle>
+          <Text variant='h6'>{t('howToBeContacted')}</Text>
           <FormRadioButtons
             name='contactChannel'
             control={control}
@@ -149,7 +143,7 @@ const MalteHelpFormOffer = ({
         </View>
 
         <View>
-          <InputTitle>{t('contactPerson')}</InputTitle>
+          <Text variant='h6'>{t('contactPerson')}</Text>
           <FormRadioButtons
             name='contactGender'
             control={control}
@@ -171,7 +165,9 @@ const MalteHelpFormOffer = ({
           multiline
         />
 
-        <InformationText>{t('responseDisclaimer')}</InformationText>
+        <Text variant='body2' style={{ flex: 1 }}>
+          {t('responseDisclaimer')}
+        </Text>
         <PrivacyCheckbox
           language={languageCode}
           checked={privacyPolicyAccepted}

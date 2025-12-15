@@ -19,12 +19,6 @@ const Wrapper = styled.View`
   gap: 8px;
 `
 
-const Description = styled(Text)`
-  font-weight: bold;
-  text-align: left;
-  color: ${props => props.theme.colors.onSurface};
-`
-
 const StyledButton = styled(TextButton)`
   margin-top: 16px;
 `
@@ -111,7 +105,11 @@ const Feedback = ({
           showOptional
           accessibilityRole='text'
         />
-        {sendingStatus === 'failed' && <Description>{t('failedSendingFeedback')}</Description>}
+        {sendingStatus === 'failed' && (
+          <Text variant='body2' style={{ textAlign: 'left' }}>
+            {t('failedSendingFeedback')}
+          </Text>
+        )}
         <PrivacyCheckbox language={language} checked={privacyPolicyAccepted} setChecked={setPrivacyPolicyAccepted} />
         {submitFeedbackDisabled && <Note text={t(feedbackFilled ? 'noteFillFeedback' : 'common:notePrivacyPolicy')} />}
         <StyledButton disabled={submitFeedbackDisabled} onPress={onSubmit} text={t('send')} />

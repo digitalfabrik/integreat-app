@@ -12,12 +12,6 @@ const Container = styled(Pressable)`
   padding: 2px 0;
 `
 
-const StyledText = styled(Text)`
-  align-self: center;
-  padding: 0 8px;
-  color: ${props => props.theme.colors.primary};
-`
-
 const StyledSecondIcon = styled(Icon)`
   align-self: center;
 `
@@ -39,7 +33,7 @@ const PoiDetailRow = ({ externalUrl, text, accessibilityLabel, icon, iconEnd }: 
       role='link'
       accessibilityLabel={accessibilityLabel}>
       <Icon source={icon} />
-      <StyledText>{text}</StyledText>
+      <Text style={{ alignSelf: 'center', paddingHorizontal: 8, color: theme.colors.primary }}>{text}</Text>
       {!!iconEnd && <StyledSecondIcon size={16} color={theme.colors.primary} source={iconEnd} />}
     </Container>
   )

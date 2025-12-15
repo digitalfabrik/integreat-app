@@ -44,34 +44,6 @@ export const Description = styled.View`
   flex-direction: column;
   font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
 `
-export const Title = styled(Text)`
-  font-weight: 700;
-  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontBold};
-  color: ${props => props.theme.colors.onSurface};
-  font-size: 16px;
-  margin-bottom: 8px;
-  margin-top: 8px;
-`
-export const Content = styled(Text)`
-  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
-  font-size: 14px;
-  letter-spacing: 0.5px;
-  color: ${props => props.theme.colors.onSurface};
-`
-const TimeStampContent = styled(Text)`
-  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
-  font-size: 14px;
-  padding: 10px 0;
-  color: ${props => props.theme.colors.onSurface};
-`
-export const ReadMore = styled(Text)<{ isTunews: boolean }>`
-  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontBold};
-  font-size: 12px;
-  letter-spacing: 0.5px;
-  margin-top: 5px;
-  color: ${props =>
-    props.isTunews && !props.theme.dark ? props.theme.colors.tunews.main : props.theme.colors.secondary};
-`
 
 const NewsListItem = ({ index, newsItem, navigateToNews, isTunews }: NewsListItemProps): ReactElement => {
   const { t, i18n } = useTranslation('news')
@@ -85,20 +57,32 @@ const NewsListItem = ({ index, newsItem, navigateToNews, isTunews }: NewsListIte
       <ListItemWrapper>
         <StyledPressable onPress={navigateToNews} accessibilityLanguage={languageCode} role='link'>
           <Description>
-            <Title>{newsItem.title}</Title>
-            <Content numberOfLines={EXCERPT_MAX_LINES}>{newsItem.content}</Content>
+            <Text variant='h5' style={{ marginBottom: 8, marginTop: 8 }}>
+              {newsItem.title}
+            </Text>
+            <Text variant='body2' numberOfLines={EXCERPT_MAX_LINES} style={{ letterSpacing: 0.5 }}>
+              {newsItem.content}
+            </Text>
             {timestamp && (
-              <TimeStampContent>
+              <Text variant='body2' style={{ paddingVertical: 10 }}>
                 <TimeStamp lastUpdate={timestamp} showText={false} />
-              </TimeStampContent>
+              </Text>
             )}
           </Description>
         </StyledPressable>
         <Pressable role='link' onPress={navigateToNews}>
           <ReadMoreWrapper language={i18n.language}>
-            <ReadMore isTunews={isTunews} onPress={navigateToNews}>
+            <Text
+              variant='h6'
+              onPress={navigateToNews}
+              style={{
+                fontSize: 12,
+                letterSpacing: 0.5,
+                marginTop: 3,
+                color: isTunews && !theme.dark ? theme.colors.tunews.main : theme.colors.secondary,
+              }}>
               {t('common:more')}
-            </ReadMore>
+            </Text>
             <StyledIcon
               source='chevron-right'
               directionDependent

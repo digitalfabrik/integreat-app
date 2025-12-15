@@ -47,7 +47,7 @@ const AppointmentOnlyOverlay = ({ appointmentUrl, closeOverlay }: AppointmentOnl
       <BackgroundForClosing onPress={closeOverlay} />
       <OverlayCenterer>
         <OverlayContainer>
-          <Text style={{ color: theme.colors.onSurface, marginBottom: 16 }} variant='subtitle2'>
+          <Text style={{ marginBottom: 16 }} variant='subtitle2'>
             {t('appointmentNecessary')}
           </Text>
           <Text>
