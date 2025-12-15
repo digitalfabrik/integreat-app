@@ -1,3 +1,4 @@
+import InfoOutlineIcon from '@mui/icons-material/InfoOutline'
 import List from '@mui/material/List'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
@@ -15,6 +16,13 @@ const StyledList = styled(List)({
   flexDirection: 'column',
   gap: 8,
 })
+
+const StyledDiv = styled('div')`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: ${props => props.theme.palette.text.secondary};
+`
 
 type TypingIndicatorProps = {
   isVisible: boolean
@@ -55,8 +63,11 @@ const ChatConversation = ({ messages, isTyping, loading }: ChatConversationProps
   if (messages.length === 0 && !loading) {
     return (
       <Stack paddingInline={3} gap={1}>
-        <Typography variant='subtitle1'>{t('conversationTitle')}</Typography>
-        <Typography variant='body2'>{t('conversationText')}</Typography>
+        <Typography variant='subtitle1'>{t('conversationText')}</Typography>
+        <StyledDiv>
+          <InfoOutlineIcon fontSize='small' />
+          <Typography variant='body2'>{t('conversationHelperText')}</Typography>
+        </StyledDiv>
       </Stack>
     )
   }

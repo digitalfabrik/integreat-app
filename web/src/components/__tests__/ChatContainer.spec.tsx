@@ -41,8 +41,8 @@ describe('ChatContainer', () => {
 
     fireEvent.click(chatButtonContainer)
 
-    expect(getByText('chat:conversationTitle')).toBeTruthy()
     expect(getByText('chat:conversationText')).toBeTruthy()
+    expect(getByText('chat:conversationHelperText')).toBeTruthy()
   })
 
   it('should close chat if close button was clicked', () => {
@@ -69,8 +69,8 @@ describe('ChatContainer', () => {
       routePattern,
       searchParams: '?chat=true&test=asdf',
     })
-    expect(getByText('chat:conversationTitle')).toBeTruthy()
     expect(getByText('chat:conversationText')).toBeTruthy()
+    expect(getByText('chat:conversationHelperText')).toBeTruthy()
     expect(router.state.location.search).toBe('?test=asdf')
   })
 
