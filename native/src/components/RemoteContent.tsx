@@ -2,7 +2,7 @@ import WebView, { WebViewMessageEvent, WebViewNavigation } from '@dr.pogodin/rea
 import { mapValues } from 'lodash'
 import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Text, Platform, useWindowDimensions, View } from 'react-native'
+import { Text, Platform, useWindowDimensions } from 'react-native'
 import { useTheme } from 'styled-components/native'
 
 import { CONSENT_ROUTE } from 'shared'
@@ -24,7 +24,6 @@ import { getStaticServerFileUrl } from '../utils/helpers'
 import renderHtml from '../utils/renderHtml'
 import { log, reportError } from '../utils/sentry'
 import Failure from './Failure'
-import Loader from './LoadingSpinner'
 import { StaticServerContext } from './StaticServerProvider'
 
 // Fixes crashing in Android
@@ -157,49 +156,41 @@ const RemoteContent = ({
   }
 
   return (
-    <>
-      {loading && (
-        <View>
-          <Loader color={theme.colors.onBackground} />
-        </View>
-      )}
-
-      <WebView
-        source={{
-          baseUrl: staticServerUrl,
-          html: renderHtml(
-            content,
-            resourceMap,
-            buildConfig().supportedIframeSources,
-            theme,
-            language,
-            externalSourcePermissions,
-            t,
-            deviceWidth,
-            dimensions.pageContainerPaddingHorizontal,
-          ),
-        }}
-        originWhitelist={ORIGIN_WHITELIST} // Needed by iOS to load the initial html
-        javaScriptEnabled
-        dataDetectorTypes={DATA_DETECTOR_TYPES}
-        userAgent={userAgent}
-        domStorageEnabled={false}
-        allowsFullscreenVideo
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
-        scrollEnabled={false} // To disable scrolling in iOS
-        onMessage={onMessage}
-        renderError={renderWebviewError}
-        onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
-        // To allow custom handling of link clicks in android
-        // https://github.com/react-native-webview/react-native-webview/issues/1869
-        setSupportMultipleWindows={false}
-        style={{
-          height: webViewHeight,
-          opacity: loading ? LOADING_OPACITY : DEFAULT_OPACITY,
-        }}
-      />
-    </>
+    <WebView
+      source={{
+        baseUrl: staticServerUrl,
+        html: renderHtml(
+          content,
+          resourceMap,
+          buildConfig().supportedIframeSources,
+          theme,
+          language,
+          externalSourcePermissions,
+          t,
+          deviceWidth,
+          dimensions.pageContainerPaddingHorizontal,
+        ),
+      }}
+      originWhitelist={ORIGIN_WHITELIST} // Needed by iOS to load the initial html
+      javaScriptEnabled
+      dataDetectorTypes={DATA_DETECTOR_TYPES}
+      userAgent={userAgent}
+      domStorageEnabled={false}
+      allowsFullscreenVideo
+      showsVerticalScrollIndicator={false}
+      showsHorizontalScrollIndicator={false}
+      scrollEnabled={false} // To disable scrolling in iOS
+      onMessage={onMessage}
+      renderError={renderWebviewError}
+      onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
+      // To allow custom handling of link clicks in android
+      // https://github.com/react-native-webview/react-native-webview/issues/1869
+      setSupportMultipleWindows={false}
+      style={{
+        height: webViewHeight,
+        opacity: loading ? LOADING_OPACITY : DEFAULT_OPACITY,
+      }}
+    />
   )
 }
 
