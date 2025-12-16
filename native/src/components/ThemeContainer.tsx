@@ -22,8 +22,7 @@ export const theme = (themeType: 'light' | 'contrast'): DefaultTheme => {
   return {
     dark: themeType === 'contrast',
     legacy: legacyTheme,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    fonts: fonts as any,
+    fonts,
     colors: {
       primary: palette.primary.main,
       primaryContainer: palette.primary.light,
@@ -82,8 +81,7 @@ const ThemeContainer = ({ children }: ThemeContainerProps): ReactElement => {
   const contextValue = useMemo(() => theme(themeType), [themeType])
 
   return (
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    <PaperProvider theme={contextValue as any}>
+    <PaperProvider theme={contextValue}>
       <ThemeProvider theme={contextValue}>{children}</ThemeProvider>
     </PaperProvider>
   )

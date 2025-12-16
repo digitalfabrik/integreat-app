@@ -36,7 +36,7 @@ const Tile = ({ onTilePress, tile, language }: TileProps): ReactElement => {
     <TileContainer onPress={openTile} role='link' accessibilityLanguage={language}>
       <Thumbnail source={tile.thumbnail} />
       <Text
-        variant='body1'
+        variant='body2'
         style={{
           margin: 5,
           textAlign: 'center',

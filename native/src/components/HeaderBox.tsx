@@ -49,7 +49,7 @@ const HeaderBox = ({ goBack, canGoBack = true, text, language }: HeaderBoxProps)
     <HorizontalLeft>
       {HeaderIcon}
       <Text
-        variant='h4'
+        variant='h6'
         allowFontScaling={false}
         style={{
           flex: 1,
