@@ -1,6 +1,12 @@
 import { Parser, ParserOptions } from 'htmlparser2'
 
-const parseHTML = (html: string, options: ParserOptions = { decodeEntities: true }): string => {
+const formatLongNumbers = (text: string) => text.replace(/\d{5,}/g, match => match.split('').join(' '))
+
+const parseHTML = (
+  html: string,
+  optimizeNumbersForTts?: boolean,
+  options: ParserOptions = { decodeEntities: true },
+): string => {
   let decodedContent = ''
 
   const parser = new Parser(
@@ -27,7 +33,8 @@ const parseHTML = (html: string, options: ParserOptions = { decodeEntities: true
   parser.write(html)
   parser.end()
 
-  return decodedContent.replace(/\r/g, '').trim()
+  const parsed = decodedContent.replace(/\r/g, '').trim()
+  return optimizeNumbersForTts ? formatLongNumbers(parsed) : parsed
 }
 
 export default parseHTML
