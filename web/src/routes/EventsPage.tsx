@@ -16,9 +16,8 @@ import DatesPageDetail from '../components/DatesPageDetail'
 import EventListItem, { Icon } from '../components/EventListItem'
 import EventsDateFilter from '../components/EventsDateFilter'
 import ExportEventButton from '../components/ExportEventButton'
-import FailureSwitcher from '../components/FailureSwitcher'
+import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Helmet from '../components/Helmet'
-import JsonLdEvent from '../components/JsonLdEvent'
 import Page, { THUMBNAIL_WIDTH } from '../components/Page'
 import PageDetail from '../components/PageDetail'
 import SkeletonList from '../components/SkeletonList'
@@ -26,7 +25,9 @@ import SkeletonPage from '../components/SkeletonPage'
 import H1 from '../components/base/H1'
 import List from '../components/base/List'
 import { cmsApiBaseUrl } from '../constants/urls'
+import useJsonLd from '../hooks/useJsonLd'
 import useTtsPlayer from '../hooks/useTtsPlayer'
+import createJsonLdEvent from '../utils/createJsonLdEvent'
 import featuredImageToSrcSet from '../utils/featuredImageToSrcSet'
 
 const Spacing = styled('div')<{ content: string; lastUpdate?: DateTime }>`
@@ -51,6 +52,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
   const pathnameWithoutDate = pathname.split('$')[0]
   const event = eventId ? events?.find(it => it.path === pathnameWithoutDate) : null
   useTtsPlayer(event, languageCode)
+  useJsonLd(event ? createJsonLdEvent(event) : null)
 
   if (!city) {
     return null
@@ -85,7 +87,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
   if (error) {
     return (
       <CityContentLayout isLoading={false} {...locationLayoutParams}>
-        <FailureSwitcher error={error} />
+        <FailureSwitcherWithHelmet error={error} />
       </CityContentLayout>
     )
   }
@@ -103,7 +105,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
       const error = new NotFoundError({ type: 'event', id: pathname, city: cityCode, language: languageCode })
       return (
         <CityContentLayout isLoading={false} {...locationLayoutParams}>
-          <FailureSwitcher error={error} />
+          <FailureSwitcherWithHelmet error={error} />
         </CityContentLayout>
       )
     }
@@ -112,7 +114,6 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     return (
       <CityContentLayout isLoading={false} {...locationLayoutParams}>
         <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
-        <JsonLdEvent event={event} />
         <Page
           thumbnailSrcSet={featuredImage ? featuredImageToSrcSet(featuredImage, THUMBNAIL_WIDTH) : undefined}
           lastUpdate={lastUpdate}
