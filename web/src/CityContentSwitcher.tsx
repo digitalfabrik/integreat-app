@@ -14,7 +14,7 @@ import {
 import { CityModel, NotFoundError, useLoadFromEndpoint, createCityEndpoint } from 'shared/api'
 
 import CityContentLayout from './components/CityContentLayout'
-import FailureSwitcher from './components/FailureSwitcher'
+import FailureSwitcherWithHelmet from './components/FailureSwitcherWithHelmet'
 import Footer from './components/Footer'
 import GeneralHeader from './components/GeneralHeader'
 import LanguageFailure from './components/LanguageFailure'
@@ -56,7 +56,7 @@ const CityContentSwitcher = ({ languageCode }: CityContentSwitcherProps): ReactE
 
     return (
       <Layout header={<GeneralHeader languageCode={languageCode} />} footer={<Footer />}>
-        <FailureSwitcher error={error ?? notFoundError} />
+        <FailureSwitcherWithHelmet error={error ?? notFoundError} />
       </Layout>
     )
   }
