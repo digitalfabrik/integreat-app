@@ -7,7 +7,7 @@ const H1 = styled(Text)`
   padding: 20px 0;
   font-size: 20px;
   text-align: center;
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.colors.onSurface};
   font-family: ${props => props.theme.legacy.fonts.native.decorativeFontBold};
 `
 type CaptionProps = {

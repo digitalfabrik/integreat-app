@@ -19,11 +19,11 @@ const FlexStyledLink = styled(Pressable)<{ language: string }>`
   flex-direction: ${props => contentDirection(props.language)};
   margin: 0 0 0 24px;
   border-bottom-width: 1px;
-  border-bottom-color: ${props => props.theme.legacy.colors.themeColor};
+  border-bottom-color: ${props => props.theme.colors.secondary};
 `
 
 const SubCategoryTitle = styled.Text`
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.colors.onSurface};
   font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
   flex-shrink: 1;
 `

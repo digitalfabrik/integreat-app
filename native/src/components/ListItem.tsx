@@ -15,7 +15,7 @@ const ListItemView = styled.View<{ language: string }>`
 
 const StyledPressable = styled(Pressable)`
   border-bottom-width: 2px;
-  border-bottom-color: ${props => props.theme.legacy.colors.themeColor};
+  border-bottom-color: ${props => props.theme.colors.secondary};
 `
 
 const Thumbnail = styled(SimpleImage)`
@@ -40,7 +40,7 @@ const Title = styled(Text)`
   flex: 1;
   font-weight: 700;
   font-family: ${props => props.theme.legacy.fonts.native.decorativeFontBold};
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.colors.onSurface};
   flex-wrap: wrap;
 `
 

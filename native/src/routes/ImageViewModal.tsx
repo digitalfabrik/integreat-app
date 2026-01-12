@@ -31,7 +31,7 @@ const ImageViewModal = ({ route }: ImageViewModalProps): ReactElement => {
       style={{
         flex: 1,
         justifyContent: 'center',
-        backgroundColor: theme.legacy.colors.backgroundAccentColor,
+        backgroundColor: theme.colors.surfaceVariant,
       }}>
       <PinchPanImage uri={cachedImage} onError={() => setError(true)} />
     </View>

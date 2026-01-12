@@ -30,13 +30,13 @@ const Wrapper = styled.View`
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: ${props => props.theme.legacy.colors.backgroundColor};
-  color: ${props => props.theme.legacy.colors.textColor};
+  background-color: ${props => props.theme.colors.background};
+  color: ${props => props.theme.colors.onSurface};
 `
 
 const SearchCounter = styled.Text`
   margin: 10px 20px;
-  color: ${props => props.theme.legacy.colors.textSecondaryColor};
+  color: ${props => props.theme.colors.onSurfaceVariant};
 `
 
 export type SearchModalProps = {

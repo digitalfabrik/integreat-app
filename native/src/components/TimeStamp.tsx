@@ -6,7 +6,7 @@ import styled from 'styled-components/native'
 import { contentDirection } from '../constants/contentDirection'
 
 const TimeStampText = styled.Text`
-  color: ${props => props.theme.legacy.colors.textSecondaryColor};
+  color: ${props => props.theme.colors.onSurfaceVariant};
   font-family: ${props => props.theme.legacy.fonts.native.contentFontRegular};
 `
 const DirectionContainer = styled.View<{ language: string }>`
