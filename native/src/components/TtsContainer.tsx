@@ -1,4 +1,4 @@
-import Speech from '@mhpdev/react-native-speech'
+import Speech, { type VoiceOptions } from '@mhpdev/react-native-speech'
 import React, {
   createContext,
   ReactElement,
@@ -10,7 +10,7 @@ import React, {
   useState,
 } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Platform } from 'react-native'
+import { Platform, type EventSubscription } from 'react-native'
 
 import { getGenericLanguageCode } from 'shared'
 
@@ -20,10 +20,6 @@ import useAppStateListener from '../hooks/useAppStateListener'
 import useSnackbar from '../hooks/useSnackbar'
 import { log, reportError } from '../utils/sentry'
 import TtsPlayer from './TtsPlayer'
-
-type EventSubscription = {
-  remove: () => void
-}
 
 export type TtsContextType = {
   enabled: boolean
@@ -45,18 +41,10 @@ type TtsContainerProps = {
   children: ReactElement
 }
 
-type LocalTtsOptions = {
-  language: string
-  volume: number
-  rate: number
-  pitch: number
-  silentMode?: 'ignore' | 'obey' | 'respect'
-}
-
 const IOS_SPEECH_RATE = 0.5
 const DEFAULT_SPEECH_RATE = 1.0
 
-const getTtsOptions = (languageCode: string): LocalTtsOptions => ({
+const getTtsOptions = (languageCode: string): VoiceOptions => ({
   language: getGenericLanguageCode(languageCode),
   volume: 0.6,
   rate: Platform.OS === 'ios' ? IOS_SPEECH_RATE : DEFAULT_SPEECH_RATE,
@@ -155,28 +143,29 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
       const sentence = sentences[safeIndex]
       if (sentence !== undefined) {
         try {
-          if (!isPlaying && subscriptionsRef.current.length > 0 && index === sentenceIndex) {
+          const canResume = !isPlaying && subscriptionsRef.current.length > 0 && index === sentenceIndex
+
+          if (canResume) {
             await Speech.resume()
             setIsPlaying(true)
-            return
+          } else {
+            await stopPlayer()
+            const finishSubscription = Speech.onFinish(() => {
+              play(safeIndex + 1)
+            })
+
+            const errorSubscription = Speech.onError(({ id }) => {
+              log(`Speech error (ID: ${id})`, { level: 'error' })
+              stop()
+            })
+
+            subscriptionsRef.current = [finishSubscription, errorSubscription]
+
+            setIsPlaying(true)
+            setSentenceIndex(safeIndex)
+
+            await Speech.speakWithOptions(sentence, getTtsOptions(languageCode))
           }
-
-          await stopPlayer()
-          const finishSubscription = Speech.onFinish(() => {
-            play(safeIndex + 1)
-          })
-
-          const errorSubscription = Speech.onError(({ id }) => {
-            log(`Speech error (ID: ${id})`, { level: 'error' })
-            stop()
-          })
-
-          subscriptionsRef.current = [finishSubscription, errorSubscription]
-
-          setIsPlaying(true)
-          setSentenceIndex(safeIndex)
-
-          await Speech.speakWithOptions(sentence, getTtsOptions(languageCode))
         } catch (error) {
           reportError(error)
           stop()
