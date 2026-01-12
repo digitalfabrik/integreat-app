@@ -127,7 +127,7 @@ const Header = ({
       title={t(title)}
       iconName={iconName}
       onPress={visible ? onPress : () => undefined}
-      color={visible ? theme.legacy.colors.textColor : 'transparent'}
+      color={visible ? theme.colors.onSurface : 'transparent'}
       accessibilityLabel={t(title)}
     />
   )
@@ -138,9 +138,9 @@ const Header = ({
       title={t(title)}
       onPress={onPress}
       style={{
-        backgroundColor: theme.legacy.colors.backgroundColor,
+        backgroundColor: theme.colors.surface,
       }}
-      titleStyle={{ color: theme.legacy.colors.textColor }}
+      titleStyle={{ color: theme.colors.onSurface }}
     />
   )
 

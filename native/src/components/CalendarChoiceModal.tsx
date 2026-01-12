@@ -12,7 +12,7 @@ const Heading = styled.Text`
   font-family: ${props => props.theme.legacy.fonts.native.decorativeFontBold};
   font-size: 16px;
   margin: 16px 0;
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.colors.onSurface};
 `
 
 // styled-components doesn't have the right types for FlatList

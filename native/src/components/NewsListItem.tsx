@@ -47,7 +47,7 @@ export const Description = styled.View`
 export const Title = styled(Text)`
   font-weight: 700;
   font-family: ${props => props.theme.legacy.fonts.native.decorativeFontBold};
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.colors.onSurface};
   font-size: 16px;
   margin-bottom: 8px;
   margin-top: 8px;
@@ -56,13 +56,13 @@ export const Content = styled(Text)`
   font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
   font-size: 14px;
   letter-spacing: 0.5px;
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.colors.onSurface};
 `
 const TimeStampContent = styled(Text)`
   font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
   font-size: 14px;
   padding: 10px 0;
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.colors.onSurface};
 `
 export const ReadMore = styled(Text)<{ isTunews: boolean }>`
   font-family: ${props => props.theme.legacy.fonts.native.decorativeFontBold};
@@ -70,9 +70,7 @@ export const ReadMore = styled(Text)<{ isTunews: boolean }>`
   letter-spacing: 0.5px;
   margin-top: 5px;
   color: ${props =>
-    props.isTunews && !props.theme.legacy.isContrastTheme
-      ? props.theme.legacy.colors.tunewsThemeColor
-      : props.theme.legacy.colors.themeColor};
+    props.isTunews && !props.theme.dark ? props.theme.colors.tunews.main : props.theme.colors.secondary};
 `
 
 const NewsListItem = ({ index, newsItem, navigateToNews, isTunews }: NewsListItemProps): ReactElement => {
@@ -105,11 +103,7 @@ const NewsListItem = ({ index, newsItem, navigateToNews, isTunews }: NewsListIte
               source='chevron-right'
               directionDependent
               size={14}
-              color={
-                isTunews && !theme.legacy.isContrastTheme
-                  ? theme.legacy.colors.tunewsThemeColor
-                  : theme.legacy.colors.themeColor
-              }
+              color={isTunews && !theme.dark ? theme.colors.tunews.main : theme.colors.secondary}
             />
           </ReadMoreWrapper>
         </Pressable>

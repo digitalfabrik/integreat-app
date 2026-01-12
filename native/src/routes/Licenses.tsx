@@ -16,15 +16,15 @@ const LicenseItemContainer = styled(Pressable)`
   padding: 16px;
   flex-direction: row;
   align-items: center;
-  background-color: ${props => props.theme.legacy.colors.backgroundColor};
+  background-color: ${props => props.theme.colors.background};
 `
 
 const Name = styled.Text`
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.colors.onSurface};
   font-size: 18px;
 `
 const Description = styled.Text`
-  color: ${props => props.theme.legacy.colors.textSecondaryColor};
+  color: ${props => props.theme.colors.onSurfaceVariant};
   padding-left: 8px;
 `
 

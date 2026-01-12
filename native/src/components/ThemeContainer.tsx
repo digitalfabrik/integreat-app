@@ -46,6 +46,18 @@ export const theme = (themeType: 'light' | 'contrast'): DefaultTheme => {
       onBackground: palette.text.primary,
       outline: palette.text.primary,
       outlineVariant: palette.text.secondary,
+      success: palette.success.main,
+      tunews: {
+        main: palette.tunews.main,
+        light: palette.tunews.light,
+      },
+      ttsPlayer: {
+        background: palette.ttsPlayer.background,
+        playIconColor: palette.ttsPlayer.playIconColor,
+      },
+      action: {
+        disabled: palette.action.disabled,
+      },
       elevation: {
         level0: palette.tertiary.light,
         level1: palette.tertiary.light,

@@ -24,7 +24,7 @@ const Horizontal = styled.View`
 `
 
 const Container = styled.View`
-  background-color: ${props => props.theme.legacy.colors.backgroundAccentColor};
+  background-color: ${props => props.theme.colors.surface};
   height: ${dimensions.modalHeaderHeight}px;
 `
 
@@ -81,8 +81,8 @@ const TransparentHeader = ({ navigation, route }: TransparentHeaderProps): React
   const overflowItems = shareUrl
     ? [
         <HiddenItem
-          titleStyle={{ color: theme.legacy.colors.textColor }}
-          style={{ backgroundColor: theme.legacy.colors.backgroundAccentColor }}
+          titleStyle={{ color: theme.colors.onSurface }}
+          style={{ backgroundColor: theme.colors.surfaceVariant }}
           key='share'
           title={t('share')}
           onPress={onShare}
@@ -91,8 +91,8 @@ const TransparentHeader = ({ navigation, route }: TransparentHeaderProps): React
         ...(isPdfUrl
           ? [
               <HiddenItem
-                titleStyle={{ color: theme.legacy.colors.textColor }}
-                style={{ backgroundColor: theme.legacy.colors.backgroundAccentColor }}
+                titleStyle={{ color: theme.colors.onSurface }}
+                style={{ backgroundColor: theme.colors.surfaceVariant }}
                 key='openExternal'
                 title={t('openExternal')}
                 onPress={onOpenPdf}

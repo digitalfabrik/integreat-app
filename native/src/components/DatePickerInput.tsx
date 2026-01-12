@@ -8,7 +8,7 @@ import { zeroPad } from 'shared'
 const Input = styled.TextInput`
   text-align: center;
   min-width: 25%;
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.colors.onSurface};
 `
 
 const containsOnlyDigits = (str: string) => !Number.isNaN(Number(str))
@@ -66,9 +66,7 @@ const DatePickerInput = ({
     <Input
       style={style}
       placeholder={placeholder}
-      placeholderTextColor={
-        theme.legacy.isContrastTheme ? theme.legacy.colors.textColor : theme.legacy.colors.textSecondaryColor
-      }
+      placeholderTextColor={theme.dark ? theme.colors.onSurface : theme.colors.onSurfaceVariant}
       keyboardType='numeric'
       maxLength={type === 'year' ? yearLength : 2}
       onBlur={() => validate(inputValue, setInputValue, type)}

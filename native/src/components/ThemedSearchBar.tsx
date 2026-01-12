@@ -8,7 +8,7 @@ import Icon from './base/Icon'
 import IconButton from './base/IconButton'
 
 const StyledBackground = styled(View)`
-  background-color: ${props => props.theme.legacy.colors.backgroundColor};
+  background-color: ${props => props.theme.colors.background};
   flex: 1;
   height: 48px;
   margin: 4px;
@@ -21,7 +21,7 @@ const StyledBackground = styled(View)`
 const StyledInput = styled(TextInput)`
   padding: 4px;
   flex: 1;
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.colors.onSurface};
   font-size: 18px;
 `
 
@@ -36,7 +36,7 @@ const ThemedSearchBar = ({ onChangeText, value, autofocus }: ThemedSearchBarProp
   const theme = useTheme()
   return (
     <StyledBackground>
-      <Icon size={20} color={theme.legacy.colors.textSecondaryColor} source='magnify' />
+      <Icon size={20} color={theme.colors.onSurfaceVariant} source='magnify' />
       <StyledInput
         {...testID('Content-Search-Input')}
         role='searchbox'
@@ -44,13 +44,11 @@ const ThemedSearchBar = ({ onChangeText, value, autofocus }: ThemedSearchBarProp
         value={value}
         autoFocus={autofocus}
         placeholder={t('searchPlaceholder')}
-        placeholderTextColor={
-          theme.legacy.isContrastTheme ? theme.legacy.colors.textColor : theme.legacy.colors.textSecondaryColor
-        }
+        placeholderTextColor={theme.dark ? theme.colors.onSurface : theme.colors.onSurfaceVariant}
       />
       {!!value && (
         <IconButton
-          icon={<Icon size={20} color={theme.legacy.colors.textSecondaryColor} source='close' />}
+          icon={<Icon size={20} color={theme.colors.onSurfaceVariant} source='close' />}
           onPress={() => onChangeText('')}
           accessibilityLabel={t('delete')}
         />

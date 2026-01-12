@@ -16,14 +16,14 @@ import PoiChips from './PoiChips'
 
 const PoiDetailsContainer = styled.View`
   flex: 1;
-  background-color: ${props => props.theme.legacy.colors.backgroundColor};
+  background-color: ${props => props.theme.colors.background};
   gap: 16px;
 `
 
 const Title = styled.Text`
   font-size: 16px;
   font-weight: bold;
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.colors.onSurface};
   padding-bottom: 4px;
 `
 
@@ -31,7 +31,7 @@ const StyledDistance = styled.Text`
   font-size: 12px;
   margin-top: 8px;
   padding-bottom: 6px;
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.colors.onSurface};
 `
 
 const StyledContactsContainer = styled.View`
