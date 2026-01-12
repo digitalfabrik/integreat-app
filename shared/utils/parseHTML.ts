@@ -1,5 +1,6 @@
 import { Parser, ParserOptions } from 'htmlparser2'
 
+// This regex matches numbers with 5 or more digits to add spaces in between for phone numbers and postal codes.
 const formatLongNumbers = (text: string) => text.replace(/\d{5,}/g, match => match.split('').join(' '))
 
 const parseHTML = (
