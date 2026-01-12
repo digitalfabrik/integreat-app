@@ -17,4 +17,16 @@ describe('parseHTML', () => {
     const parsedResult = parseHTML(htmlContent)
     expect(parsedResult).toBe(contentWithoutHtml)
   })
+
+  it('should not change numbers by default', () => {
+    const htmlContent = '<p>Telefon: +49 123456789</p>'
+    const parsedResult = parseHTML(htmlContent)
+    expect(parsedResult).toBe('Telefon: +49 123456789')
+  })
+
+  it('should make phone numbers speakable for TTS when enabled', () => {
+    const htmlContent = '<p>Telefon: +49 123456789</p>'
+    const parsedResult = parseHTML(htmlContent, true)
+    expect(parsedResult).toBe('Telefon: +49 1 2 3 4 5 6 7 8 9')
+  })
 })
