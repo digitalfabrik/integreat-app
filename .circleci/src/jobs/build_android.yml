@@ -9,6 +9,7 @@ resource_class: xlarge
 environment:
   TOTAL_CPUS: 4 # For resource_class large, used in metro.config.ci.js. For memory estimations see IGAPP-557
   FASTLANE_SKIP_UPDATE_CHECK: true
+  GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m" -Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2'
 shell: /bin/bash -eo pipefail
 steps:
   - checkout

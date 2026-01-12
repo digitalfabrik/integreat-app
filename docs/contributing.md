@@ -17,8 +17,7 @@ Before contributing, please make sure to have a look at our [conventions](conven
 
 ## Contact Us
 
-If you don't know where to start or if you want to know more about Integreat,
-contact [Leandra](mailto:leandra.hahn@tuerantuer.org),
+If you don't know where to start or if you want to know more about Integreat, contact
 [Steffen](mailto:steffen.kleinle@tuerantuer.org) or [our info mail](mailto:info@integreat-app.de) and visit
 our [website](https://integreat-app.de).
 

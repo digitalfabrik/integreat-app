@@ -39,6 +39,7 @@ export const Icon = styled('img')(({ theme }) => ({
   marginTop: 8,
   width: 96,
   height: 96,
+  objectFit: 'contain',
 
   [theme.breakpoints.down('sm')]: {
     width: 64,

@@ -47,7 +47,7 @@ const getDateIcon = (date: DateModel): { icon: JSXElementConstructor<SvgProps>; 
 type EventListItemProps = {
   event: EventModel
   language: string
-  navigateToEvent: () => void
+  navigateToEvent: (slug: string) => void
   filterStartDate?: DateTime | null
   filterEndDate?: DateTime | null
 }
@@ -76,7 +76,7 @@ const EventListItem = ({
       thumbnail={thumbnail}
       title={event.title}
       language={language}
-      navigateTo={navigateToEvent}
+      navigateTo={() => navigateToEvent(event.slug)}
       Icon={DateIcon}>
       <Description language={language}>
         {dateToDisplay.formatEventDateInOneLine(language, translateIntoContentLanguage)}

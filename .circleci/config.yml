@@ -53,7 +53,7 @@ commands:
                 default: integreat-app-notifications
                 type: string
             failure_mentions:
-                default: '@steffen.kleinle @bahaa.tuffaha @andreas.fischer @leandra.hahn @aizhan.alekbarova'
+                default: '@steffen.kleinle @bahaa.tuffaha @andreas.fischer @aizhan.alekbarova'
                 type: string
             only_for_branch:
                 default: main
@@ -226,6 +226,7 @@ jobs:
             - image: cimg/android:2025.10.1-node
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
+            GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx2048m" -Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2
             TOTAL_CPUS: 4
         parameters:
             build_config_name:
