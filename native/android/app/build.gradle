@@ -113,9 +113,13 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
 
+        // Bundletool requires a versionCode in the manifest when building locally.
         if (project.hasProperty('VERSION_CODE')) {
             versionCode project.VERSION_CODE.toInteger()
             versionName project.VERSION_NAME
+        } else {
+            versionCode 1
+            versionName "0.0.0"
         }
 
         setupResourceValues(buildConfigName, {
