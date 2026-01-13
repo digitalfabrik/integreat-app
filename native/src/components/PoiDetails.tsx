@@ -52,7 +52,7 @@ const PoiDetails = ({ poi, language, distance, onFocus }: PoiDetailsProps): Reac
         {title}
       </Text>
       {distance !== null && (
-        <Text variant='body3' style={{ marginTop: 8, paddingBottom: 6 }}>
+        <Text variant='body3' style={{ marginVertical: 8 }}>
           {t('distanceKilometre', { distance: distance.toFixed(1) })}
         </Text>
       )}

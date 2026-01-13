@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, use, useState } from 'react'
 import styled, { useTheme } from 'styled-components/native'
 
 import buildConfig from '../constants/buildConfig'
@@ -81,8 +81,8 @@ const SwitchCmsUrlIcon = ({ clearResourcesAndCache }: LandingIconProps): ReactEl
         <>
           <Text
             style={{
-              paddingTop: 10,
-              color: 'red',
+              paddingTop: 12,
+              color: theme.colors.error,
             }}>{`Currently using API: ${apiUrlOverride.toString()}`}</Text>
           <StyledButton onPress={() => setApiUrl(cmsUrl)} text='Switch back to default API' />
         </>

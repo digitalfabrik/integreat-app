@@ -62,7 +62,7 @@ const ProgressSpinner = ({ progress = 0 }: ProgressSpinnerProps): ReactElement =
       <Text
         variant='h4'
         style={{
-          paddingTop: 25,
+          paddingTop: 24,
           color: theme.colors.onSurface,
         }}>
         {t('loading')}

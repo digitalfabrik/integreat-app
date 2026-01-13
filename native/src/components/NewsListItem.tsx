@@ -64,7 +64,7 @@ const NewsListItem = ({ index, newsItem, navigateToNews, isTunews }: NewsListIte
               {newsItem.content}
             </Text>
             {timestamp && (
-              <Text variant='body2' style={{ paddingVertical: 10 }}>
+              <Text variant='body2' style={{ paddingVertical: 8 }}>
                 <TimeStamp lastUpdate={timestamp} showText={false} />
               </Text>
             )}
@@ -78,7 +78,7 @@ const NewsListItem = ({ index, newsItem, navigateToNews, isTunews }: NewsListIte
               style={{
                 fontSize: 12,
                 letterSpacing: 0.5,
-                marginTop: 3,
+                marginTop: 4,
                 color: isTunews && !theme.dark ? theme.colors.tunews.main : theme.colors.secondary,
               }}>
               {t('common:more')}

@@ -79,9 +79,9 @@ const CitySelector = ({ cities, navigateToDashboard }: CitySelectorProps): React
         <Text
           variant='body2'
           style={{
-            margin: 15,
+            margin: 16,
             marginHorizontal: 0,
-            marginBottom: 10,
+            marginBottom: 12,
             color: theme.colors.onSurfaceVariant,
           }}
           accessibilityLiveRegion={resultCities.length === 0 ? 'assertive' : 'polite'}>

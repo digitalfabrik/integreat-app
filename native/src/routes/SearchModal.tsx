@@ -100,7 +100,7 @@ const SearchModal = ({
           <>
             <Text
               variant='body2'
-              style={{ margin: 10, marginHorizontal: 20, color: theme.colors.onSurfaceVariant }}
+              style={{ margin: 12, marginHorizontal: 20, color: theme.colors.onSurfaceVariant }}
               accessibilityLiveRegion={searchResults.length === 0 ? 'assertive' : 'polite'}>
               {t('searchResultsCount', { count: searchResults.length })}
             </Text>

@@ -22,8 +22,8 @@ const CityGroup = ({ children }: CityGroupProps): ReactElement => {
       <Text
         variant='body2'
         style={{
-          marginTop: 5,
-          paddingVertical: 10,
+          marginTop: 4,
+          paddingVertical: 12,
           fontFamily: theme.legacy.fonts.native.decorativeFontRegular,
         }}>
         {children}

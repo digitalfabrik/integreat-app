@@ -22,7 +22,7 @@ const FilterToggle = ({ isDateFilterActive, setToggleDateFilter }: DateFilterTog
   return (
     <StyledButton onPress={() => setToggleDateFilter(!isDateFilterActive)} focusable>
       <Icon source={isDateFilterActive ? 'arrow-collapse' : 'filter-variant'} />
-      <Text variant='h6' style={{ padding: 5 }}>
+      <Text variant='h6' style={{ padding: 6 }}>
         {t(isDateFilterActive ? 'hideFilters' : 'showFilters')}
       </Text>
     </StyledButton>

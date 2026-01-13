@@ -43,7 +43,7 @@ const SlideContent = ({ item, width }: SlideContentProps): ReactElement => (
       <ContentContainer description={item.description !== undefined}>{item.Content}</ContentContainer>
       {!!item.description && (
         <TextContainer>
-          <Text variant='h4' style={{ marginTop: 10 }}>
+          <Text variant='h4' style={{ marginTop: 8 }}>
             {item.title}
           </Text>
           <Text variant='body1'>{item.description}</Text>

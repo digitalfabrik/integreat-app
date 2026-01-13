@@ -46,7 +46,7 @@ const NavigationTile = ({ tile, width }: NavigationTileProps): ReactElement => (
       variant='body3'
       style={{
         textAlign: 'center',
-        marginBottom: 5,
+        marginBottom: 4,
       }}>
       {tile.title}
     </Text>

@@ -93,7 +93,7 @@ const News = ({
             selectedNewsItem instanceof LocalNewsModel && (
               <Text
                 style={{
-                  paddingVertical: 17,
+                  paddingVertical: 16,
                   textAlign: contentAlignment(languageCode),
                   alignSelf: 'center',
                 }}>

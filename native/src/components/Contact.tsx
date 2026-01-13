@@ -25,7 +25,7 @@ const Contact = ({
 
   return (
     <>
-      <Text style={{ marginBottom: 6 }}>{headline ?? t('contactInformation')}</Text>
+      <Text style={{ marginBottom: 8 }}>{headline ?? t('contactInformation')}</Text>
       {!!website && (
         <PoiDetailRow
           externalUrl={website}

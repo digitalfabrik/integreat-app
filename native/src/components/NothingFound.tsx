@@ -27,8 +27,8 @@ const NothingFound = ({ paddingTop = false }: NothingFoundProps): ReactElement =
         role='alert'
         style={{
           textAlign: 'center',
-          padding: 10,
-          paddingHorizontal: 30,
+          padding: 12,
+          paddingHorizontal: 28,
         }}>
         {t('search:nothingFound')}
       </Text>

@@ -34,14 +34,14 @@ const Snackbar = ({ text, positiveAction, negativeAction }: SnackbarProps): Reac
 
   const styles = StyleSheet.create({
     message: {
-      paddingHorizontal: 10,
+      paddingHorizontal: 12,
       color: theme.colors.background,
       flexShrink: 1,
     },
     action: {
       color: theme.colors.secondary,
       textAlign: 'center',
-      padding: 10,
+      padding: 12,
     },
   })
   return (

@@ -38,7 +38,7 @@ const Tile = ({ onTilePress, tile, language }: TileProps): ReactElement => {
       <Text
         variant='body2'
         style={{
-          margin: 5,
+          margin: 4,
           textAlign: 'center',
         }}
         android_hyphenationFrequency='full'>

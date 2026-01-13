@@ -11,7 +11,6 @@ import TextButton from './base/TextButton'
 
 const styles = StyleSheet.create({
   heading: {
-    fontSize: 16,
     marginVertical: 16,
   },
 })
@@ -45,7 +44,7 @@ const CalendarChoiceModal = ({
 
   return (
     <Modal modalVisible={modalVisible} closeModal={closeModal} headerTitle={eventTitle} scrollView={false}>
-      <Text variant='h4' style={styles.heading}>
+      <Text variant='h5' style={styles.heading}>
         {t('chooseCalendar')}
       </Text>
       <RadioButton.Group onValueChange={setSelectedCalendarId} value={selectedCalendarId ?? ''}>
@@ -62,7 +61,7 @@ const CalendarChoiceModal = ({
       </RadioButton.Group>
       {recurring && (
         <>
-          <Text variant='h4' style={styles.heading}>
+          <Text variant='h5' style={styles.heading}>
             {t('addToCalendar')}
           </Text>
           <RadioButton.Group

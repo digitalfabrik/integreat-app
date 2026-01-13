@@ -79,7 +79,7 @@ const JpalTracking = ({ navigation }: JpalTrackingProps): ReactElement => {
             style={{
               display: 'flex',
               textAlign: 'left',
-              paddingVertical: 10,
+              paddingVertical: 12,
             }}>
             {t('allowTracking')}
           </Text>

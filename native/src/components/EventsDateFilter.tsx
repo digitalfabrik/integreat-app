@@ -34,7 +34,7 @@ const ResetFilterText = ({ startDate, endDate }: ResetFilterTextProps) => {
   const { t } = useTranslation('events')
   const text = `${t('resetFilter')} ${startDate ? startDate.toFormat('dd.MM.yyyy') : '∞'} - ${endDate ? endDate.toFormat('dd.MM.yyyy') : '∞'}`
   return (
-    <Text variant='h6' style={{ padding: 5 }}>
+    <Text variant='h6' style={{ padding: 6 }}>
       {text}
     </Text>
   )

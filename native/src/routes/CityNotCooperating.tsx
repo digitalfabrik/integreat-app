@@ -48,18 +48,17 @@ const CityNotCooperating = (): ReactElement | null => {
     },
     listHeading: {
       alignSelf: 'flex-start',
-      padding: 10,
+      padding: 8,
     },
     stepNumber: {
       backgroundColor: theme.colors.secondary,
       color: theme.colors.onSecondary,
-      fontSize: 15,
       lineHeight: 28,
       textAlign: 'center',
       width: 30,
       height: 30,
-      borderRadius: 15,
-      marginRight: 10,
+      borderRadius: 16,
+      marginRight: 12,
     },
     stepExplanation: {
       alignSelf: 'center',
@@ -70,9 +69,9 @@ const CityNotCooperating = (): ReactElement | null => {
       marginTop: -20,
       borderWidth: 1,
       borderColor: theme.colors.secondary,
-      padding: 30,
+      padding: 28,
       paddingTop: 20,
-      marginBottom: 250,
+      marginBottom: 252,
     },
   })
 

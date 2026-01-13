@@ -18,7 +18,7 @@ const Link = ({ url, children, style }: LinkProps): ReactElement => {
 
   const styles = StyleSheet.create({
     linkText: {
-      paddingVertical: 30,
+      paddingVertical: 28,
       alignSelf: 'center',
       textDecorationLine: 'underline',
       color: theme.colors.primary,
