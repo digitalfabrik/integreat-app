@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next'
 import { List, useTheme } from 'react-native-paper'
 import styled from 'styled-components/native'
 
-import { CloseIcon, ExpandIcon, ShrinkIcon } from '../assets'
 import CalendarRangeModal from './CalendarRangeModal'
 import DatePicker from './DatePicker'
 import Icon from './base/Icon'
@@ -78,7 +77,7 @@ const EventsDateFilter = ({
     setModalOpen(openModal)
   }
 
-  const getCurrentIcon = () => (showDateFilter ? <Icon Icon={ShrinkIcon} /> : <Icon Icon={ExpandIcon} />)
+  const getCurrentIcon = () => (showDateFilter ? <Icon source='chevron-up' /> : <Icon source='chevron-down' />)
 
   return (
     <>
