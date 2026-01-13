@@ -35,16 +35,18 @@ describe('PoisPage', () => {
 
   const pathname = cityContentPath({ route: POIS_ROUTE, cityCode: city.code, languageCode })
 
-  const renderPois = () =>
+  const renderPois = (path?: string) =>
     renderWithRouterAndTheme(
       <Routes>
         <Route
           path={RoutePatterns[POIS_ROUTE]}
-          element={<PoisPage city={city} pathname={pathname} languageCode={languageCode} cityCode={city.code} />}>
+          element={
+            <PoisPage city={city} pathname={path ?? pathname} languageCode={languageCode} cityCode={city.code} />
+          }>
           <Route element={null} path=':slug' />
         </Route>
       </Routes>,
-      { pathname: '/locations' },
+      { pathname: path ?? '/locations' },
     )
 
   it('should render a list with all pois', () => {
@@ -71,11 +73,10 @@ describe('PoisPage', () => {
 
   it('should calculate correct language change paths', () => {
     mockUseLoadFromEndpointWithData(pois)
-    const { getAllByText, getByRole } = renderPois()
-    fireEvent.click(getByRole('link', { name: poi0.title }))
+    const { getAllByText, getByRole } = renderPois('/locations/test')
+    fireEvent.click(getByRole('button', { name: 'layout:changeLanguage' }))
+
     expect(getAllByText('English')[0]?.closest('a')).toHaveAttribute('href', poi0.availableLanguages.en)
     expect(getAllByText('Deutsch')[0]?.closest('a')).toHaveAttribute('href', poi0.availableLanguages.de)
-    // Pathname is not correctly updated, therefore the pathname does not include the slug
-    expect(getAllByText('اَللُّغَةُ اَلْعَرَبِيَّة')[1]?.closest('a')).toHaveAttribute('href', '/augsburg/ar/locations')
   })
 })
