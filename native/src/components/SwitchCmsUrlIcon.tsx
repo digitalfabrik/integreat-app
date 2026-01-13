@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import React, { ReactElement, use, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import styled, { useTheme } from 'styled-components/native'
 
 import buildConfig from '../constants/buildConfig'
