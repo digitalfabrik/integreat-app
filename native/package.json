@@ -64,7 +64,6 @@
     "@react-navigation/stack": "^7.6.1",
     "@sentry/react-native": "^7.4.0",
     "@sentry/types": "^10.22.0",
-    "accordion-collapse-react-native": "^1.1.1",
     "build-configs": "0.0.1",
     "htmlparser2": "^10.0.0",
     "i18next": "^25.6.0",
