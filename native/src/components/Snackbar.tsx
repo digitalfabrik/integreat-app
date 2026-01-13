@@ -12,7 +12,6 @@ const Container = styled(Animated.View)<{ row: boolean }>`
   padding: 10px;
   min-height: 70px;
 `
-
 const ActionContainer = styled.View<{ row: boolean }>`
   flex-direction: ${props => (props.row ? 'row' : 'column')};
   justify-content: space-around;
