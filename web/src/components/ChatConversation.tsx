@@ -1,7 +1,8 @@
+import InfoOutlineIcon from '@mui/icons-material/InfoOutline'
 import List from '@mui/material/List'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
-import { styled } from '@mui/material/styles'
+import { styled, useTheme } from '@mui/material/styles'
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -34,6 +35,7 @@ const ChatConversation = ({ messages, isTyping, loading }: ChatConversationProps
   const [messagesCount, setMessagesCount] = useState(0)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const waitingForAnswer = messages.every(message => message.userIsAuthor)
+  const theme = useTheme()
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -55,8 +57,11 @@ const ChatConversation = ({ messages, isTyping, loading }: ChatConversationProps
   if (messages.length === 0 && !loading) {
     return (
       <Stack paddingInline={3} gap={1}>
-        <Typography variant='subtitle1'>{t('conversationTitle')}</Typography>
-        <Typography variant='body2'>{t('conversationText')}</Typography>
+        <Typography variant='subtitle1'>{t('conversationText')}</Typography>
+        <Stack direction='row' alignItems='center' spacing={1} sx={{ color: theme.palette.text.secondary }}>
+          <InfoOutlineIcon fontSize='small' />
+          <Typography variant='body2'>{t('conversationHelperText')}</Typography>
+        </Stack>
       </Stack>
     )
   }
