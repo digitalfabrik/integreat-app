@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Chip, useTheme } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 import { PoiModel } from 'shared/api'
@@ -14,49 +15,57 @@ const ChipsContainer = styled.View`
   gap: 8px;
 `
 
-const Chip = styled.View`
-  border-radius: 32px;
-  border: 1px solid ${props => props.theme.colors.onSurfaceDisabled};
-  flex-direction: row;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
-`
-
 const ChipCategoryIcon = styled(SimpleImage)`
   color: ${props => props.theme.colors.onSurface};
   width: 24px;
   height: 24px;
+  margin-inline-start: 8px;
+`
+
+const StyledIcon = styled(Icon)`
+  margin-inline-start: 8px;
+  color: ${props => props.theme.colors.onSurface};
 `
 
 const PoiChips = ({ poi }: { poi: PoiModel }): ReactElement => {
+  const theme = useTheme()
   const { t } = useTranslation()
+  const chipStyle = { borderRadius: 32, borderColor: theme.colors.onSurfaceDisabled }
 
   const barrierFreeChip =
     poi.barrierFree === true ? (
-      <>
-        <Icon source='wheelchair-accessibility' />
+      <Chip
+        avatar={<StyledIcon source='wheelchair-accessibility' />}
+        style={chipStyle}
+        mode='outlined'
+        textStyle={{ color: theme.colors.onSurface }}>
         <Text>{t('common:accessible')}</Text>
-      </>
+      </Chip>
     ) : (
-      <>
-        <Icon Icon={NotAccessibleIcon} />
+      <Chip
+        avatar={<StyledIcon Icon={NotAccessibleIcon} />}
+        style={chipStyle}
+        mode='outlined'
+        textStyle={{ color: theme.colors.onSurface }}>
         <Text>{t('common:notAccessible')}</Text>
-      </>
+      </Chip>
     )
 
   return (
     <ChipsContainer>
-      <Chip>
-        <ChipCategoryIcon source={poi.category.icon} />
+      <Chip
+        avatar={<ChipCategoryIcon source={poi.category.icon} />}
+        textStyle={{ color: theme.colors.onSurface }}
+        mode='outlined'
+        style={chipStyle}>
         <Text>{poi.category.name}</Text>
       </Chip>
       {poi.organization !== null && (
-        <Chip>
+        <Chip textStyle={{ color: theme.colors.onSurface }} mode='outlined' style={chipStyle}>
           <Text>{poi.organization.name}</Text>
         </Chip>
       )}
-      {poi.barrierFree !== null && <Chip>{barrierFreeChip}</Chip>}
+      {poi.barrierFree !== null && barrierFreeChip}
     </ChipsContainer>
   )
 }
