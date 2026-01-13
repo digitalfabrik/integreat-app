@@ -64,29 +64,16 @@ const CityEntry = ({ city, query, navigateToDashboard }: CityEntryProps): ReactE
           <Fragment key={it}>
             <AliasLabel search={normalizedQuery} text={it} />
             {index !== aliases.length - 1 && (
-              <>
-                <Text variant='body3' style={styles.separator}>
-                  ,
-                </Text>
-                <Text variant='body3' style={styles.separator}>
-                  {' '}
-                </Text>
-              </>
+              <Text variant='body3' style={styles.separator}>
+                ,{' '}
+              </Text>
             )}
           </Fragment>
         ))}
         {matchingAliases.length > MAX_NUMBER_OF_ALIASES_SHOWN && (
-          <>
-            <Text variant='body3' style={styles.separator}>
-              ,
-            </Text>
-            <Text variant='body3' style={styles.separator}>
-              {' '}
-            </Text>
-            <Text variant='body3' style={styles.separator}>
-              ...
-            </Text>
-          </>
+          <Text variant='body3' style={styles.separator}>
+            , ...
+          </Text>
         )}
       </AliasesWrapper>
     ) : null
