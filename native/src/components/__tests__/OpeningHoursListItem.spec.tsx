@@ -56,7 +56,7 @@ describe('OpeningEntry', () => {
   })
 
   it('should highlight the timeslot of the current weekday bold', () => {
-    const expectedStyle = { fontFamily: 'NotoSans-Bold' }
+    const expectedStyle = { fontFamily: 'Raleway-Bold' }
     const { getByText } = renderOpeningEntries(false, false, true, false)
     const timeSlotLabel = getByText(currentWeekday)
     const timeSlot = getByText(`${timeSlots[0]!.start}-${timeSlots[0]!.end}`)

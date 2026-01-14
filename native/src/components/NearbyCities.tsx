@@ -9,6 +9,7 @@ import useUserLocation from '../hooks/useUserLocation'
 import CityEntry from './CityEntry'
 import Icon from './base/Icon'
 import IconButton from './base/IconButton'
+import Text from './base/Text'
 
 const NearbyMessageContainer = styled.View`
   padding: 7px;
@@ -18,11 +19,6 @@ const NearbyMessageContainer = styled.View`
 const RetryButtonContainer = styled.View`
   flex-direction: column;
   height: 46px;
-`
-const NearbyMessage = styled.Text`
-  color: ${props => props.theme.colors.onSurface};
-  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
-  padding-top: 15px;
 `
 
 type NearbyCitiesProps = {
@@ -41,7 +37,9 @@ const NearbyCities = ({ cities, navigateToDashboard, filterText }: NearbyCitiesP
   if (!coordinates) {
     return (
       <NearbyMessageContainer>
-        <NearbyMessage>{t(message)}</NearbyMessage>
+        <Text variant='body2' style={{ paddingTop: 16 }}>
+          {t(message)}
+        </Text>
         <RetryButtonContainer>
           {status !== 'loading' && (
             <IconButton
@@ -63,7 +61,9 @@ const NearbyCities = ({ cities, navigateToDashboard, filterText }: NearbyCitiesP
   if (nearbyCities.length === 0) {
     return (
       <NearbyMessageContainer>
-        <NearbyMessage>{t('noNearbyCities')}</NearbyMessage>
+        <Text variant='body2' style={{ paddingTop: 16 }}>
+          {t('noNearbyCities')}
+        </Text>
       </NearbyMessageContainer>
     )
   }

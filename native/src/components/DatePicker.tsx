@@ -1,11 +1,12 @@
 import { DateTime } from 'luxon'
 import React, { ReactElement, useEffect, useState } from 'react'
-import { View } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import styled, { useTheme } from 'styled-components/native'
 
 import DatePickerInput from './DatePickerInput'
 import Icon from './base/Icon'
 import IconButton from './base/IconButton'
+import Text from './base/Text'
 
 const DateContainer = styled.View`
   width: auto;
@@ -31,30 +32,9 @@ const Wrapper = styled.View`
   width: 50%;
 `
 
-const StyledText = styled.Text`
-  color: ${props => (props.theme.dark ? props.theme.colors.onSurface : props.theme.colors.onSurfaceVariant)};
-`
-
 const StyledIconButton = styled(IconButton)<{ $isModalOpen: boolean }>`
   width: 40px;
   height: 40px;
-`
-
-const StyledTitle = styled.Text`
-  background-color: ${props => props.theme.colors.background};
-  position: absolute;
-  top: -12px;
-  left: 12px;
-  padding: 2px 5px;
-  color: ${props => props.theme.colors.onSurface};
-  font-size: 12px;
-  z-index: 1;
-`
-
-const StyledError = styled.Text`
-  font-size: 12px;
-  font-weight: bold;
-  color: ${props => props.theme.colors.error};
 `
 
 export type DatePickerProps = {
@@ -87,6 +67,21 @@ const DatePicker = ({
   const placeholderYear = placeholderDate.toFormat('yyyy')
   const theme = useTheme()
 
+  const styles = StyleSheet.create({
+    styledTitle: {
+      backgroundColor: theme.colors.background,
+      position: 'absolute',
+      top: -12,
+      left: 12,
+      padding: 2,
+      paddingHorizontal: 5,
+      zIndex: 1,
+    },
+    styledError: {
+      color: theme.colors.error,
+    },
+  })
+
   useEffect(() => {
     try {
       setDatePickerError('')
@@ -113,18 +108,20 @@ const DatePicker = ({
 
   return (
     <DateContainer>
-      <StyledTitle>{title}</StyledTitle>
+      <Text variant='body3' style={styles.styledTitle}>
+        {title}
+      </Text>
       <StyledInputWrapper>
         <Wrapper>
           <DatePickerInput placeholder={placeholderDay} inputValue={inputDay} setInputValue={setInputDay} type='day' />
-          <StyledText>.</StyledText>
+          <Text variant='body2'>.</Text>
           <DatePickerInput
             placeholder={placeholderMonth}
             inputValue={inputMonth}
             setInputValue={setInputMonth}
             type='month'
           />
-          <StyledText>.</StyledText>
+          <Text variant='body2'>.</Text>
           <DatePickerInput
             style={{ marginLeft: 6 }}
             placeholder={placeholderYear}
@@ -141,7 +138,11 @@ const DatePicker = ({
         />
       </StyledInputWrapper>
       <View style={{ width: '80%' }}>
-        {!!(error || datePickerError) && <StyledError>{error || datePickerError}</StyledError>}
+        {!!(error || datePickerError) && (
+          <Text variant='body3' style={styles.styledError}>
+            {error || datePickerError}
+          </Text>
+        )}
       </View>
     </DateContainer>
   )

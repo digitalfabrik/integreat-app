@@ -10,7 +10,7 @@ jest.useFakeTimers()
 jest.mock('react-native-safe-area-context', () => mockSafeAreaContext)
 jest.mock('react-i18next')
 jest.mock('../../components/Snackbar', () => {
-  const { Text } = require('react-native')
+  const { Text } = require('react-native-paper')
 
   return ({ text }: { text: string }) => <Text>{text}</Text>
 })

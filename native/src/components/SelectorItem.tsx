@@ -1,10 +1,11 @@
 import React, { ReactElement } from 'react'
 import { DefaultTheme, List } from 'react-native-paper'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
 import dimensions from '../constants/dimensions'
 import SelectorItemModel from '../models/SelectorItemModel'
 import Pressable from './base/Pressable'
+import Text from './base/Text'
 
 export const TouchTarget = styled(Pressable)`
   width: 100%;
@@ -22,26 +23,26 @@ const StyledListItem = styled(List.Item)<{ selected: boolean }>`
   background-color: ${props => getBackgroundColor(props.selected, props.theme as typeof DefaultTheme)};
 `
 
-const Element = styled.Text<{ selected: boolean; enabled?: boolean }>`
-  font-size: 20px;
-  font-weight: ${props => (props.selected ? '700' : '400')};
-  color: ${props =>
-    props.enabled || props.selected ? props.theme.colors.onSurface : props.theme.colors.onSurfaceDisabled};
-  text-align: center;
-`
-
 type SelectorItemProps = {
   model: SelectorItemModel
   selected: boolean
 }
 
 const SelectorItem = ({ model: { name, code, enabled, onPress }, selected }: SelectorItemProps): ReactElement => {
+  const theme = useTheme()
   const item = (
     <StyledListItem
       title={
-        <Element selected={selected} enabled={enabled}>
+        <Text
+          variant='body1'
+          style={{
+            fontSize: 20,
+            fontWeight: selected ? '700' : '400',
+            color: enabled || selected ? theme.colors.onSurface : theme.colors.onSurfaceDisabled,
+            textAlign: 'center',
+          }}>
           {name}
-        </Element>
+        </Text>
       }
       selected={selected}
     />

@@ -37,8 +37,8 @@ describe('SearchListItem', () => {
 
   const assertHighlighting = (element: HTMLElement, highlighted: boolean) =>
     highlighted
-      ? expect(element).toHaveStyle({ fontWeight: 'bold' })
-      : expect(element).not.toHaveStyle({ fontWeight: 'bold' })
+      ? expect(element).toHaveStyle({ fontWeight: '600' })
+      : expect(element).not.toHaveStyle({ fontWeight: '600' })
 
   const renderSearchListItem = (query: string, thumbnail: string | null = category.thumbnail) =>
     render(
@@ -90,7 +90,7 @@ describe('SearchListItem', () => {
     const { getByText } = renderSearchListItem(query)
 
     expect(getByText(category.title)).toBeTruthy()
-    assertHighlighting(getByText(category.title), true)
+    expect(getByText(category.title)).toHaveStyle({ fontWeight: 'bold' })
   })
 
   it('should send tracking signal when pressed', () => {

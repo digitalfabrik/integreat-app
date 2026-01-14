@@ -1,6 +1,6 @@
 import React, { memo, ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
 import { LOCAL_NEWS_TYPE, NewsType, TU_NEWS_TYPE } from 'shared'
 import { CityModel } from 'shared/api'
@@ -9,6 +9,7 @@ import { TuNewsActiveIcon, TuNewsInactiveIcon } from '../assets'
 import Caption from './Caption'
 import Icon from './base/Icon'
 import Pressable from './base/Pressable'
+import Text from './base/Text'
 
 const StyledPressable = styled(Pressable)`
   margin: 0 10px 5px;
@@ -23,12 +24,6 @@ const LocalTabWrapper = styled.View<{ isSelected: boolean }>`
   justify-content: center;
   background-color: ${props =>
     props.isSelected ? props.theme.colors.secondary : props.theme.colors.onSurfaceDisabled};
-`
-const LocalText = styled.Text`
-  font-size: 18px;
-  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontBold};
-  text-transform: uppercase;
-  color: ${props => props.theme.colors.background};
 `
 const HeaderContainer = styled.View`
   flex-direction: row;
@@ -50,6 +45,7 @@ type NewsHeaderProps = {
 
 const NewsHeader = ({ cityModel, selectedNewsType, selectNewsType }: NewsHeaderProps): ReactElement => {
   const { t } = useTranslation('news')
+  const theme = useTheme()
   const selectLocalNews = () => selectNewsType(LOCAL_NEWS_TYPE)
   const selectTuNews = () => selectNewsType(TU_NEWS_TYPE)
 
@@ -60,7 +56,9 @@ const NewsHeader = ({ cityModel, selectedNewsType, selectNewsType }: NewsHeaderP
         <HeaderContainer>
           <StyledPressable onPress={selectLocalNews} role='button' accessibilityLabel={t('local')}>
             <LocalTabWrapper isSelected={selectedNewsType === LOCAL_NEWS_TYPE}>
-              <LocalText>{t('local')}</LocalText>
+              <Text variant='h5' style={{ textTransform: 'uppercase', color: theme.colors.background }}>
+                {t('local')}
+              </Text>
             </LocalTabWrapper>
           </StyledPressable>
           <StyledPressable onPress={selectTuNews} role='button' accessibilityLabel='TüNews'>

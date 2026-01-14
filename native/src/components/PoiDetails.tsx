@@ -20,20 +20,6 @@ const PoiDetailsContainer = styled.View`
   gap: 16px;
 `
 
-const Title = styled.Text`
-  font-size: 16px;
-  font-weight: bold;
-  color: ${props => props.theme.colors.onSurface};
-  padding-bottom: 4px;
-`
-
-const StyledDistance = styled.Text`
-  font-size: 12px;
-  margin-top: 8px;
-  padding-bottom: 6px;
-  color: ${props => props.theme.colors.onSurface};
-`
-
 const StyledContactsContainer = styled.View`
   margin-top: 12px;
 `
@@ -55,9 +41,13 @@ const PoiDetails = ({ poi, language, distance, onFocus }: PoiDetailsProps): Reac
 
   return (
     <PoiDetailsContainer accessibilityLabel={`${title} - ${category.name}`} onFocus={onFocus} focusable>
-      <Title>{title}</Title>
+      <Text variant='h5' style={{ paddingBottom: 4 }}>
+        {title}
+      </Text>
       {distance !== null && (
-        <StyledDistance>{t('distanceKilometre', { distance: distance.toFixed(1) })}</StyledDistance>
+        <Text variant='body3' style={{ marginVertical: 8 }}>
+          {t('distanceKilometre', { distance: distance.toFixed(1) })}
+        </Text>
       )}
       {!!poi.thumbnail && <CustomThumbnail src={poi.thumbnail} />}
       <PoiChips poi={poi} />

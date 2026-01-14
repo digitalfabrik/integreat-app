@@ -1,22 +1,12 @@
 import React, { memo } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
 import { PoiModel } from 'shared/api'
 
 import { contentDirection } from '../constants/contentDirection'
 import Pressable from './base/Pressable'
-
-const Distance = styled.Text`
-  color: ${props => props.theme.colors.onSurface};
-  font-family: ${props => props.theme.legacy.fonts.native.contentFontRegular};
-  margin-top: 4px;
-`
-const Category = styled.Text`
-  color: ${props => props.theme.colors.onSurfaceVariant};
-  font-family: ${props => props.theme.legacy.fonts.native.contentFontRegular};
-  margin-top: 4px;
-`
+import Text from './base/Text'
 
 const StyledPressable = styled(Pressable)<{ language: string }>`
   border-bottom-width: 1px;
@@ -35,12 +25,6 @@ const Description = styled.View`
   justify-content: center;
 `
 
-const Title = styled.Text`
-  font-weight: 700;
-  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontBold};
-  color: ${props => props.theme.colors.onSurface};
-`
-
 type PoiListItemProps = {
   poi: PoiModel
   language: string
@@ -51,13 +35,25 @@ type PoiListItemProps = {
 
 const PoiListItem = ({ poi, language, navigateToPoi, distance, onFocus }: PoiListItemProps) => {
   const { t } = useTranslation('pois')
+  const theme = useTheme()
 
   return (
     <StyledPressable onPress={navigateToPoi} language={language} role='link' onFocus={onFocus} focusable>
       <Description>
-        <Title>{poi.title}</Title>
-        {distance !== null && <Distance>{t('distanceKilometre', { distance: distance.toFixed(1) })}</Distance>}
-        <Category>{poi.category.name}</Category>
+        <Text variant='h6'>{poi.title}</Text>
+        {distance !== null && (
+          <Text variant='caption' style={{ marginTop: 4 }}>
+            {t('distanceKilometre', { distance: distance.toFixed(1) })}
+          </Text>
+        )}
+        <Text
+          variant='caption'
+          style={{
+            color: theme.colors.onSurfaceVariant,
+            marginTop: 4,
+          }}>
+          {poi.category.name}
+        </Text>
       </Description>
     </StyledPressable>
   )

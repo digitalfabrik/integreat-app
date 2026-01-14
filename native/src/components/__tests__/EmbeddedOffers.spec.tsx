@@ -8,12 +8,12 @@ import render from '../../testing/render'
 import EmbeddedOffers from '../EmbeddedOffers'
 
 jest.mock('../SprungbrettOffer', () => ({ sprungbrettOffer }: { sprungbrettOffer: OfferModel }) => {
-  const { Text } = require('react-native')
+  const { Text } = require('react-native-paper')
   return <Text>This is the Sprungbrett offer called {sprungbrettOffer.title}</Text>
 })
 
 jest.mock('../MalteHelpFormOffer', () => ({ malteHelpFormOffer }: { malteHelpFormOffer: OfferModel }) => {
-  const { Text } = require('react-native')
+  const { Text } = require('react-native-paper')
   return <Text>This is the Malte help form called {malteHelpFormOffer.title}</Text>
 })
 

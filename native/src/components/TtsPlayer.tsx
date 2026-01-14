@@ -58,13 +58,6 @@ const StyledPlayIconButton = styled(IconButton)<{ disabled?: boolean }>`
   ${elevatedStyle}
 `
 
-const StyledPlayerHeaderText = styled(Text)`
-  font-weight: 600;
-  align-self: center;
-  font-size: 22px;
-  color: ${props => props.theme.colors.onSurface};
-`
-
 const CloseButton = styled(Pressable)`
   position: absolute;
   ${isRTL() ? `left: 0` : `right: 0`};
@@ -102,7 +95,9 @@ const TtsPlayer = ({
       <CloseButton role='button' accessibilityLabel={t('common:close')} onPress={close}>
         <Icon source='close' />
       </CloseButton>
-      <StyledPlayerHeaderText numberOfLines={1}>{title}</StyledPlayerHeaderText>
+      <Text variant='h4' numberOfLines={1} style={{ alignSelf: 'center' }}>
+        {title}
+      </Text>
       <StyledPanel>
         <StyledButton role='button' accessibilityLabel={t('previous')} onPress={playPrevious}>
           <Icon size={28} source='rewind' />

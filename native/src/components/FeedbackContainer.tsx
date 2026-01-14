@@ -21,21 +21,6 @@ const Container = styled.View`
   gap: 8px;
 `
 
-const Title = styled(Text)`
-  font-weight: 600;
-  color: ${props => props.theme.colors.onSurface};
-`
-
-const StyledText = styled(Text)`
-  color: ${props => props.theme.colors.onSurface};
-`
-
-const Hint = styled(Title)`
-  margin-top: 8px;
-  text-align: center;
-  color: ${props => props.theme.colors.onSurface};
-`
-
 export type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
 
 export type FeedbackContainerProps = {
@@ -127,11 +112,13 @@ const FeedbackContainer = ({
   return (
     <Container>
       <>
-        <Title>
+        <Text variant='h6'>
           {language === fallbackLanguage ? t('noResultsInUserLanguage') : t('noResultsInUserAndSourceLanguage')}
-        </Title>
-        <StyledText>{t('checkQuery', { appName: buildConfig().appName })}</StyledText>
-        <Hint>{t('informationMissing')}</Hint>
+        </Text>
+        <Text>{t('checkQuery', { appName: buildConfig().appName })}</Text>
+        <Text variant='h6' style={{ marginTop: 8, textAlign: 'center' }}>
+          {t('informationMissing')}
+        </Text>
         <TextButton text={t('giveFeedback')} onPress={() => setShowFeedback(true)} />
       </>
     </Container>

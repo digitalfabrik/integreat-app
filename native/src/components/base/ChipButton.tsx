@@ -22,10 +22,6 @@ const IconContainer = styled.View`
   width: 16px;
 `
 
-const StyledText = styled(Text)`
-  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontBold};
-`
-
 const Spacer = styled.View`
   width: 4px;
 `
@@ -44,7 +40,7 @@ const ChipButton = ({ text, onPress, Icon: IconProp, closeButton, style }: TextB
     <StyledPressable role='button' onPress={onPress} style={style}>
       <IconContainer>{IconProp}</IconContainer>
       <Spacer />
-      <StyledText>{text}</StyledText>
+      <Text variant='h6'>{text}</Text>
       {closeButton && (
         <IconContainer>
           <Icon source='close' size={16} color={theme.colors.onSurfaceVariant} />

@@ -1,10 +1,14 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Text, View, Role } from 'react-native'
+import { View, Role, StyleSheet } from 'react-native'
 import { Switch } from 'react-native-paper'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
 import Pressable from './base/Pressable'
+import Text from './base/Text'
+
+const TITLE_FONT_SIZE_REGULAR = 14
+const TITLE_FONT_SIZE_BIG = 16
 
 const PadView = styled.View`
   padding: 16px;
@@ -17,15 +21,6 @@ const ContentContainer = styled.View`
   flex: 1;
   justify-content: center;
   align-items: flex-start;
-`
-
-const Title = styled.Text<{ bigTitle: boolean }>`
-  color: ${props => props.theme.colors.onSurface};
-  ${props => (props.bigTitle ? 'font-size: 18px;' : '')}
-`
-
-const Description = styled.Text`
-  color: ${props => props.theme.colors.onSurfaceVariant};
 `
 
 const FlexEndContainer = styled.View`
@@ -84,24 +79,42 @@ const SettingItem = ({
   bigTitle,
   role,
   hasBadge = false,
-}: SettingItemProps): ReactElement => (
-  <Pressable onPress={onPress} role={role ?? 'none'} accessible>
-    <PadView>
-      <ContentContainer>
-        <View>
-          <Title bigTitle={bigTitle || false}>{title}</Title>
-        </View>
-        {!!description && (
+}: SettingItemProps): ReactElement => {
+  const theme = useTheme()
+
+  const styles = StyleSheet.create({
+    title: {
+      color: theme.colors.onSurface,
+      fontSize: bigTitle ? TITLE_FONT_SIZE_BIG : TITLE_FONT_SIZE_REGULAR,
+    },
+    description: {
+      color: theme.colors.onSurfaceVariant,
+    },
+  })
+
+  return (
+    <Pressable onPress={onPress} role={role ?? 'none'} accessible>
+      <PadView>
+        <ContentContainer>
           <View>
-            <Description>{description}</Description>
+            <Text variant='body1' style={styles.title}>
+              {title}
+            </Text>
           </View>
-        )}
-      </ContentContainer>
-      <FlexEndContainer>
-        {value !== null && <SettingsItemValue onPress={onPress} hasBadge={hasBadge} value={value} />}
-      </FlexEndContainer>
-    </PadView>
-  </Pressable>
-)
+          {!!description && (
+            <View>
+              <Text variant='body2' style={styles.description}>
+                {description}
+              </Text>
+            </View>
+          )}
+        </ContentContainer>
+        <FlexEndContainer>
+          {value !== null && <SettingsItemValue onPress={onPress} hasBadge={hasBadge} value={value} />}
+        </FlexEndContainer>
+      </PadView>
+    </Pressable>
+  )
+}
 
 export default SettingItem

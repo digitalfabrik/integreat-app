@@ -2,19 +2,12 @@ import React, { ReactElement } from 'react'
 import styled, { useTheme } from 'styled-components/native'
 
 import Icon from './base/Icon'
+import Text from './base/Text'
 
 const NoteBox = styled.View`
   margin-top: 12px;
   padding: 12px;
   flex-direction: row;
-`
-
-const NoteText = styled.Text`
-  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
-  color: ${props => props.theme.colors.error};
-  font-size: 12px;
-  flex: 1;
-  flex-wrap: wrap;
 `
 
 const StyledIcon = styled(Icon)`
@@ -31,7 +24,16 @@ const Note = ({ text }: NoteProps): ReactElement => {
   return (
     <NoteBox>
       <StyledIcon color={theme.colors.error} source='alert-circle-outline' />
-      <NoteText>{text}</NoteText>
+      <Text
+        variant='body3'
+        style={{
+          fontFamily: theme.legacy.fonts.native.decorativeFontRegular,
+          color: theme.colors.error,
+          flex: 1,
+          flexWrap: 'wrap',
+        }}>
+        {text}
+      </Text>
     </NoteBox>
   )
 }

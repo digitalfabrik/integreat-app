@@ -1,14 +1,12 @@
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components/native'
+import { StyleSheet } from 'react-native'
+import styled, { useTheme } from 'styled-components/native'
 
 import { contentDirection } from '../constants/contentDirection'
+import Text from './base/Text'
 
-const TimeStampText = styled.Text`
-  color: ${props => props.theme.colors.onSurfaceVariant};
-  font-family: ${props => props.theme.legacy.fonts.native.contentFontRegular};
-`
 const DirectionContainer = styled.View<{ language: string }>`
   display: flex;
   flex-direction: ${props => contentDirection(props.language)};
@@ -22,10 +20,23 @@ type TimeStampProps = {
 
 export const TimeStamp = ({ lastUpdate, showText = true, format = 'DDD' }: TimeStampProps): ReactElement => {
   const { i18n, t } = useTranslation('common')
+  const theme = useTheme()
+  const styles = StyleSheet.create({
+    timeStampText: {
+      color: theme.colors.onSurfaceVariant,
+    },
+  })
+
   return (
     <DirectionContainer language={i18n.language}>
-      {showText && <TimeStampText>{t('lastUpdate')} </TimeStampText>}
-      <TimeStampText>{lastUpdate.setLocale(i18n.language).toFormat(format)}</TimeStampText>
+      {showText && (
+        <Text variant='caption' style={styles.timeStampText}>
+          {t('lastUpdate')}
+        </Text>
+      )}
+      <Text variant='caption' style={styles.timeStampText}>
+        {lastUpdate.setLocale(i18n.language).toFormat(format)}
+      </Text>
     </DirectionContainer>
   )
 }

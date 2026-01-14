@@ -18,18 +18,6 @@ const TitleContainer = styled.View`
   justify-content: space-between;
 `
 
-const ThemedText = styled(Text)`
-  display: flex;
-  text-align: center;
-  color: ${props => props.theme.colors.onSurface};
-  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
-`
-
-const Title = styled(ThemedText)`
-  font-weight: bold;
-  text-align: left;
-`
-
 const Input = styled.TextInput<{ numberOfLines: number; invalid: boolean }>`
   border-width: 1px;
   border-color: ${props => (props.invalid ? props.theme.colors.error : props.theme.colors.action.disabled)};
@@ -79,7 +67,11 @@ const InputSection = ({
     <Container accessible>
       {title || showOptional || hint ? (
         <TitleContainer>
-          {title ? <Title>{title}</Title> : null}
+          {title ? (
+            <Text variant='h6' style={{ textAlign: 'left' }}>
+              {title}
+            </Text>
+          ) : null}
           {hint ? <Text>{hint}</Text> : null}
           {showOptional && <Text>({t('optional')})</Text>}
         </TitleContainer>

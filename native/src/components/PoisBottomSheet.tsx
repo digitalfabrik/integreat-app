@@ -14,9 +14,9 @@ import { ErrorCode, PoiModel } from 'shared/api'
 import useCityAppContext from '../hooks/useCityAppContext'
 import BottomSheetHandle from './BottomSheetHandle'
 import Failure from './Failure'
-import { NoItemsMessage } from './List'
 import PoiDetails from './PoiDetails'
 import PoiListItem from './PoiListItem'
+import Text from './base/Text'
 
 const StyledBottomSheet = styled(BottomSheet)<{ isFullscreen: boolean }>`
   ${props => props.isFullscreen && `background-color: ${props.theme.colors.background};`}
@@ -25,13 +25,6 @@ const StyledBottomSheet = styled(BottomSheet)<{ isFullscreen: boolean }>`
 const BottomSheetContent = styled.View`
   flex: 1;
   margin: 0 24px;
-`
-
-const Title = styled.Text`
-  color: ${props => props.theme.colors.onSurface};
-  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontBold};
-  font-size: 18px;
-  font-weight: bold;
 `
 
 type PoiBottomSheetProps = {
@@ -131,8 +124,17 @@ const PoisBottomSheet = ({
               setScrollPosition(event.nativeEvent.contentOffset.y)
             }
             showsVerticalScrollIndicator={false}
-            ListHeaderComponent={<Title>{t('common:nearby')}</Title>}
-            ListEmptyComponent={<NoItemsMessage>{t('noPois')}</NoItemsMessage>}
+            ListHeaderComponent={<Text variant='h5'>{t('common:nearby')}</Text>}
+            ListEmptyComponent={
+              <Text
+                variant='body2'
+                style={{
+                  alignSelf: 'center',
+                  marginTop: 20,
+                }}>
+                {t('noPois')}
+              </Text>
+            }
           />
         )}
       </BottomSheetContent>
