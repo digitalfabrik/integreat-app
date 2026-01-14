@@ -15,7 +15,7 @@ describe('change language', () => {
     await dashboardPage.languageIcon.waitForClickable({ timeout: 2000 })
     await dashboardPage.languageIcon.click()
 
-    const languageSelector = await $("*[data-testid='headerActionItemDropDown']")
+    const languageSelector = await $("*[data-testid='languageList']")
     await browser.waitUntil(async () => (await languageSelector.getCSSProperty('visibility')).value === 'visible', {
       timeout: 2000,
     })
