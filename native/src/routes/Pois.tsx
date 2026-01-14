@@ -2,7 +2,7 @@ import { BottomSheetFlatListMethods } from '@gorhom/bottom-sheet'
 import React, { ReactElement, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useWindowDimensions } from 'react-native'
-import { Chip, Text } from 'react-native-paper'
+import { Chip } from 'react-native-paper'
 import { SvgUri } from 'react-native-svg'
 import styled, { useTheme } from 'styled-components/native'
 
@@ -14,6 +14,7 @@ import MapView from '../components/MapView'
 import PoiFiltersModal from '../components/PoiFiltersModal'
 import PoisBottomSheet from '../components/PoisBottomSheet'
 import Icon from '../components/base/Icon'
+import Text from '../components/base/Text'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import dimensions from '../constants/dimensions'
 import useOnBackNavigation from '../hooks/useOnBackNavigation'
@@ -117,7 +118,7 @@ const Pois = ({ pois: allPois, cityModel, route, navigation }: PoisProps): React
         elevated
         avatar={<Icon Icon={EditLocationIcon} color={theme.colors.onSurface} />}
         onPress={() => setShowFilterSelection(true)}>
-        <Text>{t('adjustFilters')}</Text>
+        <Text variant='body3'>{t('adjustFilters')}</Text>
       </Chip>
 
       {poiCurrentlyOpenFilter && (
@@ -132,7 +133,7 @@ const Pois = ({ pois: allPois, cityModel, route, navigation }: PoisProps): React
           onPress={() => setPoiCurrentlyOpenFilter(false)}
           onClose={() => setPoiCurrentlyOpenFilter(false)}
           closeIcon='close'>
-          <Text>{t('opened')}</Text>
+          <Text variant='body3'>{t('opened')}</Text>
         </Chip>
       )}
       {!!poiCategory && (
@@ -145,7 +146,7 @@ const Pois = ({ pois: allPois, cityModel, route, navigation }: PoisProps): React
           onPress={() => navigation.setParams({ poiCategoryId: undefined })}
           onClose={() => navigation.setParams({ poiCategoryId: undefined })}
           closeIcon='close'>
-          <Text>{poiCategory.name}</Text>
+          <Text variant='body3'>{poiCategory.name}</Text>
         </Chip>
       )}
     </>

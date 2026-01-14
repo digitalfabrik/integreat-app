@@ -39,7 +39,7 @@ const PoiChips = ({ poi }: { poi: PoiModel }): ReactElement => {
         style={chipStyle}
         mode='outlined'
         textStyle={{ color: theme.colors.onSurface }}>
-        <Text>{t('common:accessible')}</Text>
+        <Text variant='body2'>{t('common:accessible')}</Text>
       </Chip>
     ) : (
       <Chip
@@ -47,7 +47,7 @@ const PoiChips = ({ poi }: { poi: PoiModel }): ReactElement => {
         style={chipStyle}
         mode='outlined'
         textStyle={{ color: theme.colors.onSurface }}>
-        <Text>{t('common:notAccessible')}</Text>
+        <Text variant='body2'>{t('common:notAccessible')}</Text>
       </Chip>
     )
 
@@ -58,11 +58,11 @@ const PoiChips = ({ poi }: { poi: PoiModel }): ReactElement => {
         textStyle={{ color: theme.colors.onSurface }}
         mode='outlined'
         style={chipStyle}>
-        <Text>{poi.category.name}</Text>
+        <Text variant='body2'>{poi.category.name}</Text>
       </Chip>
       {poi.organization !== null && (
         <Chip textStyle={{ color: theme.colors.onSurface }} mode='outlined' style={chipStyle}>
-          <Text>{poi.organization.name}</Text>
+          <Text variant='body2'>{poi.organization.name}</Text>
         </Chip>
       )}
       {poi.barrierFree !== null && barrierFreeChip}
