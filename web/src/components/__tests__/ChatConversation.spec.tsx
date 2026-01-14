@@ -89,8 +89,8 @@ describe('ChatConversation', () => {
 
   it('should display welcome text if conversation has not started', () => {
     const { getByText } = render([], false)
-    expect(getByText('chat:conversationTitle')).toBeTruthy()
     expect(getByText('chat:conversationText')).toBeTruthy()
+    expect(getByText('chat:conversationHelperText')).toBeTruthy()
   })
 
   it('should display messages and initial message if no answer received yet', () => {

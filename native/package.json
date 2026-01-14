@@ -59,7 +59,7 @@
     "@react-native-firebase/messaging": "^23.4.1",
     "@react-navigation/elements": "^2.8.0",
     "@react-navigation/native": "^7.1.19",
-    "@react-navigation/stack": "^7.6.1",
+    "@react-navigation/stack": "^7.6.12",
     "@sentry/react-native": "^7.4.0",
     "@sentry/types": "^10.22.0",
     "accordion-collapse-react-native": "^1.1.1",
