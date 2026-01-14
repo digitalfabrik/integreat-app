@@ -4,6 +4,7 @@ import styled from 'styled-components/native'
 
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 import Icon from './base/Icon'
+import Text from './base/Text'
 import TextButton from './base/TextButton'
 
 const FooterContainer = styled.View`
@@ -13,13 +14,6 @@ const FooterContainer = styled.View`
   align-items: center;
   border-bottom: 2px solid ${props => props.theme.colors.onSurface};
   padding-top: 5%;
-`
-
-const Question = styled.Text`
-  color: ${props => props.theme.colors.onSurface};
-  margin-top: 5%;
-  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontBold};
-  font-size: 16px;
 `
 
 const StyledButton = styled(TextButton)`
@@ -50,7 +44,9 @@ const CityNotCooperatingFooter = ({
   return (
     <FooterContainer>
       <StyledIcon Icon={CityNotCooperatingIcon} />
-      <Question>{t('cityNotFound')}</Question>
+      <Text variant='h5' style={{ marginTop: '5%' }}>
+        {t('cityNotFound')}
+      </Text>
       <StyledButton
         text={t('suggestToRegion', { appName: buildConfig().appName })}
         onPress={navigateToCityNotCooperating}

@@ -1,6 +1,8 @@
 import React, { ReactElement } from 'react'
-import { Animated } from 'react-native'
-import styled from 'styled-components/native'
+import { Animated, StyleSheet } from 'react-native'
+import styled, { useTheme } from 'styled-components/native'
+
+import Text from './base/Text'
 
 const Container = styled(Animated.View)<{ row: boolean }>`
   background-color: ${props => props.theme.colors.onSurfaceVariant};
@@ -10,25 +12,10 @@ const Container = styled(Animated.View)<{ row: boolean }>`
   padding: 10px;
   min-height: 70px;
 `
-const Message = styled.Text<{ hasActions: boolean }>`
-  padding: 0 10px;
-  color: ${props => props.theme.colors.background};
-  font-size: 18px;
-  text-align: ${props => (props.hasActions ? 'auto' : 'center')};
-  flex-shrink: 1;
-`
 const ActionContainer = styled.View<{ row: boolean }>`
   flex-direction: ${props => (props.row ? 'row' : 'column')};
   justify-content: space-around;
   align-items: center;
-`
-const Action = styled.Text`
-  color: ${props => props.theme.colors.secondary};
-  font-size: 18px;
-  justify-content: center;
-  text-align: center;
-  padding: 10px;
-  font-weight: bold;
 `
 
 export type SnackbarActionType = {
@@ -43,16 +30,41 @@ type SnackbarProps = {
 
 const Snackbar = ({ text, positiveAction, negativeAction }: SnackbarProps): ReactElement => {
   const horizontal = !(positiveAction && negativeAction)
+  const theme = useTheme()
+
+  const styles = StyleSheet.create({
+    message: {
+      paddingHorizontal: 12,
+      color: theme.colors.background,
+      flexShrink: 1,
+    },
+    action: {
+      color: theme.colors.secondary,
+      textAlign: 'center',
+      padding: 12,
+    },
+  })
   return (
     <Container row={horizontal}>
-      <Message role='alert' hasActions={!!(negativeAction || positiveAction)}>
+      <Text
+        variant='body1'
+        role='alert'
+        style={[styles.message, { textAlign: negativeAction || positiveAction ? 'auto' : 'center' }]}>
         {text}
-      </Message>
+      </Text>
       <ActionContainer row={!horizontal}>
         {/* Using onPress={() => negativeAction.onPress()} to not pass in any parameter, onPress={negativeAction.onPress} would pass in the event as parameter */}
         {/* https://github.com/digitalfabrik/integreat-app/pull/3158/files#r2190224651 */}
-        {negativeAction && <Action onPress={() => negativeAction.onPress()}>{negativeAction.label}</Action>}
-        {positiveAction && <Action onPress={() => positiveAction.onPress()}>{positiveAction.label}</Action>}
+        {negativeAction && (
+          <Text variant='button' style={styles.action} onPress={() => negativeAction.onPress()}>
+            {negativeAction.label}
+          </Text>
+        )}
+        {positiveAction && (
+          <Text variant='button' style={styles.action} onPress={() => positiveAction.onPress()}>
+            {positiveAction.label}
+          </Text>
+        )}
       </ActionContainer>
     </Container>
   )

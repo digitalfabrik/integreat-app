@@ -6,6 +6,7 @@ import { TileModel } from 'shared'
 
 import Icon from './base/Icon'
 import Pressable from './base/Pressable'
+import Text from './base/Text'
 
 const ICON_SIZE = 50
 
@@ -25,13 +26,6 @@ const Circle = styled(View)`
   shadow-radius: 1.41px;
 `
 
-const TileTitle = styled.Text`
-  color: ${props => props.theme.colors.onSurface};
-  text-align: center;
-  font-size: 11px;
-  margin-bottom: 5px;
-`
-
 const StyledPressable = styled(Pressable)<{ width: number }>`
   padding: 10px 3px;
   width: ${props => props.width}px;
@@ -48,7 +42,14 @@ const NavigationTile = ({ tile, width }: NavigationTileProps): ReactElement => (
     <Circle>
       <Icon source={tile.thumbnail} size={ICON_SIZE / Math.sqrt(2)} />
     </Circle>
-    <TileTitle>{tile.title}</TileTitle>
+    <Text
+      variant='body3'
+      style={{
+        textAlign: 'center',
+        marginBottom: 4,
+      }}>
+      {tile.title}
+    </Text>
   </StyledPressable>
 )
 

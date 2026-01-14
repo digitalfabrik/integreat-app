@@ -15,12 +15,6 @@ const StyledPressable = styled(Pressable)`
   gap: 8px;
 `
 
-const StyledLabel = styled(Text)`
-  color: ${props => props.theme.colors.onSurface};
-  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
-  flex: 1;
-`
-
 type PrivacyCheckboxProps = {
   language: string
   checked: boolean
@@ -33,12 +27,12 @@ const PrivacyCheckbox = ({ language, checked, setChecked }: PrivacyCheckboxProps
   return (
     <StyledPressable onPress={() => setChecked(!checked)} role='checkbox'>
       <Checkbox.Android status={checked ? 'checked' : 'unchecked'} onPress={() => setChecked(!checked)} />
-      <StyledLabel>
+      <Text variant='body2' style={{ flex: 1 }}>
         <Trans i18nKey='common:privacyPolicy'>
           This gets replaced
           <Link url={privacyUrl}>by react-i18next</Link>
         </Trans>
-      </StyledLabel>
+      </Text>
     </StyledPressable>
   )
 }

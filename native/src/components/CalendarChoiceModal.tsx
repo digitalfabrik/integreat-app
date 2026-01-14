@@ -1,19 +1,19 @@
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { FlatList } from 'react-native'
+import { FlatList, StyleSheet } from 'react-native'
 import { Calendar } from 'react-native-calendar-events'
 import { Divider, RadioButton } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 import Modal from './Modal'
+import Text from './base/Text'
 import TextButton from './base/TextButton'
 
-const Heading = styled.Text`
-  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontBold};
-  font-size: 16px;
-  margin: 16px 0;
-  color: ${props => props.theme.colors.onSurface};
-`
+const styles = StyleSheet.create({
+  heading: {
+    marginVertical: 16,
+  },
+})
 
 // styled-components doesn't have the right types for FlatList
 const StyledList = styled(FlatList as typeof FlatList<Calendar>)`
@@ -44,7 +44,9 @@ const CalendarChoiceModal = ({
 
   return (
     <Modal modalVisible={modalVisible} closeModal={closeModal} headerTitle={eventTitle} scrollView={false}>
-      <Heading>{t('chooseCalendar')}</Heading>
+      <Text variant='h5' style={styles.heading}>
+        {t('chooseCalendar')}
+      </Text>
       <RadioButton.Group onValueChange={setSelectedCalendarId} value={selectedCalendarId ?? ''}>
         <StyledList
           role='list'
@@ -59,7 +61,9 @@ const CalendarChoiceModal = ({
       </RadioButton.Group>
       {recurring && (
         <>
-          <Heading>{t('addToCalendar')}</Heading>
+          <Text variant='h5' style={styles.heading}>
+            {t('addToCalendar')}
+          </Text>
           <RadioButton.Group
             onValueChange={value => setExportAllEvents(value === 'true')}
             value={exportAllEvents.toString()}>

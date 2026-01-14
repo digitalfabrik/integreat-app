@@ -22,82 +22,82 @@ jest.mock('react-native/Libraries/Utilities/useWindowDimensions')
 jest.mock('react-i18next')
 jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter')
 jest.mock('../routes/Intro', () => {
-  const { Text } = require('react-native')
+  const { Text } = require('react-native-paper')
 
   return () => <Text>Intro</Text>
 })
 jest.mock('../components/RedirectContainer', () => {
-  const { Text } = require('react-native')
+  const { Text } = require('react-native-paper')
 
   return () => <Text>Redirect</Text>
 })
 jest.mock('../routes/Landing', () => {
-  const { Text } = require('react-native')
+  const { Text } = require('react-native-paper')
 
   return () => <Text>Landing</Text>
 })
 jest.mock('../routes/Settings', () => {
-  const { Text } = require('react-native')
+  const { Text } = require('react-native-paper')
 
   return () => <Text>Settings</Text>
 })
 jest.mock('../routes/CategoriesContainer', () => {
-  const { Text } = require('react-native')
+  const { Text } = require('react-native-paper')
 
   return () => <Text>Categories</Text>
 })
 jest.mock('../routes/EventsContainer', () => {
-  const { Text } = require('react-native')
+  const { Text } = require('react-native-paper')
 
   return () => <Text>Events</Text>
 })
 jest.mock('../routes/PoisContainer', () => {
-  const { Text } = require('react-native')
+  const { Text } = require('react-native-paper')
 
   return () => <Text>Pois</Text>
 })
 jest.mock('../routes/NewsContainer', () => {
-  const { Text } = require('react-native')
+  const { Text } = require('react-native-paper')
 
   return () => <Text>News</Text>
 })
 jest.mock('../routes/ChangeLanguageModal', () => {
-  const { Text } = require('react-native')
+  const { Text } = require('react-native-paper')
 
   return () => <Text>ChangeLanguage</Text>
 })
 jest.mock('../routes/FeedbackModalContainer', () => {
-  const { Text } = require('react-native')
+  const { Text } = require('react-native-paper')
 
   return () => <Text>Feedback</Text>
 })
 jest.mock('../routes/SearchModalContainer', () => {
-  const { Text } = require('react-native')
+  const { Text } = require('react-native-paper')
 
   return () => <Text>Search</Text>
 })
 jest.mock('../routes/CityNotCooperating', () => {
-  const { Text } = require('react-native')
+  const { Text } = require('react-native-paper')
 
   return () => <Text>CityNotCooperating</Text>
 })
 jest.mock('../routes/PDFViewModal', () => {
-  const { Text } = require('react-native')
+  const { Text } = require('react-native-paper')
 
   return () => <Text>PdfView</Text>
 })
 jest.mock('../routes/ImageViewModal', () => {
-  const { Text } = require('react-native')
+  const { Text } = require('react-native-paper')
 
   return () => <Text>ImageView</Text>
 })
 jest.mock('../components/Header', () => {
-  const { Text } = require('react-native')
+  const { Text } = require('react-native-paper')
 
   return () => <Text>Header</Text>
 })
 jest.mock('../components/TransparentHeader', () => {
-  const { Text } = require('react-native')
+  const { Text } = require('react-native-paper')
 
   return () => <Text>TransparentHeader</Text>
 })

@@ -12,7 +12,7 @@ import render from '../../testing/render'
 import Landing from '../Landing'
 
 jest.mock('../../components/NearbyCities', () => {
-  const { Text } = require('react-native')
+  const { Text } = require('react-native-paper')
   return () => <Text>NearbyCities</Text>
 })
 jest.mock('react-i18next')

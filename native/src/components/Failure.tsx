@@ -5,6 +5,7 @@ import styled from 'styled-components/native'
 import { ErrorCode } from 'shared/api'
 
 import Icon from './base/Icon'
+import Text from './base/Text'
 import TextButton from './base/TextButton'
 
 const ViewContainer = styled.View`
@@ -12,9 +13,6 @@ const ViewContainer = styled.View`
   align-items: center;
   justify-content: center;
   margin-bottom: 15%;
-`
-const Message = styled.Text`
-  margin: 10px;
 `
 
 export type FailureProps = {
@@ -43,7 +41,7 @@ const Failure = ({ code, buttonAction, buttonLabel }: FailureProps): ReactElemen
   return (
     <ViewContainer>
       <Icon size={150} source={ErrorIcon} />
-      <Message>{t(code === ErrorCode.CityUnavailable ? 'notFound.city' : code)}</Message>
+      <Text style={{ margin: 12 }}>{t(code === ErrorCode.CityUnavailable ? 'notFound.city' : code)}</Text>
       {buttonAction && <TextButton onPress={buttonAction} text={t(buttonLabel ?? 'tryAgain')} />}
     </ViewContainer>
   )

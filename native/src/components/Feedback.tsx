@@ -1,6 +1,5 @@
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Text } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import styled from 'styled-components/native'
 
@@ -13,16 +12,11 @@ import LoadingSpinner from './LoadingSpinner'
 import Note from './Note'
 import PrivacyCheckbox from './PrivacyCheckbox'
 import InputSection from './base/InputSection'
+import Text from './base/Text'
 import TextButton from './base/TextButton'
 
 const Wrapper = styled.View`
   gap: 8px;
-`
-
-const Description = styled(Text)`
-  font-weight: bold;
-  text-align: left;
-  color: ${props => props.theme.colors.onSurface};
 `
 
 const StyledButton = styled(TextButton)`
@@ -111,7 +105,11 @@ const Feedback = ({
           showOptional
           accessibilityRole='text'
         />
-        {sendingStatus === 'failed' && <Description>{t('failedSendingFeedback')}</Description>}
+        {sendingStatus === 'failed' && (
+          <Text variant='body2' style={{ textAlign: 'left' }}>
+            {t('failedSendingFeedback')}
+          </Text>
+        )}
         <PrivacyCheckbox language={language} checked={privacyPolicyAccepted} setChecked={setPrivacyPolicyAccepted} />
         {submitFeedbackDisabled && <Note text={t(feedbackFilled ? 'noteFillFeedback' : 'common:notePrivacyPolicy')} />}
         <StyledButton disabled={submitFeedbackDisabled} onPress={onSubmit} text={t('send')} />

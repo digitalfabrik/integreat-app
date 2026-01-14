@@ -7,6 +7,7 @@ import { useAppContext } from '../hooks/useCityAppContext'
 import { log } from '../utils/sentry'
 import Icon from './base/Icon'
 import Pressable from './base/Pressable'
+import Text from './base/Text'
 import TextButton from './base/TextButton'
 
 const API_URL_OVERRIDE_MIN_CLICKS = 10
@@ -16,11 +17,6 @@ const Container = styled.View`
   display: flex;
   flex-direction: column;
   align-items: center;
-`
-
-const ApiUrlText = styled.Text`
-  padding-top: 10px;
-  color: red;
 `
 
 const StyledButton = styled(TextButton)`
@@ -83,7 +79,11 @@ const SwitchCmsUrlIcon = ({ clearResourcesAndCache }: LandingIconProps): ReactEl
       </StyledPressable>
       {apiUrlOverride && apiUrlOverride !== buildConfig().cmsUrl ? (
         <>
-          <ApiUrlText>{`Currently using API: ${apiUrlOverride.toString()}`}</ApiUrlText>
+          <Text
+            style={{
+              paddingTop: 12,
+              color: theme.colors.error,
+            }}>{`Currently using API: ${apiUrlOverride.toString()}`}</Text>
           <StyledButton onPress={() => setApiUrl(cmsUrl)} text='Switch back to default API' />
         </>
       ) : null}

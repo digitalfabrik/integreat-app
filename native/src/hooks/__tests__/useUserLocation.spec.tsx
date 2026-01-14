@@ -2,9 +2,10 @@ import Geolocation, { GeolocationError, GeolocationResponse } from '@react-nativ
 import { fireEvent, waitFor } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import React from 'react'
-import { Button, Text, View } from 'react-native'
+import { Button, View } from 'react-native'
 import { check, openSettings, PERMISSIONS, request, RESULTS } from 'react-native-permissions'
 
+import Text from '../../components/base/Text'
 import render from '../../testing/render'
 import useSnackbar from '../useSnackbar'
 import useUserLocation from '../useUserLocation'

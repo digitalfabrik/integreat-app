@@ -1,7 +1,6 @@
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Text } from 'react-native'
 import { Divider } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
@@ -14,19 +13,7 @@ import openExternalUrl from '../utils/openExternalUrl'
 import Accordion from './Accordion'
 import OpeningEntry from './OpeningEntry'
 import Icon from './base/Icon'
-
-const OpeningLabel = styled.Text<{ isOpened: boolean; $direction: string }>`
-  color: ${props => (props.isOpened ? props.theme.colors.success : props.theme.colors.error)};
-  ${props => (props.$direction === 'rtl' ? `padding-left: 12px;` : `padding-right: 12px;`)}
-  font-weight: bold;
-  align-self: center;
-`
-
-const StyledText = styled(Text)`
-  color: ${props => props.theme.colors.onSurface};
-  font-weight: bold;
-  align-self: center;
-`
+import Text from './base/Text'
 
 const Content = styled.View`
   font-size: 12px;
@@ -45,12 +32,6 @@ const LinkContainer = styled.Pressable`
   padding-top: 4px;
 `
 
-const Link = styled.Text`
-  font-size: 16px;
-  color: ${props => props.theme.colors.primary};
-  text-decoration: underline;
-`
-
 const StyledDivider = styled(Divider)`
   margin: 20px 0;
 `
@@ -63,12 +44,21 @@ type OpeningHoursTitleProps = {
 
 const OpeningHoursTitle = ({ isCurrentlyOpen, label, language }: OpeningHoursTitleProps) => {
   const { t } = useTranslation('pois')
+  const theme = useTheme()
   return (
     <TitleContainer language={language}>
-      <StyledText>{t('openingHours')}</StyledText>
-      <OpeningLabel isOpened={isCurrentlyOpen} $direction={contentDirection(language)}>
+      <Text variant='h6' style={{ alignSelf: 'center' }}>
+        {t('openingHours')}
+      </Text>
+      <Text
+        variant='h6'
+        style={{
+          color: isCurrentlyOpen ? theme.colors.success : theme.colors.error,
+          alignSelf: 'center',
+          ...(contentDirection(language) === 'row-reverse' ? { paddingLeft: 12 } : { paddingRight: 12 }),
+        }}>
         {t(label ?? (isCurrentlyOpen ? 'opened' : 'closed'))}
-      </OpeningLabel>
+      </Text>
     </TitleContainer>
   )
 }
@@ -95,7 +85,9 @@ const OpeningHours = ({
 
   const AppointmentLink = appointmentUrl ? (
     <LinkContainer onPress={() => openExternalUrl(appointmentUrl, showSnackbar)} role='link'>
-      <Link>{t('makeAppointment')}</Link>
+      <Text variant='body1' style={{ color: theme.colors.primary, textDecorationLine: 'underline' }}>
+        {t('makeAppointment')}
+      </Text>
       <Icon color={theme.colors.primary} size={16} source='open-in-new' />
     </LinkContainer>
   ) : null

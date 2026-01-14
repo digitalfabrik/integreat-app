@@ -24,12 +24,6 @@ const StyledButton = styled.TouchableOpacity`
   gap: 5px;
 `
 
-const StyledText = styled(Text)`
-  font-weight: bold;
-  padding: 5px;
-  color: ${props => props.theme.colors.onSurface};
-`
-
 type ResetFilterTextProps = {
   startDate: DateTime | null
   endDate: DateTime | null
@@ -38,7 +32,11 @@ type ResetFilterTextProps = {
 const ResetFilterText = ({ startDate, endDate }: ResetFilterTextProps) => {
   const { t } = useTranslation('events')
   const text = `${t('resetFilter')} ${startDate ? startDate.toFormat('dd.MM.yyyy') : '∞'} - ${endDate ? endDate.toFormat('dd.MM.yyyy') : '∞'}`
-  return <StyledText>{text}</StyledText>
+  return (
+    <Text variant='h6' style={{ padding: 6 }}>
+      {text}
+    </Text>
+  )
 }
 
 type EventsDateFilterProps = {

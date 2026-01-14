@@ -1,12 +1,20 @@
 import React, { ReactElement } from 'react'
 import { StyleProp, ViewStyle } from 'react-native'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
 import Pressable from './Pressable'
 import Text from './Text'
 
 const StyledPressable = styled(Pressable)<{ active: boolean }>`
-  background-color: ${props => (props.active ? props.theme.colors.primary : props.theme.colors.background)};
+  background-color: ${props => {
+    if (props.theme.dark && props.active) {
+      return props.theme.colors.primary
+    }
+    if (props.active) {
+      return props.theme.colors.primaryContainer
+    }
+    return props.theme.colors.background
+  }};
   padding: 8px;
   align-items: center;
   width: 100px;
@@ -20,15 +28,6 @@ const StyledPressable = styled(Pressable)<{ active: boolean }>`
   justify-content: space-around;
 `
 
-const StyledText = styled(Text)<{ active: boolean }>`
-  font-size: 12px;
-  color: ${props =>
-    props.active && props.theme.dark ? props.theme.colors.background : props.theme.colors.onSurfaceVariant};
-  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
-  text-align: center;
-  width: 84px;
-`
-
 type TextButtonProps = {
   text: string
   onPress: () => Promise<void> | void
@@ -37,13 +36,31 @@ type TextButtonProps = {
   style?: StyleProp<ViewStyle>
 }
 
-const ToggleButton = ({ text, onPress, Icon, active, style }: TextButtonProps): ReactElement => (
-  <StyledPressable role='switch' active={active} onPress={onPress} style={style}>
-    {Icon}
-    <StyledText active={active} numberOfLines={1}>
-      {text}
-    </StyledText>
-  </StyledPressable>
-)
+const ToggleButton = ({ text, onPress, Icon, active, style }: TextButtonProps): ReactElement => {
+  const theme = useTheme()
+
+  const getTextColor = () => {
+    if (theme.dark) {
+      return theme.colors.onPrimary
+    }
+    return active ? theme.colors.primary : theme.colors.onSurface
+  }
+
+  return (
+    <StyledPressable role='switch' active={active} onPress={onPress} style={style}>
+      {Icon}
+      <Text
+        variant='body3'
+        numberOfLines={1}
+        style={{
+          color: getTextColor(),
+          textAlign: 'center',
+          width: 84,
+        }}>
+        {text}
+      </Text>
+    </StyledPressable>
+  )
+}
 
 export default ToggleButton

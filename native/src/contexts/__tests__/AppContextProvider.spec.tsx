@@ -2,10 +2,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { fireEvent, waitFor } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import React, { useContext } from 'react'
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
 
 import { FeatureFlagsType } from 'build-configs/BuildConfigType'
 
+import Text from '../../components/base/Text'
 import TextButton from '../../components/base/TextButton'
 import buildConfig from '../../constants/buildConfig'
 import render from '../../testing/render'

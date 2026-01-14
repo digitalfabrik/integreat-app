@@ -8,7 +8,7 @@ import CitySelector from '../CitySelector'
 
 jest.mock('react-i18next')
 jest.mock('../../components/NearbyCities', () => {
-  const { Text } = require('react-native')
+  const { Text } = require('react-native-paper')
   return () => <Text>NearbyCities</Text>
 })
 

@@ -249,6 +249,20 @@ const renderHtml = (
     <meta name='viewport' content='initial-scale=1.0, maximum-scale=1.0'>
     <style>
       @font-face {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400;
+        src: ${getFontFaceSource('Inter-Regular')};
+      }
+
+      @font-face {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 700;
+        src: ${getFontFaceSource('Inter-Bold')};
+      }
+
+      @font-face {
         font-family: 'Noto Sans';
         font-style: normal;
         font-weight: 400;

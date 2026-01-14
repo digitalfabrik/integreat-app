@@ -8,11 +8,6 @@ import { ContactModel } from 'shared/api'
 import PoiDetailRow from './PoiDetailRow'
 import Text from './base/Text'
 
-const StyledContactHeader = styled(Text)`
-  margin-bottom: 6px;
-  color: ${props => props.theme.colors.onSurface};
-`
-
 const StyledDivider = styled(Divider)`
   margin: 20px 0;
 `
@@ -30,7 +25,7 @@ const Contact = ({
 
   return (
     <>
-      <StyledContactHeader>{headline ?? t('contactInformation')}</StyledContactHeader>
+      <Text style={{ marginBottom: 8 }}>{headline ?? t('contactInformation')}</Text>
       {!!website && (
         <PoiDetailRow
           externalUrl={website}

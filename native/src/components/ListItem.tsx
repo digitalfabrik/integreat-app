@@ -36,14 +36,6 @@ const TitleRow = styled.View`
   justify-content: space-between;
 `
 
-const Title = styled(Text)`
-  flex: 1;
-  font-weight: 700;
-  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontBold};
-  color: ${props => props.theme.colors.onSurface};
-  flex-wrap: wrap;
-`
-
 type ListItemProps = {
   thumbnail: ImageSourceType
   title: string
@@ -59,7 +51,9 @@ const ListItem = ({ language, title, thumbnail, children, Icon, navigateTo }: Li
       <Thumbnail source={thumbnail} />
       <Description>
         <TitleRow>
-          <Title>{title}</Title>
+          <Text variant='h6' style={{ flex: 1, flexWrap: 'wrap' }}>
+            {title}
+          </Text>
           {Icon}
         </TitleRow>
         {children}

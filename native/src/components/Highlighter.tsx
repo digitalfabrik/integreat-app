@@ -1,17 +1,10 @@
 import React, { ReactElement } from 'react'
-import { StyleProp, Text, TextStyle } from 'react-native'
-import styled from 'styled-components/native'
+import { StyleProp, TextStyle } from 'react-native'
+import { useTheme } from 'styled-components/native'
 
 import { findAllMatches, findNormalizedMatches, normalizeString } from 'shared'
 
-const StyledText = styled(Text)`
-  color: ${props => props.theme.colors.onSurface};
-`
-
-const HighlightedText = styled(Text)`
-  font-weight: bold;
-  color: ${props => props.theme.dark && props.theme.colors.secondary};
-`
+import Text from './base/Text'
 
 type HighlighterProps = {
   search: string
@@ -20,6 +13,7 @@ type HighlighterProps = {
 }
 
 const Highlighter = ({ search, text, style }: HighlighterProps): ReactElement => {
+  const theme = useTheme()
   const chunks = findAllMatches({
     textToHighlight: text,
     searchWords: [search],
@@ -29,12 +23,18 @@ const Highlighter = ({ search, text, style }: HighlighterProps): ReactElement =>
   })
 
   return (
-    <StyledText style={style}>
+    <Text style={style}>
       {chunks.map(chunk => {
         const matchedText = text.substring(chunk.start, chunk.end)
-        return chunk.highlight ? <HighlightedText key={chunk.start}>{matchedText}</HighlightedText> : matchedText
+        return chunk.highlight ? (
+          <Text key={chunk.start} variant='h6' style={{ color: theme.dark ? theme.colors.secondary : undefined }}>
+            {matchedText}
+          </Text>
+        ) : (
+          matchedText
+        )
       })}
-    </StyledText>
+    </Text>
   )
 }
 
