@@ -20,6 +20,7 @@
 - [XCode can't find 'your/directory/native/ios/Integreat/de.lproj/InfoPlist.strings'](#xcode-cant-find-yourdirectorynativeiosIntegreatdelprojinfopliststrings)
 - [XCode can't find $BUILD_CONFIG_APP_ICON](#xcode-cant-find-build_config_app_icon)
 - [Other assorted XCode problems](#other-assorted-xcode-problems)
+- [Connection closed with reason=''](#connection-closed-with-no-reason)
 
 ## Could not initialize class org.codehouse.groovy.runtime.InvokeHelper
 
@@ -151,3 +152,14 @@ folder in XCode (Shift + Cmd + K), and then restart XCode.
 
 If working on an M1, some of the pods might not be working correctly yet. Go into the Build Settings of the project,
 to Architecture > Excluded Architectures. The Debug and Release area both should have `arm64` under `Any iOS Simulator SDK`.
+
+## Connection closed with no reason
+
+```
+Connection closed to device='iPhone' for app='org.reactjs.native.example.BackgroundPOC123' with code='1006' and reason=''.
+```
+
+If the app connection to the android device closes frequently during hot reload or you are facing in general poor hot reload performance:
+
+1. `yarn start` and `run android` to run and install the app
+2. Press `d` to open the Dev Menu in your running terminal and change the bundler location
