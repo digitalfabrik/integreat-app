@@ -79,6 +79,20 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
     }
   }
 
+  const chooseCalendar = async (id: string | undefined, exportAll: boolean): Promise<void> => {
+    setShowCalendarChoiceModal(false)
+    if (!id) {
+      showSnackbar({ text: 'generalError' })
+      return
+    }
+    try {
+      await exportEventToCalendar(id, exportAll)
+    } catch (e) {
+      showSnackbar({ text: 'generalError' })
+      reportError(e)
+    }
+  }
+
   const checkCalendarsAndExportEvent = async (): Promise<void> => {
     const iosPermission = [PERMISSIONS.IOS.CALENDARS]
     const androidPermissions = [PERMISSIONS.ANDROID.READ_CALENDAR, PERMISSIONS.ANDROID.WRITE_CALENDAR]
@@ -96,38 +110,21 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
       return
     }
     const editableCalendars = (await RNCalendarEvents.findCalendars()).filter(cal => cal.allowsModifications)
+
     if (editableCalendars.length === 0) {
       showSnackbar({ text: 'noCalendarFound' })
-    } else if (editableCalendars.length === 1 && 0 in editableCalendars && !event.date.recurrenceRule) {
-      try {
-        await exportEventToCalendar(editableCalendars[0].id, false)
-      } catch (e) {
-        showSnackbar({ text: 'generalError' })
-        reportError(e)
-      }
-    } else {
+    } else if (editableCalendars.length > 1 || event.date.recurrenceRule) {
       setCalendars(editableCalendars)
       setShowCalendarChoiceModal(true)
-    }
-  }
-
-  const chooseCalendar = async (id: string | undefined, exportAll: boolean): Promise<void> => {
-    setShowCalendarChoiceModal(false)
-    if (!id) {
-      showSnackbar({ text: 'generalError' })
-      return
-    }
-    try {
-      await exportEventToCalendar(id, exportAll)
-    } catch (e) {
-      showSnackbar({ text: 'generalError' })
-      reportError(e)
+    } else {
+      // No choice needed (single calendar and non-recurring)
+      await chooseCalendar(editableCalendars[0]?.id, false)
     }
   }
 
   return (
     <>
-      {calendars && calendars.length > 1 && (
+      {calendars && (
         <CalendarChoice
           closeModal={() => setShowCalendarChoiceModal(false)}
           modalVisible={showCalendarChoiceModal}
