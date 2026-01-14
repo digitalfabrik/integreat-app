@@ -16,8 +16,11 @@ const cityFilter =
     return validCity && matchesFilter
   }
 
+const safeLocaleCompare = (a: string | null | undefined, b: string | null | undefined): number =>
+  (a ?? '').localeCompare(b ?? '')
+
 const citySort = (a: CityModel, b: CityModel): number =>
-  a.sortingName.localeCompare(b.sortingName) || (a.prefix || '').localeCompare(b.prefix || '')
+  safeLocaleCompare(a.sortingName, b.sortingName) || safeLocaleCompare(a.prefix, b.prefix)
 
 export const filterSortCities = (cities: CityModel[], filterText: string, developerFriendly = false): CityModel[] =>
   cities.filter(cityFilter(filterText, developerFriendly)).sort(citySort)
