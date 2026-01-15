@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
+import { StyleSheet } from 'react-native'
 import { Chip, useTheme } from 'react-native-paper'
 import styled from 'styled-components/native'
 
@@ -30,38 +31,32 @@ const StyledIcon = styled(Icon)`
 const PoiChips = ({ poi }: { poi: PoiModel }): ReactElement => {
   const theme = useTheme()
   const { t } = useTranslation()
-  const chipStyle = { borderRadius: 32, borderColor: theme.colors.onSurfaceDisabled }
+
+  const styles = StyleSheet.create({
+    chip: {
+      borderRadius: 32,
+      borderColor: theme.colors.onSurfaceDisabled,
+    },
+  })
 
   const barrierFreeChip =
     poi.barrierFree === true ? (
-      <Chip
-        avatar={<StyledIcon source='wheelchair-accessibility' />}
-        style={chipStyle}
-        mode='outlined'
-        textStyle={{ color: theme.colors.onSurface }}>
+      <Chip avatar={<StyledIcon source='wheelchair-accessibility' />} style={styles.chip} mode='outlined'>
         <Text variant='body2'>{t('common:accessible')}</Text>
       </Chip>
     ) : (
-      <Chip
-        avatar={<StyledIcon Icon={NotAccessibleIcon} />}
-        style={chipStyle}
-        mode='outlined'
-        textStyle={{ color: theme.colors.onSurface }}>
+      <Chip avatar={<StyledIcon Icon={NotAccessibleIcon} />} style={styles.chip} mode='outlined'>
         <Text variant='body2'>{t('common:notAccessible')}</Text>
       </Chip>
     )
 
   return (
     <ChipsContainer>
-      <Chip
-        avatar={<ChipCategoryIcon source={poi.category.icon} />}
-        textStyle={{ color: theme.colors.onSurface }}
-        mode='outlined'
-        style={chipStyle}>
+      <Chip avatar={<ChipCategoryIcon source={poi.category.icon} />} mode='outlined' style={styles.chip}>
         <Text variant='body2'>{poi.category.name}</Text>
       </Chip>
       {poi.organization !== null && (
-        <Chip textStyle={{ color: theme.colors.onSurface }} mode='outlined' style={chipStyle}>
+        <Chip mode='outlined' style={styles.chip}>
           <Text variant='body2'>{poi.organization.name}</Text>
         </Chip>
       )}
