@@ -95,7 +95,6 @@ const EventsDateFilter = ({
         right={getCurrentIcon}
         expanded={showDateFilter}
         titleStyle={{ fontWeight: 'bold', color: theme.colors.onBackground }}
-        rippleColor='transparent'
         onPress={() => setShowDateFilter(!showDateFilter)}>
         <DateSection>
           <>
