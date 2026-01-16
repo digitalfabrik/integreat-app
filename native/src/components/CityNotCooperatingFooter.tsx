@@ -1,11 +1,11 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Button } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 import Icon from './base/Icon'
 import Text from './base/Text'
-import TextButton from './base/TextButton'
 
 const FooterContainer = styled.View`
   background-color: ${props => props.theme.colors.surface};
@@ -14,11 +14,6 @@ const FooterContainer = styled.View`
   align-items: center;
   border-bottom: 2px solid ${props => props.theme.colors.onSurface};
   padding-top: 5%;
-`
-
-const StyledButton = styled(TextButton)`
-  margin: 30px 0 40px;
-  padding: 8px 16px;
 `
 
 const StyledIcon = styled(Icon)`
@@ -47,10 +42,17 @@ const CityNotCooperatingFooter = ({
       <Text variant='h5' style={{ marginTop: '5%' }}>
         {t('cityNotFound')}
       </Text>
-      <StyledButton
-        text={t('suggestToRegion', { appName: buildConfig().appName })}
-        onPress={navigateToCityNotCooperating}
-      />
+      <Button
+        mode='outlined'
+        style={{
+          marginTop: 28,
+          marginBottom: 40,
+          paddingVertical: 8,
+          paddingHorizontal: 16,
+        }}
+        onPress={navigateToCityNotCooperating}>
+        {t('suggestToRegion', { appName: buildConfig().appName })}
+      </Button>
     </FooterContainer>
   )
 }

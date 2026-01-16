@@ -1,5 +1,6 @@
 import React, { memo, ReactElement } from 'react'
 import { StyleSheet } from 'react-native'
+import { TouchableRipple } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
 import { CategoryModel } from 'shared/api'
@@ -9,13 +10,8 @@ import dimensions from '../constants/dimensions'
 import List from './List'
 import SimpleImage from './SimpleImage'
 import SubCategoryListItem from './SubCategoryListItem'
-import Pressable from './base/Pressable'
 import Text from './base/Text'
 
-const FlexStyledLink = styled(Pressable)`
-  display: flex;
-  flex-direction: column;
-`
 const DirectionContainer = styled.View<{ language: string }>`
   display: flex;
   flex-direction: ${props => contentDirection(props.language)};
@@ -66,7 +62,11 @@ const CategoryListItem = ({ language, category, subCategories, onItemPress }: Ca
 
   return (
     <>
-      <FlexStyledLink role='link' onPress={() => onItemPress({ path: category.path })} accessibilityLanguage={language}>
+      <TouchableRipple
+        borderless
+        role='link'
+        onPress={() => onItemPress({ path: category.path })}
+        accessibilityLanguage={language}>
         <DirectionContainer language={language}>
           <CategoryEntryContainer>
             <TitleDirectionContainer language={language}>
@@ -77,7 +77,7 @@ const CategoryListItem = ({ language, category, subCategories, onItemPress }: Ca
             </TitleDirectionContainer>
           </CategoryEntryContainer>
         </DirectionContainer>
-      </FlexStyledLink>
+      </TouchableRipple>
       <List
         items={subCategories}
         renderItem={({ item: subCategory }) => (

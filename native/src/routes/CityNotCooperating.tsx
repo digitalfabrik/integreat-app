@@ -2,11 +2,11 @@ import Clipboard from '@react-native-clipboard/clipboard'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet } from 'react-native'
+import { Button } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
 import Icon from '../components/base/Icon'
 import Text from '../components/base/Text'
-import TextButton from '../components/base/TextButton'
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 
 const Container = styled.ScrollView`
@@ -19,12 +19,6 @@ const ListItem = styled.View`
   flex-direction: row;
   margin: 10px 0;
   align-items: center;
-`
-
-const StyledButton = styled(TextButton)`
-  z-index: 1;
-  margin: 15px auto 0;
-  width: 70%;
 `
 
 const StyledIcon = styled(Icon)`
@@ -114,8 +108,10 @@ const CityNotCooperating = (): ReactElement | null => {
         </Text>
       </ListItem>
 
-      <StyledButton onPress={copyToClipboard} text={isCopied ? t('common:copied') : t('copyText')} />
-      <Text variant='body1' style={styles.templateText}>
+      <Button style={{ zIndex: 1, width: '70%', alignSelf: 'center' }} mode='contained' onPress={copyToClipboard}>
+        {isCopied ? t('common:copied') : t('copyText')}
+      </Button>
+      <Text variant='body2' style={styles.templateText}>
         {template}
       </Text>
     </Container>

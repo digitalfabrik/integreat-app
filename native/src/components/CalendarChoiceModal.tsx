@@ -2,12 +2,11 @@ import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, StyleSheet } from 'react-native'
 import { Calendar } from 'react-native-calendar-events'
-import { Divider, RadioButton } from 'react-native-paper'
+import { Button, Divider, RadioButton } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 import Modal from './Modal'
 import Text from './base/Text'
-import TextButton from './base/TextButton'
 
 const styles = StyleSheet.create({
   heading: {
@@ -72,7 +71,9 @@ const CalendarChoiceModal = ({
           </RadioButton.Group>
         </>
       )}
-      <TextButton onPress={() => chooseCalendar(selectedCalendarId, exportAllEvents)} text={t('addToCalendar')} />
+      <Button mode='contained' onPress={() => chooseCalendar(selectedCalendarId, exportAllEvents)}>
+        {t('addToCalendar')}
+      </Button>
     </Modal>
   )
 }

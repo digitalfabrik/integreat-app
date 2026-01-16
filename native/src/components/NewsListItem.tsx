@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Divider } from 'react-native-paper'
+import { Divider, TouchableRipple } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
 import { LocalNewsModel, TunewsModel } from 'shared/api'
@@ -10,7 +10,6 @@ import { contentDirection } from '../constants/contentDirection'
 import { useAppContext } from '../hooks/useCityAppContext'
 import TimeStamp from './TimeStamp'
 import Icon from './base/Icon'
-import Pressable from './base/Pressable'
 import Text from './base/Text'
 
 type NewsListItemProps = {
@@ -32,9 +31,6 @@ const StyledIcon = styled(Icon)`
 const ListItemWrapper = styled.View`
   padding: 0 5%;
 `
-const StyledPressable = styled(Pressable)`
-  flex-direction: column;
-`
 
 const StyledDivider = styled(Divider)<{ firstItem: boolean }>`
   margin-top: ${props => (props.firstItem ? '0px' : '12px')};
@@ -55,7 +51,12 @@ const NewsListItem = ({ index, newsItem, navigateToNews, isTunews }: NewsListIte
     <>
       <StyledDivider horizontalInset firstItem={index === 0} />
       <ListItemWrapper>
-        <StyledPressable onPress={navigateToNews} accessibilityLanguage={languageCode} role='link'>
+        <TouchableRipple
+          borderless
+          onPress={navigateToNews}
+          accessibilityLanguage={languageCode}
+          role='link'
+          style={{ flexDirection: 'column' }}>
           <Description>
             <Text variant='h5' style={{ marginBottom: 8, marginTop: 8 }}>
               {newsItem.title}
@@ -69,8 +70,8 @@ const NewsListItem = ({ index, newsItem, navigateToNews, isTunews }: NewsListIte
               </Text>
             )}
           </Description>
-        </StyledPressable>
-        <Pressable role='link' onPress={navigateToNews}>
+        </TouchableRipple>
+        <TouchableRipple borderless role='link' onPress={navigateToNews}>
           <ReadMoreWrapper language={i18n.language}>
             <Text
               variant='h6'
@@ -90,7 +91,7 @@ const NewsListItem = ({ index, newsItem, navigateToNews, isTunews }: NewsListIte
               color={isTunews && !theme.dark ? theme.colors.tunews.main : theme.colors.secondary}
             />
           </ReadMoreWrapper>
-        </Pressable>
+        </TouchableRipple>
       </ListItemWrapper>
     </>
   )

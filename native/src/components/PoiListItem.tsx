@@ -1,26 +1,17 @@
 import React, { memo } from 'react'
 import { useTranslation } from 'react-i18next'
+import { StyleSheet } from 'react-native'
+import { TouchableRipple } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
 import { PoiModel } from 'shared/api'
 
 import { contentDirection } from '../constants/contentDirection'
-import Pressable from './base/Pressable'
 import Text from './base/Text'
-
-const StyledPressable = styled(Pressable)<{ language: string }>`
-  border-bottom-width: 1px;
-  border-bottom-color: ${props => props.theme.colors.onSurfaceDisabled};
-  flex-direction: ${props => contentDirection(props.language)};
-  padding: 16px 0;
-  background-color: ${props => props.theme.colors.background};
-`
 
 const Description = styled.View`
   flex: 1;
   flex-direction: column;
-  color: ${props => props.theme.colors.onSurface};
-  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
   padding: 0 8px;
   justify-content: center;
 `
@@ -37,8 +28,24 @@ const PoiListItem = ({ poi, language, navigateToPoi, distance, onFocus }: PoiLis
   const { t } = useTranslation('pois')
   const theme = useTheme()
 
+  const styles = StyleSheet.create({
+    TouchableRippleStyle: {
+      borderBottomWidth: 1,
+      borderBottomColor: theme.colors.onSurfaceDisabled,
+      flexDirection: contentDirection(language),
+      paddingVertical: 16,
+      backgroundColor: theme.colors.background,
+    },
+  })
+
   return (
-    <StyledPressable onPress={navigateToPoi} language={language} role='link' onFocus={onFocus} focusable>
+    <TouchableRipple
+      borderless
+      onPress={navigateToPoi}
+      role='link'
+      onFocus={onFocus}
+      focusable
+      style={styles.TouchableRippleStyle}>
       <Description>
         <Text variant='h6'>{poi.title}</Text>
         {distance !== null && (
@@ -55,7 +62,7 @@ const PoiListItem = ({ poi, language, navigateToPoi, distance, onFocus }: PoiLis
           {poi.category.name}
         </Text>
       </Description>
-    </StyledPressable>
+    </TouchableRipple>
   )
 }
 

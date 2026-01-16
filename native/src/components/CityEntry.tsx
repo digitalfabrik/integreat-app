@@ -1,5 +1,6 @@
 import React, { Fragment, memo, ReactElement, useContext } from 'react'
 import { StyleSheet } from 'react-native'
+import { TouchableRipple } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
 import { normalizeString } from 'shared'
@@ -8,18 +9,10 @@ import { CityModel } from 'shared/api'
 import { AppContext } from '../contexts/AppContextProvider'
 import testID from '../testing/testID'
 import Highlighter from './Highlighter'
-import Pressable from './base/Pressable'
 import Text from './base/Text'
 
 const MAX_NUMBER_OF_ALIASES_SHOWN = 3
 
-const CityListItem = styled(Pressable)`
-  flex: 1;
-  padding: 7px;
-  width: 100%;
-  flex-flow: column wrap;
-  align-items: flex-start;
-`
 const Label = styled(Highlighter)`
   color: ${props => props.theme.colors.onSurface};
   font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
@@ -47,6 +40,14 @@ const CityEntry = ({ city, query, navigateToDashboard }: CityEntryProps): ReactE
   const styles = StyleSheet.create({
     separator: {
       color: theme.colors.onSurfaceVariant,
+    },
+    cityListItem: {
+      flex: 1,
+      padding: 7,
+      width: '100%',
+      flexDirection: 'column',
+      flexWrap: 'wrap',
+      alignItems: 'flex-start',
     },
   })
   const normalizedQuery = normalizeString(query)
@@ -79,8 +80,10 @@ const CityEntry = ({ city, query, navigateToDashboard }: CityEntryProps): ReactE
     ) : null
 
   return (
-    <CityListItem
+    <TouchableRipple
+      borderless
       role='link'
+      style={styles.cityListItem}
       {...testID('City-Entry')}
       onPress={() => navigateToDashboard(city)}
       accessibilityLanguage={languageCode}>
@@ -88,7 +91,7 @@ const CityEntry = ({ city, query, navigateToDashboard }: CityEntryProps): ReactE
         <Label search={normalizedQuery} text={city.name} />
         {Aliases}
       </>
-    </CityListItem>
+    </TouchableRipple>
   )
 }
 

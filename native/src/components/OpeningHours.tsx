@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Divider } from 'react-native-paper'
+import { Divider, TouchableRipple } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
 import { weekdays } from 'shared'
@@ -24,14 +24,6 @@ const TitleContainer = styled.View<{ language: string }>`
   gap: 80px;
 `
 
-const LinkContainer = styled.Pressable`
-  display: flex;
-  flex-direction: row;
-  gap: 8px;
-  align-items: center;
-  padding-top: 4px;
-`
-
 const StyledDivider = styled(Divider)`
   margin: 20px 0;
 `
@@ -47,7 +39,7 @@ const OpeningHoursTitle = ({ isCurrentlyOpen, label, language }: OpeningHoursTit
   const theme = useTheme()
   return (
     <TitleContainer language={language}>
-      <Text variant='h6' style={{ alignSelf: 'center' }}>
+      <Text variant='h5' style={{ alignSelf: 'center' }}>
         {t('openingHours')}
       </Text>
       <Text
@@ -84,12 +76,22 @@ const OpeningHours = ({
   const appointmentOnly = !openingHours && !!appointmentUrl
 
   const AppointmentLink = appointmentUrl ? (
-    <LinkContainer onPress={() => openExternalUrl(appointmentUrl, showSnackbar)} role='link'>
-      <Text variant='body1' style={{ color: theme.colors.primary, textDecorationLine: 'underline' }}>
-        {t('makeAppointment')}
-      </Text>
-      <Icon color={theme.colors.primary} size={16} source='open-in-new' />
-    </LinkContainer>
+    <TouchableRipple
+      onPress={() => openExternalUrl(appointmentUrl, showSnackbar)}
+      role='link'
+      style={{
+        flexDirection: 'row',
+        gap: 8,
+        alignItems: 'center',
+        paddingTop: 4,
+      }}>
+      <>
+        <Text variant='body1' style={{ color: theme.colors.primary, textDecorationLine: 'underline' }}>
+          {t('makeAppointment')}
+        </Text>
+        <Icon color={theme.colors.primary} size={16} source='open-in-new' />
+      </>
+    </TouchableRipple>
   ) : null
 
   if (isTemporarilyClosed || appointmentOnly) {

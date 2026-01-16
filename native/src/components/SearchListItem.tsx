@@ -1,6 +1,7 @@
 import React, { memo, ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
+import { TouchableRipple } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 import { getExcerpt, InternalPathnameParser, SEARCH_FINISHED_SIGNAL_NAME } from 'shared'
@@ -13,14 +14,6 @@ import urlFromRouteInformation from '../navigation/url'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 import { CategoryThumbnail } from './CategoryListItem'
 import Highlighter from './Highlighter'
-import Pressable from './base/Pressable'
-
-const FlexStyledLink = styled(Pressable)`
-  display: flex;
-  flex-direction: column;
-  margin: 0 20px;
-  color: ${props => props.theme.colors.onSurface};
-`
 
 const DirectionContainer = styled.View<{ language: string }>`
   display: flex;
@@ -48,6 +41,13 @@ const HighlighterCategoryTitle = styled(Highlighter)<{ language: string }>`
   font-weight: bold;
   flex-shrink: 1;
 `
+
+const styles = StyleSheet.create({
+  TouchableRippleStyle: {
+    flexDirection: 'column',
+    marginHorizontal: 20,
+  },
+})
 
 type SearchListItemProps = {
   title: string
@@ -87,11 +87,13 @@ const SearchListItem = ({
   }
 
   return (
-    <FlexStyledLink
+    <TouchableRipple
+      borderless
       onPress={navigateToSearchResult}
       role='link'
       accessibilityHint={t('itemHint')}
-      accessibilityLanguage={language}>
+      accessibilityLanguage={language}
+      style={styles.TouchableRippleStyle}>
       <DirectionContainer language={language}>
         <SearchEntryContainer>
           <TitleDirectionContainer language={language}>
@@ -101,7 +103,7 @@ const SearchListItem = ({
           {excerpt.length > 0 && <Highlighter search={query} text={excerpt} />}
         </SearchEntryContainer>
       </DirectionContainer>
-    </FlexStyledLink>
+    </TouchableRipple>
   )
 }
 

@@ -1,15 +1,10 @@
 import React, { ReactElement } from 'react'
-import { DefaultTheme, List } from 'react-native-paper'
+import { DefaultTheme, List, TouchableRipple } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
 import dimensions from '../constants/dimensions'
 import SelectorItemModel from '../models/SelectorItemModel'
-import Pressable from './base/Pressable'
 import Text from './base/Text'
-
-export const TouchTarget = styled(Pressable)`
-  width: 100%;
-`
 
 const getBackgroundColor = (selected: boolean, theme: typeof DefaultTheme): string => {
   if (selected) {
@@ -50,9 +45,9 @@ const SelectorItem = ({ model: { name, code, enabled, onPress }, selected }: Sel
 
   if (enabled || selected) {
     return (
-      <TouchTarget key={code} onPress={onPress} role='button'>
+      <TouchableRipple borderless key={code} onPress={onPress} role='button' style={{ width: '100%' }}>
         {item}
-      </TouchTarget>
+      </TouchableRipple>
     )
   }
 
