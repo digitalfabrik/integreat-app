@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { StyleSheet } from 'react-native'
 import { Calendar } from 'react-native-calendars'
 import { Button, Dialog, Portal } from 'react-native-paper'
-import { ThemeProvider, useTheme } from 'styled-components/native'
+import { useTheme } from 'styled-components/native'
 
 import { getMarkedDates } from '../utils/calendarRangeUtils'
 import Caption from './Caption'
@@ -69,50 +69,48 @@ const CalendarRangeModal = ({
 
   return (
     <Portal>
-      <ThemeProvider theme={theme}>
-        <Dialog
-          style={{ backgroundColor: theme.dark ? theme.colors.surfaceVariant : theme.colors.action.disabled }}
-          visible={modalVisible}
-          onDismiss={closeModal}>
-          <Dialog.Content>
-            <Caption title={t('selectRange')} />
-            <Calendar
-              markingType='period'
-              markedDates={getMarkedDates(tempStartDate, tempEndDate, theme, currentInput ?? '')}
-              onDayPress={handleDayPress}
-              theme={{
-                calendarBackground: theme.dark ? theme.colors.surfaceVariant : theme.colors.action.disabled,
-                dayTextColor: theme.colors.onSurface,
-                monthTextColor: theme.colors.onSurface,
-                textDisabledColor: theme.colors.onSurfaceVariant,
-                todayTextColor: theme.dark ? theme.colors.primary : theme.colors.background,
-                textSectionTitleColor: theme.colors.onSurface,
-                arrowColor: theme.colors.onSurface,
-              }}
-            />
-          </Dialog.Content>
-          <Dialog.Actions>
-            <Button
-              labelStyle={styles.text}
-              onPress={() => {
-                setTempStartDate(startDate)
-                setTempEndDate(endDate)
-                closeModal()
-              }}>
-              {t('layout:cancel')}
-            </Button>
-            <Button
-              labelStyle={styles.text}
-              onPress={() => updateCalendar(tempStartDate, tempEndDate, currentInput ?? '')}
-              disabled={
-                (tempStartDate === null && tempEndDate === null) ||
-                !!(tempStartDate && tempEndDate && tempStartDate > tempEndDate)
-              }>
-              {t('common:ok')}
-            </Button>
-          </Dialog.Actions>
-        </Dialog>
-      </ThemeProvider>
+      <Dialog
+        style={{ backgroundColor: theme.dark ? theme.colors.surfaceVariant : theme.colors.action.disabled }}
+        visible={modalVisible}
+        onDismiss={closeModal}>
+        <Dialog.Content>
+          <Caption title={t('selectRange')} />
+          <Calendar
+            markingType='period'
+            markedDates={getMarkedDates(tempStartDate, tempEndDate, theme, currentInput ?? '')}
+            onDayPress={handleDayPress}
+            theme={{
+              calendarBackground: theme.dark ? theme.colors.surfaceVariant : theme.colors.action.disabled,
+              dayTextColor: theme.colors.onSurface,
+              monthTextColor: theme.colors.onSurface,
+              textDisabledColor: theme.colors.onSurfaceVariant,
+              todayTextColor: theme.dark ? theme.colors.primary : theme.colors.background,
+              textSectionTitleColor: theme.colors.onSurface,
+              arrowColor: theme.colors.onSurface,
+            }}
+          />
+        </Dialog.Content>
+        <Dialog.Actions>
+          <Button
+            labelStyle={styles.text}
+            onPress={() => {
+              setTempStartDate(startDate)
+              setTempEndDate(endDate)
+              closeModal()
+            }}>
+            {t('layout:cancel')}
+          </Button>
+          <Button
+            labelStyle={styles.text}
+            onPress={() => updateCalendar(tempStartDate, tempEndDate, currentInput ?? '')}
+            disabled={
+              (tempStartDate === null && tempEndDate === null) ||
+              !!(tempStartDate && tempEndDate && tempStartDate > tempEndDate)
+            }>
+            {t('common:ok')}
+          </Button>
+        </Dialog.Actions>
+      </Dialog>
     </Portal>
   )
 }

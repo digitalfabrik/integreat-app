@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { Button, Dialog, Portal } from 'react-native-paper'
-import { ThemeProvider, useTheme } from 'styled-components/native'
+import { useTheme } from 'styled-components/native'
 
 import Link from './Link'
 import Text from './base/Text'
@@ -22,24 +22,22 @@ const AppointmentOnlyOverlay = ({
 
   return (
     <Portal>
-      <ThemeProvider theme={theme}>
-        <Dialog visible={isVisible} onDismiss={closeOverlay} style={{ backgroundColor: theme.colors.surfaceVariant }}>
-          <Dialog.Content>
-            <Text style={{ marginBottom: 16 }} variant='subtitle2'>
-              {t('appointmentNecessary')}
-            </Text>
-            <Text>
-              <Trans i18nKey='pois:makeAppointmentTooltipWithLink'>
-                This gets replaced
-                {appointmentUrl ? <Link url={appointmentUrl}>by react-i18next</Link> : <Text>by react-i18next</Text>}
-              </Trans>
-            </Text>
-          </Dialog.Content>
-          <Dialog.Actions>
-            <Button onPress={closeOverlay}>{t('common:close')}</Button>
-          </Dialog.Actions>
-        </Dialog>
-      </ThemeProvider>
+      <Dialog visible={isVisible} onDismiss={closeOverlay} style={{ backgroundColor: theme.colors.surfaceVariant }}>
+        <Dialog.Content>
+          <Text style={{ marginBottom: 16 }} variant='subtitle2'>
+            {t('appointmentNecessary')}
+          </Text>
+          <Text>
+            <Trans i18nKey='pois:makeAppointmentTooltipWithLink'>
+              This gets replaced
+              {appointmentUrl ? <Link url={appointmentUrl}>by react-i18next</Link> : <Text>by react-i18next</Text>}
+            </Trans>
+          </Text>
+        </Dialog.Content>
+        <Dialog.Actions>
+          <Button onPress={closeOverlay}>{t('common:close')}</Button>
+        </Dialog.Actions>
+      </Dialog>
     </Portal>
   )
 }
