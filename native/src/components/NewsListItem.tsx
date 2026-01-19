@@ -9,7 +9,6 @@ import { EXCERPT_MAX_LINES } from '../constants'
 import { contentDirection } from '../constants/contentDirection'
 import { useAppContext } from '../hooks/useCityAppContext'
 import TimeStamp from './TimeStamp'
-import Icon from './base/Icon'
 import Text from './base/Text'
 
 type NewsListItemProps = {
@@ -25,9 +24,7 @@ const ReadMoreWrapper = styled.View<{ language: string }>`
   width: 100%;
   align-self: center;
 `
-const StyledIcon = styled(Icon)`
-  margin: 6px 4px 0;
-`
+
 const ListItemWrapper = styled.View`
   padding: 0 5%;
 `
@@ -41,7 +38,7 @@ export const Description = styled.View`
   font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
 `
 
-const NewsListItem = ({ index, newsItem, navigateToNews, isTunews }: NewsListItemProps): ReactElement => {
+const NewsListItem = ({ index, newsItem, navigateToNews }: NewsListItemProps): ReactElement => {
   const { t, i18n } = useTranslation('news')
   const timestamp = newsItem instanceof LocalNewsModel ? newsItem.timestamp : null
   const { languageCode } = useAppContext()
@@ -57,40 +54,32 @@ const NewsListItem = ({ index, newsItem, navigateToNews, isTunews }: NewsListIte
           accessibilityLanguage={languageCode}
           role='link'
           style={{ flexDirection: 'column' }}>
-          <Description>
-            <Text variant='h5' style={{ marginBottom: 8, marginTop: 8 }}>
-              {newsItem.title}
-            </Text>
-            <Text variant='body2' numberOfLines={EXCERPT_MAX_LINES} style={{ letterSpacing: 0.5 }}>
-              {newsItem.content}
-            </Text>
-            {timestamp && (
-              <Text variant='body2' style={{ paddingVertical: 8 }}>
-                <TimeStamp lastUpdate={timestamp} showText={false} />
+          <>
+            <Description>
+              <Text variant='h5' style={{ marginBottom: 8, marginTop: 8 }}>
+                {newsItem.title}
               </Text>
-            )}
-          </Description>
-        </TouchableRipple>
-        <TouchableRipple borderless role='link' onPress={navigateToNews}>
-          <ReadMoreWrapper language={i18n.language}>
-            <Text
-              variant='h6'
-              onPress={navigateToNews}
-              style={{
-                fontSize: 12,
-                letterSpacing: 0.5,
-                marginTop: 4,
-                color: isTunews && !theme.dark ? theme.colors.tunews.main : theme.colors.secondary,
-              }}>
-              {t('common:more')}
-            </Text>
-            <StyledIcon
-              source='chevron-right'
-              directionDependent
-              size={14}
-              color={isTunews && !theme.dark ? theme.colors.tunews.main : theme.colors.secondary}
-            />
-          </ReadMoreWrapper>
+              <Text variant='body2' numberOfLines={EXCERPT_MAX_LINES} style={{ letterSpacing: 0.5 }}>
+                {newsItem.content}
+              </Text>
+              {timestamp && (
+                <Text variant='body2' style={{ paddingVertical: 8 }}>
+                  <TimeStamp lastUpdate={timestamp} showText={false} />
+                </Text>
+              )}
+            </Description>
+            <ReadMoreWrapper language={i18n.language}>
+              <Text
+                variant='h6'
+                onPress={navigateToNews}
+                style={{
+                  marginTop: 4,
+                  color: theme.colors.primary,
+                }}>
+                {t('common:more')}
+              </Text>
+            </ReadMoreWrapper>
+          </>
         </TouchableRipple>
       </ListItemWrapper>
     </>

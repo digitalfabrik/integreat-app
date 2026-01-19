@@ -60,7 +60,6 @@ const NewsHeader = ({ cityModel, selectedNewsType, selectNewsType }: NewsHeaderP
       {cityModel.localNewsEnabled && cityModel.tunewsEnabled && (
         <HeaderContainer>
           <TouchableRipple
-            borderless
             onPress={selectLocalNews}
             role='button'
             accessibilityLabel={t('local')}

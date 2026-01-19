@@ -24,6 +24,7 @@ const Accordion = ({
       titleStyle={{ fontWeight: 'bold', color: theme.colors.onBackground }}
       expanded={!collapsed}
       onPress={() => setCollapsed(!collapsed)}
+      rippleColor='transparent'
       description={description}>
       {children}
     </List.Accordion>
