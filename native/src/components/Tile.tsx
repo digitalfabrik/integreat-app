@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 import { StyleSheet } from 'react-native'
+import { TouchableRipple } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 import { TileModel } from 'shared'
@@ -8,7 +9,6 @@ import useSnackbar from '../hooks/useSnackbar'
 import openExternalUrl from '../utils/openExternalUrl'
 import { reportError } from '../utils/sentry'
 import SimpleImage from './SimpleImage'
-import Pressable from './base/Pressable'
 import Text from './base/Text'
 
 const Thumbnail = styled(SimpleImage)`
@@ -36,7 +36,12 @@ const Tile = ({ onTilePress, tile, language }: TileProps): ReactElement => {
     tile.isExternalUrl ? openExternalUrl(tile.path, showSnackbar).catch(reportError) : onTilePress(tile)
 
   return (
-    <Pressable onPress={openTile} role='link' accessibilityLanguage={language} style={styles.tileContainer}>
+    <TouchableRipple
+      borderless
+      onPress={openTile}
+      role='link'
+      accessibilityLanguage={language}
+      style={styles.tileContainer}>
       <>
         <Thumbnail source={tile.thumbnail} />
         <Text
@@ -49,7 +54,7 @@ const Tile = ({ onTilePress, tile, language }: TileProps): ReactElement => {
           {tile.title}
         </Text>
       </>
-    </Pressable>
+    </TouchableRipple>
   )
 }
 

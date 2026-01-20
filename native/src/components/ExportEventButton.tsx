@@ -132,7 +132,7 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
           recurring={!!event.date.recurrenceRule}
         />
       )}
-      <Button mode='contained' style={{ marginVertical: 16 }} onPress={checkCalendarsAndExportEvent}>
+      <Button icon='calendar-import' mode='text' style={{ marginVertical: 16 }} onPress={checkCalendarsAndExportEvent}>
         {t('addToCalendar')}
       </Button>
     </>
