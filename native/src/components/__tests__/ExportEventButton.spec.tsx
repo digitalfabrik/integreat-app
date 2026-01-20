@@ -18,6 +18,7 @@ jest.mock('react-native-calendar-events', () => ({
   default: {
     saveEvent: (): Promise<void> => mockSaveEvent(),
     findCalendars: (): Promise<void> => mockFindCalendars(),
+    requestPermissions: (): string => 'authorized',
   },
 }))
 jest.mock('../../hooks/useSnackbar', () => ({
