@@ -3,7 +3,7 @@ import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Platform } from 'react-native'
 import RNCalendarEvents, { Calendar, CalendarEventWritable, RecurrenceFrequency } from 'react-native-calendar-events'
-import { PERMISSIONS, openSettings, requestMultiple } from 'react-native-permissions'
+import { openSettings } from 'react-native-permissions'
 import { Frequency } from 'rrule'
 import styled from 'styled-components/native'
 
@@ -79,38 +79,6 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
     }
   }
 
-  const checkCalendarsAndExportEvent = async (): Promise<void> => {
-    const iosPermission = [PERMISSIONS.IOS.CALENDARS]
-    const androidPermissions = [PERMISSIONS.ANDROID.READ_CALENDAR, PERMISSIONS.ANDROID.WRITE_CALENDAR]
-    const permission = await requestMultiple(Platform.OS === 'ios' ? iosPermission : androidPermissions)
-    const permissionDenied = Object.values(permission).some(permission => ['limited', 'blocked'].includes(permission))
-
-    if (permissionDenied) {
-      showSnackbar({
-        text: 'noCalendarPermission',
-        positiveAction: {
-          label: t('layout:settings'),
-          onPress: openSettings,
-        },
-      })
-      return
-    }
-    const editableCalendars = (await RNCalendarEvents.findCalendars()).filter(cal => cal.allowsModifications)
-    if (editableCalendars.length === 0) {
-      showSnackbar({ text: 'noCalendarFound' })
-    } else if (editableCalendars.length === 1 && 0 in editableCalendars && !event.date.recurrenceRule) {
-      try {
-        await exportEventToCalendar(editableCalendars[0].id, false)
-      } catch (e) {
-        showSnackbar({ text: 'generalError' })
-        reportError(e)
-      }
-    } else {
-      setCalendars(editableCalendars)
-      setShowCalendarChoiceModal(true)
-    }
-  }
-
   const chooseCalendar = async (id: string | undefined, exportAll: boolean): Promise<void> => {
     setShowCalendarChoiceModal(false)
     if (!id) {
@@ -125,9 +93,35 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
     }
   }
 
+  const checkCalendarsAndExportEvent = async (): Promise<void> => {
+    const authorizationStatus = await RNCalendarEvents.requestPermissions(false)
+
+    if (authorizationStatus !== 'authorized') {
+      showSnackbar({
+        text: 'noCalendarPermission',
+        positiveAction: {
+          label: t('layout:settings'),
+          onPress: openSettings,
+        },
+      })
+      return
+    }
+    const editableCalendars = (await RNCalendarEvents.findCalendars()).filter(cal => cal.allowsModifications)
+
+    if (editableCalendars.length === 0) {
+      showSnackbar({ text: 'noCalendarFound' })
+    } else if (editableCalendars.length > 1 || event.date.recurrenceRule) {
+      setCalendars(editableCalendars)
+      setShowCalendarChoiceModal(true)
+    } else {
+      // No choice needed (single calendar and non-recurring)
+      await chooseCalendar(editableCalendars[0]?.id, false)
+    }
+  }
+
   return (
     <>
-      {calendars && calendars.length > 1 && (
+      {calendars && (
         <CalendarChoice
           closeModal={() => setShowCalendarChoiceModal(false)}
           modalVisible={showCalendarChoiceModal}
