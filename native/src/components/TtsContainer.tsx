@@ -1,28 +1,25 @@
-import React, { createContext, ReactElement, useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import Speech, { type VoiceOptions } from '@mhpdev/react-native-speech'
+import React, {
+  createContext,
+  ReactElement,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import { useTranslation } from 'react-i18next'
-import { Platform } from 'react-native'
-import Tts, { Options } from 'react-native-tts'
+import { Platform, type EventSubscription } from 'react-native'
 
 import { getGenericLanguageCode } from 'shared'
-import { useLoadAsync } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
 import { AppContext } from '../contexts/AppContextProvider'
 import useAppStateListener from '../hooks/useAppStateListener'
-import useReportError from '../hooks/useReportError'
 import useSnackbar from '../hooks/useSnackbar'
 import { log, reportError } from '../utils/sentry'
 import TtsPlayer from './TtsPlayer'
-
-const TTS_OPTIONS: Options = {
-  androidParams: {
-    KEY_PARAM_PAN: 0,
-    KEY_PARAM_VOLUME: 0.6,
-    KEY_PARAM_STREAM: 'STREAM_MUSIC',
-  },
-  // This must not be 1 on iOS
-  rate: 0.5,
-} as Options
 
 export type TtsContextType = {
   enabled: boolean
@@ -44,37 +41,55 @@ type TtsContainerProps = {
   children: ReactElement
 }
 
+const IOS_SPEECH_RATE = 0.5
+const DEFAULT_SPEECH_RATE = 1.0
+
+const getTtsOptions = (languageCode: string): VoiceOptions => ({
+  language: getGenericLanguageCode(languageCode),
+  volume: 0.6,
+  rate: Platform.OS === 'ios' ? IOS_SPEECH_RATE : DEFAULT_SPEECH_RATE,
+  pitch: 1.0,
+  silentMode: 'ignore',
+})
+
 const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
   const [voicesRetries, setVoicesRetries] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
   const [sentenceIndex, setSentenceIndex] = useState(0)
   const [visible, setVisible] = useState(false)
   const [sentences, setSentences] = useState<string[]>([])
+  const [voices, setVoices] = useState<{ language: string }[]>([])
   const { languageCode } = useContext(AppContext)
   const { t } = useTranslation('layout')
   const showSnackbar = useSnackbar()
   const title = sentences[0] || t('nothingToRead')
-  const { data: voices, error, refresh, loading } = useLoadAsync(Tts.voices)
-  const isLanguageSupported =
-    voices && voices.some(({ language }) => getGenericLanguageCode(language) === getGenericLanguageCode(languageCode))
+  const subscriptionsRef = useRef<EventSubscription[]>([])
   const enabled = buildConfig().featureFlags.tts
 
-  useReportError(error)
+  const isLanguageSupported = voices.some(
+    ({ language }) => getGenericLanguageCode(language) === getGenericLanguageCode(languageCode),
+  )
 
   useEffect(() => {
-    const voicesMissing = voices?.length === 0 || error !== null
-    if (!loading && voicesMissing && voicesRetries < 2) {
-      log(`No voices, retry ${voicesRetries + 1}`, { level: 'warning' })
-      setVoicesRetries(voicesRetries + 1)
-      refresh()
+    const loadVoices = async () => {
+      try {
+        const availableVoices = await Speech.getAvailableVoices()
+        setVoices(availableVoices)
+      } catch (error) {
+        reportError(error)
+        if (voicesRetries < 2) {
+          log(`Failed to load voices, retry ${voicesRetries + 1}`, { level: 'warning' })
+          setVoicesRetries(voicesRetries + 1)
+        }
+      }
     }
-  }, [voices, refresh, voicesRetries, error, loading])
 
-  const initializeTts = useCallback(async (): Promise<void> => {
-    await Tts.getInitStatus().catch(async error =>
-      error.code === 'no_engine' ? Tts.requestInstallEngine() : undefined,
-    )
-  }, [])
+    loadVoices()
+  }, [voicesRetries])
+
+  const initializeTts = useCallback((): void => {
+    Speech.initialize(getTtsOptions(languageCode))
+  }, [languageCode])
 
   const showTtsPlayer = useCallback((): void => {
     if (!enabled || visible) {
@@ -89,29 +104,21 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
       reportError(new Error(`Language '${languageCode}' not supported`), { data: voices })
       return
     }
-    initializeTts()
-      .then(() => {
-        if (Platform.OS === 'ios') {
-          Tts.setIgnoreSilentSwitch('ignore')
-        }
-      })
-      .then(() => setVisible(true))
-      .catch(error => {
-        reportError(error)
-        showSnackbar({ text: t('error:unknownError') })
-      })
+
+    try {
+      initializeTts()
+      setVisible(true)
+    } catch (error) {
+      reportError(error)
+      showSnackbar({ text: t('error:unknownError') })
+    }
   }, [initializeTts, enabled, sentences.length, visible, showSnackbar, t, isLanguageSupported, voices, languageCode])
 
   const stopPlayer = useCallback(async () => {
-    // iOS wrongly sends tts-finish instead of tts-cancel if calling Tts.stop()
-    // We therefore have to remove the listener before stopping to avoid playing the next sentence
-    // https://github.com/ak1394/react-native-tts/issues/198
-    Tts.removeAllListeners('tts-finish')
-    // Add a listener doing nothing to avoid warnings about unhandled events
-    Tts.addEventListener('tts-finish', () => undefined)
-    await Tts.stop()
-    // The tts-finish event is only fired some time after stop is finished
-    // We therefore need to wait some time before adding the listener again
+    subscriptionsRef.current.forEach(subscription => subscription.remove())
+    subscriptionsRef.current = []
+    await Speech.stop()
+
     await new Promise(resolve => {
       const ttsStopDelay = 100
       setTimeout(resolve, ttsStopDelay)
@@ -124,27 +131,50 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
     setSentenceIndex(0)
   }, [stopPlayer])
 
-  const pause = () => {
-    stopPlayer().catch(reportError)
-    setIsPlaying(false)
-  }
+  const pause = useCallback(() => {
+    Speech.pause()
+      .catch(reportError)
+      .finally(() => setIsPlaying(false))
+  }, [])
 
   const play = useCallback(
     async (index = sentenceIndex) => {
       const safeIndex = Math.max(0, index)
       const sentence = sentences[safeIndex]
       if (sentence !== undefined) {
-        await stopPlayer()
-        setIsPlaying(true)
-        setSentenceIndex(safeIndex)
-        Tts.addEventListener('tts-finish', () => play(safeIndex + 1))
-        Tts.setDefaultLanguage(getGenericLanguageCode(languageCode))
-        Tts.speak(sentence, TTS_OPTIONS)
+        try {
+          const canResume = !isPlaying && subscriptionsRef.current.length > 0 && index === sentenceIndex
+
+          if (canResume) {
+            await Speech.resume()
+            setIsPlaying(true)
+          } else {
+            await stopPlayer()
+            const finishSubscription = Speech.onFinish(() => {
+              play(safeIndex + 1)
+            })
+
+            const errorSubscription = Speech.onError(({ id }) => {
+              log(`Speech error (ID: ${id})`, { level: 'error' })
+              stop()
+            })
+
+            subscriptionsRef.current = [finishSubscription, errorSubscription]
+
+            setIsPlaying(true)
+            setSentenceIndex(safeIndex)
+
+            await Speech.speakWithOptions(sentence, getTtsOptions(languageCode))
+          }
+        } catch (error) {
+          reportError(error)
+          stop()
+        }
       } else {
         stop()
       }
     },
-    [stop, stopPlayer, sentenceIndex, sentences, languageCode],
+    [stop, stopPlayer, sentenceIndex, sentences, languageCode, isPlaying],
   )
 
   useAppStateListener(appState => {
@@ -162,6 +192,11 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
   useEffect(() => {
     if (visible && !isLanguageSupported) {
       close()
+    }
+    return () => {
+      subscriptionsRef.current.forEach(subscription => subscription.remove())
+      subscriptionsRef.current = []
+      Speech.stop().catch(reportError)
     }
   }, [visible, isLanguageSupported, close])
 

@@ -804,7 +804,7 @@ jobs:
                 name: Create github release
                 working_directory: tools
             - run:
-                command: yarn app-toolbelt v0 release upload --releaseId ${RELEASE_ID} --files ~/sbom.json --deliverino-private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME}
+                command: yarn app-toolbelt v0 release upload --releaseId ${RELEASE_ID} --files ~/sbom.json --private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME}
                 name: Upload SBoM to github release
                 working_directory: tools
             - unless:

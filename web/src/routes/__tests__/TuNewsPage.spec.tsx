@@ -63,7 +63,7 @@ describe('TuNewsPage', () => {
     })
 
     // Unavailable language is not a link
-    expect(queryByText(city.languages[2]!.name)).toBeFalsy()
+    expect(queryByText(city.languages[2]!.name)).toHaveAttribute('aria-disabled', 'true')
   })
 
   it('should render list', () => {
