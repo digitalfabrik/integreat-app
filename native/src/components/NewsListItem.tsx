@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Divider, TouchableRipple } from 'react-native-paper'
+import { StyleSheet, View } from 'react-native'
+import { List as PaperList } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
 import { LocalNewsModel, TunewsModel } from 'shared/api'
@@ -12,16 +13,13 @@ import TimeStamp from './TimeStamp'
 import Text from './base/Text'
 
 type NewsListItemProps = {
-  index: number
   newsItem: LocalNewsModel | TunewsModel
   navigateToNews: () => void
-  isTunews: boolean
 }
 
 const ReadMoreWrapper = styled.View<{ language: string }>`
   flex-direction: ${props => contentDirection(props.language)};
   justify-content: flex-end;
-  width: 100%;
   align-self: center;
 `
 
@@ -29,60 +27,77 @@ const ListItemWrapper = styled.View`
   padding: 0 5%;
 `
 
-const StyledDivider = styled(Divider)<{ firstItem: boolean }>`
-  margin-top: ${props => (props.firstItem ? '0px' : '12px')};
-  margin-bottom: 12px;
-`
+const Styles = StyleSheet.create({
+  bottomInfo: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+  },
+})
+
 export const Description = styled.View`
   flex-direction: column;
   font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
 `
 
-const NewsListItem = ({ index, newsItem, navigateToNews }: NewsListItemProps): ReactElement => {
+const NewsListItem = ({ newsItem, navigateToNews }: NewsListItemProps): ReactElement => {
   const { t, i18n } = useTranslation('news')
-  const timestamp = newsItem instanceof LocalNewsModel ? newsItem.timestamp : null
+
+  let timestamp = null
+  if (newsItem instanceof LocalNewsModel) {
+    timestamp = newsItem.timestamp
+  }
+  if (newsItem instanceof TunewsModel) {
+    timestamp = newsItem.date
+  }
   const { languageCode } = useAppContext()
   const theme = useTheme()
 
   return (
-    <>
-      <StyledDivider horizontalInset firstItem={index === 0} />
-      <ListItemWrapper>
-        <TouchableRipple
-          borderless
-          onPress={navigateToNews}
-          accessibilityLanguage={languageCode}
-          role='link'
-          style={{ flexDirection: 'column' }}>
-          <>
-            <Description>
-              <Text variant='h5' style={{ marginBottom: 8, marginTop: 8 }}>
-                {newsItem.title}
-              </Text>
-              <Text variant='body2' numberOfLines={EXCERPT_MAX_LINES} style={{ letterSpacing: 0.5 }}>
-                {newsItem.content}
-              </Text>
-              {timestamp && (
+    <ListItemWrapper>
+      <PaperList.Item
+        borderless
+        titleNumberOfLines={0}
+        descriptionNumberOfLines={0}
+        title={
+          <Text variant='h5' style={{ marginBottom: 8, marginTop: 8 }}>
+            {newsItem.title}
+          </Text>
+        }
+        description={
+          <Description>
+            <Text variant='body2' numberOfLines={EXCERPT_MAX_LINES} style={{ letterSpacing: 0.5 }}>
+              {newsItem.content}
+            </Text>
+            <View style={Styles.bottomInfo}>
+              {timestamp ? (
                 <Text variant='body2' style={{ paddingVertical: 8 }}>
                   <TimeStamp lastUpdate={timestamp} showText={false} />
                 </Text>
+              ) : (
+                <View />
               )}
-            </Description>
-            <ReadMoreWrapper language={i18n.language}>
-              <Text
-                variant='h6'
-                onPress={navigateToNews}
-                style={{
-                  marginTop: 4,
-                  color: theme.colors.primary,
-                }}>
-                {t('common:more')}
-              </Text>
-            </ReadMoreWrapper>
-          </>
-        </TouchableRipple>
-      </ListItemWrapper>
-    </>
+              <ReadMoreWrapper language={i18n.language}>
+                <Text
+                  variant='h6'
+                  onPress={navigateToNews}
+                  style={{
+                    marginTop: 4,
+                    color: theme.colors.primary,
+                  }}>
+                  {t('common:more')}
+                </Text>
+              </ReadMoreWrapper>
+            </View>
+          </Description>
+        }
+        onPress={navigateToNews}
+        accessibilityLanguage={languageCode}
+        role='link'
+        style={{ flexDirection: 'column' }}
+      />
+    </ListItemWrapper>
   )
 }
 
