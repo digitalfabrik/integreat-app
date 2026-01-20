@@ -39,7 +39,7 @@ const Footer = (): ReactElement | null => {
     <FooterContainer>
       <StyledList
         items={linkItems.map(item => (
-          <FooterListItem key={item.to} to={item.to} text={item.text} />
+          <FooterListItem key={item.to} to={item.to} text={item.text} doNotTranslate={item.doNotTranslate} />
         ))}
         disablePadding
       />

@@ -96,8 +96,8 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
     />,
   ]
 
-  const legalItems = getFooterLinks({ languageCode, cityCode }).map(({ text, to }) => (
-    <MenuItem key={text} text={t(text)} to={to} closeMenu={closeMenu} />
+  const legalItems = getFooterLinks({ languageCode, cityCode }).map(({ text, to, doNotTranslate }) => (
+    <MenuItem key={text} text={doNotTranslate ? text : t(text)} to={to} closeMenu={closeMenu} />
   ))
 
   return (
