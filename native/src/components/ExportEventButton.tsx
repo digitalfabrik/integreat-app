@@ -3,7 +3,7 @@ import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Platform } from 'react-native'
 import RNCalendarEvents, { Calendar, CalendarEventWritable, RecurrenceFrequency } from 'react-native-calendar-events'
-import { PERMISSIONS, openSettings, requestMultiple } from 'react-native-permissions'
+import { openSettings } from 'react-native-permissions'
 import { Frequency } from 'rrule'
 import styled from 'styled-components/native'
 
@@ -94,12 +94,9 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
   }
 
   const checkCalendarsAndExportEvent = async (): Promise<void> => {
-    const iosPermission = [PERMISSIONS.IOS.CALENDARS]
-    const androidPermissions = [PERMISSIONS.ANDROID.READ_CALENDAR, PERMISSIONS.ANDROID.WRITE_CALENDAR]
-    const permission = await requestMultiple(Platform.OS === 'ios' ? iosPermission : androidPermissions)
-    const permissionDenied = Object.values(permission).some(permission => ['limited', 'blocked'].includes(permission))
+    const authorizationStatus = await RNCalendarEvents.requestPermissions(false)
 
-    if (permissionDenied) {
+    if (authorizationStatus !== 'authorized') {
       showSnackbar({
         text: 'noCalendarPermission',
         positiveAction: {
