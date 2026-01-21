@@ -12,21 +12,21 @@ const StyledListItem = styled(ListItem)({
   width: 'fit-content',
 })
 
-export type FooterLinkProps = {
+export type FooterLinkItemProps = {
   to: string
   text: string
+  doNotTranslate?: boolean
 }
 
-const FooterListItem = ({ to, text }: FooterLinkProps): ReactElement => {
+const FooterListItem = ({ to, text, doNotTranslate }: FooterLinkItemProps): ReactElement => {
   const { t } = useTranslation(['layout', 'settings'])
-
   return (
     <StyledListItem key={to} disablePadding>
       <ListItemButton component={Link} to={to}>
         <ListItemText
           primary={
             <Typography variant='body2' textAlign='center'>
-              {t(text)}
+              {doNotTranslate ? text : t(text)}
             </Typography>
           }
         />

@@ -1,18 +1,14 @@
 import { DISCLAIMER_ROUTE, LICENSES_ROUTE, MAIN_DISCLAIMER_ROUTE, pathnameFromRouteInformation } from 'shared'
 
+import { FooterLinkItemProps } from '../components/FooterListItem'
 import buildConfig from '../constants/buildConfig'
-
-type FooterLinkItem = {
-  to: string
-  text: string
-}
 
 type GetFooterLinksProps = {
   languageCode: string
   cityCode?: string
 }
 
-const getFooterLinks = ({ languageCode, cityCode }: GetFooterLinksProps): FooterLinkItem[] => {
+const getFooterLinks = ({ languageCode, cityCode }: GetFooterLinksProps): FooterLinkItemProps[] => {
   const { aboutUrls, privacyUrls, accessibilityUrls } = buildConfig()
   const aboutUrl = aboutUrls[languageCode] || aboutUrls.default
   const privacyUrl = privacyUrls[languageCode] || privacyUrls.default
@@ -34,7 +30,7 @@ const getFooterLinks = ({ languageCode, cityCode }: GetFooterLinksProps): Footer
     { to: aboutUrl, text: 'settings:aboutUs' },
     { to: privacyUrl, text: 'privacy' },
     { to: licensesPath, text: 'settings:openSourceLicenses' },
-    { to: linkToSbom, text: 'SBoM' },
+    { to: linkToSbom, text: 'SBoM', doNotTranslate: true },
     ...(accessibilityUrl ? [{ to: accessibilityUrl, text: 'accessibility' }] : []),
   ]
 }
