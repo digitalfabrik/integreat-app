@@ -146,6 +146,6 @@ fi
 
 sentry-cli releases new "$version" --finalize
 
-sentry-cli releases files "$version" upload-sourcemaps "$sourcemap_directory" --dist "$version_code"
+sentry-cli sourcemaps upload --release="$version" --dist "$version_code" "$sourcemap_directory"
 
 # ] <-- needed because of Argbash
