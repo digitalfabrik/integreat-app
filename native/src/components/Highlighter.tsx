@@ -27,7 +27,13 @@ const Highlighter = ({ search, text, style }: HighlighterProps): ReactElement =>
       {chunks.map(chunk => {
         const matchedText = text.substring(chunk.start, chunk.end)
         return chunk.highlight ? (
-          <Text key={chunk.start} variant='h6' style={{ color: theme.dark ? theme.colors.secondary : undefined }}>
+          <Text
+            key={chunk.start}
+            variant='h6'
+            style={{
+              color: theme.colors.onBackground,
+              backgroundColor: theme.colors.surfaceVariant,
+            }}>
             {matchedText}
           </Text>
         ) : (

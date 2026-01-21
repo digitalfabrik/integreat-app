@@ -63,18 +63,10 @@ const News = ({
   const navigation = useNavigate().navigation as NavigationProps<NewsRouteType>
   useSetRouteTitle({ navigation, title: getPageTitle(selectedNewsType, selectedNewsItem, t) })
 
-  const rendersNewsListItem = ({ item, index }: { item: LocalNewsModel | TunewsModel; index: number }) => {
+  const rendersNewsListItem = ({ item }: { item: LocalNewsModel | TunewsModel }) => {
     const navigateToNewsDetail = () => navigateToNews(item.id)
 
-    return (
-      <NewsListItem
-        index={index}
-        key={item.id}
-        newsItem={item}
-        isTunews={selectedNewsType === TU_NEWS_TYPE}
-        navigateToNews={navigateToNewsDetail}
-      />
-    )
+    return <NewsListItem key={item.id} newsItem={item} navigateToNews={navigateToNewsDetail} />
   }
 
   if (selectedNewsItem) {

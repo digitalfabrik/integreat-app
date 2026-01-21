@@ -47,9 +47,9 @@ const SlideFooter = ({ onDone, slideCount, goToSlide, currentSlide, t }: SlideFo
 
         <Button
           mode='elevated'
-          buttonColor={theme.colors.secondary}
+          buttonColor={theme.colors.primary}
           labelStyle={{
-            color: theme.colors.onSecondary,
+            color: theme.colors.onPrimary,
             fontFamily: theme.legacy.fonts.native.contentFontBold,
             fontSize: 14,
           }}

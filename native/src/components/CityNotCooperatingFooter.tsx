@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Button } from 'react-native-paper'
+import { Button, useTheme } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
@@ -8,11 +8,9 @@ import Icon from './base/Icon'
 import Text from './base/Text'
 
 const FooterContainer = styled.View`
-  background-color: ${props => props.theme.colors.surface};
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-bottom: 2px solid ${props => props.theme.colors.onSurface};
   padding-top: 5%;
 `
 
@@ -29,6 +27,7 @@ const CityNotCooperatingFooter = ({
   navigateToCityNotCooperating,
 }: CityNotCooperatingFooterProps): ReactElement | null => {
   const { t } = useTranslation('landing')
+  const theme = useTheme()
 
   const CityNotCooperatingIcon = buildConfigAssets().CityNotCooperatingIcon
 
@@ -47,8 +46,10 @@ const CityNotCooperatingFooter = ({
         style={{
           marginTop: 28,
           marginBottom: 40,
-          paddingVertical: 8,
-          paddingHorizontal: 16,
+          paddingVertical: 4,
+          paddingHorizontal: 8,
+          borderRadius: 4,
+          borderColor: theme.colors.primary,
         }}
         onPress={navigateToCityNotCooperating}>
         {t('suggestToRegion', { appName: buildConfig().appName })}

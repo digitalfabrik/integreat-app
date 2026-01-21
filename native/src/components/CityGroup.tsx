@@ -1,15 +1,7 @@
 import React, { ReactElement } from 'react'
-import styled, { useTheme } from 'styled-components/native'
-
-import Text from './base/Text'
-
-// Wrapper is necessary, because iOS doesn't display border for Text components.
-const BorderWrapper = styled.View`
-  border-bottom-width: 1px;
-  border-bottom-color: ${props => props.theme.colors.secondary};
-  flex-flow: column wrap;
-  align-items: flex-start;
-`
+import { StyleSheet } from 'react-native'
+import { Divider, List as PaperList } from 'react-native-paper'
+import { useTheme } from 'styled-components/native'
 
 type CityGroupProps = {
   children: string
@@ -17,18 +9,19 @@ type CityGroupProps = {
 
 const CityGroup = ({ children }: CityGroupProps): ReactElement => {
   const theme = useTheme()
+  const styles = StyleSheet.create({
+    subheader: {
+      color: theme.colors.onSurfaceVariant,
+      paddingVertical: 8,
+      fontFamily: theme.fonts.h6?.fontFamily,
+    },
+  })
+
   return (
-    <BorderWrapper>
-      <Text
-        variant='body2'
-        style={{
-          marginTop: 4,
-          paddingVertical: 12,
-          fontFamily: theme.legacy.fonts.native.decorativeFontRegular,
-        }}>
-        {children}
-      </Text>
-    </BorderWrapper>
+    <>
+      <Divider />
+      <PaperList.Subheader style={styles.subheader}>{children}</PaperList.Subheader>
+    </>
   )
 }
 

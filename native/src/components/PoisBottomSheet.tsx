@@ -6,6 +6,7 @@ import BottomSheet, {
 import React, { memo, ReactElement, Ref, useCallback, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { NativeScrollEvent, NativeSyntheticEvent, Platform } from 'react-native'
+import { Divider } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
 import { LocationType } from 'shared'
@@ -135,6 +136,7 @@ const PoisBottomSheet = ({
                 {t('noPois')}
               </Text>
             }
+            ItemSeparatorComponent={Divider}
           />
         )}
       </BottomSheetContent>

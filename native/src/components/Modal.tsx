@@ -21,6 +21,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     flex: 1,
   },
+  modal: {
+    margin: 0,
+  },
+  modalContentContainer: {
+    width: '100%',
+    height: '100%',
+  },
 })
 
 type ModalProps = {
@@ -49,8 +56,8 @@ const Modal = ({
         <PaperModal
           visible={modalVisible}
           onDismiss={closeModal}
-          contentContainerStyle={{ flex: 1 }}
-          style={{ margin: 0 }}>
+          contentContainerStyle={styles.modalContentContainer}
+          style={styles.modal}>
           <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }}>
             <View style={styles.header}>
               <HeaderBox goBack={closeModal} text={headerTitle} />

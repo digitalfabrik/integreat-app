@@ -1,6 +1,6 @@
 import React, { Fragment, memo, ReactElement, useContext } from 'react'
-import { StyleSheet } from 'react-native'
-import { TouchableRipple } from 'react-native-paper'
+import { StyleSheet, View } from 'react-native'
+import { List as PaperList } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
 import { normalizeString } from 'shared'
@@ -15,7 +15,7 @@ const MAX_NUMBER_OF_ALIASES_SHOWN = 3
 
 const Label = styled(Highlighter)`
   color: ${props => props.theme.colors.onSurface};
-  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
+  font-family: ${props => props.theme.fonts.body2?.fontFamily};
 `
 const AliasLabel = styled(Highlighter)`
   font-size: 11px;
@@ -40,14 +40,6 @@ const CityEntry = ({ city, query, navigateToDashboard }: CityEntryProps): ReactE
   const styles = StyleSheet.create({
     separator: {
       color: theme.colors.onSurfaceVariant,
-    },
-    cityListItem: {
-      flex: 1,
-      padding: 7,
-      width: '100%',
-      flexDirection: 'column',
-      flexWrap: 'wrap',
-      alignItems: 'flex-start',
     },
   })
   const normalizedQuery = normalizeString(query)
@@ -80,18 +72,20 @@ const CityEntry = ({ city, query, navigateToDashboard }: CityEntryProps): ReactE
     ) : null
 
   return (
-    <TouchableRipple
+    <PaperList.Item
       borderless
+      titleNumberOfLines={0}
+      title={
+        <View>
+          <Label search={normalizedQuery} text={city.name} />
+        </View>
+      }
+      description={Aliases}
       role='link'
-      style={styles.cityListItem}
       {...testID('City-Entry')}
       onPress={() => navigateToDashboard(city)}
-      accessibilityLanguage={languageCode}>
-      <>
-        <Label search={normalizedQuery} text={city.name} />
-        {Aliases}
-      </>
-    </TouchableRipple>
+      accessibilityLanguage={languageCode}
+    />
   )
 }
 

@@ -1,5 +1,5 @@
 import Clipboard from '@react-native-clipboard/clipboard'
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet } from 'react-native'
 import { Button } from 'react-native-paper'
@@ -33,6 +33,10 @@ const CityNotCooperating = (): ReactElement | null => {
   const [isCopied, setIsCopied] = useState<boolean>(false)
   const template = buildConfig().featureFlags.cityNotCooperatingTemplate
   const CityNotCooperatingIcon = buildConfigAssets().CityNotCooperatingIcon
+  const CopyIcon = useCallback(
+    () => <Icon color={theme.colors.onPrimary} source={isCopied ? 'check' : 'content-copy'} size={20} />,
+    [isCopied, theme.colors.onPrimary],
+  )
 
   const styles = StyleSheet.create({
     heading: {
@@ -45,8 +49,8 @@ const CityNotCooperating = (): ReactElement | null => {
       padding: 8,
     },
     stepNumber: {
-      backgroundColor: theme.colors.secondary,
-      color: theme.colors.onSecondary,
+      backgroundColor: theme.colors.primary,
+      color: theme.colors.onPrimary,
       lineHeight: 28,
       textAlign: 'center',
       width: 30,
@@ -66,6 +70,13 @@ const CityNotCooperating = (): ReactElement | null => {
       padding: 28,
       paddingTop: 20,
       marginBottom: 252,
+    },
+    copyButton: {
+      zIndex: 1,
+      width: '40%',
+      alignSelf: 'center',
+      borderRadius: 4,
+      height: 40,
     },
   })
 
@@ -108,7 +119,7 @@ const CityNotCooperating = (): ReactElement | null => {
         </Text>
       </ListItem>
 
-      <Button style={{ zIndex: 1, width: '70%', alignSelf: 'center' }} mode='contained' onPress={copyToClipboard}>
+      <Button icon={CopyIcon} style={styles.copyButton} mode='contained' onPress={copyToClipboard}>
         {isCopied ? t('common:copied') : t('copyText')}
       </Button>
       <Text variant='body2' style={styles.templateText}>
