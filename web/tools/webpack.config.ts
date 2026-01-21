@@ -209,6 +209,13 @@ const createConfig = (
       port: 9000,
       host: '0.0.0.0', // This enables devices in the same network to connect to the dev server
       hot: true,
+      client: {
+        // At e2e-tests the overlay can prevent clicks on elements
+        overlay: {
+          errors: !process.env.CI,
+          warnings: !process.env.CI,
+        },
+      },
       historyApiFallback: true,
     },
     // What information should be printed to the console
