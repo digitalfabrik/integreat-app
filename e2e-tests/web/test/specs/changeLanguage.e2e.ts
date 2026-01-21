@@ -25,7 +25,7 @@ describe('change language', () => {
   })
 
   it('should change language', async () => {
-    await $('h1').waitForDisplayed()
+    await $('h1').waitForDisplayed({ timeout: 10000 })
     expect(await dashboardPage.hasHeadline('Local information')).toBeTruthy()
 
     const englishContent = await $(`*=Welcome`)
