@@ -118,6 +118,7 @@ const LanguageList = ({
 
   return (
     <StyledAutocomplete
+      data-testid='languageList'
       open
       filterOptions={options => options} // disable built-in filtering to use custom filter
       options={filteredLanguageChangePaths}
