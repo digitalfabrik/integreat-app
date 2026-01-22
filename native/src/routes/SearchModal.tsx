@@ -87,7 +87,6 @@ const SearchModal = ({
       contentWithoutHtml={parseHTML(item.content)}
       language={languageCode}
       query={debouncedQuery}
-      thumbnail={item.thumbnail}
       path={item.path}
     />
   )

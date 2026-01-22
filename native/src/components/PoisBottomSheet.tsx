@@ -5,8 +5,7 @@ import BottomSheet, {
 } from '@gorhom/bottom-sheet'
 import React, { memo, ReactElement, Ref, useCallback, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { NativeScrollEvent, NativeSyntheticEvent, Platform } from 'react-native'
-import { Divider } from 'react-native-paper'
+import { NativeScrollEvent, NativeSyntheticEvent, Platform, View } from 'react-native'
 import styled, { useTheme } from 'styled-components/native'
 
 import { LocationType } from 'shared'
@@ -27,6 +26,20 @@ const BottomSheetContent = styled.View`
   flex: 1;
   margin: 0 24px;
 `
+
+const PoiListDivider = () => {
+  // This is an alternative to <Divider/> because it has render issues inside BottomSheetFlatList
+  const theme = useTheme()
+  return (
+    <View
+      style={{
+        height: 1,
+        backgroundColor: theme.colors.outlineVariant,
+        marginHorizontal: 16,
+      }}
+    />
+  )
+}
 
 type PoiBottomSheetProps = {
   poiListRef: Ref<BottomSheetFlatListMethods>
@@ -136,7 +149,7 @@ const PoisBottomSheet = ({
                 {t('noPois')}
               </Text>
             }
-            ItemSeparatorComponent={Divider}
+            ItemSeparatorComponent={PoiListDivider}
           />
         )}
       </BottomSheetContent>

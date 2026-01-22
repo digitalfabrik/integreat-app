@@ -22,9 +22,9 @@ import Text from './base/Text'
 
 const styles = StyleSheet.create({
   thumbnail: {
-    width: 75,
-    height: 75,
-    flexShrink: 0,
+    width: 72,
+    height: 72,
+    marginHorizontal: 8,
   },
 })
 
@@ -69,6 +69,7 @@ const EventListItem = ({
   // Use the content language to match the surrounding translations
   const { t: translateIntoContentLanguage } = useTranslation('events', { lng: language })
   const dateToDisplay = getDisplayDate(event, filterStartDate, filterEndDate)
+  const isRtl = contentAlignment(language) === 'right'
 
   const DateIcon = useCallback(
     () =>
@@ -88,6 +89,7 @@ const EventListItem = ({
       borderless
       titleNumberOfLines={0}
       descriptionNumberOfLines={0}
+      style={{ paddingHorizontal: 8 }}
       title={<Text variant='h5'>{event.title}</Text>}
       description={
         <View>
@@ -107,8 +109,8 @@ const EventListItem = ({
           </Text>
         </View>
       }
-      left={renderThumbnail}
-      right={DateIcon}
+      left={isRtl ? DateIcon : renderThumbnail}
+      right={isRtl ? renderThumbnail : DateIcon}
       onPress={navigateToEvent}
     />
   )

@@ -71,7 +71,10 @@ const CalendarChoiceModal = ({
           </RadioButton.Group>
         </>
       )}
-      <Button mode='contained' onPress={() => chooseCalendar(selectedCalendarId, exportAllEvents)}>
+      <Button
+        icon='calendar-import'
+        mode='contained'
+        onPress={() => chooseCalendar(selectedCalendarId, exportAllEvents)}>
         {t('addToCalendar')}
       </Button>
     </Modal>

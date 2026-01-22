@@ -29,10 +29,10 @@ const Highlighter = ({ search, text, style }: HighlighterProps): ReactElement =>
         return chunk.highlight ? (
           <Text
             key={chunk.start}
-            variant='h6'
             style={{
               color: theme.colors.onBackground,
               backgroundColor: theme.colors.surfaceVariant,
+              fontWeight: 'bold',
             }}>
             {matchedText}
           </Text>

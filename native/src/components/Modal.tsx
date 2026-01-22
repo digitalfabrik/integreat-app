@@ -2,7 +2,6 @@ import { ThemeProvider as NavigationThemeProvider } from '@react-navigation/nati
 import React, { ReactElement, ReactNode } from 'react'
 import { ScrollView, StyleSheet, View } from 'react-native'
 import { Modal as PaperModal, Portal } from 'react-native-paper'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { useTheme } from 'styled-components/native'
 
 import dimensions from '../constants/dimensions'
@@ -21,10 +20,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     flex: 1,
   },
-  modal: {
-    margin: 0,
-  },
-  modalContentContainer: {
+  modalStyle: {
     width: '100%',
     height: '100%',
   },
@@ -56,9 +52,9 @@ const Modal = ({
         <PaperModal
           visible={modalVisible}
           onDismiss={closeModal}
-          contentContainerStyle={styles.modalContentContainer}
-          style={styles.modal}>
-          <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }}>
+          style={styles.modalStyle}
+          contentContainerStyle={styles.modalStyle}>
+          <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
             <View style={styles.header}>
               <HeaderBox goBack={closeModal} text={headerTitle} />
             </View>
@@ -73,7 +69,7 @@ const Modal = ({
                 {children}
               </View>
             )}
-          </SafeAreaView>
+          </View>
         </PaperModal>
       </NavigationThemeProvider>
     </Portal>
