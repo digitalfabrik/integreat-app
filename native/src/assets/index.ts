@@ -5,6 +5,7 @@ import EventThumbnailPlaceholder3 from '../../../assets/event-thumbnail-placehol
 import CalendarTodayRecurringIcon from '../../../assets/icons/calendar-today-recurring.svg'
 import EditLocationIcon from '../../../assets/icons/edit-location.svg'
 import NotAccessibleIcon from '../../../assets/icons/not-accessible.svg'
+import SignPostIcon from '../../../assets/icons/signpost-outline.svg'
 import SprungbrettIcon from '../../../assets/icons/sprungbrett.svg'
 import TuNewsActiveIcon from '../../../assets/icons/tu-news-active.svg'
 import TuNewsInactiveIcon from '../../../assets/icons/tu-news-inactive.svg'
@@ -28,6 +29,7 @@ export {
   IntroSearchIcon,
   IntroWelcomeIcon,
   NotAccessibleIcon,
+  SignPostIcon,
   SprungbrettIcon,
   TuNewsActiveIcon,
   TuNewsInactiveIcon,
