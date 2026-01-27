@@ -1,7 +1,8 @@
 import React, { ReactElement, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Share } from 'react-native'
-import { HiddenItem, Item } from 'react-navigation-header-buttons'
+import { View } from 'react-native'
+import { Menu } from 'react-native-paper'
+import { Item } from 'react-navigation-header-buttons'
 import styled, { useTheme } from 'styled-components/native'
 
 import {
@@ -10,11 +11,9 @@ import {
   EVENTS_ROUTE,
   EventsRouteType,
   getSlugFromPath,
-  LANDING_ROUTE,
   NEWS_ROUTE,
   POIS_ROUTE,
   PoisRouteType,
-  SHARE_SIGNAL_NAME,
   DISCLAIMER_ROUTE,
   SEARCH_ROUTE,
   SETTINGS_ROUTE,
@@ -23,17 +22,16 @@ import { LanguageModel, FeedbackRouteType } from 'shared/api'
 import { config } from 'translations'
 
 import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from '../constants/NavigationTypes'
-import buildConfig from '../constants/buildConfig'
+import { contentAlignmentRTLText } from '../constants/contentDirection'
 import dimensions from '../constants/dimensions'
 import { AppContext } from '../contexts/AppContextProvider'
 import useSnackbar from '../hooks/useSnackbar'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import navigateToLanguageChange from '../navigation/navigateToLanguageChange'
-import sendTrackingSignal from '../utils/sendTrackingSignal'
-import { reportError } from '../utils/sentry'
 import CustomHeaderButtons from './CustomHeaderButtons'
 import HeaderBox from './HeaderBox'
+import HeaderMenu from './HeaderMenu'
 import HighlightBox from './HighlightBox'
 
 const Horizontal = styled.View`
@@ -69,6 +67,8 @@ type HeaderProps = {
   cityName?: string
 }
 
+const IconPlaceholder = () => <View style={{ width: 40 }} />
+
 const Header = ({
   navigation,
   route,
@@ -79,6 +79,7 @@ const Header = ({
   languages,
   cityName,
 }: HeaderProps): ReactElement | null => {
+  const [visible, setVisible] = useState(false)
   const { languageCode, cityCode } = useContext(AppContext)
   const { t } = useTranslation('layout')
   const theme = useTheme()
@@ -88,37 +89,13 @@ const Header = ({
   const canGoBack = previousRoute !== undefined
   const { enabled: isTtsEnabled, showTtsPlayer } = useTtsPlayer()
 
-  const onShare = async () => {
-    if (!shareUrl) {
-      // The share option should only be shown if there is a shareUrl
-      return
-    }
-    const pageTitle = (route.params as { title: string } | undefined)?.title ?? t(route.name)
-    const cityPostfix = !cityName || cityName === pageTitle ? '' : ` - ${cityName}`
+  // processing pageTitle for sharing
+  const routeTitle = (route.params as { title?: string } | undefined)?.title
+  const titleWithoutCity = routeTitle ?? t(route.name)
+  const shouldAppendCityName = !!cityName && cityName !== titleWithoutCity
+  const pageTitle = shouldAppendCityName ? `${titleWithoutCity} - ${cityName}` : titleWithoutCity
 
-    const message = t('shareMessage', {
-      message: `${pageTitle}${cityPostfix} ${shareUrl}`,
-      interpolation: {
-        escapeValue: false,
-      },
-    })
-    sendTrackingSignal({
-      signal: {
-        name: SHARE_SIGNAL_NAME,
-        url: shareUrl,
-      },
-    })
-
-    try {
-      await Share.share({
-        message,
-        title: buildConfig().appName,
-      })
-    } catch (e) {
-      showSnackbar({ text: 'generalError' })
-      reportError(e)
-    }
-  }
+  const closeMenu = () => setVisible(false)
 
   const renderItem = (title: string, iconName: string, visible: boolean, onPress?: () => void): ReactElement => (
     <Item
@@ -132,15 +109,20 @@ const Header = ({
     />
   )
 
-  const renderOverflowItem = (title: string, onPress: () => void): ReactElement => (
-    <HiddenItem
+  const renderMenuItem = (title: string, onPress: () => void, icon?: string): ReactElement => (
+    <Menu.Item
+      leadingIcon={icon ?? IconPlaceholder}
       key={title}
       title={t(title)}
-      onPress={onPress}
-      style={{
-        backgroundColor: theme.colors.surface,
+      onPress={() => {
+        onPress()
+        closeMenu()
       }}
-      titleStyle={{ color: theme.colors.onSurface }}
+      style={{
+        backgroundColor: theme.dark ? theme.colors.surfaceVariant : theme.colors.surface,
+      }}
+      contentStyle={{ flex: 1 }}
+      titleStyle={{ color: theme.colors.onSurface, textAlign: contentAlignmentRTLText(t(title)), paddingRight: 8 }}
     />
   )
 
@@ -200,16 +182,11 @@ const Header = ({
 
   const overflowItems = showOverflowItems
     ? [
-        ...(shareUrl ? [renderOverflowItem(HeaderButtonTitle.Share, onShare)] : []),
-        ...(!buildConfig().featureFlags.fixedCity
-          ? [renderOverflowItem(HeaderButtonTitle.Location, () => navigation.navigate(LANDING_ROUTE))]
+        ...(route.name !== NEWS_ROUTE
+          ? [renderMenuItem(HeaderButtonTitle.Feedback, navigateToFeedback, 'comment-text-outline')]
           : []),
-        renderOverflowItem(HeaderButtonTitle.Settings, () => navigation.navigate(SETTINGS_ROUTE)),
-        ...(isTtsEnabled ? [renderOverflowItem(t(HeaderButtonTitle.ReadAloud), showTtsPlayer)] : []),
-        ...(route.name !== NEWS_ROUTE ? [renderOverflowItem(HeaderButtonTitle.Feedback, navigateToFeedback)] : []),
-        ...(route.name !== DISCLAIMER_ROUTE
-          ? [renderOverflowItem(HeaderButtonTitle.Disclaimer, () => navigation.navigate(DISCLAIMER_ROUTE))]
-          : []),
+        renderMenuItem(HeaderButtonTitle.Settings, () => navigation.navigate(SETTINGS_ROUTE, undefined), 'cog-outline'),
+        ...(isTtsEnabled ? [renderMenuItem(t(HeaderButtonTitle.ReadAloud), showTtsPlayer, 'volume-high')] : []),
       ]
     : []
 
@@ -252,7 +229,18 @@ const Header = ({
           text={getHeaderText().text}
           language={getHeaderText().language}
         />
-        <CustomHeaderButtons cancelLabel={t('cancel')} items={items} overflowItems={overflowItems} />
+        <>
+          <CustomHeaderButtons items={items} />
+          <HeaderMenu
+            visible={visible}
+            setVisible={setVisible}
+            menuItems={overflowItems}
+            shareUrl={shareUrl}
+            pageTitle={pageTitle}
+            onNavigateToDisclaimer={() => navigation.navigate(DISCLAIMER_ROUTE)}
+            renderMenuItem={renderMenuItem}
+          />
+        </>
       </Horizontal>
     </BoxShadow>
   )
