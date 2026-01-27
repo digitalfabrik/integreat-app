@@ -1,6 +1,8 @@
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { useNavigation } from '@react-navigation/native'
 import { createStackNavigator, StackHeaderProps, TransitionPresets } from '@react-navigation/stack'
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Platform } from 'react-native'
 
 import {
@@ -19,6 +21,9 @@ import {
   LANDING_ROUTE,
   LandingRouteType,
   LICENSES_ROUTE,
+  LOCAL_NEWS_TYPE,
+  MAIN_TABS_ROUTE,
+  MainTabsRouteType,
   NEWS_ROUTE,
   PDF_VIEW_MODAL_ROUTE,
   POIS_ROUTE,
@@ -71,16 +76,66 @@ const settingsHeader = (headerProps: StackHeaderProps) => (
   <Header {...(headerProps as HeaderProps)} showOverflowItems={false} />
 )
 
+const Stack = createStackNavigator<RoutesParamsType>()
+const Tab = createBottomTabNavigator<RoutesParamsType>()
+const CategoriesStack = createStackNavigator<RoutesParamsType>()
+const PoisStack = createStackNavigator<RoutesParamsType>()
+const EventsStack = createStackNavigator<RoutesParamsType>()
+const NewsStack = createStackNavigator<RoutesParamsType>()
+
+const CategoriesStackScreen = () => (
+  <CategoriesStack.Navigator screenOptions={{ header: defaultHeader }}>
+    <CategoriesStack.Screen name={CATEGORIES_ROUTE} initialParams={{}} component={CategoriesContainer} />
+  </CategoriesStack.Navigator>
+)
+
+const PoisStackScreen = () => (
+  <PoisStack.Navigator screenOptions={{ header: defaultHeader }}>
+    <PoisStack.Screen name={POIS_ROUTE} initialParams={{}} component={PoisContainer} />
+  </PoisStack.Navigator>
+)
+
+const EventsStackScreen = () => (
+  <EventsStack.Navigator screenOptions={{ header: defaultHeader }}>
+    <EventsStack.Screen name={EVENTS_ROUTE} initialParams={{}} component={EventsContainer} />
+  </EventsStack.Navigator>
+)
+
+const NewsStackScreen = () => (
+  <NewsStack.Navigator screenOptions={{ header: defaultHeader }}>
+    <NewsStack.Screen
+      name={NEWS_ROUTE}
+      initialParams={{ newsId: null, newsType: LOCAL_NEWS_TYPE }}
+      component={NewsContainer}
+    />
+  </NewsStack.Navigator>
+)
+
+const MainTabs = () => {
+  const { t } = useTranslation('layout')
+  return (
+    <Tab.Navigator screenOptions={{ headerShown: false }}>
+      <Tab.Screen
+        name={CATEGORIES_ROUTE}
+        component={CategoriesStackScreen}
+        options={{ tabBarLabel: t('localInformationLabel') }}
+      />
+      <Tab.Screen name={POIS_ROUTE} component={PoisStackScreen} options={{ tabBarLabel: t('locations') }} />
+      <Tab.Screen name={EVENTS_ROUTE} component={EventsStackScreen} options={{ tabBarLabel: t('events') }} />
+      <Tab.Screen name={NEWS_ROUTE} component={NewsStackScreen} options={{ tabBarLabel: t('news') }} />
+    </Tab.Navigator>
+  )
+}
+
 type InitialRouteType =
   | {
-      name: IntroRouteType | LandingRouteType | CategoriesRouteType
+      name: IntroRouteType | LandingRouteType | CategoriesRouteType | MainTabsRouteType
     }
   | {
       name: RedirectRouteType
       url: string
     }
   | null
-const Stack = createStackNavigator<RoutesParamsType>()
 
 const Navigator = (): ReactElement | null => {
   const showSnackbar = useSnackbar()
@@ -131,7 +186,7 @@ const Navigator = (): ReactElement | null => {
     } else if (!cityCode) {
       updateInitialRoute({ name: LANDING_ROUTE })
     } else if (cities?.find(it => it.code === cityCode)) {
-      updateInitialRoute({ name: CATEGORIES_ROUTE })
+      updateInitialRoute({ name: MAIN_TABS_ROUTE })
     } else if (cities) {
       // City is not available anymore
       changeCityCode(null)
@@ -159,13 +214,10 @@ const Navigator = (): ReactElement | null => {
         <Stack.Screen name={REDIRECT_ROUTE} initialParams={{ url: redirectUrl }} component={RedirectContainer} />
         <Stack.Screen name={INTRO_ROUTE} component={Intro} initialParams={{}} />
         <Stack.Screen name={SEARCH_ROUTE} component={SearchModalContainer} />
+        <Stack.Screen name={MAIN_TABS_ROUTE} component={MainTabs} />
       </Stack.Group>
 
       <Stack.Group screenOptions={{ header: defaultHeader }}>
-        <Stack.Screen name={CATEGORIES_ROUTE} initialParams={{}} component={CategoriesContainer} />
-        <Stack.Screen name={POIS_ROUTE} component={PoisContainer} />
-        <Stack.Screen name={EVENTS_ROUTE} component={EventsContainer} />
-        <Stack.Screen name={NEWS_ROUTE} component={NewsContainer} />
         <Stack.Screen name={DISCLAIMER_ROUTE} component={DisclaimerContainer} />
         <Stack.Screen name={FEEDBACK_MODAL_ROUTE} component={FeedbackModalContainer} />
       </Stack.Group>
