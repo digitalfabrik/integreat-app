@@ -67,7 +67,7 @@ describe('Header', () => {
     jest.clearAllMocks()
   })
 
-  const t = (key: string, params?: { message: string }) => (params ? `${key}: ${params.message}` : key)
+  const t = (key: string) => key
   const cityModels = new CityModelBuilder(1).build()
   const cityModel = cityModels[0]!
   const languageModels = new LanguageModelBuilder(3).build()
