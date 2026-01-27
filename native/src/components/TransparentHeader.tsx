@@ -1,7 +1,7 @@
-import React, { ReactElement, useCallback } from 'react'
+import React, { ReactElement, useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Share } from 'react-native'
-import { HiddenItem } from 'react-navigation-header-buttons'
+import { Menu } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
 import { SHARE_SIGNAL_NAME } from 'shared'
@@ -13,8 +13,8 @@ import useSnackbar from '../hooks/useSnackbar'
 import openExternalUrl from '../utils/openExternalUrl'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
 import { reportError } from '../utils/sentry'
-import CustomHeaderButtons from './CustomHeaderButtons'
 import HeaderBox from './HeaderBox'
+import HeaderMenu from './HeaderMenu'
 
 const Horizontal = styled.View`
   flex: 1;
@@ -36,6 +36,7 @@ type TransparentHeaderProps = {
 const TransparentHeader = ({ navigation, route }: TransparentHeaderProps): ReactElement | null => {
   const { t } = useTranslation('layout')
   const showSnackbar = useSnackbar()
+  const [visible, setVisible] = useState(false)
 
   const shareUrl = (route.params as { shareUrl: string } | undefined)?.shareUrl
   const isPdfUrl = shareUrl?.toLowerCase().includes('.pdf')
@@ -78,29 +79,17 @@ const TransparentHeader = ({ navigation, route }: TransparentHeaderProps): React
     await openExternalUrl(shareUrl, showSnackbar)
   }, [showSnackbar, shareUrl])
 
+  const renderMenuItem = (title: string, onPress: () => void) => (
+    <Menu.Item
+      key={title}
+      title={t(title)}
+      onPress={onPress}
+      style={{ backgroundColor: theme.dark ? theme.colors.surfaceVariant : theme.colors.surface }}
+    />
+  )
+
   const overflowItems = shareUrl
-    ? [
-        <HiddenItem
-          titleStyle={{ color: theme.colors.onSurface }}
-          style={{ backgroundColor: theme.colors.surfaceVariant }}
-          key='share'
-          title={t('share')}
-          onPress={onShare}
-          accessibilityLabel={t('share')}
-        />,
-        ...(isPdfUrl
-          ? [
-              <HiddenItem
-                titleStyle={{ color: theme.colors.onSurface }}
-                style={{ backgroundColor: theme.colors.surfaceVariant }}
-                key='openExternal'
-                title={t('openExternal')}
-                onPress={onOpenPdf}
-                accessibilityLabel={t('openExternal')}
-              />,
-            ]
-          : []),
-      ]
+    ? [renderMenuItem('share', onShare), ...(isPdfUrl ? [renderMenuItem('openExternal', onOpenPdf)] : [])]
     : []
 
   if (!navigation.canGoBack()) {
@@ -111,7 +100,13 @@ const TransparentHeader = ({ navigation, route }: TransparentHeaderProps): React
     <Container testID='transparent-header'>
       <Horizontal>
         <HeaderBox goBack={navigation.goBack} />
-        <CustomHeaderButtons cancelLabel={t('cancel')} items={[]} overflowItems={overflowItems} />
+        <HeaderMenu
+          visible={visible}
+          setVisible={setVisible}
+          menuItems={overflowItems}
+          renderMenuItem={renderMenuItem}
+          showDefaultSections={false}
+        />
       </Horizontal>
     </Container>
   )

@@ -5,6 +5,7 @@ import { Menu } from 'react-native-paper'
 import { Item } from 'react-navigation-header-buttons'
 import styled, { useTheme } from 'styled-components/native'
 
+import { ThemeKey } from 'build-configs/ThemeKey'
 import {
   CATEGORIES_ROUTE,
   CategoriesRouteType,
@@ -15,6 +16,7 @@ import {
   POIS_ROUTE,
   PoisRouteType,
   DISCLAIMER_ROUTE,
+  LICENSES_ROUTE,
   SEARCH_ROUTE,
   SETTINGS_ROUTE,
 } from 'shared'
@@ -80,7 +82,7 @@ const Header = ({
   cityName,
 }: HeaderProps): ReactElement | null => {
   const [visible, setVisible] = useState(false)
-  const { languageCode, cityCode } = useContext(AppContext)
+  const { languageCode, cityCode, settings, updateSettings } = useContext(AppContext)
   const { t } = useTranslation('layout')
   const theme = useTheme()
   const showSnackbar = useSnackbar()
@@ -171,6 +173,11 @@ const Header = ({
     }
   }
 
+  const toggleContrastTheme = () => {
+    const newTheme: ThemeKey = settings.selectedTheme === 'light' ? 'contrast' : 'light'
+    updateSettings({ selectedTheme: newTheme })
+  }
+
   const items = [
     renderItem(HeaderButtonTitle.Search, 'search', showItems, () =>
       navigation.navigate(SEARCH_ROUTE, {
@@ -185,7 +192,8 @@ const Header = ({
         ...(route.name !== NEWS_ROUTE
           ? [renderMenuItem(HeaderButtonTitle.Feedback, navigateToFeedback, 'comment-text-outline')]
           : []),
-        renderMenuItem(HeaderButtonTitle.Settings, () => navigation.navigate(SETTINGS_ROUTE, undefined), 'cog-outline'),
+        renderMenuItem('contrastTheme', toggleContrastTheme, 'contrast-circle'),
+        renderMenuItem(HeaderButtonTitle.Settings, () => navigation.navigate(SETTINGS_ROUTE), 'cog-outline'),
         ...(isTtsEnabled ? [renderMenuItem(t(HeaderButtonTitle.ReadAloud), showTtsPlayer, 'volume-high')] : []),
       ]
     : []
@@ -238,6 +246,7 @@ const Header = ({
             shareUrl={shareUrl}
             pageTitle={pageTitle}
             onNavigateToDisclaimer={() => navigation.navigate(DISCLAIMER_ROUTE)}
+            onNavigateToLicenses={() => navigation.navigate(LICENSES_ROUTE)}
             renderMenuItem={renderMenuItem}
           />
         </>

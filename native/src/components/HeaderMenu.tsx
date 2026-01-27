@@ -19,8 +19,10 @@ type HeaderMenuProps = {
   menuItems: React.ReactElement[]
   shareUrl?: string
   pageTitle?: string | null
-  onNavigateToDisclaimer: () => void
+  onNavigateToDisclaimer?: () => void
+  onNavigateToLicenses?: () => void
   renderMenuItem: (title: string, onPress: () => void, icon?: string) => ReactElement
+  showDefaultSections?: boolean
 }
 
 const COPY_TIMEOUT = 3000
@@ -30,9 +32,11 @@ const HeaderMenu = ({
   shareUrl,
   pageTitle,
   onNavigateToDisclaimer,
+  onNavigateToLicenses,
   renderMenuItem,
   visible,
   setVisible,
+  showDefaultSections = true,
 }: HeaderMenuProps): ReactElement => {
   const { languageCode } = useContext(AppContext)
   const [expandedAccordion, setExpandedAccordion] = useState<'share' | 'legal' | null>(null)
@@ -57,7 +61,7 @@ const HeaderMenu = ({
   const shareMessage = encodeURIComponent(t('shareMessage', { message: pageTitle ?? buildConfig().appName }))
 
   const whatsappUrl = `https://api.whatsapp.com/send?text=${shareMessage}%0a${encodedShareUrl}`
-  const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedShareUrl}&t=${shareMessage}`
+  const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedShareUrl}&t${shareMessage}`
   const mailUrl = `mailto:?subject=${encodedTitle}&body=${shareMessage}%0a${encodedShareUrl}`
 
   const openUrl = async (url: string) => {
@@ -86,13 +90,34 @@ const HeaderMenu = ({
   const accessibilityUrl = accessibilityUrls?.[languageCode] ?? accessibilityUrls?.default
 
   const legalItems = [
-    renderMenuItem('disclaimer', () => {
-      onNavigateToDisclaimer()
-    }),
+    ...(onNavigateToDisclaimer ? [renderMenuItem('disclaimer', () => onNavigateToDisclaimer())] : []),
     renderMenuItem('settings:aboutUs', () => openUrl(aboutUrl)),
     renderMenuItem('privacy', () => openUrl(privacyUrl)),
     ...(accessibilityUrl ? [renderMenuItem('accessibility', () => openUrl(accessibilityUrl))] : []),
+    ...(onNavigateToLicenses ? [renderMenuItem('settings:openSourceLicenses', () => onNavigateToLicenses())] : []),
   ]
+
+  const defaultSections =
+    showDefaultSections === false
+      ? []
+      : [
+          renderMenuItem(urlCopied ? 'common:copied' : 'layout:copyUrl', () => copyToClipboard(), 'link'),
+          <MenuAccordion
+            key='share'
+            title={t('share')}
+            items={sharingItems}
+            icon='share-variant'
+            expanded={expandedAccordion === 'share'}
+            setExpanded={expanded => setExpandedAccordion(expanded ? 'share' : null)}
+          />,
+          <MenuAccordion
+            key='legal'
+            title={t('legal')}
+            items={legalItems}
+            expanded={expandedAccordion === 'legal'}
+            setExpanded={expanded => setExpandedAccordion(expanded ? 'legal' : null)}
+          />,
+        ]
 
   return (
     <Menu
@@ -113,27 +138,10 @@ const HeaderMenu = ({
           iconColor={theme.colors.onSurface}
           onPress={openMenu}
           testID='header-overflow-menu-button'
+          style={{ backgroundColor: 'transparent' }} // #3803 this need to be changed to adapt the new design
         />
       }>
-      {withDividers([
-        ...menuItems,
-        renderMenuItem(urlCopied ? 'common:copied' : 'layout:copyUrl', () => copyToClipboard(), 'link'),
-        <MenuAccordion
-          key='share'
-          title={t('share')}
-          items={sharingItems}
-          icon='share-variant'
-          expanded={expandedAccordion === 'share'}
-          setExpanded={expanded => setExpandedAccordion(expanded ? 'share' : null)}
-        />,
-        <MenuAccordion
-          key='legal'
-          title={t('legal')}
-          items={legalItems}
-          expanded={expandedAccordion === 'legal'}
-          setExpanded={expanded => setExpandedAccordion(expanded ? 'legal' : null)}
-        />,
-      ])}
+      {withDividers([...menuItems, ...defaultSections])}
     </Menu>
   )
 }
