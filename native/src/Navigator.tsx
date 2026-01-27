@@ -1,18 +1,16 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { useNavigation } from '@react-navigation/native'
 import { createStackNavigator, StackHeaderProps, TransitionPresets } from '@react-navigation/stack'
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { Platform } from 'react-native'
 
 import {
-  CATEGORIES_ROUTE,
+  BOTTOM_TAB_NAVIGATION_ROUTE,
+  BottomTabNavigationRouteType,
   CategoriesRouteType,
   CHANGE_LANGUAGE_MODAL_ROUTE,
   CITY_NOT_COOPERATING_ROUTE,
   CONSENT_ROUTE,
   DISCLAIMER_ROUTE,
-  EVENTS_ROUTE,
   FEEDBACK_MODAL_ROUTE,
   IMAGE_VIEW_MODAL_ROUTE,
   INTRO_ROUTE,
@@ -21,12 +19,7 @@ import {
   LANDING_ROUTE,
   LandingRouteType,
   LICENSES_ROUTE,
-  LOCAL_NEWS_TYPE,
-  MAIN_TABS_ROUTE,
-  MainTabsRouteType,
-  NEWS_ROUTE,
   PDF_VIEW_MODAL_ROUTE,
-  POIS_ROUTE,
   REDIRECT_ROUTE,
   RedirectRouteType,
   SEARCH_ROUTE,
@@ -41,12 +34,11 @@ import buildConfig from './constants/buildConfig'
 import { useAppContext } from './hooks/useCityAppContext'
 import useLoadCities from './hooks/useLoadCities'
 import useSnackbar from './hooks/useSnackbar'
-import CategoriesContainer from './routes/CategoriesContainer'
+import BottomTabNavigation from './routes/BottomTabNavigation'
 import ChangeLanguageModal from './routes/ChangeLanguageModal'
 import CityNotCooperating from './routes/CityNotCooperating'
 import Consent from './routes/Consent'
 import DisclaimerContainer from './routes/DisclaimerContainer'
-import EventsContainer from './routes/EventsContainer'
 import FeedbackModalContainer from './routes/FeedbackModalContainer'
 import ImageViewModal from './routes/ImageViewModal'
 import Intro from './routes/Intro'
@@ -54,9 +46,7 @@ import JpalTracking from './routes/JpalTracking'
 import Landing from './routes/Landing'
 import Licenses from './routes/Licenses'
 import LoadingErrorHandler from './routes/LoadingErrorHandler'
-import NewsContainer from './routes/NewsContainer'
 import PDFViewModal from './routes/PDFViewModal'
-import PoisContainer from './routes/PoisContainer'
 import SearchModalContainer from './routes/SearchModalContainer'
 import Settings from './routes/Settings'
 import { ASYNC_STORAGE_VERSION } from './utils/AppSettings'
@@ -71,65 +61,18 @@ type HeaderProps = {
 
 const transparentHeader = (headerProps: StackHeaderProps) => <TransparentHeader {...(headerProps as HeaderProps)} />
 
-const defaultHeader = (headerProps: StackHeaderProps) => <Header {...(headerProps as HeaderProps)} />
+export const defaultHeader = (headerProps: StackHeaderProps): ReactElement => (
+  <Header {...(headerProps as HeaderProps)} />
+)
 const settingsHeader = (headerProps: StackHeaderProps) => (
   <Header {...(headerProps as HeaderProps)} showOverflowItems={false} />
 )
 
 const Stack = createStackNavigator<RoutesParamsType>()
-const Tab = createBottomTabNavigator<RoutesParamsType>()
-const CategoriesStack = createStackNavigator<RoutesParamsType>()
-const PoisStack = createStackNavigator<RoutesParamsType>()
-const EventsStack = createStackNavigator<RoutesParamsType>()
-const NewsStack = createStackNavigator<RoutesParamsType>()
-
-const CategoriesStackScreen = () => (
-  <CategoriesStack.Navigator screenOptions={{ header: defaultHeader }}>
-    <CategoriesStack.Screen name={CATEGORIES_ROUTE} initialParams={{}} component={CategoriesContainer} />
-  </CategoriesStack.Navigator>
-)
-
-const PoisStackScreen = () => (
-  <PoisStack.Navigator screenOptions={{ header: defaultHeader }}>
-    <PoisStack.Screen name={POIS_ROUTE} initialParams={{}} component={PoisContainer} />
-  </PoisStack.Navigator>
-)
-
-const EventsStackScreen = () => (
-  <EventsStack.Navigator screenOptions={{ header: defaultHeader }}>
-    <EventsStack.Screen name={EVENTS_ROUTE} initialParams={{}} component={EventsContainer} />
-  </EventsStack.Navigator>
-)
-
-const NewsStackScreen = () => (
-  <NewsStack.Navigator screenOptions={{ header: defaultHeader }}>
-    <NewsStack.Screen
-      name={NEWS_ROUTE}
-      initialParams={{ newsId: null, newsType: LOCAL_NEWS_TYPE }}
-      component={NewsContainer}
-    />
-  </NewsStack.Navigator>
-)
-
-const MainTabs = () => {
-  const { t } = useTranslation('layout')
-  return (
-    <Tab.Navigator screenOptions={{ headerShown: false }}>
-      <Tab.Screen
-        name={CATEGORIES_ROUTE}
-        component={CategoriesStackScreen}
-        options={{ tabBarLabel: t('localInformationLabel') }}
-      />
-      <Tab.Screen name={POIS_ROUTE} component={PoisStackScreen} options={{ tabBarLabel: t('locations') }} />
-      <Tab.Screen name={EVENTS_ROUTE} component={EventsStackScreen} options={{ tabBarLabel: t('events') }} />
-      <Tab.Screen name={NEWS_ROUTE} component={NewsStackScreen} options={{ tabBarLabel: t('news') }} />
-    </Tab.Navigator>
-  )
-}
 
 type InitialRouteType =
   | {
-      name: IntroRouteType | LandingRouteType | CategoriesRouteType | MainTabsRouteType
+      name: IntroRouteType | LandingRouteType | CategoriesRouteType | BottomTabNavigationRouteType
     }
   | {
       name: RedirectRouteType
@@ -186,7 +129,7 @@ const Navigator = (): ReactElement | null => {
     } else if (!cityCode) {
       updateInitialRoute({ name: LANDING_ROUTE })
     } else if (cities?.find(it => it.code === cityCode)) {
-      updateInitialRoute({ name: MAIN_TABS_ROUTE })
+      updateInitialRoute({ name: BOTTOM_TAB_NAVIGATION_ROUTE })
     } else if (cities) {
       // City is not available anymore
       changeCityCode(null)
@@ -214,7 +157,7 @@ const Navigator = (): ReactElement | null => {
         <Stack.Screen name={REDIRECT_ROUTE} initialParams={{ url: redirectUrl }} component={RedirectContainer} />
         <Stack.Screen name={INTRO_ROUTE} component={Intro} initialParams={{}} />
         <Stack.Screen name={SEARCH_ROUTE} component={SearchModalContainer} />
-        <Stack.Screen name={MAIN_TABS_ROUTE} component={MainTabs} />
+        <Stack.Screen name={BOTTOM_TAB_NAVIGATION_ROUTE} component={BottomTabNavigation} />
       </Stack.Group>
 
       <Stack.Group screenOptions={{ header: defaultHeader }}>
