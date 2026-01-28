@@ -15,7 +15,7 @@ const MAX_NUMBER_OF_ALIASES_SHOWN = 3
 
 const Label = styled(Highlighter)`
   color: ${props => props.theme.colors.onSurface};
-  font-family: ${props => props.theme.fonts.body2?.fontFamily};
+  font-family: ${props => props.theme.fonts.body2.fontFamily};
 `
 const AliasLabel = styled(Highlighter)`
   font-size: 11px;

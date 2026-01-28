@@ -5,7 +5,7 @@ import { TouchableRipple } from 'react-native-paper'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import styled, { css, useTheme } from 'styled-components/native'
 
-import { isRTL } from '../constants/contentDirection'
+import { isRTLText } from '../constants/contentDirection'
 import Icon from './base/Icon'
 import IconButton from './base/IconButton'
 import Text from './base/Text'
@@ -97,7 +97,7 @@ const TtsPlayer = ({
         role='button'
         accessibilityLabel={t('common:close')}
         onPress={close}
-        style={[styles.closeButton, isRTL() ? { right: 0 } : { left: 0 }]}>
+        style={[styles.closeButton, isRTLText(title) ? { left: 0 } : { right: 0 }]}>
         <Icon source='close' />
       </TouchableRipple>
       <Text variant='h4' numberOfLines={1} style={{ alignSelf: 'center' }}>

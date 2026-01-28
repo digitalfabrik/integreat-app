@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
@@ -7,7 +8,7 @@ import styled, { useTheme } from 'styled-components/native'
 import { LocalNewsModel, TunewsModel } from 'shared/api'
 
 import { EXCERPT_MAX_LINES } from '../constants'
-import { contentDirection } from '../constants/contentDirection'
+import { contentAlignmentRTLText, contentDirection } from '../constants/contentDirection'
 import { useAppContext } from '../hooks/useCityAppContext'
 import TimeStamp from './TimeStamp'
 import Text from './base/Text'
@@ -41,18 +42,21 @@ export const Description = styled.View`
   font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
 `
 
+const getTimestamp = (newsItem: LocalNewsModel | TunewsModel): DateTime<true> | null => {
+  if ('timestamp' in newsItem) {
+    return newsItem.timestamp
+  }
+  if ('date' in newsItem) {
+    return newsItem.date
+  }
+  return null
+}
+
 const NewsListItem = ({ newsItem, navigateToNews }: NewsListItemProps): ReactElement => {
   const { t, i18n } = useTranslation('news')
-
-  let timestamp = null
-  if (newsItem instanceof LocalNewsModel) {
-    timestamp = newsItem.timestamp
-  }
-  if (newsItem instanceof TunewsModel) {
-    timestamp = newsItem.date
-  }
   const { languageCode } = useAppContext()
   const theme = useTheme()
+  const timestamp = getTimestamp(newsItem)
 
   return (
     <ListItemWrapper>
@@ -61,13 +65,16 @@ const NewsListItem = ({ newsItem, navigateToNews }: NewsListItemProps): ReactEle
         titleNumberOfLines={0}
         descriptionNumberOfLines={0}
         title={
-          <Text variant='h5' style={{ marginBottom: 8, marginTop: 8 }}>
+          <Text variant='h5' style={{ marginVertical: 8, textAlign: contentAlignmentRTLText(newsItem.title) }}>
             {newsItem.title}
           </Text>
         }
         description={
           <Description>
-            <Text variant='body2' numberOfLines={EXCERPT_MAX_LINES} style={{ letterSpacing: 0.5 }}>
+            <Text
+              variant='body2'
+              numberOfLines={EXCERPT_MAX_LINES}
+              style={{ letterSpacing: 0.5, textAlign: contentAlignmentRTLText(newsItem.title) }}>
               {newsItem.content}
             </Text>
             <View style={Styles.bottomInfo}>

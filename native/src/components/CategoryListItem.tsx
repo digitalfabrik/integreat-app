@@ -4,7 +4,7 @@ import styled from 'styled-components/native'
 
 import { CategoryModel } from 'shared/api'
 
-import { contentDirection, isContentDirectionReversalRequired } from '../constants/contentDirection'
+import { contentAlignmentRTLText, isContentDirectionReversalRequired, isRTLText } from '../constants/contentDirection'
 import dimensions from '../constants/dimensions'
 import List from './List'
 import SimpleImage from './SimpleImage'
@@ -40,9 +40,13 @@ const CategoryListItem = ({ language, category, subCategories, onItemPress }: Ca
       <PaperList.Item
         titleNumberOfLines={0}
         borderless
-        title={<Text variant='h6'>{category.title}</Text>}
+        title={
+          <Text variant='h6' style={{ textAlign: contentAlignmentRTLText(category.title) }}>
+            {category.title}
+          </Text>
+        }
         role='link'
-        style={{ flexDirection: contentDirection(language) }}
+        containerStyle={{ minHeight: 40 }}
         left={renderLeft}
         onPress={() => onItemPress({ path: category.path })}
         accessibilityLanguage={language}
@@ -52,7 +56,7 @@ const CategoryListItem = ({ language, category, subCategories, onItemPress }: Ca
           <Divider />
           <List
             items={subCategories}
-            style={{ marginLeft: 56 }}
+            style={isRTLText(subCategories[0]?.title ?? category.title) ? { marginRight: 56 } : { marginLeft: 56 }}
             renderItem={({ item: subCategory }) => (
               <SubCategoryListItem
                 key={subCategory.path}

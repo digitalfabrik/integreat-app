@@ -13,7 +13,7 @@ const CityGroup = ({ children }: CityGroupProps): ReactElement => {
     subheader: {
       color: theme.colors.onSurfaceVariant,
       paddingVertical: 8,
-      fontFamily: theme.fonts.h6?.fontFamily,
+      fontFamily: theme.fonts.h6.fontFamily,
     },
   })
 

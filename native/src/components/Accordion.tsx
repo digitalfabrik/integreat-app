@@ -20,7 +20,8 @@ const Accordion = ({
   return (
     <List.Accordion
       title={headerContent}
-      style={{ paddingHorizontal: 0, paddingVertical: 0, paddingRight: 0 }}
+      style={{ paddingHorizontal: 0, paddingVertical: 0, paddingRight: 0, paddingLeft: 0 }}
+      contentStyle={{ paddingLeft: 0, paddingRight: 0 }}
       titleStyle={{ fontWeight: 'bold', color: theme.colors.onBackground }}
       expanded={!collapsed}
       onPress={() => setCollapsed(!collapsed)}

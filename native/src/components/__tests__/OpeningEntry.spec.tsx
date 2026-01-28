@@ -21,7 +21,6 @@ describe('OpeningEntry', () => {
       <OpeningEntry
         weekday={currentWeekday}
         isCurrentDay={isCurrentDay}
-        language='de'
         appointmentUrl={null}
         openingHours={new OpeningHoursModel({ allDay, closed, timeSlots, appointmentOnly })}
       />,

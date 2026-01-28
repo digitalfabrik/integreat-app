@@ -3,7 +3,7 @@ import { List as PaperList } from 'react-native-paper'
 
 import { CategoryModel } from 'shared/api'
 
-import { contentDirection } from '../constants/contentDirection'
+import { contentAlignmentRTLText } from '../constants/contentDirection'
 import Text from './base/Text'
 
 type SubCategoryListItemProps = {
@@ -17,15 +17,12 @@ const SubCategoryListItem = ({ subCategory, onItemPress, language }: SubCategory
     titleNumberOfLines={0}
     containerStyle={{ minHeight: 40 }}
     title={
-      <Text variant='body2' style={{ flexShrink: 1 }}>
+      <Text variant='body2' style={{ flexShrink: 1, textAlign: contentAlignmentRTLText(subCategory.title) }}>
         {subCategory.title}
       </Text>
     }
     borderless
     onPress={() => onItemPress(subCategory)}
-    style={{
-      flexDirection: contentDirection(language),
-    }}
     role='link'
     accessibilityLanguage={language}
   />

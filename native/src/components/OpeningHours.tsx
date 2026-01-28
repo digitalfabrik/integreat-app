@@ -21,7 +21,8 @@ const Content = styled.View`
 
 const TitleContainer = styled.View<{ language: string }>`
   flex-direction: ${props => contentDirection(props.language)};
-  gap: 80px;
+  justify-content: space-between;
+  width: 99%;
 `
 
 const StyledDivider = styled(Divider)`
@@ -39,9 +40,7 @@ const OpeningHoursTitle = ({ isCurrentlyOpen, label, language }: OpeningHoursTit
   const theme = useTheme()
   return (
     <TitleContainer language={language}>
-      <Text variant='h5' style={{ alignSelf: 'center' }}>
-        {t('openingHours')}
-      </Text>
+      <Text variant='h5'>{t('openingHours')}</Text>
       <Text
         variant='h6'
         style={{
@@ -124,7 +123,6 @@ const OpeningHours = ({
               // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
               weekday={t(weekdays[index]!)}
               isCurrentDay={index === DateTime.now().weekday - 1}
-              language={language}
               appointmentUrl={appointmentUrl}
               openingHours={openingHours}
             />
