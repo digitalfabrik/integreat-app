@@ -68,7 +68,7 @@
     "htmlparser2": "^10.0.0",
     "i18next": "^25.6.0",
     "intl-pluralrules": "^2.0.1",
-    "lodash": "^4.17.21",
+    "lodash": "^4.17.23",
     "luxon": "^3.7.2",
     "md5": "^2.3.0",
     "react": "19.1.1",
