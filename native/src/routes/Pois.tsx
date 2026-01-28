@@ -119,6 +119,7 @@ const Pois = ({ pois: allPois, cityModel, route, navigation }: PoisProps): React
     <>
       <Chip
         mode='outlined'
+        rippleColor='transparent'
         style={styles.chip}
         elevated
         avatar={<Icon Icon={EditLocationIcon} />}
@@ -141,6 +142,7 @@ const Pois = ({ pois: allPois, cityModel, route, navigation }: PoisProps): React
       {!!poiCategory && (
         <Chip
           mode='outlined'
+          rippleColor='transparent'
           style={styles.chip}
           avatar={<StyledSvgUri uri={poiCategory.icon} />}
           onPress={() => navigation.setParams({ poiCategoryId: undefined })}

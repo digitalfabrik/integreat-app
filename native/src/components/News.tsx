@@ -7,7 +7,7 @@ import { NewsRouteType, NewsType, TU_NEWS_TYPE, replaceLinks, tunewsLabel } from
 import { LocalNewsModel, TunewsModel, ErrorCode } from 'shared/api'
 
 import { NavigationProps } from '../constants/NavigationTypes'
-import { contentAlignment } from '../constants/contentDirection'
+import { contentAlignmentRTLText } from '../constants/contentDirection'
 import useNavigate from '../hooks/useNavigate'
 import useSetRouteTitle from '../hooks/useSetRouteTitle'
 import useTtsPlayer from '../hooks/useTtsPlayer'
@@ -63,18 +63,10 @@ const News = ({
   const navigation = useNavigate().navigation as NavigationProps<NewsRouteType>
   useSetRouteTitle({ navigation, title: getPageTitle(selectedNewsType, selectedNewsItem, t) })
 
-  const rendersNewsListItem = ({ item, index }: { item: LocalNewsModel | TunewsModel; index: number }) => {
+  const rendersNewsListItem = ({ item }: { item: LocalNewsModel | TunewsModel }) => {
     const navigateToNewsDetail = () => navigateToNews(item.id)
 
-    return (
-      <NewsListItem
-        index={index}
-        key={item.id}
-        newsItem={item}
-        isTunews={selectedNewsType === TU_NEWS_TYPE}
-        navigateToNews={navigateToNewsDetail}
-      />
-    )
+    return <NewsListItem key={item.id} newsItem={item} navigateToNews={navigateToNewsDetail} />
   }
 
   if (selectedNewsItem) {
@@ -94,7 +86,7 @@ const News = ({
               <Text
                 style={{
                   paddingVertical: 16,
-                  textAlign: contentAlignment(languageCode),
+                  textAlign: contentAlignmentRTLText(selectedNewsItem.title),
                   alignSelf: 'center',
                 }}>
                 <TimeStamp lastUpdate={selectedNewsItem.timestamp} showText={false} />

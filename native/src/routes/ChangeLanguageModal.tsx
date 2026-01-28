@@ -95,6 +95,7 @@ const ChangeLanguageModal = ({ navigation, route }: ChangeLanguageModalProps): R
         right={() => undefined}
         inputStyle={{ color: theme.dark ? theme.colors.background : theme.colors.onBackground }}
         style={{
+          marginHorizontal: 16,
           backgroundColor: theme.dark ? theme.colors.tertiary : theme.colors.surfaceVariant,
         }}
       />

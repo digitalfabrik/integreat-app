@@ -1,11 +1,5 @@
 import NetInfo from '@react-native-community/netinfo'
-import {
-  DefaultTheme,
-  LinkingOptions,
-  NavigationContainer,
-  NavigationState,
-  Theme as NavigationContainerTheme,
-} from '@react-navigation/native'
+import { LinkingOptions, NavigationContainer, NavigationState } from '@react-navigation/native'
 import { Settings as LuxonSettings } from 'luxon'
 import React, { ReactElement, useCallback, useState } from 'react'
 import { LogBox } from 'react-native'
@@ -29,6 +23,7 @@ import TtsContainer from './components/TtsContainer'
 import { RoutesParamsType } from './constants/NavigationTypes'
 import { userAgent } from './constants/endpoint'
 import AppContextProvider from './contexts/AppContextProvider'
+import { useNavigationTheme } from './hooks/useNavigationTheme'
 import useSendOfflineJpalSignals from './hooks/useSendOfflineJpalSignals'
 import sendTrackingSignal from './utils/sendTrackingSignal'
 
@@ -67,14 +62,7 @@ type NavigationContainerWithThemeProps = {
 
 export const NavigationContainerWithTheme = ({ onStateChange }: NavigationContainerWithThemeProps): ReactElement => {
   const theme = useTheme()
-
-  const navigationTheme: NavigationContainerTheme = {
-    ...DefaultTheme,
-    colors: {
-      ...DefaultTheme.colors,
-      card: theme.colors.background,
-    },
-  }
+  const navigationTheme = useNavigationTheme()
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }} edges={['bottom']}>

@@ -1,12 +1,13 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
+import { StyleSheet } from 'react-native'
+import { TouchableRipple } from 'react-native-paper'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import styled, { css, useTheme } from 'styled-components/native'
 
-import { isRTL } from '../constants/contentDirection'
+import { isRTLText } from '../constants/contentDirection'
 import Icon from './base/Icon'
 import IconButton from './base/IconButton'
-import Pressable from './base/Pressable'
 import Text from './base/Text'
 
 const elevatedStyle = css`
@@ -41,14 +42,6 @@ const StyledPanel = styled.View`
   gap: 20px;
 `
 
-const StyledButton = styled(Pressable)`
-  display: flex;
-  flex-direction: row;
-  gap: 5px;
-  border-radius: 25px;
-  align-items: center;
-`
-
 const StyledPlayIconButton = styled(IconButton)<{ disabled?: boolean }>`
   background-color: ${props =>
     props.disabled ? props.theme.colors.onSurfaceDisabled : props.theme.colors.ttsPlayer.background};
@@ -58,13 +51,20 @@ const StyledPlayIconButton = styled(IconButton)<{ disabled?: boolean }>`
   ${elevatedStyle}
 `
 
-const CloseButton = styled(Pressable)`
-  position: absolute;
-  ${isRTL() ? `left: 0` : `right: 0`};
-  top: 0;
-  padding: 12px;
-`
-
+const styles = StyleSheet.create({
+  TouchableRippleStyle: {
+    flexDirection: 'row',
+    gap: 5,
+    borderRadius: 25,
+    alignItems: 'center',
+    padding: 10,
+  },
+  closeButton: {
+    position: 'absolute',
+    top: 0,
+    padding: 12,
+  },
+})
 type TtsPlayerProps = {
   isPlaying: boolean
   disabled: boolean
@@ -92,25 +92,40 @@ const TtsPlayer = ({
 
   return (
     <StyledTtsPlayer insetBottom={bottom}>
-      <CloseButton role='button' accessibilityLabel={t('common:close')} onPress={close}>
+      <TouchableRipple
+        borderless
+        role='button'
+        accessibilityLabel={t('common:close')}
+        onPress={close}
+        style={[styles.closeButton, isRTLText(title) ? { left: 0 } : { right: 0 }]}>
         <Icon source='close' />
-      </CloseButton>
+      </TouchableRipple>
       <Text variant='h4' numberOfLines={1} style={{ alignSelf: 'center' }}>
         {title}
       </Text>
       <StyledPanel>
-        <StyledButton role='button' accessibilityLabel={t('previous')} onPress={playPrevious}>
+        <TouchableRipple
+          borderless
+          role='button'
+          accessibilityLabel={t('previous')}
+          onPress={playPrevious}
+          style={styles.TouchableRippleStyle}>
           <Icon size={28} source='rewind' />
-        </StyledButton>
+        </TouchableRipple>
         <StyledPlayIconButton
           disabled={disabled}
           accessibilityLabel={t(isPlaying ? 'pause' : 'play')}
           onPress={() => (isPlaying ? pause() : play())}
           icon={<Icon color={theme.colors.ttsPlayer.playIconColor} source={isPlaying ? 'pause' : 'play'} />}
         />
-        <StyledButton role='button' accessibilityLabel={t('next')} onPress={playNext}>
+        <TouchableRipple
+          borderless
+          role='button'
+          accessibilityLabel={t('next')}
+          onPress={playNext}
+          style={styles.TouchableRippleStyle}>
           <Icon size={28} source='fast-forward' />
-        </StyledButton>
+        </TouchableRipple>
       </StyledPanel>
     </StyledTtsPlayer>
   )

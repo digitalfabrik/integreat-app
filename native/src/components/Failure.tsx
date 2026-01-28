@@ -1,12 +1,12 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Button } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 import { ErrorCode } from 'shared/api'
 
 import Icon from './base/Icon'
 import Text from './base/Text'
-import TextButton from './base/TextButton'
 
 const ViewContainer = styled.View`
   flex: 1;
@@ -42,7 +42,11 @@ const Failure = ({ code, buttonAction, buttonLabel }: FailureProps): ReactElemen
     <ViewContainer>
       <Icon size={150} source={ErrorIcon} />
       <Text style={{ margin: 12 }}>{t(code === ErrorCode.CityUnavailable ? 'notFound.city' : code)}</Text>
-      {buttonAction && <TextButton onPress={buttonAction} text={t(buttonLabel ?? 'tryAgain')} />}
+      {buttonAction && (
+        <Button mode='contained' onPress={buttonAction}>
+          {t(buttonLabel ?? 'tryAgain')}
+        </Button>
+      )}
     </ViewContainer>
   )
 }

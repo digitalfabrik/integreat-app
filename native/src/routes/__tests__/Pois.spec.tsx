@@ -151,7 +151,7 @@ describe('Pois', () => {
   })
 
   it('should filter pois', () => {
-    const { queryByText, getAllByText, getByText } = renderPois({ poiCategoryId: 10 })
+    const { queryByText, getAllByText, getByText, getByRole } = renderPois({ poiCategoryId: 10 })
 
     expect(getAllByText('Gastronomie')).toHaveLength(3)
     expect(getByText(poi0.title)).toBeTruthy()
@@ -176,7 +176,7 @@ describe('Pois', () => {
     expect(getAllByText('Gastronomie')).toHaveLength(3)
     expect(getAllByText('Dienstleistung')).toHaveLength(2)
 
-    fireEvent.press(getAllByText('Dienstleistung')[0]!)
+    fireEvent.press(getByRole('switch', { name: 'Dienstleistung' }))
 
     expect(getAllByText('Dienstleistung')).toHaveLength(3)
     expect(getByText(poi1.title)).toBeTruthy()

@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 import { FlatList, RefreshControl, ViewStyle } from 'react-native'
+import { Divider } from 'react-native-paper'
 
 import Text from './base/Text'
 
@@ -59,6 +60,7 @@ const List = <T,>({
     accessibilityLabel={accessibilityLabel}
     style={style}
     keyboardShouldPersistTaps={keyboardShouldPersistTaps}
+    ItemSeparatorComponent={Divider}
   />
 )
 

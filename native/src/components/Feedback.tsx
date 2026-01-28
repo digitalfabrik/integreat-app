@@ -1,6 +1,7 @@
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { Button } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 import buildConfig from '../constants/buildConfig'
@@ -13,14 +14,9 @@ import Note from './Note'
 import PrivacyCheckbox from './PrivacyCheckbox'
 import InputSection from './base/InputSection'
 import Text from './base/Text'
-import TextButton from './base/TextButton'
 
 const Wrapper = styled.View`
   gap: 8px;
-`
-
-const StyledButton = styled(TextButton)`
-  margin-top: 16px;
 `
 
 export type FeedbackProps = {
@@ -67,7 +63,9 @@ const Feedback = ({
       <Wrapper>
         <Caption title={t('thanksHeadline')} />
         <Text>{t('thanksMessage')}</Text>
-        <StyledButton onPress={navigation.goBack} text={t('common:close')} />
+        <Button onPress={navigation.goBack} mode='contained' style={{ marginTop: 16 }}>
+          {t('common:close')}
+        </Button>
       </Wrapper>
     )
   }
@@ -112,7 +110,9 @@ const Feedback = ({
         )}
         <PrivacyCheckbox language={language} checked={privacyPolicyAccepted} setChecked={setPrivacyPolicyAccepted} />
         {submitFeedbackDisabled && <Note text={t(feedbackFilled ? 'noteFillFeedback' : 'common:notePrivacyPolicy')} />}
-        <StyledButton disabled={submitFeedbackDisabled} onPress={onSubmit} text={t('send')} />
+        <Button disabled={submitFeedbackDisabled} onPress={onSubmit} mode='contained' style={{ marginTop: 16 }}>
+          {t('send')}
+        </Button>
       </Wrapper>
     </KeyboardAwareScrollView>
   )

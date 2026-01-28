@@ -1,14 +1,14 @@
 import React, { ReactElement, useRef, useState } from 'react'
-import { Dimensions, NativeScrollEvent, NativeSyntheticEvent, ScrollView } from 'react-native'
+import { Dimensions, NativeScrollEvent, NativeSyntheticEvent, ScrollView, StyleSheet } from 'react-native'
+import { TouchableRipple, useTheme } from 'react-native-paper'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import styled from 'styled-components/native'
+import styled, { DefaultTheme } from 'styled-components/native'
 
 import { TileModel } from 'shared'
 
 import HighlightBox from './HighlightBox'
 import NavigationTile from './NavigationTile'
 import Icon from './base/Icon'
-import Pressable from './base/Pressable'
 
 const widthBreakPoint = 400
 const anchorWidth = 30
@@ -21,16 +21,13 @@ const TilesRow = styled(HighlightBox)`
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  shadow-offset: 1px;
 `
 
-const StyledPressable = styled(Pressable)`
-  padding: 0 4px;
-`
-
-const StyledIcon = styled(Icon)<{ disabled: boolean }>`
-  color: ${props => (props.disabled ? props.theme.colors.action.disabled : props.theme.colors.onSurface)};
-`
+const styles = StyleSheet.create({
+  styledTouchableRipple: {
+    paddingHorizontal: 4,
+  },
+})
 
 type NavigationTilesProps = {
   tiles: TileModel<string>[]
@@ -38,6 +35,7 @@ type NavigationTilesProps = {
 
 const NavigationTiles = ({ tiles }: NavigationTilesProps): ReactElement => {
   const { left, right } = useSafeAreaInsets()
+  const theme = useTheme() as DefaultTheme
   const { width } = Dimensions.get('screen')
   const layoutWidth = left && right ? width - (left + right) : width
   const isWideScreen = layoutWidth >= widthBreakPoint
@@ -65,9 +63,18 @@ const NavigationTiles = ({ tiles }: NavigationTilesProps): ReactElement => {
   return (
     <TilesRow>
       {isScrollable && (
-        <StyledPressable role='button' onPress={scrollToStart} aria-hidden>
-          <StyledIcon source='chevron-left' disabled={scrolledToStart} directionDependent />
-        </StyledPressable>
+        <TouchableRipple
+          borderless
+          role='button'
+          onPress={scrollToStart}
+          aria-hidden
+          style={styles.styledTouchableRipple}>
+          <Icon
+            source='chevron-left'
+            style={{ color: scrolledToStart ? theme.colors.action.disabled : theme.colors.onSurface }}
+            directionDependent
+          />
+        </TouchableRipple>
       )}
       <ScrollView
         horizontal
@@ -92,9 +99,13 @@ const NavigationTiles = ({ tiles }: NavigationTilesProps): ReactElement => {
         ))}
       </ScrollView>
       {isScrollable && (
-        <StyledPressable role='button' onPress={scrollToEnd} aria-hidden>
-          <StyledIcon source='chevron-right' disabled={scrolledToEnd} directionDependent />
-        </StyledPressable>
+        <TouchableRipple role='button' onPress={scrollToEnd} aria-hidden style={styles.styledTouchableRipple}>
+          <Icon
+            source='chevron-right'
+            style={{ color: scrolledToEnd ? theme.colors.action.disabled : theme.colors.onSurface }}
+            directionDependent
+          />
+        </TouchableRipple>
       )}
     </TilesRow>
   )

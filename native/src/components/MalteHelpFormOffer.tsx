@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { Button } from 'react-native-paper'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import styled from 'styled-components/native'
 
@@ -22,7 +23,6 @@ import LayoutedScrollView from './LayoutedScrollView'
 import PrivacyCheckbox from './PrivacyCheckbox'
 import Icon from './base/Icon'
 import Text from './base/Text'
-import TextButton from './base/TextButton'
 import FormInput from './form/FormInput'
 import FormRadioButtons from './form/FormRadioButtons'
 
@@ -173,11 +173,12 @@ const MalteHelpFormOffer = ({
           checked={privacyPolicyAccepted}
           setChecked={setPrivacyPolicyAccepted}
         />
-        <TextButton
-          text={t('submit')}
+        <Button
+          mode='contained'
           onPress={submit}
-          disabled={!formState.isValid || formState.isSubmitting || !privacyPolicyAccepted}
-        />
+          disabled={!formState.isValid || formState.isSubmitting || !privacyPolicyAccepted}>
+          {t('submit')}
+        </Button>
       </Container>
     </KeyboardAwareScrollView>
   )
