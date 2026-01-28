@@ -2,7 +2,7 @@ import { BottomSheetFlatListMethods } from '@gorhom/bottom-sheet'
 import React, { ReactElement, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, useWindowDimensions } from 'react-native'
-import { Chip } from 'react-native-paper'
+import { Chip, IconButton, useTheme } from 'react-native-paper'
 import { SvgUri } from 'react-native-svg'
 import styled from 'styled-components/native'
 
@@ -51,6 +51,7 @@ const Pois = ({ pois: allPois, cityModel, route, navigation }: PoisProps): React
   const bottomSheetSnapPoints = [dimensions.bottomSheetHandle.height, SNAP_POINT_MID_PERCENTAGE * height, height]
   const bottomSheetFullscreen = bottomSheetSnapPointIndex === bottomSheetSnapPoints.length - 1
   const bottomSheetHeight = bottomSheetSnapPoints[bottomSheetSnapPointIndex] ?? 0
+  const theme = useTheme()
 
   const { pois, poi, mapFeatures, mapFeature, poiCategories, poiCategory } = preparePois({
     pois: allPois,
@@ -113,10 +114,29 @@ const Pois = ({ pois: allPois, cityModel, route, navigation }: PoisProps): React
       height: 32,
       marginRight: 4,
     },
+    iconButton: {
+      marginVertical: 0,
+      marginInlineEnd: 4,
+      marginInlineStart: 0,
+      borderColor: 'transparent',
+    },
   })
 
   const FiltersOverlayButtons = (
     <>
+      {slug !== undefined && (
+        <IconButton
+          style={styles.iconButton}
+          containerColor={theme.colors.background}
+          rippleColor='transparent'
+          size={16}
+          mode='outlined'
+          accessibilityLabel='back'
+          icon='arrow-left'
+          onPress={() => deselectAll()}
+        />
+      )}
+
       <Chip
         mode='outlined'
         style={styles.chip}
