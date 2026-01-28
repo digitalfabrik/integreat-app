@@ -66,6 +66,7 @@ class PoiModel extends ExtendedPageModel {
     this._organization = organization
     this._barrierFree = barrierFree
   }
+
   get location(): LocationModel<number> {
     return this._location
   }

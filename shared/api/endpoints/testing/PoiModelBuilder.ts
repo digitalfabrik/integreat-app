@@ -125,7 +125,6 @@ const pois = [
       name: 'Gastronomie',
       icon: 'https://exmaple.com/icon',
     }),
-
     location: new LocationModel({
       id: 2,
       country: 'another test country',
