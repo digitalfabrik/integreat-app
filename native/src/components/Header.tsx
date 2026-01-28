@@ -18,6 +18,7 @@ import {
   DISCLAIMER_ROUTE,
   SEARCH_ROUTE,
   SETTINGS_ROUTE,
+  BOTTOM_TAB_NAVIGATION_ROUTE,
 } from 'shared'
 import { LanguageModel, FeedbackRouteType } from 'shared/api'
 import { config } from 'translations'
@@ -214,10 +215,9 @@ const Header = ({
     : []
 
   const getHeaderText = (): { text: string; language?: string } => {
-    const currentTitle = (route.params as { title?: string } | undefined)?.title
     if (!previousRoute) {
-      // Home/Dashboard: Show current route title, i.e. city name
-      return { text: currentTitle ?? '', language: config.sourceLanguage }
+      // Home/Dashboard: Show current city name
+      return { text: cityName ?? '', language: config.sourceLanguage }
     }
 
     const poisRouteParams = route.params as RoutesParamsType[PoisRouteType] | undefined
@@ -225,6 +225,13 @@ const Header = ({
     const notFromDeepLink = previousRoute.name === POIS_ROUTE
     if (isSinglePoi && notFromDeepLink) {
       return { text: t('locations'), language: undefined } // system language
+    }
+
+    const eventsRouteParams = route.params as RoutesParamsType[EventsRouteType] | undefined
+    const isSingleEvent = !!eventsRouteParams?.slug
+    const notFromEventsDeepLink = previousRoute.name === EVENTS_ROUTE
+    if (isSingleEvent && notFromEventsDeepLink) {
+      return { text: t('events'), language: undefined } // system language
     }
 
     const previousRouteTitle = (previousRoute.params as { title?: string } | undefined)?.title
