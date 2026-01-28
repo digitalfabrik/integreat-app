@@ -2,14 +2,26 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createStackNavigator } from '@react-navigation/stack'
 import React, { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useWindowDimensions } from 'react-native'
 import { useTheme } from 'react-native-paper'
-import { RoutesParamsType } from 'src/constants/NavigationTypes'
+import { NavigationProps, RoutesParamsType } from 'src/constants/NavigationTypes'
 
-import { CATEGORIES_ROUTE, EVENTS_ROUTE, LOCAL_NEWS_TYPE, NEWS_ROUTE, POIS_ROUTE } from 'shared'
+import {
+  BottomTabNavigationRouteType,
+  CATEGORIES_ROUTE,
+  EVENTS_ROUTE,
+  LOCAL_NEWS_TYPE,
+  NEWS_ROUTE,
+  POIS_ROUTE,
+} from 'shared'
 
 import { defaultHeader } from '../Navigator'
 import { SignPostIcon } from '../assets'
 import Icon from '../components/base/Icon'
+import useCityAppContext from '../hooks/useCityAppContext'
+import useLoadCityContent from '../hooks/useLoadCityContent'
+import useSetRouteTitle from '../hooks/useSetRouteTitle'
+import cityDisplayName from '../utils/cityDisplayName'
 import CategoriesContainer from './CategoriesContainer'
 import EventsContainer from './EventsContainer'
 import NewsContainer from './NewsContainer'
@@ -57,9 +69,19 @@ const PoisTabIcon = createTabIcon('map-outline')
 const NewsTabIcon = createTabIcon('newspaper')
 const EventsTabIcon = createTabIcon('calendar-blank-outline')
 
-const BottomTabNavigation = (): ReactElement => {
+type BottomTabNavigationProps = {
+  navigation: NavigationProps<BottomTabNavigationRouteType>
+}
+
+const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactElement => {
   const { t } = useTranslation('layout')
+  const { cityCode, languageCode } = useCityAppContext()
+  const deviceWidth = useWindowDimensions().width
+  const { data } = useLoadCityContent({ cityCode, languageCode })
+  const homeRouteTitle = cityDisplayName(data?.city, deviceWidth)
+  useSetRouteTitle({ navigation, title: homeRouteTitle })
   const theme = useTheme()
+
   const CategoriesIcon = useCallback(
     ({ focused }: { focused: boolean }) => (
       <Icon Icon={SignPostIcon} color={focused ? theme.colors.primary : theme.colors.onSurfaceVariant} />
@@ -77,9 +99,8 @@ const BottomTabNavigation = (): ReactElement => {
           fontSize: 14,
           fontWeight: '600',
         },
-
         tabBarStyle: {
-          height: 80, // Erhöhe die Tab Bar Höhe
+          height: 80,
         },
       }}>
       <Tab.Screen
