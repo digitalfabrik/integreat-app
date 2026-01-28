@@ -29,7 +29,6 @@ const AppointmentOnlyContainer = styled.View<{ weekday: string }>`
   top: 6px;
   padding: 0 4px;
   ${props => (isRTLText(props.weekday) ? 'right: -3px' : 'right: 3px;')};
-  flex-direction: 'row';
 `
 
 type OpeningEntryProps = {
