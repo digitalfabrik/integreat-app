@@ -42,7 +42,7 @@ const pois = [
       new OpeningHoursModel({
         openAllDay: true,
         closedAllDay: false,
-        timeSlots: [{ end: '18:00', start: '08:00' }],
+        timeSlots: [{ end: '18:00', start: '08:00', timezone: 'Europe/Berlin' }],
         appointmentOnly: false,
       }),
     ],
@@ -98,7 +98,7 @@ const pois = [
       new OpeningHoursModel({
         openAllDay: false,
         closedAllDay: false,
-        timeSlots: [{ end: '18:00', start: '08:00' }],
+        timeSlots: [{ end: '18:00', start: '08:00', timezone: 'Europe/Berlin' }],
         appointmentOnly: true,
       }),
     ],
