@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { RefreshControl } from 'react-native'
 import styled from 'styled-components/native'
@@ -48,6 +48,17 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
   const [modalOpen, setModalOpen] = useState(false)
   const event = events.find(it => it.slug === slug)
   useTtsPlayer(event)
+
+  const navigationHandler = useCallback(
+    (slug: string) =>
+      navigateTo({
+        route: EVENTS_ROUTE,
+        cityCode: cityModel.code,
+        languageCode: language,
+        slug,
+      }),
+    [cityModel.code, language, navigateTo],
+  )
 
   if (!cityModel.eventsEnabled) {
     const error = new NotFoundError({
@@ -112,25 +123,16 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
     return <Failure code={fromError(error)} />
   }
 
-  const renderEventListItem = ({ item }: { item: EventModel }) => {
-    const navigateToEvent = () =>
-      navigateTo({
-        route: EVENTS_ROUTE,
-        cityCode: cityModel.code,
-        languageCode: language,
-        slug: item.slug,
-      })
-    return (
-      <EventListItem
-        key={item.slug}
-        event={item}
-        language={language}
-        navigateToEvent={navigateToEvent}
-        filterStartDate={startDate}
-        filterEndDate={endDate}
-      />
-    )
-  }
+  const renderEventListItem = ({ item }: { item: EventModel }) => (
+    <EventListItem
+      key={item.slug}
+      event={item}
+      language={language}
+      navigateToEvent={navigationHandler}
+      filterStartDate={startDate}
+      filterEndDate={endDate}
+    />
+  )
 
   return (
     <ListContainer>

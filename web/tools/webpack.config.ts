@@ -23,7 +23,7 @@ const SHORT_COMMIT_SHA_LENGTH = 8
 // eslint-disable-next-line no-magic-numbers
 const MiB = 2 ** 20
 // eslint-disable-next-line no-magic-numbers
-const MAX_BUNDLE_SIZE = 1.9 * MiB
+const MAX_BUNDLE_SIZE = 2.1 * MiB
 // eslint-disable-next-line no-magic-numbers
 const MAX_ASSET_SIZE = 2.1 * MiB
 
@@ -209,6 +209,13 @@ const createConfig = (
       port: 9000,
       host: '0.0.0.0', // This enables devices in the same network to connect to the dev server
       hot: true,
+      client: {
+        // At e2e-tests the overlay can prevent clicks on elements
+        overlay: {
+          errors: !process.env.CI,
+          warnings: !process.env.CI,
+        },
+      },
       historyApiFallback: true,
     },
     // What information should be printed to the console

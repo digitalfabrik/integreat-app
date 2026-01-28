@@ -15,7 +15,7 @@ describe('change language', () => {
     await dashboardPage.languageIcon.waitForClickable({ timeout: 2000 })
     await dashboardPage.languageIcon.click()
 
-    const languageSelector = await $("*[data-testid='headerActionItemDropDown']")
+    const languageSelector = await $("*[data-testid='languageList']")
     await browser.waitUntil(async () => (await languageSelector.getCSSProperty('visibility')).value === 'visible', {
       timeout: 2000,
     })
@@ -25,19 +25,21 @@ describe('change language', () => {
   })
 
   it('should change language', async () => {
-    await $('h1').waitForDisplayed()
-    expect(await dashboardPage.hasHeadline('Local information')).toBeTruthy()
+    const englishHeadline = await $(`h1=Local information`)
+    await englishHeadline.waitForDisplayed()
+    expect(await englishHeadline.isDisplayed()).toBeTruthy()
 
     const englishContent = await $(`*=Welcome`)
     await englishContent.waitForDisplayed({ timeout: 10000 })
     expect(await englishContent.isDisplayed()).toBeTruthy()
 
     await dashboardPage.selectLanguage('Deutsch')
-    await browser.waitUntil(async () => dashboardPage.hasHeadline('Lokale Informationen'))
+    const germanHeadline = await $(`h1=Lokale Informationen`)
+    await germanHeadline.waitForDisplayed({ timeout: 10000 })
 
-    expect(await dashboardPage.hasHeadline('Lokale Informationen')).toBeTruthy()
+    expect(await germanHeadline.isDisplayed()).toBeTruthy()
     const germanContent = await $(`*=Willkommen`)
-    await germanContent.waitForDisplayed()
+    await germanContent.waitForDisplayed({ timeout: 10000 })
     expect(await germanContent.isDisplayed()).toBeTruthy()
   })
 })

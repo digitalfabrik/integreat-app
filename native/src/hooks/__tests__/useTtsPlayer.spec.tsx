@@ -10,7 +10,6 @@ import renderWithTheme from '../../testing/render'
 import useTtsPlayer from '../useTtsPlayer'
 
 jest.mock('react-i18next')
-jest.mock('react-native-tts')
 jest.mock('../../hooks/useSnackbar')
 jest.mock('../../components/TtsContainer')
 
