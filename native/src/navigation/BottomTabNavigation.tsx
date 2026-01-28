@@ -21,11 +21,11 @@ import Icon from '../components/base/Icon'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useLoadCityContent from '../hooks/useLoadCityContent'
 import useSetRouteTitle from '../hooks/useSetRouteTitle'
+import CategoriesContainer from '../routes/CategoriesContainer'
+import EventsContainer from '../routes/EventsContainer'
+import NewsContainer from '../routes/NewsContainer'
+import PoisContainer from '../routes/PoisContainer'
 import cityDisplayName from '../utils/cityDisplayName'
-import CategoriesContainer from './CategoriesContainer'
-import EventsContainer from './EventsContainer'
-import NewsContainer from './NewsContainer'
-import PoisContainer from './PoisContainer'
 
 const Tab = createBottomTabNavigator<RoutesParamsType>()
 const CategoriesStack = createStackNavigator<RoutesParamsType>()
