@@ -1,20 +1,14 @@
 import React, { ReactElement } from 'react'
 import { View, Keyboard } from 'react-native'
+import { TextInput } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
 import testID from '../testing/testID'
-import Icon from './base/Icon'
 import Text from './base/Text'
 
 const InputWrapper = styled.View`
   margin: 0 4px;
   flex-grow: 1;
-  border-bottom-width: 1px;
-  border-bottom-color: ${props => props.theme.colors.onSurfaceVariant};
-`
-
-const StyledInput = styled.TextInput`
-  color: ${props => props.theme.colors.onSurface};
 `
 
 const Wrapper = styled.View<{ space: boolean }>`
@@ -46,9 +40,8 @@ const SearchInput = ({
   return (
     <View>
       <Wrapper space={spaceSearch}>
-        <Icon source='magnify' />
         <InputWrapper>
-          <StyledInput
+          <TextInput
             {...testID('Search-Input')}
             multiline={false}
             autoFocus
@@ -59,6 +52,10 @@ const SearchInput = ({
             value={filterText}
             onChangeText={onFilterTextChange}
             role='searchbox'
+            mode='outlined'
+            outlineStyle={{ borderRadius: 24 }}
+            style={{ height: 48 }}
+            right={<TextInput.Icon icon='magnify' accessible={false} focusable={false} />}
           />
         </InputWrapper>
       </Wrapper>

@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import styled from 'styled-components/native'
 
+import { DEFAULT_ROWS_NUMBER } from 'shared'
+
 import buildConfig from '../constants/buildConfig'
 import useNavigate from '../hooks/useNavigate'
 import Caption from './Caption'
@@ -94,6 +96,7 @@ const Feedback = ({
           value={comment}
           onChange={onCommentChanged}
           multiline
+          numberOfLines={DEFAULT_ROWS_NUMBER}
           showOptional
           accessibilityRole='text'
         />

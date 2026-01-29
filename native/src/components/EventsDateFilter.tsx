@@ -12,8 +12,8 @@ import Text from './base/Text'
 const DateSection = styled.View`
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin: 15px 5px;
+  gap: 16px;
+  margin: 16px 8px;
   align-items: center;
 `
 
