@@ -3,8 +3,8 @@ import { createStackNavigator } from '@react-navigation/stack'
 import React, { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useWindowDimensions } from 'react-native'
-import { useTheme } from 'react-native-paper'
 import { NavigationProps, RoutesParamsType } from 'src/constants/NavigationTypes'
+import { useTheme } from 'styled-components/native'
 
 import {
   BottomTabNavigationRouteType,
@@ -96,7 +96,7 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
         tabBarActiveTintColor: theme.colors.primary,
         tabBarInactiveTintColor: theme.colors.onSurfaceVariant,
         tabBarLabelStyle: {
-          fontSize: 14,
+          fontSize: 12,
           fontWeight: '600',
         },
         tabBarStyle: {
