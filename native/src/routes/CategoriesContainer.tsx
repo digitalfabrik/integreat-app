@@ -6,7 +6,6 @@ import { ErrorCode } from 'shared/api'
 import { config } from 'translations'
 
 import Categories from '../components/Categories'
-import DashboardNavigationTiles from '../components/DashboardNavigationTiles'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useHeader from '../hooks/useHeader'
@@ -63,19 +62,14 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
   return (
     <LoadingErrorHandler refresh={response.refresh} loading={response.loading} error={error} scrollView>
       {data && category && (
-        <>
-          {category.isRoot() && (
-            <DashboardNavigationTiles cityModel={data.city} languageCode={languageCode} navigateTo={navigateTo} />
-          )}
-          <Categories
-            navigateTo={navigateTo}
-            language={languageCode}
-            cityModel={data.city}
-            categories={data.categories}
-            category={category}
-            goBack={navigation.goBack}
-          />
-        </>
+        <Categories
+          navigateTo={navigateTo}
+          language={languageCode}
+          cityModel={data.city}
+          categories={data.categories}
+          category={category}
+          goBack={navigation.goBack}
+        />
       )}
     </LoadingErrorHandler>
   )

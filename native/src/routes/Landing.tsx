@@ -2,7 +2,7 @@ import React, { ReactElement, useCallback, useContext, useEffect } from 'react'
 import { View } from 'react-native'
 import styled from 'styled-components/native'
 
-import { CATEGORIES_ROUTE, CITY_NOT_COOPERATING_ROUTE, LandingRouteType } from 'shared'
+import { BOTTOM_TAB_NAVIGATION_ROUTE, CITY_NOT_COOPERATING_ROUTE, LandingRouteType } from 'shared'
 import { CityModel } from 'shared/api'
 
 import CityNotCooperatingFooter from '../components/CityNotCooperatingFooter'
@@ -36,7 +36,7 @@ const Landing = ({ navigation }: LandingProps): ReactElement => {
 
   const navigateToDashboard = (city: CityModel) => {
     changeCityCode(city.code)
-    navigation.reset({ index: 0, routes: [{ name: CATEGORIES_ROUTE, params: {} }] })
+    navigation.reset({ index: 0, routes: [{ name: BOTTOM_TAB_NAVIGATION_ROUTE, params: {} }] })
   }
 
   const clearResourcesAndCache = useCallback(() => {
