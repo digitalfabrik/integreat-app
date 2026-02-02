@@ -41,11 +41,11 @@ describe('isCurrentlyOpen', () => {
 
   it('should return true when currently open in New York at 07:00 and it is not all day', () => {
     Settings.defaultZone = 'America/New_York'
-    expect(poi2.isCurrentlyOpen).toBe(false)
+    expect(poi2.isCurrentlyOpen).toBe(true)
   })
 
-  it('should return false when closed in Tokyo at 20:00 and it is not all day', () => {
-    Settings.defaultZone = 'Asia/Tokyo'
+  it('should return false when closed in Auckland at 01:00 and it is not all day', () => {
+    Settings.defaultZone = 'Pacific/Auckland'
     expect(poi2.isCurrentlyOpen).toBe(false)
   })
 

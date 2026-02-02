@@ -18,8 +18,8 @@ const isCurrentlyOpen = (openingHours: OpeningHoursModel[] | null): boolean => {
     }
 
     return currentDay.timeSlots.some(timeslot => {
-      const startTime = DateTime.fromFormat(timeslot.start, 'HH:mm')
-      const endTime = DateTime.fromFormat(timeslot.end, 'HH:mm')
+      const startTime = DateTime.fromFormat(timeslot.start, 'HH:mm', { zone: timeslot.timezone })
+      const endTime = DateTime.fromFormat(timeslot.end, 'HH:mm', { zone: timeslot.timezone })
       return Interval.fromDateTimes(startTime, endTime).contains(now)
     })
   }

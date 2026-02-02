@@ -37,21 +37,25 @@ const OpeningHoursListItem = ({
       <Typography variant={variant} fontWeight={fontWeight}>
         {weekday}
       </Typography>
-      <Stack direction='row' alignItems='center' gap={1}>
+      <Stack direction='row' alignItems='center' justifyContent='flex-end' gap={1}>
         {openingHours.openAllDay && (
-          <Typography variant={variant} fontWeight={fontWeight}>
+          <Typography variant={variant} fontWeight={fontWeight} sx={{ alignSelf: 'flex-end' }}>
             {t('allDay')}
           </Typography>
         )}
         {openingHours.closedAllDay && (
-          <Typography variant={variant} fontWeight={fontWeight}>
+          <Typography variant={variant} fontWeight={fontWeight} sx={{ alignSelf: 'flex-end' }}>
             {t('closed')}
           </Typography>
         )}
         {!openingHours.openAllDay && !openingHours.closedAllDay && openingHours.timeSlots.length > 0 && (
-          <Stack>
+          <Stack sx={{ justifyContent: 'flex-end' }}>
             {openingHours.timeSlots.map(timeSlot => (
-              <Typography variant={variant} fontWeight={fontWeight} key={`${weekday}-${timeSlot.start}`}>
+              <Typography
+                variant={variant}
+                fontWeight={fontWeight}
+                key={`${weekday}-${timeSlot.start}`}
+                sx={{ alignSelf: 'flex-end' }}>
                 {timeSlot.start}-{timeSlot.end}
               </Typography>
             ))}
