@@ -1,11 +1,12 @@
 import { DateTime } from 'luxon'
-import React, { ReactElement, useCallback, useRef, useState } from 'react'
+import React, { ReactElement, useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { List, useTheme } from 'react-native-paper'
+import { View } from 'react-native'
+import { IconButton, List, useTheme } from 'react-native-paper'
+import { DatePickerInput, DatePickerModal } from 'react-native-paper-dates'
 import styled from 'styled-components/native'
 
-import CalendarRangeModal from './CalendarRangeModal'
-import DatePicker from './DatePicker'
+import getInputFormatFromLocale from '../utils/getInputFormatFromLocale'
 import Icon from './base/Icon'
 import Text from './base/Text'
 
@@ -47,6 +48,7 @@ type EventsDateFilterProps = {
   setEndDate: (startDate: DateTime | null) => void
   modalOpen: boolean
   setModalOpen: (modalOpen: boolean) => void
+  languageCode: string
 }
 
 const EventsDateFilter = ({
@@ -57,23 +59,22 @@ const EventsDateFilter = ({
   setEndDate,
   modalOpen,
   setModalOpen,
+  languageCode,
 }: EventsDateFilterProps): ReactElement => {
   const [showDateFilter, setShowDateFilter] = useState(false)
   const { t } = useTranslation('events')
-  const currentInput = useRef<string>('from')
   const theme = useTheme()
 
-  const today = DateTime.now()
-  const inAWeek = DateTime.now().plus({ week: 1 })
+  const onConfirm = useCallback(
+    (params: { startDate: Date | undefined; endDate: Date | undefined }) => {
+      setModalOpen(false)
+      setStartDate(params.startDate ? DateTime.fromJSDate(params.startDate) : null)
+      setEndDate(params.endDate ? DateTime.fromJSDate(params.endDate) : null)
+    },
+    [setEndDate, setModalOpen, setStartDate],
+  )
 
-  const setModalOpenAndCurrentInputFrom = (openModal: boolean) => {
-    currentInput.current = 'from'
-    setModalOpen(openModal)
-  }
-  const setModalOpenAndCurrentInputTo = (openModal: boolean) => {
-    currentInput.current = 'to'
-    setModalOpen(openModal)
-  }
+  const onDismiss = useCallback(() => setModalOpen(false), [setModalOpen])
 
   const chevronIcon = useCallback(
     () => <List.Icon color={theme.colors.primary} icon={showDateFilter ? 'chevron-up' : 'chevron-down'} />,
@@ -82,17 +83,16 @@ const EventsDateFilter = ({
 
   return (
     <>
-      {modalOpen && (
-        <CalendarRangeModal
-          closeModal={() => setModalOpen(false)}
-          modalVisible
-          startDate={startDate}
-          endDate={endDate}
-          setEndDate={setEndDate}
-          setStartDate={setStartDate}
-          currentInput={currentInput.current}
-        />
-      )}
+      <DatePickerModal
+        locale={languageCode}
+        mode='range'
+        visible={modalOpen}
+        onDismiss={onDismiss}
+        startDate={startDate?.toJSDate() ?? undefined}
+        endDate={endDate?.toJSDate() ?? undefined}
+        onConfirm={onConfirm}
+        calendarIcon='calendar-range'
+      />
       <List.Accordion
         title={t(showDateFilter ? 'hideFilters' : 'showFilters')}
         right={chevronIcon}
@@ -100,29 +100,57 @@ const EventsDateFilter = ({
         titleStyle={{ fontWeight: 'bold', color: theme.colors.primary }}
         rippleColor='transparent'
         onPress={() => setShowDateFilter(!showDateFilter)}>
-        <DateSection>
-          <>
-            <DatePicker
-              modalOpen={modalOpen}
-              setModalOpen={setModalOpenAndCurrentInputFrom}
-              setDate={setStartDate}
-              title={t('from')}
-              error={startDateError ? t(startDateError) : ''}
-              date={startDate}
-              placeholderDate={today}
-              calendarLabel={t('selectStartDateCalendar')}
+        <View style={{ flexDirection: 'row' }}>
+          <IconButton
+            icon='calendar-range'
+            mode='contained'
+            onPress={() => setModalOpen(true)}
+            style={{ alignSelf: 'center' }}
+            accessibilityLabel={t('selectStartDateCalendar')}
+          />
+          <DateSection>
+            <DatePickerInput
+              locale={languageCode}
+              label={t('from')}
+              withDateFormatInLabel={false}
+              placeholder={getInputFormatFromLocale(languageCode)}
+              value={startDate?.toJSDate() ?? undefined}
+              onChange={date => {
+                setStartDate(date ? DateTime.fromJSDate(date) : null)
+              }}
+              onChangeText={date => {
+                if (date === '') {
+                  setStartDate(null)
+                }
+              }}
+              inputMode='start'
+              mode='outlined'
+              hasError={!!startDateError}
             />
-            <DatePicker
-              modalOpen={modalOpen}
-              setModalOpen={setModalOpenAndCurrentInputTo}
-              setDate={setEndDate}
-              title={t('to')}
-              date={endDate}
-              placeholderDate={inAWeek}
-              calendarLabel={t('selectEndDateCalendar')}
+            <DatePickerInput
+              locale={languageCode}
+              label={t('to')}
+              withDateFormatInLabel={false}
+              placeholder={getInputFormatFromLocale(languageCode)}
+              value={endDate?.toJSDate() ?? undefined}
+              onChange={date => setEndDate(date ? DateTime.fromJSDate(date) : null)}
+              onChangeText={date => {
+                if (date === '') {
+                  setEndDate(null)
+                }
+              }}
+              inputMode='start'
+              mode='outlined'
             />
-          </>
-        </DateSection>
+            <View>
+              {!!startDateError && (
+                <Text variant='body3' style={{ color: theme.colors.error }}>
+                  {t(startDateError)}
+                </Text>
+              )}
+            </View>
+          </DateSection>
+        </View>
       </List.Accordion>
       <>
         {(startDate || endDate) && (

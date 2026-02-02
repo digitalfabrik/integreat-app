@@ -3,6 +3,7 @@ import { LinkingOptions, NavigationContainer, NavigationState } from '@react-nav
 import { Settings as LuxonSettings } from 'luxon'
 import React, { ReactElement, useCallback, useState } from 'react'
 import { LogBox } from 'react-native'
+import { registerTranslation, en, de, ar, es, fr, hi, it, nl, pl, pt, tr, zh } from 'react-native-paper-dates'
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
 import { enableScreens } from 'react-native-screens'
 import { useTheme } from 'styled-components/native'
@@ -30,6 +31,19 @@ enableScreens(true)
 LuxonSettings.throwOnInvalid = true
 LuxonSettings.defaultLocale = config.defaultFallback
 LogBox.ignoreLogs(['NativeEventEmitter'])
+
+registerTranslation('en', en)
+registerTranslation('de', de)
+registerTranslation('ar', ar)
+registerTranslation('es', es)
+registerTranslation('fr', fr)
+registerTranslation('hi', hi)
+registerTranslation('it', it)
+registerTranslation('nl', nl)
+registerTranslation('pl', pl)
+registerTranslation('pt', pt)
+registerTranslation('tr', tr)
+registerTranslation('zh', zh)
 
 NetInfo.configure({
   reachabilityUrl: 'https://cms.integreat-app.de/ping',
