@@ -44,17 +44,16 @@ const HeaderMenu = ({
   const theme = useTheme()
   const { t } = useTranslation('layout')
   const showSnackbar = useSnackbar()
-  const openMenu = () => setVisible(true)
-  const closeMenu = () => setVisible(false)
 
   const copyToClipboard = useCallback(() => {
     if (!shareUrl) {
       return
     }
     Clipboard.setString(shareUrl)
+    showSnackbar({ text: 'common:copied' })
     setUrlCopied(true)
     setTimeout(() => setUrlCopied(false), COPY_TIMEOUT)
-  }, [shareUrl])
+  }, [shareUrl, showSnackbar])
 
   const encodedShareUrl = shareUrl ? encodeURIComponent(shareUrl) : ''
   const encodedTitle = encodeURIComponent(pageTitle ?? buildConfig().appName)
@@ -121,9 +120,9 @@ const HeaderMenu = ({
 
   return (
     <Menu
-      key={Number(visible)}
+      key={Number(visible)} // Menu component closes and fails to open again on re-render: https://github.com/callstack/react-native-paper/issues/4763#issuecomment-3427895632
       visible={visible}
-      onDismiss={closeMenu}
+      onDismiss={() => setVisible(false)}
       style={{
         width: 232,
       }}
@@ -136,7 +135,7 @@ const HeaderMenu = ({
         <IconButton
           icon='dots-vertical'
           iconColor={theme.colors.onSurface}
-          onPress={openMenu}
+          onPress={() => setVisible(true)}
           testID='header-overflow-menu-button'
           style={{ backgroundColor: 'transparent' }} // #3803 this need to be changed to adapt the new design
         />
