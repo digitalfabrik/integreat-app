@@ -1,8 +1,7 @@
 import React, { ReactElement, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { Menu } from 'react-native-paper'
-import { Item } from 'react-navigation-header-buttons'
 import styled, { useTheme } from 'styled-components/native'
 
 import { ThemeKey } from 'build-configs/ThemeKey'
@@ -12,6 +11,7 @@ import {
   EVENTS_ROUTE,
   EventsRouteType,
   getSlugFromPath,
+  LANDING_ROUTE,
   NEWS_ROUTE,
   POIS_ROUTE,
   PoisRouteType,
@@ -31,7 +31,8 @@ import useSnackbar from '../hooks/useSnackbar'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import navigateToLanguageChange from '../navigation/navigateToLanguageChange'
-import CustomHeaderButtons from './CustomHeaderButtons'
+import ActionButtons from './ActionButtons'
+import HeaderActionItem from './HeaderActionItem'
 import HeaderBox from './HeaderBox'
 import HeaderMenu from './HeaderMenu'
 import HighlightBox from './HighlightBox'
@@ -46,6 +47,22 @@ const Horizontal = styled.View`
 const BoxShadow = styled(HighlightBox)`
   height: ${dimensions.headerHeight}px;
 `
+
+const styles = StyleSheet.create({
+  menuItemContent: {
+    flex: 1,
+  },
+  menuItemTitle: {
+    paddingRight: 8,
+  },
+  iconPlaceholder: {
+    width: 40,
+  },
+})
+
+const appLanguages = Object.entries(config.supportedLanguages).map(
+  ([code, language]) => new LanguageModel(code, language.name),
+)
 
 enum HeaderButtonTitle {
   Disclaimer = 'disclaimer',
@@ -67,9 +84,10 @@ type HeaderProps = {
   availableLanguages?: string[]
   shareUrl?: string
   cityName?: string
+  forceText?: boolean
 }
 
-const IconPlaceholder = () => <View style={{ width: 40 }} />
+const IconPlaceholder = () => <View style={styles.iconPlaceholder} />
 
 const Header = ({
   navigation,
@@ -80,6 +98,7 @@ const Header = ({
   showOverflowItems = true,
   languages,
   cityName,
+  forceText = false,
 }: HeaderProps): ReactElement | null => {
   const [visible, setVisible] = useState(false)
   const { languageCode, cityCode, settings, updateSettings } = useContext(AppContext)
@@ -90,6 +109,7 @@ const Header = ({
   const [previousRoute] = useState(navigation.getState().routes[navigation.getState().routes.length - 2])
   const canGoBack = previousRoute !== undefined
   const { enabled: isTtsEnabled, showTtsPlayer } = useTtsPlayer()
+  const isLanding = route.name === LANDING_ROUTE
 
   // processing pageTitle for sharing
   const routeTitle = (route.params as { title?: string } | undefined)?.title
@@ -98,18 +118,6 @@ const Header = ({
   const pageTitle = shouldAppendCityName ? `${titleWithoutCity} - ${cityName}` : titleWithoutCity
 
   const closeMenu = () => setVisible(false)
-
-  const renderItem = (title: string, iconName: string, visible: boolean, onPress?: () => void): ReactElement => (
-    <Item
-      key={title}
-      disabled={!visible}
-      title={t(title)}
-      iconName={iconName}
-      onPress={visible ? onPress : () => undefined}
-      color={visible ? theme.colors.onSurface : 'transparent'}
-      accessibilityLabel={t(title)}
-    />
-  )
 
   const renderMenuItem = (title: string, onPress: () => void, icon?: string): ReactElement => (
     <Menu.Item
@@ -123,16 +131,30 @@ const Header = ({
       style={{
         backgroundColor: theme.dark ? theme.colors.surfaceVariant : theme.colors.surface,
       }}
-      contentStyle={{ flex: 1 }}
-      titleStyle={{ color: theme.colors.onSurface, textAlign: contentAlignmentRTLText(t(title)), paddingRight: 8 }}
+      contentStyle={styles.menuItemContent}
+      titleStyle={[
+        styles.menuItemTitle,
+        { color: theme.colors.onSurface, textAlign: contentAlignmentRTLText(t(title)) },
+      ]}
     />
   )
 
   const goToLanguageChange = () => {
-    if (availableLanguages?.length === 1 && availableLanguages[0] === languageCode) {
+    const languageChangeLanguages = isLanding ? appLanguages : languages
+    const languageChangeAvailableLanguages = isLanding ? appLanguages.map(it => it.code) : availableLanguages
+
+    if (!languageChangeLanguages || !languageChangeAvailableLanguages) {
+      return
+    }
+
+    if (languageChangeAvailableLanguages.length === 1 && languageChangeAvailableLanguages[0] === languageCode) {
       showSnackbar({ text: 'layout:noTranslation' })
-    } else if (languages && availableLanguages) {
-      navigateToLanguageChange({ navigation, availableLanguages, languages })
+    } else {
+      navigateToLanguageChange({
+        navigation,
+        availableLanguages: languageChangeAvailableLanguages,
+        languages: languageChangeLanguages,
+      })
     }
   }
 
@@ -178,13 +200,28 @@ const Header = ({
     updateSettings({ selectedTheme: newTheme })
   }
 
+  const currentLanguageName = appLanguages.find(it => it.code === languageCode)?.name
+
   const items = [
-    renderItem(HeaderButtonTitle.Search, 'search', showItems, () =>
-      navigation.navigate(SEARCH_ROUTE, {
-        searchText: null,
-      }),
-    ),
-    renderItem(HeaderButtonTitle.Language, 'language', showItems, goToLanguageChange),
+    <HeaderActionItem
+      key={HeaderButtonTitle.Search}
+      title={HeaderButtonTitle.Search}
+      iconName='search'
+      visible={showItems}
+      onPress={() =>
+        navigation.navigate(SEARCH_ROUTE, {
+          searchText: null,
+        })
+      }
+    />,
+    <HeaderActionItem
+      key={HeaderButtonTitle.Language}
+      title={HeaderButtonTitle.Language}
+      iconName='language'
+      visible={showItems || isLanding}
+      onPress={goToLanguageChange}
+      innerText={forceText || isLanding ? currentLanguageName : undefined}
+    />,
   ]
 
   const overflowItems = showOverflowItems
@@ -200,6 +237,9 @@ const Header = ({
 
   const getHeaderText = (): { text: string; language?: string } => {
     const currentTitle = (route.params as { title?: string } | undefined)?.title
+    if (currentTitle) {
+      return { text: currentTitle, language: languageCode }
+    }
     if (!previousRoute) {
       // Home/Dashboard: Show current route title, i.e. city name
       return { text: currentTitle ?? '', language: config.sourceLanguage }
@@ -236,9 +276,12 @@ const Header = ({
           canGoBack={canGoBack}
           text={getHeaderText().text}
           language={getHeaderText().language}
+          landingPath={
+            !canGoBack && route.name !== LANDING_ROUTE ? () => navigation.navigate(LANDING_ROUTE) : undefined
+          }
         />
         <>
-          <CustomHeaderButtons items={items} />
+          <ActionButtons items={items} />
           <HeaderMenu
             visible={visible}
             setVisible={setVisible}

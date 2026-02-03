@@ -168,10 +168,10 @@ const Navigator = (): ReactElement | null => {
         <Stack.Screen name={NEWS_ROUTE} component={NewsContainer} />
         <Stack.Screen name={DISCLAIMER_ROUTE} component={DisclaimerContainer} />
         <Stack.Screen name={FEEDBACK_MODAL_ROUTE} component={FeedbackModalContainer} />
+        <Stack.Screen name={LANDING_ROUTE} component={Landing} />
       </Stack.Group>
 
       <Stack.Group screenOptions={{ header: transparentHeader }}>
-        <Stack.Screen name={LANDING_ROUTE} component={Landing} />
         <Stack.Screen name={PDF_VIEW_MODAL_ROUTE} component={PDFViewModal} />
         <Stack.Screen name={CHANGE_LANGUAGE_MODAL_ROUTE} component={ChangeLanguageModal} />
         <Stack.Screen name={IMAGE_VIEW_MODAL_ROUTE} component={ImageViewModal} />

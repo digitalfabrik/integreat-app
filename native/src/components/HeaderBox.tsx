@@ -1,13 +1,11 @@
-import { HeaderBackButton } from '@react-navigation/elements'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useWindowDimensions } from 'react-native'
+import { Appbar } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
 import { buildConfigAssets } from '../constants/buildConfig'
-import dimensions from '../constants/dimensions'
+import HeaderTitle from './HeaderTitle'
 import Icon from './base/Icon'
-import Text from './base/Text'
 
 const HorizontalLeft = styled.View`
   flex: 1;
@@ -26,21 +24,16 @@ type HeaderBoxProps = {
   canGoBack?: boolean
   text?: string
   language?: string
+  landingPath?: () => void
 }
 
-const HeaderBox = ({ goBack, canGoBack = true, text, language }: HeaderBoxProps): ReactElement => {
-  const deviceWidth = useWindowDimensions().width
+const HeaderBox = ({ goBack, canGoBack = true, text, language, landingPath }: HeaderBoxProps): ReactElement => {
   const theme = useTheme()
   const { t } = useTranslation('common')
 
   const AppIcon = buildConfigAssets().AppIcon
   const HeaderIcon = canGoBack ? (
-    <HeaderBackButton
-      onPress={goBack}
-      accessibilityLabel={t('back')}
-      displayMode='minimal'
-      tintColor={theme.colors.onSurface}
-    />
+    <Appbar.BackAction onPress={goBack} accessibilityLabel={t('back')} iconColor={theme.colors.onSurface} />
   ) : (
     <StyledIcon Icon={AppIcon} />
   )
@@ -48,17 +41,7 @@ const HeaderBox = ({ goBack, canGoBack = true, text, language }: HeaderBoxProps)
   return (
     <HorizontalLeft>
       {HeaderIcon}
-      <Text
-        variant='h6'
-        allowFontScaling={false}
-        style={{
-          flex: 1,
-          fontSize: Math.min(deviceWidth * dimensions.fontScaling, dimensions.headerTextSize),
-          fontFamily: theme.legacy.fonts.native.decorativeFontBold,
-        }}
-        accessibilityLanguage={language}>
-        {text}
-      </Text>
+      <HeaderTitle title={text} language={language} landingPath={landingPath} />
     </HorizontalLeft>
   )
 }
