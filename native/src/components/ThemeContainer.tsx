@@ -81,11 +81,7 @@ const ThemeContainer = ({ children }: ThemeContainerProps): ReactElement => {
   const contextValue = useMemo(() => theme(themeType), [themeType])
 
   return (
-    <PaperProvider
-      theme={contextValue}
-      settings={{
-        rippleEffectEnabled: false,
-      }}>
+    <PaperProvider theme={contextValue}>
       <ThemeProvider theme={contextValue}>{children}</ThemeProvider>
     </PaperProvider>
   )
