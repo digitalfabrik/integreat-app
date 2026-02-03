@@ -86,8 +86,20 @@ const Header = ({
   const showSnackbar = useSnackbar()
   // Save route/canGoBack to state to prevent it from changing during navigating which would lead to flickering of the title and back button
   const [previousRoute] = useState(navigation.getState().routes[navigation.getState().routes.length - 2])
-  const canGoBack = previousRoute !== undefined
   const { enabled: isTtsEnabled, showTtsPlayer } = useTtsPlayer()
+
+  const poisParams = route.params as RoutesParamsType[PoisRouteType] | undefined
+  const hasPoisParams = !!poisParams?.slug || poisParams?.multipoi !== undefined
+
+  const canGoBack = previousRoute !== undefined || (route.name === POIS_ROUTE && hasPoisParams)
+
+  const goBack = () => {
+    if (route.name === POIS_ROUTE && hasPoisParams) {
+      navigation.setParams({ slug: undefined, multipoi: undefined })
+    } else {
+      navigation.goBack()
+    }
+  }
 
   const onShare = async () => {
     if (!shareUrl) {
@@ -254,7 +266,7 @@ const Header = ({
     <BoxShadow>
       <Horizontal>
         <HeaderBox
-          goBack={navigation.goBack}
+          goBack={goBack}
           canGoBack={canGoBack}
           text={getHeaderText().text}
           language={getHeaderText().language}
