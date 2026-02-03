@@ -28,6 +28,7 @@ jest.mock('shared/api', () => ({
 require('react-native-gesture-handler/jestSetup')
 
 jest.mock('react-native-tts')
+jest.mock('@react-native-clipboard/clipboard', () => () => ({ setString: jest.fn() }))
 
 jest.mock('@sentry/react-native', () => ({
   init: jest.fn(),
