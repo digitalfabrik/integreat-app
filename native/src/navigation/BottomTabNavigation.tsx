@@ -19,6 +19,7 @@ import { defaultHeader } from '../Navigator'
 import { SignPostIcon } from '../assets'
 import Icon from '../components/base/Icon'
 import Text from '../components/base/Text'
+import buildConfig from '../constants/buildConfig'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useLoadCityContent from '../hooks/useLoadCityContent'
 import useSetRouteTitle from '../hooks/useSetRouteTitle'
@@ -83,7 +84,7 @@ type BottomTabNavigationProps = {
   navigation: NavigationProps<BottomTabNavigationRouteType>
 }
 
-const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactElement => {
+const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactElement | null => {
   const { t } = useTranslation('layout')
   const { cityCode, languageCode } = useCityAppContext()
   const deviceWidth = useWindowDimensions().width
@@ -91,6 +92,7 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
   const homeRouteTitle = cityDisplayName(data?.city, deviceWidth)
   useSetRouteTitle({ navigation, title: homeRouteTitle })
   const theme = useTheme()
+  const { featureFlags } = buildConfig()
 
   const CategoriesIcon = useCallback(
     ({ focused }: { focused: boolean }) => (
@@ -98,6 +100,12 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
     ),
     [theme],
   )
+
+  if (!data) {
+    return null
+  }
+
+  const isNewsEnabled = data.city.tunewsEnabled || data.city.localNewsEnabled
 
   return (
     <Tab.Navigator
@@ -114,24 +122,30 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
         component={CategoriesStackScreen}
         options={{ tabBarLabel: createTabLabel(theme, t('localInformationLabel')), tabBarIcon: CategoriesIcon }}
       />
-      <Tab.Screen
-        name={POIS_ROUTE}
-        component={PoisStackScreen}
-        options={{ tabBarLabel: createTabLabel(theme, t('locations')), tabBarIcon: createTabIcon('map-outline') }}
-      />
-      <Tab.Screen
-        name={NEWS_ROUTE}
-        component={NewsStackScreen}
-        options={{ tabBarLabel: createTabLabel(theme, t('news')), tabBarIcon: createTabIcon('newspaper') }}
-      />
-      <Tab.Screen
-        name={EVENTS_ROUTE}
-        component={EventsStackScreen}
-        options={{
-          tabBarLabel: createTabLabel(theme, t('events')),
-          tabBarIcon: createTabIcon('calendar-blank-outline'),
-        }}
-      />
+      {featureFlags.pois && data.city.poisEnabled && (
+        <Tab.Screen
+          name={POIS_ROUTE}
+          component={PoisStackScreen}
+          options={{ tabBarLabel: createTabLabel(theme, t('locations')), tabBarIcon: createTabIcon('map-outline') }}
+        />
+      )}
+      {isNewsEnabled && (
+        <Tab.Screen
+          name={NEWS_ROUTE}
+          component={NewsStackScreen}
+          options={{ tabBarLabel: createTabLabel(theme, t('news')), tabBarIcon: createTabIcon('newspaper') }}
+        />
+      )}
+      {data.city.eventsEnabled && (
+        <Tab.Screen
+          name={EVENTS_ROUTE}
+          component={EventsStackScreen}
+          options={{
+            tabBarLabel: createTabLabel(theme, t('events')),
+            tabBarIcon: createTabIcon('calendar-blank-outline'),
+          }}
+        />
+      )}
     </Tab.Navigator>
   )
 }
