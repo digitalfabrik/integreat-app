@@ -263,19 +263,17 @@ const Header = ({
           language={getHeaderText().language}
           landingPath={!canGoBack && !isLanding ? () => navigation.navigate(LANDING_ROUTE) : undefined}
         />
-        <>
-          <ActionButtons items={items} />
-          <HeaderMenu
-            visible={visible}
-            setVisible={setVisible}
-            menuItems={overflowItems}
-            shareUrl={shareUrl}
-            pageTitle={pageTitle}
-            onNavigateToDisclaimer={() => navigation.navigate(DISCLAIMER_ROUTE)}
-            onNavigateToLicenses={() => navigation.navigate(LICENSES_ROUTE)}
-            renderMenuItem={renderMenuItem}
-          />
-        </>
+        <ActionButtons items={items} />
+        <HeaderMenu
+          visible={visible}
+          setVisible={setVisible}
+          menuItems={overflowItems}
+          shareUrl={shareUrl}
+          pageTitle={pageTitle}
+          onNavigateToDisclaimer={() => navigation.navigate(DISCLAIMER_ROUTE)}
+          onNavigateToLicenses={() => navigation.navigate(LICENSES_ROUTE)}
+          renderMenuItem={renderMenuItem}
+        />
       </Horizontal>
     </BoxShadow>
   )

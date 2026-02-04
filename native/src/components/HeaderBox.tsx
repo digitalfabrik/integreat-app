@@ -33,7 +33,12 @@ const HeaderBox = ({ goBack, canGoBack = true, text, language, landingPath }: He
 
   const AppIcon = buildConfigAssets().AppIcon
   const HeaderIcon = canGoBack ? (
-    <Appbar.BackAction onPress={goBack} accessibilityLabel={t('back')} iconColor={theme.colors.onSurface} />
+    <Appbar.BackAction
+      style={{ backgroundColor: 'transparent' }}
+      onPress={goBack}
+      accessibilityLabel={t('back')}
+      iconColor={theme.colors.onSurface}
+    />
   ) : (
     <StyledIcon Icon={AppIcon} />
   )

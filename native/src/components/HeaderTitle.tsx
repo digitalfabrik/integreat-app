@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
     flexShrink: 1,
     flexDirection: 'row',
     alignItems: 'center',
+    marginHorizontal: 8,
   },
 })
 
@@ -32,14 +33,18 @@ const HeaderTitle = ({ title, language, landingPath }: HeaderTitleProps): ReactE
   const variant = !!title && title.length >= LONG_TITLE_LENGTH ? 'subtitle2' : 'subtitle1'
 
   if (buildConfig().featureFlags.fixedCity || !landingPath) {
-    return <Text variant={variant}>{title}</Text>
+    return (
+      <Text numberOfLines={2} style={{ flexShrink: 1 }} variant={variant}>
+        {title}
+      </Text>
+    )
   }
 
   if (title) {
     return (
       <TouchableRipple style={styles.touchableRippleStyle} borderless onPress={landingPath}>
         <View style={styles.titleTextContainer}>
-          <Text variant={variant} numberOfLines={0} accessibilityLanguage={language} style={{ flexShrink: 1 }}>
+          <Text variant={variant} numberOfLines={2} accessibilityLanguage={language} style={{ flexShrink: 1 }}>
             {title}
           </Text>
           <Icon source='chevron-down' size={24} />
