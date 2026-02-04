@@ -39,12 +39,7 @@ const HeaderTitle = ({ title, language, landingPath }: HeaderTitleProps): ReactE
     return (
       <TouchableRipple style={styles.touchableRippleStyle} borderless onPress={landingPath}>
         <View style={styles.titleTextContainer}>
-          <Text
-            variant={variant}
-            allowFontScaling={false}
-            numberOfLines={0}
-            accessibilityLanguage={language}
-            style={{ flexShrink: 1 }}>
+          <Text variant={variant} numberOfLines={0} accessibilityLanguage={language} style={{ flexShrink: 1 }}>
             {title}
           </Text>
           <Icon source='chevron-down' size={24} />
