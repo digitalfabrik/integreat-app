@@ -54,7 +54,7 @@ describe('createSettingsSections', () => {
     it('should not include push notification setting if disabled', () => {
       mockedPushNotificationsEnabled.mockImplementation(() => false)
       const sections = createSettings()
-      expect(sections.find(it => it?.title === 'privacyPolicy')).toBeTruthy()
+      expect(sections.find(it => it?.title === 'externalResourcesTitle')).toBeTruthy()
       expect(sections.find(it => it?.title === 'pushNewsTitle')).toBeFalsy()
     })
 
