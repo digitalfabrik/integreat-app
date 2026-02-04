@@ -31,6 +31,7 @@ import useSnackbar from '../hooks/useSnackbar'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import navigateToLanguageChange from '../navigation/navigateToLanguageChange'
+import supportedLanguages from '../utils/supportedLanguages'
 import ActionButtons from './ActionButtons'
 import HeaderActionItem from './HeaderActionItem'
 import HeaderBox from './HeaderBox'
@@ -60,10 +61,6 @@ const styles = StyleSheet.create({
   },
 })
 
-const appLanguages = Object.entries(config.supportedLanguages).map(
-  ([code, language]) => new LanguageModel(code, language.name),
-)
-
 enum HeaderButtonTitle {
   Disclaimer = 'disclaimer',
   Language = 'changeLanguage',
@@ -92,13 +89,13 @@ const IconPlaceholder = () => <View style={styles.iconPlaceholder} />
 const Header = ({
   navigation,
   route,
-  availableLanguages,
+  availableLanguages = route.name === LANDING_ROUTE ? supportedLanguages.map(it => it.code) : undefined,
   shareUrl,
   showItems = false,
   showOverflowItems = true,
-  languages,
+  languages = route.name === LANDING_ROUTE ? supportedLanguages : undefined,
   cityName,
-  forceText = false,
+  forceText = route.name === LANDING_ROUTE,
 }: HeaderProps): ReactElement | null => {
   const [visible, setVisible] = useState(false)
   const { languageCode, cityCode, settings, updateSettings } = useContext(AppContext)
@@ -110,6 +107,7 @@ const Header = ({
   const canGoBack = previousRoute !== undefined
   const { enabled: isTtsEnabled, showTtsPlayer } = useTtsPlayer()
   const isLanding = route.name === LANDING_ROUTE
+  const currentLanguageName = languages?.find(it => it.code === languageCode)?.name
 
   // processing pageTitle for sharing
   const routeTitle = (route.params as { title?: string } | undefined)?.title
@@ -140,21 +138,10 @@ const Header = ({
   )
 
   const goToLanguageChange = () => {
-    const languageChangeLanguages = isLanding ? appLanguages : languages
-    const languageChangeAvailableLanguages = isLanding ? appLanguages.map(it => it.code) : availableLanguages
-
-    if (!languageChangeLanguages || !languageChangeAvailableLanguages) {
-      return
-    }
-
-    if (languageChangeAvailableLanguages.length === 1 && languageChangeAvailableLanguages[0] === languageCode) {
+    if (availableLanguages?.length === 1 && availableLanguages[0] === languageCode) {
       showSnackbar({ text: 'layout:noTranslation' })
-    } else {
-      navigateToLanguageChange({
-        navigation,
-        availableLanguages: languageChangeAvailableLanguages,
-        languages: languageChangeLanguages,
-      })
+    } else if (languages && availableLanguages) {
+      navigateToLanguageChange({ navigation, availableLanguages, languages })
     }
   }
 
@@ -200,8 +187,6 @@ const Header = ({
     updateSettings({ selectedTheme: newTheme })
   }
 
-  const currentLanguageName = appLanguages.find(it => it.code === languageCode)?.name
-
   const items = [
     <HeaderActionItem
       key={HeaderButtonTitle.Search}
@@ -220,7 +205,7 @@ const Header = ({
       iconName='language'
       visible={showItems || isLanding}
       onPress={goToLanguageChange}
-      innerText={forceText || isLanding ? currentLanguageName : undefined}
+      innerText={forceText ? currentLanguageName : undefined}
     />,
   ]
 
@@ -276,9 +261,7 @@ const Header = ({
           canGoBack={canGoBack}
           text={getHeaderText().text}
           language={getHeaderText().language}
-          landingPath={
-            !canGoBack && route.name !== LANDING_ROUTE ? () => navigation.navigate(LANDING_ROUTE) : undefined
-          }
+          landingPath={!canGoBack && !isLanding ? () => navigation.navigate(LANDING_ROUTE) : undefined}
         />
         <>
           <ActionButtons items={items} />
