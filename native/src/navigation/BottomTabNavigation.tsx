@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createStackNavigator } from '@react-navigation/stack'
-import React, { ReactElement, useCallback } from 'react'
+import React, { ReactElement, useCallback, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useWindowDimensions } from 'react-native'
 import { NavigationProps, RoutesParamsType } from 'src/constants/NavigationTypes'
@@ -89,7 +89,16 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
   const { cityCode, languageCode } = useCityAppContext()
   const deviceWidth = useWindowDimensions().width
   const { data } = useLoadCityContent({ cityCode, languageCode })
-  const homeRouteTitle = cityDisplayName(data?.city, deviceWidth)
+  const cachedDataRef = useRef(data)
+
+  // Preserve previous data during language changes to prevent unmounting
+  if (data) {
+    cachedDataRef.current = data
+  }
+
+  const cachedData = data || cachedDataRef.current
+
+  const homeRouteTitle = cityDisplayName(cachedData?.city, deviceWidth)
   useSetRouteTitle({ navigation, title: homeRouteTitle })
   const theme = useTheme()
   const { featureFlags } = buildConfig()
@@ -101,11 +110,11 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
     [theme],
   )
 
-  if (!data) {
+  if (!cachedData) {
     return null
   }
 
-  const isNewsEnabled = data.city.tunewsEnabled || data.city.localNewsEnabled
+  const isNewsEnabled = cachedData.city.tunewsEnabled || cachedData.city.localNewsEnabled
 
   return (
     <Tab.Navigator
@@ -122,7 +131,7 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
         component={CategoriesStackScreen}
         options={{ tabBarLabel: createTabLabel(theme, t('localInformationLabel')), tabBarIcon: CategoriesIcon }}
       />
-      {featureFlags.pois && data.city.poisEnabled && (
+      {featureFlags.pois && cachedData.city.poisEnabled && (
         <Tab.Screen
           name={POIS_ROUTE}
           component={PoisStackScreen}
@@ -136,7 +145,7 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
           options={{ tabBarLabel: createTabLabel(theme, t('news')), tabBarIcon: createTabIcon('newspaper') }}
         />
       )}
-      {data.city.eventsEnabled && (
+      {cachedData.city.eventsEnabled && (
         <Tab.Screen
           name={EVENTS_ROUTE}
           component={EventsStackScreen}
