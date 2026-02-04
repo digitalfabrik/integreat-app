@@ -72,6 +72,7 @@ export const NavigationContainerWithTheme = ({ onStateChange }: NavigationContai
     ...DefaultTheme,
     colors: {
       ...DefaultTheme.colors,
+      background: theme.colors.background,
       card: theme.colors.background,
     },
   }

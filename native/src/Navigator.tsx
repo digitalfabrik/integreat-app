@@ -1,7 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
-import { createStackNavigator, StackHeaderProps, TransitionPresets } from '@react-navigation/stack'
+import { createStackNavigator, StackHeaderProps } from '@react-navigation/stack'
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
-import { Platform } from 'react-native'
 
 import {
   BOTTOM_TAB_NAVIGATION_ROUTE,
@@ -52,6 +51,7 @@ import Settings from './routes/Settings'
 import { ASYNC_STORAGE_VERSION } from './utils/AppSettings'
 import dataContainer from './utils/DefaultDataContainer'
 import { usePushNotificationListener } from './utils/PushNotificationsManager'
+import getTransitionPreset from './utils/getTransitionPreset'
 import { initSentry, log, reportError } from './utils/sentry'
 
 type HeaderProps = {
@@ -143,11 +143,7 @@ const Navigator = (): ReactElement | null => {
     return citiesError ? <LoadingErrorHandler error={citiesError} loading={false} refresh={refreshCities} /> : null
   }
 
-  // Keeps our previous transition we used in v4 of react-navigation on android. Fixes weird showing of splash screen on every navigate.
-  const transitionPreset = Platform.select({
-    android: TransitionPresets.FadeFromBottomAndroid,
-    ios: TransitionPresets.DefaultTransition,
-  })
+  const transitionPreset = getTransitionPreset()
 
   const redirectUrl = initialRoute.name === REDIRECT_ROUTE ? initialRoute.url : undefined
 
