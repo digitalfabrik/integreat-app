@@ -12,10 +12,27 @@ const getInputFormatFromLocale = (locale?: string): string => {
     return inputDate.replace('٢٠٢٠', 'YYYY').replace('١٠', 'MM').replace('٠١', 'DD')
   }
 
-  return inputDate
-    .replace('2020', locale === 'pt' || locale === 'fr' ? 'AAAA' : 'YYYY')
-    .replace('10', 'MM')
-    .replace('01', 'DD')
+  const getYearPlaceholder = () => {
+    if (locale === 'pt' || locale === 'fr') {
+      return 'AAAA'
+    }
+    if (locale === 'de') {
+      return 'JJJJ'
+    }
+    return 'YYYY'
+  }
+
+  const getDayPlaceholder = () => {
+    if (locale === 'de') {
+      return 'TT'
+    }
+    if (locale === 'fr') {
+      return 'JJ'
+    }
+    return 'DD'
+  }
+
+  return inputDate.replace('2020', getYearPlaceholder()).replace('10', 'MM').replace('01', getDayPlaceholder())
 }
 
 export default getInputFormatFromLocale
