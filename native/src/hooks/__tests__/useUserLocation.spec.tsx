@@ -153,7 +153,7 @@ describe('useUserLocation', () => {
     expect(mockRequestPermission).toHaveBeenCalledTimes(2)
     expect(showSnackbar).toHaveBeenCalledTimes(1)
     expect(showSnackbar).toHaveBeenCalledWith({
-      positiveAction: {
+      action: {
         label: 'layout:settings',
         onPress: openSettings,
       },
