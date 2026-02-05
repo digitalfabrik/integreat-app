@@ -1,34 +1,16 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { AccessibilityRole, KeyboardTypeOptions } from 'react-native'
-import styled, { css } from 'styled-components/native'
+import { HelperText, Text, TextInput } from 'react-native-paper'
+import styled from 'styled-components/native'
 
-import Text from './Text'
+import { isRTLText } from '../../constants/contentDirection'
 
 const DEFAULT_MULTI_LINE_NUMBER = 3
 const LINE_HEIGHT = 24
 
 const Container = styled.View`
   gap: 4px;
-`
-
-const TitleContainer = styled.View`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`
-
-const Input = styled.TextInput<{ numberOfLines: number; invalid: boolean }>`
-  border-width: 1px;
-  border-color: ${props => (props.invalid ? props.theme.colors.error : props.theme.colors.action.disabled)};
-  color: ${props => props.theme.colors.onSurface};
-  padding: 8px;
-  ${props =>
-    props.numberOfLines > 1 &&
-    css`
-      height: ${props.numberOfLines * LINE_HEIGHT}px;
-      text-align-vertical: top;
-    `};
 `
 
 type InputSectionProps = {
@@ -63,36 +45,42 @@ const InputSection = ({
   accessibilityRole,
 }: InputSectionProps): ReactElement => {
   const { t } = useTranslation('common')
+  const lines = multiline ? numberOfLines : 1
   return (
     <Container accessible>
-      {title || showOptional || hint ? (
-        <TitleContainer>
-          {title ? (
-            <Text variant='h6' style={{ textAlign: 'left' }}>
-              {title}
-            </Text>
-          ) : null}
-          {hint ? <Text>{hint}</Text> : null}
-          {showOptional && <Text>({t('optional')})</Text>}
-        </TitleContainer>
-      ) : null}
-      {description ? <Text nativeID={description}>{description}</Text> : null}
-      <Input
+      {showOptional && <Text style={{ textAlign: 'right' }}>({t('common:optional')})</Text>}
+      <TextInput
+        mode='outlined'
+        label={title}
         onChangeText={onChange}
-        focusable
         onBlur={onBlur}
         value={value}
         multiline={multiline}
         maxLength={maxLength}
-        numberOfLines={multiline ? numberOfLines : 1}
+        numberOfLines={lines}
+        style={[
+          multiline ? { minHeight: lines * LINE_HEIGHT } : {},
+          { textAlign: isRTLText(title ?? '') ? 'right' : 'left' },
+        ]}
+        contentStyle={multiline ? { textAlignVertical: 'top' } : {}}
         keyboardType={keyboardType}
-        invalid={invalid}
+        error={invalid}
         returnKeyType='done'
         accessibilityRole={accessibilityRole ?? 'search'}
         accessibilityLabel={title}
         accessibilityLabelledBy={description}
         testID={title ?? value}
       />
+      {!!hint && (
+        <HelperText style={{ textAlign: isRTLText(hint) ? 'right' : 'left' }} type='info'>
+          {hint}
+        </HelperText>
+      )}
+      {!!description && (
+        <HelperText style={{ textAlign: isRTLText(description) ? 'right' : 'left' }} type='info' nativeID={description}>
+          {description}
+        </HelperText>
+      )}
     </Container>
   )
 }

@@ -1,14 +1,13 @@
 import { DateTime } from 'luxon'
 import React, { ReactElement, useState } from 'react'
+import { Button } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
 import buildConfig from '../constants/buildConfig'
 import { useAppContext } from '../hooks/useCityAppContext'
 import { log } from '../utils/sentry'
 import Icon from './base/Icon'
-import Pressable from './base/Pressable'
 import Text from './base/Text'
-import TextButton from './base/TextButton'
 
 const API_URL_OVERRIDE_MIN_CLICKS = 10
 const CLICK_TIMEOUT = 8
@@ -17,14 +16,6 @@ const Container = styled.View`
   display: flex;
   flex-direction: column;
   align-items: center;
-`
-
-const StyledButton = styled(TextButton)`
-  margin-top: 16px;
-`
-
-const StyledPressable = styled(Pressable)`
-  opacity: 1;
 `
 
 type LandingIconProps = {
@@ -68,7 +59,8 @@ const SwitchCmsUrlIcon = ({ clearResourcesAndCache }: LandingIconProps): ReactEl
 
   return (
     <Container>
-      <StyledPressable
+      <Button
+        rippleColor='transparent'
         onPress={onImagePress}
         role='button'
         focusable={false}
@@ -76,7 +68,7 @@ const SwitchCmsUrlIcon = ({ clearResourcesAndCache }: LandingIconProps): ReactEl
         accessibilityElementsHidden
         accessible={false}>
         <Icon size={72} color={theme.colors.secondary} source='map-marker' />
-      </StyledPressable>
+      </Button>
       {apiUrlOverride && apiUrlOverride !== buildConfig().cmsUrl ? (
         <>
           <Text
@@ -84,7 +76,9 @@ const SwitchCmsUrlIcon = ({ clearResourcesAndCache }: LandingIconProps): ReactEl
               paddingTop: 12,
               color: theme.colors.error,
             }}>{`Currently using API: ${apiUrlOverride.toString()}`}</Text>
-          <StyledButton onPress={() => setApiUrl(cmsUrl)} text='Switch back to default API' />
+          <Button mode='contained' style={{ marginTop: 16 }} onPress={() => setApiUrl(cmsUrl)}>
+            Switch back to default API
+          </Button>
         </>
       ) : null}
     </Container>

@@ -1,98 +1,110 @@
+import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Divider } from 'react-native-paper'
+import { StyleSheet, View } from 'react-native'
+import { List as PaperList } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
 import { LocalNewsModel, TunewsModel } from 'shared/api'
 
 import { EXCERPT_MAX_LINES } from '../constants'
-import { contentDirection } from '../constants/contentDirection'
+import { contentAlignmentRTLText, contentDirection } from '../constants/contentDirection'
 import { useAppContext } from '../hooks/useCityAppContext'
 import TimeStamp from './TimeStamp'
-import Icon from './base/Icon'
-import Pressable from './base/Pressable'
 import Text from './base/Text'
 
 type NewsListItemProps = {
-  index: number
   newsItem: LocalNewsModel | TunewsModel
   navigateToNews: () => void
-  isTunews: boolean
 }
 
 const ReadMoreWrapper = styled.View<{ language: string }>`
   flex-direction: ${props => contentDirection(props.language)};
   justify-content: flex-end;
-  width: 100%;
   align-self: center;
 `
-const StyledIcon = styled(Icon)`
-  margin: 6px 4px 0;
-`
+
 const ListItemWrapper = styled.View`
   padding: 0 5%;
 `
-const StyledPressable = styled(Pressable)`
-  flex-direction: column;
-`
 
-const StyledDivider = styled(Divider)<{ firstItem: boolean }>`
-  margin-top: ${props => (props.firstItem ? '0px' : '12px')};
-  margin-bottom: 12px;
-`
+const Styles = StyleSheet.create({
+  bottomInfo: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+  },
+})
+
 export const Description = styled.View`
   flex-direction: column;
   font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
 `
 
-const NewsListItem = ({ index, newsItem, navigateToNews, isTunews }: NewsListItemProps): ReactElement => {
+const getTimestamp = (newsItem: LocalNewsModel | TunewsModel): DateTime<true> | null => {
+  if ('timestamp' in newsItem) {
+    return newsItem.timestamp
+  }
+  if ('date' in newsItem) {
+    return newsItem.date
+  }
+  return null
+}
+
+const NewsListItem = ({ newsItem, navigateToNews }: NewsListItemProps): ReactElement => {
   const { t, i18n } = useTranslation('news')
-  const timestamp = newsItem instanceof LocalNewsModel ? newsItem.timestamp : null
   const { languageCode } = useAppContext()
   const theme = useTheme()
+  const timestamp = getTimestamp(newsItem)
 
   return (
-    <>
-      <StyledDivider horizontalInset firstItem={index === 0} />
-      <ListItemWrapper>
-        <StyledPressable onPress={navigateToNews} accessibilityLanguage={languageCode} role='link'>
+    <ListItemWrapper>
+      <PaperList.Item
+        borderless
+        titleNumberOfLines={0}
+        descriptionNumberOfLines={0}
+        title={
+          <Text variant='h5' style={{ marginVertical: 8, textAlign: contentAlignmentRTLText(newsItem.title) }}>
+            {newsItem.title}
+          </Text>
+        }
+        description={
           <Description>
-            <Text variant='h5' style={{ marginBottom: 8, marginTop: 8 }}>
-              {newsItem.title}
-            </Text>
-            <Text variant='body2' numberOfLines={EXCERPT_MAX_LINES} style={{ letterSpacing: 0.5 }}>
+            <Text
+              variant='body2'
+              numberOfLines={EXCERPT_MAX_LINES}
+              style={{ letterSpacing: 0.5, textAlign: contentAlignmentRTLText(newsItem.title) }}>
               {newsItem.content}
             </Text>
-            {timestamp && (
-              <Text variant='body2' style={{ paddingVertical: 8 }}>
-                <TimeStamp lastUpdate={timestamp} showText={false} />
-              </Text>
-            )}
+            <View style={Styles.bottomInfo}>
+              {timestamp ? (
+                <Text variant='body2' style={{ paddingVertical: 8 }}>
+                  <TimeStamp lastUpdate={timestamp} showText={false} />
+                </Text>
+              ) : (
+                <View />
+              )}
+              <ReadMoreWrapper language={i18n.language}>
+                <Text
+                  variant='h6'
+                  onPress={navigateToNews}
+                  style={{
+                    marginTop: 4,
+                    color: theme.colors.primary,
+                  }}>
+                  {t('common:more')}
+                </Text>
+              </ReadMoreWrapper>
+            </View>
           </Description>
-        </StyledPressable>
-        <Pressable role='link' onPress={navigateToNews}>
-          <ReadMoreWrapper language={i18n.language}>
-            <Text
-              variant='h6'
-              onPress={navigateToNews}
-              style={{
-                fontSize: 12,
-                letterSpacing: 0.5,
-                marginTop: 4,
-                color: isTunews && !theme.dark ? theme.colors.tunews.main : theme.colors.secondary,
-              }}>
-              {t('common:more')}
-            </Text>
-            <StyledIcon
-              source='chevron-right'
-              directionDependent
-              size={14}
-              color={isTunews && !theme.dark ? theme.colors.tunews.main : theme.colors.secondary}
-            />
-          </ReadMoreWrapper>
-        </Pressable>
-      </ListItemWrapper>
-    </>
+        }
+        onPress={navigateToNews}
+        accessibilityLanguage={languageCode}
+        role='link'
+        style={{ flexDirection: 'column' }}
+      />
+    </ListItemWrapper>
   )
 }
 

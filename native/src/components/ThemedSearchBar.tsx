@@ -1,11 +1,10 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { TextInput, View } from 'react-native'
+import { View } from 'react-native'
+import { TextInput } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
 import testID from '../testing/testID'
-import Icon from './base/Icon'
-import IconButton from './base/IconButton'
 
 const StyledBackground = styled(View)`
   background-color: ${props => props.theme.colors.background};
@@ -16,13 +15,6 @@ const StyledBackground = styled(View)`
   align-items: center;
   padding: 8px;
   gap: 8px;
-`
-
-const StyledInput = styled(TextInput)`
-  padding: 4px;
-  flex: 1;
-  color: ${props => props.theme.colors.onSurface};
-  font-size: 18px;
 `
 
 type ThemedSearchBarProps = {
@@ -36,8 +28,8 @@ const ThemedSearchBar = ({ onChangeText, value, autofocus }: ThemedSearchBarProp
   const theme = useTheme()
   return (
     <StyledBackground>
-      <Icon size={20} color={theme.colors.onSurfaceVariant} source='magnify' />
-      <StyledInput
+      <TextInput
+        mode='outlined'
         {...testID('Content-Search-Input')}
         role='searchbox'
         onChangeText={onChangeText}
@@ -45,14 +37,16 @@ const ThemedSearchBar = ({ onChangeText, value, autofocus }: ThemedSearchBarProp
         autoFocus={autofocus}
         placeholder={t('searchPlaceholder')}
         placeholderTextColor={theme.dark ? theme.colors.onSurface : theme.colors.onSurfaceVariant}
+        right={
+          value ? (
+            <TextInput.Icon icon='close' onPress={() => onChangeText('')} accessibilityLabel={t('delete')} />
+          ) : (
+            <TextInput.Icon icon='magnify' accessible={false} focusable={false} />
+          )
+        }
+        style={{ flex: 1, height: 48 }}
+        outlineStyle={{ borderRadius: 24 }}
       />
-      {!!value && (
-        <IconButton
-          icon={<Icon size={20} color={theme.colors.onSurfaceVariant} source='close' />}
-          onPress={() => onChangeText('')}
-          accessibilityLabel={t('delete')}
-        />
-      )}
     </StyledBackground>
   )
 }

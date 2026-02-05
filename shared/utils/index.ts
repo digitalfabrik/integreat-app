@@ -74,3 +74,6 @@ export const getGenericLanguageCode = (languageCode: string): string => {
   }
   return genericLanguageCode
 }
+
+export const join = <T, U>(items: T[], separator: (index: number) => U): (T | U)[] =>
+  items.flatMap((item, index) => [item, separator(index)]).slice(0, -1)

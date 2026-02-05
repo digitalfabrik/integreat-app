@@ -8,7 +8,7 @@ import { TypographyType } from 'build-configs/TypographyType'
 type MD3Theme = {
   dark: boolean
   legacy: LegacyThemeType & { isContrastTheme: boolean }
-  fonts: TypographyType & RNPaperTheme['fonts']
+  fonts: RNPaperTheme['fonts'] & Record<TypographyType>
   colors: {
     primary: string
     primaryContainer: string

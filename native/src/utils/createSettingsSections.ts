@@ -3,7 +3,6 @@ import { TFunction } from 'i18next'
 import { Role } from 'react-native'
 import { openSettings } from 'react-native-permissions'
 
-import { ThemeKey } from 'build-configs/ThemeKey'
 import { CONSENT_ROUTE, JPAL_TRACKING_ROUTE, LICENSES_ROUTE, SettingsRouteType } from 'shared'
 
 import { SnackbarType } from '../components/SnackbarContainer'
@@ -18,7 +17,6 @@ import {
   subscribeNews,
   unsubscribeNews,
 } from './PushNotificationsManager'
-import openExternalUrl from './openExternalUrl'
 import { initSentry } from './sentry'
 
 export type SettingsSectionType = {
@@ -87,15 +85,6 @@ const createSettingsSections = ({
       }
     : null,
   {
-    title: t('layout:contrastTheme'),
-    description: t('layout:contrastThemeDescription'),
-    getSettingValue: (settings: SettingsType) => settings.selectedTheme === 'contrast',
-    onPress: () => {
-      const newTheme: ThemeKey = settings.selectedTheme === 'light' ? 'contrast' : 'light'
-      updateSettings({ selectedTheme: newTheme })
-    },
-  },
-  {
     title: t('sentryTitle'),
     description: t('sentryDescription', { appName: buildConfig().appName }),
     getSettingValue: (settings: SettingsType) => settings.errorTracking,
@@ -117,24 +106,6 @@ const createSettingsSections = ({
     onPress: () => navigation.navigate(CONSENT_ROUTE),
   },
   {
-    role: 'link',
-    title: t('aboutUs'),
-    onPress: async () => {
-      const { aboutUrls } = buildConfig()
-      const aboutUrl = aboutUrls[languageCode] || aboutUrls.default
-      await openExternalUrl(aboutUrl, showSnackbar)
-    },
-  },
-  {
-    role: 'link',
-    title: t('privacyPolicy'),
-    onPress: async () => {
-      const { privacyUrls } = buildConfig()
-      const privacyUrl = privacyUrls[languageCode] || privacyUrls.default
-      await openExternalUrl(privacyUrl, showSnackbar)
-    },
-  },
-  {
     title: t('version', { version: NativeConstants.appVersion }),
     onPress: () => {
       volatileValues.versionTaps += 1
@@ -144,10 +115,6 @@ const createSettingsSections = ({
         throw Error('This error was thrown for testing purposes. Please ignore this error.')
       }
     },
-  },
-  {
-    title: t('openSourceLicenses'),
-    onPress: () => navigation.navigate(LICENSES_ROUTE),
   },
   buildConfig().featureFlags.jpalTracking && settings.jpalTrackingCode
     ? {

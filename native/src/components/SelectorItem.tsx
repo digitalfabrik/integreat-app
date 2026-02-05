@@ -1,27 +1,16 @@
 import React, { ReactElement } from 'react'
-import { DefaultTheme, List } from 'react-native-paper'
-import styled, { useTheme } from 'styled-components/native'
+import { List, TouchableRipple } from 'react-native-paper'
+import { DefaultTheme, useTheme } from 'styled-components/native'
 
-import dimensions from '../constants/dimensions'
 import SelectorItemModel from '../models/SelectorItemModel'
-import Pressable from './base/Pressable'
 import Text from './base/Text'
 
-export const TouchTarget = styled(Pressable)`
-  width: 100%;
-`
-
-const getBackgroundColor = (selected: boolean, theme: typeof DefaultTheme): string => {
+const getBackgroundColor = (selected: boolean, theme: DefaultTheme): string => {
   if (selected) {
     return theme.dark ? theme.colors.surfaceVariant : theme.colors.tertiaryContainer
   }
   return theme.dark ? theme.colors.surface : ''
 }
-
-const StyledListItem = styled(List.Item)<{ selected: boolean }>`
-  height: ${dimensions.headerHeight}px;
-  background-color: ${props => getBackgroundColor(props.selected, props.theme as typeof DefaultTheme)};
-`
 
 type SelectorItemProps = {
   model: SelectorItemModel
@@ -31,7 +20,9 @@ type SelectorItemProps = {
 const SelectorItem = ({ model: { name, code, enabled, onPress }, selected }: SelectorItemProps): ReactElement => {
   const theme = useTheme()
   const item = (
-    <StyledListItem
+    <List.Item
+      style={{ backgroundColor: getBackgroundColor(selected, theme) }}
+      containerStyle={{ height: 40 }}
       title={
         <Text
           variant='body1'
@@ -44,15 +35,14 @@ const SelectorItem = ({ model: { name, code, enabled, onPress }, selected }: Sel
           {name}
         </Text>
       }
-      selected={selected}
     />
   )
 
   if (enabled || selected) {
     return (
-      <TouchTarget key={code} onPress={onPress} role='button'>
+      <TouchableRipple borderless key={code} onPress={onPress} role='button' style={{ width: '100%' }}>
         {item}
-      </TouchTarget>
+      </TouchableRipple>
     )
   }
 

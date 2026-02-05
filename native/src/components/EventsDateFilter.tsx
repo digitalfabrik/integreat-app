@@ -13,8 +13,9 @@ import Text from './base/Text'
 const DateSection = styled.View`
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin: 15px 5px;
+  gap: 16px;
+  margin: 16px 8px;
+  align-items: center;
   padding: 0 16px;
   flex: 1;
 `
@@ -77,7 +78,10 @@ const EventsDateFilter = ({
 
   const onDismiss = useCallback(() => setModalOpen(false), [setModalOpen])
 
-  const getCurrentIcon = () => (showDateFilter ? <Icon source='chevron-up' /> : <Icon source='chevron-down' />)
+  const chevronIcon = useCallback(
+    () => <List.Icon color={theme.colors.primary} icon={showDateFilter ? 'chevron-up' : 'chevron-down'} />,
+    [showDateFilter, theme.colors.primary],
+  )
 
   return (
     <>
@@ -93,9 +97,10 @@ const EventsDateFilter = ({
       />
       <List.Accordion
         title={t(showDateFilter ? 'hideFilters' : 'showFilters')}
-        right={getCurrentIcon}
+        right={chevronIcon}
         expanded={showDateFilter}
-        titleStyle={{ fontWeight: 'bold', color: theme.colors.onBackground }}
+        titleStyle={{ fontWeight: 'bold', color: theme.colors.primary }}
+        rippleColor='transparent'
         onPress={() => setShowDateFilter(!showDateFilter)}>
         <View style={{ flexDirection: 'row' }}>
           <IconButton

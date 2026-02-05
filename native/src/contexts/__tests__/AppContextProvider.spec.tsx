@@ -3,11 +3,11 @@ import { fireEvent, waitFor } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import React, { useContext } from 'react'
 import { View } from 'react-native'
+import { Button } from 'react-native-paper'
 
 import { FeatureFlagsType } from 'build-configs/BuildConfigType'
 
 import Text from '../../components/base/Text'
-import TextButton from '../../components/base/TextButton'
 import buildConfig from '../../constants/buildConfig'
 import render from '../../testing/render'
 import appSettings, { defaultSettings, SettingsType } from '../../utils/AppSettings'
@@ -54,9 +54,9 @@ describe('AppContextProvider', () => {
         {!!cityCode && <Text>{cityCode}</Text>}
         <Text>{languageCode}</Text>
 
-        <TextButton text='updateSettings' onPress={() => updateSettings(newSettings)} />
-        <TextButton text='changeCityCode' onPress={() => changeCityCode(newCityCode)} />
-        <TextButton text='changeLanguageCode' onPress={() => changeLanguageCode(newLanguageCode)} />
+        <Button onPress={() => updateSettings(newSettings)}>updateSettings</Button>
+        <Button onPress={() => changeCityCode(newCityCode)}>changeCityCode</Button>
+        <Button onPress={() => changeLanguageCode(newLanguageCode)}>changeLanguageCode</Button>
       </View>
     )
   }

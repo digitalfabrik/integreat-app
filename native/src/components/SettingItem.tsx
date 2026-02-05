@@ -1,10 +1,9 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View, Role, StyleSheet } from 'react-native'
-import { Switch } from 'react-native-paper'
+import { Switch, TouchableRipple } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
-import Pressable from './base/Pressable'
 import Text from './base/Text'
 
 const TITLE_FONT_SIZE_REGULAR = 14
@@ -93,7 +92,7 @@ const SettingItem = ({
   })
 
   return (
-    <Pressable onPress={onPress} role={role ?? 'none'} accessible>
+    <TouchableRipple borderless onPress={onPress} role={role ?? 'none'} accessible>
       <PadView>
         <ContentContainer>
           <View>
@@ -113,7 +112,7 @@ const SettingItem = ({
           {value !== null && <SettingsItemValue onPress={onPress} hasBadge={hasBadge} value={value} />}
         </FlexEndContainer>
       </PadView>
-    </Pressable>
+    </TouchableRipple>
   )
 }
 

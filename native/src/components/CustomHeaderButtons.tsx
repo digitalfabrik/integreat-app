@@ -1,14 +1,6 @@
 import React, { ReactElement, ReactNode } from 'react'
-import { useTranslation } from 'react-i18next'
 import { ColorValue } from 'react-native'
-import {
-  defaultOnOverflowMenuPress,
-  HeaderButton,
-  HeaderButtonProps,
-  HeaderButtons,
-  OnOverflowMenuPressParams,
-  OverflowMenu,
-} from 'react-navigation-header-buttons'
+import { HeaderButton, HeaderButtonProps, HeaderButtons } from 'react-navigation-header-buttons'
 import styled from 'styled-components/native'
 
 import Icon from './base/Icon'
@@ -44,33 +36,10 @@ const CustomHeaderButton = (props: HeaderButtonProps) => (
   <HeaderButton {...props} IconComponent={HeaderIcon} iconSize={24} role='button' />
 )
 
-// Adjust cancel label for ios overflow menu of HeaderButtons
-const onOverflowMenuPress = (cancelButtonLabel: string) => (props: OnOverflowMenuPressParams) =>
-  defaultOnOverflowMenuPress({
-    ...props,
-    cancelButtonLabel,
-  })
-
-const CustomHeaderButtons = (props: {
-  cancelLabel: string
-  items: ReactNode[]
-  overflowItems: ReactNode[]
-}): ReactElement => {
-  const { cancelLabel, items, overflowItems } = props
-  const { t } = useTranslation('common')
-  return (
-    <StyledHeaderContainer>
-      <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-        {items}
-        <OverflowMenu
-          onPress={onOverflowMenuPress(cancelLabel)}
-          accessibilityLabel={t('moreOptions')}
-          OverflowIcon={<Icon source='dots-vertical' />}>
-          {overflowItems}
-        </OverflowMenu>
-      </HeaderButtons>
-    </StyledHeaderContainer>
-  )
-}
+const CustomHeaderButtons = ({ items }: { items: ReactNode[] }): ReactElement => (
+  <StyledHeaderContainer>
+    <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>{items}</HeaderButtons>
+  </StyledHeaderContainer>
+)
 
 export default CustomHeaderButtons

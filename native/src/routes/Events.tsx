@@ -23,11 +23,6 @@ const ListContainer = styled(Layout)`
   padding: 0 8px;
 `
 
-const Separator = styled.View`
-  border-top-width: 2px;
-  border-top-color: ${props => props.theme.colors.secondary};
-`
-
 const PageDetailsContainer = styled.View`
   gap: 8px;
 `
@@ -149,7 +144,6 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
               setModalOpen={setModalOpen}
               languageCode={language}
             />
-            <Separator />
           </>
         }
         refresh={refresh}

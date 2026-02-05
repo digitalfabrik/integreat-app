@@ -80,9 +80,11 @@ describe('TransparentHeader', () => {
     const spy = jest.spyOn(Share, 'share')
     spy.mockImplementation(share)
 
-    const { getByLabelText } = render(<TransparentHeader {...props} />)
+    const { getByTestId, getByText } = render(<TransparentHeader {...props} />)
 
-    fireEvent.press(getByLabelText('hidden: share'))
+    // open overflow menu and press the share item
+    fireEvent.press(getByTestId('header-overflow-menu-button'))
+    fireEvent.press(getByText('share'))
 
     // expect(share).toHaveBeenCalledWith({ message: 'shareMessage', title: 'Integreat' })
     expect(sendTrackingSignal).toHaveBeenCalledWith({
