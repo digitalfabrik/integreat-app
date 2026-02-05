@@ -19,6 +19,7 @@ import {
   LICENSES_ROUTE,
   SEARCH_ROUTE,
   SETTINGS_ROUTE,
+  BOTTOM_TAB_NAVIGATION_ROUTE,
 } from 'shared'
 import { LanguageModel, FeedbackRouteType } from 'shared/api'
 import { config } from 'translations'
@@ -88,8 +89,20 @@ const Header = ({
   const showSnackbar = useSnackbar()
   // Save route/canGoBack to state to prevent it from changing during navigating which would lead to flickering of the title and back button
   const [previousRoute] = useState(navigation.getState().routes[navigation.getState().routes.length - 2])
-  const canGoBack = previousRoute !== undefined
   const { enabled: isTtsEnabled, showTtsPlayer } = useTtsPlayer()
+
+  const poisParams = route.params as RoutesParamsType[PoisRouteType] | undefined
+  const hasPoisParams = !!poisParams?.slug || poisParams?.multipoi !== undefined
+
+  const canGoBack = previousRoute !== undefined || (route.name === POIS_ROUTE && hasPoisParams)
+
+  const goBack = () => {
+    if (route.name === POIS_ROUTE && hasPoisParams) {
+      navigation.setParams({ slug: undefined, multipoi: undefined })
+    } else {
+      navigation.goBack()
+    }
+  }
 
   // processing pageTitle for sharing
   const routeTitle = (route.params as { title?: string } | undefined)?.title
@@ -199,10 +212,9 @@ const Header = ({
     : []
 
   const getHeaderText = (): { text: string; language?: string } => {
-    const currentTitle = (route.params as { title?: string } | undefined)?.title
     if (!previousRoute) {
-      // Home/Dashboard: Show current route title, i.e. city name
-      return { text: currentTitle ?? '', language: config.sourceLanguage }
+      // Home/Dashboard: Show current city name
+      return { text: cityName ?? '', language: config.sourceLanguage }
     }
 
     const poisRouteParams = route.params as RoutesParamsType[PoisRouteType] | undefined
@@ -210,6 +222,13 @@ const Header = ({
     const notFromDeepLink = previousRoute.name === POIS_ROUTE
     if (isSinglePoi && notFromDeepLink) {
       return { text: t('locations'), language: undefined } // system language
+    }
+
+    const eventsRouteParams = route.params as RoutesParamsType[EventsRouteType] | undefined
+    const isSingleEvent = !!eventsRouteParams?.slug
+    const notFromEventsDeepLink = previousRoute.name === EVENTS_ROUTE
+    if (isSingleEvent && notFromEventsDeepLink) {
+      return { text: t('events'), language: undefined } // system language
     }
 
     const previousRouteTitle = (previousRoute.params as { title?: string } | undefined)?.title
@@ -232,7 +251,7 @@ const Header = ({
     <BoxShadow>
       <Horizontal>
         <HeaderBox
-          goBack={navigation.goBack}
+          goBack={goBack}
           canGoBack={canGoBack}
           text={getHeaderText().text}
           language={getHeaderText().language}
