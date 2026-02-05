@@ -1,7 +1,7 @@
 import Clipboard from '@react-native-clipboard/clipboard'
 import React, { ReactElement, useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { Button } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
@@ -72,7 +72,6 @@ const CityNotCooperating = (): ReactElement | null => {
       marginBottom: 252,
     },
     copyButton: {
-      zIndex: 1,
       width: '40%',
       alignSelf: 'center',
       borderRadius: 4,
@@ -119,9 +118,11 @@ const CityNotCooperating = (): ReactElement | null => {
         </Text>
       </ListItem>
 
-      <Button icon={CopyIcon} style={styles.copyButton} mode='contained' onPress={copyToClipboard}>
-        {isCopied ? t('common:copied') : t('copyText')}
-      </Button>
+      <View style={{ zIndex: 1 }}>
+        <Button icon={CopyIcon} style={styles.copyButton} mode='contained' onPress={copyToClipboard}>
+          {isCopied ? t('common:copied') : t('copyText')}
+        </Button>
+      </View>
       <Text variant='body2' style={styles.templateText}>
         {template}
       </Text>
