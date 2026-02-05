@@ -1,8 +1,7 @@
 import React, { ReactElement, ReactNode } from 'react'
+import { Button } from 'react-native-paper'
 
 import { MapFeature } from 'shared'
-
-import TextButton from '../base/TextButton'
 
 const MockMapView = ({
   features,
@@ -17,9 +16,9 @@ const MockMapView = ({
     {features.map(feature => {
       const title =
         feature.properties.pois.length === 1 ? feature.properties.pois[0]?.title : (feature.id?.toString() ?? 'null')
-      return <TextButton key={title} onPress={() => selectFeature(feature)} text={`Feature-${title}`} />
+      return <Button key={title} onPress={() => selectFeature(feature)}>{`Feature-${title}`}</Button>
     })}
-    <TextButton onPress={() => selectFeature(null)} text='Map Press' />
+    <Button onPress={() => selectFeature(null)}>Map Press</Button>
     {Overlay}
   </>
 )

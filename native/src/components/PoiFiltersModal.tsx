@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Switch } from 'react-native-paper'
+import { Button, Switch } from 'react-native-paper'
 import { SvgUri } from 'react-native-svg'
 import styled from 'styled-components/native'
 
@@ -9,7 +9,6 @@ import { PoiCategoryModel } from 'shared/api'
 import Modal from './Modal'
 import Icon from './base/Icon'
 import Text from './base/Text'
-import TextButton from './base/TextButton'
 import ToggleButton from './base/ToggleButton'
 
 const Container = styled.View`
@@ -43,11 +42,6 @@ const TileRow = styled(Row)`
 `
 
 const StyledToggleButton = styled(ToggleButton)`
-  margin-bottom: 8px;
-`
-
-const StyledTextButton = styled(TextButton)`
-  margin-top: 8px;
   margin-bottom: 8px;
 `
 
@@ -129,11 +123,9 @@ const PoiFiltersModal = ({
           </TileRow>
         </Section>
         <Section>
-          <StyledTextButton
-            onPress={closeModal}
-            text={t('showPois', { count: poisCount })}
-            disabled={poisCount === 0}
-          />
+          <Button onPress={closeModal} mode='contained' disabled={poisCount === 0}>
+            {t('showPois', { count: poisCount })}
+          </Button>
         </Section>
       </Container>
     </Modal>

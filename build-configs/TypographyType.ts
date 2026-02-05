@@ -51,5 +51,5 @@ type CSSProperties = BaseCSSProperties & {
 
 type TypographyStyle = CSSProperties
 type TypographyStyleOptions = TypographyStyle & NonNullable<unknown>
-type TypographyVariantsOptions = Partial<Record<TypographyVariant, TypographyStyleOptions> & FontStyleOptions>
+type TypographyVariantsOptions = Record<TypographyVariant, TypographyStyleOptions> & Partial<FontStyleOptions>
 export type TypographyType = TypographyVariantsOptions

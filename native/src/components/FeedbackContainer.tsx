@@ -1,5 +1,6 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Button } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 import { SEND_FEEDBACK_SIGNAL_NAME } from 'shared'
@@ -12,7 +13,6 @@ import sendTrackingSignal from '../utils/sendTrackingSignal'
 import { reportError } from '../utils/sentry'
 import Feedback from './Feedback'
 import Text from './base/Text'
-import TextButton from './base/TextButton'
 
 const Container = styled.View`
   flex: 1;
@@ -119,7 +119,9 @@ const FeedbackContainer = ({
         <Text variant='h6' style={{ marginTop: 8, textAlign: 'center' }}>
           {t('informationMissing')}
         </Text>
-        <TextButton text={t('giveFeedback')} onPress={() => setShowFeedback(true)} />
+        <Button mode='outlined' onPress={() => setShowFeedback(true)}>
+          {t('giveFeedback')}
+        </Button>
       </>
     </Container>
   )

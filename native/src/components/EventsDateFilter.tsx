@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import React, { ReactElement, useRef, useState } from 'react'
+import React, { ReactElement, useCallback, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { List, useTheme } from 'react-native-paper'
 import styled from 'styled-components/native'
@@ -75,7 +75,10 @@ const EventsDateFilter = ({
     setModalOpen(openModal)
   }
 
-  const getCurrentIcon = () => (showDateFilter ? <Icon source='chevron-up' /> : <Icon source='chevron-down' />)
+  const chevronIcon = useCallback(
+    () => <List.Icon color={theme.colors.primary} icon={showDateFilter ? 'chevron-up' : 'chevron-down'} />,
+    [showDateFilter, theme.colors.primary],
+  )
 
   return (
     <>
@@ -92,9 +95,10 @@ const EventsDateFilter = ({
       )}
       <List.Accordion
         title={t(showDateFilter ? 'hideFilters' : 'showFilters')}
-        right={getCurrentIcon}
+        right={chevronIcon}
         expanded={showDateFilter}
-        titleStyle={{ fontWeight: 'bold', color: theme.colors.onBackground }}
+        titleStyle={{ fontWeight: 'bold', color: theme.colors.primary }}
+        rippleColor='transparent'
         onPress={() => setShowDateFilter(!showDateFilter)}>
         <DateSection>
           <>

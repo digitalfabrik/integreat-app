@@ -60,7 +60,7 @@ const SearchInput = ({
         </InputWrapper>
       </Wrapper>
       {!!description && (
-        <Text variant='body2' style={{ paddingLeft: 28 }}>
+        <Text variant='body3' style={{ paddingLeft: 28 }}>
           {description}
         </Text>
       )}
