@@ -142,6 +142,7 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
               startDateError={startDateError}
               modalOpen={modalOpen}
               setModalOpen={setModalOpen}
+              languageCode={language}
             />
           </>
         }
