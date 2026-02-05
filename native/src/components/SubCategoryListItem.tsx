@@ -1,27 +1,10 @@
 import React, { ReactElement } from 'react'
-import styled from 'styled-components/native'
+import { List as PaperList } from 'react-native-paper'
 
 import { CategoryModel } from 'shared/api'
 
-import { contentDirection } from '../constants/contentDirection'
-import { CategoryThumbnail } from './CategoryListItem'
-import Pressable from './base/Pressable'
+import { contentAlignmentRTLText } from '../constants/contentDirection'
 import Text from './base/Text'
-
-const SubCategoryTitleContainer = styled.View<{ language: string }>`
-  flex: 1;
-  align-items: center;
-  margin: 8px 0;
-  flex-direction: ${props => contentDirection(props.language)};
-`
-
-const FlexStyledLink = styled(Pressable)<{ language: string }>`
-  display: flex;
-  flex-direction: ${props => contentDirection(props.language)};
-  margin: 0 0 0 24px;
-  border-bottom-width: 1px;
-  border-bottom-color: ${props => props.theme.colors.secondary};
-`
 
 type SubCategoryListItemProps = {
   subCategory: CategoryModel
@@ -30,18 +13,18 @@ type SubCategoryListItemProps = {
 }
 
 const SubCategoryListItem = ({ subCategory, onItemPress, language }: SubCategoryListItemProps): ReactElement => (
-  <FlexStyledLink
-    onPress={() => onItemPress(subCategory)}
-    language={language}
-    role='link'
-    accessibilityLanguage={language}>
-    <SubCategoryTitleContainer language={language}>
-      {!!subCategory.thumbnail && <CategoryThumbnail language={language} source={subCategory.thumbnail} />}
-      <Text variant='caption' style={{ flexShrink: 1 }}>
+  <PaperList.Item
+    titleNumberOfLines={0}
+    containerStyle={{ minHeight: 40 }}
+    title={
+      <Text variant='body2' style={{ flexShrink: 1, textAlign: contentAlignmentRTLText(subCategory.title) }}>
         {subCategory.title}
       </Text>
-    </SubCategoryTitleContainer>
-  </FlexStyledLink>
+    }
+    borderless
+    onPress={() => onItemPress(subCategory)}
+    role='link'
+    accessibilityLanguage={language}
+  />
 )
-
 export default SubCategoryListItem

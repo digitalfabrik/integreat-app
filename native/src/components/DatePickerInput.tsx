@@ -1,15 +1,10 @@
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { StyleProp, ViewStyle } from 'react-native'
-import styled, { useTheme } from 'styled-components/native'
+import { TextInput } from 'react-native-paper'
+import { useTheme } from 'styled-components/native'
 
 import { zeroPad } from 'shared'
-
-const Input = styled.TextInput`
-  text-align: center;
-  min-width: 25%;
-  color: ${props => props.theme.colors.onSurface};
-`
 
 const containsOnlyDigits = (str: string) => !Number.isNaN(Number(str))
 
@@ -63,10 +58,14 @@ const DatePickerInput = ({
 }: DatePickerInputProps): ReactElement => {
   const theme = useTheme()
   return (
-    <Input
-      style={style}
+    <TextInput
+      style={[
+        style,
+        { textAlign: 'center', minWidth: '25%', color: theme.colors.onSurface, backgroundColor: 'transparent' },
+      ]}
       placeholder={placeholder}
-      placeholderTextColor={theme.dark ? theme.colors.onSurface : theme.colors.onSurfaceVariant}
+      placeholderTextColor={theme.colors.action.disabled}
+      underlineColor='transparent'
       keyboardType='numeric'
       maxLength={type === 'year' ? yearLength : 2}
       onBlur={() => validate(inputValue, setInputValue, type)}

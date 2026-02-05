@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 import { StyleSheet } from 'react-native'
+import { TouchableRipple } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
 import { InternalPathnameParser } from 'shared'
@@ -21,10 +22,6 @@ const DetailContainer = styled.View<{ widthPadding?: boolean }>`
 const StyledIcon = styled(Icon)`
   color: ${props => props.theme.colors.onSurfaceVariant};
   margin-inline-end: 8px;
-`
-
-const StyledButton = styled.Pressable`
-  flex-shrink: 1;
 `
 
 type PageDetailProps = {
@@ -52,9 +49,6 @@ const PageDetail = ({
   const route = path ? new InternalPathnameParser(path, language, buildConfig().featureFlags.fixedCity).route() : null
 
   const styles = StyleSheet.create({
-    identifier: {
-      alignSelf: 'flex-start',
-    },
     buttonText: {
       color: theme.colors.primary,
       textDecorationLine: 'underline',
@@ -77,17 +71,17 @@ const PageDetail = ({
   return (
     <DetailContainer widthPadding={!icon && !identifier}>
       {!!identifier && (
-        <Text variant='h6' style={styles.identifier}>
+        <Text variant='h6' style={{ alignSelf: 'flex-start' }}>
           {identifier}:
         </Text>
       )}
       {!!icon && <StyledIcon source={icon} />}
       {route ? (
-        <StyledButton accessibilityLabel={accessibilityLabel} onPress={handlePress}>
+        <TouchableRipple accessibilityLabel={accessibilityLabel} onPress={handlePress} style={{ flexShrink: 1 }}>
           <Text variant='body2' style={styles.buttonText}>
             {information}
           </Text>
-        </StyledButton>
+        </TouchableRipple>
       ) : (
         <Text variant='body2' style={styles.styledText}>
           {information}
