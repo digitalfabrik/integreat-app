@@ -83,7 +83,7 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
     if (permissionDenied) {
       showSnackbar({
         text: 'noCalendarPermission',
-        positiveAction: {
+        action: {
           label: t('layout:settings'),
           onPress: openSettings,
         },
