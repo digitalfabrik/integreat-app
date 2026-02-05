@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Divider } from 'react-native-paper'
+import { Divider, TouchableRipple } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
 import { weekdays } from 'shared'
@@ -21,15 +21,8 @@ const Content = styled.View`
 
 const TitleContainer = styled.View<{ language: string }>`
   flex-direction: ${props => contentDirection(props.language)};
-  gap: 80px;
-`
-
-const LinkContainer = styled.Pressable`
-  display: flex;
-  flex-direction: row;
-  gap: 8px;
-  align-items: center;
-  padding-top: 4px;
+  justify-content: space-between;
+  width: 99%;
 `
 
 const StyledDivider = styled(Divider)`
@@ -47,9 +40,7 @@ const OpeningHoursTitle = ({ isCurrentlyOpen, label, language }: OpeningHoursTit
   const theme = useTheme()
   return (
     <TitleContainer language={language}>
-      <Text variant='h6' style={{ alignSelf: 'center' }}>
-        {t('openingHours')}
-      </Text>
+      <Text variant='h5'>{t('openingHours')}</Text>
       <Text
         variant='h6'
         style={{
@@ -84,12 +75,22 @@ const OpeningHours = ({
   const appointmentOnly = !openingHours && !!appointmentUrl
 
   const AppointmentLink = appointmentUrl ? (
-    <LinkContainer onPress={() => openExternalUrl(appointmentUrl, showSnackbar)} role='link'>
-      <Text variant='body1' style={{ color: theme.colors.primary, textDecorationLine: 'underline' }}>
-        {t('makeAppointment')}
-      </Text>
-      <Icon color={theme.colors.primary} size={16} source='open-in-new' />
-    </LinkContainer>
+    <TouchableRipple
+      onPress={() => openExternalUrl(appointmentUrl, showSnackbar)}
+      role='link'
+      style={{
+        flexDirection: 'row',
+        gap: 8,
+        alignItems: 'center',
+        paddingTop: 4,
+      }}>
+      <>
+        <Text variant='body1' style={{ color: theme.colors.primary, textDecorationLine: 'underline' }}>
+          {t('makeAppointment')}
+        </Text>
+        <Icon color={theme.colors.primary} size={16} source='open-in-new' />
+      </>
+    </TouchableRipple>
   ) : null
 
   if (isTemporarilyClosed || appointmentOnly) {

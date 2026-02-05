@@ -2,6 +2,7 @@ import { groupBy, transform } from 'lodash'
 import React, { ReactElement, ReactNode, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
+import { List as PaperList } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
 import { CITY_SEARCH_EXAMPLE, filterSortCities } from 'shared'
@@ -72,21 +73,21 @@ const CitySelector = ({ cities, navigateToDashboard }: CitySelectorProps): React
         />
       </SearchBar>
       <View>
-        <CityGroupContainer>
-          <CityGroup>{t('common:nearby')}</CityGroup>
-          <NearbyCities cities={cities} navigateToDashboard={navigateToDashboard} filterText={filterText} />
-        </CityGroupContainer>
         <Text
-          variant='body2'
+          variant='h5'
           style={{
             margin: 16,
             marginHorizontal: 0,
             marginBottom: 12,
-            color: theme.colors.onSurfaceVariant,
+            color: theme.colors.onBackground,
           }}
           accessibilityLiveRegion={resultCities.length === 0 ? 'assertive' : 'polite'}>
           {t('search:searchResultsCount', { count: resultCities.length })}
         </Text>
+        <CityGroupContainer>
+          <PaperList.Subheader>{t('common:nearby')}</PaperList.Subheader>
+          <NearbyCities cities={cities} navigateToDashboard={navigateToDashboard} filterText={filterText} />
+        </CityGroupContainer>
         {resultCities.length === 0 ? <NothingFound paddingTop /> : cityEntries}
       </View>
     </View>

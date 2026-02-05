@@ -1,4 +1,4 @@
-import { userEvent } from '@testing-library/react-native'
+import { userEvent, waitFor } from '@testing-library/react-native'
 import React from 'react'
 
 import { OpeningHoursModel } from 'shared/api'
@@ -26,7 +26,6 @@ describe('OpeningEntry', () => {
       <OpeningHoursListItem
         weekday={currentWeekday}
         isCurrentDay={isCurrentDay}
-        language='de'
         appointmentUrl={null}
         openingHours={new OpeningHoursModel({ openAllDay, closedAllDay, timeSlots, appointmentOnly })}
       />,
@@ -77,6 +76,6 @@ describe('OpeningEntry', () => {
     expect(queryByText('pois:makeAppointmentTooltipWithLink')).toBeDefined()
 
     await user.press(getByText('common:close'))
-    expect(queryByText('pois:makeAppointmentTooltipWithLink')).toBeNull()
+    await waitFor(() => expect(queryByText('pois:makeAppointmentTooltipWithLink')).toBeNull())
   })
 })
