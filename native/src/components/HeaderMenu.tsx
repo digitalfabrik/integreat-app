@@ -37,7 +37,7 @@ const HeaderMenu = ({
   visible,
   setVisible,
   showDefaultSections = true,
-}: HeaderMenuProps): ReactElement => {
+}: HeaderMenuProps): ReactElement | null => {
   const { languageCode } = useContext(AppContext)
   const [expandedAccordion, setExpandedAccordion] = useState<'share' | 'legal' | null>(null)
   const [urlCopied, setUrlCopied] = useState(false)
@@ -117,6 +117,10 @@ const HeaderMenu = ({
             setExpanded={expanded => setExpandedAccordion(expanded ? 'legal' : null)}
           />,
         ]
+
+  if (menuItems.length === 0 && defaultSections.length === 0) {
+    return null
+  }
 
   return (
     <Menu

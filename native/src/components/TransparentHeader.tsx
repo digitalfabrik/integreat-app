@@ -26,6 +26,7 @@ const Horizontal = styled.View`
 const Container = styled.View`
   background-color: ${props => props.theme.colors.surface};
   height: ${dimensions.modalHeaderHeight}px;
+  overflow: hidden;
 `
 
 type TransparentHeaderProps = {

@@ -1,7 +1,7 @@
 import { fireEvent } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import React, { ReactElement } from 'react'
-import { Share, Text, View } from 'react-native'
+import { Share, View } from 'react-native'
 
 import { PDF_VIEW_MODAL_ROUTE, SHARE_SIGNAL_NAME } from 'shared'
 
@@ -13,13 +13,8 @@ import TransparentHeader from '../TransparentHeader'
 
 jest.mock('../../hooks/useSnackbar')
 jest.mock('../../utils/sendTrackingSignal')
-jest.mock('react-navigation-header-buttons', () => ({
-  HiddenItem: ({ title, accessibilityLabel }: { title: string; accessibilityLabel: string }) => (
-    <Text accessibilityLabel={`hidden: ${accessibilityLabel}`}>hidden: {title}</Text>
-  ),
-}))
 jest.mock(
-  '../CustomHeaderButtons',
+  '../ActionButtons',
   () =>
     ({ items, overflowItems }: { items: ReactElement; overflowItems: ReactElement }) => (
       <View>
@@ -32,9 +27,6 @@ jest.mock('react-i18next', () => ({
   useTranslation: () => ({
     t: (key: string) => key,
   }),
-}))
-jest.mock('@react-navigation/elements', () => ({
-  HeaderBackButton: ({ onPress }: { onPress: () => void }) => <Text onPress={onPress}>HeaderBackButton</Text>,
 }))
 
 describe('TransparentHeader', () => {
@@ -59,8 +51,8 @@ describe('TransparentHeader', () => {
 
   it('should show back button and navigate back on click if stack exists', () => {
     const props = buildProps(1)
-    const { getByText } = render(<TransparentHeader {...props} />)
-    fireEvent.press(getByText('HeaderBackButton'))
+    const { getByLabelText } = render(<TransparentHeader {...props} />)
+    fireEvent.press(getByLabelText('back'))
     expect(props.navigation.goBack).toHaveBeenCalledTimes(1)
   })
 
