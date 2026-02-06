@@ -4,7 +4,7 @@ parameters:
     enum: [integreat, malte, integreat-e2e, integreat-test-cms, aschaffenburg]
     default: integreat
 macos:
-  xcode: 16.3.0
+  xcode: 26.2.0
 resource_class: m4pro.medium
 environment:
   FL_OUTPUT_DIR: output
