@@ -65,16 +65,11 @@ const EventsDateFilter = ({
   const { t } = useTranslation('events')
   const theme = useTheme()
 
-  const onConfirm = useCallback(
-    (params: { startDate: Date | undefined; endDate: Date | undefined }) => {
-      setModalOpen(false)
-      setStartDate(params.startDate ? DateTime.fromJSDate(params.startDate) : null)
-      setEndDate(params.endDate ? DateTime.fromJSDate(params.endDate) : null)
-    },
-    [setEndDate, setModalOpen, setStartDate],
-  )
-
-  const onDismiss = useCallback(() => setModalOpen(false), [setModalOpen])
+  const onConfirm = ({ startDate, endDate }: { startDate: Date | undefined; endDate: Date | undefined }) => {
+    setModalOpen(false)
+    setStartDate(startDate ? DateTime.fromJSDate(startDate) : null)
+    setEndDate(endDate ? DateTime.fromJSDate(endDate) : null)
+  }
 
   const chevronIcon = useCallback(
     () => <List.Icon color={theme.colors.primary} icon={showDateFilter ? 'chevron-up' : 'chevron-down'} />,
@@ -87,7 +82,7 @@ const EventsDateFilter = ({
         locale={languageCode}
         mode='range'
         visible={modalOpen}
-        onDismiss={onDismiss}
+        onDismiss={() => setModalOpen(false)}
         startDate={startDate?.toJSDate() ?? undefined}
         endDate={endDate?.toJSDate() ?? undefined}
         onConfirm={onConfirm}
