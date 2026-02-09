@@ -1,3 +1,4 @@
+/* eslint-disable import-x/no-extraneous-dependencies */
 import * as CSS from 'csstype'
 import React from 'react'
 

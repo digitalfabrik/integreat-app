@@ -1,3 +1,4 @@
+// eslint-disable-next-line import-x/no-extraneous-dependencies
 import { Feature, FeatureCollection, Point } from 'geojson'
 
 type MapConfigProps = {

@@ -34,7 +34,7 @@ export default class ResourceURLFinder {
         if (RESOURCE_EXTENSIONS.includes(extension) && this._allowedHostNames.includes(new Url(value).host)) {
           this._foundUrls.add(value)
         }
-      } catch (ignored) {
+      } catch (_) {
         // invalid urls get ignored
       }
     }
