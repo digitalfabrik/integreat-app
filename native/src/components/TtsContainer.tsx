@@ -64,6 +64,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
   const showSnackbar = useSnackbar()
   const title = sentences[0] || t('nothingToRead')
   const subscriptionsRef = useRef<EventSubscription[]>([])
+  const playRequestIdRef = useRef(0)
   const enabled = buildConfig().featureFlags.tts
 
   const isLanguageSupported = voices.some(
@@ -88,7 +89,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
   }, [voicesRetries])
 
   const initializeTts = useCallback((): void => {
-    Speech.initialize(getTtsOptions(languageCode))
+    Speech.configure(getTtsOptions(languageCode))
   }, [languageCode])
 
   const showTtsPlayer = useCallback((): void => {
@@ -139,6 +140,9 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
 
   const play = useCallback(
     async (index = sentenceIndex) => {
+      playRequestIdRef.current += 1
+      const requestId = playRequestIdRef.current
+
       const safeIndex = Math.max(0, index)
       const sentence = sentences[safeIndex]
       if (sentence !== undefined) {
@@ -150,6 +154,12 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
             setIsPlaying(true)
           } else {
             await stopPlayer()
+
+            // If another play() call started while we were stopping, abort.
+            if (requestId !== playRequestIdRef.current) {
+              return
+            }
+
             const finishSubscription = Speech.onFinish(() => {
               play(safeIndex + 1)
             })
@@ -164,7 +174,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
             setIsPlaying(true)
             setSentenceIndex(safeIndex)
 
-            await Speech.speakWithOptions(sentence, getTtsOptions(languageCode))
+            await Speech.speak(sentence, getTtsOptions(languageCode))
           }
         } catch (error) {
           reportError(error)
@@ -180,7 +190,8 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
   useAppStateListener(appState => {
     const movedAppToBackground = appState === 'inactive' || appState === 'background'
     if (movedAppToBackground && isPlaying) {
-      stop()
+      stopPlayer()
+      setIsPlaying(false)
     }
   })
 
