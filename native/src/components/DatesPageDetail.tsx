@@ -1,30 +1,32 @@
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { View } from 'react-native'
-import styled from 'styled-components/native'
+import { StyleSheet, View } from 'react-native'
+import { TouchableRipple } from 'react-native-paper'
+import styled, { useTheme } from 'styled-components/native'
 
 import { MAX_DATE_RECURRENCES } from 'shared'
 import { DateModel } from 'shared/api'
 
 import PageDetail from './PageDetail'
 import Icon from './base/Icon'
-import Pressable from './base/Pressable'
 import Text from './base/Text'
 
 const SingleDateContainer = styled.View`
   margin-bottom: 8px;
 `
 
-const StyledPressable = styled(Pressable)`
-  flex-direction: row;
-  gap: 8px;
-  border-color: ${props => props.theme.colors.secondary};
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 4px;
-  align-self: flex-start;
-  padding: 4px 8px;
-`
+const styles = StyleSheet.create({
+  TouchableRippleStyle: {
+    flexDirection: 'row',
+    gap: 8,
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderRadius: 4,
+    alignSelf: 'flex-start',
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+  },
+})
 
 type DatesPageDetailProps = {
   date: DateModel
@@ -33,6 +35,7 @@ type DatesPageDetailProps = {
 
 const DatesPageDetail = ({ date, languageCode }: DatesPageDetailProps): ReactElement | null => {
   const [tapsOnShowMore, setTapsOnShowMore] = useState(0)
+  const theme = useTheme()
   const visibleRecurrences = MAX_DATE_RECURRENCES * (tapsOnShowMore + 1)
 
   // Use the content language to match the surrounding translations
@@ -53,10 +56,16 @@ const DatesPageDetail = ({ date, languageCode }: DatesPageDetailProps): ReactEle
       <View>
         {recurrences}
         {date.hasMoreRecurrencesThan(visibleRecurrences) && (
-          <StyledPressable role='button' onPress={() => setTapsOnShowMore(tapsOnShowMore + 1)}>
-            <Icon size={16} source='filter-variant' />
-            <Text>{translateIntoContentLanguage('common:showMore')}</Text>
-          </StyledPressable>
+          <TouchableRipple
+            borderless
+            style={[styles.TouchableRippleStyle, { borderColor: theme.colors.secondary }]}
+            role='button'
+            onPress={() => setTapsOnShowMore(tapsOnShowMore + 1)}>
+            <>
+              <Icon size={16} source='filter-variant' />
+              <Text>{translateIntoContentLanguage('common:showMore')}</Text>
+            </>
+          </TouchableRipple>
         )}
       </View>
     )

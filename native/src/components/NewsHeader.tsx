@@ -1,5 +1,7 @@
 import React, { memo, ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
+import { StyleSheet } from 'react-native'
+import { TouchableRipple } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
 import { LOCAL_NEWS_TYPE, NewsType, TU_NEWS_TYPE } from 'shared'
@@ -8,13 +10,8 @@ import { CityModel } from 'shared/api'
 import { TuNewsActiveIcon, TuNewsInactiveIcon } from '../assets'
 import Caption from './Caption'
 import Icon from './base/Icon'
-import Pressable from './base/Pressable'
 import Text from './base/Text'
 
-const StyledPressable = styled(Pressable)`
-  margin: 0 10px 5px;
-  align-items: center;
-`
 const LocalTabWrapper = styled.View<{ isSelected: boolean }>`
   border-radius: 10px;
   height: 50px;
@@ -37,6 +34,14 @@ const StyledIcon = styled(Icon)`
   height: 50px;
 `
 
+const styles = StyleSheet.create({
+  TouchableRippleStyle: {
+    marginHorizontal: 10,
+    marginBottom: 5,
+    alignItems: 'center',
+  },
+})
+
 type NewsHeaderProps = {
   cityModel: CityModel
   selectedNewsType: NewsType
@@ -54,16 +59,25 @@ const NewsHeader = ({ cityModel, selectedNewsType, selectNewsType }: NewsHeaderP
       <Caption title={t('news')} />
       {cityModel.localNewsEnabled && cityModel.tunewsEnabled && (
         <HeaderContainer>
-          <StyledPressable onPress={selectLocalNews} role='button' accessibilityLabel={t('local')}>
+          <TouchableRipple
+            onPress={selectLocalNews}
+            role='button'
+            accessibilityLabel={t('local')}
+            style={styles.TouchableRippleStyle}>
             <LocalTabWrapper isSelected={selectedNewsType === LOCAL_NEWS_TYPE}>
               <Text variant='h5' style={{ textTransform: 'uppercase', color: theme.colors.background }}>
                 {t('local')}
               </Text>
             </LocalTabWrapper>
-          </StyledPressable>
-          <StyledPressable onPress={selectTuNews} role='button' accessibilityLabel='TüNews'>
+          </TouchableRipple>
+          <TouchableRipple
+            borderless
+            onPress={selectTuNews}
+            role='button'
+            accessibilityLabel='TüNews'
+            style={styles.TouchableRippleStyle}>
             <StyledIcon Icon={selectedNewsType === TU_NEWS_TYPE ? TuNewsActiveIcon : TuNewsInactiveIcon} />
-          </StyledPressable>
+          </TouchableRipple>
         </HeaderContainer>
       )}
     </>

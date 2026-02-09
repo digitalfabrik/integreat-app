@@ -1,9 +1,9 @@
 import React, { ReactElement, ReactNode } from 'react'
-import styled from 'styled-components/native'
+import { TouchableRipple } from 'react-native-paper'
+import styled, { useTheme } from 'styled-components/native'
 
 import { contentDirection } from '../constants/contentDirection'
 import SimpleImage, { ImageSourceType } from './SimpleImage'
-import Pressable from './base/Pressable'
 import Text from './base/Text'
 
 const ListItemView = styled.View<{ language: string }>`
@@ -11,11 +11,6 @@ const ListItemView = styled.View<{ language: string }>`
   padding: 12px 0;
   gap: 8px;
   align-items: center;
-`
-
-const StyledPressable = styled(Pressable)`
-  border-bottom-width: 2px;
-  border-bottom-color: ${props => props.theme.colors.secondary};
 `
 
 const Thumbnail = styled(SimpleImage)`
@@ -27,7 +22,6 @@ const Thumbnail = styled(SimpleImage)`
 const Description = styled.View`
   height: 100%;
   flex: 1;
-  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
 `
 
 const TitleRow = styled.View`
@@ -45,21 +39,30 @@ type ListItemProps = {
   navigateTo: () => void
 }
 
-const ListItem = ({ language, title, thumbnail, children, Icon, navigateTo }: ListItemProps): ReactElement => (
-  <StyledPressable onPress={navigateTo} accessibilityLanguage={language} role='link'>
-    <ListItemView language={language}>
-      <Thumbnail source={thumbnail} />
-      <Description>
-        <TitleRow>
-          <Text variant='h6' style={{ flex: 1, flexWrap: 'wrap' }}>
-            {title}
-          </Text>
-          {Icon}
-        </TitleRow>
-        {children}
-      </Description>
-    </ListItemView>
-  </StyledPressable>
-)
+const ListItem = ({ language, title, thumbnail, children, Icon, navigateTo }: ListItemProps): ReactElement => {
+  const theme = useTheme()
+
+  return (
+    <TouchableRipple
+      borderless
+      onPress={navigateTo}
+      accessibilityLanguage={language}
+      role='link'
+      style={{ borderBottomWidth: 2, borderBottomColor: theme.colors.secondary }}>
+      <ListItemView language={language}>
+        <Thumbnail source={thumbnail} />
+        <Description>
+          <TitleRow>
+            <Text variant='h6' style={{ flex: 1, flexWrap: 'wrap' }}>
+              {title}
+            </Text>
+            {Icon}
+          </TitleRow>
+          {children}
+        </Description>
+      </ListItemView>
+    </TouchableRipple>
+  )
+}
 
 export default ListItem
