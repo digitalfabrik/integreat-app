@@ -66,7 +66,7 @@ export const theme = (themeType: 'light' | 'contrast'): DefaultTheme => {
         disabled: palette.action.disabled,
       },
       elevation: {
-        level0: palette.tertiary.light,
+        level0: 'transparent',
         level1: palette.tertiary.light,
         level2: palette.tertiary.light,
         level3: palette.tertiary.light,
