@@ -1,29 +1,31 @@
 import { DateTime } from 'luxon'
 import React, { ReactElement, useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { View } from 'react-native'
-import { IconButton, List, useTheme } from 'react-native-paper'
-import { DatePickerInput, DatePickerModal } from 'react-native-paper-dates'
-import styled from 'styled-components/native'
+import { View, StyleSheet } from 'react-native'
+import { List, TouchableRipple, useTheme } from 'react-native-paper'
+import { DatePickerInput } from 'react-native-paper-dates'
 
 import getInputFormatFromLocale from '../utils/getInputFormatFromLocale'
 import Icon from './base/Icon'
 import Text from './base/Text'
 
-const DateSection = styled.View`
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin: 16px 8px;
-  align-items: center;
-`
-
-const StyledButton = styled.TouchableOpacity`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 5px;
-`
+const styles = StyleSheet.create({
+  dateSection: {
+    flexDirection: 'column',
+    gap: 16,
+    marginVertical: 16,
+    marginHorizontal: 8,
+    width: '80%',
+    alignSelf: 'center',
+    flex: 1,
+    paddingLeft: 0,
+  },
+  styledButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+})
 
 type ResetFilterTextProps = {
   startDate: DateTime | null
@@ -46,8 +48,6 @@ type EventsDateFilterProps = {
   startDateError: string | null
   endDate: DateTime | null
   setEndDate: (startDate: DateTime | null) => void
-  modalOpen: boolean
-  setModalOpen: (modalOpen: boolean) => void
   languageCode: string
 }
 
@@ -57,19 +57,16 @@ const EventsDateFilter = ({
   startDateError,
   endDate,
   setEndDate,
-  modalOpen,
-  setModalOpen,
   languageCode,
 }: EventsDateFilterProps): ReactElement => {
   const [showDateFilter, setShowDateFilter] = useState(false)
   const { t } = useTranslation('events')
   const theme = useTheme()
 
-  const onConfirm = ({ startDate, endDate }: { startDate: Date | undefined; endDate: Date | undefined }) => {
-    setModalOpen(false)
-    setStartDate(startDate ? DateTime.fromJSDate(startDate) : null)
-    setEndDate(endDate ? DateTime.fromJSDate(endDate) : null)
-  }
+  const filterIcon = useCallback(
+    () => <List.Icon color={theme.colors.primary} icon={showDateFilter ? 'arrow-collapse' : 'filter-variant'} />,
+    [showDateFilter, theme.colors.primary],
+  )
 
   const chevronIcon = useCallback(
     () => <List.Icon color={theme.colors.primary} icon={showDateFilter ? 'chevron-up' : 'chevron-down'} />,
@@ -78,87 +75,71 @@ const EventsDateFilter = ({
 
   return (
     <>
-      <DatePickerModal
-        locale={languageCode}
-        mode='range'
-        visible={modalOpen}
-        onDismiss={() => setModalOpen(false)}
-        startDate={startDate?.toJSDate() ?? undefined}
-        endDate={endDate?.toJSDate() ?? undefined}
-        onConfirm={onConfirm}
-        calendarIcon='calendar-range'
-      />
       <List.Accordion
         title={t(showDateFilter ? 'hideFilters' : 'showFilters')}
+        left={filterIcon}
         right={chevronIcon}
         expanded={showDateFilter}
         titleStyle={{ fontWeight: 'bold', color: theme.colors.primary }}
         rippleColor='transparent'
         onPress={() => setShowDateFilter(!showDateFilter)}>
-        <View style={{ flexDirection: 'row' }}>
-          <IconButton
-            icon='calendar-range'
-            mode='contained'
-            onPress={() => setModalOpen(true)}
-            style={{ alignSelf: 'center' }}
-            accessibilityLabel={t('selectStartDateCalendar')}
+        <View style={styles.dateSection}>
+          <DatePickerInput
+            locale={languageCode}
+            label={t('from')}
+            withDateFormatInLabel={false}
+            placeholder={getInputFormatFromLocale(languageCode)}
+            value={startDate?.toJSDate() ?? undefined}
+            onChange={date => {
+              setStartDate(date ? DateTime.fromJSDate(date) : null)
+            }}
+            onChangeText={date => {
+              if (date === '') {
+                setStartDate(null)
+              }
+            }}
+            inputMode='start'
+            mode='outlined'
+            hasError={!!startDateError}
           />
-          <DateSection>
-            <DatePickerInput
-              locale={languageCode}
-              label={t('from')}
-              withDateFormatInLabel={false}
-              placeholder={getInputFormatFromLocale(languageCode)}
-              value={startDate?.toJSDate() ?? undefined}
-              onChange={date => {
-                setStartDate(date ? DateTime.fromJSDate(date) : null)
-              }}
-              onChangeText={date => {
-                if (date === '') {
-                  setStartDate(null)
-                }
-              }}
-              inputMode='start'
-              mode='outlined'
-              hasError={!!startDateError}
-            />
-            <DatePickerInput
-              locale={languageCode}
-              label={t('to')}
-              withDateFormatInLabel={false}
-              placeholder={getInputFormatFromLocale(languageCode)}
-              value={endDate?.toJSDate() ?? undefined}
-              onChange={date => setEndDate(date ? DateTime.fromJSDate(date) : null)}
-              onChangeText={date => {
-                if (date === '') {
-                  setEndDate(null)
-                }
-              }}
-              inputMode='start'
-              mode='outlined'
-            />
-            <View>
-              {!!startDateError && (
-                <Text variant='body3' style={{ color: theme.colors.error }}>
-                  {t(startDateError)}
-                </Text>
-              )}
-            </View>
-          </DateSection>
+          <DatePickerInput
+            locale={languageCode}
+            label={t('to')}
+            withDateFormatInLabel={false}
+            placeholder={getInputFormatFromLocale(languageCode)}
+            value={endDate?.toJSDate() ?? undefined}
+            onChange={date => setEndDate(date ? DateTime.fromJSDate(date) : null)}
+            onChangeText={date => {
+              if (date === '') {
+                setEndDate(null)
+              }
+            }}
+            inputMode='start'
+            mode='outlined'
+          />
+          <>
+            {!!startDateError && (
+              <Text variant='body3' style={{ color: theme.colors.error }}>
+                {t(startDateError)}
+              </Text>
+            )}
+          </>
         </View>
       </List.Accordion>
-      <>
-        {(startDate || endDate) && (
-          <StyledButton
-            onPress={() => {
-              setStartDate(null)
-              setEndDate(null)
-            }}>
+      {(startDate || endDate) && (
+        <TouchableRipple
+          borderless
+          style={styles.styledButton}
+          onPress={() => {
+            setStartDate(null)
+            setEndDate(null)
+          }}>
+          <>
             <Icon source='close' />
             <ResetFilterText startDate={startDate} endDate={endDate} />
-          </StyledButton>
-        )}
-      </>
+          </>
+        </TouchableRipple>
+      )}
     </>
   )
 }
