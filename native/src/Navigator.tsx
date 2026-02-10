@@ -1,16 +1,15 @@
 import { useNavigation } from '@react-navigation/native'
-import { createStackNavigator, StackHeaderProps, TransitionPresets } from '@react-navigation/stack'
+import { createStackNavigator, StackHeaderProps } from '@react-navigation/stack'
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
-import { Platform } from 'react-native'
 
 import {
-  CATEGORIES_ROUTE,
+  BOTTOM_TAB_NAVIGATION_ROUTE,
+  BottomTabNavigationRouteType,
   CategoriesRouteType,
   CHANGE_LANGUAGE_MODAL_ROUTE,
   CITY_NOT_COOPERATING_ROUTE,
   CONSENT_ROUTE,
   DISCLAIMER_ROUTE,
-  EVENTS_ROUTE,
   FEEDBACK_MODAL_ROUTE,
   IMAGE_VIEW_MODAL_ROUTE,
   INTRO_ROUTE,
@@ -19,9 +18,7 @@ import {
   LANDING_ROUTE,
   LandingRouteType,
   LICENSES_ROUTE,
-  NEWS_ROUTE,
   PDF_VIEW_MODAL_ROUTE,
-  POIS_ROUTE,
   REDIRECT_ROUTE,
   RedirectRouteType,
   SEARCH_ROUTE,
@@ -36,12 +33,11 @@ import buildConfig from './constants/buildConfig'
 import { useAppContext } from './hooks/useCityAppContext'
 import useLoadCities from './hooks/useLoadCities'
 import useSnackbar from './hooks/useSnackbar'
-import CategoriesContainer from './routes/CategoriesContainer'
+import BottomTabNavigation from './navigation/BottomTabNavigation'
 import ChangeLanguageModal from './routes/ChangeLanguageModal'
 import CityNotCooperating from './routes/CityNotCooperating'
 import Consent from './routes/Consent'
 import DisclaimerContainer from './routes/DisclaimerContainer'
-import EventsContainer from './routes/EventsContainer'
 import FeedbackModalContainer from './routes/FeedbackModalContainer'
 import ImageViewModal from './routes/ImageViewModal'
 import Intro from './routes/Intro'
@@ -49,14 +45,13 @@ import JpalTracking from './routes/JpalTracking'
 import Landing from './routes/Landing'
 import Licenses from './routes/Licenses'
 import LoadingErrorHandler from './routes/LoadingErrorHandler'
-import NewsContainer from './routes/NewsContainer'
 import PDFViewModal from './routes/PDFViewModal'
-import PoisContainer from './routes/PoisContainer'
 import SearchModalContainer from './routes/SearchModalContainer'
 import Settings from './routes/Settings'
 import { ASYNC_STORAGE_VERSION } from './utils/AppSettings'
 import dataContainer from './utils/DefaultDataContainer'
 import { usePushNotificationListener } from './utils/PushNotificationsManager'
+import getTransitionPreset from './utils/getTransitionPreset'
 import { initSentry, log, reportError } from './utils/sentry'
 
 type HeaderProps = {
@@ -66,21 +61,24 @@ type HeaderProps = {
 
 const transparentHeader = (headerProps: StackHeaderProps) => <TransparentHeader {...(headerProps as HeaderProps)} />
 
-const defaultHeader = (headerProps: StackHeaderProps) => <Header {...(headerProps as HeaderProps)} />
+export const defaultHeader = (headerProps: StackHeaderProps): ReactElement => (
+  <Header {...(headerProps as HeaderProps)} />
+)
 const settingsHeader = (headerProps: StackHeaderProps) => (
   <Header {...(headerProps as HeaderProps)} showOverflowItems={false} />
 )
 
+const Stack = createStackNavigator<RoutesParamsType>()
+
 type InitialRouteType =
   | {
-      name: IntroRouteType | LandingRouteType | CategoriesRouteType
+      name: IntroRouteType | LandingRouteType | CategoriesRouteType | BottomTabNavigationRouteType
     }
   | {
       name: RedirectRouteType
       url: string
     }
   | null
-const Stack = createStackNavigator<RoutesParamsType>()
 
 const Navigator = (): ReactElement | null => {
   const showSnackbar = useSnackbar()
@@ -131,7 +129,7 @@ const Navigator = (): ReactElement | null => {
     } else if (!cityCode) {
       updateInitialRoute({ name: LANDING_ROUTE })
     } else if (cities?.find(it => it.code === cityCode)) {
-      updateInitialRoute({ name: CATEGORIES_ROUTE })
+      updateInitialRoute({ name: BOTTOM_TAB_NAVIGATION_ROUTE })
     } else if (cities) {
       // City is not available anymore
       changeCityCode(null)
@@ -145,11 +143,7 @@ const Navigator = (): ReactElement | null => {
     return citiesError ? <LoadingErrorHandler error={citiesError} loading={false} refresh={refreshCities} /> : null
   }
 
-  // Keeps our previous transition we used in v4 of react-navigation on android. Fixes weird showing of splash screen on every navigate.
-  const transitionPreset = Platform.select({
-    android: TransitionPresets.FadeFromBottomAndroid,
-    ios: TransitionPresets.DefaultTransition,
-  })
+  const transitionPreset = getTransitionPreset()
 
   const redirectUrl = initialRoute.name === REDIRECT_ROUTE ? initialRoute.url : undefined
 
@@ -159,13 +153,10 @@ const Navigator = (): ReactElement | null => {
         <Stack.Screen name={REDIRECT_ROUTE} initialParams={{ url: redirectUrl }} component={RedirectContainer} />
         <Stack.Screen name={INTRO_ROUTE} component={Intro} initialParams={{}} />
         <Stack.Screen name={SEARCH_ROUTE} component={SearchModalContainer} />
+        <Stack.Screen name={BOTTOM_TAB_NAVIGATION_ROUTE} component={BottomTabNavigation} />
       </Stack.Group>
 
       <Stack.Group screenOptions={{ header: defaultHeader }}>
-        <Stack.Screen name={CATEGORIES_ROUTE} initialParams={{}} component={CategoriesContainer} />
-        <Stack.Screen name={POIS_ROUTE} component={PoisContainer} />
-        <Stack.Screen name={EVENTS_ROUTE} component={EventsContainer} />
-        <Stack.Screen name={NEWS_ROUTE} component={NewsContainer} />
         <Stack.Screen name={DISCLAIMER_ROUTE} component={DisclaimerContainer} />
         <Stack.Screen name={FEEDBACK_MODAL_ROUTE} component={FeedbackModalContainer} />
         <Stack.Screen name={LANDING_ROUTE} component={Landing} />
