@@ -7,7 +7,6 @@ import useCityAppContext from '../hooks/useCityAppContext'
 import useHeader from '../hooks/useHeader'
 import useLoadCityContent from '../hooks/useLoadCityContent'
 import usePreviousProp from '../hooks/usePreviousProp'
-import useSetRouteTitle from '../hooks/useSetRouteTitle'
 import urlFromRouteInformation from '../navigation/url'
 import LoadingErrorHandler from './LoadingErrorHandler'
 import Pois from './Pois'
@@ -37,7 +36,6 @@ const PoisContainer = ({ navigation, route }: PoisContainerProps): ReactElement 
     zoom,
   })
   useHeader({ navigation, route, availableLanguages, data, shareUrl })
-  useSetRouteTitle({ navigation, title: currentPoi?.title })
 
   const onLanguageChange = useCallback(
     (newLanguage: string) => {
