@@ -39,6 +39,8 @@ import {
   LicensesRouteType,
   CONSENT_ROUTE,
   ConsentRouteType,
+  BOTTOM_TAB_NAVIGATION_ROUTE,
+  BottomTabNavigationRouteType,
 } from 'shared'
 import { LanguageModel, FeedbackRouteType } from 'shared/api'
 
@@ -61,6 +63,7 @@ export type RoutesType =
   | FeedbackModalRouteType
   | LicensesRouteType
   | ConsentRouteType
+  | BottomTabNavigationRouteType
 
 type RouteTitle = {
   title?: string
@@ -98,6 +101,7 @@ export type RoutesParamsType = {
   [SEARCH_ROUTE]: {
     searchText?: string | null
   }
+  [BOTTOM_TAB_NAVIGATION_ROUTE]: undefined
   [LICENSES_ROUTE]: undefined
   [CHANGE_LANGUAGE_MODAL_ROUTE]: {
     languages: LanguageModel[]

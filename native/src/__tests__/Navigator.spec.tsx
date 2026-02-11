@@ -1,8 +1,11 @@
+import { fireEvent } from '@testing-library/react-native'
+import { mocked } from 'jest-mock'
 import React from 'react'
 
 import { CityModelBuilder } from 'shared/api'
 
 import Navigator from '../Navigator'
+import useLoadCityContent, { CityContentReturn } from '../hooks/useLoadCityContent'
 import TestingAppContext from '../testing/TestingAppContext'
 import render from '../testing/render'
 import dataContainer from '../utils/DefaultDataContainer'
@@ -13,12 +16,23 @@ jest.mock('styled-components')
 jest.mock('../utils/DefaultDataContainer', () => ({ deleteCity: jest.fn(async () => undefined) }))
 jest.mock('@react-native-community/netinfo')
 jest.mock('../hooks/useLoadCities', () => jest.fn(() => ({ data: cities, error: null })))
+jest.mock('../hooks/useLoadCityContent')
 jest.mock('shared/api', () => ({
   ...jest.requireActual('shared/api'),
   useLoadAsync: jest.fn(() => ({ data: null, error: null })),
 }))
 jest.mock('../utils/sentry')
-jest.mock('react-native/Libraries/Utilities/useWindowDimensions')
+jest.mock('react-native/Libraries/Utilities/useWindowDimensions', () => ({
+  __esModule: true,
+  default: jest.fn(() => ({ width: 1080, height: 2400 })),
+}))
+jest.mock('react-native/Libraries/Components/Keyboard/Keyboard', () => ({
+  __esModule: true,
+  default: {
+    addListener: jest.fn(() => ({ remove: jest.fn() })),
+    dismiss: jest.fn(),
+  },
+}))
 jest.mock('react-i18next')
 jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter')
 jest.mock('../routes/Intro', () => {
@@ -123,11 +137,46 @@ const renderNavigator = ({
 describe('Navigator', () => {
   beforeEach(() => {
     jest.clearAllMocks()
+    mocked(useLoadCityContent).mockReturnValue({
+      data: {
+        city: cities[0]!,
+        languages: [],
+        cities,
+        language: null as never,
+        categories: null as never,
+        events: [],
+        pois: [],
+        localNews: [],
+      },
+      loading: false,
+      error: null,
+      refresh: jest.fn(),
+    } as CityContentReturn)
   })
 
-  it('should display categories if a city is selected and the intro was shown', async () => {
+  it('should start with categories as the initial tab', async () => {
     const { findByText } = renderNavigator({ cityCode: 'augsburg', introShown: true })
+
+    // default tab of the bottom tab navigator - shows Categories screen
     await findByText('Categories')
+
+    // verify bottom tab navigator is mounted by checking for tab labels
+    await findByText('localInformationLabel')
+    await findByText('news')
+    await findByText('events')
+  })
+
+  it('should allow switching between all bottom tabs', async () => {
+    const { findByText, getByText } = renderNavigator({ cityCode: 'augsburg', introShown: true })
+
+    fireEvent.press(getByText('events'))
+    await findByText('Events')
+
+    fireEvent.press(getByText('localInformationLabel'))
+    await findByText('Categories')
+
+    fireEvent.press(getByText('news'))
+    await findByText('News')
   })
 
   it('should display landing if the selected city is not available anymore', async () => {

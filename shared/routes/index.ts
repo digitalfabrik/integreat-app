@@ -48,6 +48,9 @@ export const INTRO_ROUTE: IntroRouteType = 'intro'
 export type SettingsRouteType = 'settings'
 export const SETTINGS_ROUTE: SettingsRouteType = 'settings'
 
+export type BottomTabNavigationRouteType = 'bottomTabNavigation'
+export const BOTTOM_TAB_NAVIGATION_ROUTE: BottomTabNavigationRouteType = 'bottomTabNavigation'
+
 export type ChangeLanguageModalRouteType = 'changeLanguage'
 export const CHANGE_LANGUAGE_MODAL_ROUTE: ChangeLanguageModalRouteType = 'changeLanguage'
 
