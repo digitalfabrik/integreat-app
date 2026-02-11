@@ -95,7 +95,7 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
     if (authorizationStatus !== 'authorized') {
       showSnackbar({
         text: 'noCalendarPermission',
-        positiveAction: {
+        action: {
           label: t('layout:settings'),
           onPress: openSettings,
         },

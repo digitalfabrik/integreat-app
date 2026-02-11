@@ -137,7 +137,6 @@ const HeaderMenu = ({
           iconColor={theme.colors.onSurface}
           onPress={() => setVisible(true)}
           testID='header-overflow-menu-button'
-          style={{ backgroundColor: 'transparent' }} // #3803 this need to be changed to adapt the new design
         />
       }>
       {withDividers([...menuItems, ...defaultSections])}
