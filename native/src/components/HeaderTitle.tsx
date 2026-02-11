@@ -29,7 +29,7 @@ type HeaderTitleProps = {
   landingPath?: () => void
 }
 
-const HeaderTitle = ({ title, language, landingPath }: HeaderTitleProps): ReactElement | undefined => {
+const HeaderTitle = ({ title, language, landingPath }: HeaderTitleProps): ReactElement | null => {
   const variant = !!title && title.length >= LONG_TITLE_LENGTH ? 'subtitle2' : 'subtitle1'
 
   if (buildConfig().featureFlags.fixedCity || !landingPath) {
@@ -53,7 +53,7 @@ const HeaderTitle = ({ title, language, landingPath }: HeaderTitleProps): ReactE
     )
   }
 
-  return undefined
+  return null
 }
 
 export default HeaderTitle

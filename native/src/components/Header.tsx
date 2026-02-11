@@ -234,10 +234,6 @@ const Header = ({
     : []
 
   const getHeaderText = (): { text: string; language?: string } => {
-    const currentTitle = (route.params as { title?: string } | undefined)?.title
-    if (currentTitle) {
-      return { text: currentTitle, language: languageCode }
-    }
     if (!previousRoute) {
       // Home/Dashboard: Show current city name
       return { text: cityName ?? '', language: config.sourceLanguage }

@@ -25,6 +25,7 @@ import useLoadCityContent from '../hooks/useLoadCityContent'
 import useSetRouteTitle from '../hooks/useSetRouteTitle'
 import CategoriesContainer from '../routes/CategoriesContainer'
 import EventsContainer from '../routes/EventsContainer'
+import LoadingErrorHandler from '../routes/LoadingErrorHandler'
 import NewsContainer from '../routes/NewsContainer'
 import PoisContainer from '../routes/PoisContainer'
 import cityDisplayName from '../utils/cityDisplayName'
@@ -91,7 +92,7 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
   const { t } = useTranslation('layout')
   const { cityCode, languageCode } = useCityAppContext()
   const deviceWidth = useWindowDimensions().width
-  const { data } = useLoadCityContent({ cityCode, languageCode })
+  const { data, loading, error, refresh } = useLoadCityContent({ cityCode, languageCode })
   const cachedDataRef = useRef(data)
 
   // Preserve previous data during language changes to prevent unmounting
@@ -114,7 +115,7 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
   )
 
   if (!cachedData) {
-    return null
+    return <LoadingErrorHandler loading={loading} error={error} refresh={refresh} />
   }
 
   const isNewsEnabled = cachedData.city.tunewsEnabled || cachedData.city.localNewsEnabled
