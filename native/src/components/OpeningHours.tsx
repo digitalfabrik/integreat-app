@@ -10,14 +10,9 @@ import { contentDirection } from '../constants/contentDirection'
 import useSnackbar from '../hooks/useSnackbar'
 import openExternalUrl from '../utils/openExternalUrl'
 import Accordion from './Accordion'
-import OpeningEntry from './OpeningEntry'
 import HoursList from './HoursList'
 import Icon from './base/Icon'
 import Text from './base/Text'
-
-const Content = styled.View`
-  font-size: 12px;
-`
 
 const TitleContainer = styled.View<{ language: string }>`
   flex-direction: ${props => contentDirection(props.language)};
@@ -116,7 +111,7 @@ const OpeningHours = ({
       <Accordion
         headerContent={<OpeningHoursTitle isCurrentlyOpen={isCurrentlyOpen} language={language} />}
         initialCollapsed={!isCurrentlyOpen}>
-        <HoursList hours={openingHours} appointmentUrl={appointmentUrl} language={language} />
+        <HoursList hours={openingHours} appointmentUrl={appointmentUrl} />
       </Accordion>
       {AppointmentLink}
       <StyledDivider />

@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next'
 import { Platform } from 'react-native'
 import RNCalendarEvents, { Calendar, CalendarEventWritable, RecurrenceFrequency } from 'react-native-calendar-events'
 import { Button } from 'react-native-paper'
-import { PERMISSIONS, openSettings, requestMultiple } from 'react-native-permissions'
 import { openSettings } from 'react-native-permissions'
 import { Frequency } from 'rrule'
 

@@ -9,10 +9,10 @@ import Accordion from './Accordion'
 import AddressInfo from './AddressInfo'
 import Contact from './Contact'
 import CustomThumbnail from './CustomThumbnail'
-import HorizontalLine from './HorizontalLine'
 import OpeningHours from './OpeningHours'
 import Page from './Page'
 import PoiChips from './PoiChips'
+import Text from './base/Text'
 
 const PoiDetailsContainer = styled.View`
   flex: 1;
@@ -58,14 +58,16 @@ const PoiDetails = ({ poi, language, distance, onFocus }: PoiDetailsProps): Reac
         <>
           <Accordion headerContent={t('contacts')}>
             <StyledContactsContainer>
-            {contacts.map((contact, index) => (
-              <Contact
-                key={contact.headline ?? contact.website ?? contact.name ?? contact.phoneNumber ?? contact.mobileNumber}
-                contact={contact}
-                isLastContact={contacts.length - 1 === index}
-                language={language}
-              />
-            ))}
+              {contacts.map((contact, index) => (
+                <Contact
+                  key={
+                    contact.headline ?? contact.website ?? contact.name ?? contact.phoneNumber ?? contact.mobileNumber
+                  }
+                  contact={contact}
+                  isLastContact={contacts.length - 1 === index}
+                  language={language}
+                />
+              ))}
             </StyledContactsContainer>
           </Accordion>
 

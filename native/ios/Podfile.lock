@@ -2646,7 +2646,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
-  - ReactNativeStaticServer (0.25.3):
+  - ReactNativeStaticServer (0.25.4):
     - boost
     - DoubleConversion
     - fast_float
@@ -3013,7 +3013,7 @@ PODS:
     - Sentry/HybridSDK (= 8.57.0)
     - SocketRocket
     - Yoga
-  - RNSpeech (1.3.1):
+  - RNSpeech (1.4.0):
     - boost
     - DoubleConversion
     - fast_float
@@ -3606,7 +3606,7 @@ SPEC CHECKSUMS:
   ReactCommon: 801eff8cb9c940c04d3a89ce399c343ee3eff654
   ReactNativeFs: 5a434035a6290b212fe23bdeb2eed70709df129d
   ReactNativePdfRenderer: c3fa8975039ffce9712c939fb78bfda8b090f975
-  ReactNativeStaticServer: 489bc2a59c566d6eddf28def18a2e4a807949608
+  ReactNativeStaticServer: dfbb7e3296f7c51559a02e2e20e7bd84156713ad
   RNCalendarEvents: f90f73666b6bcbb3cc8a491ffbb5e48c0db3de37
   RNCAsyncStorage: fd44f4b03e007e642e98df6726737bc66e9ba609
   RNCClipboard: e560338bf6cc4656a09ff90610b62ddc0dbdad65
@@ -3620,7 +3620,7 @@ SPEC CHECKSUMS:
   RNReanimated: 8f0185df21f0dea34ee8c9611ba88c17a290ed9a
   RNScreens: 98771ad898d1c0528fc8139606bbacf5a2e9d237
   RNSentry: e26e131780fc2a8b31b8fb030b7882af615d05ac
-  RNSpeech: ef00dff43fc992ae3c03f2c42dc3a85e348d7e0f
+  RNSpeech: 176916bfcab3a2170b1e492d45b357ea29e702b7
   RNSVG: 82979f324e1cbf99f558a04e66f574a568ed54c0
   RNWorklets: ab618bf7d1c7fd2cb793b9f0f39c3e29274b3ebf
   Sentry: e1b49e5f49367ff211b25c431a60e2bd83b792aa
@@ -3629,4 +3629,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 41273ba4d2f195644fd5a1b020bb9fdc64bbdc2c
 
-COCOAPODS: 1.16.2
+COCOAPODS: 1.15.2

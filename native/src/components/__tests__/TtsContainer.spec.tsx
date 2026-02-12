@@ -3,7 +3,6 @@ import { fireEvent, RenderAPI, waitFor } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import React, { useContext } from 'react'
 import { Platform } from 'react-native'
-import mockSafeAreaContext from 'react-native-safe-area-context/jest/mock'
 import { Button } from 'react-native-paper'
 
 import buildConfig from '../../constants/buildConfig'

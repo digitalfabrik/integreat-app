@@ -5,7 +5,6 @@ import styled from 'styled-components/native'
 
 import { ContactModel } from 'shared/api'
 
-import { ExternalLinkIcon, MailIcon, PhoneIcon, WebsiteIcon, MobilePhoneIcon } from '../assets'
 import OfficeHours from './OfficeHours'
 import PoiDetailRow from './PoiDetailRow'
 import Text from './base/Text'
@@ -63,7 +62,7 @@ const Contact = ({
           icon='email-outline'
         />
       )}
-      {officeHours !== null && <OfficeHours officeHours={officeHours} language={language} />}
+      {officeHours !== null && <OfficeHours officeHours={officeHours} />}
       {!isLastContact && <StyledDivider />}
     </>
   )
