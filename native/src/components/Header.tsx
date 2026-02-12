@@ -1,8 +1,7 @@
 import React, { ReactElement, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { Menu } from 'react-native-paper'
-import { Item } from 'react-navigation-header-buttons'
 import styled, { useTheme } from 'styled-components/native'
 
 import { ThemeKey } from 'build-configs/ThemeKey'
@@ -12,6 +11,7 @@ import {
   EVENTS_ROUTE,
   EventsRouteType,
   getSlugFromPath,
+  LANDING_ROUTE,
   NEWS_ROUTE,
   POIS_ROUTE,
   PoisRouteType,
@@ -32,7 +32,9 @@ import useSnackbar from '../hooks/useSnackbar'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import navigateToLanguageChange from '../navigation/navigateToLanguageChange'
-import CustomHeaderButtons from './CustomHeaderButtons'
+import supportedLanguages from '../utils/supportedLanguages'
+import ActionButtons from './ActionButtons'
+import HeaderActionItem from './HeaderActionItem'
 import HeaderBox from './HeaderBox'
 import HeaderMenu from './HeaderMenu'
 import HighlightBox from './HighlightBox'
@@ -42,11 +44,24 @@ const Horizontal = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  background-color: ${props => props.theme.colors.surfaceVariant};
 `
 
 const BoxShadow = styled(HighlightBox)`
   height: ${dimensions.headerHeight}px;
 `
+
+const styles = StyleSheet.create({
+  menuItemContent: {
+    flex: 1,
+  },
+  menuItemTitle: {
+    paddingRight: 8,
+  },
+  iconPlaceholder: {
+    width: 40,
+  },
+})
 
 enum HeaderButtonTitle {
   Disclaimer = 'disclaimer',
@@ -68,19 +83,21 @@ type HeaderProps = {
   availableLanguages?: string[]
   shareUrl?: string
   cityName?: string
+  forceText?: boolean
 }
 
-const IconPlaceholder = () => <View style={{ width: 40 }} />
+const IconPlaceholder = () => <View style={styles.iconPlaceholder} />
 
 const Header = ({
   navigation,
   route,
-  availableLanguages,
+  availableLanguages = route.name === LANDING_ROUTE ? supportedLanguages.map(it => it.code) : undefined,
   shareUrl,
   showItems = false,
   showOverflowItems = true,
-  languages,
+  languages = route.name === LANDING_ROUTE ? supportedLanguages : undefined,
   cityName,
+  forceText = route.name === LANDING_ROUTE,
 }: HeaderProps): ReactElement | null => {
   const [visible, setVisible] = useState(false)
   const { languageCode, cityCode, settings, updateSettings } = useContext(AppContext)
@@ -90,6 +107,8 @@ const Header = ({
   // Save route/canGoBack to state to prevent it from changing during navigating which would lead to flickering of the title and back button
   const [previousRoute] = useState(navigation.getState().routes[navigation.getState().routes.length - 2])
   const { enabled: isTtsEnabled, showTtsPlayer } = useTtsPlayer()
+  const isLanding = route.name === LANDING_ROUTE
+  const currentLanguageName = languages?.find(it => it.code === languageCode)?.name
 
   const poisParams = route.params as RoutesParamsType[PoisRouteType] | undefined
   const hasPoisParams = !!poisParams?.slug || poisParams?.multipoi !== undefined
@@ -112,18 +131,6 @@ const Header = ({
 
   const closeMenu = () => setVisible(false)
 
-  const renderItem = (title: string, iconName: string, visible: boolean, onPress?: () => void): ReactElement => (
-    <Item
-      key={title}
-      disabled={!visible}
-      title={t(title)}
-      iconName={iconName}
-      onPress={visible ? onPress : () => undefined}
-      color={visible ? theme.colors.onSurface : 'transparent'}
-      accessibilityLabel={t(title)}
-    />
-  )
-
   const renderMenuItem = (title: string, onPress: () => void, icon?: string): ReactElement => (
     <Menu.Item
       leadingIcon={icon ?? IconPlaceholder}
@@ -136,8 +143,11 @@ const Header = ({
       style={{
         backgroundColor: theme.dark ? theme.colors.surfaceVariant : theme.colors.surface,
       }}
-      contentStyle={{ flex: 1 }}
-      titleStyle={{ color: theme.colors.onSurface, textAlign: contentAlignmentRTLText(t(title)), paddingRight: 8 }}
+      contentStyle={styles.menuItemContent}
+      titleStyle={[
+        styles.menuItemTitle,
+        { color: theme.colors.onSurface, textAlign: contentAlignmentRTLText(t(title)) },
+      ]}
     />
   )
 
@@ -192,12 +202,25 @@ const Header = ({
   }
 
   const items = [
-    renderItem(HeaderButtonTitle.Search, 'search', showItems, () =>
-      navigation.navigate(SEARCH_ROUTE, {
-        searchText: null,
-      }),
-    ),
-    renderItem(HeaderButtonTitle.Language, 'language', showItems, goToLanguageChange),
+    <HeaderActionItem
+      key={HeaderButtonTitle.Search}
+      title={HeaderButtonTitle.Search}
+      iconName='search'
+      visible={showItems}
+      onPress={() =>
+        navigation.navigate(SEARCH_ROUTE, {
+          searchText: null,
+        })
+      }
+    />,
+    <HeaderActionItem
+      key={HeaderButtonTitle.Language}
+      title={HeaderButtonTitle.Language}
+      iconName='language'
+      visible={showItems || isLanding}
+      onPress={goToLanguageChange}
+      innerText={forceText ? currentLanguageName : undefined}
+    />,
   ]
 
   const overflowItems = showOverflowItems
@@ -255,20 +278,19 @@ const Header = ({
           canGoBack={canGoBack}
           text={getHeaderText().text}
           language={getHeaderText().language}
+          landingPath={!canGoBack && !isLanding ? () => navigation.navigate(LANDING_ROUTE) : undefined}
         />
-        <>
-          <CustomHeaderButtons items={items} />
-          <HeaderMenu
-            visible={visible}
-            setVisible={setVisible}
-            menuItems={overflowItems}
-            shareUrl={shareUrl}
-            pageTitle={pageTitle}
-            onNavigateToDisclaimer={() => navigation.navigate(DISCLAIMER_ROUTE)}
-            onNavigateToLicenses={() => navigation.navigate(LICENSES_ROUTE)}
-            renderMenuItem={renderMenuItem}
-          />
-        </>
+        <ActionButtons items={items} />
+        <HeaderMenu
+          visible={visible}
+          setVisible={setVisible}
+          menuItems={overflowItems}
+          shareUrl={shareUrl}
+          pageTitle={pageTitle}
+          onNavigateToDisclaimer={() => navigation.navigate(DISCLAIMER_ROUTE)}
+          onNavigateToLicenses={() => navigation.navigate(LICENSES_ROUTE)}
+          renderMenuItem={renderMenuItem}
+        />
       </Horizontal>
     </BoxShadow>
   )

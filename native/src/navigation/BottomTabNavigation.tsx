@@ -25,6 +25,7 @@ import useLoadCityContent from '../hooks/useLoadCityContent'
 import useSetRouteTitle from '../hooks/useSetRouteTitle'
 import CategoriesContainer from '../routes/CategoriesContainer'
 import EventsContainer from '../routes/EventsContainer'
+import LoadingErrorHandler from '../routes/LoadingErrorHandler'
 import NewsContainer from '../routes/NewsContainer'
 import PoisContainer from '../routes/PoisContainer'
 import cityDisplayName from '../utils/cityDisplayName'
@@ -77,7 +78,7 @@ const createTabLabel =
       variant='body3'
       style={{
         fontWeight: focused ? 'bold' : 'normal',
-        color: focused ? theme.colors.primary : theme.colors.onSurfaceVariant,
+        color: focused ? theme.colors.onSurface : theme.colors.onSurfaceVariant,
       }}>
       {label}
     </Text>
@@ -91,7 +92,7 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
   const { t } = useTranslation('layout')
   const { cityCode, languageCode } = useCityAppContext()
   const deviceWidth = useWindowDimensions().width
-  const { data } = useLoadCityContent({ cityCode, languageCode })
+  const { data, loading, error, refresh } = useLoadCityContent({ cityCode, languageCode })
   const cachedDataRef = useRef(data)
 
   // Preserve previous data during language changes to prevent unmounting
@@ -108,13 +109,13 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
 
   const CategoriesIcon = useCallback(
     ({ focused }: { focused: boolean }) => (
-      <Icon Icon={SignPostIcon} color={focused ? theme.colors.primary : theme.colors.onSurfaceVariant} />
+      <Icon Icon={SignPostIcon} color={focused ? theme.colors.onSurface : theme.colors.onSurfaceVariant} />
     ),
     [theme],
   )
 
   if (!cachedData) {
-    return null
+    return <LoadingErrorHandler loading={loading} error={error} refresh={refresh} />
   }
 
   const isNewsEnabled = cachedData.city.tunewsEnabled || cachedData.city.localNewsEnabled
@@ -123,10 +124,11 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: theme.colors.primary,
+        tabBarActiveTintColor: theme.colors.onSurface,
         tabBarInactiveTintColor: theme.colors.onSurfaceVariant,
         tabBarStyle: {
           height: 80,
+          backgroundColor: theme.colors.surfaceVariant,
         },
       }}>
       <Tab.Screen
