@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { WebBuildConfigType } from 'build-configs'
 
 declare global {

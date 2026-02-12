@@ -73,4 +73,5 @@ Element.prototype.scroll = () => undefined
 Element.prototype.scrollTo = () => undefined
 
 // https://github.com/remix-run/react-router/issues/12363
+// @ts-expect-error mistype
 globalThis.TextEncoder = TextEncoder

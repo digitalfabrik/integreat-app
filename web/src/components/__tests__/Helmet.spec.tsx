@@ -23,13 +23,13 @@ describe('Helmet', () => {
   const pageTitle = 'PageTitle'
   const metaDescription = 'MetaDescription'
 
-  type renderHelmetProps = {
+  type RenderHelmetProps = {
     city?: CityModel
     languageChangePaths?: LanguageChangePath[]
     metaDescription?: string
     rootPage?: boolean
   }
-  const renderHelmet = ({ city, languageChangePaths, metaDescription, rootPage }: renderHelmetProps) =>
+  const renderHelmet = ({ city, languageChangePaths, metaDescription, rootPage }: RenderHelmetProps) =>
     render(
       <Helmet
         pageTitle={pageTitle}

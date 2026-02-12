@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { CircleLayerStyle, SymbolLayerStyle } from '@maplibre/maplibre-react-native'
 
 import { LegacyThemeType } from 'build-configs/LegacyThemeType'

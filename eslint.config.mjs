@@ -63,20 +63,15 @@ export default defineConfig([
       "class-methods-use-this": "off",
       "@typescript-eslint/no-shadow": "off",
       "no-underscore-dangle": "off",
-      "react/display-name": "off",
-      "react/jsx-props-no-spreading": "off",
       "jest/no-mocks-import": "off",
       "@stylistic/lines-between-class-members": "off",
       "import-x/extensions": "off",
-      "import-x/named": "off",
       "import-x/prefer-default-export": "off",
-      "import-x/no-named-as-default-member": "off",
       "import-x/no-named-as-default": "off",
       "react/require-default-props": "off",
       "react/sort-comp": "off",
       "jest/expect-expect": "off",
       "default-case": "off",
-      "no-use-before-define": "off",
       "import-x/no-unresolved": "off",
       "import-x/no-cycle": "off",
       "import-x/no-relative-packages": "off",
@@ -96,8 +91,6 @@ export default defineConfig([
       "prefer-destructuring": ["error", {
         array: false,
       }],
-
-      "prefer-object-spread": "error",
 
       "no-restricted-imports": ["error", {
         paths: [{
@@ -125,14 +118,8 @@ export default defineConfig([
         unnamedComponents: "arrow-function",
       }],
 
-      "react/jsx-no-useless-fragment": ["error", {
-        allowExpressions: true,
-      }],
-
       "react/no-did-mount-set-state": "error",
       "react/no-unused-prop-types": "warn",
-      "react-hooks/exhaustive-deps": "error",
-
       "@typescript-eslint/await-thenable": "error",
       "@typescript-eslint/ban-ts-comment": "error",
       "@typescript-eslint/consistent-type-definitions": ["error", "type"],
@@ -148,9 +135,6 @@ export default defineConfig([
         caughtErrorsIgnorePattern: "^(e|err|error|_)$",
       }],
 
-      "@typescript-eslint/no-use-before-define": "error",
-      "@typescript-eslint/prefer-ts-expect-error": "error",
-
       "@typescript-eslint/strict-boolean-expressions": ["error", {
         allowNullableBoolean: true,
         allowNullableString: true,
@@ -160,16 +144,14 @@ export default defineConfig([
       "@typescript-eslint/consistent-indexed-object-style": "off",
       "@typescript-eslint/prefer-destructuring": "off",
       "@typescript-eslint/no-unnecessary-type-assertion": "off",
-      "@typescript-eslint/naming-convention": "off",
-    "@typescript-eslint/no-empty-object-type": "off",
-    "@typescript-eslint/no-unnecessary-type-arguments": "off",
-    "@typescript-eslint/no-unnecessary-template-expression": "off",
+      "@typescript-eslint/no-empty-object-type": "off",
+      "@typescript-eslint/no-unnecessary-type-arguments": "off",
 
       "@typescript-eslint/array-type": ["error", {
         default: "array",
       }],
 
-    "@typescript-eslint/switch-exhaustiveness-check": "off",
+      "@typescript-eslint/switch-exhaustiveness-check": "off",
       "@typescript-eslint/no-non-null-assertion": "error",
 
       "jest/consistent-test-it": "error",
@@ -242,7 +224,6 @@ export default defineConfig([
       "global-require": "off",
       "no-console": "off",
       "no-magic-numbers": "off",
-      "@typescript-eslint/no-var-requires": "off",
       "@typescript-eslint/no-require-imports": "off",
       "@typescript-eslint/no-non-null-assertion": "off",
       "import-x/no-extraneous-dependencies": "off",

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { TranslationsType } from 'translations'
 
 import { LegacyThemeType } from './LegacyThemeType'
