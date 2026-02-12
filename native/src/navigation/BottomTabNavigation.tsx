@@ -78,7 +78,7 @@ const createTabLabel =
       variant='body3'
       style={{
         fontWeight: focused ? 'bold' : 'normal',
-        color: focused ? theme.colors.primary : theme.colors.onSurfaceVariant,
+        color: focused ? theme.colors.onSurface : theme.colors.onSurfaceVariant,
       }}>
       {label}
     </Text>
@@ -109,7 +109,7 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
 
   const CategoriesIcon = useCallback(
     ({ focused }: { focused: boolean }) => (
-      <Icon Icon={SignPostIcon} color={focused ? theme.colors.primary : theme.colors.onSurfaceVariant} />
+      <Icon Icon={SignPostIcon} color={focused ? theme.colors.onSurface : theme.colors.onSurfaceVariant} />
     ),
     [theme],
   )
@@ -124,10 +124,11 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: theme.colors.primary,
+        tabBarActiveTintColor: theme.colors.onSurface,
         tabBarInactiveTintColor: theme.colors.onSurfaceVariant,
         tabBarStyle: {
           height: 80,
+          backgroundColor: theme.colors.surfaceVariant,
         },
       }}>
       <Tab.Screen
