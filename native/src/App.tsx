@@ -5,7 +5,6 @@ import React, { ReactElement, useCallback, useState } from 'react'
 import { LogBox } from 'react-native'
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
 import { enableScreens } from 'react-native-screens'
-import { HeaderButtonsProvider } from 'react-navigation-header-buttons/HeaderButtonsProvider'
 import { useTheme } from 'styled-components/native'
 
 import { CLOSE_PAGE_SIGNAL_NAME, REDIRECT_ROUTE } from 'shared'
@@ -65,12 +64,10 @@ export const NavigationContainerWithTheme = ({ onStateChange }: NavigationContai
   const navigationTheme = useNavigationTheme()
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }} edges={['bottom']}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.surfaceVariant }} edges={['bottom']}>
       <StatusBar />
       <NavigationContainer onStateChange={onStateChange} theme={navigationTheme} linking={linking}>
-        <HeaderButtonsProvider stackType='native'>
-          <Navigator />
-        </HeaderButtonsProvider>
+        <Navigator />
       </NavigationContainer>
     </SafeAreaView>
   )
