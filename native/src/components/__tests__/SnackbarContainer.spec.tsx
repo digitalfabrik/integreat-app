@@ -1,24 +1,16 @@
-import { act } from '@testing-library/react-native'
+import { act, waitFor } from '@testing-library/react-native'
 import React, { useContext } from 'react'
 import mockSafeAreaContext from 'react-native-safe-area-context/jest/mock'
 
 import renderWithTheme from '../../testing/render'
 import SnackbarContainer, { SnackbarContext } from '../SnackbarContainer'
 
-jest.useFakeTimers()
-
 jest.mock('react-native-safe-area-context', () => mockSafeAreaContext)
 jest.mock('react-i18next')
-jest.mock('../../components/Snackbar', () => {
-  const { Text } = require('react-native-paper')
-
-  return ({ text }: { text: string }) => <Text>{text}</Text>
-})
 
 describe('SnackbarContainer', () => {
   beforeEach(() => {
     jest.clearAllMocks()
-    jest.clearAllTimers()
   })
 
   let enqueueSnackbar = jest.fn()
@@ -34,7 +26,7 @@ describe('SnackbarContainer', () => {
     </SnackbarContainer>
   )
 
-  it('should show a snackbar if included in the state', () => {
+  it('should show first snackbar when multiple are enqueued', () => {
     const snackbarText1 = 'snackbarText1'
     const snackbarText2 = 'snackbarText2'
     const { update, queryByText } = renderWithTheme(<MockComponentWithSnackbar />, false)
@@ -47,28 +39,31 @@ describe('SnackbarContainer', () => {
     })
     update(<MockComponentWithSnackbar />)
 
+    // First snackbar should be visible, second should be queued
     expect(queryByText(snackbarText1)).toBeTruthy()
     expect(queryByText(snackbarText2)).toBeFalsy()
+  })
+
+  it('should show next snackbar after first one is dismissed', async () => {
+    const snackbarText1 = 'snackbarText1'
+    const snackbarText2 = 'snackbarText2'
+    const { update, queryByText } = renderWithTheme(<MockComponentWithSnackbar />, false)
 
     act(() => {
-      // 5000 (show duration) + 300 (animation duration)
-      jest.advanceTimersByTime(5300)
+      enqueueSnackbar({ text: snackbarText1, duration: 100 })
+      enqueueSnackbar({ text: snackbarText2, duration: 100 })
     })
-
     update(<MockComponentWithSnackbar />)
 
-    act(() => {
-      expect(queryByText(snackbarText1)).toBeFalsy()
-      expect(queryByText(snackbarText2)).toBeTruthy()
-    })
+    expect(queryByText(snackbarText1)).toBeTruthy()
 
-    act(() => {
-      // 5000 (show duration) + 300 (animation duration)
-      jest.advanceTimersByTime(5300)
-    })
-
-    // No snackbar should be shown anymore
-    expect(queryByText(snackbarText1)).toBeFalsy()
-    expect(queryByText(snackbarText2)).toBeFalsy()
+    // Wait for first snackbar to dismiss and second to appear
+    await waitFor(
+      () => {
+        update(<MockComponentWithSnackbar />)
+        expect(queryByText(snackbarText2)).toBeTruthy()
+      },
+      { timeout: 500 },
+    )
   })
 })

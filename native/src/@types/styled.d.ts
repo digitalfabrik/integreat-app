@@ -31,6 +31,9 @@ type MD3Theme = {
     onSurface: string
     onSurfaceVariant: string
     onSurfaceDisabled: string
+    inverseSurface: string
+    inverseOnSurface: string
+    inversePrimary: string
     onError: string
     onErrorContainer: string
     onBackground: string

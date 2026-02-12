@@ -45,6 +45,9 @@ export const theme = (themeType: 'light' | 'contrast'): DefaultTheme => {
       onSurface: palette.text.primary,
       onSurfaceVariant: palette.text.secondary,
       onSurfaceDisabled: palette.text.disabled,
+      inverseSurface: palette.text.secondary,
+      inverseOnSurface: palette.background.default,
+      inversePrimary: palette.secondary.main,
       onError: palette.error.contrastText,
       onErrorContainer: palette.error.contrastText,
       onBackground: palette.text.primary,
@@ -63,7 +66,7 @@ export const theme = (themeType: 'light' | 'contrast'): DefaultTheme => {
         disabled: palette.action.disabled,
       },
       elevation: {
-        level0: palette.tertiary.light,
+        level0: 'transparent',
         level1: palette.tertiary.light,
         level2: palette.tertiary.light,
         level3: palette.tertiary.light,
