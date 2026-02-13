@@ -67,7 +67,7 @@ const CitySelector = ({ cities, navigateToDashboard }: CitySelectorProps): React
         <SearchInput
           filterText={filterText}
           onFilterTextChange={setFilterText}
-          placeholderText={t('searchCity')}
+          placeholderText={exampleCity?.sortingName ?? CITY_SEARCH_EXAMPLE}
           spaceSearch={false}
           description={t('searchCityDescription', { exampleCity: exampleCity?.name ?? CITY_SEARCH_EXAMPLE })}
         />
