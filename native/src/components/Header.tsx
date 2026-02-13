@@ -113,7 +113,10 @@ const Header = ({
   const poisParams = route.params as RoutesParamsType[PoisRouteType] | undefined
   const hasPoisParams = !!poisParams?.slug || poisParams?.multipoi !== undefined
 
-  const canGoBack = previousRoute !== undefined || (route.name === POIS_ROUTE && hasPoisParams)
+  const rootNavigation = navigation.getParent()?.getParent()
+  const hasRootHistory = rootNavigation !== undefined && rootNavigation.getState().index > 0
+
+  const canGoBack = previousRoute !== undefined || hasRootHistory || (route.name === POIS_ROUTE && hasPoisParams)
 
   const goBack = () => {
     if (route.name === POIS_ROUTE && hasPoisParams) {

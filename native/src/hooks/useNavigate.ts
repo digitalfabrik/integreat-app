@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/native'
 import { useCallback, useContext } from 'react'
 
 import {
+  BOTTOM_TAB_NAVIGATION_ROUTE,
   CATEGORIES_ROUTE,
   CITY_NOT_COOPERATING_ROUTE,
   CONSENT_ROUTE,
@@ -47,6 +48,27 @@ const navigate = <T extends RoutesType>(
   })
   const navigate = redirect ? navigation.replace : navigation.push
 
+  const navigateToNestedRoute = (routeName: RoutesType, params: Record<string, unknown>) => {
+    const currentState = navigation.getState()
+    const currentRouteName = currentState.routes[currentState.index]?.name
+
+    if (currentRouteName === routeName) {
+      // Already inside the matching tab stack (e.g., categories -> subcategory), push directly
+      // @ts-expect-error - Generic params type, but caller ensures type safety
+      navigate(routeName, params)
+    } else {
+      // Coming from outside (e.g., search), push onto root stack
+      // @ts-expect-error - Generic params type, but caller ensures type safety
+      navigate(BOTTOM_TAB_NAVIGATION_ROUTE, {
+        screen: routeName,
+        params: {
+          screen: routeName,
+          params,
+        },
+      })
+    }
+  }
+
   if (routeInformation.route === LICENSES_ROUTE) {
     navigate(LICENSES_ROUTE)
     return
@@ -85,7 +107,7 @@ const navigate = <T extends RoutesType>(
 
   switch (routeInformation.route) {
     case CATEGORIES_ROUTE:
-      navigate(CATEGORIES_ROUTE, { path: routeInformation.cityContentPath })
+      navigateToNestedRoute(CATEGORIES_ROUTE, { path: routeInformation.cityContentPath })
       return
 
     case DISCLAIMER_ROUTE:
@@ -93,15 +115,14 @@ const navigate = <T extends RoutesType>(
       return
 
     case EVENTS_ROUTE:
-      navigate(EVENTS_ROUTE, { slug: routeInformation.slug })
+      navigateToNestedRoute(EVENTS_ROUTE, { slug: routeInformation.slug })
       return
 
     case NEWS_ROUTE:
       if (!buildConfig().featureFlags.newsStream) {
         break
       }
-
-      navigate(NEWS_ROUTE, {
+      navigateToNestedRoute(NEWS_ROUTE, {
         ...params,
         newsType: routeInformation.newsType,
         newsId: routeInformation.newsId ?? null,
@@ -112,7 +133,7 @@ const navigate = <T extends RoutesType>(
       if (!buildConfig().featureFlags.pois) {
         break
       }
-      navigate(POIS_ROUTE, {
+      navigateToNestedRoute(POIS_ROUTE, {
         slug: routeInformation.slug,
         multipoi: routeInformation.multipoi,
         zoom: routeInformation.zoom,

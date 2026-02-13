@@ -4,6 +4,7 @@ import React, { useEffect } from 'react'
 
 import { FeatureFlagsType } from 'build-configs/BuildConfigType'
 import {
+  BOTTOM_TAB_NAVIGATION_ROUTE,
   CATEGORIES_ROUTE,
   EVENTS_ROUTE,
   INTRO_ROUTE,
@@ -144,7 +145,10 @@ describe('useNavigateToDeepLink', () => {
       renderMockComponent({ url, introShown: true })
 
       await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
-      expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: CATEGORIES_ROUTE, params: {} }] })
+      expect(navigation.reset).toHaveBeenCalledWith({
+        index: 0,
+        routes: [{ name: BOTTOM_TAB_NAVIGATION_ROUTE, params: {} }],
+      })
 
       expect(changeCityCode).toHaveBeenCalledTimes(1)
       expect(changeCityCode).toHaveBeenCalledWith(fixedCity)
@@ -159,7 +163,10 @@ describe('useNavigateToDeepLink', () => {
       renderMockComponent({ url, cityCode: selectedCity })
 
       await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
-      expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: CATEGORIES_ROUTE, params: {} }] })
+      expect(navigation.reset).toHaveBeenCalledWith({
+        index: 0,
+        routes: [{ name: BOTTOM_TAB_NAVIGATION_ROUTE, params: {} }],
+      })
 
       expect(changeCityCode).not.toHaveBeenCalled()
       expect(navigateTo).not.toHaveBeenCalled()
@@ -190,7 +197,10 @@ describe('useNavigateToDeepLink', () => {
       renderMockComponent({ url, introShown: true })
 
       await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
-      expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: CATEGORIES_ROUTE, params: {} }] })
+      expect(navigation.reset).toHaveBeenCalledWith({
+        index: 0,
+        routes: [{ name: BOTTOM_TAB_NAVIGATION_ROUTE, params: {} }],
+      })
 
       expect(changeCityCode).toHaveBeenCalledTimes(1)
       expect(changeCityCode).toHaveBeenCalledWith(cityCode)
@@ -205,7 +215,10 @@ describe('useNavigateToDeepLink', () => {
       renderMockComponent({ url, introShown: true })
 
       await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
-      expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: CATEGORIES_ROUTE, params: {} }] })
+      expect(navigation.reset).toHaveBeenCalledWith({
+        index: 0,
+        routes: [{ name: BOTTOM_TAB_NAVIGATION_ROUTE, params: {} }],
+      })
 
       expect(changeCityCode).toHaveBeenCalledTimes(1)
       expect(changeCityCode).toHaveBeenCalledWith(cityCode)
@@ -220,7 +233,10 @@ describe('useNavigateToDeepLink', () => {
       renderMockComponent({ url, cityCode: selectedCity, introShown: true })
 
       await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
-      expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: CATEGORIES_ROUTE, params: {} }] })
+      expect(navigation.reset).toHaveBeenCalledWith({
+        index: 0,
+        routes: [{ name: BOTTOM_TAB_NAVIGATION_ROUTE, params: {} }],
+      })
 
       expect(navigateTo).toHaveBeenCalledTimes(1)
       expect(navigateTo).toHaveBeenCalledWith({
@@ -241,7 +257,10 @@ describe('useNavigateToDeepLink', () => {
       renderMockComponent({ url, cityCode: selectedCity, introShown: true })
 
       await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
-      expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: CATEGORIES_ROUTE, params: {} }] })
+      expect(navigation.reset).toHaveBeenCalledWith({
+        index: 0,
+        routes: [{ name: BOTTOM_TAB_NAVIGATION_ROUTE, params: {} }],
+      })
 
       expect(navigateTo).toHaveBeenCalledTimes(1)
       expect(navigateTo).toHaveBeenCalledWith({
@@ -295,7 +314,10 @@ describe('useNavigateToDeepLink', () => {
       renderMockComponent({ url, cityCode, introShown: true })
 
       await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
-      expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: CATEGORIES_ROUTE, params: {} }] })
+      expect(navigation.reset).toHaveBeenCalledWith({
+        index: 0,
+        routes: [{ name: BOTTOM_TAB_NAVIGATION_ROUTE, params: {} }],
+      })
       expect(navigateTo).toHaveBeenCalledTimes(1)
       expect(navigateTo).toHaveBeenCalledWith({
         cityCode,
@@ -315,7 +337,10 @@ describe('useNavigateToDeepLink', () => {
       renderMockComponent({ url, cityCode: selectedCity, introShown: true })
 
       await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
-      expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: CATEGORIES_ROUTE, params: {} }] })
+      expect(navigation.reset).toHaveBeenCalledWith({
+        index: 0,
+        routes: [{ name: BOTTOM_TAB_NAVIGATION_ROUTE, params: {} }],
+      })
       expect(navigateTo).toHaveBeenCalledTimes(1)
       expect(navigateTo).toHaveBeenCalledWith({
         cityCode,
@@ -353,7 +378,10 @@ describe('useNavigateToDeepLink', () => {
       renderMockComponent({ url, cityCode: selectedCity, introShown: true })
 
       await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
-      expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: CATEGORIES_ROUTE, params: {} }] })
+      expect(navigation.reset).toHaveBeenCalledWith({
+        index: 0,
+        routes: [{ name: BOTTOM_TAB_NAVIGATION_ROUTE, params: {} }],
+      })
       expect(navigateTo).toHaveBeenCalledTimes(1)
       expect(navigateTo).toHaveBeenCalledWith({
         route: JPAL_TRACKING_ROUTE,

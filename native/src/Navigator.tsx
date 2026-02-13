@@ -1,4 +1,3 @@
-import { useNavigation } from '@react-navigation/native'
 import { createStackNavigator, StackHeaderProps } from '@react-navigation/stack'
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 
@@ -21,6 +20,7 @@ import {
   PDF_VIEW_MODAL_ROUTE,
   REDIRECT_ROUTE,
   RedirectRouteType,
+  RouteInformationType,
   SEARCH_ROUTE,
   SETTINGS_ROUTE,
 } from 'shared'
@@ -32,6 +32,7 @@ import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from './con
 import buildConfig from './constants/buildConfig'
 import { useAppContext } from './hooks/useCityAppContext'
 import useLoadCities from './hooks/useLoadCities'
+import useNavigate from './hooks/useNavigate'
 import useSnackbar from './hooks/useSnackbar'
 import BottomTabNavigation from './navigation/BottomTabNavigation'
 import ChangeLanguageModal from './routes/ChangeLanguageModal'
@@ -84,13 +85,13 @@ const Navigator = (): ReactElement | null => {
   const showSnackbar = useSnackbar()
   const appContext = useAppContext()
   const { settings, cityCode, changeCityCode, updateSettings } = appContext
-  const navigation = useNavigation<NavigationProps<RoutesType>>()
+  const { navigateTo } = useNavigate()
   const [initialRoute, setInitialRoute] = useState<InitialRouteType>(null)
 
   // Preload cities
   const { data: cities, error: citiesError, refresh: refreshCities } = useLoadCities()
 
-  usePushNotificationListener(navigation.navigate)
+  usePushNotificationListener((_route, params) => navigateTo(params as RouteInformationType))
 
   const updateInitialRoute = useCallback(
     (initialRoute: InitialRouteType) =>

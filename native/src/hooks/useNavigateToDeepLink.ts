@@ -2,6 +2,7 @@ import { useCallback } from 'react'
 import Url from 'url-parse'
 
 import {
+  BOTTOM_TAB_NAVIGATION_ROUTE,
   CATEGORIES_ROUTE,
   CITY_NOT_COOPERATING_ROUTE,
   cityContentPath,
@@ -90,7 +91,7 @@ const navigateToDeepLink = <T extends RoutesType>({
   // Reset the currently opened screens to just the dashboard of the city and language or the landing page
   // This is necessary to prevent undefined behaviour for city content routes upon e.g. back navigation
   if (selectedCityCode) {
-    navigation.reset({ index: 0, routes: [{ name: CATEGORIES_ROUTE, params: {} }] })
+    navigation.reset({ index: 0, routes: [{ name: BOTTOM_TAB_NAVIGATION_ROUTE, params: {} }] })
   } else {
     navigation.reset({ index: 0, routes: [{ name: LANDING_ROUTE }] })
   }

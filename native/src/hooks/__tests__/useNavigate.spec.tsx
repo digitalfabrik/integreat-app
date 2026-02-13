@@ -3,6 +3,7 @@ import { mocked } from 'jest-mock'
 import React, { useEffect } from 'react'
 
 import {
+  BOTTOM_TAB_NAVIGATION_ROUTE,
   CATEGORIES_ROUTE,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
@@ -16,6 +17,7 @@ import {
   SEARCH_ROUTE,
 } from 'shared'
 
+import { RoutesType } from '../../constants/NavigationTypes'
 import buildConfig from '../../constants/buildConfig'
 import TestingAppContext from '../../testing/TestingAppContext'
 import createNavigationPropMock from '../../testing/createNavigationPropMock'
@@ -65,6 +67,16 @@ describe('useNavigate', () => {
       </TestingAppContext>,
       false,
     )
+
+  const expectNestedNavigation = (routeName: RoutesType, params: Record<string, unknown>) => {
+    expect(navigation.push).toHaveBeenCalledWith(BOTTOM_TAB_NAVIGATION_ROUTE, {
+      screen: routeName,
+      params: {
+        screen: routeName,
+        params,
+      },
+    })
+  }
 
   beforeEach(() => {
     jest.clearAllMocks()
@@ -167,12 +179,12 @@ describe('useNavigate', () => {
       ...params,
       slug: '1234',
     })
-    expect(navigation.push).toHaveBeenCalledWith(EVENTS_ROUTE, { slug: '1234' })
+    expectNestedNavigation(EVENTS_ROUTE, { slug: '1234' })
     renderMockComponent({
       route: EVENTS_ROUTE,
       ...params,
     })
-    expect(navigation.push).toHaveBeenCalledWith(EVENTS_ROUTE, { slug: undefined })
+    expectNestedNavigation(EVENTS_ROUTE, { slug: undefined })
     expect(navigation.push).toHaveBeenCalledTimes(2)
   })
 
@@ -186,7 +198,7 @@ describe('useNavigate', () => {
       newsType: LOCAL_NEWS_TYPE,
       newsId: 1234,
     })
-    expect(navigation.push).toHaveBeenCalledWith(NEWS_ROUTE, {
+    expectNestedNavigation(NEWS_ROUTE, {
       ...params,
       newsType: LOCAL_NEWS_TYPE,
       newsId: 1234,
@@ -216,12 +228,17 @@ describe('useNavigate', () => {
       ...params,
       slug: '1234',
     })
-    expect(navigation.push).toHaveBeenCalledWith(POIS_ROUTE, { slug: '1234' })
+    expectNestedNavigation(POIS_ROUTE, {
+      slug: '1234',
+      multipoi: undefined,
+      zoom: undefined,
+      poiCategoryId: undefined,
+    })
     renderMockComponent({
       route: POIS_ROUTE,
       ...params,
     })
-    expect(navigation.push).toHaveBeenCalledWith(POIS_ROUTE, { slug: undefined })
+    expectNestedNavigation(POIS_ROUTE, { slug: undefined })
     expect(navigation.push).toHaveBeenCalledTimes(2)
   })
 
