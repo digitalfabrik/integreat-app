@@ -12,7 +12,7 @@ jest.mock('react-i18next')
 const tuNews = new TunewsModel({
   id: 9902,
   title: 'Was ist ein Verein?',
-  date: DateTime.fromISO('2020-02-20T00:00:00.000Z'),
+  lastUpdate: DateTime.fromISO('2020-02-20T00:00:00.000Z'),
   tags: [],
   content: 'Ein Verein ist eine Gruppe von Menschen. Sie haben ein gemeinsames Interesse und organisieren.',
   eNewsNo: 'tun0000009902',

@@ -46,8 +46,8 @@ const getTimestamp = (newsItem: LocalNewsModel | TunewsModel): DateTime<true> | 
   if ('timestamp' in newsItem) {
     return newsItem.timestamp
   }
-  if ('date' in newsItem) {
-    return newsItem.date
+  if ('lastUpdate' in newsItem) {
+    return newsItem.lastUpdate
   }
   return null
 }

@@ -141,9 +141,8 @@ const notifeeEventHandler = ({ type, detail }: Event, navigate: (route: RoutesTy
 }
 
 const pushNotificationPressListener = async (navigate: (route: RoutesType, params: unknown) => void) => {
-  const { getMessaging, onNotificationOpenedApp, getInitialNotification } = await import(
-    '@react-native-firebase/messaging'
-  )
+  const { getMessaging, onNotificationOpenedApp, getInitialNotification } =
+    await import('@react-native-firebase/messaging')
   // FCM quit state notifications
   const initialMessage = await getInitialNotification(getMessaging())
   if (initialMessage) {

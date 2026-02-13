@@ -16,13 +16,11 @@ const StyledDivider = styled(Divider)`
 type ContactProps = {
   contact: ContactModel
   isLastContact?: boolean
-  language: string
 }
 
 const Contact = ({
   contact: { headline, website, phoneNumber, email, mobileNumber, officeHours },
   isLastContact,
-  language,
 }: ContactProps): ReactElement => {
   const { t } = useTranslation('pois')
 

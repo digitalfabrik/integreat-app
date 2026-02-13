@@ -108,6 +108,7 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
   const { featureFlags } = buildConfig()
 
   const CategoriesIcon = useCallback(
+    // eslint-disable-next-line react/no-unused-prop-types
     ({ focused }: { focused: boolean }) => (
       <Icon Icon={SignPostIcon} color={focused ? theme.colors.onSurface : theme.colors.onSurfaceVariant} />
     ),

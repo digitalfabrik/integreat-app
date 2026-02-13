@@ -47,10 +47,10 @@ const OpeningEntry = ({ openingHours, weekday, isCurrentDay, appointmentUrl }: O
     <EntryContainer weekday={weekday}>
       <Text variant={isCurrentDay ? 'h6' : 'body2'}>{weekday}</Text>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        {(openingHours.allDay as boolean) && <Text variant={isCurrentDay ? 'h6' : 'body2'}>{t('allDay')}</Text>}
-        {(openingHours.closed as boolean) && <Text variant={isCurrentDay ? 'h6' : 'body2'}>{t('closed')}</Text>}
-        {!(openingHours.allDay as boolean) &&
-          !(openingHours.closed as boolean) &&
+        {(openingHours.openAllDay as boolean) && <Text variant={isCurrentDay ? 'h6' : 'body2'}>{t('allDay')}</Text>}
+        {(openingHours.closedAllDay as boolean) && <Text variant={isCurrentDay ? 'h6' : 'body2'}>{t('closed')}</Text>}
+        {!(openingHours.openAllDay as boolean) &&
+          !(openingHours.closedAllDay as boolean) &&
           openingHours.timeSlots.length > 0 && (
             <Timeslot>
               {openingHours.timeSlots.map((timeSlot, index) => (

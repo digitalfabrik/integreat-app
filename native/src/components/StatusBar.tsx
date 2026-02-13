@@ -4,7 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import styled, { useTheme } from 'styled-components/native'
 
 const StatusBarContainer = styled.View`
-  background-color: ${props => props.theme.colors.surfaceVariant};
+  background-color: ${props => (props.theme.dark ? props.theme.colors.surfaceVariant : props.theme.colors.surface)};
 `
 
 const StatusBar = (): ReactElement => {
@@ -14,7 +14,7 @@ const StatusBar = (): ReactElement => {
   return (
     <StatusBarContainer style={{ height: insets.top }}>
       <ReactNativeStatusBar
-        backgroundColor={theme.colors.surfaceVariant}
+        backgroundColor={theme.dark ? theme.colors.surfaceVariant : theme.colors.surface}
         barStyle={theme.dark ? 'default' : 'dark-content'}
       />
     </StatusBarContainer>
