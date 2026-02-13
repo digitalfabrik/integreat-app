@@ -56,17 +56,27 @@ const navigate = <T extends RoutesType>(
       // Already inside the matching tab stack (e.g., categories -> subcategory), push directly
       // @ts-expect-error - Generic params type, but caller ensures type safety
       navigate(routeName, params)
-    } else {
-      // Coming from outside (e.g., search), push onto root stack
-      // @ts-expect-error - Generic params type, but caller ensures type safety
-      navigate(BOTTOM_TAB_NAVIGATION_ROUTE, {
-        screen: routeName,
-        params: {
-          screen: routeName,
-          params,
-        },
-      })
+      return
     }
+
+    // Coming from outside (e.g., search): pop back to an existing bottom tab route (avoid duplicates)
+    const bottomTabIndex = currentState.routes.findIndex(route => route.name === BOTTOM_TAB_NAVIGATION_ROUTE)
+    if (bottomTabIndex !== -1) {
+      const popCount = currentState.index - bottomTabIndex
+      if (popCount > 0) {
+        navigation.pop(popCount)
+      }
+    }
+
+    // Navigate into the bottom tab navigator and its nested stack.
+    // @ts-expect-error - Generic params type, but caller ensures type safety
+    navigation.navigate(BOTTOM_TAB_NAVIGATION_ROUTE, {
+      screen: routeName,
+      params: {
+        screen: routeName,
+        params,
+      },
+    })
   }
 
   if (routeInformation.route === LICENSES_ROUTE) {

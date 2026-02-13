@@ -69,7 +69,7 @@ describe('useNavigate', () => {
     )
 
   const expectNestedNavigation = (routeName: RoutesType, params: Record<string, unknown>) => {
-    expect(navigation.push).toHaveBeenCalledWith(BOTTOM_TAB_NAVIGATION_ROUTE, {
+    expect(navigation.navigate).toHaveBeenCalledWith(BOTTOM_TAB_NAVIGATION_ROUTE, {
       screen: routeName,
       params: {
         screen: routeName,
@@ -185,7 +185,7 @@ describe('useNavigate', () => {
       ...params,
     })
     expectNestedNavigation(EVENTS_ROUTE, { slug: undefined })
-    expect(navigation.push).toHaveBeenCalledTimes(2)
+    expect(navigation.navigate).toHaveBeenCalledTimes(2)
   })
 
   it('should navigate to news route', () => {
@@ -203,7 +203,7 @@ describe('useNavigate', () => {
       newsType: LOCAL_NEWS_TYPE,
       newsId: 1234,
     })
-    expect(navigation.push).toHaveBeenCalledTimes(1)
+    expect(navigation.navigate).toHaveBeenCalledTimes(1)
   })
 
   it('should not navigate to news if it is not enabled in build config', () => {
@@ -239,7 +239,7 @@ describe('useNavigate', () => {
       ...params,
     })
     expectNestedNavigation(POIS_ROUTE, { slug: undefined })
-    expect(navigation.push).toHaveBeenCalledTimes(2)
+    expect(navigation.navigate).toHaveBeenCalledTimes(2)
   })
 
   it('should not navigate to pois if it is not enabled in build config', () => {
