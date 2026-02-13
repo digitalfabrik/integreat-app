@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/native'
+import { StackActions, useNavigation } from '@react-navigation/native'
 import { useCallback, useContext } from 'react'
 
 import {
@@ -49,34 +49,34 @@ const navigate = <T extends RoutesType>(
   const navigate = redirect ? navigation.replace : navigation.push
 
   const navigateToNestedRoute = (routeName: RoutesType, params: Record<string, unknown>) => {
-    const currentState = navigation.getState()
-    const currentRouteName = currentState.routes[currentState.index]?.name
+    const { routes, index } = navigation.getState()
 
-    if (currentRouteName === routeName) {
-      // Already inside the matching tab stack (e.g., categories -> subcategory), push directly
-      // @ts-expect-error - Generic params type, but caller ensures type safety
+    // Already inside the matching tab stack (e.g., categories -> subcategory), push directly
+    if (routes[index]?.name === routeName) {
+      // @ts-expect-error - Generic params type
       navigate(routeName, params)
       return
     }
 
-    // Coming from outside (e.g., search): pop back to an existing bottom tab route (avoid duplicates)
-    const bottomTabIndex = currentState.routes.findIndex(route => route.name === BOTTOM_TAB_NAVIGATION_ROUTE)
-    if (bottomTabIndex !== -1) {
-      const popCount = currentState.index - bottomTabIndex
-      if (popCount > 0) {
-        navigation.pop(popCount)
+    // Pop overlays (e.g. Search) and push to active tab.
+    const tabIndex = routes.findIndex(route => route.name === BOTTOM_TAB_NAVIGATION_ROUTE)
+    if (tabIndex !== -1) {
+      if (index > tabIndex) {
+        navigation.pop(index - tabIndex)
+      }
+
+      const tabState = routes[tabIndex]?.state
+      const activeTab = tabState ? tabState.routes[tabState.index as number] : undefined
+
+      const activeTabKey = activeTab?.state?.key
+      if (activeTab?.name === routeName && activeTabKey) {
+        navigation.dispatch({ ...StackActions.push(routeName, params), target: activeTabKey })
+        return
       }
     }
 
-    // Navigate into the bottom tab navigator and its nested stack.
-    // @ts-expect-error - Generic params type, but caller ensures type safety
-    navigation.navigate(BOTTOM_TAB_NAVIGATION_ROUTE, {
-      screen: routeName,
-      params: {
-        screen: routeName,
-        params,
-      },
-    })
+    // @ts-expect-error - Generic params type
+    navigation.navigate(BOTTOM_TAB_NAVIGATION_ROUTE, { screen: routeName, params: { screen: routeName, params } })
   }
 
   if (routeInformation.route === LICENSES_ROUTE) {
