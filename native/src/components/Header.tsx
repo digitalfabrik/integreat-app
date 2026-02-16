@@ -240,16 +240,25 @@ const Header = ({
       ]
     : []
 
+  const getCurrentRouteParams = () => {
+    const currentRoute = navigation.getState().routes.find(route => route.key === previousRoute?.key)
+    return currentRoute?.params as { title?: string } | undefined
+  }
+
+  const isSinglePoiFromPoisRoute = (): boolean => {
+    const poisRouteParams = route.params as RoutesParamsType[PoisRouteType] | undefined
+    const isSinglePoi = !!poisRouteParams?.slug || poisRouteParams?.multipoi !== undefined
+    const notFromDeepLink = previousRoute?.name === POIS_ROUTE
+    return isSinglePoi && notFromDeepLink
+  }
+
   const getHeaderText = (): { text: string; language?: string } => {
     if (!previousRoute) {
       // Home/Dashboard: Show current city name
       return { text: cityName ?? '', language: config.sourceLanguage }
     }
 
-    const poisRouteParams = route.params as RoutesParamsType[PoisRouteType] | undefined
-    const isSinglePoi = !!poisRouteParams?.slug || poisRouteParams?.multipoi !== undefined
-    const notFromDeepLink = previousRoute.name === POIS_ROUTE
-    if (isSinglePoi && notFromDeepLink) {
+    if (isSinglePoiFromPoisRoute()) {
       return { text: t('locations'), language: undefined } // system language
     }
 
@@ -260,8 +269,7 @@ const Header = ({
       return { text: t('events'), language: undefined } // system language
     }
 
-    const previousRouteTitle = (previousRoute.params as { title?: string } | undefined)?.title
-
+    const previousRouteTitle = getCurrentRouteParams()?.title
     if (previousRouteTitle) {
       return { text: previousRouteTitle, language: languageCode }
     }
