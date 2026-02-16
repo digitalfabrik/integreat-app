@@ -1,12 +1,14 @@
-import { NavigationState, PartialState } from '@react-navigation/native'
+import { StackNavigationState } from '@react-navigation/native'
 
 import { BOTTOM_TAB_NAVIGATION_ROUTE } from 'shared'
 
 import { RoutesParamsType, RoutesType } from '../constants/NavigationTypes'
 
-type BottomTabNavigationState = NavigationState<RoutesParamsType> | PartialState<NavigationState<RoutesParamsType>>
-
-export const createBottomTabNavigationState = ({ activeTab }: { activeTab: RoutesType }): BottomTabNavigationState => ({
+export const createBottomTabNavigationState = ({
+  activeTab,
+}: {
+  activeTab: RoutesType
+}): StackNavigationState<RoutesParamsType> => ({
   index: 0,
   routes: [
     {
@@ -39,4 +41,5 @@ export const createBottomTabNavigationState = ({ activeTab }: { activeTab: Route
   routeNames: [BOTTOM_TAB_NAVIGATION_ROUTE],
   type: 'stack',
   stale: false,
+  preloadedRoutes: [],
 })
