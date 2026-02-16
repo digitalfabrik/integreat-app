@@ -76,7 +76,7 @@ const navigate = <T extends RoutesType>(
     }
 
     // @ts-expect-error - Generic params type
-    navigation.navigate(BOTTOM_TAB_NAVIGATION_ROUTE, { screen: routeName, params: { screen: routeName, params } })
+    navigation.push(BOTTOM_TAB_NAVIGATION_ROUTE, { screen: routeName, params: { screen: routeName, params } })
   }
 
   if (routeInformation.route === LICENSES_ROUTE) {

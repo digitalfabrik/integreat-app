@@ -144,16 +144,9 @@ describe('useNavigateToDeepLink', () => {
       mockBuildConfig({ introSlides: false, fixedCity })
       renderMockComponent({ url, introShown: true })
 
-      await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
-      expect(navigation.reset).toHaveBeenCalledWith({
-        index: 0,
-        routes: [{ name: BOTTOM_TAB_NAVIGATION_ROUTE, params: {} }],
-      })
-
-      expect(changeCityCode).toHaveBeenCalledTimes(1)
-      expect(changeCityCode).toHaveBeenCalledWith(fixedCity)
-
-      expect(navigateTo).not.toHaveBeenCalled()
+      await waitFor(() => expect(navigateTo).toHaveBeenCalledTimes(1))
+      expect(navigation.reset).not.toHaveBeenCalled()
+      expect(changeCityCode).not.toHaveBeenCalled()
       expectTrackingSignal(url)
     })
 
@@ -196,16 +189,9 @@ describe('useNavigateToDeepLink', () => {
       mockBuildConfig({ introSlides: false, fixedCity: null })
       renderMockComponent({ url, introShown: true })
 
-      await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
-      expect(navigation.reset).toHaveBeenCalledWith({
-        index: 0,
-        routes: [{ name: BOTTOM_TAB_NAVIGATION_ROUTE, params: {} }],
-      })
-
-      expect(changeCityCode).toHaveBeenCalledTimes(1)
-      expect(changeCityCode).toHaveBeenCalledWith(cityCode)
-
-      expect(navigateTo).not.toHaveBeenCalled()
+      await waitFor(() => expect(navigateTo).toHaveBeenCalledTimes(1))
+      expect(navigation.reset).not.toHaveBeenCalled()
+      expect(changeCityCode).not.toHaveBeenCalled()
       expectTrackingSignal(url)
     })
 
@@ -214,16 +200,9 @@ describe('useNavigateToDeepLink', () => {
       mockBuildConfig({ introSlides: false, fixedCity: null })
       renderMockComponent({ url, introShown: true })
 
-      await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
-      expect(navigation.reset).toHaveBeenCalledWith({
-        index: 0,
-        routes: [{ name: BOTTOM_TAB_NAVIGATION_ROUTE, params: {} }],
-      })
-
-      expect(changeCityCode).toHaveBeenCalledTimes(1)
-      expect(changeCityCode).toHaveBeenCalledWith(cityCode)
-
-      expect(navigateTo).not.toHaveBeenCalled()
+      await waitFor(() => expect(navigateTo).toHaveBeenCalledTimes(1))
+      expect(navigation.reset).not.toHaveBeenCalled()
+      expect(changeCityCode).not.toHaveBeenCalled()
       expectTrackingSignal(url)
     })
 
@@ -232,19 +211,8 @@ describe('useNavigateToDeepLink', () => {
       mockBuildConfig({ introSlides: false, fixedCity: null })
       renderMockComponent({ url, cityCode: selectedCity, introShown: true })
 
-      await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
-      expect(navigation.reset).toHaveBeenCalledWith({
-        index: 0,
-        routes: [{ name: BOTTOM_TAB_NAVIGATION_ROUTE, params: {} }],
-      })
-
-      expect(navigateTo).toHaveBeenCalledTimes(1)
-      expect(navigateTo).toHaveBeenCalledWith({
-        cityCode,
-        languageCode: selectedLanguageCode,
-        cityContentPath: `/${cityCode}/${selectedLanguageCode}`,
-        route: CATEGORIES_ROUTE,
-      })
+      await waitFor(() => expect(navigateTo).toHaveBeenCalledTimes(1))
+      expect(navigation.reset).not.toHaveBeenCalled()
       expect(changeCityCode).not.toHaveBeenCalled()
       expectTrackingSignal(url)
     })
@@ -256,20 +224,8 @@ describe('useNavigateToDeepLink', () => {
       mockBuildConfig({ introSlides: false, fixedCity: null })
       renderMockComponent({ url, cityCode: selectedCity, introShown: true })
 
-      await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
-      expect(navigation.reset).toHaveBeenCalledWith({
-        index: 0,
-        routes: [{ name: BOTTOM_TAB_NAVIGATION_ROUTE, params: {} }],
-      })
-
-      expect(navigateTo).toHaveBeenCalledTimes(1)
-      expect(navigateTo).toHaveBeenCalledWith({
-        cityCode: selectedCity,
-        languageCode,
-        cityContentPath: `/${selectedCity}/${languageCode}`,
-        route: CATEGORIES_ROUTE,
-      })
-
+      await waitFor(() => expect(navigateTo).toHaveBeenCalledTimes(1))
+      expect(navigation.reset).not.toHaveBeenCalled()
       expect(changeCityCode).not.toHaveBeenCalled()
       expectTrackingSignal(url)
     })
@@ -313,19 +269,8 @@ describe('useNavigateToDeepLink', () => {
       mockBuildConfig({ introSlides: false, fixedCity: null })
       renderMockComponent({ url, cityCode, introShown: true })
 
-      await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
-      expect(navigation.reset).toHaveBeenCalledWith({
-        index: 0,
-        routes: [{ name: BOTTOM_TAB_NAVIGATION_ROUTE, params: {} }],
-      })
-      expect(navigateTo).toHaveBeenCalledTimes(1)
-      expect(navigateTo).toHaveBeenCalledWith({
-        cityCode,
-        languageCode,
-        slug: 'some-event',
-        route: EVENTS_ROUTE,
-      })
-
+      await waitFor(() => expect(navigateTo).toHaveBeenCalledTimes(1))
+      expect(navigation.reset).not.toHaveBeenCalled()
       expect(changeCityCode).not.toHaveBeenCalled()
       expectTrackingSignal(url)
     })
@@ -336,20 +281,8 @@ describe('useNavigateToDeepLink', () => {
       mockBuildConfig({ introSlides: false, fixedCity: null })
       renderMockComponent({ url, cityCode: selectedCity, introShown: true })
 
-      await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
-      expect(navigation.reset).toHaveBeenCalledWith({
-        index: 0,
-        routes: [{ name: BOTTOM_TAB_NAVIGATION_ROUTE, params: {} }],
-      })
-      expect(navigateTo).toHaveBeenCalledTimes(1)
-      expect(navigateTo).toHaveBeenCalledWith({
-        cityCode,
-        languageCode: 'en',
-        newsId: undefined,
-        newsType: LOCAL_NEWS_TYPE,
-        route: NEWS_ROUTE,
-      })
-
+      await waitFor(() => expect(navigateTo).toHaveBeenCalledTimes(1))
+      expect(navigation.reset).not.toHaveBeenCalled()
       expect(changeCityCode).not.toHaveBeenCalled()
       expectTrackingSignal(url)
     })

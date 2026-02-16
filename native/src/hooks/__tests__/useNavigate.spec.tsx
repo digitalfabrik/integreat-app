@@ -20,6 +20,7 @@ import {
 import { RoutesType } from '../../constants/NavigationTypes'
 import buildConfig from '../../constants/buildConfig'
 import TestingAppContext from '../../testing/TestingAppContext'
+import { createBottomTabNavigationState } from '../../testing/bottomNavigationMock'
 import createNavigationPropMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
 import openExternalUrl from '../../utils/openExternalUrl'
@@ -36,6 +37,10 @@ jest.mock('../../navigation/url', () => ({
 describe('useNavigate', () => {
   const navigation = createNavigationPropMock()
   mocked(useNavigation).mockImplementation(() => navigation as never)
+
+  const mockBottomTabState = ({ activeTab }: { activeTab: RoutesType }) => {
+    mocked(navigation.getState).mockImplementation(() => createBottomTabNavigationState({ activeTab }))
+  }
 
   const cityCode = 'ansbach'
   const languageCode = 'ro'
@@ -69,7 +74,7 @@ describe('useNavigate', () => {
     )
 
   const expectNestedNavigation = (routeName: RoutesType, params: Record<string, unknown>) => {
-    expect(navigation.navigate).toHaveBeenCalledWith(BOTTOM_TAB_NAVIGATION_ROUTE, {
+    expect(navigation.push).toHaveBeenCalledWith(BOTTOM_TAB_NAVIGATION_ROUTE, {
       screen: routeName,
       params: {
         screen: routeName,
@@ -174,6 +179,7 @@ describe('useNavigate', () => {
   })
 
   it('should navigate to events route', () => {
+    mockBottomTabState({ activeTab: CATEGORIES_ROUTE })
     renderMockComponent({
       route: EVENTS_ROUTE,
       ...params,
@@ -185,13 +191,14 @@ describe('useNavigate', () => {
       ...params,
     })
     expectNestedNavigation(EVENTS_ROUTE, { slug: undefined })
-    expect(navigation.navigate).toHaveBeenCalledTimes(2)
+    expect(navigation.push).toHaveBeenCalledTimes(2)
   })
 
   it('should navigate to news route', () => {
     mockBuildConfig({
       newsStream: true,
     })
+    mockBottomTabState({ activeTab: CATEGORIES_ROUTE })
     renderMockComponent({
       route: NEWS_ROUTE,
       ...params,
@@ -203,7 +210,7 @@ describe('useNavigate', () => {
       newsType: LOCAL_NEWS_TYPE,
       newsId: 1234,
     })
-    expect(navigation.navigate).toHaveBeenCalledTimes(1)
+    expect(navigation.push).toHaveBeenCalledTimes(1)
   })
 
   it('should not navigate to news if it is not enabled in build config', () => {
@@ -223,6 +230,7 @@ describe('useNavigate', () => {
     mockBuildConfig({
       pois: true,
     })
+    mockBottomTabState({ activeTab: CATEGORIES_ROUTE })
     renderMockComponent({
       route: POIS_ROUTE,
       ...params,
@@ -239,7 +247,7 @@ describe('useNavigate', () => {
       ...params,
     })
     expectNestedNavigation(POIS_ROUTE, { slug: undefined })
-    expect(navigation.navigate).toHaveBeenCalledTimes(2)
+    expect(navigation.push).toHaveBeenCalledTimes(2)
   })
 
   it('should not navigate to pois if it is not enabled in build config', () => {
