@@ -46,14 +46,14 @@ const navigate = <T extends RoutesType>(
       url,
     },
   })
-  const navigate = redirect ? navigation.replace : navigation.push
+  const navigate = (routeName: string, params?: object) =>
+    navigation.dispatch(redirect ? StackActions.replace(routeName, params) : StackActions.push(routeName, params))
 
   const navigateToNestedRoute = (routeName: RoutesType, params: Record<string, unknown>) => {
     const { routes, index } = navigation.getState()
 
     // Already inside the matching tab stack (e.g., categories -> subcategory), push directly
     if (routes[index]?.name === routeName) {
-      // @ts-expect-error - Generic params type
       navigate(routeName, params)
       return
     }
@@ -62,7 +62,7 @@ const navigate = <T extends RoutesType>(
     const tabIndex = routes.findIndex(route => route.name === BOTTOM_TAB_NAVIGATION_ROUTE)
     if (tabIndex !== -1) {
       if (index > tabIndex) {
-        navigation.pop(index - tabIndex)
+        navigation.dispatch(StackActions.pop(index - tabIndex))
       }
 
       const tabState = routes[tabIndex]?.state
@@ -75,8 +75,7 @@ const navigate = <T extends RoutesType>(
       }
     }
 
-    // @ts-expect-error - Generic params type
-    navigation.push(BOTTOM_TAB_NAVIGATION_ROUTE, { screen: routeName, params: { screen: routeName, params } })
+    navigate(BOTTOM_TAB_NAVIGATION_ROUTE, { screen: routeName, params: { screen: routeName, params } })
   }
 
   if (routeInformation.route === LICENSES_ROUTE) {
