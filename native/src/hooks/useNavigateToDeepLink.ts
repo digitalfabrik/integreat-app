@@ -2,20 +2,14 @@ import { useCallback } from 'react'
 import Url from 'url-parse'
 
 import {
-  BOTTOM_TAB_NAVIGATION_ROUTE,
-  CATEGORIES_ROUTE,
   CITY_NOT_COOPERATING_ROUTE,
-  cityContentPath,
   CONSENT_ROUTE,
-  EVENTS_ROUTE,
   InternalPathnameParser,
   INTRO_ROUTE,
   JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
   LICENSES_ROUTE,
-  NEWS_ROUTE,
   OPEN_DEEP_LINK_SIGNAL_NAME,
-  POIS_ROUTE,
   RouteInformationType,
 } from 'shared'
 
@@ -34,37 +28,6 @@ type NavigateToDeepLinkParams<T extends RoutesType> = {
   navigateTo: (route: RouteInformationType) => void
   showSnackbar: (snackbar: SnackbarType) => void
   appContext: AppContextType
-}
-
-const buildTabRouteState = (
-  routeInformation: RouteInformationType,
-): { tabName: string; params: Record<string, unknown> } | null => {
-  if (!routeInformation) {
-    return null
-  }
-  switch (routeInformation.route) {
-    case CATEGORIES_ROUTE:
-      return { tabName: CATEGORIES_ROUTE, params: { path: routeInformation.cityContentPath } }
-    case EVENTS_ROUTE:
-      return { tabName: EVENTS_ROUTE, params: { slug: routeInformation.slug } }
-    case NEWS_ROUTE:
-      return {
-        tabName: NEWS_ROUTE,
-        params: { newsType: routeInformation.newsType, newsId: routeInformation.newsId ?? null },
-      }
-    case POIS_ROUTE:
-      return {
-        tabName: POIS_ROUTE,
-        params: {
-          slug: routeInformation.slug,
-          multipoi: routeInformation.multipoi,
-          zoom: routeInformation.zoom,
-          poiCategoryId: routeInformation.poiCategoryId,
-        },
-      }
-    default:
-      return null
-  }
 }
 
 const navigateToDeepLink = <T extends RoutesType>({
@@ -138,44 +101,6 @@ const navigateToDeepLink = <T extends RoutesType>({
     return
   }
 
-  const dashboardPath = cityContentPath({ cityCode: selectedCityCode, languageCode })
-  const isDashboard = routeInformation.route === CATEGORIES_ROUTE && routeInformation.cityContentPath === dashboardPath
-
-  if (routeInformation.route === LANDING_ROUTE || isDashboard) {
-    navigation.reset({ index: 0, routes: [{ name: BOTTOM_TAB_NAVIGATION_ROUTE, params: {} }] })
-    return
-  }
-
-  const tabRouteState = buildTabRouteState(routeInformation)
-  if (tabRouteState) {
-    navigation.reset({
-      index: 0,
-      routes: [
-        {
-          name: BOTTOM_TAB_NAVIGATION_ROUTE,
-          params: {},
-          state: {
-            routes: [
-              {
-                name: tabRouteState.tabName,
-                state: {
-                  routes: [
-                    { name: tabRouteState.tabName },
-                    { name: tabRouteState.tabName, params: tabRouteState.params },
-                  ],
-                  index: 1,
-                },
-              },
-            ],
-          },
-        },
-      ],
-    })
-    return
-  }
-
-  // Fallback for non-tab routes (e.g. disclaimer, search)
-  navigation.reset({ index: 0, routes: [{ name: BOTTOM_TAB_NAVIGATION_ROUTE, params: {} }] })
   navigateTo(routeInformation)
 }
 

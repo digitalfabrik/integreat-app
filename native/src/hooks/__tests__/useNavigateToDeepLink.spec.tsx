@@ -155,14 +155,13 @@ describe('useNavigateToDeepLink', () => {
       mockBuildConfig({ introSlides: false, fixedCity: null })
       renderMockComponent({ url, cityCode: selectedCity })
 
-      await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
-      expect(navigation.reset).toHaveBeenCalledWith({
-        index: 0,
-        routes: [{ name: BOTTOM_TAB_NAVIGATION_ROUTE, params: {} }],
+      await waitFor(() => expect(navigateTo).toHaveBeenCalledTimes(1))
+      expect(navigateTo).toHaveBeenCalledWith({
+        route: LANDING_ROUTE,
+        languageCode: selectedLanguageCode,
       })
 
       expect(changeCityCode).not.toHaveBeenCalled()
-      expect(navigateTo).not.toHaveBeenCalled()
       expectTrackingSignal(url)
     })
   })
@@ -310,12 +309,7 @@ describe('useNavigateToDeepLink', () => {
       const url = `https://integreat.app/jpal`
       renderMockComponent({ url, cityCode: selectedCity, introShown: true })
 
-      await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
-      expect(navigation.reset).toHaveBeenCalledWith({
-        index: 0,
-        routes: [{ name: BOTTOM_TAB_NAVIGATION_ROUTE, params: {} }],
-      })
-      expect(navigateTo).toHaveBeenCalledTimes(1)
+      await waitFor(() => expect(navigateTo).toHaveBeenCalledTimes(1))
       expect(navigateTo).toHaveBeenCalledWith({
         route: JPAL_TRACKING_ROUTE,
         trackingCode: null,
