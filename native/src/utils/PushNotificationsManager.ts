@@ -140,7 +140,9 @@ const notifeeEventHandler = ({ type, detail }: Event, navigate: (route: RoutesTy
   }
 }
 
-const pushNotificationPressListener = async (navigate: (route: RoutesType, params: unknown) => void) => {
+const pushNotificationPressListener = async (
+  navigate: (route: RoutesType, params: unknown) => void,
+): Promise<() => void> => {
   const { getMessaging, onNotificationOpenedApp, getInitialNotification } =
     await import('@react-native-firebase/messaging')
   // FCM quit state notifications
@@ -149,10 +151,15 @@ const pushNotificationPressListener = async (navigate: (route: RoutesType, param
     openMessage(initialMessage as Message, navigate)
   }
   // FCM background notifications
-  onNotificationOpenedApp(getMessaging(), message => openMessage(message as Message, navigate))
+  const unsubscribeFCM = onNotificationOpenedApp(getMessaging(), message => openMessage(message as Message, navigate))
   // Notifee foreground notifications
-  notifee.onForegroundEvent(event => notifeeEventHandler(event, navigate))
+  const unsubscribeNotifee = notifee.onForegroundEvent(event => notifeeEventHandler(event, navigate))
   notifee.onBackgroundEvent(async event => notifeeEventHandler(event, navigate))
+
+  return () => {
+    unsubscribeFCM()
+    unsubscribeNotifee()
+  }
 }
 
 // Since Android 13 and iOS 17 an explicit permission request is needed, otherwise push notifications are not received.
@@ -183,6 +190,9 @@ export const usePushNotificationListener = (navigate: (route: RoutesType, params
   }, [])
 
   useEffect(() => {
-    pushNotificationPressListener(navigate).catch(reportError)
+    const cleanupPromise = pushNotificationPressListener(navigate).catch(reportError)
+    return () => {
+      cleanupPromise.then(unsubscribe => unsubscribe?.())
+    }
   }, [navigate])
 }

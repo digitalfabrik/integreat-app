@@ -24,6 +24,9 @@ type UseSetRouteTitleProps = {
  */
 const useSetRouteTitle = ({ navigation, title }: UseSetRouteTitleProps): void => {
   useEffect(() => {
+    if (title === undefined) {
+      return
+    }
     navigation.setParams({ title })
   }, [navigation, title])
 }

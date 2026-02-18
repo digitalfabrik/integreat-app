@@ -75,7 +75,7 @@ describe('useNavigate', () => {
     )
 
   const expectNestedNavigation = (routeName: RoutesType, params: Record<string, unknown>) => {
-    expect(navigation.reset).toHaveBeenCalledWith(buildNestedAction(routeName, params))
+    expect(navigation.reset).toHaveBeenCalledWith(buildNestedAction(routeName, params, 'bottom-tabs-key'))
   }
 
   beforeEach(() => {
@@ -166,7 +166,9 @@ describe('useNavigate', () => {
       cityContentPath,
       ...params,
     })
-    expect(navigation.reset).toHaveBeenCalledWith(buildNestedAction(CATEGORIES_ROUTE, { path: cityContentPath }))
+    expect(navigation.reset).toHaveBeenCalledWith(
+      buildNestedAction(CATEGORIES_ROUTE, { path: cityContentPath }, 'bottom-tabs-key'),
+    )
     expect(navigation.reset).toHaveBeenCalledTimes(1)
     expect(sendTrackingSignal).toHaveBeenCalledWith({
       signal: {

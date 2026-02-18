@@ -71,7 +71,8 @@ const navigate = <T extends RoutesType>(
       return
     }
 
-    navigation.reset(buildNestedAction(routeName, params))
+    const bottomTabKey = routes.find(r => r.name === BOTTOM_TAB_NAVIGATION_ROUTE)?.key
+    navigation.reset(buildNestedAction(routeName, params, bottomTabKey))
   }
 
   if (routeInformation.route === LICENSES_ROUTE) {

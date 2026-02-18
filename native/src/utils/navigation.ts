@@ -5,10 +5,12 @@ import { RoutesType } from '../constants/NavigationTypes'
 export const buildNestedAction = (
   routeName: RoutesType,
   params: Record<string, unknown>,
+  bottomTabKey?: string,
 ): {
   index: number
   routes: {
     name: typeof BOTTOM_TAB_NAVIGATION_ROUTE
+    key?: string
     state: {
       routes: {
         name: RoutesType
@@ -24,6 +26,7 @@ export const buildNestedAction = (
   routes: [
     {
       name: BOTTOM_TAB_NAVIGATION_ROUTE,
+      ...(bottomTabKey ? { key: bottomTabKey } : {}),
       state: {
         routes: [
           {
