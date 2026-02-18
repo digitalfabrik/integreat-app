@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { RefreshControl } from 'react-native'
 import styled from 'styled-components/native'
@@ -39,7 +39,6 @@ type EventsProps = {
 const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: EventsProps): ReactElement => {
   const { t } = useTranslation('events')
   const { startDate, setStartDate, endDate, setEndDate, filteredEvents, startDateError } = useDateFilter(events)
-  const [modalOpen, setModalOpen] = useState(false)
   const event = events.find(it => it.slug === slug)
   useTtsPlayer(event)
 
@@ -140,8 +139,7 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
               endDate={endDate}
               setEndDate={setEndDate}
               startDateError={startDateError}
-              modalOpen={modalOpen}
-              setModalOpen={setModalOpen}
+              languageCode={language}
             />
           </>
         }
