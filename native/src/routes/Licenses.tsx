@@ -1,32 +1,16 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { FlatList, View } from 'react-native'
-import styled from 'styled-components/native'
+import { FlatList, StyleSheet, View } from 'react-native'
+import { TouchableRipple, useTheme } from 'react-native-paper'
 
 import { License, parseLicenses } from 'shared'
 
 import Caption from '../components/Caption'
 import Layout from '../components/Layout'
-import Pressable from '../components/base/Pressable'
+import Text from '../components/base/Text'
 import useSnackbar from '../hooks/useSnackbar'
 import openExternalUrl from '../utils/openExternalUrl'
 import { reportError } from '../utils/sentry'
-
-const LicenseItemContainer = styled(Pressable)`
-  padding: 16px;
-  flex-direction: row;
-  align-items: center;
-  background-color: ${props => props.theme.legacy.colors.backgroundColor};
-`
-
-const Name = styled.Text`
-  color: ${props => props.theme.legacy.colors.textColor};
-  font-size: 18px;
-`
-const Description = styled.Text`
-  color: ${props => props.theme.legacy.colors.textSecondaryColor};
-  padding-left: 8px;
-`
 
 type LicenseItemProps = {
   name: string
@@ -39,19 +23,35 @@ type LicenseItemProps = {
 const LicenseItem = (props: LicenseItemProps): ReactElement => {
   const { name, version, license, publisher, onPress } = props
   const { t } = useTranslation('licenses')
+  const theme = useTheme()
+
+  const styles = StyleSheet.create({
+    description: { color: theme.colors.onSurfaceVariant, paddingLeft: 8 },
+    container: {
+      padding: 16,
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+  })
+
   return (
-    <LicenseItemContainer onPress={onPress} role='link'>
+    <TouchableRipple
+      onPress={onPress}
+      role='link'
+      style={[styles.container, { backgroundColor: theme.colors.background }]}>
       <View>
-        <Name>{name}</Name>
-        <Description>{publisher}</Description>
-        <Description>
+        <Text variant='body1'>{name}</Text>
+        <Text variant='body2' style={styles.description}>
+          {publisher}
+        </Text>
+        <Text variant='body2' style={styles.description}>
           {t('version')} {version}
-        </Description>
-        <Description>
+        </Text>
+        <Text variant='body2' style={styles.description}>
           {t('license')} {license}
-        </Description>
+        </Text>
       </View>
-    </LicenseItemContainer>
+    </TouchableRipple>
   )
 }
 

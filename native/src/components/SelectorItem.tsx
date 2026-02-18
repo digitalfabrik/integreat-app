@@ -1,28 +1,16 @@
 import React, { ReactElement } from 'react'
-import styled from 'styled-components/native'
+import { List, TouchableRipple } from 'react-native-paper'
+import { DefaultTheme, useTheme } from 'styled-components/native'
 
-import dimensions from '../constants/dimensions'
 import SelectorItemModel from '../models/SelectorItemModel'
-import Pressable from './base/Pressable'
+import Text from './base/Text'
 
-export const TouchTarget = styled(Pressable)`
-  width: 100%;
-`
-
-const ItemWrapper = styled.View<{ selected: boolean }>`
-  justify-content: center;
-  align-items: center;
-  background-color: ${props => props.theme.legacy.colors.backgroundColor};
-  ${props => (props.selected ? `background-color: ${props.theme.legacy.colors.backgroundAccentColor}` : '')};
-  height: ${dimensions.headerHeight}px;
-`
-
-const Element = styled.Text<{ enabled: boolean }>`
-  font-size: 20px;
-  ${props => (props.enabled ? 'font-weight: 700' : '')};
-  color: ${props =>
-    props.enabled ? props.theme.legacy.colors.textColor : props.theme.legacy.colors.textSecondaryColor};
-`
+const getBackgroundColor = (selected: boolean, theme: DefaultTheme): string => {
+  if (selected) {
+    return theme.dark ? theme.colors.surfaceVariant : theme.colors.tertiaryContainer
+  }
+  return theme.dark ? theme.colors.surface : ''
+}
 
 type SelectorItemProps = {
   model: SelectorItemModel
@@ -30,21 +18,35 @@ type SelectorItemProps = {
 }
 
 const SelectorItem = ({ model: { name, code, enabled, onPress }, selected }: SelectorItemProps): ReactElement => {
+  const theme = useTheme()
+  const item = (
+    <List.Item
+      style={{ backgroundColor: getBackgroundColor(selected, theme) }}
+      containerStyle={{ height: 40 }}
+      title={
+        <Text
+          variant='body1'
+          style={{
+            fontSize: 20,
+            fontWeight: selected ? '700' : '400',
+            color: enabled || selected ? theme.colors.onSurface : theme.colors.onSurfaceDisabled,
+            textAlign: 'center',
+          }}>
+          {name}
+        </Text>
+      }
+    />
+  )
+
   if (enabled || selected) {
     return (
-      <TouchTarget key={code} onPress={onPress} role='button'>
-        <ItemWrapper selected={selected}>
-          <Element enabled>{name}</Element>
-        </ItemWrapper>
-      </TouchTarget>
+      <TouchableRipple borderless key={code} onPress={onPress} role='button' style={{ width: '100%' }}>
+        {item}
+      </TouchableRipple>
     )
   }
 
-  return (
-    <ItemWrapper key={code} selected={selected}>
-      <Element enabled={false}>{name}</Element>
-    </ItemWrapper>
-  )
+  return item
 }
 
 export default SelectorItem

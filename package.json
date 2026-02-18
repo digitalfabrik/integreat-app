@@ -37,6 +37,7 @@
   "resolutions": {
     "luxon": "3.7.2",
     "react": "19.1.1",
+    "@types/react": "19.1.1",
     "tar": "7.5.4"
   },
   "devDependencies": {

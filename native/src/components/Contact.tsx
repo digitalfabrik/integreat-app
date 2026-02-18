@@ -1,43 +1,39 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Divider } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 import { ContactModel } from 'shared/api'
 
-import { ExternalLinkIcon, MailIcon, PhoneIcon, WebsiteIcon, MobilePhoneIcon } from '../assets'
-import HorizontalLine from './HorizontalLine'
 import OfficeHours from './OfficeHours'
 import PoiDetailRow from './PoiDetailRow'
 import Text from './base/Text'
 
-const StyledContactHeader = styled(Text)`
-  margin-bottom: 6px;
-  color: ${props => props.theme.legacy.colors.textColor};
+const StyledDivider = styled(Divider)`
+  margin: 20px 0;
 `
 
 type ContactProps = {
   contact: ContactModel
   isLastContact?: boolean
-  language: string
 }
 
 const Contact = ({
   contact: { headline, website, phoneNumber, email, mobileNumber, officeHours },
   isLastContact,
-  language,
 }: ContactProps): ReactElement => {
   const { t } = useTranslation('pois')
 
   return (
     <>
-      <StyledContactHeader>{headline ?? t('contactInformation')}</StyledContactHeader>
+      <Text style={{ marginBottom: 8 }}>{headline ?? t('contactInformation')}</Text>
       {!!website && (
         <PoiDetailRow
           externalUrl={website}
           accessibilityLabel={t('website')}
           text={t('website')}
-          Icon={WebsiteIcon}
-          IconEnd={ExternalLinkIcon}
+          icon='earth'
+          iconEnd='open-in-new'
         />
       )}
       {!!phoneNumber && (
@@ -45,7 +41,7 @@ const Contact = ({
           externalUrl={`tel:${phoneNumber}`}
           accessibilityLabel={t('phone')}
           text={phoneNumber}
-          Icon={PhoneIcon}
+          icon='phone-outline'
         />
       )}
       {!!mobileNumber && (
@@ -53,14 +49,19 @@ const Contact = ({
           externalUrl={`tel:${mobileNumber}`}
           accessibilityLabel={t('mobilePhone')}
           text={mobileNumber}
-          Icon={MobilePhoneIcon}
+          icon='cellphone'
         />
       )}
       {!!email && (
-        <PoiDetailRow externalUrl={`mailto:${email}`} accessibilityLabel={t('eMail')} text={email} Icon={MailIcon} />
+        <PoiDetailRow
+          externalUrl={`mailto:${email}`}
+          accessibilityLabel={t('eMail')}
+          text={email}
+          icon='email-outline'
+        />
       )}
-      {officeHours !== null && <OfficeHours officeHours={officeHours} language={language} />}
-      {!isLastContact && <HorizontalLine />}
+      {officeHours !== null && <OfficeHours officeHours={officeHours} />}
+      {!isLastContact && <StyledDivider />}
     </>
   )
 }

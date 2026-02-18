@@ -1,20 +1,14 @@
 import React, { ReactElement } from 'react'
-import { Text, View, Keyboard } from 'react-native'
+import { View, Keyboard } from 'react-native'
+import { TextInput } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
-import { SearchIcon } from '../assets'
 import testID from '../testing/testID'
-import Icon from './base/Icon'
+import Text from './base/Text'
 
 const InputWrapper = styled.View`
   margin: 0 4px;
   flex-grow: 1;
-  border-bottom-width: 1px;
-  border-bottom-color: ${props => props.theme.legacy.colors.textSecondaryColor};
-`
-
-const StyledInput = styled.TextInput`
-  color: ${props => props.theme.legacy.colors.textColor};
 `
 
 const Wrapper = styled.View<{ space: boolean }>`
@@ -23,13 +17,7 @@ const Wrapper = styled.View<{ space: boolean }>`
   justify-content: center;
   align-items: center;
   padding: 10px 0;
-  background-color: ${props => props.theme.legacy.colors.backgroundColor};
-`
-
-const Description = styled(Text)`
-  padding-left: 28px;
-  color: ${props => props.theme.legacy.colors.textColor};
-  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
+  background-color: ${props => props.theme.colors.background};
 `
 
 type SearchInputProps = {
@@ -52,23 +40,30 @@ const SearchInput = ({
   return (
     <View>
       <Wrapper space={spaceSearch}>
-        <Icon Icon={SearchIcon} />
         <InputWrapper>
-          <StyledInput
+          <TextInput
             {...testID('Search-Input')}
             multiline={false}
             autoFocus
             onBlur={Keyboard.dismiss}
-            placeholderTextColor={theme.legacy.colors.textSecondaryColor}
+            placeholderTextColor={theme.colors.onSurfaceVariant}
             placeholder={placeholderText}
             aria-label={placeholderText}
             value={filterText}
             onChangeText={onFilterTextChange}
             role='searchbox'
+            mode='outlined'
+            outlineStyle={{ borderRadius: 24 }}
+            style={{ height: 48 }}
+            right={<TextInput.Icon icon='magnify' accessible={false} focusable={false} />}
           />
         </InputWrapper>
       </Wrapper>
-      {!!description && <Description>{description}</Description>}
+      {!!description && (
+        <Text variant='body3' style={{ paddingLeft: 28 }}>
+          {description}
+        </Text>
+      )}
     </View>
   )
 }

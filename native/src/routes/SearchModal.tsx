@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { KeyboardAvoidingView, Platform } from 'react-native'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
 import {
   parseHTML,
@@ -19,6 +19,7 @@ import FeedbackContainer from '../components/FeedbackContainer'
 import List from '../components/List'
 import SearchHeader from '../components/SearchHeader'
 import SearchListItem from '../components/SearchListItem'
+import Text from '../components/base/Text'
 import useAnnounceSearchResultsIOS from '../hooks/useAnnounceSearchResultsIOS'
 import useReportError from '../hooks/useReportError'
 import testID from '../testing/testID'
@@ -30,13 +31,8 @@ const Wrapper = styled.View`
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: ${props => props.theme.legacy.colors.backgroundColor};
-  color: ${props => props.theme.legacy.colors.textColor};
-`
-
-const SearchCounter = styled.Text`
-  margin: 10px 20px;
-  color: ${props => props.theme.legacy.colors.textSecondaryColor};
+  background-color: ${props => props.theme.colors.background};
+  color: ${props => props.theme.colors.onSurface};
 `
 
 export type SearchModalProps = {
@@ -58,6 +54,7 @@ const SearchModal = ({
 }: SearchModalProps): ReactElement | null => {
   const [query, setQuery] = useState<string>(initialSearchText)
   const { t } = useTranslation('search')
+  const theme = useTheme()
 
   const debouncedQuery = useDebounce(query)
   const contentLanguageReturn = useSearch(documents, debouncedQuery)
@@ -90,7 +87,6 @@ const SearchModal = ({
       contentWithoutHtml={parseHTML(item.content)}
       language={languageCode}
       query={debouncedQuery}
-      thumbnail={item.thumbnail}
       path={item.path}
     />
   )
@@ -101,9 +97,12 @@ const SearchModal = ({
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
         {debouncedQuery.length > 0 && (
           <>
-            <SearchCounter accessibilityLiveRegion={searchResults.length === 0 ? 'assertive' : 'polite'}>
+            <Text
+              variant='body2'
+              style={{ margin: 12, marginHorizontal: 20, color: theme.colors.onSurfaceVariant }}
+              accessibilityLiveRegion={searchResults.length === 0 ? 'assertive' : 'polite'}>
               {t('searchResultsCount', { count: searchResults.length })}
-            </SearchCounter>
+            </Text>
             <List
               items={searchResults}
               renderItem={renderItem}

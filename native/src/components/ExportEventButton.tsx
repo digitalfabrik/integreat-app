@@ -3,20 +3,15 @@ import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Platform } from 'react-native'
 import RNCalendarEvents, { Calendar, CalendarEventWritable, RecurrenceFrequency } from 'react-native-calendar-events'
+import { Button } from 'react-native-paper'
 import { openSettings } from 'react-native-permissions'
 import { Frequency } from 'rrule'
-import styled from 'styled-components/native'
 
 import { EventModel } from 'shared/api'
 
 import useSnackbar from '../hooks/useSnackbar'
 import { reportError } from '../utils/sentry'
 import CalendarChoice from './CalendarChoiceModal'
-import TextButton from './base/TextButton'
-
-const StyledButton = styled(TextButton)`
-  margin: 16px 0;
-`
 
 type ExportEventButtonType = {
   event: EventModel
@@ -99,7 +94,7 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
     if (authorizationStatus !== 'authorized') {
       showSnackbar({
         text: 'noCalendarPermission',
-        positiveAction: {
+        action: {
           label: t('layout:settings'),
           onPress: openSettings,
         },
@@ -131,7 +126,9 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
           recurring={!!event.date.recurrenceRule}
         />
       )}
-      <StyledButton text={t('addToCalendar')} onPress={checkCalendarsAndExportEvent} />
+      <Button icon='calendar-import' mode='text' style={{ marginVertical: 16 }} onPress={checkCalendarsAndExportEvent}>
+        {t('addToCalendar')}
+      </Button>
     </>
   )
 }

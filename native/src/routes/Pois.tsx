@@ -1,31 +1,27 @@
 import { BottomSheetFlatListMethods } from '@gorhom/bottom-sheet'
 import React, { ReactElement, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useWindowDimensions } from 'react-native'
+import { StyleSheet, useWindowDimensions } from 'react-native'
+import { Chip } from 'react-native-paper'
 import { SvgUri } from 'react-native-svg'
 import styled from 'styled-components/native'
 
 import { PoisRouteType, isMultipoi, LocationType, MapFeature, preparePois, safeParseInt, sortPois } from 'shared'
 import { PoiCategoryModel, CityModel, PoiModel } from 'shared/api'
 
-import { ClockIcon, EditLocationIcon } from '../assets'
+import { EditLocationIcon } from '../assets'
 import MapView from '../components/MapView'
 import PoiFiltersModal from '../components/PoiFiltersModal'
 import PoisBottomSheet from '../components/PoisBottomSheet'
-import ChipButton from '../components/base/ChipButton'
 import Icon from '../components/base/Icon'
+import Text from '../components/base/Text'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import dimensions from '../constants/dimensions'
 import useOnBackNavigation from '../hooks/useOnBackNavigation'
 
-const StyledIcon = styled(Icon)`
-  color: ${props => props.theme.legacy.colors.textSecondaryColor};
-  width: 16px;
-  height: 16px;
-`
-
 const StyledSvgUri = styled(SvgUri)`
-  color: ${props => props.theme.legacy.colors.textSecondaryColor};
+  color: ${props => props.theme.colors.onSurface};
+  margin-inline-start: 4px;
 `
 
 const Container = styled.View`
@@ -110,28 +106,50 @@ const Pois = ({ pois: allPois, cityModel, route, navigation }: PoisProps): React
     navigation.setParams({ slug: poi.slug })
   }
 
+  const styles = StyleSheet.create({
+    chip: {
+      borderColor: 'transparent',
+      borderRadius: 24,
+      height: 32,
+      marginRight: 4,
+    },
+  })
+
   const FiltersOverlayButtons = (
     <>
-      <ChipButton
-        text={t('adjustFilters')}
-        Icon={<StyledIcon Icon={EditLocationIcon} />}
-        onPress={() => setShowFilterSelection(true)}
-      />
+      <Chip
+        mode='outlined'
+        rippleColor='transparent'
+        style={styles.chip}
+        elevated
+        avatar={<Icon Icon={EditLocationIcon} />}
+        onPress={() => setShowFilterSelection(true)}>
+        <Text variant='body3'>{t('adjustFilters')}</Text>
+      </Chip>
+
       {poiCurrentlyOpenFilter && (
-        <ChipButton
-          text={t('opened')}
-          Icon={<StyledIcon Icon={ClockIcon} />}
+        <Chip
+          mode='outlined'
+          rippleColor='transparent'
+          style={styles.chip}
+          avatar={<Icon source='clock-outline' size={20} style={{ width: 20, height: 20 }} />}
           onPress={() => setPoiCurrentlyOpenFilter(false)}
-          closeButton
-        />
+          onClose={() => setPoiCurrentlyOpenFilter(false)}
+          closeIcon='close'>
+          <Text variant='body3'>{t('opened')}</Text>
+        </Chip>
       )}
       {!!poiCategory && (
-        <ChipButton
-          text={poiCategory.name}
-          Icon={<StyledSvgUri uri={poiCategory.icon} height={16} width={16} />}
+        <Chip
+          mode='outlined'
+          rippleColor='transparent'
+          style={styles.chip}
+          avatar={<StyledSvgUri uri={poiCategory.icon} />}
           onPress={() => navigation.setParams({ poiCategoryId: undefined })}
-          closeButton
-        />
+          onClose={() => navigation.setParams({ poiCategoryId: undefined })}
+          closeIcon='close'>
+          <Text variant='body3'>{poiCategory.name}</Text>
+        </Chip>
       )}
     </>
   )

@@ -74,3 +74,7 @@ To test with content from the cms the **testumgebung** can be used. If you don't
 ### Hidden Cities
 
 Hidden cities, especially the testumgebung, can be shown by entering the search query `wirschaffendas` in the city selection.
+
+### Additional Notes
+
+- For some components from React Native Paper (e.g. Checkbox), we intentionally use the Android look on all platforms to ensure a consistent appearance across devices.

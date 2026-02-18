@@ -10,10 +10,9 @@ import OpeningHoursListItem from './OpeningHoursListItem'
 type HoursListProps = {
   hours: OpeningHoursModel[]
   appointmentUrl: string | null
-  language: string
 }
 
-const HoursList = ({ hours, appointmentUrl, language }: HoursListProps): ReactElement => {
+const HoursList = ({ hours, appointmentUrl }: HoursListProps): ReactElement => {
   const { t } = useTranslation('pois')
 
   return (
@@ -24,7 +23,6 @@ const HoursList = ({ hours, appointmentUrl, language }: HoursListProps): ReactEl
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           weekday={t(weekdays[index]!)}
           isCurrentDay={index === DateTime.now().weekday - 1}
-          language={language}
           appointmentUrl={appointmentUrl}
           openingHours={openingHours}
         />

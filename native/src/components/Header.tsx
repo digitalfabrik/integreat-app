@@ -1,9 +1,10 @@
 import React, { ReactElement, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Share } from 'react-native'
-import { HiddenItem, Item } from 'react-navigation-header-buttons'
+import { StyleSheet, View } from 'react-native'
+import { Menu } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
+import { ThemeKey } from 'build-configs/ThemeKey'
 import {
   CATEGORIES_ROUTE,
   CategoriesRouteType,
@@ -14,26 +15,28 @@ import {
   NEWS_ROUTE,
   POIS_ROUTE,
   PoisRouteType,
-  SHARE_SIGNAL_NAME,
   DISCLAIMER_ROUTE,
+  LICENSES_ROUTE,
   SEARCH_ROUTE,
   SETTINGS_ROUTE,
+  BOTTOM_TAB_NAVIGATION_ROUTE,
 } from 'shared'
 import { LanguageModel, FeedbackRouteType } from 'shared/api'
 import { config } from 'translations'
 
 import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from '../constants/NavigationTypes'
-import buildConfig from '../constants/buildConfig'
+import { contentAlignmentRTLText } from '../constants/contentDirection'
 import dimensions from '../constants/dimensions'
 import { AppContext } from '../contexts/AppContextProvider'
 import useSnackbar from '../hooks/useSnackbar'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
 import navigateToLanguageChange from '../navigation/navigateToLanguageChange'
-import sendTrackingSignal from '../utils/sendTrackingSignal'
-import { reportError } from '../utils/sentry'
-import CustomHeaderButtons from './CustomHeaderButtons'
+import supportedLanguages from '../utils/supportedLanguages'
+import ActionButtons from './ActionButtons'
+import HeaderActionItem from './HeaderActionItem'
 import HeaderBox from './HeaderBox'
+import HeaderMenu from './HeaderMenu'
 import HighlightBox from './HighlightBox'
 
 const Horizontal = styled.View`
@@ -41,11 +44,24 @@ const Horizontal = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  background-color: ${props => (props.theme.dark ? props.theme.colors.surfaceVariant : props.theme.colors.surface)};
 `
 
 const BoxShadow = styled(HighlightBox)`
   height: ${dimensions.headerHeight}px;
 `
+
+const styles = StyleSheet.create({
+  menuItemContent: {
+    flex: 1,
+  },
+  menuItemTitle: {
+    paddingRight: 8,
+  },
+  iconPlaceholder: {
+    width: 40,
+  },
+})
 
 enum HeaderButtonTitle {
   Disclaimer = 'disclaimer',
@@ -67,80 +83,77 @@ type HeaderProps = {
   availableLanguages?: string[]
   shareUrl?: string
   cityName?: string
+  forceText?: boolean
 }
+
+const IconPlaceholder = () => <View style={styles.iconPlaceholder} />
 
 const Header = ({
   navigation,
   route,
-  availableLanguages,
+  availableLanguages = route.name === LANDING_ROUTE ? supportedLanguages.map(it => it.code) : undefined,
   shareUrl,
   showItems = false,
   showOverflowItems = true,
-  languages,
+  languages = route.name === LANDING_ROUTE ? supportedLanguages : undefined,
   cityName,
+  forceText = route.name === LANDING_ROUTE,
 }: HeaderProps): ReactElement | null => {
-  const { languageCode, cityCode } = useContext(AppContext)
+  const [visible, setVisible] = useState(false)
+  const { languageCode, cityCode, settings, updateSettings } = useContext(AppContext)
   const { t } = useTranslation('layout')
   const theme = useTheme()
   const showSnackbar = useSnackbar()
   // Save route/canGoBack to state to prevent it from changing during navigating which would lead to flickering of the title and back button
-  const [previousRoute] = useState(navigation.getState().routes[navigation.getState().routes.length - 2])
-  const canGoBack = previousRoute !== undefined
+  const [previousRoute] = useState(() => {
+    const { routes } = navigation.getState()
+    return routes[routes.findIndex(navRoute => navRoute.key === route.key) - 1]
+  })
   const { enabled: isTtsEnabled, showTtsPlayer } = useTtsPlayer()
+  const isLanding = route.name === LANDING_ROUTE
+  const currentLanguageName = languages?.find(it => it.code === languageCode)?.name
 
-  const onShare = async () => {
-    if (!shareUrl) {
-      // The share option should only be shown if there is a shareUrl
-      return
-    }
-    const pageTitle = (route.params as { title: string } | undefined)?.title ?? t(route.name)
-    const cityPostfix = !cityName || cityName === pageTitle ? '' : ` - ${cityName}`
+  const poisParams = route.params as RoutesParamsType[PoisRouteType] | undefined
+  const hasPoisParams = !!poisParams?.slug || poisParams?.multipoi !== undefined
 
-    const message = t('shareMessage', {
-      message: `${pageTitle}${cityPostfix} ${shareUrl}`,
-      interpolation: {
-        escapeValue: false,
-      },
-    })
-    sendTrackingSignal({
-      signal: {
-        name: SHARE_SIGNAL_NAME,
-        url: shareUrl,
-      },
-    })
+  const rootNavigation = navigation.getParent()?.getParent()
+  const hasRootHistory = rootNavigation !== undefined && rootNavigation.getState().index > 0
 
-    try {
-      await Share.share({
-        message,
-        title: buildConfig().appName,
-      })
-    } catch (e) {
-      showSnackbar({ text: 'generalError' })
-      reportError(e)
+  const canGoBack = previousRoute !== undefined || hasRootHistory || (route.name === POIS_ROUTE && hasPoisParams)
+
+  const goBack = () => {
+    if (route.name === POIS_ROUTE && hasPoisParams) {
+      navigation.setParams({ slug: undefined, multipoi: undefined })
+    } else {
+      navigation.goBack()
     }
   }
 
-  const renderItem = (title: string, iconName: string, visible: boolean, onPress?: () => void): ReactElement => (
-    <Item
-      key={title}
-      disabled={!visible}
-      title={t(title)}
-      iconName={iconName}
-      onPress={visible ? onPress : () => undefined}
-      color={visible ? theme.legacy.colors.textColor : 'transparent'}
-      accessibilityLabel={t(title)}
-    />
-  )
+  // processing pageTitle for sharing
+  const routeTitle = (route.params as { title?: string } | undefined)?.title
+  const titleWithoutCity = routeTitle ?? t(route.name)
+  const shouldAppendCityName = !!cityName && cityName !== titleWithoutCity
+  const pageTitle = shouldAppendCityName ? `${titleWithoutCity} - ${cityName}` : titleWithoutCity
 
-  const renderOverflowItem = (title: string, onPress: () => void): ReactElement => (
-    <HiddenItem
+  const closeMenu = () => setVisible(false)
+
+  const renderMenuItem = (title: string, onPress: () => void, icon?: string): ReactElement => (
+    <Menu.Item
+      leadingIcon={icon ?? IconPlaceholder}
       key={title}
       title={t(title)}
-      onPress={onPress}
-      style={{
-        backgroundColor: theme.legacy.colors.backgroundColor,
+      onPress={() => {
+        onPress()
+        closeMenu()
       }}
-      titleStyle={{ color: theme.legacy.colors.textColor }}
+      style={{
+        backgroundColor: theme.dark ? theme.colors.surfaceVariant : theme.colors.surface,
+      }}
+      contentStyle={styles.menuItemContent}
+      titleStyle={[
+        styles.menuItemTitle,
+        { color: theme.colors.onSurface, textAlign: contentAlignmentRTLText(t(title)) },
+      ]}
     />
   )
 
@@ -189,35 +202,48 @@ const Header = ({
     }
   }
 
+  const toggleContrastTheme = () => {
+    const newTheme: ThemeKey = settings.selectedTheme === 'light' ? 'contrast' : 'light'
+    updateSettings({ selectedTheme: newTheme })
+  }
+
   const items = [
-    renderItem(HeaderButtonTitle.Search, 'search', showItems, () =>
-      navigation.navigate(SEARCH_ROUTE, {
-        searchText: null,
-      }),
-    ),
-    renderItem(HeaderButtonTitle.Language, 'language', showItems, goToLanguageChange),
+    <HeaderActionItem
+      key={HeaderButtonTitle.Search}
+      title={HeaderButtonTitle.Search}
+      iconName='search'
+      visible={showItems}
+      onPress={() =>
+        navigation.navigate(SEARCH_ROUTE, {
+          searchText: null,
+        })
+      }
+    />,
+    <HeaderActionItem
+      key={HeaderButtonTitle.Language}
+      title={HeaderButtonTitle.Language}
+      iconName='language'
+      visible={showItems || isLanding}
+      onPress={goToLanguageChange}
+      innerText={forceText ? currentLanguageName : undefined}
+    />,
   ]
 
   const overflowItems = showOverflowItems
     ? [
-        ...(shareUrl ? [renderOverflowItem(HeaderButtonTitle.Share, onShare)] : []),
-        ...(!buildConfig().featureFlags.fixedCity
-          ? [renderOverflowItem(HeaderButtonTitle.Location, () => navigation.navigate(LANDING_ROUTE))]
+        ...(route.name !== NEWS_ROUTE
+          ? [renderMenuItem(HeaderButtonTitle.Feedback, navigateToFeedback, 'comment-text-outline')]
           : []),
-        renderOverflowItem(HeaderButtonTitle.Settings, () => navigation.navigate(SETTINGS_ROUTE)),
-        ...(isTtsEnabled ? [renderOverflowItem(t(HeaderButtonTitle.ReadAloud), showTtsPlayer)] : []),
-        ...(route.name !== NEWS_ROUTE ? [renderOverflowItem(HeaderButtonTitle.Feedback, navigateToFeedback)] : []),
-        ...(route.name !== DISCLAIMER_ROUTE
-          ? [renderOverflowItem(HeaderButtonTitle.Disclaimer, () => navigation.navigate(DISCLAIMER_ROUTE))]
-          : []),
+        renderMenuItem('contrastTheme', toggleContrastTheme, 'contrast-circle'),
+        renderMenuItem(HeaderButtonTitle.Settings, () => navigation.navigate(SETTINGS_ROUTE), 'cog-outline'),
+        ...(isTtsEnabled ? [renderMenuItem(t(HeaderButtonTitle.ReadAloud), showTtsPlayer, 'volume-high')] : []),
       ]
     : []
 
   const getHeaderText = (): { text: string; language?: string } => {
-    const currentTitle = (route.params as { title?: string } | undefined)?.title
     if (!previousRoute) {
-      // Home/Dashboard: Show current route title, i.e. city name
-      return { text: currentTitle ?? '', language: config.sourceLanguage }
+      // Home/Dashboard: Show current city name
+      return { text: cityName ?? '', language: config.sourceLanguage }
     }
 
     const poisRouteParams = route.params as RoutesParamsType[PoisRouteType] | undefined
@@ -225,6 +251,13 @@ const Header = ({
     const notFromDeepLink = previousRoute.name === POIS_ROUTE
     if (isSinglePoi && notFromDeepLink) {
       return { text: t('locations'), language: undefined } // system language
+    }
+
+    const eventsRouteParams = route.params as RoutesParamsType[EventsRouteType] | undefined
+    const isSingleEvent = !!eventsRouteParams?.slug
+    const notFromEventsDeepLink = previousRoute.name === EVENTS_ROUTE
+    if (isSingleEvent && notFromEventsDeepLink) {
+      return { text: t('events'), language: undefined } // system language
     }
 
     const previousRouteTitle = (previousRoute.params as { title?: string } | undefined)?.title
@@ -235,7 +268,7 @@ const Header = ({
 
     if (previousRoute.name === CATEGORIES_ROUTE) {
       return {
-        text: t('localInformation'),
+        text: cityName ?? t('localInformation'),
         language: languageCode,
       }
     }
@@ -247,12 +280,23 @@ const Header = ({
     <BoxShadow>
       <Horizontal>
         <HeaderBox
-          goBack={navigation.goBack}
+          goBack={goBack}
           canGoBack={canGoBack}
           text={getHeaderText().text}
           language={getHeaderText().language}
+          landingPath={!canGoBack && !isLanding ? () => navigation.navigate(LANDING_ROUTE) : undefined}
         />
-        <CustomHeaderButtons cancelLabel={t('cancel')} items={items} overflowItems={overflowItems} />
+        <ActionButtons items={items} />
+        <HeaderMenu
+          visible={visible}
+          setVisible={setVisible}
+          menuItems={overflowItems}
+          shareUrl={shareUrl}
+          pageTitle={pageTitle}
+          onNavigateToDisclaimer={() => navigation.navigate(DISCLAIMER_ROUTE)}
+          onNavigateToLicenses={() => navigation.navigate(LICENSES_ROUTE)}
+          renderMenuItem={renderMenuItem}
+        />
       </Horizontal>
     </BoxShadow>
   )

@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useState } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { RefreshControl } from 'react-native'
 import styled from 'styled-components/native'
@@ -6,7 +6,6 @@ import styled from 'styled-components/native'
 import { EVENTS_ROUTE, RouteInformationType, useDateFilter } from 'shared'
 import { fromError, NotFoundError, CityModel, EventModel } from 'shared/api'
 
-import { LinkIcon, LocationMarkerIcon } from '../assets'
 import Caption from '../components/Caption'
 import DatesPageDetail from '../components/DatesPageDetail'
 import EventListItem from '../components/EventListItem'
@@ -22,11 +21,6 @@ import useTtsPlayer from '../hooks/useTtsPlayer'
 
 const ListContainer = styled(Layout)`
   padding: 0 8px;
-`
-
-const Separator = styled.View`
-  border-top-width: 2px;
-  border-top-color: ${props => props.theme.legacy.colors.themeColor};
 `
 
 const PageDetailsContainer = styled.View`
@@ -45,20 +39,8 @@ type EventsProps = {
 const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: EventsProps): ReactElement => {
   const { t } = useTranslation('events')
   const { startDate, setStartDate, endDate, setEndDate, filteredEvents, startDateError } = useDateFilter(events)
-  const [modalOpen, setModalOpen] = useState(false)
   const event = events.find(it => it.slug === slug)
   useTtsPlayer(event)
-
-  const navigationHandler = useCallback(
-    (slug: string) =>
-      navigateTo({
-        route: EVENTS_ROUTE,
-        cityCode: cityModel.code,
-        languageCode: language,
-        slug,
-      }),
-    [cityModel.code, language, navigateTo],
-  )
 
   if (!cityModel.eventsEnabled) {
     const error = new NotFoundError({
@@ -89,7 +71,7 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
                 <DatesPageDetail date={event.date} languageCode={language} />
                 {event.location && (
                   <PageDetail
-                    Icon={LocationMarkerIcon}
+                    icon='map-marker'
                     information={event.location.fullAddress}
                     language={language}
                     path={event.poiPath}
@@ -98,7 +80,7 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
                 )}
                 {event.meetingUrl !== null && (
                   <PageDetail
-                    Icon={LinkIcon}
+                    icon='link'
                     isExternalUrl
                     information={event.meetingUrl}
                     language={language}
@@ -123,16 +105,25 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
     return <Failure code={fromError(error)} />
   }
 
-  const renderEventListItem = ({ item }: { item: EventModel }) => (
-    <EventListItem
-      key={item.slug}
-      event={item}
-      language={language}
-      navigateToEvent={navigationHandler}
-      filterStartDate={startDate}
-      filterEndDate={endDate}
-    />
-  )
+  const renderEventListItem = ({ item }: { item: EventModel }) => {
+    const navigateToEvent = () =>
+      navigateTo({
+        route: EVENTS_ROUTE,
+        cityCode: cityModel.code,
+        languageCode: language,
+        slug: item.slug,
+      })
+    return (
+      <EventListItem
+        key={item.slug}
+        event={item}
+        language={language}
+        navigateToEvent={navigateToEvent}
+        filterStartDate={startDate}
+        filterEndDate={endDate}
+      />
+    )
+  }
 
   return (
     <ListContainer>
@@ -148,10 +139,8 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
               endDate={endDate}
               setEndDate={setEndDate}
               startDateError={startDateError}
-              modalOpen={modalOpen}
-              setModalOpen={setModalOpen}
+              languageCode={language}
             />
-            <Separator />
           </>
         }
         refresh={refresh}

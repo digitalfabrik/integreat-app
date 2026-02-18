@@ -1,15 +1,13 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { TextInput, View } from 'react-native'
+import { View } from 'react-native'
+import { TextInput } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
-import { CloseIcon, SearchIcon } from '../assets'
 import testID from '../testing/testID'
-import Icon from './base/Icon'
-import IconButton from './base/IconButton'
 
 const StyledBackground = styled(View)`
-  background-color: ${props => props.theme.legacy.colors.backgroundColor};
+  background-color: ${props => props.theme.colors.background};
   flex: 1;
   height: 48px;
   margin: 4px;
@@ -17,18 +15,6 @@ const StyledBackground = styled(View)`
   align-items: center;
   padding: 8px;
   gap: 8px;
-`
-
-const StyledIcon = styled(Icon)`
-  color: ${props => props.theme.legacy.colors.textSecondaryColor};
-  height: 20px;
-`
-
-const StyledInput = styled(TextInput)`
-  padding: 4px;
-  flex: 1;
-  color: ${props => props.theme.legacy.colors.textColor};
-  font-size: 18px;
 `
 
 type ThemedSearchBarProps = {
@@ -42,25 +28,25 @@ const ThemedSearchBar = ({ onChangeText, value, autofocus }: ThemedSearchBarProp
   const theme = useTheme()
   return (
     <StyledBackground>
-      <StyledIcon Icon={SearchIcon} />
-      <StyledInput
+      <TextInput
+        mode='outlined'
         {...testID('Content-Search-Input')}
         role='searchbox'
         onChangeText={onChangeText}
         value={value}
         autoFocus={autofocus}
         placeholder={t('searchPlaceholder')}
-        placeholderTextColor={
-          theme.legacy.isContrastTheme ? theme.legacy.colors.textColor : theme.legacy.colors.textSecondaryColor
+        placeholderTextColor={theme.dark ? theme.colors.onSurface : theme.colors.onSurfaceVariant}
+        right={
+          value ? (
+            <TextInput.Icon icon='close' onPress={() => onChangeText('')} accessibilityLabel={t('delete')} />
+          ) : (
+            <TextInput.Icon icon='magnify' accessible={false} focusable={false} />
+          )
         }
+        style={{ flex: 1, height: 48 }}
+        outlineStyle={{ borderRadius: 24 }}
       />
-      {!!value && (
-        <IconButton
-          icon={<StyledIcon Icon={CloseIcon} />}
-          onPress={() => onChangeText('')}
-          accessibilityLabel={t('delete')}
-        />
-      )}
     </StyledBackground>
   )
 }

@@ -42,6 +42,8 @@ jest.mock('@mhpdev/react-native-speech', () => ({
   onResume: jest.fn(() => ({ remove: jest.fn() })),
 }))
 
+jest.mock('@react-native-clipboard/clipboard', () => () => ({ setString: jest.fn() }))
+
 jest.mock('@sentry/react-native', () => ({
   init: jest.fn(),
   captureException: jest.fn(),

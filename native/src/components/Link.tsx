@@ -1,16 +1,10 @@
 import React, { ReactElement } from 'react'
-import { StyleProp, TextStyle } from 'react-native'
-import styled from 'styled-components/native'
+import { StyleProp, TextStyle, StyleSheet } from 'react-native'
+import { useTheme } from 'styled-components/native'
 
 import useSnackbar from '../hooks/useSnackbar'
 import openExternalUrl from '../utils/openExternalUrl'
-
-const LinkText = styled.Text`
-  padding: 30px 0;
-  align-self: center;
-  text-decoration: underline;
-  color: ${props => props.theme.legacy.colors.linkColor};
-`
+import Text from './base/Text'
 
 type LinkProps = {
   url: string
@@ -20,10 +14,25 @@ type LinkProps = {
 
 const Link = ({ url, children, style }: LinkProps): ReactElement => {
   const showSnackbar = useSnackbar()
+  const theme = useTheme()
+
+  const styles = StyleSheet.create({
+    linkText: {
+      paddingVertical: 28,
+      alignSelf: 'center',
+      textDecorationLine: 'underline',
+      color: theme.colors.primary,
+    },
+  })
+
   return (
-    <LinkText style={style} onPress={() => openExternalUrl(url, showSnackbar)} role='link'>
+    <Text
+      variant='body2'
+      style={[styles.linkText, style]}
+      onPress={() => openExternalUrl(url, showSnackbar)}
+      role='link'>
       {children}
-    </LinkText>
+    </Text>
   )
 }
 
