@@ -76,6 +76,7 @@ const createTabLabel =
   ({ focused }: { focused: boolean }) => (
     <Text
       variant='body3'
+      numberOfLines={1}
       style={{
         fontWeight: focused ? 'bold' : 'normal',
         color: focused ? theme.colors.onSurface : theme.colors.onSurfaceVariant,

@@ -74,8 +74,8 @@ describe('Header', () => {
       routeNames: hasPreviousRoute ? [CATEGORIES_ROUTE, CATEGORIES_ROUTE] : [CATEGORIES_ROUTE],
       routes: hasPreviousRoute
         ? [
-            { key: 'key-0', name: CATEGORIES_ROUTE },
             { key: 'key-1', name: CATEGORIES_ROUTE },
+            { key: 'key-0', name: CATEGORIES_ROUTE },
           ]
         : [{ key: 'key-0', name: CATEGORIES_ROUTE }],
       type: 'stack',

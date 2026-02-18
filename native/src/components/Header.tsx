@@ -105,7 +105,10 @@ const Header = ({
   const theme = useTheme()
   const showSnackbar = useSnackbar()
   // Save route/canGoBack to state to prevent it from changing during navigating which would lead to flickering of the title and back button
-  const [previousRoute] = useState(navigation.getState().routes[navigation.getState().routes.length - 2])
+  const [previousRoute] = useState(() => {
+    const { routes } = navigation.getState()
+    return routes[routes.findIndex(navRoute => navRoute.key === route.key) - 1]
+  })
   const { enabled: isTtsEnabled, showTtsPlayer } = useTtsPlayer()
   const isLanding = route.name === LANDING_ROUTE
   const currentLanguageName = languages?.find(it => it.code === languageCode)?.name
@@ -113,7 +116,10 @@ const Header = ({
   const poisParams = route.params as RoutesParamsType[PoisRouteType] | undefined
   const hasPoisParams = !!poisParams?.slug || poisParams?.multipoi !== undefined
 
-  const canGoBack = previousRoute !== undefined || (route.name === POIS_ROUTE && hasPoisParams)
+  const rootNavigation = navigation.getParent()?.getParent()
+  const hasRootHistory = rootNavigation !== undefined && rootNavigation.getState().index > 0
+
+  const canGoBack = previousRoute !== undefined || hasRootHistory || (route.name === POIS_ROUTE && hasPoisParams)
 
   const goBack = () => {
     if (route.name === POIS_ROUTE && hasPoisParams) {
@@ -262,7 +268,7 @@ const Header = ({
 
     if (previousRoute.name === CATEGORIES_ROUTE) {
       return {
-        text: t('localInformation'),
+        text: cityName ?? t('localInformation'),
         language: languageCode,
       }
     }
