@@ -21,15 +21,6 @@ const Box = styled(HighlightBox)`
   border-radius: 4px;
 `
 
-const OrganizationContent = styled(Text)`
-  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontBold};
-  padding: 16px 0 8px;
-`
-
-const StyledText = styled(Text)`
-  flex-flow: row wrap;
-`
-
 const StyledLink = styled(Link)`
   padding: 0;
 `
@@ -44,15 +35,17 @@ const OrganizationContentInfo = ({ organization }: OrganizationContentInfoProps)
     <Box>
       <Thumbnail source={organization.logo} specifyAspectRatio />
       <View>
-        <OrganizationContent>{t('organizationContent', { organization: organization.name })}</OrganizationContent>
-        <StyledText>
+        <Text variant='h6' style={{ paddingTop: 16, paddingBottom: 8 }}>
+          {t('organizationContent', { organization: organization.name })}
+        </Text>
+        <Text variant='body2' style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
           <Trans i18nKey='categories:organizationMoreInformation' domain={new URL(organization.url).hostname}>
             This gets{{ organization: organization.name }}replaced
             {/* @ts-expect-error gets replaced by Trans component */}
             <StyledLink url={organization.url}>{{ domain: new URL(organization.url).hostname }}</StyledLink>
             by i18n
           </Trans>
-        </StyledText>
+        </Text>
       </View>
     </Box>
   )

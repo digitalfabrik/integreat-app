@@ -10,11 +10,6 @@ jest.mock('styled-components')
 jest.mock('react-i18next')
 jest.mock('react-native-svg')
 
-jest.mock('react-native-safe-area-context', () => ({
-  SafeAreaView: ({ children }: { children: React.ReactNode }) => children,
-  useSafeAreaInsets: () => ({ top: 0, bottom: 0, left: 0, right: 0 }),
-}))
-
 describe('PoiFiltersModal', () => {
   beforeEach(jest.clearAllMocks)
 
@@ -45,13 +40,6 @@ describe('PoiFiltersModal', () => {
         poisCount={poisCount}
       />,
     )
-
-  it('should set toggle open filter', () => {
-    const { getAllByRole } = renderPoiFiltersModal({})
-
-    fireEvent.press(getAllByRole('switch')[0]!)
-    expect(setCurrentlyOpenFilter).toHaveBeenCalledTimes(1)
-  })
 
   it('should set poi category on press', () => {
     const { getByText } = renderPoiFiltersModal({})

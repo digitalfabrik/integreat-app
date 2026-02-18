@@ -1,9 +1,8 @@
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
-import styled from 'styled-components/native'
+import { Divider, Switch } from 'react-native-paper'
+import styled, { useTheme } from 'styled-components/native'
 
-import ItemSeparator from './base/ItemSeparator'
-import SettingsSwitch from './base/SettingsSwitch'
 import Text from './base/Text'
 
 const Container = styled(View)`
@@ -15,10 +14,6 @@ const TextContainer = styled(View)`
   flex: 1;
 `
 
-const Description = styled(Text)`
-  color: ${props => props.theme.legacy.colors.textSecondaryColor};
-`
-
 type ConsentSectionProps = {
   title: string
   description: string
@@ -26,17 +21,20 @@ type ConsentSectionProps = {
   onPress: (value: boolean) => void
 }
 
-const ConsentSection = ({ title, description, allowed, onPress }: ConsentSectionProps): ReactElement => (
-  <>
-    <Container>
-      <TextContainer>
-        <Text>{title}</Text>
-        <Description>{description}</Description>
-      </TextContainer>
-      <SettingsSwitch onPress={onPress} value={allowed} />
-    </Container>
-    <ItemSeparator />
-  </>
-)
+const ConsentSection = ({ title, description, allowed, onPress }: ConsentSectionProps): ReactElement => {
+  const theme = useTheme()
+  return (
+    <>
+      <Container>
+        <TextContainer>
+          <Text>{title}</Text>
+          <Text style={{ color: theme.colors.onSurfaceVariant }}>{description}</Text>
+        </TextContainer>
+        <Switch onValueChange={onPress} value={allowed} />
+      </Container>
+      <Divider />
+    </>
+  )
+}
 
 export default ConsentSection

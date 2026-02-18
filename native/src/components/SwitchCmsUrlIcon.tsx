@@ -1,14 +1,13 @@
 import { DateTime } from 'luxon'
 import React, { ReactElement, useState } from 'react'
-import styled from 'styled-components/native'
+import { Button } from 'react-native-paper'
+import styled, { useTheme } from 'styled-components/native'
 
-import { LocationMarkerIcon } from '../assets'
 import buildConfig from '../constants/buildConfig'
 import { useAppContext } from '../hooks/useCityAppContext'
 import { log } from '../utils/sentry'
 import Icon from './base/Icon'
-import Pressable from './base/Pressable'
-import TextButton from './base/TextButton'
+import Text from './base/Text'
 
 const API_URL_OVERRIDE_MIN_CLICKS = 10
 const CLICK_TIMEOUT = 8
@@ -19,25 +18,6 @@ const Container = styled.View`
   align-items: center;
 `
 
-const ApiUrlText = styled.Text`
-  padding-top: 10px;
-  color: red;
-`
-
-const StyledButton = styled(TextButton)`
-  margin-top: 16px;
-`
-
-const StyledPressable = styled(Pressable)`
-  opacity: 1;
-`
-
-const StyledIcon = styled(Icon)`
-  color: ${props => props.theme.legacy.colors.themeColor};
-  height: 64px;
-  width: 96px;
-`
-
 type LandingIconProps = {
   clearResourcesAndCache: () => void
 }
@@ -46,6 +26,7 @@ const SwitchCmsUrlIcon = ({ clearResourcesAndCache }: LandingIconProps): ReactEl
   const [clickCount, setClickCount] = useState(0)
   const [clickStart, setClickStart] = useState<null | DateTime>(null)
   const { settings, updateSettings } = useAppContext()
+  const theme = useTheme()
   const { cmsUrl, switchCmsUrl } = buildConfig()
   const { apiUrlOverride } = settings
 
@@ -78,19 +59,26 @@ const SwitchCmsUrlIcon = ({ clearResourcesAndCache }: LandingIconProps): ReactEl
 
   return (
     <Container>
-      <StyledPressable
+      <Button
+        rippleColor='transparent'
         onPress={onImagePress}
         role='button'
         focusable={false}
         importantForAccessibility='no'
         accessibilityElementsHidden
         accessible={false}>
-        <StyledIcon Icon={LocationMarkerIcon} />
-      </StyledPressable>
+        <Icon size={72} color={theme.colors.secondary} source='map-marker' />
+      </Button>
       {apiUrlOverride && apiUrlOverride !== buildConfig().cmsUrl ? (
         <>
-          <ApiUrlText>{`Currently using API: ${apiUrlOverride.toString()}`}</ApiUrlText>
-          <StyledButton onPress={() => setApiUrl(cmsUrl)} text='Switch back to default API' />
+          <Text
+            style={{
+              paddingTop: 12,
+              color: theme.colors.error,
+            }}>{`Currently using API: ${apiUrlOverride.toString()}`}</Text>
+          <Button mode='contained' style={{ marginTop: 16 }} onPress={() => setApiUrl(cmsUrl)}>
+            Switch back to default API
+          </Button>
         </>
       ) : null}
     </Container>

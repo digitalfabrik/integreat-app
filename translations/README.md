@@ -21,6 +21,7 @@ You need to follow several steps to add new languages:
   - Exceptions: If the ISO 639-1 language tag corresponds to the macro language or you want to prevent ambiguities/misconceptions,
     the three letter [ISO 639-3](https://en.wikipedia.org/wiki/ISO_639-3) language tag may be the better choice.
 - Add your language tag to the [config](src/config.ts) with its script direction (and possible additional fonts).
+- Add your language to the [polyfill list](../native/src/utils/importDisplayNamesPackage.ts).
 - Test the new language on both native and web.
 - Add the new language to the [wiki](https://wiki.tuerantuer.org/integreat-languages).
 - Translate our [translations](translations.json) in your new language, see [export and import workflow](#export-and-import-workflow).

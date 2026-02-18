@@ -3,7 +3,7 @@ import { fireEvent, RenderAPI, waitFor } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import React, { useContext } from 'react'
 import { Platform } from 'react-native'
-import mockSafeAreaContext from 'react-native-safe-area-context/jest/mock'
+import { Button } from 'react-native-paper'
 
 import buildConfig from '../../constants/buildConfig'
 import useSnackbar from '../../hooks/useSnackbar'
@@ -11,9 +11,7 @@ import TestingAppContext from '../../testing/TestingAppContext'
 import renderWithTheme from '../../testing/render'
 import TtsContainer, { TtsContext } from '../TtsContainer'
 import Text from '../base/Text'
-import TextButton from '../base/TextButton'
 
-jest.mock('react-native-safe-area-context', () => mockSafeAreaContext)
 jest.mock('react-i18next')
 jest.mock('@mhpdev/react-native-speech', () => ({
   getAvailableVoices: jest.fn(() =>
@@ -52,8 +50,12 @@ describe('TtsContainer', () => {
     const { setSentences, showTtsPlayer, visible } = useContext(TtsContext)
     return (
       <>
-        <TextButton onPress={() => setSentences(sentences)} text='set sentences' />
-        <TextButton onPress={showTtsPlayer} text='show' />
+        <Button onPress={() => setSentences(sentences)} mode='contained'>
+          set sentences
+        </Button>
+        <Button onPress={showTtsPlayer} mode='contained'>
+          show
+        </Button>
         {visible && <Text>visible</Text>}
       </>
     )

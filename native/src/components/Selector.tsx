@@ -9,7 +9,7 @@ export const Wrapper = styled.View`
   width: 100%;
   flex-flow: column;
   justify-content: center;
-  color: ${props => props.theme.legacy.colors.textColor};
+  color: ${props => props.theme.colors.onSurface};
   text-align: center;
   align-items: center;
 `

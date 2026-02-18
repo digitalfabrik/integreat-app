@@ -1,19 +1,23 @@
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { View } from 'react-native'
+import { TouchableRipple } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 import { OpeningHoursModel } from 'shared/api'
 
-import { NoteIcon } from '../assets'
-import { contentDirection, isContentDirectionReversalRequired } from '../constants/contentDirection'
+import { isRTLText } from '../constants/contentDirection'
 import AppointmentOnlyOverlay from './AppointmentOnlyOverlay'
 import Icon from './base/Icon'
+import Text from './base/Text'
 
-const EntryContainer = styled.View<{ language: string }>`
+const MARGIN_TOP = 8
+
+const EntryContainer = styled.View<{ weekday: string }>`
   display: flex;
-  flex-direction: ${props => contentDirection(props.language)};
+  flex-direction: ${props => (isRTLText(props.weekday) ? 'row-reverse' : 'row')};
   justify-content: space-between;
-  padding: ${props => (isContentDirectionReversalRequired(props.language) ? '4px 26px 4px 0' : '4px 36px 4px 0')};
+  padding: 4px 16px;
 `
 
 const Timeslot = styled.View`
@@ -21,82 +25,63 @@ const Timeslot = styled.View`
   flex-direction: column;
 `
 
-const TimeSlotEntry = styled.Text<{ isCurrentDay: boolean; notFirstChild?: boolean }>`
-  font-family: ${props =>
-    props.isCurrentDay
-      ? props.theme.legacy.fonts.native.contentFontBold
-      : props.theme.legacy.fonts.native.contentFontRegular};
-  ${props => props.notFirstChild && 'margin-top: 8px'};
-  color: ${props => props.theme.legacy.colors.textColor};
-`
-
-const TimeSlotLabel = styled.Text<{ isCurrentDay: boolean }>`
-  font-family: ${props =>
-    props.isCurrentDay
-      ? props.theme.legacy.fonts.native.contentFontBold
-      : props.theme.legacy.fonts.native.contentFontRegular};
-  color: ${props => props.theme.legacy.colors.textColor};
-`
-
-const AppointmentOnlyContainer = styled.View<{ language: string }>`
-  position: absolute;
+const AppointmentOnlyContainer = styled.View<{ weekday: string }>`
   top: 6px;
-  ${props => (isContentDirectionReversalRequired(props.language) ? 'right: 3px;' : 'right: -3px;')}
-`
-
-const StyledPressable = styled.Pressable`
-  width: 24px;
-  height: 24px;
-`
-
-const StyledIcon = styled(Icon)`
-  height: 18px;
-  width: 18px;
+  padding: 0 4px;
+  ${props => (isRTLText(props.weekday) ? 'right: -3px' : 'right: 3px;')};
 `
 
 type OpeningEntryProps = {
   openingHours: OpeningHoursModel
   weekday: string
   isCurrentDay: boolean
-  language: string
   appointmentUrl: string | null
 }
 
-const OpeningEntry = ({
-  openingHours,
-  weekday,
-  isCurrentDay,
-  language,
-  appointmentUrl,
-}: OpeningEntryProps): ReactElement => {
+const OpeningEntry = ({ openingHours, weekday, isCurrentDay, appointmentUrl }: OpeningEntryProps): ReactElement => {
   const { t } = useTranslation('pois')
 
   const [overlayOpen, setOverlayOpen] = useState<boolean>(false)
 
   return (
-    <EntryContainer language={language}>
-      <TimeSlotLabel isCurrentDay={isCurrentDay}>{weekday}</TimeSlotLabel>
-      {openingHours.openAllDay && <TimeSlotEntry isCurrentDay={isCurrentDay}>{t('allDay')}</TimeSlotEntry>}
-      {openingHours.closedAllDay && <TimeSlotEntry isCurrentDay={isCurrentDay}>{t('closed')}</TimeSlotEntry>}
-      {!openingHours.openAllDay && !openingHours.closedAllDay && openingHours.timeSlots.length > 0 && (
-        <Timeslot>
-          {openingHours.timeSlots.map((timeSlot, index) => (
-            <TimeSlotEntry key={`${weekday}-${timeSlot.start}`} isCurrentDay={isCurrentDay} notFirstChild={index !== 0}>
-              {timeSlot.start}-{timeSlot.end}
-            </TimeSlotEntry>
-          ))}
-        </Timeslot>
-      )}
-      {openingHours.appointmentOnly && (
-        <AppointmentOnlyContainer language={language}>
-          <StyledPressable role='button' onPress={() => setOverlayOpen(true)}>
-            <StyledIcon Icon={NoteIcon} label={t('appointmentNecessary')} />
-          </StyledPressable>
-          {overlayOpen && (
-            <AppointmentOnlyOverlay closeOverlay={() => setOverlayOpen(false)} appointmentUrl={appointmentUrl} />
+    <EntryContainer weekday={weekday}>
+      <Text variant={isCurrentDay ? 'h6' : 'body2'}>{weekday}</Text>
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        {(openingHours.openAllDay as boolean) && <Text variant={isCurrentDay ? 'h6' : 'body2'}>{t('allDay')}</Text>}
+        {(openingHours.closedAllDay as boolean) && <Text variant={isCurrentDay ? 'h6' : 'body2'}>{t('closed')}</Text>}
+        {!(openingHours.openAllDay as boolean) &&
+          !(openingHours.closedAllDay as boolean) &&
+          openingHours.timeSlots.length > 0 && (
+            <Timeslot>
+              {openingHours.timeSlots.map((timeSlot, index) => (
+                <Text
+                  key={`${weekday}-${timeSlot.start}`}
+                  variant={isCurrentDay ? 'h6' : 'body2'}
+                  style={{ marginTop: index !== 0 ? MARGIN_TOP : 0 }}>
+                  {timeSlot.start}-{timeSlot.end}
+                </Text>
+              ))}
+            </Timeslot>
           )}
-        </AppointmentOnlyContainer>
-      )}
+        {openingHours.appointmentOnly && (
+          <AppointmentOnlyContainer weekday={weekday}>
+            <TouchableRipple borderless role='button' onPress={() => setOverlayOpen(true)}>
+              <Icon
+                style={{ height: 24, width: 24 }}
+                size={18}
+                source='alert-circle-outline'
+                label={t('appointmentNecessary')}
+              />
+            </TouchableRipple>
+
+            <AppointmentOnlyOverlay
+              isVisible={overlayOpen}
+              closeOverlay={() => setOverlayOpen(false)}
+              appointmentUrl={appointmentUrl}
+            />
+          </AppointmentOnlyContainer>
+        )}
+      </View>
     </EntryContainer>
   )
 }

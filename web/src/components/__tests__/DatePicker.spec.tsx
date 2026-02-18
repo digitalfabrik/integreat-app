@@ -54,7 +54,7 @@ describe('DatePicker', () => {
     fireEvent.click(getByLabelText('calendar'))
     fireEvent.click(getByText(newValue.day))
 
-    expect(setDate).toHaveBeenCalledWith(newValue, { validationError: null })
+    expect(setDate).toHaveBeenCalledWith(newValue, { validationError: null, source: 'view' })
   })
 
   it('displays an error message when error prop is provided', () => {
