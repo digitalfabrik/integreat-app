@@ -2,8 +2,8 @@ import NetInfo from '@react-native-community/netinfo'
 import { LinkingOptions, NavigationContainer, NavigationState } from '@react-navigation/native'
 import { Settings as LuxonSettings } from 'luxon'
 import React, { ReactElement, useCallback, useState } from 'react'
-import { LogBox } from 'react-native'
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
+import { LogBox, View } from 'react-native'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { enableScreens } from 'react-native-screens'
 import { useTheme } from 'styled-components/native'
 
@@ -64,12 +64,12 @@ export const NavigationContainerWithTheme = ({ onStateChange }: NavigationContai
   const navigationTheme = useNavigationTheme()
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.surfaceVariant }} edges={['bottom']}>
+    <View style={{ flex: 1, backgroundColor: theme.colors.surfaceVariant }}>
       <StatusBar />
       <NavigationContainer onStateChange={onStateChange} theme={navigationTheme} linking={linking}>
         <Navigator />
       </NavigationContainer>
-    </SafeAreaView>
+    </View>
   )
 }
 
