@@ -65,7 +65,6 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
             title={event.title}
             lastUpdate={event.lastUpdate}
             language={language}
-            accessible
             BeforeContent={
               <PageDetailsContainer>
                 <DatesPageDetail date={event.date} languageCode={language} />

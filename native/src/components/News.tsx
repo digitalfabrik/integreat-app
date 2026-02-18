@@ -80,7 +80,6 @@ const News = ({
               : selectedNewsItem.content
           }
           language={languageCode}
-          accessible
           Footer={
             selectedNewsItem instanceof LocalNewsModel && (
               <Text

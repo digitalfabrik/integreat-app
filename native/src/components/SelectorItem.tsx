@@ -40,7 +40,14 @@ const SelectorItem = ({ model: { name, code, enabled, onPress }, selected }: Sel
 
   if (enabled || selected) {
     return (
-      <TouchableRipple borderless key={code} onPress={onPress} role='button' style={{ width: '100%' }}>
+      <TouchableRipple
+        borderless
+        key={code}
+        onPress={!enabled ? undefined : onPress}
+        disabled={!enabled}
+        accessibilityLabel={name}
+        role='button'
+        style={{ width: '100%' }}>
         {item}
       </TouchableRipple>
     )

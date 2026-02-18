@@ -47,7 +47,7 @@ const InputSection = ({
   const { t } = useTranslation('common')
   const lines = multiline ? numberOfLines : 1
   return (
-    <Container accessible>
+    <Container>
       {showOptional && <Text style={{ textAlign: 'right' }}>({t('common:optional')})</Text>}
       <TextInput
         mode='outlined'
