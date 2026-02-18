@@ -50,14 +50,17 @@ const navigate = <T extends RoutesType>(
   })
   const navigate = (routeName: string, params?: object) => {
     if (redirect) {
+      // Deep link / redirect: reset the entire stack, optionally prepending the bottom tabs as the base
       const routes: { name: string; params?: object }[] = appCityCode ? [{ name: BOTTOM_TAB_NAVIGATION_ROUTE }] : []
       if (routeName !== BOTTOM_TAB_NAVIGATION_ROUTE || !appCityCode) {
         routes.push({ name: routeName, params })
       }
       navigation.reset({ index: routes.length - 1, routes: routes as never })
     } else if (routeName === BOTTOM_TAB_NAVIGATION_ROUTE) {
+      // Switch to a bottom tab without pushing a new screen onto the stack
       navigation.navigate(BOTTOM_TAB_NAVIGATION_ROUTE, params as never)
     } else {
+      // Regular in-app navigation: push a new screen onto the current stack
       navigation.dispatch(StackActions.push(routeName, params))
     }
   }
@@ -71,7 +74,7 @@ const navigate = <T extends RoutesType>(
       return
     }
 
-    const bottomTabKey = routes.find(r => r.name === BOTTOM_TAB_NAVIGATION_ROUTE)?.key
+    const bottomTabKey = routes.find(route => route.name === BOTTOM_TAB_NAVIGATION_ROUTE)?.key
     navigation.reset(buildNestedAction(routeName, params, bottomTabKey))
   }
 

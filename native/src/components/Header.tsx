@@ -107,7 +107,7 @@ const Header = ({
   // Save route/canGoBack to state to prevent it from changing during navigating which would lead to flickering of the title and back button
   const [previousRoute] = useState(() => {
     const { routes } = navigation.getState()
-    return routes[routes.findIndex(it => it.key === route.key) - 1]
+    return routes[routes.findIndex(navRoute => navRoute.key === route.key) - 1]
   })
   const { enabled: isTtsEnabled, showTtsPlayer } = useTtsPlayer()
   const isLanding = route.name === LANDING_ROUTE
