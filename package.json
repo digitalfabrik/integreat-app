@@ -23,7 +23,7 @@
   "scripts": {
     "prepare": "husky",
     "lint": "eslint --cache --cache-location .eslintcache . && yarn workspace web stylelint && yarn workspace native stylelint",
-    "lint:ci": "yarn node --max-old-space-size=1728 $(yarn bin eslint) --format junit -o reports/lint/junit-lint.xml .",
+    "lint:ci": "yarn node --max-old-space-size=2048 $(yarn bin eslint) --format junit -o reports/lint/junit-lint.xml .",
     "test": "jest",
     "test:changed": "jest -o",
     "test:ci": "jest --coverage --ci",
