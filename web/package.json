@@ -61,7 +61,7 @@
     "react-spring-bottom-sheet": "^3.4.1",
     "react-svg": "^16.3.0",
     "schema-dts": "^1.1.2",
-    "shared": "0.0.1",
+    "shared": "0.2.0",
     "stylis": "^4.3.6",
     "translations": "0.0.1"
   },
