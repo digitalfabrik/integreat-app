@@ -48,7 +48,7 @@
     "@dr.pogodin/react-native-static-server": "^0.25.3",
     "@dr.pogodin/react-native-webview": "^13.16.4",
     "@formatjs/intl-displaynames": "^6.8.13",
-    "@formatjs/intl-locale": "^4.2.13",
+    "@formatjs/intl-locale": "^5.2.1",
     "@gorhom/bottom-sheet": "5.2.6",
     "@maplibre/maplibre-react-native": "10.4.0",
     "@mhpdev/react-native-speech": "^1.4.0",
