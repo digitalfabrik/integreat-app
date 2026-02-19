@@ -159,7 +159,6 @@ const createConfig = (
 
   const plugins: WebpackPluginInstance[] = []
   if (devServer) {
-    // @ts-expect-error webpack type mismatch from @types/assets-webpack-plugin
     plugins.push(new ReactRefreshPlugin())
   }
 
@@ -228,7 +227,6 @@ const createConfig = (
     },
     // The list of plugins for Webpack compiler
     plugins: [
-      // @ts-expect-error webpack type mismatch
       new BundleAnalyzerPlugin({
         analyzerMode: !bundleAnalyer ? 'disabled' : 'static',
         generateStatsFile: !devServer,
@@ -278,7 +276,6 @@ const createConfig = (
       }),
       // Emit a JSON file with assets paths
       // https://github.com/sporto/assets-webpack-plugin#options
-      // @ts-expect-error webpack type mismatch
       new AssetsPlugin({
         path: distDirectory,
         filename: 'assets.json',
