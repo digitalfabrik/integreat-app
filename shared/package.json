@@ -25,7 +25,7 @@
     "minisearch": "^7.2.0",
     "normalize-path": "^3.0.0",
     "rrule": "2.8.1",
-    "sentencex": "^0.4.2",
+    "sentencex": "^1.0.13",
     "uuid": "^11.0.0"
   },
   "devDependencies": {
