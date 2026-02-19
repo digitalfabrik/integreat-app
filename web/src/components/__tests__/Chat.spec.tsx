@@ -57,4 +57,19 @@ describe('Chat', () => {
     fireEvent.click(buttonSendMessage)
     expect(submitMessage).toHaveBeenCalledTimes(1)
   })
+
+  it('should display helper alert when not dismissed', () => {
+    const { getByText } = render([], false, false, submitMessage)
+    expect(getByText('chat:conversationHelperText')).toBeTruthy()
+  })
+
+  it('should hide helper alert after closing it', () => {
+    const { getByText, getByLabelText, queryByText } = render([], false, false, submitMessage)
+    expect(getByText('chat:conversationHelperText')).toBeTruthy()
+
+    const closeButton = getByLabelText('Close')
+    fireEvent.click(closeButton)
+
+    expect(queryByText('chat:conversationHelperText')).toBeNull()
+  })
 })
