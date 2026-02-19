@@ -1,64 +1,73 @@
 version: 2
 updates:
-  - package-ecosystem: "npm"
-    directory: "/"
+  - package-ecosystem: 'npm'
+    directory: '/'
     schedule:
-      interval: "weekly"
+      interval: 'weekly'
     labels:
-      - "maintenance"
+      - 'maintenance'
+      - 'dependencies'
 
-  - package-ecosystem: "npm"
-    directory: "/native"
+  - package-ecosystem: 'npm'
+    directory: '/native'
     schedule:
-      interval: "weekly"
+      interval: 'weekly'
     labels:
-      - "maintenance"
+      - 'maintenance'
+      - 'dependencies'
 
-  - package-ecosystem: "npm"
-    directory: "/web"
+  - package-ecosystem: 'npm'
+    directory: '/web'
     schedule:
-      interval: "weekly"
+      interval: 'weekly'
     labels:
-      - "maintenance"
+      - 'maintenance'
+      - 'dependencies'
 
-  - package-ecosystem: "npm"
-    directory: "/shared"
+  - package-ecosystem: 'npm'
+    directory: '/shared'
     schedule:
-      interval: "weekly"
+      interval: 'weekly'
     labels:
-      - "maintenance"
+      - 'maintenance'
+      - 'dependencies'
 
-  - package-ecosystem: "npm"
-    directory: "/e2e-tests"
+  - package-ecosystem: 'npm'
+    directory: '/e2e-tests'
     schedule:
-      interval: "weekly"
+      interval: 'weekly'
     labels:
-      - "maintenance"
+      - 'maintenance'
+      - 'dependencies'
 
-  - package-ecosystem: "npm"
-    directory: "/tools"
+  - package-ecosystem: 'npm'
+    directory: '/tools'
     schedule:
-      interval: "weekly"
+      interval: 'weekly'
     labels:
-      - "maintenance"
+      - 'maintenance'
+      - 'dependencies'
 
-  - package-ecosystem: "npm"
-    directory: "/translations"
+  - package-ecosystem: 'npm'
+    directory: '/translations'
     schedule:
-      interval: "weekly"
+      interval: 'weekly'
     labels:
-      - "maintenance"
+      - 'maintenance'
+      - 'dependencies'
 
-  - package-ecosystem: "npm"
-    directory: "/build-configs"
+  - package-ecosystem: 'npm'
+    directory: '/build-configs'
     schedule:
-      interval: "weekly"
+      interval: 'weekly'
     labels:
-      - "maintenance"
+      - 'maintenance'
+      - 'dependencies'
 
-  - package-ecosystem: "bundler"
-    directory: "/native"
+  - package-ecosystem: 'bundler'
+    directory: '/native'
     schedule:
-      interval: "weekly"
+      interval: 'weekly'
     labels:
-      - "maintenance"
+      - 'maintenance'
+      - 'dependencies'
