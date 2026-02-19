@@ -2,13 +2,12 @@ import { TFunction } from 'i18next'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView } from 'react-native'
-import styled from 'styled-components/native'
 
 import { NewsRouteType, NewsType, TU_NEWS_TYPE, replaceLinks, tunewsLabel } from 'shared'
 import { LocalNewsModel, TunewsModel, ErrorCode } from 'shared/api'
 
 import { NavigationProps } from '../constants/NavigationTypes'
-import { contentAlignment } from '../constants/contentDirection'
+import { contentAlignmentRTLText } from '../constants/contentDirection'
 import useNavigate from '../hooks/useNavigate'
 import useSetRouteTitle from '../hooks/useSetRouteTitle'
 import useTtsPlayer from '../hooks/useTtsPlayer'
@@ -18,12 +17,8 @@ import LoadingSpinner from './LoadingSpinner'
 import NewsListItem from './NewsListItem'
 import Page from './Page'
 import TimeStamp from './TimeStamp'
+import Text from './base/Text'
 
-const TimeStampContent = styled.Text<{ language: string }>`
-  padding: 17px 0;
-  text-align: ${props => contentAlignment(props.language)};
-  align-self: center;
-`
 const getPageTitle = (
   selectedNewsType: NewsType,
   selectedNewsItem: LocalNewsModel | TunewsModel | null | undefined,
@@ -68,18 +63,10 @@ const News = ({
   const navigation = useNavigate().navigation as NavigationProps<NewsRouteType>
   useSetRouteTitle({ navigation, title: getPageTitle(selectedNewsType, selectedNewsItem, t) })
 
-  const rendersNewsListItem = ({ item, index }: { item: LocalNewsModel | TunewsModel; index: number }) => {
+  const rendersNewsListItem = ({ item }: { item: LocalNewsModel | TunewsModel }) => {
     const navigateToNewsDetail = () => navigateToNews(item.id)
 
-    return (
-      <NewsListItem
-        index={index}
-        key={item.id}
-        newsItem={item}
-        isTunews={selectedNewsType === TU_NEWS_TYPE}
-        navigateToNews={navigateToNewsDetail}
-      />
-    )
+    return <NewsListItem key={item.id} newsItem={item} navigateToNews={navigateToNewsDetail} />
   }
 
   if (selectedNewsItem) {
@@ -96,9 +83,14 @@ const News = ({
           accessible
           Footer={
             selectedNewsItem instanceof LocalNewsModel && (
-              <TimeStampContent language={languageCode}>
+              <Text
+                style={{
+                  paddingVertical: 16,
+                  textAlign: contentAlignmentRTLText(selectedNewsItem.title),
+                  alignSelf: 'center',
+                }}>
                 <TimeStamp lastUpdate={selectedNewsItem.timestamp} showText={false} />
-              </TimeStampContent>
+              </Text>
             )
           }
         />

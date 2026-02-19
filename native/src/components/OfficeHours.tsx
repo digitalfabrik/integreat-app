@@ -5,8 +5,7 @@ import styled from 'styled-components/native'
 import { isCurrentlyOpen, weekdays } from 'shared'
 import { OpeningHoursModel } from 'shared/api'
 
-import { ClockIcon } from '../assets'
-import Collapsible from './Collapsible'
+import Accordion from './Accordion'
 import HoursList from './HoursList'
 import Icon from './base/Icon'
 import Text from './base/Text'
@@ -19,10 +18,9 @@ const StyledView = styled.View`
 
 type OfficeHoursProps = {
   officeHours: OpeningHoursModel[] | null
-  language: string
 }
 
-const OfficeHours = ({ officeHours, language }: OfficeHoursProps): ReactElement | null => {
+const OfficeHours = ({ officeHours }: OfficeHoursProps): ReactElement | null => {
   const { t } = useTranslation('pois')
 
   if (!officeHours || officeHours.length !== weekdays.length) {
@@ -36,7 +34,7 @@ const OfficeHours = ({ officeHours, language }: OfficeHoursProps): ReactElement 
   if (allDayOpen) {
     return (
       <StyledView>
-        <Icon Icon={ClockIcon} />
+        <Icon source='clock-outline' size={24} />
         <Text>{t('allDay')}</Text>
       </StyledView>
     )
@@ -45,24 +43,23 @@ const OfficeHours = ({ officeHours, language }: OfficeHoursProps): ReactElement 
   if (allDayClosed) {
     return (
       <StyledView>
-        <Icon Icon={ClockIcon} />
+        <Icon source='clock-outline' size={24} />
         <Text>{t('temporarilyClosed')}</Text>
       </StyledView>
     )
   }
 
   return (
-    <Collapsible
-      language={language}
+    <Accordion
       headerContent={
         <StyledView>
-          <Icon Icon={ClockIcon} />
+          <Icon source='clock-outline' size={24} />
           <Text>{t(currentlyOpen ? 'opened' : 'closed')}</Text>
         </StyledView>
       }
       initialCollapsed>
-      <HoursList hours={officeHours} appointmentUrl={null} language={language} />
-    </Collapsible>
+      <HoursList hours={officeHours} appointmentUrl={null} />
+    </Accordion>
   )
 }
 

@@ -228,7 +228,6 @@ const createConfig = (
     },
     // The list of plugins for Webpack compiler
     plugins: [
-      // @ts-expect-error webpack type mismatch from @types/assets-webpack-plugin
       new BundleAnalyzerPlugin({
         analyzerMode: !bundleAnalyer ? 'disabled' : 'static',
         generateStatsFile: !devServer,
@@ -278,7 +277,6 @@ const createConfig = (
       }),
       // Emit a JSON file with assets paths
       // https://github.com/sporto/assets-webpack-plugin#options
-      // @ts-expect-error webpack type mismatch from @types/assets-webpack-plugin
       new AssetsPlugin({
         path: distDirectory,
         filename: 'assets.json',

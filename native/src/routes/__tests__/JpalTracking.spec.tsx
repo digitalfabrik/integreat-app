@@ -11,10 +11,6 @@ import render from '../../testing/render'
 import JpalTracking from '../JpalTracking'
 
 jest.mock('react-i18next')
-jest.mock('../../components/base/SettingsSwitch', () => {
-  const { Text } = require('react-native')
-  return () => <Text>SettingsSwitch</Text>
-})
 
 jest.mock('@react-navigation/native')
 

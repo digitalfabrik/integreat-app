@@ -1,20 +1,15 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components/native'
+import { Divider } from 'react-native-paper'
 
 import Caption from '../components/Caption'
 import ConsentSection from '../components/ConsentSection'
 import Layout from '../components/Layout'
 import List from '../components/List'
-import ItemSeparator from '../components/base/ItemSeparator'
 import Text from '../components/base/Text'
 import buildConfig from '../constants/buildConfig'
 import { useAppContext } from '../hooks/useCityAppContext'
 
-const Description = styled(Text)`
-  padding: 0 16px;
-  margin-bottom: 24px;
-`
 const Consent = (): ReactElement | null => {
   const { settings, updateSettings } = useAppContext()
   const { t } = useTranslation('consent')
@@ -43,8 +38,8 @@ const Consent = (): ReactElement | null => {
         Header={
           <>
             <Caption title={t('title')} />
-            <Description>{t('descriptionNative')}</Description>
-            <ItemSeparator />
+            <Text style={{ paddingHorizontal: 16, marginBottom: 24 }}>{t('descriptionNative')}</Text>
+            <Divider />
           </>
         }
         noItemsMessage={t('noSources')}

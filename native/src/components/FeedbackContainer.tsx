@@ -1,5 +1,6 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Button } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 import { SEND_FEEDBACK_SIGNAL_NAME } from 'shared'
@@ -12,28 +13,12 @@ import sendTrackingSignal from '../utils/sendTrackingSignal'
 import { reportError } from '../utils/sentry'
 import Feedback from './Feedback'
 import Text from './base/Text'
-import TextButton from './base/TextButton'
 
 const Container = styled.View`
   flex: 1;
-  background-color: ${props => props.theme.legacy.colors.backgroundColor};
+  background-color: ${props => props.theme.colors.background};
   padding: 8px 20px;
   gap: 8px;
-`
-
-const Title = styled(Text)`
-  font-weight: 600;
-  color: ${props => props.theme.legacy.colors.textColor};
-`
-
-const StyledText = styled(Text)`
-  color: ${props => props.theme.legacy.colors.textColor};
-`
-
-const Hint = styled(Title)`
-  margin-top: 8px;
-  text-align: center;
-  color: ${props => props.theme.legacy.colors.textColor};
 `
 
 export type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
@@ -127,12 +112,16 @@ const FeedbackContainer = ({
   return (
     <Container>
       <>
-        <Title>
+        <Text variant='h6'>
           {language === fallbackLanguage ? t('noResultsInUserLanguage') : t('noResultsInUserAndSourceLanguage')}
-        </Title>
-        <StyledText>{t('checkQuery', { appName: buildConfig().appName })}</StyledText>
-        <Hint>{t('informationMissing')}</Hint>
-        <TextButton text={t('giveFeedback')} onPress={() => setShowFeedback(true)} />
+        </Text>
+        <Text>{t('checkQuery', { appName: buildConfig().appName })}</Text>
+        <Text variant='h6' style={{ marginTop: 8, textAlign: 'center' }}>
+          {t('informationMissing')}
+        </Text>
+        <Button mode='outlined' onPress={() => setShowFeedback(true)}>
+          {t('giveFeedback')}
+        </Button>
       </>
     </Container>
   )

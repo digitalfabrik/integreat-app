@@ -2,7 +2,8 @@ import { groupBy, transform } from 'lodash'
 import React, { ReactElement, ReactNode, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
-import styled from 'styled-components/native'
+import { List as PaperList } from 'react-native-paper'
+import styled, { useTheme } from 'styled-components/native'
 
 import { CITY_SEARCH_EXAMPLE, filterSortCities } from 'shared'
 import { CityModel } from 'shared/api'
@@ -14,6 +15,7 @@ import CityGroup from './CityGroup'
 import NearbyCities from './NearbyCities'
 import NothingFound from './NothingFound'
 import SearchInput from './SearchInput'
+import Text from './base/Text'
 
 const CityGroupContainer = styled.View`
   flex: 0;
@@ -26,12 +28,6 @@ const SearchBar = styled.View`
   justify-content: center;
 `
 
-const SearchCounter = styled.Text`
-  margin: 15px 0 10px;
-  color: ${props => props.theme.legacy.colors.textSecondaryColor};
-  font-weight: 500;
-`
-
 type CitySelectorProps = {
   cities: CityModel[]
   navigateToDashboard: (city: CityModel) => void
@@ -40,6 +36,7 @@ type CitySelectorProps = {
 const CitySelector = ({ cities, navigateToDashboard }: CitySelectorProps): ReactElement => {
   const [filterText, setFilterText] = useState<string>('')
   const { t } = useTranslation('landing')
+  const theme = useTheme()
 
   const resultCities = filterSortCities(cities, filterText, buildConfig().featureFlags.developerFriendly)
   useAnnounceSearchResultsIOS(resultCities)
@@ -70,19 +67,27 @@ const CitySelector = ({ cities, navigateToDashboard }: CitySelectorProps): React
         <SearchInput
           filterText={filterText}
           onFilterTextChange={setFilterText}
-          placeholderText={t('searchCity')}
+          placeholderText={exampleCity?.sortingName ?? CITY_SEARCH_EXAMPLE}
           spaceSearch={false}
           description={t('searchCityDescription', { exampleCity: exampleCity?.name ?? CITY_SEARCH_EXAMPLE })}
         />
       </SearchBar>
       <View>
+        <Text
+          variant='h5'
+          style={{
+            margin: 16,
+            marginHorizontal: 0,
+            marginBottom: 12,
+            color: theme.colors.onBackground,
+          }}
+          accessibilityLiveRegion={resultCities.length === 0 ? 'assertive' : 'polite'}>
+          {t('search:searchResultsCount', { count: resultCities.length })}
+        </Text>
         <CityGroupContainer>
-          <CityGroup>{t('common:nearby')}</CityGroup>
+          <PaperList.Subheader>{t('common:nearby')}</PaperList.Subheader>
           <NearbyCities cities={cities} navigateToDashboard={navigateToDashboard} filterText={filterText} />
         </CityGroupContainer>
-        <SearchCounter accessibilityLiveRegion={resultCities.length === 0 ? 'assertive' : 'polite'}>
-          {t('search:searchResultsCount', { count: resultCities.length })}
-        </SearchCounter>
         {resultCities.length === 0 ? <NothingFound paddingTop /> : cityEntries}
       </View>
     </View>

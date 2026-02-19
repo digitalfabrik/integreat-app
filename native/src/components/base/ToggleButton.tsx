@@ -1,38 +1,11 @@
 import React, { ReactElement } from 'react'
-import { StyleProp, ViewStyle } from 'react-native'
-import styled from 'styled-components/native'
+import { StyleProp, StyleSheet, ViewStyle } from 'react-native'
+import { Surface, TouchableRipple, useTheme } from 'react-native-paper'
+import { DefaultTheme } from 'styled-components/native'
 
-import Pressable from './Pressable'
 import Text from './Text'
 
-const StyledPressable = styled(Pressable)<{ active: boolean }>`
-  background-color: ${props =>
-    props.active ? props.theme.legacy.colors.themeColor : props.theme.legacy.colors.backgroundColor};
-  padding: 8px;
-  align-items: center;
-  width: 100px;
-  height: 80px;
-  border-radius: 18px;
-  elevation: 5;
-  shadow-color: ${props => props.theme.legacy.colors.textColor};
-  shadow-offset: 0 1px;
-  shadow-opacity: 0.2;
-  shadow-radius: 1px;
-  justify-content: space-around;
-`
-
-const StyledText = styled(Text)<{ active: boolean }>`
-  font-size: 12px;
-  color: ${props =>
-    props.active && props.theme.legacy.isContrastTheme
-      ? props.theme.legacy.colors.backgroundColor
-      : props.theme.legacy.colors.textSecondaryColor};
-  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
-  text-align: center;
-  width: 84px;
-`
-
-type TextButtonProps = {
+type ToggleButtonProps = {
   text: string
   onPress: () => Promise<void> | void
   Icon: ReactElement
@@ -40,13 +13,66 @@ type TextButtonProps = {
   style?: StyleProp<ViewStyle>
 }
 
-const ToggleButton = ({ text, onPress, Icon, active, style }: TextButtonProps): ReactElement => (
-  <StyledPressable role='switch' active={active} onPress={onPress} style={style}>
-    {Icon}
-    <StyledText active={active} numberOfLines={1}>
-      {text}
-    </StyledText>
-  </StyledPressable>
-)
+const styles = StyleSheet.create({
+  surface: {
+    borderRadius: 18,
+    width: 100,
+    height: 80,
+  },
+  TouchableRippleStyle: {
+    padding: 8,
+    alignItems: 'center',
+    borderRadius: 18,
+    flex: 1,
+    justifyContent: 'space-around',
+  },
+  text: {
+    textAlign: 'center',
+    width: 84,
+  },
+})
+
+const ToggleButton = ({ text, onPress, Icon, active, style }: ToggleButtonProps): ReactElement => {
+  const theme = useTheme() as DefaultTheme
+
+  const getBackgroundColor = () => {
+    if (theme.dark && active) {
+      return theme.colors.primary
+    }
+    if (active) {
+      return theme.colors.primaryContainer
+    }
+    return theme.colors.background
+  }
+
+  const getTextColor = () => {
+    if (theme.dark) {
+      return theme.colors.onPrimary
+    }
+    return active ? theme.colors.primary : theme.colors.onSurface
+  }
+
+  return (
+    <Surface
+      elevation={5}
+      style={[
+        styles.surface,
+        {
+          backgroundColor: getBackgroundColor(),
+          shadowColor: theme.colors.onSurface,
+        },
+        style,
+      ]}>
+      <TouchableRipple role='switch' onPress={onPress} style={styles.TouchableRippleStyle} borderless>
+        <>
+          {Icon}
+          <Text variant='body3' numberOfLines={1} style={[styles.text, { color: getTextColor() }]}>
+            {text}
+          </Text>
+        </>
+      </TouchableRipple>
+    </Surface>
+  )
+}
 
 export default ToggleButton

@@ -5,7 +5,6 @@ import React from 'react'
 import { REDIRECT_ROUTE } from 'shared'
 
 import useNavigateToDeepLink from '../../hooks/useNavigateToDeepLink'
-import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
 import RedirectContainer from '../RedirectContainer'
 
@@ -21,7 +20,6 @@ jest.mock('react-i18next', () => ({
 
 describe('RedirectContainer', () => {
   const url = 'https://example.com/custom/url'
-  const navigation = createNavigationScreenPropMock()
   const route = {
     key: 'route-id-0',
     params: {
@@ -37,7 +35,7 @@ describe('RedirectContainer', () => {
   })
 
   it('should call navigate to deep link on mount', async () => {
-    render(<RedirectContainer route={route} navigation={navigation} />)
+    render(<RedirectContainer route={route} />)
     await waitFor(() => {
       expect(navigateToDeepLink).toHaveBeenCalledTimes(1)
       expect(navigateToDeepLink).toHaveBeenCalledWith(url)

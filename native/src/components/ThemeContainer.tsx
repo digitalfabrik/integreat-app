@@ -1,5 +1,8 @@
 import React, { ReactElement, useMemo } from 'react'
+import { PaperProvider, configureFonts } from 'react-native-paper'
 import { DefaultTheme, ThemeProvider } from 'styled-components/native'
+
+import { commonNativeTypography } from 'build-configs/common/theme/typography'
 
 import buildConfig from '../constants/buildConfig'
 import { useAppContext } from '../hooks/useCityAppContext'
@@ -15,9 +18,11 @@ export const theme = (themeType: 'light' | 'contrast'): DefaultTheme => {
       : { ...buildConfig().legacyLightTheme, isContrastTheme: false }
 
   const palette = themeType === 'contrast' ? buildConfig().darkTheme.palette : buildConfig().lightTheme.palette
+  const fonts = configureFonts({ config: commonNativeTypography(legacyTheme.fonts) })
   return {
     dark: themeType === 'contrast',
     legacy: legacyTheme,
+    fonts,
     colors: {
       primary: palette.primary.main,
       primaryContainer: palette.primary.light,
@@ -40,11 +45,34 @@ export const theme = (themeType: 'light' | 'contrast'): DefaultTheme => {
       onSurface: palette.text.primary,
       onSurfaceVariant: palette.text.secondary,
       onSurfaceDisabled: palette.text.disabled,
+      inverseSurface: palette.text.secondary,
+      inverseOnSurface: palette.background.default,
+      inversePrimary: palette.secondary.main,
       onError: palette.error.contrastText,
       onErrorContainer: palette.error.contrastText,
       onBackground: palette.text.primary,
       outline: palette.text.primary,
       outlineVariant: palette.text.secondary,
+      success: palette.success.main,
+      tunews: {
+        main: palette.tunews.main,
+        light: palette.tunews.light,
+      },
+      ttsPlayer: {
+        background: palette.ttsPlayer.background,
+        playIconColor: palette.ttsPlayer.playIconColor,
+      },
+      action: {
+        disabled: palette.action.disabled,
+      },
+      elevation: {
+        level0: 'transparent',
+        level1: palette.tertiary.light,
+        level2: palette.tertiary.light,
+        level3: palette.tertiary.light,
+        level4: palette.tertiary.light,
+        level5: palette.tertiary.light,
+      },
     },
   }
 }
@@ -55,7 +83,11 @@ const ThemeContainer = ({ children }: ThemeContainerProps): ReactElement => {
 
   const contextValue = useMemo(() => theme(themeType), [themeType])
 
-  return <ThemeProvider theme={contextValue}>{children}</ThemeProvider>
+  return (
+    <ThemeProvider theme={contextValue}>
+      <PaperProvider theme={contextValue}>{children}</PaperProvider>
+    </ThemeProvider>
+  )
 }
 
 export default ThemeContainer

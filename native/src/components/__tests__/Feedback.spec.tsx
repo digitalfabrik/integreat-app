@@ -48,10 +48,10 @@ describe('Feedback', () => {
   })
 
   it('button should be enabled for search feedback and no input', async () => {
-    const { getByText, queryByText } = render(<Feedback {...buildProps(null, '', 'query')} />)
+    const { getByText, queryByText, getAllByText } = render(<Feedback {...buildProps(null, '', 'query')} />)
     fireEvent.press(getByText('common:privacyPolicy'))
     expect(getByText('send')).not.toBeDisabled()
-    expect(getByText('searchTermDescription')).toBeTruthy()
+    expect(getAllByText('searchTermDescription')[0]).toBeTruthy()
     expect(queryByText('noteFillFeedback')).toBeFalsy()
   })
 
@@ -71,8 +71,8 @@ describe('Feedback', () => {
   })
 
   it('correct text should be displayed for search feedback and input', async () => {
-    const { getByText } = render(<Feedback {...buildProps(false, 'comment', 'query')} />)
-    expect(getByText('searchTermDescription')).toBeDefined()
+    const { getAllByText } = render(<Feedback {...buildProps(false, 'comment', 'query')} />)
+    expect(getAllByText('searchTermDescription')[0]).toBeDefined()
   })
 
   it('onSubmit should be called with query on button press for search feedback', async () => {

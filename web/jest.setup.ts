@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom'
 import '@testing-library/jest-dom/jest-globals'
 import * as fs from 'fs'
-import { TextEncoder } from 'node:util'
+import { TextDecoder, TextEncoder } from 'node:util'
 import * as path from 'path'
 import 'raf/polyfill'
 
@@ -73,5 +73,6 @@ Element.prototype.scroll = () => undefined
 Element.prototype.scrollTo = () => undefined
 
 // https://github.com/remix-run/react-router/issues/12363
-// @ts-expect-error Type 'SharedArrayBuffer' is not assignable to type 'ArrayBuffer'
 globalThis.TextEncoder = TextEncoder
+// maplibre-gl (and some transitive deps) rely on TextDecoder which isn't available in JSDOM/older Node globals.
+globalThis.TextDecoder = TextDecoder

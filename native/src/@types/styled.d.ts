@@ -1,11 +1,14 @@
+import { MD3Theme as RNPaperTheme } from 'react-native-paper'
 import 'styled-components/native'
 
 import { LegacyThemeType } from 'build-configs/LegacyThemeType'
+import { TypographyType } from 'build-configs/TypographyType'
 
 // Temporary type definition until react-native-paper is installed
 type MD3Theme = {
   dark: boolean
   legacy: LegacyThemeType & { isContrastTheme: boolean }
+  fonts: RNPaperTheme['fonts'] & Record<TypographyType>
   colors: {
     primary: string
     primaryContainer: string
@@ -28,11 +31,34 @@ type MD3Theme = {
     onSurface: string
     onSurfaceVariant: string
     onSurfaceDisabled: string
+    inverseSurface: string
+    inverseOnSurface: string
+    inversePrimary: string
     onError: string
     onErrorContainer: string
     onBackground: string
     outline: string
     outlineVariant: string
+    success: string
+    tunews: {
+      main: string
+      light: string
+    }
+    ttsPlayer: {
+      background: string
+      playIconColor: string
+    }
+    action: {
+      disabled: string
+    }
+    elevation?: {
+      level0: string
+      level1: string
+      level2: string
+      level3: string
+      level4: string
+      level5: string
+    }
   }
 }
 

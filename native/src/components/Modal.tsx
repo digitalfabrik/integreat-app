@@ -1,30 +1,30 @@
+import { ThemeProvider as NavigationThemeProvider } from '@react-navigation/native'
 import React, { ReactElement, ReactNode } from 'react'
-import { Platform, Modal as RNModal, View } from 'react-native'
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
-import styled from 'styled-components/native'
+import { ScrollView, StyleSheet, View } from 'react-native'
+import { Modal as PaperModal, Portal } from 'react-native-paper'
+import { useTheme } from 'styled-components/native'
 
 import dimensions from '../constants/dimensions'
+import { useNavigationTheme } from '../hooks/useNavigationTheme'
 import Caption from './Caption'
 import HeaderBox from './HeaderBox'
 
-const Container = styled(SafeAreaView)<{ paddingTop: number }>`
-  flex: 1;
-  background-color: ${props => props.theme.legacy.colors.backgroundColor};
-  padding-top: ${props => props.paddingTop}px;
-`
-
-const Header = styled.View`
-  height: ${dimensions.headerHeight}px;
-`
-
-const ScrollContent = styled.ScrollView`
-  margin: 0 20px;
-`
-
-const Content = styled.View`
-  padding: 0 20px;
-  flex: 1;
-`
+const styles = StyleSheet.create({
+  header: {
+    height: dimensions.headerHeight,
+  },
+  scrollContent: {
+    marginHorizontal: 20,
+  },
+  content: {
+    paddingHorizontal: 20,
+    flex: 1,
+  },
+  modalStyle: {
+    width: '100%',
+    height: '100%',
+  },
+})
 
 type ModalProps = {
   modalVisible: boolean
@@ -43,33 +43,36 @@ const Modal = ({
   children,
   scrollView = true,
 }: ModalProps): ReactElement => {
-  const insets = useSafeAreaInsets()
+  const theme = useTheme()
+  const navigationTheme = useNavigationTheme()
+
   return (
-    // View needs to stay until https://github.com/digitalfabrik/integreat-app/issues/3331 is done
-    <View>
-      <RNModal
-        visible={modalVisible}
-        onRequestClose={closeModal}
-        animationType='fade'
-        supportedOrientations={['portrait', 'landscape']}>
-        <Container paddingTop={Platform.OS === 'ios' ? insets.top : 0} edges={['right', 'bottom', 'left']}>
-          <Header>
-            <HeaderBox goBack={closeModal} text={headerTitle} />
-          </Header>
-          {scrollView ? (
-            <ScrollContent contentContainerStyle={{ flexGrow: 1 }}>
-              {!!title && <Caption title={title} />}
-              {children}
-            </ScrollContent>
-          ) : (
-            <Content>
-              {!!title && <Caption title={title} />}
-              {children}
-            </Content>
-          )}
-        </Container>
-      </RNModal>
-    </View>
+    <Portal>
+      <NavigationThemeProvider value={navigationTheme}>
+        <PaperModal
+          visible={modalVisible}
+          onDismiss={closeModal}
+          style={styles.modalStyle}
+          contentContainerStyle={styles.modalStyle}>
+          <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
+            <View style={styles.header}>
+              <HeaderBox goBack={closeModal} text={headerTitle} />
+            </View>
+            {scrollView ? (
+              <ScrollView style={styles.scrollContent} contentContainerStyle={{ flexGrow: 1 }}>
+                {!!title && <Caption title={title} />}
+                {children}
+              </ScrollView>
+            ) : (
+              <View style={styles.content}>
+                {!!title && <Caption title={title} />}
+                {children}
+              </View>
+            )}
+          </View>
+        </PaperModal>
+      </NavigationThemeProvider>
+    </Portal>
   )
 }
 
