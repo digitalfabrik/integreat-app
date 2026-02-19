@@ -26,7 +26,7 @@
     "normalize-path": "^3.0.0",
     "rrule": "2.8.1",
     "sentencex": "^0.4.2",
-    "uuid": "^11.0.0"
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@testing-library/dom": "^10.4.1",
