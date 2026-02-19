@@ -16,7 +16,7 @@
     "ts:check": "tsc --build"
   },
   "devDependencies": {
-    "@types/jasmine": "^5.1.15",
+    "@types/jasmine": "^6.0.0",
     "@wdio/appium-service": "^9.23.2",
     "@wdio/browserstack-service": "^9.23.2",
     "@wdio/cli": "^9.23.2",
