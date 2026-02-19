@@ -5,6 +5,7 @@ import { reportError } from '../utils/sentry'
 type UseLocalStorageProps<T> = {
   key: string
   initialValue: T
+  isSessionStorage?: boolean
 }
 
 type UseLocalStorageReturn<T> = {
@@ -12,14 +13,19 @@ type UseLocalStorageReturn<T> = {
   updateLocalStorageItem: (newValue: T) => void
 }
 
-const useLocalStorage = <T>({ key, initialValue }: UseLocalStorageProps<T>): UseLocalStorageReturn<T> => {
+const useLocalStorage = <T>({
+  key,
+  initialValue,
+  isSessionStorage = false,
+}: UseLocalStorageProps<T>): UseLocalStorageReturn<T> => {
   const [value, setValue] = useState<T>(() => {
     try {
-      const localStorageItem = localStorage.getItem(key)
-      if (localStorageItem) {
-        return JSON.parse(localStorageItem)
+      const storage = isSessionStorage ? sessionStorage : localStorage
+      const storageItem = storage.getItem(key)
+      if (storageItem) {
+        return JSON.parse(storageItem)
       }
-      localStorage.setItem(key, JSON.stringify(initialValue))
+      storage.setItem(key, JSON.stringify(initialValue))
     } catch (e) {
       // Prevent the following error crashing the app if the browser blocks access to local storage (see #2924)
       // SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.
@@ -34,7 +40,8 @@ const useLocalStorage = <T>({ key, initialValue }: UseLocalStorageProps<T>): Use
   const updateLocalStorageItem = useCallback(
     (newValue: T) => {
       try {
-        localStorage.setItem(key, JSON.stringify(newValue))
+        const storage = isSessionStorage ? sessionStorage : localStorage
+        storage.setItem(key, JSON.stringify(newValue))
       } catch (e) {
         // Prevent the following error crashing the app if the browser blocks access to local storage (see #2924)
         // SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.
@@ -45,7 +52,7 @@ const useLocalStorage = <T>({ key, initialValue }: UseLocalStorageProps<T>): Use
       }
       setValue(newValue)
     },
-    [key],
+    [isSessionStorage, key],
   )
 
   return { value, updateLocalStorageItem }

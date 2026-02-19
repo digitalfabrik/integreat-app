@@ -1,3 +1,4 @@
+import InfoIcon from '@mui/icons-material/Info'
 import MailLock from '@mui/icons-material/MailLock'
 import SendIcon from '@mui/icons-material/Send'
 import Alert from '@mui/material/Alert'
@@ -6,6 +7,7 @@ import IconButton from '@mui/material/IconButton'
 import Stack from '@mui/material/Stack'
 import TextField from '@mui/material/TextField'
 import Tooltip from '@mui/material/Tooltip'
+import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { KeyboardEvent, ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -13,6 +15,7 @@ import { useTranslation } from 'react-i18next'
 import { ChatMessageModel, CityModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
+import useLocalStorage from '../hooks/useLocalStorage'
 import ChatConversation from './ChatConversation'
 import PrivacyCheckbox from './PrivacyCheckbox'
 import H1 from './base/H1'
@@ -52,6 +55,11 @@ const Chat = ({
 }: ChatProps): ReactElement => {
   const { t } = useTranslation('chat')
   const [textInput, setTextInput] = useState<string>('')
+  const { value: showChatHint, updateLocalStorageItem } = useLocalStorage<string | null>({
+    key: 'showChatHelper',
+    initialValue: 'true',
+    isSessionStorage: true,
+  })
 
   const onSubmit = () => {
     submitMessage(textInput)
@@ -91,6 +99,16 @@ const Chat = ({
       <ChatConversation messages={messages} isTyping={isTyping} loading={isLoading} />
       <Stack paddingInline={2} gap={1}>
         {hasError && <Alert severity='error'>{t('errorMessage')}</Alert>}
+        {!!showChatHint && (
+          <Alert
+            severity='info'
+            icon={<InfoIcon />}
+            onClose={() => {
+              updateLocalStorageItem(null)
+            }}>
+            <Typography variant='body2'>{t('conversationHelperText')}</Typography>
+          </Alert>
+        )}
         <TextField
           id='chat-input'
           label={t('inputLabel')}
