@@ -6,8 +6,7 @@ const settings: {
 export default {
   type: 'languageDetector',
   async: false,
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  init: (): void => {},
+  init: (): void => undefined,
   detect: jest.fn<string[], []>(() => {
     const found: string[] = []
 

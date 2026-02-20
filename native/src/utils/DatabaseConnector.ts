@@ -1,3 +1,4 @@
+// eslint-disable-next-line import-x/no-extraneous-dependencies
 import { BBox } from 'geojson'
 import { map, mapValues } from 'lodash'
 import { DateTime } from 'luxon'

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { waitFor } from '@testing-library/react-native'
 import { DateTime } from 'luxon'
 import { rrulestr } from 'rrule'

@@ -130,7 +130,7 @@ const RemoteContent = ({
 
   const onShouldStartLoadWithRequest = useCallback(
     (event: WebViewNavigation): boolean => {
-      if (buildConfig().supportedIframeSources.some(source => event.url.includes(source))) {
+      if (buildConfig().supportedIframeSources.some(source => event.url.includes(source) === true)) {
         return true
       }
       if (event.url === new URL(staticServerUrl).href) {
