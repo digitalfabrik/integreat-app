@@ -26,7 +26,9 @@ const CitySelector = ({ cities, language, stickyTop, loading }: CitySelectorProp
   const { t } = useTranslation('landing')
 
   const resultCities = filterSortCities(cities, filterText, buildConfig().featureFlags.developerFriendly)
-  const exampleCity = cities.find(city => city.name === CITY_SEARCH_EXAMPLE) ?? cities[0]
+
+  const filteredCities = filterSortCities(cities, '', buildConfig().featureFlags.developerFriendly)
+  const exampleCity = cities.find(city => city.name === CITY_SEARCH_EXAMPLE) ?? filteredCities[0]
 
   const firstLetterGroups = [...new Set(resultCities.map(it => it.sortCategory))].map(group => (
     <CityListGroup
