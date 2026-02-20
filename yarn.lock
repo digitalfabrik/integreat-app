@@ -8685,6 +8685,11 @@ eslint-config-prettier@^8.5.0:
   resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-8.10.2.tgz#0642e53625ebc62c31c24726b0f050df6bd97a2e"
   integrity sha512-/IGJ6+Dka158JnP5n5YFMOszjDWrXggGz1LaK/guZq9vZTmniaKlHcsscvkAhn9y4U+BU3JuUdYvtAMcv30y4A==
 
+eslint-formatter-junit@^9.0.1:
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/eslint-formatter-junit/-/eslint-formatter-junit-9.0.1.tgz#673bfbba323c55ebdcf32ffbc21386ad2d32421f"
+  integrity sha512-0MrNGXg2C46M/ImjWuClHSGKHBR0eSBPfYHqPgYmB0utq7Jog3YyLBmbshNvo/Ba/Al3zClPWdd6/jnxk2F+9Q==
+
 eslint-import-context@^0.1.8, eslint-import-context@^0.1.9:
   version "0.1.9"
   resolved "https://registry.yarnpkg.com/eslint-import-context/-/eslint-import-context-0.1.9.tgz#967b0b2f0a90ef4b689125e088f790f0b7756dbe"
