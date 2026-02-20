@@ -41,7 +41,8 @@ const CitySelector = ({ cities, navigateToDashboard }: CitySelectorProps): React
   const resultCities = filterSortCities(cities, filterText, buildConfig().featureFlags.developerFriendly)
   useAnnounceSearchResultsIOS(resultCities)
 
-  const exampleCity = cities.find(city => city.name === CITY_SEARCH_EXAMPLE) ?? cities[0]
+  const filteredCities = filterSortCities(cities, '', buildConfig().featureFlags.developerFriendly)
+  const exampleCity = cities.find(city => city.name === CITY_SEARCH_EXAMPLE) ?? filteredCities[0]
 
   const renderCity = (city: CityModel) => (
     <CityEntry key={city.code} city={city} query={filterText} navigateToDashboard={navigateToDashboard} />
