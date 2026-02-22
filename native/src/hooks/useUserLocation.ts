@@ -2,7 +2,16 @@ import Geolocation, { GeolocationError } from '@react-native-community/geolocati
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Platform } from 'react-native'
-import { check, openSettings, PERMISSIONS, PermissionStatus, request, RESULTS } from 'react-native-permissions'
+import {
+  check,
+  checkMultiple,
+  openSettings,
+  PERMISSIONS,
+  PermissionStatus,
+  request,
+  requestMultiple,
+  RESULTS,
+} from 'react-native-permissions'
 
 import { LocationStateType, UnavailableLocationState } from 'shared'
 
@@ -37,15 +46,24 @@ const fineLocationPermissionAndroid = PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION
 const coarseLocationPermissionAndroid = PERMISSIONS.ANDROID.ACCESS_COARSE_LOCATION
 
 const getLocationPermissionStatus = async (requestPermission: boolean) => {
-  const checkOrRequest = requestPermission ? request : check
   if (Platform.OS === 'ios') {
+    const checkOrRequest = requestPermission ? request : check
     return checkOrRequest(locationPermissionIOS)
   }
-  const finePermissionStatus = await checkOrRequest(fineLocationPermissionAndroid)
+  if (requestPermission) {
+    const statuses = await requestMultiple([fineLocationPermissionAndroid, coarseLocationPermissionAndroid])
+    const fineStatus = statuses[fineLocationPermissionAndroid]
+    if (fineStatus === RESULTS.GRANTED || fineStatus === RESULTS.LIMITED) {
+      return fineStatus
+    }
+    return statuses[coarseLocationPermissionAndroid]
+  }
+  const statuses = await checkMultiple([fineLocationPermissionAndroid, coarseLocationPermissionAndroid])
+  const finePermissionStatus = statuses[fineLocationPermissionAndroid]
   if (([RESULTS.GRANTED, RESULTS.LIMITED] as PermissionStatus[]).includes(finePermissionStatus)) {
     return finePermissionStatus
   }
-  return checkOrRequest(coarseLocationPermissionAndroid)
+  return statuses[coarseLocationPermissionAndroid]
 }
 
 type UseUserLocationProps = {
