@@ -15,7 +15,7 @@ import { getLocalFilePath } from '../utils/helpers'
 import openExternalUrl from '../utils/openExternalUrl'
 
 const StyledPdfRendererView = styled(PdfRendererView)`
-  background-color: ${props => props.theme.legacy.colors.backgroundColor};
+  background-color: ${props => props.theme.colors.background};
 `
 
 type PDFViewModalProps = {

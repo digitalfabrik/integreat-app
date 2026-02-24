@@ -1,0 +1,145 @@
+version: 2
+updates:
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+    labels:
+      - 'maintenance'
+      - 'dependencies'
+    ignore:
+      - dependency-name: '*'
+        update-types: ['version-update:semver-major']
+    groups:
+      minor-and-patch:
+        patterns: ['*']
+        update-types: [patch, minor]
+    open-pull-requests-limit: 1
+
+  - package-ecosystem: 'npm'
+    directory: '/native'
+    schedule:
+      interval: 'weekly'
+    labels:
+      - 'maintenance'
+      - 'dependencies'
+    ignore:
+      - dependency-name: '*'
+        update-types: ['version-update:semver-major']
+    groups:
+      minor-and-patch:
+        patterns: ['*']
+        update-types: [patch, minor]
+    open-pull-requests-limit: 1
+
+  - package-ecosystem: 'npm'
+    directory: '/web'
+    schedule:
+      interval: 'weekly'
+    labels:
+      - 'maintenance'
+      - 'dependencies'
+    ignore:
+      - dependency-name: '*'
+        update-types: ['version-update:semver-major']
+    groups:
+      minor-and-patch:
+        patterns: ['*']
+        update-types: [patch, minor]
+    open-pull-requests-limit: 1
+
+  - package-ecosystem: 'npm'
+    directory: '/shared'
+    schedule:
+      interval: 'weekly'
+    labels:
+      - 'maintenance'
+      - 'dependencies'
+    ignore:
+      - dependency-name: '*'
+        update-types: ['version-update:semver-major']
+    groups:
+      minor-and-patch:
+        patterns: ['*']
+        update-types: [patch, minor]
+    open-pull-requests-limit: 1
+
+  - package-ecosystem: 'npm'
+    directory: '/e2e-tests'
+    schedule:
+      interval: 'weekly'
+    labels:
+      - 'maintenance'
+      - 'dependencies'
+    ignore:
+      - dependency-name: '*'
+        update-types: ['version-update:semver-major']
+    groups:
+      minor-and-patch:
+        patterns: ['*']
+        update-types: [patch, minor]
+    open-pull-requests-limit: 1
+
+  - package-ecosystem: 'npm'
+    directory: '/tools'
+    schedule:
+      interval: 'weekly'
+    labels:
+      - 'maintenance'
+      - 'dependencies'
+    ignore:
+      - dependency-name: '*'
+        update-types: ['version-update:semver-major']
+    groups:
+      minor-and-patch:
+        patterns: ['*']
+        update-types: [patch, minor]
+    open-pull-requests-limit: 1
+
+  - package-ecosystem: 'npm'
+    directory: '/translations'
+    schedule:
+      interval: 'weekly'
+    labels:
+      - 'maintenance'
+      - 'dependencies'
+    ignore:
+      - dependency-name: '*'
+        update-types: ['version-update:semver-major']
+    groups:
+      minor-and-patch:
+        patterns: ['*']
+        update-types: [patch, minor]
+    open-pull-requests-limit: 1
+
+  - package-ecosystem: 'npm'
+    directory: '/build-configs'
+    schedule:
+      interval: 'weekly'
+    labels:
+      - 'maintenance'
+      - 'dependencies'
+    ignore:
+      - dependency-name: '*'
+        update-types: ['version-update:semver-major']
+    groups:
+      minor-and-patch:
+        patterns: ['*']
+        update-types: [patch, minor]
+    open-pull-requests-limit: 1
+
+  - package-ecosystem: 'bundler'
+    directory: '/native'
+    schedule:
+      interval: 'weekly'
+    labels:
+      - 'maintenance'
+      - 'dependencies'
+    ignore:
+      - dependency-name: '*'
+        update-types: ['version-update:semver-major']
+    groups:
+      minor-and-patch:
+        patterns: ['*']
+        update-types: [patch, minor]
+    open-pull-requests-limit: 1

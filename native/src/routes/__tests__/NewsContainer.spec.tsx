@@ -1,11 +1,12 @@
 import { fireEvent } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import React from 'react'
-import { Pressable, Text, View } from 'react-native'
+import { Pressable, View } from 'react-native'
 
 import { LocalNewsType, NEWS_ROUTE, NewsRouteType, TU_NEWS_TYPE, TuNewsType } from 'shared'
 import { CategoriesMapModelBuilder, CityModelBuilder, LanguageModelBuilder } from 'shared/api'
 
+import Text from '../../components/base/Text'
 import useLoadCityContent from '../../hooks/useLoadCityContent'
 import useNavigate from '../../hooks/useNavigate'
 import TestingAppContext from '../../testing/TestingAppContext'

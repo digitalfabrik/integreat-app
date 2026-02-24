@@ -8,7 +8,6 @@ import useHeader from '../hooks/useHeader'
 import useLoadCityContent from '../hooks/useLoadCityContent'
 import useNavigate from '../hooks/useNavigate'
 import usePreviousProp from '../hooks/usePreviousProp'
-import useSetRouteTitle from '../hooks/useSetRouteTitle'
 import urlFromRouteInformation from '../navigation/url'
 import Events from './Events'
 import LoadingErrorHandler from './LoadingErrorHandler'
@@ -37,7 +36,6 @@ const EventsContainer = ({ navigation, route }: EventsContainerProps): ReactElem
     slug,
   })
   useHeader({ navigation, route, availableLanguages, data, shareUrl })
-  useSetRouteTitle({ navigation, title: currentEvent?.title })
 
   const onLanguageChange = useCallback(
     (newLanguage: string) => {

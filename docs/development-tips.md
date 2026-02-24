@@ -21,7 +21,7 @@ See also [here](./cicd.md#triggering-a-delivery).
 
 For Android: `npx uri-scheme open https://integreat.app/etc/pp/ --android`
 
-For iOS: `npx uri-scheme open integreat://integreat-app/etc/pp/ --ios`
+For iOS: `npx uri-scheme open integreat://integreat.app/etc/pp/ --ios`
 
 ### Moving keys between namespaces in translations.json
 

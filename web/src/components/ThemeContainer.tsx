@@ -120,7 +120,7 @@ const createTheme = (
             },
             tooltip: {
               backgroundColor: theme.palette.primary.main,
-              fontSize: buildConfig().typography.body2?.fontSize,
+              fontSize: buildConfig().typography.body2.fontSize,
               padding: '8px 16px',
             },
           },

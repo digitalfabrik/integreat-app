@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { Button } from 'react-native-paper'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import styled from 'styled-components/native'
 
@@ -15,7 +16,6 @@ import {
   MALTE_HELP_FORM_MAX_COMMENT_LENGTH,
 } from 'shared/api'
 
-import { SecurityIcon, SupportIcon } from '../assets'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useKeyboardHeight from '../hooks/useKeyboardHeight'
 import useSnackbar from '../hooks/useSnackbar'
@@ -23,7 +23,6 @@ import LayoutedScrollView from './LayoutedScrollView'
 import PrivacyCheckbox from './PrivacyCheckbox'
 import Icon from './base/Icon'
 import Text from './base/Text'
-import TextButton from './base/TextButton'
 import FormInput from './form/FormInput'
 import FormRadioButtons from './form/FormRadioButtons'
 
@@ -35,16 +34,6 @@ const Container = styled(LayoutedScrollView)`
 const InformationRow = styled.View`
   flex-direction: row;
   gap: 8px;
-`
-
-const InformationText = styled(Text)`
-  font-family: ${props => props.theme.legacy.fonts.native.contentFontRegular};
-  font-size: 14px;
-  flex: 1;
-`
-
-const InputTitle = styled(Text)`
-  font-weight: bold;
 `
 
 type FormInput = {
@@ -125,19 +114,23 @@ const MalteHelpFormOffer = ({
     <KeyboardAwareScrollView extraHeight={keyboardHeight - useSafeAreaInsets().bottom}>
       <Container>
         <InformationRow>
-          <Icon Icon={SupportIcon} />
-          <InformationText>{t('supportNote')}</InformationText>
+          <Icon source='account-multiple-outline' />
+          <Text variant='body2' style={{ flex: 1 }}>
+            {t('supportNote')}
+          </Text>
         </InformationRow>
         <InformationRow>
-          <Icon Icon={SecurityIcon} />
-          <InformationText>{t('securityNote')}</InformationText>
+          <Icon source='shield-plus-outline' />
+          <Text variant='body2' style={{ flex: 1 }}>
+            {t('securityNote')}
+          </Text>
         </InformationRow>
 
         <FormInput name='name' title={t('name')} control={control} rules={{ required: true }} />
         <FormInput name='roomNumber' title={t('roomNumber')} control={control} showOptional />
 
         <View>
-          <InputTitle>{t('howToBeContacted')}</InputTitle>
+          <Text variant='h6'>{t('howToBeContacted')}</Text>
           <FormRadioButtons
             name='contactChannel'
             control={control}
@@ -150,7 +143,7 @@ const MalteHelpFormOffer = ({
         </View>
 
         <View>
-          <InputTitle>{t('contactPerson')}</InputTitle>
+          <Text variant='h6'>{t('contactPerson')}</Text>
           <FormRadioButtons
             name='contactGender'
             control={control}
@@ -172,17 +165,20 @@ const MalteHelpFormOffer = ({
           multiline
         />
 
-        <InformationText>{t('responseDisclaimer')}</InformationText>
+        <Text variant='body2' style={{ flex: 1 }}>
+          {t('responseDisclaimer')}
+        </Text>
         <PrivacyCheckbox
           language={languageCode}
           checked={privacyPolicyAccepted}
           setChecked={setPrivacyPolicyAccepted}
         />
-        <TextButton
-          text={t('submit')}
+        <Button
+          mode='contained'
           onPress={submit}
-          disabled={!formState.isValid || formState.isSubmitting || !privacyPolicyAccepted}
-        />
+          disabled={!formState.isValid || formState.isSubmitting || !privacyPolicyAccepted}>
+          {t('submit')}
+        </Button>
       </Container>
     </KeyboardAwareScrollView>
   )

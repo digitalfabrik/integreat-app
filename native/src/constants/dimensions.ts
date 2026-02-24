@@ -24,7 +24,7 @@ const dimensions: DimensionsType = {
   modalHeaderHeight: 40,
   ttsPlayerHeight: 100,
   categoryListItem: {
-    iconSize: 20,
+    iconSize: 40,
     margin: 5,
   },
   fontScaling: 0.04,

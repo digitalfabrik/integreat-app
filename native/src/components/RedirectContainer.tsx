@@ -1,42 +1,27 @@
 import React, { ReactElement, useEffect } from 'react'
-import InAppBrowser from 'react-native-inappbrowser-reborn'
 
 import { RedirectRouteType } from 'shared'
 
-import { NavigationProps, RouteProps, RoutesType } from '../constants/NavigationTypes'
+import { NAVIGATION_INITIALIZATION_DELAY } from '../constants'
+import { RouteProps } from '../constants/NavigationTypes'
 import useNavigateToDeepLink from '../hooks/useNavigateToDeepLink'
 import Layout from './Layout'
 
-const TIMEOUT = 10
-const INTERVAL_TIMEOUT = 1000
-
 type RedirectContainerProps = {
   route: RouteProps<RedirectRouteType>
-  navigation: NavigationProps<RoutesType>
 }
 
-const RedirectContainer = ({ route, navigation }: RedirectContainerProps): ReactElement => {
+const RedirectContainer = ({ route }: RedirectContainerProps): ReactElement => {
   const navigateToDeepLink = useNavigateToDeepLink({ redirect: true })
   const { url } = route.params
 
   useEffect(() => {
-    // If navigate is called to early it fails and nothing happens
-    // Therefore we wait for a short time period and try again if the component is still rendered
-    // https://github.com/react-navigation/react-navigation/issues/8537
+    // Add a small delay to ensure navigation is fully initialized when app is launched from closed state
     const timeout = setTimeout(() => {
       navigateToDeepLink(url)
-    }, TIMEOUT)
+    }, NAVIGATION_INITIALIZATION_DELAY)
     return () => clearTimeout(timeout)
-  }, [url, navigation, navigateToDeepLink])
-
-  useEffect(() => {
-    // To support potentially older devices taking longer we setup a separate interval to retry the navigation
-    const interval = setInterval(() => {
-      InAppBrowser.close()
-      navigateToDeepLink(url)
-    }, INTERVAL_TIMEOUT)
-    return () => clearInterval(interval)
-  }, [url, navigation, navigateToDeepLink])
+  }, [url, navigateToDeepLink])
 
   return <Layout />
 }

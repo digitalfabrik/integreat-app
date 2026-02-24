@@ -1,13 +1,13 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList } from 'react-native'
+import { Divider } from 'react-native-paper'
 
 import { SettingsRouteType } from 'shared'
 
 import Caption from '../components/Caption'
 import Layout from '../components/Layout'
 import SettingItem from '../components/SettingItem'
-import ItemSeparator from '../components/base/ItemSeparator'
 import { NavigationProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useSnackbar from '../hooks/useSnackbar'
@@ -49,13 +49,13 @@ const Settings = ({ navigation }: SettingsProps): ReactElement => {
   return (
     <Layout>
       <Caption title={t('layout:settings')} />
-      <ItemSeparator />
+      <Divider />
       <FlatList
         data={sections}
         extraData={appContext.settings}
         renderItem={renderItem}
-        ItemSeparatorComponent={ItemSeparator}
-        ListFooterComponent={ItemSeparator}
+        ItemSeparatorComponent={Divider}
+        ListFooterComponent={Divider}
       />
     </Layout>
   )

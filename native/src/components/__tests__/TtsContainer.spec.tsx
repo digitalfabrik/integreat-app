@@ -3,7 +3,7 @@ import { fireEvent, RenderAPI, waitFor } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import React, { useContext } from 'react'
 import { Platform } from 'react-native'
-import mockSafeAreaContext from 'react-native-safe-area-context/jest/mock'
+import { Button } from 'react-native-paper'
 
 import buildConfig from '../../constants/buildConfig'
 import useSnackbar from '../../hooks/useSnackbar'
@@ -11,9 +11,7 @@ import TestingAppContext from '../../testing/TestingAppContext'
 import renderWithTheme from '../../testing/render'
 import TtsContainer, { TtsContext } from '../TtsContainer'
 import Text from '../base/Text'
-import TextButton from '../base/TextButton'
 
-jest.mock('react-native-safe-area-context', () => mockSafeAreaContext)
 jest.mock('react-i18next')
 jest.mock('@mhpdev/react-native-speech', () => ({
   getAvailableVoices: jest.fn(() =>
@@ -22,8 +20,8 @@ jest.mock('@mhpdev/react-native-speech', () => ({
       { language: 'de-DE', name: 'German' },
     ]),
   ),
-  initialize: jest.fn(),
-  speakWithOptions: jest.fn(() => Promise.resolve()),
+  configure: jest.fn(),
+  speak: jest.fn(() => Promise.resolve()),
   stop: jest.fn(() => Promise.resolve()),
   pause: jest.fn(() => Promise.resolve(true)),
   resume: jest.fn(() => Promise.resolve(true)),
@@ -52,8 +50,12 @@ describe('TtsContainer', () => {
     const { setSentences, showTtsPlayer, visible } = useContext(TtsContext)
     return (
       <>
-        <TextButton onPress={() => setSentences(sentences)} text='set sentences' />
-        <TextButton onPress={showTtsPlayer} text='show' />
+        <Button onPress={() => setSentences(sentences)} mode='contained'>
+          set sentences
+        </Button>
+        <Button onPress={showTtsPlayer} mode='contained'>
+          show
+        </Button>
         {visible && <Text>visible</Text>}
       </>
     )
@@ -78,7 +80,7 @@ describe('TtsContainer', () => {
     const { getByText, queryByRole } = renderTtsPlayer()
     fireEvent.press(getByText('show'))
     expect(showSnackbar).not.toHaveBeenCalled()
-    expect(Speech.initialize).not.toHaveBeenCalled()
+    expect(Speech.configure).not.toHaveBeenCalled()
     expect(queryByRole('button', { name: 'play' })).toBeFalsy()
   })
 
@@ -88,7 +90,7 @@ describe('TtsContainer', () => {
     fireEvent.press(getByText('show'))
     expect(showSnackbar).toHaveBeenCalledTimes(1)
     expect(showSnackbar).toHaveBeenCalledWith({ text: 'nothingToReadFullMessage' })
-    expect(Speech.initialize).not.toHaveBeenCalled()
+    expect(Speech.configure).not.toHaveBeenCalled()
     expect(queryByRole('button', { name: 'play' })).toBeFalsy()
   })
 
@@ -100,7 +102,7 @@ describe('TtsContainer', () => {
     fireEvent.press(getByText('set sentences'))
     fireEvent.press(getByText('show'))
     expect(showSnackbar).not.toHaveBeenCalled()
-    expect(Speech.initialize).toHaveBeenCalledTimes(1)
+    expect(Speech.configure).toHaveBeenCalledTimes(1)
     await waitFor(() => expect(getByRole('button', { name: 'play' })).toBeTruthy())
   })
 
@@ -116,8 +118,8 @@ describe('TtsContainer', () => {
     fireEvent.press(getByRole('button', { name: 'play' }))
     await waitFor(() => expect(getByRole('button', { name: 'pause' })).toBeTruthy())
 
-    expect(Speech.speakWithOptions).toHaveBeenCalledTimes(1)
-    expect(Speech.speakWithOptions).toHaveBeenCalledWith(sentences[0], expect.objectContaining({ language: 'de' }))
+    expect(Speech.speak).toHaveBeenCalledTimes(1)
+    expect(Speech.speak).toHaveBeenCalledWith(sentences[0], expect.objectContaining({ language: 'de' }))
   })
 
   it('should start playing and pause when the button is pressed', async () => {
@@ -132,8 +134,8 @@ describe('TtsContainer', () => {
 
     fireEvent.press(getByRole('button', { name: 'play' }))
     await waitFor(() => expect(getByRole('button', { name: 'pause' })).toBeTruthy())
-    expect(Speech.speakWithOptions).toHaveBeenCalledTimes(1)
-    expect(Speech.speakWithOptions).toHaveBeenCalledWith(sentences[0], expect.objectContaining({ language: 'en' }))
+    expect(Speech.speak).toHaveBeenCalledTimes(1)
+    expect(Speech.speak).toHaveBeenCalledWith(sentences[0], expect.objectContaining({ language: 'en' }))
     expect(Speech.stop).toHaveBeenCalled()
 
     fireEvent.press(getByRole('button', { name: 'pause' }))
@@ -175,20 +177,20 @@ describe('TtsContainer', () => {
     await waitFor(() => expect(getByRole('button', { name: 'pause' })).toBeTruthy())
 
     fireEvent.press(getByRole('button', { name: 'previous' }))
-    await waitFor(() => expect(Speech.speakWithOptions).toHaveBeenCalledTimes(2))
-    expect(Speech.speakWithOptions).toHaveBeenLastCalledWith(sentences[0], expect.objectContaining({ language: 'en' }))
+    await waitFor(() => expect(Speech.speak).toHaveBeenCalledTimes(2))
+    expect(Speech.speak).toHaveBeenLastCalledWith(sentences[0], expect.objectContaining({ language: 'en' }))
 
     fireEvent.press(getByRole('button', { name: 'next' }))
-    await waitFor(() => expect(Speech.speakWithOptions).toHaveBeenCalledTimes(3))
-    expect(Speech.speakWithOptions).toHaveBeenLastCalledWith(sentences[1], expect.objectContaining({ language: 'en' }))
+    await waitFor(() => expect(Speech.speak).toHaveBeenCalledTimes(3))
+    expect(Speech.speak).toHaveBeenLastCalledWith(sentences[1], expect.objectContaining({ language: 'en' }))
 
     fireEvent.press(getByRole('button', { name: 'next' }))
-    await waitFor(() => expect(Speech.speakWithOptions).toHaveBeenCalledTimes(4))
-    expect(Speech.speakWithOptions).toHaveBeenCalledWith(sentences[2], expect.objectContaining({ language: 'en' }))
+    await waitFor(() => expect(Speech.speak).toHaveBeenCalledTimes(4))
+    expect(Speech.speak).toHaveBeenCalledWith(sentences[2], expect.objectContaining({ language: 'en' }))
 
     fireEvent.press(getByRole('button', { name: 'previous' }))
-    await waitFor(() => expect(Speech.speakWithOptions).toHaveBeenCalledTimes(5))
-    expect(Speech.speakWithOptions).toHaveBeenCalledWith(sentences[1], expect.objectContaining({ language: 'en' }))
+    await waitFor(() => expect(Speech.speak).toHaveBeenCalledTimes(5))
+    expect(Speech.speak).toHaveBeenCalledWith(sentences[1], expect.objectContaining({ language: 'en' }))
 
     fireEvent.press(getByRole('button', { name: 'pause' }))
     await waitFor(() => expect(getByRole('button', { name: 'play' })).toBeTruthy())
@@ -196,7 +198,7 @@ describe('TtsContainer', () => {
 
     fireEvent.press(getByRole('button', { name: 'play' }))
     await waitFor(() => expect(getByRole('button', { name: 'pause' })).toBeTruthy())
-    expect(Speech.speakWithOptions).toHaveBeenCalledTimes(5)
+    expect(Speech.speak).toHaveBeenCalledTimes(5)
     expect(Speech.resume).toHaveBeenCalled()
   })
 
@@ -210,7 +212,7 @@ describe('TtsContainer', () => {
     fireEvent.press(getByText('show'))
 
     expect(getByRole('button', { name: 'play' })).toBeTruthy()
-    expect(Speech.initialize).toHaveBeenCalledWith(
+    expect(Speech.configure).toHaveBeenCalledWith(
       expect.objectContaining({
         silentMode: 'ignore',
       }),

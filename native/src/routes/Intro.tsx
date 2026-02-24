@@ -27,13 +27,13 @@ const Container = styled.View<{ width: number }>`
   flex-direction: column;
   width: ${props => props.width}px;
   padding-bottom: 30%;
-  background-color: ${props => props.theme.legacy.colors.backgroundColor};
+  background-color: ${props => props.theme.colors.background};
 `
 
 const StyledIcon = styled(Icon)`
   height: 100%;
   width: 80%;
-  color: ${props => props.theme.legacy.colors.themeColor};
+  color: ${props => props.theme.colors.secondary};
   align-self: center;
 `
 

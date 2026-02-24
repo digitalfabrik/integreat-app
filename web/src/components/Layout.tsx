@@ -45,6 +45,7 @@ const Body = styled('div')<{ fitScreen: boolean }>`
           @supports (-webkit-touch-callout: none) {
             /* CSS specific to iOS safari devices */
             position: fixed;
+            top: ${props.theme.dimensions.headerHeight}px;
             overflow: hidden;
           }
         `

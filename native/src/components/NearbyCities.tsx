@@ -1,15 +1,15 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
 import { getNearbyCities } from 'shared'
 import { CityModel } from 'shared/api'
 
-import { RefreshIcon } from '../assets'
 import useUserLocation from '../hooks/useUserLocation'
 import CityEntry from './CityEntry'
 import Icon from './base/Icon'
 import IconButton from './base/IconButton'
+import Text from './base/Text'
 
 const NearbyMessageContainer = styled.View`
   padding: 7px;
@@ -19,15 +19,6 @@ const NearbyMessageContainer = styled.View`
 const RetryButtonContainer = styled.View`
   flex-direction: column;
   height: 46px;
-`
-const NearbyMessage = styled.Text`
-  color: ${props => props.theme.legacy.colors.textColor};
-  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
-  padding-top: 15px;
-`
-
-const StyledIcon = styled(Icon)`
-  color: ${props => props.theme.legacy.colors.textSecondaryColor};
 `
 
 type NearbyCitiesProps = {
@@ -41,15 +32,18 @@ const NearbyCities = ({ cities, navigateToDashboard, filterText }: NearbyCitiesP
     requestPermissionInitially: false,
   })
   const { t } = useTranslation('landing')
+  const theme = useTheme()
 
   if (!coordinates) {
     return (
       <NearbyMessageContainer>
-        <NearbyMessage>{t(message)}</NearbyMessage>
+        <Text variant='body2' style={{ paddingTop: 16 }}>
+          {t(message)}
+        </Text>
         <RetryButtonContainer>
           {status !== 'loading' && (
             <IconButton
-              icon={<StyledIcon Icon={RefreshIcon} />}
+              icon={<Icon color={theme.colors.onSurfaceVariant} source='refresh' />}
               onPress={refreshPermissionAndLocation}
               accessibilityLabel={t('refresh')}
             />
@@ -67,7 +61,9 @@ const NearbyCities = ({ cities, navigateToDashboard, filterText }: NearbyCitiesP
   if (nearbyCities.length === 0) {
     return (
       <NearbyMessageContainer>
-        <NearbyMessage>{t('noNearbyCities')}</NearbyMessage>
+        <Text variant='body2' style={{ paddingTop: 16 }}>
+          {t('noNearbyCities')}
+        </Text>
       </NearbyMessageContainer>
     )
   }

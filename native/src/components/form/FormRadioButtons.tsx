@@ -1,9 +1,8 @@
 import React, { ReactElement } from 'react'
 import { Control, Controller, FieldValues, Path } from 'react-hook-form'
 import { View } from 'react-native'
+import { RadioButton } from 'react-native-paper'
 
-import RadioButton from '../base/RadioButton'
-import Text from '../base/Text'
 import FormInput from './FormInput'
 
 type RadioButtonType<T extends FieldValues> = {
@@ -23,18 +22,16 @@ const FormRadioButtons = <T extends FieldValues>({ name, control, values }: Form
     name={name}
     control={control}
     render={({ field: { onChange, value } }) => (
-      <View>
+      <RadioButton.Group onValueChange={onChange} value={value}>
         {values.map(({ key, label, inputName }) => (
           <View key={key}>
-            <RadioButton selected={value === key} select={() => onChange(key)}>
-              <Text>{label}</Text>
-            </RadioButton>
+            <RadioButton.Item mode='android' labelVariant='bodySmall' label={label} value={key} />
             {inputName !== undefined && value === key && (
               <FormInput rules={{ required: true }} name={inputName} control={control} title={inputName} />
             )}
           </View>
         ))}
-      </View>
+      </RadioButton.Group>
     )}
   />
 )

@@ -2,11 +2,11 @@ import { fireEvent } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import { DateTime } from 'luxon'
 import React from 'react'
-import { Text } from 'react-native'
 
 import { NEWS_ROUTE, NewsRouteType, TU_NEWS_TYPE } from 'shared'
 import { CategoriesMapModelBuilder, CityModelBuilder, LanguageModelBuilder, TunewsModel } from 'shared/api'
 
+import Text from '../../components/base/Text'
 import useLoadTuNews from '../../hooks/useLoadTuNews'
 import useNavigate from '../../hooks/useNavigate'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'

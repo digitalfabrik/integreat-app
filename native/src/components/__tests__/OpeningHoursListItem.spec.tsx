@@ -1,4 +1,4 @@
-import { userEvent } from '@testing-library/react-native'
+import { userEvent, waitFor } from '@testing-library/react-native'
 import React from 'react'
 
 import { OpeningHoursModel } from 'shared/api'
@@ -26,7 +26,6 @@ describe('OpeningEntry', () => {
       <OpeningHoursListItem
         weekday={currentWeekday}
         isCurrentDay={isCurrentDay}
-        language='de'
         appointmentUrl={null}
         openingHours={new OpeningHoursModel({ openAllDay, closedAllDay, timeSlots, appointmentOnly })}
       />,
@@ -56,7 +55,7 @@ describe('OpeningEntry', () => {
   })
 
   it('should highlight the timeslot of the current weekday bold', () => {
-    const expectedStyle = { fontFamily: 'NotoSans-Bold' }
+    const expectedStyle = { fontFamily: 'Raleway-Bold' }
     const { getByText } = renderOpeningEntries(false, false, true, false)
     const timeSlotLabel = getByText(currentWeekday)
     const timeSlot = getByText(`${timeSlots[0]!.start}-${timeSlots[0]!.end}`)
@@ -77,6 +76,6 @@ describe('OpeningEntry', () => {
     expect(queryByText('pois:makeAppointmentTooltipWithLink')).toBeDefined()
 
     await user.press(getByText('common:close'))
-    expect(queryByText('pois:makeAppointmentTooltipWithLink')).toBeNull()
+    await waitFor(() => expect(queryByText('pois:makeAppointmentTooltipWithLink')).toBeNull())
   })
 })

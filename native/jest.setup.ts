@@ -29,7 +29,7 @@ require('react-native-gesture-handler/jestSetup')
 
 jest.mock('@mhpdev/react-native-speech', () => ({
   getAvailableVoices: jest.fn(() => Promise.resolve([])),
-  initialize: jest.fn(),
+  configure: jest.fn(),
   speak: jest.fn(() => Promise.resolve()),
   speakWithOptions: jest.fn(() => Promise.resolve()),
   stop: jest.fn(() => Promise.resolve()),
@@ -41,6 +41,8 @@ jest.mock('@mhpdev/react-native-speech', () => ({
   onPause: jest.fn(() => ({ remove: jest.fn() })),
   onResume: jest.fn(() => ({ remove: jest.fn() })),
 }))
+
+jest.mock('@react-native-clipboard/clipboard', () => () => ({ setString: jest.fn() }))
 
 jest.mock('@sentry/react-native', () => ({
   init: jest.fn(),

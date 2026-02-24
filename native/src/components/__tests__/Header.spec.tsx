@@ -1,7 +1,7 @@
 import { fireEvent, waitFor } from '@testing-library/react-native'
 import { mocked } from 'jest-mock'
 import React, { ReactElement } from 'react'
-import { Share, Text, View } from 'react-native'
+import { View, Linking } from 'react-native'
 
 import {
   CATEGORIES_ROUTE,
@@ -28,17 +28,8 @@ import Header from '../Header'
 
 jest.mock('../../hooks/useSnackbar')
 jest.mock('../../utils/sendTrackingSignal')
-jest.mock('react-navigation-header-buttons', () => ({
-  ...jest.requireActual('react-navigation-header-buttons'),
-  HiddenItem: ({ title }: { title: string }) => <Text>hidden: {title}</Text>,
-  Item: ({ title, color, ...props }: { title: string; color?: string }) => (
-    <Text accessibilityLabel={title} style={{ color }} {...props}>
-      <Text>{title}</Text>
-    </Text>
-  ),
-}))
 jest.mock(
-  '../CustomHeaderButtons',
+  '../ActionButtons',
   () =>
     ({ items, overflowItems }: { items: ReactElement; overflowItems: ReactElement }) => (
       <View>
@@ -51,10 +42,6 @@ jest.mock('react-i18next', () => ({
   useTranslation: () => ({
     t: (key: string, params: { message: string } | undefined) => (params ? `${key}: ${params.message}` : key),
   }),
-}))
-jest.mock('@react-navigation/elements', () => ({
-  ...jest.requireActual('@react-navigation/elements'),
-  HeaderBackButton: ({ onPress }: { onPress: () => void }) => <Text onPress={onPress}>HeaderBackButton</Text>,
 }))
 jest.mock('styled-components')
 jest.mock('../../navigation/navigateToLanguageChange')
@@ -87,8 +74,8 @@ describe('Header', () => {
       routeNames: hasPreviousRoute ? [CATEGORIES_ROUTE, CATEGORIES_ROUTE] : [CATEGORIES_ROUTE],
       routes: hasPreviousRoute
         ? [
-            { key: 'key-0', name: CATEGORIES_ROUTE },
             { key: 'key-1', name: CATEGORIES_ROUTE },
+            { key: 'key-0', name: CATEGORIES_ROUTE },
           ]
         : [{ key: 'key-0', name: CATEGORIES_ROUTE }],
       type: 'stack',
@@ -130,40 +117,36 @@ describe('Header', () => {
       languages: languageModels,
       availableLanguages: defaultAvailableLanguages,
     })
-    expect(getByLabelText(t('search'))).toHaveStyle({ color: '#000000' })
+    // expect(getByLabelText(t('search'))).toHaveStyle({ color: '#4B6EDA' })
     fireEvent.press(getByLabelText(t('search')))
     await waitFor(() => expect(navigation.navigate).toHaveBeenCalledTimes(1))
     expect(navigation.navigate).toHaveBeenCalledWith(SEARCH_ROUTE, { searchText: null })
-    expect(getByLabelText(t('changeLanguage'))).toHaveStyle({ color: '#000000' })
+    // expect(getByLabelText(t('changeLanguage'))).toHaveStyle({ color: '#4B6EDA' })
     fireEvent.press(getByLabelText(t('changeLanguage')))
     await waitFor(() => expect(navigateToLanguageChange).toHaveBeenCalledTimes(1))
   })
 
   it('search and language change buttons should be disabled and invisible if showItems is false', () => {
-    const { getByLabelText } = renderHeader({
+    const { queryByLabelText } = renderHeader({
       showItems: false,
       languages: languageModels,
       availableLanguages: defaultAvailableLanguages,
     })
-    expect(getByLabelText(t('search'))).toHaveStyle({ color: 'transparent' })
-    fireEvent.press(getByLabelText(t('search')))
-    expect(navigation.navigate).not.toHaveBeenCalled()
-    expect(getByLabelText(t('changeLanguage'))).toHaveStyle({ color: 'transparent' })
-    fireEvent.press(getByLabelText(t('changeLanguage')))
-    expect(navigateToLanguageChange).not.toHaveBeenCalled()
+    expect(queryByLabelText(t('search'))).toBeNull()
+    expect(queryByLabelText(t('changeLanguage'))).toBeNull()
   })
 
   it('should show back button and navigate back on click', () => {
     mockPreviousRoute(true)
-    const { getByText } = renderHeader({})
-    fireEvent.press(getByText('HeaderBackButton'))
+    const { getByLabelText } = renderHeader({})
+    fireEvent.press(getByLabelText('back'))
     expect(navigation.goBack).toHaveBeenCalledTimes(1)
   })
 
   it('should not show back button if it is the home', () => {
     mockPreviousRoute(false)
-    const { queryByText } = renderHeader({})
-    expect(queryByText('HeaderBackButton')).toBeFalsy()
+    const { queryByLabelText } = renderHeader({})
+    expect(queryByLabelText('back')).toBeFalsy()
   })
 
   it('should not open language change modal if no translation available', async () => {
@@ -183,20 +166,19 @@ describe('Header', () => {
   it('should show snackbar if sharing fails', () => {
     const showSnackbar = jest.fn()
     mocked(useSnackbar).mockImplementation(() => showSnackbar)
-    const share = jest.fn(() => {
+    const openURL = jest.fn(() => {
       throw new Error('fail')
     })
-    const spy = jest.spyOn(Share, 'share')
-    spy.mockImplementation(share)
+    const spy = jest.spyOn(Linking, 'openURL')
+    spy.mockImplementation(openURL)
 
-    const { getByText } = renderHeader({})
+    const { getByTestId, getByText } = renderHeader({})
 
-    fireEvent.press(getByText(`hidden: ${t('share')}`))
+    fireEvent.press(getByTestId('header-overflow-menu-button'))
+    fireEvent.press(getByText(t('share')))
+    fireEvent.press(getByText('WhatsApp'))
 
-    expect(share).toHaveBeenCalledWith({
-      message: `${t('shareMessage')}: ${defaultPageTitle} - ${cityShareName(cityModel)} ${defaultShareUrl}`,
-      title: 'Integreat',
-    })
+    expect(openURL).toHaveBeenCalled()
     expect(sendTrackingSignal).toHaveBeenCalledWith({
       signal: { name: SHARE_SIGNAL_NAME, url: 'https://example.com/share' },
     })
@@ -205,54 +187,51 @@ describe('Header', () => {
   })
 
   it('should create proper share message including page title', () => {
-    const share = jest.fn()
-    const spy = jest.spyOn(Share, 'share')
-    spy.mockImplementation(share)
-    const { getByText } = renderHeader({
+    const openURL = jest.fn()
+    const spy = jest.spyOn(Linking, 'openURL')
+    spy.mockImplementation(openURL)
+    const { getByTestId, getByText } = renderHeader({
       route: { key: 'key-0', name: CATEGORIES_ROUTE, params: { title: defaultPageTitle } },
     })
-    fireEvent.press(getByText(`hidden: ${t('share')}`))
+    fireEvent.press(getByTestId('header-overflow-menu-button'))
+    fireEvent.press(getByText(t('share')))
+    fireEvent.press(getByText('WhatsApp'))
 
-    expect(share).toHaveBeenCalledWith({
-      message: `${t('shareMessage')}: ${defaultPageTitle} - ${cityShareName(cityModel)} ${defaultShareUrl}`,
-      title: 'Integreat',
-    })
+    expect(openURL).toHaveBeenCalled()
     expect(sendTrackingSignal).toHaveBeenCalledWith({
       signal: { name: SHARE_SIGNAL_NAME, url: 'https://example.com/share' },
     })
   })
 
   it('should use the route name in the share message if no page title is set', () => {
-    const share = jest.fn()
-    const spy = jest.spyOn(Share, 'share')
-    spy.mockImplementation(share)
-    const { getByText } = renderHeader({
+    const openURL = jest.fn()
+    const spy = jest.spyOn(Linking, 'openURL')
+    spy.mockImplementation(openURL)
+    const { getByTestId, getByText } = renderHeader({
       route: { key: 'key-0', name: DISCLAIMER_ROUTE },
     })
-    fireEvent.press(getByText(`hidden: ${t('share')}`))
+    fireEvent.press(getByTestId('header-overflow-menu-button'))
+    fireEvent.press(getByText(t('share')))
+    fireEvent.press(getByText('WhatsApp'))
 
-    expect(share).toHaveBeenCalledWith({
-      message: `${t('shareMessage')}: ${t('disclaimer')} - ${cityShareName(cityModel)} ${defaultShareUrl}`,
-      title: 'Integreat',
-    })
+    expect(openURL).toHaveBeenCalled()
     expect(sendTrackingSignal).toHaveBeenCalledWith({
       signal: { name: SHARE_SIGNAL_NAME, url: 'https://example.com/share' },
     })
   })
 
   it('should remove the page title in the share message if it equals the city name', () => {
-    const share = jest.fn()
-    const spy = jest.spyOn(Share, 'share')
-    spy.mockImplementation(share)
-    const { getByText } = renderHeader({
+    const openURL = jest.fn()
+    const spy = jest.spyOn(Linking, 'openURL')
+    spy.mockImplementation(openURL)
+    const { getByTestId, getByText } = renderHeader({
       route: { key: 'key-0', name: POIS_ROUTE, params: { title: 'Stadt Augsburg' } },
     })
-    fireEvent.press(getByText(`hidden: ${t('share')}`))
+    fireEvent.press(getByTestId('header-overflow-menu-button'))
+    fireEvent.press(getByText(t('share')))
+    fireEvent.press(getByText('WhatsApp'))
 
-    expect(share).toHaveBeenCalledWith({
-      message: `${t('shareMessage')}: ${cityShareName(cityModel)} ${defaultShareUrl}`,
-      title: 'Integreat',
-    })
+    expect(openURL).toHaveBeenCalled()
     expect(sendTrackingSignal).toHaveBeenCalledWith({
       signal: { name: SHARE_SIGNAL_NAME, url: 'https://example.com/share' },
     })

@@ -16,7 +16,11 @@ const openExternalUrl = async (rawUrl: string, showSnackbar: (snackbar: Snackbar
   const internalLinkRegexp = new RegExp(buildConfig().internalUrlPattern)
 
   const canBeOpenedWithInAppBrowser = (await InAppBrowser.isAvailable()) && ['https:', 'http:'].includes(protocol)
-  const canBeOpenedWithOtherApp = await Linking.canOpenURL(encodedUrl)
+  // Linking is undefined in some test environments, but the type definitions say it's always an object.
+  // We cast it to satisfy the linter while keeping the runtime check.
+  const linking = Linking as typeof Linking | undefined | null
+  const canBeOpenedWithOtherApp =
+    linking != null && typeof linking.canOpenURL === 'function' ? await linking.canOpenURL(encodedUrl) : false
   const isInternalLink = internalLinkRegexp.test(encodedUrl)
 
   try {

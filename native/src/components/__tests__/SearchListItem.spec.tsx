@@ -9,7 +9,6 @@ import useNavigate from '../../hooks/useNavigate'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
 import sendTrackingSignal from '../../utils/sendTrackingSignal'
-import { CategoryThumbnail } from '../CategoryListItem'
 import SearchListItem from '../SearchListItem'
 
 jest.mock('react-i18next')
@@ -40,7 +39,7 @@ describe('SearchListItem', () => {
       ? expect(element).toHaveStyle({ fontWeight: 'bold' })
       : expect(element).not.toHaveStyle({ fontWeight: 'bold' })
 
-  const renderSearchListItem = (query: string, thumbnail: string | null = category.thumbnail) =>
+  const renderSearchListItem = (query: string) =>
     render(
       <SearchListItem
         contentWithoutHtml={contentWithoutHtml}
@@ -48,7 +47,6 @@ describe('SearchListItem', () => {
         language={language.code}
         title={category.title}
         path={category.path}
-        thumbnail={thumbnail}
       />,
     )
 
@@ -90,7 +88,7 @@ describe('SearchListItem', () => {
     const { getByText } = renderSearchListItem(query)
 
     expect(getByText(category.title)).toBeTruthy()
-    assertHighlighting(getByText(category.title), true)
+    expect(getByText(category.title)).toHaveStyle({ fontWeight: 'bold' })
   })
 
   it('should send tracking signal when pressed', () => {
@@ -106,15 +104,5 @@ describe('SearchListItem', () => {
         url: expect.any(String),
       },
     })
-  })
-
-  it('should render with thumbnail when provided', () => {
-    renderSearchListItem('')
-    expect(CategoryThumbnail).toHaveBeenCalled()
-  })
-
-  it('should render without thumbnail when not provided', () => {
-    renderSearchListItem('', null)
-    expect(CategoryThumbnail).not.toHaveBeenCalled()
   })
 })
