@@ -1,7 +1,7 @@
 import Geolocation, { GeolocationError } from '@react-native-community/geolocation'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Platform } from 'react-native'
+import { AppState, Platform } from 'react-native'
 import {
   check,
   checkMultiple,
@@ -123,6 +123,19 @@ const useUserLocation = ({ requestPermissionInitially }: UseUserLocationProps): 
       showSnackbarIfBlocked: false,
     }).catch(reportError)
   }, [refreshPermissionAndLocation, requestPermissionInitially])
+
+  // Re-check permissions when returning from settings
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', nextAppState => {
+      if (nextAppState === 'active') {
+        refreshPermissionAndLocation({
+          requestPermission: false,
+          showSnackbarIfBlocked: false,
+        }).catch(reportError)
+      }
+    })
+    return () => subscription.remove()
+  }, [refreshPermissionAndLocation])
 
   return {
     ...locationState,
