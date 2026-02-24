@@ -105,10 +105,11 @@ const Header = ({
   const theme = useTheme()
   const showSnackbar = useSnackbar()
   // Save route/canGoBack to state to prevent it from changing during navigating which would lead to flickering of the title and back button
-  const [previousRoute] = useState(() => {
+  const [previousRouteKey] = useState(() => {
     const { routes } = navigation.getState()
-    return routes[routes.findIndex(navRoute => navRoute.key === route.key) - 1]
+    return routes[routes.findIndex(navRoute => navRoute.key === route.key) - 1]?.key
   })
+  const previousRoute = navigation.getState().routes.find(route => route.key === previousRouteKey)
   const { enabled: isTtsEnabled, showTtsPlayer } = useTtsPlayer()
   const isLanding = route.name === LANDING_ROUTE
   const currentLanguageName = languages?.find(it => it.code === languageCode)?.name
@@ -240,11 +241,6 @@ const Header = ({
       ]
     : []
 
-  const getCurrentRouteParams = () => {
-    const currentRoute = navigation.getState().routes.find(route => route.key === previousRoute?.key)
-    return currentRoute?.params as { title?: string } | undefined
-  }
-
   const isSinglePoiFromPoisRoute = (): boolean => {
     const poisRouteParams = route.params as RoutesParamsType[PoisRouteType] | undefined
     const isSinglePoi = !!poisRouteParams?.slug || poisRouteParams?.multipoi !== undefined
@@ -269,7 +265,7 @@ const Header = ({
       return { text: t('events'), language: undefined } // system language
     }
 
-    const previousRouteTitle = getCurrentRouteParams()?.title
+    const previousRouteTitle = (previousRoute.params as { title?: string } | undefined)?.title
     if (previousRouteTitle) {
       return { text: previousRouteTitle, language: languageCode }
     }
