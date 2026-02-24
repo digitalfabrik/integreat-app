@@ -5,7 +5,7 @@ import BottomSheet, {
 } from '@gorhom/bottom-sheet'
 import React, { memo, ReactElement, Ref, useCallback, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { NativeScrollEvent, NativeSyntheticEvent, Platform } from 'react-native'
+import { NativeScrollEvent, NativeSyntheticEvent, Platform, View } from 'react-native'
 import styled, { useTheme } from 'styled-components/native'
 
 import { LocationType } from 'shared'
@@ -14,12 +14,12 @@ import { ErrorCode, PoiModel } from 'shared/api'
 import useCityAppContext from '../hooks/useCityAppContext'
 import BottomSheetHandle from './BottomSheetHandle'
 import Failure from './Failure'
-import { NoItemsMessage } from './List'
 import PoiDetails from './PoiDetails'
 import PoiListItem from './PoiListItem'
+import Text from './base/Text'
 
 const StyledBottomSheet = styled(BottomSheet)<{ isFullscreen: boolean }>`
-  ${props => props.isFullscreen && `background-color: ${props.theme.legacy.colors.backgroundColor};`}
+  ${props => props.isFullscreen && `background-color: ${props.theme.colors.background};`}
 `
 
 const BottomSheetContent = styled.View`
@@ -27,12 +27,19 @@ const BottomSheetContent = styled.View`
   margin: 0 24px;
 `
 
-const Title = styled.Text`
-  color: ${props => props.theme.legacy.colors.textColor};
-  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontBold};
-  font-size: 18px;
-  font-weight: bold;
-`
+const PoiListDivider = () => {
+  // This is an alternative to <Divider/> because it has render issues inside BottomSheetFlatList
+  const theme = useTheme()
+  return (
+    <View
+      style={{
+        height: 1,
+        backgroundColor: theme.colors.outlineVariant,
+        marginHorizontal: 16,
+      }}
+    />
+  )
+}
 
 type PoiBottomSheetProps = {
   poiListRef: Ref<BottomSheetFlatListMethods>
@@ -114,7 +121,7 @@ const PoisBottomSheet = ({
       enableContentPanningGesture={enableContentPanningGesture}
       enableDynamicSizing={false}
       animateOnMount
-      backgroundStyle={{ backgroundColor: theme.legacy.colors.backgroundColor }}
+      backgroundStyle={{ backgroundColor: theme.colors.background }}
       handleComponent={BottomSheetHandle}
       onChange={setSnapPointIndex}>
       <BottomSheetContent>
@@ -131,8 +138,18 @@ const PoisBottomSheet = ({
               setScrollPosition(event.nativeEvent.contentOffset.y)
             }
             showsVerticalScrollIndicator={false}
-            ListHeaderComponent={<Title>{t('common:nearby')}</Title>}
-            ListEmptyComponent={<NoItemsMessage>{t('noPois')}</NoItemsMessage>}
+            ListHeaderComponent={<Text variant='h5'>{t('common:nearby')}</Text>}
+            ListEmptyComponent={
+              <Text
+                variant='body2'
+                style={{
+                  alignSelf: 'center',
+                  marginTop: 20,
+                }}>
+                {t('noPois')}
+              </Text>
+            }
+            ItemSeparatorComponent={PoiListDivider}
           />
         )}
       </BottomSheetContent>

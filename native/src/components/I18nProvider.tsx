@@ -1,7 +1,7 @@
 import i18next from 'i18next'
 import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
 import { I18nextProvider } from 'react-i18next'
-import { Text } from 'react-native'
+import { Text } from 'react-native-paper'
 
 import { config, loadTranslations } from 'translations'
 

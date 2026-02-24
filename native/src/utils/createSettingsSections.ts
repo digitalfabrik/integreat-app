@@ -77,7 +77,7 @@ const createSettingsSections = ({
             // If the user has rejected the permission once, it can only be changed in the system settings
             showSnackbar({
               text: 'permissionRequired',
-              positiveAction: {
+              action: {
                 label: t('layout:settings'),
                 onPress: openSettings,
               },

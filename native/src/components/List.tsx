@@ -1,13 +1,8 @@
 import React, { ReactElement } from 'react'
 import { FlatList, RefreshControl, ViewStyle } from 'react-native'
-import styled from 'styled-components/native'
+import { Divider } from 'react-native-paper'
 
-export const NoItemsMessage = styled.Text`
-  color: ${props => props.theme.legacy.colors.textColor};
-  font-family: ${props => props.theme.legacy.fonts.native.contentFontRegular};
-  align-self: center;
-  margin-top: 20px;
-`
+import Text from './base/Text'
 
 type ListProps<T> = {
   items: T[]
@@ -44,7 +39,18 @@ const List = <T,>({
     ListFooterComponentStyle={{ flex: 1, justifyContent: 'flex-end' }}
     refreshControl={refresh ? <RefreshControl onRefresh={refresh} refreshing={false} /> : undefined}
     ListEmptyComponent={
-      typeof noItemsMessage === 'string' ? <NoItemsMessage>{noItemsMessage}</NoItemsMessage> : noItemsMessage
+      typeof noItemsMessage === 'string' ? (
+        <Text
+          variant='body2'
+          style={{
+            alignSelf: 'center',
+            marginTop: 20,
+          }}>
+          {noItemsMessage}
+        </Text>
+      ) : (
+        noItemsMessage
+      )
     }
     onEndReached={onEndReached}
     showsVerticalScrollIndicator={false}
@@ -54,6 +60,7 @@ const List = <T,>({
     accessibilityLabel={accessibilityLabel}
     style={style}
     keyboardShouldPersistTaps={keyboardShouldPersistTaps}
+    ItemSeparatorComponent={Divider}
   />
 )
 

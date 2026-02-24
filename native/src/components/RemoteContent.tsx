@@ -2,7 +2,7 @@ import WebView, { WebViewMessageEvent, WebViewNavigation } from '@dr.pogodin/rea
 import { mapValues } from 'lodash'
 import React, { ReactElement, useCallback, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Text, Platform, useWindowDimensions } from 'react-native'
+import { Platform, useWindowDimensions } from 'react-native'
 import { useTheme } from 'styled-components/native'
 
 import { CONSENT_ROUTE } from 'shared'
@@ -25,6 +25,7 @@ import renderHtml from '../utils/renderHtml'
 import { log, reportError } from '../utils/sentry'
 import Failure from './Failure'
 import { StaticServerContext } from './StaticServerProvider'
+import Text from './base/Text'
 
 // Fixes crashing in Android
 // https://github.com/react-native-webview/react-native-webview/issues/811

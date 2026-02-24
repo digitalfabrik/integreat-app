@@ -1,28 +1,28 @@
 import React, { ReactElement } from 'react'
-import styled from 'styled-components/native'
-
-const GroupText = styled.Text`
-  margin-top: 5px;
-  padding: 10px 0;
-  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
-  color: ${props => props.theme.legacy.colors.textColor};
-`
-// Wrapper is necessary, because iOS doesn't display border for Text components.
-const BorderWrapper = styled.View`
-  border-bottom-width: 1px;
-  border-bottom-color: ${props => props.theme.legacy.colors.themeColor};
-  flex-flow: column wrap;
-  align-items: flex-start;
-`
+import { StyleSheet } from 'react-native'
+import { Divider, List as PaperList } from 'react-native-paper'
+import { useTheme } from 'styled-components/native'
 
 type CityGroupProps = {
   children: string
 }
 
-const CityGroup = ({ children }: CityGroupProps): ReactElement => (
-  <BorderWrapper>
-    <GroupText>{children}</GroupText>
-  </BorderWrapper>
-)
+const CityGroup = ({ children }: CityGroupProps): ReactElement => {
+  const theme = useTheme()
+  const styles = StyleSheet.create({
+    subheader: {
+      color: theme.colors.onSurfaceVariant,
+      paddingVertical: 8,
+      fontFamily: theme.fonts.h6.fontFamily,
+    },
+  })
+
+  return (
+    <>
+      <Divider />
+      <PaperList.Subheader style={styles.subheader}>{children}</PaperList.Subheader>
+    </>
+  )
+}
 
 export default CityGroup

@@ -8,7 +8,7 @@ import CitySelector from '../CitySelector'
 
 jest.mock('react-i18next')
 jest.mock('../../components/NearbyCities', () => {
-  const { Text } = require('react-native')
+  const { Text } = require('react-native-paper')
   return () => <Text>NearbyCities</Text>
 })
 
@@ -37,7 +37,7 @@ describe('CitySelector', () => {
       <CitySelector navigateToDashboard={navigateToDashboard} cities={cities} />,
     )
 
-    fireEvent.changeText(getByPlaceholderText('searchCity'), city.name.slice(5, 9))
+    fireEvent.changeText(getByPlaceholderText(city.sortingName), city.name.slice(5, 9))
 
     // Highlighter splits up the name in multiple parts
     expect(getByText(city.name.slice(0, 5), { exact: false })).toBeTruthy()
@@ -51,10 +51,10 @@ describe('CitySelector', () => {
       <CitySelector navigateToDashboard={navigateToDashboard} cities={cities} />,
     )
 
-    fireEvent.changeText(getByPlaceholderText('searchCity'), 'Does not exist')
+    fireEvent.changeText(getByPlaceholderText(city.sortingName), 'Does not exist')
 
     cities.forEach(city => expect(queryByText(city.name)).toBeFalsy())
-    expect(getByPlaceholderText('searchCity')).toBeTruthy()
+    expect(getByPlaceholderText(city.sortingName)).toBeTruthy()
   })
 
   it('should not show any city if filter text does not match a live city', () => {
@@ -62,7 +62,7 @@ describe('CitySelector', () => {
       <CitySelector navigateToDashboard={navigateToDashboard} cities={cities} />,
     )
 
-    fireEvent.changeText(getByPlaceholderText('searchCity'), 'oldtown')
+    fireEvent.changeText(getByPlaceholderText(city.sortingName), 'oldtown')
 
     cities.forEach(city => expect(queryByText(city.name)).toBeFalsy())
   })
@@ -72,7 +72,7 @@ describe('CitySelector', () => {
       <CitySelector navigateToDashboard={navigateToDashboard} cities={cities} />,
     )
 
-    fireEvent.changeText(getByPlaceholderText('searchCity'), 'wirschaffendas')
+    fireEvent.changeText(getByPlaceholderText(city.sortingName), 'wirschaffendas')
 
     cities.filter(city => !city.live).forEach(city => expect(getByText(city.name)).toBeTruthy())
     cities.filter(city => city.live).forEach(city => expect(queryByText(city.name)).toBeFalsy())

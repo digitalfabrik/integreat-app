@@ -12,7 +12,7 @@ jest.mock('react-i18next')
 const tuNews = new TunewsModel({
   id: 9902,
   title: 'Was ist ein Verein?',
-  lastUpdate: DateTime.fromISO('2020-01-20T00:00:00.000Z'),
+  lastUpdate: DateTime.fromISO('2020-02-20T00:00:00.000Z'),
   tags: [],
   content: 'Ein Verein ist eine Gruppe von Menschen. Sie haben ein gemeinsames Interesse und organisieren.',
   eNewsNo: 'tun0000009902',
@@ -27,14 +27,14 @@ const localNews = new LocalNewsModel({
 describe('NewsListItem', () => {
   const navigateToNews = jest.fn()
 
-  const renderNewsListItem = (newsItem: LocalNewsModel | TunewsModel, isTuNews: boolean): RenderAPI =>
-    render(<NewsListItem index={0} newsItem={newsItem} navigateToNews={navigateToNews} isTunews={isTuNews} />)
+  const renderNewsListItem = (newsItem: LocalNewsModel | TunewsModel): RenderAPI =>
+    render(<NewsListItem newsItem={newsItem} navigateToNews={navigateToNews} />)
 
   beforeEach(() => {
     jest.clearAllMocks()
   })
   it('should correctly render a local news item', () => {
-    const { getByText, queryByText } = renderNewsListItem(localNews, false)
+    const { getByText, queryByText } = renderNewsListItem(localNews)
     expect(getByText(localNews.title)).toBeTruthy()
     expect(getByText('January 20, 2020')).toBeTruthy()
     expect(queryByText('Last Update')).toBeNull()
@@ -42,9 +42,10 @@ describe('NewsListItem', () => {
     expect(navigateToNews).toHaveBeenCalled()
   })
   it('should correctly render a tu news item', () => {
-    const { getByText } = renderNewsListItem(tuNews, true)
+    const { getByText } = renderNewsListItem(tuNews)
     expect(getByText(tuNews.title)).toBeTruthy()
     expect(getByText(tuNews.content)).toBeTruthy()
+    expect(getByText('February 20, 2020')).toBeTruthy()
     fireEvent.press(getByText(tuNews.title))
     expect(navigateToNews).toHaveBeenCalled()
   })

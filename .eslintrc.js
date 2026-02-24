@@ -36,6 +36,7 @@ module.exports = {
     'dist/',
     '/.eslintrc.js',
     '/web/www/',
+    'lcov-report/',
     '/build-configs/integreat-e2e/assets/', //symlink
     '/build-configs/integreat-test-cms/assets/', //symlink
   ],

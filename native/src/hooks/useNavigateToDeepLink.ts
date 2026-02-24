@@ -2,9 +2,7 @@ import { useCallback } from 'react'
 import Url from 'url-parse'
 
 import {
-  CATEGORIES_ROUTE,
   CITY_NOT_COOPERATING_ROUTE,
-  cityContentPath,
   CONSENT_ROUTE,
   InternalPathnameParser,
   INTRO_ROUTE,
@@ -81,25 +79,25 @@ const navigateToDeepLink = <T extends RoutesType>({
       ? routeInformation.cityCode
       : null
 
+  if (
+    deepLinkCityCode &&
+    (cityCode !== deepLinkCityCode || languageCode !== (routeInformation as { languageCode: string }).languageCode)
+  ) {
+    navigateTo(routeInformation)
+    return
+  }
+
   // Select city of link for the app if there is none selected yet
   const selectedCityCode = fixedCity ?? cityCode ?? deepLinkCityCode
   if (!cityCode && selectedCityCode) {
     changeCityCode(selectedCityCode)
   }
 
-  // Reset the currently opened screens to just the dashboard of the city and language or the landing page
-  // This is necessary to prevent undefined behaviour for city content routes upon e.g. back navigation
-  if (selectedCityCode) {
-    navigation.reset({ index: 0, routes: [{ name: CATEGORIES_ROUTE, params: {} }] })
-  } else {
+  if (!selectedCityCode) {
     navigation.reset({ index: 0, routes: [{ name: LANDING_ROUTE }] })
-  }
-
-  const dashboardPath = selectedCityCode ? cityContentPath({ cityCode: selectedCityCode, languageCode }) : null
-  const isDashboard = routeInformation.route === CATEGORIES_ROUTE && routeInformation.cityContentPath === dashboardPath
-
-  if (routeInformation.route === LANDING_ROUTE || isDashboard) {
-    // Already handled
+    if (routeInformation.route !== LANDING_ROUTE) {
+      navigateTo(routeInformation)
+    }
     return
   }
 

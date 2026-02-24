@@ -1,8 +1,10 @@
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Text } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { Button } from 'react-native-paper'
 import styled from 'styled-components/native'
+
+import { DEFAULT_ROWS_NUMBER } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
 import useNavigate from '../hooks/useNavigate'
@@ -13,20 +15,10 @@ import LoadingSpinner from './LoadingSpinner'
 import Note from './Note'
 import PrivacyCheckbox from './PrivacyCheckbox'
 import InputSection from './base/InputSection'
-import TextButton from './base/TextButton'
+import Text from './base/Text'
 
 const Wrapper = styled.View`
   gap: 8px;
-`
-
-const Description = styled(Text)`
-  font-weight: bold;
-  text-align: left;
-  color: ${props => props.theme.legacy.colors.textColor};
-`
-
-const StyledButton = styled(TextButton)`
-  margin-top: 16px;
 `
 
 export type FeedbackProps = {
@@ -73,7 +65,9 @@ const Feedback = ({
       <Wrapper>
         <Caption title={t('thanksHeadline')} />
         <Text>{t('thanksMessage')}</Text>
-        <StyledButton onPress={navigation.goBack} text={t('common:close')} />
+        <Button onPress={navigation.goBack} mode='contained' style={{ marginTop: 16 }}>
+          {t('common:close')}
+        </Button>
       </Wrapper>
     )
   }
@@ -100,6 +94,7 @@ const Feedback = ({
           value={comment}
           onChange={onCommentChanged}
           multiline
+          numberOfLines={DEFAULT_ROWS_NUMBER}
           showOptional
           accessibilityRole='text'
         />
@@ -111,10 +106,16 @@ const Feedback = ({
           showOptional
           accessibilityRole='text'
         />
-        {sendingStatus === 'failed' && <Description>{t('failedSendingFeedback')}</Description>}
+        {sendingStatus === 'failed' && (
+          <Text variant='body2' style={{ textAlign: 'left' }}>
+            {t('failedSendingFeedback')}
+          </Text>
+        )}
         <PrivacyCheckbox language={language} checked={privacyPolicyAccepted} setChecked={setPrivacyPolicyAccepted} />
         {submitFeedbackDisabled && <Note text={t(feedbackFilled ? 'noteFillFeedback' : 'common:notePrivacyPolicy')} />}
-        <StyledButton disabled={submitFeedbackDisabled} onPress={onSubmit} text={t('send')} />
+        <Button disabled={submitFeedbackDisabled} onPress={onSubmit} mode='contained' style={{ marginTop: 16 }}>
+          {t('send')}
+        </Button>
       </Wrapper>
     </KeyboardAwareScrollView>
   )

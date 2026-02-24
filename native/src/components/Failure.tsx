@@ -1,26 +1,18 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Button } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 import { ErrorCode } from 'shared/api'
 
-import { NoInternetIcon, SadSmileyIcon, WarningIcon } from '../assets'
 import Icon from './base/Icon'
-import TextButton from './base/TextButton'
+import Text from './base/Text'
 
 const ViewContainer = styled.View`
   flex: 1;
   align-items: center;
   justify-content: center;
   margin-bottom: 15%;
-`
-const Message = styled.Text`
-  margin: 10px;
-`
-
-const StyledIcon = styled(Icon)`
-  width: 150px;
-  height: 150px;
 `
 
 export type FailureProps = {
@@ -34,23 +26,27 @@ const Failure = ({ code, buttonAction, buttonLabel }: FailureProps): ReactElemen
   let ErrorIcon
   switch (code) {
     case ErrorCode.NetworkConnectionFailed: {
-      ErrorIcon = NoInternetIcon
+      ErrorIcon = 'wifi-off'
       break
     }
     case ErrorCode.UnknownError: {
-      ErrorIcon = WarningIcon
+      ErrorIcon = 'alert-outline'
       break
     }
     default: {
-      ErrorIcon = SadSmileyIcon
+      ErrorIcon = 'emoticon-sad-outline'
       break
     }
   }
   return (
     <ViewContainer>
-      <StyledIcon Icon={ErrorIcon} />
-      <Message>{t(code === ErrorCode.CityUnavailable ? 'notFound.city' : code)}</Message>
-      {buttonAction && <TextButton onPress={buttonAction} text={t(buttonLabel ?? 'tryAgain')} />}
+      <Icon size={150} source={ErrorIcon} />
+      <Text style={{ margin: 12 }}>{t(code === ErrorCode.CityUnavailable ? 'notFound.city' : code)}</Text>
+      {buttonAction && (
+        <Button mode='contained' onPress={buttonAction}>
+          {t(buttonLabel ?? 'tryAgain')}
+        </Button>
+      )}
     </ViewContainer>
   )
 }

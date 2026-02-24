@@ -179,14 +179,14 @@ commands:
         steps:
             - restore_cache:
                 keys:
-                    - 9-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
-                    - 9-yarn-{{ arch }}-
+                    - 10-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
+                    - 10-yarn-{{ arch }}-
                 name: Restore Yarn Package Cache
             - run:
                 command: yarn --frozen-lockfile --cache-folder ~/.cache/yarn
                 name: Yarn
             - save_cache:
-                key: 9-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
+                key: 10-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
                 name: Save Yarn Package Cache
                 paths:
                     - ~/.cache/yarn
@@ -314,7 +314,7 @@ jobs:
             FL_OUTPUT_DIR: output
             TOTAL_CPUS: 6
         macos:
-            xcode: 16.3.0
+            xcode: 26.2.0
         parameters:
             build_config_name:
                 default: integreat
@@ -540,7 +540,7 @@ jobs:
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         macos:
-            xcode: 16.3.0
+            xcode: 26.2.0
         parameters:
             build_config_name:
                 default: integreat
@@ -869,7 +869,7 @@ jobs:
         environment:
             FASTLANE_SKIP_UPDATE_CHECK: true
         macos:
-            xcode: 16.3.0
+            xcode: 26.2.0
         parameters:
             build_config_name:
                 default: integreat
