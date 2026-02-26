@@ -23,6 +23,7 @@ const SelectorItem = ({ model: { name, code, enabled, onPress }, selected }: Sel
     <List.Item
       style={{ backgroundColor: getBackgroundColor(selected, theme) }}
       containerStyle={{ height: 40 }}
+      importantForAccessibility='auto'
       title={
         <Text
           variant='body1'
@@ -43,8 +44,7 @@ const SelectorItem = ({ model: { name, code, enabled, onPress }, selected }: Sel
       <TouchableRipple
         borderless
         key={code}
-        onPress={!enabled ? undefined : onPress}
-        disabled={!enabled}
+        onPress={onPress}
         accessibilityLabel={name}
         role='button'
         style={{ width: '100%' }}>

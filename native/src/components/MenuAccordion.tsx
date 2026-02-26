@@ -39,7 +39,8 @@ const MenuAccordion = ({ title, items, setExpanded, expanded, icon }: MenuAccord
         }}
         titleStyle={{ textAlign: contentAlignmentRTLText(title), paddingRight: 8 }}
         contentStyle={{ flex: 1 }}
-        accessibilityLabel={t(expanded ? 'showLess' : 'showMore')}
+        accessibilityLabel={title}
+        accessibilityState={{ expanded }}
       />
       {expanded && (
         <>
