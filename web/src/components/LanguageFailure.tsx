@@ -24,7 +24,7 @@ const LanguageFailure = ({ cityModel, languageCode, languageChangePaths }: Langu
     <>
       <H1>{cityModel.name}</H1>
       <ChooseLanguage>{t('notFound.language')}</ChooseLanguage>
-      <LanguageList languageCode={languageCode} languageChangePaths={languageChangePaths} availableOnly />
+      <LanguageList languageCode={languageCode} languageChangePaths={languageChangePaths} availableOnly asList />
     </>
   )
 }
