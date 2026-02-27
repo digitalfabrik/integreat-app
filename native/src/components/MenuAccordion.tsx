@@ -1,5 +1,4 @@
 import React, { ReactElement } from 'react'
-import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 import { Divider, Menu, useTheme } from 'react-native-paper'
 
@@ -24,7 +23,6 @@ type MenuAccordionProps = {
 const IconPlaceholder = () => <View style={{ width: 40 }} />
 
 const MenuAccordion = ({ title, items, setExpanded, expanded, icon }: MenuAccordionProps): ReactElement => {
-  const { t } = useTranslation('common')
   const theme = useTheme()
 
   return (
