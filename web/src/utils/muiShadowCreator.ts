@@ -1,4 +1,4 @@
-import { Shadows } from '@mui/material/styles/shadows'
+import { Shadows } from '@mui/material/styles'
 
 /** This function creates a shadow array for the MUI theme that respects light and dark mode.
  * It creates all 25 shadows from 0-1 opacity to display different intensity shadows. */
