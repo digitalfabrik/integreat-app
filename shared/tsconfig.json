@@ -5,7 +5,10 @@
     "lib": ["ES5", "ES6", "dom"],
     "outDir": "dist",
     "types": ["jest", "node"],
-    "typeRoots": ["./@types", "node_modules/@types", "../node_modules/@types"]
+    "typeRoots": ["./@types", "node_modules/@types", "../node_modules/@types"],
+    "paths": {
+      "highlight-words-core": ["./@types/highlight-words-core.d.ts"]
+    }
   },
-  "include": ["jest.config.ts", "jest.setup.ts", "**/*"]
+  "include": ["jest.config.cts", "jest.setup.ts", "**/*"]
 }
