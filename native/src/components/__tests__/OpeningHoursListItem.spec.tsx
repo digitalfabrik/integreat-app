@@ -7,6 +7,22 @@ import renderWithTheme from '../../testing/render'
 import OpeningHoursListItem from '../OpeningHoursListItem'
 
 jest.mock('react-i18next')
+jest.mock('../AppointmentOnlyOverlay', () => {
+  const React = require('react')
+  const { Text, TouchableOpacity } = require('react-native')
+  return {
+    __esModule: true,
+    default: ({ isVisible, closeOverlay }: { isVisible: boolean; closeOverlay: () => void }) =>
+      isVisible ? (
+        <>
+          <Text>pois:makeAppointmentTooltipWithLink</Text>
+          <TouchableOpacity onPress={closeOverlay}>
+            <Text>common:close</Text>
+          </TouchableOpacity>
+        </>
+      ) : null,
+  }
+})
 
 jest.useFakeTimers() // fixes a console warning because userEvents can take a long time, not actually necessary
 
