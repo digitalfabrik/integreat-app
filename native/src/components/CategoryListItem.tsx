@@ -1,11 +1,12 @@
 import React, { memo, ReactElement, useCallback } from 'react'
 import { Divider, List as PaperList } from 'react-native-paper'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
 import { CategoryModel } from 'shared/api'
 
 import { contentAlignmentRTLText, isContentDirectionReversalRequired, isRTLText } from '../constants/contentDirection'
 import dimensions from '../constants/dimensions'
+import ContrastImage from './ContrastImage'
 import List from './List'
 import SimpleImage from './SimpleImage'
 import SubCategoryListItem from './SubCategoryListItem'
@@ -30,10 +31,15 @@ type CategoryListItemProps = {
 }
 
 const CategoryListItem = ({ language, category, subCategories, onItemPress }: CategoryListItemProps): ReactElement => {
-  const renderLeft = useCallback(
-    () => (category.thumbnail ? <CategoryThumbnail language={language} source={category.thumbnail} /> : null),
-    [category.thumbnail, language],
-  )
+  const theme = useTheme()
+  const isContrastTheme = theme.legacy.isContrastTheme
+  const renderLeft = useCallback(() => {
+    if (!category.thumbnail) {
+      return null
+    }
+    const thumbnail = <CategoryThumbnail language={language} source={category.thumbnail} />
+    return isContrastTheme ? <ContrastImage>{thumbnail}</ContrastImage> : thumbnail
+  }, [category.thumbnail, isContrastTheme, language])
 
   return (
     <>
