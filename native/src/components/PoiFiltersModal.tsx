@@ -94,7 +94,12 @@ const PoiFiltersModal = ({
               {t('onlyCurrentlyOpen')}
             </Text>
             <FlexEnd>
-              <Switch onValueChange={setCurrentlyOpenFilter} value={currentlyOpenFilter} />
+              {/* key is a workaround for iOS 26 where the Switch animation does not update on first click */}
+              <Switch
+                key={`${currentlyOpenFilter}`}
+                onValueChange={setCurrentlyOpenFilter}
+                value={currentlyOpenFilter}
+              />
             </FlexEnd>
           </StyledRow>
         </Section>
