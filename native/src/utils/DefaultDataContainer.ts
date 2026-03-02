@@ -1,6 +1,5 @@
 import { difference, omitBy } from 'lodash'
 import { DateTime } from 'luxon'
-import BlobUtil from 'react-native-blob-util'
 
 import { CategoriesMapModel, CityModel, EventModel, LocalNewsModel, PoiModel } from 'shared/api'
 
@@ -8,6 +7,7 @@ import Cache from '../models/Cache'
 import DatabaseContext from '../models/DatabaseContext'
 import { CityResourceCacheStateType, DataContainer, LanguageResourceCacheStateType } from './DataContainer'
 import DatabaseConnector from './DatabaseConnector'
+import { deleteIfExists } from './helpers'
 import { log } from './sentry'
 
 type CacheType = {
@@ -158,7 +158,7 @@ class DefaultDataContainer implements DataContainer {
         const pathsToClean = difference(removedPaths, pathsOfOtherLanguages)
         log('Cleaning up the following resources:')
         log(pathsToClean.join(', '))
-        await Promise.all(pathsToClean.map(path => BlobUtil.fs.unlink(path)))
+        await Promise.all(pathsToClean.map(deleteIfExists))
       }
     }
   }
