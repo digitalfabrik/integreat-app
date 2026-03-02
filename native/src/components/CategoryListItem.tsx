@@ -32,14 +32,13 @@ type CategoryListItemProps = {
 
 const CategoryListItem = ({ language, category, subCategories, onItemPress }: CategoryListItemProps): ReactElement => {
   const theme = useTheme()
-  const isContrastTheme = theme.legacy.isContrastTheme
   const renderLeft = useCallback(() => {
     if (!category.thumbnail) {
       return null
     }
     const thumbnail = <CategoryThumbnail language={language} source={category.thumbnail} />
-    return isContrastTheme ? <ContrastImage>{thumbnail}</ContrastImage> : thumbnail
-  }, [category.thumbnail, isContrastTheme, language])
+    return theme.dark ? <ContrastImage>{thumbnail}</ContrastImage> : thumbnail
+  }, [category.thumbnail, theme.dark, language])
 
   return (
     <>

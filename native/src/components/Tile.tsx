@@ -36,7 +36,6 @@ const styles = StyleSheet.create({
 const Tile = ({ onTilePress, tile, language }: TileProps): ReactElement => {
   const showSnackbar = useSnackbar()
   const theme = useTheme()
-  const isContrastTheme = theme.legacy.isContrastTheme
   const openTile = () =>
     tile.isExternalUrl ? openExternalUrl(tile.path, showSnackbar).catch(reportError) : onTilePress(tile)
 
@@ -50,7 +49,7 @@ const Tile = ({ onTilePress, tile, language }: TileProps): ReactElement => {
       accessibilityLanguage={language}
       style={styles.tileContainer}>
       <>
-        {isContrastTheme ? <ContrastImage>{thumbnail}</ContrastImage> : thumbnail}
+        {theme.dark ? <ContrastImage>{thumbnail}</ContrastImage> : thumbnail}
         <Text
           variant='body2'
           style={{
