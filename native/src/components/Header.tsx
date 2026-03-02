@@ -105,10 +105,11 @@ const Header = ({
   const theme = useTheme()
   const showSnackbar = useSnackbar()
   // Save route/canGoBack to state to prevent it from changing during navigating which would lead to flickering of the title and back button
-  const [previousRoute] = useState(() => {
+  const [previousRouteKey] = useState(() => {
     const { routes } = navigation.getState()
-    return routes[routes.findIndex(navRoute => navRoute.key === route.key) - 1]
+    return routes[routes.findIndex(navRoute => navRoute.key === route.key) - 1]?.key
   })
+  const previousRoute = navigation.getState().routes.find(route => route.key === previousRouteKey)
   const { enabled: isTtsEnabled, showTtsPlayer } = useTtsPlayer()
   const isLanding = route.name === LANDING_ROUTE
   const currentLanguageName = languages?.find(it => it.code === languageCode)?.name
@@ -240,16 +241,20 @@ const Header = ({
       ]
     : []
 
+  const isSinglePoiFromPoisRoute = (): boolean => {
+    const poisRouteParams = route.params as RoutesParamsType[PoisRouteType] | undefined
+    const isSinglePoi = !!poisRouteParams?.slug || poisRouteParams?.multipoi !== undefined
+    const notFromDeepLink = previousRoute?.name === POIS_ROUTE
+    return isSinglePoi && notFromDeepLink
+  }
+
   const getHeaderText = (): { text: string; language?: string } => {
     if (!previousRoute) {
       // Home/Dashboard: Show current city name
       return { text: cityName ?? '', language: config.sourceLanguage }
     }
 
-    const poisRouteParams = route.params as RoutesParamsType[PoisRouteType] | undefined
-    const isSinglePoi = !!poisRouteParams?.slug || poisRouteParams?.multipoi !== undefined
-    const notFromDeepLink = previousRoute.name === POIS_ROUTE
-    if (isSinglePoi && notFromDeepLink) {
+    if (isSinglePoiFromPoisRoute()) {
       return { text: t('locations'), language: undefined } // system language
     }
 
@@ -261,7 +266,6 @@ const Header = ({
     }
 
     const previousRouteTitle = (previousRoute.params as { title?: string } | undefined)?.title
-
     if (previousRouteTitle) {
       return { text: previousRouteTitle, language: languageCode }
     }
