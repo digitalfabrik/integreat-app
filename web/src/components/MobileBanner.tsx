@@ -8,6 +8,8 @@ import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { webObdachBuildConfig } from 'build-configs/obdach'
+
 import buildConfig from '../constants/buildConfig'
 import useLocalStorage from '../hooks/useLocalStorage'
 import Svg from './base/Svg'
@@ -31,6 +33,8 @@ const MobileBanner = (): ReactElement | null => {
   const userAgent = navigator.userAgent
   const isAndroid = Boolean(/android/i.test(userAgent))
   const { t } = useTranslation('layout')
+  // We don't want to show the banner for the Obdach because it doesn't have a mobile version
+  const appNameWithoutObdach = appName !== webObdachBuildConfig.appName
 
   const checkIfAppIsInstalled = () => {
     const deepLink = `integreat://${hostName}`
@@ -62,7 +66,7 @@ const MobileBanner = (): ReactElement | null => {
     updateLocalStorageItem(expirationDate.toISO())
   }
 
-  if (isAndroid && isVisible) {
+  if (isAndroid && isVisible && appNameWithoutObdach) {
     return (
       <StyledBanner>
         <Stack direction='row' alignItems='center' gap={1}>
