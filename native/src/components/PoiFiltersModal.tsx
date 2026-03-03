@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Button, Switch } from 'react-native-paper'
+import { Button } from 'react-native-paper'
 import { SvgUri } from 'react-native-svg'
 import styled from 'styled-components/native'
 
@@ -8,6 +8,7 @@ import { PoiCategoryModel } from 'shared/api'
 
 import Modal from './Modal'
 import Icon from './base/Icon'
+import Switch from './base/Switch'
 import Text from './base/Text'
 import ToggleButton from './base/ToggleButton'
 
