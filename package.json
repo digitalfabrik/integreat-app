@@ -37,7 +37,7 @@
   "resolutions": {
     "luxon": "3.7.2",
     "react": "19.1.1",
-    "@types/react": "19.1.1",
+    "@types/react": "19.2.14",
     "tar": "7.5.4"
   },
   "devDependencies": {
@@ -45,8 +45,8 @@
     "@types/eslint": "^8.56.10",
     "@types/jest": "^30.0.0",
     "@types/luxon": "^3.7.1",
-    "@types/node": "^24.9.2",
-    "@types/react": "19.1.1",
+    "@types/node": "^24.11.0",
+    "@types/react": "19.2.14",
     "@typescript-eslint/eslint-plugin": "^7.7.0",
     "@typescript-eslint/parser": "^7.7.0",
     "app-toolbelt": "github:digitalfabrik/app-toolbelt#semver:0.9.0",
@@ -67,7 +67,7 @@
     "jest-junit": "^16.0.0",
     "license-checker-rseidelsohn": "^4.4.2",
     "patch-package": "^8.0.1",
-    "postcss": "^8.4.38",
+    "postcss": "^8.5.8",
     "postcss-styled-syntax": "^0.7.1",
     "prettier": "^3.2.5",
     "stylelint": "^16.25.0",
