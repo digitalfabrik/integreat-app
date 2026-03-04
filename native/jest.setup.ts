@@ -58,6 +58,13 @@ jest.mock('react-native-reanimated', () => {
   return Reanimated
 })
 
+jest.mock('react-native-color-matrix-image-filters', () => ({
+  concatColorMatrices: jest.fn(),
+  invert: jest.fn(),
+  saturate: jest.fn(),
+  brightness: jest.fn(),
+}))
+
 const walkDir = (dir: string, callback: (filePath: string) => void): void => {
   fs.readdirSync(dir).forEach(f => {
     const filePath = path.join(dir, f)

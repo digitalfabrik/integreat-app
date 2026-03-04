@@ -43,6 +43,7 @@ const HeaderActionItem = ({
         compact
         icon={icon}
         onPress={onPress}
+        accessibilityLabel={t(title)}
         textColor={theme.colors.primary}
         style={[styles.button, { borderColor: theme.colors.primary }]}>
         {innerText}
