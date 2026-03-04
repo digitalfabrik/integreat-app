@@ -59,8 +59,7 @@ const StyledIcon = styled(IconButton)<{ position: number | string }>`
 `
 
 const OverlayContainer = styled.View`
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-flow: row wrap;
   position: absolute;
   top: 24px;
   left: 8px;
