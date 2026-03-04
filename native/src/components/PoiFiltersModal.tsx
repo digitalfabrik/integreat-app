@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Button, Switch } from 'react-native-paper'
+import { Button } from 'react-native-paper'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgUri } from 'react-native-svg'
 import styled from 'styled-components/native'
 
@@ -8,10 +9,11 @@ import { PoiCategoryModel } from 'shared/api'
 
 import Modal from './Modal'
 import Icon from './base/Icon'
+import Switch from './base/Switch'
 import Text from './base/Text'
 import ToggleButton from './base/ToggleButton'
 
-const Container = styled.View`
+const Container = styled(SafeAreaView)`
   flex: 1;
   flex-direction: column;
   align-items: flex-start;
@@ -127,7 +129,7 @@ const PoiFiltersModal = ({
             ))}
           </TileRow>
         </Section>
-        <Section>
+        <Section style={{ marginBottom: 8 }}>
           <Button onPress={closeModal} mode='contained' disabled={poisCount === 0}>
             {t('showPois', { count: poisCount })}
           </Button>

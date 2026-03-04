@@ -1,9 +1,10 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View, Role, StyleSheet } from 'react-native'
-import { Switch, TouchableRipple } from 'react-native-paper'
+import { TouchableRipple } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
+import Switch from './base/Switch'
 import Text from './base/Text'
 
 const TITLE_FONT_SIZE_REGULAR = 14
