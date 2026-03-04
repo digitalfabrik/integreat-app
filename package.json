@@ -36,7 +36,7 @@
   },
   "resolutions": {
     "luxon": "3.7.2",
-    "react": "19.1.1",
+    "react": "19.2.3",
     "@types/react": "19.2.14",
     "tar": "7.5.4"
   },

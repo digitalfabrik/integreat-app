@@ -16,6 +16,18 @@ platform :ios, min_ios_version_supported
 prepare_react_native_project!
 use_modular_headers!
 
+# https://github.com/invertase/react-native-firebase/issues/8657#issuecomment-3985785611
+# Build RNFB pods as static libraries to avoid non-modular header errors
+pre_install do |installer|
+  installer.pod_targets.each do |pod|
+    if pod.name.start_with?('RNFB')
+      def pod.build_type
+        Pod::BuildType.static_library
+      end
+    end
+  end
+end
+
 target 'Integreat' do
   config = use_native_modules!
 
