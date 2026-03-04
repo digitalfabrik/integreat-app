@@ -24,7 +24,7 @@
     "tools/*",
     "src/assets/licenses.json",
     "jest.setup.ts",
-    "jest.config.cts",
+    "jest.config.ts",
     "stylelint.config.js"
   ],
   "references": [
