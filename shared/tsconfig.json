@@ -10,5 +10,5 @@
       "highlight-words-core": ["./@types/highlight-words-core.d.ts"]
     }
   },
-  "include": ["jest.config.cts", "jest.setup.ts", "**/*"]
+  "include": ["jest.config.ts", "jest.setup.ts", "**/*"]
 }

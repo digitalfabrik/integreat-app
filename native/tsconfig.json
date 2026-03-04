@@ -24,7 +24,7 @@
     "jest.setup.ts",
     "src/assets/licenses.json",
     "index.ts",
-    "jest.config.cts",
+    "jest.config.ts",
     "babel.config.js",
     "react-native.config.js",
     "metro.config.ci.js",
