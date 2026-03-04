@@ -83,7 +83,7 @@ const PoiDetails = ({ poi, language, distance, onFocus }: PoiDetailsProps): Reac
       {content.length > 0 && (
         <>
           <Accordion headerContent={t('description')}>
-            <Page content={content} language={language} padding={false} accessible />
+            <Page content={content} language={language} padding={false} />
           </Accordion>
           <StyledDivider />
         </>

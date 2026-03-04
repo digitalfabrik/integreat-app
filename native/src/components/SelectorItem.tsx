@@ -17,12 +17,16 @@ type SelectorItemProps = {
   selected: boolean
 }
 
-const SelectorItem = ({ model: { name, code, enabled, onPress }, selected }: SelectorItemProps): ReactElement => {
+const SelectorItem = ({
+  model: { name, code, enabled, onPress, accessibilityLabel },
+  selected,
+}: SelectorItemProps): ReactElement => {
   const theme = useTheme()
   const item = (
     <List.Item
       style={{ backgroundColor: getBackgroundColor(selected, theme) }}
       containerStyle={{ height: 40 }}
+      importantForAccessibility='no'
       title={
         <Text
           variant='body1'
@@ -40,7 +44,13 @@ const SelectorItem = ({ model: { name, code, enabled, onPress }, selected }: Sel
 
   if (enabled || selected) {
     return (
-      <TouchableRipple borderless key={code} onPress={onPress} role='button' style={{ width: '100%' }}>
+      <TouchableRipple
+        borderless
+        key={code}
+        onPress={onPress}
+        accessibilityLabel={accessibilityLabel ?? name}
+        role='button'
+        style={{ width: '100%' }}>
         {item}
       </TouchableRipple>
     )
