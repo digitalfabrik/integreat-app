@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import React, { ReactElement, useCallback, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useWindowDimensions } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { NavigationProps, RoutesParamsType } from 'src/constants/NavigationTypes'
 import { DefaultTheme, useTheme } from 'styled-components/native'
 
@@ -38,6 +39,7 @@ const EventsStack = createStackNavigator<RoutesParamsType>()
 const NewsStack = createStackNavigator<RoutesParamsType>()
 
 const transitionPreset = getTransitionPreset()
+const TAB_HEIGHT = 60
 
 const CategoriesStackScreen = () => (
   <CategoriesStack.Navigator screenOptions={{ header: defaultHeader, ...transitionPreset }}>
@@ -93,6 +95,7 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
   const { t } = useTranslation('layout')
   const { cityCode, languageCode } = useCityAppContext()
   const deviceWidth = useWindowDimensions().width
+  const insets = useSafeAreaInsets()
   const { data, loading, error, refresh } = useLoadCityContent({ cityCode, languageCode })
   const cachedDataRef = useRef(data)
 
@@ -130,7 +133,7 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
         tabBarActiveTintColor: theme.colors.onSurface,
         tabBarInactiveTintColor: theme.colors.onSurfaceVariant,
         tabBarStyle: {
-          height: 80,
+          height: TAB_HEIGHT + insets.bottom,
           backgroundColor: theme.colors.surfaceVariant,
         },
       }}>

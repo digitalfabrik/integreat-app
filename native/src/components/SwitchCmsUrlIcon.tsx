@@ -1,12 +1,11 @@
 import { DateTime } from 'luxon'
 import React, { ReactElement, useState } from 'react'
-import { Button } from 'react-native-paper'
+import { Button, IconButton } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
 import buildConfig from '../constants/buildConfig'
 import { useAppContext } from '../hooks/useCityAppContext'
 import { log } from '../utils/sentry'
-import Icon from './base/Icon'
 import Text from './base/Text'
 
 const API_URL_OVERRIDE_MIN_CLICKS = 10
@@ -59,16 +58,16 @@ const SwitchCmsUrlIcon = ({ clearResourcesAndCache }: LandingIconProps): ReactEl
 
   return (
     <Container>
-      <Button
-        rippleColor='transparent'
+      <IconButton
+        size={72}
         onPress={onImagePress}
-        role='button'
-        focusable={false}
+        iconColor={theme.colors.secondary}
+        icon='map-marker'
+        rippleColor='transparent'
+        accessible={false}
         importantForAccessibility='no'
-        accessibilityElementsHidden
-        accessible={false}>
-        <Icon size={72} color={theme.colors.secondary} source='map-marker' />
-      </Button>
+        focusable={false}
+      />
       {apiUrlOverride && apiUrlOverride !== buildConfig().cmsUrl ? (
         <>
           <Text

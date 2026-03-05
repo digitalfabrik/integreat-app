@@ -127,6 +127,7 @@ const HeaderMenu = ({
       key={Number(visible)} // Menu component closes and fails to open again on re-render: https://github.com/callstack/react-native-paper/issues/4763#issuecomment-3427895632
       visible={visible}
       onDismiss={() => setVisible(false)}
+      overlayAccessibilityLabel={t('common:close')}
       style={{
         width: 232,
       }}
@@ -139,7 +140,8 @@ const HeaderMenu = ({
         <IconButton
           icon='dots-vertical'
           iconColor={theme.colors.onSurface}
-          onPress={() => setVisible(true)}
+          onPress={() => setVisible(!visible)}
+          accessibilityLabel={t('settings')}
           testID='header-overflow-menu-button'
         />
       }>

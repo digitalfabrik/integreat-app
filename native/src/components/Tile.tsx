@@ -1,18 +1,21 @@
 import React, { ReactElement } from 'react'
 import { StyleSheet } from 'react-native'
 import { TouchableRipple } from 'react-native-paper'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
 import { TileModel } from 'shared'
 
 import useSnackbar from '../hooks/useSnackbar'
 import openExternalUrl from '../utils/openExternalUrl'
 import { reportError } from '../utils/sentry'
+import ContrastImage from './ContrastImage'
 import SimpleImage from './SimpleImage'
 import Text from './base/Text'
 
+const THUMBNAIL_HEIGHT = 150
+
 const Thumbnail = styled(SimpleImage)`
-  height: 150px;
+  height: ${THUMBNAIL_HEIGHT}px;
   width: 150px;
   align-self: center;
 `
@@ -32,8 +35,11 @@ const styles = StyleSheet.create({
 
 const Tile = ({ onTilePress, tile, language }: TileProps): ReactElement => {
   const showSnackbar = useSnackbar()
+  const theme = useTheme()
   const openTile = () =>
     tile.isExternalUrl ? openExternalUrl(tile.path, showSnackbar).catch(reportError) : onTilePress(tile)
+
+  const thumbnail = <Thumbnail source={tile.thumbnail} />
 
   return (
     <TouchableRipple
@@ -43,7 +49,7 @@ const Tile = ({ onTilePress, tile, language }: TileProps): ReactElement => {
       accessibilityLanguage={language}
       style={styles.tileContainer}>
       <>
-        <Thumbnail source={tile.thumbnail} />
+        {theme.dark ? <ContrastImage>{thumbnail}</ContrastImage> : thumbnail}
         <Text
           variant='body2'
           style={{

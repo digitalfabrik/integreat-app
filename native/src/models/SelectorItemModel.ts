@@ -3,12 +3,20 @@ export default class SelectorItemModel {
   _name: string
   _enabled: boolean
   _onPress: () => void
+  _accessibilityLabel?: string
 
-  constructor(params: { code: string; name: string; enabled: boolean; onPress: () => void }) {
+  constructor(params: {
+    code: string
+    name: string
+    enabled: boolean
+    onPress: () => void
+    accessibilityLabel?: string
+  }) {
     this._code = params.code
     this._name = params.name
     this._enabled = params.enabled
     this._onPress = params.onPress
+    this._accessibilityLabel = params.accessibilityLabel
   }
 
   get code(): string {
@@ -25,5 +33,9 @@ export default class SelectorItemModel {
 
   get onPress(): () => void {
     return this._onPress
+  }
+
+  get accessibilityLabel(): string | undefined {
+    return this._accessibilityLabel
   }
 }

@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
 import { TouchableRipple } from 'react-native-paper'
 
@@ -30,6 +31,7 @@ type HeaderTitleProps = {
 }
 
 const HeaderTitle = ({ title, language, landingPath }: HeaderTitleProps): ReactElement | null => {
+  const { t } = useTranslation('layout')
   const variant = !!title && title.length >= LONG_TITLE_LENGTH ? 'subtitle2' : 'subtitle1'
 
   if (buildConfig().featureFlags.fixedCity || !landingPath) {
@@ -42,7 +44,12 @@ const HeaderTitle = ({ title, language, landingPath }: HeaderTitleProps): ReactE
 
   if (title) {
     return (
-      <TouchableRipple style={styles.touchableRippleStyle} borderless onPress={landingPath}>
+      <TouchableRipple
+        style={styles.touchableRippleStyle}
+        borderless
+        onPress={landingPath}
+        accessibilityRole='button'
+        accessibilityLabel={`${title} ${t('changeLocation')}`}>
         <View style={styles.titleTextContainer}>
           <Text variant={variant} numberOfLines={2} accessibilityLanguage={language} style={{ flexShrink: 1 }}>
             {title}

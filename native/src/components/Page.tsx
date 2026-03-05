@@ -25,7 +25,6 @@ type PageProps = {
   language: string
   lastUpdate?: DateTime
   padding?: boolean
-  accessible?: boolean
 }
 
 const Page = ({
@@ -37,7 +36,6 @@ const Page = ({
   language,
   lastUpdate,
   padding = true,
-  accessible,
 }: PageProps): ReactElement => {
   const [loading, setLoading] = useState(true)
   const navigateToLink = useNavigateToLink()
@@ -46,7 +44,7 @@ const Page = ({
   const onLoad = useCallback(() => setLoading(false), [setLoading])
 
   return (
-    <Container $padding={padding} accessible={accessible}>
+    <Container $padding={padding}>
       {!loading && title ? <Caption title={title} language={language} /> : null}
       {!loading && BeforeContent}
       <RemoteContent
