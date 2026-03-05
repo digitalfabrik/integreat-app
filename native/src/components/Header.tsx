@@ -269,9 +269,10 @@ const Header = ({
       return { text: previousRouteTitle, language: languageCode }
     }
 
-    if (previousRoute.name === CATEGORIES_ROUTE) {
+    // After search navigation reset, previousRoute may be BOTTOM_TAB_NAVIGATION_ROUTE
+    if (previousRoute.name === CATEGORIES_ROUTE || previousRoute.name === BOTTOM_TAB_NAVIGATION_ROUTE) {
       return {
-        text: cityName ?? t('localInformation'),
+        text: cityName ?? '',
         language: languageCode,
       }
     }
