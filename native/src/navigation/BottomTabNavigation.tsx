@@ -127,6 +127,7 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
 
   return (
     <Tab.Navigator
+      backBehavior='history'
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: theme.colors.onSurface,
