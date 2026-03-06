@@ -105,10 +105,11 @@ const Header = ({
   const theme = useTheme()
   const showSnackbar = useSnackbar()
   // Save route/canGoBack to state to prevent it from changing during navigating which would lead to flickering of the title and back button
-  const [previousRoute] = useState(() => {
+  const [previousRouteKey] = useState(() => {
     const { routes } = navigation.getState()
-    return routes[routes.findIndex(navRoute => navRoute.key === route.key) - 1]
+    return routes[routes.findIndex(navRoute => navRoute.key === route.key) - 1]?.key
   })
+  const previousRoute = navigation.getState().routes.find(route => route.key === previousRouteKey)
   const { enabled: isTtsEnabled, showTtsPlayer } = useTtsPlayer()
   const isLanding = route.name === LANDING_ROUTE
   const currentLanguageName = languages?.find(it => it.code === languageCode)?.name
@@ -116,10 +117,13 @@ const Header = ({
   const poisParams = route.params as RoutesParamsType[PoisRouteType] | undefined
   const hasPoisParams = !!poisParams?.slug || poisParams?.multipoi !== undefined
 
-  const rootNavigation = navigation.getParent()?.getParent()
+  const tabNavigation = navigation.getParent()
+  const hasTabHistory = (tabNavigation?.getState().history?.length ?? 0) > 1
+  const rootNavigation = tabNavigation?.getParent()
   const hasRootHistory = rootNavigation !== undefined && rootNavigation.getState().index > 0
 
-  const canGoBack = previousRoute !== undefined || hasRootHistory || (route.name === POIS_ROUTE && hasPoisParams)
+  const canGoBack =
+    previousRoute !== undefined || hasRootHistory || hasTabHistory || (route.name === POIS_ROUTE && hasPoisParams)
 
   const goBack = () => {
     if (route.name === POIS_ROUTE && hasPoisParams) {
@@ -240,16 +244,20 @@ const Header = ({
       ]
     : []
 
+  const isSinglePoiFromPoisRoute = (): boolean => {
+    const poisRouteParams = route.params as RoutesParamsType[PoisRouteType] | undefined
+    const isSinglePoi = !!poisRouteParams?.slug || poisRouteParams?.multipoi !== undefined
+    const notFromDeepLink = previousRoute?.name === POIS_ROUTE
+    return isSinglePoi && notFromDeepLink
+  }
+
   const getHeaderText = (): { text: string; language?: string } => {
     if (!previousRoute) {
       // Home/Dashboard: Show current city name
       return { text: cityName ?? '', language: config.sourceLanguage }
     }
 
-    const poisRouteParams = route.params as RoutesParamsType[PoisRouteType] | undefined
-    const isSinglePoi = !!poisRouteParams?.slug || poisRouteParams?.multipoi !== undefined
-    const notFromDeepLink = previousRoute.name === POIS_ROUTE
-    if (isSinglePoi && notFromDeepLink) {
+    if (isSinglePoiFromPoisRoute()) {
       return { text: t('locations'), language: undefined } // system language
     }
 
@@ -261,14 +269,14 @@ const Header = ({
     }
 
     const previousRouteTitle = (previousRoute.params as { title?: string } | undefined)?.title
-
     if (previousRouteTitle) {
       return { text: previousRouteTitle, language: languageCode }
     }
 
-    if (previousRoute.name === CATEGORIES_ROUTE) {
+    // After search navigation reset, previousRoute may be BOTTOM_TAB_NAVIGATION_ROUTE
+    if (previousRoute.name === CATEGORIES_ROUTE || previousRoute.name === BOTTOM_TAB_NAVIGATION_ROUTE) {
       return {
-        text: cityName ?? t('localInformation'),
+        text: cityName ?? '',
         language: languageCode,
       }
     }

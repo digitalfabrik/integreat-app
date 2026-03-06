@@ -79,6 +79,7 @@
     "react-native": "^0.82.1",
     "react-native-blob-util": "^0.23.1",
     "react-native-calendar-events": "^2.2.0",
+    "react-native-color-matrix-image-filters": "^8.0.2",
     "react-native-gesture-handler": "^2.29.0",
     "react-native-get-random-values": "^2.0.0",
     "react-native-inappbrowser-reborn": "^3.7.0",

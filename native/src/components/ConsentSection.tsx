@@ -1,8 +1,9 @@
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
-import { Divider, Switch } from 'react-native-paper'
+import { Divider } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
+import Switch from './base/Switch'
 import Text from './base/Text'
 
 const Container = styled(View)`
