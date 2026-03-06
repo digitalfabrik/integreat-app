@@ -46,6 +46,7 @@ type LanguageListProps = {
   languageCode: string
   close?: () => void
   availableOnly?: boolean
+  asList?: boolean
 }
 
 export const filterLanguageChangePath = (
@@ -70,13 +71,14 @@ const LanguageList = ({
   languageCode,
   close,
   availableOnly = false,
+  asList = false,
 }: LanguageListProps): ReactElement => {
   const { t } = useTranslation('layout')
   const { mobile } = useDimensions()
   const [query, setQuery] = useState('')
 
   const allOptions = useMemo(
-    () => languageChangePaths.filter(item => !availableOnly || item.path),
+    () => languageChangePaths.filter(item => !availableOnly || !!item.path),
     [languageChangePaths, availableOnly],
   )
 
@@ -90,7 +92,7 @@ const LanguageList = ({
     )
   }, [languageChangePaths, query, languageCode])
 
-  if (mobile) {
+  if (mobile || asList) {
     return (
       <MobileContainer>
         <SearchInput placeholderText={currentLanguage?.name ?? ''} filterText={query} onFilterTextChange={setQuery} />

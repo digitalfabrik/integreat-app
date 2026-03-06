@@ -1,4 +1,3 @@
-/* eslint-disable import/no-relative-packages */
 import EventThumbnailPlaceholder1 from '../../../assets/event-thumbnail-placeholder-1.jpg'
 import EventThumbnailPlaceholder2 from '../../../assets/event-thumbnail-placeholder-2.jpg'
 import EventThumbnailPlaceholder3 from '../../../assets/event-thumbnail-placeholder-3.jpg'

@@ -137,7 +137,7 @@ class CategoriesMapModelBuilder {
       new CategoryModel({
         root: true,
         path,
-        title: `${this._city}`,
+        title: this._city,
         content: '',
         order: -1,
         availableLanguages: {},

@@ -52,12 +52,13 @@ const ChangeLanguageModal = ({ navigation, route }: ChangeLanguageModalProps): R
   const { languages, availableLanguages } = route.params
   const { languageCode, changeLanguageCode } = useContext(AppContext)
   const [query, setQuery] = useState('')
+  const [polyfillLoaded, setPolyfillLoaded] = useState(false)
   const theme = useTheme()
 
   const currentLanguageName = languages.find(lang => lang.code === languageCode)?.name
 
   useEffect(() => {
-    loadPolyfillIfNeeded(languageCode)
+    loadPolyfillIfNeeded(languageCode).then(() => setPolyfillLoaded(true))
   }, [languageCode])
 
   const filteredLanguages = useMemo(() => {
@@ -71,20 +72,26 @@ const ChangeLanguageModal = ({ navigation, route }: ChangeLanguageModalProps): R
     )
   }, [languages, query, languageCode])
 
-  const selectorItems = filteredLanguages.map(({ code, name }) => {
-    const isLanguageAvailable = availableLanguages.includes(code)
-    return new SelectorItemModel({
-      code,
-      name,
-      enabled: isLanguageAvailable,
-      onPress: () => {
-        if (code !== languageCode) {
-          changeLanguageCode(code)
-        }
-        navigation.goBack()
-      },
+  const selectorItems = useMemo(() => {
+    const languageNamesInCurrentLanguage = polyfillLoaded
+      ? new Intl.DisplayNames([languageCode], { type: 'language' })
+      : undefined
+    return filteredLanguages.map(({ code, name }) => {
+      const isLanguageAvailable = availableLanguages.includes(code)
+      return new SelectorItemModel({
+        code,
+        name,
+        enabled: isLanguageAvailable,
+        accessibilityLabel: languageNamesInCurrentLanguage?.of(code) ?? name,
+        onPress: () => {
+          if (code !== languageCode) {
+            changeLanguageCode(code)
+          }
+          navigation.goBack()
+        },
+      })
     })
-  })
+  }, [filteredLanguages, availableLanguages, languageCode, changeLanguageCode, navigation, polyfillLoaded])
 
   return (
     <Wrapper contentContainerStyle={{ flexGrow: 1, justifyContent: 'flex-start', gap: 4 }}>

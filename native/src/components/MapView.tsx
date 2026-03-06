@@ -10,6 +10,7 @@ import {
   UserTrackingMode,
 } from '@maplibre/maplibre-react-native'
 import type { BBox, Feature, GeoJsonProperties, Geometry } from 'geojson'
+// eslint-disable-next-line import-x/no-extraneous-dependencies
 import { Position } from 'geojson'
 import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -59,11 +60,12 @@ const StyledIcon = styled(IconButton)<{ position: number | string }>`
 `
 
 const OverlayContainer = styled.View`
-  flex: 1;
-  flex-direction: row;
+  flex-flow: row wrap;
   position: absolute;
   top: 24px;
   left: 8px;
+  right: 8px;
+  row-gap: 8px;
 `
 
 type MapViewProps = {
