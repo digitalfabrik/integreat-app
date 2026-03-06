@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { NavigateFunction } from 'react-router'
 
 import buildConfig from '../constants/buildConfig'

@@ -1,4 +1,4 @@
-import NetInfo from '@react-native-community/netinfo'
+import NetInfo, { NetInfoStateType } from '@react-native-community/netinfo'
 import { flatten, pickBy, reduce, values } from 'lodash'
 
 import { CategoriesMapModel, EventModel, ExtendedPageModel, PoiModel } from 'shared/api'
@@ -32,7 +32,7 @@ const loadResourceCache = async ({
   pois: PoiModel[] | null
 }): Promise<void> => {
   const netInfo = await NetInfo.fetch()
-  if (FetcherModule.currentlyFetching || netInfo.type === 'cellular') {
+  if (FetcherModule.currentlyFetching || netInfo.type === NetInfoStateType.cellular) {
     return
   }
 

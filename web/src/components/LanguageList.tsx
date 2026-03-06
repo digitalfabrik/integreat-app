@@ -78,7 +78,7 @@ const LanguageList = ({
   const [query, setQuery] = useState('')
 
   const allOptions = useMemo(
-    () => languageChangePaths.filter(item => !availableOnly || item.path),
+    () => languageChangePaths.filter(item => !availableOnly || !!item.path),
     [languageChangePaths, availableOnly],
   )
 
