@@ -1,4 +1,3 @@
-import { mocked } from 'jest-mock'
 import { DateTime } from 'luxon'
 
 import { API_VERSION } from '../../constants'
@@ -15,6 +14,7 @@ describe('createCategoriesEndpoint', () => {
     jest.clearAllMocks()
   })
 
+  const { mocked } = jest
   const baseUrl = 'https://example.com'
   const json = ['myFirstCategory', 'mySecondCategory', 'myThirdCategory']
   const params = {

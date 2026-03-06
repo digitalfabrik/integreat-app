@@ -1,6 +1,5 @@
 import { useNetInfo, NetInfoStateType } from '@react-native-community/netinfo'
 import { render, waitFor } from '@testing-library/react-native'
-import { mocked } from 'jest-mock'
 import React from 'react'
 
 import { CATEGORIES_ROUTE, OPEN_PAGE_SIGNAL_NAME, SignalType } from 'shared'
@@ -50,6 +49,7 @@ describe('useSendOfflineJpalSignals', () => {
   }
   const signal2 = { ...signal1, pageType: CATEGORIES_ROUTE }
 
+  const { mocked } = jest
   const mockedUseNetInfo = mocked(useNetInfo)
 
   const mockUseNetInfo = (isInternetReachable: boolean) => {

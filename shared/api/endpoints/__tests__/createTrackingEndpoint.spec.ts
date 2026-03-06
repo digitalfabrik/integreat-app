@@ -1,5 +1,3 @@
-import { mocked } from 'jest-mock'
-
 import { CATEGORIES_ROUTE } from '../../../routes'
 import { OPEN_PAGE_SIGNAL_NAME } from '../../../tracking'
 import createTrackingEndpoint, { JPAL_TRACKING_ENDPOINT_URL } from '../createTrackingEndpoint'
@@ -8,6 +6,8 @@ describe('createTrackingEndpoint', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
+
+  const { mocked } = jest
   const signal = {
     name: OPEN_PAGE_SIGNAL_NAME,
     pageType: CATEGORIES_ROUTE,
