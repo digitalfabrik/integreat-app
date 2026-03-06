@@ -1,4 +1,3 @@
-import { mocked } from 'jest-mock'
 import React from 'react'
 import { useNavigate } from 'react-router'
 
@@ -26,6 +25,7 @@ jest.mock('shared/api', () => ({
 }))
 
 describe('JpalTrackingPage', () => {
+  const { mocked } = jest
   beforeEach(() => {
     jest.clearAllMocks()
   })

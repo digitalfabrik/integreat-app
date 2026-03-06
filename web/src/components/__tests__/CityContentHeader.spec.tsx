@@ -1,4 +1,3 @@
-import { mocked } from 'jest-mock'
 import React from 'react'
 
 import { CityModelBuilder } from 'shared/api'
@@ -12,6 +11,7 @@ jest.mock('react-i18next')
 jest.mock('../../hooks/useDimensions', () => jest.fn(() => mockDimensions))
 
 describe('CityContentHeader', () => {
+  const { mocked } = jest
   const cityModel = new CityModelBuilder(1).build()[0]!
 
   const languageChangePaths = [

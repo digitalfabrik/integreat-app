@@ -1,4 +1,3 @@
-import { mocked } from 'jest-mock'
 import React from 'react'
 
 import { mockDimensions } from '../../__mocks__/useDimensions'
@@ -10,6 +9,7 @@ jest.mock('../../hooks/useDimensions')
 jest.mock('react-i18next')
 
 describe('Header', () => {
+  const { mocked } = jest
   beforeEach(jest.clearAllMocks)
   const cityName = 'TestCity'
 

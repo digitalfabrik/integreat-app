@@ -1,4 +1,3 @@
-import { mocked } from 'jest-mock'
 import React, { useEffect } from 'react'
 
 import {
@@ -27,6 +26,7 @@ describe('useNavigateToLink', () => {
   const showSnackbar = jest.fn()
   const navigateTo = jest.fn()
   const navigation = createNavigationPropMock()
+  const { mocked } = jest
   mocked(useSnackbar).mockImplementation(() => showSnackbar)
   mocked(useNavigate).mockImplementation(() => ({ navigateTo, navigation }))
   const languageCode = 'de'

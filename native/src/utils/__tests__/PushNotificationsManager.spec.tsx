@@ -8,7 +8,6 @@ import {
   unsubscribeFromTopic,
 } from '@react-native-firebase/messaging'
 import { waitFor } from '@testing-library/react-native'
-import { mocked } from 'jest-mock'
 import React from 'react'
 import { requestNotifications } from 'react-native-permissions'
 
@@ -37,6 +36,7 @@ jest.mock('@notifee/react-native', () => ({
 describe('PushNotificationsManager', () => {
   beforeEach(jest.clearAllMocks)
 
+  const { mocked } = jest
   const mockedBuildConfig = mocked(buildConfig)
   const updateSettings = jest.fn()
 

@@ -1,6 +1,6 @@
 import { JestConfigWithTsJest } from 'ts-jest'
 
-import { webIntegreatTestCmsBuildConfig } from 'build-configs/integreat-test-cms'
+const { webIntegreatTestCmsBuildConfig } = require('build-configs/integreat-test-cms')
 
 const transformNodeModules = ['shared', 'build-configs', 'translations']
 process.env.TZ = 'Europe/Berlin'
