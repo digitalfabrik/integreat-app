@@ -4,6 +4,16 @@
   "main": "index.ts",
   "description": "Build configs for the integreat project",
   "private": true,
+  "exports": {
+    ".": "./index.ts",
+    "./common/theme/typography": "./common/theme/typography.ts",
+    "./AssetsType": "./AssetsType.ts",
+    "./ThemeKey": "./ThemeKey.ts",
+    "./obdach": "./obdach/index.ts",
+    "./integreat-test-cms": "./integreat-test-cms/index.ts",
+    "./integreat/theme": "./integreat/theme/index.ts",
+    "./integreat/theme/typography": "./integreat/theme/typography.ts"
+  },
   "dependencies": {
     "translations": "0.0.1"
   },
