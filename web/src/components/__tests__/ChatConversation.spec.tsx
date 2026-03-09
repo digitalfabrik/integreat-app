@@ -110,7 +110,7 @@ describe('ChatConversation', () => {
     expect(getByText(testMessages[0]!.content)).toBeTruthy()
     expect(getByText(testMessages[1]!.content)).toBeTruthy()
     expect(getByLabelText('chat:human')).toBeTruthy()
-    expect(getByText('...')).toBeTruthy()
+    expect(getByText('chat:generateAnswer ...')).toBeTruthy()
   })
 
   it('should hide typing indicator if isTyping changes to false', () => {
@@ -121,9 +121,9 @@ describe('ChatConversation', () => {
       automaticAnswer: true,
     })
     const { queryByText, rerender } = render(testMessages, true)
-    expect(queryByText('...')).toBeTruthy()
+    expect(queryByText('chat:generateAnswer ...')).toBeTruthy()
     rerender(<ChatConversation messages={[...testMessages, botMessage]} isTyping={false} />)
-    expect(queryByText('...')).toBeNull()
+    expect(queryByText('chat:generateAnswer ...')).toBeNull()
   })
 
   it('should display icon after automaticAnswer or author changes', () => {
