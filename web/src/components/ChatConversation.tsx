@@ -8,21 +8,15 @@ import { useTranslation } from 'react-i18next'
 
 import { ChatMessageModel } from 'shared/api'
 
-import ChatMessage, { InnerChatMessage } from './ChatMessage'
+import ChatMessage from './ChatMessage'
 import SkeletonChatConversation from './SkeletonChatConversation'
+import TypingIndicator from './TypingIndicator'
 
 const StyledList = styled(List)({
   display: 'flex',
   flexDirection: 'column',
   gap: 8,
 })
-
-type TypingIndicatorProps = {
-  isVisible: boolean
-}
-
-const TypingIndicator = ({ isVisible }: TypingIndicatorProps): ReactElement | null =>
-  isVisible ? <InnerChatMessage userIsAuthor={false} showAvatar={false} isAutomaticAnswer content='...' /> : null
 
 type ChatConversationProps = {
   messages: ChatMessageModel[]
