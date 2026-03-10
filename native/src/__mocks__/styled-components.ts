@@ -1,4 +1,4 @@
-// eslint-disable-next-line import/no-import-module-exports
+// eslint-disable-next-line import-x/no-import-module-exports
 import buildConfig from '../constants/buildConfig'
 
 const realModule = jest.requireActual('styled-components')
