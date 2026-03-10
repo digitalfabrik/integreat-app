@@ -103,26 +103,28 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
     return null
   }
 
-  if (!categoryId && categories) {
-    // The root category is not delivered via our endpoints
-    categories.push(
-      new CategoryModel({
-        root: true,
-        path: pathname,
-        title: city.name,
-        parentPath: '',
-        content: '',
-        thumbnail: '',
-        order: -1,
-        availableLanguages: {},
-        lastUpdate: DateTime.fromMillis(0),
-        organization: null,
-        embeddedOffers: [],
-      }),
-    )
-  }
+  // The root category is not delivered via our endpoints
+  const allCategories =
+    !categoryId && categories
+      ? [
+          ...categories,
+          new CategoryModel({
+            root: true,
+            path: pathname,
+            title: city.name,
+            parentPath: '',
+            content: '',
+            thumbnail: '',
+            order: -1,
+            availableLanguages: {},
+            lastUpdate: DateTime.fromMillis(0),
+            organization: null,
+            embeddedOffers: [],
+          }),
+        ]
+      : categories
 
-  const category = categories?.find(it => it.path === pathname)
+  const category = allCategories?.find(it => it.path === pathname)
   const languageChangePaths = city.languages.map(({ code, name }) => {
     const isCurrentLanguage = code === languageCode
     const path = category?.isRoot()
@@ -222,7 +224,7 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
           cityCode={cityCode}
           pathname={pathname}
           languageCode={languageCode}
-          categories={new CategoriesMapModel(categories)}
+          categories={new CategoriesMapModel(allCategories ?? [])}
           categoryModel={category}
         />
       )}
