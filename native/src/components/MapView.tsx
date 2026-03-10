@@ -48,7 +48,11 @@ const StyledMap = styled(MapLibreMapView)`
   width: 100%;
 `
 
-const StyledIcon = styled(IconButton)<{ position: number | string }>`
+const StyledIcon = styled(IconButton)<{
+  position: number | string
+  importantForAccessibility?: string
+  accessibilityElementsHidden?: boolean
+}>`
   position: absolute;
   right: 0;
   bottom: ${props => props.position}${props => (typeof props.position === 'number' ? 'px' : '')};
@@ -79,6 +83,7 @@ type MapViewProps = {
   bottomSheetFullscreen: boolean
   zoom: number | undefined
   Overlay?: ReactElement
+  modalVisible: boolean
 }
 
 const MapView = ({
@@ -92,6 +97,7 @@ const MapView = ({
   bottomSheetHeight,
   bottomSheetFullscreen,
   zoom,
+  modalVisible,
 }: MapViewProps): ReactElement => {
   const mapRef = useRef<MapViewRef>(null)
   const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
@@ -217,23 +223,30 @@ const MapView = ({
           padding={{ paddingBottom: bottomSheetHeight }}
         />
       </StyledMap>
-      {Boolean(!bottomSheetFullscreen) && (
-        <>
-          <OverlayContainer>{Overlay}</OverlayContainer>
-          <MapAttribution />
-          <StyledIcon
-            icon={
-              <Icon
-                color={theme.dark ? theme.colors.background : theme.colors.onSurface}
-                source={locationPermissionIcon}
-              />
-            }
-            onPress={onRequestLocation}
-            position={bottomSheetFullscreen ? 0 : bottomSheetHeight}
-            accessibilityLabel={t('showOwnLocation')}
-          />
-        </>
-      )}
+      <>
+        <OverlayContainer
+          importantForAccessibility={bottomSheetFullscreen || modalVisible ? 'no-hide-descendants' : 'auto'}
+          accessibilityElementsHidden={bottomSheetFullscreen || modalVisible}>
+          {Overlay}
+        </OverlayContainer>
+        <MapAttribution
+          importantForAccessibility={bottomSheetFullscreen || modalVisible ? 'no-hide-descendants' : 'auto'}
+          accessibilityElementsHidden={bottomSheetFullscreen || modalVisible}
+        />
+        <StyledIcon
+          importantForAccessibility={bottomSheetFullscreen || modalVisible ? 'no-hide-descendants' : 'auto'}
+          accessibilityElementsHidden={bottomSheetFullscreen || modalVisible}
+          icon={
+            <Icon
+              color={theme.dark ? theme.colors.background : theme.colors.onSurface}
+              source={locationPermissionIcon}
+            />
+          }
+          onPress={onRequestLocation}
+          position={bottomSheetHeight}
+          accessibilityLabel={t('showOwnLocation')}
+        />
+      </>
     </MapContainer>
   )
 }

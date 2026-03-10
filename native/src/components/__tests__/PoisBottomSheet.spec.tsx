@@ -39,6 +39,7 @@ describe('PoisBottomSheet', () => {
           deselectAll={deselectAll}
           selectPoi={selectPoi}
           isFullscreen={false}
+          modalVisible={false}
         />
       </TestingAppContext>,
     )

@@ -172,10 +172,11 @@ describe('Pois', () => {
 
     fireEvent.press(getByText('adjustFilters'))
 
-    expect(getAllByText('Gastronomie')).toHaveLength(3)
-    expect(getAllByText('Dienstleistung')).toHaveLength(2)
+    expect(getAllByText('Gastronomie')).toHaveLength(1)
+    expect(getAllByText('Dienstleistung')).toHaveLength(1)
 
     fireEvent.press(getByRole('switch', { name: 'Dienstleistung' }))
+    fireEvent.press(getByText('showPois'))
 
     expect(getAllByText('Dienstleistung')).toHaveLength(3)
     expect(getByText(poi1.title)).toBeTruthy()

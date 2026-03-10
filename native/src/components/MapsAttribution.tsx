@@ -39,7 +39,15 @@ const styles = StyleSheet.create({
   },
 })
 
-const MapAttribution = (): ReactElement => {
+type MapAttributionProps = {
+  accessibilityElementsHidden?: boolean
+  importantForAccessibility?: 'auto' | 'yes' | 'no' | 'no-hide-descendants'
+}
+
+const MapAttribution = ({
+  accessibilityElementsHidden,
+  importantForAccessibility,
+}: MapAttributionProps): ReactElement => {
   const { url, label, linkText, icon } = openStreeMapCopyright
   const [expanded, setExpanded] = useState<boolean>(false)
   return (
@@ -47,7 +55,9 @@ const MapAttribution = (): ReactElement => {
       borderless
       onPress={() => setExpanded(!expanded)}
       role='button'
-      style={[styles.attributionContainer, expanded && styles.expanded]}>
+      style={[styles.attributionContainer, expanded && styles.expanded]}
+      importantForAccessibility={importantForAccessibility}
+      accessibilityElementsHidden={accessibilityElementsHidden}>
       <Attribution>
         <Text
           variant='body2'
