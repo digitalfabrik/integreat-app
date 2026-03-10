@@ -1,0 +1,7 @@
+issue_key: 3827
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Prevent read aloud from reading Uhr twice
+de: Die Vorlesefunktion liest Uhr nicht mehr doppelt vor
