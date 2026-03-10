@@ -105,7 +105,7 @@ const displayNotification = async (message: Message): Promise<void> => {
     data: message.data,
     android: {
       smallIcon: buildConfig().notificationIcon,
-      color: buildConfig().legacyLightTheme.colors.themeColor,
+      color: buildConfig().lightTheme.palette.primary.main,
       channelId: androidChannelId,
       importance: AndroidImportance.HIGH,
     },

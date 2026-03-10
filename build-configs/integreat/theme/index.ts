@@ -1,8 +1,5 @@
-import { LegacyThemeType } from '../../LegacyThemeType'
 import { Theme } from '../../ThemeType'
 import { commonDarkColors, commonLightColors } from '../../common/theme/colors'
-import { legacyContrastColors, legacyLightColors } from './colors'
-import integreatFonts from './fonts'
 
 const customColors = {
   secondary: {
@@ -25,14 +22,4 @@ export const darkTheme: Theme = {
     ...commonDarkColors,
     ...customColors,
   },
-}
-
-export const legacyLightTheme: LegacyThemeType = {
-  colors: legacyLightColors,
-  fonts: integreatFonts,
-}
-
-export const legacyContrastTheme: LegacyThemeType = {
-  colors: legacyContrastColors,
-  fonts: integreatFonts,
 }

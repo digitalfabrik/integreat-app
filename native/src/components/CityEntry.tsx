@@ -19,7 +19,6 @@ const Label = styled(Highlighter)`
 `
 const AliasLabel = styled(Highlighter)`
   font-size: 11px;
-  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
   color: ${props => props.theme.colors.onSurfaceVariant};
 `
 const AliasesWrapper = styled.View`

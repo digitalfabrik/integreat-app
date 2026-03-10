@@ -1,10 +1,9 @@
 import React, { ReactElement, useMemo } from 'react'
-import { PaperProvider, configureFonts } from 'react-native-paper'
+import { configureFonts, PaperProvider } from 'react-native-paper'
 import { DefaultTheme, ThemeProvider } from 'styled-components/native'
 
-import { commonNativeTypography } from 'build-configs/common/theme/typography'
-
 import buildConfig from '../constants/buildConfig'
+import { prepareTypography } from '../constants/typography'
 import { useAppContext } from '../hooks/useCityAppContext'
 
 type ThemeContainerProps = {
@@ -12,17 +11,11 @@ type ThemeContainerProps = {
 }
 
 export const theme = (themeType: 'light' | 'contrast'): DefaultTheme => {
-  const legacyTheme =
-    themeType === 'contrast'
-      ? { ...buildConfig().legacyContrastTheme, isContrastTheme: true }
-      : { ...buildConfig().legacyLightTheme, isContrastTheme: false }
-
   const palette = themeType === 'contrast' ? buildConfig().darkTheme.palette : buildConfig().lightTheme.palette
-  const fonts = configureFonts({ config: commonNativeTypography(legacyTheme.fonts) })
+
   return {
     dark: themeType === 'contrast',
-    legacy: legacyTheme,
-    fonts,
+    fonts: configureFonts({ config: prepareTypography(buildConfig().fonts) }),
     colors: {
       primary: palette.primary.main,
       primaryContainer: palette.primary.light,
