@@ -10,6 +10,7 @@ import { ThemeKey } from 'build-configs'
 import { UiDirectionType } from 'translations'
 
 import buildConfig from '../constants/buildConfig'
+import { prepareTypography } from '../constants/typography'
 import useDimensions from '../hooks/useDimensions'
 import useLocalStorage from '../hooks/useLocalStorage'
 import globalStyle from '../styles/global/GlobalStyle'
@@ -39,6 +40,7 @@ const createTheme = (
 ): Omit<Theme, 'toggleTheme'> => {
   const isContrast = themeType === 'contrast'
   const theme = isContrast ? buildConfig().darkTheme : buildConfig().lightTheme
+  const typography = prepareTypography(buildConfig().fonts)
 
   return responsiveFontSizes(
     createMuiTheme({
@@ -49,7 +51,7 @@ const createTheme = (
       },
       direction: contentDirection,
       shadows: muiShadowCreator(themeType),
-      typography: buildConfig().typography,
+      typography,
       palette: theme.palette,
       components: {
         MuiTypography: {
@@ -120,7 +122,7 @@ const createTheme = (
             },
             tooltip: {
               backgroundColor: theme.palette.primary.main,
-              fontSize: buildConfig().typography.body2.fontSize,
+              fontSize: typography.body2.fontSize,
               padding: '8px 16px',
             },
           },

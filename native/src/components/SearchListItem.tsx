@@ -16,7 +16,6 @@ import Highlighter from './Highlighter'
 
 const HighlighterCategoryTitle = styled(Highlighter)<{ language: string }>`
   text-align: ${props => contentAlignment(props.language)};
-  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
   color: ${props => props.theme.colors.onSurface};
   font-weight: bold;
   flex-shrink: 1;

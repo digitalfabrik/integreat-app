@@ -1,6 +1,6 @@
 import { CircleLayerStyle, SymbolLayerStyle } from '@maplibre/maplibre-react-native'
+import { DefaultTheme } from 'styled-components/native'
 
-import { LegacyThemeType } from 'build-configs/LegacyThemeType'
 import {
   circleRadiusLarge,
   circleRadiusSmall,
@@ -19,10 +19,10 @@ type ClusterLayerType = {
   style: CircleLayerStyle
 }
 
-export const clusterLayer = (theme: LegacyThemeType): ClusterLayerType => ({
+export const clusterLayer = (theme: DefaultTheme): ClusterLayerType => ({
   id: clusterLayerId,
   style: {
-    circleColor: ['case', ['has', 'point_count'], theme.colors.themeColor, 'transparent'],
+    circleColor: ['case', ['has', 'point_count'], theme.colors.secondary, 'transparent'],
     circleRadius: ['step', ['get', 'point_count'], circleRadiusSmall, groupCount, circleRadiusLarge],
   },
 })

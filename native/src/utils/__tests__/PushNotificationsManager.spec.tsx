@@ -237,7 +237,7 @@ describe('PushNotificationsManager', () => {
           },
           android: {
             channelId: 'channel-1234',
-            color: '#fbda16',
+            color: '#FBDA16',
             importance: AndroidImportance.HIGH,
             smallIcon: 'notification_icon_integreat',
           },

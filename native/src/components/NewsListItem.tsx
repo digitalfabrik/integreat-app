@@ -39,7 +39,6 @@ const Styles = StyleSheet.create({
 
 export const Description = styled.View`
   flex-direction: column;
-  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
 `
 
 const getTimestamp = (newsItem: LocalNewsModel | TunewsModel): DateTime<true> | null => {

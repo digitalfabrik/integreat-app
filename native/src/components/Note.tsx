@@ -27,7 +27,6 @@ const Note = ({ text }: NoteProps): ReactElement => {
       <Text
         variant='body3'
         style={{
-          fontFamily: theme.legacy.fonts.native.decorativeFontRegular,
           color: theme.colors.error,
           flex: 1,
           flexWrap: 'wrap',

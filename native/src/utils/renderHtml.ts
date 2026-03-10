@@ -3,6 +3,7 @@ import { DefaultTheme } from 'styled-components/native'
 
 import { ExternalSourcePermissions } from 'shared'
 
+import buildConfig from '../constants/buildConfig'
 import {
   ALLOW_EXTERNAL_SOURCE_MESSAGE_TYPE,
   ERROR_MESSAGE_TYPE,
@@ -312,20 +313,20 @@ const renderHtml = (
         margin: 0;
         padding: 0;
 
-        font-family: ${theme.legacy.fonts.native.webviewFont};
-        line-height: ${theme.legacy.fonts.contentLineHeight};
-        font-size-adjust: ${theme.legacy.fonts.fontSizeAdjust};
+        font-family: ${buildConfig().fonts.native.webviewFont};
+        line-height: ${buildConfig().fonts.contentLineHeight};
+        font-size-adjust: ${buildConfig().fonts.fontSizeAdjust};
         background-color: ${theme.colors.background};
         color: ${theme.colors.onSurface}
       }
 
       body {
-        font-size: ${theme.legacy.fonts.contentFontSize};
+        font-size: ${buildConfig().fonts.contentFontSize};
         overflow-wrap: break-word;
       }
 
       p {
-        margin: ${theme.legacy.fonts.standardParagraphMargin} 0;
+        margin: ${buildConfig().fonts.standardParagraphMargin} 0;
         overflow: auto;
       }
 
@@ -377,8 +378,8 @@ const renderHtml = (
         /* ExternalIcon, WebView can't handle imported svg as background */
         content: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'><path d='M16 15.9996l-14 0l0 -14l7 0l0 -2l-7 0a2 2 0 0 0 -2 2l0 14a2 2 0 0 0 2 2l14 0c1.1 0 2 -0.9 2 -2l0 -7l-2 0l0 7zm-5 -16l0 2l3.59 0l-9.83 9.83 1.41 1.41 9.83 -9.83l0 3.59l2 0l0 -7l-7 0z' fill='rgb(11, 87, 208)'/></svg>");
         display: inline-block;
-        width: ${theme.legacy.fonts.contentFontSize};
-        height: ${theme.legacy.fonts.contentFontSize};
+        width: ${buildConfig().fonts.contentFontSize};
+        height: ${buildConfig().fonts.contentFontSize};
         background-size: contain;
         background-repeat: no-repeat;
         vertical-align: -2px;
@@ -404,7 +405,7 @@ const renderHtml = (
       .iframe-info-text {
         display: flex;
         flex-direction: row;
-        font-size: ${theme.legacy.fonts.decorativeFontSizeSmall};
+        font-size: ${buildConfig().fonts.decorativeFontSizeSmall};
         padding: 12px;
         justify-content: space-between;
       }

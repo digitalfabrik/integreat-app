@@ -1,13 +1,11 @@
 import { MD3Theme as RNPaperTheme } from 'react-native-paper'
 import 'styled-components/native'
 
-import { LegacyThemeType } from 'build-configs/LegacyThemeType'
 import { TypographyType } from 'build-configs/TypographyType'
 
 // Temporary type definition until react-native-paper is installed
 type MD3Theme = {
   dark: boolean
-  legacy: LegacyThemeType & { isContrastTheme: boolean }
   fonts: RNPaperTheme['fonts'] & Record<TypographyType>
   colors: {
     primary: string

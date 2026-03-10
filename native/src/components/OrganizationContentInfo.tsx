@@ -15,7 +15,6 @@ const Thumbnail = styled(SimpleImage)`
 `
 
 const Box = styled(HighlightBox)`
-  font-family: ${props => props.theme.legacy.fonts.native.decorativeFontRegular};
   margin-bottom: 16px;
   padding: 20px;
   border-radius: 4px;
