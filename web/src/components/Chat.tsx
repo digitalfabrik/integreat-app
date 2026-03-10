@@ -21,6 +21,8 @@ import PrivacyCheckbox from './PrivacyCheckbox'
 import H1 from './base/H1'
 import Link from './base/Link'
 
+const SHOW_CHAT_HINT_KEY = 'showChatHint'
+
 const Container = styled(Stack)(({ theme }) => ({
   height: '100%',
   gap: 8,
@@ -55,9 +57,9 @@ const Chat = ({
 }: ChatProps): ReactElement => {
   const { t } = useTranslation('chat')
   const [textInput, setTextInput] = useState<string>('')
-  const { value: showChatHint, updateLocalStorageItem } = useLocalStorage<string | null>({
-    key: 'showChatHelper',
-    initialValue: 'true',
+  const { value: showChatHint, updateLocalStorageItem } = useLocalStorage<boolean>({
+    key: SHOW_CHAT_HINT_KEY,
+    initialValue: true,
     isSessionStorage: true,
   })
 
@@ -100,12 +102,7 @@ const Chat = ({
       <Stack paddingInline={2} gap={1}>
         {hasError && <Alert severity='error'>{t('errorMessage')}</Alert>}
         {!!showChatHint && (
-          <Alert
-            severity='info'
-            icon={<InfoIcon />}
-            onClose={() => {
-              updateLocalStorageItem(null)
-            }}>
+          <Alert severity='info' icon={<InfoIcon />} onClose={() => updateLocalStorageItem(false)}>
             <Typography variant='body2'>{t('conversationHelperText')}</Typography>
           </Alert>
         )}

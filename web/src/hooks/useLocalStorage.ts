@@ -18,9 +18,10 @@ const useLocalStorage = <T>({
   initialValue,
   isSessionStorage = false,
 }: UseLocalStorageProps<T>): UseLocalStorageReturn<T> => {
+  const storage = isSessionStorage ? sessionStorage : localStorage
+
   const [value, setValue] = useState<T>(() => {
     try {
-      const storage = isSessionStorage ? sessionStorage : localStorage
       const storageItem = storage.getItem(key)
       if (storageItem) {
         return JSON.parse(storageItem)
@@ -40,7 +41,6 @@ const useLocalStorage = <T>({
   const updateLocalStorageItem = useCallback(
     (newValue: T) => {
       try {
-        const storage = isSessionStorage ? sessionStorage : localStorage
         storage.setItem(key, JSON.stringify(newValue))
       } catch (e) {
         // Prevent the following error crashing the app if the browser blocks access to local storage (see #2924)
@@ -52,7 +52,7 @@ const useLocalStorage = <T>({
       }
       setValue(newValue)
     },
-    [isSessionStorage, key],
+    [storage, key],
   )
 
   return { value, updateLocalStorageItem }
