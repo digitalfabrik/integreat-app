@@ -1,7 +1,7 @@
 import {
   AndroidBuildConfigType,
   CommonBuildConfigType,
-  iOSBuildConfigType,
+  IosBuildConfigType,
   WebBuildConfigType,
 } from '../BuildConfigType'
 import integreatPlatformBuildConfigs from '../integreat'
@@ -34,7 +34,7 @@ const androidIntegreatE2eBuildCOnfig: AndroidBuildConfigType = {
   ...integreatPlatformBuildConfigs.android,
   ...integreatE2e,
 }
-const iosIntegreatE2eBuildConfig: iOSBuildConfigType = { ...integreatPlatformBuildConfigs.ios, ...integreatE2e }
+const iosIntegreatE2eBuildConfig: IosBuildConfigType = { ...integreatPlatformBuildConfigs.ios, ...integreatE2e }
 const platformBuildConfigs = {
   common: commonIntegreatE2eBuildConfig,
   web: webIntegreatE2eBuildConfig,
