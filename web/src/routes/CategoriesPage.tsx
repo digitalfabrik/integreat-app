@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import React, { ReactElement, useCallback } from 'react'
+import React, { ReactElement, useCallback, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Navigate, useParams } from 'react-router'
 
@@ -34,9 +34,15 @@ import useTtsPlayer from '../hooks/useTtsPlayer'
 
 const CATEGORY_NOT_FOUND_STATUS_CODE = 400
 
-const useCategoryData = (cityCode: string, languageCode: string, pathname: string, categoryId: string | undefined) => {
+const useCategoryData = (
+  cityCode: string,
+  languageCode: string,
+  pathname: string,
+  categoryId: string | undefined,
+  cityName: string,
+) => {
   const {
-    data: categories,
+    data: rawCategories,
     loading: categoriesLoading,
     error: categoriesError,
   } = useLoadFromEndpoint(createCategoryChildrenEndpoint, cmsApiBaseUrl, {
@@ -67,6 +73,30 @@ const useCategoryData = (cityCode: string, languageCode: string, pathname: strin
 
   const { data: parents, loading: parentsLoading, error: parentsError } = useLoadAsync(requestParents)
 
+  // The root category is not delivered via our endpoints
+  const categories = useMemo(
+    () =>
+      !categoryId && rawCategories
+        ? [
+            ...rawCategories,
+            new CategoryModel({
+              root: true,
+              path: pathname,
+              title: cityName,
+              parentPath: '',
+              content: '',
+              thumbnail: '',
+              order: -1,
+              availableLanguages: {},
+              lastUpdate: DateTime.fromMillis(0),
+              organization: null,
+              embeddedOffers: [],
+            }),
+          ]
+        : rawCategories,
+    [categoryId, rawCategories, pathname, cityName],
+  )
+
   return {
     categories,
     categoriesLoading,
@@ -92,6 +122,7 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
     languageCode,
     pathname,
     categoryId,
+    city?.name ?? '',
   )
 
   const currentCategory = categories?.find(it => it.path === pathname)
@@ -101,25 +132,6 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
 
   if (!city) {
     return null
-  }
-
-  if (!categoryId && categories) {
-    // The root category is not delivered via our endpoints
-    categories.push(
-      new CategoryModel({
-        root: true,
-        path: pathname,
-        title: city.name,
-        parentPath: '',
-        content: '',
-        thumbnail: '',
-        order: -1,
-        availableLanguages: {},
-        lastUpdate: DateTime.fromMillis(0),
-        organization: null,
-        embeddedOffers: [],
-      }),
-    )
   }
 
   const category = categories?.find(it => it.path === pathname)
