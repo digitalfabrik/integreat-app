@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { TranslationsType } from 'translations'
 
-import { LegacyThemeType } from './LegacyThemeType'
 import { Theme } from './ThemeType'
-import { TypographyType } from './TypographyType'
+import { FontsType } from './common/theme/fonts'
 
 // Build Configs
 // These are the types of our build configs and therefore define the structure and available options.
@@ -65,9 +64,7 @@ export type CommonBuildConfigType = {
   featureFlags: FeatureFlagsType
   lightTheme: Theme
   darkTheme: Theme
-  legacyLightTheme: LegacyThemeType
-  legacyContrastTheme: LegacyThemeType
-  typography: TypographyType
+  fonts: FontsType
   // Translations deviating from the standard integreat translations.
   translationsOverride?: TranslationsType
   // Assets like icons, logos and imprints.
