@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import { CircleLayerStyle, SymbolLayerStyle } from '@maplibre/maplibre-react-native'
 
 import { LegacyThemeType } from 'build-configs/LegacyThemeType'
@@ -15,12 +14,12 @@ import {
   clusterLayerId,
 } from 'shared'
 
-type clusterLayerType = {
+type ClusterLayerType = {
   id: string
   style: CircleLayerStyle
 }
 
-export const clusterLayer = (theme: LegacyThemeType): clusterLayerType => ({
+export const clusterLayer = (theme: LegacyThemeType): ClusterLayerType => ({
   id: clusterLayerId,
   style: {
     circleColor: ['case', ['has', 'point_count'], theme.colors.themeColor, 'transparent'],
@@ -28,12 +27,12 @@ export const clusterLayer = (theme: LegacyThemeType): clusterLayerType => ({
   },
 })
 
-type markerLayerType = {
+type MarkerLayerType = {
   id: string
   style: SymbolLayerStyle
 }
 
-export const markerLayer = (selectedFeature: MapFeature | null): markerLayerType => ({
+export const markerLayer = (selectedFeature: MapFeature | null): MarkerLayerType => ({
   id: featureLayerId,
   style: {
     symbolPlacement: 'point',
@@ -68,12 +67,12 @@ export const markerLayer = (selectedFeature: MapFeature | null): markerLayerType
   },
 })
 
-type clusterCountLayerType = {
+type ClusterCountLayerType = {
   id: string
   style: SymbolLayerStyle
 }
 
-export const clusterCountLayer: clusterCountLayerType = {
+export const clusterCountLayer: ClusterCountLayerType = {
   id: 'pointCount',
   style: {
     textField: '{point_count_abbreviated}',

@@ -1,5 +1,4 @@
-// eslint-disable-next-line import-x/no-extraneous-dependencies
-import { BBox } from 'geojson'
+import type { BBox } from 'geojson'
 
 import LanguageModel from './LanguageModel'
 

@@ -1,7 +1,7 @@
 import {
   AndroidBuildConfigType,
   CommonBuildConfigType,
-  iOSBuildConfigType,
+  IosBuildConfigType,
   WebBuildConfigType,
 } from '../BuildConfigType'
 import maltePlatformBuildConfigs from '../malte'
@@ -33,7 +33,7 @@ const androidMalteTestCmsBuildConfig: AndroidBuildConfigType = {
   applicationId: 'de.malteapp.test',
 }
 
-const iosMalteTestCmsBuildConfig: iOSBuildConfigType = {
+const iosMalteTestCmsBuildConfig: IosBuildConfigType = {
   ...maltePlatformBuildConfigs.ios,
   ...commonMalteTestCmsBuildConfig,
 }

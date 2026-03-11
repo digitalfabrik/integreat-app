@@ -1,7 +1,7 @@
 import {
   AndroidBuildConfigType,
   CommonBuildConfigType,
-  iOSBuildConfigType,
+  IosBuildConfigType,
   WebBuildConfigType,
 } from './BuildConfigType'
 import aschaffenburgBuildConfig from './aschaffenburg'
@@ -32,7 +32,7 @@ export const WEB = 'web'
 type BuildConfigPlatformType = {
   common: CommonBuildConfigType
   android: AndroidBuildConfigType | null
-  ios: iOSBuildConfigType | null
+  ios: IosBuildConfigType | null
   web: WebBuildConfigType
 }
 
