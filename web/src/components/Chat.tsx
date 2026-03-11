@@ -84,7 +84,7 @@ const Chat = ({
       <Container>
         <Stack paddingInline={3} gap={1}>
           <H1>{t('settings:privacyPolicy')}</H1>
-          {t('privacyPolicyInformation', { city: city.name, appName: buildConfig().appName })}
+          {t('privacyPolicyInformation')}
           <PrivacyCheckbox
             language={languageCode}
             checked={false}
