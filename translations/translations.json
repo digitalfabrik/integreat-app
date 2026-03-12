@@ -317,7 +317,8 @@
       "loadingText": "Einen Moment bitte, der Chat wird gestartet...",
       "sendButton": "Senden",
       "user": "Du",
-      "privacyPolicyInformation": "Bitte akzeptiere die Datenschutzerklärung, um den Chat zu nutzen."
+      "privacyPolicyInformation": "Bitte akzeptiere die Datenschutzerklärung, um den Chat zu nutzen.",
+      "newChat": "Neuer Chat"
     },
     "am": {
       "bot": "የውይይት ቦት",
@@ -431,7 +432,8 @@
       "loadingText": "One moment please, the chat is being started...",
       "sendButton": "Send",
       "user": "You",
-      "privacyPolicyInformation": "Please accept the privacy policy to use the chat."
+      "privacyPolicyInformation": "Please accept the privacy policy to use the chat.",
+      "newChat": "New chat"
     },
     "es": {
       "bot": "Chatbot",
