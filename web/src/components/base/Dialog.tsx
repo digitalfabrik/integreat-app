@@ -29,9 +29,10 @@ type DialogProps = {
   close: () => void
   children: ReactElement | ReactElement[]
   className?: string
+  headerAction?: ReactElement
 }
 
-const Dialog = ({ title, close, children, className }: DialogProps): ReactElement => {
+const Dialog = ({ title, close, children, className, headerAction }: DialogProps): ReactElement => {
   const { mobile, desktop } = useDimensions()
   const { t } = useTranslation('layout')
 
@@ -45,9 +46,12 @@ const Dialog = ({ title, close, children, className }: DialogProps): ReactElemen
         alignItems='center'
         justifyContent={desktop ? 'space-between' : undefined}
         marginInline={1}>
-        <IconButton aria-label={t('common:close')} onClick={close}>
-          {desktop ? <CloseIcon /> : <DirectionDependentBackIcon />}
-        </IconButton>
+        <Stack gap={1} sx={{ flexDirection: desktop ? 'row' : 'row-reverse' }} alignItems='center'>
+          {headerAction}
+          <IconButton aria-label={t('common:close')} onClick={close}>
+            {desktop ? <CloseIcon /> : <DirectionDependentBackIcon />}
+          </IconButton>
+        </Stack>
         <DialogTitle component='h2' variant='h4'>
           {title}
         </DialogTitle>

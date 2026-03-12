@@ -17,14 +17,15 @@ import Chat from './Chat'
 type ChatControllerProps = {
   city: CityModel
   language: string
+  onMessagesChange?: (count: number) => void
 }
 
-const LOCAL_STORAGE_ITEM_CHAT_MESSAGES = 'Chat-Device-Id'
+export const LOCAL_STORAGE_ITEM_CHAT_MESSAGES = 'Chat-Device-Id'
 const LOCAL_STORAGE_ITEM_CHAT_PRIVACY_POLICIES = 'Chat-Privacy-Policies'
 const DEFAULT_POLLING_INTERVAL = 15000
 const TYPING_POLLING_INTERVAL = 3000
 
-const ChatController = ({ city, language }: ChatControllerProps): ReactElement => {
+const ChatController = ({ city, language, onMessagesChange }: ChatControllerProps): ReactElement => {
   const cityCode = city.code
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
   const isBrowserTabActive = useIsTabActive()
@@ -42,6 +43,10 @@ const ChatController = ({ city, language }: ChatControllerProps): ReactElement =
   } = useLoadFromEndpoint(createChatMessagesEndpoint, cmsApiBaseUrl, { cityCode, language, deviceId })
   const botTyping = chatMessagesReturn?.botTyping
   const messageCount = chatMessagesReturn?.messages.length ?? 0
+
+  useEffect(() => {
+    onMessagesChange?.(messageCount)
+  }, [messageCount, onMessagesChange])
 
   const { value, updateLocalStorageItem } = useLocalStorage<Record<string, boolean>>({
     key: LOCAL_STORAGE_ITEM_CHAT_PRIVACY_POLICIES,

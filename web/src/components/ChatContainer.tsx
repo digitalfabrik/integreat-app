@@ -1,9 +1,13 @@
+import AddCommentOutlinedIcon from '@mui/icons-material/AddCommentOutlined'
 import QuestionAnswerOutlinedIcon from '@mui/icons-material/QuestionAnswerOutlined'
 import { dialogContentClasses } from '@mui/material/DialogContent'
 import Fab from '@mui/material/Fab'
+import IconButton from '@mui/material/IconButton'
+import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router'
 
 import { getChatName, CHAT_QUERY_KEY, parseQueryParams } from 'shared'
@@ -11,8 +15,9 @@ import { CityModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
 import useDimensions from '../hooks/useDimensions'
+import useLocalStorage from '../hooks/useLocalStorage'
 import useLockedBody from '../hooks/useLockedBody'
-import ChatController from './ChatController'
+import ChatController, { LOCAL_STORAGE_ITEM_CHAT_MESSAGES } from './ChatController'
 import { TtsContext } from './TtsContainer'
 import Dialog from './base/Dialog'
 
@@ -43,10 +48,23 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement | n
   const [queryParams, setQueryParams] = useSearchParams()
   const initialChatVisibility = parseQueryParams(queryParams).chat ?? false
   const [chatVisible, setChatVisible] = useState(initialChatVisibility)
+  const [messagesCount, setMessagesCount] = useState(0)
   const { desktop, xsmall, visibleFooterHeight, bottomNavigationHeight } = useDimensions()
   const { visible: ttsPlayerVisible } = useContext(TtsContext)
+  const { t } = useTranslation('chat')
   const chatName = getChatName(buildConfig().appName)
   useLockedBody(chatVisible)
+
+  const { value: deviceId, updateLocalStorageItem: updateDeviceId } = useLocalStorage({
+    key: `${LOCAL_STORAGE_ITEM_CHAT_MESSAGES}-${city.code}`,
+    initialValue: window.crypto.randomUUID(),
+  })
+
+  const resetChatId = () => {
+    if (messagesCount > 0) {
+      updateDeviceId(window.crypto.randomUUID())
+    }
+  }
 
   const hideChatButton = xsmall && ttsPlayerVisible
 
@@ -64,8 +82,17 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement | n
 
   if (chatVisible) {
     return (
-      <StyledDialog title={chatName} close={() => setChatVisible(false)}>
-        <ChatController city={city} language={language} />
+      <StyledDialog
+        title={chatName}
+        close={() => setChatVisible(false)}
+        headerAction={
+          <Tooltip title={t('newChat')}>
+            <IconButton aria-label={t('newChat')} onClick={resetChatId} disabled={messagesCount === 0}>
+              <AddCommentOutlinedIcon />
+            </IconButton>
+          </Tooltip>
+        }>
+        <ChatController key={deviceId} city={city} language={language} onMessagesChange={setMessagesCount} />
       </StyledDialog>
     )
   }
