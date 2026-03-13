@@ -41,6 +41,14 @@ import {
   ConsentRouteType,
   BOTTOM_TAB_NAVIGATION_ROUTE,
   BottomTabNavigationRouteType,
+  CATEGORIES_TAB_ROUTE,
+  CategoriesTabRouteType,
+  EVENTS_TAB_ROUTE,
+  EventsTabRouteType,
+  POIS_TAB_ROUTE,
+  PoisTabRouteType,
+  NEWS_TAB_ROUTE,
+  NewsTabRouteType,
 } from 'shared'
 import { LanguageModel, FeedbackRouteType } from 'shared/api'
 
@@ -64,6 +72,10 @@ export type RoutesType =
   | LicensesRouteType
   | ConsentRouteType
   | BottomTabNavigationRouteType
+  | CategoriesTabRouteType
+  | EventsTabRouteType
+  | PoisTabRouteType
+  | NewsTabRouteType
 
 type RouteTitle = {
   title?: string
@@ -102,6 +114,10 @@ export type RoutesParamsType = {
     searchText?: string | null
   }
   [BOTTOM_TAB_NAVIGATION_ROUTE]: undefined
+  [CATEGORIES_TAB_ROUTE]: undefined
+  [EVENTS_TAB_ROUTE]: undefined
+  [POIS_TAB_ROUTE]: undefined
+  [NEWS_TAB_ROUTE]: undefined
   [LICENSES_ROUTE]: undefined
   [CHANGE_LANGUAGE_MODAL_ROUTE]: {
     languages: LanguageModel[]
