@@ -19,6 +19,18 @@ console.error = () => undefined
 global.structuredClone = <T>(it: T): T => JSON.parse(JSON.stringify(it))
 
 Element.prototype.scrollIntoView = jest.fn()
+// MUI Popover warns when getBoundingClientRect returns all zeros (JSDOM default)
+Element.prototype.getBoundingClientRect = jest.fn(() => ({
+  width: 100,
+  height: 40,
+  top: 100,
+  left: 100,
+  bottom: 140,
+  right: 200,
+  x: 100,
+  y: 100,
+  toJSON: jest.fn(),
+}))
 
 const walkDir = (dir: string, callback: (dir: string) => void) => {
   fs.readdirSync(dir).forEach(f => {
