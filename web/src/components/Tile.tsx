@@ -9,28 +9,24 @@ import { useLoadAsync } from 'shared/api'
 import { fetchObjectCached } from '../utils'
 import Link from './base/Link'
 
-export const StyledButton = styled(Button)(({ theme }) => ({
+export const StyledButton = styled(Button)({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   alignSelf: 'flex-start',
   width: 'min(160px, 36vw)',
   gap: 8,
-  ...(theme.isContrastTheme && {
-    '&:focus-visible': {
-      outline: 'none',
-    },
-  }),
-})) as typeof Button
+}) as typeof Button
 
 const Outline = styled('div')(({ theme }) => ({
   width: 'min(140px, 32vw)',
   height: 'min(140px, 32vw)',
+  borderRadius: 24,
+  overflow: 'hidden',
 
   ...(theme.isContrastTheme && {
-    ':hover, *:focus-visible > &': {
+    ':hover': {
       outline: `8px solid ${theme.palette.secondary.main}`,
-      borderRadius: 24,
     },
   }),
 }))
