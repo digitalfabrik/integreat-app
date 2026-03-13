@@ -318,7 +318,7 @@
       "sendButton": "Senden",
       "user": "Du",
       "privacyPolicyInformation": "Bitte akzeptiere die Datenschutzerklärung, um den Chat zu nutzen.",
-      "generateAnswer": "Antwort generieren"
+      "generateAnswer": "Schreibt..."
     },
     "am": {
       "bot": "የውይይት ቦት",
@@ -433,7 +433,7 @@
       "sendButton": "Send",
       "user": "You",
       "privacyPolicyInformation": "Please accept the privacy policy to use the chat.",
-      "generateAnswer": "Generating answer"
+      "generateAnswer": "Typing..."
     },
     "es": {
       "bot": "Chatbot",
