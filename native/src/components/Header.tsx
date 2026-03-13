@@ -284,6 +284,9 @@ const Header = ({
     return { text: t(previousRoute.name), language: undefined } // system language
   }
 
+  const landingPath =
+    !previousRoute && !hasRootHistory && !isLanding ? () => navigation.navigate(LANDING_ROUTE) : undefined
+
   return (
     <BoxShadow>
       <Horizontal>
@@ -292,7 +295,7 @@ const Header = ({
           canGoBack={canGoBack}
           text={getHeaderText().text}
           language={getHeaderText().language}
-          landingPath={!previousRoute && !hasRootHistory && !isLanding ? () => navigation.navigate(LANDING_ROUTE) : undefined}
+          landingPath={landingPath}
         />
         <ActionButtons items={items} />
         <HeaderMenu
