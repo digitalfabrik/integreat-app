@@ -292,7 +292,7 @@ const Header = ({
           canGoBack={canGoBack}
           text={getHeaderText().text}
           language={getHeaderText().language}
-          landingPath={!canGoBack && !isLanding ? () => navigation.navigate(LANDING_ROUTE) : undefined}
+          landingPath={!previousRoute && !hasRootHistory && !isLanding ? () => navigation.navigate(LANDING_ROUTE) : undefined}
         />
         <ActionButtons items={items} />
         <HeaderMenu
