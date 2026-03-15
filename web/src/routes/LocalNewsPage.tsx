@@ -14,7 +14,7 @@ import { createLocalNewsEndpoint, LocalNewsModel, NotFoundError, useLoadFromEndp
 import { CityRouteProps } from '../CityContentSwitcher'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
-import FailureSwitcher from '../components/FailureSwitcher'
+import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Helmet from '../components/Helmet'
 import NewsListItem from '../components/NewsListItem'
 import NewsTabs from '../components/NewsTabs'
@@ -79,7 +79,7 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
 
     return (
       <CityContentLayout isLoading={false} {...locationLayoutParams}>
-        <FailureSwitcher error={error} />
+        <FailureSwitcherWithHelmet error={error} />
       </CityContentLayout>
     )
   }

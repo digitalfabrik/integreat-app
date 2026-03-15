@@ -2,9 +2,9 @@ import { DateTime } from 'luxon'
 
 import { DateModel, EventModel, FeaturedImageModel, LocationModel } from 'shared/api'
 
-import { createJsonLd } from '../JsonLdEvent'
+import createJsonLdEvent from '../createJsonLdEvent'
 
-describe('JsonLdEvent', () => {
+describe('createJsonLdEvent', () => {
   it('should create correct json-ld', () => {
     const dateModel = new DateModel({
       startDate: DateTime.fromISO('2017-11-18T09:30:00.000Z'),
@@ -59,7 +59,7 @@ describe('JsonLdEvent', () => {
       }),
       poiPath: '/testumgebung/de/locations/testort/',
     })
-    expect(createJsonLd(eventModel)).toEqual({
+    expect(createJsonLdEvent(eventModel)).toEqual({
       '@context': 'https://schema.org',
       '@type': 'Event',
       name: 'Sample Event',
