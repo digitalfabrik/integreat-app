@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
-import type Sentry from '@sentry/react'
-import { SeverityLevel } from '@sentry/types'
+import type { SeverityLevel } from '@sentry/types'
 
 import { FetchError, NotFoundError } from 'shared/api'
 
@@ -9,8 +8,7 @@ import buildConfig from '../constants/buildConfig'
 const sentryEnabled = (): boolean => buildConfig().featureFlags.sentry
 const developerFriendly = (): boolean => buildConfig().featureFlags.developerFriendly
 
-// webpackChunkName: "sentry"
-const loadSentry = (): Promise<typeof Sentry> => import('@sentry/react')
+const loadSentry = () => import('./sentryReexport')
 
 const logSentryException = (e: unknown) => {
   console.error(e)
@@ -35,32 +33,33 @@ export const initSentry = async (): Promise<void> => {
 
 export const log = async (message: string, level: SeverityLevel = 'debug'): Promise<void> => {
   try {
-    const Sentry = await loadSentry()
     if (sentryEnabled()) {
+      const Sentry = await loadSentry()
       Sentry.addBreadcrumb({ message, level })
-    }
-    if (developerFriendly()) {
-      switch (level) {
-        case 'fatal':
-        case 'error':
-          console.error(message)
-          break
-        case 'warning':
-          console.warn(message)
-          break
-        case 'log':
-          console.log(message)
-          break
-        case 'info':
-          console.info(message)
-          break
-        case 'debug':
-          console.debug(message)
-          break
-      }
     }
   } catch (e) {
     logSentryException(e)
+  }
+
+  if (developerFriendly()) {
+    switch (level) {
+      case 'fatal':
+      case 'error':
+        console.error(message)
+        break
+      case 'warning':
+        console.warn(message)
+        break
+      case 'log':
+        console.log(message)
+        break
+      case 'info':
+        console.info(message)
+        break
+      case 'debug':
+        console.debug(message)
+        break
+    }
   }
 }
 
