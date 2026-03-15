@@ -1,3 +1,4 @@
+/** @jest-config-loader ts-node */
 const transformNodeModules = [
   'react-native',
   '@react-native',

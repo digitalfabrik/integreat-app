@@ -1,5 +1,4 @@
 import { waitFor } from '@testing-library/react-native'
-import { mocked } from 'jest-mock'
 import React from 'react'
 import { Translation } from 'react-i18next'
 
@@ -13,6 +12,7 @@ jest.mock('../../utils/NativeLanguageDetector')
 jest.mock('translations/src/loadTranslations')
 jest.mock('../../utils/sendTrackingSignal')
 
+const { mocked } = jest
 const mockDetect = mocked(NativeLanguageDetector.detect)
 
 describe('I18nProvider', () => {

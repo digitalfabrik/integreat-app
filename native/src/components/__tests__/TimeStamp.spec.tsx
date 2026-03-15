@@ -1,5 +1,4 @@
 import { RenderAPI } from '@testing-library/react-native'
-import { mocked } from 'jest-mock'
 import { DateTime } from 'luxon'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
@@ -15,6 +14,7 @@ jest.mock('react-i18next', () => ({
 }))
 
 describe('TimeStamp', () => {
+  const { mocked } = jest
   const lastUpdate = DateTime.fromISO('2020-03-20T17:50:00+02:00')
 
   const renderTimeStamp = (format: string | null, showText: boolean | null): RenderAPI =>

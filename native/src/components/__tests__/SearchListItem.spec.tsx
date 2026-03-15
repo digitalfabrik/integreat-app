@@ -1,5 +1,4 @@
 import { fireEvent } from '@testing-library/react-native'
-import { mocked } from 'jest-mock'
 import React from 'react'
 
 import { NewsRouteType, parseHTML, SEARCH_FINISHED_SIGNAL_NAME } from 'shared'
@@ -32,6 +31,7 @@ describe('SearchListItem', () => {
     jest.clearAllMocks()
   })
   const navigation = createNavigationScreenPropMock<NewsRouteType>()
+  const { mocked } = jest
   mocked(useNavigate).mockImplementation(() => ({ navigateTo: jest.fn(), navigation }))
 
   const assertHighlighting = (element: HTMLElement, highlighted: boolean) =>
