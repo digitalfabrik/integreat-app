@@ -125,6 +125,14 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
 
   const isNewsEnabled = cachedData.city.tunewsEnabled || cachedData.city.localNewsEnabled
 
+  // Local Information is always visible therefore it is always true
+  const visibleTabCount = [
+    true,
+    featureFlags.pois && cachedData.city.poisEnabled,
+    isNewsEnabled,
+    cachedData.city.eventsEnabled,
+  ].filter(Boolean).length
+
   return (
     <Tab.Navigator
       backBehavior='history'
@@ -135,6 +143,10 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
         tabBarStyle: {
           height: TAB_HEIGHT + insets.bottom,
           backgroundColor: theme.colors.surfaceVariant,
+          display: visibleTabCount <= 1 ? 'none' : 'flex',
+        },
+        sceneStyle: {
+          paddingBottom: visibleTabCount > 1 ? null : insets.bottom,
         },
       }}>
       <Tab.Screen
