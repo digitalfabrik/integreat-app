@@ -54,6 +54,7 @@ type PoiBottomSheetProps = {
   setSnapPointIndex: (index: number) => void
   setScrollPosition: (position: number) => void
   isFullscreen: boolean
+  modalVisible: boolean
 }
 
 const PoisBottomSheet = ({
@@ -69,6 +70,7 @@ const PoisBottomSheet = ({
   setSnapPointIndex,
   setScrollPosition,
   isFullscreen,
+  modalVisible,
 }: PoiBottomSheetProps): ReactElement | null => {
   const { languageCode } = useCityAppContext()
   const { t } = useTranslation('pois')
@@ -123,8 +125,12 @@ const PoisBottomSheet = ({
       animateOnMount
       backgroundStyle={{ backgroundColor: theme.colors.background }}
       handleComponent={BottomSheetHandle}
+      accessibilityRole='adjustable'
       onChange={setSnapPointIndex}>
-      <BottomSheetContent>
+      <BottomSheetContent
+        accessible={!modalVisible}
+        importantForAccessibility={modalVisible ? 'no-hide-descendants' : 'auto'}
+        accessibilityElementsHidden={modalVisible}>
         {slug ? (
           <BottomSheetScrollView showsVerticalScrollIndicator={false}>{PoiDetail}</BottomSheetScrollView>
         ) : (

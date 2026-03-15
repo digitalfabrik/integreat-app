@@ -167,6 +167,7 @@ const Pois = ({ pois: allPois, cityModel, route, navigation }: PoisProps): React
         poisCount={pois.length}
       />
       <MapView
+        modalVisible={showFilterSelection}
         selectFeature={selectMapFeature}
         boundingBox={cityModel.boundingBox}
         features={mapFeatures}
@@ -179,6 +180,7 @@ const Pois = ({ pois: allPois, cityModel, route, navigation }: PoisProps): React
         Overlay={FiltersOverlayButtons}
       />
       <PoisBottomSheet
+        modalVisible={showFilterSelection}
         poiListRef={poiListRef}
         pois={sortPois(pois, userLocation)}
         poi={poi}
