@@ -52,7 +52,9 @@ import {
 } from 'shared'
 import { LanguageModel, FeedbackRouteType } from 'shared/api'
 
-export type RoutesType =
+type TabRoutesType = CategoriesTabRouteType | EventsTabRouteType | PoisTabRouteType | NewsTabRouteType
+
+type StackRoutesType =
   | RedirectRouteType
   | JpalTrackingRouteType
   | IntroRouteType
@@ -72,10 +74,8 @@ export type RoutesType =
   | LicensesRouteType
   | ConsentRouteType
   | BottomTabNavigationRouteType
-  | CategoriesTabRouteType
-  | EventsTabRouteType
-  | PoisTabRouteType
-  | NewsTabRouteType
+
+export type RoutesType = StackRoutesType | TabRoutesType
 
 type RouteTitle = {
   title?: string
