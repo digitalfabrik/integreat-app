@@ -34,13 +34,7 @@ import useTtsPlayer from '../hooks/useTtsPlayer'
 
 const CATEGORY_NOT_FOUND_STATUS_CODE = 400
 
-const useCategoryData = (
-  cityCode: string,
-  languageCode: string,
-  pathname: string,
-  categoryId: string | undefined,
-  cityName: string,
-) => {
+const useCategoryData = (cityCode: string, languageCode: string, pathname: string, categoryId: string | undefined) => {
   const {
     data: rawCategories,
     loading: categoriesLoading,
@@ -82,7 +76,7 @@ const useCategoryData = (
             new CategoryModel({
               root: true,
               path: pathname,
-              title: cityName,
+              title: 'root',
               parentPath: '',
               content: '',
               thumbnail: '',
@@ -94,7 +88,7 @@ const useCategoryData = (
             }),
           ]
         : rawCategories,
-    [categoryId, rawCategories, pathname, cityName],
+    [categoryId, rawCategories, pathname],
   )
 
   return {
@@ -122,7 +116,6 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
     languageCode,
     pathname,
     categoryId,
-    city?.name ?? '',
   )
 
   const currentCategory = categories?.find(it => it.path === pathname)
