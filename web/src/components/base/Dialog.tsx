@@ -30,9 +30,10 @@ type DialogProps = {
   children: ReactElement | ReactElement[]
   className?: string
   headerAction?: ReactElement
+  actions?: ReactElement
 }
 
-const Dialog = ({ title, close, children, className, headerAction }: DialogProps): ReactElement => {
+const Dialog = ({ title, close, children, className, headerAction, actions }: DialogProps): ReactElement => {
   const { mobile, desktop } = useDimensions()
   const { t } = useTranslation('layout')
 
@@ -57,6 +58,7 @@ const Dialog = ({ title, close, children, className, headerAction }: DialogProps
         </DialogTitle>
       </Stack>
       <DialogContent>{children}</DialogContent>
+      {actions}
     </StyledMuiDialog>
   )
 }

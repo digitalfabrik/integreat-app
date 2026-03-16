@@ -2,8 +2,6 @@ import AddCommentOutlinedIcon from '@mui/icons-material/AddCommentOutlined'
 import QuestionAnswerOutlinedIcon from '@mui/icons-material/QuestionAnswerOutlined'
 import { dialogContentClasses } from '@mui/material/DialogContent'
 import Fab from '@mui/material/Fab'
-import IconButton from '@mui/material/IconButton'
-import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
@@ -18,6 +16,8 @@ import useDimensions from '../hooks/useDimensions'
 import useLocalStorage from '../hooks/useLocalStorage'
 import useLockedBody from '../hooks/useLockedBody'
 import ChatController, { LOCAL_STORAGE_ITEM_CHAT_MESSAGES } from './ChatController'
+import ChatMenu from './ChatMenu'
+import MenuItem from './MenuItem'
 import { TtsContext } from './TtsContainer'
 import Dialog from './base/Dialog'
 
@@ -49,6 +49,7 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement | n
   const initialChatVisibility = parseQueryParams(queryParams).chat ?? false
   const [chatVisible, setChatVisible] = useState(initialChatVisibility)
   const [messagesCount, setMessagesCount] = useState(0)
+  const [confirmDialogOpen, setConfirmDialogOpen] = useState(false)
   const { desktop, xsmall, visibleFooterHeight, bottomNavigationHeight } = useDimensions()
   const { visible: ttsPlayerVisible } = useContext(TtsContext)
   const { t } = useTranslation('chat')
@@ -64,6 +65,7 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement | n
     if (messagesCount > 0) {
       updateDeviceId(window.crypto.randomUUID())
     }
+    setConfirmDialogOpen(false)
   }
 
   const hideChatButton = xsmall && ttsPlayerVisible
@@ -86,11 +88,17 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement | n
         title={chatName}
         close={() => setChatVisible(false)}
         headerAction={
-          <Tooltip title={t('newChat')}>
-            <IconButton aria-label={t('newChat')} onClick={resetChatId} disabled={messagesCount === 0}>
-              <AddCommentOutlinedIcon />
-            </IconButton>
-          </Tooltip>
+          <ChatMenu
+            confirmNewChatOpen={confirmDialogOpen}
+            onConfirmClose={() => setConfirmDialogOpen(false)}
+            onConfirmNewChat={resetChatId}>
+            <MenuItem
+              text={t('newChat')}
+              icon={<AddCommentOutlinedIcon fontSize='small' />}
+              disabled={messagesCount === 0}
+              onClick={() => setConfirmDialogOpen(true)}
+            />
+          </ChatMenu>
         }>
         <ChatController key={deviceId} city={city} language={language} onMessagesChange={setMessagesCount} />
       </StyledDialog>

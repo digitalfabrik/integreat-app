@@ -318,7 +318,9 @@
       "sendButton": "Senden",
       "user": "Du",
       "privacyPolicyInformation": "Bitte akzeptiere die Datenschutzerklärung, um den Chat zu nutzen.",
-      "newChat": "Neuer Chat"
+      "newChat": "Neuen Chat starten",
+      "newChatConfirmation": "Möchtest du wirklich einen neuen Chat starten? Der aktuelle Chatverlauf geht verloren.",
+      "chatOptions": "Chat-Optionen"
     },
     "am": {
       "bot": "የውይይት ቦት",
@@ -433,7 +435,9 @@
       "sendButton": "Send",
       "user": "You",
       "privacyPolicyInformation": "Please accept the privacy policy to use the chat.",
-      "newChat": "New chat"
+      "newChat": "Start new chat",
+      "newChatConfirmation": "Do you really want to start a new chat? The current chat history will be lost.",
+      "chatOptions": "Chat options"
     },
     "es": {
       "bot": "Chatbot",
