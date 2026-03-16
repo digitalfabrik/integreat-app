@@ -36,7 +36,7 @@ type RenderRouteOptions = {
 
 export const renderRoute = (ui: ReactElement, options: RenderRouteOptions): ExtendedRenderResult => {
   const routes = [
-    ...(options.previousRoutes ?? []).map(r => ({ path: r.pathname, element: null })),
+    ...(options.previousRoutes ?? []).map(route => ({ path: route.pathname, element: null })),
     {
       path: options.routePattern,
       element: ui,

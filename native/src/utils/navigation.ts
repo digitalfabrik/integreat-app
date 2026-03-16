@@ -12,7 +12,7 @@ import {
 
 import { RoutesType } from '../constants/NavigationTypes'
 
-const toTabRoute: Partial<Record<string, string>> = {
+const tabRoutes: Record<string, RoutesType> = {
   [CATEGORIES_ROUTE]: CATEGORIES_TAB_ROUTE,
   [EVENTS_ROUTE]: EVENTS_TAB_ROUTE,
   [NEWS_ROUTE]: NEWS_TAB_ROUTE,
@@ -43,7 +43,7 @@ export const buildNestedAction = (
     }
   }[]
 } => {
-  const tabRoute = (toTabRoute[routeName] ?? routeName) as RoutesType
+  const tabRoute = tabRoutes[routeName] ?? routeName
 
   return {
     index: 0,
