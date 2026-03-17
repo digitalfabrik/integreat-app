@@ -47,15 +47,16 @@ const Dialog = ({ title, close, children, className, headerAction, actions }: Di
         alignItems='center'
         justifyContent={desktop ? 'space-between' : undefined}
         marginInline={1}>
-        <Stack gap={1} sx={{ flexDirection: desktop ? 'row' : 'row-reverse' }} alignItems='center'>
-          {headerAction}
+        <Stack direction='row' gap={1} alignItems='center'>
+          {desktop && headerAction}
           <IconButton aria-label={t('common:close')} onClick={close}>
             {desktop ? <CloseIcon /> : <DirectionDependentBackIcon />}
           </IconButton>
         </Stack>
-        <DialogTitle component='h2' variant='h4'>
+        <DialogTitle component='h2' variant='h4' sx={{ flex: 1 }}>
           {title}
         </DialogTitle>
+        {!desktop && headerAction}
       </Stack>
       <DialogContent>{children}</DialogContent>
       {actions}
