@@ -26,7 +26,7 @@ const Outline = styled('div')(({ theme }) => ({
 
   ...(theme.isContrastTheme && {
     ':hover': {
-      outline: `8px solid ${theme.palette.secondary.main}`,
+      boxShadow: `0 0 0 8px ${theme.palette.secondary.main}`,
     },
   }),
 }))
