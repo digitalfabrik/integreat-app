@@ -1,5 +1,4 @@
 import React, { ReactElement, useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
 
 import {
   cityContentPath,
@@ -15,15 +14,12 @@ import { fromError, NotFoundError } from 'shared/api'
 
 import { reportError } from '../utils/sentry'
 import Failure from './Failure'
-import Helmet from './Helmet'
 
 type FailureSwitcherProps = {
   error: Error
 }
 
 const FailureSwitcher = ({ error }: FailureSwitcherProps): ReactElement => {
-  const { t } = useTranslation('error')
-
   useEffect(() => {
     reportError(error)
   }, [error])
@@ -74,12 +70,7 @@ const FailureSwitcher = ({ error }: FailureSwitcherProps): ReactElement => {
     }
   }
 
-  return (
-    <>
-      <Helmet pageTitle={error instanceof NotFoundError ? t('notFound.pageTitle') : t('pageTitle')} />
-      <Failure {...getFailureProps(error)} />
-    </>
-  )
+  return <Failure {...getFailureProps(error)} />
 }
 
 export default FailureSwitcher
