@@ -1,5 +1,4 @@
-import React, { ReactElement } from 'react'
-import { Helmet as ReactHelmet } from 'react-helmet'
+import React, { ReactElement, useEffect } from 'react'
 
 import { CityModel } from 'shared/api'
 
@@ -14,6 +13,7 @@ type HelmetProps = {
   cityModel?: CityModel
 }
 
+/** Make sure to render at most one Helmet instance at any time (to avoid having multiple title, description tags in the DOM). */
 const Helmet = ({
   pageTitle,
   metaDescription,
@@ -38,8 +38,17 @@ const Helmet = ({
   const description = metaDescription ?? pageTitle
   const previewImage = buildConfig().icons.socialMediaPreview
 
+  // While this instance of Helmet is being rendered, we replace the defaults established in index.ejs.
+  useEffect(() => {
+    const defaultTags = [...document.head.querySelectorAll('*[data-helmet]')]
+    defaultTags.forEach(it => it.remove())
+    return () => {
+      defaultTags.forEach(it => document.head.appendChild(it))
+    }
+  }, [])
+
   return (
-    <ReactHelmet>
+    <>
       <title>{title}</title>
       <meta name='description' content={description} />
       {noIndex}
@@ -52,8 +61,10 @@ const Helmet = ({
       <meta property='og:description' content={description} />
       <meta property='og:url' content={window.location.href} />
       <meta property='og:type' content='website' />
+      <meta name='twitter:title' content={pageTitle} />
+      <meta name='twitter:image' content={previewImage} />
       <meta property='integreat:version' content={__VERSION_NAME__} />
-    </ReactHelmet>
+    </>
   )
 }
 

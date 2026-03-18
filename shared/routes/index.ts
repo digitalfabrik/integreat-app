@@ -39,6 +39,15 @@ export const TU_NEWS_TYPE: TuNewsType = 'tu-news'
 export type NewsType = LocalNewsType | TuNewsType
 
 // Internal native routes
+export type CategoriesTabRouteType = 'categoriesTab'
+export const CATEGORIES_TAB_ROUTE: CategoriesTabRouteType = 'categoriesTab'
+export type EventsTabRouteType = 'eventsTab'
+export const EVENTS_TAB_ROUTE: EventsTabRouteType = 'eventsTab'
+export type PoisTabRouteType = 'poisTab'
+export const POIS_TAB_ROUTE: PoisTabRouteType = 'poisTab'
+export type NewsTabRouteType = 'newsTab'
+export const NEWS_TAB_ROUTE: NewsTabRouteType = 'newsTab'
+
 export type RedirectRouteType = 'redirect'
 export const REDIRECT_ROUTE: RedirectRouteType = 'redirect'
 

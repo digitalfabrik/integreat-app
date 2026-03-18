@@ -21,7 +21,7 @@ import Breadcrumbs from '../components/Breadcrumbs'
 import CategoriesContent from '../components/CategoriesContent'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
-import FailureSwitcher from '../components/FailureSwitcher'
+import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Helmet from '../components/Helmet'
 import SkeletonHeader from '../components/SkeletonHeader'
 import SkeletonList from '../components/SkeletonList'
@@ -198,7 +198,7 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
 
     return (
       <CityContentLayout isLoading={false} {...locationLayoutParams}>
-        <FailureSwitcher error={error} />
+        <FailureSwitcherWithHelmet error={error} />
       </CityContentLayout>
     )
   }

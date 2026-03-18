@@ -19,7 +19,7 @@ import { config } from 'translations'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
-import FailureSwitcher from '../components/FailureSwitcher'
+import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Helmet from '../components/Helmet'
 import SearchFeedback from '../components/SearchFeedback'
 import SearchInput from '../components/SearchInput'
@@ -121,7 +121,7 @@ const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
   if (error) {
     return (
       <CityContentLayout isLoading={false} {...layoutParams}>
-        <FailureSwitcher error={error} />
+        <FailureSwitcherWithHelmet error={error} />
       </CityContentLayout>
     )
   }
