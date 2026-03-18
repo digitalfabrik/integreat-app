@@ -1,7 +1,0 @@
-issue_key: 3932
-show_in_stores: true
-platforms:
-  - android
-  - ios
-en: Fixed location change button disappearing after switching tabs
-de: Stadtauswahl-Schaltfläche verschwindet nicht mehr nach dem Wechsel zwischen Tabs

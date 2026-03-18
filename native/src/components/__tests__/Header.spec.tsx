@@ -151,21 +151,10 @@ describe('Header', () => {
 
   it('should show location change button even when tab history exists', () => {
     mockPreviousRoute(false)
-    const tabNavigationMock = {
-      getState: jest.fn(() => ({
-        history: [{ key: 'tab-key-0' }, { key: 'tab-key-1' }],
-        index: 1,
-        routes: [],
-        key: 'tab-key',
-        routeNames: [],
-        type: 'tab' as const,
-        stale: false as const,
-      })),
-      getParent: jest.fn(() => ({
-        getState: jest.fn(() => ({ index: 0 })),
-      })),
-    }
-    mocked(navigation.getParent).mockReturnValue(tabNavigationMock as never)
+    mocked(navigation.getParent).mockReturnValue({
+      getState: jest.fn(() => ({ history: [{ key: 'tab-key-0' }, { key: 'tab-key-1' }] })),
+      getParent: jest.fn(() => {}),
+    } as never)
     const { getByLabelText } = renderHeader({})
     expect(getByLabelText(/changeLocation/)).toBeTruthy()
   })
