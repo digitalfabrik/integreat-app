@@ -5,6 +5,8 @@ import { LOCAL_NEWS_TYPE, tunewsLabel } from 'shared'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import NewsTabs from '../NewsTabs'
 
+jest.mock('react-i18next')
+
 describe('NewsTabs', () => {
   const language = 'en'
 
@@ -13,6 +15,6 @@ describe('NewsTabs', () => {
       <NewsTabs type={LOCAL_NEWS_TYPE} city='testcity' localNewsEnabled tunewsEnabled language={language} />,
     )
     expect(getByLabelText(tunewsLabel)).toBeDefined()
-    expect(getByLabelText('local')).toBeDefined()
+    expect(getByLabelText('news:local')).toBeDefined()
   })
 })
