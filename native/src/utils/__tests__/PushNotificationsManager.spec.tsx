@@ -249,7 +249,7 @@ describe('PushNotificationsManager', () => {
       mocked(getInitialNotification).mockImplementation(async () => message)
       renderMockComponent()
       await waitFor(() => expect(navigate).toHaveBeenCalledTimes(1), { timeout: 1100 })
-      expect(navigate).toHaveBeenCalledWith('news', {
+      expect(navigate).toHaveBeenCalledWith({
         cityCode: 'augsburg',
         languageCode: 'de',
         newsId: 123,
@@ -262,7 +262,7 @@ describe('PushNotificationsManager', () => {
       mocked(onNotificationOpenedApp).mockImplementation((_, listener) => listener(message))
       renderMockComponent()
       await waitFor(() => expect(navigate).toHaveBeenCalledTimes(2), { timeout: 1100 })
-      expect(navigate).toHaveBeenCalledWith('news', {
+      expect(navigate).toHaveBeenCalledWith({
         cityCode: 'augsburg',
         languageCode: 'de',
         newsId: 123,

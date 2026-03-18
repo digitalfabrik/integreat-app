@@ -20,7 +20,6 @@ import {
   PDF_VIEW_MODAL_ROUTE,
   REDIRECT_ROUTE,
   RedirectRouteType,
-  RouteInformationType,
   SEARCH_ROUTE,
   SETTINGS_ROUTE,
 } from 'shared'
@@ -91,7 +90,7 @@ const Navigator = (): ReactElement | null => {
   // Preload cities
   const { data: cities, error: citiesError, refresh: refreshCities } = useLoadCities()
 
-  usePushNotificationListener((_route, params) => navigateTo(params as RouteInformationType))
+  usePushNotificationListener(navigateTo)
 
   const updateInitialRoute = useCallback(
     (initialRoute: InitialRouteType) =>
