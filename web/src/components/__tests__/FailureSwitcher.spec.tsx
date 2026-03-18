@@ -5,7 +5,7 @@ import { MappingError, NotFoundError, ResponseError, fromError } from 'shared/ap
 
 import { renderWithRouterAndTheme } from '../../testing/render'
 import { reportError } from '../../utils/sentry'
-import FailureSwitcher from '../FailureSwitcher'
+import FailureSwitcherWithHelmet from '../FailureSwitcherWithHelmet'
 
 jest.mock('react-i18next')
 jest.mock('../../utils/sentry', () => ({
@@ -29,7 +29,7 @@ describe('FailureSwitcher', () => {
     ${'poi'}           | ${'1234'}       | ${'poi'}      | ${'pois'}       | ${'/augsburg/de/locations'}
   `('should render $type not found failure', ({ type, id, notFoundKey, goToKey, goToPath }) => {
     const error = new NotFoundError({ type, id, language, city })
-    const { getByText } = renderWithRouterAndTheme(<FailureSwitcher error={error} />)
+    const { getByText } = renderWithRouterAndTheme(<FailureSwitcherWithHelmet error={error} />)
 
     expect(getByText(`error:notFound.${notFoundKey}`)).toBeTruthy()
     expect(getByText(`error:goTo.${goToKey}`).closest('a')).toHaveProperty('href', `http://localhost${goToPath}`)
@@ -38,7 +38,7 @@ describe('FailureSwitcher', () => {
 
   it('should render a failure as default', async () => {
     const error = new Error('error message')
-    const { getByText } = renderWithRouterAndTheme(<FailureSwitcher error={error} />)
+    const { getByText } = renderWithRouterAndTheme(<FailureSwitcherWithHelmet error={error} />)
 
     expect(getByText(`error:${fromError(error)}`)).toBeTruthy()
     expect(reportError).toHaveBeenCalledTimes(1)
@@ -47,7 +47,7 @@ describe('FailureSwitcher', () => {
 
   it('should report mapping errors to sentry', async () => {
     const error = new MappingError('category', 'some message')
-    const { getByText } = renderWithRouterAndTheme(<FailureSwitcher error={error} />)
+    const { getByText } = renderWithRouterAndTheme(<FailureSwitcherWithHelmet error={error} />)
 
     expect(getByText(`error:${fromError(error)}`)).toBeTruthy()
     expect(reportError).toHaveBeenCalledTimes(1)
@@ -61,7 +61,7 @@ describe('FailureSwitcher', () => {
       url: 'https://example.com',
       requestOptions: { method: 'GET' },
     })
-    const { getByText } = renderWithRouterAndTheme(<FailureSwitcher error={error} />)
+    const { getByText } = renderWithRouterAndTheme(<FailureSwitcherWithHelmet error={error} />)
 
     expect(getByText(`error:${fromError(error)}`)).toBeTruthy()
     expect(reportError).toHaveBeenCalledTimes(1)
