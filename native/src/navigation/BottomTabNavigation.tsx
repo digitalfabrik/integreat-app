@@ -125,13 +125,39 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
 
   const isNewsEnabled = cachedData.city.tunewsEnabled || cachedData.city.localNewsEnabled
 
-  // Local Information is always visible therefore it is always true
-  const visibleTabCount = [
-    true,
-    featureFlags.pois && cachedData.city.poisEnabled,
-    isNewsEnabled,
-    cachedData.city.eventsEnabled,
-  ].filter(Boolean).length
+  const Tabs = [
+    <Tab.Screen
+      name={CATEGORIES_ROUTE}
+      component={CategoriesStackScreen}
+      options={{ tabBarLabel: createTabLabel(theme, t('localInformationLabel')), tabBarIcon: CategoriesIcon }}
+    />,
+    featureFlags.pois && cachedData.city.poisEnabled && (
+      <Tab.Screen
+        name={POIS_ROUTE}
+        component={PoisStackScreen}
+        options={{ tabBarLabel: createTabLabel(theme, t('locations')), tabBarIcon: createTabIcon('map-outline') }}
+      />
+    ),
+    isNewsEnabled && (
+      <Tab.Screen
+        name={NEWS_ROUTE}
+        component={NewsStackScreen}
+        options={{ tabBarLabel: createTabLabel(theme, t('news')), tabBarIcon: createTabIcon('newspaper') }}
+      />
+    ),
+    cachedData.city.eventsEnabled && (
+      <Tab.Screen
+        name={EVENTS_ROUTE}
+        component={EventsStackScreen}
+        options={{
+          tabBarLabel: createTabLabel(theme, t('events')),
+          tabBarIcon: createTabIcon('calendar-blank-outline'),
+        }}
+      />
+    ),
+  ].filter(Boolean)
+
+  const bottomTabNavigationVisible = Tabs.length > 1
 
   return (
     <Tab.Navigator
@@ -143,41 +169,13 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
         tabBarStyle: {
           height: TAB_HEIGHT + insets.bottom,
           backgroundColor: theme.colors.surfaceVariant,
-          display: visibleTabCount <= 1 ? 'none' : 'flex',
+          display: bottomTabNavigationVisible ? 'flex' : 'none',
         },
         sceneStyle: {
-          paddingBottom: visibleTabCount > 1 ? null : insets.bottom,
+          paddingBottom: bottomTabNavigationVisible ? null : insets.bottom,
         },
       }}>
-      <Tab.Screen
-        name={CATEGORIES_ROUTE}
-        component={CategoriesStackScreen}
-        options={{ tabBarLabel: createTabLabel(theme, t('localInformationLabel')), tabBarIcon: CategoriesIcon }}
-      />
-      {featureFlags.pois && cachedData.city.poisEnabled && (
-        <Tab.Screen
-          name={POIS_ROUTE}
-          component={PoisStackScreen}
-          options={{ tabBarLabel: createTabLabel(theme, t('locations')), tabBarIcon: createTabIcon('map-outline') }}
-        />
-      )}
-      {isNewsEnabled && (
-        <Tab.Screen
-          name={NEWS_ROUTE}
-          component={NewsStackScreen}
-          options={{ tabBarLabel: createTabLabel(theme, t('news')), tabBarIcon: createTabIcon('newspaper') }}
-        />
-      )}
-      {cachedData.city.eventsEnabled && (
-        <Tab.Screen
-          name={EVENTS_ROUTE}
-          component={EventsStackScreen}
-          options={{
-            tabBarLabel: createTabLabel(theme, t('events')),
-            tabBarIcon: createTabIcon('calendar-blank-outline'),
-          }}
-        />
-      )}
+      {Tabs}
     </Tab.Navigator>
   )
 }
