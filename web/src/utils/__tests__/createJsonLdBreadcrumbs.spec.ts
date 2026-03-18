@@ -1,9 +1,9 @@
-import { createJsonLd } from '../JsonLdBreadcrumbs'
+import createJsonLdBreadcrumbs from '../createJsonLdBreadcrumbs'
 
-describe('BreadcrumbsJsonLd', () => {
+describe('createJsonLdBreadcrumbs', () => {
   const location = window.location
   it('should create correct json-ld', () => {
-    const jsonLd = createJsonLd([
+    const jsonLd = createJsonLdBreadcrumbs([
       {
         title: 'Home',
         to: '/',

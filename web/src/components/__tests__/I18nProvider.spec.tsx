@@ -1,7 +1,6 @@
 import { render, waitFor } from '@testing-library/react'
 import { mocked } from 'jest-mock'
 import React from 'react'
-import Helmet from 'react-helmet'
 import { Translation } from 'react-i18next'
 
 import BrowserLanguageDetector from '../../utils/BrowserLanguageDetector'
@@ -14,6 +13,8 @@ describe('I18nProvider', () => {
   const mockDetect = mocked(BrowserLanguageDetector.detect)
   const previousConsoleLog = console.log
   const previousConsoleDebug = console.debug
+
+  const getLinkTargets = () => [...document.querySelectorAll('link')].map(link => link.getAttribute('href'))
 
   beforeEach(() => {
     console.log = () => undefined
@@ -101,9 +102,7 @@ describe('I18nProvider', () => {
         <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
       </I18nProvider>,
     )
-    await waitFor(() =>
-      expect(document.querySelector('link')?.getAttribute('href')).toBe('/fonts/noto-sans-sc/noto-sans-sc.css'),
-    )
+    await waitFor(() => expect(getLinkTargets()).toEqual(['/fonts/noto-sans-sc/noto-sans-sc.css']))
   })
 
   it('should set link for additional font noto-sans-georgian', async () => {
@@ -113,11 +112,7 @@ describe('I18nProvider', () => {
         <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
       </I18nProvider>,
     )
-    await waitFor(() =>
-      expect(document.querySelector('link')?.getAttribute('href')).toBe(
-        '/fonts/noto-sans-georgian/noto-sans-georgian.css',
-      ),
-    )
+    await waitFor(() => expect(getLinkTargets()).toEqual(['/fonts/noto-sans-georgian/noto-sans-georgian.css']))
   })
 
   it('should choose the default fallback for ui translations', async () => {
@@ -150,8 +145,7 @@ describe('I18nProvider', () => {
 
     await waitFor(() => {
       // Checking for side-effect
-      const helmet = Helmet.peek()
-      expect(helmet.linkTags.map(link => link.href)).toContain('/fonts/noto-sans-arabic/noto-sans-arabic.css')
+      expect(getLinkTargets()).toEqual(['/fonts/noto-sans-arabic/noto-sans-arabic.css'])
     })
   })
 
@@ -159,8 +153,7 @@ describe('I18nProvider', () => {
     render(<I18nProvider contentLanguage={undefined}>Hello</I18nProvider>)
     await waitFor(() => {
       // Checking for side-effect
-      const helmet = Helmet.peek()
-      expect(helmet.linkTags.map(link => link.href)).not.toContain('/fonts/noto-sans-arabic/noto-sans-arabic.css')
+      expect(getLinkTargets()).toEqual([])
     })
   })
 })

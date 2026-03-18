@@ -7,7 +7,7 @@ import { createDisclaimerEndpoint, useLoadFromEndpoint } from 'shared/api'
 import { CityRouteProps } from '../CityContentSwitcher'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
-import FailureSwitcher from '../components/FailureSwitcher'
+import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Helmet from '../components/Helmet'
 import Page from '../components/Page'
 import SkeletonPage from '../components/SkeletonPage'
@@ -55,7 +55,7 @@ const DisclaimerPage = ({ cityCode, languageCode, city }: CityRouteProps): React
     const error = disclaimerError || new Error('Disclaimer should not be null!')
     return (
       <CityContentLayout isLoading {...locationLayoutParams}>
-        <FailureSwitcher error={error} />
+        <FailureSwitcherWithHelmet error={error} />
       </CityContentLayout>
     )
   }

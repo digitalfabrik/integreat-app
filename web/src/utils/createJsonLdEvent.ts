@@ -1,10 +1,8 @@
-import React, { ReactElement } from 'react'
-import { Helmet } from 'react-helmet'
-import { Event, WithContext } from 'schema-dts'
+import type { Event, WithContext } from 'schema-dts'
 
 import { EventModel } from 'shared/api'
 
-export const createJsonLd = (event: EventModel): WithContext<Event> | null => {
+const createJsonLdEvent = (event: EventModel): WithContext<Event> | null => {
   if (!event.location) {
     return null
   }
@@ -47,20 +45,4 @@ export const createJsonLd = (event: EventModel): WithContext<Event> | null => {
   return jsonLd
 }
 
-type JsonLdEventProps = {
-  event: EventModel
-}
-
-const JsonLdEvent = ({ event }: JsonLdEventProps): ReactElement | null => {
-  const jsonLd = createJsonLd(event)
-  if (!jsonLd) {
-    return null
-  }
-  return (
-    <Helmet>
-      <script type='application/ld+json'>{JSON.stringify(jsonLd)}</script>
-    </Helmet>
-  )
-}
-
-export default JsonLdEvent
+export default createJsonLdEvent

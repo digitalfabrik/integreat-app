@@ -1,6 +1,5 @@
 import i18next, { i18n } from 'i18next'
 import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
-import { Helmet as ReactHelmet } from 'react-helmet'
 import { I18nextProvider } from 'react-i18next'
 
 import { config, loadTranslations } from 'translations'
@@ -87,15 +86,13 @@ const I18nProvider = ({ children, contentLanguage }: I18nProviderProps): ReactEl
   return (
     <I18nextProvider i18n={i18nextInstance}>
       <div data-testid='direction' dir={dir}>
-        <ReactHelmet>
-          {additionalFont === 'noto-sans-arabic' && (
-            <link href='/fonts/noto-sans-arabic/noto-sans-arabic.css' rel='stylesheet' />
-          )}
-          {additionalFont === 'noto-sans-sc' && <link href='/fonts/noto-sans-sc/noto-sans-sc.css' rel='stylesheet' />}
-          {additionalFont === 'noto-sans-georgian' && (
-            <link href='/fonts/noto-sans-georgian/noto-sans-georgian.css' rel='stylesheet' />
-          )}
-        </ReactHelmet>
+        {additionalFont === 'noto-sans-arabic' && (
+          <link href='/fonts/noto-sans-arabic/noto-sans-arabic.css' rel='stylesheet' />
+        )}
+        {additionalFont === 'noto-sans-sc' && <link href='/fonts/noto-sans-sc/noto-sans-sc.css' rel='stylesheet' />}
+        {additionalFont === 'noto-sans-georgian' && (
+          <link href='/fonts/noto-sans-georgian/noto-sans-georgian.css' rel='stylesheet' />
+        )}
         {children}
       </div>
     </I18nextProvider>
