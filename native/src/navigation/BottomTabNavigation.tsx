@@ -10,10 +10,14 @@ import { DefaultTheme, useTheme } from 'styled-components/native'
 import {
   BottomTabNavigationRouteType,
   CATEGORIES_ROUTE,
+  CATEGORIES_TAB_ROUTE,
   EVENTS_ROUTE,
+  EVENTS_TAB_ROUTE,
   LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
+  NEWS_TAB_ROUTE,
   POIS_ROUTE,
+  POIS_TAB_ROUTE,
 } from 'shared'
 
 import { defaultHeader } from '../Navigator'
