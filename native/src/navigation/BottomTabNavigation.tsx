@@ -171,9 +171,6 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
           backgroundColor: theme.colors.surfaceVariant,
           display: bottomTabNavigationVisible ? 'flex' : 'none',
         },
-        sceneStyle: {
-          paddingBottom: bottomTabNavigationVisible ? null : insets.bottom,
-        },
       }}>
       {Tabs}
     </Tab.Navigator>
