@@ -1,7 +1,7 @@
 import {
   AndroidBuildConfigType,
   CommonBuildConfigType,
-  iOSBuildConfigType,
+  IosBuildConfigType,
   WebBuildConfigType,
 } from '../BuildConfigType'
 import integreatPlatformBuildConfigs from '../integreat'
@@ -50,7 +50,7 @@ export const androidIntegreatTestCmsBuildConfig: AndroidBuildConfigType = {
     projectId: 'integreat-2020',
   },
 }
-export const iosIntegreatTestCmsBuildConfig: iOSBuildConfigType = {
+export const iosIntegreatTestCmsBuildConfig: IosBuildConfigType = {
   ...integreatPlatformBuildConfigs.ios,
   ...integreatTestCms,
   bundleIdentifier: 'app.integreat.test',

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import { StackHeaderProps } from '@react-navigation/stack'
 import { merge } from 'lodash'
 
@@ -10,15 +9,15 @@ import createNavigationMock from './createNavigationPropMock'
 type DeepPartial<T> = {
   [P in keyof T]?: DeepPartial<T[P]>
 }
-type mockStackHeaderPropsProps = {
+type MockStackHeaderPropsProps = {
   route: RouteProps<RoutesType>
   navigation: NavigationProps<RoutesType>
 }
 
 const mockStackHeaderProps = (
-  props: DeepPartial<mockStackHeaderPropsProps> = {},
+  props: DeepPartial<MockStackHeaderPropsProps> = {},
   routeIndex = 0,
-): mockStackHeaderPropsProps =>
+): MockStackHeaderPropsProps =>
   merge(
     {
       navigation: createNavigationMock(routeIndex),
