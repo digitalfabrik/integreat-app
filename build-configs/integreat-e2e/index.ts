@@ -30,7 +30,7 @@ const commonIntegreatE2eBuildConfig: CommonBuildConfigType = {
   ...integreatE2e,
 }
 const webIntegreatE2eBuildConfig: WebBuildConfigType = { ...integreatPlatformBuildConfigs.web, ...integreatE2e }
-const androidIntegreatE2eBuildCOnfig: AndroidBuildConfigType = {
+const androidIntegreatE2eBuildConfig: AndroidBuildConfigType = {
   ...integreatPlatformBuildConfigs.android,
   ...integreatE2e,
 }
@@ -38,7 +38,7 @@ const iosIntegreatE2eBuildConfig: IosBuildConfigType = { ...integreatPlatformBui
 const platformBuildConfigs = {
   common: commonIntegreatE2eBuildConfig,
   web: webIntegreatE2eBuildConfig,
-  android: androidIntegreatE2eBuildCOnfig,
+  android: androidIntegreatE2eBuildConfig,
   ios: iosIntegreatE2eBuildConfig,
 }
 export default platformBuildConfigs
