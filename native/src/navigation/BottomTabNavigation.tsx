@@ -131,27 +131,48 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
 
   const Tabs = [
     <Tab.Screen
-      name={CATEGORIES_ROUTE}
+      name={CATEGORIES_TAB_ROUTE}
       component={CategoriesStackScreen}
       options={{ tabBarLabel: createTabLabel(theme, t('localInformationLabel')), tabBarIcon: CategoriesIcon }}
+      listeners={({ navigation }) => ({
+        // Adjusting the history so now it has the categories top for current screen, at the end for last screen and rest of the history in between.
+        tabPress: e => {
+          e.preventDefault()
+          const state = navigation.getState()
+          const categoriesRoute = state.routes.find(route => route.name === CATEGORIES_TAB_ROUTE)
+          if (!categoriesRoute) {
+            return
+          }
+          const categoriesTabEntry = { key: categoriesRoute.key, type: 'route' as const }
+          navigation.reset({
+            ...state,
+            index: state.routes.indexOf(categoriesRoute),
+            history: [
+              categoriesTabEntry,
+              ...state.history.filter(entry => entry.key !== categoriesRoute.key),
+              categoriesTabEntry,
+            ],
+          })
+        },
+      })}
     />,
     featureFlags.pois && cachedData.city.poisEnabled && (
       <Tab.Screen
-        name={POIS_ROUTE}
+        name={POIS_TAB_ROUTE}
         component={PoisStackScreen}
         options={{ tabBarLabel: createTabLabel(theme, t('locations')), tabBarIcon: createTabIcon('map-outline') }}
       />
     ),
     isNewsEnabled && (
       <Tab.Screen
-        name={NEWS_ROUTE}
+        name={NEWS_TAB_ROUTE}
         component={NewsStackScreen}
         options={{ tabBarLabel: createTabLabel(theme, t('news')), tabBarIcon: createTabIcon('newspaper') }}
       />
     ),
     cachedData.city.eventsEnabled && (
       <Tab.Screen
-        name={EVENTS_ROUTE}
+        name={EVENTS_TAB_ROUTE}
         component={EventsStackScreen}
         options={{
           tabBarLabel: createTabLabel(theme, t('events')),
