@@ -1,6 +1,5 @@
 import Geolocation, { GeolocationError, GeolocationResponse } from '@react-native-community/geolocation'
 import { fireEvent, waitFor } from '@testing-library/react-native'
-import { mocked } from 'jest-mock'
 import React from 'react'
 import { Button, View } from 'react-native'
 import { check, openSettings, PERMISSIONS, request, RESULTS } from 'react-native-permissions'
@@ -31,6 +30,7 @@ jest.mock('@react-native-community/geolocation', () => ({
 jest.mock('react-i18next')
 jest.mock('../../hooks/useSnackbar')
 
+const { mocked } = jest
 const mockCheckPermission = mocked(check)
 const mockRequestPermission = mocked(request)
 const mockGetCurrentPosition = mocked(Geolocation.getCurrentPosition)

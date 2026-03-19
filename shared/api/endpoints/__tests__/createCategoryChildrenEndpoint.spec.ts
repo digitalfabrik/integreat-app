@@ -1,5 +1,3 @@
-import { mocked } from 'jest-mock'
-
 import { API_VERSION } from '../../constants'
 import mapCategoryJson from '../../mapping/mapCategoryJson'
 import createCategoryChildrenEndpoint from '../createCategoryChildrenEndpoint'
@@ -12,6 +10,7 @@ describe('createCategoryChildrenEndpoint', () => {
     jest.clearAllMocks()
   })
 
+  const { mocked } = jest
   const baseUrl = 'https://example.com'
   const json = ['myFirstCategory', 'mySecondCategory']
   const params = {

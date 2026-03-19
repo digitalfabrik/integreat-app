@@ -1,5 +1,4 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { mocked } from 'jest-mock'
 
 import { CATEGORIES_ROUTE, OPEN_PAGE_SIGNAL_NAME } from 'shared'
 import { createTrackingEndpoint, FetchError } from 'shared/api'
@@ -20,6 +19,7 @@ jest.useFakeTimers({ now: new Date('2020-01-20T01:00:00.000+01:00'), doNotFake: 
 jest.mock('@sentry/react-native')
 
 describe('sendTrackingSignal', () => {
+  const { mocked } = jest
   const mockRequest = jest.fn()
   const mockCreateTrackingEndpoint = mocked(createTrackingEndpoint)
   const mockedBuildConfig = mocked(buildConfig)

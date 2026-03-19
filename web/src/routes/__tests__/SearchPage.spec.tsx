@@ -1,5 +1,4 @@
 import { fireEvent, waitFor } from '@testing-library/react'
-import { mocked } from 'jest-mock'
 import React from 'react'
 
 import { pathnameFromRouteInformation, SEARCH_ROUTE } from 'shared'
@@ -41,6 +40,7 @@ jest.mock('shared', () => ({
 jest.mock('../../hooks/useLoadSearchDocuments')
 
 describe('SearchPage', () => {
+  const { mocked } = jest
   const cities = new CityModelBuilder(2).build()
   const cityModel = cities[0]!
   const cityCode = 'augsburg'

@@ -1,6 +1,5 @@
 import Speech from '@mhpdev/react-native-speech'
 import { fireEvent, RenderAPI, waitFor } from '@testing-library/react-native'
-import { mocked } from 'jest-mock'
 import React, { useContext } from 'react'
 import { Platform } from 'react-native'
 import { Button } from 'react-native-paper'
@@ -30,6 +29,7 @@ jest.mock('@mhpdev/react-native-speech', () => ({
 }))
 jest.mock('../../hooks/useSnackbar')
 
+const { mocked } = jest
 const mockBuildConfig = (tts: boolean) => {
   const previous = buildConfig()
   mocked(buildConfig).mockImplementation(() => ({

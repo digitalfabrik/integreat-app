@@ -1,5 +1,4 @@
 import { waitFor } from '@testing-library/react-native'
-import { mocked } from 'jest-mock'
 import React from 'react'
 
 import { REDIRECT_ROUTE } from 'shared'
@@ -28,6 +27,7 @@ describe('RedirectContainer', () => {
     name: REDIRECT_ROUTE,
   }
   const navigateToDeepLink = jest.fn()
+  const { mocked } = jest
   mocked(useNavigateToDeepLink).mockImplementation(() => navigateToDeepLink)
 
   beforeEach(() => {

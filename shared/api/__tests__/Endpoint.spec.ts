@@ -1,5 +1,3 @@
-import { mocked } from 'jest-mock'
-
 import Endpoint from '../Endpoint'
 import Payload from '../Payload'
 import FetchError from '../errors/FetchError'
@@ -30,6 +28,7 @@ describe('Endpoint', () => {
 
   const responseJson = 'I really like me some json'
   const mappedResponseJson = defaultJsonMapper(responseJson, params)
+  const { mocked } = jest
   const mockedFetch = mocked(fetch)
 
   const headers: Headers = {

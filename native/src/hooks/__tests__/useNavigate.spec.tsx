@@ -1,6 +1,5 @@
 import { StackActions, useNavigation } from '@react-navigation/native'
 import { act } from '@testing-library/react-native'
-import { mocked } from 'jest-mock'
 import React, { useEffect } from 'react'
 
 import {
@@ -36,6 +35,7 @@ jest.mock('../../navigation/url', () => ({
 }))
 
 describe('useNavigate', () => {
+  const { mocked } = jest
   const navigation = createNavigationPropMock()
   mocked(useNavigation).mockImplementation(() => navigation as never)
 

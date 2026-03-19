@@ -1,5 +1,4 @@
 import { fireEvent } from '@testing-library/react'
-import { mocked } from 'jest-mock'
 import React from 'react'
 
 import { CityModelBuilder } from 'shared/api'
@@ -22,6 +21,7 @@ jest.mock('../../hooks/useLocalStorage')
 
 describe('ChatContainer', () => {
   mockUseLoadFromEndpointWithData({ messages: [] })
+  const { mocked } = jest
   const updateLocalStorageItem = jest.fn()
   const city = new CityModelBuilder(1).build()[0]!
 
