@@ -2,13 +2,10 @@ import { useCallback } from 'react'
 import Url from 'url-parse'
 
 import {
-  CITY_NOT_COOPERATING_ROUTE,
-  CONSENT_ROUTE,
   InternalPathnameParser,
   INTRO_ROUTE,
   JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
-  LICENSES_ROUTE,
   OPEN_DEEP_LINK_SIGNAL_NAME,
   RouteInformationType,
 } from 'shared'
@@ -70,25 +67,10 @@ const navigateToDeepLink = <T extends RoutesType>({
     }
   }
 
-  const deepLinkCityCode =
-    routeInformation.route !== LANDING_ROUTE &&
-    routeInformation.route !== JPAL_TRACKING_ROUTE &&
-    routeInformation.route !== CITY_NOT_COOPERATING_ROUTE &&
-    routeInformation.route !== LICENSES_ROUTE &&
-    routeInformation.route !== CONSENT_ROUTE
-      ? routeInformation.cityCode
-      : null
-
-  if (
-    deepLinkCityCode &&
-    (cityCode !== deepLinkCityCode || languageCode !== (routeInformation as { languageCode: string }).languageCode)
-  ) {
-    navigateTo(routeInformation)
-    return
-  }
+  const linkCityCode = (routeInformation as { cityCode?: string }).cityCode
 
   // Select city of link for the app if there is none selected yet
-  const selectedCityCode = fixedCity ?? cityCode ?? deepLinkCityCode
+  const selectedCityCode = fixedCity ?? cityCode ?? linkCityCode
   if (!cityCode && selectedCityCode) {
     changeCityCode(selectedCityCode)
   }

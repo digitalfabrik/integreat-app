@@ -24,6 +24,7 @@ import { defaultHeader } from '../Navigator'
 import { SignPostIcon } from '../assets'
 import Icon from '../components/base/Icon'
 import Text from '../components/base/Text'
+import { TAB_NAVIGATOR_ID } from '../constants'
 import buildConfig from '../constants/buildConfig'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useLoadCityContent from '../hooks/useLoadCityContent'
@@ -165,6 +166,7 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
 
   return (
     <Tab.Navigator
+      id={TAB_NAVIGATOR_ID}
       backBehavior='history'
       screenOptions={{
         headerShown: false,

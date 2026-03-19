@@ -2,17 +2,7 @@ import { waitFor } from '@testing-library/react-native'
 import React, { useEffect } from 'react'
 
 import { FeatureFlagsType } from 'build-configs/BuildConfigType'
-import {
-  BOTTOM_TAB_NAVIGATION_ROUTE,
-  CATEGORIES_ROUTE,
-  EVENTS_ROUTE,
-  INTRO_ROUTE,
-  JPAL_TRACKING_ROUTE,
-  LANDING_ROUTE,
-  LOCAL_NEWS_TYPE,
-  NEWS_ROUTE,
-  OPEN_DEEP_LINK_SIGNAL_NAME,
-} from 'shared'
+import { INTRO_ROUTE, JPAL_TRACKING_ROUTE, LANDING_ROUTE, OPEN_DEEP_LINK_SIGNAL_NAME } from 'shared'
 
 import buildConfig from '../../constants/buildConfig'
 import TestingAppContext from '../../testing/TestingAppContext'
@@ -146,7 +136,8 @@ describe('useNavigateToDeepLink', () => {
 
       await waitFor(() => expect(navigateTo).toHaveBeenCalledTimes(1))
       expect(navigation.reset).not.toHaveBeenCalled()
-      expect(changeCityCode).not.toHaveBeenCalled()
+      expect(changeCityCode).toHaveBeenCalledTimes(1)
+      expect(changeCityCode).toHaveBeenCalledWith('aschaffenburg')
       expectTrackingSignal(url)
     })
 
@@ -190,7 +181,8 @@ describe('useNavigateToDeepLink', () => {
 
       await waitFor(() => expect(navigateTo).toHaveBeenCalledTimes(1))
       expect(navigation.reset).not.toHaveBeenCalled()
-      expect(changeCityCode).not.toHaveBeenCalled()
+      expect(changeCityCode).toHaveBeenCalledTimes(1)
+      expect(changeCityCode).toHaveBeenCalledWith(cityCode)
       expectTrackingSignal(url)
     })
 
@@ -201,7 +193,8 @@ describe('useNavigateToDeepLink', () => {
 
       await waitFor(() => expect(navigateTo).toHaveBeenCalledTimes(1))
       expect(navigation.reset).not.toHaveBeenCalled()
-      expect(changeCityCode).not.toHaveBeenCalled()
+      expect(changeCityCode).toHaveBeenCalledTimes(1)
+      expect(changeCityCode).toHaveBeenCalledWith(cityCode)
       expectTrackingSignal(url)
     })
 

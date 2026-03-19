@@ -27,6 +27,7 @@ import {
 import Header from './components/Header'
 import RedirectContainer from './components/RedirectContainer'
 import TransparentHeader from './components/TransparentHeader'
+import { ROOT_NAVIGATOR_ID } from './constants'
 import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from './constants/NavigationTypes'
 import buildConfig from './constants/buildConfig'
 import { useAppContext } from './hooks/useCityAppContext'
@@ -148,7 +149,10 @@ const Navigator = (): ReactElement | null => {
   const redirectUrl = initialRoute.name === REDIRECT_ROUTE ? initialRoute.url : undefined
 
   return (
-    <Stack.Navigator initialRouteName={initialRoute.name} screenOptions={{ ...transitionPreset, headerMode: 'screen' }}>
+    <Stack.Navigator
+      id={ROOT_NAVIGATOR_ID}
+      initialRouteName={initialRoute.name}
+      screenOptions={{ ...transitionPreset, headerMode: 'screen' }}>
       <Stack.Group screenOptions={{ header: () => null }}>
         <Stack.Screen name={REDIRECT_ROUTE} initialParams={{ url: redirectUrl }} component={RedirectContainer} />
         <Stack.Screen name={INTRO_ROUTE} component={Intro} initialParams={{}} />
