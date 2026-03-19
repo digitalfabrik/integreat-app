@@ -1,5 +1,4 @@
 import { fireEvent } from '@testing-library/react-native'
-import { mocked } from 'jest-mock'
 import { DateTime } from 'luxon'
 import React from 'react'
 
@@ -54,6 +53,7 @@ describe('TuNews', () => {
   const loadMore = jest.fn()
   const refresh = jest.fn()
   const navigation = createNavigationScreenPropMock<NewsRouteType>()
+  const { mocked } = jest
   mocked(useNavigate).mockImplementation(() => ({ navigateTo: jest.fn(), navigation }))
 
   const route = {

@@ -1,6 +1,5 @@
 import Button from '@mui/material/Button'
 import { render, waitFor, screen, fireEvent } from '@testing-library/react'
-import { mocked } from 'jest-mock'
 import React from 'react'
 
 import useUserLocation from '../useUserLocation'
@@ -30,6 +29,7 @@ describe('useUserLocation', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
+  const { mocked } = jest
 
   it('should show coordinates when available', async () => {
     mocked(useUserLocation).mockReturnValue({

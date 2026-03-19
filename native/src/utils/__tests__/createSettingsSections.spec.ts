@@ -1,5 +1,4 @@
 import { TFunction } from 'i18next'
-import { mocked } from 'jest-mock'
 
 import { SettingsRouteType } from 'shared'
 
@@ -26,6 +25,7 @@ jest.mock('../../utils/PushNotificationsManager', () => ({
 }))
 jest.mock('@react-native-community/geolocation')
 
+const { mocked } = jest
 const mockRequestPushNotificationPermission = mocked(requestPushNotificationPermission)
 const mockUnsubscribeNews = mocked(unsubscribeNews)
 const mockSubscribeNews = mocked(subscribeNews)

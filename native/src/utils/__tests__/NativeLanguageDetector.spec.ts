@@ -1,4 +1,3 @@
-import { mocked } from 'jest-mock'
 import { getLocales } from 'react-native-localize'
 
 import NativeLanguageDetector from '../NativeLanguageDetector'
@@ -6,6 +5,8 @@ import NativeLanguageDetector from '../NativeLanguageDetector'
 jest.mock('react-native-localize')
 
 describe('NativeLanguageDetector', () => {
+  const { mocked } = jest
+
   const enLocale = {
     languageCode: 'en',
     languageTag: 'en-US',

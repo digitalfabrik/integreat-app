@@ -1,5 +1,4 @@
 import { RenderResult } from '@testing-library/react'
-import { mocked } from 'jest-mock'
 import React, { ReactElement } from 'react'
 
 import { CityModelBuilder } from 'shared/api'
@@ -16,6 +15,7 @@ jest.mock('react-i18next')
 
 describe('CityContentLayout', () => {
   beforeEach(jest.clearAllMocks)
+  const { mocked } = jest
   const language = 'de'
   const cityModel = new CityModelBuilder(1).build()[0]!
 

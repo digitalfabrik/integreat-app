@@ -1,5 +1,4 @@
 import { fireEvent, waitFor } from '@testing-library/react-native'
-import { mocked } from 'jest-mock'
 import React, { ReactElement } from 'react'
 import { View, Linking } from 'react-native'
 
@@ -67,6 +66,7 @@ describe('Header', () => {
     params: { title: 'Test Category' },
   }
   const navigation = createNavigationMock()
+  const { mocked } = jest
   const mockPreviousRoute = (hasPreviousRoute: boolean) => {
     mocked(navigation.getState).mockImplementation(() => ({
       key: 'stack-key',

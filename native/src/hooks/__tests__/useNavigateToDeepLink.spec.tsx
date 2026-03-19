@@ -1,5 +1,4 @@
 import { waitFor } from '@testing-library/react-native'
-import { mocked } from 'jest-mock'
 import React, { useEffect } from 'react'
 
 import { FeatureFlagsType } from 'build-configs/BuildConfigType'
@@ -29,6 +28,7 @@ jest.mock('../useSnackbar')
 jest.mock('../../utils/sendTrackingSignal')
 
 describe('useNavigateToDeepLink', () => {
+  const { mocked } = jest
   const mockedBuildConfig = mocked(buildConfig)
   const showSnackbar = jest.fn()
   const navigateTo = jest.fn()
@@ -42,9 +42,9 @@ describe('useNavigateToDeepLink', () => {
 
   const mockBuildConfig = (featureFlags: Partial<FeatureFlagsType>) => {
     const previous = buildConfig()
+    // @ts-expect-error passing only a partial of fixed city type leads to ts errors that are irrelevant for testing though
     mockedBuildConfig.mockImplementation(() => ({
       ...previous,
-      // @ts-expect-error passing only a partial of fixed city type leads to ts errors that are irrelevant for testing though
       featureFlags: { ...previous.featureFlags, ...featureFlags },
     }))
   }

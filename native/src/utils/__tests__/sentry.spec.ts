@@ -1,5 +1,4 @@
 import * as Sentry from '@sentry/react-native'
-import { mocked } from 'jest-mock'
 
 import { FetchError, NotFoundError } from 'shared/api'
 
@@ -10,6 +9,7 @@ beforeEach(() => {
   jest.clearAllMocks()
 })
 
+const { mocked } = jest
 const mockedBuildConfig = mocked(buildConfig)
 const mockBuildConfig = (sentry: boolean, developerFriendly = false) => {
   const previous = buildConfig()

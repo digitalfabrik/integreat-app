@@ -1,5 +1,3 @@
-import { mocked } from 'jest-mock'
-
 import { useLoadFromEndpoint } from '../../index'
 
 const mockData = (data: unknown): typeof useLoadFromEndpoint =>
@@ -10,6 +8,7 @@ const mockData = (data: unknown): typeof useLoadFromEndpoint =>
     refresh: () => null,
     setData: jest.fn(),
   })) as typeof useLoadFromEndpoint
+const { mocked } = jest
 
 export const mockUseLoadFromEndpointWithData = <T>(data: T): void => {
   mocked(useLoadFromEndpoint).mockImplementation(mockData(data))

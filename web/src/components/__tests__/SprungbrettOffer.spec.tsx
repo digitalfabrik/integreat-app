@@ -1,5 +1,4 @@
 import { RenderResult } from '@testing-library/react'
-import { mocked } from 'jest-mock'
 import React from 'react'
 
 import { OfferModel, SprungbrettJobModel, useLoadFromEndpoint } from 'shared/api'
@@ -18,6 +17,7 @@ describe('SprungbrettOffer', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
+  const { mocked } = jest
 
   const sprungbrettOffer = new OfferModel({
     alias: 'sprungbrett',

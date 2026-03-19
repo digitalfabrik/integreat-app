@@ -1,5 +1,4 @@
 import { fireEvent } from '@testing-library/react-native'
-import { mocked } from 'jest-mock'
 import React from 'react'
 import { Pressable, View } from 'react-native'
 
@@ -44,6 +43,7 @@ describe('NewsContainer', () => {
 
   const navigation = createNavigationPropMock<NewsRouteType>()
   const navigateTo = jest.fn()
+  const { mocked } = jest
   mocked(useNavigate).mockImplementation(() => ({ navigateTo, navigation }))
   const cities = new CityModelBuilder(3).build()
   const city = cities[0]!

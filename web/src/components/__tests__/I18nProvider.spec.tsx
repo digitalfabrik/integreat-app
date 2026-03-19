@@ -1,5 +1,4 @@
 import { render, waitFor } from '@testing-library/react'
-import { mocked } from 'jest-mock'
 import React from 'react'
 import { Translation } from 'react-i18next'
 
@@ -10,6 +9,7 @@ jest.mock('../../utils/BrowserLanguageDetector')
 jest.mock('translations/src/loadTranslations')
 
 describe('I18nProvider', () => {
+  const { mocked } = jest
   const mockDetect = mocked(BrowserLanguageDetector.detect)
   const previousConsoleLog = console.log
   const previousConsoleDebug = console.debug

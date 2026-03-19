@@ -1,5 +1,4 @@
 import { fireEvent } from '@testing-library/react-native'
-import { mocked } from 'jest-mock'
 import React, { ReactElement } from 'react'
 import { Share, View } from 'react-native'
 
@@ -34,6 +33,7 @@ describe('TransparentHeader', () => {
     jest.clearAllMocks()
   })
 
+  const { mocked } = jest
   const buildProps = (
     routeIndex: number,
     shareUrl = 'https://example.com',
