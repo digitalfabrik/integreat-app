@@ -62,7 +62,9 @@ const CityContentLayout = ({
       footer={
         <>
           {footerVisible && <Footer />}
-          {chatVisible && <ChatContainer city={city} language={languageCode} />}
+          {chatVisible && (
+            <ChatContainer city={city} languageCode={languageCode} languageChangePaths={languageChangePaths} />
+          )}
           {mobile && <BottomNavigation cityModel={city} languageCode={languageCode} />}
         </>
       }

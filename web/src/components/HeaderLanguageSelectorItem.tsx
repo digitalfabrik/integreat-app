@@ -1,5 +1,7 @@
 import TranslateOutlinedIcon from '@mui/icons-material/TranslateOutlined'
+import { drawerClasses } from '@mui/material/Drawer'
 import Popover from '@mui/material/Popover'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -7,6 +9,13 @@ import useDimensions from '../hooks/useDimensions'
 import HeaderActionItem from './HeaderActionItem'
 import LanguageList, { LanguageChangePath } from './LanguageList'
 import Sidebar from './Sidebar'
+
+const StyledSidebar = styled(Sidebar)({
+  [`&.${drawerClasses.root}`]: {
+    // Position sidebar above chat modal
+    zIndex: 1500,
+  },
+})
 
 type HeaderLanguageSelectorItemProps = {
   languageChangePaths: LanguageChangePath[]
@@ -41,9 +50,9 @@ const HeaderLanguageSelectorItem = ({
 
   if (mobile) {
     return (
-      <Sidebar OpenButton={ChangeLanguageButton} setOpen={() => setAnchorElement(null)} open={isOpen}>
+      <StyledSidebar OpenButton={ChangeLanguageButton} setOpen={() => setAnchorElement(null)} open={isOpen}>
         <LanguageList languageChangePaths={languageChangePaths} languageCode={languageCode} close={close} />
-      </Sidebar>
+      </StyledSidebar>
     )
   }
 

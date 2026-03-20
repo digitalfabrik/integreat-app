@@ -36,9 +36,10 @@ type SidebarProps = {
   setOpen: (show: boolean) => void
   Footer?: ReactNode
   OpenButton?: ReactElement
+  className?: string
 }
 
-const Sidebar = ({ children, open, setOpen, Footer, OpenButton }: SidebarProps): ReactElement | null => {
+const Sidebar = ({ children, open, setOpen, Footer, OpenButton, className }: SidebarProps): ReactElement | null => {
   const { headerHeight } = useDimensions()
   const { t } = useTranslation('layout')
   useLockedBody(open)
@@ -57,6 +58,7 @@ const Sidebar = ({ children, open, setOpen, Footer, OpenButton }: SidebarProps):
         open={open}
         onClose={() => setOpen(false)}
         container={drawerContainer}
+        className={className}
         anchor='right'
         // Locking scroll causes the headroom to disappear when opening the drawer if scrolled down
         disableScrollLock
