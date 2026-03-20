@@ -18,7 +18,6 @@ import {
 } from 'shared'
 
 import { SnackbarType } from '../components/SnackbarContainer'
-import { NAVIGATION_INITIALIZATION_DELAY } from '../constants'
 import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import { AppContext } from '../contexts/AppContextProvider'
@@ -26,6 +25,7 @@ import { urlFromRouteInformation } from '../navigation/url'
 import { navigateNested } from '../utils/navigation'
 import openExternalUrl from '../utils/openExternalUrl'
 import sendTrackingSignal from '../utils/sendTrackingSignal'
+import { reportError } from '../utils/sentry'
 import useSnackbar from './useSnackbar'
 
 const navigate = <T extends RoutesType>(
@@ -72,7 +72,12 @@ const navigate = <T extends RoutesType>(
   // City content routes with different city or language than the currently selected should be opened in the web app
   // This avoids lots of additional complexity by always keeping the city and language of all opened routes in sync
   if ((appCityCode && appCityCode !== cityCode) || appLanguageCode !== languageCode) {
-    setTimeout(() => openExternalUrl(url, showSnackbar), NAVIGATION_INITIALIZATION_DELAY)
+    if (redirect) {
+      // We need to remove the redirect route if only opening the inappbrowser
+      // Otherwise this leads to a blank (redirect) screen when navigating back from the inappbrowser
+      navigation.pop()
+    }
+    openExternalUrl(url, showSnackbar).catch(reportError)
     return
   }
 

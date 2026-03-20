@@ -168,6 +168,24 @@ describe('useNavigate', () => {
     expect(openExternalUrl).toHaveBeenCalledWith('https://example.com', expect.any(Function))
   })
 
+  it('should pop redirect route when opening a route externally', () => {
+    const cityContentPath = `/${cityCode}/asdf/willkommen`
+    renderMockComponent(
+      {
+        route: CATEGORIES_ROUTE,
+        cityContentPath,
+        cityCode: 'asdf',
+        languageCode,
+      },
+      true,
+    )
+    act(() => jest.runAllTimers())
+    expect(navigation.push).not.toHaveBeenCalled()
+    expect(openExternalUrl).toHaveBeenCalledTimes(1)
+    expect(openExternalUrl).toHaveBeenCalledWith('https://example.com', expect.any(Function))
+    expect(navigation.pop).toHaveBeenCalledTimes(1)
+  })
+
   it('should navigate to categories route', () => {
     renderMockComponent({
       route: CATEGORIES_ROUTE,
