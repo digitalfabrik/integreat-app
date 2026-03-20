@@ -155,7 +155,7 @@ const Navigator = (): ReactElement | null => {
       screenOptions={{ ...transitionPreset, headerMode: 'screen' }}>
       <Stack.Group screenOptions={{ header: () => null }}>
         <Stack.Screen name={REDIRECT_ROUTE} initialParams={{ url: redirectUrl }} component={RedirectContainer} />
-        <Stack.Screen name={INTRO_ROUTE} component={Intro} initialParams={{}} />
+        <Stack.Screen name={INTRO_ROUTE} component={Intro} />
         <Stack.Screen name={SEARCH_ROUTE} component={SearchModalContainer} />
         <Stack.Screen name={BOTTOM_TAB_NAVIGATION_ROUTE} component={BottomTabNavigation} />
       </Stack.Group>

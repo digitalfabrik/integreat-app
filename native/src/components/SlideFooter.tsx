@@ -20,7 +20,7 @@ type SlideFooterProps = {
   slideCount: number
   currentSlide: number
   goToSlide: (index: number) => void
-  onDone: () => Promise<void>
+  onDone: () => void
   t: TFunction<['intro', 'settings']>
 }
 

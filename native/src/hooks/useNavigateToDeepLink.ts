@@ -3,7 +3,6 @@ import Url from 'url-parse'
 
 import {
   InternalPathnameParser,
-  INTRO_ROUTE,
   JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
   OPEN_DEEP_LINK_SIGNAL_NAME,
@@ -34,9 +33,8 @@ const navigateToDeepLink = <T extends RoutesType>({
   showSnackbar,
   appContext,
 }: NavigateToDeepLinkParams<T>): void => {
-  const { settings, cityCode, languageCode, changeCityCode, updateSettings } = appContext
-  const { introShown } = settings
-  const { introSlides, fixedCity } = buildConfig().featureFlags
+  const { cityCode, languageCode, changeCityCode, updateSettings } = appContext
+  const { fixedCity } = buildConfig().featureFlags
 
   sendTrackingSignal({
     signal: {
@@ -44,12 +42,6 @@ const navigateToDeepLink = <T extends RoutesType>({
       url,
     },
   })
-
-  if (introSlides && !introShown) {
-    // Show intro slides first and handle deep link later
-    navigation.replace(INTRO_ROUTE, { deepLink: url })
-    return
-  }
 
   const { pathname, query } = new Url(url)
   const routeInformation = new InternalPathnameParser(pathname, languageCode, fixedCity, query).route()

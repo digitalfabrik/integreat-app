@@ -37,7 +37,6 @@ export const navigateNested = <T extends RoutesType, S extends keyof NestedRoute
     // No tab navigator yet, we need to navigate both to the bottom tab route and the tab stack first
     navigate(BOTTOM_TAB_NAVIGATION_ROUTE, {
       screen: tabRoutes[route],
-      // @ts-expect-error Invalid parameters due to nesting
       params: {
         screen: route,
         params,

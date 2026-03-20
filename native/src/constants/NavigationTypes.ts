@@ -111,9 +111,7 @@ export type RootRoutesParamsType = {
   [REDIRECT_ROUTE]: {
     url: string
   }
-  [INTRO_ROUTE]: {
-    deepLink?: string
-  }
+  [INTRO_ROUTE]: undefined
   [LANDING_ROUTE]: undefined
   [CITY_NOT_COOPERATING_ROUTE]: undefined
   [DISCLAIMER_ROUTE]: undefined
@@ -142,7 +140,7 @@ export type RootRoutesParamsType = {
     cityCode: string
     slug?: string
   }
-  [BOTTOM_TAB_NAVIGATION_ROUTE]: { screen: TabRoutesType; params: TabRoutesParamsType[TabRoutesType] }
+  [BOTTOM_TAB_NAVIGATION_ROUTE]: { screen: TabRoutesType; params: TabRoutesParamsType[TabRoutesType] } | {}
 }
 
 export type RoutesParamsType = NestedRoutesParamsType & TabRoutesParamsType & RootRoutesParamsType

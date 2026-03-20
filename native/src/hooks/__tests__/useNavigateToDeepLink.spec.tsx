@@ -91,20 +91,6 @@ describe('useNavigateToDeepLink', () => {
   describe('landing deep links', () => {
     const url = 'https://integreat.app'
 
-    it('should navigate to the intro slides if not shown yet and enabled in the build config', async () => {
-      mockBuildConfig({ introSlides: true, fixedCity: null })
-      renderMockComponent({ url })
-
-      await waitFor(() => expect(navigation.replace).toHaveBeenCalledTimes(1))
-      expect(navigation.replace).toHaveBeenCalledWith(INTRO_ROUTE, {
-        deepLink: url,
-      })
-
-      expect(navigateTo).not.toHaveBeenCalled()
-      expect(changeCityCode).not.toHaveBeenCalled()
-      expectTrackingSignal(url)
-    })
-
     it('should navigate to landing if no city is selected and intro slides already shown', async () => {
       mockBuildConfig({ introSlides: false, fixedCity: null })
       renderMockComponent({ url, introShown: true })
@@ -160,20 +146,6 @@ describe('useNavigateToDeepLink', () => {
   describe('dashboard deep links', () => {
     const cityCode = `muenchen`
     const url = `https://integreat.app/${cityCode}/${selectedLanguageCode}`
-
-    it('should navigate to the intro slides if not shown yet and enabled in the build config', async () => {
-      mockBuildConfig({ introSlides: true, fixedCity: null })
-      renderMockComponent({ url })
-
-      await waitFor(() => expect(navigation.replace).toHaveBeenCalledTimes(1))
-      expect(navigation.replace).toHaveBeenCalledWith(INTRO_ROUTE, {
-        deepLink: url,
-      })
-
-      expect(navigateTo).not.toHaveBeenCalled()
-      expect(changeCityCode).not.toHaveBeenCalled()
-      expectTrackingSignal(url)
-    })
 
     it('should navigate to dashboard if intro slides already shown and no city is selected', async () => {
       mockBuildConfig({ introSlides: false, fixedCity: null })
@@ -240,21 +212,6 @@ describe('useNavigateToDeepLink', () => {
   describe('city content deep links', () => {
     const cityCode = `muenchen`
     const languageCode = `ar`
-
-    it('should navigate to the intro slides if not shown yet and enabled in the build config', async () => {
-      const url = `https://integreat.app/${cityCode}/${languageCode}/events/some-event`
-      mockBuildConfig({ introSlides: true, fixedCity: null })
-      renderMockComponent({ url })
-
-      await waitFor(() => expect(navigation.replace).toHaveBeenCalledTimes(1))
-      expect(navigation.replace).toHaveBeenCalledWith(INTRO_ROUTE, {
-        deepLink: url,
-      })
-
-      expect(navigateTo).not.toHaveBeenCalled()
-      expect(changeCityCode).not.toHaveBeenCalled()
-      expectTrackingSignal(url)
-    })
 
     it('should open dashboard and navigate to events route if intro slides already shown', async () => {
       const url = `https://integreat.app/${cityCode}/${languageCode}/events/some-event`
