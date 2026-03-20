@@ -36,20 +36,31 @@ describe('ChatContainer', () => {
   ]
 
   it('should open chat dialog and show content on chat button click', () => {
-    const { getByText, getByLabelText } = renderRoute(
+    const { getByText, queryByText, getByLabelText, router } = renderRoute(
       <ChatContainer city={city} languageCode='de' languageChangePaths={languageChangePaths} />,
       {
         pathname,
         routePattern,
+        searchParams: '?test=asdf',
       },
     )
     const chatButtonContainer = getByLabelText(getChatName('IntegreatTestCms'))
     expect(chatButtonContainer).toBeTruthy()
 
+    expect(router.state.location.search).toBe('?test=asdf')
+
     fireEvent.click(chatButtonContainer)
+
+    expect(router.state.location.search).toBe('?test=asdf&chat=true')
 
     expect(getByText('chat:conversationText')).toBeTruthy()
     expect(getByText('chat:conversationHelperText')).toBeTruthy()
+
+    fireEvent.click(getByLabelText('layout:common:close'))
+
+    expect(router.state.location.search).toBe('?test=asdf')
+
+    expect(queryByText('chat:conversationText')).toBeFalsy()
   })
 
   it('should close chat if close button was clicked', () => {
@@ -84,10 +95,10 @@ describe('ChatContainer', () => {
     )
     expect(getByText('chat:conversationText')).toBeTruthy()
     expect(getByText('chat:conversationHelperText')).toBeTruthy()
-    expect(router.state.location.search).toBe('?test=asdf')
+    expect(router.state.location.search).toBe('?chat=true&test=asdf')
   })
 
-  it('should only update query params if open chat query param is set', () => {
+  it('should correctly update query params', () => {
     const { getAllByText, router } = renderRoute(
       <ChatContainer city={city} languageCode='de' languageChangePaths={languageChangePaths} />,
       {
@@ -98,5 +109,22 @@ describe('ChatContainer', () => {
     )
     expect(getAllByText(getChatName('IntegreatTestCms'))).toHaveLength(1)
     expect(router.state.location.search).toBe('?')
+  })
+
+  it('should switch the language', () => {
+    const { getByText, getByLabelText, router } = renderRoute(
+      <ChatContainer city={city} languageCode='de' languageChangePaths={languageChangePaths} />,
+      {
+        pathname,
+        routePattern,
+      },
+    )
+    const chatButtonContainer = getByLabelText(getChatName('IntegreatTestCms'))
+    fireEvent.click(chatButtonContainer!)
+    expect(router.state.location.pathname).toBe(`/${city.code}/de`)
+    fireEvent.click(getByText('Deutsch'))
+    fireEvent.click(getByText('English'))
+    expect(router.state.location.pathname).toBe(`/${city.code}/en`)
+    expect(router.state.location.search).toBe('?chat=true')
   })
 })
