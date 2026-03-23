@@ -51,7 +51,7 @@ export const navigateNested = <T extends RoutesType, S extends keyof NestedRoute
   // No tab stack navigator yet, we need to navigate to the tab stack first
   if (navigation.getId() === TAB_NAVIGATOR_ID || currentTab !== tabRoutes[route]) {
     // @ts-expect-error Invalid parameters due to nesting
-    navigate(tabRoutes[route], {
+    navigation.getParent(TAB_NAVIGATOR_ID).navigate(tabRoutes[route], {
       screen: route,
       params,
     })
