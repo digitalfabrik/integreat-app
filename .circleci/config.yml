@@ -431,11 +431,11 @@ jobs:
             - checkout
             - restore_yarn_tools_cache
             - run:
-                command: echo "export NEW_VERSION_NAME=$(yarn --silent app-toolbelt v0 version calc | jq .versionName)" >> ${BASH_ENV}
+                command: echo "export NEW_VERSION_NAME=$(npx --no app-toolbelt v0 version calc | jq .versionName)" >> ${BASH_ENV}
                 name: Calculate next version name
                 working_directory: tools
             - run:
-                command: echo "export NEW_VERSION_CODE=$(yarn --silent app-toolbelt v0 version calc | jq .versionCode)" >> ${BASH_ENV}
+                command: echo "export NEW_VERSION_CODE=$(npx --no app-toolbelt v0 version calc | jq .versionCode)" >> ${BASH_ENV}
                 name: Calculate next version code
                 working_directory: tools
             - when:
@@ -767,7 +767,7 @@ jobs:
             - restore_yarn_tools_cache
             - run:
                 command: |
-                    RELEASE=$(yarn --silent app-toolbelt v0 release promote --platform << parameters.platform >> --private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME})
+                    RELEASE=$(npx --no app-toolbelt v0 release promote --platform << parameters.platform >> --private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME})
                     echo "export RELEASE='${RELEASE}'" >> $BASH_ENV
                 name: Remove prerelease flag from github release
                 working_directory: tools
@@ -798,7 +798,7 @@ jobs:
             - generate_sbom
             - run:
                 command: |
-                    RELEASE=$(yarn --silent app-toolbelt v0 release create << parameters.platform >> ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} <<# parameters.production_delivery >>--production-release<</ parameters.production_delivery >>)
+                    RELEASE=$(npx --no app-toolbelt v0 release create << parameters.platform >> ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} <<# parameters.production_delivery >>--production-release<</ parameters.production_delivery >>)
                     echo "export RELEASE_ID=$(echo ${RELEASE} | jq .id)" >> ${BASH_ENV}
                     echo "export RELEASE_NOTES=$(echo ${RELEASE} | jq .releaseNotes)" >> ${BASH_ENV}
                 name: Create github release
