@@ -179,14 +179,14 @@ commands:
         steps:
             - restore_cache:
                 keys:
-                    - 10-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
-                    - 10-yarn-{{ arch }}-
+                    - 11-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
+                    - 11-yarn-{{ arch }}-
                 name: Restore Yarn Package Cache
             - run:
                 command: yarn --frozen-lockfile --cache-folder ~/.cache/yarn
                 name: Yarn
             - save_cache:
-                key: 10-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
+                key: 11-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
                 name: Save Yarn Package Cache
                 paths:
                     - ~/.cache/yarn
@@ -198,14 +198,14 @@ commands:
         steps:
             - restore_cache:
                 keys:
-                    - 2-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
+                    - 3-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
                 name: Restore Yarn Tools Package Cache
             - run:
                 command: yarn --frozen-lockfile --cache-folder ~/.cache/yarn-tools
                 name: Yarn tools
                 working_directory: tools
             - save_cache:
-                key: 2-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
+                key: 3-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
                 name: Save Yarn Tools Package Cache
                 paths:
                     - ~/.cache/yarn-tools
