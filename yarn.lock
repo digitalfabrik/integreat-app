@@ -3073,6 +3073,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@gorhom/bottom-sheet@patch:@gorhom/bottom-sheet@npm%3A5.2.6#~/.yarn/patches/@gorhom-bottom-sheet-npm-5.2.6-c24dba2629.patch":
+  version: 5.2.6
+  resolution: "@gorhom/bottom-sheet@patch:@gorhom/bottom-sheet@npm%3A5.2.6#~/.yarn/patches/@gorhom-bottom-sheet-npm-5.2.6-c24dba2629.patch::version=5.2.6&hash=5bbf2e"
+  dependencies:
+    "@gorhom/portal": "npm:1.0.14"
+    invariant: "npm:^2.2.4"
+  peerDependencies:
+    "@types/react": "*"
+    "@types/react-native": "*"
+    react: "*"
+    react-native: "*"
+    react-native-gesture-handler: ">=2.16.1"
+    react-native-reanimated: "*"
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+    "@types/react-native":
+      optional: true
+  checksum: 10c0/cb5c26c11e29ded3d409ab8610557bc8a7b98fd882420c5f427909d5785a36599da24f67444a4c1005f71dcffa1b537a067cd51b57ea59ff7ce3c1ef7f53900e
+  languageName: node
+  linkType: hard
+
 "@gorhom/portal@npm:1.0.14":
   version: 1.0.14
   resolution: "@gorhom/portal@npm:1.0.14"
@@ -4545,6 +4567,32 @@ __metadata:
     "@types/react":
       optional: true
   checksum: 10c0/0159458f7517bbf6dd3bfaf3b1ed3a0fae7dde4a26454afbbfb03d26e081948902774c3a93e99995b217b4881635050d8f7081939a1eb9bfc3347c8e5dbf225d
+  languageName: node
+  linkType: hard
+
+"@maplibre/maplibre-react-native@patch:@maplibre/maplibre-react-native@npm%3A10.4.0#~/.yarn/patches/@maplibre-maplibre-react-native-npm-10.4.0-a5da575b03.patch":
+  version: 10.4.0
+  resolution: "@maplibre/maplibre-react-native@patch:@maplibre/maplibre-react-native@npm%3A10.4.0#~/.yarn/patches/@maplibre-maplibre-react-native-npm-10.4.0-a5da575b03.patch::version=10.4.0&hash=2c991c"
+  dependencies:
+    "@turf/distance": "npm:^7.1.0"
+    "@turf/helpers": "npm:^7.1.0"
+    "@turf/length": "npm:^7.1.0"
+    "@turf/nearest-point-on-line": "npm:^7.1.0"
+    debounce: "npm:^2.2.0"
+  peerDependencies:
+    "@expo/config-plugins": ">=7"
+    "@types/geojson": ^7946.0.0
+    "@types/react": ">=16.6.1"
+    react: ">=16.6.1"
+    react-native: ">=0.59.9"
+  peerDependenciesMeta:
+    "@expo/config-plugins":
+      optional: true
+    "@types/geojson":
+      optional: true
+    "@types/react":
+      optional: true
+  checksum: 10c0/9c76b94642bbe7ac86fac507077081fe50d004f04ce996c82814d1916b43fce0f8740ab33263e61998e19f3d2f99a502dc4b5237c6bbae9fb64618e76df420aa
   languageName: node
   linkType: hard
 
@@ -17635,8 +17683,8 @@ __metadata:
     "@dr.pogodin/react-native-webview": "npm:^13.16.4"
     "@formatjs/intl-displaynames": "npm:^6.8.13"
     "@formatjs/intl-locale": "npm:^4.2.13"
-    "@gorhom/bottom-sheet": "npm:5.2.6"
-    "@maplibre/maplibre-react-native": "npm:10.4.0"
+    "@gorhom/bottom-sheet": "patch:@gorhom/bottom-sheet@npm%3A5.2.6#~/.yarn/patches/@gorhom-bottom-sheet-npm-5.2.6-c24dba2629.patch"
+    "@maplibre/maplibre-react-native": "patch:@maplibre/maplibre-react-native@npm%3A10.4.0#~/.yarn/patches/@maplibre-maplibre-react-native-npm-10.4.0-a5da575b03.patch"
     "@mhpdev/react-native-speech": "npm:^1.4.0"
     "@notifee/react-native": "npm:^9.1.8"
     "@react-native-async-storage/async-storage": "npm:^2.1.2"
@@ -17678,7 +17726,7 @@ __metadata:
     react: "npm:19.1.1"
     react-hook-form: "npm:^7.65.0"
     react-i18next: "npm:^16.2.1"
-    react-native: "npm:^0.82.1"
+    react-native: "patch:react-native@npm%3A0.82.1#~/.yarn/patches/react-native-npm-0.82.1-c9dce9d96d.patch"
     react-native-blob-util: "npm:^0.23.1"
     react-native-calendar-events: "npm:^2.2.0"
     react-native-color-matrix-image-filters: "npm:^8.0.2"
@@ -19666,7 +19714,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native@npm:^0.82.1":
+"react-native@npm:0.82.1":
   version: 0.82.1
   resolution: "react-native@npm:0.82.1"
   dependencies:
@@ -19714,6 +19762,57 @@ __metadata:
   bin:
     react-native: cli.js
   checksum: 10c0/131f58417331b90cd09bc191c42903fa55c0d9e76c4cd2916c3f553299736778614ecc9bf685400275eeb16bd00b033ba65fd4f411ba1d6d46efb95bc5e36e35
+  languageName: node
+  linkType: hard
+
+"react-native@patch:react-native@npm%3A0.82.1#~/.yarn/patches/react-native-npm-0.82.1-c9dce9d96d.patch":
+  version: 0.82.1
+  resolution: "react-native@patch:react-native@npm%3A0.82.1#~/.yarn/patches/react-native-npm-0.82.1-c9dce9d96d.patch::version=0.82.1&hash=1a862b"
+  dependencies:
+    "@jest/create-cache-key-function": "npm:^29.7.0"
+    "@react-native/assets-registry": "npm:0.82.1"
+    "@react-native/codegen": "npm:0.82.1"
+    "@react-native/community-cli-plugin": "npm:0.82.1"
+    "@react-native/gradle-plugin": "npm:0.82.1"
+    "@react-native/js-polyfills": "npm:0.82.1"
+    "@react-native/normalize-colors": "npm:0.82.1"
+    "@react-native/virtualized-lists": "npm:0.82.1"
+    abort-controller: "npm:^3.0.0"
+    anser: "npm:^1.4.9"
+    ansi-regex: "npm:^5.0.0"
+    babel-jest: "npm:^29.7.0"
+    babel-plugin-syntax-hermes-parser: "npm:0.32.0"
+    base64-js: "npm:^1.5.1"
+    commander: "npm:^12.0.0"
+    flow-enums-runtime: "npm:^0.0.6"
+    glob: "npm:^7.1.1"
+    hermes-compiler: "npm:0.0.0"
+    invariant: "npm:^2.2.4"
+    jest-environment-node: "npm:^29.7.0"
+    memoize-one: "npm:^5.0.0"
+    metro-runtime: "npm:^0.83.1"
+    metro-source-map: "npm:^0.83.1"
+    nullthrows: "npm:^1.1.1"
+    pretty-format: "npm:^29.7.0"
+    promise: "npm:^8.3.0"
+    react-devtools-core: "npm:^6.1.5"
+    react-refresh: "npm:^0.14.0"
+    regenerator-runtime: "npm:^0.13.2"
+    scheduler: "npm:0.26.0"
+    semver: "npm:^7.1.3"
+    stacktrace-parser: "npm:^0.1.10"
+    whatwg-fetch: "npm:^3.0.0"
+    ws: "npm:^6.2.3"
+    yargs: "npm:^17.6.2"
+  peerDependencies:
+    "@types/react": ^19.1.1
+    react: ^19.1.1
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  bin:
+    react-native: cli.js
+  checksum: 10c0/2c1c56ee2362da737899c0056953219171cecd49afc7e77ff592e99a45ef838d8f919e7d74e251048fe27611f838fdd249a96beb9bcf8ee42b871adc5e8bc6f6
   languageName: node
   linkType: hard
 
