@@ -2,24 +2,14 @@
   "name": "integreat-app",
   "license": "MIT",
   "private": true,
-  "workspaces": {
-    "packages": [
-      "native",
-      "web",
-      "e2e-tests",
-      "shared",
-      "translations",
-      "build-configs"
-    ],
-    "nohoist": [
-      "native/**",
-      "web/**",
-      "e2e-tests/**",
-      "shared/**",
-      "translations/**",
-      "build-configs/**"
-    ]
-  },
+  "workspaces": [
+    "native",
+    "web",
+    "e2e-tests",
+    "shared",
+    "translations",
+    "build-configs"
+  ],
   "scripts": {
     "prepare": "husky",
     "lint": "eslint --cache --cache-location .eslintcache . && yarn workspace web stylelint && yarn workspace native stylelint",
@@ -37,10 +27,7 @@
   "resolutions": {
     "luxon": "3.7.2",
     "react": "19.1.1",
-    "@types/react": "19.1.1",
-    "tar": "7.5.10",
-    "glob/minimatch": "10.2.3",
-    "fast-xml-parser": "5.3.8"
+    "@types/react": "19.1.1"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^5.2.2",
@@ -68,8 +55,7 @@
     "husky": "^9.0.11",
     "jest": "^30.2.0",
     "jest-junit": "^16.0.0",
-    "license-checker-rseidelsohn": "^4.4.2",
-    "patch-package": "^8.0.1",
+    "minimatch": "^10.2.4",
     "postcss": "^8.4.38",
     "postcss-styled-syntax": "^0.7.1",
     "prettier": "^3.2.5",
@@ -82,5 +68,6 @@
     "ts-node": "^10.9.2",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3"
-  }
+  },
+  "packageManager": "yarn@4.13.0"
 }

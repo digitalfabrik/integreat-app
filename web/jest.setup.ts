@@ -87,4 +87,5 @@ Element.prototype.scrollTo = () => undefined
 // https://github.com/remix-run/react-router/issues/12363
 globalThis.TextEncoder = TextEncoder
 // maplibre-gl (and some transitive deps) rely on TextDecoder which isn't available in JSDOM/older Node globals.
+// @ts-expect-error wrong type
 globalThis.TextDecoder = TextDecoder

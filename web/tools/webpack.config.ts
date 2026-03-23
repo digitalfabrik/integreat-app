@@ -144,7 +144,7 @@ const createConfig = (
     console.log('Configured for running in dev server')
   }
 
-  const configAssets = resolve(__dirname, `../node_modules/build-configs/${buildConfigName}/assets`)
+  const configAssets = resolve(__dirname, `../../node_modules/build-configs/${buildConfigName}/assets`)
 
   const nodeModules = resolve(__dirname, '../node_modules')
   const rootNodeModules = resolve(__dirname, '../../node_modules')
