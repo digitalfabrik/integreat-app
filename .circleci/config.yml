@@ -6,6 +6,9 @@ commands:
         description: This command builds the circle config from the files in src and validates that it is up-to-date and valid.
         steps:
             - run:
+                command: corepack enable --install-directory="/home/circleci/bin"
+                name: Enable Corepack
+            - run:
                 command: curl -fLSs https://raw.githubusercontent.com/CircleCI-Public/circleci-cli/master/install.sh | sudo bash
                 name: Install CircleCI CLI
             - run:
@@ -177,6 +180,9 @@ commands:
     restore_yarn_cache:
         description: Restores and saves the node_modules directories of the monorepo.
         steps:
+            - run:
+                command: corepack enable --install-directory="/home/circleci/bin"
+                name: Enable Corepack
             - restore_cache:
                 keys:
                     - 11-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
@@ -196,6 +202,9 @@ commands:
     restore_yarn_tools_cache:
         description: Restores and saves the node_modules directories of the tools package.
         steps:
+            - run:
+                command: corepack enable --install-directory="/home/circleci/bin"
+                name: Enable Corepack
             - restore_cache:
                 keys:
                     - 3-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
