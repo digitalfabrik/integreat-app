@@ -189,16 +189,14 @@ commands:
                     - 11-yarn-{{ arch }}-
                 name: Restore Yarn Package Cache
             - run:
-                command: yarn --frozen-lockfile --cache-folder ~/.cache/yarn
+                command: yarn --immutable
                 name: Yarn
             - save_cache:
                 key: 11-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
                 name: Save Yarn Package Cache
                 paths:
-                    - ~/.cache/yarn
+                    - .yarn/cache
                     - node_modules
-                    - native/node_modules
-                    - web/node_modules
     restore_yarn_tools_cache:
         description: Restores and saves the node_modules directories of the tools package.
         steps:
@@ -210,14 +208,14 @@ commands:
                     - 3-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
                 name: Restore Yarn Tools Package Cache
             - run:
-                command: yarn --frozen-lockfile --cache-folder ~/.cache/yarn-tools
+                command: yarn --immutable
                 name: Yarn tools
                 working_directory: tools
             - save_cache:
                 key: 3-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
                 name: Save Yarn Tools Package Cache
                 paths:
-                    - ~/.cache/yarn-tools
+                    - .yarn/cache
                     - tools/node_modules
     unit_test:
         description: Runs the test task and stores coverage and junit data
