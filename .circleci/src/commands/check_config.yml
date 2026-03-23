@@ -2,7 +2,7 @@ description: This command builds the circle config from the files in src and val
 steps:
   - run:
       name: Enable Corepack
-      command: corepack enable --install-directory="/home/circleci/bin"
+      command: corepack enable --install-directory ~/bin
   - run:
       name: Install CircleCI CLI
       command: curl -fLSs https://raw.githubusercontent.com/CircleCI-Public/circleci-cli/master/install.sh | sudo bash

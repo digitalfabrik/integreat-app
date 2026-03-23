@@ -21,7 +21,7 @@
     "check:build": "yarn es-check es2022 ./dist/**/*.js --verbose",
     "test": "jest",
     "lint": " yarn stylelint && yarn eslint --cache --cache-location ../.eslintcache .",
-    "stylelint": "stylelint --config stylelint.config.js \"src/**/*.{ts,tsx,css}\"",
+    "stylelint": "npx stylelint --config stylelint.config.js \"src/**/*.{ts,tsx,css}\"",
     "ts:check": "tsc --build",
     "prettier:check": "yarn prettier --ignore-path  ../.prettierignore --check .",
     "prettier:write": "yarn prettier --ignore-path  ../.prettierignore --write .",

@@ -2,7 +2,7 @@ description: Restores and saves the node_modules directories of the tools packag
 steps:
   - run:
       name: Enable Corepack
-      command: corepack enable --install-directory="/home/circleci/bin"
+      command: corepack enable --install-directory ~/bin
   - restore_cache:
       name: Restore Yarn Tools Package Cache
       keys:

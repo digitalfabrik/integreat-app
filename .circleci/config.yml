@@ -6,7 +6,7 @@ commands:
         description: This command builds the circle config from the files in src and validates that it is up-to-date and valid.
         steps:
             - run:
-                command: corepack enable --install-directory="/home/circleci/bin"
+                command: corepack enable --install-directory ~/bin
                 name: Enable Corepack
             - run:
                 command: curl -fLSs https://raw.githubusercontent.com/CircleCI-Public/circleci-cli/master/install.sh | sudo bash
@@ -181,7 +181,7 @@ commands:
         description: Restores and saves the node_modules directories of the monorepo.
         steps:
             - run:
-                command: corepack enable --install-directory="/home/circleci/bin"
+                command: corepack enable --install-directory ~/bin
                 name: Enable Corepack
             - restore_cache:
                 keys:
@@ -201,7 +201,7 @@ commands:
         description: Restores and saves the node_modules directories of the tools package.
         steps:
             - run:
-                command: corepack enable --install-directory="/home/circleci/bin"
+                command: corepack enable --install-directory ~/bin
                 name: Enable Corepack
             - restore_cache:
                 keys:

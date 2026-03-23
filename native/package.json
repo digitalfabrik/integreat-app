@@ -35,7 +35,7 @@
     "test:changed": "yarn run test -o",
     "test:e2e": "yarn workspace e2e test:native:browserstack",
     "lint": "yarn stylelint && eslint --cache --cache-location ../.eslintcache .",
-    "stylelint": "stylelint --config stylelint.config.js \"src/**/*.{ts,tsx,css}\"",
+    "stylelint": "npx stylelint --config stylelint.config.js \"src/**/*.{ts,tsx,css}\"",
     "license-crawler": "license-checker-rseidelsohn --excludePrivatePackages --production --json --out src/assets/licenses.json",
     "postinstall": "yarn license-crawler",
     "ts:check": "tsc --build",
