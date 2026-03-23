@@ -37,7 +37,7 @@ jest.useFakeTimers()
 
 describe('useNavigate', () => {
   const { mocked } = jest
-  const navigation = createNavigationPropMock()
+  const navigation = { ...createNavigationPropMock(), canGoBack: () => true }
   mocked(useNavigation).mockImplementation(() => navigation as never)
 
   const cityCode = 'ansbach'

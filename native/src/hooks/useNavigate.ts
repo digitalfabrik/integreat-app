@@ -72,7 +72,7 @@ const navigate = <T extends RoutesType>(
   // City content routes with different city or language than the currently selected should be opened in the web app
   // This avoids lots of additional complexity by always keeping the city and language of all opened routes in sync
   if ((appCityCode && appCityCode !== cityCode) || appLanguageCode !== languageCode) {
-    if (redirect) {
+    if (redirect && navigation.canGoBack()) {
       // We need to remove the redirect route if only opening the inappbrowser
       // Otherwise this leads to a blank (redirect) screen when navigating back from the inappbrowser
       navigation.pop()
