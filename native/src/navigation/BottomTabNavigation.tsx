@@ -132,27 +132,27 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
 
   const Tabs = [
     <Tab.Screen
-      name={CATEGORIES_ROUTE}
+      name={CATEGORIES_TAB_ROUTE}
       component={CategoriesStackScreen}
       options={{ tabBarLabel: createTabLabel(theme, t('localInformationLabel')), tabBarIcon: CategoriesIcon }}
     />,
     featureFlags.pois && cachedData.city.poisEnabled && (
       <Tab.Screen
-        name={POIS_ROUTE}
+        name={POIS_TAB_ROUTE}
         component={PoisStackScreen}
         options={{ tabBarLabel: createTabLabel(theme, t('locations')), tabBarIcon: createTabIcon('map-outline') }}
       />
     ),
     isNewsEnabled && (
       <Tab.Screen
-        name={NEWS_ROUTE}
+        name={NEWS_TAB_ROUTE}
         component={NewsStackScreen}
         options={{ tabBarLabel: createTabLabel(theme, t('news')), tabBarIcon: createTabIcon('newspaper') }}
       />
     ),
     cachedData.city.eventsEnabled && (
       <Tab.Screen
-        name={EVENTS_ROUTE}
+        name={EVENTS_TAB_ROUTE}
         component={EventsStackScreen}
         options={{
           tabBarLabel: createTabLabel(theme, t('events')),
