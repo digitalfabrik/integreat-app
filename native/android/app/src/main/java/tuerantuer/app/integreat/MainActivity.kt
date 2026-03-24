@@ -6,6 +6,7 @@ import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.fabricEnabled
 import com.facebook.react.defaults.DefaultReactActivityDelegate
+import com.facebook.react.modules.i18nmanager.I18nUtil
 
 import java.util.Locale
 
@@ -14,6 +15,13 @@ class MainActivity : ReactActivity() {
   private lateinit var currentLocale: Locale
 
   override fun onCreate(savedInstanceState: Bundle?) {
+    // Workaround to fix the rtl issue before this issue is resolved https://github.com/facebook/react-native/pull/54986
+    // Reads the device locale directly and sets the direction before initialization
+    val rtlLanguages = setOf("ar", "ckb", "pes", "prs", "ps", "id", "ur")
+    val isRTL = rtlLanguages.contains(Locale.getDefault().language)
+
+    I18nUtil.instance.allowRTL(this, true)
+    I18nUtil.instance.forceRTL(this, isRTL)
     // https://github.com/software-mansion/react-native-screens#android
     // https://reactnavigation.org/docs/getting-started/#installing-dependencies-into-a-bare-react-native-project
     super.onCreate(null)
