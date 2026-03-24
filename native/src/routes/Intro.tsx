@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { FlatList, useWindowDimensions, ViewToken } from 'react-native'
 import styled from 'styled-components/native'
 
-import { IntroRouteType, LANDING_ROUTE } from 'shared'
+import { BOTTOM_TAB_NAVIGATION_ROUTE, IntroRouteType, LANDING_ROUTE } from 'shared'
 
 import {
   IntroLanguageIcon,
@@ -16,11 +16,9 @@ import {
 import SlideContent, { SlideContentType } from '../components/SlideContent'
 import SlideFooter from '../components/SlideFooter'
 import Icon from '../components/base/Icon'
-import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
+import { NavigationProps } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import { AppContext } from '../contexts/AppContextProvider'
-import useNavigateToDeepLink from '../hooks/useNavigateToDeepLink'
-import { reportError } from '../utils/sentry'
 
 const Container = styled.View<{ width: number }>`
   flex: 1;
@@ -38,18 +36,15 @@ const StyledIcon = styled(Icon)`
 `
 
 type IntroProps = {
-  route: RouteProps<IntroRouteType>
   navigation: NavigationProps<IntroRouteType>
 }
 
-const Intro = ({ route, navigation }: IntroProps): ReactElement => {
-  const { updateSettings } = useContext(AppContext)
+const Intro = ({ navigation }: IntroProps): ReactElement => {
+  const { updateSettings, cityCode } = useContext(AppContext)
   const [currentSlide, setCurrentSlide] = useState(0)
   const { width } = useWindowDimensions()
   const { t } = useTranslation<['intro', 'settings']>(['intro', 'settings'])
   const flatListRef = useRef<FlatList>(null)
-  const { deepLink } = route.params
-  const navigateToDeepLink = useNavigateToDeepLink()
   const { appName } = buildConfig()
 
   const slides = [
@@ -100,19 +95,14 @@ const Intro = ({ route, navigation }: IntroProps): ReactElement => {
     Content: <StyledIcon Icon={IntroOfflineIcon} />,
   })
 
-  const onDone = useCallback(async () => {
-    try {
-      updateSettings({ introShown: true })
-
-      if (deepLink) {
-        navigateToDeepLink(deepLink)
-      } else {
-        navigation.replace(LANDING_ROUTE)
-      }
-    } catch (e) {
-      reportError(e)
+  const onDone = useCallback(() => {
+    updateSettings({ introShown: true })
+    if (cityCode) {
+      navigation.replace(BOTTOM_TAB_NAVIGATION_ROUTE, {})
+    } else {
+      navigation.replace(LANDING_ROUTE)
     }
-  }, [navigateToDeepLink, navigation, deepLink, updateSettings])
+  }, [navigation, cityCode, updateSettings])
 
   const goToSlide = useCallback(
     (index: number) => {
