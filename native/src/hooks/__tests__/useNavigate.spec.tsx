@@ -1,4 +1,4 @@
-import { StackActions, useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 import { act } from '@testing-library/react-native'
 import React, { useEffect } from 'react'
 
@@ -16,32 +16,29 @@ import {
   SEARCH_ROUTE,
 } from 'shared'
 
-import { RoutesType } from '../../constants/NavigationTypes'
 import buildConfig from '../../constants/buildConfig'
 import TestingAppContext from '../../testing/TestingAppContext'
-import { createBottomTabNavigationState } from '../../testing/bottomNavigationMock'
 import createNavigationPropMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
-import { buildNestedAction } from '../../utils/navigation'
+import { navigateNested } from '../../utils/navigation'
 import openExternalUrl from '../../utils/openExternalUrl'
 import sendTrackingSignal from '../../utils/sendTrackingSignal'
 import useNavigate from '../useNavigate'
 
 jest.mock('@react-navigation/native')
+jest.mock('../../utils/navigation')
 jest.mock('../../utils/sendTrackingSignal')
 jest.mock('../../utils/openExternalUrl', () => jest.fn(async () => undefined))
 jest.mock('../../navigation/url', () => ({
   urlFromRouteInformation: jest.fn(() => 'https://example.com'),
 }))
 
+jest.useFakeTimers()
+
 describe('useNavigate', () => {
   const { mocked } = jest
-  const navigation = createNavigationPropMock()
+  const navigation = { ...createNavigationPropMock(), canGoBack: () => true }
   mocked(useNavigation).mockImplementation(() => navigation as never)
-
-  const mockBottomTabState = ({ activeTab }: { activeTab: RoutesType }) => {
-    mocked(navigation.getState).mockImplementation(() => createBottomTabNavigationState({ activeTab }))
-  }
 
   const cityCode = 'ansbach'
   const languageCode = 'ro'
@@ -57,8 +54,14 @@ describe('useNavigate', () => {
     }))
   }
 
-  const MockComponent = ({ routeInformation }: { routeInformation: RouteInformationType }) => {
-    const { navigateTo } = useNavigate()
+  const MockComponent = ({
+    routeInformation,
+    redirect,
+  }: {
+    routeInformation: RouteInformationType
+    redirect: boolean
+  }) => {
+    const { navigateTo } = useNavigate({ redirect })
     useEffect(() => {
       navigateTo(routeInformation)
     }, [navigateTo, routeInformation])
@@ -66,26 +69,16 @@ describe('useNavigate', () => {
     return null
   }
 
-  const renderMockComponent = (routeInformation: RouteInformationType) =>
+  const renderMockComponent = (routeInformation: RouteInformationType, redirect = false) =>
     render(
       <TestingAppContext cityCode={cityCode} languageCode={languageCode}>
-        <MockComponent routeInformation={routeInformation} />
+        <MockComponent routeInformation={routeInformation} redirect={redirect} />
       </TestingAppContext>,
       false,
     )
 
-  const expectNestedNavigation = (routeName: RoutesType, params: Record<string, unknown>) => {
-    expect(navigation.reset).toHaveBeenCalledWith(buildNestedAction(routeName, params, 'bottom-tabs-key'))
-  }
-
   beforeEach(() => {
     jest.clearAllMocks()
-    jest.useFakeTimers()
-  })
-
-  afterEach(() => {
-    jest.runOnlyPendingTimers()
-    jest.useRealTimers()
   })
 
   it('should navigate to landing', () => {
@@ -100,8 +93,28 @@ describe('useNavigate', () => {
         url: 'https://example.com',
       },
     })
-    expect(navigation.dispatch).toHaveBeenCalledWith(StackActions.push(LANDING_ROUTE, undefined))
-    expect(navigation.dispatch).toHaveBeenCalledTimes(1)
+    expect(navigation.push).toHaveBeenCalledWith(LANDING_ROUTE)
+    expect(navigation.push).toHaveBeenCalledTimes(1)
+  })
+
+  it('should navigate to landing', () => {
+    renderMockComponent(
+      {
+        route: LANDING_ROUTE,
+        languageCode,
+      },
+      true,
+    )
+    expect(sendTrackingSignal).toHaveBeenCalledWith({
+      signal: {
+        name: OPEN_PAGE_SIGNAL_NAME,
+        pageType: LANDING_ROUTE,
+        url: 'https://example.com',
+      },
+    })
+    expect(navigation.replace).toHaveBeenCalledWith(LANDING_ROUTE)
+    expect(navigation.replace).toHaveBeenCalledTimes(1)
+    expect(navigation.push).not.toHaveBeenCalled()
   })
 
   it('should navigate to jpal tracking', () => {
@@ -112,8 +125,8 @@ describe('useNavigate', () => {
       route: JPAL_TRACKING_ROUTE,
       trackingCode: 'abcdef123456',
     })
-    expect(navigation.dispatch).toHaveBeenCalledWith(StackActions.push(JPAL_TRACKING_ROUTE, undefined))
-    expect(navigation.dispatch).toHaveBeenCalledTimes(1)
+    expect(navigation.push).toHaveBeenCalledWith(JPAL_TRACKING_ROUTE)
+    expect(navigation.push).toHaveBeenCalledTimes(1)
   })
 
   it('should not navigate to jpal tracking if it is disabled in the build config', () => {
@@ -124,7 +137,7 @@ describe('useNavigate', () => {
       route: JPAL_TRACKING_ROUTE,
       trackingCode: 'abcdef123456',
     })
-    expect(navigation.dispatch).not.toHaveBeenCalled()
+    expect(navigation.push).not.toHaveBeenCalled()
   })
 
   it('should open route externally if city does not match the app settings', () => {
@@ -135,10 +148,8 @@ describe('useNavigate', () => {
       cityCode: 'peekingCity',
       languageCode,
     })
-    expect(navigation.dispatch).not.toHaveBeenCalled()
-    act(() => {
-      jest.runAllTimers()
-    })
+    act(() => jest.runAllTimers())
+    expect(navigation.push).not.toHaveBeenCalled()
     expect(openExternalUrl).toHaveBeenCalledTimes(1)
     expect(openExternalUrl).toHaveBeenCalledWith('https://example.com', expect.any(Function))
   })
@@ -151,25 +162,60 @@ describe('useNavigate', () => {
       cityCode: 'asdf',
       languageCode,
     })
-    expect(navigation.dispatch).not.toHaveBeenCalled()
-    act(() => {
-      jest.runAllTimers()
-    })
+    act(() => jest.runAllTimers())
+    expect(navigation.push).not.toHaveBeenCalled()
     expect(openExternalUrl).toHaveBeenCalledTimes(1)
     expect(openExternalUrl).toHaveBeenCalledWith('https://example.com', expect.any(Function))
   })
 
+  it('should pop redirect route when opening a route externally', () => {
+    const cityContentPath = `/${cityCode}/asdf/willkommen`
+    renderMockComponent(
+      {
+        route: CATEGORIES_ROUTE,
+        cityContentPath,
+        cityCode: 'asdf',
+        languageCode,
+      },
+      true,
+    )
+    act(() => jest.runAllTimers())
+    expect(navigation.push).not.toHaveBeenCalled()
+    expect(openExternalUrl).toHaveBeenCalledTimes(1)
+    expect(openExternalUrl).toHaveBeenCalledWith('https://example.com', expect.any(Function))
+    expect(navigation.pop).toHaveBeenCalledTimes(1)
+  })
+
   it('should navigate to categories route', () => {
-    mockBottomTabState({ activeTab: EVENTS_ROUTE })
     renderMockComponent({
       route: CATEGORIES_ROUTE,
       cityContentPath,
       ...params,
     })
-    expect(navigation.reset).toHaveBeenCalledWith(
-      buildNestedAction(CATEGORIES_ROUTE, { path: cityContentPath }, 'bottom-tabs-key'),
+    expect(navigation.push).not.toHaveBeenCalled()
+    expect(navigateNested).toHaveBeenCalledWith(navigation, CATEGORIES_ROUTE, { path: cityContentPath }, false)
+    expect(navigateNested).toHaveBeenCalledTimes(1)
+    expect(sendTrackingSignal).toHaveBeenCalledWith({
+      signal: {
+        name: OPEN_PAGE_SIGNAL_NAME,
+        pageType: CATEGORIES_ROUTE,
+        url: 'https://example.com',
+      },
+    })
+  })
+
+  it('should redirect to categories route', () => {
+    renderMockComponent(
+      {
+        route: CATEGORIES_ROUTE,
+        cityContentPath,
+        ...params,
+      },
+      true,
     )
-    expect(navigation.reset).toHaveBeenCalledTimes(1)
+    expect(navigation.push).not.toHaveBeenCalled()
+    expect(navigateNested).toHaveBeenCalledWith(navigation, CATEGORIES_ROUTE, { path: cityContentPath }, true)
+    expect(navigateNested).toHaveBeenCalledTimes(1)
     expect(sendTrackingSignal).toHaveBeenCalledWith({
       signal: {
         name: OPEN_PAGE_SIGNAL_NAME,
@@ -184,43 +230,47 @@ describe('useNavigate', () => {
       route: DISCLAIMER_ROUTE,
       ...params,
     })
-    expect(navigation.dispatch).toHaveBeenCalledWith(StackActions.push(DISCLAIMER_ROUTE, undefined))
-    expect(navigation.dispatch).toHaveBeenCalledTimes(1)
+    expect(navigation.push).toHaveBeenCalledWith(DISCLAIMER_ROUTE)
+    expect(navigation.push).toHaveBeenCalledTimes(1)
   })
 
   it('should navigate to events route', () => {
-    mockBottomTabState({ activeTab: CATEGORIES_ROUTE })
     renderMockComponent({
       route: EVENTS_ROUTE,
       ...params,
       slug: '1234',
     })
-    expectNestedNavigation(EVENTS_ROUTE, { slug: '1234' })
+    expect(navigation.push).not.toHaveBeenCalled()
+    expect(navigateNested).toHaveBeenCalledWith(navigation, EVENTS_ROUTE, { slug: '1234' }, false)
     renderMockComponent({
       route: EVENTS_ROUTE,
       ...params,
     })
-    expectNestedNavigation(EVENTS_ROUTE, { slug: undefined })
-    expect(navigation.reset).toHaveBeenCalledTimes(2)
+    expect(navigateNested).toHaveBeenCalledWith(navigation, EVENTS_ROUTE, { slug: undefined }, false)
+    expect(navigateNested).toHaveBeenCalledTimes(2)
   })
 
   it('should navigate to news route', () => {
     mockBuildConfig({
       newsStream: true,
     })
-    mockBottomTabState({ activeTab: CATEGORIES_ROUTE })
     renderMockComponent({
       route: NEWS_ROUTE,
       ...params,
       newsType: LOCAL_NEWS_TYPE,
       newsId: 1234,
     })
-    expectNestedNavigation(NEWS_ROUTE, {
-      ...params,
-      newsType: LOCAL_NEWS_TYPE,
-      newsId: 1234,
-    })
-    expect(navigation.reset).toHaveBeenCalledTimes(1)
+    expect(navigation.push).not.toHaveBeenCalled()
+    expect(navigateNested).toHaveBeenCalledWith(
+      navigation,
+      NEWS_ROUTE,
+      {
+        newsType: LOCAL_NEWS_TYPE,
+        newsId: 1234,
+      },
+      false,
+    )
+    expect(navigateNested).toHaveBeenCalledTimes(1)
   })
 
   it('should not navigate to news if it is not enabled in build config', () => {
@@ -233,31 +283,26 @@ describe('useNavigate', () => {
       newsType: LOCAL_NEWS_TYPE,
       newsId: 1234,
     })
-    expect(navigation.dispatch).not.toHaveBeenCalled()
+    expect(navigation.push).not.toHaveBeenCalled()
   })
 
   it('should navigate to pois route', () => {
     mockBuildConfig({
       pois: true,
     })
-    mockBottomTabState({ activeTab: CATEGORIES_ROUTE })
     renderMockComponent({
       route: POIS_ROUTE,
       ...params,
       slug: '1234',
     })
-    expectNestedNavigation(POIS_ROUTE, {
-      slug: '1234',
-      multipoi: undefined,
-      zoom: undefined,
-      poiCategoryId: undefined,
-    })
+    expect(navigation.push).not.toHaveBeenCalled()
+    expect(navigateNested).toHaveBeenCalledWith(navigation, POIS_ROUTE, { slug: '1234' }, false)
     renderMockComponent({
       route: POIS_ROUTE,
       ...params,
     })
-    expectNestedNavigation(POIS_ROUTE, { slug: undefined })
-    expect(navigation.reset).toHaveBeenCalledTimes(2)
+    expect(navigateNested).toHaveBeenCalledWith(navigation, POIS_ROUTE, { slug: undefined }, false)
+    expect(navigateNested).toHaveBeenCalledTimes(2)
   })
 
   it('should not navigate to pois if it is not enabled in build config', () => {
@@ -269,7 +314,7 @@ describe('useNavigate', () => {
       ...params,
       slug: '1234',
     })
-    expect(navigation.dispatch).not.toHaveBeenCalled()
+    expect(navigation.push).not.toHaveBeenCalled()
   })
 
   it('should navigate to search', () => {
@@ -277,7 +322,7 @@ describe('useNavigate', () => {
       route: SEARCH_ROUTE,
       ...params,
     })
-    expect(navigation.dispatch).toHaveBeenCalledWith(StackActions.push(SEARCH_ROUTE, { searchText: undefined }))
-    expect(navigation.dispatch).toHaveBeenCalledTimes(1)
+    expect(navigation.push).toHaveBeenCalledWith(SEARCH_ROUTE, { searchText: undefined })
+    expect(navigation.push).toHaveBeenCalledTimes(1)
   })
 })

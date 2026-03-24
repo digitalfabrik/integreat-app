@@ -3,9 +3,8 @@ import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { useEffect } from 'react'
 import { checkNotifications, requestNotifications, RESULTS } from 'react-native-permissions'
 
-import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NonNullableRouteInformationType } from 'shared'
+import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NonNullableRouteInformationType, RouteInformationType } from 'shared'
 
-import { RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import { AppContextType } from '../contexts/AppContextProvider'
 import { useAppContext } from '../hooks/useCityAppContext'
@@ -129,19 +128,22 @@ const routeInformationFromMessage = (message: Message): NonNullableRouteInformat
   newsId: parseInt(message.data.news_id, 10),
 })
 
-const openMessage = (message: Message, navigate: (route: RoutesType, params: unknown) => void): void => {
+const openMessage = (message: Message, navigate: (routeInformation: RouteInformationType) => void): void => {
   // The CMS needs some time until the push notification is available in the API response
-  setTimeout(() => navigate(NEWS_ROUTE, routeInformationFromMessage(message)), WAITING_TIME_FOR_CMS)
+  setTimeout(() => navigate(routeInformationFromMessage(message)), WAITING_TIME_FOR_CMS)
 }
 
-const notifeeEventHandler = ({ type, detail }: Event, navigate: (route: RoutesType, params: unknown) => void): void => {
+const notifeeEventHandler = (
+  { type, detail }: Event,
+  navigate: (routeInformation: RouteInformationType) => void,
+): void => {
   if (type === EventType.PRESS) {
     openMessage(detail.notification as Message, navigate)
   }
 }
 
 const pushNotificationPressListener = async (
-  navigate: (route: RoutesType, params: unknown) => void,
+  navigate: (routeInformation: RouteInformationType) => void,
 ): Promise<() => void> => {
   const { getMessaging, onNotificationOpenedApp, getInitialNotification } =
     await import('@react-native-firebase/messaging')
@@ -178,7 +180,7 @@ const initialPushNotificationRequest = async (appContext: AppContextType): Promi
   }
 }
 
-export const usePushNotificationListener = (navigate: (route: RoutesType, params: unknown) => void): void => {
+export const usePushNotificationListener = (navigate: (routeInformation: RouteInformationType) => void): void => {
   const appContext = useAppContext()
 
   useEffect(() => {
