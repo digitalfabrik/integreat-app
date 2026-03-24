@@ -34,7 +34,6 @@ import LoadingErrorHandler from '../routes/LoadingErrorHandler'
 import NewsContainer from '../routes/NewsContainer'
 import PoisContainer from '../routes/PoisContainer'
 import cityDisplayName from '../utils/cityDisplayName'
-import getTransitionPreset from '../utils/getTransitionPreset'
 
 const Tab = createBottomTabNavigator<RoutesParamsType>()
 const CategoriesStack = createStackNavigator<RoutesParamsType>()
@@ -42,29 +41,28 @@ const PoisStack = createStackNavigator<RoutesParamsType>()
 const EventsStack = createStackNavigator<RoutesParamsType>()
 const NewsStack = createStackNavigator<RoutesParamsType>()
 
-const transitionPreset = getTransitionPreset()
 const TAB_HEIGHT = 60
 
 const CategoriesStackScreen = () => (
-  <CategoriesStack.Navigator screenOptions={{ header: defaultHeader, ...transitionPreset }}>
+  <CategoriesStack.Navigator screenOptions={{ header: defaultHeader, animation: 'none' }}>
     <CategoriesStack.Screen name={CATEGORIES_ROUTE} initialParams={{}} component={CategoriesContainer} />
   </CategoriesStack.Navigator>
 )
 
 const PoisStackScreen = () => (
-  <PoisStack.Navigator screenOptions={{ header: defaultHeader, ...transitionPreset }}>
+  <PoisStack.Navigator screenOptions={{ header: defaultHeader, animation: 'none' }}>
     <PoisStack.Screen name={POIS_ROUTE} initialParams={{}} component={PoisContainer} />
   </PoisStack.Navigator>
 )
 
 const EventsStackScreen = () => (
-  <EventsStack.Navigator screenOptions={{ header: defaultHeader, ...transitionPreset }}>
+  <EventsStack.Navigator screenOptions={{ header: defaultHeader, animation: 'none' }}>
     <EventsStack.Screen name={EVENTS_ROUTE} initialParams={{}} component={EventsContainer} />
   </EventsStack.Navigator>
 )
 
 const NewsStackScreen = () => (
-  <NewsStack.Navigator screenOptions={{ header: defaultHeader, ...transitionPreset }}>
+  <NewsStack.Navigator screenOptions={{ header: defaultHeader, animation: 'none' }}>
     <NewsStack.Screen
       name={NEWS_ROUTE}
       initialParams={{ newsId: null, newsType: LOCAL_NEWS_TYPE }}
