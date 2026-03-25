@@ -52,7 +52,6 @@ import Settings from './routes/Settings'
 import { ASYNC_STORAGE_VERSION } from './utils/AppSettings'
 import dataContainer from './utils/DefaultDataContainer'
 import { usePushNotificationListener } from './utils/PushNotificationsManager'
-import getTransitionPreset from './utils/getTransitionPreset'
 import { initSentry, log, reportError } from './utils/sentry'
 
 type HeaderProps = {
@@ -144,15 +143,13 @@ const Navigator = (): ReactElement | null => {
     return citiesError ? <LoadingErrorHandler error={citiesError} loading={false} refresh={refreshCities} /> : null
   }
 
-  const transitionPreset = getTransitionPreset()
-
   const redirectUrl = initialRoute.name === REDIRECT_ROUTE ? initialRoute.url : undefined
 
   return (
     <Stack.Navigator
       id={ROOT_NAVIGATOR_ID}
       initialRouteName={initialRoute.name}
-      screenOptions={{ ...transitionPreset, headerMode: 'screen' }}>
+      screenOptions={{ headerMode: 'screen', animation: 'none' }}>
       <Stack.Group screenOptions={{ header: () => null }}>
         <Stack.Screen name={REDIRECT_ROUTE} initialParams={{ url: redirectUrl }} component={RedirectContainer} />
         <Stack.Screen name={INTRO_ROUTE} component={Intro} />
