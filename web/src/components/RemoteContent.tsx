@@ -76,6 +76,12 @@ const RemoteContent = ({ html, centered = false, smallText = false }: RemoteCont
           element.style.removeProperty('filter')
         }
       }
+      if (element instanceof HTMLImageElement && element.alt === 'Website:') {
+        const link = element.closest('p')?.querySelector('a')
+        if (link) {
+          link.textContent = 'Website'
+        }
+      }
     })
 
     const anchors = currentSandBoxRef.getElementsByTagName('a')

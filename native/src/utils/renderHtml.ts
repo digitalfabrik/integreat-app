@@ -225,7 +225,22 @@ const renderJS = (
         iframe.remove()
       }
     })
-  })()
+  })();
+
+  (function showWebsiteForLink() {
+    const contactCards = document.querySelectorAll('.contact-card')
+
+    contactCards.forEach(card => {
+      card.querySelectorAll('p').forEach(card => {
+        const img = card.querySelector('img')
+        const link = card.querySelector('a')
+
+        if (img && link && img.alt === 'Website: ') {
+          link.textContent = 'Website'
+        }
+      })
+    })
+  })();
 `
 
 // To use parameters or external constants in renderHTML, you need to use string interpolation, e.g.
