@@ -2,14 +2,16 @@ description: Restores and saves the node_modules directories of the tools packag
 steps:
   - run:
       name: Enable Corepack
-      command: corepack enable --install-directory ~/bin
+      command: |
+        corepack enable --install-directory "$HOME/bin"
+        export PATH="$HOME/bin:$PATH"
   - restore_cache:
       name: Restore Yarn Tools Package Cache
       keys:
         - 3-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
   - run:
       name: Yarn tools
-      command: yarn --immutable
+      command: corepack enable --install-directory ~/bin && yarn --immutable
       working_directory: tools
   - save_cache:
       name: Save Yarn Tools Package Cache
