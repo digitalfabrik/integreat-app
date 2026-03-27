@@ -11,7 +11,9 @@ steps:
         - 3-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
   - run:
       name: Yarn tools
-      command: corepack enable --install-directory ~/bin && yarn --immutable
+      # corepack prefix is necessary on macos
+      # https://github.com/nodejs/corepack/issues/507
+      command: corepack yarn --immutable
       working_directory: tools
   - save_cache:
       name: Save Yarn Tools Package Cache

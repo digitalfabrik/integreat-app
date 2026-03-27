@@ -2,17 +2,17 @@ description: Restores and saves the node_modules directories of the monorepo.
 steps:
   - run:
       name: Enable Corepack
-      command: |
-        corepack enable --install-directory "$HOME/bin"
-        export PATH="$HOME/bin:$PATH"
+      command: corepack enable --install-directory "$HOME/bin"
   - restore_cache:
       name: Restore Yarn Package Cache
       keys:
         - 11-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
-        - 11-yarn-{{ arch }}-
+        - 11-yarn-{{ arch }}
   - run:
       name: Yarn
-      command: yarn --immutable
+      # corepack prefix is necessary on macos
+      # https://github.com/nodejs/corepack/issues/507
+      command: corepack yarn --immutable
   - save_cache:
       name: Save Yarn Package Cache
       key: 11-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}

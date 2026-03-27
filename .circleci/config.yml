@@ -181,17 +181,15 @@ commands:
         description: Restores and saves the node_modules directories of the monorepo.
         steps:
             - run:
-                command: |
-                    corepack enable --install-directory "$HOME/bin"
-                    export PATH="$HOME/bin:$PATH"
+                command: corepack enable --install-directory "$HOME/bin"
                 name: Enable Corepack
             - restore_cache:
                 keys:
                     - 11-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
-                    - 11-yarn-{{ arch }}-
+                    - 11-yarn-{{ arch }}
                 name: Restore Yarn Package Cache
             - run:
-                command: yarn --immutable
+                command: corepack yarn --immutable
                 name: Yarn
             - save_cache:
                 key: 11-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
@@ -212,7 +210,7 @@ commands:
                     - 3-yarn-{{ arch }}-{{ checksum "tools/yarn.lock" }}-{{ checksum "tools/package.json" }}
                 name: Restore Yarn Tools Package Cache
             - run:
-                command: corepack enable --install-directory ~/bin && yarn --immutable
+                command: corepack yarn --immutable
                 name: Yarn tools
                 working_directory: tools
             - save_cache:
