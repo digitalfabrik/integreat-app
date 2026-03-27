@@ -5898,7 +5898,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native/metro-babel-transformer@npm:0.82.1":
+"@react-native/metro-babel-transformer@npm:0.82.1, @react-native/metro-babel-transformer@npm:^0.82.1":
   version: 0.82.1
   resolution: "@react-native/metro-babel-transformer@npm:0.82.1"
   dependencies:
@@ -17676,8 +17676,10 @@ __metadata:
   resolution: "native@workspace:native"
   dependencies:
     "@babel/core": "npm:^7.28.5"
+    "@babel/plugin-transform-export-namespace-from": "npm:^7.27.1"
     "@babel/preset-env": "npm:^7.28.5"
     "@babel/preset-typescript": "npm:^7.28.5"
+    "@babel/runtime": "npm:^7.25.0"
     "@dr.pogodin/react-native-fs": "npm:^2.36.1"
     "@dr.pogodin/react-native-static-server": "npm:^0.25.3"
     "@dr.pogodin/react-native-webview": "npm:^13.16.4"
@@ -17699,6 +17701,7 @@ __metadata:
     "@react-native-vector-icons/material-design-icons": "npm:^12.3.0"
     "@react-native/babel-preset": "npm:^0.82.1"
     "@react-native/eslint-config": "npm:^0.82.1"
+    "@react-native/metro-babel-transformer": "npm:^0.82.1"
     "@react-native/metro-config": "npm:^0.82.1"
     "@react-navigation/bottom-tabs": "npm:^7.10.1"
     "@react-navigation/elements": "npm:^2.8.0"
@@ -17743,7 +17746,7 @@ __metadata:
     react-native-safe-area-context: "npm:^5.6.2"
     react-native-screens: "npm:^4.18.0"
     react-native-svg: "npm:^15.14.0"
-    react-native-svg-transformer: "npm:^1.5.0"
+    react-native-svg-transformer: "npm:^1.5.3"
     react-native-url-polyfill: "npm:^3.0.0"
     react-native-worklets: "npm:^0.7.0"
     react-test-renderer: "npm:19.1.1"
@@ -19651,7 +19654,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-svg-transformer@npm:^1.5.0":
+"react-native-svg-transformer@npm:^1.5.3":
   version: 1.5.3
   resolution: "react-native-svg-transformer@npm:1.5.3"
   dependencies:

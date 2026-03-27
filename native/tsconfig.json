@@ -27,10 +27,9 @@
     "jest.config.ts",
     "babel.config.js",
     "react-native.config.js",
-    "metro.config.ci.js",
-    "metro.config.js",
     "stylelint.config.js"
   ],
+  "exclude": ["metro.config.js", "metro.config.ci.js"],
   "references": [
     {
       "path": "../translations"
