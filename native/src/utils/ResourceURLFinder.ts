@@ -1,5 +1,5 @@
 import { Parser } from 'htmlparser2'
-import md5 from 'md5'
+import { sha256 } from 'js-sha256'
 import Url from 'url-parse'
 
 import { ExtendedPageModel } from 'shared/api'
@@ -85,7 +85,7 @@ export default class ResourceURLFinder {
       return Array.from(urlSet)
         .filter(url => !currentlyCachedFiles.includes(url))
         .map(url => {
-          const urlHash = md5(url)
+          const urlHash = sha256(url)
           const filePath = buildFilePath(url, urlHash)
           return {
             url,

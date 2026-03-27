@@ -1,5 +1,5 @@
+import { sha256 } from 'js-sha256'
 import { DateTime } from 'luxon'
-import md5 from 'md5'
 import seedrandom from 'seedrandom'
 
 import { APPOINTMENT_BOOKING_OFFER_ALIAS } from '../../../constants'
@@ -44,7 +44,7 @@ class CategoriesMapModelBuilder {
   }
 
   createResource(url: string): ResourceCacheEntryStateType {
-    const hash = md5(url)
+    const hash = sha256(url)
     return {
       filePath: `path/to/documentDir/resource-cache/v1/${this._city}/files/${hash}.png`,
       hash,

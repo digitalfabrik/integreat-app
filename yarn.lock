@@ -7191,13 +7191,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/md5@npm:^2.3.6":
-  version: 2.3.6
-  resolution: "@types/md5@npm:2.3.6"
-  checksum: 10c0/34cc6b6d01f08263cbb585f7403e78f4cf535dcac1aeb141ccbe179ab8ea2223544c0e4c543bf5a3ab465008f6ce2e1a1ce6138629276e1a0afc6460ec7713d0
-  languageName: node
-  linkType: hard
-
 "@types/mime@npm:^1":
   version: 1.3.5
   resolution: "@types/mime@npm:1.3.5"
@@ -9975,13 +9968,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"charenc@npm:0.0.2":
-  version: 0.0.2
-  resolution: "charenc@npm:0.0.2"
-  checksum: 10c0/a45ec39363a16799d0f9365c8dd0c78e711415113c6f14787a22462ef451f5013efae8a28f1c058f81fc01f2a6a16955f7a5fd0cd56247ce94a45349c89877d8
-  languageName: node
-  linkType: hard
-
 "cheerio-select@npm:^2.1.0":
   version: 2.1.0
   resolution: "cheerio-select@npm:2.1.0"
@@ -10796,13 +10782,6 @@ __metadata:
     shebang-command: "npm:^2.0.0"
     which: "npm:^2.0.1"
   checksum: 10c0/053ea8b2135caff68a9e81470e845613e374e7309a47731e81639de3eaeb90c3d01af0e0b44d2ab9d50b43467223b88567dfeb3262db942dc063b9976718ffc1
-  languageName: node
-  linkType: hard
-
-"crypt@npm:0.0.2":
-  version: 0.0.2
-  resolution: "crypt@npm:0.0.2"
-  checksum: 10c0/adbf263441dd801665d5425f044647533f39f4612544071b1471962209d235042fb703c27eea2795c7c53e1dfc242405173003f83cf4f4761a633d11f9653f18
   languageName: node
   linkType: hard
 
@@ -14873,13 +14852,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-buffer@npm:~1.1.6":
-  version: 1.1.6
-  resolution: "is-buffer@npm:1.1.6"
-  checksum: 10c0/ae18aa0b6e113d6c490ad1db5e8df9bdb57758382b313f5a22c9c61084875c6396d50bbf49315f5b1926d142d74dfb8d31b40d993a383e0a158b15fea7a82234
-  languageName: node
-  linkType: hard
-
 "is-builtin-module@npm:^3.2.1":
   version: 3.2.1
   resolution: "is-builtin-module@npm:3.2.1"
@@ -16147,6 +16119,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"js-sha256@npm:^0.11.1":
+  version: 0.11.1
+  resolution: "js-sha256@npm:0.11.1"
+  checksum: 10c0/ef8e294b6f38f218e4834cb653471dd1a76808cea93dc66eaffcb04124116bc36d6cebc4e8866753e184ab4e57892b6ef21918e8ab0450179a7e093ea962d974
+  languageName: node
+  linkType: hard
+
 "js-tokens@npm:^3.0.0 || ^4.0.0, js-tokens@npm:^4.0.0":
   version: 4.0.0
   resolution: "js-tokens@npm:4.0.0"
@@ -16968,17 +16947,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"md5@npm:^2.3.0":
-  version: 2.3.0
-  resolution: "md5@npm:2.3.0"
-  dependencies:
-    charenc: "npm:0.0.2"
-    crypt: "npm:0.0.2"
-    is-buffer: "npm:~1.1.6"
-  checksum: 10c0/14a21d597d92e5b738255fbe7fe379905b8cb97e0a49d44a20b58526a646ec5518c337b817ce0094ca94d3e81a3313879c4c7b510d250c282d53afbbdede9110
-  languageName: node
-  linkType: hard
-
 "mdn-data@npm:2.0.14":
   version: 2.0.14
   resolution: "mdn-data@npm:2.0.14"
@@ -17713,7 +17681,6 @@ __metadata:
     "@testing-library/react-native": "npm:^13.3.3"
     "@types/geojson": "npm:^7946.0.16"
     "@types/lodash": "npm:^4.17.16"
-    "@types/md5": "npm:^2.3.6"
     "@types/url-parse": "npm:^1.4.11"
     babel-jest: "npm:^30.2.0"
     build-configs: "npm:0.0.1"
@@ -17722,10 +17689,10 @@ __metadata:
     htmlparser2: "npm:^10.0.0"
     i18next: "npm:^25.6.0"
     intl-pluralrules: "npm:^2.0.1"
+    js-sha256: "npm:^0.11.1"
     license-checker-rseidelsohn: "npm:^4.4.2"
     lodash: "npm:^4.17.23"
     luxon: "npm:^3.7.2"
-    md5: "npm:^2.3.0"
     react: "npm:19.1.1"
     react-hook-form: "npm:^7.65.0"
     react-i18next: "npm:^16.2.1"
@@ -20973,7 +20940,6 @@ __metadata:
     "@testing-library/react": "npm:^16.0.1"
     "@turf/distance": "npm:^7.2.0"
     "@types/geojson": "npm:^7946.0.16"
-    "@types/md5": "npm:^2.3.6"
     "@types/normalize-path": "npm:^3.0.2"
     "@types/seedrandom": "npm:^3.0.8"
     "@types/uuid": "npm:^10.0.0"
@@ -20982,8 +20948,8 @@ __metadata:
     highlight-words-core: "npm:^1.2.3"
     htmlparser2: "npm:^10.0.0"
     jest-environment-jsdom: "npm:^30.2.0"
+    js-sha256: "npm:^0.11.1"
     luxon: "npm:^3.7.2"
-    md5: "npm:^2.3.0"
     minisearch: "npm:^7.2.0"
     normalize-path: "npm:^3.0.0"
     react: "npm:19.1.1"
