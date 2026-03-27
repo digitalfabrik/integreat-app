@@ -185,11 +185,6 @@ commands:
                     corepack enable --install-directory "$HOME/bin"
                     export PATH="$HOME/bin:$PATH"
                 name: Enable Corepack
-            - run:
-                command: |
-                    echo $PATH
-                    yarn exec env
-                name: Check
             - restore_cache:
                 keys:
                     - 11-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
