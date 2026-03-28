@@ -16,7 +16,7 @@
     "react": "19.1.1"
   },
   "dependencies": {
-    "@turf/distance": "^7.2.0",
+    "@turf/distance": "^7.3.4",
     "deepmerge-ts": "^7.1.5",
     "entities": "^7.0.0",
     "highlight-words-core": "^1.2.3",
@@ -31,12 +31,12 @@
   "devDependencies": {
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "6.9.1",
-    "@testing-library/react": "^16.0.1",
+    "@testing-library/react": "^16.3.2",
     "@types/geojson": "^7946.0.16",
     "@types/normalize-path": "^3.0.2",
     "@types/seedrandom": "^3.0.8",
     "@types/uuid": "^10.0.0",
-    "jest-environment-jsdom": "^30.2.0",
+    "jest-environment-jsdom": "^30.3.0",
     "js-sha256": "^0.11.1",
     "react": "19.1.1",
     "seedrandom": "^3.0.5"
