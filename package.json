@@ -26,8 +26,7 @@
   },
   "resolutions": {
     "luxon": "3.7.2",
-    "react": "19.1.1",
-    "@types/react": "19.1.1"
+    "react": "19.2.3"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
@@ -35,7 +34,7 @@
     "@types/jest": "^30.0.0",
     "@types/luxon": "^3.7.1",
     "@types/node": "^24.12.0",
-    "@types/react": "19.1.1",
+    "@types/react": "19.2.14",
     "@typescript-eslint/eslint-plugin": "^8.57.2",
     "@typescript-eslint/parser": "^8.57.2",
     "app-toolbelt": "github:digitalfabrik/app-toolbelt#semver:0.9.0",
@@ -68,6 +67,9 @@
     "ts-node": "^10.9.2",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">= 22.11.0"
   },
   "packageManager": "yarn@4.13.0"
 }
