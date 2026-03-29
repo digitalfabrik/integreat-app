@@ -35,7 +35,7 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@integreat-app/react-sticky-headroom": "^3.0.1",
-    "@math.gl/web-mercator": "^3.6.3",
+    "@math.gl/web-mercator": "^4.1.0",
     "@mui/icons-material": "^7.3.9",
     "@mui/material": "^7.3.9",
     "@mui/stylis-plugin-rtl": "^7.3.8",
