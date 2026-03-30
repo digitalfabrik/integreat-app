@@ -19,6 +19,7 @@ import { AppContext } from '../contexts/AppContextProvider'
 import useAppStateListener from '../hooks/useAppStateListener'
 import useSnackbar from '../hooks/useSnackbar'
 import { log, reportError } from '../utils/sentry'
+import { prepareText } from '../utils/tts'
 import TtsPlayer from './TtsPlayer'
 
 export type TtsContextType = {
@@ -174,7 +175,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
             setIsPlaying(true)
             setSentenceIndex(safeIndex)
 
-            await Speech.speak(sentence, getTtsOptions(languageCode))
+            await Speech.speak(prepareText(sentence), getTtsOptions(languageCode))
           }
         } catch (error) {
           reportError(error)

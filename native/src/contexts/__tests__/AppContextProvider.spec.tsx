@@ -1,6 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { fireEvent, waitFor } from '@testing-library/react-native'
-import { mocked } from 'jest-mock'
 import React, { useContext } from 'react'
 import { View } from 'react-native'
 import { Button } from 'react-native-paper'
@@ -25,14 +24,15 @@ jest.mock('../../utils/PushNotificationsManager', () => ({
 jest.mock('../../utils/DefaultDataContainer', () => ({ storeLastUsage: jest.fn(async () => undefined) }))
 
 describe('AppContextProvider', () => {
+  const { mocked } = jest
   const mockedBuildConfig = mocked(buildConfig)
   const previousBuildConfig = buildConfig()
   const setSettings = jest.spyOn(appSettings, 'setSettings')
 
   const mockBuildConfig = (featureFlags: Partial<FeatureFlagsType>) =>
+    // @ts-expect-error passing only a partial of fixed city type leads to ts errors that are irrelevant for testing though
     mockedBuildConfig.mockImplementation(() => ({
       ...previousBuildConfig,
-      // @ts-expect-error passing only a partial of fixed city type leads to ts errors that are irrelevant for testing though
       featureFlags: { ...previousBuildConfig.featureFlags, ...featureFlags },
     }))
 

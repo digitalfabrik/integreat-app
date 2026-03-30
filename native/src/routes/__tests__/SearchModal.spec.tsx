@@ -15,6 +15,7 @@ import sendTrackingSignal from '../../utils/sendTrackingSignal'
 import SearchModal, { SearchModalProps } from '../SearchModal'
 
 jest.mock('../../utils/sendTrackingSignal')
+jest.mock('../../utils/openExternalUrl', () => async () => undefined)
 jest.mock('react-i18next')
 jest.mock('react-native-inappbrowser-reborn', () => ({
   isAvailable: () => false,

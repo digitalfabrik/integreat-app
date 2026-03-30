@@ -1,7 +1,7 @@
 import {
   AndroidBuildConfigType,
   CommonBuildConfigType,
-  iOSBuildConfigType,
+  IosBuildConfigType,
   WebBuildConfigType,
 } from './BuildConfigType'
 import aschaffenburgBuildConfig from './aschaffenburg'
@@ -21,7 +21,6 @@ import malteBuildConfigName from './malte/build-config-name'
 import obdachBuildConfig from './obdach'
 import obdachBuildConfigName from './obdach/build-config-name'
 
-export type { LegacyThemeType } from './LegacyThemeType'
 export type { ThemeKey } from './ThemeKey'
 
 export const COMMON = 'common'
@@ -32,7 +31,7 @@ export const WEB = 'web'
 type BuildConfigPlatformType = {
   common: CommonBuildConfigType
   android: AndroidBuildConfigType | null
-  ios: iOSBuildConfigType | null
+  ios: IosBuildConfigType | null
   web: WebBuildConfigType
 }
 

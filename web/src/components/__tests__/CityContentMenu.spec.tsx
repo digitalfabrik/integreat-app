@@ -1,5 +1,4 @@
 import { fireEvent } from '@testing-library/dom'
-import { mocked } from 'jest-mock'
 import React from 'react'
 
 import { CategoriesMapModelBuilder } from 'shared/api'
@@ -14,6 +13,7 @@ jest.mock('react-i18next')
 jest.mock('../../hooks/useDimensions')
 
 describe('CityContentMenu', () => {
+  const { mocked } = jest
   const category = new CategoriesMapModelBuilder('augsburg', 'de').build().toArray()[3]!
   const showTtsPlayer = jest.fn()
   const defaultTtsContext = {

@@ -6,7 +6,7 @@ import { createTunewsEndpoint, createTunewsLanguagesEndpoint, TunewsModel, useLo
 import { CityRouteProps } from '../CityContentSwitcher'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
-import FailureSwitcher from '../components/FailureSwitcher'
+import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Helmet from '../components/Helmet'
 import InfiniteScrollList from '../components/InfiniteScrollList'
 import LanguageFailure from '../components/LanguageFailure'
@@ -83,7 +83,7 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
   if (error) {
     return (
       <CityContentLayout isLoading={false} {...locationLayoutParams}>
-        <FailureSwitcher error={error} />
+        <FailureSwitcherWithHelmet error={error} />
       </CityContentLayout>
     )
   }

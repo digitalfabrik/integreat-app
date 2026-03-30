@@ -4,13 +4,13 @@ import { ASCHAFFENBURG_ASSETS } from '../AssetsType'
 import {
   AndroidBuildConfigType,
   CommonBuildConfigType,
-  iOSBuildConfigType,
+  IosBuildConfigType,
   WebBuildConfigType,
 } from '../BuildConfigType'
 import { APP_STORE_TEAM_ID } from '../common/constants'
 import mainImprint from './mainImprint'
-import { darkTheme, legacyContrastTheme, legacyLightTheme, lightTheme } from './theme'
-import { typography } from './theme/typography'
+import { darkTheme, lightTheme } from './theme'
+import fonts from './theme/fonts'
 
 const APPLICATION_ID = 'app.aschaffenburg'
 const BUNDLE_IDENTIFIER = 'app.aschaffenburg'
@@ -21,9 +21,7 @@ const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
   notificationIcon: 'notification_icon_aschaffenburg',
   lightTheme,
   darkTheme,
-  legacyLightTheme,
-  legacyContrastTheme,
-  typography,
+  fonts,
   assets: ASCHAFFENBURG_ASSETS,
   cmsUrl: 'https://cms.integreat-app.de',
   hostName: 'halloaschaffenburg.de',
@@ -72,7 +70,7 @@ export const androidAschaffenburgBuildConfig: AndroidBuildConfigType = {
   },
 }
 
-export const iosAschaffenburgBuildConfig: iOSBuildConfigType = {
+export const iosAschaffenburgBuildConfig: IosBuildConfigType = {
   ...commonAschaffenburgBuildConfig,
   bundleIdentifier: BUNDLE_IDENTIFIER,
   provisioningProfileSpecifier: `match Development ${BUNDLE_IDENTIFIER}`,

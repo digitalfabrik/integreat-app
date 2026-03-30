@@ -1,6 +1,5 @@
-/* eslint-disable import-x/no-extraneous-dependencies */
-import * as CSS from 'csstype'
-import React from 'react'
+import type * as CSS from 'csstype'
+import type React from 'react'
 
 export type TypographyVariant =
   | 'h1'

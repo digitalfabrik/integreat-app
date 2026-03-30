@@ -10,8 +10,9 @@ import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import useDimensions from '../hooks/useDimensions'
+import useJsonLd from '../hooks/useJsonLd'
+import createJsonLdBreadcrumbs from '../utils/createJsonLdBreadcrumbs'
 import Breadcrumb, { BreadcrumbProps } from './Breadcrumb'
-import JsonLdBreadcrumbs from './JsonLdBreadcrumbs'
 import Link from './base/Link'
 
 const StyledMuiBreadcrumbs = styled(MuiBreadcrumbs)`
@@ -49,8 +50,9 @@ const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps): ReactElement | null => 
   const closeMenu = () => setMenuAnchorElement(null)
 
   const home = breadcrumbs[0]
+  useJsonLd(createJsonLdBreadcrumbs(breadcrumbs))
   if (breadcrumbs.length <= 1 || !home) {
-    return <JsonLdBreadcrumbs breadcrumbs={breadcrumbs} />
+    return null
   }
 
   const breadcrumbsWithoutHomeAndCurrent = breadcrumbs.slice(1, -1)
@@ -71,7 +73,6 @@ const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps): ReactElement | null => 
 
   return (
     <Stack paddingBlock={1} overflow='hidden'>
-      <JsonLdBreadcrumbs breadcrumbs={breadcrumbs} />
       <StyledMuiBreadcrumbs aria-label='Breadcrumb' separator='>'>
         {collapseHomeButton ? null : homeButton}
         {hiddenBreadcrumbs.length > 0 && (

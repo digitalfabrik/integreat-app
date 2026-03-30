@@ -47,7 +47,7 @@ type InnerChatMessageProps = {
   userIsAuthor: boolean
   showAvatar: boolean
   isAutomaticAnswer: boolean
-  content: string
+  content: string | ReactElement
 }
 
 export const InnerChatMessage = ({
@@ -60,7 +60,7 @@ export const InnerChatMessage = ({
     <MessageAvatar userIsAuthor={userIsAuthor} isAutomaticAnswer={isAutomaticAnswer} visible={showAvatar} />
     <Message>
       <Typography variant='body2' component='div'>
-        <RemoteContent html={content} smallText />
+        {typeof content === 'string' ? <RemoteContent html={content} smallText /> : content}
       </Typography>
     </Message>
   </Stack>

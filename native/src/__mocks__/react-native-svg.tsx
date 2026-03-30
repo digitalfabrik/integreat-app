@@ -1,4 +1,3 @@
-/* eslint-disable import-x/no-import-module-exports */
 import React, { ReactElement } from 'react'
 import { Text } from 'react-native'
 

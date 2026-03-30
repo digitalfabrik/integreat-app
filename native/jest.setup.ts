@@ -101,3 +101,7 @@ global.__reanimatedWorkletInit = jest.fn()
 jest.mock('react-native-keyboard-aware-scroll-view', () => ({
   KeyboardAwareScrollView: ({ children }: { children: ReactNode }) => children,
 }))
+
+jest.mock('@react-native-vector-icons/material-design-icons', () => ({
+  default: 'Icon',
+}))

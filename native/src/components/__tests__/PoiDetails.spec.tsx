@@ -1,6 +1,5 @@
 import Clipboard from '@react-native-clipboard/clipboard'
 import { fireEvent, waitFor } from '@testing-library/react-native'
-import { mocked } from 'jest-mock'
 import React from 'react'
 
 import { PoiModelBuilder } from 'shared/api'
@@ -29,6 +28,7 @@ describe('PoiDetails', () => {
   })
 
   const showSnackbar = jest.fn()
+  const { mocked } = jest
   mocked(useSnackbar).mockImplementation(() => showSnackbar)
 
   const pois = new PoiModelBuilder(3).build()

@@ -9,9 +9,7 @@ import {
   UserLocation,
   UserTrackingMode,
 } from '@maplibre/maplibre-react-native'
-import type { BBox, Feature, GeoJsonProperties, Geometry } from 'geojson'
-// eslint-disable-next-line import-x/no-extraneous-dependencies
-import { Position } from 'geojson'
+import type { BBox, Feature, GeoJsonProperties, Geometry, Position } from 'geojson'
 import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { useTheme } from 'styled-components/native'
@@ -200,7 +198,7 @@ const MapView = ({
           shape={embedInCollection(features.filter(feature => feature !== selectedFeature))}
           cluster
           clusterRadius={clusterRadius}>
-          <CircleLayer {...clusterLayer(theme.legacy)} />
+          <CircleLayer {...clusterLayer(theme)} />
           <SymbolLayer {...clusterCountLayer} />
           <SymbolLayer {...markerLayer(null)} />
         </ShapeSource>

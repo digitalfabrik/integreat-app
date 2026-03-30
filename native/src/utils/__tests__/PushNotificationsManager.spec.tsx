@@ -8,7 +8,6 @@ import {
   unsubscribeFromTopic,
 } from '@react-native-firebase/messaging'
 import { waitFor } from '@testing-library/react-native'
-import { mocked } from 'jest-mock'
 import React from 'react'
 import { requestNotifications } from 'react-native-permissions'
 
@@ -37,6 +36,7 @@ jest.mock('@notifee/react-native', () => ({
 describe('PushNotificationsManager', () => {
   beforeEach(jest.clearAllMocks)
 
+  const { mocked } = jest
   const mockedBuildConfig = mocked(buildConfig)
   const updateSettings = jest.fn()
 
@@ -237,7 +237,7 @@ describe('PushNotificationsManager', () => {
           },
           android: {
             channelId: 'channel-1234',
-            color: '#fbda16',
+            color: '#FBDA16',
             importance: AndroidImportance.HIGH,
             smallIcon: 'notification_icon_integreat',
           },
@@ -249,7 +249,7 @@ describe('PushNotificationsManager', () => {
       mocked(getInitialNotification).mockImplementation(async () => message)
       renderMockComponent()
       await waitFor(() => expect(navigate).toHaveBeenCalledTimes(1), { timeout: 1100 })
-      expect(navigate).toHaveBeenCalledWith('news', {
+      expect(navigate).toHaveBeenCalledWith({
         cityCode: 'augsburg',
         languageCode: 'de',
         newsId: 123,
@@ -262,7 +262,7 @@ describe('PushNotificationsManager', () => {
       mocked(onNotificationOpenedApp).mockImplementation((_, listener) => listener(message))
       renderMockComponent()
       await waitFor(() => expect(navigate).toHaveBeenCalledTimes(2), { timeout: 1100 })
-      expect(navigate).toHaveBeenCalledWith('news', {
+      expect(navigate).toHaveBeenCalledWith({
         cityCode: 'augsburg',
         languageCode: 'de',
         newsId: 123,

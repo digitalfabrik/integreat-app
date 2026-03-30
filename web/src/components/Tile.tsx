@@ -21,11 +21,12 @@ export const StyledButton = styled(Button)({
 const Outline = styled('div')(({ theme }) => ({
   width: 'min(140px, 32vw)',
   height: 'min(140px, 32vw)',
+  borderRadius: 24,
+  overflow: 'hidden',
 
   ...(theme.isContrastTheme && {
     ':hover': {
-      outline: `8px solid ${theme.palette.secondary.main}`,
-      borderRadius: 24,
+      boxShadow: `0 0 0 8px ${theme.palette.secondary.main}`,
     },
   }),
 }))

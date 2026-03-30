@@ -1,5 +1,4 @@
 import { fireEvent } from '@testing-library/react-native'
-import { mocked } from 'jest-mock'
 import React from 'react'
 
 import { CityModelBuilder } from 'shared/api'
@@ -135,6 +134,7 @@ const renderNavigator = ({
   )
 
 describe('Navigator', () => {
+  const { mocked } = jest
   beforeEach(() => {
     jest.clearAllMocks()
     mocked(useLoadCityContent).mockReturnValue({

@@ -1,6 +1,5 @@
 import { useNavigation } from '@react-navigation/native'
 import { fireEvent, waitFor } from '@testing-library/react-native'
-import { mocked } from 'jest-mock'
 import React from 'react'
 
 import { JpalTrackingRouteType } from 'shared'
@@ -22,6 +21,7 @@ describe('JpalTracking', () => {
   const updateSettings = jest.fn()
 
   const navigation = createNavigationMock<JpalTrackingRouteType>()
+  const { mocked } = jest
   mocked(useNavigation).mockImplementation(() => navigation as never)
 
   const renderJpalTracking = (jpalTrackingEnabled: boolean | null = null) =>

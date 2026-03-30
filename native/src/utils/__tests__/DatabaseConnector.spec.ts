@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import { waitFor } from '@testing-library/react-native'
 import { DateTime } from 'luxon'
 import { rrulestr } from 'rrule'
@@ -598,18 +597,21 @@ describe('DatabaseConnector', () => {
   describe('migration routine', () => {
     it('should delete old content dir if version is upgraded', async () => {
       BlobUtil.fs.isDir.mockImplementation(async path => path === UNVERSIONED_CONTENT_DIR_PATH)
+      // eslint-disable-next-line @typescript-eslint/naming-convention
       const _ = new DatabaseConnector()
       await waitFor(() => expect(BlobUtil.fs.unlink).toHaveBeenCalledWith(UNVERSIONED_CONTENT_DIR_PATH))
     })
 
     it('should delete old resource cache dir if version is upgraded', async () => {
       BlobUtil.fs.isDir.mockImplementation(async path => path === UNVERSIONED_RESOURCE_CACHE_DIR_PATH)
+      // eslint-disable-next-line @typescript-eslint/naming-convention
       const _ = new DatabaseConnector()
       await waitFor(() => expect(BlobUtil.fs.unlink).toHaveBeenCalledWith(UNVERSIONED_RESOURCE_CACHE_DIR_PATH))
     })
 
     it('should not delete current cache if new version exists', async () => {
       BlobUtil.fs.isDir.mockImplementation(async () => true)
+      // eslint-disable-next-line @typescript-eslint/naming-convention
       const _ = new DatabaseConnector()
       await waitFor(() => expect(BlobUtil.fs.isDir).toHaveBeenCalledWith(RESOURCE_CACHE_DIR_PATH))
       expect(BlobUtil.fs.unlink).not.toHaveBeenCalled()

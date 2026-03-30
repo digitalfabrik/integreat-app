@@ -13,6 +13,7 @@ const mockSaveEvent = jest.fn()
 const mockFindCalendars = jest.fn()
 const mockShowSnackbar = jest.fn()
 
+jest.mock('react-i18next')
 jest.mock('react-native-calendar-events', () => ({
   __esModule: true,
   default: {

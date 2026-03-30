@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import { TranslationsType } from 'translations'
 
-import { LegacyThemeType } from './LegacyThemeType'
 import { Theme } from './ThemeType'
-import { TypographyType } from './TypographyType'
+import { FontsType } from './common/theme/fonts'
 
 // Build Configs
 // These are the types of our build configs and therefore define the structure and available options.
@@ -65,9 +63,7 @@ export type CommonBuildConfigType = {
   featureFlags: FeatureFlagsType
   lightTheme: Theme
   darkTheme: Theme
-  legacyLightTheme: LegacyThemeType
-  legacyContrastTheme: LegacyThemeType
-  typography: TypographyType
+  fonts: FontsType
   // Translations deviating from the standard integreat translations.
   translationsOverride?: TranslationsType
   // Assets like icons, logos and imprints.
@@ -164,7 +160,7 @@ export type AndroidBuildConfigType = CommonBuildConfigType & {
 
 // Firebase config for iOS
 // These values can be retrieved from the GoogleService-Info.plist.
-type iOSGoogleServicesConfigType = {
+type IosGoogleServicesConfigType = {
   apiKey: string
   gcmSenderId: string
   plistVersion: string
@@ -180,12 +176,12 @@ type iOSGoogleServicesConfigType = {
 }
 
 // Only available on iOS
-export type iOSBuildConfigType = CommonBuildConfigType & {
+export type IosBuildConfigType = CommonBuildConfigType & {
   // Shows the app icon as launch screen on app start.
   launchScreen: string
   // iOS application identifier.
   bundleIdentifier: string
   // Provisioning profile to sign the app.
   provisioningProfileSpecifier: string
-  googleServices: iOSGoogleServicesConfigType | null | undefined
+  googleServices: IosGoogleServicesConfigType | null | undefined
 }

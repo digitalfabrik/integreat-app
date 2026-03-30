@@ -2,14 +2,14 @@ import { INTEGREAT_ASSETS } from '../AssetsType'
 import {
   AndroidBuildConfigType,
   CommonBuildConfigType,
-  iOSBuildConfigType,
+  IosBuildConfigType,
   WebBuildConfigType,
 } from '../BuildConfigType'
 import { APP_STORE_TEAM_ID } from '../common/constants'
 import cityNotCooperatingTemplate from './assets/cityNotCooperatingTemplate'
 import mainImprint from './mainImprint'
-import { darkTheme, legacyLightTheme, lightTheme, legacyContrastTheme } from './theme'
-import { typography } from './theme/typography'
+import { darkTheme, lightTheme } from './theme'
+import fonts from './theme/fonts'
 
 const APPLICATION_ID = 'tuerantuer.app.integreat'
 const BUNDLE_IDENTIFIER = 'de.integreat-app'
@@ -20,9 +20,7 @@ const commonIntegreatBuildConfig: CommonBuildConfigType = {
   notificationIcon: 'notification_icon_integreat',
   lightTheme,
   darkTheme,
-  legacyLightTheme,
-  legacyContrastTheme,
-  typography,
+  fonts,
   assets: INTEGREAT_ASSETS,
   cmsUrl: 'https://cms.integreat-app.de',
   switchCmsUrl: 'https://cms-test.integreat-app.de',
@@ -73,7 +71,7 @@ export const androidIntegreatBuildConfig: AndroidBuildConfigType = {
     projectId: 'integreat-2020',
   },
 }
-export const iosIntegreatBuildConfig: iOSBuildConfigType = {
+export const iosIntegreatBuildConfig: IosBuildConfigType = {
   ...commonIntegreatBuildConfig,
   bundleIdentifier: BUNDLE_IDENTIFIER,
   provisioningProfileSpecifier: `match Development ${BUNDLE_IDENTIFIER}`,
@@ -107,7 +105,7 @@ export const webIntegreatBuildConfig: WebBuildConfigType = {
     favicons: '/favicons/',
   },
   splashScreen: {
-    backgroundColor: legacyLightTheme.colors.themeColor,
+    backgroundColor: lightTheme.palette.secondary.main,
     imageUrl: '/app-icon-cornered.svg',
   },
   campaign: {

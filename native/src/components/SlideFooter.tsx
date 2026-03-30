@@ -20,7 +20,7 @@ type SlideFooterProps = {
   slideCount: number
   currentSlide: number
   goToSlide: (index: number) => void
-  onDone: () => Promise<void>
+  onDone: () => void
   t: TFunction<['intro', 'settings']>
 }
 
@@ -36,7 +36,6 @@ const SlideFooter = ({ onDone, slideCount, goToSlide, currentSlide, t }: SlideFo
         <Button
           mode='text'
           labelStyle={{
-            fontFamily: theme.legacy.fonts.native.contentFontBold,
             color: isLastSlide ? theme.colors.action.disabled : theme.colors.onBackground,
             fontSize: 14,
           }}
@@ -50,7 +49,6 @@ const SlideFooter = ({ onDone, slideCount, goToSlide, currentSlide, t }: SlideFo
           buttonColor={theme.colors.primary}
           labelStyle={{
             color: theme.colors.onPrimary,
-            fontFamily: theme.legacy.fonts.native.contentFontBold,
             fontSize: 14,
           }}
           onPress={isLastSlide ? onDone : goToNextSlide}>
