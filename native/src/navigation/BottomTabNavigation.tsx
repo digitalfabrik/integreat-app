@@ -10,16 +10,21 @@ import { DefaultTheme, useTheme } from 'styled-components/native'
 import {
   BottomTabNavigationRouteType,
   CATEGORIES_ROUTE,
+  CATEGORIES_TAB_ROUTE,
   EVENTS_ROUTE,
+  EVENTS_TAB_ROUTE,
   LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
+  NEWS_TAB_ROUTE,
   POIS_ROUTE,
+  POIS_TAB_ROUTE,
 } from 'shared'
 
 import { defaultHeader } from '../Navigator'
 import { SignPostIcon } from '../assets'
 import Icon from '../components/base/Icon'
 import Text from '../components/base/Text'
+import { TAB_NAVIGATOR_ID } from '../constants'
 import buildConfig from '../constants/buildConfig'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useLoadCityContent from '../hooks/useLoadCityContent'
@@ -30,7 +35,6 @@ import LoadingErrorHandler from '../routes/LoadingErrorHandler'
 import NewsContainer from '../routes/NewsContainer'
 import PoisContainer from '../routes/PoisContainer'
 import cityDisplayName from '../utils/cityDisplayName'
-import getTransitionPreset from '../utils/getTransitionPreset'
 
 const Tab = createBottomTabNavigator<RoutesParamsType>()
 const CategoriesStack = createStackNavigator<RoutesParamsType>()
@@ -38,29 +42,28 @@ const PoisStack = createStackNavigator<RoutesParamsType>()
 const EventsStack = createStackNavigator<RoutesParamsType>()
 const NewsStack = createStackNavigator<RoutesParamsType>()
 
-const transitionPreset = getTransitionPreset()
 const TAB_HEIGHT = 60
 
 const CategoriesStackScreen = () => (
-  <CategoriesStack.Navigator screenOptions={{ header: defaultHeader, ...transitionPreset }}>
+  <CategoriesStack.Navigator screenOptions={{ header: defaultHeader, animation: 'none' }}>
     <CategoriesStack.Screen name={CATEGORIES_ROUTE} initialParams={{}} component={CategoriesContainer} />
   </CategoriesStack.Navigator>
 )
 
 const PoisStackScreen = () => (
-  <PoisStack.Navigator screenOptions={{ header: defaultHeader, ...transitionPreset }}>
+  <PoisStack.Navigator screenOptions={{ header: defaultHeader, animation: 'none' }}>
     <PoisStack.Screen name={POIS_ROUTE} initialParams={{}} component={PoisContainer} />
   </PoisStack.Navigator>
 )
 
 const EventsStackScreen = () => (
-  <EventsStack.Navigator screenOptions={{ header: defaultHeader, ...transitionPreset }}>
+  <EventsStack.Navigator screenOptions={{ header: defaultHeader, animation: 'none' }}>
     <EventsStack.Screen name={EVENTS_ROUTE} initialParams={{}} component={EventsContainer} />
   </EventsStack.Navigator>
 )
 
 const NewsStackScreen = () => (
-  <NewsStack.Navigator screenOptions={{ header: defaultHeader, ...transitionPreset }}>
+  <NewsStack.Navigator screenOptions={{ header: defaultHeader, animation: 'none' }}>
     <NewsStack.Screen
       name={NEWS_ROUTE}
       initialParams={{ newsId: null, newsType: LOCAL_NEWS_TYPE }}
@@ -125,8 +128,43 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
 
   const isNewsEnabled = cachedData.city.tunewsEnabled || cachedData.city.localNewsEnabled
 
+  const Tabs = [
+    <Tab.Screen
+      name={CATEGORIES_TAB_ROUTE}
+      component={CategoriesStackScreen}
+      options={{ tabBarLabel: createTabLabel(theme, t('localInformationLabel')), tabBarIcon: CategoriesIcon }}
+    />,
+    featureFlags.pois && cachedData.city.poisEnabled && (
+      <Tab.Screen
+        name={POIS_TAB_ROUTE}
+        component={PoisStackScreen}
+        options={{ tabBarLabel: createTabLabel(theme, t('locations')), tabBarIcon: createTabIcon('map-outline') }}
+      />
+    ),
+    isNewsEnabled && (
+      <Tab.Screen
+        name={NEWS_TAB_ROUTE}
+        component={NewsStackScreen}
+        options={{ tabBarLabel: createTabLabel(theme, t('news')), tabBarIcon: createTabIcon('newspaper') }}
+      />
+    ),
+    cachedData.city.eventsEnabled && (
+      <Tab.Screen
+        name={EVENTS_TAB_ROUTE}
+        component={EventsStackScreen}
+        options={{
+          tabBarLabel: createTabLabel(theme, t('events')),
+          tabBarIcon: createTabIcon('calendar-blank-outline'),
+        }}
+      />
+    ),
+  ].filter(Boolean)
+
+  const bottomTabNavigationVisible = Tabs.length > 1
+
   return (
     <Tab.Navigator
+      id={TAB_NAVIGATOR_ID}
       backBehavior='history'
       screenOptions={{
         headerShown: false,
@@ -135,37 +173,10 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
         tabBarStyle: {
           height: TAB_HEIGHT + insets.bottom,
           backgroundColor: theme.colors.surfaceVariant,
+          display: bottomTabNavigationVisible ? 'flex' : 'none',
         },
       }}>
-      <Tab.Screen
-        name={CATEGORIES_ROUTE}
-        component={CategoriesStackScreen}
-        options={{ tabBarLabel: createTabLabel(theme, t('localInformationLabel')), tabBarIcon: CategoriesIcon }}
-      />
-      {featureFlags.pois && cachedData.city.poisEnabled && (
-        <Tab.Screen
-          name={POIS_ROUTE}
-          component={PoisStackScreen}
-          options={{ tabBarLabel: createTabLabel(theme, t('locations')), tabBarIcon: createTabIcon('map-outline') }}
-        />
-      )}
-      {isNewsEnabled && (
-        <Tab.Screen
-          name={NEWS_ROUTE}
-          component={NewsStackScreen}
-          options={{ tabBarLabel: createTabLabel(theme, t('news')), tabBarIcon: createTabIcon('newspaper') }}
-        />
-      )}
-      {cachedData.city.eventsEnabled && (
-        <Tab.Screen
-          name={EVENTS_ROUTE}
-          component={EventsStackScreen}
-          options={{
-            tabBarLabel: createTabLabel(theme, t('events')),
-            tabBarIcon: createTabIcon('calendar-blank-outline'),
-          }}
-        />
-      )}
+      {Tabs}
     </Tab.Navigator>
   )
 }

@@ -1,7 +1,6 @@
 import Button from '@mui/material/Button'
 import { fireEvent, waitFor } from '@testing-library/react'
 import EasySpeech from 'easy-speech'
-import { mocked } from 'jest-mock'
 import { DateTime } from 'luxon'
 import React from 'react'
 import { MemoryRouter } from 'react-router'
@@ -16,6 +15,7 @@ jest.mock('react-i18next')
 jest.mock('easy-speech')
 
 describe('TtsContainer', () => {
+  const { mocked } = jest
   // Mock call of end event after cancelling utterance
   mocked(EasySpeech.speak).mockImplementation(async ({ end }) => {
     // @ts-expect-error is always defined

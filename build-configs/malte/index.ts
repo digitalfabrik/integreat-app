@@ -4,7 +4,7 @@ import { MALTE_ASSETS } from '../AssetsType'
 import {
   AndroidBuildConfigType,
   CommonBuildConfigType,
-  iOSBuildConfigType,
+  IosBuildConfigType,
   WebBuildConfigType,
 } from '../BuildConfigType'
 import { APP_STORE_TEAM_ID } from '../common/constants'
@@ -72,7 +72,7 @@ const androidMalteBuildConfig: AndroidBuildConfigType = {
   },
 }
 
-const iosMalteBuildConfig: iOSBuildConfigType = {
+const iosMalteBuildConfig: IosBuildConfigType = {
   ...commonMalteBuildConfig,
   bundleIdentifier: BUNDLE_IDENTIFIER,
   provisioningProfileSpecifier: `match Development ${BUNDLE_IDENTIFIER}`,

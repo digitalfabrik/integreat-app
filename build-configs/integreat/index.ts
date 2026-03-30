@@ -2,7 +2,7 @@ import { INTEGREAT_ASSETS } from '../AssetsType'
 import {
   AndroidBuildConfigType,
   CommonBuildConfigType,
-  iOSBuildConfigType,
+  IosBuildConfigType,
   WebBuildConfigType,
 } from '../BuildConfigType'
 import { APP_STORE_TEAM_ID } from '../common/constants'
@@ -73,7 +73,7 @@ export const androidIntegreatBuildConfig: AndroidBuildConfigType = {
     projectId: 'integreat-2020',
   },
 }
-export const iosIntegreatBuildConfig: iOSBuildConfigType = {
+export const iosIntegreatBuildConfig: IosBuildConfigType = {
   ...commonIntegreatBuildConfig,
   bundleIdentifier: BUNDLE_IDENTIFIER,
   provisioningProfileSpecifier: `match Development ${BUNDLE_IDENTIFIER}`,

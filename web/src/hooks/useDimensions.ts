@@ -61,7 +61,7 @@ const getDimensions = (): Dimensions => {
     min: bottomSheetHandleHeight + (bottomNavigationHeight ?? 0),
     medium: height * midSnapPercentage,
     large: height - headerHeight - mapIconsHeight,
-    max: height,
+    max: height - headerHeight,
   }
 
   return {

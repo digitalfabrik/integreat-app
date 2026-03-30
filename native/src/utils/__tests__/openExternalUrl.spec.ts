@@ -1,4 +1,3 @@
-import { mocked } from 'jest-mock'
 import { Linking } from 'react-native'
 import InAppBrowser from 'react-native-inappbrowser-reborn'
 
@@ -24,6 +23,7 @@ jest.mock('react-native', () => ({
 }))
 
 describe('openExternalUrl', () => {
+  const { mocked } = jest
   beforeEach(() => {
     jest.clearAllMocks()
   })

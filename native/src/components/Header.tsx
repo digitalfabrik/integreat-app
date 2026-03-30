@@ -6,24 +6,25 @@ import styled, { useTheme } from 'styled-components/native'
 
 import { ThemeKey } from 'build-configs/ThemeKey'
 import {
+  BOTTOM_TAB_NAVIGATION_ROUTE,
   CATEGORIES_ROUTE,
   CategoriesRouteType,
+  DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
   EventsRouteType,
   getSlugFromPath,
   LANDING_ROUTE,
+  LICENSES_ROUTE,
   NEWS_ROUTE,
   POIS_ROUTE,
   PoisRouteType,
-  DISCLAIMER_ROUTE,
-  LICENSES_ROUTE,
   SEARCH_ROUTE,
   SETTINGS_ROUTE,
-  BOTTOM_TAB_NAVIGATION_ROUTE,
 } from 'shared'
-import { LanguageModel, FeedbackRouteType } from 'shared/api'
+import { FeedbackRouteType, LanguageModel } from 'shared/api'
 import { config } from 'translations'
 
+import { ROOT_NAVIGATOR_ID, TAB_NAVIGATOR_ID } from '../constants'
 import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from '../constants/NavigationTypes'
 import { contentAlignmentRTLText } from '../constants/contentDirection'
 import dimensions from '../constants/dimensions'
@@ -117,10 +118,11 @@ const Header = ({
   const poisParams = route.params as RoutesParamsType[PoisRouteType] | undefined
   const hasPoisParams = !!poisParams?.slug || poisParams?.multipoi !== undefined
 
-  const tabNavigation = navigation.getParent()
-  const hasTabHistory = (tabNavigation?.getState().history?.length ?? 0) > 1
-  const rootNavigation = tabNavigation?.getParent()
-  const hasRootHistory = rootNavigation !== undefined && rootNavigation.getState().index > 0
+  const tabNavigationState = navigation.getParent(TAB_NAVIGATOR_ID)?.getState()
+  const rootNavigationState = navigation.getParent(ROOT_NAVIGATOR_ID)?.getState()
+
+  const hasTabHistory = !!tabNavigationState && tabNavigationState.index > 0
+  const hasRootHistory = !!rootNavigationState && rootNavigationState.index > 0
 
   const canGoBack =
     previousRoute !== undefined || hasRootHistory || hasTabHistory || (route.name === POIS_ROUTE && hasPoisParams)
@@ -284,6 +286,9 @@ const Header = ({
     return { text: t(previousRoute.name), language: undefined } // system language
   }
 
+  const landingPath =
+    !previousRoute && !hasRootHistory && !isLanding ? () => navigation.navigate(LANDING_ROUTE) : undefined
+
   return (
     <BoxShadow>
       <Horizontal>
@@ -292,7 +297,7 @@ const Header = ({
           canGoBack={canGoBack}
           text={getHeaderText().text}
           language={getHeaderText().language}
-          landingPath={!canGoBack && !isLanding ? () => navigation.navigate(LANDING_ROUTE) : undefined}
+          landingPath={landingPath}
         />
         <ActionButtons items={items} />
         <HeaderMenu

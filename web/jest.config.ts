@@ -1,3 +1,4 @@
+/** @jest-config-loader ts-node */
 import { JestConfigWithTsJest } from 'ts-jest'
 
 import { webIntegreatTestCmsBuildConfig } from 'build-configs/integreat-test-cms'

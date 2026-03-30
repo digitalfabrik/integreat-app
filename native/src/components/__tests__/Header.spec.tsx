@@ -1,5 +1,4 @@
 import { fireEvent, waitFor } from '@testing-library/react-native'
-import { mocked } from 'jest-mock'
 import React, { ReactElement } from 'react'
 import { View, Linking } from 'react-native'
 
@@ -67,6 +66,7 @@ describe('Header', () => {
     params: { title: 'Test Category' },
   }
   const navigation = createNavigationMock()
+  const { mocked } = jest
   const mockPreviousRoute = (hasPreviousRoute: boolean) => {
     mocked(navigation.getState).mockImplementation(() => ({
       key: 'stack-key',
@@ -147,6 +147,16 @@ describe('Header', () => {
     mockPreviousRoute(false)
     const { queryByLabelText } = renderHeader({})
     expect(queryByLabelText('back')).toBeFalsy()
+  })
+
+  it('should show location change button even when tab history exists', () => {
+    mockPreviousRoute(false)
+    mocked(navigation.getParent).mockReturnValue({
+      getState: jest.fn(() => ({ history: [{ key: 'tab-key-0' }, { key: 'tab-key-1' }] })),
+      getParent: jest.fn(() => {}),
+    } as never)
+    const { getByLabelText } = renderHeader({})
+    expect(getByLabelText(/changeLocation/)).toBeTruthy()
   })
 
   it('should not open language change modal if no translation available', async () => {

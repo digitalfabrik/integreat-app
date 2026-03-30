@@ -1,5 +1,4 @@
 import { fireEvent, RenderAPI } from '@testing-library/react-native'
-import { mocked } from 'jest-mock'
 import React from 'react'
 
 import { CITY_NOT_COOPERATING_ROUTE, LandingRouteType } from 'shared'
@@ -20,6 +19,7 @@ jest.mock('styled-components')
 jest.mock('../../hooks/useLoadCities')
 
 describe('Landing', () => {
+  const { mocked } = jest
   const cities = new CityModelBuilder(6).build()
 
   beforeEach(() => {

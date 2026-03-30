@@ -12,8 +12,8 @@ export const mockDimensions: Dimensions = {
       min: 96,
       medium: 200,
       large: 350,
-      max: 400,
-      all: [96, 200, 350, 400],
+      max: 310,
+      all: [96, 200, 350, 310],
     },
   },
 

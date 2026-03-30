@@ -1,73 +1,63 @@
-import { BOTTOM_TAB_NAVIGATION_ROUTE, CATEGORIES_ROUTE } from 'shared'
+import {
+  BOTTOM_TAB_NAVIGATION_ROUTE,
+  CATEGORIES_ROUTE,
+  CATEGORIES_TAB_ROUTE,
+  EVENTS_ROUTE,
+  EVENTS_TAB_ROUTE,
+  NEWS_ROUTE,
+  NEWS_TAB_ROUTE,
+  POIS_ROUTE,
+  POIS_TAB_ROUTE,
+} from 'shared'
 
-import { RoutesType } from '../constants/NavigationTypes'
+import { ROOT_NAVIGATOR_ID, TAB_NAVIGATOR_ID } from '../constants'
+import {
+  NavigationProps,
+  NestedRoutesParamsType,
+  NestedRoutesType,
+  RoutesType,
+  TabRoutesType,
+} from '../constants/NavigationTypes'
 
-// Structure: Root stack -> BottomTabs -> Tab stack with [initial screen, target screen with params]
-export const buildNestedAction = (
-  routeName: RoutesType,
-  params: Record<string, unknown>,
-  bottomTabKey?: string,
-): {
-  index: number
-  routes: {
-    name: typeof BOTTOM_TAB_NAVIGATION_ROUTE
-    key?: string
-    state: {
-      routes: {
-        name: RoutesType
-        key: string
-        state: {
-          routes: ({ name: RoutesType } | { name: RoutesType; params: Record<string, unknown> })[]
-          index: number
-        }
-      }[]
-      index: number
-      history: { type: string; key: string }[]
-    }
-  }[]
-} => ({
-  index: 0,
-  routes: [
-    {
-      // BottomTabs Root
-      name: BOTTOM_TAB_NAVIGATION_ROUTE,
-      // Preserve the existing tab navigator key to avoid remounting
-      ...(bottomTabKey ? { key: bottomTabKey } : {}),
-      state: {
-        routes: [
-          // Always include Categories so back navigation returns to it
-          ...(routeName !== CATEGORIES_ROUTE
-            ? [
-                {
-                  name: CATEGORIES_ROUTE,
-                  key: CATEGORIES_ROUTE,
-                  state: { routes: [{ name: CATEGORIES_ROUTE }], index: 0 },
-                },
-              ]
-            : []),
-          {
-            // Active tab
-            name: routeName,
-            key: routeName,
-            state: {
-              // Tab's inner stack => target page with params
-              // So the user lands on the target and pressing back returns to the tab root.
-              routes: [{ name: routeName }, { name: routeName, params }],
-              index: 1,
-            },
-          },
-        ],
-        index: routeName !== CATEGORIES_ROUTE ? 1 : 0,
+const tabRoutes: Record<NestedRoutesType, TabRoutesType> = {
+  [CATEGORIES_ROUTE]: CATEGORIES_TAB_ROUTE,
+  [EVENTS_ROUTE]: EVENTS_TAB_ROUTE,
+  [NEWS_ROUTE]: NEWS_TAB_ROUTE,
+  [POIS_ROUTE]: POIS_TAB_ROUTE,
+}
 
-        // Place Categories first so pressing back returns there, unless already on it to avoid duplicates.
-        history:
-          routeName !== CATEGORIES_ROUTE
-            ? [
-                { type: 'route', key: CATEGORIES_ROUTE },
-                { type: 'route', key: routeName },
-              ]
-            : [{ type: 'route', key: routeName }],
+export const navigateNested = <T extends RoutesType, S extends keyof NestedRoutesParamsType>(
+  navigation: NavigationProps<T>,
+  route: S,
+  params: NestedRoutesParamsType[S],
+  redirect: boolean,
+): void => {
+  const navigate = redirect ? navigation.replace : navigation.push
+  if (navigation.getId() === ROOT_NAVIGATOR_ID) {
+    // No tab navigator yet, we need to navigate both to the bottom tab route and the tab stack first
+    navigate(BOTTOM_TAB_NAVIGATION_ROUTE, {
+      screen: tabRoutes[route],
+      params: {
+        screen: route,
+        params,
       },
-    },
-  ],
-})
+    })
+    return
+  }
+
+  const tabNavigationState = navigation.getParent(TAB_NAVIGATOR_ID)?.getState()
+  const currentTab = tabNavigationState?.routes[tabNavigationState.index]?.name
+
+  // No tab stack navigator yet, we need to navigate to the tab stack first
+  if (navigation.getId() === TAB_NAVIGATOR_ID || currentTab !== tabRoutes[route]) {
+    // @ts-expect-error Invalid parameters due to nesting
+    navigation.getParent(TAB_NAVIGATOR_ID).navigate(tabRoutes[route], {
+      screen: route,
+      params,
+    })
+    return
+  }
+
+  // @ts-expect-error It is assured that params is not undefined
+  navigate(route, params)
+}

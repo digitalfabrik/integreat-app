@@ -7,6 +7,7 @@ import { EXCERPT_MAX_CHARS } from '../../constants'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import NewsListItem from '../NewsListItem'
 
+jest.mock('react-i18next')
 jest.mock('../LastUpdateInfo', () =>
   jest.fn(({ lastUpdate, withText }: { lastUpdate: DateTime; withText: boolean }) => (
     <div>
