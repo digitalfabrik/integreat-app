@@ -198,7 +198,7 @@ const MapView = ({
           shape={embedInCollection(features.filter(feature => feature !== selectedFeature))}
           cluster
           clusterRadius={clusterRadius}>
-          <CircleLayer {...clusterLayer(theme.legacy)} />
+          <CircleLayer {...clusterLayer(theme)} />
           <SymbolLayer {...clusterCountLayer} />
           <SymbolLayer {...markerLayer(null)} />
         </ShapeSource>
