@@ -31,32 +31,43 @@ type DialogProps = {
   className?: string
   headerAction?: ReactElement
   actions?: ReactElement
+  fullScreen?: boolean
 }
 
-const Dialog = ({ title, close, children, className, headerAction, actions }: DialogProps): ReactElement => {
+const Dialog = ({
+  title,
+  close,
+  children,
+  className,
+  headerAction,
+  actions,
+  fullScreen,
+}: DialogProps): ReactElement => {
   const { mobile, desktop } = useDimensions()
   const { t } = useTranslation('layout')
+  const isFullScreen = fullScreen ?? mobile
+  const isDesktopLayout = desktop || fullScreen === false
 
   // This is necessary to ensure the theme is correctly applied to the drawer content
   const dialogContainer = document.getElementById(LAYOUT_ELEMENT_ID)
 
   return (
-    <StyledMuiDialog onClose={close} container={dialogContainer} fullScreen={mobile} className={className} open>
+    <StyledMuiDialog onClose={close} container={dialogContainer} fullScreen={isFullScreen} className={className} open>
       <Stack
-        direction={desktop ? 'row-reverse' : 'row'}
+        direction={isDesktopLayout ? 'row-reverse' : 'row'}
         alignItems='center'
-        justifyContent={desktop ? 'space-between' : undefined}
+        justifyContent={isDesktopLayout ? 'space-between' : undefined}
         marginInline={1}>
         <Stack direction='row' gap={1} alignItems='center'>
-          {desktop && headerAction}
+          {isDesktopLayout && headerAction}
           <IconButton aria-label={t('common:close')} onClick={close}>
-            {desktop ? <CloseIcon /> : <DirectionDependentBackIcon />}
+            {isDesktopLayout ? <CloseIcon /> : <DirectionDependentBackIcon />}
           </IconButton>
         </Stack>
         <DialogTitle component='h2' variant='h4' sx={{ flex: 1 }}>
           {title}
         </DialogTitle>
-        {!desktop && headerAction}
+        {!isDesktopLayout && headerAction}
       </Stack>
       <DialogContent>{children}</DialogContent>
       {actions}

@@ -13,11 +13,17 @@ import Dialog from './base/Dialog'
 
 const StyledDialog = styled(Dialog)(({ theme }) => ({
   [`.${dialogClasses.paper}`]: {
+    margin: theme.spacing(1),
     [theme.breakpoints.up('md')]: {
       width: 570,
     },
   },
 }))
+
+const StyledDialogContainer = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+})
 
 type ChatMenuProps = {
   confirmNewChatOpen: boolean
@@ -51,19 +57,23 @@ const ChatMenu = ({ confirmNewChatOpen, onConfirmClose, onConfirmNewChat, childr
       </MuiMenu>
       {confirmNewChatOpen && (
         <StyledDialog
+          fullScreen={false}
           title={t('newChat')}
           close={onConfirmClose}
           actions={
             <DialogActions>
-              <Button onClick={() => handleDialogAction(onConfirmNewChat)} variant='contained' sx={{ flex: '3 3' }}>
-                {t('newChat')}
-              </Button>
               <Button onClick={() => handleDialogAction(onConfirmClose)} variant='outlined' sx={{ flex: '1 1' }}>
                 {t('layout:cancel')}
               </Button>
+              <Button onClick={() => handleDialogAction(onConfirmNewChat)} variant='contained' sx={{ flex: '3 3' }}>
+                {t('newChat')}
+              </Button>
             </DialogActions>
           }>
-          <Typography variant='body1'>{t('newChatConfirmation')}</Typography>
+          <StyledDialogContainer>
+            <Typography variant='body2'>{t('newChatConfirmationTitle')}</Typography>
+            <Typography variant='body2'>{t('newChatConfirmationMessage')}</Typography>
+          </StyledDialogContainer>
         </StyledDialog>
       )}
     </>
