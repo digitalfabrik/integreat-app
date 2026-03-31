@@ -39,7 +39,7 @@ const FormRadioButtons = <T extends FieldValues>({ name, control, values }: Form
               accessibilityState={{ checked: value === key }}
               importantForAccessibility='yes'>
               <Wrapper>
-                <RadioButton value={key} onPress={() => onChange(key)} />
+                <RadioButton.Android value={key} />
                 <Text variant='bodySmall'>{label}</Text>
               </Wrapper>
             </TouchableRipple>
