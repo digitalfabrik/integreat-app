@@ -24,6 +24,8 @@ const Container = styled(Paper)({
   right: 0,
   // Positon bottom navigation above bottom sheet
   zIndex: 10,
+  // it removes space under bottom navigation for chrome on iOS
+  paddingBottom: 'env(safe-area-inset-bottom)',
 })
 
 const StyledBottomNavigation = styled(MuiBottomNavigation)(({ theme }) => ({
