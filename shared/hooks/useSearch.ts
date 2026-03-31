@@ -53,7 +53,7 @@ const useSearch = (documents: ExtendedPageModel[], query: string): UseSearchRetu
       processTerm: normalizeString,
       searchOptions: {
         boost: { title: 2 },
-        fuzzy: true,
+        fuzzy: 0.3,
         combineWith: 'AND',
         prefix: true,
       },
