@@ -1,4 +1,4 @@
-import md5 from 'md5'
+import { sha256 } from 'js-sha256'
 
 import buildResourceFilePath from '../buildResourceFilePath'
 
@@ -6,23 +6,23 @@ describe('buildResourceFilePath', () => {
   it('should return the resource file path', () => {
     const urlString = 'https://ex.am/p.l/thumbnail.png'
     const city = 'augsburg'
-    const hash = md5(urlString)
+    const hash = sha256(urlString)
     expect(buildResourceFilePath(urlString, city, hash)).toBe(
-      'path/to/documentDir/resource-cache/v2/augsburg/files/81a74f17bb169f4dad2f59bb2e4670f9.png',
+      'path/to/documentDir/resource-cache/v3/augsburg/files/5aea0ed0ef75df32615272662c0419c858bfd800926bb1563a5012023ac3a6b7.png',
     )
   })
   it('should ignore invalid extension', () => {
     const urlString = 'https://ex.am/p.l/thumbnail'
     const city = 'augsburg'
-    const hash = md5(urlString)
+    const hash = sha256(urlString)
     expect(buildResourceFilePath(urlString, city, hash)).toBe(
-      'path/to/documentDir/resource-cache/v2/augsburg/files/ca7e91ecc6bcae6a2559357ba66cfc34',
+      'path/to/documentDir/resource-cache/v3/augsburg/files/c7e63b8dcf9e58e00e07ce99959384769c626aa25a78cce33a3863023155194f',
     )
   })
   it('should throw if url is invalid', () => {
     const urlString = 'invalid-url'
     const city = 'augsburg'
-    const hash = md5(urlString)
+    const hash = sha256(urlString)
     expect(() => buildResourceFilePath(urlString, city, hash)).toThrow('URL')
   })
 })

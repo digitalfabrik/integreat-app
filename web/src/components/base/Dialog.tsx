@@ -18,19 +18,24 @@ export const DirectionDependentBackIcon = styled(ArrowBackIcon)(({ theme }) => (
 
 const StyledMuiDialog = styled(MuiDialog)(({ theme }) => ({
   [`.${dialogClasses.paper}`]: {
+    maxWidth: 'none',
     [theme.breakpoints.up('md')]: {
       width: 600,
     },
   },
 }))
 
+const StyledDialogTitle = styled(DialogTitle)({
+  flex: '1 1 0',
+}) as typeof DialogTitle
+
 type DialogProps = {
   title: string
+  actions?: ReactElement[] | null
+  footerActions?: ReactElement | null
   close: () => void
   children: ReactElement | ReactElement[]
   className?: string
-  headerAction?: ReactElement
-  actions?: ReactElement
   fullScreen?: boolean
 }
 
@@ -39,17 +44,23 @@ const Dialog = ({
   close,
   children,
   className,
-  headerAction,
   actions,
+  footerActions,
   fullScreen,
 }: DialogProps): ReactElement => {
   const { mobile, desktop } = useDimensions()
   const { t } = useTranslation('layout')
   const isFullScreen = fullScreen ?? mobile
-  const isDesktopLayout = desktop || fullScreen === false
+  const isDesktopLayout = desktop || !isFullScreen
 
   // This is necessary to ensure the theme is correctly applied to the drawer content
   const dialogContainer = document.getElementById(LAYOUT_ELEMENT_ID)
+
+  const Actions = actions ? (
+    <Stack direction='row' gap={1} alignItems='center'>
+      {actions}
+    </Stack>
+  ) : null
 
   return (
     <StyledMuiDialog onClose={close} container={dialogContainer} fullScreen={isFullScreen} className={className} open>
@@ -58,19 +69,17 @@ const Dialog = ({
         alignItems='center'
         justifyContent={isDesktopLayout ? 'space-between' : undefined}
         marginInline={1}>
-        <Stack direction='row' gap={1} alignItems='center'>
-          {isDesktopLayout && headerAction}
-          <IconButton aria-label={t('common:close')} onClick={close}>
-            {isDesktopLayout ? <CloseIcon /> : <DirectionDependentBackIcon />}
-          </IconButton>
-        </Stack>
-        <DialogTitle component='h2' variant='h4' sx={{ flex: 1 }}>
+        <IconButton aria-label={t('common:close')} onClick={close}>
+          {isDesktopLayout ? <CloseIcon /> : <DirectionDependentBackIcon />}
+        </IconButton>
+        {isDesktopLayout && Actions}
+        <StyledDialogTitle component='h2' variant='h4' textOverflow='ellipsis' whiteSpace='nowrap' overflow='hidden'>
           {title}
-        </DialogTitle>
-        {!isDesktopLayout && headerAction}
+        </StyledDialogTitle>
+        {!isDesktopLayout && Actions}
       </Stack>
       <DialogContent>{children}</DialogContent>
-      {actions}
+      {footerActions}
     </StyledMuiDialog>
   )
 }

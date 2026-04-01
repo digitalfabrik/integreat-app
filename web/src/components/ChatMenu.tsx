@@ -60,7 +60,7 @@ const ChatMenu = ({ confirmNewChatOpen, onConfirmClose, onConfirmNewChat, childr
           fullScreen={false}
           title={t('newChat')}
           close={onConfirmClose}
-          actions={
+          footerActions={
             <DialogActions>
               <Button onClick={() => handleDialogAction(onConfirmClose)} variant='outlined' sx={{ flex: '1 1' }}>
                 {t('layout:cancel')}
