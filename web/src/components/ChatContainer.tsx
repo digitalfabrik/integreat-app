@@ -3,16 +3,18 @@ import { dialogContentClasses } from '@mui/material/DialogContent'
 import Fab from '@mui/material/Fab'
 import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useContext } from 'react'
 import { useSearchParams } from 'react-router'
 
-import { getChatName, CHAT_QUERY_KEY, parseQueryParams } from 'shared'
+import { getChatName, CHAT_QUERY_KEY, parseQueryParams, toQueryParams } from 'shared'
 import { CityModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
 import useDimensions from '../hooks/useDimensions'
 import useLockedBody from '../hooks/useLockedBody'
 import ChatController from './ChatController'
+import HeaderLanguageSelectorItem from './HeaderLanguageSelectorItem'
+import { LanguageChangePath } from './LanguageList'
 import { TtsContext } from './TtsContainer'
 import Dialog from './base/Dialog'
 
@@ -36,13 +38,13 @@ const StyledDialog = styled(Dialog)({
 
 type ChatContainerProps = {
   city: CityModel
-  language: string
+  languageCode: string
+  languageChangePaths: LanguageChangePath[] | null
 }
 
-const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement | null => {
+const ChatContainer = ({ city, languageCode, languageChangePaths }: ChatContainerProps): ReactElement | null => {
   const [queryParams, setQueryParams] = useSearchParams()
-  const initialChatVisibility = parseQueryParams(queryParams).chat ?? false
-  const [chatVisible, setChatVisible] = useState(initialChatVisibility)
+  const chatVisible = parseQueryParams(queryParams).chat ?? false
   const { desktop, xsmall, visibleFooterHeight, bottomNavigationHeight } = useDimensions()
   const { visible: ttsPlayerVisible } = useContext(TtsContext)
   const chatName = getChatName(buildConfig().appName)
@@ -50,29 +52,52 @@ const ChatContainer = ({ city, language }: ChatContainerProps): ReactElement | n
 
   const hideChatButton = xsmall && ttsPlayerVisible
 
-  useEffect(() => {
-    if (queryParams.has(CHAT_QUERY_KEY)) {
-      const newQueryParams = queryParams
-      queryParams.delete(CHAT_QUERY_KEY)
-      setQueryParams(newQueryParams, { replace: true })
-    }
-  }, [queryParams, setQueryParams])
+  const open = () => {
+    const newQueryParams = queryParams
+    newQueryParams.set(CHAT_QUERY_KEY, 'true')
+    setQueryParams(newQueryParams)
+  }
+
+  const close = () => {
+    const newQueryParams = queryParams
+    newQueryParams.delete(CHAT_QUERY_KEY)
+    setQueryParams(newQueryParams)
+  }
 
   if (hideChatButton) {
     return null
   }
 
   if (chatVisible) {
+    const chatQuery = toQueryParams({ chat: true }).toString()
+    const chatLanguageChangePaths =
+      languageChangePaths?.map(({ path, ...rest }) => ({
+        ...rest,
+        path: path ? `${path}?${chatQuery}` : null,
+      })) ?? []
     return (
-      <StyledDialog title={chatName} close={() => setChatVisible(false)}>
-        <ChatController city={city} language={language} />
+      <StyledDialog
+        title={chatName}
+        close={close}
+        actions={
+          languageChangePaths
+            ? [
+                <HeaderLanguageSelectorItem
+                  key='languageChange'
+                  languageChangePaths={chatLanguageChangePaths}
+                  languageCode={languageCode}
+                />,
+              ]
+            : null
+        }>
+        <ChatController city={city} languageCode={languageCode} />
       </StyledDialog>
     )
   }
 
   return (
     <ChatButtonContainer bottom={bottomNavigationHeight ?? visibleFooterHeight}>
-      <Fab onClick={() => setChatVisible(true)} color='primary' aria-label={chatName}>
+      <Fab onClick={open} color='primary' aria-label={chatName}>
         <QuestionAnswerOutlinedIcon fontSize='large' />
       </Fab>
       {desktop && (

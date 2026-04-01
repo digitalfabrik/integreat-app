@@ -24,19 +24,26 @@ const StyledMuiDialog = styled(MuiDialog)(({ theme }) => ({
   },
 }))
 
+const StyledDialogTitle = styled(DialogTitle)({
+  flex: '1 1 0',
+}) as typeof DialogTitle
+
 type DialogProps = {
   title: string
+  actions?: ReactElement[] | null
   close: () => void
   children: ReactElement | ReactElement[]
   className?: string
 }
 
-const Dialog = ({ title, close, children, className }: DialogProps): ReactElement => {
+const Dialog = ({ title, close, children, className, actions }: DialogProps): ReactElement => {
   const { mobile, desktop } = useDimensions()
   const { t } = useTranslation('layout')
 
   // This is necessary to ensure the theme is correctly applied to the drawer content
   const dialogContainer = document.getElementById(LAYOUT_ELEMENT_ID)
+
+  const Actions = <Stack marginInline={1}>{actions}</Stack>
 
   return (
     <StyledMuiDialog onClose={close} container={dialogContainer} fullScreen={mobile} className={className} open>
@@ -48,9 +55,11 @@ const Dialog = ({ title, close, children, className }: DialogProps): ReactElemen
         <IconButton aria-label={t('common:close')} onClick={close}>
           {desktop ? <CloseIcon /> : <DirectionDependentBackIcon />}
         </IconButton>
-        <DialogTitle component='h2' variant='h4'>
+        {desktop && Actions}
+        <StyledDialogTitle component='h2' variant='h4' textOverflow='ellipsis' whiteSpace='nowrap' overflow='hidden'>
           {title}
-        </DialogTitle>
+        </StyledDialogTitle>
+        {mobile && Actions}
       </Stack>
       <DialogContent>{children}</DialogContent>
     </StyledMuiDialog>

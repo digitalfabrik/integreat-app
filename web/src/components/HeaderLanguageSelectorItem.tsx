@@ -1,17 +1,21 @@
 import TranslateOutlinedIcon from '@mui/icons-material/TranslateOutlined'
+import { drawerClasses } from '@mui/material/Drawer'
+import Popover from '@mui/material/Popover'
 import { styled } from '@mui/material/styles'
-import React, { ReactElement, useRef, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import useDimensions from '../hooks/useDimensions'
-import useOnClickOutside from '../hooks/useOnClickOutside'
 import HeaderActionItem from './HeaderActionItem'
 import LanguageList, { LanguageChangePath } from './LanguageList'
 import Sidebar from './Sidebar'
 
-const Wrapper = styled('div')`
-  display: contents;
-`
+const StyledSidebar = styled(Sidebar)({
+  [`&.${drawerClasses.root}`]: {
+    // Position sidebar above chat modal
+    zIndex: 1500,
+  },
+})
 
 type HeaderLanguageSelectorItemProps = {
   languageChangePaths: LanguageChangePath[]
@@ -24,19 +28,21 @@ const HeaderLanguageSelectorItem = ({
   languageCode,
   forceText = false,
 }: HeaderLanguageSelectorItemProps): ReactElement => {
-  const [open, setOpen] = useState(false)
+  const [anchorElement, setAnchorElement] = useState<HTMLButtonElement | null>(null)
   const { mobile, desktop } = useDimensions()
   const { t } = useTranslation('layout')
-  const wrapperRef = useRef<HTMLDivElement | null>(null)
-  useOnClickOutside(wrapperRef, () => setOpen(false))
+
+  const open = (event: React.MouseEvent<HTMLButtonElement>) => setAnchorElement(event.currentTarget)
+  const close = () => setAnchorElement(null)
+  const isOpen = anchorElement !== null
 
   const currentLanguageName = languageChangePaths.find(item => item.code === languageCode)?.name
 
   const ChangeLanguageButton = (
     <HeaderActionItem
       key='languageChange'
-      onClick={() => setOpen(open => !open)}
-      text={open ? '' : t('changeLanguage') /* to not cover the dropdown with the tooltip */}
+      onClick={open}
+      text={isOpen ? '' : t('changeLanguage') /* to not cover the dropdown with the tooltip */}
       icon={<TranslateOutlinedIcon />}
       innerText={forceText || desktop ? currentLanguageName : undefined}
     />
@@ -44,27 +50,35 @@ const HeaderLanguageSelectorItem = ({
 
   if (mobile) {
     return (
-      <Sidebar OpenButton={ChangeLanguageButton} setOpen={setOpen} open={open}>
-        <LanguageList
-          languageChangePaths={languageChangePaths}
-          languageCode={languageCode}
-          close={() => setOpen(false)}
-        />
-      </Sidebar>
+      <StyledSidebar OpenButton={ChangeLanguageButton} setOpen={() => setAnchorElement(null)} open={isOpen}>
+        <LanguageList languageChangePaths={languageChangePaths} languageCode={languageCode} close={close} />
+      </StyledSidebar>
     )
   }
 
   return (
-    <Wrapper ref={wrapperRef}>
+    <>
       {ChangeLanguageButton}
-      {open && (
-        <LanguageList
-          languageChangePaths={languageChangePaths}
-          languageCode={languageCode}
-          close={() => setOpen(false)}
-        />
-      )}
-    </Wrapper>
+      <Popover
+        open={isOpen}
+        onClose={close}
+        anchorEl={anchorElement}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: -16,
+          horizontal: 'center',
+        }}
+        slotProps={{
+          paper: {
+            sx: { boxShadow: 'none', overflow: 'visible' },
+          },
+        }}>
+        <LanguageList languageChangePaths={languageChangePaths} languageCode={languageCode} close={close} />
+      </Popover>
+    </>
   )
 }
 

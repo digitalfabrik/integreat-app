@@ -1,6 +1,6 @@
 import Autocomplete from '@mui/material/Autocomplete'
-import Box from '@mui/material/Box'
 import List from '@mui/material/List'
+import Stack from '@mui/material/Stack'
 import TextField from '@mui/material/TextField'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, useMemo, useState } from 'react'
@@ -13,40 +13,24 @@ import useDimensions from '../hooks/useDimensions'
 import LanguageListItem from './LanguageListItem'
 import SearchInput from './SearchInput'
 
-const MobileContainer = styled('div')`
-  display: flex;
-  flex-direction: column;
-  gap: ${props => props.theme.spacing(2)};
-`
-
 const StyledAutocomplete = styled(Autocomplete)`
   ${props => props.theme.breakpoints.up('md')} {
-    width: 200px;
-    position: absolute;
-    top: 72px;
-    z-index: 10;
     background-color: ${props => props.theme.palette.background.paper};
+    width: 200px;
+    border-radius: 4px;
   }
 ` as typeof Autocomplete
 
-const StyledTextField = styled(TextField)`
-  legend {
-    letter-spacing: 0;
-  }
-` as typeof TextField
+const StyledTextField = styled(TextField)({
+  legend: {
+    letterSpacing: 0,
+  },
+})
 
 export type LanguageChangePath = {
   code: string
   path: string | null
   name: string
-}
-
-type LanguageListProps = {
-  languageChangePaths: LanguageChangePath[]
-  languageCode: string
-  close?: () => void
-  availableOnly?: boolean
-  asList?: boolean
 }
 
 export const filterLanguageChangePath = (
@@ -66,6 +50,14 @@ export const filterLanguageChangePath = (
   )
 }
 
+type LanguageListProps = {
+  languageChangePaths: LanguageChangePath[]
+  languageCode: string
+  close?: () => void
+  availableOnly?: boolean
+  asList?: boolean
+}
+
 const LanguageList = ({
   languageChangePaths,
   languageCode,
@@ -73,9 +65,9 @@ const LanguageList = ({
   availableOnly = false,
   asList = false,
 }: LanguageListProps): ReactElement => {
+  const [query, setQuery] = useState('')
   const { t } = useTranslation('layout')
   const { mobile } = useDimensions()
-  const [query, setQuery] = useState('')
 
   const allOptions = useMemo(
     () => languageChangePaths.filter(item => !availableOnly || !!item.path),
@@ -94,11 +86,11 @@ const LanguageList = ({
 
   if (mobile || asList) {
     return (
-      <MobileContainer>
+      <Stack gap={2}>
         <SearchInput placeholderText={currentLanguage?.name ?? ''} filterText={query} onFilterTextChange={setQuery} />
         <>
           {filteredLanguageChangePaths.length === 0 ? (
-            <Box sx={{ p: 2 }}>{t('noLanguageFound')}</Box>
+            t('noLanguageFound')
           ) : (
             <List disablePadding>
               {filteredLanguageChangePaths.map(language => (
@@ -114,7 +106,7 @@ const LanguageList = ({
             </List>
           )}
         </>
-      </MobileContainer>
+      </Stack>
     )
   }
 
@@ -130,7 +122,7 @@ const LanguageList = ({
       inputValue={query}
       onInputChange={(_, value) => setQuery(value)}
       forcePopupIcon={false}
-      getOptionLabel={(option: LanguageChangePath) => option.name}
+      getOptionLabel={option => option.name}
       renderOption={(_, language) => (
         <LanguageListItem
           code={language.code}
@@ -145,11 +137,17 @@ const LanguageList = ({
       disablePortal
       slotProps={{
         popper: {
-          placement: 'bottom-start',
+          placement: 'bottom',
           modifiers: [
             {
               name: 'flip',
               enabled: false,
+            },
+            {
+              name: 'offset',
+              options: {
+                offset: [0, 1],
+              },
             },
           ],
         },

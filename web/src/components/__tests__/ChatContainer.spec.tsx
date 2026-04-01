@@ -30,26 +30,47 @@ describe('ChatContainer', () => {
   const routePattern = '/:cityCode/:languageCode'
   const city = new CityModelBuilder(1).build()[0]!
   const pathname = `/${city.code}/de`
+  const languageChangePaths = [
+    { code: 'de', name: 'Deutsch', path: '/augsburg/de' },
+    { code: 'en', name: 'English', path: '/augsburg/en' },
+  ]
 
   it('should open chat dialog and show content on chat button click', () => {
-    const { getByText, getByLabelText } = renderRoute(<ChatContainer city={city} language='de' />, {
-      pathname,
-      routePattern,
-    })
+    const { getByText, queryByText, getByLabelText, router } = renderRoute(
+      <ChatContainer city={city} languageCode='de' languageChangePaths={languageChangePaths} />,
+      {
+        pathname,
+        routePattern,
+        searchParams: '?test=asdf',
+      },
+    )
     const chatButtonContainer = getByLabelText(getChatName('IntegreatTestCms'))
     expect(chatButtonContainer).toBeTruthy()
 
+    expect(router.state.location.search).toBe('?test=asdf')
+
     fireEvent.click(chatButtonContainer)
+
+    expect(router.state.location.search).toBe('?test=asdf&chat=true')
 
     expect(getByText('chat:conversationText')).toBeTruthy()
     expect(getByText('chat:conversationHelperText')).toBeTruthy()
+
+    fireEvent.click(getByLabelText('layout:common:close'))
+
+    expect(router.state.location.search).toBe('?test=asdf')
+
+    expect(queryByText('chat:conversationText')).toBeFalsy()
   })
 
   it('should close chat if close button was clicked', () => {
-    const { getByLabelText, queryByText } = renderRoute(<ChatContainer city={city} language='de' />, {
-      pathname,
-      routePattern,
-    })
+    const { getByLabelText, queryByText } = renderRoute(
+      <ChatContainer city={city} languageCode='de' languageChangePaths={languageChangePaths} />,
+      {
+        pathname,
+        routePattern,
+      },
+    )
     const chatButtonContainer = getByLabelText(getChatName('IntegreatTestCms'))
     expect(chatButtonContainer).toBeTruthy()
 
@@ -64,23 +85,46 @@ describe('ChatContainer', () => {
   })
 
   it('should open chat if query param is set', () => {
-    const { getByText, router } = renderRoute(<ChatContainer city={city} language='de' />, {
-      pathname,
-      routePattern,
-      searchParams: '?chat=true&test=asdf',
-    })
+    const { getByText, router } = renderRoute(
+      <ChatContainer city={city} languageCode='de' languageChangePaths={languageChangePaths} />,
+      {
+        pathname,
+        routePattern,
+        searchParams: '?chat=true&test=asdf',
+      },
+    )
     expect(getByText('chat:conversationText')).toBeTruthy()
     expect(getByText('chat:conversationHelperText')).toBeTruthy()
-    expect(router.state.location.search).toBe('?test=asdf')
+    expect(router.state.location.search).toBe('?chat=true&test=asdf')
   })
 
-  it('should only update query params if open chat query param is set', () => {
-    const { getAllByText, router } = renderRoute(<ChatContainer city={city} language='de' />, {
-      pathname,
-      routePattern,
-      searchParams: '?',
-    })
+  it('should correctly update query params', () => {
+    const { getAllByText, router } = renderRoute(
+      <ChatContainer city={city} languageCode='de' languageChangePaths={languageChangePaths} />,
+      {
+        pathname,
+        routePattern,
+        searchParams: '?',
+      },
+    )
     expect(getAllByText(getChatName('IntegreatTestCms'))).toHaveLength(1)
     expect(router.state.location.search).toBe('?')
+  })
+
+  it('should switch the language', () => {
+    const { getByText, getByLabelText, router } = renderRoute(
+      <ChatContainer city={city} languageCode='de' languageChangePaths={languageChangePaths} />,
+      {
+        pathname,
+        routePattern,
+      },
+    )
+    const chatButtonContainer = getByLabelText(getChatName('IntegreatTestCms'))
+    fireEvent.click(chatButtonContainer!)
+    expect(router.state.location.pathname).toBe(`/${city.code}/de`)
+    fireEvent.click(getByText('Deutsch'))
+    fireEvent.click(getByText('English'))
+    expect(router.state.location.pathname).toBe(`/${city.code}/en`)
+    expect(router.state.location.search).toBe('?chat=true')
   })
 })
