@@ -1,5 +1,5 @@
 diff --git a/Libraries/Animated/nodes/AnimatedNode.js b/Libraries/Animated/nodes/AnimatedNode.js
-index 29ca6798afc3932a795b149aacc29cfd7e75b510..aa5781d08fceab1d71ed49320312e8ab02b1c088 100644
+index 9cf3b990d18c48800724641e5a1253d598c71e5d..e60b24d3f025a03a02696e99689c363d1be06d99 100644
 --- a/Libraries/Animated/nodes/AnimatedNode.js
 +++ b/Libraries/Animated/nodes/AnimatedNode.js
 @@ -122,9 +122,11 @@ export default class AnimatedNode {

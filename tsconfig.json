@@ -14,7 +14,8 @@
     "target": "ESNext",
     "skipLibCheck": true,
     "useDefineForClassFields": false,
-    "outDir": "dist"
+    "outDir": "dist",
+    "types": ["jest"]
   },
   "include": ["jest.config.ts", ".prettierrc", "eslint.config.mjs"],
   "references": [

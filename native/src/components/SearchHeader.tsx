@@ -1,5 +1,6 @@
-import { HeaderBackButton } from '@react-navigation/elements'
 import React, { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Appbar } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
 import dimensions from '../constants/dimensions'
@@ -23,14 +24,16 @@ type SearchHeaderProps = {
 }
 
 const SearchHeader = ({ query, closeSearchBar, onSearchChanged }: SearchHeaderProps): ReactElement => {
+  const { t } = useTranslation('common')
   const theme = useTheme()
   return (
     <BoxShadow>
       <Horizontal>
-        <HeaderBackButton
+        <Appbar.BackAction
           onPress={() => closeSearchBar(query)}
-          displayMode='minimal'
-          tintColor={theme.colors.onSurface}
+          accessibilityLabel={t('back')}
+          style={{ backgroundColor: 'transparent' }}
+          iconColor={theme.colors.onSurface}
         />
         <ThemedSearchBar onChangeText={onSearchChanged} value={query} autofocus />
       </Horizontal>
