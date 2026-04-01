@@ -17,7 +17,9 @@ class MainActivity : ReactActivity() {
   private lateinit var currentLocale: Locale
 
   override fun onCreate(savedInstanceState: Bundle?) {
-    // Workaround to fix the rtl issue caused seemingly by https://github.com/facebook/react-native/pull/53417
+    // Workaround for the layout not being RTL for RTL languages
+    // https://github.com/facebook/react-native/pull/53417
+    // https://github.com/digitalfabrik/integreat-app/issues/3759
     val locale = resources.configuration.locales[0]
     val isRTL = TextUtilsCompat.getLayoutDirectionFromLocale(locale) == View.LAYOUT_DIRECTION_RTL
 
