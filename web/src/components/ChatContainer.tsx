@@ -100,6 +100,15 @@ const ChatContainer = ({ city, languageCode, languageChangePaths }: ChatContaine
         title={chatName}
         close={close}
         actions={[
+          ...(languageChangePaths
+            ? [
+                <HeaderLanguageSelectorItem
+                  key='languageChange'
+                  languageChangePaths={chatLanguageChangePaths}
+                  languageCode={languageCode}
+                />,
+              ]
+            : []),
           <ChatMenu
             key='chatMenu'
             confirmNewChatOpen={confirmDialogOpen}
@@ -112,15 +121,6 @@ const ChatContainer = ({ city, languageCode, languageChangePaths }: ChatContaine
               onClick={() => setConfirmDialogOpen(true)}
             />
           </ChatMenu>,
-          ...(languageChangePaths
-            ? [
-                <HeaderLanguageSelectorItem
-                  key='languageChange'
-                  languageChangePaths={chatLanguageChangePaths}
-                  languageCode={languageCode}
-                />,
-              ]
-            : []),
         ]}>
         <ChatController key={deviceId} city={city} languageCode={languageCode} onMessagesChange={setMessagesCount} />
       </StyledDialog>
