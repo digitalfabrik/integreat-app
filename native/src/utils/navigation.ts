@@ -32,9 +32,19 @@ export const navigateNested = <T extends RoutesType, S extends keyof NestedRoute
   params: NestedRoutesParamsType[S],
   redirect: boolean,
 ): void => {
-  const navigate = redirect ? navigation.replace : navigation.push
   if (navigation.getId() === ROOT_NAVIGATOR_ID) {
-    // No tab navigator yet, we need to navigate both to the bottom tab route and the tab stack first
+    const bottomTabRouteOpened = navigation.getState().routes.some(({ name }) => name === BOTTOM_TAB_NAVIGATION_ROUTE)
+    if (redirect) {
+      // Allow going back to the dashboard if opening a deep link
+      navigation.replace(BOTTOM_TAB_NAVIGATION_ROUTE, {
+        screen: CATEGORIES_TAB_ROUTE,
+        params: {
+          screen: CATEGORIES_ROUTE,
+        },
+      })
+    }
+
+    const navigate = bottomTabRouteOpened ? navigation.replace : navigation.push
     navigate(BOTTOM_TAB_NAVIGATION_ROUTE, {
       screen: tabRoutes[route],
       params: {
@@ -58,6 +68,7 @@ export const navigateNested = <T extends RoutesType, S extends keyof NestedRoute
     return
   }
 
+  const navigate = redirect ? navigation.replace : navigation.push
   // @ts-expect-error It is assured that params is not undefined
   navigate(route, params)
 }
