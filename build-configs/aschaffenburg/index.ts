@@ -32,7 +32,6 @@ const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
   internalUrlPattern:
     'https?:\\/\\/(cms(-test)?\\.integreat-app\\.de|web\\.integreat-app\\.de|integreat\\.app|aschaffenburg\\.app)(?!\\/(media|[^/]*\\/(wp-content|wp-admin|wp-json))\\/.*).*',
   featureFlags: {
-    floss: false,
     pois: false,
     newsStream: true,
     pushNotifications: true,

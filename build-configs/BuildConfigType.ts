@@ -22,8 +22,6 @@ export type FixedCityType =
     }
 
 export type FeatureFlagsType = FixedCityType & {
-  // Whether the build should be floss. If set to true, proprietary libraries and features like firebase are stripped.
-  floss: boolean
   // Enables POIs and maps, can be disabled via our api on a per city basis.
   pois: boolean
   // Enables local news and tünews, can be disabled via our api on a per city basis.

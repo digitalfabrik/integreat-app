@@ -11,7 +11,6 @@ const integreatE2e = {
   appName: 'IntegreatE2E',
   e2e: true,
   featureFlags: {
-    floss: false,
     pois: true,
     newsStream: true,
     pushNotifications: true,

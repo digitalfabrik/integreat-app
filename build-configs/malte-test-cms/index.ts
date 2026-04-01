@@ -12,7 +12,6 @@ const commonMalteTestCmsBuildConfig: CommonBuildConfigType = {
   cmsUrl: 'https://malte-test.tuerantuer.org',
   switchCmsUrl: 'https://cms.malteapp.de',
   featureFlags: {
-    floss: false,
     pois: true,
     newsStream: true,
     pushNotifications: true,

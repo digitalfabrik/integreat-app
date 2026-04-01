@@ -22,7 +22,6 @@ const commonObdachBuildConfig: CommonBuildConfigType = {
   internalUrlPattern:
     'https?:\\/\\/((cms\\.)?netzwerkobdachwohnen\\.de)(?!\\/(media|[^/]*\\/(wp-content|wp-admin|wp-json))\\/.*).*',
   featureFlags: {
-    floss: false,
     pois: true,
     newsStream: true,
     pushNotifications: false,

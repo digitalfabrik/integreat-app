@@ -33,7 +33,6 @@ const commonMalteBuildConfig: CommonBuildConfigType = {
     'https?:\\/\\/((cms\\.)?malteapp\\.de|malte-test\\.tuerantuer\\.org)(?!\\/(media|[^/]*\\/(wp-content|wp-admin|wp-json))\\/.*).*',
   hostName: 'malteapp.de',
   featureFlags: {
-    floss: false,
     pois: true,
     newsStream: true,
     pushNotifications: true,

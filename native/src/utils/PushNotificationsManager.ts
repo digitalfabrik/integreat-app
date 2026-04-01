@@ -23,8 +23,7 @@ type Message = FirebaseMessagingTypes.RemoteMessage & {
 
 const WAITING_TIME_FOR_CMS = 1000
 
-export const pushNotificationsEnabled = (): boolean =>
-  buildConfig().featureFlags.pushNotifications && !buildConfig().featureFlags.floss
+export const pushNotificationsEnabled = (): boolean => buildConfig().featureFlags.pushNotifications
 
 export const requestPushNotificationPermission = async (updateSettings: UpdateSettingsType): Promise<boolean> => {
   if (!pushNotificationsEnabled()) {

@@ -40,46 +40,35 @@ describe('PushNotificationsManager', () => {
   const mockedBuildConfig = mocked(buildConfig)
   const updateSettings = jest.fn()
 
-  const mockBuildConfig = (pushNotifications: boolean, floss: boolean) => {
+  const mockBuildConfig = (pushNotifications: boolean) => {
     const previous = buildConfig()
     mockedBuildConfig.mockImplementation(() => ({
       ...previous,
-      featureFlags: { ...previous.featureFlags, pushNotifications, floss },
+      featureFlags: { ...previous.featureFlags, pushNotifications },
     }))
   }
 
   describe('pushNotificationsEnabled', () => {
     it('should return false if disabled in build configs', async () => {
-      mockBuildConfig(false, false)
+      mockBuildConfig(false)
       expect(PushNotificationsManager.pushNotificationsEnabled()).toBeFalsy()
     })
 
-    it('should return false if it is a floss build', async () => {
-      mockBuildConfig(true, true)
-      expect(PushNotificationsManager.pushNotificationsEnabled()).toBeFalsy()
-    })
-
-    it('should return true if it is enabled in build config and not a floss build', async () => {
-      mockBuildConfig(true, false)
+    it('should return true if it is enabled in build config', async () => {
+      mockBuildConfig(true)
       expect(PushNotificationsManager.pushNotificationsEnabled()).toBeTruthy()
     })
   })
 
   describe('requestPushNotificationPermission', () => {
     it('should return false if disabled in build configs', async () => {
-      mockBuildConfig(false, false)
-      expect(await PushNotificationsManager.requestPushNotificationPermission(updateSettings)).toBeFalsy()
-      expect(requestNotifications).not.toHaveBeenCalled()
-    })
-
-    it('should return false if it is a floss build', async () => {
-      mockBuildConfig(true, true)
+      mockBuildConfig(false)
       expect(await PushNotificationsManager.requestPushNotificationPermission(updateSettings)).toBeFalsy()
       expect(requestNotifications).not.toHaveBeenCalled()
     })
 
     it('should request permissions and return false and disable push notifications in settings if not granted', async () => {
-      mockBuildConfig(true, false)
+      mockBuildConfig(true)
       mocked(requestNotifications).mockImplementationOnce(async () => ({ status: 'blocked', settings: {} }))
 
       expect(await PushNotificationsManager.requestPushNotificationPermission(updateSettings)).toBeFalsy()
@@ -88,7 +77,7 @@ describe('PushNotificationsManager', () => {
     })
 
     it('should request permissions and return true if granted', async () => {
-      mockBuildConfig(true, false)
+      mockBuildConfig(true)
       mocked(requestNotifications).mockImplementationOnce(async () => ({ status: 'granted', settings: {} }))
 
       expect(await PushNotificationsManager.requestPushNotificationPermission(updateSettings)).toBeTruthy()
@@ -98,16 +87,7 @@ describe('PushNotificationsManager', () => {
 
   describe('unsubscribeNews', () => {
     it('should return and do nothing if disabled in build configs', async () => {
-      mockBuildConfig(false, false)
-      const mockUnsubscribeFromTopic = jest.fn()
-      mocked(unsubscribeFromTopic).mockImplementation(mockUnsubscribeFromTopic)
-
-      await PushNotificationsManager.unsubscribeNews('augsburg', 'de')
-      expect(mockUnsubscribeFromTopic).not.toHaveBeenCalled()
-    })
-
-    it('should return and do nothing if it is a floss build', async () => {
-      mockBuildConfig(true, true)
+      mockBuildConfig(false)
       const mockUnsubscribeFromTopic = jest.fn()
       mocked(unsubscribeFromTopic).mockImplementation(mockUnsubscribeFromTopic)
 
@@ -116,7 +96,7 @@ describe('PushNotificationsManager', () => {
     })
 
     it('should call unsubscribeFromTopic', async () => {
-      mockBuildConfig(true, false)
+      mockBuildConfig(true)
       const mockUnsubscribeFromTopic = jest.fn()
       mocked(unsubscribeFromTopic).mockImplementation(mockUnsubscribeFromTopic)
 
@@ -128,20 +108,7 @@ describe('PushNotificationsManager', () => {
 
   describe('subscribeNews', () => {
     it('should return and do nothing if disabled in build configs', async () => {
-      mockBuildConfig(false, false)
-      const mockSubscribeToTopic = jest.fn()
-      mocked(subscribeToTopic).mockImplementation(mockSubscribeToTopic)
-
-      await PushNotificationsManager.subscribeNews({
-        cityCode: 'augsburg',
-        languageCode: 'de',
-        allowPushNotifications: true,
-      })
-      expect(mockSubscribeToTopic).not.toHaveBeenCalled()
-    })
-
-    it('should return and do nothing if it is a floss build', async () => {
-      mockBuildConfig(true, true)
+      mockBuildConfig(false)
       const mockSubscribeToTopic = jest.fn()
       mocked(subscribeToTopic).mockImplementation(mockSubscribeToTopic)
 
@@ -154,7 +121,7 @@ describe('PushNotificationsManager', () => {
     })
 
     it('should return and do nothing if it is disabled in settings', async () => {
-      mockBuildConfig(true, false)
+      mockBuildConfig(true)
       const mockSubscribeToTopic = jest.fn()
       mocked(subscribeToTopic).mockImplementation(mockSubscribeToTopic)
 
@@ -167,7 +134,7 @@ describe('PushNotificationsManager', () => {
     })
 
     it('should call subscribeToTopic', async () => {
-      mockBuildConfig(true, false)
+      mockBuildConfig(true)
       const mockSubscribeToTopic = jest.fn()
       mocked(subscribeToTopic).mockImplementation(mockSubscribeToTopic)
 
@@ -181,7 +148,7 @@ describe('PushNotificationsManager', () => {
     })
 
     it('should call subscribeToTopic even if push notifications are disabled but skipSettingsCheck is true', async () => {
-      mockBuildConfig(true, false)
+      mockBuildConfig(true)
       const mockSubscribeToTopic = jest.fn()
       mocked(subscribeToTopic).mockImplementation(mockSubscribeToTopic)
 
