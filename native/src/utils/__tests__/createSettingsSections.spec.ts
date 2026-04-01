@@ -5,12 +5,7 @@ import { SettingsRouteType } from 'shared'
 import { testingAppContext } from '../../testing/TestingAppContext'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import { SettingsType } from '../AppSettings'
-import {
-  pushNotificationsEnabled,
-  requestPushNotificationPermission,
-  subscribeNews,
-  unsubscribeNews,
-} from '../PushNotificationsManager'
+import { requestPushNotificationPermission, subscribeNews, unsubscribeNews } from '../PushNotificationsManager'
 import createSettingsSections from '../createSettingsSections'
 
 jest.mock('../../constants/NativeConstants', () => ({
@@ -18,7 +13,6 @@ jest.mock('../../constants/NativeConstants', () => ({
 }))
 
 jest.mock('../../utils/PushNotificationsManager', () => ({
-  pushNotificationsEnabled: jest.fn(),
   requestPushNotificationPermission: jest.fn(),
   subscribeNews: jest.fn(),
   unsubscribeNews: jest.fn(),
@@ -29,7 +23,6 @@ const { mocked } = jest
 const mockRequestPushNotificationPermission = mocked(requestPushNotificationPermission)
 const mockUnsubscribeNews = mocked(unsubscribeNews)
 const mockSubscribeNews = mocked(subscribeNews)
-const mockedPushNotificationsEnabled = mocked(pushNotificationsEnabled)
 
 describe('createSettingsSections', () => {
   beforeEach(jest.clearAllMocks)
@@ -51,15 +44,7 @@ describe('createSettingsSections', () => {
     })
 
   describe('allowPushNotifications', () => {
-    it('should not include push notification setting if disabled', () => {
-      mockedPushNotificationsEnabled.mockImplementation(() => false)
-      const sections = createSettings()
-      expect(sections.find(it => it?.title === 'externalResourcesTitle')).toBeTruthy()
-      expect(sections.find(it => it?.title === 'pushNewsTitle')).toBeFalsy()
-    })
-
     it('should set correct setting on press', async () => {
-      mockedPushNotificationsEnabled.mockImplementation(() => true)
       const sections = createSettings()
       const pushNotificationSection = sections.find(it => it?.title === 'pushNewsTitle')!
       await pushNotificationSection!.onPress()
@@ -75,7 +60,6 @@ describe('createSettingsSections', () => {
     })
 
     it('should unsubscribe from push notification topic', async () => {
-      mockedPushNotificationsEnabled.mockImplementation(() => true)
       const sections = createSettings()
       const pushNotificationSection = sections.find(it => it?.title === 'pushNewsTitle')!
 
@@ -93,7 +77,6 @@ describe('createSettingsSections', () => {
     })
 
     it('should subscribe to push notification topic if permission is granted', async () => {
-      mockedPushNotificationsEnabled.mockImplementation(() => true)
       const sections = createSettings({ allowPushNotifications: false })
       const pushNotificationSection = sections.find(it => it?.title === 'pushNewsTitle')!
 
@@ -118,7 +101,6 @@ describe('createSettingsSections', () => {
     })
 
     it('should open settings and return false if permissions not granted', async () => {
-      mockedPushNotificationsEnabled.mockImplementation(() => true)
       const sections = createSettings({ allowPushNotifications: false })
       const pushNotificationSection = sections.find(it => it?.title === 'pushNewsTitle')!
 

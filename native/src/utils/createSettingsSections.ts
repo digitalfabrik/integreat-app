@@ -12,12 +12,7 @@ import { NavigationProps } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import { CityAppContext } from '../hooks/useCityAppContext'
 import { SettingsType } from './AppSettings'
-import {
-  pushNotificationsEnabled,
-  requestPushNotificationPermission,
-  subscribeNews,
-  unsubscribeNews,
-} from './PushNotificationsManager'
+import { requestPushNotificationPermission, subscribeNews, unsubscribeNews } from './PushNotificationsManager'
 import openExternalUrl from './openExternalUrl'
 import { initSentry } from './sentry'
 
@@ -50,42 +45,40 @@ const createSettingsSections = ({
   showSnackbar,
   t,
 }: CreateSettingsSectionsProps): (SettingsSectionType | null)[] => [
-  pushNotificationsEnabled()
-    ? {
-        title: t('pushNewsTitle'),
-        description: t('pushNewsDescription'),
-        getSettingValue: (settings: SettingsType) => settings.allowPushNotifications,
-        onPress: async () => {
-          const newAllowPushNotifications = !settings.allowPushNotifications
-          updateSettings({ allowPushNotifications: newAllowPushNotifications })
-          if (!newAllowPushNotifications) {
-            await unsubscribeNews(cityCode, languageCode)
-            return
-          }
-
-          const status = await requestPushNotificationPermission(updateSettings)
-
-          if (status) {
-            await subscribeNews({
-              cityCode,
-              languageCode,
-              allowPushNotifications: newAllowPushNotifications,
-              skipSettingsCheck: true,
-            })
-          } else {
-            updateSettings({ allowPushNotifications: false })
-            // If the user has rejected the permission once, it can only be changed in the system settings
-            showSnackbar({
-              text: 'permissionRequired',
-              action: {
-                label: t('layout:settings'),
-                onPress: openSettings,
-              },
-            })
-          }
-        },
+  {
+    title: t('pushNewsTitle'),
+    description: t('pushNewsDescription'),
+    getSettingValue: (settings: SettingsType) => settings.allowPushNotifications,
+    onPress: async () => {
+      const newAllowPushNotifications = !settings.allowPushNotifications
+      updateSettings({ allowPushNotifications: newAllowPushNotifications })
+      if (!newAllowPushNotifications) {
+        await unsubscribeNews(cityCode, languageCode)
+        return
       }
-    : null,
+
+      const status = await requestPushNotificationPermission(updateSettings)
+
+      if (status) {
+        await subscribeNews({
+          cityCode,
+          languageCode,
+          allowPushNotifications: newAllowPushNotifications,
+          skipSettingsCheck: true,
+        })
+      } else {
+        updateSettings({ allowPushNotifications: false })
+        // If the user has rejected the permission once, it can only be changed in the system settings
+        showSnackbar({
+          text: 'permissionRequired',
+          action: {
+            label: t('layout:settings'),
+            onPress: openSettings,
+          },
+        })
+      }
+    },
+  },
   {
     title: t('layout:contrastTheme'),
     description: t('layout:contrastThemeDescription'),

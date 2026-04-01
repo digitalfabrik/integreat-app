@@ -31,16 +31,12 @@ const commonIntegreatBuildConfig: CommonBuildConfigType = {
   internalUrlPattern:
     'https?:\\/\\/(cms(-test)?\\.integreat-app\\.de|web\\.integreat-app\\.de|integreat\\.app)(?!\\/(media|[^/]*\\/(wp-content|wp-admin|wp-json))\\/.*).*',
   featureFlags: {
-    pois: true,
-    newsStream: true,
-    pushNotifications: true,
     introSlides: true,
     sentry: true,
     developerFriendly: false,
     fixedCity: null,
     cityNotCooperatingTemplate,
     chat: true,
-    tts: true,
   },
   aboutUrls: {
     default: 'https://integreat-app.de/about/',

@@ -22,16 +22,12 @@ const commonObdachBuildConfig: CommonBuildConfigType = {
   internalUrlPattern:
     'https?:\\/\\/((cms\\.)?netzwerkobdachwohnen\\.de)(?!\\/(media|[^/]*\\/(wp-content|wp-admin|wp-json))\\/.*).*',
   featureFlags: {
-    pois: true,
-    newsStream: true,
-    pushNotifications: false,
     introSlides: false,
     sentry: false,
     developerFriendly: false,
     fixedCity: null,
     cityNotCooperatingTemplate: null,
     chat: false,
-    tts: true,
   },
   aboutUrls: {
     default: 'https://tuerantuer.de/digitalfabrik/projekte/netzwerkobdachwohnen/',

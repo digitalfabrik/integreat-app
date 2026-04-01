@@ -38,7 +38,7 @@ describe('useTtsPlayer', () => {
     renderWithTheme(
       <TestingAppContext languageCode='en'>
         <TtsContext.Provider
-          value={{ setSentences, enabled: true, sentences: oldSentences, showTtsPlayer: jest.fn(), visible: false }}>
+          value={{ setSentences, sentences: oldSentences, showTtsPlayer: jest.fn(), visible: false }}>
           <TestChild model={model} />
         </TtsContext.Provider>
       </TestingAppContext>,

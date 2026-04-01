@@ -25,7 +25,6 @@ import { SignPostIcon } from '../assets'
 import Icon from '../components/base/Icon'
 import Text from '../components/base/Text'
 import { TAB_NAVIGATOR_ID } from '../constants'
-import buildConfig from '../constants/buildConfig'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useLoadCityContent from '../hooks/useLoadCityContent'
 import useNavigate from '../hooks/useNavigate'
@@ -117,7 +116,6 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
   const homeRouteTitle = cityDisplayName(cachedData?.city, deviceWidth)
   useSetRouteTitle({ navigation, title: homeRouteTitle })
   const theme = useTheme()
-  const { featureFlags } = buildConfig()
 
   const CategoriesIcon = useCallback(
     // eslint-disable-next-line react/no-unused-prop-types
@@ -131,7 +129,7 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
     return <LoadingErrorHandler loading={loading} error={error} refresh={refresh} />
   }
 
-  const isNewsEnabled = cachedData.city.tunewsEnabled || cachedData.city.localNewsEnabled
+  const { eventsEnabled, poisEnabled, localNewsEnabled, tunewsEnabled } = cachedData.city
 
   const Tabs = [
     <Tab.Screen
@@ -139,21 +137,21 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
       component={CategoriesStackScreen}
       options={{ tabBarLabel: createTabLabel(theme, t('localInformationLabel')), tabBarIcon: CategoriesIcon }}
     />,
-    featureFlags.pois && cachedData.city.poisEnabled && (
+    poisEnabled && (
       <Tab.Screen
         name={POIS_TAB_ROUTE}
         component={PoisStackScreen}
         options={{ tabBarLabel: createTabLabel(theme, t('locations')), tabBarIcon: createTabIcon('map-outline') }}
       />
     ),
-    isNewsEnabled && (
+    (localNewsEnabled || tunewsEnabled) && (
       <Tab.Screen
         name={NEWS_TAB_ROUTE}
         component={NewsStackScreen}
         options={{ tabBarLabel: createTabLabel(theme, t('news')), tabBarIcon: createTabIcon('newspaper') }}
       />
     ),
-    cachedData.city.eventsEnabled && (
+    eventsEnabled && (
       <Tab.Screen
         name={EVENTS_TAB_ROUTE}
         component={EventsStackScreen}

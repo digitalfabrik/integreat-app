@@ -12,9 +12,6 @@ const integreatTestCms = {
   cmsUrl: 'https://cms-test.integreat-app.de',
   switchCmsUrl: 'https://cms.integreat-app.de',
   featureFlags: {
-    pois: true,
-    newsStream: true,
-    pushNotifications: true,
     introSlides: true,
     sentry: false,
     developerFriendly: true,
@@ -22,7 +19,6 @@ const integreatTestCms = {
     cityNotCooperatingTemplate,
     cityNotCooperating: true,
     chat: true,
-    tts: true,
   },
 }
 export const commonIntegreatTestCmsBuildConfig: CommonBuildConfigType = {

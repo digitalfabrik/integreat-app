@@ -29,16 +29,12 @@ const buildConfig = jest.fn<CommonBuildConfigType, []>(
     internalUrlPattern:
       'https?:\\/\\/(cms(-test)?\\.integreat-app\\.de|web\\.integreat-app\\.de|integreat\\.app)(?!\\/[^/]*\\/(wp-content|wp-admin|wp-json)\\/.*).*',
     featureFlags: {
-      pois: false,
-      newsStream: false,
-      pushNotifications: false,
       introSlides: true,
       sentry: true,
       developerFriendly: false,
       fixedCity: null,
       cityNotCooperatingTemplate: 'template',
       chat: false,
-      tts: true,
     },
     aboutUrls: {
       default: 'https://integreat-app.de/about/',

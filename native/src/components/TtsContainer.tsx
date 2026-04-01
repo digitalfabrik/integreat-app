@@ -14,7 +14,6 @@ import { Platform, type EventSubscription } from 'react-native'
 
 import { getGenericLanguageCode } from 'shared'
 
-import buildConfig from '../constants/buildConfig'
 import { AppContext } from '../contexts/AppContextProvider'
 import useAppStateListener from '../hooks/useAppStateListener'
 import useSnackbar from '../hooks/useSnackbar'
@@ -23,7 +22,6 @@ import { prepareText } from '../utils/tts'
 import TtsPlayer from './TtsPlayer'
 
 export type TtsContextType = {
-  enabled: boolean
   visible: boolean
   showTtsPlayer: () => void
   sentences: string[]
@@ -31,7 +29,6 @@ export type TtsContextType = {
 }
 
 export const TtsContext = createContext<TtsContextType>({
-  enabled: false,
   visible: false,
   showTtsPlayer: () => undefined,
   sentences: [],
@@ -66,7 +63,6 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
   const title = sentences[0] || t('nothingToRead')
   const subscriptionsRef = useRef<EventSubscription[]>([])
   const playRequestIdRef = useRef(0)
-  const enabled = buildConfig().featureFlags.tts
 
   const isLanguageSupported = voices.some(
     ({ language }) => getGenericLanguageCode(language) === getGenericLanguageCode(languageCode),
@@ -94,7 +90,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
   }, [languageCode])
 
   const showTtsPlayer = useCallback((): void => {
-    if (!enabled || visible) {
+    if (visible) {
       return
     }
     if (sentences.length === 0) {
@@ -114,7 +110,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
       reportError(error)
       showSnackbar({ text: t('error:unknownError') })
     }
-  }, [initializeTts, enabled, sentences.length, visible, showSnackbar, t, isLanguageSupported, voices, languageCode])
+  }, [initializeTts, sentences.length, visible, showSnackbar, t, isLanguageSupported, voices, languageCode])
 
   const stopPlayer = useCallback(async () => {
     subscriptionsRef.current.forEach(subscription => subscription.remove())
@@ -221,14 +217,13 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
   )
 
   const ttsContextValue = useMemo(
-    () => ({
-      enabled,
+    (): TtsContextType => ({
       visible,
       showTtsPlayer,
       sentences,
       setSentences: updateSentences,
     }),
-    [enabled, visible, sentences, updateSentences, showTtsPlayer],
+    [visible, sentences, updateSentences, showTtsPlayer],
   )
 
   return (
