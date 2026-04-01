@@ -2,11 +2,8 @@ import { Linking } from 'react-native'
 import InAppBrowser from 'react-native-inappbrowser-reborn'
 import URL from 'url-parse'
 
-import { OPEN_EXTERNAL_LINK_SIGNAL_NAME, OPEN_OS_LINK_SIGNAL_NAME } from 'shared'
-
 import { SnackbarType } from '../components/SnackbarContainer'
 import buildConfig from '../constants/buildConfig'
-import sendTrackingSignal from './sendTrackingSignal'
 import { reportError } from './sentry'
 
 const WAIT_UNTIL_IN_APP_BROWSER_CLOSED = 100
@@ -25,12 +22,6 @@ const openExternalUrl = async (rawUrl: string, showSnackbar: (snackbar: Snackbar
 
   try {
     if (canBeOpenedWithInAppBrowser) {
-      sendTrackingSignal({
-        signal: {
-          name: OPEN_EXTERNAL_LINK_SIGNAL_NAME,
-          url: encodedUrl,
-        },
-      })
       InAppBrowser.close()
       // On ios InAppBrowser seems to need some time to close the browser until it can be opened again properly
       // https://github.com/digitalfabrik/integreat-app/issues/3084
@@ -47,12 +38,6 @@ const openExternalUrl = async (rawUrl: string, showSnackbar: (snackbar: Snackbar
       // Opening internal links via Linking opens it in integreat again leading to an endless loop, see #2440
       showSnackbar({ text: 'noSuitableAppInstalled' })
     } else if (canBeOpenedWithOtherApp) {
-      sendTrackingSignal({
-        signal: {
-          name: OPEN_OS_LINK_SIGNAL_NAME,
-          url: encodedUrl,
-        },
-      })
       await Linking.openURL(encodedUrl)
     } else {
       showSnackbar({ text: 'noSuitableAppInstalled' })

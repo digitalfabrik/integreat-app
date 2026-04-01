@@ -34,7 +34,6 @@ const buildConfig = jest.fn<CommonBuildConfigType, []>(
       newsStream: false,
       pushNotifications: false,
       introSlides: true,
-      jpalTracking: false,
       sentry: true,
       developerFriendly: false,
       fixedCity: null,

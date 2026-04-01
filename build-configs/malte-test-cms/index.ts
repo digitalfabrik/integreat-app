@@ -17,7 +17,6 @@ const commonMalteTestCmsBuildConfig: CommonBuildConfigType = {
     newsStream: true,
     pushNotifications: true,
     introSlides: true,
-    jpalTracking: false,
     sentry: false,
     developerFriendly: true,
     fixedCity: null,

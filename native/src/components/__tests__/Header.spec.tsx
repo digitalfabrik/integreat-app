@@ -5,28 +5,25 @@ import { View, Linking } from 'react-native'
 import {
   CATEGORIES_ROUTE,
   CategoriesRouteType,
+  CHANGE_LANGUAGE_MODAL_ROUTE,
   DISCLAIMER_ROUTE,
   DisclaimerRouteType,
   NewsRouteType,
   POIS_ROUTE,
   PoisRouteType,
   SEARCH_ROUTE,
-  SHARE_SIGNAL_NAME,
 } from 'shared'
 import { LanguageModelBuilder, CityModelBuilder, LanguageModel } from 'shared/api'
 
 import { RouteProps } from '../../constants/NavigationTypes'
 import useSnackbar from '../../hooks/useSnackbar'
-import navigateToLanguageChange from '../../navigation/navigateToLanguageChange'
 import TestingAppContext from '../../testing/TestingAppContext'
 import createNavigationMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
 import cityShareName from '../../utils/cityShareName'
-import sendTrackingSignal from '../../utils/sendTrackingSignal'
 import Header from '../Header'
 
 jest.mock('../../hooks/useSnackbar')
-jest.mock('../../utils/sendTrackingSignal')
 jest.mock(
   '../ActionButtons',
   () =>
@@ -43,7 +40,6 @@ jest.mock('react-i18next', () => ({
   }),
 }))
 jest.mock('styled-components')
-jest.mock('../../navigation/navigateToLanguageChange')
 jest.mock('@react-native-community/netinfo')
 jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter')
 
@@ -117,13 +113,16 @@ describe('Header', () => {
       languages: languageModels,
       availableLanguages: defaultAvailableLanguages,
     })
-    // expect(getByLabelText(t('search'))).toHaveStyle({ color: '#4B6EDA' })
     fireEvent.press(getByLabelText(t('search')))
     await waitFor(() => expect(navigation.navigate).toHaveBeenCalledTimes(1))
     expect(navigation.navigate).toHaveBeenCalledWith(SEARCH_ROUTE, { searchText: null })
-    // expect(getByLabelText(t('changeLanguage'))).toHaveStyle({ color: '#4B6EDA' })
+
     fireEvent.press(getByLabelText(t('changeLanguage')))
-    await waitFor(() => expect(navigateToLanguageChange).toHaveBeenCalledTimes(1))
+    await waitFor(() => expect(navigation.navigate).toHaveBeenCalledTimes(2))
+    expect(navigation.navigate).toHaveBeenCalledWith(CHANGE_LANGUAGE_MODAL_ROUTE, {
+      availableLanguages: defaultAvailableLanguages,
+      languages: languageModels,
+    })
   })
 
   it('search and language change buttons should be disabled and invisible if showItems is false', () => {
@@ -168,7 +167,7 @@ describe('Header', () => {
       availableLanguages: [languageModel.code],
     })
     fireEvent.press(getByLabelText(t('changeLanguage')))
-    expect(navigateToLanguageChange).not.toHaveBeenCalled()
+    expect(navigation.navigate).not.toHaveBeenCalled()
     await waitFor(() => expect(showSnackbar).toHaveBeenCalledWith({ text: 'layout:noTranslation' }))
     expect(showSnackbar).toHaveBeenCalledTimes(1)
   })
@@ -189,9 +188,6 @@ describe('Header', () => {
     fireEvent.press(getByText('WhatsApp'))
 
     expect(openURL).toHaveBeenCalled()
-    expect(sendTrackingSignal).toHaveBeenCalledWith({
-      signal: { name: SHARE_SIGNAL_NAME, url: 'https://example.com/share' },
-    })
 
     expect(showSnackbar).toHaveBeenCalledWith({ text: 'generalError' })
   })
@@ -208,9 +204,6 @@ describe('Header', () => {
     fireEvent.press(getByText('WhatsApp'))
 
     expect(openURL).toHaveBeenCalled()
-    expect(sendTrackingSignal).toHaveBeenCalledWith({
-      signal: { name: SHARE_SIGNAL_NAME, url: 'https://example.com/share' },
-    })
   })
 
   it('should use the route name in the share message if no page title is set', () => {
@@ -225,9 +218,6 @@ describe('Header', () => {
     fireEvent.press(getByText('WhatsApp'))
 
     expect(openURL).toHaveBeenCalled()
-    expect(sendTrackingSignal).toHaveBeenCalledWith({
-      signal: { name: SHARE_SIGNAL_NAME, url: 'https://example.com/share' },
-    })
   })
 
   it('should remove the page title in the share message if it equals the city name', () => {
@@ -242,8 +232,5 @@ describe('Header', () => {
     fireEvent.press(getByText('WhatsApp'))
 
     expect(openURL).toHaveBeenCalled()
-    expect(sendTrackingSignal).toHaveBeenCalledWith({
-      signal: { name: SHARE_SIGNAL_NAME, url: 'https://example.com/share' },
-    })
   })
 })

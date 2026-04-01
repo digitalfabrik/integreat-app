@@ -6,7 +6,6 @@ import {
   CITY_NOT_COOPERATING_ROUTE,
   cityContentPath,
   CONSENT_ROUTE,
-  JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
   LICENSES_ROUTE,
   MAIN_DISCLAIMER_ROUTE,
@@ -22,7 +21,6 @@ import useScrollToTop from './hooks/useScrollToTop'
 import { cityContentPattern, RoutePatterns } from './routes'
 import CityNotCooperatingPage from './routes/CityNotCooperatingPage'
 import ConsentPage from './routes/ConsentPage'
-import JpalTrackingPage from './routes/JpalTrackingPage'
 import lazyWithRetry from './utils/retryImport'
 
 type RootSwitcherProps = {
@@ -36,7 +34,7 @@ const LicensesPage = lazyWithRetry(() => import('./routes/LicensesPage'))
 
 const RootSwitcher = ({ setContentLanguage }: RootSwitcherProps): ReactElement => {
   const { i18n } = useTranslation()
-  const { fixedCity, cityNotCooperating, jpalTracking } = buildConfig().featureFlags
+  const { fixedCity, cityNotCooperating } = buildConfig().featureFlags
   const { routeParam0, routeParam1, '*': splat } = useMatch('/:routeParam0/:routeParam1/*')?.params ?? {}
   useScrollToTop()
 
@@ -74,11 +72,6 @@ const RootSwitcher = ({ setContentLanguage }: RootSwitcherProps): ReactElement =
           path={RoutePatterns[CITY_NOT_COOPERATING_ROUTE]}
           element={<CityNotCooperatingPage languageCode={language} />}
         />
-      )}
-      {jpalTracking && (
-        <Route path={RoutePatterns[JPAL_TRACKING_ROUTE]} element={<JpalTrackingPage />}>
-          <Route path=':trackingCode' element={null} />
-        </Route>
       )}
 
       {/* Redirects */}

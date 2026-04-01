@@ -4,7 +4,6 @@ import {
   ConsentRouteType,
   DisclaimerRouteType,
   EventsRouteType,
-  JpalTrackingRouteType,
   LandingRouteType,
   LicensesRouteType,
   LocalNewsType,
@@ -36,11 +35,6 @@ export type ConsentInformationType = {
 export type CityNotCooperatingInformationType = {
   route: CityNotCooperatingRouteType
   languageCode: string
-}
-
-export type JpalTrackingRouteInformationType = {
-  route: JpalTrackingRouteType
-  trackingCode: string | null
 }
 
 export type CategoriesRouteInformationType = ParamsType & {
@@ -84,7 +78,6 @@ export type SearchRouteInformationType = ParamsType & {
 export type NonNullableRouteInformationType =
   | LandingRouteInformationType
   | CityNotCooperatingInformationType
-  | JpalTrackingRouteInformationType
   | CategoriesRouteInformationType
   | NewsRouteInformationType
   | SimpleCityContentFeatureType

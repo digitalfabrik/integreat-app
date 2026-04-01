@@ -4,12 +4,9 @@ import { useTranslation } from 'react-i18next'
 import { Linking } from 'react-native'
 import { Menu, IconButton, useTheme } from 'react-native-paper'
 
-import { SHARE_SIGNAL_NAME } from 'shared'
-
 import buildConfig from '../constants/buildConfig'
 import { AppContext } from '../contexts/AppContextProvider'
 import useSnackbar from '../hooks/useSnackbar'
-import sendTrackingSignal from '../utils/sendTrackingSignal'
 import { reportError } from '../utils/sentry'
 import MenuAccordion, { withDividers } from './MenuAccordion'
 
@@ -64,9 +61,6 @@ const HeaderMenu = ({
   const mailUrl = `mailto:?subject=${encodedTitle}&body=${shareMessage}%0a${encodedShareUrl}`
 
   const openUrl = async (url: string) => {
-    if (shareUrl) {
-      sendTrackingSignal({ signal: { name: SHARE_SIGNAL_NAME, url: shareUrl } })
-    }
     try {
       await Linking.openURL(url)
     } catch (e) {

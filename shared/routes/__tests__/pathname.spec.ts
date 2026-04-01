@@ -2,7 +2,6 @@ import {
   CATEGORIES_ROUTE,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
-  JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
   LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
@@ -27,6 +26,7 @@ describe('pathname', () => {
       })
       expect(pathname).toBe('/augsburg/de/events/my-event-1235')
     })
+
     it('should return correct pathname for city content routes without path', () => {
       const pathname = cityContentPath({
         cityCode,
@@ -35,6 +35,7 @@ describe('pathname', () => {
       })
       expect(pathname).toBe('/augsburg/de/events')
     })
+
     it('should return correct pathname for city content routes without route', () => {
       const pathname = cityContentPath({
         cityCode,
@@ -43,6 +44,7 @@ describe('pathname', () => {
       })
       expect(pathname).toBe('/augsburg/de/willkommen/ankommen')
     })
+
     it('should return correct pathname for city content routes without route or path', () => {
       const pathname = cityContentPath({
         cityCode,
@@ -51,6 +53,7 @@ describe('pathname', () => {
       expect(pathname).toBe('/augsburg/de')
     })
   })
+
   describe('pathnameFromRouteInformation', () => {
     it('should return right pathname for landing route', () => {
       expect(
@@ -60,14 +63,7 @@ describe('pathname', () => {
         }),
       ).toBe(`/${LANDING_ROUTE}/${languageCode}`)
     })
-    it('should match landing route if pathname with tracking code', () => {
-      expect(
-        pathnameFromRouteInformation({
-          route: JPAL_TRACKING_ROUTE,
-          trackingCode: 'abcdef12345',
-        }),
-      ).toBe('/jpal')
-    })
+
     it('should match categories route if pathname is a city with a language', () => {
       expect(
         pathnameFromRouteInformation({
@@ -78,6 +74,7 @@ describe('pathname', () => {
         }),
       ).toBe(`/${cityCode}/ar`)
     })
+
     it('should match events route', () => {
       expect(
         pathnameFromRouteInformation({
@@ -87,6 +84,7 @@ describe('pathname', () => {
         }),
       ).toBe(`/${cityCode}/${languageCode}/${EVENTS_ROUTE}`)
     })
+
     it('should match single events route', () => {
       const pathname = `/${cityCode}/${languageCode}/${EVENTS_ROUTE}/1234`
       expect(
@@ -98,6 +96,7 @@ describe('pathname', () => {
         }),
       ).toBe(pathname)
     })
+
     it('should match pois route', () => {
       expect(
         pathnameFromRouteInformation({
@@ -107,6 +106,7 @@ describe('pathname', () => {
         }),
       ).toBe(`/${cityCode}/${languageCode}/${POIS_ROUTE}`)
     })
+
     it('should match single pois route', () => {
       const slug = 'tuer-an-tuer'
       const pathname = `/${cityCode}/${languageCode}/${POIS_ROUTE}/${slug}`
@@ -119,6 +119,7 @@ describe('pathname', () => {
         }),
       ).toBe(pathname)
     })
+
     it('should match disclaimer route', () => {
       expect(
         pathnameFromRouteInformation({
@@ -128,6 +129,7 @@ describe('pathname', () => {
         }),
       ).toBe(`/${cityCode}/${languageCode}/${DISCLAIMER_ROUTE}`)
     })
+
     it('should match search route', () => {
       expect(
         pathnameFromRouteInformation({
@@ -137,6 +139,7 @@ describe('pathname', () => {
         }),
       ).toBe(`/${cityCode}/${languageCode}/${SEARCH_ROUTE}`)
     })
+
     it('should match local news route', () => {
       expect(
         pathnameFromRouteInformation({
@@ -148,6 +151,7 @@ describe('pathname', () => {
         }),
       ).toBe(`/${cityCode}/${languageCode}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}`)
     })
+
     it('should match single local news route', () => {
       expect(
         pathnameFromRouteInformation({
@@ -159,6 +163,7 @@ describe('pathname', () => {
         }),
       ).toBe(`/${cityCode}/${languageCode}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}/1234`)
     })
+
     it('should match tunews route', () => {
       expect(
         pathnameFromRouteInformation({
@@ -170,6 +175,7 @@ describe('pathname', () => {
         }),
       ).toBe(`/${cityCode}/${languageCode}/${NEWS_ROUTE}/${TU_NEWS_TYPE}`)
     })
+
     it('should match single tunews route', () => {
       expect(
         pathnameFromRouteInformation({
@@ -181,6 +187,7 @@ describe('pathname', () => {
         }),
       ).toBe(`/${cityCode}/${languageCode}/${NEWS_ROUTE}/${TU_NEWS_TYPE}/1234`)
     })
+
     it('should match categories route', () => {
       const pathname = `/${cityCode}/${languageCode}/my/custom/category`
       expect(

@@ -1,23 +1,15 @@
 import React, { useEffect } from 'react'
 
-import {
-  IMAGE_VIEW_MODAL_ROUTE,
-  LANDING_ROUTE,
-  OPEN_INTERNAL_LINK_SIGNAL_NAME,
-  OPEN_MEDIA_SIGNAL_NAME,
-  PDF_VIEW_MODAL_ROUTE,
-} from 'shared'
+import { IMAGE_VIEW_MODAL_ROUTE, LANDING_ROUTE, PDF_VIEW_MODAL_ROUTE } from 'shared'
 
 import TestingAppContext from '../../testing/TestingAppContext'
 import createNavigationPropMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
 import openExternalUrl from '../../utils/openExternalUrl'
-import sendTrackingSignal from '../../utils/sendTrackingSignal'
 import useNavigate from '../useNavigate'
 import useNavigateToLink from '../useNavigateToLink'
 import useSnackbar from '../useSnackbar'
 
-jest.mock('../../utils/sendTrackingSignal')
 jest.mock('../../utils/openExternalUrl')
 jest.mock('../useNavigate')
 jest.mock('../useSnackbar')
@@ -56,13 +48,6 @@ describe('useNavigateToLink', () => {
     renderMockComponent(url)
     expect(navigation.navigate).toHaveBeenCalledTimes(1)
     expect(navigation.navigate).toHaveBeenCalledWith(PDF_VIEW_MODAL_ROUTE, { url, shareUrl: url })
-    expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
-    expect(sendTrackingSignal).toHaveBeenCalledWith({
-      signal: {
-        name: OPEN_MEDIA_SIGNAL_NAME,
-        url,
-      },
-    })
     expect(navigateTo).not.toHaveBeenCalled()
     expect(openExternalUrl).not.toHaveBeenCalled()
   })
@@ -74,13 +59,6 @@ describe('useNavigateToLink', () => {
     expect(navigation.navigate).toHaveBeenCalledWith(IMAGE_VIEW_MODAL_ROUTE, {
       url,
       shareUrl: url,
-    })
-    expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
-    expect(sendTrackingSignal).toHaveBeenCalledWith({
-      signal: {
-        name: OPEN_MEDIA_SIGNAL_NAME,
-        url,
-      },
     })
     expect(navigateTo).not.toHaveBeenCalled()
     expect(openExternalUrl).not.toHaveBeenCalled()
@@ -94,13 +72,6 @@ describe('useNavigateToLink', () => {
       url,
       shareUrl: url,
     })
-    expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
-    expect(sendTrackingSignal).toHaveBeenCalledWith({
-      signal: {
-        name: OPEN_MEDIA_SIGNAL_NAME,
-        url,
-      },
-    })
     expect(navigateTo).not.toHaveBeenCalled()
     expect(openExternalUrl).not.toHaveBeenCalled()
   })
@@ -112,13 +83,6 @@ describe('useNavigateToLink', () => {
     expect(navigation.navigate).toHaveBeenCalledWith(IMAGE_VIEW_MODAL_ROUTE, {
       url,
       shareUrl: url,
-    })
-    expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
-    expect(sendTrackingSignal).toHaveBeenCalledWith({
-      signal: {
-        name: OPEN_MEDIA_SIGNAL_NAME,
-        url,
-      },
     })
     expect(navigateTo).not.toHaveBeenCalled()
     expect(openExternalUrl).not.toHaveBeenCalled()
@@ -132,13 +96,6 @@ describe('useNavigateToLink', () => {
       route: LANDING_ROUTE,
       languageCode,
     })
-    expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
-    expect(sendTrackingSignal).toHaveBeenCalledWith({
-      signal: {
-        name: OPEN_INTERNAL_LINK_SIGNAL_NAME,
-        url,
-      },
-    })
     expect(navigation.navigate).not.toHaveBeenCalled()
     expect(openExternalUrl).not.toHaveBeenCalled()
   })
@@ -148,7 +105,6 @@ describe('useNavigateToLink', () => {
     renderMockComponent(url)
     expect(openExternalUrl).toHaveBeenCalledTimes(1)
     expect(openExternalUrl).toHaveBeenCalledWith(url, expect.any(Function))
-    expect(sendTrackingSignal).not.toHaveBeenCalled()
     expect(navigation.navigate).not.toHaveBeenCalled()
     expect(navigateTo).not.toHaveBeenCalled()
   })

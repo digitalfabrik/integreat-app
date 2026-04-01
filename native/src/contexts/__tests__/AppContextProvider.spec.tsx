@@ -93,9 +93,6 @@ describe('AppContextProvider', () => {
       errorTracking: false,
       allowPushNotifications: false,
       apiUrlOverride: 'https://webnext.integreat.app',
-      jpalTrackingEnabled: true,
-      jpalTrackingCode: '123456',
-      jpalSignals: [],
       externalSourcePermissions: { 'https://vimeo.com': true },
       selectedTheme: 'light',
     }

@@ -1,16 +1,14 @@
 import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
 
-import { CATEGORIES_ROUTE, SEND_FEEDBACK_SIGNAL_NAME, SEARCH_ROUTE } from 'shared'
+import { CATEGORIES_ROUTE, SEARCH_ROUTE } from 'shared'
 
 import render from '../../testing/render'
-import sendTrackingSignal from '../../utils/sendTrackingSignal'
 import FeedbackContainer from '../FeedbackContainer'
 
 const mockRequest = jest.fn()
 jest.mock('styled-components')
 jest.mock('react-i18next')
-jest.mock('../../utils/sendTrackingSignal')
 jest.mock('shared/api', () => ({
   ...jest.requireActual('shared/api'),
   createFeedbackEndpoint: (_unusedBaseUrl: string) => ({
@@ -59,17 +57,6 @@ describe('FeedbackContainer', () => {
       query: undefined,
       searchTerm: undefined,
     })
-    expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
-    expect(sendTrackingSignal).toHaveBeenCalledWith({
-      signal: {
-        name: SEND_FEEDBACK_SIGNAL_NAME,
-        feedback: {
-          positive: true,
-          numCharacters: 0,
-          contactMail: false,
-        },
-      },
-    })
   })
 
   it('should send feedback request with comment and contact information on submit without rating', async () => {
@@ -95,17 +82,6 @@ describe('FeedbackContainer', () => {
       contactMail,
       query: undefined,
       searchTerm: undefined,
-    })
-    expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
-    expect(sendTrackingSignal).toHaveBeenCalledWith({
-      signal: {
-        name: SEND_FEEDBACK_SIGNAL_NAME,
-        feedback: {
-          positive: null,
-          numCharacters: comment.length,
-          contactMail: true,
-        },
-      },
     })
   })
 
@@ -217,17 +193,6 @@ describe('FeedbackContainer', () => {
       query,
       searchTerm: query,
       slug: undefined,
-    })
-    expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
-    expect(sendTrackingSignal).toHaveBeenCalledWith({
-      signal: {
-        name: SEND_FEEDBACK_SIGNAL_NAME,
-        feedback: {
-          positive: false,
-          numCharacters: 0,
-          contactMail: false,
-        },
-      },
     })
   })
 })

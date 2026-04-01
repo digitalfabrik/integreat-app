@@ -16,7 +16,6 @@ const integreatE2e = {
     newsStream: true,
     pushNotifications: true,
     introSlides: false,
-    jpalTracking: false,
     sentry: false,
     developerFriendly: false,
     fixedCity: null,
