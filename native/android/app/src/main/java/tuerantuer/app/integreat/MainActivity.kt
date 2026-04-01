@@ -2,6 +2,8 @@ package tuerantuer.app.integreat
 
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.View
+import androidx.core.text.TextUtilsCompat
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.fabricEnabled
@@ -15,10 +17,9 @@ class MainActivity : ReactActivity() {
   private lateinit var currentLocale: Locale
 
   override fun onCreate(savedInstanceState: Bundle?) {
-    // Workaround to fix the rtl issue before this issue is resolved https://github.com/facebook/react-native/pull/54986
-    // Reads the device locale directly and sets the direction before initialization
-    val rtlLanguages = setOf("ar", "ckb", "pes", "prs", "ps", "id", "ur")
-    val isRTL = rtlLanguages.contains(Locale.getDefault().language)
+    // Workaround to fix the rtl issue caused seemingly by https://github.com/facebook/react-native/pull/53417
+    val locale = resources.configuration.locales[0]
+    val isRTL = TextUtilsCompat.getLayoutDirectionFromLocale(locale) == View.LAYOUT_DIRECTION_RTL
 
     I18nUtil.instance.allowRTL(this, true)
     I18nUtil.instance.forceRTL(this, isRTL)
