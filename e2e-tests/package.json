@@ -28,11 +28,5 @@
     "appium": "^3.1.2",
     "tsx": "^4.21.0",
     "webdriverio": "^9.23.2"
-  },
-  "workspaces": {
-    "nohoist": [
-      "@wdio/**",
-      "**/@wdio/**"
-    ]
   }
 }

@@ -144,15 +144,18 @@ const createConfig = (
     console.log('Configured for running in dev server')
   }
 
-  const configAssets = resolve(__dirname, `../node_modules/build-configs/${buildConfigName}/assets`)
+  const root = resolve(__dirname, '../..')
+  const configAssets = resolve(root, `node_modules/build-configs/${buildConfigName}/assets`)
+  const rootNodeModules = resolve(root, 'node_modules')
 
-  const nodeModules = resolve(__dirname, '../node_modules')
-  const rootNodeModules = resolve(__dirname, '../../node_modules')
-  const wwwDirectory = resolve(__dirname, '../www')
-  const distDirectory = resolve(__dirname, `../dist/${buildConfigName}`)
-  const srcDirectory = resolve(__dirname, '../src')
+  const projectRoot = resolve(__dirname, '..')
+  const wwwDirectory = resolve(projectRoot, 'www')
+  const srcDirectory = resolve(projectRoot, 'src')
+  const bundleReportDirectory = resolve(projectRoot, 'reports/bundle')
+
+  const distDirectory = resolve(projectRoot, `dist/${buildConfigName}`)
   const wellKnownDirectory = resolve(distDirectory, '.well-known')
-  const bundleReportDirectory = resolve(__dirname, '../reports/bundle')
+
   const manifestPreset = resolve(__dirname, 'manifest.json')
   const assetLinksPreset = resolve(__dirname, 'assetlinks.json')
   const appleAppSiteAssociationPreset = resolve(__dirname, 'apple-app-site-association')
@@ -166,7 +169,7 @@ const createConfig = (
     mode: devServer ? 'development' : 'production',
     resolve: {
       extensions: ['.tsx', '.ts', '.js'],
-      modules: [nodeModules, rootNodeModules],
+      modules: [rootNodeModules],
       alias: {
         'mapbox-gl': 'maplibre-gl',
       },

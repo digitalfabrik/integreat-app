@@ -217,8 +217,8 @@ export default defineConfig([
     languageOptions: {
       parser: plugins.typescriptEslint.parser,
       parserOptions: {
-        // New typescript-eslint mode: uses a shared project service instead of per-file program creation.
         projectService: true,
+        tsconfigRootDir: import.meta.dirname,
       },
     },
   },
@@ -232,6 +232,7 @@ export default defineConfig([
       '.eslintrc.js',
       'eslint.config.mjs',
       '**/*.js',
+      '.yarn/',
       'web/www/',
       'build-configs/integreat-e2e/assets/',
       'build-configs/integreat-test-cms/assets/',

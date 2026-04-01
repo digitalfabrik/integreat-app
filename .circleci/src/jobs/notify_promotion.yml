@@ -12,7 +12,7 @@ steps:
   - run:
       name: Remove prerelease flag from github release
       command: |
-        RELEASE=$(yarn --silent app-toolbelt v0 release promote --platform << parameters.platform >> --private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME})
+        RELEASE=$(npx --no app-toolbelt v0 release promote --platform << parameters.platform >> --private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME})
         echo "export RELEASE='${RELEASE}'" >> $BASH_ENV
       working_directory: tools
   - notify:
