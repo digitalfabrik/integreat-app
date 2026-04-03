@@ -27,11 +27,11 @@ __metadata:
     express: "npm:5.2.1"
     fastest-levenshtein: "npm:1.0.16"
     http-status-codes: "npm:2.3.0"
-    lodash: "npm:4.17.23"
+    lodash: "npm:^4.17.23"
     lru-cache: "npm:11.2.6"
     method-override: "npm:3.0.0"
     morgan: "npm:1.10.1"
-    path-to-regexp: "npm:8.3.0"
+    path-to-regexp: "npm:8.4.0"
     serve-favicon: "npm:2.5.1"
     spdy: "npm:4.0.2"
     type-fest: "npm:5.4.4"
@@ -61,12 +61,12 @@ __metadata:
     consola: "npm:3.4.2"
     diff: "npm:8.0.3"
     lilconfig: "npm:3.1.3"
-    lodash: "npm:4.17.23"
+    lodash: "npm:^4.17.23"
     package-directory: "npm:8.2.0"
     read-pkg: "npm:10.1.0"
     teen_process: "npm:4.0.10"
     type-fest: "npm:5.4.4"
-    yaml: "npm:2.8.2"
+    yaml: "npm:^2.8.2"
     yargs: "npm:18.0.0"
     yargs-parser: "npm:22.0.0"
   bin:
@@ -80,7 +80,7 @@ __metadata:
   resolution: "@appium/logger@npm:2.0.5"
   dependencies:
     console-control-strings: "npm:1.1.0"
-    lodash: "npm:4.17.23"
+    lodash: "npm:^4.17.23"
     lru-cache: "npm:11.2.6"
     set-blocking: "npm:2.0.0"
   checksum: 10c0/6319d13226a690800972b63bdf58e7f86d445f4a8f001f689603dd26d480d0426a75198869b652b73847ad0807c6ce25367e0e2c11c83b186f51aa551493ea14
@@ -117,7 +117,7 @@ __metadata:
     jsftp: "npm:2.1.3"
     klaw: "npm:4.1.0"
     lockfile: "npm:1.0.4"
-    lodash: "npm:4.17.23"
+    lodash: "npm:^4.17.23"
     log-symbols: "npm:7.0.1"
     ncp: "npm:2.0.0"
     package-directory: "npm:8.2.0"
@@ -134,7 +134,7 @@ __metadata:
     type-fest: "npm:5.4.4"
     uuid: "npm:13.0.0"
     which: "npm:6.0.1"
-    yauzl: "npm:3.2.0"
+    yauzl: "npm:3.3.0"
   dependenciesMeta:
     sharp:
       optional: true
@@ -6478,11 +6478,11 @@ __metadata:
   linkType: hard
 
 "@sinonjs/fake-timers@npm:^15.0.0":
-  version: 15.3.0
-  resolution: "@sinonjs/fake-timers@npm:15.3.0"
+  version: 15.1.1
+  resolution: "@sinonjs/fake-timers@npm:15.1.1"
   dependencies:
     "@sinonjs/commons": "npm:^3.0.1"
-  checksum: 10c0/172d21f5200069727f2aa90b35ab60068c1f0652c7d2a43f03bd6c2c2d75b87f4daa9fc7f1402f8c10e0849bb888d15d3364a194339b62307abd3a60cefbb929
+  checksum: 10c0/8eaaa1c9db91256dfe31f3503cdd844ea031ffd16276b3bcd95457432d666d6d027453af5f884e010dba4ebe264b50ac0aac049e192c5f370158da9b291206b9
   languageName: node
   linkType: hard
 
@@ -8760,7 +8760,7 @@ __metadata:
     axios: "npm:1.13.6"
     bluebird: "npm:3.7.2"
     lilconfig: "npm:3.1.3"
-    lodash: "npm:4.17.23"
+    lodash: "npm:^4.17.2333"
     lru-cache: "npm:11.2.6"
     ora: "npm:5.4.1"
     package-changed: "npm:3.0.0"
@@ -8770,7 +8770,7 @@ __metadata:
     type-fest: "npm:5.4.4"
     winston: "npm:3.19.0"
     ws: "npm:8.19.0"
-    yaml: "npm:2.8.2"
+    yaml: "npm:2.8.3"
   bin:
     appium: index.js
   checksum: 10c0/7ec3b7cceeef946c213f7af4a4cb37fd9993fad1b1cc25889a57aa90df1878c546a272f026b9ebace7d0ff4de73502ef0138bb910018436914edbc7015d8c0b5
@@ -16633,14 +16633,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:4.17.23":
-  version: 4.17.23
-  resolution: "lodash@npm:4.17.23"
-  checksum: 10c0/1264a90469f5bb95d4739c43eb6277d15b6d9e186df4ac68c3620443160fc669e2f14c11e7d8b2ccf078b81d06147c01a8ccced9aab9f9f63d50dcf8cace6bf6
-  languageName: node
-  linkType: hard
-
-"lodash@npm:^4.17.15, lodash@npm:^4.17.20, lodash@npm:^4.17.21, lodash@npm:^4.17.23":
+"lodash@npm:^4.17.15, lodash@npm:^4.17.20, lodash@npm:^4.17.21, lodash@npm:^4.17.23, lodash@npm:^4.17.2333":
   version: 4.18.1
   resolution: "lodash@npm:4.18.1"
   checksum: 10c0/757228fc68805c59789e82185135cf85f05d0b2d3d54631d680ca79ec21944ec8314d4533639a14b8bcfbd97a517e78960933041a5af17ecb693ec6eecb99a27
@@ -18563,10 +18556,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"path-to-regexp@npm:8.3.0":
-  version: 8.3.0
-  resolution: "path-to-regexp@npm:8.3.0"
-  checksum: 10c0/ee1544a73a3f294a97a4c663b0ce71bbf1621d732d80c9c9ed201b3e911a86cb628ebad691b9d40f40a3742fe22011e5a059d8eed2cf63ec2cb94f6fb4efe67c
+"path-to-regexp@npm:8.4.0":
+  version: 8.4.0
+  resolution: "path-to-regexp@npm:8.4.0"
+  checksum: 10c0/171a540aed2a5dff3da6e7584f263ae65d868daea382ea3bd1ddeb828912661133d5a94fce83bd3125f0799df8dfd4924b270e2987a31930901cfd94ae164b45
   languageName: node
   linkType: hard
 
@@ -24019,12 +24012,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yaml@npm:2.8.2":
-  version: 2.8.2
-  resolution: "yaml@npm:2.8.2"
+"yaml@npm:2.8.3, yaml@npm:^2.2.1, yaml@npm:^2.6.1, yaml@npm:^2.8.2":
+  version: 2.8.3
+  resolution: "yaml@npm:2.8.3"
   bin:
     yaml: bin.mjs
-  checksum: 10c0/703e4dc1e34b324aa66876d63618dcacb9ed49f7e7fe9b70f1e703645be8d640f68ab84f12b86df8ac960bac37acf5513e115de7c970940617ce0343c8c9cd96
+  checksum: 10c0/ddff0e11c1b467728d7eb4633db61c5f5de3d8e9373cf84d08fb0cdee03e1f58f02b9f1c51a4a8a865751695addbd465a77f73f1079be91fe5493b29c305fd77
   languageName: node
   linkType: hard
 
@@ -24032,15 +24025,6 @@ __metadata:
   version: 1.10.3
   resolution: "yaml@npm:1.10.3"
   checksum: 10c0/c309ff85a0a569a981d71ab9cf0fef68672a16b9cdf40639d1c3b30034f6cd16ee428602bd6d64ecf006f8c8bee499023cac236538f79898aa99fb5db529a2ed
-  languageName: node
-  linkType: hard
-
-"yaml@npm:^2.2.1, yaml@npm:^2.6.1":
-  version: 2.8.3
-  resolution: "yaml@npm:2.8.3"
-  bin:
-    yaml: bin.mjs
-  checksum: 10c0/ddff0e11c1b467728d7eb4633db61c5f5de3d8e9373cf84d08fb0cdee03e1f58f02b9f1c51a4a8a865751695addbd465a77f73f1079be91fe5493b29c305fd77
   languageName: node
   linkType: hard
 
@@ -24116,13 +24100,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yauzl@npm:3.2.0":
-  version: 3.2.0
-  resolution: "yauzl@npm:3.2.0"
+"yauzl@npm:3.3.0, yauzl@npm:^3.0.0":
+  version: 3.3.0
+  resolution: "yauzl@npm:3.3.0"
   dependencies:
     buffer-crc32: "npm:~0.2.3"
     pend: "npm:~1.2.0"
-  checksum: 10c0/7b40b3dc46b95761a2a764391d257a11f494d365875af73a1b48fe16d4bd103dd178612e60168d12a0e59a8ba4f6411a15a5e8871d5a5f78255d6cc1ce39ee62
+  checksum: 10c0/935e32054171104bdf8a4091180f61b5698d8b90ee64552bb643c2176f815d4215d0764e3f41e0d9a1e4525b37602bf145ec5fd39dd014f0be7290851ce3acce
   languageName: node
   linkType: hard
 
@@ -24133,16 +24117,6 @@ __metadata:
     buffer-crc32: "npm:~0.2.3"
     fd-slicer: "npm:~1.1.0"
   checksum: 10c0/f265002af7541b9ec3589a27f5fb8f11cf348b53cc15e2751272e3c062cd73f3e715bc72d43257de71bbaecae446c3f1b14af7559e8ab0261625375541816422
-  languageName: node
-  linkType: hard
-
-"yauzl@npm:^3.0.0":
-  version: 3.3.0
-  resolution: "yauzl@npm:3.3.0"
-  dependencies:
-    buffer-crc32: "npm:~0.2.3"
-    pend: "npm:~1.2.0"
-  checksum: 10c0/935e32054171104bdf8a4091180f61b5698d8b90ee64552bb643c2176f815d4215d0764e3f41e0d9a1e4525b37602bf145ec5fd39dd014f0be7290851ce3acce
   languageName: node
   linkType: hard
 
