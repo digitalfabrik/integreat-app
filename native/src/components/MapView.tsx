@@ -130,10 +130,11 @@ const MapView = ({
   const onRequestLocation = useCallback(async () => {
     const newUserLocation = userLocation ?? (await refreshPermissionAndLocation())?.coordinates
     if (newUserLocation) {
+      setUserLocation(newUserLocation)
       moveTo(newUserLocation)
       setFollowUserLocation(true)
     }
-  }, [refreshPermissionAndLocation, moveTo, userLocation])
+  }, [refreshPermissionAndLocation, moveTo, setUserLocation, userLocation])
 
   useEffect(() => {
     if (selectedFeature) {
