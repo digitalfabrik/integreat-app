@@ -145,6 +145,7 @@ const Header = ({
 
   const renderMenuItem = (title: string, onPress: () => void, icon?: string): ReactElement => (
     <Menu.Item
+      accessibilityLabel={t(title)}
       leadingIcon={icon ?? IconPlaceholder}
       key={title}
       title={t(title)}
