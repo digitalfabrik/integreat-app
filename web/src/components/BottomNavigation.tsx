@@ -17,16 +17,19 @@ import Link from './base/Link'
 
 export const BOTTOM_NAVIGATION_ELEMENT_ID = 'bottom-navigation'
 
-const Container = styled(Paper)({
+const Container = styled(Paper)(({ theme }) => ({
   position: 'fixed',
   bottom: 0,
   left: 0,
   right: 0,
   // Positon bottom navigation above bottom sheet
   zIndex: 10,
-  // it removes space under bottom navigation for chrome on iOS
+  // Remove the space under the bottom navigation for chrome on iOS
+  // https://github.com/digitalfabrik/integreat-app/issues/3968
   paddingBottom: 'env(safe-area-inset-bottom)',
-})
+  backgroundColor: theme.palette.background.accent,
+  backgroundImage: 'none',
+}))
 
 const StyledBottomNavigation = styled(MuiBottomNavigation)(({ theme }) => ({
   backgroundColor: theme.palette.background.accent,
