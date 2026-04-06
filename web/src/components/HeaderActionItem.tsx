@@ -19,7 +19,7 @@ type HeaderActionItemLinkProps = {
   text: string
   icon: ReactElement
   innerText?: string
-} & ({ to: string; onClick?: never } | { to?: never; onClick: () => void })
+} & ({ to: string; onClick?: never } | { to?: never; onClick: (event: React.MouseEvent<HTMLButtonElement>) => void })
 
 const HeaderActionItem = ({ to, text, icon, onClick, innerText }: HeaderActionItemLinkProps): ReactElement => {
   if (innerText) {

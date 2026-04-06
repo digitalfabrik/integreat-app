@@ -16,7 +16,7 @@ import Chat from './Chat'
 
 type ChatControllerProps = {
   city: CityModel
-  language: string
+  languageCode: string
 }
 
 const LOCAL_STORAGE_ITEM_CHAT_MESSAGES = 'Chat-Device-Id'
@@ -24,7 +24,7 @@ const LOCAL_STORAGE_ITEM_CHAT_PRIVACY_POLICIES = 'Chat-Privacy-Policies'
 const DEFAULT_POLLING_INTERVAL = 15000
 const TYPING_POLLING_INTERVAL = 3000
 
-const ChatController = ({ city, language }: ChatControllerProps): ReactElement => {
+const ChatController = ({ city, languageCode }: ChatControllerProps): ReactElement => {
   const cityCode = city.code
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
   const isBrowserTabActive = useIsTabActive()
@@ -39,7 +39,7 @@ const ChatController = ({ city, language }: ChatControllerProps): ReactElement =
     error,
     loading,
     setData,
-  } = useLoadFromEndpoint(createChatMessagesEndpoint, cmsApiBaseUrl, { cityCode, language, deviceId })
+  } = useLoadFromEndpoint(createChatMessagesEndpoint, cmsApiBaseUrl, { cityCode, language: languageCode, deviceId })
   const botTyping = chatMessagesReturn?.botTyping
   const messageCount = chatMessagesReturn?.messages.length ?? 0
 
@@ -62,7 +62,7 @@ const ChatController = ({ city, language }: ChatControllerProps): ReactElement =
     setSendingStatus('sending')
     const { data, error } = await createSendChatMessageEndpoint(cmsApiBaseUrl).request({
       cityCode,
-      language,
+      language: languageCode,
       message,
       deviceId,
     })
@@ -88,7 +88,7 @@ const ChatController = ({ city, language }: ChatControllerProps): ReactElement =
       isTyping={botTyping ?? false}
       privacyPolicyAccepted={privacyPolicyAccepted}
       acceptPrivacyPolicy={acceptCustomPrivacyPolicy}
-      languageCode={language}
+      languageCode={languageCode}
     />
   )
 }

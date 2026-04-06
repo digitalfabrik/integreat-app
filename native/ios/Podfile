@@ -33,6 +33,17 @@ target 'Integreat' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
+  # https://github.com/invertase/react-native-firebase/issues/8657#issuecomment-3985785611
+  pre_install do |installer|
+    installer.pod_targets.each do |pod|
+      if pod.name.start_with?('RNFB')
+        def pod.build_type
+          Pod::BuildType.static_library
+        end
+      end
+    end
+  end
+
   post_install do |installer|
     react_native_post_install(
       installer,

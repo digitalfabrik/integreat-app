@@ -2,10 +2,13 @@ package tuerantuer.app.integreat
 
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.View
+import androidx.core.text.TextUtilsCompat
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.fabricEnabled
 import com.facebook.react.defaults.DefaultReactActivityDelegate
+import com.facebook.react.modules.i18nmanager.I18nUtil
 
 import java.util.Locale
 
@@ -14,6 +17,14 @@ class MainActivity : ReactActivity() {
   private lateinit var currentLocale: Locale
 
   override fun onCreate(savedInstanceState: Bundle?) {
+    // Workaround for the layout not being RTL for RTL languages
+    // https://github.com/facebook/react-native/pull/53417
+    // https://github.com/digitalfabrik/integreat-app/issues/3759
+    val locale = resources.configuration.locales[0]
+    val isRTL = TextUtilsCompat.getLayoutDirectionFromLocale(locale) == View.LAYOUT_DIRECTION_RTL
+
+    I18nUtil.instance.allowRTL(this, true)
+    I18nUtil.instance.forceRTL(this, isRTL)
     // https://github.com/software-mansion/react-native-screens#android
     // https://reactnavigation.org/docs/getting-started/#installing-dependencies-into-a-bare-react-native-project
     super.onCreate(null)

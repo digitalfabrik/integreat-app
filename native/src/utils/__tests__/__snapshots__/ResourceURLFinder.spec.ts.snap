@@ -3,19 +3,19 @@
 exports[`ResourceURLFinder should build a correct fetch map using previously cached files 1`] = `
 [
   {
-    "filePath": "buildFilePath('https://ex.am/pl1.png', 'c0ae5631859192e60552f726dbff7451')",
+    "filePath": "buildFilePath('https://ex.am/pl1.png', '4a57b814b61445f733ee38b293a9649791fdf5b0ec61ae8c8d6cec6ec600eca5')",
     "url": "https://ex.am/pl1.png",
-    "urlHash": "c0ae5631859192e60552f726dbff7451",
+    "urlHash": "4a57b814b61445f733ee38b293a9649791fdf5b0ec61ae8c8d6cec6ec600eca5",
   },
   {
-    "filePath": "buildFilePath('https://ex.am/pl3.jpg', '6ba91558f5aef480b713db809868a070')",
+    "filePath": "buildFilePath('https://ex.am/pl3.jpg', '9a00de74f977bc57226ac51b154ed0c30123e06934bbe6a5898933b107ab8520')",
     "url": "https://ex.am/pl3.jpg",
-    "urlHash": "6ba91558f5aef480b713db809868a070",
+    "urlHash": "9a00de74f977bc57226ac51b154ed0c30123e06934bbe6a5898933b107ab8520",
   },
   {
-    "filePath": "buildFilePath('https://ex.am/thumb.png', 'ca774e6debbeeafff1b6d4fe23c3079d')",
+    "filePath": "buildFilePath('https://ex.am/thumb.png', 'affdc069cb7ff45eb9a06b1875994a86ac948d4e8e706b32494fcafe8c710901')",
     "url": "https://ex.am/thumb.png",
-    "urlHash": "ca774e6debbeeafff1b6d4fe23c3079d",
+    "urlHash": "affdc069cb7ff45eb9a06b1875994a86ac948d4e8e706b32494fcafe8c710901",
   },
 ]
 `;
@@ -23,19 +23,19 @@ exports[`ResourceURLFinder should build a correct fetch map using previously cac
 exports[`ResourceURLFinder should build a fetchMap including thumbnails if supplied 1`] = `
 [
   {
-    "filePath": "buildFilePath('https://ex.am/pl1.png', 'c0ae5631859192e60552f726dbff7451')",
+    "filePath": "buildFilePath('https://ex.am/pl1.png', '4a57b814b61445f733ee38b293a9649791fdf5b0ec61ae8c8d6cec6ec600eca5')",
     "url": "https://ex.am/pl1.png",
-    "urlHash": "c0ae5631859192e60552f726dbff7451",
+    "urlHash": "4a57b814b61445f733ee38b293a9649791fdf5b0ec61ae8c8d6cec6ec600eca5",
   },
   {
-    "filePath": "buildFilePath('https://ex.am/thumb.png', 'ca774e6debbeeafff1b6d4fe23c3079d')",
+    "filePath": "buildFilePath('https://ex.am/thumb.png', 'affdc069cb7ff45eb9a06b1875994a86ac948d4e8e706b32494fcafe8c710901')",
     "url": "https://ex.am/thumb.png",
-    "urlHash": "ca774e6debbeeafff1b6d4fe23c3079d",
+    "urlHash": "affdc069cb7ff45eb9a06b1875994a86ac948d4e8e706b32494fcafe8c710901",
   },
   {
-    "filePath": "buildFilePath('https://ex.am/pl2.png', '2961bd9c8033abba619971942578d4e2')",
+    "filePath": "buildFilePath('https://ex.am/pl2.png', '09b4b89f252e8f729a96438084122e84bcafb8d40eef94005d863ec78ffbb572')",
     "url": "https://ex.am/pl2.png",
-    "urlHash": "2961bd9c8033abba619971942578d4e2",
+    "urlHash": "09b4b89f252e8f729a96438084122e84bcafb8d40eef94005d863ec78ffbb572",
   },
 ]
 `;

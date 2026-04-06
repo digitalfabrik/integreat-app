@@ -1,5 +1,5 @@
+import { sha256 } from 'js-sha256'
 import { DateTime } from 'luxon'
-import md5 from 'md5'
 import { rrulestr } from 'rrule'
 import seedrandom from 'seedrandom'
 
@@ -48,7 +48,7 @@ class EventModelBuilder {
   }
 
   createResource(url: string, index: number, lastUpdate: DateTime): PageResourceCacheEntryStateType {
-    const hash = md5(url)
+    const hash = sha256(url)
     return {
       filePath: `path/to/documentDir/resource-cache/v1/${this._city}/files/${hash}.png`,
       lastUpdate: lastUpdate.plus({ days: this._predictableNumber(index) }),

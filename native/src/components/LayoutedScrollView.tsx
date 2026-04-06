@@ -15,6 +15,7 @@ const LayoutedScrollView = ({ children, refreshControl, style }: LayoutedScrollV
       keyboardShouldPersistTaps='always'
       // Fixes VirtualizedLists nesting error
       // See https://github.com/facebook/react-native/issues/31697#issuecomment-1742437232
+      automaticallyAdjustKeyboardInsets
       nestedScrollEnabled
       refreshControl={refreshControl}
       contentContainerStyle={[

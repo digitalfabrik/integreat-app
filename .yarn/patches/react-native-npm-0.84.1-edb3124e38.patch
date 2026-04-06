@@ -1,7 +1,7 @@
-diff --git a/node_modules/react-native/Libraries/Animated/nodes/AnimatedNode.js b/node_modules/react-native/Libraries/Animated/nodes/AnimatedNode.js
-index 29ca679..aa5781d 100644
---- a/node_modules/react-native/Libraries/Animated/nodes/AnimatedNode.js
-+++ b/node_modules/react-native/Libraries/Animated/nodes/AnimatedNode.js
+diff --git a/Libraries/Animated/nodes/AnimatedNode.js b/Libraries/Animated/nodes/AnimatedNode.js
+index 9cf3b990d18c48800724641e5a1253d598c71e5d..e60b24d3f025a03a02696e99689c363d1be06d99 100644
+--- a/Libraries/Animated/nodes/AnimatedNode.js
++++ b/Libraries/Animated/nodes/AnimatedNode.js
 @@ -122,9 +122,11 @@ export default class AnimatedNode {
  
    __callListeners(value: number): void {

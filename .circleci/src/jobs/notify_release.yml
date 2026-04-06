@@ -18,7 +18,7 @@ steps:
   - run:
       name: Create github release
       command: |
-        RELEASE=$(yarn --silent app-toolbelt v0 release create << parameters.platform >> ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} <<# parameters.production_delivery >>--production-release<</ parameters.production_delivery >>)
+        RELEASE=$(npx --no app-toolbelt v0 release create << parameters.platform >> ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} <<# parameters.production_delivery >>--production-release<</ parameters.production_delivery >>)
         echo "export RELEASE_ID=$(echo ${RELEASE} | jq .id)" >> ${BASH_ENV}
         echo "export RELEASE_NOTES=$(echo ${RELEASE} | jq .releaseNotes)" >> ${BASH_ENV}
       working_directory: tools

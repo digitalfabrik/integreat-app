@@ -30,7 +30,7 @@ describe('ChatContainer', () => {
   it('should show privacy policy if not accepted yet', () => {
     const value = { testumgebung: true }
     mocked(useLocalStorage<Record<string, boolean>>).mockImplementation(() => ({ value, updateLocalStorageItem }))
-    const { getByText, queryByText } = renderWithTheme(<ChatController city={city} language='de' />)
+    const { getByText, queryByText } = renderWithTheme(<ChatController city={city} languageCode='de' />)
     expect(queryByText('conversationText')).toBeFalsy()
     expect(queryByText('conversationHelperText')).toBeFalsy()
     expect(getByText('privacyPolicyInformation')).toBeTruthy()
@@ -42,7 +42,7 @@ describe('ChatContainer', () => {
   it('should directly show chat if privacy policy already accepted', () => {
     const value = { testumgebung: true, augsburg: true }
     mocked(useLocalStorage<Record<string, boolean>>).mockImplementation(() => ({ value, updateLocalStorageItem }))
-    const { getByText, queryByText } = renderWithTheme(<ChatController city={city} language='de' />)
+    const { getByText, queryByText } = renderWithTheme(<ChatController city={city} languageCode='de' />)
     expect(queryByText('privacyPolicyInformation')).toBeFalsy()
     expect(getByText('conversationText')).toBeTruthy()
     expect(getByText('conversationHelperText')).toBeTruthy()
