@@ -56,10 +56,10 @@ const OpeningHours = ({
   if (isTemporarilyClosed || appointmentOnly) {
     const label = isTemporarilyClosed ? 'temporarilyClosed' : 'onlyWithAppointment'
     return (
-      <>
+      <Stack paddingBlock={1} gap={1}>
         <OpeningHoursTitle isCurrentlyOpen={isCurrentlyOpen} label={label} />
         {AppointmentLink}
-      </>
+      </Stack>
     )
   }
 
@@ -69,10 +69,7 @@ const OpeningHours = ({
 
   return (
     <>
-      <Accordion
-        id='hours'
-        title={<OpeningHoursTitle isCurrentlyOpen={isCurrentlyOpen} />}
-        defaultCollapsed={!isCurrentlyOpen}>
+      <Accordion id='hours' title={<OpeningHoursTitle isCurrentlyOpen={isCurrentlyOpen} />} defaultCollapsed>
         <HoursList hours={openingHours} appointmentUrl={appointmentUrl} />
       </Accordion>
       {AppointmentLink}
