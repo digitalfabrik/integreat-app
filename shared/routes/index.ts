@@ -23,9 +23,6 @@ export const DISCLAIMER_ROUTE: DisclaimerRouteType = 'disclaimer'
 export type SearchRouteType = 'search'
 export const SEARCH_ROUTE: SearchRouteType = 'search'
 
-export type JpalTrackingRouteType = 'jpal'
-export const JPAL_TRACKING_ROUTE: JpalTrackingRouteType = 'jpal'
-
 export type LicensesRouteType = 'licenses'
 export const LICENSES_ROUTE: LicensesRouteType = 'licenses'
 
@@ -91,7 +88,6 @@ export const RESERVED_TOP_LEVEL_SLUGS: string[] = [
   CONSENT_ROUTE,
   LICENSES_ROUTE,
   CITY_NOT_COOPERATING_ROUTE,
-  JPAL_TRACKING_ROUTE,
 ]
 
 // Changes done to the reserved routes have to be done in the CMS as well:

@@ -9,9 +9,11 @@ import {
   BOTTOM_TAB_NAVIGATION_ROUTE,
   CATEGORIES_ROUTE,
   CategoriesRouteType,
+  CHANGE_LANGUAGE_MODAL_ROUTE,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
   EventsRouteType,
+  FEEDBACK_MODAL_ROUTE,
   getSlugFromPath,
   LANDING_ROUTE,
   LICENSES_ROUTE,
@@ -31,8 +33,6 @@ import dimensions from '../constants/dimensions'
 import { AppContext } from '../contexts/AppContextProvider'
 import useSnackbar from '../hooks/useSnackbar'
 import useTtsPlayer from '../hooks/useTtsPlayer'
-import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
-import navigateToLanguageChange from '../navigation/navigateToLanguageChange'
 import supportedLanguages from '../utils/supportedLanguages'
 import ActionButtons from './ActionButtons'
 import HeaderActionItem from './HeaderActionItem'
@@ -168,7 +168,10 @@ const Header = ({
     if (availableLanguages?.length === 1 && availableLanguages[0] === languageCode) {
       showSnackbar({ text: 'layout:noTranslation' })
     } else if (languages && availableLanguages) {
-      navigateToLanguageChange({ navigation, availableLanguages, languages })
+      navigation.navigate(CHANGE_LANGUAGE_MODAL_ROUTE, {
+        languages,
+        availableLanguages,
+      })
     }
   }
 
@@ -200,7 +203,7 @@ const Header = ({
 
   const navigateToFeedback = () => {
     if (cityCode) {
-      createNavigateToFeedbackModal(navigation)({
+      navigation.navigate(FEEDBACK_MODAL_ROUTE, {
         routeType: route.name as FeedbackRouteType,
         language: languageCode,
         cityCode,

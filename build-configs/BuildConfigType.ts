@@ -30,8 +30,6 @@ export type FeatureFlagsType = FixedCityType & {
   newsStream: boolean
   // Enables firebase push notifications, can be disabled by users.
   pushNotifications: boolean
-  // Enables tracking campaign for the jpal evaluation.
-  jpalTracking: boolean
   // Enables error tracking to sentry, can be disabled by users.
   sentry: boolean
   // Enables additional debugging output for devs (i18n, hidden cities, version).

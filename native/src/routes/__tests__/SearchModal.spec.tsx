@@ -1,20 +1,11 @@
-import { fireEvent, waitFor } from '@testing-library/react-native'
+import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
 
-import {
-  CATEGORIES_ROUTE,
-  CategoriesRouteInformationType,
-  OPEN_PAGE_SIGNAL_NAME,
-  SEARCH_FINISHED_SIGNAL_NAME,
-} from 'shared'
 import { CategoriesMapModelBuilder, EventModelBuilder, ExtendedPageModel, PoiModelBuilder } from 'shared/api'
 
-import { urlFromRouteInformation } from '../../navigation/url'
 import render from '../../testing/render'
-import sendTrackingSignal from '../../utils/sendTrackingSignal'
 import SearchModal, { SearchModalProps } from '../SearchModal'
 
-jest.mock('../../utils/sendTrackingSignal')
 jest.mock('../../utils/openExternalUrl', () => async () => undefined)
 jest.mock('react-i18next')
 jest.mock('react-native-inappbrowser-reborn', () => ({
@@ -64,55 +55,6 @@ describe('SearchModal', () => {
   }
 
   const renderSearchModal = (props: SearchModalProps) => render(<SearchModal {...props} />)
-
-  it('should send tracking signal when closing search site', async () => {
-    const { getByPlaceholderText, getAllByRole } = renderSearchModal(props)
-    const goBackButton = getAllByRole('button')[0]!
-    const searchBar = getByPlaceholderText('searchPlaceholder')
-    fireEvent.changeText(searchBar, 'Category')
-    fireEvent.press(goBackButton)
-    await waitFor(() => expect(goBackButton).not.toBeDisabled())
-    await waitFor(() => expect(sendTrackingSignal).toHaveBeenCalledTimes(1))
-    expect(sendTrackingSignal).toHaveBeenCalledWith({
-      signal: {
-        name: SEARCH_FINISHED_SIGNAL_NAME,
-        query: 'Category',
-        url: null,
-      },
-    })
-  })
-
-  it('should send tracking signal when opening a search result', async () => {
-    const { getByText, getByPlaceholderText, getAllByRole } = renderSearchModal(props)
-    const goBackButton = getAllByRole('button')[0]!
-    const searchBar = getByPlaceholderText('searchPlaceholder')
-    fireEvent.changeText(searchBar, 'Category')
-    const categoryListItem = getByText('with id 1', { exact: false })
-    fireEvent.press(categoryListItem)
-    await waitFor(() => expect(goBackButton).not.toBeDisabled())
-    expect(sendTrackingSignal).toHaveBeenCalledTimes(2)
-    const routeInformation: CategoriesRouteInformationType = {
-      route: CATEGORIES_ROUTE,
-      cityContentPath: categoriesMapModel.toArray()[2]!.path,
-      cityCode,
-      languageCode,
-    }
-    const expectedUrl = urlFromRouteInformation(routeInformation)
-    expect(sendTrackingSignal).toHaveBeenCalledWith({
-      signal: {
-        name: SEARCH_FINISHED_SIGNAL_NAME,
-        query: 'Category',
-        url: expectedUrl,
-      },
-    })
-    expect(sendTrackingSignal).toHaveBeenCalledWith({
-      signal: {
-        name: OPEN_PAGE_SIGNAL_NAME,
-        pageType: 'categories',
-        url: expectedUrl,
-      },
-    })
-  })
 
   it('should show nothing found if there are no search results', () => {
     const { getByText, getByPlaceholderText } = renderSearchModal(props)

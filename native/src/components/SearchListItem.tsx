@@ -4,14 +4,12 @@ import { StyleSheet, View } from 'react-native'
 import { List as PaperList } from 'react-native-paper'
 import styled from 'styled-components/native'
 
-import { getExcerpt, InternalPathnameParser, SEARCH_FINISHED_SIGNAL_NAME } from 'shared'
+import { getExcerpt, InternalPathnameParser } from 'shared'
 
 import { SEARCH_PREVIEW_MAX_CHARS } from '../constants'
 import buildConfig from '../constants/buildConfig'
 import { contentAlignment } from '../constants/contentDirection'
 import useNavigate from '../hooks/useNavigate'
-import urlFromRouteInformation from '../navigation/url'
-import sendTrackingSignal from '../utils/sendTrackingSignal'
 import Highlighter from './Highlighter'
 
 const HighlighterCategoryTitle = styled(Highlighter)<{ language: string }>`
@@ -45,17 +43,6 @@ const SearchListItem = ({ language, title, contentWithoutHtml, query, path }: Se
     return <View />
   }
 
-  const navigateToSearchResult = (): void => {
-    sendTrackingSignal({
-      signal: {
-        name: SEARCH_FINISHED_SIGNAL_NAME,
-        query,
-        url: urlFromRouteInformation(routeInformation),
-      },
-    })
-    navigateTo(routeInformation)
-  }
-
   return (
     <PaperList.Item
       titleNumberOfLines={0}
@@ -63,7 +50,7 @@ const SearchListItem = ({ language, title, contentWithoutHtml, query, path }: Se
       borderless
       title={<HighlighterCategoryTitle language={language} text={title} search={query} />}
       description={excerpt.length > 0 ? <Highlighter search={query} text={excerpt} /> : undefined}
-      onPress={navigateToSearchResult}
+      onPress={() => navigateTo(routeInformation)}
       role='link'
       accessibilityHint={t('itemHint')}
       accessibilityLanguage={language}

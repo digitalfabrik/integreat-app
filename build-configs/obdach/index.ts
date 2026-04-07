@@ -27,7 +27,6 @@ const commonObdachBuildConfig: CommonBuildConfigType = {
     newsStream: true,
     pushNotifications: false,
     introSlides: false,
-    jpalTracking: false,
     sentry: false,
     developerFriendly: false,
     fixedCity: null,

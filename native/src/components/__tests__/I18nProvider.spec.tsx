@@ -4,13 +4,11 @@ import { Translation } from 'react-i18next'
 
 import render from '../../testing/render'
 import NativeLanguageDetector from '../../utils/NativeLanguageDetector'
-import { setSystemLanguage } from '../../utils/sendTrackingSignal'
 import I18nProvider from '../I18nProvider'
 import Text from '../base/Text'
 
 jest.mock('../../utils/NativeLanguageDetector')
 jest.mock('translations/src/loadTranslations')
-jest.mock('../../utils/sendTrackingSignal')
 
 const { mocked } = jest
 const mockDetect = mocked(NativeLanguageDetector.detect)
@@ -18,17 +16,6 @@ const mockDetect = mocked(NativeLanguageDetector.detect)
 describe('I18nProvider', () => {
   beforeEach(async () => {
     jest.clearAllMocks()
-  })
-
-  it('should set system language if not yet set', async () => {
-    mockDetect.mockReturnValue('kmr')
-    render(
-      <I18nProvider>
-        <Text>Hello</Text>
-      </I18nProvider>,
-    )
-    await waitFor(async () => expect(setSystemLanguage).toHaveBeenCalledWith('kmr'))
-    expect(setSystemLanguage).toHaveBeenCalledTimes(1)
   })
 
   it('should show error if loading fails', async () => {

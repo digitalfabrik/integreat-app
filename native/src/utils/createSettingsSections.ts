@@ -4,7 +4,7 @@ import { Role } from 'react-native'
 import { openSettings } from 'react-native-permissions'
 
 import { ThemeKey } from 'build-configs/ThemeKey'
-import { CONSENT_ROUTE, JPAL_TRACKING_ROUTE, LICENSES_ROUTE, SettingsRouteType } from 'shared'
+import { CONSENT_ROUTE, LICENSES_ROUTE, SettingsRouteType } from 'shared'
 
 import { SnackbarType } from '../components/SnackbarContainer'
 import NativeConstants from '../constants/NativeConstants'
@@ -157,17 +157,6 @@ const createSettingsSections = ({
       await openExternalUrl(linkToSBoM, showSnackbar)
     },
   },
-  buildConfig().featureFlags.jpalTracking && settings.jpalTrackingCode
-    ? {
-        title: t('tracking'),
-        description: t('trackingShortDescription', { appName: buildConfig().appName }),
-        getSettingValue: (settings: SettingsType) => settings.jpalTrackingEnabled,
-        hasBadge: true,
-        onPress: () => {
-          navigation.navigate(JPAL_TRACKING_ROUTE)
-        },
-      }
-    : null,
 ]
 
 export default createSettingsSections

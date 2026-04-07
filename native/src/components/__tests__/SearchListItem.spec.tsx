@@ -1,18 +1,15 @@
-import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
 
-import { NewsRouteType, parseHTML, SEARCH_FINISHED_SIGNAL_NAME } from 'shared'
+import { NewsRouteType, parseHTML } from 'shared'
 import { CategoriesMapModelBuilder, CityModelBuilder, LanguageModelBuilder } from 'shared/api'
 
 import useNavigate from '../../hooks/useNavigate'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
-import sendTrackingSignal from '../../utils/sendTrackingSignal'
 import SearchListItem from '../SearchListItem'
 
 jest.mock('react-i18next')
 jest.mock('styled-components')
-jest.mock('../../utils/sendTrackingSignal')
 
 jest.mock('../CategoryListItem', () => ({
   CategoryThumbnail: jest.fn(() => null),
@@ -89,20 +86,5 @@ describe('SearchListItem', () => {
 
     expect(getByText(category.title)).toBeTruthy()
     expect(getByText(category.title)).toHaveStyle({ fontWeight: 'bold' })
-  })
-
-  it('should send tracking signal when pressed', () => {
-    const query = 'test'
-    const { getByRole } = renderSearchListItem(query)
-
-    fireEvent.press(getByRole('link'))
-
-    expect(sendTrackingSignal).toHaveBeenCalledWith({
-      signal: {
-        name: SEARCH_FINISHED_SIGNAL_NAME,
-        query,
-        url: expect.any(String),
-      },
-    })
   })
 })

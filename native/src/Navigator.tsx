@@ -13,7 +13,6 @@ import {
   IMAGE_VIEW_MODAL_ROUTE,
   INTRO_ROUTE,
   IntroRouteType,
-  JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
   LandingRouteType,
   LICENSES_ROUTE,
@@ -42,7 +41,6 @@ import DisclaimerContainer from './routes/DisclaimerContainer'
 import FeedbackModalContainer from './routes/FeedbackModalContainer'
 import ImageViewModal from './routes/ImageViewModal'
 import Intro from './routes/Intro'
-import JpalTracking from './routes/JpalTracking'
 import Landing from './routes/Landing'
 import Licenses from './routes/Licenses'
 import LoadingErrorHandler from './routes/LoadingErrorHandler'
@@ -167,7 +165,6 @@ const Navigator = (): ReactElement | null => {
         <Stack.Screen name={PDF_VIEW_MODAL_ROUTE} component={PDFViewModal} />
         <Stack.Screen name={CHANGE_LANGUAGE_MODAL_ROUTE} component={ChangeLanguageModal} />
         <Stack.Screen name={IMAGE_VIEW_MODAL_ROUTE} component={ImageViewModal} />
-        <Stack.Screen name={JPAL_TRACKING_ROUTE} component={JpalTracking} />
         {buildConfig().featureFlags.cityNotCooperating && (
           <Stack.Screen name={CITY_NOT_COOPERATING_ROUTE} component={CityNotCooperating} />
         )}
