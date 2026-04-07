@@ -179,6 +179,7 @@ const RemoteContentSandBox = styled('div')<{ centered: boolean; smallText: boole
     ${props => props.theme.breakpoints.down('md')} {
       width: 100%;
     }
+
     ul.details {
       padding-inline-start: 24px;
       margin: 0;
@@ -192,7 +193,7 @@ const RemoteContentSandBox = styled('div')<{ centered: boolean; smallText: boole
 
         img:first-child {
           position: absolute;
-          left: -24px;
+          inset-inline-start: -24px;
           top: 1px;
           width: 16px;
           height: 16px;
