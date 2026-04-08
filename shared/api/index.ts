@@ -14,7 +14,7 @@ export { default as mapAvailableLanguages } from './mapping/mapAvailableLanguage
 export * from './types'
 export * from './endpoints/testing'
 export { ErrorCode, fromError } from './ErrorCodes'
-export { setUserAgent, setJpalTrackingCode, getJpalTrackingCode, request } from './request'
+export { setUserAgent, request } from './request'
 export type MapParamsToBodyType<P> = ImportedMapParamsToBodyType<P>
 export type MapParamsToUrlType<P> = ImportedMapParamsToUrlType<P>
 export type MapResponseType<P, T> = ImportedMapResponseType<P, T>
@@ -55,7 +55,6 @@ export {
   TUNEWS_ELEMENT_ENDPOINT_NAME,
 } from './endpoints/createTunewsElementEndpoint'
 export { default as createFeedbackEndpoint, FEEDBACK_ENDPOINT_NAME } from './endpoints/createFeedbackEndpoint'
-export { default as createTrackingEndpoint, TRACKING_ENDPOINT_NAME } from './endpoints/createTrackingEndpoint'
 export {
   default as submitMalteHelpForm,
   type ContactGender,

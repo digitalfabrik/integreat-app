@@ -3,7 +3,6 @@ import {
   CATEGORIES_ROUTE,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
-  JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
   LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
@@ -51,18 +50,6 @@ class InternalPathnameParser {
   isCityContentFeatureRoute = (feature: string): boolean => this._length > 2 && this._parts[2] === feature
 
   languageCode = (): string => this._parts[1] ?? this._fallbackLanguageCode
-
-  jpalTracking = (): RouteInformationType => {
-    if (this._length > 0 && this._length <= 2 && this._parts[0] === JPAL_TRACKING_ROUTE) {
-      const trackingCode = this._parts[1] ?? null
-      return {
-        route: JPAL_TRACKING_ROUTE,
-        trackingCode,
-      }
-    }
-
-    return null
-  }
 
   landing = (): RouteInformationType => {
     // There is no landing route if there is a fixed city
@@ -224,7 +211,6 @@ class InternalPathnameParser {
 
   route = (): RouteInformationType =>
     this.landing() ||
-    this.jpalTracking() ||
     this.events() ||
     this.pois() ||
     this.disclaimer() ||

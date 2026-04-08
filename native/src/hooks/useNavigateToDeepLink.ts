@@ -1,19 +1,12 @@
 import { useCallback } from 'react'
 import Url from 'url-parse'
 
-import {
-  InternalPathnameParser,
-  JPAL_TRACKING_ROUTE,
-  LANDING_ROUTE,
-  OPEN_DEEP_LINK_SIGNAL_NAME,
-  RouteInformationType,
-} from 'shared'
+import { InternalPathnameParser, LANDING_ROUTE, RouteInformationType } from 'shared'
 
 import { SnackbarType } from '../components/SnackbarContainer'
 import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import { AppContextType } from '../contexts/AppContextProvider'
-import sendTrackingSignal from '../utils/sendTrackingSignal'
 import { useAppContext } from './useCityAppContext'
 import useNavigate from './useNavigate'
 import useSnackbar from './useSnackbar'
@@ -33,15 +26,8 @@ const navigateToDeepLink = <T extends RoutesType>({
   showSnackbar,
   appContext,
 }: NavigateToDeepLinkParams<T>): void => {
-  const { cityCode, languageCode, changeCityCode, updateSettings } = appContext
+  const { cityCode, languageCode, changeCityCode } = appContext
   const { fixedCity } = buildConfig().featureFlags
-
-  sendTrackingSignal({
-    signal: {
-      name: OPEN_DEEP_LINK_SIGNAL_NAME,
-      url,
-    },
-  })
 
   const { pathname, query } = new Url(url)
   const routeInformation = new InternalPathnameParser(pathname, languageCode, fixedCity, query).route()
@@ -49,14 +35,6 @@ const navigateToDeepLink = <T extends RoutesType>({
   if (!routeInformation) {
     showSnackbar({ text: 'notFound.category' })
     return
-  }
-
-  if (routeInformation.route === JPAL_TRACKING_ROUTE && buildConfig().featureFlags.jpalTracking) {
-    if (routeInformation.trackingCode === null) {
-      updateSettings({ jpalTrackingEnabled: false })
-    } else {
-      updateSettings({ jpalTrackingCode: routeInformation.trackingCode })
-    }
   }
 
   const linkCityCode = (routeInformation as { cityCode?: string }).cityCode

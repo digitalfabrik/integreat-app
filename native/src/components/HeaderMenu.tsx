@@ -4,12 +4,9 @@ import { useTranslation } from 'react-i18next'
 import { Linking } from 'react-native'
 import { Menu, IconButton, useTheme } from 'react-native-paper'
 
-import { SHARE_SIGNAL_NAME } from 'shared'
-
 import buildConfig from '../constants/buildConfig'
 import { AppContext } from '../contexts/AppContextProvider'
 import useSnackbar from '../hooks/useSnackbar'
-import sendTrackingSignal from '../utils/sendTrackingSignal'
 import { reportError } from '../utils/sentry'
 import MenuAccordion, { withDividers } from './MenuAccordion'
 
@@ -64,9 +61,6 @@ const HeaderMenu = ({
   const mailUrl = `mailto:?subject=${encodedTitle}&body=${shareMessage}%0a${encodedShareUrl}`
 
   const openUrl = async (url: string) => {
-    if (shareUrl) {
-      sendTrackingSignal({ signal: { name: SHARE_SIGNAL_NAME, url: shareUrl } })
-    }
     try {
       await Linking.openURL(url)
     } catch (e) {
@@ -96,27 +90,26 @@ const HeaderMenu = ({
     ...(onNavigateToLicenses ? [renderMenuItem('settings:openSourceLicenses', () => onNavigateToLicenses())] : []),
   ]
 
-  const defaultSections =
-    showDefaultSections === false
-      ? []
-      : [
-          renderMenuItem(urlCopied ? 'common:copied' : 'layout:copyUrl', () => copyToClipboard(), 'link'),
-          <MenuAccordion
-            key='share'
-            title={t('share')}
-            items={sharingItems}
-            icon='share-variant'
-            expanded={expandedAccordion === 'share'}
-            setExpanded={expanded => setExpandedAccordion(expanded ? 'share' : null)}
-          />,
-          <MenuAccordion
-            key='legal'
-            title={t('legal')}
-            items={legalItems}
-            expanded={expandedAccordion === 'legal'}
-            setExpanded={expanded => setExpandedAccordion(expanded ? 'legal' : null)}
-          />,
-        ]
+  const defaultSections = showDefaultSections
+    ? [
+        renderMenuItem(urlCopied ? 'common:copied' : 'layout:copyUrl', () => copyToClipboard(), 'link'),
+        <MenuAccordion
+          key='share'
+          title={t('share')}
+          items={sharingItems}
+          icon='share-variant'
+          expanded={expandedAccordion === 'share'}
+          setExpanded={expanded => setExpandedAccordion(expanded ? 'share' : null)}
+        />,
+        <MenuAccordion
+          key='legal'
+          title={t('legal')}
+          items={legalItems}
+          expanded={expandedAccordion === 'legal'}
+          setExpanded={expanded => setExpandedAccordion(expanded ? 'legal' : null)}
+        />,
+      ]
+    : []
 
   if (menuItems.length === 0 && defaultSections.length === 0) {
     return null
@@ -124,7 +117,9 @@ const HeaderMenu = ({
 
   return (
     <Menu
-      key={Number(visible)} // Menu component closes and fails to open again on re-render: https://github.com/callstack/react-native-paper/issues/4763#issuecomment-3427895632
+      // Menu component closes and fails to open again on re-render
+      // https://github.com/callstack/react-native-paper/issues/4763#issuecomment-3427895632
+      key={Number(visible)}
       visible={visible}
       onDismiss={() => setVisible(false)}
       overlayAccessibilityLabel={t('common:close')}

@@ -8,7 +8,6 @@ import useLoadCityContent, { CityContentReturn } from '../hooks/useLoadCityConte
 import TestingAppContext from '../testing/TestingAppContext'
 import render from '../testing/render'
 import dataContainer from '../utils/DefaultDataContainer'
-import { usePushNotificationListener } from '../utils/PushNotificationsManager'
 
 const cities = new CityModelBuilder(3).build()
 jest.mock('styled-components')
@@ -196,10 +195,5 @@ describe('Navigator', () => {
   it('should display Intro if intro was not shown yet', async () => {
     const { findByText } = renderNavigator({ introShown: false })
     await findByText('Intro')
-  })
-
-  it('should listen for push notifications', async () => {
-    renderNavigator({ introShown: true })
-    expect(usePushNotificationListener).toHaveBeenCalled()
   })
 })

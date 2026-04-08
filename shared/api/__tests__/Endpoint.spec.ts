@@ -2,7 +2,6 @@ import Endpoint from '../Endpoint'
 import Payload from '../Payload'
 import FetchError from '../errors/FetchError'
 import ResponseError from '../errors/ResponseError'
-import { setJpalTrackingCode } from '../request'
 
 describe('Endpoint', () => {
   const defaultMapParamsToUrl = (params: { var1: string; var2: string }) =>
@@ -71,10 +70,7 @@ describe('Endpoint', () => {
     ok: false,
   }
 
-  beforeEach(() => {
-    jest.clearAllMocks()
-    setJpalTrackingCode(null)
-  })
+  beforeEach(jest.clearAllMocks)
 
   it('should have correct state name', () => {
     const endpoint = new Endpoint('endpoint', defaultMapParamsToUrl, null, defaultJsonMapper)
@@ -100,9 +96,9 @@ describe('Endpoint', () => {
     const endpoint = new Endpoint('endpoint', defaultMapParamsToUrl, null, defaultJsonMapper)
     const response = await endpoint.request(params, overrideUrl)
 
-    expect(response.requestUrl).toBe(`${overrideUrl}/`)
+    expect(response.requestUrl).toBe(overrideUrl)
     expect(mockedFetch).toHaveBeenCalledTimes(1)
-    expect(mockedFetch).toHaveBeenCalledWith(`${overrideUrl}/`, { method: 'GET' })
+    expect(mockedFetch).toHaveBeenCalledWith(overrideUrl, { method: 'GET' })
   })
 
   it('should fetch with GET from mapped url and return data', async () => {
@@ -117,18 +113,6 @@ describe('Endpoint', () => {
     expect(response.isFetching).toBe(false)
     expect(mockedFetch).toHaveBeenCalledTimes(1)
     expect(mockedFetch).toHaveBeenCalledWith(url, { method: 'GET' })
-  })
-
-  it('should include jpal tracking code if set', async () => {
-    const trackingCode = 'my-tracking-code'
-    setJpalTrackingCode(trackingCode)
-    mockedFetch.mockImplementation(async () => responseOk)
-    const mapParamsToUrl = () => 'https://example.com/?test=1234'
-    const endpoint = new Endpoint('endpoint', mapParamsToUrl, null, defaultJsonMapper)
-    const response = await endpoint.request(params)
-
-    expect(response).toBeInstanceOf(Payload)
-    expect(response.requestUrl).toBe(`https://example.com/?test=1234&jpal_tracking_code=${trackingCode}`)
   })
 
   it('should fetch with POST from mapped url and return data', async () => {

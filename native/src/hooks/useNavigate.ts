@@ -7,11 +7,9 @@ import {
   CONSENT_ROUTE,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
-  JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
   LICENSES_ROUTE,
   NEWS_ROUTE,
-  OPEN_PAGE_SIGNAL_NAME,
   POIS_ROUTE,
   RouteInformationType,
   SEARCH_ROUTE,
@@ -24,7 +22,6 @@ import { AppContext } from '../contexts/AppContextProvider'
 import { urlFromRouteInformation } from '../navigation/url'
 import { navigateNested } from '../utils/navigation'
 import openExternalUrl from '../utils/openExternalUrl'
-import sendTrackingSignal from '../utils/sendTrackingSignal'
 import { reportError } from '../utils/sentry'
 import useSnackbar from './useSnackbar'
 
@@ -42,13 +39,6 @@ const navigate = <T extends RoutesType>(
   const navigate = redirect ? navigation.replace : navigation.push
   const url = urlFromRouteInformation(routeInformation)
   const { route } = routeInformation
-  sendTrackingSignal({
-    signal: {
-      name: OPEN_PAGE_SIGNAL_NAME,
-      pageType: routeInformation.route,
-      url,
-    },
-  })
 
   if (
     route === LICENSES_ROUTE ||
@@ -57,13 +47,6 @@ const navigate = <T extends RoutesType>(
     route === CITY_NOT_COOPERATING_ROUTE
   ) {
     navigate(route)
-    return
-  }
-
-  if (routeInformation.route === JPAL_TRACKING_ROUTE) {
-    if (buildConfig().featureFlags.jpalTracking) {
-      navigate(JPAL_TRACKING_ROUTE)
-    }
     return
   }
 
