@@ -71,7 +71,7 @@
     "i18next": "^26.0.1",
     "intl-pluralrules": "^2.0.1",
     "js-sha256": "^0.11.1",
-    "lodash": "^4.17.23",
+    "lodash": "^4.18.1",
     "luxon": "^3.7.2",
     "react": "19.2.3",
     "react-hook-form": "^7.72.0",
