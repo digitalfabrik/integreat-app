@@ -4,5 +4,5 @@ platforms:
   - web
   - android
   - ios
-en: The description appears first, and contacts and opening hours are collapsed by default.
-de: Die Beschreibung steht zuerst. Kontakte und Öffnungszeiten sind standardmäßig eingeklappt.
+en: The description for places appears first, and contacts and opening hours are collapsed by default.
+de: Die Beschreibung kommt nun bei Orten zuerst. Kontakte und Öffnungszeiten sind standardmäßig eingeklappt.
