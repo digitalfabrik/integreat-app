@@ -31,7 +31,6 @@ import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from './con
 import buildConfig from './constants/buildConfig'
 import { useAppContext } from './hooks/useCityAppContext'
 import useLoadCities from './hooks/useLoadCities'
-import useNavigate from './hooks/useNavigate'
 import useSnackbar from './hooks/useSnackbar'
 import BottomTabNavigation from './navigation/BottomTabNavigation'
 import ChangeLanguageModal from './routes/ChangeLanguageModal'
@@ -49,7 +48,6 @@ import SearchModalContainer from './routes/SearchModalContainer'
 import Settings from './routes/Settings'
 import { ASYNC_STORAGE_VERSION } from './utils/AppSettings'
 import dataContainer from './utils/DefaultDataContainer'
-import { usePushNotificationListener } from './utils/PushNotificationsManager'
 import { initSentry, log, reportError } from './utils/sentry'
 
 type HeaderProps = {
@@ -82,13 +80,10 @@ const Navigator = (): ReactElement | null => {
   const showSnackbar = useSnackbar()
   const appContext = useAppContext()
   const { settings, cityCode, changeCityCode, updateSettings } = appContext
-  const { navigateTo } = useNavigate()
   const [initialRoute, setInitialRoute] = useState<InitialRouteType>(null)
 
   // Preload cities
   const { data: cities, error: citiesError, refresh: refreshCities } = useLoadCities()
-
-  usePushNotificationListener(navigateTo)
 
   const updateInitialRoute = useCallback(
     (initialRoute: InitialRouteType) =>

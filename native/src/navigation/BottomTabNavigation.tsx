@@ -28,12 +28,14 @@ import { TAB_NAVIGATOR_ID } from '../constants'
 import buildConfig from '../constants/buildConfig'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useLoadCityContent from '../hooks/useLoadCityContent'
+import useNavigate from '../hooks/useNavigate'
 import useSetRouteTitle from '../hooks/useSetRouteTitle'
 import CategoriesContainer from '../routes/CategoriesContainer'
 import EventsContainer from '../routes/EventsContainer'
 import LoadingErrorHandler from '../routes/LoadingErrorHandler'
 import NewsContainer from '../routes/NewsContainer'
 import PoisContainer from '../routes/PoisContainer'
+import { usePushNotificationListener } from '../utils/PushNotificationsManager'
 import cityDisplayName from '../utils/cityDisplayName'
 
 const Tab = createBottomTabNavigator<RoutesParamsType>()
@@ -97,6 +99,7 @@ type BottomTabNavigationProps = {
 const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactElement | null => {
   const { t } = useTranslation('layout')
   const { cityCode, languageCode } = useCityAppContext()
+  const { navigateTo } = useNavigate()
   const deviceWidth = useWindowDimensions().width
   const insets = useSafeAreaInsets()
   const { data, loading, error, refresh } = useLoadCityContent({ cityCode, languageCode })
@@ -106,6 +109,8 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
   if (data) {
     cachedDataRef.current = data
   }
+
+  usePushNotificationListener(navigateTo)
 
   const cachedData = data || cachedDataRef.current
 
