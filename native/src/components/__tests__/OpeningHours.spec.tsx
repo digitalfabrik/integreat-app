@@ -1,3 +1,4 @@
+import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
 
 import { OpeningHoursModel } from 'shared/api'
@@ -44,6 +45,7 @@ describe('OpeningHours', () => {
   it('should display that the location is opened', () => {
     const { getByText, queryByText, getAllByText } = renderOpeningHours(true, false, openingHours)
     expect(getByText('opened')).toBeTruthy()
+    fireEvent.press(getByText('openingHours'))
     expect(getAllByText(openingHours[0]!.timeSlots[0]!.start, { exact: false })).toHaveLength(7)
     expect(getAllByText(openingHours[0]!.timeSlots[0]!.end, { exact: false })).toHaveLength(7)
     expect(queryByText('pois:temporarilyClosed')).toBeFalsy()

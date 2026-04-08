@@ -52,11 +52,19 @@ const PoiDetails = ({ poi, language, distance, onFocus }: PoiDetailsProps): Reac
       {!!poi.thumbnail && <CustomThumbnail src={poi.thumbnail} />}
       <PoiChips poi={poi} />
       <StyledDivider />
+      {content.length > 0 && (
+        <>
+          <Accordion headerContent={t('description')}>
+            <Page content={content} language={language} padding={false} />
+          </Accordion>
+          <StyledDivider />
+        </>
+      )}
       <AddressInfo location={poi.location} language={language} />
       <StyledDivider />
       {contacts.length > 0 && (
         <>
-          <Accordion headerContent={t('contacts')}>
+          <Accordion headerContent={t('contacts')} initialCollapsed>
             <StyledContactsContainer>
               {contacts.map((contact, index) => (
                 <Contact
@@ -80,14 +88,6 @@ const PoiDetails = ({ poi, language, distance, onFocus }: PoiDetailsProps): Reac
         isTemporarilyClosed={temporarilyClosed}
         appointmentUrl={appointmentUrl}
       />
-      {content.length > 0 && (
-        <>
-          <Accordion headerContent={t('description')}>
-            <Page content={content} language={language} padding={false} />
-          </Accordion>
-          <StyledDivider />
-        </>
-      )}
     </PoiDetailsContainer>
   )
 }

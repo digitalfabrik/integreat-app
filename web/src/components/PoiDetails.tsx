@@ -61,7 +61,7 @@ const PoiDetails = ({ poi, distance }: PoiDetailsProps): ReactElement => {
   const contactsSection = contacts.length > 0 && (
     <>
       <Divider />
-      <Accordion id='contacts' title={t('contacts')}>
+      <Accordion id='contacts' title={t('contacts')} defaultCollapsed>
         <StyledContactsList
           items={contacts.map(contact => (
             <Contact key={contact.headline} contact={contact} />
@@ -97,17 +97,17 @@ const PoiDetails = ({ poi, distance }: PoiDetailsProps): ReactElement => {
         {!!poi.thumbnail && <CustomThumbnail src={poi.thumbnail} />}
       </Stack>
       <Divider />
-      {addressSection}
-      {contactsSection}
-      {openingHoursSection}
       {content.length > 0 && (
         <>
-          <Divider />
           <Accordion id='content' title={t('detailsInformation')}>
             <RemoteContent html={content} smallText />
           </Accordion>
+          <Divider />
         </>
       )}
+      {addressSection}
+      {contactsSection}
+      {openingHoursSection}
     </Stack>
   )
 }
