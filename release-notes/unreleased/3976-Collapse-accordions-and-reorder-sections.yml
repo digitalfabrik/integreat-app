@@ -1,0 +1,8 @@
+issue_key: 3976
+show_in_stores: true
+platforms:
+  - web
+  - android
+  - ios
+en: The description appears first, and contacts and opening hours are collapsed by default.
+de: Die Beschreibung steht zuerst. Kontakte und Öffnungszeiten sind standardmäßig eingeklappt.
