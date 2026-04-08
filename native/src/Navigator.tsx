@@ -1,5 +1,6 @@
 import { createStackNavigator, StackHeaderProps } from '@react-navigation/stack'
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import {
   BOTTOM_TAB_NAVIGATION_ROUTE,
@@ -78,6 +79,7 @@ type InitialRouteType =
 
 const Navigator = (): ReactElement | null => {
   const showSnackbar = useSnackbar()
+  const insets = useSafeAreaInsets()
   const appContext = useAppContext()
   const { settings, cityCode, changeCityCode, updateSettings } = appContext
   const [initialRoute, setInitialRoute] = useState<InitialRouteType>(null)
@@ -142,12 +144,16 @@ const Navigator = (): ReactElement | null => {
     <Stack.Navigator
       id={ROOT_NAVIGATOR_ID}
       initialRouteName={initialRoute.name}
-      screenOptions={{ headerMode: 'screen', animation: 'none' }}>
+      screenOptions={{ headerMode: 'screen', animation: 'none', cardStyle: { paddingBottom: insets.bottom } }}>
       <Stack.Group screenOptions={{ header: () => null }}>
         <Stack.Screen name={REDIRECT_ROUTE} initialParams={{ url: redirectUrl }} component={RedirectContainer} />
         <Stack.Screen name={INTRO_ROUTE} component={Intro} />
         <Stack.Screen name={SEARCH_ROUTE} component={SearchModalContainer} />
-        <Stack.Screen name={BOTTOM_TAB_NAVIGATION_ROUTE} component={BottomTabNavigation} />
+        <Stack.Screen
+          name={BOTTOM_TAB_NAVIGATION_ROUTE}
+          component={BottomTabNavigation}
+          options={{ cardStyle: { paddingBottom: 0 } }}
+        />
       </Stack.Group>
 
       <Stack.Group screenOptions={{ header: defaultHeader }}>
