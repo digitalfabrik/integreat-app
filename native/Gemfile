@@ -17,3 +17,7 @@ gem "rb-readline"
 gem "abbrev"
 gem "mutex_m"
 gem "ostruct"
+
+# Add missing gem
+# https://github.com/ckruse/CFPropertyList/issues/74
+gem 'nkf'
