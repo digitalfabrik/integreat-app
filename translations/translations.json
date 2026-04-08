@@ -321,7 +321,7 @@
       "generateAnswer": "Schreibt...",
       "newChat": "Neuen Chat starten",
       "newChatConfirmationTitle": "Möchtest du wirklich einen neuen Chat starten?",
-      "newChatConfirmationMessage": "Der aktuelle Chatverlauf geht verloren.",
+      "newChatConfirmationMessage": "Der aktuelle Chatverlauf wird gelöscht.",
       "chatOptions": "Chat-Optionen"
     },
     "am": {

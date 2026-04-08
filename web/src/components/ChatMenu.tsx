@@ -1,6 +1,5 @@
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import Button from '@mui/material/Button'
-import { dialogClasses } from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
 import IconButton from '@mui/material/IconButton'
 import MuiMenu from '@mui/material/Menu'
@@ -9,16 +8,7 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import Dialog from './base/Dialog'
-
-const StyledDialog = styled(Dialog)(({ theme }) => ({
-  [`.${dialogClasses.paper}`]: {
-    margin: theme.spacing(1),
-    [theme.breakpoints.up('md')]: {
-      width: 570,
-    },
-  },
-}))
+import AlertDialog from './base/AlertDialog'
 
 const StyledDialogContainer = styled('div')({
   display: 'flex',
@@ -56,11 +46,10 @@ const ChatMenu = ({ confirmNewChatOpen, onConfirmClose, onConfirmNewChat, childr
         {children}
       </MuiMenu>
       {confirmNewChatOpen && (
-        <StyledDialog
-          fullScreen={false}
+        <AlertDialog
           title={t('newChat')}
           close={onConfirmClose}
-          footerActions={
+          actions={
             <DialogActions>
               <Button onClick={() => handleDialogAction(onConfirmClose)} variant='outlined' sx={{ flex: '1 1' }}>
                 {t('layout:cancel')}
@@ -74,7 +63,7 @@ const ChatMenu = ({ confirmNewChatOpen, onConfirmClose, onConfirmNewChat, childr
             <Typography variant='body2'>{t('newChatConfirmationTitle')}</Typography>
             <Typography variant='body2'>{t('newChatConfirmationMessage')}</Typography>
           </StyledDialogContainer>
-        </StyledDialog>
+        </AlertDialog>
       )}
     </>
   )

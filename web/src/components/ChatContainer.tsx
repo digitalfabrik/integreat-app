@@ -50,7 +50,6 @@ type ChatContainerProps = {
 const ChatContainer = ({ city, languageCode, languageChangePaths }: ChatContainerProps): ReactElement | null => {
   const [queryParams, setQueryParams] = useSearchParams()
   const chatVisible = parseQueryParams(queryParams).chat ?? false
-  const [messagesCount, setMessagesCount] = useState(0)
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false)
   const { desktop, xsmall, visibleFooterHeight, bottomNavigationHeight } = useDimensions()
   const { visible: ttsPlayerVisible } = useContext(TtsContext)
@@ -58,15 +57,13 @@ const ChatContainer = ({ city, languageCode, languageChangePaths }: ChatContaine
   const chatName = getChatName(buildConfig().appName)
   useLockedBody(chatVisible)
 
-  const { value: deviceId, updateLocalStorageItem: updateDeviceId } = useLocalStorage({
+  const { value: chatId, updateLocalStorageItem: updateChatId } = useLocalStorage<string | null>({
     key: `${LOCAL_STORAGE_ITEM_CHAT_MESSAGES}-${city.code}`,
-    initialValue: window.crypto.randomUUID(),
+    initialValue: null,
   })
 
   const resetChatId = () => {
-    if (messagesCount > 0) {
-      updateDeviceId(window.crypto.randomUUID())
-    }
+    updateChatId(null)
     setConfirmDialogOpen(false)
   }
 
@@ -117,12 +114,12 @@ const ChatContainer = ({ city, languageCode, languageChangePaths }: ChatContaine
             <MenuItem
               text={t('newChat')}
               icon={<AddCommentOutlinedIcon fontSize='small' />}
-              disabled={messagesCount === 0}
+              disabled={chatId === null}
               onClick={() => setConfirmDialogOpen(true)}
             />
           </ChatMenu>,
         ]}>
-        <ChatController key={deviceId} city={city} languageCode={languageCode} onMessagesChange={setMessagesCount} />
+        <ChatController chatId={chatId} updateChatId={updateChatId} city={city} languageCode={languageCode} />
       </StyledDialog>
     )
   }

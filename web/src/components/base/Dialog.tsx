@@ -18,7 +18,6 @@ export const DirectionDependentBackIcon = styled(ArrowBackIcon)(({ theme }) => (
 
 const StyledMuiDialog = styled(MuiDialog)(({ theme }) => ({
   [`.${dialogClasses.paper}`]: {
-    maxWidth: 'none',
     [theme.breakpoints.up('md')]: {
       width: 600,
     },
@@ -32,26 +31,14 @@ const StyledDialogTitle = styled(DialogTitle)({
 type DialogProps = {
   title: string
   actions?: ReactElement[] | null
-  footerActions?: ReactElement | null
   close: () => void
   children: ReactElement | ReactElement[]
   className?: string
-  fullScreen?: boolean
 }
 
-const Dialog = ({
-  title,
-  close,
-  children,
-  className,
-  actions,
-  footerActions,
-  fullScreen,
-}: DialogProps): ReactElement => {
+const Dialog = ({ title, close, children, className, actions }: DialogProps): ReactElement => {
   const { mobile, desktop } = useDimensions()
   const { t } = useTranslation('layout')
-  const isFullScreen = fullScreen ?? mobile
-  const isDesktopLayout = desktop || !isFullScreen
 
   // This is necessary to ensure the theme is correctly applied to the drawer content
   const dialogContainer = document.getElementById(LAYOUT_ELEMENT_ID)
@@ -63,23 +50,22 @@ const Dialog = ({
   ) : null
 
   return (
-    <StyledMuiDialog onClose={close} container={dialogContainer} fullScreen={isFullScreen} className={className} open>
+    <StyledMuiDialog onClose={close} container={dialogContainer} fullScreen={mobile} className={className} open>
       <Stack
-        direction={isDesktopLayout ? 'row-reverse' : 'row'}
+        direction={desktop ? 'row-reverse' : 'row'}
         alignItems='center'
-        justifyContent={isDesktopLayout ? 'space-between' : undefined}
+        justifyContent={desktop ? 'space-between' : undefined}
         marginInline={1}>
         <IconButton aria-label={t('common:close')} onClick={close}>
-          {isDesktopLayout ? <CloseIcon /> : <DirectionDependentBackIcon />}
+          {desktop ? <CloseIcon /> : <DirectionDependentBackIcon />}
         </IconButton>
-        {isDesktopLayout && Actions}
+        {desktop && Actions}
         <StyledDialogTitle component='h2' variant='h4' textOverflow='ellipsis' whiteSpace='nowrap' overflow='hidden'>
           {title}
         </StyledDialogTitle>
-        {!isDesktopLayout && Actions}
+        {mobile && Actions}
       </Stack>
       <DialogContent>{children}</DialogContent>
-      {footerActions}
     </StyledMuiDialog>
   )
 }
