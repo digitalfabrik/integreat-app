@@ -8,13 +8,8 @@ type StaticServerProps = {
   children: ReactNode
 }
 
-const SERVER_PATH = RESOURCE_CACHE_DIR_PATH
-const SERVER_PORT = 8080
-
 const staticServer = new StaticServer({
-  fileDir: SERVER_PATH,
-  port: SERVER_PORT,
-  nonLocal: false,
+  fileDir: RESOURCE_CACHE_DIR_PATH,
 })
 
 export const StaticServerContext = createContext('')
