@@ -15,7 +15,7 @@ const StyledMuiDialog = styled(MuiDialog)(({ theme }) => ({
     margin: theme.spacing(1),
     width: '90%',
     [theme.breakpoints.up('md')]: {
-      width: 570,
+      width: 560,
     },
   },
 }))
@@ -36,13 +36,13 @@ const AlertDialog = ({ title, close, children, className, actions }: DialogProps
 
   return (
     <StyledMuiDialog role='alertdialog' onClose={close} container={dialogContainer} className={className} open>
-      <Stack direction='row-reverse' alignItems='center' justifyContent='space-between' marginInline={1}>
-        <IconButton aria-label={t('common:close')} onClick={close}>
-          <CloseIcon />
-        </IconButton>
+      <Stack direction='row' alignItems='center' justifyContent='space-between' marginInline={1}>
         <DialogTitle component='h2' variant='h4' textOverflow='ellipsis' whiteSpace='nowrap' overflow='hidden'>
           {title}
         </DialogTitle>
+        <IconButton aria-label={t('common:close')} onClick={close}>
+          <CloseIcon />
+        </IconButton>
       </Stack>
       <DialogContent>{children}</DialogContent>
       {actions}

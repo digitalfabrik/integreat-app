@@ -1,11 +1,9 @@
-import AddCommentOutlinedIcon from '@mui/icons-material/AddCommentOutlined'
 import QuestionAnswerOutlinedIcon from '@mui/icons-material/QuestionAnswerOutlined'
 import { dialogContentClasses } from '@mui/material/DialogContent'
 import Fab from '@mui/material/Fab'
 import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
-import React, { ReactElement, useContext, useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import React, { ReactElement, useContext } from 'react'
 import { useSearchParams } from 'react-router'
 
 import { getChatName, CHAT_QUERY_KEY, parseQueryParams, toQueryParams } from 'shared'
@@ -15,11 +13,11 @@ import buildConfig from '../constants/buildConfig'
 import useDimensions from '../hooks/useDimensions'
 import useLocalStorage from '../hooks/useLocalStorage'
 import useLockedBody from '../hooks/useLockedBody'
-import ChatController, { LOCAL_STORAGE_ITEM_CHAT_MESSAGES } from './ChatController'
+import { chatIdKey } from '../utils/chatId'
+import ChatController from './ChatController'
 import ChatMenu from './ChatMenu'
 import HeaderLanguageSelectorItem from './HeaderLanguageSelectorItem'
 import { LanguageChangePath } from './LanguageList'
-import MenuItem from './MenuItem'
 import { TtsContext } from './TtsContainer'
 import Dialog from './base/Dialog'
 
@@ -50,22 +48,16 @@ type ChatContainerProps = {
 const ChatContainer = ({ city, languageCode, languageChangePaths }: ChatContainerProps): ReactElement | null => {
   const [queryParams, setQueryParams] = useSearchParams()
   const chatVisible = parseQueryParams(queryParams).chat ?? false
-  const [confirmDialogOpen, setConfirmDialogOpen] = useState(false)
   const { desktop, xsmall, visibleFooterHeight, bottomNavigationHeight } = useDimensions()
   const { visible: ttsPlayerVisible } = useContext(TtsContext)
-  const { t } = useTranslation('chat')
-  const chatName = getChatName(buildConfig().appName)
-  useLockedBody(chatVisible)
 
   const { value: chatId, updateLocalStorageItem: updateChatId } = useLocalStorage<string | null>({
-    key: `${LOCAL_STORAGE_ITEM_CHAT_MESSAGES}-${city.code}`,
+    key: chatIdKey(city.code),
     initialValue: null,
   })
 
-  const resetChatId = () => {
-    updateChatId(null)
-    setConfirmDialogOpen(false)
-  }
+  const chatName = getChatName(buildConfig().appName)
+  useLockedBody(chatVisible)
 
   const hideChatButton = xsmall && ttsPlayerVisible
 
@@ -106,18 +98,7 @@ const ChatContainer = ({ city, languageCode, languageChangePaths }: ChatContaine
                 />,
               ]
             : []),
-          <ChatMenu
-            key='chatMenu'
-            confirmNewChatOpen={confirmDialogOpen}
-            onConfirmClose={() => setConfirmDialogOpen(false)}
-            onConfirmNewChat={resetChatId}>
-            <MenuItem
-              text={t('newChat')}
-              icon={<AddCommentOutlinedIcon fontSize='small' />}
-              disabled={chatId === null}
-              onClick={() => setConfirmDialogOpen(true)}
-            />
-          </ChatMenu>,
+          <ChatMenu key='chatMenu' chatId={chatId} updateChatId={updateChatId} />,
         ]}>
         <ChatController chatId={chatId} updateChatId={updateChatId} city={city} languageCode={languageCode} />
       </StyledDialog>

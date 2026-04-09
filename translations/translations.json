@@ -320,7 +320,7 @@
       "privacyPolicyInformation": "Bitte akzeptiere die Datenschutzerklärung, um den Chat zu nutzen.",
       "generateAnswer": "Schreibt...",
       "newChat": "Neuen Chat starten",
-      "newChatConfirmationTitle": "Möchtest du wirklich einen neuen Chat starten?",
+      "newChatConfirmation": "Möchtest du wirklich einen neuen Chat starten?",
       "newChatConfirmationMessage": "Der aktuelle Chatverlauf wird gelöscht.",
       "chatOptions": "Chat-Optionen"
     },
@@ -439,7 +439,7 @@
       "privacyPolicyInformation": "Please accept the privacy policy to use the chat.",
       "generateAnswer": "Typing...",
       "newChat": "Start new chat",
-      "newChatConfirmationTitle": "Do you really want to start a new chat?",
+      "newChatConfirmation": "Do you really want to start a new chat?",
       "newChatConfirmationMessage": "The current chat history will be lost.",
       "chatOptions": "Chat options"
     },
