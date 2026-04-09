@@ -19,17 +19,17 @@ type ChatMenuProps = {
 
 const ChatMenu = ({ chatId, updateChatId }: ChatMenuProps): ReactElement => {
   const [menuAnchorElement, setMenuAnchorElement] = useState<HTMLElement | null>(null)
-  const [confirmDialogOpen, setConfirmDialogOpen] = useState(false)
+  const [newChatConfirmationDialogOpen, setNewChatConfirmationDialogOpen] = useState(false)
   const { t } = useTranslation('chat')
 
-  const handleDialogAction = (action: () => void) => {
+  const cancelNewChat = () => {
     setMenuAnchorElement(null)
-    action()
+    setNewChatConfirmationDialogOpen(false)
   }
-
-  const resetChatId = () => {
+  const createNewChat = () => {
+    setMenuAnchorElement(null)
     updateChatId(null)
-    setConfirmDialogOpen(false)
+    setNewChatConfirmationDialogOpen(false)
   }
 
   return (
@@ -42,28 +42,25 @@ const ChatMenu = ({ chatId, updateChatId }: ChatMenuProps): ReactElement => {
       </IconButton>
       <MuiMenu
         anchorEl={menuAnchorElement}
-        open={menuAnchorElement !== null && !confirmDialogOpen}
+        open={menuAnchorElement !== null && !newChatConfirmationDialogOpen}
         onClose={() => setMenuAnchorElement(null)}>
         <MenuItem
           text={t('newChat')}
           icon={<AddCommentOutlinedIcon fontSize='small' />}
           disabled={chatId === null}
-          onClick={() => setConfirmDialogOpen(true)}
+          onClick={() => setNewChatConfirmationDialogOpen(true)}
         />
       </MuiMenu>
-      {confirmDialogOpen && (
+      {newChatConfirmationDialogOpen && (
         <AlertDialog
           title={t('newChat')}
-          close={() => setConfirmDialogOpen(false)}
+          close={() => setNewChatConfirmationDialogOpen(false)}
           actions={
             <DialogActions>
-              <Button
-                onClick={() => handleDialogAction(() => setConfirmDialogOpen(false))}
-                variant='outlined'
-                sx={{ flex: '1 1' }}>
+              <Button onClick={cancelNewChat} variant='outlined' sx={{ flex: '1 1' }}>
                 {t('layout:cancel')}
               </Button>
-              <Button onClick={() => handleDialogAction(resetChatId)} variant='contained' sx={{ flex: '3 3' }}>
+              <Button onClick={createNewChat} variant='contained' sx={{ flex: '3 3' }}>
                 {t('newChat')}
               </Button>
             </DialogActions>

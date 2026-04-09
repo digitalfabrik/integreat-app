@@ -12,7 +12,7 @@ import {
 import { cmsApiBaseUrl } from '../constants/urls'
 import useIsTabActive from '../hooks/useIsTabActive'
 import useLocalStorage from '../hooks/useLocalStorage'
-import { generateChatId } from '../utils/chatId'
+import { generateChatId } from '../utils/chat'
 import Chat from './Chat'
 
 type ChatControllerProps = {
