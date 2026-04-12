@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { fromPairs, mapValues, toPairs } from 'lodash'
+import { mapValues } from 'lodash'
 
 import { ThemeKey } from 'build-configs/ThemeKey'
 import { ExternalSourcePermissions } from 'shared'
@@ -37,8 +37,7 @@ class AppSettings {
 
   loadSettings = async (): Promise<SettingsType> => {
     const settingsKeys = Object.keys(defaultSettings) as [keyof SettingsType]
-    const settingsArray = await this.asyncStorage.multiGet(settingsKeys)
-    const settings = fromPairs(settingsArray) as Record<keyof SettingsType, string | null>
+    const settings = (await this.asyncStorage.getMany(settingsKeys)) as Record<keyof SettingsType, string | null>
     return mapValues(settings, (value: string | null, key) => {
       if (value === null) {
         // null means this setting does not exist
@@ -57,8 +56,8 @@ class AppSettings {
   }
 
   setSettings = async (settings: Partial<SettingsType>): Promise<void> => {
-    const settingsArray = toPairs<string>(mapValues(settings, value => JSON.stringify(value)))
-    await this.asyncStorage.multiSet(settingsArray)
+    const entries = mapValues(settings, value => JSON.stringify(value)) as Record<string, string>
+    await this.asyncStorage.setMany(entries)
   }
 }
 
