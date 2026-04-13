@@ -27,7 +27,6 @@ const ChatConversation = ({ messages, isTyping, loading }: ChatConversationProps
   const { t } = useTranslation('chat')
   const [messagesCount, setMessagesCount] = useState(0)
   const messagesEndRef = useRef<HTMLDivElement>(null)
-  const waitingForAnswer = messages.every(message => message.userIsAuthor)
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -60,7 +59,6 @@ const ChatConversation = ({ messages, isTyping, loading }: ChatConversationProps
         <SkeletonChatConversation />
       ) : (
         <>
-          {waitingForAnswer && <Typography variant='body2'>{t('initialMessage')}</Typography>}
           <StyledList disablePadding>
             {messages.map((message, index) => (
               <ChatMessage message={message} key={message.id} previousMessage={messages[index - 1]} />

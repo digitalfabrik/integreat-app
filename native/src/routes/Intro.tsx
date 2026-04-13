@@ -66,34 +66,27 @@ const Intro = ({ navigation }: IntroProps): ReactElement => {
       description: t('searchDescription'),
       Content: <StyledIcon Icon={IntroSearchIcon} />,
     },
-  ]
-
-  if (buildConfig().featureFlags.pois) {
-    slides.push({
+    {
       key: 'pois',
       title: t('pois'),
       description: t('poisDescription'),
       Content: <StyledIcon Icon={IntroPoisIcon} />,
-    })
-  }
-
-  if (buildConfig().featureFlags.newsStream) {
-    slides.push({
+    },
+    {
       key: 'news',
       title: t('news', { appName }),
       description: t('newsDescription', { appName }),
       Content: <StyledIcon Icon={IntroNewsIcon} />,
-    })
-  }
-
-  slides.push({
-    key: 'offline',
-    title: t('offline'),
-    description: t('offlineDescription', {
-      appName,
-    }),
-    Content: <StyledIcon Icon={IntroOfflineIcon} />,
-  })
+    },
+    {
+      key: 'offline',
+      title: t('offline'),
+      description: t('offlineDescription', {
+        appName,
+      }),
+      Content: <StyledIcon Icon={IntroOfflineIcon} />,
+    },
+  ]
 
   const onDone = useCallback(() => {
     updateSettings({ introShown: true })

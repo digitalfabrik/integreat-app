@@ -23,15 +23,7 @@ type Message = FirebaseMessagingTypes.RemoteMessage & {
 
 const WAITING_TIME_FOR_CMS = 1000
 
-export const pushNotificationsEnabled = (): boolean =>
-  buildConfig().featureFlags.pushNotifications && !buildConfig().featureFlags.floss
-
 export const requestPushNotificationPermission = async (updateSettings: UpdateSettingsType): Promise<boolean> => {
-  if (!pushNotificationsEnabled()) {
-    log('Push notifications disabled, no permissions requested.')
-    return false
-  }
-
   const permissionStatus = (await requestNotifications(['alert'])).status
   log(`Notification permission status: ${permissionStatus}`)
 
@@ -46,11 +38,6 @@ export const requestPushNotificationPermission = async (updateSettings: UpdateSe
 const newsTopic = (city: string, language: string): string => `${city}-${language}-news`
 
 export const unsubscribeNews = async (city: string, language: string): Promise<void> => {
-  if (!pushNotificationsEnabled()) {
-    log('Push notifications disabled, unsubscription skipped.')
-    return
-  }
-
   const topic = newsTopic(city, language)
 
   try {
@@ -76,7 +63,7 @@ export const subscribeNews = async ({
   skipSettingsCheck = false,
 }: SubscribeNewsParams): Promise<void> => {
   try {
-    if (!pushNotificationsEnabled() || (!allowPushNotifications && !skipSettingsCheck)) {
+    if (!allowPushNotifications && !skipSettingsCheck) {
       log('Push notifications disabled, subscription skipped.')
       return
     }
