@@ -43,7 +43,11 @@ const Dialog = ({ title, close, children, className, actions }: DialogProps): Re
   // This is necessary to ensure the theme is correctly applied to the drawer content
   const dialogContainer = document.getElementById(LAYOUT_ELEMENT_ID)
 
-  const Actions = <Stack marginInline={1}>{actions}</Stack>
+  const Actions = actions ? (
+    <Stack direction='row' gap={1} alignItems='center'>
+      {actions}
+    </Stack>
+  ) : null
 
   return (
     <StyledMuiDialog onClose={close} container={dialogContainer} fullScreen={mobile} className={className} open>

@@ -317,7 +317,11 @@
       "sendButton": "Senden",
       "user": "Du",
       "privacyPolicyInformation": "Bitte akzeptiere die Datenschutzerklärung, um den Chat zu nutzen.",
-      "generateAnswer": "Schreibt..."
+      "generateAnswer": "Schreibt...",
+      "newChat": "Neuen Chat starten",
+      "newChatConfirmation": "Möchtest du wirklich einen neuen Chat starten?",
+      "newChatConfirmationMessage": "Der aktuelle Chatverlauf wird gelöscht.",
+      "chatOptions": "Chat-Optionen"
     },
     "am": {
       "bot": "የውይይት ቦት",
@@ -424,7 +428,11 @@
       "sendButton": "Send",
       "user": "You",
       "privacyPolicyInformation": "Please accept the privacy policy to use the chat.",
-      "generateAnswer": "Typing..."
+      "generateAnswer": "Typing...",
+      "newChat": "Start new chat",
+      "newChatConfirmation": "Do you really want to start a new chat?",
+      "newChatConfirmationMessage": "The current chat history will be lost.",
+      "chatOptions": "Chat options"
     },
     "es": {
       "bot": "Chatbot",
