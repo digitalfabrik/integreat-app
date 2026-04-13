@@ -11,12 +11,12 @@ const FooterContainer = styled.View`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 5%;
+  padding: 5% 24px 0;
 `
 
 const StyledIcon = styled(Icon)`
   height: 100px;
-  width: 30%;
+  width: 35%;
 `
 
 type CityNotCooperatingFooterProps = {

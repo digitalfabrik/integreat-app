@@ -11,8 +11,11 @@ import { CityModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
 import useDimensions from '../hooks/useDimensions'
+import useLocalStorage from '../hooks/useLocalStorage'
 import useLockedBody from '../hooks/useLockedBody'
+import { chatIdKey } from '../utils/chat'
 import ChatController from './ChatController'
+import ChatMenu from './ChatMenu'
 import HeaderLanguageSelectorItem from './HeaderLanguageSelectorItem'
 import { LanguageChangePath } from './LanguageList'
 import { TtsContext } from './TtsContainer'
@@ -47,6 +50,12 @@ const ChatContainer = ({ city, languageCode, languageChangePaths }: ChatContaine
   const chatVisible = parseQueryParams(queryParams).chat ?? false
   const { desktop, xsmall, visibleFooterHeight, bottomNavigationHeight } = useDimensions()
   const { visible: ttsPlayerVisible } = useContext(TtsContext)
+
+  const { value: chatId, updateLocalStorageItem: updateChatId } = useLocalStorage<string | null>({
+    key: chatIdKey(city.code),
+    initialValue: null,
+  })
+
   const chatName = getChatName(buildConfig().appName)
   useLockedBody(chatVisible)
 
@@ -79,8 +88,8 @@ const ChatContainer = ({ city, languageCode, languageChangePaths }: ChatContaine
       <StyledDialog
         title={chatName}
         close={close}
-        actions={
-          languageChangePaths
+        actions={[
+          ...(languageChangePaths
             ? [
                 <HeaderLanguageSelectorItem
                   key='languageChange'
@@ -88,9 +97,10 @@ const ChatContainer = ({ city, languageCode, languageChangePaths }: ChatContaine
                   languageCode={languageCode}
                 />,
               ]
-            : null
-        }>
-        <ChatController city={city} languageCode={languageCode} />
+            : []),
+          <ChatMenu key='chatMenu' chatId={chatId} updateChatId={updateChatId} />,
+        ]}>
+        <ChatController chatId={chatId} updateChatId={updateChatId} city={city} languageCode={languageCode} />
       </StyledDialog>
     )
   }
