@@ -32,17 +32,12 @@ const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
   internalUrlPattern:
     'https?:\\/\\/(cms(-test)?\\.integreat-app\\.de|web\\.integreat-app\\.de|integreat\\.app|aschaffenburg\\.app)(?!\\/(media|[^/]*\\/(wp-content|wp-admin|wp-json))\\/.*).*',
   featureFlags: {
-    floss: false,
-    pois: false,
-    newsStream: true,
-    pushNotifications: true,
     introSlides: false,
     sentry: true,
     developerFriendly: false,
     fixedCity: 'hallo',
     cityNotCooperatingTemplate: null,
     chat: false,
-    tts: true,
   },
   aboutUrls: {
     default: 'https://www.aschaffenburg.de/halloaschaffenburg',

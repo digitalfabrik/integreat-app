@@ -17,7 +17,6 @@ import {
 
 import { SnackbarType } from '../components/SnackbarContainer'
 import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
-import buildConfig from '../constants/buildConfig'
 import { AppContext } from '../contexts/AppContextProvider'
 import { urlFromRouteInformation } from '../navigation/url'
 import { navigateNested } from '../utils/navigation'
@@ -74,9 +73,6 @@ const navigate = <T extends RoutesType>(
       return
 
     case NEWS_ROUTE:
-      if (!buildConfig().featureFlags.newsStream) {
-        break
-      }
       navigateNested(
         navigation,
         NEWS_ROUTE,
@@ -89,9 +85,6 @@ const navigate = <T extends RoutesType>(
       return
 
     case POIS_ROUTE:
-      if (!buildConfig().featureFlags.pois) {
-        break
-      }
       navigateNested(
         navigation,
         POIS_ROUTE,

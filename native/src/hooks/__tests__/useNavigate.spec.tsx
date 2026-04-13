@@ -14,7 +14,6 @@ import {
   SEARCH_ROUTE,
 } from 'shared'
 
-import buildConfig from '../../constants/buildConfig'
 import TestingAppContext from '../../testing/TestingAppContext'
 import createNavigationPropMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
@@ -40,15 +39,6 @@ describe('useNavigate', () => {
   const languageCode = 'ro'
   const params = { cityCode, languageCode }
   const cityContentPath = `/${cityCode}/${languageCode}`
-
-  const mockedBuildConfig = mocked(buildConfig)
-  const mockBuildConfig = (featureFlags: { newsStream?: boolean; pois?: boolean }) => {
-    const previous = buildConfig()
-    mockedBuildConfig.mockImplementation(() => ({
-      ...previous,
-      featureFlags: { ...previous.featureFlags, ...featureFlags },
-    }))
-  }
 
   const MockComponent = ({
     routeInformation,
@@ -196,9 +186,6 @@ describe('useNavigate', () => {
   })
 
   it('should navigate to news route', () => {
-    mockBuildConfig({
-      newsStream: true,
-    })
     renderMockComponent({
       route: NEWS_ROUTE,
       ...params,
@@ -218,23 +205,7 @@ describe('useNavigate', () => {
     expect(navigateNested).toHaveBeenCalledTimes(1)
   })
 
-  it('should not navigate to news if it is not enabled in build config', () => {
-    mockBuildConfig({
-      newsStream: false,
-    })
-    renderMockComponent({
-      route: NEWS_ROUTE,
-      ...params,
-      newsType: LOCAL_NEWS_TYPE,
-      newsId: 1234,
-    })
-    expect(navigation.push).not.toHaveBeenCalled()
-  })
-
   it('should navigate to pois route', () => {
-    mockBuildConfig({
-      pois: true,
-    })
     renderMockComponent({
       route: POIS_ROUTE,
       ...params,
@@ -248,18 +219,6 @@ describe('useNavigate', () => {
     })
     expect(navigateNested).toHaveBeenCalledWith(navigation, POIS_ROUTE, { slug: undefined }, false)
     expect(navigateNested).toHaveBeenCalledTimes(2)
-  })
-
-  it('should not navigate to pois if it is not enabled in build config', () => {
-    mockBuildConfig({
-      pois: false,
-    })
-    renderMockComponent({
-      route: POIS_ROUTE,
-      ...params,
-      slug: '1234',
-    })
-    expect(navigation.push).not.toHaveBeenCalled()
   })
 
   it('should navigate to search', () => {
