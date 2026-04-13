@@ -2,16 +2,14 @@ import { fireEvent } from '@testing-library/react-native'
 import React, { ReactElement } from 'react'
 import { Share, View } from 'react-native'
 
-import { PDF_VIEW_MODAL_ROUTE, SHARE_SIGNAL_NAME } from 'shared'
+import { PDF_VIEW_MODAL_ROUTE } from 'shared'
 
 import useSnackbar from '../../hooks/useSnackbar'
 import createNavigationMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
-import sendTrackingSignal from '../../utils/sendTrackingSignal'
 import TransparentHeader from '../TransparentHeader'
 
 jest.mock('../../hooks/useSnackbar')
-jest.mock('../../utils/sendTrackingSignal')
 jest.mock(
   '../ActionButtons',
   () =>
@@ -74,14 +72,8 @@ describe('TransparentHeader', () => {
 
     const { getByTestId, getByText } = render(<TransparentHeader {...props} />)
 
-    // open overflow menu and press the share item
     fireEvent.press(getByTestId('header-overflow-menu-button'))
     fireEvent.press(getByText('share'))
-
-    // expect(share).toHaveBeenCalledWith({ message: 'shareMessage', title: 'Integreat' })
-    expect(sendTrackingSignal).toHaveBeenCalledWith({
-      signal: { name: SHARE_SIGNAL_NAME, url: 'https://example.com/share' },
-    })
 
     expect(showSnackbar).toHaveBeenCalledWith({ text: 'generalError' })
   })

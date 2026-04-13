@@ -26,7 +26,7 @@ type CityContentMenuProps = {
 
 const CityContentMenu = ({ slug, category, pageTitle, fitScreen }: CityContentMenuProps): ReactElement => {
   const { route, cityCode, languageCode } = useCityContentParams()
-  const { enabled: ttsEnabled, showTtsPlayer, canRead } = useContext(TtsContext)
+  const { showTtsPlayer, canRead } = useContext(TtsContext)
   const { toggleTheme, dimensions } = useTheme()
   const { t } = useTranslation('layout')
   const ref = useRef<MenuRef>(null)
@@ -56,17 +56,15 @@ const CityContentMenu = ({ slug, category, pageTitle, fitScreen }: CityContentMe
       />
     ) : null,
     <MenuItem key='theme' text={t('contrastTheme')} icon={<ContrastIcon fontSize='small' />} onClick={toggleTheme} />,
-    ttsEnabled ? (
-      <MenuItem
-        key='tts'
-        icon={<Svg src={ReadAloudIcon} width={20} height={20} />}
-        disabled={!canRead}
-        text={t('readAloud')}
-        tooltip={canRead ? null : t('nothingToReadFullMessage')}
-        onClick={showTtsPlayer}
-        closeMenu={closeMenu}
-      />
-    ) : null,
+    <MenuItem
+      key='tts'
+      icon={<Svg src={ReadAloudIcon} width={20} height={20} />}
+      disabled={!canRead}
+      text={t('readAloud')}
+      tooltip={canRead ? null : t('nothingToReadFullMessage')}
+      onClick={showTtsPlayer}
+      closeMenu={closeMenu}
+    />,
   ]
 
   return (

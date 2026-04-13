@@ -4,13 +4,12 @@ import { KeyboardAvoidingView, Platform } from 'react-native'
 import styled, { useTheme } from 'styled-components/native'
 
 import {
-  parseHTML,
-  SEARCH_FINISHED_SIGNAL_NAME,
-  SEARCH_ROUTE,
-  useSearch,
-  useDebounce,
-  MAX_SEARCH_RESULTS,
   filterRedundantFallbackLanguageResults,
+  MAX_SEARCH_RESULTS,
+  parseHTML,
+  SEARCH_ROUTE,
+  useDebounce,
+  useSearch,
 } from 'shared'
 import { ExtendedPageModel } from 'shared/api'
 import { config } from 'translations'
@@ -23,7 +22,6 @@ import Text from '../components/base/Text'
 import useAnnounceSearchResultsIOS from '../hooks/useAnnounceSearchResultsIOS'
 import useReportError from '../hooks/useReportError'
 import testID from '../testing/testID'
-import sendTrackingSignal from '../utils/sendTrackingSignal'
 
 const Wrapper = styled.View`
   position: absolute;
@@ -69,17 +67,6 @@ const SearchModal = ({
   useReportError(contentLanguageReturn.error ?? fallbackLanguageReturn.error)
   useAnnounceSearchResultsIOS(searchResults)
 
-  const onClose = (): void => {
-    sendTrackingSignal({
-      signal: {
-        name: SEARCH_FINISHED_SIGNAL_NAME,
-        query,
-        url: null,
-      },
-    })
-    closeModal(query)
-  }
-
   const renderItem = ({ item }: { item: ExtendedPageModel }) => (
     <SearchListItem
       key={item.path}
@@ -93,7 +80,7 @@ const SearchModal = ({
 
   return (
     <Wrapper {...testID('Search-Page')}>
-      <SearchHeader query={query} closeSearchBar={onClose} onSearchChanged={setQuery} />
+      <SearchHeader query={query} closeSearchBar={() => closeModal(query)} onSearchChanged={setQuery} />
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
         {debouncedQuery.length > 0 && (
           <>

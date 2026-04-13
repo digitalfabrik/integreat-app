@@ -151,7 +151,7 @@ Therefore, you can follow the documentation for Manual Builds to set up [certifi
 The next version of the app must be determined programmatically.
 
 - Go to the tools folder
-- run: `yarn app-toolbelt v0 version calc | jq .versionName`
+- run: `npx --no app-toolbelt v0 version calc | jq .versionName`
   More information on the version naming schema used can be found [here](conventions.md#versioning).
 
 ## Environment Variables and Dependencies

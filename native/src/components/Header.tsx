@@ -9,9 +9,11 @@ import {
   BOTTOM_TAB_NAVIGATION_ROUTE,
   CATEGORIES_ROUTE,
   CategoriesRouteType,
+  CHANGE_LANGUAGE_MODAL_ROUTE,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
   EventsRouteType,
+  FEEDBACK_MODAL_ROUTE,
   getSlugFromPath,
   LANDING_ROUTE,
   LICENSES_ROUTE,
@@ -31,8 +33,6 @@ import dimensions from '../constants/dimensions'
 import { AppContext } from '../contexts/AppContextProvider'
 import useSnackbar from '../hooks/useSnackbar'
 import useTtsPlayer from '../hooks/useTtsPlayer'
-import createNavigateToFeedbackModal from '../navigation/createNavigateToFeedbackModal'
-import navigateToLanguageChange from '../navigation/navigateToLanguageChange'
 import supportedLanguages from '../utils/supportedLanguages'
 import ActionButtons from './ActionButtons'
 import HeaderActionItem from './HeaderActionItem'
@@ -111,7 +111,7 @@ const Header = ({
     return routes[routes.findIndex(navRoute => navRoute.key === route.key) - 1]?.key
   })
   const previousRoute = navigation.getState().routes.find(route => route.key === previousRouteKey)
-  const { enabled: isTtsEnabled, showTtsPlayer } = useTtsPlayer()
+  const { showTtsPlayer } = useTtsPlayer()
   const isLanding = route.name === LANDING_ROUTE
   const currentLanguageName = languages?.find(it => it.code === languageCode)?.name
 
@@ -145,6 +145,7 @@ const Header = ({
 
   const renderMenuItem = (title: string, onPress: () => void, icon?: string): ReactElement => (
     <Menu.Item
+      accessibilityLabel={t(title)}
       leadingIcon={icon ?? IconPlaceholder}
       key={title}
       title={t(title)}
@@ -167,7 +168,10 @@ const Header = ({
     if (availableLanguages?.length === 1 && availableLanguages[0] === languageCode) {
       showSnackbar({ text: 'layout:noTranslation' })
     } else if (languages && availableLanguages) {
-      navigateToLanguageChange({ navigation, availableLanguages, languages })
+      navigation.navigate(CHANGE_LANGUAGE_MODAL_ROUTE, {
+        languages,
+        availableLanguages,
+      })
     }
   }
 
@@ -199,7 +203,7 @@ const Header = ({
 
   const navigateToFeedback = () => {
     if (cityCode) {
-      createNavigateToFeedbackModal(navigation)({
+      navigation.navigate(FEEDBACK_MODAL_ROUTE, {
         routeType: route.name as FeedbackRouteType,
         language: languageCode,
         cityCode,
@@ -242,7 +246,7 @@ const Header = ({
           : []),
         renderMenuItem('contrastTheme', toggleContrastTheme, 'contrast-circle'),
         renderMenuItem(HeaderButtonTitle.Settings, () => navigation.navigate(SETTINGS_ROUTE), 'cog-outline'),
-        ...(isTtsEnabled ? [renderMenuItem(t(HeaderButtonTitle.ReadAloud), showTtsPlayer, 'volume-high')] : []),
+        renderMenuItem(t(HeaderButtonTitle.ReadAloud), showTtsPlayer, 'volume-high'),
       ]
     : []
 

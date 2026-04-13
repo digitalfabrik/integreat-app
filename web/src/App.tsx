@@ -4,7 +4,6 @@ import { Settings as LuxonSettings } from 'luxon'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { BrowserRouter as Router } from 'react-router'
 
-import { setJpalTrackingCode } from 'shared/api'
 import { UiDirectionType, config } from 'translations'
 
 import RootSwitcher from './RootSwitcher'
@@ -12,7 +11,6 @@ import I18nProvider from './components/I18nProvider'
 import ThemeContainer from './components/ThemeContainer'
 import TtsContainer from './components/TtsContainer'
 import CustomAdapterLuxon from './utils/CustomAdapterLuxon'
-import safeLocalStorage, { JPAL_TRACKING_CODE_KEY } from './utils/safeLocalStorage'
 import { initSentry } from './utils/sentry'
 
 LuxonSettings.throwOnInvalid = true
@@ -26,7 +24,6 @@ const App = (): ReactElement => {
 
   useEffect(() => {
     initSentry()
-    setJpalTrackingCode(safeLocalStorage.getItem(JPAL_TRACKING_CODE_KEY))
   }, [])
 
   return (

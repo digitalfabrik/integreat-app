@@ -110,7 +110,7 @@ const OpeningHours = ({
     <>
       <Accordion
         headerContent={<OpeningHoursTitle isCurrentlyOpen={isCurrentlyOpen} language={language} />}
-        initialCollapsed={!isCurrentlyOpen}>
+        initialCollapsed>
         <HoursList hours={openingHours} appointmentUrl={appointmentUrl} />
       </Accordion>
       {AppointmentLink}

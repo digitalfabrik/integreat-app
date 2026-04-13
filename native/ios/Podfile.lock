@@ -2054,7 +2054,7 @@ PODS:
     - React-utils (= 0.84.1)
     - ReactNativeDependencies
   - ReactNativeDependencies (0.84.1)
-  - ReactNativeFs (2.37.0):
+  - ReactNativeFs (2.38.1):
     - hermes-engine
     - RCTRequired
     - RCTTypeSafety
@@ -2214,7 +2214,7 @@ PODS:
     - ReactNativeDependencies
     - RNFBApp
     - Yoga
-  - RNGestureHandler (2.30.1):
+  - RNGestureHandler (2.31.0):
     - hermes-engine
     - RCTRequired
     - RCTTypeSafety
@@ -2409,7 +2409,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - ReactNativeDependencies
     - Yoga
-  - RNSentry (8.6.0):
+  - RNSentry (8.7.0):
     - hermes-engine
     - RCTRequired
     - RCTTypeSafety
@@ -2991,7 +2991,7 @@ SPEC CHECKSUMS:
   ReactCodegen: 66522f37c7e4861aec1f6a574dee83917fad4397
   ReactCommon: 07572bf9e687c8a52fbe4a3641e9e3a1a477c78e
   ReactNativeDependencies: 7d808dd025eb668f05d092e3837bc3dff9743fe1
-  ReactNativeFs: ebd9e5d1a09af7419308e8f836c99a9218f5ff8b
+  ReactNativeFs: c8f088242a701e38c38c8b11c9f625591bb1be21
   ReactNativePdfRenderer: da23180e3c4f0dae53e09ee682bb556c5b9308db
   ReactNativeStaticServer: d6e031604d6782ff1ec9b1948d6f93f746b6d5c5
   RNCalendarEvents: f90f73666b6bcbb3cc8a491ffbb5e48c0db3de37
@@ -2999,14 +2999,14 @@ SPEC CHECKSUMS:
   RNCClipboard: fc456104340b49bdf812f68bd00e764abf360361
   RNFBApp: 7a234f611af9c79d8ab4d0cfbbce7b266ee022e5
   RNFBMessaging: ebf0a3427f3e8bb747538f47cef93a6db13d5d78
-  RNGestureHandler: 2d9fbac3450b0317d1d599a1db9c5f230221370e
+  RNGestureHandler: 386dfc6830f0620bbed15b271479b672a3407750
   RNInAppBrowser: 904d24dc75e8e6c6c98a3160329192608946f9df
   RNLocalize: 0da45ec541d1460051b1f23c3a1820a8caa0fe6b
   RNNotifee: 5e3b271e8ea7456a36eec994085543c9adca9168
   RNPermissions: 1267d0b9ed994548db75fec4e363480a9d63c2d1
   RNReanimated: 46aa0432d0a44ce978333713d1db0cbe706d5c41
   RNScreens: ca829379d20b0d1ff41a0b87bc37bdc50276cef5
-  RNSentry: 0b6912f0d4212c353dc4ed41dbf7ddf0f2735f40
+  RNSentry: df6be89d8221b7c01e64a79155b3dc4d92e58617
   RNSpeech: 458de842f34d9da53bf1a19077a2f86e045bbc9e
   RNSVG: 68baaafbd26ef58405193d56290537362fa8e6e4
   RNWorklets: bc32c788b41ef5f9ee519d6bf3f495b73fb7741b

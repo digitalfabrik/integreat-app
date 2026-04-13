@@ -49,6 +49,7 @@ describe('PoiDetails', () => {
     expect(getByText('description')).toBeTruthy()
     expect(getByText(poi.content)).toBeTruthy()
 
+    fireEvent.press(getByText('contacts'))
     const contact = poi.contacts[0]!
     expect(getByText(contact.headline!)).toBeTruthy()
     expect(getByText('website')).toBeTruthy()

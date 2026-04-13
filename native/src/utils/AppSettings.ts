@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { fromPairs, mapValues, toPairs } from 'lodash'
 
 import { ThemeKey } from 'build-configs/ThemeKey'
-import { SignalType, ExternalSourcePermissions } from 'shared'
+import { ExternalSourcePermissions } from 'shared'
 
 export const ASYNC_STORAGE_VERSION = '1'
 export type SettingsType = {
@@ -13,9 +13,6 @@ export type SettingsType = {
   errorTracking: boolean | null
   allowPushNotifications: boolean | null
   apiUrlOverride: string | null
-  jpalTrackingEnabled: boolean | null
-  jpalTrackingCode: string | null
-  jpalSignals: SignalType[]
   externalSourcePermissions: ExternalSourcePermissions
   selectedTheme: ThemeKey
 }
@@ -27,9 +24,6 @@ export const defaultSettings: SettingsType = {
   errorTracking: true,
   allowPushNotifications: true,
   apiUrlOverride: null,
-  jpalTrackingEnabled: null,
-  jpalTrackingCode: null,
-  jpalSignals: [],
   externalSourcePermissions: {},
   selectedTheme: 'light',
 }
@@ -65,14 +59,6 @@ class AppSettings {
   setSettings = async (settings: Partial<SettingsType>): Promise<void> => {
     const settingsArray = toPairs<string>(mapValues(settings, value => JSON.stringify(value)))
     await this.asyncStorage.multiSet(settingsArray)
-  }
-
-  pushJpalSignal = async (signal: SignalType): Promise<void> => {
-    const { jpalSignals } = await this.loadSettings()
-    jpalSignals.push(signal)
-    await this.setSettings({
-      jpalSignals,
-    })
   }
 }
 

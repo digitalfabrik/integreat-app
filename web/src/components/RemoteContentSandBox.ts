@@ -4,7 +4,7 @@ import { ExternalLinkIcon, PersonIcon, PersonLightIcon } from '../assets'
 
 const RemoteContentSandBox = styled('div')<{ centered: boolean; smallText: boolean }>`
   font-family: ${props => props.theme.typography.fontFamily};
-  font-size: ${props => props.theme.typography.body1.fontSize}px;
+  font-size: ${props => props.theme.typography[props.smallText ? 'body2' : 'body1'].fontSize}px;
   line-height: ${props => props.theme.typography.body1.lineHeight};
   display: flow-root; /* clearfix for the img floats */
 
@@ -159,6 +159,7 @@ const RemoteContentSandBox = styled('div')<{ centered: boolean; smallText: boole
     background-size: 104px;
     box-shadow: 0 1px 1px rgb(0 0 0 / 40%);
     min-width: 72%;
+    margin-bottom: 16px;
 
     p {
       margin-top: 4px;
@@ -177,6 +178,27 @@ const RemoteContentSandBox = styled('div')<{ centered: boolean; smallText: boole
 
     ${props => props.theme.breakpoints.down('md')} {
       width: 100%;
+    }
+
+    ul.details {
+      padding-inline-start: 24px;
+      margin: 0;
+
+      li {
+        position: relative;
+
+        &:has(img:first-child) {
+          list-style: none;
+        }
+
+        img:first-child {
+          position: absolute;
+          inset-inline-start: -24px;
+          top: 1px;
+          width: 16px;
+          height: 16px;
+        }
+      }
     }
   }
 

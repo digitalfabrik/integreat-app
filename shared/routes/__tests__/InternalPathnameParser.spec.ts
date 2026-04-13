@@ -2,7 +2,6 @@ import {
   CATEGORIES_ROUTE,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
-  JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
   LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
@@ -39,22 +38,6 @@ describe('InternalPathnameParser', () => {
     expect(parser.route()).toEqual({
       route: LANDING_ROUTE,
       languageCode: 'ar',
-    })
-  })
-
-  it('should match jpal tracking route without tracking code', () => {
-    const parser = new InternalPathnameParser(`/${JPAL_TRACKING_ROUTE}/`, languageCode, null)
-    expect(parser.route()).toEqual({
-      route: JPAL_TRACKING_ROUTE,
-      trackingCode: null,
-    })
-  })
-
-  it('should match tracking route with tracking code', () => {
-    const parser = new InternalPathnameParser(`/${JPAL_TRACKING_ROUTE}/abcdef12345`, languageCode, null)
-    expect(parser.route()).toEqual({
-      route: JPAL_TRACKING_ROUTE,
-      trackingCode: 'abcdef12345',
     })
   })
 

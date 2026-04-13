@@ -430,6 +430,7 @@ const renderHtml = (
         background-size: 104px;
         box-shadow: 0 1px 1px rgb(0 0 0 / 40%);
         width: 100%;
+        margin-bottom: 16px;
 
         p {
           margin-top: 4px;
@@ -443,6 +444,27 @@ const renderHtml = (
 
         img {
           margin-inline-end: 8px;
+        }
+
+        ul.details {
+          padding-inline-start: 24px;
+          margin: 0;
+        }
+
+        ul.details li {
+          position: relative;
+        }
+
+        ul.details li:has(img:first-child) {
+          list-style: none;
+        }
+
+        ul.details li img:first-child {
+          position: absolute;
+          left: -24px;
+          top: 1px;
+          width: 16px;
+          height: 16px;
         }
       }
 

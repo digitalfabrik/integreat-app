@@ -9,7 +9,6 @@ import {
   FeedbackModalRouteType,
   ImageViewModalRouteType,
   IntroRouteType,
-  JpalTrackingRouteType,
   LandingRouteType,
   NewsRouteType,
   NewsType,
@@ -26,7 +25,6 @@ import {
   EVENTS_ROUTE,
   NEWS_ROUTE,
   DISCLAIMER_ROUTE,
-  JPAL_TRACKING_ROUTE,
   SETTINGS_ROUTE,
   SEARCH_ROUTE,
   CHANGE_LANGUAGE_MODAL_ROUTE,
@@ -60,7 +58,6 @@ export type TabRoutesType = CategoriesTabRouteType | EventsTabRouteType | PoisTa
 
 export type RootRoutesType =
   | RedirectRouteType
-  | JpalTrackingRouteType
   | IntroRouteType
   | LandingRouteType
   | CityNotCooperatingRouteType
@@ -116,7 +113,6 @@ export type RootRoutesParamsType = {
   [CITY_NOT_COOPERATING_ROUTE]: undefined
   [DISCLAIMER_ROUTE]: undefined
   [CONSENT_ROUTE]: undefined
-  [JPAL_TRACKING_ROUTE]: undefined
   [SETTINGS_ROUTE]: undefined
   [SEARCH_ROUTE]: {
     searchText?: string | null

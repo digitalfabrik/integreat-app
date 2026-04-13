@@ -1,5 +1,6 @@
 import Alert, { alertClasses, AlertColor } from '@mui/material/Alert'
 import AlertTitle from '@mui/material/AlertTitle'
+import Portal from '@mui/material/Portal'
 import MUISnackbar from '@mui/material/Snackbar'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode } from 'react'
@@ -29,20 +30,22 @@ export type SnackbarProps = {
 }
 
 const Snackbar = ({ open, onClose, severity, message, title, action }: SnackbarProps): ReactElement => (
-  <StyledMuiSnackbar
-    open={open}
-    onClose={onClose}
-    anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-    autoHideDuration={severity === 'success' ? SNACKBAR_AUTO_HIDE_DURATION : null}>
-    <StyledAlert
-      severity={severity}
+  <Portal>
+    <StyledMuiSnackbar
+      open={open}
       onClose={onClose}
-      variant={severity === 'error' ? 'filled' : 'standard'}
-      action={action}>
-      {!!title && <AlertTitle>{title}</AlertTitle>}
-      {message}
-    </StyledAlert>
-  </StyledMuiSnackbar>
+      anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+      autoHideDuration={severity === 'success' ? SNACKBAR_AUTO_HIDE_DURATION : null}>
+      <StyledAlert
+        severity={severity}
+        onClose={onClose}
+        variant={severity === 'error' ? 'filled' : 'standard'}
+        action={action}>
+        {!!title && <AlertTitle>{title}</AlertTitle>}
+        {message}
+      </StyledAlert>
+    </StyledMuiSnackbar>
+  </Portal>
 )
 
 export default Snackbar

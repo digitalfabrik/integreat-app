@@ -1,4 +1,3 @@
-import { JPAL_TRACKING_CODE_QUERY_PARAM } from '../tracking'
 import { MapParamsToBodyType } from './MapParamsToBody'
 import { MapParamsToUrlType } from './MapParamsToUrlType'
 import { MapResponseType } from './MapResponseType'
@@ -6,7 +5,7 @@ import Payload from './Payload'
 import FetchError from './errors/FetchError'
 import NotFoundError from './errors/NotFoundError'
 import ResponseError from './errors/ResponseError'
-import { getJpalTrackingCode, request as fetch } from './request'
+import { request as fetch } from './request'
 
 /**
  * An Endpoint holds all the relevant information to fetch data from it
@@ -45,15 +44,7 @@ class Endpoint<P, T extends object> {
       throw this.errorOverride
     }
 
-    const baseUrl = overrideUrl || this.mapParamsToUrl(params)
-
-    const urlObject = new URL(baseUrl)
-    const jpalTrackingCode = getJpalTrackingCode()
-    if (jpalTrackingCode) {
-      urlObject.searchParams.append(JPAL_TRACKING_CODE_QUERY_PARAM, jpalTrackingCode)
-    }
-
-    const url = urlObject.toString()
+    const url = overrideUrl || this.mapParamsToUrl(params)
 
     if (this.responseOverride) {
       return new Payload(false, url, this.responseOverride, null)

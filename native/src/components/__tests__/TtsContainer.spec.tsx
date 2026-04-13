@@ -4,7 +4,6 @@ import React, { useContext } from 'react'
 import { Platform } from 'react-native'
 import { Button } from 'react-native-paper'
 
-import buildConfig from '../../constants/buildConfig'
 import useSnackbar from '../../hooks/useSnackbar'
 import TestingAppContext from '../../testing/TestingAppContext'
 import renderWithTheme from '../../testing/render'
@@ -30,13 +29,6 @@ jest.mock('@mhpdev/react-native-speech', () => ({
 jest.mock('../../hooks/useSnackbar')
 
 const { mocked } = jest
-const mockBuildConfig = (tts: boolean) => {
-  const previous = buildConfig()
-  mocked(buildConfig).mockImplementation(() => ({
-    ...previous,
-    featureFlags: { ...previous.featureFlags, tts },
-  }))
-}
 
 jest.useFakeTimers()
 
@@ -75,17 +67,7 @@ describe('TtsContainer', () => {
     jest.clearAllTimers()
   })
 
-  it('should do nothing if disabled', () => {
-    mockBuildConfig(false)
-    const { getByText, queryByRole } = renderTtsPlayer()
-    fireEvent.press(getByText('show'))
-    expect(showSnackbar).not.toHaveBeenCalled()
-    expect(Speech.configure).not.toHaveBeenCalled()
-    expect(queryByRole('button', { name: 'play' })).toBeFalsy()
-  })
-
   it('should show snackbar if no sentences set', () => {
-    mockBuildConfig(true)
     const { getByText, queryByRole } = renderTtsPlayer()
     fireEvent.press(getByText('show'))
     expect(showSnackbar).toHaveBeenCalledTimes(1)
@@ -95,7 +77,6 @@ describe('TtsContainer', () => {
   })
 
   it('should show tts player if enabled and sentences set', async () => {
-    mockBuildConfig(true)
     const { getByText, getByRole } = renderTtsPlayer()
     await waitFor(() => expect(Speech.getAvailableVoices).toHaveBeenCalled())
 
@@ -107,7 +88,6 @@ describe('TtsContainer', () => {
   })
 
   it('should set correct language for Deutsch (leicht)', async () => {
-    mockBuildConfig(true)
     const { getByText, getByRole } = renderTtsPlayer('de-si')
     // Wait for mocked voices to be loaded so the language-supported check passes
     await waitFor(() => expect(Speech.getAvailableVoices).toHaveBeenCalled())
@@ -123,7 +103,6 @@ describe('TtsContainer', () => {
   })
 
   it('should start playing and pause when the button is pressed', async () => {
-    mockBuildConfig(true)
     const { getByText, getByRole } = renderTtsPlayer()
     await waitFor(() => expect(Speech.getAvailableVoices).toHaveBeenCalled())
 
@@ -144,7 +123,6 @@ describe('TtsContainer', () => {
   })
 
   it('should close the player', async () => {
-    mockBuildConfig(true)
     const { getByText, queryByText, getByRole, queryByRole, getByLabelText } = renderTtsPlayer()
     await waitFor(() => expect(Speech.getAvailableVoices).toHaveBeenCalled())
 
@@ -164,7 +142,6 @@ describe('TtsContainer', () => {
   })
 
   it('should play previous and next sentences', async () => {
-    mockBuildConfig(true)
     const { getByText, getByRole } = renderTtsPlayer()
     await waitFor(() => expect(Speech.getAvailableVoices).toHaveBeenCalled())
 
@@ -204,7 +181,6 @@ describe('TtsContainer', () => {
 
   it('should call Tts.setIgnoreSilentSwitch when on iOS', async () => {
     Platform.OS = 'ios'
-    mockBuildConfig(true)
     const { getByText, getByRole } = renderTtsPlayer()
     await waitFor(() => expect(Speech.getAvailableVoices).toHaveBeenCalled())
 
