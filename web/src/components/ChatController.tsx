@@ -12,34 +12,42 @@ import {
 import { cmsApiBaseUrl } from '../constants/urls'
 import useIsTabActive from '../hooks/useIsTabActive'
 import useLocalStorage from '../hooks/useLocalStorage'
+import { generateChatId } from '../utils/chat'
 import Chat from './Chat'
 
 type ChatControllerProps = {
   city: CityModel
   languageCode: string
+  chatId: string | null
+  updateChatId: (newChatId: string | null) => void
 }
 
-const LOCAL_STORAGE_ITEM_CHAT_MESSAGES = 'Chat-Device-Id'
 const LOCAL_STORAGE_ITEM_CHAT_PRIVACY_POLICIES = 'Chat-Privacy-Policies'
 const DEFAULT_POLLING_INTERVAL = 15000
 const TYPING_POLLING_INTERVAL = 3000
 
-const ChatController = ({ city, languageCode }: ChatControllerProps): ReactElement => {
+const ChatController = ({ city, languageCode, chatId, updateChatId }: ChatControllerProps): ReactElement => {
   const cityCode = city.code
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
   const isBrowserTabActive = useIsTabActive()
 
-  const { value: deviceId } = useLocalStorage({
-    key: `${LOCAL_STORAGE_ITEM_CHAT_MESSAGES}-${cityCode}`,
-    initialValue: window.crypto.randomUUID(),
-  })
+  const initializeChat = (): string => {
+    const newId = generateChatId()
+    updateChatId(newId)
+    return newId
+  }
+
   const {
     data: chatMessagesReturn,
     refresh: refreshMessages,
     error,
     loading,
     setData,
-  } = useLoadFromEndpoint(createChatMessagesEndpoint, cmsApiBaseUrl, { cityCode, language: languageCode, deviceId })
+  } = useLoadFromEndpoint(createChatMessagesEndpoint, cmsApiBaseUrl, {
+    cityCode,
+    language: languageCode,
+    deviceId: chatId ?? '',
+  })
   const botTyping = chatMessagesReturn?.botTyping
   const messageCount = chatMessagesReturn?.messages.length ?? 0
 
@@ -64,7 +72,7 @@ const ChatController = ({ city, languageCode }: ChatControllerProps): ReactEleme
       cityCode,
       language: languageCode,
       message,
-      deviceId,
+      deviceId: chatId ?? initializeChat(),
     })
 
     if (data !== null) {

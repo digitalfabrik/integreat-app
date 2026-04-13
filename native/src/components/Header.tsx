@@ -111,7 +111,7 @@ const Header = ({
     return routes[routes.findIndex(navRoute => navRoute.key === route.key) - 1]?.key
   })
   const previousRoute = navigation.getState().routes.find(route => route.key === previousRouteKey)
-  const { enabled: isTtsEnabled, showTtsPlayer } = useTtsPlayer()
+  const { showTtsPlayer } = useTtsPlayer()
   const isLanding = route.name === LANDING_ROUTE
   const currentLanguageName = languages?.find(it => it.code === languageCode)?.name
 
@@ -246,7 +246,7 @@ const Header = ({
           : []),
         renderMenuItem('contrastTheme', toggleContrastTheme, 'contrast-circle'),
         renderMenuItem(HeaderButtonTitle.Settings, () => navigation.navigate(SETTINGS_ROUTE), 'cog-outline'),
-        ...(isTtsEnabled ? [renderMenuItem(t(HeaderButtonTitle.ReadAloud), showTtsPlayer, 'volume-high')] : []),
+        renderMenuItem(t(HeaderButtonTitle.ReadAloud), showTtsPlayer, 'volume-high'),
       ]
     : []
 

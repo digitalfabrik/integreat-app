@@ -69,4 +69,11 @@ describe('useSearch', () => {
     expect(data).toEqual([documents[2]])
     expect(error).toBeNull()
   })
+
+  it('should tolerate a slightly larger typo distance for Willkommen', async () => {
+    const { result } = renderHook(() => useSearch(documents, 'Wellkomenn'))
+    await waitFor(() => expect(result.current.loading).toBe(false))
+
+    expect(result.current.data).toEqual([documents[1], documents[2], documents[3]])
+  })
 })

@@ -9,8 +9,6 @@ import aschaffenburgBuildConfigName from './aschaffenburg/build-config-name'
 import integreatBuildConfig from './integreat'
 import integreatE2eBuildConfig from './integreat-e2e'
 import integreatE2eBuildConfigName from './integreat-e2e/build-config-name'
-import integreatFlossBuildConfig from './integreat-floss'
-import integreatFlossBuildConfigName from './integreat-floss/build-config-name'
 import integreatTestCmsBuildConfig from './integreat-test-cms'
 import integreatTestCmsBuildConfigName from './integreat-test-cms/build-config-name'
 import integreatBuildConfigName from './integreat/build-config-name'
@@ -41,7 +39,6 @@ const PLATFORMS = [COMMON, ANDROID, IOS, WEB]
 
 export const buildConfigs: Record<string, BuildConfigPlatformType> = {
   [integreatBuildConfigName]: integreatBuildConfig,
-  [integreatFlossBuildConfigName]: integreatFlossBuildConfig,
   [integreatTestCmsBuildConfigName]: integreatTestCmsBuildConfig,
   [integreatE2eBuildConfigName]: integreatE2eBuildConfig,
   [malteBuildConfigName]: malteBuildConfig,

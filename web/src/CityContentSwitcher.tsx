@@ -19,7 +19,6 @@ import Footer from './components/Footer'
 import GeneralHeader from './components/GeneralHeader'
 import LanguageFailure from './components/LanguageFailure'
 import Layout from './components/Layout'
-import buildConfig from './constants/buildConfig'
 import { cmsApiBaseUrl } from './constants/urls'
 import { LOCAL_NEWS_ROUTE, RoutePatterns, RouteType, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from './routes'
 import lazyWithRetry from './utils/retryImport'
@@ -87,9 +86,9 @@ const CityContentSwitcher = ({ languageCode }: CityContentSwitcherProps): ReactE
 
   // If the city is not available yet, nothing is rendered in the routes. Therefore, we can render the route until we know whether the feature is enabled.
   const eventsEnabled = !city || city.eventsEnabled
-  const localNewsEnabled = buildConfig().featureFlags.newsStream && (!city || city.localNewsEnabled)
-  const tuNewsEnabled = buildConfig().featureFlags.newsStream && (!city || city.tunewsEnabled)
-  const poisEnabled = buildConfig().featureFlags.pois && (!city || city.poisEnabled)
+  const localNewsEnabled = !city || city.localNewsEnabled
+  const tuNewsEnabled = !city || city.tunewsEnabled
+  const poisEnabled = !city || city.poisEnabled
 
   const render = <S extends RouteType>(
     route: S,

@@ -26,7 +26,6 @@
     "index.ts",
     "jest.config.ts",
     "babel.config.js",
-    "react-native.config.js",
     "stylelint.config.js"
   ],
   "exclude": ["metro.config.js", "metro.config.ci.js"],

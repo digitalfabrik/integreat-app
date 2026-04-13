@@ -5,16 +5,15 @@ import SignpostIcon from '@mui/icons-material/SignpostOutlined'
 import SvgIcon from '@mui/material/SvgIcon'
 
 import {
-  cityContentPath,
-  pathnameFromRouteInformation,
   CATEGORIES_ROUTE,
+  cityContentPath,
   EVENTS_ROUTE,
   NEWS_ROUTE,
+  pathnameFromRouteInformation,
   POIS_ROUTE,
 } from 'shared'
 import { CityModel } from 'shared/api'
 
-import buildConfig from '../constants/buildConfig'
 import { LOCAL_NEWS_ROUTE, TU_NEWS_ROUTE } from '../routes'
 
 type NavigationItem = {
@@ -31,9 +30,6 @@ type GetNavigationItemsProps = {
 
 const getNavigationItems = ({ cityModel, languageCode }: GetNavigationItemsProps): NavigationItem[] | null => {
   const { eventsEnabled, poisEnabled, tunewsEnabled, localNewsEnabled } = cityModel
-  const isNewsVisible = buildConfig().featureFlags.newsStream && (localNewsEnabled || tunewsEnabled)
-  const isEventsVisible = eventsEnabled
-  const isPoisVisible = buildConfig().featureFlags.pois && poisEnabled
 
   const params = { cityCode: cityModel.code, languageCode }
   const categoriesPath = cityContentPath(params)
@@ -44,9 +40,9 @@ const getNavigationItems = ({ cityModel, languageCode }: GetNavigationItemsProps
 
   const items: (NavigationItem | null)[] = [
     { value: CATEGORIES_ROUTE, to: categoriesPath, label: 'localInformationLabel', Icon: SignpostIcon },
-    isPoisVisible ? { value: POIS_ROUTE, to: poisPath, label: 'locations', Icon: MapIcon } : null,
-    isNewsVisible ? { value: NEWS_ROUTE, to: newsPath, label: 'news', Icon: NewspaperIcon } : null,
-    isEventsVisible ? { value: EVENTS_ROUTE, to: eventsPath, label: 'events', Icon: CalendarTodayIcon } : null,
+    poisEnabled ? { value: POIS_ROUTE, to: poisPath, label: 'locations', Icon: MapIcon } : null,
+    localNewsEnabled || tunewsEnabled ? { value: NEWS_ROUTE, to: newsPath, label: 'news', Icon: NewspaperIcon } : null,
+    eventsEnabled ? { value: EVENTS_ROUTE, to: eventsPath, label: 'events', Icon: CalendarTodayIcon } : null,
   ]
   const validItems = items.filter((tab): tab is NavigationItem => tab !== null)
   return validItems.length >= 2 ? validItems : null
