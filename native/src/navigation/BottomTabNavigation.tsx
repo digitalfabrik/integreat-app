@@ -25,15 +25,16 @@ import { SignPostIcon } from '../assets'
 import Icon from '../components/base/Icon'
 import Text from '../components/base/Text'
 import { TAB_NAVIGATOR_ID } from '../constants'
-import buildConfig from '../constants/buildConfig'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useLoadCityContent from '../hooks/useLoadCityContent'
+import useNavigate from '../hooks/useNavigate'
 import useSetRouteTitle from '../hooks/useSetRouteTitle'
 import CategoriesContainer from '../routes/CategoriesContainer'
 import EventsContainer from '../routes/EventsContainer'
 import LoadingErrorHandler from '../routes/LoadingErrorHandler'
 import NewsContainer from '../routes/NewsContainer'
 import PoisContainer from '../routes/PoisContainer'
+import { usePushNotificationListener } from '../utils/PushNotificationsManager'
 import cityDisplayName from '../utils/cityDisplayName'
 
 const Tab = createBottomTabNavigator<RoutesParamsType>()
@@ -97,6 +98,7 @@ type BottomTabNavigationProps = {
 const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactElement | null => {
   const { t } = useTranslation('layout')
   const { cityCode, languageCode } = useCityAppContext()
+  const { navigateTo } = useNavigate()
   const deviceWidth = useWindowDimensions().width
   const insets = useSafeAreaInsets()
   const { data, loading, error, refresh } = useLoadCityContent({ cityCode, languageCode })
@@ -107,12 +109,13 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
     cachedDataRef.current = data
   }
 
+  usePushNotificationListener(navigateTo)
+
   const cachedData = data || cachedDataRef.current
 
   const homeRouteTitle = cityDisplayName(cachedData?.city, deviceWidth)
   useSetRouteTitle({ navigation, title: homeRouteTitle })
   const theme = useTheme()
-  const { featureFlags } = buildConfig()
 
   const CategoriesIcon = useCallback(
     // eslint-disable-next-line react/no-unused-prop-types
@@ -126,7 +129,7 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
     return <LoadingErrorHandler loading={loading} error={error} refresh={refresh} />
   }
 
-  const isNewsEnabled = cachedData.city.tunewsEnabled || cachedData.city.localNewsEnabled
+  const { eventsEnabled, poisEnabled, localNewsEnabled, tunewsEnabled } = cachedData.city
 
   const Tabs = [
     <Tab.Screen
@@ -134,21 +137,21 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
       component={CategoriesStackScreen}
       options={{ tabBarLabel: createTabLabel(theme, t('localInformationLabel')), tabBarIcon: CategoriesIcon }}
     />,
-    featureFlags.pois && cachedData.city.poisEnabled && (
+    poisEnabled && (
       <Tab.Screen
         name={POIS_TAB_ROUTE}
         component={PoisStackScreen}
         options={{ tabBarLabel: createTabLabel(theme, t('locations')), tabBarIcon: createTabIcon('map-outline') }}
       />
     ),
-    isNewsEnabled && (
+    (localNewsEnabled || tunewsEnabled) && (
       <Tab.Screen
         name={NEWS_TAB_ROUTE}
         component={NewsStackScreen}
         options={{ tabBarLabel: createTabLabel(theme, t('news')), tabBarIcon: createTabIcon('newspaper') }}
       />
     ),
-    cachedData.city.eventsEnabled && (
+    eventsEnabled && (
       <Tab.Screen
         name={EVENTS_TAB_ROUTE}
         component={EventsStackScreen}
@@ -175,6 +178,7 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
           backgroundColor: theme.colors.surfaceVariant,
           display: bottomTabNavigationVisible ? 'flex' : 'none',
         },
+        sceneStyle: bottomTabNavigationVisible ? undefined : { paddingBottom: insets.bottom },
       }}>
       {Tabs}
     </Tab.Navigator>

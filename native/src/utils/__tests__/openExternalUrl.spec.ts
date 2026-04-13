@@ -1,10 +1,7 @@
 import { Linking } from 'react-native'
 import InAppBrowser from 'react-native-inappbrowser-reborn'
 
-import { OPEN_EXTERNAL_LINK_SIGNAL_NAME, OPEN_OS_LINK_SIGNAL_NAME } from 'shared'
-
 import openExternalUrl from '../openExternalUrl'
-import sendTrackingSignal from '../sendTrackingSignal'
 
 jest.mock('@sentry/react-native', () => ({
   captureException: () => undefined,
@@ -14,7 +11,6 @@ jest.mock('react-native-inappbrowser-reborn', () => ({
   close: jest.fn(),
   isAvailable: jest.fn(() => true),
 }))
-jest.mock('../../utils/sendTrackingSignal')
 jest.mock('react-native', () => ({
   Linking: {
     canOpenURL: jest.fn(() => true),
@@ -36,25 +32,12 @@ describe('openExternalUrl', () => {
     expect(InAppBrowser.close).toHaveBeenCalled()
     expect(InAppBrowser.open).toHaveBeenLastCalledWith(url, expect.anything())
     expect(Linking.openURL).not.toHaveBeenCalled()
-    expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
-    expect(sendTrackingSignal).toHaveBeenCalledWith({
-      signal: {
-        name: OPEN_EXTERNAL_LINK_SIGNAL_NAME,
-        url,
-      },
-    })
     const url2 = 'http://som.niceli.nk/les/stext'
     await openExternalUrl(url2, showSnackbar)
     expect(InAppBrowser.close).toHaveBeenCalled()
     expect(InAppBrowser.open).toHaveBeenLastCalledWith(url2, expect.anything())
     expect(Linking.openURL).not.toHaveBeenCalled()
     expect(showSnackbar).not.toHaveBeenCalled()
-    expect(sendTrackingSignal).toHaveBeenCalledWith({
-      signal: {
-        name: OPEN_EXTERNAL_LINK_SIGNAL_NAME,
-        url: url2,
-      },
-    })
   })
 
   it('should encode urls before opening them', async () => {
@@ -64,13 +47,6 @@ describe('openExternalUrl', () => {
     expect(InAppBrowser.close).toHaveBeenCalled()
     expect(InAppBrowser.open).toHaveBeenLastCalledWith(encodedUrl, expect.anything())
     expect(Linking.openURL).not.toHaveBeenCalled()
-    expect(sendTrackingSignal).toHaveBeenCalledTimes(1)
-    expect(sendTrackingSignal).toHaveBeenCalledWith({
-      signal: {
-        name: OPEN_EXTERNAL_LINK_SIGNAL_NAME,
-        url: encodedUrl,
-      },
-    })
   })
 
   it('should open https urls with linking if inapp browser is not available', async () => {
@@ -119,12 +95,6 @@ describe('openExternalUrl', () => {
     expect(Linking.openURL).toHaveBeenCalledWith(url)
     expect(InAppBrowser.open).not.toHaveBeenCalled()
     expect(showSnackbar).not.toHaveBeenCalled()
-    expect(sendTrackingSignal).toHaveBeenCalledWith({
-      signal: {
-        name: OPEN_OS_LINK_SIGNAL_NAME,
-        url,
-      },
-    })
   })
 
   it('should show snackbar if opening url is not supported', async () => {

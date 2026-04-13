@@ -1,5 +1,6 @@
 import { createStackNavigator, StackHeaderProps } from '@react-navigation/stack'
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import {
   BOTTOM_TAB_NAVIGATION_ROUTE,
@@ -13,7 +14,6 @@ import {
   IMAGE_VIEW_MODAL_ROUTE,
   INTRO_ROUTE,
   IntroRouteType,
-  JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
   LandingRouteType,
   LICENSES_ROUTE,
@@ -32,7 +32,6 @@ import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from './con
 import buildConfig from './constants/buildConfig'
 import { useAppContext } from './hooks/useCityAppContext'
 import useLoadCities from './hooks/useLoadCities'
-import useNavigate from './hooks/useNavigate'
 import useSnackbar from './hooks/useSnackbar'
 import BottomTabNavigation from './navigation/BottomTabNavigation'
 import ChangeLanguageModal from './routes/ChangeLanguageModal'
@@ -42,7 +41,6 @@ import DisclaimerContainer from './routes/DisclaimerContainer'
 import FeedbackModalContainer from './routes/FeedbackModalContainer'
 import ImageViewModal from './routes/ImageViewModal'
 import Intro from './routes/Intro'
-import JpalTracking from './routes/JpalTracking'
 import Landing from './routes/Landing'
 import Licenses from './routes/Licenses'
 import LoadingErrorHandler from './routes/LoadingErrorHandler'
@@ -51,7 +49,6 @@ import SearchModalContainer from './routes/SearchModalContainer'
 import Settings from './routes/Settings'
 import { ASYNC_STORAGE_VERSION } from './utils/AppSettings'
 import dataContainer from './utils/DefaultDataContainer'
-import { usePushNotificationListener } from './utils/PushNotificationsManager'
 import { initSentry, log, reportError } from './utils/sentry'
 
 type HeaderProps = {
@@ -82,15 +79,13 @@ type InitialRouteType =
 
 const Navigator = (): ReactElement | null => {
   const showSnackbar = useSnackbar()
+  const insets = useSafeAreaInsets()
   const appContext = useAppContext()
   const { settings, cityCode, changeCityCode, updateSettings } = appContext
-  const { navigateTo } = useNavigate()
   const [initialRoute, setInitialRoute] = useState<InitialRouteType>(null)
 
   // Preload cities
   const { data: cities, error: citiesError, refresh: refreshCities } = useLoadCities()
-
-  usePushNotificationListener(navigateTo)
 
   const updateInitialRoute = useCallback(
     (initialRoute: InitialRouteType) =>
@@ -149,12 +144,16 @@ const Navigator = (): ReactElement | null => {
     <Stack.Navigator
       id={ROOT_NAVIGATOR_ID}
       initialRouteName={initialRoute.name}
-      screenOptions={{ headerMode: 'screen', animation: 'none' }}>
+      screenOptions={{ headerMode: 'screen', animation: 'none', cardStyle: { paddingBottom: insets.bottom } }}>
       <Stack.Group screenOptions={{ header: () => null }}>
         <Stack.Screen name={REDIRECT_ROUTE} initialParams={{ url: redirectUrl }} component={RedirectContainer} />
         <Stack.Screen name={INTRO_ROUTE} component={Intro} />
         <Stack.Screen name={SEARCH_ROUTE} component={SearchModalContainer} />
-        <Stack.Screen name={BOTTOM_TAB_NAVIGATION_ROUTE} component={BottomTabNavigation} />
+        <Stack.Screen
+          name={BOTTOM_TAB_NAVIGATION_ROUTE}
+          component={BottomTabNavigation}
+          options={{ cardStyle: { paddingBottom: 0 } }}
+        />
       </Stack.Group>
 
       <Stack.Group screenOptions={{ header: defaultHeader }}>
@@ -167,7 +166,6 @@ const Navigator = (): ReactElement | null => {
         <Stack.Screen name={PDF_VIEW_MODAL_ROUTE} component={PDFViewModal} />
         <Stack.Screen name={CHANGE_LANGUAGE_MODAL_ROUTE} component={ChangeLanguageModal} />
         <Stack.Screen name={IMAGE_VIEW_MODAL_ROUTE} component={ImageViewModal} />
-        <Stack.Screen name={JPAL_TRACKING_ROUTE} component={JpalTracking} />
         {buildConfig().featureFlags.cityNotCooperating && (
           <Stack.Screen name={CITY_NOT_COOPERATING_ROUTE} component={CityNotCooperating} />
         )}

@@ -4,7 +4,6 @@ import EasySpeech from 'easy-speech'
 import React, { createContext, ReactElement, useCallback, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import buildConfig from '../constants/buildConfig'
 import { getTtsVoice, isTtsCancelError, ttsInitialized } from '../utils/tts'
 import LoadingSpinner from './LoadingSpinner'
 import TtsHelp from './TtsHelp'
@@ -18,7 +17,6 @@ const StyledBackdrop = styled(Backdrop)`
 `
 
 export type TtsContextType = {
-  enabled?: boolean
   canRead: boolean
   visible: boolean
   showTtsPlayer: () => void
@@ -27,7 +25,6 @@ export type TtsContextType = {
 }
 
 export const TtsContext = createContext<TtsContextType>({
-  enabled: false,
   canRead: false,
   visible: false,
   showTtsPlayer: () => undefined,
@@ -50,22 +47,19 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
   const [showHelp, setShowHelp] = useState(false)
   const [isInitializing, setIsInitializing] = useState(false)
   const title = sentences[0] || t('nothingToRead')
-  const enabled = buildConfig().featureFlags.tts
-  const canRead = enabled && sentences.length > 1
+  const canRead = sentences.length > 1
 
   const initializeTts = useCallback(() => {
-    if (buildConfig().featureFlags.tts) {
-      setIsInitializing(true)
-      EasySpeech.init({ maxTimeout: TTS_TIMEOUT, interval: TTS_RETRY_INTERVAL })
-        .then(() => {
-          setIsInitializing(false)
-          setVisible(true)
-        })
-        .catch(() => {
-          setIsInitializing(false)
-          setShowHelp(true)
-        })
-    }
+    setIsInitializing(true)
+    EasySpeech.init({ maxTimeout: TTS_TIMEOUT, interval: TTS_RETRY_INTERVAL })
+      .then(() => {
+        setIsInitializing(false)
+        setVisible(true)
+      })
+      .catch(() => {
+        setIsInitializing(false)
+        setShowHelp(true)
+      })
   }, [])
 
   const stopPlayer = useCallback((afterStop: () => void = () => undefined) => {
@@ -163,15 +157,14 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
   )
 
   const ttsContextValue = useMemo(
-    () => ({
-      enabled,
+    (): TtsContextType => ({
       canRead,
       visible,
       showTtsPlayer: initializeTts,
       sentences,
       setSentences: updateSentences,
     }),
-    [enabled, canRead, visible, sentences, updateSentences, initializeTts],
+    [canRead, visible, sentences, updateSentences, initializeTts],
   )
 
   return (

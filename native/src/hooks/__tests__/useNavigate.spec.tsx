@@ -6,28 +6,23 @@ import {
   CATEGORIES_ROUTE,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
-  JPAL_TRACKING_ROUTE,
   LANDING_ROUTE,
   LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
-  OPEN_PAGE_SIGNAL_NAME,
   POIS_ROUTE,
   RouteInformationType,
   SEARCH_ROUTE,
 } from 'shared'
 
-import buildConfig from '../../constants/buildConfig'
 import TestingAppContext from '../../testing/TestingAppContext'
 import createNavigationPropMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
 import { navigateNested } from '../../utils/navigation'
 import openExternalUrl from '../../utils/openExternalUrl'
-import sendTrackingSignal from '../../utils/sendTrackingSignal'
 import useNavigate from '../useNavigate'
 
 jest.mock('@react-navigation/native')
 jest.mock('../../utils/navigation')
-jest.mock('../../utils/sendTrackingSignal')
 jest.mock('../../utils/openExternalUrl', () => jest.fn(async () => undefined))
 jest.mock('../../navigation/url', () => ({
   urlFromRouteInformation: jest.fn(() => 'https://example.com'),
@@ -44,15 +39,6 @@ describe('useNavigate', () => {
   const languageCode = 'ro'
   const params = { cityCode, languageCode }
   const cityContentPath = `/${cityCode}/${languageCode}`
-
-  const mockedBuildConfig = mocked(buildConfig)
-  const mockBuildConfig = (featureFlags: { jpalTracking?: boolean; newsStream?: boolean; pois?: boolean }) => {
-    const previous = buildConfig()
-    mockedBuildConfig.mockImplementation(() => ({
-      ...previous,
-      featureFlags: { ...previous.featureFlags, ...featureFlags },
-    }))
-  }
 
   const MockComponent = ({
     routeInformation,
@@ -86,13 +72,6 @@ describe('useNavigate', () => {
       route: LANDING_ROUTE,
       languageCode,
     })
-    expect(sendTrackingSignal).toHaveBeenCalledWith({
-      signal: {
-        name: OPEN_PAGE_SIGNAL_NAME,
-        pageType: LANDING_ROUTE,
-        url: 'https://example.com',
-      },
-    })
     expect(navigation.push).toHaveBeenCalledWith(LANDING_ROUTE)
     expect(navigation.push).toHaveBeenCalledTimes(1)
   })
@@ -105,38 +84,8 @@ describe('useNavigate', () => {
       },
       true,
     )
-    expect(sendTrackingSignal).toHaveBeenCalledWith({
-      signal: {
-        name: OPEN_PAGE_SIGNAL_NAME,
-        pageType: LANDING_ROUTE,
-        url: 'https://example.com',
-      },
-    })
     expect(navigation.replace).toHaveBeenCalledWith(LANDING_ROUTE)
     expect(navigation.replace).toHaveBeenCalledTimes(1)
-    expect(navigation.push).not.toHaveBeenCalled()
-  })
-
-  it('should navigate to jpal tracking', () => {
-    mockBuildConfig({
-      jpalTracking: true,
-    })
-    renderMockComponent({
-      route: JPAL_TRACKING_ROUTE,
-      trackingCode: 'abcdef123456',
-    })
-    expect(navigation.push).toHaveBeenCalledWith(JPAL_TRACKING_ROUTE)
-    expect(navigation.push).toHaveBeenCalledTimes(1)
-  })
-
-  it('should not navigate to jpal tracking if it is disabled in the build config', () => {
-    mockBuildConfig({
-      jpalTracking: false,
-    })
-    renderMockComponent({
-      route: JPAL_TRACKING_ROUTE,
-      trackingCode: 'abcdef123456',
-    })
     expect(navigation.push).not.toHaveBeenCalled()
   })
 
@@ -195,13 +144,6 @@ describe('useNavigate', () => {
     expect(navigation.push).not.toHaveBeenCalled()
     expect(navigateNested).toHaveBeenCalledWith(navigation, CATEGORIES_ROUTE, { path: cityContentPath }, false)
     expect(navigateNested).toHaveBeenCalledTimes(1)
-    expect(sendTrackingSignal).toHaveBeenCalledWith({
-      signal: {
-        name: OPEN_PAGE_SIGNAL_NAME,
-        pageType: CATEGORIES_ROUTE,
-        url: 'https://example.com',
-      },
-    })
   })
 
   it('should redirect to categories route', () => {
@@ -216,13 +158,6 @@ describe('useNavigate', () => {
     expect(navigation.push).not.toHaveBeenCalled()
     expect(navigateNested).toHaveBeenCalledWith(navigation, CATEGORIES_ROUTE, { path: cityContentPath }, true)
     expect(navigateNested).toHaveBeenCalledTimes(1)
-    expect(sendTrackingSignal).toHaveBeenCalledWith({
-      signal: {
-        name: OPEN_PAGE_SIGNAL_NAME,
-        pageType: CATEGORIES_ROUTE,
-        url: 'https://example.com',
-      },
-    })
   })
 
   it('should navigate to disclaimer route', () => {
@@ -251,9 +186,6 @@ describe('useNavigate', () => {
   })
 
   it('should navigate to news route', () => {
-    mockBuildConfig({
-      newsStream: true,
-    })
     renderMockComponent({
       route: NEWS_ROUTE,
       ...params,
@@ -273,23 +205,7 @@ describe('useNavigate', () => {
     expect(navigateNested).toHaveBeenCalledTimes(1)
   })
 
-  it('should not navigate to news if it is not enabled in build config', () => {
-    mockBuildConfig({
-      newsStream: false,
-    })
-    renderMockComponent({
-      route: NEWS_ROUTE,
-      ...params,
-      newsType: LOCAL_NEWS_TYPE,
-      newsId: 1234,
-    })
-    expect(navigation.push).not.toHaveBeenCalled()
-  })
-
   it('should navigate to pois route', () => {
-    mockBuildConfig({
-      pois: true,
-    })
     renderMockComponent({
       route: POIS_ROUTE,
       ...params,
@@ -303,18 +219,6 @@ describe('useNavigate', () => {
     })
     expect(navigateNested).toHaveBeenCalledWith(navigation, POIS_ROUTE, { slug: undefined }, false)
     expect(navigateNested).toHaveBeenCalledTimes(2)
-  })
-
-  it('should not navigate to pois if it is not enabled in build config', () => {
-    mockBuildConfig({
-      pois: false,
-    })
-    renderMockComponent({
-      route: POIS_ROUTE,
-      ...params,
-      slug: '1234',
-    })
-    expect(navigation.push).not.toHaveBeenCalled()
   })
 
   it('should navigate to search', () => {

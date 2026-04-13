@@ -22,16 +22,6 @@ export type FixedCityType =
     }
 
 export type FeatureFlagsType = FixedCityType & {
-  // Whether the build should be floss. If set to true, proprietary libraries and features like firebase are stripped.
-  floss: boolean
-  // Enables POIs and maps, can be disabled via our api on a per city basis.
-  pois: boolean
-  // Enables local news and tünews, can be disabled via our api on a per city basis.
-  newsStream: boolean
-  // Enables firebase push notifications, can be disabled by users.
-  pushNotifications: boolean
-  // Enables tracking campaign for the jpal evaluation.
-  jpalTracking: boolean
   // Enables error tracking to sentry, can be disabled by users.
   sentry: boolean
   // Enables additional debugging output for devs (i18n, hidden cities, version).
@@ -40,7 +30,6 @@ export type FeatureFlagsType = FixedCityType & {
   cityNotCooperating?: boolean
   cityNotCooperatingTemplate: string | null
   chat: boolean
-  tts: boolean
 }
 
 // Available on all platforms

@@ -7,7 +7,6 @@ import { config, loadTranslations } from 'translations'
 
 import buildConfig from '../constants/buildConfig'
 import NativeLanguageDetector from '../utils/NativeLanguageDetector'
-import { setSystemLanguage } from '../utils/sendTrackingSignal'
 import { reportError } from '../utils/sentry'
 
 type I18nProviderProps = {
@@ -36,11 +35,6 @@ const I18nProvider = ({ children }: I18nProviderProps): ReactElement | null => {
              https://github.com/i18next/react-i18next/issues/277 */
         },
       })
-      // A language mentioned in the supportedLanguages array of the config.js in the translations package
-      // If no language is found, we use the fallback language
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      const matchedLanguage = i18nextInstance.languages[0]!
-      setSystemLanguage(matchedLanguage)
       setI18nextInstance(i18nextInstance)
     }
 

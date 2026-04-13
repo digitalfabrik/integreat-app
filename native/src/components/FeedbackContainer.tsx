@@ -3,13 +3,11 @@ import { useTranslation } from 'react-i18next'
 import { Button } from 'react-native-paper'
 import styled from 'styled-components/native'
 
-import { SEND_FEEDBACK_SIGNAL_NAME } from 'shared'
 import { createFeedbackEndpoint, FeedbackRouteType } from 'shared/api'
 import { config } from 'translations'
 
 import buildConfig from '../constants/buildConfig'
 import { determineApiUrl } from '../utils/helpers'
-import sendTrackingSignal from '../utils/sendTrackingSignal'
 import { reportError } from '../utils/sentry'
 import Feedback from './Feedback'
 import Text from './base/Text'
@@ -71,16 +69,6 @@ const FeedbackContainer = ({
       setSendingStatus('successful')
     }
 
-    sendTrackingSignal({
-      signal: {
-        name: SEND_FEEDBACK_SIGNAL_NAME,
-        feedback: {
-          positive: isPositiveRating,
-          numCharacters: comment.length,
-          contactMail: contactMail.length > 0,
-        },
-      },
-    })
     request().catch(err => {
       reportError(err)
       setSendingStatus('failed')

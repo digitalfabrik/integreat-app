@@ -25,6 +25,7 @@ const IconButton = ({ accessibilityLabel, icon, onPress, style, disabled }: Icon
   const theme = useTheme() as DefaultTheme
   return (
     <TouchableRipple
+      borderless
       onPress={onPress}
       style={[
         styles.TouchableRippleStyle,

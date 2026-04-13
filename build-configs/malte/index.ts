@@ -33,18 +33,12 @@ const commonMalteBuildConfig: CommonBuildConfigType = {
     'https?:\\/\\/((cms\\.)?malteapp\\.de|malte-test\\.tuerantuer\\.org)(?!\\/(media|[^/]*\\/(wp-content|wp-admin|wp-json))\\/.*).*',
   hostName: 'malteapp.de',
   featureFlags: {
-    floss: false,
-    pois: true,
-    newsStream: true,
-    pushNotifications: true,
     introSlides: true,
-    jpalTracking: false,
     sentry: true,
     developerFriendly: false,
     fixedCity: null,
     cityNotCooperatingTemplate: null,
     chat: false,
-    tts: true,
   },
   aboutUrls: {
     default: 'https://www.malteser-werke.de/malte-app',

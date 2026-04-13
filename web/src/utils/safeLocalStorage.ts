@@ -2,7 +2,6 @@ let hasLocalStorageSupport: boolean | null = null
 
 export const I18N_LANGUAGE_KEY = 'i18nextLng'
 export const PAGE_FORCE_REFRESHED_KEY = 'pageForceRefreshed'
-export const JPAL_TRACKING_CODE_KEY = 'jpalTrackingCode'
 export const API_URL_KEY = 'api-url'
 
 // Adapted from:

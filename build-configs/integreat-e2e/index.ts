@@ -11,18 +11,12 @@ const integreatE2e = {
   appName: 'IntegreatE2E',
   e2e: true,
   featureFlags: {
-    floss: false,
-    pois: true,
-    newsStream: true,
-    pushNotifications: true,
     introSlides: false,
-    jpalTracking: false,
     sentry: false,
     developerFriendly: false,
     fixedCity: null,
     cityNotCooperatingTemplate,
     chat: false,
-    tts: false,
   },
 }
 const commonIntegreatE2eBuildConfig: CommonBuildConfigType = {

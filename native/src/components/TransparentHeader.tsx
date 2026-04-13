@@ -4,14 +4,11 @@ import { Share } from 'react-native'
 import { Menu } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
-import { SHARE_SIGNAL_NAME } from 'shared'
-
 import { NavigationProps, RouteProps, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import useSnackbar from '../hooks/useSnackbar'
 import openExternalUrl from '../utils/openExternalUrl'
-import sendTrackingSignal from '../utils/sendTrackingSignal'
 import { reportError } from '../utils/sentry'
 import HeaderBox from './HeaderBox'
 import HeaderMenu from './HeaderMenu'
@@ -53,12 +50,6 @@ const TransparentHeader = ({ navigation, route }: TransparentHeaderProps): React
       message: shareUrl,
       interpolation: {
         escapeValue: false,
-      },
-    })
-    sendTrackingSignal({
-      signal: {
-        name: SHARE_SIGNAL_NAME,
-        url: shareUrl,
       },
     })
 
