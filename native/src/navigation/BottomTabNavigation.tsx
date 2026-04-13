@@ -135,20 +135,32 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
     <Tab.Screen
       name={CATEGORIES_TAB_ROUTE}
       component={CategoriesStackScreen}
-      options={{ tabBarLabel: createTabLabel(theme, t('localInformationLabel')), tabBarIcon: CategoriesIcon }}
+      options={{
+        tabBarLabel: createTabLabel(theme, t('localInformationLabel')),
+        tabBarIcon: CategoriesIcon,
+        tabBarAccessibilityLabel: t('localInformationLabel'),
+      }}
     />,
     poisEnabled && (
       <Tab.Screen
         name={POIS_TAB_ROUTE}
         component={PoisStackScreen}
-        options={{ tabBarLabel: createTabLabel(theme, t('locations')), tabBarIcon: createTabIcon('map-outline') }}
+        options={{
+          tabBarLabel: createTabLabel(theme, t('locations')),
+          tabBarIcon: createTabIcon('map-outline'),
+          tabBarAccessibilityLabel: t('locations'),
+        }}
       />
     ),
     (localNewsEnabled || tunewsEnabled) && (
       <Tab.Screen
         name={NEWS_TAB_ROUTE}
         component={NewsStackScreen}
-        options={{ tabBarLabel: createTabLabel(theme, t('news')), tabBarIcon: createTabIcon('newspaper') }}
+        options={{
+          tabBarLabel: createTabLabel(theme, t('news')),
+          tabBarIcon: createTabIcon('newspaper'),
+          tabBarAccessibilityLabel: t('news'),
+        }}
       />
     ),
     eventsEnabled && (
@@ -158,6 +170,7 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
         options={{
           tabBarLabel: createTabLabel(theme, t('events')),
           tabBarIcon: createTabIcon('calendar-blank-outline'),
+          tabBarAccessibilityLabel: t('events'),
         }}
       />
     ),
