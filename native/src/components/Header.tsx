@@ -72,7 +72,7 @@ const Header = ({
   forceText = route.name === LANDING_ROUTE,
 }: HeaderProps): ReactElement | null => {
   const [visible, setVisible] = useState(false)
-  const { languageCode, cityCode, settings, updateSettings } = useContext(AppContext)
+  const { languageCode, cityCode } = useContext(AppContext)
   const { t } = useTranslation('layout')
   const showSnackbar = useSnackbar()
   // Save route/canGoBack to state to prevent it from changing during navigating which would lead to flickering of the title and back button
@@ -153,9 +153,6 @@ const Header = ({
     }
   }
 
-  const toggleContrastTheme = () =>
-    updateSettings({ selectedTheme: settings.selectedTheme === 'light' ? 'contrast' : 'light' })
-
   const items = [
     <HeaderActionItem
       key='search'
@@ -190,12 +187,6 @@ const Header = ({
               />,
             ]
           : []),
-        <HeaderMenuItem
-          key='contrast'
-          title={t('contrastTheme')}
-          onPress={toggleContrastTheme}
-          icon='contrast-circle'
-        />,
         <HeaderMenuItem
           key='settings'
           title={t('settings')}
