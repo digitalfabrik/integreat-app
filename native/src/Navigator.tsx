@@ -61,9 +61,7 @@ const transparentHeader = (headerProps: StackHeaderProps) => <TransparentHeader 
 export const defaultHeader = (headerProps: StackHeaderProps): ReactElement => (
   <Header {...(headerProps as HeaderProps)} />
 )
-const settingsHeader = (headerProps: StackHeaderProps) => (
-  <Header {...(headerProps as HeaderProps)} showOverflowItems={false} />
-)
+const settingsHeader = (headerProps: StackHeaderProps) => <Header {...(headerProps as HeaderProps)} showMenu={false} />
 
 const Stack = createStackNavigator<RoutesParamsType>()
 

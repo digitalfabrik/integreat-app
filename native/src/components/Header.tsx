@@ -51,7 +51,7 @@ type HeaderProps = {
   route: RouteProps<RoutesType>
   navigation: NavigationProps<RoutesType>
   showItems?: boolean
-  showOverflowItems?: boolean
+  showMenu?: boolean
   languages?: LanguageModel[]
   availableLanguages?: string[]
   shareUrl?: string
@@ -65,7 +65,7 @@ const Header = ({
   availableLanguages = route.name === LANDING_ROUTE ? supportedLanguages.map(it => it.code) : undefined,
   shareUrl,
   showItems = false,
-  showOverflowItems = true,
+  showMenu = true,
   languages = route.name === LANDING_ROUTE ? supportedLanguages : undefined,
   cityName,
   forceText = route.name === LANDING_ROUTE,
@@ -172,7 +172,7 @@ const Header = ({
     />,
   ]
 
-  const overflowItems = [
+  const menuItems = [
     ...(route.name !== NEWS_ROUTE
       ? [
           <HeaderMenuItem
@@ -240,12 +240,12 @@ const Header = ({
           landingPath={landingPath}
         />
         <ActionButtons items={items} />
-        {showOverflowItems && (
+        {showMenu && (
           <HeaderMenu
             navigation={navigation}
             visible={visible}
             setVisible={setVisible}
-            menuItems={overflowItems}
+            menuItems={menuItems}
             shareUrl={shareUrl}
             pageTitle={pageTitle}
           />
