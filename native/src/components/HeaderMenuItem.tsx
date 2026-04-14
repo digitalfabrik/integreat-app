@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { Menu } from 'react-native-paper'
 import { useTheme } from 'styled-components/native'
 
@@ -12,17 +12,12 @@ const styles = StyleSheet.create({
   menuItemTitle: {
     paddingRight: 8,
   },
-  iconPlaceholder: {
-    width: 40,
-  },
 })
-
-const IconPlaceholder = () => <View style={styles.iconPlaceholder} />
 
 type HeaderMenuItemProps = {
   title: string
   onPress: () => void
-  icon?: string
+  icon: string
 }
 
 const HeaderMenuItem = ({ onPress, title, icon }: HeaderMenuItemProps): ReactElement => {
@@ -30,7 +25,7 @@ const HeaderMenuItem = ({ onPress, title, icon }: HeaderMenuItemProps): ReactEle
   return (
     <Menu.Item
       accessibilityLabel={title}
-      leadingIcon={icon ?? IconPlaceholder}
+      leadingIcon={icon}
       title={title}
       onPress={onPress}
       style={{

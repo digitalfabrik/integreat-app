@@ -70,7 +70,7 @@ const Header = ({
   cityName,
   forceText = route.name === LANDING_ROUTE,
 }: HeaderProps): ReactElement | null => {
-  const [visible, setVisible] = useState(false)
+  const [menuVisible, setMenuVisible] = useState(false)
   const { languageCode, cityCode } = useContext(AppContext)
   const { t } = useTranslation('layout')
   const showSnackbar = useSnackbar()
@@ -243,8 +243,8 @@ const Header = ({
         {showMenu && (
           <HeaderMenu
             navigation={navigation}
-            visible={visible}
-            setVisible={setVisible}
+            visible={menuVisible}
+            setVisible={setMenuVisible}
             menuItems={menuItems}
             shareUrl={shareUrl}
             pageTitle={pageTitle}
