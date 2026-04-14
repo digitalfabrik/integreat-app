@@ -21,6 +21,7 @@ import TestingAppContext from '../../testing/TestingAppContext'
 import createNavigationMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
 import cityShareName from '../../utils/cityShareName'
+import openExternalUrl from '../../utils/openExternalUrl'
 import Header from '../Header'
 
 jest.mock('../../hooks/useSnackbar')
@@ -42,6 +43,7 @@ jest.mock('react-i18next', () => ({
 jest.mock('styled-components')
 jest.mock('@react-native-community/netinfo')
 jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter')
+jest.mock('../../utils/openExternalUrl', () => jest.fn(async () => undefined))
 
 describe('Header', () => {
   beforeEach(() => {
@@ -172,30 +174,7 @@ describe('Header', () => {
     expect(showSnackbar).toHaveBeenCalledTimes(1)
   })
 
-  it('should show snackbar if sharing fails', () => {
-    const showSnackbar = jest.fn()
-    mocked(useSnackbar).mockImplementation(() => showSnackbar)
-    const openURL = jest.fn(() => {
-      throw new Error('fail')
-    })
-    const spy = jest.spyOn(Linking, 'openURL')
-    spy.mockImplementation(openURL)
-
-    const { getByTestId, getByText } = renderHeader({})
-
-    fireEvent.press(getByTestId('header-overflow-menu-button'))
-    fireEvent.press(getByText(t('share')))
-    fireEvent.press(getByText('WhatsApp'))
-
-    expect(openURL).toHaveBeenCalled()
-
-    expect(showSnackbar).toHaveBeenCalledWith({ text: 'generalError' })
-  })
-
   it('should create proper share message including page title', () => {
-    const openURL = jest.fn()
-    const spy = jest.spyOn(Linking, 'openURL')
-    spy.mockImplementation(openURL)
     const { getByTestId, getByText } = renderHeader({
       route: { key: 'key-0', name: CATEGORIES_ROUTE, params: { title: defaultPageTitle } },
     })
@@ -203,7 +182,7 @@ describe('Header', () => {
     fireEvent.press(getByText(t('share')))
     fireEvent.press(getByText('WhatsApp'))
 
-    expect(openURL).toHaveBeenCalled()
+    expect(openExternalUrl).toHaveBeenCalled()
   })
 
   it('should use the route name in the share message if no page title is set', () => {
@@ -217,7 +196,7 @@ describe('Header', () => {
     fireEvent.press(getByText(t('share')))
     fireEvent.press(getByText('WhatsApp'))
 
-    expect(openURL).toHaveBeenCalled()
+    expect(openExternalUrl).toHaveBeenCalled()
   })
 
   it('should remove the page title in the share message if it equals the city name', () => {
@@ -231,6 +210,6 @@ describe('Header', () => {
     fireEvent.press(getByText(t('share')))
     fireEvent.press(getByText('WhatsApp'))
 
-    expect(openURL).toHaveBeenCalled()
+    expect(openExternalUrl).toHaveBeenCalled()
   })
 })

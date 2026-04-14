@@ -1,7 +1,6 @@
 import Clipboard from '@react-native-clipboard/clipboard'
 import React, { cloneElement, ReactElement, useCallback, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Linking } from 'react-native'
 import { IconButton, Menu, useTheme } from 'react-native-paper'
 
 import { DISCLAIMER_ROUTE, LICENSES_ROUTE } from 'shared'
@@ -10,7 +9,7 @@ import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import { AppContext } from '../contexts/AppContextProvider'
 import useSnackbar from '../hooks/useSnackbar'
-import { reportError } from '../utils/sentry'
+import openExternalUrl from '../utils/openExternalUrl'
 import HeaderMenuItem from './HeaderMenuItem'
 import MenuAccordion, { withDividers } from './MenuAccordion'
 
@@ -42,6 +41,8 @@ const HeaderMenu = ({
   const { t } = useTranslation('layout')
   const showSnackbar = useSnackbar()
 
+  const openUrl = (url: string) => openExternalUrl(url, showSnackbar)
+
   const copyToClipboard = useCallback(() => {
     if (!shareUrl) {
       return
@@ -59,15 +60,6 @@ const HeaderMenu = ({
   const whatsappUrl = `https://api.whatsapp.com/send?text=${shareMessage}%0a${encodedShareUrl}`
   const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedShareUrl}&t${shareMessage}`
   const mailUrl = `mailto:?subject=${encodedTitle}&body=${shareMessage}%0a${encodedShareUrl}`
-
-  const openUrl = async (url: string) => {
-    try {
-      await Linking.openURL(url)
-    } catch (e) {
-      reportError(e)
-      showSnackbar({ text: 'generalError' })
-    }
-  }
 
   const sharingItems = [
     <HeaderMenuItem key='whatsapp' title='WhatsApp' onPress={() => openUrl(whatsappUrl)} icon='whatsapp' />,

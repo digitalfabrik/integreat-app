@@ -2,7 +2,6 @@ import React, { ReactElement, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
-import { ThemeKey } from 'build-configs/ThemeKey'
 import {
   BOTTOM_TAB_NAVIGATION_ROUTE,
   CATEGORIES_ROUTE,
@@ -106,7 +105,6 @@ const Header = ({
     }
   }
 
-  // processing pageTitle for sharing
   const routeTitle = (route.params as { title?: string } | undefined)?.title
   const titleWithoutCity = routeTitle ?? t(route.name)
   const shouldAppendCityName = !!cityName && cityName !== titleWithoutCity
@@ -155,10 +153,8 @@ const Header = ({
     }
   }
 
-  const toggleContrastTheme = () => {
-    const newTheme: ThemeKey = settings.selectedTheme === 'light' ? 'contrast' : 'light'
-    updateSettings({ selectedTheme: newTheme })
-  }
+  const toggleContrastTheme = () =>
+    updateSettings({ selectedTheme: settings.selectedTheme === 'light' ? 'contrast' : 'light' })
 
   const items = [
     <HeaderActionItem
