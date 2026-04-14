@@ -185,12 +185,6 @@ const Header = ({
               />,
             ]
           : []),
-        <HeaderMenuItem
-          key='settings'
-          title={t('settings')}
-          onPress={() => navigation.navigate(SETTINGS_ROUTE)}
-          icon='cog-outline'
-        />,
         <HeaderMenuItem key='tts' title={t('readAloud')} onPress={showTtsPlayer} icon='volume-high' />,
       ]
     : []
@@ -251,6 +245,7 @@ const Header = ({
         <ActionButtons items={items} />
         <HeaderMenu
           navigation={navigation}
+          currentRoute={route.name}
           visible={visible}
           setVisible={setVisible}
           menuItems={overflowItems}

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Share } from 'react-native'
 import { IconButton, Menu, useTheme } from 'react-native-paper'
 
-import { DISCLAIMER_ROUTE, LICENSES_ROUTE } from 'shared'
+import { DISCLAIMER_ROUTE, LICENSES_ROUTE, SETTINGS_ROUTE } from 'shared'
 
 import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
@@ -16,6 +16,7 @@ import MenuAccordion, { withDividers } from './MenuAccordion'
 
 type HeaderMenuProps = {
   navigation: NavigationProps<RoutesType>
+  currentRoute: string
   visible: boolean
   setVisible: (visible: boolean) => void
   menuItems: ReactElement[]
@@ -26,6 +27,7 @@ type HeaderMenuProps = {
 
 const HeaderMenu = ({
   navigation,
+  currentRoute,
   menuItems = [],
   shareUrl,
   pageTitle,
@@ -96,6 +98,16 @@ const HeaderMenu = ({
   const defaultSections = showDefaultSections
     ? [
         <HeaderMenuItem key='share' title={t('share')} onPress={share} icon='share-variant' />,
+        ...(currentRoute !== SETTINGS_ROUTE
+          ? [
+              <HeaderMenuItem
+                key='settings'
+                title={t('settings')}
+                onPress={() => navigation.navigate(SETTINGS_ROUTE)}
+                icon='cog-outline'
+              />,
+            ]
+          : []),
         <MenuAccordion
           key='legal'
           title={t('legal')}

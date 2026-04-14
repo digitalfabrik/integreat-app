@@ -2,7 +2,7 @@ import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
 import { Button } from 'react-native'
 
-import { DISCLAIMER_ROUTE, LICENSES_ROUTE } from 'shared'
+import { CATEGORIES_ROUTE, DISCLAIMER_ROUTE, LICENSES_ROUTE } from 'shared'
 
 import TestingAppContext from '../../testing/TestingAppContext'
 import createNavigationMock from '../../testing/createNavigationPropMock'
@@ -26,7 +26,13 @@ describe('HeaderMenu', () => {
 
     const { getByText } = render(
       <TestingAppContext>
-        <HeaderMenu navigation={navigation} visible setVisible={setVisible} menuItems={[]} />
+        <HeaderMenu
+          navigation={navigation}
+          currentRoute={CATEGORIES_ROUTE}
+          visible
+          setVisible={setVisible}
+          menuItems={[]}
+        />
       </TestingAppContext>,
     )
 
@@ -53,6 +59,7 @@ describe('HeaderMenu', () => {
       <TestingAppContext>
         <HeaderMenu
           navigation={navigation}
+          currentRoute={CATEGORIES_ROUTE}
           visible
           setVisible={setVisible}
           menuItems={[
