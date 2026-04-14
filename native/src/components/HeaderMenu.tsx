@@ -1,18 +1,16 @@
-import React, { cloneElement, ReactElement, useContext, useState } from 'react'
+import React, { cloneElement, ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Share } from 'react-native'
 import { IconButton, Menu, useTheme } from 'react-native-paper'
 
-import { DISCLAIMER_ROUTE, LICENSES_ROUTE, SETTINGS_ROUTE } from 'shared'
+import { SETTINGS_ROUTE } from 'shared'
 
 import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
-import { AppContext } from '../contexts/AppContextProvider'
 import useSnackbar from '../hooks/useSnackbar'
-import openExternalUrl from '../utils/openExternalUrl'
+import { withDividers } from '../utils'
 import { reportError } from '../utils/sentry'
 import HeaderMenuItem from './HeaderMenuItem'
-import MenuAccordion, { withDividers } from './MenuAccordion'
 
 type HeaderMenuProps = {
   navigation: NavigationProps<RoutesType>
@@ -35,8 +33,6 @@ const HeaderMenu = ({
   setVisible,
   showDefaultSections = true,
 }: HeaderMenuProps): ReactElement | null => {
-  const { languageCode } = useContext(AppContext)
-  const [expandedAccordion, setExpandedAccordion] = useState<'share' | 'legal' | null>(null)
   const theme = useTheme()
   const { t } = useTranslation('layout')
   const showSnackbar = useSnackbar()
@@ -50,8 +46,6 @@ const HeaderMenu = ({
           },
         })
       : element
-
-  const openUrl = (url: string) => openExternalUrl(url, showSnackbar)
 
   const share = async () => {
     if (!shareUrl) {
@@ -74,27 +68,6 @@ const HeaderMenu = ({
     }
   }
 
-  const aboutUrls = buildConfig().aboutUrls
-  const privacyUrls = buildConfig().privacyUrls
-  const accessibilityUrls = buildConfig().accessibilityUrls
-  const aboutUrl = aboutUrls[languageCode] || aboutUrls.default
-  const privacyUrl = privacyUrls[languageCode] || privacyUrls.default
-  const accessibilityUrl = accessibilityUrls?.[languageCode] ?? accessibilityUrls?.default
-
-  const legalItems = [
-    <HeaderMenuItem key='disclaimer' title={t('disclaimer')} onPress={() => navigation.navigate(DISCLAIMER_ROUTE)} />,
-    <HeaderMenuItem key='aboutUs' title={t('settings:aboutUs')} onPress={() => openUrl(aboutUrl)} />,
-    <HeaderMenuItem key='privacy' title={t('privacy')} onPress={() => openUrl(privacyUrl)} />,
-    ...(accessibilityUrl
-      ? [<HeaderMenuItem key='accessibility' title={t('accessibility')} onPress={() => openUrl(accessibilityUrl)} />]
-      : []),
-    <HeaderMenuItem
-      key='licenses'
-      title={t('settings:openSourceLicenses')}
-      onPress={() => navigation.navigate(LICENSES_ROUTE)}
-    />,
-  ].map(closeMenuOnPress)
-
   const defaultSections = showDefaultSections
     ? [
         <HeaderMenuItem key='share' title={t('share')} onPress={share} icon='share-variant' />,
@@ -108,13 +81,6 @@ const HeaderMenu = ({
               />,
             ]
           : []),
-        <MenuAccordion
-          key='legal'
-          title={t('legal')}
-          items={legalItems}
-          expanded={expandedAccordion === 'legal'}
-          setExpanded={expanded => setExpandedAccordion(expanded ? 'legal' : null)}
-        />,
       ]
     : []
 
