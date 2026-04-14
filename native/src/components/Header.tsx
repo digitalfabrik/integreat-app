@@ -105,10 +105,8 @@ const Header = ({
     }
   }
 
-  const routeTitle = (route.params as { title?: string } | undefined)?.title
-  const titleWithoutCity = routeTitle ?? t(route.name)
-  const shouldAppendCityName = !!cityName && cityName !== titleWithoutCity
-  const pageTitle = shouldAppendCityName ? `${titleWithoutCity} - ${cityName}` : titleWithoutCity
+  const routeTitle = (route.params as { title?: string } | undefined)?.title ?? t(route.name)
+  const pageTitle = cityName !== routeTitle ? `${routeTitle} - ${cityName}` : routeTitle
 
   const goToLanguageChange = () => {
     if (availableLanguages?.length === 1 && availableLanguages[0] === languageCode) {

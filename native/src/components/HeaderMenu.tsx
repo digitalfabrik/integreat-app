@@ -1,6 +1,7 @@
 import Clipboard from '@react-native-clipboard/clipboard'
 import React, { cloneElement, ReactElement, useCallback, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Share } from 'react-native'
 import { IconButton, Menu, useTheme } from 'react-native-paper'
 
 import { DISCLAIMER_ROUTE, LICENSES_ROUTE } from 'shared'
@@ -10,6 +11,7 @@ import buildConfig from '../constants/buildConfig'
 import { AppContext } from '../contexts/AppContextProvider'
 import useSnackbar from '../hooks/useSnackbar'
 import openExternalUrl from '../utils/openExternalUrl'
+import { reportError } from '../utils/sentry'
 import HeaderMenuItem from './HeaderMenuItem'
 import MenuAccordion, { withDividers } from './MenuAccordion'
 
@@ -63,19 +65,26 @@ const HeaderMenu = ({
     setTimeout(() => setUrlCopied(false), COPY_TIMEOUT)
   }, [shareUrl, showSnackbar])
 
-  const encodedShareUrl = shareUrl ? encodeURIComponent(shareUrl) : ''
-  const encodedTitle = encodeURIComponent(pageTitle ?? buildConfig().appName)
-  const shareMessage = encodeURIComponent(t('shareMessage', { message: pageTitle ?? buildConfig().appName }))
+  const share = async () => {
+    if (!shareUrl) {
+      return
+    }
 
-  const whatsappUrl = `https://api.whatsapp.com/send?text=${shareMessage}%0a${encodedShareUrl}`
-  const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedShareUrl}&t${shareMessage}`
-  const mailUrl = `mailto:?subject=${encodedTitle}&body=${shareMessage}%0a${encodedShareUrl}`
+    const title = pageTitle ?? buildConfig().appName
+    const message = t('shareMessage', {
+      message: `${title}\n${shareUrl}`,
+      interpolation: {
+        escapeValue: false,
+      },
+    })
 
-  const sharingItems = [
-    <HeaderMenuItem key='whatsapp' title='WhatsApp' onPress={() => openUrl(whatsappUrl)} icon='whatsapp' />,
-    <HeaderMenuItem key='facebook' title='Facebook' onPress={() => openUrl(facebookUrl)} icon='facebook' />,
-    <HeaderMenuItem key='email' title={t('common:email')} onPress={() => openUrl(mailUrl)} icon='email' />,
-  ].map(closeMenuOnPress)
+    try {
+      await Share.share({ message, title })
+    } catch (e) {
+      showSnackbar({ text: 'generalError' })
+      reportError(e)
+    }
+  }
 
   const aboutUrls = buildConfig().aboutUrls
   const privacyUrls = buildConfig().privacyUrls
@@ -106,14 +115,7 @@ const HeaderMenu = ({
           onPress={copyToClipboard}
           icon='link'
         />,
-        <MenuAccordion
-          key='share'
-          title={t('share')}
-          items={sharingItems}
-          icon='share-variant'
-          expanded={expandedAccordion === 'share'}
-          setExpanded={expanded => setExpandedAccordion(expanded ? 'share' : null)}
-        />,
+        <HeaderMenuItem key='share' title={t('share')} onPress={share} icon='share-variant' />,
         <MenuAccordion
           key='legal'
           title={t('legal')}
