@@ -41,6 +41,16 @@ const HeaderMenu = ({
   const { t } = useTranslation('layout')
   const showSnackbar = useSnackbar()
 
+  const closeMenuOnPress = (element: ReactElement<{ onPress?: () => void }>) =>
+    element.props.onPress
+      ? cloneElement(element, {
+          onPress: () => {
+            element.props.onPress?.()
+            setVisible(false)
+          },
+        })
+      : element
+
   const openUrl = (url: string) => openExternalUrl(url, showSnackbar)
 
   const copyToClipboard = useCallback(() => {
@@ -65,7 +75,7 @@ const HeaderMenu = ({
     <HeaderMenuItem key='whatsapp' title='WhatsApp' onPress={() => openUrl(whatsappUrl)} icon='whatsapp' />,
     <HeaderMenuItem key='facebook' title='Facebook' onPress={() => openUrl(facebookUrl)} icon='facebook' />,
     <HeaderMenuItem key='email' title={t('common:email')} onPress={() => openUrl(mailUrl)} icon='email' />,
-  ]
+  ].map(closeMenuOnPress)
 
   const aboutUrls = buildConfig().aboutUrls
   const privacyUrls = buildConfig().privacyUrls
@@ -86,7 +96,7 @@ const HeaderMenu = ({
       title={t('settings:openSourceLicenses')}
       onPress={() => navigation.navigate(LICENSES_ROUTE)}
     />,
-  ]
+  ].map(closeMenuOnPress)
 
   const defaultSections = showDefaultSections
     ? [
@@ -114,17 +124,7 @@ const HeaderMenu = ({
       ]
     : []
 
-  const items = [...menuItems, ...defaultSections].map((element: ReactElement<{ onPress?: () => void }>) =>
-    // Close header menu on item press
-    element.props.onPress
-      ? cloneElement(element, {
-          onPress: () => {
-            element.props.onPress?.()
-            setVisible(false)
-          },
-        })
-      : element,
-  )
+  const items = [...menuItems, ...defaultSections].map(closeMenuOnPress)
 
   if (items.length === 0) {
     return null
