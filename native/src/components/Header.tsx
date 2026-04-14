@@ -1,8 +1,6 @@
 import React, { ReactElement, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet, View } from 'react-native'
-import { Menu } from 'react-native-paper'
-import styled, { useTheme } from 'styled-components/native'
+import styled from 'styled-components/native'
 
 import { ThemeKey } from 'build-configs/ThemeKey'
 import {
@@ -16,7 +14,6 @@ import {
   FEEDBACK_MODAL_ROUTE,
   getSlugFromPath,
   LANDING_ROUTE,
-  LICENSES_ROUTE,
   NEWS_ROUTE,
   POIS_ROUTE,
   PoisRouteType,
@@ -28,7 +25,6 @@ import { config } from 'translations'
 
 import { ROOT_NAVIGATOR_ID, TAB_NAVIGATOR_ID } from '../constants'
 import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from '../constants/NavigationTypes'
-import { contentAlignmentRTLText } from '../constants/contentDirection'
 import dimensions from '../constants/dimensions'
 import { AppContext } from '../contexts/AppContextProvider'
 import useSnackbar from '../hooks/useSnackbar'
@@ -38,6 +34,7 @@ import ActionButtons from './ActionButtons'
 import HeaderActionItem from './HeaderActionItem'
 import HeaderBox from './HeaderBox'
 import HeaderMenu from './HeaderMenu'
+import HeaderMenuItem from './HeaderMenuItem'
 import HighlightBox from './HighlightBox'
 
 const Horizontal = styled.View`
@@ -51,18 +48,6 @@ const Horizontal = styled.View`
 const BoxShadow = styled(HighlightBox)`
   height: ${dimensions.headerHeight}px;
 `
-
-const styles = StyleSheet.create({
-  menuItemContent: {
-    flex: 1,
-  },
-  menuItemTitle: {
-    paddingRight: 8,
-  },
-  iconPlaceholder: {
-    width: 40,
-  },
-})
 
 enum HeaderButtonTitle {
   Disclaimer = 'disclaimer',
@@ -87,8 +72,6 @@ type HeaderProps = {
   forceText?: boolean
 }
 
-const IconPlaceholder = () => <View style={styles.iconPlaceholder} />
-
 const Header = ({
   navigation,
   route,
@@ -103,7 +86,6 @@ const Header = ({
   const [visible, setVisible] = useState(false)
   const { languageCode, cityCode, settings, updateSettings } = useContext(AppContext)
   const { t } = useTranslation('layout')
-  const theme = useTheme()
   const showSnackbar = useSnackbar()
   // Save route/canGoBack to state to prevent it from changing during navigating which would lead to flickering of the title and back button
   const [previousRouteKey] = useState(() => {
@@ -141,29 +123,6 @@ const Header = ({
   const shouldAppendCityName = !!cityName && cityName !== titleWithoutCity
   const pageTitle = shouldAppendCityName ? `${titleWithoutCity} - ${cityName}` : titleWithoutCity
 
-  const closeMenu = () => setVisible(false)
-
-  const renderMenuItem = (title: string, onPress: () => void, icon?: string): ReactElement => (
-    <Menu.Item
-      accessibilityLabel={t(title)}
-      leadingIcon={icon ?? IconPlaceholder}
-      key={title}
-      title={t(title)}
-      onPress={() => {
-        onPress()
-        closeMenu()
-      }}
-      style={{
-        backgroundColor: theme.dark ? theme.colors.surfaceVariant : theme.colors.surface,
-      }}
-      contentStyle={styles.menuItemContent}
-      titleStyle={[
-        styles.menuItemTitle,
-        { color: theme.colors.onSurface, textAlign: contentAlignmentRTLText(t(title)) },
-      ]}
-    />
-  )
-
   const goToLanguageChange = () => {
     if (availableLanguages?.length === 1 && availableLanguages[0] === languageCode) {
       showSnackbar({ text: 'layout:noTranslation' })
@@ -175,12 +134,7 @@ const Header = ({
     }
   }
 
-  const getCategorySlug = (path?: string): string | undefined => {
-    if (!path) {
-      return undefined
-    }
-    return getSlugFromPath(path)
-  }
+  const getCategorySlug = (path?: string): string | undefined => (path ? getSlugFromPath(path) : undefined)
 
   const getSlugForRoute = (): string | undefined => {
     switch (route.name) {
@@ -242,11 +196,28 @@ const Header = ({
   const overflowItems = showOverflowItems
     ? [
         ...(route.name !== NEWS_ROUTE
-          ? [renderMenuItem(HeaderButtonTitle.Feedback, navigateToFeedback, 'comment-text-outline')]
+          ? [
+              <HeaderMenuItem
+                key='feedback'
+                title={t('feedback')}
+                onPress={navigateToFeedback}
+                icon='comment-text-outline'
+              />,
+            ]
           : []),
-        renderMenuItem('contrastTheme', toggleContrastTheme, 'contrast-circle'),
-        renderMenuItem(HeaderButtonTitle.Settings, () => navigation.navigate(SETTINGS_ROUTE), 'cog-outline'),
-        renderMenuItem(t(HeaderButtonTitle.ReadAloud), showTtsPlayer, 'volume-high'),
+        <HeaderMenuItem
+          key='contrast'
+          title={t('contrastTheme')}
+          onPress={toggleContrastTheme}
+          icon='contrast-circle'
+        />,
+        <HeaderMenuItem
+          key='settings'
+          title={t('settings')}
+          onPress={() => navigation.navigate(SETTINGS_ROUTE)}
+          icon='cog-outline'
+        />,
+        <HeaderMenuItem key='tts' title={t('readAloud')} onPress={showTtsPlayer} icon='volume-high' />,
       ]
     : []
 
@@ -305,14 +276,12 @@ const Header = ({
         />
         <ActionButtons items={items} />
         <HeaderMenu
+          navigation={navigation}
           visible={visible}
           setVisible={setVisible}
           menuItems={overflowItems}
           shareUrl={shareUrl}
           pageTitle={pageTitle}
-          onNavigateToDisclaimer={() => navigation.navigate(DISCLAIMER_ROUTE)}
-          onNavigateToLicenses={() => navigation.navigate(LICENSES_ROUTE)}
-          renderMenuItem={renderMenuItem}
         />
       </Horizontal>
     </BoxShadow>

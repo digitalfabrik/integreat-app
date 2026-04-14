@@ -1,36 +1,36 @@
 import Clipboard from '@react-native-clipboard/clipboard'
-import React, { ReactElement, useCallback, useContext, useState } from 'react'
+import React, { cloneElement, ReactElement, useCallback, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Linking } from 'react-native'
-import { Menu, IconButton, useTheme } from 'react-native-paper'
+import { IconButton, Menu, useTheme } from 'react-native-paper'
 
+import { DISCLAIMER_ROUTE, LICENSES_ROUTE } from 'shared'
+
+import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import { AppContext } from '../contexts/AppContextProvider'
 import useSnackbar from '../hooks/useSnackbar'
 import { reportError } from '../utils/sentry'
+import HeaderMenuItem from './HeaderMenuItem'
 import MenuAccordion, { withDividers } from './MenuAccordion'
-
-type HeaderMenuProps = {
-  visible: boolean
-  setVisible: (visible: boolean) => void
-  menuItems: React.ReactElement[]
-  shareUrl?: string
-  pageTitle?: string | null
-  onNavigateToDisclaimer?: () => void
-  onNavigateToLicenses?: () => void
-  renderMenuItem: (title: string, onPress: () => void, icon?: string) => ReactElement
-  showDefaultSections?: boolean
-}
 
 const COPY_TIMEOUT = 3000
 
+type HeaderMenuProps = {
+  navigation: NavigationProps<RoutesType>
+  visible: boolean
+  setVisible: (visible: boolean) => void
+  menuItems: ReactElement[]
+  shareUrl?: string
+  pageTitle?: string | null
+  showDefaultSections?: boolean
+}
+
 const HeaderMenu = ({
+  navigation,
   menuItems = [],
   shareUrl,
   pageTitle,
-  onNavigateToDisclaimer,
-  onNavigateToLicenses,
-  renderMenuItem,
   visible,
   setVisible,
   showDefaultSections = true,
@@ -70,9 +70,9 @@ const HeaderMenu = ({
   }
 
   const sharingItems = [
-    renderMenuItem('WhatsApp', () => openUrl(whatsappUrl), 'whatsapp'),
-    renderMenuItem('Facebook', () => openUrl(facebookUrl), 'facebook'),
-    renderMenuItem(t('common:email'), () => openUrl(mailUrl), 'email'),
+    <HeaderMenuItem key='whatsapp' title='WhatsApp' onPress={() => openUrl(whatsappUrl)} icon='whatsapp' />,
+    <HeaderMenuItem key='facebook' title='Facebook' onPress={() => openUrl(facebookUrl)} icon='facebook' />,
+    <HeaderMenuItem key='email' title={t('common:email')} onPress={() => openUrl(mailUrl)} icon='email' />,
   ]
 
   const aboutUrls = buildConfig().aboutUrls
@@ -83,16 +83,27 @@ const HeaderMenu = ({
   const accessibilityUrl = accessibilityUrls?.[languageCode] ?? accessibilityUrls?.default
 
   const legalItems = [
-    ...(onNavigateToDisclaimer ? [renderMenuItem('disclaimer', () => onNavigateToDisclaimer())] : []),
-    renderMenuItem('settings:aboutUs', () => openUrl(aboutUrl)),
-    renderMenuItem('privacy', () => openUrl(privacyUrl)),
-    ...(accessibilityUrl ? [renderMenuItem('accessibility', () => openUrl(accessibilityUrl))] : []),
-    ...(onNavigateToLicenses ? [renderMenuItem('settings:openSourceLicenses', () => onNavigateToLicenses())] : []),
+    <HeaderMenuItem key='disclaimer' title={t('disclaimer')} onPress={() => navigation.navigate(DISCLAIMER_ROUTE)} />,
+    <HeaderMenuItem key='aboutUs' title={t('settings:aboutUs')} onPress={() => openUrl(aboutUrl)} />,
+    <HeaderMenuItem key='privacy' title={t('privacy')} onPress={() => openUrl(privacyUrl)} />,
+    ...(accessibilityUrl
+      ? [<HeaderMenuItem key='accessibility' title={t('accessibility')} onPress={() => openUrl(accessibilityUrl)} />]
+      : []),
+    <HeaderMenuItem
+      key='licenses'
+      title={t('settings:openSourceLicenses')}
+      onPress={() => navigation.navigate(LICENSES_ROUTE)}
+    />,
   ]
 
   const defaultSections = showDefaultSections
     ? [
-        renderMenuItem(urlCopied ? 'common:copied' : 'layout:copyUrl', () => copyToClipboard(), 'link'),
+        <HeaderMenuItem
+          key='copy'
+          title={t(urlCopied ? 'common:copied' : 'layout:copyUrl')}
+          onPress={copyToClipboard}
+          icon='link'
+        />,
         <MenuAccordion
           key='share'
           title={t('share')}
@@ -111,7 +122,19 @@ const HeaderMenu = ({
       ]
     : []
 
-  if (menuItems.length === 0 && defaultSections.length === 0) {
+  const items = [...menuItems, ...defaultSections].map((element: ReactElement<{ onPress?: () => void }>) =>
+    // Close header menu on item press
+    element.props.onPress
+      ? cloneElement(element, {
+          onPress: () => {
+            element.props.onPress?.()
+            setVisible(false)
+          },
+        })
+      : element,
+  )
+
+  if (items.length === 0) {
     return null
   }
 
@@ -140,7 +163,7 @@ const HeaderMenu = ({
           testID='header-overflow-menu-button'
         />
       }>
-      {withDividers([...menuItems, ...defaultSections])}
+      {withDividers(items)}
     </Menu>
   )
 }
