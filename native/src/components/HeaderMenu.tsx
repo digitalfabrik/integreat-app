@@ -20,7 +20,6 @@ type HeaderMenuProps = {
   menuItems: ReactElement[]
   shareUrl?: string
   pageTitle?: string | null
-  showDefaultSections?: boolean
 }
 
 const HeaderMenu = ({
@@ -31,7 +30,6 @@ const HeaderMenu = ({
   pageTitle,
   visible,
   setVisible,
-  showDefaultSections = true,
 }: HeaderMenuProps): ReactElement | null => {
   const theme = useTheme()
   const { t } = useTranslation('layout')
@@ -68,21 +66,19 @@ const HeaderMenu = ({
     }
   }
 
-  const defaultSections = showDefaultSections
-    ? [
-        <HeaderMenuItem key='share' title={t('share')} onPress={share} icon='share-variant' />,
-        ...(currentRoute !== SETTINGS_ROUTE
-          ? [
-              <HeaderMenuItem
-                key='settings'
-                title={t('settings')}
-                onPress={() => navigation.navigate(SETTINGS_ROUTE)}
-                icon='cog-outline'
-              />,
-            ]
-          : []),
-      ]
-    : []
+  const defaultSections = [
+    ...(shareUrl ? [<HeaderMenuItem key='share' title={t('share')} onPress={share} icon='share-variant' />] : []),
+    ...(currentRoute !== SETTINGS_ROUTE
+      ? [
+          <HeaderMenuItem
+            key='settings'
+            title={t('settings')}
+            onPress={() => navigation.navigate(SETTINGS_ROUTE)}
+            icon='cog-outline'
+          />,
+        ]
+      : []),
+  ]
 
   const items = [...menuItems, ...defaultSections].map(closeMenuOnPress)
 

@@ -17,7 +17,6 @@ import {
   POIS_ROUTE,
   PoisRouteType,
   SEARCH_ROUTE,
-  SETTINGS_ROUTE,
 } from 'shared'
 import { FeedbackRouteType, LanguageModel } from 'shared/api'
 import { config } from 'translations'
@@ -173,21 +172,19 @@ const Header = ({
     />,
   ]
 
-  const overflowItems = showOverflowItems
-    ? [
-        ...(route.name !== NEWS_ROUTE
-          ? [
-              <HeaderMenuItem
-                key='feedback'
-                title={t('feedback')}
-                onPress={navigateToFeedback}
-                icon='comment-text-outline'
-              />,
-            ]
-          : []),
-        <HeaderMenuItem key='tts' title={t('readAloud')} onPress={showTtsPlayer} icon='volume-high' />,
-      ]
-    : []
+  const overflowItems = [
+    ...(route.name !== NEWS_ROUTE
+      ? [
+          <HeaderMenuItem
+            key='feedback'
+            title={t('feedback')}
+            onPress={navigateToFeedback}
+            icon='comment-text-outline'
+          />,
+        ]
+      : []),
+    <HeaderMenuItem key='tts' title={t('readAloud')} onPress={showTtsPlayer} icon='volume-high' />,
+  ]
 
   const isSinglePoiFromPoisRoute = (): boolean => {
     const poisRouteParams = route.params as RoutesParamsType[PoisRouteType] | undefined
@@ -243,15 +240,17 @@ const Header = ({
           landingPath={landingPath}
         />
         <ActionButtons items={items} />
-        <HeaderMenu
-          navigation={navigation}
-          currentRoute={route.name}
-          visible={visible}
-          setVisible={setVisible}
-          menuItems={overflowItems}
-          shareUrl={shareUrl}
-          pageTitle={pageTitle}
-        />
+        {showOverflowItems && (
+          <HeaderMenu
+            navigation={navigation}
+            currentRoute={route.name}
+            visible={visible}
+            setVisible={setVisible}
+            menuItems={overflowItems}
+            shareUrl={shareUrl}
+            pageTitle={pageTitle}
+          />
+        )}
       </Horizontal>
     </BoxShadow>
   )

@@ -98,7 +98,6 @@ const TransparentHeader = ({ navigation, route }: TransparentHeaderProps): React
           visible={visible}
           setVisible={setVisible}
           menuItems={overflowItems}
-          showDefaultSections={false}
         />
       </Horizontal>
     </Container>
