@@ -10,7 +10,7 @@ import { SnackbarType } from '../components/SnackbarContainer'
 import NativeConstants from '../constants/NativeConstants'
 import { NavigationProps } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
-import { CityAppContext } from '../hooks/useCityAppContext'
+import { AppContextType } from '../contexts/AppContextProvider'
 import urlFromRouteInformation from '../navigation/url'
 import { SettingsType } from './AppSettings'
 import { requestPushNotificationPermission, subscribeNews, unsubscribeNews } from './PushNotificationsManager'
@@ -34,7 +34,7 @@ const volatileValues = {
 const TRIGGER_VERSION_TAPS = 25
 
 type CreateSettingsSectionsProps = {
-  appContext: CityAppContext
+  appContext: AppContextType
   navigation: NavigationProps<SettingsRouteType>
   showSnackbar: (snackbar: SnackbarType) => void
   t: TFunction<'error'>
@@ -53,6 +53,9 @@ const createSettingsSections = ({
     onPress: async () => {
       const newAllowPushNotifications = !settings.allowPushNotifications
       updateSettings({ allowPushNotifications: newAllowPushNotifications })
+      if (!cityCode) {
+        return
+      }
       if (!newAllowPushNotifications) {
         await unsubscribeNews(cityCode, languageCode)
         return
