@@ -1,0 +1,26 @@
+diff --git a/android/src/main/java/org/maplibre/reactnative/events/EventEmitter.java b/android/src/main/java/org/maplibre/reactnative/events/EventEmitter.java
+index 379b72f6af5b685108b6bff76e506fe9613e5647..ea195f45268d26850078498e1ef95f4bb4916234 100644
+--- a/android/src/main/java/org/maplibre/reactnative/events/EventEmitter.java
++++ b/android/src/main/java/org/maplibre/reactnative/events/EventEmitter.java
+@@ -16,13 +16,14 @@ public class EventEmitter {
+ 
+     private static ReactContext getCurrentReactContext(ReactApplicationContext reactApplicationContext) {
+         if (reactApplicationContext.getApplicationContext() instanceof ReactApplication) {
+-            ReactApplication reactApplication = ((ReactApplication) reactApplicationContext
+-                    .getApplicationContext());
+-
+-            return reactApplication
+-                    .getReactNativeHost()
+-                    .getReactInstanceManager()
+-                    .getCurrentReactContext();
++//            ReactApplication reactApplication = ((ReactApplication) reactApplicationContext
++//                    .getApplicationContext());
++//
++//            return reactApplication
++//                    .getReactNativeHost()
++//                    .getReactInstanceManager()
++//                    .getCurrentReactContext();
++            return reactApplicationContext;
+         } else {
+             Log.d(LOG_TAG, "getApplicationContext() application doesn't implement ReactApplication");
+             return reactApplicationContext;
