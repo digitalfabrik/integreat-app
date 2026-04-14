@@ -1,5 +1,4 @@
-import Clipboard from '@react-native-clipboard/clipboard'
-import React, { cloneElement, ReactElement, useCallback, useContext, useState } from 'react'
+import React, { cloneElement, ReactElement, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Share } from 'react-native'
 import { IconButton, Menu, useTheme } from 'react-native-paper'
@@ -14,8 +13,6 @@ import openExternalUrl from '../utils/openExternalUrl'
 import { reportError } from '../utils/sentry'
 import HeaderMenuItem from './HeaderMenuItem'
 import MenuAccordion, { withDividers } from './MenuAccordion'
-
-const COPY_TIMEOUT = 3000
 
 type HeaderMenuProps = {
   navigation: NavigationProps<RoutesType>
@@ -38,7 +35,6 @@ const HeaderMenu = ({
 }: HeaderMenuProps): ReactElement | null => {
   const { languageCode } = useContext(AppContext)
   const [expandedAccordion, setExpandedAccordion] = useState<'share' | 'legal' | null>(null)
-  const [urlCopied, setUrlCopied] = useState(false)
   const theme = useTheme()
   const { t } = useTranslation('layout')
   const showSnackbar = useSnackbar()
@@ -54,16 +50,6 @@ const HeaderMenu = ({
       : element
 
   const openUrl = (url: string) => openExternalUrl(url, showSnackbar)
-
-  const copyToClipboard = useCallback(() => {
-    if (!shareUrl) {
-      return
-    }
-    Clipboard.setString(shareUrl)
-    showSnackbar({ text: 'common:copied' })
-    setUrlCopied(true)
-    setTimeout(() => setUrlCopied(false), COPY_TIMEOUT)
-  }, [shareUrl, showSnackbar])
 
   const share = async () => {
     if (!shareUrl) {
@@ -109,12 +95,6 @@ const HeaderMenu = ({
 
   const defaultSections = showDefaultSections
     ? [
-        <HeaderMenuItem
-          key='copy'
-          title={t(urlCopied ? 'common:copied' : 'layout:copyUrl')}
-          onPress={copyToClipboard}
-          icon='link'
-        />,
         <HeaderMenuItem key='share' title={t('share')} onPress={share} icon='share-variant' />,
         <MenuAccordion
           key='legal'
