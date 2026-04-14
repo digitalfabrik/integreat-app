@@ -17,8 +17,6 @@ import { requestPushNotificationPermission, subscribeNews, unsubscribeNews } fro
 import openExternalUrl from './openExternalUrl'
 import { initSentry } from './sentry'
 
-const { accessibilityUrls } = buildConfig()
-
 export type SettingsSectionType = {
   title: string
   description?: string
@@ -142,8 +140,9 @@ const createSettingsSections = ({
     role: 'link',
     title: t('layout:accessibility'),
     onPress: async () => {
-      const accessibilityUrl = accessibilityUrls?.[languageCode] ?? accessibilityUrls?.default
-      await openExternalUrl(accessibilityUrl ?? 'https://integreat-app.de/barrierefreiheit/', showSnackbar)
+      const { accessibilityUrls } = buildConfig()
+      const accessibilityUrl = accessibilityUrls[languageCode] ?? accessibilityUrls.default
+      await openExternalUrl(accessibilityUrl, showSnackbar)
     },
   },
   {
