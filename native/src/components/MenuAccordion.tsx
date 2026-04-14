@@ -1,5 +1,4 @@
 import React, { ReactElement } from 'react'
-import { View } from 'react-native'
 import { Divider, Menu, useTheme } from 'react-native-paper'
 
 import { join } from 'shared'
@@ -20,8 +19,6 @@ type MenuAccordionProps = {
   icon?: string
 }
 
-const IconPlaceholder = () => <View style={{ width: 40 }} />
-
 const MenuAccordion = ({ title, items, setExpanded, expanded, icon }: MenuAccordionProps): ReactElement => {
   const theme = useTheme()
 
@@ -30,7 +27,7 @@ const MenuAccordion = ({ title, items, setExpanded, expanded, icon }: MenuAccord
       <Menu.Item
         onPress={() => setExpanded(!expanded)}
         title={title}
-        leadingIcon={icon ?? IconPlaceholder}
+        leadingIcon={icon}
         trailingIcon={expanded ? 'chevron-up' : 'chevron-down'}
         style={{
           backgroundColor: theme.dark ? theme.colors.surfaceVariant : theme.colors.surface,
