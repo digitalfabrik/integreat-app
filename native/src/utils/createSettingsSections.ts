@@ -147,17 +147,6 @@ const createSettingsSections = ({
     },
   },
   {
-    title: t('version', { version: NativeConstants.appVersion }),
-    onPress: () => {
-      volatileValues.versionTaps += 1
-
-      if (volatileValues.versionTaps === TRIGGER_VERSION_TAPS) {
-        volatileValues.versionTaps = 0
-        throw Error('This error was thrown for testing purposes. Please ignore this error.')
-      }
-    },
-  },
-  {
     title: t('openSourceLicenses'),
     onPress: () => navigation.navigate(LICENSES_ROUTE),
   },
@@ -167,6 +156,17 @@ const createSettingsSections = ({
     onPress: async () => {
       const linkToSBoM = `https://github.com/digitalfabrik/integreat-app/releases/tag/${NativeConstants.appVersion}`
       await openExternalUrl(linkToSBoM, showSnackbar)
+    },
+  },
+  {
+    title: t('version', { version: NativeConstants.appVersion }),
+    onPress: () => {
+      volatileValues.versionTaps += 1
+
+      if (volatileValues.versionTaps === TRIGGER_VERSION_TAPS) {
+        volatileValues.versionTaps = 0
+        throw Error('This error was thrown for testing purposes. Please ignore this error.')
+      }
     },
   },
 ]
