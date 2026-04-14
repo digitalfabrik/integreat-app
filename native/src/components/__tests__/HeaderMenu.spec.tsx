@@ -2,8 +2,6 @@ import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
 import { Button } from 'react-native'
 
-import { CATEGORIES_ROUTE } from 'shared'
-
 import TestingAppContext from '../../testing/TestingAppContext'
 import createNavigationMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
@@ -29,7 +27,6 @@ describe('HeaderMenu', () => {
       <TestingAppContext>
         <HeaderMenu
           navigation={navigation}
-          currentRoute={CATEGORIES_ROUTE}
           visible
           setVisible={setVisible}
           menuItems={[

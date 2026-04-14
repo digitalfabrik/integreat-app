@@ -14,7 +14,6 @@ import HeaderMenuItem from './HeaderMenuItem'
 
 type HeaderMenuProps = {
   navigation: NavigationProps<RoutesType>
-  currentRoute: string
   visible: boolean
   setVisible: (visible: boolean) => void
   menuItems: ReactElement[]
@@ -24,7 +23,6 @@ type HeaderMenuProps = {
 
 const HeaderMenu = ({
   navigation,
-  currentRoute,
   menuItems = [],
   shareUrl,
   pageTitle,
@@ -34,16 +32,6 @@ const HeaderMenu = ({
   const theme = useTheme()
   const { t } = useTranslation('layout')
   const showSnackbar = useSnackbar()
-
-  const closeMenuOnPress = (element: ReactElement<{ onPress?: () => void }>) =>
-    element.props.onPress
-      ? cloneElement(element, {
-          onPress: () => {
-            element.props.onPress?.()
-            setVisible(false)
-          },
-        })
-      : element
 
   const share = async () => {
     if (!shareUrl) {
@@ -66,21 +54,24 @@ const HeaderMenu = ({
     }
   }
 
-  const defaultSections = [
+  const items = [
+    ...menuItems,
     ...(shareUrl ? [<HeaderMenuItem key='share' title={t('share')} onPress={share} icon='share-variant' />] : []),
-    ...(currentRoute !== SETTINGS_ROUTE
-      ? [
-          <HeaderMenuItem
-            key='settings'
-            title={t('settings')}
-            onPress={() => navigation.navigate(SETTINGS_ROUTE)}
-            icon='cog-outline'
-          />,
-        ]
-      : []),
-  ]
-
-  const items = [...menuItems, ...defaultSections].map(closeMenuOnPress)
+    <HeaderMenuItem
+      key='settings'
+      title={t('settings')}
+      onPress={() => navigation.navigate(SETTINGS_ROUTE)}
+      icon='cog-outline'
+    />,
+  ].map((element: ReactElement<{ onPress?: () => void }>) =>
+    // Close header menu on item press
+    cloneElement(element, {
+      onPress: () => {
+        element.props.onPress?.()
+        setVisible(false)
+      },
+    }),
+  )
 
   if (items.length === 0) {
     return null

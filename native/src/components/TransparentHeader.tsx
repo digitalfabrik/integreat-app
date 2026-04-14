@@ -92,13 +92,7 @@ const TransparentHeader = ({ navigation, route }: TransparentHeaderProps): React
     <Container testID='transparent-header'>
       <Horizontal>
         <HeaderBox goBack={navigation.goBack} />
-        <HeaderMenu
-          navigation={navigation}
-          currentRoute={route.name}
-          visible={visible}
-          setVisible={setVisible}
-          menuItems={overflowItems}
-        />
+        <HeaderMenu navigation={navigation} visible={visible} setVisible={setVisible} menuItems={overflowItems} />
       </Horizontal>
     </Container>
   )

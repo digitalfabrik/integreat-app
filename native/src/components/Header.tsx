@@ -243,7 +243,6 @@ const Header = ({
         {showOverflowItems && (
           <HeaderMenu
             navigation={navigation}
-            currentRoute={route.name}
             visible={visible}
             setVisible={setVisible}
             menuItems={overflowItems}
