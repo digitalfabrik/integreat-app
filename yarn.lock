@@ -4445,7 +4445,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@maplibre/maplibre-react-native@npm:^10.4.2":
+"@maplibre/maplibre-react-native@npm:10.4.2":
   version: 10.4.2
   resolution: "@maplibre/maplibre-react-native@npm:10.4.2"
   dependencies:
@@ -4468,6 +4468,32 @@ __metadata:
     "@types/react":
       optional: true
   checksum: 10c0/ac24884a218aaa5a6b08351913a313b373e1365e4ab50d0320ac7d2ce4b34c33617e1b98fa66011b3b5435358f74c64079c792b400e054ff26a196c0a91361c9
+  languageName: node
+  linkType: hard
+
+"@maplibre/maplibre-react-native@patch:@maplibre/maplibre-react-native@npm%3A10.4.2#~/.yarn/patches/@maplibre-maplibre-react-native-npm-10.4.2-a5da575b03.patch":
+  version: 10.4.2
+  resolution: "@maplibre/maplibre-react-native@patch:@maplibre/maplibre-react-native@npm%3A10.4.2#~/.yarn/patches/@maplibre-maplibre-react-native-npm-10.4.2-a5da575b03.patch::version=10.4.2&hash=2c991c"
+  dependencies:
+    "@turf/distance": "npm:^7.1.0"
+    "@turf/helpers": "npm:^7.1.0"
+    "@turf/length": "npm:^7.1.0"
+    "@turf/nearest-point-on-line": "npm:^7.1.0"
+    debounce: "npm:^2.2.0"
+  peerDependencies:
+    "@expo/config-plugins": ">=7"
+    "@types/geojson": ^7946.0.0
+    "@types/react": ">=16.6.1"
+    react: ">=16.6.1"
+    react-native: ">=0.59.9"
+  peerDependenciesMeta:
+    "@expo/config-plugins":
+      optional: true
+    "@types/geojson":
+      optional: true
+    "@types/react":
+      optional: true
+  checksum: 10c0/caa28c622de51ddbe0e770149dc2e4a5aaf483cf9185abd3c41c99d7ceb534271b1ac03ee4721f8ae17ece88b81db257b67a36e24e8fe80184935945e5bb3703
   languageName: node
   linkType: hard
 
@@ -17526,7 +17552,7 @@ __metadata:
     "@formatjs/intl-displaynames": "npm:^6.8.13"
     "@formatjs/intl-locale": "npm:^4.2.13"
     "@gorhom/bottom-sheet": "npm:^5.2.8"
-    "@maplibre/maplibre-react-native": "npm:^10.4.2"
+    "@maplibre/maplibre-react-native": "patch:@maplibre/maplibre-react-native@npm%3A10.4.2#~/.yarn/patches/@maplibre-maplibre-react-native-npm-10.4.2-a5da575b03.patch"
     "@mhpdev/react-native-speech": "npm:^1.4.0"
     "@notifee/react-native": "npm:^9.1.8"
     "@react-native-async-storage/async-storage": "npm:^2.2.0"
