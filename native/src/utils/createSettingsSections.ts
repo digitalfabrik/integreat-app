@@ -4,17 +4,20 @@ import { Role } from 'react-native'
 import { openSettings } from 'react-native-permissions'
 
 import { ThemeKey } from 'build-configs/ThemeKey'
-import { CONSENT_ROUTE, LICENSES_ROUTE, SettingsRouteType } from 'shared'
+import { CONSENT_ROUTE, DISCLAIMER_ROUTE, LICENSES_ROUTE, MAIN_DISCLAIMER_ROUTE, SettingsRouteType } from 'shared'
 
 import { SnackbarType } from '../components/SnackbarContainer'
 import NativeConstants from '../constants/NativeConstants'
 import { NavigationProps } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import { CityAppContext } from '../hooks/useCityAppContext'
+import urlFromRouteInformation from '../navigation/url'
 import { SettingsType } from './AppSettings'
 import { requestPushNotificationPermission, subscribeNews, unsubscribeNews } from './PushNotificationsManager'
 import openExternalUrl from './openExternalUrl'
 import { initSentry } from './sentry'
+
+const { accessibilityUrls } = buildConfig()
 
 export type SettingsSectionType = {
   title: string
@@ -111,6 +114,14 @@ const createSettingsSections = ({
   },
   {
     role: 'link',
+    title: t('layout:disclaimer'),
+    onPress: async () =>
+      settings.selectedCity
+        ? navigation.navigate(DISCLAIMER_ROUTE)
+        : openExternalUrl(urlFromRouteInformation({ route: MAIN_DISCLAIMER_ROUTE }), showSnackbar),
+  },
+  {
+    role: 'link',
     title: t('aboutUs'),
     onPress: async () => {
       const { aboutUrls } = buildConfig()
@@ -125,6 +136,14 @@ const createSettingsSections = ({
       const { privacyUrls } = buildConfig()
       const privacyUrl = privacyUrls[languageCode] || privacyUrls.default
       await openExternalUrl(privacyUrl, showSnackbar)
+    },
+  },
+  {
+    role: 'link',
+    title: t('layout:accessibility'),
+    onPress: async () => {
+      const accessibilityUrl = accessibilityUrls?.[languageCode] ?? accessibilityUrls?.default
+      await openExternalUrl(accessibilityUrl ?? 'https://integreat-app.de/barrierefreiheit/', showSnackbar)
     },
   },
   {

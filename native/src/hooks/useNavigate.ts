@@ -9,6 +9,7 @@ import {
   EVENTS_ROUTE,
   LANDING_ROUTE,
   LICENSES_ROUTE,
+  MAIN_DISCLAIMER_ROUTE,
   NEWS_ROUTE,
   POIS_ROUTE,
   RouteInformationType,
@@ -46,6 +47,11 @@ const navigate = <T extends RoutesType>(
     route === CITY_NOT_COOPERATING_ROUTE
   ) {
     navigate(route)
+    return
+  }
+
+  if (route === MAIN_DISCLAIMER_ROUTE) {
+    openExternalUrl(url, showSnackbar).catch(reportError)
     return
   }
 
