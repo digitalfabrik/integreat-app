@@ -49,17 +49,6 @@ const BoxShadow = styled(HighlightBox)`
   height: ${dimensions.headerHeight}px;
 `
 
-enum HeaderButtonTitle {
-  Disclaimer = 'disclaimer',
-  Language = 'changeLanguage',
-  Location = 'changeLocation',
-  Search = 'search',
-  ReadAloud = 'readAloud',
-  Share = 'share',
-  Settings = 'settings',
-  Feedback = 'feedback',
-}
-
 type HeaderProps = {
   route: RouteProps<RoutesType>
   navigation: NavigationProps<RoutesType>
@@ -173,8 +162,8 @@ const Header = ({
 
   const items = [
     <HeaderActionItem
-      key={HeaderButtonTitle.Search}
-      title={HeaderButtonTitle.Search}
+      key='search'
+      title={t('search')}
       iconName='search'
       visible={showItems}
       onPress={() =>
@@ -184,8 +173,8 @@ const Header = ({
       }
     />,
     <HeaderActionItem
-      key={HeaderButtonTitle.Language}
-      title={HeaderButtonTitle.Language}
+      key='language'
+      title={t('changeLanguage')}
       iconName='language'
       visible={showItems || isLanding}
       onPress={goToLanguageChange}
