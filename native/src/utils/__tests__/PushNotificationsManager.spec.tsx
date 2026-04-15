@@ -16,15 +16,6 @@ import render from '../../testing/render'
 import * as PushNotificationsManager from '../PushNotificationsManager'
 import { usePushNotificationListener } from '../PushNotificationsManager'
 
-jest.mock('@react-native-firebase/messaging', () => ({
-  getMessaging: () => 'messaging',
-  subscribeToTopic: jest.fn(),
-  unsubscribeFromTopic: jest.fn(),
-  onMessage: jest.fn(),
-  getInitialNotification: jest.fn(),
-  onNotificationOpenedApp: jest.fn(),
-}))
-
 jest.mock('@notifee/react-native', () => ({
   AndroidImportance: { HIGH: 4 },
   getInitialNotification: jest.fn(),
@@ -133,7 +124,10 @@ describe('PushNotificationsManager', () => {
     }
 
     it('should display a notification if the app is in the foreground', async () => {
-      mocked(onMessage).mockImplementation((_, listener) => listener(message))
+      mocked(onMessage).mockImplementation((_, listener) => {
+        listener(message)
+        return jest.fn()
+      })
       renderMockComponent()
       await waitFor(() =>
         expect(notifee.displayNotification).toHaveBeenCalledWith({
@@ -180,6 +174,18 @@ describe('PushNotificationsManager', () => {
         newsType: 'local',
         route: 'news',
       })
+    })
+
+    it('should unsubscribe from onMessage when unmounted to prevent duplicate notifications on remount', async () => {
+      const mockUnsubscribe = jest.fn()
+      mocked(onMessage).mockReturnValue(mockUnsubscribe)
+
+      const { unmount } = renderMockComponent()
+      await waitFor(() => expect(onMessage).toHaveBeenCalledTimes(1))
+
+      unmount()
+
+      expect(mockUnsubscribe).toHaveBeenCalledTimes(1)
     })
   })
 })
