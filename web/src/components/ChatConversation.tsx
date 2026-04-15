@@ -59,7 +59,7 @@ const ChatConversation = ({ messages, isTyping, loading }: ChatConversationProps
         <SkeletonChatConversation />
       ) : (
         <>
-          <StyledList disablePadding>
+          <StyledList disablePadding aria-relevant='additions'>
             {messages.map((message, index) => (
               <ChatMessage message={message} key={message.id} previousMessage={messages[index - 1]} />
             ))}
