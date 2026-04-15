@@ -1,4 +1,4 @@
-import React, { cloneElement, ReactElement } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Share } from 'react-native'
 import { IconButton, Menu, useTheme } from 'react-native-paper'
@@ -33,6 +33,8 @@ const HeaderMenu = ({
   const { t } = useTranslation('layout')
   const showSnackbar = useSnackbar()
 
+  const closeMenu = () => setVisible(false)
+
   const share = async () => {
     if (!shareUrl) {
       return
@@ -56,26 +58,17 @@ const HeaderMenu = ({
 
   const items = [
     ...menuItems,
-    ...(shareUrl ? [<HeaderMenuItem key='share' title={t('share')} onPress={share} icon='share-variant' />] : []),
+    ...(shareUrl
+      ? [<HeaderMenuItem key='share' title={t('share')} onPress={share} closeMenu={closeMenu} icon='share-variant' />]
+      : []),
     <HeaderMenuItem
       key='settings'
       title={t('settings')}
       onPress={() => navigation.navigate(SETTINGS_ROUTE)}
+      closeMenu={closeMenu}
       icon='cog-outline'
     />,
-  ].map((element: ReactElement<{ onPress?: () => void }>) =>
-    // Close header menu on item press
-    cloneElement(element, {
-      onPress: () => {
-        element.props.onPress?.()
-        setVisible(false)
-      },
-    }),
-  )
-
-  if (items.length === 0) {
-    return null
-  }
+  ]
 
   return (
     <Menu

@@ -173,17 +173,24 @@ const Header = ({
   ]
 
   const menuItems = [
-    ...(route.name !== NEWS_ROUTE
+    ...(route.name !== NEWS_ROUTE && cityCode
       ? [
           <HeaderMenuItem
             key='feedback'
             title={t('feedback')}
             onPress={navigateToFeedback}
+            closeMenu={() => setMenuVisible(false)}
             icon='comment-text-outline'
           />,
         ]
       : []),
-    <HeaderMenuItem key='tts' title={t('readAloud')} onPress={showTtsPlayer} icon='volume-high' />,
+    <HeaderMenuItem
+      key='tts'
+      title={t('readAloud')}
+      onPress={showTtsPlayer}
+      closeMenu={() => setMenuVisible(false)}
+      icon='volume-high'
+    />,
   ]
 
   const isSinglePoiFromPoisRoute = (): boolean => {

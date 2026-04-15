@@ -17,17 +17,21 @@ const styles = StyleSheet.create({
 type HeaderMenuItemProps = {
   title: string
   onPress: () => void
+  closeMenu: () => void
   icon: string
 }
 
-const HeaderMenuItem = ({ onPress, title, icon }: HeaderMenuItemProps): ReactElement => {
+const HeaderMenuItem = ({ onPress, closeMenu, title, icon }: HeaderMenuItemProps): ReactElement => {
   const theme = useTheme()
   return (
     <Menu.Item
       accessibilityLabel={title}
       leadingIcon={icon}
       title={title}
-      onPress={onPress}
+      onPress={() => {
+        closeMenu()
+        onPress()
+      }}
       style={{
         backgroundColor: theme.dark ? theme.colors.surfaceVariant : theme.colors.surface,
       }}
