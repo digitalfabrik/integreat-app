@@ -9,7 +9,7 @@ import Caption from '../components/Caption'
 import Layout from '../components/Layout'
 import SettingItem from '../components/SettingItem'
 import { NavigationProps } from '../constants/NavigationTypes'
-import useCityAppContext from '../hooks/useCityAppContext'
+import { useAppContext } from '../hooks/useCityAppContext'
 import useSnackbar from '../hooks/useSnackbar'
 import createSettingsSections, { SettingsSectionType } from '../utils/createSettingsSections'
 import { log, reportError } from '../utils/sentry'
@@ -19,7 +19,7 @@ type SettingsProps = {
 }
 
 const Settings = ({ navigation }: SettingsProps): ReactElement => {
-  const appContext = useCityAppContext()
+  const appContext = useAppContext()
   const showSnackbar = useSnackbar()
   const { t } = useTranslation('settings')
   const { settings } = appContext

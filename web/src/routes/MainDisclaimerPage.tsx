@@ -18,7 +18,7 @@ const MainDisclaimerPage = ({ languageCode }: MainDisclaimerPageProps): ReactEle
   return (
     <Layout header={<GeneralHeader languageCode={languageCode} />} footer={<Footer />}>
       <Helmet pageTitle={pageTitle} />
-      <div>
+      <div dir='ltr'>
         <H1>Impressum und Datenschutz</H1>
         <div
           // eslint-disable-next-line react/no-danger

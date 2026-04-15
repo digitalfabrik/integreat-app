@@ -4,13 +4,14 @@ import { Role } from 'react-native'
 import { openSettings } from 'react-native-permissions'
 
 import { ThemeKey } from 'build-configs/ThemeKey'
-import { CONSENT_ROUTE, LICENSES_ROUTE, SettingsRouteType } from 'shared'
+import { CONSENT_ROUTE, DISCLAIMER_ROUTE, LICENSES_ROUTE, MAIN_DISCLAIMER_ROUTE, SettingsRouteType } from 'shared'
 
 import { SnackbarType } from '../components/SnackbarContainer'
 import NativeConstants from '../constants/NativeConstants'
 import { NavigationProps } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
-import { CityAppContext } from '../hooks/useCityAppContext'
+import { AppContextType } from '../contexts/AppContextProvider'
+import urlFromRouteInformation from '../navigation/url'
 import { SettingsType } from './AppSettings'
 import { requestPushNotificationPermission, subscribeNews, unsubscribeNews } from './PushNotificationsManager'
 import openExternalUrl from './openExternalUrl'
@@ -33,7 +34,7 @@ const volatileValues = {
 const TRIGGER_VERSION_TAPS = 25
 
 type CreateSettingsSectionsProps = {
-  appContext: CityAppContext
+  appContext: AppContextType
   navigation: NavigationProps<SettingsRouteType>
   showSnackbar: (snackbar: SnackbarType) => void
   t: TFunction<'error'>
@@ -52,6 +53,9 @@ const createSettingsSections = ({
     onPress: async () => {
       const newAllowPushNotifications = !settings.allowPushNotifications
       updateSettings({ allowPushNotifications: newAllowPushNotifications })
+      if (!cityCode) {
+        return
+      }
       if (!newAllowPushNotifications) {
         await unsubscribeNews(cityCode, languageCode)
         return
@@ -111,6 +115,14 @@ const createSettingsSections = ({
   },
   {
     role: 'link',
+    title: t('layout:disclaimer'),
+    onPress: async () =>
+      settings.selectedCity
+        ? navigation.navigate(DISCLAIMER_ROUTE)
+        : openExternalUrl(urlFromRouteInformation({ route: MAIN_DISCLAIMER_ROUTE }), showSnackbar),
+  },
+  {
+    role: 'link',
     title: t('aboutUs'),
     onPress: async () => {
       const { aboutUrls } = buildConfig()
@@ -128,14 +140,12 @@ const createSettingsSections = ({
     },
   },
   {
-    title: t('version', { version: NativeConstants.appVersion }),
-    onPress: () => {
-      volatileValues.versionTaps += 1
-
-      if (volatileValues.versionTaps === TRIGGER_VERSION_TAPS) {
-        volatileValues.versionTaps = 0
-        throw Error('This error was thrown for testing purposes. Please ignore this error.')
-      }
+    role: 'link',
+    title: t('layout:accessibility'),
+    onPress: async () => {
+      const { accessibilityUrls } = buildConfig()
+      const accessibilityUrl = accessibilityUrls[languageCode] ?? accessibilityUrls.default
+      await openExternalUrl(accessibilityUrl, showSnackbar)
     },
   },
   {
@@ -148,6 +158,17 @@ const createSettingsSections = ({
     onPress: async () => {
       const linkToSBoM = `https://github.com/digitalfabrik/integreat-app/releases/tag/${NativeConstants.appVersion}`
       await openExternalUrl(linkToSBoM, showSnackbar)
+    },
+  },
+  {
+    title: t('version', { version: NativeConstants.appVersion }),
+    onPress: () => {
+      volatileValues.versionTaps += 1
+
+      if (volatileValues.versionTaps === TRIGGER_VERSION_TAPS) {
+        volatileValues.versionTaps = 0
+        throw Error('This error was thrown for testing purposes. Please ignore this error.')
+      }
     },
   },
 ]
