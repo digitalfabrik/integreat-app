@@ -83,7 +83,7 @@ jest.mock('../routes/FeedbackModalContainer', () => {
 
   return () => <Text>Feedback</Text>
 })
-jest.mock('../routes/SearchModalContainer', () => {
+jest.mock('../routes/SearchContainer', () => {
   const { Text } = require('react-native-paper')
 
   return () => <Text>Search</Text>

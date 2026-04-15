@@ -8,6 +8,7 @@ import {
   MAX_SEARCH_RESULTS,
   parseHTML,
   SEARCH_ROUTE,
+  SearchRouteType,
   useDebounce,
   useSearch,
 } from 'shared'
@@ -19,6 +20,7 @@ import List from '../components/List'
 import SearchHeader from '../components/SearchHeader'
 import SearchListItem from '../components/SearchListItem'
 import Text from '../components/base/Text'
+import { NavigationProps } from '../constants/NavigationTypes'
 import useAnnounceSearchResultsIOS from '../hooks/useAnnounceSearchResultsIOS'
 import useReportError from '../hooks/useReportError'
 import testID from '../testing/testID'
@@ -33,23 +35,23 @@ const Wrapper = styled.View`
   color: ${props => props.theme.colors.onSurface};
 `
 
-export type SearchModalProps = {
+export type SearchProps = {
+  navigation: NavigationProps<SearchRouteType>
   documents: ExtendedPageModel[]
   fallbackLanguageDocuments: ExtendedPageModel[]
   languageCode: string
   cityCode: string
-  closeModal: (query: string) => void
   initialSearchText: string
 }
 
-const SearchModal = ({
+const Search = ({
+  navigation,
   documents,
   fallbackLanguageDocuments,
   languageCode,
   cityCode,
-  closeModal,
   initialSearchText,
-}: SearchModalProps): ReactElement | null => {
+}: SearchProps): ReactElement | null => {
   const [query, setQuery] = useState<string>(initialSearchText)
   const { t } = useTranslation('search')
   const theme = useTheme()
@@ -80,7 +82,7 @@ const SearchModal = ({
 
   return (
     <Wrapper {...testID('Search-Page')}>
-      <SearchHeader query={query} closeSearchBar={() => closeModal(query)} onSearchChanged={setQuery} />
+      <SearchHeader navigation={navigation} query={query} onSearchChanged={setQuery} />
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
         {debouncedQuery.length > 0 && (
           <>
@@ -113,4 +115,4 @@ const SearchModal = ({
   )
 }
 
-export default SearchModal
+export default Search
