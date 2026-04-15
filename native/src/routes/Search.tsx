@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { KeyboardAvoidingView, Platform } from 'react-native'
-import styled, { useTheme } from 'styled-components/native'
+import { useTheme } from 'styled-components/native'
 
 import {
   filterRedundantFallbackLanguageResults,
@@ -16,6 +16,7 @@ import { ExtendedPageModel } from 'shared/api'
 import { config } from 'translations'
 
 import FeedbackContainer from '../components/FeedbackContainer'
+import Layout from '../components/Layout'
 import List from '../components/List'
 import SearchHeader from '../components/SearchHeader'
 import SearchListItem from '../components/SearchListItem'
@@ -24,16 +25,6 @@ import { NavigationProps } from '../constants/NavigationTypes'
 import useAnnounceSearchResultsIOS from '../hooks/useAnnounceSearchResultsIOS'
 import useReportError from '../hooks/useReportError'
 import testID from '../testing/testID'
-
-const Wrapper = styled.View`
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: ${props => props.theme.colors.background};
-  color: ${props => props.theme.colors.onSurface};
-`
 
 export type SearchProps = {
   navigation: NavigationProps<SearchRouteType>
@@ -81,7 +72,7 @@ const Search = ({
   )
 
   return (
-    <Wrapper {...testID('Search-Page')}>
+    <Layout {...testID('Search-Page')}>
       <SearchHeader navigation={navigation} query={query} onSearchChanged={setQuery} />
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
         {debouncedQuery.length > 0 && (
@@ -111,7 +102,7 @@ const Search = ({
           </>
         )}
       </KeyboardAvoidingView>
-    </Wrapper>
+    </Layout>
   )
 }
 
