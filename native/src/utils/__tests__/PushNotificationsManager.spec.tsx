@@ -16,15 +16,6 @@ import render from '../../testing/render'
 import * as PushNotificationsManager from '../PushNotificationsManager'
 import { usePushNotificationListener } from '../PushNotificationsManager'
 
-jest.mock('@react-native-firebase/messaging', () => ({
-  getMessaging: () => 'messaging',
-  subscribeToTopic: jest.fn(),
-  unsubscribeFromTopic: jest.fn(),
-  onMessage: jest.fn(),
-  getInitialNotification: jest.fn(),
-  onNotificationOpenedApp: jest.fn(),
-}))
-
 jest.mock('@notifee/react-native', () => ({
   AndroidImportance: { HIGH: 4 },
   getInitialNotification: jest.fn(),

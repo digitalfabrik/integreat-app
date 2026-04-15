@@ -16,6 +16,15 @@ jest.mock('@dr.pogodin/react-native-static-server', () =>
     stop: jest.fn(() => Promise.resolve(true)),
   })),
 )
+jest.mock('@react-native-firebase/messaging', () => ({
+  getMessaging: () => 'messaging',
+  setBackgroundMessageHandler: jest.fn(),
+  subscribeToTopic: jest.fn(),
+  unsubscribeFromTopic: jest.fn(),
+  onMessage: jest.fn(),
+  getInitialNotification: jest.fn(),
+  onNotificationOpenedApp: jest.fn(),
+}))
 
 jest.mock('shared/api', () => ({
   ...jest.requireActual('shared/api'),
