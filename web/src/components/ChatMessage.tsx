@@ -5,7 +5,7 @@ import Avatar from '@mui/material/Avatar'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ChatMessageModel } from 'shared/api'
@@ -56,7 +56,7 @@ export const InnerChatMessage = ({
   isAutomaticAnswer,
   content,
 }: InnerChatMessageProps): ReactElement => (
-  <Stack direction={userIsAuthor ? 'row-reverse' : 'row'} gap={1}>
+  <Stack direction={userIsAuthor ? 'row-reverse' : 'row'} gap={1} role={!userIsAuthor ? 'status' : undefined}>
     <MessageAvatar userIsAuthor={userIsAuthor} isAutomaticAnswer={isAutomaticAnswer} visible={showAvatar} />
     <Message>
       <Typography variant='body2' component='div'>
