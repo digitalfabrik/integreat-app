@@ -2,7 +2,9 @@ import { useNavigation } from '@react-navigation/native'
 import { useCallback, useContext } from 'react'
 
 import {
+  BOTTOM_TAB_NAVIGATION_ROUTE,
   CATEGORIES_ROUTE,
+  CATEGORIES_TAB_ROUTE,
   CITY_NOT_COOPERATING_ROUTE,
   CONSENT_ROUTE,
   DISCLAIMER_ROUTE,
@@ -60,10 +62,17 @@ const navigate = <T extends RoutesType>(
   // City content routes with different city or language than the currently selected should be opened in the web app
   // This avoids lots of additional complexity by always keeping the city and language of all opened routes in sync
   if ((appCityCode && appCityCode !== cityCode) || appLanguageCode !== languageCode) {
+    // We need to remove or replace the redirect route if only opening the inappbrowser
+    // Otherwise this leads to a blank (redirect) screen when navigating back from the inappbrowser
     if (redirect && navigation.canGoBack()) {
-      // We need to remove the redirect route if only opening the inappbrowser
-      // Otherwise this leads to a blank (redirect) screen when navigating back from the inappbrowser
       navigation.pop()
+    } else {
+      navigation.replace(BOTTOM_TAB_NAVIGATION_ROUTE, {
+        screen: CATEGORIES_TAB_ROUTE,
+        params: {
+          screen: CATEGORIES_ROUTE,
+        },
+      })
     }
     openExternalUrl(url, showSnackbar).catch(reportError)
     return

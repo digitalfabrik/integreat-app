@@ -156,11 +156,7 @@ const Header = ({
       title={t('search')}
       iconName='search'
       visible={showItems}
-      onPress={() =>
-        navigation.navigate(SEARCH_ROUTE, {
-          searchText: null,
-        })
-      }
+      onPress={() => navigation.navigate(SEARCH_ROUTE, { searchText: null })}
     />,
     <HeaderActionItem
       key='language'

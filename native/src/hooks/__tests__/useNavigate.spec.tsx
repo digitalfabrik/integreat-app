@@ -3,7 +3,9 @@ import { act } from '@testing-library/react-native'
 import React, { useEffect } from 'react'
 
 import {
+  BOTTOM_TAB_NAVIGATION_ROUTE,
   CATEGORIES_ROUTE,
+  CATEGORIES_TAB_ROUTE,
   DISCLAIMER_ROUTE,
   EVENTS_ROUTE,
   LANDING_ROUTE,
@@ -228,5 +230,89 @@ describe('useNavigate', () => {
     })
     expect(navigation.push).toHaveBeenCalledWith(SEARCH_ROUTE, { searchText: undefined })
     expect(navigation.push).toHaveBeenCalledTimes(1)
+  })
+
+  it('should navigate to search with searchText', () => {
+    renderMockComponent({
+      route: SEARCH_ROUTE,
+      ...params,
+      searchText: 'hello',
+    })
+    expect(navigation.push).toHaveBeenCalledWith(SEARCH_ROUTE, { searchText: 'hello' })
+    expect(navigation.push).toHaveBeenCalledTimes(1)
+  })
+
+  it('should replace when redirecting to search', () => {
+    renderMockComponent({ route: SEARCH_ROUTE, ...params, searchText: 'test' }, true)
+    expect(navigation.replace).toHaveBeenCalledWith(SEARCH_ROUTE, { searchText: 'test' })
+    expect(navigation.push).not.toHaveBeenCalled()
+  })
+
+  it('should replace when redirecting to disclaimer', () => {
+    renderMockComponent({ route: DISCLAIMER_ROUTE, ...params }, true)
+    expect(navigation.replace).toHaveBeenCalledWith(DISCLAIMER_ROUTE)
+    expect(navigation.push).not.toHaveBeenCalled()
+  })
+
+  it('should navigate to pois route with all optional params', () => {
+    renderMockComponent({
+      route: POIS_ROUTE,
+      ...params,
+      slug: 'some-poi',
+      multipoi: 42,
+      zoom: 15,
+      poiCategoryId: 7,
+    })
+    expect(navigateNested).toHaveBeenCalledWith(
+      navigation,
+      POIS_ROUTE,
+      {
+        slug: 'some-poi',
+        multipoi: 42,
+        zoom: 15,
+        poiCategoryId: 7,
+      },
+      false,
+    )
+    expect(navigateNested).toHaveBeenCalledTimes(1)
+  })
+
+  it('should pass null for newsId when not provided', () => {
+    renderMockComponent({
+      route: NEWS_ROUTE,
+      ...params,
+      newsType: LOCAL_NEWS_TYPE,
+    })
+    expect(navigateNested).toHaveBeenCalledWith(
+      navigation,
+      NEWS_ROUTE,
+      { newsType: LOCAL_NEWS_TYPE, newsId: null },
+      false,
+    )
+  })
+
+  it('should replace with bottom tab route when redirect=true but cannot go back for external url', () => {
+    const navigationCannotGoBack = { ...createNavigationPropMock(), canGoBack: () => false }
+    mocked(useNavigation).mockImplementationOnce(() => navigationCannotGoBack as never)
+
+    renderMockComponent(
+      { route: CATEGORIES_ROUTE, cityContentPath: '/peekingCity/ro/willkommen', cityCode: 'peekingCity', languageCode },
+      true,
+    )
+    act(() => jest.runAllTimers())
+    expect(navigationCannotGoBack.pop).not.toHaveBeenCalled()
+    expect(navigationCannotGoBack.replace).toHaveBeenCalledWith(BOTTOM_TAB_NAVIGATION_ROUTE, {
+      screen: CATEGORIES_TAB_ROUTE,
+      params: { screen: CATEGORIES_ROUTE },
+    })
+    expect(openExternalUrl).toHaveBeenCalledTimes(1)
+  })
+
+  it('should do nothing when routeInformation is null', () => {
+    renderMockComponent(null as unknown as RouteInformationType)
+    expect(navigation.push).not.toHaveBeenCalled()
+    expect(navigation.replace).not.toHaveBeenCalled()
+    expect(navigateNested).not.toHaveBeenCalled()
+    expect(openExternalUrl).not.toHaveBeenCalled()
   })
 })

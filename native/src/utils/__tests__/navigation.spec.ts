@@ -18,10 +18,12 @@ const buildNavigation = ({
   id,
   parentId,
   currentTabName,
+  rootRouteNames,
 }: {
   id: string
   parentId?: string
   currentTabName?: string
+  rootRouteNames?: string[]
 }) => {
   const tabState = currentTabName ? { routes: [{ name: currentTabName }], index: 0 } : undefined
 
@@ -32,12 +34,15 @@ const buildNavigation = ({
       }
     : null
 
+  const routes = rootRouteNames ? rootRouteNames.map(name => ({ name })) : [{ name: CATEGORIES_ROUTE }]
+
   const navigation = {
     ...createNavigationMock(),
     getId: jest.fn().mockReturnValue(id),
     push: jest.fn(),
     replace: jest.fn(),
     navigate: jest.fn(),
+    getState: jest.fn().mockReturnValue({ routes }),
     getParent: jest.fn().mockImplementation((navigatorId: string) => (navigatorId === parentId ? parent : null)),
   }
 
@@ -79,6 +84,26 @@ describe('navigateNested', () => {
         screen: EVENTS_TAB_ROUTE,
         params: { screen: EVENTS_ROUTE, params: eventsParams },
       })
+    })
+
+    it('replaces the bottom tab route when it is already open and redirecting', () => {
+      const { navigation } = buildNavigation({
+        id: ROOT_NAVIGATOR_ID,
+        rootRouteNames: [BOTTOM_TAB_NAVIGATION_ROUTE],
+      })
+
+      navigateNested(navigation, EVENTS_ROUTE, eventsParams, true)
+
+      expect(navigation.replace).toHaveBeenCalledTimes(2)
+      expect(navigation.replace).toHaveBeenNthCalledWith(1, BOTTOM_TAB_NAVIGATION_ROUTE, {
+        screen: CATEGORIES_TAB_ROUTE,
+        params: { screen: CATEGORIES_ROUTE },
+      })
+      expect(navigation.replace).toHaveBeenNthCalledWith(2, BOTTOM_TAB_NAVIGATION_ROUTE, {
+        screen: EVENTS_TAB_ROUTE,
+        params: { screen: EVENTS_ROUTE, params: eventsParams },
+      })
+      expect(navigation.push).not.toHaveBeenCalled()
     })
 
     it('maps each nested route to its correct tab route', () => {
