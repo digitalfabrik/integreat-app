@@ -230,6 +230,10 @@ const Header = ({
       }
     }
 
+    if (previousRoute.name === LANDING_ROUTE) {
+      return { text: t('changeLocation'), language: undefined } // system language
+    }
+
     return { text: t(previousRoute.name), language: undefined } // system language
   }
 
