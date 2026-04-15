@@ -1,7 +1,7 @@
 import { ThemeProvider as NavigationThemeProvider } from '@react-navigation/native'
 import React, { ReactElement, ReactNode } from 'react'
-import { ScrollView, StyleSheet, View } from 'react-native'
-import { Modal as PaperModal, Portal } from 'react-native-paper'
+import { ScrollView, StyleSheet, View, Modal as RNModal, Platform } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useTheme } from 'styled-components/native'
 
 import dimensions from '../constants/dimensions'
@@ -45,15 +45,12 @@ const Modal = ({
 }: ModalProps): ReactElement => {
   const theme = useTheme()
   const navigationTheme = useNavigationTheme()
+  const insets = useSafeAreaInsets()
 
   return (
-    <Portal>
-      <NavigationThemeProvider value={navigationTheme}>
-        <PaperModal
-          visible={modalVisible}
-          onDismiss={closeModal}
-          style={styles.modalStyle}
-          contentContainerStyle={styles.modalStyle}>
+    <RNModal visible={modalVisible} transparent onRequestClose={closeModal} style={styles.modalStyle}>
+      <View style={{ flex: 1, paddingTop: Platform.OS === 'ios' ? insets.top : 0 }}>
+        <NavigationThemeProvider value={navigationTheme}>
           <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
             <View style={styles.header}>
               <HeaderBox goBack={closeModal} text={headerTitle} />
@@ -70,9 +67,9 @@ const Modal = ({
               </View>
             )}
           </View>
-        </PaperModal>
-      </NavigationThemeProvider>
-    </Portal>
+        </NavigationThemeProvider>
+      </View>
+    </RNModal>
   )
 }
 

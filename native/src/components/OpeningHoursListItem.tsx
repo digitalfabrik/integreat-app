@@ -44,7 +44,7 @@ const OpeningEntry = ({ openingHours, weekday, isCurrentDay, appointmentUrl }: O
   const [overlayOpen, setOverlayOpen] = useState<boolean>(false)
 
   return (
-    <EntryContainer weekday={weekday}>
+    <EntryContainer weekday={weekday} accessible>
       <Text variant={isCurrentDay ? 'h6' : 'body2'}>{weekday}</Text>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         {(openingHours.openAllDay as boolean) && <Text variant={isCurrentDay ? 'h6' : 'body2'}>{t('allDay')}</Text>}

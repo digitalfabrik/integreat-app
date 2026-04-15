@@ -176,8 +176,9 @@ describe('Pois', () => {
     expect(getAllByText('Dienstleistung')).toHaveLength(2)
 
     fireEvent.press(getByRole('switch', { name: 'Dienstleistung' }))
+    fireEvent.press(getByText('showPois'))
 
-    expect(getAllByText('Dienstleistung')).toHaveLength(3)
+    expect(getAllByText('Dienstleistung')).toHaveLength(2)
     expect(getByText(poi1.title)).toBeTruthy()
     expect(queryByText(poi0.title)).toBeFalsy()
     expect(queryByText(poi2.title)).toBeFalsy()

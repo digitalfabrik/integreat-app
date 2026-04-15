@@ -11,6 +11,16 @@ import { log } from './sentry'
 
 export const ANDROID_FILE_PREFIX = 'file://'
 
+type ConditionalA11yProps = {
+  accessibilityElementsHidden: boolean
+  importantForAccessibility: 'auto' | 'yes' | 'no' | 'no-hide-descendants'
+}
+
+export const conditionalA11yProps = ({ hidden }: { hidden: boolean }): ConditionalA11yProps => ({
+  importantForAccessibility: hidden ? 'no-hide-descendants' : 'auto',
+  accessibilityElementsHidden: hidden,
+})
+
 // Android throws an error if attempting to delete non existing directories/files
 // https://github.com/joltup/rn-fetch-blob/issues/333
 export const deleteIfExists = async (path: string): Promise<void> => {

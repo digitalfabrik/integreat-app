@@ -32,9 +32,15 @@ import {
 
 import { clusterCountLayer, clusterLayer, markerLayer } from '../constants/layers'
 import useUserLocation from '../hooks/useUserLocation'
+import { conditionalA11yProps } from '../utils/helpers'
 import MapAttribution from './MapsAttribution'
 import Icon from './base/Icon'
 import IconButton from './base/IconButton'
+
+const OuterWrapper = styled.View`
+  flex: 1;
+  position: relative;
+`
 
 const MapContainer = styled.View`
   flex: 1;
@@ -46,7 +52,9 @@ const StyledMap = styled(MapLibreMapView)`
   width: 100%;
 `
 
-const StyledIcon = styled(IconButton)<{ position: number | string }>`
+const StyledIcon = styled(IconButton)<{
+  position: number | string
+}>`
   position: absolute;
   right: 0;
   bottom: ${props => props.position}${props => (typeof props.position === 'number' ? 'px' : '')};
@@ -184,55 +192,52 @@ const MapView = ({
   const locationPermissionIcon = userLocation ? locationPermissionGrantedIcon : 'crosshairs-off'
 
   return (
-    <MapContainer importantForAccessibility='no' accessibilityElementsHidden>
-      <StyledMap
-        mapStyle={mapConfig.styleJSON}
-        zoomEnabled
-        onPress={onPress}
-        ref={mapRef}
-        attributionEnabled={false}
-        logoEnabled={false}>
-        <UserLocation visible={!!userLocation} onUpdate={updateUserLocation} />
-        <ShapeSource
-          id='location-pois'
-          shape={embedInCollection(features.filter(feature => feature !== selectedFeature))}
-          cluster
-          clusterRadius={clusterRadius}>
-          <CircleLayer {...clusterLayer(theme)} />
-          <SymbolLayer {...clusterCountLayer} />
-          <SymbolLayer {...markerLayer(null)} />
-        </ShapeSource>
-        {selectedFeature && (
-          <ShapeSource id='selected-feature' shape={embedInCollection([selectedFeature])}>
-            <SymbolLayer {...markerLayer(selectedFeature)} id='selected-marker' />
+    <OuterWrapper>
+      <MapContainer importantForAccessibility='no' accessibilityElementsHidden>
+        <StyledMap
+          {...conditionalA11yProps({ hidden: bottomSheetFullscreen })}
+          mapStyle={mapConfig.styleJSON}
+          zoomEnabled
+          onPress={onPress}
+          ref={mapRef}
+          attributionEnabled={false}
+          logoEnabled={false}>
+          <UserLocation visible={!!userLocation} onUpdate={updateUserLocation} />
+          <ShapeSource
+            id='location-pois'
+            shape={embedInCollection(features.filter(feature => feature !== selectedFeature))}
+            cluster
+            clusterRadius={clusterRadius}>
+            <CircleLayer {...clusterLayer(theme)} />
+            <SymbolLayer {...clusterCountLayer} />
+            <SymbolLayer {...markerLayer(null)} />
           </ShapeSource>
-        )}
-        <Camera
-          {...cameraSettings}
-          followUserMode={UserTrackingMode.Follow}
-          animationDuration={animationDuration}
-          animationMode='easeTo'
-          padding={{ paddingBottom: bottomSheetHeight }}
-        />
-      </StyledMap>
-      {Boolean(!bottomSheetFullscreen) && (
-        <>
-          <OverlayContainer>{Overlay}</OverlayContainer>
-          <MapAttribution />
-          <StyledIcon
-            icon={
-              <Icon
-                color={theme.dark ? theme.colors.background : theme.colors.onSurface}
-                source={locationPermissionIcon}
-              />
-            }
-            onPress={onRequestLocation}
-            position={bottomSheetFullscreen ? 0 : bottomSheetHeight}
-            accessibilityLabel={t('showOwnLocation')}
+          {selectedFeature && (
+            <ShapeSource id='selected-feature' shape={embedInCollection([selectedFeature])}>
+              <SymbolLayer {...markerLayer(selectedFeature)} id='selected-marker' />
+            </ShapeSource>
+          )}
+          <Camera
+            {...cameraSettings}
+            followUserMode={UserTrackingMode.Follow}
+            animationDuration={animationDuration}
+            animationMode='easeTo'
+            padding={{ paddingBottom: bottomSheetHeight }}
           />
-        </>
-      )}
-    </MapContainer>
+        </StyledMap>
+      </MapContainer>
+      <OverlayContainer {...conditionalA11yProps({ hidden: bottomSheetFullscreen })}>{Overlay}</OverlayContainer>
+      <MapAttribution accessible={bottomSheetFullscreen} />
+      <StyledIcon
+        {...conditionalA11yProps({ hidden: bottomSheetFullscreen })}
+        icon={
+          <Icon color={theme.dark ? theme.colors.background : theme.colors.onSurface} source={locationPermissionIcon} />
+        }
+        onPress={onRequestLocation}
+        position={bottomSheetHeight}
+        accessibilityLabel={t('showOwnLocation')}
+      />
+    </OuterWrapper>
   )
 }
 
