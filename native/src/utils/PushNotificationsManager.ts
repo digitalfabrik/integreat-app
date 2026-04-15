@@ -105,14 +105,6 @@ const displayNotification = async (message: Message): Promise<void> => {
   })
 }
 
-const pushNotificationListener = (): void => {
-  // Foreground notifications
-  onMessage(getMessaging(), message => displayNotification(message as Message))
-  // It is not necessary to set a background message handler as the notification is automatically displayed by the OS
-  // Set one anyway to avoid the warning that no background message handler is set
-  setBackgroundMessageHandler(getMessaging(), async () => undefined)
-}
-
 const routeInformationFromMessage = (message: Message): NonNullableRouteInformationType => ({
   cityCode: message.data.city_code,
   languageCode: message.data.language_code,
@@ -179,7 +171,12 @@ export const usePushNotificationListener = (navigate: (routeInformation: RouteIn
   }, [appContext])
 
   useEffect(() => {
-    pushNotificationListener()
+    // It is not necessary to set a background message handler as the notification is automatically displayed by the OS
+    // Set one anyway to avoid the warning that no background message handler is set
+    setBackgroundMessageHandler(getMessaging(), async () => undefined)
+
+    // Foreground notifications
+    return onMessage(getMessaging(), message => displayNotification(message as Message))
   }, [])
 
   useEffect(() => {
