@@ -4,6 +4,7 @@ import { View } from 'react-native'
 import { RadioButton, TouchableRipple } from 'react-native-paper'
 import styled from 'styled-components/native'
 
+import { conditionalA11yProps } from '../../utils/helpers'
 import Text from '../base/Text'
 import FormInput from './FormInput'
 
@@ -39,11 +40,7 @@ const FormRadioButtons = <T extends FieldValues>({ name, control, values }: Form
               accessibilityState={{ checked: value === key }}
               importantForAccessibility='yes'>
               <Wrapper>
-                <RadioButton.Android
-                  value={key}
-                  accessibilityElementsHidden
-                  importantForAccessibility='no-hide-descendants'
-                />
+                <RadioButton.Android value={key} {...conditionalA11yProps({ hidden: true })} />
                 <Text variant='bodySmall'>{label}</Text>
               </Wrapper>
             </TouchableRipple>
