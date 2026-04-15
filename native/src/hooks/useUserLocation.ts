@@ -1,13 +1,12 @@
 import Geolocation, { GeolocationError } from '@react-native-community/geolocation'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { AppState, Platform } from 'react-native'
+import { Platform } from 'react-native'
 import {
   check,
   checkMultiple,
   openSettings,
   PERMISSIONS,
-  PermissionStatus,
   request,
   requestMultiple,
   RESULTS,
@@ -16,6 +15,7 @@ import {
 import { LocationStateType, UnavailableLocationState } from 'shared'
 
 import { log, reportError } from '../utils/sentry'
+import useAppStateListener from './useAppStateListener'
 import useSnackbar from './useSnackbar'
 
 const locationStateOnError = (error: GeolocationError): UnavailableLocationState => {
@@ -50,17 +50,12 @@ const getLocationPermissionStatus = async (requestPermission: boolean) => {
     const checkOrRequest = requestPermission ? request : check
     return checkOrRequest(locationPermissionIOS)
   }
-  if (requestPermission) {
-    const statuses = await requestMultiple([fineLocationPermissionAndroid, coarseLocationPermissionAndroid])
-    const fineStatus = statuses[fineLocationPermissionAndroid]
-    if (fineStatus === RESULTS.GRANTED || fineStatus === RESULTS.LIMITED) {
-      return fineStatus
-    }
-    return statuses[coarseLocationPermissionAndroid]
-  }
-  const statuses = await checkMultiple([fineLocationPermissionAndroid, coarseLocationPermissionAndroid])
+  const permissions = [fineLocationPermissionAndroid, coarseLocationPermissionAndroid]
+  const checkOrRequest = requestPermission ? requestMultiple : checkMultiple
+  const statuses = await checkOrRequest(permissions)
   const finePermissionStatus = statuses[fineLocationPermissionAndroid]
-  if (([RESULTS.GRANTED, RESULTS.LIMITED] as PermissionStatus[]).includes(finePermissionStatus)) {
+
+  if (finePermissionStatus === RESULTS.GRANTED || finePermissionStatus === RESULTS.LIMITED) {
     return finePermissionStatus
   }
   return statuses[coarseLocationPermissionAndroid]
@@ -106,6 +101,7 @@ const useUserLocation = ({ requestPermissionInitially }: UseUserLocationProps): 
       }
 
       setLocationState({ message: 'noPermission', status: 'unavailable', coordinates: undefined })
+
       if (requestPermission && showSnackbarIfBlocked && locationPermissionStatus === RESULTS.BLOCKED) {
         showSnackbar({
           text: t('landing:noPermission'),
@@ -118,24 +114,17 @@ const useUserLocation = ({ requestPermissionInitially }: UseUserLocationProps): 
   )
 
   useEffect(() => {
-    refreshPermissionAndLocation({
-      requestPermission: requestPermissionInitially,
-      showSnackbarIfBlocked: false,
-    }).catch(reportError)
+    refreshPermissionAndLocation({ requestPermission: requestPermissionInitially, showSnackbarIfBlocked: false }).catch(
+      reportError,
+    )
   }, [refreshPermissionAndLocation, requestPermissionInitially])
 
   // Re-check permissions when returning from settings
-  useEffect(() => {
-    const subscription = AppState.addEventListener('change', nextAppState => {
-      if (nextAppState === 'active') {
-        refreshPermissionAndLocation({
-          requestPermission: false,
-          showSnackbarIfBlocked: false,
-        }).catch(reportError)
-      }
-    })
-    return () => subscription.remove()
-  }, [refreshPermissionAndLocation])
+  useAppStateListener(appState => {
+    if (appState === 'active') {
+      refreshPermissionAndLocation({ requestPermission: false, showSnackbarIfBlocked: false }).catch(reportError)
+    }
+  })
 
   return {
     ...locationState,
