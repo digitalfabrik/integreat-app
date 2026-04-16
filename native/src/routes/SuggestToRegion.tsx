@@ -28,11 +28,13 @@ const StyledIcon = styled(Icon)`
 `
 
 const SuggestToRegion = (): ReactElement | null => {
+  const [isCopied, setIsCopied] = useState<boolean>(false)
   const { t } = useTranslation('suggestToRegion')
   const theme = useTheme()
-  const [isCopied, setIsCopied] = useState<boolean>(false)
-  const template = buildConfig().featureFlags.suggestToRegionTemplate
+
+  const suggestToRegion = buildConfig().featureFlags.suggestToRegion
   const SuggestToRegionIcon = buildConfigAssets().SuggestToRegionIcon
+
   const CopyIcon = useCallback(
     () => <Icon color={theme.colors.onPrimary} source={isCopied ? 'check' : 'content-copy'} size={20} />,
     [isCopied, theme.colors.onPrimary],
@@ -79,12 +81,12 @@ const SuggestToRegion = (): ReactElement | null => {
     },
   })
 
-  if (!template) {
+  if (!suggestToRegion) {
     return null
   }
 
   const copyToClipboard = () => {
-    Clipboard.setString(template)
+    Clipboard.setString(suggestToRegion.template)
     setIsCopied(true)
   }
 
@@ -124,7 +126,7 @@ const SuggestToRegion = (): ReactElement | null => {
         </Button>
       </View>
       <Text variant='body2' style={styles.templateText}>
-        {template}
+        {suggestToRegion.template}
       </Text>
     </Container>
   )

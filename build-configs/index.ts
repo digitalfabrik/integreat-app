@@ -69,9 +69,6 @@ const loadBuildConfig = <T extends PlatformType>(
     throw Error(`Build config not available for platform: ${platform}`)
   }
 
-  buildConfig.common.featureFlags.suggestToRegion =
-    !!buildConfig.common.featureFlags.suggestToRegionTemplate && !!buildConfig.web.icons.suggestToRegion
-
   return buildConfig[platform]
 }
 
