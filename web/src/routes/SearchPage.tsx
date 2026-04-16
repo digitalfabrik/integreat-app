@@ -12,7 +12,6 @@ import {
   SEARCH_QUERY_KEY,
   useDebounce,
   MAX_SEARCH_RESULTS,
-  filterRedundantFallbackLanguageResults,
 } from 'shared'
 import { ExtendedPageModel } from 'shared/api'
 import { config } from 'translations'
@@ -66,7 +65,7 @@ const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
   const [queryParams, setQueryParams] = useSearchParams()
   const [query, setQuery] = useState(queryParams.get(SEARCH_QUERY_KEY) ?? '')
   const { t } = useTranslation('search')
-  const fallbackLanguage = config.sourceLanguage
+  const sourceLanguage = config.sourceLanguage
   const debouncedQuery = useDebounce(query)
 
   useEffect(() => {
@@ -74,28 +73,27 @@ const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
   }, [debouncedQuery, setQueryParams])
 
   const {
-    data: contentLanguageDocuments,
-    loading,
-    error,
+    data: userLanguageDocuments,
+    loading: documentsLoading,
+    error: documentsError,
   } = useLoadSearchDocuments({ cityCode, languageCode, cmsApiBaseUrl })
 
-  const { data: fallbackData } = useLoadSearchDocuments({
+  const { data: sourceLanguageData } = useLoadSearchDocuments({
     cityCode,
-    languageCode: fallbackLanguage,
+    languageCode: sourceLanguage,
     cmsApiBaseUrl,
   })
+  const sourceLanguageDocuments = languageCode !== sourceLanguage ? sourceLanguageData : []
 
-  const contentLanguageReturn = useSearch(contentLanguageDocuments, debouncedQuery)
-  const fallbackLanguageDocuments = languageCode !== fallbackLanguage ? fallbackData : []
-  const fallbackLanguageReturn = useSearch(fallbackLanguageDocuments, debouncedQuery)
-  const fallbackLanguageResults = filterRedundantFallbackLanguageResults({
-    fallbackLanguageResults: fallbackLanguageReturn.data,
-    contentLanguageResults: contentLanguageReturn.data,
-    fallbackLanguage,
+  const { data, loading, error } = useSearch({
+    userLanguageDocuments,
+    moreDocuments: sourceLanguageDocuments,
+    query: debouncedQuery,
+    userLanguageCode: languageCode,
   })
-  const results = contentLanguageReturn.data.concat(fallbackLanguageResults).slice(0, MAX_SEARCH_RESULTS)
+  const searchResults = data.slice(0, MAX_SEARCH_RESULTS)
 
-  useReportError(contentLanguageReturn.error ?? fallbackLanguageReturn.error)
+  useReportError(documentsError ?? error)
 
   if (!city) {
     return null
@@ -140,7 +138,7 @@ const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
           onFilterTextChange={setQuery}
           autoFocus
         />
-        <SearchResults results={results} query={debouncedQuery} loading={loading || contentLanguageReturn.loading} />
+        <SearchResults results={searchResults} query={debouncedQuery} loading={documentsLoading || loading} />
       </Stack>
     </CityContentLayout>
   )

@@ -1,0 +1,8 @@
+issue_key: 3838
+show_in_stores: true
+platforms:
+  - web
+  - android
+  - ios
+en: The search now returns all results with translation in your language.
+de: Die Suche liefert nun alle Ergebnisse mit einer Übersetzung in deiner Sprache.

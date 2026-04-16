@@ -1,4 +1,4 @@
-import MiniSearch from 'minisearch'
+import MiniSearch, { SearchResult } from 'minisearch'
 import { useEffect, useState } from 'react'
 
 import CategoriesMapModel from '../api/models/CategoriesMapModel'
@@ -29,17 +29,17 @@ export const prepareSearchDocuments = (
   ...(pois || []),
 ]
 
+const normalizeContent = (term: string) => normalizeString(parseHTML(term))
+
 type UseSearchReturn = {
-  data: ExtendedPageModel[]
+  data: SearchResult[]
   error: Error | null
   loading: boolean
 }
 
-const normalizeContent = (term: string) => normalizeString(parseHTML(term))
-
 // WARNING: This uses the document count to check whether the search documents have already been added.
 // Modifying single documents or replacing documents with a same length array will therefore NOT trigger an update
-const useSearch = (documents: ExtendedPageModel[], query: string): UseSearchReturn => {
+export const useSearch = (documents: ExtendedPageModel[], query: string): UseSearchReturn => {
   const [indexing, setIndexing] = useState(false)
   const [error, setError] = useState<Error | null>(null)
   const normalizedQuery = normalizeString(query)
@@ -48,6 +48,7 @@ const useSearch = (documents: ExtendedPageModel[], query: string): UseSearchRetu
     new MiniSearch({
       idField: 'path',
       fields: ['title', 'content'],
+      storeFields: ['availableLanguages'],
       extractField: (document, fieldName) =>
         fieldName === 'content' ? normalizeContent(document.content) : document[fieldName],
       processTerm: normalizeString,
@@ -72,19 +73,63 @@ const useSearch = (documents: ExtendedPageModel[], query: string): UseSearchRetu
     }
   }, [indexing, search, documents])
 
-  // The search results undergo normalization and should not be returned directly
-  // We instead map the results back to their original documents
-  // Also, make sure to persist the order of result documents in order to account for the search score and prioritize close matches
-  const results: string[] = search.search(normalizedQuery).map(result => result.id)
-  const resultDocuments = results
-    .map(result => documents.find(document => document.path === result))
-    .filter((it): it is ExtendedPageModel => it !== undefined)
-
   return {
-    data: normalizedQuery.length === 0 ? documents : resultDocuments,
+    data: search.search(normalizedQuery),
     error,
     loading: indexing,
   }
 }
 
-export default useSearch
+type UseMultiLanguageSearchParams = {
+  userLanguageDocuments: ExtendedPageModel[]
+  moreDocuments: ExtendedPageModel[]
+  query: string
+  userLanguageCode: string
+}
+
+type UseMultiLanguageSearchReturn = {
+  data: ExtendedPageModel[]
+  error: Error | null
+  loading: boolean
+}
+
+// Performs a search in documents of multiple languages (usually the users language and the source language (de))
+// If the search term is found in a non-user language document, we still return the document translated in the users language
+// If no translation to the users language exists, we use the original language of the search result
+const useMultiLanguageSearch = ({
+  userLanguageDocuments,
+  moreDocuments,
+  userLanguageCode,
+  query,
+}: UseMultiLanguageSearchParams): UseMultiLanguageSearchReturn => {
+  const userLanguageSearch = useSearch(userLanguageDocuments, query)
+  const moreSearch = useSearch(moreDocuments, query)
+
+  const userLanguageResults = userLanguageSearch.data
+  const moreResults = moreSearch.data.map(result => ({
+    ...result,
+    id: result.availableLanguages[userLanguageCode] ?? result.id,
+  }))
+
+  const results = [...userLanguageResults, ...moreResults].sort((a, b) => b.score - a.score).map(result => result.id)
+  const uniqueResults = [...new Set(results)]
+
+  // The search results undergo normalization and should not be returned directly
+  // We instead map the results their translation in the users language if existing or their original result otherwise
+  // Make sure to persist the order of result documents in order to account for the search score and prioritize close matches
+  const resultDocuments = uniqueResults
+    .map(
+      result =>
+        userLanguageDocuments.find(document => document.path === result) ??
+        moreDocuments.find(document => document.path === result),
+    )
+    .filter((it): it is ExtendedPageModel => it !== undefined)
+
+  return {
+    data: normalizeString(query).length > 0 ? resultDocuments : userLanguageDocuments,
+    error: userLanguageSearch.error ?? moreSearch.error,
+    loading: userLanguageSearch.loading || moreSearch.loading,
+  }
+}
+
+export default useMultiLanguageSearch

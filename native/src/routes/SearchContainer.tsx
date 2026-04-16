@@ -18,12 +18,12 @@ const SearchContainer = ({ navigation, route }: SearchContainerProps): ReactElem
   const { cityCode, languageCode } = useCityAppContext()
   const initialSearchText = route.params.searchText ?? ''
   const { data, ...response } = useLoadCityContent({ cityCode, languageCode })
-  const { data: fallbackData } = useLoadCityContent({ cityCode, languageCode: config.sourceLanguage })
+  const { data: sourceLanguageData } = useLoadCityContent({ cityCode, languageCode: config.sourceLanguage })
 
-  const documents = prepareSearchDocuments(data?.categories, data?.events, data?.pois)
-  const fallbackLanguageDocuments =
+  const userLanguageDocuments = prepareSearchDocuments(data?.categories, data?.events, data?.pois)
+  const sourceLanguageDocuments =
     languageCode !== config.sourceLanguage
-      ? prepareSearchDocuments(fallbackData?.categories, fallbackData?.events, fallbackData?.pois)
+      ? prepareSearchDocuments(sourceLanguageData?.categories, sourceLanguageData?.events, sourceLanguageData?.pois)
       : []
 
   return (
@@ -32,8 +32,8 @@ const SearchContainer = ({ navigation, route }: SearchContainerProps): ReactElem
         <Search
           navigation={navigation}
           cityCode={cityCode}
-          documents={documents}
-          fallbackLanguageDocuments={fallbackLanguageDocuments}
+          userLanguageDocuments={userLanguageDocuments}
+          sourceLanguageDocuments={sourceLanguageDocuments}
           languageCode={languageCode}
           initialSearchText={initialSearchText}
         />
