@@ -196,56 +196,48 @@ const Header = ({
     return isSinglePoi && notFromDeepLink
   }
 
-  const getHeaderText = (): { text: string; language?: string } => {
+  const getHeaderTitle = (): { title: string; language?: string } => {
     if (!previousRoute) {
       // Home/Dashboard: Show current city name
-      return { text: cityName ?? '', language: config.sourceLanguage }
+      return { title: cityName ?? '', language: config.sourceLanguage }
     }
 
     if (isSinglePoiFromPoisRoute()) {
-      return { text: t('locations'), language: undefined } // system language
+      return { title: t('locations'), language: undefined } // system language
     }
 
     const eventsRouteParams = route.params as RoutesParamsType[EventsRouteType] | undefined
     const isSingleEvent = !!eventsRouteParams?.slug
     const notFromEventsDeepLink = previousRoute.name === EVENTS_ROUTE
     if (isSingleEvent && notFromEventsDeepLink) {
-      return { text: t('events'), language: undefined } // system language
+      return { title: t('events'), language: undefined } // system language
     }
 
     const previousRouteTitle = (previousRoute.params as { title?: string } | undefined)?.title
     if (previousRouteTitle) {
-      return { text: previousRouteTitle, language: languageCode }
+      return { title: previousRouteTitle, language: languageCode }
     }
 
     // After search navigation reset, previousRoute may be BOTTOM_TAB_NAVIGATION_ROUTE
     if (previousRoute.name === CATEGORIES_ROUTE || previousRoute.name === BOTTOM_TAB_NAVIGATION_ROUTE) {
-      return {
-        text: cityName ?? '',
-        language: languageCode,
-      }
+      return { title: cityName ?? '', language: languageCode }
     }
 
     if (previousRoute.name === LANDING_ROUTE) {
-      return { text: t('changeLocation'), language: undefined } // system language
+      return { title: t('changeLocation'), language: undefined } // system language
     }
 
-    return { text: t(previousRoute.name), language: undefined } // system language
+    return { title: t(previousRoute.name), language: undefined } // system language
   }
 
+  const { title, language } = getHeaderTitle()
   const landingPath =
     !previousRoute && !hasRootHistory && !isLanding ? () => navigation.navigate(LANDING_ROUTE) : undefined
 
   return (
     <BoxShadow>
       <Horizontal>
-        <HeaderBox
-          goBack={goBack}
-          canGoBack={canGoBack}
-          text={getHeaderText().text}
-          language={getHeaderText().language}
-          landingPath={landingPath}
-        />
+        <HeaderBox goBack={goBack} canGoBack={canGoBack} title={title} language={language} landingPath={landingPath} />
         <ActionButtons items={items} />
         {showMenu && (
           <HeaderMenu
