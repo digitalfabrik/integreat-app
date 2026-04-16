@@ -26,9 +26,17 @@ type DialogProps = {
   close: () => void
   children: ReactElement | ReactElement[]
   className?: string
+  hideCloseButton?: boolean
 }
 
-const AlertDialog = ({ title, close, children, className, actions }: DialogProps): ReactElement => {
+const AlertDialog = ({
+  title,
+  close,
+  children,
+  className,
+  actions,
+  hideCloseButton = false,
+}: DialogProps): ReactElement => {
   const { t } = useTranslation('layout')
 
   // This is necessary to ensure the theme is correctly applied to the drawer content
@@ -40,9 +48,11 @@ const AlertDialog = ({ title, close, children, className, actions }: DialogProps
         <DialogTitle component='h2' variant='h4' textOverflow='ellipsis' whiteSpace='nowrap' overflow='hidden'>
           {title}
         </DialogTitle>
-        <IconButton aria-label={t('common:close')} onClick={close}>
-          <CloseIcon />
-        </IconButton>
+        {!hideCloseButton && (
+          <IconButton aria-label={t('common:close')} onClick={close}>
+            <CloseIcon />
+          </IconButton>
+        )}
       </Stack>
       <DialogContent>{children}</DialogContent>
       {actions}

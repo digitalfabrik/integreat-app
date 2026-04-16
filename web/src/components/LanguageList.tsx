@@ -56,6 +56,7 @@ type LanguageListProps = {
   close?: () => void
   availableOnly?: boolean
   asList?: boolean
+  onUnavailableLanguageClick?: () => void
 }
 
 const LanguageList = ({
@@ -64,25 +65,35 @@ const LanguageList = ({
   close,
   availableOnly = false,
   asList = false,
+  onUnavailableLanguageClick,
 }: LanguageListProps): ReactElement => {
   const [query, setQuery] = useState('')
   const { t } = useTranslation('layout')
   const { mobile } = useDimensions()
 
-  const allOptions = useMemo(
-    () => languageChangePaths.filter(item => !availableOnly || !!item.path),
-    [languageChangePaths, availableOnly],
-  )
+  const languageOptions = useMemo(() => {
+    if (availableOnly) {
+      return languageChangePaths
+    }
 
-  const currentLanguage = allOptions.find(item => item.code === languageCode)
+    const availableCodes = new Set(languageChangePaths.map(item => item.code))
+    return [
+      ...languageChangePaths,
+      ...Object.entries(config.supportedLanguages)
+        .filter(([code]) => !availableCodes.has(code))
+        .map(([code, { name }]) => ({ code, name, path: null })),
+    ]
+  }, [languageChangePaths, availableOnly])
+
+  const currentLanguage = languageOptions.find(item => item.code === languageCode)
 
   const filteredLanguageChangePaths = useMemo(() => {
     const languageNamesInCurrentLanguage = new Intl.DisplayNames([languageCode], { type: 'language' })
     const languageNamesInFallbackLanguage = new Intl.DisplayNames([config.sourceLanguage], { type: 'language' })
-    return languageChangePaths.filter(item =>
+    return languageOptions.filter(item =>
       filterLanguageChangePath(item, query, languageNamesInCurrentLanguage, languageNamesInFallbackLanguage),
     )
-  }, [languageChangePaths, query, languageCode])
+  }, [languageOptions, query, languageCode])
 
   if (mobile || asList) {
     return (
@@ -101,6 +112,7 @@ const LanguageList = ({
                   name={language.name}
                   close={close}
                   selectedLanguageCode={currentLanguage?.code}
+                  onUnavailableLanguageClick={onUnavailableLanguageClick}
                 />
               ))}
             </List>
@@ -131,6 +143,7 @@ const LanguageList = ({
           close={close}
           selectedLanguageCode={currentLanguage?.code}
           key={language.code}
+          onUnavailableLanguageClick={onUnavailableLanguageClick}
         />
       )}
       noOptionsText={t('noLanguageFound')}

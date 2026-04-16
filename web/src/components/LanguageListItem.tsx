@@ -1,3 +1,4 @@
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import Tooltip from '@mui/material/Tooltip'
@@ -17,17 +18,30 @@ const SelectorItemButton = styled(ListItemButton)`
   text-align: center;
 ` as typeof ListItemButton
 
+const UnavailableSelectorItemButton = styled(SelectorItemButton)`
+  justify-content: space-between;
+  gap: 8px;
+`
+
 type SelectorProps = {
   code: string
   path: string | null
   name: string
   close?: () => void
   selectedLanguageCode?: string
+  onUnavailableLanguageClick?: () => void
 }
 
-const LanguageListItem = ({ code, path, name, close, selectedLanguageCode }: SelectorProps): ReactElement => {
+const LanguageListItem = ({
+  code,
+  path,
+  name,
+  close,
+  selectedLanguageCode,
+  onUnavailableLanguageClick,
+}: SelectorProps): ReactElement => {
   const { t } = useTranslation('layout')
-  const { contentDirection } = useTheme()
+  const { contentDirection, palette } = useTheme()
 
   return path ? (
     <ListItem key={code} disablePadding>
@@ -45,7 +59,12 @@ const LanguageListItem = ({ code, path, name, close, selectedLanguageCode }: Sel
   ) : (
     <Tooltip key={code} title={t('noTranslation')} placement={contentDirection === 'ltr' ? 'right' : 'left'}>
       <ListItem disablePadding>
-        <SelectorItemButton disabled>{name}</SelectorItemButton>
+        <UnavailableSelectorItemButton onClick={onUnavailableLanguageClick}>
+          <Typography variant='body1' color={palette.text.disabled} noWrap>
+            {name}
+          </Typography>
+          <InfoOutlinedIcon fontSize='small' color='disabled' />
+        </UnavailableSelectorItemButton>
       </ListItem>
     </Tooltip>
   )
