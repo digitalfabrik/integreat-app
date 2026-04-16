@@ -93,7 +93,7 @@ const Navigator = (): ReactElement | null => {
   )
 
   useEffect(() => {
-    const { errorTracking, storageVersion, introShown } = settings
+    const { errorTracking, introShown } = settings
     const usingHermes = typeof HermesInternal === 'object' && HermesInternal !== null
 
     if (usingHermes) {
@@ -102,10 +102,6 @@ const Navigator = (): ReactElement | null => {
 
     if (errorTracking) {
       initSentry()
-    }
-
-    if (!storageVersion) {
-      updateSettings({ storageVersion: ASYNC_STORAGE_VERSION })
     }
 
     if (!buildConfig().featureFlags.introSlides && !introShown) {

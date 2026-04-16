@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { hasProp } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
-import appSettings, { defaultSettings, copySettingsFromV2ToV3, SettingsType } from '../utils/AppSettings'
+import appSettings, { defaultSettings, migrateSettingsToV2, SettingsType } from '../utils/AppSettings'
 import dataContainer from '../utils/DefaultDataContainer'
 import { subscribeNews, unsubscribeNews } from '../utils/PushNotificationsManager'
 import { reportError } from '../utils/sentry'
@@ -43,11 +43,8 @@ const AppContextProvider = ({ children }: AppContextProviderProps): ReactElement
   const uiLanguage = i18n.languages[0]
 
   useEffect(() => {
-    // Migrate v2 entries first, then load from v3 storage
-    copySettingsFromV2ToV3()
-      .then(() => appSettings.loadSettings())
-      .then(setSettings)
-      .catch(reportError)
+    // Migrate v1 entries first, then load from v2 storage
+    migrateSettingsToV2().then(appSettings.loadSettings).then(setSettings).catch(reportError)
   }, [])
 
   const updateSettings = useCallback((settings: Partial<SettingsType>) => {

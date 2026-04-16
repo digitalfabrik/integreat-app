@@ -1,10 +1,8 @@
-import AsyncStorage, { createAsyncStorage } from '@react-native-async-storage/async-storage'
+import LegacyAsyncStorage, { AsyncStorage, createAsyncStorage } from '@react-native-async-storage/async-storage'
 import { mapValues } from 'lodash'
 
 import { ThemeKey } from 'build-configs/ThemeKey'
 import { ExternalSourcePermissions } from 'shared'
-
-import { MIGRATION_KEY } from '../constants'
 
 export const ASYNC_STORAGE_VERSION = '1'
 export type SettingsType = {
@@ -31,34 +29,32 @@ export const defaultSettings: SettingsType = {
 }
 export const settingsStorage = createAsyncStorage('settings')
 
-export const copySettingsFromV2ToV3 = async (): Promise<void> => {
-  const alreadyCopied = await AsyncStorage.getItem(MIGRATION_KEY)
-  if (alreadyCopied === 'true') {
+export const migrateSettingsToV2 = async (): Promise<void> => {
+  const currentVersion = await settingsStorage.getItem(ASYNC_STORAGE_VERSION)
+  if (currentVersion === '2') {
     return
   }
 
   const keys = Object.keys(defaultSettings) as (keyof SettingsType)[]
-  const values = await Promise.all(keys.map(key => AsyncStorage.getItem(key)))
+  const values = await Promise.all(keys.map(key => LegacyAsyncStorage.getItem(key)))
 
-  const settingsToCopy: Record<string, string> = {}
-  keys.forEach((key, index) => {
+  const settingsToCopy = keys.reduce<Record<string, string>>((accumulator, key, index) => {
     const value = values[index]
-    if (value !== null && value !== undefined) {
-      settingsToCopy[key] = value
+    if (value) {
+      accumulator[key] = value
     }
-  })
+    return accumulator
+  }, {})
 
-  if (Object.keys(settingsToCopy).length > 0) {
-    await settingsStorage.setMany(settingsToCopy)
-  }
+  await settingsStorage.setMany(settingsToCopy)
 
-  await AsyncStorage.setItem(MIGRATION_KEY, 'true')
+  await settingsStorage.setItem(ASYNC_STORAGE_VERSION, '2')
 }
 
 class AppSettings {
-  asyncStorage: typeof settingsStorage
+  asyncStorage: AsyncStorage
 
-  constructor(asyncStorage: typeof settingsStorage = settingsStorage) {
+  constructor(asyncStorage: AsyncStorage = settingsStorage) {
     this.asyncStorage = asyncStorage
   }
 
@@ -83,7 +79,7 @@ class AppSettings {
   }
 
   setSettings = async (settings: Partial<SettingsType>): Promise<void> => {
-    const entries = mapValues(settings, value => JSON.stringify(value)) as Record<string, string>
+    const entries = mapValues(settings, value => JSON.stringify(value))
     await this.asyncStorage.setMany(entries)
   }
 }
