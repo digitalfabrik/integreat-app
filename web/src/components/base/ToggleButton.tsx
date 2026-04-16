@@ -6,13 +6,13 @@ import React, { ElementType, ReactElement } from 'react'
 
 import Svg from './Svg'
 
-export const toggleButtonWidth = 100
+export const toggleButtonWidth = 120
 
 const StyledButton = styled(MuiToggleButton)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   width: toggleButtonWidth,
-  height: 100,
+  minHeight: 120,
   textAlign: 'center',
   gap: 8,
   wordBreak: 'break-word',
