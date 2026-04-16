@@ -1,6 +1,6 @@
 import {
   CATEGORIES_ROUTE,
-  DISCLAIMER_ROUTE,
+  IMPRINT_ROUTE,
   EVENTS_ROUTE,
   LANDING_ROUTE,
   LOCAL_NEWS_TYPE,
@@ -120,14 +120,14 @@ describe('pathname', () => {
       ).toBe(pathname)
     })
 
-    it('should match disclaimer route', () => {
+    it('should match imprint route', () => {
       expect(
         pathnameFromRouteInformation({
-          route: DISCLAIMER_ROUTE,
+          route: IMPRINT_ROUTE,
           languageCode,
           cityCode,
         }),
-      ).toBe(`/${cityCode}/${languageCode}/${DISCLAIMER_ROUTE}`)
+      ).toBe(`/${cityCode}/${languageCode}/${IMPRINT_ROUTE}`)
     })
 
     it('should match search route', () => {

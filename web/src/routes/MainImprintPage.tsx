@@ -8,10 +8,10 @@ import Layout from '../components/Layout'
 import H1 from '../components/base/H1'
 import buildConfig from '../constants/buildConfig'
 
-type MainDisclaimerPageProps = { languageCode: string }
+type MainImprintPageProps = { languageCode: string }
 
-const MainDisclaimerPage = ({ languageCode }: MainDisclaimerPageProps): ReactElement => {
-  const { t } = useTranslation('mainDisclaimer')
+const MainImprintPage = ({ languageCode }: MainImprintPageProps): ReactElement => {
+  const { t } = useTranslation('mainImprint')
 
   const pageTitle = t('pageTitle', { appName: buildConfig().appName })
 
@@ -31,4 +31,4 @@ const MainDisclaimerPage = ({ languageCode }: MainDisclaimerPageProps): ReactEle
   )
 }
 
-export default MainDisclaimerPage
+export default MainImprintPage

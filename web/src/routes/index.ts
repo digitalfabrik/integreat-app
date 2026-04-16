@@ -2,12 +2,12 @@ import {
   CATEGORIES_ROUTE,
   CITY_NOT_COOPERATING_ROUTE,
   CONSENT_ROUTE,
-  DISCLAIMER_ROUTE,
+  IMPRINT_ROUTE,
   EVENTS_ROUTE,
   LANDING_ROUTE,
   LICENSES_ROUTE,
   LOCAL_NEWS_TYPE,
-  MAIN_DISCLAIMER_ROUTE,
+  MAIN_IMPRINT_ROUTE,
   NEWS_ROUTE,
   NOT_FOUND_ROUTE,
   POIS_ROUTE,
@@ -24,7 +24,7 @@ export const cityContentPattern = `/:cityCode/${languageCodePattern}/*`
 export const RoutePatterns = {
   [LANDING_ROUTE]: `/${LANDING_ROUTE}/${languageCodePattern}`,
   [CITY_NOT_COOPERATING_ROUTE]: `/${CITY_NOT_COOPERATING_ROUTE}/${languageCodePattern}`,
-  [MAIN_DISCLAIMER_ROUTE]: `/${MAIN_DISCLAIMER_ROUTE}/${languageCodePattern}`,
+  [MAIN_IMPRINT_ROUTE]: `/${MAIN_IMPRINT_ROUTE}/${languageCodePattern}`,
   [NOT_FOUND_ROUTE]: `/${NOT_FOUND_ROUTE}/${languageCodePattern}`,
   [LICENSES_ROUTE]: `/${LICENSES_ROUTE}/${languageCodePattern}`,
   [CONSENT_ROUTE]: `/${CONSENT_ROUTE}/${languageCodePattern}`,
@@ -36,7 +36,7 @@ export const RoutePatterns = {
   [TU_NEWS_ROUTE]: `${NEWS_ROUTE}/${TU_NEWS_ROUTE}`,
   [TU_NEWS_DETAIL_ROUTE]: `${NEWS_ROUTE}/${TU_NEWS_ROUTE}/:newsId`,
   [SEARCH_ROUTE]: SEARCH_ROUTE,
-  [DISCLAIMER_ROUTE]: DISCLAIMER_ROUTE,
+  [IMPRINT_ROUTE]: IMPRINT_ROUTE,
   [CATEGORIES_ROUTE]: '*',
 } as const
 

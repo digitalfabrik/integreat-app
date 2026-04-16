@@ -4,7 +4,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import {
   CategoriesRouteType,
   ChangeLanguageModalRouteType,
-  DisclaimerRouteType,
+  ImprintRouteType,
   EventsRouteType,
   FeedbackModalRouteType,
   ImageViewModalRouteType,
@@ -24,7 +24,7 @@ import {
   REDIRECT_ROUTE,
   EVENTS_ROUTE,
   NEWS_ROUTE,
-  DISCLAIMER_ROUTE,
+  IMPRINT_ROUTE,
   SETTINGS_ROUTE,
   SEARCH_ROUTE,
   CHANGE_LANGUAGE_MODAL_ROUTE,
@@ -61,7 +61,7 @@ export type RootRoutesType =
   | IntroRouteType
   | LandingRouteType
   | CityNotCooperatingRouteType
-  | DisclaimerRouteType
+  | ImprintRouteType
   | SettingsRouteType
   | SearchRouteType
   | ChangeLanguageModalRouteType
@@ -111,7 +111,7 @@ export type RootRoutesParamsType = {
   [INTRO_ROUTE]: undefined
   [LANDING_ROUTE]: undefined
   [CITY_NOT_COOPERATING_ROUTE]: undefined
-  [DISCLAIMER_ROUTE]: undefined
+  [IMPRINT_ROUTE]: undefined
   [CONSENT_ROUTE]: undefined
   [SETTINGS_ROUTE]: undefined
   [SEARCH_ROUTE]: {

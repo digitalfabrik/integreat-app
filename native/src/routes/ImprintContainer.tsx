@@ -1,38 +1,38 @@
 import React, { ReactElement } from 'react'
 
-import { DISCLAIMER_ROUTE, DisclaimerRouteType } from 'shared'
-import { createDisclaimerEndpoint } from 'shared/api'
+import { IMPRINT_ROUTE, ImprintRouteType } from 'shared'
+import { createImprintEndpoint } from 'shared/api'
 
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useHeader from '../hooks/useHeader'
 import useLoadExtraCityContent from '../hooks/useLoadExtraCityContent'
 import urlFromRouteInformation from '../navigation/url'
-import Disclaimer from './Disclaimer'
+import Imprint from './Imprint'
 import LoadingErrorHandler from './LoadingErrorHandler'
 
-type DisclaimerContainerProps = {
-  route: RouteProps<DisclaimerRouteType>
-  navigation: NavigationProps<DisclaimerRouteType>
+type ImprintContainerProps = {
+  route: RouteProps<ImprintRouteType>
+  navigation: NavigationProps<ImprintRouteType>
 }
 
-const DisclaimerContainer = ({ navigation, route }: DisclaimerContainerProps): ReactElement => {
+const ImprintContainer = ({ navigation, route }: ImprintContainerProps): ReactElement => {
   const { cityCode, languageCode } = useCityAppContext()
   const { data, ...response } = useLoadExtraCityContent({
-    createEndpoint: createDisclaimerEndpoint,
+    createEndpoint: createImprintEndpoint,
     cityCode,
     languageCode,
   })
 
   const availableLanguages = data?.languages.map(it => it.code)
-  const shareUrl = urlFromRouteInformation({ route: DISCLAIMER_ROUTE, languageCode, cityCode })
+  const shareUrl = urlFromRouteInformation({ route: IMPRINT_ROUTE, languageCode, cityCode })
   useHeader({ navigation, route, availableLanguages, data, shareUrl })
 
   return (
     <LoadingErrorHandler {...response} scrollView>
-      {data && <Disclaimer disclaimer={data.extra} language={languageCode} />}
+      {data && <Imprint imprint={data.extra} language={languageCode} />}
     </LoadingErrorHandler>
   )
 }
 
-export default DisclaimerContainer
+export default ImprintContainer

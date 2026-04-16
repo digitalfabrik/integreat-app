@@ -2,12 +2,12 @@ import {
   CategoriesRouteType,
   CityNotCooperatingRouteType,
   ConsentRouteType,
-  DisclaimerRouteType,
+  ImprintRouteType,
   EventsRouteType,
   LandingRouteType,
   LicensesRouteType,
   LocalNewsType,
-  MainDisclaimerRouteType,
+  MainImprintRouteType,
   NewsRouteType,
   PoisRouteType,
   SearchRouteType,
@@ -29,8 +29,8 @@ export type LicensesInformationType = {
   route: LicensesRouteType
 }
 
-export type MainDisclaimerRouteInformationType = {
-  route: MainDisclaimerRouteType
+export type MainImprintRouteInformationType = {
+  route: MainImprintRouteType
 }
 
 export type ConsentInformationType = {
@@ -55,8 +55,8 @@ export type NewsRouteInformationType = ParamsType & {
 }
 
 export type SimpleCityContentFeatureType = ParamsType & {
-  // Routes without customizable ids, e.g. '/augsburg/de/disclaimer/'
-  route: DisclaimerRouteType
+  // Routes without customizable ids, e.g. '/augsburg/de/imprint/'
+  route: ImprintRouteType
 }
 
 export type EventsRouteInformationType = ParamsType & {
@@ -81,7 +81,7 @@ export type SearchRouteInformationType = ParamsType & {
 }
 
 export type NonNullableRouteInformationType =
-  | MainDisclaimerRouteInformationType
+  | MainImprintRouteInformationType
   | LandingRouteInformationType
   | CityNotCooperatingInformationType
   | CategoriesRouteInformationType

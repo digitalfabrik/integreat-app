@@ -31,7 +31,7 @@ const FailureSwitcher = ({ error }: FailureSwitcherProps): ReactElement => {
 
       switch (error.type) {
         case 'category':
-        case 'disclaimer':
+        case 'imprint':
         case 'route':
           return {
             goToPath: cityContentPath(params),

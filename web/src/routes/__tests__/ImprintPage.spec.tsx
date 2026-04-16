@@ -1,12 +1,12 @@
 import { DateTime } from 'luxon'
 import React from 'react'
 
-import { DISCLAIMER_ROUTE, pathnameFromRouteInformation } from 'shared'
+import { IMPRINT_ROUTE, pathnameFromRouteInformation } from 'shared'
 import { CityModelBuilder, PageModel } from 'shared/api'
 import { mockUseLoadFromEndpointOnceWithData } from 'shared/api/endpoints/testing/mockUseLoadFromEndpoint'
 
 import { renderRoute } from '../../testing/render'
-import DisclaimerPage from '../DisclaimerPage'
+import ImprintPage from '../ImprintPage'
 import { RoutePatterns } from '../index'
 
 jest.mock('shared/api', () => ({
@@ -16,14 +16,14 @@ jest.mock('shared/api', () => ({
 
 jest.mock('react-i18next')
 
-describe('DisclaimerPage', () => {
+describe('ImprintPage', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
 
   const cities = new CityModelBuilder(2).build()
-  const disclaimer = new PageModel({
-    path: '/disclaimer',
+  const imprint = new PageModel({
+    path: '/imprint',
     title: 'Feedback, Kontakt und mögliches Engagement',
     content: 'this is a test content',
     lastUpdate: DateTime.fromISO('2017-11-18T19:30:00.000Z'),
@@ -33,24 +33,24 @@ describe('DisclaimerPage', () => {
   const languageCode = 'en'
 
   const pathname = pathnameFromRouteInformation({
-    route: DISCLAIMER_ROUTE,
+    route: IMPRINT_ROUTE,
     cityCode: city.code,
     languageCode,
   })
-  const routePattern = `/:cityCode/:languageCode/${RoutePatterns[DISCLAIMER_ROUTE]}`
+  const routePattern = `/:cityCode/:languageCode/${RoutePatterns[IMPRINT_ROUTE]}`
 
-  const renderDisclaimerPage = () => {
-    mockUseLoadFromEndpointOnceWithData(disclaimer)
+  const renderImprintPage = () => {
+    mockUseLoadFromEndpointOnceWithData(imprint)
     return renderRoute(
-      <DisclaimerPage city={city} languageCode={languageCode} cityCode={city.code} pathname={pathname} />,
+      <ImprintPage city={city} languageCode={languageCode} cityCode={city.code} pathname={pathname} />,
       { pathname, routePattern },
     )
   }
 
   it('should render page with title and content', () => {
-    const { getByText } = renderDisclaimerPage()
+    const { getByText } = renderImprintPage()
 
-    expect(getByText(disclaimer.title)).toBeTruthy()
-    expect(getByText(disclaimer.content)).toBeTruthy()
+    expect(getByText(imprint.title)).toBeTruthy()
+    expect(getByText(imprint.content)).toBeTruthy()
   })
 })

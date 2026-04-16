@@ -6,7 +6,7 @@ import {
   BOTTOM_TAB_NAVIGATION_ROUTE,
   CATEGORIES_ROUTE,
   CATEGORIES_TAB_ROUTE,
-  DISCLAIMER_ROUTE,
+  IMPRINT_ROUTE,
   EVENTS_ROUTE,
   LANDING_ROUTE,
   LOCAL_NEWS_TYPE,
@@ -162,12 +162,12 @@ describe('useNavigate', () => {
     expect(navigateNested).toHaveBeenCalledTimes(1)
   })
 
-  it('should navigate to disclaimer route', () => {
+  it('should navigate to imprint route', () => {
     renderMockComponent({
-      route: DISCLAIMER_ROUTE,
+      route: IMPRINT_ROUTE,
       ...params,
     })
-    expect(navigation.push).toHaveBeenCalledWith(DISCLAIMER_ROUTE)
+    expect(navigation.push).toHaveBeenCalledWith(IMPRINT_ROUTE)
     expect(navigation.push).toHaveBeenCalledTimes(1)
   })
 
@@ -248,9 +248,9 @@ describe('useNavigate', () => {
     expect(navigation.push).not.toHaveBeenCalled()
   })
 
-  it('should replace when redirecting to disclaimer', () => {
-    renderMockComponent({ route: DISCLAIMER_ROUTE, ...params }, true)
-    expect(navigation.replace).toHaveBeenCalledWith(DISCLAIMER_ROUTE)
+  it('should replace when redirecting to imprint', () => {
+    renderMockComponent({ route: IMPRINT_ROUTE, ...params }, true)
+    expect(navigation.replace).toHaveBeenCalledWith(IMPRINT_ROUTE)
     expect(navigation.push).not.toHaveBeenCalled()
   })
 

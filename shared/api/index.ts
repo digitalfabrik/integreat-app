@@ -42,7 +42,7 @@ export { default as createSendChatMessageEndpoint, CHAT_ENDPOINT_NAME } from './
 export { default as createChatMessagesEndpoint } from './endpoints/createChatMessagesEndpoint'
 export { default as createCitiesEndpoint, CITIES_ENDPOINT_NAME } from './endpoints/createCitiesEndpoint'
 export { default as createCityEndpoint, CITY_ENDPOINT_NAME } from './endpoints/createCityEndpoint'
-export { default as createDisclaimerEndpoint, DISCLAIMER_ENDPOINT_NAME } from './endpoints/createDisclaimerEndpoint'
+export { default as createImprintEndpoint, IMPRINT_ENDPOINT_NAME } from './endpoints/createImprintEndpoint'
 export { default as createEventsEndpoint, EVENTS_ENDPOINT_NAME } from './endpoints/createEventsEndpoint'
 export { default as createLocalNewsEndpoint, LOCAL_NEWS_ENDPOINT_NAME } from './endpoints/createLocalNewsEndpoint'
 export {

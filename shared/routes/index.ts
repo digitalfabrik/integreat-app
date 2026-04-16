@@ -17,8 +17,8 @@ export const EVENTS_ROUTE: EventsRouteType = 'events'
 export type NewsRouteType = 'news'
 export const NEWS_ROUTE: NewsRouteType = 'news'
 
-export type DisclaimerRouteType = 'disclaimer'
-export const DISCLAIMER_ROUTE: DisclaimerRouteType = 'disclaimer'
+export type ImprintRouteType = 'imprint'
+export const IMPRINT_ROUTE: ImprintRouteType = 'imprint'
 
 export type SearchRouteType = 'search'
 export const SEARCH_ROUTE: SearchRouteType = 'search'
@@ -73,8 +73,8 @@ export type ConsentRouteType = 'consent'
 export const CONSENT_ROUTE: ConsentRouteType = 'consent'
 
 // Web routes
-export type MainDisclaimerRouteType = 'main-disclaimer'
-export const MAIN_DISCLAIMER_ROUTE: MainDisclaimerRouteType = 'main-disclaimer'
+export type MainImprintRouteType = 'main-imprint'
+export const MAIN_IMPRINT_ROUTE: MainImprintRouteType = 'main-imprint'
 
 export type NotFoundRouteType = 'not-found'
 export const NOT_FOUND_ROUTE: NotFoundRouteType = 'not-found'
@@ -83,7 +83,7 @@ export const NOT_FOUND_ROUTE: NotFoundRouteType = 'not-found'
 // https://github.com/digitalfabrik/integreat-cms/blob/main/integreat_cms/core/settings.py#L69-78
 export const RESERVED_TOP_LEVEL_SLUGS: string[] = [
   LANDING_ROUTE,
-  MAIN_DISCLAIMER_ROUTE,
+  MAIN_IMPRINT_ROUTE,
   NOT_FOUND_ROUTE,
   CONSENT_ROUTE,
   LICENSES_ROUTE,
@@ -92,10 +92,4 @@ export const RESERVED_TOP_LEVEL_SLUGS: string[] = [
 
 // Changes done to the reserved routes have to be done in the CMS as well:
 // https://github.com/digitalfabrik/integreat-cms/blob/main/integreat_cms/core/settings.py#L80-L88
-export const RESERVED_CITY_CONTENT_SLUGS: string[] = [
-  SEARCH_ROUTE,
-  DISCLAIMER_ROUTE,
-  EVENTS_ROUTE,
-  NEWS_ROUTE,
-  POIS_ROUTE,
-]
+export const RESERVED_CITY_CONTENT_SLUGS: string[] = [SEARCH_ROUTE, IMPRINT_ROUTE, EVENTS_ROUTE, NEWS_ROUTE, POIS_ROUTE]

@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { DISCLAIMER_ROUTE, pathnameFromRouteInformation } from 'shared'
-import { createDisclaimerEndpoint, useLoadFromEndpoint } from 'shared/api'
+import { IMPRINT_ROUTE, pathnameFromRouteInformation } from 'shared'
+import { createImprintEndpoint, useLoadFromEndpoint } from 'shared/api'
 
 import { CityRouteProps } from '../CityContentSwitcher'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
@@ -13,14 +13,14 @@ import Page from '../components/Page'
 import SkeletonPage from '../components/SkeletonPage'
 import { cmsApiBaseUrl } from '../constants/urls'
 
-const DisclaimerPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElement | null => {
-  const { t } = useTranslation('disclaimer')
+const ImprintPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElement | null => {
+  const { t } = useTranslation('imprint')
 
   const {
-    data: disclaimer,
+    data: imprint,
     loading,
-    error: disclaimerError,
-  } = useLoadFromEndpoint(createDisclaimerEndpoint, cmsApiBaseUrl, {
+    error: imprintError,
+  } = useLoadFromEndpoint(createImprintEndpoint, cmsApiBaseUrl, {
     city: cityCode,
     language: languageCode,
   })
@@ -31,8 +31,8 @@ const DisclaimerPage = ({ cityCode, languageCode, city }: CityRouteProps): React
 
   const pageTitle = `${t('pageTitle')} - ${city.name}`
   const languageChangePaths = city.languages.map(({ code, name }) => {
-    const disclaimerPath = pathnameFromRouteInformation({ route: DISCLAIMER_ROUTE, cityCode, languageCode: code })
-    return { path: disclaimerPath, name, code }
+    const imprintPath = pathnameFromRouteInformation({ route: IMPRINT_ROUTE, cityCode, languageCode: code })
+    return { path: imprintPath, name, code }
   })
 
   const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
@@ -40,7 +40,7 @@ const DisclaimerPage = ({ cityCode, languageCode, city }: CityRouteProps): React
     languageChangePaths,
     languageCode,
     pageTitle,
-    Toolbar: <CityContentToolbar slug={disclaimer?.slug} />,
+    Toolbar: <CityContentToolbar slug={imprint?.slug} />,
   }
 
   if (loading) {
@@ -51,8 +51,8 @@ const DisclaimerPage = ({ cityCode, languageCode, city }: CityRouteProps): React
     )
   }
 
-  if (!disclaimer) {
-    const error = disclaimerError || new Error('Disclaimer should not be null!')
+  if (!imprint) {
+    const error = imprintError || new Error('Imprint should not be null!')
     return (
       <CityContentLayout isLoading {...locationLayoutParams}>
         <FailureSwitcherWithHelmet error={error} />
@@ -63,9 +63,9 @@ const DisclaimerPage = ({ cityCode, languageCode, city }: CityRouteProps): React
   return (
     <CityContentLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
-      <Page lastUpdate={disclaimer.lastUpdate} title={disclaimer.title} content={disclaimer.content} />
+      <Page lastUpdate={imprint.lastUpdate} title={imprint.title} content={imprint.content} />
     </CityContentLayout>
   )
 }
 
-export default DisclaimerPage
+export default ImprintPage

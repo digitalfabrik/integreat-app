@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import {
   CATEGORIES_ROUTE,
-  DISCLAIMER_ROUTE,
+  IMPRINT_ROUTE,
   EVENTS_ROUTE,
   LANDING_ROUTE,
   LOCAL_NEWS_TYPE,
@@ -165,15 +165,15 @@ class InternalPathnameParser {
     }
   }
 
-  disclaimer = (): RouteInformationType => {
-    const params = this.cityContentParams(DISCLAIMER_ROUTE)
+  imprint = (): RouteInformationType => {
+    const params = this.cityContentParams(IMPRINT_ROUTE)
 
     if (!params) {
       return null
     }
 
     return {
-      route: DISCLAIMER_ROUTE,
+      route: IMPRINT_ROUTE,
       ...params,
     }
   }
@@ -213,7 +213,7 @@ class InternalPathnameParser {
     this.landing() ||
     this.events() ||
     this.pois() ||
-    this.disclaimer() ||
+    this.imprint() ||
     this.news() ||
     this.search() ||
     this.dashboard() ||
