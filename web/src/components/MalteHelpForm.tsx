@@ -175,7 +175,7 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
           onChange={event => setComment(event.target.value)}
           helperText={t('maxCharacters', { numberOfCharacters: MALTE_HELP_FORM_MAX_COMMENT_LENGTH })}
         />
-        <p>{t('responseDisclaimer')}</p>
+        <p>{t('responseHint')}</p>
         <FormControl required error={submitted && !privacyPolicyAccepted}>
           <PrivacyCheckbox
             language={languageCode}
