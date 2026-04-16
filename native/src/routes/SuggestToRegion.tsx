@@ -68,7 +68,7 @@ const SuggestToRegion = (): ReactElement | null => {
     templateText: {
       marginTop: -20,
       borderWidth: 1,
-      borderColor: theme.colors.secondary,
+      borderColor: theme.colors.primary,
       padding: 28,
       paddingTop: 20,
       marginBottom: 252,
