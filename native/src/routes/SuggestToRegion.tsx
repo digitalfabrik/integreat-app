@@ -5,14 +5,13 @@ import { StyleSheet, View } from 'react-native'
 import { Button } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
+import LayoutedScrollView from '../components/LayoutedScrollView'
 import Icon from '../components/base/Icon'
 import Text from '../components/base/Text'
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
 
-const Container = styled.ScrollView`
-  flex: 1;
+const Container = styled(LayoutedScrollView)`
   padding: 30px;
-  background-color: ${props => props.theme.colors.background};
 `
 
 const ListItem = styled.View`
