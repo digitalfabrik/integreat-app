@@ -37,7 +37,7 @@ const commonMalteBuildConfig: CommonBuildConfigType = {
     sentry: true,
     developerFriendly: false,
     fixedCity: null,
-    cityNotCooperatingTemplate: null,
+    suggestToRegionTemplate: null,
     chat: false,
   },
   aboutUrls: {

@@ -3,7 +3,7 @@ import React from 'react'
 
 import buildConfig from '../../constants/buildConfig'
 import { renderWithRouterAndTheme } from '../../testing/render'
-import CityNotCooperatingPage from '../CityNotCooperatingPage'
+import SuggestToRegionPage from '../SuggestToRegionPage'
 
 Object.assign(navigator, {
   clipboard: {
@@ -13,27 +13,27 @@ Object.assign(navigator, {
 
 jest.mock('react-i18next')
 
-describe('CityNotCooperatingPage', () => {
+describe('SuggestToRegionPage', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
-  const template = buildConfig().featureFlags.cityNotCooperatingTemplate
+  const template = buildConfig().featureFlags.suggestToRegionTemplate
 
-  const renderPage = (): RenderResult => renderWithRouterAndTheme(<CityNotCooperatingPage languageCode='de' />)
+  const renderPage = (): RenderResult => renderWithRouterAndTheme(<SuggestToRegionPage languageCode='de' />)
 
   it('should render texts', () => {
     const { getByText } = renderPage()
-    expect(getByText('cityNotCooperating:callToAction')).toBeDefined()
-    expect(getByText('cityNotCooperating:explanation')).toBeDefined()
+    expect(getByText('suggestToRegion:callToAction')).toBeDefined()
+    expect(getByText('suggestToRegion:explanation')).toBeDefined()
     expect(template).toBeDefined()
   })
 
   it('should handle button click correctly', async () => {
     const { getByText, queryByText } = renderPage()
-    expect(queryByText('cityNotCooperating:common:copied')).toBeNull()
-    const button = getByText('cityNotCooperating:copyText')
+    expect(queryByText('suggestToRegion:common:copied')).toBeNull()
+    const button = getByText('suggestToRegion:copyText')
     fireEvent.click(button)
-    await waitFor(() => expect(getByText('cityNotCooperating:common:copied')).toBeDefined())
+    await waitFor(() => expect(getByText('suggestToRegion:common:copied')).toBeDefined())
     expect(navigator.clipboard.writeText).toHaveBeenCalled()
   })
 })

@@ -6,7 +6,7 @@ import {
   WebBuildConfigType,
 } from '../BuildConfigType'
 import { APP_STORE_TEAM_ID } from '../common/constants'
-import cityNotCooperatingTemplate from './assets/cityNotCooperatingTemplate'
+import suggestToRegionTemplate from './assets/suggestToRegionTemplate'
 import mainImprint from './mainImprint'
 import { darkTheme, lightTheme } from './theme'
 import fonts from './theme/fonts'
@@ -35,7 +35,7 @@ const commonIntegreatBuildConfig: CommonBuildConfigType = {
     sentry: true,
     developerFriendly: false,
     fixedCity: null,
-    cityNotCooperatingTemplate,
+    suggestToRegionTemplate,
     chat: true,
   },
   aboutUrls: {
@@ -93,7 +93,7 @@ export const webIntegreatBuildConfig: WebBuildConfigType = {
   icons: {
     appLogo: '/app-logo.svg',
     appLogoMobile: '/app-icon-round.svg',
-    cityNotCooperating: '/city-not-cooperating.svg',
+    suggestToRegion: '/suggest-to-region.svg',
     appleTouchIcon: '/apple-touch-icon.png',
     socialMediaPreview: '/social-media-preview.png',
     favicons: '/favicons/',

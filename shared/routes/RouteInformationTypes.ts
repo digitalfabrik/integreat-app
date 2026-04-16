@@ -1,6 +1,6 @@
 import {
   CategoriesRouteType,
-  CityNotCooperatingRouteType,
+  SuggestToRegionRouteType,
   ConsentRouteType,
   ImprintRouteType,
   EventsRouteType,
@@ -37,8 +37,8 @@ export type ConsentInformationType = {
   route: ConsentRouteType
 }
 
-export type CityNotCooperatingInformationType = {
-  route: CityNotCooperatingRouteType
+export type SuggestToRegionInformationType = {
+  route: SuggestToRegionRouteType
   languageCode: string
 }
 
@@ -83,7 +83,7 @@ export type SearchRouteInformationType = ParamsType & {
 export type NonNullableRouteInformationType =
   | MainImprintRouteInformationType
   | LandingRouteInformationType
-  | CityNotCooperatingInformationType
+  | SuggestToRegionInformationType
   | CategoriesRouteInformationType
   | NewsRouteInformationType
   | SimpleCityContentFeatureType

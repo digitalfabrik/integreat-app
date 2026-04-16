@@ -11,14 +11,14 @@ import aschaffenburgLoadingImage from 'build-configs/aschaffenburg/assets/app-ic
 import aschaffenburgAppIcon from 'build-configs/aschaffenburg/assets/app-icon-round.svg'
 import integreatLoadingImage from 'build-configs/integreat/assets/app-icon-inverted.svg'
 import integreatAppIcon from 'build-configs/integreat/assets/app-icon-round.svg'
-import integreatCityNotCooperatingIcon from 'build-configs/integreat/assets/city-not-cooperating.svg'
+import integreatSuggestToRegionIcon from 'build-configs/integreat/assets/suggest-to-region.svg'
 import malteLoadingImage from 'build-configs/malte/assets/app-icon-circle.svg'
 import malteAppIcon from 'build-configs/malte/assets/app-icon-round.svg'
 
 type AssetsType = {
   AppIcon: React.JSXElementConstructor<SvgProps>
   LoadingImage: React.JSXElementConstructor<SvgProps>
-  CityNotCooperatingIcon?: React.JSXElementConstructor<SvgProps>
+  SuggestToRegionIcon?: React.JSXElementConstructor<SvgProps>
 }
 
 const buildConfig = (): CommonBuildConfigType => loadBuildConfig(name, COMMON)
@@ -30,7 +30,7 @@ export const buildConfigAssets = (): AssetsType => {
     return {
       AppIcon: integreatAppIcon,
       LoadingImage: integreatLoadingImage,
-      CityNotCooperatingIcon: integreatCityNotCooperatingIcon,
+      SuggestToRegionIcon: integreatSuggestToRegionIcon,
     }
   }
   if (assetsName === MALTE_ASSETS) {
