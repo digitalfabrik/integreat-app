@@ -17,8 +17,8 @@ const SelectorItemButton = styled(ListItemButton)`
 ` as typeof ListItemButton
 
 const UnavailableSelectorItemButton = styled(SelectorItemButton)`
-  justify-content: space-between;
   gap: 8px;
+  padding-left: 32px;
 `
 
 type SelectorProps = {
