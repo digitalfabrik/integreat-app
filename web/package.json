@@ -44,7 +44,7 @@
     "@sentry/types": "^10.46.0",
     "build-configs": "0.0.1",
     "core-js": "^3.49.0",
-    "dompurify": "^3.3.3",
+    "dompurify": "^3.4.0",
     "easy-speech": "^2.4.0",
     "i18next": "^26.0.1",
     "luxon": "^3.7.2",
