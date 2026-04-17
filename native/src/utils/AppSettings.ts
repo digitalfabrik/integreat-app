@@ -4,7 +4,7 @@ import { mapValues } from 'lodash'
 import { ThemeKey } from 'build-configs/ThemeKey'
 import { ExternalSourcePermissions } from 'shared'
 
-export const ASYNC_STORAGE_VERSION = '1'
+export const ASYNC_STORAGE_VERSION = '2'
 export type SettingsType = {
   storageVersion: string | null
   contentLanguage: string | null
@@ -29,36 +29,38 @@ export const defaultSettings: SettingsType = {
 }
 export const settingsStorage = createAsyncStorage('settings')
 
-export const migrateSettingsToV2 = async (): Promise<void> => {
-  const currentVersion = await settingsStorage.getItem(ASYNC_STORAGE_VERSION)
-  if (currentVersion === '2') {
-    return
-  }
-
-  const keys = Object.keys(defaultSettings) as (keyof SettingsType)[]
-  const values = await Promise.all(keys.map(key => LegacyAsyncStorage.getItem(key)))
-
-  const settingsToCopy = keys.reduce<Record<string, string>>((accumulator, key, index) => {
-    const value = values[index]
-    if (value) {
-      accumulator[key] = value
-    }
-    return accumulator
-  }, {})
-
-  await settingsStorage.setMany(settingsToCopy)
-
-  await settingsStorage.setItem(ASYNC_STORAGE_VERSION, '2')
-}
-
 class AppSettings {
   asyncStorage: AsyncStorage
+  private migrated: Promise<void> | null = null
 
   constructor(asyncStorage: AsyncStorage = settingsStorage) {
     this.asyncStorage = asyncStorage
+    this.migrated = this.migrateToV2()
+  }
+
+  private migrateToV2 = async (): Promise<void> => {
+    const currentVersion = await this.asyncStorage.getItem('storageVersion')
+    if (currentVersion === ASYNC_STORAGE_VERSION) {
+      return
+    }
+
+    const keys = Object.keys(defaultSettings) as (keyof SettingsType)[]
+    const values = await Promise.all(keys.map(key => LegacyAsyncStorage.getItem(key)))
+
+    const settingsToCopy = keys.reduce<Record<string, string>>((settings, key, index) => {
+      const value = values[index]
+      if (value) {
+        // eslint-disable-next-line no-param-reassign
+        settings[key] = value
+      }
+      return settings
+    }, {})
+
+    await this.asyncStorage.setMany({ ...settingsToCopy, storageVersion: ASYNC_STORAGE_VERSION })
   }
 
   loadSettings = async (): Promise<SettingsType> => {
+    await this.migrated
     const settingsKeys = Object.keys(defaultSettings) as [keyof SettingsType]
     const settings = (await this.asyncStorage.getMany(settingsKeys)) as Record<keyof SettingsType, string | null>
     return mapValues(settings, (value: string | null, key) => {
@@ -71,7 +73,7 @@ class AppSettings {
 
       if (parsed === null) {
         // null means this setting does not exist
-        return defaultSettings[key as keyof SettingsType]
+        return JSON.parse(value) ?? defaultSettings[key as keyof SettingsType]
       }
 
       return parsed
