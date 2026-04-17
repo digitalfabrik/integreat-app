@@ -16,11 +16,6 @@ const SelectorItemButton = styled(ListItemButton)`
   text-align: center;
 ` as typeof ListItemButton
 
-const UnavailableSelectorItemButton = styled(SelectorItemButton)`
-  gap: 8px;
-  padding-left: 32px;
-`
-
 type SelectorProps = {
   code: string
   path: string | null
@@ -55,12 +50,12 @@ const LanguageListItem = ({
     </ListItem>
   ) : (
     <ListItem disablePadding>
-      <UnavailableSelectorItemButton onClick={onUnavailableLanguageClick}>
+      <SelectorItemButton style={{ gap: 8 }} onClick={onUnavailableLanguageClick}>
         <Typography variant='body1' color={palette.text.disabled} noWrap>
           {name}
         </Typography>
         <InfoOutlinedIcon fontSize='small' color='disabled' />
-      </UnavailableSelectorItemButton>
+      </SelectorItemButton>
     </ListItem>
   )
 }

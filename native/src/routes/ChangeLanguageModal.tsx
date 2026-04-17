@@ -2,7 +2,7 @@ import { shouldPolyfill } from '@formatjs/intl-displaynames/should-polyfill'
 import '@formatjs/intl-locale/polyfill'
 import React, { ReactElement, useContext, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Button, Dialog, Portal, Searchbar, useTheme } from 'react-native-paper'
+import { Searchbar, useTheme } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 import { ChangeLanguageModalRouteType, normalizeString } from 'shared'
@@ -10,6 +10,7 @@ import { LanguageModel } from 'shared/api'
 import { config } from 'translations'
 
 import Selector from '../components/Selector'
+import AlertDialog from '../components/base/AlertDialog'
 import Text from '../components/base/Text'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import { AppContext } from '../contexts/AppContextProvider'
@@ -123,20 +124,13 @@ const ChangeLanguageModal = ({ navigation, route }: ChangeLanguageModalProps): R
         />
         <Selector selectedItemCode={languageCode} items={selectorItems} />
       </Wrapper>
-      <Portal>
-        <Dialog
-          visible={isUnavailableDialogOpen}
-          onDismiss={() => setIsUnavailableDialogOpen(false)}
-          style={{ backgroundColor: theme.colors.surfaceVariant }}>
-          <Dialog.Title>{t('languageNotAvailableTitle')}</Dialog.Title>
-          <Dialog.Content>
-            <Text>{t('languageNotAvailableMessage')}</Text>
-          </Dialog.Content>
-          <Dialog.Actions>
-            <Button onPress={() => setIsUnavailableDialogOpen(false)}>{t('common:close')}</Button>
-          </Dialog.Actions>
-        </Dialog>
-      </Portal>
+      <AlertDialog
+        titleTextVariant='subtitle1'
+        visible={isUnavailableDialogOpen}
+        onDismiss={() => setIsUnavailableDialogOpen(false)}
+        title={t('languageNotAvailableTitle')}>
+        <Text>{t('languageNotAvailableMessage')}</Text>
+      </AlertDialog>
     </>
   )
 }
