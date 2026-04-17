@@ -45,7 +45,7 @@ import Landing from './routes/Landing'
 import Licenses from './routes/Licenses'
 import LoadingErrorHandler from './routes/LoadingErrorHandler'
 import PDFViewModal from './routes/PDFViewModal'
-import SearchModalContainer from './routes/SearchModalContainer'
+import SearchContainer from './routes/SearchContainer'
 import Settings from './routes/Settings'
 import { ASYNC_STORAGE_VERSION } from './utils/AppSettings'
 import dataContainer from './utils/DefaultDataContainer'
@@ -61,9 +61,7 @@ const transparentHeader = (headerProps: StackHeaderProps) => <TransparentHeader 
 export const defaultHeader = (headerProps: StackHeaderProps): ReactElement => (
   <Header {...(headerProps as HeaderProps)} />
 )
-const settingsHeader = (headerProps: StackHeaderProps) => (
-  <Header {...(headerProps as HeaderProps)} showOverflowItems={false} />
-)
+const settingsHeader = (headerProps: StackHeaderProps) => <Header {...(headerProps as HeaderProps)} showMenu={false} />
 
 const Stack = createStackNavigator<RoutesParamsType>()
 
@@ -148,7 +146,7 @@ const Navigator = (): ReactElement | null => {
       <Stack.Group screenOptions={{ header: () => null }}>
         <Stack.Screen name={REDIRECT_ROUTE} initialParams={{ url: redirectUrl }} component={RedirectContainer} />
         <Stack.Screen name={INTRO_ROUTE} component={Intro} />
-        <Stack.Screen name={SEARCH_ROUTE} component={SearchModalContainer} />
+        <Stack.Screen name={SEARCH_ROUTE} component={SearchContainer} />
         <Stack.Screen
           name={BOTTOM_TAB_NAVIGATION_ROUTE}
           component={BottomTabNavigation}

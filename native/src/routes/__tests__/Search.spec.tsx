@@ -3,8 +3,9 @@ import React from 'react'
 
 import { CategoriesMapModelBuilder, EventModelBuilder, ExtendedPageModel, PoiModelBuilder } from 'shared/api'
 
+import createNavigationMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
-import SearchModal, { SearchModalProps } from '../SearchModal'
+import Search, { SearchProps } from '../Search'
 
 jest.mock('../../utils/openExternalUrl', () => async () => undefined)
 jest.mock('react-i18next')
@@ -26,11 +27,10 @@ jest.mock('shared', () => ({
   }),
 }))
 
-describe('SearchModal', () => {
+describe('Search', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
-  const dummy = jest.fn()
 
   const languageCode = 'de'
   const cityCode = 'augsburg'
@@ -45,19 +45,19 @@ describe('SearchModal', () => {
     ...poiModels,
   ]
 
-  const props: SearchModalProps = {
+  const props: SearchProps = {
     documents,
     fallbackLanguageDocuments: [],
     languageCode,
     cityCode,
-    closeModal: dummy,
+    navigation: createNavigationMock(),
     initialSearchText: '',
   }
 
-  const renderSearchModal = (props: SearchModalProps) => render(<SearchModal {...props} />)
+  const renderSearch = (props: SearchProps) => render(<Search {...props} />)
 
   it('should show nothing found if there are no search results', () => {
-    const { getByText, getByPlaceholderText } = renderSearchModal(props)
+    const { getByText, getByPlaceholderText } = renderSearch(props)
 
     fireEvent.changeText(getByPlaceholderText('searchPlaceholder'), 'no results, please')
 
@@ -66,7 +66,7 @@ describe('SearchModal', () => {
 
   it('should open with an initial search text if one is supplied', () => {
     const initialSearchText = 'zeugnis'
-    const { getByPlaceholderText } = renderSearchModal({ ...props, initialSearchText })
+    const { getByPlaceholderText } = renderSearch({ ...props, initialSearchText })
     expect(getByPlaceholderText('searchPlaceholder').props.value).toBe(initialSearchText)
   })
 })

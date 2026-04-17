@@ -6,6 +6,7 @@ import {
   EVENTS_ROUTE,
   LANDING_ROUTE,
   LICENSES_ROUTE,
+  MAIN_DISCLAIMER_ROUTE,
   NEWS_ROUTE,
   POIS_ROUTE,
   SEARCH_ROUTE,
@@ -31,8 +32,12 @@ export const cityContentPath = ({ cityCode, languageCode, route, path }: CityCon
   constructPathname([cityCode, languageCode, route, path])
 
 export const pathnameFromRouteInformation = (routeInformation: NonNullableRouteInformationType): string => {
-  if (routeInformation.route === LICENSES_ROUTE || routeInformation.route === CONSENT_ROUTE) {
-    // https://integreat.app/consent, https://integreat.app/licenses
+  if (
+    routeInformation.route === LICENSES_ROUTE ||
+    routeInformation.route === CONSENT_ROUTE ||
+    routeInformation.route === MAIN_DISCLAIMER_ROUTE
+  ) {
+    // https://integreat.app/consent, https://integreat.app/licenses, https://integreat.app/main-disclaimer
     return constructPathname([routeInformation.route])
   }
   if (routeInformation.route === CITY_NOT_COOPERATING_ROUTE) {

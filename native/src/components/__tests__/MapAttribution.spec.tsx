@@ -11,7 +11,7 @@ jest.mock('../../utils/openExternalUrl')
 
 describe('MapAttribution', () => {
   it('should be displayed and opened', () => {
-    const { getByText } = renderWithTheme(<MapAttribution />)
+    const { getByText } = renderWithTheme(<MapAttribution accessible={false} />)
     fireEvent.press(getByText(openStreeMapCopyright.icon))
     fireEvent.press(getByText(openStreeMapCopyright.linkText))
     expect(openExternalUrl).toHaveBeenCalledTimes(1)

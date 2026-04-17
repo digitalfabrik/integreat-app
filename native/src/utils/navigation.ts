@@ -34,6 +34,7 @@ export const navigateNested = <T extends RoutesType, S extends keyof NestedRoute
 ): void => {
   if (navigation.getId() === ROOT_NAVIGATOR_ID) {
     const bottomTabRouteOpened = navigation.getState().routes.some(({ name }) => name === BOTTOM_TAB_NAVIGATION_ROUTE)
+
     if (redirect) {
       // Allow going back to the dashboard if opening a deep link
       navigation.replace(BOTTOM_TAB_NAVIGATION_ROUTE, {
@@ -44,7 +45,7 @@ export const navigateNested = <T extends RoutesType, S extends keyof NestedRoute
       })
     }
 
-    const navigate = bottomTabRouteOpened ? navigation.replace : navigation.push
+    const navigate = bottomTabRouteOpened && redirect ? navigation.replace : navigation.push
     navigate(BOTTOM_TAB_NAVIGATION_ROUTE, {
       screen: tabRoutes[route],
       params: {

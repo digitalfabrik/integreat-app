@@ -7,14 +7,14 @@ import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useLoadCityContent from '../hooks/useLoadCityContent'
 import LoadingErrorHandler from './LoadingErrorHandler'
-import SearchModal from './SearchModal'
+import Search from './Search'
 
-export type SearchModalContainerProps = {
+export type SearchContainerProps = {
   navigation: NavigationProps<SearchRouteType>
   route: RouteProps<SearchRouteType>
 }
 
-const SearchModalContainer = ({ navigation, route }: SearchModalContainerProps): ReactElement | null => {
+const SearchContainer = ({ navigation, route }: SearchContainerProps): ReactElement | null => {
   const { cityCode, languageCode } = useCityAppContext()
   const initialSearchText = route.params.searchText ?? ''
   const { data, ...response } = useLoadCityContent({ cityCode, languageCode })
@@ -29,9 +29,9 @@ const SearchModalContainer = ({ navigation, route }: SearchModalContainerProps):
   return (
     <LoadingErrorHandler {...response}>
       {data && (
-        <SearchModal
+        <Search
+          navigation={navigation}
           cityCode={cityCode}
-          closeModal={navigation.goBack}
           documents={documents}
           fallbackLanguageDocuments={fallbackLanguageDocuments}
           languageCode={languageCode}
@@ -42,4 +42,4 @@ const SearchModalContainer = ({ navigation, route }: SearchModalContainerProps):
   )
 }
 
-export default SearchModalContainer
+export default SearchContainer

@@ -1,10 +1,7 @@
 import React, { ReactElement, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet, View } from 'react-native'
-import { Menu } from 'react-native-paper'
-import styled, { useTheme } from 'styled-components/native'
+import styled from 'styled-components/native'
 
-import { ThemeKey } from 'build-configs/ThemeKey'
 import {
   BOTTOM_TAB_NAVIGATION_ROUTE,
   CATEGORIES_ROUTE,
@@ -16,19 +13,16 @@ import {
   FEEDBACK_MODAL_ROUTE,
   getSlugFromPath,
   LANDING_ROUTE,
-  LICENSES_ROUTE,
   NEWS_ROUTE,
   POIS_ROUTE,
   PoisRouteType,
   SEARCH_ROUTE,
-  SETTINGS_ROUTE,
 } from 'shared'
 import { FeedbackRouteType, LanguageModel } from 'shared/api'
 import { config } from 'translations'
 
 import { ROOT_NAVIGATOR_ID, TAB_NAVIGATOR_ID } from '../constants'
 import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from '../constants/NavigationTypes'
-import { contentAlignmentRTLText } from '../constants/contentDirection'
 import dimensions from '../constants/dimensions'
 import { AppContext } from '../contexts/AppContextProvider'
 import useSnackbar from '../hooks/useSnackbar'
@@ -38,6 +32,7 @@ import ActionButtons from './ActionButtons'
 import HeaderActionItem from './HeaderActionItem'
 import HeaderBox from './HeaderBox'
 import HeaderMenu from './HeaderMenu'
+import HeaderMenuItem from './HeaderMenuItem'
 import HighlightBox from './HighlightBox'
 
 const Horizontal = styled.View`
@@ -52,34 +47,11 @@ const BoxShadow = styled(HighlightBox)`
   height: ${dimensions.headerHeight}px;
 `
 
-const styles = StyleSheet.create({
-  menuItemContent: {
-    flex: 1,
-  },
-  menuItemTitle: {
-    paddingRight: 8,
-  },
-  iconPlaceholder: {
-    width: 40,
-  },
-})
-
-enum HeaderButtonTitle {
-  Disclaimer = 'disclaimer',
-  Language = 'changeLanguage',
-  Location = 'changeLocation',
-  Search = 'search',
-  ReadAloud = 'readAloud',
-  Share = 'share',
-  Settings = 'settings',
-  Feedback = 'feedback',
-}
-
 type HeaderProps = {
   route: RouteProps<RoutesType>
   navigation: NavigationProps<RoutesType>
   showItems?: boolean
-  showOverflowItems?: boolean
+  showMenu?: boolean
   languages?: LanguageModel[]
   availableLanguages?: string[]
   shareUrl?: string
@@ -87,23 +59,20 @@ type HeaderProps = {
   forceText?: boolean
 }
 
-const IconPlaceholder = () => <View style={styles.iconPlaceholder} />
-
 const Header = ({
   navigation,
   route,
   availableLanguages = route.name === LANDING_ROUTE ? supportedLanguages.map(it => it.code) : undefined,
   shareUrl,
   showItems = false,
-  showOverflowItems = true,
+  showMenu = true,
   languages = route.name === LANDING_ROUTE ? supportedLanguages : undefined,
   cityName,
   forceText = route.name === LANDING_ROUTE,
 }: HeaderProps): ReactElement | null => {
-  const [visible, setVisible] = useState(false)
-  const { languageCode, cityCode, settings, updateSettings } = useContext(AppContext)
+  const [menuVisible, setMenuVisible] = useState(false)
+  const { languageCode, cityCode } = useContext(AppContext)
   const { t } = useTranslation('layout')
-  const theme = useTheme()
   const showSnackbar = useSnackbar()
   // Save route/canGoBack to state to prevent it from changing during navigating which would lead to flickering of the title and back button
   const [previousRouteKey] = useState(() => {
@@ -135,34 +104,8 @@ const Header = ({
     }
   }
 
-  // processing pageTitle for sharing
-  const routeTitle = (route.params as { title?: string } | undefined)?.title
-  const titleWithoutCity = routeTitle ?? t(route.name)
-  const shouldAppendCityName = !!cityName && cityName !== titleWithoutCity
-  const pageTitle = shouldAppendCityName ? `${titleWithoutCity} - ${cityName}` : titleWithoutCity
-
-  const closeMenu = () => setVisible(false)
-
-  const renderMenuItem = (title: string, onPress: () => void, icon?: string): ReactElement => (
-    <Menu.Item
-      accessibilityLabel={t(title)}
-      leadingIcon={icon ?? IconPlaceholder}
-      key={title}
-      title={t(title)}
-      onPress={() => {
-        onPress()
-        closeMenu()
-      }}
-      style={{
-        backgroundColor: theme.dark ? theme.colors.surfaceVariant : theme.colors.surface,
-      }}
-      contentStyle={styles.menuItemContent}
-      titleStyle={[
-        styles.menuItemTitle,
-        { color: theme.colors.onSurface, textAlign: contentAlignmentRTLText(t(title)) },
-      ]}
-    />
-  )
+  const routeTitle = (route.params as { title?: string } | undefined)?.title ?? t(route.name)
+  const pageTitle = cityName !== routeTitle ? `${routeTitle} - ${cityName}` : routeTitle
 
   const goToLanguageChange = () => {
     if (availableLanguages?.length === 1 && availableLanguages[0] === languageCode) {
@@ -175,12 +118,7 @@ const Header = ({
     }
   }
 
-  const getCategorySlug = (path?: string): string | undefined => {
-    if (!path) {
-      return undefined
-    }
-    return getSlugFromPath(path)
-  }
+  const getCategorySlug = (path?: string): string | undefined => (path ? getSlugFromPath(path) : undefined)
 
   const getSlugForRoute = (): string | undefined => {
     switch (route.name) {
@@ -212,26 +150,17 @@ const Header = ({
     }
   }
 
-  const toggleContrastTheme = () => {
-    const newTheme: ThemeKey = settings.selectedTheme === 'light' ? 'contrast' : 'light'
-    updateSettings({ selectedTheme: newTheme })
-  }
-
   const items = [
     <HeaderActionItem
-      key={HeaderButtonTitle.Search}
-      title={HeaderButtonTitle.Search}
+      key='search'
+      title={t('search')}
       iconName='search'
       visible={showItems}
-      onPress={() =>
-        navigation.navigate(SEARCH_ROUTE, {
-          searchText: null,
-        })
-      }
+      onPress={() => navigation.navigate(SEARCH_ROUTE, { searchText: null })}
     />,
     <HeaderActionItem
-      key={HeaderButtonTitle.Language}
-      title={HeaderButtonTitle.Language}
+      key='language'
+      title={t('changeLanguage')}
       iconName='language'
       visible={showItems || isLanding}
       onPress={goToLanguageChange}
@@ -239,16 +168,26 @@ const Header = ({
     />,
   ]
 
-  const overflowItems = showOverflowItems
-    ? [
-        ...(route.name !== NEWS_ROUTE
-          ? [renderMenuItem(HeaderButtonTitle.Feedback, navigateToFeedback, 'comment-text-outline')]
-          : []),
-        renderMenuItem('contrastTheme', toggleContrastTheme, 'contrast-circle'),
-        renderMenuItem(HeaderButtonTitle.Settings, () => navigation.navigate(SETTINGS_ROUTE), 'cog-outline'),
-        renderMenuItem(t(HeaderButtonTitle.ReadAloud), showTtsPlayer, 'volume-high'),
-      ]
-    : []
+  const menuItems = [
+    ...(route.name !== NEWS_ROUTE && cityCode
+      ? [
+          <HeaderMenuItem
+            key='feedback'
+            title={t('feedback')}
+            onPress={navigateToFeedback}
+            closeMenu={() => setMenuVisible(false)}
+            icon='comment-text-outline'
+          />,
+        ]
+      : []),
+    <HeaderMenuItem
+      key='tts'
+      title={t('readAloud')}
+      onPress={showTtsPlayer}
+      closeMenu={() => setMenuVisible(false)}
+      icon='volume-high'
+    />,
+  ]
 
   const isSinglePoiFromPoisRoute = (): boolean => {
     const poisRouteParams = route.params as RoutesParamsType[PoisRouteType] | undefined
@@ -257,63 +196,59 @@ const Header = ({
     return isSinglePoi && notFromDeepLink
   }
 
-  const getHeaderText = (): { text: string; language?: string } => {
+  const getHeaderTitle = (): { title: string; language?: string } => {
     if (!previousRoute) {
       // Home/Dashboard: Show current city name
-      return { text: cityName ?? '', language: config.sourceLanguage }
+      return { title: cityName ?? '', language: config.sourceLanguage }
     }
 
     if (isSinglePoiFromPoisRoute()) {
-      return { text: t('locations'), language: undefined } // system language
+      return { title: t('locations'), language: undefined } // system language
     }
 
     const eventsRouteParams = route.params as RoutesParamsType[EventsRouteType] | undefined
     const isSingleEvent = !!eventsRouteParams?.slug
     const notFromEventsDeepLink = previousRoute.name === EVENTS_ROUTE
     if (isSingleEvent && notFromEventsDeepLink) {
-      return { text: t('events'), language: undefined } // system language
+      return { title: t('events'), language: undefined } // system language
     }
 
     const previousRouteTitle = (previousRoute.params as { title?: string } | undefined)?.title
     if (previousRouteTitle) {
-      return { text: previousRouteTitle, language: languageCode }
+      return { title: previousRouteTitle, language: languageCode }
     }
 
     // After search navigation reset, previousRoute may be BOTTOM_TAB_NAVIGATION_ROUTE
     if (previousRoute.name === CATEGORIES_ROUTE || previousRoute.name === BOTTOM_TAB_NAVIGATION_ROUTE) {
-      return {
-        text: cityName ?? '',
-        language: languageCode,
-      }
+      return { title: cityName ?? '', language: languageCode }
     }
 
-    return { text: t(previousRoute.name), language: undefined } // system language
+    if (previousRoute.name === LANDING_ROUTE) {
+      return { title: t('changeLocation'), language: undefined } // system language
+    }
+
+    return { title: t(previousRoute.name), language: undefined } // system language
   }
 
+  const { title, language } = getHeaderTitle()
   const landingPath =
     !previousRoute && !hasRootHistory && !isLanding ? () => navigation.navigate(LANDING_ROUTE) : undefined
 
   return (
     <BoxShadow>
       <Horizontal>
-        <HeaderBox
-          goBack={goBack}
-          canGoBack={canGoBack}
-          text={getHeaderText().text}
-          language={getHeaderText().language}
-          landingPath={landingPath}
-        />
+        <HeaderBox goBack={goBack} canGoBack={canGoBack} title={title} language={language} landingPath={landingPath} />
         <ActionButtons items={items} />
-        <HeaderMenu
-          visible={visible}
-          setVisible={setVisible}
-          menuItems={overflowItems}
-          shareUrl={shareUrl}
-          pageTitle={pageTitle}
-          onNavigateToDisclaimer={() => navigation.navigate(DISCLAIMER_ROUTE)}
-          onNavigateToLicenses={() => navigation.navigate(LICENSES_ROUTE)}
-          renderMenuItem={renderMenuItem}
-        />
+        {showMenu && (
+          <HeaderMenu
+            navigation={navigation}
+            visible={menuVisible}
+            setVisible={setMenuVisible}
+            menuItems={menuItems}
+            shareUrl={shareUrl}
+            pageTitle={pageTitle}
+          />
+        )}
       </Horizontal>
     </BoxShadow>
   )

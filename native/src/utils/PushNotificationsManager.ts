@@ -1,5 +1,14 @@
 import notifee, { AndroidImportance, Event, EventType } from '@notifee/react-native'
-import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
+import {
+  FirebaseMessagingTypes,
+  getInitialNotification,
+  getMessaging,
+  onMessage,
+  onNotificationOpenedApp,
+  setBackgroundMessageHandler,
+  subscribeToTopic,
+  unsubscribeFromTopic,
+} from '@react-native-firebase/messaging'
 import { useEffect } from 'react'
 import { checkNotifications, requestNotifications, RESULTS } from 'react-native-permissions'
 
@@ -41,7 +50,6 @@ export const unsubscribeNews = async (city: string, language: string): Promise<v
   const topic = newsTopic(city, language)
 
   try {
-    const { getMessaging, unsubscribeFromTopic } = await import('@react-native-firebase/messaging')
     await unsubscribeFromTopic(getMessaging(), topic)
     log(`Unsubscribed from ${topic} topic!`)
   } catch (e) {
@@ -70,7 +78,6 @@ export const subscribeNews = async ({
 
     const topic = newsTopic(cityCode, languageCode)
 
-    const { getMessaging, subscribeToTopic } = await import('@react-native-firebase/messaging')
     await subscribeToTopic(getMessaging(), topic)
     log(`Subscribed to ${topic} topic!`)
   } catch (e) {
@@ -98,15 +105,6 @@ const displayNotification = async (message: Message): Promise<void> => {
   })
 }
 
-const pushNotificationListener = async () => {
-  const { getMessaging, onMessage, setBackgroundMessageHandler } = await import('@react-native-firebase/messaging')
-  // Foreground notifications
-  onMessage(getMessaging(), message => displayNotification(message as Message))
-  // It is not necessary to set a background message handler as the notification is automatically displayed by the OS
-  // Set one anyway to avoid the warning that no background message handler is set
-  setBackgroundMessageHandler(getMessaging(), async () => undefined)
-}
-
 const routeInformationFromMessage = (message: Message): NonNullableRouteInformationType => ({
   cityCode: message.data.city_code,
   languageCode: message.data.language_code,
@@ -132,8 +130,6 @@ const notifeeEventHandler = (
 const pushNotificationPressListener = async (
   navigate: (routeInformation: RouteInformationType) => void,
 ): Promise<() => void> => {
-  const { getMessaging, onNotificationOpenedApp, getInitialNotification } =
-    await import('@react-native-firebase/messaging')
   // FCM quit state notifications
   const initialMessage = await getInitialNotification(getMessaging())
   if (initialMessage) {
@@ -175,7 +171,12 @@ export const usePushNotificationListener = (navigate: (routeInformation: RouteIn
   }, [appContext])
 
   useEffect(() => {
-    pushNotificationListener().catch(reportError)
+    // It is not necessary to set a background message handler as the notification is automatically displayed by the OS
+    // Set one anyway to avoid the warning that no background message handler is set
+    setBackgroundMessageHandler(getMessaging(), async () => undefined)
+
+    // Foreground notifications
+    return onMessage(getMessaging(), message => displayNotification(message as Message))
   }, [])
 
   useEffect(() => {

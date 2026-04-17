@@ -46,6 +46,9 @@ const commonMalteBuildConfig: CommonBuildConfigType = {
   privacyUrls: {
     default: 'https://www.malteser-werke.de/datenschutzerklaerung-malte.html',
   },
+  accessibilityUrls: {
+    default: 'https://integreat-app.de/barrierefreiheit/',
+  },
 }
 
 const androidMalteBuildConfig: AndroidBuildConfigType = {

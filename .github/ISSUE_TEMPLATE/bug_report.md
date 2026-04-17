@@ -21,6 +21,14 @@ type: Bug
 
 <!-- A clear and concise description of what you expected to happen. -->
 
+### Environment
+
+<!-- The environment where the bug occurs. -->
+
+- Device/Browser:
+- OS version:
+- App version:
+
 ### Related Issues
 
 <!-- Link all related issues which are e.g. CMS issues or otherwise related, blocking, duplicating issues, ... -->

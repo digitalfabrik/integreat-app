@@ -5,6 +5,7 @@ import styled from 'styled-components/native'
 
 import { openStreeMapCopyright } from 'shared'
 
+import { conditionalA11yProps } from '../utils/helpers'
 import Link from './Link'
 import Text from './base/Text'
 
@@ -39,7 +40,11 @@ const styles = StyleSheet.create({
   },
 })
 
-const MapAttribution = (): ReactElement => {
+type MapAttributionProps = {
+  accessible: boolean
+}
+
+const MapAttribution = ({ accessible }: MapAttributionProps): ReactElement => {
   const { url, label, linkText, icon } = openStreeMapCopyright
   const [expanded, setExpanded] = useState<boolean>(false)
   return (
@@ -47,7 +52,8 @@ const MapAttribution = (): ReactElement => {
       borderless
       onPress={() => setExpanded(!expanded)}
       role='button'
-      style={[styles.attributionContainer, expanded && styles.expanded]}>
+      style={[styles.attributionContainer, expanded && styles.expanded]}
+      {...conditionalA11yProps({ hidden: accessible })}>
       <Attribution>
         <Text
           variant='body2'

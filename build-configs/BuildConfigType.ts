@@ -70,7 +70,7 @@ export type CommonBuildConfigType = {
     [language: string]: string
   }
   // Urls with (localized) accessibility information
-  accessibilityUrls?: {
+  accessibilityUrls: {
     default: string
     [language: string]: string
   }

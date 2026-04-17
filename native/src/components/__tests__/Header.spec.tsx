@@ -1,6 +1,6 @@
 import { fireEvent, waitFor } from '@testing-library/react-native'
 import React, { ReactElement } from 'react'
-import { View, Linking } from 'react-native'
+import { View, Linking, Share } from 'react-native'
 
 import {
   CATEGORIES_ROUTE,
@@ -20,7 +20,6 @@ import useSnackbar from '../../hooks/useSnackbar'
 import TestingAppContext from '../../testing/TestingAppContext'
 import createNavigationMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
-import cityShareName from '../../utils/cityShareName'
 import Header from '../Header'
 
 jest.mock('../../hooks/useSnackbar')
@@ -42,11 +41,14 @@ jest.mock('react-i18next', () => ({
 jest.mock('styled-components')
 jest.mock('@react-native-community/netinfo')
 jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter')
+jest.mock('../../utils/openExternalUrl', () => jest.fn(async () => undefined))
 
 describe('Header', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
+  const spy = jest.spyOn(Share, 'share')
+  spy.mockImplementation(jest.fn())
 
   const t = (key: string) => key
   const cityModels = new CityModelBuilder(1).build()
@@ -102,7 +104,7 @@ describe('Header', () => {
           languages={languages}
           shareUrl={shareUrl}
           showItems={showItems}
-          cityName={cityShareName(cityModel)}
+          cityName={cityModel.name}
         />
       </TestingAppContext>,
     )
@@ -175,35 +177,34 @@ describe('Header', () => {
   it('should show snackbar if sharing fails', () => {
     const showSnackbar = jest.fn()
     mocked(useSnackbar).mockImplementation(() => showSnackbar)
-    const openURL = jest.fn(() => {
-      throw new Error('fail')
-    })
-    const spy = jest.spyOn(Linking, 'openURL')
-    spy.mockImplementation(openURL)
+
+    spy.mockImplementationOnce(
+      jest.fn(() => {
+        throw new Error('fail')
+      }),
+    )
 
     const { getByTestId, getByText } = renderHeader({})
 
     fireEvent.press(getByTestId('header-overflow-menu-button'))
     fireEvent.press(getByText(t('share')))
-    fireEvent.press(getByText('WhatsApp'))
 
-    expect(openURL).toHaveBeenCalled()
+    expect(Share.share).toHaveBeenCalled()
 
     expect(showSnackbar).toHaveBeenCalledWith({ text: 'generalError' })
   })
 
   it('should create proper share message including page title', () => {
-    const openURL = jest.fn()
-    const spy = jest.spyOn(Linking, 'openURL')
-    spy.mockImplementation(openURL)
     const { getByTestId, getByText } = renderHeader({
       route: { key: 'key-0', name: CATEGORIES_ROUTE, params: { title: defaultPageTitle } },
     })
     fireEvent.press(getByTestId('header-overflow-menu-button'))
     fireEvent.press(getByText(t('share')))
-    fireEvent.press(getByText('WhatsApp'))
 
-    expect(openURL).toHaveBeenCalled()
+    expect(Share.share).toHaveBeenCalledWith({
+      message: 'shareMessage: Test Category - Stadt Augsburg\nhttps://example.com/share',
+      title: 'Test Category - Stadt Augsburg',
+    })
   })
 
   it('should use the route name in the share message if no page title is set', () => {
@@ -215,9 +216,11 @@ describe('Header', () => {
     })
     fireEvent.press(getByTestId('header-overflow-menu-button'))
     fireEvent.press(getByText(t('share')))
-    fireEvent.press(getByText('WhatsApp'))
 
-    expect(openURL).toHaveBeenCalled()
+    expect(Share.share).toHaveBeenCalledWith({
+      message: 'shareMessage: disclaimer - Stadt Augsburg\nhttps://example.com/share',
+      title: 'disclaimer - Stadt Augsburg',
+    })
   })
 
   it('should remove the page title in the share message if it equals the city name', () => {
@@ -229,8 +232,10 @@ describe('Header', () => {
     })
     fireEvent.press(getByTestId('header-overflow-menu-button'))
     fireEvent.press(getByText(t('share')))
-    fireEvent.press(getByText('WhatsApp'))
 
-    expect(openURL).toHaveBeenCalled()
+    expect(Share.share).toHaveBeenCalledWith({
+      message: 'shareMessage: Stadt Augsburg\nhttps://example.com/share',
+      title: 'Stadt Augsburg',
+    })
   })
 })

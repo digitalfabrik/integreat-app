@@ -2,7 +2,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createStackNavigator } from '@react-navigation/stack'
 import React, { ReactElement, useCallback, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useWindowDimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { NavigationProps, RoutesParamsType } from 'src/constants/NavigationTypes'
 import { DefaultTheme, useTheme } from 'styled-components/native'
@@ -35,7 +34,6 @@ import LoadingErrorHandler from '../routes/LoadingErrorHandler'
 import NewsContainer from '../routes/NewsContainer'
 import PoisContainer from '../routes/PoisContainer'
 import { usePushNotificationListener } from '../utils/PushNotificationsManager'
-import cityDisplayName from '../utils/cityDisplayName'
 
 const Tab = createBottomTabNavigator<RoutesParamsType>()
 const CategoriesStack = createStackNavigator<RoutesParamsType>()
@@ -99,7 +97,6 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
   const { t } = useTranslation('layout')
   const { cityCode, languageCode } = useCityAppContext()
   const { navigateTo } = useNavigate()
-  const deviceWidth = useWindowDimensions().width
   const insets = useSafeAreaInsets()
   const { data, loading, error, refresh } = useLoadCityContent({ cityCode, languageCode })
   const cachedDataRef = useRef(data)
@@ -113,8 +110,7 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
 
   const cachedData = data || cachedDataRef.current
 
-  const homeRouteTitle = cityDisplayName(cachedData?.city, deviceWidth)
-  useSetRouteTitle({ navigation, title: homeRouteTitle })
+  useSetRouteTitle({ navigation, title: cachedData?.city.name })
   const theme = useTheme()
 
   const CategoriesIcon = useCallback(

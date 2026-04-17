@@ -1,15 +1,12 @@
 import React, { ReactElement, useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Share } from 'react-native'
 import { Menu } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
 import { NavigationProps, RouteProps, RoutesType } from '../constants/NavigationTypes'
-import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import useSnackbar from '../hooks/useSnackbar'
 import openExternalUrl from '../utils/openExternalUrl'
-import { reportError } from '../utils/sentry'
 import HeaderBox from './HeaderBox'
 import HeaderMenu from './HeaderMenu'
 
@@ -34,35 +31,11 @@ type TransparentHeaderProps = {
 const TransparentHeader = ({ navigation, route }: TransparentHeaderProps): ReactElement | null => {
   const { t } = useTranslation('layout')
   const showSnackbar = useSnackbar()
-  const [visible, setVisible] = useState(false)
+  const [menuVisible, setMenuVisible] = useState(false)
+  const theme = useTheme()
 
   const shareUrl = (route.params as { shareUrl: string } | undefined)?.shareUrl
   const isPdfUrl = shareUrl?.toLowerCase().includes('.pdf')
-  const theme = useTheme()
-
-  const onShare = useCallback(async (): Promise<void> => {
-    if (!shareUrl) {
-      // The share option should only be shown if there is a shareUrl
-      return
-    }
-
-    const message = t('shareMessage', {
-      message: shareUrl,
-      interpolation: {
-        escapeValue: false,
-      },
-    })
-
-    try {
-      await Share.share({
-        message,
-        title: buildConfig().appName,
-      })
-    } catch (e) {
-      showSnackbar({ text: 'generalError' })
-      reportError(e)
-    }
-  }, [showSnackbar, shareUrl, t])
 
   const onOpenPdf = useCallback(async (): Promise<void> => {
     if (!shareUrl) {
@@ -80,9 +53,7 @@ const TransparentHeader = ({ navigation, route }: TransparentHeaderProps): React
     />
   )
 
-  const overflowItems = shareUrl
-    ? [renderMenuItem('share', onShare), ...(isPdfUrl ? [renderMenuItem('openExternal', onOpenPdf)] : [])]
-    : []
+  const menuItems = isPdfUrl ? [renderMenuItem('openExternal', onOpenPdf)] : []
 
   if (!navigation.canGoBack()) {
     return null
@@ -93,11 +64,11 @@ const TransparentHeader = ({ navigation, route }: TransparentHeaderProps): React
       <Horizontal>
         <HeaderBox goBack={navigation.goBack} />
         <HeaderMenu
-          visible={visible}
-          setVisible={setVisible}
-          menuItems={overflowItems}
-          renderMenuItem={renderMenuItem}
-          showDefaultSections={false}
+          navigation={navigation}
+          shareUrl={shareUrl}
+          visible={menuVisible}
+          setVisible={setMenuVisible}
+          menuItems={menuItems}
         />
       </Horizontal>
     </Container>

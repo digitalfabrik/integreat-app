@@ -36,7 +36,11 @@ const commonObdachBuildConfig: CommonBuildConfigType = {
     default: 'https://integreat-app.de/datenschutz/',
     en: 'https://integreat-app.de/en/privacy-policy/',
   },
+  accessibilityUrls: {
+    default: 'https://integreat-app.de/barrierefreiheit/',
+  },
 }
+
 export const webObdachBuildConfig: WebBuildConfigType = {
   ...commonObdachBuildConfig,
   appDescription:
@@ -52,10 +56,12 @@ export const webObdachBuildConfig: WebBuildConfigType = {
   },
   apps: null,
 }
+
 const platformBuildConfigs = {
   common: commonObdachBuildConfig,
   web: webObdachBuildConfig,
   android: null,
   ios: null,
 }
+
 export default platformBuildConfigs

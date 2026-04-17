@@ -7,6 +7,7 @@ import {
   LandingRouteType,
   LicensesRouteType,
   LocalNewsType,
+  MainDisclaimerRouteType,
   NewsRouteType,
   PoisRouteType,
   SearchRouteType,
@@ -26,6 +27,10 @@ export type LandingRouteInformationType = {
 
 export type LicensesInformationType = {
   route: LicensesRouteType
+}
+
+export type MainDisclaimerRouteInformationType = {
+  route: MainDisclaimerRouteType
 }
 
 export type ConsentInformationType = {
@@ -76,6 +81,7 @@ export type SearchRouteInformationType = ParamsType & {
 }
 
 export type NonNullableRouteInformationType =
+  | MainDisclaimerRouteInformationType
   | LandingRouteInformationType
   | CityNotCooperatingInformationType
   | CategoriesRouteInformationType
