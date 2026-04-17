@@ -53,7 +53,7 @@ const Modal = ({
         <NavigationThemeProvider value={navigationTheme}>
           <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
             <View style={styles.header}>
-              <HeaderBox goBack={closeModal} text={headerTitle} />
+              <HeaderBox goBack={closeModal} title={headerTitle} />
             </View>
             {scrollView ? (
               <ScrollView style={styles.scrollContent} contentContainerStyle={{ flexGrow: 1 }}>

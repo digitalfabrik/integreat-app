@@ -20,7 +20,6 @@ import useSnackbar from '../../hooks/useSnackbar'
 import TestingAppContext from '../../testing/TestingAppContext'
 import createNavigationMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
-import cityShareName from '../../utils/cityShareName'
 import Header from '../Header'
 
 jest.mock('../../hooks/useSnackbar')
@@ -105,7 +104,7 @@ describe('Header', () => {
           languages={languages}
           shareUrl={shareUrl}
           showItems={showItems}
-          cityName={cityShareName(cityModel)}
+          cityName={cityModel.name}
         />
       </TestingAppContext>,
     )
