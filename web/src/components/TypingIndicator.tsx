@@ -33,24 +33,20 @@ type TypingIndicatorProps = {
 
 const TypingIndicator = ({ isVisible }: TypingIndicatorProps): ReactElement | null => {
   const { t } = useTranslation('chat')
-  return (
-    <div role='status'>
-      {isVisible ? (
-        <InnerChatMessage
-          userIsAuthor={false}
-          showAvatar
-          isAutomaticAnswer
-          content={
-            <DotsWrapper aria-label={t('generateAnswer')}>
-              <Dot />
-              <Dot />
-              <Dot />
-            </DotsWrapper>
-          }
-        />
-      ) : null}
-    </div>
-  )
+  return isVisible ? (
+    <InnerChatMessage
+      userIsAuthor={false}
+      showAvatar
+      isAutomaticAnswer
+      content={
+        <DotsWrapper aria-label={t('generateAnswer')}>
+          <Dot />
+          <Dot />
+          <Dot />
+        </DotsWrapper>
+      }
+    />
+  ) : null
 }
 
 export default TypingIndicator
