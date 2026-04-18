@@ -86,7 +86,7 @@ describe('AppContextProvider', () => {
 
   it('should initialize settings from async storage', async () => {
     const settings: SettingsType = {
-      storageVersion: 'v1.2',
+      storageVersion: '2',
       contentLanguage: 'de',
       selectedCity: 'augsburg',
       introShown: true,
@@ -216,15 +216,15 @@ describe('AppContextProvider', () => {
 
   it('should update settings', async () => {
     const oldSettings = { ...defaultSettings, contentLanguage: 'de', selectedCity: 'muenchen' }
+    const expectedAfterLoad = { ...oldSettings, storageVersion: '2' }
     const newSettings = {
-      ...oldSettings,
-      storageVersion: 'v2.0',
+      ...expectedAfterLoad,
       introShown: true,
       apiUrlOverride: 'https://cms-test.integreat-app.de',
     }
     await appSettings.setSettings(oldSettings)
     const { getByText } = renderAppContextProvider({ newSettings })
-    await waitFor(async () => expect(getByText(JSON.stringify(oldSettings))).toBeTruthy())
+    await waitFor(async () => expect(getByText(JSON.stringify(expectedAfterLoad))).toBeTruthy())
 
     fireEvent.press(getByText('updateSettings'))
 

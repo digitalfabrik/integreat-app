@@ -29,38 +29,35 @@ export const defaultSettings: SettingsType = {
 }
 export const settingsStorage = createAsyncStorage('settings')
 
+const migrateToV2 = async (): Promise<void> => {
+  const currentVersion = await settingsStorage.getItem('storageVersion')
+  if (currentVersion === JSON.stringify(ASYNC_STORAGE_VERSION)) {
+    return
+  }
+
+  const keys = Object.keys(defaultSettings) as (keyof SettingsType)[]
+  const values = await Promise.all(keys.map(key => LegacyAsyncStorage.getItem(key)))
+
+  const settingsToCopy = keys.reduce<Record<string, string>>((settings, key, index) => {
+    const value = values[index]
+    if (value) {
+      return { ...settings, [key]: value }
+    }
+    return settings
+  }, {})
+
+  await settingsStorage.setMany({ ...settingsToCopy, storageVersion: JSON.stringify(ASYNC_STORAGE_VERSION) })
+}
+
 class AppSettings {
   asyncStorage: AsyncStorage
-  private migrated: Promise<void> | null = null
 
   constructor(asyncStorage: AsyncStorage = settingsStorage) {
     this.asyncStorage = asyncStorage
-    this.migrated = this.migrateToV2()
-  }
-
-  private migrateToV2 = async (): Promise<void> => {
-    const currentVersion = await this.asyncStorage.getItem('storageVersion')
-    if (currentVersion === ASYNC_STORAGE_VERSION) {
-      return
-    }
-
-    const keys = Object.keys(defaultSettings) as (keyof SettingsType)[]
-    const values = await Promise.all(keys.map(key => LegacyAsyncStorage.getItem(key)))
-
-    const settingsToCopy = keys.reduce<Record<string, string>>((settings, key, index) => {
-      const value = values[index]
-      if (value) {
-        // eslint-disable-next-line no-param-reassign
-        settings[key] = value
-      }
-      return settings
-    }, {})
-
-    await this.asyncStorage.setMany({ ...settingsToCopy, storageVersion: ASYNC_STORAGE_VERSION })
   }
 
   loadSettings = async (): Promise<SettingsType> => {
-    await this.migrated
+    await migrateToV2()
     const settingsKeys = Object.keys(defaultSettings) as [keyof SettingsType]
     const settings = (await this.asyncStorage.getMany(settingsKeys)) as Record<keyof SettingsType, string | null>
     return mapValues(settings, (value: string | null, key) => {
@@ -69,14 +66,7 @@ class AppSettings {
         return defaultSettings[key as keyof SettingsType]
       }
 
-      const parsed = JSON.parse(value)
-
-      if (parsed === null) {
-        // null means this setting does not exist
-        return JSON.parse(value) ?? defaultSettings[key as keyof SettingsType]
-      }
-
-      return parsed
+      return JSON.parse(value) ?? defaultSettings[key as keyof SettingsType]
     })
   }
 
