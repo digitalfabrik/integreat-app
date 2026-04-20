@@ -86,7 +86,7 @@ describe('AppContextProvider', () => {
 
   it('should initialize settings from async storage', async () => {
     const settings: SettingsType = {
-      storageVersion: '2',
+      storageVersion: 2,
       contentLanguage: 'de',
       selectedCity: 'augsburg',
       introShown: true,
@@ -216,7 +216,7 @@ describe('AppContextProvider', () => {
 
   it('should update settings', async () => {
     const oldSettings = { ...defaultSettings, contentLanguage: 'de', selectedCity: 'muenchen' }
-    const expectedAfterLoad = { ...oldSettings, storageVersion: '2' }
+    const expectedAfterLoad = { ...oldSettings, storageVersion: 2 }
     const newSettings = {
       ...expectedAfterLoad,
       introShown: true,

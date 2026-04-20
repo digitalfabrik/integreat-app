@@ -4,9 +4,9 @@ import { mapValues } from 'lodash'
 import { ThemeKey } from 'build-configs/ThemeKey'
 import { ExternalSourcePermissions } from 'shared'
 
-export const ASYNC_STORAGE_VERSION = '2'
+export const ASYNC_STORAGE_VERSION = 2
 export type SettingsType = {
-  storageVersion: string | null
+  storageVersion: number | null
   contentLanguage: string | null
   selectedCity: string | null
   introShown: boolean | null
