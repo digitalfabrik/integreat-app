@@ -2,7 +2,7 @@ import List from '@mui/material/List'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
-import React, { ReactElement, useEffect, useMemo, useRef, useState } from 'react'
+import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ChatMessageModel } from 'shared/api'
@@ -46,19 +46,18 @@ const ChatConversation = ({ messages, isTyping, loading }: ChatConversationProps
     }
   }, [isTyping])
 
-  const lastMessageText = useMemo(() => {
-    if (!messages.length) {
-      return ''
-    }
+  const extractText = (html: string): string => {
+    const div = document.createElement('div')
+    div.innerHTML = html
+    return div.textContent || div.innerText
+  }
 
-    const last = messages[messages.length - 1]
-    return last?.content
-  }, [messages])
+  const last = messages[messages.length - 1]
+  const lastMessageText = last ? extractText(last.content) : ''
 
   if (messages.length === 0 && !loading) {
     return (
       <Stack paddingInline={3} gap={1}>
-        <LiveAnnouncer message='' />
         <Typography variant='subtitle1'>{t('conversationText')}</Typography>
       </Stack>
     )
@@ -66,7 +65,7 @@ const ChatConversation = ({ messages, isTyping, loading }: ChatConversationProps
 
   return (
     <Stack padding={2} gap={2} overflow='auto'>
-      <LiveAnnouncer message={lastMessageText ?? ''} />
+      <LiveAnnouncer message={lastMessageText} />
       {loading ? (
         <SkeletonChatConversation />
       ) : (
