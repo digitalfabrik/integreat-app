@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { getCategoryTiles } from 'shared'
 import { CategoriesMapModel, CategoryModel } from 'shared/api'
 
-import { CityRouteProps } from '../CityContentSwitcher'
+import { CityRouteProps } from '../CityContentNavigator'
 import CategoryListItem from './CategoryListItem'
 import EmbeddedOffers from './EmbeddedOffers'
 import OrganizationContentInfo from './OrganizationContentInfo'

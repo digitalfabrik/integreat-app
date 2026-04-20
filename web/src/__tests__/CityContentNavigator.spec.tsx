@@ -8,7 +8,7 @@ import {
   mockUseLoadFromEndpointWithError,
 } from 'shared/api/endpoints/testing/mockUseLoadFromEndpoint'
 
-import CityContentSwitcher from '../CityContentSwitcher'
+import CityContentNavigator from '../CityContentNavigator'
 import { cityContentPattern } from '../routes'
 import { renderRoute } from '../testing/render'
 
@@ -24,7 +24,7 @@ jest.mock('../routes/SearchPage', () => () => <div>{SEARCH_ROUTE}</div>)
 jest.mock('../routes/ImprintPage', () => () => <div>{IMPRINT_ROUTE}</div>)
 jest.mock('../routes/PoisPage', () => () => <div>{POIS_ROUTE}</div>)
 
-describe('CityContentSwitcher', () => {
+describe('CityContentNavigator', () => {
   const languageCode = 'de'
   const [city, cityWithDisabledFeatures] = new CityModelBuilder(2).build() as [CityModel, CityModel]
   const path = (city: CityModel, routeName: string) => `/${city.code}/${languageCode}/${routeName}`
@@ -33,10 +33,10 @@ describe('CityContentSwitcher', () => {
     const pathname = normalizePath(useLocation().pathname)
     return <div>{pathname}</div>
   }
-  const renderCityContentSwitcher = (routeName: string) =>
+  const renderCityContentNavigator = (routeName: string) =>
     renderRoute(
       <>
-        <CityContentSwitcher languageCode={languageCode} />
+        <CityContentNavigator languageCode={languageCode} />
         <MockComponent />
       </>,
       {
@@ -49,7 +49,7 @@ describe('CityContentSwitcher', () => {
     'should navigate to $routeName route',
     async ({ routeName }) => {
       mockUseLoadFromEndpointWithData(city)
-      const { findByText } = renderCityContentSwitcher(routeName)
+      const { findByText } = renderCityContentNavigator(routeName)
       // findByText is needed as routes are lazy loaded
       expect(await findByText(routeName)).toBeTruthy()
     },
@@ -57,19 +57,19 @@ describe('CityContentSwitcher', () => {
 
   it('should show an error if endpoint throws an error', () => {
     mockUseLoadFromEndpointWithError('City cannot be loaded')
-    const { getByText } = renderCityContentSwitcher(SEARCH_ROUTE)
+    const { getByText } = renderCityContentNavigator(SEARCH_ROUTE)
     expect(getByText('error:unknownError')).toBeTruthy()
   })
 
   it('should show an error if city cannot be loaded', () => {
     mockUseLoadFromEndpointWithData(null)
-    const { getByText } = renderCityContentSwitcher(SEARCH_ROUTE)
+    const { getByText } = renderCityContentNavigator(SEARCH_ROUTE)
     expect(getByText('error:notFound.city')).toBeTruthy()
   })
 
   it('should not navigate to pois route if pois are not enabled', async () => {
     mockUseLoadFromEndpointWithData(cityWithDisabledFeatures)
-    const { queryByText } = renderCityContentSwitcher(POIS_ROUTE)
+    const { queryByText } = renderCityContentNavigator(POIS_ROUTE)
     expect(queryByText(POIS_ROUTE)).not.toBeTruthy()
   })
 
@@ -79,7 +79,7 @@ describe('CityContentSwitcher', () => {
       ${NEWS_ROUTE} | ${'/augsburg/de/news/local'}
     `('should redirect from $from to $to', ({ from, to }) => {
       mockUseLoadFromEndpointWithData(city)
-      const { getByText } = renderCityContentSwitcher(from)
+      const { getByText } = renderCityContentNavigator(from)
       expect(getByText(to)).toBeTruthy()
     })
   })

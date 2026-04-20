@@ -9,7 +9,7 @@ import { useParams } from 'react-router'
 import { EVENTS_ROUTE, pathnameFromRouteInformation, useDateFilter } from 'shared'
 import { createEventsEndpoint, NotFoundError, useLoadFromEndpoint } from 'shared/api'
 
-import { CityRouteProps } from '../CityContentSwitcher'
+import { CityRouteProps } from '../CityContentNavigator'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
 import DatesPageDetail from '../components/DatesPageDetail'

@@ -4,7 +4,7 @@ import React, { ReactElement } from 'react'
 import { MALTE_HELP_FORM_OFFER_ALIAS, SPRUNGBRETT_OFFER_ALIAS } from 'shared'
 import { CategoryModel } from 'shared/api'
 
-import { CityRouteProps } from '../CityContentSwitcher'
+import { CityRouteProps } from '../CityContentNavigator'
 import MalteHelpForm from './MalteHelpForm'
 import SprungbrettOffer from './SprungbrettOffer'
 
