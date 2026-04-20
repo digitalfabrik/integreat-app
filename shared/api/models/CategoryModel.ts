@@ -1,12 +1,12 @@
 import { DateTime } from 'luxon'
 
 import normalizePath from '../../utils/normalizePath'
-import ExtendedPageModel from './ExtendedPageModel'
+import DocumentModel from './DocumentModel'
+import ExtendedDocumentModel from './ExtendedDocumentModel'
 import OfferModel from './OfferModel'
 import OrganizationModel from './OrganizationModel'
-import PageModel from './PageModel'
 
-class CategoryModel extends ExtendedPageModel {
+class CategoryModel extends ExtendedDocumentModel {
   _root: boolean
   _parentPath: string
   _order: number
@@ -55,7 +55,7 @@ class CategoryModel extends ExtendedPageModel {
     return this._organization
   }
 
-  isEqual(other: PageModel): boolean {
+  isEqual(other: DocumentModel): boolean {
     return (
       other instanceof CategoryModel &&
       super.isEqual(other) &&

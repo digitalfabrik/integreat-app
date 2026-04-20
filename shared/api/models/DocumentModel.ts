@@ -4,7 +4,7 @@ import { DateTime } from 'luxon'
 import { getSlugFromPath } from '../../utils'
 import normalizePath from '../../utils/normalizePath'
 
-class PageModel {
+class DocumentModel {
   _path: string
   _title: string
   _content: string
@@ -47,9 +47,9 @@ class PageModel {
     return this._lastUpdate
   }
 
-  isEqual(other: PageModel): boolean {
+  isEqual(other: DocumentModel): boolean {
     return this.path === other.path && this.content === other.content && this.lastUpdate.equals(other.lastUpdate)
   }
 }
 
-export default PageModel
+export default DocumentModel
