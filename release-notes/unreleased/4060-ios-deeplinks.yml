@@ -1,0 +1,6 @@
+issue_key: 4060
+show_in_stores: true
+platforms:
+  - ios
+en: Deeplinks are now opened correctly in the app again.
+de: Deeplinks werden nun wieder korrekt in der App geöffnet.
