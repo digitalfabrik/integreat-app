@@ -30,8 +30,8 @@ jest.mock('shared/hooks/useDebounce', () => ({
 }))
 jest.mock('shared', () => ({
   ...jest.requireActual('shared'),
-  useSearch: (documents: ExtendedPageModel[], query: string) => ({
-    data: query === 'no results, please' ? [] : documents,
+  useSearch: ({ userLanguageDocuments, query }: { userLanguageDocuments: ExtendedPageModel[]; query: string }) => ({
+    data: query === 'no results, please' ? [] : userLanguageDocuments,
     error: null,
     loading: false,
   }),
