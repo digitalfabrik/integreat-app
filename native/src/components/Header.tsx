@@ -7,7 +7,7 @@ import {
   CATEGORIES_ROUTE,
   CategoriesRouteType,
   CHANGE_LANGUAGE_MODAL_ROUTE,
-  DISCLAIMER_ROUTE,
+  IMPRINT_ROUTE,
   EVENTS_ROUTE,
   EventsRouteType,
   FEEDBACK_MODAL_ROUTE,
@@ -131,8 +131,8 @@ const Header = ({
       case CATEGORIES_ROUTE:
         return getCategorySlug((route.params as RoutesParamsType[CategoriesRouteType]).path)
 
-      case DISCLAIMER_ROUTE:
-        return DISCLAIMER_ROUTE
+      case IMPRINT_ROUTE:
+        return IMPRINT_ROUTE
 
       default:
         return undefined

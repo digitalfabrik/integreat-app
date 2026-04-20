@@ -8,7 +8,7 @@ import {
   CONSENT_ROUTE,
   LANDING_ROUTE,
   LICENSES_ROUTE,
-  MAIN_DISCLAIMER_ROUTE,
+  MAIN_IMPRINT_ROUTE,
   NOT_FOUND_ROUTE,
   pathnameFromRouteInformation,
   RESERVED_CITY_CONTENT_SLUGS,
@@ -27,7 +27,7 @@ type RootSwitcherProps = {
   setContentLanguage: (languageCode: string) => void
 }
 
-const MainDisclaimerPage = lazyWithRetry(() => import('./routes/MainDisclaimerPage'))
+const MainImprintPage = lazyWithRetry(() => import('./routes/MainImprintPage'))
 const LandingPage = lazyWithRetry(() => import('./routes/LandingPage'))
 const NotFoundPage = lazyWithRetry(() => import('./routes/NotFoundPage'))
 const LicensesPage = lazyWithRetry(() => import('./routes/LicensesPage'))
@@ -52,7 +52,7 @@ const RootSwitcher = ({ setContentLanguage }: RootSwitcherProps): ReactElement =
   return (
     <Routes>
       {!fixedCity && <Route path={RoutePatterns[LANDING_ROUTE]} element={<LandingPage languageCode={language} />} />}
-      <Route path={RoutePatterns[MAIN_DISCLAIMER_ROUTE]} element={<MainDisclaimerPage languageCode={language} />} />
+      <Route path={RoutePatterns[MAIN_IMPRINT_ROUTE]} element={<MainImprintPage languageCode={language} />} />
       <Route path={RoutePatterns[NOT_FOUND_ROUTE]} element={<NotFoundPage />} />
       <Route path={RoutePatterns[CONSENT_ROUTE]} element={<ConsentPage languageCode={language} />} />
       <Route path={RoutePatterns[LICENSES_ROUTE]} element={<LicensesPage languageCode={language} />} />

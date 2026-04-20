@@ -4,7 +4,7 @@ import { Role } from 'react-native'
 import { openSettings } from 'react-native-permissions'
 
 import { ThemeKey } from 'build-configs/ThemeKey'
-import { CONSENT_ROUTE, DISCLAIMER_ROUTE, LICENSES_ROUTE, MAIN_DISCLAIMER_ROUTE, SettingsRouteType } from 'shared'
+import { CONSENT_ROUTE, IMPRINT_ROUTE, LICENSES_ROUTE, MAIN_IMPRINT_ROUTE, SettingsRouteType } from 'shared'
 
 import { SnackbarType } from '../components/SnackbarContainer'
 import NativeConstants from '../constants/NativeConstants'
@@ -115,11 +115,11 @@ const createSettingsSections = ({
   },
   {
     role: 'link',
-    title: t('layout:disclaimer'),
+    title: t('layout:imprint'),
     onPress: async () =>
       settings.selectedCity
-        ? navigation.navigate(DISCLAIMER_ROUTE)
-        : openExternalUrl(urlFromRouteInformation({ route: MAIN_DISCLAIMER_ROUTE }), showSnackbar),
+        ? navigation.navigate(IMPRINT_ROUTE)
+        : openExternalUrl(urlFromRouteInformation({ route: MAIN_IMPRINT_ROUTE }), showSnackbar),
   },
   {
     role: 'link',

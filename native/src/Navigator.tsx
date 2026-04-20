@@ -9,7 +9,7 @@ import {
   CHANGE_LANGUAGE_MODAL_ROUTE,
   CITY_NOT_COOPERATING_ROUTE,
   CONSENT_ROUTE,
-  DISCLAIMER_ROUTE,
+  IMPRINT_ROUTE,
   FEEDBACK_MODAL_ROUTE,
   IMAGE_VIEW_MODAL_ROUTE,
   INTRO_ROUTE,
@@ -37,9 +37,9 @@ import BottomTabNavigation from './navigation/BottomTabNavigation'
 import ChangeLanguageModal from './routes/ChangeLanguageModal'
 import CityNotCooperating from './routes/CityNotCooperating'
 import Consent from './routes/Consent'
-import DisclaimerContainer from './routes/DisclaimerContainer'
 import FeedbackModalContainer from './routes/FeedbackModalContainer'
 import ImageViewModal from './routes/ImageViewModal'
+import ImprintContainer from './routes/ImprintContainer'
 import Intro from './routes/Intro'
 import Landing from './routes/Landing'
 import Licenses from './routes/Licenses'
@@ -155,7 +155,7 @@ const Navigator = (): ReactElement | null => {
       </Stack.Group>
 
       <Stack.Group screenOptions={{ header: defaultHeader }}>
-        <Stack.Screen name={DISCLAIMER_ROUTE} component={DisclaimerContainer} />
+        <Stack.Screen name={IMPRINT_ROUTE} component={ImprintContainer} />
         <Stack.Screen name={FEEDBACK_MODAL_ROUTE} component={FeedbackModalContainer} />
         <Stack.Screen name={LANDING_ROUTE} component={Landing} />
       </Stack.Group>

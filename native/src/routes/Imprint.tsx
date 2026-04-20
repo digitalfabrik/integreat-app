@@ -4,14 +4,14 @@ import { PageModel } from 'shared/api'
 
 import Page from '../components/Page'
 
-type DisclaimerProps = {
-  disclaimer: PageModel
+type ImprintProps = {
+  imprint: PageModel
   language: string
 }
 
-const Disclaimer = ({ disclaimer, language }: DisclaimerProps): ReactElement => {
-  const { title, content, lastUpdate } = disclaimer
+const Imprint = ({ imprint, language }: ImprintProps): ReactElement => {
+  const { title, content, lastUpdate } = imprint
   return <Page title={title} content={content} language={language} lastUpdate={lastUpdate} />
 }
 
-export default Disclaimer
+export default Imprint

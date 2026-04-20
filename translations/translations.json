@@ -2319,7 +2319,7 @@
       "noSources": "无外部来源。"
     }
   },
-  "disclaimer": {
+  "imprint": {
     "de": {
       "pageTitle": "Impressum"
     },
@@ -7814,7 +7814,7 @@
   "layout": {
     "de": {
       "legal": "Rechtliches",
-      "disclaimer": "Impressum",
+      "imprint": "Impressum",
       "privacy": "Datenschutz",
       "localInformation": "Lokale Informationen",
       "localInformationLabel": "Informationen",
@@ -7857,7 +7857,7 @@
       "skipToContent": "Zum Inhalt springen"
     },
     "am": {
-      "disclaimer": "ዕትም",
+      "imprint": "ዕትም",
       "privacy": "የግላዊነት ፖሊሲ",
       "localInformation": "አካባቢያዊ መረጃ",
       "events": "ዝግጅቶች",
@@ -7895,7 +7895,7 @@
       "voiceUnavailableMessage": "ምንም ድምፅ አልተገኘም። የማንበብ ተግባሩን ለመጠቀም ድምፅ መጫን አለበት። ለእርስዎ ሥርዓተ ክወና እባክዎ የሚከተሉትን መመሪያዎች ይከተሉ።"
     },
     "ar": {
-      "disclaimer": "هيئة التحرير",
+      "imprint": "هيئة التحرير",
       "privacy": "حماية البيانات",
       "localInformation": "معلومات محلية",
       "events": "الفعاليات",
@@ -7933,7 +7933,7 @@
       "voiceUnavailableMessage": "لم يتم العثور على صوت. لاستخدام خاصية القراءة بصوت عالٍ، يجب تثبيت صوت. الرجاء الرجوع إلى التعليمات الخاصة بنظام التشغيل أدناه."
     },
     "bg": {
-      "disclaimer": "Импресум",
+      "imprint": "Импресум",
       "privacy": "Защита на личните данни",
       "localInformation": "Местна информация",
       "events": "Събития",
@@ -7971,7 +7971,7 @@
       "voiceUnavailableMessage": "Не беше намерен глас. За да се използва функцията за четене на глас, трябва да има инсталиран глас. Моля, обърнете внимание на следните инструкции за Вашата операционна система."
     },
     "ckb": {
-      "disclaimer": "زانیارییەکانی ناوەندی بڵاوکەرەوە",
+      "imprint": "زانیارییەکانی ناوەندی بڵاوکەرەوە",
       "privacy": "پاراستنی دێیتاکان",
       "localInformation": "زانیارییە خۆجییەکان",
       "events": "ڕووداوەکان",
@@ -8009,7 +8009,7 @@
       "voiceUnavailableMessage": "هیچ دەنگێک نەدۆزراوەتەوە. بۆ بەکارهێنانی توانای خوێندنەوە دەبێت دەنگێک دابنرێت. تکایە ڕێنماییەکانی خوارەوە بۆ سیستەمی کارپێکردنەکەت پەیڕەو بکە."
     },
     "cs": {
-      "disclaimer": "Impresum",
+      "imprint": "Impresum",
       "privacy": "Ochrana údajů",
       "localInformation": "Lokální informace",
       "events": "Akce",
@@ -8047,7 +8047,7 @@
       "voiceUnavailableMessage": "Žádný hlas nebyl nalezen. Pro použití funkce hlasitého čtení musí být nainstalován hlas. Vezměte prosím na vědomí následující pokyny pro váš operační systém."
     },
     "da": {
-      "disclaimer": "Kolofon",
+      "imprint": "Kolofon",
       "privacy": "Beskyttelse af data",
       "localInformation": "Lokale oplysninger",
       "events": "Begivenheder",
@@ -8085,7 +8085,7 @@
       "voiceUnavailableMessage": "Der blev ikke fundet nogen stemme. Der skal være installeret en stemme for at kunne bruge højtlæsningsfunktionen. Vær opmærksom på følgende anvisninger for dit operativsystem."
     },
     "el": {
-      "disclaimer": "Στοιχεία έκδοσης",
+      "imprint": "Στοιχεία έκδοσης",
       "privacy": "Προστασία δεδομένων ",
       "localInformation": "Τοπικές πληροφορίες",
       "events": "Εκδηλώσεις",
@@ -8124,7 +8124,7 @@
     },
     "en": {
       "legal": "Legal",
-      "disclaimer": "Imprint",
+      "imprint": "Imprint",
       "privacy": "Data protection",
       "localInformation": "Local information",
       "localInformationLabel": "Information",
@@ -8167,7 +8167,7 @@
       "skipToContent": "Skip to content"
     },
     "es": {
-      "disclaimer": "Aviso legal",
+      "imprint": "Aviso legal",
       "privacy": "Privacidad",
       "localInformation": "Información local",
       "events": "Actividades",
@@ -8205,7 +8205,7 @@
       "voiceUnavailableMessage": "No se encontró ninguna voz. Para utilizar la función de lectura en voz alta, es necesario tener instalada una voz. Ten en cuenta las siguientes instrucciones para tu sistema operativo."
     },
     "fi": {
-      "disclaimer": "Julkaisutiedot",
+      "imprint": "Julkaisutiedot",
       "privacy": "Tietosuoja",
       "localInformation": "Paikalliset tiedot",
       "events": "Tapahtumat",
@@ -8243,7 +8243,7 @@
       "voiceUnavailableMessage": "Ääntä ei löytynyt. Äänen on oltava asennettuna, jotta voit käyttää ääneenlukutoimintoa. Ota huomioon seuraavat käyttöjärjestelmää koskevat ohjeet."
     },
     "fr": {
-      "disclaimer": "Mentions légales",
+      "imprint": "Mentions légales",
       "privacy": "Protection des données",
       "localInformation": "Informations locales",
       "events": "Événements",
@@ -8281,7 +8281,7 @@
       "voiceUnavailableMessage": "Aucune voix n’a été trouvée. Pour pouvoir utiliser la fonction de lecture, une voix doit être installée. Veuillez suivre les instructions suivantes pour votre système d’exploitation."
     },
     "hi": {
-      "disclaimer": "छाप",
+      "imprint": "छाप",
       "privacy": "डेटा संरक्षण",
       "localInformation": "स्थानीय जानकारी",
       "events": "ईवेंट",
@@ -8319,7 +8319,7 @@
       "voiceUnavailableMessage": "कोई वॉइस नहीं मिली रीड अलाउड के फ़ंक्शन का उपयोग करने के लिए, वॉइस इंस्टॉल किया जाना जरूरी है। अपने ऑपरेटिंग सिस्टम के लिए नीचे दिए गए निर्देश देखें।"
     },
     "hr": {
-      "disclaimer": "Impresum",
+      "imprint": "Impresum",
       "privacy": "Zaštita podataka",
       "localInformation": "Lokalne informacije",
       "events": "Događanja",
@@ -8357,7 +8357,7 @@
       "voiceUnavailableMessage": "Nije pronađen glas. Kako biste koristili funkciju čitanja, neophodno je da postoji instaliran glas. Obratite pažnju na sljedeće instrukcije za vaš operativni sustav."
     },
     "hu": {
-      "disclaimer": "Impresszum",
+      "imprint": "Impresszum",
       "privacy": "Adatvédelem",
       "localInformation": "Helyi információk",
       "events": "Események",
@@ -8395,7 +8395,7 @@
       "voiceUnavailableMessage": "Nem található hang. A felolvasás funkciónak telepített hangra van szüksége. Tartsa be az operációs rendszerére vonatkozó utasításokat."
     },
     "id": {
-      "disclaimer": "Cetak",
+      "imprint": "Cetak",
       "privacy": "Proteksi data",
       "localInformation": "Informasi lokal",
       "events": "Acara",
@@ -8434,7 +8434,7 @@
       "voiceUnavailableMessage": "Suara tidak ditemukan. Agar dapat menggunakan fungsi baca keras-keras, harus ada suara yang diinstal. Mengaculah ke buku panduan sistem operasi Anda di bawah ini."
     },
     "it": {
-      "disclaimer": "Impressum",
+      "imprint": "Impressum",
       "privacy": "Protezione dei dati",
       "localInformation": "Informazioni locali",
       "events": "Eventi",
@@ -8472,7 +8472,7 @@
       "voiceUnavailableMessage": "Non è stata trovata alcuna voce. Per utilizzare la funzione di lettura ad alta voce è necessario installare una voce. Tieni presente le seguenti istruzioni relative al tuo sistema operativo."
     },
     "ka": {
-      "disclaimer": "მისამართი",
+      "imprint": "მისამართი",
       "privacy": "მონაცემთა დაცვა",
       "localInformation": "ადგილობრივი ინფორმაციები",
       "events": "ღონისძიებები",
@@ -8510,7 +8510,7 @@
       "voiceUnavailableMessage": "ხმა არ მოიძებნა. ხმამაღლა წაკითხვის ფუნქციის გამოსაყენებლად ხმა უნდა იყოს დაყენებული. ყურადღება მიაქციეთ შემდეგ მითითებებს თქვენს ოპერაციულ სისტემასთან დაკავშირებით."
     },
     "kmr": {
-      "disclaimer": "Lêzanînên Weşîner",
+      "imprint": "Lêzanînên Weşîner",
       "privacy": "Parastina daneyan",
       "localInformation": "Zanyariyên xwecihî",
       "events": "Rûdan",
@@ -8548,7 +8548,7 @@
       "voiceUnavailableMessage": "Ti dengek nehat dîtin Ji bo ku bikarî funksyona xwendinê bi kar bînî, divê deng were sazkirin. Ji kerema xwe destûrkarên xwarê ji bo pergala cihêner a xwe binivîsîne."
     },
     "mk": {
-      "disclaimer": "Импресум",
+      "imprint": "Импресум",
       "privacy": "Заштита на лични податоци",
       "localInformation": "Локални информации",
       "events": "Настани",
@@ -8586,7 +8586,7 @@
       "voiceUnavailableMessage": "Не е најден глас. За да ја користите функцијата за читање, мора да се инсталира глас. Следете ги упатствата подолу за вашиот оперативен систем."
     },
     "nl": {
-      "disclaimer": "Impressum",
+      "imprint": "Impressum",
       "privacy": "Gegevensbescherming",
       "localInformation": "Lokale informatie",
       "events": "Evenementen",
@@ -8624,7 +8624,7 @@
       "voiceUnavailableMessage": "Er werd geen stem gevonden. Er moet een stem geïnstalleerd zijn om de voorleesfunctie te kunnen gebruiken. Neem de volgende instructies voor jouw besturingssysteem in acht."
     },
     "orm": {
-      "disclaimer": "Ashaaraa",
+      "imprint": "Ashaaraa",
       "privacy": "Eegumsa daataa",
       "localInformation": "Odeeffannoo naannoo",
       "events": "Sagantaalee",
@@ -8662,7 +8662,7 @@
       "voiceUnavailableMessage": "Sagaleen hin jiru.s Sagalee olguddisuu fayyadamuuf, sagaleen inistool ta’uu qaba. Qajeelfama ittiin hojjatan kan gajjalaa jiru ilaali."
     },
     "pes": {
-      "disclaimer": "اطلاعات ناشر",
+      "imprint": "اطلاعات ناشر",
       "privacy": "حفاظت از داده ها",
       "localInformation": "اطلاعات محلی",
       "events": "رویدادها",
@@ -8700,7 +8700,7 @@
       "voiceUnavailableMessage": "صدایی یافت نشد. برای استفاده از قابلیت خواندن، باید یک صدا نصب شود. لطفاً دستورالعمل‌های زیر را برای سیستم عامل خود دنبال کنید."
     },
     "pl": {
-      "disclaimer": "Nota prawna",
+      "imprint": "Nota prawna",
       "privacy": "Ochrona danych",
       "localInformation": "Informacje lokalne",
       "events": "Wydarzenia",
@@ -8738,7 +8738,7 @@
       "voiceUnavailableMessage": "Nie znaleziono żadnego głosu. Aby korzystać z funkcji lektora, należy zainstalować głos. Zwróć uwagę na poniższe instrukcje dla Twojego systemu operacyjnego."
     },
     "prs": {
-      "disclaimer": "معلومات ناشر",
+      "imprint": "معلومات ناشر",
       "privacy": "حفاظت از داده ها",
       "localInformation": "معلومات محلی",
       "events": "رویدادها",
@@ -8776,7 +8776,7 @@
       "voiceUnavailableMessage": "صدایی پیدا نشد. برای استفاده از قابلیت خواندن، باید یک صدا نصب شود. لطفا هدایاتی ذیل را برای سیستم عامل خود دنبال کنید."
     },
     "ps": {
-      "disclaimer": "چاپ کوونکی",
+      "imprint": "چاپ کوونکی",
       "privacy": "د ډاټا حفاظت",
       "localInformation": "سیمه ییز معلومات",
       "events": "غونډې",
@@ -8814,7 +8814,7 @@
       "voiceUnavailableMessage": "هیڅ غږ ونه موندل شو. د لوستلو ځانګړنې کارولو لپاره، یو غږ باید نصب شي. د مهربانۍ له مخې د خپل عملیاتي سیسټم لپاره لاندې لارښوونې تعقیب کړئ."
     },
     "pt": {
-      "disclaimer": "Pé de imprensa",
+      "imprint": "Pé de imprensa",
       "privacy": "Proteção de dados",
       "localInformation": "Informações locais",
       "events": "Eventos",
@@ -8852,7 +8852,7 @@
       "voiceUnavailableMessage": "Não encontraste nenhuma voz. Para utilizares a função de leitura em voz alta, tens de ter uma voz instalada. Tem em atenção as seguintes instruções para o teu sistema operativo."
     },
     "ro": {
-      "disclaimer": "Caseta tehnică",
+      "imprint": "Caseta tehnică",
       "privacy": "Confidențialitate",
       "localInformation": "Informații locale",
       "events": "Evenimente",
@@ -8890,7 +8890,7 @@
       "voiceUnavailableMessage": "Nu a fost găsită nicio voce. Pentru a utiliza funcția de citire cu voce tare, trebuie instalată o voce. Vă rugăm să țineți cont de următoarele instrucțiuni pentru sistemul dvs. de operare."
     },
     "rom": {
-      "disclaimer": "Otpečatkoja",
+      "imprint": "Otpečatkoja",
       "privacy": "Arakhiba podatke",
       "localInformation": "Lokalnikane informacie",
       "events": "Čipote",
@@ -8928,7 +8928,7 @@
       "voiceUnavailableMessage": "Nane arakhlo avazi. Baši te labare o drabaripe ko glaso, valjani te čhive avazi. Molinaja tu te dikhe o instrukcie baši to sistemo tele."
     },
     "ru": {
-      "disclaimer": "Выходные данные",
+      "imprint": "Выходные данные",
       "privacy": "Защита данных",
       "localInformation": "Местная информация",
       "events": "Мероприятия",
@@ -8967,7 +8967,7 @@
       "voiceUnavailableMessage": "Голос не был обнаружен. Для использования функции чтения вслух необходимо установить голос. Обратите внимание на следующие инструкции для вашей операционной системы."
     },
     "sk": {
-      "disclaimer": "Tiráž",
+      "imprint": "Tiráž",
       "privacy": "Ochrana osobných údajov",
       "localInformation": "Lokálne informácie",
       "events": "Podujatia",
@@ -9005,7 +9005,7 @@
       "voiceUnavailableMessage": "Žiadny hlas nebol nájdený. Ak chcete používať funkciu prečítania, musí byť nainštalovaný hlas. Zohľadnite, prosím, nasledujúce pokyny pre váš operačný systém."
     },
     "so": {
-      "disclaimer": "Faahfaahinta qoraaga",
+      "imprint": "Faahfaahinta qoraaga",
       "privacy": "Asturnaanta",
       "localInformation": "Macluumaadka deegaanka",
       "events": "Dhacdooyinka",
@@ -9043,7 +9043,7 @@
       "voiceUnavailableMessage": "Cod lama helin. Si aad u isticmaasho hawsha akhriska codka, cod waa in la rakibaa. Fadlan raac tilmaamaha soo socda ee nidaamkaaga hawlgalka."
     },
     "sq": {
-      "disclaimer": "Botuesi",
+      "imprint": "Botuesi",
       "privacy": "Mbrojtja e të dhënave",
       "localInformation": "Informata lokale",
       "events": "Evenimentet",
@@ -9081,7 +9081,7 @@
       "voiceUnavailableMessage": "Nuk u gjet asnjë tingull. Për të përdorur funksionin e leximit duhet të instalohen tinguj. Ndiq udhëzimet e mëposhtme për sistemin tënd operativ."
     },
     "sr-Cyrl": {
-      "disclaimer": "Импресум",
+      "imprint": "Импресум",
       "privacy": "Заштита података",
       "localInformation": "Локалне информације",
       "events": "Догађаји",
@@ -9119,7 +9119,7 @@
       "voiceUnavailableMessage": "Није пронађен глас Да бисте користили функцију читања, неопходно је да постоји инсталиран глас. Обратите пажњу на следеће инструкције за ваш оперативни систем."
     },
     "sr-Latn": {
-      "disclaimer": "Impresum",
+      "imprint": "Impresum",
       "privacy": "Zaštita podataka",
       "localInformation": "Lokalne informacije",
       "events": "Događaji",
@@ -9157,7 +9157,7 @@
       "voiceUnavailableMessage": "Nije pronađen glas. Da biste koristili funkciju čitanja, neophodno je da postoji instaliran glas. Obratite pažnju na sledeće instrukcije za vaš operativni sistem."
     },
     "sw": {
-      "disclaimer": "Chapa",
+      "imprint": "Chapa",
       "privacy": "Ulinzi wa data",
       "localInformation": "Habari za nchini",
       "events": "Matukio",
@@ -9195,7 +9195,7 @@
       "voiceUnavailableMessage": "Hakuna sauti iliyopatikana. Ili utumie kipengele cha kusoma kwa sauti, ni lazima uweke sauti. Tafadhali soma maagizo ya mfumo wako wa uendeshaji hapa chini."
     },
     "th": {
-      "disclaimer": "ข้อมูลการพิมพ์",
+      "imprint": "ข้อมูลการพิมพ์",
       "privacy": "การคุ้มครองข้อมูล",
       "localInformation": "ข้อมูลท้องถิ่น",
       "events": "กิจกรรม",
@@ -9233,7 +9233,7 @@
       "voiceUnavailableMessage": "ไม่พบเสียงใดๆ เพื่อใช้ฟังก์ชันการอ่านจะต้องติดตั้งเสียง โปรดปฏิบัติตามคำแนะนำด้านล่างนี้สำหรับระบบปฏิบัติการของคุณ"
     },
     "ti": {
-      "disclaimer": "ናይ ደራሲ ዝርዝራት",
+      "imprint": "ናይ ደራሲ ዝርዝራት",
       "privacy": "ምስጢርነት",
       "localInformation": "ከባብያዊ ሓበሬታ",
       "events": "ኣጋጣሚታት",
@@ -9271,7 +9271,7 @@
       "voiceUnavailableMessage": "ዝኾነ ድምጺ ኣይተረኽበን። ነቲ ዓው ኢልካ ምንባብ ዝብል ተግባር ንምጥቃም፣ ድምጺ ክጸዓን ኣለዎ። በጃኹም ነቲ መምርሒታት ስርዓተ ምምሕዳርኩም ተኸተሉ።"
     },
     "tr": {
-      "disclaimer": "Künye",
+      "imprint": "Künye",
       "privacy": "Kişisel verilerin korunması",
       "localInformation": "Yerel bilgiler",
       "events": "Etkinlikler",
@@ -9309,7 +9309,7 @@
       "voiceUnavailableMessage": "Ses bulunamadı. Sesli okuma işlevini kullanabilmek için bir sesin yüklenmiş olması gerekir. Lütfen işletim sisteminiz için aşağıdaki talimatları dikkate alın."
     },
     "uk": {
-      "disclaimer": "Імпресум",
+      "imprint": "Імпресум",
       "privacy": "Захист даних",
       "localInformation": "Місцева інформація",
       "events": "Події",
@@ -9347,7 +9347,7 @@
       "voiceUnavailableMessage": "Голос не знайдено. Для використання функції читання вголос необхідно інсталювати голос. Зверніть увагу на наступні інструкції для вашої операційної системи."
     },
     "ur": {
-      "disclaimer": "چھاپ",
+      "imprint": "چھاپ",
       "privacy": "ڈیٹا کا تحفظ",
       "localInformation": "مقامی معلومات",
       "events": "ایونٹس",
@@ -9385,7 +9385,7 @@
       "voiceUnavailableMessage": "کوئی آواز نہیں ملی۔ پڑھنے کے فنکشن کو استعمال کرنے کے لیے، آواز کو انسٹال کرنا ضروری ہے۔ براہ کرم اپنے آپریٹنگ سسٹم کے لیے نیچے دی گئی ہدایات پر عمل کریں۔"
     },
     "vi": {
-      "disclaimer": "Thông tin xuất bản",
+      "imprint": "Thông tin xuất bản",
       "privacy": "Bảo vệ dữ liệu",
       "localInformation": "Thông tin về địa phương",
       "events": "Sự kiện",
@@ -9423,7 +9423,7 @@
       "voiceUnavailableMessage": "Không tìm thấy giọng nói. Bạn cần cài đặt giọng nói để sử dụng chức năng đọc to. Vui lòng tham khảo hướng dẫn cho hệ điều hành của bạn bên dưới."
     },
     "zh-CN": {
-      "disclaimer": "版本说明",
+      "imprint": "版本说明",
       "privacy": "数据保护",
       "localInformation": "本地信息",
       "events": "活动",
@@ -9678,7 +9678,7 @@
       "noLicensesMessage": "无许可证信息可用"
     }
   },
-  "mainDisclaimer": {
+  "mainImprint": {
     "de": {
       "pageTitle": "Impressum - {{appName}}"
     },
@@ -9826,7 +9826,7 @@
       "contactPersonGenderMale": "Ich möchte von einer männlichen Person kontaktiert werden",
       "contactReason": "Ihr Anliegen:",
       "maxCharacters": "maximal {{numberOfCharacters}} Zeichen",
-      "responseDisclaimer": "Es kann einige Werktage dauern, bis Sie eine Rückmeldung erhalten. Wir bemühen uns, Ihr Anliegen schnellstmöglich zu bearbeiten.",
+      "responseHint": "Es kann einige Werktage dauern, bis Sie eine Rückmeldung erhalten. Wir bemühen uns, Ihr Anliegen schnellstmöglich zu bearbeiten.",
       "submit": "Formular absenden",
       "submitSuccessful": "Formular erfolgreich versandt",
       "submitFailed": "Formular konnte nicht versandt werden",
@@ -9849,7 +9849,7 @@
       "contactPersonGenderMale": "ከወንድ ጋር መገናኘት እፈልጋለሁ",
       "contactReason": "ጥያቄህ፡-",
       "maxCharacters": "ከፍተኛው {{numberOfCharacters}} ቁምፊዎች",
-      "responseDisclaimer": "ምላሽ እስኪያገኙ ድረስ ጥቂት የስራ ቀናትን ሊወስድ ይችላል። ጥያቄዎን በተቻለ ፍጥነት ለማስኬድ እንጥራለን።",
+      "responseHint": "ምላሽ እስኪያገኙ ድረስ ጥቂት የስራ ቀናትን ሊወስድ ይችላል። ጥያቄዎን በተቻለ ፍጥነት ለማስኬድ እንጥራለን።",
       "submit": "ቅጽ አስገባ",
       "submitSuccessful": "ቅጽ በተሳካ ሁኔታ ተልኳል።",
       "submitFailed": "ቅጽ መላክ አልተቻለም",
@@ -9872,7 +9872,7 @@
       "contactPersonGenderMale": "أرغب أن يكون التواصل مع رجل",
       "contactReason": "مطلبك:",
       "maxCharacters": "الحد الأقصى {{numberOfCharacters}} حرفًا",
-      "responseDisclaimer": "قد يستغرق الأمر بضعة أيام عمل حتى تتلقى الرد. نسعى جاهدين لمعالجة طلبك في أسرع وقت ممكن.",
+      "responseHint": "قد يستغرق الأمر بضعة أيام عمل حتى تتلقى الرد. نسعى جاهدين لمعالجة طلبك في أسرع وقت ممكن.",
       "submit": "إرسال الاستمارة",
       "submitSuccessful": "تم إرسال الاستمارة بنجاح",
       "submitFailed": "لم يتم إرسال الاستمارة",
@@ -9895,7 +9895,7 @@
       "contactPersonGenderMale": "Искам с мен да се свързва лице от мъжки пол",
       "contactReason": "Вашият проблем:",
       "maxCharacters": "максимум {{numberOfCharacters}} знака",
-      "responseDisclaimer": "Възможно е да минат няколко работни дни, преди да получите отговор. Ще се постараем да обработим Вашия проблем възможно най-бързо.",
+      "responseHint": "Възможно е да минат няколко работни дни, преди да получите отговор. Ще се постараем да обработим Вашия проблем възможно най-бързо.",
       "submit": "Изпращане на формуляр",
       "submitSuccessful": "Формулярът е изпратен успешно",
       "submitFailed": "Формулярът не може да бъде изпратен",
@@ -9918,7 +9918,7 @@
       "contactPersonGenderMale": "پێمخۆشە پیاوێک پەیوەندیم پێوە بکات",
       "contactReason": "داواکاری تۆ:",
       "maxCharacters": "ئەوپەڕی {{numberOfCharacters}} کاراکتەر",
-      "responseDisclaimer": "لەوانەیە چەند ڕۆژ بخایەنێت هەتاکوو وەڵامت دەدرێتەوە. هەوڵ دەدەین بە زووترین کات بەدواداچوون بۆ داواکارییەکەت بکەین.",
+      "responseHint": "لەوانەیە چەند ڕۆژ بخایەنێت هەتاکوو وەڵامت دەدرێتەوە. هەوڵ دەدەین بە زووترین کات بەدواداچوون بۆ داواکارییەکەت بکەین.",
       "submit": "ناردنی فۆرم",
       "submitSuccessful": "فۆرمەکە بە سەرکەوتوویی ناردرا.",
       "submitFailed": "فۆرمەکە نەنێردرا",
@@ -9941,7 +9941,7 @@
       "contactPersonGenderMale": "Chci, aby mě kontaktoval muž",
       "contactReason": "Vaše žádost:",
       "maxCharacters": "maximálně {{numberOfCharacters}} znaků",
-      "responseDisclaimer": "Než obdržíte odpověď, může to trvat několik pracovních dní. Vaši žádost se budeme snažit vyřídit co nejrychleji.",
+      "responseHint": "Než obdržíte odpověď, může to trvat několik pracovních dní. Vaši žádost se budeme snažit vyřídit co nejrychleji.",
       "submit": "Odeslat formulář",
       "submitSuccessful": "Formulář byl úspěšně odeslán",
       "submitFailed": "Formulář nebylo možné odeslat",
@@ -9964,7 +9964,7 @@
       "contactPersonGenderMale": "Jeg vil gerne kontaktes af en mandlig person",
       "contactReason": "Din bekymring:",
       "maxCharacters": "maksimalt {{numberOfCharacters}} tegn",
-      "responseDisclaimer": "Det kan tage et par arbejdsdage, før du får svar. Vi vil bestræbe os på at behandle din anmodning så hurtigt som muligt.",
+      "responseHint": "Det kan tage et par arbejdsdage, før du får svar. Vi vil bestræbe os på at behandle din anmodning så hurtigt som muligt.",
       "submit": "Send formular",
       "submitSuccessful": "Formular sendt med succes",
       "submitFailed": "Formular kunne ikke sendes",
@@ -9987,7 +9987,7 @@
       "contactPersonGenderMale": "Θα ήθελα να επικοινωνεί μαζί μου ένας άνδρας",
       "contactReason": "Το αίτημά σας:",
       "maxCharacters": "έως και {{numberOfCharacters}} χαρακτήρες",
-      "responseDisclaimer": "Μπορεί να χρειαστούν μερικές εργάσιμες ημέρες μέχρι να λάβετε απάντηση. Θα προσπαθήσουμε να διεκπεραιώσουμε το αίτημά σας το συντομότερο δυνατό.",
+      "responseHint": "Μπορεί να χρειαστούν μερικές εργάσιμες ημέρες μέχρι να λάβετε απάντηση. Θα προσπαθήσουμε να διεκπεραιώσουμε το αίτημά σας το συντομότερο δυνατό.",
       "submit": "Αποστολή φόρμας",
       "submitSuccessful": "Η φόρμα εστάλη επιτυχώς",
       "submitFailed": "Η αποστολή της φόρμας δεν ήταν δυνατή",
@@ -10010,7 +10010,7 @@
       "contactPersonGenderMale": "I would like to be contacted by a male person",
       "contactReason": "Your request:",
       "maxCharacters": "maximum {{numberOfCharacters}} characters",
-      "responseDisclaimer": "It may take a few working days before you receive a response. We will do our best to process your request as quickly as possible.",
+      "responseHint": "It may take a few working days before you receive a response. We will do our best to process your request as quickly as possible.",
       "submit": "Submit form",
       "submitSuccessful": "Form successfully submitted",
       "submitFailed": "Form could not be submitted",
@@ -10033,7 +10033,7 @@
       "contactPersonGenderMale": "Prefiero que contacte conmigo una persona de género masculino",
       "contactReason": "Su consulta:",
       "maxCharacters": "máximo {{numberOfCharacters}} caracteres",
-      "responseDisclaimer": "La respuesta puede tardar varios días laborables en llegar. Nos esforzaremos por tramitar su solicitud lo antes posible.",
+      "responseHint": "La respuesta puede tardar varios días laborables en llegar. Nos esforzaremos por tramitar su solicitud lo antes posible.",
       "submit": "Enviar el formulario",
       "submitSuccessful": "Formulario enviado correctamente",
       "submitFailed": "No se ha podido enviar el formulario",
@@ -10056,7 +10056,7 @@
       "contactPersonGenderMale": "Haluaisin, että minuun ottaa yhteyttä miespuolinen henkilö",
       "contactReason": "Asia:",
       "maxCharacters": "enintään {{numberOfCharacters}} merkkiä",
-      "responseDisclaimer": "Vastauksen saamiseen voi mennä muutama arkipäivä. Pyrimme käsittelemään asiasi mahdollisimman nopeasti.",
+      "responseHint": "Vastauksen saamiseen voi mennä muutama arkipäivä. Pyrimme käsittelemään asiasi mahdollisimman nopeasti.",
       "submit": "Lähetä lomake",
       "submitSuccessful": "Lomakkeen lähetys onnistui",
       "submitFailed": "Lomaketta ei voitu lähettää",
@@ -10079,7 +10079,7 @@
       "contactPersonGenderMale": "Je souhaite être contacté(e) par une personne de sexe masculin",
       "contactReason": "Votre demande",
       "maxCharacters": "maximum {{numberOfCharacters}} caractères",
-      "responseDisclaimer": "Il peut s’écouler quelques jours ouvrables avant que vous ne receviez une réponse. Nous nous efforçons de répondre à votre demande dans les meilleurs délais.",
+      "responseHint": "Il peut s’écouler quelques jours ouvrables avant que vous ne receviez une réponse. Nous nous efforçons de répondre à votre demande dans les meilleurs délais.",
       "submit": "Envoyer le formulaire",
       "submitSuccessful": "Le formulaire a été envoyé avec succès",
       "submitFailed": "Le formulaire n’a pas pu être envoyé",
@@ -10102,7 +10102,7 @@
       "contactPersonGenderMale": "मैं चाहूँगी कि कोई पुरुष मुझसे संपर्क करे",
       "contactReason": "आपका अनुरोध:",
       "maxCharacters": "अधिकतम {{numberOfCharacters}} वर्ण",
-      "responseDisclaimer": "आपको प्रतिक्रिया मिलने में कुछ कार्य दिवस लग सकते हैं। हम आपके अनुरोध को तेज़ी से संसाधित करने का सबसे अच्छा प्रयास करेंगे।",
+      "responseHint": "आपको प्रतिक्रिया मिलने में कुछ कार्य दिवस लग सकते हैं। हम आपके अनुरोध को तेज़ी से संसाधित करने का सबसे अच्छा प्रयास करेंगे।",
       "submit": "फ़ॉर्म सबमिट करें",
       "submitSuccessful": "फ़ॉर्म सफलतापूर्वक सबमिट किया गया",
       "submitFailed": "फ़ॉर्म सबमिट नहीं किया जा सका",
@@ -10125,7 +10125,7 @@
       "contactPersonGenderMale": "Želim da me kontaktira osoba muškog spola",
       "contactReason": "Vaš problem:",
       "maxCharacters": "najviše {{numberOfCharacters}} znakova",
-      "responseDisclaimer": "Može potrajati nekoliko radnih dana dok ne dobijete povratne informacije. Trudimo se riješiti Vaš problem što prije.",
+      "responseHint": "Može potrajati nekoliko radnih dana dok ne dobijete povratne informacije. Trudimo se riješiti Vaš problem što prije.",
       "submit": "Poslati obrazac",
       "submitSuccessful": "Obrazac uspješno poslan",
       "submitFailed": "Obrazac nije bilo moguće poslati",
@@ -10148,7 +10148,7 @@
       "contactPersonGenderMale": "Szeretném, ha férfi keresne fel",
       "contactReason": "A kérése:",
       "maxCharacters": "maximum {{numberOfCharacters}} karakter",
-      "responseDisclaimer": "Eltelhet egy pár nap, amíg válaszolunk. Igyekszünk a lehető leggyorsabban feldolgozni a kérését.",
+      "responseHint": "Eltelhet egy pár nap, amíg válaszolunk. Igyekszünk a lehető leggyorsabban feldolgozni a kérését.",
       "submit": "Űrlap elküldése",
       "submitSuccessful": "Az űrlapot sikeresen elküldte",
       "submitFailed": "Az űrlapot elküldése nem sikerült",
@@ -10171,7 +10171,7 @@
       "contactPersonGenderMale": "Saya lebih suka dihubungi oleh pria",
       "contactReason": "Permintaan Anda:",
       "maxCharacters": "maksimum {{numberOfCharacters}} karakter",
-      "responseDisclaimer": "Mungkin perlu beberapa hari kerja sebelum Anda menerima respons. Kami berusaha sebaik mungkin untuk memproses permintaan Anda secepatnya.",
+      "responseHint": "Mungkin perlu beberapa hari kerja sebelum Anda menerima respons. Kami berusaha sebaik mungkin untuk memproses permintaan Anda secepatnya.",
       "submit": "Serahkan formulir",
       "submitSuccessful": "Formulir berhasil diserahkan",
       "submitFailed": "Formulir tidak dapat diserahkan",
@@ -10194,7 +10194,7 @@
       "contactPersonGenderMale": "Vorrei essere contattato/a da una persona di sesso maschile",
       "contactReason": "La vostra richiesta:",
       "maxCharacters": "numero massimo di caratteri: {{numberOfCharacters}}",
-      "responseDisclaimer": "Potrebbero essere necessari alcuni giorni lavorativi prima di ricevere una risposta. Ci impegneremo a elaborare la vostra richiesta nel più breve tempo possibile.",
+      "responseHint": "Potrebbero essere necessari alcuni giorni lavorativi prima di ricevere una risposta. Ci impegneremo a elaborare la vostra richiesta nel più breve tempo possibile.",
       "submit": "Invia il modulo",
       "submitSuccessful": "Modulo inviato con successo",
       "submitFailed": "Non è stato possibile inviare il modulo",
@@ -10217,7 +10217,7 @@
       "contactPersonGenderMale": "მე მსურს, რომ მამრობითი სქესის პირისგან მივიღო გამოხმაურება",
       "contactReason": "თქვენი საკითხი:",
       "maxCharacters": "მაქსიმუმ {{numberOfCharacters}} სიმბოლო",
-      "responseDisclaimer": "შესაძლოა რამდენიმე სამუშაო დღე დასჭირდეს, სანამ თქვენ უკუკავშირს მიიღებთ. ჩვენ ვზრუნავთ, რომ თქვენი საკითხი რაც შეიძლება მალე დავამუშავოთ.",
+      "responseHint": "შესაძლოა რამდენიმე სამუშაო დღე დასჭირდეს, სანამ თქვენ უკუკავშირს მიიღებთ. ჩვენ ვზრუნავთ, რომ თქვენი საკითხი რაც შეიძლება მალე დავამუშავოთ.",
       "submit": "ფორმულარის გაგზავნა",
       "submitSuccessful": "ფორმულარი წარმატებით გაიგზავნა",
       "submitFailed": "ფორმულარის გაგზავნა ვერ მოხდა",
@@ -10240,7 +10240,7 @@
       "contactPersonGenderMale": "Ez dixwazim mêrek digel min têkilî dayîne",
       "contactReason": "Daxwaza te:",
       "maxCharacters": "Herî pirr {{numberOfCharacters}} karakter",
-      "responseDisclaimer": "Dibe ku piştî çend rojên karî bersivê wergirî. Em ê hewl bidin ku di dema herî zû da daxwaza te vekolînin.",
+      "responseHint": "Dibe ku piştî çend rojên karî bersivê wergirî. Em ê hewl bidin ku di dema herî zû da daxwaza te vekolînin.",
       "submit": "Şandina formê",
       "submitSuccessful": "Form serkeftî hat şandin",
       "submitFailed": "Form nehat şandin",
@@ -10263,7 +10263,7 @@
       "contactPersonGenderMale": "Сакам да ме контактира машко лице",
       "contactReason": "Вашето барање:",
       "maxCharacters": "максимум {{numberOfCharacters}} знаци",
-      "responseDisclaimer": "Можеби ќе ви требаат неколку работни дена за да добиете одговор. Ќе се потрудиме да го обработиме вашето барање што е можно поскоро.",
+      "responseHint": "Можеби ќе ви требаат неколку работни дена за да добиете одговор. Ќе се потрудиме да го обработиме вашето барање што е можно поскоро.",
       "submit": "Поднеси го формуларот",
       "submitSuccessful": "Формуларот е успешно испратен",
       "submitFailed": "Формуларот не може да се испрати",
@@ -10286,7 +10286,7 @@
       "contactPersonGenderMale": "Ik wil graag gecontacteerd worden door een mannelijke persoon",
       "contactReason": "Uw vraag:",
       "maxCharacters": "maximum {{numberOfCharacters}} tekens",
-      "responseDisclaimer": "Het kan enkele werkdagen duren voordat u een reactie ontvangt. We proberen uw vraag zo snel mogelijk te behandelen.",
+      "responseHint": "Het kan enkele werkdagen duren voordat u een reactie ontvangt. We proberen uw vraag zo snel mogelijk te behandelen.",
       "submit": "Formulier verzenden",
       "submitSuccessful": "Formulier succesvol verzonden",
       "submitFailed": "Formulier kon niet worden verzonden",
@@ -10309,7 +10309,7 @@
       "contactPersonGenderMale": "Ani dhiironni qofti akka na qunnamanin barbaada",
       "contactReason": "Gaaffiin keessan:",
       "maxCharacters": "Taatee guddaa {{numberOfCharacters}}",
-      "responseDisclaimer": "Deebii argachuu kee dura guyyoota hojii muraasa fudhachuu danda’a. Gaaffii keessan saffisaan adeemsisuuf waan dandeenyu hunda ni goona",
+      "responseHint": "Deebii argachuu kee dura guyyoota hojii muraasa fudhachuu danda’a. Gaaffii keessan saffisaan adeemsisuuf waan dandeenyu hunda ni goona",
       "submit": "Unki kan kan galu",
       "submitSuccessful": "Unkaan milkaa’inaan dhiyaate",
       "submitFailed": "Unkaan milkaa’inaan hin dhiyaanne",
@@ -10332,7 +10332,7 @@
       "contactPersonGenderMale": "تمایل دارم توسط یک آقا با من تماس گرفته شود",
       "contactReason": "درخواست شما:",
       "maxCharacters": "حداکثر {{numberOfCharacters}} کاراکتر",
-      "responseDisclaimer": "ممکن است چند روز کاری طول بکشد تا پاسخ را دریافت کنید. ما تلاش خواهیم کرد تا در اسرع وقت به درخواست شما رسیدگی کنیم.",
+      "responseHint": "ممکن است چند روز کاری طول بکشد تا پاسخ را دریافت کنید. ما تلاش خواهیم کرد تا در اسرع وقت به درخواست شما رسیدگی کنیم.",
       "submit": "ارسال فرم",
       "submitSuccessful": "فرم با موفقیت ارسال شد",
       "submitFailed": "فرم ارسال نشد",
@@ -10355,7 +10355,7 @@
       "contactPersonGenderMale": "Chcę, aby skontaktowała się ze mną osoba płci męskiej",
       "contactReason": "Moja sprawa:",
       "maxCharacters": "maksymalna liczba znaków: {{numberOfCharacters}}",
-      "responseDisclaimer": "Zanim otrzymasz odpowiedź, może minąć kilka dni roboczych. Dołożymy wszelkich starań, aby rozpatrzyć Twoją sprawę możliwie szybko.",
+      "responseHint": "Zanim otrzymasz odpowiedź, może minąć kilka dni roboczych. Dołożymy wszelkich starań, aby rozpatrzyć Twoją sprawę możliwie szybko.",
       "submit": "Wyślij formularz",
       "submitSuccessful": "Formularz wysłany pomyślnie",
       "submitFailed": "Nie można wysłać formularza",
@@ -10378,7 +10378,7 @@
       "contactPersonGenderMale": "میخواهم یک مرد با من تماس بگیرد",
       "contactReason": "درخواست شما:",
       "maxCharacters": "حداکثر {{numberOfCharacters}} حروف",
-      "responseDisclaimer": "ممکن است چند روز کاری طول بکشد تا پاسخ را دریافت کنید. ما تلاش خواهیم کرد تا در اسرع وقت به درخواست شما رسیدگی کنیم.",
+      "responseHint": "ممکن است چند روز کاری طول بکشد تا پاسخ را دریافت کنید. ما تلاش خواهیم کرد تا در اسرع وقت به درخواست شما رسیدگی کنیم.",
       "submit": "ارسال نمودن فورم",
       "submitSuccessful": "فورم با موفقیت ارسال شد",
       "submitFailed": "فورم ارسال نشد",
@@ -10401,7 +10401,7 @@
       "contactPersonGenderMale": "زه غواړم چې له ما سره د نارينه له لوري اړيکه ونيول شي",
       "contactReason": "ستاسو غوښتنه:",
       "maxCharacters": "په اعظمي ډول {{numberOfCharacters}} توري",
-      "responseDisclaimer": "د ځواب ترلاسه کول ښايي يو څو کاري ورځې وخت ونيسي. مونږ به هڅه وکړو چې ستاسو غوښتنې ته ژر تر ژر رسېدنه وکړو.",
+      "responseHint": "د ځواب ترلاسه کول ښايي يو څو کاري ورځې وخت ونيسي. مونږ به هڅه وکړو چې ستاسو غوښتنې ته ژر تر ژر رسېدنه وکړو.",
       "submit": "فورمه وسپارئ",
       "submitSuccessful": "فورمه په برياليتوب سره ولېږل شوه",
       "submitFailed": "فورمه نشي لېږل کېدی",
@@ -10424,7 +10424,7 @@
       "contactPersonGenderMale": "Gostaria de ser contactado por uma pessoa do sexo masculino",
       "contactReason": "O seu assunto:",
       "maxCharacters": "máximo de {{numberOfCharacters}} caracteres",
-      "responseDisclaimer": "Pode demorar alguns dias úteis até receber uma resposta. Esforçar-nos-emos por tratar do seu assunto o mais rapidamente possível.",
+      "responseHint": "Pode demorar alguns dias úteis até receber uma resposta. Esforçar-nos-emos por tratar do seu assunto o mais rapidamente possível.",
       "submit": "Enviar formulário",
       "submitSuccessful": "Formulário enviado com sucesso",
       "submitFailed": "Não foi possível enviar o formulário",
@@ -10447,7 +10447,7 @@
       "contactPersonGenderMale": "Aș dori să fiu contactat de o persoană de sex masculin",
       "contactReason": "Solicitarea dumneavoastră:",
       "maxCharacters": "maxim {{numberOfCharacters}} caractere",
-      "responseDisclaimer": "Este posibil să dureze câteva zile lucrătoare până când veți primi un răspuns. Ne vom strădui să procesăm cererea dumneavoastră cât mai repede posibil.",
+      "responseHint": "Este posibil să dureze câteva zile lucrătoare până când veți primi un răspuns. Ne vom strădui să procesăm cererea dumneavoastră cât mai repede posibil.",
       "submit": "Trimiteți formularul",
       "submitSuccessful": "Formular trimis cu succes",
       "submitFailed": "Formularul nu a putut fi trimis",
@@ -10470,7 +10470,7 @@
       "contactPersonGenderMale": "Bi mangava te ovav kontaktirimo taro murš",
       "contactReason": "To rodiba:",
       "maxCharacters": "maksimum {{numberOfCharacters}} karakteria",
-      "responseDisclaimer": "Šaj te lel nekobor bukjakere dive angleder te dobine to džovapi. Ka kera sa amendar te šaj te procesujna to rodibe so šaj sigjeder.",
+      "responseHint": "Šaj te lel nekobor bukjakere dive angleder te dobine to džovapi. Ka kera sa amendar te šaj te procesujna to rodibe so šaj sigjeder.",
       "submit": "Bičhal i forma",
       "submitSuccessful": "I forma uspešno bičhaldi",
       "submitFailed": "I forma našti te ovel bičhaldi",
@@ -10493,7 +10493,7 @@
       "contactPersonGenderMale": "Я хотел/-а бы, чтобы со мной связался мужчина",
       "contactReason": "Причина обращения:",
       "maxCharacters": "максимум {{numberOfCharacters}} знаков",
-      "responseDisclaimer": "Получение ответа может занять несколько рабочих дней. Мы постараемся обработать ваше обращение как можно быстрее.",
+      "responseHint": "Получение ответа может занять несколько рабочих дней. Мы постараемся обработать ваше обращение как можно быстрее.",
       "submit": "Отправить форму",
       "submitSuccessful": "Форма успешно отправлена",
       "submitFailed": "Не удалось отправить форму",
@@ -10516,7 +10516,7 @@
       "contactPersonGenderMale": "Chcel/a by som, aby ma kontaktovala osoba mužského pohlavia",
       "contactReason": "Vaša žiadosť:",
       "maxCharacters": "maximálne {{numberOfCharacters}} znakov",
-      "responseDisclaimer": "Môže trvať niekoľko pracovných dní, kým obdržíte spätné hlásenie. Vašu žiadosť sa budeme snažiť spracovať čo najrýchlejšie.",
+      "responseHint": "Môže trvať niekoľko pracovných dní, kým obdržíte spätné hlásenie. Vašu žiadosť sa budeme snažiť spracovať čo najrýchlejšie.",
       "submit": "Odoslať formulár",
       "submitSuccessful": "Formulár bol úspešne odoslaný",
       "submitFailed": "Formulár nebolo možné odoslať",
@@ -10539,7 +10539,7 @@
       "contactPersonGenderMale": "Waxaan jeclaan lahaa in qof rag ah ila soo xiriiro",
       "contactReason": "Adiga codsigaaga:",
       "maxCharacters": "ugu badan {{numberOfCharacters}} xaraf",
-      "responseDisclaimer": "Waxa ay qaadan kartaa dhowr maalin kahor inta aadan jawaab helin. Waxaan sameyn doona inta awoodena ah in aan dadajino ka shaqeynta codsigaaga.",
+      "responseHint": "Waxa ay qaadan kartaa dhowr maalin kahor inta aadan jawaab helin. Waxaan sameyn doona inta awoodena ah in aan dadajino ka shaqeynta codsigaaga.",
       "submit": "Foomka dir",
       "submitSuccessful": "Waad ku guuleysatay in aad foomka dirto",
       "submitFailed": "Foomka waa la diri kari waayay",
@@ -10562,7 +10562,7 @@
       "contactPersonGenderMale": "Dua të më kontaktojë një mashkull",
       "contactReason": "Kërkesa juaj:",
       "maxCharacters": "jo më shumë se {{numberOfCharacters}} karaktere",
-      "responseDisclaimer": "Mund të zgjasë disa ditë punë derisa të merrni një përgjigje. Ne përpiqemi që ta përpunojmë sa më shpejt kërkesën tuaj.",
+      "responseHint": "Mund të zgjasë disa ditë punë derisa të merrni një përgjigje. Ne përpiqemi që ta përpunojmë sa më shpejt kërkesën tuaj.",
       "submit": "Dërgoni formularin",
       "submitSuccessful": "Formulari u dërgua me sukses",
       "submitFailed": "Formulari nuk mund të dërgohej",
@@ -10585,7 +10585,7 @@
       "contactPersonGenderMale": "Желим да ме контактира особа мушког пола",
       "contactReason": "Ваш проблем:",
       "maxCharacters": "највише {{numberOfCharacters}} знакова",
-      "responseDisclaimer": "Може потрајати неколико радних дана док не добијете повратне информације. Трудимо се да ваш проблем решимо што је пре могуће.",
+      "responseHint": "Може потрајати неколико радних дана док не добијете повратне информације. Трудимо се да ваш проблем решимо што је пре могуће.",
       "submit": "Пошалји образац",
       "submitSuccessful": "Образац успешно послат",
       "submitFailed": "Није било могуће послати образац",
@@ -10608,7 +10608,7 @@
       "contactPersonGenderMale": "Želim da me kontaktira osoba muškog pola",
       "contactReason": "Vaš problem:",
       "maxCharacters": "najviše {{numberOfCharacters}} znakova",
-      "responseDisclaimer": "Može potrajati nekoliko radnih dana dok ne dobijete povratne informacije. Trudimo se da vaš problem rešimo što je pre moguće.",
+      "responseHint": "Može potrajati nekoliko radnih dana dok ne dobijete povratne informacije. Trudimo se da vaš problem rešimo što je pre moguće.",
       "submit": "Pošalji obrazac",
       "submitSuccessful": "Obrazac uspešno poslat",
       "submitFailed": "Nije bilo moguće poslati obrazac",
@@ -10631,7 +10631,7 @@
       "contactPersonGenderMale": "Ningependa kuwasiliana na mtu wa kiume",
       "contactReason": "Ombi lako:",
       "maxCharacters": "zisizidi herufi {{numberOfCharacters}}",
-      "responseDisclaimer": "Unaweza kusubiri kwa siku chache za kazi kabla ya kupokea jibu. Tutajitahidi kadri tuwezavyo kushughulikia ombi lako haraka iwezekanavyo.",
+      "responseHint": "Unaweza kusubiri kwa siku chache za kazi kabla ya kupokea jibu. Tutajitahidi kadri tuwezavyo kushughulikia ombi lako haraka iwezekanavyo.",
       "submit": "Tuma fomu",
       "submitSuccessful": "Fomu imetumwa",
       "submitFailed": "Fomu imeshindwa kutumwa",
@@ -10654,7 +10654,7 @@
       "contactPersonGenderMale": "ฉันต้องการให้ติดต่อโดยผู้ชาย",
       "contactReason": "ความกังวลของคุณ:",
       "maxCharacters": "อักขระสูงสุด {{numberOfCharacters}} ตัว",
-      "responseDisclaimer": "อาจต้องใช้เวลาสองสามวันทำการกว่าคุณจะได้รับการตอบกลับ เราจะพยายามประมวลผลคำขอของคุณให้เร็วที่สุด",
+      "responseHint": "อาจต้องใช้เวลาสองสามวันทำการกว่าคุณจะได้รับการตอบกลับ เราจะพยายามประมวลผลคำขอของคุณให้เร็วที่สุด",
       "submit": "ส่งแบบฟอร์ม",
       "submitSuccessful": "ส่งแบบฟอร์มเรียบร้อยแล้ว",
       "submitFailed": "ไม่สามารถส่งแบบฟอร์มได้",
@@ -10677,7 +10677,7 @@
       "contactPersonGenderMale": "ወዲ ተባዕታይ ክረኽበኒ ደስ ይብለኒ።",
       "contactReason": "ሕቶኹም፤",
       "maxCharacters": "ዝለዓለ {{numberOfCharacters}} ፊደላት",
-      "responseDisclaimer": "መልሲ ክሳብ እትረክቡ ውሑዳት ናይ ስራሕ መዓልታት ክወስደልኩም ይኽእል እዩ። ንሕቶኹም ብዝተኻእለ መጠን ብቕልጡፍ ክንሰርሓሉ ክንጽዕር ኢና።",
+      "responseHint": "መልሲ ክሳብ እትረክቡ ውሑዳት ናይ ስራሕ መዓልታት ክወስደልኩም ይኽእል እዩ። ንሕቶኹም ብዝተኻእለ መጠን ብቕልጡፍ ክንሰርሓሉ ክንጽዕር ኢና።",
       "submit": "ቅጥዒ ኣቅርቡ",
       "submitSuccessful": "ቅጥዒ ብዓወት ተላኢኹ",
       "submitFailed": "ቅጥዒ ክለኣኽ ኣይተኻእለን",
@@ -10700,7 +10700,7 @@
       "contactPersonGenderMale": "Bir erkeğin benimle iletişime geçmesini rica ediyorum",
       "contactReason": "Konunuz:",
       "maxCharacters": "maksimum {{numberOfCharacters}} karakter",
-      "responseDisclaimer": "Yanıt almanız birkaç işgünü sürebilir. Konunuzu mümkün olan en kısa sürede işlemek üzere çaba gösteriyoruz.",
+      "responseHint": "Yanıt almanız birkaç işgünü sürebilir. Konunuzu mümkün olan en kısa sürede işlemek üzere çaba gösteriyoruz.",
       "submit": "Formu gönder",
       "submitSuccessful": "Form başarıyla gönderildi",
       "submitFailed": "Form gönderilemedi",
@@ -10723,7 +10723,7 @@
       "contactPersonGenderMale": "Я хотіла б, щоб зі мною зв'язалася особа чоловічої статі",
       "contactReason": "Ваше звернення:",
       "maxCharacters": "максимум {{numberOfCharacters}} символів",
-      "responseDisclaimer": "Відповідь може надійти через кілька робочих днів. Ми постараємося якнайшвидше обробити ваш запит.",
+      "responseHint": "Відповідь може надійти через кілька робочих днів. Ми постараємося якнайшвидше обробити ваш запит.",
       "submit": "Форма для відправки",
       "submitSuccessful": "Форму успішно відправлено",
       "submitFailed": "Не вдалося відправити форму",
@@ -10746,7 +10746,7 @@
       "contactPersonGenderMale": "میں چاہتا ہوں کہ ایک مرد شخص مجھ سے رابطہ کرے",
       "contactReason": "آپ کی درخواست:",
       "maxCharacters": "زیادہ سے زیادہ {{numberOfCharacters}} حروف",
-      "responseDisclaimer": "آپ کو جواب موصول ہونے میں کچھ کام کے دن لگ سکتے ہیں۔ ہم آپ کی درخواست پر جلد سے جلد کارروائی کرنے کی کوشش کریں گے۔",
+      "responseHint": "آپ کو جواب موصول ہونے میں کچھ کام کے دن لگ سکتے ہیں۔ ہم آپ کی درخواست پر جلد سے جلد کارروائی کرنے کی کوشش کریں گے۔",
       "submit": "فارم بھیجئے",
       "submitSuccessful": "فارم کامیابی کے ساتھ بھیج دیا گیا",
       "submitFailed": "فارم بھیجا نہیں جا سکا",
@@ -10769,7 +10769,7 @@
       "contactPersonGenderMale": "Tôi muốn liên hệ với người phụ trách là nam giới",
       "contactReason": "Nội dung yêu cầu:",
       "maxCharacters": "tối đa {{numberOfCharacters}} ký tự",
-      "responseDisclaimer": "Có thể mất vài ngày làm việc trước khi bạn nhận được phản hồi. Chúng tôi sẽ cố gắng xử lý yêu cầu của bạn trong thời gian sớm nhất có thể.",
+      "responseHint": "Có thể mất vài ngày làm việc trước khi bạn nhận được phản hồi. Chúng tôi sẽ cố gắng xử lý yêu cầu của bạn trong thời gian sớm nhất có thể.",
       "submit": "Gửi biểu mẫu",
       "submitSuccessful": "Biểu mẫu đã được gửi thành công",
       "submitFailed": "Không thể gửi biểu mẫu",
@@ -10792,7 +10792,7 @@
       "contactPersonGenderMale": "我希望由男士与我联系",
       "contactReason": "您的请求：",
       "maxCharacters": "最多 {{numberOfCharacters}} 个字符",
-      "responseDisclaimer": "您可能需要几个工作日才能收到回复。我们将尽力尽快处理您的请求。",
+      "responseHint": "您可能需要几个工作日才能收到回复。我们将尽力尽快处理您的请求。",
       "submit": "发送表格",
       "submitSuccessful": "表格已成功发送",
       "submitFailed": "无法发送表格",

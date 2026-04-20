@@ -7,11 +7,11 @@ import {
   CATEGORIES_TAB_ROUTE,
   CITY_NOT_COOPERATING_ROUTE,
   CONSENT_ROUTE,
-  DISCLAIMER_ROUTE,
+  IMPRINT_ROUTE,
   EVENTS_ROUTE,
   LANDING_ROUTE,
   LICENSES_ROUTE,
-  MAIN_DISCLAIMER_ROUTE,
+  MAIN_IMPRINT_ROUTE,
   NEWS_ROUTE,
   POIS_ROUTE,
   RouteInformationType,
@@ -52,7 +52,7 @@ const navigate = <T extends RoutesType>(
     return
   }
 
-  if (route === MAIN_DISCLAIMER_ROUTE) {
+  if (route === MAIN_IMPRINT_ROUTE) {
     openExternalUrl(url, showSnackbar).catch(reportError)
     return
   }
@@ -113,8 +113,8 @@ const navigate = <T extends RoutesType>(
       )
       return
 
-    case DISCLAIMER_ROUTE:
-      navigate(DISCLAIMER_ROUTE)
+    case IMPRINT_ROUTE:
+      navigate(IMPRINT_ROUTE)
       return
 
     case SEARCH_ROUTE:

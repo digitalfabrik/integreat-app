@@ -5,21 +5,21 @@ import EndpointBuilder from '../EndpointBuilder'
 import { API_VERSION } from '../constants'
 import NotFoundError from '../errors/NotFoundError'
 import PageModel from '../models/PageModel'
-import { JsonDisclaimerType } from '../types'
+import { JsonImprintType } from '../types'
 
-export const DISCLAIMER_ENDPOINT_NAME = 'disclaimer'
+export const IMPRINT_ENDPOINT_NAME = 'imprint'
 type ParamsType = {
   city: string
   language: string
 }
 export default (baseUrl: string): Endpoint<ParamsType, PageModel> =>
-  new EndpointBuilder<ParamsType, PageModel>(DISCLAIMER_ENDPOINT_NAME)
+  new EndpointBuilder<ParamsType, PageModel>(IMPRINT_ENDPOINT_NAME)
     .withParamsToUrlMapper(
-      (params: ParamsType): string => `${baseUrl}/api/${API_VERSION}/${params.city}/${params.language}/disclaimer/`,
+      (params: ParamsType): string => `${baseUrl}/api/${API_VERSION}/${params.city}/${params.language}/imprint/`,
     )
-    .withMapper((json: JsonDisclaimerType | null | undefined, params: ParamsType): PageModel => {
+    .withMapper((json: JsonImprintType | null | undefined, params: ParamsType): PageModel => {
       if (!json) {
-        throw new NotFoundError({ ...params, type: 'disclaimer', id: '' })
+        throw new NotFoundError({ ...params, type: 'imprint', id: '' })
       }
 
       return new PageModel({

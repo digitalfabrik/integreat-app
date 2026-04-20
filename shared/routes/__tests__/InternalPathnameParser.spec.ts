@@ -1,6 +1,6 @@
 import {
   CATEGORIES_ROUTE,
-  DISCLAIMER_ROUTE,
+  IMPRINT_ROUTE,
   EVENTS_ROUTE,
   LANDING_ROUTE,
   LOCAL_NEWS_TYPE,
@@ -117,11 +117,11 @@ describe('InternalPathnameParser', () => {
     })
   })
 
-  it('should match disclaimer route', () => {
-    const pathname = `/${cityCode}/${languageCode}/${DISCLAIMER_ROUTE}`
+  it('should match imprint route', () => {
+    const pathname = `/${cityCode}/${languageCode}/${IMPRINT_ROUTE}`
     const parser = new InternalPathnameParser(pathname, languageCode, null)
     expect(parser.route()).toEqual({
-      route: DISCLAIMER_ROUTE,
+      route: IMPRINT_ROUTE,
       languageCode,
       cityCode,
     })
@@ -334,11 +334,11 @@ describe('InternalPathnameParser', () => {
       })
     })
 
-    it('should match disclaimer route', () => {
-      const pathname = `/${fixedCity}/${languageCode}/${DISCLAIMER_ROUTE}`
+    it('should match imprint route', () => {
+      const pathname = `/${fixedCity}/${languageCode}/${IMPRINT_ROUTE}`
       const parser = new InternalPathnameParser(pathname, languageCode, fixedCity)
       expect(parser.route()).toEqual({
-        route: DISCLAIMER_ROUTE,
+        route: IMPRINT_ROUTE,
         languageCode,
         cityCode: fixedCity,
       })
@@ -465,7 +465,7 @@ describe('InternalPathnameParser', () => {
       expect(parser5.route()).toBeNull()
       const parser6 = new InternalPathnameParser(`/${cityCode}/${languageCode}/offers`, languageCode, fixedCity)
       expect(parser6.route()).toBeNull()
-      const parser7 = new InternalPathnameParser(`/${cityCode}/${languageCode}/disclaimer`, languageCode, fixedCity)
+      const parser7 = new InternalPathnameParser(`/${cityCode}/${languageCode}/imprint`, languageCode, fixedCity)
       expect(parser7.route()).toBeNull()
       const parser8 = new InternalPathnameParser(`/${cityCode}/${languageCode}/search`, languageCode, fixedCity)
       expect(parser8.route()).toBeNull()
@@ -531,11 +531,11 @@ describe('InternalPathnameParser', () => {
       })
     })
 
-    it('should match disclaimer route', () => {
-      const pathname = `/${cityCode}/${DISCLAIMER_ROUTE}`
+    it('should match imprint route', () => {
+      const pathname = `/${cityCode}/${IMPRINT_ROUTE}`
       const parser = new InternalPathnameParser(pathname, languageCode, null)
       expect(parser.route()).toEqual({
-        route: DISCLAIMER_ROUTE,
+        route: IMPRINT_ROUTE,
         languageCode,
         cityCode,
       })

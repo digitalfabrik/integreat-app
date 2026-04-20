@@ -6,8 +6,8 @@ import {
   CATEGORIES_ROUTE,
   CategoriesRouteType,
   CHANGE_LANGUAGE_MODAL_ROUTE,
-  DISCLAIMER_ROUTE,
-  DisclaimerRouteType,
+  IMPRINT_ROUTE,
+  ImprintRouteType,
   NewsRouteType,
   POIS_ROUTE,
   PoisRouteType,
@@ -93,7 +93,7 @@ describe('Header', () => {
     languages?: LanguageModel[]
     availableLanguages?: string[]
     shareUrl?: string
-    route?: RouteProps<CategoriesRouteType | PoisRouteType | DisclaimerRouteType | NewsRouteType>
+    route?: RouteProps<CategoriesRouteType | PoisRouteType | ImprintRouteType | NewsRouteType>
   }) =>
     render(
       <TestingAppContext cityCode={cityModel.code} languageCode={languageModel.code}>
@@ -212,14 +212,14 @@ describe('Header', () => {
     const spy = jest.spyOn(Linking, 'openURL')
     spy.mockImplementation(openURL)
     const { getByTestId, getByText } = renderHeader({
-      route: { key: 'key-0', name: DISCLAIMER_ROUTE },
+      route: { key: 'key-0', name: IMPRINT_ROUTE },
     })
     fireEvent.press(getByTestId('header-overflow-menu-button'))
     fireEvent.press(getByText(t('share')))
 
     expect(Share.share).toHaveBeenCalledWith({
-      message: 'shareMessage: disclaimer - Stadt Augsburg\nhttps://example.com/share',
-      title: 'disclaimer - Stadt Augsburg',
+      message: 'shareMessage: imprint - Stadt Augsburg\nhttps://example.com/share',
+      title: 'imprint - Stadt Augsburg',
     })
   })
 

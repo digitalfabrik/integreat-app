@@ -1,8 +1,8 @@
 import {
   CATEGORIES_ROUTE,
   CategoriesRouteType,
-  DISCLAIMER_ROUTE,
-  DisclaimerRouteType,
+  IMPRINT_ROUTE,
+  ImprintRouteType,
   EVENTS_ROUTE,
   EventsRouteType,
   POIS_ROUTE,
@@ -35,7 +35,7 @@ export type FeedbackRouteType =
   | CategoriesRouteType
   | EventsRouteType
   | PoisRouteType
-  | DisclaimerRouteType
+  | ImprintRouteType
   | SearchRouteType
 
 export type ParamsType = {
@@ -55,7 +55,7 @@ const getFeedbackType = (routeType: FeedbackRouteType, slug?: string): FeedbackT
     case EVENTS_ROUTE:
       return slug ? FeedbackType.event : FeedbackType.events
 
-    case DISCLAIMER_ROUTE:
+    case IMPRINT_ROUTE:
       return FeedbackType.imprint
 
     case POIS_ROUTE:

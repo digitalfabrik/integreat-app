@@ -1,7 +1,7 @@
 import React from 'react'
 import { useLocation } from 'react-router'
 
-import { DISCLAIMER_ROUTE, NEWS_ROUTE, normalizePath, POIS_ROUTE, SEARCH_ROUTE } from 'shared'
+import { IMPRINT_ROUTE, NEWS_ROUTE, normalizePath, POIS_ROUTE, SEARCH_ROUTE } from 'shared'
 import { CityModel, CityModelBuilder } from 'shared/api'
 import {
   mockUseLoadFromEndpointWithData,
@@ -21,7 +21,7 @@ jest.mock('../components/CityContentLayout')
 jest.mock('react-i18next')
 
 jest.mock('../routes/SearchPage', () => () => <div>{SEARCH_ROUTE}</div>)
-jest.mock('../routes/DisclaimerPage', () => () => <div>{DISCLAIMER_ROUTE}</div>)
+jest.mock('../routes/ImprintPage', () => () => <div>{IMPRINT_ROUTE}</div>)
 jest.mock('../routes/PoisPage', () => () => <div>{POIS_ROUTE}</div>)
 
 describe('CityContentSwitcher', () => {
@@ -45,7 +45,7 @@ describe('CityContentSwitcher', () => {
       },
     )
 
-  it.each([{ routeName: SEARCH_ROUTE }, { routeName: DISCLAIMER_ROUTE }, { routeName: POIS_ROUTE }])(
+  it.each([{ routeName: SEARCH_ROUTE }, { routeName: IMPRINT_ROUTE }, { routeName: POIS_ROUTE }])(
     'should navigate to $routeName route',
     async ({ routeName }) => {
       mockUseLoadFromEndpointWithData(city)

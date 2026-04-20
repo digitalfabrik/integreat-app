@@ -2,11 +2,11 @@ import {
   CATEGORIES_ROUTE,
   CITY_NOT_COOPERATING_ROUTE,
   CONSENT_ROUTE,
-  DISCLAIMER_ROUTE,
+  IMPRINT_ROUTE,
   EVENTS_ROUTE,
   LANDING_ROUTE,
   LICENSES_ROUTE,
-  MAIN_DISCLAIMER_ROUTE,
+  MAIN_IMPRINT_ROUTE,
   NEWS_ROUTE,
   POIS_ROUTE,
   SEARCH_ROUTE,
@@ -35,9 +35,9 @@ export const pathnameFromRouteInformation = (routeInformation: NonNullableRouteI
   if (
     routeInformation.route === LICENSES_ROUTE ||
     routeInformation.route === CONSENT_ROUTE ||
-    routeInformation.route === MAIN_DISCLAIMER_ROUTE
+    routeInformation.route === MAIN_IMPRINT_ROUTE
   ) {
-    // https://integreat.app/consent, https://integreat.app/licenses, https://integreat.app/main-disclaimer
+    // https://integreat.app/consent, https://integreat.app/licenses, https://integreat.app/main-imprint
     return constructPathname([routeInformation.route])
   }
   if (routeInformation.route === CITY_NOT_COOPERATING_ROUTE) {
@@ -54,7 +54,7 @@ export const pathnameFromRouteInformation = (routeInformation: NonNullableRouteI
     return constructPathname([cityCode, languageCode, route, slug])
   }
   if (
-    routeInformation.route === DISCLAIMER_ROUTE ||
+    routeInformation.route === IMPRINT_ROUTE ||
     routeInformation.route === SEARCH_ROUTE ||
     routeInformation.route === NEWS_ROUTE
   ) {

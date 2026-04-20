@@ -166,7 +166,7 @@ const MalteHelpFormOffer = ({
         />
 
         <Text variant='body2' style={{ flex: 1 }}>
-          {t('responseDisclaimer')}
+          {t('responseHint')}
         </Text>
         <PrivacyCheckbox
           language={languageCode}

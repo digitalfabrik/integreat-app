@@ -93,7 +93,7 @@ export type JsonChatMessagesType = {
   messages: JsonChatMessageType[]
 }
 
-export type JsonDisclaimerType = JsonCategoryType
+export type JsonImprintType = JsonCategoryType
 
 type JsonContactType = {
   name: string | null

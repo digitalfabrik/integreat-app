@@ -4,7 +4,7 @@ import { Navigate, Route, Routes, useLocation, useParams } from 'react-router'
 import {
   CATEGORIES_ROUTE,
   cityContentPath,
-  DISCLAIMER_ROUTE,
+  IMPRINT_ROUTE,
   EVENTS_ROUTE,
   NEWS_ROUTE,
   normalizePath,
@@ -30,7 +30,7 @@ const CategoriesPage = lazyWithRetry(() => import('./routes/CategoriesPage'))
 const LocalNewsPage = lazyWithRetry(() => import('./routes/LocalNewsPage'))
 const PoisPage = lazyWithRetry(() => import('./routes/PoisPage'))
 const SearchPage = lazyWithRetry(() => import('./routes/SearchPage'))
-const DisclaimerPage = lazyWithRetry(() => import('./routes/DisclaimerPage'))
+const ImprintPage = lazyWithRetry(() => import('./routes/ImprintPage'))
 
 type CityContentSwitcherProps = {
   languageCode: string
@@ -123,7 +123,7 @@ const CityContentSwitcher = ({ languageCode }: CityContentSwitcherProps): ReactE
   return (
     <Routes>
       {render(SEARCH_ROUTE, SearchPage)}
-      {render(DISCLAIMER_ROUTE, DisclaimerPage)}
+      {render(IMPRINT_ROUTE, ImprintPage)}
       {render(CATEGORIES_ROUTE, CategoriesPage)}
       {eventsEnabled && render(EVENTS_ROUTE, EventsPage, ':eventId')}
 
