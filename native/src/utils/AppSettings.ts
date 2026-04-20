@@ -4,6 +4,8 @@ import { mapValues } from 'lodash'
 import { ThemeKey } from 'build-configs/ThemeKey'
 import { ExternalSourcePermissions } from 'shared'
 
+import { log } from './sentry'
+
 export const ASYNC_STORAGE_VERSION = 2
 export type SettingsType = {
   storageVersion: number | null
@@ -35,6 +37,8 @@ const migrateToV2 = async (): Promise<void> => {
     return
   }
 
+  log('Migrating settings to v2')
+
   const keys = Object.keys(defaultSettings) as (keyof SettingsType)[]
   const values = await Promise.all(keys.map(key => LegacyAsyncStorage.getItem(key)))
 
@@ -47,6 +51,8 @@ const migrateToV2 = async (): Promise<void> => {
   }, {})
 
   await settingsStorage.setMany({ ...settingsToCopy, storageVersion: JSON.stringify(ASYNC_STORAGE_VERSION) })
+
+  log('Migrated settings to v2')
 }
 
 class AppSettings {
