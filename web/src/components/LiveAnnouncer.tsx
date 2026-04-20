@@ -24,11 +24,7 @@ const LiveAnnouncer = ({ message }: LiveAnnouncerProps): ReactElement => {
     setAnnounced(message)
   }, [message])
 
-  return (
-    <VisuallyHidden role='status' aria-live='polite' aria-atomic='true'>
-      {announced}
-    </VisuallyHidden>
-  )
+  return <VisuallyHidden role='status'>{announced}</VisuallyHidden>
 }
 
 export default LiveAnnouncer
