@@ -20,10 +20,9 @@ const AppointmentOnlyOverlay = ({
 
   return (
     <AlertDialog
-      titleTextVariant='subtitle2'
       visible={isVisible}
-      onDismiss={closeOverlay}
-      title={t('appointmentNecessary')}>
+      close={closeOverlay}
+      title={<Text variant='subtitle2'>{t('appointmentNecessary')}</Text>}>
       <Text>
         <Trans i18nKey='pois:makeAppointmentTooltipWithLink'>
           This gets replaced

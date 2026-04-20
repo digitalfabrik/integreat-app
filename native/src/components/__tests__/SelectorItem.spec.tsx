@@ -20,17 +20,13 @@ describe('SelectorItem', () => {
     expect(onPress).toHaveBeenCalledTimes(1)
   })
 
-  it('should show info icon if disabled and not selected', () => {
-    const model = new SelectorItemModel({ name: 'Espanol', code: 'es', enabled: false, onPress: jest.fn() })
-    const { getByLabelText } = render(<SelectorItem model={model} selected={false} />)
+  it('should not call onPress if disabled', () => {
+    const onPress = jest.fn()
+    const model = new SelectorItemModel({ name: 'Espanol', code: 'es', enabled: false, onPress })
+    const { getByText } = render(<SelectorItem model={model} selected={false} />)
 
-    expect(getByLabelText('informationIcon')).toBeTruthy()
-  })
+    fireEvent.press(getByText(model.name))
 
-  it('should not show info icon if enabled', () => {
-    const model = new SelectorItemModel({ name: 'Espanol', code: 'es', enabled: true, onPress: jest.fn() })
-    const { queryByLabelText } = render(<SelectorItem model={model} selected={false} />)
-
-    expect(queryByLabelText('informationIcon')).toBeNull()
+    expect(onPress).not.toHaveBeenCalled()
   })
 })

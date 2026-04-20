@@ -10,6 +10,7 @@ import { LanguageModel } from 'shared/api'
 import { config } from 'translations'
 
 import Selector from '../components/Selector'
+import SelectorItem from '../components/SelectorItem'
 import AlertDialog from '../components/base/AlertDialog'
 import Text from '../components/base/Text'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
@@ -66,24 +67,16 @@ const ChangeLanguageModal = ({ navigation, route }: ChangeLanguageModalProps): R
     loadPolyfillIfNeeded(languageCode).then(() => setPolyfillLoaded(true))
   }, [languageCode])
 
-  const allLanguages = useMemo(() => {
-    const cityCodes = new Set(languages.map(language => language.code))
-    const unsupported = Object.entries(config.supportedLanguages)
-      .filter(([code]) => !cityCodes.has(code))
-      .map(([code, { name }]) => ({ code, name }) as LanguageModel)
-    return [...languages, ...unsupported]
-  }, [languages])
-
   const filteredLanguages = useMemo(() => {
     if (query === '') {
-      return allLanguages
+      return languages
     }
     const languageNamesInCurrentLanguage = new Intl.DisplayNames([languageCode], { type: 'language' })
     const languageNamesInFallbackLanguage = new Intl.DisplayNames([config.sourceLanguage], { type: 'language' })
-    return allLanguages.filter(item =>
+    return languages.filter(item =>
       filterLanguages(item, query, languageNamesInCurrentLanguage, languageNamesInFallbackLanguage),
     )
-  }, [allLanguages, query, languageCode])
+  }, [languages, query, languageCode])
 
   const selectorItems = useMemo(() => {
     const languageNamesInCurrentLanguage = polyfillLoaded
@@ -96,17 +89,22 @@ const ChangeLanguageModal = ({ navigation, route }: ChangeLanguageModalProps): R
         name,
         enabled: isLanguageAvailable,
         accessibilityLabel: languageNamesInCurrentLanguage?.of(code) ?? name,
-        onPress: isLanguageAvailable
-          ? () => {
-              if (code !== languageCode) {
-                changeLanguageCode(code)
-              }
-              navigation.goBack()
-            }
-          : () => setIsUnavailableDialogOpen(true),
+        onPress: () => {
+          if (code !== languageCode) {
+            changeLanguageCode(code)
+          }
+          navigation.goBack()
+        },
       })
     })
   }, [filteredLanguages, availableLanguages, languageCode, changeLanguageCode, navigation, polyfillLoaded])
+
+  const languageNotFoundItem = new SelectorItemModel({
+    code: 'language-not-found',
+    name: t('languageNotFoundQuestion'),
+    enabled: true,
+    onPress: () => setIsUnavailableDialogOpen(true),
+  })
 
   return (
     <>
@@ -122,13 +120,16 @@ const ChangeLanguageModal = ({ navigation, route }: ChangeLanguageModalProps): R
             backgroundColor: theme.dark ? theme.colors.tertiary : theme.colors.surfaceVariant,
           }}
         />
-        <Selector selectedItemCode={languageCode} items={selectorItems} />
+        {filteredLanguages.length === 0 ? (
+          <SelectorItem model={languageNotFoundItem} selected={false} />
+        ) : (
+          <Selector selectedItemCode={languageCode} items={selectorItems} />
+        )}
       </Wrapper>
       <AlertDialog
-        titleTextVariant='subtitle1'
         visible={isUnavailableDialogOpen}
-        onDismiss={() => setIsUnavailableDialogOpen(false)}
-        title={t('languageNotAvailableTitle')}>
+        close={() => setIsUnavailableDialogOpen(false)}
+        title={<Text variant='subtitle1'>{t('noTranslation')}</Text>}>
         <Text>{t('languageNotAvailableMessage')}</Text>
       </AlertDialog>
     </>

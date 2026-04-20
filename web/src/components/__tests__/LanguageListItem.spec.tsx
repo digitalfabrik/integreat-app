@@ -45,19 +45,12 @@ describe('LanguageListItem', () => {
     expect(link).toHaveAttribute('aria-selected', 'true')
   })
 
-  it('should call unavailable click handler', () => {
-    const onUnavailableLanguageClick = jest.fn()
+  it('should render a tooltip correctly', () => {
     const { getByText } = renderWithRouterAndTheme(
-      <LanguageListItem
-        code='fr'
-        path={null}
-        name='Français'
-        close={closeDropDown}
-        onUnavailableLanguageClick={onUnavailableLanguageClick}
-      />,
+      <LanguageListItem code='fr' path={null} name='Français' close={closeDropDown} />,
     )
-    fireEvent.click(getByText('Français'))
-    expect(onUnavailableLanguageClick).toHaveBeenCalledTimes(1)
+    const item = getByText('Français')
+    expect(item).toHaveAttribute('aria-disabled', 'true')
   })
 
   it('should close dropdown when clicking an item', () => {

@@ -60,9 +60,8 @@ const HeaderLanguageSelectorItem = ({
 
   const languageNotAvailableDialog = isLanguageNotAvailableDialogOpen ? (
     <AlertDialog
-      title={t('languageNotAvailableTitle')}
+      title={t('noTranslation')}
       close={closeUnavailableLanguageDialog}
-      hideCloseButton={mobile}
       actions={
         <DialogActions>
           <Button onClick={closeUnavailableLanguageDialog} variant='outlined'>

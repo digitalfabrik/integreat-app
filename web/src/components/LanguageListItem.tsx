@@ -1,13 +1,14 @@
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
+import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import { styled, useTheme } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import Link from './base/Link'
 
-const SelectorItemButton = styled(ListItemButton)`
+export const SelectorItemButton = styled(ListItemButton)`
   height: 48px;
   min-width: 112px;
   border-radius: 30px;
@@ -22,18 +23,11 @@ type SelectorProps = {
   name: string
   close?: () => void
   selectedLanguageCode?: string
-  onUnavailableLanguageClick?: () => void
 }
 
-const LanguageListItem = ({
-  code,
-  path,
-  name,
-  close,
-  selectedLanguageCode,
-  onUnavailableLanguageClick,
-}: SelectorProps): ReactElement => {
-  const { palette } = useTheme()
+const LanguageListItem = ({ code, path, name, close, selectedLanguageCode }: SelectorProps): ReactElement => {
+  const { t } = useTranslation('layout')
+  const { contentDirection } = useTheme()
 
   return path ? (
     <ListItem key={code} disablePadding>
@@ -49,14 +43,11 @@ const LanguageListItem = ({
       </SelectorItemButton>
     </ListItem>
   ) : (
-    <ListItem disablePadding>
-      <SelectorItemButton style={{ gap: 8 }} onClick={onUnavailableLanguageClick}>
-        <Typography variant='body1' color={palette.text.disabled} noWrap>
-          {name}
-        </Typography>
-        <InfoOutlinedIcon fontSize='small' color='disabled' />
-      </SelectorItemButton>
-    </ListItem>
+    <Tooltip key={code} title={t('noTranslation')} placement={contentDirection === 'ltr' ? 'right' : 'left'}>
+      <ListItem disablePadding>
+        <SelectorItemButton disabled>{name}</SelectorItemButton>
+      </ListItem>
+    </Tooltip>
   )
 }
 

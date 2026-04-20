@@ -1,32 +1,34 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
+import { StyleSheet, View } from 'react-native'
 import { Button, Dialog, Portal, useTheme } from 'react-native-paper'
 
-import { TypographyVariant } from 'build-configs/TypographyType'
-
-import Text from './Text'
+const styles = StyleSheet.create({
+  titleWrapper: {
+    marginTop: 22,
+    marginBottom: 18,
+    marginHorizontal: 24,
+  },
+})
 
 type AlertDialogProps = {
   visible: boolean
-  onDismiss: () => void
-  title: string
+  close: () => void
+  title: string | ReactElement
   children: ReactElement
-  titleTextVariant?: TypographyVariant
 }
 
-const AlertDialog = ({ visible, onDismiss, title, children, titleTextVariant }: AlertDialogProps): ReactElement => {
+const AlertDialog = ({ visible, close, title, children }: AlertDialogProps): ReactElement => {
   const { t } = useTranslation('common')
   const theme = useTheme()
 
   return (
     <Portal>
-      <Dialog visible={visible} onDismiss={onDismiss} style={{ backgroundColor: theme.colors.surfaceVariant }}>
-        <Text variant={titleTextVariant} style={{ marginTop: 22, marginBottom: 18, marginHorizontal: 24 }}>
-          {title}
-        </Text>
+      <Dialog visible={visible} onDismiss={close} style={{ backgroundColor: theme.colors.surfaceVariant }}>
+        <View style={styles.titleWrapper}>{title}</View>
         <Dialog.Content>{children}</Dialog.Content>
         <Dialog.Actions>
-          <Button onPress={onDismiss}>{t('close')}</Button>
+          <Button onPress={close}>{t('close')}</Button>
         </Dialog.Actions>
       </Dialog>
     </Portal>

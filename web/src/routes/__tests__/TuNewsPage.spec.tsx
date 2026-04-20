@@ -52,7 +52,7 @@ describe('TuNewsPage', () => {
 
   it('should render language failure if language is not available', () => {
     mockUseLoadFromEndpointWithData(tuNewsLanguages)
-    const { getAllByText, getByRole } = renderTuNewsRoute(city.languages[2]!)
+    const { getAllByText, queryByText } = renderTuNewsRoute(city.languages[2]!)
     expect(getAllByText('error:notFound.language')).toBeTruthy()
     // Available languages
     tuNewsLanguages.forEach(({ name, code }) => {
@@ -62,8 +62,8 @@ describe('TuNewsPage', () => {
       )
     })
 
-    // Unavailable language is rendered as a button
-    expect(getByRole('button', { name: city.languages[2]!.name })).toBeTruthy()
+    // Unavailable language is not a link
+    expect(queryByText(city.languages[2]!.name)).toHaveAttribute('aria-disabled', 'true')
   })
 
   it('should render list', () => {
