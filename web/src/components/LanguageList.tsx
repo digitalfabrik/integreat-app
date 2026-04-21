@@ -100,6 +100,7 @@ const LanguageList = ({
                 name={language.name}
                 close={close}
                 selectedLanguageCode={currentLanguage?.code}
+                onUnavailableLanguageClick={onUnavailableLanguageClick}
               />
             ))}
           </List>
@@ -128,6 +129,7 @@ const LanguageList = ({
           name={language.name}
           close={close}
           selectedLanguageCode={currentLanguage?.code}
+          onUnavailableLanguageClick={onUnavailableLanguageClick}
           key={language.code}
         />
       )}

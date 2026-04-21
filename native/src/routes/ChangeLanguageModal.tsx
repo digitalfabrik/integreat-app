@@ -103,12 +103,14 @@ const ChangeLanguageModal = ({ navigation, route }: ChangeLanguageModalProps): R
       name,
       enabled: isLanguageAvailable,
       accessibilityLabel: languageNamesInCurrentLanguage?.of(code) ?? name,
-      onPress: () => {
-        if (code !== languageCode) {
-          changeLanguageCode(code)
-        }
-        navigation.goBack()
-      },
+      onPress: isLanguageAvailable
+        ? () => {
+            if (code !== languageCode) {
+              changeLanguageCode(code)
+            }
+            navigation.goBack()
+          }
+        : () => setIsUnavailableDialogOpen(true),
     })
   })
 
