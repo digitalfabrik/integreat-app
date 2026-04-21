@@ -5,7 +5,7 @@ import {
   WebBuildConfigType,
 } from '../BuildConfigType'
 import integreatPlatformBuildConfigs from '../integreat'
-import cityNotCooperatingTemplate from '../integreat/assets/cityNotCooperatingTemplate'
+import suggestToRegionTemplate from '../integreat/assets/suggestToRegionTemplate'
 
 const integreatE2e = {
   appName: 'IntegreatE2E',
@@ -15,7 +15,7 @@ const integreatE2e = {
     sentry: false,
     developerFriendly: false,
     fixedCity: null,
-    cityNotCooperatingTemplate,
+    suggestToRegionTemplate,
     chat: false,
   },
 }

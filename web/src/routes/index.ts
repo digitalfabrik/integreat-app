@@ -1,6 +1,6 @@
 import {
   CATEGORIES_ROUTE,
-  CITY_NOT_COOPERATING_ROUTE,
+  SUGGEST_TO_REGION_ROUTE,
   CONSENT_ROUTE,
   IMPRINT_ROUTE,
   EVENTS_ROUTE,
@@ -23,7 +23,7 @@ const languageCodePattern = ':languageCode'
 export const cityContentPattern = `/:cityCode/${languageCodePattern}/*`
 export const RoutePatterns = {
   [LANDING_ROUTE]: `/${LANDING_ROUTE}/${languageCodePattern}`,
-  [CITY_NOT_COOPERATING_ROUTE]: `/${CITY_NOT_COOPERATING_ROUTE}/${languageCodePattern}`,
+  [SUGGEST_TO_REGION_ROUTE]: `/${SUGGEST_TO_REGION_ROUTE}/${languageCodePattern}`,
   [MAIN_IMPRINT_ROUTE]: `/${MAIN_IMPRINT_ROUTE}/${languageCodePattern}`,
   [NOT_FOUND_ROUTE]: `/${NOT_FOUND_ROUTE}/${languageCodePattern}`,
   [LICENSES_ROUTE]: `/${LICENSES_ROUTE}/${languageCodePattern}`,

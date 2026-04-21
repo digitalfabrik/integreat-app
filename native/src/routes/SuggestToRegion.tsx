@@ -27,12 +27,12 @@ const StyledIcon = styled(Icon)`
   height: 20%;
 `
 
-const CityNotCooperating = (): ReactElement | null => {
-  const { t } = useTranslation('cityNotCooperating')
+const SuggestToRegion = (): ReactElement | null => {
+  const { t } = useTranslation('suggestToRegion')
   const theme = useTheme()
   const [isCopied, setIsCopied] = useState<boolean>(false)
-  const template = buildConfig().featureFlags.cityNotCooperatingTemplate
-  const CityNotCooperatingIcon = buildConfigAssets().CityNotCooperatingIcon
+  const template = buildConfig().featureFlags.suggestToRegionTemplate
+  const SuggestToRegionIcon = buildConfigAssets().SuggestToRegionIcon
   const CopyIcon = useCallback(
     () => <Icon color={theme.colors.onPrimary} source={isCopied ? 'check' : 'content-copy'} size={20} />,
     [isCopied, theme.colors.onPrimary],
@@ -97,7 +97,7 @@ const CityNotCooperating = (): ReactElement | null => {
       <Text variant='body1' style={{ color: theme.colors.onSurface }}>
         {t('explanation')}
       </Text>
-      {CityNotCooperatingIcon && <StyledIcon Icon={CityNotCooperatingIcon} />}
+      {SuggestToRegionIcon && <StyledIcon Icon={SuggestToRegionIcon} />}
       <Text variant='h5' style={styles.listHeading}>
         {t('whatToDo')}
       </Text>
@@ -130,4 +130,4 @@ const CityNotCooperating = (): ReactElement | null => {
   )
 }
 
-export default CityNotCooperating
+export default SuggestToRegion

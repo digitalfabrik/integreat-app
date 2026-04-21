@@ -26,7 +26,7 @@ const commonObdachBuildConfig: CommonBuildConfigType = {
     sentry: false,
     developerFriendly: false,
     fixedCity: null,
-    cityNotCooperatingTemplate: null,
+    suggestToRegionTemplate: null,
     chat: false,
   },
   aboutUrls: {

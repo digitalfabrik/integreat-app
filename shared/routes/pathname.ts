@@ -1,6 +1,6 @@
 import {
   CATEGORIES_ROUTE,
-  CITY_NOT_COOPERATING_ROUTE,
+  SUGGEST_TO_REGION_ROUTE,
   CONSENT_ROUTE,
   IMPRINT_ROUTE,
   EVENTS_ROUTE,
@@ -40,9 +40,9 @@ export const pathnameFromRouteInformation = (routeInformation: NonNullableRouteI
     // https://integreat.app/consent, https://integreat.app/licenses, https://integreat.app/main-imprint
     return constructPathname([routeInformation.route])
   }
-  if (routeInformation.route === CITY_NOT_COOPERATING_ROUTE) {
+  if (routeInformation.route === SUGGEST_TO_REGION_ROUTE) {
     // https://integreat.app/recommend
-    return constructPathname([CITY_NOT_COOPERATING_ROUTE, routeInformation.languageCode])
+    return constructPathname([SUGGEST_TO_REGION_ROUTE, routeInformation.languageCode])
   }
   if (routeInformation.route === CATEGORIES_ROUTE) {
     // https://integreat.app/augsburg/de/, https://integreat.app/augsburg/de/willkommen/erste-schritte

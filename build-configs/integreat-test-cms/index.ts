@@ -5,7 +5,7 @@ import {
   WebBuildConfigType,
 } from '../BuildConfigType'
 import integreatPlatformBuildConfigs from '../integreat'
-import cityNotCooperatingTemplate from '../integreat/assets/cityNotCooperatingTemplate'
+import suggestToRegionTemplate from '../integreat/assets/suggestToRegionTemplate'
 
 const integreatTestCms = {
   appName: 'IntegreatTestCms',
@@ -16,8 +16,8 @@ const integreatTestCms = {
     sentry: false,
     developerFriendly: true,
     fixedCity: null,
-    cityNotCooperatingTemplate,
-    cityNotCooperating: true,
+    suggestToRegionTemplate,
+    suggestToRegion: true,
     chat: true,
   },
 }

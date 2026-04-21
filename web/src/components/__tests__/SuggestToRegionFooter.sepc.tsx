@@ -1,15 +1,15 @@
 import React from 'react'
 
 import { renderWithRouterAndTheme } from '../../testing/render'
-import CityNotCooperatingFooter from '../CityNotCooperatingFooter'
+import SuggestToRegionFooter from '../SuggestToRegionFooter'
 
 jest.mock('react-i18next')
 
-describe('CityNotCooperatingFooter', () => {
+describe('SuggestToRegionFooter', () => {
   beforeEach(jest.clearAllMocks)
 
   it('should render text and button', () => {
-    const { getByText } = renderWithRouterAndTheme(<CityNotCooperatingFooter languageCode='de' />)
+    const { getByText } = renderWithRouterAndTheme(<SuggestToRegionFooter languageCode='de' />)
     expect(getByText('landing:cityNotFound')).toBeDefined()
     expect(getByText('landing:suggestToRegion')).toBeDefined()
   })

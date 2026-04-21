@@ -33,7 +33,7 @@ const buildConfig = jest.fn<CommonBuildConfigType, []>(
       sentry: true,
       developerFriendly: false,
       fixedCity: null,
-      cityNotCooperatingTemplate: 'template',
+      suggestToRegionTemplate: 'template',
       chat: false,
     },
     aboutUrls: {

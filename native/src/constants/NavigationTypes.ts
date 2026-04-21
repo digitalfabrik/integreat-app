@@ -31,8 +31,8 @@ import {
   PDF_VIEW_MODAL_ROUTE,
   IMAGE_VIEW_MODAL_ROUTE,
   FEEDBACK_MODAL_ROUTE,
-  CITY_NOT_COOPERATING_ROUTE,
-  CityNotCooperatingRouteType,
+  SUGGEST_TO_REGION_ROUTE,
+  SuggestToRegionRouteType,
   LICENSES_ROUTE,
   LicensesRouteType,
   CONSENT_ROUTE,
@@ -60,7 +60,7 @@ export type RootRoutesType =
   | RedirectRouteType
   | IntroRouteType
   | LandingRouteType
-  | CityNotCooperatingRouteType
+  | SuggestToRegionRouteType
   | ImprintRouteType
   | SettingsRouteType
   | SearchRouteType
@@ -110,7 +110,7 @@ export type RootRoutesParamsType = {
   }
   [INTRO_ROUTE]: undefined
   [LANDING_ROUTE]: undefined
-  [CITY_NOT_COOPERATING_ROUTE]: undefined
+  [SUGGEST_TO_REGION_ROUTE]: undefined
   [IMPRINT_ROUTE]: undefined
   [CONSENT_ROUTE]: undefined
   [SETTINGS_ROUTE]: undefined
