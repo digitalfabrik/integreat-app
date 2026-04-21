@@ -2,11 +2,15 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
 const VisuallyHidden = styled('div')(() => ({
-  position: 'absolute',
-  left: '-9999px',
+  border: 0,
+  clip: 'rect(0 0 0 0)',
+  clipPath: 'inset(50%)',
   height: '1px',
   width: '1px',
+  margin: 0,
   overflow: 'hidden',
+  position: 'absolute',
+  whiteSpace: 'nowrap',
 }))
 
 type LiveAnnouncerProps = {
