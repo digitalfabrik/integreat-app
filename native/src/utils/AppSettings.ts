@@ -4,7 +4,7 @@ import { mapValues } from 'lodash'
 import { ThemeKey } from 'build-configs/ThemeKey'
 import { ExternalSourcePermissions } from 'shared'
 
-import { log } from './sentry'
+import { log, reportError } from './sentry'
 
 export const ASYNC_STORAGE_VERSION = 2
 export type SettingsType = {
@@ -63,7 +63,12 @@ class AppSettings {
   }
 
   loadSettings = async (): Promise<SettingsType> => {
-    await migrateToV2()
+    try {
+      await migrateToV2()
+    } catch (error) {
+      reportError(error)
+    }
+
     const settingsKeys = Object.keys(defaultSettings) as [keyof SettingsType]
     const settings = (await this.asyncStorage.getMany(settingsKeys)) as Record<keyof SettingsType, string | null>
     return mapValues(settings, (value: string | null, key) => {
