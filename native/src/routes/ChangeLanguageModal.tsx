@@ -2,7 +2,8 @@ import { shouldPolyfill } from '@formatjs/intl-displaynames/should-polyfill'
 import '@formatjs/intl-locale/polyfill'
 import React, { ReactElement, useContext, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Searchbar, useTheme } from 'react-native-paper'
+import { StyleSheet } from 'react-native'
+import { Button, Searchbar, useTheme } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 import { ChangeLanguageModalRouteType, normalizeString } from 'shared'
@@ -10,7 +11,6 @@ import { LanguageModel } from 'shared/api'
 import { config } from 'translations'
 
 import Selector from '../components/Selector'
-import SelectorItem from '../components/SelectorItem'
 import AlertDialog from '../components/base/AlertDialog'
 import Text from '../components/base/Text'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
@@ -47,6 +47,18 @@ const Wrapper = styled.ScrollView`
   background-color: ${props => props.theme.colors.background};
 `
 
+const styles = StyleSheet.create({
+  contentContainer: {
+    flexGrow: 1,
+    justifyContent: 'flex-start',
+    gap: 4,
+  },
+  horizontalMargin: {
+    marginHorizontal: 16,
+    marginTop: 8,
+  },
+})
+
 type ChangeLanguageModalProps = {
   route: RouteProps<ChangeLanguageModalRouteType>
   navigation: NavigationProps<ChangeLanguageModalRouteType>
@@ -62,6 +74,7 @@ const ChangeLanguageModal = ({ navigation, route }: ChangeLanguageModalProps): R
   const { t } = useTranslation('layout')
 
   const currentLanguageName = languages.find(lang => lang.code === languageCode)?.name
+  const searchbarTextColor = theme.dark ? theme.colors.background : theme.colors.onBackground
 
   useEffect(() => {
     loadPolyfillIfNeeded(languageCode).then(() => setPolyfillLoaded(true))
@@ -99,29 +112,26 @@ const ChangeLanguageModal = ({ navigation, route }: ChangeLanguageModalProps): R
     })
   }, [filteredLanguages, availableLanguages, languageCode, changeLanguageCode, navigation, polyfillLoaded])
 
-  const languageNotFoundItem = new SelectorItemModel({
-    code: 'language-not-found',
-    name: t('languageNotFoundQuestion'),
-    enabled: true,
-    onPress: () => setIsUnavailableDialogOpen(true),
-  })
-
   return (
     <>
-      <Wrapper contentContainerStyle={{ flexGrow: 1, justifyContent: 'flex-start', gap: 4 }}>
+      <Wrapper contentContainerStyle={styles.contentContainer}>
         <Searchbar
           placeholder={currentLanguageName}
           onChangeText={setQuery}
           value={query}
+          placeholderTextColor={searchbarTextColor}
+          iconColor={searchbarTextColor}
           right={() => undefined}
-          inputStyle={{ color: theme.dark ? theme.colors.background : theme.colors.onBackground }}
-          style={{
-            marginHorizontal: 16,
-            backgroundColor: theme.dark ? theme.colors.tertiary : theme.colors.surfaceVariant,
-          }}
+          inputStyle={{ color: searchbarTextColor }}
+          style={[
+            styles.horizontalMargin,
+            { backgroundColor: theme.dark ? theme.colors.tertiary : theme.colors.surfaceVariant },
+          ]}
         />
         {filteredLanguages.length === 0 ? (
-          <SelectorItem model={languageNotFoundItem} selected={false} />
+          <Button mode='outlined' onPress={() => setIsUnavailableDialogOpen(true)} style={styles.horizontalMargin}>
+            {t('languageNotFoundQuestion')}
+          </Button>
         ) : (
           <Selector selectedItemCode={languageCode} items={selectorItems} />
         )}

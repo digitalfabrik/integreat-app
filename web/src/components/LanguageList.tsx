@@ -1,9 +1,8 @@
 import Autocomplete from '@mui/material/Autocomplete'
+import Button from '@mui/material/Button'
 import List from '@mui/material/List'
-import ListItem from '@mui/material/ListItem'
 import Stack from '@mui/material/Stack'
 import TextField from '@mui/material/TextField'
-import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -12,7 +11,7 @@ import { normalizeString } from 'shared'
 import { config } from 'translations'
 
 import useDimensions from '../hooks/useDimensions'
-import LanguageListItem, { SelectorItemButton } from './LanguageListItem'
+import LanguageListItem from './LanguageListItem'
 import SearchInput from './SearchInput'
 
 const StyledAutocomplete = styled(Autocomplete)`
@@ -28,19 +27,6 @@ const StyledTextField = styled(TextField)({
     letterSpacing: 0,
   },
 })
-
-type LanguageNotFoundItemProps = {
-  onClick?: () => void
-  label: string
-}
-
-const LanguageNotFoundItem = ({ onClick, label }: LanguageNotFoundItemProps): ReactElement => (
-  <ListItem disablePadding>
-    <SelectorItemButton onClick={onClick}>
-      <Typography variant='body1'>{label}</Typography>
-    </SelectorItemButton>
-  </ListItem>
-)
 
 export type LanguageChangePath = {
   code: string
@@ -106,7 +92,9 @@ const LanguageList = ({
       <Stack gap={2}>
         <SearchInput placeholderText={currentLanguage?.name ?? ''} filterText={query} onFilterTextChange={setQuery} />
         {filteredLanguageChangePaths.length === 0 ? (
-          <LanguageNotFoundItem onClick={onUnavailableLanguageClick} label={t('languageNotFoundQuestion')} />
+          <Button variant='outlined' onClick={onUnavailableLanguageClick}>
+            {t('languageNotFoundQuestion')}
+          </Button>
         ) : (
           <List disablePadding>
             {filteredLanguageChangePaths.map(language => (
@@ -149,7 +137,9 @@ const LanguageList = ({
         />
       )}
       noOptionsText={
-        <LanguageNotFoundItem onClick={onUnavailableLanguageClick} label={t('languageNotFoundQuestion')} />
+        <Button variant='outlined' onClick={onUnavailableLanguageClick}>
+          {t('languageNotFoundQuestion')}
+        </Button>
       }
       disablePortal
       slotProps={{
