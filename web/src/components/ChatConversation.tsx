@@ -5,6 +5,7 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { parseHTML } from 'shared'
 import { ChatMessageModel } from 'shared/api'
 
 import ChatMessage from './ChatMessage'
@@ -46,14 +47,8 @@ const ChatConversation = ({ messages, isTyping, loading }: ChatConversationProps
     }
   }, [isTyping])
 
-  const extractText = (html: string): string => {
-    const div = document.createElement('div')
-    div.innerHTML = html
-    return div.textContent || div.innerText
-  }
-
   const last = messages[messages.length - 1]
-  const lastMessageText = last ? extractText(last.content) : ''
+  const lastMessageText = last ? parseHTML(last.content) : ''
 
   if (messages.length === 0 && !loading) {
     return (
