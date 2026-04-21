@@ -1,6 +1,6 @@
 import { shouldPolyfill } from '@formatjs/intl-displaynames/should-polyfill'
 import '@formatjs/intl-locale/polyfill'
-import React, { ReactElement, useContext, useEffect, useMemo, useState } from 'react'
+import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet } from 'react-native'
 import { Button, Searchbar, useTheme } from 'react-native-paper'
@@ -80,37 +80,37 @@ const ChangeLanguageModal = ({ navigation, route }: ChangeLanguageModalProps): R
     loadPolyfillIfNeeded(languageCode).then(() => setPolyfillLoaded(true))
   }, [languageCode])
 
-  const filteredLanguages = useMemo(() => {
-    if (query === '') {
+  const getFilteredLanguages = () => {
+    if (query === '' || !polyfillLoaded) {
       return languages
     }
-    const languageNamesInCurrentLanguage = new Intl.DisplayNames([languageCode], { type: 'language' })
+    const languageNamesForFilter = new Intl.DisplayNames([languageCode], { type: 'language' })
     const languageNamesInFallbackLanguage = new Intl.DisplayNames([config.sourceLanguage], { type: 'language' })
     return languages.filter(item =>
-      filterLanguages(item, query, languageNamesInCurrentLanguage, languageNamesInFallbackLanguage),
+      filterLanguages(item, query, languageNamesForFilter, languageNamesInFallbackLanguage),
     )
-  }, [languages, query, languageCode])
+  }
 
-  const selectorItems = useMemo(() => {
-    const languageNamesInCurrentLanguage = polyfillLoaded
-      ? new Intl.DisplayNames([languageCode], { type: 'language' })
-      : undefined
-    return filteredLanguages.map(({ code, name }) => {
-      const isLanguageAvailable = availableLanguages.includes(code)
-      return new SelectorItemModel({
-        code,
-        name,
-        enabled: isLanguageAvailable,
-        accessibilityLabel: languageNamesInCurrentLanguage?.of(code) ?? name,
-        onPress: () => {
-          if (code !== languageCode) {
-            changeLanguageCode(code)
-          }
-          navigation.goBack()
-        },
-      })
+  const filteredLanguages = getFilteredLanguages()
+
+  const languageNamesInCurrentLanguage = polyfillLoaded
+    ? new Intl.DisplayNames([languageCode], { type: 'language' })
+    : undefined
+  const selectorItems = filteredLanguages.map(({ code, name }) => {
+    const isLanguageAvailable = availableLanguages.includes(code)
+    return new SelectorItemModel({
+      code,
+      name,
+      enabled: isLanguageAvailable,
+      accessibilityLabel: languageNamesInCurrentLanguage?.of(code) ?? name,
+      onPress: () => {
+        if (code !== languageCode) {
+          changeLanguageCode(code)
+        }
+        navigation.goBack()
+      },
     })
-  }, [filteredLanguages, availableLanguages, languageCode, changeLanguageCode, navigation, polyfillLoaded])
+  })
 
   return (
     <>

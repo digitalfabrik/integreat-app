@@ -4,7 +4,7 @@ import List from '@mui/material/List'
 import Stack from '@mui/material/Stack'
 import TextField from '@mui/material/TextField'
 import { styled } from '@mui/material/styles'
-import React, { ReactElement, useMemo, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { normalizeString } from 'shared'
@@ -72,20 +72,15 @@ const LanguageList = ({
   const { t } = useTranslation('layout')
   const { mobile } = useDimensions()
 
-  const allOptions = useMemo(
-    () => languageChangePaths.filter(item => !availableOnly || !!item.path),
-    [languageChangePaths, availableOnly],
-  )
+  const allOptions = languageChangePaths.filter(item => !availableOnly || !!item.path)
 
   const currentLanguage = allOptions.find(item => item.code === languageCode)
 
-  const filteredLanguageChangePaths = useMemo(() => {
-    const languageNamesInCurrentLanguage = new Intl.DisplayNames([languageCode], { type: 'language' })
-    const languageNamesInFallbackLanguage = new Intl.DisplayNames([config.sourceLanguage], { type: 'language' })
-    return languageChangePaths.filter(item =>
-      filterLanguageChangePath(item, query, languageNamesInCurrentLanguage, languageNamesInFallbackLanguage),
-    )
-  }, [languageChangePaths, query, languageCode])
+  const languageNamesInCurrentLanguage = new Intl.DisplayNames([languageCode], { type: 'language' })
+  const languageNamesInFallbackLanguage = new Intl.DisplayNames([config.sourceLanguage], { type: 'language' })
+  const filteredLanguageChangePaths = languageChangePaths.filter(item =>
+    filterLanguageChangePath(item, query, languageNamesInCurrentLanguage, languageNamesInFallbackLanguage),
+  )
 
   if (mobile || asList) {
     return (
