@@ -21,6 +21,7 @@
 - [XCode can't find $BUILD_CONFIG_APP_ICON](#xcode-cant-find-build_config_app_icon)
 - [Other assorted XCode problems](#other-assorted-xcode-problems)
 - [Connection closed with reason=''](#connection-closed-with-no-reason)
+- [PreAction scripts fail in XCode](#preaction-scripts-fail-in-xcode-with-command-not-found)
 
 ## Could not initialize class org.codehouse.groovy.runtime.InvokeHelper
 
@@ -163,3 +164,40 @@ If the app connection to the android device closes frequently during hot reload 
 
 1. `yarn start` and `run android` to run and install the app
 2. Press `d` to open the Dev Menu in your running terminal and change the bundler location
+
+## PreAction scripts fail in XCode with command not found
+
+You can find proper error messages in the particular `prebuild_xxx.log` (native/ios).
+The particular errors can be `npx: command not found`, `corepack: command not found`, etc.
+
+This issue happens most likely because you are using nvm and updated your node version at some point.
+It also might be related to some XCode update.
+Unfortunately, not automatically updating the symlinks is a limitation of nvm.
+The root cause behind this problem is that XCode can only see the binaries are only accessible from:
+`usr/local/bin`.
+To also access the required binaries, you need proper symlinks that might have been outdated due to a node update via nvm.
+You can run one of these lines in your terminal and set the particular symlink according to your error message.
+Mind replacing the command with your node version.
+
+```
+  ln -sf ~/.nvm/versions/node/v24.13.0/bin/node /usr/local/bin/node
+  ln -sf ~/.nvm/versions/node/v24.13.0/bin/npm /usr/local/bin/npm
+  ln -sf ~/.nvm/versions/node/v24.13.0/bin/npx /usr/local/bin/npx
+  ln -sf ~/.nvm/versions/node/v24.13.0/bin/corepack /usr/local/bin/corepack
+  ln -sf ~/.nvm/versions/node/v24.13.0/bin/yarn /usr/local/bin/yarn
+```
+
+To address this in general you could also add a function like this to your `.zshrc` file.
+
+```
+  # Keep /usr/local/bin symlinks in sync with nvm default
+  nvm_sync_symlinks() {
+    local version=$(nvm version default)
+    local nvm_bin="$NVM_DIR/versions/node/$version/bin"
+    ln -sf "$nvm_bin/node" /usr/local/bin/node
+    ln -sf "$nvm_bin/npm" /usr/local/bin/npm
+    ln -sf "$nvm_bin/npx" /usr/local/bin/npx
+    ln -sf "$nvm_bin/corepack" /usr/local/bin/corepack
+    ln -sf "$nvm_bin/yarn" /usr/local/bin/yarn
+  }
+```
