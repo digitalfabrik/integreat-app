@@ -57,6 +57,7 @@ type HeaderProps = {
   shareUrl?: string
   regionName?: string
   forceText?: boolean
+  goBack?: () => void
 }
 
 const Header = ({
@@ -69,6 +70,7 @@ const Header = ({
   languages = route.name === REGIONS_ROUTE ? supportedLanguages : undefined,
   regionName,
   forceText = route.name === REGIONS_ROUTE,
+  goBack,
 }: HeaderProps): ReactElement | null => {
   const [menuVisible, setMenuVisible] = useState(false)
   const { languageCode, regionCode } = useContext(AppContext)
@@ -95,14 +97,6 @@ const Header = ({
 
   const canGoBack =
     previousRoute !== undefined || hasRootHistory || hasTabHistory || (route.name === POIS_ROUTE && hasPoisParams)
-
-  const goBack = () => {
-    if (route.name === POIS_ROUTE && hasPoisParams) {
-      navigation.setParams({ slug: undefined, multipoi: undefined })
-    } else {
-      navigation.goBack()
-    }
-  }
 
   const routeTitle = (route.params as { title?: string } | undefined)?.title ?? t(route.name)
   const pageTitle = regionName !== routeTitle ? `${routeTitle} - ${regionName}` : routeTitle
@@ -237,7 +231,13 @@ const Header = ({
   return (
     <BoxShadow>
       <Horizontal>
-        <HeaderBox goBack={goBack} canGoBack={canGoBack} title={title} language={language} regionsPath={regionsPath} />
+        <HeaderBox
+          goBack={goBack ?? navigation.goBack}
+          canGoBack={canGoBack}
+          title={title}
+          language={language}
+          regionsPath={regionsPath}
+        />
         <ActionButtons items={items} />
         {showMenu && (
           <HeaderMenu
