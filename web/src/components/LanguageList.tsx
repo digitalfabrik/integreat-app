@@ -28,6 +28,10 @@ const StyledTextField = styled(TextField)({
   },
 })
 
+const StyledUnavailableLanguageButton = styled(Button)({
+  margin: '2px 8px',
+})
+
 export type LanguageChangePath = {
   code: string
   path: string | null
@@ -50,6 +54,17 @@ export const filterLanguageChangePath = (
     normalizeString(languageNamesInFallbackLanguage.of(languageChangePath.code) || '').includes(normalizedQuery)
   )
 }
+
+type UnavailableLanguageButtonProps = {
+  onClick?: () => void
+  label: string
+}
+
+const UnavailableLanguageButton = ({ onClick, label }: UnavailableLanguageButtonProps): ReactElement => (
+  <StyledUnavailableLanguageButton variant='outlined' onClick={onClick}>
+    {label}
+  </StyledUnavailableLanguageButton>
+)
 
 type LanguageListProps = {
   languageChangePaths: LanguageChangePath[]
@@ -86,25 +101,20 @@ const LanguageList = ({
     return (
       <Stack gap={2}>
         <SearchInput placeholderText={currentLanguage?.name ?? ''} filterText={query} onFilterTextChange={setQuery} />
-        {filteredLanguageChangePaths.length === 0 ? (
-          <Button variant='outlined' onClick={onUnavailableLanguageClick}>
-            {t('languageNotFoundQuestion')}
-          </Button>
-        ) : (
-          <List disablePadding>
-            {filteredLanguageChangePaths.map(language => (
-              <LanguageListItem
-                key={language.code}
-                code={language.code}
-                path={language.path}
-                name={language.name}
-                close={close}
-                selectedLanguageCode={currentLanguage?.code}
-                onUnavailableLanguageClick={onUnavailableLanguageClick}
-              />
-            ))}
-          </List>
-        )}
+        <List disablePadding>
+          {filteredLanguageChangePaths.map(language => (
+            <LanguageListItem
+              key={language.code}
+              code={language.code}
+              path={language.path}
+              name={language.name}
+              close={close}
+              selectedLanguageCode={currentLanguage?.code}
+              onUnavailableLanguageClick={onUnavailableLanguageClick}
+            />
+          ))}
+        </List>
+        <UnavailableLanguageButton onClick={onUnavailableLanguageClick} label={t('languageNotFoundQuestion')} />
       </Stack>
     )
   }
@@ -122,21 +132,24 @@ const LanguageList = ({
       onInputChange={(_, value) => setQuery(value)}
       forcePopupIcon={false}
       getOptionLabel={option => option.name}
-      renderOption={(_, language) => (
-        <LanguageListItem
-          code={language.code}
-          path={language.path}
-          name={language.name}
-          close={close}
-          selectedLanguageCode={currentLanguage?.code}
-          onUnavailableLanguageClick={onUnavailableLanguageClick}
-          key={language.code}
-        />
+      renderOption={(_, language, { index }) => (
+        <>
+          <LanguageListItem
+            code={language.code}
+            path={language.path}
+            name={language.name}
+            close={close}
+            selectedLanguageCode={currentLanguage?.code}
+            onUnavailableLanguageClick={onUnavailableLanguageClick}
+            key={language.code}
+          />
+          {index === filteredLanguageChangePaths.length - 1 && (
+            <UnavailableLanguageButton onClick={onUnavailableLanguageClick} label={t('languageNotFoundQuestion')} />
+          )}
+        </>
       )}
       noOptionsText={
-        <Button variant='outlined' onClick={onUnavailableLanguageClick}>
-          {t('languageNotFoundQuestion')}
-        </Button>
+        <UnavailableLanguageButton onClick={onUnavailableLanguageClick} label={t('languageNotFoundQuestion')} />
       }
       disablePortal
       slotProps={{

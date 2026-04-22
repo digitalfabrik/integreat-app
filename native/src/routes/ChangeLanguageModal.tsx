@@ -130,13 +130,10 @@ const ChangeLanguageModal = ({ navigation, route }: ChangeLanguageModalProps): R
             { backgroundColor: theme.dark ? theme.colors.tertiary : theme.colors.surfaceVariant },
           ]}
         />
-        {filteredLanguages.length === 0 ? (
-          <Button mode='outlined' onPress={() => setIsUnavailableDialogOpen(true)} style={styles.horizontalMargin}>
-            {t('languageNotFoundQuestion')}
-          </Button>
-        ) : (
-          <Selector selectedItemCode={languageCode} items={selectorItems} />
-        )}
+        <Selector selectedItemCode={languageCode} items={selectorItems} />
+        <Button mode='outlined' onPress={() => setIsUnavailableDialogOpen(true)} style={styles.horizontalMargin}>
+          {t('languageNotFoundQuestion')}
+        </Button>
       </Wrapper>
       <AlertDialog
         visible={isUnavailableDialogOpen}
