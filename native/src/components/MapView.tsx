@@ -9,7 +9,7 @@ import {
   UserLocation,
   UserTrackingMode,
 } from '@maplibre/maplibre-react-native'
-import type { BBox, Feature, GeoJsonProperties, Geometry, Position } from 'geojson'
+import type { BBox, Feature, Position } from 'geojson'
 import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { useTheme } from 'styled-components/native'
@@ -28,6 +28,7 @@ import {
   MapFeature,
   MIN_DISTANCE_THRESHOLD,
   normalDetailZoom,
+  isMultipoi,
 } from 'shared'
 
 import { clusterCountLayer, clusterLayer, markerLayer } from '../constants/layers'
@@ -126,9 +127,9 @@ const MapView = ({
   })
 
   const moveTo = useCallback(
-    (location: Position, zoomLevel = normalDetailZoom) =>
+    (coordinates: Position, zoomLevel = normalDetailZoom) =>
       setCameraSettings({
-        centerCoordinate: location,
+        centerCoordinate: coordinates,
         zoomLevel,
         animationDuration,
       }),
@@ -161,7 +162,7 @@ const MapView = ({
     }
   }
 
-  const onPress = async (pressedLocation: Feature<Geometry, GeoJsonProperties>) => {
+  const onPress = async (pressedLocation: Feature) => {
     setFollowUserLocation(false)
     if (!mapRef.current || !pressedLocation.properties) {
       return
@@ -178,7 +179,9 @@ const MapView = ({
     const feature = featureCollection.features.find((it): it is MapFeature => it.geometry.type === 'Point')
     selectFeature(feature ?? null)
 
-    zoomOnClusterPress(pressedCoordinates)
+    if (selectedFeature && isMultipoi(selectedFeature)) {
+      await zoomOnClusterPress(pressedCoordinates)
+    }
   }
 
   const updateUserLocation = (location: Location) => {
