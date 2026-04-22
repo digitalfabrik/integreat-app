@@ -3,13 +3,13 @@ import { useTranslation } from 'react-i18next'
 
 import { createCitiesEndpoint, useLoadFromEndpoint } from 'shared/api'
 
-import CityNotCooperatingFooter from '../components/CityNotCooperatingFooter'
 import CitySelector from '../components/CitySelector'
 import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Footer from '../components/Footer'
 import GeneralHeader from '../components/GeneralHeader'
 import Helmet from '../components/Helmet'
 import Layout from '../components/Layout'
+import SuggestToRegionFooter from '../components/SuggestToRegionFooter'
 import buildConfig from '../constants/buildConfig'
 import { cmsApiBaseUrl } from '../constants/urls'
 
@@ -38,7 +38,7 @@ const LandingPage = ({ languageCode }: LandingPageProps): ReactElement => {
       header={<GeneralHeader languageCode={languageCode} onStickyTopChanged={setStickyTop} />}
       footer={
         <>
-          {buildConfig().featureFlags.cityNotCooperating && <CityNotCooperatingFooter languageCode={languageCode} />}
+          {buildConfig().featureFlags.suggestToRegion && <SuggestToRegionFooter languageCode={languageCode} />}
           <Footer />
         </>
       }>

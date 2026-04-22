@@ -19,25 +19,23 @@ const StyledIcon = styled(Icon)`
   width: 35%;
 `
 
-type CityNotCooperatingFooterProps = {
-  navigateToCityNotCooperating: () => void
+type SuggestToRegionFooterProps = {
+  navigateToSuggestToRegion: () => void
 }
 
-const CityNotCooperatingFooter = ({
-  navigateToCityNotCooperating,
-}: CityNotCooperatingFooterProps): ReactElement | null => {
+const SuggestToRegionFooter = ({ navigateToSuggestToRegion }: SuggestToRegionFooterProps): ReactElement | null => {
   const { t } = useTranslation('landing')
   const theme = useTheme()
 
-  const CityNotCooperatingIcon = buildConfigAssets().CityNotCooperatingIcon
+  const SuggestToRegionIcon = buildConfigAssets().SuggestToRegionIcon
 
-  if (!buildConfig().featureFlags.cityNotCooperating || !CityNotCooperatingIcon) {
+  if (!buildConfig().featureFlags.suggestToRegion || !SuggestToRegionIcon) {
     return null
   }
 
   return (
     <FooterContainer>
-      <StyledIcon Icon={CityNotCooperatingIcon} />
+      <StyledIcon Icon={SuggestToRegionIcon} />
       <Text variant='h5' style={{ marginTop: '5%' }}>
         {t('cityNotFound')}
       </Text>
@@ -51,11 +49,11 @@ const CityNotCooperatingFooter = ({
           borderRadius: 4,
           borderColor: theme.colors.primary,
         }}
-        onPress={navigateToCityNotCooperating}>
+        onPress={navigateToSuggestToRegion}>
         {t('suggestToRegion', { appName: buildConfig().appName })}
       </Button>
     </FooterContainer>
   )
 }
 
-export default CityNotCooperatingFooter
+export default SuggestToRegionFooter

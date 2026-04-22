@@ -7,7 +7,7 @@ import {
   BottomTabNavigationRouteType,
   CategoriesRouteType,
   CHANGE_LANGUAGE_MODAL_ROUTE,
-  CITY_NOT_COOPERATING_ROUTE,
+  SUGGEST_TO_REGION_ROUTE,
   CONSENT_ROUTE,
   IMPRINT_ROUTE,
   FEEDBACK_MODAL_ROUTE,
@@ -35,7 +35,6 @@ import useLoadCities from './hooks/useLoadCities'
 import useSnackbar from './hooks/useSnackbar'
 import BottomTabNavigation from './navigation/BottomTabNavigation'
 import ChangeLanguageModal from './routes/ChangeLanguageModal'
-import CityNotCooperating from './routes/CityNotCooperating'
 import Consent from './routes/Consent'
 import FeedbackModalContainer from './routes/FeedbackModalContainer'
 import ImageViewModal from './routes/ImageViewModal'
@@ -47,6 +46,7 @@ import LoadingErrorHandler from './routes/LoadingErrorHandler'
 import PDFViewModal from './routes/PDFViewModal'
 import SearchContainer from './routes/SearchContainer'
 import Settings from './routes/Settings'
+import SuggestToRegion from './routes/SuggestToRegion'
 import { ASYNC_STORAGE_VERSION } from './utils/AppSettings'
 import dataContainer from './utils/DefaultDataContainer'
 import { initSentry, log, reportError } from './utils/sentry'
@@ -164,8 +164,8 @@ const Navigator = (): ReactElement | null => {
         <Stack.Screen name={PDF_VIEW_MODAL_ROUTE} component={PDFViewModal} />
         <Stack.Screen name={CHANGE_LANGUAGE_MODAL_ROUTE} component={ChangeLanguageModal} />
         <Stack.Screen name={IMAGE_VIEW_MODAL_ROUTE} component={ImageViewModal} />
-        {buildConfig().featureFlags.cityNotCooperating && (
-          <Stack.Screen name={CITY_NOT_COOPERATING_ROUTE} component={CityNotCooperating} />
+        {buildConfig().featureFlags.suggestToRegion && (
+          <Stack.Screen name={SUGGEST_TO_REGION_ROUTE} component={SuggestToRegion} />
         )}
       </Stack.Group>
 

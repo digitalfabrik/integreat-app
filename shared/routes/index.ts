@@ -2,8 +2,8 @@
 export type LandingRouteType = 'landing'
 export const LANDING_ROUTE: LandingRouteType = 'landing'
 
-export type CityNotCooperatingRouteType = 'recommend'
-export const CITY_NOT_COOPERATING_ROUTE: CityNotCooperatingRouteType = 'recommend'
+export type SuggestToRegionRouteType = 'recommend'
+export const SUGGEST_TO_REGION_ROUTE: SuggestToRegionRouteType = 'recommend'
 
 export type CategoriesRouteType = 'categories'
 export const CATEGORIES_ROUTE: CategoriesRouteType = 'categories'
@@ -87,7 +87,7 @@ export const RESERVED_TOP_LEVEL_SLUGS: string[] = [
   NOT_FOUND_ROUTE,
   CONSENT_ROUTE,
   LICENSES_ROUTE,
-  CITY_NOT_COOPERATING_ROUTE,
+  SUGGEST_TO_REGION_ROUTE,
 ]
 
 // Changes done to the reserved routes have to be done in the CMS as well:

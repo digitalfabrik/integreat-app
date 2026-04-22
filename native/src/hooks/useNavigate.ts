@@ -5,7 +5,7 @@ import {
   BOTTOM_TAB_NAVIGATION_ROUTE,
   CATEGORIES_ROUTE,
   CATEGORIES_TAB_ROUTE,
-  CITY_NOT_COOPERATING_ROUTE,
+  SUGGEST_TO_REGION_ROUTE,
   CONSENT_ROUTE,
   IMPRINT_ROUTE,
   EVENTS_ROUTE,
@@ -46,7 +46,7 @@ const navigate = <T extends RoutesType>(
     route === LICENSES_ROUTE ||
     route === CONSENT_ROUTE ||
     route === LANDING_ROUTE ||
-    route === CITY_NOT_COOPERATING_ROUTE
+    route === SUGGEST_TO_REGION_ROUTE
   ) {
     navigate(route)
     return

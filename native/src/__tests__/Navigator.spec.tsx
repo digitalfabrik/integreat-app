@@ -88,10 +88,10 @@ jest.mock('../routes/SearchContainer', () => {
 
   return () => <Text>Search</Text>
 })
-jest.mock('../routes/CityNotCooperating', () => {
+jest.mock('../routes/SuggestToRegion', () => {
   const { Text } = require('react-native-paper')
 
-  return () => <Text>CityNotCooperating</Text>
+  return () => <Text>SuggestToRegion</Text>
 })
 jest.mock('../routes/PDFViewModal', () => {
   const { Text } = require('react-native-paper')

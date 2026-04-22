@@ -4,31 +4,31 @@ import Typography from '@mui/material/Typography'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CITY_NOT_COOPERATING_ROUTE, pathnameFromRouteInformation } from 'shared'
+import { SUGGEST_TO_REGION_ROUTE, pathnameFromRouteInformation } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
 import Link from './base/Link'
 import Svg from './base/Svg'
 
-type CityNotCooperatingFooterProps = {
+type SuggestToRegionFooterProps = {
   languageCode: string
 }
 
-const CityNotCooperatingFooter = ({ languageCode }: CityNotCooperatingFooterProps): ReactElement | null => {
+const SuggestToRegionFooter = ({ languageCode }: SuggestToRegionFooterProps): ReactElement | null => {
   const { t } = useTranslation('landing')
-  const CityNotCooperatingIcon = buildConfig().icons.cityNotCooperating
+  const SuggestToRegionIcon = buildConfig().icons.suggestToRegion
 
-  if (!buildConfig().featureFlags.cityNotCooperating || !CityNotCooperatingIcon) {
+  if (!buildConfig().featureFlags.suggestToRegion || !SuggestToRegionIcon) {
     return null
   }
 
   return (
     <Stack alignItems='center' padding={2} gap={2}>
-      <Svg src={CityNotCooperatingIcon} width={160} height={160} />
+      <Svg src={SuggestToRegionIcon} width={160} height={160} />
       <Typography variant='body1'>{t('cityNotFound')}</Typography>
       <Button
         component={Link}
-        to={pathnameFromRouteInformation({ route: CITY_NOT_COOPERATING_ROUTE, ...{ languageCode } })}
+        to={pathnameFromRouteInformation({ route: SUGGEST_TO_REGION_ROUTE, ...{ languageCode } })}
         variant='outlined'
         textAlign='center'>
         {t('suggestToRegion', { appName: buildConfig().appName })}
@@ -37,4 +37,4 @@ const CityNotCooperatingFooter = ({ languageCode }: CityNotCooperatingFooterProp
   )
 }
 
-export default CityNotCooperatingFooter
+export default SuggestToRegionFooter

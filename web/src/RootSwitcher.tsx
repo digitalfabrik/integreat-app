@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Navigate, Route, Routes, useMatch } from 'react-router'
 
 import {
-  CITY_NOT_COOPERATING_ROUTE,
+  SUGGEST_TO_REGION_ROUTE,
   cityContentPath,
   CONSENT_ROUTE,
   LANDING_ROUTE,
@@ -19,8 +19,8 @@ import FixedCityContentSwitcher from './FixedCityContentSwitcher'
 import buildConfig from './constants/buildConfig'
 import useScrollToTop from './hooks/useScrollToTop'
 import { cityContentPattern, RoutePatterns } from './routes'
-import CityNotCooperatingPage from './routes/CityNotCooperatingPage'
 import ConsentPage from './routes/ConsentPage'
+import SuggestToRegionPage from './routes/SuggestToRegionPage'
 import lazyWithRetry from './utils/retryImport'
 
 type RootSwitcherProps = {
@@ -34,7 +34,7 @@ const LicensesPage = lazyWithRetry(() => import('./routes/LicensesPage'))
 
 const RootSwitcher = ({ setContentLanguage }: RootSwitcherProps): ReactElement => {
   const { i18n } = useTranslation()
-  const { fixedCity, cityNotCooperating } = buildConfig().featureFlags
+  const { fixedCity, suggestToRegion } = buildConfig().featureFlags
   const { routeParam0, routeParam1, '*': splat } = useMatch('/:routeParam0/:routeParam1/*')?.params ?? {}
   useScrollToTop()
 
@@ -67,10 +67,10 @@ const RootSwitcher = ({ setContentLanguage }: RootSwitcherProps): ReactElement =
         }
       />
 
-      {cityNotCooperating && (
+      {suggestToRegion && (
         <Route
-          path={RoutePatterns[CITY_NOT_COOPERATING_ROUTE]}
-          element={<CityNotCooperatingPage languageCode={language} />}
+          path={RoutePatterns[SUGGEST_TO_REGION_ROUTE]}
+          element={<SuggestToRegionPage languageCode={language} />}
         />
       )}
 

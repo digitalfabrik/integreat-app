@@ -1,7 +1,7 @@
 import { fireEvent, RenderAPI } from '@testing-library/react-native'
 import React from 'react'
 
-import { CITY_NOT_COOPERATING_ROUTE, LandingRouteType } from 'shared'
+import { SUGGEST_TO_REGION_ROUTE, LandingRouteType } from 'shared'
 import CityModelBuilder from 'shared/api/endpoints/testing/CityModelBuilder'
 
 import buildConfig from '../../constants/buildConfig'
@@ -36,11 +36,11 @@ describe('Landing', () => {
   const navigation = createNavigationScreenPropMock<LandingRouteType>()
 
   const mockedBuildConfig = mocked(buildConfig)
-  const mockBuildConfig = (cityNotCooperating: boolean) => {
+  const mockBuildConfig = (suggestToRegion: boolean) => {
     const previous = buildConfig()
     mockedBuildConfig.mockImplementation(() => ({
       ...previous,
-      featureFlags: { ...previous.featureFlags, cityNotCooperating },
+      featureFlags: { ...previous.featureFlags, suggestToRegion },
     }))
   }
 
@@ -73,11 +73,11 @@ describe('Landing', () => {
     expect(queryByText('cityNotFound')).toBeNull()
   })
 
-  it('should navigate to cityNotCooperating page on button click', () => {
+  it('should navigate to suggestToRegion page on button click', () => {
     mockBuildConfig(true)
     const { getByText } = renderLanding()
     const button = getByText('suggestToRegion')
     fireEvent.press(button)
-    expect(navigation.navigate).toHaveBeenCalledWith(CITY_NOT_COOPERATING_ROUTE)
+    expect(navigation.navigate).toHaveBeenCalledWith(SUGGEST_TO_REGION_ROUTE)
   })
 })

@@ -37,18 +37,18 @@ const TemplateText = styled(Typography)(({ theme }) => ({
   whiteSpace: 'pre-line',
 }))
 
-type CityNotCooperatingPageProps = {
+type SuggestToRegionPageProps = {
   languageCode: string
 }
 
-const CityNotCooperatingPage = ({ languageCode }: CityNotCooperatingPageProps): ReactElement | null => {
-  const { t } = useTranslation('cityNotCooperating')
+const SuggestToRegionPage = ({ languageCode }: SuggestToRegionPageProps): ReactElement | null => {
+  const { t } = useTranslation('suggestToRegion')
   const [isCopied, setIsCopied] = useState(false)
-  const template = buildConfig().featureFlags.cityNotCooperatingTemplate
-  const cityNotCooperatingIcon = buildConfig().icons.cityNotCooperating
+  const template = buildConfig().featureFlags.suggestToRegionTemplate
+  const suggestToRegionIcon = buildConfig().icons.suggestToRegion
   useScrollToTopOnMount()
 
-  if (!template || !cityNotCooperatingIcon) {
+  if (!template || !suggestToRegionIcon) {
     return null
   }
 
@@ -62,7 +62,7 @@ const CityNotCooperatingPage = ({ languageCode }: CityNotCooperatingPageProps): 
       <Stack paddingBlock={4} gap={2}>
         <H1>{t('callToAction')}</H1>
         <Typography variant='body1'>{t('explanation')}</Typography>
-        <StyledSvg src={cityNotCooperatingIcon} width={160} height={160} />
+        <StyledSvg src={suggestToRegionIcon} width={160} height={160} />
         <Typography component='h2' variant='subtitle1'>
           {t('whatToDo')}
         </Typography>
@@ -92,4 +92,4 @@ const CityNotCooperatingPage = ({ languageCode }: CityNotCooperatingPageProps): 
   )
 }
 
-export default CityNotCooperatingPage
+export default SuggestToRegionPage
