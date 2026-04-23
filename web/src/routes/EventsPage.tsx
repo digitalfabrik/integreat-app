@@ -9,9 +9,7 @@ import { useParams } from 'react-router'
 import { EVENTS_ROUTE, pathnameFromRouteInformation, useDateFilter } from 'shared'
 import { createEventsEndpoint, NotFoundError, useLoadFromEndpoint } from 'shared/api'
 
-import { CityRouteProps } from '../CityContentNavigator'
-import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
-import CityContentToolbar from '../components/CityContentToolbar'
+import { CityRouteProps } from '../RegionContentNavigator'
 import DatesPageDetail from '../components/DatesPageDetail'
 import EventListItem, { Icon } from '../components/EventListItem'
 import EventsDateFilter from '../components/EventsDateFilter'
@@ -20,6 +18,8 @@ import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Helmet from '../components/Helmet'
 import Page, { THUMBNAIL_WIDTH } from '../components/Page'
 import PageDetail from '../components/PageDetail'
+import RegionContentLayout, { CityContentLayoutProps } from '../components/RegionContentLayout'
+import RegionContentToolbar from '../components/RegionContentToolbar'
 import SkeletonList from '../components/SkeletonList'
 import SkeletonPage from '../components/SkeletonPage'
 import H1 from '../components/base/H1'
@@ -81,38 +81,38 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     languageChangePaths,
     languageCode,
     pageTitle,
-    Toolbar: <CityContentToolbar slug={event?.slug} />,
+    Toolbar: <RegionContentToolbar slug={event?.slug} />,
   }
 
   if (error) {
     return (
-      <CityContentLayout isLoading={false} {...locationLayoutParams}>
+      <RegionContentLayout isLoading={false} {...locationLayoutParams}>
         <FailureSwitcherWithHelmet error={error} />
-      </CityContentLayout>
+      </RegionContentLayout>
     )
   }
 
   if (eventId) {
     if (!events) {
       return (
-        <CityContentLayout isLoading {...locationLayoutParams}>
+        <RegionContentLayout isLoading {...locationLayoutParams}>
           <SkeletonPage />
-        </CityContentLayout>
+        </RegionContentLayout>
       )
     }
 
     if (!event) {
       const error = new NotFoundError({ type: 'event', id: pathname, city: cityCode, language: languageCode })
       return (
-        <CityContentLayout isLoading={false} {...locationLayoutParams}>
+        <RegionContentLayout isLoading={false} {...locationLayoutParams}>
           <FailureSwitcherWithHelmet error={error} />
-        </CityContentLayout>
+        </RegionContentLayout>
       )
     }
     const { featuredImage, lastUpdate, content, title, location, meetingUrl, date } = event
 
     return (
-      <CityContentLayout isLoading={false} {...locationLayoutParams}>
+      <RegionContentLayout isLoading={false} {...locationLayoutParams}>
         <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
         <Page
           thumbnailSrcSet={featuredImage ? featuredImageToSrcSet(featuredImage, THUMBNAIL_WIDTH) : undefined}
@@ -137,7 +137,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
           }
           Footer={<ExportEventButton event={event} />}
         />
-      </CityContentLayout>
+      </RegionContentLayout>
     )
   }
 
@@ -152,7 +152,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
   ))
 
   return (
-    <CityContentLayout isLoading={false} {...locationLayoutParams}>
+    <RegionContentLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
       <H1>{t('events')}</H1>
       <EventsDateFilter
@@ -167,7 +167,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
       ) : (
         <SkeletonList listItemHeight={80} listItemIcon={<Icon />} />
       )}
-    </CityContentLayout>
+    </RegionContentLayout>
   )
 }
 

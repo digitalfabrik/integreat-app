@@ -16,10 +16,10 @@ import {
 import { ExtendedDocumentModel } from 'shared/api'
 import { config } from 'translations'
 
-import { CityRouteProps } from '../CityContentNavigator'
-import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
+import { CityRouteProps } from '../RegionContentNavigator'
 import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Helmet from '../components/Helmet'
+import RegionContentLayout, { CityContentLayoutProps } from '../components/RegionContentLayout'
 import SearchFeedback from '../components/SearchFeedback'
 import SearchInput from '../components/SearchInput'
 import SearchListItem from '../components/SearchListItem'
@@ -118,14 +118,14 @@ const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
 
   if (error) {
     return (
-      <CityContentLayout isLoading={false} {...layoutParams}>
+      <RegionContentLayout isLoading={false} {...layoutParams}>
         <FailureSwitcherWithHelmet error={error} />
-      </CityContentLayout>
+      </RegionContentLayout>
     )
   }
 
   return (
-    <CityContentLayout isLoading={false} {...layoutParams}>
+    <RegionContentLayout isLoading={false} {...layoutParams}>
       <Helmet
         pageTitle={`${t('pageTitle')} - ${city.name}`}
         languageChangePaths={languageChangePaths}
@@ -140,7 +140,7 @@ const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
         />
         <SearchResults results={searchResults} query={debouncedQuery} loading={documentsLoading || loading} />
       </Stack>
-    </CityContentLayout>
+    </RegionContentLayout>
   )
 }
 

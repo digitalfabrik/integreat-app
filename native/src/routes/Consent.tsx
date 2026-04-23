@@ -8,7 +8,7 @@ import Layout from '../components/Layout'
 import List from '../components/List'
 import Text from '../components/base/Text'
 import buildConfig from '../constants/buildConfig'
-import { useAppContext } from '../hooks/useCityAppContext'
+import { useAppContext } from '../hooks/useRegionAppContext'
 
 const Consent = (): ReactElement | null => {
   const { settings, updateSettings } = useAppContext()

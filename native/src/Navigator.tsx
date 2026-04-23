@@ -31,8 +31,8 @@ import TransparentHeader from './components/TransparentHeader'
 import { ROOT_NAVIGATOR_ID } from './constants'
 import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from './constants/NavigationTypes'
 import buildConfig from './constants/buildConfig'
-import { useAppContext } from './hooks/useCityAppContext'
-import useLoadCities from './hooks/useLoadCities'
+import useLoadRegions from './hooks/useLoadRegions'
+import { useAppContext } from './hooks/useRegionAppContext'
 import useSnackbar from './hooks/useSnackbar'
 import ChangeLanguageModal from './routes/ChangeLanguageModal'
 import Consent from './routes/Consent'
@@ -82,7 +82,7 @@ const Navigator = (): ReactElement | null => {
   const [initialRoute, setInitialRoute] = useState<InitialRouteType>(null)
 
   // Preload cities
-  const { data: cities, error: citiesError, refresh: refreshCities } = useLoadCities()
+  const { data: cities, error: citiesError, refresh: refreshCities } = useLoadRegions()
 
   const updateInitialRoute = useCallback(
     (initialRoute: InitialRouteType) =>

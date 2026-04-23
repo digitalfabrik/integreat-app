@@ -1,6 +1,6 @@
 import { filterSortCities } from '../..'
 import LanguageModelBuilder from '../../api/endpoints/testing/LanguageModelBuilder'
-import CityModel from '../../api/models/CityModel'
+import RegionModel from '../../api/models/RegionModel'
 
 describe('search', () => {
   describe('filterSortCities', () => {
@@ -11,7 +11,7 @@ describe('search', () => {
       },
     }
     const city = ({ prefix = 'Stadt', sortingName = 'Augsburg', live = true, aliases = defaultAliases }) =>
-      new CityModel({
+      new RegionModel({
         name: [prefix, sortingName].join(' '),
         code: sortingName.toLowerCase(),
         live,

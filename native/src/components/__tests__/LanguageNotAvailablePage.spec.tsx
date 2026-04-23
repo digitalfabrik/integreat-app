@@ -7,7 +7,7 @@ import TestingAppContext from '../../testing/TestingAppContext'
 import render from '../../testing/render'
 import LanguageNotAvailablePage from '../LanguageNotAvailablePage'
 
-jest.mock('../../hooks/useLoadCities', () => () => ({
+jest.mock('../../hooks/useLoadRegions', () => () => ({
   data: null,
   loading: false,
   error: null,

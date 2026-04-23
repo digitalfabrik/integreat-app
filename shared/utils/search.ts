@@ -1,9 +1,9 @@
-import CityModel from '../api/models/CityModel'
+import RegionModel from '../api/models/RegionModel'
 import { normalizeString } from './normalizeString'
 
 const cityFilter =
   (filterText: string, developerFriendly: boolean) =>
-  (cityModel: CityModel): boolean => {
+  (cityModel: RegionModel): boolean => {
     const normalizedFilter = normalizeString(filterText)
     if (normalizedFilter === 'wirschaffendas') {
       return !cityModel.live
@@ -18,8 +18,8 @@ const cityFilter =
 const safeLocaleCompare = (a: string | null | undefined, b: string | null | undefined): number =>
   (a ?? '').localeCompare(b ?? '')
 
-const citySort = (a: CityModel, b: CityModel): number =>
+const citySort = (a: RegionModel, b: RegionModel): number =>
   safeLocaleCompare(a.sortingName, b.sortingName) || safeLocaleCompare(a.prefix, b.prefix)
 
-export const filterSortCities = (cities: CityModel[], filterText: string, developerFriendly = false): CityModel[] =>
+export const filterSortCities = (cities: RegionModel[], filterText: string, developerFriendly = false): RegionModel[] =>
   cities.filter(cityFilter(filterText, developerFriendly)).sort(citySort)

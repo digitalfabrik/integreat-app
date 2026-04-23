@@ -19,7 +19,7 @@ import PoiFilters from '../components/PoiFilters'
 import PoisDesktop from '../components/PoisDesktop'
 import PoisMobile from '../components/PoisMobile'
 import useDimensions from '../hooks/useDimensions'
-import moveViewportToCity from '../utils/moveViewportToCity'
+import moveViewportToRegion from '../utils/moveViewportToRegion'
 import PoiFiltersOverlayButtons from './PoiFiltersOverlayButtons'
 
 const Container = styled('div')`
@@ -39,7 +39,7 @@ const Pois = ({ pois: allPois, userLocation, city, loading }: PoiProps): ReactEl
   const [showFilterSelection, setShowFilterSelection] = useState(false)
   const [queryParams, setQueryParams] = useSearchParams()
   const { multipoi, poiCategoryId, zoom } = parseQueryParams(queryParams)
-  const [mapViewport, setMapViewport] = useState<MapViewViewport>(moveViewportToCity(city, zoom))
+  const [mapViewport, setMapViewport] = useState<MapViewViewport>(moveViewportToRegion(city, zoom))
   const params = useParams()
   const navigate = useNavigate()
   const { mobile } = useDimensions()

@@ -16,7 +16,7 @@ import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NonNullableRouteInformationType, RouteInfo
 
 import buildConfig from '../constants/buildConfig'
 import { AppContextType } from '../contexts/AppContextProvider'
-import { useAppContext } from '../hooks/useCityAppContext'
+import { useAppContext } from '../hooks/useRegionAppContext'
 import { log, reportError } from './sentry'
 
 type UpdateSettingsType = (settings: { allowPushNotifications: boolean }) => void

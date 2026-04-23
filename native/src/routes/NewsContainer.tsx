@@ -5,9 +5,9 @@ import { ErrorCode } from 'shared/api'
 
 import NewsHeader from '../components/NewsHeader'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
-import useCityAppContext from '../hooks/useCityAppContext'
-import useLoadCityContent from '../hooks/useLoadCityContent'
+import useLoadRegionContent from '../hooks/useLoadRegionContent'
 import useNavigate from '../hooks/useNavigate'
+import useRegionAppContext from '../hooks/useRegionAppContext'
 import LoadingErrorHandler from './LoadingErrorHandler'
 import LocalNews from './LocalNews'
 import TuNews from './TuNews'
@@ -20,8 +20,8 @@ type NewsContainerProps = {
 
 const NewsContainer = ({ route, navigation }: NewsContainerProps): ReactElement | null => {
   const { newsType, newsId } = route.params
-  const { cityCode, languageCode } = useCityAppContext()
-  const { data, ...response } = useLoadCityContent({ cityCode, languageCode, refreshLocalNews: true })
+  const { cityCode, languageCode } = useRegionAppContext()
+  const { data, ...response } = useLoadRegionContent({ cityCode, languageCode, refreshLocalNews: true })
   const { navigateTo } = useNavigate()
 
   const navigateToNews = useCallback(

@@ -5,8 +5,8 @@ import styled from 'styled-components/native'
 
 import { fromError, LanguageModel } from 'shared/api'
 
-import useCityAppContext from '../hooks/useCityAppContext'
-import useLoadCities from '../hooks/useLoadCities'
+import useLoadRegions from '../hooks/useLoadRegions'
+import useRegionAppContext from '../hooks/useRegionAppContext'
 import SelectorItemModel from '../models/SelectorItemModel'
 import Caption from './Caption'
 import Failure from './Failure'
@@ -23,8 +23,8 @@ type LanguageNotAvailablePageProps = {
 }
 
 const LanguageNotAvailablePage = ({ availableLanguages, refresh }: LanguageNotAvailablePageProps): ReactElement => {
-  const { cityCode, changeLanguageCode } = useCityAppContext()
-  const { data: cities, error, refresh: refreshCities, loading } = useLoadCities()
+  const { cityCode, changeLanguageCode } = useRegionAppContext()
+  const { data: cities, error, refresh: refreshCities, loading } = useLoadRegions()
   const languages = cities?.find(it => it.code === cityCode)?.languages
   const { t } = useTranslation('error')
 

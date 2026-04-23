@@ -4,9 +4,9 @@ import { rrulestr } from 'rrule'
 
 import { DateModel, EventModel } from 'shared/api'
 import CategoriesMapModelBuilder from 'shared/api/endpoints/testing/CategoriesMapModelBuilder'
-import CityModelBuilder from 'shared/api/endpoints/testing/CityModelBuilder'
 import EventModelBuilder from 'shared/api/endpoints/testing/EventModelBuilder'
 
+import RegionModelBuilder from '../../../../shared/api/endpoints/testing/RegionModelBuilder'
 import BlobUtil from '../../__mocks__/react-native-blob-util'
 import DatabaseContext from '../../models/DatabaseContext'
 import DatabaseConnector, {
@@ -34,7 +34,7 @@ const t = (key: string, options?: Record<string, unknown>) =>
 describe('DatabaseConnector', () => {
   const city = 'augsburg'
   const language = 'de'
-  const testCities = new CityModelBuilder(2).build()
+  const testCities = new RegionModelBuilder(2).build()
   const testCategoriesMap = new CategoriesMapModelBuilder(city, language, 2, 2).build()
   const testEvents = new EventModelBuilder('testSeed', 2, city, language).build()
   const testResources = {

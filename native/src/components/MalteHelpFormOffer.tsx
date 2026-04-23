@@ -16,8 +16,8 @@ import {
   MALTE_HELP_FORM_MAX_COMMENT_LENGTH,
 } from 'shared/api'
 
-import useCityAppContext from '../hooks/useCityAppContext'
 import useKeyboardHeight from '../hooks/useKeyboardHeight'
+import useRegionAppContext from '../hooks/useRegionAppContext'
 import useSnackbar from '../hooks/useSnackbar'
 import LayoutedScrollView from './LayoutedScrollView'
 import PrivacyCheckbox from './PrivacyCheckbox'
@@ -77,7 +77,7 @@ const MalteHelpFormOffer = ({
     defaultValues,
   })
   const { t } = useTranslation('malteHelpForm')
-  const { languageCode } = useCityAppContext()
+  const { languageCode } = useRegionAppContext()
   const [privacyPolicyAccepted, setPrivacyPolicyAccepted] = useState(false)
   const showSnackbar = useSnackbar()
 

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 
 import Header from '../components/Header'
 import { NavigationProps, RouteProps, RoutesType } from '../constants/NavigationTypes'
-import { CityContentData } from './useLoadCityContent'
+import { CityContentData } from './useLoadRegionContent'
 
 type UseHeaderProps<T extends RoutesType> = {
   navigation: NavigationProps<T>

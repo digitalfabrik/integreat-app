@@ -15,14 +15,14 @@ import {
   useLoadFromEndpoint,
 } from 'shared/api'
 
-import { CityRouteProps } from '../CityContentNavigator'
+import { CityRouteProps } from '../RegionContentNavigator'
 import { BreadcrumbProps } from '../components/Breadcrumb'
 import Breadcrumbs from '../components/Breadcrumbs'
 import CategoriesContent from '../components/CategoriesContent'
-import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
-import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Helmet from '../components/Helmet'
+import RegionContentLayout, { CityContentLayoutProps } from '../components/RegionContentLayout'
+import RegionContentToolbar from '../components/RegionContentToolbar'
 import SkeletonHeader from '../components/SkeletonHeader'
 import SkeletonList from '../components/SkeletonList'
 import SkeletonPage from '../components/SkeletonPage'
@@ -148,7 +148,7 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
     languageCode,
     category,
     pageTitle,
-    Toolbar: <CityContentToolbar slug={category && !category.isRoot() ? category.slug : undefined} />,
+    Toolbar: <RegionContentToolbar slug={category && !category.isRoot() ? category.slug : undefined} />,
   }
   const isDataAvailable = !categories || !parents || !category
   const isLoadingData = categoriesLoading || parentsLoading || pathname !== previousPathname
@@ -177,9 +177,9 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
   if (isDataAvailable) {
     if (isLoadingData) {
       return (
-        <CityContentLayout isLoading {...locationLayoutParams}>
+        <RegionContentLayout isLoading {...locationLayoutParams}>
           {loadSkeleton()}
-        </CityContentLayout>
+        </RegionContentLayout>
       )
     }
     // This adds support for the old paths of categories by redirecting to the new path
@@ -197,9 +197,9 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
         : categoriesError || parentsError || notFoundError
 
     return (
-      <CityContentLayout isLoading={false} {...locationLayoutParams}>
+      <RegionContentLayout isLoading={false} {...locationLayoutParams}>
         <FailureSwitcherWithHelmet error={error} />
-      </CityContentLayout>
+      </RegionContentLayout>
     )
   }
 
@@ -211,7 +211,7 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
   const metaDescription = t('categories:metaDescription', { appName: buildConfig().appName })
 
   return (
-    <CityContentLayout isLoading={false} {...locationLayoutParams}>
+    <RegionContentLayout isLoading={false} {...locationLayoutParams}>
       <Helmet
         pageTitle={pageTitle}
         metaDescription={metaDescription}
@@ -231,7 +231,7 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
           categoryModel={category}
         />
       )}
-    </CityContentLayout>
+    </RegionContentLayout>
   )
 }
 

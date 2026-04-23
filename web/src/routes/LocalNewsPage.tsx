@@ -11,14 +11,14 @@ import {
 } from 'shared'
 import { createLocalNewsEndpoint, LocalNewsModel, NotFoundError, useLoadFromEndpoint } from 'shared/api'
 
-import { CityRouteProps } from '../CityContentNavigator'
-import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
-import CityContentToolbar from '../components/CityContentToolbar'
+import { CityRouteProps } from '../RegionContentNavigator'
 import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Helmet from '../components/Helmet'
 import NewsListItem from '../components/NewsListItem'
 import NewsTabs from '../components/NewsTabs'
 import Page from '../components/Page'
+import RegionContentLayout, { CityContentLayoutProps } from '../components/RegionContentLayout'
+import RegionContentToolbar from '../components/RegionContentToolbar'
 import SkeletonList from '../components/SkeletonList'
 import SkeletonPage from '../components/SkeletonPage'
 import List from '../components/base/List'
@@ -66,7 +66,7 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
     languageChangePaths,
     languageCode,
     pageTitle,
-    Toolbar: <CityContentToolbar />,
+    Toolbar: <RegionContentToolbar />,
   }
 
   if (newsError) {
@@ -78,23 +78,23 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
     })
 
     return (
-      <CityContentLayout isLoading={false} {...locationLayoutParams}>
+      <RegionContentLayout isLoading={false} {...locationLayoutParams}>
         <FailureSwitcherWithHelmet error={error} />
-      </CityContentLayout>
+      </RegionContentLayout>
     )
   }
 
   if (newsId) {
     if (!newsModel) {
       return (
-        <CityContentLayout isLoading={false} {...locationLayoutParams}>
+        <RegionContentLayout isLoading={false} {...locationLayoutParams}>
           <SkeletonPage />
-        </CityContentLayout>
+        </RegionContentLayout>
       )
     }
     const linkedContent = replaceLinks(newsModel.content)
     return (
-      <CityContentLayout isLoading={false} {...locationLayoutParams}>
+      <RegionContentLayout isLoading={false} {...locationLayoutParams}>
         <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
         <Page
           title={newsModel.title}
@@ -102,7 +102,7 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
           lastUpdate={newsModel.timestamp}
           showLastUpdateText={false}
         />
-      </CityContentLayout>
+      </RegionContentLayout>
     )
   }
 
@@ -120,7 +120,7 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
   })
 
   return (
-    <CityContentLayout isLoading={false} {...locationLayoutParams}>
+    <RegionContentLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
       <NewsTabs
         type={LOCAL_NEWS_TYPE}
@@ -130,7 +130,7 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
         language={languageCode}
       />
       {loading ? <SkeletonList /> : <List items={NewsListItems ?? []} NoItemsMessage='news:currentlyNoNews' />}
-    </CityContentLayout>
+    </RegionContentLayout>
   )
 }
 

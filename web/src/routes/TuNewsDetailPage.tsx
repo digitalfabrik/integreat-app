@@ -6,13 +6,13 @@ import { useParams } from 'react-router'
 import { TU_NEWS_TYPE, tunewsLabel } from 'shared'
 import { createTunewsElementEndpoint, NotFoundError, useLoadFromEndpoint } from 'shared/api'
 
-import { CityRouteProps } from '../CityContentNavigator'
+import { CityRouteProps } from '../RegionContentNavigator'
 import { TuNewsActiveIcon } from '../assets'
-import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
-import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Helmet from '../components/Helmet'
 import Page from '../components/Page'
+import RegionContentLayout, { CityContentLayoutProps } from '../components/RegionContentLayout'
+import RegionContentToolbar from '../components/RegionContentToolbar'
 import SkeletonPage from '../components/SkeletonPage'
 import Svg from '../components/base/Svg'
 import { tunewsApiBaseUrl } from '../constants/urls'
@@ -61,7 +61,7 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
     languageChangePaths,
     languageCode,
     pageTitle,
-    Toolbar: <CityContentToolbar />,
+    Toolbar: <RegionContentToolbar />,
   }
 
   if (newsError) {
@@ -76,14 +76,14 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
         : newsError
 
     return (
-      <CityContentLayout isLoading={false} {...locationLayoutParams}>
+      <RegionContentLayout isLoading={false} {...locationLayoutParams}>
         <FailureSwitcherWithHelmet error={error} />
-      </CityContentLayout>
+      </RegionContentLayout>
     )
   }
 
   return (
-    <CityContentLayout isLoading={false} {...locationLayoutParams}>
+    <RegionContentLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
       <TuNewsBanner>
         <IconContainer width={180} height='100%'>
@@ -100,7 +100,7 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
           showLastUpdateText={false}
         />
       )}
-    </CityContentLayout>
+    </RegionContentLayout>
   )
 }
 
