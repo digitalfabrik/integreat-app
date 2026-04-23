@@ -9,7 +9,7 @@ import {
   mockUseLoadFromEndpointWithData,
 } from 'shared/api/endpoints/testing/mockUseLoadFromEndpoint'
 
-import RootSwitcher from '../RootSwitcher'
+import RootNavigator from '../RootNavigator'
 import buildConfig from '../constants/buildConfig'
 import { renderWithRouterAndTheme } from '../testing/render'
 
@@ -26,21 +26,21 @@ jest.mock('shared/api', () => ({
   useLoadAsync: jest.fn(() => ({ data: null, error: null })),
 }))
 
-jest.mock('../CityContentSwitcher')
+jest.mock('../CityContentNavigator')
 
 const MockComponent = () => {
   const pathname = normalizePath(useLocation().pathname)
   return <div>{pathname}</div>
 }
 
-describe('RootSwitcher', () => {
+describe('RootNavigator', () => {
   const setContentLanguage = jest.fn()
   const cities = new CityModelBuilder(2).build()
 
-  const renderRootSwitcher = (pathname: string) =>
+  const renderRootNavigator = (pathname: string) =>
     renderWithRouterAndTheme(
       <>
-        <RootSwitcher setContentLanguage={setContentLanguage} />
+        <RootNavigator setContentLanguage={setContentLanguage} />
         <MockComponent />
       </>,
       { pathname },
@@ -53,7 +53,7 @@ describe('RootSwitcher', () => {
   it('should render the landing page', async () => {
     mockUseLoadFromEndpointOnceWithData(cities)
 
-    const { getByText } = renderRootSwitcher('/landing/de')
+    const { getByText } = renderRootNavigator('/landing/de')
 
     await waitFor(() => expect(getByText('/landing/de')).toBeTruthy())
   })
@@ -73,7 +73,7 @@ describe('RootSwitcher', () => {
     `('should redirect from $from to $to', ({ from, to }) => {
       mockUseLoadFromEndpointWithData(cities)
 
-      const { getByText } = renderRootSwitcher(from)
+      const { getByText } = renderRootNavigator(from)
 
       expect(getByText(to)).toBeTruthy()
     })
@@ -103,7 +103,7 @@ describe('RootSwitcher', () => {
       `('should redirect from $from to $to for fixedCity', async ({ from, to }) => {
         mockUseLoadFromEndpointWithData(cities)
 
-        const { getByText } = renderRootSwitcher(from)
+        const { getByText } = renderRootNavigator(from)
 
         await waitFor(() => expect(getByText(to)).toBeTruthy())
       })

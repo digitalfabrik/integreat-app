@@ -15,7 +15,7 @@ import {
   useLoadFromEndpoint,
 } from 'shared/api'
 
-import { CityRouteProps } from '../CityContentSwitcher'
+import { CityRouteProps } from '../CityContentNavigator'
 import { BreadcrumbProps } from '../components/Breadcrumb'
 import Breadcrumbs from '../components/Breadcrumbs'
 import CategoriesContent from '../components/CategoriesContent'

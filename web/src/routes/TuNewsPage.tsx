@@ -3,7 +3,7 @@ import React, { ReactElement, useCallback } from 'react'
 import { NEWS_ROUTE, pathnameFromRouteInformation, TU_NEWS_TYPE, tunewsLabel } from 'shared'
 import { createTunewsEndpoint, createTunewsLanguagesEndpoint, TunewsModel, useLoadFromEndpoint } from 'shared/api'
 
-import { CityRouteProps } from '../CityContentSwitcher'
+import { CityRouteProps } from '../CityContentNavigator'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'

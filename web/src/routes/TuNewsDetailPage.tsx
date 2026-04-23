@@ -6,7 +6,7 @@ import { useParams } from 'react-router'
 import { TU_NEWS_TYPE, tunewsLabel } from 'shared'
 import { createTunewsElementEndpoint, NotFoundError, useLoadFromEndpoint } from 'shared/api'
 
-import { CityRouteProps } from '../CityContentSwitcher'
+import { CityRouteProps } from '../CityContentNavigator'
 import { TuNewsActiveIcon } from '../assets'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'

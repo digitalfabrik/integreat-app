@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { IMPRINT_ROUTE, pathnameFromRouteInformation } from 'shared'
 import { createImprintEndpoint, useLoadFromEndpoint } from 'shared/api'
 
-import { CityRouteProps } from '../CityContentSwitcher'
+import { CityRouteProps } from '../CityContentNavigator'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'

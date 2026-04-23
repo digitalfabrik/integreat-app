@@ -14,8 +14,8 @@ import {
   RESERVED_CITY_CONTENT_SLUGS,
 } from 'shared'
 
-import CityContentSwitcher from './CityContentSwitcher'
-import FixedCityContentSwitcher from './FixedCityContentSwitcher'
+import CityContentNavigator from './CityContentNavigator'
+import FixedCityContentNavigator from './FixedCityContentNavigator'
 import buildConfig from './constants/buildConfig'
 import useScrollToTop from './hooks/useScrollToTop'
 import { cityContentPattern, RoutePatterns } from './routes'
@@ -23,7 +23,7 @@ import ConsentPage from './routes/ConsentPage'
 import SuggestToRegionPage from './routes/SuggestToRegionPage'
 import lazyWithRetry from './utils/retryImport'
 
-type RootSwitcherProps = {
+type RootNavigatorProps = {
   setContentLanguage: (languageCode: string) => void
 }
 
@@ -32,7 +32,7 @@ const LandingPage = lazyWithRetry(() => import('./routes/LandingPage'))
 const NotFoundPage = lazyWithRetry(() => import('./routes/NotFoundPage'))
 const LicensesPage = lazyWithRetry(() => import('./routes/LicensesPage'))
 
-const RootSwitcher = ({ setContentLanguage }: RootSwitcherProps): ReactElement => {
+const RootNavigator = ({ setContentLanguage }: RootNavigatorProps): ReactElement => {
   const { i18n } = useTranslation()
   const { fixedCity, suggestToRegion } = buildConfig().featureFlags
   const { routeParam0, routeParam1, '*': splat } = useMatch('/:routeParam0/:routeParam1/*')?.params ?? {}
@@ -60,9 +60,9 @@ const RootSwitcher = ({ setContentLanguage }: RootSwitcherProps): ReactElement =
         path={cityContentPattern}
         element={
           fixedCity ? (
-            <FixedCityContentSwitcher languageCode={language} fixedCity={fixedCity} />
+            <FixedCityContentNavigator languageCode={language} fixedCity={fixedCity} />
           ) : (
-            <CityContentSwitcher languageCode={language} />
+            <CityContentNavigator languageCode={language} />
           )
         }
       />
@@ -94,4 +94,4 @@ const RootSwitcher = ({ setContentLanguage }: RootSwitcherProps): ReactElement =
   )
 }
 
-export default RootSwitcher
+export default RootNavigator
