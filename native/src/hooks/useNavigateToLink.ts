@@ -6,8 +6,8 @@ import { SnackbarType } from '../components/SnackbarContainer'
 import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import openExternalUrl from '../utils/openExternalUrl'
-import { useAppContext } from './useCityAppContext'
 import useNavigate from './useNavigate'
+import { useAppContext } from './useRegionAppContext'
 import useSnackbar from './useSnackbar'
 
 const SUPPORTED_IMAGE_FILE_TYPES = ['.jpg', '.jpeg', '.png']

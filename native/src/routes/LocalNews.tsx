@@ -5,7 +5,7 @@ import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NewsRouteType } from 'shared'
 import News from '../components/News'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useHeader from '../hooks/useHeader'
-import { CityContentData } from '../hooks/useLoadCityContent'
+import { CityContentData } from '../hooks/useLoadRegionContent'
 import usePreviousProp from '../hooks/usePreviousProp'
 import urlFromRouteInformation from '../utils/url'
 

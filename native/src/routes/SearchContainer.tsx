@@ -4,8 +4,8 @@ import { prepareSearchDocuments, SearchRouteType } from 'shared'
 import { config } from 'translations'
 
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
-import useCityAppContext from '../hooks/useCityAppContext'
-import useLoadCityContent from '../hooks/useLoadCityContent'
+import useLoadRegionContent from '../hooks/useLoadRegionContent'
+import useRegionAppContext from '../hooks/useRegionAppContext'
 import LoadingErrorHandler from './LoadingErrorHandler'
 import Search from './Search'
 
@@ -15,10 +15,10 @@ export type SearchContainerProps = {
 }
 
 const SearchContainer = ({ navigation, route }: SearchContainerProps): ReactElement | null => {
-  const { cityCode, languageCode } = useCityAppContext()
+  const { cityCode, languageCode } = useRegionAppContext()
   const initialSearchText = route.params.searchText ?? ''
-  const { data, ...response } = useLoadCityContent({ cityCode, languageCode })
-  const { data: sourceLanguageData } = useLoadCityContent({ cityCode, languageCode: config.sourceLanguage })
+  const { data, ...response } = useLoadRegionContent({ cityCode, languageCode })
+  const { data: sourceLanguageData } = useLoadRegionContent({ cityCode, languageCode: config.sourceLanguage })
 
   const userLanguageDocuments = prepareSearchDocuments(data?.categories, data?.events, data?.pois)
   const sourceLanguageDocuments =

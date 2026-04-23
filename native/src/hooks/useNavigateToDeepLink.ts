@@ -7,8 +7,8 @@ import { SnackbarType } from '../components/SnackbarContainer'
 import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import { AppContextType } from '../contexts/AppContextProvider'
-import { useAppContext } from './useCityAppContext'
 import useNavigate from './useNavigate'
+import { useAppContext } from './useRegionAppContext'
 import useSnackbar from './useSnackbar'
 
 type NavigateToDeepLinkParams<T extends RoutesType> = {

@@ -18,7 +18,7 @@ jest.mock('shared/api', () => ({
 }))
 jest.mock('react-i18next')
 jest.mock('../../components/InfiniteScrollList', () => () => 'List')
-jest.mock('../../components/CityContentHeader', () => () => null)
+jest.mock('../../components/RegionContentHeader', () => () => null)
 
 describe('TuNewsPage', () => {
   beforeEach(() => {

@@ -5,11 +5,11 @@ import { useParams } from 'react-router'
 import { normalizePath, pathnameFromRouteInformation, POIS_ROUTE } from 'shared'
 import { useLoadFromEndpoint, createPOIsEndpoint } from 'shared/api'
 
-import { CityRouteProps } from '../CityContentNavigator'
-import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
+import { CityRouteProps } from '../RegionContentNavigator'
 import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Helmet from '../components/Helmet'
 import Pois from '../components/Pois'
+import RegionContentLayout, { CityContentLayoutProps } from '../components/RegionContentLayout'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 import useUserLocation from '../hooks/useUserLocation'
@@ -57,16 +57,16 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
 
   if (error) {
     return (
-      <CityContentLayout isLoading={false} {...locationLayoutParams}>
+      <RegionContentLayout isLoading={false} {...locationLayoutParams}>
         <FailureSwitcherWithHelmet error={error} />
-      </CityContentLayout>
+      </RegionContentLayout>
     )
   }
 
   const pageTitle = `${poi?.title ?? t('pageTitle')} - ${city.name}`
 
   return (
-    <CityContentLayout isLoading={false} {...locationLayoutParams} pageTitle={pageTitle}>
+    <RegionContentLayout isLoading={false} {...locationLayoutParams} pageTitle={pageTitle}>
       <Helmet
         pageTitle={pageTitle}
         metaDescription={poi?.metaDescription}
@@ -74,7 +74,7 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
         cityModel={city}
       />
       <Pois loading={loading} pois={data ?? []} userLocation={userLocation} city={city} />
-    </CityContentLayout>
+    </RegionContentLayout>
   )
 }
 

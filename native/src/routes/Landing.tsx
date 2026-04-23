@@ -6,14 +6,14 @@ import styled from 'styled-components/native'
 import { BOTTOM_TAB_ROUTE, SUGGEST_TO_REGION_ROUTE, LandingRouteType } from 'shared'
 import { CityModel } from 'shared/api'
 
-import CitySelector from '../components/CitySelector'
+import RegionSelector from '../components/RegionSelector'
 import SuggestToRegionFooter from '../components/SuggestToRegionFooter'
 import SwitchCmsUrlIcon from '../components/SwitchCmsUrlIcon'
 import Text from '../components/base/Text'
 import { NavigationProps } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import { AppContext } from '../contexts/AppContextProvider'
-import useLoadCities from '../hooks/useLoadCities'
+import useLoadRegions from '../hooks/useLoadRegions'
 import testID from '../testing/testID'
 import dataContainer from '../utils/DefaultDataContainer'
 import { reportError } from '../utils/sentry'
@@ -31,7 +31,7 @@ type LandingProps = {
 }
 
 const Landing = ({ navigation }: LandingProps): ReactElement => {
-  const { data: cities, refresh, ...response } = useLoadCities()
+  const { data: cities, refresh, ...response } = useLoadRegions()
   const { changeCityCode } = useContext(AppContext)
   const { t } = useTranslation('landing')
 
@@ -57,7 +57,7 @@ const Landing = ({ navigation }: LandingProps): ReactElement => {
             <SwitchCmsUrlIcon clearResourcesAndCache={clearResourcesAndCache} />
             <Text variant='h3'>{t('welcome', { appName: buildConfig().appName })}</Text>
             <Text variant='body2'>{t('welcomeInformation')}</Text>
-            <CitySelector cities={cities} navigateToDashboard={navigateToDashboard} />
+            <RegionSelector cities={cities} navigateToDashboard={navigateToDashboard} />
           </Wrapper>
           <SuggestToRegionFooter navigateToSuggestToRegion={() => navigation.navigate(SUGGEST_TO_REGION_ROUTE)} />
         </>

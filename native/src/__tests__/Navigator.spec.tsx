@@ -4,7 +4,7 @@ import React from 'react'
 import { CityModelBuilder } from 'shared/api'
 
 import Navigator from '../Navigator'
-import useLoadCityContent, { CityContentReturn } from '../hooks/useLoadCityContent'
+import useLoadRegionContent, { CityContentReturn } from '../hooks/useLoadRegionContent'
 import TestingAppContext from '../testing/TestingAppContext'
 import render from '../testing/render'
 import dataContainer from '../utils/DefaultDataContainer'
@@ -13,8 +13,8 @@ const cities = new CityModelBuilder(3).build()
 jest.mock('styled-components')
 jest.mock('../utils/DefaultDataContainer', () => ({ deleteCity: jest.fn(async () => undefined) }))
 jest.mock('@react-native-community/netinfo')
-jest.mock('../hooks/useLoadCities', () => jest.fn(() => ({ data: cities, error: null })))
-jest.mock('../hooks/useLoadCityContent')
+jest.mock('../hooks/useLoadRegions', () => jest.fn(() => ({ data: cities, error: null })))
+jest.mock('../hooks/useLoadRegionContent')
 jest.mock('shared/api', () => ({
   ...jest.requireActual('shared/api'),
   useLoadAsync: jest.fn(() => ({ data: null, error: null })),
@@ -136,7 +136,7 @@ describe('Navigator', () => {
   const { mocked } = jest
   beforeEach(() => {
     jest.clearAllMocks()
-    mocked(useLoadCityContent).mockReturnValue({
+    mocked(useLoadRegionContent).mockReturnValue({
       data: {
         city: cities[0]!,
         languages: [],

@@ -6,11 +6,11 @@ import { config } from 'translations'
 
 import Categories from '../components/Categories'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
-import useCityAppContext from '../hooks/useCityAppContext'
 import useHeader from '../hooks/useHeader'
-import useLoadCityContent from '../hooks/useLoadCityContent'
+import useLoadRegionContent from '../hooks/useLoadRegionContent'
 import useNavigate from '../hooks/useNavigate'
 import usePreviousProp from '../hooks/usePreviousProp'
+import useRegionAppContext from '../hooks/useRegionAppContext'
 import useSetRouteTitle from '../hooks/useSetRouteTitle'
 import urlFromRouteInformation from '../utils/url'
 import LoadingErrorHandler from './LoadingErrorHandler'
@@ -21,12 +21,12 @@ type CategoriesContainerProps = {
 }
 
 const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): ReactElement => {
-  const { cityCode, languageCode } = useCityAppContext()
+  const { cityCode, languageCode } = useRegionAppContext()
   const { navigateTo } = useNavigate()
 
-  const { data, ...response } = useLoadCityContent({ cityCode, languageCode })
+  const { data, ...response } = useLoadRegionContent({ cityCode, languageCode })
   // Preload search results for fallback language
-  useLoadCityContent({ cityCode, languageCode: config.sourceLanguage })
+  useLoadRegionContent({ cityCode, languageCode: config.sourceLanguage })
 
   const path = route.params.path ?? cityContentPath({ cityCode, languageCode })
   const category = useMemo(() => data?.categories.findCategoryByPath(path), [data?.categories, path])

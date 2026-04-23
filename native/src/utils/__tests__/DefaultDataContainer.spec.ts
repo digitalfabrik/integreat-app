@@ -1,10 +1,10 @@
 import { DateTime } from 'luxon'
 
 import CategoriesMapModelBuilder from 'shared/api/endpoints/testing/CategoriesMapModelBuilder'
-import CityModelBuilder from 'shared/api/endpoints/testing/CityModelBuilder'
 import EventModelBuilder from 'shared/api/endpoints/testing/EventModelBuilder'
 import PoiModelBuilder from 'shared/api/endpoints/testing/PoiModelBuilder'
 
+import RegionModelBuilder from '../../../../shared/api/endpoints/testing/RegionModelBuilder'
 import BlobUtil from '../../__mocks__/react-native-blob-util'
 import DatabaseContext from '../../models/DatabaseContext'
 import DatabaseConnector from '../DatabaseConnector'
@@ -30,7 +30,7 @@ describe('DefaultDataContainer', () => {
   const city = 'augsburg'
   const language = 'de'
   const testPois = new PoiModelBuilder(2).build()
-  const testCities = new CityModelBuilder(2).build()
+  const testCities = new RegionModelBuilder(2).build()
   const testCategoriesMap = new CategoriesMapModelBuilder(city, language).build()
   const anotherTestCategoriesMap = new CategoriesMapModelBuilder(city, language, 1, 1).build()
   const testEvents = new EventModelBuilder('seed', 2, city, language).build()

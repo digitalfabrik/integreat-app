@@ -14,8 +14,8 @@ import {
   RESERVED_CITY_CONTENT_SLUGS,
 } from 'shared'
 
-import CityContentNavigator from './CityContentNavigator'
-import FixedCityContentNavigator from './FixedCityContentNavigator'
+import FixedRegionContentNavigator from './FixedRegionContentNavigator'
+import RegionContentNavigator from './RegionContentNavigator'
 import buildConfig from './constants/buildConfig'
 import useScrollToTop from './hooks/useScrollToTop'
 import { cityContentPattern, RoutePatterns } from './routes'
@@ -60,9 +60,9 @@ const RootNavigator = ({ setContentLanguage }: RootNavigatorProps): ReactElement
         path={cityContentPattern}
         element={
           fixedCity ? (
-            <FixedCityContentNavigator languageCode={language} fixedCity={fixedCity} />
+            <FixedRegionContentNavigator languageCode={language} fixedCity={fixedCity} />
           ) : (
-            <CityContentNavigator languageCode={language} />
+            <RegionContentNavigator languageCode={language} />
           )
         }
       />

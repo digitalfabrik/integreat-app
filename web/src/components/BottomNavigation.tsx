@@ -9,8 +9,8 @@ import { useTranslation } from 'react-i18next'
 import { CATEGORIES_ROUTE, EVENTS_ROUTE, NEWS_ROUTE, POIS_ROUTE } from 'shared'
 import { CityModel } from 'shared/api'
 
-import useCityContentParams from '../hooks/useCityContentParams'
 import useDimensions from '../hooks/useDimensions'
+import useRegionContentParams from '../hooks/useRegionContentParams'
 import useUpdateDimensions from '../hooks/useUpdateDimensions'
 import getNavigationItems from '../utils/navigationItems'
 import Link from './base/Link'
@@ -59,7 +59,7 @@ type BottomNavigationProps = {
 }
 
 const BottomNavigation = ({ cityModel, languageCode }: BottomNavigationProps): ReactElement | null => {
-  const { route } = useCityContentParams()
+  const { route } = useRegionContentParams()
   const { t } = useTranslation('layout')
   const { xsmall } = useDimensions()
   useUpdateDimensions()

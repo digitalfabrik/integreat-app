@@ -4,9 +4,9 @@ import { IMPRINT_ROUTE, ImprintRouteType } from 'shared'
 import { createImprintEndpoint } from 'shared/api'
 
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
-import useCityAppContext from '../hooks/useCityAppContext'
 import useHeader from '../hooks/useHeader'
-import useLoadExtraCityContent from '../hooks/useLoadExtraCityContent'
+import useLoadExtraRegionContent from '../hooks/useLoadExtraRegionContent'
+import useRegionAppContext from '../hooks/useRegionAppContext'
 import urlFromRouteInformation from '../utils/url'
 import Imprint from './Imprint'
 import LoadingErrorHandler from './LoadingErrorHandler'
@@ -17,8 +17,8 @@ type ImprintContainerProps = {
 }
 
 const ImprintContainer = ({ navigation, route }: ImprintContainerProps): ReactElement => {
-  const { cityCode, languageCode } = useCityAppContext()
-  const { data, ...response } = useLoadExtraCityContent({
+  const { cityCode, languageCode } = useRegionAppContext()
+  const { data, ...response } = useLoadExtraRegionContent({
     createEndpoint: createImprintEndpoint,
     cityCode,
     languageCode,

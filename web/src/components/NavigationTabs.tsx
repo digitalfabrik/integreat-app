@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next'
 import { CATEGORIES_ROUTE, EVENTS_ROUTE, NEWS_ROUTE, POIS_ROUTE } from 'shared'
 import { CityModel } from 'shared/api'
 
-import useCityContentParams from '../hooks/useCityContentParams'
+import useRegionContentParams from '../hooks/useRegionContentParams'
 import getNavigationItems from '../utils/navigationItems'
 import Link from './base/Link'
 
@@ -17,7 +17,7 @@ type NavigationTabsProps = {
 }
 
 const NavigationTabs = ({ cityModel, languageCode }: NavigationTabsProps): ReactElement | null => {
-  const { route } = useCityContentParams()
+  const { route } = useRegionContentParams()
   const { t } = useTranslation('layout')
   const theme = useTheme()
   const color = theme.isContrastTheme ? 'secondary' : 'primary'

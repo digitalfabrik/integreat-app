@@ -26,7 +26,7 @@ jest.mock('shared/api', () => ({
   useLoadAsync: jest.fn(() => ({ data: null, error: null })),
 }))
 
-jest.mock('../CityContentNavigator')
+jest.mock('../RegionContentNavigator')
 
 const MockComponent = () => {
   const pathname = normalizePath(useLocation().pathname)

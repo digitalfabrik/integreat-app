@@ -3,12 +3,12 @@ import { useTranslation } from 'react-i18next'
 
 import { createCitiesEndpoint, useLoadFromEndpoint } from 'shared/api'
 
-import CitySelector from '../components/CitySelector'
 import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Footer from '../components/Footer'
 import GeneralHeader from '../components/GeneralHeader'
 import Helmet from '../components/Helmet'
 import Layout from '../components/Layout'
+import RegionSelector from '../components/RegionSelector'
 import SuggestToRegionFooter from '../components/SuggestToRegionFooter'
 import buildConfig from '../constants/buildConfig'
 import { cmsApiBaseUrl } from '../constants/urls'
@@ -43,7 +43,7 @@ const LandingPage = ({ languageCode }: LandingPageProps): ReactElement => {
         </>
       }>
       <Helmet pageTitle={pageTitle} metaDescription={metaDescription} rootPage />
-      <CitySelector cities={cities ?? []} language={languageCode} stickyTop={stickyTop} loading={loading} />
+      <RegionSelector cities={cities ?? []} language={languageCode} stickyTop={stickyTop} loading={loading} />
     </Layout>
   )
 }
