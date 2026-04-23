@@ -24,6 +24,7 @@ import {
   SETTINGS_ROUTE,
 } from 'shared'
 
+import BottomTabNavigator from './BottomTabNavigator'
 import Header from './components/Header'
 import RedirectContainer from './components/RedirectContainer'
 import TransparentHeader from './components/TransparentHeader'
@@ -33,7 +34,6 @@ import buildConfig from './constants/buildConfig'
 import { useAppContext } from './hooks/useCityAppContext'
 import useLoadCities from './hooks/useLoadCities'
 import useSnackbar from './hooks/useSnackbar'
-import BottomTabNavigator from './navigation/BottomTabNavigator'
 import ChangeLanguageModal from './routes/ChangeLanguageModal'
 import Consent from './routes/Consent'
 import FeedbackModalContainer from './routes/FeedbackModalContainer'
