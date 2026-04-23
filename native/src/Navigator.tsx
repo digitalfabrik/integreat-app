@@ -3,8 +3,8 @@ import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import {
-  BOTTOM_TAB_NAVIGATION_ROUTE,
-  BottomTabNavigationRouteType,
+  BOTTOM_TAB_ROUTE,
+  BottomTabRouteType,
   CategoriesRouteType,
   CHANGE_LANGUAGE_MODAL_ROUTE,
   SUGGEST_TO_REGION_ROUTE,
@@ -33,7 +33,7 @@ import buildConfig from './constants/buildConfig'
 import { useAppContext } from './hooks/useCityAppContext'
 import useLoadCities from './hooks/useLoadCities'
 import useSnackbar from './hooks/useSnackbar'
-import BottomTabNavigation from './navigation/BottomTabNavigation'
+import BottomTabNavigatior from './navigation/BottomTabNavigatior'
 import ChangeLanguageModal from './routes/ChangeLanguageModal'
 import Consent from './routes/Consent'
 import FeedbackModalContainer from './routes/FeedbackModalContainer'
@@ -47,7 +47,6 @@ import PDFViewModal from './routes/PDFViewModal'
 import SearchContainer from './routes/SearchContainer'
 import Settings from './routes/Settings'
 import SuggestToRegion from './routes/SuggestToRegion'
-import { ASYNC_STORAGE_VERSION } from './utils/AppSettings'
 import dataContainer from './utils/DefaultDataContainer'
 import { initSentry, log, reportError } from './utils/sentry'
 
@@ -67,7 +66,7 @@ const Stack = createStackNavigator<RoutesParamsType>()
 
 type InitialRouteType =
   | {
-      name: IntroRouteType | LandingRouteType | CategoriesRouteType | BottomTabNavigationRouteType
+      name: IntroRouteType | LandingRouteType | CategoriesRouteType | BottomTabRouteType
     }
   | {
       name: RedirectRouteType
@@ -93,7 +92,7 @@ const Navigator = (): ReactElement | null => {
   )
 
   useEffect(() => {
-    const { errorTracking, storageVersion, introShown } = settings
+    const { errorTracking, introShown } = settings
     const usingHermes = typeof HermesInternal === 'object' && HermesInternal !== null
 
     if (usingHermes) {
@@ -102,10 +101,6 @@ const Navigator = (): ReactElement | null => {
 
     if (errorTracking) {
       initSentry()
-    }
-
-    if (!storageVersion) {
-      updateSettings({ storageVersion: ASYNC_STORAGE_VERSION })
     }
 
     if (!buildConfig().featureFlags.introSlides && !introShown) {
@@ -122,7 +117,7 @@ const Navigator = (): ReactElement | null => {
     } else if (!cityCode) {
       updateInitialRoute({ name: LANDING_ROUTE })
     } else if (cities?.find(it => it.code === cityCode)) {
-      updateInitialRoute({ name: BOTTOM_TAB_NAVIGATION_ROUTE })
+      updateInitialRoute({ name: BOTTOM_TAB_ROUTE })
     } else if (cities) {
       // City is not available anymore
       changeCityCode(null)
@@ -148,8 +143,8 @@ const Navigator = (): ReactElement | null => {
         <Stack.Screen name={INTRO_ROUTE} component={Intro} />
         <Stack.Screen name={SEARCH_ROUTE} component={SearchContainer} />
         <Stack.Screen
-          name={BOTTOM_TAB_NAVIGATION_ROUTE}
-          component={BottomTabNavigation}
+          name={BOTTOM_TAB_ROUTE}
+          component={BottomTabNavigatior}
           options={{ cardStyle: { paddingBottom: 0 } }}
         />
       </Stack.Group>

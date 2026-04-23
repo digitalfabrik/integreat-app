@@ -2,7 +2,7 @@ import { Parser } from 'htmlparser2'
 import { sha256 } from 'js-sha256'
 import Url from 'url-parse'
 
-import { ExtendedPageModel } from 'shared/api'
+import { ExtendedDocumentModel } from 'shared/api'
 
 import { getExtension } from './helpers'
 import { FetchMapType } from './loadResourceCache'
@@ -70,11 +70,11 @@ export default class ResourceURLFinder {
   }
 
   buildFetchMap(
-    pages: ExtendedPageModel[],
+    documents: ExtendedDocumentModel[],
     buildFilePath: (url: string, urlHash: string) => string,
     currentlyCachedFiles: string[],
   ): FetchMapType {
-    return pages.flatMap(page => {
+    return documents.flatMap(page => {
       this.findResourceUrls(page.content)
       const urlSet = this._foundUrls
 

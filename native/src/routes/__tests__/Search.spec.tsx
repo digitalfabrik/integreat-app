@@ -1,7 +1,7 @@
 import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
 
-import { CategoriesMapModelBuilder, EventModelBuilder, ExtendedPageModel, PoiModelBuilder } from 'shared/api'
+import { CategoriesMapModelBuilder, EventModelBuilder, ExtendedDocumentModel, PoiModelBuilder } from 'shared/api'
 
 import createNavigationMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
@@ -20,7 +20,7 @@ jest.mock('shared/hooks/useDebounce', () => ({
 
 jest.mock('shared', () => ({
   ...jest.requireActual('shared'),
-  useSearch: ({ userLanguageDocuments, query }: { userLanguageDocuments: ExtendedPageModel[]; query: string }) => ({
+  useSearch: ({ userLanguageDocuments, query }: { userLanguageDocuments: ExtendedDocumentModel[]; query: string }) => ({
     data: query === 'no results, please' ? [] : userLanguageDocuments,
     error: null,
     loading: false,

@@ -1,5 +1,5 @@
 import {
-  BOTTOM_TAB_NAVIGATION_ROUTE,
+  BOTTOM_TAB_ROUTE,
   CATEGORIES_ROUTE,
   CATEGORIES_TAB_ROUTE,
   EVENTS_ROUTE,
@@ -33,11 +33,11 @@ export const navigateNested = <T extends RoutesType, S extends keyof NestedRoute
   redirect: boolean,
 ): void => {
   if (navigation.getId() === ROOT_NAVIGATOR_ID) {
-    const bottomTabRouteOpened = navigation.getState().routes.some(({ name }) => name === BOTTOM_TAB_NAVIGATION_ROUTE)
+    const bottomTabRouteOpened = navigation.getState().routes.some(({ name }) => name === BOTTOM_TAB_ROUTE)
 
     if (redirect) {
       // Allow going back to the dashboard if opening a deep link
-      navigation.replace(BOTTOM_TAB_NAVIGATION_ROUTE, {
+      navigation.replace(BOTTOM_TAB_ROUTE, {
         screen: CATEGORIES_TAB_ROUTE,
         params: {
           screen: CATEGORIES_ROUTE,
@@ -46,7 +46,7 @@ export const navigateNested = <T extends RoutesType, S extends keyof NestedRoute
     }
 
     const navigate = bottomTabRouteOpened && redirect ? navigation.replace : navigation.push
-    navigate(BOTTOM_TAB_NAVIGATION_ROUTE, {
+    navigate(BOTTOM_TAB_ROUTE, {
       screen: tabRoutes[route],
       params: {
         screen: route,

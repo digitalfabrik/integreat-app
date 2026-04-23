@@ -16,15 +16,16 @@ type SuggestToRegionFooterProps = {
 
 const SuggestToRegionFooter = ({ languageCode }: SuggestToRegionFooterProps): ReactElement | null => {
   const { t } = useTranslation('landing')
-  const SuggestToRegionIcon = buildConfig().icons.suggestToRegion
 
-  if (!buildConfig().featureFlags.suggestToRegion || !SuggestToRegionIcon) {
+  const featureFlag = buildConfig().featureFlags.suggestToRegion
+
+  if (!featureFlag) {
     return null
   }
 
   return (
     <Stack alignItems='center' padding={2} gap={2}>
-      <Svg src={SuggestToRegionIcon} width={160} height={160} />
+      <Svg src={featureFlag.icon} width={160} height={160} />
       <Typography variant='body1'>{t('cityNotFound')}</Typography>
       <Button
         component={Link}

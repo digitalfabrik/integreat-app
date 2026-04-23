@@ -4,7 +4,7 @@ import { KeyboardAvoidingView, Platform } from 'react-native'
 import { useTheme } from 'styled-components/native'
 
 import { MAX_SEARCH_RESULTS, parseHTML, SEARCH_ROUTE, SearchRouteType, useDebounce, useSearch } from 'shared'
-import { ExtendedPageModel } from 'shared/api'
+import { ExtendedDocumentModel } from 'shared/api'
 
 import FeedbackContainer from '../components/FeedbackContainer'
 import Layout from '../components/Layout'
@@ -19,8 +19,8 @@ import testID from '../testing/testID'
 
 export type SearchProps = {
   navigation: NavigationProps<SearchRouteType>
-  userLanguageDocuments: ExtendedPageModel[]
-  sourceLanguageDocuments: ExtendedPageModel[]
+  userLanguageDocuments: ExtendedDocumentModel[]
+  sourceLanguageDocuments: ExtendedDocumentModel[]
   languageCode: string
   cityCode: string
   initialSearchText: string
@@ -50,7 +50,7 @@ const Search = ({
   useReportError(error)
   useAnnounceSearchResultsIOS(searchResults)
 
-  const renderItem = ({ item }: { item: ExtendedPageModel }) => (
+  const renderItem = ({ item }: { item: ExtendedDocumentModel }) => (
     <SearchListItem
       key={item.path}
       title={item.title}

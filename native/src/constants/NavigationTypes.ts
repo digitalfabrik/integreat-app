@@ -37,8 +37,8 @@ import {
   LicensesRouteType,
   CONSENT_ROUTE,
   ConsentRouteType,
-  BOTTOM_TAB_NAVIGATION_ROUTE,
-  BottomTabNavigationRouteType,
+  BOTTOM_TAB_ROUTE,
+  BottomTabRouteType,
   CATEGORIES_TAB_ROUTE,
   CategoriesTabRouteType,
   EVENTS_TAB_ROUTE,
@@ -70,7 +70,7 @@ export type RootRoutesType =
   | FeedbackModalRouteType
   | LicensesRouteType
   | ConsentRouteType
-  | BottomTabNavigationRouteType
+  | BottomTabRouteType
 
 export type RoutesType = RootRoutesType | TabRoutesType | NestedRoutesType
 
@@ -136,7 +136,7 @@ export type RootRoutesParamsType = {
     cityCode: string
     slug?: string
   }
-  [BOTTOM_TAB_NAVIGATION_ROUTE]: { screen: TabRoutesType; params: TabRoutesParamsType[TabRoutesType] } | {}
+  [BOTTOM_TAB_ROUTE]: { screen: TabRoutesType; params: TabRoutesParamsType[TabRoutesType] } | {}
 }
 
 export type RoutesParamsType = NestedRoutesParamsType & TabRoutesParamsType & RootRoutesParamsType

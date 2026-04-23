@@ -32,7 +32,7 @@ const PoisPage = lazyWithRetry(() => import('./routes/PoisPage'))
 const SearchPage = lazyWithRetry(() => import('./routes/SearchPage'))
 const ImprintPage = lazyWithRetry(() => import('./routes/ImprintPage'))
 
-type CityContentSwitcherProps = {
+type CityContentNavigatorProps = {
   languageCode: string
 }
 
@@ -43,7 +43,7 @@ export type CityRouteProps = {
   languageCode: string
 }
 
-const CityContentSwitcher = ({ languageCode }: CityContentSwitcherProps): ReactElement => {
+const CityContentNavigator = ({ languageCode }: CityContentNavigatorProps): ReactElement => {
   // This component is only opened when there is a cityCode in the route
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const cityCode = useParams().cityCode!
@@ -143,4 +143,4 @@ const CityContentSwitcher = ({ languageCode }: CityContentSwitcherProps): ReactE
   )
 }
 
-export default CityContentSwitcher
+export default CityContentNavigator
