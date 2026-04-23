@@ -4408,25 +4408,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@maplibre/maplibre-gl-style-spec@npm:^19.2.1":
-  version: 19.3.3
-  resolution: "@maplibre/maplibre-gl-style-spec@npm:19.3.3"
-  dependencies:
-    "@mapbox/jsonlint-lines-primitives": "npm:~2.0.2"
-    "@mapbox/unitbezier": "npm:^0.0.1"
-    json-stringify-pretty-compact: "npm:^3.0.0"
-    minimist: "npm:^1.2.8"
-    rw: "npm:^1.3.3"
-    sort-object: "npm:^3.0.3"
-  bin:
-    gl-style-format: dist/gl-style-format.mjs
-    gl-style-migrate: dist/gl-style-migrate.mjs
-    gl-style-validate: dist/gl-style-validate.mjs
-  checksum: 10c0/ef315bf9c4e5ebce0d76a7722e53c3e4192b92ea405c95392f61655f551a112bbc17fd00c7c62a16eeb57cdb79a2145e385c4eaf2ca7f50222d2540c9e7e0a7a
-  languageName: node
-  linkType: hard
-
-"@maplibre/maplibre-gl-style-spec@npm:^24.7.0":
+"@maplibre/maplibre-gl-style-spec@npm:24.8.1, @maplibre/maplibre-gl-style-spec@npm:^24.7.0":
   version: 24.8.1
   resolution: "@maplibre/maplibre-gl-style-spec@npm:24.8.1"
   dependencies:
@@ -4445,47 +4427,39 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@maplibre/maplibre-react-native@npm:10.4.2":
-  version: 10.4.2
-  resolution: "@maplibre/maplibre-react-native@npm:10.4.2"
+"@maplibre/maplibre-gl-style-spec@npm:^19.2.1":
+  version: 19.3.3
+  resolution: "@maplibre/maplibre-gl-style-spec@npm:19.3.3"
   dependencies:
-    "@turf/distance": "npm:^7.1.0"
-    "@turf/helpers": "npm:^7.1.0"
-    "@turf/length": "npm:^7.1.0"
-    "@turf/nearest-point-on-line": "npm:^7.1.0"
-    debounce: "npm:^2.2.0"
-  peerDependencies:
-    "@expo/config-plugins": ">=7"
-    "@types/geojson": ^7946.0.0
-    "@types/react": ">=16.6.1"
-    react: ">=16.6.1"
-    react-native: ">=0.59.9"
-  peerDependenciesMeta:
-    "@expo/config-plugins":
-      optional: true
-    "@types/geojson":
-      optional: true
-    "@types/react":
-      optional: true
-  checksum: 10c0/ac24884a218aaa5a6b08351913a313b373e1365e4ab50d0320ac7d2ce4b34c33617e1b98fa66011b3b5435358f74c64079c792b400e054ff26a196c0a91361c9
+    "@mapbox/jsonlint-lines-primitives": "npm:~2.0.2"
+    "@mapbox/unitbezier": "npm:^0.0.1"
+    json-stringify-pretty-compact: "npm:^3.0.0"
+    minimist: "npm:^1.2.8"
+    rw: "npm:^1.3.3"
+    sort-object: "npm:^3.0.3"
+  bin:
+    gl-style-format: dist/gl-style-format.mjs
+    gl-style-migrate: dist/gl-style-migrate.mjs
+    gl-style-validate: dist/gl-style-validate.mjs
+  checksum: 10c0/ef315bf9c4e5ebce0d76a7722e53c3e4192b92ea405c95392f61655f551a112bbc17fd00c7c62a16eeb57cdb79a2145e385c4eaf2ca7f50222d2540c9e7e0a7a
   languageName: node
   linkType: hard
 
-"@maplibre/maplibre-react-native@patch:@maplibre/maplibre-react-native@npm%3A10.4.2#~/.yarn/patches/@maplibre-maplibre-react-native-npm-10.4.2-a5da575b03.patch":
-  version: 10.4.2
-  resolution: "@maplibre/maplibre-react-native@patch:@maplibre/maplibre-react-native@npm%3A10.4.2#~/.yarn/patches/@maplibre-maplibre-react-native-npm-10.4.2-a5da575b03.patch::version=10.4.2&hash=2c991c"
+"@maplibre/maplibre-react-native@npm:11.0.1":
+  version: 11.0.1
+  resolution: "@maplibre/maplibre-react-native@npm:11.0.1"
   dependencies:
+    "@maplibre/maplibre-gl-style-spec": "npm:24.8.1"
     "@turf/distance": "npm:^7.1.0"
     "@turf/helpers": "npm:^7.1.0"
     "@turf/length": "npm:^7.1.0"
     "@turf/nearest-point-on-line": "npm:^7.1.0"
-    debounce: "npm:^2.2.0"
   peerDependencies:
-    "@expo/config-plugins": ">=7"
+    "@expo/config-plugins": ">=54.0.0"
     "@types/geojson": ^7946.0.0
-    "@types/react": ">=16.6.1"
-    react: ">=16.6.1"
-    react-native: ">=0.59.9"
+    "@types/react": ">=19.1.0"
+    react: ">=19.1.0"
+    react-native: ">=0.80.0"
   peerDependenciesMeta:
     "@expo/config-plugins":
       optional: true
@@ -4493,7 +4467,7 @@ __metadata:
       optional: true
     "@types/react":
       optional: true
-  checksum: 10c0/caa28c622de51ddbe0e770149dc2e4a5aaf483cf9185abd3c41c99d7ceb534271b1ac03ee4721f8ae17ece88b81db257b67a36e24e8fe80184935945e5bb3703
+  checksum: 10c0/a1891854e98ec1c7463abafe1615751b35764cf1a20c88c3540813e362a2d695d4c3c83f08cbac0e5e5ec89240f42a14eb2ea770327dd6934aba205137e5ae46
   languageName: node
   linkType: hard
 
@@ -11071,13 +11045,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debounce@npm:^2.2.0":
-  version: 2.2.0
-  resolution: "debounce@npm:2.2.0"
-  checksum: 10c0/684536fe9a04c9eea46cf02f119f69aa4071813ba25b9b43370e1503ea60b34fd38d694c7145fa2be504f9d40e7e39354cb9ed155c70954a0eefa391aefe271c
-  languageName: node
-  linkType: hard
-
 "debug@npm:2.6.9, debug@npm:^2.6.9":
   version: 2.6.9
   resolution: "debug@npm:2.6.9"
@@ -17541,7 +17508,7 @@ __metadata:
     "@formatjs/intl-displaynames": "npm:^6.8.13"
     "@formatjs/intl-locale": "npm:^4.2.13"
     "@gorhom/bottom-sheet": "npm:^5.2.8"
-    "@maplibre/maplibre-react-native": "patch:@maplibre/maplibre-react-native@npm%3A10.4.2#~/.yarn/patches/@maplibre-maplibre-react-native-npm-10.4.2-a5da575b03.patch"
+    "@maplibre/maplibre-react-native": "npm:11.0.1"
     "@mhpdev/react-native-speech": "npm:^1.4.0"
     "@notifee/react-native": "npm:^9.1.8"
     "@react-native-async-storage/async-storage": "npm:^2.2.0"

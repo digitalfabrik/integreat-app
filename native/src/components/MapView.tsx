@@ -1,17 +1,22 @@
 import {
   Camera,
-  CircleLayer,
-  Location,
-  MapView as MapLibreMapView,
-  MapViewRef,
-  ShapeSource,
-  SymbolLayer,
-  UserLocation,
-  UserTrackingMode,
+  NativeUserLocation,
+  type CameraRef,
+  type CameraStop,
+  GeoJSONSource,
+  Layer,
+  type LngLat,
+  type LngLatBounds,
+  Map as MapLibreMapView,
+  MapRef,
+  type PressEvent,
+  type PressEventWithFeatures,
+  useCurrentPosition,
 } from '@maplibre/maplibre-react-native'
 import type { BBox, Feature, GeoJsonProperties, Geometry, Position } from 'geojson'
 import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import type { NativeSyntheticEvent } from 'react-native'
 import styled, { useTheme } from 'styled-components/native'
 
 import {
@@ -33,6 +38,7 @@ import {
 import { clusterCountLayer, clusterLayer, markerLayer } from '../constants/layers'
 import useUserLocation from '../hooks/useUserLocation'
 import { conditionalA11yProps } from '../utils/helpers'
+import { reportError } from '../utils/sentry'
 import MapAttribution from './MapsAttribution'
 import Icon from './base/Icon'
 import IconButton from './base/IconButton'
@@ -99,94 +105,112 @@ const MapView = ({
   bottomSheetFullscreen,
   zoom,
 }: MapViewProps): ReactElement => {
-  const mapRef = useRef<MapViewRef>(null)
+  const toLngLat = (position: Position): LngLat => {
+    const [longitude, latitude] = position
+
+    if (longitude === undefined || latitude === undefined) {
+      reportError('Expected two-dimensional map coordinates.')
+      return [0, 0]
+    }
+
+    return [longitude, latitude]
+  }
+
+  const mapRef = useRef<MapRef>(null)
+  const cameraRef = useRef<CameraRef>(null)
   const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
   const { refreshPermissionAndLocation } = useUserLocation({ requestPermissionInitially: true })
+  const currentPosition = useCurrentPosition()
   const { t } = useTranslation('pois')
   const theme = useTheme()
 
-  const bounds = {
-    ne: [boundingBox[2], boundingBox[3]],
-    sw: [boundingBox[0], boundingBox[1]],
-  }
+  const bounds: LngLatBounds = [boundingBox[0], boundingBox[1], boundingBox[2], boundingBox[3]]
 
   const coordinates = selectedFeature?.geometry.coordinates
+  const lngLatCoordinates = coordinates ? toLngLat(coordinates) : undefined
   const defaultZoom = coordinates ? normalDetailZoom : defaultViewportConfig.zoom
 
-  const [cameraSettings, setCameraSettings] = useState<{
-    zoomLevel: number
-    centerCoordinate: Position | undefined
-    bounds?: { ne: number[]; sw: number[] } | undefined
-    animationDuration: number
-  }>({
-    zoomLevel: zoom ?? defaultZoom,
-    centerCoordinate: coordinates,
-    bounds: coordinates ? undefined : bounds,
-    animationDuration,
+  const [cameraSettings, setCameraSettings] = useState<CameraStop>({
+    ...(lngLatCoordinates !== undefined ? { center: lngLatCoordinates } : { bounds }),
+    zoom: zoom ?? defaultZoom,
+    duration: animationDuration,
+    easing: 'ease',
   })
 
-  const moveTo = useCallback(
-    (location: Position, zoomLevel = normalDetailZoom) =>
-      setCameraSettings({
-        centerCoordinate: location,
-        zoomLevel,
-        animationDuration,
-      }),
-    [],
-  )
+  const moveTo = useCallback((location: LngLat, zoomLevel = normalDetailZoom) => {
+    setCameraSettings({
+      center: location,
+      zoom: zoomLevel,
+      duration: animationDuration,
+      easing: 'ease',
+    })
+  }, [])
 
   const onRequestLocation = useCallback(async () => {
-    const newUserLocation = userLocation ?? (await refreshPermissionAndLocation())?.coordinates
+    const currentUserLocation: LocationType | null =
+      currentPosition?.coords == null ? null : [currentPosition.coords.longitude, currentPosition.coords.latitude]
+    const newUserLocation = currentUserLocation ?? userLocation ?? (await refreshPermissionAndLocation())?.coordinates
     if (newUserLocation) {
       setUserLocation(newUserLocation)
       moveTo(newUserLocation)
+      cameraRef.current?.easeTo({
+        center: newUserLocation,
+        zoom: normalDetailZoom,
+        duration: animationDuration,
+        padding: { bottom: bottomSheetHeight },
+      })
       setFollowUserLocation(true)
     }
-  }, [refreshPermissionAndLocation, moveTo, setUserLocation, userLocation])
+  }, [bottomSheetHeight, currentPosition, refreshPermissionAndLocation, moveTo, setUserLocation, userLocation])
 
+  // Recenter on the selected marker.
   useEffect(() => {
     if (selectedFeature) {
-      moveTo(selectedFeature.geometry.coordinates)
+      moveTo(toLngLat(selectedFeature.geometry.coordinates))
       setFollowUserLocation(false)
     }
   }, [moveTo, selectedFeature])
 
+  // Set device position.
+  useEffect(() => {
+    if (currentPosition?.coords == null) {
+      return
+    }
+
+    const currentUserLocation: LocationType = [currentPosition.coords.longitude, currentPosition.coords.latitude]
+
+    // Avoid frequent rerenders if distance only changes minimally
+    if (!userLocation || calculateDistance(userLocation, currentUserLocation) > MIN_DISTANCE_THRESHOLD) {
+      setUserLocation(currentUserLocation)
+    }
+  }, [currentPosition, setUserLocation, userLocation])
+
   const zoomOnClusterPress = async (pressedCoordinates: [number, number]) => {
-    const clusterCollection = await mapRef.current?.queryRenderedFeaturesAtPoint(pressedCoordinates, undefined, [
-      clusterLayerId,
-    ])
-    if (clusterCollection && 0 in clusterCollection.features && mapRef.current) {
-      const feature = clusterCollection.features[0] as MapFeature
-      moveTo(feature.geometry.coordinates, (await mapRef.current.getZoom()) + clusterClickZoomFactor)
+    const clusterCollection: Feature<Geometry, GeoJsonProperties>[] | undefined =
+      await mapRef.current?.queryRenderedFeatures(pressedCoordinates, {
+        layers: [clusterLayerId],
+      })
+    const feature = clusterCollection?.[0] as MapFeature | undefined
+    if (feature && mapRef.current !== null) {
+      moveTo(toLngLat(feature.geometry.coordinates), (await mapRef.current.getZoom()) + clusterClickZoomFactor)
     }
   }
 
-  const onPress = async (pressedLocation: Feature<Geometry, GeoJsonProperties>) => {
+  const onPress = async (event: NativeSyntheticEvent<PressEvent | PressEventWithFeatures>) => {
     setFollowUserLocation(false)
-    if (!mapRef.current || !pressedLocation.properties) {
+    if (mapRef.current === null) {
       return
     }
-    const pressedCoordinates: [number, number] = [
-      pressedLocation.properties.screenPointX,
-      pressedLocation.properties.screenPointY,
-    ]
-    const featureCollection = await mapRef.current.queryRenderedFeaturesAtPoint(pressedCoordinates, undefined, [
-      featureLayerId,
-      'selected-marker',
-    ])
+    const pressedCoordinates = event.nativeEvent.point
+    const featureCollection: Feature<Geometry, GeoJsonProperties>[] = await mapRef.current.queryRenderedFeatures(
+      pressedCoordinates,
+      { layers: [featureLayerId, 'selected-marker'] },
+    )
 
-    const feature = featureCollection.features.find((it): it is MapFeature => it.geometry.type === 'Point')
+    const feature = featureCollection.find((it): it is MapFeature => it.geometry.type === 'Point')
     selectFeature(feature ?? null)
 
     zoomOnClusterPress(pressedCoordinates)
-  }
-
-  const updateUserLocation = (location: Location) => {
-    const newUserLocation: [number, number] = [location.coords.longitude, location.coords.latitude]
-    // Avoid frequent rerenders if distance only changes minimally
-    if (!userLocation || calculateDistance(userLocation, newUserLocation) > MIN_DISTANCE_THRESHOLD) {
-      setUserLocation(newUserLocation)
-    }
   }
 
   const locationPermissionGrantedIcon = followUserLocation ? 'crosshairs-gps' : 'crosshairs'
@@ -198,32 +222,30 @@ const MapView = ({
         <StyledMap
           {...conditionalA11yProps({ hidden: bottomSheetFullscreen })}
           mapStyle={mapConfig.styleJSON}
-          zoomEnabled
           onPress={onPress}
           ref={mapRef}
-          attributionEnabled={false}
-          logoEnabled={false}>
-          <UserLocation visible={!!userLocation} onUpdate={updateUserLocation} />
-          <ShapeSource
+          attribution={false}
+          logo={false}>
+          {followUserLocation && <NativeUserLocation />}
+          <GeoJSONSource
             id='location-pois'
-            shape={embedInCollection(features.filter(feature => feature !== selectedFeature))}
+            data={embedInCollection(features.filter(feature => feature !== selectedFeature))}
             cluster
             clusterRadius={clusterRadius}>
-            <CircleLayer {...clusterLayer(theme)} />
-            <SymbolLayer {...clusterCountLayer} />
-            <SymbolLayer {...markerLayer(null)} />
-          </ShapeSource>
+            <Layer type='circle' {...clusterLayer(theme)} />
+            <Layer type='symbol' {...clusterCountLayer} />
+            <Layer type='symbol' {...markerLayer(null)} />
+          </GeoJSONSource>
           {selectedFeature && (
-            <ShapeSource id='selected-feature' shape={embedInCollection([selectedFeature])}>
-              <SymbolLayer {...markerLayer(selectedFeature)} id='selected-marker' />
-            </ShapeSource>
+            <GeoJSONSource id='selected-feature' data={embedInCollection([selectedFeature])}>
+              <Layer type='symbol' {...markerLayer(selectedFeature)} id='selected-marker' />
+            </GeoJSONSource>
           )}
           <Camera
+            ref={cameraRef}
             {...cameraSettings}
-            followUserMode={UserTrackingMode.Follow}
-            animationDuration={animationDuration}
-            animationMode='easeTo'
-            padding={{ paddingBottom: bottomSheetHeight }}
+            trackUserLocation={followUserLocation ? 'default' : undefined}
+            padding={{ bottom: bottomSheetHeight }}
           />
         </StyledMap>
       </MapContainer>
