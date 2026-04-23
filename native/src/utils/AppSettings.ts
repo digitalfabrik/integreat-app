@@ -1,12 +1,14 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import { fromPairs, mapValues, toPairs } from 'lodash'
+import LegacyAsyncStorage, { AsyncStorage, createAsyncStorage } from '@react-native-async-storage/async-storage'
+import { mapValues } from 'lodash'
 
 import { ThemeKey } from 'build-configs/ThemeKey'
 import { ExternalSourcePermissions } from 'shared'
 
-export const ASYNC_STORAGE_VERSION = '1'
+import { log, reportError } from './sentry'
+
+export const ASYNC_STORAGE_VERSION = 2
 export type SettingsType = {
-  storageVersion: string | null
+  storageVersion: number | null
   contentLanguage: string | null
   selectedCity: string | null
   introShown: boolean | null
@@ -27,38 +29,61 @@ export const defaultSettings: SettingsType = {
   externalSourcePermissions: {},
   selectedTheme: 'light',
 }
+export const settingsStorage = createAsyncStorage('settings')
+
+const migrateToV2 = async (): Promise<void> => {
+  const currentVersion = await settingsStorage.getItem('storageVersion')
+  if (currentVersion === JSON.stringify(ASYNC_STORAGE_VERSION)) {
+    return
+  }
+
+  log('Migrating settings to v2')
+
+  const keys = Object.keys(defaultSettings) as (keyof SettingsType)[]
+  const values = await Promise.all(keys.map(key => LegacyAsyncStorage.getItem(key)))
+
+  const settingsToCopy = keys.reduce<Record<string, string>>((settings, key, index) => {
+    const value = values[index]
+    if (value) {
+      return { ...settings, [key]: value }
+    }
+    return settings
+  }, {})
+
+  await settingsStorage.setMany({ ...settingsToCopy, storageVersion: JSON.stringify(ASYNC_STORAGE_VERSION) })
+
+  log('Migrated settings to v2')
+}
 
 class AppSettings {
-  asyncStorage: typeof AsyncStorage
+  asyncStorage: AsyncStorage
 
-  constructor(asyncStorage: typeof AsyncStorage = AsyncStorage) {
+  constructor(asyncStorage: AsyncStorage = settingsStorage) {
     this.asyncStorage = asyncStorage
   }
 
   loadSettings = async (): Promise<SettingsType> => {
+    try {
+      await migrateToV2()
+    } catch (error) {
+      reportError(error)
+    }
+
     const settingsKeys = Object.keys(defaultSettings) as [keyof SettingsType]
-    const settingsArray = await this.asyncStorage.multiGet(settingsKeys)
-    const settings = fromPairs(settingsArray) as Record<keyof SettingsType, string | null>
+    const settings = (await this.asyncStorage.getMany(settingsKeys)) as Record<keyof SettingsType, string | null>
     return mapValues(settings, (value: string | null, key) => {
       if (value === null) {
         // null means this setting does not exist
         return defaultSettings[key as keyof SettingsType]
       }
 
-      const parsed = JSON.parse(value)
-
-      if (parsed === null) {
-        // null means this setting does not exist
-        return defaultSettings[key as keyof SettingsType]
-      }
-
-      return parsed
+      return JSON.parse(value) ?? defaultSettings[key as keyof SettingsType]
     })
   }
 
   setSettings = async (settings: Partial<SettingsType>): Promise<void> => {
-    const settingsArray = toPairs<string>(mapValues(settings, value => JSON.stringify(value)))
-    await this.asyncStorage.multiSet(settingsArray)
+    const entries = mapValues(settings, value => JSON.stringify(value))
+    await this.asyncStorage.setMany(entries)
   }
 }
 

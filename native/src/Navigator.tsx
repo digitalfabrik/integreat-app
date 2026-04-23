@@ -47,7 +47,6 @@ import PDFViewModal from './routes/PDFViewModal'
 import SearchContainer from './routes/SearchContainer'
 import Settings from './routes/Settings'
 import SuggestToRegion from './routes/SuggestToRegion'
-import { ASYNC_STORAGE_VERSION } from './utils/AppSettings'
 import dataContainer from './utils/DefaultDataContainer'
 import { initSentry, log, reportError } from './utils/sentry'
 
@@ -93,7 +92,7 @@ const Navigator = (): ReactElement | null => {
   )
 
   useEffect(() => {
-    const { errorTracking, storageVersion, introShown } = settings
+    const { errorTracking, introShown } = settings
     const usingHermes = typeof HermesInternal === 'object' && HermesInternal !== null
 
     if (usingHermes) {
@@ -102,10 +101,6 @@ const Navigator = (): ReactElement | null => {
 
     if (errorTracking) {
       initSentry()
-    }
-
-    if (!storageVersion) {
-      updateSettings({ storageVersion: ASYNC_STORAGE_VERSION })
     }
 
     if (!buildConfig().featureFlags.introSlides && !introShown) {

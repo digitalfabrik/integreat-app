@@ -50,7 +50,7 @@
     "@maplibre/maplibre-react-native": "patch:@maplibre/maplibre-react-native@npm%3A10.4.2#~/.yarn/patches/@maplibre-maplibre-react-native-npm-10.4.2-a5da575b03.patch",
     "@mhpdev/react-native-speech": "^1.4.0",
     "@notifee/react-native": "^9.1.8",
-    "@react-native-async-storage/async-storage": "^2.2.0",
+    "@react-native-async-storage/async-storage": "^3.0.0",
     "@react-native-clipboard/clipboard": "^1.16.3",
     "@react-native-community/geolocation": "^3.4.0",
     "@react-native-community/netinfo": "^12.0.1",
