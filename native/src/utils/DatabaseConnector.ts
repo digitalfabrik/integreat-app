@@ -27,8 +27,8 @@ import { RegionResourceCacheStateType } from './DataContainer'
 import { deleteIfExists } from './helpers'
 import { log, reportError } from './sentry'
 
-export const CONTENT_VERSION = 'v11'
-export const RESOURCE_CACHE_VERSION = 'v3'
+export const CONTENT_VERSION = 'v12'
+export const RESOURCE_CACHE_VERSION = 'v4'
 
 // Our pdf view can only load from DocumentDir. Therefore we need to use that
 export const CACHE_DIR_PATH = BlobUtil.fs.dirs.DocumentDir
