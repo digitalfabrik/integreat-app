@@ -47,7 +47,6 @@ import PDFViewModal from './routes/PDFViewModal'
 import SearchContainer from './routes/SearchContainer'
 import Settings from './routes/Settings'
 import SuggestToRegion from './routes/SuggestToRegion'
-import { ASYNC_STORAGE_VERSION } from './utils/AppSettings'
 import dataContainer from './utils/DefaultDataContainer'
 import { initSentry, log, reportError } from './utils/sentry'
 
