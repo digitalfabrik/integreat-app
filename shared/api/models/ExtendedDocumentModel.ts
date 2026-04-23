@@ -2,9 +2,9 @@ import { DateTime } from 'luxon'
 
 import { getSlugFromPath } from '../../utils'
 import isEqual from '../../utils/isEqual'
-import PageModel from './PageModel'
+import DocumentModel from './DocumentModel'
 
-class ExtendedPageModel extends PageModel {
+class ExtendedDocumentModel extends DocumentModel {
   _thumbnail: string | null
   _availableLanguages: Record<string, string>
 
@@ -37,9 +37,9 @@ class ExtendedPageModel extends PageModel {
     )
   }
 
-  isEqual(other: PageModel): boolean {
+  isEqual(other: DocumentModel): boolean {
     return (
-      other instanceof ExtendedPageModel &&
+      other instanceof ExtendedDocumentModel &&
       super.isEqual(other) &&
       this.thumbnail === other.thumbnail &&
       isEqual(this.availableLanguages, other.availableLanguages)
@@ -47,4 +47,4 @@ class ExtendedPageModel extends PageModel {
   }
 }
 
-export default ExtendedPageModel
+export default ExtendedDocumentModel

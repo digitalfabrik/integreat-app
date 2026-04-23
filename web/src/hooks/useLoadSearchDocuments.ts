@@ -5,7 +5,7 @@ import {
   createCategoriesEndpoint,
   createEventsEndpoint,
   createPOIsEndpoint,
-  ExtendedPageModel,
+  ExtendedDocumentModel,
   useLoadFromEndpoint,
 } from 'shared/api'
 
@@ -16,7 +16,7 @@ type UseLoadSearchDocumentsProps = {
 }
 
 type UseLoadSearchDocumentsReturn = {
-  data: ExtendedPageModel[]
+  data: ExtendedDocumentModel[]
   error: Error | null
   loading: boolean
 }

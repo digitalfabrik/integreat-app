@@ -1,9 +1,9 @@
 import { DateTime } from 'luxon'
 
-import PageModel from '../PageModel'
+import DocumentModel from '../DocumentModel'
 
-describe('PageModel', () => {
-  const page = new PageModel({
+describe('DocumentModel', () => {
+  const page = new DocumentModel({
     path: '/augsburg/fa/erste-schritte/%D9%86%D9%82%D8%B4%D9%87-%D8%B4%D9%87%D8%B1/',
     title: 'Welcome',
     content: '',

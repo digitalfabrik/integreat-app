@@ -1,12 +1,12 @@
 import { renderHook, waitFor } from '@testing-library/react'
 import { DateTime } from 'luxon'
 
-import ExtendedPageModel from '../../api/models/ExtendedPageModel'
+import ExtendedDocumentModel from '../../api/models/ExtendedDocumentModel'
 import useMultiLanguageSearch, { useSearch } from '../useSearch'
 
 describe('useSearch', () => {
   const documents = [
-    new ExtendedPageModel({
+    new ExtendedDocumentModel({
       path: '/testumgebung/de/arbeit',
       title: 'Arbeit',
       content: 'Arbeit',
@@ -14,7 +14,7 @@ describe('useSearch', () => {
       thumbnail: null,
       availableLanguages: { en: '/testumgebung/en/work' },
     }),
-    new ExtendedPageModel({
+    new ExtendedDocumentModel({
       path: '/testumgebung/de/willkommen',
       title: 'Willkommen',
       content: 'Willkommen in der Testumgebung',
@@ -22,7 +22,7 @@ describe('useSearch', () => {
       thumbnail: null,
       availableLanguages: { en: '/testumgebung/en/welcome' },
     }),
-    new ExtendedPageModel({
+    new ExtendedDocumentModel({
       path: '/testumgebung/de/willkommen/willkommen-in-deutschland',
       title: 'Willkommen in Deutschland',
       content: 'Mein Text über Deutschland',
@@ -30,7 +30,7 @@ describe('useSearch', () => {
       thumbnail: null,
       availableLanguages: { en: '/testumgebung/en/welcome/welcome-to-germany' },
     }),
-    new ExtendedPageModel({
+    new ExtendedDocumentModel({
       path: '/testumgebung/de/willkommen/arrival',
       title: 'Ankommen',
       content: 'Herzlich Willkommen!',
@@ -38,7 +38,7 @@ describe('useSearch', () => {
       thumbnail: null,
       availableLanguages: { en: '/testumgebung/en/welcome/welcome-to-germany' },
     }),
-    new ExtendedPageModel({
+    new ExtendedDocumentModel({
       path: '/testumgebung/de/bildung/grundschule',
       title: 'Grundschule',
       content: 'Grundschule',
@@ -92,7 +92,7 @@ describe('useSearch', () => {
 
 describe('useMultiLanguageSearch', () => {
   const userLanguageDocuments = [
-    new ExtendedPageModel({
+    new ExtendedDocumentModel({
       path: '/testumgebung/en/work',
       title: 'Work',
       content: 'Work content',
@@ -100,7 +100,7 @@ describe('useMultiLanguageSearch', () => {
       thumbnail: null,
       availableLanguages: { de: '/testumgebung/de/arbeit' },
     }),
-    new ExtendedPageModel({
+    new ExtendedDocumentModel({
       path: '/testumgebung/en/welcome',
       title: 'Welcome',
       content: 'Welcome to the test environment',
@@ -108,7 +108,7 @@ describe('useMultiLanguageSearch', () => {
       thumbnail: null,
       availableLanguages: { de: '/testumgebung/de/willkommen' },
     }),
-    new ExtendedPageModel({
+    new ExtendedDocumentModel({
       path: '/testumgebung/en/education',
       title: 'Education',
       content: 'Education content',
@@ -119,7 +119,7 @@ describe('useMultiLanguageSearch', () => {
   ]
 
   const sourceLanguageDocuments = [
-    new ExtendedPageModel({
+    new ExtendedDocumentModel({
       path: '/testumgebung/de/arbeit',
       title: 'Arbeit',
       content: 'Arbeit Inhalt',
@@ -127,7 +127,7 @@ describe('useMultiLanguageSearch', () => {
       thumbnail: null,
       availableLanguages: { en: '/testumgebung/en/work' },
     }),
-    new ExtendedPageModel({
+    new ExtendedDocumentModel({
       path: '/testumgebung/de/willkommen',
       title: 'Willkommen',
       content: 'Willkommen im Testumgebung',
@@ -135,7 +135,7 @@ describe('useMultiLanguageSearch', () => {
       thumbnail: null,
       availableLanguages: { en: '/testumgebung/en/welcome' },
     }),
-    new ExtendedPageModel({
+    new ExtendedDocumentModel({
       path: '/testumgebung/de/nur-deutsch',
       title: 'Nur Deutsch',
       content: 'Nur auf Deutsch verfügbar',
@@ -202,7 +202,7 @@ describe('useMultiLanguageSearch', () => {
   it('should not return duplicates when content appears in both user language and source language results', async () => {
     // "work" matches both English "Work" doc and maps German "Arbeit" → English "Work"
     const overlappingUserDocs = [
-      new ExtendedPageModel({
+      new ExtendedDocumentModel({
         path: '/testumgebung/en/work',
         title: 'Work',
         content: 'Work content',
@@ -212,7 +212,7 @@ describe('useMultiLanguageSearch', () => {
       }),
     ]
     const overlappingSourceDocs = [
-      new ExtendedPageModel({
+      new ExtendedDocumentModel({
         path: '/testumgebung/de/arbeit',
         title: 'Arbeit',
         content: 'Work Arbeit',

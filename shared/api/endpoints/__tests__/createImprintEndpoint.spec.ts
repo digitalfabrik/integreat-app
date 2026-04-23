@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 
 import { API_VERSION } from '../../constants'
-import PageModel from '../../models/PageModel'
+import DocumentModel from '../../models/DocumentModel'
 import createImprintEndpoint from '../createImprintEndpoint'
 
 describe('imprint', () => {
@@ -27,7 +27,7 @@ describe('imprint', () => {
   it('should map fetched data to models', () => {
     const imprintModel = imprint.mapResponse(pageJson, params)
     expect(imprintModel).toEqual(
-      new PageModel({
+      new DocumentModel({
         path: '/augsburg/en/imprint/feedback-contact-and-opportunities-to-take-part',
         title: pageJson.title,
         content: '<div>Some imprint test content :)</div>',

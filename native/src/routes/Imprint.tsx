@@ -1,11 +1,11 @@
 import React, { ReactElement } from 'react'
 
-import { PageModel } from 'shared/api'
+import { DocumentModel } from 'shared/api'
 
 import Page from '../components/Page'
 
 type ImprintProps = {
-  imprint: PageModel
+  imprint: DocumentModel
   language: string
 }
 
