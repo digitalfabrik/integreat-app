@@ -1,7 +1,7 @@
 import { fireEvent } from '@testing-library/react'
 import React from 'react'
 
-import { CityModelBuilder, ChatMessageModel } from 'shared/api'
+import { RegionModelBuilder, ChatMessageModel } from 'shared/api'
 
 import { renderWithTheme } from '../../testing/render'
 import Chat from '../Chat'
@@ -21,7 +21,7 @@ const render = (
 ) =>
   renderWithTheme(
     <Chat
-      city={new CityModelBuilder(1).build()[0]!}
+      region={new RegionModelBuilder(1).build()[0]!}
       acceptPrivacyPolicy={acceptPrivacyPolicy}
       privacyPolicyAccepted={privacyPolicyAccepted}
       messages={messages}

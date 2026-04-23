@@ -4,7 +4,7 @@ import React from 'react'
 import { pathnameFromRouteInformation, SEARCH_ROUTE } from 'shared'
 import {
   CategoriesMapModelBuilder,
-  CityModelBuilder,
+  RegionModelBuilder,
   EventModelBuilder,
   ExtendedDocumentModel,
   PoiModelBuilder,
@@ -41,16 +41,16 @@ jest.mock('../../hooks/useLoadSearchDocuments')
 
 describe('SearchPage', () => {
   const { mocked } = jest
-  const cities = new CityModelBuilder(2).build()
-  const cityModel = cities[0]!
-  const cityCode = 'augsburg'
+  const regions = new RegionModelBuilder(2).build()
+  const regionModel = regions[0]!
+  const regionCode = 'augsburg'
   const languageCode = 'en'
 
-  const categoriesMap = new CategoriesMapModelBuilder(cityCode, languageCode).build()
+  const categoriesMap = new CategoriesMapModelBuilder(regionCode, languageCode).build()
   const categoryModels = categoriesMap.toArray()
   const category1 = categoryModels[1]!
 
-  const eventModels = new EventModelBuilder('testseed', 1, cityCode, languageCode).build()
+  const eventModels = new EventModelBuilder('testseed', 1, regionCode, languageCode).build()
   const event0 = eventModels[0]!
 
   const poiModels = new PoiModelBuilder(3).build()
@@ -68,13 +68,13 @@ describe('SearchPage', () => {
 
   const pathname = pathnameFromRouteInformation({
     route: SEARCH_ROUTE,
-    cityCode: cityModel.code,
+    regionCode: regionModel.code,
     languageCode,
   })
-  const routePattern = `/:cityCode/:languageCode/${RoutePatterns[SEARCH_ROUTE]}`
+  const routePattern = `/:regionCode/:languageCode/${RoutePatterns[SEARCH_ROUTE]}`
 
   const searchPage = (
-    <SearchPage city={cityModel} pathname={pathname} cityCode={cityModel.code} languageCode={languageCode} />
+    <SearchPage region={regionModel} pathname={pathname} regionCode={regionModel.code} languageCode={languageCode} />
   )
 
   const renderSearch = ({ query }: { query?: string } = {}) =>

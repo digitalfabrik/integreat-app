@@ -9,15 +9,15 @@ import H1 from './base/H1'
 
 type NewsTabsProps = {
   type: NewsType
-  city: string
+  region: string
   localNewsEnabled: boolean
   tunewsEnabled: boolean
   language: string
 }
 
-const NewsTabs = ({ language, city, localNewsEnabled, tunewsEnabled, type }: NewsTabsProps): ReactElement => {
+const NewsTabs = ({ language, region, localNewsEnabled, tunewsEnabled, type }: NewsTabsProps): ReactElement => {
   const { t } = useTranslation('news')
-  const params = { route: NEWS_ROUTE, cityCode: city, languageCode: language }
+  const params = { route: NEWS_ROUTE, regionCode: region, languageCode: language }
   const localNewsPath = pathnameFromRouteInformation({ ...params, newsType: LOCAL_NEWS_TYPE })
   const tunewsPath = pathnameFromRouteInformation({ ...params, newsType: TU_NEWS_TYPE })
 

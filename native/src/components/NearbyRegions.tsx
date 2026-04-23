@@ -2,11 +2,11 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { useTheme } from 'styled-components/native'
 
-import { getNearbyCities } from 'shared'
-import { CityModel } from 'shared/api'
+import { getNearbyRegions } from 'shared'
+import { RegionModel } from 'shared/api'
 
 import useUserLocation from '../hooks/useUserLocation'
-import CityEntry from './RegionEntry'
+import RegionEntry from './RegionEntry'
 import Icon from './base/Icon'
 import IconButton from './base/IconButton'
 import Text from './base/Text'
@@ -21,13 +21,13 @@ const RetryButtonContainer = styled.View`
   height: 46px;
 `
 
-type NearbyCitiesProps = {
-  cities: CityModel[]
-  navigateToDashboard: (city: CityModel) => void
+type NearbyRegionsProps = {
+  regions: RegionModel[]
+  navigateToDashboard: (region: RegionModel) => void
   filterText: string
 }
 
-const NearbyRegions = ({ cities, navigateToDashboard, filterText }: NearbyCitiesProps): ReactElement => {
+const NearbyRegions = ({ regions, navigateToDashboard, filterText }: NearbyRegionsProps): ReactElement => {
   const { status, coordinates, message, refreshPermissionAndLocation } = useUserLocation({
     requestPermissionInitially: false,
   })
@@ -53,16 +53,16 @@ const NearbyRegions = ({ cities, navigateToDashboard, filterText }: NearbyCities
     )
   }
 
-  const nearbyCities = getNearbyCities(
+  const nearbyRegions = getNearbyRegions(
     coordinates,
-    cities.filter(city => city.live),
+    regions.filter(region => region.live),
   )
 
-  if (nearbyCities.length === 0) {
+  if (nearbyRegions.length === 0) {
     return (
       <NearbyMessageContainer>
         <Text variant='body2' style={{ paddingTop: 16 }}>
-          {t('noNearbyCities')}
+          {t('noNearbyRegions')}
         </Text>
       </NearbyMessageContainer>
     )
@@ -70,8 +70,8 @@ const NearbyRegions = ({ cities, navigateToDashboard, filterText }: NearbyCities
 
   return (
     <>
-      {nearbyCities.map(city => (
-        <CityEntry key={city.code} city={city} query={filterText} navigateToDashboard={navigateToDashboard} />
+      {nearbyRegions.map(region => (
+        <RegionEntry key={region.code} region={region} query={filterText} navigateToDashboard={navigateToDashboard} />
       ))}
     </>
   )

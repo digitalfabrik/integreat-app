@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { useParams } from 'react-router'
 
-import { CityModel, NotFoundError } from 'shared/api'
+import { RegionModel, NotFoundError } from 'shared/api'
 
 import RegionContentNavigator from './RegionContentNavigator'
 import FailureSwitcherWithHelmet from './components/FailureSwitcherWithHelmet'
@@ -9,22 +9,27 @@ import Footer from './components/Footer'
 import GeneralHeader from './components/GeneralHeader'
 import Layout from './components/Layout'
 
-type FixedCityContentNavigatorProps = {
+type FixedRegionContentNavigatorProps = {
   languageCode: string
-  fixedCity: string
+  fixedRegion: string
 }
 
-export type CityRouteProps = {
-  city: CityModel | null
+export type RegionRouteProps = {
+  region: RegionModel | null
   pathname: string
-  cityCode: string
+  regionCode: string
   languageCode: string
 }
 
-const FixedRegionContentNavigator = ({ languageCode, fixedCity }: FixedCityContentNavigatorProps): ReactElement => {
-  const { cityCode } = useParams()
-  if (cityCode !== fixedCity) {
-    const notFoundError = new NotFoundError({ type: 'route', id: fixedCity, city: fixedCity, language: languageCode })
+const FixedRegionContentNavigator = ({ languageCode, fixedRegion }: FixedRegionContentNavigatorProps): ReactElement => {
+  const { regionCode } = useParams()
+  if (regionCode !== fixedRegion) {
+    const notFoundError = new NotFoundError({
+      type: 'route',
+      id: fixedRegion,
+      region: fixedRegion,
+      language: languageCode,
+    })
 
     return (
       <Layout header={<GeneralHeader languageCode={languageCode} />} footer={<Footer />}>

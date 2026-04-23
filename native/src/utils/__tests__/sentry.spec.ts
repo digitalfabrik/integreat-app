@@ -60,7 +60,7 @@ describe('reportError', () => {
     spy.mockRestore()
 
     mockBuildConfig(true)
-    const notFoundError = new NotFoundError({ type: 'category', id: 'id', city: 'city', language: 'language' })
+    const notFoundError = new NotFoundError({ type: 'category', id: 'id', region: 'region', language: 'language' })
     reportError(notFoundError)
     expect(Sentry.captureException).not.toHaveBeenCalled()
   })

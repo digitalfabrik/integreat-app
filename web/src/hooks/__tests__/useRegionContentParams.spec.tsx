@@ -7,23 +7,23 @@ import { renderAllRoutes } from '../../testing/render'
 import useRegionContentParams from '../useRegionContentParams'
 
 describe('useRegionContentParams', () => {
-  const CityContentMockComponent = (): ReactElement => {
-    const { route, languageCode, cityCode } = useRegionContentParams()
+  const RegionContentMockComponent = (): ReactElement => {
+    const { route, languageCode, regionCode } = useRegionContentParams()
     return (
       <div>
         <div>{route}</div>
         <div>{languageCode}</div>
-        <div>{cityCode}</div>
+        <div>{regionCode}</div>
       </div>
     )
   }
 
   const renderRoute = (path: string): RenderResult =>
     renderAllRoutes(path, {
-      CityContentElement: <CityContentMockComponent />,
+      RegionContentElement: <RegionContentMockComponent />,
     })
 
-  it('should correctly get language and city code from path', () => {
+  it('should correctly get language and region code from path', () => {
     const { getByText } = renderRoute('/augsburg/de/willkommen/hallo')
     expect(getByText('de')).toBeDefined()
     expect(getByText('augsburg')).toBeDefined()

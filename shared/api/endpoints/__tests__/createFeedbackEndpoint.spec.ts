@@ -9,7 +9,7 @@ describe('feedback', () => {
   it('should map params to url', () => {
     expect(
       feedback.mapParamsToUrl({
-        city: 'augsburg',
+        region: 'augsburg',
         language: 'de',
         comment: '',
         contactMail: '',
@@ -22,7 +22,7 @@ describe('feedback', () => {
   it('should create the correct feedback endpoint', () => {
     expect(
       feedback.mapParamsToUrl({
-        city: 'augsburg',
+        region: 'augsburg',
         language: 'de',
         comment: '',
         contactMail: '',
@@ -48,7 +48,7 @@ describe('feedback', () => {
 
     expect(
       feedback.mapParamsToBody({
-        city: 'augsburg',
+        region: 'augsburg',
         language: 'de',
         isPositiveRating: true,
         routeType: CATEGORIES_ROUTE,
@@ -75,7 +75,7 @@ describe('feedback', () => {
     'should successfully request feedback for $feedbackType if rating was set',
     async ({ route, props, feedbackType }) => {
       const url = feedback.mapParamsToUrl({
-        city: 'augsburg',
+        region: 'augsburg',
         language: 'de',
         isPositiveRating: true,
         routeType: route,

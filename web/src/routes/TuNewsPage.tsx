@@ -3,14 +3,14 @@ import React, { ReactElement, useCallback } from 'react'
 import { NEWS_ROUTE, pathnameFromRouteInformation, TU_NEWS_TYPE, tunewsLabel } from 'shared'
 import { createTunewsEndpoint, createTunewsLanguagesEndpoint, TunewsModel, useLoadFromEndpoint } from 'shared/api'
 
-import { CityRouteProps } from '../RegionContentNavigator'
+import { RegionRouteProps } from '../RegionContentNavigator'
 import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Helmet from '../components/Helmet'
 import InfiniteScrollList from '../components/InfiniteScrollList'
 import LanguageFailure from '../components/LanguageFailure'
 import NewsListItem from '../components/NewsListItem'
 import NewsTabs from '../components/NewsTabs'
-import RegionContentLayout, { CityContentLayoutProps } from '../components/RegionContentLayout'
+import RegionContentLayout, { RegionContentLayoutProps } from '../components/RegionContentLayout'
 import RegionContentToolbar from '../components/RegionContentToolbar'
 import SkeletonList from '../components/SkeletonList'
 import { tunewsApiBaseUrl } from '../constants/urls'
@@ -18,7 +18,7 @@ import { tunewsApiBaseUrl } from '../constants/urls'
 const DEFAULT_PAGE = 1
 const DEFAULT_COUNT = 10
 
-const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElement | null => {
+const TuNewsPage = ({ regionCode, languageCode, region }: RegionRouteProps): ReactElement | null => {
   const { data: tuNewsLanguages, error } = useLoadFromEndpoint(
     createTunewsLanguagesEndpoint,
     tunewsApiBaseUrl,
@@ -37,7 +37,7 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
     [languageCode],
   )
 
-  if (!city) {
+  if (!region) {
     return null
   }
 
@@ -52,7 +52,7 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
         to={pathnameFromRouteInformation({
           route: NEWS_ROUTE,
           newsType: TU_NEWS_TYPE,
-          cityCode,
+          regionCode,
           languageCode,
           newsId: id,
         })}
@@ -60,20 +60,20 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
     )
   }
 
-  const languageChangePaths = city.languages.map(({ code, name }) => {
+  const languageChangePaths = region.languages.map(({ code, name }) => {
     const isLanguageAvailable = tuNewsLanguages?.find(language => language.code === code)
     return {
       path: isLanguageAvailable
-        ? pathnameFromRouteInformation({ route: NEWS_ROUTE, newsType: TU_NEWS_TYPE, cityCode, languageCode: code })
+        ? pathnameFromRouteInformation({ route: NEWS_ROUTE, newsType: TU_NEWS_TYPE, regionCode, languageCode: code })
         : null,
       name,
       code,
     }
   })
 
-  const pageTitle = `${tunewsLabel} - ${city.name}`
-  const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
-    city,
+  const pageTitle = `${tunewsLabel} - ${region.name}`
+  const locationLayoutParams: Omit<RegionContentLayoutProps, 'isLoading'> = {
+    region,
     languageChangePaths,
     languageCode,
     pageTitle,
@@ -93,9 +93,9 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
       <RegionContentLayout isLoading {...locationLayoutParams}>
         <NewsTabs
           type={TU_NEWS_TYPE}
-          city={cityCode}
-          tunewsEnabled={city.tunewsEnabled}
-          localNewsEnabled={city.localNewsEnabled}
+          region={regionCode}
+          tunewsEnabled={region.tunewsEnabled}
+          localNewsEnabled={region.localNewsEnabled}
           language={languageCode}
         />
         <SkeletonList />
@@ -108,24 +108,24 @@ const TuNewsPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElem
       <RegionContentLayout isLoading={false} {...locationLayoutParams}>
         <NewsTabs
           type={TU_NEWS_TYPE}
-          city={cityCode}
-          tunewsEnabled={city.tunewsEnabled}
-          localNewsEnabled={city.localNewsEnabled}
+          region={regionCode}
+          tunewsEnabled={region.tunewsEnabled}
+          localNewsEnabled={region.localNewsEnabled}
           language={languageCode}
         />
-        <LanguageFailure cityModel={city} languageCode={languageCode} languageChangePaths={languageChangePaths} />
+        <LanguageFailure regionModel={region} languageCode={languageCode} languageChangePaths={languageChangePaths} />
       </RegionContentLayout>
     )
   }
 
   return (
     <RegionContentLayout isLoading={false} {...locationLayoutParams}>
-      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
+      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} regionModel={region} />
       <NewsTabs
         type={TU_NEWS_TYPE}
-        city={cityCode}
-        tunewsEnabled={city.tunewsEnabled}
-        localNewsEnabled={city.localNewsEnabled}
+        region={regionCode}
+        tunewsEnabled={region.tunewsEnabled}
+        localNewsEnabled={region.localNewsEnabled}
         language={languageCode}
       />
       <InfiniteScrollList

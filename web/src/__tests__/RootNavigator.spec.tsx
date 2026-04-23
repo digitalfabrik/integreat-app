@@ -3,7 +3,7 @@ import React from 'react'
 import { useLocation } from 'react-router'
 
 import { normalizePath } from 'shared'
-import { CityModelBuilder } from 'shared/api'
+import { RegionModelBuilder } from 'shared/api'
 import {
   mockUseLoadFromEndpointOnceWithData,
   mockUseLoadFromEndpointWithData,
@@ -35,7 +35,7 @@ const MockComponent = () => {
 
 describe('RootNavigator', () => {
   const setContentLanguage = jest.fn()
-  const cities = new CityModelBuilder(2).build()
+  const regions = new RegionModelBuilder(2).build()
 
   const renderRootNavigator = (pathname: string) =>
     renderWithRouterAndTheme(
@@ -51,7 +51,7 @@ describe('RootNavigator', () => {
   })
 
   it('should render the landing page', async () => {
-    mockUseLoadFromEndpointOnceWithData(cities)
+    mockUseLoadFromEndpointOnceWithData(regions)
 
     const { getByText } = renderRootNavigator('/landing/de')
 
@@ -71,19 +71,19 @@ describe('RootNavigator', () => {
       ${'/augsburg/news/local'}     | ${'/augsburg/de/news/local'}
       ${'/augsburg/news/tu-news'}   | ${'/augsburg/de/news/tu-news'}
     `('should redirect from $from to $to', ({ from, to }) => {
-      mockUseLoadFromEndpointWithData(cities)
+      mockUseLoadFromEndpointWithData(regions)
 
       const { getByText } = renderRootNavigator(from)
 
       expect(getByText(to)).toBeTruthy()
     })
 
-    describe('fixedCity', () => {
+    describe('fixedRegion', () => {
       const previousConfig = buildConfig()
       let config = previousConfig
 
       beforeAll(() => {
-        config.featureFlags.fixedCity = 'augsburg'
+        config.featureFlags.fixedRegion = 'augsburg'
       })
 
       afterAll(() => {
@@ -100,8 +100,8 @@ describe('RootNavigator', () => {
         ${'/oldtown/de'}         | ${'/oldtown/de'}
         ${'/oldtown/news'}       | ${'/oldtown/de/news'}
         ${'/oldtown/news/local'} | ${'/oldtown/de/news/local'}
-      `('should redirect from $from to $to for fixedCity', async ({ from, to }) => {
-        mockUseLoadFromEndpointWithData(cities)
+      `('should redirect from $from to $to for fixedRegion', async ({ from, to }) => {
+        mockUseLoadFromEndpointWithData(regions)
 
         const { getByText } = renderRootNavigator(from)
 

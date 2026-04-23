@@ -17,4 +17,4 @@ export type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
 export const RATING_POSITIVE: Rating = 'positive'
 export const RATING_NEGATIVE: Rating = 'negative'
 
-export const CITY_SEARCH_EXAMPLE = 'Landkreis München'
+export const REGION_SEARCH_EXAMPLE = 'Landkreis München'

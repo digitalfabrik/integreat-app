@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect } from 'react'
 
-import { CityModel } from 'shared/api'
+import { RegionModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
 import { LanguageChangePath } from './LanguageList'
@@ -10,7 +10,7 @@ type HelmetProps = {
   metaDescription?: string | null
   languageChangePaths?: LanguageChangePath[]
   rootPage?: boolean
-  cityModel?: CityModel
+  regionModel?: RegionModel
 }
 
 /** Make sure to render at most one Helmet instance at any time (to avoid having multiple title, description tags in the DOM). */
@@ -18,7 +18,7 @@ const Helmet = ({
   pageTitle,
   metaDescription,
   languageChangePaths,
-  cityModel,
+  regionModel,
   rootPage = false,
 }: HelmetProps): ReactElement => {
   const languageLinks =
@@ -28,7 +28,7 @@ const Helmet = ({
     ) ?? null
 
   const noIndex =
-    cityModel && !cityModel.live && !buildConfig().featureFlags.fixedCity ? (
+    regionModel && !regionModel.live && !buildConfig().featureFlags.fixedRegion ? (
       <meta name='robots' content='noindex' />
     ) : null
 

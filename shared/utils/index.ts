@@ -32,16 +32,16 @@ export const addSubdomain = ({ url, subdomain }: { url: string; subdomain: strin
 
 export const getCategoryTiles = ({
   categories,
-  cityCode,
+  regionCode,
 }: {
   categories: CategoryModel[]
-  cityCode: string
+  regionCode: string
 }): TileModel[] =>
   categories.map(category => {
     const externalOffer = category.embeddedOffers.find(it => !INTERNAL_OFFERS.includes(it.alias))
     const externalOfferUrl =
       externalOffer?.alias === APPOINTMENT_BOOKING_OFFER_ALIAS
-        ? addSubdomain({ url: externalOffer.path, subdomain: cityCode })
+        ? addSubdomain({ url: externalOffer.path, subdomain: regionCode })
         : externalOffer?.path
     return new TileModel({
       title: category.title,

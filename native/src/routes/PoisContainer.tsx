@@ -18,9 +18,9 @@ type PoisContainerProps = {
 
 const PoisContainer = ({ navigation, route }: PoisContainerProps): ReactElement => {
   const { slug, multipoi, poiCategoryId, zoom } = route.params
-  const { cityCode, languageCode } = useRegionAppContext()
+  const { regionCode, languageCode } = useRegionAppContext()
 
-  const { data, ...response } = useLoadRegionContent({ cityCode, languageCode })
+  const { data, ...response } = useLoadRegionContent({ regionCode, languageCode })
 
   const currentPoi = slug ? data?.pois.find(it => it.slug === slug) : undefined
   const availableLanguages = currentPoi
@@ -29,7 +29,7 @@ const PoisContainer = ({ navigation, route }: PoisContainerProps): ReactElement 
   const shareUrl = urlFromRouteInformation({
     route: POIS_ROUTE,
     languageCode,
-    cityCode,
+    regionCode,
     slug,
     multipoi,
     poiCategoryId,
@@ -50,7 +50,7 @@ const PoisContainer = ({ navigation, route }: PoisContainerProps): ReactElement 
 
   return (
     <LoadingErrorHandler {...response}>
-      {data && <Pois pois={data.pois} cityModel={data.city} route={route} navigation={navigation} />}
+      {data && <Pois pois={data.pois} regionModel={data.region} route={route} navigation={navigation} />}
     </LoadingErrorHandler>
   )
 }

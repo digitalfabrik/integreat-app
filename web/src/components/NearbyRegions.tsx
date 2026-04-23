@@ -5,31 +5,31 @@ import Stack from '@mui/material/Stack'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { getNearbyCities } from 'shared'
-import { CityModel } from 'shared/api'
+import { getNearbyRegions } from 'shared'
+import { RegionModel } from 'shared/api'
 
 import useUserLocation from '../hooks/useUserLocation'
-import RegionListGroup, { CityGroupHeader } from './RegionListGroup'
+import RegionListGroup, { RegionGroupHeader } from './RegionListGroup'
 
-type NearbyCitiesProps = {
-  cities: CityModel[]
+type NearbyRegionsProps = {
+  regions: RegionModel[]
   language: string
   filterText: string
   stickyTop: number
 }
 
-const NearbyRegions = ({ cities, language, filterText, stickyTop }: NearbyCitiesProps): ReactElement => {
+const NearbyRegions = ({ regions, language, filterText, stickyTop }: NearbyRegionsProps): ReactElement => {
   const { t } = useTranslation('landing')
   const { data: userLocation, refresh } = useUserLocation()
-  const liveCities = cities.filter(city => city.live)
-  const nearbyCities = userLocation ? getNearbyCities(userLocation, liveCities) : []
+  const liveRegions = regions.filter(region => region.live)
+  const nearbyRegions = userLocation ? getNearbyRegions(userLocation, liveRegions) : []
 
-  if (nearbyCities.length === 0) {
+  if (nearbyRegions.length === 0) {
     return (
       <Stack paddingBlock={1}>
-        <CityGroupHeader stickyTop={stickyTop}>{t('common:nearby')}</CityGroupHeader>
+        <RegionGroupHeader stickyTop={stickyTop}>{t('common:nearby')}</RegionGroupHeader>
         <Stack direction='row' alignItems='center' justifyContent='space-between' paddingInline={2}>
-          <ListItemText primary={t(userLocation ? 'noNearbyCities' : 'locationError')} />
+          <ListItemText primary={t(userLocation ? 'noNearbyRegions' : 'locationError')} />
           <IconButton aria-label={t('refresh')} onClick={refresh}>
             <RefreshIcon />
           </IconButton>
@@ -41,7 +41,7 @@ const NearbyRegions = ({ cities, language, filterText, stickyTop }: NearbyCities
   return (
     <RegionListGroup
       title={t('common:nearby')}
-      cities={nearbyCities}
+      regions={nearbyRegions}
       stickyTop={stickyTop}
       languageCode={language}
       filterText={filterText}

@@ -4,30 +4,36 @@ import Stack from '@mui/material/Stack'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
-import { CityModel } from 'shared/api'
+import { RegionModel } from 'shared/api'
 
 import RegionListItem from './RegionListItem'
 
-export const CityGroupHeader = styled(ListSubheader, { shouldForwardProp })<{
+export const RegionGroupHeader = styled(ListSubheader, { shouldForwardProp })<{
   stickyTop: number
 }>(({ stickyTop }) => ({
   top: stickyTop,
   transition: 'top 0.2s ease-out',
 }))
 
-type CityListGroupProps = {
+type RegionListGroupProps = {
   title: string
-  cities: CityModel[]
+  regions: RegionModel[]
   stickyTop: number
   languageCode: string
   filterText: string
 }
 
-const RegionListGroup = ({ title, cities, stickyTop, filterText, languageCode }: CityListGroupProps): ReactElement => (
+const RegionListGroup = ({
+  title,
+  regions,
+  stickyTop,
+  filterText,
+  languageCode,
+}: RegionListGroupProps): ReactElement => (
   <Stack paddingBlock={1}>
-    <CityGroupHeader stickyTop={stickyTop}>{title}</CityGroupHeader>
-    {cities.map(city => (
-      <RegionListItem key={city.code} city={city} language={languageCode} filterText={filterText} />
+    <RegionGroupHeader stickyTop={stickyTop}>{title}</RegionGroupHeader>
+    {regions.map(region => (
+      <RegionListItem key={region.code} region={region} language={languageCode} filterText={filterText} />
     ))}
   </Stack>
 )

@@ -3,7 +3,7 @@ import { Navigate, Route, Routes, useLocation, useParams } from 'react-router'
 
 import {
   CATEGORIES_ROUTE,
-  cityContentPath,
+  regionContentPath,
   IMPRINT_ROUTE,
   EVENTS_ROUTE,
   NEWS_ROUTE,
@@ -11,7 +11,7 @@ import {
   POIS_ROUTE,
   SEARCH_ROUTE,
 } from 'shared'
-import { CityModel, NotFoundError, useLoadFromEndpoint, createCityEndpoint } from 'shared/api'
+import { RegionModel, NotFoundError, useLoadFromEndpoint, createRegionEndpoint } from 'shared/api'
 
 import FailureSwitcherWithHelmet from './components/FailureSwitcherWithHelmet'
 import Footer from './components/Footer'
@@ -32,26 +32,35 @@ const PoisPage = lazyWithRetry(() => import('./routes/PoisPage'))
 const SearchPage = lazyWithRetry(() => import('./routes/SearchPage'))
 const ImprintPage = lazyWithRetry(() => import('./routes/ImprintPage'))
 
-type CityContentNavigatorProps = {
+type RegionContentNavigatorProps = {
   languageCode: string
 }
 
-export type CityRouteProps = {
-  city: CityModel | null
+export type RegionRouteProps = {
+  region: RegionModel | null
   pathname: string
-  cityCode: string
+  regionCode: string
   languageCode: string
 }
 
-const RegionContentNavigator = ({ languageCode }: CityContentNavigatorProps): ReactElement => {
-  // This component is only opened when there is a cityCode in the route
+const RegionContentNavigator = ({ languageCode }: RegionContentNavigatorProps): ReactElement => {
+  // This component is only opened when there is a regionCode in the route
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const cityCode = useParams().cityCode!
-  const { data: city, error, loading } = useLoadFromEndpoint(createCityEndpoint, cmsApiBaseUrl, { city: cityCode })
+  const regionCode = useParams().regionCode!
+  const {
+    data: region,
+    error,
+    loading,
+  } = useLoadFromEndpoint(createRegionEndpoint, cmsApiBaseUrl, { region: regionCode })
   const pathname = normalizePath(useLocation().pathname)
 
-  if (!city && !loading) {
-    const notFoundError = new NotFoundError({ type: 'city', id: cityCode, city: cityCode, language: languageCode })
+  if (!region && !loading) {
+    const notFoundError = new NotFoundError({
+      type: 'region',
+      id: regionCode,
+      region: regionCode,
+      language: languageCode,
+    })
 
     return (
       <Layout header={<GeneralHeader languageCode={languageCode} />} footer={<Footer />}>
@@ -60,39 +69,41 @@ const RegionContentNavigator = ({ languageCode }: CityContentNavigatorProps): Re
     )
   }
 
-  const language = city?.languages.find(it => it.code === languageCode) ?? null
-  if (city && !language) {
+  const language = region?.languages.find(it => it.code === languageCode) ?? null
+  if (region && !language) {
     return (
-      <Layout header={<GeneralHeader languageCode={languageCode} cityLanguages={city.languages} />} footer={<Footer />}>
+      <Layout
+        header={<GeneralHeader languageCode={languageCode} regionLanguages={region.languages} />}
+        footer={<Footer />}>
         <LanguageFailure
-          cityModel={city}
+          regionModel={region}
           languageCode={languageCode}
-          languageChangePaths={city.languages.map(({ code, name }) => ({
+          languageChangePaths={region.languages.map(({ code, name }) => ({
             code,
             name,
-            path: cityContentPath({ cityCode, languageCode: code }),
+            path: regionContentPath({ regionCode, languageCode: code }),
           }))}
         />
       </Layout>
     )
   }
 
-  const cityRouteProps: CityRouteProps = {
-    city,
+  const regionRouteProps: RegionRouteProps = {
+    region,
     pathname,
-    cityCode,
+    regionCode,
     languageCode,
   }
 
-  // If the city is not available yet, nothing is rendered in the routes. Therefore, we can render the route until we know whether the feature is enabled.
-  const eventsEnabled = !city || city.eventsEnabled
-  const localNewsEnabled = !city || city.localNewsEnabled
-  const tuNewsEnabled = !city || city.tunewsEnabled
-  const poisEnabled = !city || city.poisEnabled
+  // If the region is not available yet, nothing is rendered in the routes. Therefore, we can render the route until we know whether the feature is enabled.
+  const eventsEnabled = !region || region.eventsEnabled
+  const localNewsEnabled = !region || region.localNewsEnabled
+  const tuNewsEnabled = !region || region.tunewsEnabled
+  const poisEnabled = !region || region.poisEnabled
 
   const render = <S extends RouteType>(
     route: S,
-    Component: FunctionComponent<CityRouteProps>,
+    Component: FunctionComponent<RegionRouteProps>,
     childPattern?: string,
   ) => (
     <Route
@@ -100,19 +111,19 @@ const RegionContentNavigator = ({ languageCode }: CityContentNavigatorProps): Re
       element={
         <Suspense
           fallback={
-            city ? (
+            region ? (
               <RegionContentLayout
                 languageChangePaths={null}
                 languageCode={languageCode}
                 isLoading
-                city={city}
+                region={region}
                 pageTitle={null}
               />
             ) : (
               <Layout />
             )
           }>
-          <Component {...cityRouteProps} />
+          <Component {...regionRouteProps} />
         </Suspense>
       }
       path={RoutePatterns[route]}>

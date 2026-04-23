@@ -43,36 +43,36 @@ const childCategory = new CategoryModel({
 
 describe('PdfMenuItem', () => {
   it('should use the correct PDF URL for a root category', () => {
-    const cityCode = 'augsburg'
+    const regionCode = 'augsburg'
     const languageCode = 'de'
     const { getByText } = renderWithRouterAndTheme(
-      <PdfMenuItem category={rootCategory} cityCode={cityCode} languageCode={languageCode} />,
+      <PdfMenuItem category={rootCategory} regionCode={regionCode} languageCode={languageCode} />,
     )
     const pdfUrlLink = getByText('categories:createPdf').closest('a')
 
-    expect(pdfUrlLink?.href).toBe(`${cmsApiBaseUrl}/${cityCode}/${languageCode}/wp-json/ig-mpdf/v1/pdf`)
+    expect(pdfUrlLink?.href).toBe(`${cmsApiBaseUrl}/${regionCode}/${languageCode}/wp-json/ig-mpdf/v1/pdf`)
   })
 
   it('should use the correct PDF URL for a non-root category', () => {
-    const cityCode = 'augsburg'
+    const regionCode = 'augsburg'
     const languageCode = 'de'
     const { getByText } = renderWithRouterAndTheme(
-      <PdfMenuItem category={childCategory} cityCode={cityCode} languageCode={languageCode} />,
+      <PdfMenuItem category={childCategory} regionCode={regionCode} languageCode={languageCode} />,
     )
     const pdfUrlLink = getByText('categories:createPdf').closest('a')
 
     expect(pdfUrlLink?.href).toBe(
-      `${cmsApiBaseUrl}/${cityCode}/${languageCode}/wp-json/ig-mpdf/v1/pdf?url=${encodeURIComponent(
+      `${cmsApiBaseUrl}/${regionCode}/${languageCode}/wp-json/ig-mpdf/v1/pdf?url=${encodeURIComponent(
         childCategory.path,
       )}`,
     )
   })
 
   it('should prevent PDF URL for RTL Languages', () => {
-    const cityCode = 'augsburg'
+    const regionCode = 'augsburg'
     const languageCode = 'ar'
     const { getByText } = renderWithRouterAndTheme(
-      <PdfMenuItem category={rootCategory} cityCode={cityCode} languageCode={languageCode} />,
+      <PdfMenuItem category={rootCategory} regionCode={regionCode} languageCode={languageCode} />,
     )
     expect(getByText('categories:createPdf').closest('li')).toHaveClass('Mui-disabled')
   })

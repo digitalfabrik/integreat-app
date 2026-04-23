@@ -3,7 +3,7 @@ import React from 'react'
 import { Pressable, View } from 'react-native'
 
 import { LocalNewsType, NEWS_ROUTE, NewsRouteType, TU_NEWS_TYPE, TuNewsType } from 'shared'
-import { CategoriesMapModelBuilder, CityModelBuilder, LanguageModelBuilder } from 'shared/api'
+import { CategoriesMapModelBuilder, RegionModelBuilder, LanguageModelBuilder } from 'shared/api'
 
 import Text from '../../components/base/Text'
 import useLoadRegionContent from '../../hooks/useLoadRegionContent'
@@ -45,17 +45,17 @@ describe('NewsContainer', () => {
   const navigateTo = jest.fn()
   const { mocked } = jest
   mocked(useNavigate).mockImplementation(() => ({ navigateTo, navigation }))
-  const cities = new CityModelBuilder(3).build()
-  const city = cities[0]!
+  const regions = new RegionModelBuilder(3).build()
+  const region = regions[0]!
   const languages = new LanguageModelBuilder(3).build()
   const language = languages[0]!
 
   const data = {
-    cities,
+    regions,
     languages,
-    city,
+    region,
     language,
-    categories: new CategoriesMapModelBuilder(city.code, language.code).build(),
+    categories: new CategoriesMapModelBuilder(region.code, language.code).build(),
     events: [],
     pois: [],
     extra: [],

@@ -29,7 +29,7 @@ describe('FeedbackContainer', () => {
     { query, initialRating }: { query?: string; initialRating?: Rating } = {},
   ) =>
     renderAllRoutes(path, {
-      CityContentElement: <FeedbackContainer query={query} initialRating={initialRating ?? null} />,
+      RegionContentElement: <FeedbackContainer query={query} initialRating={initialRating ?? null} />,
     })
 
   it('should display thanks message snackbar', async () => {
@@ -80,7 +80,7 @@ describe('FeedbackContainer', () => {
     expect(mockRequest).toHaveBeenCalledTimes(1)
     expect(mockRequest).toHaveBeenCalledWith({
       routeType: SEARCH_ROUTE,
-      city: 'augsburg',
+      region: 'augsburg',
       language: 'de',
       comment: '',
       contactMail: '',
@@ -104,7 +104,7 @@ describe('FeedbackContainer', () => {
     expect(mockRequest).toHaveBeenCalledTimes(1)
     expect(mockRequest).toHaveBeenCalledWith({
       routeType: SEARCH_ROUTE,
-      city: 'augsburg',
+      region: 'augsburg',
       language: 'de',
       comment: '',
       contactMail: '',

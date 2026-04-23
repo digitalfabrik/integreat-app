@@ -2,14 +2,14 @@ import React from 'react'
 import { useLocation } from 'react-router'
 
 import { IMPRINT_ROUTE, NEWS_ROUTE, normalizePath, POIS_ROUTE, SEARCH_ROUTE } from 'shared'
-import { CityModel, CityModelBuilder } from 'shared/api'
+import { RegionModel, RegionModelBuilder } from 'shared/api'
 import {
   mockUseLoadFromEndpointWithData,
   mockUseLoadFromEndpointWithError,
 } from 'shared/api/endpoints/testing/mockUseLoadFromEndpoint'
 
 import RegionContentNavigator from '../RegionContentNavigator'
-import { cityContentPattern } from '../routes'
+import { regionContentPattern } from '../routes'
 import { renderRoute } from '../testing/render'
 
 jest.mock('shared/api', () => ({
@@ -26,50 +26,50 @@ jest.mock('../routes/PoisPage', () => () => <div>{POIS_ROUTE}</div>)
 
 describe('RegionContentNavigator', () => {
   const languageCode = 'de'
-  const [city, cityWithDisabledFeatures] = new CityModelBuilder(2).build() as [CityModel, CityModel]
-  const path = (city: CityModel, routeName: string) => `/${city.code}/${languageCode}/${routeName}`
+  const [region, regionWithDisabledFeatures] = new RegionModelBuilder(2).build() as [RegionModel, RegionModel]
+  const path = (region: RegionModel, routeName: string) => `/${region.code}/${languageCode}/${routeName}`
 
   const MockComponent = () => {
     const pathname = normalizePath(useLocation().pathname)
     return <div>{pathname}</div>
   }
-  const renderCityContentNavigator = (routeName: string) =>
+  const renderRegionContentNavigator = (routeName: string) =>
     renderRoute(
       <>
         <RegionContentNavigator languageCode={languageCode} />
         <MockComponent />
       </>,
       {
-        routePattern: cityContentPattern,
-        pathname: path(city, routeName),
+        routePattern: regionContentPattern,
+        pathname: path(region, routeName),
       },
     )
 
   it.each([{ routeName: SEARCH_ROUTE }, { routeName: IMPRINT_ROUTE }, { routeName: POIS_ROUTE }])(
     'should navigate to $routeName route',
     async ({ routeName }) => {
-      mockUseLoadFromEndpointWithData(city)
-      const { findByText } = renderCityContentNavigator(routeName)
+      mockUseLoadFromEndpointWithData(region)
+      const { findByText } = renderRegionContentNavigator(routeName)
       // findByText is needed as routes are lazy loaded
       expect(await findByText(routeName)).toBeTruthy()
     },
   )
 
   it('should show an error if endpoint throws an error', () => {
-    mockUseLoadFromEndpointWithError('City cannot be loaded')
-    const { getByText } = renderCityContentNavigator(SEARCH_ROUTE)
+    mockUseLoadFromEndpointWithError('Region cannot be loaded')
+    const { getByText } = renderRegionContentNavigator(SEARCH_ROUTE)
     expect(getByText('error:unknownError')).toBeTruthy()
   })
 
-  it('should show an error if city cannot be loaded', () => {
+  it('should show an error if region cannot be loaded', () => {
     mockUseLoadFromEndpointWithData(null)
-    const { getByText } = renderCityContentNavigator(SEARCH_ROUTE)
-    expect(getByText('error:notFound.city')).toBeTruthy()
+    const { getByText } = renderRegionContentNavigator(SEARCH_ROUTE)
+    expect(getByText('error:notFound.region')).toBeTruthy()
   })
 
   it('should not navigate to pois route if pois are not enabled', async () => {
-    mockUseLoadFromEndpointWithData(cityWithDisabledFeatures)
-    const { queryByText } = renderCityContentNavigator(POIS_ROUTE)
+    mockUseLoadFromEndpointWithData(regionWithDisabledFeatures)
+    const { queryByText } = renderRegionContentNavigator(POIS_ROUTE)
     expect(queryByText(POIS_ROUTE)).not.toBeTruthy()
   })
 
@@ -78,8 +78,8 @@ describe('RegionContentNavigator', () => {
       from          | to
       ${NEWS_ROUTE} | ${'/augsburg/de/news/local'}
     `('should redirect from $from to $to', ({ from, to }) => {
-      mockUseLoadFromEndpointWithData(city)
-      const { getByText } = renderCityContentNavigator(from)
+      mockUseLoadFromEndpointWithData(region)
+      const { getByText } = renderRegionContentNavigator(from)
       expect(getByText(to)).toBeTruthy()
     })
   })

@@ -2,8 +2,8 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { cityContentPath, pathnameFromRouteInformation, SEARCH_ROUTE } from 'shared'
-import { CategoryModel, CityModel } from 'shared/api'
+import { regionContentPath, pathnameFromRouteInformation, SEARCH_ROUTE } from 'shared'
+import { CategoryModel, RegionModel } from 'shared/api'
 
 import useDimensions from '../hooks/useDimensions'
 import Header from './Header'
@@ -13,8 +13,8 @@ import { LanguageChangePath } from './LanguageList'
 import NavigationTabs from './NavigationTabs'
 import RegionContentMenu from './RegionContentMenu'
 
-type CityContentHeaderProps = {
-  cityModel: CityModel
+type RegionContentHeaderProps = {
+  regionModel: RegionModel
   languageCode: string
   languageChangePaths: LanguageChangePath[] | null
   category?: CategoryModel
@@ -23,17 +23,17 @@ type CityContentHeaderProps = {
 }
 
 const RegionContentHeader = ({
-  cityModel,
+  regionModel,
   languageCode,
   languageChangePaths,
   category,
   pageTitle,
   fitScreen,
-}: CityContentHeaderProps): ReactElement => {
+}: RegionContentHeaderProps): ReactElement => {
   const { t } = useTranslation('layout')
 
-  const params = { cityCode: cityModel.code, languageCode }
-  const categoriesPath = cityContentPath(params)
+  const params = { regionCode: regionModel.code, languageCode }
+  const categoriesPath = regionContentPath(params)
   const searchPath = pathnameFromRouteInformation({ route: SEARCH_ROUTE, ...params })
   const { desktop } = useDimensions()
 
@@ -53,9 +53,9 @@ const RegionContentHeader = ({
     <Header
       logoHref={categoriesPath}
       actionItems={actionItems}
-      cityName={cityModel.name}
+      regionName={regionModel.name}
       language={languageCode}
-      TabBar={desktop && <NavigationTabs cityModel={cityModel} languageCode={languageCode} />}
+      TabBar={desktop && <NavigationTabs regionModel={regionModel} languageCode={languageCode} />}
     />
   )
 }

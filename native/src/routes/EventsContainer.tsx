@@ -19,10 +19,10 @@ type EventsContainerProps = {
 
 const EventsContainer = ({ navigation, route }: EventsContainerProps): ReactElement => {
   const { slug } = route.params
-  const { cityCode, languageCode } = useRegionAppContext()
+  const { regionCode, languageCode } = useRegionAppContext()
   const { navigateTo } = useNavigate()
 
-  const { data, ...response } = useLoadRegionContent({ cityCode, languageCode })
+  const { data, ...response } = useLoadRegionContent({ regionCode, languageCode })
 
   const currentEvent = slug ? data?.events.find(it => it.slug === slug) : undefined
   const availableLanguages = currentEvent
@@ -32,7 +32,7 @@ const EventsContainer = ({ navigation, route }: EventsContainerProps): ReactElem
   const shareUrl = urlFromRouteInformation({
     route: EVENTS_ROUTE,
     languageCode,
-    cityCode,
+    regionCode,
     slug,
   })
   useHeader({ navigation, route, availableLanguages, data, shareUrl })
@@ -54,7 +54,7 @@ const EventsContainer = ({ navigation, route }: EventsContainerProps): ReactElem
         <Events
           slug={slug}
           events={data.events}
-          cityModel={data.city}
+          regionModel={data.region}
           language={languageCode}
           navigateTo={navigateTo}
           refresh={response.refresh}

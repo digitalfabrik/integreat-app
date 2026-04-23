@@ -3,11 +3,11 @@ import { StyleSheet } from 'react-native'
 import { Divider, List as PaperList } from 'react-native-paper'
 import { useTheme } from 'styled-components/native'
 
-type CityGroupProps = {
+type RegionGroupProps = {
   children: string
 }
 
-const RegionGroup = ({ children }: CityGroupProps): ReactElement => {
+const RegionGroup = ({ children }: RegionGroupProps): ReactElement => {
   const theme = useTheme()
   const styles = StyleSheet.create({
     subheader: {

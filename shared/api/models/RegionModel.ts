@@ -128,9 +128,9 @@ class RegionModel {
     return this._aliases
   }
 
-  static findCityName(cities: readonly RegionModel[], code: string): string {
-    const city = cities.find(city => city.code === code)
-    return city ? city.name : code
+  static findRegionName(regions: readonly RegionModel[], code: string): string {
+    const region = regions.find(region => region.code === code)
+    return region ? region.name : code
   }
 }
 

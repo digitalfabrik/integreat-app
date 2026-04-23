@@ -1,80 +1,80 @@
 import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
 
-import { CityModelBuilder } from 'shared/api'
+import { RegionModelBuilder } from 'shared/api'
 
 import render from '../../testing/render'
 import RegionSelector from '../RegionSelector'
 
 jest.mock('react-i18next')
-jest.mock('../NearbyRegions', () => {
+jest.mock('../../components/NearbyRegions', () => {
   const { Text } = require('react-native-paper')
   return () => <Text>NearbyRegions</Text>
 })
 
 describe('RegionSelector', () => {
-  const cities = new CityModelBuilder(5).build()
-  const city = cities[0]!
+  const regions = new RegionModelBuilder(5).build()
+  const region = regions[0]!
   const navigateToDashboard = jest.fn()
 
-  it('should show only live cities', () => {
+  it('should show only live regions', () => {
     const { getByText, queryByText } = render(
-      <RegionSelector navigateToDashboard={navigateToDashboard} cities={cities} />,
+      <RegionSelector navigateToDashboard={navigateToDashboard} regions={regions} />,
     )
 
     expect(getByText('NearbyRegions')).toBeTruthy()
-    cities.filter(city => city.live).forEach(city => expect(getByText(city.name)).toBeTruthy())
-    cities.filter(city => !city.live).forEach(city => expect(queryByText(city.name)).toBeFalsy())
+    regions.filter(region => region.live).forEach(region => expect(getByText(region.name)).toBeTruthy())
+    regions.filter(region => !region.live).forEach(region => expect(queryByText(region.name)).toBeFalsy())
 
     expect(navigateToDashboard).not.toHaveBeenCalled()
-    fireEvent.press(getByText(city.name))
+    fireEvent.press(getByText(region.name))
     expect(navigateToDashboard).toHaveBeenCalledTimes(1)
-    expect(navigateToDashboard).toHaveBeenCalledWith(cities[0])
+    expect(navigateToDashboard).toHaveBeenCalledWith(regions[0])
   })
 
-  it('should show live cities matching filter text', () => {
+  it('should show live regions matching filter text', () => {
     const { queryByText, getByText, getByPlaceholderText } = render(
-      <RegionSelector navigateToDashboard={navigateToDashboard} cities={cities} />,
+      <RegionSelector navigateToDashboard={navigateToDashboard} regions={regions} />,
     )
 
-    fireEvent.changeText(getByPlaceholderText(city.sortingName), city.name.slice(5, 9))
+    fireEvent.changeText(getByPlaceholderText(region.sortingName), region.name.slice(5, 9))
 
     // Highlighter splits up the name in multiple parts
-    expect(getByText(city.name.slice(0, 5), { exact: false })).toBeTruthy()
-    expect(getByText(city.name.slice(5, 9).trim())).toBeTruthy()
-    expect(getByText(city.name.slice(9), { exact: false })).toBeTruthy()
-    cities.slice(1).forEach(city => expect(queryByText(city.name)).toBeFalsy())
+    expect(getByText(region.name.slice(0, 5), { exact: false })).toBeTruthy()
+    expect(getByText(region.name.slice(5, 9).trim())).toBeTruthy()
+    expect(getByText(region.name.slice(9), { exact: false })).toBeTruthy()
+    regions.slice(1).forEach(region => expect(queryByText(region.name)).toBeFalsy())
   })
 
-  it('should not show any city if filter text does not match', () => {
+  it('should not show any region if filter text does not match', () => {
     const { queryByText, getByPlaceholderText } = render(
-      <RegionSelector navigateToDashboard={navigateToDashboard} cities={cities} />,
+      <RegionSelector navigateToDashboard={navigateToDashboard} regions={regions} />,
     )
 
-    fireEvent.changeText(getByPlaceholderText(city.sortingName), 'Does not exist')
+    fireEvent.changeText(getByPlaceholderText(region.sortingName), 'Does not exist')
 
-    cities.forEach(city => expect(queryByText(city.name)).toBeFalsy())
-    expect(getByPlaceholderText(city.sortingName)).toBeTruthy()
+    regions.forEach(region => expect(queryByText(region.name)).toBeFalsy())
+    expect(getByPlaceholderText(region.sortingName)).toBeTruthy()
   })
 
-  it('should not show any city if filter text does not match a live city', () => {
+  it('should not show any region if filter text does not match a live region', () => {
     const { queryByText, getByPlaceholderText } = render(
-      <RegionSelector navigateToDashboard={navigateToDashboard} cities={cities} />,
+      <RegionSelector navigateToDashboard={navigateToDashboard} regions={regions} />,
     )
 
-    fireEvent.changeText(getByPlaceholderText(city.sortingName), 'oldtown')
+    fireEvent.changeText(getByPlaceholderText(region.sortingName), 'oldtown')
 
-    cities.forEach(city => expect(queryByText(city.name)).toBeFalsy())
+    regions.forEach(region => expect(queryByText(region.name)).toBeFalsy())
   })
 
-  it('should show all non-live cities if filter text is "wirschaffendas"', () => {
+  it('should show all non-live regions if filter text is "wirschaffendas"', () => {
     const { queryByText, getByText, getByPlaceholderText } = render(
-      <RegionSelector navigateToDashboard={navigateToDashboard} cities={cities} />,
+      <RegionSelector navigateToDashboard={navigateToDashboard} regions={regions} />,
     )
 
-    fireEvent.changeText(getByPlaceholderText(city.sortingName), 'wirschaffendas')
+    fireEvent.changeText(getByPlaceholderText(region.sortingName), 'wirschaffendas')
 
-    cities.filter(city => !city.live).forEach(city => expect(getByText(city.name)).toBeTruthy())
-    cities.filter(city => city.live).forEach(city => expect(queryByText(city.name)).toBeFalsy())
+    regions.filter(region => !region.live).forEach(region => expect(getByText(region.name)).toBeTruthy())
+    regions.filter(region => region.live).forEach(region => expect(queryByText(region.name)).toBeFalsy())
   })
 })

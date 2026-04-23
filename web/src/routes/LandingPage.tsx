@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { createCitiesEndpoint, useLoadFromEndpoint } from 'shared/api'
+import { createRegionsEndpoint, useLoadFromEndpoint } from 'shared/api'
 
 import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Footer from '../components/Footer'
@@ -18,7 +18,7 @@ type LandingPageProps = {
 }
 
 const LandingPage = ({ languageCode }: LandingPageProps): ReactElement => {
-  const { data: cities, loading, error } = useLoadFromEndpoint(createCitiesEndpoint, cmsApiBaseUrl, undefined)
+  const { data: regions, loading, error } = useLoadFromEndpoint(createRegionsEndpoint, cmsApiBaseUrl, undefined)
   const [stickyTop, setStickyTop] = useState<number>(0)
   const { t } = useTranslation('landing')
 
@@ -43,7 +43,7 @@ const LandingPage = ({ languageCode }: LandingPageProps): ReactElement => {
         </>
       }>
       <Helmet pageTitle={pageTitle} metaDescription={metaDescription} rootPage />
-      <RegionSelector cities={cities ?? []} language={languageCode} stickyTop={stickyTop} loading={loading} />
+      <RegionSelector regions={regions ?? []} language={languageCode} stickyTop={stickyTop} loading={loading} />
     </Layout>
   )
 }

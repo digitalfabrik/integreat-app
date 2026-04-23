@@ -36,14 +36,14 @@ describe('localnews', () => {
   const itemModel2 = createNewsItemModel(DateTime.fromISO('2020-05-20T15:00:00+02:00'))
   const itemModel3 = createNewsItemModel(DateTime.fromISO('2019-07-20T00:00:00+02:00'))
   const params = {
-    city: 'testumgebung',
+    region: 'testumgebung',
     language: 'en',
     count: 1,
   }
 
   it('should map params to url', () => {
     expect(localNews.mapParamsToUrl(params)).toBe(
-      `https://cms.integreat-app.de/api/${API_VERSION}/${params.city}/${params.language}/fcm/?channel=news`,
+      `https://cms.integreat-app.de/api/${API_VERSION}/${params.region}/${params.language}/fcm/?channel=news`,
     )
   })
 

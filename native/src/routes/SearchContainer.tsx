@@ -15,10 +15,10 @@ export type SearchContainerProps = {
 }
 
 const SearchContainer = ({ navigation, route }: SearchContainerProps): ReactElement | null => {
-  const { cityCode, languageCode } = useRegionAppContext()
+  const { regionCode, languageCode } = useRegionAppContext()
   const initialSearchText = route.params.searchText ?? ''
-  const { data, ...response } = useLoadRegionContent({ cityCode, languageCode })
-  const { data: sourceLanguageData } = useLoadRegionContent({ cityCode, languageCode: config.sourceLanguage })
+  const { data, ...response } = useLoadRegionContent({ regionCode, languageCode })
+  const { data: sourceLanguageData } = useLoadRegionContent({ regionCode, languageCode: config.sourceLanguage })
 
   const userLanguageDocuments = prepareSearchDocuments(data?.categories, data?.events, data?.pois)
   const sourceLanguageDocuments =
@@ -31,7 +31,7 @@ const SearchContainer = ({ navigation, route }: SearchContainerProps): ReactElem
       {data && (
         <Search
           navigation={navigation}
-          cityCode={cityCode}
+          regionCode={regionCode}
           userLanguageDocuments={userLanguageDocuments}
           sourceLanguageDocuments={sourceLanguageDocuments}
           languageCode={languageCode}

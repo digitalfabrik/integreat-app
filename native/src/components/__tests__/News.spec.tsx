@@ -3,7 +3,7 @@ import { DateTime } from 'luxon'
 import React from 'react'
 
 import { LocalNewsType, TU_NEWS_TYPE, TuNewsType, replaceLinks } from 'shared'
-import { LanguageModelBuilder, CityModel, LocalNewsModel, TunewsModel } from 'shared/api'
+import { LanguageModelBuilder, RegionModel, LocalNewsModel, TunewsModel } from 'shared/api'
 
 import useNavigate from '../../hooks/useNavigate'
 import createNavigationPropMock from '../../testing/createNavigationPropMock'
@@ -74,7 +74,7 @@ describe('News', () => {
     tuNewsEnabled?: boolean
     localNewsEnabled?: boolean
   }) => {
-    const cityModel = new CityModel({
+    const regionModel = new RegionModel({
       name: 'Oldtown',
       code: 'oldtown',
       live: false,
@@ -92,7 +92,7 @@ describe('News', () => {
       chatEnabled: false,
       chatPrivacyPolicyUrl: null,
     })
-    const props = { cityModel, language, navigateToNews, loadMore, refresh, selectedNewsType }
+    const props = { regionModel, language, navigateToNews, loadMore, refresh, selectedNewsType }
     return render(<News {...props} news={data} newsId={newsId} loadingMore={loadingMore} languageCode='de' />)
   }
 

@@ -7,7 +7,7 @@ describe('NotFoundError', () => {
     const error = new NotFoundError({
       type: 'category',
       id: '/augsburg/de/test',
-      city: 'augsburg',
+      region: 'augsburg',
       language: 'language',
     })
     expect(error.message).toBe('The category /augsburg/de/test does not exist here.')
@@ -16,7 +16,7 @@ describe('NotFoundError', () => {
     const error = new NotFoundError({
       type: 'category',
       id: '/augsburg/de/test',
-      city: 'augsburg',
+      region: 'augsburg',
       language: 'language',
     })
     // Matches the first line in stack

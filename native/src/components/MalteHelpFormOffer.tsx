@@ -61,13 +61,13 @@ type MalteHelpFormOfferProps = {
   url: string
   malteHelpFormOffer: OfferModel
   onSubmit: () => void
-  cityCode: string
+  regionCode: string
 }
 
 const MalteHelpFormOffer = ({
   categoryPageTitle,
   url,
-  cityCode,
+  regionCode,
   malteHelpFormOffer,
   onSubmit,
 }: MalteHelpFormOfferProps): ReactElement => {
@@ -86,7 +86,7 @@ const MalteHelpFormOffer = ({
       await submitMalteHelpForm({
         url,
         pageTitle: categoryPageTitle,
-        cityCode,
+        regionCode,
         malteHelpFormOffer,
         name: data.name,
         roomNumber: data.roomNumber,

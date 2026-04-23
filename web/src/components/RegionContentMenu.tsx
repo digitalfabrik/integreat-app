@@ -17,15 +17,15 @@ import { TtsContext } from './TtsContainer'
 import Dialog from './base/Dialog'
 import Svg from './base/Svg'
 
-type CityContentMenuProps = {
+type RegionContentMenuProps = {
   slug?: string
   category?: CategoryModel
   pageTitle: string | null
   fitScreen?: boolean
 }
 
-const RegionContentMenu = ({ slug, category, pageTitle, fitScreen }: CityContentMenuProps): ReactElement => {
-  const { route, cityCode, languageCode } = useRegionContentParams()
+const RegionContentMenu = ({ slug, category, pageTitle, fitScreen }: RegionContentMenuProps): ReactElement => {
+  const { route, regionCode, languageCode } = useRegionContentParams()
   const { showTtsPlayer, canRead } = useContext(TtsContext)
   const { toggleTheme, dimensions } = useTheme()
   const { t } = useTranslation('layout')
@@ -41,7 +41,7 @@ const RegionContentMenu = ({ slug, category, pageTitle, fitScreen }: CityContent
       <PdfMenuItem
         key='pdf'
         category={category}
-        cityCode={cityCode}
+        regionCode={regionCode}
         languageCode={languageCode}
         closeMenu={closeMenu}
       />

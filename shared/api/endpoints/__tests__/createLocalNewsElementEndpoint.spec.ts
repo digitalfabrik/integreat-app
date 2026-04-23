@@ -32,13 +32,13 @@ describe('localnews', () => {
 
   const itemValue = createNewsItemModel(DateTime.fromISO('2020-03-20T17:50:00+02:00'))
   const params = {
-    city: 'testumgebung',
+    region: 'testumgebung',
     language: 'en',
     id: '1',
   }
   it('should map params to url', () => {
     expect(localNewsElement.mapParamsToUrl(params)).toBe(
-      `${baseUrl}/api/${API_VERSION}/${params.city}/${params.language}/fcm/?id=${params.id}`,
+      `${baseUrl}/api/${API_VERSION}/${params.region}/${params.language}/fcm/?id=${params.id}`,
     )
   })
   it('should map fetched data to models', () => {

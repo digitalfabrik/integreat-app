@@ -9,11 +9,11 @@ import FeedbackToolbarItem from './FeedbackToolbarItem'
 
 export const TOOLBAR_ELEMENT_ID = 'toolbar'
 
-type CityContentToolbarProps = {
+type RegionContentToolbarProps = {
   slug?: string
 }
 
-const RegionContentToolbar = ({ slug }: CityContentToolbarProps): ReactElement | null => {
+const RegionContentToolbar = ({ slug }: RegionContentToolbarProps): ReactElement | null => {
   const { route } = useRegionContentParams()
   useUpdateDimensions()
 

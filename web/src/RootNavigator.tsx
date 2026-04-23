@@ -4,21 +4,21 @@ import { Navigate, Route, Routes, useMatch } from 'react-router'
 
 import {
   SUGGEST_TO_REGION_ROUTE,
-  cityContentPath,
+  regionContentPath,
   CONSENT_ROUTE,
   LANDING_ROUTE,
   LICENSES_ROUTE,
   MAIN_IMPRINT_ROUTE,
   NOT_FOUND_ROUTE,
   pathnameFromRouteInformation,
-  RESERVED_CITY_CONTENT_SLUGS,
+  RESERVED_REGION_CONTENT_SLUGS,
 } from 'shared'
 
 import FixedRegionContentNavigator from './FixedRegionContentNavigator'
 import RegionContentNavigator from './RegionContentNavigator'
 import buildConfig from './constants/buildConfig'
 import useScrollToTop from './hooks/useScrollToTop'
-import { cityContentPattern, RoutePatterns } from './routes'
+import { regionContentPattern, RoutePatterns } from './routes'
 import ConsentPage from './routes/ConsentPage'
 import SuggestToRegionPage from './routes/SuggestToRegionPage'
 import lazyWithRetry from './utils/retryImport'
@@ -34,7 +34,7 @@ const LicensesPage = lazyWithRetry(() => import('./routes/LicensesPage'))
 
 const RootNavigator = ({ setContentLanguage }: RootNavigatorProps): ReactElement => {
   const { i18n } = useTranslation()
-  const { fixedCity, suggestToRegion } = buildConfig().featureFlags
+  const { fixedRegion, suggestToRegion } = buildConfig().featureFlags
   const { routeParam0, routeParam1, '*': splat } = useMatch('/:routeParam0/:routeParam1/*')?.params ?? {}
   useScrollToTop()
 
@@ -48,19 +48,19 @@ const RootNavigator = ({ setContentLanguage }: RootNavigatorProps): ReactElement
   }, [language, detectedLanguageCode, setContentLanguage])
 
   const landingPath = pathnameFromRouteInformation({ route: LANDING_ROUTE, languageCode: language })
-  const fixedCityPath = fixedCity ? cityContentPath({ cityCode: fixedCity, languageCode: language }) : null
+  const fixedRegionPath = fixedRegion ? regionContentPath({ regionCode: fixedRegion, languageCode: language }) : null
   return (
     <Routes>
-      {!fixedCity && <Route path={RoutePatterns[LANDING_ROUTE]} element={<LandingPage languageCode={language} />} />}
+      {!fixedRegion && <Route path={RoutePatterns[LANDING_ROUTE]} element={<LandingPage languageCode={language} />} />}
       <Route path={RoutePatterns[MAIN_IMPRINT_ROUTE]} element={<MainImprintPage languageCode={language} />} />
       <Route path={RoutePatterns[NOT_FOUND_ROUTE]} element={<NotFoundPage />} />
       <Route path={RoutePatterns[CONSENT_ROUTE]} element={<ConsentPage languageCode={language} />} />
       <Route path={RoutePatterns[LICENSES_ROUTE]} element={<LicensesPage languageCode={language} />} />
       <Route
-        path={cityContentPattern}
+        path={regionContentPattern}
         element={
-          fixedCity ? (
-            <FixedRegionContentNavigator languageCode={language} fixedCity={fixedCity} />
+          fixedRegion ? (
+            <FixedRegionContentNavigator languageCode={language} fixedRegion={fixedRegion} />
           ) : (
             <RegionContentNavigator languageCode={language} />
           )
@@ -75,18 +75,18 @@ const RootNavigator = ({ setContentLanguage }: RootNavigatorProps): ReactElement
       )}
 
       {/* Redirects */}
-      <Route path='/' element={<Navigate to={fixedCityPath ?? landingPath} replace />} />
-      {!!fixedCityPath && (
-        <Route path={RoutePatterns[LANDING_ROUTE]} element={<Navigate to={fixedCityPath} replace />} />
+      <Route path='/' element={<Navigate to={fixedRegionPath ?? landingPath} replace />} />
+      {!!fixedRegionPath && (
+        <Route path={RoutePatterns[LANDING_ROUTE]} element={<Navigate to={fixedRegionPath} replace />} />
       )}
       {/* also handles redirects from /landing to /landing/de */}
-      <Route path='/:cityCode' element={<Navigate to={fixedCityPath ?? language} replace />} />
+      <Route path='/:regionCode' element={<Navigate to={fixedRegionPath ?? language} replace />} />
 
       {/* Language independent urls */}
-      {RESERVED_CITY_CONTENT_SLUGS.map(slug => (
+      {RESERVED_REGION_CONTENT_SLUGS.map(slug => (
         <Route
           key={slug}
-          path={`/:cityCode/${slug}/*`}
+          path={`/:regionCode/${slug}/*`}
           element={<Navigate to={`/${routeParam0}/${detectedLanguageCode}/${slug}/${splat ?? ''}`} replace />}
         />
       ))}

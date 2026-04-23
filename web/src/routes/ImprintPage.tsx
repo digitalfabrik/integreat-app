@@ -4,16 +4,16 @@ import { useTranslation } from 'react-i18next'
 import { IMPRINT_ROUTE, pathnameFromRouteInformation } from 'shared'
 import { createImprintEndpoint, useLoadFromEndpoint } from 'shared/api'
 
-import { CityRouteProps } from '../RegionContentNavigator'
+import { RegionRouteProps } from '../RegionContentNavigator'
 import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Helmet from '../components/Helmet'
 import Page from '../components/Page'
-import RegionContentLayout, { CityContentLayoutProps } from '../components/RegionContentLayout'
+import RegionContentLayout, { RegionContentLayoutProps } from '../components/RegionContentLayout'
 import RegionContentToolbar from '../components/RegionContentToolbar'
 import SkeletonPage from '../components/SkeletonPage'
 import { cmsApiBaseUrl } from '../constants/urls'
 
-const ImprintPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactElement | null => {
+const ImprintPage = ({ regionCode, languageCode, region }: RegionRouteProps): ReactElement | null => {
   const { t } = useTranslation('imprint')
 
   const {
@@ -21,22 +21,22 @@ const ImprintPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactEle
     loading,
     error: imprintError,
   } = useLoadFromEndpoint(createImprintEndpoint, cmsApiBaseUrl, {
-    city: cityCode,
+    region: regionCode,
     language: languageCode,
   })
 
-  if (!city) {
+  if (!region) {
     return null
   }
 
-  const pageTitle = `${t('pageTitle')} - ${city.name}`
-  const languageChangePaths = city.languages.map(({ code, name }) => {
-    const imprintPath = pathnameFromRouteInformation({ route: IMPRINT_ROUTE, cityCode, languageCode: code })
+  const pageTitle = `${t('pageTitle')} - ${region.name}`
+  const languageChangePaths = region.languages.map(({ code, name }) => {
+    const imprintPath = pathnameFromRouteInformation({ route: IMPRINT_ROUTE, regionCode, languageCode: code })
     return { path: imprintPath, name, code }
   })
 
-  const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
-    city,
+  const locationLayoutParams: Omit<RegionContentLayoutProps, 'isLoading'> = {
+    region,
     languageChangePaths,
     languageCode,
     pageTitle,
@@ -62,7 +62,7 @@ const ImprintPage = ({ cityCode, languageCode, city }: CityRouteProps): ReactEle
 
   return (
     <RegionContentLayout isLoading={false} {...locationLayoutParams}>
-      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
+      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} regionModel={region} />
       <Page lastUpdate={imprint.lastUpdate} title={imprint.title} content={imprint.content} />
     </RegionContentLayout>
   )

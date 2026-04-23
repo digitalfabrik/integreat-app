@@ -2,7 +2,7 @@ import { DateTime } from 'luxon'
 import React from 'react'
 
 import { IMPRINT_ROUTE, pathnameFromRouteInformation } from 'shared'
-import { CityModelBuilder, DocumentModel } from 'shared/api'
+import { RegionModelBuilder, DocumentModel } from 'shared/api'
 import { mockUseLoadFromEndpointOnceWithData } from 'shared/api/endpoints/testing/mockUseLoadFromEndpoint'
 
 import { renderRoute } from '../../testing/render'
@@ -21,7 +21,7 @@ describe('ImprintPage', () => {
     jest.clearAllMocks()
   })
 
-  const cities = new CityModelBuilder(2).build()
+  const regions = new RegionModelBuilder(2).build()
   const imprint = new DocumentModel({
     path: '/imprint',
     title: 'Feedback, Kontakt und mögliches Engagement',
@@ -29,20 +29,20 @@ describe('ImprintPage', () => {
     lastUpdate: DateTime.fromISO('2017-11-18T19:30:00.000Z'),
   })
 
-  const city = cities[0]!
+  const region = regions[0]!
   const languageCode = 'en'
 
   const pathname = pathnameFromRouteInformation({
     route: IMPRINT_ROUTE,
-    cityCode: city.code,
+    regionCode: region.code,
     languageCode,
   })
-  const routePattern = `/:cityCode/:languageCode/${RoutePatterns[IMPRINT_ROUTE]}`
+  const routePattern = `/:regionCode/:languageCode/${RoutePatterns[IMPRINT_ROUTE]}`
 
   const renderImprintPage = () => {
     mockUseLoadFromEndpointOnceWithData(imprint)
     return renderRoute(
-      <ImprintPage city={city} languageCode={languageCode} cityCode={city.code} pathname={pathname} />,
+      <ImprintPage region={region} languageCode={languageCode} regionCode={region.code} pathname={pathname} />,
       { pathname, routePattern },
     )
   }

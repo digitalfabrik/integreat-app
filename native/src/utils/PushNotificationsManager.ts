@@ -24,7 +24,7 @@ type UpdateSettingsType = (settings: { allowPushNotifications: boolean }) => voi
 type Message = FirebaseMessagingTypes.RemoteMessage & {
   notification: { title: string }
   data: {
-    city_code: string
+    region_code: string
     language_code: string
     news_id: string
   }
@@ -44,10 +44,10 @@ export const requestPushNotificationPermission = async (updateSettings: UpdateSe
   return permissionStatus === RESULTS.GRANTED
 }
 
-const newsTopic = (city: string, language: string): string => `${city}-${language}-news`
+const newsTopic = (region: string, language: string): string => `${region}-${language}-news`
 
-export const unsubscribeNews = async (city: string, language: string): Promise<void> => {
-  const topic = newsTopic(city, language)
+export const unsubscribeNews = async (region: string, language: string): Promise<void> => {
+  const topic = newsTopic(region, language)
 
   try {
     await unsubscribeFromTopic(getMessaging(), topic)
@@ -58,14 +58,14 @@ export const unsubscribeNews = async (city: string, language: string): Promise<v
 }
 
 type SubscribeNewsParams = {
-  cityCode: string
+  regionCode: string
   languageCode: string
   allowPushNotifications: boolean
   skipSettingsCheck?: boolean
 }
 
 export const subscribeNews = async ({
-  cityCode,
+  regionCode,
   languageCode,
   allowPushNotifications,
   skipSettingsCheck = false,
@@ -76,7 +76,7 @@ export const subscribeNews = async ({
       return
     }
 
-    const topic = newsTopic(cityCode, languageCode)
+    const topic = newsTopic(regionCode, languageCode)
 
     await subscribeToTopic(getMessaging(), topic)
     log(`Subscribed to ${topic} topic!`)
@@ -106,7 +106,7 @@ const displayNotification = async (message: Message): Promise<void> => {
 }
 
 const routeInformationFromMessage = (message: Message): NonNullableRouteInformationType => ({
-  cityCode: message.data.city_code,
+  regionCode: message.data.region_code,
   languageCode: message.data.language_code,
   route: NEWS_ROUTE,
   newsType: LOCAL_NEWS_TYPE,
@@ -151,14 +151,14 @@ const pushNotificationPressListener = async (
 // Therefore, request the permissions once if not yet granted and subscribe to the current channel if successful.
 // See https://github.com/digitalfabrik/integreat-app/issues/2438 and https://github.com/digitalfabrik/integreat-app/issues/2655
 const initialPushNotificationRequest = async (appContext: AppContextType): Promise<void> => {
-  const { cityCode, languageCode, settings, updateSettings } = appContext
+  const { regionCode, languageCode, settings, updateSettings } = appContext
   const { allowPushNotifications } = settings
 
   const pushNotificationPermissionGranted = (await checkNotifications()).status === RESULTS.GRANTED
   if (!pushNotificationPermissionGranted && allowPushNotifications) {
     const success = await requestPushNotificationPermission(updateSettings)
-    if (success && cityCode) {
-      await subscribeNews({ cityCode, languageCode, allowPushNotifications })
+    if (success && regionCode) {
+      await subscribeNews({ regionCode, languageCode, allowPushNotifications })
     }
   }
 }

@@ -31,7 +31,7 @@ const navigateToLink = <T extends RoutesType>(
     navigation.navigate(IMAGE_VIEW_MODAL_ROUTE, { url, shareUrl: url })
   } else if (internalUrlRegex.test(url)) {
     const { pathname } = new URL(url)
-    const routeParser = new InternalPathnameParser(pathname, languageCode, buildConfig().featureFlags.fixedCity)
+    const routeParser = new InternalPathnameParser(pathname, languageCode, buildConfig().featureFlags.fixedRegion)
     navigateTo(routeParser.route())
   } else {
     openExternalUrl(url, showSnackbar)
