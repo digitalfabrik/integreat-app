@@ -33,7 +33,7 @@ import buildConfig from './constants/buildConfig'
 import { useAppContext } from './hooks/useCityAppContext'
 import useLoadCities from './hooks/useLoadCities'
 import useSnackbar from './hooks/useSnackbar'
-import BottomTabNavigatior from './navigation/BottomTabNavigatior'
+import BottomTabNavigator from './navigation/BottomTabNavigator'
 import ChangeLanguageModal from './routes/ChangeLanguageModal'
 import Consent from './routes/Consent'
 import FeedbackModalContainer from './routes/FeedbackModalContainer'
@@ -144,7 +144,7 @@ const Navigator = (): ReactElement | null => {
         <Stack.Screen name={SEARCH_ROUTE} component={SearchContainer} />
         <Stack.Screen
           name={BOTTOM_TAB_ROUTE}
-          component={BottomTabNavigatior}
+          component={BottomTabNavigator}
           options={{ cardStyle: { paddingBottom: 0 } }}
         />
       </Stack.Group>

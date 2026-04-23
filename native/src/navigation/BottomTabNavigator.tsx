@@ -93,7 +93,7 @@ type BottomTabNavigatorProps = {
   navigation: NavigationProps<BottomTabRouteType>
 }
 
-const BottomTabNavigatior = ({ navigation }: BottomTabNavigatorProps): ReactElement | null => {
+const BottomTabNavigator = ({ navigation }: BottomTabNavigatorProps): ReactElement | null => {
   const { t } = useTranslation('layout')
   const { cityCode, languageCode } = useCityAppContext()
   const { navigateTo } = useNavigate()
@@ -194,4 +194,4 @@ const BottomTabNavigatior = ({ navigation }: BottomTabNavigatorProps): ReactElem
   )
 }
 
-export default BottomTabNavigatior
+export default BottomTabNavigator
