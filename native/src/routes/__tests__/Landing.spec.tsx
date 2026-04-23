@@ -40,7 +40,10 @@ describe('Landing', () => {
     const previous = buildConfig()
     mockedBuildConfig.mockImplementation(() => ({
       ...previous,
-      featureFlags: { ...previous.featureFlags, suggestToRegion },
+      featureFlags: {
+        ...previous.featureFlags,
+        suggestToRegion: suggestToRegion ? { template: 'test', icon: 'icon.svg' } : null,
+      },
     }))
   }
 

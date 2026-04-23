@@ -35,7 +35,10 @@ const commonIntegreatBuildConfig: CommonBuildConfigType = {
     sentry: true,
     developerFriendly: false,
     fixedCity: null,
-    suggestToRegionTemplate,
+    suggestToRegion: {
+      template: suggestToRegionTemplate,
+      icon: '/suggest-to-region.svg',
+    },
     chat: true,
   },
   aboutUrls: {
@@ -93,7 +96,6 @@ export const webIntegreatBuildConfig: WebBuildConfigType = {
   icons: {
     appLogo: '/app-logo.svg',
     appLogoMobile: '/app-icon-round.svg',
-    suggestToRegion: '/suggest-to-region.svg',
     appleTouchIcon: '/apple-touch-icon.png',
     socialMediaPreview: '/social-media-preview.png',
     favicons: '/favicons/',
