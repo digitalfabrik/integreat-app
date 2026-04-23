@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
 import {
-  BOTTOM_TAB_NAVIGATION_ROUTE,
+  BOTTOM_TAB_ROUTE,
   CATEGORIES_ROUTE,
   CategoriesRouteType,
   CHANGE_LANGUAGE_MODAL_ROUTE,
@@ -219,7 +219,7 @@ const Header = ({
     }
 
     // After search navigation reset, previousRoute may be BOTTOM_TAB_NAVIGATION_ROUTE
-    if (previousRoute.name === CATEGORIES_ROUTE || previousRoute.name === BOTTOM_TAB_NAVIGATION_ROUTE) {
+    if (previousRoute.name === CATEGORIES_ROUTE || previousRoute.name === BOTTOM_TAB_ROUTE) {
       return { title: cityName ?? '', language: languageCode }
     }
 

@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native'
 import { useCallback, useContext } from 'react'
 
 import {
-  BOTTOM_TAB_NAVIGATION_ROUTE,
+  BOTTOM_TAB_ROUTE,
   CATEGORIES_ROUTE,
   CATEGORIES_TAB_ROUTE,
   SUGGEST_TO_REGION_ROUTE,
@@ -67,7 +67,7 @@ const navigate = <T extends RoutesType>(
     if (redirect && navigation.canGoBack()) {
       navigation.pop()
     } else {
-      navigation.replace(BOTTOM_TAB_NAVIGATION_ROUTE, {
+      navigation.replace(BOTTOM_TAB_ROUTE, {
         screen: CATEGORIES_TAB_ROUTE,
         params: {
           screen: CATEGORIES_ROUTE,

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { FlatList, useWindowDimensions, ViewToken } from 'react-native'
 import styled from 'styled-components/native'
 
-import { BOTTOM_TAB_NAVIGATION_ROUTE, IntroRouteType, LANDING_ROUTE } from 'shared'
+import { BOTTOM_TAB_ROUTE, IntroRouteType, LANDING_ROUTE } from 'shared'
 
 import {
   IntroLanguageIcon,
@@ -91,7 +91,7 @@ const Intro = ({ navigation }: IntroProps): ReactElement => {
   const onDone = useCallback(() => {
     updateSettings({ introShown: true })
     if (cityCode) {
-      navigation.replace(BOTTOM_TAB_NAVIGATION_ROUTE, {})
+      navigation.replace(BOTTOM_TAB_ROUTE, {})
     } else {
       navigation.replace(LANDING_ROUTE)
     }

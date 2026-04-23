@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 import styled from 'styled-components/native'
 
-import { BOTTOM_TAB_NAVIGATION_ROUTE, SUGGEST_TO_REGION_ROUTE, LandingRouteType } from 'shared'
+import { BOTTOM_TAB_ROUTE, SUGGEST_TO_REGION_ROUTE, LandingRouteType } from 'shared'
 import { CityModel } from 'shared/api'
 
 import CitySelector from '../components/CitySelector'
@@ -40,7 +40,7 @@ const Landing = ({ navigation }: LandingProps): ReactElement => {
 
   const navigateToDashboard = (city: CityModel) => {
     changeCityCode(city.code)
-    navigation.reset({ index: 0, routes: [{ name: BOTTOM_TAB_NAVIGATION_ROUTE, params: {} }] })
+    navigation.reset({ index: 0, routes: [{ name: BOTTOM_TAB_ROUTE, params: {} }] })
   }
 
   const clearResourcesAndCache = useCallback(() => {

@@ -7,7 +7,7 @@ import { NavigationProps, RoutesParamsType } from 'src/constants/NavigationTypes
 import { DefaultTheme, useTheme } from 'styled-components/native'
 
 import {
-  BottomTabNavigationRouteType,
+  BottomTabRouteType,
   CATEGORIES_ROUTE,
   CATEGORIES_TAB_ROUTE,
   EVENTS_ROUTE,
@@ -89,11 +89,11 @@ const createTabLabel =
     </Text>
   )
 
-type BottomTabNavigationProps = {
-  navigation: NavigationProps<BottomTabNavigationRouteType>
+type BottomTabNavigatorProps = {
+  navigation: NavigationProps<BottomTabRouteType>
 }
 
-const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactElement | null => {
+const BottomTabNavigatior = ({ navigation }: BottomTabNavigatorProps): ReactElement | null => {
   const { t } = useTranslation('layout')
   const { cityCode, languageCode } = useCityAppContext()
   const { navigateTo } = useNavigate()
@@ -172,7 +172,7 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
     ),
   ].filter(Boolean)
 
-  const bottomTabNavigationVisible = Tabs.length > 1
+  const bottomTabsVisible = Tabs.length > 1
 
   return (
     <Tab.Navigator
@@ -185,13 +185,13 @@ const BottomTabNavigation = ({ navigation }: BottomTabNavigationProps): ReactEle
         tabBarStyle: {
           height: TAB_HEIGHT + insets.bottom,
           backgroundColor: theme.colors.surfaceVariant,
-          display: bottomTabNavigationVisible ? 'flex' : 'none',
+          display: bottomTabsVisible ? 'flex' : 'none',
         },
-        sceneStyle: bottomTabNavigationVisible ? undefined : { paddingBottom: insets.bottom },
+        sceneStyle: bottomTabsVisible ? undefined : { paddingBottom: insets.bottom },
       }}>
       {Tabs}
     </Tab.Navigator>
   )
 }
 
-export default BottomTabNavigation
+export default BottomTabNavigatior
