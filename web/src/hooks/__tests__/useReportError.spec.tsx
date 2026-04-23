@@ -24,7 +24,7 @@ describe('useReportError', () => {
     const { rerender } = render(<MockComponent error={null} />)
     expect(reportError).not.toHaveBeenCalled()
 
-    const error = new MappingError('cities', 'some error')
+    const error = new MappingError('regions', 'some error')
     rerender(<MockComponent error={error} />)
 
     expect(reportError).toHaveBeenCalledTimes(1)

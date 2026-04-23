@@ -6,7 +6,7 @@ import { ErrorCode } from 'shared/api'
 import News from '../components/News'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useHeader from '../hooks/useHeader'
-import { CityContentData } from '../hooks/useLoadRegionContent'
+import { RegionContentData } from '../hooks/useLoadRegionContent'
 import useLoadTuNews from '../hooks/useLoadTuNews'
 import urlFromRouteInformation from '../utils/url'
 import LoadingErrorHandler from './LoadingErrorHandler'
@@ -14,12 +14,12 @@ import LoadingErrorHandler from './LoadingErrorHandler'
 type TuNewsProps = {
   route: RouteProps<NewsRouteType>
   navigation: NavigationProps<NewsRouteType>
-  data: CityContentData
+  data: RegionContentData
   navigateToNews: (newsId: number) => void
 }
 
 const TuNews = ({ route, navigation, data, navigateToNews }: TuNewsProps): ReactElement => {
-  const cityCode = data.city.code
+  const regionCode = data.region.code
   const languageCode = data.language.code
   const {
     data: tuNews,
@@ -30,7 +30,7 @@ const TuNews = ({ route, navigation, data, navigateToNews }: TuNewsProps): React
   } = useLoadTuNews({ language: languageCode })
 
   const availableLanguageCodes = availableLanguages?.map(it => it.code)
-  const shareUrl = urlFromRouteInformation({ route: NEWS_ROUTE, cityCode, languageCode, newsType: TU_NEWS_TYPE })
+  const shareUrl = urlFromRouteInformation({ route: NEWS_ROUTE, regionCode, languageCode, newsType: TU_NEWS_TYPE })
   useHeader({ navigation, route, availableLanguages: availableLanguageCodes, data, shareUrl })
 
   const error =

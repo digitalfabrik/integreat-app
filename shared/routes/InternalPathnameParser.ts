@@ -7,7 +7,7 @@ import {
   LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
   POIS_ROUTE,
-  RESERVED_CITY_CONTENT_SLUGS,
+  RESERVED_REGION_CONTENT_SLUGS,
   SEARCH_ROUTE,
   TU_NEWS_TYPE,
 } from '.'
@@ -22,11 +22,11 @@ class InternalPathnameParser {
   _parts: string[]
   _length: number
   _fallbackLanguageCode: string
-  _fixedCity: string | null
+  _fixedRegion: string | null
   _queryParams: URLSearchParams
 
-  constructor(pathname: string, languageCode: string, fixedCity: string | null, query?: string) {
-    this._fixedCity = fixedCity
+  constructor(pathname: string, languageCode: string, fixedRegion: string | null, query?: string) {
+    this._fixedRegion = fixedRegion
     this._fallbackLanguageCode = languageCode
     this._parts = this.pathnameParts(normalizePath(pathname))
     this._length = this._parts.length
@@ -37,7 +37,7 @@ class InternalPathnameParser {
     const parts = pathname.split('/').filter(Boolean)
     const [first, second, ...rest] = parts
 
-    const isLanguageIndependentUrl = !!first && !!second && RESERVED_CITY_CONTENT_SLUGS.includes(second)
+    const isLanguageIndependentUrl = !!first && !!second && RESERVED_REGION_CONTENT_SLUGS.includes(second)
     if (isLanguageIndependentUrl) {
       return [first, this._fallbackLanguageCode, second, ...rest]
     }
@@ -45,15 +45,15 @@ class InternalPathnameParser {
     return parts
   }
 
-  isFixedCity = (): boolean => !!this._fixedCity && this._length >= 1 && this._parts[0] === this._fixedCity
+  isFixedRegion = (): boolean => !!this._fixedRegion && this._length >= 1 && this._parts[0] === this._fixedRegion
 
-  isCityContentFeatureRoute = (feature: string): boolean => this._length > 2 && this._parts[2] === feature
+  isRegionContentFeatureRoute = (feature: string): boolean => this._length > 2 && this._parts[2] === feature
 
   languageCode = (): string => this._parts[1] ?? this._fallbackLanguageCode
 
   landing = (): RouteInformationType => {
-    // There is no landing route if there is a fixed city
-    if (this._fixedCity) {
+    // There is no landing route if there is a fixed region
+    if (this._fixedRegion) {
       return null
     }
 
@@ -69,53 +69,53 @@ class InternalPathnameParser {
   }
 
   dashboard = (): RouteInformationType => {
-    const fixedCity = this._fixedCity
+    const fixedRegion = this._fixedRegion
 
-    if (fixedCity) {
+    if (fixedRegion) {
       // '/', '/landing', '/abapp' or '/abapp/'de'
-      if (this._length <= 2 && (this._length === 0 || this.isFixedCity() || this._parts[0] === LANDING_ROUTE)) {
-        const cityContentPath = `/${fixedCity}/${this.languageCode()}`
+      if (this._length <= 2 && (this._length === 0 || this.isFixedRegion() || this._parts[0] === LANDING_ROUTE)) {
+        const regionContentPath = `/${fixedRegion}/${this.languageCode()}`
         return {
           route: CATEGORIES_ROUTE,
-          cityCode: fixedCity,
+          regionCode: fixedRegion,
           languageCode: this.languageCode(),
-          cityContentPath,
+          regionContentPath,
         }
       }
     } else if (this._length > 0 && this._length <= 2 && this._parts[0] !== LANDING_ROUTE) {
-      const cityCode = this._parts[0]!
+      const regionCode = this._parts[0]!
       // '/ansbach/de', '/ansbach'
-      const cityContentPath = `/${cityCode}/${this.languageCode()}`
+      const regionContentPath = `/${regionCode}/${this.languageCode()}`
       return {
         route: CATEGORIES_ROUTE,
-        cityCode,
+        regionCode,
         languageCode: this.languageCode(),
-        cityContentPath,
+        regionContentPath,
       }
     }
 
     return null
   }
 
-  cityContentParams = (
+  regionContentParams = (
     feature: string,
   ): {
-    cityCode: string
+    regionCode: string
     languageCode: string
   } | null => {
-    if ((this._fixedCity && !this.isFixedCity()) || !this.isCityContentFeatureRoute(feature)) {
+    if ((this._fixedRegion && !this.isFixedRegion()) || !this.isRegionContentFeatureRoute(feature)) {
       return null
     }
 
     // '/augsburg/de/<feature>' or '/augsburg/de/<feature>/id'
     return {
-      cityCode: this._parts[0]!,
+      regionCode: this._parts[0]!,
       languageCode: this._parts[1]!,
     }
   }
 
   events = (): RouteInformationType => {
-    const params = this.cityContentParams(EVENTS_ROUTE)
+    const params = this.regionContentParams(EVENTS_ROUTE)
 
     if (!params) {
       return null
@@ -127,7 +127,7 @@ class InternalPathnameParser {
   }
 
   pois = (): RouteInformationType => {
-    const params = this.cityContentParams(POIS_ROUTE)
+    const params = this.regionContentParams(POIS_ROUTE)
 
     if (!params) {
       return null
@@ -141,7 +141,7 @@ class InternalPathnameParser {
   }
 
   news = (): RouteInformationType => {
-    const params = this.cityContentParams(NEWS_ROUTE)
+    const params = this.regionContentParams(NEWS_ROUTE)
 
     if (!params) {
       return null
@@ -158,7 +158,7 @@ class InternalPathnameParser {
     const newsId = this._length > ENTITY_ID_INDEX + 1 ? this._parts[ENTITY_ID_INDEX + 1] : undefined
     return {
       route: NEWS_ROUTE,
-      cityCode: this._parts[0]!,
+      regionCode: this._parts[0]!,
       languageCode: this._parts[1]!,
       newsType,
       newsId: newsId ? parseInt(newsId, 10) : undefined,
@@ -166,7 +166,7 @@ class InternalPathnameParser {
   }
 
   imprint = (): RouteInformationType => {
-    const params = this.cityContentParams(IMPRINT_ROUTE)
+    const params = this.regionContentParams(IMPRINT_ROUTE)
 
     if (!params) {
       return null
@@ -179,7 +179,7 @@ class InternalPathnameParser {
   }
 
   search = (): RouteInformationType => {
-    const params = this.cityContentParams(SEARCH_ROUTE)
+    const params = this.regionContentParams(SEARCH_ROUTE)
 
     if (!params) {
       return null
@@ -193,16 +193,16 @@ class InternalPathnameParser {
   }
 
   categories = (): RouteInformationType => {
-    if (this._fixedCity && !this.isFixedCity()) {
+    if (this._fixedRegion && !this.isFixedRegion()) {
       return null
     }
 
-    if (this._length > 2 && !RESERVED_CITY_CONTENT_SLUGS.includes(this._parts[2]!)) {
+    if (this._length > 2 && !RESERVED_REGION_CONTENT_SLUGS.includes(this._parts[2]!)) {
       return {
         route: CATEGORIES_ROUTE,
-        cityCode: this._parts[0]!,
+        regionCode: this._parts[0]!,
         languageCode: this._parts[1]!,
-        cityContentPath: `/${this._parts.join('/')}`,
+        regionContentPath: `/${this._parts.join('/')}`,
       }
     }
 

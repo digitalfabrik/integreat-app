@@ -47,7 +47,7 @@ describe('MalteHelpForm', () => {
   })
 
   const props = {
-    cityCode: 'testumgebung',
+    regionCode: 'testumgebung',
     pageTitle: 'Kontaktformular',
     languageCode: 'de',
     malteHelpFormOffer: offer,

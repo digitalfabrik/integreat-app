@@ -1,26 +1,26 @@
 class DatabaseContext {
-  _cityCode: string | undefined
+  _regionCode: string | undefined
   _languageCode: string | null | undefined
 
-  constructor(currentCity?: string, currentLanguage?: string) {
-    this._cityCode = currentCity
+  constructor(currentRegion?: string, currentLanguage?: string) {
+    this._regionCode = currentRegion
     this._languageCode = currentLanguage
   }
 
-  get cityCode(): string | null | undefined {
-    return this._cityCode
+  get regionCode(): string | null | undefined {
+    return this._regionCode
   }
 
   get languageCode(): string | null | undefined {
     return this._languageCode
   }
 
-  sameCityAs(anotherContext: DatabaseContext | null | undefined): boolean {
+  sameRegionAs(anotherContext: DatabaseContext | null | undefined): boolean {
     if (!anotherContext) {
       return false
     }
 
-    return anotherContext.cityCode === this.cityCode
+    return anotherContext.regionCode === this.regionCode
   }
 
   sameLanguageAs(anotherContext: DatabaseContext | null | undefined): boolean {
@@ -32,7 +32,7 @@ class DatabaseContext {
   }
 
   equals(anotherContext: DatabaseContext | null | undefined): boolean {
-    return this.sameCityAs(anotherContext) && this.sameLanguageAs(anotherContext)
+    return this.sameRegionAs(anotherContext) && this.sameLanguageAs(anotherContext)
   }
 }
 

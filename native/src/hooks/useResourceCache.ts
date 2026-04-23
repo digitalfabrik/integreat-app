@@ -7,11 +7,11 @@ import dataContainer from '../utils/DefaultDataContainer'
 import { useAppContext } from './useRegionAppContext'
 
 const useResourceCache = (): ReturnType<LanguageResourceCacheStateType> & { data: LanguageResourceCacheStateType } => {
-  const { cityCode, languageCode } = useAppContext()
+  const { regionCode, languageCode } = useAppContext()
   const response = useLoadAsync(
     useCallback(
-      async () => (cityCode ? dataContainer.getResourceCache(cityCode, languageCode) : null),
-      [cityCode, languageCode],
+      async () => (regionCode ? dataContainer.getResourceCache(regionCode, languageCode) : null),
+      [regionCode, languageCode],
     ),
   )
   return { ...response, data: response.data ?? {} }

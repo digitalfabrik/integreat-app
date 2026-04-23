@@ -12,7 +12,7 @@ import { styled } from '@mui/material/styles'
 import React, { KeyboardEvent, ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ChatMessageModel, CityModel } from 'shared/api'
+import { ChatMessageModel, RegionModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
 import useLocalStorage from '../hooks/useLocalStorage'
@@ -33,7 +33,7 @@ const Container = styled(Stack)(({ theme }) => ({
 })) as typeof Stack
 
 type ChatProps = {
-  city: CityModel
+  region: RegionModel
   submitMessage: (text: string) => void
   messages: ChatMessageModel[]
   hasError: boolean
@@ -45,7 +45,7 @@ type ChatProps = {
 }
 
 const Chat = ({
-  city,
+  region,
   messages,
   submitMessage,
   hasError,
@@ -89,7 +89,7 @@ const Chat = ({
             language={languageCode}
             checked={false}
             setChecked={acceptPrivacyPolicy}
-            url={city.chatPrivacyPolicyUrl}
+            url={region.chatPrivacyPolicyUrl}
           />
         </Stack>
       </Container>
@@ -101,7 +101,7 @@ const Chat = ({
       <ChatConversation messages={messages} isTyping={isTyping} loading={isLoading} />
       <Stack paddingInline={2} gap={1}>
         {hasError && <Alert severity='error'>{t('errorMessage')}</Alert>}
-        {!!showChatHint && (
+        {showChatHint && (
           <Alert severity='info' icon={<InfoIcon />} onClose={() => updateLocalStorageItem(false)}>
             <Typography variant='body2'>{t('conversationHelperText')}</Typography>
           </Alert>
@@ -123,7 +123,7 @@ const Chat = ({
           <Tooltip title={t('settings:privacyPolicy')}>
             <IconButton
               component={Link}
-              to={city.chatPrivacyPolicyUrl ?? buildConfig().privacyUrls.default}
+              to={region.chatPrivacyPolicyUrl ?? buildConfig().privacyUrls.default}
               aria-label={t('layout:privacy')}>
               <MailLock />
             </IconButton>

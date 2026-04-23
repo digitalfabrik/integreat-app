@@ -14,7 +14,7 @@ jest.mock('react-i18next')
 
 describe('DatePicker', () => {
   const setDate = jest.fn()
-  const routePattern = `/:cityCode/:languageCode/${RoutePatterns[EVENTS_ROUTE]}`
+  const routePattern = `/:regionCode/:languageCode/${RoutePatterns[EVENTS_ROUTE]}`
   const pathname = '/augsburg/de/events'
 
   const renderCustomDatePicker = ({ setDate, title, date, error }: CustomDatePickerProps) =>

@@ -1,7 +1,7 @@
 import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
 
 import { POIS_ROUTE } from 'shared'
-import { CategoryModel, CityModel } from 'shared/api'
+import { CategoryModel, RegionModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
 import useDimensions from '../hooks/useDimensions'
@@ -13,12 +13,12 @@ import { LanguageChangePath } from './LanguageList'
 import Layout from './Layout'
 import RegionContentHeader from './RegionContentHeader'
 
-export type CityContentLayoutProps = {
+export type RegionContentLayoutProps = {
   Toolbar?: ReactElement | null
   children?: ReactNode
   languageChangePaths: LanguageChangePath[] | null
   isLoading: boolean
-  city: CityModel
+  region: RegionModel
   languageCode: string
   fitScreen?: boolean
   category?: CategoryModel
@@ -28,18 +28,18 @@ export type CityContentLayoutProps = {
 const RegionContentLayout = ({
   children,
   category,
-  city,
+  region,
   languageCode,
   languageChangePaths,
   isLoading,
   Toolbar,
   fitScreen = false,
   pageTitle,
-}: CityContentLayoutProps): ReactElement => {
+}: RegionContentLayoutProps): ReactElement => {
   const { route } = useRegionContentParams()
   const [layoutReady, setLayoutReady] = useState(!isLoading)
   const { desktop, mobile } = useDimensions()
-  const isChatEnabled = buildConfig().featureFlags.chat && route !== POIS_ROUTE && city.chatEnabled
+  const isChatEnabled = buildConfig().featureFlags.chat && route !== POIS_ROUTE && region.chatEnabled
   const footerVisible = !isLoading && desktop && !fitScreen
   const chatVisible = isChatEnabled && layoutReady
 
@@ -52,7 +52,7 @@ const RegionContentLayout = ({
       header={
         <RegionContentHeader
           category={category}
-          cityModel={city}
+          regionModel={region}
           languageChangePaths={languageChangePaths}
           languageCode={languageCode}
           pageTitle={pageTitle}
@@ -63,9 +63,9 @@ const RegionContentLayout = ({
         <>
           {footerVisible && <Footer />}
           {chatVisible && (
-            <ChatContainer city={city} languageCode={languageCode} languageChangePaths={languageChangePaths} />
+            <ChatContainer region={region} languageCode={languageCode} languageChangePaths={languageChangePaths} />
           )}
-          {mobile && <BottomNavigation cityModel={city} languageCode={languageCode} />}
+          {mobile && <BottomNavigation regionModel={region} languageCode={languageCode} />}
         </>
       }
       toolbar={desktop ? Toolbar : null}>

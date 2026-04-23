@@ -11,7 +11,7 @@ We are using Sentry for error reporting. Sentry offers a [react-native client](h
 ### Trigger a Sentry report manually
 
 - Run a production build with `yarn android:integreat:production`
-- Start the app, select a city, open settings, click the version number approximately 20 times.
+- Start the app, select a region, open settings, click the version number approximately 20 times.
 
 # Platform specifics for crashes
 

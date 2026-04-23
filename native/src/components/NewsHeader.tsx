@@ -5,7 +5,7 @@ import { TouchableRipple } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
 import { LOCAL_NEWS_TYPE, NewsType, TU_NEWS_TYPE } from 'shared'
-import { CityModel } from 'shared/api'
+import { RegionModel } from 'shared/api'
 
 import { TuNewsActiveIcon, TuNewsInactiveIcon } from '../assets'
 import Caption from './Caption'
@@ -43,12 +43,12 @@ const styles = StyleSheet.create({
 })
 
 type NewsHeaderProps = {
-  cityModel: CityModel
+  regionModel: RegionModel
   selectedNewsType: NewsType
   selectNewsType: (newsType: NewsType) => void
 }
 
-const NewsHeader = ({ cityModel, selectedNewsType, selectNewsType }: NewsHeaderProps): ReactElement => {
+const NewsHeader = ({ regionModel, selectedNewsType, selectNewsType }: NewsHeaderProps): ReactElement => {
   const { t } = useTranslation('news')
   const theme = useTheme()
   const selectLocalNews = () => selectNewsType(LOCAL_NEWS_TYPE)
@@ -57,7 +57,7 @@ const NewsHeader = ({ cityModel, selectedNewsType, selectNewsType }: NewsHeaderP
   return (
     <>
       <Caption title={t('news')} />
-      {cityModel.localNewsEnabled && cityModel.tunewsEnabled && (
+      {regionModel.localNewsEnabled && regionModel.tunewsEnabled && (
         <HeaderContainer>
           <TouchableRipple
             onPress={selectLocalNews}

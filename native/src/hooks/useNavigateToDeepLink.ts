@@ -26,26 +26,26 @@ const navigateToDeepLink = <T extends RoutesType>({
   showSnackbar,
   appContext,
 }: NavigateToDeepLinkParams<T>): void => {
-  const { cityCode, languageCode, changeCityCode } = appContext
-  const { fixedCity } = buildConfig().featureFlags
+  const { regionCode, languageCode, changeRegionCode } = appContext
+  const { fixedRegion } = buildConfig().featureFlags
 
   const { pathname, query } = new Url(url)
-  const routeInformation = new InternalPathnameParser(pathname, languageCode, fixedCity, query).route()
+  const routeInformation = new InternalPathnameParser(pathname, languageCode, fixedRegion, query).route()
 
   if (!routeInformation) {
     showSnackbar({ text: 'notFound.category' })
     return
   }
 
-  const linkCityCode = (routeInformation as { cityCode?: string }).cityCode
+  const linkRegionCode = (routeInformation as { regionCode?: string }).regionCode
 
-  // Select city of link for the app if there is none selected yet
-  const selectedCityCode = fixedCity ?? cityCode ?? linkCityCode
-  if (!cityCode && selectedCityCode) {
-    changeCityCode(selectedCityCode)
+  // Select region of link for the app if there is none selected yet
+  const selectedRegionCode = fixedRegion ?? regionCode ?? linkRegionCode
+  if (!regionCode && selectedRegionCode) {
+    changeRegionCode(selectedRegionCode)
   }
 
-  if (!selectedCityCode) {
+  if (!selectedRegionCode) {
     navigation.reset({ index: 0, routes: [{ name: LANDING_ROUTE }] })
     if (routeInformation.route !== LANDING_ROUTE) {
       navigateTo(routeInformation)

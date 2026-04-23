@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 
 import {
   CategoriesMapModel,
-  CityModel,
+  RegionModel,
   ErrorCode,
   createCategoriesEndpoint,
   createEventsEndpoint,
@@ -14,7 +14,7 @@ import {
   LocalNewsModel,
   PoiModel,
   ReturnType,
-  createCitiesEndpoint,
+  createRegionsEndpoint,
 } from 'shared/api'
 
 import dataContainer from '../utils/DefaultDataContainer'
@@ -25,15 +25,15 @@ import usePreviousProp from './usePreviousProp'
 import useSnackbar from './useSnackbar'
 
 type Params = {
-  cityCode: string
+  regionCode: string
   languageCode: string
   refreshLocalNews?: boolean
 }
 
-export type CityContentData = {
-  cities: CityModel[]
+export type RegionContentData = {
+  regions: RegionModel[]
   languages: LanguageModel[]
-  city: CityModel
+  region: RegionModel
   language: LanguageModel
   categories: CategoriesMapModel
   events: EventModel[]
@@ -41,25 +41,25 @@ export type CityContentData = {
   pois: PoiModel[]
 }
 
-export type CityContentReturn = Omit<Omit<ReturnType<CityContentData>, 'error'>, 'setData'> & {
+export type RegionContentReturn = Omit<Omit<ReturnType<RegionContentData>, 'error'>, 'setData'> & {
   error: ErrorCode | Error | null
 }
 
 /**
- * Hook to load all the offline available city content at once and handle errors, loading and refreshing at the same time.
+ * Hook to load all the offline available region content at once and handle errors, loading and refreshing at the same time.
  * Takes care of updating the data regularly.
  */
-const useLoadRegionContent = ({ cityCode, languageCode, refreshLocalNews }: Params): CityContentReturn => {
+const useLoadRegionContent = ({ regionCode, languageCode, refreshLocalNews }: Params): RegionContentReturn => {
   const showSnackbar = useSnackbar()
   const previousLanguageCode = usePreviousProp({ prop: languageCode })
-  const params = { cityCode, languageCode, showSnackbar }
+  const params = { regionCode, languageCode, showSnackbar }
 
-  const citiesReturn = useLoadWithCache({
+  const regionsReturn = useLoadWithCache({
     ...params,
-    isAvailable: dataContainer.citiesAvailable,
-    createEndpoint: createCitiesEndpoint,
-    getFromDataContainer: dataContainer.getCities,
-    setToDataContainer: (_, __, cities) => dataContainer.setCities(cities),
+    isAvailable: dataContainer.regionsAvailable,
+    createEndpoint: createRegionsEndpoint,
+    getFromDataContainer: dataContainer.getRegions,
+    setToDataContainer: (_, __, regions) => dataContainer.setRegions(regions),
   })
   const categoriesReturn = useLoadWithCache({
     ...params,
@@ -92,12 +92,12 @@ const useLoadRegionContent = ({ cityCode, languageCode, refreshLocalNews }: Para
   })
 
   useEffect(() => {
-    if (citiesReturn.data && categoriesReturn.data && eventsReturn.data && poisReturn.data && localNewsReturn.data) {
+    if (regionsReturn.data && categoriesReturn.data && eventsReturn.data && poisReturn.data && localNewsReturn.data) {
       // Load the resource cache in the background once a day and do not wait for it
-      dataContainer.getLastUpdate(cityCode, languageCode).then(lastUpdate => {
+      dataContainer.getLastUpdate(regionCode, languageCode).then(lastUpdate => {
         if (!lastUpdate || lastUpdate < DateTime.utc().startOf('day')) {
           loadResourceCache({
-            cityCode,
+            regionCode,
             languageCode,
             categories: categoriesReturn.data,
             events: eventsReturn.data,
@@ -108,26 +108,26 @@ const useLoadRegionContent = ({ cityCode, languageCode, refreshLocalNews }: Para
 
       // Update last update if all data is available.
       // WARNING: This also means that the last update is updated if everything is just loaded from the cache.
-      dataContainer.setLastUpdate(cityCode, languageCode, DateTime.utc()).catch(reportError)
+      dataContainer.setLastUpdate(regionCode, languageCode, DateTime.utc()).catch(reportError)
     }
-  }, [citiesReturn, categoriesReturn, eventsReturn, poisReturn, localNewsReturn, cityCode, languageCode])
+  }, [regionsReturn, categoriesReturn, eventsReturn, poisReturn, localNewsReturn, regionCode, languageCode])
 
-  const city = citiesReturn.data?.find(it => it.code === cityCode)
-  const language = city?.languages.find(it => it.code === languageCode)
+  const region = regionsReturn.data?.find(it => it.code === regionCode)
+  const language = region?.languages.find(it => it.code === languageCode)
 
   const getError = () => {
     if (previousLanguageCode !== languageCode) {
       // Prevent flickering if unavailable language changed
       return null
     }
-    if (citiesReturn.data && !city) {
-      return ErrorCode.CityUnavailable
+    if (regionsReturn.data && !region) {
+      return ErrorCode.RegionUnavailable
     }
-    if (city && !language) {
+    if (region && !language) {
       return ErrorCode.LanguageUnavailable
     }
     return (
-      citiesReturn.error ??
+      regionsReturn.error ??
       categoriesReturn.error ??
       eventsReturn.error ??
       poisReturn.error ??
@@ -137,14 +137,14 @@ const useLoadRegionContent = ({ cityCode, languageCode, refreshLocalNews }: Para
   }
 
   const loading =
-    citiesReturn.loading ||
+    regionsReturn.loading ||
     categoriesReturn.loading ||
     eventsReturn.loading ||
     poisReturn.loading ||
     localNewsReturn.loading
 
   const refresh = () => {
-    citiesReturn.refresh()
+    regionsReturn.refresh()
     categoriesReturn.refresh()
     eventsReturn.refresh()
     poisReturn.refresh()
@@ -152,18 +152,18 @@ const useLoadRegionContent = ({ cityCode, languageCode, refreshLocalNews }: Para
   }
 
   const data =
-    city &&
+    region &&
     language &&
-    citiesReturn.data &&
+    regionsReturn.data &&
     categoriesReturn.data &&
     eventsReturn.data &&
     poisReturn.data &&
     localNewsReturn.data
       ? {
-          city,
+          region,
           language,
-          cities: citiesReturn.data,
-          languages: city.languages,
+          regions: regionsReturn.data,
+          languages: region.languages,
           categories: categoriesReturn.data,
           events: eventsReturn.data,
           pois: poisReturn.data,

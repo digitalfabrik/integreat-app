@@ -7,18 +7,18 @@ import { FontsType } from './common/theme/fonts'
 // These are the types of our build configs and therefore define the structure and available options.
 // Each build config (e.g. integreat, malte) is available per platform (android, ios, web) with some shared options.
 // Feature flags are boolean build config options defining whether a specified feature is enabled.
-// Prevent enabled intro slide in combination with a fixed city.
+// Prevent enabled intro slide in combination with a fixed region.
 // If you change this make sure you are not navigating to the landing screen upon closing the intro slides.
-export type FixedCityType =
+export type FixedRegionType =
   | {
       // Shows intro slides to the users on first app start.
       introSlides: false
-      // Preselects a city without showing a selection, changing it is not possible for users.
-      fixedCity: string | null
+      // Preselects a region without showing a selection, changing it is not possible for users.
+      fixedRegion: string | null
     }
   | {
       introSlides: true
-      fixedCity: null
+      fixedRegion: null
     }
 
 export type SuggestToRegionFlags = {
@@ -26,10 +26,10 @@ export type SuggestToRegionFlags = {
   icon: string
 }
 
-export type FeatureFlagsType = FixedCityType & {
+export type FeatureFlagsType = FixedRegionType & {
   // Enables error tracking to sentry, can be disabled by users.
   sentry: boolean
-  // Enables additional debugging output for devs (i18n, hidden cities, version).
+  // Enables additional debugging output for devs (i18n, hidden regions, version).
   developerFriendly: boolean
   // Enables the option for users to suggest Integreat to their region
   suggestToRegion: SuggestToRegionFlags | null

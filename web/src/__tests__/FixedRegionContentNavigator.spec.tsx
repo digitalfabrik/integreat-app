@@ -1,7 +1,7 @@
 import React from 'react'
 
 import FixedRegionContentNavigator from '../FixedRegionContentNavigator'
-import { cityContentPattern } from '../routes'
+import { regionContentPattern } from '../routes'
 import { renderRoute } from '../testing/render'
 
 const renderSuccessful = 'route'
@@ -15,25 +15,25 @@ jest.mock('shared/api', () => ({
 
 describe('FixedRegionContentNavigator', () => {
   const languageCode = 'de'
-  const fixedCity = 'hallo'
+  const fixedRegion = 'hallo'
 
-  it('should render the city route if city code is the fixedCity city code', () => {
+  it('should render the region route if region code is the fixedRegion region code', () => {
     const { getByText } = renderRoute(
-      <FixedRegionContentNavigator languageCode={languageCode} fixedCity={fixedCity} />,
+      <FixedRegionContentNavigator languageCode={languageCode} fixedRegion={fixedRegion} />,
       {
-        pathname: `/${fixedCity}/${languageCode}/`,
-        routePattern: cityContentPattern,
+        pathname: `/${fixedRegion}/${languageCode}/`,
+        routePattern: regionContentPattern,
       },
     )
     expect(getByText(renderSuccessful)).toBeTruthy()
   })
 
-  it('should show an error if city code is not the fixedCity city code', () => {
+  it('should show an error if region code is not the fixedRegion region code', () => {
     const { queryByText, getByText } = renderRoute(
-      <FixedRegionContentNavigator languageCode={languageCode} fixedCity={fixedCity} />,
+      <FixedRegionContentNavigator languageCode={languageCode} fixedRegion={fixedRegion} />,
       {
-        pathname: `/not-${fixedCity}/${languageCode}/`,
-        routePattern: cityContentPattern,
+        pathname: `/not-${fixedRegion}/${languageCode}/`,
+        routePattern: regionContentPattern,
       },
     )
     expect(queryByText(renderSuccessful)).not.toBeTruthy()

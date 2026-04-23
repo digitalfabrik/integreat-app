@@ -5,39 +5,39 @@ import { useParams } from 'react-router'
 import { normalizePath, pathnameFromRouteInformation, POIS_ROUTE } from 'shared'
 import { useLoadFromEndpoint, createPOIsEndpoint } from 'shared/api'
 
-import { CityRouteProps } from '../RegionContentNavigator'
+import { RegionRouteProps } from '../RegionContentNavigator'
 import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Helmet from '../components/Helmet'
 import Pois from '../components/Pois'
-import RegionContentLayout, { CityContentLayoutProps } from '../components/RegionContentLayout'
+import RegionContentLayout, { RegionContentLayoutProps } from '../components/RegionContentLayout'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 import useUserLocation from '../hooks/useUserLocation'
 
-const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): ReactElement | null => {
+const PoisPage = ({ regionCode, languageCode, region, pathname }: RegionRouteProps): ReactElement | null => {
   const params = useParams()
   const slug = params.slug ? normalizePath(params.slug) : undefined
   const { t } = useTranslation('pois')
   const { data: userLocation } = useUserLocation()
 
   const { data, loading, error } = useLoadFromEndpoint(createPOIsEndpoint, cmsApiBaseUrl, {
-    city: cityCode,
+    region: regionCode,
     language: languageCode,
   })
   const poi = data?.find(it => it.slug === slug)
   useTtsPlayer(poi, languageCode)
 
-  if (!city) {
+  if (!region) {
     return null
   }
 
-  const languageChangePaths = city.languages.map(({ code, name }) => {
+  const languageChangePaths = region.languages.map(({ code, name }) => {
     const isCurrentLanguage = code === languageCode
     const path =
       poi?.availableLanguages[code] ??
       pathnameFromRouteInformation({
         route: POIS_ROUTE,
-        cityCode,
+        regionCode,
         languageCode: code,
       })
     return {
@@ -47,8 +47,8 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
     }
   })
 
-  const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
-    city,
+  const locationLayoutParams: Omit<RegionContentLayoutProps, 'isLoading'> = {
+    region,
     languageChangePaths,
     languageCode,
     pageTitle: null,
@@ -63,7 +63,7 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
     )
   }
 
-  const pageTitle = `${poi?.title ?? t('pageTitle')} - ${city.name}`
+  const pageTitle = `${poi?.title ?? t('pageTitle')} - ${region.name}`
 
   return (
     <RegionContentLayout isLoading={false} {...locationLayoutParams} pageTitle={pageTitle}>
@@ -71,9 +71,9 @@ const PoisPage = ({ cityCode, languageCode, city, pathname }: CityRouteProps): R
         pageTitle={pageTitle}
         metaDescription={poi?.metaDescription}
         languageChangePaths={languageChangePaths}
-        cityModel={city}
+        regionModel={region}
       />
-      <Pois loading={loading} pois={data ?? []} userLocation={userLocation} city={city} />
+      <Pois loading={loading} pois={data ?? []} userLocation={userLocation} region={region} />
     </RegionContentLayout>
   )
 }

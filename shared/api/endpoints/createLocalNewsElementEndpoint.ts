@@ -12,7 +12,7 @@ import { JsonLocalNewsType } from '../types'
 
 export const LOCAL_NEWS_ELEMENT_ENDPOINT_NAME = 'localNewsElement'
 type ParamsType = {
-  city: string
+  region: string
   language: string
   id: string
 }
@@ -20,7 +20,7 @@ export default (baseUrl: string): Endpoint<ParamsType, LocalNewsModel> =>
   new EndpointBuilder<ParamsType, LocalNewsModel>(LOCAL_NEWS_ELEMENT_ENDPOINT_NAME)
     .withParamsToUrlMapper(
       (params: ParamsType): string =>
-        `${baseUrl}/api/${API_VERSION}/${params.city}/${params.language}/fcm/?id=${params.id}`,
+        `${baseUrl}/api/${API_VERSION}/${params.region}/${params.language}/fcm/?id=${params.id}`,
     )
     .withMapper((localNews: JsonLocalNewsType[], params: ParamsType): LocalNewsModel => {
       const localNewsModel = localNews[0]

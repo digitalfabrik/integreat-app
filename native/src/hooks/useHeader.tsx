@@ -2,12 +2,12 @@ import React, { useEffect } from 'react'
 
 import Header from '../components/Header'
 import { NavigationProps, RouteProps, RoutesType } from '../constants/NavigationTypes'
-import { CityContentData } from './useLoadRegionContent'
+import { RegionContentData } from './useLoadRegionContent'
 
 type UseHeaderProps<T extends RoutesType> = {
   navigation: NavigationProps<T>
   route: RouteProps<T>
-  data: CityContentData | null
+  data: RegionContentData | null
   availableLanguages?: string[]
   shareUrl?: string
 }
@@ -29,7 +29,7 @@ const useHeader = <T extends RoutesType>({
           showItems={!!data}
           availableLanguages={availableLanguages}
           shareUrl={shareUrl}
-          cityName={data?.city.name}
+          regionName={data?.region.name}
         />
       ),
     })

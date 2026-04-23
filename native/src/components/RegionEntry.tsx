@@ -4,7 +4,7 @@ import { List as PaperList } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
 import { normalizeString } from 'shared'
-import { CityModel } from 'shared/api'
+import { RegionModel } from 'shared/api'
 
 import { AppContext } from '../contexts/AppContextProvider'
 import testID from '../testing/testID'
@@ -28,13 +28,13 @@ const AliasesWrapper = styled.View`
   margin: 0 5px;
 `
 
-type CityEntryProps = {
-  city: CityModel
+type RegionEntryProps = {
+  region: RegionModel
   query: string
-  navigateToDashboard: (city: CityModel) => void
+  navigateToDashboard: (region: RegionModel) => void
 }
 
-const RegionEntry = ({ city, query, navigateToDashboard }: CityEntryProps): ReactElement => {
+const RegionEntry = ({ region, query, navigateToDashboard }: RegionEntryProps): ReactElement => {
   const theme = useTheme()
   const styles = StyleSheet.create({
     separator: {
@@ -43,8 +43,8 @@ const RegionEntry = ({ city, query, navigateToDashboard }: CityEntryProps): Reac
   })
   const normalizedQuery = normalizeString(query)
   const matchingAliases =
-    city.aliases && normalizedQuery.length >= 1
-      ? Object.keys(city.aliases).filter(alias => normalizeString(alias).includes(normalizedQuery))
+    region.aliases && normalizedQuery.length >= 1
+      ? Object.keys(region.aliases).filter(alias => normalizeString(alias).includes(normalizedQuery))
       : []
   const aliases = matchingAliases.slice(0, MAX_NUMBER_OF_ALIASES_SHOWN)
   const { languageCode } = useContext(AppContext)
@@ -76,13 +76,13 @@ const RegionEntry = ({ city, query, navigateToDashboard }: CityEntryProps): Reac
       titleNumberOfLines={0}
       title={
         <View>
-          <Label search={normalizedQuery} text={city.name} />
+          <Label search={normalizedQuery} text={region.name} />
         </View>
       }
       description={Aliases}
       role='link'
-      {...testID('City-Entry')}
-      onPress={() => navigateToDashboard(city)}
+      {...testID('Region-Entry')}
+      onPress={() => navigateToDashboard(region)}
       accessibilityLanguage={languageCode}
     />
   )

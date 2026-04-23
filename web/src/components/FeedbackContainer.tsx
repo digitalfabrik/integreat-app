@@ -36,7 +36,7 @@ export const FeedbackContainer = ({
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
   const [snackbarOpen, setSnackbarOpen] = useState(false)
   const [searchTerm, setSearchTerm] = useState<string | undefined>(query)
-  const { route, cityCode, languageCode } = useRegionContentParams()
+  const { route, regionCode, languageCode } = useRegionContentParams()
 
   useEffect(() => {
     setSearchTerm(query)
@@ -49,7 +49,7 @@ export const FeedbackContainer = ({
       const feedbackEndpoint = createFeedbackEndpoint(cmsApiBaseUrl)
       await feedbackEndpoint.request({
         routeType: route as FeedbackRouteType,
-        city: cityCode,
+        region: regionCode,
         language: languageCode,
         comment,
         contactMail,

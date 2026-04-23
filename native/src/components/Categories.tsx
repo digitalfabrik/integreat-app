@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 
 import { CATEGORIES_ROUTE, getCategoryTiles, RouteInformationType } from 'shared'
-import { CategoriesMapModel, CategoryModel, CityModel } from 'shared/api'
+import { CategoriesMapModel, CategoryModel, RegionModel } from 'shared/api'
 
 import useTtsPlayer from '../hooks/useTtsPlayer'
 import testID from '../testing/testID'
@@ -14,7 +14,7 @@ import Page from './Page'
 import Tiles from './Tiles'
 
 export type CategoriesProps = {
-  cityModel: CityModel
+  regionModel: RegionModel
   language: string
   categories: CategoriesMapModel
   category: CategoryModel
@@ -23,7 +23,7 @@ export type CategoriesProps = {
 }
 
 const Categories = ({
-  cityModel,
+  regionModel,
   language,
   navigateTo,
   categories,
@@ -31,22 +31,22 @@ const Categories = ({
   goBack,
 }: CategoriesProps): ReactElement => {
   const children = categories.getChildren(category)
-  const cityCode = cityModel.code
+  const regionCode = regionModel.code
   useTtsPlayer(category)
 
   const navigateToCategory = ({ path }: { path: string }) =>
     navigateTo({
       route: CATEGORIES_ROUTE,
-      cityCode,
+      regionCode,
       languageCode: language,
-      cityContentPath: path,
+      regionContentPath: path,
     })
 
   if (category.isRoot()) {
     return (
       <View {...testID('Dashboard-Page')}>
         <Tiles
-          tiles={getCategoryTiles({ categories: children, cityCode })}
+          tiles={getCategoryTiles({ categories: children, regionCode })}
           language={language}
           onTilePress={navigateToCategory}
         />
@@ -76,7 +76,7 @@ const Categories = ({
             scrollEnabled={false}
           />
         ) : (
-          <EmbeddedOffers category={category} cityCode={cityModel.code} languageCode={language} goBack={goBack} />
+          <EmbeddedOffers category={category} regionCode={regionModel.code} languageCode={language} goBack={goBack} />
         )
       }
     />

@@ -2,7 +2,7 @@ import { fireEvent } from '@testing-library/react'
 import React from 'react'
 
 import { getChatName } from 'shared'
-import { CityModelBuilder } from 'shared/api'
+import { RegionModelBuilder } from 'shared/api'
 import { mockUseLoadFromEndpointWithData } from 'shared/api/endpoints/testing/mockUseLoadFromEndpoint'
 
 import { renderRoute } from '../../testing/render'
@@ -27,9 +27,9 @@ jest.mock('../../hooks/useLocalStorage', () => () => ({
 
 describe('ChatContainer', () => {
   mockUseLoadFromEndpointWithData({ messages: [] })
-  const routePattern = '/:cityCode/:languageCode'
-  const city = new CityModelBuilder(1).build()[0]!
-  const pathname = `/${city.code}/de`
+  const routePattern = '/:regionCode/:languageCode'
+  const region = new RegionModelBuilder(1).build()[0]!
+  const pathname = `/${region.code}/de`
   const languageChangePaths = [
     { code: 'de', name: 'Deutsch', path: '/augsburg/de' },
     { code: 'en', name: 'English', path: '/augsburg/en' },
@@ -37,7 +37,7 @@ describe('ChatContainer', () => {
 
   it('should open chat dialog and show content on chat button click', () => {
     const { getByText, queryByText, getByLabelText, router } = renderRoute(
-      <ChatContainer city={city} languageCode='de' languageChangePaths={languageChangePaths} />,
+      <ChatContainer region={region} languageCode='de' languageChangePaths={languageChangePaths} />,
       {
         pathname,
         routePattern,
@@ -65,7 +65,7 @@ describe('ChatContainer', () => {
 
   it('should close chat if close button was clicked', () => {
     const { getByLabelText, queryByText } = renderRoute(
-      <ChatContainer city={city} languageCode='de' languageChangePaths={languageChangePaths} />,
+      <ChatContainer region={region} languageCode='de' languageChangePaths={languageChangePaths} />,
       {
         pathname,
         routePattern,
@@ -86,7 +86,7 @@ describe('ChatContainer', () => {
 
   it('should open chat if query param is set', () => {
     const { getByText, router } = renderRoute(
-      <ChatContainer city={city} languageCode='de' languageChangePaths={languageChangePaths} />,
+      <ChatContainer region={region} languageCode='de' languageChangePaths={languageChangePaths} />,
       {
         pathname,
         routePattern,
@@ -100,7 +100,7 @@ describe('ChatContainer', () => {
 
   it('should correctly update query params', () => {
     const { getAllByText, router } = renderRoute(
-      <ChatContainer city={city} languageCode='de' languageChangePaths={languageChangePaths} />,
+      <ChatContainer region={region} languageCode='de' languageChangePaths={languageChangePaths} />,
       {
         pathname,
         routePattern,
@@ -113,7 +113,7 @@ describe('ChatContainer', () => {
 
   it('should switch the language', () => {
     const { getByText, getByLabelText, router } = renderRoute(
-      <ChatContainer city={city} languageCode='de' languageChangePaths={languageChangePaths} />,
+      <ChatContainer region={region} languageCode='de' languageChangePaths={languageChangePaths} />,
       {
         pathname,
         routePattern,
@@ -121,10 +121,10 @@ describe('ChatContainer', () => {
     )
     const chatButtonContainer = getByLabelText(getChatName('IntegreatTestCms'))
     fireEvent.click(chatButtonContainer!)
-    expect(router.state.location.pathname).toBe(`/${city.code}/de`)
+    expect(router.state.location.pathname).toBe(`/${region.code}/de`)
     fireEvent.click(getByText('Deutsch'))
     fireEvent.click(getByText('English'))
-    expect(router.state.location.pathname).toBe(`/${city.code}/en`)
+    expect(router.state.location.pathname).toBe(`/${region.code}/en`)
     expect(router.state.location.search).toBe('?chat=true')
   })
 })

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { CategoriesMapModelBuilder, CityModelBuilder, LanguageModelBuilder } from 'shared/api'
+import { CategoriesMapModelBuilder, RegionModelBuilder, LanguageModelBuilder } from 'shared/api'
 
 import render from '../../testing/render'
 import CategoryListItem from '../CategoryListItem'
@@ -8,9 +8,9 @@ import CategoryListItem from '../CategoryListItem'
 jest.mock('styled-components')
 
 describe('CategoryListItem', () => {
-  const cityModel = new CityModelBuilder(1).build()[0]!
+  const regionModel = new RegionModelBuilder(1).build()[0]!
   const language = new LanguageModelBuilder(1).build()[0]!
-  const { categories: categoriesMapModel } = new CategoriesMapModelBuilder(cityModel.code, language.code).buildAll()
+  const { categories: categoriesMapModel } = new CategoriesMapModelBuilder(regionModel.code, language.code).buildAll()
   const categories = categoriesMapModel.toArray()
   const category = categories[0]!
   const subCategories = categories.filter(otherCategory => otherCategory.parentPath === category.path)

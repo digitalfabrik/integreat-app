@@ -3,8 +3,8 @@ import Typography from '@mui/material/Typography'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CITY_SEARCH_EXAMPLE, filterSortCities } from 'shared'
-import { CityModel } from 'shared/api'
+import { REGION_SEARCH_EXAMPLE, filterSortRegions } from 'shared'
+import { RegionModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
 import NearbyRegions from './NearbyRegions'
@@ -14,26 +14,26 @@ import SkeletonList from './SkeletonList'
 import H1 from './base/H1'
 import List from './base/List'
 
-type CitySelectorProps = {
-  cities: CityModel[]
+type RegionSelectorProps = {
+  regions: RegionModel[]
   language: string
   stickyTop: number
   loading: boolean
 }
 
-const RegionSelector = ({ cities, language, stickyTop, loading }: CitySelectorProps): ReactElement => {
+const RegionSelector = ({ regions, language, stickyTop, loading }: RegionSelectorProps): ReactElement => {
   const [filterText, setFilterText] = useState<string>('')
   const { t } = useTranslation('landing')
 
-  const resultCities = filterSortCities(cities, filterText, buildConfig().featureFlags.developerFriendly)
+  const resultRegions = filterSortRegions(regions, filterText, buildConfig().featureFlags.developerFriendly)
 
-  const filteredCities = filterSortCities(cities, '', buildConfig().featureFlags.developerFriendly)
-  const exampleCity = cities.find(city => city.name === CITY_SEARCH_EXAMPLE) ?? filteredCities[0]
+  const filteredRegions = filterSortRegions(regions, '', buildConfig().featureFlags.developerFriendly)
+  const exampleRegion = regions.find(region => region.name === REGION_SEARCH_EXAMPLE) ?? filteredRegions[0]
 
-  const firstLetterGroups = [...new Set(resultCities.map(it => it.sortCategory))].map(group => (
+  const firstLetterGroups = [...new Set(resultRegions.map(it => it.sortCategory))].map(group => (
     <RegionListGroup
       key={group}
-      cities={resultCities.filter(it => it.sortCategory === group)}
+      regions={resultRegions.filter(it => it.sortCategory === group)}
       title={group}
       stickyTop={stickyTop}
       languageCode={language}
@@ -41,7 +41,7 @@ const RegionSelector = ({ cities, language, stickyTop, loading }: CitySelectorPr
     />
   ))
   const groups = [
-    <NearbyRegions key='nearby' stickyTop={stickyTop} cities={cities} language={language} filterText={filterText} />,
+    <NearbyRegions key='nearby' stickyTop={stickyTop} regions={regions} language={language} filterText={filterText} />,
     ...firstLetterGroups,
   ]
 
@@ -51,16 +51,16 @@ const RegionSelector = ({ cities, language, stickyTop, loading }: CitySelectorPr
       <Typography variant='body1'>{t('welcomeInformation')}</Typography>
       <SearchInput
         filterText={filterText}
-        placeholderText={exampleCity?.sortingName ?? CITY_SEARCH_EXAMPLE}
+        placeholderText={exampleRegion?.sortingName ?? REGION_SEARCH_EXAMPLE}
         onFilterTextChange={setFilterText}
-        description={t('searchCityDescription', { exampleCity: exampleCity?.name ?? CITY_SEARCH_EXAMPLE })}
+        description={t('searchRegionDescription', { exampleRegion: exampleRegion?.name ?? REGION_SEARCH_EXAMPLE })}
       />
       {loading ? (
         <SkeletonList listItemHeight={40} />
       ) : (
         <Stack>
-          <Typography variant='subtitle1' aria-live={resultCities.length === 0 ? 'assertive' : 'polite'}>
-            {t('search:searchResultsCount', { count: resultCities.length })}
+          <Typography variant='subtitle1' aria-live={resultRegions.length === 0 ? 'assertive' : 'polite'}>
+            {t('search:searchResultsCount', { count: resultRegions.length })}
           </Typography>
           <List items={groups} NoItemsMessage='search:nothingFound' />
         </Stack>

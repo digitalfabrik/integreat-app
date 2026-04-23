@@ -1,7 +1,7 @@
 import { RenderResult } from '@testing-library/react'
 import React, { ReactElement } from 'react'
 
-import { CityModelBuilder } from 'shared/api'
+import { RegionModelBuilder } from 'shared/api'
 
 import { mockDimensions } from '../../__mocks__/useDimensions'
 import useDimensions from '../../hooks/useDimensions'
@@ -17,7 +17,7 @@ describe('RegionContentLayout', () => {
   beforeEach(jest.clearAllMocks)
   const { mocked } = jest
   const language = 'de'
-  const cityModel = new CityModelBuilder(1).build()[0]!
+  const regionModel = new RegionModelBuilder(1).build()[0]!
 
   const languageChangePaths = [
     { code: 'de', name: 'Deutsch', path: '/augsburg/de' },
@@ -25,12 +25,12 @@ describe('RegionContentLayout', () => {
   ]
 
   const MockNode = () => <div />
-  const renderCityContentLayout = (isLoading: boolean, Toolbar?: ReactElement): RenderResult =>
+  const renderRegionContentLayout = (isLoading: boolean, Toolbar?: ReactElement): RenderResult =>
     renderAllRoutes('/augsburg/de', {
-      CityContentElement: (
+      RegionContentElement: (
         <RegionContentLayout
           Toolbar={Toolbar}
-          city={cityModel}
+          region={regionModel}
           languageCode={language}
           languageChangePaths={languageChangePaths}
           pageTitle='Test Page'
@@ -42,33 +42,33 @@ describe('RegionContentLayout', () => {
 
   it('should render a toolbar on desktop', () => {
     mocked(useDimensions).mockImplementation(() => ({ ...mockDimensions, mobile: false, desktop: true }))
-    const { getByText } = renderCityContentLayout(false, <div>Toolbar</div>)
+    const { getByText } = renderRegionContentLayout(false, <div>Toolbar</div>)
     expect(getByText('Toolbar')).toBeTruthy()
   })
 
   it('should hide the toolbar on mobile', () => {
     mocked(useDimensions).mockImplementation(() => ({ ...mockDimensions, mobile: true }))
-    const { queryByText } = renderCityContentLayout(false, <div>Toolbar</div>)
+    const { queryByText } = renderRegionContentLayout(false, <div>Toolbar</div>)
     expect(queryByText('Toolbar')).toBeFalsy()
   })
 
   it('should show header and footer if not loading and on a big screen', () => {
     mocked(useDimensions).mockImplementation(() => ({ ...mockDimensions, mobile: false, desktop: true }))
-    const { getByText } = renderCityContentLayout(false)
+    const { getByText } = renderRegionContentLayout(false)
     expect(getByText('RegionContentHeader')).toBeTruthy()
     expect(getByText('Footer')).toBeTruthy()
   })
 
   it('should not show footer if not loading and on a small screen', () => {
     mocked(useDimensions).mockImplementation(() => ({ ...mockDimensions, mobile: true }))
-    const { getByText } = renderCityContentLayout(false)
+    const { getByText } = renderRegionContentLayout(false)
     expect(getByText('RegionContentHeader')).toBeTruthy()
     expect(() => getByText('Footer')).toThrow()
   })
 
   it('should not show footer if loading', () => {
     mocked(useDimensions).mockImplementation(() => ({ ...mockDimensions, mobile: true }))
-    const { getByText } = renderCityContentLayout(true)
+    const { getByText } = renderRegionContentLayout(true)
     expect(getByText('RegionContentHeader')).toBeTruthy()
     expect(() => getByText('Footer')).toThrow()
   })

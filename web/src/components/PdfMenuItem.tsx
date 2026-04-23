@@ -10,19 +10,19 @@ import MenuItem from './MenuItem'
 
 type PdfMenuItemProps = {
   category?: CategoryModel
-  cityCode: string
+  regionCode: string
   languageCode: string
   closeMenu?: () => void
 }
 
-const PdfMenuItem = ({ category, cityCode, languageCode, closeMenu, ...other }: PdfMenuItemProps): ReactElement => {
+const PdfMenuItem = ({ category, regionCode, languageCode, closeMenu, ...other }: PdfMenuItemProps): ReactElement => {
   const { t } = useTranslation('categories')
   const pdfDisabled = config.hasRTLScript(languageCode)
 
   const pdfUrl =
     !category || category.isRoot()
-      ? `${cmsApiBaseUrl}/${cityCode}/${languageCode}/wp-json/ig-mpdf/v1/pdf`
-      : `${cmsApiBaseUrl}/${cityCode}/${languageCode}/wp-json/ig-mpdf/v1/pdf?url=${encodeURIComponent(category.path)}`
+      ? `${cmsApiBaseUrl}/${regionCode}/${languageCode}/wp-json/ig-mpdf/v1/pdf`
+      : `${cmsApiBaseUrl}/${regionCode}/${languageCode}/wp-json/ig-mpdf/v1/pdf?url=${encodeURIComponent(category.path)}`
 
   return (
     <MenuItem

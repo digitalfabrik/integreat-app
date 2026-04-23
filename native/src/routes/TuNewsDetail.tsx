@@ -8,7 +8,7 @@ import Page from '../components/Page'
 import Icon from '../components/base/Icon'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useHeader from '../hooks/useHeader'
-import { CityContentData } from '../hooks/useLoadRegionContent'
+import { RegionContentData } from '../hooks/useLoadRegionContent'
 import useLoadTuNewsElement from '../hooks/useLoadTuNewsElement'
 import useSetRouteTitle from '../hooks/useSetRouteTitle'
 import urlFromRouteInformation from '../utils/url'
@@ -28,18 +28,18 @@ type TuNewsProps = {
   route: RouteProps<NewsRouteType>
   navigation: NavigationProps<NewsRouteType>
   newsId: number
-  data: CityContentData
+  data: RegionContentData
 }
 
 const TuNewsDetail = ({ route, navigation, data, newsId }: TuNewsProps): ReactElement => {
-  const cityCode = data.city.code
+  const regionCode = data.region.code
   const languageCode = data.language.code
   const { data: tuNews, ...response } = useLoadTuNewsElement({ newsId })
   useSetRouteTitle({ navigation, title: tuNews?.title })
 
   const shareUrl = urlFromRouteInformation({
     route: NEWS_ROUTE,
-    cityCode,
+    regionCode,
     languageCode,
     newsType: TU_NEWS_TYPE,
     newsId,

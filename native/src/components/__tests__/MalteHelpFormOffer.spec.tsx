@@ -55,7 +55,7 @@ describe('MalteHelpFormOffer', () => {
 
   const props = {
     categoryPageTitle: 'Kontaktformular',
-    cityCode: 'testumgebung',
+    regionCode: 'testumgebung',
     malteHelpFormOffer: offer,
     url: '',
     onSubmit: jest.fn(),

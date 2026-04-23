@@ -45,7 +45,7 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
   const [menuAnchorElement, setMenuAnchorElement] = React.useState<HTMLElement | null>(null)
   const [expandedAccordion, setExpandedAccordion] = React.useState<'share' | 'legal' | null>(null)
   const [urlCopied, setUrlCopied] = React.useState<boolean>(false)
-  const { cityCode, languageCode } = useRouteParams()
+  const { regionCode, languageCode } = useRouteParams()
   const { mobile } = useDimensions()
   const { t } = useTranslation('layout')
 
@@ -96,7 +96,7 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
     />,
   ]
 
-  const legalItems = getFooterLinks({ languageCode, cityCode }).map(({ text, to, doNotTranslate }) => (
+  const legalItems = getFooterLinks({ languageCode, regionCode }).map(({ text, to, doNotTranslate }) => (
     <MenuItem key={text} text={doNotTranslate ? text : t(text)} to={to} closeMenu={closeMenu} />
   ))
 

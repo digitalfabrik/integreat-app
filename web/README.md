@@ -67,6 +67,6 @@ The api documentation can be found [here](https://digitalfabrik.github.io/integr
 
 To test with content from the cms the **testumgebung** can be used. If you don't know how to do that, reach out to us.
 
-### Hidden Cities
+### Hidden Regions
 
-Hidden cities, especially the testumgebung, can be shown by entering the search query `wirschaffendas` in the city selection.
+Hidden regions, especially the testumgebung, can be shown by entering the search query `wirschaffendas` in the region selection.

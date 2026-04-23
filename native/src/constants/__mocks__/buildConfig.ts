@@ -32,7 +32,7 @@ const buildConfig = jest.fn<CommonBuildConfigType, []>(
       introSlides: true,
       sentry: true,
       developerFriendly: false,
-      fixedCity: null,
+      fixedRegion: null,
       suggestToRegion: {
         template: 'template',
         icon: 'icon.svg',

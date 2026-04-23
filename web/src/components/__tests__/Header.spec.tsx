@@ -11,13 +11,13 @@ jest.mock('react-i18next')
 describe('Header', () => {
   const { mocked } = jest
   beforeEach(jest.clearAllMocks)
-  const cityName = 'TestCity'
+  const regionName = 'TestRegion'
 
   it('should render correctly', () => {
     mocked(useDimensions).mockImplementation(() => ({ ...mockDimensions, mobile: true }))
     const { getByText } = renderWithRouterAndTheme(
-      <Header logoHref='/random_route' actionItems={[]} cityName={cityName} language='de' />,
+      <Header logoHref='/random_route' actionItems={[]} regionName={regionName} language='de' />,
     )
-    expect(getByText(cityName)).toBeDefined()
+    expect(getByText(regionName)).toBeDefined()
   })
 })

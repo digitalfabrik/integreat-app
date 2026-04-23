@@ -3,7 +3,7 @@ import LanguageModelBuilder from './LanguageModelBuilder'
 
 const languages = new LanguageModelBuilder(3).build()
 
-const cities = [
+const regions = [
   new RegionModel({
     name: 'Stadt Augsburg',
     code: 'augsburg',
@@ -51,15 +51,15 @@ const cities = [
     chatPrivacyPolicyUrl: 'https://example.com/privacy',
   }),
   new RegionModel({
-    name: 'City',
-    code: 'city',
+    name: 'Region',
+    code: 'region',
     live: true,
     languages,
     eventsEnabled: false,
     poisEnabled: true,
     localNewsEnabled: false,
     tunewsEnabled: false,
-    sortingName: 'City',
+    sortingName: 'Region',
     latitude: 48.369696,
     longitude: 10.892578,
     prefix: null,
@@ -69,15 +69,15 @@ const cities = [
     chatPrivacyPolicyUrl: null,
   }),
   new RegionModel({
-    name: 'Other city',
-    code: 'otherCity',
+    name: 'Other region',
+    code: 'otherRegion',
     live: true,
     languages,
     eventsEnabled: false,
     poisEnabled: false,
     localNewsEnabled: false,
     tunewsEnabled: false,
-    sortingName: 'OtherCity',
+    sortingName: 'OtherRegion',
     latitude: 48.369696,
     longitude: 10.892578,
     prefix: null,
@@ -105,15 +105,15 @@ const cities = [
     chatPrivacyPolicyUrl: null,
   }),
   new RegionModel({
-    name: 'Yet another city',
-    code: 'yetanothercity',
+    name: 'Yet another region',
+    code: 'yetanotherregion',
     live: true,
     languages,
     eventsEnabled: false,
     poisEnabled: false,
     localNewsEnabled: false,
     tunewsEnabled: false,
-    sortingName: 'Yetanothercity',
+    sortingName: 'Yetanotherregion',
     latitude: 48.4,
     longitude: 10.8,
     prefix: null,
@@ -125,17 +125,17 @@ const cities = [
 ]
 
 class RegionModelBuilder {
-  _citiesCount: number
+  _regionsCount: number
 
-  constructor(citiesCount: number) {
-    this._citiesCount = citiesCount
-    if (this._citiesCount > cities.length) {
-      throw new Error(`Only ${cities.length} city models can be created`)
+  constructor(regionsCount: number) {
+    this._regionsCount = regionsCount
+    if (this._regionsCount > regions.length) {
+      throw new Error(`Only ${regions.length} region models can be created`)
     }
   }
 
   build(): RegionModel[] {
-    return cities.slice(0, this._citiesCount)
+    return regions.slice(0, this._regionsCount)
   }
 }
 

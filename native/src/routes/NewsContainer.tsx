@@ -20,18 +20,18 @@ type NewsContainerProps = {
 
 const NewsContainer = ({ route, navigation }: NewsContainerProps): ReactElement | null => {
   const { newsType, newsId } = route.params
-  const { cityCode, languageCode } = useRegionAppContext()
-  const { data, ...response } = useLoadRegionContent({ cityCode, languageCode, refreshLocalNews: true })
+  const { regionCode, languageCode } = useRegionAppContext()
+  const { data, ...response } = useLoadRegionContent({ regionCode, languageCode, refreshLocalNews: true })
   const { navigateTo } = useNavigate()
 
   const navigateToNews = useCallback(
-    (newsId: number) => navigateTo({ route: NEWS_ROUTE, cityCode, languageCode, newsType, newsId }),
-    [cityCode, languageCode, newsType, navigateTo],
+    (newsId: number) => navigateTo({ route: NEWS_ROUTE, regionCode, languageCode, newsType, newsId }),
+    [regionCode, languageCode, newsType, navigateTo],
   )
 
   const selectNewsType = (newsType: NewsType) => navigation.setParams({ newsType, newsId: null })
 
-  const isDisabled = data && (newsType === LOCAL_NEWS_TYPE ? !data.city.localNewsEnabled : !data.city.tunewsEnabled)
+  const isDisabled = data && (newsType === LOCAL_NEWS_TYPE ? !data.region.localNewsEnabled : !data.region.tunewsEnabled)
   const error = isDisabled ? ErrorCode.PageNotFound : response.error
 
   return (
@@ -39,7 +39,7 @@ const NewsContainer = ({ route, navigation }: NewsContainerProps): ReactElement 
       {data && (
         <>
           {newsId === null && (
-            <NewsHeader selectedNewsType={newsType} cityModel={data.city} selectNewsType={selectNewsType} />
+            <NewsHeader selectedNewsType={newsType} regionModel={data.region} selectNewsType={selectNewsType} />
           )}
           {newsType === LOCAL_NEWS_TYPE && (
             <LocalNews

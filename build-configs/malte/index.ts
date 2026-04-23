@@ -36,7 +36,7 @@ const commonMalteBuildConfig: CommonBuildConfigType = {
     introSlides: true,
     sentry: true,
     developerFriendly: false,
-    fixedCity: null,
+    fixedRegion: null,
     suggestToRegion: null,
     chat: false,
   },

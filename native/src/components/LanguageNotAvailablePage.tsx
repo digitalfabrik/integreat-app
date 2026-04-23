@@ -23,9 +23,9 @@ type LanguageNotAvailablePageProps = {
 }
 
 const LanguageNotAvailablePage = ({ availableLanguages, refresh }: LanguageNotAvailablePageProps): ReactElement => {
-  const { cityCode, changeLanguageCode } = useRegionAppContext()
-  const { data: cities, error, refresh: refreshCities, loading } = useLoadRegions()
-  const languages = cities?.find(it => it.code === cityCode)?.languages
+  const { regionCode, changeLanguageCode } = useRegionAppContext()
+  const { data: regions, error, refresh: refreshRegions, loading } = useLoadRegions()
+  const languages = regions?.find(it => it.code === regionCode)?.languages
   const { t } = useTranslation('error')
 
   const items = (availableLanguages ?? languages)?.map(
@@ -41,7 +41,7 @@ const LanguageNotAvailablePage = ({ availableLanguages, refresh }: LanguageNotAv
   )
 
   return (
-    <LayoutedScrollView refreshControl={<RefreshControl refreshing={loading} onRefresh={refresh ?? refreshCities} />}>
+    <LayoutedScrollView refreshControl={<RefreshControl refreshing={loading} onRefresh={refresh ?? refreshRegions} />}>
       {items ? (
         <Wrapper contentContainerStyle={{ alignItems: 'center' }}>
           <Caption title={t('notFound.language')} />

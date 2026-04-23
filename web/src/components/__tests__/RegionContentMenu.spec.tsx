@@ -30,7 +30,7 @@ describe('RegionContentMenu', () => {
   it('should show all menu items for categories route', () => {
     mocked(useDimensions).mockImplementation(() => ({ ...mockDimensions, mobile: true }))
     const { getByText, getByLabelText } = renderAllRoutes('/augsburg/de', {
-      CityContentElement: (
+      RegionContentElement: (
         <TtsContext.Provider value={defaultTtsContext}>
           <RegionContentMenu category={category} pageTitle='Test Page' />,
         </TtsContext.Provider>
@@ -54,7 +54,7 @@ describe('RegionContentMenu', () => {
 
   it('should hide pdf for other routes', () => {
     const { queryByText, getByText, getByLabelText } = renderAllRoutes('/augsburg/de/events', {
-      CityContentElement: (
+      RegionContentElement: (
         <TtsContext.Provider value={defaultTtsContext}>
           <RegionContentMenu pageTitle='Test Page' />,
         </TtsContext.Provider>
@@ -71,7 +71,7 @@ describe('RegionContentMenu', () => {
 
   it('should hide feedback for news routes', () => {
     const { queryByText, getByText, getByLabelText } = renderAllRoutes('/augsburg/de/news/local', {
-      CityContentElement: (
+      RegionContentElement: (
         <TtsContext.Provider value={defaultTtsContext}>
           <RegionContentMenu pageTitle='Test Page' />,
         </TtsContext.Provider>
@@ -88,7 +88,7 @@ describe('RegionContentMenu', () => {
 
   it('tts toolbar item should be disabled if there is nothing to read', () => {
     const { getByText, getByLabelText } = renderAllRoutes('/augsburg/de', {
-      CityContentElement: (
+      RegionContentElement: (
         <TtsContext.Provider value={{ ...defaultTtsContext, canRead: false }}>
           <RegionContentMenu pageTitle='Test Page' />,
         </TtsContext.Provider>
@@ -103,7 +103,7 @@ describe('RegionContentMenu', () => {
   it('should hide feedback on desktop', () => {
     mocked(useDimensions).mockImplementation(() => ({ ...mockDimensions, desktop: true, mobile: false }))
     const { queryByText, getByText, getByLabelText } = renderAllRoutes('/augsburg/de/events', {
-      CityContentElement: (
+      RegionContentElement: (
         <TtsContext.Provider value={defaultTtsContext}>
           <RegionContentMenu pageTitle='Test Page' />,
         </TtsContext.Provider>

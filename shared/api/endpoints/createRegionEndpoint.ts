@@ -1,15 +1,15 @@
-import { Endpoint, EndpointBuilder, CityModel } from '..'
+import { Endpoint, EndpointBuilder, RegionModel } from '..'
 
 import { API_VERSION } from '../constants'
 import mapRegionJson from '../mapping/mapRegionJson'
 
-export const CITY_ENDPOINT_NAME = 'city'
+export const REGION_ENDPOINT_NAME = 'region'
 type Params = {
-  city: string
+  region: string
 }
 
-export default (baseUrl: string): Endpoint<Params, CityModel> =>
-  new EndpointBuilder<Params, CityModel>(CITY_ENDPOINT_NAME)
-    .withParamsToUrlMapper(({ city }: Params) => `${baseUrl}/api/${API_VERSION}/regions/${city}/`)
+export default (baseUrl: string): Endpoint<Params, RegionModel> =>
+  new EndpointBuilder<Params, RegionModel>(REGION_ENDPOINT_NAME)
+    .withParamsToUrlMapper(({ region }: Params) => `${baseUrl}/api/${API_VERSION}/regions/${region}/`)
     .withMapper(mapRegionJson)
     .build()

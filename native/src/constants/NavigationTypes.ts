@@ -133,7 +133,7 @@ export type RootRoutesParamsType = {
   [FEEDBACK_MODAL_ROUTE]: {
     routeType: FeedbackRouteType
     language: string
-    cityCode: string
+    regionCode: string
     slug?: string
   }
   [BOTTOM_TAB_ROUTE]: { screen: TabRoutesType; params: TabRoutesParamsType[TabRoutesType] } | {}

@@ -8,12 +8,12 @@ import dataContainer from '../utils/DefaultDataContainer'
 import { determineApiUrl } from '../utils/helpers'
 
 type Load<T extends object> = {
-  cityCode: string
+  regionCode: string
   languageCode: string
-  createEndpoint: (baseUrl: string) => Endpoint<{ city: string; language: string }, T>
-  isAvailable: (cityCode: string, languageCode: string) => Promise<boolean>
-  getFromDataContainer: (cityCode: string, languageCode: string) => Promise<T>
-  setToDataContainer: (cityCode: string, languageCode: string, data: T) => Promise<void>
+  createEndpoint: (baseUrl: string) => Endpoint<{ region: string; language: string }, T>
+  isAvailable: (regionCode: string, languageCode: string) => Promise<boolean>
+  getFromDataContainer: (regionCode: string, languageCode: string) => Promise<T>
+  setToDataContainer: (regionCode: string, languageCode: string, data: T) => Promise<void>
   forceUpdate?: boolean
   showSnackbar: (snackbar: SnackbarType) => void
 }
@@ -24,7 +24,7 @@ type Load<T extends object> = {
  * Shows a snackbar instead of returning an error if the data is available in the cache.
  */
 const loadWithCache = async <T extends object>({
-  cityCode,
+  regionCode,
   languageCode,
   isAvailable,
   getFromDataContainer,
@@ -33,11 +33,11 @@ const loadWithCache = async <T extends object>({
   showSnackbar,
   forceUpdate = false,
 }: Load<T>): Promise<T | null> => {
-  const cachedData = (await isAvailable(cityCode, languageCode))
-    ? await getFromDataContainer(cityCode, languageCode)
+  const cachedData = (await isAvailable(regionCode, languageCode))
+    ? await getFromDataContainer(regionCode, languageCode)
     : null
 
-  const lastUpdate = await dataContainer.getLastUpdate(cityCode, languageCode)
+  const lastUpdate = await dataContainer.getLastUpdate(regionCode, languageCode)
   const shouldUpdate = forceUpdate || !lastUpdate || lastUpdate < DateTime.utc().startOf('day')
 
   if (!shouldUpdate && cachedData) {
@@ -46,11 +46,11 @@ const loadWithCache = async <T extends object>({
 
   try {
     const payload = await createEndpoint(await determineApiUrl()).request({
-      city: cityCode,
+      region: regionCode,
       language: languageCode,
     })
     if (payload.data !== null) {
-      await setToDataContainer(cityCode, languageCode, payload.data)
+      await setToDataContainer(regionCode, languageCode, payload.data)
     }
     return payload.data ?? cachedData
   } catch (e) {

@@ -1,19 +1,19 @@
 import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
 
-import { CityModelBuilder } from 'shared/api'
+import { RegionModelBuilder } from 'shared/api'
 
 import Navigator from '../Navigator'
-import useLoadRegionContent, { CityContentReturn } from '../hooks/useLoadRegionContent'
+import useLoadRegionContent, { RegionContentReturn } from '../hooks/useLoadRegionContent'
 import TestingAppContext from '../testing/TestingAppContext'
 import render from '../testing/render'
 import dataContainer from '../utils/DefaultDataContainer'
 
-const cities = new CityModelBuilder(3).build()
+const regions = new RegionModelBuilder(3).build()
 jest.mock('styled-components')
-jest.mock('../utils/DefaultDataContainer', () => ({ deleteCity: jest.fn(async () => undefined) }))
+jest.mock('../utils/DefaultDataContainer', () => ({ deleteRegion: jest.fn(async () => undefined) }))
 jest.mock('@react-native-community/netinfo')
-jest.mock('../hooks/useLoadRegions', () => jest.fn(() => ({ data: cities, error: null })))
+jest.mock('../hooks/useLoadRegions', () => jest.fn(() => ({ data: regions, error: null })))
 jest.mock('../hooks/useLoadRegionContent')
 jest.mock('shared/api', () => ({
   ...jest.requireActual('shared/api'),
@@ -118,16 +118,16 @@ jest.mock('../utils/PushNotificationsManager', () => ({
 }))
 jest.mock('../utils/FetcherModule')
 
-const changeCityCode = jest.fn()
+const changeRegionCode = jest.fn()
 const renderNavigator = ({
-  cityCode = null,
+  regionCode = null,
   introShown = null,
 }: {
-  cityCode?: string | null
+  regionCode?: string | null
   introShown?: boolean | null
 }) =>
   render(
-    <TestingAppContext changeCityCode={changeCityCode} cityCode={cityCode} settings={{ introShown }}>
+    <TestingAppContext changeRegionCode={changeRegionCode} regionCode={regionCode} settings={{ introShown }}>
       <Navigator />
     </TestingAppContext>,
   )
@@ -138,9 +138,9 @@ describe('Navigator', () => {
     jest.clearAllMocks()
     mocked(useLoadRegionContent).mockReturnValue({
       data: {
-        city: cities[0]!,
+        region: regions[0]!,
         languages: [],
-        cities,
+        regions,
         language: null as never,
         categories: null as never,
         events: [],
@@ -150,11 +150,11 @@ describe('Navigator', () => {
       loading: false,
       error: null,
       refresh: jest.fn(),
-    } as CityContentReturn)
+    } as RegionContentReturn)
   })
 
   it('should start with categories as the initial tab', async () => {
-    const { findByText } = renderNavigator({ cityCode: 'augsburg', introShown: true })
+    const { findByText } = renderNavigator({ regionCode: 'augsburg', introShown: true })
 
     // default tab of the bottom tab navigator - shows Categories screen
     await findByText('Categories')
@@ -166,7 +166,7 @@ describe('Navigator', () => {
   })
 
   it('should allow switching between all bottom tabs', async () => {
-    const { findByText, getByText } = renderNavigator({ cityCode: 'augsburg', introShown: true })
+    const { findByText, getByText } = renderNavigator({ regionCode: 'augsburg', introShown: true })
 
     fireEvent.press(getByText('events'))
     await findByText('Events')
@@ -178,16 +178,16 @@ describe('Navigator', () => {
     await findByText('News')
   })
 
-  it('should display landing if the selected city is not available anymore', async () => {
-    const { findByText } = renderNavigator({ cityCode: 'disabledCity', introShown: true })
+  it('should display landing if the selected region is not available anymore', async () => {
+    const { findByText } = renderNavigator({ regionCode: 'disabledRegion', introShown: true })
     await findByText('Landing')
-    expect(changeCityCode).toHaveBeenCalledTimes(1)
-    expect(changeCityCode).toHaveBeenCalledWith(null)
-    expect(dataContainer.deleteCity).toHaveBeenCalledTimes(1)
-    expect(dataContainer.deleteCity).toHaveBeenCalledWith('disabledCity')
+    expect(changeRegionCode).toHaveBeenCalledTimes(1)
+    expect(changeRegionCode).toHaveBeenCalledWith(null)
+    expect(dataContainer.deleteRegion).toHaveBeenCalledTimes(1)
+    expect(dataContainer.deleteRegion).toHaveBeenCalledWith('disabledRegion')
   })
 
-  it('should display Landing if no city is selected in settings and intro was shown', async () => {
+  it('should display Landing if no region is selected in settings and intro was shown', async () => {
     const { findByText } = renderNavigator({ introShown: true })
     await findByText('Landing')
   })

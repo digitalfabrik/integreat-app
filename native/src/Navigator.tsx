@@ -78,11 +78,11 @@ const Navigator = (): ReactElement | null => {
   const showSnackbar = useSnackbar()
   const insets = useSafeAreaInsets()
   const appContext = useAppContext()
-  const { settings, cityCode, changeCityCode, updateSettings } = appContext
+  const { settings, regionCode, changeRegionCode, updateSettings } = appContext
   const [initialRoute, setInitialRoute] = useState<InitialRouteType>(null)
 
-  // Preload cities
-  const { data: cities, error: citiesError, refresh: refreshCities } = useLoadRegions()
+  // Preload regions
+  const { data: regions, error: regionsError, refresh: refreshRegions } = useLoadRegions()
 
   const updateInitialRoute = useCallback(
     (initialRoute: InitialRouteType) =>
@@ -114,21 +114,21 @@ const Navigator = (): ReactElement | null => {
     }
     if (buildConfig().featureFlags.introSlides && !settings.introShown) {
       updateInitialRoute({ name: INTRO_ROUTE })
-    } else if (!cityCode) {
+    } else if (!regionCode) {
       updateInitialRoute({ name: LANDING_ROUTE })
-    } else if (cities?.find(it => it.code === cityCode)) {
+    } else if (regions?.find(it => it.code === regionCode)) {
       updateInitialRoute({ name: BOTTOM_TAB_ROUTE })
-    } else if (cities) {
-      // City is not available anymore
-      changeCityCode(null)
-      showSnackbar({ text: 'notFound.city' })
-      dataContainer.deleteCity(cityCode).catch(reportError)
+    } else if (regions) {
+      // Region is not available anymore
+      changeRegionCode(null)
+      showSnackbar({ text: 'notFound.region' })
+      dataContainer.deleteRegion(regionCode).catch(reportError)
       updateInitialRoute({ name: LANDING_ROUTE })
     }
-  }, [cities, changeCityCode, cityCode, showSnackbar, settings, initialRoute, updateInitialRoute])
+  }, [regions, changeRegionCode, regionCode, showSnackbar, settings, initialRoute, updateInitialRoute])
 
   if (!initialRoute) {
-    return citiesError ? <LoadingErrorHandler error={citiesError} loading={false} refresh={refreshCities} /> : null
+    return regionsError ? <LoadingErrorHandler error={regionsError} loading={false} refresh={refreshRegions} /> : null
   }
 
   const redirectUrl = initialRoute.name === REDIRECT_ROUTE ? initialRoute.url : undefined

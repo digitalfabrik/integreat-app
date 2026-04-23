@@ -1,6 +1,6 @@
 import React, { ReactElement, useCallback, useMemo } from 'react'
 
-import { CATEGORIES_ROUTE, CategoriesRouteType, cityContentPath } from 'shared'
+import { CATEGORIES_ROUTE, CategoriesRouteType, regionContentPath } from 'shared'
 import { ErrorCode } from 'shared/api'
 import { config } from 'translations'
 
@@ -21,14 +21,14 @@ type CategoriesContainerProps = {
 }
 
 const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): ReactElement => {
-  const { cityCode, languageCode } = useRegionAppContext()
+  const { regionCode, languageCode } = useRegionAppContext()
   const { navigateTo } = useNavigate()
 
-  const { data, ...response } = useLoadRegionContent({ cityCode, languageCode })
+  const { data, ...response } = useLoadRegionContent({ regionCode, languageCode })
   // Preload search results for fallback language
-  useLoadRegionContent({ cityCode, languageCode: config.sourceLanguage })
+  useLoadRegionContent({ regionCode, languageCode: config.sourceLanguage })
 
-  const path = route.params.path ?? cityContentPath({ cityCode, languageCode })
+  const path = route.params.path ?? regionContentPath({ regionCode, languageCode })
   const category = useMemo(() => data?.categories.findCategoryByPath(path), [data?.categories, path])
   const availableLanguages =
     category && !category.isRoot() ? Object.keys(category.availableLanguages) : data?.languages.map(it => it.code)
@@ -36,11 +36,11 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
   const shareUrl = urlFromRouteInformation({
     route: CATEGORIES_ROUTE,
     languageCode,
-    cityCode,
-    cityContentPath: path,
+    regionCode,
+    regionContentPath: path,
   })
   useHeader({ navigation, route, availableLanguages, data, shareUrl })
-  useSetRouteTitle({ navigation, title: category?.isRoot() ? data?.city.name : category?.title })
+  useSetRouteTitle({ navigation, title: category?.isRoot() ? data?.region.name : category?.title })
 
   const onLanguageChange = useCallback(
     (newLanguage: string) => {
@@ -61,7 +61,7 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
         <Categories
           navigateTo={navigateTo}
           language={languageCode}
-          cityModel={data.city}
+          regionModel={data.region}
           categories={data.categories}
           category={category}
           goBack={navigation.goBack}

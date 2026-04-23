@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect } from 'react'
 
 import {
-  cityContentPath,
+  regionContentPath,
   EVENTS_ROUTE,
   NEWS_ROUTE,
   pathnameFromRouteInformation,
@@ -25,16 +25,16 @@ const FailureSwitcher = ({ error }: FailureSwitcherProps): ReactElement => {
   }, [error])
 
   const getFailureProps = (error: Error): { goToPath?: string; goToMessage?: string; errorMessage: string } => {
-    if (error instanceof NotFoundError && error.city !== undefined && error.language !== undefined) {
-      const { city, language } = error
-      const params = { cityCode: city, languageCode: language }
+    if (error instanceof NotFoundError && error.region !== undefined && error.language !== undefined) {
+      const { region, language } = error
+      const params = { regionCode: region, languageCode: language }
 
       switch (error.type) {
         case 'category':
         case 'imprint':
         case 'route':
           return {
-            goToPath: cityContentPath(params),
+            goToPath: regionContentPath(params),
             goToMessage: 'goTo.categories',
             errorMessage: 'notFound.category',
           }
@@ -57,10 +57,10 @@ const FailureSwitcher = ({ error }: FailureSwitcherProps): ReactElement => {
             goToMessage: 'goTo.pois',
             errorMessage: 'notFound.poi',
           }
-        case 'city':
+        case 'region':
           return {
             goToPath: pathnameFromRouteInformation({ route: LANDING_ROUTE, ...params }),
-            errorMessage: 'notFound.city',
+            errorMessage: 'notFound.region',
           }
       }
     }

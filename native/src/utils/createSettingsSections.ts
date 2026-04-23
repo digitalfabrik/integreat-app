@@ -41,7 +41,7 @@ type CreateSettingsSectionsProps = {
 }
 
 const createSettingsSections = ({
-  appContext: { settings, updateSettings, cityCode, languageCode },
+  appContext: { settings, updateSettings, regionCode, languageCode },
   navigation,
   showSnackbar,
   t,
@@ -53,11 +53,11 @@ const createSettingsSections = ({
     onPress: async () => {
       const newAllowPushNotifications = !settings.allowPushNotifications
       updateSettings({ allowPushNotifications: newAllowPushNotifications })
-      if (!cityCode) {
+      if (!regionCode) {
         return
       }
       if (!newAllowPushNotifications) {
-        await unsubscribeNews(cityCode, languageCode)
+        await unsubscribeNews(regionCode, languageCode)
         return
       }
 
@@ -65,7 +65,7 @@ const createSettingsSections = ({
 
       if (status) {
         await subscribeNews({
-          cityCode,
+          regionCode,
           languageCode,
           allowPushNotifications: newAllowPushNotifications,
           skipSettingsCheck: true,

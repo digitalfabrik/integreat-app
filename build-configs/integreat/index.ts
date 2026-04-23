@@ -34,7 +34,7 @@ const commonIntegreatBuildConfig: CommonBuildConfigType = {
     introSlides: true,
     sentry: true,
     developerFriendly: false,
-    fixedCity: null,
+    fixedRegion: null,
     suggestToRegion: {
       template: suggestToRegionTemplate,
       icon: '/suggest-to-region.svg',

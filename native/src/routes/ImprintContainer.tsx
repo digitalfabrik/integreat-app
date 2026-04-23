@@ -17,15 +17,15 @@ type ImprintContainerProps = {
 }
 
 const ImprintContainer = ({ navigation, route }: ImprintContainerProps): ReactElement => {
-  const { cityCode, languageCode } = useRegionAppContext()
+  const { regionCode, languageCode } = useRegionAppContext()
   const { data, ...response } = useLoadExtraRegionContent({
     createEndpoint: createImprintEndpoint,
-    cityCode,
+    regionCode,
     languageCode,
   })
 
   const availableLanguages = data?.languages.map(it => it.code)
-  const shareUrl = urlFromRouteInformation({ route: IMPRINT_ROUTE, languageCode, cityCode })
+  const shareUrl = urlFromRouteInformation({ route: IMPRINT_ROUTE, languageCode, regionCode })
   useHeader({ navigation, route, availableLanguages, data, shareUrl })
 
   return (

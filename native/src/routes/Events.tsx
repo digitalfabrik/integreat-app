@@ -4,7 +4,7 @@ import { RefreshControl } from 'react-native'
 import styled from 'styled-components/native'
 
 import { EVENTS_ROUTE, RouteInformationType, useDateFilter } from 'shared'
-import { fromError, NotFoundError, CityModel, EventModel } from 'shared/api'
+import { fromError, NotFoundError, RegionModel, EventModel } from 'shared/api'
 
 import Caption from '../components/Caption'
 import DatesPageDetail from '../components/DatesPageDetail'
@@ -30,23 +30,23 @@ const PageDetailsContainer = styled.View`
 type EventsProps = {
   slug?: string
   events: EventModel[]
-  cityModel: CityModel
+  regionModel: RegionModel
   language: string
   navigateTo: (routeInformation: RouteInformationType) => void
   refresh: () => void
 }
 
-const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: EventsProps): ReactElement => {
+const Events = ({ regionModel, language, navigateTo, events, slug, refresh }: EventsProps): ReactElement => {
   const { t } = useTranslation('events')
   const { startDate, setStartDate, endDate, setEndDate, filteredEvents, startDateError } = useDateFilter(events)
   const event = events.find(it => it.slug === slug)
   useTtsPlayer(event)
 
-  if (!cityModel.eventsEnabled) {
+  if (!regionModel.eventsEnabled) {
     const error = new NotFoundError({
       type: 'category',
       id: 'events',
-      city: cityModel.code,
+      region: regionModel.code,
       language,
     })
     return (
@@ -98,7 +98,7 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
     const error = new NotFoundError({
       type: 'event',
       id: slug,
-      city: cityModel.code,
+      region: regionModel.code,
       language,
     })
     return <Failure code={fromError(error)} />
@@ -108,7 +108,7 @@ const Events = ({ cityModel, language, navigateTo, events, slug, refresh }: Even
     const navigateToEvent = () =>
       navigateTo({
         route: EVENTS_ROUTE,
-        cityCode: cityModel.code,
+        regionCode: regionModel.code,
         languageCode: language,
         slug: item.slug,
       })

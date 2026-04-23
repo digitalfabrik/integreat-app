@@ -38,7 +38,7 @@ const SearchListItem = ({ language, title, contentWithoutHtml, query, path }: Se
     },
   })
 
-  const routeInformation = new InternalPathnameParser(path, language, buildConfig().featureFlags.fixedCity).route()
+  const routeInformation = new InternalPathnameParser(path, language, buildConfig().featureFlags.fixedRegion).route()
   if (!routeInformation) {
     return <View />
   }

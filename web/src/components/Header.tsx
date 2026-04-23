@@ -59,7 +59,7 @@ const ActionBar = styled('nav')`
 type HeaderProps = {
   actionItems: ReactNode[]
   logoHref: string
-  cityName?: string
+  regionName?: string
   language: string
   TabBar?: ReactNode
   onStickyTopChanged?: (stickyTop: number) => void
@@ -68,7 +68,7 @@ type HeaderProps = {
 export const Header = ({
   actionItems = [],
   logoHref,
-  cityName,
+  regionName,
   language,
   TabBar,
   onStickyTopChanged,
@@ -86,7 +86,7 @@ export const Header = ({
           <Row>
             <Stack direction='row-reverse' alignItems='center' gap={1}>
               <HeaderLogo link={logoHref} />
-              {!!cityName && <HeaderTitle title={cityName} landingPath={landingPath} />}
+              {!!regionName && <HeaderTitle title={regionName} landingPath={landingPath} />}
             </Stack>
             <ActionBar>{actionItems}</ActionBar>
           </Row>

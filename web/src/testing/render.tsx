@@ -3,7 +3,7 @@ import React, { ReactElement, ReactNode } from 'react'
 import { createMemoryRouter, MemoryRouter, Route, RouterProvider, Routes } from 'react-router'
 
 import ThemeContainer from '../components/ThemeContainer'
-import { cityContentPattern, RoutePatterns, RouteType } from '../routes'
+import { regionContentPattern, RoutePatterns, RouteType } from '../routes'
 
 const AllTheProviders = ({ children, options }: { children: ReactNode; options?: { pathname: string } }) => (
   <MemoryRouter initialEntries={options ? [options.pathname] : ['/']}>
@@ -60,20 +60,20 @@ export const renderRoute = (ui: ReactElement, options: RenderRouteOptions): Exte
 }
 
 type RenderAllRoutesOptions = {
-  CityContentElement?: ReactElement
+  RegionContentElement?: ReactElement
 }
 
 const DefaultRenderAllRoutesOptions: RenderAllRoutesOptions = {
-  CityContentElement: undefined,
+  RegionContentElement: undefined,
 }
 
 export const renderAllRoutes = (path: string, options = DefaultRenderAllRoutesOptions): RenderResult => {
   const DefaultElement = ({ route }: { route: string }) => <div>{route}</div>
-  const { CityContentElement } = options
+  const { RegionContentElement } = options
 
   const routes = Object.keys(RoutePatterns) as RouteType[]
   const baseRoutes = routes.filter(route => RoutePatterns[route].startsWith('/'))
-  const cityContentRoutes = routes.filter(route => !RoutePatterns[route].startsWith('/'))
+  const regionContentRoutes = routes.filter(route => !RoutePatterns[route].startsWith('/'))
 
   return renderWithTheme(
     <MemoryRouter initialEntries={[path]}>
@@ -82,14 +82,14 @@ export const renderAllRoutes = (path: string, options = DefaultRenderAllRoutesOp
           <Route key={route} path={RoutePatterns[route]} element={<DefaultElement route={route} />} />
         ))}
         <Route
-          path={cityContentPattern}
+          path={regionContentPattern}
           element={
             <Routes>
-              {cityContentRoutes.map(route => (
+              {regionContentRoutes.map(route => (
                 <Route
                   key={route}
                   path={RoutePatterns[route]}
-                  element={CityContentElement ?? <DefaultElement route={route} />}
+                  element={RegionContentElement ?? <DefaultElement route={route} />}
                 />
               ))}
             </Routes>

@@ -3,7 +3,7 @@ import { fireEvent, waitFor } from '@testing-library/react-native'
 import React from 'react'
 import { check, request, RESULTS } from 'react-native-permissions'
 
-import { CityModelBuilder } from 'shared/api'
+import { RegionModelBuilder } from 'shared/api'
 
 import useSnackbar from '../../hooks/useSnackbar'
 import render from '../../testing/render'
@@ -39,16 +39,16 @@ describe('NearbyRegions', () => {
     timestamp: 1234566789,
   }
 
-  const cities = new CityModelBuilder(5).build()
+  const regions = new RegionModelBuilder(5).build()
   const navigateToDashboard = jest.fn(key => key)
   const filterText = ''
 
-  const renderNearbyCities = () =>
-    render(<NearbyRegions cities={cities} navigateToDashboard={navigateToDashboard} filterText={filterText} />)
+  const renderNearbyRegions = () =>
+    render(<NearbyRegions regions={regions} navigateToDashboard={navigateToDashboard} filterText={filterText} />)
 
   it('should not request location permission on mount', async () => {
     mockCheckPermission.mockImplementationOnce(async () => RESULTS.BLOCKED)
-    const { getByText } = renderNearbyCities()
+    const { getByText } = renderNearbyRegions()
     await waitFor(() => expect(getByText('noPermission')).toBeTruthy())
     expect(mockCheckPermission).toHaveBeenCalled()
     expect(mockRequestPermission).not.toHaveBeenCalled()
@@ -59,7 +59,7 @@ describe('NearbyRegions', () => {
   it('should determine location and show nearby locations on mount if permission already granted', async () => {
     mockCheckPermission.mockImplementationOnce(async () => RESULTS.GRANTED)
     mockGetCurrentPosition.mockImplementationOnce(setPosition => setPosition(augsburgCoordinates))
-    const { queryByText, getByText } = renderNearbyCities()
+    const { queryByText, getByText } = renderNearbyRegions()
     await waitFor(() => expect(getByText('Stadt Augsburg')).toBeTruthy())
     expect(queryByText('noPermission')).toBeFalsy()
     expect(mockCheckPermission).toHaveBeenCalled()
@@ -80,8 +80,8 @@ describe('NearbyRegions', () => {
         },
       }),
     )
-    const { queryByText, getByText } = renderNearbyCities()
-    await waitFor(() => expect(getByText('noNearbyCities')).toBeTruthy())
+    const { queryByText, getByText } = renderNearbyRegions()
+    await waitFor(() => expect(getByText('noNearbyRegions')).toBeTruthy())
     expect(queryByText('Stadt Augsburg')).toBeFalsy()
     expect(queryByText('noPermission')).toBeFalsy()
     expect(mockCheckPermission).toHaveBeenCalled()
@@ -93,7 +93,7 @@ describe('NearbyRegions', () => {
   it('should show snackbar if permission is blocked on retry clicked', async () => {
     mockCheckPermission.mockImplementation(async () => RESULTS.BLOCKED)
     mockRequestPermission.mockImplementation(async () => RESULTS.BLOCKED)
-    const { getByText, getByLabelText } = renderNearbyCities()
+    const { getByText, getByLabelText } = renderNearbyRegions()
     await waitFor(() => expect(getByText('noPermission')).toBeTruthy())
     expect(mockCheckPermission).toHaveBeenCalledTimes(1)
     expect(showSnackbar).not.toHaveBeenCalled()
@@ -111,7 +111,7 @@ describe('NearbyRegions', () => {
     mockCheckPermission.mockImplementationOnce(async () => RESULTS.BLOCKED)
     mockRequestPermission.mockImplementationOnce(async () => RESULTS.GRANTED)
     mockGetCurrentPosition.mockImplementationOnce(setPosition => setPosition(augsburgCoordinates))
-    const { queryByText, getByText, getByLabelText } = renderNearbyCities()
+    const { queryByText, getByText, getByLabelText } = renderNearbyRegions()
     await waitFor(() => expect(getByText('noPermission')).toBeTruthy())
     expect(mockCheckPermission).toHaveBeenCalledTimes(1)
     await waitFor(() => expect(queryByText('Stadt Augsburg')).toBeFalsy())
@@ -129,7 +129,7 @@ describe('NearbyRegions', () => {
     mockCheckPermission.mockImplementation(async () => RESULTS.BLOCKED)
     mockRequestPermission.mockImplementation(async () => RESULTS.GRANTED)
     mockGetCurrentPosition.mockImplementationOnce(setPosition => setPosition(augsburgCoordinates))
-    const { queryByText, getByText, getByLabelText } = renderNearbyCities()
+    const { queryByText, getByText, getByLabelText } = renderNearbyRegions()
     await waitFor(() => expect(getByText('noPermission')).toBeTruthy())
     expect(mockCheckPermission).toHaveBeenCalledTimes(1)
     await waitFor(() => expect(queryByText('Stadt Augsburg')).toBeFalsy())
@@ -145,6 +145,6 @@ describe('NearbyRegions', () => {
     expect(navigateToDashboard).not.toHaveBeenCalled()
     fireEvent.press(getByText('Stadt Augsburg'))
     expect(navigateToDashboard).toHaveBeenCalledTimes(1)
-    expect(navigateToDashboard).toHaveBeenCalledWith(cities[0])
+    expect(navigateToDashboard).toHaveBeenCalledWith(regions[0])
   })
 })

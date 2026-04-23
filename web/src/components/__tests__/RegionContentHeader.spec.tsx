@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { CityModelBuilder } from 'shared/api'
+import { RegionModelBuilder } from 'shared/api'
 
 import { mockDimensions } from '../../__mocks__/useDimensions'
 import useDimensions from '../../hooks/useDimensions'
@@ -12,7 +12,7 @@ jest.mock('../../hooks/useDimensions', () => jest.fn(() => mockDimensions))
 
 describe('RegionContentHeader', () => {
   const { mocked } = jest
-  const cityModel = new CityModelBuilder(1).build()[0]!
+  const regionModel = new RegionModelBuilder(1).build()[0]!
 
   const languageChangePaths = [
     { code: 'de', name: 'Deutsch', path: '/augsburg/de' },
@@ -20,10 +20,10 @@ describe('RegionContentHeader', () => {
   ]
   const languageCode = 'de'
 
-  const renderCityContentHeader = () =>
+  const renderRegionContentHeader = () =>
     renderWithRouterAndTheme(
       <RegionContentHeader
-        cityModel={cityModel}
+        regionModel={regionModel}
         languageCode={languageCode}
         languageChangePaths={languageChangePaths}
         category={undefined}
@@ -33,8 +33,8 @@ describe('RegionContentHeader', () => {
 
   it('should render correctly', () => {
     mocked(useDimensions).mockImplementation(() => ({ ...mockDimensions, desktop: true, mobile: false }))
-    const { getAllByText, getByText, getByLabelText } = renderCityContentHeader()
-    expect(getByText(cityModel.name)).toBeTruthy()
+    const { getAllByText, getByText, getByLabelText } = renderRegionContentHeader()
+    expect(getByText(regionModel.name)).toBeTruthy()
     expect(getAllByText('Deutsch')).toBeTruthy()
     expect(getByText('layout:events')).toBeTruthy()
     expect(getByLabelText('layout:sideBarOpenAriaLabel')).toBeTruthy()
@@ -42,8 +42,8 @@ describe('RegionContentHeader', () => {
 
   it('should hide navigation tabs on mobile', () => {
     mocked(useDimensions).mockImplementation(() => ({ ...mockDimensions, mobile: true }))
-    const { getByText, getByLabelText, queryByText } = renderCityContentHeader()
-    expect(getByText(cityModel.name)).toBeTruthy()
+    const { getByText, getByLabelText, queryByText } = renderRegionContentHeader()
+    expect(getByText(regionModel.name)).toBeTruthy()
     expect(getByLabelText('layout:changeLanguage')).toBeTruthy()
     expect(getByLabelText('layout:sideBarOpenAriaLabel')).toBeTruthy()
     expect(queryByText('layout:events')).toBeFalsy()

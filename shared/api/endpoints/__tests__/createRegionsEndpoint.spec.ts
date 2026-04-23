@@ -1,12 +1,12 @@
 import { API_VERSION } from '../../constants'
 import LanguageModel from '../../models/LanguageModel'
 import RegionModel from '../../models/RegionModel'
-import { JsonCityType, JsonLanguageType } from '../../types'
-import createCitiesEndpoint from '../createRegionsEndpoint'
+import { JsonRegionType, JsonLanguageType } from '../../types'
+import createRegionsEndpoint from '../createRegionsEndpoint'
 
-describe('createRegionsEndpoint', () => {
+describe('regions', () => {
   const baseUrl = 'https://integreat-api-url.de'
-  const cities = createCitiesEndpoint(baseUrl)
+  const regions = createRegionsEndpoint(baseUrl)
   const languagesJson: JsonLanguageType[] = [
     {
       code: 'en',
@@ -26,7 +26,7 @@ describe('createRegionsEndpoint', () => {
     new LanguageModel('de', 'Deutsch'),
     new LanguageModel('en', 'English'),
   ]
-  const city1: JsonCityType = {
+  const region1: JsonRegionType = {
     name: 'Augsburg',
     path: '/augsburg/',
     languages: languagesJson,
@@ -52,7 +52,7 @@ describe('createRegionsEndpoint', () => {
     is_chat_enabled: false,
     zammad_privacy_policy: null,
   }
-  const city2: JsonCityType = {
+  const region2: JsonRegionType = {
     name: 'Stadt Regensburg',
     path: '/regensburg/',
     live: true,
@@ -74,19 +74,19 @@ describe('createRegionsEndpoint', () => {
     zammad_privacy_policy: 'https://example.com/privacy',
   }
 
-  const cityJson = [city1, city2]
+  const regionJson = [region1, region2]
 
   it('should map params to url', () => {
-    expect(cities.mapParamsToUrl()).toBe(`https://integreat-api-url.de/api/${API_VERSION}/regions/`)
+    expect(regions.mapParamsToUrl()).toBe(`https://integreat-api-url.de/api/${API_VERSION}/regions/`)
   })
 
   it('should map fetched data to models', () => {
-    const cityModels = cities.mapResponse(cityJson)
-    expect(cityModels).toEqual([
+    const regionModels = regions.mapResponse(regionJson)
+    expect(regionModels).toEqual([
       new RegionModel({
-        name: city1.name,
+        name: region1.name,
         code: 'augsburg',
-        live: city1.live,
+        live: region1.live,
         languages,
         chatEnabled: false,
         chatPrivacyPolicyUrl: null,
@@ -107,9 +107,9 @@ describe('createRegionsEndpoint', () => {
         boundingBox: [10.7880103, 48.447238, 11.0174493, 48.297834],
       }),
       new RegionModel({
-        name: city2.name,
+        name: region2.name,
         code: 'regensburg',
-        live: city2.live,
+        live: region2.live,
         languages,
         chatEnabled: false,
         chatPrivacyPolicyUrl: 'https://example.com/privacy',

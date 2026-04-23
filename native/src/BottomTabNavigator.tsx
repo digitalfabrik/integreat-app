@@ -95,10 +95,10 @@ type BottomTabNavigatorProps = {
 
 const BottomTabNavigator = ({ navigation }: BottomTabNavigatorProps): ReactElement | null => {
   const { t } = useTranslation('layout')
-  const { cityCode, languageCode } = useRegionAppContext()
+  const { regionCode, languageCode } = useRegionAppContext()
   const { navigateTo } = useNavigate()
   const insets = useSafeAreaInsets()
-  const { data, loading, error, refresh } = useLoadRegionContent({ cityCode, languageCode })
+  const { data, loading, error, refresh } = useLoadRegionContent({ regionCode, languageCode })
   const cachedDataRef = useRef(data)
 
   // Preserve previous data during language changes to prevent unmounting
@@ -110,7 +110,7 @@ const BottomTabNavigator = ({ navigation }: BottomTabNavigatorProps): ReactEleme
 
   const cachedData = data || cachedDataRef.current
 
-  useSetRouteTitle({ navigation, title: cachedData?.city.name })
+  useSetRouteTitle({ navigation, title: cachedData?.region.name })
   const theme = useTheme()
 
   const CategoriesIcon = useCallback(
@@ -125,7 +125,7 @@ const BottomTabNavigator = ({ navigation }: BottomTabNavigatorProps): ReactEleme
     return <LoadingErrorHandler loading={loading} error={error} refresh={refresh} />
   }
 
-  const { eventsEnabled, poisEnabled, localNewsEnabled, tunewsEnabled } = cachedData.city
+  const { eventsEnabled, poisEnabled, localNewsEnabled, tunewsEnabled } = cachedData.region
 
   const Tabs = [
     <Tab.Screen

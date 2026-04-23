@@ -2,7 +2,7 @@ import { renderHook } from '@testing-library/react'
 
 import {
   CategoriesMapModelBuilder,
-  CityModelBuilder,
+  RegionModelBuilder,
   EventModelBuilder,
   LanguageModelBuilder,
   PoiModelBuilder,
@@ -25,17 +25,17 @@ describe('useLoadSearchDocuments', () => {
     jest.clearAllMocks()
   })
 
-  const cityCode = new CityModelBuilder(1).build()[0]!.code
+  const regionCode = new RegionModelBuilder(1).build()[0]!.code
   const languageCode = new LanguageModelBuilder(1).build()[0]!.code
-  const categories = new CategoriesMapModelBuilder(cityCode, languageCode).build()
-  const events = new EventModelBuilder('seed', 2, cityCode, languageCode).build()
+  const categories = new CategoriesMapModelBuilder(regionCode, languageCode).build()
+  const events = new EventModelBuilder('seed', 2, regionCode, languageCode).build()
   const locations = new PoiModelBuilder(3).build()
 
   it('should return the correct results', () => {
     mockUseLoadFromEndpointOnceWithData(categories)
     mockUseLoadFromEndpointOnceWithData(events)
     mockUseLoadFromEndpointOnceWithData(locations)
-    const { result } = renderHook(() => useLoadSearchDocuments({ cityCode, languageCode, cmsApiBaseUrl: '' }))
+    const { result } = renderHook(() => useLoadSearchDocuments({ regionCode, languageCode, cmsApiBaseUrl: '' }))
     const { data } = result.current
     expect(data).toHaveLength(17)
     expect(data[0]?.title).toBe('Category with id 0')
@@ -48,7 +48,7 @@ describe('useLoadSearchDocuments', () => {
     mockUseLoadFromEndpointOnceWithData(categories)
     mockUseLoadFromEndpointLoading({ data: events })
     mockUseLoadFromEndpointOnceWithData(locations)
-    const { result } = renderHook(() => useLoadSearchDocuments({ cityCode, languageCode, cmsApiBaseUrl: '' }))
+    const { result } = renderHook(() => useLoadSearchDocuments({ regionCode, languageCode, cmsApiBaseUrl: '' }))
     const { loading } = result.current
     expect(loading).toBe(true)
   })
@@ -58,7 +58,7 @@ describe('useLoadSearchDocuments', () => {
     mockUseLoadFromEndpointOnceWithData(events)
     const errorMessage = 'no pois found'
     mockUseLoadFromEndpointWithError(errorMessage)
-    const { result } = renderHook(() => useLoadSearchDocuments({ cityCode, languageCode, cmsApiBaseUrl: '' }))
+    const { result } = renderHook(() => useLoadSearchDocuments({ regionCode, languageCode, cmsApiBaseUrl: '' }))
     const { error } = result.current
     expect(error).toStrictEqual(new Error(errorMessage))
   })

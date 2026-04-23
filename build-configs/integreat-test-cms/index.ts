@@ -15,7 +15,7 @@ const integreatTestCms = {
     introSlides: true,
     sentry: false,
     developerFriendly: true,
-    fixedCity: null,
+    fixedRegion: null,
     suggestToRegion: {
       template: suggestToRegionTemplate,
       icon: '/suggest-to-region.svg',

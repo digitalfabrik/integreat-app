@@ -1,6 +1,6 @@
 import LanguageModel from '../models/LanguageModel'
 import RegionModel from '../models/RegionModel'
-import { JsonCityType, JsonLanguageType } from '../types'
+import { JsonRegionType, JsonLanguageType } from '../types'
 
 const stripSlashes = (path: string): string => {
   let code = path
@@ -20,7 +20,7 @@ const mapLanguagesJson = (json: JsonLanguageType[]) =>
     .map((language: JsonLanguageType) => new LanguageModel(language.code, language.native_name))
     .sort((lang1, lang2) => lang1.code.localeCompare(lang2.code))
 
-const mapRegionJson = (json: JsonCityType): RegionModel =>
+const mapRegionJson = (json: JsonRegionType): RegionModel =>
   new RegionModel({
     name: json.name,
     code: stripSlashes(json.path),

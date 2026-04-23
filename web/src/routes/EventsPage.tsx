@@ -9,7 +9,7 @@ import { useParams } from 'react-router'
 import { EVENTS_ROUTE, pathnameFromRouteInformation, useDateFilter } from 'shared'
 import { createEventsEndpoint, NotFoundError, useLoadFromEndpoint } from 'shared/api'
 
-import { CityRouteProps } from '../RegionContentNavigator'
+import { RegionRouteProps } from '../RegionContentNavigator'
 import DatesPageDetail from '../components/DatesPageDetail'
 import EventListItem, { Icon } from '../components/EventListItem'
 import EventsDateFilter from '../components/EventsDateFilter'
@@ -18,7 +18,7 @@ import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Helmet from '../components/Helmet'
 import Page, { THUMBNAIL_WIDTH } from '../components/Page'
 import PageDetail from '../components/PageDetail'
-import RegionContentLayout, { CityContentLayoutProps } from '../components/RegionContentLayout'
+import RegionContentLayout, { RegionContentLayoutProps } from '../components/RegionContentLayout'
 import RegionContentToolbar from '../components/RegionContentToolbar'
 import SkeletonList from '../components/SkeletonList'
 import SkeletonPage from '../components/SkeletonPage'
@@ -38,12 +38,12 @@ const Spacing = styled('div')<{ content: string; lastUpdate?: DateTime }>`
   gap: 8px;
 `
 
-const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps): ReactElement | null => {
+const EventsPage = ({ region, pathname, languageCode, regionCode }: RegionRouteProps): ReactElement | null => {
   const { eventId } = useParams()
   const { t } = useTranslation('events')
 
   const { data: events, error } = useLoadFromEndpoint(createEventsEndpoint, cmsApiBaseUrl, {
-    city: cityCode,
+    region: regionCode,
     language: languageCode,
   })
   const { startDate, setStartDate, endDate, setEndDate, filteredEvents, startDateError } = useDateFilter(events)
@@ -54,17 +54,17 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
   useTtsPlayer(event, languageCode)
   useJsonLd(event ? createJsonLdEvent(event) : null)
 
-  if (!city) {
+  if (!region) {
     return null
   }
 
-  const languageChangePaths = city.languages.map(({ code, name }) => {
+  const languageChangePaths = region.languages.map(({ code, name }) => {
     const isCurrentLanguage = code === languageCode
     const path =
       event?.availableLanguages[code] ??
       pathnameFromRouteInformation({
         route: EVENTS_ROUTE,
-        cityCode,
+        regionCode,
         languageCode: code,
       })
     return {
@@ -74,10 +74,10 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     }
   })
 
-  const pageTitle = `${event?.title ?? t('pageTitle')} - ${city.name}`
+  const pageTitle = `${event?.title ?? t('pageTitle')} - ${region.name}`
 
-  const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
-    city,
+  const locationLayoutParams: Omit<RegionContentLayoutProps, 'isLoading'> = {
+    region,
     languageChangePaths,
     languageCode,
     pageTitle,
@@ -102,7 +102,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
     }
 
     if (!event) {
-      const error = new NotFoundError({ type: 'event', id: pathname, city: cityCode, language: languageCode })
+      const error = new NotFoundError({ type: 'event', id: pathname, region: regionCode, language: languageCode })
       return (
         <RegionContentLayout isLoading={false} {...locationLayoutParams}>
           <FailureSwitcherWithHelmet error={error} />
@@ -113,7 +113,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
 
     return (
       <RegionContentLayout isLoading={false} {...locationLayoutParams}>
-        <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
+        <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} regionModel={region} />
         <Page
           thumbnailSrcSet={featuredImage ? featuredImageToSrcSet(featuredImage, THUMBNAIL_WIDTH) : undefined}
           lastUpdate={lastUpdate}
@@ -153,7 +153,7 @@ const EventsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps):
 
   return (
     <RegionContentLayout isLoading={false} {...locationLayoutParams}>
-      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
+      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} regionModel={region} />
       <H1>{t('events')}</H1>
       <EventsDateFilter
         startDate={startDate}

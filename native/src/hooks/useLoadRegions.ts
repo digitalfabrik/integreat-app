@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 
-import { CityModel, createCitiesEndpoint, ReturnType, useLoadAsync, fromError } from 'shared/api'
+import { RegionModel, createRegionsEndpoint, ReturnType, useLoadAsync, fromError } from 'shared/api'
 
 import { SnackbarType } from '../components/SnackbarContainer'
 import dataContainer from '../utils/DefaultDataContainer'
@@ -13,17 +13,17 @@ const loadWithCache = async ({
 }: {
   forceUpdate?: boolean
   showSnackbar: (snackbar: SnackbarType) => void
-}): Promise<CityModel[] | null> => {
-  const cachedData = (await dataContainer.citiesAvailable()) ? await dataContainer.getCities() : null
+}): Promise<RegionModel[] | null> => {
+  const cachedData = (await dataContainer.regionsAvailable()) ? await dataContainer.getRegions() : null
 
   if (!forceUpdate && cachedData) {
     return cachedData
   }
 
   try {
-    const payload = await createCitiesEndpoint(await determineApiUrl()).request()
+    const payload = await createRegionsEndpoint(await determineApiUrl()).request()
     if (payload.data) {
-      await dataContainer.setCities(payload.data)
+      await dataContainer.setRegions(payload.data)
     }
     return payload.data ?? cachedData
   } catch (e) {
@@ -37,7 +37,7 @@ const loadWithCache = async ({
   return cachedData
 }
 
-const useLoadRegions = (): ReturnType<CityModel[]> => {
+const useLoadRegions = (): ReturnType<RegionModel[]> => {
   const showSnackbar = useSnackbar()
   return useLoadAsync(useCallback(forceUpdate => loadWithCache({ showSnackbar, forceUpdate }), [showSnackbar]))
 }

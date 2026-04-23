@@ -19,14 +19,14 @@ const LANGUAGES = ['de', 'en', 'ar']
 class EventModelBuilder {
   _eventCount: number
   _seed: string
-  _city: string
+  _region: string
   _language: string
   _recurring: boolean
 
-  constructor(seed: string, eventCount: number, city: string, language: string, recurring?: boolean) {
+  constructor(seed: string, eventCount: number, region: string, language: string, recurring?: boolean) {
     this._seed = seed
     this._eventCount = eventCount
-    this._city = city
+    this._region = region
     this._language = language
     this._recurring = recurring ?? false
   }
@@ -50,7 +50,7 @@ class EventModelBuilder {
   createResource(url: string, index: number, lastUpdate: DateTime): PageResourceCacheEntryStateType {
     const hash = sha256(url)
     return {
-      filePath: `path/to/documentDir/resource-cache/v1/${this._city}/files/${hash}.png`,
+      filePath: `path/to/documentDir/resource-cache/v1/${this._region}/files/${hash}.png`,
       lastUpdate: lastUpdate.plus({ days: this._predictableNumber(index) }),
       hash,
     }
@@ -77,7 +77,7 @@ class EventModelBuilder {
         const startDate = mockDate.plus({ years: this._predictableNumber(index) }).set({ millisecond: 0 })
         const endDate = mockDate.plus({ hours: this._predictableNumber(index) }).set({ millisecond: 0 })
         const lastUpdate = mockDate.minus({ months: this._predictableNumber(index) }).set({ millisecond: 0 })
-        const path = `/${this._city}/${this._language}/events/event${index}`
+        const path = `/${this._region}/${this._language}/events/event${index}`
         const resourceUrl1 = `https://cms.integreat-app.de/title_${index}-300x300.png`
         const resourceUrl2 = `https://cms.integreat-app.de/event_${index}-300x300.png`
         const thumbnail = `https://cms.integreat-app.de/thumbnails/event_${index}.png`
@@ -90,7 +90,7 @@ class EventModelBuilder {
             availableLanguages: LANGUAGES.filter(language => language !== this._language).reduce(
               (availableLanguages, code) => ({
                 ...availableLanguages,
-                [code]: `/${this._city}/${code}/events/event${index}`,
+                [code]: `/${this._region}/${code}/events/event${index}`,
               }),
               {},
             ),

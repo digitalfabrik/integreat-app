@@ -24,13 +24,13 @@ describe('useNavigateToDeepLink', () => {
   mocked(useSnackbar).mockImplementation(() => showSnackbar)
   mocked(useNavigate).mockImplementation(() => ({ navigateTo, navigation }))
 
-  const changeCityCode = jest.fn()
+  const changeRegionCode = jest.fn()
   const updateSettings = jest.fn()
   const selectedLanguageCode = 'de'
 
   const mockBuildConfig = (featureFlags: Partial<FeatureFlagsType>) => {
     const previous = buildConfig()
-    // @ts-expect-error passing only a partial of fixed city type leads to ts errors that are irrelevant for testing though
+    // @ts-expect-error passing only a partial of fixed region type leads to ts errors that are irrelevant for testing though
     mockedBuildConfig.mockImplementation(() => ({
       ...previous,
       featureFlags: { ...previous.featureFlags, ...featureFlags },
@@ -48,20 +48,20 @@ describe('useNavigateToDeepLink', () => {
 
   const renderMockComponent = ({
     url,
-    cityCode = null,
+    regionCode = null,
     languageCode = selectedLanguageCode,
     introShown = false,
   }: {
     url: string
-    cityCode?: string | null
+    regionCode?: string | null
     languageCode?: string
     introShown?: boolean
   }) =>
     render(
       <TestingAppContext
-        cityCode={cityCode}
+        regionCode={regionCode}
         languageCode={languageCode}
-        changeCityCode={changeCityCode}
+        changeRegionCode={changeRegionCode}
         updateSettings={updateSettings}
         settings={{ introShown }}>
         <MockComponent url={url} />
@@ -75,43 +75,43 @@ describe('useNavigateToDeepLink', () => {
   describe('landing deep links', () => {
     const url = 'https://integreat.app'
 
-    it('should navigate to landing if no city is selected and intro slides already shown', async () => {
-      mockBuildConfig({ introSlides: false, fixedCity: null })
+    it('should navigate to landing if no region is selected and intro slides already shown', async () => {
+      mockBuildConfig({ introSlides: false, fixedRegion: null })
       renderMockComponent({ url, introShown: true })
 
       await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
       expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: LANDING_ROUTE }] })
 
       expect(navigateTo).not.toHaveBeenCalled()
-      expect(changeCityCode).not.toHaveBeenCalled()
+      expect(changeRegionCode).not.toHaveBeenCalled()
     })
 
-    it('should navigate to landing if no city is selected and intro slides disabled', async () => {
-      mockBuildConfig({ introSlides: false, fixedCity: null })
+    it('should navigate to landing if no region is selected and intro slides disabled', async () => {
+      mockBuildConfig({ introSlides: false, fixedRegion: null })
       renderMockComponent({ url })
 
       await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
       expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: LANDING_ROUTE }] })
 
       expect(navigateTo).not.toHaveBeenCalled()
-      expect(changeCityCode).not.toHaveBeenCalled()
+      expect(changeRegionCode).not.toHaveBeenCalled()
     })
 
-    it('should navigate to dashboard if there is a fixed city and intro slides already shown', async () => {
-      const fixedCity = 'aschaffenburg'
-      mockBuildConfig({ introSlides: false, fixedCity })
+    it('should navigate to dashboard if there is a fixed region and intro slides already shown', async () => {
+      const fixedRegion = 'aschaffenburg'
+      mockBuildConfig({ introSlides: false, fixedRegion })
       renderMockComponent({ url, introShown: true })
 
       await waitFor(() => expect(navigateTo).toHaveBeenCalledTimes(1))
       expect(navigation.reset).not.toHaveBeenCalled()
-      expect(changeCityCode).toHaveBeenCalledTimes(1)
-      expect(changeCityCode).toHaveBeenCalledWith('aschaffenburg')
+      expect(changeRegionCode).toHaveBeenCalledTimes(1)
+      expect(changeRegionCode).toHaveBeenCalledWith('aschaffenburg')
     })
 
-    it('should navigate to dashboard if there is already a selected city', async () => {
-      const selectedCity = 'nuernberg'
-      mockBuildConfig({ introSlides: false, fixedCity: null })
-      renderMockComponent({ url, cityCode: selectedCity })
+    it('should navigate to dashboard if there is already a selected region', async () => {
+      const selectedRegion = 'nuernberg'
+      mockBuildConfig({ introSlides: false, fixedRegion: null })
+      renderMockComponent({ url, regionCode: selectedRegion })
 
       await waitFor(() => expect(navigateTo).toHaveBeenCalledTimes(1))
       expect(navigateTo).toHaveBeenCalledWith({
@@ -119,60 +119,60 @@ describe('useNavigateToDeepLink', () => {
         languageCode: selectedLanguageCode,
       })
 
-      expect(changeCityCode).not.toHaveBeenCalled()
+      expect(changeRegionCode).not.toHaveBeenCalled()
     })
   })
 
   describe('dashboard deep links', () => {
-    const cityCode = `muenchen`
-    const url = `https://integreat.app/${cityCode}/${selectedLanguageCode}`
+    const regionCode = `muenchen`
+    const url = `https://integreat.app/${regionCode}/${selectedLanguageCode}`
 
-    it('should navigate to dashboard if intro slides already shown and no city is selected', async () => {
-      mockBuildConfig({ introSlides: false, fixedCity: null })
+    it('should navigate to dashboard if intro slides already shown and no region is selected', async () => {
+      mockBuildConfig({ introSlides: false, fixedRegion: null })
       renderMockComponent({ url, introShown: true })
 
       await waitFor(() => expect(navigateTo).toHaveBeenCalledTimes(1))
       expect(navigation.reset).not.toHaveBeenCalled()
-      expect(changeCityCode).toHaveBeenCalledTimes(1)
-      expect(changeCityCode).toHaveBeenCalledWith(cityCode)
+      expect(changeRegionCode).toHaveBeenCalledTimes(1)
+      expect(changeRegionCode).toHaveBeenCalledWith(regionCode)
     })
 
-    it('should navigate to dashboard and use current language if intro slides already shown and no city is selected', async () => {
-      const url = `https://integreat.app/${cityCode}`
-      mockBuildConfig({ introSlides: false, fixedCity: null })
+    it('should navigate to dashboard and use current language if intro slides already shown and no region is selected', async () => {
+      const url = `https://integreat.app/${regionCode}`
+      mockBuildConfig({ introSlides: false, fixedRegion: null })
       renderMockComponent({ url, introShown: true })
 
       await waitFor(() => expect(navigateTo).toHaveBeenCalledTimes(1))
       expect(navigation.reset).not.toHaveBeenCalled()
-      expect(changeCityCode).toHaveBeenCalledTimes(1)
-      expect(changeCityCode).toHaveBeenCalledWith(cityCode)
+      expect(changeRegionCode).toHaveBeenCalledTimes(1)
+      expect(changeRegionCode).toHaveBeenCalledWith(regionCode)
     })
 
-    it('should open selected city dashboard and call navigateTo if city code in link differs', async () => {
-      const selectedCity = 'testumgebung'
-      mockBuildConfig({ introSlides: false, fixedCity: null })
-      renderMockComponent({ url, cityCode: selectedCity, introShown: true })
+    it('should open selected region dashboard and call navigateTo if region code in link differs', async () => {
+      const selectedRegion = 'testumgebung'
+      mockBuildConfig({ introSlides: false, fixedRegion: null })
+      renderMockComponent({ url, regionCode: selectedRegion, introShown: true })
 
       await waitFor(() => expect(navigateTo).toHaveBeenCalledTimes(1))
       expect(navigation.reset).not.toHaveBeenCalled()
-      expect(changeCityCode).not.toHaveBeenCalled()
+      expect(changeRegionCode).not.toHaveBeenCalled()
     })
 
-    it('should open selected city dashboard and call navigateTo if language code in link differs', async () => {
-      const selectedCity = 'testumgebung'
+    it('should open selected region dashboard and call navigateTo if language code in link differs', async () => {
+      const selectedRegion = 'testumgebung'
       const languageCode = 'ar'
-      const url = `https://integreat.app/${selectedCity}/${languageCode}`
-      mockBuildConfig({ introSlides: false, fixedCity: null })
-      renderMockComponent({ url, cityCode: selectedCity, introShown: true })
+      const url = `https://integreat.app/${selectedRegion}/${languageCode}`
+      mockBuildConfig({ introSlides: false, fixedRegion: null })
+      renderMockComponent({ url, regionCode: selectedRegion, introShown: true })
 
       await waitFor(() => expect(navigateTo).toHaveBeenCalledTimes(1))
       expect(navigation.reset).not.toHaveBeenCalled()
-      expect(changeCityCode).not.toHaveBeenCalled()
+      expect(changeRegionCode).not.toHaveBeenCalled()
     })
 
-    it('should not navigate to link if fixed city differs from link city', async () => {
-      const fixedCity = 'aschaffenburg'
-      mockBuildConfig({ introSlides: false, fixedCity })
+    it('should not navigate to link if fixed region differs from link region', async () => {
+      const fixedRegion = 'aschaffenburg'
+      mockBuildConfig({ introSlides: false, fixedRegion })
       renderMockComponent({ url })
 
       await waitFor(() => expect(showSnackbar).toHaveBeenCalledTimes(1))
@@ -180,33 +180,33 @@ describe('useNavigateToDeepLink', () => {
 
       expect(navigation.reset).not.toHaveBeenCalled()
       expect(navigateTo).not.toHaveBeenCalled()
-      expect(changeCityCode).not.toHaveBeenCalled()
+      expect(changeRegionCode).not.toHaveBeenCalled()
     })
   })
 
-  describe('city content deep links', () => {
-    const cityCode = `muenchen`
+  describe('region content deep links', () => {
+    const regionCode = `muenchen`
     const languageCode = `ar`
 
     it('should open dashboard and navigate to events route if intro slides already shown', async () => {
-      const url = `https://integreat.app/${cityCode}/${languageCode}/events/some-event`
-      mockBuildConfig({ introSlides: false, fixedCity: null })
-      renderMockComponent({ url, cityCode, introShown: true })
+      const url = `https://integreat.app/${regionCode}/${languageCode}/events/some-event`
+      mockBuildConfig({ introSlides: false, fixedRegion: null })
+      renderMockComponent({ url, regionCode, introShown: true })
 
       await waitFor(() => expect(navigateTo).toHaveBeenCalledTimes(1))
       expect(navigation.reset).not.toHaveBeenCalled()
-      expect(changeCityCode).not.toHaveBeenCalled()
+      expect(changeRegionCode).not.toHaveBeenCalled()
     })
 
-    it('should open selected city dashboard and navigate to route', async () => {
-      const selectedCity = 'testumgebung'
-      const url = `https://integreat.app/${cityCode}/en/news`
-      mockBuildConfig({ introSlides: false, fixedCity: null })
-      renderMockComponent({ url, cityCode: selectedCity, introShown: true })
+    it('should open selected region dashboard and navigate to route', async () => {
+      const selectedRegion = 'testumgebung'
+      const url = `https://integreat.app/${regionCode}/en/news`
+      mockBuildConfig({ introSlides: false, fixedRegion: null })
+      renderMockComponent({ url, regionCode: selectedRegion, introShown: true })
 
       await waitFor(() => expect(navigateTo).toHaveBeenCalledTimes(1))
       expect(navigation.reset).not.toHaveBeenCalled()
-      expect(changeCityCode).not.toHaveBeenCalled()
+      expect(changeRegionCode).not.toHaveBeenCalled()
     })
   })
 })

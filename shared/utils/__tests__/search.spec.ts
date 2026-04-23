@@ -1,16 +1,16 @@
-import { filterSortCities } from '../..'
+import { filterSortRegions } from '../..'
 import LanguageModelBuilder from '../../api/endpoints/testing/LanguageModelBuilder'
 import RegionModel from '../../api/models/RegionModel'
 
 describe('search', () => {
-  describe('filterSortCities', () => {
+  describe('filterSortRegions', () => {
     const defaultAliases: Record<string, { latitude: number; longitude: number }> = {
       Königsbrunn: {
         latitude: 48.267499,
         longitude: 10.889586,
       },
     }
-    const city = ({ prefix = 'Stadt', sortingName = 'Augsburg', live = true, aliases = defaultAliases }) =>
+    const region = ({ prefix = 'Stadt', sortingName = 'Augsburg', live = true, aliases = defaultAliases }) =>
       new RegionModel({
         name: [prefix, sortingName].join(' '),
         code: sortingName.toLowerCase(),
@@ -31,63 +31,63 @@ describe('search', () => {
       })
 
     it('should sort by sorting name', () => {
-      const cities = [
-        city({ sortingName: 'Günzburg' }),
-        city({ sortingName: 'Dillingen' }),
-        city({ sortingName: 'Augsburg' }),
-        city({ sortingName: 'Aichach' }),
+      const regions = [
+        region({ sortingName: 'Günzburg' }),
+        region({ sortingName: 'Dillingen' }),
+        region({ sortingName: 'Augsburg' }),
+        region({ sortingName: 'Aichach' }),
       ]
-      expect(filterSortCities(cities, '')).toEqual([cities[3], cities[2], cities[1], cities[0]])
+      expect(filterSortRegions(regions, '')).toEqual([regions[3], regions[2], regions[1], regions[0]])
     })
 
     it('should sort by prefix if sorting names are equal', () => {
-      const cities = [
-        city({ sortingName: 'Dillingen' }),
-        city({ sortingName: 'Augsburg', prefix: 'Stadt' }),
-        city({ sortingName: 'Augsburg', prefix: '' }),
-        city({ sortingName: 'Aichach' }),
-        city({ sortingName: 'Augsburg', prefix: 'Landkreis' }),
+      const regions = [
+        region({ sortingName: 'Dillingen' }),
+        region({ sortingName: 'Augsburg', prefix: 'Stadt' }),
+        region({ sortingName: 'Augsburg', prefix: '' }),
+        region({ sortingName: 'Aichach' }),
+        region({ sortingName: 'Augsburg', prefix: 'Landkreis' }),
       ]
-      expect(filterSortCities(cities, '')).toEqual([cities[3], cities[2], cities[4], cities[1], cities[0]])
+      expect(filterSortRegions(regions, '')).toEqual([regions[3], regions[2], regions[4], regions[1], regions[0]])
     })
 
-    it('should only keep live and valid cities', () => {
-      const cities = [
-        city({ sortingName: 'Aichach', live: true }),
-        city({ sortingName: 'Augsburg', live: false }),
-        city({ sortingName: 'Augsburg', prefix: 'Stadt', live: true }),
-        city({ sortingName: 'Dillingen', live: false }),
+    it('should only keep live and valid regions', () => {
+      const regions = [
+        region({ sortingName: 'Aichach', live: true }),
+        region({ sortingName: 'Augsburg', live: false }),
+        region({ sortingName: 'Augsburg', prefix: 'Stadt', live: true }),
+        region({ sortingName: 'Dillingen', live: false }),
       ]
-      expect(filterSortCities(cities, '')).toEqual([cities[0], cities[2]])
+      expect(filterSortRegions(regions, '')).toEqual([regions[0], regions[2]])
     })
 
-    it('should return all valid matching cities if developer friendly', () => {
-      const cities = [
-        city({ sortingName: 'Aichach', live: true }),
-        city({ sortingName: 'Augsburg', live: false }),
-        city({ sortingName: 'Augsburg', prefix: 'Stadt', live: true }),
-        city({ sortingName: 'Dillingen', live: false }),
+    it('should return all valid matching regions if developer friendly', () => {
+      const regions = [
+        region({ sortingName: 'Aichach', live: true }),
+        region({ sortingName: 'Augsburg', live: false }),
+        region({ sortingName: 'Augsburg', prefix: 'Stadt', live: true }),
+        region({ sortingName: 'Dillingen', live: false }),
       ]
-      expect(filterSortCities(cities, 'a', true)).toEqual([cities[0], cities[1], cities[2], cities[3]])
+      expect(filterSortRegions(regions, 'a', true)).toEqual([regions[0], regions[1], regions[2], regions[3]])
     })
 
-    it('should return all non live cities if filter text is wirschaffendas', () => {
-      const cities = [
-        city({ sortingName: 'Aichach', live: true }),
-        city({ sortingName: 'Augsburg', live: false }),
-        city({ sortingName: 'Augsburg', prefix: 'Stadt', live: true }),
-        city({ sortingName: 'Dillingen', live: false }),
+    it('should return all non live regions if filter text is wirschaffendas', () => {
+      const regions = [
+        region({ sortingName: 'Aichach', live: true }),
+        region({ sortingName: 'Augsburg', live: false }),
+        region({ sortingName: 'Augsburg', prefix: 'Stadt', live: true }),
+        region({ sortingName: 'Dillingen', live: false }),
       ]
-      expect(filterSortCities(cities, 'wirschaffendas', true)).toEqual([cities[1], cities[3]])
+      expect(filterSortRegions(regions, 'wirschaffendas', true)).toEqual([regions[1], regions[3]])
     })
 
-    it('should only return live cities with matching names or aliases', () => {
-      const cities = [
-        city({ sortingName: 'Aichach' }),
-        city({ sortingName: 'Aichach', prefix: 'Landkreis', live: false }),
-        city({ sortingName: 'Augsburg', prefix: 'Stadt' }),
-        city({ sortingName: 'Dachau' }),
-        city({
+    it('should only return live regions with matching names or aliases', () => {
+      const regions = [
+        region({ sortingName: 'Aichach' }),
+        region({ sortingName: 'Aichach', prefix: 'Landkreis', live: false }),
+        region({ sortingName: 'Augsburg', prefix: 'Stadt' }),
+        region({ sortingName: 'Dachau' }),
+        region({
           sortingName: 'Dillingen',
           aliases: {
             Bächingen: {
@@ -96,7 +96,7 @@ describe('search', () => {
             },
           },
         }),
-        city({
+        region({
           sortingName: 'Friedberg',
           aliases: {
             Bachern: {
@@ -105,9 +105,9 @@ describe('search', () => {
             },
           },
         }),
-        city({ sortingName: 'Nürnberg' }),
+        region({ sortingName: 'Nürnberg' }),
       ]
-      expect(filterSortCities(cities, 'äch')).toEqual([cities[0], cities[3], cities[4], cities[5]])
+      expect(filterSortRegions(regions, 'äch')).toEqual([regions[0], regions[3], regions[4], regions[5]])
     })
   })
 })

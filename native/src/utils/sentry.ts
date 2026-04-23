@@ -59,7 +59,7 @@ export const log = (
 }
 
 // https://github.com/digitalfabrik/integreat-app/issues/1759
-const storeLastUpdate = 'cannot store last update for unused city'
+const storeLastUpdate = 'cannot store last update for unused region'
 // https://github.com/digitalfabrik/integreat-app/issues/3112
 const noTtsEngineInstalled = 'No TTS engine installed'
 const expectedErrors = [storeLastUpdate, noTtsEngineInstalled]

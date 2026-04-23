@@ -7,7 +7,7 @@ import { SvgUri } from 'react-native-svg'
 import styled from 'styled-components/native'
 
 import { PoisRouteType, isMultipoi, LocationType, MapFeature, preparePois, safeParseInt, sortPois } from 'shared'
-import { PoiCategoryModel, CityModel, PoiModel } from 'shared/api'
+import { PoiCategoryModel, RegionModel, PoiModel } from 'shared/api'
 
 import { EditLocationIcon } from '../assets'
 import MapView from '../components/MapView'
@@ -32,12 +32,12 @@ const SNAP_POINT_MID_PERCENTAGE = 0.35
 
 type PoisProps = {
   pois: PoiModel[]
-  cityModel: CityModel
+  regionModel: RegionModel
   route: RouteProps<PoisRouteType>
   navigation: NavigationProps<PoisRouteType>
 }
 
-const Pois = ({ pois: allPois, cityModel, route, navigation }: PoisProps): ReactElement => {
+const Pois = ({ pois: allPois, regionModel, route, navigation }: PoisProps): ReactElement => {
   const { slug, multipoi, poiCategoryId, zoom } = route.params
   const [deselectOnBackNavigation, setDeselectOnBackNavigation] = useState(slug === undefined && multipoi === undefined)
   const [poiCurrentlyOpenFilter, setPoiCurrentlyOpenFilter] = useState(false)
@@ -168,7 +168,7 @@ const Pois = ({ pois: allPois, cityModel, route, navigation }: PoisProps): React
       />
       <MapView
         selectFeature={selectMapFeature}
-        boundingBox={cityModel.boundingBox}
+        boundingBox={regionModel.boundingBox}
         features={mapFeatures}
         selectedFeature={mapFeature ?? null}
         bottomSheetHeight={bottomSheetHeight}

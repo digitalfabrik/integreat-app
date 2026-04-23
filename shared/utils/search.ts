@@ -1,25 +1,28 @@
 import RegionModel from '../api/models/RegionModel'
 import { normalizeString } from './normalizeString'
 
-const cityFilter =
+const regionFilter =
   (filterText: string, developerFriendly: boolean) =>
-  (cityModel: RegionModel): boolean => {
+  (regionModel: RegionModel): boolean => {
     const normalizedFilter = normalizeString(filterText)
     if (normalizedFilter === 'wirschaffendas') {
-      return !cityModel.live
+      return !regionModel.live
     }
 
-    const validCity = cityModel.live || developerFriendly
-    const aliases = Object.keys(cityModel.aliases ?? {})
-    const matchesFilter = [cityModel.name, ...aliases].some(it => normalizeString(it).includes(normalizedFilter))
-    return validCity && matchesFilter
+    const validRegion = regionModel.live || developerFriendly
+    const aliases = Object.keys(regionModel.aliases ?? {})
+    const matchesFilter = [regionModel.name, ...aliases].some(it => normalizeString(it).includes(normalizedFilter))
+    return validRegion && matchesFilter
   }
 
 const safeLocaleCompare = (a: string | null | undefined, b: string | null | undefined): number =>
   (a ?? '').localeCompare(b ?? '')
 
-const citySort = (a: RegionModel, b: RegionModel): number =>
+const regionSort = (a: RegionModel, b: RegionModel): number =>
   safeLocaleCompare(a.sortingName, b.sortingName) || safeLocaleCompare(a.prefix, b.prefix)
 
-export const filterSortCities = (cities: RegionModel[], filterText: string, developerFriendly = false): RegionModel[] =>
-  cities.filter(cityFilter(filterText, developerFriendly)).sort(citySort)
+export const filterSortRegions = (
+  regions: RegionModel[],
+  filterText: string,
+  developerFriendly = false,
+): RegionModel[] => regions.filter(regionFilter(filterText, developerFriendly)).sort(regionSort)

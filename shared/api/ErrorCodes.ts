@@ -4,7 +4,7 @@ import NotFoundError from './errors/NotFoundError'
 import ResponseError from './errors/ResponseError'
 
 export enum ErrorCode {
-  CityUnavailable = 'cityUnavailable',
+  RegionUnavailable = 'regionUnavailable',
   LanguageUnavailable = 'languageUnavailable',
   PageNotFound = 'pageNotFound',
   NetworkConnectionFailed = 'networkConnectionFailed',
