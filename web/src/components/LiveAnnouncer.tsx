@@ -1,6 +1,8 @@
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
+// Hide the content visually, but make it accessible to screen-readers
+// https://www.a11y-collective.com/blog/visually-hidden/
 const VisuallyHidden = styled('div')(() => ({
   border: 0,
   clip: 'rect(0 0 0 0)',
