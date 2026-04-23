@@ -66,7 +66,9 @@ describe('ChangeLanguageModal', () => {
   })
 
   it('should open unavailable dialog if language is neither available nor selected', () => {
-    const { getByText } = renderChangeLanguageModel()
+    const { getByText, queryByText } = renderChangeLanguageModel()
+
+    expect(queryByText('noTranslation')).toBeNull()
 
     fireEvent.press(getByText(unavailableLanguage.name))
 
