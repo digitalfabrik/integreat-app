@@ -8,7 +8,7 @@ import { CityModel } from 'shared/api'
 
 import CitySelector from '../components/CitySelector'
 import SuggestToRegionFooter from '../components/SuggestToRegionFooter'
-import SwitchCmsUrlIcon from '../components/SwitchCmsUrlIcon'
+import SwitchCmsUrlButton from '../components/SwitchCmsUrlButton'
 import Text from '../components/base/Text'
 import { NavigationProps } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
@@ -54,7 +54,7 @@ const Landing = ({ navigation }: LandingProps): ReactElement => {
       {cities && (
         <>
           <Wrapper {...testID('Landing-Page')}>
-            <SwitchCmsUrlIcon clearResourcesAndCache={clearResourcesAndCache} />
+            <SwitchCmsUrlButton clearResourcesAndCache={clearResourcesAndCache} />
             <Text variant='h3'>{t('welcome', { appName: buildConfig().appName })}</Text>
             <Text variant='body2'>{t('welcomeInformation')}</Text>
             <CitySelector cities={cities} navigateToDashboard={navigateToDashboard} />
