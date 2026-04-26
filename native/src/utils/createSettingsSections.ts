@@ -1,5 +1,6 @@
 import * as Sentry from '@sentry/react-native'
 import { TFunction } from 'i18next'
+import { DateTime } from 'luxon'
 import { Role } from 'react-native'
 import { openSettings } from 'react-native-permissions'
 
@@ -14,7 +15,7 @@ import { AppContextType } from '../contexts/AppContext'
 import { SettingsType } from './AppSettings'
 import { requestPushNotificationPermission, subscribeNews, unsubscribeNews } from './PushNotificationsManager'
 import openExternalUrl from './openExternalUrl'
-import { initSentry } from './sentry'
+import { initSentry, log } from './sentry'
 
 export type SettingsSectionType = {
   title: string
@@ -26,17 +27,18 @@ export type SettingsSectionType = {
   getSettingValue?: (settings: SettingsType) => boolean | null
 }
 
-const volatileValues = {
-  versionTaps: 0,
-}
-
-const TRIGGER_VERSION_TAPS = 25
+const TRIGGER_VERSION_TAPS = 10
+const TAP_TIMEOUT = 8
 
 type CreateSettingsSectionsProps = {
   appContext: AppContextType
   navigation: NavigationProps<SettingsRouteType>
   showSnackbar: (snackbar: SnackbarType) => void
   t: TFunction<'error'>
+  tapCount: number
+  setTapCount: (count: number) => void
+  tapStart: DateTime | null
+  setTapStart: (start: DateTime | null) => void
 }
 
 const createSettingsSections = ({
@@ -44,21 +46,35 @@ const createSettingsSections = ({
   navigation,
   showSnackbar,
   t,
-}: CreateSettingsSectionsProps): (SettingsSectionType | null)[] => [
-  {
-    title: t('pushNewsTitle'),
-    description: t('pushNewsDescription'),
-    getSettingValue: (settings: SettingsType) => settings.allowPushNotifications,
-    onPress: async () => {
-      const newAllowPushNotifications = !settings.allowPushNotifications
-      updateSettings({ allowPushNotifications: newAllowPushNotifications })
-      if (!regionCode) {
-        return
-      }
-      if (!newAllowPushNotifications) {
-        await unsubscribeNews(regionCode, languageCode)
-        return
-      }
+  tapCount,
+  setTapCount,
+  tapStart,
+  setTapStart,
+}: CreateSettingsSectionsProps): (SettingsSectionType | null)[] => {
+  const { cmsUrl, switchCmsUrl } = buildConfig()
+  const { apiUrlOverride } = settings
+
+  const setApiUrl = (newApiUrl: string) => {
+    updateSettings({ apiUrlOverride: newApiUrl })
+    setTapCount(0)
+    setTapStart(null)
+  }
+
+  return [
+    {
+      title: t('pushNewsTitle'),
+      description: t('pushNewsDescription'),
+      getSettingValue: (settings: SettingsType) => settings.allowPushNotifications,
+      onPress: async () => {
+        const newAllowPushNotifications = !settings.allowPushNotifications
+        updateSettings({ allowPushNotifications: newAllowPushNotifications })
+        if (!regionCode) {
+          return
+        }
+        if (!newAllowPushNotifications) {
+          await unsubscribeNews(regionCode, languageCode)
+          return
+        }
 
       const status = await requestPushNotificationPermission(updateSettings)
 
@@ -159,14 +175,26 @@ const createSettingsSections = ({
   {
     title: t('version', { version: NativeConstants.appVersion }),
     onPress: () => {
-      volatileValues.versionTaps += 1
+        if (!switchCmsUrl) {
+          return
+        }
 
-      if (volatileValues.versionTaps === TRIGGER_VERSION_TAPS) {
-        volatileValues.versionTaps = 0
-        throw Error('This error was thrown for testing purposes. Please ignore this error.')
-      }
+        const clickedInTimeInterval = tapStart && tapStart > DateTime.now().minus({ seconds: TAP_TIMEOUT })
+
+        if (tapCount + 1 >= TRIGGER_VERSION_TAPS && clickedInTimeInterval) {
+          const newApiUrl = !apiUrlOverride || apiUrlOverride === cmsUrl ? switchCmsUrl : cmsUrl
+          setApiUrl(newApiUrl)
+          log(`Switching to new API-Url: ${newApiUrl}`)
+          showSnackbar({ text: 'Switched to CMS url' })
+        } else {
+          const newTapStart = clickedInTimeInterval ? tapStart : DateTime.now()
+          const newTapCount = clickedInTimeInterval ? tapCount + 1 : 1
+          setTapCount(newTapCount)
+          setTapStart(newTapStart)
+        }
+      },
     },
-  },
-]
+  ]
+}
 
 export default createSettingsSections

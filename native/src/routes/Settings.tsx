@@ -1,4 +1,5 @@
-import React, { ReactElement } from 'react'
+import { DateTime } from 'luxon'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList } from 'react-native'
 import { Divider } from 'react-native-paper'
@@ -20,6 +21,8 @@ type SettingsProps = {
 
 const Settings = ({ navigation }: SettingsProps): ReactElement => {
   const appContext = useAppContext()
+  const [tapCount, setTapCount] = useState(0)
+  const [tapStart, setTapStart] = useState<null | DateTime>(null)
   const showSnackbar = useSnackbar()
   const { t } = useTranslation('settings')
   const { settings } = appContext
@@ -42,9 +45,16 @@ const Settings = ({ navigation }: SettingsProps): ReactElement => {
     return <SettingItem value={value} key={otherProps.title} onPress={safeOnPress(onPress)} {...otherProps} />
   }
 
-  const sections = createSettingsSections({ appContext, navigation, showSnackbar, t }).filter(
-    (it): it is SettingsSectionType => it !== null,
-  )
+  const sections = createSettingsSections({
+    appContext,
+    navigation,
+    showSnackbar,
+    t,
+    tapCount,
+    setTapCount,
+    tapStart,
+    setTapStart,
+  }).filter((it): it is SettingsSectionType => it !== null)
 
   return (
     <Layout>

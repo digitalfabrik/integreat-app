@@ -8,7 +8,7 @@ import { RegionModel } from 'shared/api'
 
 import RegionSelector from '../components/RegionSelector'
 import SuggestToRegionFooter from '../components/SuggestToRegionFooter'
-import SwitchCmsUrlIcon from '../components/SwitchCmsUrlIcon'
+import SwitchCmsUrlButton from '../components/SwitchCmsUrlButton'
 import Text from '../components/base/Text'
 import { NavigationProps } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
@@ -54,7 +54,7 @@ const Regions = ({ navigation }: RegionsProps): ReactElement => {
       {regions && (
         <>
           <Wrapper {...testID('Regions-Page')}>
-            <SwitchCmsUrlIcon clearResourcesAndCache={clearResourcesAndCache} />
+            <SwitchCmsUrlButton clearResourcesAndCache={clearResourcesAndCache} />
             <Text variant='h3'>{t('welcome', { appName: buildConfig().appName })}</Text>
             <Text variant='body2'>{t('welcomeInformation')}</Text>
             <RegionSelector regions={regions} navigateToDashboard={navigateToDashboard} />
