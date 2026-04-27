@@ -1,7 +1,7 @@
 import { BottomSheetFlatListMethods } from '@gorhom/bottom-sheet'
-import React, { ReactElement, useRef, useState } from 'react'
+import React, { ReactElement, useRef, useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet, useWindowDimensions } from 'react-native'
+import { findNodeHandle, StyleSheet, useWindowDimensions, type View } from 'react-native'
 import { Chip } from 'react-native-paper'
 import { SvgUri } from 'react-native-svg'
 import styled from 'styled-components/native'
@@ -45,6 +45,7 @@ const Pois = ({ pois: allPois, cityModel, route, navigation }: PoisProps): React
   const [userLocation, setUserLocation] = useState<LocationType | null>(null)
   const [bottomSheetSnapPointIndex, setBottomSheetSnapPointIndex] = useState(1)
   const [listScrollPosition, setListScrollPosition] = useState(0)
+  const [zoomInFocusTarget, setZoomInFocusTarget] = useState<number | undefined>(undefined)
   const poiListRef = useRef<BottomSheetFlatListMethods>(null)
   const { t } = useTranslation('pois')
   const { height } = useWindowDimensions()
@@ -58,6 +59,10 @@ const Pois = ({ pois: allPois, cityModel, route, navigation }: PoisProps): React
   })
 
   const scrollToOffset = (offset: number) => poiListRef.current?.scrollToOffset({ offset, animated: false })
+
+  const handleZoomInRef = useCallback((view: View | null) => {
+    setZoomInFocusTarget(findNodeHandle(view) ?? undefined)
+  }, [])
 
   const deselectAll = () => {
     navigation.setParams({ slug: undefined, multipoi: undefined })
@@ -177,6 +182,7 @@ const Pois = ({ pois: allPois, cityModel, route, navigation }: PoisProps): React
         userLocation={userLocation}
         zoom={zoom}
         Overlay={FiltersOverlayButtons}
+        zoomInRef={handleZoomInRef}
       />
       <PoisBottomSheet
         poiListRef={poiListRef}
@@ -191,6 +197,7 @@ const Pois = ({ pois: allPois, cityModel, route, navigation }: PoisProps): React
         setSnapPointIndex={setBottomSheetSnapPointIndex}
         setScrollPosition={setListScrollPosition}
         isFullscreen={bottomSheetFullscreen}
+        zoomInFocusTarget={zoomInFocusTarget}
       />
     </Container>
   )
