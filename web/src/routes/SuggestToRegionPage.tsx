@@ -44,13 +44,15 @@ type SuggestToRegionPageProps = {
 const SuggestToRegionPage = ({ languageCode }: SuggestToRegionPageProps): ReactElement | null => {
   const { t } = useTranslation('suggestToRegion')
   const [isCopied, setIsCopied] = useState(false)
-  const template = buildConfig().featureFlags.suggestToRegionTemplate
-  const suggestToRegionIcon = buildConfig().icons.suggestToRegion
   useScrollToTopOnMount()
 
-  if (!template || !suggestToRegionIcon) {
+  const featureFlag = buildConfig().featureFlags.suggestToRegion
+
+  if (!featureFlag) {
     return null
   }
+
+  const { template, icon } = featureFlag
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(template).catch(reportError)
@@ -62,7 +64,7 @@ const SuggestToRegionPage = ({ languageCode }: SuggestToRegionPageProps): ReactE
       <Stack paddingBlock={4} gap={2}>
         <H1>{t('callToAction')}</H1>
         <Typography variant='body1'>{t('explanation')}</Typography>
-        <StyledSvg src={suggestToRegionIcon} width={160} height={160} />
+        <StyledSvg src={icon} width={160} height={160} />
         <Typography component='h2' variant='subtitle1'>
           {t('whatToDo')}
         </Typography>

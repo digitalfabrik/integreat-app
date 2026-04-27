@@ -3,7 +3,7 @@ import { act } from '@testing-library/react-native'
 import React, { useEffect } from 'react'
 
 import {
-  BOTTOM_TAB_NAVIGATION_ROUTE,
+  BOTTOM_TAB_ROUTE,
   CATEGORIES_ROUTE,
   CATEGORIES_TAB_ROUTE,
   IMPRINT_ROUTE,
@@ -301,7 +301,7 @@ describe('useNavigate', () => {
     )
     act(() => jest.runAllTimers())
     expect(navigationCannotGoBack.pop).not.toHaveBeenCalled()
-    expect(navigationCannotGoBack.replace).toHaveBeenCalledWith(BOTTOM_TAB_NAVIGATION_ROUTE, {
+    expect(navigationCannotGoBack.replace).toHaveBeenCalledWith(BOTTOM_TAB_ROUTE, {
       screen: CATEGORIES_TAB_ROUTE,
       params: { screen: CATEGORIES_ROUTE },
     })

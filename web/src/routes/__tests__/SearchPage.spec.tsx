@@ -6,7 +6,7 @@ import {
   CategoriesMapModelBuilder,
   CityModelBuilder,
   EventModelBuilder,
-  ExtendedPageModel,
+  ExtendedDocumentModel,
   PoiModelBuilder,
 } from 'shared/api'
 
@@ -30,7 +30,7 @@ jest.mock('shared/hooks/useDebounce', () => ({
 }))
 jest.mock('shared', () => ({
   ...jest.requireActual('shared'),
-  useSearch: ({ userLanguageDocuments, query }: { userLanguageDocuments: ExtendedPageModel[]; query: string }) => ({
+  useSearch: ({ userLanguageDocuments, query }: { userLanguageDocuments: ExtendedDocumentModel[]; query: string }) => ({
     data: query === 'no results, please' ? [] : userLanguageDocuments,
     error: null,
     loading: false,

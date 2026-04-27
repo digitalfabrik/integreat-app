@@ -13,10 +13,10 @@ import {
   useDebounce,
   MAX_SEARCH_RESULTS,
 } from 'shared'
-import { ExtendedPageModel } from 'shared/api'
+import { ExtendedDocumentModel } from 'shared/api'
 import { config } from 'translations'
 
-import { CityRouteProps } from '../CityContentSwitcher'
+import { CityRouteProps } from '../CityContentNavigator'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
 import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Helmet from '../components/Helmet'
@@ -32,7 +32,7 @@ import useReportError from '../hooks/useReportError'
 type SearchProps = {
   query: string
   loading: boolean
-  results: ExtendedPageModel[]
+  results: ExtendedDocumentModel[]
 }
 
 const SearchResults = ({ query, loading, results }: SearchProps): ReactElement | null => {

@@ -15,7 +15,10 @@ const integreatE2e = {
     sentry: false,
     developerFriendly: false,
     fixedCity: null,
-    suggestToRegionTemplate,
+    suggestToRegion: {
+      template: suggestToRegionTemplate,
+      icon: '/suggest-to-region.svg',
+    },
     chat: false,
   },
 }

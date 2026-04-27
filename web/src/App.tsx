@@ -6,7 +6,7 @@ import { BrowserRouter as Router } from 'react-router'
 
 import { UiDirectionType, config } from 'translations'
 
-import RootSwitcher from './RootSwitcher'
+import RootNavigator from './RootNavigator'
 import I18nProvider from './components/I18nProvider'
 import ThemeContainer from './components/ThemeContainer'
 import TtsContainer from './components/TtsContainer'
@@ -32,7 +32,7 @@ const App = (): ReactElement => {
         <LocalizationProvider dateAdapter={CustomAdapterLuxon} adapterLocale={contentLanguage}>
           <Router>
             <TtsContainer languageCode={contentLanguage}>
-              <RootSwitcher setContentLanguage={setContentLanguage} />
+              <RootNavigator setContentLanguage={setContentLanguage} />
             </TtsContainer>
           </Router>
         </LocalizationProvider>

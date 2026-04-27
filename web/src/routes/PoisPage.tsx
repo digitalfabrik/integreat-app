@@ -5,7 +5,7 @@ import { useParams } from 'react-router'
 import { normalizePath, pathnameFromRouteInformation, POIS_ROUTE } from 'shared'
 import { useLoadFromEndpoint, createPOIsEndpoint } from 'shared/api'
 
-import { CityRouteProps } from '../CityContentSwitcher'
+import { CityRouteProps } from '../CityContentNavigator'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
 import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Helmet from '../components/Helmet'

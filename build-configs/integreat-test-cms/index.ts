@@ -16,8 +16,10 @@ const integreatTestCms = {
     sentry: false,
     developerFriendly: true,
     fixedCity: null,
-    suggestToRegionTemplate,
-    suggestToRegion: true,
+    suggestToRegion: {
+      template: suggestToRegionTemplate,
+      icon: '/suggest-to-region.svg',
+    },
     chat: true,
   },
 }

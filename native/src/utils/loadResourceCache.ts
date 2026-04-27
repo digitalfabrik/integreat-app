@@ -1,7 +1,7 @@
 import NetInfo, { NetInfoStateType } from '@react-native-community/netinfo'
 import { flatten, pickBy, reduce, values } from 'lodash'
 
-import { CategoriesMapModel, EventModel, ExtendedPageModel, PoiModel } from 'shared/api'
+import { CategoriesMapModel, EventModel, ExtendedDocumentModel, PoiModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
 import { LanguageResourceCacheStateType } from './DataContainer'
@@ -38,7 +38,7 @@ const loadResourceCache = async ({
 
   const resourceURLFinder = new ResourceURLFinder(buildConfig().allowedHostNames)
   resourceURLFinder.init()
-  const input = (categories?.toArray() ?? ([] as ExtendedPageModel[])).concat(events ?? []).concat(pois ?? [])
+  const input = (categories?.toArray() ?? ([] as ExtendedDocumentModel[])).concat(events ?? []).concat(pois ?? [])
 
   if (input.length === 0) {
     return

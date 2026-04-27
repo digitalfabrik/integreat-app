@@ -17,7 +17,7 @@ describe('SuggestToRegionPage', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
-  const template = buildConfig().featureFlags.suggestToRegionTemplate
+  const template = buildConfig().featureFlags.suggestToRegion!.template
 
   const renderPage = (): RenderResult => renderWithRouterAndTheme(<SuggestToRegionPage languageCode='de' />)
 

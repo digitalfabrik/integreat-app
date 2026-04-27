@@ -2,7 +2,7 @@ import { DateTime } from 'luxon'
 import React from 'react'
 
 import { IMPRINT_ROUTE, pathnameFromRouteInformation } from 'shared'
-import { CityModelBuilder, PageModel } from 'shared/api'
+import { CityModelBuilder, DocumentModel } from 'shared/api'
 import { mockUseLoadFromEndpointOnceWithData } from 'shared/api/endpoints/testing/mockUseLoadFromEndpoint'
 
 import { renderRoute } from '../../testing/render'
@@ -22,7 +22,7 @@ describe('ImprintPage', () => {
   })
 
   const cities = new CityModelBuilder(2).build()
-  const imprint = new PageModel({
+  const imprint = new DocumentModel({
     path: '/imprint',
     title: 'Feedback, Kontakt und mögliches Engagement',
     content: 'this is a test content',

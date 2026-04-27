@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 
-import { ExtendedPageModel } from 'shared/api'
+import { ExtendedDocumentModel } from 'shared/api'
 
 import ResourceURLFinder from '../ResourceURLFinder'
 
@@ -45,7 +45,7 @@ describe('ResourceURLFinder', () => {
     const finder = new ResourceURLFinder(['ex.am'])
     finder.init()
     const input = [
-      new ExtendedPageModel({
+      new ExtendedDocumentModel({
         path: '/path1',
         thumbnail: 'https://ex.am/thumb.png',
         content: `<img src="https://ex.am/pl1.png" alt="Crazy" />
@@ -55,7 +55,7 @@ describe('ResourceURLFinder', () => {
         title: 'test',
         lastUpdate: DateTime.now(),
       }),
-      new ExtendedPageModel({
+      new ExtendedDocumentModel({
         path: '/path2',
         thumbnail: '',
         content: '<img src="https://ex.am/pl2.png" alt="Crazy" />',
@@ -73,7 +73,7 @@ describe('ResourceURLFinder', () => {
     const finder = new ResourceURLFinder(['ex.am'])
     finder.init()
     const input = [
-      new ExtendedPageModel({
+      new ExtendedDocumentModel({
         path: '/path1',
         thumbnail: 'https://ex.am/thumb.png',
         content: `<img src="https://ex.am/pl1.png" alt="First Pic" />
@@ -83,7 +83,7 @@ describe('ResourceURLFinder', () => {
         title: 'test',
         lastUpdate: DateTime.now(),
       }),
-      new ExtendedPageModel({
+      new ExtendedDocumentModel({
         path: '/path2',
         thumbnail: '',
         content: '<img src="https://ex.am/pl4.pdf" alt="And an entire PDF" />',

@@ -36,7 +36,7 @@ const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
     sentry: true,
     developerFriendly: false,
     fixedCity: 'hallo',
-    suggestToRegionTemplate: null,
+    suggestToRegion: null,
     chat: false,
   },
   aboutUrls: {

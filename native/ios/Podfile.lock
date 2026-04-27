@@ -1,4 +1,26 @@
 PODS:
+  - AsyncStorage (3.0.2):
+    - hermes-engine
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-Core-prebuilt
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-renderercss
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - ReactNativeDependencies
+    - Yoga
   - FBLazyVector (0.84.1)
   - Firebase/CoreOnly (12.10.0):
     - FirebaseCore (~> 12.10.0)
@@ -2122,28 +2144,6 @@ PODS:
     - Yoga
   - RNCalendarEvents (2.2.0):
     - React
-  - RNCAsyncStorage (2.2.0):
-    - hermes-engine
-    - RCTRequired
-    - RCTTypeSafety
-    - React-Core
-    - React-Core-prebuilt
-    - React-debug
-    - React-Fabric
-    - React-featureflags
-    - React-graphics
-    - React-ImageManager
-    - React-jsi
-    - React-NativeModulesApple
-    - React-RCTFabric
-    - React-renderercss
-    - React-rendererdebug
-    - React-utils
-    - ReactCodegen
-    - ReactCommon/turbomodule/bridging
-    - ReactCommon/turbomodule/core
-    - ReactNativeDependencies
-    - Yoga
   - RNCClipboard (1.16.3):
     - hermes-engine
     - RCTRequired
@@ -2577,6 +2577,7 @@ PODS:
   - Yoga (0.0.0)
 
 DEPENDENCIES:
+  - "AsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - hermes-engine (from `../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
   - "maplibre-react-native (from `../node_modules/@maplibre/maplibre-react-native`)"
@@ -2663,7 +2664,6 @@ DEPENDENCIES:
   - ReactNativePdfRenderer (from `../node_modules/react-native-pdf-renderer`)
   - "ReactNativeStaticServer (from `../node_modules/@dr.pogodin/react-native-static-server`)"
   - RNCalendarEvents (from `../node_modules/react-native-calendar-events`)
-  - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - "RNCClipboard (from `../node_modules/@react-native-clipboard/clipboard`)"
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
   - "RNFBMessaging (from `../node_modules/@react-native-firebase/messaging`)"
@@ -2695,6 +2695,8 @@ SPEC REPOS:
     - Sentry
 
 EXTERNAL SOURCES:
+  AsyncStorage:
+    :path: "../node_modules/@react-native-async-storage/async-storage"
   FBLazyVector:
     :path: "../node_modules/react-native/Libraries/FBLazyVector"
   hermes-engine:
@@ -2866,8 +2868,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@dr.pogodin/react-native-static-server"
   RNCalendarEvents:
     :path: "../node_modules/react-native-calendar-events"
-  RNCAsyncStorage:
-    :path: "../node_modules/@react-native-async-storage/async-storage"
   RNCClipboard:
     :path: "../node_modules/@react-native-clipboard/clipboard"
   RNFBApp:
@@ -2900,6 +2900,7 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
+  AsyncStorage: 59dba2e3aa2d4dea95e06c23cd176226fe243128
   FBLazyVector: e97c19a5a442429d1988f182a1940fb08df514da
   Firebase: 99f203d3a114c6ba591f3b32263a9626e450af65
   FirebaseCore: f4428e22415ea3b3eca652c2098413dabf2a23a9
@@ -2909,7 +2910,7 @@ SPEC CHECKSUMS:
   FirebaseMessaging: ed18fb50634e6e85b5d3e77e628c21e2c928cc53
   GoogleDataTransport: aae35b7ea0c09004c3797d53c8c41f66f219d6a7
   GoogleUtilities: 00c88b9a86066ef77f0da2fab05f65d7768ed8e1
-  hermes-engine: 9660149afc683dac01b25b28d44d27792374c92f
+  hermes-engine: 659337d4b3a778d8955fd7483985598f99cc0d7b
   maplibre-react-native: 37d86b5b7b04dedaceebc577644e67acd7b5f437
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
@@ -2921,7 +2922,7 @@ SPEC CHECKSUMS:
   React: 1ba7d364ade7d883a1ec055bfc3606f35fdee17b
   React-callinvoker: bc2a26f8d84fb01f003fc6de6c9337b64715f95b
   React-Core: 7840d3a80b43a95c5e80ef75146bd70925ebab0f
-  React-Core-prebuilt: ffb3e935663c465d83b49a88907f71f762b1e3ef
+  React-Core-prebuilt: 69d352ff854a4418fb035b0b77e033d3ae645534
   React-CoreModules: 2eb010400b63b89e53a324ffb3c112e4c7c3ce42
   React-cxxreact: a558e92199d26f145afa9e62c4233cf8e7950efe
   React-debug: d196e6df0599d78360b3211367e28c5583054133
@@ -2990,12 +2991,11 @@ SPEC CHECKSUMS:
   ReactAppDependencyProvider: e96e93b493d8d86eeaee3e590ba0be53f6abe46f
   ReactCodegen: 66522f37c7e4861aec1f6a574dee83917fad4397
   ReactCommon: 07572bf9e687c8a52fbe4a3641e9e3a1a477c78e
-  ReactNativeDependencies: 7d808dd025eb668f05d092e3837bc3dff9743fe1
+  ReactNativeDependencies: b4ad406dd919f80b78606e4062546d38f0a5efed
   ReactNativeFs: c8f088242a701e38c38c8b11c9f625591bb1be21
   ReactNativePdfRenderer: da23180e3c4f0dae53e09ee682bb556c5b9308db
   ReactNativeStaticServer: d6e031604d6782ff1ec9b1948d6f93f746b6d5c5
   RNCalendarEvents: f90f73666b6bcbb3cc8a491ffbb5e48c0db3de37
-  RNCAsyncStorage: c8407cc394627a3a4cf56b457d594bfa822b6ab8
   RNCClipboard: fc456104340b49bdf812f68bd00e764abf360361
   RNFBApp: 7a234f611af9c79d8ab4d0cfbbce7b266ee022e5
   RNFBMessaging: ebf0a3427f3e8bb747538f47cef93a6db13d5d78

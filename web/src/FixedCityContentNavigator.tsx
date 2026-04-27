@@ -3,13 +3,13 @@ import { useParams } from 'react-router'
 
 import { CityModel, NotFoundError } from 'shared/api'
 
-import CityContentSwitcher from './CityContentSwitcher'
+import CityContentNavigator from './CityContentNavigator'
 import FailureSwitcherWithHelmet from './components/FailureSwitcherWithHelmet'
 import Footer from './components/Footer'
 import GeneralHeader from './components/GeneralHeader'
 import Layout from './components/Layout'
 
-type FixedCityContentSwitcherProps = {
+type FixedCityContentNavigatorProps = {
   languageCode: string
   fixedCity: string
 }
@@ -21,7 +21,7 @@ export type CityRouteProps = {
   languageCode: string
 }
 
-const FixedCityContentSwitcher = ({ languageCode, fixedCity }: FixedCityContentSwitcherProps): ReactElement => {
+const FixedCityContentNavigator = ({ languageCode, fixedCity }: FixedCityContentNavigatorProps): ReactElement => {
   const { cityCode } = useParams()
   if (cityCode !== fixedCity) {
     const notFoundError = new NotFoundError({ type: 'route', id: fixedCity, city: fixedCity, language: languageCode })
@@ -32,7 +32,7 @@ const FixedCityContentSwitcher = ({ languageCode, fixedCity }: FixedCityContentS
       </Layout>
     )
   }
-  return <CityContentSwitcher languageCode={languageCode} />
+  return <CityContentNavigator languageCode={languageCode} />
 }
 
-export default FixedCityContentSwitcher
+export default FixedCityContentNavigator

@@ -36,6 +36,6 @@ describe('SuggestToRegion', () => {
     fireEvent.press(button)
     expect(getByText('common:copied')).toBeDefined()
     expect(queryByText('copyText')).toBeNull()
-    expect(Clipboard.setString).toHaveBeenCalledWith(buildConfig().featureFlags.suggestToRegionTemplate)
+    expect(Clipboard.setString).toHaveBeenCalledWith(buildConfig().featureFlags.suggestToRegion?.template)
   })
 })

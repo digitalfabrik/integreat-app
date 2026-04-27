@@ -3,12 +3,12 @@ import { useEffect, useState } from 'react'
 
 import CategoriesMapModel from '../api/models/CategoriesMapModel'
 import EventModel from '../api/models/EventModel'
-import ExtendedPageModel from '../api/models/ExtendedPageModel'
+import ExtendedDocumentModel from '../api/models/ExtendedDocumentModel'
 import PoiModel from '../api/models/PoiModel'
 import normalizeString from '../utils/normalizeString'
 import parseHTML from '../utils/parseHTML'
 
-const removeDuplicatedPaths = (documents: ExtendedPageModel[]) => {
+const removeDuplicatedPaths = (documents: ExtendedDocumentModel[]) => {
   const paths = new Set()
   return documents.filter(document => {
     const isNew = !paths.has(document.path)
@@ -23,7 +23,7 @@ export const prepareSearchDocuments = (
   categories?: CategoriesMapModel | null,
   events?: EventModel[] | null,
   pois?: PoiModel[] | null,
-): ExtendedPageModel[] => [
+): ExtendedDocumentModel[] => [
   ...(categories?.toArray().filter(category => !category.isRoot()) || []),
   ...(events || []),
   ...(pois || []),
@@ -39,7 +39,7 @@ type UseSearchReturn = {
 
 // WARNING: This uses the document count to check whether the search documents have already been added.
 // Modifying single documents or replacing documents with a same length array will therefore NOT trigger an update
-export const useSearch = (documents: ExtendedPageModel[], query: string): UseSearchReturn => {
+export const useSearch = (documents: ExtendedDocumentModel[], query: string): UseSearchReturn => {
   const [indexing, setIndexing] = useState(false)
   const [error, setError] = useState<Error | null>(null)
   const normalizedQuery = normalizeString(query)
@@ -81,14 +81,14 @@ export const useSearch = (documents: ExtendedPageModel[], query: string): UseSea
 }
 
 type UseMultiLanguageSearchParams = {
-  userLanguageDocuments: ExtendedPageModel[]
-  moreDocuments: ExtendedPageModel[]
+  userLanguageDocuments: ExtendedDocumentModel[]
+  moreDocuments: ExtendedDocumentModel[]
   query: string
   userLanguageCode: string
 }
 
 type UseMultiLanguageSearchReturn = {
-  data: ExtendedPageModel[]
+  data: ExtendedDocumentModel[]
   error: Error | null
   loading: boolean
 }
@@ -123,7 +123,7 @@ const useMultiLanguageSearch = ({
         userLanguageDocuments.find(document => document.path === result) ??
         moreDocuments.find(document => document.path === result),
     )
-    .filter((it): it is ExtendedPageModel => it !== undefined)
+    .filter((it): it is ExtendedDocumentModel => it !== undefined)
 
   return {
     data: normalizeString(query).length > 0 ? resultDocuments : userLanguageDocuments,

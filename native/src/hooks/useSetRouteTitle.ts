@@ -1,18 +1,12 @@
 import { useEffect } from 'react'
 
-import {
-  BottomTabNavigationRouteType,
-  CategoriesRouteType,
-  EventsRouteType,
-  NewsRouteType,
-  PoisRouteType,
-} from 'shared'
+import { BottomTabRouteType, CategoriesRouteType, EventsRouteType, NewsRouteType, PoisRouteType } from 'shared'
 
 import { NavigationProps } from '../constants/NavigationTypes'
 
 type UseSetRouteTitleProps = {
   navigation: NavigationProps<
-    CategoriesRouteType | EventsRouteType | NewsRouteType | PoisRouteType | BottomTabNavigationRouteType
+    CategoriesRouteType | EventsRouteType | NewsRouteType | PoisRouteType | BottomTabRouteType
   >
   title?: string
 }
