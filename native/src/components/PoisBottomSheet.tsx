@@ -49,6 +49,7 @@ type PoiBottomSheetProps = {
   snapPointIndex: number
   setSnapPointIndex: (index: number) => void
   isFullscreen: boolean
+  zoomInFocusTarget?: number
 }
 
 const PoisBottomSheet = ({
@@ -62,6 +63,7 @@ const PoisBottomSheet = ({
   snapPointIndex,
   setSnapPointIndex,
   isFullscreen,
+  zoomInFocusTarget,
 }: PoiBottomSheetProps): ReactElement | null => {
   const [remountKey, setRemountKey] = useState(0)
   const { languageCode } = useRegionAppContext()
@@ -84,6 +86,11 @@ const PoisBottomSheet = ({
     selectPoi(poi)
     bottomSheetRef.current?.snapToIndex(1)
   }
+
+  const HandleComponent = useCallback(
+    () => <BottomSheetHandle nextFocusForward={zoomInFocusTarget} />,
+    [zoomInFocusTarget],
+  )
 
   const PoiDetail = poi ? (
     <PoiDetails
@@ -119,7 +126,7 @@ const PoisBottomSheet = ({
       enableDynamicSizing={false}
       animateOnMount
       backgroundStyle={{ backgroundColor: theme.colors.background }}
-      handleComponent={BottomSheetHandle}
+      handleComponent={HandleComponent}
       onChange={setSnapPointIndex}>
       <BottomSheetContent>
         {slug ? (

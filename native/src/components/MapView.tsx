@@ -13,9 +13,9 @@ import {
   TrackUserLocation,
 } from '@maplibre/maplibre-react-native'
 import type { BBox } from 'geojson'
-import React, { ReactElement, useCallback, useRef, useState } from 'react'
+import React, { ReactElement, type Ref, useCallback, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { NativeSyntheticEvent } from 'react-native'
+import type { NativeSyntheticEvent, View } from 'react-native'
 import styled, { useTheme } from 'styled-components/native'
 
 import {
@@ -37,6 +37,7 @@ import {
 import { clusterCountLayer, clusterLayer, markerLayer } from '../constants/layers'
 import usePreviousProp from '../hooks/usePreviousProp'
 import { conditionalA11yProps } from '../utils/helpers'
+import MapZoomControls from './MapZoomControls'
 import MapAttribution from './MapsAttribution'
 import Icon from './base/Icon'
 import IconButton from './base/IconButton'
@@ -90,6 +91,7 @@ type MapViewProps = {
   bottomSheetFullscreen: boolean
   zoom: number | undefined
   Overlay?: ReactElement
+  zoomInRef?: Ref<View>
 }
 
 const MapView = ({
@@ -104,6 +106,7 @@ const MapView = ({
   bottomSheetMidHeight,
   bottomSheetFullscreen,
   zoom,
+  zoomInRef,
 }: MapViewProps): ReactElement => {
   const mapRef = useRef<MapRef>(null)
   const cameraRef = useRef<CameraRef>(null)
@@ -180,6 +183,20 @@ const MapView = ({
     }
   }
 
+  const zoomBy = useCallback(async (delta: number) => {
+    if (mapRef.current === null) {
+      return
+    }
+
+    const currentZoom = await mapRef.current.getZoom()
+
+    setCameraSettings({
+      zoom: currentZoom + delta,
+      duration: animationDuration,
+      easing: 'ease',
+    })
+  }, [])
+
   const locationPermissionGrantedIcon = trackUserLocation ? 'crosshairs-gps' : 'crosshairs'
   const locationPermissionIcon = userLocation ? locationPermissionGrantedIcon : 'crosshairs-off'
 
@@ -226,6 +243,12 @@ const MapView = ({
         onPress={onRequestLocation}
         position={bottomSheetHeight}
         accessibilityLabel={t('showOwnLocation')}
+      />
+      <MapZoomControls
+        onZoomIn={() => zoomBy(1)}
+        onZoomOut={() => zoomBy(-1)}
+        bottomSheetHeight={bottomSheetHeight}
+        zoomInRef={zoomInRef}
       />
     </OuterWrapper>
   )
