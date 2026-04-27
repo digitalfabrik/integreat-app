@@ -13,7 +13,8 @@ export const MAIN_ELEMENT_ID = 'main'
 export const RichLayout = styled('div')`
   position: relative;
   display: flex;
-  min-height: 100vh;
+  min-height: 100vh; /* Fallback for firefox https://caniuse.com/?search=lvh */
+  min-height: 100lvh;
   flex-direction: column;
   justify-content: space-between;
   color: ${props => props.theme.palette.text.primary};
