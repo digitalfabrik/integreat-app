@@ -13,9 +13,9 @@ import {
   useCurrentPosition,
 } from '@maplibre/maplibre-react-native'
 import type { BBox, Feature, GeoJsonProperties, Geometry, Position } from 'geojson'
-import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
+import React, { ReactElement, type Ref, useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { NativeSyntheticEvent } from 'react-native'
+import type { NativeSyntheticEvent, View } from 'react-native'
 import styled, { useTheme } from 'styled-components/native'
 
 import {
@@ -38,6 +38,7 @@ import { clusterCountLayer, clusterLayer, markerLayer } from '../constants/layer
 import useUserLocation from '../hooks/useUserLocation'
 import { conditionalA11yProps } from '../utils/helpers'
 import { reportError } from '../utils/sentry'
+import MapZoomControls from './MapZoomControls'
 import MapAttribution from './MapsAttribution'
 import Icon from './base/Icon'
 import IconButton from './base/IconButton'
@@ -90,6 +91,7 @@ type MapViewProps = {
   bottomSheetFullscreen: boolean
   zoom: number | undefined
   Overlay?: ReactElement
+  zoomInRef?: Ref<View>
 }
 
 const MapView = ({
@@ -103,6 +105,7 @@ const MapView = ({
   bottomSheetHeight,
   bottomSheetFullscreen,
   zoom,
+  zoomInRef,
 }: MapViewProps): ReactElement => {
   const toLngLat = (position: Position): LngLat => {
     const [longitude, latitude] = position
@@ -209,6 +212,20 @@ const MapView = ({
     await zoomOnClusterPress(pressedCoordinates)
   }
 
+  const zoomBy = useCallback(async (delta: number) => {
+    if (mapRef.current === null) {
+      return
+    }
+
+    const currentZoom = await mapRef.current.getZoom()
+
+    setCameraSettings({
+      zoom: currentZoom + delta,
+      duration: animationDuration,
+      easing: 'ease',
+    })
+  }, [])
+
   const locationPermissionGrantedIcon = followUserLocation ? 'crosshairs-gps' : 'crosshairs'
   const locationPermissionIcon = userLocation ? locationPermissionGrantedIcon : 'crosshairs-off'
 
@@ -250,6 +267,12 @@ const MapView = ({
         onPress={onRequestLocation}
         position={bottomSheetHeight}
         accessibilityLabel={t('showOwnLocation')}
+      />
+      <MapZoomControls
+        onZoomIn={() => zoomBy(1)}
+        onZoomOut={() => zoomBy(-1)}
+        bottomSheetHeight={bottomSheetHeight}
+        zoomInRef={zoomInRef}
       />
     </OuterWrapper>
   )

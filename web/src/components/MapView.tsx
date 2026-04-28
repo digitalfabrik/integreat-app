@@ -62,6 +62,8 @@ type MapCursorType = 'grab' | 'auto' | 'pointer'
 
 export type MapViewRef = {
   setGeocontrol: (control: maplibregl.IControl) => void
+  zoomIn: () => void
+  zoomOut: () => void
 }
 
 const MapView = ({
@@ -91,6 +93,8 @@ const MapView = ({
     ref,
     () => ({
       setGeocontrol: (control: maplibregl.IControl) => mapRef?.addControl(control),
+      zoomIn: () => mapRef?.zoomIn(),
+      zoomOut: () => mapRef?.zoomOut(),
     }),
     [mapRef],
   )
