@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next'
 
 import Link from './base/Link'
 
-export const SelectorItemButton = styled(ListItemButton)`
+const SelectorItemButton = styled(ListItemButton)`
   height: 48px;
   min-width: 112px;
   border-radius: 30px;

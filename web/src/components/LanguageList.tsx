@@ -4,7 +4,7 @@ import List from '@mui/material/List'
 import Stack from '@mui/material/Stack'
 import TextField from '@mui/material/TextField'
 import { styled } from '@mui/material/styles'
-import React, { ReactElement, useState } from 'react'
+import React, { Fragment, ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { normalizeString } from 'shared'
@@ -30,6 +30,7 @@ const StyledTextField = styled(TextField)({
 
 const StyledUnavailableLanguageButton = styled(Button)({
   margin: '2px 8px',
+  textTransform: 'none',
 })
 
 export type LanguageChangePath = {
@@ -133,7 +134,7 @@ const LanguageList = ({
       forcePopupIcon={false}
       getOptionLabel={option => option.name}
       renderOption={(_, language, { index }) => (
-        <>
+        <Fragment key={language.code}>
           <LanguageListItem
             code={language.code}
             path={language.path}
@@ -146,7 +147,7 @@ const LanguageList = ({
           {index === filteredLanguageChangePaths.length - 1 && (
             <UnavailableLanguageButton onClick={onUnavailableLanguageClick} label={t('languageNotFoundQuestion')} />
           )}
-        </>
+        </Fragment>
       )}
       noOptionsText={
         <UnavailableLanguageButton onClick={onUnavailableLanguageClick} label={t('languageNotFoundQuestion')} />
