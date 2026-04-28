@@ -1,7 +1,6 @@
 import {
   Camera,
   NativeUserLocation,
-  type CameraRef,
   type CameraStop,
   GeoJSONSource,
   Layer,
@@ -117,7 +116,6 @@ const MapView = ({
   }
 
   const mapRef = useRef<MapRef>(null)
-  const cameraRef = useRef<CameraRef>(null)
   const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
   const { refreshPermissionAndLocation } = useUserLocation({ requestPermissionInitially: true })
   const currentPosition = useCurrentPosition()
@@ -133,18 +131,21 @@ const MapView = ({
   const [cameraSettings, setCameraSettings] = useState<CameraStop>({
     ...(lngLatCoordinates !== undefined ? { center: lngLatCoordinates } : { bounds }),
     zoom: zoom ?? defaultZoom,
-    duration: animationDuration,
-    easing: 'ease',
+    padding: { bottom: bottomSheetHeight },
   })
 
-  const moveTo = useCallback((location: LngLat, zoomLevel = normalDetailZoom) => {
-    setCameraSettings({
-      center: location,
-      zoom: zoomLevel,
-      duration: animationDuration,
-      easing: 'ease',
-    })
-  }, [])
+  const moveTo = useCallback(
+    (location: LngLat, zoomLevel = normalDetailZoom) => {
+      setCameraSettings({
+        center: location,
+        zoom: zoomLevel,
+        duration: animationDuration,
+        easing: 'ease',
+        padding: { bottom: bottomSheetHeight },
+      })
+    },
+    [bottomSheetHeight],
+  )
 
   const onRequestLocation = useCallback(async () => {
     const currentUserLocation: LocationType | null =
@@ -153,15 +154,9 @@ const MapView = ({
     if (newUserLocation) {
       setUserLocation(newUserLocation)
       moveTo(newUserLocation)
-      cameraRef.current?.easeTo({
-        center: newUserLocation,
-        zoom: normalDetailZoom,
-        duration: animationDuration,
-        padding: { bottom: bottomSheetHeight },
-      })
       setFollowUserLocation(true)
     }
-  }, [bottomSheetHeight, currentPosition, refreshPermissionAndLocation, moveTo, setUserLocation, userLocation])
+  }, [currentPosition, refreshPermissionAndLocation, moveTo, setUserLocation, userLocation])
 
   // Recenter on the selected marker.
   useEffect(() => {
@@ -182,8 +177,9 @@ const MapView = ({
     // Avoid frequent rerenders if distance only changes minimally
     if (!userLocation || calculateDistance(userLocation, currentUserLocation) > MIN_DISTANCE_THRESHOLD) {
       setUserLocation(currentUserLocation)
+      moveTo(currentUserLocation)
     }
-  }, [currentPosition, setUserLocation, userLocation])
+  }, [currentPosition, followUserLocation, moveTo, setUserLocation, userLocation])
 
   const zoomOnClusterPress = async (pressedCoordinates: [number, number]) => {
     const clusterCollection: Feature<Geometry, GeoJsonProperties>[] | undefined =
@@ -210,7 +206,7 @@ const MapView = ({
     const feature = featureCollection.find((it): it is MapFeature => it.geometry.type === 'Point')
     selectFeature(feature ?? null)
 
-    zoomOnClusterPress(pressedCoordinates)
+    await zoomOnClusterPress(pressedCoordinates)
   }
 
   const locationPermissionGrantedIcon = followUserLocation ? 'crosshairs-gps' : 'crosshairs'
@@ -241,12 +237,7 @@ const MapView = ({
               <Layer type='symbol' {...markerLayer(selectedFeature)} id='selected-marker' />
             </GeoJSONSource>
           )}
-          <Camera
-            ref={cameraRef}
-            {...cameraSettings}
-            trackUserLocation={followUserLocation ? 'default' : undefined}
-            padding={{ bottom: bottomSheetHeight }}
-          />
+          <Camera {...cameraSettings} />
         </StyledMap>
       </MapContainer>
       <OverlayContainer {...conditionalA11yProps({ hidden: bottomSheetFullscreen })}>{Overlay}</OverlayContainer>
