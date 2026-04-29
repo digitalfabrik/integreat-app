@@ -6,6 +6,7 @@ import {
   Layer,
   type LngLat,
   type LngLatBounds,
+  LocationManager,
   Map as MapLibreMapView,
   MapRef,
   type PressEvent,
@@ -152,11 +153,17 @@ const MapView = ({
       currentPosition?.coords == null ? null : [currentPosition.coords.longitude, currentPosition.coords.latitude]
     const newUserLocation = currentUserLocation ?? userLocation ?? (await refreshPermissionAndLocation())?.coordinates
     if (newUserLocation) {
+      selectFeature(null)
       setUserLocation(newUserLocation)
       moveTo(newUserLocation)
+
+      // Warm up the native location engine so NativeUserLocation can show the current location immediately.
+      LocationManager.start()
+      LocationManager.getCurrentPosition()
+
       setFollowUserLocation(true)
     }
-  }, [currentPosition, refreshPermissionAndLocation, moveTo, setUserLocation, userLocation])
+  }, [currentPosition, refreshPermissionAndLocation, moveTo, selectFeature, setUserLocation, userLocation])
 
   // Recenter on the selected marker.
   useEffect(() => {
