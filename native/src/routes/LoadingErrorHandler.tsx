@@ -64,8 +64,8 @@ const LoadingErrorHandler = ({
 
   if (error !== null) {
     const navigateToLanding = () => navigateTo({ route: LANDING_ROUTE, languageCode })
-    const buttonAction = error === ErrorCode.CityUnavailable ? navigateToLanding : refresh
-    const buttonLabel = error === ErrorCode.CityUnavailable ? 'goTo.start' : undefined
+    const buttonAction = error === ErrorCode.RegionUnavailable ? navigateToLanding : refresh
+    const buttonLabel = error === ErrorCode.RegionUnavailable ? 'goTo.start' : undefined
     const errorCode = error instanceof Error ? fromError(error) : error
     return (
       <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={false} />}>

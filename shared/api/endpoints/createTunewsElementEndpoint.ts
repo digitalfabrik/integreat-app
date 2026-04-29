@@ -23,7 +23,7 @@ export default (baseUrl: string): Endpoint<ParamsType, TunewsModel> =>
           type: TU_NEWS_TYPE,
           id: params.id.toString(),
           language: 'unknown',
-          city: 'unknown',
+          region: 'unknown',
         })
       }
 

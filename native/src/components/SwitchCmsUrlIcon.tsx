@@ -4,7 +4,7 @@ import { Button, IconButton } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
 import buildConfig from '../constants/buildConfig'
-import { useAppContext } from '../hooks/useCityAppContext'
+import { useAppContext } from '../hooks/useRegionAppContext'
 import { log } from '../utils/sentry'
 import Text from './base/Text'
 

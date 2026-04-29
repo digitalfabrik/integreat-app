@@ -1,12 +1,12 @@
 import { CATEGORIES_ROUTE, POIS_ROUTE, SEARCH_ROUTE } from '../index'
-import { parseQueryParams, queryStringFromRouteInformation, SEARCH_QUERY_KEY, toQueryParams } from '../query'
+import { parseQueryParams, queryStringFromRouteInformation, toQueryParams } from '../query'
 
 describe('queryStringFromRouteInformation', () => {
   it('should create pois query string', () => {
     const routeInformation = {
       route: POIS_ROUTE,
       languageCode: 'de',
-      cityCode: 'augsburg',
+      regionCode: 'augsburg',
     }
 
     expect(queryStringFromRouteInformation(routeInformation)).toBeUndefined()
@@ -30,7 +30,7 @@ describe('queryStringFromRouteInformation', () => {
     const routeInformation = {
       route: SEARCH_ROUTE,
       languageCode: 'de',
-      cityCode: 'augsburg',
+      regionCode: 'augsburg',
     }
 
     expect(queryStringFromRouteInformation({ ...routeInformation })).toBeUndefined()
@@ -41,8 +41,8 @@ describe('queryStringFromRouteInformation', () => {
     const routeInformation = {
       route: CATEGORIES_ROUTE,
       languageCode: 'de',
-      cityCode: 'augsburg',
-      cityContentPath: '/augsburg/de',
+      regionCode: 'augsburg',
+      regionContentPath: '/augsburg/de',
     }
 
     expect(queryStringFromRouteInformation({ ...routeInformation })).toBeUndefined()

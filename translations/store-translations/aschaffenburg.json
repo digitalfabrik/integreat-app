@@ -47,7 +47,7 @@
     },
     "en": {
       "name": "hallo aschaffenburg",
-      "description": "For all Aschaffenburgers and visitors: The app \"hallo aschaffenburg\" is an official app of the City of Aschaffenburg. Current tips, offers and contact details of local offices, organisations and initiatives are available in various languages. Whether leisure, school attendance, culture, education or health: The app provides all information at a glance, even offline and without mobile internet.",
+      "description": "For all Aschaffenburgers and visitors: The app \"hallo aschaffenburg\" is an official app of the Region of Aschaffenburg. Current tips, offers and contact details of local offices, organisations and initiatives are available in various languages. Whether leisure, school attendance, culture, education or health: The app provides all information at a glance, even offline and without mobile internet.",
       "defaultReleaseNote": "We’ve improved the app for you and fixed a few errors. Help us improve hallo aschaffenburg by giving us feedback on the app and local information."
     },
     "es": {
@@ -99,7 +99,7 @@
       "short_description": "رفيق رقمي لك في مدينة Aschaffenburg"
     },
     "en": {
-      "short_description": "A digital companion for the City of Aschaffenburg"
+      "short_description": "A digital companion for the Region of Aschaffenburg"
     },
     "es": {
       "short_description": "Un compañero digital para la ciudad de Aschaffenburg"
@@ -134,7 +134,7 @@
       "placeholder_key": "مُرافقك الرقمي في مدينة Aschaffenburg"
     },
     "en": {
-      "placeholder_key": "Your digital companion for the City of Aschaffenburg"
+      "placeholder_key": "Your digital companion for the Region of Aschaffenburg"
     },
     "es": {
       "placeholder_key": "Su compañero digital para la ciudad de Aschaffenburg"

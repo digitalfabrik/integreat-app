@@ -3,7 +3,7 @@ import { DateTime } from 'luxon'
 import React from 'react'
 
 import { NEWS_ROUTE, NewsRouteType, TU_NEWS_TYPE } from 'shared'
-import { CategoriesMapModelBuilder, CityModelBuilder, LanguageModelBuilder, TunewsModel } from 'shared/api'
+import { CategoriesMapModelBuilder, RegionModelBuilder, LanguageModelBuilder, TunewsModel } from 'shared/api'
 
 import Text from '../../components/base/Text'
 import useLoadTuNews from '../../hooks/useLoadTuNews'
@@ -65,17 +65,17 @@ describe('TuNews', () => {
     name: NEWS_ROUTE,
   }
 
-  const cities = new CityModelBuilder(3).build()
-  const city = cities[0]!
+  const regions = new RegionModelBuilder(3).build()
+  const region = regions[0]!
   const languages = new LanguageModelBuilder(3).build()
   const language = languages[0]!
 
   const data = {
-    cities,
+    regions,
     languages,
-    city,
+    region,
     language,
-    categories: new CategoriesMapModelBuilder(city.code, language.code).build(),
+    categories: new CategoriesMapModelBuilder(region.code, language.code).build(),
     events: [],
     pois: [],
     localNews: [],

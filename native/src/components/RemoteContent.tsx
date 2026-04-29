@@ -17,8 +17,8 @@ import {
   OPEN_SETTINGS_MESSAGE_TYPE,
   WARNING_MESSAGE_TYPE,
 } from '../constants/webview'
-import { useAppContext } from '../hooks/useCityAppContext'
 import useNavigate from '../hooks/useNavigate'
+import { useAppContext } from '../hooks/useRegionAppContext'
 import useResourceCache from '../hooks/useResourceCache'
 import { getStaticServerFileUrl } from '../utils/helpers'
 import renderHtml from '../utils/renderHtml'

@@ -10,7 +10,7 @@ import {
 } from 'shared/api'
 
 type UseLoadSearchDocumentsProps = {
-  cityCode: string
+  regionCode: string
   languageCode: string
   cmsApiBaseUrl: string
 }
@@ -22,11 +22,11 @@ type UseLoadSearchDocumentsReturn = {
 }
 
 const useLoadSearchDocuments = ({
-  cityCode,
+  regionCode,
   languageCode,
   cmsApiBaseUrl,
 }: UseLoadSearchDocumentsProps): UseLoadSearchDocumentsReturn => {
-  const params = { city: cityCode, language: languageCode }
+  const params = { region: regionCode, language: languageCode }
 
   const categories = useLoadFromEndpoint(createCategoriesEndpoint, cmsApiBaseUrl, params)
   const events = useLoadFromEndpoint(createEventsEndpoint, cmsApiBaseUrl, params)

@@ -15,17 +15,17 @@ import MenuItem from './MenuItem'
 
 type GeneralHeaderProps = {
   languageCode: string
-  cityLanguages?: LanguageModel[]
+  regionLanguages?: LanguageModel[]
   onStickyTopChanged?: (stickyTop: number) => void
 }
 
-const GeneralHeader = ({ languageCode, cityLanguages, onStickyTopChanged }: GeneralHeaderProps): ReactElement => {
+const GeneralHeader = ({ languageCode, regionLanguages, onStickyTopChanged }: GeneralHeaderProps): ReactElement => {
   const slug = useLocation().pathname.split('/')[1]
   const { toggleTheme } = useTheme()
   const { t } = useTranslation('layout')
 
   const landingPath = pathnameFromRouteInformation({ route: LANDING_ROUTE, languageCode })
-  const languageChangePaths = (cityLanguages ?? supportedLanguages).map(language => ({
+  const languageChangePaths = (regionLanguages ?? supportedLanguages).map(language => ({
     code: language.code,
     name: language.name,
     path: `/${slug}/${language.code}`,

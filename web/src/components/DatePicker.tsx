@@ -5,7 +5,7 @@ import { DateTime } from 'luxon'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import useCityContentParams from '../hooks/useCityContentParams'
+import useRegionContentParams from '../hooks/useRegionContentParams'
 import { getDatePickerLocaleText } from '../utils/muiDatePickerLocales'
 
 const StyledError = styled('span')(({ theme }) => ({
@@ -27,7 +27,7 @@ export type CustomDatePickerProps = {
 const DatePicker = ({ title, date, setDate, error, calendarLabel }: CustomDatePickerProps): ReactElement => {
   const { t } = useTranslation('events')
   const [validationError, setValidationError] = useState<DateValidationError | null>(null)
-  const { languageCode } = useCityContentParams()
+  const { languageCode } = useRegionContentParams()
   const errorMessage = error ?? (validationError ? t('invalidDate') : null)
   const muiLocaleText = getDatePickerLocaleText(languageCode)
   const currentTheme = useTheme()

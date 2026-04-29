@@ -55,7 +55,7 @@ type HeaderProps = {
   languages?: LanguageModel[]
   availableLanguages?: string[]
   shareUrl?: string
-  cityName?: string
+  regionName?: string
   forceText?: boolean
 }
 
@@ -67,11 +67,11 @@ const Header = ({
   showItems = false,
   showMenu = true,
   languages = route.name === LANDING_ROUTE ? supportedLanguages : undefined,
-  cityName,
+  regionName,
   forceText = route.name === LANDING_ROUTE,
 }: HeaderProps): ReactElement | null => {
   const [menuVisible, setMenuVisible] = useState(false)
-  const { languageCode, cityCode } = useContext(AppContext)
+  const { languageCode, regionCode } = useContext(AppContext)
   const { t } = useTranslation('layout')
   const showSnackbar = useSnackbar()
   // Save route/canGoBack to state to prevent it from changing during navigating which would lead to flickering of the title and back button
@@ -105,7 +105,7 @@ const Header = ({
   }
 
   const routeTitle = (route.params as { title?: string } | undefined)?.title ?? t(route.name)
-  const pageTitle = cityName !== routeTitle ? `${routeTitle} - ${cityName}` : routeTitle
+  const pageTitle = regionName !== routeTitle ? `${routeTitle} - ${regionName}` : routeTitle
 
   const goToLanguageChange = () => {
     if (availableLanguages?.length === 1 && availableLanguages[0] === languageCode) {
@@ -140,11 +140,11 @@ const Header = ({
   }
 
   const navigateToFeedback = () => {
-    if (cityCode) {
+    if (regionCode) {
       navigation.navigate(FEEDBACK_MODAL_ROUTE, {
         routeType: route.name as FeedbackRouteType,
         language: languageCode,
-        cityCode,
+        regionCode,
         slug: getSlugForRoute(),
       })
     }
@@ -169,7 +169,7 @@ const Header = ({
   ]
 
   const menuItems = [
-    ...(route.name !== NEWS_ROUTE && cityCode
+    ...(route.name !== NEWS_ROUTE && regionCode
       ? [
           <HeaderMenuItem
             key='feedback'
@@ -198,8 +198,8 @@ const Header = ({
 
   const getHeaderTitle = (): { title: string; language?: string } => {
     if (!previousRoute) {
-      // Home/Dashboard: Show current city name
-      return { title: cityName ?? '', language: config.sourceLanguage }
+      // Home/Dashboard: Show current region name
+      return { title: regionName ?? '', language: config.sourceLanguage }
     }
 
     if (isSinglePoiFromPoisRoute()) {
@@ -220,7 +220,7 @@ const Header = ({
 
     // After search navigation reset, previousRoute may be BOTTOM_TAB_NAVIGATION_ROUTE
     if (previousRoute.name === CATEGORIES_ROUTE || previousRoute.name === BOTTOM_TAB_ROUTE) {
-      return { title: cityName ?? '', language: languageCode }
+      return { title: regionName ?? '', language: languageCode }
     }
 
     if (previousRoute.name === LANDING_ROUTE) {

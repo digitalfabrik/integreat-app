@@ -24,7 +24,7 @@ export type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
 export type FeedbackContainerProps = {
   routeType: FeedbackRouteType
   language: string
-  cityCode: string
+  regionCode: string
   query?: string
   slug?: string
   noResults?: boolean
@@ -34,7 +34,7 @@ const FeedbackContainer = ({
   query,
   language,
   routeType,
-  cityCode,
+  regionCode,
   slug,
   noResults = false,
 }: FeedbackContainerProps): ReactElement => {
@@ -57,7 +57,7 @@ const FeedbackContainer = ({
       const feedbackEndpoint = createFeedbackEndpoint(await determineApiUrl())
       await feedbackEndpoint.request({
         routeType,
-        city: cityCode,
+        region: regionCode,
         language,
         comment,
         contactMail,

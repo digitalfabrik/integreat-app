@@ -33,10 +33,10 @@ describe('Search', () => {
   })
 
   const languageCode = 'de'
-  const cityCode = 'augsburg'
+  const regionCode = 'augsburg'
 
-  const categoriesMapModel = new CategoriesMapModelBuilder(cityCode, languageCode, 2, 2).build()
-  const eventModels = new EventModelBuilder('testseed', 5, cityCode, languageCode).build()
+  const categoriesMapModel = new CategoriesMapModelBuilder(regionCode, languageCode, 2, 2).build()
+  const eventModels = new EventModelBuilder('testseed', 5, regionCode, languageCode).build()
   const poiModels = new PoiModelBuilder(3).build()
 
   const documents = [
@@ -49,7 +49,7 @@ describe('Search', () => {
     userLanguageDocuments: documents,
     sourceLanguageDocuments: [],
     languageCode,
-    cityCode,
+    regionCode,
     navigation: createNavigationMock(),
     initialSearchText: '',
   }

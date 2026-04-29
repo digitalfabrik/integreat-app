@@ -9,7 +9,7 @@ jest.mock('react-i18next')
 
 describe('NewsTab', () => {
   const active = true
-  const destination = '/testcity/en/news/local'
+  const destination = '/testregion/en/news/local'
 
   it('should render the local news tab', () => {
     const { getByText, queryByLabelText } = renderWithRouterAndTheme(

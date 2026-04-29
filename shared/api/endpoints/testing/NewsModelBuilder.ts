@@ -5,13 +5,13 @@ import LocalNewsModel from '../../models/LocalNewsModel'
 class LocalNewsModelBuilder {
   _newsCount: number
   _seed: string
-  _city: string
+  _region: string
   _language: string
 
-  constructor(seed: string, newsCount: number, city: string, language: string) {
+  constructor(seed: string, newsCount: number, region: string, language: string) {
     this._seed = seed
     this._newsCount = newsCount
-    this._city = city
+    this._region = region
     this._language = language
   }
 

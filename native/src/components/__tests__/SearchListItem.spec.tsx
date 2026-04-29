@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { NewsRouteType, parseHTML } from 'shared'
-import { CategoriesMapModelBuilder, CityModelBuilder, LanguageModelBuilder } from 'shared/api'
+import { CategoriesMapModelBuilder, RegionModelBuilder, LanguageModelBuilder } from 'shared/api'
 
 import useNavigate from '../../hooks/useNavigate'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
@@ -17,9 +17,9 @@ jest.mock('../CategoryListItem', () => ({
 jest.mock('../../hooks/useNavigate')
 
 describe('SearchListItem', () => {
-  const cityModel = new CityModelBuilder(1).build()[0]!
+  const regionModel = new RegionModelBuilder(1).build()[0]!
   const language = new LanguageModelBuilder(1).build()[0]!
-  const { categories: categoriesMapModel } = new CategoriesMapModelBuilder(cityModel.code, language.code).buildAll()
+  const { categories: categoriesMapModel } = new CategoriesMapModelBuilder(regionModel.code, language.code).buildAll()
   const categories = categoriesMapModel.toArray()
   const category = categories[1]!
   const contentWithoutHtml = parseHTML(category.content)

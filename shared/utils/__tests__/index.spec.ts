@@ -87,7 +87,7 @@ describe('getCategoryTiles', () => {
   }
 
   it('should get category tiles', () => {
-    expect(getCategoryTiles({ categories, cityCode: 'soest' })).toEqual([
+    expect(getCategoryTiles({ categories, regionCode: 'soest' })).toEqual([
       new TileModel({
         title: category0.title,
         path: category0.path,
@@ -107,7 +107,7 @@ describe('getCategoryTiles', () => {
     const appointmentBookingOffer = new CategoryModel(categoryParams)
     const categories = [appointmentBookingOffer, category0]
 
-    expect(getCategoryTiles({ categories, cityCode: 'soest' })).toEqual([
+    expect(getCategoryTiles({ categories, regionCode: 'soest' })).toEqual([
       new TileModel({
         title: appointmentBookingOffer.title,
         path: 'https://soest.termine.malteapp.de/',
@@ -148,7 +148,7 @@ describe('getCategoryTiles', () => {
     })
     const categories = [internalOfferCategory, externalOfferCategory]
 
-    expect(getCategoryTiles({ categories, cityCode: 'soest' })).toEqual([
+    expect(getCategoryTiles({ categories, regionCode: 'soest' })).toEqual([
       new TileModel({
         title: internalOfferCategory.title,
         path: internalOfferCategory.path,

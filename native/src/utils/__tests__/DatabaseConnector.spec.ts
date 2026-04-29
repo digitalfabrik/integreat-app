@@ -4,8 +4,8 @@ import { rrulestr } from 'rrule'
 
 import { DateModel, EventModel } from 'shared/api'
 import CategoriesMapModelBuilder from 'shared/api/endpoints/testing/CategoriesMapModelBuilder'
-import CityModelBuilder from 'shared/api/endpoints/testing/CityModelBuilder'
 import EventModelBuilder from 'shared/api/endpoints/testing/EventModelBuilder'
+import RegionModelBuilder from 'shared/api/endpoints/testing/RegionModelBuilder'
 
 import BlobUtil from '../../__mocks__/react-native-blob-util'
 import DatabaseContext from '../../models/DatabaseContext'
@@ -32,11 +32,11 @@ const t = (key: string, options?: Record<string, unknown>) =>
     : key
 
 describe('DatabaseConnector', () => {
-  const city = 'augsburg'
+  const region = 'augsburg'
   const language = 'de'
-  const testCities = new CityModelBuilder(2).build()
-  const testCategoriesMap = new CategoriesMapModelBuilder(city, language, 2, 2).build()
-  const testEvents = new EventModelBuilder('testSeed', 2, city, language).build()
+  const testRegions = new RegionModelBuilder(2).build()
+  const testCategoriesMap = new CategoriesMapModelBuilder(region, language, 2, 2).build()
+  const testEvents = new EventModelBuilder('testSeed', 2, region, language).build()
   const testResources = {
     de: {
       'https://test.de/path/to/resource/test.png': '/local/path/to/resource/b4b5dca65e423.png',
@@ -44,56 +44,56 @@ describe('DatabaseConnector', () => {
     },
   }
 
-  describe('isCitiesPersisted', () => {
-    it('should return false if cities are not persisted', async () => {
-      const isPersisted = await databaseConnector.isCitiesPersisted()
+  describe('isRegionsPersisted', () => {
+    it('should return false if regions are not persisted', async () => {
+      const isPersisted = await databaseConnector.isRegionsPersisted()
       expect(isPersisted).toBe(false)
     })
 
-    it('should return true if cities are persisted', async () => {
-      await databaseConnector.storeCities(testCities)
-      const isPersisted = await databaseConnector.isCitiesPersisted()
+    it('should return true if regions are persisted', async () => {
+      await databaseConnector.storeRegions(testRegions)
+      const isPersisted = await databaseConnector.isRegionsPersisted()
       expect(isPersisted).toBe(true)
     })
   })
 
-  describe('storeCities', () => {
+  describe('storeRegions', () => {
     it('should store the json file in the correct path', async () => {
-      await databaseConnector.storeCities(testCities)
+      await databaseConnector.storeRegions(testRegions)
       expect(BlobUtil.fs.writeFile).toHaveBeenCalledWith(
-        expect.stringContaining('/cities.json'),
+        expect.stringContaining('/regions.json'),
         expect.any(String),
         expect.any(String),
       )
     })
   })
 
-  describe('loadCities', () => {
-    it('should throw exception if cities are not persisted', async () => {
-      await expect(databaseConnector.loadCities()).rejects.toThrow()
+  describe('loadRegions', () => {
+    it('should throw exception if regions are not persisted', async () => {
+      await expect(databaseConnector.loadRegions()).rejects.toThrow()
     })
 
     it('should return a value that matches the one that was stored', async () => {
-      await databaseConnector.storeCities(testCities)
-      const cities = await databaseConnector.loadCities()
-      expect(cities).toStrictEqual(testCities)
+      await databaseConnector.storeRegions(testRegions)
+      const regions = await databaseConnector.loadRegions()
+      expect(regions).toStrictEqual(testRegions)
     })
   })
 
   describe('loadLastUpdate', () => {
-    it('should return null if no data is persisted for a given city-language pair', async () => {
+    it('should return null if no data is persisted for a given region-language pair', async () => {
       const context = new DatabaseContext('tcc', 'de')
       const dateTime = await databaseConnector.loadLastUpdate(context)
       expect(dateTime).toBeNull()
     })
 
-    it('should throw if persisted data is malformed for a given city-language pair', async () => {
+    it('should throw if persisted data is malformed for a given region-language pair', async () => {
       const context = new DatabaseContext('tcc', 'de')
-      BlobUtil.fs.writeFile(databaseConnector.getMetaCitiesPath(), '{ "i": "am": "malformed" } }', 'utf8')
+      BlobUtil.fs.writeFile(databaseConnector.getMetaRegionsPath(), '{ "i": "am": "malformed" } }', 'utf8')
       await expect(databaseConnector.loadLastUpdate(context)).rejects.toThrow()
     })
 
-    it('should throw error if currentCity in context is null', async () => {
+    it('should throw error if currentRegion in context is null', async () => {
       const context = new DatabaseContext(undefined, 'de')
       await expect(databaseConnector.loadLastUpdate(context)).rejects.toThrow()
     })
@@ -113,7 +113,7 @@ describe('DatabaseConnector', () => {
   })
 
   describe('storeLastUpdate', () => {
-    it('should throw error if currentCity in context is null', async () => {
+    it('should throw error if currentRegion in context is null', async () => {
       const context = new DatabaseContext(undefined, 'de')
       const date = DateTime.fromISO('2011-05-04T00:00:00.000Z')
       await expect(databaseConnector.storeLastUpdate(date, context)).rejects.toThrow()
@@ -125,7 +125,7 @@ describe('DatabaseConnector', () => {
       await expect(databaseConnector.storeLastUpdate(date, context)).rejects.toThrow()
     })
 
-    it('should throw error if meta of city is null', async () => {
+    it('should throw error if meta of region is null', async () => {
       const context = new DatabaseContext('tcc')
       const date = DateTime.fromISO('2011-05-04T00:00:00.000Z')
       await expect(databaseConnector.storeLastUpdate(date, context)).rejects.toThrow()
@@ -147,7 +147,7 @@ describe('DatabaseConnector', () => {
       await databaseConnector.storeLastUsage(context)
       await databaseConnector.storeLastUpdate(date, context)
       expect(BlobUtil.fs.writeFile).toHaveBeenCalledWith(
-        expect.stringContaining('cities-meta.json'),
+        expect.stringContaining('regions-meta.json'),
         expect.any(String),
         expect.any(String),
       )
@@ -316,25 +316,25 @@ describe('DatabaseConnector', () => {
     expect(doesExist).toBe(exists)
   }
 
-  const expectCityFilesExist = async (city: string, exists = true) => {
-    const context = new DatabaseContext(city)
+  const expectRegionFilesExist = async (region: string, exists = true) => {
+    const context = new DatabaseContext(region)
     const resourcePath = databaseConnector.getResourceCachePath(context)
     await expectExists(resourcePath, exists)
     const contentPath = databaseConnector.getContentPath('categories', context)
     await expectExists(contentPath, exists)
   }
 
-  const populateCityContent = async (city: string) => {
-    const context = new DatabaseContext(city)
+  const populateRegionContent = async (region: string) => {
+    const context = new DatabaseContext(region)
     await databaseConnector.storeResourceCache(testResources, context)
     await databaseConnector.storeCategories(testCategoriesMap, context)
   }
 
   describe('storeLastUsage', () => {
-    it('should store the usage of the passed city', async () => {
+    it('should store the usage of the passed region', async () => {
       const context = new DatabaseContext('augsburg')
       await databaseConnector.storeLastUsage(context)
-      expect(JSON.parse(await BlobUtil.fs.readFile(databaseConnector.getMetaCitiesPath(), ''))).toEqual({
+      expect(JSON.parse(await BlobUtil.fs.readFile(databaseConnector.getMetaRegionsPath(), ''))).toEqual({
         augsburg: {
           lastUsage: now.toISO(),
           languages: {},
@@ -342,14 +342,14 @@ describe('DatabaseConnector', () => {
       })
     })
 
-    it('should delete old files if there are more than MAX_STORED_CITIES', async () => {
-      await populateCityContent('muenchen')
-      await populateCityContent('dortmund')
-      await populateCityContent('ansbach')
-      await populateCityContent('regensburg')
+    it('should delete old files if there are more than MAX_STORED_REGIONS', async () => {
+      await populateRegionContent('muenchen')
+      await populateRegionContent('dortmund')
+      await populateRegionContent('ansbach')
+      await populateRegionContent('regensburg')
       // We have to write this manually, since this is normally done in storeLastUsage, but it calls deleteOldFiles
       await BlobUtil.fs.writeFile(
-        databaseConnector.getMetaCitiesPath(),
+        databaseConnector.getMetaRegionsPath(),
         JSON.stringify({
           muenchen: {
             languages: {},
@@ -367,11 +367,11 @@ describe('DatabaseConnector', () => {
         '',
       )
       await databaseConnector.storeLastUsage(new DatabaseContext('regensburg'))
-      await expectCityFilesExist('muenchen', false)
-      await expectCityFilesExist('dortmund')
-      await expectCityFilesExist('ansbach')
-      await expectCityFilesExist('regensburg')
-      expect(JSON.parse(await BlobUtil.fs.readFile(databaseConnector.getMetaCitiesPath(), ''))).toEqual({
+      await expectRegionFilesExist('muenchen', false)
+      await expectRegionFilesExist('dortmund')
+      await expectRegionFilesExist('ansbach')
+      await expectRegionFilesExist('regensburg')
+      expect(JSON.parse(await BlobUtil.fs.readFile(databaseConnector.getMetaRegionsPath(), ''))).toEqual({
         ansbach: {
           languages: {},
           lastUsage: '2012-05-04T00:00:00.000+02:00',
@@ -387,9 +387,9 @@ describe('DatabaseConnector', () => {
       })
     })
 
-    it('should override if persisted data is malformed for a given city-language pair', async () => {
+    it('should override if persisted data is malformed for a given region-language pair', async () => {
       const context = new DatabaseContext('tcc', 'de')
-      const path = databaseConnector.getMetaCitiesPath()
+      const path = databaseConnector.getMetaRegionsPath()
       BlobUtil.fs.writeFile(path, '{ "i": "am": "malformed" } }', 'utf8')
       await databaseConnector.storeLastUsage(context)
       expect(JSON.parse(await BlobUtil.fs.readFile(path, 'utf8'))).toEqual({
@@ -404,7 +404,7 @@ describe('DatabaseConnector', () => {
   describe('loadLastUsages', () => {
     it('should load last usages', async () => {
       await BlobUtil.fs.writeFile(
-        databaseConnector.getMetaCitiesPath(),
+        databaseConnector.getMetaRegionsPath(),
         JSON.stringify({
           muenchen: {
             languages: {},
@@ -431,30 +431,30 @@ describe('DatabaseConnector', () => {
       )
       expect(await databaseConnector.loadLastUsages()).toEqual([
         {
-          city: 'muenchen',
+          region: 'muenchen',
           lastUsage: DateTime.fromISO('2010-05-04T00:00:00.000'),
         },
         {
-          city: 'dortmund',
+          region: 'dortmund',
           lastUsage: DateTime.fromISO('2011-05-04T00:00:00.000'),
         },
         {
-          city: 'ansbach',
+          region: 'ansbach',
           lastUsage: DateTime.fromISO('2012-05-04T00:00:00.000'),
         },
         {
-          city: 'augsburg',
+          region: 'augsburg',
           lastUsage: DateTime.fromISO('2014-05-04T00:00:00.000'),
         },
         {
-          city: 'regensburg',
+          region: 'regensburg',
           lastUsage: DateTime.fromISO('2013-05-04T00:00:00.000'),
         },
       ])
     })
 
     it('should throw array if persisted data is malformed', async () => {
-      const path = databaseConnector.getMetaCitiesPath()
+      const path = databaseConnector.getMetaRegionsPath()
       BlobUtil.fs.writeFile(path, '{ "i": "am": "malformed" } }', 'utf8')
       await expect(databaseConnector.loadLastUsages()).rejects.toThrow()
     })
@@ -462,14 +462,14 @@ describe('DatabaseConnector', () => {
 
   describe('deleteOldFiles', () => {
     it('should keep only the maximal number of caches and files', async () => {
-      await populateCityContent('muenchen')
-      await populateCityContent('dortmund')
-      await populateCityContent('ansbach')
-      await populateCityContent('regensburg')
-      await populateCityContent('augsburg')
+      await populateRegionContent('muenchen')
+      await populateRegionContent('dortmund')
+      await populateRegionContent('ansbach')
+      await populateRegionContent('regensburg')
+      await populateRegionContent('augsburg')
       // We have to write this manually, since this is normally done in storeLastUsage, but it calls deleteOldFiles
       await BlobUtil.fs.writeFile(
-        databaseConnector.getMetaCitiesPath(),
+        databaseConnector.getMetaRegionsPath(),
         JSON.stringify({
           muenchen: {
             languages: {},
@@ -495,12 +495,12 @@ describe('DatabaseConnector', () => {
         '',
       )
       await databaseConnector.deleteOldFiles(new DatabaseContext('augsburg'))
-      await expectCityFilesExist('muenchen', false)
-      await expectCityFilesExist('dortmund', false)
-      await expectCityFilesExist('ansbach')
-      await expectCityFilesExist('regensburg')
-      await expectCityFilesExist('augsburg')
-      expect(JSON.parse(await BlobUtil.fs.readFile(databaseConnector.getMetaCitiesPath(), ''))).toEqual({
+      await expectRegionFilesExist('muenchen', false)
+      await expectRegionFilesExist('dortmund', false)
+      await expectRegionFilesExist('ansbach')
+      await expectRegionFilesExist('regensburg')
+      await expectRegionFilesExist('augsburg')
+      expect(JSON.parse(await BlobUtil.fs.readFile(databaseConnector.getMetaRegionsPath(), ''))).toEqual({
         ansbach: {
           languages: {},
           lastUsage: '2012-05-04T00:00:00.000+02:00',
@@ -516,14 +516,14 @@ describe('DatabaseConnector', () => {
       })
     })
 
-    it('should not delete the resource cache of the same city', async () => {
-      await populateCityContent('augsburg')
-      await populateCityContent('dortmund')
-      await populateCityContent('ansbach')
-      await populateCityContent('regensburg')
+    it('should not delete the resource cache of the same region', async () => {
+      await populateRegionContent('augsburg')
+      await populateRegionContent('dortmund')
+      await populateRegionContent('ansbach')
+      await populateRegionContent('regensburg')
       // We have to write this manually, since this is normally done in storeLastUsage, but it calls deleteOldFiles
       await BlobUtil.fs.writeFile(
-        databaseConnector.getMetaCitiesPath(),
+        databaseConnector.getMetaRegionsPath(),
         JSON.stringify({
           augsburg: {
             languages: {},
@@ -545,11 +545,11 @@ describe('DatabaseConnector', () => {
         '',
       )
       await databaseConnector.deleteOldFiles(new DatabaseContext('augsburg'))
-      await expectCityFilesExist('dortmund', false)
-      await expectCityFilesExist('ansbach')
-      await expectCityFilesExist('regensburg')
-      await expectCityFilesExist('augsburg')
-      expect(JSON.parse(await BlobUtil.fs.readFile(databaseConnector.getMetaCitiesPath(), ''))).toEqual({
+      await expectRegionFilesExist('dortmund', false)
+      await expectRegionFilesExist('ansbach')
+      await expectRegionFilesExist('regensburg')
+      await expectRegionFilesExist('augsburg')
+      expect(JSON.parse(await BlobUtil.fs.readFile(databaseConnector.getMetaRegionsPath(), ''))).toEqual({
         ansbach: {
           languages: {},
           lastUsage: '2012-05-04T00:00:00.000+02:00',

@@ -13,13 +13,13 @@ import {
   safeParseInt,
   toQueryParams,
 } from 'shared'
-import { PoiCategoryModel, PoiModel, CityModel } from 'shared/api'
+import { PoiCategoryModel, PoiModel, RegionModel } from 'shared/api'
 
 import PoiFilters from '../components/PoiFilters'
 import PoisDesktop from '../components/PoisDesktop'
 import PoisMobile from '../components/PoisMobile'
 import useDimensions from '../hooks/useDimensions'
-import moveViewportToCity from '../utils/moveViewportToCity'
+import moveViewportToRegion from '../utils/moveViewportToRegion'
 import PoiFiltersOverlayButtons from './PoiFiltersOverlayButtons'
 
 const Container = styled('div')`
@@ -30,16 +30,16 @@ const Container = styled('div')`
 type PoiProps = {
   pois: PoiModel[]
   userLocation: LocationType | null
-  city: CityModel
+  region: RegionModel
   loading: boolean
 }
 
-const Pois = ({ pois: allPois, userLocation, city, loading }: PoiProps): ReactElement | null => {
+const Pois = ({ pois: allPois, userLocation, region, loading }: PoiProps): ReactElement | null => {
   const [currentlyOpenFilter, setCurrentlyOpenFilter] = useState(false)
   const [showFilterSelection, setShowFilterSelection] = useState(false)
   const [queryParams, setQueryParams] = useSearchParams()
   const { multipoi, poiCategoryId, zoom } = parseQueryParams(queryParams)
-  const [mapViewport, setMapViewport] = useState<MapViewViewport>(moveViewportToCity(city, zoom))
+  const [mapViewport, setMapViewport] = useState<MapViewViewport>(moveViewportToRegion(region, zoom))
   const params = useParams()
   const navigate = useNavigate()
   const { mobile } = useDimensions()

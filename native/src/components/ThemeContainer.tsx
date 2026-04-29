@@ -4,7 +4,7 @@ import { DefaultTheme, ThemeProvider } from 'styled-components/native'
 
 import buildConfig from '../constants/buildConfig'
 import { prepareTypography } from '../constants/typography'
-import { useAppContext } from '../hooks/useCityAppContext'
+import { useAppContext } from '../hooks/useRegionAppContext'
 
 type ThemeContainerProps = {
   children: ReactElement

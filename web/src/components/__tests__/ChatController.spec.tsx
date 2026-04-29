@@ -1,7 +1,7 @@
 import { fireEvent } from '@testing-library/react'
 import React from 'react'
 
-import { CityModelBuilder } from 'shared/api'
+import { RegionModelBuilder } from 'shared/api'
 import { mockUseLoadFromEndpointWithData } from 'shared/api/endpoints/testing/mockUseLoadFromEndpoint'
 
 import useLocalStorage from '../../hooks/useLocalStorage'
@@ -23,7 +23,7 @@ describe('ChatContainer', () => {
   mockUseLoadFromEndpointWithData({ messages: [] })
   const { mocked } = jest
   const updateLocalStorageItem = jest.fn()
-  const city = new CityModelBuilder(1).build()[0]!
+  const region = new RegionModelBuilder(1).build()[0]!
 
   beforeEach(jest.clearAllMocks)
 
@@ -31,7 +31,7 @@ describe('ChatContainer', () => {
     const value = { testumgebung: true }
     mocked(useLocalStorage<Record<string, boolean>>).mockImplementation(() => ({ value, updateLocalStorageItem }))
     const { getByText, queryByText } = renderWithTheme(
-      <ChatController chatId={null} updateChatId={jest.fn()} city={city} languageCode='de' />,
+      <ChatController chatId={null} updateChatId={jest.fn()} region={region} languageCode='de' />,
     )
     expect(queryByText('conversationText')).toBeFalsy()
     expect(queryByText('conversationHelperText')).toBeFalsy()
@@ -45,7 +45,7 @@ describe('ChatContainer', () => {
     const value = { testumgebung: true, augsburg: true }
     mocked(useLocalStorage<Record<string, boolean>>).mockImplementation(() => ({ value, updateLocalStorageItem }))
     const { getByText, queryByText } = renderWithTheme(
-      <ChatController chatId={null} updateChatId={jest.fn()} city={city} languageCode='de' />,
+      <ChatController chatId={null} updateChatId={jest.fn()} region={region} languageCode='de' />,
     )
     expect(queryByText('privacyPolicyInformation')).toBeFalsy()
     expect(getByText('conversationText')).toBeTruthy()

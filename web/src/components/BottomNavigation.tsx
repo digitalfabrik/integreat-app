@@ -7,10 +7,10 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { CATEGORIES_ROUTE, EVENTS_ROUTE, NEWS_ROUTE, POIS_ROUTE } from 'shared'
-import { CityModel } from 'shared/api'
+import { RegionModel } from 'shared/api'
 
-import useCityContentParams from '../hooks/useCityContentParams'
 import useDimensions from '../hooks/useDimensions'
+import useRegionContentParams from '../hooks/useRegionContentParams'
 import useUpdateDimensions from '../hooks/useUpdateDimensions'
 import getNavigationItems from '../utils/navigationItems'
 import Link from './base/Link'
@@ -54,17 +54,17 @@ const StyledBottomNavigationAction = styled(BottomNavigationAction)(({ theme }) 
 })) as typeof BottomNavigationAction
 
 type BottomNavigationProps = {
-  cityModel: CityModel
+  regionModel: RegionModel
   languageCode: string
 }
 
-const BottomNavigation = ({ cityModel, languageCode }: BottomNavigationProps): ReactElement | null => {
-  const { route } = useCityContentParams()
+const BottomNavigation = ({ regionModel, languageCode }: BottomNavigationProps): ReactElement | null => {
+  const { route } = useRegionContentParams()
   const { t } = useTranslation('layout')
   const { xsmall } = useDimensions()
   useUpdateDimensions()
 
-  const navigationItems = getNavigationItems({ cityModel, languageCode })
+  const navigationItems = getNavigationItems({ regionModel, languageCode })
   const validTabValues: string[] = [CATEGORIES_ROUTE, POIS_ROUTE, NEWS_ROUTE, EVENTS_ROUTE]
   const value = validTabValues.includes(route) ? route : false
 

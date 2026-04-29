@@ -6,8 +6,8 @@ import { SnackbarType } from '../components/SnackbarContainer'
 import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import openExternalUrl from '../utils/openExternalUrl'
-import { useAppContext } from './useCityAppContext'
 import useNavigate from './useNavigate'
+import { useAppContext } from './useRegionAppContext'
 import useSnackbar from './useSnackbar'
 
 const SUPPORTED_IMAGE_FILE_TYPES = ['.jpg', '.jpeg', '.png']
@@ -31,7 +31,7 @@ const navigateToLink = <T extends RoutesType>(
     navigation.navigate(IMAGE_VIEW_MODAL_ROUTE, { url, shareUrl: url })
   } else if (internalUrlRegex.test(url)) {
     const { pathname } = new URL(url)
-    const routeParser = new InternalPathnameParser(pathname, languageCode, buildConfig().featureFlags.fixedCity)
+    const routeParser = new InternalPathnameParser(pathname, languageCode, buildConfig().featureFlags.fixedRegion)
     navigateTo(routeParser.route())
   } else {
     openExternalUrl(url, showSnackbar)

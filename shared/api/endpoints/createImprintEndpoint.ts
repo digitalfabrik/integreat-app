@@ -9,13 +9,13 @@ import { JsonImprintType } from '../types'
 
 export const IMPRINT_ENDPOINT_NAME = 'imprint'
 type ParamsType = {
-  city: string
+  region: string
   language: string
 }
 export default (baseUrl: string): Endpoint<ParamsType, DocumentModel> =>
   new EndpointBuilder<ParamsType, DocumentModel>(IMPRINT_ENDPOINT_NAME)
     .withParamsToUrlMapper(
-      (params: ParamsType): string => `${baseUrl}/api/${API_VERSION}/${params.city}/${params.language}/imprint/`,
+      (params: ParamsType): string => `${baseUrl}/api/${API_VERSION}/${params.region}/${params.language}/imprint/`,
     )
     .withMapper((json: JsonImprintType | null | undefined, params: ParamsType): DocumentModel => {
       if (!json) {

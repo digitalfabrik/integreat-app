@@ -16,8 +16,8 @@ import {
   MALTE_HELP_FORM_MAX_COMMENT_LENGTH,
 } from 'shared/api'
 
-import useCityAppContext from '../hooks/useCityAppContext'
 import useKeyboardHeight from '../hooks/useKeyboardHeight'
+import useRegionAppContext from '../hooks/useRegionAppContext'
 import useSnackbar from '../hooks/useSnackbar'
 import LayoutedScrollView from './LayoutedScrollView'
 import PrivacyCheckbox from './PrivacyCheckbox'
@@ -61,13 +61,13 @@ type MalteHelpFormOfferProps = {
   url: string
   malteHelpFormOffer: OfferModel
   onSubmit: () => void
-  cityCode: string
+  regionCode: string
 }
 
 const MalteHelpFormOffer = ({
   categoryPageTitle,
   url,
-  cityCode,
+  regionCode,
   malteHelpFormOffer,
   onSubmit,
 }: MalteHelpFormOfferProps): ReactElement => {
@@ -77,7 +77,7 @@ const MalteHelpFormOffer = ({
     defaultValues,
   })
   const { t } = useTranslation('malteHelpForm')
-  const { languageCode } = useCityAppContext()
+  const { languageCode } = useRegionAppContext()
   const [privacyPolicyAccepted, setPrivacyPolicyAccepted] = useState(false)
   const showSnackbar = useSnackbar()
 
@@ -86,7 +86,7 @@ const MalteHelpFormOffer = ({
       await submitMalteHelpForm({
         url,
         pageTitle: categoryPageTitle,
-        cityCode,
+        regionCode,
         malteHelpFormOffer,
         name: data.name,
         roomNumber: data.roomNumber,

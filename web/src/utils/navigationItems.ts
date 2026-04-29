@@ -6,13 +6,13 @@ import SvgIcon from '@mui/material/SvgIcon'
 
 import {
   CATEGORIES_ROUTE,
-  cityContentPath,
+  regionContentPath,
   EVENTS_ROUTE,
   NEWS_ROUTE,
   pathnameFromRouteInformation,
   POIS_ROUTE,
 } from 'shared'
-import { CityModel } from 'shared/api'
+import { RegionModel } from 'shared/api'
 
 import { LOCAL_NEWS_ROUTE, TU_NEWS_ROUTE } from '../routes'
 
@@ -24,15 +24,15 @@ type NavigationItem = {
 }
 
 type GetNavigationItemsProps = {
-  cityModel: CityModel
+  regionModel: RegionModel
   languageCode: string
 }
 
-const getNavigationItems = ({ cityModel, languageCode }: GetNavigationItemsProps): NavigationItem[] | null => {
-  const { eventsEnabled, poisEnabled, tunewsEnabled, localNewsEnabled } = cityModel
+const getNavigationItems = ({ regionModel, languageCode }: GetNavigationItemsProps): NavigationItem[] | null => {
+  const { eventsEnabled, poisEnabled, tunewsEnabled, localNewsEnabled } = regionModel
 
-  const params = { cityCode: cityModel.code, languageCode }
-  const categoriesPath = cityContentPath(params)
+  const params = { regionCode: regionModel.code, languageCode }
+  const categoriesPath = regionContentPath(params)
   const eventsPath = pathnameFromRouteInformation({ route: EVENTS_ROUTE, ...params })
   const poisPath = pathnameFromRouteInformation({ route: POIS_ROUTE, ...params })
   const newsType = localNewsEnabled ? LOCAL_NEWS_ROUTE : TU_NEWS_ROUTE

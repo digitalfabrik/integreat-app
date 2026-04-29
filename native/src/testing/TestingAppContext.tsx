@@ -7,17 +7,17 @@ type TestingAppContextParams = { settings?: Partial<SettingsType> } & Omit<Parti
 
 export const testingAppContext = ({
   settings = {},
-  cityCode = 'augsburg',
+  regionCode = 'augsburg',
   languageCode = 'de',
-  changeCityCode = jest.fn(),
+  changeRegionCode = jest.fn(),
   changeLanguageCode = jest.fn(),
   updateSettings = jest.fn(),
 }: TestingAppContextParams): AppContextType => ({
   settings: { ...defaultSettings, ...settings },
-  cityCode,
+  regionCode,
   languageCode,
   updateSettings,
-  changeCityCode,
+  changeRegionCode,
   changeLanguageCode,
 })
 

@@ -12,7 +12,7 @@ describe('NewsTabs', () => {
 
   it('should render two tabs if both local news and tunews are enabled', () => {
     const { getByLabelText } = renderWithRouterAndTheme(
-      <NewsTabs type={LOCAL_NEWS_TYPE} city='testcity' localNewsEnabled tunewsEnabled language={language} />,
+      <NewsTabs type={LOCAL_NEWS_TYPE} region='testregion' localNewsEnabled tunewsEnabled language={language} />,
     )
     expect(getByLabelText(tunewsLabel)).toBeDefined()
     expect(getByLabelText('news:local')).toBeDefined()

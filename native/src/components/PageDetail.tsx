@@ -46,7 +46,7 @@ const PageDetail = ({
   const { navigateTo } = useNavigate()
   const showSnackbar = useSnackbar()
   const theme = useTheme()
-  const route = path ? new InternalPathnameParser(path, language, buildConfig().featureFlags.fixedCity).route() : null
+  const route = path ? new InternalPathnameParser(path, language, buildConfig().featureFlags.fixedRegion).route() : null
 
   const styles = StyleSheet.create({
     buttonText: {

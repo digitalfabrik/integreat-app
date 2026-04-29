@@ -5,20 +5,20 @@ import buildConfig from '../constants/buildConfig'
 
 type GetFooterLinksProps = {
   languageCode: string
-  cityCode?: string
+  regionCode?: string
 }
 
-const getFooterLinks = ({ languageCode, cityCode }: GetFooterLinksProps): FooterLinkItemProps[] => {
+const getFooterLinks = ({ languageCode, regionCode }: GetFooterLinksProps): FooterLinkItemProps[] => {
   const { aboutUrls, privacyUrls, accessibilityUrls } = buildConfig()
   const aboutUrl = aboutUrls[languageCode] || aboutUrls.default
   const privacyUrl = privacyUrls[languageCode] || privacyUrls.default
   const accessibilityUrl = accessibilityUrls[languageCode] ?? accessibilityUrls.default
   const linkToSbom = `https://github.com/digitalfabrik/integreat-app/releases/tag/${__VERSION_NAME__}`
 
-  const imprintPath = cityCode
+  const imprintPath = regionCode
     ? pathnameFromRouteInformation({
         route: IMPRINT_ROUTE,
-        cityCode,
+        regionCode,
         languageCode,
       })
     : `/${MAIN_IMPRINT_ROUTE}/${languageCode}`

@@ -37,10 +37,10 @@ describe('useNavigate', () => {
   const navigation = { ...createNavigationPropMock(), canGoBack: () => true }
   mocked(useNavigation).mockImplementation(() => navigation as never)
 
-  const cityCode = 'ansbach'
+  const regionCode = 'ansbach'
   const languageCode = 'ro'
-  const params = { cityCode, languageCode }
-  const cityContentPath = `/${cityCode}/${languageCode}`
+  const params = { regionCode, languageCode }
+  const regionContentPath = `/${regionCode}/${languageCode}`
 
   const MockComponent = ({
     routeInformation,
@@ -59,7 +59,7 @@ describe('useNavigate', () => {
 
   const renderMockComponent = (routeInformation: RouteInformationType, redirect = false) =>
     render(
-      <TestingAppContext cityCode={cityCode} languageCode={languageCode}>
+      <TestingAppContext regionCode={regionCode} languageCode={languageCode}>
         <MockComponent routeInformation={routeInformation} redirect={redirect} />
       </TestingAppContext>,
       false,
@@ -91,12 +91,12 @@ describe('useNavigate', () => {
     expect(navigation.push).not.toHaveBeenCalled()
   })
 
-  it('should open route externally if city does not match the app settings', () => {
-    const cityContentPath = `/peekingCity/${languageCode}/willkommen`
+  it('should open route externally if region does not match the app settings', () => {
+    const regionContentPath = `/peekingRegion/${languageCode}/willkommen`
     renderMockComponent({
       route: CATEGORIES_ROUTE,
-      cityContentPath,
-      cityCode: 'peekingCity',
+      regionContentPath,
+      regionCode: 'peekingRegion',
       languageCode,
     })
     act(() => jest.runAllTimers())
@@ -106,11 +106,11 @@ describe('useNavigate', () => {
   })
 
   it('should open route externally if language does not match the app settings', () => {
-    const cityContentPath = `/${cityCode}/asdf/willkommen`
+    const regionContentPath = `/${regionCode}/asdf/willkommen`
     renderMockComponent({
       route: CATEGORIES_ROUTE,
-      cityContentPath,
-      cityCode: 'asdf',
+      regionContentPath,
+      regionCode: 'asdf',
       languageCode,
     })
     act(() => jest.runAllTimers())
@@ -120,12 +120,12 @@ describe('useNavigate', () => {
   })
 
   it('should pop redirect route when opening a route externally', () => {
-    const cityContentPath = `/${cityCode}/asdf/willkommen`
+    const regionContentPath = `/${regionCode}/asdf/willkommen`
     renderMockComponent(
       {
         route: CATEGORIES_ROUTE,
-        cityContentPath,
-        cityCode: 'asdf',
+        regionContentPath,
+        regionCode: 'asdf',
         languageCode,
       },
       true,
@@ -140,11 +140,11 @@ describe('useNavigate', () => {
   it('should navigate to categories route', () => {
     renderMockComponent({
       route: CATEGORIES_ROUTE,
-      cityContentPath,
+      regionContentPath,
       ...params,
     })
     expect(navigation.push).not.toHaveBeenCalled()
-    expect(navigateNested).toHaveBeenCalledWith(navigation, CATEGORIES_ROUTE, { path: cityContentPath }, false)
+    expect(navigateNested).toHaveBeenCalledWith(navigation, CATEGORIES_ROUTE, { path: regionContentPath }, false)
     expect(navigateNested).toHaveBeenCalledTimes(1)
   })
 
@@ -152,13 +152,13 @@ describe('useNavigate', () => {
     renderMockComponent(
       {
         route: CATEGORIES_ROUTE,
-        cityContentPath,
+        regionContentPath,
         ...params,
       },
       true,
     )
     expect(navigation.push).not.toHaveBeenCalled()
-    expect(navigateNested).toHaveBeenCalledWith(navigation, CATEGORIES_ROUTE, { path: cityContentPath }, true)
+    expect(navigateNested).toHaveBeenCalledWith(navigation, CATEGORIES_ROUTE, { path: regionContentPath }, true)
     expect(navigateNested).toHaveBeenCalledTimes(1)
   })
 
@@ -296,7 +296,12 @@ describe('useNavigate', () => {
     mocked(useNavigation).mockImplementationOnce(() => navigationCannotGoBack as never)
 
     renderMockComponent(
-      { route: CATEGORIES_ROUTE, cityContentPath: '/peekingCity/ro/willkommen', cityCode: 'peekingCity', languageCode },
+      {
+        route: CATEGORIES_ROUTE,
+        regionContentPath: '/peekingRegion/ro/willkommen',
+        regionCode: 'peekingRegion',
+        languageCode,
+      },
       true,
     )
     act(() => jest.runAllTimers())

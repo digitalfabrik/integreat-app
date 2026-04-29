@@ -14,7 +14,7 @@ import { JsonOpeningHoursType, JsonPoiType } from '../types'
 
 export const POIS_ENDPOINT_NAME = 'pois'
 type ParamsType = {
-  city: string
+  region: string
   language: string
 }
 
@@ -33,7 +33,7 @@ export default (baseUrl: string): Endpoint<ParamsType, PoiModel[]> =>
   new EndpointBuilder<ParamsType, PoiModel[]>(POIS_ENDPOINT_NAME)
     .withParamsToUrlMapper(
       (params: ParamsType): string =>
-        `${baseUrl}/api/${API_VERSION}/${params.city}/${params.language}/locations/?on_map=1`,
+        `${baseUrl}/api/${API_VERSION}/${params.region}/${params.language}/locations/?on_map=1`,
     )
     .withMapper((json: JsonPoiType[]): PoiModel[] =>
       json.map(

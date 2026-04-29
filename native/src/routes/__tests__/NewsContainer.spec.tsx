@@ -3,10 +3,10 @@ import React from 'react'
 import { Pressable, View } from 'react-native'
 
 import { LocalNewsType, NEWS_ROUTE, NewsRouteType, TU_NEWS_TYPE, TuNewsType } from 'shared'
-import { CategoriesMapModelBuilder, CityModelBuilder, LanguageModelBuilder } from 'shared/api'
+import { CategoriesMapModelBuilder, RegionModelBuilder, LanguageModelBuilder } from 'shared/api'
 
 import Text from '../../components/base/Text'
-import useLoadCityContent from '../../hooks/useLoadCityContent'
+import useLoadRegionContent from '../../hooks/useLoadRegionContent'
 import useNavigate from '../../hooks/useNavigate'
 import TestingAppContext from '../../testing/TestingAppContext'
 import createNavigationPropMock from '../../testing/createNavigationPropMock'
@@ -16,7 +16,7 @@ import NewsContainer from '../NewsContainer'
 jest.mock('../../utils/FetcherModule')
 jest.mock('@react-navigation/native')
 jest.mock('@react-native-community/netinfo')
-jest.mock('../../hooks/useLoadCityContent')
+jest.mock('../../hooks/useLoadRegionContent')
 jest.mock('react-i18next')
 jest.mock('../../hooks/useNavigate')
 jest.mock('../LocalNews', () => () => <Text>LocalNewsContent</Text>)
@@ -45,17 +45,17 @@ describe('NewsContainer', () => {
   const navigateTo = jest.fn()
   const { mocked } = jest
   mocked(useNavigate).mockImplementation(() => ({ navigateTo, navigation }))
-  const cities = new CityModelBuilder(3).build()
-  const city = cities[0]!
+  const regions = new RegionModelBuilder(3).build()
+  const region = regions[0]!
   const languages = new LanguageModelBuilder(3).build()
   const language = languages[0]!
 
   const data = {
-    cities,
+    regions,
     languages,
-    city,
+    region,
     language,
-    categories: new CategoriesMapModelBuilder(city.code, language.code).build(),
+    categories: new CategoriesMapModelBuilder(region.code, language.code).build(),
     events: [],
     pois: [],
     extra: [],
@@ -95,7 +95,7 @@ describe('NewsContainer', () => {
   }
 
   it('should correctly handle switch between local and tu news', () => {
-    mocked(useLoadCityContent).mockImplementation(() => returnValue)
+    mocked(useLoadRegionContent).mockImplementation(() => returnValue)
     const { getByLabelText } = renderNews({ newsId: null })
 
     fireEvent.press(getByLabelText('TüNews'))
@@ -108,7 +108,7 @@ describe('NewsContainer', () => {
   })
 
   it('should initialize news type correctly', () => {
-    mocked(useLoadCityContent).mockImplementation(() => returnValue)
+    mocked(useLoadRegionContent).mockImplementation(() => returnValue)
     const { getByText, queryByText } = renderNews({ newsType: TU_NEWS_TYPE })
 
     expect(getByText('TuNewsContent')).toBeTruthy()
@@ -116,7 +116,7 @@ describe('NewsContainer', () => {
   })
 
   it('should render tunews detail', () => {
-    mocked(useLoadCityContent).mockImplementation(() => returnValue)
+    mocked(useLoadRegionContent).mockImplementation(() => returnValue)
     const { getByText } = renderNews({ newsId: 4321 })
 
     expect(getByText('4321')).toBeTruthy()
@@ -124,7 +124,7 @@ describe('NewsContainer', () => {
   })
 
   it('should handle selection of news correctly', () => {
-    mocked(useLoadCityContent).mockImplementation(() => returnValue)
+    mocked(useLoadRegionContent).mockImplementation(() => returnValue)
     const { getByText } = renderNews({})
 
     fireEvent.press(getByText('navigateToNews'))

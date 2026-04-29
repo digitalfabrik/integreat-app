@@ -3,7 +3,7 @@ import React, { ReactElement, useCallback, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Navigate, useParams } from 'react-router'
 
-import { cityContentPath } from 'shared'
+import { regionContentPath } from 'shared'
 import {
   CategoriesMapModel,
   CategoryModel,
@@ -15,14 +15,14 @@ import {
   useLoadFromEndpoint,
 } from 'shared/api'
 
-import { CityRouteProps } from '../CityContentNavigator'
+import { RegionRouteProps } from '../RegionContentNavigator'
 import { BreadcrumbProps } from '../components/Breadcrumb'
 import Breadcrumbs from '../components/Breadcrumbs'
 import CategoriesContent from '../components/CategoriesContent'
-import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
-import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Helmet from '../components/Helmet'
+import RegionContentLayout, { RegionContentLayoutProps } from '../components/RegionContentLayout'
+import RegionContentToolbar from '../components/RegionContentToolbar'
 import SkeletonHeader from '../components/SkeletonHeader'
 import SkeletonList from '../components/SkeletonList'
 import SkeletonPage from '../components/SkeletonPage'
@@ -34,17 +34,22 @@ import useTtsPlayer from '../hooks/useTtsPlayer'
 
 const CATEGORY_NOT_FOUND_STATUS_CODE = 400
 
-const useCategoryData = (cityCode: string, languageCode: string, pathname: string, categoryId: string | undefined) => {
+const useCategoryData = (
+  regionCode: string,
+  languageCode: string,
+  pathname: string,
+  categoryId: string | undefined,
+) => {
   const {
     data: rawCategories,
     loading: categoriesLoading,
     error: categoriesError,
   } = useLoadFromEndpoint(createCategoryChildrenEndpoint, cmsApiBaseUrl, {
-    city: cityCode,
+    region: regionCode,
     language: languageCode,
     // We show tiles for the root category so only first level children are needed
     depth: categoryId ? 2 : 1,
-    cityContentPath: pathname,
+    regionContentPath: pathname,
   })
 
   const requestParents = useCallback(async () => {
@@ -53,9 +58,9 @@ const useCategoryData = (cityCode: string, languageCode: string, pathname: strin
       return []
     }
     const { data } = await createCategoryParentsEndpoint(cmsApiBaseUrl).request({
-      city: cityCode,
+      region: regionCode,
       language: languageCode,
-      cityContentPath: pathname,
+      regionContentPath: pathname,
     })
 
     if (!data) {
@@ -63,7 +68,7 @@ const useCategoryData = (cityCode: string, languageCode: string, pathname: strin
     }
 
     return data
-  }, [cityCode, languageCode, pathname, categoryId])
+  }, [regionCode, languageCode, pathname, categoryId])
 
   const { data: parents, loading: parentsLoading, error: parentsError } = useLoadAsync(requestParents)
 
@@ -101,18 +106,18 @@ const useCategoryData = (cityCode: string, languageCode: string, pathname: strin
   }
 }
 
-const getBreadcrumb = (category: CategoryModel, cityName: string): BreadcrumbProps => ({
-  title: category.isRoot() ? cityName : category.title,
+const getBreadcrumb = (category: CategoryModel, regionName: string): BreadcrumbProps => ({
+  title: category.isRoot() ? regionName : category.title,
   to: category.path,
 })
 
-const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRouteProps): ReactElement | null => {
+const CategoriesPage = ({ region, pathname, regionCode, languageCode }: RegionRouteProps): ReactElement | null => {
   const previousPathname = usePreviousProp({ prop: pathname })
   const categoryId = useParams()['*']
   const { t } = useTranslation('layout')
 
   const { categories, categoriesLoading, categoriesError, parents, parentsLoading, parentsError } = useCategoryData(
-    cityCode,
+    regionCode,
     languageCode,
     pathname,
     categoryId,
@@ -123,15 +128,15 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
 
   const isLeafPage = categories && currentCategory ? new CategoriesMapModel(categories).isLeaf(currentCategory) : null
 
-  if (!city) {
+  if (!region) {
     return null
   }
 
   const category = categories?.find(it => it.path === pathname)
-  const languageChangePaths = city.languages.map(({ code, name }) => {
+  const languageChangePaths = region.languages.map(({ code, name }) => {
     const isCurrentLanguage = code === languageCode
     const path = category?.isRoot()
-      ? cityContentPath({ cityCode, languageCode: code })
+      ? regionContentPath({ regionCode, languageCode: code })
       : category?.availableLanguages[code] || null
 
     return {
@@ -141,14 +146,14 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
     }
   })
 
-  const pageTitle = `${category && !category.isRoot() ? category.title : t('localInformation')} - ${city.name}`
-  const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
-    city,
+  const pageTitle = `${category && !category.isRoot() ? category.title : t('localInformation')} - ${region.name}`
+  const locationLayoutParams: Omit<RegionContentLayoutProps, 'isLoading'> = {
+    region,
     languageChangePaths,
     languageCode,
     category,
     pageTitle,
-    Toolbar: <CityContentToolbar slug={category && !category.isRoot() ? category.slug : undefined} />,
+    Toolbar: <RegionContentToolbar slug={category && !category.isRoot() ? category.slug : undefined} />,
   }
   const isDataAvailable = !categories || !parents || !category
   const isLoadingData = categoriesLoading || parentsLoading || pathname !== previousPathname
@@ -177,9 +182,9 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
   if (isDataAvailable) {
     if (isLoadingData) {
       return (
-        <CityContentLayout isLoading {...locationLayoutParams}>
+        <RegionContentLayout isLoading {...locationLayoutParams}>
           {loadSkeleton()}
-        </CityContentLayout>
+        </RegionContentLayout>
       )
     }
     // This adds support for the old paths of categories by redirecting to the new path
@@ -189,7 +194,12 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
       return <Navigate to={newSlugCategory.path} replace />
     }
 
-    const notFoundError = new NotFoundError({ type: 'category', id: pathname, city: cityCode, language: languageCode })
+    const notFoundError = new NotFoundError({
+      type: 'category',
+      id: pathname,
+      region: regionCode,
+      language: languageCode,
+    })
     const error =
       // The cms returns a 400 BAD REQUEST if the path is not a valid categories path
       categoriesError instanceof ResponseError && categoriesError.response.status === CATEGORY_NOT_FOUND_STATUS_CODE
@@ -197,41 +207,41 @@ const CategoriesPage = ({ city, pathname, cityCode, languageCode }: CityRoutePro
         : categoriesError || parentsError || notFoundError
 
     return (
-      <CityContentLayout isLoading={false} {...locationLayoutParams}>
+      <RegionContentLayout isLoading={false} {...locationLayoutParams}>
         <FailureSwitcherWithHelmet error={error} />
-      </CityContentLayout>
+      </RegionContentLayout>
     )
   }
 
   const ancestorBreadcrumbs = parents
     .sort((a, b) => a.parentPath.length - b.parentPath.length)
-    .map((categoryModel: CategoryModel) => getBreadcrumb(categoryModel, city.name))
-  const breadcrumbs = [...ancestorBreadcrumbs, getBreadcrumb(category, city.name)]
+    .map((categoryModel: CategoryModel) => getBreadcrumb(categoryModel, region.name))
+  const breadcrumbs = [...ancestorBreadcrumbs, getBreadcrumb(category, region.name)]
 
   const metaDescription = t('categories:metaDescription', { appName: buildConfig().appName })
 
   return (
-    <CityContentLayout isLoading={false} {...locationLayoutParams}>
+    <RegionContentLayout isLoading={false} {...locationLayoutParams}>
       <Helmet
         pageTitle={pageTitle}
         metaDescription={metaDescription}
         languageChangePaths={languageChangePaths}
-        cityModel={city}
+        regionModel={region}
       />
       <Breadcrumbs breadcrumbs={breadcrumbs} />
       {isLoadingData ? (
         loadSkeleton()
       ) : (
         <CategoriesContent
-          city={city}
-          cityCode={cityCode}
+          region={region}
+          regionCode={regionCode}
           pathname={pathname}
           languageCode={languageCode}
           categories={new CategoriesMapModel(categories)}
           categoryModel={category}
         />
       )}
-    </CityContentLayout>
+    </RegionContentLayout>
   )
 }
 

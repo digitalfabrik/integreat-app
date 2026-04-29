@@ -24,9 +24,9 @@ import { SignPostIcon } from './assets'
 import Icon from './components/base/Icon'
 import Text from './components/base/Text'
 import { TAB_NAVIGATOR_ID } from './constants'
-import useCityAppContext from './hooks/useCityAppContext'
-import useLoadCityContent from './hooks/useLoadCityContent'
+import useLoadRegionContent from './hooks/useLoadRegionContent'
 import useNavigate from './hooks/useNavigate'
+import useRegionAppContext from './hooks/useRegionAppContext'
 import useSetRouteTitle from './hooks/useSetRouteTitle'
 import CategoriesContainer from './routes/CategoriesContainer'
 import EventsContainer from './routes/EventsContainer'
@@ -95,10 +95,10 @@ type BottomTabNavigatorProps = {
 
 const BottomTabNavigator = ({ navigation }: BottomTabNavigatorProps): ReactElement | null => {
   const { t } = useTranslation('layout')
-  const { cityCode, languageCode } = useCityAppContext()
+  const { regionCode, languageCode } = useRegionAppContext()
   const { navigateTo } = useNavigate()
   const insets = useSafeAreaInsets()
-  const { data, loading, error, refresh } = useLoadCityContent({ cityCode, languageCode })
+  const { data, loading, error, refresh } = useLoadRegionContent({ regionCode, languageCode })
   const cachedDataRef = useRef(data)
 
   // Preserve previous data during language changes to prevent unmounting
@@ -110,7 +110,7 @@ const BottomTabNavigator = ({ navigation }: BottomTabNavigatorProps): ReactEleme
 
   const cachedData = data || cachedDataRef.current
 
-  useSetRouteTitle({ navigation, title: cachedData?.city.name })
+  useSetRouteTitle({ navigation, title: cachedData?.region.name })
   const theme = useTheme()
 
   const CategoriesIcon = useCallback(
@@ -125,7 +125,7 @@ const BottomTabNavigator = ({ navigation }: BottomTabNavigatorProps): ReactEleme
     return <LoadingErrorHandler loading={loading} error={error} refresh={refresh} />
   }
 
-  const { eventsEnabled, poisEnabled, localNewsEnabled, tunewsEnabled } = cachedData.city
+  const { eventsEnabled, poisEnabled, localNewsEnabled, tunewsEnabled } = cachedData.region
 
   const Tabs = [
     <Tab.Screen

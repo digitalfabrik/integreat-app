@@ -2,7 +2,7 @@ import React, { ReactElement, useEffect, useState } from 'react'
 
 import { SendingStatusType } from 'shared'
 import {
-  CityModel,
+  RegionModel,
   createChatMessagesEndpoint,
   createSendChatMessageEndpoint,
   NotFoundError,
@@ -16,7 +16,7 @@ import { generateChatId } from '../utils/chat'
 import Chat from './Chat'
 
 type ChatControllerProps = {
-  city: CityModel
+  region: RegionModel
   languageCode: string
   chatId: string | null
   updateChatId: (newChatId: string | null) => void
@@ -26,8 +26,8 @@ const LOCAL_STORAGE_ITEM_CHAT_PRIVACY_POLICIES = 'Chat-Privacy-Policies'
 const DEFAULT_POLLING_INTERVAL = 15000
 const TYPING_POLLING_INTERVAL = 3000
 
-const ChatController = ({ city, languageCode, chatId, updateChatId }: ChatControllerProps): ReactElement => {
-  const cityCode = city.code
+const ChatController = ({ region, languageCode, chatId, updateChatId }: ChatControllerProps): ReactElement => {
+  const regionCode = region.code
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
   const isBrowserTabActive = useIsTabActive()
 
@@ -44,7 +44,7 @@ const ChatController = ({ city, languageCode, chatId, updateChatId }: ChatContro
     loading,
     setData,
   } = useLoadFromEndpoint(createChatMessagesEndpoint, cmsApiBaseUrl, {
-    cityCode,
+    regionCode,
     language: languageCode,
     deviceId: chatId ?? '',
   })
@@ -55,8 +55,8 @@ const ChatController = ({ city, languageCode, chatId, updateChatId }: ChatContro
     key: LOCAL_STORAGE_ITEM_CHAT_PRIVACY_POLICIES,
     initialValue: {},
   })
-  const privacyPolicyAccepted = value[city.code] ?? false
-  const acceptCustomPrivacyPolicy = () => updateLocalStorageItem({ ...value, [city.code]: true })
+  const privacyPolicyAccepted = value[region.code] ?? false
+  const acceptCustomPrivacyPolicy = () => updateLocalStorageItem({ ...value, [region.code]: true })
 
   useEffect(() => {
     if (!isBrowserTabActive || messageCount === 0) {
@@ -69,7 +69,7 @@ const ChatController = ({ city, languageCode, chatId, updateChatId }: ChatContro
   const submitMessage = async (message: string) => {
     setSendingStatus('sending')
     const { data, error } = await createSendChatMessageEndpoint(cmsApiBaseUrl).request({
-      cityCode,
+      regionCode,
       language: languageCode,
       message,
       deviceId: chatId ?? initializeChat(),
@@ -87,7 +87,7 @@ const ChatController = ({ city, languageCode, chatId, updateChatId }: ChatContro
 
   return (
     <Chat
-      city={city}
+      region={region}
       messages={chatMessagesReturn?.messages ?? []}
       submitMessage={submitMessage}
       // If no message has been sent yet, fetching the messages yields a 404 not found error

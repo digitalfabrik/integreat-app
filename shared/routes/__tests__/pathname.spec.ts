@@ -10,16 +10,16 @@ import {
   TU_NEWS_TYPE,
 } from '..'
 
-import { cityContentPath, pathnameFromRouteInformation } from '../pathname'
+import { regionContentPath, pathnameFromRouteInformation } from '../pathname'
 
 describe('pathname', () => {
-  const cityCode = 'augsburg'
+  const regionCode = 'augsburg'
   const languageCode = 'de'
 
-  describe('cityContentPath', () => {
-    it('should return correct pathname for city content routes with path', () => {
-      const pathname = cityContentPath({
-        cityCode,
+  describe('regionContentPath', () => {
+    it('should return correct pathname for region content routes with path', () => {
+      const pathname = regionContentPath({
+        regionCode,
         languageCode,
         route: EVENTS_ROUTE,
         path: 'my-event-1235',
@@ -27,27 +27,27 @@ describe('pathname', () => {
       expect(pathname).toBe('/augsburg/de/events/my-event-1235')
     })
 
-    it('should return correct pathname for city content routes without path', () => {
-      const pathname = cityContentPath({
-        cityCode,
+    it('should return correct pathname for region content routes without path', () => {
+      const pathname = regionContentPath({
+        regionCode,
         languageCode,
         route: EVENTS_ROUTE,
       })
       expect(pathname).toBe('/augsburg/de/events')
     })
 
-    it('should return correct pathname for city content routes without route', () => {
-      const pathname = cityContentPath({
-        cityCode,
+    it('should return correct pathname for region content routes without route', () => {
+      const pathname = regionContentPath({
+        regionCode,
         languageCode,
         path: 'willkommen/ankommen',
       })
       expect(pathname).toBe('/augsburg/de/willkommen/ankommen')
     })
 
-    it('should return correct pathname for city content routes without route or path', () => {
-      const pathname = cityContentPath({
-        cityCode,
+    it('should return correct pathname for region content routes without route or path', () => {
+      const pathname = regionContentPath({
+        regionCode,
         languageCode,
       })
       expect(pathname).toBe('/augsburg/de')
@@ -64,15 +64,15 @@ describe('pathname', () => {
       ).toBe(`/${LANDING_ROUTE}/${languageCode}`)
     })
 
-    it('should match categories route if pathname is a city with a language', () => {
+    it('should match categories route if pathname is a region with a language', () => {
       expect(
         pathnameFromRouteInformation({
           route: CATEGORIES_ROUTE,
           languageCode: 'ar',
-          cityCode,
-          cityContentPath: `/${cityCode}/ar`,
+          regionCode,
+          regionContentPath: `/${regionCode}/ar`,
         }),
-      ).toBe(`/${cityCode}/ar`)
+      ).toBe(`/${regionCode}/ar`)
     })
 
     it('should match events route', () => {
@@ -80,18 +80,18 @@ describe('pathname', () => {
         pathnameFromRouteInformation({
           route: EVENTS_ROUTE,
           languageCode,
-          cityCode,
+          regionCode,
         }),
-      ).toBe(`/${cityCode}/${languageCode}/${EVENTS_ROUTE}`)
+      ).toBe(`/${regionCode}/${languageCode}/${EVENTS_ROUTE}`)
     })
 
     it('should match single events route', () => {
-      const pathname = `/${cityCode}/${languageCode}/${EVENTS_ROUTE}/1234`
+      const pathname = `/${regionCode}/${languageCode}/${EVENTS_ROUTE}/1234`
       expect(
         pathnameFromRouteInformation({
           route: EVENTS_ROUTE,
           languageCode,
-          cityCode,
+          regionCode,
           slug: '1234',
         }),
       ).toBe(pathname)
@@ -102,19 +102,19 @@ describe('pathname', () => {
         pathnameFromRouteInformation({
           route: POIS_ROUTE,
           languageCode,
-          cityCode,
+          regionCode,
         }),
-      ).toBe(`/${cityCode}/${languageCode}/${POIS_ROUTE}`)
+      ).toBe(`/${regionCode}/${languageCode}/${POIS_ROUTE}`)
     })
 
     it('should match single pois route', () => {
       const slug = 'tuer-an-tuer'
-      const pathname = `/${cityCode}/${languageCode}/${POIS_ROUTE}/${slug}`
+      const pathname = `/${regionCode}/${languageCode}/${POIS_ROUTE}/${slug}`
       expect(
         pathnameFromRouteInformation({
           route: POIS_ROUTE,
           languageCode,
-          cityCode,
+          regionCode,
           slug,
         }),
       ).toBe(pathname)
@@ -125,9 +125,9 @@ describe('pathname', () => {
         pathnameFromRouteInformation({
           route: IMPRINT_ROUTE,
           languageCode,
-          cityCode,
+          regionCode,
         }),
-      ).toBe(`/${cityCode}/${languageCode}/${IMPRINT_ROUTE}`)
+      ).toBe(`/${regionCode}/${languageCode}/${IMPRINT_ROUTE}`)
     })
 
     it('should match search route', () => {
@@ -135,9 +135,9 @@ describe('pathname', () => {
         pathnameFromRouteInformation({
           route: SEARCH_ROUTE,
           languageCode,
-          cityCode,
+          regionCode,
         }),
-      ).toBe(`/${cityCode}/${languageCode}/${SEARCH_ROUTE}`)
+      ).toBe(`/${regionCode}/${languageCode}/${SEARCH_ROUTE}`)
     })
 
     it('should match local news route', () => {
@@ -147,9 +147,9 @@ describe('pathname', () => {
           newsType: LOCAL_NEWS_TYPE,
           newsId: undefined,
           languageCode,
-          cityCode,
+          regionCode,
         }),
-      ).toBe(`/${cityCode}/${languageCode}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}`)
+      ).toBe(`/${regionCode}/${languageCode}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}`)
     })
 
     it('should match single local news route', () => {
@@ -159,9 +159,9 @@ describe('pathname', () => {
           newsType: LOCAL_NEWS_TYPE,
           newsId: 1234,
           languageCode,
-          cityCode,
+          regionCode,
         }),
-      ).toBe(`/${cityCode}/${languageCode}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}/1234`)
+      ).toBe(`/${regionCode}/${languageCode}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}/1234`)
     })
 
     it('should match tunews route', () => {
@@ -171,9 +171,9 @@ describe('pathname', () => {
           newsType: TU_NEWS_TYPE,
           newsId: undefined,
           languageCode,
-          cityCode,
+          regionCode,
         }),
-      ).toBe(`/${cityCode}/${languageCode}/${NEWS_ROUTE}/${TU_NEWS_TYPE}`)
+      ).toBe(`/${regionCode}/${languageCode}/${NEWS_ROUTE}/${TU_NEWS_TYPE}`)
     })
 
     it('should match single tunews route', () => {
@@ -183,19 +183,19 @@ describe('pathname', () => {
           newsType: TU_NEWS_TYPE,
           newsId: 1234,
           languageCode,
-          cityCode,
+          regionCode,
         }),
-      ).toBe(`/${cityCode}/${languageCode}/${NEWS_ROUTE}/${TU_NEWS_TYPE}/1234`)
+      ).toBe(`/${regionCode}/${languageCode}/${NEWS_ROUTE}/${TU_NEWS_TYPE}/1234`)
     })
 
     it('should match categories route', () => {
-      const pathname = `/${cityCode}/${languageCode}/my/custom/category`
+      const pathname = `/${regionCode}/${languageCode}/my/custom/category`
       expect(
         pathnameFromRouteInformation({
           route: CATEGORIES_ROUTE,
           languageCode,
-          cityCode,
-          cityContentPath: pathname,
+          regionCode,
+          regionContentPath: pathname,
         }),
       ).toBe(pathname)
     })

@@ -192,7 +192,7 @@ export type JsonTunewsLanguageType = {
   name: string
 }
 
-export type JsonCityType = {
+export type JsonRegionType = {
   name: string
   path: string
   live: boolean
