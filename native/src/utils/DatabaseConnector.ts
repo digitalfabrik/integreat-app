@@ -340,7 +340,7 @@ class DatabaseConnector {
       lastUpdate,
     }
 
-    this._storeMetaRegions(metaData)
+    await this._storeMetaRegions(metaData)
   }
 
   async _deleteMetaOfRegions(regions: string[]): Promise<void> {
