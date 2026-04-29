@@ -65,12 +65,15 @@ describe('ChangeLanguageModal', () => {
     expect(changeLanguageCode).not.toHaveBeenCalled()
   })
 
-  it('should do nothing if language is neither available nor selected', () => {
-    const { getByText } = renderChangeLanguageModel()
+  it('should open unavailable dialog if language is neither available nor selected', () => {
+    const { getByText, queryByText } = renderChangeLanguageModel()
+
+    expect(queryByText('noTranslation')).toBeNull()
 
     fireEvent.press(getByText(unavailableLanguage.name))
 
     expect(navigation.goBack).not.toHaveBeenCalled()
     expect(changeLanguageCode).not.toHaveBeenCalled()
+    expect(getByText('noTranslation')).toBeTruthy()
   })
 })
