@@ -39,13 +39,13 @@ const commonObdachBuildConfig: CommonBuildConfigType = {
   accessibilityUrls: {
     default: 'https://integreat-app.de/barrierefreiheit/',
   },
+  mainImprint,
 }
 
 export const webObdachBuildConfig: WebBuildConfigType = {
   ...commonObdachBuildConfig,
   appDescription:
     'Netzwerk Obdach & Wohnen – die lokale und mehrsprachige Plattform für Obdachlose und Menschen die von Obdachlosigkeit bedroht sind',
-  mainImprint,
   manifestUrl: '/manifest.json',
   icons: {
     appLogo: '/app-logo.svg',
