@@ -7,7 +7,7 @@ import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useHeader from '../hooks/useHeader'
 import { CityContentData } from '../hooks/useLoadCityContent'
 import usePreviousProp from '../hooks/usePreviousProp'
-import urlFromRouteInformation from '../navigation/url'
+import urlFromRouteInformation from '../utils/url'
 
 type LocalNewsProps = {
   route: RouteProps<NewsRouteType>

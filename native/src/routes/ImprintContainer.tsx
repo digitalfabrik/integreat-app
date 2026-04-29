@@ -7,7 +7,7 @@ import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useCityAppContext from '../hooks/useCityAppContext'
 import useHeader from '../hooks/useHeader'
 import useLoadExtraCityContent from '../hooks/useLoadExtraCityContent'
-import urlFromRouteInformation from '../navigation/url'
+import urlFromRouteInformation from '../utils/url'
 import Imprint from './Imprint'
 import LoadingErrorHandler from './LoadingErrorHandler'
 
