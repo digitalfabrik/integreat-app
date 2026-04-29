@@ -11,7 +11,6 @@ import NativeConstants from '../constants/NativeConstants'
 import { NavigationProps } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import { AppContextType } from '../contexts/AppContextProvider'
-import urlFromRouteInformation from '../utils/url'
 import { SettingsType } from './AppSettings'
 import { requestPushNotificationPermission, subscribeNews, unsubscribeNews } from './PushNotificationsManager'
 import openExternalUrl from './openExternalUrl'
@@ -116,10 +115,7 @@ const createSettingsSections = ({
   {
     role: 'link',
     title: t('layout:imprint'),
-    onPress: async () =>
-      settings.selectedCity
-        ? navigation.navigate(IMPRINT_ROUTE)
-        : openExternalUrl(urlFromRouteInformation({ route: MAIN_IMPRINT_ROUTE }), showSnackbar),
+    onPress: () => navigation.navigate(settings.selectedCity ? IMPRINT_ROUTE : MAIN_IMPRINT_ROUTE),
   },
   {
     role: 'link',
