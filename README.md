@@ -55,8 +55,8 @@ and follow the docs [here](./docs/wsl-setup.md) first._
 
 - Rate our apps in the [PlayStore](https://play.google.com/store/apps/developer?id=T%C3%BCr+an+T%C3%BCr+-+Digitalfabrik+gGmbH)
   and the [Apple App Store](https://apps.apple.com/ae/developer/tur-an-tur-digitalfabrik-ggmbh/id1309363258).
-- Install [nodejs v20 LTS](https://nodejs.org/).
-- Install [classic yarn](https://classic.yarnpkg.com).
+- Install [Node.js v22.11.0 or newer](https://nodejs.org/).
+- Install [Yarn 4.13.0](https://yarnpkg.com/getting-started/install), for example `npm install -g corepack`.
 
 ### Project setup
 
