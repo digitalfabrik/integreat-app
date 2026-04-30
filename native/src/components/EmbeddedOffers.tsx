@@ -4,7 +4,7 @@ import styled from 'styled-components/native'
 import { CATEGORIES_ROUTE, MALTE_HELP_FORM_OFFER_ALIAS, SPRUNGBRETT_OFFER_ALIAS } from 'shared'
 import { CategoryModel } from 'shared/api'
 
-import urlFromRouteInformation from '../navigation/url'
+import urlFromRouteInformation from '../utils/url'
 import MalteHelpFormOffer from './MalteHelpFormOffer'
 import SprungbrettOffer from './SprungbrettOffer'
 
