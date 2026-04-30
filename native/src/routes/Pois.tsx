@@ -6,7 +6,7 @@ import { Chip } from 'react-native-paper'
 import { SvgUri } from 'react-native-svg'
 import styled from 'styled-components/native'
 
-import { PoisRouteType, isMultipoi, LocationType, MapFeature, preparePois, safeParseInt, sortPois } from 'shared'
+import { isMultipoi, LocationType, MapFeature, preparePois, safeParseInt, sortPois } from 'shared'
 import { PoiCategoryModel, CityModel, PoiModel } from 'shared/api'
 
 import { EditLocationIcon } from '../assets'
@@ -15,9 +15,9 @@ import PoiFiltersModal from '../components/PoiFiltersModal'
 import PoisBottomSheet from '../components/PoisBottomSheet'
 import Icon from '../components/base/Icon'
 import Text from '../components/base/Text'
-import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import dimensions from '../constants/dimensions'
-import useOnBackNavigation from '../hooks/useOnBackNavigation'
+import { UseLocalHistoryReturn } from '../hooks/useLocalStackHistory'
+import { PoiHistory } from './PoisContainer'
 
 const StyledSvgUri = styled(SvgUri)`
   color: ${props => props.theme.colors.onSurface};
@@ -31,80 +31,51 @@ const Container = styled.View`
 const SNAP_POINT_MID_PERCENTAGE = 0.35
 
 type PoisProps = {
+  localHistory: UseLocalHistoryReturn<PoiHistory>
   pois: PoiModel[]
   cityModel: CityModel
-  route: RouteProps<PoisRouteType>
-  navigation: NavigationProps<PoisRouteType>
+  initialZoom: number | undefined
 }
 
-const Pois = ({ pois: allPois, cityModel, route, navigation }: PoisProps): ReactElement => {
-  const { slug, multipoi, poiCategoryId, zoom } = route.params
-  const [deselectOnBackNavigation, setDeselectOnBackNavigation] = useState(slug === undefined && multipoi === undefined)
-  const [poiCurrentlyOpenFilter, setPoiCurrentlyOpenFilter] = useState(false)
-  const [showFilterSelection, setShowFilterSelection] = useState(false)
+const Pois = ({ localHistory, initialZoom, pois: allPois, cityModel }: PoisProps): ReactElement => {
   const [userLocation, setUserLocation] = useState<LocationType | null>(null)
   const [bottomSheetSnapPointIndex, setBottomSheetSnapPointIndex] = useState(1)
-  const [listScrollPosition, setListScrollPosition] = useState(0)
   const poiListRef = useRef<BottomSheetFlatListMethods>(null)
-  const { t } = useTranslation('pois')
   const { height } = useWindowDimensions()
+  const { t } = useTranslation('pois')
+
+  const { slug, multipoi, poiCategoryId, currentlyOpen, showFilterSelection } = localHistory.current
+  const { pois, poi, mapFeatures, mapFeature, poiCategories, poiCategory } = preparePois({
+    pois: allPois,
+    params: { slug, multipoi, poiCategoryId, currentlyOpen },
+  })
+
   const bottomSheetSnapPoints = [dimensions.bottomSheetHandle.height, SNAP_POINT_MID_PERCENTAGE * height, height]
   const bottomSheetFullscreen = bottomSheetSnapPointIndex === bottomSheetSnapPoints.length - 1
   const bottomSheetHeight = bottomSheetSnapPoints[bottomSheetSnapPointIndex] ?? 0
 
-  const { pois, poi, mapFeatures, mapFeature, poiCategories, poiCategory } = preparePois({
-    pois: allPois,
-    params: { slug, multipoi, poiCategoryId, currentlyOpen: poiCurrentlyOpenFilter },
-  })
+  const deselect = () => localHistory.push(multipoi !== undefined && slug ? { multipoi } : {})
 
-  const scrollToOffset = (offset: number) => poiListRef.current?.scrollToOffset({ offset, animated: false })
+  const updateShowFilterSelection = (showFilterSelection: boolean) => localHistory.push({ showFilterSelection })
 
-  const deselectAll = () => {
-    navigation.setParams({ slug: undefined, multipoi: undefined })
-    scrollToOffset(listScrollPosition)
-  }
+  const updatePoiCategoryFilter = (poiCategory: PoiCategoryModel | null) =>
+    localHistory.pushReset({ poiCategoryId: poiCategory?.id, currentlyOpen })
 
-  const deselect = () => {
-    if (multipoi !== undefined && slug) {
-      navigation.setParams({ slug: undefined })
-    } else {
-      deselectAll()
-    }
-  }
-  useOnBackNavigation((slug || multipoi !== undefined) && deselectOnBackNavigation ? deselect : undefined)
-
-  const updatePoiCategoryFilter = (poiCategoryFilter: PoiCategoryModel | null) => {
-    if (poiCategoryFilter) {
-      deselectAll()
-    }
-    navigation.setParams({ poiCategoryId: poiCategoryFilter?.id })
-  }
-
-  const updatePoiCurrentlyOpenFilter = (poiCurrentlyOpenFilter: boolean) => {
-    if (poiCurrentlyOpenFilter) {
-      deselectAll()
-    }
-    setPoiCurrentlyOpenFilter(poiCurrentlyOpenFilter)
-  }
+  const updatePoiCurrentlyOpenFilter = (currentlyOpen: boolean) =>
+    localHistory.pushReset({ poiCategoryId, currentlyOpen })
 
   const selectMapFeature = (mapFeature: MapFeature | null) => {
-    setDeselectOnBackNavigation(true)
-    deselectAll()
     setBottomSheetSnapPointIndex(1)
 
     const slug = mapFeature?.properties.pois[0]?.slug
     if (mapFeature && isMultipoi(mapFeature)) {
-      navigation.setParams({ multipoi: safeParseInt(mapFeature.id), slug: undefined })
-      scrollToOffset(0)
-    } else if (slug) {
-      navigation.setParams({ slug, multipoi: undefined })
+      localHistory.push({ multipoi: safeParseInt(mapFeature.id), slug: undefined })
+    } else if (slug || localHistory.current.slug) {
+      localHistory.push({ multipoi: undefined, slug })
     }
   }
 
-  const selectPoi = (poi: PoiModel) => {
-    setDeselectOnBackNavigation(true)
-    navigation.setParams({ slug: poi.slug })
-  }
+  const selectPoi = (poi: PoiModel) => localHistory.push({ slug: poi.slug })
 
   const styles = StyleSheet.create({
     chip: {
@@ -123,18 +94,18 @@ const Pois = ({ pois: allPois, cityModel, route, navigation }: PoisProps): React
         style={styles.chip}
         elevated
         avatar={<Icon Icon={EditLocationIcon} />}
-        onPress={() => setShowFilterSelection(true)}>
+        onPress={() => updateShowFilterSelection(true)}>
         <Text variant='body3'>{t('adjustFilters')}</Text>
       </Chip>
 
-      {poiCurrentlyOpenFilter && (
+      {currentlyOpen && (
         <Chip
           mode='outlined'
           rippleColor='transparent'
           style={styles.chip}
           avatar={<Icon source='clock-outline' size={20} style={{ width: 20, height: 20 }} />}
-          onPress={() => setPoiCurrentlyOpenFilter(false)}
-          onClose={() => setPoiCurrentlyOpenFilter(false)}
+          onPress={() => updatePoiCurrentlyOpenFilter(false)}
+          onClose={() => updatePoiCurrentlyOpenFilter(false)}
           closeIcon='close'>
           <Text variant='body3'>{t('opened')}</Text>
         </Chip>
@@ -145,8 +116,8 @@ const Pois = ({ pois: allPois, cityModel, route, navigation }: PoisProps): React
           rippleColor='transparent'
           style={styles.chip}
           avatar={<StyledSvgUri uri={poiCategory.icon} />}
-          onPress={() => navigation.setParams({ poiCategoryId: undefined })}
-          onClose={() => navigation.setParams({ poiCategoryId: undefined })}
+          onPress={() => updatePoiCategoryFilter(null)}
+          onClose={() => updatePoiCategoryFilter(null)}
           closeIcon='close'>
           <Text variant='body3'>{poiCategory.name}</Text>
         </Chip>
@@ -158,11 +129,11 @@ const Pois = ({ pois: allPois, cityModel, route, navigation }: PoisProps): React
     <Container>
       <PoiFiltersModal
         modalVisible={showFilterSelection}
-        closeModal={() => setShowFilterSelection(false)}
+        closeModal={localHistory.pop}
         poiCategories={poiCategories}
         selectedPoiCategory={poiCategory}
         setSelectedPoiCategory={updatePoiCategoryFilter}
-        currentlyOpenFilter={poiCurrentlyOpenFilter}
+        currentlyOpenFilter={currentlyOpen}
         setCurrentlyOpenFilter={updatePoiCurrentlyOpenFilter}
         poisCount={pois.length}
       />
@@ -175,7 +146,7 @@ const Pois = ({ pois: allPois, cityModel, route, navigation }: PoisProps): React
         bottomSheetFullscreen={bottomSheetFullscreen}
         setUserLocation={setUserLocation}
         userLocation={userLocation}
-        zoom={zoom}
+        zoom={initialZoom}
         Overlay={FiltersOverlayButtons}
       />
       <PoisBottomSheet
@@ -189,7 +160,7 @@ const Pois = ({ pois: allPois, cityModel, route, navigation }: PoisProps): React
         snapPoints={bottomSheetSnapPoints}
         snapPointIndex={bottomSheetSnapPointIndex}
         setSnapPointIndex={setBottomSheetSnapPointIndex}
-        setScrollPosition={setListScrollPosition}
+        setScrollPosition={() => undefined}
         isFullscreen={bottomSheetFullscreen}
       />
     </Container>
