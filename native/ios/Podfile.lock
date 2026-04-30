@@ -79,13 +79,28 @@ PODS:
   - hermes-engine (250829098.0.9):
     - hermes-engine/Pre-built (= 250829098.0.9)
   - hermes-engine/Pre-built (250829098.0.9)
-  - maplibre-react-native (10.4.2):
-    - maplibre-react-native/DynamicLibrary (= 10.4.2)
-    - React
+  - MapLibreReactNative (11.0.1):
+    - hermes-engine
+    - RCTRequired
+    - RCTTypeSafety
     - React-Core
-  - maplibre-react-native/DynamicLibrary (10.4.2):
-    - React
-    - React-Core
+    - React-Core-prebuilt
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-renderercss
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - ReactNativeDependencies
+    - Yoga
   - nanopb (3.30910.0):
     - nanopb/decode (= 3.30910.0)
     - nanopb/encode (= 3.30910.0)
@@ -2580,7 +2595,7 @@ DEPENDENCIES:
   - "AsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - hermes-engine (from `../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
-  - "maplibre-react-native (from `../node_modules/@maplibre/maplibre-react-native`)"
+  - "MapLibreReactNative (from `../node_modules/@maplibre/maplibre-react-native`)"
   - RCTDeprecation (from `../node_modules/react-native/ReactApple/Libraries/RCTFoundation/RCTDeprecation`)
   - RCTRequired (from `../node_modules/react-native/Libraries/Required`)
   - RCTSwiftUI (from `../node_modules/react-native/ReactApple/RCTSwiftUI`)
@@ -2702,7 +2717,7 @@ EXTERNAL SOURCES:
   hermes-engine:
     :podspec: "../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec"
     :tag: hermes-v250829098.0.9
-  maplibre-react-native:
+  MapLibreReactNative:
     :path: "../node_modules/@maplibre/maplibre-react-native"
   RCTDeprecation:
     :path: "../node_modules/react-native/ReactApple/Libraries/RCTFoundation/RCTDeprecation"
@@ -2910,8 +2925,8 @@ SPEC CHECKSUMS:
   FirebaseMessaging: ed18fb50634e6e85b5d3e77e628c21e2c928cc53
   GoogleDataTransport: aae35b7ea0c09004c3797d53c8c41f66f219d6a7
   GoogleUtilities: 00c88b9a86066ef77f0da2fab05f65d7768ed8e1
-  hermes-engine: 659337d4b3a778d8955fd7483985598f99cc0d7b
-  maplibre-react-native: 37d86b5b7b04dedaceebc577644e67acd7b5f437
+  hermes-engine: 23d4754646518d6e6b72e8fb583e1c4c8b98401f
+  MapLibreReactNative: 5a8fe115ee82679382decd6b853a91a157520761
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   RCTDeprecation: af44b104091a34482596cd9bd7e8d90c4e9b4bd7
@@ -2922,7 +2937,7 @@ SPEC CHECKSUMS:
   React: 1ba7d364ade7d883a1ec055bfc3606f35fdee17b
   React-callinvoker: bc2a26f8d84fb01f003fc6de6c9337b64715f95b
   React-Core: 7840d3a80b43a95c5e80ef75146bd70925ebab0f
-  React-Core-prebuilt: 69d352ff854a4418fb035b0b77e033d3ae645534
+  React-Core-prebuilt: 2179e1ed60089dff34c89849a83e4e56704150fa
   React-CoreModules: 2eb010400b63b89e53a324ffb3c112e4c7c3ce42
   React-cxxreact: a558e92199d26f145afa9e62c4233cf8e7950efe
   React-debug: d196e6df0599d78360b3211367e28c5583054133
@@ -2991,7 +3006,7 @@ SPEC CHECKSUMS:
   ReactAppDependencyProvider: e96e93b493d8d86eeaee3e590ba0be53f6abe46f
   ReactCodegen: 66522f37c7e4861aec1f6a574dee83917fad4397
   ReactCommon: 07572bf9e687c8a52fbe4a3641e9e3a1a477c78e
-  ReactNativeDependencies: b4ad406dd919f80b78606e4062546d38f0a5efed
+  ReactNativeDependencies: 6d52817c6be85e59e6a76e20a0f1ac347bd842e3
   ReactNativeFs: c8f088242a701e38c38c8b11c9f625591bb1be21
   ReactNativePdfRenderer: da23180e3c4f0dae53e09ee682bb556c5b9308db
   ReactNativeStaticServer: d6e031604d6782ff1ec9b1948d6f93f746b6d5c5
