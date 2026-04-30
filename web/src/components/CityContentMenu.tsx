@@ -13,7 +13,7 @@ import FeedbackContainer from './FeedbackContainer'
 import HeaderMenu, { MenuRef } from './HeaderMenu'
 import MenuItem from './MenuItem'
 import PdfMenuItem from './PdfMenuItem'
-import { TtsContext } from './TtsContainer'
+import { TtsContext } from './TtsContext'
 import Dialog from './base/Dialog'
 import Svg from './base/Svg'
 

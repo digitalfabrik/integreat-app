@@ -3,11 +3,10 @@ import React, { ReactElement } from 'react'
 
 import { NEWS_ROUTE, RATING_NEGATIVE, RATING_POSITIVE } from 'shared'
 
+import { TOOLBAR_ELEMENT_ID } from '../constants/dimensions'
 import useCityContentParams from '../hooks/useCityContentParams'
 import useUpdateDimensions from '../hooks/useUpdateDimensions'
 import FeedbackToolbarItem from './FeedbackToolbarItem'
-
-export const TOOLBAR_ELEMENT_ID = 'toolbar'
 
 type CityContentToolbarProps = {
   slug?: string

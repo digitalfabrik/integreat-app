@@ -3,12 +3,10 @@ import Stack from '@mui/material/Stack'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode } from 'react'
 
+import { LAYOUT_ELEMENT_ID, MAIN_ELEMENT_ID } from '../constants/dimensions'
 import useDimensions from '../hooks/useDimensions'
 import MobileBanner from './MobileBanner'
 import SkipToContent from './SkipToContent'
-
-export const LAYOUT_ELEMENT_ID = 'layout'
-export const MAIN_ELEMENT_ID = 'main'
 
 export const RichLayout = styled('div')`
   position: relative;

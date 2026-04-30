@@ -3,7 +3,6 @@ import React, { ReactElement, useCallback } from 'react'
 import { NEWS_ROUTE, pathnameFromRouteInformation, TU_NEWS_TYPE, tunewsLabel } from 'shared'
 import { createTunewsEndpoint, createTunewsLanguagesEndpoint, TunewsModel, useLoadFromEndpoint } from 'shared/api'
 
-import { CityRouteProps } from '../CityContentNavigator'
 import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
 import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
@@ -14,6 +13,7 @@ import NewsListItem from '../components/NewsListItem'
 import NewsTabs from '../components/NewsTabs'
 import SkeletonList from '../components/SkeletonList'
 import { tunewsApiBaseUrl } from '../constants/urls'
+import { CityRouteProps } from './index'
 
 const DEFAULT_PAGE = 1
 const DEFAULT_COUNT = 10

@@ -18,7 +18,7 @@ import ChatController from './ChatController'
 import ChatMenu from './ChatMenu'
 import HeaderLanguageSelectorItem from './HeaderLanguageSelectorItem'
 import { LanguageChangePath } from './LanguageList'
-import { TtsContext } from './TtsContainer'
+import { TtsContext } from './TtsContext'
 import Dialog from './base/Dialog'
 
 const ChatButtonContainer = styled('div')<{ bottom: number }>`

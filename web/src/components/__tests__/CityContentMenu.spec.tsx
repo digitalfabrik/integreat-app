@@ -7,7 +7,7 @@ import { mockDimensions } from '../../__mocks__/useDimensions'
 import useDimensions from '../../hooks/useDimensions'
 import { renderAllRoutes } from '../../testing/render'
 import CityContentMenu from '../CityContentMenu'
-import { TtsContext } from '../TtsContainer'
+import { TtsContext } from '../TtsContext'
 
 jest.mock('react-i18next')
 jest.mock('../../hooks/useDimensions')

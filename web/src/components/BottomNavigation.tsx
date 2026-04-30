@@ -9,13 +9,12 @@ import { useTranslation } from 'react-i18next'
 import { CATEGORIES_ROUTE, EVENTS_ROUTE, NEWS_ROUTE, POIS_ROUTE } from 'shared'
 import { CityModel } from 'shared/api'
 
+import { BOTTOM_NAVIGATION_ELEMENT_ID } from '../constants/dimensions'
 import useCityContentParams from '../hooks/useCityContentParams'
 import useDimensions from '../hooks/useDimensions'
 import useUpdateDimensions from '../hooks/useUpdateDimensions'
 import getNavigationItems from '../utils/navigationItems'
 import Link from './base/Link'
-
-export const BOTTOM_NAVIGATION_ELEMENT_ID = 'bottom-navigation'
 
 const Container = styled(Paper)(({ theme }) => ({
   position: 'fixed',

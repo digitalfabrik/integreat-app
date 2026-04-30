@@ -11,7 +11,7 @@ import {
   POIS_ROUTE,
   SEARCH_ROUTE,
 } from 'shared'
-import { CityModel, NotFoundError, useLoadFromEndpoint, createCityEndpoint } from 'shared/api'
+import { NotFoundError, useLoadFromEndpoint, createCityEndpoint } from 'shared/api'
 
 import CityContentLayout from './components/CityContentLayout'
 import FailureSwitcherWithHelmet from './components/FailureSwitcherWithHelmet'
@@ -20,7 +20,14 @@ import GeneralHeader from './components/GeneralHeader'
 import LanguageFailure from './components/LanguageFailure'
 import Layout from './components/Layout'
 import { cmsApiBaseUrl } from './constants/urls'
-import { LOCAL_NEWS_ROUTE, RoutePatterns, RouteType, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from './routes'
+import {
+  LOCAL_NEWS_ROUTE,
+  RoutePatterns,
+  RouteType,
+  TU_NEWS_DETAIL_ROUTE,
+  TU_NEWS_ROUTE,
+  CityRouteProps,
+} from './routes'
 import lazyWithRetry from './utils/retryImport'
 
 const TuNewsDetailPage = lazyWithRetry(() => import('./routes/TuNewsDetailPage'))
@@ -33,13 +40,6 @@ const SearchPage = lazyWithRetry(() => import('./routes/SearchPage'))
 const ImprintPage = lazyWithRetry(() => import('./routes/ImprintPage'))
 
 type CityContentNavigatorProps = {
-  languageCode: string
-}
-
-export type CityRouteProps = {
-  city: CityModel | null
-  pathname: string
-  cityCode: string
   languageCode: string
 }
 

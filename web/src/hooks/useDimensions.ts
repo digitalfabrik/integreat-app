@@ -1,10 +1,12 @@
 import { useContext, useEffect, useState } from 'react'
 
-import { BOTTOM_NAVIGATION_ELEMENT_ID } from '../components/BottomNavigation'
-import { TOOLBAR_ELEMENT_ID } from '../components/CityContentToolbar'
-import { BREAKPOINTS } from '../components/ThemeContainer'
-import { TtsContext } from '../components/TtsContainer'
-import { TTS_PLAYER_ELEMENT_ID } from '../components/TtsPlayer'
+import { TtsContext } from '../components/TtsContext'
+import {
+  BOTTOM_NAVIGATION_ELEMENT_ID,
+  BREAKPOINTS,
+  TOOLBAR_ELEMENT_ID,
+  TTS_PLAYER_ELEMENT_ID,
+} from '../constants/dimensions'
 
 const bottomSheetHandleHeight = 40
 const midSnapPercentage = 0.35

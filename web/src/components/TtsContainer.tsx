@@ -1,11 +1,12 @@
 import Backdrop from '@mui/material/Backdrop'
 import { styled } from '@mui/material/styles'
 import EasySpeech from 'easy-speech'
-import React, { createContext, ReactElement, useCallback, useMemo, useRef, useState } from 'react'
+import React, { ReactElement, useCallback, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { getTtsVoice, isTtsCancelError, ttsInitialized } from '../utils/tts'
 import LoadingSpinner from './LoadingSpinner'
+import { TtsContext, TtsContextType } from './TtsContext'
 import TtsHelp from './TtsHelp'
 import TtsPlayer from './TtsPlayer'
 
@@ -15,22 +16,6 @@ const TTS_RETRY_INTERVAL = 250
 const StyledBackdrop = styled(Backdrop)`
   z-index: 100;
 `
-
-export type TtsContextType = {
-  canRead: boolean
-  visible: boolean
-  showTtsPlayer: () => void
-  sentences: string[]
-  setSentences: (sentences: string[]) => void
-}
-
-export const TtsContext = createContext<TtsContextType>({
-  canRead: false,
-  visible: false,
-  showTtsPlayer: () => undefined,
-  sentences: [],
-  setSentences: () => undefined,
-})
 
 type TtsContainerProps = {
   languageCode: string

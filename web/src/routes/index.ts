@@ -14,6 +14,7 @@ import {
   SEARCH_ROUTE,
   TU_NEWS_TYPE,
 } from 'shared'
+import { CityModel } from 'shared/api'
 
 export const LOCAL_NEWS_ROUTE = LOCAL_NEWS_TYPE
 export const TU_NEWS_ROUTE = TU_NEWS_TYPE
@@ -41,3 +42,10 @@ export const RoutePatterns = {
 } as const
 
 export type RouteType = keyof typeof RoutePatterns
+
+export type CityRouteProps = {
+  city: CityModel | null
+  pathname: string
+  cityCode: string
+  languageCode: string
+}

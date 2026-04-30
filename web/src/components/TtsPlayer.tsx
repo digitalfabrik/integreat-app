@@ -10,10 +10,9 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { TTS_PLAYER_ELEMENT_ID } from '../constants/dimensions'
 import useDimensions from '../hooks/useDimensions'
 import useUpdateDimensions from '../hooks/useUpdateDimensions'
-
-export const TTS_PLAYER_ELEMENT_ID = 'tts-player'
 
 const StyledTtsPlayer = styled('dialog')<{ bottom: number }>`
   background-color: ${props => props.theme.palette.background.accent};

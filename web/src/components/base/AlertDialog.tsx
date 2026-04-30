@@ -8,7 +8,7 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { LAYOUT_ELEMENT_ID } from '../Layout'
+import { LAYOUT_ELEMENT_ID } from '../../constants/dimensions'
 
 const StyledMuiDialog = styled(MuiDialog)(({ theme }) => ({
   [`.${dialogClasses.paper}`]: {

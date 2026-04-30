@@ -23,6 +23,7 @@
     "lint": " yarn stylelint && yarn run -T eslint --cache --cache-location ../.eslintcache .",
     "stylelint": "npx stylelint --config stylelint.config.js \"src/**/*.{ts,tsx,css}\"",
     "ts:check": "yarn run -T tsc --build",
+    "check-circular-deps": "bash ../scripts/list_workspace_circular_deps.sh",
     "prettier:check": "yarn run -T prettier --ignore-path  ../.prettierignore --check .",
     "prettier:write": "yarn run -T prettier --ignore-path  ../.prettierignore --write .",
     "circleci:update-config": "yarn run -T circleci:update-config",

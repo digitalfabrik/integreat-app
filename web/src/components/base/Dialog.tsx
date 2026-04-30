@@ -9,8 +9,8 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { LAYOUT_ELEMENT_ID } from '../../constants/dimensions'
 import useDimensions from '../../hooks/useDimensions'
-import { LAYOUT_ELEMENT_ID } from '../Layout'
 
 export const DirectionDependentBackIcon = styled(ArrowBackIcon)(({ theme }) => ({
   transform: theme.direction === 'rtl' ? 'scaleX(-1)' : 'none',

@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { useParams } from 'react-router'
 
-import { CityModel, NotFoundError } from 'shared/api'
+import { NotFoundError } from 'shared/api'
 
 import CityContentNavigator from './CityContentNavigator'
 import FailureSwitcherWithHelmet from './components/FailureSwitcherWithHelmet'
@@ -12,13 +12,6 @@ import Layout from './components/Layout'
 type FixedCityContentNavigatorProps = {
   languageCode: string
   fixedCity: string
-}
-
-export type CityRouteProps = {
-  city: CityModel | null
-  pathname: string
-  cityCode: string
-  languageCode: string
 }
 
 const FixedCityContentNavigator = ({ languageCode, fixedCity }: FixedCityContentNavigatorProps): ReactElement => {

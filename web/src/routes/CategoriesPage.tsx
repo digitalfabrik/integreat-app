@@ -15,7 +15,6 @@ import {
   useLoadFromEndpoint,
 } from 'shared/api'
 
-import { CityRouteProps } from '../CityContentNavigator'
 import { BreadcrumbProps } from '../components/Breadcrumb'
 import Breadcrumbs from '../components/Breadcrumbs'
 import CategoriesContent from '../components/CategoriesContent'
@@ -31,6 +30,7 @@ import buildConfig from '../constants/buildConfig'
 import { cmsApiBaseUrl } from '../constants/urls'
 import usePreviousProp from '../hooks/usePreviousProp'
 import useTtsPlayer from '../hooks/useTtsPlayer'
+import { CityRouteProps } from './index'
 
 const CATEGORY_NOT_FOUND_STATUS_CODE = 400
 

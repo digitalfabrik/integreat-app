@@ -9,6 +9,7 @@
     "test": "jest",
     "test:changed": "yarn run test -o",
     "test:watch": "yarn run test --watchAll",
+    "check-circular-deps": "bash ../scripts/list_workspace_circular_deps.sh 0 ./index.ts",
     "lint": "eslint --cache --cache-location ../.eslintcache .",
     "ts:check": "tsc --build"
   },

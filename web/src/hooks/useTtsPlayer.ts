@@ -3,7 +3,7 @@ import { useContext, useEffect } from 'react'
 import { segmentText, parseHTML } from 'shared'
 import { LocalNewsModel, DocumentModel, TunewsModel } from 'shared/api'
 
-import { TtsContext, TtsContextType } from '../components/TtsContainer'
+import { TtsContext, TtsContextType } from '../components/TtsContext'
 
 const useTtsPlayer = (
   model: DocumentModel | LocalNewsModel | TunewsModel | undefined | null,
