@@ -26,7 +26,7 @@ import useNavigate from '../useNavigate'
 jest.mock('@react-navigation/native')
 jest.mock('../../utils/navigation')
 jest.mock('../../utils/openExternalUrl', () => jest.fn(async () => undefined))
-jest.mock('../../navigation/url', () => ({
+jest.mock('../../utils/url', () => ({
   urlFromRouteInformation: jest.fn(() => 'https://example.com'),
 }))
 

@@ -54,6 +54,7 @@ const CitySelector = ({ cities, language, stickyTop, loading }: CitySelectorProp
         placeholderText={exampleCity?.sortingName ?? CITY_SEARCH_EXAMPLE}
         onFilterTextChange={setFilterText}
         description={t('searchCityDescription', { exampleCity: exampleCity?.name ?? CITY_SEARCH_EXAMPLE })}
+        autoFocus
       />
       {loading ? (
         <SkeletonList listItemHeight={40} />
