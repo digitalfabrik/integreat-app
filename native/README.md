@@ -61,7 +61,7 @@ run the app.
 
 In development builds, i.e. `yarn start`, the test cms is used as default.
 
-To switch between production and test cms, press the yellow location marker on the landing page 10 times.
+To switch between production and test cms, go to **Settings**, scroll down to the **Version** and tap it 10 times. To switch back to default cms url, go to landing page (Change location) and press the button **Switch back to default API**.
 On iOS it may be required to close and reopen the app after changing the cms instance.
 
 The cms repository can be found [here](https://github.com/digitalfabrik/integreat-cms).
