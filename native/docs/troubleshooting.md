@@ -2,6 +2,7 @@
 
 ## Contents
 
+- [Corepack not enabled](#corepack-not-enabled)
 - [Could not initialize class org.codehouse.groovy.runtime.InvokeHelper](#could-not-initialize-class-orgcodehousegroovyruntimeinvokehelper)
 - [java.io.IOException: Unable to delete the directory on Windows 10](#javaioioexception-unable-to-delete-the-directory-on-windows-10)
 - [`ERROR watch... ENOSPC` when running `yarn start` on Linux](#error-watch-enospc-when-running-yarn-start-on-linux)
@@ -22,6 +23,10 @@
 - [Other assorted XCode problems](#other-assorted-xcode-problems)
 - [Connection closed with reason=''](#connection-closed-with-no-reason)
 - [PreAction scripts fail in XCode](#preaction-scripts-fail-in-xcode-with-command-not-found)
+
+## Corepack not enabled
+
+If you use Corepack from third parties like Node.js, you need to run `corepack enable`. (Note that Corepack will be deprecated and unbundled at Node v25). For more details, refer to the [Yarn Corepack docs](https://yarnpkg.com/corepack).
 
 ## Could not initialize class org.codehouse.groovy.runtime.InvokeHelper
 
