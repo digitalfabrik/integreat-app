@@ -5,9 +5,11 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { parseHTML } from 'shared'
 import { ChatMessageModel } from 'shared/api'
 
 import ChatMessage from './ChatMessage'
+import LiveAnnouncer from './LiveAnnouncer'
 import SkeletonChatConversation from './SkeletonChatConversation'
 import TypingIndicator from './TypingIndicator'
 
@@ -45,6 +47,9 @@ const ChatConversation = ({ messages, isTyping, loading }: ChatConversationProps
     }
   }, [isTyping])
 
+  const last = messages[messages.length - 1]
+  const lastMessageText = last ? parseHTML(last.content) : ''
+
   if (messages.length === 0 && !loading) {
     return (
       <Stack paddingInline={3} gap={1}>
@@ -55,6 +60,7 @@ const ChatConversation = ({ messages, isTyping, loading }: ChatConversationProps
 
   return (
     <Stack padding={2} gap={2} overflow='auto'>
+      <LiveAnnouncer message={lastMessageText} />
       {loading ? (
         <SkeletonChatConversation />
       ) : (
