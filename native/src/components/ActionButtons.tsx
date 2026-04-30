@@ -1,10 +1,8 @@
 import React, { ReactElement, ReactNode } from 'react'
-import { Appbar } from 'react-native-paper'
+import { View } from 'react-native'
 
 const ActionButtons = ({ items }: { items: ReactNode[] }): ReactElement => (
-  <Appbar.Header style={{ paddingHorizontal: 0, gap: 8, backgroundColor: 'transparent' }} statusBarHeight={0}>
-    {items}
-  </Appbar.Header>
+  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>{items}</View>
 )
 
 export default ActionButtons
