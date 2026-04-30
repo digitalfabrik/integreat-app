@@ -10,6 +10,7 @@ import {
   SUGGEST_TO_REGION_ROUTE,
   CONSENT_ROUTE,
   IMPRINT_ROUTE,
+  MAIN_IMPRINT_ROUTE,
   FEEDBACK_MODAL_ROUTE,
   IMAGE_VIEW_MODAL_ROUTE,
   INTRO_ROUTE,
@@ -43,6 +44,7 @@ import Intro from './routes/Intro'
 import Landing from './routes/Landing'
 import Licenses from './routes/Licenses'
 import LoadingErrorHandler from './routes/LoadingErrorHandler'
+import MainImprint from './routes/MainImprint'
 import PDFViewModal from './routes/PDFViewModal'
 import SearchContainer from './routes/SearchContainer'
 import Settings from './routes/Settings'
@@ -168,6 +170,7 @@ const Navigator = (): ReactElement | null => {
         <Stack.Screen name={SETTINGS_ROUTE} component={Settings} />
         <Stack.Screen name={LICENSES_ROUTE} component={Licenses} />
         <Stack.Screen name={CONSENT_ROUTE} component={Consent} />
+        <Stack.Screen name={MAIN_IMPRINT_ROUTE} component={MainImprint} />
       </Stack.Group>
     </Stack.Navigator>
   )

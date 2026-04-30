@@ -50,6 +50,7 @@ const buildConfig = jest.fn<CommonBuildConfigType, []>(
     accessibilityUrls: {
       default: 'https://integreat-app.de/barrierefreiheit/',
     },
+    mainImprint: 'Test imprint',
   }),
 )
 export default buildConfig
