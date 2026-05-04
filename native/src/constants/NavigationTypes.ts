@@ -4,7 +4,8 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import {
   CategoriesRouteType,
   ChangeLanguageModalRouteType,
-  DisclaimerRouteType,
+  ImprintRouteType,
+  MainImprintRouteType,
   EventsRouteType,
   FeedbackModalRouteType,
   ImageViewModalRouteType,
@@ -24,21 +25,22 @@ import {
   REDIRECT_ROUTE,
   EVENTS_ROUTE,
   NEWS_ROUTE,
-  DISCLAIMER_ROUTE,
+  IMPRINT_ROUTE,
+  MAIN_IMPRINT_ROUTE,
   SETTINGS_ROUTE,
   SEARCH_ROUTE,
   CHANGE_LANGUAGE_MODAL_ROUTE,
   PDF_VIEW_MODAL_ROUTE,
   IMAGE_VIEW_MODAL_ROUTE,
   FEEDBACK_MODAL_ROUTE,
-  CITY_NOT_COOPERATING_ROUTE,
-  CityNotCooperatingRouteType,
+  SUGGEST_TO_REGION_ROUTE,
+  SuggestToRegionRouteType,
   LICENSES_ROUTE,
   LicensesRouteType,
   CONSENT_ROUTE,
   ConsentRouteType,
-  BOTTOM_TAB_NAVIGATION_ROUTE,
-  BottomTabNavigationRouteType,
+  BOTTOM_TAB_ROUTE,
+  BottomTabRouteType,
   CATEGORIES_TAB_ROUTE,
   CategoriesTabRouteType,
   EVENTS_TAB_ROUTE,
@@ -60,8 +62,9 @@ export type RootRoutesType =
   | RedirectRouteType
   | IntroRouteType
   | LandingRouteType
-  | CityNotCooperatingRouteType
-  | DisclaimerRouteType
+  | SuggestToRegionRouteType
+  | ImprintRouteType
+  | MainImprintRouteType
   | SettingsRouteType
   | SearchRouteType
   | ChangeLanguageModalRouteType
@@ -70,7 +73,7 @@ export type RootRoutesType =
   | FeedbackModalRouteType
   | LicensesRouteType
   | ConsentRouteType
-  | BottomTabNavigationRouteType
+  | BottomTabRouteType
 
 export type RoutesType = RootRoutesType | TabRoutesType | NestedRoutesType
 
@@ -110,8 +113,9 @@ export type RootRoutesParamsType = {
   }
   [INTRO_ROUTE]: undefined
   [LANDING_ROUTE]: undefined
-  [CITY_NOT_COOPERATING_ROUTE]: undefined
-  [DISCLAIMER_ROUTE]: undefined
+  [SUGGEST_TO_REGION_ROUTE]: undefined
+  [IMPRINT_ROUTE]: undefined
+  [MAIN_IMPRINT_ROUTE]: undefined
   [CONSENT_ROUTE]: undefined
   [SETTINGS_ROUTE]: undefined
   [SEARCH_ROUTE]: {
@@ -133,10 +137,10 @@ export type RootRoutesParamsType = {
   [FEEDBACK_MODAL_ROUTE]: {
     routeType: FeedbackRouteType
     language: string
-    cityCode: string
+    regionCode: string
     slug?: string
   }
-  [BOTTOM_TAB_NAVIGATION_ROUTE]: { screen: TabRoutesType; params: TabRoutesParamsType[TabRoutesType] } | {}
+  [BOTTOM_TAB_ROUTE]: { screen: TabRoutesType; params: TabRoutesParamsType[TabRoutesType] } | {}
 }
 
 export type RoutesParamsType = NestedRoutesParamsType & TabRoutesParamsType & RootRoutesParamsType

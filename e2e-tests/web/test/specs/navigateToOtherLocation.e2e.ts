@@ -1,6 +1,6 @@
 import { URL } from 'node:url'
 
-import { defaultCity, filter, Routes } from '../../../shared/constants.js'
+import { defaultRegion, filter, Routes } from '../../../shared/constants.js'
 import DashboardPage from '../pageobjects/dashboard.page.js'
 import LandingPage from '../pageobjects/landing.page.js'
 
@@ -13,10 +13,10 @@ describe('navigate to other location', () => {
     await search.click()
     await browser.keys(filter)
 
-    const filteredCity = LandingPage.city(defaultCity)
-    await expect(filteredCity).toBeDisplayed()
+    const filteredRegion = LandingPage.region(defaultRegion)
+    await expect(filteredRegion).toBeDisplayed()
 
-    await filteredCity.click()
+    await filteredRegion.click()
 
     await browser.waitUntil(async () => (await browser.getUrl()).includes(dashboardPath))
     const dashboardUrl = await browser.getUrl()
@@ -34,10 +34,10 @@ describe('navigate to other location', () => {
     const parsedLandingUrl = new URL(landingUrl)
     expect(parsedLandingUrl.pathname).toContain(landingPath)
 
-    const filteredCity = LandingPage.city('Stadt Augsburg')
-    await filteredCity.waitForExist({ timeout: 2000 })
-    await expect(filteredCity).toBeExisting()
-    await filteredCity.click()
+    const filteredRegion = LandingPage.region('Stadt Augsburg')
+    await filteredRegion.waitForExist({ timeout: 2000 })
+    await expect(filteredRegion).toBeExisting()
+    await filteredRegion.click()
 
     await browser.waitUntil(async () => (await browser.getUrl()).includes(Routes.dashboardAugsburg))
     const dashboardUrl = await browser.getUrl()

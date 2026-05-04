@@ -3,13 +3,14 @@ import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import {
-  BOTTOM_TAB_NAVIGATION_ROUTE,
-  BottomTabNavigationRouteType,
+  BOTTOM_TAB_ROUTE,
+  BottomTabRouteType,
   CategoriesRouteType,
   CHANGE_LANGUAGE_MODAL_ROUTE,
-  CITY_NOT_COOPERATING_ROUTE,
+  SUGGEST_TO_REGION_ROUTE,
   CONSENT_ROUTE,
-  DISCLAIMER_ROUTE,
+  IMPRINT_ROUTE,
+  MAIN_IMPRINT_ROUTE,
   FEEDBACK_MODAL_ROUTE,
   IMAGE_VIEW_MODAL_ROUTE,
   INTRO_ROUTE,
@@ -24,30 +25,30 @@ import {
   SETTINGS_ROUTE,
 } from 'shared'
 
+import BottomTabNavigator from './BottomTabNavigator'
 import Header from './components/Header'
 import RedirectContainer from './components/RedirectContainer'
 import TransparentHeader from './components/TransparentHeader'
 import { ROOT_NAVIGATOR_ID } from './constants'
 import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from './constants/NavigationTypes'
 import buildConfig from './constants/buildConfig'
-import { useAppContext } from './hooks/useCityAppContext'
-import useLoadCities from './hooks/useLoadCities'
+import useLoadRegions from './hooks/useLoadRegions'
+import { useAppContext } from './hooks/useRegionAppContext'
 import useSnackbar from './hooks/useSnackbar'
-import BottomTabNavigation from './navigation/BottomTabNavigation'
 import ChangeLanguageModal from './routes/ChangeLanguageModal'
-import CityNotCooperating from './routes/CityNotCooperating'
 import Consent from './routes/Consent'
-import DisclaimerContainer from './routes/DisclaimerContainer'
 import FeedbackModalContainer from './routes/FeedbackModalContainer'
 import ImageViewModal from './routes/ImageViewModal'
+import ImprintContainer from './routes/ImprintContainer'
 import Intro from './routes/Intro'
 import Landing from './routes/Landing'
 import Licenses from './routes/Licenses'
 import LoadingErrorHandler from './routes/LoadingErrorHandler'
+import MainImprint from './routes/MainImprint'
 import PDFViewModal from './routes/PDFViewModal'
 import SearchContainer from './routes/SearchContainer'
 import Settings from './routes/Settings'
-import { ASYNC_STORAGE_VERSION } from './utils/AppSettings'
+import SuggestToRegion from './routes/SuggestToRegion'
 import dataContainer from './utils/DefaultDataContainer'
 import { initSentry, log, reportError } from './utils/sentry'
 
@@ -67,7 +68,7 @@ const Stack = createStackNavigator<RoutesParamsType>()
 
 type InitialRouteType =
   | {
-      name: IntroRouteType | LandingRouteType | CategoriesRouteType | BottomTabNavigationRouteType
+      name: IntroRouteType | LandingRouteType | CategoriesRouteType | BottomTabRouteType
     }
   | {
       name: RedirectRouteType
@@ -79,11 +80,11 @@ const Navigator = (): ReactElement | null => {
   const showSnackbar = useSnackbar()
   const insets = useSafeAreaInsets()
   const appContext = useAppContext()
-  const { settings, cityCode, changeCityCode, updateSettings } = appContext
+  const { settings, regionCode, changeRegionCode, updateSettings } = appContext
   const [initialRoute, setInitialRoute] = useState<InitialRouteType>(null)
 
-  // Preload cities
-  const { data: cities, error: citiesError, refresh: refreshCities } = useLoadCities()
+  // Preload regions
+  const { data: regions, error: regionsError, refresh: refreshRegions } = useLoadRegions()
 
   const updateInitialRoute = useCallback(
     (initialRoute: InitialRouteType) =>
@@ -93,7 +94,7 @@ const Navigator = (): ReactElement | null => {
   )
 
   useEffect(() => {
-    const { errorTracking, storageVersion, introShown } = settings
+    const { errorTracking, introShown } = settings
     const usingHermes = typeof HermesInternal === 'object' && HermesInternal !== null
 
     if (usingHermes) {
@@ -102,10 +103,6 @@ const Navigator = (): ReactElement | null => {
 
     if (errorTracking) {
       initSentry()
-    }
-
-    if (!storageVersion) {
-      updateSettings({ storageVersion: ASYNC_STORAGE_VERSION })
     }
 
     if (!buildConfig().featureFlags.introSlides && !introShown) {
@@ -119,21 +116,21 @@ const Navigator = (): ReactElement | null => {
     }
     if (buildConfig().featureFlags.introSlides && !settings.introShown) {
       updateInitialRoute({ name: INTRO_ROUTE })
-    } else if (!cityCode) {
+    } else if (!regionCode) {
       updateInitialRoute({ name: LANDING_ROUTE })
-    } else if (cities?.find(it => it.code === cityCode)) {
-      updateInitialRoute({ name: BOTTOM_TAB_NAVIGATION_ROUTE })
-    } else if (cities) {
-      // City is not available anymore
-      changeCityCode(null)
-      showSnackbar({ text: 'notFound.city' })
-      dataContainer.deleteCity(cityCode).catch(reportError)
+    } else if (regions?.find(it => it.code === regionCode)) {
+      updateInitialRoute({ name: BOTTOM_TAB_ROUTE })
+    } else if (regions) {
+      // Region is not available anymore
+      changeRegionCode(null)
+      showSnackbar({ text: 'notFound.region' })
+      dataContainer.deleteRegion(regionCode).catch(reportError)
       updateInitialRoute({ name: LANDING_ROUTE })
     }
-  }, [cities, changeCityCode, cityCode, showSnackbar, settings, initialRoute, updateInitialRoute])
+  }, [regions, changeRegionCode, regionCode, showSnackbar, settings, initialRoute, updateInitialRoute])
 
   if (!initialRoute) {
-    return citiesError ? <LoadingErrorHandler error={citiesError} loading={false} refresh={refreshCities} /> : null
+    return regionsError ? <LoadingErrorHandler error={regionsError} loading={false} refresh={refreshRegions} /> : null
   }
 
   const redirectUrl = initialRoute.name === REDIRECT_ROUTE ? initialRoute.url : undefined
@@ -148,14 +145,14 @@ const Navigator = (): ReactElement | null => {
         <Stack.Screen name={INTRO_ROUTE} component={Intro} />
         <Stack.Screen name={SEARCH_ROUTE} component={SearchContainer} />
         <Stack.Screen
-          name={BOTTOM_TAB_NAVIGATION_ROUTE}
-          component={BottomTabNavigation}
+          name={BOTTOM_TAB_ROUTE}
+          component={BottomTabNavigator}
           options={{ cardStyle: { paddingBottom: 0 } }}
         />
       </Stack.Group>
 
       <Stack.Group screenOptions={{ header: defaultHeader }}>
-        <Stack.Screen name={DISCLAIMER_ROUTE} component={DisclaimerContainer} />
+        <Stack.Screen name={IMPRINT_ROUTE} component={ImprintContainer} />
         <Stack.Screen name={FEEDBACK_MODAL_ROUTE} component={FeedbackModalContainer} />
         <Stack.Screen name={LANDING_ROUTE} component={Landing} />
       </Stack.Group>
@@ -164,8 +161,8 @@ const Navigator = (): ReactElement | null => {
         <Stack.Screen name={PDF_VIEW_MODAL_ROUTE} component={PDFViewModal} />
         <Stack.Screen name={CHANGE_LANGUAGE_MODAL_ROUTE} component={ChangeLanguageModal} />
         <Stack.Screen name={IMAGE_VIEW_MODAL_ROUTE} component={ImageViewModal} />
-        {buildConfig().featureFlags.cityNotCooperating && (
-          <Stack.Screen name={CITY_NOT_COOPERATING_ROUTE} component={CityNotCooperating} />
+        {buildConfig().featureFlags.suggestToRegion && (
+          <Stack.Screen name={SUGGEST_TO_REGION_ROUTE} component={SuggestToRegion} />
         )}
       </Stack.Group>
 
@@ -173,6 +170,7 @@ const Navigator = (): ReactElement | null => {
         <Stack.Screen name={SETTINGS_ROUTE} component={Settings} />
         <Stack.Screen name={LICENSES_ROUTE} component={Licenses} />
         <Stack.Screen name={CONSENT_ROUTE} component={Consent} />
+        <Stack.Screen name={MAIN_IMPRINT_ROUTE} component={MainImprint} />
       </Stack.Group>
     </Stack.Navigator>
   )

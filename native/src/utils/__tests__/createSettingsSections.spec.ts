@@ -30,8 +30,8 @@ describe('createSettingsSections', () => {
   const t = ((key: string) => key) as TFunction
 
   const updateSettings = jest.fn()
-  const cityCode = 'augsburg'
-  const appContext = { ...testingAppContext({}), cityCode, updateSettings }
+  const regionCode = 'augsburg'
+  const appContext = { ...testingAppContext({}), regionCode, updateSettings }
   const navigation = createNavigationScreenPropMock<SettingsRouteType>()
   const showSnackbar = jest.fn()
 
@@ -68,7 +68,7 @@ describe('createSettingsSections', () => {
       await pushNotificationSection.onPress()
 
       expect(mockUnsubscribeNews).toHaveBeenCalledTimes(1)
-      expect(mockUnsubscribeNews).toHaveBeenCalledWith(cityCode, appContext.languageCode)
+      expect(mockUnsubscribeNews).toHaveBeenCalledWith(regionCode, appContext.languageCode)
       expect(mockSubscribeNews).not.toHaveBeenCalled()
       expect(mockRequestPushNotificationPermission).not.toHaveBeenCalled()
 
@@ -89,7 +89,7 @@ describe('createSettingsSections', () => {
       expect(mockRequestPushNotificationPermission).toHaveBeenCalledTimes(1)
       expect(mockSubscribeNews).toHaveBeenCalledTimes(1)
       expect(mockSubscribeNews).toHaveBeenCalledWith({
-        cityCode,
+        regionCode,
         languageCode: appContext.languageCode,
         allowPushNotifications: true,
         skipSettingsCheck: true,

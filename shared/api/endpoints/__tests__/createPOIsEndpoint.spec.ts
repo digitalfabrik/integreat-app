@@ -93,7 +93,7 @@ describe('pois', () => {
   const poiModel3 = createPoiModel()
   const poiModel4 = createPoiModel()
   const params = {
-    city: 'augsburg',
+    region: 'augsburg',
     language: 'de',
   }
   it('should map params to url', () => {

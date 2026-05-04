@@ -5,7 +5,7 @@ import {
   WebBuildConfigType,
 } from '../BuildConfigType'
 import integreatPlatformBuildConfigs from '../integreat'
-import cityNotCooperatingTemplate from '../integreat/assets/cityNotCooperatingTemplate'
+import suggestToRegionTemplate from '../integreat/assets/suggestToRegionTemplate'
 
 const integreatTestCms = {
   appName: 'IntegreatTestCms',
@@ -15,9 +15,11 @@ const integreatTestCms = {
     introSlides: true,
     sentry: false,
     developerFriendly: true,
-    fixedCity: null,
-    cityNotCooperatingTemplate,
-    cityNotCooperating: true,
+    fixedRegion: null,
+    suggestToRegion: {
+      template: suggestToRegionTemplate,
+      icon: '/suggest-to-region.svg',
+    },
     chat: true,
   },
 }

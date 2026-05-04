@@ -1,7 +1,7 @@
 import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
 
-import { CategoriesMapModelBuilder, EventModelBuilder, ExtendedPageModel, PoiModelBuilder } from 'shared/api'
+import { CategoriesMapModelBuilder, EventModelBuilder, ExtendedDocumentModel, PoiModelBuilder } from 'shared/api'
 
 import createNavigationMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
@@ -20,8 +20,8 @@ jest.mock('shared/hooks/useDebounce', () => ({
 
 jest.mock('shared', () => ({
   ...jest.requireActual('shared'),
-  useSearch: (documents: ExtendedPageModel[], query: string) => ({
-    data: query === 'no results, please' ? [] : documents,
+  useSearch: ({ userLanguageDocuments, query }: { userLanguageDocuments: ExtendedDocumentModel[]; query: string }) => ({
+    data: query === 'no results, please' ? [] : userLanguageDocuments,
     error: null,
     loading: false,
   }),
@@ -33,10 +33,10 @@ describe('Search', () => {
   })
 
   const languageCode = 'de'
-  const cityCode = 'augsburg'
+  const regionCode = 'augsburg'
 
-  const categoriesMapModel = new CategoriesMapModelBuilder(cityCode, languageCode, 2, 2).build()
-  const eventModels = new EventModelBuilder('testseed', 5, cityCode, languageCode).build()
+  const categoriesMapModel = new CategoriesMapModelBuilder(regionCode, languageCode, 2, 2).build()
+  const eventModels = new EventModelBuilder('testseed', 5, regionCode, languageCode).build()
   const poiModels = new PoiModelBuilder(3).build()
 
   const documents = [
@@ -46,10 +46,10 @@ describe('Search', () => {
   ]
 
   const props: SearchProps = {
-    documents,
-    fallbackLanguageDocuments: [],
+    userLanguageDocuments: documents,
+    sourceLanguageDocuments: [],
     languageCode,
-    cityCode,
+    regionCode,
     navigation: createNavigationMock(),
     initialSearchText: '',
   }

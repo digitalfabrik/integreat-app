@@ -3,11 +3,11 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
 import {
-  BOTTOM_TAB_NAVIGATION_ROUTE,
+  BOTTOM_TAB_ROUTE,
   CATEGORIES_ROUTE,
   CategoriesRouteType,
   CHANGE_LANGUAGE_MODAL_ROUTE,
-  DISCLAIMER_ROUTE,
+  IMPRINT_ROUTE,
   EVENTS_ROUTE,
   EventsRouteType,
   FEEDBACK_MODAL_ROUTE,
@@ -55,7 +55,7 @@ type HeaderProps = {
   languages?: LanguageModel[]
   availableLanguages?: string[]
   shareUrl?: string
-  cityName?: string
+  regionName?: string
   forceText?: boolean
 }
 
@@ -67,11 +67,11 @@ const Header = ({
   showItems = false,
   showMenu = true,
   languages = route.name === LANDING_ROUTE ? supportedLanguages : undefined,
-  cityName,
+  regionName,
   forceText = route.name === LANDING_ROUTE,
 }: HeaderProps): ReactElement | null => {
   const [menuVisible, setMenuVisible] = useState(false)
-  const { languageCode, cityCode } = useContext(AppContext)
+  const { languageCode, regionCode } = useContext(AppContext)
   const { t } = useTranslation('layout')
   const showSnackbar = useSnackbar()
   // Save route/canGoBack to state to prevent it from changing during navigating which would lead to flickering of the title and back button
@@ -105,7 +105,7 @@ const Header = ({
   }
 
   const routeTitle = (route.params as { title?: string } | undefined)?.title ?? t(route.name)
-  const pageTitle = cityName !== routeTitle ? `${routeTitle} - ${cityName}` : routeTitle
+  const pageTitle = regionName !== routeTitle ? `${routeTitle} - ${regionName}` : routeTitle
 
   const goToLanguageChange = () => {
     if (availableLanguages?.length === 1 && availableLanguages[0] === languageCode) {
@@ -131,8 +131,8 @@ const Header = ({
       case CATEGORIES_ROUTE:
         return getCategorySlug((route.params as RoutesParamsType[CategoriesRouteType]).path)
 
-      case DISCLAIMER_ROUTE:
-        return DISCLAIMER_ROUTE
+      case IMPRINT_ROUTE:
+        return IMPRINT_ROUTE
 
       default:
         return undefined
@@ -140,11 +140,11 @@ const Header = ({
   }
 
   const navigateToFeedback = () => {
-    if (cityCode) {
+    if (regionCode) {
       navigation.navigate(FEEDBACK_MODAL_ROUTE, {
         routeType: route.name as FeedbackRouteType,
         language: languageCode,
-        cityCode,
+        regionCode,
         slug: getSlugForRoute(),
       })
     }
@@ -169,7 +169,7 @@ const Header = ({
   ]
 
   const menuItems = [
-    ...(route.name !== NEWS_ROUTE && cityCode
+    ...(route.name !== NEWS_ROUTE && regionCode
       ? [
           <HeaderMenuItem
             key='feedback'
@@ -196,56 +196,48 @@ const Header = ({
     return isSinglePoi && notFromDeepLink
   }
 
-  const getHeaderText = (): { text: string; language?: string } => {
+  const getHeaderTitle = (): { title: string; language?: string } => {
     if (!previousRoute) {
-      // Home/Dashboard: Show current city name
-      return { text: cityName ?? '', language: config.sourceLanguage }
+      // Home/Dashboard: Show current region name
+      return { title: regionName ?? '', language: config.sourceLanguage }
     }
 
     if (isSinglePoiFromPoisRoute()) {
-      return { text: t('locations'), language: undefined } // system language
+      return { title: t('locations'), language: undefined } // system language
     }
 
     const eventsRouteParams = route.params as RoutesParamsType[EventsRouteType] | undefined
     const isSingleEvent = !!eventsRouteParams?.slug
     const notFromEventsDeepLink = previousRoute.name === EVENTS_ROUTE
     if (isSingleEvent && notFromEventsDeepLink) {
-      return { text: t('events'), language: undefined } // system language
+      return { title: t('events'), language: undefined } // system language
     }
 
     const previousRouteTitle = (previousRoute.params as { title?: string } | undefined)?.title
     if (previousRouteTitle) {
-      return { text: previousRouteTitle, language: languageCode }
+      return { title: previousRouteTitle, language: languageCode }
     }
 
     // After search navigation reset, previousRoute may be BOTTOM_TAB_NAVIGATION_ROUTE
-    if (previousRoute.name === CATEGORIES_ROUTE || previousRoute.name === BOTTOM_TAB_NAVIGATION_ROUTE) {
-      return {
-        text: cityName ?? '',
-        language: languageCode,
-      }
+    if (previousRoute.name === CATEGORIES_ROUTE || previousRoute.name === BOTTOM_TAB_ROUTE) {
+      return { title: regionName ?? '', language: languageCode }
     }
 
     if (previousRoute.name === LANDING_ROUTE) {
-      return { text: t('changeLocation'), language: undefined } // system language
+      return { title: t('changeLocation'), language: undefined } // system language
     }
 
-    return { text: t(previousRoute.name), language: undefined } // system language
+    return { title: t(previousRoute.name), language: undefined } // system language
   }
 
+  const { title, language } = getHeaderTitle()
   const landingPath =
     !previousRoute && !hasRootHistory && !isLanding ? () => navigation.navigate(LANDING_ROUTE) : undefined
 
   return (
     <BoxShadow>
       <Horizontal>
-        <HeaderBox
-          goBack={goBack}
-          canGoBack={canGoBack}
-          text={getHeaderText().text}
-          language={getHeaderText().language}
-          landingPath={landingPath}
-        />
+        <HeaderBox goBack={goBack} canGoBack={canGoBack} title={title} language={language} landingPath={landingPath} />
         <ActionButtons items={items} />
         {showMenu && (
           <HeaderMenu

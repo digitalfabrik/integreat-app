@@ -35,9 +35,9 @@ describe('EmbeddedOffers', () => {
     render(
       <EmbeddedOffers
         category={category}
-        city={null}
+        region={null}
         pathname='/augsburg/de/title'
-        cityCode='augsburg'
+        regionCode='augsburg'
         languageCode='de'
       />,
     )

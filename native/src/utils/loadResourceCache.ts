@@ -1,7 +1,7 @@
 import NetInfo, { NetInfoStateType } from '@react-native-community/netinfo'
 import { flatten, pickBy, reduce, values } from 'lodash'
 
-import { CategoriesMapModel, EventModel, ExtendedPageModel, PoiModel } from 'shared/api'
+import { CategoriesMapModel, EventModel, ExtendedDocumentModel, PoiModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
 import { LanguageResourceCacheStateType } from './DataContainer'
@@ -19,13 +19,13 @@ export type FetchMapTargetType = {
 export type FetchMapType = FetchMapTargetType[]
 
 const loadResourceCache = async ({
-  cityCode,
+  regionCode,
   languageCode,
   categories,
   events,
   pois,
 }: {
-  cityCode: string
+  regionCode: string
   languageCode: string
   categories: CategoriesMapModel | null
   events: EventModel[] | null
@@ -38,19 +38,19 @@ const loadResourceCache = async ({
 
   const resourceURLFinder = new ResourceURLFinder(buildConfig().allowedHostNames)
   resourceURLFinder.init()
-  const input = (categories?.toArray() ?? ([] as ExtendedPageModel[])).concat(events ?? []).concat(pois ?? [])
+  const input = (categories?.toArray() ?? ([] as ExtendedDocumentModel[])).concat(events ?? []).concat(pois ?? [])
 
   if (input.length === 0) {
     return
   }
 
-  const currentResourceCache = await dataContainer.getResourceCache(cityCode, languageCode)
+  const currentResourceCache = await dataContainer.getResourceCache(regionCode, languageCode)
 
   const currentlyCachedFiles = Object.values(currentResourceCache).map(Object.keys).flat()
 
   const fetchMap = resourceURLFinder.buildFetchMap(
     input,
-    (url, urlHash) => buildResourceFilePath(url, cityCode, urlHash),
+    (url, urlHash) => buildResourceFilePath(url, regionCode, urlHash),
     currentlyCachedFiles,
   )
   resourceURLFinder.finalize()
@@ -83,7 +83,7 @@ const loadResourceCache = async ({
     },
     {},
   )
-  await dataContainer.setResourceCache(cityCode, languageCode, resourceCache)
+  await dataContainer.setResourceCache(regionCode, languageCode, resourceCache)
 }
 
 export default loadResourceCache

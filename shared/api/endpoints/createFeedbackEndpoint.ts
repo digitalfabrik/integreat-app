@@ -1,8 +1,8 @@
 import {
   CATEGORIES_ROUTE,
   CategoriesRouteType,
-  DISCLAIMER_ROUTE,
-  DisclaimerRouteType,
+  IMPRINT_ROUTE,
+  ImprintRouteType,
   EVENTS_ROUTE,
   EventsRouteType,
   POIS_ROUTE,
@@ -35,12 +35,12 @@ export type FeedbackRouteType =
   | CategoriesRouteType
   | EventsRouteType
   | PoisRouteType
-  | DisclaimerRouteType
+  | ImprintRouteType
   | SearchRouteType
 
 export type ParamsType = {
   routeType: FeedbackRouteType
-  city: string
+  region: string
   language: string
   comment: string
   contactMail: string
@@ -55,7 +55,7 @@ const getFeedbackType = (routeType: FeedbackRouteType, slug?: string): FeedbackT
     case EVENTS_ROUTE:
       return slug ? FeedbackType.event : FeedbackType.events
 
-    case DISCLAIMER_ROUTE:
+    case IMPRINT_ROUTE:
       return FeedbackType.imprint
 
     case POIS_ROUTE:
@@ -75,9 +75,9 @@ const getFeedbackType = (routeType: FeedbackRouteType, slug?: string): FeedbackT
 export default (baseUrl: string): Endpoint<ParamsType, Record<string, never>> =>
   new EndpointBuilder<ParamsType, Record<string, never>>(FEEDBACK_ENDPOINT_NAME)
     .withParamsToUrlMapper(params => {
-      const { city, language, routeType, slug } = params
+      const { region, language, routeType, slug } = params
 
-      return `${baseUrl}/api/${API_VERSION}/${city}/${language}/feedback/${getFeedbackType(routeType, slug)}/`
+      return `${baseUrl}/api/${API_VERSION}/${region}/${language}/feedback/${getFeedbackType(routeType, slug)}/`
     })
     .withParamsToBodyMapper((params: ParamsType): FormData => {
       const { isPositiveRating, comment, contactMail, query, searchTerm, slug } = params

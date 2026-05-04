@@ -4,8 +4,8 @@ import { prepareSearchDocuments, SearchRouteType } from 'shared'
 import { config } from 'translations'
 
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
-import useCityAppContext from '../hooks/useCityAppContext'
-import useLoadCityContent from '../hooks/useLoadCityContent'
+import useLoadRegionContent from '../hooks/useLoadRegionContent'
+import useRegionAppContext from '../hooks/useRegionAppContext'
 import LoadingErrorHandler from './LoadingErrorHandler'
 import Search from './Search'
 
@@ -15,15 +15,15 @@ export type SearchContainerProps = {
 }
 
 const SearchContainer = ({ navigation, route }: SearchContainerProps): ReactElement | null => {
-  const { cityCode, languageCode } = useCityAppContext()
+  const { regionCode, languageCode } = useRegionAppContext()
   const initialSearchText = route.params.searchText ?? ''
-  const { data, ...response } = useLoadCityContent({ cityCode, languageCode })
-  const { data: fallbackData } = useLoadCityContent({ cityCode, languageCode: config.sourceLanguage })
+  const { data, ...response } = useLoadRegionContent({ regionCode, languageCode })
+  const { data: sourceLanguageData } = useLoadRegionContent({ regionCode, languageCode: config.sourceLanguage })
 
-  const documents = prepareSearchDocuments(data?.categories, data?.events, data?.pois)
-  const fallbackLanguageDocuments =
+  const userLanguageDocuments = prepareSearchDocuments(data?.categories, data?.events, data?.pois)
+  const sourceLanguageDocuments =
     languageCode !== config.sourceLanguage
-      ? prepareSearchDocuments(fallbackData?.categories, fallbackData?.events, fallbackData?.pois)
+      ? prepareSearchDocuments(sourceLanguageData?.categories, sourceLanguageData?.events, sourceLanguageData?.pois)
       : []
 
   return (
@@ -31,9 +31,9 @@ const SearchContainer = ({ navigation, route }: SearchContainerProps): ReactElem
       {data && (
         <Search
           navigation={navigation}
-          cityCode={cityCode}
-          documents={documents}
-          fallbackLanguageDocuments={fallbackLanguageDocuments}
+          regionCode={regionCode}
+          userLanguageDocuments={userLanguageDocuments}
+          sourceLanguageDocuments={sourceLanguageDocuments}
           languageCode={languageCode}
           initialSearchText={initialSearchText}
         />

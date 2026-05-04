@@ -4,11 +4,11 @@ import { v5 } from 'uuid'
 
 import { formatDateICal } from '../../utils'
 import DateModel from './DateModel'
-import ExtendedPageModel from './ExtendedPageModel'
+import ExtendedDocumentModel from './ExtendedDocumentModel'
 import FeaturedImageModel from './FeaturedImageModel'
 import LocationModel from './LocationModel'
 
-class EventModel extends ExtendedPageModel {
+class EventModel extends ExtendedDocumentModel {
   _date: DateModel
   _location: LocationModel<number | null> | null
   _meetingUrl: string | null

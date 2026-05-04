@@ -6,21 +6,20 @@ import {
   CATEGORIES_ROUTE,
   CategoriesRouteType,
   CHANGE_LANGUAGE_MODAL_ROUTE,
-  DISCLAIMER_ROUTE,
-  DisclaimerRouteType,
+  IMPRINT_ROUTE,
+  ImprintRouteType,
   NewsRouteType,
   POIS_ROUTE,
   PoisRouteType,
   SEARCH_ROUTE,
 } from 'shared'
-import { LanguageModelBuilder, CityModelBuilder, LanguageModel } from 'shared/api'
+import { LanguageModelBuilder, RegionModelBuilder, LanguageModel } from 'shared/api'
 
 import { RouteProps } from '../../constants/NavigationTypes'
 import useSnackbar from '../../hooks/useSnackbar'
 import TestingAppContext from '../../testing/TestingAppContext'
 import createNavigationMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
-import cityShareName from '../../utils/cityShareName'
 import Header from '../Header'
 
 jest.mock('../../hooks/useSnackbar')
@@ -52,8 +51,8 @@ describe('Header', () => {
   spy.mockImplementation(jest.fn())
 
   const t = (key: string) => key
-  const cityModels = new CityModelBuilder(1).build()
-  const cityModel = cityModels[0]!
+  const regionModels = new RegionModelBuilder(1).build()
+  const regionModel = regionModels[0]!
   const languageModels = new LanguageModelBuilder(3).build()
   const languageModel = languageModels[0]!
   const defaultAvailableLanguages = ['de', 'en']
@@ -94,10 +93,10 @@ describe('Header', () => {
     languages?: LanguageModel[]
     availableLanguages?: string[]
     shareUrl?: string
-    route?: RouteProps<CategoriesRouteType | PoisRouteType | DisclaimerRouteType | NewsRouteType>
+    route?: RouteProps<CategoriesRouteType | PoisRouteType | ImprintRouteType | NewsRouteType>
   }) =>
     render(
-      <TestingAppContext cityCode={cityModel.code} languageCode={languageModel.code}>
+      <TestingAppContext regionCode={regionModel.code} languageCode={languageModel.code}>
         <Header
           navigation={navigation}
           route={route}
@@ -105,7 +104,7 @@ describe('Header', () => {
           languages={languages}
           shareUrl={shareUrl}
           showItems={showItems}
-          cityName={cityShareName(cityModel)}
+          regionName={regionModel.name}
         />
       </TestingAppContext>,
     )
@@ -213,18 +212,18 @@ describe('Header', () => {
     const spy = jest.spyOn(Linking, 'openURL')
     spy.mockImplementation(openURL)
     const { getByTestId, getByText } = renderHeader({
-      route: { key: 'key-0', name: DISCLAIMER_ROUTE },
+      route: { key: 'key-0', name: IMPRINT_ROUTE },
     })
     fireEvent.press(getByTestId('header-overflow-menu-button'))
     fireEvent.press(getByText(t('share')))
 
     expect(Share.share).toHaveBeenCalledWith({
-      message: 'shareMessage: disclaimer - Stadt Augsburg\nhttps://example.com/share',
-      title: 'disclaimer - Stadt Augsburg',
+      message: 'shareMessage: imprint - Stadt Augsburg\nhttps://example.com/share',
+      title: 'imprint - Stadt Augsburg',
     })
   })
 
-  it('should remove the page title in the share message if it equals the city name', () => {
+  it('should remove the page title in the share message if it equals the region name', () => {
     const openURL = jest.fn()
     const spy = jest.spyOn(Linking, 'openURL')
     spy.mockImplementation(openURL)

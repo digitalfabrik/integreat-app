@@ -93,7 +93,7 @@ export type JsonChatMessagesType = {
   messages: JsonChatMessageType[]
 }
 
-export type JsonDisclaimerType = JsonCategoryType
+export type JsonImprintType = JsonCategoryType
 
 type JsonContactType = {
   name: string | null
@@ -192,7 +192,7 @@ export type JsonTunewsLanguageType = {
   name: string
 }
 
-export type JsonCityType = {
+export type JsonRegionType = {
   name: string
   path: string
   live: boolean

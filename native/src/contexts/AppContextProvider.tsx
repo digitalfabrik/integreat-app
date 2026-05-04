@@ -9,24 +9,24 @@ import dataContainer from '../utils/DefaultDataContainer'
 import { subscribeNews, unsubscribeNews } from '../utils/PushNotificationsManager'
 import { reportError } from '../utils/sentry'
 
-// To change the city or language code, the respective functions should be used
+// To change the region or language code, the respective functions should be used
 export type UpdateSettingsType = Partial<Omit<SettingsType, 'selectedCity' | 'contentLanguage'>>
 
 export type AppContextType = {
   settings: SettingsType
-  cityCode: string | null
+  regionCode: string | null
   languageCode: string
   updateSettings: (settings: UpdateSettingsType) => void
-  changeCityCode: (cityCode: string | null) => void
+  changeRegionCode: (regionCode: string | null) => void
   changeLanguageCode: (languageCode: string) => void
 }
 
 export const AppContext = createContext<AppContextType>({
   settings: defaultSettings,
-  cityCode: null,
+  regionCode: null,
   languageCode: '',
   updateSettings: () => undefined,
-  changeCityCode: () => undefined,
+  changeRegionCode: () => undefined,
   changeLanguageCode: () => undefined,
 })
 
@@ -37,7 +37,7 @@ type AppContextProviderProps = {
 const AppContextProvider = ({ children }: AppContextProviderProps): ReactElement | null => {
   const [settings, setSettings] = useState<SettingsType | null>(null)
   const allowPushNotifications = !!settings?.allowPushNotifications
-  const cityCode = settings?.selectedCity ?? null
+  const regionCode = settings?.selectedCity ?? null
   const languageCode = settings?.contentLanguage
   const { i18n } = useTranslation()
   const uiLanguage = i18n.languages[0]
@@ -51,44 +51,44 @@ const AppContextProvider = ({ children }: AppContextProviderProps): ReactElement
     appSettings.setSettings(settings).catch(reportError)
   }, [])
 
-  const changeCityCode = useCallback(
-    (newCityCode: string | null): void => {
-      updateSettings({ selectedCity: newCityCode })
-      if (languageCode && cityCode) {
-        unsubscribeNews(cityCode, languageCode).catch(reportError)
+  const changeRegionCode = useCallback(
+    (newRegionCode: string | null): void => {
+      updateSettings({ selectedCity: newRegionCode })
+      if (languageCode && regionCode) {
+        unsubscribeNews(regionCode, languageCode).catch(reportError)
       }
-      if (languageCode && newCityCode) {
-        subscribeNews({ cityCode: newCityCode, languageCode, allowPushNotifications }).catch(reportError)
+      if (languageCode && newRegionCode) {
+        subscribeNews({ regionCode: newRegionCode, languageCode, allowPushNotifications }).catch(reportError)
       }
     },
-    [updateSettings, cityCode, languageCode, allowPushNotifications],
+    [updateSettings, regionCode, languageCode, allowPushNotifications],
   )
 
   const changeLanguageCode = useCallback(
     (newLanguageCode: string): void => {
       updateSettings({ contentLanguage: newLanguageCode })
-      if (cityCode && languageCode) {
-        unsubscribeNews(cityCode, languageCode).catch(reportError)
+      if (regionCode && languageCode) {
+        unsubscribeNews(regionCode, languageCode).catch(reportError)
       }
-      if (cityCode) {
-        subscribeNews({ cityCode, languageCode: newLanguageCode, allowPushNotifications }).catch(reportError)
+      if (regionCode) {
+        subscribeNews({ regionCode, languageCode: newLanguageCode, allowPushNotifications }).catch(reportError)
       }
     },
-    [updateSettings, cityCode, languageCode, allowPushNotifications],
+    [updateSettings, regionCode, languageCode, allowPushNotifications],
   )
 
   useEffect(() => {
-    if (cityCode) {
-      dataContainer.storeLastUsage(cityCode).catch(reportError)
+    if (regionCode) {
+      dataContainer.storeLastUsage(regionCode).catch(reportError)
     }
-  }, [cityCode])
+  }, [regionCode])
 
   useEffect(() => {
-    const { fixedCity } = buildConfig().featureFlags
-    if (settings && cityCode !== fixedCity && fixedCity) {
-      changeCityCode(fixedCity)
+    const { fixedRegion } = buildConfig().featureFlags
+    if (settings && regionCode !== fixedRegion && fixedRegion) {
+      changeRegionCode(fixedRegion)
     }
-  }, [settings, cityCode, changeCityCode])
+  }, [settings, regionCode, changeRegionCode])
 
   useEffect(() => {
     if (settings && !languageCode && uiLanguage) {
@@ -97,8 +97,8 @@ const AppContextProvider = ({ children }: AppContextProviderProps): ReactElement
   }, [settings, changeLanguageCode, languageCode, uiLanguage])
 
   const appContext = useMemo(
-    () => ({ settings, cityCode, languageCode, updateSettings, changeCityCode, changeLanguageCode }),
-    [settings, cityCode, languageCode, updateSettings, changeCityCode, changeLanguageCode],
+    () => ({ settings, regionCode, languageCode, updateSettings, changeRegionCode, changeLanguageCode }),
+    [settings, regionCode, languageCode, updateSettings, changeRegionCode, changeLanguageCode],
   )
 
   return hasProp(appContext, 'settings') && hasProp(appContext, 'languageCode') ? (

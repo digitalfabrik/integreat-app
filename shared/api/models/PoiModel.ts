@@ -4,14 +4,14 @@ import { DateTime } from 'luxon'
 import { GeoJsonPoi, LocationType } from '../../constants/maps'
 import isCurrentlyOpen from '../../utils/isCurrentlyOpen'
 import ContactModel from './ContactModel'
-import ExtendedPageModel from './ExtendedPageModel'
+import DocumentModel from './DocumentModel'
+import ExtendedDocumentModel from './ExtendedDocumentModel'
 import LocationModel from './LocationModel'
 import OpeningHoursModel from './OpeningHoursModel'
 import OrganizationModel from './OrganizationModel'
-import PageModel from './PageModel'
 import PoiCategoryModel from './PoiCategoryModel'
 
-class PoiModel extends ExtendedPageModel {
+class PoiModel extends ExtendedDocumentModel {
   _location: LocationModel<number>
   _excerpt: string
   _metaDescription: string | null
@@ -117,7 +117,7 @@ class PoiModel extends ExtendedPageModel {
     return isCurrentlyOpen(this.openingHours)
   }
 
-  isEqual(other: PageModel): boolean {
+  isEqual(other: DocumentModel): boolean {
     return (
       other instanceof PoiModel &&
       super.isEqual(other) &&

@@ -5,13 +5,13 @@ import BottomSheet, {
 } from '@gorhom/bottom-sheet'
 import React, { memo, ReactElement, Ref, useCallback, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { NativeScrollEvent, NativeSyntheticEvent, Platform, View } from 'react-native'
+import { NativeScrollEvent, NativeSyntheticEvent, View } from 'react-native'
 import styled, { useTheme } from 'styled-components/native'
 
 import { LocationType } from 'shared'
 import { ErrorCode, PoiModel } from 'shared/api'
 
-import useCityAppContext from '../hooks/useCityAppContext'
+import useRegionAppContext from '../hooks/useRegionAppContext'
 import BottomSheetHandle from './BottomSheetHandle'
 import Failure from './Failure'
 import PoiDetails from './PoiDetails'
@@ -70,12 +70,10 @@ const PoisBottomSheet = ({
   setScrollPosition,
   isFullscreen,
 }: PoiBottomSheetProps): ReactElement | null => {
-  const { languageCode } = useCityAppContext()
+  const { languageCode } = useRegionAppContext()
   const { t } = useTranslation('pois')
   const theme = useTheme()
   const bottomSheetRef = useRef<BottomSheet>(null)
-  // ios has scrolling issues if content panning gesture is not enabled
-  const enableContentPanningGesture = Platform.OS === 'ios' || !isFullscreen
 
   const handlePoiFocus = useCallback(() => {
     if (!isFullscreen && bottomSheetRef.current) {
@@ -118,7 +116,7 @@ const PoisBottomSheet = ({
       index={snapPointIndex}
       isFullscreen={isFullscreen}
       snapPoints={snapPoints}
-      enableContentPanningGesture={enableContentPanningGesture}
+      enableContentPanningGesture
       enableDynamicSizing={false}
       animateOnMount
       backgroundStyle={{ backgroundColor: theme.colors.background }}

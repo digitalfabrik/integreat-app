@@ -1,13 +1,13 @@
 import {
   CategoriesRouteType,
-  CityNotCooperatingRouteType,
+  SuggestToRegionRouteType,
   ConsentRouteType,
-  DisclaimerRouteType,
+  ImprintRouteType,
   EventsRouteType,
   LandingRouteType,
   LicensesRouteType,
   LocalNewsType,
-  MainDisclaimerRouteType,
+  MainImprintRouteType,
   NewsRouteType,
   PoisRouteType,
   SearchRouteType,
@@ -15,7 +15,7 @@ import {
 } from '.'
 
 type ParamsType = {
-  cityCode: string
+  regionCode: string
   languageCode: string
   chat?: boolean
 }
@@ -29,22 +29,22 @@ export type LicensesInformationType = {
   route: LicensesRouteType
 }
 
-export type MainDisclaimerRouteInformationType = {
-  route: MainDisclaimerRouteType
+export type MainImprintRouteInformationType = {
+  route: MainImprintRouteType
 }
 
 export type ConsentInformationType = {
   route: ConsentRouteType
 }
 
-export type CityNotCooperatingInformationType = {
-  route: CityNotCooperatingRouteType
+export type SuggestToRegionInformationType = {
+  route: SuggestToRegionRouteType
   languageCode: string
 }
 
 export type CategoriesRouteInformationType = ParamsType & {
   route: CategoriesRouteType
-  cityContentPath: string
+  regionContentPath: string
 }
 
 export type NewsRouteInformationType = ParamsType & {
@@ -54,9 +54,9 @@ export type NewsRouteInformationType = ParamsType & {
   newsId?: number
 }
 
-export type SimpleCityContentFeatureType = ParamsType & {
-  // Routes without customizable ids, e.g. '/augsburg/de/disclaimer/'
-  route: DisclaimerRouteType
+export type SimpleRegionContentFeatureType = ParamsType & {
+  // Routes without customizable ids, e.g. '/augsburg/de/imprint/'
+  route: ImprintRouteType
 }
 
 export type EventsRouteInformationType = ParamsType & {
@@ -81,12 +81,12 @@ export type SearchRouteInformationType = ParamsType & {
 }
 
 export type NonNullableRouteInformationType =
-  | MainDisclaimerRouteInformationType
+  | MainImprintRouteInformationType
   | LandingRouteInformationType
-  | CityNotCooperatingInformationType
+  | SuggestToRegionInformationType
   | CategoriesRouteInformationType
   | NewsRouteInformationType
-  | SimpleCityContentFeatureType
+  | SimpleRegionContentFeatureType
   | EventsRouteInformationType
   | PoisRouteInformationType
   | LicensesInformationType

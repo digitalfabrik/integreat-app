@@ -1,20 +1,20 @@
 import {
   CATEGORIES_ROUTE,
-  CITY_NOT_COOPERATING_ROUTE,
+  SUGGEST_TO_REGION_ROUTE,
   CONSENT_ROUTE,
-  DISCLAIMER_ROUTE,
+  IMPRINT_ROUTE,
   EVENTS_ROUTE,
   LANDING_ROUTE,
   LICENSES_ROUTE,
-  MAIN_DISCLAIMER_ROUTE,
+  MAIN_IMPRINT_ROUTE,
   NEWS_ROUTE,
   POIS_ROUTE,
   SEARCH_ROUTE,
 } from '.'
 import { NonNullableRouteInformationType } from '..'
 
-type CityContentRouteUrlType = {
-  cityCode: string
+type RegionContentRouteUrlType = {
+  regionCode: string
   languageCode: string
   route?: string
   path?: string | null | undefined
@@ -28,41 +28,41 @@ const constructPathname = (parts: (string | null | undefined)[]) => {
   return pathname.startsWith('/') ? pathname : `/${pathname}`
 }
 
-export const cityContentPath = ({ cityCode, languageCode, route, path }: CityContentRouteUrlType): string =>
-  constructPathname([cityCode, languageCode, route, path])
+export const regionContentPath = ({ regionCode, languageCode, route, path }: RegionContentRouteUrlType): string =>
+  constructPathname([regionCode, languageCode, route, path])
 
 export const pathnameFromRouteInformation = (routeInformation: NonNullableRouteInformationType): string => {
   if (
     routeInformation.route === LICENSES_ROUTE ||
     routeInformation.route === CONSENT_ROUTE ||
-    routeInformation.route === MAIN_DISCLAIMER_ROUTE
+    routeInformation.route === MAIN_IMPRINT_ROUTE
   ) {
-    // https://integreat.app/consent, https://integreat.app/licenses, https://integreat.app/main-disclaimer
+    // https://integreat.app/consent, https://integreat.app/licenses, https://integreat.app/main-imprint
     return constructPathname([routeInformation.route])
   }
-  if (routeInformation.route === CITY_NOT_COOPERATING_ROUTE) {
+  if (routeInformation.route === SUGGEST_TO_REGION_ROUTE) {
     // https://integreat.app/recommend
-    return constructPathname([CITY_NOT_COOPERATING_ROUTE, routeInformation.languageCode])
+    return constructPathname([SUGGEST_TO_REGION_ROUTE, routeInformation.languageCode])
   }
   if (routeInformation.route === CATEGORIES_ROUTE) {
     // https://integreat.app/augsburg/de/, https://integreat.app/augsburg/de/willkommen/erste-schritte
-    return constructPathname([routeInformation.cityContentPath])
+    return constructPathname([routeInformation.regionContentPath])
   }
   if (routeInformation.route === EVENTS_ROUTE || routeInformation.route === POIS_ROUTE) {
-    const { cityCode, languageCode, route, slug } = routeInformation
+    const { regionCode, languageCode, route, slug } = routeInformation
     // https://integreat.app/augsburg/de/locations, https://integreat.app/augsburg/de/events/my-event-1234
-    return constructPathname([cityCode, languageCode, route, slug])
+    return constructPathname([regionCode, languageCode, route, slug])
   }
   if (
-    routeInformation.route === DISCLAIMER_ROUTE ||
+    routeInformation.route === IMPRINT_ROUTE ||
     routeInformation.route === SEARCH_ROUTE ||
     routeInformation.route === NEWS_ROUTE
   ) {
     // https://integreat.app/augsburg/de/offers, https://integreat.app/augsburg/de/search, ...
-    const { cityCode, languageCode } = routeInformation
+    const { regionCode, languageCode } = routeInformation
     const newsType = routeInformation.route === NEWS_ROUTE ? routeInformation.newsType : null
     const newsId = routeInformation.route === NEWS_ROUTE ? routeInformation.newsId : null
-    return constructPathname([cityCode, languageCode, routeInformation.route, newsType, newsId?.toString()])
+    return constructPathname([regionCode, languageCode, routeInformation.route, newsType, newsId?.toString()])
   }
   // https://integreat.app/landing/de
   return constructPathname([LANDING_ROUTE, routeInformation.languageCode])

@@ -1,5 +1,5 @@
 import {
-  BOTTOM_TAB_NAVIGATION_ROUTE,
+  BOTTOM_TAB_ROUTE,
   CATEGORIES_ROUTE,
   CATEGORIES_TAB_ROUTE,
   EVENTS_ROUTE,
@@ -63,7 +63,7 @@ describe('navigateNested', () => {
 
       expect(navigation.replace).not.toHaveBeenCalled()
       expect(navigation.push).toHaveBeenCalledTimes(1)
-      expect(navigation.push).toHaveBeenCalledWith(BOTTOM_TAB_NAVIGATION_ROUTE, {
+      expect(navigation.push).toHaveBeenCalledWith(BOTTOM_TAB_ROUTE, {
         screen: CATEGORIES_TAB_ROUTE,
         params: { screen: CATEGORIES_ROUTE, params: categoriesParams },
       })
@@ -75,12 +75,12 @@ describe('navigateNested', () => {
       navigateNested(navigation, EVENTS_ROUTE, eventsParams, true)
 
       expect(navigation.replace).toHaveBeenCalledTimes(1)
-      expect(navigation.replace).toHaveBeenCalledWith(BOTTOM_TAB_NAVIGATION_ROUTE, {
+      expect(navigation.replace).toHaveBeenCalledWith(BOTTOM_TAB_ROUTE, {
         screen: CATEGORIES_TAB_ROUTE,
         params: { screen: CATEGORIES_ROUTE },
       })
       expect(navigation.push).toHaveBeenCalledTimes(1)
-      expect(navigation.push).toHaveBeenCalledWith(BOTTOM_TAB_NAVIGATION_ROUTE, {
+      expect(navigation.push).toHaveBeenCalledWith(BOTTOM_TAB_ROUTE, {
         screen: EVENTS_TAB_ROUTE,
         params: { screen: EVENTS_ROUTE, params: eventsParams },
       })
@@ -89,17 +89,17 @@ describe('navigateNested', () => {
     it('replaces the bottom tab route when it is already open and redirecting', () => {
       const { navigation } = buildNavigation({
         id: ROOT_NAVIGATOR_ID,
-        rootRouteNames: [BOTTOM_TAB_NAVIGATION_ROUTE],
+        rootRouteNames: [BOTTOM_TAB_ROUTE],
       })
 
       navigateNested(navigation, EVENTS_ROUTE, eventsParams, true)
 
       expect(navigation.replace).toHaveBeenCalledTimes(2)
-      expect(navigation.replace).toHaveBeenNthCalledWith(1, BOTTOM_TAB_NAVIGATION_ROUTE, {
+      expect(navigation.replace).toHaveBeenNthCalledWith(1, BOTTOM_TAB_ROUTE, {
         screen: CATEGORIES_TAB_ROUTE,
         params: { screen: CATEGORIES_ROUTE },
       })
-      expect(navigation.replace).toHaveBeenNthCalledWith(2, BOTTOM_TAB_NAVIGATION_ROUTE, {
+      expect(navigation.replace).toHaveBeenNthCalledWith(2, BOTTOM_TAB_ROUTE, {
         screen: EVENTS_TAB_ROUTE,
         params: { screen: EVENTS_ROUTE, params: eventsParams },
       })
@@ -117,7 +117,7 @@ describe('navigateNested', () => {
       cases.forEach(({ route, tabRoute, params }) => {
         const { navigation } = buildNavigation({ id: ROOT_NAVIGATOR_ID })
         navigateNested(navigation, route, params, false)
-        expect(navigation.push).toHaveBeenCalledWith(BOTTOM_TAB_NAVIGATION_ROUTE, {
+        expect(navigation.push).toHaveBeenCalledWith(BOTTOM_TAB_ROUTE, {
           screen: tabRoute,
           params: { screen: route, params },
         })

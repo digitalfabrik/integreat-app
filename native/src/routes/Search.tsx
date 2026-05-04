@@ -3,17 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { KeyboardAvoidingView, Platform } from 'react-native'
 import { useTheme } from 'styled-components/native'
 
-import {
-  filterRedundantFallbackLanguageResults,
-  MAX_SEARCH_RESULTS,
-  parseHTML,
-  SEARCH_ROUTE,
-  SearchRouteType,
-  useDebounce,
-  useSearch,
-} from 'shared'
-import { ExtendedPageModel } from 'shared/api'
-import { config } from 'translations'
+import { MAX_SEARCH_RESULTS, parseHTML, SEARCH_ROUTE, SearchRouteType, useDebounce, useSearch } from 'shared'
+import { ExtendedDocumentModel } from 'shared/api'
 
 import FeedbackContainer from '../components/FeedbackContainer'
 import Layout from '../components/Layout'
@@ -28,39 +19,38 @@ import testID from '../testing/testID'
 
 export type SearchProps = {
   navigation: NavigationProps<SearchRouteType>
-  documents: ExtendedPageModel[]
-  fallbackLanguageDocuments: ExtendedPageModel[]
+  userLanguageDocuments: ExtendedDocumentModel[]
+  sourceLanguageDocuments: ExtendedDocumentModel[]
   languageCode: string
-  cityCode: string
+  regionCode: string
   initialSearchText: string
 }
 
 const Search = ({
   navigation,
-  documents,
-  fallbackLanguageDocuments,
+  userLanguageDocuments,
+  sourceLanguageDocuments,
   languageCode,
-  cityCode,
+  regionCode,
   initialSearchText,
 }: SearchProps): ReactElement | null => {
   const [query, setQuery] = useState<string>(initialSearchText)
+  const debouncedQuery = useDebounce(query)
   const { t } = useTranslation('search')
   const theme = useTheme()
 
-  const debouncedQuery = useDebounce(query)
-  const contentLanguageReturn = useSearch(documents, debouncedQuery)
-  const fallbackLanguageReturn = useSearch(fallbackLanguageDocuments, debouncedQuery)
-  const fallbackLanguageResults = filterRedundantFallbackLanguageResults({
-    fallbackLanguageResults: fallbackLanguageReturn.data,
-    contentLanguageResults: contentLanguageReturn.data,
-    fallbackLanguage: config.sourceLanguage,
+  const { data, error } = useSearch({
+    userLanguageDocuments,
+    moreDocuments: sourceLanguageDocuments,
+    query: debouncedQuery,
+    userLanguageCode: languageCode,
   })
-  const searchResults = contentLanguageReturn.data.concat(fallbackLanguageResults).slice(0, MAX_SEARCH_RESULTS)
+  const searchResults = data.slice(0, MAX_SEARCH_RESULTS)
 
-  useReportError(contentLanguageReturn.error ?? fallbackLanguageReturn.error)
+  useReportError(error)
   useAnnounceSearchResultsIOS(searchResults)
 
-  const renderItem = ({ item }: { item: ExtendedPageModel }) => (
+  const renderItem = ({ item }: { item: ExtendedDocumentModel }) => (
     <SearchListItem
       key={item.path}
       title={item.title}
@@ -93,7 +83,7 @@ const Search = ({
                 <FeedbackContainer
                   routeType={SEARCH_ROUTE}
                   language={languageCode}
-                  cityCode={cityCode}
+                  regionCode={regionCode}
                   noResults={searchResults.length === 0}
                   query={debouncedQuery}
                 />

@@ -2,8 +2,8 @@
 export type LandingRouteType = 'landing'
 export const LANDING_ROUTE: LandingRouteType = 'landing'
 
-export type CityNotCooperatingRouteType = 'recommend'
-export const CITY_NOT_COOPERATING_ROUTE: CityNotCooperatingRouteType = 'recommend'
+export type SuggestToRegionRouteType = 'recommend'
+export const SUGGEST_TO_REGION_ROUTE: SuggestToRegionRouteType = 'recommend'
 
 export type CategoriesRouteType = 'categories'
 export const CATEGORIES_ROUTE: CategoriesRouteType = 'categories'
@@ -17,8 +17,8 @@ export const EVENTS_ROUTE: EventsRouteType = 'events'
 export type NewsRouteType = 'news'
 export const NEWS_ROUTE: NewsRouteType = 'news'
 
-export type DisclaimerRouteType = 'disclaimer'
-export const DISCLAIMER_ROUTE: DisclaimerRouteType = 'disclaimer'
+export type ImprintRouteType = 'imprint'
+export const IMPRINT_ROUTE: ImprintRouteType = 'imprint'
 
 export type SearchRouteType = 'search'
 export const SEARCH_ROUTE: SearchRouteType = 'search'
@@ -54,8 +54,8 @@ export const INTRO_ROUTE: IntroRouteType = 'intro'
 export type SettingsRouteType = 'settings'
 export const SETTINGS_ROUTE: SettingsRouteType = 'settings'
 
-export type BottomTabNavigationRouteType = 'bottomTabNavigation'
-export const BOTTOM_TAB_NAVIGATION_ROUTE: BottomTabNavigationRouteType = 'bottomTabNavigation'
+export type BottomTabRouteType = 'bottomTab'
+export const BOTTOM_TAB_ROUTE: BottomTabRouteType = 'bottomTab'
 
 export type ChangeLanguageModalRouteType = 'changeLanguage'
 export const CHANGE_LANGUAGE_MODAL_ROUTE: ChangeLanguageModalRouteType = 'changeLanguage'
@@ -73,8 +73,8 @@ export type ConsentRouteType = 'consent'
 export const CONSENT_ROUTE: ConsentRouteType = 'consent'
 
 // Web routes
-export type MainDisclaimerRouteType = 'main-disclaimer'
-export const MAIN_DISCLAIMER_ROUTE: MainDisclaimerRouteType = 'main-disclaimer'
+export type MainImprintRouteType = 'main-imprint'
+export const MAIN_IMPRINT_ROUTE: MainImprintRouteType = 'main-imprint'
 
 export type NotFoundRouteType = 'not-found'
 export const NOT_FOUND_ROUTE: NotFoundRouteType = 'not-found'
@@ -83,18 +83,18 @@ export const NOT_FOUND_ROUTE: NotFoundRouteType = 'not-found'
 // https://github.com/digitalfabrik/integreat-cms/blob/main/integreat_cms/core/settings.py#L69-78
 export const RESERVED_TOP_LEVEL_SLUGS: string[] = [
   LANDING_ROUTE,
-  MAIN_DISCLAIMER_ROUTE,
+  MAIN_IMPRINT_ROUTE,
   NOT_FOUND_ROUTE,
   CONSENT_ROUTE,
   LICENSES_ROUTE,
-  CITY_NOT_COOPERATING_ROUTE,
+  SUGGEST_TO_REGION_ROUTE,
 ]
 
 // Changes done to the reserved routes have to be done in the CMS as well:
 // https://github.com/digitalfabrik/integreat-cms/blob/main/integreat_cms/core/settings.py#L80-L88
-export const RESERVED_CITY_CONTENT_SLUGS: string[] = [
+export const RESERVED_REGION_CONTENT_SLUGS: string[] = [
   SEARCH_ROUTE,
-  DISCLAIMER_ROUTE,
+  IMPRINT_ROUTE,
   EVENTS_ROUTE,
   NEWS_ROUTE,
   POIS_ROUTE,

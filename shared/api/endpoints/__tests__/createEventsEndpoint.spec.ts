@@ -160,7 +160,7 @@ describe('events', () => {
     'DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO',
   )
   const params = {
-    city: 'augsburg',
+    region: 'augsburg',
     language: 'de',
   }
 

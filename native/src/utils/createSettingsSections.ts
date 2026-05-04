@@ -4,14 +4,13 @@ import { Role } from 'react-native'
 import { openSettings } from 'react-native-permissions'
 
 import { ThemeKey } from 'build-configs/ThemeKey'
-import { CONSENT_ROUTE, DISCLAIMER_ROUTE, LICENSES_ROUTE, MAIN_DISCLAIMER_ROUTE, SettingsRouteType } from 'shared'
+import { CONSENT_ROUTE, IMPRINT_ROUTE, LICENSES_ROUTE, MAIN_IMPRINT_ROUTE, SettingsRouteType } from 'shared'
 
 import { SnackbarType } from '../components/SnackbarContainer'
 import NativeConstants from '../constants/NativeConstants'
 import { NavigationProps } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import { AppContextType } from '../contexts/AppContextProvider'
-import urlFromRouteInformation from '../navigation/url'
 import { SettingsType } from './AppSettings'
 import { requestPushNotificationPermission, subscribeNews, unsubscribeNews } from './PushNotificationsManager'
 import openExternalUrl from './openExternalUrl'
@@ -41,7 +40,7 @@ type CreateSettingsSectionsProps = {
 }
 
 const createSettingsSections = ({
-  appContext: { settings, updateSettings, cityCode, languageCode },
+  appContext: { settings, updateSettings, regionCode, languageCode },
   navigation,
   showSnackbar,
   t,
@@ -53,11 +52,11 @@ const createSettingsSections = ({
     onPress: async () => {
       const newAllowPushNotifications = !settings.allowPushNotifications
       updateSettings({ allowPushNotifications: newAllowPushNotifications })
-      if (!cityCode) {
+      if (!regionCode) {
         return
       }
       if (!newAllowPushNotifications) {
-        await unsubscribeNews(cityCode, languageCode)
+        await unsubscribeNews(regionCode, languageCode)
         return
       }
 
@@ -65,7 +64,7 @@ const createSettingsSections = ({
 
       if (status) {
         await subscribeNews({
-          cityCode,
+          regionCode,
           languageCode,
           allowPushNotifications: newAllowPushNotifications,
           skipSettingsCheck: true,
@@ -115,11 +114,8 @@ const createSettingsSections = ({
   },
   {
     role: 'link',
-    title: t('layout:disclaimer'),
-    onPress: async () =>
-      settings.selectedCity
-        ? navigation.navigate(DISCLAIMER_ROUTE)
-        : openExternalUrl(urlFromRouteInformation({ route: MAIN_DISCLAIMER_ROUTE }), showSnackbar),
+    title: t('layout:imprint'),
+    onPress: () => navigation.navigate(settings.selectedCity ? IMPRINT_ROUTE : MAIN_IMPRINT_ROUTE),
   },
   {
     role: 'link',

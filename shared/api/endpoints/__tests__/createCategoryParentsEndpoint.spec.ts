@@ -17,15 +17,15 @@ describe('createCategoryParentsEndpoint', () => {
   const baseUrl = 'https://example.com'
   const json = ['myFirstCategory', 'mySecondCategory']
   const params = {
-    city: 'augsburg',
+    region: 'augsburg',
     language: 'fa',
-    cityContentPath: '/augsburg/fa/erste-schritte/%d10%86%d9%82%d8%b4%d9%87-%d8%b4%d9%87%d8%b1/',
+    regionContentPath: '/augsburg/fa/erste-schritte/%d10%86%d9%82%d8%b4%d9%87-%d8%b4%d9%87%d8%b1/',
   }
-  const basePath = `/${params.city}/${params.language}`
+  const basePath = `/${params.region}/${params.language}`
   const rootCategory = new CategoryModel({
     root: true,
     path: basePath,
-    title: params.city,
+    title: params.region,
     parentPath: '',
     content: '',
     thumbnail: '',
@@ -39,18 +39,18 @@ describe('createCategoryParentsEndpoint', () => {
 
   it('should map params to url', () => {
     expect(endpoint.mapParamsToUrl(params)).toBe(
-      `${baseUrl}/api/${API_VERSION}/${params.city}/${params.language}/parents/?url=${params.cityContentPath}`,
+      `${baseUrl}/api/${API_VERSION}/${params.region}/${params.language}/parents/?url=${params.regionContentPath}`,
     )
   })
 
   it('should throw if using the endpoint for the root category', () => {
-    expect(() => endpoint.mapParamsToUrl({ ...params, cityContentPath: `/${params.city}/${params.language}` })).toThrow(
-      'This endpoint does not support the root category!',
-    )
+    expect(() =>
+      endpoint.mapParamsToUrl({ ...params, regionContentPath: `/${params.region}/${params.language}` }),
+    ).toThrow('This endpoint does not support the root category!')
   })
 
   it('should map json to category', () => {
-    const parents = new CategoriesMapModelBuilder(params.city, params.language).build().toArray().slice(0, 2)
+    const parents = new CategoriesMapModelBuilder(params.region, params.language).build().toArray().slice(0, 2)
 
     mocked(mapCategoryJson)
       .mockImplementationOnce(() => parents[0]!)
@@ -59,7 +59,7 @@ describe('createCategoryParentsEndpoint', () => {
     parents.push(rootCategory)
     expect(endpoint.mapResponse(json, params)).toEqual(parents)
     expect(mapCategoryJson).toHaveBeenCalledTimes(2)
-    expect(mapCategoryJson).toHaveBeenCalledWith('myFirstCategory', `/${params.city}/${params.language}`)
-    expect(mapCategoryJson).toHaveBeenCalledWith('mySecondCategory', `/${params.city}/${params.language}`)
+    expect(mapCategoryJson).toHaveBeenCalledWith('myFirstCategory', `/${params.region}/${params.language}`)
+    expect(mapCategoryJson).toHaveBeenCalledWith('mySecondCategory', `/${params.region}/${params.language}`)
   })
 })

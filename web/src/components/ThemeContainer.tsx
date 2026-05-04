@@ -127,6 +127,20 @@ const createTheme = (
             },
           },
         },
+        // Multiline TextField labels are not displayed correctly on iOS devices
+        // https://github.com/digitalfabrik/integreat-app/issues/4058
+        // https://github.com/mui/material-ui/issues/46945#issuecomment-3299699965
+        MuiOutlinedInput: {
+          styleOverrides: {
+            notchedOutline: {
+              '@supports (-webkit-appearance: none)': {
+                '& legend': {
+                  visibility: 'visible !important',
+                },
+              },
+            },
+          },
+        },
       },
     }),
     { disableAlign: true },

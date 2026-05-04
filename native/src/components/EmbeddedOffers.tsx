@@ -4,7 +4,7 @@ import styled from 'styled-components/native'
 import { CATEGORIES_ROUTE, MALTE_HELP_FORM_OFFER_ALIAS, SPRUNGBRETT_OFFER_ALIAS } from 'shared'
 import { CategoryModel } from 'shared/api'
 
-import urlFromRouteInformation from '../navigation/url'
+import urlFromRouteInformation from '../utils/url'
 import MalteHelpFormOffer from './MalteHelpFormOffer'
 import SprungbrettOffer from './SprungbrettOffer'
 
@@ -14,12 +14,12 @@ const Container = styled.View<{ withMargin: boolean }>`
 
 type EmbeddedOffersProps = {
   category: CategoryModel
-  cityCode: string
+  regionCode: string
   languageCode: string
   goBack: () => void
 }
 
-const EmbeddedOffer = ({ category, cityCode, languageCode, goBack }: EmbeddedOffersProps): ReactElement | null => {
+const EmbeddedOffer = ({ category, regionCode, languageCode, goBack }: EmbeddedOffersProps): ReactElement | null => {
   const offer = category.embeddedOffers[0]
   switch (offer?.alias) {
     case SPRUNGBRETT_OFFER_ALIAS:
@@ -28,15 +28,15 @@ const EmbeddedOffer = ({ category, cityCode, languageCode, goBack }: EmbeddedOff
       const url = urlFromRouteInformation({
         route: CATEGORIES_ROUTE,
         languageCode,
-        cityCode,
-        cityContentPath: category.path,
+        regionCode,
+        regionContentPath: category.path,
       })
       return (
         <MalteHelpFormOffer
           categoryPageTitle={category.title}
           url={url}
           malteHelpFormOffer={offer}
-          cityCode={cityCode}
+          regionCode={regionCode}
           onSubmit={goBack}
         />
       )

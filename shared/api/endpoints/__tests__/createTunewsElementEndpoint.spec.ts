@@ -33,7 +33,7 @@ describe('tunews', () => {
 
   const itemModel1 = createNewsItemModel(1, DateTime.fromISO('2020-01-20T12:04:22+00:00'))
   const params = {
-    city: 'augsburg',
+    region: 'augsburg',
     language: 'de',
     id: 1,
   }

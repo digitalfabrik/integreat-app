@@ -3,10 +3,10 @@ import { act } from '@testing-library/react-native'
 import React, { useEffect } from 'react'
 
 import {
-  BOTTOM_TAB_NAVIGATION_ROUTE,
+  BOTTOM_TAB_ROUTE,
   CATEGORIES_ROUTE,
   CATEGORIES_TAB_ROUTE,
-  DISCLAIMER_ROUTE,
+  IMPRINT_ROUTE,
   EVENTS_ROUTE,
   LANDING_ROUTE,
   LOCAL_NEWS_TYPE,
@@ -26,7 +26,7 @@ import useNavigate from '../useNavigate'
 jest.mock('@react-navigation/native')
 jest.mock('../../utils/navigation')
 jest.mock('../../utils/openExternalUrl', () => jest.fn(async () => undefined))
-jest.mock('../../navigation/url', () => ({
+jest.mock('../../utils/url', () => ({
   urlFromRouteInformation: jest.fn(() => 'https://example.com'),
 }))
 
@@ -37,10 +37,10 @@ describe('useNavigate', () => {
   const navigation = { ...createNavigationPropMock(), canGoBack: () => true }
   mocked(useNavigation).mockImplementation(() => navigation as never)
 
-  const cityCode = 'ansbach'
+  const regionCode = 'ansbach'
   const languageCode = 'ro'
-  const params = { cityCode, languageCode }
-  const cityContentPath = `/${cityCode}/${languageCode}`
+  const params = { regionCode, languageCode }
+  const regionContentPath = `/${regionCode}/${languageCode}`
 
   const MockComponent = ({
     routeInformation,
@@ -59,7 +59,7 @@ describe('useNavigate', () => {
 
   const renderMockComponent = (routeInformation: RouteInformationType, redirect = false) =>
     render(
-      <TestingAppContext cityCode={cityCode} languageCode={languageCode}>
+      <TestingAppContext regionCode={regionCode} languageCode={languageCode}>
         <MockComponent routeInformation={routeInformation} redirect={redirect} />
       </TestingAppContext>,
       false,
@@ -91,12 +91,12 @@ describe('useNavigate', () => {
     expect(navigation.push).not.toHaveBeenCalled()
   })
 
-  it('should open route externally if city does not match the app settings', () => {
-    const cityContentPath = `/peekingCity/${languageCode}/willkommen`
+  it('should open route externally if region does not match the app settings', () => {
+    const regionContentPath = `/peekingRegion/${languageCode}/willkommen`
     renderMockComponent({
       route: CATEGORIES_ROUTE,
-      cityContentPath,
-      cityCode: 'peekingCity',
+      regionContentPath,
+      regionCode: 'peekingRegion',
       languageCode,
     })
     act(() => jest.runAllTimers())
@@ -106,11 +106,11 @@ describe('useNavigate', () => {
   })
 
   it('should open route externally if language does not match the app settings', () => {
-    const cityContentPath = `/${cityCode}/asdf/willkommen`
+    const regionContentPath = `/${regionCode}/asdf/willkommen`
     renderMockComponent({
       route: CATEGORIES_ROUTE,
-      cityContentPath,
-      cityCode: 'asdf',
+      regionContentPath,
+      regionCode: 'asdf',
       languageCode,
     })
     act(() => jest.runAllTimers())
@@ -120,12 +120,12 @@ describe('useNavigate', () => {
   })
 
   it('should pop redirect route when opening a route externally', () => {
-    const cityContentPath = `/${cityCode}/asdf/willkommen`
+    const regionContentPath = `/${regionCode}/asdf/willkommen`
     renderMockComponent(
       {
         route: CATEGORIES_ROUTE,
-        cityContentPath,
-        cityCode: 'asdf',
+        regionContentPath,
+        regionCode: 'asdf',
         languageCode,
       },
       true,
@@ -140,11 +140,11 @@ describe('useNavigate', () => {
   it('should navigate to categories route', () => {
     renderMockComponent({
       route: CATEGORIES_ROUTE,
-      cityContentPath,
+      regionContentPath,
       ...params,
     })
     expect(navigation.push).not.toHaveBeenCalled()
-    expect(navigateNested).toHaveBeenCalledWith(navigation, CATEGORIES_ROUTE, { path: cityContentPath }, false)
+    expect(navigateNested).toHaveBeenCalledWith(navigation, CATEGORIES_ROUTE, { path: regionContentPath }, false)
     expect(navigateNested).toHaveBeenCalledTimes(1)
   })
 
@@ -152,22 +152,22 @@ describe('useNavigate', () => {
     renderMockComponent(
       {
         route: CATEGORIES_ROUTE,
-        cityContentPath,
+        regionContentPath,
         ...params,
       },
       true,
     )
     expect(navigation.push).not.toHaveBeenCalled()
-    expect(navigateNested).toHaveBeenCalledWith(navigation, CATEGORIES_ROUTE, { path: cityContentPath }, true)
+    expect(navigateNested).toHaveBeenCalledWith(navigation, CATEGORIES_ROUTE, { path: regionContentPath }, true)
     expect(navigateNested).toHaveBeenCalledTimes(1)
   })
 
-  it('should navigate to disclaimer route', () => {
+  it('should navigate to imprint route', () => {
     renderMockComponent({
-      route: DISCLAIMER_ROUTE,
+      route: IMPRINT_ROUTE,
       ...params,
     })
-    expect(navigation.push).toHaveBeenCalledWith(DISCLAIMER_ROUTE)
+    expect(navigation.push).toHaveBeenCalledWith(IMPRINT_ROUTE)
     expect(navigation.push).toHaveBeenCalledTimes(1)
   })
 
@@ -248,9 +248,9 @@ describe('useNavigate', () => {
     expect(navigation.push).not.toHaveBeenCalled()
   })
 
-  it('should replace when redirecting to disclaimer', () => {
-    renderMockComponent({ route: DISCLAIMER_ROUTE, ...params }, true)
-    expect(navigation.replace).toHaveBeenCalledWith(DISCLAIMER_ROUTE)
+  it('should replace when redirecting to imprint', () => {
+    renderMockComponent({ route: IMPRINT_ROUTE, ...params }, true)
+    expect(navigation.replace).toHaveBeenCalledWith(IMPRINT_ROUTE)
     expect(navigation.push).not.toHaveBeenCalled()
   })
 
@@ -296,12 +296,17 @@ describe('useNavigate', () => {
     mocked(useNavigation).mockImplementationOnce(() => navigationCannotGoBack as never)
 
     renderMockComponent(
-      { route: CATEGORIES_ROUTE, cityContentPath: '/peekingCity/ro/willkommen', cityCode: 'peekingCity', languageCode },
+      {
+        route: CATEGORIES_ROUTE,
+        regionContentPath: '/peekingRegion/ro/willkommen',
+        regionCode: 'peekingRegion',
+        languageCode,
+      },
       true,
     )
     act(() => jest.runAllTimers())
     expect(navigationCannotGoBack.pop).not.toHaveBeenCalled()
-    expect(navigationCannotGoBack.replace).toHaveBeenCalledWith(BOTTOM_TAB_NAVIGATION_ROUTE, {
+    expect(navigationCannotGoBack.replace).toHaveBeenCalledWith(BOTTOM_TAB_ROUTE, {
       screen: CATEGORIES_TAB_ROUTE,
       params: { screen: CATEGORIES_ROUTE },
     })

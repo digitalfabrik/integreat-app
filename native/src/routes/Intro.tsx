@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { FlatList, useWindowDimensions, ViewToken } from 'react-native'
 import styled from 'styled-components/native'
 
-import { BOTTOM_TAB_NAVIGATION_ROUTE, IntroRouteType, LANDING_ROUTE } from 'shared'
+import { BOTTOM_TAB_ROUTE, IntroRouteType, LANDING_ROUTE } from 'shared'
 
 import {
   IntroLanguageIcon,
@@ -40,7 +40,7 @@ type IntroProps = {
 }
 
 const Intro = ({ navigation }: IntroProps): ReactElement => {
-  const { updateSettings, cityCode } = useContext(AppContext)
+  const { updateSettings, regionCode } = useContext(AppContext)
   const [currentSlide, setCurrentSlide] = useState(0)
   const { width } = useWindowDimensions()
   const { t } = useTranslation<['intro', 'settings']>(['intro', 'settings'])
@@ -90,12 +90,12 @@ const Intro = ({ navigation }: IntroProps): ReactElement => {
 
   const onDone = useCallback(() => {
     updateSettings({ introShown: true })
-    if (cityCode) {
-      navigation.replace(BOTTOM_TAB_NAVIGATION_ROUTE, {})
+    if (regionCode) {
+      navigation.replace(BOTTOM_TAB_ROUTE, {})
     } else {
       navigation.replace(LANDING_ROUTE)
     }
-  }, [navigation, cityCode, updateSettings])
+  }, [navigation, regionCode, updateSettings])
 
   const goToSlide = useCallback(
     (index: number) => {

@@ -3,17 +3,17 @@ import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 import styled from 'styled-components/native'
 
-import { BOTTOM_TAB_NAVIGATION_ROUTE, CITY_NOT_COOPERATING_ROUTE, LandingRouteType } from 'shared'
-import { CityModel } from 'shared/api'
+import { BOTTOM_TAB_ROUTE, SUGGEST_TO_REGION_ROUTE, LandingRouteType } from 'shared'
+import { RegionModel } from 'shared/api'
 
-import CityNotCooperatingFooter from '../components/CityNotCooperatingFooter'
-import CitySelector from '../components/CitySelector'
+import RegionSelector from '../components/RegionSelector'
+import SuggestToRegionFooter from '../components/SuggestToRegionFooter'
 import SwitchCmsUrlIcon from '../components/SwitchCmsUrlIcon'
 import Text from '../components/base/Text'
 import { NavigationProps } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import { AppContext } from '../contexts/AppContextProvider'
-import useLoadCities from '../hooks/useLoadCities'
+import useLoadRegions from '../hooks/useLoadRegions'
 import testID from '../testing/testID'
 import dataContainer from '../utils/DefaultDataContainer'
 import { reportError } from '../utils/sentry'
@@ -31,16 +31,16 @@ type LandingProps = {
 }
 
 const Landing = ({ navigation }: LandingProps): ReactElement => {
-  const { data: cities, refresh, ...response } = useLoadCities()
-  const { changeCityCode } = useContext(AppContext)
+  const { data: regions, refresh, ...response } = useLoadRegions()
+  const { changeRegionCode } = useContext(AppContext)
   const { t } = useTranslation('landing')
 
-  // The cities are otherwise only updated by pull to refresh
+  // The regions are otherwise only updated by pull to refresh
   useEffect(refresh, [refresh])
 
-  const navigateToDashboard = (city: CityModel) => {
-    changeCityCode(city.code)
-    navigation.reset({ index: 0, routes: [{ name: BOTTOM_TAB_NAVIGATION_ROUTE, params: {} }] })
+  const navigateToDashboard = (region: RegionModel) => {
+    changeRegionCode(region.code)
+    navigation.reset({ index: 0, routes: [{ name: BOTTOM_TAB_ROUTE, params: {} }] })
   }
 
   const clearResourcesAndCache = useCallback(() => {
@@ -51,17 +51,15 @@ const Landing = ({ navigation }: LandingProps): ReactElement => {
 
   return (
     <LoadingErrorHandler {...response} refresh={refresh} scrollView>
-      {cities && (
+      {regions && (
         <>
           <Wrapper {...testID('Landing-Page')}>
             <SwitchCmsUrlIcon clearResourcesAndCache={clearResourcesAndCache} />
             <Text variant='h3'>{t('welcome', { appName: buildConfig().appName })}</Text>
             <Text variant='body2'>{t('welcomeInformation')}</Text>
-            <CitySelector cities={cities} navigateToDashboard={navigateToDashboard} />
+            <RegionSelector regions={regions} navigateToDashboard={navigateToDashboard} />
           </Wrapper>
-          <CityNotCooperatingFooter
-            navigateToCityNotCooperating={() => navigation.navigate(CITY_NOT_COOPERATING_ROUTE)}
-          />
+          <SuggestToRegionFooter navigateToSuggestToRegion={() => navigation.navigate(SUGGEST_TO_REGION_ROUTE)} />
         </>
       )}
     </LoadingErrorHandler>

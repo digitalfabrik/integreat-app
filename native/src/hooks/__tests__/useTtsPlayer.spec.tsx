@@ -2,7 +2,7 @@ import { RenderAPI } from '@testing-library/react-native'
 import { DateTime } from 'luxon'
 import React from 'react'
 
-import { PageModel } from 'shared/api'
+import { DocumentModel } from 'shared/api'
 
 import { TtsContext } from '../../components/TtsContainer'
 import TestingAppContext from '../../testing/TestingAppContext'
@@ -20,7 +20,7 @@ describe('useTtsPlayer', () => {
   const oldSentences = ['old sentence 1.', 'old sentence 2.']
   const newSentences = ['new sentence 1.', 'new sentence 2.']
 
-  const dummyPage = new PageModel({
+  const dummyDocument = new DocumentModel({
     path: '/test-path',
     title: 'Test title',
     content: `<div></div><div>${newSentences[0]} ${newSentences[1]}</p></div>`,
@@ -29,12 +29,12 @@ describe('useTtsPlayer', () => {
 
   beforeEach(jest.clearAllMocks)
 
-  const TestChild = ({ model }: { model?: PageModel }) => {
+  const TestChild = ({ model }: { model?: DocumentModel }) => {
     useTtsPlayer(model)
     return null
   }
 
-  const render = (model?: PageModel): RenderAPI =>
+  const render = (model?: DocumentModel): RenderAPI =>
     renderWithTheme(
       <TestingAppContext languageCode='en'>
         <TtsContext.Provider
@@ -45,7 +45,7 @@ describe('useTtsPlayer', () => {
     )
 
   it('should set new sentences and restore old sentences', () => {
-    const { unmount } = render(dummyPage)
+    const { unmount } = render(dummyDocument)
     expect(setSentences).toHaveBeenCalledTimes(1)
     expect(setSentences).toHaveBeenCalledWith(['Test title', ...newSentences])
     unmount()

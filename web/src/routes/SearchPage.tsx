@@ -12,15 +12,14 @@ import {
   SEARCH_QUERY_KEY,
   useDebounce,
   MAX_SEARCH_RESULTS,
-  filterRedundantFallbackLanguageResults,
 } from 'shared'
-import { ExtendedPageModel } from 'shared/api'
+import { ExtendedDocumentModel } from 'shared/api'
 import { config } from 'translations'
 
-import { CityRouteProps } from '../CityContentSwitcher'
-import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
+import { RegionRouteProps } from '../RegionContentNavigator'
 import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Helmet from '../components/Helmet'
+import RegionContentLayout, { RegionContentLayoutProps } from '../components/RegionContentLayout'
 import SearchFeedback from '../components/SearchFeedback'
 import SearchInput from '../components/SearchInput'
 import SearchListItem from '../components/SearchListItem'
@@ -33,7 +32,7 @@ import useReportError from '../hooks/useReportError'
 type SearchProps = {
   query: string
   loading: boolean
-  results: ExtendedPageModel[]
+  results: ExtendedDocumentModel[]
 }
 
 const SearchResults = ({ query, loading, results }: SearchProps): ReactElement | null => {
@@ -62,11 +61,11 @@ const SearchResults = ({ query, loading, results }: SearchProps): ReactElement |
   )
 }
 
-const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElement | null => {
+const SearchPage = ({ region, regionCode, languageCode }: RegionRouteProps): ReactElement | null => {
   const [queryParams, setQueryParams] = useSearchParams()
   const [query, setQuery] = useState(queryParams.get(SEARCH_QUERY_KEY) ?? '')
   const { t } = useTranslation('search')
-  const fallbackLanguage = config.sourceLanguage
+  const sourceLanguage = config.sourceLanguage
   const debouncedQuery = useDebounce(query)
 
   useEffect(() => {
@@ -74,45 +73,44 @@ const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
   }, [debouncedQuery, setQueryParams])
 
   const {
-    data: contentLanguageDocuments,
-    loading,
-    error,
-  } = useLoadSearchDocuments({ cityCode, languageCode, cmsApiBaseUrl })
+    data: userLanguageDocuments,
+    loading: documentsLoading,
+    error: documentsError,
+  } = useLoadSearchDocuments({ regionCode, languageCode, cmsApiBaseUrl })
 
-  const { data: fallbackData } = useLoadSearchDocuments({
-    cityCode,
-    languageCode: fallbackLanguage,
+  const { data: sourceLanguageData } = useLoadSearchDocuments({
+    regionCode,
+    languageCode: sourceLanguage,
     cmsApiBaseUrl,
   })
+  const sourceLanguageDocuments = languageCode !== sourceLanguage ? sourceLanguageData : []
 
-  const contentLanguageReturn = useSearch(contentLanguageDocuments, debouncedQuery)
-  const fallbackLanguageDocuments = languageCode !== fallbackLanguage ? fallbackData : []
-  const fallbackLanguageReturn = useSearch(fallbackLanguageDocuments, debouncedQuery)
-  const fallbackLanguageResults = filterRedundantFallbackLanguageResults({
-    fallbackLanguageResults: fallbackLanguageReturn.data,
-    contentLanguageResults: contentLanguageReturn.data,
-    fallbackLanguage,
+  const { data, loading, error } = useSearch({
+    userLanguageDocuments,
+    moreDocuments: sourceLanguageDocuments,
+    query: debouncedQuery,
+    userLanguageCode: languageCode,
   })
-  const results = contentLanguageReturn.data.concat(fallbackLanguageResults).slice(0, MAX_SEARCH_RESULTS)
+  const searchResults = data.slice(0, MAX_SEARCH_RESULTS)
 
-  useReportError(contentLanguageReturn.error ?? fallbackLanguageReturn.error)
+  useReportError(documentsError ?? error)
 
-  if (!city) {
+  if (!region) {
     return null
   }
 
-  const languageChangePaths = city.languages.map(({ code, name }) => ({
+  const languageChangePaths = region.languages.map(({ code, name }) => ({
     path: `${pathnameFromRouteInformation({
       route: SEARCH_ROUTE,
-      cityCode,
+      regionCode,
       languageCode: code,
     })}/?${SEARCH_QUERY_KEY}=${query}`,
     name,
     code,
   }))
 
-  const layoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
-    city,
+  const layoutParams: Omit<RegionContentLayoutProps, 'isLoading'> = {
+    region,
     languageChangePaths,
     languageCode,
     pageTitle: null,
@@ -120,18 +118,18 @@ const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
 
   if (error) {
     return (
-      <CityContentLayout isLoading={false} {...layoutParams}>
+      <RegionContentLayout isLoading={false} {...layoutParams}>
         <FailureSwitcherWithHelmet error={error} />
-      </CityContentLayout>
+      </RegionContentLayout>
     )
   }
 
   return (
-    <CityContentLayout isLoading={false} {...layoutParams}>
+    <RegionContentLayout isLoading={false} {...layoutParams}>
       <Helmet
-        pageTitle={`${t('pageTitle')} - ${city.name}`}
+        pageTitle={`${t('pageTitle')} - ${region.name}`}
         languageChangePaths={languageChangePaths}
-        cityModel={city}
+        regionModel={region}
       />
       <Stack paddingTop={4} gap={2}>
         <SearchInput
@@ -140,9 +138,9 @@ const SearchPage = ({ city, cityCode, languageCode }: CityRouteProps): ReactElem
           onFilterTextChange={setQuery}
           autoFocus
         />
-        <SearchResults results={results} query={debouncedQuery} loading={loading || contentLanguageReturn.loading} />
+        <SearchResults results={searchResults} query={debouncedQuery} loading={documentsLoading || loading} />
       </Stack>
-    </CityContentLayout>
+    </RegionContentLayout>
   )
 }
 

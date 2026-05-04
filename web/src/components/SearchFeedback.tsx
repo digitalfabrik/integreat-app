@@ -3,11 +3,10 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { SEARCH_ROUTE } from 'shared'
 import { config } from 'translations'
 
 import buildConfig from '../constants/buildConfig'
-import useCityContentParams from '../hooks/useCityContentParams'
+import useRegionContentParams from '../hooks/useRegionContentParams'
 import FeedbackContainer from './FeedbackContainer'
 
 const Container = styled('div')`
@@ -35,7 +34,7 @@ type SearchFeedbackProps = {
 
 const SearchFeedback = ({ query, noResults }: SearchFeedbackProps): ReactElement => {
   const [showFeedback, setShowFeedback] = useState<boolean>(false)
-  const { languageCode } = useCityContentParams()
+  const { languageCode } = useRegionContentParams()
   const { t } = useTranslation('feedback')
 
   useEffect(() => setShowFeedback(false), [query])

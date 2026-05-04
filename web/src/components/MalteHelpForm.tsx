@@ -10,7 +10,7 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { cityContentPath, DEFAULT_ROWS_NUMBER, SendingStatusType } from 'shared'
+import { regionContentPath, DEFAULT_ROWS_NUMBER, SendingStatusType } from 'shared'
 import {
   OfferModel,
   ContactChannel,
@@ -40,12 +40,17 @@ const Form = styled('form')`
 
 type MalteHelpFormProps = {
   pageTitle: string
-  cityCode: string
+  regionCode: string
   languageCode: string
   malteHelpFormOffer: OfferModel
 }
 
-const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }: MalteHelpFormProps): ReactElement => {
+const MalteHelpForm = ({
+  pageTitle,
+  languageCode,
+  regionCode,
+  malteHelpFormOffer,
+}: MalteHelpFormProps): ReactElement => {
   const { t } = useTranslation('malteHelpForm')
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
   const [privacyPolicyAccepted, setPrivacyPolicyAccepted] = useState(false)
@@ -59,7 +64,7 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
   const [comment, setComment] = useState('')
   const [snackbarOpen, setSnackbarOpen] = useState(false)
   const [invalidEmail, setInvalidEmail] = useState(false)
-  const dashboardRoute = cityContentPath({ languageCode, cityCode })
+  const dashboardRoute = regionContentPath({ languageCode, regionCode })
 
   const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -77,7 +82,7 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
       await submitMalteHelpForm({
         url: window.location.href,
         pageTitle,
-        cityCode,
+        regionCode,
         malteHelpFormOffer,
         name,
         email,
@@ -175,7 +180,7 @@ const MalteHelpForm = ({ pageTitle, languageCode, cityCode, malteHelpFormOffer }
           onChange={event => setComment(event.target.value)}
           helperText={t('maxCharacters', { numberOfCharacters: MALTE_HELP_FORM_MAX_COMMENT_LENGTH })}
         />
-        <p>{t('responseDisclaimer')}</p>
+        <p>{t('responseHint')}</p>
         <FormControl required error={submitted && !privacyPolicyAccepted}>
           <PrivacyCheckbox
             language={languageCode}

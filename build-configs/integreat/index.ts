@@ -6,7 +6,7 @@ import {
   WebBuildConfigType,
 } from '../BuildConfigType'
 import { APP_STORE_TEAM_ID } from '../common/constants'
-import cityNotCooperatingTemplate from './assets/cityNotCooperatingTemplate'
+import suggestToRegionTemplate from './assets/suggestToRegionTemplate'
 import mainImprint from './mainImprint'
 import { darkTheme, lightTheme } from './theme'
 import fonts from './theme/fonts'
@@ -34,8 +34,11 @@ const commonIntegreatBuildConfig: CommonBuildConfigType = {
     introSlides: true,
     sentry: true,
     developerFriendly: false,
-    fixedCity: null,
-    cityNotCooperatingTemplate,
+    fixedRegion: null,
+    suggestToRegion: {
+      template: suggestToRegionTemplate,
+      icon: '/suggest-to-region.svg',
+    },
     chat: true,
   },
   aboutUrls: {
@@ -49,6 +52,7 @@ const commonIntegreatBuildConfig: CommonBuildConfigType = {
   accessibilityUrls: {
     default: 'https://integreat-app.de/barrierefreiheit/',
   },
+  mainImprint,
 }
 export const androidIntegreatBuildConfig: AndroidBuildConfigType = {
   ...commonIntegreatBuildConfig,
@@ -88,12 +92,10 @@ export const iosIntegreatBuildConfig: IosBuildConfigType = {
 export const webIntegreatBuildConfig: WebBuildConfigType = {
   ...commonIntegreatBuildConfig,
   appDescription: 'Integreat – die lokale und mehrsprachige Integrations-Plattform für Zugewanderte',
-  mainImprint,
   manifestUrl: '/manifest.json',
   icons: {
     appLogo: '/app-logo.svg',
     appLogoMobile: '/app-icon-round.svg',
-    cityNotCooperating: '/city-not-cooperating.svg',
     appleTouchIcon: '/apple-touch-icon.png',
     socialMediaPreview: '/social-media-preview.png',
     favicons: '/favicons/',

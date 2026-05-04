@@ -1,11 +1,10 @@
-import mockAsyncStorage from '@react-native-async-storage/async-storage/jest/async-storage-mock'
 import fs from 'fs'
 import path from 'path'
 import { ReactNode } from 'react'
 
 console.error = () => undefined
 
-jest.mock('@react-native-async-storage/async-storage', () => mockAsyncStorage)
+jest.mock('@react-native-async-storage/async-storage', () => require('@react-native-async-storage/async-storage/jest'))
 jest.mock('react-native-permissions', () => require('react-native-permissions/mock'))
 jest.mock('@dr.pogodin/react-native-webview', () => ({
   default: jest.fn,

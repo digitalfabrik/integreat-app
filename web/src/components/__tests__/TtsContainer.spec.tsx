@@ -5,7 +5,7 @@ import { DateTime } from 'luxon'
 import React from 'react'
 import { MemoryRouter } from 'react-router'
 
-import { PageModel } from 'shared/api'
+import { DocumentModel } from 'shared/api'
 
 import useTtsPlayer from '../../hooks/useTtsPlayer'
 import { renderWithTheme } from '../../testing/render'
@@ -24,7 +24,7 @@ describe('TtsContainer', () => {
   // @ts-expect-error additional properties are missing but never used
   mocked(EasySpeech.status).mockImplementation(() => ({ status: 'init: complete' }))
 
-  const dummyPage = new PageModel({
+  const dummyDocument = new DocumentModel({
     path: '/test-path',
     title: 'test',
     content: '<p>This is a test.</p>',
@@ -42,7 +42,7 @@ describe('TtsContainer', () => {
   const sentences = ['This is my first sentence', 'Second sentence', 'Third time is the charm']
 
   const TestChild = () => {
-    const { showTtsPlayer, setSentences, visible } = useTtsPlayer(dummyPage, 'en')
+    const { showTtsPlayer, setSentences, visible } = useTtsPlayer(dummyDocument, 'en')
 
     return (
       <>
