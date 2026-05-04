@@ -21,10 +21,10 @@ import {
 import { SnackbarType } from '../components/SnackbarContainer'
 import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
 import { AppContext } from '../contexts/AppContextProvider'
-import { urlFromRouteInformation } from '../navigation/url'
 import { navigateNested } from '../utils/navigation'
 import openExternalUrl from '../utils/openExternalUrl'
 import { reportError } from '../utils/sentry'
+import { urlFromRouteInformation } from '../utils/url'
 import useSnackbar from './useSnackbar'
 
 const navigate = <T extends RoutesType>(

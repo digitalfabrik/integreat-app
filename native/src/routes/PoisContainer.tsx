@@ -7,7 +7,7 @@ import useCityAppContext from '../hooks/useCityAppContext'
 import useHeader from '../hooks/useHeader'
 import useLoadCityContent from '../hooks/useLoadCityContent'
 import usePreviousProp from '../hooks/usePreviousProp'
-import urlFromRouteInformation from '../navigation/url'
+import urlFromRouteInformation from '../utils/url'
 import LoadingErrorHandler from './LoadingErrorHandler'
 import Pois from './Pois'
 

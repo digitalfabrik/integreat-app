@@ -8,7 +8,7 @@ import useHeader from '../hooks/useHeader'
 import useLoadCityContent from '../hooks/useLoadCityContent'
 import useNavigate from '../hooks/useNavigate'
 import usePreviousProp from '../hooks/usePreviousProp'
-import urlFromRouteInformation from '../navigation/url'
+import urlFromRouteInformation from '../utils/url'
 import Events from './Events'
 import LoadingErrorHandler from './LoadingErrorHandler'
 

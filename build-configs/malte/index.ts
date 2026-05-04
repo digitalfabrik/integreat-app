@@ -49,6 +49,7 @@ const commonMalteBuildConfig: CommonBuildConfigType = {
   accessibilityUrls: {
     default: 'https://integreat-app.de/barrierefreiheit/',
   },
+  mainImprint,
 }
 
 const androidMalteBuildConfig: AndroidBuildConfigType = {
@@ -91,7 +92,6 @@ const iosMalteBuildConfig: IosBuildConfigType = {
 const webMalteBuildConfig: WebBuildConfigType = {
   ...commonMalteBuildConfig,
   appDescription: 'Guide of the Malteser Werke for Refugees. Digital. Multilingual. Free.',
-  mainImprint,
   icons: {
     appLogo: '/app-logo.svg',
     appLogoMobile: '/app-icon-round.svg',

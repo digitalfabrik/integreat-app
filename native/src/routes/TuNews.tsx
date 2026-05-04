@@ -8,7 +8,7 @@ import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useHeader from '../hooks/useHeader'
 import { CityContentData } from '../hooks/useLoadCityContent'
 import useLoadTuNews from '../hooks/useLoadTuNews'
-import urlFromRouteInformation from '../navigation/url'
+import urlFromRouteInformation from '../utils/url'
 import LoadingErrorHandler from './LoadingErrorHandler'
 
 type TuNewsProps = {

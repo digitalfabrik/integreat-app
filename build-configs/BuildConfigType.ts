@@ -79,13 +79,13 @@ export type CommonBuildConfigType = {
     default: string
     [language: string]: string
   }
+  // Main imprint of the app.
+  mainImprint: string
 }
 // Available only on web
 export type WebBuildConfigType = CommonBuildConfigType & {
   // Used for generating manifest.json
   appDescription: string
-  // Main imprint of the app.
-  mainImprint: string
   // Url to the manifest.json generated with webpack.
   manifestUrl?: string
   icons: {

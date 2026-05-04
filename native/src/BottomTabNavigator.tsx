@@ -19,21 +19,21 @@ import {
   POIS_TAB_ROUTE,
 } from 'shared'
 
-import { defaultHeader } from '../Navigator'
-import { SignPostIcon } from '../assets'
-import Icon from '../components/base/Icon'
-import Text from '../components/base/Text'
-import { TAB_NAVIGATOR_ID } from '../constants'
-import useCityAppContext from '../hooks/useCityAppContext'
-import useLoadCityContent from '../hooks/useLoadCityContent'
-import useNavigate from '../hooks/useNavigate'
-import useSetRouteTitle from '../hooks/useSetRouteTitle'
-import CategoriesContainer from '../routes/CategoriesContainer'
-import EventsContainer from '../routes/EventsContainer'
-import LoadingErrorHandler from '../routes/LoadingErrorHandler'
-import NewsContainer from '../routes/NewsContainer'
-import PoisContainer from '../routes/PoisContainer'
-import { usePushNotificationListener } from '../utils/PushNotificationsManager'
+import { defaultHeader } from './Navigator'
+import { SignPostIcon } from './assets'
+import Icon from './components/base/Icon'
+import Text from './components/base/Text'
+import { TAB_NAVIGATOR_ID } from './constants'
+import useCityAppContext from './hooks/useCityAppContext'
+import useLoadCityContent from './hooks/useLoadCityContent'
+import useNavigate from './hooks/useNavigate'
+import useSetRouteTitle from './hooks/useSetRouteTitle'
+import CategoriesContainer from './routes/CategoriesContainer'
+import EventsContainer from './routes/EventsContainer'
+import LoadingErrorHandler from './routes/LoadingErrorHandler'
+import NewsContainer from './routes/NewsContainer'
+import PoisContainer from './routes/PoisContainer'
+import { usePushNotificationListener } from './utils/PushNotificationsManager'
 
 const Tab = createBottomTabNavigator<RoutesParamsType>()
 const CategoriesStack = createStackNavigator<RoutesParamsType>()
@@ -93,7 +93,7 @@ type BottomTabNavigatorProps = {
   navigation: NavigationProps<BottomTabRouteType>
 }
 
-const BottomTabNavigatior = ({ navigation }: BottomTabNavigatorProps): ReactElement | null => {
+const BottomTabNavigator = ({ navigation }: BottomTabNavigatorProps): ReactElement | null => {
   const { t } = useTranslation('layout')
   const { cityCode, languageCode } = useCityAppContext()
   const { navigateTo } = useNavigate()
@@ -194,4 +194,4 @@ const BottomTabNavigatior = ({ navigation }: BottomTabNavigatorProps): ReactElem
   )
 }
 
-export default BottomTabNavigatior
+export default BottomTabNavigator
