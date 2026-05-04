@@ -14,7 +14,7 @@ const integreatE2e = {
     introSlides: false,
     sentry: false,
     developerFriendly: false,
-    fixedCity: null,
+    fixedRegion: null,
     suggestToRegion: {
       template: suggestToRegionTemplate,
       icon: '/suggest-to-region.svg',

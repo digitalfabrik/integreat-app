@@ -22,7 +22,7 @@ export type SearchProps = {
   userLanguageDocuments: ExtendedDocumentModel[]
   sourceLanguageDocuments: ExtendedDocumentModel[]
   languageCode: string
-  cityCode: string
+  regionCode: string
   initialSearchText: string
 }
 
@@ -31,7 +31,7 @@ const Search = ({
   userLanguageDocuments,
   sourceLanguageDocuments,
   languageCode,
-  cityCode,
+  regionCode,
   initialSearchText,
 }: SearchProps): ReactElement | null => {
   const [query, setQuery] = useState<string>(initialSearchText)
@@ -83,7 +83,7 @@ const Search = ({
                 <FeedbackContainer
                   routeType={SEARCH_ROUTE}
                   language={languageCode}
-                  cityCode={cityCode}
+                  regionCode={regionCode}
                   noResults={searchResults.length === 0}
                   query={debouncedQuery}
                 />

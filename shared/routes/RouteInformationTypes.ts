@@ -15,7 +15,7 @@ import {
 } from '.'
 
 type ParamsType = {
-  cityCode: string
+  regionCode: string
   languageCode: string
   chat?: boolean
 }
@@ -44,7 +44,7 @@ export type SuggestToRegionInformationType = {
 
 export type CategoriesRouteInformationType = ParamsType & {
   route: CategoriesRouteType
-  cityContentPath: string
+  regionContentPath: string
 }
 
 export type NewsRouteInformationType = ParamsType & {
@@ -54,7 +54,7 @@ export type NewsRouteInformationType = ParamsType & {
   newsId?: number
 }
 
-export type SimpleCityContentFeatureType = ParamsType & {
+export type SimpleRegionContentFeatureType = ParamsType & {
   // Routes without customizable ids, e.g. '/augsburg/de/imprint/'
   route: ImprintRouteType
 }
@@ -86,7 +86,7 @@ export type NonNullableRouteInformationType =
   | SuggestToRegionInformationType
   | CategoriesRouteInformationType
   | NewsRouteInformationType
-  | SimpleCityContentFeatureType
+  | SimpleRegionContentFeatureType
   | EventsRouteInformationType
   | PoisRouteInformationType
   | LicensesInformationType

@@ -11,21 +11,21 @@ import {
 } from 'shared'
 import { createLocalNewsEndpoint, LocalNewsModel, NotFoundError, useLoadFromEndpoint } from 'shared/api'
 
-import { CityRouteProps } from '../CityContentNavigator'
-import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
-import CityContentToolbar from '../components/CityContentToolbar'
+import { RegionRouteProps } from '../RegionContentNavigator'
 import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Helmet from '../components/Helmet'
 import NewsListItem from '../components/NewsListItem'
 import NewsTabs from '../components/NewsTabs'
 import Page from '../components/Page'
+import RegionContentLayout, { RegionContentLayoutProps } from '../components/RegionContentLayout'
+import RegionContentToolbar from '../components/RegionContentToolbar'
 import SkeletonList from '../components/SkeletonList'
 import SkeletonPage from '../components/SkeletonPage'
 import List from '../components/base/List'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 
-const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProps): ReactElement | null => {
+const LocalNewsPage = ({ region, pathname, languageCode, regionCode }: RegionRouteProps): ReactElement | null => {
   const { newsId } = useParams()
   const { t } = useTranslation('news')
 
@@ -33,12 +33,12 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
     data: localNews,
     loading,
     error: newsError,
-  } = useLoadFromEndpoint(createLocalNewsEndpoint, cmsApiBaseUrl, { city: cityCode, language: languageCode })
+  } = useLoadFromEndpoint(createLocalNewsEndpoint, cmsApiBaseUrl, { region: regionCode, language: languageCode })
 
   const newsModel = newsId ? localNews?.find((it: LocalNewsModel) => it.id.toString() === newsId) : undefined
   useTtsPlayer(newsModel, languageCode)
 
-  if (!city) {
+  if (!region) {
     return null
   }
 
@@ -46,12 +46,12 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
     pathnameFromRouteInformation({
       route: NEWS_ROUTE,
       newsType: LOCAL_NEWS_TYPE,
-      cityCode,
+      regionCode,
       languageCode: newLanguageCode ?? languageCode,
       newsId,
     })
 
-  const languageChangePaths = city.languages.map(({ code, name }) => {
+  const languageChangePaths = region.languages.map(({ code, name }) => {
     const newNewsId = newsModel?.availableLanguages[code]
     return {
       path: newsId && newNewsId === undefined ? null : createNewsPath({ languageCode: code, newsId: newNewsId }),
@@ -60,49 +60,49 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
     }
   })
 
-  const pageTitle = `${newsModel && newsModel.title ? newsModel.title : t('localNews.pageTitle')} - ${city.name}`
-  const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
-    city,
+  const pageTitle = `${newsModel && newsModel.title ? newsModel.title : t('localNews.pageTitle')} - ${region.name}`
+  const locationLayoutParams: Omit<RegionContentLayoutProps, 'isLoading'> = {
+    region,
     languageChangePaths,
     languageCode,
     pageTitle,
-    Toolbar: <CityContentToolbar />,
+    Toolbar: <RegionContentToolbar />,
   }
 
   if (newsError) {
     const error = new NotFoundError({
       type: LOCAL_NEWS_TYPE,
       id: pathname,
-      city: cityCode,
+      region: regionCode,
       language: languageCode,
     })
 
     return (
-      <CityContentLayout isLoading={false} {...locationLayoutParams}>
+      <RegionContentLayout isLoading={false} {...locationLayoutParams}>
         <FailureSwitcherWithHelmet error={error} />
-      </CityContentLayout>
+      </RegionContentLayout>
     )
   }
 
   if (newsId) {
     if (!newsModel) {
       return (
-        <CityContentLayout isLoading={false} {...locationLayoutParams}>
+        <RegionContentLayout isLoading={false} {...locationLayoutParams}>
           <SkeletonPage />
-        </CityContentLayout>
+        </RegionContentLayout>
       )
     }
     const linkedContent = replaceLinks(newsModel.content)
     return (
-      <CityContentLayout isLoading={false} {...locationLayoutParams}>
-        <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
+      <RegionContentLayout isLoading={false} {...locationLayoutParams}>
+        <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} regionModel={region} />
         <Page
           title={newsModel.title}
           content={linkedContent}
           lastUpdate={newsModel.timestamp}
           showLastUpdateText={false}
         />
-      </CityContentLayout>
+      </RegionContentLayout>
     )
   }
 
@@ -120,17 +120,17 @@ const LocalNewsPage = ({ city, pathname, languageCode, cityCode }: CityRouteProp
   })
 
   return (
-    <CityContentLayout isLoading={false} {...locationLayoutParams}>
-      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
+    <RegionContentLayout isLoading={false} {...locationLayoutParams}>
+      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} regionModel={region} />
       <NewsTabs
         type={LOCAL_NEWS_TYPE}
-        city={cityCode}
-        tunewsEnabled={city.tunewsEnabled}
-        localNewsEnabled={city.localNewsEnabled}
+        region={regionCode}
+        tunewsEnabled={region.tunewsEnabled}
+        localNewsEnabled={region.localNewsEnabled}
         language={languageCode}
       />
       {loading ? <SkeletonList /> : <List items={NewsListItems ?? []} NoItemsMessage='news:currentlyNoNews' />}
-    </CityContentLayout>
+    </RegionContentLayout>
   )
 }
 

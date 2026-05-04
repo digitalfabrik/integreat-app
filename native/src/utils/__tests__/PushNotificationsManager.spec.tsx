@@ -63,7 +63,7 @@ describe('PushNotificationsManager', () => {
       mocked(subscribeToTopic).mockImplementation(mockSubscribeToTopic)
 
       await PushNotificationsManager.subscribeNews({
-        cityCode: 'augsburg',
+        regionCode: 'augsburg',
         languageCode: 'de',
         allowPushNotifications: false,
       })
@@ -75,7 +75,7 @@ describe('PushNotificationsManager', () => {
       mocked(subscribeToTopic).mockImplementation(mockSubscribeToTopic)
 
       await PushNotificationsManager.subscribeNews({
-        cityCode: 'augsburg',
+        regionCode: 'augsburg',
         languageCode: 'de',
         allowPushNotifications: true,
       })
@@ -88,7 +88,7 @@ describe('PushNotificationsManager', () => {
       mocked(subscribeToTopic).mockImplementation(mockSubscribeToTopic)
 
       await PushNotificationsManager.subscribeNews({
-        cityCode: 'augsburg',
+        regionCode: 'augsburg',
         languageCode: 'de',
         allowPushNotifications: false,
         skipSettingsCheck: true,
@@ -114,7 +114,7 @@ describe('PushNotificationsManager', () => {
     const message: FirebaseMessagingTypes.RemoteMessage = {
       notification: { title: 'Test PN', body: 'Test Body' },
       data: {
-        city_code: 'augsburg',
+        region_code: 'augsburg',
         language_code: 'de',
         news_id: '123',
         group: 'news',
@@ -134,7 +134,7 @@ describe('PushNotificationsManager', () => {
           title: 'Test PN',
           body: 'Test Body',
           data: {
-            city_code: 'augsburg',
+            region_code: 'augsburg',
             language_code: 'de',
             news_id: '123',
             group: 'news',
@@ -155,7 +155,7 @@ describe('PushNotificationsManager', () => {
       renderMockComponent()
       await waitFor(() => expect(navigate).toHaveBeenCalledTimes(1), { timeout: 1100 })
       expect(navigate).toHaveBeenCalledWith({
-        cityCode: 'augsburg',
+        regionCode: 'augsburg',
         languageCode: 'de',
         newsId: 123,
         newsType: 'local',
@@ -168,7 +168,7 @@ describe('PushNotificationsManager', () => {
       renderMockComponent()
       await waitFor(() => expect(navigate).toHaveBeenCalledTimes(2), { timeout: 1100 })
       expect(navigate).toHaveBeenCalledWith({
-        cityCode: 'augsburg',
+        regionCode: 'augsburg',
         languageCode: 'de',
         newsId: 123,
         newsType: 'local',

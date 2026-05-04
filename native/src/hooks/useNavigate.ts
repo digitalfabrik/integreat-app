@@ -30,7 +30,7 @@ import useSnackbar from './useSnackbar'
 const navigate = <T extends RoutesType>(
   routeInformation: RouteInformationType,
   navigation: NavigationProps<T>,
-  appCityCode: string | null,
+  appRegionCode: string | null,
   appLanguageCode: string,
   showSnackbar: (snackbar: SnackbarType) => void,
   redirect: boolean,
@@ -57,11 +57,11 @@ const navigate = <T extends RoutesType>(
     return
   }
 
-  const { cityCode, languageCode } = routeInformation
+  const { regionCode, languageCode } = routeInformation
 
-  // City content routes with different city or language than the currently selected should be opened in the web app
-  // This avoids lots of additional complexity by always keeping the city and language of all opened routes in sync
-  if ((appCityCode && appCityCode !== cityCode) || appLanguageCode !== languageCode) {
+  // Region content routes with different region or language than the currently selected should be opened in the web app
+  // This avoids lots of additional complexity by always keeping the region and language of all opened routes in sync
+  if ((appRegionCode && appRegionCode !== regionCode) || appLanguageCode !== languageCode) {
     // We need to remove or replace the redirect route if only opening the inappbrowser
     // Otherwise this leads to a blank (redirect) screen when navigating back from the inappbrowser
     if (redirect && navigation.canGoBack()) {
@@ -80,7 +80,7 @@ const navigate = <T extends RoutesType>(
 
   switch (routeInformation.route) {
     case CATEGORIES_ROUTE:
-      navigateNested(navigation, CATEGORIES_ROUTE, { path: routeInformation.cityContentPath }, redirect)
+      navigateNested(navigation, CATEGORIES_ROUTE, { path: routeInformation.regionContentPath }, redirect)
       return
 
     case EVENTS_ROUTE:
@@ -129,13 +129,13 @@ type UseNavigateReturn = {
 
 const useNavigate = ({ redirect } = { redirect: false }): UseNavigateReturn => {
   const navigation = useNavigation<NavigationProps<RoutesType>>()
-  const { cityCode, languageCode } = useContext(AppContext)
+  const { regionCode, languageCode } = useContext(AppContext)
   const showSnackbar = useSnackbar()
 
   const navigateTo = useCallback(
     (routeInformation: RouteInformationType) =>
-      navigate(routeInformation, navigation, cityCode, languageCode, showSnackbar, redirect),
-    [navigation, cityCode, languageCode, showSnackbar, redirect],
+      navigate(routeInformation, navigation, regionCode, languageCode, showSnackbar, redirect),
+    [navigation, regionCode, languageCode, showSnackbar, redirect],
   )
 
   return { navigateTo, navigation }

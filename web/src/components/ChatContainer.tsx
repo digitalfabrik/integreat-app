@@ -7,7 +7,7 @@ import React, { ReactElement, useContext } from 'react'
 import { useSearchParams } from 'react-router'
 
 import { getChatName, CHAT_QUERY_KEY, parseQueryParams, toQueryParams } from 'shared'
-import { CityModel } from 'shared/api'
+import { RegionModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
 import useDimensions from '../hooks/useDimensions'
@@ -40,19 +40,19 @@ const StyledDialog = styled(Dialog)({
 })
 
 type ChatContainerProps = {
-  city: CityModel
+  region: RegionModel
   languageCode: string
   languageChangePaths: LanguageChangePath[] | null
 }
 
-const ChatContainer = ({ city, languageCode, languageChangePaths }: ChatContainerProps): ReactElement | null => {
+const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContainerProps): ReactElement | null => {
   const [queryParams, setQueryParams] = useSearchParams()
   const chatVisible = parseQueryParams(queryParams).chat ?? false
   const { desktop, xsmall, visibleFooterHeight, bottomNavigationHeight } = useDimensions()
   const { visible: ttsPlayerVisible } = useContext(TtsContext)
 
   const { value: chatId, updateLocalStorageItem: updateChatId } = useLocalStorage<string | null>({
-    key: chatIdKey(city.code),
+    key: chatIdKey(region.code),
     initialValue: null,
   })
 
@@ -100,7 +100,7 @@ const ChatContainer = ({ city, languageCode, languageChangePaths }: ChatContaine
             : []),
           <ChatMenu key='chatMenu' chatId={chatId} updateChatId={updateChatId} />,
         ]}>
-        <ChatController chatId={chatId} updateChatId={updateChatId} city={city} languageCode={languageCode} />
+        <ChatController chatId={chatId} updateChatId={updateChatId} region={region} languageCode={languageCode} />
       </StyledDialog>
     )
   }

@@ -9,15 +9,15 @@ class LandingPage extends Page {
     super('Landing-Page')
   }
 
-  get cities(): ReturnType<typeof $$> {
-    return $$('~City-Entry')
+  get regions(): ReturnType<typeof $$> {
+    return $$('~Region-Entry')
   }
 
   get search(): ReturnType<typeof $> {
     return $('~Search-Input')
   }
 
-  city(name: string) {
+  region(name: string) {
     const selector = $(new Selector().ByText(name).build())
     return Gestures.checkIfDisplayedWithSwipeUp(selector, MAX_SCROLLS)
   }

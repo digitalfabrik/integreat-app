@@ -1,16 +1,16 @@
 import { LocalNewsType, TuNewsType } from '../../routes'
 
-type NotFoundType = 'city' | 'category' | 'event' | 'poi' | 'imprint' | TuNewsType | LocalNewsType | 'route'
+type NotFoundType = 'region' | 'category' | 'event' | 'poi' | 'imprint' | TuNewsType | LocalNewsType | 'route'
 
 const getMessage = (type: NotFoundType, id: string): string => `The ${type} ${id} does not exist here.`
 
 class NotFoundError extends Error {
   _type: NotFoundType
   _id: string | number
-  _city: string | undefined
+  _region: string | undefined
   _language: string | undefined
 
-  constructor(params: { id: string; type: NotFoundType; city?: string; language?: string }) {
+  constructor(params: { id: string; type: NotFoundType; region?: string; language?: string }) {
     super(getMessage(params.type, params.id))
 
     // captureStackTrace is not always defined on mobile
@@ -24,7 +24,7 @@ class NotFoundError extends Error {
     this.name = 'NotFoundError'
     this._id = params.id
     this._type = params.type
-    this._city = params.city
+    this._region = params.region
     this._language = params.language
   }
 
@@ -36,8 +36,8 @@ class NotFoundError extends Error {
     return this._id
   }
 
-  get city(): string | undefined {
-    return this._city
+  get region(): string | undefined {
+    return this._region
   }
 
   get language(): string | undefined {

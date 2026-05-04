@@ -1,4 +1,4 @@
-import { defaultCity, filter } from '../../../shared/constants.js'
+import { defaultRegion, filter } from '../../../shared/constants.js'
 import Keyboard from '../helpers/Keyboard.js'
 import DashboardPage from '../pageobjects/dashboard.page.js'
 import LandingPage from '../pageobjects/landing.page.js'
@@ -12,7 +12,7 @@ export const navigateToDashboard = async (): Promise<void> => {
   await search.click()
   await search.addValue(filter)
   await Keyboard.hide()
-  const filteredCity = await LandingPage.city(defaultCity)
-  await filteredCity.click()
+  const filteredRegion = await LandingPage.region(defaultRegion)
+  await filteredRegion.click()
   await DashboardPage.get()
 }

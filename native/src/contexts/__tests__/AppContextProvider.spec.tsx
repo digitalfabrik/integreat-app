@@ -30,50 +30,50 @@ describe('AppContextProvider', () => {
   const setSettings = jest.spyOn(appSettings, 'setSettings')
 
   const mockBuildConfig = (featureFlags: Partial<FeatureFlagsType>) =>
-    // @ts-expect-error passing only a partial of fixed city type leads to ts errors that are irrelevant for testing though
+    // @ts-expect-error passing only a partial of fixed region type leads to ts errors that are irrelevant for testing though
     mockedBuildConfig.mockImplementation(() => ({
       ...previousBuildConfig,
       featureFlags: { ...previousBuildConfig.featureFlags, ...featureFlags },
     }))
 
   const MockComponent = ({
-    newCityCode,
+    newRegionCode,
     newLanguageCode,
     newSettings,
   }: {
     newSettings: Partial<SettingsType>
-    newCityCode: string | null
+    newRegionCode: string | null
     newLanguageCode: string
   }) => {
-    const { settings, cityCode, languageCode, updateSettings, changeCityCode, changeLanguageCode } =
+    const { settings, regionCode, languageCode, updateSettings, changeRegionCode, changeLanguageCode } =
       useContext(AppContext)
 
     return (
       <View>
         <Text>{JSON.stringify(settings)}</Text>
-        {!!cityCode && <Text>{cityCode}</Text>}
+        {!!regionCode && <Text>{regionCode}</Text>}
         <Text>{languageCode}</Text>
 
         <Button onPress={() => updateSettings(newSettings)}>updateSettings</Button>
-        <Button onPress={() => changeCityCode(newCityCode)}>changeCityCode</Button>
+        <Button onPress={() => changeRegionCode(newRegionCode)}>changeRegionCode</Button>
         <Button onPress={() => changeLanguageCode(newLanguageCode)}>changeLanguageCode</Button>
       </View>
     )
   }
 
   const renderAppContextProvider = ({
-    newCityCode = 'muenchen',
+    newRegionCode = 'muenchen',
     newLanguageCode = 'ar',
     newSettings = defaultSettings,
   }: {
     newSettings?: Partial<SettingsType>
-    newCityCode?: string | null
+    newRegionCode?: string | null
     newLanguageCode?: string
   }) => {
     jest.clearAllMocks()
     return render(
       <AppContextProvider>
-        <MockComponent newSettings={newSettings} newCityCode={newCityCode} newLanguageCode={newLanguageCode} />
+        <MockComponent newSettings={newSettings} newRegionCode={newRegionCode} newLanguageCode={newLanguageCode} />
       </AppContextProvider>,
     )
   }
@@ -126,51 +126,55 @@ describe('AppContextProvider', () => {
     expect(defaultDataContainer.storeLastUsage).toHaveBeenCalledWith('augsburg')
   })
 
-  it('should initialize fixed city', async () => {
+  it('should initialize fixed region', async () => {
     await appSettings.setSettings({ ...defaultSettings, contentLanguage: 'de' })
-    mockBuildConfig({ fixedCity: 'hallo' })
+    mockBuildConfig({ fixedRegion: 'hallo' })
     const { getByText } = renderAppContextProvider({})
     await waitFor(async () => expect(getByText('hallo')).toBeTruthy())
     expect(await appSettings.loadSettings()).toMatchObject({ selectedCity: 'hallo' })
     expect(setSettings).toHaveBeenCalledTimes(1)
     expect(subscribeNews).toHaveBeenCalledTimes(1)
-    expect(subscribeNews).toHaveBeenCalledWith({ cityCode: 'hallo', languageCode: 'de', allowPushNotifications: true })
+    expect(subscribeNews).toHaveBeenCalledWith({
+      regionCode: 'hallo',
+      languageCode: 'de',
+      allowPushNotifications: true,
+    })
   })
 
-  it('should select city', async () => {
+  it('should select region', async () => {
     await appSettings.setSettings({ ...defaultSettings, contentLanguage: 'de' })
-    const { getByText, queryByText } = renderAppContextProvider({ newCityCode: 'augsburg' })
+    const { getByText, queryByText } = renderAppContextProvider({ newRegionCode: 'augsburg' })
     await waitFor(async () => expect(getByText('de')).toBeTruthy())
     expect(queryByText('augsburg')).toBeFalsy()
 
-    fireEvent.press(getByText('changeCityCode'))
+    fireEvent.press(getByText('changeRegionCode'))
 
     await waitFor(async () => expect(getByText('augsburg')).toBeTruthy())
     expect(await appSettings.loadSettings()).toMatchObject({ selectedCity: 'augsburg' })
     expect(setSettings).toHaveBeenCalledTimes(1)
     expect(subscribeNews).toHaveBeenCalledTimes(1)
     expect(subscribeNews).toHaveBeenCalledWith({
-      cityCode: 'augsburg',
+      regionCode: 'augsburg',
       languageCode: 'de',
       allowPushNotifications: true,
     })
     expect(unsubscribeNews).not.toHaveBeenCalled()
   })
 
-  it('should change city', async () => {
+  it('should change region', async () => {
     await appSettings.setSettings({ ...defaultSettings, contentLanguage: 'de', selectedCity: 'muenchen' })
-    const { getByText, queryByText } = renderAppContextProvider({ newCityCode: 'augsburg' })
+    const { getByText, queryByText } = renderAppContextProvider({ newRegionCode: 'augsburg' })
     await waitFor(async () => expect(getByText('muenchen')).toBeTruthy())
     expect(queryByText('augsburg')).toBeFalsy()
 
-    fireEvent.press(getByText('changeCityCode'))
+    fireEvent.press(getByText('changeRegionCode'))
 
     await waitFor(async () => expect(getByText('augsburg')).toBeTruthy())
     expect(await appSettings.loadSettings()).toMatchObject({ selectedCity: 'augsburg' })
     expect(setSettings).toHaveBeenCalledTimes(1)
     expect(subscribeNews).toHaveBeenCalledTimes(1)
     expect(subscribeNews).toHaveBeenCalledWith({
-      cityCode: 'augsburg',
+      regionCode: 'augsburg',
       languageCode: 'de',
       allowPushNotifications: true,
     })
@@ -178,12 +182,12 @@ describe('AppContextProvider', () => {
     expect(unsubscribeNews).toHaveBeenCalledWith('muenchen', 'de')
   })
 
-  it('should deselect city', async () => {
+  it('should deselect region', async () => {
     await appSettings.setSettings({ ...defaultSettings, contentLanguage: 'de', selectedCity: 'muenchen' })
-    const { getByText, queryByText } = renderAppContextProvider({ newCityCode: null })
+    const { getByText, queryByText } = renderAppContextProvider({ newRegionCode: null })
     await waitFor(async () => expect(getByText('muenchen')).toBeTruthy())
 
-    fireEvent.press(getByText('changeCityCode'))
+    fireEvent.press(getByText('changeRegionCode'))
 
     await waitFor(async () => expect(queryByText('muenchen')).toBeFalsy())
     expect(await appSettings.loadSettings()).toMatchObject({ selectedCity: null })
@@ -195,7 +199,7 @@ describe('AppContextProvider', () => {
 
   it('should change language', async () => {
     await appSettings.setSettings({ ...defaultSettings, contentLanguage: 'de', selectedCity: 'muenchen' })
-    const { getByText, queryByText } = renderAppContextProvider({ newCityCode: 'augsburg' })
+    const { getByText, queryByText } = renderAppContextProvider({ newRegionCode: 'augsburg' })
     await waitFor(async () => expect(getByText('de')).toBeTruthy())
     expect(queryByText('ar')).toBeFalsy()
 
@@ -206,7 +210,7 @@ describe('AppContextProvider', () => {
     expect(setSettings).toHaveBeenCalledTimes(1)
     expect(subscribeNews).toHaveBeenCalledTimes(1)
     expect(subscribeNews).toHaveBeenCalledWith({
-      cityCode: 'muenchen',
+      regionCode: 'muenchen',
       languageCode: 'ar',
       allowPushNotifications: true,
     })

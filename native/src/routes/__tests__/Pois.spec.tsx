@@ -1,7 +1,7 @@
 import { fireEvent } from '@testing-library/react-native'
 
 import { POIS_ROUTE } from 'shared'
-import { CityModelBuilder, PoiModelBuilder } from 'shared/api'
+import { RegionModelBuilder, PoiModelBuilder } from 'shared/api'
 
 import { renderWithNavigator } from '../../testing/render'
 import Pois from '../Pois'
@@ -20,7 +20,7 @@ describe('Pois', () => {
   const poi0 = pois[0]!
   const poi1 = pois[1]!
   const poi2 = pois[2]!
-  const city = new CityModelBuilder(1).build()[0]!
+  const region = new RegionModelBuilder(1).build()[0]!
 
   const renderPois = ({
     slug = undefined,
@@ -35,7 +35,7 @@ describe('Pois', () => {
       POIS_ROUTE,
       Pois,
       // @ts-expect-error ts complains that route and navigation are missing even they get passed later
-      { pois, cityModel: city, language: 'de', refresh: jest.fn() },
+      { pois, regionModel: region, language: 'de', refresh: jest.fn() },
       {
         slug,
         multipoi,

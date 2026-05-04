@@ -2,8 +2,8 @@ import { fireEvent } from '@testing-library/react'
 import React from 'react'
 import { Route, Routes } from 'react-router'
 
-import { cityContentPath, POIS_ROUTE } from 'shared'
-import { CityModelBuilder, PoiModelBuilder } from 'shared/api'
+import { regionContentPath, POIS_ROUTE } from 'shared'
+import { RegionModelBuilder, PoiModelBuilder } from 'shared/api'
 import {
   mockUseLoadFromEndpointWithData,
   mockUseLoadFromEndpointWithError,
@@ -26,14 +26,14 @@ describe('PoisPage', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
-  const cities = new CityModelBuilder(2).build()
+  const regions = new RegionModelBuilder(2).build()
   const pois = new PoiModelBuilder(2).build()
-  const city = cities[0]!
+  const region = regions[0]!
   const languageCode = 'ar'
   const poi0 = pois[0]!
   const poi1 = pois[1]!
 
-  const pathname = cityContentPath({ route: POIS_ROUTE, cityCode: city.code, languageCode })
+  const pathname = regionContentPath({ route: POIS_ROUTE, regionCode: region.code, languageCode })
 
   const renderPois = (path?: string) =>
     renderWithRouterAndTheme(
@@ -41,7 +41,12 @@ describe('PoisPage', () => {
         <Route
           path={RoutePatterns[POIS_ROUTE]}
           element={
-            <PoisPage city={city} pathname={path ?? pathname} languageCode={languageCode} cityCode={city.code} />
+            <PoisPage
+              region={region}
+              pathname={path ?? pathname}
+              languageCode={languageCode}
+              regionCode={region.code}
+            />
           }>
           <Route element={null} path=':slug' />
         </Route>

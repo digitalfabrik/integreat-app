@@ -21,12 +21,12 @@ describe('FeedbackContainer', () => {
     jest.clearAllMocks()
   })
 
-  const city = 'augsburg'
+  const region = 'augsburg'
   const language = 'de'
 
   it('should disable send button if privacy policy is not accepted', async () => {
     const { findByText, getByText } = render(
-      <FeedbackContainer routeType={SEARCH_ROUTE} language={language} cityCode={city} />,
+      <FeedbackContainer routeType={SEARCH_ROUTE} language={language} regionCode={region} />,
     )
     const positiveRatingButton = getByText('useful')
     fireEvent.press(positiveRatingButton)
@@ -36,7 +36,7 @@ describe('FeedbackContainer', () => {
 
   it('should send feedback request with rating and no other inputs on submit', async () => {
     const { getByText, findByText } = render(
-      <FeedbackContainer routeType={CATEGORIES_ROUTE} language={language} cityCode={city} />,
+      <FeedbackContainer routeType={CATEGORIES_ROUTE} language={language} regionCode={region} />,
     )
     fireEvent.press(getByText('common:privacyPolicy'))
 
@@ -50,7 +50,7 @@ describe('FeedbackContainer', () => {
     expect(mockRequest).toHaveBeenCalledWith({
       routeType: CATEGORIES_ROUTE,
       isPositiveRating: true,
-      city,
+      region,
       language,
       comment: '',
       contactMail: '',
@@ -63,7 +63,7 @@ describe('FeedbackContainer', () => {
     const comment = 'my comment'
     const contactMail = 'test@example.com'
     const { getByText, findByText, getAllByDisplayValue } = render(
-      <FeedbackContainer routeType={CATEGORIES_ROUTE} language={language} cityCode={city} />,
+      <FeedbackContainer routeType={CATEGORIES_ROUTE} language={language} regionCode={region} />,
     )
     fireEvent.press(getByText('common:privacyPolicy'))
     const [commentField, emailField] = getAllByDisplayValue('')
@@ -76,7 +76,7 @@ describe('FeedbackContainer', () => {
     expect(mockRequest).toHaveBeenCalledWith({
       routeType: CATEGORIES_ROUTE,
       isPositiveRating: null,
-      city,
+      region,
       language,
       comment,
       contactMail,
@@ -87,7 +87,7 @@ describe('FeedbackContainer', () => {
 
   it('should disable send feedback button if rating button is clicked twice', async () => {
     const { getByText, findByText } = render(
-      <FeedbackContainer routeType={CATEGORIES_ROUTE} language={language} cityCode={city} />,
+      <FeedbackContainer routeType={CATEGORIES_ROUTE} language={language} regionCode={region} />,
     )
     fireEvent.press(getByText('common:privacyPolicy'))
     const positiveRatingButton = getByText('useful')
@@ -100,7 +100,7 @@ describe('FeedbackContainer', () => {
   it('should send search feedback on submit', async () => {
     const query = 'Zeugnis'
     const { findByText, getByText } = render(
-      <FeedbackContainer routeType={SEARCH_ROUTE} language={language} cityCode={city} query={query} />,
+      <FeedbackContainer routeType={SEARCH_ROUTE} language={language} regionCode={region} query={query} />,
     )
     const buttonToOpenFeedback = getByText('giveFeedback')
     fireEvent.press(buttonToOpenFeedback)
@@ -112,7 +112,7 @@ describe('FeedbackContainer', () => {
     expect(mockRequest).toHaveBeenCalledWith({
       routeType: SEARCH_ROUTE,
       isPositiveRating: null,
-      city,
+      region,
       language,
       comment: '',
       contactMail: '',
@@ -126,7 +126,7 @@ describe('FeedbackContainer', () => {
     const query = 'Zeugnis'
     const fullSearchTerm = 'Zeugnisübergabe'
     const { findByText, getByDisplayValue, getByText } = render(
-      <FeedbackContainer routeType={SEARCH_ROUTE} language={language} cityCode={city} query={query} />,
+      <FeedbackContainer routeType={SEARCH_ROUTE} language={language} regionCode={region} query={query} />,
     )
     const buttonToOpenFeedback = getByText('giveFeedback')
     fireEvent.press(buttonToOpenFeedback)
@@ -140,7 +140,7 @@ describe('FeedbackContainer', () => {
     expect(mockRequest).toHaveBeenCalledWith({
       routeType: SEARCH_ROUTE,
       isPositiveRating: null,
-      city,
+      region,
       language,
       comment: '',
       contactMail: '',
@@ -152,7 +152,7 @@ describe('FeedbackContainer', () => {
 
   it('should disable send button if query term is removed', async () => {
     const { findByText, getByDisplayValue, getByText } = render(
-      <FeedbackContainer routeType={SEARCH_ROUTE} language={language} cityCode={city} query='query' />,
+      <FeedbackContainer routeType={SEARCH_ROUTE} language={language} regionCode={region} query='query' />,
     )
     const buttonToOpenFeedback = getByText('giveFeedback')
     fireEvent.press(buttonToOpenFeedback)
@@ -170,7 +170,7 @@ describe('FeedbackContainer', () => {
       <FeedbackContainer
         routeType={SEARCH_ROUTE}
         language={language}
-        cityCode={city}
+        regionCode={region}
         query={query}
         noResults={noResults}
       />,
@@ -186,7 +186,7 @@ describe('FeedbackContainer', () => {
     expect(mockRequest).toHaveBeenCalledWith({
       routeType: SEARCH_ROUTE,
       isPositiveRating: false,
-      city,
+      region,
       language,
       comment: '',
       contactMail: '',

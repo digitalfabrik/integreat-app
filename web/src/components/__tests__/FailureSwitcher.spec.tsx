@@ -13,7 +13,7 @@ jest.mock('../../utils/sentry', () => ({
 }))
 
 describe('FailureSwitcher', () => {
-  const city = 'augsburg'
+  const region = 'augsburg'
   const language = 'de'
 
   beforeEach(() => {
@@ -28,7 +28,7 @@ describe('FailureSwitcher', () => {
     ${TU_NEWS_TYPE}    | ${'1'}          | ${'news'}     | ${'news'}       | ${'/augsburg/de/news/tu-news'}
     ${'poi'}           | ${'1234'}       | ${'poi'}      | ${'pois'}       | ${'/augsburg/de/locations'}
   `('should render $type not found failure', ({ type, id, notFoundKey, goToKey, goToPath }) => {
-    const error = new NotFoundError({ type, id, language, city })
+    const error = new NotFoundError({ type, id, language, region })
     const { getByText } = renderWithRouterAndTheme(<FailureSwitcherWithHelmet error={error} />)
 
     expect(getByText(`error:notFound.${notFoundKey}`)).toBeTruthy()
@@ -56,7 +56,7 @@ describe('FailureSwitcher', () => {
 
   it('should report response errors to sentry', async () => {
     const error = new ResponseError({
-      endpointName: 'cities',
+      endpointName: 'regions',
       response: {} as Response,
       url: 'https://example.com',
       requestOptions: { method: 'GET' },

@@ -15,7 +15,7 @@ describe('imprint', () => {
     content: '<div>Some imprint test content :)</div>',
   }
   const params = {
-    city: 'augsburg',
+    region: 'augsburg',
     language: 'de',
   }
   it('should map router to url', () => {

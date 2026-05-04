@@ -7,7 +7,7 @@ import { rrulestr } from 'rrule'
 import {
   CategoriesMapModel,
   CategoryModel,
-  CityModel,
+  RegionModel,
   ContactModel,
   DateModel,
   EventModel,
@@ -23,12 +23,12 @@ import {
 } from 'shared/api'
 
 import DatabaseContext from '../models/DatabaseContext'
-import { CityResourceCacheStateType } from './DataContainer'
+import { RegionResourceCacheStateType } from './DataContainer'
 import { deleteIfExists } from './helpers'
 import { log, reportError } from './sentry'
 
-export const CONTENT_VERSION = 'v11'
-export const RESOURCE_CACHE_VERSION = 'v3'
+export const CONTENT_VERSION = 'v12'
+export const RESOURCE_CACHE_VERSION = 'v4'
 
 // Our pdf view can only load from DocumentDir. Therefore we need to use that
 export const CACHE_DIR_PATH = BlobUtil.fs.dirs.DocumentDir
@@ -39,7 +39,7 @@ export const UNVERSIONED_RESOURCE_CACHE_DIR_PATH = `${CACHE_DIR_PATH}/resource-c
 // Offline saved resources like pictures and pdf documents
 export const RESOURCE_CACHE_DIR_PATH = `${UNVERSIONED_RESOURCE_CACHE_DIR_PATH}/${RESOURCE_CACHE_VERSION}`
 
-const MAX_STORED_CITIES = 3
+const MAX_STORED_REGIONS = 3
 
 type OrganizationJsonType = {
   name: string
@@ -120,7 +120,7 @@ type ContentLanguageJsonType = {
   name: string
 }
 
-type ContentCityJsonType = {
+type ContentRegionJsonType = {
   name: string
   live: boolean
   code: string
@@ -189,11 +189,11 @@ type ContentLocalNewsJsonType = {
   availableLanguages: Record<string, number> | undefined
 }
 
-type CityCodeType = string
+type RegionCodeType = string
 
 type LanguageCodeType = string
 
-type MetaCitiesEntryType = {
+type MetaRegionsEntryType = {
   languages: Record<
     LanguageCodeType,
     {
@@ -203,8 +203,8 @@ type MetaCitiesEntryType = {
   lastUsage: DateTime
 }
 
-type MetaCitiesJsonType = Record<
-  CityCodeType,
+type MetaRegionsJsonType = Record<
+  RegionCodeType,
   {
     languages: Record<
       LanguageCodeType,
@@ -216,12 +216,12 @@ type MetaCitiesJsonType = Record<
   }
 >
 
-type CityLastUsageType = {
-  city: CityCodeType
+type RegionLastUsageType = {
+  region: RegionCodeType
   lastUsage: DateTime
 }
 
-type MetaCitiesType = Record<CityCodeType, MetaCitiesEntryType>
+type MetaRegionsType = Record<RegionCodeType, MetaRegionsEntryType>
 
 const mapOpeningHoursToJson = (
   hours: OpeningHoursModel,
@@ -283,31 +283,31 @@ class DatabaseConnector {
   getContentPath(key: string, context: DatabaseContext): string {
     if (!key) {
       throw Error("Key mustn't be empty")
-    } else if (!context.cityCode) {
-      throw Error("cityCode mustn't be empty")
+    } else if (!context.regionCode) {
+      throw Error("regionCode mustn't be empty")
     }
 
     if (!context.languageCode) {
-      return `${CONTENT_DIR_PATH}/${context.cityCode}/${key}.json`
+      return `${CONTENT_DIR_PATH}/${context.regionCode}/${key}.json`
     }
 
-    return `${CONTENT_DIR_PATH}/${context.cityCode}/${context.languageCode}/${key}.json`
+    return `${CONTENT_DIR_PATH}/${context.regionCode}/${context.languageCode}/${key}.json`
   }
 
   getResourceCachePath(context: DatabaseContext): string {
-    if (!context.cityCode) {
-      throw Error("cityCode mustn't be empty")
+    if (!context.regionCode) {
+      throw Error("regionCode mustn't be empty")
     }
 
-    return `${RESOURCE_CACHE_DIR_PATH}/${context.cityCode}/files.json`
+    return `${RESOURCE_CACHE_DIR_PATH}/${context.regionCode}/files.json`
   }
 
-  getMetaCitiesPath(): string {
-    return `${CACHE_DIR_PATH}/cities-meta.json`
+  getMetaRegionsPath(): string {
+    return `${CACHE_DIR_PATH}/regions-meta.json`
   }
 
-  getCitiesPath(): string {
-    return `${CACHE_DIR_PATH}/cities.json`
+  getRegionsPath(): string {
+    return `${CACHE_DIR_PATH}/regions.json`
   }
 
   async deleteAllFiles(): Promise<void> {
@@ -316,65 +316,65 @@ class DatabaseConnector {
 
   async storeLastUpdate(lastUpdate: DateTime | null, context: DatabaseContext): Promise<void> {
     if (lastUpdate === null) {
-      // Prior to storing lastUpdate, there needs to be a lastUsage of the city.
+      // Prior to storing lastUpdate, there needs to be a lastUsage of the region.
       throw Error('cannot set lastUsage to null')
     }
 
-    const { cityCode, languageCode } = context
+    const { regionCode, languageCode } = context
 
-    if (!cityCode) {
-      throw Error("cityCode mustn't be empty")
+    if (!regionCode) {
+      throw Error("regionCode mustn't be empty")
     } else if (!languageCode) {
       throw Error("languageCode mustn't be empty")
     }
 
-    const metaData = await this._loadMetaCities()
-    const cityMetaData = metaData[cityCode]
+    const metaData = await this._loadMetaRegions()
+    const regionMetaData = metaData[regionCode]
 
-    if (!cityMetaData) {
-      log(`Did not find city '${cityCode}' im metaData '${JSON.stringify(metaData)}'`, { level: 'warning' })
-      throw Error('cannot store last update for unused city')
+    if (!regionMetaData) {
+      log(`Did not find region '${regionCode}' im metaData '${JSON.stringify(metaData)}'`, { level: 'warning' })
+      throw Error('cannot store last update for unused region')
     }
 
-    cityMetaData.languages[languageCode] = {
+    regionMetaData.languages[languageCode] = {
       lastUpdate,
     }
 
-    this._storeMetaCities(metaData)
+    await this._storeMetaRegions(metaData)
   }
 
-  async _deleteMetaOfCities(cities: string[]): Promise<void> {
-    const metaCities = await this._loadMetaCities()
-    cities.forEach(city => delete metaCities[city])
-    await this._storeMetaCities(metaCities)
+  async _deleteMetaOfRegions(regions: string[]): Promise<void> {
+    const metaRegions = await this._loadMetaRegions()
+    regions.forEach(region => delete metaRegions[region])
+    await this._storeMetaRegions(metaRegions)
   }
 
   async loadLastUpdate(context: DatabaseContext): Promise<DateTime | null> {
-    const { cityCode } = context
+    const { regionCode } = context
     const { languageCode } = context
 
-    if (!cityCode) {
-      throw new Error('City is not set in DatabaseContext!')
+    if (!regionCode) {
+      throw new Error('Region is not set in DatabaseContext!')
     } else if (!languageCode) {
       throw new Error('Language is not set in DatabaseContext!')
     }
 
-    const metaData = await this._loadMetaCities()
-    return metaData[cityCode]?.languages[languageCode]?.lastUpdate || null
+    const metaData = await this._loadMetaRegions()
+    return metaData[regionCode]?.languages[languageCode]?.lastUpdate || null
   }
 
-  async _loadMetaCities(): Promise<MetaCitiesType> {
-    const path = this.getMetaCitiesPath()
+  async _loadMetaRegions(): Promise<MetaRegionsType> {
+    const path = this.getMetaRegionsPath()
     const fileExists = await BlobUtil.fs.exists(path)
 
     if (!fileExists) {
       return {}
     }
 
-    const mapCitiesMetaJson = (json: MetaCitiesJsonType) =>
-      mapValues(json, cityMeta => ({
+    const mapRegionsMetaJson = (json: MetaRegionsJsonType) =>
+      mapValues(json, regionMeta => ({
         languages: mapValues(
-          cityMeta.languages,
+          regionMeta.languages,
           ({
             lastUpdate: jsonLastUpdate,
           }): {
@@ -383,16 +383,16 @@ class DatabaseConnector {
             lastUpdate: DateTime.fromISO(jsonLastUpdate),
           }),
         ),
-        lastUsage: DateTime.fromISO(cityMeta.lastUsage),
+        lastUsage: DateTime.fromISO(regionMeta.lastUsage),
       }))
-    return this.readFile(path, mapCitiesMetaJson)
+    return this.readFile(path, mapRegionsMetaJson)
   }
 
-  async _storeMetaCities(metaCities: MetaCitiesType): Promise<void> {
-    const path = this.getMetaCitiesPath()
-    const citiesMetaJson: MetaCitiesJsonType = mapValues(metaCities, cityMeta => ({
+  async _storeMetaRegions(metaRegions: MetaRegionsType): Promise<void> {
+    const path = this.getMetaRegionsPath()
+    const regionsMetaJson: MetaRegionsJsonType = mapValues(metaRegions, regionMeta => ({
       languages: mapValues(
-        cityMeta.languages,
+        regionMeta.languages,
         ({
           lastUpdate,
         }): {
@@ -401,32 +401,32 @@ class DatabaseConnector {
           lastUpdate: lastUpdate.toISO(),
         }),
       ),
-      lastUsage: cityMeta.lastUsage.toISO(),
+      lastUsage: regionMeta.lastUsage.toISO(),
     }))
-    await this.writeFile(path, JSON.stringify(citiesMetaJson))
+    await this.writeFile(path, JSON.stringify(regionsMetaJson))
   }
 
-  async loadLastUsages(): Promise<CityLastUsageType[]> {
-    const metaData = await this._loadMetaCities()
-    return map<MetaCitiesType, CityLastUsageType>(metaData, (value, key) => ({
-      city: key,
+  async loadLastUsages(): Promise<RegionLastUsageType[]> {
+    const metaData = await this._loadMetaRegions()
+    return map<MetaRegionsType, RegionLastUsageType>(metaData, (value, key) => ({
+      region: key,
       lastUsage: value.lastUsage,
     }))
   }
 
   async storeLastUsage(context: DatabaseContext): Promise<void> {
-    const city = context.cityCode
+    const region = context.regionCode
 
-    if (!city) {
-      throw Error("cityCode mustn't be null")
+    if (!region) {
+      throw Error("regionCode mustn't be null")
     }
 
-    const metaData = await this._loadMetaCities().catch(() => ({}) as MetaCitiesType)
-    metaData[city] = {
+    const metaData = await this._loadMetaRegions().catch(() => ({}) as MetaRegionsType)
+    metaData[region] = {
       lastUsage: DateTime.now(),
-      languages: metaData[city]?.languages || {},
+      languages: metaData[region]?.languages || {},
     }
-    await this._storeMetaCities(metaData)
+    await this._storeMetaRegions(metaData)
     await this.deleteOldFiles(context)
   }
 
@@ -646,36 +646,36 @@ class DatabaseConnector {
     return this.readFile(path, mapLocalNewsJson)
   }
 
-  async storeCities(cities: CityModel[]): Promise<void> {
-    const jsonModels = cities.map(
-      (city: CityModel): ContentCityJsonType => ({
-        name: city.name,
-        live: city.live,
-        code: city.code,
-        languages: city.languages.map(it => ({ code: it.code, name: it.name })),
-        prefix: city.prefix,
-        eventsEnabled: city.eventsEnabled,
-        chatEnabled: city.chatEnabled,
-        chatPrivacyPolicyUrl: city.chatPrivacyPolicyUrl,
-        poisEnabled: city.poisEnabled,
-        pushNotificationsEnabled: city.localNewsEnabled,
-        tunewsEnabled: city.tunewsEnabled,
-        sortingName: city.sortingName,
-        longitude: city.longitude,
-        latitude: city.latitude,
-        aliases: city.aliases,
-        boundingBox: city.boundingBox,
+  async storeRegions(regions: RegionModel[]): Promise<void> {
+    const jsonModels = regions.map(
+      (region: RegionModel): ContentRegionJsonType => ({
+        name: region.name,
+        live: region.live,
+        code: region.code,
+        languages: region.languages.map(it => ({ code: it.code, name: it.name })),
+        prefix: region.prefix,
+        eventsEnabled: region.eventsEnabled,
+        chatEnabled: region.chatEnabled,
+        chatPrivacyPolicyUrl: region.chatPrivacyPolicyUrl,
+        poisEnabled: region.poisEnabled,
+        pushNotificationsEnabled: region.localNewsEnabled,
+        tunewsEnabled: region.tunewsEnabled,
+        sortingName: region.sortingName,
+        longitude: region.longitude,
+        latitude: region.latitude,
+        aliases: region.aliases,
+        boundingBox: region.boundingBox,
       }),
     )
-    await this.writeFile(this.getCitiesPath(), JSON.stringify(jsonModels))
+    await this.writeFile(this.getRegionsPath(), JSON.stringify(jsonModels))
   }
 
-  async loadCities(): Promise<CityModel[]> {
-    const path = this.getCitiesPath()
-    const mapCityJson = (json: ContentCityJsonType[]) =>
+  async loadRegions(): Promise<RegionModel[]> {
+    const path = this.getRegionsPath()
+    const mapRegionJson = (json: ContentRegionJsonType[]) =>
       json.map(
         jsonObject =>
-          new CityModel({
+          new RegionModel({
             name: jsonObject.name,
             code: jsonObject.code,
             live: jsonObject.live,
@@ -695,7 +695,7 @@ class DatabaseConnector {
           }),
       )
 
-    return this.readFile(path, mapCityJson)
+    return this.readFile(path, mapRegionJson)
   }
 
   async storeEvents(events: EventModel[], context: DatabaseContext): Promise<void> {
@@ -792,7 +792,7 @@ class DatabaseConnector {
     return this.readFile(path, mapEventsJson)
   }
 
-  async loadResourceCache(context: DatabaseContext): Promise<CityResourceCacheStateType> {
+  async loadResourceCache(context: DatabaseContext): Promise<RegionResourceCacheStateType> {
     const path = this.getResourceCachePath(context)
     const fileExists: boolean = await BlobUtil.fs.exists(path)
 
@@ -800,48 +800,48 @@ class DatabaseConnector {
       return {}
     }
 
-    const mapResourceCacheJson = (json: CityResourceCacheStateType) => json
+    const mapResourceCacheJson = (json: RegionResourceCacheStateType) => json
     return this.readFile(path, mapResourceCacheJson)
   }
 
-  async storeResourceCache(resourceCache: CityResourceCacheStateType, context: DatabaseContext): Promise<void> {
+  async storeResourceCache(resourceCache: RegionResourceCacheStateType, context: DatabaseContext): Promise<void> {
     const path = this.getResourceCachePath(context)
     await this.writeFile(path, JSON.stringify(resourceCache))
   }
 
   /**
-   * Deletes the resource caches and files of all but the latest used cities
+   * Deletes the resource caches and files of all but the latest used regions
    * @return {Promise<void>}
    */
   async deleteOldFiles(context: DatabaseContext): Promise<void> {
-    const city = context.cityCode
+    const region = context.regionCode
 
-    if (!city) {
-      throw Error("cityCode mustn't be null")
+    if (!region) {
+      throw Error("regionCode mustn't be null")
     }
 
     const lastUsages = await this.loadLastUsages()
     const cachesToDelete = lastUsages
-      .filter(it => it.city !== city) // Sort last usages chronological, from oldest to newest
+      .filter(it => it.region !== region) // Sort last usages chronological, from oldest to newest
       .sort((a, b) => {
         if (a.lastUsage < b.lastUsage) {
           return -1
         }
         return a.lastUsage.equals(b.lastUsage) ? 0 : 1
-      }) // We only have to remove MAX_STORED_CITIES - 1 since we already filtered for the current resource cache
-      .slice(0, -(MAX_STORED_CITIES - 1))
-    await this.deleteCities(cachesToDelete.map(it => it.city))
+      }) // We only have to remove MAX_STORED_REGIONS - 1 since we already filtered for the current resource cache
+      .slice(0, -(MAX_STORED_REGIONS - 1))
+    await this.deleteRegions(cachesToDelete.map(it => it.region))
   }
 
-  async deleteCities(cityCodes: string[]): Promise<void> {
+  async deleteRegions(regionCodes: string[]): Promise<void> {
     await Promise.all([
-      ...cityCodes.map(city => {
-        log(`Deleting content and resource cache of city '${city}'`)
-        const cityResourceCachePath = `${RESOURCE_CACHE_DIR_PATH}/${city}`
-        const cityContentPath = `${CONTENT_DIR_PATH}/${city}`
-        return Promise.all([deleteIfExists(cityResourceCachePath), deleteIfExists(cityContentPath)])
+      ...regionCodes.map(region => {
+        log(`Deleting content and resource cache of region '${region}'`)
+        const regionResourceCachePath = `${RESOURCE_CACHE_DIR_PATH}/${region}`
+        const regionContentPath = `${CONTENT_DIR_PATH}/${region}`
+        return Promise.all([deleteIfExists(regionResourceCachePath), deleteIfExists(regionContentPath)])
       }),
-      this._deleteMetaOfCities(cityCodes),
+      this._deleteMetaOfRegions(regionCodes),
     ])
   }
 
@@ -849,8 +849,8 @@ class DatabaseConnector {
     return this._isPersisted(this.getContentPath('pois', context))
   }
 
-  isCitiesPersisted(): Promise<boolean> {
-    return this._isPersisted(this.getCitiesPath())
+  isRegionsPersisted(): Promise<boolean> {
+    return this._isPersisted(this.getRegionsPath())
   }
 
   isCategoriesPersisted(context: DatabaseContext): Promise<boolean> {

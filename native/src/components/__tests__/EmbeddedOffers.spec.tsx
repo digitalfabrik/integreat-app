@@ -34,7 +34,7 @@ describe('EmbeddedOffers', () => {
     })
 
   const renderEmbeddedOffers = (category: CategoryModel) =>
-    render(<EmbeddedOffers category={category} cityCode='augsburg' languageCode='de' goBack={() => undefined} />)
+    render(<EmbeddedOffers category={category} regionCode='augsburg' languageCode='de' goBack={() => undefined} />)
 
   it('should render a Sprungbrett offer correctly', () => {
     const offer = new OfferModel({
