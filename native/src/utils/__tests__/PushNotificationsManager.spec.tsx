@@ -15,6 +15,7 @@ import TestingAppContext from '../../testing/TestingAppContext'
 import render from '../../testing/render'
 import * as PushNotificationsManager from '../PushNotificationsManager'
 import { usePushNotificationListener } from '../PushNotificationsManager'
+import { subscribeNews, unsubscribeNews } from '../PushNotificationsNews'
 
 jest.mock('@notifee/react-native', () => ({
   AndroidImportance: { HIGH: 4 },
@@ -51,7 +52,7 @@ describe('PushNotificationsManager', () => {
       const mockUnsubscribeFromTopic = jest.fn()
       mocked(unsubscribeFromTopic).mockImplementation(mockUnsubscribeFromTopic)
 
-      await PushNotificationsManager.unsubscribeNews('augsburg', 'de')
+      await unsubscribeNews('augsburg', 'de')
       expect(mockUnsubscribeFromTopic).toHaveBeenCalledWith('messaging', 'augsburg-de-news')
       expect(mockUnsubscribeFromTopic).toHaveBeenCalledTimes(1)
     })
@@ -62,7 +63,7 @@ describe('PushNotificationsManager', () => {
       const mockSubscribeToTopic = jest.fn()
       mocked(subscribeToTopic).mockImplementation(mockSubscribeToTopic)
 
-      await PushNotificationsManager.subscribeNews({
+      await subscribeNews({
         regionCode: 'augsburg',
         languageCode: 'de',
         allowPushNotifications: false,
@@ -74,7 +75,7 @@ describe('PushNotificationsManager', () => {
       const mockSubscribeToTopic = jest.fn()
       mocked(subscribeToTopic).mockImplementation(mockSubscribeToTopic)
 
-      await PushNotificationsManager.subscribeNews({
+      await subscribeNews({
         regionCode: 'augsburg',
         languageCode: 'de',
         allowPushNotifications: true,
@@ -87,7 +88,7 @@ describe('PushNotificationsManager', () => {
       const mockSubscribeToTopic = jest.fn()
       mocked(subscribeToTopic).mockImplementation(mockSubscribeToTopic)
 
-      await PushNotificationsManager.subscribeNews({
+      await subscribeNews({
         regionCode: 'augsburg',
         languageCode: 'de',
         allowPushNotifications: false,

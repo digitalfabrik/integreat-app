@@ -3,10 +3,10 @@ import { Platform } from 'react-native'
 import BlobUtil from 'react-native-blob-util'
 import Url from 'url-parse'
 
+import { RESOURCE_CACHE_DIR_PATH } from '../constants/DatabasePaths'
 import buildConfig from '../constants/buildConfig'
 import appSettings from './AppSettings'
 import { LanguageResourceCacheStateType } from './DataContainer'
-import { RESOURCE_CACHE_DIR_PATH } from './DatabaseConnector'
 import { log } from './sentry'
 
 export const ANDROID_FILE_PREFIX = 'file://'

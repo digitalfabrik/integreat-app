@@ -5,7 +5,8 @@ import { SettingsRouteType } from 'shared'
 import { testingAppContext } from '../../testing/TestingAppContext'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import { SettingsType } from '../AppSettings'
-import { requestPushNotificationPermission, subscribeNews, unsubscribeNews } from '../PushNotificationsManager'
+import { requestPushNotificationPermission } from '../PushNotificationsManager'
+import { subscribeNews, unsubscribeNews } from '../PushNotificationsNews'
 import createSettingsSections from '../createSettingsSections'
 
 jest.mock('../../constants/NativeConstants', () => ({
@@ -14,6 +15,8 @@ jest.mock('../../constants/NativeConstants', () => ({
 
 jest.mock('../../utils/PushNotificationsManager', () => ({
   requestPushNotificationPermission: jest.fn(),
+}))
+jest.mock('../../utils/PushNotificationsNews', () => ({
   subscribeNews: jest.fn(),
   unsubscribeNews: jest.fn(),
 }))

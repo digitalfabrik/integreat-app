@@ -10,13 +10,11 @@ import FetcherModule, { TargetFilePathsType } from './FetcherModule'
 import ResourceURLFinder from './ResourceURLFinder'
 import buildResourceFilePath from './buildResourceFilePath'
 
-export type FetchMapTargetType = {
+type FetchMapTargetType = {
   url: string
   filePath: string
   urlHash: string
 }
-
-export type FetchMapType = FetchMapTargetType[]
 
 const loadResourceCache = async ({
   regionCode,

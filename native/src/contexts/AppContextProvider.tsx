@@ -6,7 +6,7 @@ import { hasProp } from 'shared'
 import buildConfig from '../constants/buildConfig'
 import appSettings, { defaultSettings, SettingsType } from '../utils/AppSettings'
 import dataContainer from '../utils/DefaultDataContainer'
-import { subscribeNews, unsubscribeNews } from '../utils/PushNotificationsManager'
+import { subscribeNews, unsubscribeNews } from '../utils/PushNotificationsNews'
 import { reportError } from '../utils/sentry'
 
 // To change the region or language code, the respective functions should be used

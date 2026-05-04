@@ -5,7 +5,6 @@ import Url from 'url-parse'
 import { ExtendedDocumentModel } from 'shared/api'
 
 import { getExtension } from './helpers'
-import { FetchMapType } from './loadResourceCache'
 
 const RESOURCE_EXTENSIONS = ['png', 'jpg', 'jpeg', 'pdf', 'svg']
 
@@ -16,6 +15,14 @@ const RESOURCE_EXTENSIONS = ['png', 'jpg', 'jpeg', 'pdf', 'svg']
  * Before calling findResourceUrls or buildFetchMap you need to initialize the finder by calling init.
  * After finishing your work with the finder, you need to call finalize, to clear the  resources
  */
+
+type FetchMapTargetType = {
+  url: string
+  filePath: string
+  urlHash: string
+}
+
+type FetchMapType = FetchMapTargetType[]
 
 export default class ResourceURLFinder {
   _parser: Parser | null = null
