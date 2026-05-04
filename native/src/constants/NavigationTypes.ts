@@ -5,6 +5,7 @@ import {
   CategoriesRouteType,
   ChangeLanguageModalRouteType,
   ImprintRouteType,
+  MainImprintRouteType,
   EventsRouteType,
   FeedbackModalRouteType,
   ImageViewModalRouteType,
@@ -25,6 +26,7 @@ import {
   EVENTS_ROUTE,
   NEWS_ROUTE,
   IMPRINT_ROUTE,
+  MAIN_IMPRINT_ROUTE,
   SETTINGS_ROUTE,
   SEARCH_ROUTE,
   CHANGE_LANGUAGE_MODAL_ROUTE,
@@ -62,6 +64,7 @@ export type RootRoutesType =
   | LandingRouteType
   | SuggestToRegionRouteType
   | ImprintRouteType
+  | MainImprintRouteType
   | SettingsRouteType
   | SearchRouteType
   | ChangeLanguageModalRouteType
@@ -112,6 +115,7 @@ export type RootRoutesParamsType = {
   [LANDING_ROUTE]: undefined
   [SUGGEST_TO_REGION_ROUTE]: undefined
   [IMPRINT_ROUTE]: undefined
+  [MAIN_IMPRINT_ROUTE]: undefined
   [CONSENT_ROUTE]: undefined
   [SETTINGS_ROUTE]: undefined
   [SEARCH_ROUTE]: {

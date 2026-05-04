@@ -49,6 +49,7 @@ const commonAschaffenburgBuildConfig: CommonBuildConfigType = {
   accessibilityUrls: {
     default: 'https://integreat-app.de/barrierefreiheit/',
   },
+  mainImprint,
 }
 
 export const androidAschaffenburgBuildConfig: AndroidBuildConfigType = {
@@ -91,7 +92,6 @@ export const iosAschaffenburgBuildConfig: IosBuildConfigType = {
 export const webAschaffenburgBuildConfig: WebBuildConfigType = {
   ...commonAschaffenburgBuildConfig,
   appDescription: 'Ihr digitaler Begleiter für die Stadt Aschaffenburg',
-  mainImprint,
   icons: {
     appLogo: '/app-icon-round.svg',
     appLogoMobile: '/app-icon-round.svg',
