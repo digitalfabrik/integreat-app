@@ -17,6 +17,9 @@ steps:
       name: TS check
       command: yarn ts:check:ci
   - run:
+      name: Check circular dependencies
+      command: yarn check-circular-deps
+  - run:
       name: Lint
       command: yarn lint:ci
   - store_test_results:

@@ -1,0 +1,101 @@
+#!/bin/bash
+# Checks circular dependencies via madge.
+#
+# Default mode: check the web, native and shared workspaces.
+# --current:    check only the current workspace (cwd). The dependency
+#               chains are always listed in this mode.
+#
+# Usage:
+#   bash checkCircularDeps.sh [--current] [--verbose] [error_limit] [entry_point]
+#
+# Examples:
+#   bash checkCircularDeps.sh 0                  # all workspaces, fail if any cycles
+#   bash checkCircularDeps.sh 0 verbose          # all workspaces, list chains
+#   bash checkCircularDeps.sh --current          # current workspace, default entry
+#   bash checkCircularDeps.sh --current 0 ./index.ts
+
+if ! command -v madge &> /dev/null; then
+    echo "Madge is not installed. Please install it first."
+    exit 1
+fi
+
+mode="all"
+verbose=false
+positional=()
+
+while [ $# -gt 0 ]; do
+    case "$1" in
+        --current|-c) mode="current"; shift ;;
+        --verbose|-v|verbose) verbose=true; shift ;;
+        --help|-h)
+            sed -n '2,15p' "$0" | sed 's/^# \{0,1\}//'
+            exit 0 ;;
+        *) positional+=("$1"); shift ;;
+    esac
+done
+
+error_limit=${positional[0]:-0}
+entry_point=${positional[1]:-./src/index.tsx}
+exit_code=0
+
+check_workspace() {
+    local workspace_dir=$1
+    local entry=$2
+    local workspace_name=$3
+    local exclude_pattern=${4:-}
+
+    echo "Checking $workspace_name..."
+
+    cd "$workspace_dir" || exit 1
+
+    local exclude_args=()
+    if [ -n "$exclude_pattern" ]; then
+        exclude_args=(--exclude "$exclude_pattern")
+    fi
+
+    if [ "$verbose" = "true" ]; then
+        madge --circular --no-spinner --no-color --ts-config ./tsconfig.json "${exclude_args[@]}" --extensions ts,tsx "$entry"
+        echo ""
+    fi
+
+    stderr_output=$(madge --circular --no-spinner --no-color --ts-config ./tsconfig.json "${exclude_args[@]}" --extensions ts,tsx "$entry" 2>&1 >/dev/null)
+
+    if echo "$stderr_output" | grep -q 'Found [0-9]\+ circular dep'; then
+        circular_count=$(echo "$stderr_output" | grep -o 'Found [0-9]\+ circular dep' | grep -o '[0-9]\+')
+    else
+        circular_count=0
+    fi
+
+    echo "  Number of circular dependencies in $workspace_name: $circular_count"
+
+    if [ "$circular_count" -gt "$error_limit" ]; then
+        echo "  Error: Circular dependency count ($circular_count) exceeds the limit ($error_limit)."
+        exit_code=1
+    else
+        echo "  Circular dependency count is within the limit."
+    fi
+
+    cd - > /dev/null || exit 1
+}
+
+if [ "$mode" = "current" ]; then
+    # --current always lists the chains
+    verbose=true
+    workspace_name=$(basename "$(pwd)")
+    exclude_pattern=""
+    if [ "$workspace_name" = "web" ] || [ "$workspace_name" = "native" ]; then
+        exclude_pattern="\.\.\/shared\/"
+    fi
+    check_workspace "$(pwd)" "$entry_point" "$workspace_name" "$exclude_pattern"
+else
+    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+
+    check_workspace "$PROJECT_ROOT/web" ./src/index.tsx "web" "\.\.\/shared\/"
+    echo ""
+    check_workspace "$PROJECT_ROOT/native" ./src/index.tsx "native" "\.\.\/shared\/"
+    echo ""
+    check_workspace "$PROJECT_ROOT/shared" ./index.ts "shared"
+fi
+
+exit $exit_code

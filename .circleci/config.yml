@@ -487,6 +487,9 @@ jobs:
                 command: yarn ts:check:ci
                 name: TS check
             - run:
+                command: yarn check-circular-deps
+                name: Check circular dependencies
+            - run:
                 command: yarn lint:ci
                 name: Lint
             - store_test_results:
