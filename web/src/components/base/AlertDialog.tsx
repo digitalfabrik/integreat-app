@@ -23,7 +23,7 @@ const StyledMuiDialog = styled(MuiDialog)(({ theme }) => ({
 
 type DialogProps = {
   title: string
-  actions?: ReactElement | null
+  actions: ReactElement
   close: () => void
   children: ReactElement | ReactElement[]
   className?: string
