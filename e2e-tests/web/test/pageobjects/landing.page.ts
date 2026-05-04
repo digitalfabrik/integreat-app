@@ -5,7 +5,7 @@ import Page from './page.js'
  * sub page containing specific selectors and methods for a specific page
  */
 class LandingPage extends Page {
-  get cities(): ReturnType<typeof $$> {
+  get regions(): ReturnType<typeof $$> {
     return $$('//main//a')
   }
 
@@ -13,7 +13,7 @@ class LandingPage extends Page {
     return $('//main//input')
   }
 
-  city(name: string): ReturnType<typeof $> {
+  region(name: string): ReturnType<typeof $> {
     return $(`=${name}`)
   }
 

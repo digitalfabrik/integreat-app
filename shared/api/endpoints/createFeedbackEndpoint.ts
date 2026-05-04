@@ -40,7 +40,7 @@ export type FeedbackRouteType =
 
 export type ParamsType = {
   routeType: FeedbackRouteType
-  city: string
+  region: string
   language: string
   comment: string
   contactMail: string
@@ -75,9 +75,9 @@ const getFeedbackType = (routeType: FeedbackRouteType, slug?: string): FeedbackT
 export default (baseUrl: string): Endpoint<ParamsType, Record<string, never>> =>
   new EndpointBuilder<ParamsType, Record<string, never>>(FEEDBACK_ENDPOINT_NAME)
     .withParamsToUrlMapper(params => {
-      const { city, language, routeType, slug } = params
+      const { region, language, routeType, slug } = params
 
-      return `${baseUrl}/api/${API_VERSION}/${city}/${language}/feedback/${getFeedbackType(routeType, slug)}/`
+      return `${baseUrl}/api/${API_VERSION}/${region}/${language}/feedback/${getFeedbackType(routeType, slug)}/`
     })
     .withParamsToBodyMapper((params: ParamsType): FormData => {
       const { isPositiveRating, comment, contactMail, query, searchTerm, slug } = params

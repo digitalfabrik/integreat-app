@@ -2454,7 +2454,7 @@
     "de": {
       "notFound": {
         "language": "Die aktuell ausgewählte Sprache ist in dieser Region nicht verfügbar. Bitte wählen Sie eine andere Sprache aus:",
-        "city": "Diese Region wurde leider nicht gefunden.",
+        "region": "Diese Region wurde leider nicht gefunden.",
         "category": "Diese Seite wurde leider nicht gefunden.",
         "event": "Dieses Event wurde leider nicht gefunden.",
         "poi": "Dieser Ort wurde leider nicht gefunden.",
@@ -2489,7 +2489,7 @@
     },
     "am": {
       "notFound": {
-        "city": "ይህ ወረዳ ሊገኝ ኣልቻለም።",
+        "region": "ይህ ወረዳ ሊገኝ ኣልቻለም።",
         "category": "ይቅርታ፣ ይህ ገጽ አልተገኘም።",
         "event": "ይቅርታ፣ ይህ ጽግጅት አልተገኘም።",
         "poi": "ይህ ቦታ ሊገኝ ኣልቻለም።",
@@ -2524,7 +2524,7 @@
     },
     "ar": {
       "notFound": {
-        "city": "للأسف لم يتم العثور على هذه المنطقة.",
+        "region": "للأسف لم يتم العثور على هذه المنطقة.",
         "category": "للأسف، تعذر العثور على هذه الصفحة.",
         "event": "للأسف، تعذر العثور على هذا الحدث.",
         "poi": "للأسف لم يتم العثور على هذا المكان.",
@@ -2559,7 +2559,7 @@
     },
     "bg": {
       "notFound": {
-        "city": "За съжаление този регион не беше намерен.",
+        "region": "За съжаление този регион не беше намерен.",
         "category": "За съжаление тази страница не беше намерена.",
         "event": "За съжаление това събитие не беше намерено.",
         "poi": "За съжаление това населено място не беше намерено.",
@@ -2594,7 +2594,7 @@
     },
     "ckb": {
       "notFound": {
-        "city": "بەداخەوە، ئەم ناوچەیە نەدۆزرایەوە.",
+        "region": "بەداخەوە، ئەم ناوچەیە نەدۆزرایەوە.",
         "category": "بەداخەوە ئەم لاپەڕەیە نەدۆزرایەوە.",
         "event": "بەداخەوە ئەم ڕووداوە نەدۆزرایەوە.",
         "poi": "بەداخەوە ئەم شوێنە نەدۆزرایەوە.",
@@ -2629,7 +2629,7 @@
     },
     "cs": {
       "notFound": {
-        "city": "Je nám líto, tato oblast nebyla nalezena.",
+        "region": "Je nám líto, tato oblast nebyla nalezena.",
         "category": "Je nám líto, tato stránka nebyla nalezena.",
         "event": "Je nám líto, tato akce nebyla nalezena.",
         "poi": "Je nám líto, toto místo nebylo nalezeno.",
@@ -2664,7 +2664,7 @@
     },
     "da": {
       "notFound": {
-        "city": "Beklager, denne region blev ikke fundet.",
+        "region": "Beklager, denne region blev ikke fundet.",
         "category": "Beklager, denne side blev ikke fundet.",
         "event": "Beklager, denne begivenhed blev ikke fundet.",
         "poi": "Beklager, dette sted blev ikke fundet.",
@@ -2699,7 +2699,7 @@
     },
     "el": {
       "notFound": {
-        "city": "Δυστυχώς δεν βρέθηκε αυτή η περιοχή.",
+        "region": "Δυστυχώς δεν βρέθηκε αυτή η περιοχή.",
         "category": "Δυστυχώς, αυτή η σελίδα δεν βρέθηκε.",
         "event": "Δυστυχώς, αυτή η εκδήλωση δεν βρέθηκε.",
         "poi": "Δυστυχώς δεν βρέθηκε αυτή η τοποθεσία.",
@@ -2735,7 +2735,7 @@
     "en": {
       "notFound": {
         "language": "The currently selected language is not available in this region. Please select another language:",
-        "city": "Sorry this region was not found.",
+        "region": "Sorry this region was not found.",
         "category": "Sorry, but the requested page could not be found.",
         "event": "Sorry, but this event could not be found.",
         "poi": "Sorry, this place was not found.",
@@ -2770,7 +2770,7 @@
     },
     "es": {
       "notFound": {
-        "city": "No se ha encontrado esta región.",
+        "region": "No se ha encontrado esta región.",
         "category": "No se ha encontrado esta página.",
         "event": "No se ha encontrado este evento.",
         "poi": "No se ha encontrado esta localidad.",
@@ -2805,7 +2805,7 @@
     },
     "fi": {
       "notFound": {
-        "city": "Aluetta ei löydetty.",
+        "region": "Aluetta ei löydetty.",
         "category": "Sivua ei löydetty.",
         "event": "Tapahtumaa ei löydetty.",
         "poi": "Paikkaa ei löydetty.",
@@ -2840,7 +2840,7 @@
     },
     "fr": {
       "notFound": {
-        "city": "Cette région n’a malheureusement pas été trouvée.",
+        "region": "Cette région n’a malheureusement pas été trouvée.",
         "category": "Malheureusement, cette page est introuvable.",
         "event": "Malheureusement, cet événement est introuvable.",
         "poi": "Cette localité n’a malheureusement pas été trouvée.",
@@ -2875,7 +2875,7 @@
     },
     "hi": {
       "notFound": {
-        "city": "क्षमा करें, यह क्षेत्र नहीं मिला।",
+        "region": "क्षमा करें, यह क्षेत्र नहीं मिला।",
         "category": "क्षमा करें, लेकिन अनुरोधित पेज नहीं मिल सका।",
         "event": "क्षमा करें, लेकिन यह ईवेंट नहीं मिल सका.",
         "poi": "क्षमा करें, यह स्थान नहीं मिला।",
@@ -2910,7 +2910,7 @@
     },
     "hr": {
       "notFound": {
-        "city": "Ta regija nažalost nije pronađena.",
+        "region": "Ta regija nažalost nije pronađena.",
         "category": "Ova stranica nažalost nije pronađena.",
         "event": "Ovo događanje nažalost nije pronađeno.",
         "poi": "To mjesto nažalost nije pronađeno.",
@@ -2945,7 +2945,7 @@
     },
     "hu": {
       "notFound": {
-        "city": "Ez a régió nem található.",
+        "region": "Ez a régió nem található.",
         "category": "Ez az oldal sajnos nem található.",
         "event": "Ez az esemény sajnos nem található.",
         "poi": "Ez a hely nem található.",
@@ -2980,7 +2980,7 @@
     },
     "id": {
       "notFound": {
-        "city": "Maaf, wilayah ini tidak ditemukan.",
+        "region": "Maaf, wilayah ini tidak ditemukan.",
         "category": "Maaf, halaman yang diminta tidak ditemukan.",
         "event": "Maaf, acara ini tidak ditemukan.",
         "poi": "Maaf, tempat ini tidak ditemukan.",
@@ -3015,7 +3015,7 @@
     },
     "it": {
       "notFound": {
-        "city": "Purtroppo questa regione non è stata trovata.",
+        "region": "Purtroppo questa regione non è stata trovata.",
         "category": "Purtroppo questa pagina non è stata trovata.",
         "event": "Purtroppo questo evento non è stato trovato.",
         "poi": "Purtroppo questa località non è stata trovata.",
@@ -3050,7 +3050,7 @@
     },
     "ka": {
       "notFound": {
-        "city": "ეს რეგიონი სამწუხაროდ ვერ მოიძებნა.",
+        "region": "ეს რეგიონი სამწუხაროდ ვერ მოიძებნა.",
         "category": "სამწუხაროდ ეს გვერდი ვერ მოიძებნა.",
         "event": "სამწუხაროდ ეს ღონისძიება ვერ მოიძებნა.",
         "poi": "ეს ადგილი სამწუხაროდ ვერ მოიძებნა.",
@@ -3085,7 +3085,7 @@
     },
     "kmr": {
       "notFound": {
-        "city": "Mixabin, ev navçe peyda nebû.",
+        "region": "Mixabin, ev navçe peyda nebû.",
         "category": "Mixabin ev rûpel peyde nebû.",
         "event": "Mixabin ev rûdan peyde nebû.",
         "poi": "Mixabin, ev der peyda nebû.",
@@ -3120,7 +3120,7 @@
     },
     "mk": {
       "notFound": {
-        "city": "За жал, овој регион не беше пронајден.",
+        "region": "За жал, овој регион не беше пронајден.",
         "category": "За жал оваа страница не е пронајдена.",
         "event": "За жал овој настан не е пронајден.",
         "poi": "За жал, ова место не беше пронајдено.",
@@ -3155,7 +3155,7 @@
     },
     "nl": {
       "notFound": {
-        "city": "Sorry, deze regio is niet gevonden.",
+        "region": "Sorry, deze regio is niet gevonden.",
         "category": "Sorry, de gevraagde pagina kan niet worden gevonden.",
         "event": "Sorry, dit evenement kan niet worden gevonden.",
         "poi": "Sorry, deze locatie is niet gevonden.",
@@ -3190,7 +3190,7 @@
     },
     "orm": {
       "notFound": {
-        "city": "Dhiifama naannoon kun as keessa him jiru.",
+        "region": "Dhiifama naannoon kun as keessa him jiru.",
         "category": "Dhiifama, garuu bakki isin gaafattan hin jiru.",
         "event": "Dhiifama, garuu sagantaan kun hin jiru.",
         "poi": "Dhiifama, bakki kun hin jiru.",
@@ -3225,7 +3225,7 @@
     },
     "pes": {
       "notFound": {
-        "city": "متاسفانه این منطقه پیدا نشد.",
+        "region": "متاسفانه این منطقه پیدا نشد.",
         "category": "متاسفانه این صفحه یافت نشد.",
         "event": "متأسفانه این رویداد یافت نشد.",
         "poi": "متاسفانه این محل پیدا نشد.",
@@ -3260,7 +3260,7 @@
     },
     "pl": {
       "notFound": {
-        "city": "Niestety ten region nie został znaleziony.",
+        "region": "Niestety ten region nie został znaleziony.",
         "category": "Niestety nie znaleziono tej strony.",
         "event": "Niestety nie znaleziono tego wydarzenia.",
         "poi": "Niestety ta miejscowość nie została znaleziona.",
@@ -3295,7 +3295,7 @@
     },
     "prs": {
       "notFound": {
-        "city": "متاسفانه این منطقه پیدا نشد.",
+        "region": "متاسفانه این منطقه پیدا نشد.",
         "category": "متاسفانه این صفحه پیدا نشد.",
         "event": "متاسفانه این رویداد پیدا نشد‎.",
         "poi": "متاسفانه این محل پیدا نشد.",
@@ -3330,7 +3330,7 @@
     },
     "ps": {
       "notFound": {
-        "city": "له بده مرغه، دا سیمه ونه موندل شوه.",
+        "region": "له بده مرغه، دا سیمه ونه موندل شوه.",
         "category": "دا پاڼه له بده مرغه پیدا نشوه.",
         "event": "دا غونډه له بده مرغه پیدا نشوه.",
         "poi": "دا ځای له بده مرغه پیدا نه شو.",
@@ -3365,7 +3365,7 @@
     },
     "pt": {
       "notFound": {
-        "city": "Lamentamos, mas esta região não foi encontrada.",
+        "region": "Lamentamos, mas esta região não foi encontrada.",
         "category": "Lamentamos, mas esta página não foi encontrada.",
         "event": "Lamentamos, mas este evento não foi encontrado.",
         "poi": "Lamentamos, mas este local não foi encontrado.",
@@ -3400,7 +3400,7 @@
     },
     "ro": {
       "notFound": {
-        "city": "Ne pare rău, această regiune nu a fost găsită.",
+        "region": "Ne pare rău, această regiune nu a fost găsită.",
         "category": "Această pagină nu a fost găsită, din păcate.",
         "event": "Acest eveniment nu a fost găsit, din păcate.",
         "poi": "Ne pare rău, această localitate nu a fost găsită.",
@@ -3435,7 +3435,7 @@
     },
     "rom": {
       "notFound": {
-        "city": "Afi ker akaja regia na sine arakhli.",
+        "region": "Afi ker akaja regia na sine arakhli.",
         "category": "Afi ker, numa i rodimi strana našti te ovel arakhli.",
         "event": "Afi ker, numa akaja čipota naši te ovel arakhli.",
         "poi": "Afi ker, akava than na sine arakhlo.",
@@ -3470,7 +3470,7 @@
     },
     "ru": {
       "notFound": {
-        "city": "К сожалению, этот регион не найден.",
+        "region": "К сожалению, этот регион не найден.",
         "category": "К сожалению, эта страница не найдена.",
         "event": "К сожалению, это событие не найдено.",
         "poi": "К сожалению, этот населенный пункт не найден.",
@@ -3505,7 +3505,7 @@
     },
     "sk": {
       "notFound": {
-        "city": "Tento región žiaľ nebol nájdený.",
+        "region": "Tento región žiaľ nebol nájdený.",
         "category": "Táto stránka žiaľ nebola nájdená.",
         "event": "Táto udalosť žiaľ nebola nájdená.",
         "poi": "Toto miesto žiaľ nebolo nájdené.",
@@ -3540,7 +3540,7 @@
     },
     "so": {
       "notFound": {
-        "city": "Nasiib darro, gobolkan lama helin.",
+        "region": "Nasiib darro, gobolkan lama helin.",
         "category": "Nasiib darro, boggan lama helin.",
         "event": "Nasiib darro, dhacdadan lama helin.",
         "poi": "Nasiib darro, goobtan lama helin.",
@@ -3575,7 +3575,7 @@
     },
     "sq": {
       "notFound": {
-        "city": "Fatkeqësisht, ky rajon nuk u gjet.",
+        "region": "Fatkeqësisht, ky rajon nuk u gjet.",
         "category": "Kjo faqe për fat të keq nuk u gjet.",
         "event": "Ky eveniment për fat të keq nuk u gjet.",
         "poi": "Fatkeqësisht, ky vend nuk u gjet.",
@@ -3610,7 +3610,7 @@
     },
     "sr-Cyrl": {
       "notFound": {
-        "city": "Нажалост, овај регион није пронађен.",
+        "region": "Нажалост, овај регион није пронађен.",
         "category": "Нажалост, ова страница није пронађена.",
         "event": "Нажалост, овај догађај није пронађен.",
         "poi": "Нажалост, ова локација није пронађена.",
@@ -3645,7 +3645,7 @@
     },
     "sr-Latn": {
       "notFound": {
-        "city": "Nažalost, ovaj region nije pronađen.",
+        "region": "Nažalost, ovaj region nije pronađen.",
         "category": "Nažalost, ova stranica nije pronađena.",
         "event": "Nažalost, ovaj događaj nije pronađen.",
         "poi": "Nažalost, ova lokacija nije pronađena.",
@@ -3680,7 +3680,7 @@
     },
     "sw": {
       "notFound": {
-        "city": "Samahani, eneo hili halijapatikani.",
+        "region": "Samahani, eneo hili halijapatikani.",
         "category": "Samahani, ukurasa ulioomba haujapatikana.",
         "event": "Samahani, tukio hili halijapatikana.",
         "poi": "Samahani, mahali hapa hapajapatikani.",
@@ -3715,7 +3715,7 @@
     },
     "th": {
       "notFound": {
-        "city": "น่าเสียดายที่ไม่พบภูมิภาคนี้",
+        "region": "น่าเสียดายที่ไม่พบภูมิภาคนี้",
         "category": "ขออภัยไม่พบหน้านี้",
         "event": "ขออภัยไม่พบกิจกรรมนี้",
         "poi": "น่าเสียดายที่ไม่พบสถานที่นี้",
@@ -3750,7 +3750,7 @@
     },
     "ti": {
       "notFound": {
-        "city": "እዚ ከባቢ ክርከብ ኣይተኸኣለን።",
+        "region": "እዚ ከባቢ ክርከብ ኣይተኸኣለን።",
         "category": "ሕማቕ ኣጋጣሚ ኮይኑ፡ እዚ ገጽ’ዚ ኣይተረኽበን።",
         "event": "ሕማቕ ኣጋጣሚ ኮይኑ፡ እዚ ኣጋጣሚ እዚ ኣይተረኽበን።",
         "poi": "እዚ ቦታ ክርከብ ኣይተኸኣለን።",
@@ -3785,7 +3785,7 @@
     },
     "tr": {
       "notFound": {
-        "city": "Maalesef, bu bölge bulunamadı.",
+        "region": "Maalesef, bu bölge bulunamadı.",
         "category": "Bu sayfa maalesef bulunamadı.",
         "event": "Bu etkinlik maalesef bulunamadı.",
         "poi": "Maalesef, bu yer bulunamadı.",
@@ -3820,7 +3820,7 @@
     },
     "uk": {
       "notFound": {
-        "city": "Вибачте, цей регіон не знайдено.",
+        "region": "Вибачте, цей регіон не знайдено.",
         "category": "Вибачте, ця сторінка не знайдено.",
         "event": "Вибачте, це не знайдено.",
         "poi": "Вибачте, це місце не знайдено.",
@@ -3855,7 +3855,7 @@
     },
     "ur": {
       "notFound": {
-        "city": "معذرت، یہ علاقہ یہاں دستیاب نہیں۔",
+        "region": "معذرت، یہ علاقہ یہاں دستیاب نہیں۔",
         "category": "معذرت، یہ صفحہ نہیں ملا۔",
         "event": "معذرت، یہ ایونٹ نہیں ملا۔",
         "poi": "معذرت، یہ جگہ  یہاں نہیں ملی۔",
@@ -3890,7 +3890,7 @@
     },
     "vi": {
       "notFound": {
-        "city": "Rất tiếc, không tìm thấy khu vực này.",
+        "region": "Rất tiếc, không tìm thấy khu vực này.",
         "category": "Rất tiếc, không tìm thấy trang được yêu cầu.",
         "event": "Rất tiếc, không tìm thấy sự kiện này.",
         "poi": "Rất tiếc, không tìm thấy địa điểm này.",
@@ -3925,7 +3925,7 @@
     },
     "zh-CN": {
       "notFound": {
-        "city": "很遗憾，未找到此地区。",
+        "region": "很遗憾，未找到此地区。",
         "category": "很抱歉，找不到此页面。",
         "event": "很抱歉，找不到此活动。",
         "poi": "很遗憾，未找到此地点。",
@@ -7069,10 +7069,10 @@
     "de": {
       "welcome": "Willkommen bei {{appName}}.",
       "welcomeInformation": "Dein digitaler Guide für alle Informationen, die du brauchst. Bitte wähle deine Region aus.",
-      "searchCity": "Suche",
-      "noCitiesFound": "Keine Ergebnisse",
-      "nearbyCities": "In der Nähe",
-      "noNearbyCities": "Keine Regionen in der Nähe gefunden.",
+      "searchRegion": "Suche",
+      "noRegionsFound": "Keine Ergebnisse",
+      "nearbyRegions": "In der Nähe",
+      "noNearbyRegions": "Keine Regionen in der Nähe gefunden.",
       "alert": "Hinweis",
       "locationError": "Um Regionen in der Nähe anzeigen zu können, müssen Ortungsdienste aktiviert werden.",
       "noPermission": "Standortzugriff erforderlich",
@@ -7082,15 +7082,15 @@
       "refresh": "Liste der nahegelegenen Regionen aktualisieren",
       "pageTitle": "Lokale Informationen für Dich",
       "metaDescription": "{{appName}} ist Dein digitaler Guide für Deutschland. Finde lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Deiner Sprache.",
-      "cityNotFound": "Deine Region nicht gefunden? Werde jetzt aktiv!",
+      "regionNotFound": "Deine Region nicht gefunden? Werde jetzt aktiv!",
       "suggestToRegion": "{{appName}} in Deiner Region vorschlagen",
-      "searchCityDescription": "Wähle deine Region oder die nächstgrößere Stadt, z. B. {{exampleCity}}"
+      "searchRegionDescription": "Wähle deine Region oder die nächstgrößere Stadt, z. B. {{exampleRegion}}"
     },
     "am": {
-      "searchCity": "መፈለግ",
-      "noCitiesFound": "ውጤት የለም",
-      "nearbyCities": "በኣጠገብ",
-      "noNearbyCities": "በኣጠገቡ ምንም ኣከባቢ ኣልተገኘም።",
+      "searchRegion": "መፈለግ",
+      "noRegionsFound": "ውጤት የለም",
+      "nearbyRegions": "በኣጠገብ",
+      "noNearbyRegions": "በኣጠገቡ ምንም ኣከባቢ ኣልተገኘም።",
       "alert": "ማስታወሻ",
       "locationError": "ኣጠገብ ላይ ያለውን ኣከባቢ ማሳየት እንዲቻል፣ የቦታ ማሳያ ኣገልግሎቶች መከፈት ኣለባቸው።",
       "noPermission": "የቦታ ማግኛ ያስፈልጋል",
@@ -7100,14 +7100,14 @@
       "refresh": "በቅርብ የሚገኙት ኣከባቢዎች መዝገብ ማሻሻል",
       "pageTitle": "ለእርስዎ አካባቢያዊ መረጃ",
       "metaDescription": "{{appName}} በጀርመን ላለው ህይወት የእርስዎ ዲጂታል መመሪያ ነው። አካባቢያዊ መረጃን፣ ክንዉኖችን እና ምክርን ያግኙ። በእርስዎ ቋንቋ ሁልጊዜ የቅርብ ጊዜ የሆነ እና የሚገኝ ነው።",
-      "cityNotFound": "ክልልህ አልተገኘም? አሁን እርምጃ ይውሰዱ!",
+      "regionNotFound": "ክልልህ አልተገኘም? አሁን እርምጃ ይውሰዱ!",
       "suggestToRegion": "{{appName}} በክልልዎ ውስጥ ይጠቁሙ"
     },
     "ar": {
-      "searchCity": "بحث",
-      "noCitiesFound": "لا توجد نتائج",
-      "nearbyCities": "بالقرب",
-      "noNearbyCities": "لم يتم العثور على مناطق بالقرب من المكان.",
+      "searchRegion": "بحث",
+      "noRegionsFound": "لا توجد نتائج",
+      "nearbyRegions": "بالقرب",
+      "noNearbyRegions": "لم يتم العثور على مناطق بالقرب من المكان.",
       "alert": "ملاحظة",
       "locationError": "لكي يمكن عرض مناطق بالقرب من المكان يجب تفعيل خدمة تحديدة الموقع.",
       "noPermission": "مطلوب إذن بالوصول إلى الموقع",
@@ -7117,14 +7117,14 @@
       "refresh": "تحديث قائمة المناطق القريبة",
       "pageTitle": "معلومات محلية من أجلك",
       "metaDescription": "{{appName}} هو دليلك الرقمي لألمانيا. اكتشف المعلومات المحلية والمناسبات وخدمة الاستشارات. تحديث مستمر وبلغتك.",
-      "cityNotFound": "لم يتم العثور على منطقتك؟ كن نشطاً الآن!",
+      "regionNotFound": "لم يتم العثور على منطقتك؟ كن نشطاً الآن!",
       "suggestToRegion": "اقترح {{appName}} في منطقتك"
     },
     "bg": {
-      "searchCity": "Търсене",
-      "noCitiesFound": "Няма резултати",
-      "nearbyCities": "В близост",
-      "noNearbyCities": "В близост не са открити региони",
+      "searchRegion": "Търсене",
+      "noRegionsFound": "Няма резултати",
+      "nearbyRegions": "В близост",
+      "noNearbyRegions": "В близост не са открити региони",
       "alert": "Указание",
       "locationError": "За да могат да се показват регионите в близост, трябва да са активирани услугите за местоположение.",
       "noPermission": "Изисква се достъп до местоположението",
@@ -7134,14 +7134,14 @@
       "refresh": "Актуализиране на списъка с близки региони",
       "pageTitle": "Местна информация за теб",
       "metaDescription": "{{appName}} е твоят цифров пътеводител за Германия. Намери местна информация, събития и съвети. Винаги актуални и на твоя език.",
-      "cityNotFound": "Не сте открили своя регион? Станете активни сега!",
+      "regionNotFound": "Не сте открили своя регион? Станете активни сега!",
       "suggestToRegion": "Предложете {{appName}} във вашия регион"
     },
     "ckb": {
-      "searchCity": "گەڕان",
-      "noCitiesFound": "هیچ ئەنجامێک نەدۆزرایەوە",
-      "nearbyCities": "نزیک",
-      "noNearbyCities": "هیچ ناوچەیەکی نزیک نەدۆزرایەوە",
+      "searchRegion": "گەڕان",
+      "noRegionsFound": "هیچ ئەنجامێک نەدۆزرایەوە",
+      "nearbyRegions": "نزیک",
+      "noNearbyRegions": "هیچ ناوچەیەکی نزیک نەدۆزرایەوە",
       "alert": "ڕێنمایی",
       "locationError": "بۆ ئەوەی بتوانیت ناوچە نزیکەکان ببینی دەبێ خزمەتەکانی شوێن چالاک بێت.",
       "noPermission": "دەستڕاگەیشتن بە شوێنی پێویست",
@@ -7151,14 +7151,14 @@
       "refresh": "لیستی ناوچە نزیکەکان بەڕۆژ بکەوە",
       "pageTitle": "زانیاری خۆجێی بۆ تۆ",
       "metaDescription": " {{appName}} ڕێنمای دیجیتاڵی تۆ بە زمانی ئەڵمانی. تۆ دەتوانی زانیاری و ڕووداو و ئامۆژگارییە خۆجێیەکان لێرەدا بدۆزێوە. هەردەم نوێ و بە زمانی تۆ.",
-      "cityNotFound": "ناوچەکەت نەدۆزییەوە؟ هەر ئێستا چالاک بە!",
+      "regionNotFound": "ناوچەکەت نەدۆزییەوە؟ هەر ئێستا چالاک بە!",
       "suggestToRegion": "پێشنیاری {{appName}} لە ناوچەکەتدا"
     },
     "cs": {
-      "searchCity": "Vyhledávání",
-      "noCitiesFound": "Žádné výsledky",
-      "nearbyCities": "Poblíž",
-      "noNearbyCities": "V okolí nebyly nalezeny žádné regiony.",
+      "searchRegion": "Vyhledávání",
+      "noRegionsFound": "Žádné výsledky",
+      "nearbyRegions": "Poblíž",
+      "noNearbyRegions": "V okolí nebyly nalezeny žádné regiony.",
       "alert": "Upozornění",
       "locationError": "Chcete-li zobrazit okolní regiony, musí být povolena lokalizace.",
       "noPermission": "Požadovaný přístup k lokalizaci",
@@ -7168,14 +7168,14 @@
       "refresh": "Aktualizace seznamu okolních regionů",
       "pageTitle": "Místní informace pro vás",
       "metaDescription": "{{appName}} je váš digitální průvodce po Německu. Nacházejte místní informace, události a tipy. Vždy aktuální a ve vašem jazyce.",
-      "cityNotFound": "Nenašli jste svůj region? Buďte aktivní hned teď!",
+      "regionNotFound": "Nenašli jste svůj region? Buďte aktivní hned teď!",
       "suggestToRegion": "Navrhnout {{appName}} ve vašem regionu"
     },
     "da": {
-      "searchCity": "Søg efter",
-      "noCitiesFound": "Ingen resultater",
-      "nearbyCities": "I nærheden",
-      "noNearbyCities": "Ingen regioner fundet i nærheden.",
+      "searchRegion": "Søg efter",
+      "noRegionsFound": "Ingen resultater",
+      "nearbyRegions": "I nærheden",
+      "noNearbyRegions": "Ingen regioner fundet i nærheden.",
       "alert": "Bemærk",
       "locationError": "Lokaliseringstjenester skal være aktiverede for at kunne vise områder i nærheden.",
       "noPermission": "Adgang til stedet påkrævet",
@@ -7185,15 +7185,15 @@
       "refresh": "Opdater listen over nærliggende regioner",
       "pageTitle": "Lokale oplysninger til dig",
       "metaDescription": "{{appName}} er din digitale guide til Tyskland. Find lokale oplysninger, arrangementer og rådgivning. Altid opdateret og på dit sprog.",
-      "cityNotFound": "Har du ikke fundet din region? Bliv aktiv nu!",
+      "regionNotFound": "Har du ikke fundet din region? Bliv aktiv nu!",
       "suggestToRegion": "Foreslå {{appName}} i din region",
-      "searchCityDescription": "Vælg din region eller den næststørste by, f.eks. {{exampleCity}}"
+      "searchRegionDescription": "Vælg din region eller den næststørste by, f.eks. {{exampleRegion}}"
     },
     "el": {
-      "searchCity": "Αναζήτηση",
-      "noCitiesFound": "Δεν βρέθηκαν αποτελέσματα",
-      "nearbyCities": "Κοντινές περιοχές",
-      "noNearbyCities": "Δεν βρέθηκαν κοντινές περιοχές.",
+      "searchRegion": "Αναζήτηση",
+      "noRegionsFound": "Δεν βρέθηκαν αποτελέσματα",
+      "nearbyRegions": "Κοντινές περιοχές",
+      "noNearbyRegions": "Δεν βρέθηκαν κοντινές περιοχές.",
       "alert": "Υπόδειξη",
       "locationError": "Για να είναι δυνατή η εμφάνιση κοντινών περιοχών, πρέπει να είναι ενεργοποιημένες οι υπηρεσίες τοποθεσίας.",
       "noPermission": "Απαιτείται πρόσβαση τοποθεσίας",
@@ -7203,16 +7203,16 @@
       "refresh": "Ενημέρωση της λίστας κοντινών περιοχών",
       "pageTitle": "Τοπικές πληροφορίες για εσάς",
       "metaDescription": "Η εφαρμογή {{appName}} είναι ο ψηφιακός σας οδηγός για τη Γερμανία. Βρείτε τοπικές πληροφορίες, εκδηλώσεις και συμβουλές. Πάντα ενημερωμένες και στη γλώσσα σας.",
-      "cityNotFound": "Δεν βρήκατε την περιοχή σας; Δραστηριοποιηθείτε τώρα!",
+      "regionNotFound": "Δεν βρήκατε την περιοχή σας; Δραστηριοποιηθείτε τώρα!",
       "suggestToRegion": "Προτείνετε {{appName}} στην περιοχή σας"
     },
     "en": {
       "welcome": "Welcome to {{appName}}.",
       "welcomeInformation": "Your digital guide for all the information you need. Please select your region.",
-      "searchCity": "Search",
-      "noCitiesFound": "No results",
-      "nearbyCities": "In the vicinity",
-      "noNearbyCities": "No region found in the vicinity.",
+      "searchRegion": "Search",
+      "noRegionsFound": "No results",
+      "nearbyRegions": "In the vicinity",
+      "noNearbyRegions": "No region found in the vicinity.",
       "alert": "Note",
       "locationError": "To display regions in the vicinity, tracking services must be activated.",
       "noPermission": "Location access required",
@@ -7222,15 +7222,15 @@
       "refresh": "Update list of regions close-by",
       "pageTitle": "Local Information for You",
       "metaDescription": "{{appName}} is your digital guide to life in Germany. Discover local information, events and advice. Always up to date and available in your own language.",
-      "cityNotFound": "Your region not found? Take action now.",
+      "regionNotFound": "Your region not found? Take action now.",
       "suggestToRegion": "Suggest {{appName}} to your region",
-      "searchCityDescription": "Choose your region or the next largest city, e.g. {{exampleCity}}"
+      "searchRegionDescription": "Choose your region or the next largest region, e.g. {{exampleRegion}}"
     },
     "es": {
-      "searchCity": "Búsqueda",
-      "noCitiesFound": "Ningún resultado",
-      "nearbyCities": "En las proximidades",
-      "noNearbyCities": "No se han encontrado regiones en las proximidades.",
+      "searchRegion": "Búsqueda",
+      "noRegionsFound": "Ningún resultado",
+      "nearbyRegions": "En las proximidades",
+      "noNearbyRegions": "No se han encontrado regiones en las proximidades.",
       "alert": "Aviso",
       "locationError": "Para poder mostrar regiones en las proximidades debe activar la ubicación del dispositivo.",
       "noPermission": "Se requiere acceso a la ubicación",
@@ -7240,14 +7240,14 @@
       "refresh": "Actualizar la lista de las regiones cercanas",
       "pageTitle": "Información local para ti",
       "metaDescription": "{{appName}} es tu guía digital de Alemania. Encuentra información local, eventos y consejos. Siempre al día y en tu idioma.",
-      "cityNotFound": "¿No has encontrado tu región? ¡Actívate ya!",
+      "regionNotFound": "¿No has encontrado tu región? ¡Actívate ya!",
       "suggestToRegion": "Propón {{appName}} para tu región"
     },
     "fi": {
-      "searchCity": "Haku",
-      "noCitiesFound": "Ei tuloksia",
-      "nearbyCities": "Lähellä",
-      "noNearbyCities": "Alueita ei löydetty läheltä.",
+      "searchRegion": "Haku",
+      "noRegionsFound": "Ei tuloksia",
+      "nearbyRegions": "Lähellä",
+      "noNearbyRegions": "Alueita ei löydetty läheltä.",
       "alert": "Huom!",
       "locationError": "Jotta lähellä olevat alueet voitaisiin näyttää, on paikannus otettava käyttöön.",
       "noPermission": "Edellyttää sijaintitietojen pääsyn sallimista",
@@ -7257,14 +7257,14 @@
       "refresh": "Päivitä läheisten alueiden luettelo",
       "pageTitle": "Paikallisia tietoja sinulle",
       "metaDescription": "{{appName}} on digitaalinen Saksa-oppaasi. Löydä paikallisia tietoja, tapahtumia ja neuvoja. Aina ajan tasalla ja omalla äidinkielelläsi.",
-      "cityNotFound": "Etkö löytänyt aluettasi? Aktivoidu nyt!",
+      "regionNotFound": "Etkö löytänyt aluettasi? Aktivoidu nyt!",
       "suggestToRegion": "Ehdota sovellusta {{appName}} alueellasi"
     },
     "fr": {
-      "searchCity": "Recherche",
-      "noCitiesFound": "Aucun résultat",
-      "nearbyCities": "À proximité",
-      "noNearbyCities": "Aucune région n’a été trouvée à proximité.",
+      "searchRegion": "Recherche",
+      "noRegionsFound": "Aucun résultat",
+      "nearbyRegions": "À proximité",
+      "noNearbyRegions": "Aucune région n’a été trouvée à proximité.",
       "alert": "Remarque",
       "locationError": "Pour pouvoir afficher les régions à proximité, les services de localisation doivent être activés.",
       "noPermission": "Accès au lieu requis",
@@ -7274,14 +7274,14 @@
       "refresh": "Mettre à jour la liste des régions proches",
       "pageTitle": "Informations locales pour toi",
       "metaDescription": "{{appName}} est ton guide numérique pour l’Allemagne. Trouve des conseils, des informations locales, des événements près de chez toi. Toujours à jour et dans ta langue.",
-      "cityNotFound": "Tu n’as pas trouvé ta région ? Active-la dès maintenant !",
+      "regionNotFound": "Tu n’as pas trouvé ta région ? Active-la dès maintenant !",
       "suggestToRegion": "Proposer {{appName}} dans ta région"
     },
     "hi": {
-      "searchCity": "खोजें",
-      "noCitiesFound": "कोई परिणाम नहीं",
-      "nearbyCities": "आसपास की जगह में",
-      "noNearbyCities": "आस-पास कोई क्षेत्र नहीं मिला।",
+      "searchRegion": "खोजें",
+      "noRegionsFound": "कोई परिणाम नहीं",
+      "nearbyRegions": "आसपास की जगह में",
+      "noNearbyRegions": "आस-पास कोई क्षेत्र नहीं मिला।",
       "alert": "नोट",
       "locationError": "आस-पास के क्षेत्रों को प्रदर्शित करने के लिए ट्रैकिंग सेवाओं को सक्रिय करना होगा।",
       "noPermission": "स्थान का एक्सेस आवश्यक है",
@@ -7291,14 +7291,14 @@
       "refresh": "निकटवर्ती क्षेत्रों की सूची अपडेट करें",
       "pageTitle": "आपके लिए स्थानीय जानकारी",
       "metaDescription": "{{appName}} जर्मनी में जीवन के लिए आपकी डिजिटल मार्गदर्शिका है। स्थानीय जानकारी, ईवेंट और सलाह की खोज करें। हमेशा अद्यतन और आपकी अपनी भाषा में उपलब्ध है।",
-      "cityNotFound": "आपका क्षेत्र नहीं मिला? अभी कार्रवाई करें।",
+      "regionNotFound": "आपका क्षेत्र नहीं मिला? अभी कार्रवाई करें।",
       "suggestToRegion": "अपने क्षेत्र के लिए {{appName}} का सुझाव दें"
     },
     "hr": {
-      "searchCity": "Pretraživanje",
-      "noCitiesFound": "Nema rezultata",
-      "nearbyCities": "U blizini",
-      "noNearbyCities": "Nisu pronađene regije u blizini.",
+      "searchRegion": "Pretraživanje",
+      "noRegionsFound": "Nema rezultata",
+      "nearbyRegions": "U blizini",
+      "noNearbyRegions": "Nisu pronađene regije u blizini.",
       "alert": "Napomena",
       "locationError": "Da bi mogle biti prikazane regije u blizini, potrebno je aktivirati uslugu geolociranja.",
       "noPermission": "Potreban je pristup lokaciji",
@@ -7308,14 +7308,14 @@
       "refresh": "Ažuriraj popis obližnjih regija",
       "pageTitle": "Lokalne informacije za tebe",
       "metaDescription": "{{appName}} je tvoj digitalni vodič za Njemačku. Nađi lokalne informacije, manifestacije i savjetovališta. Uvijek aktualno i na tvom jeziku.",
-      "cityNotFound": "Tvoja regija nije pronađena? Aktiviraj se!",
+      "regionNotFound": "Tvoja regija nije pronađena? Aktiviraj se!",
       "suggestToRegion": "Predloži {{appName}} u svojoj regiji"
     },
     "hu": {
-      "searchCity": "Keresés",
-      "noCitiesFound": "Nincs eredmény",
-      "nearbyCities": "A közelben",
-      "noNearbyCities": "Nem talált régiót a közelben.",
+      "searchRegion": "Keresés",
+      "noRegionsFound": "Nincs eredmény",
+      "nearbyRegions": "A közelben",
+      "noNearbyRegions": "Nem talált régiót a közelben.",
       "alert": "Megjegyzés",
       "locationError": "A környékbeli régiók megjelenítéséhez aktiválni kell a helymeghatározási szolgáltatásokat.",
       "noPermission": "Helyhozzáférés szükséges",
@@ -7325,14 +7325,14 @@
       "refresh": "A környékbeli régiók listájának aktualizálása",
       "pageTitle": "Lokale Informationen für Dich",
       "metaDescription": "{{appName}} a digitális útikalauza Németországba. Itt talál helyi információkat, eseményeket és tippeket. Mindig naprakész és magyarul beszél.",
-      "cityNotFound": "Nem találja a régióját? Legyél most aktív!",
+      "regionNotFound": "Nem találja a régióját? Legyél most aktív!",
       "suggestToRegion": "{{appName}} javaslata a régiójában"
     },
     "id": {
-      "searchCity": "Cari",
-      "noCitiesFound": "Tidak ada hasil",
-      "nearbyCities": "Di sekitarnya",
-      "noNearbyCities": "Tidak ada wilayah yang ditemukan di sekitarnya.",
+      "searchRegion": "Cari",
+      "noRegionsFound": "Tidak ada hasil",
+      "nearbyRegions": "Di sekitarnya",
+      "noNearbyRegions": "Tidak ada wilayah yang ditemukan di sekitarnya.",
       "alert": "Catatan",
       "locationError": "Untuk menampilkan wilayah di sekitarnya, layanan pelacakan harus diaktifkan.",
       "noPermission": "Akses lokasi diperlukan",
@@ -7342,15 +7342,15 @@
       "refresh": "Perbarui daftar wilayah terdekat",
       "pageTitle": "Informasi Lokal Bagi Anda",
       "metaDescription": "{{appName}} adalah panduan digital untuk kehidupan di Jerman. Temukan informasi lokal, acara dan saran. Selalu diperbarui dan tersedia dalam bahasa Anda sendiri.",
-      "cityNotFound": "Wilayah Anda tidak ditemukan? Ambil tindakan sekarang.",
+      "regionNotFound": "Wilayah Anda tidak ditemukan? Ambil tindakan sekarang.",
       "suggestToRegion": "Sarankan {{appName}} di wilayah Anda",
-      "searchCityDescription": "Pilih wilayah Anda atau kota terbesar berikutnya, misalnya {{exampleCity}}"
+      "searchRegionDescription": "Pilih wilayah Anda atau kota terbesar berikutnya, misalnya {{exampleRegion}}"
     },
     "it": {
-      "searchCity": "Ricerca",
-      "noCitiesFound": "Nessun risultato",
-      "nearbyCities": "Nelle vicinanze",
-      "noNearbyCities": "Nessuna regione trovata nelle vicinanze",
+      "searchRegion": "Ricerca",
+      "noRegionsFound": "Nessun risultato",
+      "nearbyRegions": "Nelle vicinanze",
+      "noNearbyRegions": "Nessuna regione trovata nelle vicinanze",
       "alert": "Nota",
       "locationError": "Per poter visualizzare le regioni vicine, è necessario abilitare i servizi di localizzazione.",
       "noPermission": "È necessario l’accesso alla posizione",
@@ -7360,14 +7360,14 @@
       "refresh": "Aggiorna l'elenco delle regioni vicine",
       "pageTitle": "Informazioni locali per te",
       "metaDescription": "{{appName}} è la tua guida digitale in Germania. Trova informazioni, eventi e consigli locali. Sempre aggiornata e nella tua lingua.",
-      "cityNotFound": "Non hai trovato la tua regione? Attivati subito!",
+      "regionNotFound": "Non hai trovato la tua regione? Attivati subito!",
       "suggestToRegion": "Suggerisci {{appName}} nella tua regione"
     },
     "ka": {
-      "searchCity": "ძებნა",
-      "noCitiesFound": "შედეგები არ არის",
-      "nearbyCities": "სიახლოვეს",
-      "noNearbyCities": "სიახლოვეში რეგიონები ვერ მოიძებნა.",
+      "searchRegion": "ძებნა",
+      "noRegionsFound": "შედეგები არ არის",
+      "nearbyRegions": "სიახლოვეს",
+      "noNearbyRegions": "სიახლოვეში რეგიონები ვერ მოიძებნა.",
       "alert": "მითითება",
       "locationError": "თქვენს სიახლოვეს რეგიონების გამოსაჩენად, საჭიროა გააქტიურებული იყოს ადგილმდებარეობის მომსახურებები.",
       "noPermission": "საჭიროა წვდომა მდებარეობის ადგილზე",
@@ -7377,14 +7377,14 @@
       "refresh": "ახლოსმდებარე რეგიონების სიის განახლება",
       "pageTitle": "ადგილობრივი ინფორმაციები შენთვის",
       "metaDescription": "{{appName}} შენი ციფრული გზამკვლევია გერმანიისთვის. მოიძიე ადგილობრივი ინფორმაციები, ღონისძიებები და კონსულტაციები. ყოველთვის აქტუალური და შენს ენაზე.",
-      "cityNotFound": "ვერ იპოვე შენი რეგიონი? გახდი აქტიური!",
+      "regionNotFound": "ვერ იპოვე შენი რეგიონი? გახდი აქტიური!",
       "suggestToRegion": "აპისთვის {{appName}} რეკომენდაციის გაწევა შენს რეგიონში"
     },
     "kmr": {
-      "searchCity": "Lêgerîn",
-      "noCitiesFound": "Tu encamek peyda nebû",
-      "nearbyCities": "Nêzîk",
-      "noNearbyCities": "Tu navçeyeke nêzîk peyda nebû.",
+      "searchRegion": "Lêgerîn",
+      "noRegionsFound": "Tu encamek peyda nebû",
+      "nearbyRegions": "Nêzîk",
+      "noNearbyRegions": "Tu navçeyeke nêzîk peyda nebû.",
       "alert": "Rênîşandan",
       "locationError": "Bo bikarin navçeyên nêzîk bibînin divê xizmetên cih çalak bibe.",
       "noPermission": "Destgihîştina mekanê hewce ye",
@@ -7394,15 +7394,15 @@
       "refresh": "Lîsteya navçeyên nêzîk biroj bike",
       "pageTitle": "Zanyariyên xwecihî ji bo te.",
       "metaDescription": "{{appName}} Rêbernameya te ya dîjîtal ji bo Almanyayê ye. Zanyarî, rûdan û pêşniyazên xwecihî bibîne, Hertim birojkirî û bi zimanê te yê sereke.",
-      "cityNotFound": "Te navçeya xwe peyda nekir? Aniha çalak bibe!",
+      "regionNotFound": "Te navçeya xwe peyda nekir? Aniha çalak bibe!",
       "suggestToRegion": "{{appName}} Pêşniyaz li navçeya te bixwe",
-      "searchCityDescription": "Navçeya xwe yan bajarê herî mezin ê din bibijêre, wek mînak B. {{exampleCity}}"
+      "searchRegionDescription": "Navçeya xwe yan bajarê herî mezin ê din bibijêre, wek mînak B. {{exampleRegion}}"
     },
     "mk": {
-      "searchCity": "Барај",
-      "noCitiesFound": "Нема резултати",
-      "nearbyCities": "Во близина",
-      "noNearbyCities": "Не се пронајдени региони во близина",
+      "searchRegion": "Барај",
+      "noRegionsFound": "Нема резултати",
+      "nearbyRegions": "Во близина",
+      "noNearbyRegions": "Не се пронајдени региони во близина",
       "alert": "Упатство",
       "locationError": "За да може да се прикажат блиските региони, мора да се активираат услугите за лоцирање.",
       "noPermission": "Потребен е пристап до локацијата",
@@ -7412,14 +7412,14 @@
       "refresh": "Ажурирај го списокот со региони во близина",
       "pageTitle": "Локални информации за вас",
       "metaDescription": "{{appName}} е вашиот дигитален водич за Германија. Најдете локални информации, настани и совети. Секогаш актуелни и на вашиот јазик.",
-      "cityNotFound": "Не го најдовте вашиот регион? Активирајте се сега!",
+      "regionNotFound": "Не го најдовте вашиот регион? Активирајте се сега!",
       "suggestToRegion": "Предложете {{appName}} во вашиот регион"
     },
     "nl": {
-      "searchCity": "Zoek",
-      "noCitiesFound": "Geen resultaten",
-      "nearbyCities": "In de buurt",
-      "noNearbyCities": "Er is geen regio in de buurt gevonden.",
+      "searchRegion": "Zoek",
+      "noRegionsFound": "Geen resultaten",
+      "nearbyRegions": "In de buurt",
+      "noNearbyRegions": "Er is geen regio in de buurt gevonden.",
       "alert": "Melding",
       "locationError": "Om de regio's in de buurt weer te geven, moet de locatievoorziening zijn ingeschakeld.",
       "noPermission": "Om de regio's in de buurt weer te geven, moet de locatievoorziening zijn ingeschakeld.",
@@ -7429,14 +7429,14 @@
       "refresh": "Update de lijst met de dichtstbijzijnde regio's",
       "pageTitle": "Lokale informatie voor jou",
       "metaDescription": "{{appName}} is jouw digitale gids voor Duitsland. Vind lokale informatie, evenementen en advies. Altijd up-to-date en in jouw taal.",
-      "cityNotFound": "Jouw regio niet gevonden? Word nu actief!",
+      "regionNotFound": "Jouw regio niet gevonden? Word nu actief!",
       "suggestToRegion": "{{appName}} in jouw regio voorstellen"
     },
     "orm": {
-      "searchCity": "Barbaadi",
-      "noCitiesFound": "Bu'aan hin argamne",
-      "nearbyCities": "Naannoo sanatti",
-      "noNearbyCities": "Bakka sana naannoonhin jiru",
+      "searchRegion": "Barbaadi",
+      "noRegionsFound": "Bu'aan hin argamne",
+      "nearbyRegions": "Naannoo sanatti",
+      "noNearbyRegions": "Bakka sana naannoonhin jiru",
       "alert": "Yaadannoo",
       "locationError": "Naannoowwan bakka sana jiran agarsiisuuf tajaajiloonni hordoffii hojiirra ooluu qabu.",
       "noPermission": "Bakka argachuun barbaachisaadha",
@@ -7446,15 +7446,15 @@
       "refresh": "Tarree naannolee dhiyoo jiran haaromsi",
       "pageTitle": "Odeeffannoo naanoo jiran si'iif",
       "metaDescription": "{{appName}} kun qajeelfama dijitaalaa jireenya keessan Jarman keessaadha. Odeeffannoo naannoo, sagantaalee fi gorsa argadhu. Yeroo hunda yeroo ammaa fi afaan keessaniin kan argamu.",
-      "cityNotFound": "Naannoon keessan hin jiruu? Amma tarkaanfii fudhadhuu.",
+      "regionNotFound": "Naannoon keessan hin jiruu? Amma tarkaanfii fudhadhuu.",
       "suggestToRegion": "Naannoo keetiif {{appName}} kenni",
-      "searchCityDescription": "Naannoo ykn magaalaa guddaa ittaanu filadhu, fkn {{exampleCity}}"
+      "searchRegionDescription": "Naannoo ykn magaalaa guddaa ittaanu filadhu, fkn {{exampleRegion}}"
     },
     "pes": {
-      "searchCity": "جستجو",
-      "noCitiesFound": "نتیجه‌ای یافت نشد",
-      "nearbyCities": "در نزدیکی",
-      "noNearbyCities": "منطقه‌ای در نزدیکی یافت نشد.",
+      "searchRegion": "جستجو",
+      "noRegionsFound": "نتیجه‌ای یافت نشد",
+      "nearbyRegions": "در نزدیکی",
+      "noNearbyRegions": "منطقه‌ای در نزدیکی یافت نشد.",
       "alert": "راهنمایی",
       "locationError": "برای این که مناطق نزدیک نشان داده شوند، خدمات موقعیت‌یابی باید فعال شوند.",
       "noPermission": "دسترسی به مکان موفقیت‌آمیز بود",
@@ -7464,14 +7464,14 @@
       "refresh": "فهرست مناطق نزدیک را فعال کنید",
       "pageTitle": "اطلاعات محلی برای شما",
       "metaDescription": "{{appName}} راهنمای دیجیتال شما برای کشور آلمان است. شما می‌توانید اطلاعات محلی، رویدادها و خدمات مشاوره را در آن بیابید. همواره به روز و به زبان خودتان.",
-      "cityNotFound": "منطقه خود را پیدا نکردید؟ هم اکنون فعال شوید!",
+      "regionNotFound": "منطقه خود را پیدا نکردید؟ هم اکنون فعال شوید!",
       "suggestToRegion": "{{appName}} پیشنهاد در منطقه خودتان"
     },
     "pl": {
-      "searchCity": "Wyszukaj",
-      "noCitiesFound": "Brak wyników",
-      "nearbyCities": "W pobliżu",
-      "noNearbyCities": "Nie znaleziono regionów w pobliżu.",
+      "searchRegion": "Wyszukaj",
+      "noRegionsFound": "Brak wyników",
+      "nearbyRegions": "W pobliżu",
+      "noNearbyRegions": "Nie znaleziono regionów w pobliżu.",
       "alert": "Wskazówka",
       "locationError": "Aby wyświetlić regiony w pobliżu, muszą być włączone usługi lokalizacji.",
       "noPermission": "Wymagany dostęp do placówki",
@@ -7481,14 +7481,14 @@
       "refresh": "Aktualizuje listę regionów w pobliżu",
       "pageTitle": "Lokale Informationen für Dich",
       "metaDescription": "{{appName}} to Twój cyfrowy przewodnik po Niemczech. Znajdź lokalne informacje, wydarzenia i porady. Zawsze aktualne i w Twoim języku.",
-      "cityNotFound": "Nie udało Ci się znaleźć Twojego regionu? Zacznij działać już teraz!",
+      "regionNotFound": "Nie udało Ci się znaleźć Twojego regionu? Zacznij działać już teraz!",
       "suggestToRegion": "Zaproponuj {{appName}} w Twoim regionie"
     },
     "prs": {
-      "searchCity": "جستجو",
-      "noCitiesFound": "نتیجه‌ای پیدا نشد",
-      "nearbyCities": "در نزدیکی",
-      "noNearbyCities": "منطقه‌ای در نزدیکی پیدا نشد.",
+      "searchRegion": "جستجو",
+      "noRegionsFound": "نتیجه‌ای پیدا نشد",
+      "nearbyRegions": "در نزدیکی",
+      "noNearbyRegions": "منطقه‌ای در نزدیکی پیدا نشد.",
       "alert": "رهنمایی",
       "locationError": "برای این که مناطق نزدیک نشان داده شوند، خدمات مکان‌یابی باید فعال شوند.",
       "noPermission": "دسترسی به مکان مورد ضرورت است",
@@ -7498,14 +7498,14 @@
       "refresh": "فهرست مناطق نزدیک را به روز کنید",
       "pageTitle": "معلومات محلی برای شما",
       "metaDescription": "{{appName}} رهنمای دیجیتال شما برای کشور آلمان است. شما می توانید معلومات محلی، رویدادها و خدمات مشوره دهی را در آن بیابید. همیشه تازه و به زبان خودتان.",
-      "cityNotFound": "منطقه خود را پیدا نکردید؟ هم اکنون فعال شوید!",
+      "regionNotFound": "منطقه خود را پیدا نکردید؟ هم اکنون فعال شوید!",
       "suggestToRegion": "پیشنهاد {{appName}} در منطقه خودتان"
     },
     "ps": {
-      "searchCity": "لټون",
-      "noCitiesFound": "هیڅ پایله نه لری",
-      "nearbyCities": "نږدې له خوا",
-      "noNearbyCities": "هیڅ سیمې په نږدې سیمو کې نه دی موندل شوی.",
+      "searchRegion": "لټون",
+      "noRegionsFound": "هیڅ پایله نه لری",
+      "nearbyRegions": "نږدې له خوا",
+      "noNearbyRegions": "هیڅ سیمې په نږدې سیمو کې نه دی موندل شوی.",
       "alert": "یادونه",
       "locationError": "نږدې سیمو ته د لیدلو لپاره، د لوکیشن خدمت باید فعال شی.",
       "noPermission": "موقعیت یعنی لوکیشن ته لاسرسی لازمي دی",
@@ -7515,14 +7515,14 @@
       "refresh": "دہ شا و خوا علاقہ لیست اپډیټ کہ",
       "pageTitle": "ستاسو لپاره ځايي معلومات",
       "metaDescription": "{{appName}} د جرمني لپاره ستاسو ډيجټلي لارښود دی. ځايي معلومات، مراسم او سپارښتنې په هغې کې ومومئ. تل تازه او ستاسو په ژبه.",
-      "cityNotFound": "خپله منطقه مو پيدا نکړه؟ همدا اوس فعال شئ!",
+      "regionNotFound": "خپله منطقه مو پيدا نکړه؟ همدا اوس فعال شئ!",
       "suggestToRegion": "ستاسو په منطقه کې د {{appName}} وړانديز وکړئ"
     },
     "pt": {
-      "searchCity": "Procura",
-      "noCitiesFound": "Não existem resultados",
-      "nearbyCities": "Nas proximidades",
-      "noNearbyCities": "Não foram encontradas regiões próximas.",
+      "searchRegion": "Procura",
+      "noRegionsFound": "Não existem resultados",
+      "nearbyRegions": "Nas proximidades",
+      "noNearbyRegions": "Não foram encontradas regiões próximas.",
       "alert": "Aviso",
       "locationError": "Para ver as regiões próximas, é necessário ativar os serviços de localização.",
       "noPermission": "É necessário acesso à localização",
@@ -7532,14 +7532,14 @@
       "refresh": "Atualizar a lista de regiões próximas",
       "pageTitle": "Regiões",
       "metaDescription": "A {{appName}} é o seu guia digital da Alemanha. Consulte informações, eventos e conselhos a nível local. Sempre atualizada e disponível no seu idioma.",
-      "cityNotFound": "Não encontraste a tua região? Torna-te ativo agora!",
+      "regionNotFound": "Não encontraste a tua região? Torna-te ativo agora!",
       "suggestToRegion": "sugerir {{appName}} na tua região"
     },
     "ro": {
-      "searchCity": "Căutare",
-      "noCitiesFound": "Nu există rezultate",
-      "nearbyCities": "În apropiere",
-      "noNearbyCities": "Nu s-au găsit regiuni învecinate.",
+      "searchRegion": "Căutare",
+      "noRegionsFound": "Nu există rezultate",
+      "nearbyRegions": "În apropiere",
+      "noNearbyRegions": "Nu s-au găsit regiuni învecinate.",
       "alert": "Indicație",
       "locationError": "Pentru a vizualiza regiunile din apropiere, serviciile de localizare trebuie să fie activate.",
       "noPermission": "Este necesară accesarea locației",
@@ -7549,14 +7549,14 @@
       "refresh": "Actualizați lista de regiuni din apropiere",
       "pageTitle": "Informații locale pentru dumneavoastră",
       "metaDescription": "{{appName}} este ghidul tău digital pentru Germania. Găsiți informații, evenimente și sfaturi locale. Întotdeauna actualizate și în limba dumneavoastră.",
-      "cityNotFound": "Nu v-ați găsit regiunea? Fii activ acum!",
+      "regionNotFound": "Nu v-ați găsit regiunea? Fii activ acum!",
       "suggestToRegion": "{{appName}} sugerat în regiunea dvs."
     },
     "rom": {
-      "searchCity": "Rode",
-      "noCitiesFound": "Nane rezultatoja",
-      "nearbyCities": "Ko pašipe",
-      "noNearbyCities": "Nane arakhli regia ko pašipe.",
+      "searchRegion": "Rode",
+      "noRegionsFound": "Nane rezultatoja",
+      "nearbyRegions": "Ko pašipe",
+      "noNearbyRegions": "Nane arakhli regia ko pašipe.",
       "alert": "Zapišin",
       "locationError": "Te sikavel regie ko pašipa, e sledibaskere servisoja valjani te oven aktivirime",
       "noPermission": "Lokacijakoro pristap zaruri",
@@ -7566,15 +7566,15 @@
       "refresh": "Iker ko teko i lista taro paše regionia",
       "pageTitle": "Lokalnikani Informacia Tukje",
       "metaDescription": "{{appName}} tano to digitalno legarutno e dživdipaskoro ki Germania. Pučar lokalnikane informacie, čipote thaj dejbe godi. Sakana ov haberi kerdo thaj šajdin ki tiri čhib.",
-      "cityNotFound": "To regioni na sine arakhlo? Ker akcia akana.",
+      "regionNotFound": "To regioni na sine arakhlo? Ker akcia akana.",
       "suggestToRegion": "Preporučin {{appName}} ki ti regia",
-      "searchCityDescription": "Birin ti regia jali aver majbari diz, sar so si o {{exampleCity}}"
+      "searchRegionDescription": "Birin ti regia jali aver majbari diz, sar so si o {{exampleRegion}}"
     },
     "ru": {
-      "searchCity": "Поиск",
-      "noCitiesFound": "Результаты не найдены",
-      "nearbyCities": "Близлежащие регионы",
-      "noNearbyCities": "Близлежащие регионы не найдены.",
+      "searchRegion": "Поиск",
+      "noRegionsFound": "Результаты не найдены",
+      "nearbyRegions": "Близлежащие регионы",
+      "noNearbyRegions": "Близлежащие регионы не найдены.",
       "alert": "Примечание",
       "locationError": "Для определения близлежащих регионов следует включить геолокацию.",
       "noPermission": "Необходим доступ к данным о местоположении",
@@ -7584,14 +7584,14 @@
       "refresh": "Обновить список близлежащих регионов",
       "pageTitle": "Местная информация для тебя",
       "metaDescription": "{{appName}} – это твой цифровой путеводитель по Германии. Узнавай местные новости, находи информацию о мероприятиях и консультациях. Всегда актуально и на твоем языке.",
-      "cityNotFound": "Не удалось найти свой регион? Бери инициативу в свои руки!",
+      "regionNotFound": "Не удалось найти свой регион? Бери инициативу в свои руки!",
       "suggestToRegion": "Предложить {{appName}} в своем регионе"
     },
     "sk": {
-      "searchCity": "Vyhľadávanie",
-      "noCitiesFound": "Žiadne výsledky",
-      "nearbyCities": "V blízkosti",
-      "noNearbyCities": "V blízkosti sa nenašli žiadne regióny.",
+      "searchRegion": "Vyhľadávanie",
+      "noRegionsFound": "Žiadne výsledky",
+      "nearbyRegions": "V blízkosti",
+      "noNearbyRegions": "V blízkosti sa nenašli žiadne regióny.",
       "alert": "Upozornenie",
       "locationError": "Aby bolo možné zobraziť regióny v okolí, musia sa aktivovať lokalizačné služby.",
       "noPermission": "Potrebný prístup na lokalitu",
@@ -7601,14 +7601,14 @@
       "refresh": "Aktualizácia zoznamu blízkych regiónov",
       "pageTitle": "Lokálne informácie pre vás",
       "metaDescription": "{{appName}} je váš digitálny sprievodca po Nemecku. Nájdite miestne informácie, podujatia a poradenstvo. Vždy aktuálne a vo vašom jazyku.",
-      "cityNotFound": "Nenašli ste svoj región? Buďte aktívni teraz!",
+      "regionNotFound": "Nenašli ste svoj región? Buďte aktívni teraz!",
       "suggestToRegion": "navrhnúť {{appName}} vo vašom regióne"
     },
     "so": {
-      "searchCity": "Raadi",
-      "noCitiesFound": "Wax natiijooyin ah kama soo bixin",
-      "nearbyCities": "Soo dhow",
-      "noNearbyCities": "Gobolo soo dhow lama helin.",
+      "searchRegion": "Raadi",
+      "noRegionsFound": "Wax natiijooyin ah kama soo bixin",
+      "nearbyRegions": "Soo dhow",
+      "noNearbyRegions": "Gobolo soo dhow lama helin.",
       "alert": "Ogeysiis",
       "locationError": "Si aad u aragto gobollada kuu dhow, adeegyada goobta waa in laga shaqeysiiyaa.",
       "noPermission": "Marin u helida goobta ayaa loo  baahan yahay",
@@ -7618,14 +7618,14 @@
       "refresh": "Cusbooneysii liiska gobollada iigu dhow",
       "pageTitle": "Macluumaadkan gudaha ee laguugu talogalay adiga",
       "metaDescription": "{{appName}} waa hage-haaga dhijitaalka ah ee Jarmalka. ka raadi macluumaadka gudaha, dhacdooyinka, iyo tallooyinka. Had iyo jeer la soco ka cusaybka iyo luqadaada.",
-      "cityNotFound": "Ma heli kartaa gobolkaaga? Hadda hel!",
+      "regionNotFound": "Ma heli kartaa gobolkaaga? Hadda hel!",
       "suggestToRegion": "Soo jeedi {{appName}} gobolkaaga"
     },
     "sq": {
-      "searchCity": "Kërko",
-      "noCitiesFound": "Nuk ka rezultate",
-      "nearbyCities": "Në afërsi",
-      "noNearbyCities": "Nuk u gjet asnjë rajon afër.",
+      "searchRegion": "Kërko",
+      "noRegionsFound": "Nuk ka rezultate",
+      "nearbyRegions": "Në afërsi",
+      "noNearbyRegions": "Nuk u gjet asnjë rajon afër.",
       "alert": "Shënim",
       "locationError": "Për të qenë në gjendje të shfaqen rajonet e afërta, duhet të aktivizohen shërbimet e vendndodhjes.",
       "noPermission": "Kërkohet qasje në vendndodhje",
@@ -7635,14 +7635,14 @@
       "refresh": "Përditëso listën e rajoneve të afërta",
       "pageTitle": "Informacione vendase për ty",
       "metaDescription": "{{appName}} është udhëzuesi yt digjital për Gjermaninë. Gjej informacione, evenimente dhe këshillime vendase. Gjithmonë aktuale dhe në gjuhën tënde.",
-      "cityNotFound": "Nuk e gjete rajonin tënd? Vepro tani!",
+      "regionNotFound": "Nuk e gjete rajonin tënd? Vepro tani!",
       "suggestToRegion": "Sugjero {{appName}} në rajonin tënd"
     },
     "sr-Cyrl": {
-      "searchCity": "Претраживање",
-      "noCitiesFound": "Нема резултата",
-      "nearbyCities": "у близини",
-      "noNearbyCities": "Није пронађен ниједан регион у близини.",
+      "searchRegion": "Претраживање",
+      "noRegionsFound": "Нема резултата",
+      "nearbyRegions": "у близини",
+      "noNearbyRegions": "Није пронађен ниједан регион у близини.",
       "alert": "Напомена",
       "locationError": "Да бисте могли да прикажете оближње регионе, услуге локације морају бити активиране.",
       "noPermission": "Потребан приступ локацији",
@@ -7652,14 +7652,14 @@
       "refresh": "Ажурирајте листу оближњих региона",
       "pageTitle": "Локалне информације за тебе",
       "metaDescription": "{{appName}} је твој дигитални водич за Немачку. Нађи локалне информације, манифестације и саветовалишта. Увек актуелно и на твом језику.",
-      "cityNotFound": "Твоја регија није пронађена? Активирај се!",
+      "regionNotFound": "Твоја регија није пронађена? Активирај се!",
       "suggestToRegion": "Предложи {{appName}} у својој регији"
     },
     "sr-Latn": {
-      "searchCity": "Pretraživanje",
-      "noCitiesFound": "Nema rezultata",
-      "nearbyCities": "u blizini",
-      "noNearbyCities": "Nije pronađen nijedan region u blizini.",
+      "searchRegion": "Pretraživanje",
+      "noRegionsFound": "Nema rezultata",
+      "nearbyRegions": "u blizini",
+      "noNearbyRegions": "Nije pronađen nijedan region u blizini.",
       "alert": "Napomena",
       "locationError": "Da biste mogli da prikažete obližnje regione, usluge lokacije moraju biti aktivirane.",
       "noPermission": "Potreban pristup lokaciji",
@@ -7669,14 +7669,14 @@
       "refresh": "Ažurirajte listu obližnjih regiona",
       "pageTitle": "Lokalne informacije za tebe",
       "metaDescription": "{{appName}} je tvoj digitalni vodič za Nemačku. Nađi lokalne informacije, manifestacije i savetovališta. Uvek aktuelno i na tvom jeziku.",
-      "cityNotFound": "Tvoja regija nije pronađena? Aktiviraj se!",
+      "regionNotFound": "Tvoja regija nije pronađena? Aktiviraj se!",
       "suggestToRegion": "Predloži {{appName}} u svojoj regiji"
     },
     "sw": {
-      "searchCity": "Tafuta",
-      "noCitiesFound": "Hakuna matokeo",
-      "nearbyCities": "Karibu nawe",
-      "noNearbyCities": "Hakuna eneo lililopatikana karibu nawe.",
+      "searchRegion": "Tafuta",
+      "noRegionsFound": "Hakuna matokeo",
+      "nearbyRegions": "Karibu nawe",
+      "noNearbyRegions": "Hakuna eneo lililopatikana karibu nawe.",
       "alert": "Kumbuka",
       "locationError": "Ili kuonyesha maeneo yaliyo karibu nawe, lazima huduma za ufuatiliaji ziwashwe.",
       "noPermission": "Inahitajika kufikia data ya mahali",
@@ -7686,15 +7686,15 @@
       "refresh": "Sasisha orodha ya maeneo yaliyo karibu",
       "pageTitle": "Habari za Nchini Tunazokupendekezea",
       "metaDescription": "{{appName}} ni mwongozo wako wa mtandaoni wa maisha nchini Ujerumani. Pata habari za nchini, matukio na ushauri. Ni sahihi kila wakati na zinapatikana kwa lugha yako.",
-      "cityNotFound": "Eneo lako halijapatikana? Chukua hatua sasa.",
+      "regionNotFound": "Eneo lako halijapatikana? Chukua hatua sasa.",
       "suggestToRegion": "Pendekeza {{appName}} kwa eneo lako",
-      "searchCityDescription": "Chagua eneo lako au jiji kubwa linalofuata, k.m. {{exampleCity}}"
+      "searchRegionDescription": "Chagua eneo lako au jiji kubwa linalofuata, k.m. {{exampleRegion}}"
     },
     "th": {
-      "searchCity": "ค้นหา",
-      "noCitiesFound": "ไม่มีผลลัพธ์",
-      "nearbyCities": "ใกล้ ๆ",
-      "noNearbyCities": "ไม่พบภูมิภาคใกล้เคียง",
+      "searchRegion": "ค้นหา",
+      "noRegionsFound": "ไม่มีผลลัพธ์",
+      "nearbyRegions": "ใกล้ ๆ",
+      "noNearbyRegions": "ไม่พบภูมิภาคใกล้เคียง",
       "alert": "ข้อควรทราบ",
       "locationError": "หากต้องการแสดงภูมิภาคใกล้เคียง จะต้องเปิดใช้งานบริการระบุตำแหน่ง",
       "noPermission": "จำเป็นต้องเข้าถึงตำแหน่งที่ตั้ง",
@@ -7704,14 +7704,14 @@
       "refresh": "อัปเดตรายชื่อภูมิภาคใกล้เคียง",
       "pageTitle": "ข้อมูลท้องถิ่นสำหรับคุณ",
       "metaDescription": "{{appName}} คือคู่มือดิจิทัลของคุณสำหรับประเทศเยอรมนี ค้นหาข้อมูล กิจกรรม และคำแนะนำในพื้นที่ท้องถิ่น อัปเดตอยู่เสมอและเป็นภาษาของคุณ",
-      "cityNotFound": "ไม่พบภูมิภาคของคุณใช่ไหม? ดำเนินการทันที!",
+      "regionNotFound": "ไม่พบภูมิภาคของคุณใช่ไหม? ดำเนินการทันที!",
       "suggestToRegion": "แนะนำ {{appName}} ในภูมิภาคของคุณ"
     },
     "ti": {
-      "searchCity": "ምድላይ",
-      "noCitiesFound": "ውጽኢት የለን",
-      "nearbyCities": "ኣብ ጥቓ",
-      "noNearbyCities": "ኣብ ጥቕኡ ምንም ከባቢ ኣይተረኸበን።",
+      "searchRegion": "ምድላይ",
+      "noRegionsFound": "ውጽኢት የለን",
+      "nearbyRegions": "ኣብ ጥቓ",
+      "noNearbyRegions": "ኣብ ጥቕኡ ምንም ከባቢ ኣይተረኸበን።",
       "alert": "መዘኻኸሪ",
       "locationError": "ኣብ ቀረባ ዘለዋ ከባቢታት ምእንቲ ክርኣያ፣ እተን ናይ ቦታ መርኣዪ ኣገልግሎታት ክኽፈታ ኣለወን።",
       "noPermission": "ናብ ቦታ ናይ ምእታው ዕድል ይሕተት",
@@ -7721,14 +7721,14 @@
       "refresh": "ናይተን ኣብ ቀረባ ዝርከባ ከባቢታት መዝገብ ምሕዳስ",
       "pageTitle": "ንዓኻ ዝኸውን ናይ ከባቢ ሓበሬታ",
       "metaDescription": "{{appName}} ንጀርመን ዝኸውን ዲጂታላዊ መምርሒኹም እዩ። ኣብቲ ከባቢ ዝርከብ ሓበሬታ፡ ፍጻመታትን ምኽርን ድለ። ኩሉ ግዜ እዋናዊን ብቋንቋኻን።",
-      "cityNotFound": "ዞባኻ ኣይረኸብካን? ሕጂ ንጡፋት ኩኑ!",
+      "regionNotFound": "ዞባኻ ኣይረኸብካን? ሕጂ ንጡፋት ኩኑ!",
       "suggestToRegion": "ኣብ ዞባኹም {{appName}} ሓሳብ ሃቡ."
     },
     "tr": {
-      "searchCity": "Arama",
-      "noCitiesFound": "Sonuç yok",
-      "nearbyCities": "Yakınında",
-      "noNearbyCities": "Yakınında bölge bulunanamdı",
+      "searchRegion": "Arama",
+      "noRegionsFound": "Sonuç yok",
+      "nearbyRegions": "Yakınında",
+      "noNearbyRegions": "Yakınında bölge bulunanamdı",
       "alert": "Uyarı",
       "locationError": "Yakındaki bölgeleri görüntülemek için konum servislerinin etkinleştirilmesi gerekir.",
       "noPermission": "Konum erişimi gerekli",
@@ -7738,14 +7738,14 @@
       "refresh": "Yakın bölgelerin listesini güncelleyin",
       "pageTitle": "Senin için yerel bilgiler",
       "metaDescription": "{{appName}} Almanya için senin dijital rehberin. Yerel bilgiler, etkinlikler ve öneriler bul. Her zaman güncel ve senin dilinde.",
-      "cityNotFound": "Bölgeni bulamadın mı? Şimdi aktif ol!",
+      "regionNotFound": "Bölgeni bulamadın mı? Şimdi aktif ol!",
       "suggestToRegion": "Bölgende {{appName}} uygulamasını öner"
     },
     "uk": {
-      "searchCity": "Пошук",
-      "noCitiesFound": "Немає результатів",
-      "nearbyCities": "Сусідні регіони",
-      "noNearbyCities": "Поблизу не знайдено жодного регіону.",
+      "searchRegion": "Пошук",
+      "noRegionsFound": "Немає результатів",
+      "nearbyRegions": "Сусідні регіони",
+      "noNearbyRegions": "Поблизу не знайдено жодного регіону.",
       "alert": "Примітка",
       "locationError": "Для перегляду сусідніх регіонів необхідно увімкнути служби визначення розташування.",
       "noPermission": "Потрібен доступ до місця розташування",
@@ -7755,14 +7755,14 @@
       "refresh": "Оновлення списку сусідніх регіонів",
       "pageTitle": "Місцева інформація для вас",
       "metaDescription": "{{appName}} — ваш цифровий путівник Німеччиною. Знаходьте місцеву інформацію, події та консультації. Завжди актуальні відомості вашою мовою.",
-      "cityNotFound": "Не знайшли свій регіон? Проявіть активність!",
+      "regionNotFound": "Не знайшли свій регіон? Проявіть активність!",
       "suggestToRegion": "Розкажіть про {{appName}} у своєму регіоні"
     },
     "ur": {
-      "searchCity": "تلاش کریں",
-      "noCitiesFound": "کوئی شہر نہیں پایا گیا",
-      "nearbyCities": "قریب شہریں",
-      "noNearbyCities": "قریبی شہروں میں نہیں ملا۔",
+      "searchRegion": "تلاش کریں",
+      "noRegionsFound": "کوئی شہر نہیں پایا گیا",
+      "nearbyRegions": "قریب شہریں",
+      "noNearbyRegions": "قریبی شہروں میں نہیں ملا۔",
       "alert": "نوٹ",
       "locationError": "قریبی علاقوں کو تلاش کرنے کے لئے لوکیشن سروس کو آن کریں۔",
       "noPermission": "مقام تک رسائی درکار ہے",
@@ -7772,14 +7772,14 @@
       "refresh": "قریبی علاقوں کی لسٹ کو اپڈیٹ کریں۔",
       "pageTitle": "آپ کے لیے مقامی معلومات",
       "metaDescription": "{{appName}} جرمنی میں زندگی کے لیے آپ کا ڈیجیٹل گائیڈ ہے۔ مقامی معلومات، واقعات اور مشورے دریافت کریں۔ ہمیشہ تازہ ترین اور آپ کی اپنی زبان میں دستیاب۔",
-      "cityNotFound": "آپ کا علاقہ نہیں ملا؟ ابھی فعال ہو جاؤ!",
+      "regionNotFound": "آپ کا علاقہ نہیں ملا؟ ابھی فعال ہو جاؤ!",
       "suggestToRegion": "اپنے علاقے میں {{appName}} تجویز کریں"
     },
     "vi": {
-      "searchCity": "Tìm kiếm",
-      "noCitiesFound": "Không có kết quả",
-      "nearbyCities": "Trong phạm vi lân cận",
-      "noNearbyCities": "Không tìm thấy khu vực nào trong phạm vi lân cận.",
+      "searchRegion": "Tìm kiếm",
+      "noRegionsFound": "Không có kết quả",
+      "nearbyRegions": "Trong phạm vi lân cận",
+      "noNearbyRegions": "Không tìm thấy khu vực nào trong phạm vi lân cận.",
       "alert": "Lưu ý",
       "locationError": "Bạn phải kích hoạt dịch vụ theo dõi để hiển thị các khu vực trong phạm vi lân cận.",
       "noPermission": "Yêu cầu cấp quyền truy cập vị trí",
@@ -7789,15 +7789,15 @@
       "refresh": "Cập nhật danh sách các khu vực ở gần",
       "pageTitle": "Thông tin về địa phương dành cho bạn",
       "metaDescription": "{{appName}} là cẩm nang kỹ thuật số giúp bạn thích nghi với cuộc sống tại Đức. Khám phá thông tin, sự kiện và lời khuyên về địa phương. Luôn được cập nhật và có sẵn bằng tiếng mẹ đẻ của bạn.",
-      "cityNotFound": "Không tìm thấy khu vực của bạn? Hành động ngay.",
+      "regionNotFound": "Không tìm thấy khu vực của bạn? Hành động ngay.",
       "suggestToRegion": "Đề xuất {{appName}} cho khu vực của bạn",
-      "searchCityDescription": "Chọn khu vực của bạn hoặc thành phố lớn nhất gần đó, ví dụ: {{exampleCity}}"
+      "searchRegionDescription": "Chọn khu vực của bạn hoặc thành phố lớn nhất gần đó, ví dụ: {{exampleRegion}}"
     },
     "zh-CN": {
-      "searchCity": "搜索",
-      "noCitiesFound": "没有结果",
-      "nearbyCities": "在附近",
-      "noNearbyCities": "未找到附近的地区。",
+      "searchRegion": "搜索",
+      "noRegionsFound": "没有结果",
+      "nearbyRegions": "在附近",
+      "noNearbyRegions": "未找到附近的地区。",
       "alert": "提示",
       "locationError": "为了能够显示附近的地区，必须启用位置服务。",
       "noPermission": "需要位置访问权限",
@@ -7807,7 +7807,7 @@
       "refresh": "更新附近地区列表",
       "pageTitle": "为您提供本地信息",
       "metaDescription": "{{appName}} 是您的德国数字指南。查找当地信息、活动和信息咨询。始终以您的语言提供最新资讯。",
-      "cityNotFound": "没有找到您所在的地区？现在就行动起来！",
+      "regionNotFound": "没有找到您所在的地区？现在就行动起来！",
       "suggestToRegion": "向您所在的地区推荐 {{appName}}"
     }
   },
@@ -10859,8 +10859,8 @@
     },
     "en": {
       "NSPhotoLibraryAddUsageDescription": "{{appName}} wants to save photos to your library.",
-      "NSLocationWhenInUseUsageDescription": "{{appName}} wants to use your location to find nearby cities.",
-      "NSLocationAlwaysAndWhenInUseUsageDescription": "{{appName}} wants to use your location to find nearby cities.",
+      "NSLocationWhenInUseUsageDescription": "{{appName}} wants to use your location to find nearby regions.",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "{{appName}} wants to use your location to find nearby regions.",
       "NSCalendarsUsageDescription": "{{appName}} wants to access the calendar to add an event.",
       "NSCalendarsFullAccessUsageDescription": "{{appName}} wants to access the calendar to add an event."
     },

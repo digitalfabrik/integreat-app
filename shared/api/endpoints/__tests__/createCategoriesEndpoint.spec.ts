@@ -18,14 +18,14 @@ describe('createCategoriesEndpoint', () => {
   const baseUrl = 'https://example.com'
   const json = ['myFirstCategory', 'mySecondCategory', 'myThirdCategory']
   const params = {
-    city: 'augsburg',
+    region: 'augsburg',
     language: 'fa',
   }
-  const basePath = `/${params.city}/${params.language}`
+  const basePath = `/${params.region}/${params.language}`
   const rootCategory = new CategoryModel({
     root: true,
     path: basePath,
-    title: params.city,
+    title: params.region,
     parentPath: '',
     content: '',
     thumbnail: '',
@@ -39,12 +39,12 @@ describe('createCategoriesEndpoint', () => {
 
   it('should map params to url', () => {
     expect(endpoint.mapParamsToUrl(params)).toBe(
-      `${baseUrl}/api/${API_VERSION}/${params.city}/${params.language}/pages/`,
+      `${baseUrl}/api/${API_VERSION}/${params.region}/${params.language}/pages/`,
     )
   })
 
   it('should map json to category', () => {
-    const categories = new CategoriesMapModelBuilder(params.city, params.language).build().toArray().slice(0, 3)
+    const categories = new CategoriesMapModelBuilder(params.region, params.language).build().toArray().slice(0, 3)
 
     mocked(mapCategoryJson)
       .mockImplementationOnce(() => categories[0]!)

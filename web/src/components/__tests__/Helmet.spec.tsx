@@ -1,7 +1,7 @@
 import { render, waitFor } from '@testing-library/react'
 import React from 'react'
 
-import { CityModel, CityModelBuilder } from 'shared/api'
+import { RegionModel, RegionModelBuilder } from 'shared/api'
 
 import buildConfig from '../../constants/buildConfig'
 import Helmet from '../Helmet'
@@ -10,9 +10,9 @@ import { LanguageChangePath } from '../LanguageList'
 describe('Helmet', () => {
   const config = buildConfig()
 
-  const cities = new CityModelBuilder(2).build()
-  const liveCity = cities[0]!
-  const hiddenCity = cities[1]!
+  const regions = new RegionModelBuilder(2).build()
+  const liveRegion = regions[0]!
+  const hiddenRegion = regions[1]!
 
   const languageChangePaths: [LanguageChangePath, LanguageChangePath, LanguageChangePath] = [
     { code: 'de', name: 'Deutsch', path: '/augsburg/de' },
@@ -24,16 +24,16 @@ describe('Helmet', () => {
   const metaDescription = 'MetaDescription'
 
   type RenderHelmetProps = {
-    city?: CityModel
+    region?: RegionModel
     languageChangePaths?: LanguageChangePath[]
     metaDescription?: string
     rootPage?: boolean
   }
-  const renderHelmet = ({ city, languageChangePaths, metaDescription, rootPage }: RenderHelmetProps) =>
+  const renderHelmet = ({ region, languageChangePaths, metaDescription, rootPage }: RenderHelmetProps) =>
     render(
       <Helmet
         pageTitle={pageTitle}
-        cityModel={city}
+        regionModel={region}
         languageChangePaths={languageChangePaths}
         metaDescription={metaDescription}
         rootPage={rootPage}
@@ -63,7 +63,7 @@ describe('Helmet', () => {
   }
 
   it('should set title and meta tags', async () => {
-    renderHelmet({ city: liveCity, metaDescription, languageChangePaths })
+    renderHelmet({ region: liveRegion, metaDescription, languageChangePaths })
     await waitFor(() => expect(document.title).toBe(`${pageTitle} | ${buildConfig().appName}`))
     expect(meta('description')).toBe(metaDescription)
     expect(metaByProperty('og:title')).toBe(pageTitle)
@@ -74,38 +74,38 @@ describe('Helmet', () => {
   })
 
   it('should set root title', async () => {
-    renderHelmet({ city: liveCity, metaDescription, languageChangePaths, rootPage: true })
+    renderHelmet({ region: liveRegion, metaDescription, languageChangePaths, rootPage: true })
     await waitFor(() => expect(document.title).toBe(`${buildConfig().appName} | Web-App | ${pageTitle}`))
   })
 
   it('should fall back to page title if no meta description is available', async () => {
-    renderHelmet({ city: liveCity, languageChangePaths })
+    renderHelmet({ region: liveRegion, languageChangePaths })
     await waitFor(() => expect(meta('description')).toBe(pageTitle))
     expect(metaByProperty('og:description')).toBe(pageTitle)
   })
 
-  it('should not set noindex if no city model passed', async () => {
+  it('should not set noindex if no region model passed', async () => {
     renderHelmet({})
     await waitFor(() => expect(document.title).toBe(`${pageTitle} | ${buildConfig().appName}`))
     expect(meta('robots')).toBeUndefined()
   })
 
-  it('should not set noindex if city is live', async () => {
-    renderHelmet({ city: liveCity })
+  it('should not set noindex if region is live', async () => {
+    renderHelmet({ region: liveRegion })
     await waitFor(() => expect(document.title).toBe(`${pageTitle} | ${buildConfig().appName}`))
     expect(meta('robots')).toBeUndefined()
   })
 
-  it('should not set noindex if fixed city set in build config', async () => {
-    config.featureFlags.fixedCity = 'oldtown'
-    renderHelmet({ city: hiddenCity })
+  it('should not set noindex if fixed region set in build config', async () => {
+    config.featureFlags.fixedRegion = 'oldtown'
+    renderHelmet({ region: hiddenRegion })
     await waitFor(() => expect(document.title).toBe(`${pageTitle} | ${buildConfig().appName}`))
     expect(meta('robots')).toBeUndefined()
-    config.featureFlags.fixedCity = null
+    config.featureFlags.fixedRegion = null
   })
 
-  it('should set noindex if city is not live', async () => {
-    renderHelmet({ city: hiddenCity })
+  it('should set noindex if region is not live', async () => {
+    renderHelmet({ region: hiddenRegion })
     await waitFor(() => expect(document.title).toBe(`${pageTitle} | ${buildConfig().appName}`))
     await waitFor(() => expect(meta('robots')).toBe('noindex'))
   })

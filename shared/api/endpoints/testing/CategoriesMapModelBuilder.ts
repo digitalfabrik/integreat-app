@@ -24,16 +24,16 @@ const MAX_PREDICTABLE_VALUE = 6
 class CategoriesMapModelBuilder {
   _depth: number
   _arity: number
-  _city: string
+  _region: string
   _language: string
   _categories: CategoryModel[] = []
   _resourceCache: ResourceCacheStateType = {}
   _id = 0
 
-  constructor(city: string, language: string, arity: number = DEFAULT_ARITY, depth: number = DEFAULT_DEPTH) {
+  constructor(region: string, language: string, arity: number = DEFAULT_ARITY, depth: number = DEFAULT_DEPTH) {
     this._arity = arity
     this._depth = depth
-    this._city = city
+    this._region = region
     this._language = language
     this._categories = []
     this._resourceCache = {}
@@ -46,7 +46,7 @@ class CategoriesMapModelBuilder {
   createResource(url: string): ResourceCacheEntryStateType {
     const hash = sha256(url)
     return {
-      filePath: `path/to/documentDir/resource-cache/v1/${this._city}/files/${hash}.png`,
+      filePath: `path/to/documentDir/resource-cache/v1/${this._region}/files/${hash}.png`,
       hash,
     }
   }
@@ -131,13 +131,13 @@ class CategoriesMapModelBuilder {
     this._resourceCache = {}
     this._categories = []
     this._id = 0
-    const path = `/${this._city}/${this._language}`
+    const path = `/${this._region}/${this._language}`
 
     this._addChildren(
       new CategoryModel({
         root: true,
         path,
-        title: this._city,
+        title: this._region,
         content: '',
         order: -1,
         availableLanguages: {},

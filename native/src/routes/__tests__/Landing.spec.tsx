@@ -2,30 +2,30 @@ import { fireEvent, RenderAPI } from '@testing-library/react-native'
 import React from 'react'
 
 import { SUGGEST_TO_REGION_ROUTE, LandingRouteType } from 'shared'
-import CityModelBuilder from 'shared/api/endpoints/testing/CityModelBuilder'
+import RegionModelBuilder from 'shared/api/endpoints/testing/RegionModelBuilder'
 
 import buildConfig from '../../constants/buildConfig'
-import useLoadCities from '../../hooks/useLoadCities'
+import useLoadRegions from '../../hooks/useLoadRegions'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
 import Landing from '../Landing'
 
-jest.mock('../../components/NearbyCities', () => {
+jest.mock('../../components/NearbyRegions', () => {
   const { Text } = require('react-native-paper')
-  return () => <Text>NearbyCities</Text>
+  return () => <Text>NearbyRegions</Text>
 })
 jest.mock('react-i18next')
 jest.mock('styled-components')
-jest.mock('../../hooks/useLoadCities')
+jest.mock('../../hooks/useLoadRegions')
 
 describe('Landing', () => {
   const { mocked } = jest
-  const cities = new CityModelBuilder(6).build()
+  const regions = new RegionModelBuilder(6).build()
 
   beforeEach(() => {
     jest.clearAllMocks()
-    mocked(useLoadCities).mockImplementation(() => ({
-      data: cities,
+    mocked(useLoadRegions).mockImplementation(() => ({
+      data: regions,
       error: null,
       refresh: jest.fn(),
       loading: false,
@@ -49,15 +49,15 @@ describe('Landing', () => {
 
   const renderLanding = (): RenderAPI => render(<Landing navigation={navigation} />)
 
-  it('should show live cities', () => {
+  it('should show live regions', () => {
     const { getByText, queryByText } = renderLanding()
 
-    expect(getByText('NearbyCities')).toBeTruthy()
+    expect(getByText('NearbyRegions')).toBeTruthy()
 
     expect(getByText('Stadt Augsburg')).toBeTruthy()
-    expect(getByText('City')).toBeTruthy()
-    expect(getByText('Other city')).toBeTruthy()
-    expect(getByText('Yet another city')).toBeTruthy()
+    expect(getByText('Region')).toBeTruthy()
+    expect(getByText('Other region')).toBeTruthy()
+    expect(getByText('Yet another region')).toBeTruthy()
 
     expect(queryByText('Notlive')).toBeFalsy()
     expect(queryByText('Oldtown')).toBeFalsy()
@@ -66,14 +66,14 @@ describe('Landing', () => {
   it('should show footer if enabled', () => {
     mockBuildConfig(true)
     const { getByText } = renderLanding()
-    expect(getByText('cityNotFound')).toBeTruthy()
+    expect(getByText('regionNotFound')).toBeTruthy()
     expect(getByText('suggestToRegion')).toBeTruthy()
   })
 
   it('should not show footer if disabled', () => {
     mockBuildConfig(false)
     const { queryByText } = renderLanding()
-    expect(queryByText('cityNotFound')).toBeNull()
+    expect(queryByText('regionNotFound')).toBeNull()
   })
 
   it('should navigate to suggestToRegion page on button click', () => {

@@ -3,11 +3,11 @@ import React, { ReactElement, useCallback } from 'react'
 import { EVENTS_ROUTE, EventsRouteType } from 'shared'
 
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
-import useCityAppContext from '../hooks/useCityAppContext'
 import useHeader from '../hooks/useHeader'
-import useLoadCityContent from '../hooks/useLoadCityContent'
+import useLoadRegionContent from '../hooks/useLoadRegionContent'
 import useNavigate from '../hooks/useNavigate'
 import usePreviousProp from '../hooks/usePreviousProp'
+import useRegionAppContext from '../hooks/useRegionAppContext'
 import urlFromRouteInformation from '../utils/url'
 import Events from './Events'
 import LoadingErrorHandler from './LoadingErrorHandler'
@@ -19,10 +19,10 @@ type EventsContainerProps = {
 
 const EventsContainer = ({ navigation, route }: EventsContainerProps): ReactElement => {
   const { slug } = route.params
-  const { cityCode, languageCode } = useCityAppContext()
+  const { regionCode, languageCode } = useRegionAppContext()
   const { navigateTo } = useNavigate()
 
-  const { data, ...response } = useLoadCityContent({ cityCode, languageCode })
+  const { data, ...response } = useLoadRegionContent({ regionCode, languageCode })
 
   const currentEvent = slug ? data?.events.find(it => it.slug === slug) : undefined
   const availableLanguages = currentEvent
@@ -32,7 +32,7 @@ const EventsContainer = ({ navigation, route }: EventsContainerProps): ReactElem
   const shareUrl = urlFromRouteInformation({
     route: EVENTS_ROUTE,
     languageCode,
-    cityCode,
+    regionCode,
     slug,
   })
   useHeader({ navigation, route, availableLanguages, data, shareUrl })
@@ -54,7 +54,7 @@ const EventsContainer = ({ navigation, route }: EventsContainerProps): ReactElem
         <Events
           slug={slug}
           events={data.events}
-          cityModel={data.city}
+          regionModel={data.region}
           language={languageCode}
           navigateTo={navigateTo}
           refresh={response.refresh}

@@ -10,22 +10,22 @@ import { JsonCategoryType } from '../types'
 
 export const CATEGORIES_ENDPOINT_NAME = 'categories'
 type ParamsType = {
-  city: string
+  region: string
   language: string
 }
 export default (baseUrl: string): Endpoint<ParamsType, CategoriesMapModel> =>
   new EndpointBuilder<ParamsType, CategoriesMapModel>(CATEGORIES_ENDPOINT_NAME)
     .withParamsToUrlMapper(
-      (params: ParamsType): string => `${baseUrl}/api/${API_VERSION}/${params.city}/${params.language}/pages/`,
+      (params: ParamsType): string => `${baseUrl}/api/${API_VERSION}/${params.region}/${params.language}/pages/`,
     )
     .withMapper((json: JsonCategoryType[], params: ParamsType): CategoriesMapModel => {
-      const basePath = `/${params.city}/${params.language}`
+      const basePath = `/${params.region}/${params.language}`
       const categories = json.map(category => mapCategoryJson(category, basePath))
       categories.push(
         new CategoryModel({
           root: true,
           path: basePath,
-          title: params.city,
+          title: params.region,
           parentPath: '',
           content: '',
           thumbnail: '',

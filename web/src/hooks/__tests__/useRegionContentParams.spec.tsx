@@ -1,0 +1,46 @@
+import { RenderResult } from '@testing-library/react'
+import React, { ReactElement } from 'react'
+
+import { CATEGORIES_ROUTE, IMPRINT_ROUTE, EVENTS_ROUTE, NEWS_ROUTE, POIS_ROUTE } from 'shared'
+
+import { renderAllRoutes } from '../../testing/render'
+import useRegionContentParams from '../useRegionContentParams'
+
+describe('useRegionContentParams', () => {
+  const RegionContentMockComponent = (): ReactElement => {
+    const { route, languageCode, regionCode } = useRegionContentParams()
+    return (
+      <div>
+        <div>{route}</div>
+        <div>{languageCode}</div>
+        <div>{regionCode}</div>
+      </div>
+    )
+  }
+
+  const renderRoute = (path: string): RenderResult =>
+    renderAllRoutes(path, {
+      RegionContentElement: <RegionContentMockComponent />,
+    })
+
+  it('should correctly get language and region code from path', () => {
+    const { getByText } = renderRoute('/augsburg/de/willkommen/hallo')
+    expect(getByText('de')).toBeDefined()
+    expect(getByText('augsburg')).toBeDefined()
+  })
+
+  it.each`
+    path                               | route
+    ${'/augsburg/de'}                  | ${CATEGORIES_ROUTE}
+    ${'/augsburg/de/willkommen/hallo'} | ${CATEGORIES_ROUTE}
+    ${'/augsburg/de/events'}           | ${EVENTS_ROUTE}
+    ${'/augsburg/de/locations'}        | ${POIS_ROUTE}
+    ${'/augsburg/de/imprint'}          | ${IMPRINT_ROUTE}
+    ${'/augsburg/de/news'}             | ${NEWS_ROUTE}
+    ${'/augsburg/de/news/local'}       | ${NEWS_ROUTE}
+    ${'/augsburg/de/news/tu-news'}     | ${NEWS_ROUTE}
+  `('should return correct route $route', ({ path, route }) => {
+    const { getByText } = renderRoute(path)
+    expect(getByText(route)).toBeDefined()
+  })
+})

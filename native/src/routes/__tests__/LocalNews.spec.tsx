@@ -3,7 +3,7 @@ import { DateTime } from 'luxon'
 import React from 'react'
 
 import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NewsRouteType } from 'shared'
-import { LanguageModelBuilder, CategoriesMapModelBuilder, CityModelBuilder, LocalNewsModel } from 'shared/api'
+import { LanguageModelBuilder, CategoriesMapModelBuilder, RegionModelBuilder, LocalNewsModel } from 'shared/api'
 
 import useNavigate from '../../hooks/useNavigate'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
@@ -33,17 +33,17 @@ const news: [LocalNewsModel, LocalNewsModel] = [
   }),
 ]
 
-const cities = new CityModelBuilder(3).build()
-const city = cities[0]!
+const regions = new RegionModelBuilder(3).build()
+const region = regions[0]!
 const languages = new LanguageModelBuilder(3).build()
 const language = languages[0]!
 
 const data = {
-  cities,
+  regions,
   languages,
-  city,
+  region,
   language,
-  categories: new CategoriesMapModelBuilder(city.code, language.code).build(),
+  categories: new CategoriesMapModelBuilder(region.code, language.code).build(),
   events: [],
   pois: [],
   localNews: news,

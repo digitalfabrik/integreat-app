@@ -2,7 +2,7 @@ import { fireEvent } from '@testing-library/react'
 import React from 'react'
 
 import { pathnameFromRouteInformation, POIS_ROUTE, queryStringFromRouteInformation } from 'shared'
-import { CityModelBuilder, PoiModelBuilder } from 'shared/api'
+import { RegionModelBuilder, PoiModelBuilder } from 'shared/api'
 
 import { RoutePatterns } from '../../routes'
 import { renderRoute } from '../../testing/render'
@@ -17,7 +17,7 @@ describe('Pois', () => {
   const poi0 = pois[0]!
   const poi1 = pois[1]!
   const poi2 = pois[2]!
-  const city = new CityModelBuilder(1).build()[0]!
+  const region = new RegionModelBuilder(1).build()[0]!
 
   const renderPois = ({
     slug = undefined,
@@ -31,7 +31,7 @@ describe('Pois', () => {
     loading?: boolean
   }) => {
     const routeInformation = {
-      cityCode: city.code,
+      regionCode: region.code,
       languageCode: 'de',
       route: POIS_ROUTE,
       multipoi,
@@ -40,8 +40,8 @@ describe('Pois', () => {
     }
     const pathname = pathnameFromRouteInformation(routeInformation)
     const query = queryStringFromRouteInformation(routeInformation)
-    return renderRoute(<Pois pois={pois} userLocation={null} city={city} loading={loading} />, {
-      routePattern: `/:cityCode/:languageCode/${RoutePatterns[POIS_ROUTE]}`,
+    return renderRoute(<Pois pois={pois} userLocation={null} region={region} loading={loading} />, {
+      routePattern: `/:regionCode/:languageCode/${RoutePatterns[POIS_ROUTE]}`,
       childPattern: ':slug',
       pathname,
       searchParams: query,

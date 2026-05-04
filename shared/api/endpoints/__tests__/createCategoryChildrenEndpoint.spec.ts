@@ -14,27 +14,27 @@ describe('createCategoryChildrenEndpoint', () => {
   const baseUrl = 'https://example.com'
   const json = ['myFirstCategory', 'mySecondCategory']
   const params = {
-    city: 'augsburg',
+    region: 'augsburg',
     language: 'fa',
-    cityContentPath: '/augsburg/fa/erste-schritte/%d10%86%d9%82%d8%b4%d9%87-%d8%b4%d9%87%d8%b1/',
+    regionContentPath: '/augsburg/fa/erste-schritte/%d10%86%d9%82%d8%b4%d9%87-%d8%b4%d9%87%d8%b1/',
     depth: 1,
   }
   const endpoint = createCategoryChildrenEndpoint(baseUrl)
 
   it('should map params to url', () => {
     expect(endpoint.mapParamsToUrl(params)).toBe(
-      `${baseUrl}/api/${API_VERSION}/${params.city}/${params.language}/children/?depth=1&url=${params.cityContentPath}`,
+      `${baseUrl}/api/${API_VERSION}/${params.region}/${params.language}/children/?depth=1&url=${params.regionContentPath}`,
     )
   })
 
   it('should map params to url for root category', () => {
-    expect(endpoint.mapParamsToUrl({ ...params, cityContentPath: '/augsburg/fa', depth: 0 })).toBe(
-      `${baseUrl}/api/${API_VERSION}/${params.city}/${params.language}/children/?depth=0`,
+    expect(endpoint.mapParamsToUrl({ ...params, regionContentPath: '/augsburg/fa', depth: 0 })).toBe(
+      `${baseUrl}/api/${API_VERSION}/${params.region}/${params.language}/children/?depth=0`,
     )
   })
 
   it('should map json to category', () => {
-    const children = new CategoriesMapModelBuilder(params.city, params.language).build().toArray()
+    const children = new CategoriesMapModelBuilder(params.region, params.language).build().toArray()
 
     mocked(mapCategoryJson)
       .mockImplementationOnce(() => children[0]!)
@@ -42,7 +42,7 @@ describe('createCategoryChildrenEndpoint', () => {
 
     expect(endpoint.mapResponse(json, params)).toEqual(children.slice(0, 2))
     expect(mapCategoryJson).toHaveBeenCalledTimes(2)
-    expect(mapCategoryJson).toHaveBeenCalledWith('myFirstCategory', `/${params.city}/${params.language}`)
-    expect(mapCategoryJson).toHaveBeenCalledWith('mySecondCategory', `/${params.city}/${params.language}`)
+    expect(mapCategoryJson).toHaveBeenCalledWith('myFirstCategory', `/${params.region}/${params.language}`)
+    expect(mapCategoryJson).toHaveBeenCalledWith('mySecondCategory', `/${params.region}/${params.language}`)
   })
 })

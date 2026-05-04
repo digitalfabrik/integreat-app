@@ -11,7 +11,7 @@ import styled, { useTheme } from 'styled-components/native'
 import { LocationType } from 'shared'
 import { ErrorCode, PoiModel } from 'shared/api'
 
-import useCityAppContext from '../hooks/useCityAppContext'
+import useRegionAppContext from '../hooks/useRegionAppContext'
 import BottomSheetHandle from './BottomSheetHandle'
 import Failure from './Failure'
 import PoiDetails from './PoiDetails'
@@ -70,7 +70,7 @@ const PoisBottomSheet = ({
   setScrollPosition,
   isFullscreen,
 }: PoiBottomSheetProps): ReactElement | null => {
-  const { languageCode } = useCityAppContext()
+  const { languageCode } = useRegionAppContext()
   const { t } = useTranslation('pois')
   const theme = useTheme()
   const bottomSheetRef = useRef<BottomSheet>(null)

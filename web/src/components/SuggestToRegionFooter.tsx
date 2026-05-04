@@ -26,7 +26,7 @@ const SuggestToRegionFooter = ({ languageCode }: SuggestToRegionFooterProps): Re
   return (
     <Stack alignItems='center' padding={2} gap={2}>
       <Svg src={featureFlag.icon} width={160} height={160} />
-      <Typography variant='body1'>{t('cityNotFound')}</Typography>
+      <Typography variant='body1'>{t('regionNotFound')}</Typography>
       <Button
         component={Link}
         to={pathnameFromRouteInformation({ route: SUGGEST_TO_REGION_ROUTE, ...{ languageCode } })}
