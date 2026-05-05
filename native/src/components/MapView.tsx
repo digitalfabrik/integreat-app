@@ -152,11 +152,12 @@ const MapView = ({
       currentPosition?.coords == null ? null : [currentPosition.coords.longitude, currentPosition.coords.latitude]
     const newUserLocation = currentUserLocation ?? userLocation ?? (await refreshPermissionAndLocation())?.coordinates
     if (newUserLocation) {
+      selectFeature(null)
       setUserLocation(newUserLocation)
       moveTo(newUserLocation)
       setFollowUserLocation(true)
     }
-  }, [currentPosition, refreshPermissionAndLocation, moveTo, setUserLocation, userLocation])
+  }, [currentPosition, refreshPermissionAndLocation, moveTo, setUserLocation, userLocation, selectFeature])
 
   // Recenter on the selected marker.
   useEffect(() => {
