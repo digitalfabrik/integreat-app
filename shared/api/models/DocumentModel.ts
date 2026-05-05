@@ -1,8 +1,9 @@
 import { decodeHTML } from 'entities'
 import { DateTime } from 'luxon'
 
-import { getSlugFromPath } from '../../utils'
 import normalizePath from '../../utils/normalizePath'
+
+export const getSlugFromPath = (path: string): string => path.split('/').pop() ?? ''
 
 class DocumentModel {
   _path: string

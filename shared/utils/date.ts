@@ -1,8 +1,5 @@
 import { DateTime, DateTimeFormatOptions } from 'luxon'
 
-import { DateModel } from '../api'
-import { TranslateFunction } from '../api/models/DateModel'
-
 export const getWeekdayFromIndex = (index: number, locale: string): string => {
   // Use a day that we know to be a Monday, add ${index} days to it, then return that day's weekday translation
   const baseMonday = DateTime.fromObject({ day: 22, month: 9, year: 2025 })
@@ -10,9 +7,16 @@ export const getWeekdayFromIndex = (index: number, locale: string): string => {
   return weekday.toLocaleString({ weekday: 'long' }, { locale })
 }
 
+export type TranslateFunction = (key: string, options?: Record<string, unknown>) => string
+
+type DateType = {
+  startDate: DateTime
+  endDate: DateTime | null
+  allDay: boolean
+}
 const timeFormat: DateTimeFormatOptions = { hour: 'numeric', minute: '2-digit' }
 
-export const formatTime = (locale: string, date: DateModel, t: TranslateFunction): string => {
+export const formatTime = (locale: string, date: DateType, t: TranslateFunction): string => {
   const startTime = date.startDate.toLocaleString(timeFormat, { locale })
 
   const startIsSameAsEnd =
@@ -29,3 +33,9 @@ export const formatTime = (locale: string, date: DateModel, t: TranslateFunction
     .toLocaleString(timeFormat, { locale })
   return date.allDay ? t('pois:allDay') : `${startTime} - ${endTime}`
 }
+
+export const formatDateICal = (date: DateTime): string =>
+  // DateTime.toFormat() does not respect the locale settings on some devices
+  // Therefore hackily convert an ISO date to ICal format
+  // https://github.com/digitalfabrik/integreat-app/pull/3158#pullrequestreview-2935063754
+  date.toISO().replace(/-/g, '').replace(/:/g, '').replace(/\..*/, '')

@@ -2,6 +2,7 @@ import { DateTime } from 'luxon'
 
 import { CategoriesMapModelBuilder } from '../../api'
 import CategoryModel from '../../api/models/CategoryModel'
+import { getSlugFromPath } from '../../api/models/DocumentModel'
 import OfferModel from '../../api/models/OfferModel'
 import TileModel from '../../models/TileModel'
 import {
@@ -9,7 +10,6 @@ import {
   formatDateICal,
   getGenericLanguageCode,
   getCategoryTiles,
-  getSlugFromPath,
   safeParseInt,
   segmentText,
 } from '../index'
