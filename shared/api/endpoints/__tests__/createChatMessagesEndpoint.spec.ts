@@ -5,14 +5,14 @@ import createChatMessagesEndpoint from '../createChatMessagesEndpoint'
 describe('createChatMessagesEndpoint', () => {
   const baseUrl = 'https://example.com'
   const params = {
-    cityCode: 'augsburg',
+    regionCode: 'augsburg',
     language: 'fa',
     deviceId: '23123-dsasd1-2dsa12',
   }
   const endpoint = createChatMessagesEndpoint(baseUrl)
   it('should map params to url', () => {
     expect(endpoint.mapParamsToUrl(params)).toBe(
-      `${baseUrl}/api/${API_VERSION}/${params.cityCode}/${params.language}/chat/${params.deviceId}/`,
+      `${baseUrl}/api/${API_VERSION}/${params.regionCode}/${params.language}/chat/${params.deviceId}/`,
     )
   })
 

@@ -1,4 +1,4 @@
-import { augsburgCity, defaultCity, filter } from '../../../shared/constants.js'
+import { augsburgRegion, defaultRegion, filter } from '../../../shared/constants.js'
 import Keyboard from '../helpers/Keyboard.js'
 import { Selector } from '../helpers/Selector.js'
 import DashboardPage from '../pageobjects/dashboard.page.js'
@@ -6,30 +6,30 @@ import LandingPage from '../pageobjects/landing.page.js'
 import { allowNotifications } from '../utils/deviceUtils.js'
 
 describe('navigate to other location', () => {
-  it('should open a city on location selection', async () => {
+  it('should open a region on location selection', async () => {
     await allowNotifications()
     const landingPage = LandingPage
     await landingPage.get()
 
-    const cities = LandingPage.cities
+    const regions = LandingPage.regions
     const search = LandingPage.search
 
-    expect(await cities.length).toBeGreaterThan(0)
+    expect(await regions.length).toBeGreaterThan(0)
     await search.waitForDisplayed()
     await search.click()
     await search.addValue(filter)
 
     await Keyboard.hide()
-    const filteredCity = await LandingPage.city(defaultCity)
+    const filteredRegion = await LandingPage.region(defaultRegion)
 
     // navigate to dashboard
-    await filteredCity.waitForDisplayed({ timeout: 20000 })
-    await filteredCity.click()
+    await filteredRegion.waitForDisplayed({ timeout: 20000 })
+    await filteredRegion.click()
 
     await DashboardPage.get()
   })
 
-  it('should open a new city on location change', async () => {
+  it('should open a new region on location change', async () => {
     await DashboardPage.headerOverflowButton.waitForDisplayed({ timeout: 20000 })
     await DashboardPage.headerOverflowButton.click()
     const changeLocation = $(new Selector().ByText('Change location').build())
@@ -39,9 +39,9 @@ describe('navigate to other location', () => {
     await LandingPage.get()
 
     await Keyboard.hide()
-    const newCity = await LandingPage.city(augsburgCity)
-    await newCity.waitForDisplayed()
-    await newCity.click()
+    const newRegion = await LandingPage.region(augsburgRegion)
+    await newRegion.waitForDisplayed()
+    await newRegion.click()
 
     await browser.waitUntil(async () => $(`~Dashboard-Page`).isDisplayed(), { timeout: 20000 })
     await DashboardPage.get()

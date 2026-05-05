@@ -1,0 +1,86 @@
+import CommentIcon from '@mui/icons-material/CommentOutlined'
+import ContrastIcon from '@mui/icons-material/Contrast'
+import { useTheme } from '@mui/material/styles'
+import React, { ReactElement, useContext, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+
+import { NEWS_ROUTE, CATEGORIES_ROUTE } from 'shared'
+import { CategoryModel } from 'shared/api'
+
+import { ReadAloudIcon } from '../assets'
+import useRegionContentParams from '../hooks/useRegionContentParams'
+import FeedbackContainer from './FeedbackContainer'
+import HeaderMenu, { MenuRef } from './HeaderMenu'
+import MenuItem from './MenuItem'
+import PdfMenuItem from './PdfMenuItem'
+import { TtsContext } from './TtsContainer'
+import Dialog from './base/Dialog'
+import Svg from './base/Svg'
+
+type RegionContentMenuProps = {
+  slug?: string
+  category?: CategoryModel
+  pageTitle: string | null
+  fitScreen?: boolean
+}
+
+const RegionContentMenu = ({ slug, category, pageTitle, fitScreen }: RegionContentMenuProps): ReactElement => {
+  const { route, regionCode, languageCode } = useRegionContentParams()
+  const { showTtsPlayer, canRead } = useContext(TtsContext)
+  const { toggleTheme, dimensions } = useTheme()
+  const { t } = useTranslation('layout')
+  const ref = useRef<MenuRef>(null)
+
+  const [feedbackOpen, setFeedbackOpen] = useState(false)
+  const [feedbackSubmitted, setFeedbackSubmitted] = useState(false)
+  const showFeedback = fitScreen || (dimensions.mobile && route !== NEWS_ROUTE)
+  const closeMenu = ref.current?.closeMenu
+
+  const items = [
+    route === CATEGORIES_ROUTE ? (
+      <PdfMenuItem
+        key='pdf'
+        category={category}
+        regionCode={regionCode}
+        languageCode={languageCode}
+        closeMenu={closeMenu}
+      />
+    ) : null,
+    showFeedback ? (
+      <MenuItem
+        key='feedback'
+        text={t('feedback')}
+        icon={<CommentIcon fontSize='small' />}
+        onClick={() => setFeedbackOpen(true)}
+        closeMenu={closeMenu}
+      />
+    ) : null,
+    <MenuItem key='theme' text={t('contrastTheme')} icon={<ContrastIcon fontSize='small' />} onClick={toggleTheme} />,
+    <MenuItem
+      key='tts'
+      icon={<Svg src={ReadAloudIcon} width={20} height={20} />}
+      disabled={!canRead}
+      text={t('readAloud')}
+      tooltip={canRead ? null : t('nothingToReadFullMessage')}
+      onClick={showTtsPlayer}
+      closeMenu={closeMenu}
+    />,
+  ]
+
+  return (
+    <>
+      <HeaderMenu pageTitle={pageTitle} fitScreen={fitScreen} ref={ref}>
+        {items}
+      </HeaderMenu>
+      {feedbackOpen && (
+        <Dialog
+          title={feedbackSubmitted ? t('feedback:thanksHeadline') : t('feedback:headline')}
+          close={() => setFeedbackOpen(false)}>
+          <FeedbackContainer onSubmit={() => setFeedbackSubmitted(true)} slug={slug} initialRating={null} />
+        </Dialog>
+      )}
+    </>
+  )
+}
+
+export default RegionContentMenu

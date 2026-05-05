@@ -6,13 +6,13 @@ import { useParams } from 'react-router'
 import { TU_NEWS_TYPE, tunewsLabel } from 'shared'
 import { createTunewsElementEndpoint, NotFoundError, useLoadFromEndpoint } from 'shared/api'
 
-import { CityRouteProps } from '../CityContentNavigator'
+import { RegionRouteProps } from '../RegionContentNavigator'
 import { TuNewsActiveIcon } from '../assets'
-import CityContentLayout, { CityContentLayoutProps } from '../components/CityContentLayout'
-import CityContentToolbar from '../components/CityContentToolbar'
 import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Helmet from '../components/Helmet'
 import Page from '../components/Page'
+import RegionContentLayout, { RegionContentLayoutProps } from '../components/RegionContentLayout'
+import RegionContentToolbar from '../components/RegionContentToolbar'
 import SkeletonPage from '../components/SkeletonPage'
 import Svg from '../components/base/Svg'
 import { tunewsApiBaseUrl } from '../constants/urls'
@@ -32,7 +32,7 @@ const IconContainer = styled(Stack)(({ theme }) => ({
   shapeRendering: 'crispEdges',
 }))
 
-const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteProps): ReactElement | null => {
+const TuNewsDetailPage = ({ region, pathname, regionCode, languageCode }: RegionRouteProps): ReactElement | null => {
   // This component is only opened when there is a news ID in the route
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const newsId = useParams().newsId!
@@ -43,25 +43,25 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
 
   useTtsPlayer(newsModel, languageCode)
 
-  if (!city) {
+  if (!region) {
     return null
   }
 
-  const pageTitle = `${newsModel?.title ?? tunewsLabel} - ${city.name}`
+  const pageTitle = `${newsModel?.title ?? tunewsLabel} - ${region.name}`
 
   // Language change is not possible between tuNews detail views because we don't know the id of other languages
-  const languageChangePaths = city.languages.map(({ code, name }) => ({
+  const languageChangePaths = region.languages.map(({ code, name }) => ({
     path: code === languageCode ? pathname : null,
     name,
     code,
   }))
 
-  const locationLayoutParams: Omit<CityContentLayoutProps, 'isLoading'> = {
-    city,
+  const locationLayoutParams: Omit<RegionContentLayoutProps, 'isLoading'> = {
+    region,
     languageChangePaths,
     languageCode,
     pageTitle,
-    Toolbar: <CityContentToolbar />,
+    Toolbar: <RegionContentToolbar />,
   }
 
   if (newsError) {
@@ -70,21 +70,21 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
         ? new NotFoundError({
             type: TU_NEWS_TYPE,
             id: pathname,
-            city: cityCode,
+            region: regionCode,
             language: languageCode,
           })
         : newsError
 
     return (
-      <CityContentLayout isLoading={false} {...locationLayoutParams}>
+      <RegionContentLayout isLoading={false} {...locationLayoutParams}>
         <FailureSwitcherWithHelmet error={error} />
-      </CityContentLayout>
+      </RegionContentLayout>
     )
   }
 
   return (
-    <CityContentLayout isLoading={false} {...locationLayoutParams}>
-      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} cityModel={city} />
+    <RegionContentLayout isLoading={false} {...locationLayoutParams}>
+      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} regionModel={region} />
       <TuNewsBanner>
         <IconContainer width={180} height='100%'>
           <Svg src={TuNewsActiveIcon} width='100%' height='100%' />
@@ -100,7 +100,7 @@ const TuNewsDetailPage = ({ city, pathname, cityCode, languageCode }: CityRouteP
           showLastUpdateText={false}
         />
       )}
-    </CityContentLayout>
+    </RegionContentLayout>
   )
 }
 

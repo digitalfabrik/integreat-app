@@ -9,7 +9,7 @@ import { LocalNewsModel, TunewsModel } from 'shared/api'
 
 import { EXCERPT_MAX_LINES } from '../constants'
 import { contentAlignmentRTLText, contentDirection } from '../constants/contentDirection'
-import { useAppContext } from '../hooks/useCityAppContext'
+import { useAppContext } from '../hooks/useRegionAppContext'
 import TimeStamp from './TimeStamp'
 import Text from './base/Text'
 

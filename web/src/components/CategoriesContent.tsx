@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { getCategoryTiles } from 'shared'
 import { CategoriesMapModel, CategoryModel } from 'shared/api'
 
-import { CityRouteProps } from '../CityContentNavigator'
+import { RegionRouteProps } from '../RegionContentNavigator'
 import CategoryListItem from './CategoryListItem'
 import EmbeddedOffers from './EmbeddedOffers'
 import OrganizationContentInfo from './OrganizationContentInfo'
@@ -15,14 +15,14 @@ import List from './base/List'
 type CategoriesContentProps = {
   categories: CategoriesMapModel
   categoryModel: CategoryModel
-} & CityRouteProps
+} & RegionRouteProps
 
 const CategoriesContent = ({
   categories,
   categoryModel,
-  city,
+  region,
   pathname,
-  cityCode,
+  regionCode,
   languageCode,
 }: CategoriesContentProps): ReactElement => {
   const children = categories.getChildren(categoryModel)
@@ -40,9 +40,9 @@ const CategoriesContent = ({
         Footer={
           <EmbeddedOffers
             category={categoryModel}
-            city={city}
+            region={region}
             pathname={pathname}
-            cityCode={cityCode}
+            regionCode={regionCode}
             languageCode={languageCode}
           />
         }
@@ -51,7 +51,7 @@ const CategoriesContent = ({
   }
 
   if (categoryModel.isRoot()) {
-    return <Tiles tiles={getCategoryTiles({ categories: children, cityCode })} title={t('localInformation')} />
+    return <Tiles tiles={getCategoryTiles({ categories: children, regionCode })} title={t('localInformation')} />
   }
 
   return (

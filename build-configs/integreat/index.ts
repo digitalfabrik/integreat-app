@@ -34,7 +34,7 @@ const commonIntegreatBuildConfig: CommonBuildConfigType = {
     introSlides: true,
     sentry: true,
     developerFriendly: false,
-    fixedCity: null,
+    fixedRegion: null,
     suggestToRegion: {
       template: suggestToRegionTemplate,
       icon: '/suggest-to-region.svg',
@@ -52,6 +52,7 @@ const commonIntegreatBuildConfig: CommonBuildConfigType = {
   accessibilityUrls: {
     default: 'https://integreat-app.de/barrierefreiheit/',
   },
+  mainImprint,
 }
 export const androidIntegreatBuildConfig: AndroidBuildConfigType = {
   ...commonIntegreatBuildConfig,
@@ -91,7 +92,6 @@ export const iosIntegreatBuildConfig: IosBuildConfigType = {
 export const webIntegreatBuildConfig: WebBuildConfigType = {
   ...commonIntegreatBuildConfig,
   appDescription: 'Integreat – die lokale und mehrsprachige Integrations-Plattform für Zugewanderte',
-  mainImprint,
   manifestUrl: '/manifest.json',
   icons: {
     appLogo: '/app-logo.svg',

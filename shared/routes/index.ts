@@ -92,4 +92,10 @@ export const RESERVED_TOP_LEVEL_SLUGS: string[] = [
 
 // Changes done to the reserved routes have to be done in the CMS as well:
 // https://github.com/digitalfabrik/integreat-cms/blob/main/integreat_cms/core/settings.py#L80-L88
-export const RESERVED_CITY_CONTENT_SLUGS: string[] = [SEARCH_ROUTE, IMPRINT_ROUTE, EVENTS_ROUTE, NEWS_ROUTE, POIS_ROUTE]
+export const RESERVED_REGION_CONTENT_SLUGS: string[] = [
+  SEARCH_ROUTE,
+  IMPRINT_ROUTE,
+  EVENTS_ROUTE,
+  NEWS_ROUTE,
+  POIS_ROUTE,
+]

@@ -20,7 +20,7 @@ export const TU_NEWS_ROUTE = TU_NEWS_TYPE
 export const TU_NEWS_DETAIL_ROUTE = `${TU_NEWS_ROUTE}-detail` as const
 
 const languageCodePattern = ':languageCode'
-export const cityContentPattern = `/:cityCode/${languageCodePattern}/*`
+export const regionContentPattern = `/:regionCode/${languageCodePattern}/*`
 export const RoutePatterns = {
   [LANDING_ROUTE]: `/${LANDING_ROUTE}/${languageCodePattern}`,
   [SUGGEST_TO_REGION_ROUTE]: `/${SUGGEST_TO_REGION_ROUTE}/${languageCodePattern}`,
@@ -29,7 +29,7 @@ export const RoutePatterns = {
   [LICENSES_ROUTE]: `/${LICENSES_ROUTE}/${languageCodePattern}`,
   [CONSENT_ROUTE]: `/${CONSENT_ROUTE}/${languageCodePattern}`,
 
-  // City content routes, relative to /:cityCode/:languageCode
+  // Region content routes, relative to /:regionCode/:languageCode
   [EVENTS_ROUTE]: EVENTS_ROUTE,
   [POIS_ROUTE]: POIS_ROUTE,
   [LOCAL_NEWS_ROUTE]: `${NEWS_ROUTE}/${LOCAL_NEWS_ROUTE}`,

@@ -68,7 +68,7 @@ type SubmitHelpFormParams = {
   pageTitle: string
   email?: string
   telephone?: string
-  cityCode: string
+  regionCode: string
   malteHelpFormOffer: OfferModel
 } & Omit<BuildHelpFormBodyParams, 'additionalContactInformation'>
 
@@ -105,7 +105,7 @@ const fingerprint = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASw'
 const submitMalteHelpForm = async ({
   pageTitle,
   url,
-  cityCode,
+  regionCode,
   malteHelpFormOffer,
   name,
   email,
@@ -142,7 +142,7 @@ const submitMalteHelpForm = async ({
         comment,
         additionalContactInformation,
       }),
-      title: `${pageTitle} - ${cityCode}`,
+      title: `${pageTitle} - ${regionCode}`,
       fingerprint,
       token: config.token,
     }),

@@ -15,7 +15,7 @@ const commonMalteTestCmsBuildConfig: CommonBuildConfigType = {
     introSlides: true,
     sentry: false,
     developerFriendly: true,
-    fixedCity: null,
+    fixedRegion: null,
     suggestToRegion: null,
     chat: false,
   },

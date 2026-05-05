@@ -41,7 +41,7 @@ const Failure = ({ code, buttonAction, buttonLabel }: FailureProps): ReactElemen
   return (
     <ViewContainer>
       <Icon size={150} source={ErrorIcon} />
-      <Text style={{ margin: 12 }}>{t(code === ErrorCode.CityUnavailable ? 'notFound.city' : code)}</Text>
+      <Text style={{ margin: 12 }}>{t(code === ErrorCode.RegionUnavailable ? 'notFound.region' : code)}</Text>
       {buttonAction && (
         <Button mode='contained' onPress={buttonAction}>
           {t(buttonLabel ?? 'tryAgain')}

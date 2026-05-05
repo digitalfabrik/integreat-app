@@ -14,7 +14,7 @@ import { JsonEventType } from '../types'
 
 export const EVENTS_ENDPOINT_NAME = 'events'
 type ParamsType = {
-  city: string
+  region: string
   language: string
 }
 
@@ -46,7 +46,7 @@ export default (baseUrl: string): Endpoint<ParamsType, EventModel[]> =>
   new EndpointBuilder<ParamsType, EventModel[]>(EVENTS_ENDPOINT_NAME)
     .withParamsToUrlMapper(
       (params: ParamsType): string =>
-        `${baseUrl}/api/${API_VERSION}/${params.city}/${params.language}/events/?combine_recurring=True`,
+        `${baseUrl}/api/${API_VERSION}/${params.region}/${params.language}/events/?combine_recurring=True`,
     )
     .withMapper((json: JsonEventType[]): EventModel[] =>
       json

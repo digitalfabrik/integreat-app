@@ -9,30 +9,30 @@ import { JsonCategoryType } from '../types'
 
 export const CATEGORY_PARENTS_ENDPOINT_NAME = 'categoryParents'
 type ParamsType = {
-  city: string
+  region: string
   language: string
-  cityContentPath: string
+  regionContentPath: string
 }
 export default (baseUrl: string): Endpoint<ParamsType, CategoryModel[]> =>
   new EndpointBuilder<ParamsType, CategoryModel[]>(CATEGORY_PARENTS_ENDPOINT_NAME)
     .withParamsToUrlMapper((params: ParamsType): string => {
-      const { city, language, cityContentPath } = params
-      const basePath = `/${city}/${language}`
+      const { region, language, regionContentPath } = params
+      const basePath = `/${region}/${language}`
 
-      if (basePath === cityContentPath) {
+      if (basePath === regionContentPath) {
         throw new Error('This endpoint does not support the root category!')
       }
 
-      return `${baseUrl}/api/${API_VERSION}/${city}/${language}/parents/?url=${cityContentPath}`
+      return `${baseUrl}/api/${API_VERSION}/${region}/${language}/parents/?url=${regionContentPath}`
     })
     .withMapper((json: JsonCategoryType[], params: ParamsType): CategoryModel[] => {
-      const basePath = `/${params.city}/${params.language}`
+      const basePath = `/${params.region}/${params.language}`
       const parents = json.map(category => mapCategoryJson(category, basePath))
       parents.push(
         new CategoryModel({
           root: true,
           path: basePath,
-          title: params.city,
+          title: params.region,
           parentPath: '',
           content: '',
           thumbnail: '',

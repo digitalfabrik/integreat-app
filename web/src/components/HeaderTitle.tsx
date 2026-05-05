@@ -34,7 +34,7 @@ const HeaderTitle = ({ title, landingPath }: HeaderTitleProps): ReactElement => 
   const variant = title.length >= LONG_TITLE_LENGTH && xsmall ? 'subtitle2' : 'subtitle1'
   const [tooltipOpen, setTooltipOpen] = useState(false)
 
-  if (featureFlags.fixedCity) {
+  if (featureFlags.fixedRegion) {
     return (
       <StyledTitle variant={variant} alignContent='center'>
         {title}

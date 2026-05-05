@@ -11,7 +11,6 @@ import NativeConstants from '../constants/NativeConstants'
 import { NavigationProps } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import { AppContextType } from '../contexts/AppContextProvider'
-import urlFromRouteInformation from '../navigation/url'
 import { SettingsType } from './AppSettings'
 import { requestPushNotificationPermission, subscribeNews, unsubscribeNews } from './PushNotificationsManager'
 import openExternalUrl from './openExternalUrl'
@@ -41,7 +40,7 @@ type CreateSettingsSectionsProps = {
 }
 
 const createSettingsSections = ({
-  appContext: { settings, updateSettings, cityCode, languageCode },
+  appContext: { settings, updateSettings, regionCode, languageCode },
   navigation,
   showSnackbar,
   t,
@@ -53,11 +52,11 @@ const createSettingsSections = ({
     onPress: async () => {
       const newAllowPushNotifications = !settings.allowPushNotifications
       updateSettings({ allowPushNotifications: newAllowPushNotifications })
-      if (!cityCode) {
+      if (!regionCode) {
         return
       }
       if (!newAllowPushNotifications) {
-        await unsubscribeNews(cityCode, languageCode)
+        await unsubscribeNews(regionCode, languageCode)
         return
       }
 
@@ -65,7 +64,7 @@ const createSettingsSections = ({
 
       if (status) {
         await subscribeNews({
-          cityCode,
+          regionCode,
           languageCode,
           allowPushNotifications: newAllowPushNotifications,
           skipSettingsCheck: true,
@@ -116,10 +115,7 @@ const createSettingsSections = ({
   {
     role: 'link',
     title: t('layout:imprint'),
-    onPress: async () =>
-      settings.selectedCity
-        ? navigation.navigate(IMPRINT_ROUTE)
-        : openExternalUrl(urlFromRouteInformation({ route: MAIN_IMPRINT_ROUTE }), showSnackbar),
+    onPress: () => navigation.navigate(settings.selectedCity ? IMPRINT_ROUTE : MAIN_IMPRINT_ROUTE),
   },
   {
     role: 'link',

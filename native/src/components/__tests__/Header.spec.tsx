@@ -13,7 +13,7 @@ import {
   PoisRouteType,
   SEARCH_ROUTE,
 } from 'shared'
-import { LanguageModelBuilder, CityModelBuilder, LanguageModel } from 'shared/api'
+import { LanguageModelBuilder, RegionModelBuilder, LanguageModel } from 'shared/api'
 
 import { RouteProps } from '../../constants/NavigationTypes'
 import useSnackbar from '../../hooks/useSnackbar'
@@ -51,8 +51,8 @@ describe('Header', () => {
   spy.mockImplementation(jest.fn())
 
   const t = (key: string) => key
-  const cityModels = new CityModelBuilder(1).build()
-  const cityModel = cityModels[0]!
+  const regionModels = new RegionModelBuilder(1).build()
+  const regionModel = regionModels[0]!
   const languageModels = new LanguageModelBuilder(3).build()
   const languageModel = languageModels[0]!
   const defaultAvailableLanguages = ['de', 'en']
@@ -96,7 +96,7 @@ describe('Header', () => {
     route?: RouteProps<CategoriesRouteType | PoisRouteType | ImprintRouteType | NewsRouteType>
   }) =>
     render(
-      <TestingAppContext cityCode={cityModel.code} languageCode={languageModel.code}>
+      <TestingAppContext regionCode={regionModel.code} languageCode={languageModel.code}>
         <Header
           navigation={navigation}
           route={route}
@@ -104,7 +104,7 @@ describe('Header', () => {
           languages={languages}
           shareUrl={shareUrl}
           showItems={showItems}
-          cityName={cityModel.name}
+          regionName={regionModel.name}
         />
       </TestingAppContext>,
     )
@@ -223,7 +223,7 @@ describe('Header', () => {
     })
   })
 
-  it('should remove the page title in the share message if it equals the city name', () => {
+  it('should remove the page title in the share message if it equals the region name', () => {
     const openURL = jest.fn()
     const spy = jest.spyOn(Linking, 'openURL')
     spy.mockImplementation(openURL)
