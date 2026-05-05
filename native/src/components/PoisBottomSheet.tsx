@@ -3,9 +3,9 @@ import BottomSheet, {
   BottomSheetFlatListMethods,
   BottomSheetScrollView,
 } from '@gorhom/bottom-sheet'
-import React, { memo, ReactElement, Ref, useCallback, useRef } from 'react'
+import React, { memo, ReactElement, Ref, useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { NativeScrollEvent, NativeSyntheticEvent, View } from 'react-native'
+import { AppState, AppStateStatus, NativeScrollEvent, NativeSyntheticEvent, View } from 'react-native'
 import styled, { useTheme } from 'styled-components/native'
 
 import { LocationType } from 'shared'
@@ -74,6 +74,7 @@ const PoisBottomSheet = ({
   const { t } = useTranslation('pois')
   const theme = useTheme()
   const bottomSheetRef = useRef<BottomSheet>(null)
+  const [remountKey, setRemountKey] = useState(0)
 
   const handlePoiFocus = useCallback(() => {
     if (!isFullscreen && bottomSheetRef.current) {
@@ -86,6 +87,18 @@ const PoisBottomSheet = ({
     selectPoi(poi)
     bottomSheetRef.current?.snapToIndex(1)
   }
+
+  // Workaround for bottomSheet gets hidden after permissions dialog on Android so we force remounting after app comes back to foreground.
+  // reanimated's shared values gets affected by the permissions dialog (UI thread is stopped when the permission dialog is displayed).
+  useEffect(() => {
+    const handleAppStateChange = (nextAppState: AppStateStatus) => {
+      if (nextAppState === 'active') {
+        setRemountKey(prev => prev + 1)
+      }
+    }
+    const subscription = AppState.addEventListener('change', handleAppStateChange)
+    return () => subscription.remove()
+  }, [])
 
   const PoiDetail = poi ? (
     <PoiDetails
@@ -111,6 +124,7 @@ const PoisBottomSheet = ({
 
   return (
     <StyledBottomSheet
+      key={remountKey}
       ref={bottomSheetRef}
       accessibilityLabel=''
       index={snapPointIndex}
