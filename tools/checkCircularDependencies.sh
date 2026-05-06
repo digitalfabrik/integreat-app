@@ -6,13 +6,13 @@
 #               chains are always listed in this mode.
 #
 # Usage:
-#   bash checkCircularDependencies.sh [--current] [--verbose] [error_limit] [entry_point]
+#   bash checkCircularDependencies.sh [--current] [--verbose] [--limit N] [entry_point]
 #
 # Examples:
 #   bash checkCircularDependencies.sh                    # all workspaces, fail if any cycles
 #   bash checkCircularDependencies.sh verbose            # all workspaces, list chains
 #   bash checkCircularDependencies.sh --current          # current workspace, default entry
-#   bash checkCircularDependencies.sh --current 0 ./index.ts
+#   bash checkCircularDependencies.sh --current --limit 5 ./index.ts
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
@@ -25,21 +25,20 @@ fi
 
 mode="all"
 verbose=false
-positional=()
+error_limit=0
+entry_point=./src/index.tsx
 
 while [ $# -gt 0 ]; do
     case "$1" in
         --current|-c) mode="current"; shift ;;
         --verbose|-v|verbose) verbose=true; shift ;;
+        --limit) error_limit="$2"; shift 2 ;;
         --help|-h)
             sed -n '2,15p' "$0" | sed 's/^# \{0,1\}//'
             exit 0 ;;
-        *) positional+=("$1"); shift ;;
+        *) entry_point="$1"; shift ;;
     esac
 done
-
-error_limit=${positional[0]:-0}
-entry_point=${positional[1]:-./src/index.tsx}
 exit_code=0
 
 check_workspace() {
