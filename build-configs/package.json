@@ -16,6 +16,7 @@
   },
   "scripts": {
     "ts:check": "tsc --build",
-    "lint": "eslint --cache --cache-location ../.eslintcache ."
+    "lint": "eslint --cache --cache-location ../.eslintcache .",
+    "check-circular-dependencies": "../tools/checkCircularDependencies.sh --current ./index.ts"
   }
 }

@@ -14,7 +14,8 @@
     "import:ods:override-aschaffenburg": "./tools/ods-to-csv aschaffenburg-ods aschaffenburg-csv && yarn manage convert aschaffenburg-csv override-translations/aschaffenburg.json json && rm -rf aschaffenburg-csv",
     "test": "jest --config jest.config.ts",
     "lint": "eslint --cache --cache-location ../.eslintcache .",
-    "ts:check": "tsc --build"
+    "ts:check": "tsc --build",
+    "check-circular-dependencies": "../tools/checkCircularDependencies.sh --current ./src/index.ts"
   },
   "dependencies": {
     "deepmerge-ts": "^7.1.5"

@@ -1,7 +1,7 @@
 #!/bin/bash
 # Checks circular dependencies via madge.
 #
-# Default mode: check the web, native and shared workspaces.
+# Default mode: check the web, native, shared, translations and build-configs workspaces.
 # --current:    check only the current workspace (cwd). The dependency
 #               chains are always listed in this mode.
 #
@@ -98,6 +98,10 @@ else
     check_workspace "$PROJECT_ROOT/native" ./src/index.tsx "native" "\.\.\/shared\/"
     echo ""
     check_workspace "$PROJECT_ROOT/shared" ./index.ts "shared"
+    echo ""
+    check_workspace "$PROJECT_ROOT/translations" ./src/index.ts "translations"
+    echo ""
+    check_workspace "$PROJECT_ROOT/build-configs" ./index.ts "build-configs"
 fi
 
 exit $exit_code
