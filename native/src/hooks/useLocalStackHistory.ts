@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useFocusEffect } from '@react-navigation/native'
+import { useCallback, useState } from 'react'
 import { BackHandler } from 'react-native'
 
 import usePreviousProp from './usePreviousProp'
@@ -41,20 +42,22 @@ const useLocalStackHistory = <S extends {}, T>({
 
   const reset = useCallback((newHistory?: T[]) => setHistory(newHistory ?? [resetHistory]), [resetHistory])
 
-  useEffect(
-    () =>
-      BackHandler.addEventListener('hardwareBackPress', () => {
-        if (history.length > 1) {
-          pop()
-          // Prevent navigating back
-          return true
-        }
-        // Reset the local pois history on back navigation to start with the pois list next time
-        reset()
-        // Navigate back
-        return false
-      }).remove,
-    [history, pop, reset],
+  useFocusEffect(
+    useCallback(
+      () =>
+        BackHandler.addEventListener('hardwareBackPress', () => {
+          if (history.length > 1) {
+            pop()
+            // Prevent navigating back
+            return true
+          }
+          // Reset the local pois history on back navigation to start with the pois list next time
+          reset()
+          // Navigate back
+          return false
+        }).remove,
+      [history, pop, reset],
+    ),
   )
 
   // When linking to this tab reset the history to the linked params to allow for consistent back navigation

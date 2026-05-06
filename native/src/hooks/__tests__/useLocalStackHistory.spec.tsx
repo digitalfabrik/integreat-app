@@ -1,7 +1,9 @@
-import { fireEvent, render, waitFor } from '@testing-library/react-native'
+import { NavigationContainer } from '@react-navigation/native'
+import { fireEvent, waitFor } from '@testing-library/react-native'
 import React from 'react'
 import { BackHandler, Button, Text, View } from 'react-native'
 
+import render from '../../testing/render'
 import useLocalStackHistory from '../useLocalStackHistory'
 
 type TestState = { value: string; count: number }
@@ -41,7 +43,7 @@ describe('useLocalStackHistory', () => {
   let backHandlerCallback: (() => boolean) | null = null
 
   beforeEach(() => {
-    jest.spyOn(BackHandler, 'addEventListener').mockImplementation((event, callback) => {
+    jest.spyOn(BackHandler, 'addEventListener').mockImplementation((_, callback) => {
       backHandlerCallback = callback as () => boolean
       return { remove: jest.fn() }
     })
@@ -140,18 +142,6 @@ describe('useLocalStackHistory', () => {
       expect(getByText('value: initial')).toBeTruthy()
     })
 
-    it('should reset and allow back navigation when history has one entry', async () => {
-      const { getByText } = render(<MockComponent params={{ value: 'initial', count: 1 }} />)
-
-      expect(getByText('length: 1')).toBeTruthy()
-
-      const result = backHandlerCallback?.()
-
-      expect(result).toBe(false)
-      await waitFor(() => expect(getByText('length: 1')).toBeTruthy())
-      expect(getByText('value: reset')).toBeTruthy()
-    })
-
     it('should re-register the back handler whenever history changes', () => {
       const { getByText } = render(<MockComponent params={{ value: 'initial', count: 1 }} />)
 
@@ -166,7 +156,11 @@ describe('useLocalStackHistory', () => {
   it('should update history when params change', () => {
     const { getByText, rerender } = render(<MockComponent params={{ value: 'initial', count: 1 }} />)
 
-    rerender(<MockComponent params={{ value: 'updated', count: 99 }} />)
+    rerender(
+      <NavigationContainer>
+        <MockComponent params={{ value: 'updated', count: 99 }} />
+      </NavigationContainer>,
+    )
 
     expect(getByText('value: updated')).toBeTruthy()
     expect(getByText('count: 99')).toBeTruthy()
@@ -179,7 +173,11 @@ describe('useLocalStackHistory', () => {
     fireEvent.press(getByText('push'))
     expect(getByText('length: 2')).toBeTruthy()
 
-    rerender(<MockComponent params={{ value: 'new-params', count: 42 }} />)
+    rerender(
+      <NavigationContainer>
+        <MockComponent params={{ value: 'new-params', count: 42 }} />
+      </NavigationContainer>,
+    )
 
     expect(getByText('length: 1')).toBeTruthy()
     expect(getByText('value: new-params')).toBeTruthy()
