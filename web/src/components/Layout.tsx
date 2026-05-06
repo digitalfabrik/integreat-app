@@ -3,7 +3,7 @@ import Stack from '@mui/material/Stack'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode } from 'react'
 
-import { LAYOUT_ELEMENT_ID, MAIN_ELEMENT_ID } from '../constants/dimensions'
+import { LAYOUT_ELEMENT_ID, MAIN_ELEMENT_ID } from '../constants/layout'
 import useDimensions from '../hooks/useDimensions'
 import MobileBanner from './MobileBanner'
 import SkipToContent from './SkipToContent'

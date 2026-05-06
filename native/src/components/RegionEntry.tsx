@@ -6,7 +6,7 @@ import styled, { useTheme } from 'styled-components/native'
 import { normalizeString } from 'shared'
 import { RegionModel } from 'shared/api'
 
-import { AppContext } from '../contexts/AppContextProvider'
+import { AppContext } from '../contexts/AppContext'
 import testID from '../testing/testID'
 import Highlighter from './Highlighter'
 import Text from './base/Text'

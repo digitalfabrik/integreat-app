@@ -8,7 +8,8 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { LAYOUT_ELEMENT_ID } from '../../constants/dimensions'
+import { LAYOUT_ELEMENT_ID } from '../../constants/layout'
+import useDimensions from '../../hooks/useDimensions'
 
 const StyledMuiDialog = styled(MuiDialog)(({ theme }) => ({
   [`.${dialogClasses.paper}`]: {
@@ -22,7 +23,7 @@ const StyledMuiDialog = styled(MuiDialog)(({ theme }) => ({
 
 type DialogProps = {
   title: string
-  actions?: ReactElement | null
+  actions: ReactElement
   close: () => void
   children: ReactElement | ReactElement[]
   className?: string
@@ -30,6 +31,7 @@ type DialogProps = {
 
 const AlertDialog = ({ title, close, children, className, actions }: DialogProps): ReactElement => {
   const { t } = useTranslation('layout')
+  const { desktop } = useDimensions()
 
   // This is necessary to ensure the theme is correctly applied to the drawer content
   const dialogContainer = document.getElementById(LAYOUT_ELEMENT_ID)
@@ -40,9 +42,11 @@ const AlertDialog = ({ title, close, children, className, actions }: DialogProps
         <DialogTitle component='h2' variant='h4' textOverflow='ellipsis' whiteSpace='nowrap' overflow='hidden'>
           {title}
         </DialogTitle>
-        <IconButton aria-label={t('common:close')} onClick={close}>
-          <CloseIcon />
-        </IconButton>
+        {desktop && (
+          <IconButton aria-label={t('common:close')} onClick={close}>
+            <CloseIcon />
+          </IconButton>
+        )}
       </Stack>
       <DialogContent>{children}</DialogContent>
       {actions}

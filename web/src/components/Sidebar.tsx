@@ -8,7 +8,7 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { LAYOUT_ELEMENT_ID } from '../constants/dimensions'
+import { LAYOUT_ELEMENT_ID } from '../constants/layout'
 import useDimensions from '../hooks/useDimensions'
 import useLockedBody from '../hooks/useLockedBody'
 

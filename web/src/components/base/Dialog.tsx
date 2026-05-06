@@ -9,7 +9,7 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { LAYOUT_ELEMENT_ID } from '../../constants/dimensions'
+import { LAYOUT_ELEMENT_ID } from '../../constants/layout'
 import useDimensions from '../../hooks/useDimensions'
 
 export const DirectionDependentBackIcon = styled(ArrowBackIcon)(({ theme }) => ({

@@ -7,14 +7,8 @@ import buildConfig from '../constants/buildConfig'
 import { LanguageResourceCacheStateType } from './DataContainer'
 import dataContainer from './DefaultDataContainer'
 import FetcherModule, { TargetFilePathsType } from './FetcherModule'
-import ResourceURLFinder from './ResourceURLFinder'
+import ResourceURLFinder, { FetchMapTargetType } from './ResourceURLFinder'
 import buildResourceFilePath from './buildResourceFilePath'
-
-type FetchMapTargetType = {
-  url: string
-  filePath: string
-  urlHash: string
-}
 
 const loadResourceCache = async ({
   regionCode,
