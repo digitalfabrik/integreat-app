@@ -43,10 +43,10 @@ jest.mock('../components/RedirectContainer', () => {
 
   return () => <Text>Redirect</Text>
 })
-jest.mock('../routes/Landing', () => {
+jest.mock('../routes/Regions', () => {
   const { Text } = require('react-native-paper')
 
-  return () => <Text>Landing</Text>
+  return () => <Text>Regions</Text>
 })
 jest.mock('../routes/Settings', () => {
   const { Text } = require('react-native-paper')
@@ -178,18 +178,18 @@ describe('Navigator', () => {
     await findByText('News')
   })
 
-  it('should display landing if the selected region is not available anymore', async () => {
+  it('should display regions if the selected region is not available anymore', async () => {
     const { findByText } = renderNavigator({ regionCode: 'disabledRegion', introShown: true })
-    await findByText('Landing')
+    await findByText('Regions')
     expect(changeRegionCode).toHaveBeenCalledTimes(1)
     expect(changeRegionCode).toHaveBeenCalledWith(null)
     expect(dataContainer.deleteRegion).toHaveBeenCalledTimes(1)
     expect(dataContainer.deleteRegion).toHaveBeenCalledWith('disabledRegion')
   })
 
-  it('should display Landing if no region is selected in settings and intro was shown', async () => {
+  it('should display Regions if no region is selected in settings and intro was shown', async () => {
     const { findByText } = renderNavigator({ introShown: true })
-    await findByText('Landing')
+    await findByText('Regions')
   })
 
   it('should display Intro if intro was not shown yet', async () => {

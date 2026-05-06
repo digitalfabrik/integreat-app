@@ -17,11 +17,11 @@ const Container = styled.View`
   align-items: center;
 `
 
-type LandingIconProps = {
+type RegionsIconProps = {
   clearResourcesAndCache: () => void
 }
 
-const SwitchCmsUrlIcon = ({ clearResourcesAndCache }: LandingIconProps): ReactElement => {
+const SwitchCmsUrlIcon = ({ clearResourcesAndCache }: RegionsIconProps): ReactElement => {
   const [clickCount, setClickCount] = useState(0)
   const [clickStart, setClickStart] = useState<null | DateTime>(null)
   const { settings, updateSettings } = useAppContext()

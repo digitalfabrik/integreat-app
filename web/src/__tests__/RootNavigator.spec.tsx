@@ -50,7 +50,7 @@ describe('RootNavigator', () => {
     jest.clearAllMocks()
   })
 
-  it('should render the landing page', async () => {
+  it('should render the regions page', async () => {
     mockUseLoadFromEndpointOnceWithData(regions)
 
     const { getByText } = renderRootNavigator('/landing/de')

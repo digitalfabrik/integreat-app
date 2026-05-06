@@ -4,7 +4,7 @@ import Stack from '@mui/material/Stack'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode } from 'react'
 
-import { LANDING_ROUTE, pathnameFromRouteInformation } from 'shared'
+import { REGIONS_ROUTE, pathnameFromRouteInformation } from 'shared'
 
 import useElementRect from '../hooks/useElementRect'
 import useUpdateDimensions from '../hooks/useUpdateDimensions'
@@ -77,7 +77,7 @@ export const Header = ({
   useUpdateDimensions()
 
   const height = headerRect?.height ?? 0
-  const landingPath = pathnameFromRouteInformation({ route: LANDING_ROUTE, languageCode: language })
+  const regionsPath = pathnameFromRouteInformation({ route: REGIONS_ROUTE, languageCode: language })
 
   return (
     <Headroom scrollHeight={HEADER_HEIGHT} height={height} zIndex={2} onStickyTopChanged={onStickyTopChanged}>
@@ -86,7 +86,7 @@ export const Header = ({
           <Row>
             <Stack direction='row-reverse' alignItems='center' gap={1}>
               <HeaderLogo link={logoHref} />
-              {!!regionName && <HeaderTitle title={regionName} landingPath={landingPath} />}
+              {!!regionName && <HeaderTitle title={regionName} regionsPath={regionsPath} />}
             </Stack>
             <ActionBar>{actionItems}</ActionBar>
           </Row>

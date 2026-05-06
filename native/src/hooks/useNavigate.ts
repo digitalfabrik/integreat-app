@@ -9,7 +9,7 @@ import {
   CONSENT_ROUTE,
   IMPRINT_ROUTE,
   EVENTS_ROUTE,
-  LANDING_ROUTE,
+  REGIONS_ROUTE,
   LICENSES_ROUTE,
   MAIN_IMPRINT_ROUTE,
   NEWS_ROUTE,
@@ -45,7 +45,7 @@ const navigate = <T extends RoutesType>(
   if (
     route === LICENSES_ROUTE ||
     route === CONSENT_ROUTE ||
-    route === LANDING_ROUTE ||
+    route === REGIONS_ROUTE ||
     route === SUGGEST_TO_REGION_ROUTE
   ) {
     navigate(route)

@@ -1,14 +1,14 @@
 import { fireEvent, RenderAPI } from '@testing-library/react-native'
 import React from 'react'
 
-import { SUGGEST_TO_REGION_ROUTE, LandingRouteType } from 'shared'
+import { SUGGEST_TO_REGION_ROUTE, RegionsRouteType } from 'shared'
 import RegionModelBuilder from 'shared/api/endpoints/testing/RegionModelBuilder'
 
 import buildConfig from '../../constants/buildConfig'
 import useLoadRegions from '../../hooks/useLoadRegions'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
-import Landing from '../Landing'
+import Regions from '../Regions'
 
 jest.mock('../../components/NearbyRegions', () => {
   const { Text } = require('react-native-paper')
@@ -18,7 +18,7 @@ jest.mock('react-i18next')
 jest.mock('styled-components')
 jest.mock('../../hooks/useLoadRegions')
 
-describe('Landing', () => {
+describe('Regions', () => {
   const { mocked } = jest
   const regions = new RegionModelBuilder(6).build()
 
@@ -33,7 +33,7 @@ describe('Landing', () => {
     }))
   })
 
-  const navigation = createNavigationScreenPropMock<LandingRouteType>()
+  const navigation = createNavigationScreenPropMock<RegionsRouteType>()
 
   const mockedBuildConfig = mocked(buildConfig)
   const mockBuildConfig = (suggestToRegion: boolean) => {
@@ -47,10 +47,10 @@ describe('Landing', () => {
     }))
   }
 
-  const renderLanding = (): RenderAPI => render(<Landing navigation={navigation} />)
+  const renderRegions = (): RenderAPI => render(<Regions navigation={navigation} />)
 
   it('should show live regions', () => {
-    const { getByText, queryByText } = renderLanding()
+    const { getByText, queryByText } = renderRegions()
 
     expect(getByText('NearbyRegions')).toBeTruthy()
 
@@ -65,20 +65,20 @@ describe('Landing', () => {
 
   it('should show footer if enabled', () => {
     mockBuildConfig(true)
-    const { getByText } = renderLanding()
+    const { getByText } = renderRegions()
     expect(getByText('regionNotFound')).toBeTruthy()
     expect(getByText('suggestToRegion')).toBeTruthy()
   })
 
   it('should not show footer if disabled', () => {
     mockBuildConfig(false)
-    const { queryByText } = renderLanding()
+    const { queryByText } = renderRegions()
     expect(queryByText('regionNotFound')).toBeNull()
   })
 
   it('should navigate to suggestToRegion page on button click', () => {
     mockBuildConfig(true)
-    const { getByText } = renderLanding()
+    const { getByText } = renderRegions()
     const button = getByText('suggestToRegion')
     fireEvent.press(button)
     expect(navigation.navigate).toHaveBeenCalledWith(SUGGEST_TO_REGION_ROUTE)
