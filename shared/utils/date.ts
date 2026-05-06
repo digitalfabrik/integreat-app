@@ -9,12 +9,13 @@ export const getWeekdayFromIndex = (index: number, locale: string): string => {
 
 export type TranslateFunction = (key: string, options?: Record<string, unknown>) => string
 
+const timeFormat: DateTimeFormatOptions = { hour: 'numeric', minute: '2-digit' }
+
 type DateType = {
   startDate: DateTime
   endDate: DateTime | null
   allDay: boolean
 }
-const timeFormat: DateTimeFormatOptions = { hour: 'numeric', minute: '2-digit' }
 
 export const formatTime = (locale: string, date: DateType, t: TranslateFunction): string => {
   const startTime = date.startDate.toLocaleString(timeFormat, { locale })
