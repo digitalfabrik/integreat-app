@@ -42,21 +42,17 @@ const SelectorItem = ({
     />
   )
 
-  if (enabled || selected) {
-    return (
-      <TouchableRipple
-        borderless
-        key={code}
-        onPress={onPress}
-        accessibilityLabel={accessibilityLabel ?? name}
-        role='button'
-        style={{ width: '100%' }}>
-        {item}
-      </TouchableRipple>
-    )
-  }
-
-  return item
+  return (
+    <TouchableRipple
+      borderless
+      key={code}
+      onPress={onPress}
+      accessibilityLabel={accessibilityLabel ?? name}
+      role='button'
+      style={{ width: '100%' }}>
+      {item}
+    </TouchableRipple>
+  )
 }
 
 export default SelectorItem

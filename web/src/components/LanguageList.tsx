@@ -1,9 +1,10 @@
 import Autocomplete from '@mui/material/Autocomplete'
+import Button from '@mui/material/Button'
 import List from '@mui/material/List'
 import Stack from '@mui/material/Stack'
 import TextField from '@mui/material/TextField'
 import { styled } from '@mui/material/styles'
-import React, { ReactElement, useMemo, useState } from 'react'
+import React, { Fragment, ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { normalizeString } from 'shared'
@@ -25,6 +26,11 @@ const StyledTextField = styled(TextField)({
   legend: {
     letterSpacing: 0,
   },
+})
+
+const StyledUnavailableLanguageButton = styled(Button)({
+  margin: '2px 8px',
+  textTransform: 'none',
 })
 
 export type LanguageChangePath = {
@@ -50,12 +56,24 @@ export const filterLanguageChangePath = (
   )
 }
 
+type UnavailableLanguageButtonProps = {
+  onClick?: () => void
+  label: string
+}
+
+const UnavailableLanguageButton = ({ onClick, label }: UnavailableLanguageButtonProps): ReactElement => (
+  <StyledUnavailableLanguageButton variant='outlined' onClick={onClick}>
+    {label}
+  </StyledUnavailableLanguageButton>
+)
+
 type LanguageListProps = {
   languageChangePaths: LanguageChangePath[]
   languageCode: string
   close?: () => void
   availableOnly?: boolean
   asList?: boolean
+  onUnavailableLanguageClick?: () => void
 }
 
 const LanguageList = ({
@@ -64,48 +82,40 @@ const LanguageList = ({
   close,
   availableOnly = false,
   asList = false,
+  onUnavailableLanguageClick,
 }: LanguageListProps): ReactElement => {
   const [query, setQuery] = useState('')
   const { t } = useTranslation('layout')
   const { mobile } = useDimensions()
 
-  const allOptions = useMemo(
-    () => languageChangePaths.filter(item => !availableOnly || !!item.path),
-    [languageChangePaths, availableOnly],
-  )
+  const allOptions = languageChangePaths.filter(item => !availableOnly || !!item.path)
 
   const currentLanguage = allOptions.find(item => item.code === languageCode)
 
-  const filteredLanguageChangePaths = useMemo(() => {
-    const languageNamesInCurrentLanguage = new Intl.DisplayNames([languageCode], { type: 'language' })
-    const languageNamesInFallbackLanguage = new Intl.DisplayNames([config.sourceLanguage], { type: 'language' })
-    return languageChangePaths.filter(item =>
-      filterLanguageChangePath(item, query, languageNamesInCurrentLanguage, languageNamesInFallbackLanguage),
-    )
-  }, [languageChangePaths, query, languageCode])
+  const languageNamesInCurrentLanguage = new Intl.DisplayNames([languageCode], { type: 'language' })
+  const languageNamesInFallbackLanguage = new Intl.DisplayNames([config.sourceLanguage], { type: 'language' })
+  const filteredLanguageChangePaths = languageChangePaths.filter(item =>
+    filterLanguageChangePath(item, query, languageNamesInCurrentLanguage, languageNamesInFallbackLanguage),
+  )
 
   if (mobile || asList) {
     return (
       <Stack gap={2}>
         <SearchInput placeholderText={currentLanguage?.name ?? ''} filterText={query} onFilterTextChange={setQuery} />
-        <>
-          {filteredLanguageChangePaths.length === 0 ? (
-            t('noLanguageFound')
-          ) : (
-            <List disablePadding>
-              {filteredLanguageChangePaths.map(language => (
-                <LanguageListItem
-                  key={language.code}
-                  code={language.code}
-                  path={language.path}
-                  name={language.name}
-                  close={close}
-                  selectedLanguageCode={currentLanguage?.code}
-                />
-              ))}
-            </List>
-          )}
-        </>
+        <List disablePadding>
+          {filteredLanguageChangePaths.map(language => (
+            <LanguageListItem
+              key={language.code}
+              code={language.code}
+              path={language.path}
+              name={language.name}
+              close={close}
+              selectedLanguageCode={currentLanguage?.code}
+              onUnavailableLanguageClick={onUnavailableLanguageClick}
+            />
+          ))}
+        </List>
+        <UnavailableLanguageButton onClick={onUnavailableLanguageClick} label={t('languageNotFoundQuestion')} />
       </Stack>
     )
   }
@@ -123,17 +133,25 @@ const LanguageList = ({
       onInputChange={(_, value) => setQuery(value)}
       forcePopupIcon={false}
       getOptionLabel={option => option.name}
-      renderOption={(_, language) => (
-        <LanguageListItem
-          code={language.code}
-          path={language.path}
-          name={language.name}
-          close={close}
-          selectedLanguageCode={currentLanguage?.code}
-          key={language.code}
-        />
+      renderOption={(_, language, { index }) => (
+        <Fragment key={language.code}>
+          <LanguageListItem
+            code={language.code}
+            path={language.path}
+            name={language.name}
+            close={close}
+            selectedLanguageCode={currentLanguage?.code}
+            onUnavailableLanguageClick={onUnavailableLanguageClick}
+            key={language.code}
+          />
+          {index === filteredLanguageChangePaths.length - 1 && (
+            <UnavailableLanguageButton onClick={onUnavailableLanguageClick} label={t('languageNotFoundQuestion')} />
+          )}
+        </Fragment>
       )}
-      noOptionsText={t('noLanguageFound')}
+      noOptionsText={
+        <UnavailableLanguageButton onClick={onUnavailableLanguageClick} label={t('languageNotFoundQuestion')} />
+      }
       disablePortal
       slotProps={{
         popper: {

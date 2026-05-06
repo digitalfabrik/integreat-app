@@ -19,14 +19,4 @@ describe('SelectorItem', () => {
 
     expect(onPress).toHaveBeenCalledTimes(1)
   })
-
-  it('should not call onPress if disabled', () => {
-    const onPress = jest.fn()
-    const model = new SelectorItemModel({ name: 'Espanol', code: 'es', enabled: false, onPress })
-    const { getByText } = render(<SelectorItem model={model} selected={false} />)
-
-    fireEvent.press(getByText(model.name))
-
-    expect(onPress).not.toHaveBeenCalled()
-  })
 })
