@@ -53,16 +53,18 @@ describe('RootNavigator', () => {
   it('should render the regions page', async () => {
     mockUseLoadFromEndpointOnceWithData(regions)
 
-    const { getByText } = renderRootNavigator('/landing/de')
+    const { getByText } = renderRootNavigator('/regions/de')
 
-    await waitFor(() => expect(getByText('/landing/de')).toBeTruthy())
+    await waitFor(() => expect(getByText('/regions/de')).toBeTruthy())
   })
 
   describe('redirects', () => {
     it.each`
       from                          | to
-      ${'/'}                        | ${'/landing/de'}
-      ${'/landing'}                 | ${'/landing/de'}
+      ${'/'}                        | ${'/regions/de'}
+      ${'/regions'}                 | ${'/regions/de'}
+      ${'/landing'}                 | ${'/regions/de'}
+      ${'/landing/de'}              | ${'/regions/de'}
       ${'/augsburg'}                | ${'/augsburg/de'}
       ${'/augsburg/de'}             | ${'/augsburg/de'}
       ${'/augsburg/events'}         | ${'/augsburg/de/events'}
@@ -93,7 +95,9 @@ describe('RootNavigator', () => {
       it.each`
         from                     | to
         ${'/'}                   | ${'/augsburg/de'}
+        ${'/regions'}            | ${'/augsburg/de'}
         ${'/landing'}            | ${'/augsburg/de'}
+        ${'/landing/de'}         | ${'/augsburg/de'}
         ${'/augsburg'}           | ${'/augsburg/de'}
         ${'/augsburg/de'}        | ${'/augsburg/de'}
         ${'/oldtown'}            | ${'/augsburg/de'}

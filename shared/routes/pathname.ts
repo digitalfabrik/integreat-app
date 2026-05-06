@@ -64,6 +64,6 @@ export const pathnameFromRouteInformation = (routeInformation: NonNullableRouteI
     const newsId = routeInformation.route === NEWS_ROUTE ? routeInformation.newsId : null
     return constructPathname([regionCode, languageCode, routeInformation.route, newsType, newsId?.toString()])
   }
-  // https://integreat.app/landing/de
+  // https://integreat.app/regions/de
   return constructPathname([REGIONS_ROUTE, routeInformation.languageCode])
 }

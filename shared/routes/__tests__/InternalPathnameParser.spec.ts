@@ -8,6 +8,7 @@ import {
   POIS_ROUTE,
   SEARCH_ROUTE,
   TU_NEWS_TYPE,
+  LEGACY_REGIONS_ROUTE,
 } from '..'
 
 import InternalPathnameParser from '../InternalPathnameParser'
@@ -33,8 +34,24 @@ describe('InternalPathnameParser', () => {
     })
   })
 
+  it('should match regions route if pathname is legacy regions without a language', () => {
+    const parser = new InternalPathnameParser(`/${LEGACY_REGIONS_ROUTE}`, languageCode, null)
+    expect(parser.route()).toEqual({
+      route: REGIONS_ROUTE,
+      languageCode,
+    })
+  })
+
   it('should match regions route if pathname is regions with a language', () => {
     const parser = new InternalPathnameParser(`/${REGIONS_ROUTE}/ar`, languageCode, null)
+    expect(parser.route()).toEqual({
+      route: REGIONS_ROUTE,
+      languageCode: 'ar',
+    })
+  })
+
+  it('should match regions route if pathname is legacy regions with a language', () => {
+    const parser = new InternalPathnameParser(`/${LEGACY_REGIONS_ROUTE}/ar`, languageCode, null)
     expect(parser.route()).toEqual({
       route: REGIONS_ROUTE,
       languageCode: 'ar',

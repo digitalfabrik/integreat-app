@@ -76,10 +76,11 @@ const RootNavigator = ({ setContentLanguage }: RootNavigatorProps): ReactElement
 
       {/* Redirects */}
       <Route path='/' element={<Navigate to={fixedRegionPath ?? regionsPath} replace />} />
+      <Route path='/landing/*' element={<Navigate to={`/${REGIONS_ROUTE}`} replace />} />
       {!!fixedRegionPath && (
         <Route path={RoutePatterns[REGIONS_ROUTE]} element={<Navigate to={fixedRegionPath} replace />} />
       )}
-      {/* also handles redirects from /landing to /landing/de */}
+      {/* Also handles redirects from /regions to /regions/de */}
       <Route path='/:regionCode' element={<Navigate to={fixedRegionPath ?? language} replace />} />
 
       {/* Language independent urls */}

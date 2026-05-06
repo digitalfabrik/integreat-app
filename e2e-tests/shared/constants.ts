@@ -7,7 +7,7 @@ export const language = 'en'
 const defaultRegionCode = 'testumgebung-e2e'
 
 export const Routes = {
-  regions: `landing/${language}`,
+  regions: `regions/${language}`,
   dashboard: `${defaultRegionCode}/${language}`,
   dashboardAugsburg: `augsburg/${language}`,
   search: `${defaultRegionCode}/${language}/search`,

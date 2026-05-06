@@ -10,6 +10,7 @@ import {
   RESERVED_REGION_CONTENT_SLUGS,
   SEARCH_ROUTE,
   TU_NEWS_TYPE,
+  LEGACY_REGIONS_ROUTE,
 } from '.'
 
 import normalizePath from '../utils/normalizePath'
@@ -47,6 +48,8 @@ class InternalPathnameParser {
 
   isFixedRegion = (): boolean => !!this._fixedRegion && this._length >= 1 && this._parts[0] === this._fixedRegion
 
+  isRegionsRoute = (): boolean => this._parts[0] === REGIONS_ROUTE || this._parts[0] === LEGACY_REGIONS_ROUTE
+
   isRegionContentFeatureRoute = (feature: string): boolean => this._length > 2 && this._parts[2] === feature
 
   languageCode = (): string => this._parts[1] ?? this._fallbackLanguageCode
@@ -57,8 +60,8 @@ class InternalPathnameParser {
       return null
     }
 
-    if (this._length === 0 || this._parts[0] === REGIONS_ROUTE) {
-      // '/', '/landing' or '/landing/de'
+    if (this._length === 0 || this.isRegionsRoute()) {
+      // '/', '/regions' or '/regions/de'
       return {
         route: REGIONS_ROUTE,
         languageCode: this.languageCode(),
@@ -72,8 +75,8 @@ class InternalPathnameParser {
     const fixedRegion = this._fixedRegion
 
     if (fixedRegion) {
-      // '/', '/landing', '/abapp' or '/abapp/'de'
-      if (this._length <= 2 && (this._length === 0 || this.isFixedRegion() || this._parts[0] === REGIONS_ROUTE)) {
+      // '/', '/regions', '/abapp' or '/abapp/'de'
+      if (this._length <= 2 && (this._length === 0 || this.isFixedRegion() || this.isRegionsRoute())) {
         const regionContentPath = `/${fixedRegion}/${this.languageCode()}`
         return {
           route: CATEGORIES_ROUTE,
@@ -82,7 +85,7 @@ class InternalPathnameParser {
           regionContentPath,
         }
       }
-    } else if (this._length > 0 && this._length <= 2 && this._parts[0] !== REGIONS_ROUTE) {
+    } else if (this._length > 0 && this._length <= 2 && !this.isRegionsRoute()) {
       const regionCode = this._parts[0]!
       // '/ansbach/de', '/ansbach'
       const regionContentPath = `/${regionCode}/${this.languageCode()}`
