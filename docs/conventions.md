@@ -74,7 +74,7 @@ Install prerequisite:
 
 Check for circular dependencies:
 
-> yarn check-circular-deps
+> yarn check-circular-dependencies
 
 ### IntelliJ Code Snippets
 
