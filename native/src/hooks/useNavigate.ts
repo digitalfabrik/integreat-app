@@ -20,7 +20,7 @@ import {
 
 import { SnackbarType } from '../components/SnackbarContainer'
 import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
-import { AppContext } from '../contexts/AppContextProvider'
+import { AppContext } from '../contexts/AppContext'
 import { navigateNested } from '../utils/navigation'
 import openExternalUrl from '../utils/openExternalUrl'
 import { reportError } from '../utils/sentry'

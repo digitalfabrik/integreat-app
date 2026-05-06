@@ -9,7 +9,7 @@ import LanguageNotAvailablePage from '../components/LanguageNotAvailablePage'
 import Layout from '../components/Layout'
 import LayoutedScrollView from '../components/LayoutedScrollView'
 import ProgressSpinner from '../components/ProgressSpinner'
-import { AppContext } from '../contexts/AppContextProvider'
+import { AppContext } from '../contexts/AppContext'
 import useNavigate from '../hooks/useNavigate'
 
 // A waiting time of >=1s feels like an interruption

@@ -6,6 +6,8 @@ import {
   onMessage,
   onNotificationOpenedApp,
   setBackgroundMessageHandler,
+  subscribeToTopic,
+  unsubscribeFromTopic,
 } from '@react-native-firebase/messaging'
 import { useEffect } from 'react'
 import { checkNotifications, requestNotifications, RESULTS } from 'react-native-permissions'
@@ -13,9 +15,8 @@ import { checkNotifications, requestNotifications, RESULTS } from 'react-native-
 import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NonNullableRouteInformationType, RouteInformationType } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
-import { AppContextType } from '../contexts/AppContextProvider'
+import { AppContextType } from '../contexts/AppContext'
 import { useAppContext } from '../hooks/useRegionAppContext'
-import { subscribeNews } from './PushNotificationsNews'
 import { log, reportError } from './sentry'
 
 type UpdateSettingsType = (settings: { allowPushNotifications: boolean }) => void
@@ -41,6 +42,47 @@ export const requestPushNotificationPermission = async (updateSettings: UpdateSe
   }
 
   return permissionStatus === RESULTS.GRANTED
+}
+
+const newsTopic = (region: string, language: string): string => `${region}-${language}-news`
+
+export const unsubscribeNews = async (region: string, language: string): Promise<void> => {
+  const topic = newsTopic(region, language)
+
+  try {
+    await unsubscribeFromTopic(getMessaging(), topic)
+    log(`Unsubscribed from ${topic} topic!`)
+  } catch (e) {
+    reportError(e)
+  }
+}
+
+type SubscribeNewsParams = {
+  regionCode: string
+  languageCode: string
+  allowPushNotifications: boolean
+  skipSettingsCheck?: boolean
+}
+
+export const subscribeNews = async ({
+  regionCode,
+  languageCode,
+  allowPushNotifications,
+  skipSettingsCheck = false,
+}: SubscribeNewsParams): Promise<void> => {
+  try {
+    if (!allowPushNotifications && !skipSettingsCheck) {
+      log('Push notifications disabled, subscription skipped.')
+      return
+    }
+
+    const topic = newsTopic(regionCode, languageCode)
+
+    await subscribeToTopic(getMessaging(), topic)
+    log(`Subscribed to ${topic} topic!`)
+  } catch (e) {
+    reportError(e)
+  }
 }
 
 const displayNotification = async (message: Message): Promise<void> => {

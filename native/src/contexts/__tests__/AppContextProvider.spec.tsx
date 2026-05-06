@@ -11,13 +11,14 @@ import buildConfig from '../../constants/buildConfig'
 import render from '../../testing/render'
 import appSettings, { defaultSettings, SettingsType } from '../../utils/AppSettings'
 import defaultDataContainer from '../../utils/DefaultDataContainer'
-import { subscribeNews, unsubscribeNews } from '../../utils/PushNotificationsNews'
-import AppContextProvider, { AppContext } from '../AppContextProvider'
+import { subscribeNews, unsubscribeNews } from '../../utils/PushNotificationsManager'
+import { AppContext } from '../AppContext'
+import AppContextProvider from '../AppContextProvider'
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ i18n: { languages: ['en'] } }),
 }))
-jest.mock('../../utils/PushNotificationsNews', () => ({
+jest.mock('../../utils/PushNotificationsManager', () => ({
   subscribeNews: jest.fn(async () => undefined),
   unsubscribeNews: jest.fn(async () => undefined),
 }))

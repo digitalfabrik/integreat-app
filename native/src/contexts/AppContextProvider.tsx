@@ -1,34 +1,14 @@
-import React, { createContext, ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { hasProp } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
-import appSettings, { defaultSettings, SettingsType } from '../utils/AppSettings'
+import appSettings, { SettingsType } from '../utils/AppSettings'
 import dataContainer from '../utils/DefaultDataContainer'
-import { subscribeNews, unsubscribeNews } from '../utils/PushNotificationsNews'
+import { subscribeNews, unsubscribeNews } from '../utils/PushNotificationsManager'
 import { reportError } from '../utils/sentry'
-
-// To change the region or language code, the respective functions should be used
-export type UpdateSettingsType = Partial<Omit<SettingsType, 'selectedCity' | 'contentLanguage'>>
-
-export type AppContextType = {
-  settings: SettingsType
-  regionCode: string | null
-  languageCode: string
-  updateSettings: (settings: UpdateSettingsType) => void
-  changeRegionCode: (regionCode: string | null) => void
-  changeLanguageCode: (languageCode: string) => void
-}
-
-export const AppContext = createContext<AppContextType>({
-  settings: defaultSettings,
-  regionCode: null,
-  languageCode: '',
-  updateSettings: () => undefined,
-  changeRegionCode: () => undefined,
-  changeLanguageCode: () => undefined,
-})
+import { AppContext } from './AppContext'
 
 type AppContextProviderProps = {
   children: ReactElement

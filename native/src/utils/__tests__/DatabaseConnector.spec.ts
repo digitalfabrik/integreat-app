@@ -12,7 +12,7 @@ import {
   RESOURCE_CACHE_DIR_PATH,
   UNVERSIONED_CONTENT_DIR_PATH,
   UNVERSIONED_RESOURCE_CACHE_DIR_PATH,
-} from '../../constants/DatabasePaths'
+} from '../../constants/database'
 import DatabaseContext from '../../models/DatabaseContext'
 import DatabaseConnector from '../DatabaseConnector'
 

@@ -14,7 +14,7 @@ import { Platform, type EventSubscription } from 'react-native'
 
 import { getGenericLanguageCode } from 'shared'
 
-import { AppContext } from '../contexts/AppContextProvider'
+import { AppContext } from '../contexts/AppContext'
 import useAppStateListener from '../hooks/useAppStateListener'
 import useSnackbar from '../hooks/useSnackbar'
 import { log, reportError } from '../utils/sentry'

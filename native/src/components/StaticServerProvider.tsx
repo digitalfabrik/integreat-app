@@ -1,7 +1,7 @@
 import StaticServer from '@dr.pogodin/react-native-static-server'
 import React, { createContext, ReactElement, ReactNode, useEffect, useState } from 'react'
 
-import { RESOURCE_CACHE_DIR_PATH } from '../constants/DatabasePaths'
+import { RESOURCE_CACHE_DIR_PATH } from '../constants/database'
 import { reportError } from '../utils/sentry'
 
 type StaticServerProps = {

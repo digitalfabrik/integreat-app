@@ -8,6 +8,14 @@ import { getExtension } from './helpers'
 
 const RESOURCE_EXTENSIONS = ['png', 'jpg', 'jpeg', 'pdf', 'svg']
 
+export type FetchMapTargetType = {
+  url: string
+  filePath: string
+  urlHash: string
+}
+
+type FetchMapType = FetchMapTargetType[]
+
 /**
  * A ResourceURLFinder allows to find resource urls in html source code.
  * It only searches for urls ending on png,jpg,jpeg,pdf in src and href attribute tags of any html element.
@@ -15,14 +23,6 @@ const RESOURCE_EXTENSIONS = ['png', 'jpg', 'jpeg', 'pdf', 'svg']
  * Before calling findResourceUrls or buildFetchMap you need to initialize the finder by calling init.
  * After finishing your work with the finder, you need to call finalize, to clear the  resources
  */
-
-type FetchMapTargetType = {
-  url: string
-  filePath: string
-  urlHash: string
-}
-
-type FetchMapType = FetchMapTargetType[]
 
 export default class ResourceURLFinder {
   _parser: Parser | null = null

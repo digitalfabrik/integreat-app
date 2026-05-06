@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 
-import { AppContext, AppContextType } from '../contexts/AppContextProvider'
+import { AppContext, AppContextType } from '../contexts/AppContext'
 
 export type RegionAppContext = AppContextType & {
   regionCode: string

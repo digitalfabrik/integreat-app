@@ -1,4 +1,4 @@
-import { RESOURCE_CACHE_DIR_PATH } from '../constants/DatabasePaths'
+import { RESOURCE_CACHE_DIR_PATH } from '../constants/database'
 import { getExtension } from './helpers'
 
 const getResourceCacheFilesDirPath = (region: string): string => `${RESOURCE_CACHE_DIR_PATH}/${region}/files`
