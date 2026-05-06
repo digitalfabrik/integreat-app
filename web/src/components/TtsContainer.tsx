@@ -4,9 +4,9 @@ import EasySpeech from 'easy-speech'
 import React, { ReactElement, useCallback, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { TtsContext, TtsContextType } from '../contexts/TtsContext'
 import { getTtsVoice, isTtsCancelError, ttsInitialized } from '../utils/tts'
 import LoadingSpinner from './LoadingSpinner'
-import { TtsContext, TtsContextType } from './TtsContext'
 import TtsHelp from './TtsHelp'
 import TtsPlayer from './TtsPlayer'
 

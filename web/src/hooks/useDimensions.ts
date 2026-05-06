@@ -1,12 +1,12 @@
 import { useContext, useEffect, useState } from 'react'
 
-import { TtsContext } from '../components/TtsContext'
 import {
   BOTTOM_NAVIGATION_ELEMENT_ID,
   BREAKPOINTS,
   TOOLBAR_ELEMENT_ID,
   TTS_PLAYER_ELEMENT_ID,
-} from '../constants/dimensions'
+} from '../constants/layout'
+import { TtsContext } from '../contexts/TtsContext'
 
 const bottomSheetHandleHeight = 40
 const midSnapPercentage = 0.35

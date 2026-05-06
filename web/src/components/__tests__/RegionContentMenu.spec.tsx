@@ -4,10 +4,10 @@ import React from 'react'
 import { CategoriesMapModelBuilder } from 'shared/api'
 
 import { mockDimensions } from '../../__mocks__/useDimensions'
+import { TtsContext } from '../../contexts/TtsContext'
 import useDimensions from '../../hooks/useDimensions'
 import { renderAllRoutes } from '../../testing/render'
 import RegionContentMenu from '../RegionContentMenu'
-import { TtsContext } from '../TtsContext'
 
 jest.mock('react-i18next')
 jest.mock('../../hooks/useDimensions')

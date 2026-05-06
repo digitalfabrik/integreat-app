@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react'
 
 import { NEWS_ROUTE, RATING_NEGATIVE, RATING_POSITIVE } from 'shared'
 
-import { TOOLBAR_ELEMENT_ID } from '../constants/dimensions'
+import { TOOLBAR_ELEMENT_ID } from '../constants/layout'
 import useRegionContentParams from '../hooks/useRegionContentParams'
 import useUpdateDimensions from '../hooks/useUpdateDimensions'
 import FeedbackToolbarItem from './FeedbackToolbarItem'
