@@ -10,7 +10,7 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { TTS_PLAYER_ELEMENT_ID } from '../constants/dimensions'
+import { TTS_PLAYER_ELEMENT_ID } from '../constants/layout'
 import useDimensions from '../hooks/useDimensions'
 import useUpdateDimensions from '../hooks/useUpdateDimensions'
 

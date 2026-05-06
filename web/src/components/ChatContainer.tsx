@@ -10,6 +10,7 @@ import { getChatName, CHAT_QUERY_KEY, parseQueryParams, toQueryParams } from 'sh
 import { RegionModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
+import { TtsContext } from '../contexts/TtsContext'
 import useDimensions from '../hooks/useDimensions'
 import useLocalStorage from '../hooks/useLocalStorage'
 import useLockedBody from '../hooks/useLockedBody'
@@ -18,7 +19,6 @@ import ChatController from './ChatController'
 import ChatMenu from './ChatMenu'
 import HeaderLanguageSelectorItem from './HeaderLanguageSelectorItem'
 import { LanguageChangePath } from './LanguageList'
-import { TtsContext } from './TtsContext'
 import Dialog from './base/Dialog'
 
 const ChatButtonContainer = styled('div')<{ bottom: number }>`

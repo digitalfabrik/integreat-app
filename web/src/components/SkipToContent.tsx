@@ -6,7 +6,7 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { MAIN_ELEMENT_ID } from '../constants/dimensions'
+import { MAIN_ELEMENT_ID } from '../constants/layout'
 
 const StyledButton = styled(Button)`
   position: fixed;

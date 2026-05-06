@@ -6,13 +6,13 @@
 #               chains are always listed in this mode.
 #
 # Usage:
-#   bash checkCircularDeps.sh [--current] [--verbose] [error_limit] [entry_point]
+#   bash checkCircularDependencies.sh [--current] [--verbose] [error_limit] [entry_point]
 #
 # Examples:
-#   bash checkCircularDeps.sh 0                  # all workspaces, fail if any cycles
-#   bash checkCircularDeps.sh 0 verbose          # all workspaces, list chains
-#   bash checkCircularDeps.sh --current          # current workspace, default entry
-#   bash checkCircularDeps.sh --current 0 ./index.ts
+#   bash checkCircularDependencies.sh 0                  # all workspaces, fail if any cycles
+#   bash checkCircularDependencies.sh 0 verbose          # all workspaces, list chains
+#   bash checkCircularDependencies.sh --current          # current workspace, default entry
+#   bash checkCircularDependencies.sh --current 0 ./index.ts
 
 if ! command -v madge &> /dev/null; then
     echo "Madge is not installed. Please install it first."

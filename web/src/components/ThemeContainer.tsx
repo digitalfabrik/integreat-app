@@ -10,7 +10,7 @@ import { ThemeKey } from 'build-configs'
 import { UiDirectionType } from 'translations'
 
 import buildConfig from '../constants/buildConfig'
-import { BREAKPOINTS } from '../constants/dimensions'
+import { BREAKPOINTS } from '../constants/layout'
 import { prepareTypography } from '../constants/typography'
 import useDimensions from '../hooks/useDimensions'
 import useLocalStorage from '../hooks/useLocalStorage'
