@@ -2,7 +2,7 @@ import { decodeHTML } from 'entities'
 import { DateTime } from 'luxon'
 import { v5 } from 'uuid'
 
-import { formatDateICal } from '../../utils'
+import { formatDateICal } from '../../utils/date'
 import DateModel from './DateModel'
 import ExtendedDocumentModel from './ExtendedDocumentModel'
 import FeaturedImageModel from './FeaturedImageModel'

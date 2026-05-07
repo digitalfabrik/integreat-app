@@ -71,5 +71,9 @@ echo ""
 check_workspace "$PROJECT_ROOT/native" ./src/index.tsx "native" "\.\.\/shared\/"
 echo ""
 check_workspace "$PROJECT_ROOT/shared" ./index.ts "shared"
+echo ""
+check_workspace "$PROJECT_ROOT/translations" ./src/index.ts "translations"
+echo ""
+check_workspace "$PROJECT_ROOT/build-configs" ./index.ts "build-configs"
 
 exit $exit_code
