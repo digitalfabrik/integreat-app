@@ -8,12 +8,13 @@ import EventModelBuilder from 'shared/api/endpoints/testing/EventModelBuilder'
 import RegionModelBuilder from 'shared/api/endpoints/testing/RegionModelBuilder'
 
 import BlobUtil from '../../__mocks__/react-native-blob-util'
-import DatabaseContext from '../../models/DatabaseContext'
-import DatabaseConnector, {
+import {
   RESOURCE_CACHE_DIR_PATH,
   UNVERSIONED_CONTENT_DIR_PATH,
   UNVERSIONED_RESOURCE_CACHE_DIR_PATH,
-} from '../DatabaseConnector'
+} from '../../constants/database'
+import DatabaseContext from '../../models/DatabaseContext'
+import DatabaseConnector from '../DatabaseConnector'
 
 const now = DateTime.fromISO('2024-05-02T11:45:43.443+02:00')
 jest.useFakeTimers({ now: now.toJSDate() })

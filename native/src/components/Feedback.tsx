@@ -4,13 +4,12 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { Button } from 'react-native-paper'
 import styled from 'styled-components/native'
 
-import { DEFAULT_ROWS_NUMBER } from 'shared'
+import { DEFAULT_ROWS_NUMBER, SendingStatusType } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
 import useNavigate from '../hooks/useNavigate'
 import Caption from './Caption'
 import FeedbackButtons from './FeedbackButtons'
-import { SendingStatusType } from './FeedbackContainer'
 import LoadingSpinner from './LoadingSpinner'
 import Note from './Note'
 import PrivacyCheckbox from './PrivacyCheckbox'

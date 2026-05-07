@@ -14,7 +14,7 @@ import Selector from '../components/Selector'
 import AlertDialog from '../components/base/AlertDialog'
 import Text from '../components/base/Text'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
-import { AppContext } from '../contexts/AppContextProvider'
+import { AppContext } from '../contexts/AppContext'
 import SelectorItemModel from '../models/SelectorItemModel'
 import importDisplayNamesPackage from '../utils/importDisplayNamesPackage'
 

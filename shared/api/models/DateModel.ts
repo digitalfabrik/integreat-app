@@ -1,14 +1,11 @@
 import { DateTime, DateTimeFormatOptions, Duration } from 'luxon'
 import { RRule as RRuleType, rrulestr } from 'rrule'
 
-import { formatDateICal } from '../../utils'
-import { formatTime, getWeekdayFromIndex } from '../../utils/date'
+import { formatDateICal, formatTime, getWeekdayFromIndex, TranslateFunction } from '../../utils/date'
 
 const MAX_RECURRENCE_YEARS = 6
 
 export type DateIcon = 'CalendarTodayRecurringIcon' | 'CalendarRecurringIcon' | 'CalendarTodayIcon'
-
-export type TranslateFunction = (key: string, options?: Record<string, unknown>) => string
 
 type FormattedEventDate = {
   date: string
