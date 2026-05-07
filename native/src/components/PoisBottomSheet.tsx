@@ -3,7 +3,7 @@ import BottomSheet, {
   BottomSheetFlatListMethods,
   BottomSheetScrollView,
 } from '@gorhom/bottom-sheet'
-import React, { memo, ReactElement, Ref, useCallback, useRef } from 'react'
+import React, { memo, ReactElement, Ref, useCallback, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { NativeScrollEvent, NativeSyntheticEvent, View } from 'react-native'
 import styled, { useTheme } from 'styled-components/native'
@@ -11,6 +11,7 @@ import styled, { useTheme } from 'styled-components/native'
 import { LocationType } from 'shared'
 import { ErrorCode, PoiModel } from 'shared/api'
 
+import useAppStateListener from '../hooks/useAppStateListener'
 import useRegionAppContext from '../hooks/useRegionAppContext'
 import BottomSheetHandle from './BottomSheetHandle'
 import Failure from './Failure'
@@ -74,6 +75,7 @@ const PoisBottomSheet = ({
   const { t } = useTranslation('pois')
   const theme = useTheme()
   const bottomSheetRef = useRef<BottomSheet>(null)
+  const [remountKey, setRemountKey] = useState(0)
 
   const handlePoiFocus = useCallback(() => {
     if (!isFullscreen && bottomSheetRef.current) {
@@ -86,6 +88,15 @@ const PoisBottomSheet = ({
     selectPoi(poi)
     bottomSheetRef.current?.snapToIndex(1)
   }
+
+  // Workaround for bottomSheet gets hidden after permissions dialog on Android so we force remounting after app comes back to foreground.
+  // reanimated's shared values gets affected by the permissions dialog (UI thread is stopped when the permission dialog is displayed).
+  // For more details https://github.com/digitalfabrik/integreat-app/issues/4037 and https://github.com/gorhom/react-native-bottom-sheet/issues/1791#issuecomment-2060957019
+  useAppStateListener(nextAppState => {
+    if (nextAppState === 'active') {
+      setRemountKey(previous => previous + 1)
+    }
+  })
 
   const PoiDetail = poi ? (
     <PoiDetails
@@ -111,6 +122,7 @@ const PoisBottomSheet = ({
 
   return (
     <StyledBottomSheet
+      key={remountKey}
       ref={bottomSheetRef}
       accessibilityLabel=''
       index={snapPointIndex}
