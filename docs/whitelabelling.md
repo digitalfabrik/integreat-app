@@ -80,7 +80,7 @@ Information needed from our CMS.
 - Share base url
 - Allowed host names
 - Internal url pattern
-- [depends] Region name (to skip the landing screen)
+- [depends] Region name (to skip the regions screen)
 
 ## AppTeam TODOs
 

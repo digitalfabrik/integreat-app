@@ -4,7 +4,7 @@ import Page from './page.js'
 /**
  * sub page containing specific selectors and methods for a specific page
  */
-class LandingPage extends Page {
+class RegionsPage extends Page {
   get regions(): ReturnType<typeof $$> {
     return $$('//main//a')
   }
@@ -18,8 +18,8 @@ class LandingPage extends Page {
   }
 
   open() {
-    return super.open(Routes.landing)
+    return super.open(Routes.regions)
   }
 }
 
-export default new LandingPage()
+export default new RegionsPage()

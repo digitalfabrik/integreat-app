@@ -2,7 +2,7 @@ import { waitFor } from '@testing-library/react-native'
 import React, { useEffect } from 'react'
 
 import { FeatureFlagsType } from 'build-configs/BuildConfigType'
-import { LANDING_ROUTE } from 'shared'
+import { REGIONS_ROUTE } from 'shared'
 
 import buildConfig from '../../constants/buildConfig'
 import TestingAppContext from '../../testing/TestingAppContext'
@@ -72,26 +72,26 @@ describe('useNavigateToDeepLink', () => {
     jest.clearAllMocks()
   })
 
-  describe('landing deep links', () => {
+  describe('regions deep links', () => {
     const url = 'https://integreat.app'
 
-    it('should navigate to landing if no region is selected and intro slides already shown', async () => {
+    it('should navigate to regions if no region is selected and intro slides already shown', async () => {
       mockBuildConfig({ introSlides: false, fixedRegion: null })
       renderMockComponent({ url, introShown: true })
 
       await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
-      expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: LANDING_ROUTE }] })
+      expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: REGIONS_ROUTE }] })
 
       expect(navigateTo).not.toHaveBeenCalled()
       expect(changeRegionCode).not.toHaveBeenCalled()
     })
 
-    it('should navigate to landing if no region is selected and intro slides disabled', async () => {
+    it('should navigate to regions if no region is selected and intro slides disabled', async () => {
       mockBuildConfig({ introSlides: false, fixedRegion: null })
       renderMockComponent({ url })
 
       await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
-      expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: LANDING_ROUTE }] })
+      expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: REGIONS_ROUTE }] })
 
       expect(navigateTo).not.toHaveBeenCalled()
       expect(changeRegionCode).not.toHaveBeenCalled()
@@ -115,7 +115,7 @@ describe('useNavigateToDeepLink', () => {
 
       await waitFor(() => expect(navigateTo).toHaveBeenCalledTimes(1))
       expect(navigateTo).toHaveBeenCalledWith({
-        route: LANDING_ROUTE,
+        route: REGIONS_ROUTE,
         languageCode: selectedLanguageCode,
       })
 

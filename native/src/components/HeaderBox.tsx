@@ -23,10 +23,10 @@ type HeaderBoxProps = {
   canGoBack?: boolean
   title?: string
   language?: string
-  landingPath?: () => void
+  regionsPath?: () => void
 }
 
-const HeaderBox = ({ goBack, canGoBack = true, title, language, landingPath }: HeaderBoxProps): ReactElement => {
+const HeaderBox = ({ goBack, canGoBack = true, title, language, regionsPath }: HeaderBoxProps): ReactElement => {
   const theme = useTheme()
   const { t } = useTranslation('common')
 
@@ -45,7 +45,7 @@ const HeaderBox = ({ goBack, canGoBack = true, title, language, landingPath }: H
   return (
     <HorizontalLeft>
       {HeaderIcon}
-      <HeaderTitle title={title} language={language} landingPath={landingPath} />
+      <HeaderTitle title={title} language={language} regionsPath={regionsPath} />
     </HorizontalLeft>
   )
 }

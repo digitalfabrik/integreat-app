@@ -6,7 +6,7 @@ import {
   SUGGEST_TO_REGION_ROUTE,
   regionContentPath,
   CONSENT_ROUTE,
-  LANDING_ROUTE,
+  REGIONS_ROUTE,
   LICENSES_ROUTE,
   MAIN_IMPRINT_ROUTE,
   NOT_FOUND_ROUTE,
@@ -28,7 +28,7 @@ type RootNavigatorProps = {
 }
 
 const MainImprintPage = lazyWithRetry(() => import('./routes/MainImprintPage'))
-const LandingPage = lazyWithRetry(() => import('./routes/LandingPage'))
+const RegionsPage = lazyWithRetry(() => import('./routes/RegionsPage'))
 const NotFoundPage = lazyWithRetry(() => import('./routes/NotFoundPage'))
 const LicensesPage = lazyWithRetry(() => import('./routes/LicensesPage'))
 
@@ -47,11 +47,11 @@ const RootNavigator = ({ setContentLanguage }: RootNavigatorProps): ReactElement
     }
   }, [language, detectedLanguageCode, setContentLanguage])
 
-  const landingPath = pathnameFromRouteInformation({ route: LANDING_ROUTE, languageCode: language })
+  const regionsPath = pathnameFromRouteInformation({ route: REGIONS_ROUTE, languageCode: language })
   const fixedRegionPath = fixedRegion ? regionContentPath({ regionCode: fixedRegion, languageCode: language }) : null
   return (
     <Routes>
-      {!fixedRegion && <Route path={RoutePatterns[LANDING_ROUTE]} element={<LandingPage languageCode={language} />} />}
+      {!fixedRegion && <Route path={RoutePatterns[REGIONS_ROUTE]} element={<RegionsPage languageCode={language} />} />}
       <Route path={RoutePatterns[MAIN_IMPRINT_ROUTE]} element={<MainImprintPage languageCode={language} />} />
       <Route path={RoutePatterns[NOT_FOUND_ROUTE]} element={<NotFoundPage />} />
       <Route path={RoutePatterns[CONSENT_ROUTE]} element={<ConsentPage languageCode={language} />} />
@@ -75,11 +75,12 @@ const RootNavigator = ({ setContentLanguage }: RootNavigatorProps): ReactElement
       )}
 
       {/* Redirects */}
-      <Route path='/' element={<Navigate to={fixedRegionPath ?? landingPath} replace />} />
+      <Route path='/' element={<Navigate to={fixedRegionPath ?? regionsPath} replace />} />
+      <Route path='/landing/*' element={<Navigate to={`/${REGIONS_ROUTE}`} replace />} />
       {!!fixedRegionPath && (
-        <Route path={RoutePatterns[LANDING_ROUTE]} element={<Navigate to={fixedRegionPath} replace />} />
+        <Route path={RoutePatterns[REGIONS_ROUTE]} element={<Navigate to={fixedRegionPath} replace />} />
       )}
-      {/* also handles redirects from /landing to /landing/de */}
+      {/* Also handles redirects from /regions to /regions/de */}
       <Route path='/:regionCode' element={<Navigate to={fixedRegionPath ?? language} replace />} />
 
       {/* Language independent urls */}

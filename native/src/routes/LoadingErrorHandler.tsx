@@ -1,7 +1,7 @@
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { RefreshControl } from 'react-native'
 
-import { LANDING_ROUTE } from 'shared'
+import { REGIONS_ROUTE } from 'shared'
 import { ErrorCode, fromError, LanguageModel } from 'shared/api'
 
 import Failure from '../components/Failure'
@@ -63,8 +63,8 @@ const LoadingErrorHandler = ({
   }
 
   if (error !== null) {
-    const navigateToLanding = () => navigateTo({ route: LANDING_ROUTE, languageCode })
-    const buttonAction = error === ErrorCode.RegionUnavailable ? navigateToLanding : refresh
+    const navigateToRegions = () => navigateTo({ route: REGIONS_ROUTE, languageCode })
+    const buttonAction = error === ErrorCode.RegionUnavailable ? navigateToRegions : refresh
     const buttonLabel = error === ErrorCode.RegionUnavailable ? 'goTo.start' : undefined
     const errorCode = error instanceof Error ? fromError(error) : error
     return (

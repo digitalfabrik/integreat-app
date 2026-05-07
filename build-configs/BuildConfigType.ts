@@ -8,7 +8,7 @@ import { FontsType } from './common/theme/fonts'
 // Each build config (e.g. integreat, malte) is available per platform (android, ios, web) with some shared options.
 // Feature flags are boolean build config options defining whether a specified feature is enabled.
 // Prevent enabled intro slide in combination with a fixed region.
-// If you change this make sure you are not navigating to the landing screen upon closing the intro slides.
+// If you change this make sure you are not navigating to the regions screen upon closing the intro slides.
 export type FixedRegionType =
   | {
       // Shows intro slides to the users on first app start.

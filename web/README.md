@@ -69,4 +69,4 @@ To test with content from the cms the **testumgebung** can be used. If you don't
 
 ### Hidden Regions
 
-Hidden regions, especially the testumgebung, can be shown by entering the search query `wirschaffendas` in the region selection.
+Hidden regions, especially the testumgebung, can be shown by entering the search query `wirschaffendas` in the regions page.

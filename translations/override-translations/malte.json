@@ -605,7 +605,7 @@
       "eventsDescription": "حالیہ تاریخیں اور ایونٹس"
     }
   },
-  "landing": {
+  "regions": {
     "de": {
       "metaDescription": "{{appName}} ist Ihr digitaler Helfer von den Maltesern. Hier finden Sie lokale Informationen, Termine und Beratung aus Ihrer Einrichtung. Immer aktuell und in Ihrer Sprache!"
     },

@@ -15,8 +15,8 @@ import {
   IMAGE_VIEW_MODAL_ROUTE,
   INTRO_ROUTE,
   IntroRouteType,
-  LANDING_ROUTE,
-  LandingRouteType,
+  REGIONS_ROUTE,
+  RegionsRouteType,
   LICENSES_ROUTE,
   PDF_VIEW_MODAL_ROUTE,
   REDIRECT_ROUTE,
@@ -41,11 +41,11 @@ import FeedbackModalContainer from './routes/FeedbackModalContainer'
 import ImageViewModal from './routes/ImageViewModal'
 import ImprintContainer from './routes/ImprintContainer'
 import Intro from './routes/Intro'
-import Landing from './routes/Landing'
 import Licenses from './routes/Licenses'
 import LoadingErrorHandler from './routes/LoadingErrorHandler'
 import MainImprint from './routes/MainImprint'
 import PDFViewModal from './routes/PDFViewModal'
+import Regions from './routes/Regions'
 import SearchContainer from './routes/SearchContainer'
 import Settings from './routes/Settings'
 import SuggestToRegion from './routes/SuggestToRegion'
@@ -68,7 +68,7 @@ const Stack = createStackNavigator<RoutesParamsType>()
 
 type InitialRouteType =
   | {
-      name: IntroRouteType | LandingRouteType | CategoriesRouteType | BottomTabRouteType
+      name: IntroRouteType | RegionsRouteType | CategoriesRouteType | BottomTabRouteType
     }
   | {
       name: RedirectRouteType
@@ -117,7 +117,7 @@ const Navigator = (): ReactElement | null => {
     if (buildConfig().featureFlags.introSlides && !settings.introShown) {
       updateInitialRoute({ name: INTRO_ROUTE })
     } else if (!regionCode) {
-      updateInitialRoute({ name: LANDING_ROUTE })
+      updateInitialRoute({ name: REGIONS_ROUTE })
     } else if (regions?.find(it => it.code === regionCode)) {
       updateInitialRoute({ name: BOTTOM_TAB_ROUTE })
     } else if (regions) {
@@ -125,7 +125,7 @@ const Navigator = (): ReactElement | null => {
       changeRegionCode(null)
       showSnackbar({ text: 'notFound.region' })
       dataContainer.deleteRegion(regionCode).catch(reportError)
-      updateInitialRoute({ name: LANDING_ROUTE })
+      updateInitialRoute({ name: REGIONS_ROUTE })
     }
   }, [regions, changeRegionCode, regionCode, showSnackbar, settings, initialRoute, updateInitialRoute])
 
@@ -154,7 +154,7 @@ const Navigator = (): ReactElement | null => {
       <Stack.Group screenOptions={{ header: defaultHeader }}>
         <Stack.Screen name={IMPRINT_ROUTE} component={ImprintContainer} />
         <Stack.Screen name={FEEDBACK_MODAL_ROUTE} component={FeedbackModalContainer} />
-        <Stack.Screen name={LANDING_ROUTE} component={Landing} />
+        <Stack.Screen name={REGIONS_ROUTE} component={Regions} />
       </Stack.Group>
 
       <Stack.Group screenOptions={{ header: transparentHeader }}>
