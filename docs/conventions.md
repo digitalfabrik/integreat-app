@@ -68,10 +68,6 @@ Show only linting errors:
 
 We use [madge](https://github.com/pahen/madge) to detect circular dependencies.
 
-Install prerequisite:
-
-> npm install --global madge
-
 Check for circular dependencies:
 
 > yarn check-circular-dependencies
