@@ -15,7 +15,7 @@
     "test": "jest --config jest.config.ts",
     "lint": "eslint --cache --cache-location ../.eslintcache .",
     "ts:check": "tsc --build",
-    "check-circular-dependencies": "../tools/checkCircularDependencies.sh --current ./src/index.ts"
+    "check-circular-dependencies": "yarn run -T check-circular-dependencies"
   },
   "dependencies": {
     "deepmerge-ts": "^7.1.5"
