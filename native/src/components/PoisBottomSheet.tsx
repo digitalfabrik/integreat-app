@@ -91,6 +91,7 @@ const PoisBottomSheet = ({
 
   // Workaround for bottomSheet gets hidden after permissions dialog on Android so we force remounting after app comes back to foreground.
   // reanimated's shared values gets affected by the permissions dialog (UI thread is stopped when the permission dialog is displayed).
+  // For more details https://github.com/digitalfabrik/integreat-app/issues/4037 and https://github.com/gorhom/react-native-bottom-sheet/issues/1791#issuecomment-2060957019
   useAppStateListener(nextAppState => {
     if (nextAppState === 'active') {
       setRemountKey(previous => previous + 1)
