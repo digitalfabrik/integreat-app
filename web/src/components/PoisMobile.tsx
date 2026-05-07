@@ -38,9 +38,12 @@ const GeocontrolContainer = styled(AttributionContainer)`
   margin-bottom: 24px;
 `
 
+// margin-bottom for ZoomControlsContainer is calculated as follows:
+// The Geocontrol height with its margin-bottom = 29px + 24px
+// = 53px + 8px gap rounded up to 64px
 const ZoomControlsContainer = styled(AttributionContainer)`
   right: 8px;
-  margin-bottom: 66px;
+  margin-bottom: 64px;
 `
 
 const SkeletonPoiContent = () => (

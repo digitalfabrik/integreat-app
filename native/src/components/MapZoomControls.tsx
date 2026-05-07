@@ -5,8 +5,8 @@ import { useTheme } from 'styled-components/native'
 
 import Icon from './base/Icon'
 
-// 50px button height + 16px margin
-const buttonSpacing = 66
+// 48px button height + 16px margin
+const buttonSpacing = 64
 
 const styles = StyleSheet.create({
   button: {
