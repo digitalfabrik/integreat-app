@@ -103,11 +103,13 @@ const MapView = ({
 }: MapViewProps): ReactElement => {
   const mapRef = useRef<MapRef>(null)
   const cameraRef = useRef<CameraRef>(null)
-  const [showUserLocation, setShowUserLocation] = useState<boolean>(false)
+  const bottomSheetHeightRef = useRef(bottomSheetHeight)
+  const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
   const { refreshPermissionAndLocation } = useUserLocation({ requestPermissionInitially: true })
   const { t } = useTranslation('pois')
   const theme = useTheme()
 
+  bottomSheetHeightRef.current = bottomSheetHeight
   const bounds: LngLatBounds = [boundingBox[0], boundingBox[1], boundingBox[2], boundingBox[3]]
 
   const coordinates = selectedFeature?.geometry.coordinates
@@ -119,22 +121,18 @@ const MapView = ({
     padding: { bottom: bottomSheetHeight },
   })
 
-  const moveTo = useCallback(
-    (position: LngLat, zoomLevel = normalDetailZoom) => {
-      cameraRef.current?.easeTo({
-        center: position,
-        zoom: zoomLevel,
-        duration: animationDuration,
-        padding: { bottom: bottomSheetHeight },
-      })
-    },
-    [bottomSheetHeight],
-  )
+  const moveTo = useCallback((position: LngLat, zoomLevel = normalDetailZoom) => {
+    cameraRef.current?.easeTo({
+      center: position,
+      zoom: zoomLevel,
+      duration: animationDuration,
+      padding: { bottom: bottomSheetHeightRef.current },
+    })
+  }, [])
 
   const onRequestLocation = useCallback(async () => {
-    // Toggle off if already showing user location.
-    if (showUserLocation) {
-      setShowUserLocation(false)
+    if (followUserLocation) {
+      setFollowUserLocation(false)
       return
     }
     const newUserLocation = (await refreshPermissionAndLocation())?.coordinates
@@ -142,14 +140,14 @@ const MapView = ({
       selectFeature(null)
       setUserLocation(newUserLocation)
       moveTo(newUserLocation)
-      setShowUserLocation(true)
+      setFollowUserLocation(true)
     }
-  }, [showUserLocation, refreshPermissionAndLocation, moveTo, setUserLocation, selectFeature])
+  }, [followUserLocation, refreshPermissionAndLocation, setUserLocation, selectFeature, moveTo])
 
-  // Recenter on the selected marker.
   useEffect(() => {
     if (selectedFeature) {
       moveTo(selectedFeature.geometry.coordinates as LngLat)
+      setFollowUserLocation(false)
     }
   }, [moveTo, selectedFeature])
 
@@ -178,7 +176,7 @@ const MapView = ({
     await zoomOnClusterPress(pressedCoordinates)
   }
 
-  const locationPermissionGrantedIcon = showUserLocation ? 'crosshairs-gps' : 'crosshairs'
+  const locationPermissionGrantedIcon = followUserLocation ? 'crosshairs-gps' : 'crosshairs'
   const locationPermissionIcon = userLocation ? locationPermissionGrantedIcon : 'crosshairs-off'
 
   return (
@@ -191,7 +189,7 @@ const MapView = ({
           ref={mapRef}
           attribution={false}
           logo={false}>
-          {showUserLocation && <NativeUserLocation />}
+          {userLocation && <NativeUserLocation />}
           <GeoJSONSource
             id='location-pois'
             data={embedInCollection(features.filter(feature => feature !== selectedFeature))}
@@ -206,7 +204,7 @@ const MapView = ({
               <Layer type='symbol' {...markerLayer(selectedFeature)} id='selected-marker' />
             </GeoJSONSource>
           )}
-          <Camera ref={cameraRef} {...cameraSettings} />
+          <Camera trackUserLocation={followUserLocation ? 'default' : undefined} ref={cameraRef} {...cameraSettings} />
         </StyledMap>
       </MapContainer>
       <OverlayContainer {...conditionalA11yProps({ hidden: bottomSheetFullscreen })}>{Overlay}</OverlayContainer>
