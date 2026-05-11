@@ -47,8 +47,8 @@ const ChatConversation = ({ messages, isTyping, loading }: ChatConversationProps
     }
   }, [isTyping])
 
-  const last = messages[messages.length - 1]
-  const lastMessageText = last ? parseHTML(last.content, true) : ''
+  const lastMessage = messages[messages.length - 1]
+  const lastMessageText = lastMessage ? parseHTML(lastMessage.content, true) : ''
 
   if (messages.length === 0 && !loading) {
     return (
