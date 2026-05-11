@@ -10,7 +10,7 @@ import {
   FeedbackModalRouteType,
   ImageViewModalRouteType,
   IntroRouteType,
-  LandingRouteType,
+  RegionsRouteType,
   NewsRouteType,
   NewsType,
   PdfViewModalRouteType,
@@ -20,7 +20,7 @@ import {
   SettingsRouteType,
   POIS_ROUTE,
   CATEGORIES_ROUTE,
-  LANDING_ROUTE,
+  REGIONS_ROUTE,
   INTRO_ROUTE,
   REDIRECT_ROUTE,
   EVENTS_ROUTE,
@@ -61,7 +61,7 @@ export type TabRoutesType = CategoriesTabRouteType | EventsTabRouteType | PoisTa
 export type RootRoutesType =
   | RedirectRouteType
   | IntroRouteType
-  | LandingRouteType
+  | RegionsRouteType
   | SuggestToRegionRouteType
   | ImprintRouteType
   | MainImprintRouteType
@@ -112,7 +112,7 @@ export type RootRoutesParamsType = {
     url: string
   }
   [INTRO_ROUTE]: undefined
-  [LANDING_ROUTE]: undefined
+  [REGIONS_ROUTE]: undefined
   [SUGGEST_TO_REGION_ROUTE]: undefined
   [IMPRINT_ROUTE]: undefined
   [MAIN_IMPRINT_ROUTE]: undefined

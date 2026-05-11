@@ -4,7 +4,7 @@ import {
   ConsentRouteType,
   ImprintRouteType,
   EventsRouteType,
-  LandingRouteType,
+  RegionsRouteType,
   LicensesRouteType,
   LocalNewsType,
   MainImprintRouteType,
@@ -20,8 +20,8 @@ type ParamsType = {
   chat?: boolean
 }
 
-export type LandingRouteInformationType = {
-  route: LandingRouteType
+export type RegionsRouteInformationType = {
+  route: RegionsRouteType
   languageCode: string
 }
 
@@ -82,7 +82,7 @@ export type SearchRouteInformationType = ParamsType & {
 
 export type NonNullableRouteInformationType =
   | MainImprintRouteInformationType
-  | LandingRouteInformationType
+  | RegionsRouteInformationType
   | SuggestToRegionInformationType
   | CategoriesRouteInformationType
   | NewsRouteInformationType

@@ -61,7 +61,7 @@ run the app.
 
 In development builds, i.e. `yarn start`, the test cms is used as default.
 
-To switch between production and test cms, press the yellow location marker on the landing page 10 times.
+To switch between production and test cms, press the yellow location marker on the regions page 10 times.
 On iOS it may be required to close and reopen the app after changing the cms instance.
 
 The cms repository can be found [here](https://github.com/digitalfabrik/integreat-cms).
@@ -73,7 +73,7 @@ To test with content from the cms the **testumgebung** can be used. If you don't
 
 ### Hidden Regions
 
-Hidden regions, especially the testumgebung, can be shown by entering the search query `wirschaffendas` in the region selection.
+Hidden regions, especially the testumgebung, can be shown by entering the search query `wirschaffendas` in the regions page.
 
 ### Additional Notes
 

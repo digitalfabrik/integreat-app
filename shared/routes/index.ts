@@ -1,6 +1,6 @@
 // Linkable routes
-export type LandingRouteType = 'landing'
-export const LANDING_ROUTE: LandingRouteType = 'landing'
+export type RegionsRouteType = 'regions'
+export const REGIONS_ROUTE: RegionsRouteType = 'regions'
 
 export type SuggestToRegionRouteType = 'recommend'
 export const SUGGEST_TO_REGION_ROUTE: SuggestToRegionRouteType = 'recommend'
@@ -25,6 +25,9 @@ export const SEARCH_ROUTE: SearchRouteType = 'search'
 
 export type LicensesRouteType = 'licenses'
 export const LICENSES_ROUTE: LicensesRouteType = 'licenses'
+
+// Legacy routes
+export const LEGACY_REGIONS_ROUTE = 'landing'
 
 // News types
 export type LocalNewsType = 'local'
@@ -82,12 +85,13 @@ export const NOT_FOUND_ROUTE: NotFoundRouteType = 'not-found'
 // Changes done to the reserved routes have to be done in the CMS as well:
 // https://github.com/digitalfabrik/integreat-cms/blob/main/integreat_cms/core/settings.py#L69-78
 export const RESERVED_TOP_LEVEL_SLUGS: string[] = [
-  LANDING_ROUTE,
+  REGIONS_ROUTE,
   MAIN_IMPRINT_ROUTE,
   NOT_FOUND_ROUTE,
   CONSENT_ROUTE,
   LICENSES_ROUTE,
   SUGGEST_TO_REGION_ROUTE,
+  LEGACY_REGIONS_ROUTE,
 ]
 
 // Changes done to the reserved routes have to be done in the CMS as well:

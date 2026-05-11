@@ -7065,7 +7065,7 @@
       "next": "继续"
     }
   },
-  "landing": {
+  "regions": {
     "de": {
       "welcome": "Willkommen bei {{appName}}.",
       "welcomeInformation": "Dein digitaler Guide für alle Informationen, die du brauchst. Bitte wähle deine Region aus.",

@@ -4,7 +4,7 @@ import {
   CONSENT_ROUTE,
   IMPRINT_ROUTE,
   EVENTS_ROUTE,
-  LANDING_ROUTE,
+  REGIONS_ROUTE,
   LICENSES_ROUTE,
   MAIN_IMPRINT_ROUTE,
   NEWS_ROUTE,
@@ -65,6 +65,6 @@ export const pathnameFromRouteInformation = (routeInformation: NonNullableRouteI
     const newsId = routeInformation.route === NEWS_ROUTE ? routeInformation.newsId : null
     return constructPathname([regionCode, languageCode, routeInformation.route, newsType, newsId?.toString()])
   }
-  // https://integreat.app/landing/de
-  return constructPathname([LANDING_ROUTE, routeInformation.languageCode])
+  // https://integreat.app/regions/de
+  return constructPathname([REGIONS_ROUTE, routeInformation.languageCode])
 }

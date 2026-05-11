@@ -24,7 +24,7 @@ type SuggestToRegionFooterProps = {
 }
 
 const SuggestToRegionFooter = ({ navigateToSuggestToRegion }: SuggestToRegionFooterProps): ReactElement | null => {
-  const { t } = useTranslation('landing')
+  const { t } = useTranslation('regions')
   const theme = useTheme()
 
   const SuggestToRegionIcon = buildConfigAssets().SuggestToRegionIcon

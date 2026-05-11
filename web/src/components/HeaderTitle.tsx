@@ -24,10 +24,10 @@ const StyledTitle = styled(Typography)(({ theme }) => ({
 
 type HeaderTitleProps = {
   title: string
-  landingPath: string
+  regionsPath: string
 }
 
-const HeaderTitle = ({ title, landingPath }: HeaderTitleProps): ReactElement => {
+const HeaderTitle = ({ title, regionsPath }: HeaderTitleProps): ReactElement => {
   const { xsmall } = useDimensions()
   const { t } = useTranslation('layout')
   const { featureFlags } = buildConfig()
@@ -49,7 +49,7 @@ const HeaderTitle = ({ title, landingPath }: HeaderTitleProps): ReactElement => 
       onClose={() => setTooltipOpen(false)}>
       <Button
         component={Link}
-        to={landingPath}
+        to={regionsPath}
         endIcon={<KeyboardArrowDownIcon />}
         color='inherit'
         onMouseDown={() => setTooltipOpen(false)}>

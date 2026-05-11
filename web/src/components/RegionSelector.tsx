@@ -23,7 +23,7 @@ type RegionSelectorProps = {
 
 const RegionSelector = ({ regions, language, stickyTop, loading }: RegionSelectorProps): ReactElement => {
   const [filterText, setFilterText] = useState<string>('')
-  const { t } = useTranslation('landing')
+  const { t } = useTranslation('regions')
 
   const resultRegions = filterSortRegions(regions, filterText, buildConfig().featureFlags.developerFriendly)
 

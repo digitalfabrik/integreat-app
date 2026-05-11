@@ -4,7 +4,7 @@ import {
   CONSENT_ROUTE,
   IMPRINT_ROUTE,
   EVENTS_ROUTE,
-  LANDING_ROUTE,
+  REGIONS_ROUTE,
   LICENSES_ROUTE,
   LOCAL_NEWS_TYPE,
   MAIN_IMPRINT_ROUTE,
@@ -23,7 +23,7 @@ export const TU_NEWS_DETAIL_ROUTE = `${TU_NEWS_ROUTE}-detail` as const
 const languageCodePattern = ':languageCode'
 export const regionContentPattern = `/:regionCode/${languageCodePattern}/*`
 export const RoutePatterns = {
-  [LANDING_ROUTE]: `/${LANDING_ROUTE}/${languageCodePattern}`,
+  [REGIONS_ROUTE]: `/${REGIONS_ROUTE}/${languageCodePattern}`,
   [SUGGEST_TO_REGION_ROUTE]: `/${SUGGEST_TO_REGION_ROUTE}/${languageCodePattern}`,
   [MAIN_IMPRINT_ROUTE]: `/${MAIN_IMPRINT_ROUTE}/${languageCodePattern}`,
   [NOT_FOUND_ROUTE]: `/${NOT_FOUND_ROUTE}/${languageCodePattern}`,

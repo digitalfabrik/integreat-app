@@ -6,7 +6,7 @@ import {
   NEWS_ROUTE,
   pathnameFromRouteInformation,
   POIS_ROUTE,
-  LANDING_ROUTE,
+  REGIONS_ROUTE,
   LOCAL_NEWS_TYPE,
   TU_NEWS_TYPE,
 } from 'shared'
@@ -59,7 +59,7 @@ const FailureSwitcher = ({ error }: FailureSwitcherProps): ReactElement => {
           }
         case 'region':
           return {
-            goToPath: pathnameFromRouteInformation({ route: LANDING_ROUTE, ...params }),
+            goToPath: pathnameFromRouteInformation({ route: REGIONS_ROUTE, ...params }),
             errorMessage: 'notFound.region',
           }
       }
