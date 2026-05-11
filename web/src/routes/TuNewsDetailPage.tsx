@@ -6,7 +6,6 @@ import { useParams } from 'react-router'
 import { TU_NEWS_TYPE, tunewsLabel } from 'shared'
 import { createTunewsElementEndpoint, NotFoundError, useLoadFromEndpoint } from 'shared/api'
 
-import { RegionRouteProps } from '../RegionContentNavigator'
 import { TuNewsActiveIcon } from '../assets'
 import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Helmet from '../components/Helmet'
@@ -17,6 +16,7 @@ import SkeletonPage from '../components/SkeletonPage'
 import Svg from '../components/base/Svg'
 import { tunewsApiBaseUrl } from '../constants/urls'
 import useTtsPlayer from '../hooks/useTtsPlayer'
+import { RegionRouteProps } from './index'
 
 const TuNewsBanner = styled('div')(({ theme }) => ({
   overflow: 'hidden',

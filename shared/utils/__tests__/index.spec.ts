@@ -4,11 +4,11 @@ import { CategoriesMapModelBuilder } from '../../api'
 import CategoryModel from '../../api/models/CategoryModel'
 import OfferModel from '../../api/models/OfferModel'
 import TileModel from '../../models/TileModel'
+import { getCategoryTiles } from '../categories'
 import {
   addSubdomain,
   formatDateICal,
   getGenericLanguageCode,
-  getCategoryTiles,
   getSlugFromPath,
   safeParseInt,
   segmentText,

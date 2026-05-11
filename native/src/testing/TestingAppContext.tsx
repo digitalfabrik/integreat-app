@@ -1,6 +1,6 @@
 import React, { ReactElement, ReactNode } from 'react'
 
-import { AppContext, AppContextType } from '../contexts/AppContextProvider'
+import { AppContext, AppContextType } from '../contexts/AppContext'
 import { defaultSettings, SettingsType } from '../utils/AppSettings'
 
 type TestingAppContextParams = { settings?: Partial<SettingsType> } & Omit<Partial<AppContextType>, 'settings'>

@@ -2,7 +2,8 @@ import { TFunction } from 'i18next'
 
 import { CONSENT_ROUTE, ExternalSourcePermissions } from 'shared'
 
-import { IFRAME_BLANK_SOURCE, IframeSources } from '../components/RemoteContent'
+export type IframeSources = Record<number, string>
+export const IFRAME_BLANK_SOURCE = 'about:blank'
 
 export const LOCAL_STORAGE_ITEM_EXTERNAL_SOURCES = 'Opt-In-External-Sources'
 export const addDoNotTrackParameter = (iframe: HTMLIFrameElement): void => {

@@ -18,7 +18,7 @@ import SlideFooter from '../components/SlideFooter'
 import Icon from '../components/base/Icon'
 import { NavigationProps } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
-import { AppContext } from '../contexts/AppContextProvider'
+import { AppContext } from '../contexts/AppContext'
 
 const Container = styled.View<{ width: number }>`
   flex: 1;

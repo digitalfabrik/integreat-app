@@ -6,7 +6,7 @@ import { InternalPathnameParser, REGIONS_ROUTE, RouteInformationType } from 'sha
 import { SnackbarType } from '../components/SnackbarContainer'
 import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
-import { AppContextType } from '../contexts/AppContextProvider'
+import { AppContextType } from '../contexts/AppContext'
 import useNavigate from './useNavigate'
 import { useAppContext } from './useRegionAppContext'
 import useSnackbar from './useSnackbar'

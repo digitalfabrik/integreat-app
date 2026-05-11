@@ -1,7 +1,8 @@
-import { Endpoint, EndpointBuilder, RegionModel } from '..'
-
+import Endpoint from '../Endpoint'
+import EndpointBuilder from '../EndpointBuilder'
 import { API_VERSION } from '../constants'
 import mapRegionJson from '../mapping/mapRegionJson'
+import RegionModel from '../models/RegionModel'
 
 export const REGION_ENDPOINT_NAME = 'region'
 type Params = {

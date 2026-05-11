@@ -10,6 +10,7 @@ import { ThemeKey } from 'build-configs'
 import { UiDirectionType } from 'translations'
 
 import buildConfig from '../constants/buildConfig'
+import { BREAKPOINTS } from '../constants/layout'
 import { prepareTypography } from '../constants/typography'
 import useDimensions from '../hooks/useDimensions'
 import useLocalStorage from '../hooks/useLocalStorage'
@@ -25,14 +26,6 @@ const rtlCache = createCache({
   key: 'mui-rtl-cache',
   stylisPlugins: [prefixer, rtlPlugin],
 })
-
-export const BREAKPOINTS = {
-  xs: 0,
-  sm: 600,
-  md: 840,
-  lg: 1200,
-  xl: 1600,
-}
 
 const createTheme = (
   themeType: 'light' | 'contrast',
