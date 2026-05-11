@@ -33,17 +33,13 @@ const AttributionContainer = styled('div')`
   bottom: calc(min(var(--rsbs-overlay-h, 0), ${props => props.theme.dimensions.bottomSheet.snapPoints.medium}px));
 `
 
-const GeocontrolContainer = styled(AttributionContainer)`
+const MapControlsContainer = styled(AttributionContainer)`
   right: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
   margin-bottom: 24px;
-`
-
-// margin-bottom for ZoomControlsContainer is calculated as follows:
-// The Geocontrol height with its margin-bottom = 29px + 24px
-// = 53px + 8px gap rounded up to 64px
-const ZoomControlsContainer = styled(AttributionContainer)`
-  right: 8px;
-  margin-bottom: 64px;
 `
 
 const SkeletonPoiContent = () => (
@@ -160,10 +156,10 @@ const PoisMobile = ({
         ref={sheetRef}
         sibling={
           <>
-            <ZoomControlsContainer>
-              {mapViewRef && <MapZoomControls onZoomIn={mapViewRef.zoomIn} onZoomOut={mapViewRef.zoomOut} />}
-            </ZoomControlsContainer>
-            <GeocontrolContainer ref={geocontrolPosition} />
+            <MapControlsContainer>
+              {mapViewRef && <MapZoomControls mapViewRef={mapViewRef} />}
+              <div ref={geocontrolPosition} />
+            </MapControlsContainer>
             <AttributionContainer>
               <MapAttribution />
             </AttributionContainer>

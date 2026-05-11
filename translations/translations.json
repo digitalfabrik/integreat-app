@@ -11566,8 +11566,8 @@
       "poisCount_many": "{{count}} Orte",
       "poisCount_other": "{{count}} Orte",
       "contacts": "Kontakte",
-      "zoomIn": "Zoom in",
-      "zoomOut": "Zoom out"
+      "zoomIn": "Vergrößern",
+      "zoomOut": "Verkleinern"
     },
     "am": {
       "pageTitle": "ካርታ",

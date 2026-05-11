@@ -91,7 +91,7 @@ type MapViewProps = {
   bottomSheetFullscreen: boolean
   zoom: number | undefined
   Overlay?: ReactElement
-  zoomInRef?: Ref<View>
+  zoomRef?: Ref<View>
 }
 
 const MapView = ({
@@ -106,7 +106,7 @@ const MapView = ({
   bottomSheetMidHeight,
   bottomSheetFullscreen,
   zoom,
-  zoomInRef,
+  zoomRef,
 }: MapViewProps): ReactElement => {
   const mapRef = useRef<MapRef>(null)
   const cameraRef = useRef<CameraRef>(null)
@@ -183,20 +183,6 @@ const MapView = ({
     }
   }
 
-  const zoomBy = useCallback(async (delta: number) => {
-    if (mapRef.current === null) {
-      return
-    }
-
-    const currentZoom = await mapRef.current.getZoom()
-
-    setCameraSettings({
-      zoom: currentZoom + delta,
-      duration: animationDuration,
-      easing: 'ease',
-    })
-  }, [])
-
   const locationPermissionGrantedIcon = trackUserLocation ? 'crosshairs-gps' : 'crosshairs'
   const locationPermissionIcon = userLocation ? locationPermissionGrantedIcon : 'crosshairs-off'
 
@@ -244,12 +230,7 @@ const MapView = ({
         position={bottomSheetHeight}
         accessibilityLabel={t('showOwnLocation')}
       />
-      <MapZoomControls
-        onZoomIn={() => zoomBy(1)}
-        onZoomOut={() => zoomBy(-1)}
-        bottomSheetHeight={bottomSheetHeight}
-        zoomInRef={zoomInRef}
-      />
+      <MapZoomControls mapRef={mapRef} cameraRef={cameraRef} bottomSheetHeight={bottomSheetHeight} ref={zoomRef} />
     </OuterWrapper>
   )
 }

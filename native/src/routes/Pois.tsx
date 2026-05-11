@@ -154,6 +154,7 @@ const Pois = ({ localHistory, initialZoom, pois: allPois, regionModel }: PoisPro
         userLocation={userLocation}
         zoom={initialZoom}
         Overlay={FiltersOverlayButtons}
+        zoomRef={handleZoomInRef}
       />
       <PoisBottomSheet
         pois={sortPois(pois, userLocation)}

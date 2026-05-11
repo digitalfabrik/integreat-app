@@ -6,6 +6,8 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { MapViewRef } from './MapView'
+
 const StyledIconButton = styled(IconButton)`
   background-color: ${props => props.theme.palette.background.accent};
   border: 1px solid
@@ -25,19 +27,18 @@ const StyledIconButton = styled(IconButton)`
 `
 
 type MapZoomControlsProps = {
-  onZoomIn: () => void
-  onZoomOut: () => void
+  mapViewRef: MapViewRef
 }
 
-const MapZoomControls = ({ onZoomIn, onZoomOut }: MapZoomControlsProps): ReactElement => {
+const MapZoomControls = ({ mapViewRef }: MapZoomControlsProps): ReactElement => {
   const { t } = useTranslation('pois')
 
   return (
     <Stack gap={1}>
-      <StyledIconButton onClick={onZoomIn} aria-label={t('zoomIn')}>
+      <StyledIconButton onClick={mapViewRef.zoomIn} aria-label={t('zoomIn')}>
         <AddIcon />
       </StyledIconButton>
-      <StyledIconButton onClick={onZoomOut} aria-label={t('zoomOut')}>
+      <StyledIconButton onClick={mapViewRef.zoomOut} aria-label={t('zoomOut')}>
         <RemoveIcon />
       </StyledIconButton>
     </Stack>
