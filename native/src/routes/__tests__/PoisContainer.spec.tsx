@@ -34,14 +34,14 @@ jest.mock('../Pois', () => {
 })
 
 const pois = new PoiModelBuilder(3).build()
-const city = new RegionModelBuilder(1).build()[0]!
+const region = new RegionModelBuilder(1).build()[0]!
 const languages = new LanguageModelBuilder(2).build()
 
 const data = {
   pois,
-  city,
+  region,
   languages,
-  cities: [city],
+  regions: [region],
   language: languages[0]!,
   categories: {},
   events: [],

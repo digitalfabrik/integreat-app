@@ -1,5 +1,5 @@
 import BottomSheet, { BottomSheetFlatList, BottomSheetScrollView } from '@gorhom/bottom-sheet'
-import React, { memo, ReactElement, useCallback, useRef, useState } from 'react'
+import React, { memo, ReactElement, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 import styled, { useTheme } from 'styled-components/native'
@@ -63,23 +63,11 @@ const PoisBottomSheet = ({
   setSnapPointIndex,
   isFullscreen,
 }: PoiBottomSheetProps): ReactElement | null => {
+  const [remountKey, setRemountKey] = useState(0)
   const { languageCode } = useRegionAppContext()
+  const bottomSheetRef = useRef<BottomSheet>(null)
   const { t } = useTranslation('pois')
   const theme = useTheme()
-  const bottomSheetRef = useRef<BottomSheet>(null)
-  const [remountKey, setRemountKey] = useState(0)
-
-  const handlePoiFocus = useCallback(() => {
-    if (!isFullscreen && bottomSheetRef.current) {
-      const fullscreenIndex = snapPoints.length - 1
-      bottomSheetRef.current.snapToIndex(fullscreenIndex)
-    }
-  }, [isFullscreen, snapPoints.length])
-
-  const handlePoiSelection = (poi: PoiModel) => {
-    selectPoi(poi)
-    bottomSheetRef.current?.snapToIndex(1)
-  }
 
   // Workaround for bottomSheet gets hidden after permissions dialog on Android so we force remounting after app comes back to foreground.
   // reanimated's shared values gets affected by the permissions dialog (UI thread is stopped when the permission dialog is displayed).
@@ -90,9 +78,16 @@ const PoisBottomSheet = ({
     }
   })
 
+  const expandFullscreen = () => bottomSheetRef.current?.snapToIndex(snapPoints.length - 1)
+
+  const handlePoiSelection = (poi: PoiModel) => {
+    selectPoi(poi)
+    bottomSheetRef.current?.snapToIndex(1)
+  }
+
   const PoiDetail = poi ? (
     <PoiDetails
-      onFocus={handlePoiFocus}
+      onFocus={expandFullscreen}
       language={languageCode}
       poi={poi}
       distance={userLocation && poi.distance(userLocation)}
@@ -108,7 +103,7 @@ const PoisBottomSheet = ({
       language={languageCode}
       navigateToPoi={() => handlePoiSelection(poi)}
       distance={userLocation && poi.distance(userLocation)}
-      onFocus={handlePoiFocus}
+      onFocus={expandFullscreen}
     />
   )
 
