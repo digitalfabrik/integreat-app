@@ -1,11 +1,7 @@
-import BottomSheet, {
-  BottomSheetFlatList,
-  BottomSheetFlatListMethods,
-  BottomSheetScrollView,
-} from '@gorhom/bottom-sheet'
-import React, { memo, ReactElement, Ref, useCallback, useRef, useState } from 'react'
+import BottomSheet, { BottomSheetFlatList, BottomSheetScrollView } from '@gorhom/bottom-sheet'
+import React, { memo, ReactElement, useCallback, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { NativeScrollEvent, NativeSyntheticEvent, View } from 'react-native'
+import { View } from 'react-native'
 import styled, { useTheme } from 'styled-components/native'
 
 import { LocationType } from 'shared'
@@ -43,7 +39,6 @@ const PoiListDivider = () => {
 }
 
 type PoiBottomSheetProps = {
-  poiListRef: Ref<BottomSheetFlatListMethods>
   pois: PoiModel[]
   poi: PoiModel | undefined
   userLocation: LocationType | null
@@ -53,12 +48,10 @@ type PoiBottomSheetProps = {
   snapPoints: number[]
   snapPointIndex: number
   setSnapPointIndex: (index: number) => void
-  setScrollPosition: (position: number) => void
   isFullscreen: boolean
 }
 
 const PoisBottomSheet = ({
-  poiListRef,
   pois,
   poi,
   userLocation,
@@ -68,7 +61,6 @@ const PoisBottomSheet = ({
   snapPoints,
   snapPointIndex,
   setSnapPointIndex,
-  setScrollPosition,
   isFullscreen,
 }: PoiBottomSheetProps): ReactElement | null => {
   const { languageCode } = useRegionAppContext()
@@ -139,14 +131,10 @@ const PoisBottomSheet = ({
           <BottomSheetScrollView showsVerticalScrollIndicator={false}>{PoiDetail}</BottomSheetScrollView>
         ) : (
           <BottomSheetFlatList
-            ref={poiListRef}
             data={pois}
             role='list'
             accessibilityLabel={t('poisCount', { count: pois.length })}
             renderItem={renderPoiListItem}
-            onMomentumScrollBegin={(event: NativeSyntheticEvent<NativeScrollEvent>) =>
-              setScrollPosition(event.nativeEvent.contentOffset.y)
-            }
             showsVerticalScrollIndicator={false}
             ListHeaderComponent={<Text variant='h5'>{t('common:nearby')}</Text>}
             ListEmptyComponent={

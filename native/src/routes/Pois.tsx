@@ -1,5 +1,4 @@
-import { BottomSheetFlatListMethods } from '@gorhom/bottom-sheet'
-import React, { ReactElement, useRef, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, useWindowDimensions } from 'react-native'
 import { Chip } from 'react-native-paper'
@@ -44,8 +43,6 @@ const Pois = ({ pois: allPois, regionModel, route, navigation }: PoisProps): Rea
   const [showFilterSelection, setShowFilterSelection] = useState(false)
   const [userLocation, setUserLocation] = useState<LocationType | null>(null)
   const [bottomSheetSnapPointIndex, setBottomSheetSnapPointIndex] = useState(1)
-  const [listScrollPosition, setListScrollPosition] = useState(0)
-  const poiListRef = useRef<BottomSheetFlatListMethods>(null)
   const { t } = useTranslation('pois')
   const { height } = useWindowDimensions()
   const bottomSheetSnapPoints = [dimensions.bottomSheetHandle.height, SNAP_POINT_MID_PERCENTAGE * height, height]
@@ -57,11 +54,8 @@ const Pois = ({ pois: allPois, regionModel, route, navigation }: PoisProps): Rea
     params: { slug, multipoi, poiCategoryId, currentlyOpen: poiCurrentlyOpenFilter },
   })
 
-  const scrollToOffset = (offset: number) => poiListRef.current?.scrollToOffset({ offset, animated: false })
-
   const deselectAll = () => {
     navigation.setParams({ slug: undefined, multipoi: undefined })
-    scrollToOffset(listScrollPosition)
   }
 
   const deselect = () => {
@@ -95,7 +89,6 @@ const Pois = ({ pois: allPois, regionModel, route, navigation }: PoisProps): Rea
     const slug = mapFeature?.properties.pois[0]?.slug
     if (mapFeature && isMultipoi(mapFeature)) {
       navigation.setParams({ multipoi: safeParseInt(mapFeature.id), slug: undefined })
-      scrollToOffset(0)
     } else if (slug) {
       navigation.setParams({ slug, multipoi: undefined })
     }
@@ -179,7 +172,6 @@ const Pois = ({ pois: allPois, regionModel, route, navigation }: PoisProps): Rea
         Overlay={FiltersOverlayButtons}
       />
       <PoisBottomSheet
-        poiListRef={poiListRef}
         pois={sortPois(pois, userLocation)}
         poi={poi}
         slug={slug}
@@ -189,7 +181,6 @@ const Pois = ({ pois: allPois, regionModel, route, navigation }: PoisProps): Rea
         snapPoints={bottomSheetSnapPoints}
         snapPointIndex={bottomSheetSnapPointIndex}
         setSnapPointIndex={setBottomSheetSnapPointIndex}
-        setScrollPosition={setListScrollPosition}
         isFullscreen={bottomSheetFullscreen}
       />
     </Container>
