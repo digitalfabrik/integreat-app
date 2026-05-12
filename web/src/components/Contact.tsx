@@ -24,7 +24,7 @@ const Contact = ({ contact }: ContactProps): ReactElement => {
 
   return (
     <ListItem disablePadding>
-      <Stack gap={1}>
+      <Stack gap={1} width='100%'>
         <Typography component='h3' variant='subtitle2'>
           {headline ?? t('contactInformation')}
         </Typography>
