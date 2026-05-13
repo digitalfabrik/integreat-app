@@ -8,17 +8,11 @@ import { animationDuration } from 'shared'
 
 import Icon from './base/Icon'
 
-// 50px location button height + 16px margin + 8px gap
-const locationButtonOffset = 74
-
 const styles = StyleSheet.create({
   container: {
-    position: 'absolute',
-    right: 0,
     gap: 8,
   },
   button: {
-    marginRight: 16,
     width: 48,
     height: 48,
     borderRadius: 24,
@@ -28,7 +22,7 @@ const styles = StyleSheet.create({
   },
 })
 
-type FocusedButtonProps = {
+type FocusedOnlyButtonProps = {
   children: ReactElement
   accessibilityLabel: string
   ref?: Ref<View>
@@ -37,7 +31,14 @@ type FocusedButtonProps = {
   nextFocusForward?: number
 }
 
-const FocusedButton = ({ children, accessibilityLabel, ref, style, onPress, nextFocusForward }: FocusedButtonProps) => {
+const FocusedOnlyButton = ({
+  children,
+  accessibilityLabel,
+  ref,
+  style,
+  onPress,
+  nextFocusForward,
+}: FocusedOnlyButtonProps) => {
   const [isFocused, setIsFocused] = useState(false)
   const theme = useTheme()
 
@@ -59,11 +60,10 @@ const FocusedButton = ({ children, accessibilityLabel, ref, style, onPress, next
 type MapZoomControlsProps = {
   mapRef: RefObject<MapRef | null>
   cameraRef: RefObject<CameraRef | null>
-  bottomSheetHeight: number
   ref?: Ref<View>
 }
 
-const MapZoomControls = ({ mapRef, cameraRef, bottomSheetHeight, ref }: MapZoomControlsProps): ReactElement => {
+const MapZoomControls = ({ mapRef, cameraRef, ref }: MapZoomControlsProps): ReactElement => {
   const { t } = useTranslation('pois')
   const theme = useTheme()
   const [zoomOutFocusTarget, setZoomOutFocusTarget] = useState<number | undefined>(undefined)
@@ -81,17 +81,17 @@ const MapZoomControls = ({ mapRef, cameraRef, bottomSheetHeight, ref }: MapZoomC
   }
 
   return (
-    <View style={[styles.container, { bottom: bottomSheetHeight + locationButtonOffset }]}>
-      <FocusedButton
+    <View style={styles.container}>
+      <FocusedOnlyButton
         onPress={() => zoom(1)}
         accessibilityLabel={t('zoomIn')}
         ref={ref}
         nextFocusForward={zoomOutFocusTarget}>
         <Icon source='plus' color={theme.colors.onSurface} />
-      </FocusedButton>
-      <FocusedButton onPress={() => zoom(-1)} accessibilityLabel={t('zoomOut')} ref={handleZoomOutRef}>
+      </FocusedOnlyButton>
+      <FocusedOnlyButton onPress={() => zoom(-1)} accessibilityLabel={t('zoomOut')} ref={handleZoomOutRef}>
         <Icon source='minus' color={theme.colors.onSurface} />
-      </FocusedButton>
+      </FocusedOnlyButton>
     </View>
   )
 }

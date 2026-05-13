@@ -57,17 +57,20 @@ const StyledMap = styled(MapLibreMapView)`
   width: 100%;
 `
 
-const StyledIcon = styled(IconButton)<{
-  position: number | string
-}>`
+const ControlsContainer = styled.View<{ bottomSheetHeight: number }>`
   position: absolute;
   right: 0;
-  bottom: ${props => props.position}${props => (typeof props.position === 'number' ? 'px' : '')};
+  bottom: ${props => props.bottomSheetHeight}px;
+  gap: 8px;
+  padding: 16px;
+  align-items: center;
+`
+
+const LocationButton = styled(IconButton)`
   background-color: ${props => props.theme.colors.secondary};
-  margin: 16px;
-  width: 50px;
-  height: 50px;
-  border-radius: 25px;
+  width: 48px;
+  height: 48px;
+  border-radius: 24px;
 `
 
 const OverlayContainer = styled.View`
@@ -221,16 +224,20 @@ const MapView = ({
       </MapContainer>
       <OverlayContainer {...conditionalA11yProps({ hidden: bottomSheetFullscreen })}>{Overlay}</OverlayContainer>
       <MapAttribution accessible={bottomSheetFullscreen} />
-      <StyledIcon
-        {...conditionalA11yProps({ hidden: bottomSheetFullscreen })}
-        icon={
-          <Icon color={theme.dark ? theme.colors.background : theme.colors.onSurface} source={locationPermissionIcon} />
-        }
-        onPress={onRequestLocation}
-        position={bottomSheetHeight}
-        accessibilityLabel={t('showOwnLocation')}
-      />
-      <MapZoomControls mapRef={mapRef} cameraRef={cameraRef} bottomSheetHeight={bottomSheetHeight} ref={zoomRef} />
+      <ControlsContainer bottomSheetHeight={bottomSheetHeight}>
+        <MapZoomControls mapRef={mapRef} cameraRef={cameraRef} ref={zoomRef} />
+        <LocationButton
+          {...conditionalA11yProps({ hidden: bottomSheetFullscreen })}
+          icon={
+            <Icon
+              color={theme.dark ? theme.colors.background : theme.colors.onSurface}
+              source={locationPermissionIcon}
+            />
+          }
+          onPress={onRequestLocation}
+          accessibilityLabel={t('showOwnLocation')}
+        />
+      </ControlsContainer>
     </OuterWrapper>
   )
 }
