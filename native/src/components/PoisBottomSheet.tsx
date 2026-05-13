@@ -24,6 +24,12 @@ const BottomSheetContent = styled.View`
   margin: 0 24px;
 `
 
+const PoiDetailsOverlay = styled.View`
+  position: absolute;
+  inset: 0;
+  background-color: ${props => props.theme.colors.background};
+`
+
 const PoiListDivider = () => {
   // This is an alternative to <Divider/> because it has render issues inside BottomSheetFlatList
   const theme = useTheme()
@@ -122,28 +128,31 @@ const PoisBottomSheet = ({
       handleComponent={BottomSheetHandle}
       onChange={setSnapPointIndex}>
       <BottomSheetContent>
-        {slug ? (
-          <BottomSheetScrollView showsVerticalScrollIndicator={false}>{PoiDetail}</BottomSheetScrollView>
-        ) : (
-          <BottomSheetFlatList
-            data={pois}
-            role='list'
-            accessibilityLabel={t('poisCount', { count: pois.length })}
-            renderItem={renderPoiListItem}
-            showsVerticalScrollIndicator={false}
-            ListHeaderComponent={<Text variant='h5'>{t('common:nearby')}</Text>}
-            ListEmptyComponent={
-              <Text
-                variant='body2'
-                style={{
-                  alignSelf: 'center',
-                  marginTop: 20,
-                }}>
-                {t('noPois')}
-              </Text>
-            }
-            ItemSeparatorComponent={PoiListDivider}
-          />
+        <BottomSheetFlatList
+          data={pois}
+          role='list'
+          accessibilityElementsHidden={!!slug}
+          importantForAccessibility={slug ? 'no-hide-descendants' : 'auto'}
+          accessibilityLabel={t('poisCount', { count: pois.length })}
+          renderItem={renderPoiListItem}
+          showsVerticalScrollIndicator={false}
+          ListHeaderComponent={<Text variant='h5'>{t('common:nearby')}</Text>}
+          ListEmptyComponent={
+            <Text
+              variant='body2'
+              style={{
+                alignSelf: 'center',
+                marginTop: 20,
+              }}>
+              {t('noPois')}
+            </Text>
+          }
+          ItemSeparatorComponent={PoiListDivider}
+        />
+        {slug && (
+          <PoiDetailsOverlay>
+            <BottomSheetScrollView showsVerticalScrollIndicator={false}>{PoiDetail}</BottomSheetScrollView>
+          </PoiDetailsOverlay>
         )}
       </BottomSheetContent>
     </StyledBottomSheet>
