@@ -13,6 +13,8 @@ import {
   LOCAL_STORAGE_ITEM_EXTERNAL_SOURCES,
   handleAllowedIframeSources,
   hideIframe,
+  IframeSources,
+  IFRAME_BLANK_SOURCE,
   preserveIFrameSourcesFromContent,
 } from '../utils/iframes'
 import openLink from '../utils/openLink'
@@ -27,9 +29,6 @@ type RemoteContentProps = {
 const DOMPURIFY_TAG_IFRAME = 'iframe'
 const DOMPURIFY_ATTRIBUTE_FULLSCREEN = 'allowfullscreen'
 const DOMPURIFY_ATTRIBUTE_TARGET = 'target'
-
-export type IframeSources = Record<number, string>
-export const IFRAME_BLANK_SOURCE = 'about:blank'
 
 const RemoteContent = ({ html, centered = false, smallText = false }: RemoteContentProps): ReactElement => {
   const navigate = useNavigate()

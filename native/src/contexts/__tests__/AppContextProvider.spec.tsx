@@ -12,7 +12,8 @@ import render from '../../testing/render'
 import appSettings, { defaultSettings, SettingsType } from '../../utils/AppSettings'
 import defaultDataContainer from '../../utils/DefaultDataContainer'
 import { subscribeNews, unsubscribeNews } from '../../utils/PushNotificationsManager'
-import AppContextProvider, { AppContext } from '../AppContextProvider'
+import { AppContext } from '../AppContext'
+import AppContextProvider from '../AppContextProvider'
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ i18n: { languages: ['en'] } }),

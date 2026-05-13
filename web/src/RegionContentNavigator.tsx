@@ -11,7 +11,7 @@ import {
   POIS_ROUTE,
   SEARCH_ROUTE,
 } from 'shared'
-import { RegionModel, NotFoundError, useLoadFromEndpoint, createRegionEndpoint } from 'shared/api'
+import { NotFoundError, useLoadFromEndpoint, createRegionEndpoint } from 'shared/api'
 
 import FailureSwitcherWithHelmet from './components/FailureSwitcherWithHelmet'
 import Footer from './components/Footer'
@@ -20,7 +20,14 @@ import LanguageFailure from './components/LanguageFailure'
 import Layout from './components/Layout'
 import RegionContentLayout from './components/RegionContentLayout'
 import { cmsApiBaseUrl } from './constants/urls'
-import { LOCAL_NEWS_ROUTE, RoutePatterns, RouteType, TU_NEWS_DETAIL_ROUTE, TU_NEWS_ROUTE } from './routes'
+import {
+  LOCAL_NEWS_ROUTE,
+  RoutePatterns,
+  RouteType,
+  TU_NEWS_DETAIL_ROUTE,
+  TU_NEWS_ROUTE,
+  RegionRouteProps,
+} from './routes'
 import lazyWithRetry from './utils/retryImport'
 
 const TuNewsDetailPage = lazyWithRetry(() => import('./routes/TuNewsDetailPage'))
@@ -33,13 +40,6 @@ const SearchPage = lazyWithRetry(() => import('./routes/SearchPage'))
 const ImprintPage = lazyWithRetry(() => import('./routes/ImprintPage'))
 
 type RegionContentNavigatorProps = {
-  languageCode: string
-}
-
-export type RegionRouteProps = {
-  region: RegionModel | null
-  pathname: string
-  regionCode: string
   languageCode: string
 }
 

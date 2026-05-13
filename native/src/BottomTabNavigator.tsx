@@ -19,8 +19,8 @@ import {
   POIS_TAB_ROUTE,
 } from 'shared'
 
-import { defaultHeader } from './Navigator'
 import { SignPostIcon } from './assets'
+import { defaultHeader } from './components/DefaultHeader'
 import Icon from './components/base/Icon'
 import Text from './components/base/Text'
 import { TAB_NAVIGATOR_ID } from './constants'

@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { useParams } from 'react-router'
 
-import { RegionModel, NotFoundError } from 'shared/api'
+import { NotFoundError } from 'shared/api'
 
 import RegionContentNavigator from './RegionContentNavigator'
 import FailureSwitcherWithHelmet from './components/FailureSwitcherWithHelmet'
@@ -12,13 +12,6 @@ import Layout from './components/Layout'
 type FixedRegionContentNavigatorProps = {
   languageCode: string
   fixedRegion: string
-}
-
-export type RegionRouteProps = {
-  region: RegionModel | null
-  pathname: string
-  regionCode: string
-  languageCode: string
 }
 
 const FixedRegionContentNavigator = ({ languageCode, fixedRegion }: FixedRegionContentNavigatorProps): ReactElement => {

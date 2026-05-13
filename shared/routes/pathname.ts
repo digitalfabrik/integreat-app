@@ -11,7 +11,8 @@ import {
   POIS_ROUTE,
   SEARCH_ROUTE,
 } from '.'
-import { NonNullableRouteInformationType } from '..'
+
+import { NonNullableRouteInformationType } from './RouteInformationTypes'
 
 type RegionContentRouteUrlType = {
   regionCode: string
