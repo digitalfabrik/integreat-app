@@ -9,6 +9,7 @@ import { ErrorCode, PoiModel } from 'shared/api'
 
 import useAppStateListener from '../hooks/useAppStateListener'
 import useRegionAppContext from '../hooks/useRegionAppContext'
+import { conditionalA11yProps } from '../utils/helpers'
 import BottomSheetHandle from './BottomSheetHandle'
 import Failure from './Failure'
 import PoiDetails from './PoiDetails'
@@ -131,8 +132,7 @@ const PoisBottomSheet = ({
         <BottomSheetFlatList
           data={pois}
           role='list'
-          accessibilityElementsHidden={!!slug}
-          importantForAccessibility={slug ? 'no-hide-descendants' : 'auto'}
+          {...conditionalA11yProps({ hidden: !!slug })}
           accessibilityLabel={t('poisCount', { count: pois.length })}
           renderItem={renderPoiListItem}
           showsVerticalScrollIndicator={false}
