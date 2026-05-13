@@ -3,7 +3,6 @@ import React, { ReactElement, useCallback } from 'react'
 import { NEWS_ROUTE, pathnameFromRouteInformation, TU_NEWS_TYPE, tunewsLabel } from 'shared'
 import { createTunewsEndpoint, createTunewsLanguagesEndpoint, TunewsModel, useLoadFromEndpoint } from 'shared/api'
 
-import { RegionRouteProps } from '../RegionContentNavigator'
 import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Helmet from '../components/Helmet'
 import InfiniteScrollList from '../components/InfiniteScrollList'
@@ -14,6 +13,7 @@ import RegionContentLayout, { RegionContentLayoutProps } from '../components/Reg
 import RegionContentToolbar from '../components/RegionContentToolbar'
 import SkeletonList from '../components/SkeletonList'
 import { tunewsApiBaseUrl } from '../constants/urls'
+import { RegionRouteProps } from './index'
 
 const DEFAULT_PAGE = 1
 const DEFAULT_COUNT = 10

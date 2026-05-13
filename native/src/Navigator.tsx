@@ -26,6 +26,7 @@ import {
 } from 'shared'
 
 import BottomTabNavigator from './BottomTabNavigator'
+import { defaultHeader } from './components/DefaultHeader'
 import Header from './components/Header'
 import RedirectContainer from './components/RedirectContainer'
 import TransparentHeader from './components/TransparentHeader'
@@ -59,9 +60,6 @@ type HeaderProps = {
 
 const transparentHeader = (headerProps: StackHeaderProps) => <TransparentHeader {...(headerProps as HeaderProps)} />
 
-export const defaultHeader = (headerProps: StackHeaderProps): ReactElement => (
-  <Header {...(headerProps as HeaderProps)} />
-)
 const settingsHeader = (headerProps: StackHeaderProps) => <Header {...(headerProps as HeaderProps)} showMenu={false} />
 
 const Stack = createStackNavigator<RoutesParamsType>()

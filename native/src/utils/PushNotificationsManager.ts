@@ -15,7 +15,7 @@ import { checkNotifications, requestNotifications, RESULTS } from 'react-native-
 import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NonNullableRouteInformationType, RouteInformationType } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
-import { AppContextType } from '../contexts/AppContextProvider'
+import { AppContextType } from '../contexts/AppContext'
 import { useAppContext } from '../hooks/useRegionAppContext'
 import { log, reportError } from './sentry'
 

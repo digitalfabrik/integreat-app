@@ -5,7 +5,7 @@ import { parseHTML, segmentText } from 'shared'
 import { LocalNewsModel, DocumentModel, TunewsModel } from 'shared/api'
 
 import { TtsContext, TtsContextType } from '../components/TtsContainer'
-import { AppContext } from '../contexts/AppContextProvider'
+import { AppContext } from '../contexts/AppContext'
 
 const useTtsPlayer = (model?: DocumentModel | LocalNewsModel | TunewsModel | undefined): TtsContextType => {
   const { languageCode } = useContext(AppContext)

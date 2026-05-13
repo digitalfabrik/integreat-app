@@ -1,17 +1,8 @@
-import { DateTime } from 'luxon'
 import segment from 'sentencex'
 
-import CategoryModel from '../api/models/CategoryModel'
-import { APPOINTMENT_BOOKING_OFFER_ALIAS, INTERNAL_OFFERS } from '../constants'
-import TileModel from '../models/TileModel'
+export { formatDateICal } from './date'
 
 export const getSlugFromPath = (path: string): string => path.split('/').pop() ?? ''
-
-export const formatDateICal = (date: DateTime): string =>
-  // DateTime.toFormat() does not respect the locale settings on some devices
-  // Therefore hackily convert an ISO date to ICal format
-  // https://github.com/digitalfabrik/integreat-app/pull/3158#pullrequestreview-2935063754
-  date.toISO().replace(/-/g, '').replace(/:/g, '').replace(/\..*/, '')
 
 export const safeParseInt = (value: string | number | undefined | null): number | undefined => {
   if (value === null || value === undefined || value === '') {
@@ -29,27 +20,6 @@ export const addSubdomain = ({ url, subdomain }: { url: string; subdomain: strin
   newUrl.hostname = `${subdomain}.${newUrl.hostname}`
   return newUrl.toString()
 }
-
-export const getCategoryTiles = ({
-  categories,
-  regionCode,
-}: {
-  categories: CategoryModel[]
-  regionCode: string
-}): TileModel[] =>
-  categories.map(category => {
-    const externalOffer = category.embeddedOffers.find(it => !INTERNAL_OFFERS.includes(it.alias))
-    const externalOfferUrl =
-      externalOffer?.alias === APPOINTMENT_BOOKING_OFFER_ALIAS
-        ? addSubdomain({ url: externalOffer.path, subdomain: regionCode })
-        : externalOffer?.path
-    return new TileModel({
-      title: category.title,
-      path: externalOfferUrl ?? category.path,
-      thumbnail: category.thumbnail,
-      isExternalUrl: externalOfferUrl !== undefined,
-    })
-  })
 
 export const hasProp = <P extends PropertyKey, O extends { [p in P]: unknown }>(
   object: O,

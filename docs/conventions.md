@@ -64,6 +64,14 @@ Show only linting errors:
 
 > yarn lint --quiet
 
+### Circular Dependencies
+
+We use [madge](https://github.com/pahen/madge) to detect circular dependencies.
+
+Check for circular dependencies:
+
+> yarn check-circular-dependencies
+
 ### IntelliJ Code Snippets
 
 For gaining a more convenient code styling and a smoother development experience you can use our React TypeScript code

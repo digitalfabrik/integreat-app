@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next'
 import { IMPRINT_ROUTE, pathnameFromRouteInformation } from 'shared'
 import { createImprintEndpoint, useLoadFromEndpoint } from 'shared/api'
 
-import { RegionRouteProps } from '../RegionContentNavigator'
 import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Helmet from '../components/Helmet'
 import Page from '../components/Page'
@@ -12,6 +11,7 @@ import RegionContentLayout, { RegionContentLayoutProps } from '../components/Reg
 import RegionContentToolbar from '../components/RegionContentToolbar'
 import SkeletonPage from '../components/SkeletonPage'
 import { cmsApiBaseUrl } from '../constants/urls'
+import { RegionRouteProps } from './index'
 
 const ImprintPage = ({ regionCode, languageCode, region }: RegionRouteProps): ReactElement | null => {
   const { t } = useTranslation('imprint')
