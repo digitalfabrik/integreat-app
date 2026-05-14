@@ -109,6 +109,7 @@ const OpeningHours = ({
   return (
     <>
       <Accordion
+        nativeID='accessibility-order-opening-hours'
         headerContent={<OpeningHoursTitle isCurrentlyOpen={isCurrentlyOpen} language={language} />}
         initialCollapsed>
         <HoursList hours={openingHours} appointmentUrl={appointmentUrl} />

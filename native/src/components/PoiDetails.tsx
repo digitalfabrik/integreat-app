@@ -14,7 +14,7 @@ import Page from './Page'
 import PoiChips from './PoiChips'
 import Text from './base/Text'
 
-const PoiDetailsContainer = styled.View`
+const PoiDetailsContainer = styled.View<{ experimental_accessibilityOrder?: string[] }>`
   flex: 1;
   background-color: ${props => props.theme.colors.background};
   gap: 16px;
@@ -39,8 +39,22 @@ const PoiDetails = ({ poi, language, distance, onFocus }: PoiDetailsProps): Reac
   const { t } = useTranslation('pois')
   const { title, content, contacts, openingHours, temporarilyClosed, isCurrentlyOpen, category, appointmentUrl } = poi
 
+  // [4092] accessibilityOrder feature is experimental and could change in the future
+  // Used here to fix the the loop that happens between the description accordion and the address copy button.
+  // https://reactnative.dev/docs/accessibility#experimental_accessibilityorder
+  const accessibilityOrder = [
+    ...(content.length > 0 ? ['accessibility-order-description'] : []),
+    'accessibility-order-address',
+    ...(contacts.length > 0 ? ['accessibility-order-contacts'] : []),
+    'accessibility-order-opening-hours',
+  ]
+
   return (
-    <PoiDetailsContainer accessibilityLabel={`${title} - ${category.name}`} onFocus={onFocus} focusable>
+    <PoiDetailsContainer
+      accessibilityLabel={`${title} - ${category.name}`}
+      onFocus={onFocus}
+      screenReaderFocusable
+      experimental_accessibilityOrder={accessibilityOrder}>
       <Text variant='h5' style={{ paddingBottom: 4 }}>
         {title}
       </Text>
@@ -54,7 +68,7 @@ const PoiDetails = ({ poi, language, distance, onFocus }: PoiDetailsProps): Reac
       <StyledDivider />
       {content.length > 0 && (
         <>
-          <Accordion headerContent={t('description')}>
+          <Accordion nativeID='accessibility-order-description' headerContent={t('description')}>
             <Page content={content} language={language} padding={false} />
           </Accordion>
           <StyledDivider />
@@ -64,7 +78,7 @@ const PoiDetails = ({ poi, language, distance, onFocus }: PoiDetailsProps): Reac
       <StyledDivider />
       {contacts.length > 0 && (
         <>
-          <Accordion headerContent={t('contacts')} initialCollapsed>
+          <Accordion nativeID='accessibility-order-contacts' headerContent={t('contacts')} initialCollapsed>
             <StyledContactsContainer>
               {contacts.map((contact, index) => (
                 <Contact
