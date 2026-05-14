@@ -111,6 +111,7 @@ const PoisBottomSheet = ({
       navigateToPoi={() => handlePoiSelection(poi)}
       distance={userLocation && poi.distance(userLocation)}
       onFocus={expandFullscreen}
+      isKeyboardFocusable={!slug}
     />
   )
 
