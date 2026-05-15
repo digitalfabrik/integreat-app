@@ -26,6 +26,7 @@ import {
   defaultViewportConfig,
   embedInCollection,
   featureLayerId,
+  LocationStateType,
   LocationType,
   mapConfig,
   MapFeature,
@@ -34,7 +35,6 @@ import {
 
 import { clusterCountLayer, clusterLayer, markerLayer } from '../constants/layers'
 import usePreviousProp from '../hooks/usePreviousProp'
-import useUserLocation from '../hooks/useUserLocation'
 import { conditionalA11yProps } from '../utils/helpers'
 import MapAttribution from './MapsAttribution'
 import Icon from './base/Icon'
@@ -82,7 +82,7 @@ type MapViewProps = {
   features: MapFeature[]
   selectedFeature: MapFeature | null
   userLocation: LocationType | null
-  setUserLocation: (userLocation: LocationType | null) => void
+  refreshPermissionAndLocation: () => Promise<LocationStateType | null>
   selectFeature: (feature: MapFeature | null) => void
   bottomSheetHeight: number
   bottomSheetFullscreen: boolean
@@ -95,7 +95,7 @@ const MapView = ({
   features,
   selectedFeature,
   userLocation,
-  setUserLocation,
+  refreshPermissionAndLocation,
   selectFeature,
   Overlay,
   bottomSheetHeight,
@@ -105,7 +105,6 @@ const MapView = ({
   const mapRef = useRef<MapRef>(null)
   const cameraRef = useRef<CameraRef>(null)
   const [trackUserLocation, setTrackUserLocation] = useState<TrackUserLocation | null>(null)
-  const { refreshPermissionAndLocation } = useUserLocation({ requestPermissionInitially: true })
   const { t } = useTranslation('pois')
   const theme = useTheme()
 
@@ -133,13 +132,12 @@ const MapView = ({
   )
 
   const onRequestLocation = useCallback(async () => {
-    const newUserLocation = (await refreshPermissionAndLocation())?.coordinates
+    const newUserLocation = (await refreshPermissionAndLocation())?.userLocation
     if (newUserLocation) {
-      setUserLocation(newUserLocation)
       moveTo(newUserLocation)
       setTrackUserLocation('default')
     }
-  }, [refreshPermissionAndLocation, setUserLocation, moveTo])
+  }, [refreshPermissionAndLocation, moveTo])
 
   usePreviousProp({
     prop: selectedFeature?.id,

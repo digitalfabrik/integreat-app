@@ -44,12 +44,12 @@ describe('useUserLocation', () => {
   mocked(useSnackbar).mockImplementation(() => showSnackbar)
 
   const MockComponent = ({ requestPermissionInitially = false }: { requestPermissionInitially: boolean }) => {
-    const { message, coordinates, refreshPermissionAndLocation } = useUserLocation({ requestPermissionInitially })
+    const { message, userLocation, refreshPermissionAndLocation } = useUserLocation({ requestPermissionInitially })
     return (
       <View>
         <Text>{message}</Text>
-        <Text>longitude: {coordinates?.[0]}</Text>
-        <Text>latitude: {coordinates?.[1]}</Text>
+        <Text>longitude: {userLocation?.[0]}</Text>
+        <Text>latitude: {userLocation?.[1]}</Text>
         <Button title='refresh w. request and snackbar' onPress={() => refreshPermissionAndLocation()} />
         <Button
           title='refresh w. request'

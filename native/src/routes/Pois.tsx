@@ -6,7 +6,7 @@ import { Chip } from 'react-native-paper'
 import { SvgUri } from 'react-native-svg'
 import styled from 'styled-components/native'
 
-import { PoisRouteType, isMultipoi, LocationType, MapFeature, preparePois, safeParseInt, sortPois } from 'shared'
+import { PoisRouteType, isMultipoi, MapFeature, preparePois, safeParseInt, sortPois } from 'shared'
 import { PoiCategoryModel, RegionModel, PoiModel } from 'shared/api'
 
 import { EditLocationIcon } from '../assets'
@@ -18,6 +18,7 @@ import Text from '../components/base/Text'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import dimensions from '../constants/dimensions'
 import useOnBackNavigation from '../hooks/useOnBackNavigation'
+import useUserLocation from '../hooks/useUserLocation'
 
 const StyledSvgUri = styled(SvgUri)`
   color: ${props => props.theme.colors.onSurface};
@@ -39,10 +40,10 @@ type PoisProps = {
 
 const Pois = ({ pois: allPois, regionModel, route, navigation }: PoisProps): ReactElement => {
   const { slug, multipoi, poiCategoryId, zoom } = route.params
+  const { userLocation, refreshPermissionAndLocation } = useUserLocation({ requestPermissionInitially: true })
   const [deselectOnBackNavigation, setDeselectOnBackNavigation] = useState(slug === undefined && multipoi === undefined)
   const [poiCurrentlyOpenFilter, setPoiCurrentlyOpenFilter] = useState(false)
   const [showFilterSelection, setShowFilterSelection] = useState(false)
-  const [userLocation, setUserLocation] = useState<LocationType | null>(null)
   const [bottomSheetSnapPointIndex, setBottomSheetSnapPointIndex] = useState(1)
   const [listScrollPosition, setListScrollPosition] = useState(0)
   const poiListRef = useRef<BottomSheetFlatListMethods>(null)
@@ -173,7 +174,7 @@ const Pois = ({ pois: allPois, regionModel, route, navigation }: PoisProps): Rea
         selectedFeature={mapFeature ?? null}
         bottomSheetHeight={bottomSheetHeight}
         bottomSheetFullscreen={bottomSheetFullscreen}
-        setUserLocation={setUserLocation}
+        refreshPermissionAndLocation={refreshPermissionAndLocation}
         userLocation={userLocation}
         zoom={zoom}
         Overlay={FiltersOverlayButtons}
