@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Platform } from 'react-native'
 import { Divider } from 'react-native-paper'
 import styled from 'styled-components/native'
 
@@ -39,22 +40,12 @@ const PoiDetails = ({ poi, language, distance, onFocus }: PoiDetailsProps): Reac
   const { t } = useTranslation('pois')
   const { title, content, contacts, openingHours, temporarilyClosed, isCurrentlyOpen, category, appointmentUrl } = poi
 
-  // [4092] accessibilityOrder feature is experimental and could change in the future
-  // Used here to fix the the loop that happens between the description accordion and the address copy button.
-  // https://reactnative.dev/docs/accessibility#experimental_accessibilityorder
-  const accessibilityOrder = [
-    ...(content.length > 0 ? ['accessibility-order-description'] : []),
-    'accessibility-order-address',
-    ...(contacts.length > 0 ? ['accessibility-order-contacts'] : []),
-    'accessibility-order-opening-hours',
-  ]
-
   return (
     <PoiDetailsContainer
       accessibilityLabel={`${title} - ${category.name}`}
       onFocus={onFocus}
       screenReaderFocusable
-      experimental_accessibilityOrder={accessibilityOrder}>
+      focusable={Platform.OS === 'ios' ? true : undefined}>
       <Text variant='h5' style={{ paddingBottom: 4 }}>
         {title}
       </Text>
@@ -68,7 +59,7 @@ const PoiDetails = ({ poi, language, distance, onFocus }: PoiDetailsProps): Reac
       <StyledDivider />
       {content.length > 0 && (
         <>
-          <Accordion nativeID='accessibility-order-description' headerContent={t('description')}>
+          <Accordion headerContent={t('description')}>
             <Page content={content} language={language} padding={false} />
           </Accordion>
           <StyledDivider />
@@ -78,7 +69,7 @@ const PoiDetails = ({ poi, language, distance, onFocus }: PoiDetailsProps): Reac
       <StyledDivider />
       {contacts.length > 0 && (
         <>
-          <Accordion nativeID='accessibility-order-contacts' headerContent={t('contacts')} initialCollapsed>
+          <Accordion headerContent={t('contacts')} initialCollapsed>
             <StyledContactsContainer>
               {contacts.map((contact, index) => (
                 <Contact
