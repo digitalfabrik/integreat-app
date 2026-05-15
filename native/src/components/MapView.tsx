@@ -2,7 +2,6 @@ import {
   Camera,
   CameraRef,
   NativeUserLocation,
-  type CameraStop,
   GeoJSONSource,
   Layer,
   type LngLat,
@@ -11,9 +10,10 @@ import {
   MapRef,
   type PressEvent,
   type PressEventWithFeatures,
+  TrackUserLocation,
 } from '@maplibre/maplibre-react-native'
 import type { BBox } from 'geojson'
-import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
+import React, { ReactElement, useCallback, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { NativeSyntheticEvent } from 'react-native'
 import styled, { useTheme } from 'styled-components/native'
@@ -33,6 +33,7 @@ import {
 } from 'shared'
 
 import { clusterCountLayer, clusterLayer, markerLayer } from '../constants/layers'
+import usePreviousProp from '../hooks/usePreviousProp'
 import useUserLocation from '../hooks/useUserLocation'
 import { conditionalA11yProps } from '../utils/helpers'
 import MapAttribution from './MapsAttribution'
@@ -103,53 +104,47 @@ const MapView = ({
 }: MapViewProps): ReactElement => {
   const mapRef = useRef<MapRef>(null)
   const cameraRef = useRef<CameraRef>(null)
-  const bottomSheetHeightRef = useRef(bottomSheetHeight)
-  const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
+  const [trackUserLocation, setTrackUserLocation] = useState<TrackUserLocation | null>(null)
   const { refreshPermissionAndLocation } = useUserLocation({ requestPermissionInitially: true })
   const { t } = useTranslation('pois')
   const theme = useTheme()
 
-  bottomSheetHeightRef.current = bottomSheetHeight
   const bounds: LngLatBounds = [boundingBox[0], boundingBox[1], boundingBox[2], boundingBox[3]]
 
   const coordinates = selectedFeature?.geometry.coordinates
   const defaultZoom = coordinates ? normalDetailZoom : defaultViewportConfig.zoom
 
-  const [cameraSettings] = useState<CameraStop>({
+  const initialCameraSettings = {
     ...(coordinates !== undefined ? { center: coordinates as LngLat } : { bounds }),
     zoom: zoom ?? defaultZoom,
     padding: { bottom: bottomSheetHeight },
-  })
+  }
 
-  const moveTo = useCallback((position: LngLat, zoomLevel = normalDetailZoom) => {
-    cameraRef.current?.easeTo({
-      center: position,
-      zoom: zoomLevel,
-      duration: animationDuration,
-      padding: { bottom: bottomSheetHeightRef.current },
-    })
-  }, [])
+  const moveTo = useCallback(
+    (position: LngLat, zoomLevel = normalDetailZoom) => {
+      cameraRef.current?.easeTo({
+        center: position,
+        zoom: zoomLevel,
+        duration: animationDuration,
+        padding: { bottom: bottomSheetHeight },
+      })
+    },
+    [bottomSheetHeight],
+  )
 
   const onRequestLocation = useCallback(async () => {
-    if (followUserLocation) {
-      setFollowUserLocation(false)
-      return
-    }
     const newUserLocation = (await refreshPermissionAndLocation())?.coordinates
     if (newUserLocation) {
-      selectFeature(null)
       setUserLocation(newUserLocation)
       moveTo(newUserLocation)
-      setFollowUserLocation(true)
+      setTrackUserLocation('default')
     }
-  }, [followUserLocation, refreshPermissionAndLocation, setUserLocation, selectFeature, moveTo])
+  }, [refreshPermissionAndLocation, setUserLocation, moveTo])
 
-  useEffect(() => {
-    if (selectedFeature) {
-      moveTo(selectedFeature.geometry.coordinates as LngLat)
-      setFollowUserLocation(false)
-    }
-  }, [moveTo, selectedFeature])
+  usePreviousProp({
+    prop: selectedFeature?.id,
+    onPropChange: () => selectedFeature && moveTo(selectedFeature.geometry.coordinates as LngLat),
+  })
 
   const zoomOnClusterPress = async (pressedCoordinates: [number, number]) => {
     const clusterCollection = await mapRef.current?.queryRenderedFeatures(pressedCoordinates, {
@@ -176,7 +171,7 @@ const MapView = ({
     await zoomOnClusterPress(pressedCoordinates)
   }
 
-  const locationPermissionGrantedIcon = followUserLocation ? 'crosshairs-gps' : 'crosshairs'
+  const locationPermissionGrantedIcon = trackUserLocation ? 'crosshairs-gps' : 'crosshairs'
   const locationPermissionIcon = userLocation ? locationPermissionGrantedIcon : 'crosshairs-off'
 
   return (
@@ -204,7 +199,12 @@ const MapView = ({
               <Layer type='symbol' {...markerLayer(selectedFeature)} id='selected-marker' />
             </GeoJSONSource>
           )}
-          <Camera trackUserLocation={followUserLocation ? 'default' : undefined} ref={cameraRef} {...cameraSettings} />
+          <Camera
+            onTrackUserLocationChange={event => setTrackUserLocation(event.nativeEvent.trackUserLocation)}
+            trackUserLocation={trackUserLocation ?? undefined}
+            ref={cameraRef}
+            initialViewState={initialCameraSettings}
+          />
         </StyledMap>
       </MapContainer>
       <OverlayContainer {...conditionalA11yProps({ hidden: bottomSheetFullscreen })}>{Overlay}</OverlayContainer>
