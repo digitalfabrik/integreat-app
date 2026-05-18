@@ -15,7 +15,7 @@ import Page from './Page'
 import PoiChips from './PoiChips'
 import Text from './base/Text'
 
-const PoiDetailsContainer = styled.View<{ experimental_accessibilityOrder?: string[] }>`
+const PoiDetailsContainer = styled.View`
   flex: 1;
   background-color: ${props => props.theme.colors.background};
   gap: 16px;
