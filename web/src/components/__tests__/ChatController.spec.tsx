@@ -2,9 +2,10 @@ import { fireEvent } from '@testing-library/react'
 import React from 'react'
 
 import { RegionModelBuilder } from 'shared/api'
-import { mockUseLoadFromEndpointWithData } from 'shared/api/endpoints/testing/mockUseLoadFromEndpoint'
 
 import useLocalStorage from '../../hooks/useLocalStorage'
+import useQueryFromEndpoint from '../../hooks/useQueryFromEndpoint'
+import { mockUseQueryFromEndpointWithData } from '../../testing/mockUseQueryFromEndpoint'
 import { renderWithTheme } from '../../testing/render'
 import ChatController from '../ChatController'
 
@@ -13,14 +14,11 @@ jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key: string) => key }),
   Trans: ({ i18nKey }: { i18nKey: string }) => i18nKey,
 }))
-jest.mock('shared/api', () => ({
-  ...jest.requireActual('shared/api'),
-  useLoadFromEndpoint: jest.fn(),
-}))
 jest.mock('../../hooks/useLocalStorage')
+jest.mock('../../hooks/useQueryFromEndpoint')
 
 describe('ChatContainer', () => {
-  mockUseLoadFromEndpointWithData({ messages: [] })
+  mockUseQueryFromEndpointWithData({ messages: [] })
   const { mocked } = jest
   const updateLocalStorageItem = jest.fn()
   const region = new RegionModelBuilder(1).build()[0]!
@@ -39,6 +37,15 @@ describe('ChatContainer', () => {
     fireEvent.click(getByText('common:privacyPolicy'))
     expect(updateLocalStorageItem).toHaveBeenCalledTimes(1)
     expect(updateLocalStorageItem).toHaveBeenCalledWith({ testumgebung: true, augsburg: true })
+  })
+
+  it('should fetch chat messages without caching', () => {
+    const value = { testumgebung: true, augsburg: true }
+    mocked(useLocalStorage<Record<string, boolean>>).mockImplementation(() => ({ value, updateLocalStorageItem }))
+    renderWithTheme(<ChatController chatId='test-id' updateChatId={jest.fn()} region={region} languageCode='de' />)
+    expect(mocked(useQueryFromEndpoint)).toHaveBeenCalledWith(expect.anything(), expect.anything(), expect.anything(), {
+      cached: false,
+    })
   })
 
   it('should directly show chat if privacy policy already accepted', () => {

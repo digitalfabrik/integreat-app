@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router'
 
 import { EVENTS_ROUTE, pathnameFromRouteInformation, useDateFilter } from 'shared'
-import { createEventsEndpoint, NotFoundError, useLoadFromEndpoint } from 'shared/api'
+import { createEventsEndpoint, NotFoundError } from 'shared/api'
 
 import DatesPageDetail from '../components/DatesPageDetail'
 import EventListItem, { Icon } from '../components/EventListItem'
@@ -25,6 +25,7 @@ import H1 from '../components/base/H1'
 import List from '../components/base/List'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useJsonLd from '../hooks/useJsonLd'
+import useQueryFromEndpoint from '../hooks/useQueryFromEndpoint'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 import createJsonLdEvent from '../utils/createJsonLdEvent'
 import featuredImageToSrcSet from '../utils/featuredImageToSrcSet'
@@ -42,11 +43,11 @@ const EventsPage = ({ region, pathname, languageCode, regionCode }: RegionRouteP
   const { eventId } = useParams()
   const { t } = useTranslation('events')
 
-  const { data: events, error } = useLoadFromEndpoint(createEventsEndpoint, cmsApiBaseUrl, {
+  const { data: events, error } = useQueryFromEndpoint(createEventsEndpoint, cmsApiBaseUrl, {
     region: regionCode,
     language: languageCode,
   })
-  const { startDate, setStartDate, endDate, setEndDate, filteredEvents, startDateError } = useDateFilter(events)
+  const { startDate, setStartDate, endDate, setEndDate, filteredEvents, startDateError } = useDateFilter(events ?? null)
 
   // Support legacy slugs of old recurring events with one event per recurrence
   const pathnameWithoutDate = pathname.split('$')[0]

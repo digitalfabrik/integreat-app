@@ -9,7 +9,7 @@ import {
   pathnameFromRouteInformation,
   replaceLinks,
 } from 'shared'
-import { createLocalNewsEndpoint, LocalNewsModel, NotFoundError, useLoadFromEndpoint } from 'shared/api'
+import { createLocalNewsEndpoint, LocalNewsModel, NotFoundError } from 'shared/api'
 
 import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Helmet from '../components/Helmet'
@@ -22,6 +22,7 @@ import SkeletonList from '../components/SkeletonList'
 import SkeletonPage from '../components/SkeletonPage'
 import List from '../components/base/List'
 import { cmsApiBaseUrl } from '../constants/urls'
+import useQueryFromEndpoint from '../hooks/useQueryFromEndpoint'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 import { RegionRouteProps } from './index'
 
@@ -31,9 +32,9 @@ const LocalNewsPage = ({ region, pathname, languageCode, regionCode }: RegionRou
 
   const {
     data: localNews,
-    loading,
+    isPending,
     error: newsError,
-  } = useLoadFromEndpoint(createLocalNewsEndpoint, cmsApiBaseUrl, { region: regionCode, language: languageCode })
+  } = useQueryFromEndpoint(createLocalNewsEndpoint, cmsApiBaseUrl, { region: regionCode, language: languageCode })
 
   const newsModel = newsId ? localNews?.find((it: LocalNewsModel) => it.id.toString() === newsId) : undefined
   useTtsPlayer(newsModel, languageCode)
@@ -129,7 +130,7 @@ const LocalNewsPage = ({ region, pathname, languageCode, regionCode }: RegionRou
         localNewsEnabled={region.localNewsEnabled}
         language={languageCode}
       />
-      {loading ? <SkeletonList /> : <List items={NewsListItems ?? []} NoItemsMessage='news:currentlyNoNews' />}
+      {isPending ? <SkeletonList /> : <List items={NewsListItems ?? []} NoItemsMessage='news:currentlyNoNews' />}
     </RegionContentLayout>
   )
 }

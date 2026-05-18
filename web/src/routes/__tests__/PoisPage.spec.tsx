@@ -4,21 +4,21 @@ import { Route, Routes } from 'react-router'
 
 import { regionContentPath, POIS_ROUTE } from 'shared'
 import { RegionModelBuilder, PoiModelBuilder } from 'shared/api'
-import {
-  mockUseLoadFromEndpointWithData,
-  mockUseLoadFromEndpointWithError,
-} from 'shared/api/endpoints/testing/mockUseLoadFromEndpoint'
 
+import {
+  mockUseQueryFromEndpointWithData,
+  mockUseQueryFromEndpointWithError,
+} from '../../testing/mockUseQueryFromEndpoint'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import PoisPage from '../PoisPage'
 import { RoutePatterns } from '../index'
 
 jest.mock('maplibre-gl')
 jest.mock('react-i18next')
+jest.mock('../../hooks/useQueryFromEndpoint')
 
 jest.mock('shared/api', () => ({
   ...jest.requireActual('shared/api'),
-  useLoadFromEndpoint: jest.fn(),
   useLoadAsync: jest.fn(() => ({ data: [10.8, 48.3] })),
 }))
 
@@ -55,20 +55,20 @@ describe('PoisPage', () => {
     )
 
   it('should render a list with all pois', () => {
-    mockUseLoadFromEndpointWithData(pois)
+    mockUseQueryFromEndpointWithData(pois)
     const { getByText } = renderPois()
     expect(getByText(poi0.title)).toBeTruthy()
     expect(getByText(poi1.title)).toBeTruthy()
   })
 
   it('should render an error', () => {
-    mockUseLoadFromEndpointWithError('something went wrong')
+    mockUseQueryFromEndpointWithError('something went wrong')
     const { getByText } = renderPois()
     expect(getByText('error:unknownError')).toBeTruthy()
   })
 
   it('should render poi details page when list item was clicked', () => {
-    mockUseLoadFromEndpointWithData(pois)
+    mockUseQueryFromEndpointWithData(pois)
     const { getByText, getByRole } = renderPois()
     fireEvent.click(getByRole('link', { name: poi0.title }))
     expect(getByText(poi0.title)).toBeTruthy()
@@ -77,7 +77,7 @@ describe('PoisPage', () => {
   })
 
   it('should calculate correct language change paths', () => {
-    mockUseLoadFromEndpointWithData(pois)
+    mockUseQueryFromEndpointWithData(pois)
     const { getAllByText, getByRole } = renderPois('/locations/test')
     fireEvent.click(getByRole('button', { name: 'layout:changeLanguage' }))
 

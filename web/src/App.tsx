@@ -1,4 +1,5 @@
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import 'core-js/actual/array/at'
 import { Settings as LuxonSettings } from 'luxon'
 import React, { ReactElement, useEffect, useState } from 'react'
@@ -16,6 +17,8 @@ import { initSentry } from './utils/sentry'
 LuxonSettings.throwOnInvalid = true
 LuxonSettings.defaultLocale = config.defaultFallback
 
+const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false, refetchOnWindowFocus: false } } })
+
 const App = (): ReactElement => {
   const [contentLanguage, setContentLanguage] = useState<string>(config.defaultFallback)
   const contentDirection = contentLanguage
@@ -27,17 +30,19 @@ const App = (): ReactElement => {
   }, [])
 
   return (
-    <ThemeContainer contentDirection={contentDirection}>
-      <I18nProvider contentLanguage={contentLanguage}>
-        <LocalizationProvider dateAdapter={CustomAdapterLuxon} adapterLocale={contentLanguage}>
-          <Router>
-            <TtsContainer languageCode={contentLanguage}>
-              <RootNavigator setContentLanguage={setContentLanguage} />
-            </TtsContainer>
-          </Router>
-        </LocalizationProvider>
-      </I18nProvider>
-    </ThemeContainer>
+    <QueryClientProvider client={queryClient}>
+      <ThemeContainer contentDirection={contentDirection}>
+        <I18nProvider contentLanguage={contentLanguage}>
+          <LocalizationProvider dateAdapter={CustomAdapterLuxon} adapterLocale={contentLanguage}>
+            <Router>
+              <TtsContainer languageCode={contentLanguage}>
+                <RootNavigator setContentLanguage={setContentLanguage} />
+              </TtsContainer>
+            </Router>
+          </LocalizationProvider>
+        </I18nProvider>
+      </ThemeContainer>
+    </QueryClientProvider>
   )
 }
 

@@ -1,5 +1,6 @@
+import { useQuery } from '@tanstack/react-query'
 import { DateTime } from 'luxon'
-import React, { ReactElement, useCallback, useMemo } from 'react'
+import React, { ReactElement, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Navigate, useParams } from 'react-router'
 
@@ -11,8 +12,6 @@ import {
   createCategoryParentsEndpoint,
   NotFoundError,
   ResponseError,
-  useLoadAsync,
-  useLoadFromEndpoint,
 } from 'shared/api'
 
 import { BreadcrumbProps } from '../components/Breadcrumb'
@@ -29,6 +28,7 @@ import SkeletonTiles from '../components/SkeletonTiles'
 import buildConfig from '../constants/buildConfig'
 import { cmsApiBaseUrl } from '../constants/urls'
 import usePreviousProp from '../hooks/usePreviousProp'
+import useQueryFromEndpoint from '../hooks/useQueryFromEndpoint'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 import { RegionRouteProps } from './index'
 
@@ -42,9 +42,9 @@ const useCategoryData = (
 ) => {
   const {
     data: rawCategories,
-    loading: categoriesLoading,
+    isPending: categoriesLoading,
     error: categoriesError,
-  } = useLoadFromEndpoint(createCategoryChildrenEndpoint, cmsApiBaseUrl, {
+  } = useQueryFromEndpoint(createCategoryChildrenEndpoint, cmsApiBaseUrl, {
     region: regionCode,
     language: languageCode,
     // We show tiles for the root category so only first level children are needed
@@ -52,7 +52,7 @@ const useCategoryData = (
     regionContentPath: pathname,
   })
 
-  const requestParents = useCallback(async () => {
+  const loadCategoryParents = async () => {
     if (!categoryId) {
       // The endpoint does not work for the root category, just return an empty array
       return []
@@ -68,9 +68,16 @@ const useCategoryData = (
     }
 
     return data
-  }, [regionCode, languageCode, pathname, categoryId])
+  }
 
-  const { data: parents, loading: parentsLoading, error: parentsError } = useLoadAsync(requestParents)
+  const {
+    data: parents,
+    isPending: parentsLoading,
+    error: parentsError,
+  } = useQuery({
+    queryKey: ['categoryParents', [regionCode, languageCode, pathname, categoryId]],
+    queryFn: loadCategoryParents,
+  })
 
   // The root category is not delivered via our endpoints
   const categories = useMemo(

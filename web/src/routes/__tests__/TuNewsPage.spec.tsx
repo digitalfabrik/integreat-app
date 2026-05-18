@@ -2,20 +2,16 @@ import React from 'react'
 
 import { NEWS_ROUTE, pathnameFromRouteInformation, TU_NEWS_TYPE } from 'shared'
 import { RegionModelBuilder, LanguageModelBuilder } from 'shared/api'
-import {
-  mockUseLoadFromEndpointWithData,
-  mockUseLoadFromEndpointWithError,
-} from 'shared/api/endpoints/testing/mockUseLoadFromEndpoint'
 
+import {
+  mockUseQueryFromEndpointWithData,
+  mockUseQueryFromEndpointWithError,
+} from '../../testing/mockUseQueryFromEndpoint'
 import { renderRoute } from '../../testing/render'
 import TuNewsPage from '../TuNewsPage'
 import { RoutePatterns, TU_NEWS_ROUTE } from '../index'
 
-jest.mock('shared/api', () => ({
-  ...jest.requireActual('shared/api'),
-  loadFromEndpoint: jest.fn(),
-  useLoadFromEndpoint: jest.fn(),
-}))
+jest.mock('../../hooks/useQueryFromEndpoint')
 jest.mock('react-i18next')
 jest.mock('../../components/InfiniteScrollList', () => () => 'List')
 jest.mock('../../components/RegionContentHeader', () => () => null)
@@ -48,13 +44,13 @@ describe('TuNewsPage', () => {
     )
 
   it('should render error if loading languages fails', () => {
-    mockUseLoadFromEndpointWithError('my lang error')
+    mockUseQueryFromEndpointWithError('my lang error')
     const { getByText } = renderTuNewsRoute(language)
     expect(getByText('error:unknownError')).toBeTruthy()
   })
 
   it('should render language failure if language is not available', () => {
-    mockUseLoadFromEndpointWithData(tuNewsLanguages)
+    mockUseQueryFromEndpointWithData(tuNewsLanguages)
     const { getAllByText, getByRole } = renderTuNewsRoute(region.languages[2]!)
     expect(getAllByText('error:notFound.language')).toBeTruthy()
     // Available languages
@@ -70,7 +66,7 @@ describe('TuNewsPage', () => {
   })
 
   it('should render list', () => {
-    mockUseLoadFromEndpointWithData(tuNewsLanguages)
+    mockUseQueryFromEndpointWithData(tuNewsLanguages)
     const { getByText } = renderTuNewsRoute()
     expect(getByText('List')).toBeTruthy()
   })

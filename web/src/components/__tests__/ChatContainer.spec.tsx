@@ -3,8 +3,8 @@ import React from 'react'
 
 import { getChatName } from 'shared'
 import { RegionModelBuilder } from 'shared/api'
-import { mockUseLoadFromEndpointWithData } from 'shared/api/endpoints/testing/mockUseLoadFromEndpoint'
 
+import { mockUseQueryFromEndpointWithData } from '../../testing/mockUseQueryFromEndpoint'
 import { renderRoute } from '../../testing/render'
 import ChatContainer from '../ChatContainer'
 
@@ -15,18 +15,14 @@ jest.mock('react-i18next', () => ({
   }),
   Trans: ({ i18nKey }: { i18nKey: string }) => i18nKey,
 }))
-
-jest.mock('shared/api', () => ({
-  ...jest.requireActual('shared/api'),
-  useLoadFromEndpoint: jest.fn(),
-}))
 jest.mock('../../hooks/useLocalStorage', () => () => ({
   value: { augsburg: true },
   updateLocalStorageItem: jest.fn(),
 }))
+jest.mock('../../hooks/useQueryFromEndpoint')
 
 describe('ChatContainer', () => {
-  mockUseLoadFromEndpointWithData({ messages: [] })
+  mockUseQueryFromEndpointWithData({ messages: [] })
   const routePattern = '/:regionCode/:languageCode'
   const region = new RegionModelBuilder(1).build()[0]!
   const pathname = `/${region.code}/de`
