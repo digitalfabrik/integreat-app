@@ -10,6 +10,7 @@ type UseHeaderProps<T extends RoutesType> = {
   data: RegionContentData | null
   availableLanguages?: string[]
   shareUrl?: string
+  goBack?: () => void
 }
 
 const useHeader = <T extends RoutesType>({
@@ -18,6 +19,7 @@ const useHeader = <T extends RoutesType>({
   availableLanguages,
   data,
   shareUrl,
+  goBack,
 }: UseHeaderProps<T>): void => {
   useEffect(() => {
     navigation.setOptions({
@@ -30,10 +32,11 @@ const useHeader = <T extends RoutesType>({
           availableLanguages={availableLanguages}
           shareUrl={shareUrl}
           regionName={data?.region.name}
+          goBack={goBack}
         />
       ),
     })
-  }, [route, navigation, data, availableLanguages, shareUrl])
+  }, [route, navigation, data, availableLanguages, shareUrl, goBack])
 }
 
 export default useHeader

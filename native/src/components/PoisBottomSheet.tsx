@@ -1,11 +1,7 @@
-import BottomSheet, {
-  BottomSheetFlatList,
-  BottomSheetFlatListMethods,
-  BottomSheetScrollView,
-} from '@gorhom/bottom-sheet'
-import React, { memo, ReactElement, Ref, useCallback, useRef, useState } from 'react'
+import BottomSheet, { BottomSheetFlatList, BottomSheetScrollView } from '@gorhom/bottom-sheet'
+import React, { memo, ReactElement, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { NativeScrollEvent, NativeSyntheticEvent, View } from 'react-native'
+import { View } from 'react-native'
 import styled, { useTheme } from 'styled-components/native'
 
 import { LocationType } from 'shared'
@@ -43,7 +39,6 @@ const PoiListDivider = () => {
 }
 
 type PoiBottomSheetProps = {
-  poiListRef: Ref<BottomSheetFlatListMethods>
   pois: PoiModel[]
   poi: PoiModel | undefined
   userLocation: LocationType | null
@@ -53,12 +48,10 @@ type PoiBottomSheetProps = {
   snapPoints: number[]
   snapPointIndex: number
   setSnapPointIndex: (index: number) => void
-  setScrollPosition: (position: number) => void
   isFullscreen: boolean
 }
 
 const PoisBottomSheet = ({
-  poiListRef,
   pois,
   poi,
   userLocation,
@@ -68,26 +61,13 @@ const PoisBottomSheet = ({
   snapPoints,
   snapPointIndex,
   setSnapPointIndex,
-  setScrollPosition,
   isFullscreen,
 }: PoiBottomSheetProps): ReactElement | null => {
+  const [remountKey, setRemountKey] = useState(0)
   const { languageCode } = useRegionAppContext()
+  const bottomSheetRef = useRef<BottomSheet>(null)
   const { t } = useTranslation('pois')
   const theme = useTheme()
-  const bottomSheetRef = useRef<BottomSheet>(null)
-  const [remountKey, setRemountKey] = useState(0)
-
-  const handlePoiFocus = useCallback(() => {
-    if (!isFullscreen && bottomSheetRef.current) {
-      const fullscreenIndex = snapPoints.length - 1
-      bottomSheetRef.current.snapToIndex(fullscreenIndex)
-    }
-  }, [isFullscreen, snapPoints.length])
-
-  const handlePoiSelection = (poi: PoiModel) => {
-    selectPoi(poi)
-    bottomSheetRef.current?.snapToIndex(1)
-  }
 
   // Workaround for bottomSheet gets hidden after permissions dialog on Android so we force remounting after app comes back to foreground.
   // reanimated's shared values gets affected by the permissions dialog (UI thread is stopped when the permission dialog is displayed).
@@ -98,9 +78,16 @@ const PoisBottomSheet = ({
     }
   })
 
+  const expandFullscreen = () => bottomSheetRef.current?.snapToIndex(snapPoints.length - 1)
+
+  const handlePoiSelection = (poi: PoiModel) => {
+    selectPoi(poi)
+    bottomSheetRef.current?.snapToIndex(1)
+  }
+
   const PoiDetail = poi ? (
     <PoiDetails
-      onFocus={handlePoiFocus}
+      onFocus={expandFullscreen}
       language={languageCode}
       poi={poi}
       distance={userLocation && poi.distance(userLocation)}
@@ -116,7 +103,7 @@ const PoisBottomSheet = ({
       language={languageCode}
       navigateToPoi={() => handlePoiSelection(poi)}
       distance={userLocation && poi.distance(userLocation)}
-      onFocus={handlePoiFocus}
+      onFocus={expandFullscreen}
     />
   )
 
@@ -139,14 +126,10 @@ const PoisBottomSheet = ({
           <BottomSheetScrollView showsVerticalScrollIndicator={false}>{PoiDetail}</BottomSheetScrollView>
         ) : (
           <BottomSheetFlatList
-            ref={poiListRef}
             data={pois}
             role='list'
             accessibilityLabel={t('poisCount', { count: pois.length })}
             renderItem={renderPoiListItem}
-            onMomentumScrollBegin={(event: NativeSyntheticEvent<NativeScrollEvent>) =>
-              setScrollPosition(event.nativeEvent.contentOffset.y)
-            }
             showsVerticalScrollIndicator={false}
             ListHeaderComponent={<Text variant='h5'>{t('common:nearby')}</Text>}
             ListEmptyComponent={
