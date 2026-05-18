@@ -49,7 +49,8 @@ const Pois = ({ pois: allPois, regionModel, route, navigation }: PoisProps): Rea
   const poiListRef = useRef<BottomSheetFlatListMethods>(null)
   const { t } = useTranslation('pois')
   const { height } = useWindowDimensions()
-  const bottomSheetSnapPoints = [dimensions.bottomSheetHandle.height, SNAP_POINT_MID_PERCENTAGE * height, height]
+  const bottomSheetMidHeight = SNAP_POINT_MID_PERCENTAGE * height
+  const bottomSheetSnapPoints = [dimensions.bottomSheetHandle.height, bottomSheetMidHeight, height]
   const bottomSheetFullscreen = bottomSheetSnapPointIndex === bottomSheetSnapPoints.length - 1
   const bottomSheetHeight = bottomSheetSnapPoints[bottomSheetSnapPointIndex] ?? 0
 
@@ -173,6 +174,7 @@ const Pois = ({ pois: allPois, regionModel, route, navigation }: PoisProps): Rea
         features={mapFeatures}
         selectedFeature={mapFeature ?? null}
         bottomSheetHeight={bottomSheetHeight}
+        bottomSheetMidHeight={bottomSheetMidHeight}
         bottomSheetFullscreen={bottomSheetFullscreen}
         refreshPermissionAndLocation={refreshPermissionAndLocation}
         userLocation={userLocation}

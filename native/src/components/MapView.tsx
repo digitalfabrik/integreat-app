@@ -85,6 +85,7 @@ type MapViewProps = {
   refreshPermissionAndLocation: () => Promise<LocationStateType | null>
   selectFeature: (feature: MapFeature | null) => void
   bottomSheetHeight: number
+  bottomSheetMidHeight: number
   bottomSheetFullscreen: boolean
   zoom: number | undefined
   Overlay?: ReactElement
@@ -99,6 +100,7 @@ const MapView = ({
   selectFeature,
   Overlay,
   bottomSheetHeight,
+  bottomSheetMidHeight,
   bottomSheetFullscreen,
   zoom,
 }: MapViewProps): ReactElement => {
@@ -125,10 +127,10 @@ const MapView = ({
         center: position,
         zoom: zoomLevel,
         duration: animationDuration,
-        padding: { bottom: bottomSheetHeight },
+        padding: { bottom: bottomSheetMidHeight },
       })
     },
-    [bottomSheetHeight],
+    [bottomSheetMidHeight],
   )
 
   const onRequestLocation = useCallback(async () => {
@@ -142,6 +144,12 @@ const MapView = ({
   usePreviousProp({
     prop: selectedFeature?.id,
     onPropChange: () => selectedFeature && moveTo(selectedFeature.geometry.coordinates as LngLat),
+  })
+
+  usePreviousProp({
+    prop: bottomSheetHeight,
+    onPropChange: (newHeight, oldHeight) =>
+      newHeight > oldHeight && selectedFeature && moveTo(selectedFeature.geometry.coordinates as LngLat),
   })
 
   const zoomOnClusterPress = async (pressedCoordinates: [number, number]) => {
