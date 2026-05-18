@@ -1,4 +1,8 @@
-import BottomSheet, { BottomSheetFlatList, BottomSheetScrollView } from '@gorhom/bottom-sheet'
+import BottomSheet, {
+  BottomSheetFlatList,
+  BottomSheetFlatListMethods,
+  BottomSheetScrollView,
+} from '@gorhom/bottom-sheet'
 import React, { memo, ReactElement, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
@@ -73,6 +77,7 @@ const PoisBottomSheet = ({
   const [remountKey, setRemountKey] = useState(0)
   const { languageCode } = useRegionAppContext()
   const bottomSheetRef = useRef<BottomSheet>(null)
+  const flatListRef = useRef<BottomSheetFlatListMethods>(null)
   const { t } = useTranslation('pois')
   const theme = useTheme()
 
@@ -81,7 +86,7 @@ const PoisBottomSheet = ({
   // For more details https://github.com/digitalfabrik/integreat-app/issues/4037 and https://github.com/gorhom/react-native-bottom-sheet/issues/1791#issuecomment-2060957019
   useAppStateListener(nextAppState => {
     if (nextAppState === 'active') {
-      setRemountKey(previous => previous + 1)
+      setRemountKey(1)
     }
   })
 
@@ -90,6 +95,10 @@ const PoisBottomSheet = ({
   const handlePoiSelection = (poi: PoiModel) => {
     selectPoi(poi)
     bottomSheetRef.current?.snapToIndex(1)
+    const index = pois.findIndex(it => it.path === poi.path)
+    if (index !== -1) {
+      flatListRef.current?.scrollToIndex({ index, animated: false })
+    }
   }
 
   const PoiDetail = poi ? (
@@ -130,6 +139,7 @@ const PoisBottomSheet = ({
       onChange={setSnapPointIndex}>
       <BottomSheetContent>
         <BottomSheetFlatList
+          ref={flatListRef}
           data={pois}
           role='list'
           {...conditionalA11yProps({ hidden: !!slug })}
