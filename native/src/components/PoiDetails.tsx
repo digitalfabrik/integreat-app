@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Platform } from 'react-native'
 import { Divider } from 'react-native-paper'
 import styled from 'styled-components/native'
 
@@ -41,11 +40,7 @@ const PoiDetails = ({ poi, language, distance, onFocus }: PoiDetailsProps): Reac
   const { title, content, contacts, openingHours, temporarilyClosed, isCurrentlyOpen, category, appointmentUrl } = poi
 
   return (
-    <PoiDetailsContainer
-      accessibilityLabel={`${title} - ${category.name}`}
-      onFocus={onFocus}
-      screenReaderFocusable
-      focusable={Platform.OS === 'ios' ? true : undefined}>
+    <PoiDetailsContainer accessibilityLabel={`${title} - ${category.name}`} onFocus={onFocus} screenReaderFocusable>
       <Text variant='h5' style={{ paddingBottom: 4 }}>
         {title}
       </Text>
