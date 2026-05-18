@@ -139,6 +139,7 @@ const PoisBottomSheet = ({
       onChange={setSnapPointIndex}>
       <BottomSheetContent>
         <BottomSheetFlatList
+          onScrollToIndexFailed={() => {}}
           ref={flatListRef}
           data={pois}
           role='list'
