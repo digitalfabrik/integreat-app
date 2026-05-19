@@ -9,6 +9,7 @@ class ExtendedDocumentModel extends DocumentModel {
   _availableLanguages: Record<string, string>
 
   constructor(params: {
+    id: number
     path: string
     title: string
     content: string

@@ -39,6 +39,7 @@ export default (baseUrl: string): Endpoint<ParamsType, PlaceModel[]> =>
       json.map(
         place =>
           new PlaceModel({
+            id: place.location.id,
             path: place.path,
             title: place.title,
             content: place.content,

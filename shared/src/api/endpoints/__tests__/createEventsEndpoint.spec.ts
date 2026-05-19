@@ -77,6 +77,7 @@ describe('events', () => {
 
   const createEventModel = (allDay: boolean, startDate: DateTime, endDate: DateTime, rrule?: string): EventModel =>
     new EventModel({
+      id: 6349,
       path: '/augsburg/de/events/asylpolitischer_fruehschoppen',
       title: 'Asylpolitischer Frühschoppen',
       excerpt: 'Asylpolitischer Frühschoppen',

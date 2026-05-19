@@ -4,6 +4,7 @@ import CategoryModel from '../CategoryModel.ts'
 
 describe('CategoryModel', () => {
   const rootCategory = new CategoryModel({
+    id: -1,
     root: true,
     path: '/augsburg/en/',
     title: 'Welcome',
@@ -18,6 +19,7 @@ describe('CategoryModel', () => {
     slugHistory: [],
   })
   const category = new CategoryModel({
+    id: 1,
     root: false,
     path: '/augsburg/en/welcome',
     title: 'Welcome',
@@ -39,6 +41,7 @@ describe('CategoryModel', () => {
 
   it('should normalize paths', () => {
     const normalizedCategory = new CategoryModel({
+      id: 1,
       root: false,
       path: '/augsburg/fa/erste-schritte/%D9%86%D9%82%D8%B4%D9%87-%D8%B4%D9%87%D8%B1/',
       title: 'Welcome',

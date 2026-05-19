@@ -5,6 +5,7 @@ import CategoryModel from '../CategoryModel.ts'
 
 describe('CategoriesMapModel', () => {
   const farsiCategory = new CategoryModel({
+    id: 1,
     root: false,
     path: '/augsburg/fa/erste-schritte/نقشه-شهر',
     title: 'نقشه شهر',
@@ -20,6 +21,7 @@ describe('CategoriesMapModel', () => {
   })
   const categories = [
     new CategoryModel({
+      id: 2,
       root: true,
       path: '/augsburg/de',
       title: 'augsburg',
@@ -34,6 +36,7 @@ describe('CategoriesMapModel', () => {
       slugHistory: [],
     }),
     new CategoryModel({
+      id: 3,
       root: false,
       path: '/augsburg/de/willkommen',
       parentPath: '/augsburg/de',
@@ -48,6 +51,7 @@ describe('CategoriesMapModel', () => {
       slugHistory: [],
     }),
     new CategoryModel({
+      id: 4,
       root: false,
       path: '/augsburg/de/erste-schritte',
       parentPath: '/augsburg/de',
@@ -62,6 +66,7 @@ describe('CategoriesMapModel', () => {
       slugHistory: [],
     }),
     new CategoryModel({
+      id: 1,
       root: false,
       path: '/augsburg/de/erste-schritte/asylantrag',
       parentPath: '/augsburg/de/erste-schritte',

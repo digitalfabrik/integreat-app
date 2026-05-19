@@ -44,6 +44,7 @@ type OrganizationJsonType = {
 }
 
 type ContentCategoryJsonType = {
+  id: number
   root: boolean
   path: string
   title: string
@@ -92,6 +93,7 @@ type FeaturedImageJsonType = {
 }
 
 type ContentEventJsonType = {
+  id: number
   path: string
   title: string
   content: string
@@ -154,6 +156,7 @@ type ContactJsonType = {
 }
 
 type ContentPlaceJsonType = {
+  id: number
   path: string
   title: string
   content: string
@@ -432,29 +435,30 @@ class DatabaseConnector {
   async storeCategories(categoriesMap: CategoriesMapModel, context: DatabaseContext): Promise<void> {
     const categoryModels = categoriesMap.toArray()
     const jsonModels = categoryModels.map((category: CategoryModel): ContentCategoryJsonType => ({
-      root: category.isRoot(),
-      path: category.path,
-      title: category.title,
-      content: category.content,
-      lastUpdate: category.lastUpdate.toISO(),
-      thumbnail: category.thumbnail,
-      availableLanguages: category.availableLanguages,
-      parentPath: category.parentPath,
-      children: categoriesMap.getChildren(category).map(category => category.path),
-      order: category.order,
-      organization: category.organization
-        ? {
-            name: category.organization.name,
-            logo: category.organization.logo,
-            url: category.organization.url,
-          }
-        : null,
-      embeddedOffers: category.embeddedOffers.map(offer => ({
-        title: offer.title,
-        alias: offer.alias,
-        thumbnail: offer.thumbnail,
-        path: offer.path,
-      })),
+      id: category.id,
+        root: category.isRoot(),
+        path: category.path,
+        title: category.title,
+        content: category.content,
+        lastUpdate: category.lastUpdate.toISO(),
+        thumbnail: category.thumbnail,
+        availableLanguages: category.availableLanguages,
+        parentPath: category.parentPath,
+        children: categoriesMap.getChildren(category).map(category => category.path),
+        order: category.order,
+        organization: category.organization
+          ? {
+              name: category.organization.name,
+              logo: category.organization.logo,
+              url: category.organization.url,
+            }
+          : null,
+        embeddedOffers: category.embeddedOffers.map(offer => ({
+          title: offer.title,
+          alias: offer.alias,
+          thumbnail: offer.thumbnail,
+          path: offer.path,
+        })),
       slugHistory: category.slugHistory,
     }))
     await this.writeFile(this.getContentPath('categories', context), JSON.stringify(jsonModels))
@@ -467,6 +471,7 @@ class DatabaseConnector {
         json.map(
           jsonObject =>
             new CategoryModel({
+              id: jsonObject.id,
               root: jsonObject.root,
               path: jsonObject.path,
               title: jsonObject.title,
@@ -503,52 +508,53 @@ class DatabaseConnector {
 
   async storePlaces(places: PlaceModel[], context: DatabaseContext): Promise<void> {
     const jsonModels = places.map((place: PlaceModel): ContentPlaceJsonType => ({
-      path: place.path,
-      title: place.title,
-      content: place.content,
-      thumbnail: place.thumbnail,
-      availableLanguages: place.availableLanguages,
-      excerpt: place.excerpt,
-      contacts: place.contacts.map(contact => ({
-        name: contact.name,
-        areaOfResponsibility: contact.areaOfResponsibility,
-        email: contact.email,
-        phoneNumber: contact.phoneNumber,
-        website: contact.website,
-        mobileNumber: contact.mobileNumber,
-        officeHours: contact.officeHours?.map(mapOpeningHoursToJson) ?? null,
-      })),
-      location: {
-        id: place.location.id,
-        address: place.location.address,
-        town: place.location.town,
-        postcode: place.location.postcode,
-        latitude: place.location.latitude,
-        longitude: place.location.longitude,
-        country: place.location.country,
-        name: place.location.name,
-      },
-      lastUpdate: place.lastUpdate.toISO(),
-      category: {
-        id: place.category.id,
-        name: place.category.name,
-        icon: place.category.icon,
-        iconName: place.category.iconName,
-        color: place.category.color,
-      },
-      openingHours: place.openingHours?.map(mapOpeningHoursToJson) ?? null,
-      temporarilyClosed: place.temporarilyClosed,
-      appointmentUrl: place.appointmentUrl,
-      organization:
-        place.organization !== null
-          ? {
-              name: place.organization.name,
-              logo: place.organization.logo,
-              url: place.organization.url,
-            }
-          : null,
-      barrierFree: place.barrierFree ?? null,
-    }))
+      id: place.id,
+        path: place.path,
+        title: place.title,
+        content: place.content,
+        thumbnail: place.thumbnail,
+        availableLanguages: place.availableLanguages,
+        excerpt: place.excerpt,
+        contacts: place.contacts.map(contact => ({
+          name: contact.name,
+          areaOfResponsibility: contact.areaOfResponsibility,
+          email: contact.email,
+          phoneNumber: contact.phoneNumber,
+          website: contact.website,
+          mobileNumber: contact.mobileNumber,
+          officeHours: contact.officeHours?.map(mapOpeningHoursToJson) ?? null,
+        })),
+        location: {
+          id: place.location.id,
+          address: place.location.address,
+          town: place.location.town,
+          postcode: place.location.postcode,
+          latitude: place.location.latitude,
+          longitude: place.location.longitude,
+          country: place.location.country,
+          name: place.location.name,
+        },
+        lastUpdate: place.lastUpdate.toISO(),
+        category: {
+          id: place.category.id,
+          name: place.category.name,
+          icon: place.category.icon,
+          iconName: place.category.iconName,
+          color: place.category.color,
+        },
+        openingHours: place.openingHours?.map(mapOpeningHoursToJson) ?? null,
+        temporarilyClosed: place.temporarilyClosed,
+        appointmentUrl: place.appointmentUrl,
+        organization:
+          place.organization !== null
+            ? {
+                name: place.organization.name,
+                logo: place.organization.logo,
+                url: place.organization.url,
+              }
+            : null,
+        barrierFree: place.barrierFree ?? null,
+      }))
     await this.writeFile(this.getContentPath('places', context), JSON.stringify(jsonModels))
   }
 
@@ -558,6 +564,7 @@ class DatabaseConnector {
       json.map(jsonObject => {
         const jsonLocation = jsonObject.location
         return new PlaceModel({
+          id: jsonObject.id,
           path: jsonObject.path,
           title: jsonObject.title,
           content: jsonObject.content,
@@ -697,44 +704,45 @@ class DatabaseConnector {
 
   async storeEvents(events: EventModel[], context: DatabaseContext): Promise<void> {
     const jsonModels = events.map((event: EventModel): ContentEventJsonType => ({
-      path: event.path,
-      title: event.title,
-      content: event.content,
-      lastUpdate: event.lastUpdate.toISO(),
-      thumbnail: event.thumbnail,
-      availableLanguages: event.availableLanguages,
-      excerpt: event.excerpt,
-      date: {
-        start: event.date.startDate.toISO(),
-        end: event.date.endDate ? event.date.endDate.toISO() : null,
-        allDay: event.date.allDay,
-        recurrenceRule: event.date.recurrenceRule?.toString() ?? null,
-        onlyWeekdays: event.date.onlyWeekdays,
-      },
-      location: event.location
-        ? {
-            id: event.location.id,
-            address: event.location.address,
-            town: event.location.town,
-            postcode: event.location.postcode,
-            latitude: event.location.latitude,
-            longitude: event.location.longitude,
-            country: event.location.country,
-            name: event.location.name,
-          }
-        : null,
-      featuredImage: event.featuredImage
-        ? {
-            description: event.featuredImage.description,
-            thumbnail: event.featuredImage.thumbnail,
-            medium: event.featuredImage.medium,
-            large: event.featuredImage.large,
-            full: event.featuredImage.full,
-          }
-        : null,
-      placePath: event.placePath,
-      meetingUrl: event.meetingUrl,
-    }))
+      id: event.id,
+        path: event.path,
+        title: event.title,
+        content: event.content,
+        lastUpdate: event.lastUpdate.toISO(),
+        thumbnail: event.thumbnail,
+        availableLanguages: event.availableLanguages,
+        excerpt: event.excerpt,
+        date: {
+          start: event.date.startDate.toISO(),
+          end: event.date.endDate ? event.date.endDate.toISO() : null,
+          allDay: event.date.allDay,
+          recurrenceRule: event.date.recurrenceRule?.toString() ?? null,
+          onlyWeekdays: event.date.onlyWeekdays,
+        },
+        location: event.location
+          ? {
+              id: event.location.id,
+              address: event.location.address,
+              town: event.location.town,
+              postcode: event.location.postcode,
+              latitude: event.location.latitude,
+              longitude: event.location.longitude,
+              country: event.location.country,
+              name: event.location.name,
+            }
+          : null,
+        featuredImage: event.featuredImage
+          ? {
+              description: event.featuredImage.description,
+              thumbnail: event.featuredImage.thumbnail,
+              medium: event.featuredImage.medium,
+              large: event.featuredImage.large,
+              full: event.featuredImage.full,
+            }
+          : null,
+        placePath: event.placePath,
+        meetingUrl: event.meetingUrl,
+      }))
     await this.writeFile(this.getContentPath('events', context), JSON.stringify(jsonModels))
   }
 
@@ -744,6 +752,7 @@ class DatabaseConnector {
       json.map(jsonObject => {
         const jsonDate = jsonObject.date
         return new EventModel({
+          id: jsonObject.id,
           path: jsonObject.path,
           title: jsonObject.title,
           content: jsonObject.content,
