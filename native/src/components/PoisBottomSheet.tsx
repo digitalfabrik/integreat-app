@@ -1,5 +1,5 @@
 import BottomSheet, { BottomSheetFlatList, BottomSheetScrollView } from '@gorhom/bottom-sheet'
-import React, { memo, ReactElement, useRef, useState } from 'react'
+import React, { memo, ReactElement, useCallback, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 import styled, { useTheme } from 'styled-components/native'
