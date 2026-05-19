@@ -9,6 +9,7 @@ import { DateGroupKey, filterEvents, groupEventsByDate } from '../events.ts'
 jest.useFakeTimers({ now: new Date('2023-10-02T10:00:00.000+02:00') })
 
 const EventModalDummyData = {
+  id: 1,
   content: '<h1>Event Content</h1>',
   thumbnail: null,
   location: new LocationModel({
