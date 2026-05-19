@@ -5,27 +5,15 @@ import { ReturnType, useLoadAsync } from 'shared/api'
 
 const currentPositionTimeout = 50_000
 
-const locationStateOnError = (error: GeolocationPositionError): UnavailableLocationState => {
+const userLocationMessage = (error: GeolocationPositionError): UnavailableLocationState['message'] => {
   const { code } = error
   switch (code) {
     case GeolocationPositionError.PERMISSION_DENIED:
-      return {
-        status: 'unavailable',
-        message: 'noPermission',
-        coordinates: undefined,
-      }
+      return 'noPermission'
     case GeolocationPositionError.POSITION_UNAVAILABLE:
-      return {
-        status: 'unavailable',
-        message: 'notAvailable',
-        coordinates: undefined,
-      }
+      return 'notAvailable'
     default:
-      return {
-        status: 'unavailable',
-        message: 'timeout',
-        coordinates: undefined,
-      }
+      return 'timeout'
   }
 }
 
@@ -34,10 +22,10 @@ export const getUserLocation = async (): Promise<UserLocationType> =>
     navigator.geolocation.getCurrentPosition(
       ({ coords }) => {
         const { latitude, longitude } = coords
-        resolve({ coordinates: [longitude, latitude], status: 'ready', message: 'ready' })
+        resolve({ userLocation: [longitude, latitude], status: 'ready', message: 'ready' })
       },
       (error: GeolocationPositionError) => {
-        resolve(locationStateOnError(error))
+        resolve({ userLocation: null, status: 'unavailable', message: userLocationMessage(error) })
       },
       { timeout: currentPositionTimeout },
     )
@@ -47,7 +35,7 @@ const useUserLocation = (): ReturnType<LocationType> =>
   useLoadAsync(
     useCallback(async () => {
       const userLocation = await getUserLocation()
-      return userLocation.status === 'ready' ? userLocation.coordinates : null
+      return userLocation.status === 'ready' ? userLocation.userLocation : null
     }, []),
   )
 

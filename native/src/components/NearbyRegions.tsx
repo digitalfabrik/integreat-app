@@ -28,13 +28,13 @@ type NearbyRegionsProps = {
 }
 
 const NearbyRegions = ({ regions, navigateToDashboard, filterText }: NearbyRegionsProps): ReactElement => {
-  const { status, coordinates, message, refreshPermissionAndLocation } = useUserLocation({
+  const { status, userLocation, message, refreshPermissionAndLocation } = useUserLocation({
     requestPermissionInitially: false,
   })
   const { t } = useTranslation('landing')
   const theme = useTheme()
 
-  if (!coordinates) {
+  if (!userLocation) {
     return (
       <NearbyMessageContainer>
         <Text variant='body2' style={{ paddingTop: 16 }}>
@@ -54,7 +54,7 @@ const NearbyRegions = ({ regions, navigateToDashboard, filterText }: NearbyRegio
   }
 
   const nearbyRegions = getNearbyRegions(
-    coordinates,
+    userLocation,
     regions.filter(region => region.live),
   )
 
