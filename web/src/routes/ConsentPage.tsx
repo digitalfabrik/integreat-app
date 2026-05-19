@@ -11,8 +11,7 @@ import Layout from '../components/Layout'
 import H1 from '../components/base/H1'
 import List from '../components/base/List'
 import buildConfig from '../constants/buildConfig'
-import useLocalStorage from '../hooks/useLocalStorage'
-import { LOCAL_STORAGE_ITEM_EXTERNAL_SOURCES } from '../utils/iframes'
+import useLocalStorage, { EXTERNAL_SOURCES_STORAGE_KEY } from '../hooks/useLocalStorage'
 
 const Description = styled('div')`
   margin-bottom: 24px;
@@ -22,7 +21,7 @@ type ConsentPageProps = { languageCode: string }
 const ConsentPage = ({ languageCode }: ConsentPageProps): ReactElement => {
   const { t } = useTranslation('consent')
   const { value: externalSourcePermissions, updateLocalStorageItem } = useLocalStorage<ExternalSourcePermissions>({
-    key: LOCAL_STORAGE_ITEM_EXTERNAL_SOURCES,
+    key: EXTERNAL_SOURCES_STORAGE_KEY,
     initialValue: {},
   })
 

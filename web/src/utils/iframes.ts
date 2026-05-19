@@ -5,7 +5,6 @@ import { CONSENT_ROUTE, ExternalSourcePermissions } from 'shared'
 export type IframeSources = Record<number, string>
 export const IFRAME_BLANK_SOURCE = 'about:blank'
 
-export const LOCAL_STORAGE_ITEM_EXTERNAL_SOURCES = 'Opt-In-External-Sources'
 export const addDoNotTrackParameter = (iframe: HTMLIFrameElement): void => {
   if (iframe.src.includes('vimeo')) {
     const url = new URL(iframe.src)

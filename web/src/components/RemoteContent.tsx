@@ -8,9 +8,8 @@ import { ExternalSourcePermissions } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
 import useDimensions from '../hooks/useDimensions'
-import useLocalStorage from '../hooks/useLocalStorage'
+import useLocalStorage, { EXTERNAL_SOURCES_STORAGE_KEY } from '../hooks/useLocalStorage'
 import {
-  LOCAL_STORAGE_ITEM_EXTERNAL_SOURCES,
   handleAllowedIframeSources,
   hideIframe,
   IframeSources,
@@ -34,7 +33,7 @@ const RemoteContent = ({ html, centered = false, smallText = false }: RemoteCont
   const navigate = useNavigate()
   const sandBoxRef = React.createRef<HTMLDivElement>()
   const { value: externalSourcePermissions, updateLocalStorageItem } = useLocalStorage<ExternalSourcePermissions>({
-    key: LOCAL_STORAGE_ITEM_EXTERNAL_SOURCES,
+    key: EXTERNAL_SOURCES_STORAGE_KEY,
     initialValue: {},
   })
 
