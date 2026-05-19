@@ -11,7 +11,7 @@ import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { getDisplayDate, getExcerpt } from 'shared'
+import { getDisplayDate, getExcerpt, MAX_DAYS_NEW } from 'shared'
 import { DateIcon, DateModel, EventModel } from 'shared/api'
 
 import {
@@ -21,8 +21,16 @@ import {
   EventThumbnailPlaceholder3,
 } from '../assets'
 import { EXCERPT_MAX_CHARS } from '../constants'
+import useLocalStorage, { EVENTS_VISITED_IDS_STORAGE_KEY } from '../hooks/useLocalStorage'
+import NewChip from './NewChip'
 import Link from './base/Link'
 import Svg from './base/Svg'
+
+const StyledNewChip = styled(NewChip)({
+  position: 'absolute',
+  top: -8,
+  right: 64,
+})
 
 const StyledListItem = styled(ListItem)`
   [class*='MuiListItemSecondaryAction-root'] {
@@ -97,10 +105,16 @@ const EventListItem = ({
   filterStartDate = null,
   filterEndDate = null,
 }: EventListItemProps): ReactElement => {
-  const dateIcon = getDateIcon(event.date)
+  const { value: visitedEventsIds } = useLocalStorage<number[]>({
+    key: EVENTS_VISITED_IDS_STORAGE_KEY,
+    initialValue: [],
+  })
   const { t } = useTranslation('events')
+
+  const dateIcon = getDateIcon(event.date)
   const dateToDisplay = getDisplayDate(event, filterStartDate, filterEndDate)
   const thumbnailSrc = event.thumbnail || getEventPlaceholder(event.path)
+  const isNew = !visitedEventsIds.includes(event.id) && event.isNew
 
   return (
     <StyledListItem
@@ -126,6 +140,7 @@ const EventListItem = ({
             </StyledTypography>
           }
         />
+        {isNew && <StyledNewChip />}
       </StyledListItemButton>
     </StyledListItem>
   )

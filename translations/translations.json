@@ -1244,7 +1244,8 @@
       "clearInput": "Eingabe löschen",
       "more": "Mehr",
       "nearby": "In deiner Nähe",
-      "email": "E-Mail"
+      "email": "E-Mail",
+      "new": "neu"
     },
     "am": {
       "copied": "ተቀድቷል",
@@ -1370,7 +1371,8 @@
       "clearInput": "Clear input",
       "more": "More",
       "nearby": "Near you",
-      "email": "Email"
+      "email": "Email",
+      "new": "new"
     },
     "es": {
       "copied": "Copiado",

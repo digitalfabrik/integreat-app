@@ -1,3 +1,4 @@
+export const MAX_DAYS_NEW = 5
 export const MAX_DATE_RECURRENCES = 3
 export const MAX_SEARCH_RESULTS = 75
 export const DEFAULT_ROWS_NUMBER = 4

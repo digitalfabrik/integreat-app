@@ -6,6 +6,7 @@ export const CHAT_HINT_VISIBLE_STORAGE_KEY = 'showChatHint'
 export const CHAT_PRIVACY_POLICY_ACCEPTED_STORAGE_KEY = 'Chat-Privacy-Policies'
 export const CHAT_ID_STORAGE_KEY = 'Chat-Device-Id'
 
+export const EVENTS_VISITED_IDS_STORAGE_KEY = 'theme'
 export const EXTERNAL_SOURCES_STORAGE_KEY = 'Opt-In-External-Sources'
 export const APP_BANNER_HIDDEN_EXPIRATION_DATE_STORAGE_KEY = 'showBanner'
 export const THEME_STORAGE_KEY = 'theme'

@@ -1,6 +1,7 @@
 import { decodeHTML } from 'entities'
 import { DateTime } from 'luxon'
 
+import { MAX_DAYS_NEW } from '../../constants'
 import { getSlugFromPath } from '../../utils'
 import normalizePath from '../../utils/normalizePath'
 
@@ -53,6 +54,11 @@ class DocumentModel {
 
   get lastUpdate(): DateTime {
     return this._lastUpdate
+  }
+
+  get isNew(): boolean {
+    // TODO: Use published date instead of last update
+    return DateTime.now().diff(this._lastUpdate).as('days') < MAX_DAYS_NEW
   }
 
   isEqual(other: DocumentModel): boolean {
