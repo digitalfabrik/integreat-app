@@ -1,7 +1,3 @@
-import LinkIcon from '@mui/icons-material/Link'
-import LocationIcon from '@mui/icons-material/LocationOnOutlined'
-import { styled } from '@mui/material/styles'
-import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router'
@@ -9,14 +5,11 @@ import { useParams } from 'react-router'
 import { EVENTS_ROUTE, pathnameFromRouteInformation, useDateFilter } from 'shared'
 import { createEventsEndpoint, NotFoundError } from 'shared/api'
 
-import DatesPageDetail from '../components/DatesPageDetail'
+import EventDetail from '../components/EventDetail'
 import EventListItem, { Icon } from '../components/EventListItem'
 import EventsDateFilter from '../components/EventsDateFilter'
-import ExportEventButton from '../components/ExportEventButton'
 import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Helmet from '../components/Helmet'
-import Page, { THUMBNAIL_WIDTH } from '../components/Page'
-import PageDetail from '../components/PageDetail'
 import RegionContentLayout, { RegionContentLayoutProps } from '../components/RegionContentLayout'
 import RegionContentToolbar from '../components/RegionContentToolbar'
 import SkeletonList from '../components/SkeletonList'
@@ -28,16 +21,7 @@ import useJsonLd from '../hooks/useJsonLd'
 import useQueryFromEndpoint from '../hooks/useQueryFromEndpoint'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 import createJsonLdEvent from '../utils/createJsonLdEvent'
-import featuredImageToSrcSet from '../utils/featuredImageToSrcSet'
 import { RegionRouteProps } from './index'
-
-const Spacing = styled('div')<{ content: string; lastUpdate?: DateTime }>`
-  display: flex;
-  flex-direction: column;
-  padding-top: 12px;
-  padding-bottom: ${props => (props.content.length > 0 && props.lastUpdate ? '0px' : '12px')};
-  gap: 8px;
-`
 
 const EventsPage = ({ region, pathname, languageCode, regionCode }: RegionRouteProps): ReactElement | null => {
   const { eventId } = useParams()
@@ -111,34 +95,11 @@ const EventsPage = ({ region, pathname, languageCode, regionCode }: RegionRouteP
         </RegionContentLayout>
       )
     }
-    const { featuredImage, lastUpdate, content, title, location, meetingUrl, date } = event
 
     return (
       <RegionContentLayout isLoading={false} {...locationLayoutParams}>
         <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} regionModel={region} />
-        <Page
-          thumbnailSrcSet={featuredImage ? featuredImageToSrcSet(featuredImage, THUMBNAIL_WIDTH) : undefined}
-          lastUpdate={lastUpdate}
-          content={content}
-          title={title}
-          beforeContent={
-            <Spacing content={content} lastUpdate={lastUpdate}>
-              <DatesPageDetail date={date} language={languageCode} />
-              {location && (
-                <PageDetail
-                  tooltip={t('address')}
-                  icon={<LocationIcon />}
-                  information={location.fullAddress}
-                  path={event.placePath}
-                />
-              )}
-              {!!meetingUrl && (
-                <PageDetail tooltip={t('meetingUrl')} icon={<LinkIcon />} information={meetingUrl} path={meetingUrl} />
-              )}
-            </Spacing>
-          }
-          footer={<ExportEventButton event={event} />}
-        />
+        <EventDetail event={event} languageCode={languageCode} />
       </RegionContentLayout>
     )
   }
