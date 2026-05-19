@@ -85,6 +85,7 @@ class EventModelBuilder {
         return {
           path,
           event: new EventModel({
+            id: index,
             path,
             title: 'first Event',
             availableLanguages: LANGUAGES.filter(language => language !== this._language).reduce(

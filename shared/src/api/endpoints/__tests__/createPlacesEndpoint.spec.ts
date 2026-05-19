@@ -13,7 +13,7 @@ describe('places', () => {
   const path = '/augsburg/de/places/asylpolitischer_fruehschoppen'
 
   const createPlace = (id: number): JsonPlaceType => ({
-    id,
+    id: 1,
     path,
     url: baseUrl + path,
     title: 'Asylploitischer Frühschoppen',
@@ -31,7 +31,7 @@ describe('places', () => {
       icon_url: 'https://example.com/icon',
     },
     location: {
-      id: 1,
+      id,
       name: 'Café Tür an Tür',
       address: 'Wertachstr. 29',
       town: 'Augsburg',
@@ -48,8 +48,9 @@ describe('places', () => {
     barrier_free: null,
   })
 
-  const createPlaceModel = () =>
+  const createPlaceModel = (id: number) =>
     new PlaceModel({
+      id,
       path,
       title: 'Asylploitischer Frühschoppen',
       excerpt: 'Am Sonntag...',
@@ -66,7 +67,7 @@ describe('places', () => {
         icon: 'https://example.com/icon',
       }),
       location: new LocationModel({
-        id: 1,
+        id,
         name: 'Café Tür an Tür',
         address: 'Wertachstr. 29',
         town: 'Augsburg',
@@ -85,13 +86,13 @@ describe('places', () => {
 
   const place1 = createPlace(2730)
   const place2 = createPlace(1889)
-  const place3 = createPlace(4768) // we get these from cms
+  const place3 = createPlace(4768)
   const place4 = createPlace(4826)
 
-  const placeModel1 = createPlaceModel()
-  const placeModel2 = createPlaceModel()
-  const placeModel3 = createPlaceModel()
-  const placeModel4 = createPlaceModel()
+  const placeModel1 = createPlaceModel(2730)
+  const placeModel2 = createPlaceModel(1889)
+  const placeModel3 = createPlaceModel(4768)
+  const placeModel4 = createPlaceModel(4826)
   const params = {
     region: 'augsburg',
     language: 'de',

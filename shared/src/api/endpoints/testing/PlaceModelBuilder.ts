@@ -9,6 +9,7 @@ import PlaceModel from '../../models/PlaceModel.ts'
 
 const places = [
   new PlaceModel({
+    id: 1,
     path: '/augsburg/de/places/test',
     title: 'Test Title',
     content: 'My extremely long test content',
@@ -65,6 +66,7 @@ const places = [
     barrierFree: true,
   }),
   new PlaceModel({
+    id: 2,
     path: '/augsburg/en/places/test_path_2',
     title: 'test title 2',
     content: 'test content 2',
@@ -108,6 +110,7 @@ const places = [
     barrierFree: false,
   }),
   new PlaceModel({
+    id: 3,
     path: '/augsburg/en/places/another_test_path',
     title: 'Another test title',
     content: 'another test content',

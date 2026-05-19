@@ -23,6 +23,7 @@ export default (baseUrl: string): Endpoint<ParamsType, DocumentModel> =>
       }
 
       return new DocumentModel({
+        id: json.id,
         path: json.path,
         title: json.title,
         content: json.content,

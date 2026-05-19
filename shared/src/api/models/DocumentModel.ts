@@ -5,26 +5,34 @@ import { getSlugFromPath } from '../../utils/index.ts'
 import normalizePath from '../../utils/normalizePath.ts'
 
 class DocumentModel {
+  _id: number
   _path: string
   _title: string
   _content: string
   _lastUpdate: DateTime
 
   constructor({
+    id,
     path,
     title,
     content,
     lastUpdate,
   }: {
+    id: number
     path: string
     title: string
     content: string
     lastUpdate: DateTime
   }) {
+    this._id = id
     this._path = normalizePath(path)
     this._title = decodeHTML(title)
     this._content = content
     this._lastUpdate = lastUpdate
+  }
+
+  get id(): number {
+    return this._id
   }
 
   get path(): string {

@@ -18,6 +18,7 @@ jest.mock('../MalteHelpForm', () => ({ malteHelpFormOffer }: { malteHelpFormOffe
 describe('EmbeddedOffers', () => {
   const createCategory = (offer: OfferModel) =>
     new CategoryModel({
+      id: 1,
       root: false,
       path: '/augsburg/de/title',
       title: 'Title',

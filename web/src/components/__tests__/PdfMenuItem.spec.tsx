@@ -12,6 +12,7 @@ import PdfMenuItem from '../PdfMenuItem'
 const renderInMenu = (ui: ReactElement) => renderWithRouterAndTheme(<MenuList>{ui}</MenuList>)
 
 const rootCategory = new CategoryModel({
+  id: -1,
   root: true,
   path: '/augsburg/de',
   title: 'augsburg',
@@ -27,6 +28,7 @@ const rootCategory = new CategoryModel({
 })
 
 const childCategory = new CategoryModel({
+  id: 1,
   root: false,
   path: '/augsburg/de/anlaufstellen',
   title: 'Anlaufstellen zu sonstigen Themen',

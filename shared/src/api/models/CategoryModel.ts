@@ -13,6 +13,7 @@ class CategoryModel extends ExtendedDocumentModel {
   _organization: OrganizationModel | null
   _embeddedOffers: OfferModel[]
   constructor(params: {
+    id: number
     root: boolean
     path: string
     title: string
