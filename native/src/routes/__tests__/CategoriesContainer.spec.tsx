@@ -65,6 +65,7 @@ const createRoute = (params: { path?: string } = {}) => ({
 
 const buildCategoryWithSlugHistory = (slugHistory: string[]): CategoryModel =>
   new CategoryModel({
+    id: 1,
     root: false,
     path: `/${regionCode}/${languageCode}/current-slug`,
     title: 'Renamed Category',
