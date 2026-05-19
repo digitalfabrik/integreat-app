@@ -73,7 +73,12 @@ const getEventPlaceholder = (path: string): string => {
 
 export const getDateIcon = (date: DateModel): { Icon: ReactElement; tooltip: string } | null => {
   const icons: { [key in DateIcon]: ReactElement } = {
-    CalendarTodayRecurringIcon: <Svg src={CalendarTodayRecurringIcon} />,
+    CalendarTodayRecurringIcon: (
+      // The span is necessary, otherwise the tooltip is not visible
+      <span>
+        <Svg src={CalendarTodayRecurringIcon} />
+      </span>
+    ),
     CalendarRecurringIcon: <EventRepeatOutlinedIcon />,
     CalendarTodayIcon: <TodayOutlinedIcon />,
   }
