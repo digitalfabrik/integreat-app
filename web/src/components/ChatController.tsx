@@ -11,7 +11,7 @@ import {
 
 import { cmsApiBaseUrl } from '../constants/urls'
 import useIsTabActive from '../hooks/useIsTabActive'
-import useLocalStorage from '../hooks/useLocalStorage'
+import useLocalStorage, { CHAT_PRIVACY_POLICY_ACCEPTED_STORAGE_KEY } from '../hooks/useLocalStorage'
 import { generateChatId } from '../utils/chat'
 import Chat from './Chat'
 
@@ -22,7 +22,6 @@ type ChatControllerProps = {
   updateChatId: (newChatId: string | null) => void
 }
 
-const LOCAL_STORAGE_ITEM_CHAT_PRIVACY_POLICIES = 'Chat-Privacy-Policies'
 const DEFAULT_POLLING_INTERVAL = 15000
 const TYPING_POLLING_INTERVAL = 3000
 
@@ -52,7 +51,7 @@ const ChatController = ({ region, languageCode, chatId, updateChatId }: ChatCont
   const messageCount = chatMessagesReturn?.messages.length ?? 0
 
   const { value, updateLocalStorageItem } = useLocalStorage<Record<string, boolean>>({
-    key: LOCAL_STORAGE_ITEM_CHAT_PRIVACY_POLICIES,
+    key: CHAT_PRIVACY_POLICY_ACCEPTED_STORAGE_KEY,
     initialValue: {},
   })
   const privacyPolicyAccepted = value[region.code] ?? false

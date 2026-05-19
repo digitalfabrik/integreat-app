@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next'
 import { webObdachBuildConfig } from 'build-configs/obdach'
 
 import buildConfig from '../constants/buildConfig'
-import useLocalStorage from '../hooks/useLocalStorage'
+import useLocalStorage, { APP_BANNER_HIDDEN_EXPIRATION_DATE_STORAGE_KEY } from '../hooks/useLocalStorage'
 import Svg from './base/Svg'
 
 const StyledBanner = styled('div')(({ theme }) => ({
@@ -26,7 +26,10 @@ const StyledBanner = styled('div')(({ theme }) => ({
 }))
 
 const MobileBanner = (): ReactElement | null => {
-  const { value, updateLocalStorageItem } = useLocalStorage<string | null>({ key: 'showBanner', initialValue: null })
+  const { value, updateLocalStorageItem } = useLocalStorage<string | null>({
+    key: APP_BANNER_HIDDEN_EXPIRATION_DATE_STORAGE_KEY,
+    initialValue: null,
+  })
   const isVisible = !value || DateTime.fromISO(value).plus({ months: 3 }) < DateTime.now()
   const { icons, appName, apps, hostName } = buildConfig()
   const appStoreUrl = `https://play.google.com/store/apps/details?id=${apps?.android.applicationId}`
