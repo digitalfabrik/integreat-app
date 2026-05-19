@@ -1,6 +1,6 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useWindowDimensions } from 'react-native'
+import { findNodeHandle, useWindowDimensions, type View } from 'react-native'
 import { Chip } from 'react-native-paper'
 import { SvgUri } from 'react-native-svg'
 import styled from 'styled-components/native'
@@ -58,6 +58,7 @@ type PoisProps = {
 const Pois = ({ localHistory, initialZoom, pois: allPois, regionModel }: PoisProps): ReactElement => {
   const { slug, multipoi, poiCategoryId, currentlyOpen, showFilterSelection } = localHistory.current
   const [bottomSheetSnapPointIndex, setBottomSheetSnapPointIndex] = useState(1)
+  const [zoomInFocusTarget, setZoomInFocusTarget] = useState<number | undefined>(undefined)
   const { userLocation, refreshPermissionAndLocation } = useUserLocation({ requestPermissionInitially: false })
   const { t } = useTranslation('pois')
   const { height } = useWindowDimensions()
@@ -70,6 +71,10 @@ const Pois = ({ localHistory, initialZoom, pois: allPois, regionModel }: PoisPro
     pois: allPois,
     params: { slug, multipoi, poiCategoryId, currentlyOpen },
   })
+
+  const handleZoomInRef = useCallback((view: View | null) => {
+    setZoomInFocusTarget(findNodeHandle(view) ?? undefined)
+  }, [])
 
   const deselect = () => localHistory.push(multipoi !== undefined && slug ? { multipoi } : {})
 
@@ -154,6 +159,7 @@ const Pois = ({ localHistory, initialZoom, pois: allPois, regionModel }: PoisPro
         userLocation={userLocation}
         zoom={initialZoom}
         Overlay={FiltersOverlayButtons}
+        zoomRef={handleZoomInRef}
       />
       <PoisBottomSheet
         pois={sortPois(pois, userLocation)}
@@ -166,6 +172,7 @@ const Pois = ({ localHistory, initialZoom, pois: allPois, regionModel }: PoisPro
         snapPointIndex={bottomSheetSnapPointIndex}
         setSnapPointIndex={setBottomSheetSnapPointIndex}
         isFullscreen={bottomSheetFullscreen}
+        zoomInFocusTarget={zoomInFocusTarget}
       />
     </Container>
   )

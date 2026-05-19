@@ -13,6 +13,7 @@ import useDimensions from '../hooks/useDimensions'
 import BottomActionSheet, { ScrollableBottomSheetRef } from './BottomActionSheet'
 import MapAttribution from './MapAttribution'
 import MapView, { MapViewRef } from './MapView'
+import MapZoomControls from './MapZoomControls'
 import PoiSharedChildren from './PoiSharedChildren'
 import SkeletonHeader from './SkeletonHeader'
 import SkeletonList from './SkeletonList'
@@ -32,8 +33,12 @@ const AttributionContainer = styled('div')`
   bottom: calc(min(var(--rsbs-overlay-h, 0), ${props => props.theme.dimensions.bottomSheet.snapPoints.medium}px));
 `
 
-const GeocontrolContainer = styled(AttributionContainer)`
+const MapControlsContainer = styled(AttributionContainer)`
   right: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
   margin-bottom: 24px;
 `
 
@@ -151,7 +156,10 @@ const PoisMobile = ({
         ref={sheetRef}
         sibling={
           <>
-            <GeocontrolContainer ref={geocontrolPosition} />
+            <MapControlsContainer>
+              {mapViewRef && <MapZoomControls mapViewRef={mapViewRef} />}
+              <div ref={geocontrolPosition} />
+            </MapControlsContainer>
             <AttributionContainer>
               <MapAttribution />
             </AttributionContainer>
