@@ -10,6 +10,7 @@ jest.useFakeTimers({ now: new Date('2023-10-02T15:23:57.443+02:00') })
 
 describe('EventModel', () => {
   const params = {
+    id: 1,
     path: '/augsburg/de/events/event0',
     title: 'Test event',
     content: '<h1> html content </h1>',

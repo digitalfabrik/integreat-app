@@ -43,6 +43,7 @@ type OrganizationJsonType = {
 }
 
 type ContentCategoryJsonType = {
+  id: number
   root: boolean
   path: string
   title: string
@@ -90,6 +91,7 @@ type FeaturedImageJsonType = {
 }
 
 type ContentEventJsonType = {
+  id: number
   path: string
   title: string
   content: string
@@ -152,6 +154,7 @@ type ContactJsonType = {
 }
 
 type ContentPoiJsonType = {
+  id: number
   path: string
   title: string
   content: string
@@ -429,6 +432,7 @@ class DatabaseConnector {
     const categoryModels = categoriesMap.toArray()
     const jsonModels = categoryModels.map(
       (category: CategoryModel): ContentCategoryJsonType => ({
+        id: category.id,
         root: category.isRoot(),
         path: category.path,
         title: category.title,
@@ -464,6 +468,7 @@ class DatabaseConnector {
         json.map(
           jsonObject =>
             new CategoryModel({
+              id: jsonObject.id,
               root: jsonObject.root,
               path: jsonObject.path,
               title: jsonObject.title,
@@ -500,6 +505,7 @@ class DatabaseConnector {
   async storePois(pois: PoiModel[], context: DatabaseContext): Promise<void> {
     const jsonModels = pois.map(
       (poi: PoiModel): ContentPoiJsonType => ({
+        id: poi.id,
         path: poi.path,
         title: poi.title,
         content: poi.content,
@@ -556,6 +562,7 @@ class DatabaseConnector {
       json.map(jsonObject => {
         const jsonLocation = jsonObject.location
         return new PoiModel({
+          id: jsonObject.id,
           path: jsonObject.path,
           title: jsonObject.title,
           content: jsonObject.content,
@@ -696,6 +703,7 @@ class DatabaseConnector {
   async storeEvents(events: EventModel[], context: DatabaseContext): Promise<void> {
     const jsonModels = events.map(
       (event: EventModel): ContentEventJsonType => ({
+        id: event.id,
         path: event.path,
         title: event.title,
         content: event.content,
@@ -744,6 +752,7 @@ class DatabaseConnector {
       json.map(jsonObject => {
         const jsonDate = jsonObject.date
         return new EventModel({
+          id: jsonObject.id,
           path: jsonObject.path,
           title: jsonObject.title,
           content: jsonObject.content,

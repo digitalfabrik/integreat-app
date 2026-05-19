@@ -66,6 +66,7 @@ describe('getCategoryTiles', () => {
   const category1 = categories[1]!
 
   const categoryParams = {
+    id: 1,
     root: false,
     path: '/random/path',
     title: 'Appointment booking',

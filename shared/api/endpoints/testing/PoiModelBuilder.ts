@@ -9,6 +9,7 @@ import PoiModel from '../../models/PoiModel'
 
 const pois = [
   new PoiModel({
+    id: 1,
     path: '/augsburg/de/locations/test',
     title: 'Test Title',
     content: 'My extremely long test content',
@@ -65,6 +66,7 @@ const pois = [
     barrierFree: true,
   }),
   new PoiModel({
+    id: 2,
     path: '/augsburg/en/locations/test_path_2',
     title: 'test title 2',
     content: 'test content 2',
@@ -108,6 +110,7 @@ const pois = [
     barrierFree: false,
   }),
   new PoiModel({
+    id: 3,
     path: '/augsburg/en/locations/another_test_path',
     title: 'Another test title',
     content: 'another test content',

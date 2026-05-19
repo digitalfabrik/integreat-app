@@ -24,6 +24,7 @@ class PoiModel extends ExtendedDocumentModel {
   _barrierFree: boolean | null
 
   constructor(params: {
+    id: number
     path: string
     title: string
     content: string

@@ -13,7 +13,7 @@ describe('pois', () => {
   const path = '/augsburg/de/pois/asylpolitischer_fruehschoppen'
 
   const createPoi = (id: number): JsonPoiType => ({
-    id,
+    id: 1,
     path,
     url: baseUrl + path,
     title: 'Asylploitischer Frühschoppen',
@@ -31,7 +31,7 @@ describe('pois', () => {
       icon_url: 'https://example.com/icon',
     },
     location: {
-      id: 1,
+      id,
       name: 'Café Tür an Tür',
       address: 'Wertachstr. 29',
       town: 'Augsburg',
@@ -48,8 +48,9 @@ describe('pois', () => {
     barrier_free: null,
   })
 
-  const createPoiModel = () =>
+  const createPoiModel = (id: number) =>
     new PoiModel({
+      id,
       path,
       title: 'Asylploitischer Frühschoppen',
       excerpt: 'Am Sonntag...',
@@ -66,7 +67,7 @@ describe('pois', () => {
         icon: 'https://example.com/icon',
       }),
       location: new LocationModel({
-        id: 1,
+        id,
         name: 'Café Tür an Tür',
         address: 'Wertachstr. 29',
         town: 'Augsburg',
@@ -85,13 +86,13 @@ describe('pois', () => {
 
   const poi1 = createPoi(2730)
   const poi2 = createPoi(1889)
-  const poi3 = createPoi(4768) // we get these from cms
+  const poi3 = createPoi(4768)
   const poi4 = createPoi(4826)
 
-  const poiModel1 = createPoiModel()
-  const poiModel2 = createPoiModel()
-  const poiModel3 = createPoiModel()
-  const poiModel4 = createPoiModel()
+  const poiModel1 = createPoiModel(2730)
+  const poiModel2 = createPoiModel(1889)
+  const poiModel3 = createPoiModel(4768)
+  const poiModel4 = createPoiModel(4826)
   const params = {
     region: 'augsburg',
     language: 'de',

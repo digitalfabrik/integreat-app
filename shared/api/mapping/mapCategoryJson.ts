@@ -8,6 +8,7 @@ import mapAvailableLanguages from './mapAvailableLanguages'
 
 const mapCategoryJson = (json: JsonCategoryType, basePath: string): CategoryModel =>
   new CategoryModel({
+    id: json.id,
     root: false,
     path: json.path,
     title: json.title,

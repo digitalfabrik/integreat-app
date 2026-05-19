@@ -254,6 +254,7 @@ describe('DatabaseConnector', () => {
         onlyWeekdays: false,
       })
       const event = new EventModel({
+        id: 1,
         path: '/augsburg/de/events/asylpolitischer_fruehschoppen',
         title: 'Asylpolitischer Frühschoppen',
         excerpt: 'Asylpolitischer Frühschoppen',

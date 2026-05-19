@@ -39,6 +39,7 @@ export default (baseUrl: string): Endpoint<ParamsType, PoiModel[]> =>
       json.map(
         poi =>
           new PoiModel({
+            id: poi.location.id,
             path: poi.path,
             title: poi.title,
             content: poi.content,

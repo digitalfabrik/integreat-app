@@ -7,6 +7,7 @@ import { renderWithRouterAndTheme } from '../../testing/render'
 import CategoryListItem from '../CategoryListItem'
 
 const categoryParams = {
+  id: 1,
   root: false,
   path: '/augsburg/de/lorem-ipsum',
   title: 'Duis aute',

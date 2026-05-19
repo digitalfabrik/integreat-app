@@ -17,6 +17,7 @@ class EventModel extends ExtendedDocumentModel {
   _poiPath: string | null
 
   constructor(params: {
+    id: number
     path: string
     title: string
     content: string

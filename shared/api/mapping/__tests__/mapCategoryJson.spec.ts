@@ -108,6 +108,7 @@ describe('categories', () => {
     }),
   ]
   const categoryModel1 = new CategoryModel({
+    id: 3650,
     root: false,
     path: '/augsburg/de/anlaufstellen',
     title: 'Anlaufstellen zu sonstigen Themen',
@@ -121,6 +122,7 @@ describe('categories', () => {
     embeddedOffers: [],
   })
   const categoryModel2 = new CategoryModel({
+    id: 404,
     root: false,
     path: '/augsburg/fa/erste-schritte/نقشه-شهر',
     title: 'نقشه شهر',
@@ -142,6 +144,7 @@ describe('categories', () => {
     const category = mapCategoryJson(categoryJson1, basePath)
     expect(category).toEqual(categoryModel1)
   })
+
   it('should map farsi json correctly', () => {
     const category = mapCategoryJson(categoryJson2, basePath)
     expect(category).toEqual(categoryModel2)

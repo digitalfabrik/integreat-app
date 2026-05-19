@@ -6,6 +6,7 @@ import EventModel from '../../api/models/EventModel'
 import filteringEventsLogic from '../filteringEventsLogic'
 
 const EventModalDummyData = {
+  id: 1,
   content: '<h1>Event Content</h1>',
   thumbnail: null,
   location: new LocationModel({

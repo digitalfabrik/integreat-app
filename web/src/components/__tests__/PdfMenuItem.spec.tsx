@@ -14,6 +14,7 @@ jest.mock('shared/api', () => ({
 }))
 
 const rootCategory = new CategoryModel({
+  id: -1,
   root: true,
   path: '/augsburg/de',
   title: 'augsburg',
@@ -28,6 +29,7 @@ const rootCategory = new CategoryModel({
 })
 
 const childCategory = new CategoryModel({
+  id: 1,
   root: false,
   path: '/augsburg/de/anlaufstellen',
   title: 'Anlaufstellen zu sonstigen Themen',

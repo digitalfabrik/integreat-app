@@ -23,6 +23,7 @@ describe('ImprintPage', () => {
 
   const regions = new RegionModelBuilder(2).build()
   const imprint = new DocumentModel({
+    id: 1,
     path: '/imprint',
     title: 'Feedback, Kontakt und mögliches Engagement',
     content: 'this is a test content',

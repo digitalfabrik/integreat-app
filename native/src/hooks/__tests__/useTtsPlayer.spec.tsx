@@ -21,6 +21,7 @@ describe('useTtsPlayer', () => {
   const newSentences = ['new sentence 1.', 'new sentence 2.']
 
   const dummyDocument = new DocumentModel({
+    id: 1,
     path: '/test-path',
     title: 'Test title',
     content: `<div></div><div>${newSentences[0]} ${newSentences[1]}</p></div>`,
