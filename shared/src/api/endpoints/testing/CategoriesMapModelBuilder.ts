@@ -71,6 +71,7 @@ class CategoriesMapModelBuilder {
       const resourceUrl2 = `https://cms.integreat-app.de/category_${id}-300x300.png`
       const thumbnail = `https://cms.integreat-app.de/thumbnails/category_${id}.png`
       const newChild = new CategoryModel({
+        id,
         root: false,
         path,
         title: `Category with id ${id}`,
@@ -135,6 +136,7 @@ class CategoriesMapModelBuilder {
 
     this._addChildren(
       new CategoryModel({
+        id: -1,
         root: true,
         path,
         title: this._region,

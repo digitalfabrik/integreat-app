@@ -7,6 +7,7 @@ import EventModel from '../../api/models/EventModel.ts'
 import { isEventWithinRange } from '../dateFilterUtils.ts'
 
 const EventModalDummyData = {
+  id: 1,
   content: '<h1>Event Content</h1>',
   thumbnail: null,
   location: new LocationModel({

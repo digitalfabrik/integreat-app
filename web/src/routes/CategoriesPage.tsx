@@ -86,6 +86,7 @@ const useCategoryData = (
         ? [
             ...rawCategories,
             new CategoryModel({
+              id: -1,
               root: true,
               path: pathname,
               title: 'root',

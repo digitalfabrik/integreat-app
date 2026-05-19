@@ -54,6 +54,7 @@ export default (baseUrl: string): Endpoint<ParamsType, EventModel[]> =>
           const eventData = event.event
           const allDay = eventData.all_day
           return new EventModel({
+            id: event.event.id,
             path: event.path,
             title: event.title,
             content: event.content,

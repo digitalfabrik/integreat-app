@@ -7,6 +7,7 @@ import useMultiLanguageSearch, { useSearch } from '../useSearch.ts'
 describe('useSearch', () => {
   const documents = [
     new ExtendedDocumentModel({
+      id: 1,
       path: '/testumgebung/de/arbeit',
       title: 'Arbeit',
       content: 'Arbeit',
@@ -15,6 +16,7 @@ describe('useSearch', () => {
       availableLanguages: { en: '/testumgebung/en/work' },
     }),
     new ExtendedDocumentModel({
+      id: 2,
       path: '/testumgebung/de/willkommen',
       title: 'Willkommen',
       content: 'Willkommen in der Testumgebung',
@@ -23,6 +25,7 @@ describe('useSearch', () => {
       availableLanguages: { en: '/testumgebung/en/welcome' },
     }),
     new ExtendedDocumentModel({
+      id: 3,
       path: '/testumgebung/de/willkommen/willkommen-in-deutschland',
       title: 'Willkommen in Deutschland',
       content: 'Mein Text über Deutschland',
@@ -31,6 +34,7 @@ describe('useSearch', () => {
       availableLanguages: { en: '/testumgebung/en/welcome/welcome-to-germany' },
     }),
     new ExtendedDocumentModel({
+      id: 4,
       path: '/testumgebung/de/willkommen/arrival',
       title: 'Ankommen',
       content: 'Herzlich Willkommen!',
@@ -39,6 +43,7 @@ describe('useSearch', () => {
       availableLanguages: { en: '/testumgebung/en/welcome/welcome-to-germany' },
     }),
     new ExtendedDocumentModel({
+      id: 5,
       path: '/testumgebung/de/bildung/grundschule',
       title: 'Grundschule',
       content: 'Grundschule',
@@ -93,6 +98,7 @@ describe('useSearch', () => {
 describe('useMultiLanguageSearch', () => {
   const userLanguageDocuments = [
     new ExtendedDocumentModel({
+      id: 1,
       path: '/testumgebung/en/work',
       title: 'Work',
       content: 'Work content',
@@ -101,6 +107,7 @@ describe('useMultiLanguageSearch', () => {
       availableLanguages: { de: '/testumgebung/de/arbeit' },
     }),
     new ExtendedDocumentModel({
+      id: 2,
       path: '/testumgebung/en/welcome',
       title: 'Welcome',
       content: 'Welcome to the test environment',
@@ -109,6 +116,7 @@ describe('useMultiLanguageSearch', () => {
       availableLanguages: { de: '/testumgebung/de/willkommen' },
     }),
     new ExtendedDocumentModel({
+      id: 3,
       path: '/testumgebung/en/education',
       title: 'Education',
       content: 'Education content',
@@ -120,6 +128,7 @@ describe('useMultiLanguageSearch', () => {
 
   const sourceLanguageDocuments = [
     new ExtendedDocumentModel({
+      id: 1,
       path: '/testumgebung/de/arbeit',
       title: 'Arbeit',
       content: 'Arbeit Inhalt',
@@ -128,6 +137,7 @@ describe('useMultiLanguageSearch', () => {
       availableLanguages: { en: '/testumgebung/en/work' },
     }),
     new ExtendedDocumentModel({
+      id: 2,
       path: '/testumgebung/de/willkommen',
       title: 'Willkommen',
       content: 'Willkommen im Testumgebung',
@@ -136,6 +146,7 @@ describe('useMultiLanguageSearch', () => {
       availableLanguages: { en: '/testumgebung/en/welcome' },
     }),
     new ExtendedDocumentModel({
+      id: 3,
       path: '/testumgebung/de/nur-deutsch',
       title: 'Nur Deutsch',
       content: 'Nur auf Deutsch verfügbar',
@@ -203,6 +214,7 @@ describe('useMultiLanguageSearch', () => {
     // "work" matches both English "Work" doc and maps German "Arbeit" → English "Work"
     const overlappingUserDocs = [
       new ExtendedDocumentModel({
+        id: 1,
         path: '/testumgebung/en/work',
         title: 'Work',
         content: 'Work content',
@@ -213,6 +225,7 @@ describe('useMultiLanguageSearch', () => {
     ]
     const overlappingSourceDocs = [
       new ExtendedDocumentModel({
+        id: 2,
         path: '/testumgebung/de/arbeit',
         title: 'Arbeit',
         content: 'Work Arbeit',

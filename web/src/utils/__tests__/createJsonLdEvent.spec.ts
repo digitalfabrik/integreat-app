@@ -24,6 +24,7 @@ describe('createJsonLdEvent', () => {
       longitude: null,
     })
     const eventModel = new EventModel({
+      id: 1,
       path: '/events/event0',
       title: 'Sample Event',
       content: 'hi',

@@ -46,6 +46,7 @@ describe('ResourceURLFinder', () => {
     finder.init()
     const input = [
       new ExtendedDocumentModel({
+        id: 1,
         path: '/path1',
         thumbnail: 'https://ex.am/thumb.png',
         content: `<img src="https://ex.am/pl1.png" alt="Crazy" />
@@ -56,6 +57,7 @@ describe('ResourceURLFinder', () => {
         lastUpdate: DateTime.now(),
       }),
       new ExtendedDocumentModel({
+        id: 2,
         path: '/path2',
         thumbnail: '',
         content: '<img src="https://ex.am/pl2.png" alt="Crazy" />',
@@ -74,6 +76,7 @@ describe('ResourceURLFinder', () => {
     finder.init()
     const input = [
       new ExtendedDocumentModel({
+        id: 1,
         path: '/path1',
         thumbnail: 'https://ex.am/thumb.png',
         content: `<img src="https://ex.am/pl1.png" alt="First Pic" />
@@ -84,6 +87,7 @@ describe('ResourceURLFinder', () => {
         lastUpdate: DateTime.now(),
       }),
       new ExtendedDocumentModel({
+        id: 2,
         path: '/path2',
         thumbnail: '',
         content: '<img src="https://ex.am/pl4.pdf" alt="And an entire PDF" />',
