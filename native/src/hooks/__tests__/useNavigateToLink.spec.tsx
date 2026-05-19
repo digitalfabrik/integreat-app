@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-import { IMAGE_VIEW_MODAL_ROUTE, LANDING_ROUTE, PDF_VIEW_MODAL_ROUTE } from 'shared'
+import { IMAGE_VIEW_MODAL_ROUTE, REGIONS_ROUTE, PDF_VIEW_MODAL_ROUTE } from 'shared'
 
 import TestingAppContext from '../../testing/TestingAppContext'
 import createNavigationPropMock from '../../testing/createNavigationPropMock'
@@ -93,7 +93,7 @@ describe('useNavigateToLink', () => {
     renderMockComponent(url)
     expect(navigateTo).toHaveBeenCalledTimes(1)
     expect(navigateTo).toHaveBeenCalledWith({
-      route: LANDING_ROUTE,
+      route: REGIONS_ROUTE,
       languageCode,
     })
     expect(navigation.navigate).not.toHaveBeenCalled()

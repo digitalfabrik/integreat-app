@@ -31,6 +31,7 @@ import {
   mapConfig,
   MapFeature,
   normalDetailZoom,
+  isMultipoi,
 } from 'shared'
 
 import { clusterCountLayer, clusterLayer, markerLayer } from '../constants/layers'
@@ -174,7 +175,9 @@ const MapView = ({
     const feature = featureCollection.find((it): it is MapFeature => it.geometry.type === 'Point')
     selectFeature(feature ?? null)
 
-    await zoomOnClusterPress(pressedCoordinates)
+    if (feature && isMultipoi(feature)) {
+      await zoomOnClusterPress(pressedCoordinates)
+    }
   }
 
   const locationPermissionGrantedIcon = trackUserLocation ? 'crosshairs-gps' : 'crosshairs'

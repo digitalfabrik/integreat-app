@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 import styled from 'styled-components/native'
 
-import { BOTTOM_TAB_ROUTE, SUGGEST_TO_REGION_ROUTE, LandingRouteType } from 'shared'
+import { BOTTOM_TAB_ROUTE, SUGGEST_TO_REGION_ROUTE, RegionsRouteType } from 'shared'
 import { RegionModel } from 'shared/api'
 
 import RegionSelector from '../components/RegionSelector'
@@ -12,7 +12,7 @@ import SwitchCmsUrlIcon from '../components/SwitchCmsUrlIcon'
 import Text from '../components/base/Text'
 import { NavigationProps } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
-import { AppContext } from '../contexts/AppContextProvider'
+import { AppContext } from '../contexts/AppContext'
 import useLoadRegions from '../hooks/useLoadRegions'
 import testID from '../testing/testID'
 import dataContainer from '../utils/DefaultDataContainer'
@@ -26,14 +26,14 @@ const Wrapper = styled(View)`
   gap: 16px;
 `
 
-type LandingProps = {
-  navigation: NavigationProps<LandingRouteType>
+type RegionsProps = {
+  navigation: NavigationProps<RegionsRouteType>
 }
 
-const Landing = ({ navigation }: LandingProps): ReactElement => {
+const Regions = ({ navigation }: RegionsProps): ReactElement => {
   const { data: regions, refresh, ...response } = useLoadRegions()
   const { changeRegionCode } = useContext(AppContext)
-  const { t } = useTranslation('landing')
+  const { t } = useTranslation('regions')
 
   // The regions are otherwise only updated by pull to refresh
   useEffect(refresh, [refresh])
@@ -53,7 +53,7 @@ const Landing = ({ navigation }: LandingProps): ReactElement => {
     <LoadingErrorHandler {...response} refresh={refresh} scrollView>
       {regions && (
         <>
-          <Wrapper {...testID('Landing-Page')}>
+          <Wrapper {...testID('Regions-Page')}>
             <SwitchCmsUrlIcon clearResourcesAndCache={clearResourcesAndCache} />
             <Text variant='h3'>{t('welcome', { appName: buildConfig().appName })}</Text>
             <Text variant='body2'>{t('welcomeInformation')}</Text>
@@ -66,4 +66,4 @@ const Landing = ({ navigation }: LandingProps): ReactElement => {
   )
 }
 
-export default Landing
+export default Regions

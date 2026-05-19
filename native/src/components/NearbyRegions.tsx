@@ -31,7 +31,7 @@ const NearbyRegions = ({ regions, navigateToDashboard, filterText }: NearbyRegio
   const { status, userLocation, message, refreshPermissionAndLocation } = useUserLocation({
     requestPermissionInitially: false,
   })
-  const { t } = useTranslation('landing')
+  const { t } = useTranslation('regions')
   const theme = useTheme()
 
   if (!userLocation) {

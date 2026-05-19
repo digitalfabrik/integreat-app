@@ -1,16 +1,13 @@
-import BottomSheet, {
-  BottomSheetFlatList,
-  BottomSheetFlatListMethods,
-  BottomSheetScrollView,
-} from '@gorhom/bottom-sheet'
-import React, { memo, ReactElement, Ref, useCallback, useRef } from 'react'
+import BottomSheet, { BottomSheetFlatList, BottomSheetScrollView } from '@gorhom/bottom-sheet'
+import React, { memo, ReactElement, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { NativeScrollEvent, NativeSyntheticEvent, View } from 'react-native'
+import { View } from 'react-native'
 import styled, { useTheme } from 'styled-components/native'
 
 import { LocationType } from 'shared'
 import { ErrorCode, PoiModel } from 'shared/api'
 
+import useAppStateListener from '../hooks/useAppStateListener'
 import useRegionAppContext from '../hooks/useRegionAppContext'
 import BottomSheetHandle from './BottomSheetHandle'
 import Failure from './Failure'
@@ -42,7 +39,6 @@ const PoiListDivider = () => {
 }
 
 type PoiBottomSheetProps = {
-  poiListRef: Ref<BottomSheetFlatListMethods>
   pois: PoiModel[]
   poi: PoiModel | undefined
   userLocation: LocationType | null
@@ -52,12 +48,10 @@ type PoiBottomSheetProps = {
   snapPoints: number[]
   snapPointIndex: number
   setSnapPointIndex: (index: number) => void
-  setScrollPosition: (position: number) => void
   isFullscreen: boolean
 }
 
 const PoisBottomSheet = ({
-  poiListRef,
   pois,
   poi,
   userLocation,
@@ -67,20 +61,24 @@ const PoisBottomSheet = ({
   snapPoints,
   snapPointIndex,
   setSnapPointIndex,
-  setScrollPosition,
   isFullscreen,
 }: PoiBottomSheetProps): ReactElement | null => {
+  const [remountKey, setRemountKey] = useState(0)
   const { languageCode } = useRegionAppContext()
+  const bottomSheetRef = useRef<BottomSheet>(null)
   const { t } = useTranslation('pois')
   const theme = useTheme()
-  const bottomSheetRef = useRef<BottomSheet>(null)
 
-  const handlePoiFocus = useCallback(() => {
-    if (!isFullscreen && bottomSheetRef.current) {
-      const fullscreenIndex = snapPoints.length - 1
-      bottomSheetRef.current.snapToIndex(fullscreenIndex)
+  // Workaround for bottomSheet gets hidden after permissions dialog on Android so we force remounting after app comes back to foreground.
+  // reanimated's shared values gets affected by the permissions dialog (UI thread is stopped when the permission dialog is displayed).
+  // For more details https://github.com/digitalfabrik/integreat-app/issues/4037 and https://github.com/gorhom/react-native-bottom-sheet/issues/1791#issuecomment-2060957019
+  useAppStateListener(nextAppState => {
+    if (nextAppState === 'active') {
+      setRemountKey(previous => previous + 1)
     }
-  }, [isFullscreen, snapPoints.length])
+  })
+
+  const expandFullscreen = () => bottomSheetRef.current?.snapToIndex(snapPoints.length - 1)
 
   const handlePoiSelection = (poi: PoiModel) => {
     selectPoi(poi)
@@ -89,7 +87,7 @@ const PoisBottomSheet = ({
 
   const PoiDetail = poi ? (
     <PoiDetails
-      onFocus={handlePoiFocus}
+      onFocus={expandFullscreen}
       language={languageCode}
       poi={poi}
       distance={userLocation && poi.distance(userLocation)}
@@ -105,12 +103,13 @@ const PoisBottomSheet = ({
       language={languageCode}
       navigateToPoi={() => handlePoiSelection(poi)}
       distance={userLocation && poi.distance(userLocation)}
-      onFocus={handlePoiFocus}
+      onFocus={expandFullscreen}
     />
   )
 
   return (
     <StyledBottomSheet
+      key={remountKey}
       ref={bottomSheetRef}
       accessibilityLabel=''
       index={snapPointIndex}
@@ -127,14 +126,10 @@ const PoisBottomSheet = ({
           <BottomSheetScrollView showsVerticalScrollIndicator={false}>{PoiDetail}</BottomSheetScrollView>
         ) : (
           <BottomSheetFlatList
-            ref={poiListRef}
             data={pois}
             role='list'
             accessibilityLabel={t('poisCount', { count: pois.length })}
             renderItem={renderPoiListItem}
-            onMomentumScrollBegin={(event: NativeSyntheticEvent<NativeScrollEvent>) =>
-              setScrollPosition(event.nativeEvent.contentOffset.y)
-            }
             showsVerticalScrollIndicator={false}
             ListHeaderComponent={<Text variant='h5'>{t('common:nearby')}</Text>}
             ListEmptyComponent={

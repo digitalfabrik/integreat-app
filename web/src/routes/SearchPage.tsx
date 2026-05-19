@@ -16,7 +16,6 @@ import {
 import { ExtendedDocumentModel } from 'shared/api'
 import { config } from 'translations'
 
-import { RegionRouteProps } from '../RegionContentNavigator'
 import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Helmet from '../components/Helmet'
 import RegionContentLayout, { RegionContentLayoutProps } from '../components/RegionContentLayout'
@@ -28,6 +27,7 @@ import List from '../components/base/List'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useLoadSearchDocuments from '../hooks/useLoadSearchDocuments'
 import useReportError from '../hooks/useReportError'
+import { RegionRouteProps } from './index'
 
 type SearchProps = {
   query: string

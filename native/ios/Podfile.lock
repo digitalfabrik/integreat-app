@@ -79,7 +79,7 @@ PODS:
   - hermes-engine (250829098.0.9):
     - hermes-engine/Pre-built (= 250829098.0.9)
   - hermes-engine/Pre-built (250829098.0.9)
-  - MapLibreReactNative (11.0.1):
+  - MapLibreReactNative (11.0.2):
     - hermes-engine
     - RCTRequired
     - RCTTypeSafety
@@ -2926,7 +2926,7 @@ SPEC CHECKSUMS:
   GoogleDataTransport: aae35b7ea0c09004c3797d53c8c41f66f219d6a7
   GoogleUtilities: 00c88b9a86066ef77f0da2fab05f65d7768ed8e1
   hermes-engine: 23d4754646518d6e6b72e8fb583e1c4c8b98401f
-  MapLibreReactNative: 5a8fe115ee82679382decd6b853a91a157520761
+  MapLibreReactNative: 408d1e63633a8950a83677cf93ff2ba12974653d
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   RCTDeprecation: af44b104091a34482596cd9bd7e8d90c4e9b4bd7

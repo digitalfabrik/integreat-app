@@ -157,7 +157,7 @@ describe('useUserLocation', () => {
         label: 'layout:settings',
         onPress: openSettings,
       },
-      text: 'landing:noPermission',
+      text: 'regions:noPermission',
     })
 
     expect(mockGetCurrentPosition).not.toHaveBeenCalled()

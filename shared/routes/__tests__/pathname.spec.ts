@@ -2,7 +2,7 @@ import {
   CATEGORIES_ROUTE,
   IMPRINT_ROUTE,
   EVENTS_ROUTE,
-  LANDING_ROUTE,
+  REGIONS_ROUTE,
   LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
   POIS_ROUTE,
@@ -55,13 +55,13 @@ describe('pathname', () => {
   })
 
   describe('pathnameFromRouteInformation', () => {
-    it('should return right pathname for landing route', () => {
+    it('should return right pathname for regions route', () => {
       expect(
         pathnameFromRouteInformation({
-          route: LANDING_ROUTE,
+          route: REGIONS_ROUTE,
           languageCode,
         }),
-      ).toBe(`/${LANDING_ROUTE}/${languageCode}`)
+      ).toBe(`/${REGIONS_ROUTE}/${languageCode}`)
     })
 
     it('should match categories route if pathname is a region with a language', () => {

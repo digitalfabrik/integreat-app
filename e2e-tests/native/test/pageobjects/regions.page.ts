@@ -4,9 +4,9 @@ import { Page } from './page.js'
 
 const MAX_SCROLLS = 4
 
-class LandingPage extends Page {
+class RegionsPage extends Page {
   constructor() {
-    super('Landing-Page')
+    super('Regions-Page')
   }
 
   get regions(): ReturnType<typeof $$> {
@@ -23,4 +23,4 @@ class LandingPage extends Page {
   }
 }
 
-export default new LandingPage()
+export default new RegionsPage()

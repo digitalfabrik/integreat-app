@@ -9,6 +9,7 @@
     "test": "jest",
     "test:changed": "yarn run test -o",
     "test:watch": "yarn run test --watchAll",
+    "check-circular-dependencies": "yarn run -T check-circular-dependencies",
     "lint": "eslint --cache --cache-location ../.eslintcache .",
     "ts:check": "tsc --build"
   },

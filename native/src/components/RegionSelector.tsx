@@ -35,7 +35,7 @@ type RegionSelectorProps = {
 
 const RegionSelector = ({ regions, navigateToDashboard }: RegionSelectorProps): ReactElement => {
   const [filterText, setFilterText] = useState<string>('')
-  const { t } = useTranslation('landing')
+  const { t } = useTranslation('regions')
   const theme = useTheme()
 
   const resultRegions = filterSortRegions(regions, filterText, buildConfig().featureFlags.developerFriendly)

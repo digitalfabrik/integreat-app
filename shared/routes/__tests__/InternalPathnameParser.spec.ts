@@ -2,12 +2,13 @@ import {
   CATEGORIES_ROUTE,
   IMPRINT_ROUTE,
   EVENTS_ROUTE,
-  LANDING_ROUTE,
+  REGIONS_ROUTE,
   LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
   POIS_ROUTE,
   SEARCH_ROUTE,
   TU_NEWS_TYPE,
+  LEGACY_REGIONS_ROUTE,
 } from '..'
 
 import InternalPathnameParser from '../InternalPathnameParser'
@@ -17,26 +18,42 @@ const regionCode = 'bochum'
 const languageCode = 'de'
 
 describe('InternalPathnameParser', () => {
-  it('should match landing route if pathname is empty', () => {
+  it('should match regions route if pathname is empty', () => {
     const parser = new InternalPathnameParser('', languageCode, null)
     expect(parser.route()).toEqual({
-      route: LANDING_ROUTE,
+      route: REGIONS_ROUTE,
       languageCode,
     })
   })
 
-  it('should match landing route if pathname is landing without a language', () => {
-    const parser = new InternalPathnameParser(`/${LANDING_ROUTE}`, languageCode, null)
+  it('should match regions route if pathname is regions without a language', () => {
+    const parser = new InternalPathnameParser(`/${REGIONS_ROUTE}`, languageCode, null)
     expect(parser.route()).toEqual({
-      route: LANDING_ROUTE,
+      route: REGIONS_ROUTE,
       languageCode,
     })
   })
 
-  it('should match landing route if pathname is landing with a language', () => {
-    const parser = new InternalPathnameParser(`/${LANDING_ROUTE}/ar`, languageCode, null)
+  it('should match regions route if pathname is legacy regions without a language', () => {
+    const parser = new InternalPathnameParser(`/${LEGACY_REGIONS_ROUTE}`, languageCode, null)
     expect(parser.route()).toEqual({
-      route: LANDING_ROUTE,
+      route: REGIONS_ROUTE,
+      languageCode,
+    })
+  })
+
+  it('should match regions route if pathname is regions with a language', () => {
+    const parser = new InternalPathnameParser(`/${REGIONS_ROUTE}/ar`, languageCode, null)
+    expect(parser.route()).toEqual({
+      route: REGIONS_ROUTE,
+      languageCode: 'ar',
+    })
+  })
+
+  it('should match regions route if pathname is legacy regions with a language', () => {
+    const parser = new InternalPathnameParser(`/${LEGACY_REGIONS_ROUTE}/ar`, languageCode, null)
+    expect(parser.route()).toEqual({
+      route: REGIONS_ROUTE,
       languageCode: 'ar',
     })
   })
@@ -234,8 +251,8 @@ describe('InternalPathnameParser', () => {
       })
     })
 
-    it('should match categories route if pathname is landing without a language', () => {
-      const parser = new InternalPathnameParser(`/${LANDING_ROUTE}`, languageCode, fixedRegion)
+    it('should match categories route if pathname is regions without a language', () => {
+      const parser = new InternalPathnameParser(`/${REGIONS_ROUTE}`, languageCode, fixedRegion)
       expect(parser.route()).toEqual({
         route: CATEGORIES_ROUTE,
         languageCode,
@@ -244,8 +261,8 @@ describe('InternalPathnameParser', () => {
       })
     })
 
-    it('should match categories route if pathname is landing with a language', () => {
-      const parser = new InternalPathnameParser(`/${LANDING_ROUTE}/ar/`, languageCode, fixedRegion)
+    it('should match categories route if pathname is regions with a language', () => {
+      const parser = new InternalPathnameParser(`/${REGIONS_ROUTE}/ar/`, languageCode, fixedRegion)
       expect(parser.route()).toEqual({
         route: CATEGORIES_ROUTE,
         languageCode: 'ar',

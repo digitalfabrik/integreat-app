@@ -8,7 +8,7 @@ import {
   CATEGORIES_TAB_ROUTE,
   IMPRINT_ROUTE,
   EVENTS_ROUTE,
-  LANDING_ROUTE,
+  REGIONS_ROUTE,
   LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
   POIS_ROUTE,
@@ -69,24 +69,24 @@ describe('useNavigate', () => {
     jest.clearAllMocks()
   })
 
-  it('should navigate to landing', () => {
+  it('should navigate to regions', () => {
     renderMockComponent({
-      route: LANDING_ROUTE,
+      route: REGIONS_ROUTE,
       languageCode,
     })
-    expect(navigation.push).toHaveBeenCalledWith(LANDING_ROUTE)
+    expect(navigation.push).toHaveBeenCalledWith(REGIONS_ROUTE)
     expect(navigation.push).toHaveBeenCalledTimes(1)
   })
 
-  it('should navigate to landing', () => {
+  it('should navigate to regions', () => {
     renderMockComponent(
       {
-        route: LANDING_ROUTE,
+        route: REGIONS_ROUTE,
         languageCode,
       },
       true,
     )
-    expect(navigation.replace).toHaveBeenCalledWith(LANDING_ROUTE)
+    expect(navigation.replace).toHaveBeenCalledWith(REGIONS_ROUTE)
     expect(navigation.replace).toHaveBeenCalledTimes(1)
     expect(navigation.push).not.toHaveBeenCalled()
   })

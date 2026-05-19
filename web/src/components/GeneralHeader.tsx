@@ -4,7 +4,7 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router'
 
-import { LANDING_ROUTE, pathnameFromRouteInformation } from 'shared'
+import { REGIONS_ROUTE, pathnameFromRouteInformation } from 'shared'
 import { LanguageModel } from 'shared/api'
 
 import { supportedLanguages } from '../utils'
@@ -24,7 +24,7 @@ const GeneralHeader = ({ languageCode, regionLanguages, onStickyTopChanged }: Ge
   const { toggleTheme } = useTheme()
   const { t } = useTranslation('layout')
 
-  const landingPath = pathnameFromRouteInformation({ route: LANDING_ROUTE, languageCode })
+  const regionsPath = pathnameFromRouteInformation({ route: REGIONS_ROUTE, languageCode })
   const languageChangePaths = (regionLanguages ?? supportedLanguages).map(language => ({
     code: language.code,
     name: language.name,
@@ -47,7 +47,7 @@ const GeneralHeader = ({ languageCode, regionLanguages, onStickyTopChanged }: Ge
 
   return (
     <Header
-      logoHref={landingPath}
+      logoHref={regionsPath}
       actionItems={actionItems}
       language={languageCode}
       onStickyTopChanged={onStickyTopChanged}

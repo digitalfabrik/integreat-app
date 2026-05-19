@@ -25,13 +25,13 @@ const styles = StyleSheet.create({
 type HeaderTitleProps = {
   title?: string
   language?: string
-  landingPath?: () => void
+  regionsPath?: () => void
 }
 
-const HeaderTitle = ({ title, language, landingPath }: HeaderTitleProps): ReactElement | null => {
+const HeaderTitle = ({ title, language, regionsPath }: HeaderTitleProps): ReactElement | null => {
   const { t } = useTranslation('layout')
 
-  if (buildConfig().featureFlags.fixedRegion || !landingPath) {
+  if (buildConfig().featureFlags.fixedRegion || !regionsPath) {
     return (
       <Text numberOfLines={2} style={{ flexShrink: 1, marginHorizontal: 2 }} variant='subtitle1'>
         {title}
@@ -44,7 +44,7 @@ const HeaderTitle = ({ title, language, landingPath }: HeaderTitleProps): ReactE
       <TouchableRipple
         style={styles.touchableRippleStyle}
         borderless
-        onPress={landingPath}
+        onPress={regionsPath}
         accessibilityRole='button'
         accessibilityLabel={`${title} ${t('changeLocation')}`}>
         <View style={styles.titleTextContainer}>

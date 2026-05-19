@@ -5,9 +5,16 @@ import Url from 'url-parse'
 import { ExtendedDocumentModel } from 'shared/api'
 
 import { getExtension } from './helpers'
-import { FetchMapType } from './loadResourceCache'
 
 const RESOURCE_EXTENSIONS = ['png', 'jpg', 'jpeg', 'pdf', 'svg']
+
+export type FetchMapTargetType = {
+  url: string
+  filePath: string
+  urlHash: string
+}
+
+type FetchMapType = FetchMapTargetType[]
 
 /**
  * A ResourceURLFinder allows to find resource urls in html source code.

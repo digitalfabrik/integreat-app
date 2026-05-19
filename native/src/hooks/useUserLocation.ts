@@ -104,7 +104,7 @@ const useUserLocation = ({ requestPermissionInitially }: UseUserLocationProps): 
 
       if (requestPermission && showSnackbarIfBlocked && locationPermissionStatus === RESULTS.BLOCKED) {
         showSnackbar({
-          text: t('landing:noPermission'),
+          text: t('regions:noPermission'),
           action: { label: t('layout:settings'), onPress: openSettings },
         })
       }

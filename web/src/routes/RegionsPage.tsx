@@ -13,14 +13,14 @@ import SuggestToRegionFooter from '../components/SuggestToRegionFooter'
 import buildConfig from '../constants/buildConfig'
 import { cmsApiBaseUrl } from '../constants/urls'
 
-type LandingPageProps = {
+type RegionsPageProps = {
   languageCode: string
 }
 
-const LandingPage = ({ languageCode }: LandingPageProps): ReactElement => {
+const RegionsPage = ({ languageCode }: RegionsPageProps): ReactElement => {
   const { data: regions, loading, error } = useLoadFromEndpoint(createRegionsEndpoint, cmsApiBaseUrl, undefined)
   const [stickyTop, setStickyTop] = useState<number>(0)
-  const { t } = useTranslation('landing')
+  const { t } = useTranslation('regions')
 
   const pageTitle = t('pageTitle')
   const metaDescription = t('metaDescription', { appName: buildConfig().appName })
@@ -48,4 +48,4 @@ const LandingPage = ({ languageCode }: LandingPageProps): ReactElement => {
   )
 }
 
-export default LandingPage
+export default RegionsPage

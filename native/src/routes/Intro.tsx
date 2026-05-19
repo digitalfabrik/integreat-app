@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { FlatList, useWindowDimensions, ViewToken } from 'react-native'
 import styled from 'styled-components/native'
 
-import { BOTTOM_TAB_ROUTE, IntroRouteType, LANDING_ROUTE } from 'shared'
+import { BOTTOM_TAB_ROUTE, IntroRouteType, REGIONS_ROUTE } from 'shared'
 
 import {
   IntroLanguageIcon,
@@ -18,7 +18,7 @@ import SlideFooter from '../components/SlideFooter'
 import Icon from '../components/base/Icon'
 import { NavigationProps } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
-import { AppContext } from '../contexts/AppContextProvider'
+import { AppContext } from '../contexts/AppContext'
 
 const Container = styled.View<{ width: number }>`
   flex: 1;
@@ -93,7 +93,7 @@ const Intro = ({ navigation }: IntroProps): ReactElement => {
     if (regionCode) {
       navigation.replace(BOTTOM_TAB_ROUTE, {})
     } else {
-      navigation.replace(LANDING_ROUTE)
+      navigation.replace(REGIONS_ROUTE)
     }
   }, [navigation, regionCode, updateSettings])
 

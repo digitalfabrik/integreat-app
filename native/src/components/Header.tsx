@@ -12,7 +12,7 @@ import {
   EventsRouteType,
   FEEDBACK_MODAL_ROUTE,
   getSlugFromPath,
-  LANDING_ROUTE,
+  REGIONS_ROUTE,
   NEWS_ROUTE,
   POIS_ROUTE,
   PoisRouteType,
@@ -24,7 +24,7 @@ import { config } from 'translations'
 import { ROOT_NAVIGATOR_ID, TAB_NAVIGATOR_ID } from '../constants'
 import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from '../constants/NavigationTypes'
 import dimensions from '../constants/dimensions'
-import { AppContext } from '../contexts/AppContextProvider'
+import { AppContext } from '../contexts/AppContext'
 import useSnackbar from '../hooks/useSnackbar'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 import supportedLanguages from '../utils/supportedLanguages'
@@ -57,18 +57,20 @@ type HeaderProps = {
   shareUrl?: string
   regionName?: string
   forceText?: boolean
+  goBack?: () => void
 }
 
 const Header = ({
   navigation,
   route,
-  availableLanguages = route.name === LANDING_ROUTE ? supportedLanguages.map(it => it.code) : undefined,
+  availableLanguages = route.name === REGIONS_ROUTE ? supportedLanguages.map(it => it.code) : undefined,
   shareUrl,
   showItems = false,
   showMenu = true,
-  languages = route.name === LANDING_ROUTE ? supportedLanguages : undefined,
+  languages = route.name === REGIONS_ROUTE ? supportedLanguages : undefined,
   regionName,
-  forceText = route.name === LANDING_ROUTE,
+  forceText = route.name === REGIONS_ROUTE,
+  goBack,
 }: HeaderProps): ReactElement | null => {
   const [menuVisible, setMenuVisible] = useState(false)
   const { languageCode, regionCode } = useContext(AppContext)
@@ -81,7 +83,7 @@ const Header = ({
   })
   const previousRoute = navigation.getState().routes.find(route => route.key === previousRouteKey)
   const { showTtsPlayer } = useTtsPlayer()
-  const isLanding = route.name === LANDING_ROUTE
+  const isRegions = route.name === REGIONS_ROUTE
   const currentLanguageName = languages?.find(it => it.code === languageCode)?.name
 
   const poisParams = route.params as RoutesParamsType[PoisRouteType] | undefined
@@ -95,14 +97,6 @@ const Header = ({
 
   const canGoBack =
     previousRoute !== undefined || hasRootHistory || hasTabHistory || (route.name === POIS_ROUTE && hasPoisParams)
-
-  const goBack = () => {
-    if (route.name === POIS_ROUTE && hasPoisParams) {
-      navigation.setParams({ slug: undefined, multipoi: undefined })
-    } else {
-      navigation.goBack()
-    }
-  }
 
   const routeTitle = (route.params as { title?: string } | undefined)?.title ?? t(route.name)
   const pageTitle = regionName !== routeTitle ? `${routeTitle} - ${regionName}` : routeTitle
@@ -162,7 +156,7 @@ const Header = ({
       key='language'
       title={t('changeLanguage')}
       iconName='language'
-      visible={showItems || isLanding}
+      visible={showItems || isRegions}
       onPress={goToLanguageChange}
       innerText={forceText ? currentLanguageName : undefined}
     />,
@@ -223,7 +217,7 @@ const Header = ({
       return { title: regionName ?? '', language: languageCode }
     }
 
-    if (previousRoute.name === LANDING_ROUTE) {
+    if (previousRoute.name === REGIONS_ROUTE) {
       return { title: t('changeLocation'), language: undefined } // system language
     }
 
@@ -231,13 +225,19 @@ const Header = ({
   }
 
   const { title, language } = getHeaderTitle()
-  const landingPath =
-    !previousRoute && !hasRootHistory && !isLanding ? () => navigation.navigate(LANDING_ROUTE) : undefined
+  const regionsPath =
+    !previousRoute && !hasRootHistory && !isRegions ? () => navigation.navigate(REGIONS_ROUTE) : undefined
 
   return (
     <BoxShadow>
       <Horizontal>
-        <HeaderBox goBack={goBack} canGoBack={canGoBack} title={title} language={language} landingPath={landingPath} />
+        <HeaderBox
+          goBack={goBack ?? navigation.goBack}
+          canGoBack={canGoBack}
+          title={title}
+          language={language}
+          regionsPath={regionsPath}
+        />
         <ActionButtons items={items} />
         {showMenu && (
           <HeaderMenu

@@ -1,12 +1,12 @@
 import { useCallback } from 'react'
 import Url from 'url-parse'
 
-import { InternalPathnameParser, LANDING_ROUTE, RouteInformationType } from 'shared'
+import { InternalPathnameParser, REGIONS_ROUTE, RouteInformationType } from 'shared'
 
 import { SnackbarType } from '../components/SnackbarContainer'
 import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
-import { AppContextType } from '../contexts/AppContextProvider'
+import { AppContextType } from '../contexts/AppContext'
 import useNavigate from './useNavigate'
 import { useAppContext } from './useRegionAppContext'
 import useSnackbar from './useSnackbar'
@@ -46,8 +46,8 @@ const navigateToDeepLink = <T extends RoutesType>({
   }
 
   if (!selectedRegionCode) {
-    navigation.reset({ index: 0, routes: [{ name: LANDING_ROUTE }] })
-    if (routeInformation.route !== LANDING_ROUTE) {
+    navigation.reset({ index: 0, routes: [{ name: REGIONS_ROUTE }] })
+    if (routeInformation.route !== REGIONS_ROUTE) {
       navigateTo(routeInformation)
     }
     return

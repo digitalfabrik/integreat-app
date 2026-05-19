@@ -5,7 +5,6 @@ import { useParams } from 'react-router'
 import { normalizePath, pathnameFromRouteInformation, POIS_ROUTE } from 'shared'
 import { useLoadFromEndpoint, createPOIsEndpoint } from 'shared/api'
 
-import { RegionRouteProps } from '../RegionContentNavigator'
 import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Helmet from '../components/Helmet'
 import Pois from '../components/Pois'
@@ -13,6 +12,7 @@ import RegionContentLayout, { RegionContentLayoutProps } from '../components/Reg
 import { cmsApiBaseUrl } from '../constants/urls'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 import useUserLocation from '../hooks/useUserLocation'
+import { RegionRouteProps } from './index'
 
 const PoisPage = ({ regionCode, languageCode, region, pathname }: RegionRouteProps): ReactElement | null => {
   const params = useParams()

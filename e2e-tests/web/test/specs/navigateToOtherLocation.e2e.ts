@@ -2,18 +2,18 @@ import { URL } from 'node:url'
 
 import { defaultRegion, filter, Routes } from '../../../shared/constants.js'
 import DashboardPage from '../pageobjects/dashboard.page.js'
-import LandingPage from '../pageobjects/landing.page.js'
+import RegionsPage from '../pageobjects/regions.page.js'
 
 describe('navigate to other location', () => {
   it('filter and navigate to location', async () => {
     const dashboardPath = Routes.dashboard
-    await LandingPage.open()
-    const search = LandingPage.search
+    await RegionsPage.open()
+    const search = RegionsPage.search
     await search.waitForExist({ timeout: 2000 })
     await search.click()
     await browser.keys(filter)
 
-    const filteredRegion = LandingPage.region(defaultRegion)
+    const filteredRegion = RegionsPage.region(defaultRegion)
     await expect(filteredRegion).toBeDisplayed()
 
     await filteredRegion.click()
@@ -25,16 +25,16 @@ describe('navigate to other location', () => {
   })
 
   it('should open an other location', async () => {
-    const landingPath = Routes.landing
+    const regionsPath = Routes.regions
 
     await DashboardPage.locationIcon.click()
-    await browser.waitUntil(async () => (await browser.getUrl()).includes(landingPath))
+    await browser.waitUntil(async () => (await browser.getUrl()).includes(regionsPath))
 
-    const landingUrl = await browser.getUrl()
-    const parsedLandingUrl = new URL(landingUrl)
-    expect(parsedLandingUrl.pathname).toContain(landingPath)
+    const regionsUrl = await browser.getUrl()
+    const parsedRegionsUrl = new URL(regionsUrl)
+    expect(parsedRegionsUrl.pathname).toContain(regionsPath)
 
-    const filteredRegion = LandingPage.region('Stadt Augsburg')
+    const filteredRegion = RegionsPage.region('Stadt Augsburg')
     await filteredRegion.waitForExist({ timeout: 2000 })
     await expect(filteredRegion).toBeExisting()
     await filteredRegion.click()

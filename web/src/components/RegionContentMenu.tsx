@@ -8,12 +8,12 @@ import { NEWS_ROUTE, CATEGORIES_ROUTE } from 'shared'
 import { CategoryModel } from 'shared/api'
 
 import { ReadAloudIcon } from '../assets'
+import { TtsContext } from '../contexts/TtsContext'
 import useRegionContentParams from '../hooks/useRegionContentParams'
 import FeedbackContainer from './FeedbackContainer'
 import HeaderMenu, { MenuRef } from './HeaderMenu'
 import MenuItem from './MenuItem'
 import PdfMenuItem from './PdfMenuItem'
-import { TtsContext } from './TtsContainer'
 import Dialog from './base/Dialog'
 import Svg from './base/Svg'
 

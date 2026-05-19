@@ -2,17 +2,17 @@ import { augsburgRegion, defaultRegion, filter } from '../../../shared/constants
 import Keyboard from '../helpers/Keyboard.js'
 import { Selector } from '../helpers/Selector.js'
 import DashboardPage from '../pageobjects/dashboard.page.js'
-import LandingPage from '../pageobjects/landing.page.js'
+import RegionsPage from '../pageobjects/regions.page.js'
 import { allowNotifications } from '../utils/deviceUtils.js'
 
 describe('navigate to other location', () => {
   it('should open a region on location selection', async () => {
     await allowNotifications()
-    const landingPage = LandingPage
-    await landingPage.get()
+    const regionsPage = RegionsPage
+    await regionsPage.get()
 
-    const regions = LandingPage.regions
-    const search = LandingPage.search
+    const regions = RegionsPage.regions
+    const search = RegionsPage.search
 
     expect(await regions.length).toBeGreaterThan(0)
     await search.waitForDisplayed()
@@ -20,7 +20,7 @@ describe('navigate to other location', () => {
     await search.addValue(filter)
 
     await Keyboard.hide()
-    const filteredRegion = await LandingPage.region(defaultRegion)
+    const filteredRegion = await RegionsPage.region(defaultRegion)
 
     // navigate to dashboard
     await filteredRegion.waitForDisplayed({ timeout: 20000 })
@@ -36,10 +36,10 @@ describe('navigate to other location', () => {
     await changeLocation.waitForDisplayed()
     await changeLocation.click()
 
-    await LandingPage.get()
+    await RegionsPage.get()
 
     await Keyboard.hide()
-    const newRegion = await LandingPage.region(augsburgRegion)
+    const newRegion = await RegionsPage.region(augsburgRegion)
     await newRegion.waitForDisplayed()
     await newRegion.click()
 

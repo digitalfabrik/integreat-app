@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Button } from 'react-native-paper'
 import styled from 'styled-components/native'
 
+import { SendingStatusType } from 'shared'
 import { createFeedbackEndpoint, FeedbackRouteType } from 'shared/api'
 import { config } from 'translations'
 
@@ -18,8 +19,6 @@ const Container = styled.View`
   padding: 8px 20px;
   gap: 8px;
 `
-
-export type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
 
 export type FeedbackContainerProps = {
   routeType: FeedbackRouteType

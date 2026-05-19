@@ -9,7 +9,7 @@ import {
   CONSENT_ROUTE,
   IMPRINT_ROUTE,
   EVENTS_ROUTE,
-  LANDING_ROUTE,
+  REGIONS_ROUTE,
   LICENSES_ROUTE,
   MAIN_IMPRINT_ROUTE,
   NEWS_ROUTE,
@@ -20,7 +20,7 @@ import {
 
 import { SnackbarType } from '../components/SnackbarContainer'
 import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
-import { AppContext } from '../contexts/AppContextProvider'
+import { AppContext } from '../contexts/AppContext'
 import { navigateNested } from '../utils/navigation'
 import openExternalUrl from '../utils/openExternalUrl'
 import { reportError } from '../utils/sentry'
@@ -45,7 +45,7 @@ const navigate = <T extends RoutesType>(
   if (
     route === LICENSES_ROUTE ||
     route === CONSENT_ROUTE ||
-    route === LANDING_ROUTE ||
+    route === REGIONS_ROUTE ||
     route === SUGGEST_TO_REGION_ROUTE
   ) {
     navigate(route)
