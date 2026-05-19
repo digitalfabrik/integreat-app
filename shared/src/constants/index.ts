@@ -1,3 +1,4 @@
+export const MAX_DAYS_NEW = 5
 export const MAX_DATE_RECURRENCES = 3
 export const MAX_FURTHER_DATES = 5
 export const MAX_FURTHER_DATES_MOBILE = 3

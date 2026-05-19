@@ -17,7 +17,9 @@ import { EventModel } from 'shared/api'
 
 import { EventThumbnailPlaceholder1, EventThumbnailPlaceholder2, EventThumbnailPlaceholder3 } from '../assets'
 import { EXCERPT_MAX_CHARS } from '../constants'
+import useLocalStorage, { EVENTS_VISITED_IDS_STORAGE_KEY } from '../hooks/useLocalStorage'
 import EventDates from './EventDates'
+import NewChip from './NewChip'
 import Link from './base/Link'
 
 const StyledListItem = styled(ListItem)`
@@ -75,14 +77,20 @@ const EventListItem = ({
   filterStartDate = null,
   filterEndDate = null,
 }: EventListItemProps): ReactElement => {
+  const [visitedEventsIds] = useLocalStorage<number[]>({
+    key: EVENTS_VISITED_IDS_STORAGE_KEY,
+    initialValue: [],
+  })
   const { t } = useTranslation()
   const { contentDirection } = useTheme()
+
   const recurringDateIcon = event.isRecurring ? (
     <Tooltip title={t($ => $.events.recurrence.recurring)}>
       <EventRepeatOutlinedIcon />
     </Tooltip>
   ) : undefined
   const thumbnailSrc = event.thumbnail || getEventPlaceholder(event.path)
+  const isNew = !visitedEventsIds.includes(event.id) && event.isNew
 
   return (
     <StyledListItem dir='auto' disablePadding secondaryAction={recurringDateIcon}>
@@ -93,9 +101,12 @@ const EventListItem = ({
         <ListItemText
           disableTypography
           primary={
-            <Typography component='h3' variant='subtitle1'>
-              {event.title}
-            </Typography>
+            <Stack direction='row' sx={{ alignItems: 'center', gap: 1 }}>
+              <Typography component='h3' variant='subtitle1'>
+                {event.title}
+              </Typography>
+              {isNew && <NewChip />}
+            </Stack>
           }
           secondary={
             <StyledTypography variant='body1' component='div' dir={contentDirection} sx={{ flexDirection: 'column' }}>
