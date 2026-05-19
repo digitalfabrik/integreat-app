@@ -2,11 +2,12 @@ import LinkIcon from '@mui/icons-material/Link'
 import LocationIcon from '@mui/icons-material/LocationOnOutlined'
 import { styled } from '@mui/material/styles'
 import { DateTime } from 'luxon'
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { EventModel } from 'shared/api'
 
+import useLocalStorage, { EVENTS_VISITED_IDS_STORAGE_KEY } from '../hooks/useLocalStorage'
 import featuredImageToSrcSet from '../utils/featuredImageToSrcSet'
 import DatesPageDetail from './DatesPageDetail'
 import ExportEventButton from './ExportEventButton'
@@ -27,7 +28,15 @@ type EventDetailProps = {
 }
 
 const EventDetail = ({ event, languageCode }: EventDetailProps): ReactElement => {
+  const [_, updateVisitedEventIds] = useLocalStorage<number[]>({
+    key: EVENTS_VISITED_IDS_STORAGE_KEY,
+    initialValue: [],
+  })
   const { t } = useTranslation('events')
+
+  useEffect(() => {
+    updateVisitedEventIds(oldValue => (oldValue.includes(event.id) ? oldValue : [...oldValue, event.id]))
+  }, [event, updateVisitedEventIds])
 
   return (
     <Page

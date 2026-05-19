@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router'
 
@@ -18,6 +18,7 @@ import H1 from '../components/base/H1'
 import List from '../components/base/List'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useJsonLd from '../hooks/useJsonLd'
+import useLocalStorage, { EVENTS_VISITED_IDS_STORAGE_KEY } from '../hooks/useLocalStorage'
 import useQueryFromEndpoint from '../hooks/useQueryFromEndpoint'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 import createJsonLdEvent from '../utils/createJsonLdEvent'
@@ -27,11 +28,22 @@ const EventsPage = ({ region, pathname, languageCode, regionCode }: RegionRouteP
   const { eventId } = useParams()
   const { t } = useTranslation('events')
 
+  const [_, updateVisitedEventIds] = useLocalStorage<number[]>({
+    key: EVENTS_VISITED_IDS_STORAGE_KEY,
+    initialValue: [],
+  })
+
   const { data: events, error } = useQueryFromEndpoint(createEventsEndpoint, cmsApiBaseUrl, {
     region: regionCode,
     language: languageCode,
   })
   const { startDate, setStartDate, endDate, setEndDate, filteredEvents, startDateError } = useDateFilter(events ?? null)
+
+  useEffect(() => {
+    if (events) {
+      updateVisitedEventIds(oldIds => oldIds.filter(id => events.find(event => event.id === id)))
+    }
+  }, [events, updateVisitedEventIds])
 
   // Support legacy slugs of old recurring events with one event per recurrence
   const pathnameWithoutDate = pathname.split('$')[0]
