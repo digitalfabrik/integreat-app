@@ -120,6 +120,7 @@ const PoisBottomSheet = ({
       navigateToPoi={() => handlePoiSelection(poi)}
       distance={userLocation && poi.distance(userLocation)}
       onFocus={expandFullscreen}
+      visible={!slug}
     />
   )
 
@@ -127,7 +128,7 @@ const PoisBottomSheet = ({
     <StyledBottomSheet
       key={remountKey}
       ref={bottomSheetRef}
-      accessibilityLabel=''
+      accessible={false}
       index={snapPointIndex}
       isFullscreen={isFullscreen}
       snapPoints={snapPoints}
