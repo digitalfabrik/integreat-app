@@ -52,6 +52,7 @@ const PoiListDivider = () => {
 }
 
 type PoiBottomSheetProps = {
+  refresh: () => void
   pois: PoiModel[]
   poi: PoiModel | undefined
   userLocation: LocationType | null
@@ -66,6 +67,7 @@ type PoiBottomSheetProps = {
 }
 
 const PoisBottomSheet = ({
+  refresh,
   pois,
   poi,
   userLocation,
@@ -118,7 +120,7 @@ const PoisBottomSheet = ({
       distance={userLocation && poi.distance(userLocation)}
     />
   ) : (
-    <Failure code={ErrorCode.PageNotFound} buttonAction={deselectAll} buttonLabel={t('backToOverview')} />
+    <Failure code={ErrorCode.PageNotFound} retry={refresh} goTo={deselectAll} goToLabel={t('backToOverview')} />
   )
 
   const renderPoiListItem = ({ item: poi }: { item: PoiModel }): ReactElement => (

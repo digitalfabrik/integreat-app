@@ -10,7 +10,6 @@ import Layout from '../components/Layout'
 import LayoutedScrollView from '../components/LayoutedScrollView'
 import ProgressSpinner from '../components/ProgressSpinner'
 import { AppContext } from '../contexts/AppContext'
-import useNavigate from '../hooks/useNavigate'
 
 // A waiting time of >=1s feels like an interruption
 const LOADING_TIMEOUT = 800
@@ -34,7 +33,6 @@ const LoadingErrorHandler = ({
 }: LoadingErrorHandlerProps): ReactElement => {
   const { languageCode } = useContext(AppContext)
   const [timeoutExpired, setTimeoutExpired] = useState(false)
-  const { navigateTo } = useNavigate()
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -44,7 +42,7 @@ const LoadingErrorHandler = ({
   }, [])
 
   if (loading) {
-    // Prevent jumpy behaviour by showing nothing until the timeout finishes
+    // Prevent jumpy behavior by showing nothing until the timeout finishes
     if (!timeoutExpired) {
       return <Layout />
     }
@@ -63,13 +61,12 @@ const LoadingErrorHandler = ({
   }
 
   if (error !== null) {
-    const navigateToRegions = () => navigateTo({ route: REGIONS_ROUTE, languageCode })
-    const buttonAction = error === ErrorCode.RegionUnavailable ? navigateToRegions : refresh
-    const buttonLabel = error === ErrorCode.RegionUnavailable ? 'goTo.start' : undefined
     const errorCode = error instanceof Error ? fromError(error) : error
+    const goTo = [ErrorCode.RegionUnavailable].includes(errorCode) ? { route: REGIONS_ROUTE, languageCode } : undefined
+
     return (
       <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={false} />}>
-        <Failure buttonAction={buttonAction} code={errorCode} buttonLabel={buttonLabel} />
+        <Failure retry={refresh} code={errorCode} goTo={goTo} />
       </LayoutedScrollView>
     )
   }

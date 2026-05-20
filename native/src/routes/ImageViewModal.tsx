@@ -19,11 +19,19 @@ const ImageViewModal = ({ route }: ImageViewModalProps): ReactElement => {
   const [isError, setError] = useState(false)
   const { url } = route.params
   const theme = useTheme()
-  const { data: resourceCache } = useResourceCache()
+  const { data: resourceCache, refresh } = useResourceCache()
   const cachedImage = getCachedResource(url, { resourceCache })
 
   if (isError) {
-    return <Failure code={ErrorCode.UnknownError} />
+    return (
+      <Failure
+        code={ErrorCode.UnknownError}
+        retry={() => {
+          setError(false)
+          refresh()
+        }}
+      />
+    )
   }
 
   return (

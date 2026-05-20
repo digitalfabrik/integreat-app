@@ -98,7 +98,7 @@ const News = ({
   }
 
   if (newsId !== null) {
-    return <Failure code={ErrorCode.PageNotFound} />
+    return <Failure code={ErrorCode.PageNotFound} retry={refresh} />
   }
 
   return (
