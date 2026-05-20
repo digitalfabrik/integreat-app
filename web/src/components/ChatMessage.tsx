@@ -34,7 +34,7 @@ type MessageAvatarProps = {
 
 const MessageAvatar = ({ userIsAuthor, isAutomaticAnswer, visible }: MessageAvatarProps): ReactElement => {
   const { t } = useTranslation('chat')
-  const label = t(isAutomaticAnswer ? 'bot' : 'human')
+  const label = t(isAutomaticAnswer ? 'bot' : 'consultant')
 
   if (userIsAuthor) {
     return <StyledAvatar visible={visible} aria-label={t('user')} />
