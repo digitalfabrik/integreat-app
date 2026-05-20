@@ -97,13 +97,9 @@ const showOptIn = (
   text: string,
   iframeContainer: HTMLDivElement,
   source: string,
-  updateLocalStorage: (source: string) => void,
+  addExternalSource: (source: string) => void,
   index: number,
 ): void => {
-  const onClickHandler = () => {
-    updateLocalStorage(source)
-  }
-
   const className = `iframe-info-text`
   const elementId = `${className}${source}${index}`
   const container = getContainer(iframeContainer, className, elementId)
@@ -116,7 +112,7 @@ const showOptIn = (
   checkbox.type = 'checkbox'
   checkbox.name = 'opt-in-checkbox'
   checkbox.id = id
-  checkbox.onclick = onClickHandler
+  checkbox.onclick = () => addExternalSource(source)
   const label = document.createElement('label')
   showSource(label, source)
   label.htmlFor = id
@@ -159,7 +155,7 @@ export const handleAllowedIframeSources = (
   externalSourcePermissions: ExternalSourcePermissions,
   storedIframeSource: string,
   t: TFunction,
-  onUpdateLocalStorage: (source: string) => void,
+  addExternalSource: (source: string) => void,
   iframeIndex: number,
   supportedSource: string,
   mobile: boolean,
@@ -171,7 +167,7 @@ export const handleAllowedIframeSources = (
 
   if (permission === undefined) {
     const message = t('consent:knownResourceOptIn')
-    showOptIn(message, iframeContainer, supportedSource, onUpdateLocalStorage, iframeIndex)
+    showOptIn(message, iframeContainer, supportedSource, addExternalSource, iframeIndex)
   } else if (permission) {
     restoreIframe(iframe, storedIframeSource)
     // Add do not track parameter (only working for vimeo)

@@ -32,7 +32,7 @@ const DOMPURIFY_ATTRIBUTE_TARGET = 'target'
 const RemoteContent = ({ html, centered = false, smallText = false }: RemoteContentProps): ReactElement => {
   const navigate = useNavigate()
   const sandBoxRef = React.createRef<HTMLDivElement>()
-  const { value: externalSourcePermissions, updateLocalStorageItem } = useLocalStorage<ExternalSourcePermissions>({
+  const [externalSources, setExternalSources] = useLocalStorage<ExternalSourcePermissions>({
     key: EXTERNAL_SOURCES_STORAGE_KEY,
     initialValue: {},
   })
@@ -51,9 +51,9 @@ const RemoteContent = ({ html, centered = false, smallText = false }: RemoteCont
     [navigate],
   )
 
-  const onUpdateLocalStorage = useCallback(
-    (source: string): void => updateLocalStorageItem({ ...externalSourcePermissions, [source]: true }),
-    [externalSourcePermissions, updateLocalStorageItem],
+  const addExternalSource = useCallback(
+    (source: string): void => setExternalSources({ ...externalSources, [source]: true }),
+    [externalSources, setExternalSources],
   )
 
   useEffect(() => {
@@ -94,10 +94,10 @@ const RemoteContent = ({ html, centered = false, smallText = false }: RemoteCont
       if (supportedSource && storedIframeSource) {
         handleAllowedIframeSources(
           iframe,
-          externalSourcePermissions,
+          externalSources,
           storedIframeSource,
           t,
-          onUpdateLocalStorage,
+          addExternalSource,
           index,
           supportedSource,
           mobile,
@@ -110,9 +110,9 @@ const RemoteContent = ({ html, centered = false, smallText = false }: RemoteCont
     html,
     handleAnchorClick,
     sandBoxRef,
-    externalSourcePermissions,
+    externalSources,
     contentIframeSources,
-    onUpdateLocalStorage,
+    addExternalSource,
     mobile,
     window.width,
     isContrastTheme,

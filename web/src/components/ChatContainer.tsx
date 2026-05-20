@@ -51,7 +51,7 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
   const { desktop, xsmall, visibleFooterHeight, bottomNavigationHeight } = useDimensions()
   const { visible: ttsPlayerVisible } = useContext(TtsContext)
 
-  const { value: chatId, updateLocalStorageItem: updateChatId } = useLocalStorage<string>({
+  const [chatId, setChatId] = useLocalStorage<string>({
     key: chatIdKey(region.code),
     initialValue: generateChatId(),
   })
@@ -98,7 +98,7 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
                 />,
               ]
             : []),
-          <ChatMenu key='chatMenu' chatId={chatId} updateChatId={updateChatId} />,
+          <ChatMenu key='chatMenu' chatId={chatId} updateChatId={setChatId} />,
         ]}>
         <ChatController chatId={chatId} region={region} languageCode={languageCode} />
       </StyledDialog>

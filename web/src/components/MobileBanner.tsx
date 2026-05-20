@@ -26,11 +26,11 @@ const StyledBanner = styled('div')(({ theme }) => ({
 }))
 
 const MobileBanner = (): ReactElement | null => {
-  const { value, updateLocalStorageItem } = useLocalStorage<string | null>({
+  const [hiddenExpiration, setHiddenExpiration] = useLocalStorage<string | null>({
     key: APP_BANNER_HIDDEN_EXPIRATION_DATE_STORAGE_KEY,
     initialValue: null,
   })
-  const isVisible = !value || DateTime.fromISO(value).plus({ months: 3 }) < DateTime.now()
+  const isVisible = !hiddenExpiration || DateTime.fromISO(hiddenExpiration).plus({ months: 3 }) < DateTime.now()
   const { icons, appName, apps, hostName } = buildConfig()
   const appStoreUrl = `https://play.google.com/store/apps/details?id=${apps?.android.applicationId}`
   const userAgent = navigator.userAgent
@@ -64,10 +64,7 @@ const MobileBanner = (): ReactElement | null => {
     })
   }
 
-  const closeBanner = () => {
-    const expirationDate = DateTime.now().plus({ months: 3 })
-    updateLocalStorageItem(expirationDate.toISO())
-  }
+  const closeBanner = () => setHiddenExpiration(DateTime.now().plus({ months: 3 }).toISO())
 
   if (isAndroid && isVisible && appNameWithoutObdach) {
     return (

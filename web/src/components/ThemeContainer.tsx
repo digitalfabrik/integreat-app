@@ -147,7 +147,7 @@ type ThemeContainerProps = {
 
 const ThemeContainer = ({ children, contentDirection }: ThemeContainerProps): ReactElement => {
   const dimensions = useDimensions()
-  const { value: themeType, updateLocalStorageItem: setThemeType } = useLocalStorage<ThemeKey>({
+  const [themeType, setThemeType] = useLocalStorage<ThemeKey>({
     key: THEME_STORAGE_KEY,
     initialValue: 'light',
   })

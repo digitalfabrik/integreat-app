@@ -55,7 +55,7 @@ const Chat = ({
 }: ChatProps): ReactElement => {
   const { t } = useTranslation('chat')
   const [textInput, setTextInput] = useState<string>('')
-  const { value: showChatHint, updateLocalStorageItem } = useLocalStorage<boolean>({
+  const [chatHintVisible, setChatHintVisible] = useLocalStorage<boolean>({
     key: CHAT_HINT_VISIBLE_STORAGE_KEY,
     initialValue: true,
     isSessionStorage: true,
@@ -99,8 +99,8 @@ const Chat = ({
       <ChatConversation messages={messages} isTyping={isTyping} loading={isLoading} />
       <Stack paddingInline={2} gap={1}>
         {hasError && <Alert severity='error'>{t('errorMessage')}</Alert>}
-        {showChatHint && (
-          <Alert severity='info' icon={<InfoIcon />} onClose={() => updateLocalStorageItem(false)}>
+        {chatHintVisible && (
+          <Alert severity='info' icon={<InfoIcon />} onClose={() => setChatHintVisible(false)}>
             <Typography variant='body2'>{t('conversationHelperText')}</Typography>
           </Alert>
         )}

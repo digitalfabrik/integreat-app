@@ -16,10 +16,7 @@ type UseLocalStorageProps<T> = {
   isSessionStorage?: boolean
 }
 
-type UseLocalStorageReturn<T> = {
-  value: T
-  updateLocalStorageItem: (newValue: T) => void
-}
+type UseLocalStorageReturn<T> = [value: T, updateLocalStorageItem: (newValue: T) => void]
 
 const useLocalStorage = <T>({
   key,
@@ -63,7 +60,7 @@ const useLocalStorage = <T>({
     [storage, key],
   )
 
-  return { value, updateLocalStorageItem }
+  return [value, updateLocalStorageItem]
 }
 
 export default useLocalStorage

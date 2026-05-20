@@ -20,23 +20,20 @@ const Description = styled('div')`
 type ConsentPageProps = { languageCode: string }
 const ConsentPage = ({ languageCode }: ConsentPageProps): ReactElement => {
   const { t } = useTranslation('consent')
-  const { value: externalSourcePermissions, updateLocalStorageItem } = useLocalStorage<ExternalSourcePermissions>({
+  const [externalSources, setExternalSources] = useLocalStorage<ExternalSourcePermissions>({
     key: EXTERNAL_SOURCES_STORAGE_KEY,
     initialValue: {},
   })
 
-  const updateSourcePermission = (source: string, permissionGiven: boolean) =>
-    updateLocalStorageItem({
-      ...externalSourcePermissions,
-      [source]: permissionGiven,
-    })
+  const updateExternalSource = (source: string, permission: boolean) =>
+    setExternalSources({ ...externalSources, [source]: permission })
 
   const items = buildConfig().supportedIframeSources.map(item => (
     <ConsentListItem
       key={item}
       description={t('consentDescription', { source: item })}
-      allowed={externalSourcePermissions[item] ?? false}
-      onPress={permissionGiven => updateSourcePermission(item, permissionGiven)}
+      allowed={externalSources[item] ?? false}
+      onPress={permission => updateExternalSource(item, permission)}
     />
   ))
 
