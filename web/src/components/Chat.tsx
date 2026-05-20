@@ -12,7 +12,14 @@ import { styled } from '@mui/material/styles'
 import React, { KeyboardEvent, ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ChatMessagesReturn, createSendChatMessageEndpoint, NotFoundError, RegionModel } from 'shared/api'
+import {
+  ChatMessagesReturn,
+  createSendChatMessageEndpoint,
+  loadAsync,
+  loadFromEndpoint,
+  NotFoundError,
+  RegionModel,
+} from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
 import { cmsApiBaseUrl } from '../constants/urls'
@@ -67,22 +74,20 @@ const Chat = ({ response, chatId, region, languageCode }: ChatProps): ReactEleme
   // If no message has been sent yet, fetching the messages yields a 404 not found error
   const error = sendingError ?? (response.error instanceof NotFoundError ? null : response.error)
 
-  const submitMessage = async (message: string) => {
-    const { data, error } = await createSendChatMessageEndpoint(cmsApiBaseUrl).request({
-      regionCode: region.code,
-      language: languageCode,
-      message,
-      deviceId: chatId,
-    })
-
-    if (data !== null) {
-      setData(data)
-    }
-
-    if (error !== null) {
-      setSendingError(error)
-    }
-  }
+  const submitMessage = (message: string) =>
+    loadAsync(
+      () =>
+        loadFromEndpoint(createSendChatMessageEndpoint, cmsApiBaseUrl, {
+          regionCode: region.code,
+          language: languageCode,
+          message,
+          deviceId: chatId,
+        }),
+      {
+        setData,
+        setError: setSendingError,
+      },
+    ).catch(reportError)
 
   const onSubmit = () => {
     submitMessage(textInput)
