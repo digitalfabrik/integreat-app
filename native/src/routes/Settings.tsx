@@ -8,8 +8,8 @@ import { SettingsRouteType } from 'shared'
 import Caption from '../components/Caption'
 import Layout from '../components/Layout'
 import SettingItem from '../components/SettingItem'
+import SwitchCmsUrlButton from '../components/SwitchCmsUrlButton'
 import { NavigationProps } from '../constants/NavigationTypes'
-import useLoadRegions from '../hooks/useLoadRegions'
 import { useAppContext } from '../hooks/useRegionAppContext'
 import useSnackbar from '../hooks/useSnackbar'
 import dataContainer from '../utils/DefaultDataContainer'
@@ -22,7 +22,6 @@ type SettingsProps = {
 
 const Settings = ({ navigation }: SettingsProps): ReactElement => {
   const appContext = useAppContext()
-  const { refresh } = useLoadRegions()
   const showSnackbar = useSnackbar()
   const { t } = useTranslation('settings')
   const { settings } = appContext
@@ -30,8 +29,7 @@ const Settings = ({ navigation }: SettingsProps): ReactElement => {
   const clearResourcesAndCache = useCallback(() => {
     dataContainer.clearInMemoryCache()
     dataContainer._clearOfflineCache().catch(reportError)
-    refresh()
-  }, [refresh])
+  }, [])
 
   const safeOnPress = (update: () => Promise<void> | void) => async () => {
     const oldSettings = settings
@@ -60,17 +58,20 @@ const Settings = ({ navigation }: SettingsProps): ReactElement => {
   }).filter((it): it is SettingsSectionType => it !== null)
 
   return (
-    <Layout>
-      <Caption title={t('layout:settings')} />
-      <Divider />
-      <FlatList
-        data={sections}
-        extraData={appContext.settings}
-        renderItem={renderItem}
-        ItemSeparatorComponent={Divider}
-        ListFooterComponent={Divider}
-      />
-    </Layout>
+    <>
+      <SwitchCmsUrlButton clearResourcesAndCache={clearResourcesAndCache} />
+      <Layout>
+        <Caption title={t('layout:settings')} />
+        <Divider />
+        <FlatList
+          data={sections}
+          extraData={appContext.settings}
+          renderItem={renderItem}
+          ItemSeparatorComponent={Divider}
+          ListFooterComponent={Divider}
+        />
+      </Layout>
+    </>
   )
 }
 
