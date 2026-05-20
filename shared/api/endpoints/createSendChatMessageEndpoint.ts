@@ -4,6 +4,7 @@ import { API_VERSION } from '../constants'
 import { ChatMessagesReturn, mapChatMessages } from '../mapping/mapChatMessages'
 
 export const CHAT_ENDPOINT_NAME = 'chat'
+
 type ParamsType = {
   regionCode: string
   language: string

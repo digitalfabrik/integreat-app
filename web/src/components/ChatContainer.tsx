@@ -1,18 +1,21 @@
 import { dialogContentClasses } from '@mui/material/DialogContent'
 import { styled } from '@mui/material/styles'
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement, useContext, useEffect } from 'react'
 
-import { getChatName, CHAT_QUERY_KEY } from 'shared'
-import { RegionModel } from 'shared/api'
+import { getChatName, CHAT_QUERY_KEY, CHAT_TYPING_POLLING_INTERVAL, CHAT_DEFAULT_POLLING_INTERVAL } from 'shared'
+import { createChatMessagesEndpoint, RegionModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
+import { cmsApiBaseUrl } from '../constants/urls'
 import { TtsContext } from '../contexts/TtsContext'
 import useDimensions from '../hooks/useDimensions'
+import useIsTabActive from '../hooks/useIsTabActive'
 import useLocalStorage from '../hooks/useLocalStorage'
 import useLockedBody from '../hooks/useLockedBody'
+import useQueryFromEndpoint from '../hooks/useQueryFromEndpoint'
 import useQueryParamVisibility from '../hooks/useQueryParamVisibility'
 import { chatIdKey, generateChatId } from '../utils/chat'
-import ChatController from './ChatController'
+import Chat from './Chat'
 import ChatFab from './ChatFab'
 import ChatMenu from './ChatMenu'
 import HeaderLanguageSelectorItem from './HeaderLanguageSelectorItem'
@@ -35,12 +38,36 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
   const { open, close, openUrl, visible } = useQueryParamVisibility(CHAT_QUERY_KEY)
   const { xsmall } = useDimensions()
   const { visible: ttsPlayerVisible } = useContext(TtsContext)
+  const isBrowserTabActive = useIsTabActive()
   useLockedBody(visible)
 
   const [chatId, setChatId] = useLocalStorage<string>({
     key: chatIdKey(region.code),
     initialValue: generateChatId(),
   })
+
+  const response = useQueryFromEndpoint(
+    createChatMessagesEndpoint,
+    cmsApiBaseUrl,
+    {
+      regionCode: region.code,
+      language: languageCode,
+      deviceId: chatId,
+    },
+    { cached: false },
+  )
+
+  const { data, refetch } = response
+  const botTyping = data?.botTyping
+  const messageCount = data?.messages.length ?? 0
+
+  useEffect(() => {
+    if (!isBrowserTabActive || messageCount === 0) {
+      return undefined
+    }
+    const interval = setInterval(refetch, botTyping ? CHAT_TYPING_POLLING_INTERVAL : CHAT_DEFAULT_POLLING_INTERVAL)
+    return () => clearInterval(interval)
+  }, [refetch, isBrowserTabActive, messageCount, botTyping])
 
   const hideChatButton = xsmall && ttsPlayerVisible
   if (hideChatButton) {
@@ -68,7 +95,7 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
             : []),
           <ChatMenu key='chatMenu' chatId={chatId} updateChatId={setChatId} />,
         ]}>
-        <ChatController chatId={chatId} region={region} languageCode={languageCode} />
+        <Chat chatId={chatId} region={region} languageCode={languageCode} response={response} />
       </StyledDialog>
     )
   }

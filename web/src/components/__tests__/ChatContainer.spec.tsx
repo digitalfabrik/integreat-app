@@ -4,6 +4,7 @@ import React from 'react'
 import { getChatName } from 'shared'
 import { RegionModelBuilder } from 'shared/api'
 
+import { CHAT_PRIVACY_POLICIES_STORAGE_KEY } from '../../hooks/useLocalStorage'
 import { mockUseQueryFromEndpointWithData } from '../../testing/mockUseQueryFromEndpoint'
 import { renderRoute } from '../../testing/render'
 import ChatContainer from '../ChatContainer'
@@ -15,11 +16,10 @@ jest.mock('react-i18next', () => ({
   }),
   Trans: ({ i18nKey }: { i18nKey: string }) => i18nKey,
 }))
-jest.mock('../../hooks/useLocalStorage', () => () => [{ augsburg: true }, jest.fn()])
 jest.mock('../../hooks/useQueryFromEndpoint')
 
 describe('ChatContainer', () => {
-  mockUseQueryFromEndpointWithData({ messages: [] })
+  mockUseQueryFromEndpointWithData({ messages: [], botTyping: false })
   const routePattern = '/:regionCode/:languageCode'
   const region = new RegionModelBuilder(1).build()[0]!
   const pathname = `/${region.code}/de`
@@ -27,6 +27,14 @@ describe('ChatContainer', () => {
     { code: 'de', name: 'Deutsch', path: '/augsburg/de' },
     { code: 'en', name: 'English', path: '/augsburg/en' },
   ]
+
+  beforeEach(() => {
+    localStorage.setItem(CHAT_PRIVACY_POLICIES_STORAGE_KEY, JSON.stringify({ [region.code]: true }))
+  })
+
+  afterEach(() => {
+    localStorage.clear()
+  })
 
   it('should open chat dialog and show content on chat button click', () => {
     const { getByText, queryByText, getByLabelText, router } = renderRoute(
