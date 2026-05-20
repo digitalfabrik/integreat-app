@@ -1,9 +1,8 @@
 import { dialogContentClasses } from '@mui/material/DialogContent'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, useContext } from 'react'
-import { useSearchParams } from 'react-router'
 
-import { getChatName, CHAT_QUERY_KEY, parseQueryParams, toQueryParams } from 'shared'
+import { getChatName, CHAT_QUERY_KEY } from 'shared'
 import { RegionModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
@@ -11,6 +10,7 @@ import { TtsContext } from '../contexts/TtsContext'
 import useDimensions from '../hooks/useDimensions'
 import useLocalStorage from '../hooks/useLocalStorage'
 import useLockedBody from '../hooks/useLockedBody'
+import useQueryParamVisibility from '../hooks/useQueryParamVisibility'
 import { chatIdKey, generateChatId } from '../utils/chat'
 import ChatController from './ChatController'
 import ChatFab from './ChatFab'
@@ -32,47 +32,30 @@ type ChatContainerProps = {
 }
 
 const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContainerProps): ReactElement | null => {
-  const [queryParams, setQueryParams] = useSearchParams()
-  const chatVisible = parseQueryParams(queryParams).chat ?? false
+  const { open, close, openUrl, visible } = useQueryParamVisibility(CHAT_QUERY_KEY)
   const { xsmall } = useDimensions()
   const { visible: ttsPlayerVisible } = useContext(TtsContext)
-  useLockedBody(chatVisible)
+  useLockedBody(visible)
 
   const [chatId, setChatId] = useLocalStorage<string>({
     key: chatIdKey(region.code),
     initialValue: generateChatId(),
   })
 
-  const openChat = () => {
-    const newQueryParams = queryParams
-    newQueryParams.set(CHAT_QUERY_KEY, 'true')
-    setQueryParams(newQueryParams)
-  }
-
-  const closeChat = () => {
-    const newQueryParams = queryParams
-    newQueryParams.delete(CHAT_QUERY_KEY)
-    setQueryParams(newQueryParams)
-  }
-
   const hideChatButton = xsmall && ttsPlayerVisible
   if (hideChatButton) {
     return null
   }
 
-  if (chatVisible) {
+  if (visible) {
     const chatName = getChatName(buildConfig().appName)
-    const chatQuery = toQueryParams({ chat: true }).toString()
     const chatLanguageChangePaths =
-      languageChangePaths?.map(({ path, ...rest }) => ({
-        ...rest,
-        path: path ? `${path}?${chatQuery}` : null,
-      })) ?? []
+      languageChangePaths?.map(({ path, ...rest }) => ({ ...rest, path: openUrl(path) })) ?? []
 
     return (
       <StyledDialog
         title={chatName}
-        close={closeChat}
+        close={close}
         actions={[
           ...(languageChangePaths
             ? [
@@ -90,7 +73,7 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
     )
   }
 
-  return <ChatFab onClick={openChat} />
+  return <ChatFab onClick={open} />
 }
 
 export default ChatContainer
