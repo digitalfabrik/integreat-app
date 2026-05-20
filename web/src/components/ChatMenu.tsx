@@ -9,12 +9,13 @@ import Typography from '@mui/material/Typography'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { generateChatId } from '../utils/chat'
 import MenuItem from './MenuItem'
 import AlertDialog from './base/AlertDialog'
 
 type ChatMenuProps = {
   chatId: string | null
-  updateChatId: (newValue: string | null) => void
+  updateChatId: (newValue: string) => void
 }
 
 const ChatMenu = ({ chatId, updateChatId }: ChatMenuProps): ReactElement => {
@@ -28,7 +29,7 @@ const ChatMenu = ({ chatId, updateChatId }: ChatMenuProps): ReactElement => {
   }
   const createNewChat = () => {
     setMenuAnchorElement(null)
-    updateChatId(null)
+    updateChatId(generateChatId())
     setNewChatConfirmationDialogOpen(false)
   }
 

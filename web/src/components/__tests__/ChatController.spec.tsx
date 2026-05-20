@@ -29,7 +29,7 @@ describe('ChatContainer', () => {
     const value = { testumgebung: true }
     mocked(useLocalStorage<Record<string, boolean>>).mockImplementation(() => ({ value, updateLocalStorageItem }))
     const { getByText, queryByText } = renderWithTheme(
-      <ChatController chatId={null} updateChatId={jest.fn()} region={region} languageCode='de' />,
+      <ChatController chatId='test-id' region={region} languageCode='de' />,
     )
     expect(queryByText('conversationText')).toBeFalsy()
     expect(queryByText('conversationHelperText')).toBeFalsy()
@@ -42,7 +42,7 @@ describe('ChatContainer', () => {
   it('should fetch chat messages without caching', () => {
     const value = { testumgebung: true, augsburg: true }
     mocked(useLocalStorage<Record<string, boolean>>).mockImplementation(() => ({ value, updateLocalStorageItem }))
-    renderWithTheme(<ChatController chatId='test-id' updateChatId={jest.fn()} region={region} languageCode='de' />)
+    renderWithTheme(<ChatController chatId='test-id' region={region} languageCode='de' />)
     expect(mocked(useQueryFromEndpoint)).toHaveBeenCalledWith(expect.anything(), expect.anything(), expect.anything(), {
       cached: false,
     })
@@ -52,7 +52,7 @@ describe('ChatContainer', () => {
     const value = { testumgebung: true, augsburg: true }
     mocked(useLocalStorage<Record<string, boolean>>).mockImplementation(() => ({ value, updateLocalStorageItem }))
     const { getByText, queryByText } = renderWithTheme(
-      <ChatController chatId={null} updateChatId={jest.fn()} region={region} languageCode='de' />,
+      <ChatController chatId='test-id' region={region} languageCode='de' />,
     )
     expect(queryByText('privacyPolicyInformation')).toBeFalsy()
     expect(getByText('conversationText')).toBeTruthy()

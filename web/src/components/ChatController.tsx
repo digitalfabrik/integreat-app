@@ -6,29 +6,21 @@ import { cmsApiBaseUrl } from '../constants/urls'
 import useIsTabActive from '../hooks/useIsTabActive'
 import useLocalStorage from '../hooks/useLocalStorage'
 import useQueryFromEndpoint from '../hooks/useQueryFromEndpoint'
-import { generateChatId } from '../utils/chat'
 import Chat from './Chat'
 
 type ChatControllerProps = {
   region: RegionModel
   languageCode: string
-  chatId: string | null
-  updateChatId: (newChatId: string | null) => void
+  chatId: string
 }
 
 const LOCAL_STORAGE_ITEM_CHAT_PRIVACY_POLICIES = 'Chat-Privacy-Policies'
 const DEFAULT_POLLING_INTERVAL = 15000
 const TYPING_POLLING_INTERVAL = 3000
 
-const ChatController = ({ region, languageCode, chatId, updateChatId }: ChatControllerProps): ReactElement => {
+const ChatController = ({ region, languageCode, chatId }: ChatControllerProps): ReactElement => {
   const [sendingError, setSendingError] = useState<Error | null>(null)
   const isBrowserTabActive = useIsTabActive()
-
-  const initializeChat = (): string => {
-    const newId = generateChatId()
-    updateChatId(newId)
-    return newId
-  }
 
   const {
     data,
@@ -42,7 +34,7 @@ const ChatController = ({ region, languageCode, chatId, updateChatId }: ChatCont
     {
       regionCode: region.code,
       language: languageCode,
-      deviceId: chatId ?? '',
+      deviceId: chatId,
     },
     { cached: false },
   )
@@ -69,7 +61,7 @@ const ChatController = ({ region, languageCode, chatId, updateChatId }: ChatCont
       regionCode: region.code,
       language: languageCode,
       message,
-      deviceId: chatId ?? initializeChat(),
+      deviceId: chatId,
     })
 
     if (data !== null) {
