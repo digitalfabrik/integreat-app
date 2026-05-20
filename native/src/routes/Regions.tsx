@@ -32,11 +32,17 @@ type RegionsProps = {
 
 const Regions = ({ navigation }: RegionsProps): ReactElement => {
   const { data: regions, refresh, ...response } = useLoadRegions()
-  const { changeRegionCode } = useContext(AppContext)
+  const { changeRegionCode, settings } = useContext(AppContext)
   const { t } = useTranslation('regions')
+  const { apiUrlOverride } = settings
 
   // The regions are otherwise only updated by pull to refresh
   useEffect(refresh, [refresh])
+
+  // Refresh whenever the API url override changes
+  useEffect(() => {
+    refresh()
+  }, [apiUrlOverride, refresh])
 
   const navigateToDashboard = (region: RegionModel) => {
     changeRegionCode(region.code)

@@ -28,8 +28,7 @@ describe('createSettingsSections', () => {
   beforeEach(jest.clearAllMocks)
 
   const t = ((key: string) => key) as TFunction
-  const setTapCount = jest.fn()
-  const setTapStart = jest.fn()
+  const clearResourcesAndCache = jest.fn()
 
   const updateSettings = jest.fn()
   const regionCode = 'augsburg'
@@ -43,10 +42,7 @@ describe('createSettingsSections', () => {
       navigation,
       showSnackbar,
       t,
-      tapCount: 0,
-      setTapCount,
-      tapStart: null,
-      setTapStart,
+      clearResourcesAndCache,
     })
 
   describe('allowPushNotifications', () => {

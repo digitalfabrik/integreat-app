@@ -9,13 +9,14 @@ import Text from './base/Text'
 const Container = styled.View`
   display: flex;
   align-items: center;
+  gap: 8px;
 `
 
-type LandingIconProps = {
+type SwitchCmsUrlButtonProps = {
   clearResourcesAndCache: () => void
 }
 
-const SwitchCmsUrlButton = ({ clearResourcesAndCache }: LandingIconProps): ReactElement | null => {
+const SwitchCmsUrlButton = ({ clearResourcesAndCache }: SwitchCmsUrlButtonProps): ReactElement | null => {
   const { settings, updateSettings } = useAppContext()
   const theme = useTheme()
   const { cmsUrl } = buildConfig()
@@ -32,8 +33,8 @@ const SwitchCmsUrlButton = ({ clearResourcesAndCache }: LandingIconProps): React
 
   return (
     <Container>
-      <Text style={{ paddingTop: 12, color: theme.colors.error }}>{`Currently using API: ${apiUrlOverride}`}</Text>
-      <Button mode='contained' style={{ marginTop: 16 }} onPress={() => setApiUrl(cmsUrl)}>
+      <Text style={{ color: theme.colors.error }}>Currently using API: {apiUrlOverride}</Text>
+      <Button mode='contained' onPress={() => setApiUrl(cmsUrl)}>
         Switch back to default API
       </Button>
     </Container>

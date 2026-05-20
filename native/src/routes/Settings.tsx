@@ -1,5 +1,4 @@
-import { DateTime } from 'luxon'
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList } from 'react-native'
 import { Divider } from 'react-native-paper'
@@ -10,8 +9,10 @@ import Caption from '../components/Caption'
 import Layout from '../components/Layout'
 import SettingItem from '../components/SettingItem'
 import { NavigationProps } from '../constants/NavigationTypes'
+import useLoadRegions from '../hooks/useLoadRegions'
 import { useAppContext } from '../hooks/useRegionAppContext'
 import useSnackbar from '../hooks/useSnackbar'
+import dataContainer from '../utils/DefaultDataContainer'
 import createSettingsSections, { SettingsSectionType } from '../utils/createSettingsSections'
 import { log, reportError } from '../utils/sentry'
 
@@ -21,11 +22,16 @@ type SettingsProps = {
 
 const Settings = ({ navigation }: SettingsProps): ReactElement => {
   const appContext = useAppContext()
-  const [tapCount, setTapCount] = useState(0)
-  const [tapStart, setTapStart] = useState<null | DateTime>(null)
+  const { refresh } = useLoadRegions()
   const showSnackbar = useSnackbar()
   const { t } = useTranslation('settings')
   const { settings } = appContext
+
+  const clearResourcesAndCache = useCallback(() => {
+    dataContainer.clearInMemoryCache()
+    dataContainer._clearOfflineCache().catch(reportError)
+    refresh()
+  }, [refresh])
 
   const safeOnPress = (update: () => Promise<void> | void) => async () => {
     const oldSettings = settings
@@ -50,10 +56,7 @@ const Settings = ({ navigation }: SettingsProps): ReactElement => {
     navigation,
     showSnackbar,
     t,
-    tapCount,
-    setTapCount,
-    tapStart,
-    setTapStart,
+    clearResourcesAndCache,
   }).filter((it): it is SettingsSectionType => it !== null)
 
   return (
