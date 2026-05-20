@@ -3,6 +3,7 @@ import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined'
 import SmartToyOutlinedIcon from '@mui/icons-material/SmartToyOutlined'
 import Avatar from '@mui/material/Avatar'
 import Stack from '@mui/material/Stack'
+import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
@@ -33,13 +34,18 @@ type MessageAvatarProps = {
 
 const MessageAvatar = ({ userIsAuthor, isAutomaticAnswer, visible }: MessageAvatarProps): ReactElement => {
   const { t } = useTranslation('chat')
+  const label = t(isAutomaticAnswer ? 'bot' : 'consultant')
+
   if (userIsAuthor) {
     return <StyledAvatar visible={visible} aria-label={t('user')} />
   }
+
   return (
-    <StyledAvatar visible={visible} aria-label={t(isAutomaticAnswer ? 'bot' : 'human')}>
-      {isAutomaticAnswer ? <SmartToyOutlinedIcon /> : <PersonOutlinedIcon />}
-    </StyledAvatar>
+    <Tooltip title={label} disableHoverListener={!visible}>
+      <StyledAvatar visible={visible} aria-label={label}>
+        {isAutomaticAnswer ? <SmartToyOutlinedIcon /> : <PersonOutlinedIcon />}
+      </StyledAvatar>
+    </Tooltip>
   )
 }
 
