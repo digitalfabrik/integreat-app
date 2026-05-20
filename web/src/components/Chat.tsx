@@ -15,7 +15,10 @@ import { useTranslation } from 'react-i18next'
 import { ChatMessageModel, RegionModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
-import useLocalStorage, { CHAT_HINT_VISIBLE_STORAGE_KEY } from '../hooks/useLocalStorage'
+import useLocalStorage, {
+  CHAT_HINT_VISIBLE_STORAGE_KEY,
+  CHAT_PRIVACY_POLICIES_STORAGE_KEY,
+} from '../hooks/useLocalStorage'
 import ChatConversation from './ChatConversation'
 import PrivacyCheckbox from './PrivacyCheckbox'
 import H1 from './base/H1'
@@ -37,8 +40,6 @@ type ChatProps = {
   hasError: boolean
   isLoading: boolean
   isTyping: boolean
-  privacyPolicyAccepted: boolean
-  acceptPrivacyPolicy: () => void
   languageCode: string
 }
 
@@ -49,8 +50,6 @@ const Chat = ({
   hasError,
   isLoading,
   isTyping,
-  privacyPolicyAccepted,
-  acceptPrivacyPolicy,
   languageCode,
 }: ChatProps): ReactElement => {
   const { t } = useTranslation('chat')
@@ -60,6 +59,13 @@ const Chat = ({
     initialValue: true,
     isSessionStorage: true,
   })
+  const [acceptedPrivacyPolicies, setAcceptedPrivacyPolicies] = useLocalStorage<Record<string, boolean>>({
+    key: CHAT_PRIVACY_POLICIES_STORAGE_KEY,
+    initialValue: {},
+  })
+  const privacyPolicyAccepted = acceptedPrivacyPolicies[region.code] ?? false
+  const acceptCustomPrivacyPolicy = () =>
+    setAcceptedPrivacyPolicies({ ...acceptedPrivacyPolicies, [region.code]: true })
 
   const onSubmit = () => {
     submitMessage(textInput)
@@ -86,7 +92,7 @@ const Chat = ({
           <PrivacyCheckbox
             language={languageCode}
             checked={false}
-            setChecked={acceptPrivacyPolicy}
+            setChecked={acceptCustomPrivacyPolicy}
             url={region.chatPrivacyPolicyUrl}
           />
         </Stack>
