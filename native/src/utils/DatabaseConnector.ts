@@ -145,7 +145,7 @@ type ContactJsonType = {
     | {
         openAllDay: boolean
         closedAllDay: boolean
-        timeSlots: { start: string; end: string }[]
+        timeSlots: { start: string; end: string; timezone: string }[]
         appointmentOnly: boolean
       }[]
     | null
@@ -166,7 +166,7 @@ type ContentPoiJsonType = {
     | {
         openAllDay: boolean
         closedAllDay: boolean
-        timeSlots: { start: string; end: string; timezone?: string }[]
+        timeSlots: { start: string; end: string; timezone: string }[]
         appointmentOnly: boolean
       }[]
     | null
@@ -223,7 +223,7 @@ const mapOpeningHoursToJson = (
 ): {
   openAllDay: boolean
   closedAllDay: boolean
-  timeSlots: { start: string; end: string; timezone: string | undefined }[]
+  timeSlots: { start: string; end: string; timezone: string }[]
   appointmentOnly: boolean
 } => ({
   openAllDay: hours.openAllDay,
@@ -231,7 +231,7 @@ const mapOpeningHoursToJson = (
   timeSlots: hours.timeSlots.map(timeslot => ({
     start: timeslot.start,
     end: timeslot.end,
-    timezone: timeslot.timezone ?? undefined,
+    timezone: timeslot.timezone,
   })),
   appointmentOnly: hours.appointmentOnly,
 })
@@ -239,7 +239,7 @@ const mapOpeningHoursToJson = (
 const mapJsonToOpeningHours = (hours: {
   openAllDay: boolean
   closedAllDay: boolean
-  timeSlots: { start: string; end: string; timezone?: string }[]
+  timeSlots: { start: string; end: string; timezone: string }[]
   appointmentOnly: boolean
 }): OpeningHoursModel =>
   new OpeningHoursModel({
@@ -248,7 +248,7 @@ const mapJsonToOpeningHours = (hours: {
     timeSlots: hours.timeSlots.map(timeslot => ({
       start: timeslot.start,
       end: timeslot.end,
-      timezone: timeslot.timezone ?? undefined,
+      timezone: timeslot.timezone,
     })),
     appointmentOnly: hours.appointmentOnly,
   })
