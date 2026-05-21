@@ -1,7 +1,8 @@
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { License, parseLicenses } from 'shared'
+import { parseLicenses } from 'shared'
+import { useLoadAsync } from 'shared/api'
 
 import Footer from '../components/Footer'
 import GeneralHeader from '../components/GeneralHeader'
@@ -9,18 +10,14 @@ import Layout from '../components/Layout'
 import LicenseItem from '../components/LicenseItem'
 import H1 from '../components/base/H1'
 import List from '../components/base/List'
-import { reportError } from '../utils/sentry'
+
+const loadLicenses = async () => parseLicenses((await import('../assets/licenses.json')).default)
 
 type LicensesPageProps = { languageCode: string }
-const LicensesPage = ({ languageCode }: LicensesPageProps): ReactElement => {
-  const { t } = useTranslation(['settings', 'licenses'])
-  const [licenses, setLicenses] = useState<License[] | null>(null)
 
-  useEffect(() => {
-    import('../assets/licenses.json')
-      .then(licenseFile => setLicenses(parseLicenses(licenseFile.default)))
-      .catch(error => reportError(`error while importing licenses ${error}`))
-  }, [])
+const LicensesPage = ({ languageCode }: LicensesPageProps): ReactElement => {
+  const { data: licenses } = useLoadAsync(loadLicenses)
+  const { t } = useTranslation(['settings', 'licenses'])
 
   const items = (licenses ?? []).map(license => (
     <LicenseItem
