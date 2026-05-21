@@ -1,3 +1,5 @@
+import { DateTime } from 'luxon'
+
 import ChatMessageModel from '../models/ChatMessageModel'
 import { JsonChatMessagesType } from '../types'
 
@@ -13,6 +15,7 @@ export const mapChatMessages = (json: JsonChatMessagesType): ChatMessagesReturn 
       new ChatMessageModel({
         id: chatMessage.id,
         content: chatMessage.content,
+        created: DateTime.fromISO(chatMessage.created_at),
         userIsAuthor: chatMessage.user_is_author,
         automaticAnswer: chatMessage.automatic_answer,
       }),
