@@ -16,7 +16,7 @@ const loadLicenses = async () => parseLicenses((await import('../assets/licenses
 type LicensesPageProps = { languageCode: string }
 
 const LicensesPage = ({ languageCode }: LicensesPageProps): ReactElement => {
-  const { data: licenses } = useLoadAsync(loadLicenses)
+  const { data: licenses, loading } = useLoadAsync(loadLicenses)
   const { t } = useTranslation(['settings', 'licenses'])
 
   const items = (licenses ?? []).map(license => (
@@ -33,7 +33,7 @@ const LicensesPage = ({ languageCode }: LicensesPageProps): ReactElement => {
   return (
     <Layout header={<GeneralHeader languageCode={languageCode} />} footer={<Footer />}>
       <H1>{t('settings:openSourceLicenses')}</H1>
-      <List items={items} NoItemsMessage={t('licenses:noLicensesMessage')} />
+      {!loading && <List items={items} NoItemsMessage='licenses:noLicensesMessage' />}
     </Layout>
   )
 }
