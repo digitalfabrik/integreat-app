@@ -2,5 +2,6 @@
   "typescript.preferences.autoImportSpecifierExcludeRegexes": [
     "^@mui/[^/]+$",
     "(?=^|[^/])shared/((?!api)|api/(?!endpoints/testing)).+"
-  ]
+  ],
+  "codescene.enableTelemetry": false
 }
