@@ -12,6 +12,7 @@ describe('createChatMessagesEndpoint', () => {
     deviceId: '23123-dsasd1-2dsa12',
   }
   const endpoint = createChatMessagesEndpoint(baseUrl)
+
   it('should map params to url', () => {
     expect(endpoint.mapParamsToUrl(params)).toBe(
       `${baseUrl}/api/${API_VERSION}/${params.regionCode}/${params.language}/chat/${params.deviceId}/`,
@@ -20,6 +21,7 @@ describe('createChatMessagesEndpoint', () => {
 
   it('should map fetched data to model', () => {
     const messageJson = {
+      chatbot_typing: false,
       messages: [
         {
           id: 2,
@@ -31,16 +33,19 @@ describe('createChatMessagesEndpoint', () => {
       ],
     }
     const chatMessageModel = endpoint.mapResponse(messageJson, params)
-    expect(chatMessageModel).toEqual({
-      messages: [
-        new ChatMessageModel({
-          id: 2,
-          content: 'Informationen zu Ihrer Frage finden Sie auf folgenden Seiten:',
-          created: DateTime.fromISO('2026-03-10T10:28:00.316Z'),
-          userIsAuthor: false,
-          automaticAnswer: false,
-        }),
-      ],
-    })
+    expect(JSON.stringify(chatMessageModel)).toEqual(
+      JSON.stringify({
+        botTyping: false,
+        messages: [
+          new ChatMessageModel({
+            id: 2,
+            content: 'Informationen zu Ihrer Frage finden Sie auf folgenden Seiten:',
+            created: DateTime.fromISO('2026-03-10T10:28:00.316Z'),
+            userIsAuthor: false,
+            automaticAnswer: false,
+          }),
+        ],
+      }),
+    )
   })
 })

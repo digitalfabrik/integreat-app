@@ -5,6 +5,7 @@ import { reportError } from '../utils/sentry'
 export const CHAT_HINT_VISIBLE_STORAGE_KEY = 'Chat-Hint-Visible'
 export const CHAT_PRIVACY_POLICIES_STORAGE_KEY = 'Chat-Privacy-Policies'
 export const CHAT_ID_STORAGE_KEY = 'Chat-Device-Id'
+export const CHAT_UNSYNCED_MESSAGES_STORAGE_KEY = 'Chat-Unsynced-Messages'
 
 export const EXTERNAL_SOURCES_STORAGE_KEY = 'Opt-In-External-Sources'
 export const APP_BANNER_HIDDEN_EXPIRATION_DATE_STORAGE_KEY = 'App-Banner-Hidden'

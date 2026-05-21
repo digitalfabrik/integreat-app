@@ -1,13 +1,25 @@
-import { fireEvent } from '@testing-library/react'
+import { fireEvent, waitFor } from '@testing-library/react'
 import React from 'react'
 
-import { createSendChatMessageEndpoint, ChatMessagesReturn, RegionModelBuilder } from 'shared/api'
+import {
+  ChatMessageModel,
+  createSendChatMessageEndpoint,
+  ChatMessagesReturn,
+  RegionModelBuilder,
+  SerializedChatMessage,
+} from 'shared/api'
 
 import { CHAT_PRIVACY_POLICIES_STORAGE_KEY } from '../../hooks/useLocalStorage'
 import { UseQueryFromEndpointReturn } from '../../hooks/useQueryFromEndpoint'
 import { renderWithTheme } from '../../testing/render'
 import Chat from '../Chat'
 
+jest.mock(
+  '../RemoteContent',
+  () =>
+    ({ html }: { html: string }) =>
+      html,
+)
 jest.mock('react-i18next')
 jest.mock('shared/api', () => ({
   ...jest.requireActual('shared/api'),
@@ -28,16 +40,28 @@ const mockResponse = (
     ...override,
   }) as never
 
-const render = (response = mockResponse()) =>
-  renderWithTheme(<Chat region={region} chatId='test-chat-id' response={response} languageCode='de' />)
+const mockSetUnsyncedMessages = jest.fn()
+
+const render = (response = mockResponse(), serializedUnsyncedMessages: SerializedChatMessage[] = []) =>
+  renderWithTheme(
+    <Chat
+      region={region}
+      chatId='test-chat-id'
+      response={response}
+      languageCode='de'
+      serializedUnsyncedMessages={serializedUnsyncedMessages}
+      setUnsyncedMessages={mockSetUnsyncedMessages}
+    />,
+  )
 
 describe('Chat', () => {
+  const sendMessage = jest.fn()
+
   beforeEach(() => {
     jest.clearAllMocks()
     localStorage.setItem(CHAT_PRIVACY_POLICIES_STORAGE_KEY, JSON.stringify({ [region.code]: true }))
-    jest.mocked(createSendChatMessageEndpoint).mockReturnValue({
-      request: jest.fn().mockResolvedValue({ data: { messages: [], botTyping: false }, error: null }),
-    } as never)
+    sendMessage.mockResolvedValue({ data: { messages: [], botTyping: false }, error: null })
+    jest.mocked(createSendChatMessageEndpoint).mockReturnValue({ request: sendMessage } as never)
   })
 
   afterEach(() => {
@@ -53,11 +77,12 @@ describe('Chat', () => {
     const { getByRole, getByPlaceholderText } = render()
     const buttonSendMessage = getByRole('button', { name: 'chat:sendButton' })
 
-    fireEvent.change(getByPlaceholderText('chat:chatInputHelperText', { exact: false }), {
-      target: { value: 'Meine Nachricht' },
-    })
+    const input = getByPlaceholderText('chat:chatInputHelperText', { exact: false })
+    fireEvent.change(input, { target: { value: 'Meine Nachricht' } })
+
     expect(buttonSendMessage).toBeEnabled()
     fireEvent.click(buttonSendMessage)
+
     expect(createSendChatMessageEndpoint).toHaveBeenCalledTimes(1)
   })
 
@@ -83,6 +108,48 @@ describe('Chat', () => {
   it('should disable send button when loading', () => {
     const { getByRole } = render(mockResponse({ isPending: true }))
     expect(getByRole('button', { name: 'chat:sendButton' })).toBeDisabled()
+  })
+
+  describe('unsynced messages', () => {
+    it('should render retry button for unsynced messages passed as props', () => {
+      const unsyncedMessage = ChatMessageModel.unsyncedMessage('Meine Nachricht')
+
+      const { getByLabelText } = render(mockResponse(), [unsyncedMessage])
+
+      expect(getByLabelText('chat:error:tryAgain')).toBeTruthy()
+    })
+
+    it('should call setUnsyncedMessages when send fails', async () => {
+      sendMessage.mockRejectedValue(new Error('send failed'))
+
+      const { getByRole, getByPlaceholderText } = render()
+
+      const input = getByPlaceholderText('chat:chatInputHelperText', { exact: false })
+      fireEvent.change(input, { target: { value: 'Meine Nachricht' } })
+      fireEvent.click(getByRole('button', { name: 'chat:sendButton' }))
+
+      await waitFor(() => expect(mockSetUnsyncedMessages).toHaveBeenCalledTimes(1))
+    })
+
+    it('should call setUnsyncedMessages to remove the message when retry succeeds', async () => {
+      const unsyncedMessage = ChatMessageModel.unsyncedMessage('Meine Nachricht')
+
+      const { getByLabelText } = render(mockResponse(), [unsyncedMessage])
+      fireEvent.click(getByLabelText('chat:error:tryAgain'))
+
+      await waitFor(() => expect(mockSetUnsyncedMessages).toHaveBeenCalledWith([]))
+    })
+
+    it('should not call setUnsyncedMessages when retry fails', async () => {
+      const unsyncedMessage = ChatMessageModel.unsyncedMessage('Meine Nachricht')
+      sendMessage.mockRejectedValue(new Error('send failed'))
+
+      const { getByLabelText } = render(mockResponse(), [unsyncedMessage])
+      fireEvent.click(getByLabelText('chat:error:tryAgain'))
+
+      await waitFor(() => expect(sendMessage).toHaveBeenCalledTimes(1))
+      expect(mockSetUnsyncedMessages).not.toHaveBeenCalled()
+    })
   })
 
   describe('privacy policy', () => {

@@ -3,14 +3,14 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement, useContext, useEffect } from 'react'
 
 import { getChatName, CHAT_QUERY_KEY, CHAT_TYPING_POLLING_INTERVAL, CHAT_DEFAULT_POLLING_INTERVAL } from 'shared'
-import { createChatMessagesEndpoint, RegionModel } from 'shared/api'
+import { createChatMessagesEndpoint, RegionModel, SerializedChatMessage } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
 import { cmsApiBaseUrl } from '../constants/urls'
 import { TtsContext } from '../contexts/TtsContext'
 import useDimensions from '../hooks/useDimensions'
 import useIsTabActive from '../hooks/useIsTabActive'
-import useLocalStorage from '../hooks/useLocalStorage'
+import useLocalStorage, { CHAT_UNSYNCED_MESSAGES_STORAGE_KEY } from '../hooks/useLocalStorage'
 import useLockedBody from '../hooks/useLockedBody'
 import useQueryFromEndpoint from '../hooks/useQueryFromEndpoint'
 import useQueryParamVisibility from '../hooks/useQueryParamVisibility'
@@ -46,6 +46,11 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
     initialValue: generateChatId(),
   })
 
+  const [unsyncedMessages, setUnsyncedMessages] = useLocalStorage<SerializedChatMessage[]>({
+    key: CHAT_UNSYNCED_MESSAGES_STORAGE_KEY,
+    initialValue: [],
+  })
+
   const response = useQueryFromEndpoint(
     createChatMessagesEndpoint,
     cmsApiBaseUrl,
@@ -68,6 +73,11 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
     const interval = setInterval(refetch, botTyping ? CHAT_TYPING_POLLING_INTERVAL : CHAT_DEFAULT_POLLING_INTERVAL)
     return () => clearInterval(interval)
   }, [refetch, isBrowserTabActive, messageCount, botTyping])
+
+  const resetChat = () => {
+    setUnsyncedMessages([])
+    setChatId(generateChatId())
+  }
 
   const hideChatButton = xsmall && ttsPlayerVisible
   if (hideChatButton) {
@@ -93,9 +103,16 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
                 />,
               ]
             : []),
-          <ChatMenu key='chatMenu' chatId={chatId} updateChatId={setChatId} />,
+          <ChatMenu key='chatMenu' chatId={chatId} resetChat={resetChat} />,
         ]}>
-        <Chat chatId={chatId} region={region} languageCode={languageCode} response={response} />
+        <Chat
+          chatId={chatId}
+          region={region}
+          languageCode={languageCode}
+          response={response}
+          serializedUnsyncedMessages={unsyncedMessages}
+          setUnsyncedMessages={setUnsyncedMessages}
+        />
       </StyledDialog>
     )
   }
