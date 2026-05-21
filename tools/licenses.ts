@@ -16,9 +16,9 @@ type PackageJson = {
 }
 
 type LicenseEntry = {
-  licenses: string
+  license: string
   repository?: string
-  publisher?: string
+  author?: string
 }
 
 const readPackageJson = (pkgDir: string): PackageJson | null => {
@@ -82,7 +82,7 @@ export default program
 
         const repo = typeof pkg.repository === 'string' ? pkg.repository : pkg.repository?.url
         // Convert git to https urls
-        const repoUrl = repo
+        const repository = repo
           ?.replace(/^git\+/, '')
           .replace(/\.git$/, '')
           .replace(/^git:\/\//, 'https://')
@@ -95,9 +95,9 @@ export default program
           .trim()
 
         licenses[key] = {
-          licenses: pkg.license ?? 'UNKNOWN',
-          repository: repoUrl,
-          publisher: author,
+          license: pkg.license ?? 'UNKNOWN',
+          repository,
+          author,
         }
         return licenses
       }, {})

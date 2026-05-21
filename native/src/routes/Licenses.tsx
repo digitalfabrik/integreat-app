@@ -15,13 +15,13 @@ import openExternalUrl from '../utils/openExternalUrl'
 type LicenseItemProps = {
   name: string
   version: string | undefined
-  publisher: string | undefined
+  author: string | undefined
   license: string
   onPress: () => void
 }
 
 const LicenseItem = (props: LicenseItemProps): ReactElement => {
-  const { name, version, license, publisher, onPress } = props
+  const { name, version, license, author, onPress } = props
   const { t } = useTranslation('licenses')
   const theme = useTheme()
 
@@ -42,7 +42,7 @@ const LicenseItem = (props: LicenseItemProps): ReactElement => {
       <View>
         <Text variant='body1'>{name}</Text>
         <Text variant='body2' style={styles.description}>
-          {publisher}
+          {author}
         </Text>
         <Text variant='body2' style={styles.description}>
           {t('version')} {version}
@@ -63,18 +63,9 @@ const Licenses = (): ReactElement => {
   const showSnackbar = useSnackbar()
 
   const renderItem = ({ item }: { item: License }) => {
-    const { licenses, name, repository, version, publisher } = item
+    const { license, name, repository, version, author } = item
     const openLink = () => (repository ? openExternalUrl(repository, showSnackbar) : undefined)
-    return (
-      <LicenseItem
-        key={name}
-        name={name}
-        publisher={publisher}
-        version={version}
-        license={licenses}
-        onPress={openLink}
-      />
-    )
+    return <LicenseItem key={name} name={name} author={author} version={version} license={license} onPress={openLink} />
   }
 
   return (
