@@ -50,17 +50,17 @@ export type UserLocationType = SuccessfulLocationState | UnavailableLocationStat
 export type SuccessfulLocationState = {
   status: 'ready'
   message: 'ready'
-  coordinates: LocationType
+  userLocation: LocationType
 }
 export type LoadingLocationState = {
   status: 'loading'
   message: 'loading'
-  coordinates: LocationType | undefined
+  userLocation: LocationType | null
 }
 export type UnavailableLocationState = {
   status: 'unavailable'
   message: 'noPermission' | 'notAvailable' | 'timeout'
-  coordinates: undefined
+  userLocation: null
 }
 
 export type LocationStateType = SuccessfulLocationState | LoadingLocationState | UnavailableLocationState

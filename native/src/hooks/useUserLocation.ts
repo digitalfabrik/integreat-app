@@ -23,7 +23,7 @@ const locationStateOnError = (error: GeolocationError): UnavailableLocationState
   return {
     status: 'unavailable',
     message: error.code === error.POSITION_UNAVAILABLE ? 'notAvailable' : message,
-    coordinates: undefined,
+    userLocation: null,
   }
 }
 
@@ -34,7 +34,7 @@ const getUserLocation = async (): Promise<LocationStateType> =>
         resolve({
           status: 'ready',
           message: 'ready',
-          coordinates: [position.coords.longitude, position.coords.latitude],
+          userLocation: [position.coords.longitude, position.coords.latitude],
         }),
       error => resolve(locationStateOnError(error)),
       { timeout: 30000 },
@@ -74,7 +74,7 @@ type UseUserLocationReturn = LocationStateType & {
   refreshPermissionAndLocation: (options?: RequestPermissionAndLocationOptions) => Promise<LocationStateType | null>
 }
 
-const initialState: LocationStateType = { status: 'loading', message: 'loading', coordinates: undefined }
+const initialState: LocationStateType = { status: 'loading', message: 'loading', userLocation: null }
 
 const useUserLocation = ({ requestPermissionInitially }: UseUserLocationProps): UseUserLocationReturn => {
   const [locationState, setLocationState] = useState<LocationStateType>(initialState)
@@ -86,7 +86,7 @@ const useUserLocation = ({ requestPermissionInitially }: UseUserLocationProps): 
       showSnackbarIfBlocked = true,
       requestPermission = true,
     }: RequestPermissionAndLocationOptions = {}): Promise<LocationStateType | null> => {
-      setLocationState(initialState)
+      setLocationState(previous => ({ ...previous, message: 'loading', status: 'loading' }))
 
       const locationPermissionStatus = await getLocationPermissionStatus(requestPermission)
 
@@ -100,7 +100,7 @@ const useUserLocation = ({ requestPermissionInitially }: UseUserLocationProps): 
         return location
       }
 
-      setLocationState({ message: 'noPermission', status: 'unavailable', coordinates: undefined })
+      setLocationState({ message: 'noPermission', status: 'unavailable', userLocation: null })
 
       if (requestPermission && showSnackbarIfBlocked && locationPermissionStatus === RESULTS.BLOCKED) {
         showSnackbar({
