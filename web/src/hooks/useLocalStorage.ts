@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useCallback, useState } from 'react'
 
 import { reportError } from '../utils/sentry'
 
@@ -16,7 +16,7 @@ type UseLocalStorageProps<T> = {
   isSessionStorage?: boolean
 }
 
-type UseLocalStorageReturn<T> = [value: T, updateLocalStorageItem: (newValue: T) => void]
+type UseLocalStorageReturn<T> = [value: T, updateLocalStorageItem: (newValue: T | ((oldValue: T) => T)) => void]
 
 const useLocalStorage = <T>({
   key,
@@ -44,18 +44,21 @@ const useLocalStorage = <T>({
   })
 
   const updateLocalStorageItem = useCallback(
-    (newValue: T) => {
-      try {
-        storage.setItem(key, JSON.stringify(newValue))
-      } catch (e) {
-        // Prevent the following error crashing the app if the browser blocks access to local storage (see #2924)
-        // SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.
-        const accessDenied = e instanceof Error && e.message.includes('Access is denied for this document')
-        if (!accessDenied) {
-          reportError(e)
+    (newValue: T | ((oldValue: T) => T)) => {
+      setValue(oldValue => {
+        const resolvedNewValue = typeof newValue === 'function' ? (newValue as (oldValue: T) => T)(oldValue) : newValue
+        try {
+          storage.setItem(key, JSON.stringify(resolvedNewValue))
+        } catch (e) {
+          // Prevent the following error crashing the app if the browser blocks access to local storage (see #2924)
+          // SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.
+          const accessDenied = e instanceof Error && e.message.includes('Access is denied for this document')
+          if (!accessDenied) {
+            reportError(e)
+          }
         }
-      }
-      setValue(newValue)
+        return resolvedNewValue
+      })
     },
     [storage, key],
   )
