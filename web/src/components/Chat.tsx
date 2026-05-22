@@ -1,5 +1,6 @@
 import InfoIcon from '@mui/icons-material/Info'
 import MailLock from '@mui/icons-material/MailLock'
+import RefreshIcon from '@mui/icons-material/Refresh'
 import SendIcon from '@mui/icons-material/Send'
 import Alert from '@mui/material/Alert'
 import Button from '@mui/material/Button'
@@ -83,7 +84,7 @@ const Chat = ({
   const acceptCustomPrivacyPolicy = () =>
     setAcceptedPrivacyPolicies({ ...acceptedPrivacyPolicies, [region.code]: true })
 
-  const { setData, data, isPending } = response
+  const { setData, data, isPending, refetch } = response
   const botTyping = data?.botTyping ?? false
   const messages = [...(data?.messages ?? []), ...unsyncedMessages].sort(
     (a, b) => a.created.toMillis() - b.created.toMillis(),
@@ -108,6 +109,8 @@ const Chat = ({
           if (newData) {
             setData(newData)
             onSuccess?.()
+            setSendingError(null)
+            refetch().catch(reportError)
           }
         },
         setError: error => {
@@ -122,6 +125,11 @@ const Chat = ({
   const onSubmit = () => {
     submitMessage(textInput).catch(reportError)
     setTextInput('')
+  }
+
+  const retry = async () => {
+    await refetch()
+    setSendingError(null)
   }
 
   const retrySend = (message: ChatMessageModel) => {
@@ -166,7 +174,17 @@ const Chat = ({
       <ChatConversation retrySend={retrySend} messages={messages} isTyping={botTyping} loading={isPending} />
       <Stack paddingInline={2} gap={1}>
         {(error || sendingError) && (
-          <Alert severity='error'>{t(fromError(error ?? sendingError), { ns: 'error' })}</Alert>
+          <Alert
+            severity='error'
+            action={
+              <Tooltip title={t('error:tryAgain')}>
+                <IconButton onClick={retry} aria-label={t('error:tryAgain')} size='small'>
+                  <RefreshIcon />
+                </IconButton>
+              </Tooltip>
+            }>
+            {t(fromError(error ?? sendingError), { ns: 'error' })}
+          </Alert>
         )}
         {chatHintVisible && (
           <Alert severity='info' icon={<InfoIcon />} onClose={() => setChatHintVisible(false)}>
