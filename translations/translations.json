@@ -7733,7 +7733,10 @@
       "voiceUnavailable": "Keine Stimme installiert",
       "voiceUnavailableMessage": "Es wurde keine Stimme gefunden. Um die Vorlesefunktion nutzen zu können, muss eine Stimme installiert sein. Bitte beachten Sie die folgenden Anweisungen für Ihr Betriebssystem.",
       "openExternal": "Extern öffnen",
-      "skipToContent": "Zum Inhalt springen"
+      "skipToContent": "Zum Inhalt springen",
+      "shareQrCodeTitle": "Über QR-Code teilen",
+      "shareQrCodeDescription": "Teilen Sie diese Seite einfach, indem Sie den QR-Code auf einem anderen Gerät scannen.",
+      "qrCode": "QR-Code"
     },
     "am": {
       "imprint": "ዕትም",
@@ -8045,7 +8048,10 @@
       "voiceUnavailable": "No voice installed",
       "voiceUnavailableMessage": "No voice found. In order to use the read aloud functionality, a voice has to be installed. Please refer to the instructions for your operating system below.",
       "openExternal": "Open externally",
-      "skipToContent": "Skip to content"
+      "skipToContent": "Skip to content",
+      "shareQrCodeTitle": "Share via QR code",
+      "shareQrCodeDescription": "Share this page easily by scanning the QR code on another device.",
+      "qrCode": "QR code"
     },
     "es": {
       "imprint": "Aviso legal",

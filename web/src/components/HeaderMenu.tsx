@@ -3,6 +3,7 @@ import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined'
 import LinkIcon from '@mui/icons-material/Link'
 import MailOutlinedIcon from '@mui/icons-material/MailOutlined'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
+import QrCode2Icon from '@mui/icons-material/QrCode2'
 import ShareIcon from '@mui/icons-material/ShareOutlined'
 import WhatsAppIcon from '@mui/icons-material/WhatsApp'
 import { dividerClasses } from '@mui/material/Divider'
@@ -19,6 +20,7 @@ import { withDividers } from '../utils'
 import getFooterLinks from '../utils/getFooterLinks'
 import MenuAccordion from './MenuAccordion'
 import MenuItem from './MenuItem'
+import QrCodeDialog from './QrCodeDialog'
 
 const COPY_TIMEOUT = 3000
 
@@ -45,6 +47,7 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
   const [menuAnchorElement, setMenuAnchorElement] = React.useState<HTMLElement | null>(null)
   const [expandedAccordion, setExpandedAccordion] = React.useState<'share' | 'legal' | null>(null)
   const [urlCopied, setUrlCopied] = React.useState<boolean>(false)
+  const [qrDialogOpen, setQrDialogOpen] = React.useState<boolean>(false)
   const { regionCode, languageCode } = useRouteParams()
   const { mobile } = useDimensions()
   const { t } = useTranslation('layout')
@@ -94,6 +97,13 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
       icon={<MailOutlinedIcon fontSize='small' />}
       closeMenu={closeMenu}
     />,
+    <MenuItem
+      key='qr'
+      text={t('qrCode')}
+      icon={<QrCode2Icon fontSize='small' />}
+      onClick={() => setQrDialogOpen(true)}
+      closeMenu={closeMenu}
+    />,
   ]
 
   const legalItems = getFooterLinks({ languageCode, regionCode }).map(({ text, to, doNotTranslate }) => (
@@ -133,6 +143,14 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
           ) : null,
         ])}
       </StyledMenu>
+      <QrCodeDialog
+        open={qrDialogOpen}
+        close={() => setQrDialogOpen(false)}
+        title={t('shareQrCodeTitle')}
+        description={t('shareQrCodeDescription')}
+        url={shareUrl}
+        qrDetails={shareUrl}
+      />
     </>
   )
 }
