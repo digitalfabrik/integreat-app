@@ -16,6 +16,7 @@ import {
   ChatMessageModel,
   ChatMessagesReturn,
   createSendChatMessageEndpoint,
+  fromError,
   loadAsync,
   loadFromEndpoint,
   NotFoundError,
@@ -64,7 +65,7 @@ const Chat = ({
 }: ChatProps): ReactElement => {
   const [sendingError, setSendingError] = useState<Error | null>(null)
   const [textInput, setTextInput] = useState<string>('')
-  const { t } = useTranslation('chat')
+  const { t } = useTranslation(['chat', 'error'])
 
   const unsyncedMessages = serializedUnsyncedMessages.map(ChatMessageModel.deserialize)
 
@@ -164,7 +165,9 @@ const Chat = ({
     <Container justifyContent='space-between'>
       <ChatConversation retrySend={retrySend} messages={messages} isTyping={botTyping} loading={isPending} />
       <Stack paddingInline={2} gap={1}>
-        {(error || sendingError) && <Alert severity='error'>{t('errorMessage')}</Alert>}
+        {(error || sendingError) && (
+          <Alert severity='error'>{t(fromError(error ?? sendingError), { ns: 'error' })}</Alert>
+        )}
         {chatHintVisible && (
           <Alert severity='info' icon={<InfoIcon />} onClose={() => setChatHintVisible(false)}>
             <Typography variant='body2'>{t('conversationHelperText')}</Typography>

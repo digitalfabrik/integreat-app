@@ -70,14 +70,14 @@ describe('Chat', () => {
 
   it('should disable send button when no input is provided', () => {
     const { getByRole } = render()
-    expect(getByRole('button', { name: 'chat:sendButton' })).toBeDisabled()
+    expect(getByRole('button', { name: 'chat,error:sendButton' })).toBeDisabled()
   })
 
   it('should enable send button and submit message when text is provided', () => {
     const { getByRole, getByPlaceholderText } = render()
-    const buttonSendMessage = getByRole('button', { name: 'chat:sendButton' })
+    const buttonSendMessage = getByRole('button', { name: 'chat,error:sendButton' })
 
-    const input = getByPlaceholderText('chat:chatInputHelperText', { exact: false })
+    const input = getByPlaceholderText('chat,error:chatInputHelperText', { exact: false })
     fireEvent.change(input, { target: { value: 'Meine Nachricht' } })
 
     expect(buttonSendMessage).toBeEnabled()
@@ -88,26 +88,26 @@ describe('Chat', () => {
 
   it('should display helper alert when not dismissed', () => {
     const { getByText } = render()
-    expect(getByText('chat:conversationHelperText')).toBeTruthy()
+    expect(getByText('chat,error:conversationHelperText')).toBeTruthy()
   })
 
   it('should hide helper alert after closing it', () => {
     const { getByText, getByLabelText, queryByText } = render()
-    expect(getByText('chat:conversationHelperText')).toBeTruthy()
+    expect(getByText('chat,error:conversationHelperText')).toBeTruthy()
 
     fireEvent.click(getByLabelText('Close'))
 
-    expect(queryByText('chat:conversationHelperText')).toBeNull()
+    expect(queryByText('chat,error:conversationHelperText')).toBeNull()
   })
 
   it('should show error alert when response has an error', () => {
     const { getByText } = render(mockResponse({ error: new Error('api error') }))
-    expect(getByText('chat:errorMessage')).toBeTruthy()
+    expect(getByText('chat,error:unknownError')).toBeTruthy()
   })
 
   it('should disable send button when loading', () => {
     const { getByRole } = render(mockResponse({ isPending: true }))
-    expect(getByRole('button', { name: 'chat:sendButton' })).toBeDisabled()
+    expect(getByRole('button', { name: 'chat,error:sendButton' })).toBeDisabled()
   })
 
   describe('unsynced messages', () => {
@@ -124,9 +124,9 @@ describe('Chat', () => {
 
       const { getByRole, getByPlaceholderText } = render()
 
-      const input = getByPlaceholderText('chat:chatInputHelperText', { exact: false })
+      const input = getByPlaceholderText('chat,error:chatInputHelperText', { exact: false })
       fireEvent.change(input, { target: { value: 'Meine Nachricht' } })
-      fireEvent.click(getByRole('button', { name: 'chat:sendButton' }))
+      fireEvent.click(getByRole('button', { name: 'chat,error:sendButton' }))
 
       await waitFor(() => expect(mockSetUnsyncedMessages).toHaveBeenCalledTimes(1))
     })
@@ -159,17 +159,17 @@ describe('Chat', () => {
 
     it('should show privacy policy screen when not yet accepted', () => {
       const { getByText, queryByRole } = render()
-      expect(getByText('chat:settings:privacyPolicy')).toBeTruthy()
-      expect(queryByRole('button', { name: 'chat:sendButton' })).toBeNull()
+      expect(getByText('chat,error:settings:privacyPolicy')).toBeTruthy()
+      expect(queryByRole('button', { name: 'chat,error:sendButton' })).toBeNull()
     })
 
     it('should show chat after accepting privacy policy', () => {
       const { getByText, getByRole } = render()
-      expect(getByText('chat:settings:privacyPolicy')).toBeTruthy()
+      expect(getByText('chat,error:settings:privacyPolicy')).toBeTruthy()
 
       fireEvent.click(getByRole('checkbox'))
 
-      expect(getByRole('button', { name: 'chat:sendButton' })).toBeTruthy()
+      expect(getByRole('button', { name: 'chat,error:sendButton' })).toBeTruthy()
     })
   })
 })
