@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { memo, ReactElement } from 'react'
 import { ReactSVG } from 'react-svg'
 
 const DEFAULT_ICON_SIZE = 24
@@ -28,4 +28,4 @@ const Svg = ({
   />
 )
 
-export default Svg
+export default memo(Svg)
