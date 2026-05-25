@@ -3,7 +3,7 @@ import BottomSheet, {
   BottomSheetFlatListMethods,
   BottomSheetScrollView,
 } from '@gorhom/bottom-sheet'
-import React, { memo, ReactElement, useRef, useState } from 'react'
+import React, { memo, ReactElement, useCallback, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 import styled, { useTheme } from 'styled-components/native'
@@ -62,6 +62,7 @@ type PoiBottomSheetProps = {
   snapPointIndex: number
   setSnapPointIndex: (index: number) => void
   isFullscreen: boolean
+  zoomInFocusTarget?: number
 }
 
 const PoisBottomSheet = ({
@@ -75,6 +76,7 @@ const PoisBottomSheet = ({
   snapPointIndex,
   setSnapPointIndex,
   isFullscreen,
+  zoomInFocusTarget,
 }: PoiBottomSheetProps): ReactElement | null => {
   const [remountKey, setRemountKey] = useState(0)
   const { languageCode } = useRegionAppContext()
@@ -102,6 +104,11 @@ const PoisBottomSheet = ({
       flatListRef.current?.scrollToIndex({ index: index - SCROLL_OFFSET, animated: false })
     }
   }
+
+  const HandleComponent = useCallback(
+    () => <BottomSheetHandle nextFocusForward={zoomInFocusTarget} />,
+    [zoomInFocusTarget],
+  )
 
   const PoiDetail = poi ? (
     <PoiDetails
@@ -138,7 +145,7 @@ const PoisBottomSheet = ({
       enableDynamicSizing={false}
       animateOnMount
       backgroundStyle={{ backgroundColor: theme.colors.background }}
-      handleComponent={BottomSheetHandle}
+      handleComponent={HandleComponent}
       onChange={setSnapPointIndex}>
       <BottomSheetContent>
         <BottomSheetFlatList

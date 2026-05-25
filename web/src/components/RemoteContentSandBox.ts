@@ -158,7 +158,7 @@ const RemoteContentSandBox = styled('div')<{ centered: boolean; smallText: boole
       calc(100% + 24px) calc(100% + 24px);
     background-size: 104px;
     box-shadow: 0 1px 1px rgb(0 0 0 / 40%);
-    min-width: 72%;
+    width: 100%;
     margin-bottom: 16px;
 
     p {
@@ -174,10 +174,6 @@ const RemoteContentSandBox = styled('div')<{ centered: boolean; smallText: boole
     img {
       color: ${props => props.theme.palette.text.primary};
       margin-inline-end: 8px;
-    }
-
-    ${props => props.theme.breakpoints.down('md')} {
-      width: 100%;
     }
 
     ul.details {

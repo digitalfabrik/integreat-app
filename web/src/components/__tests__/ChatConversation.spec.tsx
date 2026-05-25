@@ -45,7 +45,7 @@ describe('ChatConversation', () => {
   const testMessages2: ChatMessageModel[] = [
     new ChatMessageModel({
       id: 1,
-      content: 'Human Message 1',
+      content: 'Consultant Message 1',
       userIsAuthor: false,
       automaticAnswer: false,
     }),
@@ -63,13 +63,13 @@ describe('ChatConversation', () => {
     }),
     new ChatMessageModel({
       id: 4,
-      content: 'Human Message 2',
+      content: 'Consultant Message 2',
       userIsAuthor: false,
       automaticAnswer: false,
     }),
     new ChatMessageModel({
       id: 5,
-      content: 'Human Message 3',
+      content: 'Consultant Message 3',
       userIsAuthor: false,
       automaticAnswer: false,
     }),
@@ -96,7 +96,7 @@ describe('ChatConversation', () => {
     const { getByText, getByLabelText } = render(testMessages, true)
     expect(getByText(testMessages[0]!.content)).toBeTruthy()
     expect(getByText(testMessages[1]!.content)).toBeTruthy()
-    expect(getByLabelText('chat:human')).toBeTruthy()
+    expect(getByLabelText('chat:consultant')).toBeTruthy()
     expect(getByLabelText('chat:generateAnswer')).toBeTruthy()
   })
 
@@ -115,11 +115,11 @@ describe('ChatConversation', () => {
 
   it('should display icon after automaticAnswer or author changes', () => {
     const expectedResults = [
-      { label: 'chat:human', text: 'Human Message 1', opacity: '1' },
+      { label: 'chat:consultant', text: 'Consultant Message 1', opacity: '1' },
       { label: 'chat:bot', text: 'Bot Message 1', opacity: '1' },
       { label: 'chat:user', text: 'User Message 1', opacity: '1' },
-      { label: 'chat:human', text: 'Human Message 2', opacity: '1' },
-      { label: 'chat:human', text: 'Human Message 3', opacity: '0' },
+      { label: 'chat:consultant', text: 'Consultant Message 2', opacity: '1' },
+      { label: 'chat:consultant', text: 'Consultant Message 3', opacity: '0' },
       { label: 'chat:bot', text: 'Bot Message 2', opacity: '1' },
       { label: 'chat:bot', text: 'Bot Message 3', opacity: '0' },
     ]

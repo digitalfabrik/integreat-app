@@ -12,6 +12,7 @@ jest.mock('../../components/MapView')
 jest.mock('../../components/Page')
 jest.mock('react-i18next')
 jest.mock('styled-components')
+jest.mock('@react-native-community/geolocation')
 jest.mock('@gorhom/bottom-sheet', () => ({
   __esModule: true,
   ...require('@gorhom/bottom-sheet/mock'),

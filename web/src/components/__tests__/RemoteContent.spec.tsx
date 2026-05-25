@@ -112,6 +112,6 @@ describe('RemoteContent', () => {
     expect(getByText(testContent)).toHaveClass('contact-card')
     expect(getByText(testContent)).toHaveStyle('background-color: rgb(127 127 127 / 15%)')
     expect(getByText(testContent)).toHaveStyle('background-image:')
-    expect(getByText(testContent)).toHaveStyle('min-width: 72%')
+    expect(getByText(testContent)).toHaveStyle('width: 100%')
   })
 })
