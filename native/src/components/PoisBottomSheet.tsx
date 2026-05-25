@@ -20,6 +20,8 @@ import PoiDetails from './PoiDetails'
 import PoiListItem from './PoiListItem'
 import Text from './base/Text'
 
+const SCROLL_OFFSET = 0.5
+
 const StyledBottomSheet = styled(BottomSheet)<{ isFullscreen: boolean }>`
   ${props => props.isFullscreen && `background-color: ${props.theme.colors.background};`}
 `
@@ -97,7 +99,7 @@ const PoisBottomSheet = ({
     bottomSheetRef.current?.snapToIndex(1)
     const index = pois.findIndex(it => it.path === poi.path)
     if (index !== -1) {
-      flatListRef.current?.scrollToIndex({ index, animated: false })
+      flatListRef.current?.scrollToIndex({ index: index - SCROLL_OFFSET, animated: false })
     }
   }
 
