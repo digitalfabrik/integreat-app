@@ -1,24 +1,24 @@
 import { useCallback, useEffect, useState } from 'react'
 
 import {
-  createTunewsEndpoint,
-  createTunewsLanguagesEndpoint,
+  createTuNewsEndpoint,
+  createTuNewsLanguagesEndpoint,
   LanguageModel,
   loadAsync,
   ReturnType,
-  TunewsModel,
+  TuNewsModel,
 } from 'shared/api'
 
-import { tunewsApiUrl } from '../constants/endpoint'
+import { tuNewsApiUrl } from '../constants/endpoint'
 
-const TUNEWS_FETCH_COUNT_LIMIT = 20
+const TU_NEWS_FETCH_COUNT_LIMIT = 20
 const FIRST_PAGE_INDEX = 1
 
 type ParamsType = {
   language: string
 }
 
-type TuNewsReturnType = Omit<ReturnType<TunewsModel[]>, 'setData'> & {
+type TuNewsReturnType = Omit<ReturnType<TuNewsModel[]>, 'setData'> & {
   loadMore?: () => void
   loadingMore?: boolean
   availableLanguages: LanguageModel[] | null
@@ -26,28 +26,28 @@ type TuNewsReturnType = Omit<ReturnType<TunewsModel[]>, 'setData'> & {
 
 const useLoadTuNews = ({ language }: ParamsType): TuNewsReturnType => {
   const [page, setPage] = useState<number>(FIRST_PAGE_INDEX)
-  const [data, setData] = useState<TunewsModel[] | null>(null)
+  const [data, setData] = useState<TuNewsModel[] | null>(null)
   const [availableLanguages, setAvailableLanguages] = useState<LanguageModel[] | null>(null)
   const [error, setError] = useState<Error | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
 
-  const updateData = useCallback((data: TunewsModel[] | null) => {
+  const updateData = useCallback((data: TuNewsModel[] | null) => {
     setData(previousData => (data && previousData ? [...previousData, ...data] : data))
   }, [])
 
   const load = useCallback(() => {
     const request = async () => {
-      const tuNewsLanguages = await createTunewsLanguagesEndpoint(tunewsApiUrl).request(undefined)
+      const tuNewsLanguages = await createTuNewsLanguagesEndpoint(tuNewsApiUrl).request(undefined)
       setAvailableLanguages(tuNewsLanguages.data ?? null)
 
       if (!tuNewsLanguages.data?.find(languageModel => languageModel.code === language)) {
         return []
       }
 
-      const { data } = await createTunewsEndpoint(tunewsApiUrl).request({
+      const { data } = await createTuNewsEndpoint(tuNewsApiUrl).request({
         language,
         page,
-        count: TUNEWS_FETCH_COUNT_LIMIT,
+        count: TU_NEWS_FETCH_COUNT_LIMIT,
       })
 
       if (!data) {
@@ -57,13 +57,13 @@ const useLoadTuNews = ({ language }: ParamsType): TuNewsReturnType => {
       return data
     }
 
-    loadAsync<TunewsModel[]>(request, updateData, setError, setLoading).catch(e => {
+    loadAsync<TuNewsModel[]>(request, updateData, setError, setLoading).catch(e => {
       setError(e)
     })
   }, [language, page, updateData])
 
   const loadMore = useCallback(() => {
-    const hasMoreNews = data?.length === page * TUNEWS_FETCH_COUNT_LIMIT
+    const hasMoreNews = data?.length === page * TU_NEWS_FETCH_COUNT_LIMIT
     if (!loading && hasMoreNews) {
       setPage(page + 1)
     }

@@ -100,7 +100,7 @@ const RegionContentNavigator = ({ languageCode }: RegionContentNavigatorProps): 
   // If the region is not available yet, nothing is rendered in the routes. Therefore, we can render the route until we know whether the feature is enabled.
   const eventsEnabled = !region || region.eventsEnabled
   const localNewsEnabled = !region || region.localNewsEnabled
-  const tuNewsEnabled = !region || region.tunewsEnabled
+  const tuNewsEnabled = !region || region.tuNewsEnabled
   const poisEnabled = !region || region.poisEnabled
 
   const render = <S extends RouteType>(

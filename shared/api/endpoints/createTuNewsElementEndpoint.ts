@@ -4,20 +4,20 @@ import { TU_NEWS_TYPE } from '../../routes'
 import Endpoint from '../Endpoint'
 import EndpointBuilder from '../EndpointBuilder'
 import NotFoundError from '../errors/NotFoundError'
-import TunewsModel from '../models/TunewsModel'
-import { JsonTunewsType } from '../types'
+import TuNewsModel from '../models/TuNewsModel'
+import { JsonTuNewsType } from '../types'
 
-export const TUNEWS_ELEMENT_ENDPOINT_NAME = 'tunewsElement'
+export const TU_NEWS_ELEMENT_ENDPOINT_NAME = 'tuNewsElement'
 
 type ParamsType = {
   id: number
 }
 
-export default (baseUrl: string): Endpoint<ParamsType, TunewsModel> =>
-  new EndpointBuilder<ParamsType, TunewsModel>(TUNEWS_ELEMENT_ENDPOINT_NAME)
+export default (baseUrl: string): Endpoint<ParamsType, TuNewsModel> =>
+  new EndpointBuilder<ParamsType, TuNewsModel>(TU_NEWS_ELEMENT_ENDPOINT_NAME)
     .withParamsToUrlMapper((params: ParamsType): string => `${baseUrl}/v1/news/${params.id}`)
-    .withMapper((json: JsonTunewsType | void[], params: ParamsType): TunewsModel => {
-      // The api is not good and returns an empty array if the tunews does not exist
+    .withMapper((json: JsonTuNewsType | void[], params: ParamsType): TuNewsModel => {
+      // The api is not good and returns an empty array if the tuNews does not exist
       if (Array.isArray(json)) {
         throw new NotFoundError({
           type: TU_NEWS_TYPE,
@@ -27,7 +27,7 @@ export default (baseUrl: string): Endpoint<ParamsType, TunewsModel> =>
         })
       }
 
-      return new TunewsModel({
+      return new TuNewsModel({
         id: json.id,
         title: json.title,
         tags: json.tags,

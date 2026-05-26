@@ -31,7 +31,7 @@ const NewsContainer = ({ route, navigation }: NewsContainerProps): ReactElement 
 
   const selectNewsType = (newsType: NewsType) => navigation.setParams({ newsType, newsId: null })
 
-  const isDisabled = data && (newsType === LOCAL_NEWS_TYPE ? !data.region.localNewsEnabled : !data.region.tunewsEnabled)
+  const isDisabled = data && (newsType === LOCAL_NEWS_TYPE ? !data.region.localNewsEnabled : !data.region.tuNewsEnabled)
   const error = isDisabled ? ErrorCode.PageNotFound : response.error
 
   return (

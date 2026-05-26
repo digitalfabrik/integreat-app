@@ -125,7 +125,7 @@ const BottomTabNavigator = ({ navigation }: BottomTabNavigatorProps): ReactEleme
     return <LoadingErrorHandler loading={loading} error={error} refresh={refresh} />
   }
 
-  const { eventsEnabled, poisEnabled, localNewsEnabled, tunewsEnabled } = cachedData.region
+  const { eventsEnabled, poisEnabled, localNewsEnabled, tuNewsEnabled } = cachedData.region
 
   const Tabs = [
     <Tab.Screen
@@ -148,7 +148,7 @@ const BottomTabNavigator = ({ navigation }: BottomTabNavigatorProps): ReactEleme
         }}
       />
     ),
-    (localNewsEnabled || tunewsEnabled) && (
+    (localNewsEnabled || tuNewsEnabled) && (
       <Tab.Screen
         name={NEWS_TAB_ROUTE}
         component={NewsStackScreen}

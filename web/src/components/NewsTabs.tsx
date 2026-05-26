@@ -11,23 +11,23 @@ type NewsTabsProps = {
   type: NewsType
   region: string
   localNewsEnabled: boolean
-  tunewsEnabled: boolean
+  tuNewsEnabled: boolean
   language: string
 }
 
-const NewsTabs = ({ language, region, localNewsEnabled, tunewsEnabled, type }: NewsTabsProps): ReactElement => {
+const NewsTabs = ({ language, region, localNewsEnabled, tuNewsEnabled, type }: NewsTabsProps): ReactElement => {
   const { t } = useTranslation('news')
   const params = { route: NEWS_ROUTE, regionCode: region, languageCode: language }
   const localNewsPath = pathnameFromRouteInformation({ ...params, newsType: LOCAL_NEWS_TYPE })
-  const tunewsPath = pathnameFromRouteInformation({ ...params, newsType: TU_NEWS_TYPE })
+  const tuNewsPath = pathnameFromRouteInformation({ ...params, newsType: TU_NEWS_TYPE })
 
   return (
     <>
       <H1>{t('news')}</H1>
-      {localNewsEnabled && tunewsEnabled && (
+      {localNewsEnabled && tuNewsEnabled && (
         <Stack paddingBottom={4} flexDirection='row' justifyContent='center' gap={4}>
           <NewsTab active={type === LOCAL_NEWS_TYPE} type={LOCAL_NEWS_TYPE} destination={localNewsPath} />
-          <NewsTab active={type === TU_NEWS_TYPE} type={TU_NEWS_TYPE} destination={tunewsPath} />
+          <NewsTab active={type === TU_NEWS_TYPE} type={TU_NEWS_TYPE} destination={tuNewsPath} />
         </Stack>
       )}
     </>

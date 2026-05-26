@@ -474,7 +474,7 @@ const renderHtml = (
         margin-left: 12px;
         padding: 0;
         overflow-wrap: normal;
-        color: ${theme.colors.tunews.main};
+        color: ${theme.colors.tuNews.main};
       }
 
       #opt-in-checkbox {
