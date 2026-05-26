@@ -59,7 +59,7 @@ describe('Search', () => {
   it('should show nothing found if there are no search results', () => {
     const { getByText, getByPlaceholderText } = renderSearch(props)
 
-    fireEvent.changeText(getByPlaceholderText('searchPlaceholder'), 'no results, please')
+    fireEvent.changeText(getByPlaceholderText('search:searchPlaceholder'), 'no results, please')
 
     expect(getByText('noResultsInUserLanguage')).toBeTruthy()
   })
@@ -67,6 +67,6 @@ describe('Search', () => {
   it('should open with an initial search text if one is supplied', () => {
     const initialSearchText = 'zeugnis'
     const { getByPlaceholderText } = renderSearch({ ...props, initialSearchText })
-    expect(getByPlaceholderText('searchPlaceholder').props.value).toBe(initialSearchText)
+    expect(getByPlaceholderText('search:searchPlaceholder').props.value).toBe(initialSearchText)
   })
 })

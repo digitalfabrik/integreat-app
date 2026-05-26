@@ -3,13 +3,14 @@ import '@formatjs/intl-locale/polyfill'
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet } from 'react-native'
-import { Button, Searchbar, useTheme } from 'react-native-paper'
+import { Button, useTheme } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 import { ChangeLanguageModalRouteType, normalizeString } from 'shared'
 import { LanguageModel } from 'shared/api'
 import { config } from 'translations'
 
+import SearchInput from '../components/SearchInput'
 import Selector from '../components/Selector'
 import AlertDialog from '../components/base/AlertDialog'
 import Text from '../components/base/Text'
@@ -117,18 +118,15 @@ const ChangeLanguageModal = ({ navigation, route }: ChangeLanguageModalProps): R
   return (
     <>
       <Wrapper contentContainerStyle={styles.contentContainer}>
-        <Searchbar
-          placeholder={currentLanguageName}
+        <SearchInput
           onChangeText={setQuery}
           value={query}
+          clearable
+          placeholderText={currentLanguageName}
           placeholderTextColor={searchbarTextColor}
-          iconColor={searchbarTextColor}
-          right={() => undefined}
-          inputStyle={{ color: searchbarTextColor }}
-          style={[
-            styles.horizontalMargin,
-            { backgroundColor: theme.dark ? theme.colors.tertiary : theme.colors.surfaceVariant },
-          ]}
+          style={styles.horizontalMargin}
+          textColor={searchbarTextColor}
+          backgroundColor={theme.dark ? theme.colors.tertiary : theme.colors.surfaceVariant}
         />
         <Selector selectedItemCode={languageCode} items={selectorItems} />
         <Button mode='outlined' onPress={() => setIsUnavailableDialogOpen(true)} style={styles.horizontalMargin}>

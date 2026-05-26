@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
-import { View, Keyboard } from 'react-native'
+import { useTranslation } from 'react-i18next'
+import { Keyboard, StyleProp, View, ViewStyle } from 'react-native'
 import { TextInput } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
@@ -21,41 +22,74 @@ const Wrapper = styled.View<{ space: boolean }>`
 `
 
 type SearchInputProps = {
-  placeholderText: string
-  filterText: string
-  onFilterTextChange: (filterText: string) => void
-  spaceSearch: boolean
+  placeholderText?: string | undefined
+  value: string
+  onChangeText: (text: string) => void
+  autoFocus?: boolean
+  backgroundColor?: string
+  clearable?: boolean
   description?: string
+  placeholderTextColor?: string
+  spaceSearch?: boolean
+  style?: StyleProp<ViewStyle>
+  testId?: string
+  textColor?: string
 }
 
 const SearchInput = ({
   placeholderText,
-  filterText,
-  onFilterTextChange,
+  value,
+  onChangeText,
+  autoFocus = false,
+  backgroundColor,
+  clearable = false,
   spaceSearch = false,
   description,
+  placeholderTextColor,
+  style,
+  testId = 'Search-Input',
+  textColor,
 }: SearchInputProps): ReactElement => {
+  const { t } = useTranslation('search')
   const theme = useTheme()
+  const currentPlaceholderTextColor = placeholderTextColor ?? theme.colors.onSurfaceVariant
 
   return (
-    <View>
+    <View style={style}>
       <Wrapper space={spaceSearch}>
         <InputWrapper>
           <TextInput
-            {...testID('Search-Input')}
+            {...testID(testId)}
             multiline={false}
-            autoFocus
+            autoFocus={autoFocus}
             onBlur={Keyboard.dismiss}
-            placeholderTextColor={theme.colors.onSurfaceVariant}
+            placeholderTextColor={currentPlaceholderTextColor}
             placeholder={placeholderText}
             aria-label={placeholderText}
-            value={filterText}
-            onChangeText={onFilterTextChange}
+            value={value}
+            onChangeText={onChangeText}
             role='searchbox'
             mode='outlined'
             outlineStyle={{ borderRadius: 24 }}
-            style={{ height: 48 }}
-            right={<TextInput.Icon icon='magnify' accessible={false} focusable={false} />}
+            style={[{ height: 48 }, backgroundColor ? { backgroundColor } : undefined]}
+            textColor={textColor}
+            right={
+              clearable && value ? (
+                <TextInput.Icon
+                  icon='close'
+                  onPress={() => onChangeText('')}
+                  accessibilityLabel={t('delete')}
+                  color={currentPlaceholderTextColor}
+                />
+              ) : (
+                <TextInput.Icon
+                  icon='magnify'
+                  accessible={false}
+                  focusable={false}
+                  color={currentPlaceholderTextColor}
+                />
+              )
+            }
           />
         </InputWrapper>
       </Wrapper>

@@ -8,7 +8,7 @@ import { SearchRouteType } from 'shared'
 import { NavigationProps } from '../constants/NavigationTypes'
 import dimensions from '../constants/dimensions'
 import HighlightBox from './HighlightBox'
-import ThemedSearchBar from './ThemedSearchBar'
+import SearchInput from './SearchInput'
 
 const Horizontal = styled.View`
   flex: 1;
@@ -38,7 +38,16 @@ const SearchHeader = ({ query, navigation, onSearchChanged }: SearchHeaderProps)
           style={{ backgroundColor: 'transparent' }}
           iconColor={theme.colors.onSurface}
         />
-        <ThemedSearchBar onChangeText={onSearchChanged} value={query} autofocus />
+        <SearchInput
+          onChangeText={onSearchChanged}
+          value={query}
+          autoFocus
+          clearable
+          placeholderText={t('search:searchPlaceholder')}
+          placeholderTextColor={theme.dark ? theme.colors.onSurface : theme.colors.onSurfaceVariant}
+          style={{ flex: 1 }}
+          testId='Content-Search-Input'
+        />
       </Horizontal>
     </BoxShadow>
   )
