@@ -1,4 +1,7 @@
 /** @jest-config-loader ts-node */
+import { createRequire } from 'node:module'
+
+const require = createRequire(import.meta.url)
 const transformNodeModules = [
   'react-native',
   '@react-native',

@@ -4,6 +4,7 @@
   "description": "Translations for the integreat frontend projects",
   "main": "src/index.ts",
   "private": true,
+  "type": "module",
   "scripts": {
     "manage": "tsx tools/manage.ts",
     "export:ods:translations": "yarn manage convert translations.json translations-csv csv && ./tools/csv-to-ods translations-csv translations-ods && rm -rf translations-csv",
@@ -12,10 +13,23 @@
     "import:ods:translations": "./tools/ods-to-csv translations-ods translations-csv && yarn manage convert translations-csv translations.json json && rm -rf translations-csv",
     "import:ods:override-malte": "./tools/ods-to-csv malte-ods malte-csv && yarn manage convert malte-csv override-translations/malte.json json&& rm -rf malte-csv ",
     "import:ods:override-aschaffenburg": "./tools/ods-to-csv aschaffenburg-ods aschaffenburg-csv && yarn manage convert aschaffenburg-csv override-translations/aschaffenburg.json json && rm -rf aschaffenburg-csv",
-    "test": "jest --config jest.config.ts",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest --config jest.config.ts",
     "lint": "eslint --cache --cache-location ../.eslintcache .",
     "ts:check": "tsc --build",
     "check-circular-dependencies": "yarn run -T check-circular-dependencies"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/src/index.js",
+      "default": "./dist/src/index.js",
+      "types": "./dist/src/index.d.ts"
+    },
+    "./*.json": "./dist/*.json",
+    "./*": {
+      "import": "./dist/*.js",
+      "default": "./dist/*.js",
+      "types": "./dist/*.d.ts"
+    }
   },
   "dependencies": {
     "deepmerge-ts": "^7.1.5"

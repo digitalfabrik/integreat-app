@@ -1,5 +1,5 @@
-import RegionModel from '../api/models/RegionModel'
-import { normalizeString } from './normalizeString'
+import RegionModel from '../api/models/RegionModel.js'
+import { normalizeString } from './normalizeString.js'
 
 const regionFilter =
   (filterText: string, developerFriendly: boolean) =>

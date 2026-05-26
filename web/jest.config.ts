@@ -1,17 +1,18 @@
 /** @jest-config-loader ts-node */
-import { JestConfigWithTsJest } from 'ts-jest'
+import { type JestConfigWithTsJest, createDefaultEsmPreset } from 'ts-jest'
 
 import { webIntegreatTestCmsBuildConfig } from 'build-configs/integreat-test-cms'
 
 const transformNodeModules = ['shared', 'build-configs', 'translations', 'qr']
 process.env.TZ = 'Europe/Berlin'
 const config: JestConfigWithTsJest = {
+  ...createDefaultEsmPreset(),
   rootDir: '.',
   roots: ['src'],
   displayName: 'web',
   automock: false,
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
-  transformIgnorePatterns: [`node_modules/(?!${transformNodeModules.join('|')})`],
+  transformIgnorePatterns: [`/node_modules/(?!${transformNodeModules.join('|')})/`],
   moduleNameMapper: {
     '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
       '<rootDir>/src/__mocks__/fileMock.ts',
@@ -21,7 +22,28 @@ const config: JestConfigWithTsJest = {
   maxWorkers: '50%',
   workerIdleMemoryLimit: process.env.CI ? '500MB' : undefined,
   transform: {
-    '^.+\\.(j|t)sx?$': ['ts-jest', {}],
+    '^.+\\.(j|t)sx?$': [
+      'ts-jest',
+      {
+        diagnostics: {
+          ignoreCodes: [1343],
+        },
+        astTransformers: {
+          before: [
+            {
+              // https://www.npmjs.com/package/ts-jest-mock-import-meta
+              // Fixes "SyntaxError: Cannot use 'import.meta' outside a module"
+              path: 'ts-jest-mock-import-meta',
+              options: {
+                metaObjectReplacement: {
+                  dirname: './',
+                },
+              },
+            },
+          ],
+        },
+      },
+    ],
   },
   testEnvironment: 'jsdom',
   globals: {

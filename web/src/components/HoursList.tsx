@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next'
 import { weekdays } from 'shared'
 import { OpeningHoursModel } from 'shared/api'
 
-import { TypographyVariant } from '../../../build-configs/TypographyType'
+import type { TypographyVariant } from '../../../build-configs/TypographyType'
 import OpeningHoursListItem from './OpeningHoursListItem'
 
 const StyledList = styled(List)({

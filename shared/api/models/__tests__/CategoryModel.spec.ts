@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 
-import CategoryModel from '../CategoryModel'
+import CategoryModel from '../CategoryModel.js'
 
 describe('CategoryModel', () => {
   const rootCategory = new CategoryModel({

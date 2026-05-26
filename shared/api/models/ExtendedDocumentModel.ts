@@ -1,8 +1,8 @@
 import { DateTime } from 'luxon'
 
-import { getSlugFromPath } from '../../utils'
-import isEqual from '../../utils/isEqual'
-import DocumentModel from './DocumentModel'
+import { getSlugFromPath } from '../../utils/index.js'
+import isEqual from '../../utils/isEqual.js'
+import DocumentModel from './DocumentModel.js'
 
 class ExtendedDocumentModel extends DocumentModel {
   _thumbnail: string | null

@@ -1,5 +1,5 @@
-import transformTranslations from '../transformTranslations'
-import { TransformedTranslationsType, TranslationsType } from '../types'
+import transformTranslations from '../transformTranslations.js'
+import { TransformedTranslationsType, TranslationsType } from '../types.js'
 
 export const testTranslations: TranslationsType = {
   app: {

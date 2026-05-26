@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 
-import EventModel from '../api/models/EventModel'
-import { isEventWithinRange } from './dateFilterUtils'
+import EventModel from '../api/models/EventModel.js'
+import { isEventWithinRange } from './dateFilterUtils.js'
 
 const filteringEventsLogic = (
   events: EventModel[] | null,

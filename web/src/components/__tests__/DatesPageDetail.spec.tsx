@@ -1,13 +1,15 @@
 import { fireEvent } from '@testing-library/react'
 import { DateTime } from 'luxon'
 import React from 'react'
-import { rrulestr } from 'rrule'
+import * as rrule from 'rrule'
 
 import { MAX_DATE_RECURRENCES } from 'shared'
 import { DateModel } from 'shared/api'
 
 import { renderWithTheme } from '../../testing/render'
 import DatesPageDetail from '../DatesPageDetail'
+
+const { rrulestr } = rrule
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({

@@ -7,7 +7,7 @@
     "baseUrl": ".",
     "isolatedModules": true,
     "jsx": "react",
-    "module": "ESNext",
+    "module": "NodeNext",
     "moduleResolution": "Bundler",
     "outDir": "dist",
     "paths": {

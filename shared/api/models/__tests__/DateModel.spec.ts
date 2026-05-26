@@ -1,7 +1,9 @@
 import { DateTime } from 'luxon'
-import { rrulestr } from 'rrule'
+import * as rrule from 'rrule'
 
-import DateModel from '../DateModel'
+import DateModel from '../DateModel.js'
+
+const { rrulestr } = rrule
 
 jest.useFakeTimers({ now: new Date('2023-10-09T15:23:57.443+02:00') })
 

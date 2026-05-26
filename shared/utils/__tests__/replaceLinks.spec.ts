@@ -1,4 +1,4 @@
-import replaceLinks from '../replaceLinks'
+import replaceLinks from '../replaceLinks.js'
 
 describe('replaceLinks', () => {
   beforeEach(() => {

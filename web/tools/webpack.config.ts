@@ -7,17 +7,21 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import { join, resolve } from 'path'
 import ReactRefreshTypeScript from 'react-refresh-typescript'
 import TerserPlugin from 'terser-webpack-plugin'
-import { Configuration, DefinePlugin, LoaderOptionsPlugin, optimize, WebpackPluginInstance } from 'webpack'
+import webpackPkg from 'webpack'
+import type { Configuration, WebpackPluginInstance } from 'webpack'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 import 'webpack-dev-server'
 
 import loadBuildConfig, { WEB } from 'build-configs'
-import { WebBuildConfigType } from 'build-configs/BuildConfigType'
+import type { WebBuildConfigType } from 'build-configs/BuildConfigType'
 
+const { DefinePlugin, LoaderOptionsPlugin, optimize } = webpackPkg
 // reset the tsconfig to the default configuration
 delete process.env.TS_NODE_PROJECT
 
 const SHORT_COMMIT_SHA_LENGTH = 8
+
+const dirname = import.meta.dirname
 
 // A first performance budget, which should be improved in the future: Maximum bundle size in Bytes; 2^20 = 1 MiB
 // eslint-disable-next-line no-magic-numbers
@@ -30,7 +34,7 @@ const MAX_ASSET_SIZE = 2.1 * MiB
 const readJson = (path: string) => JSON.parse(readFileSync(path, 'utf8'))
 
 const readVersionName = () => {
-  const versionFile = readJson(resolve(__dirname, '../../version.json'))
+  const versionFile = readJson(resolve(dirname, '../../version.json'))
   return versionFile.versionName
 }
 
@@ -144,11 +148,11 @@ const createConfig = (
     console.log('Configured for running in dev server')
   }
 
-  const root = resolve(__dirname, '../..')
+  const root = resolve(dirname, '../..')
   const configAssets = resolve(root, `node_modules/build-configs/${buildConfigName}/assets`)
   const rootNodeModules = resolve(root, 'node_modules')
 
-  const projectRoot = resolve(__dirname, '..')
+  const projectRoot = resolve(dirname, '..')
   const wwwDirectory = resolve(projectRoot, 'www')
   const srcDirectory = resolve(projectRoot, 'src')
   const bundleReportDirectory = resolve(projectRoot, 'reports/bundle')
@@ -156,9 +160,9 @@ const createConfig = (
   const distDirectory = resolve(projectRoot, `dist/${buildConfigName}`)
   const wellKnownDirectory = resolve(distDirectory, '.well-known')
 
-  const manifestPreset = resolve(__dirname, 'manifest.json')
-  const assetLinksPreset = resolve(__dirname, 'assetlinks.json')
-  const appleAppSiteAssociationPreset = resolve(__dirname, 'apple-app-site-association')
+  const manifestPreset = resolve(dirname, 'manifest.json')
+  const assetLinksPreset = resolve(dirname, 'assetlinks.json')
+  const appleAppSiteAssociationPreset = resolve(dirname, 'apple-app-site-association')
 
   const plugins: WebpackPluginInstance[] = []
   if (devServer) {

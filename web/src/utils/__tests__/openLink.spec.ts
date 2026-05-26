@@ -1,3 +1,5 @@
+import { NavigateFunction } from 'react-router'
+
 import openLink, { isInternalLink } from '../openLink'
 
 describe('isInternalLink', () => {
@@ -19,8 +21,8 @@ describe('isInternalLink', () => {
 })
 
 describe('openLink', () => {
-  const navigate = jest.fn()
-  window.open = jest.fn()
+  const navigate = jest.fn() as unknown as NavigateFunction
+  window.open = jest.fn() as unknown as typeof window.open
 
   beforeEach(jest.resetAllMocks)
 

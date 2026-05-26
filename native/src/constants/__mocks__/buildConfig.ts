@@ -1,7 +1,7 @@
 import { INTEGREAT_ASSETS } from 'build-configs/AssetsType'
 import { CommonBuildConfigType } from 'build-configs/BuildConfigType'
-import { lightTheme, darkTheme } from 'build-configs/integreat/theme'
 import fonts from 'build-configs/integreat/theme/fonts'
+import { lightTheme, darkTheme } from 'build-configs/integreat/theme/index'
 
 export const buildConfigIconSet = (): {
   appLogo: string

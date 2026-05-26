@@ -1,9 +1,9 @@
 import { DateTime } from 'luxon'
 
-import { LocationModel } from '../../api'
-import DateModel from '../../api/models/DateModel'
-import EventModel from '../../api/models/EventModel'
-import filteringEventsLogic from '../filteringEventsLogic'
+import { LocationModel } from '../../api/index.js'
+import DateModel from '../../api/models/DateModel.js'
+import EventModel from '../../api/models/EventModel.js'
+import filteringEventsLogic from '../filteringEventsLogic.js'
 
 const EventModalDummyData = {
   content: '<h1>Event Content</h1>',

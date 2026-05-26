@@ -1,11 +1,11 @@
-import {
+import type {
   AndroidBuildConfigType,
   CommonBuildConfigType,
   IosBuildConfigType,
   WebBuildConfigType,
-} from '../BuildConfigType'
-import integreatPlatformBuildConfigs from '../integreat'
-import suggestToRegionTemplate from '../integreat/assets/suggestToRegionTemplate'
+} from '../BuildConfigType.js'
+import suggestToRegionTemplate from '../integreat/assets/suggestToRegionTemplate.js'
+import integreatPlatformBuildConfigs from '../integreat/index.js'
 
 const integreatTestCms = {
   appName: 'IntegreatTestCms',

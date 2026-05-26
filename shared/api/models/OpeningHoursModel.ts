@@ -1,4 +1,4 @@
-import { TimeSlot } from '../types'
+import { TimeSlot } from '../types.js'
 
 class OpeningHoursModel {
   _openAllDay: boolean

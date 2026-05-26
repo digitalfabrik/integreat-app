@@ -1,9 +1,9 @@
-import Endpoint from '../Endpoint'
-import EndpointBuilder from '../EndpointBuilder'
-import { API_VERSION } from '../constants'
-import mapRegionJson from '../mapping/mapRegionJson'
-import RegionModel from '../models/RegionModel'
-import { JsonRegionType } from '../types'
+import Endpoint from '../Endpoint.js'
+import EndpointBuilder from '../EndpointBuilder.js'
+import { API_VERSION } from '../constants/index.js'
+import mapRegionJson from '../mapping/mapRegionJson.js'
+import RegionModel from '../models/RegionModel.js'
+import { JsonRegionType } from '../types.js'
 
 export const REGIONS_ENDPOINT_NAME = 'regions'
 

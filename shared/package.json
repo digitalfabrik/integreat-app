@@ -5,13 +5,41 @@
   "main": "index.ts",
   "sideEffects": false,
   "private": true,
+  "type": "module",
   "scripts": {
-    "test": "jest",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "test:changed": "yarn run test -o",
     "test:watch": "yarn run test --watchAll",
     "check-circular-dependencies": "yarn run -T check-circular-dependencies",
     "lint": "eslint --cache --cache-location ../.eslintcache .",
     "ts:check": "tsc --build"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "default": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./api": {
+      "import": "./dist/api/index.js",
+      "default": "./dist/api/index.js",
+      "types": "./dist/api/index.d.ts"
+    },
+    "./api/*": {
+      "import": "./dist/api/*.js",
+      "default": "./dist/api/*.js",
+      "types": "./dist/api/*.d.ts"
+    },
+    "./hooks/*": {
+      "import": "./dist/hooks/*.js",
+      "default": "./dist/hooks/*.js",
+      "types": "./dist/hooks/*.d.ts"
+    },
+    "./*": {
+      "import": "./dist/*/index.js",
+      "default": "./dist/*/index.js",
+      "types": "./dist/*/index.d.ts"
+    }
   },
   "peerDependencies": {
     "react": "19.2.3"

@@ -2,6 +2,7 @@
   "name": "integreat-app",
   "license": "MIT",
   "private": true,
+  "type": "module",
   "workspaces": [
     "native",
     "web",
@@ -68,6 +69,7 @@
     "stylelint-react-native": "^2.7.0",
     "stylelint-use-logical": "^2.1.3",
     "ts-jest": "^29.4.6",
+    "ts-jest-mock-import-meta": "^1.3.2",
     "ts-node": "^10.9.2",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"

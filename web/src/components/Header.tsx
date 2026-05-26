@@ -1,4 +1,4 @@
-import Headroom from '@integreat-app/react-sticky-headroom'
+import StickyHeadroom from '@integreat-app/react-sticky-headroom'
 import Paper from '@mui/material/Paper'
 import Stack from '@mui/material/Stack'
 import { styled } from '@mui/material/styles'
@@ -10,6 +10,18 @@ import useElementRect from '../hooks/useElementRect'
 import useUpdateDimensions from '../hooks/useUpdateDimensions'
 import HeaderLogo from './HeaderLogo'
 import HeaderTitle from './HeaderTitle'
+
+// To fix CJS interop to not being recognized as a React component
+const Headroom = StickyHeadroom as unknown as React.ComponentClass<{
+  children: React.ReactNode
+  scrollHeight: number
+  height: number
+  onStickyTopChanged?: (stickyTop: number) => void
+  positionStickyDisabled?: boolean
+  parent?: HTMLElement | null
+  zIndex?: number
+  className?: string
+}>
 
 const HEADER_HEIGHT = 80
 

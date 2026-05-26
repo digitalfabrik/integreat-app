@@ -1,8 +1,8 @@
 import { DateTime } from 'luxon'
 
-import { API_VERSION } from '../../constants'
-import ChatMessageModel from '../../models/ChatMessageModel'
-import createChatMessagesEndpoint from '../createChatMessagesEndpoint'
+import { API_VERSION } from '../../constants/index.js'
+import ChatMessageModel from '../../models/ChatMessageModel.js'
+import createChatMessagesEndpoint from '../createChatMessagesEndpoint.js'
 
 describe('createChatMessagesEndpoint', () => {
   const baseUrl = 'https://example.com'

@@ -1,5 +1,8 @@
-import { useLoadFromEndpoint } from '../../index'
+import { useLoadFromEndpoint } from '../../index.js'
 
+jest.mock('../hooks/useLoadFromEndpoint.js', () => ({
+  useLoadFromEndpoint: jest.fn(),
+}))
 const mockData = (data: unknown): typeof useLoadFromEndpoint =>
   (() => ({
     data,

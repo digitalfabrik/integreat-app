@@ -1,4 +1,4 @@
-import LanguageModel from '../../models/LanguageModel'
+import LanguageModel from '../../models/LanguageModel.js'
 
 const languages = [
   new LanguageModel('en', 'English'),

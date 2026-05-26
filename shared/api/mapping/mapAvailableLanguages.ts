@@ -1,5 +1,5 @@
-import normalizePath from '../../utils/normalizePath'
-import { JsonAvailableLanguagesType } from '../types'
+import normalizePath from '../../utils/normalizePath.js'
+import { JsonAvailableLanguagesType } from '../types.js'
 
 export const mapNewsAvailableLanguages = (json: Record<string, { id: number }>): Record<string, number> =>
   Object.entries(json).reduce((availableLanguages, [code, value]) => ({ ...availableLanguages, [code]: value.id }), {})

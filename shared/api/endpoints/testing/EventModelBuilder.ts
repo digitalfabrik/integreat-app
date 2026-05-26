@@ -1,11 +1,13 @@
 import { sha256 } from 'js-sha256'
 import { DateTime } from 'luxon'
-import { rrulestr } from 'rrule'
+import * as rrule from 'rrule'
 import seedrandom from 'seedrandom'
 
-import DateModel from '../../models/DateModel'
-import EventModel from '../../models/EventModel'
-import LocationModel from '../../models/LocationModel'
+import DateModel from '../../models/DateModel.js'
+import EventModel from '../../models/EventModel.js'
+import LocationModel from '../../models/LocationModel.js'
+
+const { rrulestr } = rrule
 
 type PageResourceCacheEntryStateType = {
   readonly filePath: string

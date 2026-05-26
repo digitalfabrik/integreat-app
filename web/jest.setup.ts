@@ -1,17 +1,19 @@
+import { jest } from '@jest/globals'
 import '@testing-library/jest-dom'
-import '@testing-library/jest-dom/jest-globals'
-import * as fs from 'fs'
+import fetchMock from 'jest-fetch-mock'
+import * as fs from 'node:fs'
+import * as path from 'node:path'
 import { TextDecoder, TextEncoder } from 'node:util'
-import * as path from 'path'
 import 'raf/polyfill'
 
+// Fixes Type error "Type 'Mock<UnknownFunction>' is not assignable to type 'typeof ResizeObserver'"
 window.ResizeObserver = jest.fn().mockImplementation(() => ({
   disconnect: jest.fn(),
   observe: jest.fn(),
   unobserve: jest.fn(),
-}))
+})) as unknown as typeof ResizeObserver
 
-global.fetch = require('jest-fetch-mock')
+fetchMock.enableMocks()
 
 console.error = () => undefined
 
@@ -46,7 +48,7 @@ const walkDir = (dir: string, callback: (dir: string) => void) => {
 
 // The following code automatically unmocks the modules in `mocksPath`. This is required because jest mocks all these
 // modules automatically as soon as they are found
-const mocksPath = path.join(__dirname, '/src/__mocks__/')
+const mocksPath = path.join(import.meta.dirname, '/src/__mocks__/')
 const mockPathEndings = ['.ts', '.tsx'] // This only unmocks .ts and .tsx files not .json for example
 walkDir(mocksPath, name => {
   mockPathEndings.forEach(ending => {

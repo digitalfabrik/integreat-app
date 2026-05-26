@@ -1,9 +1,9 @@
 import { DateTime } from 'luxon'
 
-import { API_VERSION } from '../../constants'
-import LocalNewsModel from '../../models/LocalNewsModel'
-import { JsonLocalNewsType } from '../../types'
-import createLocalNewsElementEndpoint from '../createLocalNewsElementEndpoint'
+import { API_VERSION } from '../../constants/index.js'
+import LocalNewsModel from '../../models/LocalNewsModel.js'
+import { JsonLocalNewsType } from '../../types.js'
+import createLocalNewsElementEndpoint from '../createLocalNewsElementEndpoint.js'
 
 describe('localnews', () => {
   const baseUrl = 'https://cms.integreat-app.de'

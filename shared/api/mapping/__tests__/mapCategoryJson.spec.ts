@@ -1,9 +1,9 @@
 import { DateTime } from 'luxon'
 
-import CategoryModel from '../../models/CategoryModel'
-import OfferModel from '../../models/OfferModel'
-import OrganizationModel from '../../models/OrganizationModel'
-import mapCategoryJson from '../mapCategoryJson'
+import CategoryModel from '../../models/CategoryModel.js'
+import OfferModel from '../../models/OfferModel.js'
+import OrganizationModel from '../../models/OrganizationModel.js'
+import mapCategoryJson from '../mapCategoryJson.js'
 
 describe('categories', () => {
   const basePath = '/augsburg/de'

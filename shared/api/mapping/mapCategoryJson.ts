@@ -1,10 +1,10 @@
 import { DateTime } from 'luxon'
 
-import CategoryModel from '../models/CategoryModel'
-import OfferModel from '../models/OfferModel'
-import OrganizationModel from '../models/OrganizationModel'
-import { JsonCategoryType } from '../types'
-import mapAvailableLanguages from './mapAvailableLanguages'
+import CategoryModel from '../models/CategoryModel.js'
+import OfferModel from '../models/OfferModel.js'
+import OrganizationModel from '../models/OrganizationModel.js'
+import { JsonCategoryType } from '../types.js'
+import mapAvailableLanguages from './mapAvailableLanguages.js'
 
 const mapCategoryJson = (json: JsonCategoryType, basePath: string): CategoryModel =>
   new CategoryModel({

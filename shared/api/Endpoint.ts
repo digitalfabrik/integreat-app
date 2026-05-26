@@ -1,11 +1,11 @@
-import { MapParamsToBodyType } from './MapParamsToBody'
-import { MapParamsToUrlType } from './MapParamsToUrlType'
-import { MapResponseType } from './MapResponseType'
-import Payload from './Payload'
-import FetchError from './errors/FetchError'
-import NotFoundError from './errors/NotFoundError'
-import ResponseError from './errors/ResponseError'
-import { request as fetch } from './request'
+import { MapParamsToBodyType } from './MapParamsToBody.js'
+import { MapParamsToUrlType } from './MapParamsToUrlType.js'
+import { MapResponseType } from './MapResponseType.js'
+import Payload from './Payload.js'
+import FetchError from './errors/FetchError.js'
+import NotFoundError from './errors/NotFoundError.js'
+import ResponseError from './errors/ResponseError.js'
+import { request as fetch } from './request.js'
 
 const NOT_FOUND_CODE = 404
 

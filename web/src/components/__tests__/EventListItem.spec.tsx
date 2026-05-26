@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 import React from 'react'
-import { rrulestr } from 'rrule'
+import * as rrule from 'rrule'
 
 import { getExcerpt } from 'shared'
 import { EventModelBuilder, DateModel } from 'shared/api'
@@ -9,6 +9,8 @@ import { EventThumbnailPlaceholder1, EventThumbnailPlaceholder2, EventThumbnailP
 import { EXCERPT_MAX_CHARS } from '../../constants'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import EventListItem, { getDateIcon } from '../EventListItem'
+
+const { rrulestr } = rrule
 
 jest.mock('react-i18next')
 jest.mock(

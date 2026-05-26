@@ -6,9 +6,9 @@ import fs from 'fs'
 import { fromPairs, isEmpty, isEqual, isString, mapValues, merge, sortBy, toPairs, without, zip } from 'lodash'
 import path from 'path'
 
-import { TranslationsType } from '../src'
-import config from '../src/config'
-import { KeyValueType } from '../src/types'
+import config from '../src/config.js'
+import type { TranslationsType } from '../src/index.js'
+import type { KeyValueType } from '../src/types.js'
 
 const { unflatten } = flat
 

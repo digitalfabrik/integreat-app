@@ -1,17 +1,18 @@
 import { decodeHTML } from 'entities'
 import { DateTime } from 'luxon'
-import { rrulestr } from 'rrule'
+import * as rrule from 'rrule'
 
-import Endpoint from '../Endpoint'
-import EndpointBuilder from '../EndpointBuilder'
-import { API_VERSION } from '../constants'
-import mapAvailableLanguages from '../mapping/mapAvailableLanguages'
-import DateModel from '../models/DateModel'
-import EventModel from '../models/EventModel'
-import FeaturedImageModel from '../models/FeaturedImageModel'
-import LocationModel from '../models/LocationModel'
-import { JsonEventType } from '../types'
+import Endpoint from '../Endpoint.js'
+import EndpointBuilder from '../EndpointBuilder.js'
+import { API_VERSION } from '../constants/index.js'
+import mapAvailableLanguages from '../mapping/mapAvailableLanguages.js'
+import DateModel from '../models/DateModel.js'
+import EventModel from '../models/EventModel.js'
+import FeaturedImageModel from '../models/FeaturedImageModel.js'
+import LocationModel from '../models/LocationModel.js'
+import { JsonEventType } from '../types.js'
 
+const { rrulestr } = rrule
 export const EVENTS_ENDPOINT_NAME = 'events'
 type ParamsType = {
   region: string

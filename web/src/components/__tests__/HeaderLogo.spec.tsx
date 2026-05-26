@@ -6,7 +6,7 @@ import HeaderLogo from '../HeaderLogo'
 
 jest.mock('../../constants/buildConfig', () => ({
   __esModule: true,
-  default: jest.fn(() => __BUILD_CONFIG__),
+  default: jest.fn(() => globalThis.__BUILD_CONFIG__),
 }))
 jest.useFakeTimers()
 
