@@ -6,7 +6,7 @@ import React, { memo, ReactElement } from 'react'
 
 import { SprungbrettJobModel } from 'shared/api'
 
-import { SprungbrettIcon } from '../assets/index'
+import { SprungbrettIcon } from '../assets'
 import Link from './base/Link'
 import Svg from './base/Svg'
 

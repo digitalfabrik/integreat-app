@@ -1,4 +1,3 @@
-import '@testing-library/jest-dom'
 import React from 'react'
 
 import { NEWS_ROUTE, pathnameFromRouteInformation, TU_NEWS_TYPE } from 'shared'

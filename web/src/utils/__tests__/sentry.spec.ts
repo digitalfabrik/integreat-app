@@ -45,7 +45,7 @@ describe('initSentry', () => {
 
 describe('capture error', () => {
   it('should not report to sentry if disabled in build config', async () => {
-    const spy = jest.spyOn(console, 'error').mockImplementation(() => {})
+    const spy = jest.spyOn(console, 'error').mockImplementation()
     mockBuildConfig(false, true)
     const error = new Error('my error')
     await captureError(error)
@@ -56,7 +56,7 @@ describe('capture error', () => {
   })
 
   it('should not report fetch and not found errors to sentry', async () => {
-    const spy = jest.spyOn(console, 'error').mockImplementation(() => {})
+    const spy = jest.spyOn(console, 'error').mockImplementation()
     mockBuildConfig(true, false)
     const error = new FetchError({
       endpointName: 'my endpoint',
@@ -86,7 +86,7 @@ describe('capture error', () => {
 
 describe('log', () => {
   it('should not report to sentry if disabled in build config', async () => {
-    const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {})
+    const warnSpy = jest.spyOn(console, 'warn').mockImplementation()
     mockBuildConfig(false, true)
     await log('test log', 'warning')
     expect(Sentry.addBreadcrumb).not.toHaveBeenCalled()
@@ -94,7 +94,7 @@ describe('log', () => {
     expect(warnSpy).toHaveBeenCalledWith('test log')
     warnSpy.mockRestore()
 
-    const debugSpy = jest.spyOn(console, 'debug').mockImplementation(() => {})
+    const debugSpy = jest.spyOn(console, 'debug').mockImplementation()
     await log('debug test log')
     expect(Sentry.addBreadcrumb).not.toHaveBeenCalled()
     expect(debugSpy).toHaveBeenCalledTimes(1)
@@ -104,7 +104,7 @@ describe('log', () => {
 
   it('should report to sentry if enabled in build config', async () => {
     mockBuildConfig(true, false)
-    const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
+    const errorSpy = jest.spyOn(console, 'error').mockImplementation()
     await log('test error log', 'error')
     expect(Sentry.addBreadcrumb).toHaveBeenCalledTimes(1)
     expect(Sentry.addBreadcrumb).toHaveBeenCalledWith({
