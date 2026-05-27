@@ -4,7 +4,7 @@ import React, { ReactElement } from 'react'
 import { useParams } from 'react-router'
 
 import { TU_NEWS_TYPE, tunewsLabel } from 'shared'
-import { createTunewsElementEndpoint, NotFoundError, useLoadFromEndpoint } from 'shared/api'
+import { createTunewsElementEndpoint, NotFoundError } from 'shared/api'
 
 import { TuNewsActiveIcon } from '../assets'
 import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
@@ -15,6 +15,7 @@ import RegionContentToolbar from '../components/RegionContentToolbar'
 import SkeletonPage from '../components/SkeletonPage'
 import Svg from '../components/base/Svg'
 import { tunewsApiBaseUrl } from '../constants/urls'
+import useQueryFromEndpoint from '../hooks/useQueryFromEndpoint'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 import { RegionRouteProps } from './index'
 
@@ -37,7 +38,7 @@ const TuNewsDetailPage = ({ region, pathname, regionCode, languageCode }: Region
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const newsId = useParams().newsId!
 
-  const { data: newsModel, error: newsError } = useLoadFromEndpoint(createTunewsElementEndpoint, tunewsApiBaseUrl, {
+  const { data: newsModel, error: newsError } = useQueryFromEndpoint(createTunewsElementEndpoint, tunewsApiBaseUrl, {
     id: parseInt(newsId, 10),
   })
 

@@ -1,3 +1,4 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { render, RenderResult } from '@testing-library/react'
 import React, { ReactElement, ReactNode } from 'react'
 import { createMemoryRouter, MemoryRouter, Route, RouterProvider, Routes } from 'react-router'
@@ -6,16 +7,22 @@ import ThemeContainer from '../components/ThemeContainer'
 import { regionContentPattern, RoutePatterns, RouteType } from '../routes'
 
 const AllTheProviders = ({ children, options }: { children: ReactNode; options?: { pathname: string } }) => (
-  <MemoryRouter initialEntries={options ? [options.pathname] : ['/']}>
-    <ThemeContainer contentDirection='ltr'>{children}</ThemeContainer>
-  </MemoryRouter>
+  <QueryClientProvider client={new QueryClient()}>
+    <MemoryRouter initialEntries={options ? [options.pathname] : ['/']}>
+      <ThemeContainer contentDirection='ltr'>{children}</ThemeContainer>
+    </MemoryRouter>
+  </QueryClientProvider>
 )
 
 export const renderWithRouterAndTheme = (ui: ReactElement, options?: { pathname: string }): RenderResult =>
   render(ui, { wrapper: (props: { children: ReactNode }) => <AllTheProviders {...props} options={options} /> })
 
 export const renderWithTheme = (ui: ReactElement): RenderResult =>
-  render(<ThemeContainer contentDirection='ltr'>{ui}</ThemeContainer>)
+  render(
+    <QueryClientProvider client={new QueryClient()}>
+      <ThemeContainer contentDirection='ltr'>{ui}</ThemeContainer>
+    </QueryClientProvider>,
+  )
 
 export const renderWithRouter = (ui: ReactElement): RenderResult =>
   render(ui, {

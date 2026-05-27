@@ -1,17 +1,15 @@
 import { RenderResult } from '@testing-library/react'
 import React from 'react'
 
-import { OfferModel, SprungbrettJobModel, useLoadFromEndpoint } from 'shared/api'
-import { mockUseLoadFromEndpointWithError } from 'shared/api/endpoints/testing/mockUseLoadFromEndpoint'
+import { OfferModel, SprungbrettJobModel } from 'shared/api'
 
+import useQueryFromEndpoint from '../../hooks/useQueryFromEndpoint'
+import { mockUseQueryFromEndpointWithError } from '../../testing/mockUseQueryFromEndpoint'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import SprungbrettOffer from '../SprungbrettOffer'
 
-jest.mock('shared/api', () => ({
-  ...jest.requireActual('shared/api'),
-  useLoadFromEndpoint: jest.fn(),
-}))
 jest.mock('react-i18next')
+jest.mock('../../hooks/useQueryFromEndpoint')
 
 describe('SprungbrettOffer', () => {
   beforeEach(() => {
@@ -62,7 +60,7 @@ describe('SprungbrettOffer', () => {
     renderWithRouterAndTheme(<SprungbrettOffer sprungbrettOffer={sprungbrettOffer} />)
 
   it('should render list sprungbrett jobs', () => {
-    mocked(useLoadFromEndpoint).mockImplementation(() => returnValue as never)
+    mocked(useQueryFromEndpoint).mockImplementation(() => returnValue as never)
 
     const { getByText } = renderSprungbrett()
 
@@ -73,7 +71,7 @@ describe('SprungbrettOffer', () => {
 
   it('should render error when loading fails', () => {
     const errorMessage = 'Offers are not available!'
-    mockUseLoadFromEndpointWithError(errorMessage)
+    mockUseQueryFromEndpointWithError(errorMessage)
 
     const { getByText } = renderSprungbrett()
 
