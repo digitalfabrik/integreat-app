@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const defaultConfig = require('./metro.config.js')
+const defaultConfig = require('./metro.config.cjs')
 
 module.exports = {
   ...defaultConfig,

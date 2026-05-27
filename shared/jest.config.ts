@@ -11,7 +11,13 @@ export default {
   testPathIgnorePatterns: ['<rootDir>/dist/', '<rootDir>/node_modules/'],
   transformIgnorePatterns: ['node_modules/(?!qr)'],
   transform: {
-    '^.+\\.(j|t)sx?$': ['ts-jest', {}],
+    '^.+\\.(t|j)sx?$': [
+      'ts-jest',
+      {
+        useESM: true,
+      },
+    ],
   },
+  extensionsToTreatAsEsm: ['.ts'],
   maxWorkers: '50%',
 }

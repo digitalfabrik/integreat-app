@@ -22,28 +22,7 @@ const config: JestConfigWithTsJest = {
   maxWorkers: '50%',
   workerIdleMemoryLimit: process.env.CI ? '500MB' : undefined,
   transform: {
-    '^.+\\.(j|t)sx?$': [
-      'ts-jest',
-      {
-        diagnostics: {
-          ignoreCodes: [1343],
-        },
-        astTransformers: {
-          before: [
-            {
-              // https://www.npmjs.com/package/ts-jest-mock-import-meta
-              // Fixes "SyntaxError: Cannot use 'import.meta' outside a module"
-              path: 'ts-jest-mock-import-meta',
-              options: {
-                metaObjectReplacement: {
-                  dirname: './',
-                },
-              },
-            },
-          ],
-        },
-      },
-    ],
+    '^.+\\.(j|t)sx?$': ['ts-jest', {}],
   },
   testEnvironment: 'jsdom',
   globals: {

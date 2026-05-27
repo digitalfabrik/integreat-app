@@ -21,7 +21,7 @@ const config = {
         __dirname,
         '../build-configs',
         process.env.BUILD_CONFIG_NAME || 'integreat-test-cms',
-        'build-config-name/index.ts',
+        'build-config-name',
       ),
     },
     nodeModulesPaths: [path.resolve(__dirname, './node_modules')],

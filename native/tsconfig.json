@@ -7,7 +7,7 @@
     "baseUrl": ".",
     "isolatedModules": true,
     "jsx": "react",
-    "module": "NodeNext",
+    "module": "ESNext",
     "moduleResolution": "Bundler",
     "outDir": "dist",
     "paths": {
@@ -28,7 +28,8 @@
     "babel.config.js",
     "stylelint.config.js"
   ],
-  "exclude": ["metro.config.js", "metro.config.ci.js"],
+  "exclude": [
+    "metro.config.cjs", "metro.config.ci.js"],
   "references": [
     {
       "path": "../translations"

@@ -267,7 +267,7 @@ export default defineConfig([
       '**/android/',
       '**/dist/',
       '.eslintrc.js',
-      'eslint.config.mjs',
+      'eslint.config.js',
       '**/*.js',
       '.yarn/',
       'web/www/',
@@ -318,7 +318,7 @@ export default defineConfig([
   },
 
   {
-    files: ['**/tools/**', 'translations/**', 'e2e-tests/**', '**/metro.config.js'],
+    files: ['**/tools/**', 'translations/**', 'e2e-tests/**', '**/metro.config.cjs'],
 
     rules: {
       'no-console': 'off',

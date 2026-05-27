@@ -1,7 +1,4 @@
 /** @jest-config-loader ts-node */
-import { createRequire } from 'node:module'
-
-const require = createRequire(import.meta.url)
 const transformNodeModules = [
   'react-native',
   '@react-native',
@@ -18,6 +15,7 @@ const transformNodeModules = [
   '@dr.pogodin/react-native-static-server',
   '@gorhom/bottom-sheet',
   '@mhpdev/react-native-speech',
+  'uuid',
   'qr',
 ]
 process.env.TZ = 'Europe/Berlin'
@@ -29,12 +27,11 @@ export default {
   automock: false,
   moduleNameMapper: {
     '\\.svg': '<rootDir>/src/__mocks__/svgrMock.ts',
-    uuid: require.resolve('uuid'),
   },
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   transform: {
     '^.+\\.jsx?$': ['babel-jest', { rootMode: 'upward' }],
-    '^.+\\.tsx?$': ['ts-jest', {}],
+    '^.+\\.tsx?$': ['ts-jest', { useESM: true }],
   },
   transformIgnorePatterns: [`node_modules/(?!${transformNodeModules.join('|')}/)`],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
