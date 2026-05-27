@@ -455,11 +455,11 @@ const renderHtml = (
           position: relative;
         }
 
-        ul.details li:has(img:first-child) {
+        ul.details li:has(img:first-of-type) {
           list-style: none;
         }
 
-        ul.details li img:first-child {
+        ul.details li img:first-of-type {
           position: absolute;
           left: -24px;
           top: 1px;
