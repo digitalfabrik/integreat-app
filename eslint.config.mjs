@@ -285,6 +285,7 @@ export default defineConfig([
 
     rules: {
       'no-console': 'off',
+      'no-param-reassign': 'off',
       'import-x/no-extraneous-dependencies': 'off',
     },
   },

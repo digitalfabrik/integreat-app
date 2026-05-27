@@ -27,8 +27,7 @@
     "prettier:check": "yarn run -T prettier --ignore-path  ../.prettierignore --check .",
     "prettier:write": "yarn run -T prettier --ignore-path  ../.prettierignore --write .",
     "circleci:update-config": "yarn run -T circleci:update-config",
-    "license-crawler": "license-checker-rseidelsohn --excludePrivatePackages --production --json --out src/assets/licenses.json",
-    "postinstall": "yarn license-crawler"
+    "postinstall": "yarn run -T tsx ../tools/licenses.ts --node-modules='..'"
   },
   "dependencies": {
     "@emotion/cache": "^11.14.0",
@@ -89,7 +88,6 @@
     "img-loader": "^4.0.0",
     "jest-environment-jsdom": "^30.3.0",
     "jest-fetch-mock": "^3.0.3",
-    "license-checker-rseidelsohn": "^4.4.2",
     "raf": "^3.4.1",
     "react-refresh": "^0.18.0",
     "react-refresh-typescript": "^2.0.12",

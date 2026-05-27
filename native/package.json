@@ -38,8 +38,7 @@
     "prettier:check": "yarn run -T prettier --ignore-path  ../.prettierignore --check .",
     "prettier:write": "yarn run -T prettier --ignore-path  ../.prettierignore --write .",
     "circleci:update-config": "yarn run -T circleci:update-config",
-    "license-crawler": "license-checker-rseidelsohn --excludePrivatePackages --production --json --out src/assets/licenses.json",
-    "postinstall": "yarn license-crawler"
+    "postinstall": "yarn run -T tsx ../tools/licenses.ts"
   },
   "dependencies": {
     "@dr.pogodin/react-native-fs": "^2.37.0",
@@ -120,7 +119,6 @@
     "babel-jest": "^30.3.0",
     "commander": "^14.0.3",
     "cross-env": "^10.1.0",
-    "license-checker-rseidelsohn": "^4.4.2",
     "react-native-svg-transformer": "^1.5.3",
     "react-test-renderer": "19.2.3"
   },

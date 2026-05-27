@@ -1,17 +1,17 @@
 export type JsonLicenses = {
   [name: string]: {
-    licenses: string
+    license: string
     repository?: string
-    publisher?: string
+    author?: string
   }
 }
 
 export type License = {
   name: string
   version: string | undefined
-  licenses: string
+  license: string
   repository: string | undefined
-  publisher: string | undefined
+  author: string | undefined
 }
 
 // matches version number e.g. 1.0.2
@@ -21,8 +21,8 @@ const versionNumberRegex = /\d+(\.\d+)*/
 const versionRegex = /(?:@)\d+(\.\d+)*/
 
 export const parseLicenses = (licenseFile: JsonLicenses): License[] =>
-  Object.entries(licenseFile).map(([name, { licenses, repository, publisher }]) => {
+  Object.entries(licenseFile).map(([name, { license, repository, author }]) => {
     const version = name.match(versionNumberRegex)?.[0] ?? ''
     const nameWithoutVersion = name.replace(versionRegex, '')
-    return { name: nameWithoutVersion, version, repository, licenses, publisher }
+    return { name: nameWithoutVersion, version, repository, license, author }
   })
