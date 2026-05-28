@@ -14,7 +14,7 @@ class RegionModel {
   _eventsEnabled: boolean
   _poisEnabled: boolean
   _localNewsEnabled: boolean
-  _tunewsEnabled: boolean
+  _tuNewsEnabled: boolean
   _sortingName: string
   _prefix: string | null
   _latitude: number
@@ -29,7 +29,7 @@ class RegionModel {
     eventsEnabled: boolean
     localNewsEnabled: boolean
     chatEnabled: boolean
-    tunewsEnabled: boolean
+    tuNewsEnabled: boolean
     sortingName: string
     prefix: string | null
     latitude: number
@@ -46,7 +46,7 @@ class RegionModel {
     this._eventsEnabled = params.eventsEnabled
     this._poisEnabled = params.poisEnabled
     this._localNewsEnabled = params.localNewsEnabled
-    this._tunewsEnabled = params.tunewsEnabled
+    this._tuNewsEnabled = params.tuNewsEnabled
     this._sortingName = params.sortingName
     this._prefix = params.prefix
     this._latitude = params.latitude
@@ -98,8 +98,8 @@ class RegionModel {
     return this._localNewsEnabled
   }
 
-  get tunewsEnabled(): boolean {
-    return this._tunewsEnabled
+  get tuNewsEnabled(): boolean {
+    return this._tuNewsEnabled
   }
 
   get sortCategory(): string {

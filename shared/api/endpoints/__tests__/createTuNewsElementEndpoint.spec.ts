@@ -1,14 +1,14 @@
 import { DateTime } from 'luxon'
 
-import TunewsModel from '../../models/TunewsModel'
-import { JsonTunewsType } from '../../types'
-import createTunewsEndpoint from '../createTunewsEndpoint'
+import TuNewsModel from '../../models/TuNewsModel'
+import { JsonTuNewsType } from '../../types'
+import createTuNewsElementEndpoint from '../createTuNewsElementEndpoint'
 
-describe('tunews', () => {
-  const baseUrl = 'https://tunews.integreat-app.de'
-  const tunews = createTunewsEndpoint(baseUrl)
+describe('tuNews', () => {
+  const baseUrl = 'https://cms-test.integreat-app.de'
+  const tuNewsElement = createTuNewsElementEndpoint(baseUrl)
 
-  const createNewsItem = (id: number, displayDate: string): JsonTunewsType => ({
+  const createNewsItem = (id: number, displayDate: string): JsonTuNewsType => ({
     id,
     title: 'Tick bite - What to do?',
     tags: ['8 Gesundheit'],
@@ -19,11 +19,9 @@ describe('tunews', () => {
   })
 
   const item1 = createNewsItem(1, '2020-01-20T12:04:22+00:00')
-  const item2 = createNewsItem(2, '2020-01-24T10:05:22+00:00')
-  const item3 = createNewsItem(3, '2020-01-22T11:06:22+00:00')
 
-  const createNewsItemModel = (id: number, lastUpdate: DateTime): TunewsModel =>
-    new TunewsModel({
+  const createNewsItemModel = (id: number, lastUpdate: DateTime): TuNewsModel =>
+    new TuNewsModel({
       id,
       title: 'Tick bite - What to do?',
       tags: ['8 Gesundheit'],
@@ -34,22 +32,19 @@ describe('tunews', () => {
     })
 
   const itemModel1 = createNewsItemModel(1, DateTime.fromISO('2020-01-20T12:04:22+00:00'))
-  const itemModel2 = createNewsItemModel(2, DateTime.fromISO('2020-01-24T10:05:22+00:00'))
-  const itemModel3 = createNewsItemModel(3, DateTime.fromISO('2020-01-22T11:06:22+00:00'))
   const params = {
+    region: 'augsburg',
     language: 'de',
-    page: 1,
-    count: 1,
+    id: 1,
   }
   it('should map params to url', () => {
-    expect(tunews.mapParamsToUrl(params)).toBe(
-      `${baseUrl}/v1/news/${params.language}?page=${params.page}&count=${params.count}`,
-    )
+    expect(tuNewsElement.mapParamsToUrl(params)).toBe(`${baseUrl}/v1/news/${params.id}`)
   })
-  const json = [item1, item2, item3]
   it('should map fetched data to models', () => {
-    const tunewsModels = tunews.mapResponse(json, params)
-    const newsItemsValues = [itemModel1, itemModel2, itemModel3]
-    expect(tunewsModels).toEqual(newsItemsValues)
+    const itemModel = tuNewsElement.mapResponse(item1, params)
+    expect(itemModel).toEqual(itemModel1)
+  })
+  it('should throw a not found error if the response is empty', () => {
+    expect(() => tuNewsElement.mapResponse([], params)).toThrow('The tu-news 1 does not exist here.')
   })
 })

@@ -6,7 +6,7 @@ export const testTranslations: TranslationsType = {
     de: {
       pageTitles: {
         notFound: 'Seite nicht gefunden',
-        tunews: 'tünews',
+        tuNews: 'tünews',
         localNews: 'Lokale Nachrichten',
       },
       metaDescription:

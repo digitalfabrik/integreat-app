@@ -1,12 +1,12 @@
 import { useContext, useEffect } from 'react'
 
 import { segmentText, parseHTML } from 'shared'
-import { LocalNewsModel, DocumentModel, TunewsModel } from 'shared/api'
+import { LocalNewsModel, DocumentModel, TuNewsModel } from 'shared/api'
 
 import { TtsContext, TtsContextType } from '../contexts/TtsContext'
 
 const useTtsPlayer = (
-  model: DocumentModel | LocalNewsModel | TunewsModel | undefined | null,
+  model: DocumentModel | LocalNewsModel | TuNewsModel | undefined | null,
   languageCode: string,
 ): TtsContextType => {
   const tts = useContext(TtsContext)

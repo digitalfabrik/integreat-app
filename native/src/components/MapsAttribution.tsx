@@ -20,8 +20,8 @@ const Attribution = styled.View`
 
 const OpenStreetMapsLink = styled(Link)`
   padding: 4px 0;
-  color: ${props => props.theme.colors.tunews.main};
-  text-decoration: underline solid ${props => props.theme.colors.tunews.main};
+  color: ${props => props.theme.colors.primary};
+  text-decoration: underline solid ${props => props.theme.colors.primary};
   align-self: center;
 `
 

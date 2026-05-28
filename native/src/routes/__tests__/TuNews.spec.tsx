@@ -3,7 +3,7 @@ import { DateTime } from 'luxon'
 import React from 'react'
 
 import { NEWS_ROUTE, NewsRouteType, TU_NEWS_TYPE } from 'shared'
-import { CategoriesMapModelBuilder, RegionModelBuilder, LanguageModelBuilder, TunewsModel } from 'shared/api'
+import { CategoriesMapModelBuilder, RegionModelBuilder, LanguageModelBuilder, TuNewsModel } from 'shared/api'
 
 import Text from '../../components/base/Text'
 import useLoadTuNews from '../../hooks/useLoadTuNews'
@@ -24,8 +24,8 @@ jest.mock('@react-native-community/netinfo')
 jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter')
 jest.mock('../../hooks/useNavigate')
 
-const news: [TunewsModel, TunewsModel] = [
-  new TunewsModel({
+const news: [TuNewsModel, TuNewsModel] = [
+  new TuNewsModel({
     id: 9902,
     title: 'Was ist ein Verein?',
     lastUpdate: DateTime.fromISO('2020-01-20T00:00:00.000Z'),
@@ -33,7 +33,7 @@ const news: [TunewsModel, TunewsModel] = [
     content: 'Ein Verein ist eine Gruppe von Menschen. Sie haben ein gemeinsames Interesse und organisieren.',
     eNewsNo: 'tun0000009902',
   }),
-  new TunewsModel({
+  new TuNewsModel({
     id: 1234,
     title: 'Tick bite - What to do?',
     tags: ['8 Gesundheit'],

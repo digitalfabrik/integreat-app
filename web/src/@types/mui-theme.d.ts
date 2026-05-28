@@ -31,7 +31,7 @@ declare module '@mui/material/styles' {
 
   interface Palette {
     tertiary: PaletteColor
-    tunews: {
+    tuNews: {
       light: string
       main: string
     }
@@ -39,7 +39,7 @@ declare module '@mui/material/styles' {
 
   interface PaletteOptions {
     tertiary: PaletteColor
-    tunews: {
+    tuNews: {
       light: string
       main: string
     }

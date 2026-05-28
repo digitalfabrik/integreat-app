@@ -144,7 +144,7 @@ export type JsonEventType = {
   meeting_url: string | null
 }
 
-export type JsonTunewsType = {
+export type JsonTuNewsType = {
   id: number
   title: string
   tags: string[]
@@ -187,7 +187,7 @@ export type JsonLanguageType = {
   native_name: string
 }
 
-export type JsonTunewsLanguageType = {
+export type JsonTuNewsLanguageType = {
   code: string
   name: string
 }

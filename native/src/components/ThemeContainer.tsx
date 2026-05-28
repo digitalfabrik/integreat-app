@@ -47,9 +47,9 @@ export const theme = (themeType: 'light' | 'contrast'): DefaultTheme => {
       outline: palette.text.primary,
       outlineVariant: palette.text.secondary,
       success: palette.success.main,
-      tunews: {
-        main: palette.tunews.main,
-        light: palette.tunews.light,
+      tuNews: {
+        main: palette.tuNews.main,
+        light: palette.tuNews.light,
       },
       ttsPlayer: {
         background: palette.ttsPlayer.background,

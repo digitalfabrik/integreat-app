@@ -115,7 +115,7 @@ describe('NewsContainer', () => {
     expect(queryByText('LocalNewsContent')).toBeFalsy()
   })
 
-  it('should render tunews detail', () => {
+  it('should render tuNews detail', () => {
     mocked(useLoadRegionContent).mockImplementation(() => returnValue)
     const { getByText } = renderNews({ newsId: 4321 })
 

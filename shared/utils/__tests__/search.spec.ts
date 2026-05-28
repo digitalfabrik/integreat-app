@@ -19,7 +19,7 @@ describe('search', () => {
         eventsEnabled: true,
         poisEnabled: true,
         localNewsEnabled: false,
-        tunewsEnabled: false,
+        tuNewsEnabled: false,
         sortingName,
         prefix,
         aliases,

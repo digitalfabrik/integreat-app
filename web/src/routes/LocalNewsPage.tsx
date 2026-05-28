@@ -126,7 +126,7 @@ const LocalNewsPage = ({ region, pathname, languageCode, regionCode }: RegionRou
       <NewsTabs
         type={LOCAL_NEWS_TYPE}
         region={regionCode}
-        tunewsEnabled={region.tunewsEnabled}
+        tuNewsEnabled={region.tuNewsEnabled}
         localNewsEnabled={region.localNewsEnabled}
         language={languageCode}
       />

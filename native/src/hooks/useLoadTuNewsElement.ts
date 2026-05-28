@@ -1,16 +1,16 @@
 import { useCallback } from 'react'
 
-import { createTunewsElementEndpoint, ReturnType, TunewsModel, useLoadAsync } from 'shared/api'
+import { createTuNewsElementEndpoint, ReturnType, TuNewsModel, useLoadAsync } from 'shared/api'
 
-import { tunewsApiUrl } from '../constants/endpoint'
+import { tuNewsApiUrl } from '../constants/endpoint'
 
 type UseLoadTuNewsElementProps = {
   newsId: number
 }
 
-const useLoadTuNewsElement = ({ newsId }: UseLoadTuNewsElementProps): ReturnType<TunewsModel> => {
+const useLoadTuNewsElement = ({ newsId }: UseLoadTuNewsElementProps): ReturnType<TuNewsModel> => {
   const load = useCallback(async () => {
-    const payload = await createTunewsElementEndpoint(tunewsApiUrl).request({ id: newsId })
+    const payload = await createTuNewsElementEndpoint(tuNewsApiUrl).request({ id: newsId })
     if (!payload.data) {
       throw new Error('Data missing!')
     }
