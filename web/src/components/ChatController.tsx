@@ -1,55 +1,45 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 
-import { SendingStatusType } from 'shared'
-import {
-  RegionModel,
-  createChatMessagesEndpoint,
-  createSendChatMessageEndpoint,
-  NotFoundError,
-  useLoadFromEndpoint,
-} from 'shared/api'
+import { RegionModel, createChatMessagesEndpoint, createSendChatMessageEndpoint, NotFoundError } from 'shared/api'
 
 import { cmsApiBaseUrl } from '../constants/urls'
 import useIsTabActive from '../hooks/useIsTabActive'
 import useLocalStorage from '../hooks/useLocalStorage'
-import { generateChatId } from '../utils/chat'
+import useQueryFromEndpoint from '../hooks/useQueryFromEndpoint'
 import Chat from './Chat'
 
 type ChatControllerProps = {
   region: RegionModel
   languageCode: string
-  chatId: string | null
-  updateChatId: (newChatId: string | null) => void
+  chatId: string
 }
 
 const LOCAL_STORAGE_ITEM_CHAT_PRIVACY_POLICIES = 'Chat-Privacy-Policies'
 const DEFAULT_POLLING_INTERVAL = 15000
 const TYPING_POLLING_INTERVAL = 3000
 
-const ChatController = ({ region, languageCode, chatId, updateChatId }: ChatControllerProps): ReactElement => {
-  const regionCode = region.code
-  const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
+const ChatController = ({ region, languageCode, chatId }: ChatControllerProps): ReactElement => {
+  const [sendingError, setSendingError] = useState<Error | null>(null)
   const isBrowserTabActive = useIsTabActive()
 
-  const initializeChat = (): string => {
-    const newId = generateChatId()
-    updateChatId(newId)
-    return newId
-  }
-
   const {
-    data: chatMessagesReturn,
-    refresh: refreshMessages,
+    data,
+    refetch: refreshMessages,
     error,
-    loading,
+    isPending,
     setData,
-  } = useLoadFromEndpoint(createChatMessagesEndpoint, cmsApiBaseUrl, {
-    regionCode,
-    language: languageCode,
-    deviceId: chatId ?? '',
-  })
-  const botTyping = chatMessagesReturn?.botTyping
-  const messageCount = chatMessagesReturn?.messages.length ?? 0
+  } = useQueryFromEndpoint(
+    createChatMessagesEndpoint,
+    cmsApiBaseUrl,
+    {
+      regionCode: region.code,
+      language: languageCode,
+      deviceId: chatId,
+    },
+    { cached: false },
+  )
+  const botTyping = data?.botTyping
+  const messageCount = data?.messages.length ?? 0
 
   const { value, updateLocalStorageItem } = useLocalStorage<Record<string, boolean>>({
     key: LOCAL_STORAGE_ITEM_CHAT_PRIVACY_POLICIES,
@@ -67,32 +57,30 @@ const ChatController = ({ region, languageCode, chatId, updateChatId }: ChatCont
   }, [refreshMessages, isBrowserTabActive, messageCount, botTyping])
 
   const submitMessage = async (message: string) => {
-    setSendingStatus('sending')
     const { data, error } = await createSendChatMessageEndpoint(cmsApiBaseUrl).request({
-      regionCode,
+      regionCode: region.code,
       language: languageCode,
       message,
-      deviceId: chatId ?? initializeChat(),
+      deviceId: chatId,
     })
 
     if (data !== null) {
       setData(data)
-      setSendingStatus('successful')
     }
 
     if (error !== null) {
-      setSendingStatus('failed')
+      setSendingError(error)
     }
   }
 
   return (
     <Chat
       region={region}
-      messages={chatMessagesReturn?.messages ?? []}
+      messages={data?.messages ?? []}
       submitMessage={submitMessage}
       // If no message has been sent yet, fetching the messages yields a 404 not found error
-      hasError={error !== null && !(error instanceof NotFoundError)}
-      isLoading={chatMessagesReturn === null && (loading || sendingStatus === 'sending')}
+      hasError={!!sendingError || (error !== null && !(error instanceof NotFoundError))}
+      isLoading={isPending}
       isTyping={botTyping ?? false}
       privacyPolicyAccepted={privacyPolicyAccepted}
       acceptPrivacyPolicy={acceptCustomPrivacyPolicy}

@@ -183,11 +183,11 @@ const RemoteContentSandBox = styled('div')<{ centered: boolean; smallText: boole
       li {
         position: relative;
 
-        &:has(img:first-child) {
+        &:has(img:first-of-type) {
           list-style: none;
         }
 
-        img:first-child {
+        img:first-of-type {
           position: absolute;
           inset-inline-start: -24px;
           top: 1px;

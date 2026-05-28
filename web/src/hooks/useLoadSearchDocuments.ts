@@ -1,13 +1,9 @@
 import { useMemo } from 'react'
 
 import { prepareSearchDocuments } from 'shared'
-import {
-  createCategoriesEndpoint,
-  createEventsEndpoint,
-  createPOIsEndpoint,
-  ExtendedDocumentModel,
-  useLoadFromEndpoint,
-} from 'shared/api'
+import { createCategoriesEndpoint, createEventsEndpoint, createPOIsEndpoint, ExtendedDocumentModel } from 'shared/api'
+
+import useQueryFromEndpoint from './useQueryFromEndpoint'
 
 type UseLoadSearchDocumentsProps = {
   regionCode: string
@@ -28,9 +24,9 @@ const useLoadSearchDocuments = ({
 }: UseLoadSearchDocumentsProps): UseLoadSearchDocumentsReturn => {
   const params = { region: regionCode, language: languageCode }
 
-  const categories = useLoadFromEndpoint(createCategoriesEndpoint, cmsApiBaseUrl, params)
-  const events = useLoadFromEndpoint(createEventsEndpoint, cmsApiBaseUrl, params)
-  const pois = useLoadFromEndpoint(createPOIsEndpoint, cmsApiBaseUrl, params)
+  const categories = useQueryFromEndpoint(createCategoriesEndpoint, cmsApiBaseUrl, params)
+  const events = useQueryFromEndpoint(createEventsEndpoint, cmsApiBaseUrl, params)
+  const pois = useQueryFromEndpoint(createPOIsEndpoint, cmsApiBaseUrl, params)
 
   const documents = useMemo(
     () => prepareSearchDocuments(categories.data, events.data, pois.data),
@@ -39,7 +35,7 @@ const useLoadSearchDocuments = ({
 
   return {
     data: documents,
-    loading: categories.loading || events.loading || pois.loading,
+    loading: categories.isPending || events.isPending || pois.isPending,
     error: categories.error || events.error || pois.error,
   }
 }

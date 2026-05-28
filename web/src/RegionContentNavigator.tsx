@@ -11,7 +11,7 @@ import {
   POIS_ROUTE,
   SEARCH_ROUTE,
 } from 'shared'
-import { NotFoundError, useLoadFromEndpoint, createRegionEndpoint } from 'shared/api'
+import { NotFoundError, createRegionEndpoint } from 'shared/api'
 
 import FailureSwitcherWithHelmet from './components/FailureSwitcherWithHelmet'
 import Footer from './components/Footer'
@@ -20,6 +20,7 @@ import LanguageFailure from './components/LanguageFailure'
 import Layout from './components/Layout'
 import RegionContentLayout from './components/RegionContentLayout'
 import { cmsApiBaseUrl } from './constants/urls'
+import useQueryFromEndpoint from './hooks/useQueryFromEndpoint'
 import {
   LOCAL_NEWS_ROUTE,
   RoutePatterns,
@@ -47,24 +48,25 @@ const RegionContentNavigator = ({ languageCode }: RegionContentNavigatorProps): 
   // This component is only opened when there is a regionCode in the route
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const regionCode = useParams().regionCode!
-  const {
-    data: region,
-    error,
-    loading,
-  } = useLoadFromEndpoint(createRegionEndpoint, cmsApiBaseUrl, { region: regionCode })
+  const { data: region, error: regionError } = useQueryFromEndpoint(createRegionEndpoint, cmsApiBaseUrl, {
+    region: regionCode,
+  })
   const pathname = normalizePath(useLocation().pathname)
 
-  if (!region && !loading) {
-    const notFoundError = new NotFoundError({
-      type: 'region',
-      id: regionCode,
-      region: regionCode,
-      language: languageCode,
-    })
+  if (regionError) {
+    const error =
+      regionError instanceof NotFoundError
+        ? new NotFoundError({
+            type: 'region',
+            id: regionCode,
+            region: regionCode,
+            language: languageCode,
+          })
+        : regionError
 
     return (
       <Layout header={<GeneralHeader languageCode={languageCode} />} footer={<Footer />}>
-        <FailureSwitcherWithHelmet error={error ?? notFoundError} />
+        <FailureSwitcherWithHelmet error={error} />
       </Layout>
     )
   }
@@ -89,7 +91,7 @@ const RegionContentNavigator = ({ languageCode }: RegionContentNavigatorProps): 
   }
 
   const regionRouteProps: RegionRouteProps = {
-    region,
+    region: region ?? null,
     pathname,
     regionCode,
     languageCode,

@@ -3,19 +3,16 @@ import { useLocation } from 'react-router'
 
 import { IMPRINT_ROUTE, NEWS_ROUTE, normalizePath, POIS_ROUTE, SEARCH_ROUTE } from 'shared'
 import { RegionModel, RegionModelBuilder } from 'shared/api'
-import {
-  mockUseLoadFromEndpointWithData,
-  mockUseLoadFromEndpointWithError,
-} from 'shared/api/endpoints/testing/mockUseLoadFromEndpoint'
 
 import RegionContentNavigator from '../RegionContentNavigator'
 import { regionContentPattern } from '../routes'
+import {
+  mockUseQueryFromEndpointWithData,
+  mockUseQueryFromEndpointWithError,
+} from '../testing/mockUseQueryFromEndpoint'
 import { renderRoute } from '../testing/render'
 
-jest.mock('shared/api', () => ({
-  ...jest.requireActual('shared/api'),
-  useLoadFromEndpoint: jest.fn(),
-}))
+jest.mock('../hooks/useQueryFromEndpoint')
 jest.mock('../components/RegionContentHeader')
 jest.mock('../components/RegionContentLayout')
 jest.mock('react-i18next')
@@ -48,7 +45,7 @@ describe('RegionContentNavigator', () => {
   it.each([{ routeName: SEARCH_ROUTE }, { routeName: IMPRINT_ROUTE }, { routeName: POIS_ROUTE }])(
     'should navigate to $routeName route',
     async ({ routeName }) => {
-      mockUseLoadFromEndpointWithData(region)
+      mockUseQueryFromEndpointWithData(region)
       const { findByText } = renderRegionContentNavigator(routeName)
       // findByText is needed as routes are lazy loaded
       expect(await findByText(routeName)).toBeTruthy()
@@ -56,19 +53,13 @@ describe('RegionContentNavigator', () => {
   )
 
   it('should show an error if endpoint throws an error', () => {
-    mockUseLoadFromEndpointWithError('Region cannot be loaded')
+    mockUseQueryFromEndpointWithError('Region cannot be loaded')
     const { getByText } = renderRegionContentNavigator(SEARCH_ROUTE)
     expect(getByText('error:unknownError')).toBeTruthy()
   })
 
-  it('should show an error if region cannot be loaded', () => {
-    mockUseLoadFromEndpointWithData(null)
-    const { getByText } = renderRegionContentNavigator(SEARCH_ROUTE)
-    expect(getByText('error:notFound.region')).toBeTruthy()
-  })
-
   it('should not navigate to pois route if pois are not enabled', async () => {
-    mockUseLoadFromEndpointWithData(regionWithDisabledFeatures)
+    mockUseQueryFromEndpointWithData(regionWithDisabledFeatures)
     const { queryByText } = renderRegionContentNavigator(POIS_ROUTE)
     expect(queryByText(POIS_ROUTE)).not.toBeTruthy()
   })
@@ -78,7 +69,7 @@ describe('RegionContentNavigator', () => {
       from          | to
       ${NEWS_ROUTE} | ${'/augsburg/de/news/local'}
     `('should redirect from $from to $to', ({ from, to }) => {
-      mockUseLoadFromEndpointWithData(region)
+      mockUseQueryFromEndpointWithData(region)
       const { getByText } = renderRegionContentNavigator(from)
       expect(getByText(to)).toBeTruthy()
     })

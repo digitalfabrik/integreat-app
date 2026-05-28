@@ -3,17 +3,13 @@ import React from 'react'
 
 import { IMPRINT_ROUTE, pathnameFromRouteInformation } from 'shared'
 import { RegionModelBuilder, DocumentModel } from 'shared/api'
-import { mockUseLoadFromEndpointOnceWithData } from 'shared/api/endpoints/testing/mockUseLoadFromEndpoint'
 
+import { mockUseQueryFromEndpointOnceWithData } from '../../testing/mockUseQueryFromEndpoint'
 import { renderRoute } from '../../testing/render'
 import ImprintPage from '../ImprintPage'
 import { RoutePatterns } from '../index'
 
-jest.mock('shared/api', () => ({
-  ...jest.requireActual('shared/api'),
-  useLoadFromEndpoint: jest.fn(),
-}))
-
+jest.mock('../../hooks/useQueryFromEndpoint')
 jest.mock('react-i18next')
 
 describe('ImprintPage', () => {
@@ -40,7 +36,7 @@ describe('ImprintPage', () => {
   const routePattern = `/:regionCode/:languageCode/${RoutePatterns[IMPRINT_ROUTE]}`
 
   const renderImprintPage = () => {
-    mockUseLoadFromEndpointOnceWithData(imprint)
+    mockUseQueryFromEndpointOnceWithData(imprint)
     return renderRoute(
       <ImprintPage region={region} languageCode={languageCode} regionCode={region.code} pathname={pathname} />,
       { pathname, routePattern },

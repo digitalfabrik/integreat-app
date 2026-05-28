@@ -8,10 +8,6 @@ const renderSuccessful = 'route'
 
 jest.mock('react-i18next')
 jest.mock('../RegionContentNavigator', () => () => <div>{renderSuccessful}</div>)
-jest.mock('shared/api', () => ({
-  ...jest.requireActual('shared/api'),
-  useLoadFromEndpoint: jest.fn(() => ({ data: null, error: null, loading: false, refresh: jest.fn() })),
-}))
 
 describe('FixedRegionContentNavigator', () => {
   const languageCode = 'de'
