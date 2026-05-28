@@ -1,7 +1,7 @@
 import distance from '@turf/distance'
 import { DateTime } from 'luxon'
 
-import { GeoJsonPoi, LocationType } from '../../constants/maps'
+import { GeoJsonPoi, LocationType } from '../../constants/map'
 import isCurrentlyOpen from '../../utils/isCurrentlyOpen'
 import ContactModel from './ContactModel'
 import DocumentModel from './DocumentModel'

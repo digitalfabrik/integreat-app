@@ -2,7 +2,7 @@ import distance from '@turf/distance'
 
 import PoiCategoryModel from '../api/models/PoiCategoryModel'
 import PoiModel from '../api/models/PoiModel'
-import { LocationType, MapFeature } from '../constants/maps'
+import { LocationType, MapFeature } from '../constants/map'
 import { prepareMapFeatures } from './geoJson'
 
 export const calculateDistance = distance

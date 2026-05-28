@@ -1,7 +1,7 @@
 import { Settings } from 'luxon'
 
 import PoiModelBuilder from '../../api/endpoints/testing/PoiModelBuilder'
-import { LocationType } from '../../constants/maps'
+import { LocationType } from '../../constants/map'
 import { prepareMapFeatures } from '../geoJson'
 import { preparePois, sortPois } from '../pois'
 

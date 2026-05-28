@@ -1,7 +1,7 @@
 import distance from '@turf/distance'
 
 import PoiModel from '../api/models/PoiModel'
-import { featureLayerId, MapFeature, MapFeatureCollection } from '../constants/maps'
+import { featureLayerId, MapFeature, MapFeatureCollection } from '../constants/map'
 
 export const MIN_DISTANCE_THRESHOLD = 0.1
 
