@@ -7,11 +7,11 @@ import useLocalStorage from '../useLocalStorage'
 describe('useLocalStorage', () => {
   const key = 'my_storage_key'
   const MockComponent = () => {
-    const { value, updateLocalStorageItem } = useLocalStorage({ key, initialValue: 0 })
+    const [value, setValue] = useLocalStorage({ key, initialValue: 0 })
     return (
       <div>
         {value}
-        <Button onClick={() => updateLocalStorageItem(value + 1)}>Increment</Button>
+        <Button onClick={() => setValue(value + 1)}>Increment</Button>
       </div>
     )
   }

@@ -27,7 +27,7 @@ describe('ChatContainer', () => {
 
   it('should show privacy policy if not accepted yet', () => {
     const value = { testumgebung: true }
-    mocked(useLocalStorage<Record<string, boolean>>).mockImplementation(() => ({ value, updateLocalStorageItem }))
+    mocked(useLocalStorage<Record<string, boolean>>).mockImplementation(() => [value, updateLocalStorageItem])
     const { getByText, queryByText } = renderWithTheme(
       <ChatController chatId='test-id' region={region} languageCode='de' />,
     )
@@ -41,7 +41,7 @@ describe('ChatContainer', () => {
 
   it('should fetch chat messages without caching', () => {
     const value = { testumgebung: true, augsburg: true }
-    mocked(useLocalStorage<Record<string, boolean>>).mockImplementation(() => ({ value, updateLocalStorageItem }))
+    mocked(useLocalStorage<Record<string, boolean>>).mockImplementation(() => [value, updateLocalStorageItem])
     renderWithTheme(<ChatController chatId='test-id' region={region} languageCode='de' />)
     expect(mocked(useQueryFromEndpoint)).toHaveBeenCalledWith(expect.anything(), expect.anything(), expect.anything(), {
       cached: false,
@@ -50,7 +50,7 @@ describe('ChatContainer', () => {
 
   it('should directly show chat if privacy policy already accepted', () => {
     const value = { testumgebung: true, augsburg: true }
-    mocked(useLocalStorage<Record<string, boolean>>).mockImplementation(() => ({ value, updateLocalStorageItem }))
+    mocked(useLocalStorage<Record<string, boolean>>).mockImplementation(() => [value, updateLocalStorageItem])
     const { getByText, queryByText } = renderWithTheme(
       <ChatController chatId='test-id' region={region} languageCode='de' />,
     )

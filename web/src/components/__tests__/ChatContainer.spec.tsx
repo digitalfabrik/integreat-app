@@ -15,10 +15,7 @@ jest.mock('react-i18next', () => ({
   }),
   Trans: ({ i18nKey }: { i18nKey: string }) => i18nKey,
 }))
-jest.mock('../../hooks/useLocalStorage', () => () => ({
-  value: { augsburg: true },
-  updateLocalStorageItem: jest.fn(),
-}))
+jest.mock('../../hooks/useLocalStorage', () => () => [{ augsburg: true }, jest.fn()])
 jest.mock('../../hooks/useQueryFromEndpoint')
 
 describe('ChatContainer', () => {

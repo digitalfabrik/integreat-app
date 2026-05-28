@@ -8,9 +8,8 @@ import { ExternalSourcePermissions } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
 import useDimensions from '../hooks/useDimensions'
-import useLocalStorage from '../hooks/useLocalStorage'
+import useLocalStorage, { EXTERNAL_SOURCES_STORAGE_KEY } from '../hooks/useLocalStorage'
 import {
-  LOCAL_STORAGE_ITEM_EXTERNAL_SOURCES,
   handleAllowedIframeSources,
   hideIframe,
   IframeSources,
@@ -33,8 +32,8 @@ const DOMPURIFY_ATTRIBUTE_TARGET = 'target'
 const RemoteContent = ({ html, centered = false, smallText = false }: RemoteContentProps): ReactElement => {
   const navigate = useNavigate()
   const sandBoxRef = React.createRef<HTMLDivElement>()
-  const { value: externalSourcePermissions, updateLocalStorageItem } = useLocalStorage<ExternalSourcePermissions>({
-    key: LOCAL_STORAGE_ITEM_EXTERNAL_SOURCES,
+  const [externalSources, setExternalSources] = useLocalStorage<ExternalSourcePermissions>({
+    key: EXTERNAL_SOURCES_STORAGE_KEY,
     initialValue: {},
   })
 
@@ -52,9 +51,9 @@ const RemoteContent = ({ html, centered = false, smallText = false }: RemoteCont
     [navigate],
   )
 
-  const onUpdateLocalStorage = useCallback(
-    (source: string): void => updateLocalStorageItem({ ...externalSourcePermissions, [source]: true }),
-    [externalSourcePermissions, updateLocalStorageItem],
+  const addExternalSource = useCallback(
+    (source: string): void => setExternalSources({ ...externalSources, [source]: true }),
+    [externalSources, setExternalSources],
   )
 
   useEffect(() => {
@@ -95,10 +94,10 @@ const RemoteContent = ({ html, centered = false, smallText = false }: RemoteCont
       if (supportedSource && storedIframeSource) {
         handleAllowedIframeSources(
           iframe,
-          externalSourcePermissions,
+          externalSources,
           storedIframeSource,
           t,
-          onUpdateLocalStorage,
+          addExternalSource,
           index,
           supportedSource,
           mobile,
@@ -111,9 +110,9 @@ const RemoteContent = ({ html, centered = false, smallText = false }: RemoteCont
     html,
     handleAnchorClick,
     sandBoxRef,
-    externalSourcePermissions,
+    externalSources,
     contentIframeSources,
-    onUpdateLocalStorage,
+    addExternalSource,
     mobile,
     window.width,
     isContrastTheme,

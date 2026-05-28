@@ -15,13 +15,11 @@ import { useTranslation } from 'react-i18next'
 import { ChatMessageModel, RegionModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
-import useLocalStorage from '../hooks/useLocalStorage'
+import useLocalStorage, { CHAT_HINT_VISIBLE_STORAGE_KEY } from '../hooks/useLocalStorage'
 import ChatConversation from './ChatConversation'
 import PrivacyCheckbox from './PrivacyCheckbox'
 import H1 from './base/H1'
 import Link from './base/Link'
-
-const SHOW_CHAT_HINT_KEY = 'showChatHint'
 
 const Container = styled(Stack)(({ theme }) => ({
   height: '100%',
@@ -57,8 +55,8 @@ const Chat = ({
 }: ChatProps): ReactElement => {
   const { t } = useTranslation('chat')
   const [textInput, setTextInput] = useState<string>('')
-  const { value: showChatHint, updateLocalStorageItem } = useLocalStorage<boolean>({
-    key: SHOW_CHAT_HINT_KEY,
+  const [chatHintVisible, setChatHintVisible] = useLocalStorage<boolean>({
+    key: CHAT_HINT_VISIBLE_STORAGE_KEY,
     initialValue: true,
     isSessionStorage: true,
   })
@@ -101,8 +99,8 @@ const Chat = ({
       <ChatConversation messages={messages} isTyping={isTyping} loading={isLoading} />
       <Stack paddingInline={2} gap={1}>
         {hasError && <Alert severity='error'>{t('errorMessage')}</Alert>}
-        {showChatHint && (
-          <Alert severity='info' icon={<InfoIcon />} onClose={() => updateLocalStorageItem(false)}>
+        {chatHintVisible && (
+          <Alert severity='info' icon={<InfoIcon />} onClose={() => setChatHintVisible(false)}>
             <Typography variant='body2'>{t('conversationHelperText')}</Typography>
           </Alert>
         )}

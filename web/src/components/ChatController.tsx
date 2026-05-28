@@ -4,7 +4,7 @@ import { RegionModel, createChatMessagesEndpoint, createSendChatMessageEndpoint,
 
 import { cmsApiBaseUrl } from '../constants/urls'
 import useIsTabActive from '../hooks/useIsTabActive'
-import useLocalStorage from '../hooks/useLocalStorage'
+import useLocalStorage, { CHAT_PRIVACY_POLICIES_STORAGE_KEY } from '../hooks/useLocalStorage'
 import useQueryFromEndpoint from '../hooks/useQueryFromEndpoint'
 import Chat from './Chat'
 
@@ -14,7 +14,6 @@ type ChatControllerProps = {
   chatId: string
 }
 
-const LOCAL_STORAGE_ITEM_CHAT_PRIVACY_POLICIES = 'Chat-Privacy-Policies'
 const DEFAULT_POLLING_INTERVAL = 15000
 const TYPING_POLLING_INTERVAL = 3000
 
@@ -41,12 +40,12 @@ const ChatController = ({ region, languageCode, chatId }: ChatControllerProps): 
   const botTyping = data?.botTyping
   const messageCount = data?.messages.length ?? 0
 
-  const { value, updateLocalStorageItem } = useLocalStorage<Record<string, boolean>>({
-    key: LOCAL_STORAGE_ITEM_CHAT_PRIVACY_POLICIES,
+  const [privacyPolicies, setPrivacyPolicies] = useLocalStorage<Record<string, boolean>>({
+    key: CHAT_PRIVACY_POLICIES_STORAGE_KEY,
     initialValue: {},
   })
-  const privacyPolicyAccepted = value[region.code] ?? false
-  const acceptCustomPrivacyPolicy = () => updateLocalStorageItem({ ...value, [region.code]: true })
+  const privacyPolicyAccepted = privacyPolicies[region.code] ?? false
+  const acceptCustomPrivacyPolicy = () => setPrivacyPolicies({ ...privacyPolicies, [region.code]: true })
 
   useEffect(() => {
     if (!isBrowserTabActive || messageCount === 0) {
