@@ -42,7 +42,7 @@ const AddressInfo = ({ location, language }: AddressInfoProps): ReactElement => 
   }
 
   return (
-    <Container language={language}>
+    <Container nativeID='accessibility-order-address' language={language}>
       <TouchableRipple borderless accessibilityLabel={t('copyAddress')} role='button' onPress={copyLocationToClipboard}>
         <>
           <Text>{address}</Text>
