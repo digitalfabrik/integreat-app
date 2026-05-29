@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList } from 'react-native'
 import { Divider } from 'react-native-paper'
@@ -7,6 +7,7 @@ import { SettingsRouteType } from 'shared'
 
 import Caption from '../components/Caption'
 import Layout from '../components/Layout'
+import LayoutedScrollView from '../components/LayoutedScrollView'
 import SettingItem from '../components/SettingItem'
 import SwitchCmsUrlButton from '../components/SwitchCmsUrlButton'
 import { NavigationProps } from '../constants/NavigationTypes'
@@ -26,10 +27,10 @@ const Settings = ({ navigation }: SettingsProps): ReactElement => {
   const { t } = useTranslation('settings')
   const { settings } = appContext
 
-  const clearResourcesAndCache = useCallback(() => {
+  const clearResourcesAndCache = () => {
     dataContainer.clearInMemoryCache()
     dataContainer._clearOfflineCache().catch(reportError)
-  }, [])
+  }
 
   const safeOnPress = (update: () => Promise<void> | void) => async () => {
     const oldSettings = settings
@@ -58,7 +59,7 @@ const Settings = ({ navigation }: SettingsProps): ReactElement => {
   }).filter((it): it is SettingsSectionType => it !== null)
 
   return (
-    <>
+    <LayoutedScrollView>
       <SwitchCmsUrlButton clearResourcesAndCache={clearResourcesAndCache} />
       <Layout>
         <Caption title={t('layout:settings')} />
@@ -69,9 +70,11 @@ const Settings = ({ navigation }: SettingsProps): ReactElement => {
           renderItem={renderItem}
           ItemSeparatorComponent={Divider}
           ListFooterComponent={Divider}
+          // Fixes VirtualizedList should never be nested inside plain ScrollViews
+          scrollEnabled={false}
         />
       </Layout>
-    </>
+    </LayoutedScrollView>
   )
 }
 
