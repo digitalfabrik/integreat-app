@@ -26,7 +26,7 @@ const Highlighter = ({ search, text, style }: HighlighterProps): ReactElement =>
     <Text style={style}>
       {chunks.map(chunk => {
         const matchedText = text.substring(chunk.start, chunk.end)
-        return chunk.highlight ? (
+        return chunk.highlight === true ? (
           <Text
             key={chunk.start}
             style={{
