@@ -1,5 +1,3 @@
-import { jest } from '@jest/globals'
-
 import { testOverrideTranslations } from '../__mocks__/loadTranslations.js'
 import loadTranslations from '../loadTranslations.js'
 

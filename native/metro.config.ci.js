@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const defaultConfig = require('./metro.config.cjs')
+import defaultConfig from './metro.config.js'
 
-module.exports = {
+export default {
   ...defaultConfig,
   maxWorkers: process.env.TOTAL_CPUS || 1 /* CircleCI: The issue with this on Dockerized services such as CircleCI is
                                               that the container thinks it has access to all of the hosts cores,

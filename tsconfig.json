@@ -19,9 +19,7 @@
     "outDir": "dist",
     "types": ["jest"]
   },
-  "include": ["jest.config.ts", ".prettierrc",
-    "eslint.config.js"
-  ],
+  "include": ["jest.config.ts", ".prettierrc", "eslint.config.js"],
   "references": [
     { "path": "shared" },
     { "path": "build-configs" },

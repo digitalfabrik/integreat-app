@@ -318,7 +318,7 @@ export default defineConfig([
   },
 
   {
-    files: ['**/tools/**', 'translations/**', 'e2e-tests/**', '**/metro.config.cjs'],
+    files: ['**/tools/**', 'translations/**', 'e2e-tests/**', '**/metro.config.js'],
 
     rules: {
       'no-console': 'off',

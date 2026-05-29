@@ -14,10 +14,9 @@ export default {
     '^.+\\.(t|j)sx?$': [
       'ts-jest',
       {
-        useESM: true,
+        tsconfig: { module: 'CommonJS' },
       },
     ],
   },
-  extensionsToTreatAsEsm: ['.ts'],
   maxWorkers: '50%',
 }

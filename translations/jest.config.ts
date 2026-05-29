@@ -6,9 +6,8 @@ export default {
   moduleNameMapper: {
     '^(\\.{1,2}/.*)\\.js$': '$1',
   },
-  extensionsToTreatAsEsm: ['.ts', '.tsx'],
   maxWorkers: '50%',
   transform: {
-    '^.+\\.(j|t)sx?$': ['ts-jest', {}],
+    '^.+\\.(j|t)sx?$': ['ts-jest', { tsconfig: { module: 'CommonJS' } }],
   },
 }

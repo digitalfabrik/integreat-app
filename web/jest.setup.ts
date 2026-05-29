@@ -3,7 +3,6 @@ import '@testing-library/jest-dom'
 import fetchMock from 'jest-fetch-mock'
 import * as fs from 'node:fs'
 import * as path from 'node:path'
-import { fileURLToPath } from 'node:url'
 import { TextDecoder, TextEncoder } from 'node:util'
 import 'raf/polyfill'
 
