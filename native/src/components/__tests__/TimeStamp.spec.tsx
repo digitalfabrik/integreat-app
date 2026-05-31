@@ -21,15 +21,15 @@ describe('TimeStamp', () => {
     render(<TimeStamp lastUpdate={lastUpdate} format={format ?? undefined} showText={showText ?? undefined} />)
 
   it('should display last update text and formatted timestamp', () => {
-    const { getByText } = renderTimeStamp(null, null)
-    expect(getByText(/lastUpdate/)).toBeTruthy()
-    expect(getByText(lastUpdate.setLocale('en').toFormat('DDD'))).toBeTruthy()
+    const { findByText } = renderTimeStamp(null, null)
+    expect(findByText(/lastUpdate/)).toBeTruthy()
+    expect(findByText(lastUpdate.setLocale('en').toFormat('DDD'))).toBeTruthy()
   })
 
   it('should display last update text and formatted timestamp explicitly', () => {
-    const { getByText } = renderTimeStamp(null, true)
-    expect(getByText(/lastUpdate/)).toBeTruthy()
-    expect(getByText(lastUpdate.setLocale('en').toFormat('DDD'))).toBeTruthy()
+    const { findByText } = renderTimeStamp(null, true)
+    expect(findByText(/lastUpdate/)).toBeTruthy()
+    expect(findByText(lastUpdate.setLocale('en').toFormat('DDD'))).toBeTruthy()
   })
 
   it('should only display formatted timestamp', () => {
