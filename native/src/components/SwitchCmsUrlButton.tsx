@@ -12,6 +12,7 @@ const Container = styled.View`
   display: flex;
   align-items: center;
   gap: 8px;
+  padding: 16px 0;
 `
 
 type SwitchCmsUrlButtonProps = {

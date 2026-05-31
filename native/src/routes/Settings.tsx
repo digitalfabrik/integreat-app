@@ -6,7 +6,6 @@ import { Divider } from 'react-native-paper'
 import { SettingsRouteType } from 'shared'
 
 import Caption from '../components/Caption'
-import Layout from '../components/Layout'
 import LayoutedScrollView from '../components/LayoutedScrollView'
 import SettingItem from '../components/SettingItem'
 import SwitchCmsUrlButton from '../components/SwitchCmsUrlButton'
@@ -60,20 +59,18 @@ const Settings = ({ navigation }: SettingsProps): ReactElement => {
 
   return (
     <LayoutedScrollView>
+      <Caption title={t('layout:settings')} />
       <SwitchCmsUrlButton clearResourcesAndCache={clearResourcesAndCache} />
-      <Layout>
-        <Caption title={t('layout:settings')} />
-        <Divider />
-        <FlatList
-          data={sections}
-          extraData={appContext.settings}
-          renderItem={renderItem}
-          ItemSeparatorComponent={Divider}
-          ListFooterComponent={Divider}
-          // Fixes VirtualizedList should never be nested inside plain ScrollViews
-          scrollEnabled={false}
-        />
-      </Layout>
+      <Divider />
+      <FlatList
+        data={sections}
+        extraData={appContext.settings}
+        renderItem={renderItem}
+        ItemSeparatorComponent={Divider}
+        ListFooterComponent={Divider}
+        // Fixes VirtualizedList should never be nested inside plain ScrollViews
+        scrollEnabled={false}
+      />
     </LayoutedScrollView>
   )
 }
