@@ -3,7 +3,7 @@ import { parse } from 'csv-parse/sync'
 import { stringify } from 'csv-stringify'
 import flat from 'flat'
 import fs from 'fs'
-import { fromPairs, isEmpty, isEqual, isString, mapValues, merge, sortBy, toPairs, without, zip } from 'lodash'
+import { fromPairs, isEmpty, isEqual, isString, mapValues, merge, sortBy, toPairs, without, zip } from 'lodash-es'
 import path from 'path'
 
 import config from '../src/config.js'
