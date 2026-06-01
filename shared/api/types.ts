@@ -214,5 +214,5 @@ export type JsonRegionType = {
 export type TimeSlot = {
   end: string
   start: string
-  timezone: string | undefined
+  timezone: string
 }
