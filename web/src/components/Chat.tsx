@@ -141,7 +141,7 @@ const Chat = ({
     }).catch(reportError)
   }
 
-  const submitDisabled = textInput.trim().length === 0 || error != null || isPending
+  const submitDisabled = textInput.trim().length === 0
   const submitOnEnter = (event: KeyboardEvent) => {
     if (event.key !== 'Enter' || event.shiftKey) {
       return
