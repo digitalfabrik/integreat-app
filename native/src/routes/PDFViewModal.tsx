@@ -48,9 +48,9 @@ const PDFViewModal = ({ route, navigation: _navigation }: PDFViewModalProps): Re
       <Layout>
         <Failure
           code={ErrorCode.UnknownError}
-          buttonAction={() => {
-            refresh()
+          retry={() => {
             setError(false)
+            refresh()
           }}
         />
       </Layout>

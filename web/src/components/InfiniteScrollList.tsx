@@ -41,7 +41,7 @@ const InfiniteScrollList = <T,>({
           }
         }
       }
-      await loadAsync(request, addData, setError, setLoading)
+      await loadAsync(request, { setData: addData, setError, setLoading })
     }
   }, [defaultPage, page, hasMore, itemsPerPage, loadPage])
 

@@ -46,7 +46,13 @@ describe('Pois', () => {
     const localHistory = createLocalHistory(current)
     const renderResult = renderWithTheme(
       <TestingAppContext>
-        <Pois localHistory={localHistory} pois={pois} regionModel={region} initialZoom={undefined} />
+        <Pois
+          refresh={() => undefined}
+          localHistory={localHistory}
+          pois={pois}
+          regionModel={region}
+          initialZoom={undefined}
+        />
       </TestingAppContext>,
     )
     return { localHistory, ...renderResult }

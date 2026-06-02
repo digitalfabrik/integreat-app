@@ -51,7 +51,7 @@ const Events = ({ regionModel, language, navigateTo, events, slug, refresh }: Ev
     })
     return (
       <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={false} />}>
-        <Failure code={fromError(error)} />
+        <Failure code={fromError(error)} retry={refresh} />
       </LayoutedScrollView>
     )
   }
@@ -101,7 +101,7 @@ const Events = ({ regionModel, language, navigateTo, events, slug, refresh }: Ev
       region: regionModel.code,
       language,
     })
-    return <Failure code={fromError(error)} />
+    return <Failure code={fromError(error)} retry={refresh} />
   }
 
   const renderEventListItem = ({ item }: { item: EventModel }) => {

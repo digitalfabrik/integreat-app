@@ -10,6 +10,7 @@ import {
 } from 'shared/api'
 
 import { tuNewsApiUrl } from '../constants/endpoint'
+import { reportError } from '../utils/sentry'
 
 const TU_NEWS_FETCH_COUNT_LIMIT = 20
 const FIRST_PAGE_INDEX = 1
@@ -57,9 +58,7 @@ const useLoadTuNews = ({ language }: ParamsType): TuNewsReturnType => {
       return data
     }
 
-    loadAsync<TuNewsModel[]>(request, updateData, setError, setLoading).catch(e => {
-      setError(e)
-    })
+    loadAsync(request, { setData: updateData, setError, setLoading }).catch(reportError)
   }, [language, page, updateData])
 
   const loadMore = useCallback(() => {
@@ -80,9 +79,7 @@ const useLoadTuNews = ({ language }: ParamsType): TuNewsReturnType => {
     }
   }, [page, load])
 
-  useEffect(() => {
-    load()
-  }, [load])
+  useEffect(load, [load])
 
   return {
     data,

@@ -6,8 +6,8 @@ import { Endpoint, loadFromEndpoint } from 'shared/api'
 // eslint-disable-next-line no-magic-numbers
 const defaultStaleTime = 5 * 60 * 1000
 
-type UseQueryFromEndpointReturn<T extends object> = UseQueryResult<T> & {
-  setData: (data: T) => void
+export type UseQueryFromEndpointReturn<T extends object> = UseQueryResult<T> & {
+  setData: (data: T | null) => void
 }
 
 const useQueryFromEndpoint = <T extends object, P>(

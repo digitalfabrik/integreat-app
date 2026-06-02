@@ -2,9 +2,15 @@ import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'reac
 
 export const loadAsync = async <T>(
   request: () => Promise<T | null>,
-  setData: (data: T | null) => void,
-  setError: (error: Error | null) => void,
-  setLoading: (loading: boolean) => void,
+  {
+    setData,
+    setError = () => undefined,
+    setLoading = () => undefined,
+  }: {
+    setData: (data: T | null) => void
+    setError?: (error: Error | null) => void
+    setLoading?: (loading: boolean) => void
+  },
 ): Promise<void> => {
   setLoading(true)
 
@@ -35,7 +41,7 @@ export const useLoadAsync = <T extends object>(request: (refresh: boolean) => Pr
 
   const load = useCallback(
     (refresh = false) => {
-      loadAsync<T>(() => request(refresh), setData, setError, setLoading).catch(setError)
+      loadAsync<T>(() => request(refresh), { setData, setError, setLoading }).catch(setError)
     },
     [request],
   )

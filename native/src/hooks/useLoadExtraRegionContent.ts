@@ -41,14 +41,14 @@ const useLoadExtraRegionContent = <T extends object>({
   load,
 }: UseLoadExtraRegionContentParams<T>): UseLoadExtraRegionContentReturn<T> => {
   const { refresh: refreshRegionContent, ...regionContentReturn } = useLoadRegionContent({ regionCode, languageCode })
-  const loadAsync = useCallback(
+  const loadExtra = useCallback(
     async () =>
       load
         ? load()
         : loadFromEndpoint(createEndpoint, await determineApiUrl(), { region: regionCode, language: languageCode }),
     [createEndpoint, load, regionCode, languageCode],
   )
-  const { refresh: refreshExtra, ...extraReturn } = useLoadAsync(loadAsync)
+  const { refresh: refreshExtra, ...extraReturn } = useLoadAsync(loadExtra)
 
   const refresh = useCallback(() => {
     refreshRegionContent()

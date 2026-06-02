@@ -18,3 +18,7 @@ export const RATING_POSITIVE: Rating = 'positive'
 export const RATING_NEGATIVE: Rating = 'negative'
 
 export const REGION_SEARCH_EXAMPLE = 'Landkreis München'
+
+export const getChatName = (appName: string): string => `Frag ${appName} (beta)`
+export const CHAT_DEFAULT_POLLING_INTERVAL = 15000
+export const CHAT_TYPING_POLLING_INTERVAL = 3000

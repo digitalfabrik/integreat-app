@@ -100,6 +100,7 @@ const EventsDateFilter = ({
             }}
             inputMode='start'
             mode='outlined'
+            outlineColor={theme.colors.outlineVariant}
             hasError={!!startDateError}
           />
           <DatePickerInput
@@ -116,6 +117,7 @@ const EventsDateFilter = ({
             }}
             inputMode='start'
             mode='outlined'
+            outlineColor={theme.colors.outlineVariant}
           />
           <>
             {!!startDateError && (
