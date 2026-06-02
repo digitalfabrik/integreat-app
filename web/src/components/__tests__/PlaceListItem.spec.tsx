@@ -4,7 +4,7 @@ import React from 'react'
 import { PoiModelBuilder } from 'shared/api'
 
 import { renderWithRouterAndTheme } from '../../testing/render'
-import PoiListItem from '../PoiListItem'
+import PoiListItem from '../PlaceListItem'
 
 jest.mock('react-i18next')
 

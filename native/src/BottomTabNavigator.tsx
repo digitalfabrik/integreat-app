@@ -32,7 +32,7 @@ import CategoriesContainer from './routes/CategoriesContainer'
 import EventsContainer from './routes/EventsContainer'
 import LoadingErrorHandler from './routes/LoadingErrorHandler'
 import NewsContainer from './routes/NewsContainer'
-import PoisContainer from './routes/PoisContainer'
+import PoisContainer from './routes/PlacesContainer'
 import { usePushNotificationListener } from './utils/PushNotificationsManager'
 
 const Tab = createBottomTabNavigator<RoutesParamsType>()

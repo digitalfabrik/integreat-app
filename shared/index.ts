@@ -1,4 +1,4 @@
-import { PreparePoisReturn as ImportedPreparePoisReturn } from './utils/pois'
+import { PreparePoisReturn as ImportedPreparePoisReturn } from './utils/places'
 
 export type PreparePoisReturn = ImportedPreparePoisReturn
 export { default as useSearch, prepareSearchDocuments } from './hooks/useSearch'
@@ -11,7 +11,7 @@ export * from './routes/query'
 export * from './routes/pathname'
 export * from './utils/search'
 export * from './utils/licences'
-export * from './utils/pois'
+export * from './utils/places'
 export * from './utils/replaceLinks'
 export * from './utils/normalizeString'
 export { default as findNormalizedMatches, findAllMatches } from './utils/findNormalizedMatches'

@@ -6,7 +6,7 @@ import styled from 'styled-components/native'
 import { ContactModel } from 'shared/api'
 
 import OfficeHours from './OfficeHours'
-import PoiDetailRow from './PoiDetailRow'
+import PoiDetailRow from './PlaceDetailRow'
 import Text from './base/Text'
 
 const StyledDivider = styled(Divider)`

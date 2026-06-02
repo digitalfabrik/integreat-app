@@ -10,7 +10,7 @@ import {
   mockUseQueryFromEndpointWithError,
 } from '../../testing/mockUseQueryFromEndpoint'
 import { renderWithRouterAndTheme } from '../../testing/render'
-import PoisPage from '../PoisPage'
+import PoisPage from '../PlacesPage'
 import { RoutePatterns } from '../index'
 
 jest.mock('maplibre-gl')

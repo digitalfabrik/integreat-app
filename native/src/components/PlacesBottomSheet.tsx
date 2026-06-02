@@ -16,8 +16,8 @@ import useRegionAppContext from '../hooks/useRegionAppContext'
 import { conditionalA11yProps } from '../utils/helpers'
 import BottomSheetHandle from './BottomSheetHandle'
 import Failure from './Failure'
-import PoiDetails from './PoiDetails'
-import PoiListItem from './PoiListItem'
+import PoiDetails from './PlaceDetails'
+import PoiListItem from './PlaceListItem'
 import Text from './base/Text'
 
 const SCROLL_OFFSET = 0.5

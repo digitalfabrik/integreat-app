@@ -4,8 +4,8 @@ import ContactModel from '../../models/ContactModel'
 import LocationModel from '../../models/LocationModel'
 import OpeningHoursModel from '../../models/OpeningHoursModel'
 import OrganizationModel from '../../models/OrganizationModel'
-import PoiCategoryModel from '../../models/PoiCategoryModel'
-import PoiModel from '../../models/PoiModel'
+import PoiCategoryModel from '../../models/PlaceCategoryModel'
+import PoiModel from '../../models/PlaceModel'
 
 const pois = [
   new PoiModel({

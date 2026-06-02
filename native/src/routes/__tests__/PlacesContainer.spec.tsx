@@ -10,7 +10,7 @@ import { UseLocalHistoryReturn } from '../../hooks/useLocalStackHistory'
 import TestingAppContext from '../../testing/TestingAppContext'
 import createNavigationPropMock from '../../testing/createNavigationPropMock'
 import renderWithTheme from '../../testing/render'
-import PoisContainer from '../PoisContainer'
+import PoisContainer from '../PlacesContainer'
 
 jest.mock('@react-native-community/netinfo')
 jest.mock('../../utils/FetcherModule')
@@ -23,7 +23,7 @@ jest.mock('../../utils/url', () => ({
   __esModule: true,
   default: jest.fn(() => 'https://example.com'),
 }))
-jest.mock('../Pois', () => {
+jest.mock('../Places', () => {
   const { Text, Button } = require('react-native')
   return ({ localHistory }: { localHistory: UseLocalHistoryReturn<{ slug?: string }> }) => (
     <>

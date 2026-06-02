@@ -70,7 +70,7 @@ export {
   default as createTuNewsLanguagesEndpoint,
   TU_NEWS_LANGUAGES_ENDPOINT_NAME,
 } from './endpoints/createTuNewsLanguagesEndpoint'
-export { default as createPOIsEndpoint, POIS_ENDPOINT_NAME } from './endpoints/createPOIsEndpoint'
+export { default as createPlacesEndpoint, POIS_ENDPOINT_NAME } from './endpoints/createPlacesEndpoint'
 export {
   default as createSprungbrettJobsEndpoint,
   SPRUNGBRETT_JOBS_ENDPOINT_NAME,
@@ -90,8 +90,8 @@ export { default as LocationModel } from './models/LocationModel'
 export { default as FeaturedImageModel } from './models/FeaturedImageModel'
 export { default as DocumentModel } from './models/DocumentModel'
 export { default as ExtendedDocumentModel } from './models/ExtendedDocumentModel'
-export { default as PoiModel } from './models/PoiModel'
-export { default as PoiCategoryModel } from './models/PoiCategoryModel'
+export { default as PoiModel } from './models/PlaceModel'
+export { default as PoiCategoryModel } from './models/PlaceCategoryModel'
 export { default as SprungbrettJobModel } from './models/SprungbrettJobModel'
 export { default as OpeningHoursModel } from './models/OpeningHoursModel'
 export { default as OrganizationModel } from './models/OrganizationModel'

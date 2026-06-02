@@ -36,7 +36,7 @@ const TuNewsPage = lazyWithRetry(() => import('./routes/TuNewsPage'))
 const EventsPage = lazyWithRetry(() => import('./routes/EventsPage'))
 const CategoriesPage = lazyWithRetry(() => import('./routes/CategoriesPage'))
 const LocalNewsPage = lazyWithRetry(() => import('./routes/LocalNewsPage'))
-const PoisPage = lazyWithRetry(() => import('./routes/PoisPage'))
+const PoisPage = lazyWithRetry(() => import('./routes/PlacesPage'))
 const SearchPage = lazyWithRetry(() => import('./routes/SearchPage'))
 const ImprintPage = lazyWithRetry(() => import('./routes/ImprintPage'))
 

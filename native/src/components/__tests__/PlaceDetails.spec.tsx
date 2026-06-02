@@ -7,7 +7,7 @@ import { PoiModelBuilder } from 'shared/api'
 import useSnackbar from '../../hooks/useSnackbar'
 import renderWithTheme from '../../testing/render'
 import openExternalUrl from '../../utils/openExternalUrl'
-import PoiDetails from '../PoiDetails'
+import PoiDetails from '../PlaceDetails'
 
 jest.mock('../../utils/openExternalUrl', () => jest.fn(async () => undefined))
 jest.mock('@react-native-clipboard/clipboard', () => ({

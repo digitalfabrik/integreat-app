@@ -8,7 +8,7 @@ import {
   createCategoriesEndpoint,
   createEventsEndpoint,
   createLocalNewsEndpoint,
-  createPOIsEndpoint,
+  createPlacesEndpoint,
   EventModel,
   LanguageModel,
   LocalNewsModel,
@@ -78,7 +78,7 @@ const useLoadRegionContent = ({ regionCode, languageCode, refreshLocalNews }: Pa
   const poisReturn = useLoadWithCache({
     ...params,
     isAvailable: dataContainer.poisAvailable,
-    createEndpoint: createPOIsEndpoint,
+    createEndpoint: createPlacesEndpoint,
     getFromDataContainer: dataContainer.getPois,
     setToDataContainer: dataContainer.setPois,
   })

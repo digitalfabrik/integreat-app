@@ -8,9 +8,9 @@ import { PoiModel } from 'shared/api'
 
 import MapAttribution from './MapAttribution'
 import MapView from './MapView'
-import PoiPanelHeader from './PoiPanelHeader'
-import PoiPanelNavigation from './PoiPanelNavigation'
-import PoiSharedChildren from './PoiSharedChildren'
+import PoiPanelHeader from './PlacePanelHeader'
+import PoiPanelNavigation from './PlacePanelNavigation'
+import PoiSharedChildren from './PlaceSharedChildren'
 import SkeletonHeader from './SkeletonHeader'
 import SkeletonList from './SkeletonList'
 

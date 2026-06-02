@@ -6,7 +6,7 @@ import { RegionModelBuilder, PoiModelBuilder } from 'shared/api'
 import { UseLocalHistoryReturn } from '../../hooks/useLocalStackHistory'
 import TestingAppContext from '../../testing/TestingAppContext'
 import renderWithTheme from '../../testing/render'
-import Pois, { PoiHistory } from '../Pois'
+import Pois, { PoiHistory } from '../Places'
 
 jest.mock('../../components/MapView')
 jest.mock('../../components/Page')

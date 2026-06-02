@@ -11,7 +11,7 @@ import Contact from './Contact'
 import CustomThumbnail from './CustomThumbnail'
 import OpeningHours from './OpeningHours'
 import Page from './Page'
-import PoiChips from './PoiChips'
+import PoiChips from './PlaceChips'
 import Text from './base/Text'
 
 const PoiDetailsContainer = styled.View`

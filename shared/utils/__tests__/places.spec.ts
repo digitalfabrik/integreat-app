@@ -1,9 +1,9 @@
 import { Settings } from 'luxon'
 
-import PoiModelBuilder from '../../api/endpoints/testing/PoiModelBuilder'
+import PoiModelBuilder from '../../api/endpoints/testing/PlaceModelBuilder'
 import { LocationType } from '../../constants/map'
 import { prepareMapFeatures } from '../geoJson'
-import { preparePois, sortPois } from '../pois'
+import { preparePois, sortPois } from '../places'
 
 const pois = new PoiModelBuilder(3).build()
 const poi1 = pois[0]!

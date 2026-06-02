@@ -15,12 +15,12 @@ import {
 } from 'shared'
 import { PoiCategoryModel, PoiModel, RegionModel } from 'shared/api'
 
-import PoiFilters from '../components/PoiFilters'
-import PoisDesktop from '../components/PoisDesktop'
-import PoisMobile from '../components/PoisMobile'
+import PoiFilters from '../components/PlaceFilters'
+import PoisDesktop from '../components/PlacesDesktop'
+import PoisMobile from '../components/PlacesMobile'
 import useDimensions from '../hooks/useDimensions'
 import moveViewportToRegion from '../utils/moveViewportToRegion'
-import PoiFiltersOverlayButtons from './PoiFiltersOverlayButtons'
+import PoiFiltersOverlayButtons from './PlaceFiltersOverlayButtons'
 
 const Container = styled('div')`
   display: flex;

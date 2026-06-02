@@ -4,7 +4,7 @@ import React from 'react'
 import { PoiCategoryModel, PoiModelBuilder } from 'shared/api'
 
 import render from '../../testing/render'
-import PoiFiltersModal from '../PoiFiltersModal'
+import PoiFiltersModal from '../PlaceFiltersModal'
 
 jest.mock('styled-components')
 jest.mock('react-i18next')

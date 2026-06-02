@@ -19,7 +19,7 @@ jest.mock('react-i18next')
 
 jest.mock('../routes/SearchPage', () => () => <div>{SEARCH_ROUTE}</div>)
 jest.mock('../routes/ImprintPage', () => () => <div>{IMPRINT_ROUTE}</div>)
-jest.mock('../routes/PoisPage', () => () => <div>{POIS_ROUTE}</div>)
+jest.mock('../routes/PlacesPage', () => () => <div>{POIS_ROUTE}</div>)
 
 describe('RegionContentNavigator', () => {
   const languageCode = 'de'

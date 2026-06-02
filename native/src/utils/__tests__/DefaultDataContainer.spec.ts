@@ -2,7 +2,7 @@ import { DateTime } from 'luxon'
 
 import CategoriesMapModelBuilder from 'shared/api/endpoints/testing/CategoriesMapModelBuilder'
 import EventModelBuilder from 'shared/api/endpoints/testing/EventModelBuilder'
-import PoiModelBuilder from 'shared/api/endpoints/testing/PoiModelBuilder'
+import PoiModelBuilder from 'shared/api/endpoints/testing/PlaceModelBuilder'
 import RegionModelBuilder from 'shared/api/endpoints/testing/RegionModelBuilder'
 
 import BlobUtil from '../../__mocks__/react-native-blob-util'

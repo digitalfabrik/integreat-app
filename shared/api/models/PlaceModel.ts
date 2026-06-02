@@ -9,7 +9,7 @@ import ExtendedDocumentModel from './ExtendedDocumentModel'
 import LocationModel from './LocationModel'
 import OpeningHoursModel from './OpeningHoursModel'
 import OrganizationModel from './OrganizationModel'
-import PoiCategoryModel from './PoiCategoryModel'
+import PoiCategoryModel from './PlaceCategoryModel'
 
 class PoiModel extends ExtendedDocumentModel {
   _location: LocationModel<number>

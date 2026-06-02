@@ -3,7 +3,7 @@ import React from 'react'
 import { PoiModelBuilder } from 'shared/api'
 
 import { renderWithRouterAndTheme } from '../../testing/render'
-import PoiDetails from '../PoiDetails'
+import PoiDetails from '../PlaceDetails'
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({

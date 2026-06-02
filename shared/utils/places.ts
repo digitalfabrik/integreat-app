@@ -1,7 +1,7 @@
 import distance from '@turf/distance'
 
-import PoiCategoryModel from '../api/models/PoiCategoryModel'
-import PoiModel from '../api/models/PoiModel'
+import PoiCategoryModel from '../api/models/PlaceCategoryModel'
+import PoiModel from '../api/models/PlaceModel'
 import { LocationType, MapFeature } from '../constants/map'
 import { prepareMapFeatures } from './geoJson'
 

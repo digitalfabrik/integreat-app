@@ -63,7 +63,7 @@ jest.mock('../routes/EventsContainer', () => {
 
   return () => <Text>Events</Text>
 })
-jest.mock('../routes/PoisContainer', () => {
+jest.mock('../routes/PlacesContainer', () => {
   const { Text } = require('react-native-paper')
 
   return () => <Text>Pois</Text>

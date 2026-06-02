@@ -5,7 +5,7 @@ import { PoiModelBuilder } from 'shared/api'
 
 import TestingAppContext from '../../testing/TestingAppContext'
 import renderWithTheme from '../../testing/render'
-import PoisBottomSheet from '../PoisBottomSheet'
+import PoisBottomSheet from '../PlacesBottomSheet'
 
 jest.mock('../../components/Page')
 jest.mock('react-i18next')

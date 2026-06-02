@@ -13,7 +13,7 @@ import usePreviousProp from '../hooks/usePreviousProp'
 import useRegionAppContext from '../hooks/useRegionAppContext'
 import urlFromRouteInformation from '../utils/url'
 import LoadingErrorHandler from './LoadingErrorHandler'
-import Pois from './Pois'
+import Pois from './Places'
 
 const resetHistory = {
   slug: undefined,

@@ -4,7 +4,7 @@ import React from 'react'
 import { PoiCategoryModel, PoiModelBuilder } from 'shared/api'
 
 import { renderWithTheme } from '../../testing/render'
-import PoiFiltersOverlayButtons from '../PoiFiltersOverlayButtons'
+import PoiFiltersOverlayButtons from '../PlaceFiltersOverlayButtons'
 
 jest.mock('react-i18next')
 

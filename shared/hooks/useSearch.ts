@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import CategoriesMapModel from '../api/models/CategoriesMapModel'
 import EventModel from '../api/models/EventModel'
 import ExtendedDocumentModel from '../api/models/ExtendedDocumentModel'
-import PoiModel from '../api/models/PoiModel'
+import PoiModel from '../api/models/PlaceModel'
 import normalizeString from '../utils/normalizeString'
 import parseHTML from '../utils/parseHTML'
 

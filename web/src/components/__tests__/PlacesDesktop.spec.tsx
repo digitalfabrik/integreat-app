@@ -4,7 +4,7 @@ import { LocationType, MapFeature, MapViewViewport, prepareMapFeature, prepareMa
 import { PoiModel, PoiModelBuilder } from 'shared/api'
 
 import { renderWithRouterAndTheme } from '../../testing/render'
-import PoisDesktop from '../PoisDesktop'
+import PoisDesktop from '../PlacesDesktop'
 
 jest.mock('react-i18next')
 jest.mock('../MapView', () => () => <div>MapView</div>)

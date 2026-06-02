@@ -6,8 +6,8 @@ import { LocationType, sortPois } from 'shared'
 import { PoiModel } from 'shared/api'
 
 import Failure from './Failure'
-import PoiDetails from './PoiDetails'
-import PoiListItem from './PoiListItem'
+import PoiDetails from './PlaceDetails'
+import PoiListItem from './PlaceListItem'
 import List from './base/List'
 
 const StyledFailure = styled(Failure)`

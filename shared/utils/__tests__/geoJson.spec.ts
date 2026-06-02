@@ -1,6 +1,6 @@
 import { MapFeature, MapFeatureCollection, featureLayerId } from '../..'
 import { PoiModelBuilder } from '../../api/endpoints/testing'
-import PoiModel from '../../api/models/PoiModel'
+import PoiModel from '../../api/models/PlaceModel'
 import { embedInCollection, prepareMapFeature, prepareMapFeatures } from '../geoJson'
 
 describe('geoJson', () => {

@@ -14,7 +14,7 @@ import BottomActionSheet, { ScrollableBottomSheetRef } from './BottomActionSheet
 import MapAttribution from './MapAttribution'
 import MapView, { MapViewRef } from './MapView'
 import MapZoomControls from './MapZoomControls'
-import PoiSharedChildren from './PoiSharedChildren'
+import PoiSharedChildren from './PlaceSharedChildren'
 import SkeletonHeader from './SkeletonHeader'
 import SkeletonList from './SkeletonList'
 import { DirectionDependentBackIcon } from './base/Dialog'

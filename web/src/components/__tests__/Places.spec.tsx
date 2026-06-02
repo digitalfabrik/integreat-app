@@ -6,7 +6,7 @@ import { RegionModelBuilder, PoiModelBuilder } from 'shared/api'
 
 import { RoutePatterns } from '../../routes'
 import { renderRoute } from '../../testing/render'
-import Pois from '../Pois'
+import Pois from '../Places'
 
 jest.mock('../MapView')
 jest.mock('../Page')

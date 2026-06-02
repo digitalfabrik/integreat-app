@@ -2,10 +2,10 @@ import { DateTime } from 'luxon'
 
 import { API_VERSION } from '../../constants'
 import LocationModel from '../../models/LocationModel'
-import PoiCategoryModel from '../../models/PoiCategoryModel'
-import PoiModel from '../../models/PoiModel'
+import PoiCategoryModel from '../../models/PlaceCategoryModel'
+import PoiModel from '../../models/PlaceModel'
 import { JsonPoiType } from '../../types'
-import createPOIsEndpoint from '../createPOIsEndpoint'
+import createPOIsEndpoint from '../createPlacesEndpoint'
 
 describe('pois', () => {
   const baseUrl = 'https://integreat-api-url.de'

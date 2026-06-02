@@ -3,11 +3,11 @@ import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router'
 
 import { normalizePath, pathnameFromRouteInformation, POIS_ROUTE } from 'shared'
-import { createPOIsEndpoint } from 'shared/api'
+import { createPlacesEndpoint } from 'shared/api'
 
 import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Helmet from '../components/Helmet'
-import Pois from '../components/Pois'
+import Pois from '../components/Places'
 import RegionContentLayout, { RegionContentLayoutProps } from '../components/RegionContentLayout'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useQueryFromEndpoint from '../hooks/useQueryFromEndpoint'
@@ -21,7 +21,7 @@ const PoisPage = ({ regionCode, languageCode, region, pathname }: RegionRoutePro
   const { t } = useTranslation('pois')
   const { data: userLocation } = useUserLocation()
 
-  const { data, isPending, error } = useQueryFromEndpoint(createPOIsEndpoint, cmsApiBaseUrl, {
+  const { data, isPending, error } = useQueryFromEndpoint(createPlacesEndpoint, cmsApiBaseUrl, {
     region: regionCode,
     language: languageCode,
   })
